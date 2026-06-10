@@ -26,6 +26,8 @@ export interface RDKitModule {
 
 export interface InitRDKitOptions {
   locateFile?: (file: string) => string;
+  /** Pre-fetched WASM bytes; skips Emscripten's own (streaming) fetch. */
+  wasmBinary?: ArrayBuffer;
 }
 
 declare global {

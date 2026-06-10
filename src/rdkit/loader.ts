@@ -58,16 +58,58 @@ async function initialize(base: string): Promise<RDKitModule> {
         'Verify the copied asset is the RDKit.js MinimalLib build.',
     );
   }
+  // Fetch the WASM ourselves and pass the bytes to Emscripten (wasmBinary).
+  // This sidesteps instantiateStreaming/MIME issues on static hosts and lets
+  // us report the exact HTTP failure instead of an opaque init error.
+  const wasmBinary = await fetchWasmBinary(`${base}/RDKit_minimal.wasm`);
   try {
-    return await init({ locateFile: (file: string) => `${base}/${file}` });
+    return await init({
+      locateFile: (file: string) => `${base}/${file}`,
+      wasmBinary,
+    });
   } catch (cause) {
+    const detail = cause instanceof Error ? cause.message : String(cause);
     throw new MolstructError(
       'WASM_LOAD',
-      `Failed to initialize the RDKit WASM module from "${base}". ` +
-        'Ensure RDKit_minimal.wasm sits next to RDKit_minimal.js.',
+      `RDKit WASM instantiation failed (${detail}).`,
       cause,
     );
   }
+}
+
+async function fetchWasmBinary(url: string): Promise<ArrayBuffer> {
+  let response: Response;
+  try {
+    response = await fetch(url, { credentials: 'same-origin' });
+  } catch (cause) {
+    const detail = cause instanceof Error ? cause.message : String(cause);
+    throw new MolstructError(
+      'WASM_LOAD',
+      `Could not fetch ${url} (${detail}). Check the network and wasmPath.`,
+      cause,
+    );
+  }
+  if (!response.ok) {
+    throw new MolstructError(
+      'WASM_LOAD',
+      `HTTP ${response.status} fetching ${url}. ` +
+        'Copy RDKit_minimal.wasm next to RDKit_minimal.js in your served public directory.',
+    );
+  }
+  const buffer = await response.arrayBuffer();
+  const magic = new Uint8Array(buffer.slice(0, 4));
+  const isWasm =
+    magic[0] === 0x00 && magic[1] === 0x61 && magic[2] === 0x73 && magic[3] === 0x6d;
+  if (!isWasm) {
+    const contentType = response.headers.get('content-type') ?? 'unknown';
+    throw new MolstructError(
+      'WASM_LOAD',
+      `The file at ${url} is not a WebAssembly binary ` +
+        `(content-type ${contentType}, ${buffer.byteLength} bytes) — ` +
+        'the server likely returned an error or redirect page.',
+    );
+  }
+  return buffer;
 }
 
 function injectScript(src: string): Promise<void> {
