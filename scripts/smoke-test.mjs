@@ -6,6 +6,7 @@
  */
 import initRDKitModule from '@rdkit/rdkit';
 import {
+  createOpenChemLibEngine,
   drawMoleculeToSvg,
   isValidSmiles,
   decorateSvg,
@@ -83,6 +84,19 @@ check('decorateSvg injects title/desc + role',
   decorated.includes('<title>Aspirin &amp; co</title>') &&
   decorated.includes('<desc>desc</desc>') &&
   decorated.includes('role="img"'));
+
+// 7. OpenChemLib fallback engine (pure JS, no WebAssembly).
+const ocl = createOpenChemLibEngine();
+await ocl.ready();
+const oclSvg = ocl.renderToSvg(ASPIRIN, { width: 300, height: 240, bondLineWidth: 1.5 });
+check('OpenChemLib engine renders aspirin', oclSvg.includes('<svg'));
+try {
+  ocl.renderToSvg('not-a-molecule((', {});
+  check('OpenChemLib invalid SMILES throws', false);
+} catch (error) {
+  check('OpenChemLib invalid SMILES throws MolstructError(INVALID_SMILES)',
+    error instanceof MolstructError && error.code === 'INVALID_SMILES');
+}
 
 console.log(failures === 0 ? '\nAll smoke tests passed.' : `\n${failures} smoke test(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

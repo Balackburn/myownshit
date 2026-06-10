@@ -59,7 +59,7 @@ export function describeError(error: MolstructError): string {
     case 'INVALID_SMARTS':
       return 'The highlight pattern is not valid SMARTS; rendering without it.';
     case 'WASM_LOAD':
-      return 'The chemistry engine (RDKit WASM) failed to load.';
+      return 'The chemistry rendering engine failed to load.';
     case 'RENDER':
       return 'The molecule could not be drawn.';
   }

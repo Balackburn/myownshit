@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   MoleculeControls,
   MoleculeErrorBoundary,
   MoleculeViewer,
+  createOpenChemLibEngine,
   describeError,
+  isWebAssemblyAvailable,
   type DrawOptions,
   type MoleculeViewerHandle,
   type MolstructError,
@@ -23,6 +25,14 @@ export function App() {
   const [resolved, setResolved] = useState<ResolvedStructure | null>(null);
   const [lastError, setLastError] = useState<MolstructError | null>(null);
   const viewerRef = useRef<MoleculeViewerHandle | null>(null);
+
+  // Safari Lockdown Mode (and similar) disables WebAssembly entirely;
+  // fall back to the pure-JS OpenChemLib engine so the demo still renders.
+  const wasmAvailable = isWebAssemblyAvailable();
+  const fallbackEngine = useMemo(
+    () => (wasmAvailable ? undefined : createOpenChemLibEngine()),
+    [wasmAvailable],
+  );
 
   return (
     <div className="demo">
@@ -70,6 +80,7 @@ export function App() {
             ref={viewerRef}
             name={name}
             options={options}
+            engine={fallbackEngine}
             wasmPath={`${import.meta.env.BASE_URL}rdkit`}
             onResolved={(structure) => {
               setResolved(structure);
@@ -87,6 +98,14 @@ export function App() {
       </main>
 
       <footer className="demo__meta">
+        {!wasmAvailable && (
+          <p className="demo__warning">
+            WebAssembly is disabled in this browser (e.g. Safari Lockdown
+            Mode), so structures render with the pure-JS OpenChemLib engine.
+            Substructure highlights and most styling options are unavailable
+            in this mode.
+          </p>
+        )}
         {resolved && (
           <p>
             Resolved via <strong>{resolved.source}</strong>

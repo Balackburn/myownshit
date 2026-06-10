@@ -170,6 +170,32 @@ All failures surface as `MolstructError` with a stable `code`:
 `INVALID_SMILES`, `INVALID_SMARTS` (non-fatal; rendered without highlight),
 `WASM_LOAD`, `RENDER`. `describeError(error)` returns a friendly message.
 
+### No-WebAssembly fallback (Safari Lockdown Mode etc.)
+
+Safari Lockdown Mode and some privacy modes disable WebAssembly entirely
+(`Can't find variable: WebAssembly`), so RDKit cannot run there. The library
+ships a pure-JS fallback engine backed by [OpenChemLib](https://github.com/cheminfo/openchemlib-js)
+(optional peer dependency, dynamically imported on first use):
+
+```sh
+npm install openchemlib
+```
+
+```tsx
+import {
+  MoleculeViewer,
+  createOpenChemLibEngine,
+  isWebAssemblyAvailable,
+} from 'react-molstruct';
+
+const engine = isWebAssemblyAvailable() ? undefined : createOpenChemLibEngine();
+<MoleculeViewer name="aspirin" engine={engine} />;
+```
+
+Fidelity is below RDKit and only `width`, `height`, `bondLineWidth`, and
+`addStereoAnnotation` apply; highlights, legends, palettes, and rotation are
+ignored in this mode.
+
 ### Lower-level exports
 
 `loadRDKit(wasmPath)`, `drawMoleculeToSvg(rdkit, smiles, options)`,

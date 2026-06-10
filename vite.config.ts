@@ -22,7 +22,7 @@ export default defineConfig({
       fileName: (format) => (format === 'es' ? 'index.es.js' : 'index.cjs.js'),
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'openchemlib'],
       output: {
         globals: {
           react: 'React',

@@ -18,10 +18,13 @@ export type {
 export { useDebounce } from './hooks/useDebounce';
 
 // RDKit engine layer
-export { loadRDKit, DEFAULT_WASM_PATH } from './rdkit/loader';
+export { loadRDKit, DEFAULT_WASM_PATH, isWebAssemblyAvailable } from './rdkit/loader';
 export { drawMoleculeToSvg, isValidSmiles, DEFAULT_DRAW_OPTIONS } from './rdkit/draw';
 export { createRDKitEngine } from './rdkit/engine';
 export type { RDKitModule, JSMol } from './rdkit/types';
+
+// Fallback engine (pure JS, no WebAssembly; requires optional peer "openchemlib")
+export { createOpenChemLibEngine } from './engines/openchemlib';
 
 // Resolvers
 export {

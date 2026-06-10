@@ -14,6 +14,19 @@ const modulePromises = new Map<string, Promise<RDKitModule>>();
 
 export const DEFAULT_WASM_PATH = '/rdkit';
 
+/**
+ * True when the current environment can compile WebAssembly. False in
+ * Safari Lockdown Mode and other WASM-disabled contexts — use the
+ * OpenChemLib engine there instead.
+ */
+export function isWebAssemblyAvailable(): boolean {
+  return (
+    typeof WebAssembly === 'object' &&
+    WebAssembly !== null &&
+    typeof WebAssembly.instantiate === 'function'
+  );
+}
+
 export function loadRDKit(wasmPath: string = DEFAULT_WASM_PATH): Promise<RDKitModule> {
   const base = normalizeBase(wasmPath);
   let promise = modulePromises.get(base);
@@ -38,6 +51,14 @@ async function initialize(base: string): Promise<RDKitModule> {
     throw new MolstructError(
       'WASM_LOAD',
       'RDKit.js requires a browser environment; it cannot load during SSR.',
+    );
+  }
+  if (!isWebAssemblyAvailable()) {
+    throw new MolstructError(
+      'WASM_LOAD',
+      'WebAssembly is disabled in this browser (Safari Lockdown Mode and some ' +
+        'privacy modes turn it off), so the RDKit engine cannot run. ' +
+        'Use the pure-JS OpenChemLib engine or a browser with WebAssembly enabled.',
     );
   }
   if (typeof window.initRDKitModule !== 'function') {
