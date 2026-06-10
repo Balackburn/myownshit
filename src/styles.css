@@ -1,0 +1,269 @@
+/* react-molstruct — "field notebook" theme.
+   Warm paper neutrals with verdigris and rust accents; no gradients,
+   no default-AI palette. All selectors are prefixed with rms-. */
+
+.rms-viewer,
+.rms-controls,
+.rms-error {
+  --rms-paper: #f7f3ea;
+  --rms-paper-deep: #efe8d8;
+  --rms-ink: #27322b;
+  --rms-ink-soft: #5c685f;
+  --rms-verdigris: #2e7d6b;
+  --rms-rust: #b4552d;
+  --rms-line: #d8cfba;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L',
+    'Book Antiqua', serif;
+  color: var(--rms-ink);
+}
+
+/* ---------- viewer ---------- */
+
+.rms-viewer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: var(--rms-paper);
+  border: 1px solid var(--rms-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rms-viewer__svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.rms-viewer__svg svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.rms-viewer__loading,
+.rms-viewer__placeholder,
+.rms-viewer__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--rms-ink-soft);
+}
+
+.rms-viewer__spinner {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 2.5px solid var(--rms-line);
+  border-top-color: var(--rms-verdigris);
+  animation: rms-spin 0.9s linear infinite;
+}
+
+@keyframes rms-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rms-viewer__spinner {
+    animation: none;
+    border-top-color: var(--rms-rust);
+  }
+}
+
+.rms-viewer__error {
+  color: var(--rms-rust);
+}
+
+.rms-viewer__error p {
+  margin: 0;
+  max-width: 26ch;
+}
+
+.rms-viewer__error-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--rms-rust);
+  font-weight: 700;
+}
+
+/* ---------- error boundary fallback ---------- */
+
+.rms-error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--rms-paper-deep);
+  border: 1px solid var(--rms-rust);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* ---------- controls panel ---------- */
+
+.rms-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 340px;
+  padding: 1rem;
+  background: var(--rms-paper);
+  border: 1px solid var(--rms-line);
+  border-radius: 6px;
+}
+
+.rms-controls__group {
+  margin: 0;
+  padding: 0.65rem 0.75rem 0.75rem;
+  border: 1px solid var(--rms-line);
+  border-radius: 5px;
+  background: var(--rms-paper-deep);
+}
+
+.rms-controls__group legend {
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rms-verdigris);
+}
+
+.rms-controls__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.45rem;
+  font-size: 0.82rem;
+}
+
+.rms-controls__row label {
+  flex: 0 0 auto;
+  min-width: 7.5rem;
+}
+
+.rms-controls__row input[type='range'] {
+  flex: 1 1 auto;
+  accent-color: var(--rms-verdigris);
+}
+
+.rms-controls__row input[type='text'],
+.rms-controls__row select {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.3rem 0.45rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--rms-ink);
+  background: var(--rms-paper);
+  border: 1px solid var(--rms-line);
+  border-radius: 4px;
+}
+
+.rms-controls__row input[type='color'] {
+  inline-size: 2.6rem;
+  block-size: 1.7rem;
+  padding: 0.1rem;
+  border: 1px solid var(--rms-line);
+  border-radius: 4px;
+  background: var(--rms-paper);
+}
+
+.rms-controls__row--check {
+  justify-content: flex-start;
+}
+
+.rms-controls__row--check input[type='checkbox'] {
+  accent-color: var(--rms-verdigris);
+}
+
+.rms-controls__row--check label {
+  min-width: 0;
+}
+
+.rms-controls__palette {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.rms-controls__swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.75rem;
+}
+
+.rms-controls__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+}
+
+.rms-controls__actions button {
+  padding: 0.38rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--rms-paper);
+  background: var(--rms-verdigris);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.rms-controls__actions button:hover:not(:disabled),
+.rms-controls__actions button:focus-visible {
+  background: var(--rms-rust);
+}
+
+.rms-controls__actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rms-controls__actions button {
+    transition: none;
+  }
+}
+
+.rms-controls__source {
+  margin: 0.6rem 0 0;
+  padding: 0.6rem;
+  max-height: 180px;
+  overflow: auto;
+  font-family: 'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--rms-ink);
+  background: var(--rms-paper);
+  border: 1px dashed var(--rms-line);
+  border-radius: 4px;
+}
+
+.rms-controls *:focus-visible {
+  outline: 2px solid var(--rms-rust);
+  outline-offset: 1px;
+}

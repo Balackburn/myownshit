@@ -1,0 +1,143 @@
+/* Demo shell — same "field notebook" language as the library theme. */
+
+:root {
+  --demo-paper: #f7f3ea;
+  --demo-paper-deep: #efe8d8;
+  --demo-ink: #27322b;
+  --demo-ink-soft: #5c685f;
+  --demo-verdigris: #2e7d6b;
+  --demo-rust: #b4552d;
+  --demo-line: #d8cfba;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--demo-paper-deep);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 31px,
+    rgba(46, 125, 107, 0.06) 31px,
+    rgba(46, 125, 107, 0.06) 32px
+  );
+  color: var(--demo-ink);
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L',
+    'Book Antiqua', serif;
+}
+
+.demo {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.demo__header h1 {
+  margin: 0 0 0.4rem;
+  font-size: 2.1rem;
+  letter-spacing: 0.02em;
+  color: var(--demo-verdigris);
+}
+
+.demo__header h1::after {
+  content: ' ⌬';
+  color: var(--demo-rust);
+}
+
+.demo__header p {
+  margin: 0 0 1.8rem;
+  max-width: 56ch;
+  color: var(--demo-ink-soft);
+  line-height: 1.55;
+}
+
+.demo__query {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.6rem;
+}
+
+.demo__query label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--demo-verdigris);
+}
+
+.demo__query input[type='text'] {
+  max-width: 420px;
+  padding: 0.6rem 0.8rem;
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--demo-ink);
+  background: var(--demo-paper);
+  border: 1px solid var(--demo-line);
+  border-radius: 6px;
+}
+
+.demo__query input[type='text']:focus-visible {
+  outline: 2px solid var(--demo-rust);
+  outline-offset: 1px;
+}
+
+.demo__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.demo__presets button {
+  padding: 0.32rem 0.8rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--demo-ink);
+  background: var(--demo-paper);
+  border: 1px solid var(--demo-line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.demo__presets button:hover,
+.demo__presets button:focus-visible {
+  border-color: var(--demo-verdigris);
+  color: var(--demo-verdigris);
+}
+
+.demo__presets button.is-active {
+  background: var(--demo-verdigris);
+  border-color: var(--demo-verdigris);
+  color: var(--demo-paper);
+}
+
+.demo__stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  align-items: flex-start;
+}
+
+.demo__meta {
+  margin-top: 1.4rem;
+  font-size: 0.88rem;
+  color: var(--demo-ink-soft);
+}
+
+.demo__meta code {
+  font-family: 'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+  color: var(--demo-ink);
+}
+
+.demo__meta a {
+  color: var(--demo-verdigris);
+}
+
+.demo__warning {
+  color: var(--demo-rust);
+}

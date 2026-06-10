@@ -1,0 +1,58 @@
+{
+  "name": "react-molstruct",
+  "version": "0.1.0",
+  "description": "Zero-backend React components that resolve molecule names via PubChem PUG REST and render accurate 2D structure SVGs in-browser with RDKit.js (WASM).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./styles.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "keywords": [
+    "react",
+    "chemistry",
+    "cheminformatics",
+    "rdkit",
+    "pubchem",
+    "smiles",
+    "molecule",
+    "svg",
+    "2d-depiction"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "smoke": "npm run build && node scripts/smoke-test.mjs",
+    "copy-rdkit": "node scripts/copy-rdkit.mjs",
+    "dev": "npm run copy-rdkit && vite --config vite.demo.config.ts",
+    "build:demo": "npm run copy-rdkit && vite build --config vite.demo.config.ts"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@rdkit/rdkit": "2025.3.4-1.0.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.3.0"
+  }
+}
