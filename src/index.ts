@@ -39,14 +39,26 @@ export {
 export { MolstructError, isMolstructError, describeError } from './errors';
 export type { MolstructErrorCode } from './errors';
 
+// Style presets
+export { STYLE_PRESETS } from './presets';
+export type { StylePreset } from './presets';
+
 // Utilities
 export { hexToRgb01, toHexColor, toRdkitColor } from './utils/color';
 export {
   decorateSvg,
   downloadSvgFile,
+  downloadPngFile,
+  svgToPngBlob,
   copyTextToClipboard,
   escapeXml,
 } from './utils/svg';
+export {
+  applySvgOverrides,
+  injectSvgBackground,
+  colorToCss,
+} from './utils/svgOverrides';
+export type { SvgOverrideOptions } from './utils/svgOverrides';
 
 // Types
 export type {

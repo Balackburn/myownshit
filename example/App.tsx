@@ -93,7 +93,8 @@ export function App() {
           options={options}
           onOptionsChange={setOptions}
           viewerRef={viewerRef}
-          downloadFilename={`${name.trim().replace(/\s+/g, '-') || 'molecule'}.svg`}
+          engineId={wasmAvailable ? 'rdkit' : 'openchemlib'}
+          downloadFilename={name.trim().replace(/\s+/g, '-') || 'molecule'}
         />
       </main>
 

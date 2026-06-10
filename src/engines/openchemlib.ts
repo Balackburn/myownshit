@@ -1,5 +1,6 @@
 import { MolstructError } from '../errors';
 import type { DrawOptions, RenderEngine } from '../types';
+import { injectSvgBackground } from '../utils/svgOverrides';
 
 /**
  * Structural types for the slice of OpenChemLib this engine uses, so the
@@ -72,7 +73,7 @@ export function createOpenChemLibEngine(): RenderEngine {
         );
       }
       try {
-        return mol.toSVG(options.width ?? 320, options.height ?? 260, undefined, {
+        let svg = mol.toSVG(options.width ?? 320, options.height ?? 260, undefined, {
           autoCrop: true,
           autoCropMargin: 12,
           strokeWidth: options.bondLineWidth ?? 1,
@@ -80,6 +81,11 @@ export function createOpenChemLibEngine(): RenderEngine {
           suppressCIPParity: !options.addStereoAnnotation,
           noStereoProblem: true,
         });
+        // OpenChemLib emits a transparent background; honor backgroundColour.
+        if (options.backgroundColour != null) {
+          svg = injectSvgBackground(svg, options.backgroundColour);
+        }
+        return svg;
       } catch (cause) {
         throw new MolstructError(
           'RENDER',

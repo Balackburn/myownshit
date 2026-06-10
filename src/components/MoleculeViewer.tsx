@@ -20,8 +20,10 @@ import type {
 import {
   copyTextToClipboard,
   decorateSvg,
+  downloadPngFile,
   downloadSvgFile,
 } from '../utils/svg';
+import { applySvgOverrides } from '../utils/svgOverrides';
 import '../styles.css';
 
 interface DrawOutcome {
@@ -131,9 +133,12 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
       if (!engineReady || !structure) {
         return { svg: null, warning: null, error: null };
       }
+      // Engine-independent overrides (stroke/text recolor, hide text,
+      // stroke scaling) are applied to the SVG output of whichever engine ran.
+      const finishSvg = (svg: string) => applySvgOverrides(svg, mergedOptions);
       try {
         return {
-          svg: engine.renderToSvg(structure.smiles, mergedOptions),
+          svg: finishSvg(engine.renderToSvg(structure.smiles, mergedOptions)),
           warning: null,
           error: null,
         };
@@ -144,7 +149,7 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
           try {
             const { highlight: _highlight, ...withoutHighlight } = mergedOptions;
             return {
-              svg: engine.renderToSvg(structure.smiles, withoutHighlight),
+              svg: finishSvg(engine.renderToSvg(structure.smiles, withoutHighlight)),
               warning: error,
               error: null,
             };
@@ -204,6 +209,12 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
           if (!svg) return;
           const base = filename ?? `${(name?.trim() || 'molecule').replace(/\s+/g, '-')}.svg`;
           downloadSvgFile(svg, base);
+        },
+        downloadPng: async (filename?: string, scale?: number) => {
+          const svg = svgRef.current;
+          if (!svg) return;
+          const base = filename ?? `${(name?.trim() || 'molecule').replace(/\s+/g, '-')}.png`;
+          await downloadPngFile(svg, base, scale ?? 2);
         },
         copySvgToClipboard: async () => {
           const svg = svgRef.current;

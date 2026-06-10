@@ -6,12 +6,15 @@
  */
 import initRDKitModule from '@rdkit/rdkit';
 import {
+  applySvgOverrides,
   createOpenChemLibEngine,
   drawMoleculeToSvg,
+  injectSvgBackground,
   isValidSmiles,
   decorateSvg,
   hexToRgb01,
   MolstructError,
+  STYLE_PRESETS,
 } from '../dist/index.es.js';
 
 const ASPIRIN = 'CC(=O)Oc1ccccc1C(=O)O';
@@ -97,6 +100,53 @@ try {
   check('OpenChemLib invalid SMILES throws MolstructError(INVALID_SMILES)',
     error instanceof MolstructError && error.code === 'INVALID_SMILES');
 }
+
+// 8. Universal SVG overrides against REAL output of both engines.
+const rdkitSvg = drawMoleculeToSvg(rdkit, ASPIRIN, { width: 300, height: 240 });
+const oclSvg2 = ocl.renderToSvg(ASPIRIN, { width: 300, height: 240, backgroundColour: '#101014' });
+
+const rdkitRecolored = applySvgOverrides(rdkitSvg, { strokeColour: '#39ff88' });
+check('RDKit stroke recolor applied', rdkitRecolored.includes('stroke:#39ff88'));
+check('RDKit stroke recolor removed black', !rdkitRecolored.includes('stroke:#000000'));
+
+const oclRecolored = applySvgOverrides(oclSvg2, { strokeColour: '#39ff88' });
+check('OCL stroke recolor applied', oclRecolored.includes('stroke="#39ff88"'));
+check('OCL stroke recolor removed rgb black', !oclRecolored.includes('stroke="rgb(0,0,0)"'));
+
+const rdkitNoText = applySvgOverrides(rdkitSvg, { hideText: true });
+check('RDKit hideText strips label glyphs', !/<path class='atom-/.test(rdkitNoText));
+check('RDKit hideText keeps bonds', /<path class='bond-/.test(rdkitNoText));
+
+const oclNoText = applySvgOverrides(oclSvg2, { hideText: true });
+check('OCL hideText strips <text>', !oclNoText.includes('<text'));
+check('OCL hideText keeps lines', oclNoText.includes('<line'));
+
+const rdkitBold = applySvgOverrides(rdkitSvg, { strokeWidthScale: 2 });
+check('RDKit stroke widths scaled', rdkitBold.includes('stroke-width:2.00px'));
+const oclBold = applySvgOverrides(oclSvg2, { strokeWidthScale: 2 });
+check('OCL stroke widths scaled', /stroke-width="2\.00"/.test(oclBold));
+
+const rdkitTextColor = applySvgOverrides(rdkitSvg, { textColour: '#123456' });
+check('RDKit text recolor applied', rdkitTextColor.includes("fill='#123456'"));
+const oclTextColor = applySvgOverrides(oclSvg2, { textColour: '#123456' });
+check('OCL text recolor applied', /<text[^>]*fill="#123456"/.test(oclTextColor));
+
+check('OCL background injected', oclSvg2.includes('fill="#101014"'));
+check('injectSvgBackground handles viewBox', injectSvgBackground(
+  '<svg viewBox="10 20 100 80"><line/></svg>', '#ff0000',
+).includes('<rect x="10" y="20" width="100" height="80" fill="#ff0000"'));
+
+check('STYLE_PRESETS exported with 6 themes', Array.isArray(STYLE_PRESETS) && STYLE_PRESETS.length === 6);
+check('every preset has swatches + options', STYLE_PRESETS.every(
+  (p) => p.id && p.label && p.swatches.length === 3 && typeof p.options === 'object',
+));
+
+// 9. RDKit-native additions pass through cleanly.
+const tuned = drawMoleculeToSvg(rdkit, ASPIRIN, {
+  multipleBondOffset: 0.3,
+  labelFontSize: 22,
+});
+check('multipleBondOffset/labelFontSize render OK', tuned.includes('<svg'));
 
 console.log(failures === 0 ? '\nAll smoke tests passed.' : `\n${failures} smoke test(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

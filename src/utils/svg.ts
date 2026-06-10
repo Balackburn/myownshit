@@ -38,6 +38,60 @@ export function downloadSvgFile(svg: string, filename: string): void {
 }
 
 /**
+ * Rasterizes SVG markup to a PNG blob via an offscreen canvas.
+ * `scale` multiplies the SVG's intrinsic pixel size for higher resolution.
+ */
+export function svgToPngBlob(svg: string, scale = 2): Promise<Blob> {
+  const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(svgBlob);
+  const image = new Image();
+  return new Promise<Blob>((resolve, reject) => {
+    image.onload = () => {
+      try {
+        const width = image.naturalWidth || 600;
+        const height = image.naturalHeight || 480;
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+        const context = canvas.getContext('2d');
+        if (!context) {
+          reject(new Error('Canvas 2D context unavailable.'));
+          return;
+        }
+        context.scale(scale, scale);
+        context.drawImage(image, 0, 0, width, height);
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+          else reject(new Error('PNG encoding failed.'));
+        }, 'image/png');
+      } catch (cause) {
+        reject(cause instanceof Error ? cause : new Error(String(cause)));
+      }
+    };
+    image.onerror = () => reject(new Error('SVG rasterization failed.'));
+    image.src = url;
+  }).finally(() => URL.revokeObjectURL(url));
+}
+
+/** Rasterizes SVG markup and triggers a browser download of the PNG. */
+export async function downloadPngFile(
+  svg: string,
+  filename: string,
+  scale = 2,
+): Promise<void> {
+  const safeName = filename.endsWith('.png') ? filename : `${filename}.png`;
+  const blob = await svgToPngBlob(svg, scale);
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = safeName;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+
+/**
  * Copies text to the clipboard, preferring the async Clipboard API with a
  * hidden-textarea fallback for older/insecure contexts. Returns success.
  */

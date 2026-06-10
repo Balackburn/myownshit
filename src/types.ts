@@ -73,6 +73,31 @@ export interface DrawOptions {
    * ignore this key; the drawing still renders normally if so.
    */
   comicMode?: boolean;
+  /** Spacing between the lines of double/triple bonds (RDKit `multipleBondOffset`). */
+  multipleBondOffset?: number;
+  /** Fixes the atom-label font size in px (RDKit `minFontSize` + `maxFontSize`). */
+  labelFontSize?: number;
+  /**
+   * Universal override: force a single color on every stroke (bonds, rings,
+   * highlights). Applied by post-processing the SVG, so it works with any
+   * engine — including the no-WASM OpenChemLib fallback.
+   */
+  strokeColour?: ColorInput;
+  /**
+   * Universal override: force a single color on all atom labels and text.
+   * Applied by post-processing the SVG; works with any engine.
+   */
+  textColour?: ColorInput;
+  /**
+   * Universal: strip every atom label and text element from the SVG for a
+   * pure skeletal look. Works with any engine.
+   */
+  hideText?: boolean;
+  /**
+   * Universal: multiply every stroke width in the SVG by this factor
+   * (applied after the engine's own bondLineWidth). Works with any engine.
+   */
+  strokeWidthScale?: number;
   /**
    * Escape hatch: raw key/values merged verbatim into the RDKit options JSON
    * (after all mapped options). Color values here must already be 0–1 floats.
@@ -112,6 +137,8 @@ export interface MoleculeViewerHandle {
   getSvgString(): string | null;
   /** Triggers a browser download of the current SVG. */
   downloadSvg(filename?: string): void;
+  /** Rasterizes the current SVG and downloads it as a PNG (scale ≈ resolution multiplier). */
+  downloadPng(filename?: string, scale?: number): Promise<void>;
   /** Copies the current SVG markup to the clipboard. Resolves true on success. */
   copySvgToClipboard(): Promise<boolean>;
 }

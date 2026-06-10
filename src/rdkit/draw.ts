@@ -84,6 +84,13 @@ function buildDetails(
   if (options.addBondIndices) details.addBondIndices = true;
   if (options.explicitMethyl) details.explicitMethyl = true;
   if (options.comicMode) details.comicMode = true; // best-effort; MinimalLib may ignore
+  if (options.multipleBondOffset != null) {
+    details.multipleBondOffset = options.multipleBondOffset;
+  }
+  if (options.labelFontSize != null) {
+    details.minFontSize = options.labelFontSize;
+    details.maxFontSize = options.labelFontSize;
+  }
 
   const symbolColour = toRdkitColor(options.symbolColour);
   if (options.colorScheme === 'monochrome') {

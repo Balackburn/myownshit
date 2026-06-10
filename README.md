@@ -160,8 +160,35 @@ accept hex strings (`'#dc2626'`) or RDKit `[r, g, b]` floats (0–1).
 `noAtomLabels`, `addStereoAnnotation`, `addAtomIndices`, `addBondIndices`,
 `explicitMethyl`, `colorScheme` (`'default' | 'monochrome' | 'custom'`),
 `customAtomPalette` (by atomic number), `highlight` (`{ smarts, color }`),
-`comicMode` (best-effort — the RDKit MinimalLib may ignore it), and
-`extraRDKitOptions` (raw passthrough for any other `MolDrawOptions` key).
+`multipleBondOffset` (double-bond line spacing), `labelFontSize` (fixes the
+atom-label font size), `comicMode` (best-effort — the RDKit MinimalLib may
+ignore it), and `extraRDKitOptions` (raw passthrough for any other
+`MolDrawOptions` key).
+
+**Universal overrides** — applied by post-processing the SVG, so they work
+with *any* engine, including the no-WASM OpenChemLib fallback:
+
+- `strokeColour` — force one color on every bond/stroke
+- `textColour` — force one color on all atom labels and text
+- `hideText` — strip every label for a pure skeletal depiction
+- `strokeWidthScale` — multiply every stroke width in the output
+
+`applySvgOverrides(svg, options)` and `injectSvgBackground(svg, color)` are
+also exported for standalone use on any SVG string.
+
+### Theme presets
+
+`STYLE_PRESETS` exports six one-click themes (Classic, Ink, Blueprint, Neon,
+Skeletal, Comic) as `{ id, label, swatches, options }` patches;
+`<MoleculeControls>` renders them as a preset gallery by default
+(`showPresets={false}` to hide). Pass `engineId="openchemlib"` to the controls
+to disable and badge RDKit-only options when the fallback engine is active.
+
+### PNG export
+
+The viewer ref exposes `downloadPng(filename?, scale?)` alongside
+`downloadSvg`/`copySvgToClipboard`/`getSvgString`; the controls panel has
+SVG, PNG, copy, and view-source buttons.
 
 ### Errors
 
