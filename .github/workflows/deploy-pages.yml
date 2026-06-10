@@ -1,5 +1,9 @@
 name: Deploy demo to GitHub Pages
 
+# Publishes the built demo to the gh-pages branch. On public repos GitHub
+# auto-enables Pages for the gh-pages branch, so no manual Pages setup or
+# admin-scoped token is required (the official actions/deploy-pages flow
+# needs the Pages site pre-created, which GITHUB_TOKEN cannot do).
 on:
   push:
     branches:
@@ -9,9 +13,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
@@ -20,9 +22,6 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,13 +31,6 @@ jobs:
         with:
           node-version: 22
           cache: npm
-
-      - name: Configure Pages
-        id: pages
-        uses: actions/configure-pages@v5
-        with:
-          # Creates the Pages site on first run so no manual setup is needed.
-          enablement: true
 
       - name: Install dependencies
         run: npm ci
@@ -52,13 +44,11 @@ jobs:
       - name: Build demo
         run: npm run build:demo
         env:
-          DEMO_BASE: ${{ steps.pages.outputs.base_path }}/
+          DEMO_BASE: /${{ github.event.repository.name }}/
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist-demo
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist-demo
+          commit_message: 'Deploy demo: ${{ github.sha }}'
