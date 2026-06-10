@@ -14,6 +14,10 @@ publication-style **2D structure SVG** — entirely in the browser.
 <MoleculeViewer name="aspirin" />
 ```
 
+**Live demo:** <https://balackburn.github.io/myownshit/> — deployed to GitHub
+Pages by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
+on every push; proof that a static host with no backend is enough.
+
 ## Install
 
 ```sh

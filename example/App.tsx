@@ -70,7 +70,7 @@ export function App() {
             ref={viewerRef}
             name={name}
             options={options}
-            wasmPath="/rdkit"
+            wasmPath={`${import.meta.env.BASE_URL}rdkit`}
             onResolved={(structure) => {
               setResolved(structure);
               setLastError(null);

@@ -3,9 +3,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // Demo app build: serves example/ with the library aliased to its source.
+// DEMO_BASE lets CI build for a sub-path host (e.g. GitHub Pages /repo-name/).
 export default defineConfig({
   root: 'example',
   publicDir: 'public',
+  base: process.env.DEMO_BASE ?? '/',
   plugins: [react()],
   resolve: {
     alias: {
