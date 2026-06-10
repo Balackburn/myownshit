@@ -89,6 +89,30 @@
   max-width: 26ch;
 }
 
+.rms-viewer__error-detail {
+  margin: 0;
+  max-width: 32ch;
+  font-size: 0.72rem;
+  color: var(--rms-ink-soft);
+  word-break: break-word;
+}
+
+.rms-viewer__retry {
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--rms-paper);
+  background: var(--rms-verdigris);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.rms-viewer__retry:hover,
+.rms-viewer__retry:focus-visible {
+  background: var(--rms-rust);
+}
+
 .rms-viewer__error-badge {
   display: inline-flex;
   align-items: center;

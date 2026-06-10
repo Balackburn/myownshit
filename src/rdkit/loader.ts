@@ -41,7 +41,14 @@ async function initialize(base: string): Promise<RDKitModule> {
     );
   }
   if (typeof window.initRDKitModule !== 'function') {
-    await injectScript(`${base}/RDKit_minimal.js`);
+    try {
+      await injectScript(`${base}/RDKit_minimal.js`);
+    } catch {
+      // Transient failure (e.g. CDN edge not yet propagated): retry once
+      // after a pause, cache-busting so a poisoned negative cache is skipped.
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await injectScript(`${base}/RDKit_minimal.js?retry=1`);
+    }
   }
   const init = window.initRDKitModule;
   if (typeof init !== 'function') {

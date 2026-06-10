@@ -31,7 +31,10 @@ interface DrawOutcome {
   error: MolstructError | null;
 }
 
-function useEngineReady(engine: RenderEngine): {
+function useEngineReady(
+  engine: RenderEngine,
+  attempt: number,
+): {
   ready: boolean;
   error: MolstructError | null;
 } {
@@ -59,7 +62,7 @@ function useEngineReady(engine: RenderEngine): {
     return () => {
       cancelled = true;
     };
-  }, [engine]);
+  }, [engine, attempt]);
 
   return state;
 }
@@ -101,7 +104,10 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
       () => engineProp ?? createRDKitEngine(wasmPath),
       [engineProp, wasmPath],
     );
-    const { ready: engineReady, error: engineError } = useEngineReady(engine);
+    // Bumping this re-runs engine.ready(); the loader evicts failed module
+    // promises, so a retry genuinely re-fetches the WASM assets.
+    const [engineAttempt, setEngineAttempt] = useState(0);
+    const { ready: engineReady, error: engineError } = useEngineReady(engine, engineAttempt);
     const {
       structure,
       loading: resolving,
@@ -227,6 +233,16 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
                 !
               </span>
               <p>{describeError(activeError)}</p>
+              <p className="rms-viewer__error-detail">{activeError.message}</p>
+              {activeError.code === 'WASM_LOAD' && (
+                <button
+                  type="button"
+                  className="rms-viewer__retry"
+                  onClick={() => setEngineAttempt((attempt) => attempt + 1)}
+                >
+                  Try again
+                </button>
+              )}
             </div>
           )}
         </div>
