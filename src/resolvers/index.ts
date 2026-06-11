@@ -1,32 +1,101 @@
-import { isMolstructError } from '../errors';
+import { MolstructError, toMolstructError } from '../errors';
 import type { ResolvedStructure, ResolverChoice, ResolverFn } from '../types';
+import { fetchNameSuggestions } from './autocomplete';
+import { expandQueryCandidates } from './candidates';
 import { resolveWithCactus } from './cactus';
 import { resolveWithPubChem } from './pubchem';
 
 export { resolveWithCactus } from './cactus';
 export { resolveWithPubChem } from './pubchem';
+export { fetchNameSuggestions } from './autocomplete';
+export { expandQueryCandidates } from './candidates';
+
+function finalize(
+  structure: ResolvedStructure,
+  originalQuery: string,
+  matchedName: string,
+): ResolvedStructure {
+  const differs =
+    matchedName.trim().toLowerCase() !== originalQuery.trim().toLowerCase();
+  return {
+    ...structure,
+    query: originalQuery,
+    resolvedAs: differs ? matchedName : undefined,
+  };
+}
 
 /**
- * Default resolution strategy: PubChem first; if it fails for any reason
- * other than cancellation, quietly try CACTUS and — if that also fails —
- * rethrow the original (more informative) PubChem error.
+ * Default resolution strategy, built for how people actually type names:
+ *
+ * 1. Expand the query into candidates (parenthetical parts, Greek-letter
+ *    spellings, dash normalization) and try each against PubChem.
+ * 2. If everything was a clean miss, ask PubChem's autocomplete for close
+ *    dictionary terms (typo/abbreviation recovery) and resolve the best.
+ * 3. Finally fall back to NCI CACTUS.
+ *
+ * When the matched name differs from the query, the result carries
+ * `resolvedAs` so UIs can show what was actually found.
  */
 export const resolveWithPubChemThenCactus: ResolverFn = async (name, signal) => {
-  try {
-    return await resolveWithPubChem(name, signal);
-  } catch (primaryError) {
-    if (isMolstructError(primaryError) && primaryError.code === 'ABORTED') {
-      throw primaryError;
-    }
+  const candidates = expandQueryCandidates(name);
+  let notFound: MolstructError | null = null;
+  let hardError: MolstructError | null = null;
+
+  for (const candidate of candidates) {
     try {
-      return await resolveWithCactus(name, signal);
-    } catch (fallbackError) {
-      if (isMolstructError(fallbackError) && fallbackError.code === 'ABORTED') {
-        throw fallbackError;
+      return finalize(await resolveWithPubChem(candidate, signal), name, candidate);
+    } catch (cause) {
+      const error = toMolstructError(cause, 'NETWORK', 'Name resolution failed.');
+      if (error.code === 'ABORTED') throw error;
+      if (error.code === 'NOT_FOUND') {
+        notFound = error;
+      } else {
+        // Network/server trouble: stop hammering PubChem with more variants.
+        hardError = error;
+        break;
       }
-      throw primaryError;
     }
   }
+
+  if (!hardError) {
+    try {
+      const suggestions = await fetchNameSuggestions(candidates[0], 5, signal);
+      const tried = new Set(candidates.map((c) => c.toLowerCase()));
+      for (const suggestion of suggestions.slice(0, 3)) {
+        if (tried.has(suggestion.toLowerCase())) continue;
+        try {
+          return finalize(
+            await resolveWithPubChem(suggestion, signal),
+            name,
+            suggestion,
+          );
+        } catch (cause) {
+          const error = toMolstructError(cause, 'NETWORK', 'Name resolution failed.');
+          if (error.code === 'ABORTED') throw error;
+          if (error.code !== 'NOT_FOUND') break;
+        }
+      }
+    } catch (cause) {
+      const error = toMolstructError(cause, 'NETWORK', 'Autocomplete failed.');
+      if (error.code === 'ABORTED') throw error;
+      // Autocomplete being down should not mask the primary outcome.
+    }
+  }
+
+  for (const candidate of candidates.slice(0, 2)) {
+    try {
+      return finalize(await resolveWithCactus(candidate, signal), name, candidate);
+    } catch (cause) {
+      const error = toMolstructError(cause, 'NETWORK', 'CACTUS failed.');
+      if (error.code === 'ABORTED') throw error;
+    }
+  }
+
+  throw (
+    hardError ??
+    notFound ??
+    new MolstructError('NOT_FOUND', `No structure found for "${name}".`)
+  );
 };
 
 /** Maps a ResolverChoice ('pubchem' | 'cactus' | fn) to a concrete function. */

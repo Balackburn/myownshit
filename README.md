@@ -235,6 +235,25 @@ ignored in this mode.
 `useRdkit`, `useResolvedStructure`, `useDebounce`, `MoleculeErrorBoundary`,
 plus all types.
 
+## Smart name resolution
+
+The default resolver is built for how people actually type compound names:
+
+1. **Candidate expansion** — `"ASA (acetylsalicylic acid)"` tries the full
+   string, then the parenthetical parts (longer first); Greek letters are
+   spelled out (`β-carotene` → `beta-carotene`, `Δ9…` also gets `delta-9…`);
+   typographic dashes are normalized.
+2. **Autocomplete recovery** — clean misses are retried through PubChem's
+   autocomplete API, so abbreviations and small typos still land on the
+   right compound.
+3. **CACTUS fallback** — as before.
+
+When the matched name differs from the query, the result carries
+`resolvedAs` so your UI can show what was actually found. For typeahead UIs,
+`fetchNameSuggestions(query, limit?, signal?)` exposes the same autocomplete
+service (the demo wires it to a keyboard-navigable suggestions dropdown).
+`expandQueryCandidates(raw)` is exported too.
+
 ## PubChem etiquette (built in)
 
 PubChem allows ≤5 requests/second and ≤400/minute. The built-in resolver

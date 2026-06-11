@@ -31,6 +31,8 @@ export {
   resolveWithPubChem,
   resolveWithCactus,
   resolveWithPubChemThenCactus,
+  fetchNameSuggestions,
+  expandQueryCandidates,
   getResolver,
   clearStructureCache,
 } from './resolvers';

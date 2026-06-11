@@ -143,6 +143,46 @@ body {
   outline-offset: 2px;
 }
 
+/* suggestions combobox */
+
+.demo__combobox {
+  position: relative;
+  max-width: 420px;
+}
+
+.demo__combobox input[type='text'] {
+  width: 100%;
+}
+
+.demo__suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--background);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: var(--shadow-raised);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.demo__suggestion {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.demo__suggestion.is-highlighted {
+  background: var(--surface);
+  color: var(--accent);
+}
+
 .demo__presets {
   display: flex;
   flex-wrap: wrap;

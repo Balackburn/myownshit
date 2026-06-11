@@ -12,7 +12,8 @@ const MIN_REQUEST_SPACING_MS = 220;
 let lastDispatch = 0;
 let gate: Promise<void> = Promise.resolve();
 
-function rateGate(): Promise<void> {
+/** Shared politeness gate for all PubChem requests (resolver + autocomplete). */
+export function pubchemRateGate(): Promise<void> {
   const next = gate.then(async () => {
     const wait = lastDispatch + MIN_REQUEST_SPACING_MS - Date.now();
     if (wait > 0) await sleep(wait);
@@ -93,7 +94,7 @@ async function fetchWithBackoff(url: string, signal?: AbortSignal): Promise<Resp
     if (attempt > 0) {
       await sleep(1000 * 2 ** (attempt - 1));
     }
-    await rateGate();
+    await pubchemRateGate();
 
     let response: Response;
     try {

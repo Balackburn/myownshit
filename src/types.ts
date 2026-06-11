@@ -124,6 +124,12 @@ export interface ResolvedStructure {
   cid?: number;
   /** Connectivity (stereo-free) SMILES when available. */
   connectivitySmiles?: string;
+  /**
+   * The name that actually matched, when it differs from the original query
+   * (e.g. the query was an abbreviation, a parenthesized combo, or recovered
+   * via autocomplete). Show this so users can confirm the right compound.
+   */
+  resolvedAs?: string;
   /** Which resolver produced the structure. */
   source: StructureSource;
 }
