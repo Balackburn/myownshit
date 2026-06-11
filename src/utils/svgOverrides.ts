@@ -15,7 +15,7 @@ export function colorToCss(color: ColorInput | undefined): string | undefined {
 /** The engine-independent subset of DrawOptions applied by post-processing. */
 export type SvgOverrideOptions = Pick<
   DrawOptions,
-  'strokeColour' | 'textColour' | 'hideText' | 'strokeWidthScale'
+  'strokeColour' | 'textColour' | 'hideText' | 'strokeWidthScale' | 'roundedStrokes'
 >;
 
 /**
@@ -73,6 +73,18 @@ export function applySvgOverrides(svg: string, options: SvgOverrideOptions): str
       /stroke-width=(["'])([0-9.]+)\1/g,
       (_match, quote: string, width: string) =>
         `stroke-width=${quote}${(parseFloat(width) * scale).toFixed(2)}${quote}`,
+    );
+  }
+
+  if (options.roundedStrokes) {
+    // RDKit declares caps/joins inside style attributes.
+    out = out.replace(/stroke-linecap:butt/g, 'stroke-linecap:round');
+    out = out.replace(/stroke-linejoin:miter/g, 'stroke-linejoin:round');
+    // OpenChemLib lines (and any element without explicit caps) get
+    // presentation attributes; style-declared values still win where present.
+    out = out.replace(
+      /<(line|polyline|path)\b(?![^>]*stroke-linecap)([\s\S]*?)(\/?>)/g,
+      '<$1$2 stroke-linecap="round" stroke-linejoin="round"$3',
     );
   }
 

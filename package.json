@@ -36,6 +36,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "smoke": "npm run build && node scripts/smoke-test.mjs",
+    "test": "npm run build && node scripts/smoke-test.mjs && node scripts/e2e-react.mjs",
     "copy-rdkit": "node scripts/copy-rdkit.mjs",
     "dev": "npm run copy-rdkit && vite --config vite.demo.config.ts",
     "build:demo": "npm run copy-rdkit && vite build --config vite.demo.config.ts"
@@ -55,6 +56,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^29.1.1",
     "openchemlib": "^9.22.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -136,10 +136,19 @@ check('injectSvgBackground handles viewBox', injectSvgBackground(
   '<svg viewBox="10 20 100 80"><line/></svg>', '#ff0000',
 ).includes('<rect x="10" y="20" width="100" height="80" fill="#ff0000"'));
 
-check('STYLE_PRESETS exported with 6 themes', Array.isArray(STYLE_PRESETS) && STYLE_PRESETS.length === 6);
+check('STYLE_PRESETS exported with 10 themes', Array.isArray(STYLE_PRESETS) && STYLE_PRESETS.length === 10);
 check('every preset has swatches + options', STYLE_PRESETS.every(
   (p) => p.id && p.label && p.swatches.length === 3 && typeof p.options === 'object',
 ));
+
+// Transparent-by-default + Figma-style rounded strokes.
+check('RDKit default background is transparent (no rect)', !rdkitSvg.includes('<rect'));
+const rdkitWithBg = drawMoleculeToSvg(rdkit, ASPIRIN, { backgroundColour: '#ffeedd' });
+check('RDKit explicit background still draws', rdkitWithBg.includes('#FFEEDD') || rdkitWithBg.toLowerCase().includes('#ffeedd'));
+const rdkitRound = applySvgOverrides(rdkitSvg, { roundedStrokes: true });
+check('RDKit rounded caps applied', rdkitRound.includes('stroke-linecap:round'));
+const oclRound = applySvgOverrides(oclSvg2, { roundedStrokes: true });
+check('OCL rounded caps applied', oclRound.includes('stroke-linecap="round"'));
 
 // 9. RDKit-native additions pass through cleanly.
 const tuned = drawMoleculeToSvg(rdkit, ASPIRIN, {

@@ -99,6 +99,12 @@ export interface DrawOptions {
    */
   strokeWidthScale?: number;
   /**
+   * Universal: round line caps and joins on every stroke — the bold,
+   * friendly "Figma" look, especially with thicker strokes. Works with
+   * any engine.
+   */
+  roundedStrokes?: boolean;
+  /**
    * Escape hatch: raw key/values merged verbatim into the RDKit options JSON
    * (after all mapped options). Color values here must already be 0–1 floats.
    */

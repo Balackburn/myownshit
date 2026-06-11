@@ -255,6 +255,15 @@ export function MoleculeControls(props: MoleculeControlsProps) {
         </div>
         <div className="rms-controls__row rms-controls__row--check">
           <input
+            id={fid('rounded')}
+            type="checkbox"
+            checked={options.roundedStrokes ?? false}
+            onChange={(e) => patch({ roundedStrokes: e.target.checked })}
+          />
+          <label htmlFor={fid('rounded')}>Rounded caps (Figma style)</label>
+        </div>
+        <div className="rms-controls__row rms-controls__row--check">
+          <input
             id={fid('stroke-on')}
             type="checkbox"
             checked={options.strokeColour != null}
@@ -289,11 +298,20 @@ export function MoleculeControls(props: MoleculeControlsProps) {
             onChange={(e) => patch({ textColour: e.target.value })}
           />
         </div>
-        <div className="rms-controls__row">
-          <label htmlFor={fid('bg')}>Background</label>
+        <div className="rms-controls__row rms-controls__row--check">
           <input
-            id={fid('bg')}
+            id={fid('bg-on')}
+            type="checkbox"
+            checked={options.backgroundColour != null}
+            onChange={(e) =>
+              patch({ backgroundColour: e.target.checked ? '#ffffff' : undefined })
+            }
+          />
+          <label htmlFor={fid('bg-on')}>Background (off = transparent)</label>
+          <input
+            aria-label="Background color"
             type="color"
+            disabled={options.backgroundColour == null}
             value={toHexColor(options.backgroundColour, '#ffffff')}
             onChange={(e) => patch({ backgroundColour: e.target.value })}
           />

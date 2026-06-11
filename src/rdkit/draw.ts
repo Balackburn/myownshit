@@ -4,12 +4,11 @@ import { toRdkitColor } from '../utils/color';
 import type { JSMol, RDKitModule } from './types';
 
 export const DEFAULT_DRAW_OPTIONS: Required<
-  Pick<DrawOptions, 'width' | 'height' | 'bondLineWidth' | 'backgroundColour' | 'padding'>
+  Pick<DrawOptions, 'width' | 'height' | 'bondLineWidth' | 'padding'>
 > = {
   width: 320,
   height: 260,
   bondLineWidth: 1,
-  backgroundColour: [1, 1, 1],
   padding: 0.06,
 };
 
@@ -70,10 +69,16 @@ function buildDetails(
     width: options.width ?? DEFAULT_DRAW_OPTIONS.width,
     height: options.height ?? DEFAULT_DRAW_OPTIONS.height,
     bondLineWidth: options.bondLineWidth ?? DEFAULT_DRAW_OPTIONS.bondLineWidth,
-    backgroundColour:
-      toRdkitColor(options.backgroundColour) ?? DEFAULT_DRAW_OPTIONS.backgroundColour,
     padding: options.padding ?? DEFAULT_DRAW_OPTIONS.padding,
   };
+
+  // Transparent by default: only draw a background when one is requested.
+  const background = toRdkitColor(options.backgroundColour);
+  if (background) {
+    details.backgroundColour = background;
+  } else {
+    details.clearBackground = false;
+  }
 
   if (options.legend) details.legend = options.legend;
   if (options.legendFontSize != null) details.legendFontSize = options.legendFontSize;

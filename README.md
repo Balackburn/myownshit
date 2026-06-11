@@ -172,14 +172,19 @@ with *any* engine, including the no-WASM OpenChemLib fallback:
 - `textColour` — force one color on all atom labels and text
 - `hideText` — strip every label for a pure skeletal depiction
 - `strokeWidthScale` — multiply every stroke width in the output
+- `roundedStrokes` — round line caps/joins for the bold "Figma" look
+
+Backgrounds are **fully transparent by default**; set `backgroundColour` to
+draw one (the viewer shows a subtle checkerboard behind transparent renders).
 
 `applySvgOverrides(svg, options)` and `injectSvgBackground(svg, color)` are
 also exported for standalone use on any SVG string.
 
 ### Theme presets
 
-`STYLE_PRESETS` exports six one-click themes (Classic, Ink, Blueprint, Neon,
-Skeletal, Comic) as `{ id, label, swatches, options }` patches;
+`STYLE_PRESETS` exports ten one-click themes (Classic, Figma, Ink, Blueprint,
+Neon, Skeletal, Midnight, Candy, Forest, Comic) as
+`{ id, label, swatches, options }` patches;
 `<MoleculeControls>` renders them as a preset gallery by default
 (`showPresets={false}` to hide). Pass `engineId="openchemlib"` to the controls
 to disable and badge RDKit-only options when the fallback engine is active.

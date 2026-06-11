@@ -288,10 +288,20 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
       );
     }
 
+    const transparent = mergedOptions.backgroundColour == null;
     return (
       <div className={rootClass} style={frameStyle}>
         <div
-          className="rms-viewer__svg"
+          // Keyed by molecule so the entrance animation plays on a new
+          // structure but not on every option tweak.
+          key={structure?.smiles ?? 'empty'}
+          className={[
+            'rms-viewer__svg',
+            'rms-viewer__svg--enter',
+            transparent ? 'rms-viewer__svg--transparent' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
           role="img"
           aria-label={label}
           // SVG is produced locally by RDKit from a SMILES string, with
