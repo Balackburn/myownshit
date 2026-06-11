@@ -2,6 +2,9 @@ node_modules/
 dist/
 dist-demo/
 example/public/rdkit/
+.agents/
+visual-test*.png
 *.local
 .DS_Store
 npm-debug.log*
+skills-lock.json

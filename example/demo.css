@@ -76,13 +76,23 @@ body {
   padding: 48px 0 32px;
 }
 
+.demo__eyebrow {
+  margin: 0 0 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
 .demo__header h1 {
   margin: 0 0 12px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 44px;
+  font-size: clamp(32px, 5.5vw, 44px);
   line-height: 1.2;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .demo__header p {
@@ -180,6 +190,10 @@ body {
   flex-wrap: wrap;
   gap: 24px;
   align-items: flex-start;
+}
+
+.demo__stage > * {
+  min-width: 0;
 }
 
 @media (min-width: 810px) {

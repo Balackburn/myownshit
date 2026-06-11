@@ -76,6 +76,7 @@ export function App() {
       </nav>
 
       <header className="demo__header" data-reveal>
+        <p className="demo__eyebrow">Client-side chemistry</p>
         <h1>Molecule structures, drawn in your browser.</h1>
         <p>
           Type a molecule name. The browser asks PubChem for the SMILES, then

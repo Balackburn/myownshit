@@ -36,7 +36,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "smoke": "npm run build && node scripts/smoke-test.mjs",
-    "test": "npm run build && node scripts/smoke-test.mjs && node scripts/e2e-react.mjs",
+    "test": "npm run build && node scripts/smoke-test.mjs && node scripts/e2e-react.mjs && node scripts/e2e-panel.mjs && node scripts/visual-test.mjs",
     "copy-rdkit": "node scripts/copy-rdkit.mjs",
     "dev": "npm run copy-rdkit && vite --config vite.demo.config.ts",
     "build:demo": "npm run copy-rdkit && vite build --config vite.demo.config.ts"
@@ -65,6 +65,7 @@
     "openchemlib": "^9.22.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sharp": "^0.35.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0"
