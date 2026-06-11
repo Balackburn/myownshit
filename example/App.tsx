@@ -1,4 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import {
   MoleculeControls,
   MoleculeErrorBoundary,
@@ -34,17 +36,54 @@ export function App() {
     [wasmAvailable],
   );
 
+  // Entrance reveal: from bottom, ease-out, staggered — collapsed entirely
+  // under prefers-reduced-motion.
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          '[data-reveal]',
+          { autoAlpha: 0, y: 40 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+            stagger: 0.08,
+            clearProps: 'transform,opacity,visibility',
+          },
+        );
+      });
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <div className="demo">
-      <header className="demo__header">
-        <h1>react-molstruct</h1>
+    <div className="demo" ref={containerRef}>
+      <nav className="demo__nav" aria-label="Site">
+        <a className="demo__brand" href="./">
+          react-molstruct
+        </a>
+        <a
+          href="https://github.com/Balackburn/myownshit"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
+      </nav>
+
+      <header className="demo__header" data-reveal>
+        <h1>Molecule structures, drawn in your browser.</h1>
         <p>
           Type a molecule name. The browser asks PubChem for the SMILES, then
-          RDKit (WASM) draws the structure locally — no backend anywhere.
+          renders the 2D structure locally — no backend anywhere.
         </p>
       </header>
 
-      <section className="demo__query" aria-label="Molecule lookup">
+      <section className="demo__query" aria-label="Molecule lookup" data-reveal>
         <label htmlFor="molecule-name">Molecule name</label>
         <input
           id="molecule-name"
@@ -74,7 +113,7 @@ export function App() {
         </div>
       </section>
 
-      <main className="demo__stage">
+      <main className="demo__stage" data-reveal>
         <MoleculeErrorBoundary>
           <MoleculeViewer
             ref={viewerRef}
@@ -98,7 +137,7 @@ export function App() {
         />
       </main>
 
-      <footer className="demo__meta">
+      <footer className="demo__meta" data-reveal>
         {!wasmAvailable && (
           <p className="demo__warning">
             WebAssembly is disabled in this browser (e.g. Safari Lockdown
