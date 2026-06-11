@@ -1,14 +1,17 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type KeyboardEvent,
-} from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import {
-  MoleculeControls,
+  Alert,
+  Button,
+  Chip,
+  ComboBox,
+  Input,
+  Label,
+  Link,
+  ListBox,
+} from '@heroui/react';
+import {
   MoleculeErrorBoundary,
   MoleculeViewer,
   createOpenChemLibEngine,
@@ -21,6 +24,7 @@ import {
   type ResolvedStructure,
 } from 'react-molstruct';
 import 'react-molstruct/styles.css';
+import { HeroPanel } from './HeroPanel';
 
 const PRESETS = ['aspirin', 'caffeine', 'ibuprofen', 'glucose', 'acetaminophen'];
 
@@ -37,8 +41,6 @@ export function App() {
 
   // Live name suggestions from PubChem autocomplete.
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [suggestionsOpen, setSuggestionsOpen] = useState(false);
-  const [highlightIndex, setHighlightIndex] = useState(-1);
   const suppressSuggestRef = useRef(false);
 
   useEffect(() => {
@@ -49,17 +51,12 @@ export function App() {
     const query = name.trim();
     if (query.length < 3) {
       setSuggestions([]);
-      setSuggestionsOpen(false);
       return;
     }
     const controller = new AbortController();
     const timer = setTimeout(() => {
       fetchNameSuggestions(query, 8, controller.signal)
-        .then((terms) => {
-          setSuggestions(terms);
-          setSuggestionsOpen(terms.length > 0);
-          setHighlightIndex(-1);
-        })
+        .then(setSuggestions)
         .catch(() => {
           // Suggestions are best-effort; resolution still works without them.
         });
@@ -69,30 +66,6 @@ export function App() {
       controller.abort();
     };
   }, [name]);
-
-  const pickSuggestion = (term: string) => {
-    suppressSuggestRef.current = true;
-    setName(term);
-    setLastError(null);
-    setSuggestionsOpen(false);
-    setHighlightIndex(-1);
-  };
-
-  const onNameKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (!suggestionsOpen || suggestions.length === 0) return;
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      setHighlightIndex((i) => (i + 1) % suggestions.length);
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      setHighlightIndex((i) => (i <= 0 ? suggestions.length - 1 : i - 1));
-    } else if (event.key === 'Enter' && highlightIndex >= 0) {
-      event.preventDefault();
-      pickSuggestion(suggestions[highlightIndex]);
-    } else if (event.key === 'Escape') {
-      setSuggestionsOpen(false);
-    }
-  };
 
   // Safari Lockdown Mode (and similar) disables WebAssembly entirely;
   // fall back to the pure-JS OpenChemLib engine so the demo still renders.
@@ -127,99 +100,83 @@ export function App() {
   );
 
   return (
-    <div className="demo" ref={containerRef}>
-      <nav className="demo__nav" aria-label="Site">
-        <a className="demo__brand" href="./">
-          react-molstruct
-        </a>
-        <a
+    <div ref={containerRef} className="mx-auto max-w-[1199px] px-4 pb-16">
+      <nav className="flex h-16 items-center justify-between" aria-label="Site">
+        <span className="font-bold tracking-tight">react-molstruct</span>
+        <Link
           href="https://github.com/Balackburn/myownshit"
           target="_blank"
           rel="noreferrer"
         >
           GitHub
-        </a>
+        </Link>
       </nav>
 
-      <header className="demo__header" data-reveal>
-        <p className="demo__eyebrow">Client-side chemistry</p>
-        <h1>Molecule structures, drawn in your browser.</h1>
-        <p>
+      <header className="pt-12 pb-8" data-reveal>
+        <p className="mb-4 font-mono text-[11px] tracking-[0.16em] uppercase text-muted">
+          Client-side chemistry
+        </p>
+        <h1 className="mb-3 text-[clamp(32px,5.5vw,44px)] leading-tight font-bold tracking-tight text-balance">
+          Molecule structures, drawn in your browser.
+        </h1>
+        <p className="max-w-[65ch] text-muted">
           Type a molecule name. The browser asks PubChem for the SMILES, then
           renders the 2D structure locally — no backend anywhere.
         </p>
       </header>
 
-      <section className="demo__query" aria-label="Molecule lookup" data-reveal>
-        <label htmlFor="molecule-name">Molecule name</label>
-        <div className="demo__combobox">
-          <input
-            id="molecule-name"
-            type="text"
-            value={name}
-            placeholder="e.g. caffeine"
-            autoComplete="off"
-            role="combobox"
-            aria-expanded={suggestionsOpen}
-            aria-controls="molecule-suggestions"
-            aria-autocomplete="list"
-            onChange={(event) => {
-              setName(event.target.value);
+      <section className="mb-6 flex flex-col gap-3" aria-label="Molecule lookup" data-reveal>
+        <ComboBox
+          allowsCustomValue
+          menuTrigger="input"
+          inputValue={name}
+          onInputChange={(value) => {
+            setName(value);
+            setLastError(null);
+          }}
+          onSelectionChange={(key) => {
+            if (key != null) {
+              suppressSuggestRef.current = true;
+              setName(String(key));
               setLastError(null);
-            }}
-            onKeyDown={onNameKeyDown}
-            onBlur={() => setSuggestionsOpen(false)}
-            onFocus={() => suggestions.length > 0 && setSuggestionsOpen(true)}
-          />
-          {suggestionsOpen && (
-            <ul
-              id="molecule-suggestions"
-              className="demo__suggestions"
-              role="listbox"
-              aria-label="Name suggestions"
-            >
-              {suggestions.map((term, index) => (
-                <li
-                  key={term}
-                  role="option"
-                  aria-selected={index === highlightIndex}
-                  className={[
-                    'demo__suggestion',
-                    index === highlightIndex ? 'is-highlighted' : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                  // mousedown so selection wins over the input's blur
-                  onMouseDown={(event) => {
-                    event.preventDefault();
-                    pickSuggestion(term);
-                  }}
-                  onMouseEnter={() => setHighlightIndex(index)}
-                >
+            }
+          }}
+          className="max-w-105"
+        >
+          <Label>Molecule name</Label>
+          <ComboBox.InputGroup>
+            <Input placeholder="e.g. caffeine" autoComplete="off" />
+            <ComboBox.Trigger />
+          </ComboBox.InputGroup>
+          <ComboBox.Popover>
+            <ListBox>
+              {suggestions.map((term) => (
+                <ListBox.Item key={term} id={term} textValue={term}>
                   {term}
-                </li>
+                </ListBox.Item>
               ))}
-            </ul>
-          )}
-        </div>
-        <div className="demo__presets" role="group" aria-label="Example molecules">
+            </ListBox>
+          </ComboBox.Popover>
+        </ComboBox>
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Example molecules">
           {PRESETS.map((preset) => (
-            <button
+            <Button
               key={preset}
-              type="button"
-              className={preset === name ? 'is-active' : undefined}
-              onClick={() => {
+              size="sm"
+              variant={preset === name ? 'primary' : 'tertiary'}
+              onPress={() => {
+                suppressSuggestRef.current = true;
                 setName(preset);
                 setLastError(null);
               }}
             >
               {preset}
-            </button>
+            </Button>
           ))}
         </div>
       </section>
 
-      <main className="demo__stage" data-reveal>
+      <main className="flex flex-wrap items-start gap-6" data-reveal>
         <MoleculeErrorBoundary>
           <MoleculeViewer
             ref={viewerRef}
@@ -234,7 +191,7 @@ export function App() {
             onError={(error) => setLastError(error)}
           />
         </MoleculeErrorBoundary>
-        <MoleculeControls
+        <HeroPanel
           options={options}
           onOptionsChange={setOptions}
           viewerRef={viewerRef}
@@ -243,42 +200,49 @@ export function App() {
         />
       </main>
 
-      <footer className="demo__meta" data-reveal>
+      <footer className="mt-6 flex flex-col gap-3 text-sm text-muted" data-reveal>
         {!wasmAvailable && (
-          <p className="demo__warning">
-            WebAssembly is disabled in this browser (e.g. Safari Lockdown
-            Mode), so structures render with the pure-JS OpenChemLib engine.
-            Substructure highlights and most styling options are unavailable
-            in this mode.
-          </p>
+          <Alert status="accent">
+            <Alert.Content>
+              <Alert.Title>Compatibility mode</Alert.Title>
+              <Alert.Description>
+                WebAssembly is disabled in this browser (e.g. Safari Lockdown
+                Mode), so structures render with the pure-JS OpenChemLib
+                engine. Substructure highlights and some styling options are
+                unavailable.
+              </Alert.Description>
+            </Alert.Content>
+          </Alert>
         )}
         {resolved && (
-          <p>
+          <p className="flex flex-wrap items-center gap-2">
             {resolved.resolvedAs && (
-              <>
-                Matched <strong>{resolved.resolvedAs}</strong> —{' '}
-              </>
+              <Chip size="sm" color="accent">
+                Matched {resolved.resolvedAs}
+              </Chip>
             )}
-            Resolved via <strong>{resolved.source}</strong>
-            {resolved.cid != null && (
-              <>
-                {' '}
-                — PubChem CID{' '}
-                <a
-                  href={`https://pubchem.ncbi.nlm.nih.gov/compound/${resolved.cid}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {resolved.cid}
-                </a>
-              </>
-            )}
-            {' — '}
-            <code>{resolved.smiles}</code>
+            <span>
+              Resolved via <strong>{resolved.source}</strong>
+              {resolved.cid != null && (
+                <>
+                  {' — CID '}
+                  <Link
+                    href={`https://pubchem.ncbi.nlm.nih.gov/compound/${resolved.cid}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {resolved.cid}
+                  </Link>
+                </>
+              )}
+            </span>
+            <code className="rounded-md bg-surface px-2 py-0.5 font-mono text-xs break-all">
+              {resolved.smiles}
+            </code>
           </p>
         )}
         {lastError && lastError.code === 'INVALID_SMARTS' && (
-          <p className="demo__warning">{describeError(lastError)}</p>
+          <p>{describeError(lastError)}</p>
         )}
       </footer>
     </div>
