@@ -4,6 +4,7 @@ dist-demo/
 example/public/rdkit/
 .agents/
 visual-test*.png
+visual-test*.svg
 *.local
 .DS_Store
 npm-debug.log*
