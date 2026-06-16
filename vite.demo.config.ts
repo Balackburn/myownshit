@@ -21,5 +21,11 @@ export default defineConfig({
   build: {
     outDir: '../dist-demo',
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./example/index.html', import.meta.url)),
+        embed: fileURLToPath(new URL('./example/embed.html', import.meta.url)),
+      },
+    },
   },
 });

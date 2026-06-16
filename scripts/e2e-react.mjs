@@ -59,6 +59,7 @@ let html = container.innerHTML;
 check('viewer renders SVG via OCL engine', html.includes('<svg'));
 check('default background is transparent (no bg rect)', !/<rect[^>]*fill="#/.test(html));
 check('transparent checkerboard class applied', html.includes('rms-viewer__svg--transparent'));
+check('default is skeletal (no text without options)', !html.includes('<text'));
 
 // 2. Stroke color override reaches the DOM.
 render({ width: 300, height: 240, strokeColour: '#ff0000' });
@@ -87,8 +88,8 @@ html = container.innerHTML;
 check('background color reaches rendered SVG', html.includes('fill="#0d2a4d"'));
 check('checkerboard class removed with solid bg', !html.includes('rms-viewer__svg--transparent'));
 
-// 6. Text recolor.
-render({ width: 300, height: 240, textColour: '#123456' });
+// 6. Text recolor (requires labels shown, since skeleton is the default).
+render({ width: 300, height: 240, hideText: false, textColour: '#123456' });
 await sleep(250);
 html = container.innerHTML;
 check('text color change reaches rendered SVG', /<text[^>]*fill="#123456"/.test(html));

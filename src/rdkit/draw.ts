@@ -80,10 +80,14 @@ function buildDetails(
     details.clearBackground = false;
   }
 
-  if (options.legend) details.legend = options.legend;
+  // Skeletal mode (hideText): suppress all atom labels engine-side. RDKit then
+  // draws every bond fully to its vertex, so there is no gap to fill, and the
+  // legend is omitted so no text remains.
+  const skeletal = options.hideText === true;
+  if (options.legend && !skeletal) details.legend = options.legend;
   if (options.legendFontSize != null) details.legendFontSize = options.legendFontSize;
   if (options.rotate != null && options.rotate !== 0) details.rotate = options.rotate;
-  if (options.noAtomLabels) details.noAtomLabels = true;
+  if (options.noAtomLabels || skeletal) details.noAtomLabels = true;
   if (options.addStereoAnnotation) details.addStereoAnnotation = true;
   if (options.addAtomIndices) details.addAtomIndices = true;
   if (options.addBondIndices) details.addBondIndices = true;

@@ -1,6 +1,6 @@
 import { MolstructError } from '../errors';
 import type { DrawOptions, RenderEngine } from '../types';
-import { injectSvgBackground } from '../utils/svgOverrides';
+import { fillLabelGaps, injectSvgBackground } from '../utils/svgOverrides';
 
 /**
  * Structural types for the slice of OpenChemLib this engine uses, so the
@@ -81,6 +81,11 @@ export function createOpenChemLibEngine(): RenderEngine {
           suppressCIPParity: !options.addStereoAnnotation,
           noStereoProblem: true,
         });
+        // Skeletal mode: extend bonds onto the atom centres before the labels
+        // are stripped, so the drawing has no gaps where text used to be.
+        if (options.hideText) {
+          svg = fillLabelGaps(svg);
+        }
         // OpenChemLib emits a transparent background; honor backgroundColour.
         if (options.backgroundColour != null) {
           svg = injectSvgBackground(svg, options.backgroundColour);

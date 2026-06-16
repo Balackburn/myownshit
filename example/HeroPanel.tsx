@@ -202,8 +202,11 @@ export function HeroPanel(props: HeroPanelProps) {
               {preset.swatches.map((swatch, i) => (
                 <i
                   key={i}
-                  className="size-2.5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.15)]"
-                  style={{ background: swatch }}
+                  className="size-2.5 rounded-full"
+                  style={{
+                    background: swatch,
+                    boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.15)',
+                  }}
                 />
               ))}
             </span>
@@ -427,7 +430,7 @@ export function HeroPanel(props: HeroPanelProps) {
         <Tabs.Panel id="labels" className="flex flex-col gap-4 pt-4">
           <SwitchRow
             label="Hide all text"
-            checked={options.hideText ?? false}
+            checked={options.hideText ?? true}
             onChange={(v) => patch({ hideText: v, noAtomLabels: v })}
           />
           <SwitchRow

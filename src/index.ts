@@ -1,7 +1,11 @@
 // react-molstruct — zero-backend molecule name → 2D SVG rendering for React.
 
+// Headless render API (no React required)
+export { renderMoleculeSvg } from './api';
+export type { RenderMoleculeOptions, RenderMoleculeResult } from './api';
+
 // Components
-export { MoleculeViewer } from './components/MoleculeViewer';
+export { MoleculeViewer, DEFAULT_VIEWER_OPTIONS } from './components/MoleculeViewer';
 export { MoleculeControls } from './components/MoleculeControls';
 export type { MoleculeControlsProps } from './components/MoleculeControls';
 export { MoleculeErrorBoundary } from './components/ErrorBoundary';
@@ -33,6 +37,7 @@ export {
   resolveWithPubChemThenCactus,
   fetchNameSuggestions,
   expandQueryCandidates,
+  isRelatedSuggestion,
   getResolver,
   clearStructureCache,
 } from './resolvers';
@@ -59,6 +64,8 @@ export {
   applySvgOverrides,
   injectSvgBackground,
   colorToCss,
+  stripText,
+  fillLabelGaps,
 } from './utils/svgOverrides';
 export type { SvgOverrideOptions } from './utils/svgOverrides';
 

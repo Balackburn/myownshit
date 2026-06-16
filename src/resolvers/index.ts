@@ -61,7 +61,10 @@ export const resolveWithPubChemThenCactus: ResolverFn = async (name, signal) => 
     try {
       const suggestions = await fetchNameSuggestions(candidates[0], 5, signal);
       const tried = new Set(candidates.map((c) => c.toLowerCase()));
-      for (const suggestion of suggestions.slice(0, 3)) {
+      // Only follow suggestions plausibly related to the query, so a short or
+      // ambiguous input never silently resolves to an unrelated popular hit.
+      const plausible = suggestions.filter((s) => isRelatedSuggestion(name, s));
+      for (const suggestion of plausible.slice(0, 3)) {
         if (tried.has(suggestion.toLowerCase())) continue;
         try {
           return finalize(
@@ -97,6 +100,25 @@ export const resolveWithPubChemThenCactus: ResolverFn = async (name, signal) => 
     new MolstructError('NOT_FOUND', `No structure found for "${name}".`)
   );
 };
+
+/**
+ * Heuristic guard against false-positive name recovery: an autocomplete
+ * suggestion is accepted only when it is recognizably the same query —
+ * one contains the other, or they share a strong leading prefix. This keeps
+ * genuine recoveries (abbreviations, light typos) while rejecting unrelated
+ * popular compounds that autocomplete may return for a vague input.
+ */
+export function isRelatedSuggestion(query: string, suggestion: string): boolean {
+  const q = query.trim().toLowerCase().replace(/\s+/g, '');
+  const s = suggestion.trim().toLowerCase().replace(/\s+/g, '');
+  if (!q || !s) return false;
+  if (s.includes(q) || q.includes(s)) return true;
+  // Shared leading prefix of at least 4 chars (or the whole short query).
+  const minLen = Math.min(q.length, s.length);
+  let common = 0;
+  while (common < minLen && q[common] === s[common]) common += 1;
+  return common >= Math.min(4, q.length);
+}
 
 /** Maps a ResolverChoice ('pubchem' | 'cactus' | fn) to a concrete function. */
 export function getResolver(choice: ResolverChoice | undefined): ResolverFn {

@@ -25,6 +25,7 @@ import {
 } from 'react-molstruct';
 import 'react-molstruct/styles.css';
 import { HeroPanel } from './HeroPanel';
+import { EmbedSection } from './EmbedSection';
 
 const PRESETS = ['aspirin', 'caffeine', 'ibuprofen', 'glucose', 'acetaminophen'];
 
@@ -33,7 +34,7 @@ export function App() {
   const [options, setOptions] = useState<DrawOptions>({
     width: 420,
     height: 340,
-    addStereoAnnotation: true,
+    hideText: true,
   });
   const [resolved, setResolved] = useState<ResolvedStructure | null>(null);
   const [lastError, setLastError] = useState<MolstructError | null>(null);
@@ -116,7 +117,7 @@ export function App() {
         <p className="mb-4 font-mono text-[11px] tracking-[0.16em] uppercase text-muted">
           Client-side chemistry
         </p>
-        <h1 className="mb-3 text-[clamp(32px,5.5vw,44px)] leading-tight font-bold tracking-tight text-balance">
+        <h1 className="mb-3 text-3xl leading-tight font-bold tracking-tight text-balance lg:text-[44px]">
           Molecule structures, drawn in your browser.
         </h1>
         <p className="max-w-[65ch] text-muted">
@@ -199,6 +200,10 @@ export function App() {
           downloadFilename={name.trim().replace(/\s+/g, '-') || 'molecule'}
         />
       </main>
+
+      <section className="mt-8" aria-label="Embed and API" data-reveal>
+        <EmbedSection name={name} options={options} />
+      </section>
 
       <footer className="mt-6 flex flex-col gap-3 text-sm text-muted" data-reveal>
         {!wasmAvailable && (

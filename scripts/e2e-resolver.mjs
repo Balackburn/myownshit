@@ -13,16 +13,18 @@ function jsonResponse(body, status = 200) {
   });
 }
 
-// Mock PubChem: only the exact name "examplomide" exists; autocomplete
-// suggests it for nearby queries (prefix matches and the "EMD" alias).
+// Mock PubChem: only the exact name "examplomide" exists; autocomplete is
+// prefix-based (like the real service) — it returns names starting with the
+// query, and a deliberately UNRELATED hit for the bare abbreviation "emd" to
+// exercise the false-positive guard.
 globalThis.fetch = async (url) => {
   const u = String(url);
   requests.push(u);
   if (u.includes('/rest/autocomplete/compound/')) {
     const q = decodeURIComponent(u.match(/compound\/([^/]+)\/json/)[1]).toLowerCase();
-    const terms = q.startsWith('exampl') || q === 'emd'
-      ? ['Examplomide', 'Examplomide oxide']
-      : [];
+    let terms = [];
+    if ('examplomide'.startsWith(q)) terms = ['Examplomide', 'Examplomide oxide'];
+    else if (q === 'emd') terms = ['Examplomide']; // unrelated to "emd" → must be rejected
     return jsonResponse({ dictionary_terms: { compound: terms }, total: terms.length });
   }
   if (u.includes('/rest/pug/compound/name/')) {
@@ -42,6 +44,7 @@ globalThis.fetch = async (url) => {
 
 const {
   expandQueryCandidates,
+  isRelatedSuggestion,
   resolveWithPubChemThenCactus,
   MolstructError,
 } = await import('../dist/index.es.js');
@@ -74,14 +77,23 @@ check('parenthetical query resolves', viaParens.smiles === 'CCO');
 check('resolvedAs reports the matched name', viaParens.resolvedAs === 'Examplomide');
 check('query preserved on result', viaParens.query === 'EMD (Examplomide)');
 
-// 3. Abbreviation alone recovers through autocomplete.
-const viaAutocomplete = await resolveWithPubChemThenCactus('EMD');
-check('abbreviation resolves via autocomplete', viaAutocomplete.smiles === 'CCO');
-check('autocomplete match reported', viaAutocomplete.resolvedAs === 'Examplomide');
-
-// 4. Typo recovers through autocomplete.
+// 3. Typo / truncation recovers through prefix autocomplete.
 const viaTypo = await resolveWithPubChemThenCactus('examplomid');
-check('typo resolves via autocomplete', viaTypo.resolvedAs === 'Examplomide');
+check('truncation resolves via autocomplete', viaTypo.resolvedAs === 'Examplomide');
+
+// 4. False-positive guard: a bare unrelated abbreviation is NOT silently
+//    resolved to the unrelated suggestion autocomplete returned for it.
+check('guard rejects unrelated suggestion', !isRelatedSuggestion('EMD', 'Examplomide'));
+check('guard accepts prefix/substring match', isRelatedSuggestion('examplomid', 'Examplomide'));
+try {
+  await resolveWithPubChemThenCactus('EMD');
+  check('unrelated abbreviation does not false-positive', false);
+} catch (error) {
+  check(
+    'unrelated abbreviation does not false-positive',
+    error instanceof MolstructError && error.code === 'NOT_FOUND',
+  );
+}
 
 // 5. Exact match carries no resolvedAs.
 const exact = await resolveWithPubChemThenCactus('Examplomide');

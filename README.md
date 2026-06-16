@@ -14,6 +14,26 @@ publication-style **2D structure SVG** — entirely in the browser.
 <MoleculeViewer name="aspirin" />
 ```
 
+Or, with **no React**, one async call that runs in the browser, Node, or a
+serverless function (pure-JS engine, no WASM assets to host):
+
+```ts
+import { renderMoleculeSvg } from 'react-molstruct';
+const { svg } = await renderMoleculeSvg('aspirin', { width: 320 });
+```
+
+Or **embed on any site** with no build step — see the live copy-paste builder:
+
+```html
+<iframe src="https://balackburn.github.io/myownshit/embed.html?name=aspirin"></iframe>
+```
+
+> **Full API & embedding guide → [`docs/API.md`](docs/API.md)**
+
+The default depiction is a **transparent skeletal** structure (no atom labels,
+no stereo annotations, bonds connected at vertices). Pass `hideText: false` to
+show atom labels.
+
 **Live demo:** <https://balackburn.github.io/myownshit/> — deployed to GitHub
 Pages by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
 on every push; proof that a static host with no backend is enough.

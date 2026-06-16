@@ -536,7 +536,7 @@ export function MoleculeControls(props: MoleculeControlsProps) {
               <SwitchRow
                 id={fid('hidetext')}
                 label="Hide all text"
-                checked={options.hideText ?? false}
+                checked={options.hideText ?? true}
                 onChange={(v) => patch({ hideText: v, noAtomLabels: v })}
               />
               <SwitchRow

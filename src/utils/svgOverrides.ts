@@ -31,11 +31,7 @@ export function applySvgOverrides(svg: string, options: SvgOverrideOptions): str
   let out = svg;
 
   if (options.hideText) {
-    // Text elements (OpenChemLib labels, any legends rendered as text).
-    out = out.replace(/<text[\s\S]*?<\/text>/g, '');
-    // RDKit atom-label glyph paths: class begins with "atom-" (bond paths
-    // begin with "bond-", so they are untouched).
-    out = out.replace(/<path class=['"]atom-[\s\S]*?\/>/g, '');
+    out = stripText(out);
   }
 
   const strokeCss = colorToCss(options.strokeColour);
@@ -89,6 +85,89 @@ export function applySvgOverrides(svg: string, options: SvgOverrideOptions): str
   }
 
   return out;
+}
+
+/**
+ * Removes every text element from an SVG for a pure skeletal depiction,
+ * across both engine dialects, without touching bond geometry:
+ *
+ * - `<text>…</text>` and self-closing `<text/>` (OpenChemLib atom labels and
+ *   any legend/annotation text).
+ * - RDKit atom-label glyph paths, whose `class` attribute *starts with*
+ *   `atom-`. Bond paths (`class='bond-… atom-… atom-…'`) start with `bond-`
+ *   and are left intact, so this never deletes a bond.
+ */
+export function stripText(svg: string): string {
+  return svg
+    .replace(/<text\b[^>]*>[\s\S]*?<\/text>/g, '')
+    .replace(/<text\b[^>]*\/>/g, '')
+    .replace(/<tspan\b[^>]*>[\s\S]*?<\/tspan>/g, '')
+    .replace(/<path\b[^>]*\bclass=['"]atom-[^'"]*['"][\s\S]*?\/>/g, '');
+}
+
+/**
+ * Closes the gaps left where atom labels were/are drawn by snapping nearby
+ * bond-line endpoints onto each label's atom centre, so a skeletal depiction
+ * has bonds meeting cleanly at vertices instead of stopping short.
+ *
+ * Operates on OpenChemLib `<line>` bonds and `<text>` labels (RDKit avoids
+ * the gap entirely by drawing with `noAtomLabels`, so it needs no fix-up).
+ * Run this *before* {@link stripText}; it leaves the text elements in place.
+ */
+export function fillLabelGaps(svg: string): string {
+  const labels: Array<{ cx: number; cy: number; r: number }> = [];
+  const textRe =
+    /<text\b[^>]*?\bx="([\d.]+)"[^>]*?\by="([\d.]+)"[^>]*?\bfont-size="([\d.]+)"[^>]*>/g;
+  for (let m = textRe.exec(svg); m; m = textRe.exec(svg)) {
+    const x = parseFloat(m[1]);
+    const y = parseFloat(m[2]);
+    const fs = parseFloat(m[3]);
+    // OpenChemLib anchors text at the left baseline; the connecting atom sits
+    // roughly at the first glyph's centre, up and to the right of the anchor.
+    labels.push({ cx: x + fs * 0.3, cy: y - fs * 0.34, r: fs * 1.25 });
+  }
+  if (labels.length === 0) return svg;
+
+  const nearest = (px: number, py: number): { x: number; y: number } | null => {
+    let best: { x: number; y: number } | null = null;
+    let bd = Infinity;
+    for (const l of labels) {
+      const d = Math.hypot(px - l.cx, py - l.cy);
+      if (d <= l.r && d < bd) {
+        bd = d;
+        best = { x: l.cx, y: l.cy };
+      }
+    }
+    return best;
+  };
+
+  return svg.replace(/<line\b([^>]*?)\/>/g, (full, attrs: string) => {
+    const x1 = attrs.match(/\bx1="([\d.]+)"/);
+    const y1 = attrs.match(/\by1="([\d.]+)"/);
+    const x2 = attrs.match(/\bx2="([\d.]+)"/);
+    const y2 = attrs.match(/\by2="([\d.]+)"/);
+    if (!x1 || !y1 || !x2 || !y2) return full;
+    const p1 = { x: parseFloat(x1[1]), y: parseFloat(y1[1]) };
+    const p2 = { x: parseFloat(x2[1]), y: parseFloat(y2[1]) };
+    const s1 = nearest(p1.x, p1.y);
+    const s2 = nearest(p2.x, p2.y);
+    const n1 = s1 ?? p1;
+    const n2 = s2 ?? p2;
+    // Skip if snapping would collapse the bond to (near) a point.
+    if (Math.hypot(n1.x - n2.x, n1.y - n2.y) < 1) return full;
+    let next = attrs;
+    if (s1) {
+      next = next
+        .replace(/\bx1="[\d.]+"/, `x1="${n1.x.toFixed(2)}"`)
+        .replace(/\by1="[\d.]+"/, `y1="${n1.y.toFixed(2)}"`);
+    }
+    if (s2) {
+      next = next
+        .replace(/\bx2="[\d.]+"/, `x2="${n2.x.toFixed(2)}"`)
+        .replace(/\by2="[\d.]+"/, `y2="${n2.y.toFixed(2)}"`);
+    }
+    return `<line${next}/>`;
+  });
 }
 
 /**

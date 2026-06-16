@@ -26,6 +26,16 @@ import {
 import { applySvgOverrides } from '../utils/svgOverrides';
 import '../styles.css';
 
+/**
+ * Default drawing options when none are supplied: a publication-style
+ * skeletal depiction with no atom labels, no stereo annotations, and bonds
+ * connected at vertices. Pass `hideText: false` to restore atom labels.
+ */
+export const DEFAULT_VIEWER_OPTIONS: DrawOptions = {
+  hideText: true,
+  addStereoAnnotation: false,
+};
+
 interface DrawOutcome {
   svg: string | null;
   /** Non-fatal problem (e.g. invalid highlight SMARTS) — molecule still drawn. */
@@ -121,6 +131,9 @@ export const MoleculeViewer = forwardRef<MoleculeViewerHandle, MoleculeViewerPro
     const optionsKey = JSON.stringify(options ?? {});
     const mergedOptions = useMemo<DrawOptions>(
       () => ({
+        // Default to a clean skeletal depiction: no atom labels, no stereo
+        // annotations, bonds meeting at vertices (no gaps). Override per option.
+        ...DEFAULT_VIEWER_OPTIONS,
         ...(options ?? {}),
         width: options?.width ?? width,
         height: options?.height ?? height,

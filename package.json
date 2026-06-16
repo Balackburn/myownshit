@@ -36,7 +36,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "smoke": "npm run build && node scripts/smoke-test.mjs",
-    "test": "npm run build && node scripts/smoke-test.mjs && node scripts/e2e-react.mjs && node scripts/e2e-panel.mjs && node scripts/e2e-resolver.mjs && node scripts/visual-test.mjs",
+    "test": "npm run build && node scripts/smoke-test.mjs && node scripts/e2e-react.mjs && node scripts/e2e-panel.mjs && node scripts/e2e-resolver.mjs && node scripts/e2e-api.mjs && node scripts/visual-test.mjs",
     "copy-rdkit": "node scripts/copy-rdkit.mjs",
     "dev": "npm run copy-rdkit && vite --config vite.demo.config.ts",
     "build:demo": "npm run copy-rdkit && vite build --config vite.demo.config.ts"
