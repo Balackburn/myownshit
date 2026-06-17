@@ -34,6 +34,7 @@ globalThis.fetch = async (url) => {
 
 const {
   renderMoleculeSvg,
+  applySvgOverrides,
   fillLabelGaps,
   stripText,
   MolstructError,
@@ -112,6 +113,28 @@ const farLabel =
   '<line x1="200.00" y1="200.00" x2="240.00" y2="200.00" stroke="#000"/>' +
   '</svg>';
 check('distant bond endpoints are not snapped', fillLabelGaps(farLabel).includes('x1="200.00"'));
+
+// 7. Stroke override also fills solid stereo wedges (so they are fully
+//    colored, not just outlined), across both engine dialects.
+const oclWedge =
+  '<svg xmlns="http://www.w3.org/2000/svg">' +
+  '<rect width="100" height="100" fill="#ffffff" stroke="none"/>' +
+  '<line x1="0" y1="0" x2="10" y2="10" stroke="rgb(0,0,0)"/>' +
+  '<polygon points="1,2 3,4 5,6" fill="rgb(160,0,0)" stroke="rgb(160,0,0)"/>' +
+  '</svg>';
+const oclOut = applySvgOverrides(oclWedge, { strokeColour: '#cc00ff' });
+check('OCL wedge polygon fill recolored', oclOut.includes('<polygon points="1,2 3,4 5,6" fill="#cc00ff"'));
+check('OCL wedge polygon stroke recolored', /<polygon[^>]*stroke="#cc00ff"/.test(oclOut));
+check('background rect fill is NOT recolored', oclOut.includes('<rect width="100" height="100" fill="#ffffff"'));
+
+const rdkitWedge =
+  "<svg xmlns='http://www.w3.org/2000/svg'>" +
+  "<path class='bond-1 atom-1 atom-2' d='M 1,1 L 2,2' style='fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2.0px' />" +
+  "<path class='bond-0 atom-0 atom-1' d='M 0,0 L 1,1' style='fill:none;stroke:#000000;stroke-width:2.0px' />" +
+  '</svg>';
+const rdkitOut = applySvgOverrides(rdkitWedge, { strokeColour: '#0000ee' });
+check('RDKit solid-wedge fill recolored', rdkitOut.includes('fill:#0000ee'));
+check('RDKit normal bond fill:none untouched', rdkitOut.includes('fill:none'));
 
 console.log(
   failures === 0

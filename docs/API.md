@@ -115,15 +115,40 @@ Colors accept `rrggbb`, `#rrggbb`, a CSS name, or `none`/`transparent`.
 
 ## 3. React components
 
+### `<MoleculeImage>` — zero-config (recommended)
+
+The simplest drop-in: give it a name, it generates the SVG. No stylesheet
+import, no asset hosting required (it auto-uses RDKit when available and falls
+back to the pure-JS engine otherwise).
+
+```tsx
+import { MoleculeImage } from 'react-molstruct';
+
+<MoleculeImage name="aspirin" />;                              // skeletal default
+<MoleculeImage name="caffeine" options={{ hideText: false }} />; // with labels
+<MoleculeImage smiles="CCO" width={240} options={{ strokeColour: '#0000ee' }} />;
+```
+
+Props: `name` / `smiles`, `width`, `height`, `options` (DrawOptions),
+`resolver`, `wasmPath`, `alt`, `onResolved`, `onError`, `loading`,
+`errorFallback`, `className`, `style`. It resolves, renders, and re-renders on
+prop changes, aborting stale work automatically.
+
+### `<MoleculeViewer>` — interactive
+
 ```tsx
 import { MoleculeViewer } from 'react-molstruct';
 import 'react-molstruct/styles.css';
 
-<MoleculeViewer name="aspirin" />;                 // skeletal by default
-<MoleculeViewer name="aspirin" options={{ hideText: false }} />; // with labels
+<MoleculeViewer name="aspirin" />;
 ```
 
-`<MoleculeViewer>` uses RDKit (WASM) by default — copy `RDKit_minimal.js` + `RDKit_minimal.wasm` from `@rdkit/rdkit/dist` into your served `public/rdkit/` (or pass `wasmPath`). In browsers without WebAssembly it can fall back to the OpenChemLib engine via the `engine` prop. See the [README](../README.md) for the full prop and ref API and the optional `<MoleculeControls>` panel.
+`<MoleculeViewer>` is RDKit-first (copy `RDKit_minimal.js` + `RDKit_minimal.wasm`
+from `@rdkit/rdkit/dist` into your served `public/rdkit/`, or pass `wasmPath`),
+with a ref API (`getSvgString`, `downloadSvg`, `downloadPng`,
+`copySvgToClipboard`) and the optional `<MoleculeControls>` panel. For browsers
+without WebAssembly, pass `engine={createAutoEngine(wasmPath)}` to fall back to
+the pure-JS engine. See the [README](../README.md) for the full prop and ref API.
 
 ---
 

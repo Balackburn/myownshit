@@ -41,6 +41,9 @@ const smiles = params.get('smiles') ?? undefined;
 
 const options: RenderMoleculeOptions = {
   smiles,
+  // Use the site's hosted RDKit assets so the embed matches the website
+  // exactly (falls back to the pure-JS engine if they fail to load).
+  wasmPath: `${import.meta.env.BASE_URL}rdkit`,
   width: num('width') ?? num('w') ?? 320,
   height: num('height') ?? num('h') ?? 260,
   bondLineWidth: num('bond'),

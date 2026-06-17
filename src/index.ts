@@ -6,6 +6,8 @@ export type { RenderMoleculeOptions, RenderMoleculeResult } from './api';
 
 // Components
 export { MoleculeViewer, DEFAULT_VIEWER_OPTIONS } from './components/MoleculeViewer';
+export { MoleculeImage } from './components/MoleculeImage';
+export type { MoleculeImageProps } from './components/MoleculeImage';
 export { MoleculeControls } from './components/MoleculeControls';
 export type { MoleculeControlsProps } from './components/MoleculeControls';
 export { MoleculeErrorBoundary } from './components/ErrorBoundary';
@@ -29,6 +31,8 @@ export type { RDKitModule, JSMol } from './rdkit/types';
 
 // Fallback engine (pure JS, no WebAssembly; requires optional peer "openchemlib")
 export { createOpenChemLibEngine } from './engines/openchemlib';
+// Auto engine: RDKit when available, OpenChemLib otherwise.
+export { createAutoEngine } from './engines/auto';
 
 // Resolvers
 export {

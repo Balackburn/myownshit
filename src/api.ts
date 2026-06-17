@@ -1,4 +1,4 @@
-import { createOpenChemLibEngine } from './engines/openchemlib';
+import { createAutoEngine } from './engines/auto';
 import { MolstructError, toMolstructError } from './errors';
 import { getResolver } from './resolvers';
 import type {
@@ -17,11 +17,17 @@ export interface RenderMoleculeOptions extends DrawOptions {
   /** Name resolver: 'pubchem' (default, with CACTUS fallback), 'cactus', or a fn. */
   resolver?: ResolverChoice;
   /**
-   * Rendering engine. Defaults to the pure-JS OpenChemLib engine, which needs
-   * no WASM assets and runs in Node and any browser — ideal for a portable API.
-   * Pass `createRDKitEngine(wasmPath)` for higher-fidelity RDKit output.
+   * Rendering engine. Defaults to an auto engine that uses RDKit.js (the same
+   * high-fidelity depiction as the website) when its WASM assets are available
+   * at `wasmPath`, and transparently falls back to the pure-JS OpenChemLib
+   * engine otherwise (SSR/Node, no assets, or WebAssembly disabled).
    */
   engine?: RenderEngine;
+  /**
+   * Where `RDKit_minimal.js` / `.wasm` are served from, used by the default
+   * auto engine. Default `'/rdkit'`. Ignored when `engine` is supplied.
+   */
+  wasmPath?: string;
   /** Cancels the (network) name resolution. */
   signal?: AbortSignal;
   /** Accessible title injected as the SVG <title>. */
@@ -50,11 +56,15 @@ const API_DEFAULTS: DrawOptions = {
   addStereoAnnotation: false,
 };
 
-let sharedEngine: RenderEngine | null = null;
+const autoEngines = new Map<string, RenderEngine>();
 
-function defaultEngine(): RenderEngine {
-  if (!sharedEngine) sharedEngine = createOpenChemLibEngine();
-  return sharedEngine;
+function defaultEngine(wasmPath: string): RenderEngine {
+  let engine = autoEngines.get(wasmPath);
+  if (!engine) {
+    engine = createAutoEngine(wasmPath);
+    autoEngines.set(wasmPath, engine);
+  }
+  return engine;
 }
 
 /**
@@ -97,7 +107,7 @@ export async function renderMoleculeSvg(
     source = structure.source;
   }
 
-  const engine = options.engine ?? defaultEngine();
+  const engine = options.engine ?? defaultEngine(options.wasmPath ?? '/rdkit');
   try {
     await engine.ready();
   } catch (cause) {

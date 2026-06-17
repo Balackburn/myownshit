@@ -38,10 +38,24 @@ export function applySvgOverrides(svg: string, options: SvgOverrideOptions): str
   if (strokeCss) {
     // RDKit style-based strokes ("stroke:none" stays untouched).
     out = out.replace(/stroke:#[0-9a-fA-F]{3,8}/g, `stroke:${strokeCss}`);
-    // Attribute-based strokes (OpenChemLib).
+    // Attribute-based strokes (OpenChemLib lines and wedge polygons).
     out = out.replace(
       /stroke=(["'])(?:rgb\([^)]*\)|#[0-9a-fA-F]{3,8})\1/g,
       `stroke="${strokeCss}"`,
+    );
+    // Solid stereo wedges are *filled* shapes, not strokes — recolor their
+    // fill too so they read as part of the bond network, not a stray blob.
+    // OpenChemLib draws them as <polygon fill="rgb(…)">.
+    out = out.replace(
+      /(<polygon\b[^>]*\bfill=["'])(?:rgb\([^)]*\)|#[0-9a-fA-F]{3,8})(["'])/g,
+      `$1${strokeCss}$2`,
+    );
+    // RDKit draws them as <path class='bond-…' style='…fill:#hex…'> (normal
+    // bonds use fill:none and are unaffected; the background rect and atom
+    // glyphs are not bond paths, so they are left alone).
+    out = out.replace(
+      /<path\b[^>]*\bclass=['"]bond-[^>]*?\/>/g,
+      (el) => el.replace(/fill:#[0-9a-fA-F]{3,8}/g, `fill:${strokeCss}`),
     );
   }
 
