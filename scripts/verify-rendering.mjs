@@ -129,12 +129,31 @@ for (const fx of FIXTURES) {
     const onBg = render({ hideText: true, backgroundColour: '#0d2a4d' });
     check(`${tag}: background color injected`, onBg.toLowerCase().includes('#0d2a4d'));
 
-    // 7. Labels mode shows labels (only meaningful for molecules with
-    //    heteroatoms — an all-carbon skeleton has no labels in either mode).
-    if (/[ONSPFonspf]/.test(fx.smiles.replace(/\[nH\]/gi, ''))) {
+    // 7. Default is skeletal (no text) but KEEPS element colors, so heteroatoms
+    //    stay distinguishable — bonds to O/N/etc. are tinted, not monochrome.
+    // Mirror the viewer/API default (hideText) — the raw engine pipeline here
+    // does not inject library-level defaults.
+    const hetero = /[ONSPFonspf]/.test(fx.smiles.replace(/\[nH\]/gi, ''));
+    if (hetero) {
+      const def = render({ hideText: true });
+      check(`${tag}: default is skeletal (no <text>)`, !def.includes('<text'));
+      const colored =
+        /stroke:#(?:FF0000|0000FF)/i.test(def) || /stroke="rgb\((?!0,\s*0,\s*0)/.test(def);
+      check(`${tag}: default keeps element colors (heteroatom bonds tinted)`, colored);
+    }
+
+    // 7b. Labels mode shows labels with no stereo-descriptor clutter
+    //     (OpenChemLib ESR "abs"/"and"/"or", CIP R/S text).
+    if (hetero) {
       const labeled = render({ hideText: false });
       const hasLabels = engine === 'ocl' ? labeled.includes('<text') : /class='atom-/.test(labeled);
       check(`${tag}: labels render when hideText:false`, hasLabels);
+      if (engine === 'ocl') {
+        const clutter = [...labeled.matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)].some((m) =>
+          /^(abs|and\d*|or\d*|rel|rac)$/i.test(m[1].trim()),
+        );
+        check(`${tag}: no stereo-descriptor clutter`, !clutter);
+      }
     }
   }
 
@@ -167,9 +186,11 @@ for (const fx of FIXTURES) {
     const neverWorse = after.every((g, i) => g <= before[i] + 0.01);
     const perfect = after.filter((g) => g <= 2).length / after.length;
     check(`${fx.id}/ocl: gap-fill never makes a gap worse`, neverWorse);
+    // The snap-distance cap trades a few perfect snaps for never bending a
+    // bond; "never worse" above is the strong guarantee. RDKit is exact.
     check(
       `${fx.id}/ocl: gap-fill snaps the common case (${Math.round(perfect * 100)}% perfect)`,
-      perfect >= 0.4,
+      perfect >= 0.25,
     );
   }
 }

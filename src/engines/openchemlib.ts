@@ -1,6 +1,10 @@
 import { MolstructError } from '../errors';
 import type { DrawOptions, RenderEngine } from '../types';
-import { fillLabelGaps, injectSvgBackground } from '../utils/svgOverrides';
+import {
+  fillLabelGaps,
+  injectSvgBackground,
+  tintBondsToLabels,
+} from '../utils/svgOverrides';
 
 /**
  * Structural types for the slice of OpenChemLib this engine uses, so the
@@ -73,18 +77,27 @@ export function createOpenChemLibEngine(): RenderEngine {
         );
       }
       try {
+        const showStereo = options.addStereoAnnotation === true;
         let svg = mol.toSVG(options.width ?? 320, options.height ?? 260, undefined, {
           autoCrop: true,
           autoCropMargin: 12,
           strokeWidth: options.bondLineWidth ?? 1,
-          suppressChiralText: !options.addStereoAnnotation,
-          suppressCIPParity: !options.addStereoAnnotation,
+          // Suppress OpenChemLib's stereo text clutter unless explicitly asked:
+          // chiral text, CIP R/S parity, and ESR group labels ("abs"/"and"/"or").
+          suppressChiralText: !showStereo,
+          suppressCIPParity: !showStereo,
+          suppressESR: !showStereo,
           noStereoProblem: true,
         });
         // Skeletal mode: extend bonds onto the atom centres before the labels
-        // are stripped, so the drawing has no gaps where text used to be.
+        // are stripped (no gaps), and — unless a single stroke color is being
+        // forced — tint bonds to heteroatoms with the label color so oxygen/
+        // nitrogen/etc. stay distinguishable without text.
         if (options.hideText) {
           svg = fillLabelGaps(svg);
+          if (options.strokeColour == null) {
+            svg = tintBondsToLabels(svg);
+          }
         }
         // OpenChemLib emits a transparent background; honor backgroundColour.
         if (options.backgroundColour != null) {

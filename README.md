@@ -30,9 +30,11 @@ Or **embed on any site** with no build step — see the live copy-paste builder:
 
 > **Full API & embedding guide → [`docs/API.md`](docs/API.md)**
 
-The default depiction is a **transparent skeletal** structure (no atom labels,
-no stereo annotations, bonds connected at vertices). Pass `hideText: false` to
-show atom labels.
+The default depiction is a **transparent skeletal** structure — no atom labels
+and no stereo text, but **element colors are kept** so heteroatoms stay
+distinguishable (bonds to oxygen are red, nitrogen blue, etc.), with bonds
+meeting cleanly at vertices. Pass `hideText: false` to show atom labels, or
+`strokeColour` to force a single color.
 
 **Live demo:** <https://balackburn.github.io/myownshit/> — deployed to GitHub
 Pages by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)

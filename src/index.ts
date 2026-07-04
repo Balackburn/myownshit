@@ -70,6 +70,7 @@ export {
   colorToCss,
   stripText,
   fillLabelGaps,
+  tintBondsToLabels,
 } from './utils/svgOverrides';
 export type { SvgOverrideOptions } from './utils/svgOverrides';
 

@@ -60,6 +60,7 @@ check('viewer renders SVG via OCL engine', html.includes('<svg'));
 check('default background is transparent (no bg rect)', !/<rect[^>]*fill="#/.test(html));
 check('transparent checkerboard class applied', html.includes('rms-viewer__svg--transparent'));
 check('default is skeletal (no text without options)', !html.includes('<text'));
+check('default keeps element colors (aspirin O bond tinted)', /stroke="rgb\((?!0,\s*0,\s*0)/.test(html));
 
 // 2. Stroke color override reaches the DOM.
 render({ width: 300, height: 240, strokeColour: '#ff0000' });

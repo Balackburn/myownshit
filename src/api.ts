@@ -48,7 +48,7 @@ export interface RenderMoleculeResult {
   source: StructureSource;
 }
 
-/** Skeletal-by-default drawing options for the headless API. */
+/** Skeletal drawing options for the headless API: no labels, element colors kept. */
 const API_DEFAULTS: DrawOptions = {
   width: 320,
   height: 240,

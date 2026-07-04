@@ -56,6 +56,7 @@ check('returns smiles', byName.smiles === 'CC(=O)Oc1ccccc1C(=O)O');
 check('returns CID', byName.cid === 777);
 check('source is pubchem', byName.source === 'pubchem');
 check('default is skeletal (no <text>)', !byName.svg.includes('<text'));
+check('default keeps element colors (heteroatom bond tinted)', /stroke="rgb\((?!0,\s*0,\s*0)/.test(byName.svg));
 check('injects accessible <title>', byName.svg.includes('<title>'));
 
 // 2. Render by SMILES (no network); labels on when requested.

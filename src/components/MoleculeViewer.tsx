@@ -27,9 +27,11 @@ import { applySvgOverrides } from '../utils/svgOverrides';
 import '../styles.css';
 
 /**
- * Default drawing options when none are supplied: a publication-style
- * skeletal depiction with no atom labels, no stereo annotations, and bonds
- * connected at vertices. Pass `hideText: false` to restore atom labels.
+ * Default drawing options when none are supplied: a clean skeletal depiction
+ * with no atom labels (`hideText`), but element **colors** kept so heteroatoms
+ * are still distinguishable — bonds to oxygen are red, nitrogen blue, etc.
+ * Transparent background, no stereo text, bonds meeting at vertices (no gaps).
+ * Pass `hideText: false` to show atom labels, or `strokeColour` to force one color.
  */
 export const DEFAULT_VIEWER_OPTIONS: DrawOptions = {
   hideText: true,

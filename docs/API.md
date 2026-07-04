@@ -6,7 +6,7 @@ Three ways to turn a molecule **name** (or SMILES) into a 2D **SVG**:
 2. [`<iframe>` embed](#2-iframe-embed-no-build-step) — paste a URL on any site. No build step, no API key.
 3. [React components](#3-react-components) — `<MoleculeViewer>` + `<MoleculeControls>` for interactive UIs.
 
-Rendering is **client-side**: names resolve through the public [PubChem PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) API and structures are drawn locally. The default depiction is a **transparent skeletal** structure (no atom labels, no stereo annotations, bonds meeting cleanly at vertices). Pass `hideText: false` to show atom labels.
+Rendering is **client-side**: names resolve through the public [PubChem PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) API and structures are drawn locally. The default depiction is a **transparent skeletal** structure — no atom labels or stereo text, but **element colors kept** (bonds to oxygen are red, nitrogen blue, …) so heteroatoms stay recognizable, with bonds meeting cleanly at vertices. Pass `hideText: false` to show atom labels, or `strokeColour` to force a single color.
 
 ---
 
@@ -161,7 +161,7 @@ Colors accept hex strings (`'#0000ee'`) or RDKit `[r, g, b]` floats (0–1).
 | Option | Type | Default | Notes |
 | --- | --- | --- | --- |
 | `width`, `height` | `number` | `320` / `240` | Canvas size in px. |
-| `hideText` | `boolean` | **`true`** | Skeletal: hide all atom labels/text; bonds fill the gaps. |
+| `hideText` | `boolean` | **`true`** | Skeletal: hide all atom labels/text (element colors kept); bonds fill the gaps. |
 | `strokeColour` | color | — | Force one color on every bond. |
 | `textColour` | color | — | Force one color on all labels (needs `hideText: false`). |
 | `backgroundColour` | color | — | Omit for a fully transparent background. |

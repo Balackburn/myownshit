@@ -129,7 +129,7 @@ export function stripText(svg: string): string {
  * Run this *before* {@link stripText}; it leaves the text elements in place.
  */
 export function fillLabelGaps(svg: string): string {
-  const labels: Array<{ cx: number; cy: number; r: number }> = [];
+  const labels: Array<{ cx: number; cy: number; r: number; maxMove: number }> = [];
   const textRe =
     /<text\b[^>]*?\bx="([\d.]+)"[^>]*?\by="([\d.]+)"[^>]*?\bfont-size="([\d.]+)"[^>]*>/g;
   for (let m = textRe.exec(svg); m; m = textRe.exec(svg)) {
@@ -138,16 +138,19 @@ export function fillLabelGaps(svg: string): string {
     const fs = parseFloat(m[3]);
     // OpenChemLib anchors text at the left baseline; the connecting atom sits
     // roughly at the first glyph's centre, up and to the right of the anchor.
-    labels.push({ cx: x + fs * 0.3, cy: y - fs * 0.34, r: fs * 1.25 });
+    labels.push({ cx: x + fs * 0.3, cy: y - fs * 0.34, r: fs * 1.15, maxMove: fs * 1.0 });
   }
   if (labels.length === 0) return svg;
 
+  // Cap how far an endpoint may be moved. OpenChemLib offsets labels off-atom,
+  // so the estimated centre can be wrong; a large snap would bend the bond.
+  // Better a small residual gap than a broken-looking bond.
   const nearest = (px: number, py: number): { x: number; y: number } | null => {
     let best: { x: number; y: number } | null = null;
     let bd = Infinity;
     for (const l of labels) {
       const d = Math.hypot(px - l.cx, py - l.cy);
-      if (d <= l.r && d < bd) {
+      if (d <= l.r && d <= l.maxMove && d < bd) {
         bd = d;
         best = { x: l.cx, y: l.cy };
       }
@@ -181,6 +184,60 @@ export function fillLabelGaps(svg: string): string {
         .replace(/\by2="[\d.]+"/, `y2="${n2.y.toFixed(2)}"`);
     }
     return `<line${next}/>`;
+  });
+}
+
+/**
+ * Colors bonds that meet a colored atom label (heteroatoms) with that label's
+ * color, so a skeletal depiction still shows oxygen/nitrogen/etc. by color even
+ * after the text is stripped — mirroring how RDKit tints its half-bonds.
+ *
+ * OpenChemLib-oriented: reads `<text … fill="rgb(…)">` positions/colors and
+ * recolors nearby `<line>` bonds. Black/near-black labels (carbon, hydrogen)
+ * are ignored. Run before {@link stripText}; leaves the text in place.
+ */
+export function tintBondsToLabels(svg: string): string {
+  const labels: Array<{ cx: number; cy: number; r: number; color: string }> = [];
+  const re =
+    /<text\b[^>]*?\bx="([\d.]+)"[^>]*?\by="([\d.]+)"[^>]*?\bfont-size="([\d.]+)"[^>]*?\bfill="([^"]+)"[^>]*>/g;
+  for (let m = re.exec(svg); m; m = re.exec(svg)) {
+    const color = m[4].trim();
+    // Skip carbon/hydrogen (black) — only heteroatoms carry color.
+    if (/^(#0{3,6}|rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)|black)$/i.test(color)) continue;
+    const x = parseFloat(m[1]);
+    const y = parseFloat(m[2]);
+    const fs = parseFloat(m[3]);
+    labels.push({ cx: x + fs * 0.3, cy: y - fs * 0.34, r: fs * 1.6, color });
+  }
+  if (labels.length === 0) return svg;
+
+  return svg.replace(/<line\b([^>]*?)\/>/g, (full, attrs: string) => {
+    const x1 = attrs.match(/\bx1="([\d.]+)"/);
+    const y1 = attrs.match(/\by1="([\d.]+)"/);
+    const x2 = attrs.match(/\bx2="([\d.]+)"/);
+    const y2 = attrs.match(/\by2="([\d.]+)"/);
+    if (!x1 || !y1 || !x2 || !y2) return full;
+    const near = (px: number, py: number) => {
+      let best: string | null = null;
+      let bd = Infinity;
+      for (const l of labels) {
+        const d = Math.hypot(px - l.cx, py - l.cy);
+        if (d <= l.r && d < bd) {
+          bd = d;
+          best = l.color;
+        }
+      }
+      return best;
+    };
+    const color =
+      near(parseFloat(x1[1]), parseFloat(y1[1])) ??
+      near(parseFloat(x2[1]), parseFloat(y2[1]));
+    if (!color) return full;
+    const next = attrs.replace(
+      /\bstroke="(?:rgb\([^)]*\)|#[0-9a-fA-F]{3,8})"/,
+      `stroke="${color}"`,
+    );
+    return next === attrs ? `<line${attrs} stroke="${color}"/>` : `<line${next}/>`;
   });
 }
 

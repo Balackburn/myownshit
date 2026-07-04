@@ -53,7 +53,8 @@ const options: RenderMoleculeOptions = {
   backgroundColour: color('bg'),
   roundedStrokes: flag('rounded'),
   rotate: num('rotate'),
-  // Skeletal by default; `labels=1` restores atom labels.
+  // Skeletal (no atom labels) by default, with element colors kept. `labels=1`
+  // shows atom labels.
   hideText: flag('labels') === undefined ? true : !flag('labels'),
   addStereoAnnotation: flag('stereo') ?? false,
 };
