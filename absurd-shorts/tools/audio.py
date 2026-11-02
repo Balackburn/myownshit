@@ -58,7 +58,10 @@ def elevenlabs_voice_id(key, voice):
     req = urllib.request.Request('https://api.elevenlabs.io/v1/voices', headers={'xi-api-key': key})
     voices = json.loads(urllib.request.urlopen(req, timeout=30).read())['voices']
     norm = lambda s: re.sub(r'[^a-z0-9]', '', s.lower())
-    hit = next((v for v in voices if norm(v['name']) == norm(name)), None) or next((v for v in voices if norm(name) in norm(v['name'])), None)
+    words = [w for w in re.split(r'[^a-z0-9]+', name) if w]
+    hit = (next((v for v in voices if norm(v['name']) == norm(name)), None)
+           or next((v for v in voices if norm(name) in norm(v['name'])), None)
+           or next((v for v in voices if all(w in norm(v['name']) for w in words)), None))  # "allan tiktok" -> "Allan – Narration TikTok FR"
     if not hit: raise RuntimeError(f'ElevenLabs voice "{name}" not found; available: ' + ', '.join(v['name'] for v in voices))
     print(f'[tts] ElevenLabs voice "{hit["name"]}" -> {hit["voice_id"]}', file=sys.stderr)
     _VOICE_CACHE[name] = hit['voice_id']; return hit['voice_id']
@@ -67,10 +70,12 @@ def tts_elevenlabs(text, out, voice):
     key = os.environ['ELEVENLABS_API_KEY']; vid = elevenlabs_voice_id(key, voice)
     body = json.dumps({'text': text, 'model_id': voice.get('model', 'eleven_multilingual_v2'),
                        'voice_settings': {'stability': voice.get('stability', 0.75), 'similarity_boost': 0.8, 'style': 0.0, 'speed': voice.get('rate', 1.1)}}).encode()
-    req = urllib.request.Request(f'https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=pcm_44100', body,
+    # mp3 works on every plan (pcm_44100 needs the Pro tier) -> decode with ffmpeg
+    req = urllib.request.Request(f'https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=mp3_44100_128', body,
                                  {'xi-api-key': key, 'content-type': 'application/json'})
-    pcm = urllib.request.urlopen(req, timeout=60).read()
-    return trim_silence(np.frombuffer(pcm, np.int16).astype(np.float32) / 32768)
+    mp3 = out + '.el.mp3'; open(mp3, 'wb').write(urllib.request.urlopen(req, timeout=90).read())
+    tmp = out + '.el.wav'; subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', mp3, '-ac', '1', '-ar', str(SR), tmp], check=True)
+    x = trim_silence(read_wav(tmp)); os.remove(tmp); return x
 
 def tts_openai(text, out, voice):
     key = os.environ['OPENAI_API_KEY']

@@ -163,7 +163,19 @@ B8 TAG         dry everyday detail. Silent hold.
 
 ---
 
-## 4. Main character (the archetype — our version: "Le Mec")
+## 4. Main character — MEASURED proportions (V1 18.4 s front full body, V2 6.6 s)
+| measurement | original | engine (human.js) |
+|---|---|---|
+| head height / total height | 20–22 % | ≈ 22 % (hh 0.5 × headScale 1.1) |
+| head W/H | 0.37 | 0.37 (hw 0.185) |
+| visible neck | 4–5 % | ≈ 4.5 % |
+| shoulder width / height | 37–39 % (1.8× the head height) | jacket 0.4 → 0.66 (V shape) + sleeves |
+| shoulder → hem | 31 % | torso 0.62 + tail 0.1 |
+| rest pose | elbows out, forearms back toward the hips | `stand`/`idle` |
+| suit navy (mean RGB) | (29–34, 47–53, 58–65) | (34, 45, 53) after the grade |
+| frame saturation | 0.14–0.27 | 0.16–0.20 (grade `contrast(0.86) saturate(0.78) brightness(1.07)`) |
+
+## 4b. Main character (descriptive notes)
 - **Silhouette**: very tall and thin (~7.5 heads), long legs, stiff posture, slightly bowed head.
 - **Head**: tall narrow rectangular slab (W/H ≈ 0.43, depth ≈ 0.4·H), a slight trapezoid (wider jaw), thick black ink outline. Skin tan #D9A877.
 - **Face** (flat line art painted on the front): asymmetric eyes, one round with a dot pupil and one half-closed (heavy lid). Thick black arched eyebrows. Barely any nose (a single short side stroke). A tiny horizontal line for a mouth, low on the face. Sparse stubble dots on the lower third and jaw. Spiky black hatched hairline (crew cut).
@@ -179,7 +191,25 @@ B8 TAG         dry everyday detail. Silent hold.
 - Key poses: hands on hips (repeatedly), one hand on hip + one arm raised holding a prop, salute/hand at the temple, hand reaching out to grab, high-knee cartoon sprint with bent arms, seated at a desk, **slumped head-down on the desk** (defeat ending), stiff as a board hanging off a wire, arms pressed against glass.
 - Objects scale up smoothly (sandwich, ant), the tornado spins on stacked rings, wings flap fast, the helicopter rotor turns, and the officers come down the ladder in an endless stream.
 
-## 6. Camera and editing
+## 6. Camera and editing — MEASURED (frame-diff cut detection + 4–6 fps contact sheets)
+> Correction of an earlier version of this file, which wrongly said "a hard cut every 1–2 s".
+
+| video | takes | what the camera does |
+|---|---|---|
+| V1 pigeon | **1 continuous take of 19.7 s** + 2 night shots | push-in medium→face (0–2.8 s), pan following the flying eyebrows (3–4.8 s), lands on the pigeon (5–6 s)… a single camera travelling through one set |
+| V2 ant | **2 takes** (cut at 5.8 s / 7.25 s to the fair) | tilt down from the man to the floor, follows the ant, pulls back as it grows, rises to the giant ant |
+| V3 tornado | **3 takes** | same: continuous move in the garden, cut to court |
+| V4 lion | 8 shots, ~2 s | more classic cutting (tracking shot, flash, court) |
+| V5 Nosferatu | ~20–25 real cuts, 0.3–1.5 s | fast cutting, over-the-shoulder, "BREAK-IN" title card at the top, dark low-key lighting |
+
+**Rule**: one take per location. The camera *glides* from beat to beat (push, pan, tilt, follow) in a continuous move.
+Cut only when the location changes (or for the fast V5 style). Motion per take (mean frame diff, 144×256) = 5–15:
+something is always moving (an object being sucked up, an animal growing, the camera following).
+In the engine: `"cut": false` on a shot = no cut (set/actors/props carried over at their end state, the camera glides from
+the previous framing, `camera.glide` = glide duration).
+
+### Previous (reference) notes
+
 - 9:16 framing, slightly low angle, **3/4 view** (yaw ≈ 15–25°) for medium shots; faces in **frontal ECU** for reactions.
 - **Slow push-in** on nearly every shot (5–15% over the shot). A side tracking shot for chases. Low angles for threats (ant, helicopter). A white flash for the speed camera.
 - Hard cuts in sync with the captions. One shot per sentence, sometimes two.

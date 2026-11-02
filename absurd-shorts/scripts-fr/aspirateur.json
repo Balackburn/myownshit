@@ -1,6 +1,7 @@
 {
  "title": "L'aspirateur",
  "captionWords": 3,
+ "minShot": 1.25,
  "music": {
   "mood": "quirky",
   "vol": 0.08
@@ -59,139 +60,10 @@
      "pos": [
       0,
       0,
-      0
+      0.2
      ],
-     "ry": -10,
+     "ry": -15,
      "clip": "pushVacuum",
-     "hold": {
-      "name": "vacuum",
-      "hand": "R"
-     }
-    }
-   ],
-   "camera": {
-    "preset": "full",
-    "angle": 22,
-    "zoom": 0.9,
-    "push": 0.14,
-    "dy": 0.15
-   }
-  },
-  {
-   "line": "pour ranger sa chambre.",
-   "highlight": [
-    "chambre"
-   ],
-   "actors": [
-    {
-     "id": "mec",
-     "pos": [
-      0.4,
-      0,
-      0.3
-     ],
-     "ry": -25,
-     "clip": "pushVacuum",
-     "hold": {
-      "name": "vacuum",
-      "hand": "R"
-     }
-    }
-   ],
-   "props": [
-    {
-     "name": "pizza",
-     "pos": [
-      -0.9,
-      0,
-      0.6
-     ],
-     "ry": 30
-    },
-    {
-     "name": "banana",
-     "pos": [
-      -0.3,
-      0,
-      1.1
-     ]
-    },
-    {
-     "name": "documents",
-     "pos": [
-      1.2,
-      0,
-      0.9
-     ],
-     "ry": -20
-    },
-    {
-     "name": "tv",
-     "pos": [
-      -1.5,
-      0,
-      -0.6
-     ],
-     "ry": 40
-    },
-    {
-     "name": "trashCan",
-     "pos": [
-      1.6,
-      0,
-      -0.3
-     ]
-    }
-   ],
-   "camera": {
-    "preset": "wide",
-    "angle": 10,
-    "zoom": 0.6,
-    "push": 0.08,
-    "target": [
-     0,
-     1.6,
-     0.3
-    ]
-   }
-  },
-  {
-   "line": "Ça a marché.",
-   "actors": [
-    {
-     "id": "mec",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "clip": "stareCamera",
-     "expr": "neutral"
-    }
-   ],
-   "camera": {
-    "preset": "extremeClose",
-    "angle": 6,
-    "push": 0.05
-   },
-   "hold": 0.25
-  },
-  {
-   "line": "Il a aspiré le chat.",
-   "highlight": [
-    "chat"
-   ],
-   "actors": [
-    {
-     "id": "mec",
-     "pos": [
-      -0.55,
-      0,
-      0.6
-     ],
-     "ry": 75,
-     "clip": "pushVacuum",
-     "expr": "neutral",
      "hold": {
       "name": "vacuum",
       "hand": "R"
@@ -200,38 +72,218 @@
     {
      "id": "chat",
      "pos": [
-      0.65,
+      1.5,
       0,
-      0.6
+      -0.9
      ],
-     "ry": -80,
+     "ry": -40,
+     "clip": "idle",
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "name": "pizza",
+     "pos": [
+      -0.9,
+      0,
+      0.95
+     ],
+     "ry": 30
+    },
+    {
+     "name": "banana",
+     "pos": [
+      -0.4,
+      0,
+      1.3
+     ]
+    },
+    {
+     "name": "documents",
+     "pos": [
+      0.7,
+      0,
+      1.2
+     ],
+     "ry": -20
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mec",
+    "angle": 24,
+    "zoom": 0.85,
+    "push": 0.18,
+    "dy": 0.1
+   }
+  },
+  {
+   "cut": false,
+   "line": "pour ranger sa chambre.",
+   "highlight": [
+    "chambre"
+   ],
+   "replaceProps": true,
+   "props": [
+    {
+     "name": "pizza",
+     "pos": [
+      -0.9,
+      0,
+      0.95
+     ],
+     "to": [
+      -0.12,
+      0.05,
+      0.8
+     ],
+     "moveStart": 0.15,
+     "moveEnd": 0.6,
+     "moveEase": "in",
+     "scale": 1,
+     "scaleTo": 0.02,
+     "scaleStart": 0.15,
+     "scaleEnd": 0.6,
+     "scaleEase": "in",
+     "ry": 30
+    },
+    {
+     "name": "banana",
+     "pos": [
+      -0.4,
+      0,
+      1.3
+     ],
+     "to": [
+      -0.12,
+      0.05,
+      0.8
+     ],
+     "moveStart": 0.45,
+     "moveEnd": 0.9,
+     "moveEase": "in",
+     "scale": 1,
+     "scaleTo": 0.02,
+     "scaleStart": 0.45,
+     "scaleEnd": 0.9,
+     "scaleEase": "in"
+    },
+    {
+     "name": "documents",
+     "pos": [
+      0.7,
+      0,
+      1.2
+     ],
+     "to": [
+      -0.12,
+      0.05,
+      0.8
+     ],
+     "moveStart": 0.75,
+     "moveEnd": 1.2,
+     "moveEase": "in",
+     "scale": 1,
+     "scaleTo": 0.02,
+     "scaleStart": 0.75,
+     "scaleEnd": 1.2,
+     "scaleEase": "in",
+     "ry": -20
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.1,
+     1.3,
+     0.6
+    ],
+    "angle": 8,
+    "zoom": 0.55,
+    "push": 0.05,
+    "glide": 0.9
+   },
+   "sfx": [
+    {
+     "name": "pop",
+     "at": 0.6,
+     "vol": 0.4
+    },
+    {
+     "name": "pop",
+     "at": 0.9,
+     "vol": 0.4
+    },
+    {
+     "name": "pop",
+     "at": 1.2,
+     "vol": 0.4
+    }
+   ]
+  },
+  {
+   "cut": false,
+   "line": "Ça a marché.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "stareCamera",
+     "expr": "neutral"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "mec",
+    "angle": 6,
+    "push": 0.05,
+    "glide": 0.9
+   },
+   "hold": 0.2
+  },
+  {
+   "cut": false,
+   "line": "Il a aspiré le chat.",
+   "highlight": [
+    "chat"
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "pushVacuum",
+     "ry": -15,
+     "ryTo": 35,
+     "expr": "neutral"
+    },
+    {
+     "id": "chat",
      "clip": "sit",
      "expr": "surprised",
      "to": [
-      -0.05,
-      0.15,
-      0.6
+      0.35,
+      0.1,
+      0.75
      ],
-     "moveStart": 0.45,
-     "moveEnd": 1.0,
+     "moveStart": 0.5,
+     "moveEnd": 1.05,
      "moveEase": "in",
-     "scale": 1.2,
+     "scale": 1,
      "scaleTo": 0.02,
-     "scaleStart": 0.45,
-     "scaleEnd": 1.0
+     "scaleStart": 0.5,
+     "scaleEnd": 1.05
     }
    ],
    "camera": {
     "preset": "full",
     "target": [
-     0.05,
-     1.75,
-     0.6
+     0.5,
+     1.35,
+     0.25
     ],
-    "angle": 0,
+    "angle": 4,
     "zoom": 1.3,
-    "push": 0.06,
-    "lookDy": 0.05
+    "push": 0.08,
+    "glide": 0.6
    },
    "sfx": [
     {
@@ -241,34 +293,28 @@
     },
     {
      "name": "pop",
-     "at": 1.15,
+     "at": 1.05,
      "vol": 0.6
     }
    ]
   },
   {
+   "cut": false,
    "line": "",
-   "duration": 0.9,
+   "duration": 1.0,
    "actors": [
     {
      "id": "mec",
-     "pos": [
-      0,
-      0,
-      0
-     ],
      "clip": "lookDown",
-     "expr": "suspicious",
-     "hold": {
-      "name": "vacuum",
-      "hand": "R"
-     }
+     "expr": "suspicious"
     }
    ],
    "camera": {
     "preset": "close",
-    "angle": 30,
-    "push": 0.1
+    "target": "mec",
+    "angle": 32,
+    "push": 0.1,
+    "glide": 0.7
    }
   },
   {
@@ -286,6 +332,7 @@
       0,
       0
      ],
+     "ry": 0,
      "clip": "angry",
      "expr": "angry",
      "scale": 1.6
@@ -302,37 +349,41 @@
     }
    ],
    "camera": {
-    "preset": "medium",
-    "angle": 15,
+    "preset": "full",
     "target": [
      0,
-     0.9,
+     1.6,
      0
     ],
-    "push": 0.1
+    "angle": 15,
+    "zoom": 0.75,
+    "push": 0.15
    }
   },
   {
+   "cut": false,
    "line": "Pour séquestration.",
    "highlight": [
     "séquestration"
    ],
    "actors": [
     {
-     "id": "mec",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "clip": "stareCamera",
-     "expr": "suspicious"
+     "id": "chat",
+     "clip": "talk",
+     "expr": "angry"
     }
    ],
    "camera": {
-    "preset": "extremeClose",
-    "angle": 4,
-    "push": 0.06
+    "preset": "close",
+    "target": [
+     0,
+     1.55,
+     0
+    ],
+    "angle": 5,
+    "zoom": 0.9,
+    "push": 0.08,
+    "glide": 0.8
    },
    "sfx": [
     {
@@ -357,6 +408,7 @@
       0,
       0
      ],
+     "ry": 0,
      "clip": "sit",
      "expr": "smug",
      "actions": [
@@ -366,36 +418,63 @@
        "expr": "smug"
       }
      ]
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      1.0,
+      0,
+      0
+     ],
+     "ry": -20,
+     "clip": "sit",
+     "expr": "neutral",
+     "scale": 1.35
+    },
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.3,
+      -4.4
+     ],
+     "clip": "idle",
+     "expr": "angry",
+     "scale": 2.4
     }
    ],
-   "camera": {
-    "preset": "medium",
-    "target": "mec",
-    "angle": 18,
-    "push": 0.1,
-    "dy": -0.35,
-    "lookDy": -0.5
-   },
    "props": [
     {
      "name": "desk",
      "pos": [
+      0.5,
       0,
-      0,
-      0.55
-     ]
+      0.7
+     ],
+     "opts": {
+      "w": 2.4
+     }
     },
     {
      "name": "documents",
      "pos": [
       0.25,
       0.78,
-      0.5
+      0.55
      ]
     }
-   ]
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mec",
+    "angle": 14,
+    "push": 0.1,
+    "dy": -0.3,
+    "lookDy": -0.4
+   }
   },
   {
+   "cut": false,
    "line": "Putain, c'était aussi un chat.",
    "highlight": [
     "Putain",
@@ -404,16 +483,11 @@
    "actors": [
     {
      "id": "mec",
-     "pos": [
-      -0.45,
-      0,
-      0
-     ],
      "clip": "sit",
      "expr": "neutral",
      "actions": [
       {
-       "at": 0.45,
+       "at": 0.5,
        "clip": "sit",
        "expr": "shocked"
       }
@@ -421,48 +495,33 @@
     },
     {
      "id": "avocat",
-     "pos": [
-      0.5,
-      0,
-      0
-     ],
-     "ry": -25,
      "clip": "sit",
-     "expr": "smug",
-     "scale": 1.35
+     "expr": "smug"
     }
    ],
    "camera": {
     "preset": "full",
     "target": [
-     0,
-     1.85,
+     0.5,
+     1.75,
      0
     ],
     "angle": 0,
     "zoom": 0.85,
-    "push": 0.08,
-    "dy": 0.35
+    "push": 0.06,
+    "dy": 0.3,
+    "glide": 0.8
    },
    "sfx": [
     {
      "name": "scratch",
-     "at": 0.35,
+     "at": 0.4,
      "vol": 0.45
-    }
-   ],
-   "props": [
-    {
-     "name": "desk",
-     "pos": [
-      0,
-      0,
-      0.7
-     ]
     }
    ]
   },
   {
+   "cut": false,
    "line": "Le juge aussi.",
    "highlight": [
     "juge"
@@ -470,45 +529,37 @@
    "actors": [
     {
      "id": "juge",
-     "pos": [
-      0,
-      0.3,
-      -4.4
-     ],
      "clip": "angry",
-     "expr": "angry",
-     "scale": 2.4
+     "expr": "angry"
     }
    ],
    "camera": {
     "preset": "medium",
-    "target": [
-     0,
-     2.35,
-     -4.4
-    ],
+    "target": "juge",
     "angle": 0,
     "zoom": 1.5,
-    "push": 0.12,
-    "dy": -0.4
+    "push": 0.1,
+    "dy": -0.4,
+    "glide": 0.9
    },
    "sfx": [
     {
      "name": "gavel",
-     "at": 0.5,
+     "at": 0.7,
      "vol": 0.7
     }
    ],
    "fx": [
     {
      "type": "shake",
-     "at": 0.5,
+     "at": 0.7,
      "dur": 0.25,
      "amount": 0.03
     }
    ]
   },
   {
+   "cut": false,
    "line": "Quinze ans ferme.",
    "highlight": [
     "Quinze"
@@ -516,11 +567,6 @@
    "actors": [
     {
      "id": "mec",
-     "pos": [
-      0,
-      0,
-      0
-     ],
      "clip": "slumpDesk",
      "expr": "sad"
     }
@@ -530,39 +576,22 @@
     "target": "mec",
     "angle": 12,
     "zoom": 0.85,
-    "push": 0.08
+    "push": 0.08,
+    "glide": 0.9
    },
    "overlays": [
     {
      "style": "stamp",
      "text": "COUPABLE",
-     "at": 0.35,
+     "at": 0.6,
      "y": 0.3
     }
    ],
    "sfx": [
     {
      "name": "sting",
-     "at": 0.3,
+     "at": 0.5,
      "vol": 0.4
-    }
-   ],
-   "props": [
-    {
-     "name": "desk",
-     "pos": [
-      0,
-      0,
-      0.55
-     ]
-    },
-    {
-     "name": "documents",
-     "pos": [
-      0.25,
-      0.78,
-      0.5
-     ]
     }
    ]
   },
@@ -581,6 +610,7 @@
       0.62,
       0.1
      ],
+     "ry": 0,
      "clip": "sleep",
      "expr": "sleepy",
      "scale": 1.3
@@ -613,10 +643,9 @@
     ],
     "angle": 25,
     "zoom": 0.8,
-    "push": 0.1
+    "push": 0.14
    },
    "hold": 1.0
   }
- ],
- "minShot": 1.25
+ ]
 }

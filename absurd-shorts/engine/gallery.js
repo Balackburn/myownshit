@@ -10,6 +10,7 @@ async function optional(path) { try { return await import(path); } catch (e) { c
 
 export async function show(q, w, h) {
   const { renderer, scene, camera } = createStage(w, h);
+  if (!q.raw) renderer.domElement.style.filter = 'contrast(0.86) saturate(0.78) brightness(1.07)'; // same grade as director.js
   setLighting(scene, q.light || 'interior');
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), mat(P.cream)); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
   const items = [];

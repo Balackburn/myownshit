@@ -18,10 +18,10 @@ export const CLIPS = {
   idle: (t, p = {}) => ({
     torso: [0.015 * S(t * 1.6), 0, 0.01 * S(t * 0.7)],
     head: [0.02 * S(t * 0.9 + 1), 0.04 * S(t * 0.45), 0.015 * S(t * 0.6)],
-    ...arms(m([0.04 * S(t * 1.6), 0, 0.07], [0.04 * S(t * 1.6 + 0.4), 0, 0.07]), m([-0.12, 0, 0], [-0.12, 0, 0])),
+    ...arms(m([0.04 * S(t * 1.6), 0, 0.2], [0.04 * S(t * 1.6 + 0.4), 0, 0.2]), m([-0.12, 0, -0.3], [-0.12, 0, -0.3])), // elbows out, forearms back to the hips (V1 18.4 s)
     root: { y: 0.004 * S(t * 3.2) },
   }),
-  stand: () => ({ ...arms(m([0, 0, 0.06], [0, 0, 0.06]), m([-0.08, 0, 0], [-0.08, 0, 0])) }),
+  stand: () => ({ ...arms(m([0, 0, 0.2], [0, 0, 0.2]), m([-0.08, 0, -0.3], [-0.08, 0, -0.3])) }), // measured rest pose
   stiff: () => ({ ...arms(m([0, 0, 0.02], [0, 0, 0.02]), m([0, 0, 0], [0, 0, 0])) }), // standing like a plank (sleeping on a wire)
   handsOnHips: (t) => ({
     torso: [0.01 * S(t * 1.5), 0, 0], head: [0, 0.03 * S(t * 0.5), 0.03],
@@ -62,7 +62,7 @@ export const CLIPS = {
   lookAround: (t) => ({ head: [0, 0.6 * S(t * 2.2), 0], torso: [0, 0.1 * S(t * 2.2), 0], ...CLIPS.stand() }),
   lookUp: (t) => ({ head: [-0.55, 0, 0], torso: [-0.08, 0, 0], ...CLIPS.stand() }),
   lookDown: () => ({ head: [0.5, 0, 0], ...CLIPS.stand() }),
-  stareCamera: (t) => ({ head: [0.01 * S(t), 0, 0], ...CLIPS.stand() }), // THE deadpan reaction hold
+  stareCamera: (t) => ({ ...CLIPS.stand(), head: [0.01 * S(t), 0, 0] }), // THE deadpan reaction hold
   angryFist: (t) => ({ ...arms(m([0, 0, 0.06], [-0.4, 0, 2.2]), m([-0.1, 0, 0], [0, 0, 0.6 + 0.3 * S(t * 14)])), head: [-0.1, 0, 0], torso: [-0.05, 0, 0] }),
   celebrate: (t) => ({ ...arms(m([0, 0, 2.7 + 0.15 * S(t * 10)], [0, 0, 2.7 + 0.15 * S(t * 10 + 1)]), m([0, 0, 0.3], [0, 0, 0.3])), root: { y: 0.08 * Math.abs(S(t * 5)) }, head: [-0.2, 0, 0] }),
   surrender: (t) => ({ ...arms(m([0, 0, 2.1], [0, 0, 2.1]), m([0, 0, -1.4], [0, 0, -1.4])), head: [0.05, 0, 0] }),

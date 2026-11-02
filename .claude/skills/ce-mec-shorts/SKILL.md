@@ -25,6 +25,9 @@ Read before writing (in this order, only what you need):
 ### 2. Storyboard → JSON
 - One sentence = one shot (split a sentence into 2 shots if it holds 2 images). Fill `line` (displayed captions) and optionally `say` (what the voice says, if different).
 - For each shot pick: `set`, `actors` (preset/creature + `clip` + `expr` + position), `props`, `camera` (`preset` + `angle` + `push`), optional `fx`/`overlays`/`sfx`.
+- **Editing grammar (MEASURED, see analysis.md §6)**: ONE TAKE PER LOCATION. The shots of the same location are chained with `"cut": false`:
+  the camera glides (push/pan/tilt/follow) from beat to beat, set/actors/props stay in place. Cut only when the location changes
+  (3–5 locations for 20 s). Every take must contain something moving (an object, an animal, the camera).
 - **Framing grammar** (from the reference):
   - B1: `medium` with a 3/4 angle (18–25°), the man holding the prop (`hold`).
   - After every absurd beat: **deadpan reaction** = `extremeClose`, angle 0–10°, clip `stareCamera`, push 0.05.

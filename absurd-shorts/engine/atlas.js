@@ -9,7 +9,7 @@ export const AW = 1774, AH = 887;
 
 // Atlas regions in pixels [x0, y0, x1, y1] (measured on the atlas with a 50 px grid).
 export const R = {
-  face:       [8, 8, 429, 759],      // front of the head, ink border included
+  face:       [64, 8, 350, 759],     // front of the head, cropped (not squashed) to the measured W/H ≈ 0.38; border redrawn
   headSide:   [436, 2, 668, 762],    // left edge = front of the head; hair + drips + painted ear
   headTop:    [452, 24, 676, 270],   // solid black hair
   headBottom: [10, 770, 128, 884],   // skin
@@ -170,6 +170,7 @@ export function atlasFaceTexture(expression = 'neutral') {
       default: g.moveTo(X(m.x0), my); g.lineTo(X(m.x1), my); g.stroke();
     }
   }
+  g.strokeStyle = ink; g.lineWidth = 12; g.strokeRect(6, 6, c.width - 12, c.height - 12); // ink border (cropped away with the sides)
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
   faceCache.set(expression, tex); return tex;
 }

@@ -16,6 +16,7 @@ const Sets = await opt('/engine/sets.js');
 const Creatures = await opt('/engine/creatures.js');
 
 let S = null; // state
+export const GRADE = 'contrast(0.86) saturate(0.78) brightness(1.07)';
 
 export async function load(script, { width, height } = {}) {
   const W = width || script.width || 720, H = height || script.height || 1280;
@@ -25,10 +26,34 @@ export async function load(script, { width, height } = {}) {
   // timeline
   let t0 = 0;
   const shots = script.shots.map((s, i) => { const d = s.duration ?? estimateDuration(s); const r = { ...s, index: i, start: t0, duration: d }; t0 += d; return r; });
+  resolveContinuity(shots);
   S = { script, shots, total: t0, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, currentShot: -1, shotObjects: [] };
   for (const [id, c] of Object.entries(script.cast || {})) S.cast[id] = buildActor(c);
   await document.fonts?.ready;
   return { duration: t0, shots: shots.map(s => ({ start: s.start, duration: s.duration })) };
+}
+
+// Continuous takes (MEASURED: V1 is one 19.7 s camera move, V2/V3 cut only when the location changes).
+// A shot with "cut": false keeps the previous set, actors (at their end state) and props, and the camera
+// glides from where the previous shot ended. Resolved once at load so random access (stills) works.
+function endState(cfg) {
+  const acts = [...(cfg.actions || [])].sort((a, b) => a.at - b.at); const last = acts[acts.length - 1] || {};
+  const out = { ...cfg, pos: cfg.to || cfg.pos, ry: cfg.ryTo ?? cfg.ry, scale: cfg.scaleTo ?? cfg.scale, clip: last.clip || cfg.clip, expr: last.expr || cfg.expr };
+  for (const k of ['to', 'ryTo', 'scaleTo', 'scaleStart', 'scaleEnd', 'moveStart', 'moveEnd', 'moveEase', 'actions']) delete out[k];
+  return out;
+}
+function resolveContinuity(shots) {
+  shots.forEach((sh, i) => {
+    if (sh.cut !== false || i === 0) return;
+    const prev = shots[i - 1];
+    sh.set = sh.set || prev.set; sh.setOpts = sh.setOpts || prev.setOpts; sh.lighting = sh.lighting || prev.lighting;
+    const carried = (prev.actors || []).map(endState);
+    const byId = Object.fromEntries(carried.map(a => [a.id, a]));
+    for (const a of sh.actors || []) byId[a.id] = { ...(byId[a.id] || {}), ...a, pos: a.pos || byId[a.id]?.pos };
+    sh.actors = Object.values(byId).filter(a => !(sh.remove || []).includes(a.id));
+    if (!sh.replaceProps) sh.props = [...(prev.props || []).map(endState), ...(sh.props || [])];
+    sh.crowd = sh.crowd || prev.crowd;
+  });
 }
 
 function estimateDuration(s) { // fallback when no TTS timing: ~3.3 words/s like the source narrator
@@ -149,13 +174,6 @@ function poseActor({ cfg, obj }, lt, dur, globalT) {
   if (obj.userData.kind === 'human' && tr.scale !== 1) obj.scale.setScalar(tr.scale);
 }
 
-function targetPoint(target) {
-  if (Array.isArray(target)) return new THREE.Vector3(...target);
-  const a = S.actorsInShot.find(x => x.cfg.id === target) || S.actorsInShot[0];
-  if (!a) return new THREE.Vector3(0, 1.2, 0);
-  const h = (a.obj.userData.height || 1.9) * a.obj.scale.y;
-  return new THREE.Vector3(a.obj.position.x, a.obj.position.y + h, a.obj.position.z);
-}
 
 // Framing presets measured from the source (portrait 9:16, slightly low, 3/4 angles).
 const CAM = {
@@ -170,27 +188,44 @@ const CAM = {
   feet:         { dist: 1.6, dy: -1.6, look: -1.75, fov: 40 },    // shoes / ground detail
 };
 
+// Target point computed from the shot's (resolved) actor cfgs, so any shot's camera can be evaluated at any time.
+function targetFor(shot, target, lt) {
+  if (Array.isArray(target)) return new THREE.Vector3(...target);
+  const cfg = (shot.actors || []).find(a => a.id === target) || (shot.actors || [])[0];
+  if (!cfg) return new THREE.Vector3(0, 1.2, 0);
+  const tr = evalTrack(cfg, lt, shot.duration); const obj = S.cast[cfg.id];
+  const h = (obj?.userData.height || 1.9) * tr.scale;
+  return new THREE.Vector3(tr.x, tr.y + h, tr.z);
+}
+function camPose(shot, lt) {
+  const c = shot.camera || {}; const dur = shot.duration;
+  const k = ease[c.ease || 'inOut'](clamp01(lt / dur));
+  const tref = c.follow ?? c.target ?? shot.actors?.[0]?.id;
+  const tgt = targetFor(shot, tref, lt);
+  // presets are tuned for a ~2.3 m human: scale distance/heights to the framed actor (a cat, a giant ant...)
+  let ks = 1;
+  if (!Array.isArray(tref) && c.scaleToTarget !== false) ks = Math.min(2.2, Math.max(0.3, tgt.y / 2.3));
+  if (c.offset) tgt.add(new THREE.Vector3(...c.offset));
+  if (c.from) {
+    const from = new THREE.Vector3(...c.from), to = c.to ? new THREE.Vector3(...c.to) : from.clone();
+    return { pos: from.lerp(to, k), look: c.lookAt ? new THREE.Vector3(...c.lookAt) : tgt, fov: c.fov || 40 };
+  }
+  const pr = CAM[c.preset || 'medium'] || CAM.medium;
+  const yaw = ((c.angle ?? 18) + (c.orbit || 0) * k) * Math.PI / 180;
+  const dist = pr.dist * ks * (c.zoom || 1) * (1 - (c.push ?? 0.12) * k);
+  return { pos: new THREE.Vector3(tgt.x + Math.sin(yaw) * dist, tgt.y + (pr.dy + (c.dy || 0)) * ks, tgt.z + Math.cos(yaw) * dist),
+           look: new THREE.Vector3(tgt.x, tgt.y + (pr.look + (c.lookDy || 0)) * ks, tgt.z), fov: c.fov || pr.fov };
+}
+
 function placeCamera(shot, lt) {
   const cam = S.stage.camera; const c = shot.camera || {};
-  const dur = shot.duration;
-  const k = ease[c.ease || 'inOut'](clamp01(lt / dur));
-  let tgt = c.follow ? targetPoint(c.follow) : targetPoint(c.target ?? (shot.actors?.[0]?.id));
-  if (c.offset) tgt.add(new THREE.Vector3(...c.offset));
-  if (c.from) { // explicit camera path
-    const from = new THREE.Vector3(...c.from), to = c.to ? new THREE.Vector3(...c.to) : from;
-    cam.position.copy(from.lerp(to, k));
-    const la = c.lookAt ? new THREE.Vector3(...c.lookAt) : tgt;
-    cam.lookAt(la);
-    cam.fov = c.fov || 40;
-  } else {
-    const pr = CAM[c.preset || 'medium'] || CAM.medium;
-    const yaw = ((c.angle ?? 18) + (c.orbit || 0) * k) * Math.PI / 180;
-    const dist = pr.dist * (c.zoom || 1) * (1 - (c.push ?? 0.12) * k);
-    const pos = new THREE.Vector3(tgt.x + Math.sin(yaw) * dist, tgt.y + pr.dy + (c.dy || 0), tgt.z + Math.cos(yaw) * dist);
-    cam.position.copy(pos);
-    cam.lookAt(tgt.x, tgt.y + pr.look + (c.lookDy || 0), tgt.z);
-    cam.fov = c.fov || pr.fov;
+  let p = camPose(shot, lt);
+  if (shot.cut === false && shot.index > 0) { // glide from the previous shot's last framing (no cut)
+    const prev = S.shots[shot.index - 1], q = camPose(prev, prev.duration);
+    const w = ease[c.glideEase || 'inOut'](clamp01(lt / (c.glide ?? Math.min(shot.duration, 1.4))));
+    p = { pos: q.pos.clone().lerp(p.pos, w), look: q.look.clone().lerp(p.look, w), fov: q.fov + (p.fov - q.fov) * w };
   }
+  cam.position.copy(p.pos); cam.lookAt(p.look); cam.fov = p.fov;
   // whip-pan in (first 0.18 s) and handheld shake
   if (c.whip) { const w = 1 - clamp01(lt / 0.18); cam.rotateY(w * w * 0.9 * (c.whip === 'left' ? -1 : 1)); }
   const shake = (c.shake || 0) + (shot.fx || []).filter(f => f.type === 'shake' && lt >= (f.at || 0) && lt < (f.at || 0) + (f.dur || 0.4)).reduce((s, f) => s + (f.amount || 0.04), 0);
@@ -212,7 +247,9 @@ export function renderFrame(t) {
   const { renderer, scene, camera } = S.stage;
   renderer.render(scene, camera);
   // composite
-  const g = S.ctx; g.drawImage(renderer.domElement, 0, 0, S.W, S.H);
+  // Colour grade MEASURED on the originals: suit navy ≈ (29,47,58) vs raw render (13,28,39); saturation 0.14–0.27 vs 0.24–0.32.
+  // → lift the shadows (contrast < 1) and pull saturation down, applied on the composite.
+  const g = S.ctx; g.filter = S.script.grade ?? GRADE; g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
   drawFX(g, shot, lt);
   drawOverlays(g, shot, lt);
   drawCaption(g, shot, lt);
