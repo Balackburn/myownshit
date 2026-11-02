@@ -1,0 +1,556 @@
+// Set library: full environments for shots. buildSet(name, opts) -> THREE.Group with
+//   userData.lighting = LIGHTING key (scene.js), userData.anchors = { name: [x,y,z] },
+//   optional userData.update(t) (pure function of t).
+// Layout contract: camera sits around z=+3..+8 looking toward -Z; walls / backdrops live
+// behind (negative z) and at the sides; a ~2.5 m radius around the origin stays clear for
+// actors; ground extends far (>=150 m) so wide shots never show an edge.
+import * as THREE from 'three';
+import { PALETTE as P, mat, box, cyl, sphere, rng } from './style.js';
+import { buildProp, grp, at, rod, label, canvasPlane, glow, glassMat, inst, mesh, torus } from './props.js';
+
+const PI = Math.PI, TAU = PI * 2;
+const SKY_DAY = ['#8CAFBD', '#D6E1DA'], SKY_NIGHT = ['#111A2A', '#2C3B57'];
+
+/* ------------------------------------------------------------------ helpers */
+const prop = (name, o = {}, x = 0, y = 0, z = 0, ry = 0, s = 1) => { const p = at(buildProp(name, o), x, y, z, 0, ry, 0); p.scale.setScalar(s); p.userData.update?.(0); return p; };
+// Repeat the paper grain on big surfaces instead of stretching it.
+function tileUV(geo, s) { const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * s, uv.getY(i) * s); return geo; }
+// Horizontal plane (geometry pre-rotated, so at() is safe).
+function flat(w, d, color, x = 0, y = 0, z = 0, opts) {
+  const m = mesh(tileUV(new THREE.PlaneGeometry(w, d).rotateX(-PI / 2), Math.max(w, d) / 3), mat(color, opts));
+  m.castShadow = false; m.position.set(x, y, z); return m;
+}
+// Round ground disc (edge hides inside the sky dome).
+function ground(color, r = 170) { const m = mesh(tileUV(new THREE.CircleGeometry(r, 32).rotateX(-PI / 2), r / 4), mat(color)); m.castShadow = false; return m; }
+// Wall slab: receives shadows but never casts them (so rooms aren't darkened by their own walls).
+function wall(w, h, d, color, x, y, z) { const m = box(w, h, d, color); tileUV(m.geometry, Math.max(w, h) / 2.5); m.castShadow = false; m.position.set(x, y, z); return m; }
+// Inward-facing low-poly sky dome with a vertical gradient.
+function sky(g, [top, bottom] = SKY_DAY) {
+  const geo = new THREE.IcosahedronGeometry(180, 2), c = new THREE.Color(), ct = new THREE.Color(top), cb = new THREE.Color(bottom), pos = geo.attributes.position, col = [];
+  for (let i = 0; i < pos.count; i++) { const k = Math.min(1, Math.max(0, pos.getY(i) / 180 * 1.5)); c.lerpColors(cb, ct, Math.sqrt(k)); col.push(c.r, c.g, c.b); }
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide, fog: false }));
+  m.renderOrder = -10; g.add(m); return m;
+}
+function nightSky(g, moon = [-30, 38, -120]) { sky(g, SKY_NIGHT); g.add(prop('stars', { radius: 150, count: 420 })); if (moon) g.add(prop('moon', { radius: 5 }, ...moon)); }
+function clouds(g, seed = 2, n = 7) {
+  const r = rng(seed);
+  for (let i = 0; i < n; i++) g.add(prop('cloud', { seed: seed * 10 + i, scale: 3 + r() * 3 }, (i / (n - 1) - 0.5) * 150 + (r() - 0.5) * 20, 12 + r() * 14, -55 - r() * 60, r() * 0.4));
+}
+// Low rolling hills (flattened low-poly spheres) along the horizon.
+function hills(g, cols, { seed = 3, n = 7, z0 = -45, z1 = -85, sx = 22, sy = 6 } = {}) {
+  const r = rng(seed);
+  for (let i = 0; i < n; i++) { const m = sphere(1, cols[i % cols.length], 1); m.scale.set(sx * (0.7 + r() * 0.6), sy * (0.6 + r() * 0.7), sx * 0.5);
+    m.position.set((i / (n - 1) - 0.5) * 170 + (r() - 0.5) * 20, -sy * 0.15, z0 + (z1 - z0) * r()); m.rotation.y = r() * PI; m.castShadow = false; g.add(m); }
+}
+// Interior shell: floor, back wall, side walls, optional wainscot band + trim.
+function room(g, o = {}) {
+  const back = o.back ?? -3.6, half = o.half ?? 7, H = o.height ?? 7, front = o.front ?? 14, W = o.wall || P.cream, len = front - back, mz = (front + back) / 2;
+  if (!o.noFloor) g.add(flat(300, 300, o.floor || P.creamDark));
+  if (!o.noBack) g.add(wall(2 * half + 0.4, H, 0.2, W, 0, H / 2, back - 0.1));
+  for (const s of [-1, 1]) g.add(wall(0.2, H, len, W, s * (half + 0.1), H / 2, mz));
+  if (o.band) {
+    const bh = o.bandH ?? 1.0, t = o.trim || P.navy;
+    if (!o.noBack) g.add(wall(2 * half, bh, 0.04, o.band, 0, bh / 2, back + 0.02), wall(2 * half, 0.08, 0.08, t, 0, bh + 0.04, back + 0.04));
+    for (const s of [-1, 1]) g.add(wall(0.04, bh, len, o.band, s * (half - 0.02), bh / 2, mz), wall(0.08, 0.08, len, t, s * (half - 0.04), bh + 0.04, mz));
+  }
+  return { back, half };
+}
+// Flat curved path (single mesh -> no z-fighting at joins).
+function ribbon(pts, w, color, y = 0.006) {
+  const curve = new THREE.CatmullRomCurve3(pts.map(([x, z]) => new THREE.Vector3(x, y, z))), n = 120, pos = [], uv = [], idx = [];
+  for (let i = 0; i <= n; i++) { const p = curve.getPoint(i / n), t = curve.getTangent(i / n), nx = -t.z * w / 2, nz = t.x * w / 2;
+    pos.push(p.x + nx, y, p.z + nz, p.x - nx, y, p.z - nz); uv.push(0, i, 1, i); if (i) { const k = i * 2; idx.push(k - 2, k - 1, k, k - 1, k + 1, k); } }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+  if (geo.attributes.normal.getY(0) < 0) { idx.reverse(); geo.setIndex(idx); geo.computeVertexNormals(); }
+  const m = mesh(geo, mat(color)); m.castShadow = false; return m;
+}
+function catenary(a, b, sag, n = 16) { const pts = []; for (let i = 0; i <= n; i++) { const k = i / n; pts.push(new THREE.Vector3(a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k - sag * 4 * k * (1 - k), a[2] + (b[2] - a[2]) * k)); } return pts; }
+const wire = (pts, r = 0.015, c = P.ink) => mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), pts.length * 2, r, 4), mat(c));
+// String of triangular bunting flags.
+function bunting(a, b, sag, cols = [P.red, P.teal, P.cream]) {
+  const pts = catenary(a, b, sag, 20), g = grp(wire(pts, 0.012)), tri = new THREE.ShapeGeometry(new THREE.Shape([new THREE.Vector2(-0.16, 0), new THREE.Vector2(0.16, 0), new THREE.Vector2(0, -0.38)]));
+  const dir = new THREE.Vector3(b[0] - a[0], 0, b[2] - a[2]).normalize(), ry = Math.atan2(-dir.z, dir.x);
+  pts.slice(1, -1).forEach((p, i) => g.add(at(mesh(tri, mat(cols[i % cols.length], { doubleSide: true })), p.x, p.y, p.z, 0, ry, 0)));
+  return g;
+}
+// Painted canvas picture in a frame (wall decoration).
+function picture(w, h, frame = P.navy, scene = 'hills') {
+  const art = canvasPlane(w - 0.12, h - 0.12, (g, W, H) => {
+    g.fillStyle = scene === 'sea' ? '#BFD6D3' : P.tealPale; g.fillRect(0, 0, W, H);
+    g.fillStyle = P.yellow; g.beginPath(); g.arc(W * 0.72, H * 0.3, H * 0.12, 0, TAU); g.fill();
+    g.fillStyle = scene === 'sea' ? P.teal : P.green; g.beginPath(); g.moveTo(0, H); g.lineTo(0, H * 0.62); g.quadraticCurveTo(W * 0.3, H * 0.35, W * 0.55, H * 0.66); g.quadraticCurveTo(W * 0.8, H * 0.5, W, H * 0.6); g.lineTo(W, H); g.fill();
+    g.fillStyle = P.red; g.fillRect(W * 0.25, H * 0.62, W * 0.12, H * 0.12);
+  }, { res: 256 });
+  return grp(box(w, h, 0.05, frame, { outline: 0.01 }), at(art, 0, 0, 0.027));
+}
+function tableLamp(x, y, z, shade = P.cream) { return at(grp(cyl(0.1, 0.12, 0.04, P.navy, 8, { pivot: 'bottom' }), at(cyl(0.015, 0.015, 0.35, P.navy, 6, { pivot: 'bottom' }), 0, 0.04, 0), at(cyl(0.11, 0.2, 0.22, shade, 8, { pivot: 'bottom', emissive: '#6B5A2A' }), 0, 0.35, 0)), x, y, z); }
+function floorLamp(x, z, shade = P.cream) { return at(grp(cyl(0.16, 0.2, 0.05, P.navy, 8, { pivot: 'bottom' }), at(cyl(0.02, 0.02, 1.45, P.navy, 6, { pivot: 'bottom' }), 0, 0.05, 0), at(cyl(0.18, 0.3, 0.34, shade, 8, { pivot: 'bottom', emissive: '#6B5A2A' }), 0, 1.45, 0)), x, 0, z); }
+function hangLamp(x, y, z, shade = P.yellow, light = 0) {
+  const g = at(grp(at(cyl(0.01, 0.01, 6, P.ink, 4, { pivot: 'bottom' }), 0, 0.2, 0), at(mesh(new THREE.ConeGeometry(0.35, 0.3, 8, 1, true), mat(shade, { doubleSide: true })), 0, 0.05, 0), at(sphere(0.09, '#FFE7B0', 1, { emissive: '#FFD27A', noGrain: true }), 0, -0.07, 0)), x, y, z);
+  if (light) { const l = new THREE.PointLight('#FFC98A', light, 10, 1.3); l.position.y = -0.3; g.add(l); }
+  return g;
+}
+function sofa(c = P.teal, c2 = P.tealLight) {
+  return grp(box(2.4, 0.42, 0.9, c, { pivot: 'bottom', outline: 0.005 }), at(box(1.1, 0.14, 0.75, c2), -0.57, 0.49, 0.05), at(box(1.1, 0.14, 0.75, c2), 0.57, 0.49, 0.05),
+    at(box(2.4, 0.62, 0.24, c), 0, 0.73, -0.33), at(box(0.24, 0.66, 0.9, c, { pivot: 'bottom' }), -1.2, 0, 0), at(box(0.24, 0.66, 0.9, c, { pivot: 'bottom' }), 1.2, 0, 0),
+    at(box(0.4, 0.38, 0.12, P.red), -0.75, 0.72, -0.18, -0.2, 0.1, 0.1), at(box(0.38, 0.36, 0.12, P.yellow), 0.8, 0.72, -0.18, -0.2, -0.15, -0.08));
+}
+function rock(s, c, r) { const m = sphere(s, c || P.grey, 0); m.scale.set(1.2, 0.6 + r() * 0.3, 1); m.position.y = s * 0.25; m.rotation.set(r(), r() * TAU, r()); return m; }
+function pine(seed, snow = false, s = 1) {
+  const r = rng(seed), g = grp(cyl(0.12, 0.16, 0.8, P.woodDark, 6, { pivot: 'bottom' }));
+  for (let i = 0; i < 3; i++) { const rad = (1.3 - i * 0.35) * s, h = 1.3 * s, y = (0.6 + i * 0.85) * s;
+    g.add(at(mesh(new THREE.ConeGeometry(rad, h, 7), mat(i % 2 ? '#2F5E58' : '#3A6E64')), 0, y + h / 2, 0, 0, r() * TAU, 0));
+    if (snow) g.add(at(mesh(new THREE.ConeGeometry(rad * 0.55, h * 0.45, 7), mat(P.white)), 0, y + h * 0.78, 0, 0, r() * TAU, 0)); }
+  return g;
+}
+function cactus(seed, s = 1) {
+  const r = rng(seed), C = '#6E9C5A', g = grp(cyl(0.22, 0.25, 2.6, C, 8, { pivot: 'bottom', outline: 0.02 }));
+  [[-1, 0.9 + r() * 0.4], [1, 1.3 + r() * 0.4]].forEach(([sd, y]) => g.add(at(cyl(0.13, 0.13, 0.45, C, 8), sd * 0.4, y, 0, 0, 0, PI / 2), at(cyl(0.13, 0.15, 0.7 + r() * 0.3, C, 8, { pivot: 'bottom' }), sd * 0.6, y - 0.08, 0)));
+  g.scale.setScalar(s); return g;
+}
+function palm(seed) {
+  const r = rng(seed), g = grp(); let p = [0, 0, 0];
+  for (let i = 0; i < 6; i++) { const q = [p[0] + 0.12 + i * 0.03, p[1] + 0.6, p[2]]; g.add(rod(p, q, 0.13 - i * 0.012, i % 2 ? P.woodDark : P.wood)); p = q; }
+  for (let i = 0; i < 7; i++) { const a = i * TAU / 7 + r() * 0.3, leaf = box(1.6, 0.04, 0.32, i % 2 ? P.green : '#7FA86A', { taper: { x: 1, z: 0.2 }, taperAxis: 'x' }); leaf.geometry.translate(0.8, 0, 0);
+    g.add(at(leaf, p[0], p[1], p[2], 0, a, -0.45)); }
+  return g;
+}
+// Product shelf with instanced, palette-coloured goods.
+function shelf(len, seed, levels = 4) {
+  const r = rng(seed), g = grp(), list = [], cols = [], pal = [P.red, P.teal, P.yellow, P.cream, P.navy, P.salmon, P.green, P.pink, P.tealLight];
+  for (let i = 0; i <= Math.round(len / 1.2); i++) g.add(at(box(0.06, 2.1, 0.5, P.navyLight, { pivot: 'bottom' }), -len / 2 + i * len / Math.round(len / 1.2), 0, 0));
+  for (let l = 0; l < levels; l++) { const y = 0.12 + l * 0.5; g.add(at(box(len, 0.04, 0.5, P.white), 0, y, 0));
+    for (let x = -len / 2 + 0.12; x < len / 2 - 0.12;) { const w = 0.14 + r() * 0.14, h = 0.18 + r() * 0.2; list.push([x + w / 2, y + 0.02 + h / 2, 0.05, 0, 0, 0, w * 0.9, h, 0.3]); cols.push(pal[Math.floor(r() * pal.length)]); x += w; } }
+  g.add(inst(new THREE.BoxGeometry(1, 1, 1), mat(P.white), list, cols), at(box(len, 0.15, 0.04, P.red), 0, 2.05, 0.25));
+  return g;
+}
+function windowsGrid(g, list, lit, dark) { if (list.lit.length) g.add(inst(new THREE.BoxGeometry(0.7, 0.9, 0.06), lit, list.lit)); if (list.dark.length) g.add(inst(new THREE.BoxGeometry(0.7, 0.9, 0.06), dark, list.dark)); }
+
+/* ------------------------------------------------------------------ sets */
+const S = {
+  office() {
+    const g = grp(), { back } = room(g, { wall: P.cream, band: P.teal, bandH: 1.05, trim: P.navy, floor: '#CDB894' });
+    g.add(prop('carpet', { w: 4.8, d: 2.6, color: P.red }, 0, 0, -0.4), prop('window', { w: 1.3, h: 1.3, color: P.teal }, -1.75, 1.0, back),
+      prop('table', { color: P.red, legs: P.redDark, w: 0.75, d: 0.5, h: 0.72 }, 2.0, 0, back + 0.45), tableLamp(1.8, 0.72, back + 0.4), prop('mug', { color: P.cream }, 2.2, 0.72, back + 0.5),
+      at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03), prop('door', {}, 4.7, 0, back), prop('plant', {}, -3.9, 0, back + 0.4),
+      prop('desk', {}, -4.6, 0, -1.4, 0.35), prop('chair', { color: P.navy }, -4.9, 0, -2.1, 0.35));
+    g.add(at(grp(cyl(0.28, 0.28, 0.05, P.white, 12), at(torus(0.28, 0.03, P.navy, 4, 16), 0, 0, 0, PI / 2), at(box(0.02, 0.18, 0.01, P.ink), 0, 0.07, 0.03), at(box(0.13, 0.02, 0.01, P.ink), 0.05, 0, 0.03)), 3.4, 2.6, back + 0.03, PI / 2));
+    g.userData.anchors = { center: [0, 0, 0], window: [-1.75, 0, back + 0.7], sideTable: [2.0, 0.72, back + 0.45], door: [4.7, 0, back + 0.6], desk: [-4.6, 0, -1.4], deskChair: [-4.9, 0, -2.1], picture: [2.0, 2.05, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  livingRoom() {
+    const g = grp(), { back } = room(g, { wall: P.cream, band: P.tealLight, bandH: 0.95, trim: P.teal, floor: P.wood });
+    g.add(at(sofa(), 0, 0, back + 0.55), floorLamp(1.85, back + 0.45), prop('plant', {}, -1.85, 0, back + 0.4), at(picture(1.4, 0.9, P.navy), 0, 2.35, back + 0.03),
+      prop('carpet', { w: 3.6, d: 2.4, color: P.red }, 0, 0, -0.6), prop('tv', { text: '' }, 3.7, 0, -1.2, -0.6), prop('window', { w: 1.2, h: 1.3, color: P.teal, curtains: P.red }, 3.6, 0.95, back),
+      prop('table', { w: 0.5, d: 0.5, h: 0.55, color: P.teal }, -3.4, 0, back + 0.5), tableLamp(-3.4, 0.55, back + 0.5, P.salmon));
+    g.userData.anchors = { center: [0, 0, 0], sofa: [0, 0, back + 0.55], sofaSeat: [0, 0.5, back + 0.75], lamp: [1.85, 0, back + 0.45], plant: [-1.85, 0, back + 0.4], picture: [0, 2.35, back], tv: [3.7, 0, -1.2], window: [3.6, 0, back + 0.7] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  kitchenNight() {
+    const g = grp(), { back } = room(g, { wall: '#2E5C59', band: '#24494A', bandH: 0.95, trim: P.navy, floor: P.navy });
+    const tiles = []; for (let i = -12; i < 12; i++) for (let j = 0; j < 22; j++) if ((i + j) % 2 === 0) tiles.push([i * 0.8 + 0.4, 0.003, back + j * 0.8 + 0.4]);
+    g.add(inst(new THREE.PlaneGeometry(0.8, 0.8).rotateX(-PI / 2), mat(P.redDark), tiles));
+    g.add(prop('fridge', { notes: 7 }, -2.7, 0, back + 0.38));
+    // counter + upper cabinets
+    g.add(at(box(3.0, 0.9, 0.6, '#3F7470', { pivot: 'bottom' }), -0.6, 0, back + 0.3), at(box(3.1, 0.05, 0.66, P.cream), -0.6, 0.925, back + 0.33));
+    [-1.6, -0.6, 0.4].forEach(x => g.add(at(box(0.04, 0.7, 0.01, P.navy), x + 0.5, 0.45, back + 0.605), at(box(0.12, 0.03, 0.03, P.cream), x + 0.35, 0.75, back + 0.62)));
+    g.add(at(box(0.9, 0.7, 0.36, '#3F7470', { pivot: 'bottom' }), -1.65, 1.75, back + 0.18), at(box(0.9, 0.7, 0.36, '#3F7470', { pivot: 'bottom' }), 0.45, 1.75, back + 0.18));
+    g.add(prop('window', { w: 0.9, h: 0.8, color: P.cream, night: true }, -0.6, 1.25, back), at(cyl(0.12, 0.12, 0.01, P.cream, 10, { emissive: '#8A8460' }), -0.4, 1.95, back + 0.025, PI / 2));
+    g.add(prop('toaster', { color: P.red }, 0.3, 0.95, back + 0.3), prop('mug', { color: P.yellow }, -1.4, 0.95, back + 0.35));
+    // arched doorway (dark opening + cream frame)
+    const ax = 2.8, ay = 1.9;
+    g.add(at(box(1.1, ay, 0.02, '#0E1218'), ax, ay / 2, back + 0.01), at(mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.02, 12, 1, false, PI / 2, PI), mat('#0E1218')), ax, ay, back + 0.01, PI / 2),
+      at(torus(0.61, 0.06, P.cream, 4, 12, PI), ax, ay, back + 0.04), at(box(0.12, ay, 0.12, P.cream, { pivot: 'bottom' }), ax - 0.61, 0, back + 0.04), at(box(0.12, ay, 0.12, P.cream, { pivot: 'bottom' }), ax + 0.61, 0, back + 0.04));
+    g.add(hangLamp(0, 2.7, -1.0, P.yellow, 7));
+    g.userData.anchors = { center: [0, 0, 0], fridge: [-2.7, 0, back + 0.38], fridgeFront: [-2.7, 0, back + 1.5], counter: [-0.6, 0.95, back + 0.3], door: [ax, 0, back + 0.4], window: [-0.6, 1.25, back], lamp: [0, 2.6, -1.0] };
+    g.userData.lighting = 'dark'; return g;
+  },
+  suburbDay() {
+    const g = grp(); sky(g); clouds(g, 3);
+    g.add(ground('#9DAF88'), flat(240, 3.4, P.cream, 0, 0.01, 0), flat(240, 0.25, P.creamDark, 0, 0.012, -1.75), flat(1.5, 4.6, P.cream, 0, 0.011, -5.9));
+    g.add(prop('fence', { length: 11 }, -6.5, 0, -3.5), prop('fence', { length: 11 }, 6.5, 0, -3.5), prop('house', {}, -0.6, 0, -10), prop('mailbox', {}, 1.5, 0, -3.1));
+    g.add(prop('house', { color: P.tealPale, roof: P.red, door: P.navy }, -11, 0, -15), prop('house', { color: P.creamDark, roof: P.teal }, 10, 0, -16, -0.2));
+    [[-5.2, -7, 1], [5.5, -8, 2], [-9, -11, 3], [9.5, -12.5, 4], [15, -20, 5], [-16, -22, 6], [2.5, -18, 7]].forEach(([x, z, s]) => g.add(prop('tree', { seed: s }, x, 0, z)));
+    [[-2.6, -4.2], [2.4, -4.3], [-4, -8.3], [3.2, -8.4]].forEach(([x, z], i) => g.add(prop('bush', { seed: i + 2 }, x, 0, z, 0, 0.8)));
+    hills(g, ['#9DB48A', '#8FA87E', '#A9BC96']);
+    g.userData.anchors = { center: [0, 0, 0], sidewalk: [0, 0, 0], fence: [0, 0, -3.5], gate: [0, 0, -3.5], path: [0, 0, -5.5], house: [-0.6, 0, -10], door: [0, 0, -7.9], mailbox: [1.5, 0, -3.1] };
+    g.userData.lighting = 'day'; return g;
+  },
+  savannah(o) {
+    const g = grp(), r = rng(o.seed || 8); sky(g, ['#93B1BE', '#DCD8C2']); clouds(g, 5, 5);
+    g.add(ground(P.sand));
+    for (let i = -6; i <= 6; i++) for (let j = 0; j < 10; j++) if (r() < 0.45) { const m = mesh(new THREE.CircleGeometry(1 + r() * 2.2, 7).rotateX(-PI / 2), mat(r() < 0.7 ? P.sandDark : '#D3B67C')); m.scale.z = 0.5 + r() * 0.4; m.position.set(i * 8 + (r() - 0.5) * 4, 0.006, 6 - j * 8 + (r() - 0.5) * 4); m.rotation.y = r() * PI; m.castShadow = false; g.add(m); }
+    [[-4.6, -6, 11, 1], [6.5, -11, 12, 1.1], [-12, -20, 13, 1.2], [16, -28, 14, 1.3], [-3, -38, 15, 1.4], [28, -45, 16, 1.5]].forEach(([x, z, s, k]) => g.add(prop('acaciaTree', { seed: s }, x, 0, z, 0, k)));
+    for (let i = 0; i < 26; i++) { const x = (r() - 0.5) * 40, z = 3 - r() * 30; if (Math.hypot(x, z) < 3) continue; const t = grp(); for (let k = 0; k < 4; k++) t.add(at(box(0.04, 0.3 + r() * 0.2, 0.02, '#A39A5C', { pivot: 'bottom', taper: { x: 0.2, z: 1 } }), (k - 1.5) * 0.05, 0, 0, 0, 0, (k - 1.5) * 0.3)); t.position.set(x, 0, z); t.rotation.y = r() * PI; g.add(t); }
+    [[3.4, -1.6, 0.35], [4.0, -2.2, 0.22], [-5.5, -2.5, 0.5], [9, -6, 0.7]].forEach(([x, z, s]) => g.add(at(rock(s, P.greyDark, r), x, 0, z)));
+    // distant mesas + hazy far range
+    [[-60, -70, 34, 7, '#B79F74'], [25, -80, 44, 5, '#B79F74'], [70, -65, 30, 8, '#AF9871']].forEach(([x, z, w, h, c]) => g.add(at(box(w, h, 10, c, { pivot: 'bottom', taper: { x: 0.75, z: 0.7 } }), x, 0, z)));
+    hills(g, ['#A9B2A8', '#B4BBAE'], { seed: 9, z0: -110, z1: -130, sx: 30, sy: 7 });
+    g.userData.anchors = { center: [0, 0, 0], tree: [-4.6, 0, -6], rock: [3.4, 0, -1.6], farTree: [6.5, 0, -11], horizon: [0, 0, -60] };
+    g.userData.lighting = 'savannah'; return g;
+  },
+  courtroom(o) {
+    const g = grp(), { back } = room(g, { wall: '#F3EFE6', floor: '#B98A5A', back: -4.6 });
+    g.add(flat(2.2, 18, P.red, 0, 0.004, 4.4));
+    [-6.2, -4.4, -2.6, 2.6, 4.4, 6.2].forEach((x, i) => { const c = i % 2 ? P.teal : P.red; g.add(at(box(0.8, 5.2, 0.12, c, { outline: 0.004 }), x, 3.1, back + 0.07), at(box(0.8, 0.5, 0.12, c, { taper: { x: 0.02, z: 1 } }), x, 0.25, back + 0.07, 0, 0, PI), at(cyl(0.22, 0.22, 0.03, P.cream, 10), x, 4.6, back + 0.15, PI / 2)); });
+    g.add(prop('courtBench', {}, 0, 0, back + 1.2), prop('signBoard', { text: o.sign || 'TRIBUNAL', bg: P.navy, fg: P.cream, w: 2.6, h: 0.6, posts: false, height: 0, frame: P.yellow }, 0, 3.0, back + 0.04));
+    const sy = 4.25; // seal above the sign (kept off the actor's head line)
+    g.add(at(cyl(0.38, 0.38, 0.04, P.yellow, 14), 0, sy, back + 0.03, PI / 2), at(cyl(0.3, 0.3, 0.04, P.cream, 14), 0, sy, back + 0.05, PI / 2), at(box(0.06, 0.32, 0.02, P.navy), 0, sy, back + 0.075), at(box(0.34, 0.04, 0.02, P.navy), 0, sy + 0.1, back + 0.075));
+    // witness stand + long white desks with chairs
+    g.add(at(box(0.9, 1.05, 0.9, P.teal, { pivot: 'bottom', outline: 0.006 }), 2.5, 0, back + 1.25), at(box(1.0, 0.06, 1.0, P.wood), 2.5, 1.08, back + 1.25));
+    [-3.3, 3.3].forEach(x => { g.add(at(box(2.4, 0.06, 0.7, P.white, { outline: 0.006 }), x, 0.76, 0.3), at(box(2.4, 0.72, 0.05, P.white), x, 0.37, -0.03), at(box(0.06, 0.73, 0.65, P.white, { pivot: 'bottom' }), x - 1.17, 0, 0.3), at(box(0.06, 0.73, 0.65, P.white, { pivot: 'bottom' }), x + 1.17, 0, 0.3));
+      g.add(prop('chair', { color: P.navy }, x - 0.55, 0, 1.0, PI), prop('chair', { color: P.navy }, x + 0.55, 0, 1.0, PI), prop('documents', {}, x + 0.3, 0.79, 0.3)); });
+    g.userData.anchors = { center: [0, 0, 0], judge: [0, 0.3, back + 0.25], bench: [0, 0, back + 1.2], witness: [2.5, 0, back + 1.25], deskLeft: [-3.3, 0, 1.0], deskRight: [3.3, 0, 1.0], sign: [0, 3.3, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  street(o) { return streetSet(o, false); },
+  streetNight(o) { return streetSet(o, true); },
+  fair(o) {
+    const g = grp(); sky(g); clouds(g, 6);
+    g.add(ground('#93B07C'), flat(4, 30, P.cream, 0, 0.005, 16));
+    hills(g, ['#8FAE7A', '#7FA06C', '#9DB88A'], { seed: 4, z0: -30, z1: -55, sx: 18, sy: 5 }); hills(g, ['#A9BCA0'], { seed: 7, z0: -90, z1: -110, sx: 30, sy: 8 });
+    const bz = -5.6;
+    [-3.6, 3.6].forEach(x => g.add(at(cyl(0.1, 0.12, 5.4, P.woodDark, 6, { pivot: 'bottom' }), x, 0, bz)));
+    g.add(at(box(6.7, 1.2, 0.06, P.navy), 0, 3.6, bz - 0.04), at(label(o.banner || 'FOIRE AUX ANIMAUX', 6.5, 1.0, { bg: P.cream, fg: P.red, wrap: false }), 0, 3.6, bz));
+    g.add(bunting([-3.6, 5.3, bz], [3.6, 5.3, bz], 0.45), bunting([-3.6, 5.2, bz], [-9, 3.4, -3], 0.5), bunting([3.6, 5.2, bz], [9, 3.4, -3], 0.5));
+    // red display platform
+    g.add(at(box(3.2, 0.36, 1.8, P.red, { pivot: 'bottom', outline: 0.006 }), 0, 0, -3.4), at(box(3.3, 0.05, 1.9, P.cream), 0, 0.385, -3.4), at(box(1.0, 0.18, 0.4, P.redDark, { pivot: 'bottom' }), 0, 0, -2.3));
+    // striped tents
+    [[-6.8, -6, P.red], [6.8, -6.5, P.teal]].forEach(([x, z, c]) => { g.add(at(box(3, 2, 3, P.cream, { pivot: 'bottom' }), x, 0, z));
+      for (let i = 0; i < 8; i++) g.add(at(mesh(new THREE.ConeGeometry(2.5, 1.6, 1, 1, false, i * TAU / 8, TAU / 8), mat(i % 2 ? c : P.cream)), x, 2.8, z));
+      g.add(at(box(1.0, 1.4, 0.02, P.navy), x, 0.7, z + 1.51)); });
+    g.add(prop('fence', { length: 3, color: P.white }, -4.6, 0, -1.2, 0.4), prop('fence', { length: 3 }, 4.6, 0, -1.2, -0.4), prop('signBoard', { text: 'ENTRÉE', w: 1.0, h: 0.4, height: 1.1, bg: P.yellow, fg: P.navy }, -3.0, 0, 1.5, 0.4));
+    g.userData.anchors = { center: [0, 0, 0], platform: [0, 0.41, -3.4], banner: [0, 3.6, bz], tentLeft: [-6.8, 0, -4.2], tentRight: [6.8, 0, -4.7], penLeft: [-4.6, 0, -1.2], penRight: [4.6, 0, -1.2] };
+    g.userData.lighting = 'day'; return g;
+  },
+  prisonCell(o) {
+    const g = grp(), back = -3, fz = 2.6, hw = 3.2, Wc = '#93A9A4';
+    g.add(flat(300, 300, '#9A9E98'), wall(2 * hw + 0.4, 7, 0.2, Wc, 0, 3.5, back - 0.1), wall(2 * hw, 1.0, 0.04, '#6F8C88', 0, 0.5, back + 0.02));
+    [-1, 1].forEach(s => g.add(wall(0.2, 7, 14, Wc, s * (hw + 0.1), 3.5, back + 7), wall(0.04, 1.0, fz - back, '#6F8C88', s * (hw - 0.02), 0.5, (fz + back) / 2)));
+    if (o.bars !== false) g.add(prop('jailBars', { width: 2 * hw, height: 2.6 }, 0, 0, fz), wall(2 * hw + 0.4, 4.4, 0.2, Wc, 0, 2.6 + 2.2, fz));
+    // bunk bed
+    const bx = 2.0, bz = back + 0.45;
+    [[-0.95, -0.38], [0.95, -0.38], [-0.95, 0.38], [0.95, 0.38]].forEach(([x, z]) => g.add(at(box(0.06, 1.9, 0.06, P.greyDark, { pivot: 'bottom' }), bx + x, 0, bz + z)));
+    [0.45, 1.45].forEach(y => g.add(at(box(2.0, 0.08, 0.8, P.greyDark), bx, y, bz), at(box(1.9, 0.14, 0.72, P.white), bx, y + 0.11, bz), at(box(1.2, 0.15, 0.74, '#E07A2E'), bx + 0.35, y + 0.12, bz), at(box(0.4, 0.1, 0.5, P.paper), bx - 0.7, y + 0.23, bz)));
+    // high barred window
+    g.add(at(box(0.8, 0.6, 0.02, o.dark ? '#2A3A55' : P.sky, o.dark ? {} : { emissive: '#3A4A50' }), -0.6, 2.45, back + 0.01), at(box(0.92, 0.72, 0.03, P.greyDark), -0.6, 2.45, back + 0.005));
+    for (let i = 0; i < 4; i++) g.add(at(cyl(0.02, 0.02, 0.6, P.ink, 5), -0.9 + i * 0.2, 2.45, back + 0.04));
+    g.add(prop('toilet', {}, -2.5, 0, back + 0.45), at(box(0.5, 0.05, 0.35, P.grey), -1.5, 0.8, back + 0.18));
+    g.userData.anchors = { center: [0, 0, 0], bunk: [bx, 0.6, bz], bunkTop: [bx, 1.6, bz], window: [-0.6, 2.45, back], bars: [0, 0, fz], outside: [0, 0, fz + 1.5], toilet: [-2.5, 0, back + 0.45] };
+    g.userData.lighting = o.dark ? 'dark' : 'interior'; return g;
+  },
+  rooftopPowerLine(o) {
+    const g = grp(), night = !!o.night, r = rng(12);
+    if (night) nightSky(g, [35, 40, -120]); else { sky(g); clouds(g, 9, 6); }
+    const roof = at(box(16, 0.4, 18, '#B8B3A6', { pivot: 'top' }), 0, 0, 2); tileUV(roof.geometry, 3);
+    g.add(roof, at(box(16.2, 12, 18.2, P.creamDark, { pivot: 'top' }), 0, -0.4, 2), flat(400, 400, '#8E928C', 0, -12.4, 0));
+    [-1, 1].forEach(s => g.add(at(box(0.3, 0.5, 18, P.creamDark, { pivot: 'bottom' }), s * 7.85, 0, 2)));
+    g.add(at(box(16, 0.5, 0.3, P.creamDark, { pivot: 'bottom' }), 0, 0, -6.85));
+    // neighbouring building wall with teal windows
+    g.add(at(box(14, 18, 1, P.cream, { pivot: 'top' }), 0, 4.6, -8.2), at(box(14.2, 0.25, 1.2, P.navy), 0, 4.65, -8.2));
+    g.children.slice(-2).forEach(m => m.castShadow = false);
+    [-3.5, 1.5, 5.5].forEach(x => g.add(prop('window', { w: 1.1, h: 1.2, color: P.teal, lit: night && x !== -3.5 }, x, 1.2, -7.7)));
+    g.add(prop('powerLine', { length: 12.4, height: 3.2 }, 0, 0, -1.5));
+    // rooftop clutter: AC unit, vent pipe, water tank
+    g.add(at(box(1.2, 0.8, 0.9, P.grey, { pivot: 'bottom', outline: 0.01 }), -4.6, 0, -4.8), at(cyl(0.3, 0.3, 0.05, P.greyDark, 10), -4.6, 0.82, -4.8), at(cyl(0.12, 0.12, 1.2, P.greyDark, 8, { pivot: 'bottom' }), 4.8, 0, -5.2), at(cyl(0.2, 0.15, 0.2, P.greyDark, 8), 4.8, 1.25, -5.2));
+    // skyline far below / around
+    for (let i = 0; i < 18; i++) { const x = (i / 17 - 0.5) * 120 + (r() - 0.5) * 6, h = 4 + r() * 14, w = 5 + r() * 6, z = -25 - r() * 25;
+      if (Math.abs(x) < 9) continue; g.add(at(box(w, h + 12, 5, [P.creamDark, P.tealPale, P.greyDark, P.cream][i % 4], { pivot: 'bottom' }), x, -12.4, z)); }
+    g.userData.anchors = { center: [0, 0, 0], wire: [0, 3.2, -1.5], wireLeft: [-6.2, 3.55, -1.5], wireRight: [6.2, 3.55, -1.5], edge: [0, 0, -6.6], wall: [0, 0, -7.7], window: [1.5, 1.2, -7.7] };
+    g.userData.lighting = night ? 'night' : 'day'; return g;
+  },
+  supermarket() {
+    const g = grp(), { back } = room(g, { wall: P.paper, band: P.red, bandH: 0.35, trim: P.navy, floor: '#E9E4D6', back: -4 });
+    const lines = []; for (let i = -20; i <= 20; i++) lines.push([i * 0.8, 0.003, 4], [0, 0.003, back + i * 0.8 + 16, 0, PI / 2]);
+    g.add(inst(new THREE.BoxGeometry(0.02, 0.002, 40), mat('#CFC8B4'), lines.map(l => l.length > 3 ? [l[0], l[1], l[2], 0, PI / 2, 0, 1, 1, 1] : l)));
+    g.add(at(shelf(9, 3), 0, 0, back + 0.35), at(shelf(6, 4), -4.2, 0, 0.5, 0, PI / 2), at(shelf(6, 5), -6.0, 0, 0.5, 0, -PI / 2));
+    // checkout counter with register + conveyor
+    g.add(at(box(0.8, 0.9, 2.4, P.teal, { pivot: 'bottom', outline: 0.006 }), 3.6, 0, -0.6), at(box(0.62, 0.03, 2.2, P.ink), 3.6, 0.915, -0.6), prop('cashRegister', {}, 3.6, 0.93, 0.3, -PI / 2));
+    g.add(prop('shoppingCart', {}, -2.6, 0, -2.4, 0.5));
+    [['PROMO -50%', P.red, P.white, -1.3, -3.0], ['AISLE 3', P.navy, P.white, 1.3, -2.6]].forEach(([t, bg, fg, x, z]) => { g.add(prop('signBoard', { text: t, bg, fg, w: 1.3, h: 0.42, posts: false, height: 0, frame: bg }, x, 2.75, z), rod([x - 0.5, 3.2, z], [x - 0.5, 7, z], 0.01, P.ink), rod([x + 0.5, 3.2, z], [x + 0.5, 7, z], 0.01, P.ink)); });
+    g.userData.anchors = { center: [0, 0, 0], shelf: [0, 0, back + 1.1], aisle: [-5.1, 0, 0.5], checkout: [3.0, 0, -0.6], register: [3.6, 0.93, 0.3], cart: [-2.6, 0, -2.4] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  beach() {
+    const g = grp(); sky(g, ['#86B0C2', '#DCE6E0']); clouds(g, 11, 6);
+    const r = rng(14);
+    g.add(ground('#DCC48E'), flat(340, 1.6, '#C7AE78', 0, 0.006, -7.4), flat(340, 160, P.teal, 0, 0.012, -88.2));
+    const foam = flat(340, 0.35, P.white, 0, 0.016, -8.25), band = flat(340, 1.4, P.tealLight, 0, 0.014, -8.9);
+    const waves = [-16, -25, -38, -55].map((z, i) => { const m = flat(340, 0.4 + i * 0.2, P.tealLight, 0, 0.015, z); g.add(m); return m; });
+    g.add(foam, band);
+    const umb = prop('umbrella', { radius: 1.4, height: 2.2, colors: [P.red, P.cream] }, -2.1, 0, -2.8); umb.rotation.z = 0.1;
+    g.add(umb, prop('carpet', { w: 0.95, d: 1.9, color: P.teal, inner: P.cream }, -2.6, 0, -1.6, 0.15), at(palm(2), 5.5, 0, -5), at(palm(3), 7.2, 0, -7.5));
+    // little sand castle
+    const castle = grp(at(box(0.7, 0.3, 0.5, P.sandDark, { pivot: 'bottom' }), 0, 0, 0)); [[-0.3, -0.2], [0.3, -0.2], [-0.3, 0.2], [0.3, 0.2]].forEach(([x, z]) => castle.add(at(cyl(0.1, 0.12, 0.45, P.sandDark, 6, { pivot: 'bottom' }), x, 0, z), at(new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.15, 6), mat(P.sand)), x, 0.52, z)));
+    castle.add(at(box(0.01, 0.2, 0.01, P.ink), 0.3, 0.68, 0.2), at(box(0.1, 0.06, 0.005, P.red), 0.35, 0.74, 0.2)); g.add(at(castle, 2.0, 0, -2.6));
+    [[-7, -5, 0.8], [-8.2, -6, 0.5], [9, -3, 0.6]].forEach(([x, z, s]) => g.add(at(rock(s, P.greyDark, r), x, 0, z)));
+    g.userData.update = t => { foam.position.z = -8.25 + Math.sin(t * 1.1) * 0.25; band.position.z = -8.9 + Math.sin(t * 1.1 - 0.4) * 0.15; waves.forEach((w, i) => w.position.z = [-16, -25, -38, -55][i] + Math.sin(t * 0.7 + i) * 0.6); };
+    g.userData.anchors = { center: [0, 0, 0], umbrella: [-2.1, 0, -2.8], towel: [-2.6, 0.03, -1.6], sea: [0, 0, -9], shore: [0, 0, -7.5], castle: [2.0, 0, -2.6], palm: [5.5, 0, -5] };
+    g.userData.lighting = 'day'; return g;
+  },
+  hospital() {
+    const g = grp(), { back } = room(g, { wall: '#F4F4EE', band: P.tealPale, bandH: 1.1, trim: P.teal, floor: '#DCE3DD' });
+    g.add(prop('bed', { blanket: P.tealLight }, -2.5, 0, back + 1.15));
+    g.add(at(grp(cyl(0.2, 0.22, 0.05, P.greyDark, 6, { pivot: 'bottom' }), at(cyl(0.02, 0.02, 2.0, P.grey, 6, { pivot: 'bottom' }), 0, 0.05, 0), at(box(0.4, 0.02, 0.02, P.grey), 0, 2.02, 0), at(box(0.18, 0.28, 0.06, '#CFE6E8', { opacity: 0.7 }), 0.15, 1.82, 0), rod([0.15, 1.68, 0], [0.4, 0.8, 0.4], 0.006, P.white)), -3.9, 0, back + 0.9));
+    const mon = canvasPlane(0.5, 0.34, (c, W, H) => { c.fillStyle = '#10201E'; c.fillRect(0, 0, W, H); c.strokeStyle = LCDc; c.lineWidth = 6; c.beginPath(); c.moveTo(0, H * 0.6); [0.3, 0.36, 0.4, 0.45, 0.5, 1].forEach((k, i) => c.lineTo(W * k, H * [0.6, 0.6, 0.15, 0.85, 0.6, 0.6][i])); c.stroke(); c.fillStyle = LCDc; c.font = `bold ${H * 0.2}px Arial`; c.fillText('72', W * 0.75, H * 0.3); }, { res: 256, emissive: 0.6 });
+    g.add(at(grp(cyl(0.04, 0.04, 1.3, P.grey, 6, { pivot: 'bottom' }), cyl(0.2, 0.22, 0.05, P.greyDark, 6, { pivot: 'bottom' }), at(box(0.58, 0.42, 0.12, P.greyDark, { outline: 0.02 }), 0, 1.45, 0), at(mon, 0, 1.45, 0.062)), -1.0, 0, back + 0.45));
+    // curtain on a rail
+    g.add(rod([1.7, 2.35, back], [1.7, 2.35, -1.2], 0.02, P.grey));
+    for (let i = 0; i < 7; i++) g.add(at(box(0.04, 2.0, 0.36, i % 2 ? P.tealLight : '#8DBDB5'), 1.7 + (i % 2 ? 0.06 : -0.06), 1.33, back + 0.2 + i * 0.32, 0, i % 2 ? 0.35 : -0.35, 0));
+    g.add(prop('window', { w: 1.3, h: 1.3, color: P.teal }, 3.6, 1.0, back), at(box(0.6, 0.6, 0.02, P.white), 0.6, 2.5, back + 0.01), at(box(0.42, 0.12, 0.03, P.red), 0.6, 2.5, back + 0.03), at(box(0.12, 0.42, 0.03, P.red), 0.6, 2.5, back + 0.03));
+    g.userData.anchors = { center: [0, 0, 0], bed: [-2.5, 0, back + 1.15], bedLie: [-2.5, 0.62, back + 1.15], bedSide: [-1.4, 0, back + 1.4], monitor: [-1.0, 0, back + 0.45], iv: [-3.9, 0, back + 0.9], curtain: [1.7, 0, -2.0], window: [3.6, 1.0, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  restaurant() {
+    const g = grp(), { back } = room(g, { wall: P.cream, band: '#9B3A2E', bandH: 1.0, trim: P.navy, floor: '#A9784C' });
+    const cloth = checkerMat(P.red, P.white);
+    const table = (x, z, chairs = true) => { const t = at(grp(prop('table', { w: 0.9, d: 0.9, h: 0.76, color: P.white }), at(new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.25, 1.0), cloth), 0, 0.665, 0),
+        at(cyl(0.12, 0.12, 0.012, P.white, 10), -0.2, 0.8, 0.15), at(cyl(0.12, 0.12, 0.012, P.white, 10), 0.2, 0.8, -0.15), at(cyl(0.04, 0.045, 0.28, P.navy, 6, { pivot: 'bottom' }), 0, 0.795, 0), at(cyl(0.02, 0.02, 0.05, P.red, 6, { pivot: 'bottom' }), 0, 1.07, 0)), x, 0, z);
+      if (chairs) t.add(prop('chair', { color: P.navy }, -0.75, 0, 0, PI / 2), prop('chair', { color: P.navy }, 0.75, 0, 0, -PI / 2)); return t; };
+    g.add(table(0, -2.6), table(-3.6, -1.4), table(3.6, -1.6), table(-3.4, 2.2), table(3.4, 2.4));
+    [[0, -2.6], [-3.6, -1.4], [3.6, -1.6]].forEach(([x, z]) => g.add(hangLamp(x, 3.1, z, P.red)));
+    g.add(at(box(1.4, 1.0, 0.05, P.woodDark, { outline: 0.01 }), 1.4, 1.9, back + 0.03), at(label('MENU\nSOUPE 5€\nPIZZA 9€', 1.28, 0.88, { bg: '#22302D', fg: P.cream }), 1.4, 1.9, back + 0.057));
+    g.add(prop('door', { color: P.teal, frame: P.navy }, -3.0, 0, back), at(picture(0.9, 0.7, P.woodDark, 'sea'), -1.5, 2.0, back + 0.03), prop('plant', {}, 5.2, 0, back + 0.5));
+    g.userData.anchors = { center: [0, 0, 0], table: [0, 0, -2.6], tableTop: [0, 0.79, -2.6], chairLeft: [-0.75, 0, -2.6], chairRight: [0.75, 0, -2.6], menu: [1.4, 1.9, back], kitchenDoor: [-3.0, 0, back + 0.6] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  park() {
+    const g = grp(), r = rng(21); sky(g); clouds(g, 12, 7);
+    g.add(ground(P.grass));
+    g.add(ribbon([[-60, -14], [-25, -5], [-10, -1.2], [0, 0], [10, 1.0], [25, 3], [60, 8]], 2.4, P.cream));
+    g.add(prop('bench', {}, 0, 0, -2.4), prop('trashCan', { color: P.teal }, -1.6, 0, -2.6), prop('streetLamp', {}, 3.2, 0, -2.2, PI / 2));
+    [[-4.2, -5, 1], [4.8, -6, 2], [-9, -9, 3], [10, -12, 4], [-15, -16, 5], [2, -14, 6], [-6, 4, 7], [7, 5, 8], [18, -20, 9], [-22, -24, 10]].forEach(([x, z, s]) => g.add(prop('tree', { seed: s }, x, 0, z, 0, 1 + r() * 0.3)));
+    [[-2.6, -3.6], [2.0, -3.8], [-7, -4], [6.5, -3]].forEach(([x, z], i) => g.add(prop('bush', { seed: i + 30 }, x, 0, z, 0, 0.8 + r() * 0.4)));
+    const pond = mesh(new THREE.CircleGeometry(3, 12).rotateX(-PI / 2), mat(P.tealLight)); pond.scale.z = 0.55; pond.position.set(8, 0.008, -8.5); g.add(pond);
+    hills(g, ['#8FAE7A', '#9DB88A', '#86A472']);
+    g.userData.anchors = { center: [0, 0, 0], path: [0, 0, 0], bench: [0, 0, -2.4], benchSeat: [0, 0.47, -2.4], tree: [-4.2, 0, -5], pond: [8, 0, -8.5], lamp: [3.2, 0, -2.2], trash: [-1.6, 0, -2.6] };
+    g.userData.lighting = 'day'; return g;
+  },
+  bathroom() {
+    const g = grp(), back = -3.4, half = 6;
+    room(g, { wall: P.cream, floor: P.white, back, half });
+    // tiled lower wall: ~0.3 m tiles (u x40, v x5.3 on a 12 x 1.6 m slab)
+    const tg = new THREE.BoxGeometry(2 * half, 1.6, 0.03), fl = []; tg.attributes.uv.array.forEach((v, i, a) => { a[i] = i % 2 ? v * 5.3 : v * 40; });
+    g.add(at(new THREE.Mesh(tg, tileMat('#BFDCD6', '#F2F2EC')), 0, 0.8, back + 0.015));
+    for (let i = -12; i < 12; i++) for (let j = 0; j < 30; j++) if ((i + j) % 2 === 0) fl.push([i * 0.5 + 0.25, 0.003, back + j * 0.5 + 0.25]);
+    g.add(inst(new THREE.PlaneGeometry(0.5, 0.5).rotateX(-PI / 2), mat(P.navy), fl));
+    g.add(prop('bathtub', {}, -2.4, 0, back + 0.45), prop('toilet', {}, 1.4, 0, back + 0.45));
+    // pedestal sink + mirror
+    g.add(at(grp(cyl(0.1, 0.14, 0.8, P.white, 8, { pivot: 'bottom' }), at(box(0.6, 0.14, 0.42, P.white, { outline: 0.01 }), 0, 0.85, 0), at(box(0.44, 0.02, 0.28, P.tealLight), 0, 0.92, 0.02), at(cyl(0.02, 0.02, 0.2, P.grey, 6, { pivot: 'bottom' }), 0, 0.92, -0.16), at(box(0.04, 0.03, 0.14, P.grey), 0, 1.11, -0.1)), 3.2, 0, back + 0.25));
+    g.add(at(box(0.8, 1.0, 0.04, P.teal, { outline: 0.01 }), 3.2, 1.75, back + 0.04), at(box(0.66, 0.86, 0.01, '#D3E6E6'), 3.2, 1.75, back + 0.065), at(box(0.06, 0.5, 0.005, P.white, { noGrain: true }), 3.0, 1.85, back + 0.072, 0, 0, -0.5));
+    g.add(at(box(0.5, 0.7, 0.04, P.red), -0.2, 1.25, back + 0.05), at(box(0.62, 0.04, 0.06, P.grey), -0.2, 1.62, back + 0.05), prop('carpet', { w: 0.9, d: 0.6, color: P.teal, inner: P.white }, -2.2, 0, back + 1.3));
+    g.userData.anchors = { center: [0, 0, 0], bathtub: [-2.4, 0, back + 0.45], tubLie: [-2.4, 0.32, back + 0.45], toilet: [1.4, 0, back + 0.45], toiletSeat: [1.4, 0.5, back + 0.6], sink: [3.2, 0, back + 0.25], mirror: [3.2, 1.75, back], sinkFront: [3.2, 0, back + 1.0] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  policeStation() {
+    const g = grp(), { back } = room(g, { wall: '#DCE3E6', band: P.navy, bandH: 1.1, trim: P.copBlue, floor: '#A9ADA6' });
+    g.add(prop('signBoard', { text: 'POLICE', bg: P.navy, fg: P.white, w: 2.4, h: 0.6, posts: false, height: 0, frame: P.copBlue }, 0, 2.7, back + 0.04));
+    const star = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = i / 10 * TAU + PI / 2, rr = i % 2 ? 0.14 : 0.32; i ? star.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : star.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+    g.add(at(mesh(new THREE.ExtrudeGeometry(star, { depth: 0.04, bevelEnabled: false }), mat(P.yellow)), -1.9, 3.0, back + 0.01), at(mesh(new THREE.ExtrudeGeometry(star, { depth: 0.04, bevelEnabled: false }), mat(P.yellow)), 1.9, 3.0, back + 0.01));
+    g.add(prop('desk', { color: P.navyLight }, -2.7, 0, back + 1.5), prop('chair', { color: P.navy }, -2.7, 0, back + 0.8), at(box(0.5, 0.35, 0.05, P.ink, { outline: 0.02 }), -2.9, 1.0, back + 1.3), at(box(0.44, 0.29, 0.01, P.copBlue, { emissive: '#1E3550' }), -2.9, 1.0, back + 1.33), prop('documents', {}, -2.3, 0.76, back + 1.55), prop('mug', {}, -3.3, 0.76, back + 1.6));
+    g.add(at(box(1.7, 1.1, 0.04, P.wood, { outline: 0.01 }), 2.1, 1.75, back + 0.02));
+    [[1.65, 1.8, -0.06], [2.15, 1.75, 0.05], [2.6, 1.82, -0.03]].forEach(([x, y, rz]) => g.add(at(label('WANTED', 0.34, 0.45, { bg: P.paper, fg: P.red }), x, y, back + 0.045, 0, 0, rz)));
+    // holding cell on the right
+    g.add(wall(0.2, 2.7, 1.6, P.greyDark, 3.5, 1.35, back + 0.8), prop('jailBars', { width: 3.2, height: 2.6 }, 5.1, 0, back + 1.6), at(box(3.2, 0.3, 0.12, P.navy), 5.1, 2.75, back + 1.6));
+    g.add(at(box(0.5, 1.3, 0.6, P.greyDark, { pivot: 'bottom', outline: 0.006 }), -4.6, 0, back + 0.32));
+    g.userData.anchors = { center: [0, 0, 0], desk: [-2.7, 0, back + 1.5], deskChair: [-2.7, 0, back + 0.8], deskFront: [-2.7, 0, back + 2.5], sign: [0, 2.7, back], board: [2.1, 1.75, back], cell: [5.1, 0, back + 0.8], cellFront: [5.1, 0, back + 2.4] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  spaceVoid() {
+    const g = grp(); sky(g, ['#070B16', '#18223A']);
+    const stars = prop('stars', { radius: 150, count: 1400, seed: 77 }); g.add(stars, prop('moon', { radius: 4 }, -18, 10, -60));
+    const planet = grp(sphere(9, P.salmon, 1, { emissive: '#3A1A12' }), at(torus(15, 1.2, P.tealLight, 2, 28, TAU, { emissive: '#1C3330' }), 0, 0, 0, PI / 2 - 0.35, 0, 0.2)); planet.children[1].scale.z = 0.12;
+    g.add(at(planet, 40, 22, -120), at(sphere(3, P.teal, 1, { emissive: '#0F2A28' }), -45, 30, -110), at(sphere(1.6, P.yellow, 1, { emissive: '#4A3A10' }), 20, -6, -70));
+    g.userData.update = t => { stars.rotation.y = t * 0.01; planet.rotation.y = t * 0.05; };
+    g.userData.anchors = { center: [0, 0, 0], planet: [40, 22, -120], moon: [-18, 14, -60] };
+    g.userData.lighting = 'dark'; return g;
+  },
+  whiteVoid(o) {
+    const c = o.color || P.cream, g = grp();
+    // unlit floor + dome of the same colour = no horizon; a shadow-catcher keeps contact shadows
+    g.add(new THREE.Mesh(new THREE.SphereGeometry(180, 16, 8), new THREE.MeshBasicMaterial({ color: c, side: THREE.BackSide })));
+    const f = new THREE.Mesh(new THREE.CircleGeometry(170, 24).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: c })); g.add(f);
+    const sh = new THREE.Mesh(new THREE.CircleGeometry(40, 24).rotateX(-PI / 2), new THREE.ShadowMaterial({ opacity: 0.18 })); sh.position.y = 0.002; sh.receiveShadow = true; g.add(sh);
+    g.userData.anchors = { center: [0, 0, 0] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  farm() {
+    const g = grp(), r = rng(31); sky(g); clouds(g, 15, 6);
+    g.add(ground('#9CB27F'));
+    // crop field: sand base + green rows
+    g.add(flat(18, 24, P.sandDark, 13, 0.006, -18)); for (let i = 0; i < 14; i++) g.add(at(box(0.5, 0.3, 23, i % 2 ? P.green : '#7FA86A', { pivot: 'bottom', taper: { x: 0.4, z: 1 } }), 4.8 + i * 1.25, 0, -18));
+    // red barn with gable roof, white X door trim, hay loft
+    const barn = grp(box(5, 3.2, 6, P.red, { pivot: 'bottom', outline: 0.004 }), at(box(5.6, 1.9, 6.5, P.greyDark, { taper: { x: 0.02, z: 1 } }), 0, 4.15, 0), at(box(1.9, 2.3, 0.06, P.redDark), 0, 1.15, 3.03));
+    [[0, 2.33, 2.0, 0.12], [0, 0.03, 2.0, 0.12]].forEach(([x, y, w, h]) => barn.add(at(box(w, h, 0.08, P.white), x, y + h / 2 - 0.06, 3.05)));
+    [-1, 1].forEach(s => barn.add(at(box(0.12, 2.3, 0.08, P.white), s * 0.95, 1.15, 3.05), at(box(0.1, 2.9, 0.07, P.white), 0, 1.15, 3.06, 0, 0, s * 0.68)));
+    barn.add(at(box(0.9, 0.7, 0.06, P.white), 0, 3.6, 3.03), at(box(0.7, 0.5, 0.07, P.woodDark), 0, 3.6, 3.04));
+    g.add(at(barn, -5, 0, -12), at(cyl(1.1, 1.1, 6.5, P.grey, 10, { pivot: 'bottom', outline: 0.006 }), -9.2, 0, -14), at(sphere(1.1, P.red, 1), -9.2, 6.5, -14));
+    // rail fence
+    for (let x = -14; x <= 14; x += 2) g.add(at(box(0.12, 1.1, 0.12, P.woodDark, { pivot: 'bottom' }), x, 0, -4));
+    [0.45, 0.85].forEach(y => g.add(at(box(28, 0.1, 0.06, P.wood), 0, y, -4.05)));
+    [[3.2, -2.8, 0], [4.4, -3.0, 0.2], [3.8, -2.9, 0, 0.8]].forEach(([x, z, ry, y = 0]) => g.add(at(box(1.2, 0.8, 0.8, P.yellow, { pivot: 'bottom', outline: 0.01 }), x, y, z, 0, ry, 0)));
+    [[-14, -9, 1], [14, -6, 2], [-18, -18, 3], [22, -30, 4]].forEach(([x, z, s]) => g.add(prop('tree', { seed: s + 40 }, x, 0, z, 0, 1.2 + r() * 0.3)));
+    hills(g, ['#9DB48A', '#8FA87E', '#A9BC96'], { seed: 6 });
+    g.userData.anchors = { center: [0, 0, 0], barn: [-5, 0, -12], barnDoor: [-5, 0, -8.4], silo: [-9.2, 0, -14], field: [13, 0, -14], fence: [0, 0, -4], hay: [3.8, 0, -2.9] };
+    g.userData.lighting = 'day'; return g;
+  },
+  airport() {
+    const g = grp(), back = -5; room(g, { wall: '#E6E9E6', back, noFloor: true, noBack: true });
+    sky(g); clouds(g, 17, 5);
+    g.add(flat(300, 160, '#C7CBC6', 0, 0, back + 80), flat(300, 160, '#9A9C96', 0, -0.01, back - 80));
+    // glazed back wall: navy mullions + transparent panes, solid header above
+    for (let x = -7; x <= 7; x += 2) g.add(at(box(0.14, 4.2, 0.14, P.navy, { pivot: 'bottom' }), x, 0, back));
+    g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(14, 4.2), glassMat(0.16, '#CFE6EE')), 0, 2.1, back), wall(14.4, 3, 0.2, '#E6E9E6', 0, 5.7, back - 0.1), at(box(14, 0.14, 0.2, P.navy), 0, 4.2, back), at(box(14, 0.12, 0.2, P.navy), 0, 0.06, back));
+    // parked plane outside
+    const plane = grp(at(cyl(1.3, 1.3, 16, P.white, 10), 0, 0, 0, 0, 0, PI / 2), at(mesh(new THREE.ConeGeometry(1.3, 2.4, 10), mat(P.white)), 9.2, 0, 0, 0, 0, -PI / 2), at(box(4, 0.2, 18, P.white, { taper: { x: 0.5, z: 1 }, taperAxis: 'y' }), 0, -0.4, 0),
+      at(box(2.5, 3, 0.2, P.red, { taper: { x: 0.4, z: 1 } }), -7, 2.3, 0), at(box(16, 0.4, 2.62, P.teal), 0, 0, 0));
+    g.add(at(plane, 6, 2.6, -28, 0, 0.25, 0));
+    // check-in counter
+    g.add(at(box(3.2, 1.05, 0.7, P.teal, { pivot: 'bottom', outline: 0.005 }), -3.4, 0, back + 1.8), at(box(3.3, 0.06, 0.8, P.white), -3.4, 1.08, back + 1.8), prop('signBoard', { text: 'CHECK-IN', bg: P.teal, fg: P.white, w: 1.6, h: 0.4, height: 1.8, frame: P.navy }, -3.4, 0, back + 1.4));
+    // departure board
+    const board = canvasPlane(3.0, 1.3, (c, W, H) => { c.fillStyle = '#141C28'; c.fillRect(0, 0, W, H); c.font = `bold ${H * 0.13}px monospace`; c.fillStyle = P.white; c.fillText('DEPARTURES', W * 0.04, H * 0.17);
+      [['PARIS', '10:45', 'ON TIME'], ['TOKYO', '11:20', 'DELAYED'], ['MARS', '12:00', 'CANCELLED'], ['LYON', '12:35', 'BOARDING']].forEach(([a, b, s], i) => { c.fillStyle = '#F2C46B'; c.fillText(a, W * 0.04, H * (0.36 + i * 0.17)); c.fillText(b, W * 0.42, H * (0.36 + i * 0.17)); c.fillStyle = s === 'CANCELLED' ? '#FF6B5A' : s === 'DELAYED' ? '#FFB347' : LCDc; c.fillText(s, W * 0.62, H * (0.36 + i * 0.17)); }); }, { emissive: 0.6 });
+    g.add(at(box(3.15, 1.45, 0.12, P.ink), 1.9, 3.3, back + 0.8), at(board, 1.9, 3.3, back + 0.865), rod([1.1, 4.0, back + 0.8], [1.1, 6, back + 0.8], 0.02, P.ink), rod([2.7, 4.0, back + 0.8], [2.7, 6, back + 0.8], 0.02, P.ink));
+    // seating rows + luggage
+    [0.4, 1.5].forEach(z => { g.add(at(box(3.0, 0.06, 0.1, P.grey), 4.2, 0.3, z)); for (let i = 0; i < 4; i++) g.add(at(box(0.6, 0.08, 0.5, P.navy), 3.1 + i * 0.72, 0.42, z), at(box(0.6, 0.5, 0.08, P.navy), 3.1 + i * 0.72, 0.72, z - 0.25, -0.12)); [-1.3, 1.3].forEach(dx => g.add(at(box(0.08, 0.38, 0.08, P.grey, { pivot: 'bottom' }), 4.2 + dx, 0, z))); });
+    [[-1.4, back + 2.6, P.red], [-1.0, back + 2.5, P.teal]].forEach(([x, z, c]) => g.add(at(box(0.42, 0.6, 0.24, c, { pivot: 'bottom', outline: 0.02 }), x, 0.05, z), at(box(0.2, 0.04, 0.04, P.ink), x, 0.72, z)));
+    g.userData.anchors = { center: [0, 0, 0], counter: [-3.4, 0, back + 1.8], counterFront: [-3.4, 0, back + 2.7], counterBehind: [-3.4, 0, back + 1.1], board: [1.9, 3.3, back + 0.8], seats: [3.1, 0.45, 0.4], window: [0, 0, back + 0.4], plane: [6, 0, -28] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  gym() {
+    const g = grp(), { back } = room(g, { wall: P.cream, band: P.red, bandH: 1.2, trim: P.navy, floor: '#C08D5A' });
+    g.add(at(box(4.2, 2.0, 0.04, P.woodDark), 0.8, 1.35, back + 0.03), at(box(4.0, 1.85, 0.01, '#D3E3E3'), 0.8, 1.35, back + 0.055), at(box(0.08, 1.2, 0.005, P.white, { noGrain: true }), -0.4, 1.5, back + 0.062, 0, 0, -0.5), at(box(0.04, 0.8, 0.005, P.white, { noGrain: true }), -0.2, 1.4, back + 0.062, 0, 0, -0.5));
+    g.add(at(label('NO PAIN NO GAIN', 2.2, 0.5, { bg: P.navy, fg: P.yellow }), 0.8, 2.85, back + 0.02));
+    // dumbbell rack
+    const rack = grp(at(box(1.6, 0.06, 0.45, P.ink), 0, 0.5, 0), at(box(1.6, 0.06, 0.45, P.ink), 0, 0.9, 0.05), at(box(0.06, 1.0, 0.06, P.ink, { pivot: 'bottom' }), -0.78, 0, 0), at(box(0.06, 1.0, 0.06, P.ink, { pivot: 'bottom' }), 0.78, 0, 0));
+    for (let i = 0; i < 5; i++) for (const y of [0.6, 1.0]) { const x = -0.6 + i * 0.3, c = i % 2 ? P.red : P.navy; rack.add(rod([x - 0.12, y, 0.05], [x + 0.12, y, 0.05], 0.015, P.grey), at(cyl(0.06, 0.06, 0.06, c, 8), x - 0.1, y, 0.05, 0, 0, PI / 2), at(cyl(0.06, 0.06, 0.06, c, 8), x + 0.1, y, 0.05, 0, 0, PI / 2)); }
+    g.add(at(rack, -3.6, 0, back + 0.4));
+    // bench press
+    const bp = grp(at(box(0.32, 0.12, 1.2, P.navy, { outline: 0.01 }), 0, 0.45, 0), at(box(0.1, 0.4, 0.1, P.ink, { pivot: 'bottom' }), 0, 0, 0.45), at(box(0.1, 0.4, 0.1, P.ink, { pivot: 'bottom' }), 0, 0, -0.45),
+      at(box(0.06, 1.1, 0.06, P.ink, { pivot: 'bottom' }), -0.5, 0, -0.5), at(box(0.06, 1.1, 0.06, P.ink, { pivot: 'bottom' }), 0.5, 0, -0.5), rod([-1.0, 1.08, -0.5], [1.0, 1.08, -0.5], 0.018, P.grey));
+    [-0.85, 0.85].forEach(x => bp.add(at(cyl(0.22, 0.22, 0.06, P.ink, 10), x, 1.08, -0.5, 0, 0, PI / 2), at(cyl(0.16, 0.16, 0.05, P.red, 10), x * 0.92, 1.08, -0.5, 0, 0, PI / 2)));
+    g.add(at(bp, 3.4, 0, -2.0));
+    // treadmill
+    g.add(at(grp(box(0.8, 0.18, 1.8, P.ink, { pivot: 'bottom', outline: 0.01 }), at(box(0.64, 0.02, 1.7, P.greyDark), 0, 0.19, 0), rod([-0.35, 0.18, -0.75], [-0.35, 1.25, -0.85], 0.03, P.grey), rod([0.35, 0.18, -0.75], [0.35, 1.25, -0.85], 0.03, P.grey), at(box(0.8, 0.25, 0.12, P.teal, { outline: 0.02 }), 0, 1.3, -0.85, -0.5)), -3.6, 0, -0.6));
+    // punching bag on a stand
+    const bag = grp(rod([0, 2.7, 0], [0, 2.1, 0], 0.01, P.ink), at(cyl(0.25, 0.25, 1.1, P.red, 8, { outline: 0.02 }), 0, 1.55, 0), at(cyl(0.26, 0.26, 0.08, P.ink, 8), 0, 2.08, 0));
+    const stand = grp(at(box(0.08, 2.9, 0.08, P.ink, { pivot: 'bottom' }), -0.9, 0, 0), at(box(1.0, 0.08, 0.08, P.ink), -0.45, 2.86, 0), at(box(0.6, 0.06, 0.6, P.ink), -0.9, 0.03, 0), bag);
+    g.add(at(stand, 4.4, 0, 0.6));
+    g.userData.update = t => { bag.rotation.z = Math.sin(t * 2.2) * 0.04; };
+    g.userData.anchors = { center: [0, 0, 0], bench: [3.4, 0, -2.0], benchLie: [3.4, 0.52, -2.0], bag: [4.4, 0, 0.6], bagFront: [4.4, 0, 1.4], treadmill: [-3.6, 0.2, -0.6], rack: [-3.6, 0, back + 0.4], mirror: [0.8, 1.35, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  cinema(o) {
+    const g = grp(), { back } = room(g, { wall: '#3A1E22', floor: '#2A1F24', back: -9, half: 7 });
+    const scr = canvasPlane(9, 4.0, (c, W, H) => { c.fillStyle = o.screenColor || '#C9D6DE'; c.fillRect(0, 0, W, H); if (o.screenText) { c.fillStyle = P.navy; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.18}px Arial`; c.fillText(o.screenText, W / 2, H / 2); } }, { emissive: 0.3 });
+    g.add(at(box(9.4, 4.4, 0.1, P.ink), 0, 3.2, back + 0.06), at(scr, 0, 3.2, back + 0.12));
+    for (const s of [-1, 1]) for (let i = 0; i < 6; i++) g.add(at(box(0.32, 6.4, 0.18, i % 2 ? P.red : P.redDark), s * (5.0 + i * 0.3), 3.2, back + 0.3, 0, s * (i % 2 ? 0.4 : -0.4), 0));
+    g.add(at(box(14, 0.6, 0.3, P.redDark), 0, 6.3, back + 0.3));
+    // seat rows facing the screen (camera sees their backs) + a centre aisle
+    const seat = () => grp(at(box(0.5, 0.12, 0.5, P.red), 0, 0.42, 0), at(box(0.52, 0.6, 0.12, P.red, { outline: 0.01 }), 0, 0.75, 0.24), at(box(0.06, 0.25, 0.5, P.ink, { pivot: 'bottom' }), -0.28, 0.4, 0), at(box(0.06, 0.4, 0.4, P.ink, { pivot: 'bottom' }), 0, 0, 0));
+    for (let row = 0; row < 4; row++) { const z = -3.4 - row * 1.25, y = row * 0.0; for (let i = 0; i < 12; i++) { const x = (i - 5.5) * 0.6 + (i < 6 ? -0.5 : 0.5); g.add(at(seat(), x, y, z)); } }
+    for (let i = 0; i < 6; i++) g.add(at(box(0.1, 0.02, 0.3, '#FFD27A', { emissive: '#C9922E', noGrain: true }), -1.0, 0.01, -2.4 - i * 1.25), at(box(0.1, 0.02, 0.3, '#FFD27A', { emissive: '#C9922E', noGrain: true }), 1.0, 0.01, -2.4 - i * 1.25));
+    const l = new THREE.PointLight('#BFD3FF', 10, 22, 1.2); l.position.set(0, 3.2, back + 3); g.add(l);
+    g.userData.anchors = { center: [0, 0, 0], screen: [0, 3.2, back], aisle: [0, 0, -3.4], seat: [-1.1, 0.48, -3.4], seatRight: [1.1, 0.48, -3.4] };
+    g.userData.lighting = 'dark'; return g;
+  },
+  church() {
+    const g = grp(), { back } = room(g, { wall: '#E9E1CF', floor: '#B9AE9A', back: -7 });
+    g.add(flat(1.8, 30, P.red, 0, 0.004, back + 15));
+    // stained-glass lancet windows
+    const lancet = (w, h) => canvasPlane(w, h, (c, W, H) => { c.save(); c.beginPath(); c.moveTo(0, H); c.lineTo(0, W / 2); c.arc(W / 2, W / 2, W / 2, PI, 0); c.lineTo(W, H); c.closePath(); c.clip();
+      const cols = [P.teal, P.red, P.yellow, P.navyLight, P.tealLight]; let k = 0; for (let y = 0; y < H; y += H / 9) for (let x = 0; x < W; x += W / 3) { c.fillStyle = cols[(k++ * 7) % 5]; c.fillRect(x, y, W / 3, H / 9); }
+      c.strokeStyle = P.ink; c.lineWidth = W * 0.04; for (let y = 0; y < H; y += H / 9) { c.beginPath(); c.moveTo(0, y); c.lineTo(W, y); c.stroke(); } for (let x = 0; x <= W; x += W / 3) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, H); c.stroke(); } c.restore(); }, { res: 128, emissive: 0.55, transparent: true });
+    g.add(at(lancet(1.4, 3.8), 0, 4.2, back + 0.02), at(lancet(0.9, 2.8), -3.2, 3.6, back + 0.02), at(lancet(0.9, 2.8), 3.2, 3.6, back + 0.02));
+    // altar on a step + candles
+    g.add(at(box(4.4, 0.22, 2.6, P.creamDark, { pivot: 'bottom' }), 0, 0, back + 1.3), at(box(2.4, 1.0, 0.9, P.cream, { pivot: 'bottom', outline: 0.006 }), 0, 0.22, back + 1.3), at(box(0.6, 0.98, 0.92, P.red, { pivot: 'bottom' }), 0, 0.23, back + 1.3), at(box(0.62, 0.06, 0.94, P.yellow), 0, 0.3, back + 1.3));
+    [-0.9, -0.6, 0.6, 0.9].forEach(x => g.add(at(cyl(0.04, 0.04, 0.3, P.white, 6, { pivot: 'bottom' }), x, 1.22, back + 1.3), at(mesh(new THREE.ConeGeometry(0.03, 0.08, 5), glow('#FFD27A')), x, 1.56, back + 1.3)));
+    // pillars + pews on both sides of the aisle
+    [-1, 1].forEach(s => { [-1.8, -4.8].forEach(z => g.add(at(cyl(0.35, 0.4, 7, P.creamDark, 8, { pivot: 'bottom' }), s * 4.2, 0, z)));
+      [-3.4, -2.0, 1.3, 2.7].forEach(z => g.add(at(grp(at(box(2.2, 0.06, 0.45, P.woodDark), 0, 0.45, 0), at(box(2.2, 0.5, 0.06, P.woodDark, { outline: 0.008 }), 0, 0.75, 0.22), at(box(0.06, 0.95, 0.5, P.woodDark, { pivot: 'bottom' }), -1.07, 0, 0.02), at(box(0.06, 0.95, 0.5, P.woodDark, { pivot: 'bottom' }), 1.07, 0, 0.02)), s * 2.15, 0, z))); });
+    g.userData.anchors = { center: [0, 0, 0], altar: [0, 0.22, back + 2.2], altarBehind: [0, 0.22, back + 0.5], pew: [-2.15, 0.48, -3.4], aisle: [0, 0, 0], window: [0, 4.2, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  desert() {
+    const g = grp(), r = rng(41); sky(g, ['#9CBCC8', '#EBD9B5']);
+    g.add(ground('#D9BC82'), at(mesh(new THREE.CircleGeometry(8, 16), new THREE.MeshBasicMaterial({ color: '#F6E3A6', fog: false })), 40, 55, -150, 0, -0.25, 0));
+    for (let i = 0; i < 9; i++) { const m = sphere(1, i % 2 ? '#D3B47A' : '#CDAE72', 1); m.scale.set(10 + r() * 10, 2 + r() * 2.5, 6 + r() * 5); m.position.set((r() - 0.5) * 120, -0.6, -18 - r() * 40); if (Math.abs(m.position.x) < 12 && m.position.z > -22) m.position.z -= 12; m.castShadow = false; g.add(m); }
+    [[-55, -90, 30, 12], [10, -100, 40, 9], [60, -85, 28, 14]].forEach(([x, z, w, h]) => g.add(at(box(w, h, 12, '#B9734E', { pivot: 'bottom', taper: { x: 0.8, z: 0.75 } }), x, 0, z)));
+    [[-2.4, -4, 1], [5.2, -8, 2, 1.2], [-10, -15, 3, 1.4], [14, -20, 4, 1.3]].forEach(([x, z, s, k = 1]) => g.add(at(cactus(s, k), x, 0, z)));
+    [[3.0, -2.0, 0.3], [-6, -6, 0.6], [8, -4, 0.45]].forEach(([x, z, s]) => g.add(at(rock(s, '#B08F6A', r), x, 0, z)));
+    g.add(at(grp(at(box(0.36, 0.22, 0.28, P.paper, { taper: 0.8 }), 0, 0.12, 0), at(box(0.07, 0.07, 0.02, P.ink), -0.08, 0.15, 0.14), at(box(0.07, 0.07, 0.02, P.ink), 0.08, 0.15, 0.14), at(box(0.5, 0.05, 0.05, P.paper), 0.4, 0.03, 0.1, 0, 0.5, 0)), -2.2, 0, -2.6, 0, 0.3, 0));
+    const weed = new THREE.Mesh(new THREE.IcosahedronGeometry(0.35, 1), new THREE.MeshBasicMaterial({ color: P.woodDark, wireframe: true })); g.add(weed);
+    g.userData.update = t => { const x = -14 + ((t * 2.2) % 28); weed.position.set(x, 0.35 + Math.abs(Math.sin(t * 4)) * 0.25, -4.5); weed.rotation.z = -x / 0.35; };
+    g.userData.update(0);
+    g.userData.anchors = { center: [0, 0, 0], cactus: [-2.4, 0, -4], skull: [-2.2, 0, -2.6], rock: [3.0, 0, -2.0], dune: [0, 0, -25], tumbleweedLane: [0, 0, -4.5] };
+    g.userData.lighting = 'savannah'; return g;
+  },
+  snow() {
+    const g = grp(), r = rng(51); sky(g, ['#AFC4CE', '#E8EDEC']);
+    g.add(ground('#F3F5F1'));
+    hills(g, ['#E9EEEC', '#DCE4E3'], { seed: 13, z0: -40, z1: -80, sx: 24, sy: 7 });
+    for (let i = 0; i < 46; i++) { const a = r() * TAU, d = 6 + r() * 40, x = Math.cos(a) * d, z = Math.sin(a) * d; if ((z > 1 && Math.abs(x) < 10) || (Math.abs(x) < 3.5 && z > -16)) continue; g.add(at(pine(i + 3, true, 0.8 + r() * 0.6), x, 0, z)); }
+    g.add(at(pine(2, true, 1.1), -3.8, 0, -4.2), at(pine(5, true, 0.9), 4.6, 0, -5.5));
+    const sm = grp(at(sphere(0.5, P.white, 1), 0, 0.45, 0), at(sphere(0.36, P.white, 1), 0, 1.13, 0), at(sphere(0.26, P.white, 1), 0, 1.62, 0), at(mesh(new THREE.ConeGeometry(0.05, 0.3, 6), mat('#E07A2E')), 0, 1.6, 0.36, PI / 2),
+      at(box(0.05, 0.05, 0.02, P.ink), -0.09, 1.7, 0.23), at(box(0.05, 0.05, 0.02, P.ink), 0.09, 1.7, 0.23), at(torus(0.27, 0.06, P.red, 4, 10), 0, 1.4, 0, PI / 2), at(cyl(0.2, 0.2, 0.3, P.navy, 8, { pivot: 'bottom' }), 0, 1.8, 0), at(cyl(0.3, 0.3, 0.03, P.navy, 8), 0, 1.81, 0));
+    g.add(at(sm, 2.0, 0, -2.8, 0, -0.3, 0));
+    // falling snow: deterministic function of t
+    const N = 700, base = new Float32Array(N * 4), pos = new Float32Array(N * 3); for (let i = 0; i < N; i++) base.set([(r() - 0.5) * 26, r() * 10, -14 + r() * 22, r() * TAU], i * 4);
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.add(new THREE.Points(geo, new THREE.PointsMaterial({ color: P.white, size: 0.06 })));
+    g.userData.update = t => { for (let i = 0; i < N; i++) { const [x, y, z, ph] = base.subarray(i * 4, i * 4 + 4); pos[i * 3] = x + Math.sin(t * 0.8 + ph) * 0.3; pos[i * 3 + 1] = ((y - t * (0.6 + (ph % 1) * 0.4)) % 10 + 10) % 10; pos[i * 3 + 2] = z; } geo.attributes.position.needsUpdate = true; };
+    g.userData.update(0);
+    g.userData.anchors = { center: [0, 0, 0], snowman: [2.0, 0, -2.8], pine: [-3.8, 0, -4.2], pineRight: [4.6, 0, -5.5] };
+    g.userData.lighting = 'day'; return g;
+  },
+};
+
+const LCDc = '#7CE38B';
+// Red/white checker cloth (restaurant).
+function checkerMat(a, b) {
+  const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+  for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) { x.fillStyle = (i + j) % 2 ? a : b; x.fillRect(i * 8, j * 8, 8, 8); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.magFilter = THREE.NearestFilter; return new THREE.MeshLambertMaterial({ map: t });
+}
+// Square wall tiles with grout lines (bathroom), repeat via geometry UVs.
+function tileMat(tile, grout) {
+  const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+  x.fillStyle = grout; x.fillRect(0, 0, 64, 64); x.fillStyle = tile; x.fillRect(3, 3, 58, 58);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; return new THREE.MeshLambertMaterial({ map: t });
+}
+
+// Street (day or night): near sidewalk at y=0 (actors), road at y=-0.14, buildings behind.
+function streetSet(o, night) {
+  const g = grp(), r = rng(o.seed || 5);
+  if (night) nightSky(g); else { sky(g); clouds(g, 4, 6); }
+  g.add(flat(340, 60, P.creamDark, 0, 0, 28.4), flat(340, 7, '#4A4F55', 0, -0.14, -5.1), flat(340, 4, P.creamDark, 0, 0, -10.6), flat(340, 150, '#A3A79D', 0, -0.01, -87.6));
+  g.add(at(box(340, 0.16, 0.2, P.cream), 0, -0.08, -1.6), at(box(340, 0.16, 0.2, P.cream), 0, -0.08, -8.6));
+  const dash = [], seams = []; for (let x = -80; x <= 80; x += 4) dash.push([x, -0.135, -5.1]); for (let x = -60; x <= 60; x += 1.6) seams.push([x, 0.002, 2.2], [x, 0.002, -10.6, 0, 0, 0, 1, 1, 0.5]);
+  g.add(inst(new THREE.BoxGeometry(2, 0.01, 0.16), mat(P.white), dash), inst(new THREE.BoxGeometry(0.03, 0.004, 7.6), mat('#C9BC9C'), seams));
+  // buildings with window grids
+  const win = { lit: [], dark: [] }, cols = [P.cream, P.tealLight, P.creamDark, P.red, P.salmon, P.tealPale, P.cream];
+  for (let x = -45; x < 45;) { const w = 3.5 + r() * 2.5, h = 3.5 + Math.floor(r() * 4) * 1.6, c = cols[Math.floor(r() * cols.length)], cx = x + w / 2;
+    g.add(at(box(w - 0.1, h, 5, c, { pivot: 'bottom' }), cx, 0, -15.3), at(box(w, 0.25, 5.2, P.navy), cx, h + 0.12, -15.3), at(box(0.9, 1.7, 0.06, P.navy), cx + (r() - 0.5) * (w - 2), 0.85, -12.78));
+    for (let fy = 2.1; fy < h - 0.6; fy += 1.6) for (let fx = cx - w / 2 + 0.9; fx < cx + w / 2 - 0.6; fx += 1.25) (night && r() < 0.55 ? win.lit : win.dark).push([fx, fy, -12.78]);
+    x += w; }
+  windowsGrid(g, win, glow('#F2C46B'), mat(night ? '#2A3A55' : P.navyLight));
+  const on = night;
+  [[-4.5, -1.25, PI / 2], [5.5, -1.25, PI / 2], [-14, -1.25, PI / 2], [14.5, -1.25, PI / 2], [-8.5, -9.0, -PI / 2], [9.5, -9.0, -PI / 2], [22, -9.0, -PI / 2]].forEach(([x, z, ry], i) => g.add(prop('streetLamp', { on, light: on && i < 2 ? 5 : 0 }, x, 0, z, ry)));
+  g.add(prop('fireHydrant', {}, 2.8, 0, -1.0), prop('trashCan', {}, -2.9, 0, -1.05), prop('speedSign', { value: 50 }, 8.5, 0, -1.25));
+  g.userData.anchors = { center: [0, 0, 0], sidewalk: [0, 0, 0], curb: [0, 0, -1.6], road: [0, -0.14, -5.1], laneNear: [0, -0.14, -3.4], laneFar: [0, -0.14, -6.8], farSidewalk: [0, 0, -10.6], buildings: [0, 0, -12.8], lamp: [-4.5, 0, -1.25], hydrant: [2.8, 0, -1.0] };
+  g.userData.lighting = night ? 'night' : 'day'; return g;
+}
+
+export const SET_NAMES = Object.keys(S);
+
+export function buildSet(name, opts = {}) {
+  let g;
+  try { g = S[name] ? S[name](opts || {}) : null; } catch (e) { console.warn('[sets] failed to build', name, e.message); g = null; }
+  if (!g) { // unknown or broken set -> clean void with a sign so it's obvious
+    g = S.whiteVoid({}); g.add(prop('signBoard', { text: String(name), w: 2, h: 0.6, height: 2.2 }, 0, 0, -4));
+  }
+  g.name = 'set:' + name; g.userData.set = name;
+  g.userData.anchors ||= { center: [0, 0, 0] };
+  return g;
+}
