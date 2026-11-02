@@ -60,6 +60,7 @@ cd absurd-shorts && node render/render.mjs scripts-fr/<slug>.json
 
 ## Engine files (if you need to extend it)
 - `engine/style.js` palette, paper materials, box()/cyl()/textPlane() helpers
+- `engine/atlas.js` painted texture atlas for the protagonist (`assets/lemec_atlas.webp`, zones + expressions)
 - `engine/face.js` drawn faces (14 expressions) · `engine/human.js` parametric human + rig (17 outfits, 12 hairstyles, 12 hats, 25 presets)
 - `engine/animations.js` 50+ pose clips · `engine/creatures.js` animals with googly eyes · `engine/props.js` · `engine/sets.js`
 - `engine/director.js` timeline, cameras, captions, overlays, FX · `tools/audio.py` TTS, music bed, SFX, mix · `render/render.mjs` pipeline

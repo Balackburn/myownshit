@@ -47,6 +47,22 @@ you build on against the frames listed.
 | lapels | one teal | one teal (V2) | one teal (`symmetricLapels: true` for two) |
 | background | neutral grey-beige | cream/teal/red sets | sets per scene; `whiteVoid` for sheet-style shots |
 
+## Painted texture atlas (the protagonist's current look)
+`absurd-shorts/assets/lemec_atlas.webp` (1774×887) is the reference texture for **Le Mec**. Preset `lemec` sets `atlas: 'lemec'`:
+every box of the rig samples one zone of the atlas (`engine/atlas.js` → `R`, per-face UVs via `atlasUV`/`atlasBox`).
+| zone (px) | used for |
+|---|---|
+| face [8,8,429,759] | front of the head = NEUTRAL expression as painted; other expressions are painted over it (feathered skin patches + eyes/brows/mouth redrawn in the same ink weight) |
+| headSide [436,2,668,762] | sides of the head (hair + drips + painted ear; navy corner patched with skin), mirrored for the right side; back = same without the ear |
+| headTop / headBottom | top of the head (black hair) / under the chin |
+| jacketFront [826,92,1298,628] | jacket front (lapels, shirt, tie, pocket stroke are **painted**: the procedural overlays are disabled in atlas mode) |
+| jacketSide / jacketBack / navyBlock* | sides, back, tails, sleeves, shoulder pads |
+| legFrontL/R | trousers (front with the teal crease), split thigh/shin |
+| cuff*, skinCap, neck* | cuffs, hands, neck |
+| shoe* | shoes |
+Other presets (cop, judge, madame…) keep the procedural textures. To give the atlas to another preset: `{ preset: 'lemec_charcoal', atlas: 'lemec' }`.
+To change the look, repaint the atlas **while keeping the zones** (or update `R` in `engine/atlas.js`).
+
 ## Blender
 `tools/blender/build_rig.py` builds `models/blender/lemec.blend` from the GLB: a `LeMec_Rig` armature
 (16 bones, stick display), meshes rigidly parented to the bones, 36 `LeMec_<clip>` actions (fake user).

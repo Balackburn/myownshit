@@ -18,7 +18,7 @@ export async function show(q, w, h) {
     const names = (q.list ? q.list.split(',') : Object.keys(PRESETS));
     names.forEach(n => items.push({ obj: buildHuman({ preset: n }), label: n, pose: q.pose || 'stand', t: 0.3 }));
   } else if (what === 'turnaround') {
-    [0, 35, 90, 145, 180].forEach(a => items.push({ obj: buildHuman({ preset: q.preset || 'lemec' }), label: a + '°', pose: 'stand', t: 0, ry: a * Math.PI / 180 }));
+    (q.angles ? q.angles.split(',').map(Number) : [0, 35, 90, 145, 180]).forEach(a => items.push({ obj: buildHuman({ preset: q.preset || 'lemec' }), label: a + '°', pose: 'stand', t: 0, ry: a * Math.PI / 180 }));
   } else if (what === 'poses') {
     const names = q.list ? q.list.split(',') : CLIP_NAMES;
     names.forEach(n => items.push({ obj: buildHuman({ preset: q.preset || 'lemec' }), label: n, pose: n, t: +(q.t || 0.4) }));

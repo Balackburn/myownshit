@@ -9,6 +9,7 @@
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, addOutline, rng } from './style.js';
 import { faceTexture, sideTexture } from './face.js';
+import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces } from './atlas.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
@@ -17,7 +18,7 @@ export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
 
 // Named presets — the cast. `lemec` is the protagonist archetype.
 export const PRESETS = {
-  lemec:     { outfit: 'suit', suit: P.suitNavy, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble' },
+  lemec:     { outfit: 'suit', suit: P.suitNavy, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble', atlas: 'lemec' }, // painted atlas (assets/lemec_atlas.webp)
   lemec_charcoal: { outfit: 'suit', suit: P.suitCharcoal, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble' },
   lemec_brown:    { outfit: 'suit', suit: P.suitBrown, tie: P.yellow, lapel: P.creamDark, hair: 'slick', facial: 'stubble' },
   lemec_beige:    { outfit: 'suit', suit: P.suitBeige, tie: P.navy, lapel: P.salmon, hair: 'combover', facial: 'mustache' },
@@ -73,6 +74,21 @@ export function buildHuman(spec = {}) {
   if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel;
   const B = { height: 1, width: 1, belly: 0, headScale: 1.07, ...(preset.build || {}), ...(spec.build || {}) };
   const H = B.height, Wd = B.width;
+  // Painted-atlas mode: every part samples its zone of assets/lemec_atlas.webp
+  const ATL = o.atlas === 'lemec' && !!atlasImage;
+  const half = (r, top) => top ? [r[0], r[1], r[2], (r[1] + r[3]) / 2] : [r[0], (r[1] + r[3]) / 2, r[2], r[3]];
+  const AT = {
+    pelvis: allFaces(AR.jacketSide, { pz: AR.jacketBack, nz: AR.jacketBack }),
+    jacket: allFaces(AR.jacketSide, { pz: AR.jacketFront, nz: AR.jacketBack, py: AR.navyBlock2, ny: AR.navyBlock2 }),
+    tail: allFaces(AR.jacketSide, { pz: AR.jacketBack, nz: AR.jacketBack }),
+    pad: allFaces(AR.navyBlock2), sleeve: allFaces(AR.navyBlock, { px: AR.jacketSide, nx: AR.jacketSide }),
+    cuff: allFaces(AR.cuff, { px: AR.cuffSide, nx: AR.cuffSide, ny: AR.cuffEnd }),
+    skin: allFaces(AR.skinCap), neck: { px: AR.neckA, nx: AR.neckB, pz: AR.skinCap, nz: AR.neckC, py: AR.skinCap, ny: AR.skinCap },
+    thighL: allFaces(AR.legSide, { pz: half(AR.legFrontR, true), nz: half(AR.jacketBack, true) }), shinL: allFaces(AR.legSide, { pz: half(AR.legFrontR, false), nz: half(AR.jacketBack, false) }),
+    thighR: allFaces(AR.legSide, { pz: half(AR.legFrontL, true), nz: half(AR.jacketBack, true) }), shinR: allFaces(AR.legSide, { pz: half(AR.legFrontL, false), nz: half(AR.jacketBack, false) }),
+    shoe: { py: AR.shoeTop, pz: AR.shoeFront, nz: AR.shoeFront, px: AR.shoeSide, nx: AR.shoeSide, ny: AR.shoeSole },
+  };
+  const part = (kind, w, h, d, color, opts = {}) => ATL && AT[kind] ? atlasBox(w, h, d, AT[kind], opts) : box(w, h, d, color, opts);
 
   const root = new THREE.Group(); root.name = 'human';
   const J = {}; // joints
@@ -81,21 +97,23 @@ export function buildHuman(spec = {}) {
   const legLen = 0.49 * H, hipY = legLen * 2 + 0.07;
   const hips = joint('hips', root, 0, hipY, 0);
   // pelvis / jacket skirt
-  if (!C.skirt) hips.add(box(0.31 * Wd, 0.16, 0.19 + B.belly, C.pants, { pivot: 'top' }));
+  if (!C.skirt) hips.add(part('pelvis', 0.31 * Wd, 0.16, 0.19 + B.belly, C.pants, { pivot: 'top' }));
   const torso = joint('torso', hips, 0, 0, 0);
   const torsoH = 0.62 * H;
-  const jacket = box(0.34 * Wd, torsoH, 0.21 + B.belly, C.jacket, { pivot: 'bottom', taper: { x: 1.42, z: 1.05 } });
+  const jacket = ATL ? part('jacket', 0.38 * Wd, torsoH, 0.21 + B.belly, C.jacket, { pivot: 'bottom', taper: { x: 1.3, z: 1.05 } }) // wider front panel: the painted front is 0.88 W/H
+    : box(0.34 * Wd, torsoH, 0.21 + B.belly, C.jacket, { pivot: 'bottom', taper: { x: 1.42, z: 1.05 } });
   jacket.name = 'jacket'; torso.add(jacket);
   // jacket tails (the long suit coat)
   if (['suit', 'judge', 'vampire', 'doctor', 'scientist', 'waiter', 'skirtsuit'].includes(o.outfit)) {
     const tailLen = o.outfit === 'judge' || o.outfit === 'vampire' ? 0.85 * H : o.outfit === 'doctor' || o.outfit === 'scientist' ? 0.45 : 0.36; // suit jacket reaches the upper thigh
-    const tail = box(0.34 * Wd, tailLen, 0.23 + B.belly, C.jacket, { pivot: 'top', taper: { x: o.outfit === 'judge' || o.outfit === 'vampire' ? 1.35 : 1, z: 1 } });
+    const tail = part('tail', (ATL ? 0.38 : 0.34) * Wd, tailLen, 0.23 + B.belly, C.jacket, { pivot: 'top', taper: { x: o.outfit === 'judge' || o.outfit === 'vampire' ? 1.35 : 1, z: 1 } });
     tail.position.y = 0.02; torso.add(tail); J.coatTail = tail;
   }
   if (C.skirt) { const sk = box(0.38 * Wd, 0.42, 0.24, C.jacket, { pivot: 'top', taper: { x: 1.25, z: 1.15 } }); torso.add(sk); }
   const front = 0.106 + B.belly / 2;
   // shirt V + lapels + tie
-  if (C.lapel) {
+  if (ATL) { /* lapels, shirt, tie, pocket stroke are painted on the atlas front */ }
+  else if (C.lapel) {
     const shirtV = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-0.13 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0.13 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0, torsoH * 0.28, 0)]), mat(C.shirt, { doubleSide: true }));
     shirtV.geometry.computeVertexNormals(); shirtV.position.z = front + 0.004; torso.add(shirtV);
@@ -117,9 +135,9 @@ export function buildHuman(spec = {}) {
   } else {
     const chest = box(0.2, 0.2, 0.01, C.shirt); chest.position.set(0, torsoH * 0.82, front); torso.add(chest);
   }
-  if (C.tie) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
+  if (C.tie && !ATL) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
   // buttons / badge details
-  if (o.outfit === 'suit' || o.outfit === 'waiter') for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
+  if (!ATL && (o.outfit === 'suit' || o.outfit === 'waiter')) for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }
   if (o.outfit === 'swat') { const vest = box(0.44 * Wd, torsoH * 0.6, 0.27, '#2A3442'); vest.position.y = torsoH * 0.55; torso.add(vest); const t = textLabel('SWAT', 0.16, 0.05); t.position.set(0, torsoH * 0.7, 0.14); torso.add(t); }
   if (o.outfit === 'prisoner' || o.outfit === 'pajamas') for (let i = 1; i < 6; i++) { const st = box(0.43 * Wd + 0.01, 0.025, 0.235, o.outfit === 'prisoner' ? '#B85A1E' : P.white); st.position.y = torsoH * i / 6; torso.add(st); }
@@ -129,12 +147,17 @@ export function buildHuman(spec = {}) {
   // neck + head
   const neck = joint('neck', torso, 0, torsoH, 0);
   if (o.outfit === 'vampire') { const col = box(0.36, 0.2, 0.26, '#25262C', { pivot: 'bottom', taper: { x: 1.3, z: 1.2 } }); neck.add(col); }
-  neck.add(box(0.1, 0.17, 0.09, o.skin, { pivot: 'bottom' }));
+  neck.add(part('neck', ATL ? 0.11 : 0.1, 0.17, 0.095, o.skin, { pivot: 'bottom' }));
   const head = joint('head', neck, 0, 0.15, 0);
   const hs = B.headScale;
-  const hw = 0.235 * hs, hh = 0.56 * hs, hd = 0.2 * hs; // W/H ≈ 0.42 (sheet 0.36–0.45, source 0.43)
+  const hw = (ATL ? 0.265 : 0.235) * hs, hh = 0.56 * hs, hd = 0.2 * hs; // W/H ≈ 0.42 (sheet 0.36–0.45, source 0.43)
   const faceOpts = { skin: o.skin, hair: o.hair, hairColor: o.hairColor, facial: o.facial === 'cop' ? 'mustache' : o.facial, glasses: o.glasses, lipstick: o.lipstick, seed: o.seed };
-  const headMats = [
+  const headMats = ATL ? [
+    new THREE.MeshLambertMaterial({ map: atlasSideTexture(false) }), new THREE.MeshLambertMaterial({ map: atlasSideTexture(true) }),
+    atlasMaterial(), atlasMaterial(),
+    new THREE.MeshLambertMaterial({ map: atlasFaceTexture('neutral') }),
+    new THREE.MeshLambertMaterial({ map: atlasBackTexture() }),
+  ] : [
     new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }), new THREE.MeshLambertMaterial({ map: mirrored(sideTexture(faceOpts)) }),
     mat(o.hair === 'bald' ? o.skin : o.hairColor), mat(o.skin),
     new THREE.MeshLambertMaterial({ map: faceTexture({ ...faceOpts, expression: 'neutral' }) }),
@@ -144,6 +167,7 @@ export function buildHuman(spec = {}) {
   // subtle trapezoid + skew: jaw a touch wider, crown leaning back (very characteristic)
   const pp = headGeo.attributes.position;
   for (let i = 0; i < pp.count; i++) { const t = pp.getY(i) / hh; pp.setX(i, pp.getX(i) * (0.9 + 0.1 * t)); pp.setZ(i, pp.getZ(i) - 0.015 * t); } // chin narrower than forehead
+  if (ATL) atlasUV(headGeo, { py: AR.headTop, ny: AR.headBottom });
   headGeo.computeVertexNormals();
   const headMesh = new THREE.Mesh(headGeo, headMats); headMesh.castShadow = true; headMesh.name = 'headMesh';
   addOutline(headMesh, 0.035); head.add(headMesh);
@@ -151,8 +175,10 @@ export function buildHuman(spec = {}) {
   for (const s of [-1, 1]) {
     let ear;
     if (o.ears === 'pointy') ear = box(0.03, 0.14, 0.07, o.skin, { taper: { x: 0.2, z: 0.2 } });
+    else if (ATL) { ear = part('skin', 0.022, 0.095, 0.062, o.skin); const notch = box(0.006, 0.055, 0.024, '#7E5434'); notch.position.set(s * 0.011, 0, 0.004); ear.add(notch); }
     else { ear = box(0.028, 0.085, 0.055, o.skin); const notch = box(0.006, 0.05, 0.022, '#9A6A45'); notch.position.set(s * 0.013, 0, 0.004); ear.add(notch); }
-    ear.position.set(s * (hw / 2 + 0.012), hh * 0.52, -hd * 0.22); if (o.ears === 'pointy') ear.rotation.z = -s * 0.5; head.add(ear);
+    if (ATL) ear.position.set(s * (hw / 2 + 0.01), hh * 0.225, hd * 0.1); // sits on the ear painted on the atlas side panel
+    else ear.position.set(s * (hw / 2 + 0.012), hh * 0.52, -hd * 0.22); if (o.ears === 'pointy') ear.rotation.z = -s * 0.5; head.add(ear);
   }
   // hair volume on top for big styles
   if (['afro', 'curly', 'mohawk', 'bun', 'long', 'spiky'].includes(o.hair)) {
@@ -172,15 +198,15 @@ export function buildHuman(spec = {}) {
   for (const s of ['L', 'R']) {
     const sx = s === 'L' ? 1 : -1; // character's left is +x (facing +z)
     const sh = joint('shoulder' + s, torso, sx * shoulderX, shoulderY, 0);
-    const pad = box(0.12 * Wd, 0.09, 0.19, C.jacket); pad.position.set(-sx * 0.02, 0.01, 0); sh.add(pad);
-    sh.add(box(0.095, 0.35 * H, 0.11, C.jacket, { pivot: 'top' }));
+    const pad = part('pad', 0.12 * Wd, 0.09, 0.19, C.jacket); pad.position.set(-sx * 0.02, 0.01, 0); sh.add(pad);
+    sh.add(part('sleeve', 0.095, 0.35 * H, 0.11, C.jacket, { pivot: 'top' }));
     const el = joint('elbow' + s, sh, 0, -0.32 * H, 0);
-    el.add(box(0.088, 0.3 * H, 0.1, C.jacket, { pivot: 'top' }));
-    const cuff = box(0.085, 0.05, 0.095, C.cuff); cuff.position.y = -0.3 * H; el.add(cuff);
+    el.add(part('sleeve', 0.088, 0.3 * H, 0.1, C.jacket, { pivot: 'top' }));
+    const cuff = part('cuff', 0.085, 0.05, 0.095, C.cuff); cuff.position.y = -0.3 * H; el.add(cuff);
     const hand = joint('hand' + s, el, 0, -0.31 * H, 0);
     // mitten hand + thumb (flat paddle, slightly cupped like the source)
-    hand.add(box(0.075, 0.12, 0.035, o.claws ? o.skin : o.skin, { pivot: 'top' }));
-    const th = box(0.025, 0.06, 0.03, o.skin, { pivot: 'top' }); th.position.set(sx * 0.04, -0.01, 0.01); th.rotation.z = sx * 0.5; hand.add(th);
+    hand.add(part('skin', 0.075, 0.12, 0.035, o.skin, { pivot: 'top' }));
+    const th = part('skin', 0.025, 0.06, 0.03, o.skin, { pivot: 'top' }); th.position.set(sx * 0.04, -0.01, 0.01); th.rotation.z = sx * 0.5; hand.add(th);
     if (o.claws) for (let i = 0; i < 4; i++) { const f = box(0.014, 0.22, 0.014, '#D9D3C0', { pivot: 'top', taper: 0.3 }); f.position.set(-0.03 + i * 0.02, -0.1, 0); hand.add(f); }
   }
   // legs
@@ -188,17 +214,17 @@ export function buildHuman(spec = {}) {
     const sx = s === 'L' ? 1 : -1;
     const hp = joint('hip' + s, hips, sx * 0.085 * Wd, -0.05, 0);
     if (C.skirt) { hp.add(box(0.08, legLen, 0.08, o.skin, { pivot: 'top' })); }
-    else hp.add(box(0.12 * Wd, legLen, 0.13, C.pants, { pivot: 'top' }));
+    else hp.add(part('thigh' + s, 0.12 * Wd, legLen, 0.13, C.pants, { pivot: 'top' }));
     const kn = joint('knee' + s, hp, 0, -legLen, 0);
-    kn.add(C.skirt ? box(0.07, legLen, 0.07, o.skin, { pivot: 'top' }) : box(0.11 * Wd, legLen, 0.12, C.pants, { pivot: 'top' }));
+    kn.add(C.skirt ? box(0.07, legLen, 0.07, o.skin, { pivot: 'top' }) : part('shin' + s, 0.11 * Wd, legLen, 0.12, C.pants, { pivot: 'top' }));
     const ft = joint('foot' + s, kn, 0, -legLen, 0);
-    const shoe = box(0.11, 0.08, 0.24, C.shoes, { pivot: 'top' }); shoe.position.z = 0.05; ft.add(shoe);
+    const shoe = part('shoe', 0.11, 0.08, 0.24, C.shoes, { pivot: 'top' }); shoe.position.z = 0.05; ft.add(shoe);
   }
 
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.15 + hh };
   root.userData.setExpression = (expr) => {
     const m = headMesh.material[4];
-    const tex = faceTexture({ ...faceOpts, expression: expr });
+    const tex = ATL ? atlasFaceTexture(expr) : faceTexture({ ...faceOpts, expression: expr });
     if (m.map !== tex) { m.map = tex; m.needsUpdate = true; }
   };
   // rest pose snapshot for the animator
