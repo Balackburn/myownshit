@@ -136,6 +136,22 @@ const S = {
       at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03), prop('door', {}, 4.7, 0, back), prop('plant', {}, -3.9, 0, back + 0.4),
       prop('desk', {}, -4.6, 0, -1.4, 0.35), prop('chair', { color: P.navy }, -4.9, 0, -2.1, 0.35));
     g.add(at(grp(cyl(0.28, 0.28, 0.05, P.white, 12), at(torus(0.28, 0.03, P.navy, 4, 16), 0, 0, 0, PI / 2), at(box(0.02, 0.18, 0.01, P.ink), 0, 0.07, 0.03), at(box(0.13, 0.02, 0.01, P.ink), 0.05, 0, 0.03)), 3.4, 2.6, back + 0.03, PI / 2));
+    // viz3d pass (lived-in office): background workstations under the window, filing cabinet, cork board with memos,
+    // whiteboard, printer, water cooler, archive boxes, tube lights — acting areas (centre, desk front, door) stay clear
+    const ws = x => grp(at(box(1.3, 0.05, 0.65, P.wood, { outline: 0.006 }), 0, 0.73, 0), at(box(0.05, 0.71, 0.6, P.navyLight, { pivot: 'bottom' }), -0.6, 0, 0), at(box(0.05, 0.71, 0.6, P.navyLight, { pivot: 'bottom' }), 0.6, 0, 0),
+      at(box(0.5, 0.32, 0.04, P.ink, { outline: 0.006 }), 0, 1.0, -0.15), at(box(0.44, 0.26, 0.01, '#9FC6D4', { emissive: '#3E6A7A' }), 0, 1.0, -0.128), at(box(0.06, 0.12, 0.06, P.ink, { pivot: 'bottom' }), 0, 0.755, -0.18), at(box(0.4, 0.02, 0.14, P.ink), 0, 0.765, 0.1), prop('chair', { color: P.navy }, 0, 0, 0.55, PI));
+    g.add(at(ws(), -1.2, 0, back + 0.45), at(ws(), 0.35, 0, back + 0.45));
+    const fc = grp(at(box(0.5, 1.3, 0.6, '#8C949A', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0)); for (let d = 0; d < 3; d++) fc.add(at(box(0.44, 0.38, 0.01, '#9AA2A8'), 0, 0.23 + d * 0.42, 0.305), at(box(0.12, 0.03, 0.03, P.ink), 0, 0.33 + d * 0.42, 0.31));
+    g.add(at(fc, -3.1, 0, back + 0.32));
+    g.add(at(box(1.0, 0.7, 0.03, '#B98A5A', { outline: 0.006 }), 1.15, 1.75, back + 0.03));
+    [[0.85, 1.85, 0.05], [1.2, 1.62, -0.04], [1.45, 1.88, 0.02]].forEach(([x, y, rz], i) => g.add(at(box(0.24, 0.3, 0.01, ['#F7F3EA', '#F2E27A', '#F7F3EA'][i]), x, y, back + 0.05, 0, 0, rz)));
+    const wbd = canvasPlane(1.8, 1.0, (c, W, H) => { c.fillStyle = '#F7F7F2'; c.fillRect(0, 0, W, H); c.strokeStyle = '#2C4A8A'; c.lineWidth = 4; c.beginPath(); c.moveTo(W * 0.08, H * 0.8); [0.25, 0.4, 0.55, 0.7, 0.85].forEach((x, i) => c.lineTo(W * x, H * (0.7 - i * 0.12 + (i % 2) * 0.1))); c.stroke();
+      c.fillStyle = '#B5302A'; c.font = `bold ${H * 0.13}px Arial`; c.fillText('OBJECTIFS Q3', W * 0.06, H * 0.18); c.fillStyle = '#2C4A8A'; c.font = `${H * 0.09}px Arial`; c.fillText('• synergies', W * 0.6, H * 0.4); c.fillText('• yaourts +12%', W * 0.6, H * 0.55); });
+    g.add(at(box(1.9, 1.1, 0.04, '#C9CDCF', { outline: 0.006 }), 6.95, 1.6, -0.8, 0, -PI / 2, 0), at(wbd, 6.92, 1.6, -0.8, 0, -PI / 2, 0));
+    g.add(at(box(0.7, 0.75, 0.5, P.navyLight, { pivot: 'bottom', outline: 0.006 }), 6.2, 0, back + 0.4), at(box(0.55, 0.3, 0.42, '#E8E8E4', { outline: 0.006 }), 6.2, 0.9, back + 0.4), at(box(0.4, 0.02, 0.3, P.white), 6.2, 1.06, back + 0.45));
+    g.add(at(grp(at(box(0.36, 1.0, 0.36, '#E8E8E4', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.15, 0.15, 0.42, '#9FD3E8', 10, { pivot: 'bottom', opacity: 0.7 }), 0, 1.0, 0)), -6.3, 0, back + 0.35));
+    [[6.3, 0, 1.0], [6.3, 0.45, 1.05], [5.8, 0, 1.4]].forEach(([x, y, z]) => g.add(at(box(0.5, 0.45, 0.4, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y, z, 0, 0.2, 0)));
+    [-2.5, 2.5].forEach(x => g.add(rod([x - 0.7, 3.6, -0.8], [x - 0.7, 3.35, -0.8], 0.006, P.ink), rod([x + 0.7, 3.6, -0.8], [x + 0.7, 3.35, -0.8], 0.006, P.ink), at(box(1.6, 0.06, 0.2, '#FFFFFF', { emissive: '#FFF6DA', noGrain: true }), x, 3.33, -0.8)));
     g.userData.anchors = { center: [0, 0, 0], window: [-1.75, 0, back + 0.7], sideTable: [2.0, 0.72, back + 0.45], door: [4.7, 0, back + 0.6], desk: [-4.6, 0, -1.4], deskChair: [-4.9, 0, -2.1], picture: [2.0, 2.05, back] };
     g.userData.lighting = 'interior'; return g;
   },
@@ -582,6 +598,16 @@ const S = {
     for (let y of [1.4, 1.9]) { g.add(at(box(5, 0.04, 0.3, P.woodDark), 0, y, back + 0.2)); for (let i = 0; i < 14; i++) g.add(at(cyl(0.04, 0.05, 0.28, ['#2F6B4A', '#8A3A2A', '#C9A86A', '#3A4A6A'][i % 4], 6, { pivot: 'bottom' }), -2.3 + i * 0.35, y + 0.02, back + 0.2)); }
     for (let i = 0; i < 6; i++) g.add(at(prop('barStool'), -2.5 + i * 1.0, 0, back + 2.35));
     g.add(at(label('CHEZ JO', 1.6, 0.45, { bg: P.ink, fg: '#F2A65A' }), 0, 2.6, back + 0.02));
+    // viz3d pass (lived-in bar): beer taps, back-bar mirror, hanging lamps, dartboard, jukebox, side tables, posters
+    [-0.7, 0, 0.7].forEach((x, i) => g.add(at(box(0.08, 0.32, 0.08, '#C9A86A', { pivot: 'bottom' }), x, 1.11, back + 1.4), at(box(0.06, 0.16, 0.06, ['#B5302A', '#2F6B4A', P.ink][i]), x, 1.5, back + 1.4), rod([x, 1.38, back + 1.4], [x, 1.38, back + 1.5], 0.012, '#C9A86A')));
+    g.add(at(box(5.3, 1.15, 0.04, '#3A2A22', { outline: 0.006 }), 0, 1.7, back + 0.04), at(box(5.1, 1.0, 0.02, '#6E7E86'), 0, 1.7, back + 0.07));
+    [-2.0, 0, 2.0].forEach(x => g.add(hangLamp(x, 3.0, back + 1.6, '#2F6B4A')));
+    g.add(prop('dartboard', {}, 6.95, 1.7, -0.6, -PI / 2));
+    const jb = grp(at(box(0.8, 1.2, 0.55, '#8A3A2A', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.4, 0.4, 0.55, '#8A3A2A', 12, { outline: 0.008 }), 0, 1.2, 0, PI / 2), at(box(0.6, 0.35, 0.02, '#F2A65A', { emissive: '#E0802A', noGrain: true }), 0, 0.85, 0.28));
+    for (let i = 0; i < 5; i++) jb.add(at(box(0.08, 0.5, 0.02, ['#E8C04A', '#B5302A', '#4A9A7A', '#E8C04A', '#B5302A'][i], { emissive: '#553311' }), -0.24 + i * 0.12, 0.35, 0.28));
+    g.add(at(jb, 5.7, 0, back + 0.45));
+    [[5.2, 0.6], [5.5, 2.5]].forEach(([x, z]) => g.add(prop('table', { color: P.woodDark, w: 0.7, d: 0.7, h: 0.74 }, x, 0, z), prop('chair', { color: P.ink }, x - 0.6, 0, z, PI / 2), prop('chair', { color: P.ink }, x + 0.6, 0, z, -PI / 2), at(box(0.08, 0.16, 0.08, '#C9A86A', { opacity: 0.8 }), x, 0.82, z)));
+    [[3.9, 2.0, '#2F6B4A'], [4.8, 1.9, '#8A3A2A']].forEach(([x, y, c]) => g.add(at(box(0.6, 0.8, 0.03, P.ink, { outline: 0.006 }), x, y, back + 0.03), at(box(0.5, 0.7, 0.01, c), x, y, back + 0.05)));
     g.userData.anchors = { center: [0, 0, 0], counter: [0, 1.11, back + 1.6], behind: [0, 0, back + 1.0], stool: [0, 0, back + 2.35], shelf: [0, 1.6, back + 0.2], sign: [0, 2.6, back] };
     g.userData.lighting = 'dusk'; return g;
   },
@@ -591,6 +617,17 @@ const S = {
     for (let i = 0; i < 4; i++) g.add(at(box(0.04, 0.8, 0.04, P.yellow, { pivot: 'bottom' }), -3.4 + i * 1.4, 1.16, back + 2.0));
     g.add(at(prop('vaultDoor'), 2.6, 0, back + 0.2));
     g.add(at(label('BANQUE', 1.8, 0.45, { bg: P.navy, fg: P.yellow }), -1.0, 2.7, back + 0.02));
+    // viz3d pass (real banking hall): marble columns, queue stanchions with red ropes, a wall clock, a security camera,
+    // an ATM on the side wall, a slip desk, plants — the robbery path (right) and the frozen extras stay clear
+    [-5.0, 5.0].forEach(x => g.add(at(cyl(0.34, 0.38, 4.2, '#E2DBCB', 10, { pivot: 'bottom', outline: 0.008 }), x, 0, -0.6), at(box(0.9, 0.2, 0.9, '#CFC6B2', { pivot: 'bottom' }), x, 0, -0.6), at(box(0.85, 0.18, 0.85, '#CFC6B2'), x, 4.1, -0.6)));
+    const posts = [-3.9, -3.1, -2.3, -1.5];
+    posts.forEach(x => g.add(at(cyl(0.12, 0.14, 0.03, '#C9A86A', 10, { pivot: 'bottom' }), x, 0, -0.55), at(cyl(0.025, 0.025, 0.95, '#C9A86A', 8, { pivot: 'bottom' }), x, 0, -0.55), at(sphere(0.04, '#C9A86A', 1), x, 0.97, -0.55)));
+    for (let i = 0; i < posts.length - 1; i++) g.add(wire(catenary([posts[i], 0.9, -0.55], [posts[i + 1], 0.9, -0.55], 0.12), 0.022, P.redDark));
+    g.add(prop('wallClock', { rate: 1 / 3600 }, 3.8, 2.9, back + 0.03));
+    g.add(at(grp(at(box(0.08, 0.08, 0.3, P.greyDark), 0, 0, 0.15), at(box(0.16, 0.12, 0.26, '#E8E8E4', { outline: 0.006 }), 0, -0.08, 0.36, 0.35, 0, 0), at(cyl(0.035, 0.035, 0.02, P.ink, 8), 0, -0.1, 0.5, PI / 2)), -6.7, 3.3, back + 0.2, 0, 0.6, 0));
+    g.add(prop('ATM', {}, -6.75, 0, 1.4, PI / 2));
+    g.add(at(box(0.9, 1.05, 0.5, '#7A6650', { pivot: 'bottom', outline: 0.006 }), 4.7, 0, 1.8), at(box(1.0, 0.04, 0.6, '#E2DBCB'), 4.7, 1.07, 1.8), at(box(0.25, 0.02, 0.18, P.white), 4.6, 1.1, 1.8, 0, 0.3, 0));
+    g.add(prop('plant', {}, -6.3, 0, back + 0.5), prop('plant', {}, 6.3, 0, back + 0.6));
     g.userData.anchors = { center: [0, 0, 0], counter: [-1.2, 0, back + 2.0], teller: [-1.2, 0, back + 1.5], vault: [2.6, 0, back + 0.6], sign: [-1.0, 2.7, back], door: [0, 0, 4] };
     g.userData.lighting = 'interior'; return g;
   },
