@@ -857,13 +857,21 @@ const B = {
     if (o.cross) g.add(at(box(0.6, 0.06, 0.012, o.cross), 0.33, 1.38, 0), at(box(0.06, 0.4, 0.012, o.cross), 0.33, 1.38, 0));
     return g; },
   boxHide(o) { // wearable cardboard box (Metal Gear gag): attach to the torso joint, legs stick out underneath
-    const w = 0.8, h = 1.2, d = 0.75, c = '#B8925E', g = grp();
+    const w = o.w || 0.8, h = o.h || 1.2, d = o.d || 0.75, c = '#B8925E', g = grp();
     g.add(at(box(w, 0.04, d, c, { outline: 0.006 }), 0, h, 0));
     g.add(at(box(w, h, 0.03, c, { outline: 0.006 }), 0, h / 2, d / 2), at(box(w, h, 0.03, c, { outline: 0.006 }), 0, h / 2, -d / 2), at(box(0.03, h, d, c, { outline: 0.006 }), w / 2, h / 2, 0), at(box(0.03, h, d, c, { outline: 0.006 }), -w / 2, h / 2, 0));
     g.add(at(box(0.36, 0.06, 0.035, P.ink), 0, h * 0.78, d / 2 + 0.002), at(box(w, 0.05, 0.034, '#D8B88A'), 0, h * 0.5, d / 2 + 0.003));
     g.add(at(label(o.text || 'FRAGILE', 0.4, 0.14, { bg: null, fg: P.red }), 0, h * 0.3, d / 2 + 0.02));
     return g; },
   syringeBig(o) { const g = B.syringe(o); g.scale.setScalar(o.k || 2); return g; },
+  buffArms(o) { // bodybuilder arms to strap on a creature (the over-muscled chickens): flexed biceps both sides
+    const c = o.color || '#F4EFE2', fist = o.fist || '#E0A93A', g = grp();
+    for (const s of [-1, 1]) {
+      const arm = grp(at(box(0.11, 0.05, 0.055, c, { outline: 0.004 }), s * 0.055, 0, 0), at(box(0.065, 0.05, 0.06, c, { outline: 0.004 }), s * 0.058, 0.038, 0),
+        at(box(0.048, 0.105, 0.05, c, { outline: 0.004 }), s * 0.112, 0.055, 0), at(box(0.055, 0.045, 0.055, fist, { outline: 0.004 }), s * 0.112, 0.115, 0));
+      arm.position.set(s * 0.1, 0.0, 0); g.add(arm);
+    }
+    return g; },
   baldCap(o) { // shiny bald pate to sit on a creature's head ("un gorille chauve")
     const w = o.w || 0.3, d = o.d || 0.26, c = o.color || '#C9B9A6';
     const g = grp(at(box(w, 0.07, d, c, { outline: 0.006, taper: { x: 0.8, z: 0.8 } }), 0, 0.035, 0), at(box(w * 0.25, 0.01, d * 0.2, '#EFE6DA', { noGrain: true }), -w * 0.15, 0.072, d * 0.1));

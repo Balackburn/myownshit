@@ -9,7 +9,13 @@ The pipeline lives in `absurd-shorts/` (Three.js procedural engine + headless re
 You write a **JSON script**; the engine builds the characters, sets, camera, captions, voice,
 music and SFX, and outputs an MP4 (720×1280, 30 fps by default).
 
+**Default pipeline = director v3** (scene timelines locked to the real ElevenLabs word timings, auto-facing
+moves, real dialogue lines, auto-framed cameras with an occlusion solver): read `references/v3-director.md`
+and start from `absurd-shorts/scripts-fr/chrono3.py` (short) or `gorille3.py` (long). The sections below
+"Workflow" describe the older v2 one-shot-per-sentence model (`render/render.mjs`), kept for legacy scripts.
+
 Read before writing (in this order, only what you need):
+0. `references/v3-director.md`: v3 data model, time expressions, camera solver, QA loop, staging rules. **Always.**
 1. `references/formula.md`: the 8-beat formula, French language/swearing rules, checklist, premise bank, 10 example scripts. **Always.**
 2. `references/scene-json.md`: JSON format + catalogue (presets, clips, expressions, props, sets, creatures, camera presets, FX, SFX). **Always before storyboarding.**
 3. `references/style-match.md`: measured style target (sheet + originals → engine parameters), acting rules, Blender notes. Read it before touching the character or the animations.

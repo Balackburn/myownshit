@@ -55,7 +55,7 @@ scenes.append({
 def gor(i, pos, ry, clip='idle', expr='neutral', scale=GSC, keys=None, **kw):
     return act(f'g{i}', pos, ry, clip, expr, keys, scale=scale, **kw)
 scenes.append({
-  'id': 'zoo1', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo1', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
   'lines': [L('g1', "Puis il est allé au zoo et là, il a vu les gorilles.", highlight=['zoo', 'gorilles.']),
             L('g2', "Ces putains de gorilles étaient énormes, des bras trois fois plus gros que les siens.", highlight=['énormes,', 'trois']),
             L('g3', "Ce con est devenu terriblement jaloux.", highlight=['jaloux.']),
@@ -86,7 +86,7 @@ scenes.append({
             P('eggs', 'eggs', pos=[-1.7, 0, 1.4]),
             P('milk', 'milkBottle', visible=False, on={'actor': 'g2', 'hand': 'R'}, keys=[k('g9:lait', visible=True)]),
             P('yaourt', 'mug', opts={'color': '#FFFFFF'}, visible=False, on={'actor': 'g1', 'hand': 'R'}, keys=[k('g9:yaourt', visible=True)]),
-            WM(pos=[3.6, 0, 5.4], ry=-15, opts={'kind': 'stand'})],
+            WM(pos=[6.2, 0, 5.8], ry=-25, opts={'kind': 'stand'})],
   'cams': [
     cam(0, 'mec', 'fs', angle=70, move='track'),
     cam('g1:vu', ots=['mec', 'g1', 1]),
@@ -101,7 +101,7 @@ scenes.append({
     cam('g6', ['g0', 'g1', 'g2', 'sack'], 'fs', worldAngle=-10, elev=10),
     cam('g7', 'mec', 'ms', angle=-30),
     cam('g7:manger', 'g1', 'ms', angle=15),
-    cam('g8', 'sack', 'cu', worldAngle=10, elev=8, noOcclusion=True),
+    cam('g8', 'sack', 'ms', worldAngle=10, elev=8, noOcclusion=True, compose=0.16),
     cam('g9', 'chevre', 'fs', angle=40, move='track'),
     cam('g9:œufs', 'g0', 'ms', angle=-20),
     cam('g9:lait', 'g2', 'ms', angle=10),
@@ -120,14 +120,15 @@ scenes.append({
             P('eggs', 'eggs', pos=[0.9, 0, -0.3]), P('milk', 'milkBottle', pos=[1.15, 0, -0.1]), P('yaourt', 'mug', pos=[-0.3, 0, -0.4], opts={'color': '#FFFFFF'})],
   'cams': [cam(0, ['mec', 'chevre', 'sack'], 'fs', worldAngle=12, elev=12),
            cam('g10:manger', 'mec', 'mcu', angle=20, move='push'),
-           cam('g10:comme', 'chevre', 'ms', angle=10)],
+           cam('g10:comme', 'chevre', 'ms', worldAngle=-35)],
   'tail': 0.35,
 })
 
 # ------------------------------------------------------------------ 4. zoo, jour 2 : encore plus gros, acrobaties
 GSC2 = 1.45
 scenes.append({
-  'id': 'zoo2', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo2', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
+  'sfx': [{'at': 'g14:poil+0.8', 'name': 'thud', 'vol': 0.45}],
   'lines': [L('g11', "Il est revenu au zoo, toujours pas assez musclé.", highlight=['musclé.']),
             L('g12', "Les gorilles étaient encore plus gros que lui.", highlight=['encore', 'gros']),
             L('g13', "Ça le rendait fou.", highlight=['fou.']),
@@ -172,12 +173,11 @@ scenes.append({
         k('g16:voyaient', clip='handsOnHips', expr='happy', face=90),
         k('g17', to=[-1.5, 0.12, 0.55], clip='walk', speed=1.4, then='pullUp', thenParams={'freq': 1.4}, faceEnd=0),
         k('g17:acrobaties', to=[-0.2, 0, 0.9], clip='walk', speed=1.6, then='flip', thenParams={'dur': 0.75}),
-        k('g18a', to=[-4.5, 0, -0.9], clip='run', faceEnd=0, then='swingPole'),
-        k('g18a:lampadaire#2', to=[0.5, 0, -0.9], clip='airborne', glide=True, dur=0.75, arc=1.4, face='move', land='stepHeavy', then='swingPole'),
-        k('g18a.end+0.25', clip='swingPole', params={'side': -1})]),
-    act('madame', [2.6, 0, 0.9], -90, 'walk', 'neutral', keys=[k(0.05, to=[1.2, 0, 0.9], clip='walk', speed=1.1),
+        k('g18a', to=[-4.15, 0, -1.25], clip='run', faceEnd=0, then='swingPole'),
+        k('g18a#7', to=[0.85, 0, -1.25], clip='airborne', glide=True, dur=0.75, arc=1.4, face='move', land='stepHeavy', then='swingPole', faceEnd=0)]),
+    act('madame', [2.6, 0, 0.9], -90, 'idle', 'neutral', keys=[k(0.05, to=[1.2, 0, 0.9], clip='walk', speed=1.1),
         k('g16:voyaient', clip='startle', expr='shocked', face='mecNu'), k('g16:barraient', to=[8.0, 0, 1.6], clip='flee', expr='scared')]),
-    act('mamie', [3.4, 0, 0.2], -90, 'walk', 'neutral', keys=[k(0.05, to=[2.0, 0, 0.2], clip='walk', speed=1.0),
+    act('mamie', [3.4, 0, 0.2], -90, 'idle', 'neutral', keys=[k(0.05, to=[2.0, 0, 0.2], clip='walk', speed=1.0),
         k('g16:arriver', clip='startle', expr='shocked', face='mecNu'), k('g16:barraient+0.2', to=[8.5, 0, 0.6], clip='flee', expr='scared')]),
     act('gamin', [1.6, 0, 1.5], -100, 'idle', 'happy', keys=[k('g16:voyaient', clip='doubleTake', expr='shocked', face='mecNu'),
         k('g16:courant', to=[7.5, 0, 2.2], clip='flee', expr='scared')]),
@@ -195,7 +195,7 @@ scenes.append({
     cam('g17:tractions', 'mecNu', 'ms', angle=-10, elev=-10),
     cam('g17:acrobaties', 'mecNu', 'fs', angle=30),
     cam('g18a', 'mecNu', 'fs', angle=40, move='track'),
-    cam('g18a:lampadaire#2', 'mecNu', 'ws', worldAngle=0, elev=8, move='track'),
+    cam('g18a#7', 'mecNu', 'ws', worldAngle=0, elev=8, move='track'),
   ],
   'tail': 0.2,
 })
@@ -203,19 +203,18 @@ scenes.append({
 scenes.append({
   'id': 'toits', 'set': 'rooftopPowerLine', 'ambience': 'street',
   'lines': [L('g18b', "et sur les toits des maisons en marchant comme un gorille.", highlight=['toits', 'gorille.'])],
-  'actors': [act('mecNu', [-5.2, 0, -0.4], 90, 'knuckleWalk', 'happy', keys=[k(0.0, to=[3.6, 0, 0.6], clip='knuckleWalk', speed=1.5),
-      k('g18b:gorille+0.1', clip='chestBeat', expr='happy', face=0)])],
+  'actors': [act('mecNu', [-2.6, 0, -0.2], 90, 'idle', 'happy', keys=[k(0.0, to=[1.9, 0, 0.4], clip='knuckleWalk', speed=1.65, then='chestBeat', faceEnd=0)])],
   'props': [],
   'cams': [cam(0, 'mecNu', 'fs', angle=60, elev=4, move='track'),
            cam('g18b:marchant', 'mecNu', 'ms', angle=10, elev=-10),
-           cam('g18b:gorille+0.1', 'mecNu', 'fs', angle=0, elev=-12, lens=32)],
+           cam('g18b:gorille', 'mecNu', 'fs', angle=0, elev=-12, lens=32)],
   'tail': 0.6,
 })
 
 # ------------------------------------------------------------------ 6. zoo, jour 3 : furieux, il saute la barrière
 GSC3 = 1.6
 scenes.append({
-  'id': 'zoo3', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo3', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
   'lines': [L('g19', "Puis, retour au zoo, toujours moins musclé.", highlight=['moins']),
             L('g20', "Il était tellement furieux que maintenant, même les visiteurs le craignaient.", highlight=['furieux', 'visiteurs']),
             L('g21', "Alors, il a sauté la barrière et s'est installé directement dans l'enclos des gorilles.", highlight=['sauté', 'enclos']),
@@ -246,7 +245,7 @@ scenes.append({
     cam('g21', 'mec', 'fs', angle=90, elev=4),
     cam('g21:installé', 'mec', 'fs', angle=20, move='track'),
     cam('g22', ['mec', 'g0', 'g1'], 'fs', worldAngle=15, elev=10),
-    cam('g22:dormait', ['mec', 'g0', 'g1', 'g2'], 'ws', worldAngle=0, elev=30),
+    cam('g22:dormait', ['mec', 'g0', 'g1'], 'fs', worldAngle=0, elev=26),
     cam('g22:secret', 'mec', 'cu', angle=0, elev=40),
   ],
   'tail': 0.3,
@@ -254,7 +253,7 @@ scenes.append({
 
 # ------------------------------------------------------------------ 7. zoo : plus poilus -> dopés
 scenes.append({
-  'id': 'zoo4', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo4', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
   'lines': [L('g23', "Et là, il a remarqué un truc.", highlight=['truc.']),
             L('g24', "Ils étaient beaucoup plus poilus que lui.", highlight=['poilus']),
             L('g25', "Pour lui, aucun doute, ces bâtards devaient être dopés.", highlight=['bâtards', 'dopés.'])],
@@ -267,7 +266,7 @@ scenes.append({
   ],
   'props': [],
   'cams': [cam(0, 'mec', 'ms', angle=20), cam('g23:remarqué', 'mec', 'cu', angle=10, move='push'),
-           cam('g24', ['mec', 'g1'], 'ms', worldAngle=-60),
+           cam('g24', ['mec', 'g1'], 'ms', worldAngle=60),
            cam('g24:poilus', 'g1', 'mcu', angle=10),
            cam('g25', 'mec', 'ecu', angle=0, move='push', amount=0.05),
            cam('g25:dopés', ['mec', 'g1'], 'fs', worldAngle=100)],
@@ -275,9 +274,9 @@ scenes.append({
 })
 
 # ------------------------------------------------------------------ 8. zoo, nuit : sauf un ; le carton
-ROCK = [2.6, 0, -3.0]           # big hiding rock (added for the night scenes)
+ROCK = [1.4, 0, -2.6]           # big hiding rock (added for the night scenes): x -0.3..3.1, z -3.9..-1.3, 2 m high
 scenes.append({
-  'id': 'nuit1', 'set': 'zoo', 'setOpts': {'night': True}, 'ambience': 'night',
+  'id': 'nuit1', 'set': 'zoo', 'setOpts': {'night': True, 'signX': -7.2, 'signZ': 5.6}, 'ambience': 'night',
   'lines': [L('g26', "Il a attendu la nuit jusqu'à ce que tous les gorilles aient l'air de dormir.", highlight=['nuit', 'dormir.']),
             L('g27', "Sauf un.", highlight=['un.']),
             L('g28', "Le plus gros s'est levé discrètement et s'est caché derrière un rocher.", highlight=['discrètement', 'rocher.']),
@@ -287,19 +286,19 @@ scenes.append({
     act('mec', [-0.6, 0, 1.3], 90, 'lieBack', 'suspicious', keys=[
         k('g28:levé', clip='crouchHide', expr='suspicious', face='g1'),
         k('g29:planqué', clip='boxFreeze'),
-        k('g29:suivi', to=[1.0, 0, -0.9], clip='boxSneak', speed=0.6),
+        k('g29:suivi', path=[[-0.5, 0, 0.3], [-0.6, 0, -0.6]], clip='boxSneak', speed=0.6),
         k('g30:regardait+0.15', clip='boxFreeze'),
-        k('g30.end', to=[1.6, 0, -1.8], clip='boxSneak', speed=0.6)]),
+        k('g30.end', to=[-0.7, 0, -1.4], clip='boxSneak', speed=0.6)]),
     gor(0, [-2.6, 0, 0.2], 60, 'sleepSide', 'closed', scale=GSC3),
     gor(2, [2.0, 0, 1.2], -60, 'sleepSide', 'closed', scale=GSC3),
     gor(1, [0.6, 0, 0.0], 90, 'sleepSide', 'closed', scale=GSC3 * 1.12, keys=[
         k('g27', expr='suspicious'),
         k('g28:levé', clip='idle', expr='suspicious', face=200),
-        k('g28:discrètement', path=[[1.6, 0, -1.4], [2.9, 0, -4.4]], clip='tiptoe', speed=1.0, faceEnd=20),
+        k('g28:discrètement', path=[[2.6, 0, -0.6], [3.8, 0, -1.4], [3.8, 0, -4.2], [2.0, 0, -4.6]], clip='tiptoe', speed=1.25, faceEnd=-90),
         k('g30:regardait', clip='lookBack', expr='suspicious'), k('g30:net+0.4', clip='crouchHide', expr='neutral')]),
   ],
-  'props': [P('rock', 'rock', pos=ROCK, opts={'size': 2.6}),
-            P('box', 'boxHide', visible=False, on={'actor': 'mec', 'joint': 'hips', 'offset': [0, -0.62, 0], 'rot': [0, 0, 0]}, keys=[k('g29:planqué', visible=True)])],
+  'props': [P('rock', 'rock', pos=ROCK, opts={'size': 2.2}),
+            P('box', 'boxHide', opts={'h': 1.5, 'd': 0.95, 'w': 0.85}, visible=False, on={'actor': 'mec', 'joint': 'root', 'offset': [0, 0.66, 0.3]}, keys=[k('g29:planqué', visible=True)])],
   'cams': [
     cam(0, ['mec', 'g0', 'g1', 'g2'], 'fs', worldAngle=10, elev=24),
     cam('g26:dormir', 'mec', 'cu', angle=0, elev=50),
@@ -317,21 +316,23 @@ scenes.append({
 
 # ------------------------------------------------------------------ 9. derrière le rocher : stéroïdes, pré-workout, la grotte
 scenes.append({
-  'id': 'nuit2', 'set': 'zoo', 'setOpts': {'night': True}, 'ambience': 'night',
+  'id': 'nuit2', 'set': 'zoo', 'setOpts': {'night': True, 'signX': -7.2, 'signZ': 5.6}, 'ambience': 'night',
+  'sfx': [{'at': 0.55, 'name': 'needle', 'vol': 0.5}, {'at': 'g32+0.35', 'name': 'gulp', 'vol': 0.6}, {'at': 'g32+0.8', 'name': 'gulp', 'vol': 0.6}],
   'lines': [L('g31', "Derrière le rocher, le gorille se piquait aux stéroïdes.", highlight=['stéroïdes.']),
             L('g32', "Ensuite, il prenait un pré-workout interdit qui contenait un dérivé de méthamphétamine.", highlight=['interdit', 'méthamphétamine.']),
             L('g33', "Puis, il est entré dans une grotte.", highlight=['grotte.']),
             L('g34', "Le mec l'a suivi, toujours sous son carton.", highlight=['carton.'])],
   'actors': [
-    gor(1, [2.9, 0, -4.5], 20, 'injectArm', 'neutral', scale=GSC3 * 1.12, keys=[
+    gor(1, [2.0, 0, -4.6], -90, 'injectArm', 'neutral', scale=GSC3 * 1.12, keys=[
         k('g31:stéroïdes', clip='wired', expr='shocked'),
         k('g32', clip='drinkUp', expr='happy'), k('g32:dérivé', clip='wired', expr='shocked'),
         k('g33', to=[3.6, 0, -6.3], clip='knuckleWalk', speed=1.4), k('g33.end+0.1', visible=False)]),
-    act('mec', [1.6, 0, -1.8], 160, 'boxFreeze', 'suspicious', keys=[
-        k('g34', path=[[2.6, 0, -4.9], [3.6, 0, -6.3]], clip='boxSneak', speed=1.1), k('g34.end+0.1', visible=False)]),
+    act('mec', [-0.7, 0, -1.4], 180, 'boxFreeze', 'suspicious', keys=[
+        k(0.05, to=[-0.75, 0, -3.3], clip='boxSneak', speed=0.7, faceEnd='g1'),
+        k('g34', path=[[0.4, 0, -5.0], [2.6, 0, -5.9], [3.6, 0, -6.3]], clip='boxSneak', speed=1.3), k('g34.end+0.1', visible=False)]),
   ],
-  'props': [P('rock', 'rock', pos=ROCK, opts={'size': 2.6}),
-            P('box', 'boxHide', on={'actor': 'mec', 'joint': 'hips', 'offset': [0, -0.62, 0]}),
+  'props': [P('rock', 'rock', pos=ROCK, opts={'size': 2.2}),
+            P('box', 'boxHide', opts={'h': 1.5, 'd': 0.95, 'w': 0.85}, on={'actor': 'mec', 'joint': 'root', 'offset': [0, 0.66, 0.3]}),
             P('syr', 'syringeBig', on={'actor': 'g1', 'hand': 'R'}, keys=[k('g32', visible=False)]),
             P('pre', 'preWorkout', visible=False, on={'actor': 'g1', 'hand': 'R'}, keys=[k('g32', visible=True), k('g33', visible=False)])],
   'cams': [
@@ -339,7 +340,7 @@ scenes.append({
     cam('g31:piquait', 'g1', 'mcu', angle=30),
     cam('g31:stéroïdes', ['g1', 'mec'], 'fs', worldAngle=200, elev=10, allowBack=True),
     cam('g32', 'g1', 'mcu', angle=-20),
-    cam('g32:interdit', 'pre', 'cu', worldAngle=20, noOcclusion=True),
+    cam('g32:interdit', 'g1', 'ms', angle=30),
     cam('g32:dérivé', 'g1', 'cu', angle=0, move='push'),
     cam('g33', 'g1', 'fs', angle=140, elev=8, allowBack=True),
     cam('g34', 'mec', 'fs', angle=150, elev=10, allowBack=True, move='track'),
@@ -357,7 +358,7 @@ scenes.append({
             L('g38', "Le mec regardait tout depuis son carton.", highlight=['carton.']),
             L('g39', "Il avait enfin compris pourquoi ces cons étaient aussi musclés.", highlight=['compris', 'cons'])],
   'actors': [
-    gor(1, [-4.6, 0, 1.6], 90, 'knuckleWalk', 'neutral', scale=1.35, keys=[
+    gor(1, [-4.6, 0, 1.6], 90, 'idle', 'neutral', scale=1.35, keys=[
         k(0.0, to=[2.4, 0, -1.2], clip='knuckleWalk', speed=1.6, faceEnd='coach'),
         k('g36', to=[3.4, 0.05, -1.4], clip='walk', speed=1.4, then='benchPress', thenParams={'freq': 1.3}, faceEnd=0),
         k('g37:faisait', to=[0.9, 0, -1.0], clip='walk', speed=1.8, then='deadlift', thenParams={'freq': 1.5}, faceEnd=20),
@@ -367,10 +368,10 @@ scenes.append({
     act('mec', [-3.2, 0, 1.9], 120, 'boxFreeze', 'suspicious', keys=[
         k('g38', face='g1', turn=0.6), k('g39', clip='stand', expr='happy', face=30)]),
   ],
-  'props': [CLOCK | {'opts': {'rate': 0.05}, 'keys': [k('g36', scale=1.0)]},
+  'props': [CLOCK | {'opts': {'rate': 0.05}, 'keys': [k('g36', visible=False)]},
             P('clock2', 'wallClock', pos=[-1.6, 2.6, -3.55], opts={'rate': 2.5}, visible=False, keys=[k('g36', visible=True)]),
-            P('box', 'boxHide', on={'actor': 'mec', 'joint': 'hips', 'offset': [0, -0.62, 0]},
-              keys=[k('g39', detach=True, to=[-3.2, 2.4, 1.9], dur=0.45, sfx='paper')]),
+            P('box', 'boxHide', opts={'h': 1.5, 'd': 0.95, 'w': 0.85}, on={'actor': 'mec', 'joint': 'root', 'offset': [0, 0.66, 0.3]},
+              keys=[k('g39', detach=True, fall=True, toss=[0.6, 3.6, -0.4], impact='thud', sfx='paper')]),
             P('whistle', 'whistle', on={'actor': 'coach', 'hand': 'R'}), P('clip', 'clipboardProp', on={'actor': 'coach', 'hand': 'L'}),
             P('bb', 'barbell', visible=False, on={'actor': 'g1', 'hand': 'R'}, keys=[k('g36', visible=True), k('g37:exercices', visible=False)]),
             P('db', 'dumbbell', visible=False, on={'actor': 'g1', 'hand': 'R'}, keys=[k('g37:exercices', visible=True)]),
@@ -379,10 +380,10 @@ scenes.append({
   'cams': [
     cam(0, ['g1', 'coach'], 'ws', worldAngle=10, elev=10, move='push', amount=0.08),
     cam('g35:cachée', 'g1', 'fs', angle=30, move='track'),
-    cam('g35:coach', 'coach', 'ms', angle=10),
+    cam('g35:coach', 'coach', 'ms', angle=50),
     cam('g36', 'g1', 'fs', angle=50),
     cam('g36:heures', 'clock2', 'cu', worldAngle=0, noOcclusion=True),
-    cam('g36:nuit', 'g1', 'ms', angle=70, elev=12),
+    cam('g36:nuit', 'g1', 'fs', angle=90, elev=6),
     cam('g37', 'coach', 'mcu', angle=15),
     cam('g37:enchaîner', 'g1', 'fs', angle=20),
     cam('g37:exercices', 'g1', 'ms', angle=-10),
@@ -415,12 +416,14 @@ scenes.append({
             P('dbG', 'dumbbell', visible=False, on={'actor': 'mecG', 'hand': 'R'}, keys=[k('g42:transformé', visible=True), k('g42:gorille', visible=False)]),
             P('whistle', 'whistle', on={'actor': 'coach', 'hand': 'R'}), CLOCK | {'opts': {'rate': 1.0}}],
   'fx': [{'type': 'flash', 'at': 'g42:transformé', 'dur': 0.25}, {'type': 'shake', 'at': 'g42:transformé', 'dur': 0.3, 'amount': 0.04}],
-  'sfx': [{'at': 'g42:transformé', 'name': 'poof', 'vol': 0.8}, {'at': 'g42:gorille', 'name': 'roar', 'vol': 0.5}],
+  'sfx': [{'at': 'g42:transformé', 'name': 'poof', 'vol': 0.8}, {'at': 'g42:gorille', 'name': 'roar', 'vol': 0.5},
+          {'at': 0.55, 'name': 'needle', 'vol': 0.5}, {'at': 'g41+0.35', 'name': 'gulp', 'vol': 0.6}],
   'cams': [
     cam(0, 'mec', 'ms', angle=20), cam('g40:fait', 'mec', 'cu', angle=-15),
     cam('g41', 'mec', 'mcu', angle=25),
-    cam('g41:entraînements', 'mec', 'fs', angle=60),
-    cam('g41:programme', ['mec', 'coach'], 'fs', worldAngle=-20),
+    cam('g41:entraînements', 'mec', 'fs', angle=40, move='track'),
+    cam('g41:programme', 'coach', 'ms', angle=25),
+    cam('g41:programme+0.8', 'mec', 'ms', angle=15),
     cam('g42', 'mec', 'ms', angle=10),
     cam('g42:transformé', 'mecG', 'ms', angle=10, move='pull'),
     cam('g42:gorille', 'mecG', 'fs', angle=0, elev=-12, lens=32),
@@ -430,7 +433,7 @@ scenes.append({
 
 # ------------------------------------------------------------------ 12. zoo : un gorille parmi les autres
 scenes.append({
-  'id': 'zoo5', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo5', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
   'lines': [L('g44', "Sauf qu'il ne voulait pas être un gorille parmi les autres.", highlight=['parmi']),
             L('g45', "Il voulait être le plus musclé de tous.", highlight=['plus', 'tous.'])],
   'actors': [
@@ -476,13 +479,15 @@ scenes.append({
             CLOCK | {'opts': {'rate': 0.05}, 'keys': [k('g47', visible=False)]},
             P('clockFast', 'wallClock', pos=[-1.6, 2.6, -3.55], opts={'rate': 6.0}, visible=False, keys=[k('g47', visible=True)])],
   'daynight': {'from': 'g47:jour', 'period': 0.6},
+  'sfx': [{'at': 0.5, 'name': 'needle', 'vol': 0.5}, {'at': 0.8, 'name': 'needle', 'vol': 0.5}, {'at': 1.1, 'name': 'needle', 'vol': 0.5},
+          {'at': 'g46:dose+0.35', 'name': 'gulp', 'vol': 0.6}, {'at': 'g46:dose+0.75', 'name': 'gulp', 'vol': 0.6}],
   'cams': [
     cam(0, 'mecG', 'ms', angle=20), cam('g46:dose', 'mecG', 'mcu', angle=-20), cam('g46:produit', 'mecG', 'cu', angle=0, move='push'),
     cam('g47', 'mecG', 'fs', angle=50),
     cam('g47:semaine', 'clockFast', 'cu', worldAngle=0, noOcclusion=True),
-    cam('g47:pause', 'mecG', 'ms', angle=80, elev=14),
-    cam('g47:jour', ['mecG', 'coach'], 'ws', worldAngle=20, elev=12),
-    cam('g48', ['mecG', 'coach'], 'fs', worldAngle=0, elev=8),
+    cam('g47:pause', 'mecG', 'fs', angle=90, elev=6),
+    cam('g47:jour', 'mecG', 'ms', angle=70, elev=10),
+    cam('g48', 'coach', 'fs', angle=20, move='track'),
     cam('g49', 'mecG', 'mcu', angle=15, move='push'),
     cam('g50', 'mecG', 'fs', angle=0, elev=-16, lens=30, move='pull', amount=0.15),
   ],
@@ -491,7 +496,7 @@ scenes.append({
 
 # ------------------------------------------------------------------ 14. zoo : débutants, la rouste, l'alpha
 scenes.append({
-  'id': 'zoo6', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo6', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
   'lines': [L('g51', "Les autres gorilles avaient l'air de débutants.", highlight=['débutants.']),
             L('g52', "Il s'est battu contre eux et leur a foutu une rouste un par un.", highlight=['rouste']),
             L('g53', "Il a battu tout le monde, est devenu l'alpha et s'est mis à vivre comme le chef de l'enclos.", highlight=["l'alpha", 'chef'])],
@@ -502,13 +507,13 @@ scenes.append({
         k('g52:par', face='g2', turn=0.2, clip='windupPunch', sfx='punch', sfxAt=0.45),
         k('g53', to=[2.2, 0, -2.2], clip='strut', speed=1.2, then='sit', faceEnd=0),
         k('g53:chef', clip='heroPose', expr='smug')]),
-    gor(0, [-1.6, 0, -0.4], 60, 'curls', 'worried', scale=1.25, params={'freq': 0.6}, keys=[
+    gor(0, [-1.15, 0, -1.0], 70, 'curls', 'worried', scale=1.25, params={'freq': 0.6}, keys=[
         k('g52+0.45', to=[-3.6, 0, 0.6], clip='hitFly', glide=True, dur=0.55, arc=0.8, face='keep', land='thud', then='koFloor'),
         k('g53:alpha', clip='kneelBow', expr='sad', face='mecG')]),
-    gor(1, [0.3, 0, 0.4], 0, 'curls', 'worried', scale=1.25, params={'freq': 0.7}, keys=[
+    gor(1, [0.3, 0, -0.2], 0, 'curls', 'worried', scale=1.25, params={'freq': 0.7}, keys=[
         k('g52:rouste+0.45', to=[0.6, 0, 2.6], clip='hitFly', glide=True, dur=0.55, arc=0.8, face='keep', land='thud', then='koFloor'),
         k('g53:mis', to=[1.6, 0, -1.2], clip='walk', speed=1.2, then='fan', faceEnd='mecG', expr='sad')]),
-    gor(2, [2.0, 0, -0.2], -60, 'curls', 'worried', scale=1.25, params={'freq': 0.5}, keys=[
+    gor(2, [1.6, 0, -0.8], -70, 'curls', 'worried', scale=1.25, params={'freq': 0.5}, keys=[
         k('g52:par+0.45', to=[4.0, 0, 0.8], clip='hitFly', glide=True, dur=0.55, arc=0.8, face='keep', land='thud', then='koFloor'),
         k('g53:vivre', to=[3.1, 0, -1.3], clip='walk', speed=1.2, then='giveItem', faceEnd='mecG', expr='sad')]),
   ],
@@ -522,10 +527,10 @@ scenes.append({
   'cams': [
     cam(0, ['g0', 'g1', 'g2'], 'fs', worldAngle=0, elev=4),
     cam('g51:débutants', 'mecG', 'fs', angle=0, elev=-14, lens=30),
-    cam('g52', ['mecG', 'g0'], 'fs', worldAngle=-40, elev=6),
-    cam('g52+0.5', 'g0', 'fs', angle=60, move='track'),
+    cam('g52', ['mecG', 'g0'], 'fs', worldAngle=-10, elev=6),
+    cam('g52+0.5', 'g0', 'fs', worldAngle=20, elev=8),
     cam('g52:rouste', ['mecG', 'g1'], 'fs', worldAngle=30, elev=6),
-    cam('g52:rouste+0.5', 'g1', 'fs', angle=0, move='track'),
+    cam('g52:rouste+0.5', 'g1', 'fs', worldAngle=-15, elev=8),
     cam('g52:par', ['mecG', 'g2'], 'fs', worldAngle=60, elev=6),
     cam('g52:par+0.5', ['g0', 'g1', 'g2'], 'ws', worldAngle=0, elev=20),
     cam('g53', 'mecG', 'fs', angle=40, move='track'),
@@ -538,7 +543,7 @@ scenes.append({
 
 # ------------------------------------------------------------------ 15. le gros muscu arrive, jaloux, il appelle la police
 scenes.append({
-  'id': 'zoo7', 'set': 'zoo', 'ambience': 'zoo',
+  'id': 'zoo7', 'set': 'zoo', 'setOpts': {'signX': -7.2, 'signZ': 5.6}, 'ambience': 'zoo',
   'lines': [L('g54', "Puis, un autre gros muscu est arrivé au zoo.", highlight=['muscu']),
             L('g55', "Il a vu son physique, est devenu jaloux et a cru qu'il le provoquait.", highlight=['jaloux', 'provoquait.']),
             L('g56', "Alors, il a appelé la police.", highlight=['police.']),
@@ -555,20 +560,20 @@ scenes.append({
         k('g57:arrêté', clip='cuffedBack', expr='unimpressed')]),
     gor(0, [-1.6, 0, -0.6], 30, 'kneelBow', 'sad', scale=1.25, keys=[k('g57:arrêté', clip='cuffedBack', expr='sad')]),
     gor(1, [1.0, 0, -1.4], 60, 'fan', 'sad', scale=1.25, keys=[k('g57:arrêté', clip='cuffedBack', expr='sad')]),
-    act('flic1', [-8, 0, 7.4], 90, 'run', 'angry', visible=False, keys=[k('g57+0.6', visible=True),
+    act('flic1', [-8, 0, 7.4], 90, 'idle', 'angry', visible=False, keys=[k('g57+0.6', visible=True),
         k('g57+0.6', path=[[-1.8, 0, 6.0], [-1.2, 0, 3.4], [-1.5, 0, 0.6]], clip='run', speed=3.6, faceEnd='g0'),
         k('g57:arrêté', clip='cuffOther', expr='angry', sfx='cuff', sfxAt=0.3)]),
-    act('flic2', [-8.6, 0, 7.9], 90, 'run', 'angry', visible=False, keys=[k('g57+0.8', visible=True),
+    act('flic2', [-8.6, 0, 7.9], 90, 'idle', 'angry', visible=False, keys=[k('g57+0.8', visible=True),
         k('g57+0.8', path=[[-0.8, 0, 6.2], [0.2, 0, 3.4], [1.1, 0, -0.5]], clip='run', speed=3.8, faceEnd='g1'),
         k('g57:arrêté+0.3', clip='cuffOther', expr='angry', sfx='cuff', sfxAt=0.3)]),
-    act('flic3', [-9.2, 0, 8.3], 90, 'run', 'angry', visible=False, keys=[k('g57+1.0', visible=True),
+    act('flic3', [-9.2, 0, 8.3], 90, 'idle', 'angry', visible=False, keys=[k('g57+1.0', visible=True),
         k('g57+1.0', path=[[0.6, 0, 6.3], [1.6, 0, 3.4], [2.2, 0, -1.2]], clip='run', speed=4.0, faceEnd='mecG'),
         k('g57:dopage', clip='clipboard', expr='suspicious')]),
   ],
   'props': [P('phone', 'phone911', opts={'text': '17'}, visible=False, on={'actor': 'muscu', 'hand': 'R'}, keys=[k('g56:appelé', visible=True), k('g57', visible=False)]),
             P('crown', 'crown', on={'actor': 'mecG', 'joint': 'head', 'offset': [0, 0.42, 0.06]}),
             P('leaf', 'leafFan', on={'actor': 'g1', 'hand': 'R'}, keys=[k('g57:arrêté', visible=False)]),
-            P('car', 'policeCar', pos=[-16, 0, 8.2], ry=90, keys=[k('g57', to=[-3.2, 0, 8.2], dur=1.1, ease='out', sfx='brake')]),
+            P('car', 'policeCar', pos=[-16, 0, 8.2], ry=90, visible=False, keys=[k('g57', visible=True), k('g57', to=[-3.2, 0, 8.2], dur=1.1, ease='out', sfx='brake')]),
             P('bag', 'evidenceBag', visible=False, on={'actor': 'flic3', 'hand': 'R'}, keys=[k('g57:possession', visible=True)])],
   'sfx': [{'at': 'g57', 'name': 'siren', 'vol': 0.5}],
   'cams': [
@@ -596,16 +601,16 @@ scenes.append({
             L('g60', "Walter White.", highlight=['Walter', 'White.']),
             L('g61', "Ils l'ont arrêté aussi.", highlight=['arrêté'])],
   'actors': [
-    act('chimiste', [0.0, 0, -1.8], 0, 'pour', 'neutral', scale=1.2, keys=[
+    act('chimiste', [0.0, 0, -1.75], 0, 'pour', 'neutral', scale=1.2, keys=[
         k('g58:trouvé', clip='idle', expr='suspicious', face='flic1'),
         k('g59:chauve', clip='raiseOverhead', expr='neutral', face=0), k('g59:lunettes', clip='idle'),
         k('g60', clip='stareCamera', expr='angry'), k('g61', clip='cuffedBack', expr='unimpressed')]),
-    act('flic1', [-4.2, 0, 2.2], 60, 'run', 'angry', keys=[k(0.05, to=[-1.4, 0, -0.4], clip='run', speed=3.0, faceEnd='chimiste', then='point'),
+    act('flic1', [-4.2, 0, 2.2], 60, 'idle', 'angry', keys=[k(0.05, to=[-1.4, 0, -0.4], clip='run', speed=3.0, faceEnd='chimiste', then='point'),
         k('g61', to=[-0.55, 0, -1.6], clip='walk', speed=1.6, faceEnd='chimiste', then='cuffOther', sfx='cuff', vol=0.5)]),
-    act('flic2', [-4.8, 0, 2.6], 60, 'run', 'angry', keys=[k(0.35, to=[-2.3, 0, 0.1], clip='run', speed=3.0, faceEnd='chimiste', then='surrender')]),
+    act('flic2', [-4.8, 0, 2.6], 60, 'idle', 'angry', keys=[k(0.35, to=[-2.3, 0, 0.1], clip='run', speed=3.0, faceEnd='chimiste', then='surrender')]),
   ],
   'props': [P('hat', 'porkpieHat', on={'actor': 'chimiste', 'joint': 'head', 'offset': [0, 0.43, 0.06]},
-              keys=[k('g59:chauve', detach=True, to=[0, 2.6, -1.62], dur=0.35), k('g59:chapeau', attach='chimiste', joint='head', offset=[0, 0.43, 0.06])]),
+              keys=[k('g59:chauve', attach='chimiste', hand='R', offset=[0, 0.05, 0.0]), k('g59:chapeau', attach='chimiste', joint='head', offset=[0, 0.43, 0.06])]),
             P('bald', 'baldCap', on={'actor': 'chimiste', 'joint': 'head', 'offset': [0, 0.38, 0.06]}),
             P('lunettes', 'glasses', on={'actor': 'chimiste', 'joint': 'head', 'offset': [0, 0.27, 0.26]}, opts={'r': 0.055, 'dx': 0.075}),
             P('flask', 'milkBottle', opts={'color': '#9FE0D0'}, on={'actor': 'chimiste', 'hand': 'R'}, keys=[k('g58:trouvé', visible=False)])],
@@ -614,9 +619,11 @@ scenes.append({
     cam('g58:trouvé', 'chimiste', 'ms', angle=10),
     cam('g58:fabriquait', ots=['flic1', 'chimiste', 1]),
     cam('g59', 'chimiste', 'mcu', angle=0),
+    cam('g59:chauve', 'chimiste', 'ms', angle=-10),
     cam('g59:lunettes', 'chimiste', 'cu', angle=15, move='push'),
+    cam('g59:chapeau', 'chimiste', 'mcu', angle=5),
     cam('g60', 'chimiste', 'ecu', angle=0, move='push', amount=0.08),
-    cam('g61', ['flic1', 'chimiste'], 'ms', worldAngle=20),
+    cam('g61', ['flic1', 'chimiste'], 'ms', worldAngle=-35, zoom=0.85),
   ],
   'tail': 0.4,
 })
@@ -662,7 +669,7 @@ scenes.append({
         k('g66', clip='surrender', expr='shocked', face='flic1'), k('g66:arrêté+0.3', clip='cuffedBack', expr='unimpressed')]),
     act('serveur', [1.1, 0, -0.8], -110, 'idle', 'neutral', face='karim', keys=[
         k('g65:Master+0.4', clip='takeItem', expr='happy'), k('g65:circuler', to=[4.6, 0, 1.8], clip='walk', speed=1.4)]),
-    act('flic1', [-4.5, 0, 2.6], 60, 'run', 'angry', visible=False, keys=[k('g66', visible=True),
+    act('flic1', [-4.5, 0, 2.6], 60, 'idle', 'angry', visible=False, keys=[k('g66', visible=True),
         k('g66', to=[-1.1, 0, -0.9], clip='run', speed=3.6, faceEnd='karim', then='cuffOther', sfx='cuff', vol=0.5),
         k('g66:soupçonnaient', clip='thinkChin', expr='suspicious', face=0)]),
   ],
@@ -677,7 +684,7 @@ scenes.append({
     cam('g65:derrière', ['karim', 'serveur'], 'fs', worldAngle=-20, elev=6),
     cam('g65:Master', 'bucket', 'cu', worldAngle=-30, noOcclusion=True),
     cam('g65:circuler', 'serveur', 'fs', angle=30, move='track'),
-    cam('g66', ['karim', 'flic1'], 'fs', worldAngle=10, elev=6),
+    cam('g66', ['karim', 'flic1'], 'ms', worldAngle=10, elev=4),
     cam('g66:arrêté+0.3', 'karim', 'mcu', angle=0),
     cam('g66:soupçonnaient', 'flic1', 'cu', angle=10, move='push'),
   ],
@@ -688,34 +695,37 @@ scenes.append({
 CH = [[1.5, 0, -1.8], [-1.0, 0, -2.4], [3.4, 0, -1.0]]
 scenes.append({
   'id': 'ferme', 'set': 'farm', 'ambience': 'farm',
+  'sfx': [{'at': 'g68:hormones', 'name': 'needle', 'vol': 0.5}, {'at': 'g68:poulets', 'name': 'cluck', 'vol': 0.5}, {'at': 'g69:devenues+0.3', 'name': 'grunt', 'vol': 0.5}, {'at': 'g69:trop', 'name': 'cluck', 'vol': 0.6}],
   'lines': [L('g67', "Alors, ils sont allés dans les fermes.", highlight=['fermes.']),
             L('g68', "Les éleveurs donnaient des hormones de croissance aux poulets.", highlight=['hormones']),
             L('g69', "Les volailles étaient devenues beaucoup trop musclées.", highlight=['musclées.']),
             L('g70', "Les policiers ont arrêté les poulets, puis les gens qui en avaient mangé.", highlight=['poulets,', 'mangé.'])],
   'actors': [
     act('fermier', [0.4, 0, -0.9], 30, 'injectArm', 'happy', face='poulet0', keys=[k('g69', clip='surrender', expr='scared', face='flic1')]),
-    act('poulet0', CH[0], -120, 'idle', 'neutral', scale=1.0, keys=[k('g69:devenues', scale=3.2, dur=0.9, ease='out'), k('g70:arrêté', clip='idle', expr='sad')]),
-    act('poulet1', CH[1], 60, 'eat', 'neutral', scale=1.0, keys=[k('g69:devenues+0.2', scale=3.0, dur=0.9, ease='out')]),
-    act('poulet2', CH[2], -60, 'eat', 'neutral', scale=1.0, keys=[k('g69:devenues+0.35', scale=3.4, dur=0.9, ease='out')]),
-    act('flic1', [-6.5, 0, 3.0], 60, 'walk', 'suspicious', keys=[k(0.05, to=[-2.0, 0, 0.6], clip='walk', speed=1.6, faceEnd='fermier'),
-        k('g69:musclées', clip='scared', expr='shocked', face='poulet0'),
+    act('poulet0', CH[0], -50, 'idle', 'neutral', scale=1.0, keys=[k('g69:devenues', scale=3.2, dur=0.9, ease='out', expr='angry', clip='angry'), k('g70:arrêté', clip='idle', expr='sad')]),
+    act('poulet1', CH[1], 60, 'eat', 'neutral', scale=1.0, keys=[k('g69:devenues+0.2', scale=3.0, dur=0.9, ease='out', expr='angry', clip='celebrate')]),
+    act('poulet2', CH[2], -60, 'eat', 'neutral', scale=1.0, keys=[k('g69:devenues+0.4', scale=3.4, dur=0.9, ease='out', expr='smug', clip='celebrate')]),
+    act('flic1', [-6.5, 0, 3.0], 60, 'idle', 'suspicious', keys=[k(0.05, to=[-2.0, 0, 0.6], clip='walk', speed=1.6, faceEnd='fermier'),
+        k('g69.end', clip='scared', expr='shocked', face='poulet0'),
         k('g70', to=[0.7, 0, -0.9], clip='run', speed=2.4, faceEnd='poulet0', then='cuffOther', sfx='cuff')]),
-    act('flic2', [-7.3, 0, 3.6], 60, 'walk', 'suspicious', keys=[k(0.25, to=[-2.8, 0, 1.4], clip='walk', speed=1.6, faceEnd='fermier'),
+    act('flic2', [-7.3, 0, 3.6], 60, 'idle', 'suspicious', keys=[k(0.25, to=[-2.8, 0, 1.4], clip='walk', speed=1.6, faceEnd='fermier'),
         k('g69:musclées', clip='startle', expr='shocked', face='poulet2'),
-        k('g70:gens', to=[-3.6, 0, 2.6], clip='run', speed=2.6, faceEnd='mangeur', then='cuffOther', sfx='cuff')]),
-    act('mangeur', [-4.6, 0, 3.4], 30, 'shovelFood', 'happy', keys=[k('g70:gens+0.5', clip='cuffedFront', expr='shocked')]),
+        k('g70:gens', to=[-0.6, 0, 3.0], clip='run', speed=2.6, faceEnd='mangeur', then='cuffOther', sfx='cuff')]),
+    act('mangeur', [0.4, 0, 3.4], -60, 'shovelFood', 'happy', keys=[k('g70:gens+0.5', clip='cuffedFront', expr='shocked')]),
   ],
   'props': [P('syr', 'syringeBig', on={'actor': 'fermier', 'hand': 'R'}),
+            *[P(f'buff{i}', 'buffArms', visible=False, on={'actor': f'poulet{i}', 'joint': 'body', 'offset': [0, 0.03, 0.05]}, keys=[k(f'g69:devenues+{0.2 * i:.1f}', visible=True)]) for i in range(3)],
             P('car', 'policeCar', pos=[-12, 0, 4.6], ry=90, keys=[k(0, to=[-6.0, 0, 4.6], dur=1.0, ease='out', sfx='brake')]),
             P('cuisse', 'drumstick', on={'actor': 'mangeur', 'hand': 'R'})],
   'cams': [
     cam(0, 'car', 'fs', worldAngle=30, elev=8, withProps=True),
     cam('g67:fermes', ['flic1', 'flic2'], 'fs', angle=30, move='track'),
-    cam('g68', 'fermier', 'ms', angle=20),
+    cam('g68', 'fermier', 'ms', worldAngle=20),
     cam('g68:hormones', ['fermier', 'poulet0'], 'ms', worldAngle=-10),
     cam('g68:poulets', ['poulet0', 'poulet1', 'poulet2'], 'fs', worldAngle=0, elev=4),
     cam('g69:devenues', ['poulet0', 'poulet2'], 'fs', worldAngle=10, elev=-10, lens=32),
-    cam('g69:musclées', 'flic1', 'cu', angle=15),
+    cam('g69:trop', 'poulet0', 'ms', angle=0, elev=-8, lens=32),
+    cam('g69.end', 'flic1', 'cu', angle=15),
     cam('g70', ['flic1', 'poulet0'], 'fs', worldAngle=20),
     cam('g70:gens', ['flic2', 'mangeur'], 'fs', worldAngle=-20, move='track'),
   ],
@@ -748,9 +758,11 @@ scenes.append({
         k('g75+0.4', clip='cuffedFront', expr='sad')]),
     act('prisonnier', [5.1, 0, -2.4], -20, 'idle', 'neutral', keys=[k('g72a:dit', clip='pokeFinger', face='flic1'), k('g72b', clip='talk', expr='smug'),
         k('g72b:poulets', clip='point', expr='smug')]),
-  ] + [act(c, [0.6 + i * 0.95, 0, 1.6], -90, 'idle', 'neutral', visible=False, keys=[k('g77', visible=True),
-        k(f'g77+{0.25 + i * 0.32:.2f}', clip='cuffOther' if i < 4 else 'handsOnHips', sfx='cuff' if i < 4 else None, vol=0.45)] +
-        ([k(f'g77+{0.57 + (i - 1) * 0.32:.2f}', clip='cuffedFront', expr='sad')] if i > 0 else [])) for i, c in enumerate(COPS)],
+  ] + [act(c, [9.0 + i * 0.7, 0, 1.2], -90, 'idle', 'neutral', visible=False, keys=[
+        k('g75', visible=True),
+        k(f'g75+{0.1 + i * 0.25:.2f}', to=[0.4 + i * 0.95, 0, 1.2], clip='walk', speed=1.5, faceEnd=90)]
+      + ([k(f'g77+{0.25 + i * 0.32:.2f}', clip='cuffOther', expr='angry', sfx='cuff', vol=0.45)] if i < 4 else [k('g77+1.5', clip='cuffedFront', expr='sad')]))
+      for i, c in enumerate(COPS)],
   'props': [P('cuisse1', 'drumstick', on={'actor': 'flic1', 'hand': 'R'}, keys=[k('g72a', visible=False)]),
             P('cuisse2', 'drumstick', on={'actor': 'flic2', 'hand': 'R'}, keys=[k('g74', detach=True, fall=True, impact='thud')]),
             P('bucket', 'chickenBucket', pos=[-2.5, 0.78, -2.05]),
@@ -767,7 +779,7 @@ scenes.append({
     cam('g71:bouffé', 'flic2', 'mcu', angle=10),
     cam('g72a', 'prisonnier', 'ms', angle=10),
     cam('g72b', 'prisonnier', 'cu', angle=5, move='push'),
-    cam('g73', ['flic1', 'flic2'], 'ms', worldAngle=30),
+    cam('g73', ['flic1', 'flic2'], 'ms', worldAngle=-15),
     cam('g73:regardés', ots=['flic2', 'flic1', 1]),
     cam('g74', ots=['flic1', 'flic2', 1]),
     cam('g74:raison', 'flic2', 'cu', angle=0),
@@ -785,11 +797,12 @@ scenes.append({
 scenes.append({
   'id': 'cellule', 'set': 'prisonCell', 'ambience': 'station',
   'lines': [L('g78', "Les commissariats se remplissaient de leurs propres employés.", highlight=['propres', 'employés.'])],
-  'actors': [act(f'flic{i + 1}', [-2.0 + i * 0.8, 0, 1.9 - (i % 2) * 0.7], 180 if i % 3 else 160, 'cuffedFront', ['sad', 'unimpressed', 'neutral'][i % 3]) for i in range(7)],
+  'actors': [act(f'flic{i + 1}', [-2.1 + i * 0.7, 0, 1.9 - (i % 2) * 0.8], 0 if i % 3 else 12, 'cuffedFront', ['sad', 'unimpressed', 'neutral'][i % 3]) for i in range(7)],
   'props': [],
-  'cams': [cam(0, ['flic1', 'flic4', 'flic7'], 'fs', worldAngle=0, elev=4, move='push', amount=0.08),
-           cam('g78:remplissaient', 'flic4', 'cu', angle=0),
-           cam('g78:propres', ['flic2', 'flic3', 'flic4'], 'ms', worldAngle=-10)],
+  'cams': [cam(0, ['flic3', 'flic4', 'flic5'], 'fs', worldAngle=0, elev=4, move='push', amount=0.08),
+           cam('g78:remplissaient', 'flic4', 'mcu', worldAngle=0),
+           cam('g78:propres', ['flic1', 'flic2'], 'ms', worldAngle=-15),
+           cam('g78:employés', ['flic6', 'flic7'], 'ms', worldAngle=15)],
   'tail': 0.3,
 })
 
@@ -826,7 +839,7 @@ ep = {
     'g0': {'type': 'creature', 'name': 'gorilla', 'opts': {'seed': 30}}, 'g1': {'type': 'creature', 'name': 'gorilla', 'opts': {'seed': 31}},
     'g2': {'type': 'creature', 'name': 'gorilla', 'opts': {'seed': 32}},
     'chevre': {'type': 'creature', 'name': 'goat', 'opts': {'seed': 3}},
-    'coach': {'preset': 'sportif'}, 'muscu': {'preset': 'sportif', 'build': {'width': 1.4, 'height': 1.05}, 'seed': 12},
+    'coach': {'preset': 'sportif'}, 'muscu': {'preset': 'sportif', 'build': {'width': 1.75, 'height': 1.08, 'belly': 0.05}, 'seed': 12},
     'madame': {'preset': 'madame'}, 'mamie': {'preset': 'mamie'}, 'gamin': {'preset': 'gamin'},
     'chimiste': {'type': 'creature', 'name': 'gorilla', 'opts': {'seed': 77, 'colors': {'body': '#4A4B52'}}},
     'karim': {'preset': 'fringant'}, 'serveur': {'preset': 'serveur'}, 'fermier': {'preset': 'fermier'},

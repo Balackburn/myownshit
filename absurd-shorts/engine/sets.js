@@ -427,7 +427,7 @@ const S = {
     [[-3.5, -3.5, 1.6], [2.2, -2.6, 1.3], [-1.2, -6, 1.8], [5.5, -4.5, 1.4]].forEach(([x, z, sz]) => g.add(at(prop('rock', { size: sz }), x, 0, z)));
     g.add(at(prop('tree', { seed: 4 }), -6, 0, -6), at(prop('tree', { seed: 9 }), 7, 0, -8), at(prop('bush', { seed: 2 }), -2, 0, -2.5));
     g.add(at(prop('zooFence', { length: 30 }), 0, 0, 4.2));
-    g.add(at(prop('signBoard', { text: o.sign || 'ZOO · GORILLES', bg: P.teal, fg: P.cream, w: 2.4, h: 0.6 }), -2.5, 0, 5.2));
+    g.add(at(prop('signBoard', { text: o.sign || 'ZOO · GORILLES', bg: P.teal, fg: P.cream, w: 2.4, h: 0.6 }), o.signX ?? -2.5, 0, o.signZ ?? 5.2));
     if (night) nightSky(g); else { sky(g); clouds(g, 5); }
     g.userData.anchors = { center: [0, 0, 0], rock: [2.2, 0, -2.6], behindRock: [2.2, 0, -3.8], cave: [3.6, 0, -6.4], fence: [0, 0, 4.2], visitor: [0, 0, 6.5], tree: [-6, 0, -6] };
     g.userData.lighting = night ? 'night' : 'day'; return g;

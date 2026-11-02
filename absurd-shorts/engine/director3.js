@@ -109,7 +109,7 @@ function setupScene(si, analyzing = false) {
   S.root = new THREE.Group(); scene.add(S.root);
   let set;
   try { set = Sets.buildSet(sc.set || 'whiteVoid', sc.setOpts || {}); } catch (e) { warn(`set ${sc.set} failed: ${e.message}`); set = Sets.buildSet('whiteVoid', {}); }
-  S.root.add(set); S.set = set;
+  S.root.add(set); S.set = set; S.staticBoxes = null;
   S.lights = setLighting(scene, sc.lighting || set.userData.lighting || 'day');
   S.lightBase = { hemi: S.lights.hemi.intensity, key: S.lights.key.intensity, bg: scene.background.clone() };
   const anchors = set.userData.anchors || {};
@@ -542,7 +542,8 @@ function camBasis(yaw, elev) {
   const right = V(Math.cos(yaw), 0, -Math.sin(yaw));
   return { dir, right };
 }
-function fitDistance(box, yaw, elev, fov, fill) {
+const WIDTH_SLACK = { ecu: 2.2, cu: 1.9, mcu: 1.7, ms: 1.5, mls: 1.25, fs: 1.12, ws: 1.0, ews: 1.0 };
+function fitDistance(box, yaw, elev, fov, fill, size) {
   const { dir, right } = camBasis(yaw, elev);
   const c = box.getCenter(V());
   let wMin = 1e9, wMax = -1e9, hMin = 1e9, hMax = -1e9, dMin = 1e9, dMax = -1e9;
@@ -553,7 +554,7 @@ function fitDistance(box, yaw, elev, fov, fill) {
     wMin = Math.min(wMin, r); wMax = Math.max(wMax, r); hMin = Math.min(hMin, u); hMax = Math.max(hMax, u); dMin = Math.min(dMin, d); dMax = Math.max(dMax, d);
   }
   const tanV = Math.tan(fov * D2R / 2), tanH = tanV * (S.W / S.H);
-  const dist = Math.max((hMax - hMin) / 2 / (tanV * fill), (wMax - wMin) / 2 / (tanH * Math.min(0.86, fill + 0.04)));
+  const dist = Math.max((hMax - hMin) / 2 / (tanV * fill), (wMax - wMin) / 2 / (WIDTH_SLACK[size] || 1) / (tanH * Math.min(0.86, fill + 0.04)));
   return { dist: dist + dMax, center: c, up };
 }
 function facingOf(s, t) { return s.point ? 0 : s.kind === 'prop' ? s.obj.rotation.y : facingAt(s, effTime(s.id, t)); }
@@ -572,12 +573,18 @@ function blocked(from, to, ignore) {
     if (m && m.transparent && m.opacity < 0.6) continue;
     let p = o, skip = false; while (p) { if (ignore.has(p)) { skip = true; break; } if (!p.visible) { skip = true; break; } p = p.parent; }
     if (skip) continue;
-    // ignore thin decals / tiny props
-    const bs = o.geometry?.boundingSphere || (o.geometry?.computeBoundingSphere(), o.geometry?.boundingSphere);
-    if (bs && bs.radius * Math.max(o.scale.x, o.scale.y, o.scale.z) < 0.12) continue;
+    if (isThin(o)) continue; // bars, rails, wires, decals, tiny props never hide a character
     return h.distance;
   }
   return null;
+}
+function isThin(o) { // a rod (two small dimensions) or a tiny object: see-through for occlusion purposes
+  if (o.userData._thin != null) return o.userData._thin;
+  const g = o.geometry; if (!g) return (o.userData._thin = true);
+  if (!g.boundingBox) g.computeBoundingBox();
+  const sz = g.boundingBox.getSize(V()).multiply(o.getWorldScale(V()));
+  const d = [Math.abs(sz.x), Math.abs(sz.y), Math.abs(sz.z)].sort((a, b) => a - b);
+  return (o.userData._thin = d[1] < 0.08 || d[2] < 0.12);
 }
 function solveCam(c, sc) {
   const t0 = c.t0, t1 = c.t1, span = Math.max(0.01, t1 - t0);
@@ -597,20 +604,9 @@ function solveCam(c, sc) {
   const baseYaw = c.worldAngle != null ? c.worldAngle * D2R : facing + (c.angle ?? 15) * D2R;
   const ignore = new Set(subs.filter(s => s.obj).map(s => s.obj));
   const frameBox = c.move === 'track' ? samples[0].box : union;
-  // occlusion probes, per subject: head (weight 2) + a 2x3 grid over its framed region (offsets along the camera's right)
-  evalAll(t0 + span * 0.4);
-  const groups = [];
-  for (const s of subs) {
-    if (s.point) continue; // framing helper only (it may sit inside a body or a prop)
-    const b = regionFor([s], size); if (b.isEmpty()) continue;
-    const cc = b.getCenter(V()), h = b.max.y - b.min.y, hb = s.kind !== 'prop' ? headBox(s) : null;
-    const probes = [{ p: hb && !hb.isEmpty() ? hb.getCenter(V()) : V(cc.x, b.max.y - h * 0.12, cc.z), u: 0, w: 2 }];
-    for (const [row, fy] of [0.8, 0.5, 0.2].entries()) for (const u of [-1, 1]) probes.push({ p: V(cc.x, b.min.y + h * fy, cc.z), u, row });
-    groups.push({ halfW: Math.max(0.05, Math.hypot(b.max.x - b.min.x, b.max.z - b.min.z) * 0.18), probes });
-  }
   const CLUT = new THREE.Raycaster();
-  const clutterAt = (pos, f, d, right) => { // big objects right in front of the lens (counter tops, stools, posts)
-    const halfH = d * Math.tan(fov * D2R / 2), halfW = halfH * S.W / S.H, maxD = Math.min(1.2, 0.4 * d);
+  const clutterAt = (pos, f, d, right) => { // big objects right in front of the lens (counter tops, stools, posts, parked cars)
+    const halfH = d * Math.tan(fov * D2R / 2), halfW = halfH * S.W / S.H, maxD = Math.min(2.5, 0.5 * d);
     let n = 0;
     for (const gx of [-0.6, 0, 0.6]) for (const gy of [-0.7, -0.35, 0, 0.35, 0.7]) {
       const tgt = f.center.clone().addScaledVector(right, gx * halfW).addScaledVector(f.up, gy * halfH);
@@ -618,42 +614,71 @@ function solveCam(c, sc) {
       for (const h of CLUT.intersectObjects(S.root.children, true)) {
         const o = h.object; if (!o.isMesh || !o.visible || o.name === 'outline') continue;
         const m = Array.isArray(o.material) ? o.material[0] : o.material; if (m && m.transparent && m.opacity < 0.6) continue;
+        if (isThin(o)) continue;
         let p = o, skip = false; while (p) { if (ignore.has(p) || !p.visible) { skip = true; break; } p = p.parent; }
         if (!skip) { n++; break; }
       }
     }
     return n;
   };
-  const tryYaw = (yaw, el) => {
-    const f = fitDistance(frameBox, yaw, el, fov, fill); const { dir, right } = camBasis(yaw, el);
-    let d = f.dist * (c.zoom || 1);
-    const pos = f.center.clone().add(dir.clone().multiplyScalar(d)); if (pos.y < 0.2) pos.y = 0.2;
-    if (c.noOcclusion) return { yaw, el, d, f, hit: null };
-    // a camera inside / grazing another actor is as bad as a wall in the way
-    for (const B of S.actors) { if (ignore.has(B.obj) || !B.obj.visible) continue; const bb = new THREE.Box3().setFromObject(B.obj).expandByScalar(0.25); if (bb.containsPoint(pos)) return { yaw, el, d, f, hit: 0.1, why: 'inside ' + B.id }; }
-    // a subject is hidden when: its head is blocked, or its whole upper row, or a whole column (a post), or 5 of 6 probes.
-    // Legs hidden behind a desk / counter are fine.
-    let hidden = false, near = null;
-    for (const g of groups) {
-      const hit = g.probes.map(pr => blocked(pr.p.clone().addScaledVector(right, pr.u * g.halfW), pos, ignore));
-      hit.forEach(h => { if (h != null) near = near == null ? h : Math.min(near, h); });
-      const on = i => hit[i] != null, grid = g.probes.map((pr, i) => ({ ...pr, b: on(i) })).filter(pr => pr.row != null);
-      const col = u => grid.filter(pr => pr.u === u), up = grid.filter(pr => pr.row === 0);
-      if (on(0) || (up.length && up.every(pr => pr.b)) || [-1, 1].some(u => col(u).length && col(u).every(pr => pr.b)) || grid.filter(pr => pr.b).length >= 5) hidden = true;
-    }
-    const clutter = clutterAt(pos, f, d, right);
-    return { yaw, el, d, f, hit: hidden || clutter >= 3 ? (near ?? Math.max(0.6, d * 0.6)) : null, clutter, hidden, why: hidden ? 'hidden(near ' + (near ?? 0).toFixed(2) + ')' : '' };
-  };
+  // ---- candidate cameras, checked at several moments of the shot (3 for tracking shots, 2 for fixed ones) ----
+  // A subject is hidden when its head is blocked, or its whole upper row, or a whole column (a post), or 5 of 6 probes
+  // (legs behind a desk / counter are fine). A camera inside an actor or inside static set geometry is rejected outright.
   const front = [0, 25, -25, 50, -50, 75, -75], back = [100, -100, 130, -130, 160, -160, 180];
   const tries = c.noOcclusion ? [[0, elev]] : [...front.map(o => [o, elev]), ...front.map(o => [o, elev + 18 * D2R]), ...back.map(o => [o, elev])];
-  let best = null;
-  for (const [o, el] of tries) { const r = tryYaw(baseYaw + o * D2R, el); if (c.debug) console.error(`[camdbg ${sc.id}@${t0.toFixed(2)}] yaw ${(r.yaw / D2R).toFixed(0)} el ${(r.el / D2R).toFixed(0)} d ${r.d.toFixed(2)} hit ${r.hit} hidden ${r.hidden} clutter ${r.clutter} ${r.why || ''}`); if (r.hit == null) { best = r; break; } if (!best || r.hit > best.hit) best = r; }
-  elev = best.el;
+  const cand = tries.map(([o, el]) => { const yaw = baseYaw + o * D2R, f = fitDistance(frameBox, yaw, el, fov, fill, size), bs = camBasis(yaw, el);
+    return { yaw, el, f, d: f.dist * (c.zoom || 1), dir: bs.dir, right: bs.right, hidden: false, dead: false, score: 0, near: null, clutter: 0, why: '' }; });
+  const groupsNow = () => {
+    const groups = [];
+    for (const s of subs) {
+      if (s.point) continue; // framing helper only (it may sit inside a body or a prop)
+      const b = regionFor([s], size); if (b.isEmpty()) continue;
+      const cc = b.getCenter(V()), h = b.max.y - b.min.y, hb = s.kind !== 'prop' ? headBox(s) : null, lift = p => (p.y = Math.max(0.12, p.y), p);
+      const probes = [{ p: lift(hb && !hb.isEmpty() ? hb.getCenter(V()) : V(cc.x, b.max.y - h * 0.12, cc.z)), u: 0, head: true }];
+      for (const [row, fy] of [0.8, 0.5, 0.2].entries()) for (const u of [-1, 1]) probes.push({ p: lift(V(cc.x, b.min.y + h * fy, cc.z)), u, row });
+      groups.push({ halfW: Math.max(0.05, Math.hypot(b.max.x - b.min.x, b.max.z - b.min.z) * 0.18), probes });
+    }
+    return groups;
+  };
+  if (!S.staticBoxes) { // big static set meshes (walls, rocks, counters): a camera must never sit inside one
+    S.staticBoxes = [];
+    S.set?.traverse(n => { if (!n.isMesh || !n.visible || n.name === 'outline' || isThin(n)) return; const bb = new THREE.Box3().setFromObject(n); const sz = bb.getSize(V());
+      if (Math.max(sz.x, sz.y, sz.z) > 50 || Math.min(sz.x, sz.y, sz.z) < 0.03) return; S.staticBoxes.push(bb); });
+  }
+  const evalTimes = c.noOcclusion ? [] : c.move === 'track' ? [t0 + span * 0.02, t0 + span * 0.5, t0 + span * 0.98] : [t0 + span * 0.25, t0 + span * 0.75];
+  for (const ts of evalTimes) {
+    evalAll(ts);
+    const groups = groupsNow();
+    let live = null; if (c.move === 'track') { const lb = regionFor(subs, size); if (!lb.isEmpty()) live = lb.getCenter(V()); }
+    for (const r of cand) {
+      if (r.dead) continue;
+      const center = live || r.f.center, pos = center.clone().add(r.dir.clone().multiplyScalar(r.d)); if (pos.y < 0.2) pos.y = 0.2;
+      let inside = null;
+      for (const B of S.actors) { if (ignore.has(B.obj) || !B.obj.visible) continue; if (new THREE.Box3().setFromObject(B.obj).expandByScalar(0.25).containsPoint(pos)) { inside = 'inside ' + B.id; break; } }
+      if (!inside) for (const bb of S.staticBoxes) if (bb.containsPoint(pos)) { inside = 'inside set geometry'; break; }
+      if (inside) { r.dead = true; r.hidden = true; r.score += 100; r.why = inside; continue; }
+      for (const g of groups) {
+        const hit = g.probes.map(pr => blocked(pr.p.clone().addScaledVector(r.right, pr.u * g.halfW), pos, ignore));
+        hit.forEach(h => { if (h != null) { r.near = r.near == null ? h : Math.min(r.near, h); r.score += 1; } });
+        if (hit[0] != null) r.score += 2;
+        const grid = g.probes.map((pr, i) => ({ ...pr, b: hit[i] != null })).filter(pr => pr.row != null);
+        const col = u => grid.filter(pr => pr.u === u), up = grid.filter(pr => pr.row === 0);
+        if (hit[0] != null || (up.length && up.every(pr => pr.b)) || [-1, 1].some(u => col(u).length && col(u).every(pr => pr.b)) || grid.filter(pr => pr.b).length >= 5) { r.hidden = true; r.why = 'hidden(near ' + (r.near ?? 0).toFixed(2) + ')'; }
+      }
+      const cl = clutterAt(pos, { center, up: r.f.up }, r.d, r.right); r.clutter = Math.max(r.clutter, cl); if (cl >= 3) { r.hidden = true; r.score += cl; r.why += ' clutter ' + cl; }
+    }
+  }
+  if (c.debug) for (const r of cand) console.error(`[camdbg ${sc.id}@${t0.toFixed(2)}] yaw ${(r.yaw / D2R).toFixed(0)} el ${(r.el / D2R).toFixed(0)} d ${r.d.toFixed(2)} hidden ${r.hidden} score ${r.score} ${r.why}`);
+  let best = cand.find(r => !r.hidden);
   let fovUse = fov;
-  if (best.hit != null) { // nothing clear: move in front of the obstacle and widen the lens to keep the framing
-    const dNew = Math.max(0.5, best.hit - 0.25); fovUse = Math.min(75, 2 * Math.atan(Math.tan(fov * D2R / 2) * best.d / dNew) / D2R); best.d = dNew;
-    warn(`[${sc.id}] cam@${t0.toFixed(2)} (${size} ${[].concat(c.frame).join(',')}): view blocked, camera moved in (fov ${fovUse.toFixed(0)})`);
-  } else if (Math.abs(wrapA(best.yaw - baseYaw)) > 0.6) warn(`[${sc.id}] cam@${t0.toFixed(2)}: angle changed by ${(wrapA(best.yaw - baseYaw) / D2R).toFixed(0)}° to avoid occlusion`);
+  if (!best) {
+    best = cand.reduce((a2, b2) => (b2.score < a2.score ? b2 : a2));
+    elev = best.el;
+    if (best.near != null && best.near > 0.55 * best.d && !best.dead) { // obstacle near the camera (wall, foreground): step in front of it, widen the lens
+      const dNew = Math.max(0.6, best.near - 0.3); fovUse = Math.min(70, 2 * Math.atan(Math.tan(fov * D2R / 2) * best.d / dNew) / D2R); best.d = dNew;
+      warn(`[${sc.id}] cam@${t0.toFixed(2)} (${size} ${[].concat(c.frame).join(',')}): view blocked near the camera, moved in (fov ${fovUse.toFixed(0)})`);
+    } else warn(`[${sc.id}] cam@${t0.toFixed(2)} (${size} ${[].concat(c.frame).join(',')}): no clear angle, least-occluded view used (score ${best.score}${best.dead ? ', INSIDE GEOMETRY' : ''})`);
+  } else { elev = best.el; if (Math.abs(wrapA(best.yaw - baseYaw)) > 0.6) warn(`[${sc.id}] cam@${t0.toFixed(2)}: angle changed by ${(wrapA(best.yaw - baseYaw) / D2R).toFixed(0)}° to avoid occlusion`); }
   const sol = { kind: c.move === 'track' ? 'track' : 'frame', yaw: best.yaw, elev, d: best.d, center: best.f.center, up: best.f.up, fov: fovUse, size, subs, samples };
   // lint: back to camera on tight shots / subject outside frame
   if (['ecu', 'cu', 'mcu', 'ms'].includes(size) && !c.allowBack) for (const s of subs) if (!s.point && s.kind !== 'prop') {

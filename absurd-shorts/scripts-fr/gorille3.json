@@ -1,0 +1,7263 @@
+{
+ "version": 3,
+ "title": "Le gorille",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.07
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.4,
+   "rate": 1.02
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "mecNu": {
+   "preset": "lemec",
+   "naked": true
+  },
+  "mecG": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "clothes": "suit",
+    "seed": 21
+   }
+  },
+  "g0": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 30
+   }
+  },
+  "g1": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 31
+   }
+  },
+  "g2": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 32
+   }
+  },
+  "chevre": {
+   "type": "creature",
+   "name": "goat",
+   "opts": {
+    "seed": 3
+   }
+  },
+  "coach": {
+   "preset": "sportif"
+  },
+  "muscu": {
+   "preset": "sportif",
+   "build": {
+    "width": 1.75,
+    "height": 1.08,
+    "belly": 0.05
+   },
+   "seed": 12
+  },
+  "madame": {
+   "preset": "madame"
+  },
+  "mamie": {
+   "preset": "mamie"
+  },
+  "gamin": {
+   "preset": "gamin"
+  },
+  "chimiste": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 77,
+    "colors": {
+     "body": "#4A4B52"
+    }
+   }
+  },
+  "karim": {
+   "preset": "fringant"
+  },
+  "serveur": {
+   "preset": "serveur"
+  },
+  "fermier": {
+   "preset": "fermier"
+  },
+  "mangeur": {
+   "preset": "tourist"
+  },
+  "prisonnier": {
+   "preset": "prisoner"
+  },
+  "flic1": {
+   "preset": "cop",
+   "seed": 41
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 42
+  },
+  "flic3": {
+   "preset": "cop",
+   "seed": 43
+  },
+  "flic4": {
+   "preset": "cop2",
+   "seed": 44
+  },
+  "flic5": {
+   "preset": "cop",
+   "seed": 45
+  },
+  "flic6": {
+   "preset": "cop2",
+   "seed": 46
+  },
+  "flic7": {
+   "preset": "cop",
+   "seed": 47
+  },
+  "flic8": {
+   "preset": "cop2",
+   "seed": 48
+  },
+  "poulet0": {
+   "type": "creature",
+   "name": "chicken",
+   "opts": {
+    "seed": 50
+   }
+  },
+  "poulet1": {
+   "type": "creature",
+   "name": "chicken",
+   "opts": {
+    "seed": 51
+   }
+  },
+  "poulet2": {
+   "type": "creature",
+   "name": "chicken",
+   "opts": {
+    "seed": 52
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "salon",
+   "set": "livingRoom",
+   "ambience": "office",
+   "lines": [
+    {
+     "id": "g0",
+     "text": "Ce con s'était mis à la musculation une semaine plus tôt après avoir regardé un TikTok de merde.",
+     "highlight": [
+      "musculation",
+      "TikTok",
+      "merde."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      -0.5
+     ],
+     "ry": 0,
+     "clip": "curls",
+     "keys": [
+      {
+       "at": "g0:semaine",
+       "clip": "flex",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "g0:après",
+       "clip": "holdPhoneFront",
+       "expr": "happy"
+      }
+     ],
+     "params": {
+      "freq": 1.4
+     },
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "db",
+     "name": "dumbbell",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g0:semaine",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "db2",
+     "name": "dumbbell",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "g0:semaine",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "phone",
+     "name": "phone911",
+     "opts": {
+      "screen": "tiktok"
+     },
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g0:après",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "anchor": "picture",
+     "offset": [
+      1.6,
+      -0.35,
+      0.03
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 25,
+     "move": "push",
+     "amount": 0.08,
+     "frame": "mec"
+    },
+    {
+     "at": "g0#4",
+     "size": "mcu",
+     "angle": -20,
+     "frame": "mec"
+    },
+    {
+     "at": "g0:semaine",
+     "size": "ms",
+     "angle": 35,
+     "frame": "mec"
+    },
+    {
+     "at": "g0:après",
+     "size": "cu",
+     "angle": 12,
+     "move": "push",
+     "frame": "mec"
+    },
+    {
+     "at": "g0:TikTok",
+     "size": "mcu",
+     "angle": -35,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "zoo1",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "lines": [
+    {
+     "id": "g1",
+     "text": "Puis il est allé au zoo et là, il a vu les gorilles.",
+     "highlight": [
+      "zoo",
+      "gorilles."
+     ]
+    },
+    {
+     "id": "g2",
+     "text": "Ces putains de gorilles étaient énormes, des bras trois fois plus gros que les siens.",
+     "highlight": [
+      "énormes,",
+      "trois"
+     ]
+    },
+    {
+     "id": "g3",
+     "text": "Ce con est devenu terriblement jaloux.",
+     "highlight": [
+      "jaloux."
+     ]
+    },
+    {
+     "id": "g4",
+     "text": "Il croyait qu'ils contractaient leurs muscles pour le provoquer alors que pas du tout.",
+     "highlight": [
+      "provoquer",
+      "tout."
+     ]
+    },
+    {
+     "id": "g5",
+     "text": "Il a voulu comprendre leur secret.",
+     "highlight": [
+      "secret."
+     ]
+    },
+    {
+     "id": "g6",
+     "text": "Première hypothèse : leur bouffe.",
+     "highlight": [
+      "bouffe."
+     ]
+    },
+    {
+     "id": "g7",
+     "text": "Il les a regardés manger leurs sac de nourriture pour primates.",
+     "highlight": [
+      "nourriture"
+     ]
+    },
+    {
+     "id": "g8",
+     "text": "Purina High Protein.",
+     "highlight": [
+      "Purina",
+      "High",
+      "Protein."
+     ]
+    },
+    {
+     "id": "g9",
+     "text": "Avec ça, de la viande de chèvre vivantes, des œufs, du lait et du yaourt.",
+     "highlight": [
+      "chèvre",
+      "œufs,",
+      "lait",
+      "yaourt."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -3.6,
+      0,
+      6.5
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "path": [
+        [
+         -1.2,
+         0,
+         6.2
+        ],
+        [
+         0.3,
+         0,
+         4.95
+        ]
+       ],
+       "clip": "walk",
+       "faceEnd": 180
+      },
+      {
+       "at": "g2:siens-0.5",
+       "clip": "flex",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "g3",
+       "clip": "angryFist",
+       "expr": "angry"
+      },
+      {
+       "at": "g5",
+       "clip": "binocs",
+       "expr": "suspicious"
+      },
+      {
+       "at": "g7.end",
+       "clip": "idle",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -2.6,
+      0,
+      0.3
+     ],
+     "ry": 15,
+     "clip": "chestBeat",
+     "keys": [
+      {
+       "at": "g2.end",
+       "clip": "flex"
+      },
+      {
+       "at": "g4:alors",
+       "clip": "yawnStretch",
+       "expr": "sleepy"
+      },
+      {
+       "at": "g6",
+       "clip": "sitFloorEat",
+       "expr": "happy"
+      },
+      {
+       "at": "g9:œufs",
+       "clip": "eatHands",
+       "expr": "happy"
+      }
+     ],
+     "scale": 1.3,
+     "expr": "smug"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      0.3,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "flex",
+     "keys": [
+      {
+       "at": "g2:bras",
+       "clip": "posing"
+      },
+      {
+       "at": "g4",
+       "clip": "flex",
+       "expr": "smug"
+      },
+      {
+       "at": "g4:alors",
+       "clip": "scratchButt",
+       "expr": "neutral"
+      },
+      {
+       "at": "g6",
+       "clip": "eatHands",
+       "expr": "happy"
+      },
+      {
+       "at": "g9:yaourt",
+       "clip": "drinkUp",
+       "expr": "happy"
+      }
+     ],
+     "scale": 1.4560000000000002,
+     "expr": "smug"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      2.8,
+      0,
+      0.1
+     ],
+     "ry": -20,
+     "clip": "posing",
+     "keys": [
+      {
+       "at": "g4:alors",
+       "clip": "lookAround",
+       "expr": "neutral"
+      },
+      {
+       "at": "g6",
+       "clip": "sitFloorEat",
+       "expr": "happy"
+      },
+      {
+       "at": "g9:lait",
+       "clip": "drinkUp",
+       "expr": "happy"
+      }
+     ],
+     "scale": 1.3,
+     "expr": "smug"
+    },
+    {
+     "id": "chevre",
+     "pos": [
+      1.6,
+      0,
+      1.9
+     ],
+     "ry": -140,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g9",
+       "visible": true
+      },
+      {
+       "at": "g9:chèvre",
+       "to": [
+        0.6,
+        0,
+        2.6
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": "g0"
+      },
+      {
+       "at": "g9:œufs",
+       "clip": "idle",
+       "expr": "scared"
+      }
+     ],
+     "visible": false,
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "sack",
+     "name": "foodSack",
+     "pos": [
+      -0.9,
+      0,
+      0.9
+     ],
+     "ry": 10,
+     "opts": {
+      "text": "PURINA HIGH PROTEIN"
+     }
+    },
+    {
+     "id": "binocs",
+     "name": "binoculars",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g5",
+       "visible": true
+      },
+      {
+       "at": "g7.end",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "eggs",
+     "name": "eggs",
+     "pos": [
+      -1.7,
+      0,
+      1.4
+     ]
+    },
+    {
+     "id": "milk",
+     "name": "milkBottle",
+     "visible": false,
+     "on": {
+      "actor": "g2",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g9:lait",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "yaourt",
+     "name": "mug",
+     "opts": {
+      "color": "#FFFFFF"
+     },
+     "visible": false,
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g9:yaourt",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      6.2,
+      0,
+      5.8
+     ],
+     "ry": -25,
+     "opts": {
+      "kind": "stand"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 70,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "g1:vu",
+     "size": "ms",
+     "ots": [
+      "mec",
+      "g1",
+      1
+     ]
+    },
+    {
+     "at": "g2",
+     "size": "ms",
+     "angle": 0,
+     "elev": -14,
+     "lens": 32,
+     "frame": "g1"
+    },
+    {
+     "at": "g2:bras",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": -6,
+     "move": "push",
+     "amount": 0.06,
+     "frame": [
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g2:siens-0.5",
+     "size": "ms",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "g3",
+     "size": "cu",
+     "angle": 10,
+     "move": "push",
+     "frame": "mec"
+    },
+    {
+     "at": "g4",
+     "size": "ms",
+     "pov": [
+      "mec",
+      "g1"
+     ]
+    },
+    {
+     "at": "g4:provoquer",
+     "size": "ms",
+     "angle": -10,
+     "frame": "g0"
+    },
+    {
+     "at": "g4:alors",
+     "size": "fs",
+     "worldAngle": 8,
+     "elev": 4,
+     "frame": [
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g5",
+     "size": "cu",
+     "angle": 8,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    },
+    {
+     "at": "g6",
+     "size": "fs",
+     "worldAngle": -10,
+     "elev": 10,
+     "frame": [
+      "g0",
+      "g1",
+      "g2",
+      "sack"
+     ]
+    },
+    {
+     "at": "g7",
+     "size": "ms",
+     "angle": -30,
+     "frame": "mec"
+    },
+    {
+     "at": "g7:manger",
+     "size": "ms",
+     "angle": 15,
+     "frame": "g1"
+    },
+    {
+     "at": "g8",
+     "size": "ms",
+     "worldAngle": 10,
+     "elev": 8,
+     "noOcclusion": true,
+     "compose": 0.16,
+     "frame": "sack"
+    },
+    {
+     "at": "g9",
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "chevre"
+    },
+    {
+     "at": "g9:œufs",
+     "size": "ms",
+     "angle": -20,
+     "frame": "g0"
+    },
+    {
+     "at": "g9:lait",
+     "size": "ms",
+     "angle": 10,
+     "frame": "g2"
+    },
+    {
+     "at": "g9:yaourt",
+     "size": "mcu",
+     "angle": -15,
+     "frame": "g1"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "cuisine",
+   "set": "kitchenNight",
+   "ambience": "night",
+   "lines": [
+    {
+     "id": "g10",
+     "text": "Alors, il a acheté la même chose et s'est mis à manger exactement comme eux.",
+     "highlight": [
+      "même",
+      "exactement"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.2,
+      0,
+      -1.3
+     ],
+     "ry": 0,
+     "clip": "sitFloorEat",
+     "keys": [],
+     "params": {
+      "freq": 1.6
+     },
+     "expr": "happy"
+    },
+    {
+     "id": "chevre",
+     "pos": [
+      1.35,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g10:manger",
+       "clip": "eat",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "sack",
+     "name": "foodSack",
+     "pos": [
+      -0.75,
+      0,
+      -1.6
+     ],
+     "ry": 20,
+     "opts": {
+      "text": "PURINA HIGH PROTEIN"
+     }
+    },
+    {
+     "id": "eggs",
+     "name": "eggs",
+     "pos": [
+      0.9,
+      0,
+      -0.3
+     ]
+    },
+    {
+     "id": "milk",
+     "name": "milkBottle",
+     "pos": [
+      1.15,
+      0,
+      -0.1
+     ]
+    },
+    {
+     "id": "yaourt",
+     "name": "mug",
+     "pos": [
+      -0.3,
+      0,
+      -0.4
+     ],
+     "opts": {
+      "color": "#FFFFFF"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 12,
+     "elev": 12,
+     "frame": [
+      "mec",
+      "chevre",
+      "sack"
+     ]
+    },
+    {
+     "at": "g10:manger",
+     "size": "mcu",
+     "angle": 20,
+     "move": "push",
+     "frame": "mec"
+    },
+    {
+     "at": "g10:comme",
+     "size": "ms",
+     "worldAngle": -35,
+     "frame": "chevre"
+    }
+   ],
+   "tail": 0.35
+  },
+  {
+   "id": "zoo2",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "sfx": [
+    {
+     "at": "g14:poil+0.8",
+     "name": "thud",
+     "vol": 0.45
+    }
+   ],
+   "lines": [
+    {
+     "id": "g11",
+     "text": "Il est revenu au zoo, toujours pas assez musclé.",
+     "highlight": [
+      "musclé."
+     ]
+    },
+    {
+     "id": "g12",
+     "text": "Les gorilles étaient encore plus gros que lui.",
+     "highlight": [
+      "encore",
+      "gros"
+     ]
+    },
+    {
+     "id": "g13",
+     "text": "Ça le rendait fou.",
+     "highlight": [
+      "fou."
+     ]
+    },
+    {
+     "id": "g14",
+     "text": "Deuxième hypothèse : les gorilles étaient à poil et faisaient des acrobaties toute la journée.",
+     "highlight": [
+      "poil",
+      "acrobaties"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.6,
+      0,
+      6.5
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "path": [
+        [
+         1.4,
+         0,
+         6.1
+        ],
+        [
+         0.3,
+         0,
+         4.95
+        ]
+       ],
+       "clip": "walk",
+       "faceEnd": 180
+      },
+      {
+       "at": "g11:pas",
+       "clip": "flex",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "g13",
+       "clip": "tantrum",
+       "expr": "angry"
+      },
+      {
+       "at": "g14",
+       "clip": "idle",
+       "expr": "suspicious"
+      },
+      {
+       "at": "g14:poil",
+       "clip": "lookItem",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -3.4,
+      0,
+      0.6
+     ],
+     "ry": 15,
+     "clip": "posing",
+     "keys": [
+      {
+       "at": "g14",
+       "path": [
+        [
+         -0.8,
+         0,
+         1.4
+        ]
+       ],
+       "clip": "cartwheel",
+       "params": {
+        "dur": 0.8
+       },
+       "dur": 0.8,
+       "face": "keep"
+      },
+      {
+       "at": "g14:acrobaties",
+       "path": [
+        [
+         -3.0,
+         0,
+         1.0
+        ]
+       ],
+       "clip": "cartwheel",
+       "params": {
+        "dur": 0.8
+       },
+       "dur": 0.8,
+       "face": "keep"
+      },
+      {
+       "at": "g14:journée",
+       "clip": "chestBeat"
+      }
+     ],
+     "scale": 1.45,
+     "expr": "smug"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      0.3,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "flex",
+     "keys": [
+      {
+       "at": "g12:gros",
+       "clip": "chestBeat"
+      },
+      {
+       "at": "g14:poil",
+       "clip": "flip",
+       "params": {
+        "dur": 0.8
+       }
+      },
+      {
+       "at": "g14:poil+0.85",
+       "clip": "heroPose"
+      }
+     ],
+     "scale": 1.624,
+     "expr": "smug"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      3.1,
+      0.62,
+      -1.25
+     ],
+     "ry": 0,
+     "clip": "pullUp",
+     "keys": [],
+     "scale": 1.45,
+     "params": {
+      "freq": 1.0
+     },
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bar",
+     "name": "pullUpBar",
+     "pos": [
+      3.1,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "height": 3.25,
+      "width": 1.5
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "g11:pas",
+     "size": "ms",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "g12",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": -8,
+     "lens": 34,
+     "move": "push",
+     "amount": 0.06,
+     "frame": [
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g12:gros",
+     "size": "ms",
+     "angle": 0,
+     "elev": -16,
+     "lens": 30,
+     "frame": "g1"
+    },
+    {
+     "at": "g13",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "g14",
+     "size": "fs",
+     "worldAngle": 5,
+     "elev": 6,
+     "frame": [
+      "g0",
+      "g1"
+     ]
+    },
+    {
+     "at": "g14:poil",
+     "size": "cu",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "g14:faisaient",
+     "size": "fs",
+     "angle": 10,
+     "frame": "g1"
+    },
+    {
+     "at": "g14:acrobaties",
+     "size": "fs",
+     "angle": -20,
+     "move": "track",
+     "frame": "g0"
+    },
+    {
+     "at": "g14:journée",
+     "size": "fs",
+     "angle": 15,
+     "frame": "g2"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "rue",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "g15",
+     "text": "Il s'est donc mis à se balader complètement à poil, en pleine rue.",
+     "highlight": [
+      "poil,",
+      "rue."
+     ]
+    },
+    {
+     "id": "g16",
+     "text": "Les gens le voyaient arriver et se barraient en courant.",
+     "highlight": [
+      "courant."
+     ]
+    },
+    {
+     "id": "g17",
+     "text": "Il faisait du street workout partout, des tractions, des acrobaties",
+     "highlight": [
+      "tractions,",
+      "acrobaties"
+     ]
+    },
+    {
+     "id": "g18a",
+     "text": "et il se balançait de lampadaire en lampadaire",
+     "highlight": [
+      "lampadaire"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecNu",
+     "pos": [
+      -6.0,
+      0,
+      0.7
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -2.6,
+        0,
+        0.7
+       ],
+       "clip": "strut",
+       "speed": 1.1
+      },
+      {
+       "at": "g16:voyaient",
+       "clip": "handsOnHips",
+       "expr": "happy",
+       "face": 90
+      },
+      {
+       "at": "g17",
+       "to": [
+        -1.5,
+        0.12,
+        0.55
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "then": "pullUp",
+       "thenParams": {
+        "freq": 1.4
+       },
+       "faceEnd": 0
+      },
+      {
+       "at": "g17:acrobaties",
+       "to": [
+        -0.2,
+        0,
+        0.9
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "then": "flip",
+       "thenParams": {
+        "dur": 0.75
+       }
+      },
+      {
+       "at": "g18a",
+       "to": [
+        -4.15,
+        0,
+        -1.25
+       ],
+       "clip": "run",
+       "faceEnd": 0,
+       "then": "swingPole"
+      },
+      {
+       "at": "g18a#7",
+       "to": [
+        0.85,
+        0,
+        -1.25
+       ],
+       "clip": "airborne",
+       "glide": true,
+       "dur": 0.75,
+       "arc": 1.4,
+       "face": "move",
+       "land": "stepHeavy",
+       "then": "swingPole",
+       "faceEnd": 0
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "madame",
+     "pos": [
+      2.6,
+      0,
+      0.9
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        1.2,
+        0,
+        0.9
+       ],
+       "clip": "walk",
+       "speed": 1.1
+      },
+      {
+       "at": "g16:voyaient",
+       "clip": "startle",
+       "expr": "shocked",
+       "face": "mecNu"
+      },
+      {
+       "at": "g16:barraient",
+       "to": [
+        8.0,
+        0,
+        1.6
+       ],
+       "clip": "flee",
+       "expr": "scared"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mamie",
+     "pos": [
+      3.4,
+      0,
+      0.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        2.0,
+        0,
+        0.2
+       ],
+       "clip": "walk",
+       "speed": 1.0
+      },
+      {
+       "at": "g16:arriver",
+       "clip": "startle",
+       "expr": "shocked",
+       "face": "mecNu"
+      },
+      {
+       "at": "g16:barraient+0.2",
+       "to": [
+        8.5,
+        0,
+        0.6
+       ],
+       "clip": "flee",
+       "expr": "scared"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "gamin",
+     "pos": [
+      1.6,
+      0,
+      1.5
+     ],
+     "ry": -100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g16:voyaient",
+       "clip": "doubleTake",
+       "expr": "shocked",
+       "face": "mecNu"
+      },
+      {
+       "at": "g16:courant",
+       "to": [
+        7.5,
+        0,
+        2.2
+       ],
+       "clip": "flee",
+       "expr": "scared"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bar",
+     "name": "pullUpBar",
+     "pos": [
+      -1.5,
+      0,
+      0.55
+     ],
+     "opts": {
+      "height": 2.55,
+      "width": 1.3
+     }
+    },
+    {
+     "id": "lamp2",
+     "name": "streetLamp",
+     "pos": [
+      0.5,
+      0,
+      -1.25
+     ],
+     "ry": 90
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 20,
+     "move": "track",
+     "frame": "mecNu"
+    },
+    {
+     "at": "g15:complètement",
+     "size": "mcu",
+     "angle": -15,
+     "frame": "mecNu"
+    },
+    {
+     "at": "g15:pleine",
+     "size": "ws",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "mecNu",
+      "madame"
+     ]
+    },
+    {
+     "at": "g16",
+     "size": "ms",
+     "angle": 10,
+     "frame": [
+      "madame",
+      "mamie"
+     ]
+    },
+    {
+     "at": "g16:voyaient",
+     "size": "cu",
+     "angle": 0,
+     "frame": "madame"
+    },
+    {
+     "at": "g16:barraient",
+     "size": "fs",
+     "worldAngle": -10,
+     "move": "track",
+     "frame": [
+      "madame",
+      "mamie",
+      "gamin"
+     ]
+    },
+    {
+     "at": "g17",
+     "size": "fs",
+     "angle": 15,
+     "frame": "mecNu"
+    },
+    {
+     "at": "g17:tractions",
+     "size": "ms",
+     "angle": -10,
+     "elev": -10,
+     "frame": "mecNu"
+    },
+    {
+     "at": "g17:acrobaties",
+     "size": "fs",
+     "angle": 30,
+     "frame": "mecNu"
+    },
+    {
+     "at": "g18a",
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "mecNu"
+    },
+    {
+     "at": "g18a#7",
+     "size": "ws",
+     "worldAngle": 0,
+     "elev": 8,
+     "move": "track",
+     "frame": "mecNu"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "toits",
+   "set": "rooftopPowerLine",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "g18b",
+     "text": "et sur les toits des maisons en marchant comme un gorille.",
+     "highlight": [
+      "toits",
+      "gorille."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecNu",
+     "pos": [
+      -2.6,
+      0,
+      -0.2
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        0,
+        0.4
+       ],
+       "clip": "knuckleWalk",
+       "speed": 1.65,
+       "then": "chestBeat",
+       "faceEnd": 0
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 60,
+     "elev": 4,
+     "move": "track",
+     "frame": "mecNu"
+    },
+    {
+     "at": "g18b:marchant",
+     "size": "ms",
+     "angle": 10,
+     "elev": -10,
+     "frame": "mecNu"
+    },
+    {
+     "at": "g18b:gorille",
+     "size": "fs",
+     "angle": 0,
+     "elev": -12,
+     "lens": 32,
+     "frame": "mecNu"
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "zoo3",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "lines": [
+    {
+     "id": "g19",
+     "text": "Puis, retour au zoo, toujours moins musclé.",
+     "highlight": [
+      "moins"
+     ]
+    },
+    {
+     "id": "g20",
+     "text": "Il était tellement furieux que maintenant, même les visiteurs le craignaient.",
+     "highlight": [
+      "furieux",
+      "visiteurs"
+     ]
+    },
+    {
+     "id": "g21",
+     "text": "Alors, il a sauté la barrière et s'est installé directement dans l'enclos des gorilles.",
+     "highlight": [
+      "sauté",
+      "enclos"
+     ]
+    },
+    {
+     "id": "g22",
+     "text": "Il mangeait et dormait avec eux pour trouver leur putain de secret.",
+     "highlight": [
+      "mangeait",
+      "dormait",
+      "secret."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.2,
+      0,
+      4.95
+     ],
+     "ry": 180,
+     "clip": "flex",
+     "keys": [
+      {
+       "at": "g20",
+       "clip": "growl",
+       "expr": "angry",
+       "face": "madame"
+      },
+      {
+       "at": "g21",
+       "face": 180,
+       "turn": 0.25
+      },
+      {
+       "at": "g21:sauté",
+       "to": [
+        0.2,
+        0,
+        3.4
+       ],
+       "clip": "vault",
+       "glide": true,
+       "dur": 0.75,
+       "arc": 1.0,
+       "face": "move",
+       "land": "stepHeavy"
+      },
+      {
+       "at": "g21:installé",
+       "to": [
+        -0.6,
+        0,
+        1.4
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "then": "sitFloor",
+       "faceEnd": "g1"
+      },
+      {
+       "at": "g22",
+       "clip": "sitFloorEat",
+       "expr": "happy",
+       "face": "g0"
+      },
+      {
+       "at": "g22:dormait",
+       "clip": "sleepSide",
+       "expr": "blink"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "madame",
+     "pos": [
+      1.6,
+      0,
+      5.1
+     ],
+     "ry": -100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g20:visiteurs",
+       "clip": "scared",
+       "expr": "scared",
+       "face": "mec"
+      },
+      {
+       "at": "g20:craignaient",
+       "to": [
+        5.5,
+        0,
+        6.8
+       ],
+       "clip": "flee",
+       "expr": "scared"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "gamin",
+     "pos": [
+      -1.3,
+      0,
+      5.2
+     ],
+     "ry": 100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g20:visiteurs",
+       "clip": "startle",
+       "expr": "shocked",
+       "face": "mec"
+      },
+      {
+       "at": "g20:craignaient+0.15",
+       "to": [
+        -5.5,
+        0,
+        7.0
+       ],
+       "clip": "flee",
+       "expr": "scared"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -2.6,
+      0,
+      0.3
+     ],
+     "ry": 20,
+     "clip": "flex",
+     "keys": [
+      {
+       "at": "g22",
+       "clip": "sitFloorEat",
+       "expr": "happy"
+      },
+      {
+       "at": "g22:dormait",
+       "clip": "sleepSide",
+       "expr": "closed"
+      }
+     ],
+     "scale": 1.6,
+     "expr": "smug"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      0.3,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "chestBeat",
+     "keys": [
+      {
+       "at": "g21:installé",
+       "clip": "idle",
+       "expr": "suspicious",
+       "face": "mec"
+      },
+      {
+       "at": "g22",
+       "clip": "eatHands",
+       "expr": "happy"
+      },
+      {
+       "at": "g22:dormait",
+       "clip": "sleepSide",
+       "expr": "closed"
+      }
+     ],
+     "scale": 1.7920000000000003,
+     "expr": "smug"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      2.8,
+      0,
+      0.1
+     ],
+     "ry": -20,
+     "clip": "posing",
+     "keys": [
+      {
+       "at": "g22",
+       "clip": "sitFloorEat",
+       "expr": "happy"
+      },
+      {
+       "at": "g22:dormait",
+       "clip": "sleepSide",
+       "expr": "closed"
+      }
+     ],
+     "scale": 1.6,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "sack",
+     "name": "foodSack",
+     "pos": [
+      -0.9,
+      0,
+      0.9
+     ],
+     "ry": 10,
+     "opts": {
+      "text": "PURINA HIGH PROTEIN"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 160,
+     "elev": 6,
+     "allowBack": true,
+     "frame": "mec"
+    },
+    {
+     "at": "g19:toujours",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": -10,
+     "lens": 32,
+     "frame": [
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g20",
+     "size": "mcu",
+     "angle": -25,
+     "frame": "mec"
+    },
+    {
+     "at": "g20:visiteurs",
+     "size": "fs",
+     "worldAngle": 170,
+     "elev": 8,
+     "frame": [
+      "madame",
+      "gamin",
+      "mec"
+     ]
+    },
+    {
+     "at": "g21",
+     "size": "fs",
+     "angle": 90,
+     "elev": 4,
+     "frame": "mec"
+    },
+    {
+     "at": "g21:installé",
+     "size": "fs",
+     "angle": 20,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "g22",
+     "size": "fs",
+     "worldAngle": 15,
+     "elev": 10,
+     "frame": [
+      "mec",
+      "g0",
+      "g1"
+     ]
+    },
+    {
+     "at": "g22:dormait",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 26,
+     "frame": [
+      "mec",
+      "g0",
+      "g1"
+     ]
+    },
+    {
+     "at": "g22:secret",
+     "size": "cu",
+     "angle": 0,
+     "elev": 40,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "zoo4",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "lines": [
+    {
+     "id": "g23",
+     "text": "Et là, il a remarqué un truc.",
+     "highlight": [
+      "truc."
+     ]
+    },
+    {
+     "id": "g24",
+     "text": "Ils étaient beaucoup plus poilus que lui.",
+     "highlight": [
+      "poilus"
+     ]
+    },
+    {
+     "id": "g25",
+     "text": "Pour lui, aucun doute, ces bâtards devaient être dopés.",
+     "highlight": [
+      "bâtards",
+      "dopés."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.6,
+      0,
+      1.4
+     ],
+     "ry": 30,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": "g23",
+       "expr": "suspicious"
+      },
+      {
+       "at": "g24",
+       "clip": "lookItem",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "g24:poilus",
+       "look": "g1"
+      },
+      {
+       "at": "g25",
+       "clip": "idle",
+       "look": null,
+       "expr": "suspicious"
+      },
+      {
+       "at": "g25:dopés",
+       "clip": "pokeFinger",
+       "expr": "angry",
+       "face": "g1"
+      }
+     ],
+     "face": "g1",
+     "expr": "neutral"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      0.5,
+      0,
+      0.3
+     ],
+     "ry": -130,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": "g24",
+       "clip": "scratchButt",
+       "expr": "neutral"
+      }
+     ],
+     "scale": 1.7920000000000003,
+     "expr": "neutral"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -2.6,
+      0,
+      0.2
+     ],
+     "ry": 60,
+     "clip": "sitFloorEat",
+     "keys": [],
+     "scale": 1.6,
+     "expr": "happy"
+    }
+   ],
+   "props": [],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "g23:remarqué",
+     "size": "cu",
+     "angle": 10,
+     "move": "push",
+     "frame": "mec"
+    },
+    {
+     "at": "g24",
+     "size": "ms",
+     "worldAngle": 60,
+     "frame": [
+      "mec",
+      "g1"
+     ]
+    },
+    {
+     "at": "g24:poilus",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "g1"
+    },
+    {
+     "at": "g25",
+     "size": "ecu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    },
+    {
+     "at": "g25:dopés",
+     "size": "fs",
+     "worldAngle": 100,
+     "frame": [
+      "mec",
+      "g1"
+     ]
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "nuit1",
+   "set": "zoo",
+   "setOpts": {
+    "night": true,
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "night",
+   "lines": [
+    {
+     "id": "g26",
+     "text": "Il a attendu la nuit jusqu'à ce que tous les gorilles aient l'air de dormir.",
+     "highlight": [
+      "nuit",
+      "dormir."
+     ]
+    },
+    {
+     "id": "g27",
+     "text": "Sauf un.",
+     "highlight": [
+      "un."
+     ]
+    },
+    {
+     "id": "g28",
+     "text": "Le plus gros s'est levé discrètement et s'est caché derrière un rocher.",
+     "highlight": [
+      "discrètement",
+      "rocher."
+     ]
+    },
+    {
+     "id": "g29",
+     "text": "Le mec s'est planqué sous un carton, comme Snake dans Metal Gear Solid, et l'a suivi à petits pas.",
+     "highlight": [
+      "carton,",
+      "Snake"
+     ]
+    },
+    {
+     "id": "g30",
+     "text": "Quand le gorille regardait derrière lui, il s'arrêtait net.",
+     "highlight": [
+      "net."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.6,
+      0,
+      1.3
+     ],
+     "ry": 90,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "g28:levé",
+       "clip": "crouchHide",
+       "expr": "suspicious",
+       "face": "g1"
+      },
+      {
+       "at": "g29:planqué",
+       "clip": "boxFreeze"
+      },
+      {
+       "at": "g29:suivi",
+       "path": [
+        [
+         -0.5,
+         0,
+         0.3
+        ],
+        [
+         -0.6,
+         0,
+         -0.6
+        ]
+       ],
+       "clip": "boxSneak",
+       "speed": 0.6
+      },
+      {
+       "at": "g30:regardait+0.15",
+       "clip": "boxFreeze"
+      },
+      {
+       "at": "g30.end",
+       "to": [
+        -0.7,
+        0,
+        -1.4
+       ],
+       "clip": "boxSneak",
+       "speed": 0.6
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -2.6,
+      0,
+      0.2
+     ],
+     "ry": 60,
+     "clip": "sleepSide",
+     "keys": [],
+     "scale": 1.6,
+     "expr": "closed"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      2.0,
+      0,
+      1.2
+     ],
+     "ry": -60,
+     "clip": "sleepSide",
+     "keys": [],
+     "scale": 1.6,
+     "expr": "closed"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      0.6,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "clip": "sleepSide",
+     "keys": [
+      {
+       "at": "g27",
+       "expr": "suspicious"
+      },
+      {
+       "at": "g28:levé",
+       "clip": "idle",
+       "expr": "suspicious",
+       "face": 200
+      },
+      {
+       "at": "g28:discrètement",
+       "path": [
+        [
+         2.6,
+         0,
+         -0.6
+        ],
+        [
+         3.8,
+         0,
+         -1.4
+        ],
+        [
+         3.8,
+         0,
+         -4.2
+        ],
+        [
+         2.0,
+         0,
+         -4.6
+        ]
+       ],
+       "clip": "tiptoe",
+       "speed": 1.25,
+       "faceEnd": -90
+      },
+      {
+       "at": "g30:regardait",
+       "clip": "lookBack",
+       "expr": "suspicious"
+      },
+      {
+       "at": "g30:net+0.4",
+       "clip": "crouchHide",
+       "expr": "neutral"
+      }
+     ],
+     "scale": 1.7920000000000003,
+     "expr": "closed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rock",
+     "name": "rock",
+     "pos": [
+      1.4,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "size": 2.2
+     }
+    },
+    {
+     "id": "box",
+     "name": "boxHide",
+     "opts": {
+      "h": 1.5,
+      "d": 0.95,
+      "w": 0.85
+     },
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "joint": "root",
+      "offset": [
+       0,
+       0.66,
+       0.3
+      ]
+     },
+     "keys": [
+      {
+       "at": "g29:planqué",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 24,
+     "frame": [
+      "mec",
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g26:dormir",
+     "size": "cu",
+     "angle": 0,
+     "elev": 50,
+     "frame": "mec"
+    },
+    {
+     "at": "g27",
+     "size": "cu",
+     "angle": 0,
+     "elev": 20,
+     "frame": "g1"
+    },
+    {
+     "at": "g28",
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "g1"
+    },
+    {
+     "at": "g28:caché",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": "g1"
+    },
+    {
+     "at": "g29",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "g29:Snake",
+     "size": "fs",
+     "angle": 50,
+     "elev": 6,
+     "frame": "mec"
+    },
+    {
+     "at": "g29:suivi",
+     "size": "fs",
+     "worldAngle": 60,
+     "move": "track",
+     "frame": [
+      "mec",
+      "rock"
+     ]
+    },
+    {
+     "at": "g30",
+     "size": "ms",
+     "angle": 0,
+     "frame": "g1"
+    },
+    {
+     "at": "g30:arrêtait",
+     "size": "ms",
+     "angle": 10,
+     "elev": 4,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.5
+  },
+  {
+   "id": "nuit2",
+   "set": "zoo",
+   "setOpts": {
+    "night": true,
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "night",
+   "sfx": [
+    {
+     "at": 0.55,
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "g32+0.35",
+     "name": "gulp",
+     "vol": 0.6
+    },
+    {
+     "at": "g32+0.8",
+     "name": "gulp",
+     "vol": 0.6
+    }
+   ],
+   "lines": [
+    {
+     "id": "g31",
+     "text": "Derrière le rocher, le gorille se piquait aux stéroïdes.",
+     "highlight": [
+      "stéroïdes."
+     ]
+    },
+    {
+     "id": "g32",
+     "text": "Ensuite, il prenait un pré-workout interdit qui contenait un dérivé de méthamphétamine.",
+     "highlight": [
+      "interdit",
+      "méthamphétamine."
+     ]
+    },
+    {
+     "id": "g33",
+     "text": "Puis, il est entré dans une grotte.",
+     "highlight": [
+      "grotte."
+     ]
+    },
+    {
+     "id": "g34",
+     "text": "Le mec l'a suivi, toujours sous son carton.",
+     "highlight": [
+      "carton."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "g1",
+     "pos": [
+      2.0,
+      0,
+      -4.6
+     ],
+     "ry": -90,
+     "clip": "injectArm",
+     "keys": [
+      {
+       "at": "g31:stéroïdes",
+       "clip": "wired",
+       "expr": "shocked"
+      },
+      {
+       "at": "g32",
+       "clip": "drinkUp",
+       "expr": "happy"
+      },
+      {
+       "at": "g32:dérivé",
+       "clip": "wired",
+       "expr": "shocked"
+      },
+      {
+       "at": "g33",
+       "to": [
+        3.6,
+        0,
+        -6.3
+       ],
+       "clip": "knuckleWalk",
+       "speed": 1.4
+      },
+      {
+       "at": "g33.end+0.1",
+       "visible": false
+      }
+     ],
+     "scale": 1.7920000000000003,
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.7,
+      0,
+      -1.4
+     ],
+     "ry": 180,
+     "clip": "boxFreeze",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -0.75,
+        0,
+        -3.3
+       ],
+       "clip": "boxSneak",
+       "speed": 0.7,
+       "faceEnd": "g1"
+      },
+      {
+       "at": "g34",
+       "path": [
+        [
+         0.4,
+         0,
+         -5.0
+        ],
+        [
+         2.6,
+         0,
+         -5.9
+        ],
+        [
+         3.6,
+         0,
+         -6.3
+        ]
+       ],
+       "clip": "boxSneak",
+       "speed": 1.3
+      },
+      {
+       "at": "g34.end+0.1",
+       "visible": false
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "rock",
+     "name": "rock",
+     "pos": [
+      1.4,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "size": 2.2
+     }
+    },
+    {
+     "id": "box",
+     "name": "boxHide",
+     "opts": {
+      "h": 1.5,
+      "d": 0.95,
+      "w": 0.85
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "root",
+      "offset": [
+       0,
+       0.66,
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "syr",
+     "name": "syringeBig",
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g32",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "pre",
+     "name": "preWorkout",
+     "visible": false,
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g32",
+       "visible": true
+      },
+      {
+       "at": "g33",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "elev": 4,
+     "frame": "g1"
+    },
+    {
+     "at": "g31:piquait",
+     "size": "mcu",
+     "angle": 30,
+     "frame": "g1"
+    },
+    {
+     "at": "g31:stéroïdes",
+     "size": "fs",
+     "worldAngle": 200,
+     "elev": 10,
+     "allowBack": true,
+     "frame": [
+      "g1",
+      "mec"
+     ]
+    },
+    {
+     "at": "g32",
+     "size": "mcu",
+     "angle": -20,
+     "frame": "g1"
+    },
+    {
+     "at": "g32:interdit",
+     "size": "ms",
+     "angle": 30,
+     "frame": "g1"
+    },
+    {
+     "at": "g32:dérivé",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "frame": "g1"
+    },
+    {
+     "at": "g33",
+     "size": "fs",
+     "angle": 140,
+     "elev": 8,
+     "allowBack": true,
+     "frame": "g1"
+    },
+    {
+     "at": "g34",
+     "size": "fs",
+     "angle": 150,
+     "elev": 10,
+     "allowBack": true,
+     "move": "track",
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "salle1",
+   "set": "secretGym",
+   "ambience": "gym",
+   "lines": [
+    {
+     "id": "g35",
+     "text": "À l'intérieur, une salle de musculation ultra-moderne cachée sous le zoo avec un coach privé.",
+     "highlight": [
+      "ultra-moderne",
+      "coach"
+     ]
+    },
+    {
+     "id": "g36",
+     "text": "Le gorille s'est entraîné douze heures d'affilée, toute la nuit, sans s'arrêter.",
+     "highlight": [
+      "douze",
+      "heures"
+     ]
+    },
+    {
+     "id": "g37",
+     "text": "Le coach lui faisait enchaîner les exercices.",
+     "highlight": [
+      "enchaîner"
+     ]
+    },
+    {
+     "id": "g38",
+     "text": "Le mec regardait tout depuis son carton.",
+     "highlight": [
+      "carton."
+     ]
+    },
+    {
+     "id": "g39",
+     "text": "Il avait enfin compris pourquoi ces cons étaient aussi musclés.",
+     "highlight": [
+      "compris",
+      "cons"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "g1",
+     "pos": [
+      -4.6,
+      0,
+      1.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        2.4,
+        0,
+        -1.2
+       ],
+       "clip": "knuckleWalk",
+       "speed": 1.6,
+       "faceEnd": "coach"
+      },
+      {
+       "at": "g36",
+       "to": [
+        3.4,
+        0.05,
+        -1.4
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "then": "benchPress",
+       "thenParams": {
+        "freq": 1.3
+       },
+       "faceEnd": 0
+      },
+      {
+       "at": "g37:faisait",
+       "to": [
+        0.9,
+        0,
+        -1.0
+       ],
+       "clip": "walk",
+       "speed": 1.8,
+       "then": "deadlift",
+       "thenParams": {
+        "freq": 1.5
+       },
+       "faceEnd": 20
+      },
+      {
+       "at": "g37:exercices",
+       "clip": "curls",
+       "params": {
+        "freq": 1.8
+       }
+      }
+     ],
+     "scale": 1.35,
+     "expr": "neutral"
+    },
+    {
+     "id": "coach",
+     "pos": [
+      1.4,
+      0,
+      -0.4
+     ],
+     "ry": -40,
+     "clip": "clipboard",
+     "keys": [
+      {
+       "at": "g36",
+       "clip": "clipboard",
+       "face": "g1"
+      },
+      {
+       "at": "g37",
+       "clip": "whistleBlow",
+       "expr": "angry",
+       "face": "g1",
+       "sfx": "whistle"
+      },
+      {
+       "at": "g37:exercices",
+       "clip": "point",
+       "face": "g1"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -3.2,
+      0,
+      1.9
+     ],
+     "ry": 120,
+     "clip": "boxFreeze",
+     "keys": [
+      {
+       "at": "g38",
+       "face": "g1",
+       "turn": 0.6
+      },
+      {
+       "at": "g39",
+       "clip": "stand",
+       "expr": "happy",
+       "face": 30
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      -1.6,
+      2.6,
+      -3.55
+     ],
+     "opts": {
+      "rate": 0.05
+     },
+     "keys": [
+      {
+       "at": "g36",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "clock2",
+     "name": "wallClock",
+     "pos": [
+      -1.6,
+      2.6,
+      -3.55
+     ],
+     "opts": {
+      "rate": 2.5
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g36",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "box",
+     "name": "boxHide",
+     "opts": {
+      "h": 1.5,
+      "d": 0.95,
+      "w": 0.85
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "root",
+      "offset": [
+       0,
+       0.66,
+       0.3
+      ]
+     },
+     "keys": [
+      {
+       "at": "g39",
+       "detach": true,
+       "fall": true,
+       "toss": [
+        0.6,
+        3.6,
+        -0.4
+       ],
+       "impact": "thud",
+       "sfx": "paper"
+      }
+     ]
+    },
+    {
+     "id": "whistle",
+     "name": "whistle",
+     "on": {
+      "actor": "coach",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "clip",
+     "name": "clipboardProp",
+     "on": {
+      "actor": "coach",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "bb",
+     "name": "barbell",
+     "visible": false,
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g36",
+       "visible": true
+      },
+      {
+       "at": "g37:exercices",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "db",
+     "name": "dumbbell",
+     "visible": false,
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g37:exercices",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "db2",
+     "name": "dumbbell",
+     "visible": false,
+     "on": {
+      "actor": "g1",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "g37:exercices",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "anchor": "mirror",
+     "offset": [
+      1.7,
+      0.75,
+      0.07
+     ],
+     "opts": {
+      "kind": "sticker"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ws",
+     "worldAngle": 10,
+     "elev": 10,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      "g1",
+      "coach"
+     ]
+    },
+    {
+     "at": "g35:cachée",
+     "size": "fs",
+     "angle": 30,
+     "move": "track",
+     "frame": "g1"
+    },
+    {
+     "at": "g35:coach",
+     "size": "ms",
+     "angle": 50,
+     "frame": "coach"
+    },
+    {
+     "at": "g36",
+     "size": "fs",
+     "angle": 50,
+     "frame": "g1"
+    },
+    {
+     "at": "g36:heures",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "clock2"
+    },
+    {
+     "at": "g36:nuit",
+     "size": "fs",
+     "angle": 90,
+     "elev": 6,
+     "frame": "g1"
+    },
+    {
+     "at": "g37",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "coach"
+    },
+    {
+     "at": "g37:enchaîner",
+     "size": "fs",
+     "angle": 20,
+     "frame": "g1"
+    },
+    {
+     "at": "g37:exercices",
+     "size": "ms",
+     "angle": -10,
+     "frame": "g1"
+    },
+    {
+     "at": "g38",
+     "size": "fs",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "g38:carton",
+     "size": "ws",
+     "worldAngle": 150,
+     "elev": 10,
+     "frame": [
+      "mec",
+      "g1"
+     ]
+    },
+    {
+     "at": "g39",
+     "size": "cu",
+     "angle": 5,
+     "move": "push",
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "salle2",
+   "set": "secretGym",
+   "ambience": "gym",
+   "lines": [
+    {
+     "id": "g40",
+     "text": "Il a donc fait exactement pareil.",
+     "highlight": [
+      "pareil."
+     ]
+    },
+    {
+     "id": "g41",
+     "text": "Les mêmes produits, les mêmes entraînements, le même putain de programme.",
+     "highlight": [
+      "produits,",
+      "entraînements,",
+      "programme."
+     ]
+    },
+    {
+     "id": "g42",
+     "text": "Et à force, il s'est lui-même transformé en gorille.",
+     "highlight": [
+      "transformé",
+      "gorille."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "injectArm",
+     "keys": [
+      {
+       "at": "g41",
+       "clip": "drinkUp",
+       "expr": "happy"
+      },
+      {
+       "at": "g41:entraînements",
+       "to": [
+        3.4,
+        0.05,
+        -1.4
+       ],
+       "clip": "walk",
+       "speed": 1.8,
+       "then": "benchPress",
+       "thenParams": {
+        "freq": 1.4
+       },
+       "faceEnd": 0
+      },
+      {
+       "at": "g41:programme",
+       "to": [
+        0.6,
+        0,
+        -0.4
+       ],
+       "clip": "walk",
+       "speed": 1.9,
+       "then": "curls",
+       "thenParams": {
+        "freq": 1.6
+       },
+       "faceEnd": 0
+      },
+      {
+       "at": "g42:transformé",
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mecG",
+     "pos": [
+      0.6,
+      0,
+      -0.4
+     ],
+     "ry": 0,
+     "clip": "curls",
+     "keys": [
+      {
+       "at": "g42:transformé",
+       "visible": true
+      },
+      {
+       "at": "g42:gorille",
+       "clip": "heroPose",
+       "expr": "smug"
+      }
+     ],
+     "scale": 1.25,
+     "visible": false,
+     "expr": "angry"
+    },
+    {
+     "id": "coach",
+     "pos": [
+      -1.2,
+      0,
+      0.4
+     ],
+     "ry": 60,
+     "clip": "clipboard",
+     "keys": [
+      {
+       "at": "g41:programme",
+       "clip": "whistleBlow",
+       "expr": "angry",
+       "sfx": "whistle"
+      }
+     ],
+     "face": "mec",
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "syr",
+     "name": "syringeBig",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g41",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "pre",
+     "name": "preWorkout",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g41",
+       "visible": true
+      },
+      {
+       "at": "g41:entraînements",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "bb",
+     "name": "barbell",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g41:entraînements",
+       "visible": true
+      },
+      {
+       "at": "g41:programme",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "db",
+     "name": "dumbbell",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g41:programme",
+       "visible": true
+      },
+      {
+       "at": "g42:transformé",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "dbG",
+     "name": "dumbbell",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g42:transformé",
+       "visible": true
+      },
+      {
+       "at": "g42:gorille",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "whistle",
+     "name": "whistle",
+     "on": {
+      "actor": "coach",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      -1.6,
+      2.6,
+      -3.55
+     ],
+     "opts": {
+      "rate": 1.0
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "g42:transformé",
+     "dur": 0.25
+    },
+    {
+     "type": "shake",
+     "at": "g42:transformé",
+     "dur": 0.3,
+     "amount": 0.04
+    }
+   ],
+   "sfx": [
+    {
+     "at": "g42:transformé",
+     "name": "poof",
+     "vol": 0.8
+    },
+    {
+     "at": "g42:gorille",
+     "name": "roar",
+     "vol": 0.5
+    },
+    {
+     "at": 0.55,
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "g41+0.35",
+     "name": "gulp",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "g40:fait",
+     "size": "cu",
+     "angle": -15,
+     "frame": "mec"
+    },
+    {
+     "at": "g41",
+     "size": "mcu",
+     "angle": 25,
+     "frame": "mec"
+    },
+    {
+     "at": "g41:entraînements",
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "g41:programme",
+     "size": "ms",
+     "angle": 25,
+     "frame": "coach"
+    },
+    {
+     "at": "g41:programme+0.8",
+     "size": "ms",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "g42",
+     "size": "ms",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "g42:transformé",
+     "size": "ms",
+     "angle": 10,
+     "move": "pull",
+     "frame": "mecG"
+    },
+    {
+     "at": "g42:gorille",
+     "size": "fs",
+     "angle": 0,
+     "elev": -12,
+     "lens": 32,
+     "frame": "mecG"
+    }
+   ],
+   "tail": 0.5
+  },
+  {
+   "id": "zoo5",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "lines": [
+    {
+     "id": "g44",
+     "text": "Sauf qu'il ne voulait pas être un gorille parmi les autres.",
+     "highlight": [
+      "parmi"
+     ]
+    },
+    {
+     "id": "g45",
+     "text": "Il voulait être le plus musclé de tous.",
+     "highlight": [
+      "plus",
+      "tous."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "g0",
+     "pos": [
+      -2.2,
+      0,
+      0.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "scale": 1.25,
+     "expr": "neutral"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      2.2,
+      0,
+      0.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "scale": 1.25,
+     "expr": "neutral"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      1.1,
+      0,
+      -0.4
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "scale": 1.25,
+     "expr": "neutral"
+    },
+    {
+     "id": "mecG",
+     "pos": [
+      -0.6,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g44:gorille",
+       "clip": "lookAround"
+      },
+      {
+       "at": "g45",
+       "clip": "angryFist",
+       "expr": "angry"
+      },
+      {
+       "at": "g45:musclé",
+       "clip": "flex",
+       "expr": "smug"
+      }
+     ],
+     "scale": 1.25,
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      "g0",
+      "mecG",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g44:gorille",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "mecG"
+    },
+    {
+     "at": "g45",
+     "size": "cu",
+     "angle": -10,
+     "move": "push",
+     "frame": "mecG"
+    },
+    {
+     "at": "g45:musclé",
+     "size": "ms",
+     "angle": 10,
+     "elev": -14,
+     "lens": 32,
+     "frame": "mecG"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "salle3",
+   "set": "secretGym",
+   "ambience": "gym",
+   "lines": [
+    {
+     "id": "g46",
+     "text": "Alors, il a triplé la dose de chaque produit.",
+     "highlight": [
+      "triplé"
+     ]
+    },
+    {
+     "id": "g47",
+     "text": "Puis, il s'est entraîné pendant une semaine entière sans aucune pause, jour et nuit.",
+     "highlight": [
+      "semaine",
+      "pause,"
+     ]
+    },
+    {
+     "id": "g48",
+     "text": "Tout passait en accéléré.",
+     "highlight": [
+      "accéléré."
+     ]
+    },
+    {
+     "id": "g49",
+     "text": "Lui continuait.",
+     "highlight": [
+      "continuait."
+     ]
+    },
+    {
+     "id": "g50",
+     "text": "Il est devenu énorme.",
+     "highlight": [
+      "énorme."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecG",
+     "pos": [
+      0.6,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "injectButt",
+     "keys": [
+      {
+       "at": "g46:dose",
+       "clip": "drinkUp",
+       "expr": "happy"
+      },
+      {
+       "at": "g46:produit",
+       "clip": "wired",
+       "expr": "shocked"
+      },
+      {
+       "at": "g47",
+       "to": [
+        3.4,
+        0.05,
+        -1.4
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "then": "benchPress",
+       "thenParams": {
+        "freq": 1.5
+       },
+       "faceEnd": 0
+      },
+      {
+       "at": "g48",
+       "to": [
+        0.6,
+        0,
+        -0.6
+       ],
+       "clip": "walk",
+       "speed": 1.8,
+       "then": "curls",
+       "thenParams": {
+        "freq": 1.4
+       },
+       "faceEnd": 0
+      },
+      {
+       "at": "g50",
+       "scale": 2.0,
+       "dur": 1.1,
+       "ease": "out",
+       "clip": "heroPose",
+       "expr": "smug",
+       "sfx": "grunt"
+      }
+     ],
+     "scale": 1.25,
+     "expr": "shocked"
+    },
+    {
+     "id": "coach",
+     "pos": [
+      -1.4,
+      0,
+      0.6
+     ],
+     "ry": 40,
+     "clip": "clipboard",
+     "keys": [
+      {
+       "at": "g47:jour",
+       "clip": "sleepSide",
+       "expr": "blink"
+      },
+      {
+       "at": "g48",
+       "path": [
+        [
+         -3.0,
+         0,
+         1.6
+        ],
+        [
+         -1.0,
+         0,
+         2.4
+        ],
+        [
+         1.8,
+         0,
+         1.6
+        ],
+        [
+         -1.4,
+         0,
+         0.6
+        ]
+       ],
+       "clip": "run",
+       "speed": 6.0,
+       "faceEnd": "mecG"
+      },
+      {
+       "at": "g49",
+       "clip": "yawnStretch",
+       "speed": 3.0,
+       "expr": "sleepy"
+      },
+      {
+       "at": "g50",
+       "clip": "scared",
+       "speed": 1.0,
+       "expr": "shocked",
+       "face": "mecG"
+      }
+     ],
+     "face": "mecG",
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "syr1",
+     "name": "syringeBig",
+     "on": {
+      "actor": "mecG",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g46:dose",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "syr2",
+     "name": "syringeBig",
+     "on": {
+      "actor": "mecG",
+      "hand": "R",
+      "offset": [
+       0.06,
+       0,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "g46:dose",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "syr3",
+     "name": "syringeBig",
+     "on": {
+      "actor": "mecG",
+      "hand": "R",
+      "offset": [
+       -0.06,
+       0,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "g46:dose",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "pre",
+     "name": "preWorkout",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g46:dose",
+       "visible": true
+      },
+      {
+       "at": "g47",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "bb",
+     "name": "barbell",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "hand": "R"
+     },
+     "opts": {
+      "width": 2.0
+     },
+     "keys": [
+      {
+       "at": "g47",
+       "visible": true
+      },
+      {
+       "at": "g48",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "db",
+     "name": "dumbbell",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g48",
+       "visible": true
+      },
+      {
+       "at": "g50",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "db2",
+     "name": "dumbbell",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "g48",
+       "visible": true
+      },
+      {
+       "at": "g50",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      -1.6,
+      2.6,
+      -3.55
+     ],
+     "opts": {
+      "rate": 0.05
+     },
+     "keys": [
+      {
+       "at": "g47",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "clockFast",
+     "name": "wallClock",
+     "pos": [
+      -1.6,
+      2.6,
+      -3.55
+     ],
+     "opts": {
+      "rate": 6.0
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g47",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "daynight": {
+    "from": "g47:jour",
+    "period": 0.6
+   },
+   "sfx": [
+    {
+     "at": 0.5,
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": 0.8,
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": 1.1,
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "g46:dose+0.35",
+     "name": "gulp",
+     "vol": 0.6
+    },
+    {
+     "at": "g46:dose+0.75",
+     "name": "gulp",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 20,
+     "frame": "mecG"
+    },
+    {
+     "at": "g46:dose",
+     "size": "mcu",
+     "angle": -20,
+     "frame": "mecG"
+    },
+    {
+     "at": "g46:produit",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "frame": "mecG"
+    },
+    {
+     "at": "g47",
+     "size": "fs",
+     "angle": 50,
+     "frame": "mecG"
+    },
+    {
+     "at": "g47:semaine",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "clockFast"
+    },
+    {
+     "at": "g47:pause",
+     "size": "fs",
+     "angle": 90,
+     "elev": 6,
+     "frame": "mecG"
+    },
+    {
+     "at": "g47:jour",
+     "size": "ms",
+     "angle": 70,
+     "elev": 10,
+     "frame": "mecG"
+    },
+    {
+     "at": "g48",
+     "size": "fs",
+     "angle": 20,
+     "move": "track",
+     "frame": "coach"
+    },
+    {
+     "at": "g49",
+     "size": "mcu",
+     "angle": 15,
+     "move": "push",
+     "frame": "mecG"
+    },
+    {
+     "at": "g50",
+     "size": "fs",
+     "angle": 0,
+     "elev": -16,
+     "lens": 30,
+     "move": "pull",
+     "amount": 0.15,
+     "frame": "mecG"
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "zoo6",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "lines": [
+    {
+     "id": "g51",
+     "text": "Les autres gorilles avaient l'air de débutants.",
+     "highlight": [
+      "débutants."
+     ]
+    },
+    {
+     "id": "g52",
+     "text": "Il s'est battu contre eux et leur a foutu une rouste un par un.",
+     "highlight": [
+      "rouste"
+     ]
+    },
+    {
+     "id": "g53",
+     "text": "Il a battu tout le monde, est devenu l'alpha et s'est mis à vivre comme le chef de l'enclos.",
+     "highlight": [
+      "l'alpha",
+      "chef"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecG",
+     "pos": [
+      0.2,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "chestBeat",
+     "keys": [
+      {
+       "at": "g52",
+       "face": "g0",
+       "turn": 0.2,
+       "clip": "windupPunch",
+       "sfx": "punch",
+       "sfxAt": 0.45
+      },
+      {
+       "at": "g52:rouste",
+       "face": "g1",
+       "turn": 0.2,
+       "clip": "windupPunch",
+       "sfx": "punch",
+       "sfxAt": 0.45
+      },
+      {
+       "at": "g52:par",
+       "face": "g2",
+       "turn": 0.2,
+       "clip": "windupPunch",
+       "sfx": "punch",
+       "sfxAt": 0.45
+      },
+      {
+       "at": "g53",
+       "to": [
+        2.2,
+        0,
+        -2.2
+       ],
+       "clip": "strut",
+       "speed": 1.2,
+       "then": "sit",
+       "faceEnd": 0
+      },
+      {
+       "at": "g53:chef",
+       "clip": "heroPose",
+       "expr": "smug"
+      }
+     ],
+     "scale": 2.0,
+     "expr": "smug"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -1.15,
+      0,
+      -1.0
+     ],
+     "ry": 70,
+     "clip": "curls",
+     "keys": [
+      {
+       "at": "g52+0.45",
+       "to": [
+        -3.6,
+        0,
+        0.6
+       ],
+       "clip": "hitFly",
+       "glide": true,
+       "dur": 0.55,
+       "arc": 0.8,
+       "face": "keep",
+       "land": "thud",
+       "then": "koFloor"
+      },
+      {
+       "at": "g53:alpha",
+       "clip": "kneelBow",
+       "expr": "sad",
+       "face": "mecG"
+      }
+     ],
+     "scale": 1.25,
+     "params": {
+      "freq": 0.6
+     },
+     "expr": "worried"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      0.3,
+      0,
+      -0.2
+     ],
+     "ry": 0,
+     "clip": "curls",
+     "keys": [
+      {
+       "at": "g52:rouste+0.45",
+       "to": [
+        0.6,
+        0,
+        2.6
+       ],
+       "clip": "hitFly",
+       "glide": true,
+       "dur": 0.55,
+       "arc": 0.8,
+       "face": "keep",
+       "land": "thud",
+       "then": "koFloor"
+      },
+      {
+       "at": "g53:mis",
+       "to": [
+        1.6,
+        0,
+        -1.2
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "then": "fan",
+       "faceEnd": "mecG",
+       "expr": "sad"
+      }
+     ],
+     "scale": 1.25,
+     "params": {
+      "freq": 0.7
+     },
+     "expr": "worried"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      1.6,
+      0,
+      -0.8
+     ],
+     "ry": -70,
+     "clip": "curls",
+     "keys": [
+      {
+       "at": "g52:par+0.45",
+       "to": [
+        4.0,
+        0,
+        0.8
+       ],
+       "clip": "hitFly",
+       "glide": true,
+       "dur": 0.55,
+       "arc": 0.8,
+       "face": "keep",
+       "land": "thud",
+       "then": "koFloor"
+      },
+      {
+       "at": "g53:vivre",
+       "to": [
+        3.1,
+        0,
+        -1.3
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "then": "giveItem",
+       "faceEnd": "mecG",
+       "expr": "sad"
+      }
+     ],
+     "scale": 1.25,
+     "params": {
+      "freq": 0.5
+     },
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "rock",
+     "name": "rock",
+     "pos": [
+      2.2,
+      0,
+      -2.75
+     ],
+     "opts": {
+      "size": 1.1
+     }
+    },
+    {
+     "id": "crown",
+     "name": "crown",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "joint": "head",
+      "offset": [
+       0,
+       0.42,
+       0.06
+      ]
+     },
+     "keys": [
+      {
+       "at": "g53:alpha",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "leaf",
+     "name": "leafFan",
+     "visible": false,
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g53:mis",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "banane",
+     "name": "banana",
+     "visible": false,
+     "on": {
+      "actor": "g2",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g53:vivre",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "d0",
+     "name": "dumbbell",
+     "on": {
+      "actor": "g0",
+      "hand": "R"
+     },
+     "scale": 0.6,
+     "keys": [
+      {
+       "at": "g52+0.45",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "d1",
+     "name": "dumbbell",
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "scale": 0.6,
+     "keys": [
+      {
+       "at": "g52:rouste+0.45",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "d2",
+     "name": "dumbbell",
+     "on": {
+      "actor": "g2",
+      "hand": "R"
+     },
+     "scale": 0.6,
+     "keys": [
+      {
+       "at": "g52:par+0.45",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 4,
+     "frame": [
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g51:débutants",
+     "size": "fs",
+     "angle": 0,
+     "elev": -14,
+     "lens": 30,
+     "frame": "mecG"
+    },
+    {
+     "at": "g52",
+     "size": "fs",
+     "worldAngle": -10,
+     "elev": 6,
+     "frame": [
+      "mecG",
+      "g0"
+     ]
+    },
+    {
+     "at": "g52+0.5",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 8,
+     "frame": "g0"
+    },
+    {
+     "at": "g52:rouste",
+     "size": "fs",
+     "worldAngle": 30,
+     "elev": 6,
+     "frame": [
+      "mecG",
+      "g1"
+     ]
+    },
+    {
+     "at": "g52:rouste+0.5",
+     "size": "fs",
+     "worldAngle": -15,
+     "elev": 8,
+     "frame": "g1"
+    },
+    {
+     "at": "g52:par",
+     "size": "fs",
+     "worldAngle": 60,
+     "elev": 6,
+     "frame": [
+      "mecG",
+      "g2"
+     ]
+    },
+    {
+     "at": "g52:par+0.5",
+     "size": "ws",
+     "worldAngle": 0,
+     "elev": 20,
+     "frame": [
+      "g0",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g53",
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "mecG"
+    },
+    {
+     "at": "g53:alpha",
+     "size": "ms",
+     "angle": 0,
+     "elev": -10,
+     "lens": 32,
+     "frame": "mecG"
+    },
+    {
+     "at": "g53:vivre",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": [
+      "mecG",
+      "g1",
+      "g2"
+     ]
+    },
+    {
+     "at": "g53:chef",
+     "size": "mcu",
+     "angle": 10,
+     "move": "push",
+     "frame": "mecG"
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "zoo7",
+   "set": "zoo",
+   "setOpts": {
+    "signX": -7.2,
+    "signZ": 5.6
+   },
+   "ambience": "zoo",
+   "lines": [
+    {
+     "id": "g54",
+     "text": "Puis, un autre gros muscu est arrivé au zoo.",
+     "highlight": [
+      "muscu"
+     ]
+    },
+    {
+     "id": "g55",
+     "text": "Il a vu son physique, est devenu jaloux et a cru qu'il le provoquait.",
+     "highlight": [
+      "jaloux",
+      "provoquait."
+     ]
+    },
+    {
+     "id": "g56",
+     "text": "Alors, il a appelé la police.",
+     "highlight": [
+      "police."
+     ]
+    },
+    {
+     "id": "g57",
+     "text": "Les flics sont arrivés en urgence et ont arrêté tous les gorilles pour dopage et possession de stéroïdes.",
+     "highlight": [
+      "dopage",
+      "stéroïdes."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "muscu",
+     "pos": [
+      -5.5,
+      0,
+      6.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "path": [
+        [
+         -1.6,
+         0,
+         6.2
+        ],
+        [
+         -0.4,
+         0,
+         4.95
+        ]
+       ],
+       "clip": "strut",
+       "speed": 1.2,
+       "faceEnd": 180
+      },
+      {
+       "at": "g55:jaloux",
+       "clip": "angryFist",
+       "expr": "angry"
+      },
+      {
+       "at": "g55:provoquait",
+       "clip": "flex",
+       "expr": "angry"
+      },
+      {
+       "at": "g56:appelé",
+       "clip": "phoneCall",
+       "expr": "angry"
+      },
+      {
+       "at": "g57",
+       "clip": "handsOnHips",
+       "expr": "smug",
+       "face": 90
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "mecG",
+     "pos": [
+      2.2,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "g55",
+       "clip": "yawnStretch",
+       "expr": "sleepy"
+      },
+      {
+       "at": "g55:provoquait",
+       "clip": "scratchButt",
+       "expr": "neutral"
+      },
+      {
+       "at": "g57:arrêté",
+       "clip": "cuffedBack",
+       "expr": "unimpressed"
+      }
+     ],
+     "scale": 2.0,
+     "expr": "neutral"
+    },
+    {
+     "id": "g0",
+     "pos": [
+      -1.6,
+      0,
+      -0.6
+     ],
+     "ry": 30,
+     "clip": "kneelBow",
+     "keys": [
+      {
+       "at": "g57:arrêté",
+       "clip": "cuffedBack",
+       "expr": "sad"
+      }
+     ],
+     "scale": 1.25,
+     "expr": "sad"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      1.0,
+      0,
+      -1.4
+     ],
+     "ry": 60,
+     "clip": "fan",
+     "keys": [
+      {
+       "at": "g57:arrêté",
+       "clip": "cuffedBack",
+       "expr": "sad"
+      }
+     ],
+     "scale": 1.25,
+     "expr": "sad"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -8,
+      0,
+      7.4
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g57+0.6",
+       "visible": true
+      },
+      {
+       "at": "g57+0.6",
+       "path": [
+        [
+         -1.8,
+         0,
+         6.0
+        ],
+        [
+         -1.2,
+         0,
+         3.4
+        ],
+        [
+         -1.5,
+         0,
+         0.6
+        ]
+       ],
+       "clip": "run",
+       "speed": 3.6,
+       "faceEnd": "g0"
+      },
+      {
+       "at": "g57:arrêté",
+       "clip": "cuffOther",
+       "expr": "angry",
+       "sfx": "cuff",
+       "sfxAt": 0.3
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -8.6,
+      0,
+      7.9
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g57+0.8",
+       "visible": true
+      },
+      {
+       "at": "g57+0.8",
+       "path": [
+        [
+         -0.8,
+         0,
+         6.2
+        ],
+        [
+         0.2,
+         0,
+         3.4
+        ],
+        [
+         1.1,
+         0,
+         -0.5
+        ]
+       ],
+       "clip": "run",
+       "speed": 3.8,
+       "faceEnd": "g1"
+      },
+      {
+       "at": "g57:arrêté+0.3",
+       "clip": "cuffOther",
+       "expr": "angry",
+       "sfx": "cuff",
+       "sfxAt": 0.3
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      -9.2,
+      0,
+      8.3
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g57+1.0",
+       "visible": true
+      },
+      {
+       "at": "g57+1.0",
+       "path": [
+        [
+         0.6,
+         0,
+         6.3
+        ],
+        [
+         1.6,
+         0,
+         3.4
+        ],
+        [
+         2.2,
+         0,
+         -1.2
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.0,
+       "faceEnd": "mecG"
+      },
+      {
+       "at": "g57:dopage",
+       "clip": "clipboard",
+       "expr": "suspicious"
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone",
+     "name": "phone911",
+     "opts": {
+      "text": "17"
+     },
+     "visible": false,
+     "on": {
+      "actor": "muscu",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g56:appelé",
+       "visible": true
+      },
+      {
+       "at": "g57",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "crown",
+     "name": "crown",
+     "on": {
+      "actor": "mecG",
+      "joint": "head",
+      "offset": [
+       0,
+       0.42,
+       0.06
+      ]
+     }
+    },
+    {
+     "id": "leaf",
+     "name": "leafFan",
+     "on": {
+      "actor": "g1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g57:arrêté",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "car",
+     "name": "policeCar",
+     "pos": [
+      -16,
+      0,
+      8.2
+     ],
+     "ry": 90,
+     "visible": false,
+     "keys": [
+      {
+       "at": "g57",
+       "visible": true
+      },
+      {
+       "at": "g57",
+       "to": [
+        -3.2,
+        0,
+        8.2
+       ],
+       "dur": 1.1,
+       "ease": "out",
+       "sfx": "brake"
+      }
+     ]
+    },
+    {
+     "id": "bag",
+     "name": "evidenceBag",
+     "visible": false,
+     "on": {
+      "actor": "flic3",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g57:possession",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "g57",
+     "name": "siren",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 60,
+     "move": "track",
+     "frame": "muscu"
+    },
+    {
+     "at": "g54:arrivé",
+     "size": "ms",
+     "angle": 15,
+     "elev": -10,
+     "lens": 32,
+     "frame": "muscu"
+    },
+    {
+     "at": "g55",
+     "size": "ms",
+     "ots": [
+      "muscu",
+      "mecG",
+      1
+     ]
+    },
+    {
+     "at": "g55:jaloux",
+     "size": "cu",
+     "angle": 10,
+     "move": "push",
+     "frame": "muscu"
+    },
+    {
+     "at": "g55:provoquait",
+     "size": "ms",
+     "angle": 10,
+     "frame": "mecG"
+    },
+    {
+     "at": "g56",
+     "size": "mcu",
+     "angle": -20,
+     "frame": "muscu"
+    },
+    {
+     "at": "g56:police",
+     "size": "cu",
+     "angle": 25,
+     "frame": "muscu"
+    },
+    {
+     "at": "g57",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 6,
+     "withProps": true,
+     "frame": "car"
+    },
+    {
+     "at": "g57:arrivés+0.4",
+     "size": "fs",
+     "worldAngle": 170,
+     "elev": 10,
+     "move": "track",
+     "allowBack": true,
+     "frame": [
+      "flic1",
+      "flic2",
+      "flic3"
+     ]
+    },
+    {
+     "at": "g57:arrêté",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "flic1",
+      "g0",
+      "flic2",
+      "g1"
+     ]
+    },
+    {
+     "at": "g57:dopage",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mecG"
+    },
+    {
+     "at": "g57:stéroïdes",
+     "size": "cu",
+     "worldAngle": 30,
+     "noOcclusion": true,
+     "frame": "bag"
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "labo",
+   "set": "lab",
+   "ambience": "lab",
+   "lines": [
+    {
+     "id": "g58",
+     "text": "En remontant l'affaire, ils ont trouvé le chimiste qui fabriquait les produits.",
+     "highlight": [
+      "chimiste"
+     ]
+    },
+    {
+     "id": "g59",
+     "text": "Un gorille chauve avec des lunettes et un chapeau.",
+     "highlight": [
+      "chauve",
+      "lunettes",
+      "chapeau."
+     ]
+    },
+    {
+     "id": "g60",
+     "text": "Walter White.",
+     "highlight": [
+      "Walter",
+      "White."
+     ]
+    },
+    {
+     "id": "g61",
+     "text": "Ils l'ont arrêté aussi.",
+     "highlight": [
+      "arrêté"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chimiste",
+     "pos": [
+      0.0,
+      0,
+      -1.75
+     ],
+     "ry": 0,
+     "clip": "pour",
+     "keys": [
+      {
+       "at": "g58:trouvé",
+       "clip": "idle",
+       "expr": "suspicious",
+       "face": "flic1"
+      },
+      {
+       "at": "g59:chauve",
+       "clip": "raiseOverhead",
+       "expr": "neutral",
+       "face": 0
+      },
+      {
+       "at": "g59:lunettes",
+       "clip": "idle"
+      },
+      {
+       "at": "g60",
+       "clip": "stareCamera",
+       "expr": "angry"
+      },
+      {
+       "at": "g61",
+       "clip": "cuffedBack",
+       "expr": "unimpressed"
+      }
+     ],
+     "scale": 1.2,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -4.2,
+      0,
+      2.2
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -1.4,
+        0,
+        -0.4
+       ],
+       "clip": "run",
+       "speed": 3.0,
+       "faceEnd": "chimiste",
+       "then": "point"
+      },
+      {
+       "at": "g61",
+       "to": [
+        -0.55,
+        0,
+        -1.6
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "faceEnd": "chimiste",
+       "then": "cuffOther",
+       "sfx": "cuff",
+       "vol": 0.5
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -4.8,
+      0,
+      2.6
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        -2.3,
+        0,
+        0.1
+       ],
+       "clip": "run",
+       "speed": 3.0,
+       "faceEnd": "chimiste",
+       "then": "surrender"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "hat",
+     "name": "porkpieHat",
+     "on": {
+      "actor": "chimiste",
+      "joint": "head",
+      "offset": [
+       0,
+       0.43,
+       0.06
+      ]
+     },
+     "keys": [
+      {
+       "at": "g59:chauve",
+       "attach": "chimiste",
+       "hand": "R",
+       "offset": [
+        0,
+        0.05,
+        0.0
+       ]
+      },
+      {
+       "at": "g59:chapeau",
+       "attach": "chimiste",
+       "joint": "head",
+       "offset": [
+        0,
+        0.43,
+        0.06
+       ]
+      }
+     ]
+    },
+    {
+     "id": "bald",
+     "name": "baldCap",
+     "on": {
+      "actor": "chimiste",
+      "joint": "head",
+      "offset": [
+       0,
+       0.38,
+       0.06
+      ]
+     }
+    },
+    {
+     "id": "lunettes",
+     "name": "glasses",
+     "on": {
+      "actor": "chimiste",
+      "joint": "head",
+      "offset": [
+       0,
+       0.27,
+       0.26
+      ]
+     },
+     "opts": {
+      "r": 0.055,
+      "dx": 0.075
+     }
+    },
+    {
+     "id": "flask",
+     "name": "milkBottle",
+     "opts": {
+      "color": "#9FE0D0"
+     },
+     "on": {
+      "actor": "chimiste",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g58:trouvé",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 20,
+     "move": "track",
+     "frame": [
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "g58:trouvé",
+     "size": "ms",
+     "angle": 10,
+     "frame": "chimiste"
+    },
+    {
+     "at": "g58:fabriquait",
+     "size": "ms",
+     "ots": [
+      "flic1",
+      "chimiste",
+      1
+     ]
+    },
+    {
+     "at": "g59",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "chimiste"
+    },
+    {
+     "at": "g59:chauve",
+     "size": "ms",
+     "angle": -10,
+     "frame": "chimiste"
+    },
+    {
+     "at": "g59:lunettes",
+     "size": "cu",
+     "angle": 15,
+     "move": "push",
+     "frame": "chimiste"
+    },
+    {
+     "at": "g59:chapeau",
+     "size": "mcu",
+     "angle": 5,
+     "frame": "chimiste"
+    },
+    {
+     "at": "g60",
+     "size": "ecu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.08,
+     "frame": "chimiste"
+    },
+    {
+     "at": "g61",
+     "size": "ms",
+     "worldAngle": -35,
+     "zoom": 0.85,
+     "frame": [
+      "flic1",
+      "chimiste"
+     ]
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "tableau",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "g62",
+     "text": "Walter White leur a permis de remonter jusqu'au réseau de distribution.",
+     "highlight": [
+      "réseau"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chimiste",
+     "pos": [
+      1.4,
+      0,
+      -2.6
+     ],
+     "ry": 30,
+     "clip": "cuffedFront",
+     "keys": [
+      {
+       "at": "g62:permis",
+       "clip": "pokeFinger",
+       "face": "board"
+      }
+     ],
+     "scale": 1.2,
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      2.9,
+      0,
+      -2.4
+     ],
+     "ry": -60,
+     "clip": "drawOn",
+     "keys": [
+      {
+       "at": "g62:réseau",
+       "clip": "thinkChin"
+      }
+     ],
+     "face": "board",
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "board",
+     "name": "mapBoard",
+     "pos": [
+      2.1,
+      1.75,
+      -3.52
+     ]
+    },
+    {
+     "id": "hat",
+     "name": "porkpieHat",
+     "on": {
+      "actor": "chimiste",
+      "joint": "head",
+      "offset": [
+       0,
+       0.43,
+       0.06
+      ]
+     }
+    },
+    {
+     "id": "lunettes",
+     "name": "glasses",
+     "on": {
+      "actor": "chimiste",
+      "joint": "head",
+      "offset": [
+       0,
+       0.27,
+       0.26
+      ]
+     },
+     "opts": {
+      "r": 0.055,
+      "dx": 0.075
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": -10,
+     "frame": [
+      "chimiste",
+      "flic1"
+     ]
+    },
+    {
+     "at": "g62:remonter",
+     "size": "ms",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "move": "push",
+     "amount": 0.1,
+     "frame": "board"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "meeting",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "g63",
+     "text": "Le responsable s'appelait Karim Bouamrane.",
+     "highlight": [
+      "Karim",
+      "Bouamrane."
+     ]
+    },
+    {
+     "id": "g64",
+     "text": "Il prétendait être opposé au restaurant de poulet.",
+     "highlight": [
+      "opposé"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "karim",
+     "pos": [
+      0,
+      0,
+      -0.4
+     ],
+     "ry": 0,
+     "clip": "podium",
+     "keys": [
+      {
+       "at": "g63:Karim",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "g64",
+       "clip": "podium",
+       "expr": "angry"
+      },
+      {
+       "at": "g64:opposé",
+       "clip": "shakeHead",
+       "expr": "angry"
+      },
+      {
+       "at": "g64:poulet",
+       "clip": "point",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "madame",
+     "pos": [
+      -1.4,
+      0,
+      1.8
+     ],
+     "ry": 150,
+     "clip": "holdOut",
+     "keys": [],
+     "face": "karim",
+     "expr": "neutral"
+    },
+    {
+     "id": "gamin",
+     "pos": [
+      1.3,
+      0,
+      2.0
+     ],
+     "ry": -160,
+     "clip": "idle",
+     "keys": [],
+     "face": "karim",
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.15
+     ],
+     "opts": {
+      "text": "NON AU POULET"
+     }
+    },
+    {
+     "id": "mic",
+     "name": "phone911",
+     "on": {
+      "actor": "madame",
+      "hand": "R"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.06,
+     "frame": "karim"
+    },
+    {
+     "at": "g63:Karim",
+     "size": "cu",
+     "angle": 0,
+     "frame": "karim"
+    },
+    {
+     "at": "g64",
+     "size": "fs",
+     "worldAngle": 160,
+     "elev": 8,
+     "allowBack": true,
+     "frame": [
+      "karim",
+      "madame",
+      "gamin"
+     ]
+    },
+    {
+     "at": "g64:opposé",
+     "size": "mcu",
+     "angle": -15,
+     "frame": "karim"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "restaurant",
+   "set": "restaurant",
+   "ambience": "bar",
+   "lines": [
+    {
+     "id": "g65",
+     "text": "En réalité, il était derrière Master Poulet et faisait circuler les produits dans ce réseau.",
+     "highlight": [
+      "Master",
+      "Poulet"
+     ]
+    },
+    {
+     "id": "g66",
+     "text": "Les flics l'ont arrêté, mais ils soupçonnaient un trafic beaucoup plus vaste.",
+     "highlight": [
+      "vaste."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "karim",
+     "pos": [
+      -0.3,
+      0,
+      -1.4
+     ],
+     "ry": 20,
+     "clip": "wipeGlass",
+     "keys": [
+      {
+       "at": "g65:Master",
+       "clip": "giveItem",
+       "expr": "smug",
+       "face": "serveur"
+      },
+      {
+       "at": "g66",
+       "clip": "surrender",
+       "expr": "shocked",
+       "face": "flic1"
+      },
+      {
+       "at": "g66:arrêté+0.3",
+       "clip": "cuffedBack",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "serveur",
+     "pos": [
+      1.1,
+      0,
+      -0.8
+     ],
+     "ry": -110,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g65:Master+0.4",
+       "clip": "takeItem",
+       "expr": "happy"
+      },
+      {
+       "at": "g65:circuler",
+       "to": [
+        4.6,
+        0,
+        1.8
+       ],
+       "clip": "walk",
+       "speed": 1.4
+      }
+     ],
+     "face": "karim",
+     "expr": "neutral"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -4.5,
+      0,
+      2.6
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g66",
+       "visible": true
+      },
+      {
+       "at": "g66",
+       "to": [
+        -1.1,
+        0,
+        -0.9
+       ],
+       "clip": "run",
+       "speed": 3.6,
+       "faceEnd": "karim",
+       "then": "cuffOther",
+       "sfx": "cuff",
+       "vol": 0.5
+      },
+      {
+       "at": "g66:soupçonnaient",
+       "clip": "thinkChin",
+       "expr": "suspicious",
+       "face": 0
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bucket",
+     "name": "chickenBucket",
+     "on": {
+      "actor": "karim",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g65:Master",
+       "visible": true
+      },
+      {
+       "at": "g65:Master+0.55",
+       "attach": "serveur",
+       "hand": "R"
+      }
+     ]
+    },
+    {
+     "id": "syrB",
+     "name": "syringeBig",
+     "on": {
+      "actor": "bucket",
+      "offset": [
+       0.04,
+       0.32,
+       0.0
+      ],
+      "rot": [
+       0.3,
+       0,
+       0.2
+      ]
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g65:Master",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "glass",
+     "name": "beerGlass",
+     "on": {
+      "actor": "karim",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "g65:Master",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "sign",
+     "name": "signBoard",
+     "pos": [
+      -1.6,
+      2.35,
+      -3.5
+     ],
+     "opts": {
+      "text": "MASTER POULET",
+      "bg": "#B5302A",
+      "fg": "#FFE7A0",
+      "w": 2.2,
+      "h": 0.55,
+      "posts": false,
+      "height": 0
+     }
+    },
+    {
+     "id": "b2",
+     "name": "chickenBucket",
+     "pos": [
+      3.6,
+      0.79,
+      -1.6
+     ]
+    },
+    {
+     "id": "b3",
+     "name": "chickenBucket",
+     "pos": [
+      -3.6,
+      0.79,
+      -1.4
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "anchor": "menu",
+     "offset": [
+      0.0,
+      -0.7,
+      0.07
+     ],
+     "opts": {
+      "kind": "sticker"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 10,
+     "frame": "karim"
+    },
+    {
+     "at": "g65:derrière",
+     "size": "fs",
+     "worldAngle": -20,
+     "elev": 6,
+     "frame": [
+      "karim",
+      "serveur"
+     ]
+    },
+    {
+     "at": "g65:Master",
+     "size": "cu",
+     "worldAngle": -30,
+     "noOcclusion": true,
+     "frame": "bucket"
+    },
+    {
+     "at": "g65:circuler",
+     "size": "fs",
+     "angle": 30,
+     "move": "track",
+     "frame": "serveur"
+    },
+    {
+     "at": "g66",
+     "size": "ms",
+     "worldAngle": 10,
+     "elev": 4,
+     "frame": [
+      "karim",
+      "flic1"
+     ]
+    },
+    {
+     "at": "g66:arrêté+0.3",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "karim"
+    },
+    {
+     "at": "g66:soupçonnaient",
+     "size": "cu",
+     "angle": 10,
+     "move": "push",
+     "frame": "flic1"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "ferme",
+   "set": "farm",
+   "ambience": "farm",
+   "sfx": [
+    {
+     "at": "g68:hormones",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "g68:poulets",
+     "name": "cluck",
+     "vol": 0.5
+    },
+    {
+     "at": "g69:devenues+0.3",
+     "name": "grunt",
+     "vol": 0.5
+    },
+    {
+     "at": "g69:trop",
+     "name": "cluck",
+     "vol": 0.6
+    }
+   ],
+   "lines": [
+    {
+     "id": "g67",
+     "text": "Alors, ils sont allés dans les fermes.",
+     "highlight": [
+      "fermes."
+     ]
+    },
+    {
+     "id": "g68",
+     "text": "Les éleveurs donnaient des hormones de croissance aux poulets.",
+     "highlight": [
+      "hormones"
+     ]
+    },
+    {
+     "id": "g69",
+     "text": "Les volailles étaient devenues beaucoup trop musclées.",
+     "highlight": [
+      "musclées."
+     ]
+    },
+    {
+     "id": "g70",
+     "text": "Les policiers ont arrêté les poulets, puis les gens qui en avaient mangé.",
+     "highlight": [
+      "poulets,",
+      "mangé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "fermier",
+     "pos": [
+      0.4,
+      0,
+      -0.9
+     ],
+     "ry": 30,
+     "clip": "injectArm",
+     "keys": [
+      {
+       "at": "g69",
+       "clip": "surrender",
+       "expr": "scared",
+       "face": "flic1"
+      }
+     ],
+     "face": "poulet0",
+     "expr": "happy"
+    },
+    {
+     "id": "poulet0",
+     "pos": [
+      1.5,
+      0,
+      -1.8
+     ],
+     "ry": -50,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g69:devenues",
+       "scale": 3.2,
+       "dur": 0.9,
+       "ease": "out",
+       "expr": "angry",
+       "clip": "angry"
+      },
+      {
+       "at": "g70:arrêté",
+       "clip": "idle",
+       "expr": "sad"
+      }
+     ],
+     "scale": 1.0,
+     "expr": "neutral"
+    },
+    {
+     "id": "poulet1",
+     "pos": [
+      -1.0,
+      0,
+      -2.4
+     ],
+     "ry": 60,
+     "clip": "eat",
+     "keys": [
+      {
+       "at": "g69:devenues+0.2",
+       "scale": 3.0,
+       "dur": 0.9,
+       "ease": "out",
+       "expr": "angry",
+       "clip": "celebrate"
+      }
+     ],
+     "scale": 1.0,
+     "expr": "neutral"
+    },
+    {
+     "id": "poulet2",
+     "pos": [
+      3.4,
+      0,
+      -1.0
+     ],
+     "ry": -60,
+     "clip": "eat",
+     "keys": [
+      {
+       "at": "g69:devenues+0.4",
+       "scale": 3.4,
+       "dur": 0.9,
+       "ease": "out",
+       "expr": "smug",
+       "clip": "celebrate"
+      }
+     ],
+     "scale": 1.0,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -6.5,
+      0,
+      3.0
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -2.0,
+        0,
+        0.6
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "faceEnd": "fermier"
+      },
+      {
+       "at": "g69.end",
+       "clip": "scared",
+       "expr": "shocked",
+       "face": "poulet0"
+      },
+      {
+       "at": "g70",
+       "to": [
+        0.7,
+        0,
+        -0.9
+       ],
+       "clip": "run",
+       "speed": 2.4,
+       "faceEnd": "poulet0",
+       "then": "cuffOther",
+       "sfx": "cuff"
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -7.3,
+      0,
+      3.6
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        -2.8,
+        0,
+        1.4
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "faceEnd": "fermier"
+      },
+      {
+       "at": "g69:musclées",
+       "clip": "startle",
+       "expr": "shocked",
+       "face": "poulet2"
+      },
+      {
+       "at": "g70:gens",
+       "to": [
+        -0.6,
+        0,
+        3.0
+       ],
+       "clip": "run",
+       "speed": 2.6,
+       "faceEnd": "mangeur",
+       "then": "cuffOther",
+       "sfx": "cuff"
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "mangeur",
+     "pos": [
+      0.4,
+      0,
+      3.4
+     ],
+     "ry": -60,
+     "clip": "shovelFood",
+     "keys": [
+      {
+       "at": "g70:gens+0.5",
+       "clip": "cuffedFront",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "syr",
+     "name": "syringeBig",
+     "on": {
+      "actor": "fermier",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "buff0",
+     "name": "buffArms",
+     "visible": false,
+     "on": {
+      "actor": "poulet0",
+      "joint": "body",
+      "offset": [
+       0,
+       0.03,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "g69:devenues+0.0",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "buff1",
+     "name": "buffArms",
+     "visible": false,
+     "on": {
+      "actor": "poulet1",
+      "joint": "body",
+      "offset": [
+       0,
+       0.03,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "g69:devenues+0.2",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "buff2",
+     "name": "buffArms",
+     "visible": false,
+     "on": {
+      "actor": "poulet2",
+      "joint": "body",
+      "offset": [
+       0,
+       0.03,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "g69:devenues+0.4",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "car",
+     "name": "policeCar",
+     "pos": [
+      -12,
+      0,
+      4.6
+     ],
+     "ry": 90,
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        -6.0,
+        0,
+        4.6
+       ],
+       "dur": 1.0,
+       "ease": "out",
+       "sfx": "brake"
+      }
+     ]
+    },
+    {
+     "id": "cuisse",
+     "name": "drumstick",
+     "on": {
+      "actor": "mangeur",
+      "hand": "R"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 30,
+     "elev": 8,
+     "withProps": true,
+     "frame": "car"
+    },
+    {
+     "at": "g67:fermes",
+     "size": "fs",
+     "angle": 30,
+     "move": "track",
+     "frame": [
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "g68",
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": "fermier"
+    },
+    {
+     "at": "g68:hormones",
+     "size": "ms",
+     "worldAngle": -10,
+     "frame": [
+      "fermier",
+      "poulet0"
+     ]
+    },
+    {
+     "at": "g68:poulets",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 4,
+     "frame": [
+      "poulet0",
+      "poulet1",
+      "poulet2"
+     ]
+    },
+    {
+     "at": "g69:devenues",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": -10,
+     "lens": 32,
+     "frame": [
+      "poulet0",
+      "poulet2"
+     ]
+    },
+    {
+     "at": "g69:trop",
+     "size": "ms",
+     "angle": 0,
+     "elev": -8,
+     "lens": 32,
+     "frame": "poulet0"
+    },
+    {
+     "at": "g69.end",
+     "size": "cu",
+     "angle": 15,
+     "frame": "flic1"
+    },
+    {
+     "at": "g70",
+     "size": "fs",
+     "worldAngle": 20,
+     "frame": [
+      "flic1",
+      "poulet0"
+     ]
+    },
+    {
+     "at": "g70:gens",
+     "size": "fs",
+     "worldAngle": -20,
+     "move": "track",
+     "frame": [
+      "flic2",
+      "mangeur"
+     ]
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "commissariat",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "g71",
+     "text": "Parmi eux, il y avait aussi des policiers qui avaient bouffé du poulet.",
+     "highlight": [
+      "policiers",
+      "poulet."
+     ]
+    },
+    {
+     "id": "g72a",
+     "text": "Et là, un mec leur a dit :"
+    },
+    {
+     "id": "g72b",
+     "text": "Mais vous aussi, on vous appelle les poulets.",
+     "speaker": "prisonnier",
+     "highlight": [
+      "poulets."
+     ]
+    },
+    {
+     "id": "g73",
+     "text": "Les flics se sont regardés.",
+     "highlight": [
+      "regardés."
+     ]
+    },
+    {
+     "id": "g74",
+     "text": "Putain, il avait raison.",
+     "highlight": [
+      "Putain,",
+      "raison."
+     ]
+    },
+    {
+     "id": "g75",
+     "text": "Alors, ils ont commencé à arrêter les autres policiers.",
+     "highlight": [
+      "arrêter"
+     ]
+    },
+    {
+     "id": "g76",
+     "text": "Pour être sûrs de n'oublier personne, ils ont appelé la Belgique, puis Montréal, puis tous les pays où les flics pouvaient être appelés les poulets en français.",
+     "highlight": [
+      "Belgique,",
+      "Montréal,",
+      "poulets"
+     ]
+    },
+    {
+     "id": "g77",
+     "text": "Chaque policier arrêtait le suivant.",
+     "highlight": [
+      "suivant."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "flic1",
+     "pos": [
+      -2.0,
+      0,
+      -1.2
+     ],
+     "ry": 30,
+     "clip": "shovelFood",
+     "keys": [
+      {
+       "at": "g72a",
+       "clip": "idle",
+       "face": "prisonnier",
+       "expr": "neutral"
+      },
+      {
+       "at": "g73",
+       "face": "flic2",
+       "expr": "worried",
+       "turn": 0.35
+      },
+      {
+       "at": "g74",
+       "expr": "shocked",
+       "clip": "startle"
+      },
+      {
+       "at": "g75",
+       "to": [
+        -0.85,
+        0,
+        -0.75
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": "flic2",
+       "then": "cuffOther",
+       "sfx": "cuff",
+       "sfxAt": 0.25
+      },
+      {
+       "at": "g76",
+       "to": [
+        -2.7,
+        0,
+        -1.25
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": 0,
+       "then": "phoneCall"
+      },
+      {
+       "at": "g77",
+       "clip": "handsOnHips",
+       "face": 60,
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -0.3,
+      0,
+      -0.6
+     ],
+     "ry": -60,
+     "clip": "shovelFood",
+     "keys": [
+      {
+       "at": "g72a",
+       "clip": "idle",
+       "face": "prisonnier",
+       "expr": "neutral"
+      },
+      {
+       "at": "g73",
+       "face": "flic1",
+       "expr": "worried",
+       "turn": 0.35
+      },
+      {
+       "at": "g74",
+       "expr": "shocked",
+       "clip": "facepalm"
+      },
+      {
+       "at": "g75+0.4",
+       "clip": "cuffedFront",
+       "expr": "sad"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "prisonnier",
+     "pos": [
+      5.1,
+      0,
+      -2.4
+     ],
+     "ry": -20,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g72a:dit",
+       "clip": "pokeFinger",
+       "face": "flic1"
+      },
+      {
+       "at": "g72b",
+       "clip": "talk",
+       "expr": "smug"
+      },
+      {
+       "at": "g72b:poulets",
+       "clip": "point",
+       "expr": "smug"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      9.0,
+      0,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g75",
+       "visible": true
+      },
+      {
+       "at": "g75+0.10",
+       "to": [
+        0.4,
+        0,
+        1.2
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": 90
+      },
+      {
+       "at": "g77+0.25",
+       "clip": "cuffOther",
+       "expr": "angry",
+       "sfx": "cuff",
+       "vol": 0.45
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic4",
+     "pos": [
+      9.7,
+      0,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g75",
+       "visible": true
+      },
+      {
+       "at": "g75+0.35",
+       "to": [
+        1.35,
+        0,
+        1.2
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": 90
+      },
+      {
+       "at": "g77+0.57",
+       "clip": "cuffOther",
+       "expr": "angry",
+       "sfx": "cuff",
+       "vol": 0.45
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic5",
+     "pos": [
+      10.4,
+      0,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g75",
+       "visible": true
+      },
+      {
+       "at": "g75+0.60",
+       "to": [
+        2.3,
+        0,
+        1.2
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": 90
+      },
+      {
+       "at": "g77+0.89",
+       "clip": "cuffOther",
+       "expr": "angry",
+       "sfx": "cuff",
+       "vol": 0.45
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic6",
+     "pos": [
+      11.1,
+      0,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g75",
+       "visible": true
+      },
+      {
+       "at": "g75+0.85",
+       "to": [
+        3.2499999999999996,
+        0,
+        1.2
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": 90
+      },
+      {
+       "at": "g77+1.21",
+       "clip": "cuffOther",
+       "expr": "angry",
+       "sfx": "cuff",
+       "vol": 0.45
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic7",
+     "pos": [
+      11.8,
+      0,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "g75",
+       "visible": true
+      },
+      {
+       "at": "g75+1.10",
+       "to": [
+        4.2,
+        0,
+        1.2
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": 90
+      },
+      {
+       "at": "g77+1.5",
+       "clip": "cuffedFront",
+       "expr": "sad"
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuisse1",
+     "name": "drumstick",
+     "on": {
+      "actor": "flic1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g72a",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cuisse2",
+     "name": "drumstick",
+     "on": {
+      "actor": "flic2",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g74",
+       "detach": true,
+       "fall": true,
+       "impact": "thud"
+      }
+     ]
+    },
+    {
+     "id": "bucket",
+     "name": "chickenBucket",
+     "pos": [
+      -2.5,
+      0.78,
+      -2.05
+     ]
+    },
+    {
+     "id": "phone",
+     "name": "phone911",
+     "opts": {
+      "text": "17"
+     },
+     "visible": false,
+     "on": {
+      "actor": "flic1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "g76",
+       "visible": true
+      },
+      {
+       "at": "g77",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "f_be",
+     "name": "flag",
+     "pos": [
+      -3.6,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "colors": [
+       "#1A1A1A",
+       "#F2C230",
+       "#D9332B"
+      ]
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g76:Belgique",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "f_qc",
+     "name": "flag",
+     "pos": [
+      -4.1,
+      0,
+      -2.2
+     ],
+     "opts": {
+      "colors": [
+       "#1F4FA8"
+      ],
+      "cross": "#FFFFFF"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g76:Montréal",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "f_ch",
+     "name": "flag",
+     "pos": [
+      -4.6,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "colors": [
+       "#D52B1E"
+      ],
+      "cross": "#FFFFFF"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g76:pays",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "f_ci",
+     "name": "flag",
+     "pos": [
+      -5.1,
+      0,
+      -2.2
+     ],
+     "opts": {
+      "colors": [
+       "#F77F00",
+       "#FFFFFF",
+       "#009E60"
+      ]
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g76:flics",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "f_sn",
+     "name": "flag",
+     "pos": [
+      -5.6,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "colors": [
+       "#00853F",
+       "#FDEF42",
+       "#E31B23"
+      ]
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g76:appelés",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "f_mc",
+     "name": "flag",
+     "pos": [
+      -6.0,
+      0,
+      -2.2
+     ],
+     "opts": {
+      "colors": [
+       "#CE1126",
+       "#FFFFFF"
+      ],
+      "vertical": false
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g76:français",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -1.0,
+      1.75,
+      -3.53
+     ],
+     "opts": {
+      "kind": "poster"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "g71:bouffé",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "flic2"
+    },
+    {
+     "at": "g72a",
+     "size": "ms",
+     "angle": 10,
+     "frame": "prisonnier"
+    },
+    {
+     "at": "g72b",
+     "size": "cu",
+     "angle": 5,
+     "move": "push",
+     "frame": "prisonnier"
+    },
+    {
+     "at": "g73",
+     "size": "ms",
+     "worldAngle": -15,
+     "frame": [
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "g73:regardés",
+     "size": "ms",
+     "ots": [
+      "flic2",
+      "flic1",
+      1
+     ]
+    },
+    {
+     "at": "g74",
+     "size": "ms",
+     "ots": [
+      "flic1",
+      "flic2",
+      1
+     ]
+    },
+    {
+     "at": "g74:raison",
+     "size": "cu",
+     "angle": 0,
+     "frame": "flic2"
+    },
+    {
+     "at": "g75",
+     "size": "fs",
+     "worldAngle": 20,
+     "frame": [
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "g76",
+     "size": "ms",
+     "angle": 20,
+     "frame": "flic1"
+    },
+    {
+     "at": "g76:Belgique",
+     "size": "fs",
+     "worldAngle": 20,
+     "withProps": true,
+     "frame": [
+      "flic1",
+      "f_be",
+      "f_qc"
+     ]
+    },
+    {
+     "at": "g76:pays",
+     "size": "fs",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "frame": [
+      "f_ch",
+      "f_ci",
+      "f_sn",
+      "f_mc"
+     ]
+    },
+    {
+     "at": "g76:français",
+     "size": "cu",
+     "angle": 10,
+     "frame": "flic1"
+    },
+    {
+     "at": "g77",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      "flic3",
+      "flic4",
+      "flic5",
+      "flic6",
+      "flic7"
+     ]
+    }
+   ],
+   "tail": 1.3
+  },
+  {
+   "id": "cellule",
+   "set": "prisonCell",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "g78",
+     "text": "Les commissariats se remplissaient de leurs propres employés.",
+     "highlight": [
+      "propres",
+      "employés."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "flic1",
+     "pos": [
+      -2.1,
+      0,
+      1.9
+     ],
+     "ry": 12,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -1.4000000000000001,
+      0,
+      1.0999999999999999
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      -0.7000000000000002,
+      0,
+      1.9
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic4",
+     "pos": [
+      -4.440892098500626e-16,
+      0,
+      1.0999999999999999
+     ],
+     "ry": 12,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "flic5",
+     "pos": [
+      0.6999999999999997,
+      0,
+      1.9
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic6",
+     "pos": [
+      1.4,
+      0,
+      1.0999999999999999
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic7",
+     "pos": [
+      2.099999999999999,
+      0,
+      1.9
+     ],
+     "ry": 12,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 4,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      "flic3",
+      "flic4",
+      "flic5"
+     ]
+    },
+    {
+     "at": "g78:remplissaient",
+     "size": "mcu",
+     "worldAngle": 0,
+     "frame": "flic4"
+    },
+    {
+     "at": "g78:propres",
+     "size": "ms",
+     "worldAngle": -15,
+     "frame": [
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "g78:employés",
+     "size": "ms",
+     "worldAngle": 15,
+     "frame": [
+      "flic6",
+      "flic7"
+     ]
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "final",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "g79",
+     "text": "À la fin, il ne restait qu'un seul flic libre.",
+     "highlight": [
+      "seul"
+     ]
+    },
+    {
+     "id": "g80",
+     "text": "Il a menotté son premier poignet.",
+     "highlight": [
+      "premier"
+     ]
+    },
+    {
+     "id": "g81",
+     "text": "L'autre main a essayé de le libérer.",
+     "highlight": [
+      "libérer."
+     ]
+    },
+    {
+     "id": "g82",
+     "text": "Complicité.",
+     "highlight": [
+      "Complicité."
+     ],
+     "pre": 0.5
+    }
+   ],
+   "actors": [
+    {
+     "id": "flic8",
+     "pos": [
+      0.3,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "lookAround",
+     "keys": [
+      {
+       "at": "g80",
+       "clip": "lookItem",
+       "expr": "neutral",
+       "sfx": "cuff",
+       "sfxAt": 0.3
+      },
+      {
+       "at": "g81",
+       "clip": "selfStruggle",
+       "expr": "angry"
+      },
+      {
+       "at": "g82",
+       "clip": "cuffedFront",
+       "expr": "unimpressed",
+       "sfx": "cuff",
+       "sfxAt": 0.1
+      },
+      {
+       "at": "g82.end+0.2",
+       "clip": "stareCamera"
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "on": {
+      "actor": "flic8",
+      "hand": "L"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "g80",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "tumble",
+     "name": "tumbleweed",
+     "pos": [
+      -6.0,
+      0,
+      1.4
+     ],
+     "keys": [
+      {
+       "at": "g79",
+       "to": [
+        6.5,
+        0,
+        1.0
+       ],
+       "dur": 3.2,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ws",
+     "worldAngle": 0,
+     "elev": 8,
+     "move": "push",
+     "amount": 0.1,
+     "frame": "flic8"
+    },
+    {
+     "at": "g79:seul",
+     "size": "ms",
+     "angle": 10,
+     "frame": "flic8"
+    },
+    {
+     "at": "g80",
+     "size": "mcu",
+     "angle": -20,
+     "frame": "flic8"
+    },
+    {
+     "at": "g81",
+     "size": "ms",
+     "angle": 15,
+     "frame": "flic8"
+    },
+    {
+     "at": "g82",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.08,
+     "frame": "flic8"
+    }
+   ],
+   "tail": 1.6
+  }
+ ]
+}
