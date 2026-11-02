@@ -772,6 +772,28 @@ const B = {
     const g = grp(at(box(0.62, 0.42, 0.01, fg), 0, 0, 0), at(label(text, 0.58, 0.38, { bg, fg }), 0, 0, 0.006));
     g.rotation.z = o.tilt ?? -0.04; return g;
   },
+  stopwatch(o) { // brass pocket stopwatch; opts.broken -> cracked glass, bent crown, spring popping out
+    const g = grp(at(cyl(0.07, 0.07, 0.025, P.yellow, 16), 0, 0, 0, Math.PI / 2), at(cyl(0.06, 0.06, 0.027, P.paper, 16), 0, 0, 0.002, Math.PI / 2),
+      at(box(0.004, 0.045, 0.004, P.ink), 0, 0.018, 0.016), at(cyl(0.012, 0.012, 0.03, P.yellow, 8), 0, 0.085, 0), at(torus(0.02, 0.005, P.yellow, 4, 10), 0, 0.11, 0));
+    if (o.broken) {
+      g.children[3].rotation.z = 0.9; g.children[3].position.x = 0.03;
+      for (let i = 0; i < 5; i++) g.add(at(box(0.07, 0.003, 0.002, P.ink), 0, 0, 0.017, 0, 0, i * 0.7));
+      for (let i = 0; i < 4; i++) g.add(at(torus(0.012 + i * 0.006, 0.0025, P.grey, 3, 8, Math.PI * 1.5), 0.05 + i * 0.01, 0.05 + i * 0.012, 0.01));
+    }
+    g.userData.grip = [0, 0.11, 0]; return g;
+  },
+  suggestionBox(o) {
+    return grp(at(box(0.45, 0.4, 0.32, P.red, { pivot: 'bottom', outline: 0.01 }), 0, 0.9, 0), at(box(0.2, 0.02, 0.01, P.ink), 0, 1.25, 0.161),
+      at(box(0.05, 0.9, 0.05, P.ink, { pivot: 'bottom' }), 0, 0, 0), at(label(o.text || 'IDÉES', 0.36, 0.12, { bg: P.paper, fg: P.red }), 0, 1.08, 0.162));
+  },
+  paperPile(o) { const g = grp(), r = rng(o.seed || 3), n = o.count || 40; for (let i = 0; i < n; i++) g.add(at(box(0.21, 0.004, 0.29, P.paper), (r() - 0.5) * 0.04, i * 0.006, (r() - 0.5) * 0.04, 0, (r() - 0.5) * 0.4, 0)); return g; },
+  beerGlass(o) { const g = grp(at(cyl(0.04, 0.035, 0.14, '#E8B84A', 10, { opacity: 0.85 }), 0, 0.07, 0), at(cyl(0.042, 0.042, 0.03, P.white, 10), 0, 0.15, 0)); g.userData.grip = [0, 0.07, 0]; return g; },
+  barStool(o) { return grp(at(cyl(0.18, 0.18, 0.06, P.red, 12), 0, 0.72, 0), at(cyl(0.03, 0.03, 0.7, P.ink, 6, { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.2, 0.2, 0.03, P.ink, 12), 0, 0.015, 0)); },
+  vaultDoor(o) { return grp(at(cyl(1.0, 1.0, 0.3, P.grey, 20, { outline: 0.01 }), 0, 1.05, 0, Math.PI / 2), at(cyl(0.8, 0.8, 0.32, '#9A9C98', 20), 0, 1.05, 0, Math.PI / 2), at(torus(0.25, 0.03, P.ink, 4, 12), 0, 1.05, 0.17), ...[0, 1, 2, 3].map(i => at(box(0.04, 0.5, 0.04, P.ink), 0, 1.05, 0.17, 0, 0, i * Math.PI / 4))); },
+  mustache3d(o) { // big hand-drawn-looking handlebar moustache to stick on a face
+    const g = grp(); [-1, 1].forEach(sd => { g.add(at(box(0.07, 0.025, 0.012, P.ink), sd * 0.04, 0, 0, 0, 0, sd * 0.25)); g.add(at(box(0.035, 0.018, 0.012, P.ink), sd * 0.085, 0.012, 0, 0, 0, sd * 0.9)); });
+    return g;
+  },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
   
 };

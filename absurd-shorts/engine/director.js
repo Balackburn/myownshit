@@ -261,8 +261,9 @@ export function renderFrame(t) {
   const shot = S.shots[i];
   if (i !== S.currentShot) { setupShot(shot); S.currentShot = i; }
   const lt = t - shot.start;
-  for (const a of S.actorsInShot) poseActor(a, lt, shot.duration, t);
-  for (const p of S.propsInShot) poseActor(p, lt, shot.duration, t);
+  const fz = shot.freeze ? (shot.freezeAt ?? 0.35) : null, moving = new Set(shot.moving || []);
+  for (const a of S.actorsInShot) { const f = fz !== null && !moving.has(a.cfg.id); poseActor(a, f ? fz : lt, shot.duration, f ? shot.start + fz : t); }
+  for (const p of S.propsInShot) { const f = fz !== null && !moving.has(p.cfg.name) && !p.cfg.moving; poseActor(p, f ? fz : lt, shot.duration, f ? shot.start + fz : t); }
   S.set?.userData.update?.(t);
   placeCamera(shot, lt);
   const { renderer, scene, camera } = S.stage;
@@ -270,7 +271,7 @@ export function renderFrame(t) {
   // composite
   // Colour grade MEASURED on the originals: suit navy ≈ (29,47,58) vs raw render (13,28,39); saturation 0.14–0.27 vs 0.24–0.32.
   // → lift the shadows (contrast < 1) and pull saturation down, applied on the composite.
-  const g = S.ctx; g.filter = S.script.grade ?? GRADE; g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
+  const g = S.ctx; g.filter = (S.script.grade ?? GRADE) + (shot.freeze ? ' saturate(0.35) hue-rotate(-8deg) brightness(1.04)' : ''); g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
   drawFX(g, shot, lt);
   drawOverlays(g, shot, lt);
   drawCaption(g, shot, lt);

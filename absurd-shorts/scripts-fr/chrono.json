@@ -1,0 +1,1512 @@
+{
+ "title": "Le chrono",
+ "captionWords": 3,
+ "minShot": 1.1,
+ "music": {
+  "mood": "quirky",
+  "vol": 0.07
+ },
+ "voice": {
+  "engine": "elevenlabs",
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "stability": 0.8,
+  "rate": 1.08,
+  "gap": 0.22
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "coll1": {
+   "preset": "lemec_glasses"
+  },
+  "coll2": {
+   "preset": "madame"
+  },
+  "coll3": {
+   "preset": "savant"
+  },
+  "patron": {
+   "preset": "boss",
+   "facial": "none"
+  },
+  "patronMoustache": {
+   "preset": "boss",
+   "facial": "mustache"
+  },
+  "vieux": {
+   "preset": "lemec_beige",
+   "hair": "receding",
+   "hairColor": "#D8D8D8",
+   "facial": "beard",
+   "build": {
+    "height": 0.92
+   }
+  },
+  "barman": {
+   "preset": "serveur"
+  },
+  "client1": {
+   "preset": "fermier"
+  },
+  "client2": {
+   "preset": "sportif"
+  },
+  "client3": {
+   "preset": "mamie"
+  },
+  "guichetier": {
+   "preset": "lemec_charcoal"
+  },
+  "vigile": {
+   "preset": "cop2"
+  },
+  "cliente": {
+   "preset": "madame"
+  },
+  "passant1": {
+   "preset": "tourist"
+  },
+  "passant2": {
+   "preset": "chef"
+  },
+  "pigeon": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "seed": 2
+   }
+  }
+ },
+ "shots": [
+  {
+   "line": "Ce mec était le plus gros relou de toute l'entreprise.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "talk",
+     "pos": [
+      0,
+      0,
+      0.4
+     ],
+     "expr": "neutral",
+     "talk": true,
+     "ry": -20
+    },
+    {
+     "id": "coll1",
+     "clip": "idle",
+     "pos": [
+      1.1,
+      0,
+      -0.2
+     ],
+     "expr": "unimpressed",
+     "ry": -60
+    },
+    {
+     "id": "coll2",
+     "clip": "idle",
+     "pos": [
+      -1.1,
+      0,
+      -0.1
+     ],
+     "expr": "sleepy",
+     "ry": 50
+    },
+    {
+     "id": "coll3",
+     "clip": "armsCrossed",
+     "pos": [
+      0.3,
+      0,
+      -1.2
+     ],
+     "expr": "unimpressed",
+     "ry": -10
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.4,
+     -0.2
+    ],
+    "angle": 10,
+    "zoom": 0.7,
+    "push": 0.14
+   },
+   "set": "office",
+   "highlight": [
+    "relou"
+   ],
+   "props": [
+    {
+     "name": "mug",
+     "pos": [
+      0.25,
+      1.15,
+      0.6
+     ]
+    },
+    {
+     "name": "wmSign",
+     "anchor": "picture",
+     "offset": [
+      1.5,
+      -0.7,
+      0.03
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Il détenait le record du monde de mots inutiles pendant une pause café.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "talk",
+     "expr": "happy",
+     "talk": true,
+     "speed": 1.6
+    },
+    {
+     "id": "coll1",
+     "clip": "faint",
+     "expr": "dead",
+     "params": {
+      "dur": 0.6
+     },
+     "actions": [
+      {
+       "at": 0,
+       "clip": "idle",
+       "expr": "sleepy"
+      },
+      {
+       "at": 1.6,
+       "clip": "faint",
+       "expr": "dead",
+       "params": {
+        "dur": 0.6
+       }
+      }
+     ]
+    },
+    {
+     "id": "coll2",
+     "clip": "idle",
+     "expr": "blink"
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.4,
+     1.5,
+     0.1
+    ],
+    "angle": 0,
+    "zoom": 0.85,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "record",
+    "inutiles"
+   ],
+   "sfx": [
+    {
+     "name": "thud",
+     "at": 2.1,
+     "vol": 0.5
+    }
+   ]
+  },
+  {
+   "line": "Un jour, son patron l'a convoqué.",
+   "actors": [
+    {
+     "id": "patron",
+     "clip": "sit",
+     "pos": [
+      -4.6,
+      0,
+      -1.6
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "clip": "walk",
+     "pos": [
+      -4.6,
+      0,
+      0.6
+     ],
+     "expr": "happy",
+     "ry": 180,
+     "to": [
+      -4.6,
+      0,
+      -0.1
+     ],
+     "moveEnd": 1.2,
+     "actions": [
+      {
+       "at": 1.3,
+       "clip": "handsOnHips",
+       "expr": "smug"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -4.6,
+     1.3,
+     -0.8
+    ],
+    "angle": 30,
+    "zoom": 0.7,
+    "push": 0.1
+   },
+   "set": "office",
+   "highlight": [
+    "patron"
+   ],
+   "props": [
+    {
+     "name": "desk",
+     "pos": [
+      -4.6,
+      0,
+      -1.0
+     ]
+    },
+    {
+     "name": "suggestionBox",
+     "pos": [
+      -3.2,
+      0,
+      -1.6
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Ce con pensait recevoir une prime pour ses idées dans la boîte à suggestions.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "shrug",
+     "expr": "smug"
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mec",
+    "angle": 160,
+    "push": 0.1,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "prime",
+    "suggestions"
+   ]
+  },
+  {
+   "line": "Il en avait mis quatre cents.",
+   "actors": [
+    {
+     "id": "patron",
+     "clip": "sit",
+     "expr": "unimpressed"
+    }
+   ],
+   "camera": {
+    "from": [
+     -2.9,
+     1.75,
+     0.9
+    ],
+    "to": [
+     -3.1,
+     1.7,
+     0.5
+    ],
+    "lookAt": [
+     -4.6,
+     1.15,
+     -1.5
+    ],
+    "fov": 40
+   },
+   "cut": false,
+   "highlight": [
+    "quatre",
+    "cents"
+   ],
+   "props": [
+    {
+     "name": "paperPile",
+     "pos": [
+      -4.9,
+      0.78,
+      -0.95
+     ],
+     "opts": {
+      "count": 120
+     }
+    }
+   ]
+  },
+  {
+   "line": "Dont une pour vendre des sous-marins.",
+   "actors": [
+    {
+     "id": "patron",
+     "clip": "facepalm",
+     "expr": "unimpressed"
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "patron",
+    "angle": 10,
+    "push": 0.08,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "sous-marins"
+   ]
+  },
+  {
+   "line": "L'entreprise fabriquait des yaourts.",
+   "actors": [
+    {
+     "id": "patron",
+     "clip": "sit",
+     "expr": "angry"
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "patron",
+    "angle": -10,
+    "push": 0.05,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "yaourts"
+   ],
+   "hold": 0.2
+  },
+  {
+   "line": "Il s'est fait virer.",
+   "actors": [
+    {
+     "id": "patron",
+     "clip": "point",
+     "expr": "angry"
+    },
+    {
+     "id": "mec",
+     "clip": "spinFall",
+     "expr": "shocked",
+     "ry": 180,
+     "to": [
+      -4.0,
+      0,
+      3.0
+     ],
+     "moveStart": 0.3,
+     "moveEnd": 1.0,
+     "params": {
+      "dur": 0.8
+     }
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -4.4,
+     1.2,
+     0.4
+    ],
+    "angle": 20,
+    "zoom": 0.8,
+    "push": 0.05,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "virer"
+   ],
+   "sfx": [
+    {
+     "name": "whoosh",
+     "at": 0.3,
+     "vol": 0.6
+    },
+    {
+     "name": "thud",
+     "at": 1.0,
+     "vol": 0.6
+    }
+   ]
+  },
+  {
+   "line": "Alors il est allé au bar raconter sa vie.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "talk",
+     "pos": [
+      0.4,
+      0,
+      -0.9
+     ],
+     "expr": "happy",
+     "talk": true,
+     "ry": -10
+    },
+    {
+     "id": "vieux",
+     "clip": "drunk",
+     "pos": [
+      2.4,
+      0,
+      -0.9
+     ],
+     "expr": "sleepy"
+    },
+    {
+     "id": "barman",
+     "clip": "idle",
+     "pos": [
+      0.4,
+      0,
+      -2.7
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "client1",
+     "clip": "sit",
+     "pos": [
+      -1.6,
+      0,
+      -0.9
+     ],
+     "expr": "neutral",
+     "ry": 0
+    },
+    {
+     "id": "client2",
+     "clip": "sit",
+     "pos": [
+      -0.6,
+      0,
+      -0.9
+     ],
+     "expr": "neutral",
+     "ry": 0
+    },
+    {
+     "id": "client3",
+     "clip": "sit",
+     "pos": [
+      1.4,
+      0,
+      -0.9
+     ],
+     "expr": "neutral",
+     "ry": 0
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.4,
+     1.3,
+     -1.2
+    ],
+    "angle": 0,
+    "zoom": 0.75,
+    "push": 0.12
+   },
+   "set": "bar",
+   "highlight": [
+    "bar",
+    "vie"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "anchor": "sign",
+     "offset": [
+      1.9,
+      -0.6,
+      0.03
+     ],
+     "opts": {
+      "bg": "#2A1E1A",
+      "fg": "#C9A86A"
+     }
+    }
+   ]
+  },
+  {
+   "line": "En dix minutes, tous les clients sont partis.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "talk",
+     "expr": "happy",
+     "talk": true,
+     "speed": 1.5
+    },
+    {
+     "id": "client1",
+     "clip": "flail",
+     "expr": "scared",
+     "to": [
+      -6,
+      0,
+      3
+     ],
+     "moveStart": 0.7,
+     "moveEnd": 2.0,
+     "ry": 200
+    },
+    {
+     "id": "client2",
+     "clip": "flail",
+     "expr": "scared",
+     "to": [
+      -5,
+      0,
+      4
+     ],
+     "moveStart": 1.1,
+     "moveEnd": 2.4000000000000004,
+     "ry": 210
+    },
+    {
+     "id": "client3",
+     "clip": "flail",
+     "expr": "scared",
+     "to": [
+      6,
+      0,
+      3
+     ],
+     "moveStart": 1.5000000000000002,
+     "moveEnd": 2.8000000000000003,
+     "ry": 150
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.4,
+     1.3,
+     -1.0
+    ],
+    "angle": 0,
+    "zoom": 0.85,
+    "push": 0.05,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "dix",
+    "partis"
+   ],
+   "sfx": [
+    "whoosh"
+   ]
+  },
+  {
+   "line": "Sauf un vieux complètement bourré.",
+   "actors": [
+    {
+     "id": "vieux",
+     "clip": "drunk",
+     "expr": "sleepy"
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": [
+     2.4,
+     1.5,
+     -0.9
+    ],
+    "angle": -15,
+    "push": 0.12,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "bourré"
+   ],
+   "remove": [
+    "client1",
+    "client2",
+    "client3"
+   ]
+  },
+  {
+   "line": "Ce con lui a payé un verre.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "sit",
+     "expr": "smug",
+     "hold": {
+      "name": "beerGlass",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "vieux",
+     "clip": "drunk",
+     "expr": "happy"
+    }
+   ],
+   "camera": {
+    "from": [
+     1.4,
+     1.8,
+     5.4
+    ],
+    "to": [
+     1.4,
+     1.7,
+     4.8
+    ],
+    "lookAt": [
+     1.4,
+     1.0,
+     -0.9
+    ],
+    "fov": 40
+   },
+   "cut": false,
+   "highlight": [
+    "verre"
+   ]
+  },
+  {
+   "line": "En échange, le vieux lui a donné un chronomètre.",
+   "actors": [
+    {
+     "id": "vieux",
+     "clip": "present",
+     "expr": "happy",
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "vieux",
+    "angle": -20,
+    "push": 0.12,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "chronomètre"
+   ]
+  },
+  {
+   "line": "Il a appuyé dessus.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "holdOut",
+     "expr": "suspicious",
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "mec",
+    "angle": 20,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "appuyé"
+   ],
+   "sfx": [
+    {
+     "name": "click",
+     "at": 0.9,
+     "vol": 0.7
+    }
+   ]
+  },
+  {
+   "line": "Le temps s'est arrêté.",
+   "actors": [
+    {
+     "id": "barman",
+     "clip": "facepalm",
+     "pos": [
+      0.4,
+      0,
+      -2.7
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "vieux",
+     "clip": "drunk",
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "clip": "holdOut",
+     "expr": "shocked",
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.8,
+     1.3,
+     -1.4
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.12,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "temps",
+    "arrêté"
+   ],
+   "freeze": true,
+   "freezeAt": 0.15,
+   "moving": [
+    "mec"
+   ],
+   "sfx": [
+    {
+     "name": "scratch",
+     "at": 0.0,
+     "vol": 0.4
+    }
+   ]
+  },
+  {
+   "line": "Putain.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "stareCamera",
+     "expr": "shocked",
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "mec",
+    "angle": 10,
+    "push": 0.05,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "Putain"
+   ],
+   "freeze": true,
+   "freezeAt": 0.15,
+   "moving": [
+    "mec"
+   ],
+   "hold": 0.2
+  },
+  {
+   "line": "Le pouvoir absolu.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "celebrate",
+     "pos": [
+      0.4,
+      0,
+      0.6
+     ],
+     "expr": "happy",
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.6,
+     1.4,
+     -0.6
+    ],
+    "angle": 15,
+    "zoom": 0.8,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "pouvoir",
+    "absolu"
+   ],
+   "freeze": true,
+   "freezeAt": 0.15,
+   "moving": [
+    "mec"
+   ]
+  },
+  {
+   "line": "Il aurait pu sauver le monde.",
+   "actors": [
+    {
+     "id": "patron",
+     "clip": "point",
+     "pos": [
+      -4.6,
+      0,
+      -1.6
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "mec",
+     "clip": "thinkChin",
+     "pos": [
+      -3.6,
+      0,
+      -0.4
+     ],
+     "expr": "suspicious",
+     "ry": -60,
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -4.1,
+     1.3,
+     -1.0
+    ],
+    "angle": 25,
+    "zoom": 0.75,
+    "push": 0.1
+   },
+   "set": "office",
+   "highlight": [
+    "sauver",
+    "monde"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec"
+   ],
+   "props": [
+    {
+     "name": "desk",
+     "pos": [
+      -4.6,
+      0,
+      -1.0
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Il a dessiné une moustache à son ancien patron.",
+   "actors": [
+    {
+     "id": "patronMoustache",
+     "clip": "point",
+     "pos": [
+      -4.6,
+      0,
+      -1.6
+     ],
+     "expr": "angry",
+     "attach": [
+      {
+       "name": "mustache3d",
+       "joint": "head",
+       "pos": [
+        0,
+        0.15,
+        0.11
+       ],
+       "scale": 1.6
+      }
+     ]
+    },
+    {
+     "id": "mec",
+     "clip": "point",
+     "pos": [
+      -4.2,
+      0,
+      -0.9
+     ],
+     "expr": "smug",
+     "ry": -40,
+     "hold": {
+      "name": "glueTube",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "patronMoustache",
+    "angle": 15,
+    "push": 0.08,
+    "zoom": 1.1
+   },
+   "set": "office",
+   "highlight": [
+    "moustache"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec"
+   ],
+   "remove": [
+    "patron"
+   ],
+   "props": [
+    {
+     "name": "desk",
+     "pos": [
+      -4.6,
+      0,
+      -1.0
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Puis il a décidé de braquer une banque.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "strut",
+     "pos": [
+      0,
+      0,
+      3.2
+     ],
+     "expr": "smug",
+     "ry": 180,
+     "to": [
+      0,
+      0,
+      1.6
+     ],
+     "hold": {
+      "name": "stopwatch",
+      "hand": "R",
+      "scale": 1.6
+     }
+    },
+    {
+     "id": "guichetier",
+     "clip": "idle",
+     "pos": [
+      -1.2,
+      0,
+      -2.1
+     ],
+     "expr": "neutral",
+     "ry": 0
+    },
+    {
+     "id": "vigile",
+     "clip": "handsOnHips",
+     "pos": [
+      2.0,
+      0,
+      0.4
+     ],
+     "expr": "unimpressed",
+     "ry": -40
+    },
+    {
+     "id": "cliente",
+     "clip": "walk",
+     "pos": [
+      -0.2,
+      0,
+      0.6
+     ],
+     "expr": "neutral",
+     "ry": -90
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.4,
+     0.2
+    ],
+    "angle": 0,
+    "zoom": 0.85,
+    "push": 0.1
+   },
+   "set": "bank",
+   "highlight": [
+    "braquer",
+    "banque"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "anchor": "sign",
+     "offset": [
+      2.2,
+      -0.9,
+      0.03
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Il a figé tout le monde et rempli un chariot de billets.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "pushCart",
+     "pos": [
+      2.0,
+      0,
+      -1.6
+     ],
+     "expr": "happy",
+     "ry": 180,
+     "to": [
+      0.4,
+      0,
+      2.0
+     ],
+     "moveStart": 0.4
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     1.2,
+     1.3,
+     0.0
+    ],
+    "angle": 20,
+    "zoom": 0.85,
+    "push": 0.06,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "figé",
+    "billets"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec",
+    "shoppingCart",
+    "money"
+   ],
+   "props": [
+    {
+     "name": "shoppingCart",
+     "pos": [
+      2.0,
+      0,
+      -1.0
+     ],
+     "ry": 180,
+     "to": [
+      0.4,
+      0,
+      2.6
+     ],
+     "moveStart": 0.4,
+     "moving": true
+    },
+    {
+     "name": "money",
+     "pos": [
+      2.0,
+      0.55,
+      -1.0
+     ],
+     "opts": {
+      "stacks": 6
+     },
+     "to": [
+      0.4,
+      0.55,
+      2.6
+     ],
+     "moveStart": 0.4,
+     "moving": true
+    }
+   ]
+  },
+  {
+   "line": "Et en sortant, ce con a fait tomber le chrono.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "scared",
+     "pos": [
+      0.4,
+      0,
+      2.0
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.5,
+     1.7,
+     2.2
+    ],
+    "angle": 30,
+    "zoom": 1.0,
+    "push": 0.05,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "tomber",
+    "chrono"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec",
+    "stopwatch"
+   ],
+   "props": [
+    {
+     "name": "stopwatch",
+     "pos": [
+      0.55,
+      1.1,
+      2.3
+     ],
+     "to": [
+      0.6,
+      0.07,
+      2.5
+     ],
+     "moveStart": 0.6,
+     "moveEnd": 0.95,
+     "moveEase": "in",
+     "moving": true,
+     "scale": 1.6
+    }
+   ],
+   "sfx": [
+    {
+     "name": "glass",
+     "at": 0.95,
+     "vol": 0.7
+    }
+   ]
+  },
+  {
+   "line": "Il s'est cassé.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "kneel",
+     "pos": [
+      0.4,
+      0,
+      2.0
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "camera": {
+    "from": [
+     1.0,
+     0.5,
+     3.2
+    ],
+    "to": [
+     0.85,
+     0.35,
+     2.95
+    ],
+    "lookAt": [
+     0.6,
+     0.08,
+     2.5
+    ],
+    "fov": 34
+   },
+   "set": "bank",
+   "highlight": [
+    "cassé"
+   ],
+   "freeze": true,
+   "replaceProps": true,
+   "props": [
+    {
+     "name": "stopwatch",
+     "pos": [
+      0.6,
+      0.07,
+      2.5
+     ],
+     "opts": {
+      "broken": true
+     },
+     "scale": 1.6
+    }
+   ],
+   "moving": [
+    "mec"
+   ]
+  },
+  {
+   "line": "Le temps ne repartira plus jamais.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "scared",
+     "pos": [
+      0,
+      0,
+      1.2
+     ],
+     "expr": "shocked"
+    },
+    {
+     "id": "passant1",
+     "clip": "walk",
+     "pos": [
+      -2.0,
+      0,
+      0.6
+     ],
+     "expr": "neutral",
+     "ry": 90
+    },
+    {
+     "id": "passant2",
+     "clip": "flail",
+     "pos": [
+      1.6,
+      0,
+      -0.6
+     ],
+     "expr": "scared",
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "clip": "fly",
+     "pos": [
+      0.6,
+      2.4,
+      0.4
+     ],
+     "expr": "neutral",
+     "ry": -90
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.5,
+     0.4
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.15,
+    "orbit": 25
+   },
+   "set": "street",
+   "highlight": [
+    "jamais"
+   ],
+   "freeze": true,
+   "freezeAt": 0.2,
+   "moving": [
+    "mec"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "pos": [
+      4.0,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "kind": "stand"
+     }
+    }
+   ]
+  },
+  {
+   "line": "Alors il a raconté sa vie au vigile.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "talk",
+     "pos": [
+      0.9,
+      0,
+      1.0
+     ],
+     "expr": "happy",
+     "talk": true,
+     "ry": -80
+    },
+    {
+     "id": "vigile",
+     "clip": "handsOnHips",
+     "pos": [
+      -0.3,
+      0,
+      1.0
+     ],
+     "expr": "unimpressed",
+     "ry": 80
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.3,
+     1.95,
+     1.0
+    ],
+    "angle": 0,
+    "zoom": 1.0,
+    "push": 0.1
+   },
+   "set": "street",
+   "highlight": [
+    "vigile"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec"
+   ]
+  },
+  {
+   "line": "Pendant trois mille ans.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "talk",
+     "expr": "happy",
+     "talk": true,
+     "speed": 4
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.3,
+     1.95,
+     1.0
+    ],
+    "angle": 30,
+    "orbit": 120,
+    "zoom": 1.05,
+    "push": 0.0,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "trois",
+    "mille"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec"
+   ]
+  },
+  {
+   "line": "Pour la première fois, quelqu'un l'écoutait jusqu'au bout.",
+   "actors": [
+    {
+     "id": "vigile",
+     "clip": "handsOnHips",
+     "expr": "unimpressed"
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "vigile",
+    "angle": -20,
+    "push": 0.08,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "écoutait",
+    "bout"
+   ],
+   "freeze": true,
+   "moving": [
+    "mec"
+   ],
+   "hold": 1.2
+  }
+ ]
+}

@@ -443,6 +443,24 @@ const S = {
     g.add(at(label('LABO', 1.4, 0.4, { bg: P.yellow, fg: P.ink }), 0, 2.6, back + 0.02));
     g.userData.anchors = { center: [0, 0, 0], table: [0, 0, back + 1.2] }; g.userData.lighting = 'interior'; return g;
   },
+  bar() { // old-school bar: long counter, bottles on shelves, stools, neon sign
+    const g = grp(), { back } = room(g, { wall: '#5A3A2E', band: P.red, bandH: 1.0, trim: P.ink, floor: '#3A2A22' });
+    g.add(at(box(6, 1.05, 0.7, P.woodDark, { pivot: 'bottom', outline: 0.005 }), 0, 0, back + 1.6), at(box(6.1, 0.06, 0.8, P.wood), 0, 1.08, back + 1.6));
+    for (let y of [1.4, 1.9]) { g.add(at(box(5, 0.04, 0.3, P.woodDark), 0, y, back + 0.2)); for (let i = 0; i < 14; i++) g.add(at(cyl(0.04, 0.05, 0.28, ['#2F6B4A', '#8A3A2A', '#C9A86A', '#3A4A6A'][i % 4], 6, { pivot: 'bottom' }), -2.3 + i * 0.35, y + 0.02, back + 0.2)); }
+    for (let i = 0; i < 6; i++) g.add(at(prop('barStool'), -2.5 + i * 1.0, 0, back + 2.35));
+    g.add(at(label('CHEZ JO', 1.6, 0.45, { bg: P.ink, fg: '#F2A65A' }), 0, 2.6, back + 0.02));
+    g.userData.anchors = { center: [0, 0, 0], counter: [0, 1.11, back + 1.6], behind: [0, 0, back + 1.0], stool: [0, 0, back + 2.35], shelf: [0, 1.6, back + 0.2], sign: [0, 2.6, back] };
+    g.userData.lighting = 'dusk'; return g;
+  },
+  bank() { // marble hall: counter with windows, big vault door, BANQUE sign
+    const g = grp(), { back } = room(g, { wall: '#E9E3D6', band: P.teal, bandH: 0.9, trim: P.navy, floor: '#CFC6B2' });
+    g.add(at(box(5, 1.1, 0.5, P.teal, { pivot: 'bottom', outline: 0.005 }), -1.2, 0, back + 2.0), at(box(5.1, 0.06, 0.6, P.cream), -1.2, 1.13, back + 2.0));
+    for (let i = 0; i < 4; i++) g.add(at(box(0.04, 0.8, 0.04, P.yellow, { pivot: 'bottom' }), -3.4 + i * 1.4, 1.16, back + 2.0));
+    g.add(at(prop('vaultDoor'), 2.6, 0, back + 0.2));
+    g.add(at(label('BANQUE', 1.8, 0.45, { bg: P.navy, fg: P.yellow }), -1.0, 2.7, back + 0.02));
+    g.userData.anchors = { center: [0, 0, 0], counter: [-1.2, 0, back + 2.0], teller: [-1.2, 0, back + 1.5], vault: [2.6, 0, back + 0.6], sign: [-1.0, 2.7, back], door: [0, 0, 4] };
+    g.userData.lighting = 'interior'; return g;
+  },
   gym() {
     const g = grp(), { back } = room(g, { wall: P.cream, band: P.red, bandH: 1.2, trim: P.navy, floor: '#C08D5A' });
     g.add(at(box(4.2, 2.0, 0.04, P.woodDark), 0.8, 1.35, back + 0.03), at(box(4.0, 1.85, 0.01, '#D3E3E3'), 0.8, 1.35, back + 0.055), at(box(0.08, 1.2, 0.005, P.white, { noGrain: true }), -0.4, 1.5, back + 0.062, 0, 0, -0.5), at(box(0.04, 0.8, 0.005, P.white, { noGrain: true }), -0.2, 1.4, back + 0.062, 0, 0, -0.5));
