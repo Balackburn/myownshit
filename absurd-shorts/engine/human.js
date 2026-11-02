@@ -40,6 +40,7 @@ export const PRESETS = {
   savant:    { outfit: 'scientist', hair: 'afro', hairColor: '#DADADA', facial: 'none', glasses: true },
   fermier:   { outfit: 'farmer', hat: 'cowboy', hair: 'crew', facial: 'beard' },
   pompier:   { outfit: 'firefighter', hat: 'firehelmet', hair: 'crew', facial: 'mustache' },
+  fringant:  { outfit: 'suit', suit: '#E1C25A', tie: '#3A3D44', lapel: '#E1C25A', hair: 'buzz', facial: 'none', glasses: true, skin: '#7A5034', symmetricLapels: true }, // fictional Gus-Fring-style boss (yellow shirt, glasses)
   madame:    { outfit: 'skirtsuit', suit: P.red, lapel: P.cream, hair: 'bun', facial: 'none', lipstick: true, skin: P.skinPale },
   mamie:     { outfit: 'skirtsuit', suit: P.tealLight, lapel: P.cream, hair: 'curly', hairColor: '#D8D8D8', facial: 'none', glasses: true, build: { height: 0.9 } },
   gamin:     { outfit: 'tracksuit', hair: 'spiky', facial: 'none', build: { height: 0.62, width: 0.85, headScale: 1.15 } },
@@ -88,7 +89,10 @@ export function buildHuman(spec = {}) {
     thighR: allFaces(AR.legSide, { pz: half(AR.legFrontL, true), nz: half(AR.jacketBack, true) }), shinR: allFaces(AR.legSide, { pz: half(AR.legFrontL, false), nz: half(AR.jacketBack, false) }),
     shoe: { py: AR.shoeTop, pz: AR.shoeFront, nz: AR.shoeFront, px: AR.shoeSide, nx: AR.shoeSide, ny: AR.shoeSole },
   };
-  const part = (kind, w, h, d, color, opts = {}) => ATL && AT[kind] ? atlasBox(w, h, d, AT[kind], opts) : box(w, h, d, color, opts);
+  // naked gag: every clothed part becomes skin (head keeps its painted/measured face), censor bar added below
+  const CLOTHED = ['pelvis', 'jacket', 'tail', 'pad', 'sleeve', 'cuff', 'thighL', 'shinL', 'thighR', 'shinR', 'shoe'];
+  const part = (kind, w, h, d, color, opts = {}) => o.naked && CLOTHED.includes(kind) ? box(w, h, d, o.skin, opts)
+    : ATL && AT[kind] ? atlasBox(w, h, d, AT[kind], opts) : box(w, h, d, color, opts);
 
   const root = new THREE.Group(); root.name = 'human';
   const J = {}; // joints
@@ -105,7 +109,7 @@ export function buildHuman(spec = {}) {
   const jacket = part('jacket', 0.4 * Wd, torsoH, 0.24 + B.belly, C.jacket, { pivot: 'bottom', taper: { x: 1.65, z: 1.05 } }); // V-shape: waist ≈ 0.6 × shoulders
   jacket.name = 'jacket'; torso.add(jacket);
   // jacket tails (the long suit coat)
-  if (['suit', 'judge', 'vampire', 'doctor', 'scientist', 'waiter', 'skirtsuit'].includes(o.outfit)) {
+  if (!o.naked && ['suit', 'judge', 'vampire', 'doctor', 'scientist', 'waiter', 'skirtsuit'].includes(o.outfit)) {
     const tailLen = o.outfit === 'judge' || o.outfit === 'vampire' ? 0.85 * H : o.outfit === 'doctor' || o.outfit === 'scientist' ? 0.45 : 0.1; // shoulder→hem ≈ 31 % of the height (measured)
     const tail = part('tail', 0.4 * Wd, tailLen, 0.25 + B.belly, C.jacket, { pivot: 'top', taper: { x: o.outfit === 'judge' || o.outfit === 'vampire' ? 1.35 : 1, z: 1 } });
     tail.position.y = 0.02; torso.add(tail); J.coatTail = tail;
@@ -113,8 +117,9 @@ export function buildHuman(spec = {}) {
   if (C.skirt) { const sk = box(0.38 * Wd, 0.42, 0.24, C.jacket, { pivot: 'top', taper: { x: 1.25, z: 1.15 } }); torso.add(sk); }
   const front = 0.121 + B.belly / 2;
   // shirt V + lapels + tie
-  if (ATL) { /* lapels, shirt, tie, pocket stroke are painted on the atlas front */ }
-  else if (C.lapel) {
+  if (o.naked) { const bar = box(0.3, 0.16, 0.03, P.black); bar.position.set(0, -0.05, 0.13); hips.add(bar); for (let i = 0; i < 4; i++) { const b = box(0.075, 0.08, 0.032, '#2A2A2E'); b.position.set(-0.11 + i * 0.075, -0.05 + (i % 2 ? 0.04 : -0.04), 0.131); hips.add(b); } }
+  else if (ATL) { /* lapels, shirt, tie, pocket stroke are painted on the atlas front */ }
+  else if (C.lapel && !o.naked) {
     const shirtV = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-0.17 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0.17 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0, torsoH * 0.28, 0)]), mat(C.shirt, { doubleSide: true }));
     shirtV.geometry.computeVertexNormals(); shirtV.position.z = front + 0.004; torso.add(shirtV);
@@ -136,7 +141,7 @@ export function buildHuman(spec = {}) {
   } else {
     const chest = box(0.2, 0.2, 0.01, C.shirt); chest.position.set(0, torsoH * 0.82, front); torso.add(chest);
   }
-  if (C.tie && !ATL) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
+  if (C.tie && !ATL && !o.naked) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
   // buttons / badge details
   if (!ATL && (o.outfit === 'suit' || o.outfit === 'waiter')) for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }

@@ -418,6 +418,31 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], counter: [-3.4, 0, back + 1.8], counterFront: [-3.4, 0, back + 2.7], counterBehind: [-3.4, 0, back + 1.1], board: [1.9, 3.3, back + 0.8], seats: [3.1, 0.45, 0.4], window: [0, 0, back + 0.4], plane: [6, 0, -28] };
     g.userData.lighting = 'interior'; return g;
   },
+  zoo(o) { // gorilla enclosure seen from the visitor side: grass, rocks, a tree, back rock wall, cave mouth, fence at the front
+    const night = !!o.night, g = grp();
+    g.add(flat(120, 120, night ? '#43593E' : P.grass, 0, 0, 0));
+    g.add(flat(120, 8, '#CFC6B2', 0, 0.003, 7.5));                                    // visitor path
+    const wall = new THREE.Mesh(new THREE.DodecahedronGeometry(6, 1), mat('#8E8A80')); wall.scale.set(3, 1.2, 0.8); wall.position.set(0, 1.5, -11); g.add(wall);
+    const cave = new THREE.Mesh(new THREE.CircleGeometry(1.4, 10), mat('#141414', { noGrain: true })); cave.scale.y = 1.25; cave.position.set(3.6, 1.5, -6.6); g.add(cave);
+    [[-3.5, -3.5, 1.6], [2.2, -2.6, 1.3], [-1.2, -6, 1.8], [5.5, -4.5, 1.4]].forEach(([x, z, sz]) => g.add(at(prop('rock', { size: sz }), x, 0, z)));
+    g.add(at(prop('tree', { seed: 4 }), -6, 0, -6), at(prop('tree', { seed: 9 }), 7, 0, -8), at(prop('bush', { seed: 2 }), -2, 0, -2.5));
+    g.add(at(prop('zooFence', { length: 30 }), 0, 0, 4.2));
+    g.add(at(prop('signBoard', { text: o.sign || 'ZOO · GORILLES', bg: P.teal, fg: P.cream, w: 2.4, h: 0.6 }), -2.5, 0, 5.2));
+    if (night) nightSky(g); else { sky(g); clouds(g, 5); }
+    g.userData.anchors = { center: [0, 0, 0], rock: [2.2, 0, -2.6], behindRock: [2.2, 0, -3.8], cave: [3.6, 0, -6.4], fence: [0, 0, 4.2], visitor: [0, 0, 6.5], tree: [-6, 0, -6] };
+    g.userData.lighting = night ? 'night' : 'day'; return g;
+  },
+  secretGym(o) { // the hidden gym under the zoo: dark concrete, neon sign, rack, bench
+    const g = S.gym(); g.add(at(label(o.sign || 'GORILLA GYM · PRIVÉ', 2.6, 0.5, { bg: P.ink, fg: '#E8FF5A' }), 0.8, 3.4, -3.5));
+    g.userData.lighting = 'dark'; return g;
+  },
+  lab(o) { // the chemist's lab
+    const g = grp(), { back } = room(g, { wall: '#9FB7AE', floor: '#5E6B66' });
+    g.add(at(prop('table', { w: 2.6, d: 0.9, color: P.grey }), 0, 0, back + 1.2));
+    for (let i = 0; i < 6; i++) g.add(at(cyl(0.05, 0.07, 0.25, ['#9FE0D0', '#E8C04A', '#7BC0E8'][i % 3], 8, { opacity: 0.8 }), -1 + i * 0.4, 0.92, back + 1.1));
+    g.add(at(label('LABO', 1.4, 0.4, { bg: P.yellow, fg: P.ink }), 0, 2.6, back + 0.02));
+    g.userData.anchors = { center: [0, 0, 0], table: [0, 0, back + 1.2] }; g.userData.lighting = 'interior'; return g;
+  },
   gym() {
     const g = grp(), { back } = room(g, { wall: P.cream, band: P.red, bandH: 1.2, trim: P.navy, floor: '#C08D5A' });
     g.add(at(box(4.2, 2.0, 0.04, P.woodDark), 0.8, 1.35, back + 0.03), at(box(4.0, 1.85, 0.01, '#D3E3E3'), 0.8, 1.35, back + 0.055), at(box(0.08, 1.2, 0.005, P.white, { noGrain: true }), -0.4, 1.5, back + 0.062, 0, 0, -0.5), at(box(0.04, 0.8, 0.005, P.white, { noGrain: true }), -0.2, 1.4, back + 0.062, 0, 0, -0.5));

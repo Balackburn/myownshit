@@ -73,7 +73,11 @@ function setupShot(shot) {
   for (const o of S.shotObjects) { o.parent?.remove(o); }
   S.shotObjects = [];
   // detach actors from scene + props from hands
-  for (const a of Object.values(S.cast)) { a.parent?.remove(a); a.traverse(n => { if (n.userData.attachedProp) { n.remove(n.userData.attachedProp); n.userData.attachedProp = null; } }); }
+  for (const a of Object.values(S.cast)) {
+    a.parent?.remove(a); const kill = [];
+    a.traverse(n => { if (n.userData.attachedProp) { n.remove(n.userData.attachedProp); n.userData.attachedProp = null; } if (n.userData.isAttachment) kill.push(n); });
+    kill.forEach(n => n.parent?.remove(n));
+  }
   const setName = shot.set || S.lastSet || 'whiteVoid'; S.lastSet = setName;
   let set = null;
   if (Sets) { try { set = Sets.buildSet(setName, shot.setOpts || {}); } catch (e) { console.warn('set failed', setName, e.message); } }
@@ -85,6 +89,7 @@ function setupShot(shot) {
     const obj = S.cast[a.id] || (S.cast[a.id] = buildActor(a.spec || { preset: 'lemec' }));
     scene.add(obj);
     if (a.hold) attachProp(obj, a.hold);
+    for (const at_ of a.attach || []) attachToJoint(obj, at_);   // e.g. glasses + hat on a gorilla's head
     return { cfg: a, obj };
   });
   // props
@@ -104,6 +109,14 @@ function setupShot(shot) {
       S.actorsInShot.push({ cfg: { id: '_crowd' + i, pos, ry, clip: cr.clip || 'idle', phase: r() * 3, scale: cr.scale }, obj });
     }
   }
+}
+
+function attachToJoint(actor, spec) {
+  if (!Props) return;
+  const J = actor.userData.joints || {}; const j = J[spec.joint || 'head'] || actor;
+  const p = Props.buildProp(spec.name, spec.opts || {});
+  p.position.set(...(spec.pos || [0, 0, 0])); if (spec.rot) p.rotation.set(...spec.rot); if (spec.scale) p.scale.setScalar(spec.scale);
+  p.userData.isAttachment = true; j.add(p);
 }
 
 function attachProp(actor, hold) {

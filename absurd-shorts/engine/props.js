@@ -712,6 +712,55 @@ const B = {
     [[-0.55, 0.06, 0.8], [-0.35, 0.03, 0.55]].forEach(([a, w, k]) => g.add(at(new THREE.Mesh(new THREE.BoxGeometry(w, hc * k, 0.005), hi), Math.sin(a) * (r + 0.01), y0 + hc * 0.5, Math.cos(a) * (r + 0.01), 0, a, 0)));
     g.children.forEach(c => { c.castShadow = false; }); return g;
   },
+  // ---- additions for "gorille" episode ----------------------------------------------------
+  rock(o) { // faceted boulder (enclosure rock, the gorilla hides behind it)
+    const sz = o.size || 1.2; const m = new THREE.Mesh(new THREE.DodecahedronGeometry(sz * 0.6, 0), mat(o.color || '#8E918C'));
+    m.scale.set(1.3, 0.8, 1); m.position.y = sz * 0.42; m.castShadow = m.receiveShadow = true; return grp(m);
+  },
+  syringe(o) {
+    const g = grp(at(cyl(0.025, 0.025, 0.16, '#E8F2F2', 8, { opacity: 0.8 }), 0, 0.08, 0), at(cyl(0.02, 0.02, 0.1, P.yellow, 8), 0, 0.07, 0),
+      at(cyl(0.004, 0.004, 0.08, P.grey, 4), 0, -0.04, 0), at(box(0.07, 0.008, 0.02, P.grey), 0, 0.16, 0), at(cyl(0.006, 0.006, 0.06, P.grey, 4), 0, 0.19, 0));
+    g.userData.grip = [0, 0.1, 0]; return g;
+  },
+  preWorkout(o) { // tub with a loud label
+    const g = grp(at(cyl(0.11, 0.11, 0.24, o.color || P.black, 12), 0, 0.12, 0), at(cyl(0.115, 0.115, 0.05, P.red, 12), 0, 0.245, 0),
+      at(label(o.text || 'PRE-WORKOUT', 0.2, 0.1, { bg: P.yellow, fg: P.black }), 0, 0.13, 0.112));
+    g.userData.grip = [0, 0.12, 0]; return g;
+  },
+  steroidVial(o) { const g = grp(at(cyl(0.03, 0.03, 0.09, '#CDE8F0', 8, { opacity: 0.85 }), 0, 0.045, 0), at(cyl(0.032, 0.032, 0.02, P.red, 8), 0, 0.1, 0), at(label(o.text || 'STÉROÏDES', 0.07, 0.035, { bg: P.white, fg: P.red }), 0, 0.045, 0.031)); g.userData.grip = [0, 0.05, 0]; return g; },
+  foodSack(o) { // big kibble sack
+    const g = grp(at(box(0.55, 0.75, 0.25, o.color || '#C9A86A', { pivot: 'bottom', taper: { x: 0.85, z: 0.7 }, outline: 0.01 }), 0, 0, 0),
+      at(label(o.text || 'HIGH PROTEIN', 0.46, 0.3, { bg: P.red, fg: P.white }), 0, 0.42, 0.128));
+    return g;
+  },
+  eggs(o) { const g = grp(at(box(0.32, 0.06, 0.12, '#B9A27A', { pivot: 'bottom' }), 0, 0, 0)); for (let i = 0; i < 6; i++) g.add(at(sphere(0.026, P.paper, 1), -0.12 + (i % 3) * 0.12 + (i > 2 ? 0 : 0), 0.08, i > 2 ? 0.03 : -0.03)); return g; },
+  barbell(o) {
+    const w = o.width || 1.6, g = grp(rod([-w / 2, 0, 0], [w / 2, 0, 0], 0.016, P.grey));
+    [-1, 1].forEach(sd => { for (let i = 0; i < (o.plates || 3); i++) g.add(at(cyl(0.2 - i * 0.03, 0.2 - i * 0.03, 0.05, i % 2 ? P.red : P.ink, 12), sd * (w / 2 - 0.12 - i * 0.055), 0, 0, 0, 0, Math.PI / 2)); });
+    g.userData.grip = [w * 0.18, 0, 0]; return g;
+  },
+  dumbbell(o) { const g = grp(rod([-0.14, 0, 0], [0.14, 0, 0], 0.014, P.grey)); [-1, 1].forEach(sd => g.add(at(cyl(0.07, 0.07, 0.07, o.color || P.ink, 10), sd * 0.13, 0, 0, 0, 0, Math.PI / 2))); g.userData.grip = [0, 0, 0]; return g; },
+  glasses(o) { // wire glasses to stick on a face (origin = bridge)
+    const g = grp(); const r = o.r || 0.05, dx = o.dx || 0.065;
+    [-1, 1].forEach(sd => { g.add(at(torus(r, 0.006, P.ink, 4, 12), sd * dx, 0, 0)); g.add(rod([sd * (dx + r), 0, 0], [sd * (dx + r + 0.01), 0, -0.12], 0.005, P.ink)); });
+    g.add(rod([-dx + r, 0, 0], [dx - r, 0, 0], 0.005, P.ink)); return g;
+  },
+  porkpieHat(o) { // the chemist's black hat
+    const g = grp(at(cyl(o.r || 0.24, o.r || 0.24, 0.02, P.ink, 16), 0, 0.01, 0), at(cyl((o.r || 0.24) * 0.66, (o.r || 0.24) * 0.7, 0.12, P.ink, 16, { pivot: 'bottom' }), 0, 0.02, 0),
+      at(cyl((o.r || 0.24) * 0.71, (o.r || 0.24) * 0.71, 0.03, '#3A3D44', 16, { pivot: 'bottom' }), 0, 0.02, 0)); return g;
+  },
+  censorBar(o) { // TV-style censor block (nudity gag)
+    const w = o.w || 0.42, h = o.h || 0.2; const g = grp(at(box(w, h, 0.02, P.black), 0, 0, 0));
+    const n = 6; for (let i = 0; i < n; i++) for (let j = 0; j < 3; j++) if ((i + j) % 2) g.add(at(box(w / n, h / 3, 0.022, '#2A2A2E'), -w / 2 + w / n * (i + 0.5), -h / 2 + h / 3 * (j + 0.5), 0));
+    return g;
+  },
+  zooFence(o) { // low wall + bars in front of an enclosure
+    const L = o.length || 8, g = grp(at(box(L, 0.7, 0.3, '#B7B2A6', { pivot: 'bottom', outline: 0.004 }), 0, 0, 0));
+    for (let x = -L / 2 + 0.15; x <= L / 2; x += 0.3) g.add(at(box(0.04, 0.9, 0.04, P.ink, { pivot: 'bottom' }), x, 0.7, 0));
+    g.add(at(box(L, 0.05, 0.06, P.ink), 0, 1.6, 0)); return g;
+  },
+  fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
+  
 };
 
 export const PROP_NAMES = Object.keys(B);

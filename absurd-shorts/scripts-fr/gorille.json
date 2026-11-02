@@ -1,0 +1,4205 @@
+{
+ "title": "Le gorille",
+ "captionWords": 3,
+ "minShot": 1.0,
+ "tail": 0.0,
+ "music": {
+  "mood": "quirky",
+  "vol": 0.07
+ },
+ "voice": {
+  "engine": "elevenlabs",
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "stability": 0.8,
+  "rate": 1.08,
+  "gap": 0.16
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "mecNu": {
+   "preset": "lemec",
+   "naked": true
+  },
+  "mecGorille": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "clothes": "tie",
+    "seed": 21
+   }
+  },
+  "g0": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 30
+   }
+  },
+  "g1": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 31
+   }
+  },
+  "g2": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 32
+   }
+  },
+  "chevre": {
+   "type": "creature",
+   "name": "goat",
+   "opts": {
+    "seed": 3
+   }
+  },
+  "coach": {
+   "preset": "sportif"
+  },
+  "muscu": {
+   "preset": "sportif",
+   "build": {
+    "width": 1.35,
+    "height": 1.05
+   }
+  },
+  "madame": {
+   "preset": "madame"
+  },
+  "mamie": {
+   "preset": "mamie"
+  },
+  "gamin": {
+   "preset": "gamin"
+  },
+  "chimiste": {
+   "type": "creature",
+   "name": "gorilla",
+   "opts": {
+    "seed": 77,
+    "colors": {
+     "body": "#4A4B52"
+    }
+   }
+  },
+  "fringant": {
+   "preset": "fringant"
+  },
+  "fermier": {
+   "preset": "fermier"
+  },
+  "serveur": {
+   "preset": "serveur"
+  },
+  "prisonnier": {
+   "preset": "prisoner"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2"
+  },
+  "flic3": {
+   "preset": "cop2",
+   "seed": 40
+  },
+  "flic4": {
+   "preset": "cop",
+   "seed": 41
+  },
+  "flic5": {
+   "preset": "cop2",
+   "seed": 42
+  },
+  "flic6": {
+   "preset": "cop",
+   "seed": 43
+  },
+  "flic7": {
+   "preset": "cop2",
+   "seed": 44
+  },
+  "flic8": {
+   "preset": "cop",
+   "seed": 45
+  },
+  "poulet0": {
+   "type": "creature",
+   "name": "chicken",
+   "opts": {
+    "seed": 50
+   }
+  },
+  "poulet1": {
+   "type": "creature",
+   "name": "chicken",
+   "opts": {
+    "seed": 51
+   }
+  },
+  "poulet2": {
+   "type": "creature",
+   "name": "chicken",
+   "opts": {
+    "seed": 52
+   }
+  }
+ },
+ "shots": [
+  {
+   "line": "Ce con s'était mis à la musculation une semaine plus tôt après avoir regardé un TikTok de merde.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "holdPhoneFront",
+     "pos": [
+      0,
+      0,
+      0.3
+     ],
+     "expr": "neutral",
+     "hold": {
+      "name": "phone911",
+      "hand": "R"
+     },
+     "actions": [
+      {
+       "at": 2.4,
+       "clip": "liftBarbell",
+       "expr": "angry"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "angle": 20,
+    "push": 0.2
+   },
+   "set": "livingRoom",
+   "highlight": [
+    "musculation",
+    "TikTok",
+    "merde"
+   ],
+   "props": [
+    {
+     "name": "dumbbell",
+     "pos": [
+      0.6,
+      0.02,
+      0.9
+     ]
+    },
+    {
+     "name": "dumbbell",
+     "pos": [
+      0.9,
+      0.02,
+      0.7
+     ],
+     "ry": 40
+    }
+   ]
+  },
+  {
+   "line": "Puis il est allé au zoo et là, il a vu les gorilles.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "walk",
+     "pos": [
+      0,
+      0,
+      6.4
+     ],
+     "ry": 180,
+     "to": [
+      0.3,
+      0,
+      5.2
+     ],
+     "moveEnd": 1.6
+    },
+    {
+     "id": "g0",
+     "clip": "idle",
+     "pos": [
+      -2.2,
+      0,
+      -2.4
+     ],
+     "expr": "neutral",
+     "ry": 20,
+     "scale": 1.25
+    },
+    {
+     "id": "g1",
+     "clip": "idle",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "neutral",
+     "ry": 0,
+     "scale": 1.25
+    },
+    {
+     "id": "g2",
+     "clip": "idle",
+     "pos": [
+      2.0,
+      0,
+      -2.2
+     ],
+     "expr": "neutral",
+     "ry": -20,
+     "scale": 1.25
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.2,
+     1.0
+    ],
+    "angle": 0,
+    "zoom": 0.9,
+    "push": 0.12
+   },
+   "set": "zoo",
+   "highlight": [
+    "zoo",
+    "gorilles"
+   ]
+  },
+  {
+   "line": "Ces putains de gorilles étaient énormes, des bras trois fois plus gros que les siens.",
+   "actors": [
+    {
+     "id": "g0",
+     "clip": "flex",
+     "pos": [
+      -2.2,
+      0,
+      -2.4
+     ],
+     "expr": "smug",
+     "ry": 20,
+     "scale": 1.25
+    },
+    {
+     "id": "g1",
+     "clip": "flex",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "smug",
+     "ry": 0,
+     "scale": 1.25
+    },
+    {
+     "id": "g2",
+     "clip": "flex",
+     "pos": [
+      2.0,
+      0,
+      -2.2
+     ],
+     "expr": "smug",
+     "ry": -20,
+     "scale": 1.25
+    }
+   ],
+   "camera": {
+    "preset": "low",
+    "target": "g1",
+    "angle": 0,
+    "zoom": 1.49,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "putains",
+    "énormes",
+    "trois"
+   ]
+  },
+  {
+   "line": "Ce con est devenu terriblement jaloux.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "angryFist",
+     "pos": [
+      0.3,
+      0,
+      5.2
+     ],
+     "expr": "angry",
+     "ry": 180
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "mec",
+    "angle": 180,
+    "push": 0.1,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "jaloux"
+   ]
+  },
+  {
+   "line": "Il croyait qu'ils contractaient leurs muscles pour le provoquer alors que pas du tout.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "flex",
+     "expr": "smug",
+     "actions": [
+      {
+       "at": 2.6,
+       "clip": "idle",
+       "expr": "neutral"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "g1",
+    "angle": 10,
+    "zoom": 1.08,
+    "push": 0.08,
+    "glide": 0.8
+   },
+   "cut": false,
+   "say": "Il croyait qu'ils contractaient leurs muscles pour le provoquer alors que pas du tout.",
+   "highlight": [
+    "provoquer",
+    "du tout"
+   ]
+  },
+  {
+   "line": "Il a voulu comprendre leur secret.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "thinkChin",
+     "expr": "suspicious"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "mec",
+    "angle": 170,
+    "push": 0.05,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "secret"
+   ]
+  },
+  {
+   "line": "Première hypothèse : leur bouffe.",
+   "actors": [
+    {
+     "id": "g0",
+     "clip": "eat",
+     "expr": "happy"
+    },
+    {
+     "id": "g1",
+     "clip": "eat",
+     "expr": "happy"
+    },
+    {
+     "id": "g2",
+     "clip": "eat",
+     "expr": "happy"
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.1,
+     -2.6
+    ],
+    "angle": 0,
+    "zoom": 0.7,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "hypothèse",
+    "bouffe"
+   ],
+   "overlays": [
+    {
+     "style": "banner",
+     "text": "HYPOTHÈSE N°1",
+     "at": 0.1
+    }
+   ],
+   "props": [
+    {
+     "name": "foodSack",
+     "pos": [
+      -1.2,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "text": "PURINA HIGH PROTEIN"
+     }
+    }
+   ]
+  },
+  {
+   "line": "Il les a regardés manger leurs sac de nourriture pour primates.",
+   "actors": [],
+   "camera": {
+    "preset": "full",
+    "target": [
+     -1.3,
+     1.0,
+     -2.2
+    ],
+    "angle": 15,
+    "zoom": 0.7,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "nourriture",
+    "primates"
+   ]
+  },
+  {
+   "line": "Purina High Protein.",
+   "actors": [],
+   "camera": {
+    "preset": "close",
+    "target": [
+     -1.2,
+     0.6,
+     -2.0
+    ],
+    "angle": 0,
+    "zoom": 0.6,
+    "push": 0.15,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "Purina",
+    "High",
+    "Protein"
+   ]
+  },
+  {
+   "line": "Avec ça, de la viande de chèvre vivantes, des œufs, du lait et du yaourt.",
+   "actors": [
+    {
+     "id": "chevre",
+     "clip": "idle",
+     "pos": [
+      0.8,
+      0,
+      -1.4
+     ],
+     "expr": "scared",
+     "ry": -30
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.2,
+     1.0,
+     -1.8
+    ],
+    "angle": 5,
+    "zoom": 0.75,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "chèvre",
+    "œufs",
+    "lait",
+    "yaourt"
+   ],
+   "props": [
+    {
+     "name": "eggs",
+     "pos": [
+      -0.3,
+      0,
+      -1.2
+     ]
+    },
+    {
+     "name": "milkBottle",
+     "pos": [
+      0.1,
+      0,
+      -1.0
+     ]
+    },
+    {
+     "name": "mug",
+     "pos": [
+      -0.6,
+      0,
+      -1.0
+     ],
+     "opts": {
+      "color": "#FFFFFF"
+     }
+    }
+   ]
+  },
+  {
+   "line": "Alors, il a acheté la même chose et s'est mis à manger exactement comme eux.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "sit",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "expr": "neutral",
+     "actions": [
+      {
+       "at": 1.5,
+       "clip": "sitWrite",
+       "expr": "disgusted"
+      }
+     ]
+    },
+    {
+     "id": "chevre",
+     "clip": "idle",
+     "pos": [
+      1.0,
+      0,
+      0.3
+     ],
+     "expr": "scared",
+     "ry": -60
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mec",
+    "angle": 18,
+    "push": 0.12,
+    "dy": -0.3,
+    "lookDy": -0.4
+   },
+   "set": "kitchenNight",
+   "lighting": "interior",
+   "highlight": [
+    "même",
+    "exactement"
+   ],
+   "props": [
+    {
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      0.6
+     ]
+    },
+    {
+     "name": "foodSack",
+     "pos": [
+      -0.55,
+      0.78,
+      0.55
+     ],
+     "scale": 0.5,
+     "opts": {
+      "text": "PURINA HIGH PROTEIN"
+     }
+    },
+    {
+     "name": "eggs",
+     "pos": [
+      0.15,
+      0.78,
+      0.55
+     ]
+    },
+    {
+     "name": "milkBottle",
+     "pos": [
+      0.45,
+      0.78,
+      0.6
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Il est revenu au zoo, toujours pas assez musclé.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "flex",
+     "pos": [
+      0.3,
+      0,
+      5.2
+     ],
+     "expr": "neutral",
+     "ry": 180
+    },
+    {
+     "id": "g0",
+     "clip": "flex",
+     "pos": [
+      -2.2,
+      0,
+      -2.4
+     ],
+     "expr": "smug",
+     "ry": 20,
+     "scale": 1.6
+    },
+    {
+     "id": "g1",
+     "clip": "flex",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "smug",
+     "ry": 0,
+     "scale": 1.6
+    },
+    {
+     "id": "g2",
+     "clip": "flex",
+     "pos": [
+      2.0,
+      0,
+      -2.2
+     ],
+     "expr": "smug",
+     "ry": -20,
+     "scale": 1.6
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mec",
+    "angle": 160,
+    "zoom": 0.9,
+    "push": 0.12
+   },
+   "set": "zoo",
+   "highlight": [
+    "toujours",
+    "musclé"
+   ]
+  },
+  {
+   "line": "Les gorilles étaient encore plus gros que lui.",
+   "actors": [],
+   "camera": {
+    "preset": "low",
+    "target": "g1",
+    "angle": 0,
+    "zoom": 1.62,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "encore",
+    "gros"
+   ]
+  },
+  {
+   "line": "Ça le rendait fou.",
+   "actors": [
+    {
+     "id": "mec",
+     "clip": "yell",
+     "expr": "angry"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "mec",
+    "angle": 175,
+    "push": 0.05,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "fou"
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.2,
+     "dur": 0.6,
+     "amount": 0.02
+    }
+   ]
+  },
+  {
+   "line": "Deuxième hypothèse : les gorilles étaient à poil et faisaient des acrobaties toute la journée.",
+   "actors": [
+    {
+     "id": "g0",
+     "clip": "jump",
+     "expr": "happy",
+     "params": {
+      "dur": 0.7,
+      "height": 0.8
+     }
+    },
+    {
+     "id": "g1",
+     "clip": "dance",
+     "expr": "happy"
+    },
+    {
+     "id": "g2",
+     "clip": "celebrate",
+     "expr": "happy"
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.2,
+     -2.6
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.1,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "hypothèse",
+    "poil",
+    "acrobaties"
+   ],
+   "overlays": [
+    {
+     "style": "banner",
+     "text": "HYPOTHÈSE N°2",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "line": "Il s'est donc mis à se balader complètement à poil, en pleine rue.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "walk",
+     "pos": [
+      -1.5,
+      0,
+      0.8
+     ],
+     "expr": "neutral",
+     "ry": 90,
+     "to": [
+      1.0,
+      0,
+      0.8
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecNu",
+    "angle": 0,
+    "zoom": 0.9,
+    "push": 0.06
+   },
+   "set": "street",
+   "highlight": [
+    "poil",
+    "rue"
+   ]
+  },
+  {
+   "line": "Les gens le voyaient arriver et se barraient en courant.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "walk",
+     "pos": [
+      1.0,
+      0,
+      0.8
+     ],
+     "expr": "neutral",
+     "ry": 90,
+     "to": [
+      2.0,
+      0,
+      0.8
+     ]
+    },
+    {
+     "id": "madame",
+     "clip": "flee",
+     "pos": [
+      3.5,
+      0,
+      0.4
+     ],
+     "expr": "scared",
+     "ry": 90,
+     "to": [
+      7,
+      0,
+      0.4
+     ]
+    },
+    {
+     "id": "mamie",
+     "clip": "flee",
+     "pos": [
+      4.2,
+      0,
+      1.4
+     ],
+     "expr": "scared",
+     "ry": 90,
+     "to": [
+      7.5,
+      0,
+      1.6
+     ]
+    },
+    {
+     "id": "gamin",
+     "clip": "flee",
+     "pos": [
+      3.0,
+      0,
+      1.0
+     ],
+     "expr": "scared",
+     "ry": 90,
+     "to": [
+      6.5,
+      0,
+      1.0
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     3.0,
+     1.2,
+     0.8
+    ],
+    "angle": 0,
+    "zoom": 0.65,
+    "push": 0.05,
+    "glide": 0.8
+   },
+   "cut": false,
+   "highlight": [
+    "courant"
+   ],
+   "sfx": [
+    "whoosh"
+   ]
+  },
+  {
+   "line": "Il faisait du street workout partout, des tractions, des acrobaties",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "jump",
+     "pos": [
+      2.0,
+      0,
+      0.8
+     ],
+     "expr": "neutral",
+     "ry": 0,
+     "params": {
+      "dur": 0.6,
+      "height": 0.7
+     },
+     "actions": [
+      {
+       "at": 0.8,
+       "clip": "climbDown"
+      },
+      {
+       "at": 1.8,
+       "clip": "jump",
+       "params": {
+        "dur": 0.6,
+        "height": 0.7
+       }
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecNu",
+    "angle": 15,
+    "zoom": 0.95,
+    "push": 0.08,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "street",
+    "workout",
+    "tractions"
+   ],
+   "props": [
+    {
+     "name": "streetLamp",
+     "pos": [
+      2.6,
+      0,
+      0.3
+     ]
+    }
+   ]
+  },
+  {
+   "line": "et il se balançait de lampadaire en lampadaire et sur les toits des maisons en marchant comme un gorille.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "crawl",
+     "pos": [
+      -2,
+      3.25,
+      -1.5
+     ],
+     "expr": "neutral",
+     "ry": 90,
+     "to": [
+      2,
+      3.25,
+      -1.5
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     3.8,
+     -1.5
+    ],
+    "angle": 0,
+    "zoom": 0.45,
+    "push": 0.05
+   },
+   "set": "rooftopPowerLine",
+   "say": "et il se balançait de lampadaire en lampadaire et sur les toits des maisons en marchant comme un gorille.",
+   "highlight": [
+    "lampadaire",
+    "toits",
+    "gorille"
+   ]
+  },
+  {
+   "line": "Puis, retour au zoo, toujours moins musclé.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "flex",
+     "pos": [
+      0.3,
+      0,
+      5.2
+     ],
+     "expr": "sad",
+     "ry": 180
+    },
+    {
+     "id": "g0",
+     "clip": "flex",
+     "pos": [
+      -2.2,
+      0,
+      -2.4
+     ],
+     "expr": "smug",
+     "ry": 20,
+     "scale": 1.7
+    },
+    {
+     "id": "g1",
+     "clip": "flex",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "smug",
+     "ry": 0,
+     "scale": 1.7
+    },
+    {
+     "id": "g2",
+     "clip": "flex",
+     "pos": [
+      2.0,
+      0,
+      -2.2
+     ],
+     "expr": "smug",
+     "ry": -20,
+     "scale": 1.7
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecNu",
+    "angle": 160,
+    "zoom": 0.9,
+    "push": 0.1
+   },
+   "set": "zoo",
+   "highlight": [
+    "moins",
+    "musclé"
+   ]
+  },
+  {
+   "line": "Il était tellement furieux que maintenant, même les visiteurs le craignaient.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "yell",
+     "expr": "angry",
+     "ry": 0
+    },
+    {
+     "id": "madame",
+     "clip": "scared",
+     "pos": [
+      -1.4,
+      0,
+      6.2
+     ],
+     "expr": "scared",
+     "ry": 120
+    },
+    {
+     "id": "gamin",
+     "clip": "scared",
+     "pos": [
+      1.6,
+      0,
+      6.4
+     ],
+     "expr": "scared",
+     "ry": -130
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.2,
+     1.4,
+     5.8
+    ],
+    "angle": 75,
+    "zoom": 1.4,
+    "push": 0.1,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "furieux",
+    "visiteurs"
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.3,
+     "dur": 0.5,
+     "amount": 0.02
+    }
+   ]
+  },
+  {
+   "line": "Alors, il a sauté la barrière et s'est installé directement dans l'enclos des gorilles.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "jump",
+     "pos": [
+      0.3,
+      0,
+      5.2
+     ],
+     "expr": "neutral",
+     "ry": 0,
+     "params": {
+      "dur": 0.9,
+      "height": 1.4
+     },
+     "to": [
+      0.3,
+      0,
+      2.6
+     ],
+     "moveEnd": 0.9,
+     "actions": [
+      {
+       "at": 1.0,
+       "clip": "walk"
+      },
+      {
+       "at": 2.2,
+       "clip": "idle"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "from": [
+     4.5,
+     2.6,
+     8.0
+    ],
+    "to": [
+     3.6,
+     2.2,
+     6.6
+    ],
+    "lookAt": [
+     0.3,
+     1.0,
+     3.2
+    ],
+    "fov": 42
+   },
+   "cut": false,
+   "highlight": [
+    "barrière",
+    "enclos"
+   ],
+   "remove": [
+    "madame",
+    "gamin"
+   ]
+  },
+  {
+   "line": "Il mangeait et dormait avec eux pour trouver leur putain de secret.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "lieDown",
+     "pos": [
+      0.6,
+      0,
+      -1.6
+     ],
+     "expr": "sleepy"
+    },
+    {
+     "id": "g0",
+     "clip": "sleep",
+     "pos": [
+      -2.2,
+      0,
+      -2.4
+     ],
+     "expr": "sleepy",
+     "ry": 20,
+     "scale": 1.7
+    },
+    {
+     "id": "g1",
+     "clip": "sleep",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "sleepy",
+     "ry": 0,
+     "scale": 1.7
+    },
+    {
+     "id": "g2",
+     "clip": "sleep",
+     "pos": [
+      2.0,
+      0,
+      -2.2
+     ],
+     "expr": "sleepy",
+     "ry": -20,
+     "scale": 1.7
+    }
+   ],
+   "camera": {
+    "from": [
+     2.4,
+     6.0,
+     7.5
+    ],
+    "to": [
+     2.0,
+     5.2,
+     6.4
+    ],
+    "lookAt": [
+     0.3,
+     0.6,
+     -2.4
+    ],
+    "fov": 45
+   },
+   "cut": false,
+   "highlight": [
+    "putain",
+    "secret"
+   ],
+   "props": [
+    {
+     "name": "foodSack",
+     "pos": [
+      -1.0,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "text": "PURINA HIGH PROTEIN"
+     }
+    }
+   ]
+  },
+  {
+   "line": "Et là, il a remarqué un truc.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "stareCamera",
+     "pos": [
+      0.6,
+      0,
+      -1.4
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "mecNu",
+    "angle": 5,
+    "push": 0.08
+   },
+   "set": "zoo",
+   "highlight": [
+    "truc"
+   ]
+  },
+  {
+   "line": "Ils étaient beaucoup plus poilus que lui.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "flex",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "smug",
+     "scale": 1.7
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "g1",
+    "angle": 0,
+    "zoom": 1.08,
+    "push": 0.1,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "poilus"
+   ]
+  },
+  {
+   "line": "Pour lui, aucun doute, ces bâtards devaient être dopés.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "thinkChin",
+     "expr": "suspicious"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "mecNu",
+    "angle": 5,
+    "push": 0.05,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "bâtards",
+    "dopés"
+   ]
+  },
+  {
+   "line": "Il a attendu la nuit jusqu'à ce que tous les gorilles aient l'air de dormir.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "idle",
+     "pos": [
+      0.6,
+      0,
+      -1.4
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "g0",
+     "clip": "sleep",
+     "pos": [
+      -2.2,
+      0,
+      -2.4
+     ],
+     "expr": "sleepy",
+     "ry": 20,
+     "scale": 1.7
+    },
+    {
+     "id": "g1",
+     "clip": "sleep",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "sleepy",
+     "ry": 0,
+     "scale": 1.7
+    },
+    {
+     "id": "g2",
+     "clip": "sleep",
+     "pos": [
+      2.0,
+      0,
+      -2.2
+     ],
+     "expr": "sleepy",
+     "ry": -20,
+     "scale": 1.7
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.3,
+     1.0,
+     -2.4
+    ],
+    "angle": 0,
+    "zoom": 0.75,
+    "push": 0.08
+   },
+   "set": "zoo",
+   "setOpts": {
+    "night": true
+   },
+   "highlight": [
+    "nuit",
+    "dormir"
+   ],
+   "props": [
+    {
+     "name": "zzz",
+     "pos": [
+      -2.2,
+      2.0,
+      -2.4
+     ]
+    },
+    {
+     "name": "zzz",
+     "pos": [
+      2.0,
+      2.0,
+      -2.2
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Sauf un.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "idle",
+     "expr": "suspicious"
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "g1",
+    "angle": 0,
+    "zoom": 1.08,
+    "push": 0.12,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "un"
+   ],
+   "sfx": [
+    {
+     "name": "ding",
+     "at": 0.1,
+     "vol": 0.3
+    }
+   ]
+  },
+  {
+   "line": "Le plus gros s'est levé discrètement et s'est caché derrière un rocher.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "sneak",
+     "pos": [
+      0.0,
+      0,
+      -3.2
+     ],
+     "expr": "suspicious",
+     "ry": 60,
+     "to": [
+      2.2,
+      0,
+      -3.9
+     ],
+     "moveEnd": 2.4
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     1.2,
+     1.2,
+     -3.4
+    ],
+    "angle": 0,
+    "zoom": 0.75,
+    "push": 0.06,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "rocher"
+   ]
+  },
+  {
+   "line": "Le mec s'est planqué sous un carton, comme Snake dans Metal Gear Solid, et l'a suivi à petits pas.",
+   "actors": [],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.6,
+     0.9,
+     -1.6
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.08,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "carton",
+    "Snake",
+    "Metal",
+    "Gear"
+   ],
+   "props": [
+    {
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "pos": [
+      0.6,
+      0,
+      -1.4
+     ],
+     "to": [
+      1.4,
+      0,
+      -2.2
+     ]
+    }
+   ],
+   "remove": [
+    "mecNu"
+   ],
+   "replaceProps": true,
+   "overlays": [
+    {
+     "style": "label",
+     "text": "!",
+     "at": 0.2,
+     "until": 0.9,
+     "y": 0.3,
+     "size": 0.12,
+     "color": "#E8775F"
+    }
+   ],
+   "sfx": [
+    {
+     "name": "pop",
+     "at": 0.2,
+     "vol": 0.5
+    }
+   ]
+  },
+  {
+   "line": "Quand le gorille regardait derrière lui, il s'arrêtait net.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "lookAround",
+     "pos": [
+      2.2,
+      0,
+      -3.9
+     ],
+     "expr": "suspicious",
+     "ry": 60,
+     "ryTo": 200
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     1.8,
+     1.0,
+     -3.0
+    ],
+    "angle": 10,
+    "zoom": 0.75,
+    "push": 0.05,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "net"
+   ],
+   "props": [
+    {
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "pos": [
+      1.4,
+      0,
+      -2.2
+     ]
+    }
+   ],
+   "replaceProps": true
+  },
+  {
+   "line": "Derrière le rocher, le gorille se piquait aux stéroïdes.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "idle",
+     "pos": [
+      2.2,
+      0,
+      -3.9
+     ],
+     "expr": "smug",
+     "ry": 180,
+     "hold": {
+      "name": "syringe",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "g1",
+    "angle": 160,
+    "zoom": 1.62,
+    "push": 0.1
+   },
+   "set": "zoo",
+   "setOpts": {
+    "night": true
+   },
+   "highlight": [
+    "stéroïdes"
+   ],
+   "props": [
+    {
+     "name": "steroidVial",
+     "pos": [
+      2.6,
+      0.0,
+      -4.4
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Ensuite, il prenait un pré-workout interdit qui contenait un dérivé de méthamphétamine.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "idle",
+     "expr": "happy",
+     "hold": {
+      "name": "preWorkout",
+      "hand": "R",
+      "opts": {
+       "text": "INTERDIT"
+      }
+     }
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "g1",
+    "angle": 165,
+    "zoom": 1.62,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "pré-workout",
+    "interdit",
+    "méthamphétamine"
+   ]
+  },
+  {
+   "line": "Puis, il est entré dans une grotte.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "walk",
+     "pos": [
+      2.6,
+      0,
+      -4.6
+     ],
+     "expr": "neutral",
+     "ry": 150,
+     "to": [
+      3.6,
+      0,
+      -6.3
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     3.1,
+     1.3,
+     -5.4
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.06,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "grotte"
+   ]
+  },
+  {
+   "line": "Le mec l'a suivi, toujours sous son carton.",
+   "actors": [],
+   "camera": {
+    "preset": "full",
+    "target": [
+     3.2,
+     0.8,
+     -5.5
+    ],
+    "angle": 0,
+    "zoom": 0.75,
+    "push": 0.08,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "carton"
+   ],
+   "props": [
+    {
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "pos": [
+      2.4,
+      0,
+      -4.4
+     ],
+     "to": [
+      3.5,
+      0,
+      -6.2
+     ]
+    }
+   ],
+   "replaceProps": true,
+   "remove": [
+    "g1"
+   ]
+  },
+  {
+   "line": "À l'intérieur, une salle de musculation ultra-moderne cachée sous le zoo avec un coach privé.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "liftBarbell",
+     "pos": [
+      0,
+      0,
+      -0.6
+     ],
+     "expr": "angry",
+     "scale": 1.7,
+     "hold": {
+      "name": "barbell",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "coach",
+     "clip": "point",
+     "pos": [
+      1.6,
+      0,
+      0.2
+     ],
+     "expr": "angry",
+     "ry": -60
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0.6,
+     1.4,
+     -0.3
+    ],
+    "angle": 0,
+    "zoom": 0.7,
+    "push": 0.1
+   },
+   "set": "secretGym",
+   "highlight": [
+    "ultra-moderne",
+    "coach"
+   ]
+  },
+  {
+   "line": "Le gorille s'est entraîné douze heures d'affilée, toute la nuit, sans s'arrêter.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "liftBarbell",
+     "expr": "angry",
+     "params": {}
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "g1",
+    "angle": 15,
+    "zoom": 1.08,
+    "push": 0.1,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "douze",
+    "heures"
+   ],
+   "overlays": [
+    {
+     "style": "banner",
+     "text": "12 HEURES",
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "line": "Le coach lui faisait enchaîner les exercices.",
+   "actors": [
+    {
+     "id": "g1",
+     "clip": "punch",
+     "expr": "angry"
+    },
+    {
+     "id": "coach",
+     "clip": "yell",
+     "expr": "angry"
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.8,
+     1.4,
+     -0.2
+    ],
+    "angle": -20,
+    "zoom": 0.85,
+    "push": 0.08,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "coach",
+    "exercices"
+   ]
+  },
+  {
+   "line": "Le mec regardait tout depuis son carton.",
+   "actors": [],
+   "camera": {
+    "preset": "full",
+    "target": [
+     -2.2,
+     0.8,
+     1.2
+    ],
+    "angle": 30,
+    "zoom": 0.75,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "carton"
+   ],
+   "props": [
+    {
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "pos": [
+      -2.2,
+      0,
+      1.2
+     ]
+    }
+   ],
+   "replaceProps": true
+  },
+  {
+   "line": "Il avait enfin compris pourquoi ces cons étaient aussi musclés.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "stareCamera",
+     "pos": [
+      -2.2,
+      0,
+      1.2
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "mecNu",
+    "angle": 20,
+    "push": 0.05,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "cons",
+    "musclés"
+   ],
+   "props": [],
+   "replaceProps": true
+  },
+  {
+   "line": "Il a donc fait exactement pareil.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "liftBarbell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "expr": "angry",
+     "hold": {
+      "name": "barbell",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecNu",
+    "angle": 15,
+    "zoom": 0.9,
+    "push": 0.1
+   },
+   "set": "secretGym",
+   "highlight": [
+    "pareil"
+   ]
+  },
+  {
+   "line": "Les mêmes produits, les mêmes entraînements, le même putain de programme.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "idle",
+     "expr": "angry",
+     "hold": {
+      "name": "syringe",
+      "hand": "R"
+     },
+     "actions": [
+      {
+       "at": 1.3,
+       "clip": "punch"
+      },
+      {
+       "at": 2.6,
+       "clip": "liftBarbell"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mecNu",
+    "angle": 25,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "produits",
+    "entraînements",
+    "programme"
+   ],
+   "props": [
+    {
+     "name": "preWorkout",
+     "pos": [
+      0.7,
+      0,
+      0.5
+     ],
+     "opts": {
+      "text": "INTERDIT"
+     }
+    },
+    {
+     "name": "steroidVial",
+     "pos": [
+      0.9,
+      0,
+      0.3
+     ]
+    }
+   ]
+  },
+  {
+   "line": "Et à force, il s'est lui-même transformé en gorille.",
+   "actors": [
+    {
+     "id": "mecNu",
+     "clip": "flex",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "expr": "shocked",
+     "scaleTo": 1.15
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0,
+     1.8,
+     0
+    ],
+    "angle": 0,
+    "zoom": 0.9,
+    "push": 0.12,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "transformé",
+    "gorille"
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": 1.3,
+     "dur": 0.4
+    },
+    {
+     "type": "shake",
+     "at": 1.2,
+     "dur": 0.4,
+     "amount": 0.03
+    }
+   ]
+  },
+  {
+   "line": "",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "flex",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "expr": "surprised",
+     "scale": 1.5
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecGorille",
+    "angle": 0,
+    "zoom": 1.01,
+    "push": 0.1
+   },
+   "set": "secretGym",
+   "duration": 1.1,
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0,
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    {
+     "name": "boing",
+     "at": 0.05,
+     "vol": 0.5
+    }
+   ]
+  },
+  {
+   "line": "Sauf qu'il ne voulait pas être un gorille parmi les autres.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "idle",
+     "pos": [
+      0,
+      0,
+      -2.6
+     ],
+     "expr": "neutral",
+     "scale": 1.6
+    },
+    {
+     "id": "g0",
+     "clip": "idle",
+     "pos": [
+      -2.0,
+      0,
+      -2.4
+     ],
+     "expr": "neutral",
+     "ry": 20,
+     "scale": 1.6
+    },
+    {
+     "id": "g1",
+     "clip": "idle",
+     "pos": [
+      2.0,
+      0,
+      -2.6
+     ],
+     "expr": "neutral",
+     "ry": -20,
+     "scale": 1.6
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.2,
+     -2.6
+    ],
+    "angle": 0,
+    "zoom": 0.7,
+    "push": 0.1
+   },
+   "set": "zoo",
+   "highlight": [
+    "gorille",
+    "parmi"
+   ]
+  },
+  {
+   "line": "Il voulait être le plus musclé de tous.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "flex",
+     "expr": "smug"
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mecGorille",
+    "angle": 0,
+    "zoom": 1.22,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "plus",
+    "musclé"
+   ]
+  },
+  {
+   "line": "Alors, il a triplé la dose de chaque produit.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "idle",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "expr": "angry",
+     "scale": 1.6,
+     "hold": {
+      "name": "syringe",
+      "hand": "R",
+      "scale": 2
+     }
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecGorille",
+    "angle": 20,
+    "zoom": 1.35,
+    "push": 0.12
+   },
+   "set": "secretGym",
+   "highlight": [
+    "triplé",
+    "dose"
+   ],
+   "overlays": [
+    {
+     "style": "stamp",
+     "text": "x3",
+     "at": 0.5,
+     "y": 0.25
+    }
+   ],
+   "props": [
+    {
+     "name": "preWorkout",
+     "pos": [
+      -0.6,
+      0,
+      0.7
+     ],
+     "opts": {
+      "text": "INTERDIT"
+     }
+    },
+    {
+     "name": "preWorkout",
+     "pos": [
+      -0.3,
+      0,
+      0.7
+     ],
+     "opts": {
+      "text": "INTERDIT"
+     }
+    },
+    {
+     "name": "preWorkout",
+     "pos": [
+      0.6,
+      0,
+      0.7
+     ],
+     "opts": {
+      "text": "INTERDIT"
+     }
+    }
+   ]
+  },
+  {
+   "line": "Puis, il s'est entraîné pendant une semaine entière sans aucune pause, jour et nuit.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "liftBarbell",
+     "expr": "angry",
+     "hold": {
+      "name": "barbell",
+      "hand": "R"
+     },
+     "params": {}
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecGorille",
+    "angle": 15,
+    "zoom": 1.08,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "semaine",
+    "jour",
+    "nuit"
+   ],
+   "props": [],
+   "replaceProps": true,
+   "overlays": [
+    {
+     "style": "banner",
+     "text": "JOUR 1 → JOUR 7",
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "line": "Tout passait en accéléré.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "punch",
+     "expr": "angry",
+     "params": {}
+    },
+    {
+     "id": "coach",
+     "clip": "faint",
+     "pos": [
+      1.8,
+      0,
+      0.4
+     ],
+     "expr": "dead",
+     "ry": -60,
+     "params": {
+      "dur": 0.8
+     }
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.6,
+     1.6,
+     0.2
+    ],
+    "angle": 0,
+    "zoom": 0.9,
+    "push": 0.05,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "accéléré"
+   ],
+   "overlays": [
+    {
+     "style": "label",
+     "text": "▶▶ x16",
+     "at": 0,
+     "y": 0.12,
+     "size": 0.06
+    }
+   ]
+  },
+  {
+   "line": "Lui continuait.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "liftBarbell",
+     "expr": "angry",
+     "hold": {
+      "name": "barbell",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mecGorille",
+    "angle": 10,
+    "push": 0.08,
+    "glide": 0.4,
+    "zoom": 1.35
+   },
+   "cut": false,
+   "highlight": [
+    "continuait"
+   ]
+  },
+  {
+   "line": "Il est devenu énorme.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "flex",
+     "expr": "smug",
+     "scale": 1.6,
+     "scaleTo": 2.4,
+     "scaleEnd": 1.0
+    }
+   ],
+   "camera": {
+    "preset": "low",
+    "target": "mecGorille",
+    "angle": 0,
+    "zoom": 1.35,
+    "push": 0.0,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "énorme"
+   ],
+   "sfx": [
+    {
+     "name": "boing",
+     "at": 0.2,
+     "vol": 0.4
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.4,
+     "dur": 0.6,
+     "amount": 0.03
+    }
+   ]
+  },
+  {
+   "line": "Les autres gorilles avaient l'air de débutants.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "flex",
+     "pos": [
+      0,
+      0,
+      -0.8
+     ],
+     "expr": "smug",
+     "scale": 2.4
+    },
+    {
+     "id": "g0",
+     "clip": "scared",
+     "pos": [
+      -2.0,
+      0,
+      -2.4
+     ],
+     "expr": "scared",
+     "ry": 30,
+     "scale": 1.6
+    },
+    {
+     "id": "g1",
+     "clip": "scared",
+     "pos": [
+      0.0,
+      0,
+      -3.4
+     ],
+     "expr": "scared",
+     "ry": 0,
+     "scale": 1.6
+    },
+    {
+     "id": "g2",
+     "clip": "scared",
+     "pos": [
+      2.0,
+      0,
+      -2.6
+     ],
+     "expr": "scared",
+     "ry": -30,
+     "scale": 1.6
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     2.6,
+     -1.8
+    ],
+    "angle": 0,
+    "zoom": 1.25,
+    "push": 0.1
+   },
+   "set": "zoo",
+   "highlight": [
+    "débutants"
+   ]
+  },
+  {
+   "line": "Il s'est battu contre eux et leur a foutu une rouste un par un.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "punch",
+     "expr": "angry"
+    },
+    {
+     "id": "g0",
+     "clip": "faint",
+     "expr": "dead",
+     "params": {
+      "dur": 0.5
+     },
+     "actions": [
+      {
+       "at": 0,
+       "clip": "scared",
+       "expr": "scared"
+      },
+      {
+       "at": 0.8,
+       "clip": "faint",
+       "expr": "dead",
+       "params": {
+        "dur": 0.5
+       }
+      }
+     ]
+    },
+    {
+     "id": "g1",
+     "clip": "faint",
+     "expr": "dead",
+     "params": {
+      "dur": 0.5
+     },
+     "actions": [
+      {
+       "at": 0,
+       "clip": "scared",
+       "expr": "scared"
+      },
+      {
+       "at": 1.7000000000000002,
+       "clip": "faint",
+       "expr": "dead",
+       "params": {
+        "dur": 0.5
+       }
+      }
+     ]
+    },
+    {
+     "id": "g2",
+     "clip": "faint",
+     "expr": "dead",
+     "params": {
+      "dur": 0.5
+     },
+     "actions": [
+      {
+       "at": 0,
+       "clip": "scared",
+       "expr": "scared"
+      },
+      {
+       "at": 2.6,
+       "clip": "faint",
+       "expr": "dead",
+       "params": {
+        "dur": 0.5
+       }
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     2.6,
+     -1.8
+    ],
+    "angle": 15,
+    "zoom": 1.2,
+    "push": 0.06,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "battu",
+    "rouste"
+   ],
+   "sfx": [
+    {
+     "name": "thud",
+     "at": 0.8,
+     "vol": 0.6
+    },
+    {
+     "name": "thud",
+     "at": 1.7000000000000002,
+     "vol": 0.6
+    },
+    {
+     "name": "thud",
+     "at": 2.6,
+     "vol": 0.6
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.8,
+     "dur": 0.2,
+     "amount": 0.03
+    },
+    {
+     "type": "shake",
+     "at": 1.7000000000000002,
+     "dur": 0.2,
+     "amount": 0.03
+    },
+    {
+     "type": "shake",
+     "at": 2.6,
+     "dur": 0.2,
+     "amount": 0.03
+    }
+   ]
+  },
+  {
+   "line": "Il a battu tout le monde, est devenu l'alpha et s'est mis à vivre comme le chef de l'enclos.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "celebrate",
+     "pos": [
+      2.2,
+      1.0,
+      -2.6
+     ],
+     "expr": "happy",
+     "scale": 2.4,
+     "attach": [
+      {
+       "name": "crown",
+       "joint": "head",
+       "pos": [
+        0,
+        0.42,
+        0.05
+       ],
+       "scale": 1.4
+      }
+     ]
+    },
+    {
+     "id": "g0",
+     "clip": "kneel",
+     "pos": [
+      -0.6,
+      0,
+      -0.6
+     ],
+     "expr": "sad",
+     "ry": 60,
+     "scale": 1.6
+    },
+    {
+     "id": "g1",
+     "clip": "kneel",
+     "pos": [
+      0.8,
+      0,
+      -0.2
+     ],
+     "expr": "sad",
+     "ry": 20,
+     "scale": 1.6
+    },
+    {
+     "id": "g2",
+     "clip": "kneel",
+     "pos": [
+      -1.8,
+      0,
+      -1.0
+     ],
+     "expr": "sad",
+     "ry": 70,
+     "scale": 1.6
+    }
+   ],
+   "camera": {
+    "from": [
+     0.0,
+     3.6,
+     10.0
+    ],
+    "to": [
+     0.3,
+     3.4,
+     8.6
+    ],
+    "lookAt": [
+     1.2,
+     2.6,
+     -2.0
+    ],
+    "fov": 45
+   },
+   "set": "zoo",
+   "highlight": [
+    "alpha",
+    "chef"
+   ],
+   "props": [
+    {
+     "name": "rock",
+     "pos": [
+      2.2,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "size": 1.4
+     }
+    }
+   ]
+  },
+  {
+   "line": "Puis, un autre gros muscu est arrivé au zoo.",
+   "actors": [
+    {
+     "id": "muscu",
+     "clip": "walk",
+     "pos": [
+      -1.6,
+      0,
+      6.4
+     ],
+     "expr": "smug",
+     "ry": 90,
+     "to": [
+      0.2,
+      0,
+      6.0
+     ],
+     "moveEnd": 1.8,
+     "scale": 1.25,
+     "actions": [
+      {
+       "at": 1.9,
+       "clip": "flex"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "muscu",
+    "angle": 180,
+    "zoom": 0.95,
+    "push": 0.08
+   },
+   "set": "zoo",
+   "highlight": [
+    "gros",
+    "muscu"
+   ]
+  },
+  {
+   "line": "Il a vu son physique, est devenu jaloux et a cru qu'il le provoquait.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "angryFist",
+     "pos": [
+      0,
+      0,
+      1.0
+     ],
+     "expr": "angry",
+     "scale": 2.4,
+     "attach": [
+      {
+       "name": "crown",
+       "joint": "head",
+       "pos": [
+        0,
+        0.42,
+        0.05
+       ],
+       "scale": 1.4
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "mecGorille",
+    "angle": 0,
+    "zoom": 1.35,
+    "push": 0.1
+   },
+   "set": "zoo",
+   "highlight": [
+    "jaloux",
+    "provoquait"
+   ]
+  },
+  {
+   "line": "Alors, il a appelé la police.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "phone",
+     "expr": "angry",
+     "hold": {
+      "name": "phone911",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mecGorille",
+    "angle": 10,
+    "push": 0.1,
+    "glide": 0.5,
+    "zoom": 1.35
+   },
+   "cut": false,
+   "highlight": [
+    "police"
+   ],
+   "overlays": [
+    {
+     "style": "phone",
+     "text": "17",
+     "sub": "POLICE",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "line": "Les flics sont arrivés en urgence et ont arrêté tous les gorilles pour dopage et possession de stéroïdes.",
+   "actors": [
+    {
+     "id": "mecGorille",
+     "clip": "handcuffed",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "expr": "sad",
+     "scale": 2.4
+    },
+    {
+     "id": "g0",
+     "clip": "handcuffed",
+     "pos": [
+      -2.0,
+      0,
+      -2.4
+     ],
+     "expr": "sad",
+     "ry": 20,
+     "scale": 1.6
+    },
+    {
+     "id": "g1",
+     "clip": "handcuffed",
+     "pos": [
+      0.0,
+      0,
+      -3.4
+     ],
+     "expr": "sad",
+     "ry": 0,
+     "scale": 1.6
+    },
+    {
+     "id": "g2",
+     "clip": "handcuffed",
+     "pos": [
+      2.0,
+      0,
+      -2.6
+     ],
+     "expr": "sad",
+     "ry": -20,
+     "scale": 1.6
+    },
+    {
+     "id": "flic1",
+     "clip": "point",
+     "pos": [
+      -1.4,
+      0,
+      1.2
+     ],
+     "expr": "angry",
+     "ry": 150
+    },
+    {
+     "id": "flic2",
+     "clip": "handsOnHips",
+     "pos": [
+      1.4,
+      0,
+      1.2
+     ],
+     "expr": "angry",
+     "ry": -150
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     2.2,
+     -0.8
+    ],
+    "angle": 0,
+    "zoom": 1.35,
+    "push": 0.1
+   },
+   "set": "zoo",
+   "highlight": [
+    "flics",
+    "dopage",
+    "stéroïdes"
+   ],
+   "props": [
+    {
+     "name": "policeCar",
+     "pos": [
+      -3.5,
+      0,
+      6.5
+     ],
+     "ry": 90
+    }
+   ],
+   "sfx": [
+    {
+     "name": "siren",
+     "at": 0,
+     "vol": 0.4
+    }
+   ]
+  },
+  {
+   "line": "En remontant l'affaire, ils ont trouvé le chimiste qui fabriquait les produits.",
+   "actors": [
+    {
+     "id": "chimiste",
+     "clip": "idle",
+     "pos": [
+      0,
+      0,
+      -2.2
+     ],
+     "expr": "neutral",
+     "attach": [
+      {
+       "name": "porkpieHat",
+       "joint": "head",
+       "pos": [
+        0,
+        0.42,
+        0.06
+       ],
+       "scale": 1.0
+      },
+      {
+       "name": "glasses",
+       "joint": "head",
+       "pos": [
+        0,
+        0.28,
+        0.24
+       ],
+       "opts": {
+        "r": 0.055,
+        "dx": 0.075
+       }
+      }
+     ]
+    },
+    {
+     "id": "flic1",
+     "clip": "point",
+     "pos": [
+      -1.4,
+      0,
+      0.6
+     ],
+     "expr": "angry",
+     "ry": 140
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -0.4,
+     1.3,
+     -1.2
+    ],
+    "angle": 0,
+    "zoom": 0.7,
+    "push": 0.1
+   },
+   "set": "lab",
+   "highlight": [
+    "chimiste"
+   ]
+  },
+  {
+   "line": "Un gorille chauve avec des lunettes et un chapeau.",
+   "actors": [
+    {
+     "id": "chimiste",
+     "clip": "idle",
+     "expr": "unimpressed",
+     "attach": [
+      {
+       "name": "porkpieHat",
+       "joint": "head",
+       "pos": [
+        0,
+        0.42,
+        0.06
+       ],
+       "scale": 1.0
+      },
+      {
+       "name": "glasses",
+       "joint": "head",
+       "pos": [
+        0,
+        0.28,
+        0.24
+       ],
+       "opts": {
+        "r": 0.055,
+        "dx": 0.075
+       }
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "chimiste",
+    "angle": 0,
+    "zoom": 1.22,
+    "push": 0.12,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "chauve",
+    "lunettes",
+    "chapeau"
+   ]
+  },
+  {
+   "line": "Walter White.",
+   "actors": [
+    {
+     "id": "chimiste",
+     "clip": "idle",
+     "expr": "smug",
+     "attach": [
+      {
+       "name": "porkpieHat",
+       "joint": "head",
+       "pos": [
+        0,
+        0.42,
+        0.06
+       ],
+       "scale": 1.0
+      },
+      {
+       "name": "glasses",
+       "joint": "head",
+       "pos": [
+        0,
+        0.28,
+        0.24
+       ],
+       "opts": {
+        "r": 0.055,
+        "dx": 0.075
+       }
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "chimiste",
+    "angle": 0,
+    "zoom": 1.22,
+    "push": 0.05,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "Walter",
+    "White"
+   ],
+   "hold": 0.3
+  },
+  {
+   "line": "Ils l'ont arrêté aussi.",
+   "actors": [
+    {
+     "id": "chimiste",
+     "clip": "handcuffed",
+     "expr": "sad",
+     "attach": [
+      {
+       "name": "porkpieHat",
+       "joint": "head",
+       "pos": [
+        0,
+        0.42,
+        0.06
+       ],
+       "scale": 1.0
+      },
+      {
+       "name": "glasses",
+       "joint": "head",
+       "pos": [
+        0,
+        0.28,
+        0.24
+       ],
+       "opts": {
+        "r": 0.055,
+        "dx": 0.075
+       }
+      }
+     ]
+    },
+    {
+     "id": "flic1",
+     "clip": "handsOnHips",
+     "pos": [
+      -0.8,
+      0,
+      -1.6
+     ],
+     "expr": "smug",
+     "ry": 60
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     -0.4,
+     2.0,
+     -1.9
+    ],
+    "angle": 0,
+    "zoom": 1.2,
+    "push": 0.08,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "arrêté"
+   ]
+  },
+  {
+   "line": "Walter White leur a permis de remonter jusqu'au réseau de distribution.",
+   "actors": [
+    {
+     "id": "fringant",
+     "clip": "armsCrossed",
+     "pos": [
+      0,
+      0,
+      -1.2
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.4,
+     -1.4
+    ],
+    "angle": 0,
+    "zoom": 0.7,
+    "push": 0.1
+   },
+   "set": "restaurant",
+   "highlight": [
+    "réseau",
+    "distribution"
+   ],
+   "props": [
+    {
+     "name": "signBoard",
+     "pos": [
+      0,
+      2.2,
+      -2.8
+     ],
+     "opts": {
+      "text": "POULET HERMANOS",
+      "bg": "#E1C25A",
+      "fg": "#C23A2E",
+      "w": 2.6,
+      "h": 0.6,
+      "posts": false,
+      "height": 0
+     }
+    }
+   ]
+  },
+  {
+   "line": "Le responsable s'appelait Gustavo Fringant.",
+   "actors": [
+    {
+     "id": "fringant",
+     "clip": "armsCrossed",
+     "expr": "unimpressed"
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "fringant",
+    "angle": 0,
+    "zoom": 0.9,
+    "push": 0.1,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "Gustavo",
+    "Fringant"
+   ]
+  },
+  {
+   "line": "Il prétendait être opposé au restaurant de poulet.",
+   "actors": [
+    {
+     "id": "fringant",
+     "clip": "shakeHead",
+     "expr": "neutral"
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "fringant",
+    "angle": 15,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "opposé",
+    "poulet"
+   ]
+  },
+  {
+   "line": "En réalité, il était derrière Poulet Hermanos et faisait circuler les produits dans ce réseau.",
+   "actors": [
+    {
+     "id": "fringant",
+     "clip": "present",
+     "expr": "smug",
+     "hold": {
+      "name": "preWorkout",
+      "hand": "R",
+      "opts": {
+       "text": "INTERDIT"
+      }
+     }
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": "fringant",
+    "angle": -10,
+    "zoom": 0.8,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "Poulet",
+    "Hermanos",
+    "produits"
+   ],
+   "props": [
+    {
+     "name": "foodSack",
+     "pos": [
+      -1.2,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "text": "POULET HERMANOS"
+     }
+    },
+    {
+     "name": "foodSack",
+     "pos": [
+      1.2,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "text": "POULET HERMANOS"
+     }
+    }
+   ]
+  },
+  {
+   "line": "Les flics l'ont arrêté, mais ils soupçonnaient un trafic beaucoup plus vaste.",
+   "actors": [
+    {
+     "id": "fringant",
+     "clip": "handcuffed",
+     "expr": "angry"
+    },
+    {
+     "id": "flic1",
+     "clip": "point",
+     "pos": [
+      -1.2,
+      0,
+      -0.2
+     ],
+     "expr": "suspicious",
+     "ry": 150
+    },
+    {
+     "id": "flic2",
+     "clip": "think",
+     "pos": [
+      1.2,
+      0,
+      -0.2
+     ],
+     "expr": "suspicious",
+     "ry": -150
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.4,
+     -0.8
+    ],
+    "angle": 0,
+    "zoom": 0.75,
+    "push": 0.08,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "trafic",
+    "vaste"
+   ]
+  },
+  {
+   "line": "Alors, ils sont allés dans les fermes.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "walk",
+     "pos": [
+      -0.8,
+      0,
+      2.0
+     ],
+     "expr": "suspicious",
+     "ry": 0,
+     "to": [
+      -0.6,
+      0,
+      0.6
+     ]
+    },
+    {
+     "id": "flic2",
+     "clip": "walk",
+     "pos": [
+      0.8,
+      0,
+      2.2
+     ],
+     "expr": "suspicious",
+     "ry": 0,
+     "to": [
+      0.6,
+      0,
+      0.8
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.3,
+     -0.5
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.1
+   },
+   "set": "farm",
+   "highlight": [
+    "fermes"
+   ]
+  },
+  {
+   "line": "Les éleveurs donnaient des hormones de croissance aux poulets.",
+   "actors": [
+    {
+     "id": "fermier",
+     "clip": "idle",
+     "pos": [
+      0,
+      0,
+      -0.6
+     ],
+     "expr": "smug",
+     "hold": {
+      "name": "syringe",
+      "hand": "R",
+      "scale": 2
+     }
+    },
+    {
+     "id": "poulet0",
+     "clip": "peck",
+     "pos": [
+      -1.2,
+      0,
+      0.2
+     ],
+     "expr": "neutral",
+     "scale": 1.2
+    },
+    {
+     "id": "poulet1",
+     "clip": "peck",
+     "pos": [
+      1.1,
+      0,
+      0.0
+     ],
+     "expr": "neutral",
+     "scale": 1.2
+    },
+    {
+     "id": "poulet2",
+     "clip": "peck",
+     "pos": [
+      -0.4,
+      0,
+      0.8
+     ],
+     "expr": "neutral",
+     "scale": 1.2
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0,
+     1.2,
+     -0.2
+    ],
+    "angle": 10,
+    "zoom": 0.85,
+    "push": 0.1
+   },
+   "set": "farm",
+   "highlight": [
+    "hormones",
+    "poulets"
+   ]
+  },
+  {
+   "line": "Les volailles étaient devenues beaucoup trop musclées.",
+   "actors": [
+    {
+     "id": "poulet0",
+     "clip": "flex",
+     "pos": [
+      -1.4,
+      0,
+      -0.4
+     ],
+     "expr": "smug",
+     "scale": 4.2,
+     "opts": null
+    },
+    {
+     "id": "poulet1",
+     "clip": "flex",
+     "pos": [
+      1.4,
+      0,
+      -0.6
+     ],
+     "expr": "smug",
+     "scale": 4.2,
+     "opts": null
+    },
+    {
+     "id": "poulet2",
+     "clip": "flex",
+     "pos": [
+      0,
+      0,
+      0.6
+     ],
+     "expr": "smug",
+     "scale": 4.2,
+     "opts": null
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0,
+     2.6,
+     -0.2
+    ],
+    "angle": 0,
+    "zoom": 2.0,
+    "push": 0.1
+   },
+   "set": "farm",
+   "highlight": [
+    "volailles",
+    "musclées"
+   ],
+   "sfx": [
+    {
+     "name": "boing",
+     "at": 0.2,
+     "vol": 0.4
+    }
+   ]
+  },
+  {
+   "line": "Les policiers ont arrêté les poulets, puis les gens qui en avaient mangé.",
+   "actors": [
+    {
+     "id": "poulet0",
+     "clip": "handcuffed",
+     "pos": [
+      -1.4,
+      0,
+      -0.4
+     ],
+     "expr": "sad",
+     "scale": 4.2
+    },
+    {
+     "id": "poulet1",
+     "clip": "handcuffed",
+     "pos": [
+      1.4,
+      0,
+      -0.6
+     ],
+     "expr": "sad",
+     "scale": 4.2
+    },
+    {
+     "id": "serveur",
+     "clip": "handcuffed",
+     "pos": [
+      0,
+      0,
+      0.8
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "flic1",
+     "clip": "point",
+     "pos": [
+      -0.6,
+      0,
+      2.0
+     ],
+     "expr": "angry",
+     "ry": 180
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.5,
+     0.2
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.08,
+    "glide": 0.7
+   },
+   "cut": false,
+   "highlight": [
+    "poulets",
+    "mangé"
+   ]
+  },
+  {
+   "line": "Parmi eux, il y avait aussi des policiers qui avaient bouffé du poulet.",
+   "actors": [
+    {
+     "id": "flic3",
+     "clip": "handcuffed",
+     "pos": [
+      -2.4,
+      0,
+      -0.4
+     ],
+     "expr": "sad",
+     "ry": 0
+    },
+    {
+     "id": "flic4",
+     "clip": "handcuffed",
+     "pos": [
+      -1.2,
+      0,
+      -1.0
+     ],
+     "expr": "sad",
+     "ry": 0
+    },
+    {
+     "id": "flic5",
+     "clip": "handcuffed",
+     "pos": [
+      0.0,
+      0,
+      -0.4
+     ],
+     "expr": "sad",
+     "ry": 0
+    },
+    {
+     "id": "flic6",
+     "clip": "handcuffed",
+     "pos": [
+      1.1999999999999997,
+      0,
+      -1.0
+     ],
+     "expr": "sad",
+     "ry": 0
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -0.6,
+     1.4,
+     -0.6
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.1
+   },
+   "set": "policeStation",
+   "highlight": [
+    "policiers",
+    "poulet"
+   ]
+  },
+  {
+   "line": "Et là, un mec leur a dit : mais vous aussi, on vous appelle les poulets.",
+   "actors": [
+    {
+     "id": "prisonnier",
+     "clip": "talk",
+     "pos": [
+      0.4,
+      0,
+      0.6
+     ],
+     "expr": "smug",
+     "talk": true
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "prisonnier",
+    "angle": 10,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "poulets"
+   ]
+  },
+  {
+   "line": "Les flics se sont regardés.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "stand",
+     "pos": [
+      -0.5,
+      0,
+      0.4
+     ],
+     "expr": "surprised",
+     "ry": 90
+    },
+    {
+     "id": "flic2",
+     "clip": "stand",
+     "pos": [
+      0.5,
+      0,
+      0.4
+     ],
+     "expr": "surprised",
+     "ry": -90
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": [
+     0,
+     2.0,
+     0.4
+    ],
+    "angle": 0,
+    "zoom": 1.0,
+    "push": 0.08
+   },
+   "set": "policeStation",
+   "highlight": [
+    "regardés"
+   ],
+   "hold": 0.3
+  },
+  {
+   "line": "Putain, il avait raison.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "facepalm",
+     "expr": "shocked"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "flic1",
+    "angle": 60,
+    "push": 0.05,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "Putain",
+    "raison"
+   ]
+  },
+  {
+   "line": "Alors, ils ont commencé à arrêter les autres policiers.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "point",
+     "pos": [
+      -0.5,
+      0,
+      0.4
+     ],
+     "expr": "angry",
+     "ry": 40
+    },
+    {
+     "id": "flic2",
+     "clip": "handcuffed",
+     "pos": [
+      0.5,
+      0,
+      0.4
+     ],
+     "expr": "sad",
+     "ry": -20
+    },
+    {
+     "id": "flic3",
+     "clip": "handcuffed",
+     "pos": [
+      -2.4,
+      0,
+      -0.4
+     ],
+     "expr": "sad",
+     "ry": 0
+    },
+    {
+     "id": "flic4",
+     "clip": "handcuffed",
+     "pos": [
+      -1.2,
+      0,
+      -1.0
+     ],
+     "expr": "sad",
+     "ry": 0
+    },
+    {
+     "id": "flic5",
+     "clip": "handcuffed",
+     "pos": [
+      0.0,
+      0,
+      -0.4
+     ],
+     "expr": "sad",
+     "ry": 0
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -0.4,
+     1.4,
+     -0.2
+    ],
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.08
+   },
+   "set": "policeStation",
+   "highlight": [
+    "arrêter",
+    "policiers"
+   ]
+  },
+  {
+   "line": "Pour être sûrs de n'oublier personne, ils ont appelé la Belgique, puis Montréal, puis tous les pays où les flics pouvaient être appelés les poulets en français.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "phone",
+     "pos": [
+      0,
+      0,
+      0.4
+     ],
+     "expr": "neutral",
+     "hold": {
+      "name": "phone911",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "flic1",
+    "angle": 15,
+    "push": 0.15
+   },
+   "set": "policeStation",
+   "highlight": [
+    "Belgique",
+    "Montréal",
+    "poulets"
+   ],
+   "overlays": [
+    {
+     "style": "banner",
+     "text": "📞 BELGIQUE",
+     "at": 2.0,
+     "until": 3.2
+    },
+    {
+     "style": "banner",
+     "text": "📞 MONTRÉAL",
+     "at": 3.2,
+     "until": 4.4
+    },
+    {
+     "style": "banner",
+     "text": "📞 SUISSE · LUXEMBOURG · …",
+     "at": 4.4
+    }
+   ]
+  },
+  {
+   "line": "Chaque policier arrêtait le suivant.",
+   "actors": [
+    {
+     "id": "flic3",
+     "clip": "handcuffed",
+     "pos": [
+      -3.0,
+      0,
+      0
+     ],
+     "expr": "sad",
+     "ry": 90
+    },
+    {
+     "id": "flic4",
+     "clip": "handcuffed",
+     "pos": [
+      -2.0,
+      0,
+      0
+     ],
+     "expr": "sad",
+     "ry": 90
+    },
+    {
+     "id": "flic5",
+     "clip": "handcuffed",
+     "pos": [
+      -1.0,
+      0,
+      0
+     ],
+     "expr": "sad",
+     "ry": 90
+    },
+    {
+     "id": "flic6",
+     "clip": "handcuffed",
+     "pos": [
+      0.0,
+      0,
+      0
+     ],
+     "expr": "sad",
+     "ry": 90
+    },
+    {
+     "id": "flic7",
+     "clip": "handcuffed",
+     "pos": [
+      1.0,
+      0,
+      0
+     ],
+     "expr": "sad",
+     "ry": 90
+    },
+    {
+     "id": "flic8",
+     "clip": "handcuffed",
+     "pos": [
+      2.0,
+      0,
+      0
+     ],
+     "expr": "sad",
+     "ry": 90
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     -0.5,
+     1.3,
+     0
+    ],
+    "angle": 0,
+    "zoom": 0.9,
+    "push": 0.06,
+    "orbit": 20
+   },
+   "set": "policeStation",
+   "highlight": [
+    "suivant"
+   ]
+  },
+  {
+   "line": "Les commissariats se remplissaient de leurs propres employés.",
+   "actors": [],
+   "camera": {
+    "preset": "wide",
+    "target": [
+     0,
+     1.4,
+     0
+    ],
+    "angle": 0,
+    "zoom": 0.75,
+    "push": 0.1
+   },
+   "set": "prisonCell",
+   "highlight": [
+    "commissariats",
+    "employés"
+   ],
+   "crowd": [
+    {
+     "spec": {
+      "preset": "cop"
+     },
+     "count": 9,
+     "center": [
+      0,
+      0,
+      -1.2
+     ],
+     "spread": 3.2,
+     "clip": "handcuffed",
+     "seed": 5
+    }
+   ]
+  },
+  {
+   "line": "À la fin, il ne restait qu'un seul flic libre.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "stand",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "expr": "sad"
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "target": "flic1",
+    "angle": 0,
+    "zoom": 0.8,
+    "push": 0.15
+   },
+   "set": "policeStation",
+   "highlight": [
+    "seul",
+    "libre"
+   ],
+   "sfx": [
+    {
+     "name": "crickets",
+     "at": 0.3,
+     "vol": 0.3
+    }
+   ]
+  },
+  {
+   "line": "Il a menotté son premier poignet.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "handcuffed",
+     "expr": "unimpressed",
+     "hold": {
+      "name": "handcuffs",
+      "hand": "L"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "flic1",
+    "angle": 10,
+    "push": 0.1,
+    "glide": 0.6
+   },
+   "cut": false,
+   "highlight": [
+    "menotté",
+    "poignet"
+   ],
+   "sfx": [
+    {
+     "name": "click",
+     "at": 0.8,
+     "vol": 0.6
+    }
+   ]
+  },
+  {
+   "line": "L'autre main a essayé de le libérer.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "pressGlass",
+     "expr": "worried",
+     "hold": {
+      "name": "handcuffs",
+      "hand": "L"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "target": "flic1",
+    "angle": 0,
+    "push": 0.1,
+    "glide": 0.5
+   },
+   "cut": false,
+   "highlight": [
+    "libérer"
+   ]
+  },
+  {
+   "line": "Complicité.",
+   "actors": [
+    {
+     "id": "flic1",
+     "clip": "handcuffed",
+     "expr": "dead",
+     "hold": {
+      "name": "handcuffs",
+      "hand": "L"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "target": "flic1",
+    "angle": 0,
+    "push": 0.04,
+    "glide": 0.4
+   },
+   "cut": false,
+   "highlight": [
+    "Complicité"
+   ],
+   "overlays": [
+    {
+     "style": "stamp",
+     "text": "COMPLICITÉ",
+     "at": 0.4,
+     "y": 0.3
+    }
+   ],
+   "sfx": [
+    {
+     "name": "sting",
+     "at": 0.4,
+     "vol": 0.4
+    }
+   ],
+   "hold": 1.2
+  }
+ ]
+}

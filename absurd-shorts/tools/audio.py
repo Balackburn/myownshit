@@ -68,8 +68,12 @@ def elevenlabs_voice_id(key, voice):
 
 def tts_elevenlabs(text, out, voice):
     key = os.environ['ELEVENLABS_API_KEY']; vid = elevenlabs_voice_id(key, voice)
-    body = json.dumps({'text': text, 'model_id': voice.get('model', 'eleven_multilingual_v2'),
-                       'voice_settings': {'stability': voice.get('stability', 0.75), 'similarity_boost': 0.8, 'style': 0.0, 'speed': voice.get('rate', 1.1)}}).encode()
+    payload = {'text': text, 'model_id': voice.get('model', 'eleven_multilingual_v2'),
+               'voice_settings': {'stability': voice.get('stability', 0.75), 'similarity_boost': 0.8, 'style': 0.0, 'speed': voice.get('rate', 1.1)}}
+    # neighbouring lines keep one continuous deadpan delivery across per-shot calls
+    if voice.get('_prev'): payload['previous_text'] = voice['_prev']
+    if voice.get('_next'): payload['next_text'] = voice['_next']
+    body = json.dumps(payload).encode()
     # mp3 works on every plan (pcm_44100 needs the Pro tier) -> decode with ffmpeg
     req = urllib.request.Request(f'https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=mp3_44100_128', body,
                                  {'xi-api-key': key, 'content-type': 'application/json'})
@@ -119,6 +123,9 @@ def cmd_tts(script_path, workdir):
             shot['duration'] = shot.get('duration', 1.2); shot['words'] = []; continue
         wav = os.path.join(workdir, f'shot{i:02d}.wav')
         v = {**voice, **shot.get('voice', {})}  # per-shot override (e.g. a cop's dialogue line)
+        spoken = [x.get('say', x.get('line', '')) for x in sc['shots']]
+        v['_prev'] = ' '.join(t for t in spoken[max(0, i - 2):i] if t.strip())[-400:]
+        v['_next'] = ' '.join(t for t in spoken[i + 1:i + 3] if t.strip())[:400]
         if line.strip().startswith(('"', '«')) and 'voice' not in shot:  # quoted dialogue -> second voice by default
             v = {**v, **sc.get('dialogueVoice', {'pitch': 48, 'speed': 185, 'id': voice.get('dialogueId', voice.get('id'))})}
         try: x = tts_espeak(speakable(line), wav, v) if failed else (tts_files(line, wav, v, i) if engine == 'files' else fn(speakable(line), wav, v))
