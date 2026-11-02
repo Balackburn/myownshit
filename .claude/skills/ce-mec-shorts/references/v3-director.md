@@ -88,3 +88,23 @@ Keys (all take `at`):
   `beardColor` for gags.
 - No overlays at all (no banners, dates or floating symbols); captions only. The hidden watermark
   `wmSign` (poster, sticker or stand) appears on 4–5 sets in a 4-minute film and never centre frame.
+
+## Places and backgrounds (viz3d pass)
+
+Sets follow the `visualize-in-3d` skill (codepawl/viz3d, installed in `.claude/skills/`), adapted to the series look
+(flat matte low-poly, paper grain, muted palette, outlines on key objects):
+
+- **Build from real references, not memory.** A place gets the elements its real counterpart has. For example, a gorilla
+  habitat has rockwork with the night-house door, a climbing frame with ropes and a fire-hose hammock, a dead climbing
+  tree, hay, logs, worn dirt and a visitor promenade.
+- **Detail in the order the camera sees it:** silhouette, then large forms, then panel lines, signage and lights.
+- **Lived in:** every room holds what its people really own (a lab has glassware, drums, a fume hood and hazmat suits;
+  a fast food has tills, menu boards and fryers; a station has lockers, cabinets, a water cooler and a coffee corner).
+- **Motivated light:** visible lamps, tube lights and screens. Gyms and interiors use `interior` lighting; dark subjects
+  must read against floors and walls.
+- **Keep acting areas clear:** the centre, the paths in the storyboard, desk fronts and cell fronts. Re-run
+  `--stills cams` after any set change and check that nothing new eats the frame.
+- **QA:** `node tools/qa_sets.mjs zoo,lab,...` lists coplanar (z-fighting) pairs and mesh/triangle counts per set.
+  `engine/qa/frame-guard.js` and `coplanar-check.js` are the viz3d scripts.
+  Visible coplanar faces need ≥ 2 cm separation; flat ground details are slabs, not planes at y = 0.003.
+- **Brand signage** can be a set option (`restaurant` `setOpts: {brand: 'MASTER POULET'}`) instead of a floating scene prop.
