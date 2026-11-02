@@ -12,6 +12,7 @@ const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
 
 /* ------------------------------------------------------------------ helpers (shared with sets.js) */
+const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
 export const grp = (...kids) => { const g = new THREE.Group(); kids.forEach(k => k && g.add(k)); return g; };
 export function at(o, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) { o.position.set(x, y, z); o.rotation.set(rx, ry, rz); return o; }
 export function mesh(geo, material) { const m = new THREE.Mesh(geo, material); m.castShadow = m.receiveShadow = true; return m; }
@@ -794,6 +795,68 @@ const B = {
     const g = grp(); [-1, 1].forEach(sd => { g.add(at(box(0.07, 0.025, 0.012, P.ink), sd * 0.04, 0, 0, 0, 0, sd * 0.25)); g.add(at(box(0.035, 0.018, 0.012, P.ink), sd * 0.085, 0.012, 0, 0, 0, sd * 0.9)); });
     return g;
   },
+  // ---- v3 film props ---------------------------------------------------------------------------------
+  marker(o) { const g = grp(at(cyl(0.012, 0.012, 0.13, o.color || P.ink, 6), 0, 0.065, 0), at(cyl(0.012, 0.004, 0.025, P.ink, 6), 0, -0.012, 0)); g.userData.grip = [0, 0.07, 0]; return g; },
+  coffeeMachine(o) { return grp(at(box(0.5, 1.5, 0.45, P.greyDark, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.4, 0.3, 0.02, '#1E2A33'), 0, 1.15, 0.23), at(box(0.22, 0.18, 0.12, P.ink), 0, 0.62, 0.2),
+    at(label('CAFÉ', 0.3, 0.1, { bg: P.red, fg: P.white }), 0, 1.38, 0.231), at(cyl(0.04, 0.035, 0.08, P.white, 8), 0, 0.5, 0.2)); },
+  beerStream(o) { const h = o.length || 0.45; const m = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.018, h, 8), new THREE.MeshLambertMaterial({ color: '#E6B44A', transparent: true, opacity: 0.85 })); m.position.y = -h / 2; return grp(m); },
+  dartboard(o) { const g = grp(); [[0.25, P.ink], [0.2, P.red], [0.14, P.cream], [0.08, P.green], [0.03, P.red]].forEach(([r, c], i) => g.add(at(cyl(r, r, 0.03 + i * 0.004, c, 16), 0, 0, i * 0.004, Math.PI / 2))); return g; },
+  dart(o) { return grp(at(cyl(0.006, 0.006, 0.12, P.grey, 5), 0, 0, 0, Math.PI / 2), at(box(0.04, 0.002, 0.04, P.red), 0, 0, -0.07), at(box(0.002, 0.04, 0.04, P.red), 0, 0, -0.07)); },
+  beard(o) { // grows by scaling (scale keys): pointed strands hanging from the chin, fanning out
+    const g = grp(); const r = rng(o.seed || 5), n = 13;
+    for (let i = 0; i < n; i++) { const u = i / (n - 1) - 0.5, len = 0.22 + 0.2 * (1 - Math.abs(u) * 1.6) + r() * 0.05;
+      g.add(at(box(0.022, len, 0.02, o.color || '#2A2420', { pivot: 'top', taper: { x: 0.25, z: 0.5 } }), u * 0.2, 0, 0.012 * Math.cos(u * 3) + r() * 0.01, 0.08, 0, -u * 0.55 + (r() - 0.5) * 0.1)); }
+    return g; },
+  spiderWeb(o) { const g = grp(); const R = o.r || 0.35, m = new THREE.LineBasicMaterial({ color: '#F4F4F0', transparent: true, opacity: 0.8 });
+    for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([V3(0, 0, 0), V3(Math.cos(a) * R, Math.sin(a) * R, 0)]), m)); }
+    for (let k = 1; k <= 4; k++) { const pts = []; for (let i = 0; i <= 8; i++) { const a = i / 8 * Math.PI * 2, rr = R * k / 4.4; pts.push(V3(Math.cos(a) * rr, Math.sin(a) * rr, 0)); } g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), m)); }
+    return g; },
+  coin(o) { return grp(at(cyl(0.025, 0.025, 0.006, P.yellow, 12), 0, 0, 0, Math.PI / 2)); },
+  wallClock(o) { // hands spin at opts.rate turns/s (time passing)
+    const g = grp(at(cyl(0.32, 0.32, 0.05, P.ink, 20), 0, 0, 0, Math.PI / 2), at(cyl(0.28, 0.28, 0.055, P.paper, 20), 0, 0, 0.004, Math.PI / 2));
+    for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; g.add(at(box(0.015, 0.05, 0.01, P.ink), Math.sin(a) * 0.23, Math.cos(a) * 0.23, 0.03, 0, 0, -a)); }
+    const hh = grp(at(box(0.02, 0.15, 0.01, P.ink, { pivot: 'bottom' }), 0, 0, 0)), mh = grp(at(box(0.012, 0.22, 0.01, P.red, { pivot: 'bottom' }), 0, 0, 0));
+    hh.position.z = 0.035; mh.position.z = 0.04; g.add(hh, mh);
+    const rate = o.rate ?? 1 / 60; g.userData.update = t => { mh.rotation.z = -t * rate * Math.PI * 2; hh.rotation.z = -t * rate * Math.PI * 2 / 12; };
+    return g; },
+  calendar(o) { // page number flips with time: opts.rate pages/s from opts.start
+    const g = grp(at(box(0.42, 0.5, 0.02, P.paper, { outline: 0.004 }), 0, 0, 0), at(box(0.42, 0.1, 0.025, P.red), 0, 0.2, 0.002));
+    const pages = []; for (let d = 1; d <= 31; d++) { const p = at(label(String(d), 0.36, 0.3, { bg: P.paper, fg: P.ink }), 0, -0.05, 0.012); p.visible = d === 1; g.add(p); pages.push(p); }
+    const rate = o.rate ?? 0, t0 = o.start ?? 0; g.userData.update = t => { const d = Math.min(30, Math.max(0, Math.floor((t - t0) * rate))); pages.forEach((p, i) => p.visible = i === d); };
+    return g; },
+  whistle(o) { const g = grp(at(box(0.05, 0.025, 0.025, P.yellow), 0, 0, 0), at(cyl(0.016, 0.016, 0.03, P.yellow, 8), 0.025, -0.005, 0, Math.PI / 2)); g.userData.grip = [0, 0, 0]; return g; },
+  clipboardProp(o) { const g = grp(at(box(0.24, 0.32, 0.012, P.woodDark), 0, 0, 0), at(box(0.2, 0.26, 0.004, P.paper), 0, -0.01, 0.008), at(box(0.1, 0.03, 0.02, P.grey), 0, 0.15, 0.01)); for (let i = 0; i < 6; i++) g.add(at(box(0.14, 0.006, 0.002, P.ink), 0, 0.08 - i * 0.035, 0.011)); g.userData.grip = [0, -0.1, 0]; return g; },
+  binoculars(o) { const g = grp(); [-1, 1].forEach(sd => g.add(at(cyl(0.032, 0.035, 0.12, P.ink, 8), sd * 0.04, 0, 0, Math.PI / 2))); g.add(at(box(0.05, 0.02, 0.04, P.ink), 0, 0, -0.02)); g.userData.grip = [0, 0, 0]; return g; },
+  podium(o) { const g = grp(at(box(0.7, 1.1, 0.5, P.navy, { pivot: 'bottom', taper: { x: 0.85, z: 0.85 }, outline: 0.006 }), 0, 0, 0), at(box(0.8, 0.05, 0.55, P.navyLight), 0, 1.12, 0));
+    if (o.text) g.add(at(label(o.text, 0.62, 0.3, { bg: P.paper, fg: P.red }), 0, 0.75, 0.24));
+    for (const x of [-0.12, 0.12]) g.add(rod([x, 1.14, 0.15], [x * 0.6, 1.42, 0.24], 0.008, P.ink), at(sphere(0.03, P.ink, 0), x * 0.6, 1.44, 0.25));
+    return g; },
+  chickenBucket(o) { const g = grp(at(cyl(0.16, 0.12, 0.26, P.red, 12, { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.165, 0.165, 0.03, P.white, 12), 0, 0.25, 0));
+    for (let i = 0; i < 4; i++) { const a = i * 1.6; g.add(at(box(0.06, 0.08, 0.05, P.sand), Math.cos(a) * 0.06, 0.3, Math.sin(a) * 0.06, 0.3, a, 0)); }
+    g.add(at(label(o.text || 'MASTER POULET', 0.26, 0.09, { bg: P.white, fg: P.red }), 0, 0.14, 0.142)); g.userData.grip = [0, 0.12, 0]; return g; },
+  drumstick(o) { const g = grp(at(sphere(0.045, P.sand, 1), 0, 0.03, 0), at(cyl(0.012, 0.012, 0.08, P.cream, 6), 0, -0.04, 0)); g.children[0].scale.set(1, 1.4, 1); g.userData.grip = [0, -0.05, 0]; return g; },
+  pullUpBar(o) { const h = o.height || 2.35, w = o.width || 1.3; return grp(at(box(0.08, h, 0.08, P.greyDark, { pivot: 'bottom' }), -w / 2, 0, 0), at(box(0.08, h, 0.08, P.greyDark, { pivot: 'bottom' }), w / 2, 0, 0), rod([-w / 2, h - 0.04, 0], [w / 2, h - 0.04, 0], 0.025, P.grey)); },
+  mapBoard(o) { const g = grp(at(box(1.6, 1.0, 0.04, '#B98A5A', { outline: 0.004 }), 0, 0, 0), at(box(1.45, 0.85, 0.01, '#DCCFA8'), 0, 0, 0.025));
+    const pins = [[-0.5, 0.2], [0.1, 0.25], [0.5, -0.1], [-0.2, -0.25], [0.35, 0.3], [-0.55, -0.2]];
+    pins.forEach(([x, y], i) => { g.add(at(sphere(0.025, P.red, 0), x, y, 0.04)); g.add(at(box(0.16, 0.11, 0.005, P.paper), x + 0.1, y - 0.06, 0.03)); });
+    const m = new THREE.LineBasicMaterial({ color: P.red }); g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pins.map(([x, y]) => V3(x, y, 0.045))), m));
+    return g; },
+  evidenceBag(o) { const g = grp(at(box(0.22, 0.3, 0.02, '#E8F0F0', { opacity: 0.6 }), 0, 0, 0), at(box(0.22, 0.04, 0.025, P.red), 0, 0.14, 0)); if (o.with) { const inner = B[o.with] ? B[o.with]({}) : null; if (inner) { inner.scale.setScalar(0.7); g.add(at(inner, 0, -0.05, 0)); } } g.userData.grip = [0, 0.13, 0]; return g; },
+  tumbleweed(o) { const g = grp(); const r = rng(o.seed || 3); for (let i = 0; i < 14; i++) g.add(at(torus(0.18 + r() * 0.08, 0.008, '#A88A55', 3, 10), 0, 0.22, 0, r() * 3, r() * 3, r() * 3)); g.userData.update = t => { g.children.forEach(c => { c.rotation.x = t * 3; }); }; return g; },
+  leafFan(o) { const g = grp(at(cyl(0.008, 0.008, 0.4, P.woodDark, 5), 0, 0.2, 0)); for (let i = 0; i < 7; i++) g.add(at(box(0.08, 0.28, 0.01, P.green), Math.sin((i - 3) * 0.3) * 0.12, 0.5 + Math.cos((i - 3) * 0.3) * 0.08, 0, 0, 0, -(i - 3) * 0.3)); g.userData.grip = [0, 0.05, 0]; return g; },
+  flag(o) { const c = o.colors || [P.ink, P.yellow, P.red], vertical = o.vertical !== false; const g = grp(at(cyl(0.015, 0.015, 1.6, P.grey, 5, { pivot: 'bottom' }), 0, 0, 0));
+    c.forEach((col, i) => g.add(vertical ? at(box(0.6 / c.length, 0.4, 0.01, col), 0.03 + 0.3 / c.length + i * 0.6 / c.length, 1.38, 0) : at(box(0.6, 0.4 / c.length, 0.01, col), 0.33, 1.58 - 0.2 / c.length - i * 0.4 / c.length, 0)));
+    if (o.cross) g.add(at(box(0.6, 0.06, 0.012, o.cross), 0.33, 1.38, 0), at(box(0.06, 0.4, 0.012, o.cross), 0.33, 1.38, 0));
+    return g; },
+  boxHide(o) { // wearable cardboard box (Metal Gear gag): attach to the torso joint, legs stick out underneath
+    const w = 0.8, h = 1.2, d = 0.75, c = '#B8925E', g = grp();
+    g.add(at(box(w, 0.04, d, c, { outline: 0.006 }), 0, h, 0));
+    g.add(at(box(w, h, 0.03, c, { outline: 0.006 }), 0, h / 2, d / 2), at(box(w, h, 0.03, c, { outline: 0.006 }), 0, h / 2, -d / 2), at(box(0.03, h, d, c, { outline: 0.006 }), w / 2, h / 2, 0), at(box(0.03, h, d, c, { outline: 0.006 }), -w / 2, h / 2, 0));
+    g.add(at(box(0.36, 0.06, 0.035, P.ink), 0, h * 0.78, d / 2 + 0.002), at(box(w, 0.05, 0.034, '#D8B88A'), 0, h * 0.5, d / 2 + 0.003));
+    g.add(at(label(o.text || 'FRAGILE', 0.4, 0.14, { bg: null, fg: P.red }), 0, h * 0.3, d / 2 + 0.02));
+    return g; },
+  syringeBig(o) { const g = B.syringe(o); g.scale.setScalar(o.k || 2); return g; },
+  
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
   
 };

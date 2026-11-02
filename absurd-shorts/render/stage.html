@@ -7,7 +7,7 @@
   // Entry point used by the renderer, the gallery and the model exporter.
   const q = new URLSearchParams(location.search);
   const mode = q.get('mode') || 'film';
-  const mod = await import(mode === 'gallery' ? '/engine/gallery.js' : mode === 'export' ? '/engine/exporter.js' : '/engine/director.js');
+  const mod = await import(mode === 'gallery' ? '/engine/gallery.js' : mode === 'export' ? '/engine/exporter.js' : mode === 'film3' ? '/engine/director3.js' : '/engine/director.js');
   window.__engine = mod; window.__ready = true;
 </script>
 </body></html>

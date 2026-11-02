@@ -1397,7 +1397,7 @@ export function buildCreature(name, opts = {}) {
   const clips = R.plan === 'biped' ? [...new Set([...CREATURE_CLIPS, ...Object.keys(HCLIPS)])] : [...CREATURE_CLIPS];
   R.root.userData = {
     kind: 'creature', name: nm, plan: R.plan, clips, expressions: CREATURE_EXPRESSIONS,
-    joints: R.J, hand: R.J.handR || null, handL: R.J.handL || null, grip,
+    joints: R.J, hand: R.J.handR || null, handL: R.J.handL || null, grip, mover: R.mover, scaler: R.scaler, legScale: R.legScale || 1,
     height: (R.height ?? 1) * baseScale, upright: R.plan === 'biped', opts: o,
     animate,
     setExpression: (expr) => { userExpr = EXPR[expr] ? expr : 'neutral'; applyExpression(R, userExpr); },

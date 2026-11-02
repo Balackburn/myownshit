@@ -45,7 +45,7 @@ export const atlasImage = await new Promise((res) => {
 // When present it REPLACES the painted-over atlas face: these textures are reconstructed 1:1 from the footage.
 // Engine expression names → face-set names (measured or "designed" variants, see face_landmarks.json).
 const FACE_SET_DIR = '/characters/lemec/face';
-const EXPR_MAP = { neutral: 'neutral', talk: 'neutral', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'skeptical',
+const EXPR_MAP = { neutral: 'neutral', talk: 'talk', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'skeptical',
   unimpressed: 'unimpressed', sideLook: 'unimpressed', surprised: 'surprised', shocked: 'shocked', scared: 'scared', angry: 'angry',
   disgusted: 'angry', grimace: 'angry', sad: 'sad', worried: 'sad', happy: 'happy', dead: 'blink' };
 export const faceSet = await (async () => {

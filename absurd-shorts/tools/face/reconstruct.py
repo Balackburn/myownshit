@@ -218,6 +218,8 @@ def design_expression(name, L, meta, W, H):
     elif name == 'sleepy': lids([0.8, 0.8])
     elif name == 'blink': lids([1.0, 1.0])
     elif name == 'scared': brow_move(-0.035, -10); mouth(0, 0.045)
+    elif name == 'talk': mouth(0, 0.016)
+    elif name == 'talkWide': mouth(0, 0.03)
     return out
 
 def compose(plate, L, W, H, ink_rgb, white_rgb, extra=None):
@@ -331,7 +333,7 @@ def main():
         L = dict(I['L']); L.update({k: expr_layers[k] for k in ['brow', 'eye', 'eyewhite', 'mouth']})
         return compose(I['plate'], L, W, H, I['ink'], I['white'], extra)
     import copy
-    allx = cfg.get('expressions', ['neutral', 'skeptical', 'unimpressed', 'surprised', 'shocked', 'angry', 'sad', 'happy', 'sleepy', 'blink', 'scared'])
+    allx = cfg.get('expressions', ['neutral', 'skeptical', 'unimpressed', 'surprised', 'shocked', 'angry', 'sad', 'happy', 'sleepy', 'blink', 'scared', 'talk', 'talkWide'])
     for name in allx:
         if name in measured:
             img = build(measured[name]['L']); status = 'measured'; src = name

@@ -424,6 +424,14 @@
   "scared": {
    "status": "designed (transformed measured strokes, not seen in the footage)",
    "from_source": "neutral"
+  },
+  "talk": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "talkWide": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
   }
  },
  "color_gain_bgr": [
