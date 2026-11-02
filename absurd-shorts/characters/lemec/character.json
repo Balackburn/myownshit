@@ -1,0 +1,52 @@
+{
+ "name": "lemec",
+ "description": "Protagonist of the reference shorts: navy suit, tall box head with a painted face panel.",
+ "videos": [
+  "/root/.claude/uploads/55de8c21-9e41-5895-8198-7b13ed3b7877/89287f4f-7684666895269645599.mp4",
+  "/root/.claude/uploads/55de8c21-9e41-5895-8198-7b13ed3b7877/6acf51c3-7684979296355568927.mp4",
+  "/root/.claude/uploads/55de8c21-9e41-5895-8198-7b13ed3b7877/021961e7-7685327996206533918.mp4",
+  "/root/.claude/uploads/55de8c21-9e41-5895-8198-7b13ed3b7877/34a240c9-7686079075789589790.mp4",
+  "/root/.claude/uploads/55de8c21-9e41-5895-8198-7b13ed3b7877/e08104fb-7702862526454713631.mp4"
+ ],
+ "skin_hsv_lo": [
+  5,
+  45,
+  110
+ ],
+ "skin_hsv_hi": [
+  24,
+  170,
+  255
+ ],
+ "aspect_min": 0.28,
+ "aspect_max": 0.62,
+ "canonical": {
+  "width": 400,
+  "height": 1080
+ },
+ "sources": [
+  {
+   "candidate": 0,
+   "expression": "skeptical",
+   "identity": true,
+   "note": "V5 4.0s 'Someone was in there' \u2014 sharpest frontal panel; one brow raised, right lid half closed"
+  },
+  {
+   "candidate": 1,
+   "expression": "neutral",
+   "occlude": [
+    [
+     0.4,
+     0.0,
+     1.0,
+     0.32
+    ]
+   ],
+   "note": "V1 2.9s 'to dry his hair' \u2014 wind streaks masked"
+  }
+ ],
+ "caption_zone": [
+  0.55,
+  0.92
+ ]
+}

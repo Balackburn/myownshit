@@ -41,6 +41,32 @@ export const atlasImage = await new Promise((res) => {
   im.src = ATLAS_URL;
 });
 
+// Measured face set (tools/face/reconstruct.py): characters/<name>/face/expressions/face_<expr>.png.
+// When present it REPLACES the painted-over atlas face: these textures are reconstructed 1:1 from the footage.
+// Engine expression names → face-set names (measured or "designed" variants, see face_landmarks.json).
+const FACE_SET_DIR = '/characters/lemec/face';
+const EXPR_MAP = { neutral: 'neutral', talk: 'neutral', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'skeptical',
+  unimpressed: 'unimpressed', sideLook: 'unimpressed', surprised: 'surprised', shocked: 'shocked', scared: 'scared', angry: 'angry',
+  disgusted: 'angry', grimace: 'angry', sad: 'sad', worried: 'sad', happy: 'happy', dead: 'blink' };
+export const faceSet = await (async () => {
+  try {
+    const lm = await (await fetch(FACE_SET_DIR + '/face_landmarks.json')).json();
+    const names = Object.keys(lm.expressions || {}); const imgs = {};
+    await Promise.all(names.map(n => new Promise(res => { const im = new Image(); im.onload = () => { imgs[n] = im; res(); }; im.onerror = res; im.src = `${FACE_SET_DIR}/expressions/face_${n}.png`; })));
+    return Object.keys(imgs).length ? { imgs, meta: lm } : null;
+  } catch { return null; }
+})();
+const faceSetCache = {};
+function faceSetTexture(expression) {
+  const n = EXPR_MAP[expression] || expression; const im = faceSet.imgs[n] || faceSet.imgs.neutral;
+  if (!im) return null;
+  if (faceSetCache[n]) return faceSetCache[n];
+  const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d'); g.drawImage(im, 0, 0);
+  g.strokeStyle = '#151313'; g.lineWidth = Math.round(im.width * 0.03); g.strokeRect(g.lineWidth / 2, g.lineWidth / 2, c.width - g.lineWidth, c.height - g.lineWidth);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return (faceSetCache[n] = t);
+}
+
 let _tex = null, _mat = null;
 export function atlasTexture() {
   if (_tex || !atlasImage) return _tex;
@@ -105,6 +131,7 @@ function feathered(ctx, img, x, y, w, h, f = 18) {
 function crop(r) { const c = document.createElement('canvas'); c.width = r[2] - r[0]; c.height = r[3] - r[1]; c.getContext('2d').drawImage(atlasImage, r[0], r[1], c.width, c.height, 0, 0, c.width, c.height); return c; }
 
 export function atlasFaceTexture(expression = 'neutral') {
+  if (faceSet) { const t = faceSetTexture(expression); if (t) return t; }
   if (!atlasImage) return null;
   if (faceCache.has(expression)) return faceCache.get(expression);
   const r = R.face, c = crop(r), g = c.getContext('2d');

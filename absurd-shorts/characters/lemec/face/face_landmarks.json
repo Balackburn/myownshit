@@ -1,0 +1,449 @@
+{
+ "character": "lemec",
+ "canonical": [
+  400,
+  1080
+ ],
+ "units": "px in canonical face space (0,0 = top-left of the panel)",
+ "sources": [
+  {
+   "expression": "skeptical",
+   "video": "e08104fb-7702862526454713631.mp4",
+   "frame": 120,
+   "quad": [
+    [
+     98.0,
+     195.0
+    ],
+    [
+     333.0,
+     269.0
+    ],
+    [
+     329.0,
+     949.0
+    ],
+    [
+     87.0,
+     951.0
+    ]
+   ],
+   "frontality": 0.982,
+   "occluded": [],
+   "confidence": "high",
+   "stroke_px": 17.19,
+   "ink_rgb": [
+    43,
+    36,
+    31
+   ],
+   "features": {
+    "brow": [
+     {
+      "bbox": [
+       19,
+       98,
+       122,
+       62
+      ],
+      "centroid": [
+       80.0,
+       122.3
+      ],
+      "area": 3484
+     },
+     {
+      "bbox": [
+       241,
+       353,
+       108,
+       50
+      ],
+      "centroid": [
+       295.9,
+       375.2
+      ],
+      "area": 3062
+     }
+    ],
+    "eye": [
+     {
+      "bbox": [
+       28,
+       235,
+       121,
+       103
+      ],
+      "centroid": [
+       87.9,
+       277.9
+      ],
+      "area": 3578
+     },
+     {
+      "bbox": [
+       90,
+       280,
+       12,
+       20
+      ],
+      "centroid": [
+       95.6,
+       290.0
+      ],
+      "area": 169
+     },
+     {
+      "bbox": [
+       106,
+       295,
+       2,
+       10
+      ],
+      "centroid": [
+       106.3,
+       299.8
+      ],
+      "area": 14
+     },
+     {
+      "bbox": [
+       246,
+       460,
+       118,
+       76
+      ],
+      "centroid": [
+       302.8,
+       492.0
+      ],
+      "area": 3285
+     },
+     {
+      "bbox": [
+       288,
+       494,
+       9,
+       14
+      ],
+      "centroid": [
+       292.1,
+       500.7
+      ],
+      "area": 99
+     }
+    ],
+    "nose": [
+     {
+      "bbox": [
+       272,
+       737,
+       9,
+       13
+      ],
+      "centroid": [
+       275.2,
+       743.5
+      ],
+      "area": 87
+     },
+     {
+      "bbox": [
+       222,
+       755,
+       17,
+       19
+      ],
+      "centroid": [
+       229.9,
+       764.5
+      ],
+      "area": 145
+     }
+    ],
+    "mouth": [
+     {
+      "bbox": [
+       162,
+       832,
+       89,
+       31
+      ],
+      "centroid": [
+       206.0,
+       846.5
+      ],
+      "area": 2085
+     }
+    ],
+    "eye_white": [
+     {
+      "bbox": [
+       44,
+       258,
+       88,
+       70
+      ],
+      "centroid": [
+       90.2,
+       293.4
+      ],
+      "area": 4377
+     },
+     {
+      "bbox": [
+       256,
+       483,
+       85,
+       41
+      ],
+      "centroid": [
+       293.7,
+       503.4
+      ],
+      "area": 2250
+     }
+    ],
+    "stubble_marks": 89,
+    "hair_ink_px": 432
+   },
+   "occluded_px_ratio": 0.044
+  },
+  {
+   "expression": "neutral",
+   "video": "89287f4f-7684666895269645599.mp4",
+   "frame": 86,
+   "quad": [
+    [
+     156.0,
+     423.0
+    ],
+    [
+     349.0,
+     452.0
+    ],
+    [
+     371.0,
+     934.0
+    ],
+    [
+     179.0,
+     953.0
+    ]
+   ],
+   "frontality": 0.989,
+   "occluded": [
+    [
+     0.4,
+     0.0,
+     1.0,
+     0.32
+    ]
+   ],
+   "confidence": "high",
+   "stroke_px": 13.37,
+   "ink_rgb": [
+    51,
+    41,
+    34
+   ],
+   "features": {
+    "brow": [
+     {
+      "bbox": [
+       61,
+       105,
+       90,
+       52
+      ],
+      "centroid": [
+       106.4,
+       126.8
+      ],
+      "area": 2003
+     },
+     {
+      "bbox": [
+       264,
+       355,
+       126,
+       41
+      ],
+      "centroid": [
+       325.3,
+       368.8
+      ],
+      "area": 2569
+     }
+    ],
+    "eye": [
+     {
+      "bbox": [
+       33,
+       231,
+       104,
+       102
+      ],
+      "centroid": [
+       85.6,
+       278.4
+      ],
+      "area": 2958
+     },
+     {
+      "bbox": [
+       90,
+       272,
+       14,
+       24
+      ],
+      "centroid": [
+       96.1,
+       283.1
+      ],
+      "area": 272
+     },
+     {
+      "bbox": [
+       249,
+       455,
+       105,
+       78
+      ],
+      "centroid": [
+       299.4,
+       488.7
+      ],
+      "area": 2824
+     },
+     {
+      "bbox": [
+       286,
+       485,
+       11,
+       16
+      ],
+      "centroid": [
+       290.8,
+       492.2
+      ],
+      "area": 147
+     }
+    ],
+    "nose": "unverified",
+    "mouth": [
+     {
+      "bbox": [
+       117,
+       823,
+       195,
+       30
+      ],
+      "centroid": [
+       212.9,
+       836.6
+      ],
+      "area": 3920
+     }
+    ],
+    "eye_white": [
+     {
+      "bbox": [
+       45,
+       242,
+       86,
+       79
+      ],
+      "centroid": [
+       90.7,
+       280.6
+      ],
+      "area": 5094
+     },
+     {
+      "bbox": [
+       255,
+       467,
+       83,
+       52
+      ],
+      "centroid": [
+       293.1,
+       491.5
+      ],
+      "area": 3394
+     }
+    ],
+    "stubble_marks": 83,
+    "hair_ink_px": 6171
+   },
+   "occluded_px_ratio": 0.261
+  }
+ ],
+ "expressions": {
+  "neutral": {
+   "status": "measured",
+   "from_source": "neutral"
+  },
+  "skeptical": {
+   "status": "measured",
+   "from_source": "skeptical"
+  },
+  "unimpressed": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "surprised": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "shocked": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "angry": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "sad": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "happy": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "sleepy": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "blink": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  },
+  "scared": {
+   "status": "designed (transformed measured strokes, not seen in the footage)",
+   "from_source": "neutral"
+  }
+ },
+ "inferred": [
+  {
+   "rows": [
+    880,
+    936
+   ],
+   "what": "stubble cloned from rows 936-992",
+   "marks": 21
+  }
+ ],
+ "validation": {
+  "skeptical": {
+   "ink_iou": 0.883,
+   "mae": 3.29
+  },
+  "neutral": {
+   "ink_iou": 0.652,
+   "mae": 23.59
+  }
+ }
+}
