@@ -1,0 +1,8 @@
+{
+  "title": "smoke", "cast": { "mec": { "preset": "lemec" }, "flic": { "preset": "cop" } },
+  "shots": [
+    { "line": "Ce mec a utilisé un aspirateur", "highlight": ["aspirateur"], "duration": 2.2, "actors": [{ "id": "mec", "clip": "oneHandHip" }], "camera": { "preset": "medium", "angle": 20 } },
+    { "line": "pour ranger sa chambre.", "highlight": ["chambre"], "duration": 1.6, "actors": [{ "id": "mec", "clip": "stareCamera" }], "camera": { "preset": "extremeClose", "angle": 10 } },
+    { "line": "Putain, ce con a appelé les flics.", "highlight": ["flics"], "duration": 2.2, "actors": [{ "id": "mec", "clip": "phone", "pos": [-0.6,0,0] }, { "id": "flic", "clip": "handsOnHips", "pos": [0.7,0,-0.4], "ry": -20, "expr": "suspicious" }], "camera": { "preset": "full", "angle": 0, "target": [0,1.9,0] }, "overlays": [{ "style": "phone", "text": "17", "at": 0.3, "until": 1.2 }] }
+  ]
+}

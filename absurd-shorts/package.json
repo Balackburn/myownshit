@@ -1,0 +1,15 @@
+{
+  "name": "absurd-shorts",
+  "private": true,
+  "type": "module",
+  "description": "Procedural low-poly 3D engine that renders vertical absurdist narrated shorts (9:16) from a JSON script.",
+  "scripts": {
+    "serve": "node render/server.mjs",
+    "render": "node render/render.mjs",
+    "export-models": "node render/export-models.mjs",
+    "preview": "node render/preview.mjs"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  }
+}
