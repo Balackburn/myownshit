@@ -86,10 +86,13 @@ def cmd_tts(script_path, workdir):
         if not line.strip():
             shot['duration'] = shot.get('duration', 1.2); shot['words'] = []; continue
         wav = os.path.join(workdir, f'shot{i:02d}.wav')
-        try: x = fn(speakable(line), wav, voice)
+        v = {**voice, **shot.get('voice', {})}  # per-shot override (e.g. a cop's dialogue line)
+        if line.strip().startswith(('"', '«')) and 'voice' not in shot:  # quoted dialogue -> second voice by default
+            v = {**v, **sc.get('dialogueVoice', {'pitch': 48, 'speed': 185, 'id': voice.get('dialogueId', voice.get('id'))})}
+        try: x = fn(speakable(line), wav, v)
         except Exception as e:
             print(f'[tts] {engine} failed on shot {i} ({e}); falling back to espeak', file=sys.stderr)
-            x = tts_espeak(speakable(line), wav, voice)
+            x = tts_espeak(speakable(line), wav, v)
         write_wav(wav, x)
         speech = len(x) / SR
         # word timings: distribute by syllable weight (good enough for 2-4 word captions)
