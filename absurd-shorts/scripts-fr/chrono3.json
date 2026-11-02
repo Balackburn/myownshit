@@ -40,6 +40,8 @@
    "hair": "receding",
    "hairColor": "#D8D8D8",
    "facial": "beard",
+   "beardColor": "215,215,210",
+   "redNose": true,
    "build": {
     "height": 0.92
    }
@@ -82,11 +84,18 @@
    "lines": [
     {
      "id": "C1",
-     "text": "Ce mec était le plus gros relou de toute l'entreprise."
+     "text": "Ce mec était le plus gros relou de toute l'entreprise.",
+     "highlight": [
+      "relou"
+     ]
     },
     {
      "id": "C2",
-     "text": "Il détenait le record du monde de mots inutiles à la pause café."
+     "text": "Il détenait le record du monde de mots inutiles à la pause café.",
+     "highlight": [
+      "record",
+      "inutiles"
+     ]
     }
    ],
    "actors": [
@@ -290,7 +299,11 @@
     {
      "id": "C4",
      "text": "Quatre cents idées dans la boîte à suggestions ?",
-     "speaker": "patron"
+     "speaker": "patron",
+     "highlight": [
+      "Quatre",
+      "cents"
+     ]
     },
     {
      "id": "C5",
@@ -300,7 +313,11 @@
     {
      "id": "C6",
      "text": "On fabrique des yaourts. Vous êtes viré.",
-     "speaker": "patron"
+     "speaker": "patron",
+     "highlight": [
+      "yaourts.",
+      "viré."
+     ]
     }
    ],
    "actors": [
@@ -472,19 +489,16 @@
    "cams": [
     {
      "at": 0,
-     "size": "fs",
-     "worldAngle": -20,
-     "elev": 12,
-     "frame": [
-      "mec",
-      "patron"
-     ]
-    },
-    {
-     "at": "C3#2",
      "size": "ms",
      "angle": 10,
      "frame": "patron"
+    },
+    {
+     "at": "C3#4",
+     "size": "fs",
+     "angle": 35,
+     "move": "track",
+     "frame": "mec"
     },
     {
      "at": "C4",
@@ -550,12 +564,20 @@
     },
     {
      "id": "C8",
-     "text": "En dix minutes, tout le monde était parti. Sauf un vieux complètement bourré."
+     "text": "En dix minutes, tout le monde était parti. Sauf un vieux complètement bourré.",
+     "highlight": [
+      "parti.",
+      "bourré."
+     ]
     },
     {
      "id": "C9",
      "text": "Tiens, petit. Ça arrête le temps.",
-     "speaker": "vieux"
+     "speaker": "vieux",
+     "highlight": [
+      "arrête",
+      "temps."
+     ]
     },
     {
      "id": "C10",
@@ -569,7 +591,11 @@
     },
     {
      "id": "C12",
-     "text": "Le pouvoir absolu. Il aurait pu sauver le monde."
+     "text": "Le pouvoir absolu. Il aurait pu sauver le monde.",
+     "highlight": [
+      "absolu.",
+      "sauver"
+     ]
     }
    ],
    "actors": [
@@ -611,24 +637,21 @@
       {
        "at": "C12",
        "to": [
-        1.3,
+        1.2,
         0,
-        0.1
+        0.6
        ],
-       "clip": "walk",
+       "clip": "strut",
+       "speed": 1.0,
        "look": null,
-       "expr": "happy",
-       "faceEnd": "vieux"
-      },
-      {
-       "at": "C12+1.2",
-       "clip": "pokeFinger"
+       "expr": "happy"
       },
       {
        "at": "C12:sauver",
        "clip": "heroPose",
        "expr": "smug",
-       "face": 0
+       "face": 0,
+       "turn": 0.35
       }
      ],
      "face": "client1",
@@ -651,11 +674,12 @@
       {
        "at": "C8",
        "to": [
-        5.5,
+        -6.6,
         0,
-        1.6
+        2.0
        ],
        "clip": "walk",
+       "speed": 1.6,
        "expr": "unimpressed"
       }
      ],
@@ -673,13 +697,15 @@
      "clip": "sit",
      "keys": [
       {
-       "at": "C8#3",
+       "at": "C8#2",
        "to": [
-        5.8,
+        -6.9,
         0,
-        2.4
+        2.7
        ],
-       "clip": "walk"
+       "clip": "flee",
+       "speed": 2.6,
+       "expr": "scared"
       }
      ],
      "expr": "unimpressed"
@@ -741,10 +767,10 @@
        "expr": "sleepy"
       },
       {
-       "at": "C10",
+       "at": "C10.end-0.4",
        "clip": "tipOverSit",
        "params": {
-        "dur": 0.9
+        "dur": 1.0
        },
        "expr": "surprised"
       }
@@ -801,7 +827,7 @@
      },
      "keys": [
       {
-       "at": "C10+0.45",
+       "at": "C10.end-0.15",
        "visible": true
       }
      ]
@@ -848,12 +874,17 @@
     {
      "at": "C8",
      "size": "fs",
-     "worldAngle": 25,
+     "worldAngle": 0,
+     "elev": 8,
      "move": "push",
+     "amount": 0.06,
      "frame": [
-      "client1",
-      "client2",
-      "mec"
+      "mec",
+      [
+       -1.5,
+       1.0,
+       -1.25
+      ]
      ]
     },
     {
@@ -866,7 +897,7 @@
     {
      "at": "C8:Sauf",
      "size": "ms",
-     "angle": 60,
+     "angle": 35,
      "frame": "vieux"
     },
     {
@@ -875,14 +906,14 @@
      "ots": [
       "mec",
       "vieux",
-      -1
+      1
      ]
     },
     {
      "at": "C9#3",
      "size": "cu",
-     "angle": -40,
-     "elev": 10,
+     "angle": -35,
+     "elev": 12,
      "frame": "watch"
     },
     {
@@ -911,9 +942,15 @@
     {
      "at": "C12",
      "size": "fs",
-     "angle": 40,
+     "angle": -35,
      "move": "track",
      "frame": "mec"
+    },
+    {
+     "at": "C12+1.1",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "vieux"
     },
     {
      "at": "C12:sauver",
@@ -941,7 +978,10 @@
    "lines": [
     {
      "id": "C13",
-     "text": "Il a dessiné une moustache à son ancien patron."
+     "text": "Il a dessiné une moustache à son ancien patron.",
+     "highlight": [
+      "moustache"
+     ]
     }
    ],
    "actors": [
@@ -960,33 +1000,43 @@
     {
      "id": "mec",
      "pos": [
-      -3.85,
+      -3.3,
       0,
-      -0.95
+      -1.9
      ],
      "ry": 0,
      "clip": "idle",
      "keys": [
       {
-       "at": "C13#1",
-       "to": [
-        -4.25,
-        0,
-        -1.55
+       "at": 0.05,
+       "path": [
+        [
+         -3.55,
+         0,
+         -2.45
+        ],
+        [
+         -4.31,
+         0,
+         -2.36
+        ]
        ],
        "clip": "walk",
+       "speed": 1.6,
        "faceEnd": "patron"
       },
       {
-       "at": "C13#3",
+       "at": "C13#4",
        "clip": "drawOn",
        "expr": "happy",
        "sfx": "squeak"
       },
       {
-       "at": "C13.end",
+       "at": "C13.end-0.3",
        "clip": "heroPose",
-       "expr": "smug"
+       "expr": "smug",
+       "face": 25,
+       "turn": 0.35
       }
      ],
      "face": "patron",
@@ -1017,7 +1067,7 @@
      },
      "keys": [
       {
-       "at": "C13#3",
+       "at": "C13#4",
        "scale": 1.5,
        "dur": 0.9
       }
@@ -1042,7 +1092,7 @@
      "frame": "patron"
     },
     {
-     "at": "C13#3",
+     "at": "C13#4",
      "size": "ecu",
      "angle": 0,
      "move": "push",
@@ -1052,8 +1102,12 @@
     {
      "at": "C13.end-0.2",
      "size": "ms",
-     "angle": 25,
-     "frame": "mec"
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "patron"
+     ]
     }
    ],
    "tail": 0.9
@@ -1074,11 +1128,18 @@
    "lines": [
     {
      "id": "C14",
-     "text": "Puis il a braqué une banque."
+     "text": "Puis il a braqué une banque.",
+     "highlight": [
+      "braqué"
+     ]
     },
     {
      "id": "C15",
-     "text": "Mais en sortant, ce con a fait tomber le chrono."
+     "text": "Mais en sortant, ce con a fait tomber le chrono.",
+     "highlight": [
+      "tomber",
+      "chrono."
+     ]
     }
    ],
    "actors": [
@@ -1337,7 +1398,10 @@
    "lines": [
     {
      "id": "C16",
-     "text": "Le temps ne repartira plus jamais."
+     "text": "Le temps ne repartira plus jamais.",
+     "highlight": [
+      "jamais."
+     ]
     },
     {
      "id": "C17",
@@ -1347,7 +1411,11 @@
     },
     {
      "id": "C18",
-     "text": "Pour la première fois, quelqu'un l'a écouté jusqu'au bout."
+     "text": "Pour la première fois, quelqu'un l'a écouté jusqu'au bout.",
+     "highlight": [
+      "jusqu'au",
+      "bout."
+     ]
     }
    ],
    "actors": [
@@ -1546,16 +1614,14 @@
    "cams": [
     {
      "at": 0,
-     "size": "ws",
-     "angle": 10,
+     "size": "fs",
      "worldAngle": 15,
-     "elev": 16,
+     "elev": 12,
      "move": "crane",
-     "amount": -8,
+     "amount": -6,
      "frame": [
       "mec",
       "vigile",
-      "pigeon",
       "passant"
      ]
     },
@@ -1585,12 +1651,13 @@
     },
     {
      "at": "C18",
-     "size": "ws",
-     "angle": 25,
+     "size": "fs",
+     "worldAngle": 30,
      "elev": 8,
      "frame": [
       "mec",
-      "vigile"
+      "vigile",
+      "bench"
      ]
     },
     {

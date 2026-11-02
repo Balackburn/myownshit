@@ -33,8 +33,8 @@ scenes = []
 # ---------------------------------------------------------------- S1 la pause café ----------------
 scenes.append({
   'id': 'pause', 'set': 'office', 'ambience': 'office',
-  'lines': [L('C1', "Ce mec était le plus gros relou de toute l'entreprise."),
-            L('C2', "Il détenait le record du monde de mots inutiles à la pause café.")],
+  'lines': [L('C1', "Ce mec était le plus gros relou de toute l'entreprise.", highlight=['relou']),
+            L('C2', "Il détenait le record du monde de mots inutiles à la pause café.", highlight=['record', 'inutiles'])],
   'actors': [
     act('mec', [1.3, 0, -1.0], 0, 'talk', 'happy', face='coll1', keys=[k('C2', clip='talk', speed=1.7), k('C2#8', look='coll1')]),
     act('coll1', [2.35, 0, -0.55], 0, 'holdOut', 'unimpressed', face='mec', keys=[
@@ -63,9 +63,9 @@ scenes.append({
 scenes.append({
   'id': 'patron', 'set': 'office', 'ambience': 'office',
   'lines': [L('C3', "Un jour, son patron l'a convoqué."),
-            L('C4', "Quatre cents idées dans la boîte à suggestions ?", 'patron'),
+            L('C4', "Quatre cents idées dans la boîte à suggestions ?", 'patron', highlight=['Quatre', 'cents']),
             L('C5', "Merci, patron !", 'mec'),
-            L('C6', "On fabrique des yaourts. Vous êtes viré.", 'patron')],
+            L('C6', "On fabrique des yaourts. Vous êtes viré.", 'patron', highlight=['yaourts.', 'viré.'])],
   'actors': [
     act('patron', [-4.75, 0.12, -2.05], 0, 'sit', 'unimpressed', keys=[
         k('C3#2', clip='beckon'), k('C4', clip='sitShow', expr='suspicious'), k('C5', clip='sit', expr='unimpressed'),
@@ -81,8 +81,8 @@ scenes.append({
             {'id': 'yaourt', 'name': 'mug', 'opts': {'color': '#FFFFFF'}, 'visible': False, 'on': {'actor': 'patron', 'hand': 'R'}, 'keys': [k('C6', visible=True), k('C6:viré', visible=False)]},
             {'id': 'box', 'name': 'cardboardBox', 'opts': {'text': ''}, 'visible': False, 'pos': [-3.9, 0, -0.2], 'keys': [k('C6.end+0.5', visible=True, attach='mec', joint='torso', offset=[0, 0.28, 0.42])]}],
   'cams': [
-    cam(0, ['mec', 'patron'], 'fs', worldAngle=-20, elev=12),
-    cam('C3#2', 'patron', 'ms', angle=10),
+    cam(0, 'patron', 'ms', angle=10),
+    cam('C3#4', 'mec', 'fs', angle=35, move='track'),
     cam('C4', ots=['mec', 'patron', -1]),
     cam('C4#2', 'pile', 'mls', angle=-15),
     cam('C5', 'mec', 'cu', angle=15),
@@ -99,48 +99,48 @@ scenes.append({
   'id': 'bar', 'set': 'bar', 'ambience': 'bar', 'lighting': 'interior',
   'freeze': {'at': 'C10.end', 'except': ['mec', 'watch']},
   'lines': [L('C7', "Alors ce con est allé raconter sa vie au bar."),
-            L('C8', "En dix minutes, tout le monde était parti. Sauf un vieux complètement bourré."),
-            L('C9', "Tiens, petit. Ça arrête le temps.", 'vieux'),
+            L('C8', "En dix minutes, tout le monde était parti. Sauf un vieux complètement bourré.", highlight=['parti.', 'bourré.']),
+            L('C9', "Tiens, petit. Ça arrête le temps.", 'vieux', highlight=['arrête', 'temps.']),
             L('C10', "Il a appuyé."),
             L('C11', "Putain…", 'mec', pre=0.45),
-            L('C12', "Le pouvoir absolu. Il aurait pu sauver le monde.")],
+            L('C12', "Le pouvoir absolu. Il aurait pu sauver le monde.", highlight=['absolu.', 'sauver'])],
   'actors': [
     act('mec', [0.5, STOOL_Y, -1.25], -90, 'sitTalk', 'happy', face='client1', keys=[
         k('C8:Sauf', face='vieux', turn=0.3, clip='sit', expr='neutral'),
         k('C9.end-0.35', clip='sitTake', expr='suspicious'), k('C10', clip='sitLookItem', expr='neutral', sfx='click', sfxAt=0.55),
         k('C11', expr='shocked', clip='sitLookItem', look='vieux'),
-        k('C12', to=[1.3, 0, 0.1], clip='walk', look=None, expr='happy', faceEnd='vieux'),
-        k('C12+1.2', clip='pokeFinger'),
-        k('C12:sauver', clip='heroPose', expr='smug', face=0)]),
+        k('C12', to=[1.2, 0, 0.6], clip='strut', speed=1.0, look=None, expr='happy'),
+        k('C12:sauver', clip='heroPose', expr='smug', face=0, turn=0.35)]),
     act('client1', [-0.5, STOOL_Y, -1.25], 90, 'sit', 'unimpressed', face='mec', keys=[
-        k('C7#4', expr='sleepy'), k('C8', to=[5.5, 0, 1.6], clip='walk', expr='unimpressed')]),
+        k('C7#4', expr='sleepy'), k('C8', to=[-6.6, 0, 2.0], clip='walk', speed=1.6, expr='unimpressed')]),
     act('client2', [-1.5, STOOL_Y, -1.25], 90, 'sit', 'unimpressed', keys=[
-        k('C8#3', to=[5.8, 0, 2.4], clip='walk')]),
+        k('C8#2', to=[-6.9, 0, 2.7], clip='flee', speed=2.6, expr='scared')]),
     act('barman', [0.6, 0, -2.6], 0, 'wipeGlass', 'unimpressed', keys=[
         k('C8#5', path=[[-3.3, 0, -2.6], [-3.8, 0, -0.5], [-6.2, 0, 1.5]], clip='tiptoe', speed=1.3, expr='suspicious')]),
     act('vieux', [2.5, STOOL_Y, -1.25], -90, 'drunk', 'sleepy', face='mec', keys=[
         k('C9', clip='sitGive', expr='happy'), k('C9.end', clip='drunk', expr='sleepy'),
-        k('C10', clip='tipOverSit', params={'dur': 0.9}, expr='surprised')]),
+        k('C10.end-0.4', clip='tipOverSit', params={'dur': 1.0}, expr='surprised')]),
   ],
   'props': [{'id': 'watch', 'name': 'stopwatch', 'scale': 1.5, 'on': {'actor': 'vieux', 'hand': 'R'}, 'visible': False,
              'keys': [k('C9', visible=True), k('C9.end-0.2', attach='mec', hand='R')]},
             {'id': 'glass', 'name': 'beerGlass', 'on': {'actor': 'vieux', 'hand': 'L'}},
             {'id': 'stream', 'name': 'beerStream', 'opts': {'length': 0.5}, 'visible': False, 'on': {'actor': 'vieux', 'joint': 'handL', 'offset': [0, -0.22, 0.02]},
-             'keys': [k('C10+0.45', visible=True)]},
+             'keys': [k('C10.end-0.15', visible=True)]},
             WM(anchor='sign', offset=[2.0, -0.55, 0.03], opts={'bg': '#2A1E1A', 'fg': '#C9A86A'})],
   'cams': [
     cam(0, ['mec', 'client1', 'client2'], 'fs', worldAngle=15, elev=10),
     cam('C7#4', 'mec', 'ms', angle=35),
     cam('C7.end-0.3', 'client1', 'mcu', angle=-30),
-    cam('C8', ['client1', 'client2', 'mec'], 'fs', worldAngle=25, move='push'),
+    cam('C8', ['mec', [-1.5, 1.0, -1.25]], 'fs', worldAngle=0, elev=8, move='push', amount=0.06),
     cam('C8#5', 'barman', 'fs', angle=20, move='track'),
-    cam('C8:Sauf', 'vieux', 'ms', angle=60),
-    cam('C9', ots=['mec', 'vieux', -1]),
-    cam('C9#3', 'watch', 'cu', angle=-40, elev=10),
+    cam('C8:Sauf', 'vieux', 'ms', angle=35),
+    cam('C9', ots=['mec', 'vieux', 1]),
+    cam('C9#3', 'watch', 'cu', angle=-35, elev=12),
     cam('C10', 'mec', 'cu', angle=30),
     cam('C10.end', ['vieux', 'mec'], 'fs', worldAngle=10, move='push', amount=0.08),
     cam('C11', 'mec', 'ecu', angle=15),
-    cam('C12', 'mec', 'fs', angle=40, move='track'),
+    cam('C12', 'mec', 'fs', angle=-35, move='track'),
+    cam('C12+1.1', 'vieux', 'mcu', angle=15),
     cam('C12:sauver', 'mec', 'ms', angle=10, elev=-14, lens=34),
   ],
   'tail': 0.5,
@@ -150,21 +150,21 @@ scenes.append({
 scenes.append({
   'id': 'moustache', 'set': 'office', 'ambience': None,
   'freeze': {'at': 0, 'except': ['mec', 'moustache', 'marker']},
-  'lines': [L('C13', "Il a dessiné une moustache à son ancien patron.")],
+  'lines': [L('C13', "Il a dessiné une moustache à son ancien patron.", highlight=['moustache'])],
   'actors': [
     act('patron', [-4.75, 0.12, -2.05], 0, 'sitPoint', 'angry'),
-    act('mec', [-3.85, 0, -0.95], 0, 'idle', 'smug', face='patron', keys=[
-        k('C13#1', to=[-4.25, 0, -1.55], clip='walk', faceEnd='patron'), k('C13#3', clip='drawOn', expr='happy', sfx='squeak'),
-        k('C13.end', clip='heroPose', expr='smug')]),
+    act('mec', [-3.3, 0, -1.9], 0, 'idle', 'smug', face='patron', keys=[
+        k(0.05, path=[[-3.55, 0, -2.45], [-4.31, 0, -2.36]], clip='walk', speed=1.6, faceEnd='patron'), k('C13#4', clip='drawOn', expr='happy', sfx='squeak'),
+        k('C13.end-0.3', clip='heroPose', expr='smug', face=25, turn=0.35)]),
   ],
   'props': [{'id': 'marker', 'name': 'marker', 'on': {'actor': 'mec', 'hand': 'R'}},
             {'id': 'moustache', 'name': 'mustache3d', 'scale': 0.01, 'on': {'actor': 'patron', 'joint': 'head', 'offset': [0, 0.13, 0.115]},
-             'keys': [k('C13#3', scale=1.5, dur=0.9)]},
+             'keys': [k('C13#4', scale=1.5, dur=0.9)]},
             WM(anchor='picture', offset=[1.5, -0.7, 0.03])],
   'cams': [
     cam(0, 'patron', 'ms', angle=-40),
-    cam('C13#3', 'patron', 'ecu', angle=0, move='push', amount=0.06),
-    cam('C13.end-0.2', 'mec', 'ms', angle=25),
+    cam('C13#4', 'patron', 'ecu', angle=0, move='push', amount=0.06),
+    cam('C13.end-0.2', ['mec', 'patron'], 'ms', worldAngle=20, elev=6),
   ],
   'tail': 0.9,
 })
@@ -173,8 +173,8 @@ scenes.append({
 scenes.append({
   'id': 'banque', 'set': 'bank', 'ambience': 'bank',
   'freeze': {'at': 0, 'except': ['mec', 'cart', 'cash', 'watch']},
-  'lines': [L('C14', "Puis il a braqué une banque."),
-            L('C15', "Mais en sortant, ce con a fait tomber le chrono.")],
+  'lines': [L('C14', "Puis il a braqué une banque.", highlight=['braqué']),
+            L('C15', "Mais en sortant, ce con a fait tomber le chrono.", highlight=['tomber', 'chrono.'])],
   'actors': [
     act('guichetier', [-1.2, 0, -2.15], 0, 'giveItem', 'neutral'),
     act('vigile', [-2.6, 0, 1.0], 60, 'yawnStretch', 'sleepy'),
@@ -207,9 +207,9 @@ scenes.append({
   'id': 'rue', 'set': 'street', 'ambience': None, 'music': None,
   'freeze': {'at': 0, 'except': ['mec', 'beard', 'web1', 'web2', 'bench']},
   'daynight': {'from': 'C18', 'period': 0.7},
-  'lines': [L('C16', "Le temps ne repartira plus jamais."),
+  'lines': [L('C16', "Le temps ne repartira plus jamais.", highlight=['jamais.']),
             L('C17', "Bon… Je vous raconte ma vie ?", 'mec', pre=0.5),
-            L('C18', "Pour la première fois, quelqu'un l'a écouté jusqu'au bout.")],
+            L('C18', "Pour la première fois, quelqu'un l'a écouté jusqu'au bout.", highlight=["jusqu'au", 'bout.'])],
   'actors': [
     act('vigile', [-0.55, 0, -0.55], 25, 'handsOnHips', 'unimpressed'),
     act('passant', [2.4, 0, 0.6], -90, 'walk', 'neutral', params={'freq': 1.7}),
@@ -227,11 +227,11 @@ scenes.append({
             {'id': 'web2', 'name': 'spiderWeb', 'opts': {'r': 0.25}, 'visible': False, 'on': {'actor': 'vigile', 'joint': 'elbowR', 'offset': [0, -0.15, 0.08]}, 'keys': [k('C18+2.0', visible=True)]},
             WM(pos=[3.8, 0, -1.3], opts={'kind': 'stand'})],
   'cams': [
-    cam(0, ['mec', 'vigile', 'pigeon', 'passant'], 'ws', angle=10, worldAngle=15, elev=16, move='crane', amount=-8),
+    cam(0, ['mec', 'vigile', 'passant'], 'fs', worldAngle=15, elev=12, move='crane', amount=-6),
     cam('C16#3', ['mec', 'vigile'], 'fs', angle=40),
     cam('C16.end', 'vigile', 'cu', angle=0),
     cam('C17', ots=['vigile', 'mec', 1]),
-    cam('C18', ['mec', 'vigile'], 'ws', angle=25, elev=8),
+    cam('C18', ['mec', 'vigile', 'bench'], 'fs', worldAngle=30, elev=8),
     cam('C18:bout', 'mec', 'cu', angle=20),
     cam('C18.end+0.5', 'vigile', 'mcu', angle=-10, move='push', amount=0.06),
   ],
@@ -247,7 +247,7 @@ ep = {
   'cast': {
     'mec': {'preset': 'lemec'}, 'coll1': {'preset': 'lemec_glasses'}, 'coll2': {'preset': 'madame'},
     'patron': {'preset': 'boss', 'facial': 'none'},
-    'vieux': {'preset': 'lemec_beige', 'hair': 'receding', 'hairColor': '#D8D8D8', 'facial': 'beard', 'build': {'height': 0.92}},
+    'vieux': {'preset': 'lemec_beige', 'hair': 'receding', 'hairColor': '#D8D8D8', 'facial': 'beard', 'beardColor': '215,215,210', 'redNose': True, 'build': {'height': 0.92}},
     'barman': {'preset': 'serveur'}, 'client1': {'preset': 'fermier'}, 'client2': {'preset': 'mamie'},
     'guichetier': {'preset': 'lemec_charcoal'}, 'vigile': {'preset': 'cop2'}, 'cliente': {'preset': 'madame', 'seed': 9},
     'passant': {'preset': 'tourist'}, 'pigeon': {'type': 'creature', 'name': 'pigeon', 'opts': {'seed': 2}},

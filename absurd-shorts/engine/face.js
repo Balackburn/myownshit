@@ -52,7 +52,8 @@ export function faceTexture(o = {}) {
   if (opt.hair === 'long') { g.fillStyle = opt.hairColor; g.fillRect(0, 0, 22, H * 0.55); g.fillRect(W - 22, 0, 22, H * 0.55); }
 
   const e = opt.expression, ink = '#111';
-  const L = { x: 0.30 * W, y: 0.32 * H }, R = { x: 0.66 * W, y: 0.47 * H }, er = 0.078 * W; // eye radius
+  const L = { x: 0.30 * W, y: 0.32 * H }, R = { x: 0.66 * W, y: 0.47 * H }, er = 0.088 * W; // eye radius (a touch larger than measured: readable at phone size)
+  const LW = 1.7; // stroke weight multiplier: secondary faces must read in medium shots at 1080x1920
   // --- brows (thin arcs) --------------------------------------------------
   const browCfg = {
     neutral: [0, 0, 0, 0], blink: [0, 0, 0, 0], surprised: [-10, 0, -10, 0], shocked: [-16, 0, -16, 0], suspicious: [-10, 0, 6, 8],
@@ -61,7 +62,7 @@ export function faceTexture(o = {}) {
     sideLook: [-4, 0, 0, 0], dead: [0, 0, 0, 0], talk: [-3, 0, 0, 0],
   }[e] || [0, 0, 0, 0];
   const brow = (p, dy, tilt) => {
-    g.strokeStyle = ink; g.lineWidth = 4; g.beginPath();
+    g.strokeStyle = ink; g.lineWidth = 4 * LW; g.beginPath();
     const y = p.y - er * 2.6 + dy;
     g.moveTo(p.x - er * 1.1, y + 4 + tilt * 0.5); g.quadraticCurveTo(p.x, y - 5, p.x + er * 1.1, y + 4 - tilt * 0.5); g.stroke();
   };
@@ -70,16 +71,16 @@ export function faceTexture(o = {}) {
   // --- eyes -------------------------------------------------------------------
   const eye = (p, { scale = 1, lid = 0, pupil = [0, 0], closed = false, happy = false, x = false } = {}) => {
     const rr = er * scale;
-    if (x) { g.strokeStyle = ink; g.lineWidth = 4; g.beginPath(); g.moveTo(p.x - rr, p.y - rr); g.lineTo(p.x + rr, p.y + rr); g.moveTo(p.x + rr, p.y - rr); g.lineTo(p.x - rr, p.y + rr); g.stroke(); return; }
-    if (closed) { g.strokeStyle = ink; g.lineWidth = 4; g.beginPath(); if (happy) g.arc(p.x, p.y + rr * 0.5, rr, Math.PI * 1.15, Math.PI * 1.85); else { g.moveTo(p.x - rr, p.y); g.lineTo(p.x + rr, p.y); } g.stroke(); return; }
-    g.fillStyle = '#F7F5EE'; g.strokeStyle = ink; g.lineWidth = 4.5;
+    if (x) { g.strokeStyle = ink; g.lineWidth = 4 * LW; g.beginPath(); g.moveTo(p.x - rr, p.y - rr); g.lineTo(p.x + rr, p.y + rr); g.moveTo(p.x + rr, p.y - rr); g.lineTo(p.x - rr, p.y + rr); g.stroke(); return; }
+    if (closed) { g.strokeStyle = ink; g.lineWidth = 4 * LW; g.beginPath(); if (happy) g.arc(p.x, p.y + rr * 0.5, rr, Math.PI * 1.15, Math.PI * 1.85); else { g.moveTo(p.x - rr, p.y); g.lineTo(p.x + rr, p.y); } g.stroke(); return; }
+    g.fillStyle = '#F7F5EE'; g.strokeStyle = ink; g.lineWidth = 4.5 * LW;
     g.beginPath(); g.arc(p.x, p.y, rr, 0, Math.PI * 2); g.fill(); g.stroke();
-    g.fillStyle = ink; g.beginPath(); g.arc(p.x + pupil[0] * rr, p.y + pupil[1] * rr, rr * 0.36, 0, Math.PI * 2); g.fill();
+    g.fillStyle = ink; g.beginPath(); g.arc(p.x + pupil[0] * rr * 0.8, p.y + pupil[1] * rr * 0.8, rr * 0.5, 0, Math.PI * 2); g.fill();
     if (lid > 0) { // flat upper lid (unimpressed / skeptical look)
       const ly = p.y - rr + 2 * rr * lid;
       g.save(); g.beginPath(); g.arc(p.x, p.y, rr + 1, 0, Math.PI * 2); g.clip();
       g.fillStyle = opt.skin; g.fillRect(p.x - rr - 3, p.y - rr - 3, 2 * rr + 6, ly - (p.y - rr) + 3); g.restore();
-      g.strokeStyle = ink; g.lineWidth = 4.5; g.beginPath(); const hw = Math.sqrt(Math.max(0, rr * rr - (ly - p.y) ** 2)); g.moveTo(p.x - hw - 2, ly); g.lineTo(p.x + hw + 2, ly); g.stroke();
+      g.strokeStyle = ink; g.lineWidth = 4.5 * LW; g.beginPath(); const hw = Math.sqrt(Math.max(0, rr * rr - (ly - p.y) ** 2)); g.moveTo(p.x - hw - 2, ly); g.lineTo(p.x + hw + 2, ly); g.stroke();
     }
   };
   switch (e) {
@@ -99,23 +100,25 @@ export function faceTexture(o = {}) {
     default: eye(L, { pupil: [0.08, 0.05] }); eye(R, { pupil: [0.08, 0.05] });
   }
   if (opt.glasses) {
-    g.strokeStyle = ink; g.lineWidth = 4;
+    g.strokeStyle = ink; g.lineWidth = 4 * LW;
     g.strokeRect(L.x - er * 1.9, L.y - er * 1.6, er * 3.8, er * 3.2); g.strokeRect(R.x - er * 1.9, R.y - er * 1.6, er * 3.8, er * 3.2);
     g.beginPath(); g.moveTo(L.x + er * 1.9, L.y); g.lineTo(R.x - er * 1.9, R.y); g.stroke();
   }
 
   // --- nose: tiny "w" ------------------------------------------------------------
-  const nx = 0.47 * W, ny = 0.63 * H; g.strokeStyle = ink; g.lineWidth = 3; g.beginPath();
+  const nx = 0.47 * W, ny = 0.63 * H;
+  if (opt.redNose) { g.fillStyle = '#C4473A'; g.beginPath(); g.ellipse(nx, ny - 2, 20, 16, 0, 0, Math.PI * 2); g.fill(); g.fillStyle = 'rgba(255,255,255,0.5)'; g.beginPath(); g.arc(nx - 6, ny - 8, 4, 0, Math.PI * 2); g.fill(); }
+  g.strokeStyle = ink; g.lineWidth = 3 * LW; g.beginPath();
   g.moveTo(nx - 9, ny - 3); g.quadraticCurveTo(nx - 6, ny + 5, nx - 1, ny); g.quadraticCurveTo(nx + 4, ny + 5, nx + 8, ny - 3); g.stroke();
 
   // --- facial hair: short vertical dashes -----------------------------------------
   const mouthY = 0.77 * H;
   if (opt.facial === 'stubble' || opt.facial === 'beard') {
-    const n = opt.facial === 'beard' ? 700 : 85;
+    const n = opt.facial === 'beard' ? 420 : 85; const bc = opt.beardColor || '18,18,18';
     for (let i = 0; i < n; i++) {
       const x = 14 + r() * (W - 28), y = 0.68 * H + Math.pow(r(), 0.8) * (H * 0.3);
       if (opt.facial === 'stubble' && Math.abs(y - mouthY) < 12 && x > 0.3 * W && x < 0.7 * W) continue;
-      g.fillStyle = `rgba(18,18,18,${0.8 + r() * 0.2})`; const len = 8 + r() * 8;
+      g.fillStyle = `rgba(${bc},${0.8 + r() * 0.2})`; const len = 8 + r() * 8;
       g.save(); g.translate(x, y); g.rotate((r() - 0.5) * 0.4); g.fillRect(-1.6, -len / 2, 3.2, len); g.restore();
     }
   }
@@ -127,7 +130,7 @@ export function faceTexture(o = {}) {
   }
 
   // --- mouth ------------------------------------------------------------------------
-  g.strokeStyle = opt.lipstick ? '#B5302A' : ink; g.fillStyle = '#2A0E0A'; g.lineWidth = 6;
+  g.strokeStyle = opt.lipstick ? '#B5302A' : ink; g.fillStyle = '#2A0E0A'; g.lineWidth = 6 * LW * 0.85;
   const mx0 = 0.34 * W, mx1 = 0.66 * W, mc = (mx0 + mx1) / 2;
   g.beginPath();
   switch (e) {

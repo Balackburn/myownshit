@@ -128,10 +128,18 @@ const B = {
     for (let i = 0; i < 12; i++) { const a = rr() * TAU, d = R + (rr() - 0.5) * 0.07; g.add(at(box(0.03, 0.012, 0.01, [P.white, P.teal, P.yellow, P.navy][i % 4]), Math.cos(a) * d, r + 0.058, Math.sin(a) * d, 0, rr() * PI, 0)); }
     g.userData.grip = [0.2, r, 0]; return g;
   },
-  phone911() {
+  phone911(o = {}) {
     const screen = canvasPlane(0.125, 0.25, (g, W, H) => {
       g.fillStyle = BLUE; g.fillRect(0, 0, W, H); g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
-      g.font = `900 ${W * 0.42}px Arial`; g.fillText('911', W / 2, H * 0.36); g.font = `bold ${W * 0.17}px Arial`; g.fillText('POLICE', W / 2, H * 0.53);
+      if (o.screen === 'tiktok') { // generic short-video app: black feed, a flexing silhouette, colour-offset note, side buttons
+        g.fillStyle = '#0B0B0D'; g.fillRect(0, 0, W, H);
+        g.fillStyle = '#E8E8E8'; g.fillRect(W * 0.38, H * 0.3, W * 0.24, H * 0.28); g.beginPath(); g.arc(W * 0.5, H * 0.25, W * 0.1, 0, TAU); g.fill();
+        g.fillRect(W * 0.14, H * 0.3, W * 0.24, W * 0.1); g.fillRect(W * 0.62, H * 0.3, W * 0.24, W * 0.1); g.fillRect(W * 0.12, H * 0.2, W * 0.1, H * 0.12); g.fillRect(W * 0.78, H * 0.2, W * 0.1, H * 0.12);
+        g.font = `900 ${W * 0.3}px Arial`; [['#25F4EE', -3], ['#FE2C55', 3], ['#FFFFFF', 0]].forEach(([c, d]) => { g.fillStyle = c; g.fillText('♪', W / 2 + d, H * 0.8 + d); });
+        for (let i = 0; i < 3; i++) { g.fillStyle = '#FFFFFF'; g.beginPath(); g.arc(W * 0.86, H * (0.5 + i * 0.1), W * 0.045, 0, TAU); g.fill(); }
+        return;
+      }
+      g.font = `900 ${W * 0.42}px Arial`; g.fillText(o.text || '911', W / 2, H * 0.36); g.font = `bold ${W * 0.17}px Arial`; g.fillText(o.sub || 'POLICE', W / 2, H * 0.53);
       g.beginPath(); g.arc(W / 2, H * 0.78, W * 0.13, 0, TAU); g.fillStyle = '#3DAA6A'; g.fill();
     }, { res: 256, emissive: 0.55 });
     const g = grp(box(0.14, 0.28, 0.018, P.ink, { pivot: 'bottom', outline: 0.03 }), at(screen, 0, 0.14, 0.0095));
@@ -856,6 +864,10 @@ const B = {
     g.add(at(label(o.text || 'FRAGILE', 0.4, 0.14, { bg: null, fg: P.red }), 0, h * 0.3, d / 2 + 0.02));
     return g; },
   syringeBig(o) { const g = B.syringe(o); g.scale.setScalar(o.k || 2); return g; },
+  baldCap(o) { // shiny bald pate to sit on a creature's head ("un gorille chauve")
+    const w = o.w || 0.3, d = o.d || 0.26, c = o.color || '#C9B9A6';
+    const g = grp(at(box(w, 0.07, d, c, { outline: 0.006, taper: { x: 0.8, z: 0.8 } }), 0, 0.035, 0), at(box(w * 0.25, 0.01, d * 0.2, '#EFE6DA', { noGrain: true }), -w * 0.15, 0.072, d * 0.1));
+    return g; },
   
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
   

@@ -31,8 +31,8 @@ const LOCO = {
   knuckleWalk: [1.3, 1.4], boxSneak: [0.55, 0.9], pushCartWalk: [1.15, 1.5], pushCart: [1.1, 1.5], carryBox: [1.1, 1.5], crawl: [0.7, 1.0],
 };
 const SIZE = { // fraction of subject height framed from the top, fill of frame height, default elevation, lens
-  ecu: { part: 'head', pad: 1.25, fill: 0.86, elev: 0, lens: 34 }, cu: { part: 'headShoulders', fill: 0.82, elev: 2, lens: 36 },
-  mcu: { part: 0.42, fill: 0.88, elev: 3, lens: 38 }, ms: { part: 0.6, fill: 0.86, elev: 4, lens: 40 }, mls: { part: 0.8, fill: 0.86, elev: 5, lens: 40 },
+  ecu: { part: 'head', pad: 1.25, fill: 0.8, elev: 0, lens: 34 }, cu: { part: 'headShoulders', fill: 0.82, elev: 2, lens: 36 },
+  mcu: { part: 0.42, fill: 0.84, elev: 3, lens: 38 }, ms: { part: 0.6, fill: 0.86, elev: 4, lens: 40 }, mls: { part: 0.8, fill: 0.86, elev: 5, lens: 40 },
   fs: { part: 1, fill: 0.8, elev: 6, lens: 42 }, ws: { part: 1, fill: 0.42, elev: 10, lens: 45 }, ews: { part: 1, fill: 0.22, elev: 16, lens: 46 },
 };
 
@@ -346,7 +346,7 @@ function precomputeReleases(sc) {
     A.obj.updateMatrixWorld(true);
     const pos = Pp.obj.getWorldPosition(V()), quat = Pp.obj.getWorldQuaternion(new THREE.Quaternion());
     k.rel = { pos, quat, floor: k.floor ?? 0.02 };
-    if (k.fall) { const h = Math.max(0, pos.y - k.rel.floor); k.landT = k.at + Math.sqrt(2 * h / 9.8); if (k.impact) Pp.sfx.push({ t: k.landT, name: k.impact, vol: k.vol ?? 0.7 }); }
+    if (k.fall) { const h = Math.max(0, pos.y - k.rel.floor), vy = k.toss?.[1] || 0; k.landT = k.at + (vy + Math.sqrt(vy * vy + 2 * 9.8 * h)) / 9.8; if (k.impact) Pp.sfx.push({ t: k.landT, name: k.impact, vol: k.vol ?? 0.7 }); }
   }
 }
 
@@ -357,7 +357,7 @@ function evalProp(Pp, t) {
   if (Pp.obj.parent !== S.root) S.root.add(Pp.obj);
   if (o && o.detach && o.rel) {
     const dt = Math.max(0, t - o.at), p = o.rel.pos.clone();
-    if (o.fall) { p.y = Math.max(o.rel.floor, o.rel.pos.y - 0.5 * 9.8 * dt * dt); if (o.toss) { const k = Math.min(dt, o.landT - o.at); p.x += o.toss[0] * k; p.z += o.toss[2] * k; } }
+    if (o.fall) { const vy = o.toss?.[1] || 0; p.y = Math.max(o.rel.floor, o.rel.pos.y + vy * dt - 0.5 * 9.8 * dt * dt); if (o.toss) { const k = Math.min(dt, o.landT - o.at); p.x += o.toss[0] * k; p.z += o.toss[2] * k; } }
     Pp.obj.position.copy(p); Pp.obj.quaternion.copy(o.rel.quat);
     if (o.fall && o.spinFall) Pp.obj.rotateX(o.spinFall * Math.min(dt, (o.landT ?? o.at) - o.at));
     if (o.restRot && t >= (o.landT ?? 0)) Pp.obj.rotation.set(...o.restRot);
@@ -528,7 +528,7 @@ function regionFor(subs, size) {
       if (hb && !hb.isEmpty()) {
         b = hb.clone(); const hh = hb.max.y - hb.min.y;
         if (spec.part === 'head') b.expandByScalar(hh * (spec.pad - 1) * 0.5);
-        else { b.min.y -= hh * 0.85; const c = b.getCenter(V()); const w = Math.max(b.max.x - b.min.x, b.max.z - b.min.z) * 1.4; b.min.x = Math.min(b.min.x, c.x - w / 2); b.max.x = Math.max(b.max.x, c.x + w / 2); b.min.z = Math.min(b.min.z, c.z - w / 2); b.max.z = Math.max(b.max.z, c.z + w / 2); }
+        else { b.min.y -= hh * 0.5; b.max.y += hh * 0.06; const c = b.getCenter(V()); const w = Math.max(b.max.x - b.min.x, b.max.z - b.min.z) * 1.4; b.min.x = Math.min(b.min.x, c.x - w / 2); b.max.x = Math.max(b.max.x, c.x + w / 2); b.min.z = Math.min(b.min.z, c.z - w / 2); b.max.z = Math.max(b.max.z, c.z + w / 2); }
       } else { const h = full.max.y - full.min.y; b.min.y = full.max.y - h * (spec.part === 'head' ? 0.35 : 0.5); }
     } else if (typeof spec.part === 'number' && spec.part < 1) {
       const h = full.max.y - full.min.y; b.min.y = full.max.y - h * spec.part;
@@ -597,26 +597,57 @@ function solveCam(c, sc) {
   const baseYaw = c.worldAngle != null ? c.worldAngle * D2R : facing + (c.angle ?? 15) * D2R;
   const ignore = new Set(subs.filter(s => s.obj).map(s => s.obj));
   const frameBox = c.move === 'track' ? samples[0].box : union;
-  const headPt = frameBox.getCenter(V()); headPt.y = frameBox.max.y - (frameBox.max.y - frameBox.min.y) * 0.12;
+  // occlusion probes, per subject: head (weight 2) + a 2x3 grid over its framed region (offsets along the camera's right)
+  evalAll(t0 + span * 0.4);
+  const groups = [];
+  for (const s of subs) {
+    if (s.point) continue; // framing helper only (it may sit inside a body or a prop)
+    const b = regionFor([s], size); if (b.isEmpty()) continue;
+    const cc = b.getCenter(V()), h = b.max.y - b.min.y, hb = s.kind !== 'prop' ? headBox(s) : null;
+    const probes = [{ p: hb && !hb.isEmpty() ? hb.getCenter(V()) : V(cc.x, b.max.y - h * 0.12, cc.z), u: 0, w: 2 }];
+    for (const [row, fy] of [0.8, 0.5, 0.2].entries()) for (const u of [-1, 1]) probes.push({ p: V(cc.x, b.min.y + h * fy, cc.z), u, row });
+    groups.push({ halfW: Math.max(0.05, Math.hypot(b.max.x - b.min.x, b.max.z - b.min.z) * 0.18), probes });
+  }
+  const CLUT = new THREE.Raycaster();
+  const clutterAt = (pos, f, d, right) => { // big objects right in front of the lens (counter tops, stools, posts)
+    const halfH = d * Math.tan(fov * D2R / 2), halfW = halfH * S.W / S.H, maxD = Math.min(1.2, 0.4 * d);
+    let n = 0;
+    for (const gx of [-0.6, 0, 0.6]) for (const gy of [-0.7, -0.35, 0, 0.35, 0.7]) {
+      const tgt = f.center.clone().addScaledVector(right, gx * halfW).addScaledVector(f.up, gy * halfH);
+      CLUT.set(pos, tgt.sub(pos).normalize()); CLUT.near = 0.02; CLUT.far = maxD;
+      for (const h of CLUT.intersectObjects(S.root.children, true)) {
+        const o = h.object; if (!o.isMesh || !o.visible || o.name === 'outline') continue;
+        const m = Array.isArray(o.material) ? o.material[0] : o.material; if (m && m.transparent && m.opacity < 0.6) continue;
+        let p = o, skip = false; while (p) { if (ignore.has(p) || !p.visible) { skip = true; break; } p = p.parent; }
+        if (!skip) { n++; break; }
+      }
+    }
+    return n;
+  };
   const tryYaw = (yaw, el) => {
-    const f = fitDistance(frameBox, yaw, el, fov, fill); const { dir } = camBasis(yaw, el);
+    const f = fitDistance(frameBox, yaw, el, fov, fill); const { dir, right } = camBasis(yaw, el);
     let d = f.dist * (c.zoom || 1);
     const pos = f.center.clone().add(dir.clone().multiplyScalar(d)); if (pos.y < 0.2) pos.y = 0.2;
-    // a camera inside / grazing another actor is as bad as a wall in the way
-    let inside = null;
-    if (!c.noOcclusion) for (const B of S.actors) { if (ignore.has(B.obj) || !B.obj.visible) continue; const bb = new THREE.Box3().setFromObject(B.obj).expandByScalar(0.25); if (bb.containsPoint(pos)) { inside = 0.1; break; } }
     if (c.noOcclusion) return { yaw, el, d, f, hit: null };
-    if (inside != null) return { yaw, el, d, f, hit: inside };
-    const { right } = camBasis(yaw, el), w = Math.max(0.2, (frameBox.max.x - frameBox.min.x + frameBox.max.z - frameBox.min.z) * 0.25);
-    const pts = [headPt, headPt.clone().addScaledVector(right, w * 0.6), headPt.clone().addScaledVector(right, -w * 0.6), f.center.clone(), f.center.clone().addScaledVector(right, w * 0.5)];
-    let n = 0, near = null;
-    pts.forEach((pt, i) => { const h = blocked(pt, pos, ignore); if (h != null) { n += i === 0 ? 2 : 1; near = near == null ? h : Math.min(near, h); } });
-    return { yaw, el, d, f, hit: n >= 2 ? near : null };
+    // a camera inside / grazing another actor is as bad as a wall in the way
+    for (const B of S.actors) { if (ignore.has(B.obj) || !B.obj.visible) continue; const bb = new THREE.Box3().setFromObject(B.obj).expandByScalar(0.25); if (bb.containsPoint(pos)) return { yaw, el, d, f, hit: 0.1, why: 'inside ' + B.id }; }
+    // a subject is hidden when: its head is blocked, or its whole upper row, or a whole column (a post), or 5 of 6 probes.
+    // Legs hidden behind a desk / counter are fine.
+    let hidden = false, near = null;
+    for (const g of groups) {
+      const hit = g.probes.map(pr => blocked(pr.p.clone().addScaledVector(right, pr.u * g.halfW), pos, ignore));
+      hit.forEach(h => { if (h != null) near = near == null ? h : Math.min(near, h); });
+      const on = i => hit[i] != null, grid = g.probes.map((pr, i) => ({ ...pr, b: on(i) })).filter(pr => pr.row != null);
+      const col = u => grid.filter(pr => pr.u === u), up = grid.filter(pr => pr.row === 0);
+      if (on(0) || (up.length && up.every(pr => pr.b)) || [-1, 1].some(u => col(u).length && col(u).every(pr => pr.b)) || grid.filter(pr => pr.b).length >= 5) hidden = true;
+    }
+    const clutter = clutterAt(pos, f, d, right);
+    return { yaw, el, d, f, hit: hidden || clutter >= 3 ? (near ?? Math.max(0.6, d * 0.6)) : null, clutter, hidden, why: hidden ? 'hidden(near ' + (near ?? 0).toFixed(2) + ')' : '' };
   };
   const front = [0, 25, -25, 50, -50, 75, -75], back = [100, -100, 130, -130, 160, -160, 180];
   const tries = c.noOcclusion ? [[0, elev]] : [...front.map(o => [o, elev]), ...front.map(o => [o, elev + 18 * D2R]), ...back.map(o => [o, elev])];
   let best = null;
-  for (const [o, el] of tries) { const r = tryYaw(baseYaw + o * D2R, el); if (r.hit == null) { best = r; break; } if (!best || r.hit > best.hit) best = r; }
+  for (const [o, el] of tries) { const r = tryYaw(baseYaw + o * D2R, el); if (c.debug) console.error(`[camdbg ${sc.id}@${t0.toFixed(2)}] yaw ${(r.yaw / D2R).toFixed(0)} el ${(r.el / D2R).toFixed(0)} d ${r.d.toFixed(2)} hit ${r.hit} hidden ${r.hidden} clutter ${r.clutter} ${r.why || ''}`); if (r.hit == null) { best = r; break; } if (!best || r.hit > best.hit) best = r; }
   elev = best.el;
   let fovUse = fov;
   if (best.hit != null) { // nothing clear: move in front of the obstacle and widen the lens to keep the framing
@@ -642,9 +673,19 @@ function camPoseAt(c, t) {
     const fwd = hb.clone().sub(ha); fwd.y = 0; fwd.normalize(); const right = V(fwd.z, 0, -fwd.x);
     const sa = A.obj.scale.x || 1, side = sideIn ?? 1;
     if (s.kind === 'pov') return { pos: ha.clone().add(fwd.clone().multiplyScalar(0.18 * sa)), look: hb.clone().add(V(0, -0.05, 0)), fov: s.fov };
-    const pos = ha.clone().add(fwd.clone().multiplyScalar(-0.62 * sa)).add(right.clone().multiplyScalar(-0.38 * sa * side)).add(V(0, 0.12 * sa, 0));
-    const look = hb.clone().add(V(0, -0.18 * (B.obj.scale.x || 1), 0)).add(right.clone().multiplyScalar(0.06 * side));
-    return { pos: pos.lerp(pos.clone().lerp(look, 0.12), (c.move === 'push' ? k : 0)), look, fov: s.fov };
+    // Vertical OTS composed on screen: A's head big at the frame edge (x = -0.84·side), B's face right of centre (x = +0.24·side).
+    // Solve the lateral offset so the two heads are exactly that far apart in angle, whatever their distance.
+    const tanH = Math.tan(s.fov * D2R / 2) * (S.W / S.H), tanV = Math.tan(s.fov * D2R / 2);
+    const angA = Math.atan(0.84 * tanH), angB = Math.atan(0.24 * tanH), sep = angA + angB;
+    const D = Math.hypot(hb.x - ha.x, hb.z - ha.z), back = 1.0 * sa;
+    let lo = 0, hi = 4; for (let i = 0; i < 32; i++) { const m = (lo + hi) / 2; if (Math.atan(m / back) - Math.atan(m / (back + D)) < sep) lo = m; else hi = m; }
+    const sr = V(-fwd.z, 0, fwd.x); // screen-right when looking from A to B
+    const pos0 = ha.clone().addScaledVector(fwd, -back).addScaledVector(sr, lo * side).add(V(0, 0.1 * sa, 0));
+    const pos = pos0.lerp(pos0.clone().lerp(hb, 0.12), (c.move === 'push' ? k : 0));
+    const toB = hb.clone().sub(pos), dist = Math.hypot(toB.x, toB.z);
+    const yawL = Math.atan2(toB.x, toB.z) + angB * side;
+    const look = pos.clone().add(V(Math.sin(yawL) * dist, 0, Math.cos(yawL) * dist)); look.y = hb.y - 0.16 * tanV * dist;
+    return { pos, look, fov: s.fov };
   }
   let yaw = s.yaw, elev = s.elev, d = s.d, center = s.center.clone();
   const amt = c.amount ?? (c.move === 'orbit' ? 20 : c.move === 'crane' ? 12 : ['ecu', 'cu'].includes(s.size) ? 0.06 : 0.1);
@@ -655,7 +696,7 @@ function camPoseAt(c, t) {
   }
   const { dir, right } = camBasis(yaw, elev);
   const tanV = Math.tan(s.fov * D2R / 2), vis = 2 * d * tanV;
-  const compose = c.compose ?? ({ ecu: 0.0, cu: 0.025, mcu: 0.045, ms: 0.06, mls: 0.06, fs: 0.05, ws: 0.04, ews: 0.03 }[s.size] ?? 0.05);
+  const compose = c.compose ?? ({ ecu: 0.1, cu: 0.0, mcu: 0.02, ms: 0.04, mls: 0.05, fs: 0.04, ws: 0.03, ews: 0.03 }[s.size] ?? 0.04);
   const look = center.clone().add(V(0, -compose * vis, 0)).add(right.clone().multiplyScalar(-(c.offsetX || 0) * 0.25 * vis * (S.W / S.H)));
   const pos = center.clone().add(dir.multiplyScalar(d)); if (pos.y < 0.15) pos.y = 0.15;
   return { pos, look, fov: s.fov };
