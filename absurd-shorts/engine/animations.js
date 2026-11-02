@@ -52,6 +52,7 @@ export const CLIPS = {
   present: (t) => ({ ...arms(m([0, 0, 0.06], [-0.55, 0, 0.75]), m([-0.1, 0, 0], [-0.6, -1.2, 0])), handR: [0, -1.4, 0], head: [0, -0.18, 0.04] }), // "voilà": one arm out, palm up (sheet)
   thinkChin: (t) => ({ ...arms(m([-0.5, -0.65, 0.2], [-0.45, 0, 0.1]), m([-1.75, 0, 0], [-2.55, 0, 0])), head: [-0.08, 0.12, 0.05 + 0.02 * S(t)] }), // hand on chin, arm crossed under (sheet)
   armsUp: (t) => ({ ...arms(m([0, 0, 2.75], [0, 0, 2.75]), m([0, 0, 0.15], [0, 0, 0.15])), head: [-0.05, 0, 0] }), // both arms straight up, stiff (sheet)
+  pushVacuum: (t) => { const k = Math.sin(t * 2 * PI * 1.1); return { ...arms(m([0, 0, 0.06], [-0.42 - 0.12 * k, 0, 0.12]), m([-0.12, 0, 0], [-0.3, 0, 0])), torso: [0.05, -0.08, 0], head: [0.12, -0.1, 0], hipL: [-0.12 * k, 0, 0], hipR: [0.12 * k, 0, 0], kneeL: [Math.max(0, 0.2 * k), 0, 0], kneeR: [Math.max(0, -0.2 * k), 0, 0], root: { z: 0.06 * k } }; }, // pushing a vacuum / broom back and forth
   phone: () => ({ ...arms(m([0, 0, 0.06], [-0.5, 0, 0.75]), m([-0.1, 0, 0], [-2.45, 0.2, 0])), head: [0, 0, -0.12] }),
   holdPhoneFront: () => ({ ...arms(m([0, 0, 0.06], [-1.1, 0, 0.1]), m([-0.1, 0, 0], [-1.1, 0, 0])), head: [0.35, 0, 0] }),
   talk: (t) => ({ head: [0.04 * S(t * 7), 0.06 * S(t * 2), 0], ...arms(m([0, 0, 0.06], [-0.6 - 0.15 * S(t * 4), 0, 0.15]), m([-0.1, 0, 0], [-1.2 + 0.2 * S(t * 4), 0.6, 0])) }),
