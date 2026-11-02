@@ -56,6 +56,16 @@ export const CLIPS = {
   flex: (t) => ({ ...arms(m([0, 0, 1.45 + 0.04 * S(t * 6)], [0, 0, 1.45 + 0.04 * S(t * 6 + 1)]), m([0, 0, 1.75], [0, 0, 1.75])), torso: [-0.05, 0, 0], head: [-0.08, 0, 0], root: { y: 0.005 * S(t * 12) } }), // double biceps
   punch: (t) => { const k = Math.max(0, S(t * 9)); const j = Math.max(0, -S(t * 9)); return { ...arms(m([-0.6 - 0.9 * j, 0, 0.2], [-0.6 - 0.9 * k, 0, 0.2]), m([-1.6 + 1.4 * j, 0, 0], [-1.6 + 1.4 * k, 0, 0])), torso: [0.1, 0.25 * (k - j), 0], hipL: [-0.2, 0, 0], kneeL: [0.25, 0, 0] }; },
   liftBarbell: (t) => { const k = 0.5 + 0.5 * S(t * 4); return { ...arms(m([-0.4 - 2.2 * k, 0, 0.35], [-0.4 - 2.2 * k, 0, 0.35]), m([-1.4 + 1.3 * k, 0, 0], [-1.4 + 1.3 * k, 0, 0])), head: [-0.1, 0, 0], hipL: [-0.15, 0, 0.1], hipR: [-0.15, 0, -0.1] }; },
+  // ---- comedy clips ---------------------------------------------------------------------------------
+  chestBeat: (t) => { const k = S(t * 22); return { ...arms(m([-1.1 - 0.25 * Math.max(0, k), -0.5, 0.25], [-1.1 - 0.25 * Math.max(0, -k), -0.5, 0.25]), m([-1.7, 0, 0], [-1.7, 0, 0])), torso: [-0.12, 0, 0.04 * k], head: [-0.3, 0, 0], root: { y: 0.01 * Math.abs(k) } }; },
+  strut: (t) => { const w = CLIPS.walk(t, { freq: 1.5, amp: 0.5 }); const ph = t * 1.5 * 2 * PI; return { ...w, torso: [-0.12, 0.18 * S(ph), 0.06 * S(ph)], head: [-0.18, -0.25 * S(ph), 0.08 * S(ph)], ...arms(m([0.9 * S(ph), 0, 0.25], [-0.9 * S(ph), 0, 0.25]), m([-0.6, 0, 0], [-0.6, 0, 0])), root: { y: 0.04 * Math.abs(S(ph)) } }; }, // proud naked strut
+  tiptoe: (t) => { const ph = t * 2 * PI * 1.1, a = Math.max(0, S(ph)), b = Math.max(0, -S(ph)); return { hipL: [-1.0 * a, 0, 0], kneeL: [1.6 * a, 0, 0], hipR: [-1.0 * b, 0, 0], kneeR: [1.6 * b, 0, 0], footL: [0.5, 0, 0], footR: [0.5, 0, 0], ...arms(m([-1.3, 0, 0.5], [-1.3, 0, 0.5]), m([-1.2, 0, 0], [-1.2, 0, 0])), handL: [1.0, 0, 0], handR: [1.0, 0, 0], torso: [0.25, 0, 0], head: [0.1, 0.4 * S(t * 1.3), 0], root: { y: 0.06 * (a + b) } }; }, // cartoon sneak
+  flail: (t) => { const r = CLIPS.run(t, { freq: 3.8 }); return { ...r, ...arms(m([-PI * 2 * ((t * 3) % 1), 0, 0.3], [-PI * 2 * ((t * 3 + 0.5) % 1), 0, 0.3]), m([0, 0, 0], [0, 0, 0])), head: [-0.3, 0.3 * S(t * 15), 0] }; }, // windmill panic run
+  doubleTake: (t) => { const k = t < 0.3 ? 0 : t < 0.5 ? (t - 0.3) / 0.2 : t < 0.7 ? 1 - (t - 0.5) / 0.2 : t < 0.8 ? (t - 0.7) / 0.1 : 1; const pop = t > 0.7 && t < 1.0 ? 0.12 * S((t - 0.7) / 0.3 * PI) : 0; return { ...CLIPS.stand(), head: [-0.1 * k, 0.9 * k, 0], torso: [0, 0.2 * k, 0], root: { y: pop } }; },
+  selfStruggle: (t) => { const k = S(t * 11); return { ...arms(m([-0.9 + 0.35 * k, 0.3, 0.2], [-0.9 - 0.35 * k, 0.3, 0.2]), m([-1.2, 0, 0], [-1.2, 0, 0])), torso: [0.1, 0.22 * k, 0], head: [0.1, -0.2 * k, 0], root: { x: 0.03 * k } }; }, // one hand fights the other
+  spinFall: (t, p = {}) => { const d = p.dur ?? 0.7, k = Math.min(1, t / d); return { root: { ry: k * PI * 4, rx: -PI / 2 * k * k, y: 0.5 * S(k * PI) + 0.12 * k, z: -1.2 * k }, ...arms(m([0, 0, 2.4], [0, 0, 2.4]), m([0, 0, 0], [0, 0, 0])), head: [-0.3, 0, 0] }; }, // knocked out spinning
+  posing: (t) => { const i = Math.floor(t / 0.55) % 3; return i === 0 ? CLIPS.flex(t) : i === 1 ? { ...arms(m([0.2, 0, 0.9], [0.2, 0, 0.9]), m([0, 0.4, -1.9], [0, 0.4, -1.9])), torso: [-0.1, 0, 0], head: [-0.1, 0, 0] } : { ...arms(m([-0.4, 0.5, 0.3], [-0.2, 0, 0.6]), m([-1.6, 0, 0], [-1.3, 0, 0])), torso: [0.05, 0.6, 0], head: [0, -0.6, 0], hipL: [-0.3, 0, 0], kneeL: [0.5, 0, 0] }; }, // bodybuilder pose switch
+  shovelFood: (t) => ({ ...CLIPS.sit(t), ...arms(m([-0.5, 0, 0.2], [-1.0 - 0.6 * Math.abs(S(t * 9)), 0, 0.1]), m([-1.2, 0, 0], [-1.6 - 0.6 * Math.abs(S(t * 9)), 0, 0])), head: [0.1 + 0.1 * S(t * 9), 0, 0], torso: [0.15, 0, 0] }),
   phone: () => ({ ...arms(m([0, 0, 0.06], [-0.5, 0, 0.75]), m([-0.1, 0, 0], [-2.45, 0.2, 0])), head: [0, 0, -0.12] }),
   holdPhoneFront: () => ({ ...arms(m([0, 0, 0.06], [-1.1, 0, 0.1]), m([-0.1, 0, 0], [-1.1, 0, 0])), head: [0.35, 0, 0] }),
   talk: (t) => ({ head: [0.04 * S(t * 7), 0.06 * S(t * 2), 0], ...arms(m([0, 0, 0.06], [-0.6 - 0.15 * S(t * 4), 0, 0.15]), m([-0.1, 0, 0], [-1.2 + 0.2 * S(t * 4), 0.6, 0])) }),
@@ -100,7 +110,7 @@ export const CLIPS = {
   },
   flee: (t, p = {}) => { const r = CLIPS.run(t, { freq: 3.6 }); return { ...r, ...arms(m([-0.3, 0, 2.6 + 0.2 * S(t * 20)], [-0.3, 0, 2.6 + 0.2 * S(t * 20 + 1)]), m([0, 0, 0.4], [0, 0, 0.4])) }; }, // panic, arms in the air
   climbDown: (t) => { const ph = t * 2 * PI * 1.2; return { ...arms(m([-2.6 + 0.3 * S(ph), 0, 0.2], [-2.6 - 0.3 * S(ph), 0, 0.2]), m([-0.4, 0, 0], [-0.4, 0, 0])), hipL: [-0.6 - 0.4 * S(ph), 0, 0], hipR: [-0.6 + 0.4 * S(ph), 0, 0], kneeL: [0.9, 0, 0], kneeR: [0.9, 0, 0] }; },
-  jump: (t, p = {}) => { const d = p.dur ?? 0.6, k = Math.min(1, t / d); const y = 4 * k * (1 - k) * (p.height ?? 0.5); return { root: { y }, ...arms(m([0, 0, 2.4], [0, 0, 2.4]), m([0, 0, 0], [0, 0, 0])), hipL: [-0.4, 0, 0], hipR: [-0.4, 0, 0], kneeL: [0.8, 0, 0], kneeR: [0.8, 0, 0] }; },
+  jump: (t, p = {}) => { const d = p.dur ?? 0.6, k = Math.min(1, t / d); const y = 4 * k * (1 - k) * (p.height ?? 0.5); const sy = k <= 0 || k >= 1 ? (t - d < 0.15 && t >= d ? 0.82 + 0.18 * (t - d) / 0.15 : 1) : 1 + 0.12 * S(k * PI); return { root: { y, sy, sx: 2 - sy }, ...arms(m([0, 0, 2.4], [0, 0, 2.4]), m([0, 0, 0], [0, 0, 0])), hipL: [-0.4, 0, 0], hipR: [-0.4, 0, 0], kneeL: [0.8, 0, 0], kneeR: [0.8, 0, 0] }; },
   startle: (t) => { const k = Math.min(1, t / 0.15); const y = t < 0.3 ? 0.15 * S(t / 0.3 * PI) : 0; return { root: { y }, ...arms(m([-0.2, 0, 1.1 * k], [-0.2, 0, 1.1 * k]), m([0, 0, -0.6 * k], [0, 0, -0.6 * k])), head: [-0.15 * k, 0, 0] }; },
 
   // --- seated / ground --------------------------------------------------
@@ -149,6 +159,7 @@ export function actingBlend(a, b, dt, opts = {}) {
   const w = Math.max(0, Math.min(1.05, actingWeight(dt, { ...opts, anticipation: 0 })));
   const ra = a.root || {}, rb = b.root || {}; out.root = {};
   for (const k of ['x', 'y', 'z', 'rx', 'ry', 'rz']) out.root[k] = (ra[k] || 0) + ((rb[k] || 0) - (ra[k] || 0)) * w;
+  out.root.sx = rb.sx; out.root.sy = rb.sy;
   return out;
 }
 
@@ -170,5 +181,5 @@ export function applyPose(human, pose, base = {}) {
   const rt = pose.root || {};
   human.position.set((base.x || 0) + (rt.x || 0), (base.y || 0) + (rt.y || 0), (base.z || 0) + (rt.z || 0));
   human.rotation.set(rt.rx || 0, (base.ry || 0) + (rt.ry || 0), rt.rz || 0);
-  if (base.scale) human.scale.setScalar(base.scale);
+  const sc = base.scale || 1; human.scale.set(sc * (rt.sx || 1), sc * (rt.sy || 1), sc * (rt.sx || 1)); // squash & stretch
 }

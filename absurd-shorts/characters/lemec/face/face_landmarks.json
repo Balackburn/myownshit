@@ -426,6 +426,11 @@
    "from_source": "neutral"
   }
  },
+ "color_gain_bgr": [
+  1.026,
+  1.14,
+  1.173
+ ],
  "inferred": [
   {
    "rows": [
@@ -438,12 +443,12 @@
  ],
  "validation": {
   "skeptical": {
-   "ink_iou": 0.883,
-   "mae": 3.29
+   "ink_iou": 0.886,
+   "mae": 19.25
   },
   "neutral": {
-   "ink_iou": 0.652,
-   "mae": 23.59
+   "ink_iou": 0.655,
+   "mae": 10.62
   }
  }
 }

@@ -161,7 +161,7 @@ export function buildHuman(spec = {}) {
   const headMats = ATL ? [
     new THREE.MeshLambertMaterial({ map: atlasSideTexture(false) }), new THREE.MeshLambertMaterial({ map: atlasSideTexture(true) }),
     atlasMaterial(), atlasMaterial(),
-    new THREE.MeshLambertMaterial({ map: atlasFaceTexture('neutral') }),
+    new THREE.MeshBasicMaterial({ map: atlasFaceTexture('neutral'), color: new THREE.Color(0.97, 0.97, 0.97) }), // flat painted panel: unlit like the originals (face RGB ≈ 235,203,173)
     new THREE.MeshLambertMaterial({ map: atlasBackTexture() }),
   ] : [
     new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }), new THREE.MeshLambertMaterial({ map: mirrored(sideTexture(faceOpts)) }),
@@ -172,7 +172,14 @@ export function buildHuman(spec = {}) {
   const headGeo = new THREE.BoxGeometry(hw, hh, hd); headGeo.translate(0, hh / 2, 0);
   // subtle trapezoid + skew: jaw a touch wider, crown leaning back (very characteristic)
   const pp = headGeo.attributes.position;
-  for (let i = 0; i < pp.count; i++) { const t = pp.getY(i) / hh; pp.setX(i, pp.getX(i) * (0.9 + 0.1 * t)); pp.setZ(i, pp.getZ(i) - 0.015 * t); } // chin narrower than forehead
+  // MEASURED on frontal originals (find_faces quads): the face panel is NOT a rectangle — top edge slopes down
+// ≈ 9° toward image-right (character's left, +x), bottom edge rises ≈ 3°, so that side is ≈ 9 % shorter (R/L 0.90–0.92).
+const TOP = Math.tan(9 * Math.PI / 180), BOT = Math.tan(3 * Math.PI / 180);
+for (let i = 0; i < pp.count; i++) {
+  const t = pp.getY(i) / hh, x = pp.getX(i), u = (x + hw / 2) / hw;   // u: 0 = image left … 1 = image right (camera in front, +x = image right)
+  pp.setY(i, pp.getY(i) - (o.irregularHead === false ? 0 : (t > 0.5 ? TOP * hw * u : -BOT * hw * u)));
+  pp.setZ(i, pp.getZ(i) - 0.015 * t);
+}
   if (ATL) atlasUV(headGeo, { py: AR.headTop, ny: AR.headBottom });
   headGeo.computeVertexNormals();
   const headMesh = new THREE.Mesh(headGeo, headMats); headMesh.castShadow = true; headMesh.name = 'headMesh';

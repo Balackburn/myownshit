@@ -128,10 +128,19 @@ def cmd_tts(script_path, workdir):
         v['_next'] = ' '.join(t for t in spoken[i + 1:i + 3] if t.strip())[:400]
         if line.strip().startswith(('"', '«')) and 'voice' not in shot:  # quoted dialogue -> second voice by default
             v = {**v, **sc.get('dialogueVoice', {'pitch': 48, 'speed': 185, 'id': voice.get('dialogueId', voice.get('id'))})}
-        try: x = tts_espeak(speakable(line), wav, v) if failed else (tts_files(line, wav, v, i) if engine == 'files' else fn(speakable(line), wav, v))
-        except Exception as e:  # network blocked / bad key: warn once, finish the episode offline
+        import hashlib
+        key = hashlib.sha1(json.dumps([engine, {k: v.get(k) for k in ('name', 'id', 'model', 'rate', 'stability', 'speed', 'pitch', 'espeak', '_prev', '_next')}, speakable(line)], sort_keys=True).encode()).hexdigest()[:16]
+        cache = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'out', 'tts_cache', key + '.wav')
+        if os.path.exists(cache) and not failed and engine != 'files':
+            write_wav(wav, read_wav(cache)); x = read_wav(wav); cached = True
+        else: cached = False
+        if not cached:
+          try: x = tts_espeak(speakable(line), wav, v) if failed else (tts_files(line, wav, v, i) if engine == 'files' else fn(speakable(line), wav, v))
+          except Exception as e:  # network blocked / bad key: warn once, finish the episode offline
             print(f'[tts] {engine} failed ({e}); falling back to espeak for the rest of the episode', file=sys.stderr)
             failed = True; engine = 'espeak (fallback)'; x = tts_espeak(speakable(line), wav, v)
+          if not failed and engine not in ('files',):
+            os.makedirs(os.path.dirname(cache), exist_ok=True); write_wav(cache, x)
         write_wav(wav, x)
         speech = len(x) / SR
         # word timings: distribute by syllable weight (good enough for 2-4 word captions)

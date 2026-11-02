@@ -2,8 +2,8 @@
 """Storyboard for "Le gorille" -> scripts-fr/gorille.json  (python3 scripts-fr/gorille.py)
 
 Narration = the user's text, verbatim, except:
-  - the real politician's name -> fictional "Gustavo Fringant" (Gus-Fring-style boss)  [no false criminal claims about real people]
-  - the real chain name        -> fictional "Poulet Hermanos"
+  - the real politician's name -> fictional "Karim Bouamrane" (Gus-Fring-style boss)  [no false criminal claims about real people]
+  - the real chain name        -> fictional "Master Poulet"
   - captions fix two typos ("dutout" -> "du tout", "toît" -> "toits").
 Editing grammar (measured on the originals): one continuous take per location (cut: false inside a location).
 """
@@ -210,16 +210,16 @@ S("Walter White.", [A('chimiste', None, 'idle', 'smug', attach=hat)], {'preset':
 S("Ils l'ont arrêté aussi.", [A('chimiste', None, 'handcuffed', 'sad', attach=hat), A('flic1', [-0.8, 0, -1.6], 'handsOnHips', 'smug', ry=60)],
   {'preset': 'full', 'target': [-0.4, 1.4, -1.9], 'angle': 0, 'zoom': 0.8, 'push': 0.08, 'glide': 0.6}, highlight=['arrêté'])
 
-# ---- 12. the chicken restaurant (fictional "Poulet Hermanos") -----------------------------------
-sign = {'name': 'signBoard', 'pos': [0, 2.2, -2.8], 'opts': {'text': 'POULET HERMANOS', 'bg': '#E1C25A', 'fg': '#C23A2E', 'w': 2.6, 'h': 0.6, 'posts': False, 'height': 0}}
+# ---- 12. the chicken restaurant (fictional "Master Poulet") -----------------------------------
+sign = {'name': 'signBoard', 'pos': [0, 2.2, -2.8], 'opts': {'text': 'MASTER POULET', 'bg': '#E1C25A', 'fg': '#C23A2E', 'w': 2.6, 'h': 0.6, 'posts': False, 'height': 0}}
 S("Walter White leur a permis de remonter jusqu'au réseau de distribution.", [A('fringant', [0, 0, -1.2], 'armsCrossed', 'neutral')],
   {'preset': 'wide', 'target': [0, 1.4, -1.4], 'angle': 0, 'zoom': 0.7, 'push': 0.1}, cut=True, set='restaurant', highlight=['réseau', 'distribution'], props=[sign])
-S("Le responsable s'appelait Gustavo Fringant.", [A('fringant', None, 'armsCrossed', 'unimpressed')], {'preset': 'close', 'target': 'fringant', 'angle': 0, 'zoom': 0.9, 'push': 0.1, 'glide': 0.7}, highlight=['Gustavo', 'Fringant'])
+S("Le responsable s'appelait Karim Bouamrane.", [A('fringant', None, 'armsCrossed', 'unimpressed')], {'preset': 'close', 'target': 'fringant', 'angle': 0, 'zoom': 0.9, 'push': 0.1, 'glide': 0.7}, highlight=['Karim', 'Bouamrane'])
 S("Il prétendait être opposé au restaurant de poulet.", [A('fringant', None, 'shakeHead', 'neutral')], {'preset': 'medium', 'target': 'fringant', 'angle': 15, 'push': 0.1, 'glide': 0.6}, highlight=['opposé', 'poulet'])
-S("En réalité, il était derrière Poulet Hermanos et faisait circuler les produits dans ce réseau.",
+S("En réalité, il était derrière Master Poulet et faisait circuler les produits dans ce réseau.",
   [A('fringant', None, 'present', 'smug', hold={'name': 'preWorkout', 'hand': 'R', 'opts': {'text': 'INTERDIT'}})],
-  {'preset': 'full', 'target': 'fringant', 'angle': -10, 'zoom': 0.8, 'push': 0.1, 'glide': 0.6}, highlight=['Poulet', 'Hermanos', 'produits'],
-  props=[{'name': 'foodSack', 'pos': [x, 0, -2.0], 'opts': {'text': 'POULET HERMANOS'}} for x in (-1.2, 1.2)])
+  {'preset': 'full', 'target': 'fringant', 'angle': -10, 'zoom': 0.8, 'push': 0.1, 'glide': 0.6}, highlight=['Master', 'Poulet', 'produits'],
+  props=[{'name': 'foodSack', 'pos': [x, 0, -2.0], 'opts': {'text': 'MASTER POULET'}} for x in (-1.2, 1.2)])
 S("Les flics l'ont arrêté, mais ils soupçonnaient un trafic beaucoup plus vaste.", [A('fringant', None, 'handcuffed', 'angry'), A('flic1', [-1.2, 0, -0.2], 'point', 'suspicious', ry=150), A('flic2', [1.2, 0, -0.2], 'think', 'suspicious', ry=-150)],
   {'preset': 'wide', 'target': [0, 1.4, -0.8], 'angle': 0, 'zoom': 0.75, 'push': 0.08, 'glide': 0.6}, highlight=['trafic', 'vaste'])
 
@@ -285,6 +285,69 @@ fix(18, zoom=0.45, target=[0, 3.8, -1.5])
 shots[21]['camera'] = {'from': [4.5, 2.6, 8.0], 'to': [3.6, 2.2, 6.6], 'lookAt': [0.3, 1.0, 3.2], 'fov': 42}
 shots[22]['camera'] = {'from': [2.4, 6.0, 7.5], 'to': [2.0, 5.2, 6.4], 'lookAt': [0.3, 0.6, -2.4], 'fov': 45}
 shots[53]['camera'] = {'from': [0.0, 3.6, 10.0], 'to': [0.3, 3.4, 8.6], 'lookAt': [1.2, 2.6, -2.0], 'fov': 45}
+
+# ---- v2: no 2D overlays at all, discreet 3D watermark, funnier acting -----------------------------
+for sh in shots: sh.pop('overlays', None)
+def act(i, id):
+    return next(a for a in shots[i]['actors'] if a['id'] == id)
+def props(i, *ps): shots[i].setdefault('props', []); shots[i]['props'] += list(ps)
+WM = lambda **kw: {'name': 'wmSign', **kw}
+# watermark: one per location, in the background, muted (continuous takes carry it across several shots)
+props(0, WM(anchor='picture', offset=[1.7, -0.75, 0.03]))
+props(1, WM(pos=[2.6, 0.35, 4.37], opts={'kind': 'sticker'}))                 # sticker on the enclosure wall
+props(11, WM(pos=[-4.6, 0, -3.6], opts={'kind': 'stand'}))
+props(15, WM(pos=[4.2, 0, -1.2], opts={'kind': 'stand', 'bg': '#E6E1D3'}))
+props(18, WM(anchor='wall', offset=[1.6, -0.3, 0.03]))
+props(35, WM(anchor='mirror', offset=[-2.4, 0.5, 0.02], opts={'bg': '#1E242C', 'fg': '#8FA3B5'}))
+props(58, WM(pos=[1.7, 1.7, -3.56], opts={'kind': 'poster'}))
+props(62, WM(anchor='menu', offset=[0, -0.75, 0.03]))
+props(67, WM(pos=[-2.8, 0, -1.4], opts={'kind': 'stand'}))
+props(71, WM(anchor='board', offset=[0.1, -0.85, 0.03]))
+# funnier acting
+act(2, 'g1')['clip'] = 'chestBeat'; act(2, 'g0')['clip'] = 'posing'; act(2, 'g2')['clip'] = 'posing'; act(2, 'g2')['phase'] = 0.5
+act(3, M).update(clip='doubleTake', actions=[{'at': 0.9, 'clip': 'angryFist', 'expr': 'angry'}], expr='surprised')
+act(4, 'g1').update(clip='posing')
+for g in shots[6]['actors']: g['speed'] = 1.7
+act(10, M).update(clip='shovelFood', actions=[{'at': 2.2, 'clip': 'shovelFood', 'expr': 'disgusted'}]); act(10, 'chevre').update(clip='flee', expr='scared', to=[3.0, 0, 0.6], moveStart=1.5)
+for g in shots[11]['actors']:
+    if g['id'].startswith('g'): g['clip'] = 'chestBeat'
+act(13, M)['speed'] = 1.6
+act(15, MN)['clip'] = 'strut'; act(16, MN)['clip'] = 'strut'
+for id in ('madame', 'mamie', 'gamin'): act(16, id)['clip'] = 'flail'
+act(17, MN)['speed'] = 1.3
+act(18, MN)['speed'] = 1.5
+for id in ('madame', 'gamin'): act(20, id).update(clip='flail', to=[act(20, id)['pos'][0] * 3, 0, 9.0], moveStart=0.6, moveEnd=2.2)
+for g in shots[19]['actors']:
+    if g['id'].startswith('g'): g['clip'] = 'posing'
+act(28, 'g1')['clip'] = 'tiptoe'
+props(29, {'name': 'exclamationMark', 'pos': [0.6, 1.4, -1.4], 'scaleTo': 0.01, 'scaleStart': 0.8, 'scaleEnd': 1.0})
+shots[29]['props'][0].update(moveEase='steps', steps=7)
+shots[34]['props'][0].update(moveEase='steps', steps=6)
+act(30, 'g1').update(clip='doubleTake', expr='suspicious')
+act(36, 'g1')['speed'] = 1.6
+act(37, 'g1')['speed'] = 1.4; act(37, 'coach')['speed'] = 1.4
+act(42, MN).update(clip='scared', expr='shocked')
+act(44, MG)['clip'] = 'chestBeat'
+act(45, MG)['clip'] = 'posing'
+act(47, MG)['speed'] = 2.2
+act(48, MG)['speed'] = 8; shots[48]['actors'][1].update(clip='spinFall', params={'dur': 0.9})
+act(49, MG)['speed'] = 3
+act(50, MG)['clip'] = 'chestBeat'
+for g in shots[51]['actors']:
+    if g['id'].startswith('g'): g['clip'] = 'flail'; g['speed'] = 0.6
+for i in range(3):
+    gi = act(52, f'g{i}'); gi['actions'] = [{'at': 0, 'clip': 'scared', 'expr': 'scared'}, {'at': 0.8 + i * 0.9, 'clip': 'spinFall', 'expr': 'dead', 'params': {'dur': 0.7}}]
+props(52, *[{'name': 'explosionBurst', 'pos': [p[0], 1.6, p[2] + 0.6], 'scale': 0.01, 'scaleTo': 1.2, 'scaleStart': 0.8 + i * 0.9, 'scaleEnd': 1.0 + i * 0.9} for i, p in enumerate(pos3)])
+act(53, MG)['clip'] = 'chestBeat'
+act(54, 'muscu').update(clip='strut', actions=[{'at': 1.9, 'clip': 'posing', 'expr': 'smug'}])
+act(55, MG)['clip'] = 'chestBeat'
+act(73, 'flic1').update(clip='doubleTake', expr='sideLook'); act(73, 'flic2').update(clip='doubleTake', expr='sideLook', phase=0.15)
+act(74, 'flic1')['clip'] = 'facepalm'
+act(81, 'flic1').update(clip='selfStruggle', expr='angry')
+act(82, 'flic1').update(clip='selfStruggle', expr='dead', speed=0.6)
+shots[30]['camera'].update(target=[2.0, 2.2, -3.4], zoom=1.25)
+shots[35]['camera'].update(target=[0.6, 2.4, -0.3], zoom=1.15)
+shots[48]['camera'].update(target=[0.6, 2.7, 0.2], zoom=1.3)
 
 episode = {
     'title': 'Le gorille', 'captionWords': 3, 'minShot': 1.0, 'tail': 0.0,

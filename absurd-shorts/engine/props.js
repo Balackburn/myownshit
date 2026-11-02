@@ -759,6 +759,19 @@ const B = {
     for (let x = -L / 2 + 0.15; x <= L / 2; x += 0.3) g.add(at(box(0.04, 0.9, 0.04, P.ink, { pivot: 'bottom' }), x, 0.7, 0));
     g.add(at(box(L, 0.05, 0.06, P.ink), 0, 1.6, 0)); return g;
   },
+  // discreet in-world watermark: looks like a real poster / sticker / street sign of the set (muted colours, small)
+  wmSign(o) {
+    const text = o.text || 'Follow @drkurtcobaye', kind = o.kind || 'poster';
+    const bg = o.bg || '#EFE6CF', fg = o.fg || '#2E4563';
+    if (kind === 'stand') { // small sign on a post (outdoor)
+      const g = grp(at(box(0.05, 1.0, 0.05, P.greyDark, { pivot: 'bottom' }), 0, 0, 0), at(box(0.72, 0.3, 0.03, P.greyDark), 0, 1.1, 0), at(label(text, 0.68, 0.26, { bg, fg }), 0, 1.1, 0.017));
+      return g;
+    }
+    if (kind === 'sticker') return grp(at(label(text, 0.36, 0.12, { bg, fg }), 0, 0, 0));
+    // poster: paper with a thin border, slightly rotated like it was taped on
+    const g = grp(at(box(0.62, 0.42, 0.01, fg), 0, 0, 0), at(label(text, 0.58, 0.38, { bg, fg }), 0, 0, 0.006));
+    g.rotation.z = o.tilt ?? -0.04; return g;
+  },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
   
 };

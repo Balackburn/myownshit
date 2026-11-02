@@ -61,7 +61,9 @@ function faceSetTexture(expression) {
   const n = EXPR_MAP[expression] || expression; const im = faceSet.imgs[n] || faceSet.imgs.neutral;
   if (!im) return null;
   if (faceSetCache[n]) return faceSetCache[n];
-  const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d'); g.drawImage(im, 0, 0);
+  const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d');
+  // the face set already has the ORIGINAL colours: pre-invert the global grade (director.js GRADE) so it comes out 1:1
+  g.filter = 'brightness(0.935) contrast(1.163) saturate(1.282)'; g.drawImage(im, 0, 0); g.filter = 'none';
   g.strokeStyle = '#151313'; g.lineWidth = Math.round(im.width * 0.03); g.strokeRect(g.lineWidth / 2, g.lineWidth / 2, c.width - g.lineWidth, c.height - g.lineWidth);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
   return (faceSetCache[n] = t);

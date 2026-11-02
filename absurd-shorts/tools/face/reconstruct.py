@@ -304,6 +304,16 @@ def main():
         landmarks['sources'][-1]['occluded_px_ratio'] = round(float(cls['occ'].mean()), 3)
     identity = identity or cfg['sources'][0]['expression']
     I = measured[identity]
+    # colour reference: the identity frame may come from a dark scene; match its skin to a well-lit source (per-channel gain)
+    ref = cfg.get('color_reference')
+    if ref and ref in measured and ref != identity:
+        def skin_med(m):
+            ok = (m['cls']['ink'] == 0) & (m['cls']['occ'] == 0) & (eye_mask(m['cls']) == 0)
+            return np.median(m['plate'][ok].reshape(-1, 3).astype(np.float32), 0)
+        gain = skin_med(measured[ref]) / np.maximum(skin_med(I), 1)
+        I['plate'] = np.clip(I['plate'].astype(np.float32) * gain, 0, 255).astype(np.uint8)
+        I['white'] = list(np.clip(np.array(I['white']) * gain, 0, 255))
+        landmarks['color_gain_bgr'] = [round(float(g), 3) for g in gain]
     # Occluded rows of the identity panel (captions…): stubble there is NOT measurable. Fill it by cloning the measured
     # stubble from the rows just below (or above), and record it as "inferred".
     occ = I['cls']['occ']; rows = np.where(occ.mean(1) > 0.3)[0]; inferred = []

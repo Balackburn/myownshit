@@ -84,6 +84,11 @@ function setupShot(shot) {
   if (!set) { set = new THREE.Group(); const f = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshLambertMaterial({ color: P.cream })); f.rotation.x = -Math.PI / 2; f.receiveShadow = true; set.add(f); set.userData.lighting = 'interior'; }
   scene.add(set); S.shotObjects.push(set); S.set = set;
   setLighting(scene, shot.lighting || set.userData.lighting || 'day');
+  // anchor-relative placement: {"anchor": "picture", "offset": [x,y,z]} -> pos (resolved against this set)
+  const anchors = set.userData.anchors || {};
+  for (const c of [...(shot.actors || []), ...(shot.props || [])]) {
+    if (c.anchor && anchors[c.anchor]) { const a = anchors[c.anchor], o = c.offset || [0, 0, 0]; c.pos = [a[0] + o[0], a[1] + o[1], a[2] + o[2]]; }
+  }
   // actors
   S.actorsInShot = (shot.actors || []).map(a => {
     const obj = S.cast[a.id] || (S.cast[a.id] = buildActor(a.spec || { preset: 'lemec' }));
@@ -139,7 +144,9 @@ function evalTrack(cfg, lt, dur) {
   let x = from[0], y = from[1], z = from[2], ry = (cfg.ry || 0) * Math.PI / 180;
   if (cfg.to) {
     const ms = cfg.moveStart ?? 0, me = cfg.moveEnd ?? dur;
-    const k = (ease[cfg.moveEase || 'linear'] || ease.linear)(clamp01((lt - ms) / Math.max(0.01, me - ms)));
+    let k = clamp01((lt - ms) / Math.max(0.01, me - ms));
+    if (cfg.moveEase === 'steps') { const n = cfg.steps || 6, f = k * n, i = Math.floor(f), r = f - i; k = Math.min(1, (i + ease.inOut(Math.min(1, r * 2.2))) / n); } // little hops, then freeze
+    else k = (ease[cfg.moveEase || 'linear'] || ease.linear)(k);
     x = lerp(from[0], cfg.to[0], k); y = lerp(from[1], cfg.to[1] ?? from[1], k); z = lerp(from[2], cfg.to[2], k);
   }
   if (cfg.ryTo !== undefined) ry = lerp(ry, cfg.ryTo * Math.PI / 180, ease.inOut(clamp01(lt / dur)));
@@ -162,7 +169,8 @@ function poseActor({ cfg, obj }, lt, dur, globalT) {
   const { cur, prev } = currentAction(cfg, lt);
   const ph = cfg.phase || 0;
   if (obj.userData.kind === 'human') {
-    let pose = samplePose(cur.clip, lt - cur.at + ph, cur.params);
+    const spd = cur.speed ?? cfg.speed ?? 1;
+    let pose = samplePose(cur.clip, (lt - cur.at) * spd + ph, cur.params);
     if (prev) { // acting transition: anticipation → overshoot → settle, head leads, hands trail
       const dt = lt - cur.at;
       if (dt < 0.6) pose = cur.snap ? pose : actingBlend(samplePose(prev.clip, lt + ph, prev.params), pose, dt, { anticipation: cur.anticipation ?? 0.15, overshoot: cur.overshoot ?? 1.2 });
@@ -180,7 +188,7 @@ function poseActor({ cfg, obj }, lt, dur, globalT) {
     obj.userData.setExpression?.(expr);
   } else {
     obj.position.set(tr.x, tr.y, tr.z); obj.rotation.y = tr.ry; obj.scale.setScalar(tr.scale);
-    obj.userData.animate?.(cur.clip, lt - cur.at + ph, cur.params || {});
+    obj.userData.animate?.(cur.clip, (lt - cur.at) * (cur.speed ?? cfg.speed ?? 1) + ph, cur.params || {});
     if (cur.expr) obj.userData.setExpression?.(cur.expr);
     obj.userData.update?.(globalT);
   }

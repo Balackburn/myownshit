@@ -206,6 +206,15 @@
       0.7
      ],
      "ry": 40
+    },
+    {
+     "name": "wmSign",
+     "anchor": "picture",
+     "offset": [
+      1.7,
+      -0.75,
+      0.03
+     ]
     }
    ]
   },
@@ -280,6 +289,19 @@
    "highlight": [
     "zoo",
     "gorilles"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "pos": [
+      2.6,
+      0.35,
+      4.37
+     ],
+     "opts": {
+      "kind": "sticker"
+     }
+    }
    ]
   },
   {
@@ -287,7 +309,7 @@
    "actors": [
     {
      "id": "g0",
-     "clip": "flex",
+     "clip": "posing",
      "pos": [
       -2.2,
       0,
@@ -299,7 +321,7 @@
     },
     {
      "id": "g1",
-     "clip": "flex",
+     "clip": "chestBeat",
      "pos": [
       0.0,
       0,
@@ -311,7 +333,7 @@
     },
     {
      "id": "g2",
-     "clip": "flex",
+     "clip": "posing",
      "pos": [
       2.0,
       0,
@@ -319,7 +341,8 @@
      ],
      "expr": "smug",
      "ry": -20,
-     "scale": 1.25
+     "scale": 1.25,
+     "phase": 0.5
     }
    ],
    "camera": {
@@ -342,14 +365,21 @@
    "actors": [
     {
      "id": "mec",
-     "clip": "angryFist",
+     "clip": "doubleTake",
      "pos": [
       0.3,
       0,
       5.2
      ],
-     "expr": "angry",
-     "ry": 180
+     "expr": "surprised",
+     "ry": 180,
+     "actions": [
+      {
+       "at": 0.9,
+       "clip": "angryFist",
+       "expr": "angry"
+      }
+     ]
     }
    ],
    "camera": {
@@ -369,7 +399,7 @@
    "actors": [
     {
      "id": "g1",
-     "clip": "flex",
+     "clip": "posing",
      "expr": "smug",
      "actions": [
       {
@@ -422,17 +452,20 @@
     {
      "id": "g0",
      "clip": "eat",
-     "expr": "happy"
+     "expr": "happy",
+     "speed": 1.7
     },
     {
      "id": "g1",
      "clip": "eat",
-     "expr": "happy"
+     "expr": "happy",
+     "speed": 1.7
     },
     {
      "id": "g2",
      "clip": "eat",
-     "expr": "happy"
+     "expr": "happy",
+     "speed": 1.7
     }
    ],
    "camera": {
@@ -451,13 +484,6 @@
    "highlight": [
     "hypothèse",
     "bouffe"
-   ],
-   "overlays": [
-    {
-     "style": "banner",
-     "text": "HYPOTHÈSE N°1",
-     "at": 0.1
-    }
    ],
    "props": [
     {
@@ -585,7 +611,7 @@
    "actors": [
     {
      "id": "mec",
-     "clip": "sit",
+     "clip": "shovelFood",
      "pos": [
       0,
       0,
@@ -594,22 +620,28 @@
      "expr": "neutral",
      "actions": [
       {
-       "at": 1.5,
-       "clip": "sitWrite",
+       "at": 2.2,
+       "clip": "shovelFood",
        "expr": "disgusted"
       }
      ]
     },
     {
      "id": "chevre",
-     "clip": "idle",
+     "clip": "flee",
      "pos": [
       1.0,
       0,
       0.3
      ],
      "expr": "scared",
-     "ry": -60
+     "ry": -60,
+     "to": [
+      3.0,
+      0,
+      0.6
+     ],
+     "moveStart": 1.5
     }
    ],
    "camera": {
@@ -681,7 +713,7 @@
     },
     {
      "id": "g0",
-     "clip": "flex",
+     "clip": "chestBeat",
      "pos": [
       -2.2,
       0,
@@ -693,7 +725,7 @@
     },
     {
      "id": "g1",
-     "clip": "flex",
+     "clip": "chestBeat",
      "pos": [
       0.0,
       0,
@@ -705,7 +737,7 @@
     },
     {
      "id": "g2",
-     "clip": "flex",
+     "clip": "chestBeat",
      "pos": [
       2.0,
       0,
@@ -727,6 +759,19 @@
    "highlight": [
     "toujours",
     "musclé"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "pos": [
+      -4.6,
+      0,
+      -3.6
+     ],
+     "opts": {
+      "kind": "stand"
+     }
+    }
    ]
   },
   {
@@ -752,7 +797,8 @@
     {
      "id": "mec",
      "clip": "yell",
-     "expr": "angry"
+     "expr": "angry",
+     "speed": 1.6
     }
    ],
    "camera": {
@@ -815,13 +861,6 @@
     "hypothèse",
     "poil",
     "acrobaties"
-   ],
-   "overlays": [
-    {
-     "style": "banner",
-     "text": "HYPOTHÈSE N°2",
-     "at": 0.1
-    }
    ]
   },
   {
@@ -829,7 +868,7 @@
    "actors": [
     {
      "id": "mecNu",
-     "clip": "walk",
+     "clip": "strut",
      "pos": [
       -1.5,
       0,
@@ -855,6 +894,20 @@
    "highlight": [
     "poil",
     "rue"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "pos": [
+      4.2,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "kind": "stand",
+      "bg": "#E6E1D3"
+     }
+    }
    ]
   },
   {
@@ -862,7 +915,7 @@
    "actors": [
     {
      "id": "mecNu",
-     "clip": "walk",
+     "clip": "strut",
      "pos": [
       1.0,
       0,
@@ -878,7 +931,7 @@
     },
     {
      "id": "madame",
-     "clip": "flee",
+     "clip": "flail",
      "pos": [
       3.5,
       0,
@@ -894,7 +947,7 @@
     },
     {
      "id": "mamie",
-     "clip": "flee",
+     "clip": "flail",
      "pos": [
       4.2,
       0,
@@ -910,7 +963,7 @@
     },
     {
      "id": "gamin",
-     "clip": "flee",
+     "clip": "flail",
      "pos": [
       3.0,
       0,
@@ -975,7 +1028,8 @@
         "height": 0.7
        }
       }
-     ]
+     ],
+     "speed": 1.3
     }
    ],
    "camera": {
@@ -1020,7 +1074,8 @@
       2,
       3.25,
       -1.5
-     ]
+     ],
+     "speed": 1.5
     }
    ],
    "camera": {
@@ -1040,6 +1095,17 @@
     "lampadaire",
     "toits",
     "gorille"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "anchor": "wall",
+     "offset": [
+      1.6,
+      -0.3,
+      0.03
+     ]
+    }
    ]
   },
   {
@@ -1058,7 +1124,7 @@
     },
     {
      "id": "g0",
-     "clip": "flex",
+     "clip": "posing",
      "pos": [
       -2.2,
       0,
@@ -1070,7 +1136,7 @@
     },
     {
      "id": "g1",
-     "clip": "flex",
+     "clip": "posing",
      "pos": [
       0.0,
       0,
@@ -1082,7 +1148,7 @@
     },
     {
      "id": "g2",
-     "clip": "flex",
+     "clip": "posing",
      "pos": [
       2.0,
       0,
@@ -1117,25 +1183,39 @@
     },
     {
      "id": "madame",
-     "clip": "scared",
+     "clip": "flail",
      "pos": [
       -1.4,
       0,
       6.2
      ],
      "expr": "scared",
-     "ry": 120
+     "ry": 120,
+     "to": [
+      -4.199999999999999,
+      0,
+      9.0
+     ],
+     "moveStart": 0.6,
+     "moveEnd": 2.2
     },
     {
      "id": "gamin",
-     "clip": "scared",
+     "clip": "flail",
      "pos": [
       1.6,
       0,
       6.4
      ],
      "expr": "scared",
-     "ry": -130
+     "ry": -130,
+     "to": [
+      4.800000000000001,
+      0,
+      9.0
+     ],
+     "moveStart": 0.6,
+     "moveEnd": 2.2
     }
    ],
    "camera": {
@@ -1511,7 +1591,7 @@
    "actors": [
     {
      "id": "g1",
-     "clip": "sneak",
+     "clip": "tiptoe",
      "pos": [
       0.0,
       0,
@@ -1581,24 +1661,26 @@
       1.4,
       0,
       -2.2
-     ]
+     ],
+     "moveEase": "steps",
+     "steps": 7
+    },
+    {
+     "name": "exclamationMark",
+     "pos": [
+      0.6,
+      1.4,
+      -1.4
+     ],
+     "scaleTo": 0.01,
+     "scaleStart": 0.8,
+     "scaleEnd": 1.0
     }
    ],
    "remove": [
     "mecNu"
    ],
    "replaceProps": true,
-   "overlays": [
-    {
-     "style": "label",
-     "text": "!",
-     "at": 0.2,
-     "until": 0.9,
-     "y": 0.3,
-     "size": 0.12,
-     "color": "#E8775F"
-    }
-   ],
    "sfx": [
     {
      "name": "pop",
@@ -1612,7 +1694,7 @@
    "actors": [
     {
      "id": "g1",
-     "clip": "lookAround",
+     "clip": "doubleTake",
      "pos": [
       2.2,
       0,
@@ -1626,12 +1708,12 @@
    "camera": {
     "preset": "wide",
     "target": [
-     1.8,
-     1.0,
-     -3.0
+     2.0,
+     2.2,
+     -3.4
     ],
     "angle": 10,
-    "zoom": 0.75,
+    "zoom": 1.25,
     "push": 0.05,
     "glide": 0.6
    },
@@ -1800,7 +1882,9 @@
       3.5,
       0,
       -6.2
-     ]
+     ],
+     "moveEase": "steps",
+     "steps": 6
     }
    ],
    "replaceProps": true,
@@ -1842,17 +1926,32 @@
     "preset": "wide",
     "target": [
      0.6,
-     1.4,
+     2.4,
      -0.3
     ],
     "angle": 0,
-    "zoom": 0.7,
+    "zoom": 1.15,
     "push": 0.1
    },
    "set": "secretGym",
    "highlight": [
     "ultra-moderne",
     "coach"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "anchor": "mirror",
+     "offset": [
+      -2.4,
+      0.5,
+      0.02
+     ],
+     "opts": {
+      "bg": "#1E242C",
+      "fg": "#8FA3B5"
+     }
+    }
    ]
   },
   {
@@ -1862,7 +1961,8 @@
      "id": "g1",
      "clip": "liftBarbell",
      "expr": "angry",
-     "params": {}
+     "params": {},
+     "speed": 1.6
     }
    ],
    "camera": {
@@ -1877,13 +1977,6 @@
    "highlight": [
     "douze",
     "heures"
-   ],
-   "overlays": [
-    {
-     "style": "banner",
-     "text": "12 HEURES",
-     "at": 0.3
-    }
    ]
   },
   {
@@ -1892,12 +1985,14 @@
     {
      "id": "g1",
      "clip": "punch",
-     "expr": "angry"
+     "expr": "angry",
+     "speed": 1.4
     },
     {
      "id": "coach",
      "clip": "yell",
-     "expr": "angry"
+     "expr": "angry",
+     "speed": 1.4
     }
    ],
    "camera": {
@@ -2074,7 +2169,7 @@
    "actors": [
     {
      "id": "mecNu",
-     "clip": "flex",
+     "clip": "scared",
      "pos": [
       0,
       0,
@@ -2159,7 +2254,7 @@
    "actors": [
     {
      "id": "mecGorille",
-     "clip": "idle",
+     "clip": "chestBeat",
      "pos": [
       0,
       0,
@@ -2215,7 +2310,7 @@
    "actors": [
     {
      "id": "mecGorille",
-     "clip": "flex",
+     "clip": "posing",
      "expr": "smug"
     }
    ],
@@ -2265,14 +2360,6 @@
     "triplé",
     "dose"
    ],
-   "overlays": [
-    {
-     "style": "stamp",
-     "text": "x3",
-     "at": 0.5,
-     "y": 0.25
-    }
-   ],
    "props": [
     {
      "name": "preWorkout",
@@ -2320,7 +2407,8 @@
       "name": "barbell",
       "hand": "R"
      },
-     "params": {}
+     "params": {},
+     "speed": 2.2
     }
    ],
    "camera": {
@@ -2338,14 +2426,7 @@
     "nuit"
    ],
    "props": [],
-   "replaceProps": true,
-   "overlays": [
-    {
-     "style": "banner",
-     "text": "JOUR 1 → JOUR 7",
-     "at": 0.3
-    }
-   ]
+   "replaceProps": true
   },
   {
    "line": "Tout passait en accéléré.",
@@ -2354,11 +2435,12 @@
      "id": "mecGorille",
      "clip": "punch",
      "expr": "angry",
-     "params": {}
+     "params": {},
+     "speed": 8
     },
     {
      "id": "coach",
-     "clip": "faint",
+     "clip": "spinFall",
      "pos": [
       1.8,
       0,
@@ -2367,7 +2449,7 @@
      "expr": "dead",
      "ry": -60,
      "params": {
-      "dur": 0.8
+      "dur": 0.9
      }
     }
    ],
@@ -2375,26 +2457,17 @@
     "preset": "full",
     "target": [
      0.6,
-     1.6,
+     2.7,
      0.2
     ],
     "angle": 0,
-    "zoom": 0.9,
+    "zoom": 1.3,
     "push": 0.05,
     "glide": 0.4
    },
    "cut": false,
    "highlight": [
     "accéléré"
-   ],
-   "overlays": [
-    {
-     "style": "label",
-     "text": "▶▶ x16",
-     "at": 0,
-     "y": 0.12,
-     "size": 0.06
-    }
    ]
   },
   {
@@ -2407,7 +2480,8 @@
      "hold": {
       "name": "barbell",
       "hand": "R"
-     }
+     },
+     "speed": 3
     }
    ],
    "camera": {
@@ -2428,7 +2502,7 @@
    "actors": [
     {
      "id": "mecGorille",
-     "clip": "flex",
+     "clip": "chestBeat",
      "expr": "smug",
      "scale": 1.6,
      "scaleTo": 2.4,
@@ -2479,7 +2553,7 @@
     },
     {
      "id": "g0",
-     "clip": "scared",
+     "clip": "flail",
      "pos": [
       -2.0,
       0,
@@ -2487,11 +2561,12 @@
      ],
      "expr": "scared",
      "ry": 30,
-     "scale": 1.6
+     "scale": 1.6,
+     "speed": 0.6
     },
     {
      "id": "g1",
-     "clip": "scared",
+     "clip": "flail",
      "pos": [
       0.0,
       0,
@@ -2499,11 +2574,12 @@
      ],
      "expr": "scared",
      "ry": 0,
-     "scale": 1.6
+     "scale": 1.6,
+     "speed": 0.6
     },
     {
      "id": "g2",
-     "clip": "scared",
+     "clip": "flail",
      "pos": [
       2.0,
       0,
@@ -2511,7 +2587,8 @@
      ],
      "expr": "scared",
      "ry": -30,
-     "scale": 1.6
+     "scale": 1.6,
+     "speed": 0.6
     }
    ],
    "camera": {
@@ -2553,10 +2630,10 @@
       },
       {
        "at": 0.8,
-       "clip": "faint",
+       "clip": "spinFall",
        "expr": "dead",
        "params": {
-        "dur": 0.5
+        "dur": 0.7
        }
       }
      ]
@@ -2576,10 +2653,10 @@
       },
       {
        "at": 1.7000000000000002,
-       "clip": "faint",
+       "clip": "spinFall",
        "expr": "dead",
        "params": {
-        "dur": 0.5
+        "dur": 0.7
        }
       }
      ]
@@ -2599,10 +2676,10 @@
       },
       {
        "at": 2.6,
-       "clip": "faint",
+       "clip": "spinFall",
        "expr": "dead",
        "params": {
-        "dur": 0.5
+        "dur": 0.7
        }
       }
      ]
@@ -2661,6 +2738,44 @@
      "dur": 0.2,
      "amount": 0.03
     }
+   ],
+   "props": [
+    {
+     "name": "explosionBurst",
+     "pos": [
+      -2.0,
+      1.6,
+      -1.7999999999999998
+     ],
+     "scale": 0.01,
+     "scaleTo": 1.2,
+     "scaleStart": 0.8,
+     "scaleEnd": 1.0
+    },
+    {
+     "name": "explosionBurst",
+     "pos": [
+      0.0,
+      1.6,
+      -2.8
+     ],
+     "scale": 0.01,
+     "scaleTo": 1.2,
+     "scaleStart": 1.7000000000000002,
+     "scaleEnd": 1.9
+    },
+    {
+     "name": "explosionBurst",
+     "pos": [
+      2.0,
+      1.6,
+      -2.0
+     ],
+     "scale": 0.01,
+     "scaleTo": 1.2,
+     "scaleStart": 2.6,
+     "scaleEnd": 2.8
+    }
    ]
   },
   {
@@ -2668,7 +2783,7 @@
    "actors": [
     {
      "id": "mecGorille",
-     "clip": "celebrate",
+     "clip": "chestBeat",
      "pos": [
       2.2,
       1.0,
@@ -2768,7 +2883,7 @@
    "actors": [
     {
      "id": "muscu",
-     "clip": "walk",
+     "clip": "strut",
      "pos": [
       -1.6,
       0,
@@ -2786,7 +2901,8 @@
      "actions": [
       {
        "at": 1.9,
-       "clip": "flex"
+       "clip": "posing",
+       "expr": "smug"
       }
      ]
     }
@@ -2809,7 +2925,7 @@
    "actors": [
     {
      "id": "mecGorille",
-     "clip": "angryFist",
+     "clip": "chestBeat",
      "pos": [
       0,
       0,
@@ -2868,14 +2984,6 @@
    "cut": false,
    "highlight": [
     "police"
-   ],
-   "overlays": [
-    {
-     "style": "phone",
-     "text": "17",
-     "sub": "POLICE",
-     "at": 0.4
-    }
    ]
   },
   {
@@ -3051,6 +3159,19 @@
    "set": "lab",
    "highlight": [
     "chimiste"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "pos": [
+      1.7,
+      1.7,
+      -3.56
+     ],
+     "opts": {
+      "kind": "poster"
+     }
+    }
    ]
   },
   {
@@ -3252,7 +3373,7 @@
       -2.8
      ],
      "opts": {
-      "text": "POULET HERMANOS",
+      "text": "MASTER POULET",
       "bg": "#E1C25A",
       "fg": "#C23A2E",
       "w": 2.6,
@@ -3260,11 +3381,20 @@
       "posts": false,
       "height": 0
      }
+    },
+    {
+     "name": "wmSign",
+     "anchor": "menu",
+     "offset": [
+      0,
+      -0.75,
+      0.03
+     ]
     }
    ]
   },
   {
-   "line": "Le responsable s'appelait Gustavo Fringant.",
+   "line": "Le responsable s'appelait Karim Bouamrane.",
    "actors": [
     {
      "id": "fringant",
@@ -3282,8 +3412,8 @@
    },
    "cut": false,
    "highlight": [
-    "Gustavo",
-    "Fringant"
+    "Karim",
+    "Bouamrane"
    ]
   },
   {
@@ -3309,7 +3439,7 @@
    ]
   },
   {
-   "line": "En réalité, il était derrière Poulet Hermanos et faisait circuler les produits dans ce réseau.",
+   "line": "En réalité, il était derrière Master Poulet et faisait circuler les produits dans ce réseau.",
    "actors": [
     {
      "id": "fringant",
@@ -3334,8 +3464,8 @@
    },
    "cut": false,
    "highlight": [
+    "Master",
     "Poulet",
-    "Hermanos",
     "produits"
    ],
    "props": [
@@ -3347,7 +3477,7 @@
       -2.0
      ],
      "opts": {
-      "text": "POULET HERMANOS"
+      "text": "MASTER POULET"
      }
     },
     {
@@ -3358,7 +3488,7 @@
       -2.0
      ],
      "opts": {
-      "text": "POULET HERMANOS"
+      "text": "MASTER POULET"
      }
     }
    ]
@@ -3462,6 +3592,19 @@
    "set": "farm",
    "highlight": [
     "fermes"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "pos": [
+      -2.8,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "kind": "stand"
+     }
+    }
    ]
   },
   {
@@ -3725,6 +3868,17 @@
    "highlight": [
     "policiers",
     "poulet"
+   ],
+   "props": [
+    {
+     "name": "wmSign",
+     "anchor": "board",
+     "offset": [
+      0.1,
+      -0.85,
+      0.03
+     ]
+    }
    ]
   },
   {
@@ -3759,25 +3913,26 @@
    "actors": [
     {
      "id": "flic1",
-     "clip": "stand",
+     "clip": "doubleTake",
      "pos": [
       -0.5,
       0,
       0.4
      ],
-     "expr": "surprised",
+     "expr": "sideLook",
      "ry": 90
     },
     {
      "id": "flic2",
-     "clip": "stand",
+     "clip": "doubleTake",
      "pos": [
       0.5,
       0,
       0.4
      ],
-     "expr": "surprised",
-     "ry": -90
+     "expr": "sideLook",
+     "ry": -90,
+     "phase": 0.15
     }
    ],
    "camera": {
@@ -3924,25 +4079,6 @@
     "Belgique",
     "Montréal",
     "poulets"
-   ],
-   "overlays": [
-    {
-     "style": "banner",
-     "text": "📞 BELGIQUE",
-     "at": 2.0,
-     "until": 3.2
-    },
-    {
-     "style": "banner",
-     "text": "📞 MONTRÉAL",
-     "at": 3.2,
-     "until": 4.4
-    },
-    {
-     "style": "banner",
-     "text": "📞 SUISSE · LUXEMBOURG · …",
-     "at": 4.4
-    }
    ]
   },
   {
@@ -4140,8 +4276,8 @@
    "actors": [
     {
      "id": "flic1",
-     "clip": "pressGlass",
-     "expr": "worried",
+     "clip": "selfStruggle",
+     "expr": "angry",
      "hold": {
       "name": "handcuffs",
       "hand": "L"
@@ -4165,12 +4301,13 @@
    "actors": [
     {
      "id": "flic1",
-     "clip": "handcuffed",
+     "clip": "selfStruggle",
      "expr": "dead",
      "hold": {
       "name": "handcuffs",
       "hand": "L"
-     }
+     },
+     "speed": 0.6
     }
    ],
    "camera": {
@@ -4183,14 +4320,6 @@
    "cut": false,
    "highlight": [
     "Complicité"
-   ],
-   "overlays": [
-    {
-     "style": "stamp",
-     "text": "COMPLICITÉ",
-     "at": 0.4,
-     "y": 0.3
-    }
    ],
    "sfx": [
     {
