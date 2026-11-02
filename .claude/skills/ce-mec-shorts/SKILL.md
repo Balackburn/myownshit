@@ -12,7 +12,8 @@ music and SFX, and outputs an MP4 (720×1280, 30 fps by default).
 Read before writing (in this order, only what you need):
 1. `references/formula.md`: the 8-beat formula, French language/swearing rules, checklist, premise bank, 10 example scripts. **Always.**
 2. `references/scene-json.md`: JSON format + catalogue (presets, clips, expressions, props, sets, creatures, camera presets, FX, SFX). **Always before storyboarding.**
-3. `references/analysis.md`: frame-by-frame analysis of the 5 reference videos (timings, framings, mechanics, character design). Read it when you need to calibrate rhythm or framing, or when the user asks "why".
+3. `references/style-match.md`: measured style target (sheet + originals → engine parameters), acting rules, Blender notes. Read it before touching the character or the animations.
+4. `references/analysis.md`: frame-by-frame analysis of the 5 reference videos (timings, framings, mechanics, character design). Read it when you need to calibrate rhythm or framing, or when the user asks "why".
 
 ## Workflow
 
@@ -44,7 +45,8 @@ Open the PNGs in `out/work/<slug>/` with the Read tool. Check: framing (head not
 ```bash
 cd absurd-shorts && node render/render.mjs scripts-fr/<slug>.json
 ```
-→ `absurd-shorts/out/<slug>.mp4`. Voice: ElevenLabs if `ELEVENLABS_API_KEY` is set, otherwise OpenAI TTS (`OPENAI_API_KEY`), otherwise offline espeak-ng + mbrola (robotic but works). `--w 1080 --h 1920` for full HD (slower). Check a few frames of the MP4 with ffmpeg + Read before handing it over.
+→ `absurd-shorts/out/<slug>.mp4`.
+**Voice**: the default is the ElevenLabs voice **"allan tiktok"** (`"voice": {"engine": "elevenlabs", "name": "allan tiktok"}`, resolved by name from the account's library). This needs `ELEVENLABS_API_KEY` in the environment and the `api.elevenlabs.io` host allowed by the network policy. If an ElevenLabs MCP with a text-to-speech tool is connected instead, generate one file per shot with it (shot index = position in `shots`, silent shots skipped), save them as `voice/<slug>/shot00.mp3`, `shot01.mp3`… and set `"voice": {"engine": "files", "dir": "voice/<slug>"}`. The same mode works with your own recorded voice (one take per sentence). Otherwise OpenAI TTS (`OPENAI_API_KEY`), then offline espeak-ng + mbrola (robotic, last resort; say so to the user). `--w 1080 --h 1920` for full HD (slower). Check a few frames of the MP4 with ffmpeg + Read before handing it over.
 
 ### 5. Variants / series
 - Change the protagonist via `cast.mec.preset` (`lemec`, `lemec_charcoal`, `lemec_brown`, `lemec_beige`, `lemec_glasses`, `boss`, `madame`, `mamie`, `gamin`…) or by overriding `suit`, `tie`, `hair`, `facial`, `glasses`, `hat`.
@@ -62,3 +64,5 @@ cd absurd-shorts && node render/render.mjs scripts-fr/<slug>.json
 - `engine/animations.js` 50+ pose clips · `engine/creatures.js` animals with googly eyes · `engine/props.js` · `engine/sets.js`
 - `engine/director.js` timeline, cameras, captions, overlays, FX · `tools/audio.py` TTS, music bed, SFX, mix · `render/render.mjs` pipeline
 - `render/export-models.mjs` exports every character to GLB (`absurd-shorts/models/`) for Blender/Unity.
+- `tools/blender/build_rig.py` builds `models/blender/lemec.blend` (armature + 36 actions) from the GLB: `blender -b --python tools/blender/build_rig.py -- models/humans/lemec.glb models/blender/lemec.blend --render out/turnaround.png`.
+- `tools/install-skills.sh` installs the companion skills (motion-design, remotion, hyperframes, gsap, earshot, painted-animation, blender-claymation…). Use `motion-design` for timing/easing and `earshot` to listen to the mix before delivering it, if available.

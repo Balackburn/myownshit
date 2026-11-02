@@ -48,8 +48,23 @@ def tts_espeak(text, out, voice):
     x = trim_silence(read_wav(tmp)); os.remove(tmp)
     return x
 
+_VOICE_CACHE = {}
+def elevenlabs_voice_id(key, voice):
+    """Resolve a voice by id, or by (partial, case-insensitive) name from the account's library, e.g. "allan tiktok"."""
+    if voice.get('id'): return voice['id']
+    name = (voice.get('name') or '').lower().strip()
+    if not name: return 'pNInz6obpgDQGcFmaJgB'  # "Adam", deep male
+    if name in _VOICE_CACHE: return _VOICE_CACHE[name]
+    req = urllib.request.Request('https://api.elevenlabs.io/v1/voices', headers={'xi-api-key': key})
+    voices = json.loads(urllib.request.urlopen(req, timeout=30).read())['voices']
+    norm = lambda s: re.sub(r'[^a-z0-9]', '', s.lower())
+    hit = next((v for v in voices if norm(v['name']) == norm(name)), None) or next((v for v in voices if norm(name) in norm(v['name'])), None)
+    if not hit: raise RuntimeError(f'ElevenLabs voice "{name}" not found; available: ' + ', '.join(v['name'] for v in voices))
+    print(f'[tts] ElevenLabs voice "{hit["name"]}" -> {hit["voice_id"]}', file=sys.stderr)
+    _VOICE_CACHE[name] = hit['voice_id']; return hit['voice_id']
+
 def tts_elevenlabs(text, out, voice):
-    key = os.environ['ELEVENLABS_API_KEY']; vid = voice.get('id', 'pNInz6obpgDQGcFmaJgB')  # "Adam" default, deep male
+    key = os.environ['ELEVENLABS_API_KEY']; vid = elevenlabs_voice_id(key, voice)
     body = json.dumps({'text': text, 'model_id': voice.get('model', 'eleven_multilingual_v2'),
                        'voice_settings': {'stability': voice.get('stability', 0.75), 'similarity_boost': 0.8, 'style': 0.0, 'speed': voice.get('rate', 1.1)}}).encode()
     req = urllib.request.Request(f'https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=pcm_44100', body,
@@ -66,6 +81,14 @@ def tts_openai(text, out, voice):
     t = np.arange(int(len(pcm) * SR / 24000)) * 24000 / SR  # 24 kHz -> 44.1 kHz
     return trim_silence(np.interp(t, np.arange(len(pcm)), pcm).astype(np.float32))
 
+def tts_files(text, out, voice, index=0):
+    """Pre-generated narration: voice.dir/shotNN.(wav|mp3|m4a) — e.g. made with an ElevenLabs MCP, or your own recording."""
+    base = os.path.join(voice.get('dir', '.'), f'shot{index:02d}')
+    src = next((base + ext for ext in ('.wav', '.mp3', '.m4a', '.ogg') if os.path.exists(base + ext)), None)
+    if not src: raise FileNotFoundError(base + '.(wav|mp3)')
+    tmp = out + '.conv.wav'; subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-ac', '1', '-ar', str(SR), tmp], check=True)
+    x = trim_silence(read_wav(tmp)); os.remove(tmp); return x
+
 def speakable(text):
     # captions may censor ("p*tain"); the voice says the full word; strip quotes/emoji
     t = text.replace('*', 'u').replace('"', '').replace('«', '').replace('»', '')
@@ -79,7 +102,11 @@ def cmd_tts(script_path, workdir):
     sc = json.load(open(script_path))
     voice = sc.get('voice', {})
     engine = os.environ.get('TTS_ENGINE') or voice.get('engine') or ('elevenlabs' if os.environ.get('ELEVENLABS_API_KEY') else 'openai' if os.environ.get('OPENAI_API_KEY') else 'espeak')
-    fn = {'espeak': tts_espeak, 'elevenlabs': tts_elevenlabs, 'openai': tts_openai}[engine]
+    need = {'elevenlabs': 'ELEVENLABS_API_KEY', 'openai': 'OPENAI_API_KEY'}.get(engine)
+    if need and not os.environ.get(need):
+        print(f'[tts] {engine} requested but ${need} is not set -> using offline espeak/mbrola voice', file=sys.stderr); engine = 'espeak'
+    fn = {'espeak': tts_espeak, 'elevenlabs': tts_elevenlabs, 'openai': tts_openai, 'files': None}[engine]
+    failed = False
     gap = voice.get('gap', 0.12)
     for i, shot in enumerate(sc['shots']):
         line = shot.get('say', shot.get('line', ''))
@@ -89,10 +116,10 @@ def cmd_tts(script_path, workdir):
         v = {**voice, **shot.get('voice', {})}  # per-shot override (e.g. a cop's dialogue line)
         if line.strip().startswith(('"', '«')) and 'voice' not in shot:  # quoted dialogue -> second voice by default
             v = {**v, **sc.get('dialogueVoice', {'pitch': 48, 'speed': 185, 'id': voice.get('dialogueId', voice.get('id'))})}
-        try: x = fn(speakable(line), wav, v)
-        except Exception as e:
-            print(f'[tts] {engine} failed on shot {i} ({e}); falling back to espeak', file=sys.stderr)
-            x = tts_espeak(speakable(line), wav, v)
+        try: x = tts_espeak(speakable(line), wav, v) if failed else (tts_files(line, wav, v, i) if engine == 'files' else fn(speakable(line), wav, v))
+        except Exception as e:  # network blocked / bad key: warn once, finish the episode offline
+            print(f'[tts] {engine} failed ({e}); falling back to espeak for the rest of the episode', file=sys.stderr)
+            failed = True; engine = 'espeak (fallback)'; x = tts_espeak(speakable(line), wav, v)
         write_wav(wav, x)
         speech = len(x) / SR
         # word timings: distribute by syllable weight (good enough for 2-4 word captions)
@@ -102,7 +129,7 @@ def cmd_tts(script_path, workdir):
         for w, k in zip(ws, weights):
             s = lead + acc / tot * speech; acc += k; words.append({'w': w, 's': round(s, 3), 'e': round(lead + acc / tot * speech, 3)})
         shot['words'] = words; shot['audio'] = os.path.basename(wav); shot['speech'] = round(speech, 3)
-        shot['duration'] = round(max(shot.get('minDuration', 0.9), lead + speech + gap) + shot.get('hold', 0), 3)
+        shot['duration'] = round(max(shot.get('minDuration', sc.get('minShot', 0.9)), lead + speech + gap) + shot.get('hold', 0), 3)
     sc['_engine'] = engine
     out = os.path.join(workdir, 'script.timed.json'); json.dump(sc, open(out, 'w'), ensure_ascii=False, indent=1)
     print(out, 'total %.2fs' % sum(s['duration'] for s in sc['shots']), 'engine', engine)

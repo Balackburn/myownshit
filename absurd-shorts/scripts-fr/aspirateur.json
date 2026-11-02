@@ -1,116 +1,573 @@
 {
-  "title": "L'aspirateur",
-  "captionWords": 3,
-  "music": { "mood": "quirky", "vol": 0.08 },
-  "voice": { "speed": 168, "pitch": 30, "gap": 0.14 },
-  "cast": {
-    "mec": { "preset": "lemec" },
-    "chat": { "type": "creature", "name": "cat", "opts": { "seed": 4 } },
-    "avocat": { "type": "creature", "name": "cat", "opts": { "upright": true, "clothes": "tie", "color": "#3A3D44", "seed": 8 } },
-    "juge": { "type": "creature", "name": "cat", "opts": { "upright": true, "clothes": "robe", "color": "#E3D7B8", "seed": 12 } }
+ "title": "L'aspirateur",
+ "captionWords": 3,
+ "music": {
+  "mood": "quirky",
+  "vol": 0.08
+ },
+ "voice": {
+  "engine": "elevenlabs",
+  "name": "allan tiktok",
+  "stability": 0.8,
+  "rate": 1.08,
+  "speed": 150,
+  "pitch": 30,
+  "gap": 0.3
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
   },
-  "shots": [
+  "chat": {
+   "type": "creature",
+   "name": "cat",
+   "opts": {
+    "seed": 4
+   }
+  },
+  "avocat": {
+   "type": "creature",
+   "name": "cat",
+   "opts": {
+    "upright": true,
+    "clothes": "tie",
+    "color": "#3A3D44",
+    "seed": 8
+   }
+  },
+  "juge": {
+   "type": "creature",
+   "name": "cat",
+   "opts": {
+    "upright": true,
+    "clothes": "robe",
+    "color": "#E3D7B8",
+    "seed": 12
+   }
+  }
+ },
+ "shots": [
+  {
+   "line": "Ce mec a utilisé un aspirateur",
+   "highlight": [
+    "aspirateur"
+   ],
+   "set": "livingRoom",
+   "actors": [
     {
-      "line": "Ce mec a utilisé un aspirateur",
-      "highlight": ["aspirateur"],
-      "set": "livingRoom",
-      "actors": [{ "id": "mec", "pos": [0, 0, 0], "ry": -10, "clip": "holdOut", "hold": { "name": "vacuum", "hand": "R" } }],
-      "camera": { "preset": "medium", "angle": 22, "push": 0.12 }
-    },
-    {
-      "line": "pour ranger sa chambre.",
-      "highlight": ["chambre"],
-      "actors": [{ "id": "mec", "pos": [0.4, 0, 0.3], "ry": -25, "clip": "holdOut", "hold": { "name": "vacuum", "hand": "R" } }],
-      "props": [
-        { "name": "pizza", "pos": [-0.9, 0, 0.6], "ry": 30 },
-        { "name": "banana", "pos": [-0.3, 0, 1.1] },
-        { "name": "documents", "pos": [1.2, 0, 0.9], "ry": -20 },
-        { "name": "tv", "pos": [-1.5, 0, -0.6], "ry": 40 },
-        { "name": "trashCan", "pos": [1.6, 0, -0.3] }
-      ],
-      "camera": { "preset": "wide", "angle": 10, "zoom": 0.6, "push": 0.08, "target": [0, 1.6, 0.3] }
-    },
-    {
-      "line": "Ça a marché.",
-      "actors": [{ "id": "mec", "pos": [0, 0, 0], "clip": "stareCamera", "expr": "neutral" }],
-      "camera": { "preset": "extremeClose", "angle": 6, "push": 0.05 },
-      "hold": 0.25
-    },
-    {
-      "line": "Il a aspiré le chat.",
-      "highlight": ["chat"],
-      "actors": [
-        { "id": "mec", "pos": [-0.7, 0, 0], "ry": 60, "clip": "holdOut", "hold": { "name": "vacuum", "hand": "R" } },
-        { "id": "chat", "pos": [0.9, 0, 0.2], "ry": -70, "clip": "sit", "expr": "surprised", "to": [0.15, 0.3, 0.2], "moveStart": 0.5, "moveEnd": 1.1, "moveEase": "in", "scale": 1, "scaleTo": 0.02, "scaleStart": 0.5, "scaleEnd": 1.15 }
-      ],
-      "camera": { "preset": "low", "angle": 5, "target": [0.1, 1.2, 0.2], "push": 0.06 },
-      "sfx": [{ "name": "whoosh", "at": 0.5, "vol": 0.7 }, { "name": "pop", "at": 1.15, "vol": 0.6 }]
-    },
-    {
-      "line": "",
-      "duration": 0.9,
-      "actors": [{ "id": "mec", "pos": [0, 0, 0], "clip": "lookDown", "expr": "suspicious", "hold": { "name": "vacuum", "hand": "R" } }],
-      "camera": { "preset": "close", "angle": 30, "push": 0.1 }
-    },
-    {
-      "line": "Le chat a porté plainte.",
-      "highlight": ["chat", "plainte"],
-      "set": "policeStation",
-      "actors": [{ "id": "chat", "pos": [0, 0, 0], "clip": "angry", "expr": "angry", "scale": 1.6 }],
-      "props": [{ "name": "documents", "pos": [0.5, 0, 0.5] }],
-      "camera": { "preset": "medium", "angle": 15, "target": [0, 0.9, 0], "push": 0.1 }
-    },
-    {
-      "line": "Pour séquestration.",
-      "highlight": ["séquestration"],
-      "actors": [{ "id": "mec", "pos": [0, 0, 0], "clip": "stareCamera", "expr": "suspicious" }],
-      "camera": { "preset": "extremeClose", "angle": 4, "push": 0.06 },
-      "sfx": [{ "name": "thud", "at": 0.05, "vol": 0.5 }]
-    },
-    {
-      "line": "Alors ce con a pris un avocat.",
-      "highlight": ["con", "avocat"],
-      "set": "courtroom",
-      "actors": [{ "id": "mec", "pos": [0, 0, 0], "clip": "sit", "expr": "smug" }],
-      "props": [{ "name": "desk", "pos": [0, 0, 0.55] }, { "name": "chair", "pos": [0, 0, -0.15] }],
-      "camera": { "preset": "medium", "angle": 25, "push": 0.1, "dy": -0.4, "lookDy": -0.4 }
-    },
-    {
-      "line": "Putain, c'était aussi un chat.",
-      "highlight": ["Putain", "chat"],
-      "actors": [
-        { "id": "mec", "pos": [-0.45, 0, 0], "clip": "sit", "expr": "neutral", "actions": [{ "at": 0.45, "clip": "sit", "expr": "shocked" }] },
-        { "id": "avocat", "pos": [0.55, 0, 0.1], "ry": -20, "clip": "idle", "expr": "smug", "scale": 1.5 }
-      ],
-      "props": [{ "name": "desk", "pos": [0, 0, 0.6], "scale": 1.3 }],
-      "camera": { "preset": "full", "angle": 0, "target": [0, 1.5, 0], "zoom": 0.75, "push": 0.08 },
-      "sfx": [{ "name": "scratch", "at": 0.35, "vol": 0.45 }]
-    },
-    {
-      "line": "Le juge aussi.",
-      "highlight": ["juge"],
-      "actors": [{ "id": "juge", "pos": [0, 0.9, -1.2], "clip": "idle", "expr": "angry", "scale": 1.7 }],
-      "props": [{ "name": "courtBench", "pos": [0, 0, -0.6] }, { "name": "gavel", "pos": [0.5, 1.15, -0.4] }],
-      "camera": { "preset": "low", "target": [0, 2.2, -1.2], "angle": 0, "push": 0.1 },
-      "sfx": [{ "name": "gavel", "at": 0.5, "vol": 0.7 }]
-    },
-    {
-      "line": "Quinze ans ferme.",
-      "highlight": ["Quinze"],
-      "actors": [{ "id": "mec", "pos": [0, 0, 0], "clip": "slumpDesk", "expr": "sad" }],
-      "props": [{ "name": "desk", "pos": [0, 0, 0.55] }],
-      "camera": { "preset": "medium", "angle": 35, "dy": -0.55, "lookDy": -0.7, "push": 0.08 },
-      "overlays": [{ "style": "stamp", "text": "COUPABLE", "at": 0.35, "y": 0.3 }],
-      "sfx": [{ "name": "sting", "at": 0.3, "vol": 0.4 }]
-    },
-    {
-      "line": "Le chat a gardé la chambre.",
-      "highlight": ["chat", "chambre"],
-      "set": "livingRoom",
-      "actors": [{ "id": "chat", "pos": [0, 0.45, 0], "clip": "sleep", "expr": "sleepy", "scale": 1.3 }],
-      "props": [{ "name": "bed", "pos": [0, 0, 0] }, { "name": "zzz", "pos": [0.25, 1.1, 0] }],
-      "camera": { "preset": "close", "target": [0, 1.0, 0], "angle": 20, "push": 0.1 },
-      "hold": 1.0
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": -10,
+     "clip": "holdOut",
+     "hold": {
+      "name": "vacuum",
+      "hand": "R"
+     }
     }
-  ]
+   ],
+   "camera": {
+    "preset": "medium",
+    "angle": 22,
+    "push": 0.12
+   }
+  },
+  {
+   "line": "pour ranger sa chambre.",
+   "highlight": [
+    "chambre"
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      0.3
+     ],
+     "ry": -25,
+     "clip": "holdOut",
+     "hold": {
+      "name": "vacuum",
+      "hand": "R"
+     }
+    }
+   ],
+   "props": [
+    {
+     "name": "pizza",
+     "pos": [
+      -0.9,
+      0,
+      0.6
+     ],
+     "ry": 30
+    },
+    {
+     "name": "banana",
+     "pos": [
+      -0.3,
+      0,
+      1.1
+     ]
+    },
+    {
+     "name": "documents",
+     "pos": [
+      1.2,
+      0,
+      0.9
+     ],
+     "ry": -20
+    },
+    {
+     "name": "tv",
+     "pos": [
+      -1.5,
+      0,
+      -0.6
+     ],
+     "ry": 40
+    },
+    {
+     "name": "trashCan",
+     "pos": [
+      1.6,
+      0,
+      -0.3
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "wide",
+    "angle": 10,
+    "zoom": 0.6,
+    "push": 0.08,
+    "target": [
+     0,
+     1.6,
+     0.3
+    ]
+   }
+  },
+  {
+   "line": "Ça a marché.",
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "clip": "stareCamera",
+     "expr": "neutral"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "angle": 6,
+    "push": 0.05
+   },
+   "hold": 0.25
+  },
+  {
+   "line": "Il a aspiré le chat.",
+   "highlight": [
+    "chat"
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.75,
+      0,
+      0.6
+     ],
+     "ry": 80,
+     "clip": "holdOut",
+     "expr": "neutral",
+     "hold": {
+      "name": "vacuum",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "chat",
+     "pos": [
+      0.95,
+      0,
+      0.6
+     ],
+     "ry": -80,
+     "clip": "sit",
+     "expr": "surprised",
+     "to": [
+      0.05,
+      0.25,
+      0.6
+     ],
+     "moveStart": 0.45,
+     "moveEnd": 1.05,
+     "moveEase": "in",
+     "scale": 1.2,
+     "scaleTo": 0.02,
+     "scaleStart": 0.45,
+     "scaleEnd": 1.1
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0.1,
+     1.25,
+     0.6
+    ],
+    "angle": 0,
+    "zoom": 0.85,
+    "push": 0.06
+   },
+   "sfx": [
+    {
+     "name": "whoosh",
+     "at": 0.5,
+     "vol": 0.7
+    },
+    {
+     "name": "pop",
+     "at": 1.15,
+     "vol": 0.6
+    }
+   ]
+  },
+  {
+   "line": "",
+   "duration": 0.9,
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "clip": "lookDown",
+     "expr": "suspicious",
+     "hold": {
+      "name": "vacuum",
+      "hand": "R"
+     }
+    }
+   ],
+   "camera": {
+    "preset": "close",
+    "angle": 30,
+    "push": 0.1
+   }
+  },
+  {
+   "line": "Le chat a porté plainte.",
+   "highlight": [
+    "chat",
+    "plainte"
+   ],
+   "set": "policeStation",
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "clip": "angry",
+     "expr": "angry",
+     "scale": 1.6
+    }
+   ],
+   "props": [
+    {
+     "name": "documents",
+     "pos": [
+      0.5,
+      0,
+      0.5
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "angle": 15,
+    "target": [
+     0,
+     0.9,
+     0
+    ],
+    "push": 0.1
+   }
+  },
+  {
+   "line": "Pour séquestration.",
+   "highlight": [
+    "séquestration"
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "clip": "stareCamera",
+     "expr": "suspicious"
+    }
+   ],
+   "camera": {
+    "preset": "extremeClose",
+    "angle": 4,
+    "push": 0.06
+   },
+   "sfx": [
+    {
+     "name": "thud",
+     "at": 0.05,
+     "vol": 0.5
+    }
+   ]
+  },
+  {
+   "line": "Alors ce con a pris un avocat.",
+   "highlight": [
+    "con",
+    "avocat"
+   ],
+   "set": "courtroom",
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -3.3,
+      0,
+      0.35
+     ],
+     "clip": "sit",
+     "expr": "smug",
+     "actions": [
+      {
+       "at": 0.6,
+       "clip": "armsCrossed",
+       "expr": "smug"
+      }
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mec",
+    "angle": 20,
+    "push": 0.1,
+    "dy": -0.35,
+    "lookDy": -0.45
+   }
+  },
+  {
+   "line": "Putain, c'était aussi un chat.",
+   "highlight": [
+    "Putain",
+    "chat"
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -3.75,
+      0,
+      0.35
+     ],
+     "clip": "sit",
+     "expr": "neutral",
+     "actions": [
+      {
+       "at": 0.45,
+       "clip": "sit",
+       "expr": "shocked"
+      }
+     ]
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      -2.75,
+      0,
+      0.35
+     ],
+     "ry": -25,
+     "clip": "sit",
+     "expr": "smug",
+     "scale": 1.35
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     -3.25,
+     1.25,
+     0.35
+    ],
+    "angle": 0,
+    "zoom": 0.7,
+    "push": 0.08,
+    "dy": 0.1
+   },
+   "sfx": [
+    {
+     "name": "scratch",
+     "at": 0.35,
+     "vol": 0.45
+    }
+   ]
+  },
+  {
+   "line": "Le juge aussi.",
+   "highlight": [
+    "juge"
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.3,
+      -4.3
+     ],
+     "clip": "angry",
+     "expr": "angry",
+     "scale": 1.5
+    }
+   ],
+   "camera": {
+    "preset": "low",
+    "target": [
+     0,
+     2.1,
+     -4.3
+    ],
+    "angle": 0,
+    "push": 0.12,
+    "zoom": 1.4
+   },
+   "sfx": [
+    {
+     "name": "gavel",
+     "at": 0.5,
+     "vol": 0.7
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.5,
+     "dur": 0.25,
+     "amount": 0.03
+    }
+   ]
+  },
+  {
+   "line": "Quinze ans ferme.",
+   "highlight": [
+    "Quinze"
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -3.3,
+      0,
+      0.35
+     ],
+     "clip": "slumpDesk",
+     "expr": "sad"
+    }
+   ],
+   "camera": {
+    "preset": "medium",
+    "target": "mec",
+    "angle": 30,
+    "dy": -0.5,
+    "lookDy": -0.8,
+    "push": 0.08
+   },
+   "overlays": [
+    {
+     "style": "stamp",
+     "text": "COUPABLE",
+     "at": 0.35,
+     "y": 0.3
+    }
+   ],
+   "sfx": [
+    {
+     "name": "sting",
+     "at": 0.3,
+     "vol": 0.4
+    }
+   ]
+  },
+  {
+   "line": "Le chat a gardé la chambre.",
+   "highlight": [
+    "chat",
+    "chambre"
+   ],
+   "set": "livingRoom",
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      0,
+      0.5,
+      0
+     ],
+     "clip": "sleep",
+     "expr": "sleepy",
+     "scale": 1.3
+    }
+   ],
+   "props": [
+    {
+     "name": "bed",
+     "pos": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "zzz",
+     "pos": [
+      0.25,
+      1.1,
+      0
+     ]
+    }
+   ],
+   "camera": {
+    "preset": "full",
+    "target": [
+     0,
+     1.0,
+     0
+    ],
+    "angle": 22,
+    "zoom": 0.62,
+    "push": 0.1
+   },
+   "hold": 1.0
+  }
+ ],
+ "minShot": 1.25
 }
