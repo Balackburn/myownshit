@@ -302,17 +302,42 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], bed: [-2.5, 0, back + 1.15], bedLie: [-2.5, 0.62, back + 1.15], bedSide: [-1.4, 0, back + 1.4], monitor: [-1.0, 0, back + 0.45], iv: [-3.9, 0, back + 0.9], curtain: [1.7, 0, -2.0], window: [3.6, 1.0, back] };
     g.userData.lighting = 'interior'; return g;
   },
-  restaurant() {
-    const g = grp(), { back } = room(g, { wall: P.cream, band: '#9B3A2E', bandH: 1.0, trim: P.navy, floor: '#A9784C' });
+  restaurant(o) { // fried-chicken fast food — viz3d pass from real counter-service layouts: service counter with tills and tray stack,
+                  // backlit menu boards, steel fryers with golden baskets + heat lamps behind, drinks fridge, chicken mascot, dining tables
+    const g = grp(), { back } = room(g, { wall: '#F3E6D3', band: '#B5302A', bandH: 1.0, trim: '#7A1E18', floor: '#C9B79C' });
     const cloth = checkerMat(P.red, P.white);
     const table = (x, z, chairs = true) => { const t = at(grp(prop('table', { w: 0.9, d: 0.9, h: 0.76, color: P.white }), at(new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.25, 1.0), cloth), 0, 0.665, 0),
         at(cyl(0.12, 0.12, 0.012, P.white, 10), -0.2, 0.8, 0.15), at(cyl(0.12, 0.12, 0.012, P.white, 10), 0.2, 0.8, -0.15), at(cyl(0.04, 0.045, 0.28, P.navy, 6, { pivot: 'bottom' }), 0, 0.795, 0), at(cyl(0.02, 0.02, 0.05, P.red, 6, { pivot: 'bottom' }), 0, 1.07, 0)), x, 0, z);
       if (chairs) t.add(prop('chair', { color: P.navy }, -0.75, 0, 0, PI / 2), prop('chair', { color: P.navy }, 0.75, 0, 0, -PI / 2)); return t; };
-    g.add(table(0, -2.6), table(-3.6, -1.4), table(3.6, -1.6), table(-3.4, 2.2), table(3.4, 2.4));
-    [[0, -2.6], [-3.6, -1.4], [3.6, -1.6]].forEach(([x, z]) => g.add(hangLamp(x, 3.1, z, P.red)));
+    g.add(table(0, -2.6), table(-3.6, -0.6), table(3.6, -1.6), table(-3.4, 2.2), table(3.4, 2.4));
+    [[0, -2.6], [3.6, -1.6]].forEach(([x, z]) => g.add(hangLamp(x, 3.1, z, P.red)));
+    // service counter (left half of the back wall): red front, yellow stripe, steel top, two tills, tray stack, napkin box
+    const cx = -3.4, cz = back + 1.15;
+    g.add(at(box(3.6, 1.0, 0.6, '#B5302A', { pivot: 'bottom', outline: 0.006 }), cx, 0, cz), at(box(3.7, 0.06, 0.7, '#D8D8D4'), cx, 1.03, cz), at(box(3.6, 0.12, 0.02, '#F2C230'), cx, 0.62, cz + 0.31));
+    g.add(prop('cashRegister', {}, -4.5, 1.06, cz), prop('cashRegister', {}, -2.6, 1.06, cz), at(box(0.42, 0.22, 0.32, '#7A1E18'), -1.85, 1.17, cz), at(box(0.16, 0.14, 0.12, '#F2EDE4'), -3.5, 1.13, cz + 0.12));
+    // kitchen line behind the counter: steel back counter, two fryers with golden baskets, heat lamps
+    g.add(at(box(3.6, 0.95, 0.6, '#C9CDCF', { pivot: 'bottom', outline: 0.006 }), cx, 0, back + 0.35));
+    [-4.6, -3.8].forEach(x => g.add(at(box(0.7, 0.22, 0.5, '#A9AEB0', { outline: 0.004 }), x, 1.06, back + 0.35), at(box(0.28, 0.08, 0.24, '#E0A840'), x - 0.16, 1.21, back + 0.35), at(box(0.28, 0.08, 0.24, '#E0A840'), x + 0.16, 1.21, back + 0.35)));
+    [-2.9, -2.2].forEach(x => g.add(rod([x, 2.2, back + 0.4], [x, 1.75, back + 0.4], 0.008, P.ink), at(box(0.5, 0.08, 0.3, '#3A3A3A'), x, 1.72, back + 0.4), at(box(0.44, 0.02, 0.24, '#FFB25A', { emissive: '#FF8A2A', noGrain: true }), x, 1.67, back + 0.4), at(box(0.5, 0.1, 0.36, '#E0A840'), x, 1.0, back + 0.4)));
+    // backlit menu boards above the counter
+    const panel = (title, price, kind) => canvasPlane(1.1, 0.66, (c, W, H) => { c.fillStyle = '#1E1A18'; c.fillRect(0, 0, W, H); c.textAlign = 'center';
+      c.fillStyle = '#F2C230'; c.font = `bold ${H * 0.15}px Arial`; c.fillText(title, W / 2, H * 0.19);
+      if (kind === 0) { c.fillStyle = '#B5302A'; c.beginPath(); c.moveTo(W * 0.37, H * 0.36); c.lineTo(W * 0.63, H * 0.36); c.lineTo(W * 0.59, H * 0.72); c.lineTo(W * 0.41, H * 0.72); c.closePath(); c.fill(); c.fillStyle = '#F2EDE4'; c.fillRect(W * 0.4, H * 0.47, W * 0.2, H * 0.07); }
+      c.fillStyle = '#E0A840'; for (let i = 0; i < (kind === 0 ? 4 : 5); i++) { c.beginPath(); c.ellipse(W * (0.39 + i * 0.055), H * (kind === 0 ? 0.33 : 0.5), W * 0.035, H * 0.07, 0.5, 0, TAU); c.fill(); }
+      c.fillStyle = '#FFFFFF'; c.font = `bold ${H * 0.14}px Arial`; c.fillText(price, W / 2, H * 0.9); }, { emissive: 0.55 });
+    [['SEAU x8', '12,90 €', 0], ['TENDERS', '6,50 €', 1], ['MENU BOX', '9,90 €', 0]].forEach(([t, p, k], i) => g.add(at(box(1.18, 0.74, 0.06, '#2A2522'), -4.6 + i * 1.2, 2.35, back + 0.04), at(panel(t, p, k), -4.6 + i * 1.2, 2.35, back + 0.08)));
+    if (o.brand) g.add(at(box(3.7, 0.62, 0.08, '#7A1E18', { outline: 0.006 }), cx, 3.15, back + 0.05), at(label(o.brand, 3.5, 0.5, { bg: '#B5302A', fg: '#FFE7A0', wrap: false }), cx, 3.15, back + 0.1));
+    // drinks fridge (glass door, coloured bottles), chicken mascot on a plinth, specials board (menu anchor), door, plants
+    const fr = grp(at(box(0.85, 2.0, 0.7, '#B5302A', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(0.72, 1.6, 0.02, '#1E2A30'), 0, 1.05, 0.355));
+    const bl = [], bc = []; for (let s = 0; s < 4; s++) for (let i = 0; i < 5; i++) { bl.push([-0.28 + i * 0.14, 0.4 + s * 0.38, 0.3, 0, 0, 0, 0.07, 0.22, 0.07]); bc.push(['#E8C04A', '#B5302A', '#3A7A4A', '#F2EDE4', '#2C4A8A'][(i + s) % 5]); }
+    fr.add(inst(new THREE.BoxGeometry(1, 1, 1), mat(P.white), bl, bc), at(mesh(new THREE.BoxGeometry(0.72, 1.6, 0.01), glassMat(0.25)), 0, 1.05, 0.37));
+    g.add(at(fr, -6.2, 0, back + 0.6));
+    const masc = grp(at(box(0.6, 0.6, 0.6, '#7A1E18', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(sphere(0.38, '#F7F3EA', 1), 0, 0.98, 0), at(sphere(0.22, '#F7F3EA', 1), 0, 1.45, 0.12),
+      at(box(0.1, 0.08, 0.14, '#E0A840'), 0, 1.42, 0.36), at(box(0.06, 0.16, 0.12, '#C4301E'), 0, 1.7, 0.1), at(cyl(0.16, 0.13, 0.22, '#FFFFFF', 8, { pivot: 'bottom' }), 0, 1.62, 0.08), at(sphere(0.035, P.ink, 0), -0.1, 1.5, 0.31), at(sphere(0.035, P.ink, 0), 0.1, 1.5, 0.31));
+    g.add(at(masc, 5.6, 0, back + 1.0, 0, -0.4, 0));
     g.add(at(box(1.4, 1.0, 0.05, P.woodDark, { outline: 0.01 }), 1.4, 1.9, back + 0.03), at(label('MENU\nSOUPE 5€\nPIZZA 9€', 1.28, 0.88, { bg: '#22302D', fg: P.cream }), 1.4, 1.9, back + 0.057));
-    g.add(prop('door', { color: P.teal, frame: P.navy }, -3.0, 0, back), at(picture(0.9, 0.7, P.woodDark, 'sea'), -1.5, 2.0, back + 0.03), prop('plant', {}, 5.2, 0, back + 0.5));
-    g.userData.anchors = { center: [0, 0, 0], table: [0, 0, -2.6], tableTop: [0, 0.79, -2.6], chairLeft: [-0.75, 0, -2.6], chairRight: [0.75, 0, -2.6], menu: [1.4, 1.9, back], kitchenDoor: [-3.0, 0, back + 0.6] };
+    g.add(prop('door', { color: P.teal, frame: P.navy }, -0.9, 0, back), at(picture(0.9, 0.7, P.woodDark, 'sea'), 3.4, 2.0, back + 0.03), prop('plant', {}, 6.5, 0, back + 0.5), prop('plant', {}, -6.6, 0, 1.6));
+    g.userData.anchors = { center: [0, 0, 0], table: [0, 0, -2.6], tableTop: [0, 0.79, -2.6], chairLeft: [-0.75, 0, -2.6], chairRight: [0.75, 0, -2.6], menu: [1.4, 1.9, back], kitchenDoor: [-0.9, 0, back + 0.6], counter: [cx, 0, cz] };
     g.userData.lighting = 'interior'; return g;
   },
   park() {
@@ -354,6 +379,17 @@ const S = {
     // holding cell on the right
     g.add(wall(0.2, 2.7, 1.6, P.greyDark, 3.5, 1.35, back + 0.8), prop('jailBars', { width: 3.2, height: 2.6 }, 5.1, 0, back + 1.6), at(box(3.2, 0.3, 0.12, P.navy), 5.1, 2.75, back + 1.6));
     g.add(at(box(0.5, 1.3, 0.6, P.greyDark, { pivot: 'bottom', outline: 0.006 }), -4.6, 0, back + 0.32));
+    // viz3d pass: a working station is furnished — lockers, filing cabinets, a water cooler, a coffee corner, a wall clock,
+    // tube lights, a notice board with memos, potted plants (nothing in the acting areas: desk front, cell front, centre)
+    for (let i = 0; i < 4; i++) { const lk = grp(at(box(0.5, 1.9, 0.5, '#6F8796', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0)); for (let v = 0; v < 3; v++) lk.add(at(box(0.3, 0.02, 0.01, '#2A3640'), 0, 1.6 + v * 0.06, 0.255)); lk.add(at(box(0.03, 0.12, 0.02, P.grey), 0.17, 1.0, 0.26)); g.add(at(lk, -6.75, 0, -0.4 + i * 0.52, 0, PI / 2, 0)); }
+    [-5.5, -6.1].forEach(x => { const fc = grp(at(box(0.5, 1.3, 0.6, '#8C949A', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0)); for (let d = 0; d < 3; d++) fc.add(at(box(0.44, 0.38, 0.01, '#9AA2A8'), 0, 0.23 + d * 0.42, 0.305), at(box(0.12, 0.03, 0.03, P.ink), 0, 0.33 + d * 0.42, 0.31)); g.add(at(fc, x, 0, back + 0.32)); });
+    g.add(at(grp(at(box(0.36, 1.0, 0.36, '#E8E8E4', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.15, 0.15, 0.42, '#9FD3E8', 10, { pivot: 'bottom', opacity: 0.7 }), 0, 1.0, 0), at(box(0.06, 0.05, 0.06, '#2C4A8A'), 0.08, 0.75, 0.19)), -0.9, 0, back + 0.3));
+    g.add(at(box(0.9, 0.85, 0.5, '#5E6B66', { pivot: 'bottom', outline: 0.006 }), 0.4, 0, back + 0.3), prop('coffeeMachine', {}, 0.25, 0.85, back + 0.3), prop('mug', { color: P.white }, 0.62, 0.85, back + 0.35));
+    g.add(prop('wallClock', { rate: 1 / 3600 }, -4.0, 2.6, back + 0.03));
+    [-3.0, 1.2].forEach(x => g.add(rod([x - 0.7, 3.8, -1.0], [x - 0.7, 3.5, -1.0], 0.006, P.ink), rod([x + 0.7, 3.8, -1.0], [x + 0.7, 3.5, -1.0], 0.006, P.ink), at(box(1.6, 0.06, 0.2, '#FFFFFF', { emissive: '#FFF6DA', noGrain: true }), x, 3.48, -1.0)));
+    g.add(at(box(1.1, 0.8, 0.03, '#B98A5A', { outline: 0.006 }), -5.4, 1.8, back + 0.03));
+    [[-5.7, 1.95, 0.06], [-5.3, 1.7, -0.04], [-5.05, 1.95, 0.02]].forEach(([x, y, rz], i) => g.add(at(box(0.26, 0.32, 0.01, ['#F7F3EA', '#F2E27A', '#F7F3EA'][i]), x, y, back + 0.05, 0, 0, rz)));
+    g.add(prop('plant', {}, -6.5, 0, 2.4), prop('plant', {}, 2.9, 0, back + 0.45));
     g.userData.anchors = { center: [0, 0, 0], desk: [-2.7, 0, back + 1.5], deskChair: [-2.7, 0, back + 0.8], deskFront: [-2.7, 0, back + 2.5], sign: [0, 2.7, back], board: [2.1, 1.75, back], cell: [5.1, 0, back + 0.8], cellFront: [5.1, 0, back + 2.4] };
     g.userData.lighting = 'interior'; return g;
   },
@@ -418,28 +454,125 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], counter: [-3.4, 0, back + 1.8], counterFront: [-3.4, 0, back + 2.7], counterBehind: [-3.4, 0, back + 1.1], board: [1.9, 3.3, back + 0.8], seats: [3.1, 0.45, 0.4], window: [0, 0, back + 0.4], plane: [6, 0, -28] };
     g.userData.lighting = 'interior'; return g;
   },
-  zoo(o) { // gorilla enclosure seen from the visitor side: grass, rocks, a tree, back rock wall, cave mouth, fence at the front
-    const night = !!o.night, g = grp();
-    g.add(flat(120, 120, night ? '#43593E' : P.grass, 0, 0, 0));
-    g.add(flat(120, 8, '#CFC6B2', 0, 0.003, 7.5));                                    // visitor path
-    const wall = new THREE.Mesh(new THREE.DodecahedronGeometry(6, 1), mat('#8E8A80')); wall.scale.set(3, 1.2, 0.8); wall.position.set(0, 1.5, -11); g.add(wall);
-    const cave = new THREE.Mesh(new THREE.CircleGeometry(1.4, 10), mat('#141414', { noGrain: true })); cave.scale.y = 1.25; cave.position.set(3.6, 1.5, -6.6); g.add(cave);
-    [[-3.5, -3.5, 1.6], [2.2, -2.6, 1.3], [-1.2, -6, 1.8], [5.5, -4.5, 1.4]].forEach(([x, z, sz]) => g.add(at(prop('rock', { size: sz }), x, 0, z)));
-    g.add(at(prop('tree', { seed: 4 }), -6, 0, -6), at(prop('tree', { seed: 9 }), 7, 0, -8), at(prop('bush', { seed: 2 }), -2, 0, -2.5));
+  zoo(o) { // gorilla habitat — viz3d pass, built from real exhibit layouts: rockwork cliff with the night-house cave,
+           // wooden climbing frame (poles, deck, ropes, fire-hose hammock, log ramp), dead climbing tree, hay, logs, worn dirt;
+           // visitor promenade with the barrier wall + bars, benches, bins, lamps, hedges and trees behind
+    const night = !!o.night, g = grp(), r = rng(41);
+    const GR = night ? '#43593E' : P.grass, DIRT = night ? '#4C4438' : '#A88C66';
+    const RK = night ? ['#6E6B65', '#5E5B56', '#7A766F'] : ['#A49C8E', '#8F887B', '#B5AD9E'];
+    const WOOD = night ? '#5A4634' : '#8A6A4A', WOODD = night ? '#45362A' : '#6A503A', HAY = night ? '#8A7A45' : '#D9BE6A';
+    g.add(flat(160, 160, GR, 0, 0, 0));
+    [[-5.0, -2.4, 2.1], [3.4, -5.0, 1.9], [0.4, -0.4, 2.4], [-1.8, -4.4, 1.3], [5.4, -1.4, 1.2]].forEach(([x, z, rr], i) => { // worn dirt, 2 cm up
+      const d = mesh(new THREE.CircleGeometry(rr, 9).rotateX(-PI / 2), mat(DIRT)); d.scale.set(1 + r() * 0.5, 1, 0.7 + r() * 0.3); d.rotation.y = r() * PI;
+      d.position.set(x, 0.02 + i * 0.003, z); d.castShadow = false; g.add(d); });
+    // visitor promenade (a 2.5 cm slab, not a coplanar plane) with a kerb at the back
+    g.add(at(box(160, 0.025, 8, '#CFC6B2', { pivot: 'bottom', noGrain: false }), 0, 0, 7.5), at(box(160, 0.1, 0.25, '#B4AB98', { pivot: 'bottom' }), 0, 0, 11.4));
+    // backdrop: the old big rock mass, pushed back, then a cliff of faceted blocks in front of it (two tiers, ledges)
+    const wallM = new THREE.Mesh(new THREE.DodecahedronGeometry(6, 1), mat(RK[1])); wallM.scale.set(3.2, 1.25, 0.8); wallM.position.set(0, 1.5, -13.6); g.add(wallM);
+    const block = (x, y, z, sx, sy, sz, c, rx, ry, rz) => { const m = new THREE.Mesh(new THREE.DodecahedronGeometry(1, 0), mat(c)); m.scale.set(sx, sy, sz); m.position.set(x, y, z); m.rotation.set(rx, ry, rz); m.castShadow = m.receiveShadow = true; g.add(m); return m; };
+    for (let i = 0; i < 16; i++) {
+      const x = -18 + i * 2.4 + (r() - 0.5) * 0.8; if (Math.abs(x - 3.6) < 2.0) continue;   // the cave mouth stays open
+      const h = 2.2 + r() * 2.2;
+      block(x, h * 0.45, -8.1 - r() * 0.7, 1.5 + r() * 0.6, h * 0.6, 1.3 + r() * 0.4, RK[i % 3], r() * 0.5, r() * PI, r() * 0.3);
+      block(x + (r() - 0.5), h + 0.8 + r(), -9.8 - r(), 1.7 + r() * 0.8, 1.5 + r() * 0.9, 1.4, RK[(i + 1) % 3], r() * 0.4, r() * PI, r() * 0.4);
+    }
+    // the cave = the night-house entrance in the rockwork: dark recess between two jamb rocks under a lintel rock
+    block(1.85, 1.35, -7.25, 0.95, 1.7, 1.0, RK[1], 0.2, 0.4, 0.1); block(5.35, 1.45, -7.25, 0.95, 1.8, 1.0, RK[2], 0.1, 1.1, 0.2);
+    block(3.6, 3.35, -7.5, 2.3, 0.85, 1.1, RK[0], 0.1, 0.3, 0.05);
+    const cave = new THREE.Mesh(new THREE.CircleGeometry(1.25, 10), mat('#0E0E0E', { noGrain: true })); cave.scale.y = 1.25; cave.position.set(3.6, 1.45, -6.9); g.add(cave);
+    g.add(at(box(2.6, 3.2, 0.3, '#0E0E0E', { noGrain: true }), 3.6, 1.6, -7.7));
+    // trees above / behind the cliff (depth), and two inside the habitat
+    [[-14, -12.5, 1.6], [-8, -13.5, 1.9], [-2.5, -14, 1.5], [9, -13, 1.8], [15, -12, 1.5], [12, -15, 2.0]].forEach(([x, z, s], i) => g.add(prop('tree', { seed: 11 + i }, x, 2.0, z, 0, s)));
+    g.add(prop('tree', { seed: 4 }, -6.6, 0, -6.2), prop('tree', { seed: 9 }, 7.4, 0, -6.4), prop('bush', { seed: 2 }, -2.2, 0, -2.6), prop('bush', { seed: 5 }, 6.6, 0, 1.6));
+    [[-3.6, -3.6, 1.6], [2.2, -2.6, 1.3], [-1.2, -6.0, 1.8], [5.6, -4.6, 1.4]].forEach(([x, z, sz]) => g.add(at(prop('rock', { size: sz, color: RK[2] }), x, 0, z)));
+    // wooden climbing frame: four round poles, a deck, top beams, hanging ropes, a fire-hose hammock and a log ramp
+    const cf = grp();
+    [[-1.0, -0.8], [1.0, -0.8], [-1.0, 0.8], [1.0, 0.8]].forEach(([x, z]) => cf.add(at(cyl(0.11, 0.13, 4.0, WOOD, 7, { pivot: 'bottom', outline: 0.01 }), x, 0, z)));
+    cf.add(at(box(2.3, 0.1, 1.9, WOODD, { outline: 0.008 }), 0, 2.1, 0));
+    [[-1, -0.8, 1, -0.8], [-1, 0.8, 1, 0.8], [-1, -0.8, -1, 0.8], [1, -0.8, 1, 0.8]].forEach(([x0, z0, x1, z1]) => cf.add(rod([x0, 3.85, z0], [x1, 3.85, z1], 0.07, WOOD)));
+    [[-0.5, 0.8], [0.4, 0.8], [0.95, -0.1]].forEach(([x, z], i) => cf.add(rod([x, 3.85, z], [x + 0.08, 1.0 + i * 0.3, z + 0.05], 0.025, '#C9B48A')));
+    cf.add(wire(catenary([-1.0, 1.75, -0.8], [-1.0, 1.75, 0.8], 0.45), 0.09, '#9A4A32'));
+    cf.add(rod([1.0, 2.1, 0.6], [2.5, 0.08, 1.3], 0.14, WOODD));
+    g.add(at(cf, -5.3, 0, -2.7, 0, 0.35, 0));
+    // dead climbing tree (bare trunk + three limbs), hay piles, logs
+    const dt = grp(at(cyl(0.16, 0.24, 3.4, '#7A6650', 7, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0));
+    [[0.6, 2.2, 0.2, 1.1], [-0.7, 2.8, -0.3, 0.9], [0.3, 3.2, -0.6, 0.8]].forEach(([dx, y, dz, l]) => dt.add(rod([0, y - 0.3, 0], [dx * 1.6, y + l * 0.5, dz * 1.6], 0.07, '#7A6650')));
+    g.add(at(dt, 6.2, 0, -3.6));
+    [[5.9, -1.5, 1.0], [-2.6, -5.0, 0.8], [-6.4, 0.2, 0.7]].forEach(([x, z, s]) => { const h = sphere(0.6 * s, HAY, 0); h.scale.set(1.5, 0.38, 1.15); h.position.set(x, 0.12 * s, z); g.add(h); });
+    g.add(rod([-5.8, 0.2, 1.3], [-3.9, 0.2, 1.75], 0.2, WOODD), rod([5.0, 0.18, 0.7], [6.8, 0.18, 0.3], 0.18, WOODD));
+    // barrier (low wall + bars) and the visitor side: benches facing the habitat, bins, lamps, hedges, trees
     g.add(at(prop('zooFence', { length: 30 }), 0, 0, 4.2));
     g.add(at(prop('signBoard', { text: o.sign || 'ZOO · GORILLES', bg: P.teal, fg: P.cream, w: 2.4, h: 0.6 }), o.signX ?? -2.5, 0, o.signZ ?? 5.2));
+    g.add(prop('bench', {}, -4.9, 0.025, 7.4, PI), prop('bench', {}, 4.7, 0.025, 7.4, PI), prop('trashCan', {}, -6.8, 0.025, 5.0), prop('trashCan', {}, 8.2, 0.025, 5.0));
+    [-10, 10].forEach(x => g.add(prop('streetLamp', { on: night, light: night ? 4 : 0 }, x, 0.025, 4.9, PI / 2)));
+    for (let x = -14; x <= 14; x += 2.2) g.add(prop('bush', { seed: 20 + Math.round(x) }, x, 0, 12.2, 0, 0.8));
+    [[-9, 14.5], [-3, 15.5], [4, 14.8], [11, 15.2]].forEach(([x, z], i) => g.add(prop('tree', { seed: 30 + i }, x, 0, z, 0, 1.4)));
     if (night) nightSky(g); else { sky(g); clouds(g, 5); }
-    g.userData.anchors = { center: [0, 0, 0], rock: [2.2, 0, -2.6], behindRock: [2.2, 0, -3.8], cave: [3.6, 0, -6.4], fence: [0, 0, 4.2], visitor: [0, 0, 6.5], tree: [-6, 0, -6] };
+    g.userData.anchors = { center: [0, 0, 0], rock: [2.2, 0, -2.6], behindRock: [2.2, 0, -3.8], cave: [3.6, 0, -6.4], fence: [0, 0, 4.2], visitor: [0, 0, 6.5], tree: [-6, 0, -6], frame: [-5.3, 0, -2.7] };
     g.userData.lighting = night ? 'night' : 'day'; return g;
   },
-  secretGym(o) { // the hidden gym under the zoo: dark concrete, neon sign, rack, bench
-    const g = S.gym(); g.add(at(label(o.sign || 'GORILLA GYM · PRIVÉ', 2.6, 0.5, { bg: P.ink, fg: '#E8FF5A' }), 0.8, 3.4, -3.5));
-    g.userData.lighting = 'dark'; return g;
+  secretGym(o) { // the hidden gym under the zoo — viz3d pass: rubber floor, power cage, cable tower, kettlebell rack, plate tree,
+                 // protein shelf, lockers, exposed duct + pipes, green LED strips, a training screen (the generic gym stays as is)
+    const g = S.gym(), back = -3.6, r = rng(77);
+    g.add(at(label(o.sign || 'GORILLA GYM · PRIVÉ', 2.6, 0.5, { bg: P.ink, fg: '#E8FF5A' }), 0.8, 3.4, -3.5));
+    g.add(at(box(14, 0.02, 9.2, '#5A5F66', { pivot: 'bottom' }), 0, 0, 1.0));                                   // rubber floor slab (mid grey: dark subjects must read on it)
+    const cage = grp(); [[-0.6, -0.5], [0.6, -0.5], [-0.6, 0.5], [0.6, 0.5]].forEach(([x, z]) => cage.add(at(box(0.08, 2.3, 0.08, P.ink, { pivot: 'bottom', outline: 0.01 }), x, 0, z)));
+    [[-0.6, -0.5, 0.6, -0.5], [-0.6, 0.5, 0.6, 0.5], [-0.6, -0.5, -0.6, 0.5], [0.6, -0.5, 0.6, 0.5]].forEach(([a, b, c, d]) => cage.add(rod([a, 2.28, b], [c, 2.28, d], 0.03, P.ink)));
+    cage.add(rod([-0.95, 1.4, 0.38], [0.95, 1.4, 0.38], 0.016, P.grey)); [-0.82, 0.82].forEach(x => cage.add(at(cyl(0.2, 0.2, 0.05, '#1E1F24', 10), x, 1.4, 0.38, 0, 0, PI / 2)));
+    g.add(at(cage, -1.6, 0, -2.75));
+    const tower = grp(at(box(0.9, 2.4, 0.1, P.ink, { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.3), at(box(0.36, 1.0, 0.22, '#1E1F24', { pivot: 'bottom' }), 0, 0.05, -0.12),
+      at(cyl(0.08, 0.08, 0.04, P.grey, 10), 0, 2.3, 0.0, PI / 2), rod([0, 2.25, 0.02], [0, 1.2, 0.35], 0.006, '#DDDDDD'), at(box(0.25, 0.04, 0.04, P.grey), 0, 1.18, 0.36));
+    g.add(at(tower, -5.6, 0, -2.9));
+    const kb = grp(at(box(2.6, 0.06, 0.45, P.ink), 0, 0.42, 0), at(box(0.06, 0.42, 0.45, P.ink, { pivot: 'bottom' }), -1.25, 0, 0), at(box(0.06, 0.42, 0.45, P.ink, { pivot: 'bottom' }), 1.25, 0, 0));
+    for (let i = 0; i < 7; i++) { const s = 0.11 + i * 0.012; kb.add(at(sphere(s, i % 2 ? '#2B2D33' : P.red, 1), -1.05 + i * 0.35, 0.45 + s, 0), at(torus(s * 0.55, 0.018, '#2B2D33', 4, 10), -1.05 + i * 0.35, 0.45 + s * 2, 0)); }
+    g.add(at(kb, 6.45, 0, -1.2, 0, -PI / 2, 0));
+    const tree = grp(at(cyl(0.04, 0.05, 1.3, P.ink, 6, { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.3, 0.3, 0.04, P.ink, 8), 0, 0.02, 0));
+    [[0.5, 0.18], [0.85, 0.16], [1.15, 0.14]].forEach(([y, rr], i) => [-1, 1].forEach(s => tree.add(at(cyl(rr, rr, 0.05, i % 2 ? P.red : '#1E1F24', 10), s * 0.08, y, 0, 0, 0, PI / 2))));
+    g.add(at(tree, 2.5, 0, -3.15));
+    const tubs = grp(at(box(0.4, 0.04, 1.8, P.ink), 0, 1.1, 0), at(box(0.4, 0.04, 1.8, P.ink), 0, 1.55, 0));
+    for (let i = 0; i < 8; i++) tubs.add(at(cyl(0.09, 0.09, 0.22, ['#1E1F24', '#E8FF5A', P.red, '#2C4A8A'][i % 4], 10, { pivot: 'bottom' }), 0, i < 4 ? 1.12 : 1.57, -0.65 + (i % 4) * 0.43));
+    g.add(at(tubs, -6.7, 0, 0.0));
+    for (let i = 0; i < 4; i++) { const lk = grp(at(box(0.5, 1.9, 0.5, '#5E6C78', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0)); for (let v = 0; v < 3; v++) lk.add(at(box(0.3, 0.02, 0.01, '#2A3036'), 0, 1.6 + v * 0.06, 0.255)); lk.add(at(box(0.03, 0.12, 0.02, P.grey), 0.17, 1.0, 0.26)); g.add(at(lk, -6.75, 0, 1.4 + i * 0.52, 0, PI / 2, 0)); }
+    g.add(at(cyl(0.32, 0.32, 13, '#8E949A', 10), 0, 3.85, -2.2, 0, 0, PI / 2), rod([-6.8, 3.55, -3.3], [6.8, 3.55, -3.3], 0.05, '#B5302A'), rod([-6.8, 3.4, -3.35], [6.8, 3.4, -3.35], 0.04, '#7E868D'));
+    [[-6.95, 2.7, 0.4, PI / 2], [6.95, 2.7, 0.4, -PI / 2]].forEach(([x, y, z, ry]) => g.add(at(box(8.5, 0.05, 0.03, '#E8FF5A', { emissive: '#C8E83A', noGrain: true }), x, y, z, 0, ry, 0)));
+    const scr = canvasPlane(1.6, 0.9, (c, W, H) => { c.fillStyle = '#0E1116'; c.fillRect(0, 0, W, H); c.fillStyle = '#E8FF5A'; for (let i = 0; i < 9; i++) { const h = H * (0.15 + 0.7 * ((i * 37) % 10) / 10); c.fillRect(W * (0.08 + i * 0.095), H * 0.9 - h, W * 0.06, h); } c.font = `bold ${H * 0.12}px Arial`; c.fillText('BPM 188', W * 0.06, H * 0.16); }, { emissive: 0.6 });
+    g.add(at(box(1.7, 1.0, 0.06, P.ink, { outline: 0.006 }), -4.0, 2.35, back + 0.05), at(scr, -4.0, 2.35, back + 0.085));
+    g.userData.lighting = 'interior'; return g; // lit like a real gym; the neon strips + screen carry the 'secret' mood
   },
-  lab(o) { // the chemist's lab
-    const g = grp(), { back } = room(g, { wall: '#9FB7AE', floor: '#5E6B66' });
-    g.add(at(prop('table', { w: 2.6, d: 0.9, color: P.grey }), 0, 0, back + 1.2));
-    for (let i = 0; i < 6; i++) g.add(at(cyl(0.05, 0.07, 0.25, ['#9FE0D0', '#E8C04A', '#7BC0E8'][i % 3], 8, { opacity: 0.8 }), -1 + i * 0.4, 0.92, back + 1.1));
+  lab(o) { // the chemist's lab — viz3d pass from clandestine-lab references: stainless worktables with glassware and tubing, a burner,
+           // a tray of blue crystals, reactor vat, blue drums, fume hood, chemical shelves, gas cylinders, whiteboard, yellow hazmat suits, tube lights
+    const g = grp(), { back } = room(g, { wall: '#A9BDB5', band: '#7E978F', bandH: 1.25, trim: '#3E4A48', floor: '#5E6B66' }), r = rng(5);
+    const ST = '#B9C0C2', STD = '#8E9698', GL = { opacity: 0.55 };
+    const table = (w, d) => { const t = grp(at(box(w, 0.05, d, ST, { outline: 0.006 }), 0, 0.92, 0), at(box(w - 0.1, 0.03, d - 0.1, STD), 0, 0.3, 0));
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sz]) => t.add(at(box(0.05, 0.9, 0.05, STD, { pivot: 'bottom' }), sx * (w / 2 - 0.06), 0, sz * (d / 2 - 0.06)))); return t; };
+    g.add(at(table(2.6, 0.9), 0, 0, back + 1.2), at(table(1.6, 0.8), -3.4, 0, back + 0.55));
+    const y0 = 0.945, tz = back + 1.2;
+    const flask = (x, z, c, round) => { const f = grp(); if (round) { f.add(at(sphere(0.085, c, 1, GL), 0, 0.085, 0), at(cyl(0.022, 0.022, 0.12, '#DDEFEF', 8, GL), 0, 0.22, 0)); f.add(rod([0.16, 0, 0], [0.16, 0.42, 0], 0.008, STD), at(torus(0.09, 0.006, STD, 4, 12), 0, 0.12, 0, PI / 2)); }
+      else f.add(at(cyl(0.022, 0.085, 0.17, c, 8, { ...GL, pivot: 'bottom' }), 0, 0, 0), at(cyl(0.022, 0.022, 0.07, '#DDEFEF', 8, { ...GL, pivot: 'bottom' }), 0, 0.17, 0)); return at(f, x, y0, z); };
+    g.add(flask(-0.95, tz - 0.15, '#9FE0D0', true), flask(-0.55, tz + 0.1, '#E8C04A', false), flask(-0.2, tz - 0.2, '#7BC0E8', false), flask(0.6, tz + 0.05, '#C9E8F0', true));
+    [0.15, 0.32].forEach((x, i) => g.add(at(cyl(0.06, 0.06, 0.13, '#DDEFEF', 10, { ...GL, pivot: 'bottom' }), x, y0, tz + 0.15), at(cyl(0.052, 0.052, 0.06, i ? '#7FD4F5' : '#E8C04A', 10, { pivot: 'bottom' }), x, y0 + 0.005, tz + 0.15)));
+    const rack = grp(at(box(0.3, 0.04, 0.1, '#E7E2D6'), 0, 0.06, 0)); for (let i = 0; i < 5; i++) rack.add(at(cyl(0.012, 0.012, 0.14, ['#9FE0D0', '#E8C04A', '#7BC0E8'][i % 3], 6, { ...GL, pivot: 'bottom' }), -0.12 + i * 0.06, 0.0, 0)); g.add(at(rack, 1.05, y0, tz - 0.2));
+    g.add(wire(catenary([-0.95, y0 + 0.33, tz - 0.15], [-0.55, y0 + 0.24, tz + 0.1], 0.12), 0.008, '#E8C96A'), wire(catenary([-0.55, y0 + 0.24, tz + 0.1], [0.6, y0 + 0.34, tz + 0.05], 0.2), 0.008, '#E8C96A'));
+    g.add(at(cyl(0.05, 0.06, 0.06, STD, 8, { pivot: 'bottom' }), 0.6, y0, tz + 0.05), at(mesh(new THREE.ConeGeometry(0.03, 0.09, 8), mat('#7FB8FF', { emissive: '#3C7BFF', noGrain: true })), 0.6, y0 + 0.1, tz + 0.05));
+    const tray = grp(at(box(0.5, 0.03, 0.32, ST), 0, 0.015, 0)); for (let i = 0; i < 22; i++) tray.add(at(box(0.03 + r() * 0.03, 0.02, 0.02 + r() * 0.03, '#7FD4F5', { emissive: '#3BA8D8', noGrain: true }), (r() - 0.5) * 0.4, 0.035, (r() - 0.5) * 0.22, 0, r() * 3, 0));
+    g.add(at(tray, -3.4, y0, back + 0.55));
+    const vat = grp(at(cyl(0.55, 0.55, 1.1, ST, 12, { pivot: 'bottom', outline: 0.01 }), 0, 0.35, 0), at(sphere(0.55, ST, 1), 0, 1.45, 0), at(cyl(0.08, 0.08, 0.25, STD, 8, { pivot: 'bottom' }), 0, 1.9, 0), at(cyl(0.09, 0.09, 0.02, '#F2F2F2', 10), 0.4, 1.1, 0.4, PI / 2.6));
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sz]) => vat.add(at(box(0.06, 0.38, 0.06, STD, { pivot: 'bottom' }), sx * 0.4, 0, sz * 0.4)));
+    vat.children[1].scale.y = 0.45; vat.add(rod([0, 2.1, 0], [0, 2.1, -0.9], 0.04, STD)); g.add(at(vat, -5.6, 0, back + 1.4));
+    [[4.4, back + 0.5], [5.1, back + 0.6], [4.75, back + 1.2]].forEach(([x, z]) => g.add(at(cyl(0.29, 0.29, 0.88, '#2F5FA8', 12, { pivot: 'bottom', outline: 0.008 }), x, 0, z), at(torus(0.29, 0.02, '#244B86', 4, 14), x, 0.3, z, PI / 2), at(torus(0.29, 0.02, '#244B86', 4, 14), x, 0.62, z, PI / 2), at(cyl(0.05, 0.05, 0.02, '#244B86', 8), x + 0.12, 0.89, z)));
+    const hood = grp(at(box(1.5, 2.1, 0.85, '#D9DEDD', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(1.3, 0.8, 0.02, '#1F2A2A'), 0, 1.35, 0.42), at(mesh(new THREE.BoxGeometry(1.3, 0.8, 0.01), glassMat(0.3)), 0, 1.35, 0.44), at(box(1.2, 0.04, 0.02, '#FFF6DA', { emissive: '#FFF0C0', noGrain: true }), 0, 1.72, 0.43));
+    g.add(at(hood, 2.6, 0, back + 0.45));
+    const sh = shelf(2.2, 8, 3); g.add(at(sh, -6.75, 0, -0.15, 0, PI / 2, 0));
+    [-6.45, -6.05].forEach((x, i) => g.add(at(cyl(0.12, 0.12, 1.45, i ? '#5E7E5E' : '#8E9698', 10, { pivot: 'bottom', outline: 0.008 }), x, 0, back + 0.35), at(sphere(0.12, i ? '#5E7E5E' : '#8E9698', 1), x, 1.45, back + 0.35), at(cyl(0.03, 0.03, 0.12, '#3A3A3A', 6, { pivot: 'bottom' }), x, 1.52, back + 0.35)));
+    g.add(rod([-6.6, 1.0, back + 0.2], [-5.9, 1.0, back + 0.2], 0.008, '#C9C9C9'));
+    const wb = canvasPlane(1.6, 0.95, (c, W, H) => { c.fillStyle = '#F7F7F2'; c.fillRect(0, 0, W, H); c.strokeStyle = '#2C4A8A'; c.fillStyle = '#2C4A8A'; c.lineWidth = 3; c.font = `${H * 0.11}px Arial`;
+      ['C10H15N', 'P2P  →  +H2', '99,1 %', 'T 80°C / 4 h'].forEach((s, i) => c.fillText(s, W * 0.06, H * (0.2 + i * 0.2))); c.beginPath(); c.moveTo(W * 0.62, H * 0.3); for (let i = 0; i < 6; i++) c.lineTo(W * (0.62 + i * 0.06), H * (0.3 + (i % 2) * 0.12)); c.stroke(); c.strokeStyle = '#B5302A'; c.strokeRect(W * 0.6, H * 0.62, W * 0.32, H * 0.22); });
+    g.add(at(box(1.7, 1.05, 0.03, '#C9CDCF', { outline: 0.006 }), -2.2, 1.75, back + 0.03), at(wb, -2.2, 1.75, back + 0.05));
+    [0.9, 1.55].forEach(x => { const s = grp(at(box(0.5, 0.75, 0.09, '#E8C93A', { outline: 0.006 }), 0, 1.45, 0), at(box(0.2, 0.62, 0.08, '#E8C93A'), -0.13, 0.75, 0), at(box(0.2, 0.62, 0.08, '#E8C93A'), 0.13, 0.75, 0),
+        at(box(0.36, 0.36, 0.1, '#E8C93A'), 0, 2.0, 0), at(box(0.22, 0.14, 0.02, '#2A2A2A'), 0, 2.0, 0.06), at(box(0.12, 0.5, 0.08, '#E8C93A'), -0.31, 1.45, 0, 0, 0, 0.15), at(box(0.12, 0.5, 0.08, '#E8C93A'), 0.31, 1.45, 0, 0, 0, -0.15), at(box(0.04, 0.12, 0.04, P.ink), 0, 2.25, -0.03));
+      g.add(at(s, x, 0.25, back + 0.08)); });
+    [-1.6, 1.6].forEach(x => g.add(rod([x - 0.7, 3.6, -1.2], [x - 0.7, 3.4, -1.2], 0.006, P.ink), rod([x + 0.7, 3.6, -1.2], [x + 0.7, 3.4, -1.2], 0.006, P.ink), at(box(1.6, 0.06, 0.2, '#FFFFFF', { emissive: '#FFF6DA', noGrain: true }), x, 3.38, -1.2)));
+    g.add(at(box(0.4, 0.012, 0.4, '#2A2F2E'), 1.8, 0.006, -0.4));
     g.add(at(label('LABO', 1.4, 0.4, { bg: P.yellow, fg: P.ink }), 0, 2.6, back + 0.02));
     g.userData.anchors = { center: [0, 0, 0], table: [0, 0, back + 1.2] }; g.userData.lighting = 'interior'; return g;
   },

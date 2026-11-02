@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "skills": {
+    "build-house-from-plan": {
+      "source": "codepawl/viz3d",
+      "sourceType": "github",
+      "skillPath": "plugins/build-house-from-plan/skills/build-house-from-plan/SKILL.md",
+      "computedHash": "a4761ba0d1107f2c773d744917add6bb40bddae0e9e15245b12f90529b81f96b",
+      "installMode": "copy"
+    },
+    "build-minecraft-model-from-image": {
+      "source": "codepawl/viz3d",
+      "sourceType": "github",
+      "skillPath": "plugins/build-minecraft-model-from-image/skills/build-minecraft-model-from-image/SKILL.md",
+      "computedHash": "2e34cfdedc1b423364be132fe5d7a38966a2ce9471c8610011ad56cb220b81e1",
+      "installMode": "copy"
+    },
+    "visualize-in-3d": {
+      "source": "codepawl/viz3d",
+      "sourceType": "github",
+      "skillPath": "plugins/visualize-in-3d/skills/visualize-in-3d/SKILL.md",
+      "computedHash": "5d73fd0158898be0065e6f5d25ee6b909ea6734c82a281b2436cdbfefde3a1ec",
+      "installMode": "copy"
+    },
+    "viz3d": {
+      "source": "codepawl/viz3d",
+      "sourceType": "github",
+      "skillPath": "plugins/visualize-in-3d/skills/viz3d/SKILL.md",
+      "computedHash": "b3f849e98be951e3d4cd4e62e3d47b20ce31e4d2e32a9fbd956221f95d33aab3",
+      "installMode": "copy"
+    }
+  }
+}

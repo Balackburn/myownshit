@@ -660,7 +660,7 @@ scenes.append({
 })
 
 scenes.append({
-  'id': 'restaurant', 'set': 'restaurant', 'ambience': 'bar',
+  'id': 'restaurant', 'set': 'restaurant', 'setOpts': {'brand': 'MASTER POULET'}, 'ambience': 'bar',
   'lines': [L('g65', "En réalité, il était derrière Master Poulet et faisait circuler les produits dans ce réseau.", highlight=['Master', 'Poulet']),
             L('g66', "Les flics l'ont arrêté, mais ils soupçonnaient un trafic beaucoup plus vaste.", highlight=['vaste.'])],
   'actors': [
@@ -676,7 +676,6 @@ scenes.append({
   'props': [P('bucket', 'chickenBucket', on={'actor': 'karim', 'hand': 'R'}, visible=False, keys=[k('g65:Master', visible=True), k('g65:Master+0.55', attach='serveur', hand='R')]),
             P('syrB', 'syringeBig', on={'actor': 'bucket', 'offset': [0.04, 0.32, 0.0], 'rot': [0.3, 0, 0.2]}, visible=False, keys=[k('g65:Master', visible=True)]),
             P('glass', 'beerGlass', on={'actor': 'karim', 'hand': 'L'}, keys=[k('g65:Master', visible=False)]),
-            P('sign', 'signBoard', pos=[-1.6, 2.35, -3.5], opts={'text': 'MASTER POULET', 'bg': '#B5302A', 'fg': '#FFE7A0', 'w': 2.2, 'h': 0.55, 'posts': False, 'height': 0}),
             P('b2', 'chickenBucket', pos=[3.6, 0.79, -1.6]), P('b3', 'chickenBucket', pos=[-3.6, 0.79, -1.4]),
             WM(anchor='menu', offset=[0.0, -0.7, 0.07], opts={'kind': 'sticker'})],
   'cams': [
@@ -720,8 +719,8 @@ scenes.append({
   'cams': [
     cam(0, 'car', 'fs', worldAngle=30, elev=8, withProps=True),
     cam('g67:fermes', ['flic1', 'flic2'], 'fs', angle=30, move='track'),
-    cam('g68', 'fermier', 'ms', worldAngle=20),
-    cam('g68:hormones', ['fermier', 'poulet0'], 'ms', worldAngle=-10),
+    cam('g68', 'fermier', 'ms', worldAngle=150),
+    cam('g68:hormones', ['fermier', 'poulet0'], 'ms', worldAngle=125),
     cam('g68:poulets', ['poulet0', 'poulet1', 'poulet2'], 'fs', worldAngle=0, elev=4),
     cam('g69:devenues', ['poulet0', 'poulet2'], 'fs', worldAngle=10, elev=-10, lens=32),
     cam('g69:trop', 'poulet0', 'ms', angle=0, elev=-8, lens=32),

@@ -5526,6 +5526,9 @@
   {
    "id": "restaurant",
    "set": "restaurant",
+   "setOpts": {
+    "brand": "MASTER POULET"
+   },
    "ambience": "bar",
    "lines": [
     {
@@ -5701,24 +5704,6 @@
        "visible": false
       }
      ]
-    },
-    {
-     "id": "sign",
-     "name": "signBoard",
-     "pos": [
-      -1.6,
-      2.35,
-      -3.5
-     ],
-     "opts": {
-      "text": "MASTER POULET",
-      "bg": "#B5302A",
-      "fg": "#FFE7A0",
-      "w": 2.2,
-      "h": 0.55,
-      "posts": false,
-      "height": 0
-     }
     },
     {
      "id": "b2",
@@ -6186,13 +6171,13 @@
     {
      "at": "g68",
      "size": "ms",
-     "worldAngle": 20,
+     "worldAngle": 150,
      "frame": "fermier"
     },
     {
      "at": "g68:hormones",
      "size": "ms",
-     "worldAngle": -10,
+     "worldAngle": 125,
      "frame": [
       "fermier",
       "poulet0"
