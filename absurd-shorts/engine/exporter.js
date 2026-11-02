@@ -55,7 +55,7 @@ export async function exportOne(kind, name, { bake = true } = {}) {
   let obj, anims = [];
   if (kind === 'human') {
     obj = buildHuman({ preset: name });
-    applyPose(obj, samplePose('stand', 0));
+    // rest pose = all joint rotations at zero (arms straight down) so the Blender rig gets a clean bind pose
     if (bake && name === 'lemec') anims = bakeHuman(obj, HUMAN_BAKE); // same joint names on every preset → clips retarget 1:1
     stripForExport(obj); obj.name = name;
   } else if (kind === 'creature') {

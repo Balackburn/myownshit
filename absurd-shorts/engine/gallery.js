@@ -17,6 +17,8 @@ export async function show(q, w, h) {
   if (what === 'humans') {
     const names = (q.list ? q.list.split(',') : Object.keys(PRESETS));
     names.forEach(n => items.push({ obj: buildHuman({ preset: n }), label: n, pose: q.pose || 'stand', t: 0.3 }));
+  } else if (what === 'turnaround') {
+    [0, 35, 90, 145, 180].forEach(a => items.push({ obj: buildHuman({ preset: q.preset || 'lemec' }), label: a + '°', pose: 'stand', t: 0, ry: a * Math.PI / 180 }));
   } else if (what === 'poses') {
     const names = q.list ? q.list.split(',') : CLIP_NAMES;
     names.forEach(n => items.push({ obj: buildHuman({ preset: q.preset || 'lemec' }), label: n, pose: n, t: +(q.t || 0.4) }));
@@ -24,7 +26,9 @@ export async function show(q, w, h) {
     EXPRESSIONS.forEach(e => { const hm = buildHuman({ preset: q.preset || 'lemec' }); hm.userData.setExpression(e); items.push({ obj: hm, label: e, pose: 'stand', t: 0 }); });
   } else if (what === 'creatures') {
     const C = await optional('/engine/creatures.js');
-    if (C) (q.list ? q.list.split(',') : C.CREATURE_NAMES).forEach(n => { const c = C.buildCreature(n); items.push({ obj: c, label: n, creature: true, t: +(q.t || 0.3), clip: q.clip || 'idle' }); });
+    const kv = s => Object.fromEntries((s || '').split(',').filter(Boolean).map(p => { const [k, v = 'true'] = p.split(':'); return [k, v === 'true' ? true : v === 'false' ? false : isNaN(+v) ? v : +v]; }));
+    const cOpts = kv(q.opts), cParams = kv(q.params); // e.g. opts=upright:true,clothes:tie  params=k:0.5,to:3
+    if (C) (q.list ? q.list.split(',') : C.CREATURE_NAMES).forEach(n => { const c = C.buildCreature(n, cOpts); if (q.expr) c.userData.setExpression?.(q.expr); items.push({ obj: c, label: n, creature: true, t: +(q.t || 0.3), clip: q.clip || 'idle', params: cParams }); });
   } else if (what === 'props') {
     const Pr = await optional('/engine/props.js');
     if (Pr) (q.list ? q.list.split(',') : Pr.PROP_NAMES).forEach(n => items.push({ obj: Pr.buildProp(n, {}), label: n, t: +(q.t || 0.5) }));
@@ -39,8 +43,8 @@ export async function show(q, w, h) {
   const cols = Math.min(items.length, +(q.cols || 8)); const rows = Math.ceil(items.length / cols); const sp = +(q.spacing || 1.0);
   items.forEach((it, i) => {
     const x = (i % cols - (cols - 1) / 2) * sp, z = -Math.floor(i / cols) * sp * 2.2;
-    if (it.creature) { it.obj.position.set(x, 0, z); it.obj.userData.animate?.(it.clip, it.t); }
-    else if (it.obj.userData.kind === 'human') applyPose(it.obj, samplePose(it.pose, it.t), { x, z });
+    if (it.creature) { it.obj.position.set(x, 0, z); it.obj.userData.animate?.(it.clip, it.t, it.params || {}); }
+    else if (it.obj.userData.kind === 'human') applyPose(it.obj, samplePose(it.pose, it.t), { x, z, ry: it.ry || 0 });
     else { it.obj.position.set(x, 0, z); it.obj.userData.update?.(it.t); }
     scene.add(it.obj);
     const lab = label(it.label); lab.position.set(x, -0.0, z + 0.55); scene.add(lab);

@@ -41,13 +41,17 @@ export const CLIPS = {
   carry: () => ({ ...arms(m([-0.9, 0, 0.15], [-0.9, 0, 0.15]), m([-0.9, 0, 0], [-0.9, 0, 0])), torso: [-0.06, 0, 0] }),
   salute: (t) => ({ ...arms(m([0, 0, 0.06], [-0.7, 0, 1.25]), m([-0.1, 0, 0], [-2.3, 0.3, 0])), head: [-0.03, 0, 0] }),
   wave: (t) => ({ ...arms(m([0, 0, 0.06], [0, 0, 2.6]), m([-0.1, 0, 0], [0, 0, 0.5 + 0.45 * S(t * 9)])) }),
-  shrug: (t) => ({ torso: [0, 0, 0], head: [0, 0, 0.18], ...arms(m([-0.1, 0, 0.35], [-0.1, 0, 0.35]), m([-1.5, 0.9, 0], [-1.5, 0.9, 0])), root: { y: 0.015 } }),
+  shrug: (t) => ({ torso: [0, 0, 0], head: [0, 0, 0.18], ...arms(m([-0.15, 0, 0.6], [-0.15, 0, 0.6]), m([-0.9, 1.1, 0], [-0.9, 1.1, 0])), handL: [0, 1.2, 0], handR: [0, -1.2, 0], root: { y: 0.015 } }),
   facepalm: () => ({ ...arms(m([0, 0, 0.06], [-1.1, 0, 0.3]), m([-0.1, 0, 0], [-2.35, 0, 0])), head: [0.35, 0, 0], torso: [0.08, 0, 0] }),
   glueForehead: (t, p = {}) => { // v1: slapping something onto the forehead
     const k = Math.min(1, t / 0.35);
     return { ...arms(m([0, 0, 0.06], [-1.6 * k, 0, 0.3 * k]), m([-0.1, 0, 0], [-1.9 * k, 0, 0])), head: [-0.2 * k, 0, 0] };
   },
   think: (t) => ({ ...arms(m([-0.5, -0.65, 0.2], [-0.6, 0, 0.2]), m([-1.75, 0, 0], [-2.4, 0, 0])), head: [-0.05, 0, 0.12 + 0.03 * S(t)] }),
+  scratchHead: (t) => ({ ...arms(m([0, 0, 0.06], [-0.3, 0, 2.3]), m([-0.1, 0, 0], [-0.4, 0, 1.9 + 0.12 * S(t * 14)])), head: [0.06, 0, 0.12], torso: [0, 0, 0.03] }), // confused, hand behind the head (sheet)
+  present: (t) => ({ ...arms(m([0, 0, 0.06], [-0.55, 0, 0.75]), m([-0.1, 0, 0], [-0.6, -1.2, 0])), handR: [0, -1.4, 0], head: [0, -0.18, 0.04] }), // "voilà": one arm out, palm up (sheet)
+  thinkChin: (t) => ({ ...arms(m([-0.5, -0.65, 0.2], [-0.45, 0, 0.1]), m([-1.75, 0, 0], [-2.55, 0, 0])), head: [-0.08, 0.12, 0.05 + 0.02 * S(t)] }), // hand on chin, arm crossed under (sheet)
+  armsUp: (t) => ({ ...arms(m([0, 0, 2.75], [0, 0, 2.75]), m([0, 0, 0.15], [0, 0, 0.15])), head: [-0.05, 0, 0] }), // both arms straight up, stiff (sheet)
   phone: () => ({ ...arms(m([0, 0, 0.06], [-0.5, 0, 0.75]), m([-0.1, 0, 0], [-2.45, 0.2, 0])), head: [0, 0, -0.12] }),
   holdPhoneFront: () => ({ ...arms(m([0, 0, 0.06], [-1.1, 0, 0.1]), m([-0.1, 0, 0], [-1.1, 0, 0])), head: [0.35, 0, 0] }),
   talk: (t) => ({ head: [0.04 * S(t * 7), 0.06 * S(t * 2), 0], ...arms(m([0, 0, 0.06], [-0.6 - 0.15 * S(t * 4), 0, 0.15]), m([-0.1, 0, 0], [-1.2 + 0.2 * S(t * 4), 0.6, 0])) }),
@@ -117,6 +121,31 @@ const JOINTS = ['hips', 'torso', 'neck', 'head', 'shoulderL', 'elbowL', 'handL',
 
 export function samplePose(name, t, params) {
   const f = CLIPS[name] || CLIPS.idle; return f(Math.max(0, t), params || {});
+}
+
+// Acting transition between two poses (motion-design principles):
+//   anticipation  : first ~4 frames move 15% AWAY from the target
+//   overshoot     : ease-out-back (~8%) then settle
+//   overlap       : head leads (+3 frames), hands/forearms trail (-2 frames), legs neutral
+const LEAD = { head: 0.1, neck: 0.06, torso: 0.03, shoulderL: 0, shoulderR: 0, elbowL: -0.05, elbowR: -0.05, handL: -0.08, handR: -0.08 };
+export function actingWeight(dt, { dur = 0.32, anticipation = 0.15, antDur = 0.13, overshoot = 1.2 } = {}) {
+  if (dt <= 0) return 0;
+  if (dt < antDur) return -anticipation * Math.sin(Math.PI * dt / antDur * 0.5) ; // ease away
+  const k = Math.min(1, (dt - antDur) / dur);
+  const c1 = overshoot, c3 = c1 + 1; // easeOutBack
+  return -anticipation * (1 - k) + (1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2)) * (1 + anticipation * (1 - k)) - (1 - k) * 0;
+}
+export function actingBlend(a, b, dt, opts = {}) {
+  const out = {};
+  for (const j of JOINTS) {
+    const w = actingWeight(dt + (LEAD[j] || 0), opts);
+    const pa = a[j] || [0, 0, 0], pb = b[j] || [0, 0, 0];
+    out[j] = [pa[0] + (pb[0] - pa[0]) * w, pa[1] + (pb[1] - pa[1]) * w, pa[2] + (pb[2] - pa[2]) * w];
+  }
+  const w = Math.max(0, Math.min(1.05, actingWeight(dt, { ...opts, anticipation: 0 })));
+  const ra = a.root || {}, rb = b.root || {}; out.root = {};
+  for (const k of ['x', 'y', 'z', 'rx', 'ry', 'rz']) out.root[k] = (ra[k] || 0) + ((rb[k] || 0) - (ra[k] || 0)) * w;
+  return out;
 }
 
 export function blendPoses(a, b, w) {

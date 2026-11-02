@@ -7,7 +7,7 @@
 import * as THREE from 'three';
 import { createStage, setLighting } from './scene.js';
 import { buildHuman } from './human.js';
-import { samplePose, blendPoses, applyPose } from './animations.js';
+import { samplePose, blendPoses, actingBlend, applyPose } from './animations.js';
 import { ease, clamp01, lerp, rng, PALETTE as P } from './style.js';
 
 const opt = async (p) => { try { return await import(p); } catch (e) { console.warn('[director] optional module missing', p, e.message); return null; } };
@@ -125,13 +125,18 @@ function poseActor({ cfg, obj }, lt, dur, globalT) {
   const ph = cfg.phase || 0;
   if (obj.userData.kind === 'human') {
     let pose = samplePose(cur.clip, lt - cur.at + ph, cur.params);
-    if (prev) { const w = clamp01((lt - cur.at) / 0.18); if (w < 1) pose = blendPoses(samplePose(prev.clip, lt + ph, prev.params), pose, ease.inOut(w)); }
+    if (prev) { // acting transition: anticipation → overshoot → settle, head leads, hands trail
+      const dt = lt - cur.at;
+      if (dt < 0.6) pose = cur.snap ? pose : actingBlend(samplePose(prev.clip, lt + ph, prev.params), pose, dt, { anticipation: cur.anticipation ?? 0.15, overshoot: cur.overshoot ?? 1.2 });
+    }
     if (cfg.lookAt) { // turn head toward camera / point
       pose.head = pose.head || [0, 0, 0]; pose.head = [pose.head[0] + (cfg.lookAt[0] || 0), pose.head[1] + (cfg.lookAt[1] || 0), pose.head[2]];
     }
     applyPose(obj, pose, tr);
     // expression + automatic blinking + lip flap while "talk" is set
-    let expr = cur.expr || cfg.expr || 'neutral';
+    // "every move starts with a look": the face changes ~4 frames before the body
+    const ahead = currentAction(cfg, lt + 0.13).cur;
+    let expr = (ahead.expr || cur.expr || cfg.expr || 'neutral');
     if (cfg.talk && expr === 'neutral' && Math.sin((globalT + ph) * 22) > 0.2) expr = 'talk';
     if ((expr === 'neutral' || expr === 'suspicious') && ((globalT + ph * 7) % 3.3) < 0.12) expr = 'blink';
     obj.userData.setExpression?.(expr);

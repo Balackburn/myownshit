@@ -71,7 +71,7 @@ export function buildHuman(spec = {}) {
   const C = { ...OUTFIT_COLORS[o.outfit || 'suit'] };
   if (o.suit) { C.jacket = o.suit; if (C.pants && o.outfit === 'suit') C.pants = o.suit; }
   if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel;
-  const B = { height: 1, width: 1, belly: 0, headScale: 1, ...(preset.build || {}), ...(spec.build || {}) };
+  const B = { height: 1, width: 1, belly: 0, headScale: 1.07, ...(preset.build || {}), ...(spec.build || {}) };
   const H = B.height, Wd = B.width;
 
   const root = new THREE.Group(); root.name = 'human';
@@ -84,11 +84,11 @@ export function buildHuman(spec = {}) {
   if (!C.skirt) hips.add(box(0.31 * Wd, 0.16, 0.19 + B.belly, C.pants, { pivot: 'top' }));
   const torso = joint('torso', hips, 0, 0, 0);
   const torsoH = 0.62 * H;
-  const jacket = box(0.33 * Wd, torsoH, 0.21 + B.belly, C.jacket, { pivot: 'bottom', taper: { x: 1.38, z: 1.05 } });
+  const jacket = box(0.34 * Wd, torsoH, 0.21 + B.belly, C.jacket, { pivot: 'bottom', taper: { x: 1.42, z: 1.05 } });
   jacket.name = 'jacket'; torso.add(jacket);
   // jacket tails (the long suit coat)
   if (['suit', 'judge', 'vampire', 'doctor', 'scientist', 'waiter', 'skirtsuit'].includes(o.outfit)) {
-    const tailLen = o.outfit === 'judge' || o.outfit === 'vampire' ? 0.85 * H : o.outfit === 'doctor' || o.outfit === 'scientist' ? 0.45 : 0.2;
+    const tailLen = o.outfit === 'judge' || o.outfit === 'vampire' ? 0.85 * H : o.outfit === 'doctor' || o.outfit === 'scientist' ? 0.45 : 0.36; // suit jacket reaches the upper thigh
     const tail = box(0.34 * Wd, tailLen, 0.23 + B.belly, C.jacket, { pivot: 'top', taper: { x: o.outfit === 'judge' || o.outfit === 'vampire' ? 1.35 : 1, z: 1 } });
     tail.position.y = 0.02; torso.add(tail); J.coatTail = tail;
   }
@@ -99,15 +99,25 @@ export function buildHuman(spec = {}) {
     const shirtV = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-0.13 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0.13 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0, torsoH * 0.28, 0)]), mat(C.shirt, { doubleSide: true }));
     shirtV.geometry.computeVertexNormals(); shirtV.position.z = front + 0.004; torso.add(shirtV);
+    // Signature detail (sheet + source): ONE coloured lapel on the character's right (-X),
+    // the other lapel in jacket colour with an ink edge, plus a white pocket-square stroke on the left chest.
     for (const s of [-1, 1]) {
-      const lap = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([
-        new THREE.Vector3(s * 0.1 * Wd, torsoH * 0.99, 0), new THREE.Vector3(s * 0.215 * Wd, torsoH * 0.97, 0), new THREE.Vector3(s * 0.01, torsoH * 0.27, 0)]), mat(C.lapel, { doubleSide: true }));
+      const pts = [new THREE.Vector3(s * 0.1 * Wd, torsoH * 0.99, 0), new THREE.Vector3(s * 0.215 * Wd, torsoH * 0.97, 0), new THREE.Vector3(s * 0.01, torsoH * 0.27, 0)];
+      const colour = (s < 0 || o.symmetricLapels) ? C.lapel : C.jacket;
+      const lap = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints(pts), mat(colour, { doubleSide: true }));
       lap.geometry.computeVertexNormals(); lap.position.z = front + 0.008; torso.add(lap);
+      const edge = new THREE.Line(new THREE.BufferGeometry().setFromPoints([pts[1], pts[2], pts[0]]), new THREE.LineBasicMaterial({ color: '#0D1118' }));
+      edge.position.z = front + 0.011; torso.add(edge);
+    }
+    if (o.outfit === 'suit' || o.outfit === 'skirtsuit') {
+      const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0.1 * Wd, torsoH * 0.78, 0), new THREE.Vector3(0.115 * Wd, torsoH * 0.66, 0), new THREE.Vector3(0.105 * Wd, torsoH * 0.55, 0));
+      const pocket = new THREE.Mesh(new THREE.TubeGeometry(curve, 8, 0.004, 4), mat('#F3EEE4', { noGrain: true }));
+      pocket.position.z = front + 0.01; torso.add(pocket);
     }
   } else {
     const chest = box(0.2, 0.2, 0.01, C.shirt); chest.position.set(0, torsoH * 0.82, front); torso.add(chest);
   }
-  if (C.tie) { const tie = box(0.032, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.6, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
+  if (C.tie) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
   // buttons / badge details
   if (o.outfit === 'suit' || o.outfit === 'waiter') for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }
@@ -122,10 +132,10 @@ export function buildHuman(spec = {}) {
   neck.add(box(0.1, 0.17, 0.09, o.skin, { pivot: 'bottom' }));
   const head = joint('head', neck, 0, 0.15, 0);
   const hs = B.headScale;
-  const hw = 0.23 * hs, hh = 0.52 * hs, hd = 0.2 * hs;
+  const hw = 0.235 * hs, hh = 0.56 * hs, hd = 0.2 * hs; // W/H ≈ 0.42 (sheet 0.36–0.45, source 0.43)
   const faceOpts = { skin: o.skin, hair: o.hair, hairColor: o.hairColor, facial: o.facial === 'cop' ? 'mustache' : o.facial, glasses: o.glasses, lipstick: o.lipstick, seed: o.seed };
   const headMats = [
-    new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }), new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }),
+    new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }), new THREE.MeshLambertMaterial({ map: mirrored(sideTexture(faceOpts)) }),
     mat(o.hair === 'bald' ? o.skin : o.hairColor), mat(o.skin),
     new THREE.MeshLambertMaterial({ map: faceTexture({ ...faceOpts, expression: 'neutral' }) }),
     new THREE.MeshLambertMaterial({ map: sideTexture({ ...faceOpts, back: true }) }),
@@ -133,14 +143,16 @@ export function buildHuman(spec = {}) {
   const headGeo = new THREE.BoxGeometry(hw, hh, hd); headGeo.translate(0, hh / 2, 0);
   // subtle trapezoid + skew: jaw a touch wider, crown leaning back (very characteristic)
   const pp = headGeo.attributes.position;
-  for (let i = 0; i < pp.count; i++) { const t = pp.getY(i) / hh; pp.setX(i, pp.getX(i) * (1.04 - 0.1 * t)); pp.setZ(i, pp.getZ(i) - 0.02 * t); }
+  for (let i = 0; i < pp.count; i++) { const t = pp.getY(i) / hh; pp.setX(i, pp.getX(i) * (0.9 + 0.1 * t)); pp.setZ(i, pp.getZ(i) - 0.015 * t); } // chin narrower than forehead
   headGeo.computeVertexNormals();
   const headMesh = new THREE.Mesh(headGeo, headMats); headMesh.castShadow = true; headMesh.name = 'headMesh';
   addOutline(headMesh, 0.035); head.add(headMesh);
   // ears
   for (const s of [-1, 1]) {
-    const ear = o.ears === 'pointy' ? box(0.03, 0.14, 0.07, o.skin, { taper: { x: 0.2, z: 0.2 } }) : box(0.03, 0.07, 0.05, o.skin);
-    ear.position.set(s * (hw / 2 + 0.012), hh * 0.5, -0.01); if (o.ears === 'pointy') ear.rotation.z = -s * 0.5; head.add(ear);
+    let ear;
+    if (o.ears === 'pointy') ear = box(0.03, 0.14, 0.07, o.skin, { taper: { x: 0.2, z: 0.2 } });
+    else { ear = box(0.028, 0.085, 0.055, o.skin); const notch = box(0.006, 0.05, 0.022, '#9A6A45'); notch.position.set(s * 0.013, 0, 0.004); ear.add(notch); }
+    ear.position.set(s * (hw / 2 + 0.012), hh * 0.52, -hd * 0.22); if (o.ears === 'pointy') ear.rotation.z = -s * 0.5; head.add(ear);
   }
   // hair volume on top for big styles
   if (['afro', 'curly', 'mohawk', 'bun', 'long', 'spiky'].includes(o.hair)) {
@@ -156,7 +168,7 @@ export function buildHuman(spec = {}) {
   addHat(head, o.hat, hw, hh, hd, C);
 
   // arms
-  const shoulderY = torsoH * 0.93, shoulderX = 0.215 * Wd;
+  const shoulderY = torsoH * 0.93, shoulderX = 0.228 * Wd;
   for (const s of ['L', 'R']) {
     const sx = s === 'L' ? 1 : -1; // character's left is +x (facing +z)
     const sh = joint('shoulder' + s, torso, sx * shoulderX, shoulderY, 0);
@@ -194,6 +206,8 @@ export function buildHuman(spec = {}) {
   root.traverse(n => { if (n.isMesh && n.name !== 'outline') { n.castShadow = true; } });
   return root;
 }
+
+function mirrored(tex) { const t = tex.clone(); t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1; t.needsUpdate = true; return t; }
 
 function textLabel(t, w, h) {
   const c = document.createElement('canvas'); c.width = 256; c.height = Math.round(256 * h / w);

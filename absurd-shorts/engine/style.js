@@ -13,7 +13,7 @@ export const PALETTE = {
   // characters
   skin: '#D9A877', skinPale: '#E9C9A6', skinDark: '#9A6A45', skinOlive: '#C8955F',
   suitNavy: '#1F3550', suitCharcoal: '#3A3D44', suitBrown: '#5C4330', suitBeige: '#C7B08A', suitGreen: '#2F4A3C',
-  shirt: '#F3EEE4', tieRed: '#C8372D', lapelTeal: '#5FA3A0', hair: '#17181B',
+  shirt: '#FAF8F2', tieRed: '#C8372D', lapelTeal: '#5FA3A0', hair: '#17181B',
   copBlue: '#6F8FAE', copBlueDark: '#3E5A78', swat: '#1C2430',
   white: '#FFFFFF', black: '#0E0F12', yellow: '#E6B84A', pink: '#E58FB0', green: '#6E9C5A',
 };
