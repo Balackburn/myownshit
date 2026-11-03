@@ -119,6 +119,11 @@ function setupScene(si, analyzing = false) {
     return c ? [...c] : [0, 0, 0];
   };
   S.place = place;
+  // freeze window: [at, until) — until omitted = frozen for the rest of the scene. Keys of frozen actors / props are
+  // written in scene time and remapped so they still fire at that scene time once time restarts.
+  S.freezeAt = null; S.freezeUntil = Infinity; S.freezeExcept = new Set(sc.freeze?.except || []);
+  // the S.lineById times are scene-relative already, so T() works here
+  if (sc.freeze) { S.freezeAt = T(sc.freeze.at ?? 0, sc); S.freezeUntil = sc.freeze.until != null ? T(sc.freeze.until, sc) : Infinity; }
   // actors
   S.actors = (sc.actors || []).map(cfg => {
     const obj = S.cast[cfg.id] || (S.cast[cfg.id] = buildActor(cfg.spec || { preset: 'lemec' }, cfg.id));
@@ -132,7 +137,10 @@ function setupScene(si, analyzing = false) {
     const obj = Props.buildProp(cfg.name, cfg.opts || {}); obj.name = 'prop:' + (cfg.id || cfg.name); obj.userData.isSceneProp = true;
     S.root.add(obj);
     const Pp = prepProp(cfg, obj, sc, place);
-    if (cfg.alt) { Pp.alt = Props.buildProp(cfg.alt.name || cfg.name, cfg.alt.opts || {}); Pp.alt.userData.isSceneProp = true; Pp.altAt = T(cfg.alt.at, sc); Pp.altRot = cfg.alt.rot || null; S.root.add(Pp.alt); }
+    if (cfg.alt) { // one alternate look, or a list of them in time order (e.g. watch -> broken -> taped)
+      Pp.alts = [].concat(cfg.alt).map(a => { const o = Props.buildProp(a.name || cfg.name, a.opts || {}); o.userData.isSceneProp = true; S.root.add(o); return { obj: o, at: T(a.at, sc), rot: a.rot || null }; }).sort((x, y) => x.at - y.at);
+      Pp.alt = Pp.alts[0].obj; Pp.altAt = Pp.alts[0].at; Pp.altRot = Pp.alts[0].rot;
+    }
     return Pp;
   });
   S.propById = Object.fromEntries(S.props.map(p => [p.id, p]));
@@ -143,8 +151,6 @@ function setupScene(si, analyzing = false) {
     const a = prepActor({ id, pos, ry: cr.ry ?? 0, clip: cr.clip || 'idle', phase: i * 0.37, expr: cr.expr, keys: cr.keys }, obj, sc, place);
     S.actors.push(a); S.actorById[id] = a;
   }
-  S.freezeAt = sc.freeze ? T(sc.freeze.at ?? 0, sc) : null;
-  S.freezeExcept = new Set(sc.freeze?.except || []);
   S.lines = sc.lines.map(l => ({ ...l, rs: l.start - sc.start, re: l.end - sc.start, chunks: chunk(l, sc) }));
   S.sc = sc; S.scene = si;
   precomputeReleases(sc);
@@ -163,6 +169,10 @@ function attachStatic(obj, spec) {
 }
 
 // ------------------------------------------------------------------------------------- actor tracks
+function frozenRemap(id, t) { // scene time -> the actor's own clock (frozen actors skip the frozen window)
+  if (S.freezeAt == null || S.freezeExcept.has(id) || !isFinite(S.freezeUntil)) return t;
+  const a = S.freezeAt, u = S.freezeUntil; return t < a ? t : t < u ? a : t - (u - a);
+}
 function prepActor(cfg, obj, sc, place) {
   const A = { id: cfg.id, cfg, obj, kind: obj.userData.kind, pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), scale0: cfg.scale ?? 1,
     ry0: typeof cfg.ry === 'number' ? cfg.ry * D2R : 0, face0: cfg.face ?? null, phase: cfg.phase || 0, speed: cfg.speed ?? 1,
@@ -172,7 +182,7 @@ function prepActor(cfg, obj, sc, place) {
   A.scaleKeys.push({ at: -1e6, scale: A.scale0, dur: 0 });
   A.visKeys.push({ at: -1e6, visible: cfg.visible !== false });
   if (cfg.look) A.lookKeys.push({ at: -1e6, look: cfg.look });
-  const keys = (cfg.keys || []).map(k => ({ ...k, t: T(k.at ?? 0, sc) })).sort((a, b) => a.t - b.t);
+  const keys = (cfg.keys || []).map(k => ({ ...k, t: frozenRemap(cfg.id || cfg.name, T(k.at ?? 0, sc)) })).sort((a, b) => a.t - b.t);
   for (const k of keys) {
     if (k.to != null || k.path) A.moves.push(k);
     else {
@@ -196,7 +206,7 @@ function prepActor(cfg, obj, sc, place) {
     const clip = mv.clip ?? (mv.glide ? null : 'walk');
     const loco = LOCO[clip];
     const spd = mv.speed ?? (loco ? loco[0] : 1.5);
-    const dur = mv.dur ?? Math.max(0.2, L / spd);
+    const dur = mv.until != null ? Math.max(0.2, frozenRemap(cfg.id, T(mv.until, sc)) - mv.t) : mv.dur ?? Math.max(0.2, L / spd);
     Object.assign(mv, { pts, segs, L, clip, dur, t1: mv.t + dur, end: pts[pts.length - 1] });
     if (loco) { const sc_ = scaleAt(A, mv.t); mv.freq = clamp((L / dur) / (loco[1] * legLen * sc_), 0.6, 4.2); }
     if (clip) {
@@ -286,10 +296,10 @@ function scaleAt(A, t) {
 
 // ------------------------------------------------------------------------------------- props
 function prepProp(cfg, obj, sc, place) {
-  const Pp = { id: cfg.id || cfg.name, cfg, obj, kind: 'prop', pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), ry0: (cfg.ry || 0) * D2R,
+  const Pp = { id: cfg.id || cfg.name, cfg, obj, kind: 'prop', pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), ry0: (cfg.ry || 0) * D2R, rx0: cfg.rot?.[0] || 0, rz0: cfg.rot?.[2] || 0,
     scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [] };
   if (cfg.on) Pp.own.push({ at: -1e6, attach: cfg.on.actor || cfg.on, ...(typeof cfg.on === 'object' ? cfg.on : {}) });
-  const keys = (cfg.keys || []).map(k => ({ ...k, t: T(k.at ?? 0, sc) })).sort((a, b) => a.t - b.t);
+  const keys = (cfg.keys || []).map(k => ({ ...k, t: frozenRemap(cfg.id || cfg.name, T(k.at ?? 0, sc)) })).sort((a, b) => a.t - b.t);
   for (const k of keys) {
     if (k.attach) Pp.own.push({ ...k, at: k.t });
     if (k.detach) Pp.own.push({ ...k, at: k.t });
@@ -362,17 +372,19 @@ function evalProp(Pp, t) {
     if (o.fall && o.spinFall) Pp.obj.rotateX(o.spinFall * Math.min(dt, (o.landT ?? o.at) - o.at));
     if (o.restRot && t >= (o.landT ?? 0)) Pp.obj.rotation.set(...o.restRot);
   } else {
-    Pp.obj.position.copy(propBasePos(Pp, t)); Pp.obj.rotation.set(0, Pp.ry0 + (Pp.spin ? Pp.spin * t : 0), 0);
+    Pp.obj.position.copy(propBasePos(Pp, t)); Pp.obj.rotation.set(Pp.rx0, Pp.ry0 + (Pp.spin ? Pp.spin * t : 0), Pp.rz0);
     const mv = Pp.moves.find(m => t >= m.t && t <= m.t1 && m.faceMove);
     if (mv) Pp.obj.rotation.y = headingAt(mv, t) + (mv.yawOffset || 0) * D2R;
     else { const last = [...Pp.moves].reverse().find(m => t > m.t1 && m.faceMove); if (last) Pp.obj.rotation.y = last.segs[last.segs.length - 1].head + (last.yawOffset || 0) * D2R; }
   }
   Pp.obj.scale.setScalar(scaleOf(Pp, t));
   Pp.obj.userData.update?.(t);
-  if (Pp.alt) { // alternate look after a time (e.g. the watch breaks when it lands)
-    const on = t >= (Pp.altAt === 'land' ? 1e9 : Pp.altAt);
-    Pp.alt.visible = on && vis; Pp.obj.visible = !on && vis;
-    if (on) { Pp.obj.updateMatrixWorld(true); Pp.alt.position.copy(Pp.obj.getWorldPosition(V())); if (Pp.altRot) Pp.alt.rotation.set(...Pp.altRot); else Pp.alt.quaternion.copy(Pp.obj.getWorldQuaternion(new THREE.Quaternion())); Pp.alt.scale.setScalar(scaleOf(Pp, t)); }
+  if (Pp.alts) { // alternate looks after given times (the last one reached is shown in place of the prop)
+    let cur = null; for (const a of Pp.alts) { a.obj.visible = false; if (t >= a.at) cur = a; }
+    Pp.alt = cur ? cur.obj : Pp.alts[0].obj; Pp.altRot = cur ? cur.rot : Pp.alts[0].rot;
+    const on = !!cur;
+    Pp.obj.visible = !on && vis;
+    if (on) { Pp.alt.visible = vis; Pp.obj.updateMatrixWorld(true); Pp.alt.position.copy(Pp.obj.getWorldPosition(V())); if (Pp.altRot) Pp.alt.rotation.set(...Pp.altRot); else Pp.alt.quaternion.copy(Pp.obj.getWorldQuaternion(new THREE.Quaternion())); Pp.alt.scale.setScalar(scaleOf(Pp, t)); }
   }
 }
 
@@ -399,7 +411,11 @@ function writeSnap(A, a, b, w) {
   const mv = A.obj.userData.mover; if (mv && a.__mover && b.__mover) { const x = a.__mover, y = b.__mover; mv.rotation.set(lerp(x[0], y[0], w), lerp(x[1], y[1], w), lerp(x[2], y[2], w)); mv.position.set(lerp(x[3], y[3], w), lerp(x[4], y[4], w), lerp(x[5], y[5], w)); }
 }
 const BLEND = 0.24;
-function effTime(id, t) { return S.freezeAt != null && t > S.freezeAt && !S.freezeExcept.has(id) ? S.freezeAt : t; }
+function effTime(id, t) {
+  if (S.freezeAt == null || t <= S.freezeAt || S.freezeExcept.has(id)) return t;
+  return t < S.freezeUntil ? S.freezeAt : t - (S.freezeUntil - S.freezeAt);
+}
+const frozenNow = t => S.freezeAt != null && t >= S.freezeAt && t < S.freezeUntil;
 
 function evalActor(A, tIn) {
   const t = effTime(A.id, tIn);
@@ -481,8 +497,8 @@ function applyHuman(A, pose, pos, ry, s) {
 
 function evalAll(t) {
   for (const A of S.actors) evalActor(A, t);
-  for (const Pp of S.props) evalProp(Pp, S.freezeAt != null && t > S.freezeAt && !S.freezeExcept.has(Pp.id) ? S.freezeAt : t);
-  S.set?.userData.update?.(S.freezeAt != null && t > S.freezeAt ? S.freezeAt : t);
+  for (const Pp of S.props) evalProp(Pp, effTime(Pp.id, t));
+  S.set?.userData.update?.(effTime('__set__', t));
   S.stage.scene.updateMatrixWorld(true);
 }
 
@@ -758,7 +774,7 @@ export function renderFrame(tAbs) {
   const { renderer, scene, camera } = S.stage;
   renderer.render(scene, camera);
   const g = S.ctx;
-  const frozen = S.freezeAt != null && lt >= S.freezeAt;
+  const frozen = frozenNow(lt);
   g.filter = (S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
   g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
   drawFX(g, lt);
@@ -831,7 +847,9 @@ function collectEvents(sc) {
     if (A.kind === 'creature' && !A.obj.userData.upright) continue;
     for (const mv of A.moves) if (mv.freq && LOCO[mv.clip]) {
       const heavy = h > 2.6, name = mv.clip === 'run' || mv.clip === 'flee' || mv.clip === 'flail' ? 'stepRun' : heavy ? 'stepHeavy' : mv.clip === 'tiptoe' || mv.clip === 'boxSneak' || mv.clip === 'sneak' ? 'stepSoft' : 'step';
-      for (let k = 0; ; k++) { const ts = mv.t + (0.25 + 0.5 * k) / mv.freq; if (ts > mv.t1) break; if (S.freezeAt != null && ts > S.freezeAt && !S.freezeExcept.has(A.id)) break; S.events.push({ t: T0 + ts, name, vol: heavy ? 0.5 : 0.28, src: A.id }); }
+      for (let k = 0; ; k++) { const te = mv.t + (0.25 + 0.5 * k) / mv.freq; if (te > mv.t1) break;
+        let ts = te; if (S.freezeAt != null && !S.freezeExcept.has(A.id) && te > S.freezeAt) { if (!isFinite(S.freezeUntil)) break; ts = te + (S.freezeUntil - S.freezeAt); }
+        S.events.push({ t: T0 + ts, name, vol: heavy ? 0.5 : 0.28, src: A.id }); }
     }
   }
   for (const Pp of S.props) for (const e of Pp.sfx) S.events.push({ t: T0 + e.t, name: e.name, vol: e.vol, src: Pp.id });

@@ -49,6 +49,7 @@ function room(g, o = {}) {
   if (!o.noFloor) g.add(flat(300, 300, o.floor || P.creamDark));
   if (!o.noBack) g.add(wall(2 * half + 0.4, H, 0.2, W, 0, H / 2, back - 0.1));
   for (const s of [-1, 1]) g.add(wall(0.2, H, len, W, s * (half + 0.1), H / 2, mz));
+  if (!o.noFront) g.add(wall(2 * half + 0.4, H, 0.2, W, 0, H / 2, front + 0.1)); // far front wall: reverse shots never look into the void
   if (o.band) {
     const bh = o.bandH ?? 1.0, t = o.trim || P.navy;
     if (!o.noBack) g.add(wall(2 * half, bh, 0.04, o.band, 0, bh / 2, back + 0.02), wall(2 * half, 0.08, 0.08, t, 0, bh + 0.04, back + 0.04));

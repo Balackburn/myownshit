@@ -1,0 +1,2970 @@
+{
+ "version": 3,
+ "title": "Le chrono",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.07
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.4,
+   "rate": 1.02
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "coll1": {
+   "preset": "lemec_glasses"
+  },
+  "coll2": {
+   "preset": "madame"
+  },
+  "patron": {
+   "preset": "boss",
+   "facial": "none"
+  },
+  "vieux": {
+   "preset": "lemec_beige",
+   "hair": "receding",
+   "hairColor": "#D8D8D8",
+   "facial": "beard",
+   "beardColor": "215,215,210",
+   "redNose": true,
+   "build": {
+    "height": 0.92
+   }
+  },
+  "jo": {
+   "preset": "serveur"
+  },
+  "client1": {
+   "preset": "fermier"
+  },
+  "client2": {
+   "preset": "mamie"
+  },
+  "guichetier": {
+   "preset": "lemec_charcoal"
+  },
+  "vigile": {
+   "preset": "swat"
+  },
+  "cliente": {
+   "preset": "madame",
+   "seed": 9
+  },
+  "passant": {
+   "preset": "tourist"
+  },
+  "pigeon": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "seed": 2
+   }
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "busguy": {
+   "preset": "lemec_charcoal",
+   "skin": "#6B4A33",
+   "hair": "buzz",
+   "facial": "none",
+   "glasses": true,
+   "tie": "#2C4A8A",
+   "seed": 17
+  }
+ },
+ "scenes": [
+  {
+   "id": "pause",
+   "set": "office",
+   "ambience": "office",
+   "lines": [
+    {
+     "id": "C1",
+     "text": "Ce mec était le plus gros relou de la planète.",
+     "highlight": [
+      "relou"
+     ]
+    },
+    {
+     "id": "C2",
+     "text": "Dix ans de record de mots inutiles à la pause café.",
+     "highlight": [
+      "record",
+      "inutiles"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -1.0
+     ],
+     "ry": 0,
+     "clip": "talk",
+     "keys": [
+      {
+       "at": "C2",
+       "clip": "talk",
+       "speed": 1.7
+      },
+      {
+       "at": "C2#8",
+       "look": "coll1"
+      }
+     ],
+     "face": "coll1",
+     "expr": "happy"
+    },
+    {
+     "id": "coll1",
+     "pos": [
+      2.35,
+      0,
+      -0.55
+     ],
+     "ry": 0,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": "C1#4",
+       "clip": "nod",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C2#3",
+       "expr": "sleepy",
+       "clip": "stand"
+      },
+      {
+       "at": "C2.end-0.55",
+       "clip": "faint",
+       "params": {
+        "dur": 0.45
+       },
+       "expr": "dead",
+       "sfx": "thud",
+       "sfxAt": 0.45
+      }
+     ],
+     "face": "mec",
+     "expr": "unimpressed"
+    },
+    {
+     "id": "coll2",
+     "pos": [
+      0.35,
+      0,
+      -0.35
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "C1.end",
+       "expr": "unimpressed",
+       "clip": "lookAround"
+      },
+      {
+       "at": "C2#3",
+       "clip": "lookItem",
+       "expr": "suspicious"
+      },
+      {
+       "at": "C2#5",
+       "to": [
+        -2.6,
+        0,
+        1.6
+       ],
+       "clip": "tiptoe",
+       "speed": 0.9,
+       "then": "idle"
+      }
+     ],
+     "face": "mec",
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "machine",
+     "name": "coffeeMachine",
+     "pos": [
+      2.7,
+      0,
+      -2.4
+     ]
+    },
+    {
+     "id": "mug",
+     "name": "mug",
+     "on": {
+      "actor": "coll1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C2.end-0.5",
+       "detach": true,
+       "fall": true,
+       "impact": "clink"
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "anchor": "picture",
+     "offset": [
+      1.5,
+      -0.7,
+      0.03
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 15,
+     "elev": 8,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      "mec",
+      "coll1",
+      "coll2"
+     ]
+    },
+    {
+     "at": "C1#4",
+     "size": "ms",
+     "angle": 30,
+     "frame": "mec"
+    },
+    {
+     "at": "C1.end-0.2",
+     "size": "mcu",
+     "angle": -25,
+     "frame": "coll1"
+    },
+    {
+     "at": "C2",
+     "size": "cu",
+     "angle": 35,
+     "frame": "coll2"
+    },
+    {
+     "at": "C2#5",
+     "size": "fs",
+     "angle": 60,
+     "move": "track",
+     "frame": "coll2"
+    },
+    {
+     "at": "C2#8",
+     "size": "cu",
+     "angle": 25,
+     "move": "push",
+     "frame": "mec"
+    },
+    {
+     "at": "C2.end-0.6",
+     "size": "fs",
+     "angle": -35,
+     "frame": [
+      "coll1",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.5
+  },
+  {
+   "id": "patron",
+   "set": "office",
+   "ambience": "office",
+   "lines": [
+    {
+     "id": "C3",
+     "text": "Un jour, son patron l'a convoqué. Ce con pensait qu'on allait le féliciter.",
+     "highlight": [
+      "féliciter."
+     ]
+    },
+    {
+     "id": "C4",
+     "text": "Quatre cents idées dans la boîte à suggestions. Des fusées. Des sous-marins.",
+     "speaker": "patron",
+     "highlight": [
+      "fusées.",
+      "sous-marins."
+     ]
+    },
+    {
+     "id": "C5",
+     "text": "Merci, patron !",
+     "speaker": "mec"
+    },
+    {
+     "id": "C6",
+     "text": "On fabrique des yaourts. Vous êtes viré.",
+     "speaker": "patron",
+     "highlight": [
+      "yaourts.",
+      "viré."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "patron",
+     "pos": [
+      -4.75,
+      0.12,
+      -2.05
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C3#3",
+       "clip": "beckon"
+      },
+      {
+       "at": "C4",
+       "clip": "sitShow",
+       "expr": "suspicious"
+      },
+      {
+       "at": "C4:sous",
+       "clip": "sitShow"
+      },
+      {
+       "at": "C5",
+       "clip": "sit",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C6",
+       "clip": "sitShow",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C6:viré",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -1.8,
+      0,
+      0.9
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C3",
+       "to": [
+        -4.35,
+        0,
+        -0.65
+       ],
+       "clip": "strut",
+       "faceEnd": "patron"
+      },
+      {
+       "at": "C4",
+       "clip": "handsOnHips",
+       "expr": "smug"
+      },
+      {
+       "at": "C5",
+       "clip": "present",
+       "expr": "happy"
+      },
+      {
+       "at": "C6:viré",
+       "clip": "stareCamera",
+       "expr": "shocked"
+      },
+      {
+       "at": "C6.end+0.5",
+       "to": [
+        -1.2,
+        0,
+        2.2
+       ],
+       "clip": "carryBox",
+       "expr": "sad"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "pile",
+     "name": "paperPile",
+     "pos": [
+      -5.3,
+      0.76,
+      -1.3
+     ],
+     "opts": {
+      "count": 150
+     }
+    },
+    {
+     "id": "rocket",
+     "name": "drawingSheet",
+     "opts": {
+      "kind": "rocket",
+      "num": 312
+     },
+     "visible": false,
+     "on": {
+      "actor": "patron",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "C4:fusées",
+       "visible": true
+      },
+      {
+       "at": "C4:sous",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "sub",
+     "name": "drawingSheet",
+     "opts": {
+      "kind": "sub",
+      "num": 313
+     },
+     "visible": false,
+     "on": {
+      "actor": "patron",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "C4:sous",
+       "visible": true
+      },
+      {
+       "at": "C5",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "yaourt",
+     "name": "mug",
+     "opts": {
+      "color": "#FFFFFF"
+     },
+     "visible": false,
+     "on": {
+      "actor": "patron",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C6",
+       "visible": true
+      },
+      {
+       "at": "C6:viré",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "box",
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "visible": false,
+     "pos": [
+      -3.9,
+      0,
+      -0.2
+     ],
+     "keys": [
+      {
+       "at": "C6.end+0.45",
+       "visible": true,
+       "attach": "mec",
+       "joint": "torso",
+       "offset": [
+        0,
+        0.28,
+        0.42
+       ]
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 10,
+     "frame": "patron"
+    },
+    {
+     "at": "C3#4",
+     "size": "fs",
+     "angle": 35,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C3:con",
+     "size": "cu",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "C4",
+     "size": "ms",
+     "ots": [
+      "mec",
+      "patron",
+      -1
+     ]
+    },
+    {
+     "at": "C4:boîte",
+     "size": "mls",
+     "angle": -15,
+     "frame": "pile"
+    },
+    {
+     "at": "C4:fusées",
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "frame": "rocket"
+    },
+    {
+     "at": "C4:sous",
+     "size": "cu",
+     "worldAngle": -10,
+     "noOcclusion": true,
+     "frame": "sub"
+    },
+    {
+     "at": "C5",
+     "size": "cu",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "C6",
+     "size": "mcu",
+     "angle": -35,
+     "frame": "patron"
+    },
+    {
+     "at": "C6:viré",
+     "size": "ecu",
+     "angle": 5,
+     "move": "push",
+     "frame": "mec"
+    },
+    {
+     "at": "C6.end+0.45",
+     "size": "fs",
+     "angle": 35,
+     "move": "track",
+     "withProps": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.3
+  },
+  {
+   "id": "bar",
+   "set": "bar",
+   "ambience": "bar",
+   "lighting": "interior",
+   "freeze": {
+    "at": "C13+0.55",
+    "except": [
+     "mec",
+     "watch"
+    ]
+   },
+   "lines": [
+    {
+     "id": "C7",
+     "text": "Alors il est allé chez Jo donner son avis sur le match.",
+     "highlight": [
+      "match."
+     ]
+    },
+    {
+     "id": "C8",
+     "text": "Le foot, c'est truqué. Le ballon est carré.",
+     "speaker": "mec",
+     "highlight": [
+      "carré."
+     ]
+    },
+    {
+     "id": "C9",
+     "text": "Tout le bar s'est barré.",
+     "highlight": [
+      "barré."
+     ]
+    },
+    {
+     "id": "C10",
+     "text": "Va boire ailleurs.",
+     "speaker": "jo",
+     "highlight": [
+      "ailleurs."
+     ]
+    },
+    {
+     "id": "C11",
+     "text": "Ce con a payé un verre au dernier client, un vieux poivrot qui parlait comme en 1900.",
+     "highlight": [
+      "1900."
+     ]
+    },
+    {
+     "id": "C12",
+     "text": "Mazette, un godet ! Tiens, mon brave : une tocante qui arrête le temps.",
+     "speaker": "vieux",
+     "highlight": [
+      "tocante",
+      "temps."
+     ]
+    },
+    {
+     "id": "C13",
+     "text": "Il a appuyé."
+    },
+    {
+     "id": "C14",
+     "text": "Putain…",
+     "speaker": "mec",
+     "pre": 0.45
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.5,
+      0.15,
+      -1.25
+     ],
+     "ry": -90,
+     "clip": "sitTalk",
+     "keys": [
+      {
+       "at": "C8",
+       "clip": "sitTalk",
+       "expr": "smug"
+      },
+      {
+       "at": "C8:ballon",
+       "clip": "sitShow",
+       "expr": "smug",
+       "sfx": "thud",
+       "sfxAt": 0.3,
+       "vol": 0.35
+      },
+      {
+       "at": "C10",
+       "clip": "sit",
+       "expr": "unimpressed",
+       "face": "jo",
+       "turn": 0.3
+      },
+      {
+       "at": "C11",
+       "face": "vieux",
+       "turn": 0.3,
+       "clip": "sitGive",
+       "expr": "happy",
+       "sfx": "cash",
+       "sfxAt": 0.4,
+       "vol": 0.4
+      },
+      {
+       "at": "C12:Tiens",
+       "clip": "sitTake",
+       "expr": "suspicious"
+      },
+      {
+       "at": "C13",
+       "clip": "sitLookItem",
+       "expr": "neutral",
+       "sfx": "click",
+       "sfxAt": 0.55
+      },
+      {
+       "at": "C14",
+       "expr": "shocked",
+       "clip": "stareCamera",
+       "face": 0,
+       "turn": 0.3
+      }
+     ],
+     "face": "client1",
+     "expr": "happy"
+    },
+    {
+     "id": "client1",
+     "pos": [
+      -0.5,
+      0.15,
+      -1.25
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C8:ballon",
+       "expr": "scared"
+      },
+      {
+       "at": "C9",
+       "to": [
+        -6.6,
+        0,
+        2.0
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "expr": "unimpressed"
+      }
+     ],
+     "face": "mec",
+     "expr": "unimpressed"
+    },
+    {
+     "id": "client2",
+     "pos": [
+      -1.5,
+      0.15,
+      -1.25
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C8:truqué",
+       "expr": "shocked"
+      },
+      {
+       "at": "C9#1",
+       "to": [
+        -6.9,
+        0,
+        2.7
+       ],
+       "clip": "flee",
+       "speed": 2.6,
+       "expr": "scared"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "jo",
+     "pos": [
+      0.35,
+      0,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "wipeGlass",
+     "keys": [
+      {
+       "at": "C10",
+       "clip": "point",
+       "expr": "angry",
+       "face": "mec",
+       "turn": 0.25
+      },
+      {
+       "at": "C11#4",
+       "to": [
+        1.4,
+        0,
+        -2.6
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "faceEnd": 0,
+       "then": "wipeGlass",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "vieux",
+     "pos": [
+      2.5,
+      0.15,
+      -1.25
+     ],
+     "ry": -90,
+     "clip": "drunk",
+     "keys": [
+      {
+       "at": "C11:vieux",
+       "clip": "sitTake",
+       "expr": "happy"
+      },
+      {
+       "at": "C12",
+       "clip": "drinkUp",
+       "expr": "happy",
+       "sfx": "gulp",
+       "sfxAt": 0.3
+      },
+      {
+       "at": "C12:Tiens",
+       "clip": "sitGive",
+       "expr": "happy"
+      },
+      {
+       "at": "C12.end",
+       "clip": "drunk",
+       "expr": "sleepy"
+      },
+      {
+       "at": "C13+0.15",
+       "clip": "tipOverSit",
+       "params": {
+        "dur": 1.0
+       },
+       "expr": "surprised"
+      }
+     ],
+     "face": "mec",
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tv",
+     "name": "tv",
+     "opts": {
+      "match": true
+     },
+     "pos": [
+      -2.6,
+      1.11,
+      -2.05
+     ]
+    },
+    {
+     "id": "ballon",
+     "name": "squareBall",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C8:ballon",
+       "visible": true
+      },
+      {
+       "at": "C10",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "beer",
+     "name": "beerGlass",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "C11",
+       "visible": true
+      },
+      {
+       "at": "C11+0.9",
+       "attach": "vieux",
+       "hand": "L"
+      }
+     ]
+    },
+    {
+     "id": "coin",
+     "name": "coin",
+     "pos": [
+      1.2,
+      1.12,
+      -1.75
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "C11+0.4",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "watch",
+     "name": "stopwatch",
+     "scale": 1.5,
+     "visible": false,
+     "on": {
+      "actor": "vieux",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C12:tocante",
+       "visible": true
+      },
+      {
+       "at": "C12.end-0.2",
+       "attach": "mec",
+       "hand": "R"
+      }
+     ]
+    },
+    {
+     "id": "stream",
+     "name": "beerStream",
+     "opts": {
+      "length": 0.5
+     },
+     "visible": false,
+     "on": {
+      "actor": "vieux",
+      "joint": "handL",
+      "offset": [
+       0,
+       -0.22,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "C13+0.45",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "anchor": "sign",
+     "offset": [
+      2.0,
+      -0.55,
+      0.03
+     ],
+     "opts": {
+      "bg": "#2A1E1A",
+      "fg": "#C9A86A"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 15,
+     "elev": 10,
+     "frame": [
+      "mec",
+      "client1",
+      "client2"
+     ]
+    },
+    {
+     "at": "C7:avis",
+     "size": "ms",
+     "angle": 35,
+     "frame": "mec"
+    },
+    {
+     "at": "C7:match",
+     "size": "ms",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "tv"
+    },
+    {
+     "at": "C8",
+     "size": "mcu",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "C8:ballon",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "client1"
+     ]
+    },
+    {
+     "at": "C9",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "move": "push",
+     "amount": 0.06,
+     "frame": [
+      "mec",
+      [
+       -1.5,
+       1.0,
+       -1.25
+      ]
+     ]
+    },
+    {
+     "at": "C10",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "jo"
+    },
+    {
+     "at": "C10.end",
+     "size": "cu",
+     "angle": 25,
+     "frame": "mec"
+    },
+    {
+     "at": "C11",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "vieux"
+     ]
+    },
+    {
+     "at": "C11:vieux",
+     "size": "ms",
+     "angle": 35,
+     "frame": "vieux"
+    },
+    {
+     "at": "C12",
+     "size": "ms",
+     "ots": [
+      "mec",
+      "vieux",
+      1
+     ]
+    },
+    {
+     "at": "C12:tocante",
+     "size": "cu",
+     "angle": -35,
+     "elev": 12,
+     "frame": "watch"
+    },
+    {
+     "at": "C13",
+     "size": "cu",
+     "angle": 30,
+     "frame": "mec"
+    },
+    {
+     "at": "C13.end",
+     "size": "fs",
+     "worldAngle": 10,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      "vieux",
+      "mec",
+      "jo"
+     ]
+    },
+    {
+     "at": "C14",
+     "size": "ecu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "C14.end",
+     "size": "ms",
+     "angle": -20,
+     "frame": "jo"
+    }
+   ],
+   "tail": 0.9
+  },
+  {
+   "id": "demoPatron",
+   "set": "office",
+   "ambience": "office",
+   "freeze": {
+    "at": "C15#13",
+    "until": "C15#16+0.1",
+    "except": [
+     "mec",
+     "moustache",
+     "marker",
+     "watch2"
+    ]
+   },
+   "lines": [
+    {
+     "id": "C15",
+     "text": "Il a voulu le montrer à son patron pour sauver la boîte. Temps arrêté, moustache, temps relancé.",
+     "highlight": [
+      "moustache,"
+     ]
+    },
+    {
+     "id": "C16",
+     "text": "Et alors ? Vous êtes toujours viré.",
+     "speaker": "patron",
+     "highlight": [
+      "toujours",
+      "viré."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "patron",
+     "pos": [
+      -4.75,
+      0.12,
+      -2.05
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C15#4",
+       "clip": "sitShow",
+       "expr": "suspicious"
+      },
+      {
+       "at": "C15#12",
+       "clip": "sit",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C16",
+       "clip": "sitPoint",
+       "expr": "angry",
+       "face": 20,
+       "turn": 0.3
+      }
+     ],
+     "face": "mec",
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -4.25,
+      0,
+      -2.5
+     ],
+     "ry": -65,
+     "clip": "present",
+     "keys": [
+      {
+       "at": "C15#12",
+       "clip": "lookItem",
+       "expr": "smug",
+       "sfx": "click",
+       "sfxAt": 0.5
+      },
+      {
+       "at": "C15#14",
+       "clip": "drawOn",
+       "expr": "happy",
+       "sfx": "squeak"
+      },
+      {
+       "at": "C15#16-0.25",
+       "clip": "lookItem",
+       "expr": "smug",
+       "sfx": "click",
+       "sfxAt": 0.3
+      },
+      {
+       "at": "C16",
+       "clip": "present",
+       "expr": "happy"
+      },
+      {
+       "at": "C16:viré",
+       "clip": "stand",
+       "expr": "sad"
+      }
+     ],
+     "face": "patron",
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "watch2",
+     "name": "stopwatch",
+     "scale": 1.5,
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "marker",
+     "name": "marker",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "moustache",
+     "name": "mustache3d",
+     "scale": 0.01,
+     "on": {
+      "actor": "patron",
+      "joint": "head",
+      "offset": [
+       0,
+       0.13,
+       0.115
+      ]
+     },
+     "keys": [
+      {
+       "at": "C15#14",
+       "scale": 1.5,
+       "dur": 0.55
+      }
+     ]
+    },
+    {
+     "id": "pile",
+     "name": "paperPile",
+     "pos": [
+      -5.3,
+      0.76,
+      -1.3
+     ],
+     "opts": {
+      "count": 150
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 25,
+     "frame": [
+      "patron",
+      "mec"
+     ]
+    },
+    {
+     "at": "C15:sauver",
+     "size": "mcu",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "C15#12",
+     "size": "cu",
+     "angle": 25,
+     "frame": "mec"
+    },
+    {
+     "at": "C15#14",
+     "size": "ecu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.06,
+     "frame": "patron"
+    },
+    {
+     "at": "C15#16",
+     "size": "ms",
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "patron",
+      "mec"
+     ]
+    },
+    {
+     "at": "C16",
+     "size": "cu",
+     "angle": 5,
+     "frame": "patron"
+    },
+    {
+     "at": "C16:viré",
+     "size": "cu",
+     "angle": 15,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "demoBar",
+   "set": "bar",
+   "ambience": "bar",
+   "lighting": "interior",
+   "freeze": {
+    "at": "C17:figé",
+    "until": "C17.end+0.15",
+    "except": [
+     "mec",
+     "watch3",
+     "up0",
+     "up1",
+     "up2",
+     "dn0",
+     "dn1",
+     "dn2"
+    ]
+   },
+   "lines": [
+    {
+     "id": "C17",
+     "text": "Au bar, il a figé tout le monde et retourné toutes les bières.",
+     "highlight": [
+      "retourné"
+     ]
+    },
+    {
+     "id": "C18",
+     "text": "Jo… je crois que j'ai trop bu.",
+     "speaker": "client1",
+     "highlight": [
+      "trop",
+      "bu."
+     ]
+    },
+    {
+     "id": "C19",
+     "text": "Personne n'a rien compris.",
+     "highlight": [
+      "rien",
+      "compris."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "client1",
+     "pos": [
+      -1.15,
+      0.15,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C18",
+       "clip": "sitLookItem",
+       "expr": "shocked"
+      },
+      {
+       "at": "C18:Jo",
+       "face": "jo",
+       "turn": 0.3
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "client2",
+     "pos": [
+      -0.15,
+      0.15,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C18",
+       "expr": "surprised"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "vieux",
+     "pos": [
+      0.85,
+      0.15,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "drunk",
+     "keys": [],
+     "expr": "sleepy"
+    },
+    {
+     "id": "jo",
+     "pos": [
+      -0.3,
+      0,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "wipeGlass",
+     "keys": [
+      {
+       "at": "C18:bu",
+       "clip": "bigShrug",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C19",
+       "clip": "holdOut",
+       "expr": "angry",
+       "face": "mec",
+       "turn": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -2.4,
+      0,
+      -0.6
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C17:figé-0.35",
+       "clip": "lookItem",
+       "expr": "smug",
+       "sfx": "click",
+       "sfxAt": 0.35
+      },
+      {
+       "at": "C17:figé+0.1",
+       "path": [
+        [
+         -1.15,
+         0,
+         -0.6
+        ],
+        [
+         0.85,
+         0,
+         -0.6
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": 180
+      },
+      {
+       "at": "C17.end-0.15",
+       "clip": "lookItem",
+       "expr": "smug",
+       "sfx": "click",
+       "sfxAt": 0.3,
+       "face": 60
+      },
+      {
+       "at": "C18",
+       "clip": "facepalm",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C19",
+       "to": [
+        -6.5,
+        0,
+        1.8
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "expr": "sad"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "watch3",
+     "name": "stopwatch",
+     "scale": 1.5,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "up0",
+     "name": "beerGlass",
+     "pos": [
+      -1.15,
+      1.11,
+      -1.72
+     ],
+     "keys": [
+      {
+       "at": "C17:retourné+0.00",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "up1",
+     "name": "beerGlass",
+     "pos": [
+      -0.15,
+      1.11,
+      -1.72
+     ],
+     "keys": [
+      {
+       "at": "C17:retourné+0.25",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "up2",
+     "name": "beerGlass",
+     "pos": [
+      0.85,
+      1.11,
+      -1.72
+     ],
+     "keys": [
+      {
+       "at": "C17:retourné+0.50",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "dn0",
+     "name": "beerGlass",
+     "pos": [
+      -1.15,
+      1.278,
+      -1.72
+     ],
+     "rot": [
+      3.14159,
+      0,
+      0
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "C17:retourné+0.00",
+       "visible": true,
+       "sfx": "clink",
+       "vol": 0.35
+      }
+     ]
+    },
+    {
+     "id": "dn1",
+     "name": "beerGlass",
+     "pos": [
+      -0.15,
+      1.278,
+      -1.72
+     ],
+     "rot": [
+      3.14159,
+      0,
+      0
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "C17:retourné+0.25",
+       "visible": true,
+       "sfx": "clink",
+       "vol": 0.35
+      }
+     ]
+    },
+    {
+     "id": "dn2",
+     "name": "beerGlass",
+     "pos": [
+      0.85,
+      1.278,
+      -1.72
+     ],
+     "rot": [
+      3.14159,
+      0,
+      0
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "C17:retourné+0.50",
+       "visible": true,
+       "sfx": "clink",
+       "vol": 0.35
+      }
+     ]
+    },
+    {
+     "id": "bill",
+     "name": "bill",
+     "opts": {
+      "items": [
+       [
+        "1 demi",
+        "4,50"
+       ],
+       [
+        "3 bières retournées",
+        "13,50"
+       ]
+      ],
+      "total": "18,00 €"
+     },
+     "scale": 1.4,
+     "visible": false,
+     "on": {
+      "actor": "jo",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "C19",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": [
+      "client1",
+      "client2",
+      "vieux"
+     ]
+    },
+    {
+     "at": "C17:figé",
+     "size": "ms",
+     "angle": 20,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C17:retourné",
+     "size": "cu",
+     "worldAngle": 180,
+     "elev": 20,
+     "frame": [
+      [
+       -1.2,
+       1.2,
+       -1.72
+      ],
+      [
+       -0.1,
+       1.2,
+       -1.72
+      ]
+     ]
+    },
+    {
+     "at": "C18",
+     "size": "cu",
+     "worldAngle": 175,
+     "frame": "client1"
+    },
+    {
+     "at": "C18:bu",
+     "size": "ms",
+     "angle": 10,
+     "frame": "jo"
+    },
+    {
+     "at": "C19",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "jo",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "banque",
+   "set": "bank",
+   "ambience": "bank",
+   "freeze": {
+    "at": "C20:braqué+0.35",
+    "except": [
+     "mec",
+     "cart",
+     "cash",
+     "watch",
+     "ticket",
+     "tape"
+    ]
+   },
+   "lines": [
+    {
+     "id": "C20",
+     "text": "Alors il a braqué une banque.",
+     "highlight": [
+      "braqué"
+     ]
+    },
+    {
+     "id": "C21",
+     "text": "Il a quand même pris un ticket.",
+     "highlight": [
+      "ticket."
+     ]
+    },
+    {
+     "id": "C22",
+     "text": "Mais en sortant, ce con a fait tomber le chrono.",
+     "highlight": [
+      "tomber",
+      "chrono."
+     ]
+    },
+    {
+     "id": "C23",
+     "text": "Il a essayé de le réparer avec du scotch.",
+     "highlight": [
+      "scotch."
+     ]
+    },
+    {
+     "id": "C24",
+     "text": "Le temps ne repartirait plus jamais.",
+     "highlight": [
+      "jamais."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "guichetier",
+     "pos": [
+      -1.2,
+      0,
+      -2.15
+     ],
+     "ry": 0,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "vigile",
+     "pos": [
+      -2.6,
+      0,
+      1.0
+     ],
+     "ry": 60,
+     "clip": "yawnStretch",
+     "keys": [],
+     "expr": "sleepy"
+    },
+    {
+     "id": "cliente",
+     "pos": [
+      -0.4,
+      0,
+      0.9
+     ],
+     "ry": 120,
+     "clip": "walk",
+     "keys": [],
+     "params": {
+      "freq": 1.6
+     },
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      1.0,
+      0,
+      2.6
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C20:braqué",
+       "clip": "lookItem",
+       "expr": "smug",
+       "sfx": "click",
+       "sfxAt": 0.35
+      },
+      {
+       "at": "C21",
+       "to": [
+        1.55,
+        0,
+        1.75
+       ],
+       "clip": "walk",
+       "speed": 1.3,
+       "faceEnd": 90,
+       "then": "takeItem"
+      },
+      {
+       "at": "C21.end+0.05",
+       "to": [
+        2.4,
+        0,
+        -2.0
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": null
+      },
+      {
+       "at": "C22",
+       "path": [
+        [
+         1.9,
+         0,
+         -0.6
+        ],
+        [
+         1.25,
+         0,
+         0.85
+        ]
+       ],
+       "clip": "pushCartWalk",
+       "until": "C22:tomber"
+      },
+      {
+       "at": "C22:tomber+0.05",
+       "to": [
+        0.95,
+        0,
+        1.75
+       ],
+       "clip": "pushCartWalk",
+       "speed": 1.15,
+       "then": "scared",
+       "expr": "surprised"
+      },
+      {
+       "at": "C22.end",
+       "face": -160,
+       "turn": 0.3
+      },
+      {
+       "at": "C23",
+       "to": [
+        1.7,
+        0,
+        1.25
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": -148,
+       "then": "kneel",
+       "expr": "worried"
+      },
+      {
+       "at": "C24",
+       "clip": "stareCamera",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "tm",
+     "name": "ticketMachine",
+     "pos": [
+      1.95,
+      0,
+      1.75
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "042"
+     }
+    },
+    {
+     "id": "ticket",
+     "name": "documents",
+     "opts": {
+      "count": 1
+     },
+     "scale": 0.4,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C21:ticket-0.2",
+       "visible": true
+      },
+      {
+       "at": "C22",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cart",
+     "name": "shoppingCart",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "joint": "hips",
+      "offset": [
+       0,
+       -1.02,
+       0.78
+      ]
+     },
+     "keys": [
+      {
+       "at": "C21.end+0.05",
+       "visible": true
+      },
+      {
+       "at": "C23",
+       "detach": true
+      }
+     ]
+    },
+    {
+     "id": "cash",
+     "name": "money",
+     "opts": {
+      "stacks": 6
+     },
+     "visible": false,
+     "on": {
+      "actor": "cart",
+      "offset": [
+       0,
+       0.55,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "C21.end+0.05",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "watch",
+     "name": "stopwatch",
+     "scale": 1.5,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C21",
+       "attach": "mec",
+       "joint": "hips",
+       "offset": [
+        0.16,
+        0.02,
+        -0.14
+       ]
+      },
+      {
+       "at": "C22:tomber",
+       "detach": true,
+       "fall": true,
+       "impact": "glass",
+       "spinFall": 6
+      }
+     ],
+     "alt": [
+      {
+       "opts": {
+        "broken": true
+       },
+       "at": "C22:tomber+0.5",
+       "rot": [
+        -1.5708,
+        0,
+        0.4
+       ]
+      },
+      {
+       "opts": {
+        "broken": true,
+        "taped": true
+       },
+       "at": "C23:scotch",
+       "rot": [
+        -1.5708,
+        0,
+        0.4
+       ]
+      }
+     ]
+    },
+    {
+     "id": "tape",
+     "name": "tapeRoll",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C23",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "anchor": "sign",
+     "offset": [
+      2.3,
+      -0.95,
+      0.03
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "C22:tomber+0.62",
+     "name": "spring",
+     "vol": 0.5
+    },
+    {
+     "at": "C23:scotch",
+     "name": "paper",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 200,
+     "elev": 10,
+     "allowBack": true,
+     "frame": [
+      "mec",
+      "cliente"
+     ]
+    },
+    {
+     "at": "C20:braqué",
+     "size": "cu",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "C21",
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C21:ticket",
+     "size": "ms",
+     "worldAngle": -60,
+     "frame": [
+      "mec",
+      "tm"
+     ]
+    },
+    {
+     "at": "C21.end+0.05",
+     "size": "ms",
+     "angle": 30,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C22",
+     "size": "fs",
+     "angle": -30,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C22:tomber-0.1",
+     "size": "mls",
+     "angle": 160,
+     "elev": 10,
+     "allowBack": true,
+     "frame": "mec"
+    },
+    {
+     "at": "C22:tomber+0.55",
+     "size": "ecu",
+     "angle": 0,
+     "elev": 45,
+     "frame": "watch"
+    },
+    {
+     "at": "C23",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "C23:scotch",
+     "size": "cu",
+     "worldAngle": 200,
+     "elev": 45,
+     "frame": "watch"
+    },
+    {
+     "at": "C24",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 12,
+     "frame": [
+      "mec",
+      "vigile",
+      "cliente",
+      "guichetier"
+     ]
+    }
+   ],
+   "tail": 0.8
+  },
+  {
+   "id": "rue",
+   "set": "street",
+   "ambience": null,
+   "music": null,
+   "freeze": {
+    "at": 0,
+    "except": [
+     "mec",
+     "cart",
+     "cash",
+     "billets"
+    ]
+   },
+   "lines": [
+    {
+     "id": "C25",
+     "text": "Au secours ! Aidez-moi !",
+     "speaker": "mec",
+     "highlight": [
+      "secours"
+     ]
+    },
+    {
+     "id": "C26",
+     "text": "Il est allé se rendre aux flics. Ils étaient figés en plein contrôle au faciès d'un mec qui attendait le bus.",
+     "highlight": [
+      "flics.",
+      "faciès"
+     ]
+    },
+    {
+     "id": "C27",
+     "text": "Lui, avec son caddie de billets, ils l'ont même pas regardé.",
+     "highlight": [
+      "même",
+      "regardé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "passant",
+     "pos": [
+      -1.4,
+      0,
+      0.9
+     ],
+     "ry": 90,
+     "clip": "walk",
+     "keys": [],
+     "params": {
+      "freq": 1.7
+     },
+     "expr": "neutral"
+    },
+    {
+     "id": "pigeon",
+     "pos": [
+      -0.6,
+      2.4,
+      0.2
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "busguy",
+     "pos": [
+      2.9,
+      0,
+      -0.75
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      2.35,
+      0,
+      0.15
+     ],
+     "ry": 150,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      3.55,
+      0,
+      0.25
+     ],
+     "ry": -150,
+     "clip": "handsOnHips",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -4.2,
+      0,
+      1.4
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -1.9,
+        0,
+        1.1
+       ],
+       "clip": "pushCartWalk",
+       "speed": 2.0,
+       "then": "yell"
+      },
+      {
+       "at": "C25#2",
+       "clip": "waveFace",
+       "expr": "scared",
+       "face": "passant"
+      },
+      {
+       "at": "C26",
+       "path": [
+        [
+         0.2,
+         0,
+         1.6
+        ],
+        [
+         1.5,
+         0,
+         1.9
+        ]
+       ],
+       "clip": "pushCartWalk",
+       "speed": 1.3,
+       "faceEnd": "flic1",
+       "then": "surrender",
+       "expr": "sad"
+      },
+      {
+       "at": "C27",
+       "clip": "waveFace",
+       "expr": "angry",
+       "face": "flic1"
+      },
+      {
+       "at": "C27:regardé",
+       "clip": "bigShrug",
+       "expr": "unimpressed",
+       "face": 20
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "stop",
+     "name": "busStop",
+     "pos": [
+      2.9,
+      0,
+      -1.2
+     ]
+    },
+    {
+     "id": "idcard",
+     "name": "idCard",
+     "scale": 1.4,
+     "on": {
+      "actor": "flic1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "briefcase",
+     "name": "briefcase",
+     "on": {
+      "actor": "busguy",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "cart",
+     "name": "shoppingCart",
+     "on": {
+      "actor": "mec",
+      "joint": "hips",
+      "offset": [
+       0,
+       -1.02,
+       0.78
+      ]
+     }
+    },
+    {
+     "id": "cash",
+     "name": "money",
+     "opts": {
+      "stacks": 6
+     },
+     "on": {
+      "actor": "cart",
+      "offset": [
+       0,
+       0.55,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "billets",
+     "name": "money",
+     "opts": {
+      "stacks": 1
+     },
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C27",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -5.2,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "kind": "stand"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 40,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C25",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "C25#2",
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": [
+      "mec",
+      "passant"
+     ]
+    },
+    {
+     "at": "C26",
+     "size": "fs",
+     "angle": 60,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C26:figés",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "flic1",
+      "busguy",
+      "flic2"
+     ]
+    },
+    {
+     "at": "C26:faciès",
+     "size": "ms",
+     "ots": [
+      "flic1",
+      "busguy",
+      1
+     ]
+    },
+    {
+     "at": "C26:bus",
+     "size": "cu",
+     "angle": 0,
+     "frame": "busguy"
+    },
+    {
+     "at": "C27",
+     "size": "ms",
+     "worldAngle": 205,
+     "frame": [
+      "mec",
+      "flic1"
+     ]
+    },
+    {
+     "at": "C27:billets",
+     "size": "cu",
+     "angle": 0,
+     "frame": "flic1"
+    },
+    {
+     "at": "C27:regardé",
+     "size": "fs",
+     "worldAngle": 15,
+     "elev": 8,
+     "frame": [
+      "mec",
+      "flic1",
+      "busguy",
+      "flic2"
+     ]
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "fin",
+   "set": "bar",
+   "ambience": null,
+   "music": null,
+   "lighting": "interior",
+   "freeze": {
+    "at": 0,
+    "except": [
+     "mec",
+     "beard"
+    ]
+   },
+   "lines": [
+    {
+     "id": "C28",
+     "text": "Dix mille ans plus tard, il est retourné chez Jo.",
+     "highlight": [
+      "Dix",
+      "mille",
+      "ans"
+     ]
+    },
+    {
+     "id": "C29",
+     "text": "Bon… je vous raconte le match ?",
+     "speaker": "mec",
+     "pre": 0.4,
+     "highlight": [
+      "match"
+     ]
+    },
+    {
+     "id": "C30",
+     "text": "Pour la première fois, personne ne s'est barré.",
+     "highlight": [
+      "personne"
+     ]
+    },
+    {
+     "id": "C31",
+     "text": "Par contre, il avait toujours pas payé l'addition.",
+     "highlight": [
+      "l'addition."
+     ],
+     "pre": 0.4
+    }
+   ],
+   "actors": [
+    {
+     "id": "jo",
+     "pos": [
+      1.25,
+      0,
+      -2.6
+     ],
+     "ry": 15,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "angry"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      2.6,
+      0,
+      0.9
+     ],
+     "ry": -120,
+     "clip": "holdOut",
+     "keys": [],
+     "params": {},
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      3.4,
+      0,
+      0.2
+     ],
+     "ry": -100,
+     "clip": "handsOnHips",
+     "keys": [],
+     "params": {},
+     "expr": "suspicious"
+    },
+    {
+     "id": "busguy",
+     "pos": [
+      1.7,
+      0,
+      1.6
+     ],
+     "ry": -150,
+     "clip": "stand",
+     "keys": [],
+     "params": {},
+     "expr": "unimpressed"
+    },
+    {
+     "id": "cliente",
+     "pos": [
+      3.6,
+      0,
+      1.6
+     ],
+     "ry": -110,
+     "clip": "walk",
+     "keys": [],
+     "params": {
+      "freq": 1.6
+     },
+     "expr": "neutral"
+    },
+    {
+     "id": "vigile",
+     "pos": [
+      0.6,
+      0,
+      1.9
+     ],
+     "ry": 170,
+     "clip": "yawnStretch",
+     "keys": [],
+     "params": {},
+     "expr": "sleepy"
+    },
+    {
+     "id": "guichetier",
+     "pos": [
+      4.2,
+      0,
+      -0.6
+     ],
+     "ry": -95,
+     "clip": "giveItem",
+     "keys": [],
+     "params": {},
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -3.2,
+      0,
+      0.8
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        1.5,
+        0.15,
+        -1.25
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "faceEnd": "flic1",
+       "then": "sitTalk"
+      },
+      {
+       "at": "C29",
+       "clip": "sitTalk",
+       "expr": "happy"
+      },
+      {
+       "at": "C30",
+       "clip": "sitTalk",
+       "speed": 1.6
+      },
+      {
+       "at": "C31",
+       "clip": "sit",
+       "expr": "unimpressed",
+       "look": "jo"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "beard",
+     "name": "beard",
+     "opts": {
+      "color": "#E8E4DA"
+     },
+     "scale": 3.2,
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.06,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "bill",
+     "name": "bill",
+     "opts": {
+      "items": [
+       [
+        "1 demi",
+        "4,50"
+       ],
+       [
+        "3 bières retournées",
+        "13,50"
+       ]
+      ],
+      "total": "18,00 €"
+     },
+     "scale": 1.8,
+     "on": {
+      "actor": "jo",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "idcard",
+     "name": "idCard",
+     "scale": 1.4,
+     "on": {
+      "actor": "flic1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "briefcase",
+     "name": "briefcase",
+     "on": {
+      "actor": "busguy",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "books",
+     "name": "bookStack",
+     "pos": [
+      -1.1,
+      0,
+      -0.85
+     ],
+     "opts": {
+      "n": 46
+     }
+    },
+    {
+     "id": "books2",
+     "name": "bookStack",
+     "pos": [
+      -1.6,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "n": 30,
+      "seed": 9
+     }
+    },
+    {
+     "id": "tally",
+     "name": "tallyBoard",
+     "pos": [
+      -3.6,
+      1.7,
+      -3.52
+     ],
+     "opts": {
+      "w": 2.4,
+      "h": 1.3
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 60,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C28:retourné",
+     "size": "fs",
+     "worldAngle": -20,
+     "elev": 8,
+     "frame": [
+      "mec",
+      "jo",
+      "books"
+     ]
+    },
+    {
+     "at": "C29",
+     "size": "cu",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "C29:match",
+     "size": "ms",
+     "ots": [
+      "flic1",
+      "mec",
+      1
+     ]
+    },
+    {
+     "at": "C30",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 12,
+     "move": "push",
+     "amount": 0.06,
+     "frame": [
+      "mec",
+      "flic1",
+      "flic2",
+      "busguy",
+      "cliente",
+      "vigile"
+     ]
+    },
+    {
+     "at": "C31",
+     "size": "ms",
+     "angle": -10,
+     "frame": "jo"
+    },
+    {
+     "at": "C31:addition",
+     "size": "ms",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "move": "push",
+     "amount": 0.06,
+     "zoom": 1.5,
+     "compose": 0.17,
+     "frame": "bill"
+    }
+   ],
+   "tail": 1.8
+  }
+ ]
+}
