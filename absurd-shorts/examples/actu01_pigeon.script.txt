@@ -7,15 +7,18 @@
 [9.67–11.11] Garde à vue pour le pigeon.
 [11.41–13.33] COMMISSAIRE : Où étiez-vous ce matin à huit heures ?
 [13.58–14.30] PIGEON : Rou.
-[14.50–15.38] COMMISSAIRE : Il avoue.
+[14.50–15.30] COMMISSAIRE : Il avoue.
 
 ## tweet (interrogation)
-[15.73–18.29] Au Japon, un mec a tweeté une blague sur l'affaire.
-[18.47–21.67] Personne n'a ri. Sauf le traducteur, qui a démissionné.
+[15.65–18.29] Au Japon, un mec a tweeté une blague sur l'affaire.
+[18.47–19.59] Personne n'a ri.
+
+## glucksmann (pressRoom)
+[19.99–22.79] Sauf Raphaël Glucksmann. Et il a retweeté.
 
 ## tribunal (courtroom)
-[22.12–25.64] Au procès, le pigeon avait pris un avocat. Un autre pigeon.
-[25.94–29.70] JUGE : Le pigeon est libre. Six mois pour vous : nourrissage illégal.
+[23.44–27.04] Au procès, le pigeon avait pris un avocat. Un autre pigeon.
+[27.34–31.18] JUGE : Le pigeon est libre. Six mois pour vous : nourrissage illégal.
 
 ## cellule (prisonCell)
-[30.15–33.27] Depuis, le pigeon vient manger son croissant devant sa cellule.
+[31.63–34.75] Depuis, le pigeon vient manger son croissant devant sa cellule.
