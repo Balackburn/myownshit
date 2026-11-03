@@ -181,6 +181,30 @@ def sfx(name, seed=0):
     if name == 'splash': return bp(noise(0.6, seed), 300, 3500) * decay(int(0.6 * SR), 5) * 0.8
     if name == 'spring': return A1.sfx('boing') * 0.7
     if name == 'bell': return A1.sfx('ding') * 0.6
+    if name == 'sniff':  # a long sharp nasal sniff
+        t = np.arange(int(0.42 * SR)) / SR; return (bp(noise(0.42, seed), 1400, 5200) * np.minimum(1, t * 30) * np.clip((0.42 - t) * 12, 0, 1) * (0.55 + 0.45 * t / 0.42) * 0.7).astype(np.float32)
+    if name == 'static':  # radio static with crackles
+        x = bp(noise(0.9, seed), 900, 7000) * 0.35; x[r.integers(0, len(x), 60)] += r.uniform(-0.9, 0.9, 60); return (x * np.minimum(1, np.linspace(0, 9, len(x))) * np.minimum(1, np.linspace(9, 0, len(x)))).astype(np.float32)
+    if name == 'choir':  # angelic 'aah' chord (D major), slow swell
+        d = 2.0; t = np.arange(int(d * SR)) / SR; x = np.zeros(len(t))
+        for m in (62, 66, 69, 74, 78):
+            f = A1.NOTE(m) * (1 + 0.004 * np.sin(2 * np.pi * (5 + m % 3) * t)); ph = np.cumsum(f) / SR; x += 2 * (ph % 1) - 1
+        x = bp(x.astype(np.float32), 500, 1300) + bp(x.astype(np.float32), 900, 2600) * 0.5
+        return (x * np.minimum(1, t / 0.35) * np.clip((d - t) / 0.6, 0, 1) * 0.12).astype(np.float32)
+    if name == 'jet':  # airliner fly-by: rising then falling roar
+        d = 2.6; t = np.arange(int(d * SR)) / SR; x = noise(d, seed); out = np.zeros_like(x); seg = len(x) // 16
+        for i in range(16): c = 300 + 1500 * np.sin(np.pi * i / 16) ** 2; out[i * seg:(i + 1) * seg] = bp(x[i * seg:(i + 1) * seg], c * 0.5, c * 1.6)
+        return (out * np.sin(np.pi * t / d) ** 1.5 * 0.9).astype(np.float32)
+    if name == 'fanfare':  # brassy three-note sting (ta-ta-taaa)
+        out = np.zeros(int(1.5 * SR), np.float32)
+        for st, d, ms in ((0, 0.16, (62, 66, 69)), (0.2, 0.16, (62, 66, 69)), (0.4, 1.0, (64, 67, 71, 76))):
+            t = np.arange(int(d * SR)) / SR; x = np.zeros(len(t))
+            for m in ms: ph = np.cumsum(np.full(len(t), A1.NOTE(m))) / SR; x += 2 * (ph % 1) - 1
+            x = lp(x.astype(np.float32), 2200) * np.minimum(1, t / 0.02) * np.clip((d - t) / 0.08, 0, 1) * 0.14; i0 = int(st * SR); out[i0:i0 + len(x)] += x
+        return out
+    if name == 'heartbeat':  # two low thumps (lub-dub)
+        t = np.arange(int(0.16 * SR)) / SR; th = (np.sin(2 * np.pi * (55 - 15 * t / 0.16) * t) * np.exp(-t * 22)).astype(np.float32)
+        out = np.zeros(int(0.6 * SR), np.float32); out[:len(th)] += th; i0 = int(0.22 * SR); out[i0:i0 + len(th)] += th * 0.7; return out
     return A1.sfx(name, seed)
 
 def ambience(kind, dur, seed=0):
@@ -206,6 +230,79 @@ def ambience(kind, dur, seed=0):
         x = lp(noise(dur, seed), 200) * 0.12
     return x.astype(np.float32)
 
+# ------------------------------------------------------------------------------------------------ music cues
+# A scene sfx event named 'music:<kind>' (with 'dur', or 'until' resolved by the director) goes to the MUSIC stem:
+# the episode bed is faded out under it. 'file' (+ 'offset') plays a user-supplied track instead when that file
+# exists (a song the user holds the rights to); otherwise the procedural stand-in for <kind> is used.
+def zouk(dur, seed=1):
+    """Original cheesy zouk-style groove, made in code: tresillo kick and bass, rim, shaker, offbeat e-piano,
+    a saxophone-like synth lead on an original melody (I-vi-IV-V in D). Not based on any existing song."""
+    bpm = 112; b = 60 / bpm; n = int(SR * (dur + 0.5)); out = np.zeros(n, np.float32); r = np.random.default_rng(seed)
+    S = lambda s: int(s * SR)
+    def add(x, at, v=1.0):
+        st = S(at)
+        if 0 <= st < n: e = min(n, st + len(x)); out[st:e] += x[:e - st] * v
+    def kick():
+        tt = np.arange(S(0.26)) / SR; f = 48 + 95 * np.exp(-tt * 32)
+        return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 11)).astype(np.float32)
+    def rim():
+        tt = np.arange(S(0.06)) / SR; return ((np.sin(2 * np.pi * 1750 * tt) * 0.6 + r.uniform(-1, 1, len(tt)) * 0.35) * np.exp(-tt * 75)).astype(np.float32)
+    def shaker(acc):
+        x = r.uniform(-1, 1, S(0.05)).astype(np.float32) * np.exp(-np.arange(S(0.05)) / SR * 55).astype(np.float32)
+        bb, aa = butter(2, 6500 / (SR / 2), 'high'); return lfilter(bb, aa, x).astype(np.float32) * (0.55 if acc else 0.25)
+    def bass(m, d):
+        tt = np.arange(S(d)) / SR; f = A1.NOTE(m)
+        x = np.sin(2 * np.pi * f * tt) + 0.35 * np.sin(4 * np.pi * f * tt) + 0.12 * np.sign(np.sin(2 * np.pi * f * tt))
+        return (x * np.minimum(1, tt / 0.008) * np.exp(-tt * 2.8)).astype(np.float32)
+    def epiano(ms, d):
+        tt = np.arange(S(d)) / SR; x = np.zeros(len(tt))
+        for m in ms: f = A1.NOTE(m); x += np.sin(2 * np.pi * f * tt + 0.9 * np.sin(2 * np.pi * f * tt) * np.exp(-tt * 9))
+        return (x * np.minimum(1, tt / 0.004) * np.exp(-tt * 7) / len(ms)).astype(np.float32)
+    def lead(m, d):
+        tt = np.arange(S(d)) / SR; f = A1.NOTE(m) * (1 + 0.007 * np.sin(2 * np.pi * 5.5 * tt) * np.minimum(1, tt / 0.25))
+        ph = np.cumsum(f) / SR; x = (2 * (ph % 1) - 1) * 0.7 + np.sign(np.sin(2 * np.pi * ph)) * 0.3
+        bb, aa = butter(2, 2600 / (SR / 2), 'low'); x = lfilter(bb, aa, x)
+        return (x * np.minimum(1, tt / 0.03) * np.clip((d - tt) / 0.06, 0, 1)).astype(np.float32)
+    def pad(ms, d):
+        tt = np.arange(S(d)) / SR; x = np.zeros(len(tt))
+        for m in ms:
+            for dt in (-0.004, 0.004): ph = np.cumsum(np.full(len(tt), A1.NOTE(m - 12) * (1 + dt))) / SR; x += 2 * (ph % 1) - 1
+        bb, aa = butter(2, 1400 / (SR / 2), 'low'); x = lfilter(bb, aa, x)
+        return (x * np.minimum(1, tt / 0.25) * np.clip((d - tt) / 0.2, 0, 1) / (2 * len(ms))).astype(np.float32)
+    prog = [([62, 66, 69], 38), ([59, 62, 66], 35), ([59, 62, 67], 43), ([61, 64, 69], 45)]
+    mel = [[(0, 74, 1), (1, 76, .5), (1.5, 78, 1), (2.5, 76, .5), (3, 74, 1)], [(0, 71, 1.5), (1.5, 74, .5), (2, 73, 1), (3, 71, 1)],
+           [(0, 74, .5), (.5, 76, .5), (1, 79, 1.5), (2.5, 78, .5), (3, 76, 1)], [(0, 76, 1), (1, 73, 1), (2, 69, 2)]]
+    K, R_ = kick(), rim(); bar = 0; t0 = 0.0
+    while t0 < dur + 0.5:
+        ch, root = prog[bar % 4]
+        add(pad(ch, 4 * b + 0.15), t0, 0.32)
+        for e8 in (0, 3, 6): add(K, t0 + e8 * b / 2, 0.6)
+        for e8 in (2, 5, 7): add(R_, t0 + e8 * b / 2, 0.35)
+        for s16 in range(16): add(shaker(s16 % 2 == 1), t0 + s16 * b / 4, 0.5)
+        for e8, dm, d in ((0, 0, 0.3), (3, 0, 0.2), (4, 12, 0.15), (6, 7, 0.22)): add(bass(root + dm, d), t0 + e8 * b / 2, 0.42)
+        for e8 in (1, 3, 5, 7): add(epiano(ch, 0.2), t0 + e8 * b / 2, 0.32)
+        for bt, m, d in mel[bar % 4]: add(lead(m, d * b * 0.95), t0 + bt * b, 0.6)
+        t0 += 4 * b; bar += 1
+    out = out[:int(SR * dur)]
+    fi, fo = int(0.04 * SR), int(min(0.8, dur / 3) * SR); out[:fi] *= np.linspace(0, 1, fi); out[-fo:] *= np.linspace(1, 0, fo)
+    return out / (np.abs(out).max() + 1e-6)
+
+def decode_audio(path, offset, dur):
+    p = subprocess.run(['ffmpeg', '-v', 'error', '-ss', str(offset), '-t', str(dur), '-i', path, '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True)
+    x = np.frombuffer(p.stdout, np.float32).copy()
+    if len(x): fo = int(min(0.8, dur / 3) * SR); x[-fo:] *= np.linspace(1, 0, min(fo, len(x)))
+    return x / (np.abs(x).max() + 1e-6) if len(x) else x
+
+def music_cue(e):
+    dur = float(e.get('dur', 8.0)); f = e.get('file')
+    if f:
+        fp = f if os.path.isabs(f) else os.path.join(ROOT, f)
+        if os.path.exists(fp):
+            x = decode_audio(fp, e.get('offset', 0.0), dur)
+            if len(x): print(f'music cue: {f} ({dur:.1f}s from {e.get("offset", 0.0)}s)', file=sys.stderr); return x
+        print(f'music cue: {f} not found, procedural stand-in used', file=sys.stderr)
+    return {'zouk': zouk}.get(e['name'].split(':', 1)[1], zouk)(dur, e.get('seed', 1))
+
 def cmd_mix(timed_path, events_path, outdir):
     sc = json.load(open(timed_path)); wd = os.path.dirname(timed_path)
     ev = json.load(open(events_path)) if events_path and os.path.exists(events_path) else []
@@ -217,8 +314,13 @@ def cmd_mix(timed_path, events_path, outdir):
             a = ambience(s['ambience'], s['duration'], hash(s['id']) % 1000) * s.get('ambienceVol', 1.0)
             fade = np.minimum(1, np.minimum(np.arange(len(a)), np.arange(len(a))[::-1]) / (0.08 * SR)).astype(np.float32)
             A1.place(amb, a * fade, s['start'])
+    cues = [e for e in ev if str(e['name']).startswith('music:')]; ev = [e for e in ev if not str(e['name']).startswith('music:')]
     for i, e in enumerate(ev):
         A1.place(fx, sfx(e['name'], i), e['t'], e.get('vol', 0.5))
+    cue_track = np.zeros(n, np.float32); cue_mask = np.zeros(n, np.float32)
+    for e in cues:
+        x = music_cue(e) * e.get('vol', 0.3); A1.place(cue_track, x, e['t']); st = int(e['t'] * SR); cue_mask[st:st + len(x)] = 1
+    if cues: k = int(0.3 * SR); cue_mask = np.convolve(cue_mask, np.ones(k) / k, 'same').astype(np.float32)
     b, a = butter(2, 90 / (SR / 2), 'high'); voice = lfilter(b, a, voice).astype(np.float32)
     if np.abs(voice).max() > 0: voice = np.tanh(voice / np.abs(voice).max() * 1.5) * 0.72
     m = sc.get('music', {'mood': 'quirky', 'vol': 0.07})
@@ -229,7 +331,8 @@ def cmd_mix(timed_path, events_path, outdir):
     fx_peak = np.abs(fx).max()
     if fx_peak > 0.9: fx = fx / fx_peak * 0.9
     sfx_stem = fx * (1 - 0.25 * np.clip(env * 8, 0, 1)) + amb * duck
-    music = bed * duck
+    duck_cue = 1 - 0.7 * np.clip(env * 8, 0, 1)
+    music = bed * duck * (1 - cue_mask) + cue_track * duck_cue
     mix = voice + sfx_stem + music
     mix = mix[:int(SR * total)]; mix = mix / (np.abs(mix).max() + 1e-6) * 0.89
     os.makedirs(outdir, exist_ok=True)

@@ -780,7 +780,7 @@ export function renderFrame(tAbs) {
   renderer.render(scene, camera);
   const g = S.ctx;
   const frozen = frozenNow(lt);
-  g.filter = (S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
+  g.filter = (S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
   g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
   drawFX(g, lt);
   drawCaption(g, t);
@@ -858,7 +858,7 @@ function collectEvents(sc) {
     }
   }
   for (const Pp of S.props) for (const e of Pp.sfx) S.events.push({ t: T0 + e.t, name: e.name, vol: e.vol, src: Pp.id });
-  for (const e of sc.sfx || []) S.events.push({ t: T0 + T(e.at ?? 0, sc), name: e.name, vol: e.vol ?? 0.5, src: 'scene' });
+  for (const e of sc.sfx || []) { const { at, ...rest } = e; S.events.push({ ...rest, t: T0 + T(at ?? 0, sc), vol: e.vol ?? 0.5, src: 'scene', ...(e.until != null ? { dur: T(e.until, sc) - T(at ?? 0, sc) } : {}) }); }
   for (const c of S.cams) S.camTimes.push({ t: T0 + (c.t0 + c.t1) / 2, scene: sc.id, size: c.size || (c.ots ? 'ots' : c.pov ? 'pov' : 'explicit'), frame: [].concat(c.frame || c.ots || c.pov || []).join(',') });
 }
 export function frameDataURL(type = 'image/jpeg', q = 0.92) { return S.out.toDataURL(type, q); }

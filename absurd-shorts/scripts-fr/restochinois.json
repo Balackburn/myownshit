@@ -1,0 +1,3893 @@
+{
+ "version": 3,
+ "title": "Le resto chinois",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "serveur": {
+   "preset": "restaurateur",
+   "seed": 77
+  },
+  "jeune": {
+   "preset": "restaurateurMao",
+   "seed": 77
+  },
+  "detenu": {
+   "preset": "restaurateurMao",
+   "seed": 77,
+   "hat": "none"
+  },
+  "dealer": {
+   "preset": "dealer",
+   "seed": 12
+  },
+  "garde1": {
+   "preset": "policeMao",
+   "seed": 21
+  },
+  "garde2": {
+   "preset": "policeMao",
+   "seed": 22
+  },
+  "internaute": {
+   "preset": "internaute",
+   "seed": 31
+  },
+  "internaute2": {
+   "preset": "internaute2",
+   "seed": 32
+  },
+  "fan1": {
+   "preset": "internaute",
+   "suit": "#2C4A8A",
+   "seed": 33
+  },
+  "fan2": {
+   "preset": "internaute2",
+   "suit": "#3E8A5A",
+   "seed": 34
+  },
+  "mbappe": {
+   "preset": "footballeur"
+  },
+  "chien": {
+   "type": "creature",
+   "name": "dog",
+   "opts": {
+    "seed": 4
+   }
+  },
+  "chat": {
+   "type": "creature",
+   "name": "cat",
+   "opts": {
+    "seed": 6
+   }
+  },
+  "mecMao": {
+   "preset": "mecMao"
+  },
+  "off1": {
+   "preset": "officiel",
+   "seed": 41
+  },
+  "off2": {
+   "preset": "officiel",
+   "seed": 42,
+   "glasses": false
+  },
+  "souffleur": {
+   "preset": "officiel",
+   "seed": 43,
+   "build": {
+    "belly": 0.0
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "resto",
+   "set": "chineseRestaurant",
+   "ambience": "bar",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "R1",
+     "text": "Ce mec a mangé dans un restaurant chinois. Avec une fourchette et un couteau.",
+     "highlight": [
+      "chinois.",
+      "fourchette"
+     ]
+    },
+    {
+     "id": "R2",
+     "text": "Il ne savait pas se servir des baguettes.",
+     "highlight": [
+      "baguettes."
+     ]
+    },
+    {
+     "id": "R3",
+     "text": "Des couverts ? Dans mon restaurant ?",
+     "speaker": "serveur"
+    },
+    {
+     "id": "R4",
+     "text": "Le serveur a pété un câble.",
+     "highlight": [
+      "câble."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -1.93
+     ],
+     "ry": 0,
+     "clip": "sitEatSpoon",
+     "keys": [
+      {
+       "at": "R3",
+       "clip": "sit",
+       "expr": "shocked",
+       "look": "serveur"
+      },
+      {
+       "at": "R4:câble",
+       "clip": "sitEatSpoon",
+       "expr": "unimpressed",
+       "look": null
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "serveur",
+     "pos": [
+      2.3,
+      0,
+      -2.9
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.4,
+       "to": [
+        1.05,
+        0,
+        -0.8
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "faceEnd": "mec",
+       "then": "stand"
+      },
+      {
+       "at": "R2:baguettes",
+       "clip": "doubleTake",
+       "expr": "shocked"
+      },
+      {
+       "at": "R3",
+       "clip": "point",
+       "expr": "angry"
+      },
+      {
+       "at": "R4",
+       "clip": "tantrum",
+       "expr": "angry"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fourchette",
+     "name": "fork",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "couteau",
+     "name": "knife",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "plat",
+     "name": "noodlePlate",
+     "pos": [
+      0,
+      0.786,
+      -0.98
+     ]
+    },
+    {
+     "id": "bol",
+     "name": "riceBowl",
+     "pos": [
+      0.28,
+      0.786,
+      -1.05
+     ]
+    },
+    {
+     "id": "baguettes",
+     "name": "chopsticks",
+     "scale": 1.2,
+     "pos": [
+      -0.27,
+      0.794,
+      -0.86
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.25
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R4",
+     "name": "thud",
+     "vol": 0.5
+    },
+    {
+     "at": "R4:pété",
+     "name": "glass",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 12,
+     "elev": 10,
+     "frame": [
+      "mec",
+      [
+       -1.4,
+       2.75,
+       -3.5
+      ]
+     ]
+    },
+    {
+     "at": "R1:Avec",
+     "size": "cu",
+     "worldAngle": 0,
+     "elev": 35,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0,
+       0.86,
+       -1.0
+      ]
+     ]
+    },
+    {
+     "at": "R2",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "R2:baguettes",
+     "size": "cu",
+     "worldAngle": -20,
+     "elev": 25,
+     "noOcclusion": true,
+     "zoom": 1.6,
+     "frame": [
+      [
+       -0.27,
+       0.82,
+       -0.9
+      ]
+     ]
+    },
+    {
+     "at": "R3",
+     "size": "ms",
+     "angle": 15,
+     "frame": "serveur"
+    },
+    {
+     "at": "R4",
+     "size": "fs",
+     "worldAngle": -20,
+     "elev": 6,
+     "frame": [
+      "serveur",
+      "mec"
+     ]
+    },
+    {
+     "at": "R4:câble",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "cuisine",
+   "set": "proKitchen",
+   "ambience": "lab",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "R5",
+     "text": "Pour se calmer, il est allé sniffer de la cocaïne en cuisine.",
+     "highlight": [
+      "cocaïne"
+     ]
+    },
+    {
+     "id": "R6",
+     "text": "Ça a marché pendant quatre secondes.",
+     "highlight": [
+      "quatre",
+      "secondes."
+     ]
+    },
+    {
+     "id": "R7",
+     "text": "Puis il est devenu complètement paranoïaque.",
+     "highlight": [
+      "paranoïaque."
+     ]
+    },
+    {
+     "id": "R8",
+     "text": "Et il a eu un flashback.",
+     "highlight": [
+      "flashback."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "serveur",
+     "pos": [
+      0.3,
+      0,
+      -1.42
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R5:sniffer-0.15",
+       "clip": "leanTable",
+       "expr": "angry"
+      },
+      {
+       "at": "R6",
+       "clip": "stand",
+       "expr": "happy"
+      },
+      {
+       "at": "R7",
+       "clip": "lookAround",
+       "expr": "scared"
+      },
+      {
+       "at": "R7:paranoïaque",
+       "clip": "wired",
+       "expr": "scared"
+      },
+      {
+       "at": "R8",
+       "clip": "stand",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "ligne",
+     "name": "powderLine",
+     "pos": [
+      0.3,
+      0.925,
+      -0.92
+     ],
+     "opts": {
+      "goneAt": "R5:cocaïne"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R5:cocaïne",
+     "name": "sniff",
+     "vol": 0.8
+    },
+    {
+     "at": "R6+0.20",
+     "name": "tick",
+     "vol": 0.7
+    },
+    {
+     "at": "R6+0.62",
+     "name": "tick",
+     "vol": 0.7
+    },
+    {
+     "at": "R6+1.04",
+     "name": "tick",
+     "vol": 0.7
+    },
+    {
+     "at": "R6+1.46",
+     "name": "tick",
+     "vol": 0.7
+    },
+    {
+     "at": "R7",
+     "name": "heartbeat",
+     "vol": 0.8
+    },
+    {
+     "at": "R7+0.62",
+     "name": "heartbeat",
+     "vol": 0.8
+    },
+    {
+     "at": "R7+1.24",
+     "name": "heartbeat",
+     "vol": 0.8
+    },
+    {
+     "at": "R8:flashback",
+     "name": "whoosh",
+     "vol": 0.6
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "R8.end-0.05",
+     "dur": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 20,
+     "frame": "serveur"
+    },
+    {
+     "at": "R5:sniffer",
+     "size": "cu",
+     "worldAngle": 25,
+     "elev": 25,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.3,
+       0.97,
+       -0.95
+      ]
+     ]
+    },
+    {
+     "at": "R6",
+     "size": "cu",
+     "angle": 0,
+     "frame": "serveur"
+    },
+    {
+     "at": "R6:quatre",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.15,
+     "frame": [
+      [
+       -2.9,
+       2.35,
+       -3.15
+      ]
+     ]
+    },
+    {
+     "at": "R7",
+     "size": "cu",
+     "angle": -25,
+     "frame": "serveur"
+    },
+    {
+     "at": "R7:complètement",
+     "size": "ms",
+     "worldAngle": 15,
+     "noOcclusion": true,
+     "frame": [
+      [
+       -4.4,
+       1.15,
+       -3.1
+      ]
+     ]
+    },
+    {
+     "at": "R7:paranoïaque",
+     "size": "ms",
+     "angle": 10,
+     "frame": "serveur"
+    },
+    {
+     "at": "R8",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.12,
+     "frame": "serveur"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "chine",
+   "set": "maoStreet",
+   "grade": "contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "R9",
+     "text": "Chine, époque Mao. Tout produit occidental était interdit.",
+     "highlight": [
+      "Mao.",
+      "interdit."
+     ]
+    },
+    {
+     "id": "R10",
+     "text": "Mais lui était passionné par les États-Unis.",
+     "highlight": [
+      "États-Unis."
+     ]
+    },
+    {
+     "id": "R11",
+     "text": "Au marché noir, il achetait de la musique occidentale.",
+     "highlight": [
+      "noir,",
+      "musique"
+     ]
+    },
+    {
+     "id": "R12",
+     "text": "« Fruit de la passion », de Franky Vincent.",
+     "highlight": [
+      "Fruit",
+      "passion"
+     ]
+    },
+    {
+     "id": "R13",
+     "text": "Il pleurait devant tant de beauté.",
+     "highlight": [
+      "pleurait"
+     ]
+    },
+    {
+     "id": "R14",
+     "text": "J'ai autre chose. Un produit occidental, d'une beauté immense.",
+     "speaker": "dealer",
+     "pre": 1.6
+    },
+    {
+     "id": "R15",
+     "text": "Des couverts.",
+     "highlight": [
+      "couverts."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "garde1",
+     "pos": [
+      0.6,
+      0,
+      0.7
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -8.5,
+        0,
+        0.7
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "then": "stand"
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "jeune",
+     "pos": [
+      -5.2,
+      0,
+      -0.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "R10-0.2",
+       "to": [
+        1.5,
+        0,
+        -2.3
+       ],
+       "clip": "sneak",
+       "speed": 1.9,
+       "faceEnd": 127,
+       "then": "stand"
+      },
+      {
+       "at": "R12",
+       "clip": "lookItem",
+       "expr": "happy",
+       "face": 140,
+       "turn": 0.2
+      },
+      {
+       "at": "R13",
+       "clip": "cry",
+       "expr": "sad"
+      },
+      {
+       "at": "R14",
+       "clip": "stand",
+       "expr": "shocked",
+       "face": "dealer",
+       "turn": 0.25
+      },
+      {
+       "at": "R15",
+       "clip": "lookItem",
+       "expr": "happy",
+       "face": 122,
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "dealer",
+     "pos": [
+      3.45,
+      0,
+      -3.75
+     ],
+     "ry": -53,
+     "clip": "lurk",
+     "keys": [
+      {
+       "at": "R11:musique",
+       "clip": "present",
+       "expr": "smug"
+      },
+      {
+       "at": "R12-0.25",
+       "clip": "giveItem",
+       "expr": "smug"
+      },
+      {
+       "at": "R13",
+       "clip": "lurk",
+       "expr": "neutral"
+      },
+      {
+       "at": "R14",
+       "clip": "talk",
+       "expr": "smug"
+      },
+      {
+       "at": "R15-0.45",
+       "clip": "present",
+       "expr": "smug"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "boombox",
+     "name": "boombox",
+     "pos": [
+      2.5,
+      0.55,
+      -3.6
+     ],
+     "ry": -30,
+     "opts": {
+      "text": "FRUIT DE LA PASSION",
+      "playAt": "R12-0.05",
+      "stopAt": "R14+0.9",
+      "bpm": 112
+     }
+    },
+    {
+     "id": "mallette",
+     "name": "cutleryCase",
+     "pos": [
+      2.62,
+      0.45,
+      -3.0
+     ],
+     "ry": -60,
+     "opts": {
+      "openAt": "R15-0.3",
+      "beam": true
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R12-0.05",
+     "name": "music:zouk",
+     "until": "R14+1.0",
+     "vol": 0.34,
+     "file": "assets/music/user/fruit_de_la_passion.mp3",
+     "offset": 0.0
+    },
+    {
+     "at": "R12-0.12",
+     "name": "click",
+     "vol": 0.5
+    },
+    {
+     "at": "R15-0.3",
+     "name": "choir",
+     "vol": 0.75
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0,
+     "dur": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 8,
+     "elev": 10,
+     "frame": [
+      "garde1"
+     ]
+    },
+    {
+     "at": "R9:interdit",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.1,
+     "frame": [
+      [
+       0.9,
+       1.7,
+       -3.99
+      ]
+     ]
+    },
+    {
+     "at": "R10",
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "jeune"
+    },
+    {
+     "at": "R11",
+     "size": "ms",
+     "worldAngle": 37,
+     "frame": [
+      "jeune",
+      "dealer"
+     ]
+    },
+    {
+     "at": "R12",
+     "from": [
+      2.95,
+      0.98,
+      -2.72
+     ],
+     "lookAt": [
+      2.5,
+      0.68,
+      -3.6
+     ],
+     "lens": 40
+    },
+    {
+     "at": "R13",
+     "size": "cu",
+     "angle": 0,
+     "frame": "jeune"
+    },
+    {
+     "at": "R13.end+0.5",
+     "size": "ms",
+     "worldAngle": 37,
+     "frame": [
+      "jeune",
+      "dealer"
+     ]
+    },
+    {
+     "at": "R14",
+     "size": "cu",
+     "angle": 15,
+     "frame": "dealer"
+    },
+    {
+     "at": "R15-0.35",
+     "size": "cu",
+     "worldAngle": -35,
+     "elev": 35,
+     "noOcclusion": true,
+     "frame": [
+      [
+       2.62,
+       0.5700000000000001,
+       -3.0
+      ]
+     ]
+    },
+    {
+     "at": "R15.end+0.1",
+     "size": "cu",
+     "angle": -10,
+     "frame": "jeune"
+    }
+   ],
+   "tail": 0.5
+  },
+  {
+   "id": "usages",
+   "set": "maoStreet",
+   "grade": "contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "R16",
+     "text": "Il ne savait pas s'en servir."
+    },
+    {
+     "id": "R17",
+     "text": "La cuillère, il s'en servait pour appeler l'Amérique.",
+     "highlight": [
+      "cuillère,",
+      "l'Amérique."
+     ]
+    },
+    {
+     "id": "R18",
+     "text": "Allô ? L'Amérique ?",
+     "speaker": "jeune"
+    },
+    {
+     "id": "R19",
+     "text": "Le couteau, il le portait comme une cravate.",
+     "highlight": [
+      "couteau,",
+      "cravate."
+     ]
+    },
+    {
+     "id": "R20",
+     "text": "Et la fourchette lui servait d'antenne, pour capter la radio américaine.",
+     "highlight": [
+      "fourchette",
+      "d'antenne,"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "jeune",
+     "pos": [
+      -0.4,
+      0,
+      -2.55
+     ],
+     "ry": 0,
+     "clip": "lookItem",
+     "keys": [
+      {
+       "at": "R17",
+       "clip": "phoneCall",
+       "expr": "happy"
+      },
+      {
+       "at": "R18.end+0.15",
+       "expr": "sad"
+      },
+      {
+       "at": "R19",
+       "clip": "heroPose",
+       "expr": "smug"
+      },
+      {
+       "at": "R20",
+       "clip": "stand",
+       "expr": "happy"
+      },
+      {
+       "at": "R20:capter",
+       "clip": "lookAround",
+       "expr": "happy"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "fourchette",
+     "name": "fork",
+     "scale": 1.5,
+     "on": {
+      "actor": "jeune",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R17",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cuillere",
+     "name": "spoon",
+     "scale": 2.0,
+     "visible": false,
+     "on": {
+      "actor": "jeune",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.04,
+       0.02
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "R17",
+       "visible": true
+      },
+      {
+       "at": "R19",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cravate",
+     "name": "knife",
+     "scale": 2.1,
+     "opts": {
+      "handle": "#2A2420"
+     },
+     "visible": false,
+     "on": {
+      "actor": "jeune",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.62,
+       0.14
+      ],
+      "rot": [
+       0,
+       0,
+       3.1416
+      ]
+     },
+     "keys": [
+      {
+       "at": "R19",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "antenne",
+     "name": "fork",
+     "scale": 1.6,
+     "visible": false,
+     "on": {
+      "actor": "jeune",
+      "joint": "head",
+      "offset": [
+       0,
+       0.5,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       0.12
+      ]
+     },
+     "keys": [
+      {
+       "at": "R20:fourchette",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R18.end+0.1",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "R18.end+0.35",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "R19:cravate",
+     "name": "pop",
+     "vol": 0.4
+    },
+    {
+     "at": "R20:capter",
+     "name": "static",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 15,
+     "frame": "jeune"
+    },
+    {
+     "at": "R16:servir",
+     "size": "cu",
+     "angle": 30,
+     "frame": "jeune"
+    },
+    {
+     "at": "R17",
+     "size": "ms",
+     "angle": 20,
+     "frame": "jeune"
+    },
+    {
+     "at": "R18",
+     "size": "cu",
+     "angle": 10,
+     "frame": "jeune"
+    },
+    {
+     "at": "R18.end+0.1",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "jeune"
+    },
+    {
+     "at": "R19",
+     "size": "ms",
+     "angle": 0,
+     "frame": "jeune"
+    },
+    {
+     "at": "R20",
+     "size": "ms",
+     "angle": -15,
+     "frame": "jeune"
+    },
+    {
+     "at": "R20:capter",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "jeune"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "arrestation",
+   "set": "maoStreet",
+   "grade": "contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)",
+   "ambience": "park",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "R21",
+     "text": "La police est arrivée. Motif : haute trahison et intelligence avec l'ennemi.",
+     "highlight": [
+      "Motif",
+      "trahison"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "jeune",
+     "pos": [
+      -0.4,
+      0,
+      -2.55
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R21:police",
+       "expr": "shocked",
+       "clip": "startle"
+      },
+      {
+       "at": "R21:Motif",
+       "clip": "handcuffed",
+       "expr": "sad"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "garde1",
+     "pos": [
+      -5.6,
+      0,
+      1.4
+     ],
+     "ry": 70,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         -3.2,
+         0,
+         -0.4
+        ],
+        [
+         -1.25,
+         0,
+         -2.25
+        ]
+       ],
+       "clip": "run",
+       "speed": 5.0,
+       "faceEnd": "jeune",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "garde2",
+     "pos": [
+      6.5,
+      0,
+      0.6
+     ],
+     "ry": -70,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "path": [
+        [
+         3.0,
+         0,
+         -0.8
+        ],
+        [
+         0.45,
+         0,
+         -2.1
+        ]
+       ],
+       "clip": "run",
+       "speed": 5.0,
+       "faceEnd": "jeune",
+       "then": "point"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "cravate",
+     "name": "knife",
+     "scale": 2.1,
+     "opts": {
+      "handle": "#2A2420"
+     },
+     "on": {
+      "actor": "jeune",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.62,
+       0.14
+      ],
+      "rot": [
+       0,
+       0,
+       3.1416
+      ]
+     }
+    },
+    {
+     "id": "antenne",
+     "name": "fork",
+     "scale": 1.6,
+     "on": {
+      "actor": "jeune",
+      "joint": "head",
+      "offset": [
+       0,
+       0.5,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       0.12
+      ]
+     }
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "jeune",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R21:Motif",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.05,
+     "name": "whistle",
+     "vol": 0.6
+    },
+    {
+     "at": "R21:Motif",
+     "name": "cuff",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -60,
+     "move": "track",
+     "frame": "garde1"
+    },
+    {
+     "at": "R21:arrivée+0.2",
+     "size": "ms",
+     "worldAngle": 5,
+     "frame": [
+      "jeune",
+      "garde1",
+      "garde2"
+     ]
+    },
+    {
+     "at": "R21:Motif",
+     "size": "cu",
+     "angle": 0,
+     "frame": "jeune"
+    },
+    {
+     "at": "R21:trahison",
+     "size": "ms",
+     "worldAngle": -20,
+     "frame": [
+      "jeune",
+      "garde1"
+     ]
+    },
+    {
+     "at": "R21:intelligence",
+     "size": "cu",
+     "angle": 10,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "jeune"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "prison",
+   "set": "tinyCell",
+   "grade": "contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)",
+   "ambience": "cave",
+   "ambienceVol": 0.8,
+   "lines": [
+    {
+     "id": "R22",
+     "text": "Cinq ans de prison, dans une cellule de quarante centimètres.",
+     "highlight": [
+      "Cinq",
+      "quarante"
+     ]
+    },
+    {
+     "id": "R23",
+     "text": "Un repas par an : une photo de riz.",
+     "highlight": [
+      "photo",
+      "riz."
+     ]
+    },
+    {
+     "id": "R24",
+     "text": "Pour lit, une baguette. Une seule.",
+     "highlight": [
+      "baguette.",
+      "seule."
+     ]
+    },
+    {
+     "id": "R25",
+     "text": "Pour fenêtre, un dessin de fenêtre.",
+     "highlight": [
+      "dessin"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "detenu",
+     "pos": [
+      -0.06,
+      0,
+      -1.69
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [
+      {
+       "at": "R23:photo-0.2",
+       "clip": "takeItem",
+       "expr": "neutral"
+      },
+      {
+       "at": "R23:riz",
+       "clip": "lookItem",
+       "expr": "sad"
+      },
+      {
+       "at": "R24",
+       "clip": "lookItem",
+       "expr": "sad"
+      },
+      {
+       "at": "R24:seule",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "R25",
+       "clip": "lookUp",
+       "expr": "sad"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "garde1",
+     "pos": [
+      2.8,
+      0,
+      -0.5
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "R23-1.0",
+       "to": [
+        0.62,
+        0,
+        -0.85
+       ],
+       "clip": "walk",
+       "speed": 2.6,
+       "faceEnd": 200,
+       "then": "stand"
+      },
+      {
+       "at": "R23-0.1",
+       "clip": "giveItem"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "photo",
+     "name": "photo",
+     "scale": 1.4,
+     "visible": false,
+     "on": {
+      "actor": "garde1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "R23",
+       "visible": true
+      },
+      {
+       "at": "R23:photo",
+       "attach": "detenu",
+       "hand": "R",
+       "offset": [
+        0,
+        -0.12,
+        0.03
+       ],
+       "rot": [
+        1.5708,
+        0,
+        0
+       ]
+      },
+      {
+       "at": "R24",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "baguette",
+     "name": "chopsticks",
+     "scale": 1.7,
+     "visible": false,
+     "opts": {
+      "single": true
+     },
+     "on": {
+      "actor": "detenu",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.04,
+       0.02
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "R24",
+       "visible": true
+      },
+      {
+       "at": "R25",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.05,
+     "name": "thud",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 4,
+     "frame": "detenu"
+    },
+    {
+     "at": "R22:quarante",
+     "from": [
+      0,
+      1.45,
+      2.6
+     ],
+     "lookAt": [
+      0,
+      1.25,
+      -1.7
+     ],
+     "lens": 50
+    },
+    {
+     "at": "R23",
+     "size": "ms",
+     "worldAngle": 25,
+     "frame": [
+      "detenu",
+      "garde1"
+     ]
+    },
+    {
+     "at": "R23:riz",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.4,
+     "frame": "photo"
+    },
+    {
+     "at": "R24",
+     "size": "ms",
+     "angle": 0,
+     "withProps": true,
+     "frame": "detenu"
+    },
+    {
+     "at": "R24:seule",
+     "size": "cu",
+     "angle": 0,
+     "frame": "detenu"
+    },
+    {
+     "at": "R25",
+     "size": "cu",
+     "angle": 0,
+     "elev": -12,
+     "frame": "detenu"
+    },
+    {
+     "at": "R25:dessin",
+     "from": [
+      -0.4,
+      1.3,
+      -0.72
+     ],
+     "lookAt": [
+      0.16,
+      2.22,
+      -1.98
+     ],
+     "lens": 40
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "france",
+   "set": "street",
+   "grade": "contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "R26",
+     "text": "Puis il est parti en France. Il a bossé comme un malade.",
+     "highlight": [
+      "France.",
+      "malade."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "serveur",
+     "pos": [
+      -6.5,
+      0,
+      0.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        6.5,
+        0,
+        0.6
+       ],
+       "clip": "run",
+       "speed": 7.5,
+       "then": "idle"
+      },
+      {
+       "at": "R26:bossé",
+       "to": [
+        -6.5,
+        0,
+        1.2
+       ],
+       "clip": "run",
+       "speed": 8.0,
+       "then": "idle",
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "sac1",
+     "name": "foodSack",
+     "scale": 0.5,
+     "opts": {
+      "text": "RIZ",
+      "color": "#E6DCC4"
+     },
+     "on": {
+      "actor": "serveur",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "sac2",
+     "name": "foodSack",
+     "scale": 0.5,
+     "opts": {
+      "text": "RIZ",
+      "color": "#E6DCC4"
+     },
+     "on": {
+      "actor": "serveur",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "sac3",
+     "name": "foodSack",
+     "scale": 0.5,
+     "visible": false,
+     "opts": {
+      "text": "RIZ",
+      "color": "#E6DCC4"
+     },
+     "on": {
+      "actor": "serveur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.5,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "R26:bossé",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "serveur"
+    },
+    {
+     "at": "R26:bossé",
+     "size": "fs",
+     "angle": 70,
+     "move": "track",
+     "frame": "serveur"
+    }
+   ],
+   "tail": 0.1
+  },
+  {
+   "id": "ouverture",
+   "set": "chineseRestaurant",
+   "grade": "contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)",
+   "ambience": "bar",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "R27",
+     "text": "Et il a ouvert son restaurant.",
+     "highlight": [
+      "restaurant."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "serveur",
+     "pos": [
+      -1.4,
+      0,
+      -2.0
+     ],
+     "ry": 0,
+     "clip": "heroPose",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R27:restaurant",
+     "name": "kaching",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "serveur"
+    },
+    {
+     "at": "R27:ouvert",
+     "size": "fs",
+     "worldAngle": 0,
+     "frame": [
+      "serveur",
+      [
+       -1.4,
+       2.75,
+       -3.5
+      ]
+     ]
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "trace2",
+   "set": "proKitchen",
+   "ambience": "lab",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "R28",
+     "text": "Retour en cuisine. Il a pris une deuxième trace.",
+     "highlight": [
+      "deuxième"
+     ]
+    },
+    {
+     "id": "R29",
+     "text": "Il s'est souvenu de la grandeur de la Chine.",
+     "highlight": [
+      "grandeur"
+     ]
+    },
+    {
+     "id": "R30",
+     "text": "Et de son amour pour le Parti communiste chinois.",
+     "highlight": [
+      "amour",
+      "Parti"
+     ]
+    },
+    {
+     "id": "R31",
+     "text": "Alors il a dénoncé ce mec sur les réseaux sociaux chinois.",
+     "highlight": [
+      "dénoncé"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "serveur",
+     "pos": [
+      0.3,
+      0,
+      -1.42
+     ],
+     "ry": 0,
+     "clip": "wired",
+     "keys": [
+      {
+       "at": "R28:pris",
+       "clip": "leanTable",
+       "expr": "angry"
+      },
+      {
+       "at": "R29",
+       "clip": "lookUp",
+       "expr": "happy"
+      },
+      {
+       "at": "R30",
+       "clip": "raiseOverhead",
+       "expr": "happy"
+      },
+      {
+       "at": "R31",
+       "clip": "readPhone",
+       "expr": "angry"
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "ligne",
+     "name": "powderLine",
+     "pos": [
+      0.3,
+      0.925,
+      -0.92
+     ],
+     "opts": {
+      "goneAt": "R28:trace"
+     }
+    },
+    {
+     "id": "drapeau",
+     "name": "flag",
+     "scale": 0.45,
+     "visible": false,
+     "opts": {
+      "colors": [
+       "#DE2910"
+      ],
+      "prc": true,
+      "grip": true
+     },
+     "on": {
+      "actor": "serveur",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "R30",
+       "visible": true
+      },
+      {
+       "at": "R31",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "serveur",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R31",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "post",
+     "name": "tweetPhone",
+     "pos": [
+      0.75,
+      0.933,
+      -0.45
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Le Lotus d'Or",
+      "handle": "@lotus_dor",
+      "initial": "L",
+      "avatar": "#B5302A",
+      "via": "Publié il y a 1 min",
+      "text": "Un Français a mangé avec des COUVERTS dans mon restaurant. Honte à lui.",
+      "likes": "1,4 milliard de partages"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R28:trace",
+     "name": "sniff",
+     "vol": 0.8
+    },
+    {
+     "at": "R29:souvenu",
+     "name": "choir",
+     "vol": 0.7
+    },
+    {
+     "at": "R30:Parti",
+     "name": "fanfare",
+     "vol": 0.7
+    },
+    {
+     "at": "R31:réseaux",
+     "name": "pop",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 20,
+     "frame": "serveur"
+    },
+    {
+     "at": "R28:pris",
+     "size": "cu",
+     "worldAngle": 25,
+     "elev": 25,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.3,
+       0.97,
+       -0.95
+      ]
+     ]
+    },
+    {
+     "at": "R29",
+     "size": "cu",
+     "angle": 0,
+     "elev": -10,
+     "frame": "serveur"
+    },
+    {
+     "at": "R30",
+     "size": "ms",
+     "angle": 10,
+     "elev": -6,
+     "withProps": true,
+     "frame": "serveur"
+    },
+    {
+     "at": "R31",
+     "size": "ms",
+     "angle": -20,
+     "frame": "serveur"
+    },
+    {
+     "at": "R31:réseaux",
+     "from": [
+      0.75,
+      1.345,
+      -0.39
+     ],
+     "lookAt": [
+      0.75,
+      0.925,
+      -0.45
+     ],
+     "lens": 40
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "scandale",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "FOURCHETTEGATE|SCANDALE|COUVERTS",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563",
+    "fontScale": 0.6
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       2.1
+      ],
+      [
+       -1.2,
+       0.12,
+       2.1
+      ],
+      [
+       0.0,
+       0.12,
+       2.1
+      ],
+      [
+       1.1999999999999997,
+       0.12,
+       2.1
+      ],
+      [
+       2.4,
+       0.12,
+       2.1
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "R32",
+     "text": "Scandale mondial.",
+     "highlight": [
+      "Scandale",
+      "mondial."
+     ]
+    }
+   ],
+   "actors": [],
+   "props": [
+    {
+     "id": "preuve",
+     "name": "fork",
+     "scale": 2.4,
+     "pos": [
+      0,
+      1.15,
+      -1.92
+     ]
+    },
+    {
+     "id": "cloche",
+     "name": "glassDome",
+     "pos": [
+      0,
+      1.15,
+      -1.92
+     ],
+     "opts": {
+      "radius": 0.15,
+      "height": 0.62,
+      "base": false,
+      "opacity": 0.2
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.05,
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": 0.45,
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": 0.85,
+     "name": "shutter",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 0,
+     "elev": 8,
+     "noOcclusion": true,
+     "zoom": 1.3,
+     "frame": [
+      [
+       0,
+       1.42,
+       -1.92
+      ]
+     ]
+    },
+    {
+     "at": "R32:mondial",
+     "from": [
+      0,
+      2.3,
+      5.2
+     ],
+     "lookAt": [
+      0,
+      1.25,
+      -2.0
+     ],
+     "lens": 34
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "foule",
+   "set": "pavillon",
+   "ambience": "park",
+   "ambienceVol": 0.6,
+   "crowd": [
+    {
+     "id": "foule",
+     "count": 3,
+     "spec": {
+      "preset": "internaute",
+      "suit": "#5A6E8C",
+      "seed": 60
+     },
+     "clip": "chant",
+     "ry": 180,
+     "positions": [
+      [
+       -2.6,
+       0,
+       3.2
+      ],
+      [
+       -0.6,
+       0,
+       3.3
+      ],
+      [
+       3.6,
+       0,
+       3.7
+      ]
+     ]
+    },
+    {
+     "id": "foulb",
+     "count": 3,
+     "spec": {
+      "preset": "internaute2",
+      "suit": "#C9729A",
+      "seed": 70
+     },
+     "clip": "chant",
+     "ry": 180,
+     "positions": [
+      [
+       -1.6,
+       0,
+       3.6
+      ],
+      [
+       2.6,
+       0,
+       3.4
+      ],
+      [
+       4.6,
+       0,
+       3.3
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "R33",
+     "text": "Des internautes patriotes ont débarqué chez lui. Avec des fourchettes.",
+     "highlight": [
+      "patriotes",
+      "fourchettes."
+     ]
+    },
+    {
+     "id": "R34",
+     "text": "Avec des baguettes, ça ferait moins mal, pas vrai ?",
+     "speaker": "internaute"
+    },
+    {
+     "id": "R35",
+     "text": "Ils ont aussi planté ses animaux. Au couteau.",
+     "highlight": [
+      "planté",
+      "couteau."
+     ]
+    },
+    {
+     "id": "R36",
+     "text": "Avec des baguettes, on y serait encore.",
+     "speaker": "internaute2"
+    },
+    {
+     "id": "R37",
+     "text": "Gloire à la République populaire !",
+     "speaker": "internaute"
+    },
+    {
+     "id": "R38",
+     "text": "En tête du cortège : Kylian Mbappé.",
+     "highlight": [
+      "Mbappé."
+     ]
+    },
+    {
+     "id": "R39",
+     "text": "Il dénonçait la gravité des couverts dans un restaurant chinois.",
+     "highlight": [
+      "gravité"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.97,
+      0,
+      -3.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.2,
+       "to": [
+        0.97,
+        0,
+        -1.95
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "then": "stand"
+      },
+      {
+       "at": "R33:débarqué",
+       "expr": "shocked",
+       "clip": "scared"
+      },
+      {
+       "at": "R33.end-0.15",
+       "face": 180,
+       "turn": 0.2,
+       "clip": "scared"
+      },
+      {
+       "at": "R33.end+0.3",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "R34:moins",
+       "clip": "scratchButt",
+       "expr": "sad"
+      },
+      {
+       "at": "R37",
+       "face": 0,
+       "turn": 0.25,
+       "clip": "scared",
+       "expr": "scared"
+      },
+      {
+       "at": "R39",
+       "clip": "cry",
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "internaute",
+     "pos": [
+      0.2,
+      0,
+      5.4
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "path": [
+        [
+         0.4,
+         0,
+         1.6
+        ],
+        [
+         0.85,
+         0,
+         -0.95
+        ]
+       ],
+       "clip": "walk",
+       "speed": 2.3,
+       "faceEnd": 180,
+       "then": "chant"
+      },
+      {
+       "at": "R33.end+0.05",
+       "clip": "pokeFinger",
+       "expr": "angry"
+      },
+      {
+       "at": "R33.end+0.55",
+       "clip": "stand",
+       "expr": "smug"
+      },
+      {
+       "at": "R34",
+       "clip": "laugh",
+       "expr": "smug"
+      },
+      {
+       "at": "R37",
+       "clip": "chant",
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "internaute2",
+     "pos": [
+      1.8,
+      0,
+      5.6
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.15,
+       "path": [
+        [
+         2.4,
+         0,
+         1.6
+        ],
+        [
+         4.8,
+         0,
+         -2.15
+        ]
+       ],
+       "clip": "walk",
+       "speed": 2.6,
+       "faceEnd": -110,
+       "then": "chant"
+      },
+      {
+       "at": "R36",
+       "clip": "talk",
+       "expr": "smug"
+      },
+      {
+       "at": "R37",
+       "clip": "chant",
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "mbappe",
+     "pos": [
+      1.15,
+      0,
+      6.0
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "path": [
+        [
+         1.25,
+         0,
+         1.4
+        ],
+        [
+         1.7,
+         0,
+         -0.35
+        ]
+       ],
+       "clip": "walk",
+       "speed": 2.2,
+       "faceEnd": "mec",
+       "then": "stand"
+      },
+      {
+       "at": "R37",
+       "clip": "point",
+       "expr": "angry"
+      },
+      {
+       "at": "R39",
+       "clip": "point",
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "fan1",
+     "pos": [
+      -0.7,
+      0,
+      6.2
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.25,
+       "path": [
+        [
+         -0.6,
+         0,
+         1.8
+        ],
+        [
+         -1.35,
+         0,
+         0.7
+        ]
+       ],
+       "clip": "walk",
+       "speed": 2.3,
+       "faceEnd": 170,
+       "then": "holdSign"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "fan2",
+     "pos": [
+      2.6,
+      0,
+      6.3
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.3,
+       "path": [
+        [
+         2.3,
+         0,
+         1.9
+        ],
+        [
+         2.95,
+         0,
+         0.8
+        ]
+       ],
+       "clip": "walk",
+       "speed": 2.3,
+       "faceEnd": -170,
+       "then": "holdSign"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      2.15,
+      0.3,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "R35-0.15",
+       "visible": true
+      }
+     ],
+     "scale": 1.2,
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "chat",
+     "pos": [
+      3.8,
+      0.33,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "R35-0.15",
+       "visible": true
+      }
+     ],
+     "scale": 1.2,
+     "visible": false,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "f1",
+     "name": "fork",
+     "scale": 4.0,
+     "opts": {
+      "handle": "#B5302A"
+     },
+     "on": {
+      "actor": "internaute",
+      "hand": "R",
+      "offset": [
+       0,
+       0.2,
+       0.02
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "R33.end+0.3",
+       "attach": "mec",
+       "joint": "hips",
+       "offset": [
+        0.06,
+        -0.05,
+        -0.74
+       ],
+       "rot": [
+        1.32,
+        0,
+        0
+       ],
+       "sfx": "boing"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "fork",
+     "scale": 4.0,
+     "opts": {
+      "handle": "#B5302A"
+     },
+     "on": {
+      "actor": "internaute2",
+      "hand": "R",
+      "offset": [
+       0,
+       0.2,
+       0.02
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "mega",
+     "name": "megaphone",
+     "on": {
+      "actor": "mbappe",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.1,
+       0.0
+      ],
+      "rot": [
+       1.5708,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "pancarte1",
+     "name": "protestSign",
+     "scale": 0.8,
+     "opts": {
+      "text": "COUVERTS = CRIME",
+      "color": "#B3261E"
+     },
+     "on": {
+      "actor": "fan1",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "pancarte2",
+     "name": "protestSign",
+     "scale": 0.8,
+     "opts": {
+      "text": "BAGUETTES OU RIEN",
+      "color": "#B3261E"
+     },
+     "on": {
+      "actor": "fan2",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "pot1",
+     "name": "planter",
+     "pos": [
+      2.3,
+      0,
+      -2.85
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "R35-0.15",
+       "visible": true
+      }
+     ],
+     "opts": {
+      "w": 1.1,
+      "d": 0.75,
+      "sprouts": 2
+     }
+    },
+    {
+     "id": "pot2",
+     "name": "planter",
+     "pos": [
+      3.8,
+      0,
+      -2.85
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "R35-0.15",
+       "visible": true
+      }
+     ],
+     "opts": {
+      "w": 0.9,
+      "d": 0.75,
+      "sprouts": 2,
+      "seed": 9
+     }
+    },
+    {
+     "id": "truelle",
+     "name": "knife",
+     "scale": 3.0,
+     "visible": false,
+     "keys": [
+      {
+       "at": "R35-0.15",
+       "visible": true
+      }
+     ],
+     "opts": {
+      "handle": "#2A2420"
+     },
+     "pos": [
+      2.66,
+      0.86,
+      -2.7
+     ],
+     "rot": [
+      0.3,
+      0,
+      3.1416
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R33.end+0.3",
+     "name": "thud",
+     "vol": 0.5
+    },
+    {
+     "at": "R35:planté",
+     "name": "pop",
+     "vol": 0.4
+    },
+    {
+     "at": "R37:Gloire",
+     "name": "fanfare",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": "mec"
+    },
+    {
+     "at": "R33:débarqué",
+     "from": [
+      0.4,
+      1.75,
+      -3.85
+     ],
+     "lookAt": [
+      1.2,
+      1.25,
+      2.5
+     ],
+     "lens": 34
+    },
+    {
+     "at": "R33:fourchettes",
+     "size": "ms",
+     "angle": 10,
+     "frame": "internaute"
+    },
+    {
+     "at": "R33.end-0.1",
+     "size": "ms",
+     "worldAngle": 90,
+     "frame": [
+      "mec",
+      "internaute"
+     ]
+    },
+    {
+     "at": "R34+0.6",
+     "size": "cu",
+     "angle": 10,
+     "frame": "internaute"
+    },
+    {
+     "at": "R35",
+     "size": "ms",
+     "worldAngle": -8,
+     "frame": [
+      "chien",
+      "chat"
+     ]
+    },
+    {
+     "at": "R35:couteau",
+     "size": "cu",
+     "worldAngle": -5,
+     "withProps": true,
+     "frame": [
+      "chien",
+      "truelle"
+     ]
+    },
+    {
+     "at": "R36",
+     "size": "cu",
+     "angle": 0,
+     "frame": "internaute2"
+    },
+    {
+     "at": "R37",
+     "size": "ms",
+     "angle": 35,
+     "frame": "internaute"
+    },
+    {
+     "at": "R38",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mbappe"
+    },
+    {
+     "at": "R39",
+     "size": "ms",
+     "worldAngle": 60,
+     "frame": [
+      "mbappe",
+      "mec"
+     ]
+    },
+    {
+     "at": "R39:restaurant",
+     "size": "cu",
+     "angle": -30,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.25
+  },
+  {
+   "id": "excuses",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "PARDON|SORRY|EXCUSES|SCUSATE|LO SIENTO|DESCULPA",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563",
+    "podium": false
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       2.1
+      ],
+      [
+       -1.2,
+       0.12,
+       2.1
+      ],
+      [
+       0.0,
+       0.12,
+       2.1
+      ],
+      [
+       1.1999999999999997,
+       0.12,
+       2.1
+      ],
+      [
+       2.4,
+       0.12,
+       2.1
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "R40",
+     "text": "Ce mec avait tout perdu. Il a dû s'excuser.",
+     "highlight": [
+      "perdu.",
+      "s'excuser."
+     ]
+    },
+    {
+     "id": "R41",
+     "text": "Mbappé l'a humilié : lui, il s'excusait en douze langues.",
+     "highlight": [
+      "humilié",
+      "douze"
+     ]
+    },
+    {
+     "id": "R42",
+     "text": "Et là, d'un coup, ce mec est tombé amoureux de la Chine.",
+     "highlight": [
+      "amoureux"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R40:excuser",
+       "clip": "bowRepeat",
+       "params": {
+        "freq": 1.4
+       }
+      },
+      {
+       "at": "R41:douze",
+       "clip": "stand",
+       "expr": "shocked",
+       "look": "mbappe"
+      },
+      {
+       "at": "R42:coup",
+       "clip": "lookUp",
+       "expr": "happy",
+       "look": null
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "mbappe",
+     "pos": [
+      3.0,
+      0,
+      -1.9
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R41",
+       "to": [
+        1.05,
+        0,
+        -1.65
+       ],
+       "clip": "walk",
+       "speed": 2.2,
+       "faceEnd": 0,
+       "then": "stand"
+      },
+      {
+       "at": "R41:douze",
+       "clip": "bowRepeat",
+       "params": {
+        "freq": 3.4
+       },
+       "expr": "happy"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "f1",
+     "name": "fork",
+     "scale": 4.0,
+     "opts": {
+      "handle": "#B5302A"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "hips",
+      "offset": [
+       0.06,
+       -0.05,
+       -0.74
+      ],
+      "rot": [
+       1.32,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R40",
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": "R41:douze",
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": "R42:coup",
+     "name": "choir",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "R40:excuser",
+     "size": "fs",
+     "angle": 80,
+     "frame": "mec"
+    },
+    {
+     "at": "R41",
+     "from": [
+      0.5,
+      1.95,
+      2.7
+     ],
+     "lookAt": [
+      0.5,
+      1.35,
+      -1.6
+     ],
+     "lens": 30
+    },
+    {
+     "at": "R41:douze",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "mbappe"
+    },
+    {
+     "at": "R42",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.08,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "avion",
+   "set": "airport",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "R43",
+     "text": "Il a pris l'avion. Il est devenu chinois.",
+     "highlight": [
+      "l'avion.",
+      "chinois."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecMao",
+     "pos": [
+      0.3,
+      0,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "R43:devenu-0.05",
+       "visible": true
+      },
+      {
+       "at": "R43:devenu-0.3",
+       "to": [
+        0.3,
+        0,
+        -0.2
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "then": "salute"
+      }
+     ],
+     "visible": false,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "avion",
+     "name": "plane",
+     "pos": [
+      -26,
+      8.5,
+      -25
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        18,
+        10.5,
+        -25
+       ],
+       "dur": 2.0,
+       "ease": "inOut"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "jet",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0,
+      1.1,
+      3.5
+     ],
+     "lookAt": [
+      -1,
+      7.2,
+      -25
+     ],
+     "lens": 40
+    },
+    {
+     "at": "R43:devenu",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mecMao"
+    }
+   ],
+   "tail": 0.25
+  },
+  {
+   "id": "politique",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "DÉMOCRATIE|HARMONIE|BONHEUR|PROSPÉRITÉ",
+    "bg": "#B5302A",
+    "fg": "#F2D16B",
+    "flagOpts": {
+     "colors": [
+      "#DE2910"
+     ],
+     "prc": true
+    }
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       2.1
+      ],
+      [
+       -1.2,
+       0.12,
+       2.1
+      ],
+      [
+       0.0,
+       0.12,
+       2.1
+      ],
+      [
+       1.1999999999999997,
+       0.12,
+       2.1
+      ],
+      [
+       2.4,
+       0.12,
+       2.1
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "R44",
+     "text": "Il a rencontré les dirigeants chinois. Puis il est devenu dirigeant chinois.",
+     "highlight": [
+      "rencontré",
+      "devenu"
+     ]
+    },
+    {
+     "id": "R45",
+     "text": "La Chine est la plus grande démocratie du monde. Économiquement, culturellement, socialement.",
+     "speaker": "mecMao"
+    },
+    {
+     "id": "R46",
+     "text": "Je suis l'homme le plus heureux du monde.",
+     "speaker": "mecMao"
+    },
+    {
+     "id": "R47",
+     "text": "La Chine n'a que de bonnes intentions. Elle n'a jamais été une dictature.",
+     "speaker": "mecMao"
+    },
+    {
+     "id": "R48",
+     "text": "Ça, c'est la propagande occidentale.",
+     "speaker": "mecMao"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecMao",
+     "pos": [
+      -0.45,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": "R44:devenu",
+       "to": [
+        0,
+        0,
+        -2.45
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "podiumTalk",
+       "expr": "happy"
+      },
+      {
+       "at": "R46",
+       "expr": "happy",
+       "clip": "stand"
+      },
+      {
+       "at": "R47",
+       "clip": "podiumTalk",
+       "expr": "neutral"
+      },
+      {
+       "at": "R48",
+       "clip": "podiumTalk",
+       "expr": "smug"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "off1",
+     "pos": [
+      0.35,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": "R44:devenu",
+       "to": [
+        -1.05,
+        0,
+        -2.55
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "stand"
+      },
+      {
+       "at": "R47",
+       "clip": "nod"
+      },
+      {
+       "at": "R48",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "off2",
+     "pos": [
+      1.3,
+      0,
+      -1.5
+     ],
+     "ry": -60,
+     "clip": "nod",
+     "keys": [
+      {
+       "at": "R44:devenu",
+       "to": [
+        1.05,
+        0,
+        -2.55
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "stand"
+      },
+      {
+       "at": "R47",
+       "clip": "nod"
+      },
+      {
+       "at": "R48",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "souffleur",
+     "pos": [
+      2.1,
+      0,
+      -1.35
+     ],
+     "ry": -70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R46-0.2",
+       "clip": "holdSign"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "carton",
+     "name": "protestSign",
+     "scale": 0.55,
+     "visible": false,
+     "opts": {
+      "text": "SOURIEZ",
+      "color": "#1E2E44"
+     },
+     "on": {
+      "actor": "souffleur",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "R46-0.2",
+       "visible": true
+      },
+      {
+       "at": "R47",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R44:devenu",
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": "R48:propagande",
+     "name": "shutter",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.6,
+      2.05,
+      3.0
+     ],
+     "lookAt": [
+      -0.05,
+      1.25,
+      -1.0
+     ],
+     "lens": 30
+    },
+    {
+     "at": "R44:devenu",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mecMao"
+    },
+    {
+     "at": "R45",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "mecMao"
+    },
+    {
+     "at": "R45:Économiquement",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 5,
+     "frame": [
+      "mecMao",
+      "off1",
+      "off2"
+     ]
+    },
+    {
+     "at": "R46",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecMao"
+    },
+    {
+     "at": "R46:heureux",
+     "size": "cu",
+     "worldAngle": -25,
+     "noOcclusion": true,
+     "zoom": 1.2,
+     "frame": "carton"
+    },
+    {
+     "at": "R47",
+     "size": "mcu",
+     "angle": -10,
+     "frame": "mecMao"
+    },
+    {
+     "at": "R47:dictature",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "off1",
+      "off2"
+     ]
+    },
+    {
+     "at": "R48",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mecMao"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "appel",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "DÉMOCRATIE|HARMONIE|BONHEUR|PROSPÉRITÉ",
+    "bg": "#B5302A",
+    "fg": "#F2D16B",
+    "flagOpts": {
+     "colors": [
+      "#DE2910"
+     ],
+     "prc": true
+    }
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       2.1
+      ],
+      [
+       -1.2,
+       0.12,
+       2.1
+      ],
+      [
+       0.0,
+       0.12,
+       2.1
+      ],
+      [
+       1.1999999999999997,
+       0.12,
+       2.1
+      ],
+      [
+       2.4,
+       0.12,
+       2.1
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "R49",
+     "text": "Puis il a appelé la police. Motif : trafic de stupéfiants.",
+     "highlight": [
+      "Motif",
+      "stupéfiants."
+     ]
+    },
+    {
+     "id": "R50",
+     "text": "Et sa cuisine n'est pas à la hauteur d'une nation souveraine.",
+     "speaker": "mecMao"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecMao",
+     "pos": [
+      0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "phoneCall",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "mecMao",
+      "hand": "R"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "mcu",
+     "angle": 20,
+     "frame": "mecMao"
+    },
+    {
+     "at": "R49:Motif",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecMao"
+    },
+    {
+     "at": "R50",
+     "size": "cu",
+     "angle": -20,
+     "frame": "mecMao"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "fin",
+   "set": "proKitchen",
+   "ambience": "lab",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "R51",
+     "text": "Le serveur avait raison d'être paranoïaque.",
+     "pre": 0.5,
+     "highlight": [
+      "paranoïaque."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "serveur",
+     "pos": [
+      0.3,
+      0,
+      -1.42
+     ],
+     "ry": 0,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": 0.45,
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": 0.95,
+       "clip": "handcuffed",
+       "expr": "scared"
+      },
+      {
+       "at": "R51:paranoïaque",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -4.4,
+      0,
+      -2.4
+     ],
+     "ry": 120,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         -2.4,
+         0,
+         -1.6
+        ],
+        [
+         -0.55,
+         0,
+         -1.55
+        ]
+       ],
+       "clip": "run",
+       "speed": 5.5,
+       "faceEnd": "serveur",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -4.6,
+      0,
+      -1.6
+     ],
+     "ry": 100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "path": [
+        [
+         -2.0,
+         0,
+         -0.1
+        ],
+        [
+         1.35,
+         0,
+         -1.65
+        ]
+       ],
+       "clip": "run",
+       "speed": 6.0,
+       "faceEnd": "serveur",
+       "then": "point"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "ligne",
+     "name": "powderLine",
+     "pos": [
+      0.3,
+      0.925,
+      -0.92
+     ]
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "serveur",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": 0.95,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "siren",
+     "vol": 0.5
+    },
+    {
+     "at": 0.95,
+     "name": "cuff",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 10,
+     "elev": 8,
+     "frame": [
+      "serveur",
+      [
+       -0.55,
+       1.0,
+       -1.55
+      ],
+      [
+       1.35,
+       1.0,
+       -1.65
+      ]
+     ]
+    },
+    {
+     "at": "R51:raison",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "serveur"
+    }
+   ],
+   "tail": 1.5
+  }
+ ]
+}

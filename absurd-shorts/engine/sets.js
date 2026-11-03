@@ -613,11 +613,11 @@ const S = {
   },
   pressRoom(o = {}) { // press conference: backdrop with repeated words (o.backdrop 'A|B|C'), podium with microphones, flags, chairs, cameras
     const g = grp(), { back } = room(g, { wall: '#2E4563', band: '#24384F', bandH: 0.8, trim: '#1E2E44', floor: '#3A3F45', back: -3.0 });
-    const bd = canvasPlane(6.0, 2.6, (c, W, H) => { c.fillStyle = o.bg || '#2E4563'; c.fillRect(0, 0, W, H); c.fillStyle = o.fg || 'rgba(255,255,255,0.85)'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.085}px Arial`;
+    const bd = canvasPlane(6.0, 2.6, (c, W, H) => { c.fillStyle = o.bg || '#2E4563'; c.fillRect(0, 0, W, H); c.fillStyle = o.fg || 'rgba(255,255,255,0.85)'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.085 * (o.fontScale || 1)}px Arial`;
       const words = String(o.backdrop || 'CONFÉRENCE DE PRESSE').split('|'); for (let r = 0; r < 6; r++) for (let k = 0; k < 4; k++) c.fillText(words[(r * 4 + k) % words.length], W * (0.14 + k * 0.24 + (r % 2) * 0.06), H * (0.1 + r * 0.16)); }, { res: 1024 });
     g.add(at(bd, 0, 1.9, back + 0.02));
     if (o.podium !== false) { g.add(prop('podium', {}, 0, 0, back + 1.0)); [-0.08, 0.08].forEach(x => g.add(rod([x, 1.15, back + 1.05], [x * 1.6, 1.42, back + 0.86], 0.008, P.ink), at(sphere(0.025, P.ink, 0), x * 1.6, 1.43, back + 0.85))); }
-    const fc = o.flag || ['#2C4A8A', P.white, P.red]; if (o.flags !== false) g.add(prop('flag', { colors: fc }, -1.5, 0, back + 0.4), prop('flag', { colors: fc }, 1.5, 0, back + 0.4));
+    const fc = o.flag || ['#2C4A8A', P.white, P.red], fo = o.flagOpts || { colors: fc }; if (o.flags !== false) g.add(prop('flag', fo, -1.5, 0, back + 0.4), prop('flag', fo, 1.5, 0, back + 0.4));
     for (let r = 0; r < 2; r++) for (let i = 0; i < 5; i++) g.add(prop('chair', { color: '#8C949A' }, -2.4 + i * 1.2, 0, 2.2 + r * 1.1, PI));
     [-3.2, 3.2].forEach(x => g.add(rod([x, 0, 3.9], [x, 1.45, 3.6], 0.015, P.ink), rod([x - 0.25, 0, 3.4], [x, 1.45, 3.6], 0.015, P.ink), rod([x + 0.25, 0, 3.4], [x, 1.45, 3.6], 0.015, P.ink),
       at(box(0.3, 0.22, 0.42, P.ink, { outline: 0.01 }), x, 1.55, 3.55), at(cyl(0.06, 0.06, 0.1, P.greyDark, 8), x, 1.55, 3.3, PI / 2)));
@@ -698,6 +698,118 @@ const S = {
     g.userData.update = t => { bag.rotation.z = Math.sin(t * 2.2) * 0.04; };
     g.userData.anchors = { center: [0, 0, 0], bench: [3.4, 0, -2.0], benchLie: [3.4, 0.52, -2.0], bag: [4.4, 0, 0.6], bagFront: [4.4, 0, 1.4], treadmill: [-3.6, 0.2, -0.6], rack: [-3.6, 0, back + 0.4], mirror: [0.8, 1.35, back] };
     g.userData.lighting = 'interior'; return g;
+  },
+  chineseRestaurant(o = {}) { // French "restaurant chinois" — viz3d pass from real dining rooms: red walls with a gold-trimmed dado, dark wood
+                              // floor, round tables with white cloths and glass lazy Susans, red lanterns, the brand sign over a lacquered bar,
+                              // a fish tank, ink landscape scrolls, round fans, a menu board, the kitchen door, bamboo in pots
+    const g = grp(), { back } = room(g, { wall: '#A8322A', band: '#5A1E16', bandH: 1.05, trim: '#D8A83A', floor: '#6B4A34', back: -3.6, half: 6 }), anim = [];
+    const teapot = () => grp(at(sphere(0.07, '#F4EFE6', 1), 0, 0.06, 0), at(cyl(0.03, 0.03, 0.02, '#F4EFE6', 8), 0, 0.125, 0), rod([0.05, 0.05, 0], [0.11, 0.1, 0], 0.012, '#F4EFE6'), at(torus(0.035, 0.008, '#F4EFE6', 4, 10), -0.075, 0.07, 0));
+    const roundTable = (x, z, chairs = 4, main = false) => {
+      const t = grp(at(cyl(0.6, 0.6, 0.03, '#F4EFE6', 22, { outline: 0.004 }), 0, 0.77, 0), at(cyl(0.6, 0.63, 0.3, '#ECE4D6', 22, { pivot: 'top' }), 0, 0.755, 0),
+        at(cyl(0.3, 0.3, 0.012, '#CFE3E3', 20), 0, 0.792, 0));
+      if (!main) t.add(at(buildProp('riceBowl', {}), -0.12, 0.798, 0.05), at(buildProp('noodlePlate', { seed: x * 7 + z }), 0.12, 0.798, -0.05), at(teapot(), 0.05, 0.798, 0.2));
+      for (let i = 0; i < chairs; i++) { const a = (main ? PI : 0) + i * TAU / chairs; t.add(prop('chair', { color: '#3A2418' }, Math.sin(a) * 0.85, 0, Math.cos(a) * 0.85, a + PI)); }
+      return at(t, x, 0, z); };
+    g.add(roundTable(0, -1.2, 1, true), roundTable(-3.5, -1.7), roundTable(3.5, -1.5), roundTable(-3.4, 1.7), roundTable(3.4, 1.9));
+    [[0, -1.2], [-3.5, -1.7], [3.5, -1.5], [-3.4, 1.7], [3.4, 1.9], [0, 1.4]].forEach(([x, z]) => g.add(prop('lantern', { cord: 4.4 }, x, 2.6, z)));
+    // lacquered bar under the brand sign, till, menus, vase; the kitchen swing door
+    g.add(at(box(3.0, 1.05, 0.6, '#3A2418', { pivot: 'bottom', outline: 0.006 }), -1.4, 0, back + 0.85), at(box(3.1, 0.05, 0.7, '#5A3A28'), -1.4, 1.075, back + 0.85), at(box(3.0, 0.06, 0.02, '#D8A83A'), -1.4, 0.82, back + 1.16));
+    g.add(prop('cashRegister', {}, -0.5, 1.1, back + 0.85), at(box(0.25, 0.05, 0.34, '#B5302A'), -2.3, 1.125, back + 0.85), at(cyl(0.08, 0.12, 0.42, '#2C4A8A', 10, { pivot: 'bottom', outline: 0.008 }), -2.75, 1.1, back + 0.8));
+    g.add(at(box(3.5, 0.74, 0.08, '#1A1412', { outline: 0.006 }), -1.4, 2.75, back + 0.05), at(label(o.brand || "LE LOTUS D'OR", 3.3, 0.58, { bg: '#B5302A', fg: '#F2D16B', wrap: false }), -1.4, 2.75, back + 0.1));
+    g.add(prop('door', { color: '#7A1E18', frame: '#D8A83A' }, 2.3, 0, back), at(cyl(0.15, 0.15, 0.02, '#F2E2B0', 14, { emissive: '#5A4A20' }), 2.3, 1.55, back + 0.07, PI / 2, 0, 0));
+    // decoration: ink-landscape scrolls, round fans, menu board, fish tank, bamboo
+    const scroll = (w, h) => grp(at(canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#EFE6CF'; c.fillRect(0, 0, W, H); c.fillStyle = '#5A5A5A';
+        c.beginPath(); c.moveTo(0, H * 0.75); c.lineTo(W * 0.25, H * 0.35); c.lineTo(W * 0.45, H * 0.62); c.lineTo(W * 0.7, H * 0.25); c.lineTo(W, H * 0.7); c.lineTo(W, H); c.lineTo(0, H); c.fill();
+        c.fillStyle = '#9A9A9A'; c.beginPath(); c.moveTo(0, H * 0.85); c.lineTo(W * 0.35, H * 0.6); c.lineTo(W * 0.6, H * 0.82); c.lineTo(W, H * 0.78); c.lineTo(W, H); c.lineTo(0, H); c.fill();
+        c.fillStyle = '#B5302A'; c.fillRect(W * 0.78, H * 0.08, W * 0.1, W * 0.1); }, { res: 256 }), 0, 0, 0.012), at(box(w + 0.1, 0.04, 0.04, '#3A2418'), 0, h / 2, 0.02), at(box(w + 0.1, 0.04, 0.04, '#3A2418'), 0, -h / 2, 0.02));
+    g.add(at(scroll(0.7, 1.4), 4.2, 2.1, back + 0.02), at(scroll(0.6, 1.2), -5.98, 2.1, -0.6, 0, PI / 2, 0));
+    [[-3.6, 2.75], [0.8, 2.75]].forEach(([x, y]) => g.add(at(cyl(0.32, 0.32, 0.02, '#C8281E', 18, { outline: 0.006 }), x, y, back + 0.03, PI / 2, 0, 0), at(torus(0.32, 0.012, '#D8A83A', 4, 24), x, y, back + 0.045)));
+    g.add(at(box(1.3, 0.95, 0.05, '#1A1412', { outline: 0.006 }), 4.2, 0.0 + 1.95 - 1.0, back + 0.03), at(label('NEMS ......... 6 €\nCANARD LAQUÉ .. 14 €\nRIZ CANTONAIS .. 7 €\nNOUILLES ....... 9 €', 1.2, 0.85, { bg: '#1A1412', fg: '#F2D16B' }), 4.2, 0.95, back + 0.06));
+    const tank = prop('aquarium', { w: 1.3 }, -5.55, 0, -1.4, PI / 2); anim.push(tank); g.add(tank);
+    [[-5.4, back + 0.5], [5.4, back + 0.5]].forEach(([x, z], i) => { const b = grp(at(cyl(0.22, 0.18, 0.4, '#2C4A8A', 10, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0));
+      for (let k = 0; k < 5; k++) b.add(at(cyl(0.02, 0.025, 1.6 + (k % 3) * 0.3, '#7FA35A', 6, { pivot: 'bottom' }), Math.cos(k * 1.3) * 0.08, 0.35, Math.sin(k * 1.3) * 0.08, (k - 2) * 0.05, 0, (k % 2 ? 1 : -1) * 0.06), at(box(0.25, 0.02, 0.07, '#8DB86A'), Math.cos(k * 1.3) * 0.12, 1.3 + k * 0.12, Math.sin(k * 1.3) * 0.08, 0, k, 0.4));
+      g.add(at(b, x, 0, z)); });
+    g.userData.update = t => anim.forEach(p => p.userData.update(t));
+    g.userData.anchors = { center: [0, 0, 0], table: [0, 0, -1.2], tableTop: [0, 0.785, -1.2], seat: [0, 0.12, -1.93], door: [2.3, 0, back + 0.6], bar: [-1.4, 0, back + 0.85], sign: [-1.4, 2.75, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  proKitchen(o = {}) { // restaurant kitchen — viz3d pass from real wok-kitchen layouts: wok range with jet burners and live flames under a steel
+                       // hood, stock pot, steel prep island, shelves with sauces and bamboo steamers, rice cooker, utensil rail, white tiles,
+                       // red quarry-tile floor, a back door, a big wall clock
+    const g = grp(), { back } = room(g, { wall: '#E6ECEA', band: '#C9D2D0', bandH: 1.25, trim: '#8C949A', floor: '#9A4A3A', back: -3.2, half: 5.5 }), anim = [];
+    const steel = '#B9BEC0', top = '#D5D9DB';
+    g.add(at(box(4.2, 0.85, 0.75, steel, { pivot: 'bottom', outline: 0.006 }), 0.6, 0, back + 0.45), at(box(4.3, 0.05, 0.8, top), 0.6, 0.875, back + 0.45));
+    const wok = x => grp(at(mesh(new THREE.SphereGeometry(0.28, 14, 6, 0, TAU, PI / 2, PI / 2), mat('#2A2A2E', { doubleSide: true })), x, 1.24, back + 0.45), rod([x + 0.27, 1.22, back + 0.45], [x + 0.62, 1.3, back + 0.45], 0.018, '#3A2418'));
+    [-0.7, 0.6].forEach(x => { const fl = prop('flame', {}, x, 0.9, back + 0.45); anim.push(fl); g.add(fl, wok(x)); });
+    g.add(at(cyl(0.26, 0.26, 0.5, '#C9CDCF', 14, { pivot: 'bottom', outline: 0.008 }), 1.9, 0.9, back + 0.45), at(cyl(0.27, 0.27, 0.03, '#A9AEB0', 14), 1.9, 1.41, back + 0.45));
+    g.add(at(box(4.6, 0.55, 1.1, '#C9CDCF', { outline: 0.006, taper: { x: 0.94, z: 0.7 } }), 0.6, 2.55, back + 0.55), at(box(4.4, 0.04, 0.9, '#8C949A'), 0.6, 2.27, back + 0.6));
+    for (let i = 0; i < 6; i++) { const x = -1.1 + i * 0.5; g.add(rod([x, 2.25, back + 1.02], [x, 1.95, back + 1.02], 0.006, '#8C949A'), at(sphere(0.05, '#A9AEB0', 0), x, 1.92, back + 1.02)); }
+    g.add(rod([-1.3, 2.26, back + 1.02], [1.6, 2.26, back + 1.02], 0.01, '#8C949A'));
+    // prep island in the middle: cutting board, cleaver, bowl of vegetables
+    g.add(at(box(2.0, 0.88, 0.85, steel, { pivot: 'bottom', outline: 0.006 }), 0, 0, -0.6), at(box(2.1, 0.045, 0.9, top), 0, 0.9, -0.6), at(box(1.9, 0.03, 0.75, '#A9AEB0'), 0, 0.2, -0.6));
+    g.add(at(box(0.45, 0.03, 0.3, '#C9A06A', { outline: 0.006 }), -0.55, 0.94, -0.55), at(box(0.2, 0.09, 0.005, '#C9CCD1'), -0.5, 0.958, -0.5, -PI / 2, 0, 0.2), at(cyl(0.16, 0.1, 0.09, P.white, 12, { pivot: 'bottom', outline: 0.006 }), -0.15, 0.925, -0.35));
+    [[-0.2, -0.32, '#5E9A4A'], [-0.1, -0.38, '#E8775F'], [-0.16, -0.4, '#F2C230']].forEach(([x, z, c]) => g.add(at(sphere(0.045, c, 0), x, 1.01, z)));
+    // shelves (right of the hood): sauces, bamboo steamers; rice cooker on a side table
+    [1.1, 1.6, 2.1].forEach(y => g.add(at(box(1.6, 0.04, 0.4, top), 4.3, y, back + 0.22)));
+    for (let i = 0; i < 5; i++) g.add(prop('sauceBottle', { text: ['SOJA', 'HUÎTRE', 'SÉSAME', 'SOJA', 'PIMENT'][i] }, 3.7 + i * 0.28, 1.12, back + 0.22, 0, 0.8));
+    for (let s = 0; s < 2; s++) for (let k = 0; k < 3; k++) g.add(at(cyl(0.17, 0.17, 0.09, '#C9A06A', 12, { outline: 0.006 }), 3.9 + s * 0.7, 1.67 + k * 0.095, back + 0.22));
+    g.add(at(box(1.1, 0.8, 0.6, steel, { pivot: 'bottom', outline: 0.006 }), -2.9, 0, back + 0.4), at(cyl(0.2, 0.2, 0.28, P.white, 14, { pivot: 'bottom', outline: 0.008 }), -2.9, 0.8, back + 0.4), at(sphere(0.2, P.white, 1), -2.9, 1.06, back + 0.4));
+    g.add(prop('door', { color: '#8C949A', frame: '#6F7A82' }, -4.4, 0, back));
+    g.add(prop('wallClock', { rate: o.clockRate ?? 1 / 60 }, -2.9, 2.35, back + 0.03, 0, 1.5));
+    g.userData.update = t => anim.forEach(p => p.userData.update(t));
+    g.userData.anchors = { center: [0, 0, 0], island: [0, 0, -0.6], islandTop: [0, 0.925, -0.6], behindIsland: [0.3, 0, -1.4], range: [0.6, 0, back + 0.45], door: [-4.4, 0, back + 0.6], clock: [-2.9, 2.35, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  maoStreet(o = {}) { // a 1970s Beijing hutong lane — viz3d pass from period photographs: grey brick courtyard walls with tiled copings, a red
+                      // gate, a slogan banner, propaganda posters, bicycles, a loudspeaker on a pole, coal briquettes, crates at the mouth of a
+                      // side alley (the black market), grey tiled roofs behind
+    const g = grp(); sky(g, ['#B8C0BC', '#E2E2D8']); g.add(ground('#A89A84'));
+    const BR = '#8E8C86', bz = -4.2;
+    const bricks = (w, h) => canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#8E8C86'; c.fillRect(0, 0, W, H); const bw = W / (w / 0.48), bh = H / (h / 0.12); c.fillStyle = '#7A7872';
+      for (let r = 0, y = 0; y < H; r++, y += bh) { c.fillRect(0, y, W, Math.max(1, bh * 0.14)); for (let x = (r % 2) * bw / 2; x < W; x += bw) c.fillRect(x, y, Math.max(1, bw * 0.05), bh); } }, { res: 2048 });
+    // back wall split by the side alley (x 3.0..4.2), alley walls going back, coping tiles on top
+    [[-9.0, 12], [9.6, 10.8]].forEach(([x, w]) => g.add(wall(w, 3, 0.4, BR, x, 1.5, bz), at(bricks(w, 3), x, 1.5, bz + 0.205), at(box(w + 0.1, 0.16, 0.6, '#4A4A4E'), x, 3.08, bz)));
+    [3.0, 4.2].forEach(x => g.add(wall(0.4, 3, 6, BR, x + (x < 4 ? -0.2 : 0.2), 1.5, bz - 3.2), at(box(0.6, 0.16, 6.1, '#4A4A4E'), x + (x < 4 ? -0.2 : 0.2), 3.08, bz - 3.2)));
+    g.add(wall(1.6, 3, 0.4, '#7A7872', 3.6, 1.5, bz - 6.2), wall(0.4, 3, 9, BR, -6.2, 1.5, bz + 4.5), at(box(0.6, 0.16, 9.1, '#4A4A4E'), -6.2, 3.08, bz + 4.5));
+    // red gate under a little tiled roof, the slogan banner, posters
+    g.add(at(box(1.9, 2.5, 0.3, '#6E241C', { pivot: 'bottom', outline: 0.006 }), -1.6, 0, bz + 0.2), at(box(0.78, 2.15, 0.06, '#B5302A', { pivot: 'bottom' }), -2.0, 0.05, bz + 0.37), at(box(0.78, 2.15, 0.06, '#B5302A', { pivot: 'bottom' }), -1.2, 0.05, bz + 0.37),
+      at(box(2.4, 0.22, 0.9, '#4A4A4E', { taper: { x: 0.8, z: 0.4 } }), -1.6, 2.62, bz + 0.3));
+    for (let k = 0; k < 9; k++) g.add(at(sphere(0.025, '#D8A83A', 0), -2.0 + ((k % 3) - 1) * 0.22, 0.7 + Math.floor(k / 3) * 0.45, bz + 0.41), at(sphere(0.025, '#D8A83A', 0), -1.2 + ((k % 3) - 1) * 0.22, 0.7 + Math.floor(k / 3) * 0.45, bz + 0.41));
+    g.add(at(label('为人民服务', 3.0, 0.55, { bg: '#B5302A', fg: '#F2D16B', wrap: false }), -4.6, 2.35, bz + 0.22));
+    g.add(at(buildProp('memePoster', { text: '禁止西方产品', skin: '#E0B48A' }), 0.9, 1.65, bz + 0.21), at(buildProp('memePoster', { text: '万岁', skin: '#E0B48A' }), 6.0, 1.65, bz + 0.21));
+    // bicycles against the wall, loudspeaker pole, coal briquettes, crates at the alley mouth, grey roofs behind
+    g.add(prop('bicycle', { color: '#2A2A30' }, -4.0, 0, bz + 0.5), prop('bicycle', { color: '#3E5A4A' }, -3.0, 0, bz + 0.55, 0.15));
+    g.add(at(cyl(0.07, 0.09, 4.2, '#6B4A34', 6, { pivot: 'bottom' }), -5.3, 0, -1.8), prop('hornSpeaker', {}, -5.3, 4.0, -1.75, 0.6), prop('hornSpeaker', {}, -5.3, 3.85, -1.85, 2.4));
+    const coal = []; for (let i = 0; i < 18; i++) coal.push([-5.6 + (i % 6) * 0.16, 0.06 + Math.floor(i / 6) * 0.11, bz + 0.6 + (i % 2) * 0.05]); g.add(inst(new THREE.CylinderGeometry(0.07, 0.07, 0.1, 8), mat('#232326'), coal));
+    [[2.5, -3.6, 0.55], [2.6, -3.0, 0.45], [4.7, -3.7, 0.5], [3.5, -5.6, 0.6]].forEach(([x, z, s], i) => g.add(at(box(s, s, s, '#8A6A44', { pivot: 'bottom', outline: 0.008 }), x, 0, z, 0, i * 0.3, 0)));
+    [[-7, -9, 9], [3, -10.5, 8], [12, -9, 7]].forEach(([x, z, w]) => g.add(at(box(w, 2.6, 5, '#7E7C76', { pivot: 'bottom' }), x, 0, z), at(box(w + 0.6, 1.3, 5.6, '#3E3E42', { taper: { x: 1, z: 0.1 } }), x, 3.25, z)));
+    g.add(prop('tree', { seed: 31, color: '#6E8A5A' }, -8.5, 0, -6.5, 0, 1.6));
+    g.userData.anchors = { center: [0, 0, 0], gate: [-1.6, 0, bz], alley: [3.6, 0, -4.9], poster: [0.9, 1.65, bz], pole: [-5.3, 0, -1.8], crates: [2.5, 0, -3.6] };
+    g.userData.lighting = 'day'; return g;
+  },
+  tinyCell(o = {}) { // the absurd cell: a concrete niche 0.62 m wide behind bars in a dim corridor; a drawn "window" high on its back wall,
+                     // years of tally marks on the block, a loudspeaker, one bare bulb
+    const g = grp(), { back } = room(g, { wall: '#7C8079', band: '#5E625C', bandH: 1.0, trim: '#4A4E48', floor: '#6A6C66', back: -2.0, half: 4, height: 4.4 });
+    const cw = 0.62, cd = 0.62, ch = 2.45, fz = back + cd, C = '#8A8D86';
+    g.add(at(box(3.6, ch + 0.5, cd, C, { pivot: 'bottom', outline: 0.006 }), -cw / 2 - 1.8, 0, back + cd / 2), at(box(3.6, ch + 0.5, cd, C, { pivot: 'bottom', outline: 0.006 }), cw / 2 + 1.8, 0, back + cd / 2),
+      at(box(cw, 0.5, cd, C), 0, ch + 0.25, back + cd / 2));
+    g.add(prop('jailBars', { width: cw, height: ch }, 0, 0, fz), prop('windowDrawing', {}, 0.16, 2.22, back + 0.012, 0, 0.6));
+    g.add(at(canvasPlane(1.7, 1.3, (c, W, H) => { c.fillStyle = '#8A8D86'; c.fillRect(0, 0, W, H); c.strokeStyle = 'rgba(240,238,228,0.85)'; c.lineWidth = W * 0.004;
+      for (let r = 0; r < 14; r++) for (let k = 0; k < 9; k++) { const x0 = W * (0.04 + k * 0.105), y0 = H * (0.04 + r * 0.068); for (let s = 0; s < 4; s++) { c.beginPath(); c.moveTo(x0 + s * W * 0.016, y0); c.lineTo(x0 + s * W * 0.016 + W * 0.003, y0 + H * 0.05); c.stroke(); }
+        c.beginPath(); c.moveTo(x0 - W * 0.008, y0 + H * 0.04); c.lineTo(x0 + W * 0.065, y0 + H * 0.012); c.stroke(); } }, { res: 1024, transparent: false }), -cw / 2 - 1.15, 1.45, fz + 0.006));
+    g.add(prop('hornSpeaker', {}, 1.6, 3.0, fz + 0.01), hangLamp(0, 3.35, fz + 1.0, '#3A3A3A', 3));
+    g.userData.anchors = { center: [0, 0, 0], cell: [0, 0, back + cd / 2], bars: [0, 0, fz], outside: [0, 0, fz + 0.7], drawing: [0.16, 2.22, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  pavillon(o = {}) { // suburban French house front: lawn, garden path, low fence with a gate, mailbox, trees, the pavement in front
+    const g = grp(); sky(g); clouds(g, 9, 6); g.add(ground(P.grass));
+    g.add(prop('house', { w: 6.5, d: 5, h: 2.9, color: '#EDE3CF', roof: '#7A3A2A', door: '#2F5E58', frame: '#2F5E58' }, 0, 0, -6.6));
+    g.add(flat(1.2, 6.2, '#CFC6B4', 0.97, 0.004, -0.95), flat(60, 2.4, '#C9C2B2', 0, 0.006, 3.6), flat(60, 8, '#4A4F55', 0, -0.02, 9));
+    g.add(prop('fence', { length: 5.4, height: 0.85, color: P.white }, -3.4, 0, 2.2), prop('fence', { length: 5.4, height: 0.85, color: P.white }, 4.9, 0, 2.2), prop('mailbox', { color: '#B5302A' }, 2.8, 0, 2.5));
+    [[-6.5, -3, 2], [6.8, -2.5, 5], [-9, 0.5, 8], [9.5, 0, 11]].forEach(([x, z, s]) => g.add(prop('tree', { seed: s }, x, 0, z, 0, 1.2)));
+    [[-2.6, -3.6], [3.8, -3.7], [-4.3, -3.5]].forEach(([x, z], i) => g.add(prop('bush', { seed: i + 40 }, x, 0, z, 0, 0.9)));
+    g.userData.anchors = { center: [0, 0, 0], door: [0.97, 0, -3.6], path: [0.97, 0, -1.0], gate: [0.97, 0, 2.2], pavement: [0, 0, 3.6] };
+    g.userData.lighting = 'day'; return g;
   },
   cinema(o) {
     const g = grp(), { back } = room(g, { wall: '#3A1E22', floor: '#2A1F24', back: -9, half: 7 });

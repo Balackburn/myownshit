@@ -13,7 +13,7 @@ import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSi
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
-export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'party', 'crown'];
+export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'party', 'crown', 'maocap'];
 export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
 
 // Named presets — the cast. `lemec` is the protagonist archetype.
@@ -52,6 +52,16 @@ export const PRESETS = {
   lyceenne:    { outfit: 'tracksuit', suit: '#C9729A', hair: 'bun', facial: 'none', lipstick: true, skin: '#C8955F', build: { height: 0.88, width: 0.88, headScale: 1.08 } },
   proviseur:   { outfit: 'suit', suit: '#5C4330', tie: '#C8372D', lapel: '#5C4330', hair: 'bald', facial: 'mustache', glasses: true, build: { belly: 0.1 } },
   commissaire: { outfit: 'suit', suit: '#7A6448', tie: '#3A3D44', lapel: '#6B573E', hat: 'fedora', hair: 'receding', facial: 'mustache', build: { belly: 0.08 } },
+  // "Le resto chinois": the restaurant owner today and as a young man under Mao, Mao-era police, the black-market dealer,
+  // patriotic netizens, party officials, the man himself in a tunic. Generic faces; clothes carry the period.
+  restaurateur:    { outfit: 'waiter', tie: '#B5302A', hair: 'slick', hairColor: '#17161A', facial: 'none', skin: '#E0B48A', build: { height: 0.97 } },
+  restaurateurMao: { outfit: 'mao', suit: '#4A5C70', pants: '#4A5C70', lapel: '#3E4E60', hat: 'maocap', hatColor: '#4A5C70', hair: 'slick', hairColor: '#17161A', facial: 'none', skin: '#E0B48A', build: { height: 0.97 } },
+  policeMao:       { outfit: 'mao', suit: '#5C6B3A', pants: '#4A5730', lapel: '#4E5C32', collarTabs: true, hat: 'maocap', hatColor: '#5C6B3A', hatStar: true, hair: 'buzz', hairColor: '#17161A', facial: 'none', skin: '#D9AA80' },
+  dealer:          { outfit: 'mao', suit: '#3A3A40', pants: '#2A2A30', lapel: '#2A2A30', hat: 'maocap', hatColor: '#2A2A30', hair: 'slick', hairColor: '#17161A', facial: 'mustache', glasses: true, skin: '#D9AA80' },
+  internaute:      { outfit: 'tracksuit', suit: '#B5302A', hair: 'spiky', hairColor: '#17161A', facial: 'none', skin: '#E0B48A' },
+  internaute2:     { outfit: 'tracksuit', suit: '#E0B020', hair: 'bun', hairColor: '#17161A', facial: 'none', lipstick: true, skin: '#E8C09A', build: { height: 0.92, width: 0.9 } },
+  officiel:        { outfit: 'mao', suit: '#3A3D44', pants: '#3A3D44', lapel: '#2E3036', hair: 'slick', hairColor: '#17161A', facial: 'none', glasses: true, skin: '#D9AA80', build: { belly: 0.06 } },
+  mecMao:          { outfit: 'mao', suit: '#5B6150', pants: '#5B6150', lapel: '#4A5040', hair: 'crew', facial: 'stubble', atlas: 'lemec', atlasBody: false },
 };
 
 const OUTFIT_COLORS = {
@@ -81,11 +91,12 @@ export function buildHuman(spec = {}) {
   const o = { skin: P.skin, hairColor: P.hair, glasses: false, hat: 'none', ears: 'normal', claws: false, seed: 3, ...preset, ...spec };
   const C = { ...OUTFIT_COLORS[o.outfit || 'suit'] };
   if (o.suit) { C.jacket = o.suit; if (C.pants && o.outfit === 'suit') C.pants = o.suit; }
-  if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel;
+  if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel; if (o.pants) C.pants = o.pants;
+  C.hat = o.hatColor; C.hatStar = !!o.hatStar;
   const B = { height: 1, width: 1, belly: 0, headScale: 1.1, ...(preset.build || {}), ...(spec.build || {}) };
   const H = B.height, Wd = B.width;
   // Painted-atlas mode: every part samples its zone of assets/lemec_atlas.webp
-  const ATL = o.atlas === 'lemec' && !!atlasImage;
+  const ATL = o.atlas === 'lemec' && !!atlasImage, ATLB = ATL && o.atlasBody !== false;
   const half = (r, top) => top ? [r[0], r[1], r[2], (r[1] + r[3]) / 2] : [r[0], (r[1] + r[3]) / 2, r[2], r[3]];
   const AT = {
     pelvis: allFaces(AR.jacketSide, { pz: AR.jacketBack, nz: AR.jacketBack }),
@@ -101,7 +112,7 @@ export function buildHuman(spec = {}) {
   // naked gag: every clothed part becomes skin (head keeps its painted/measured face), censor bar added below
   const CLOTHED = ['pelvis', 'jacket', 'tail', 'pad', 'sleeve', 'cuff', 'thighL', 'shinL', 'thighR', 'shinR', 'shoe'];
   const part = (kind, w, h, d, color, opts = {}) => o.naked && CLOTHED.includes(kind) ? box(w, h, d, o.skin, opts)
-    : ATL && AT[kind] ? atlasBox(w, h, d, AT[kind], opts) : box(w, h, d, color, opts);
+    : ATL && AT[kind] && (ATLB || kind === 'skin' || kind === 'neck') ? atlasBox(w, h, d, AT[kind], opts) : box(w, h, d, color, opts);
 
   const root = new THREE.Group(); root.name = 'human';
   const J = {}; // joints
@@ -127,7 +138,7 @@ export function buildHuman(spec = {}) {
   const front = 0.121 + B.belly / 2;
   // shirt V + lapels + tie
   if (o.naked) { const bar = box(0.3, 0.16, 0.03, P.black); bar.position.set(0, -0.05, 0.13); hips.add(bar); for (let i = 0; i < 4; i++) { const b = box(0.075, 0.08, 0.032, '#2A2A2E'); b.position.set(-0.11 + i * 0.075, -0.05 + (i % 2 ? 0.04 : -0.04), 0.131); hips.add(b); } }
-  else if (ATL) { /* lapels, shirt, tie, pocket stroke are painted on the atlas front */ }
+  else if (ATLB) { /* lapels, shirt, tie, pocket stroke are painted on the atlas front */ }
   else if (C.lapel && !o.naked) {
     const shirtV = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-0.17 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0.17 * Wd, torsoH * 0.99, 0), new THREE.Vector3(0, torsoH * 0.28, 0)]), mat(C.shirt, { doubleSide: true }));
@@ -150,13 +161,14 @@ export function buildHuman(spec = {}) {
   } else {
     const chest = box(0.2, 0.2, 0.01, C.shirt); chest.position.set(0, torsoH * 0.82, front); torso.add(chest);
   }
-  if (C.tie && !ATL && !o.naked) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
+  if (C.tie && !ATLB && !o.naked) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
   // buttons / badge details
-  if (!ATL && (o.outfit === 'suit' || o.outfit === 'waiter')) for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
+  if (!ATLB && (o.outfit === 'suit' || o.outfit === 'waiter')) for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }
   if (o.outfit === 'swat') { const vest = box(0.44 * Wd, torsoH * 0.6, 0.27, '#2A3442'); vest.position.y = torsoH * 0.55; torso.add(vest); const t = textLabel('SWAT', 0.16, 0.05); t.position.set(0, torsoH * 0.7, 0.14); torso.add(t); }
   if (o.outfit === 'prisoner' || o.outfit === 'pajamas') for (let i = 1; i < 6; i++) { const st = box(0.43 * Wd + 0.01, 0.025, 0.235, o.outfit === 'prisoner' ? '#B85A1E' : P.white); st.position.y = torsoH * i / 6; torso.add(st); }
-  if (o.outfit === 'mao') { for (const [x, y] of [[-0.1, 0.72], [0.1, 0.72], [-0.1, 0.32], [0.1, 0.32]]) { const pk = box(0.1, 0.08, 0.01, '#6A6C58'); pk.position.set(x, torsoH * y, front + 0.006); torso.add(pk); } for (let i = 0; i < 5; i++) { const bt = box(0.018, 0.018, 0.01, '#3A3B32'); bt.position.set(0, torsoH * (0.2 + i * 0.16), front + 0.008); torso.add(bt); } const col = box(0.16, 0.05, 0.12, C.jacket); col.position.set(0, torsoH + 0.02, 0.0); torso.add(col); }
+  if (o.outfit === 'mao') { for (const [x, y] of [[-0.1, 0.72], [0.1, 0.72], [-0.1, 0.32], [0.1, 0.32]]) { const pk = box(0.1, 0.08, 0.01, o.outfit === 'mao' && o.suit ? new THREE.Color(C.jacket).multiplyScalar(0.86).getStyle() : '#6A6C58'); pk.position.set(x, torsoH * y, front + 0.006); torso.add(pk); } for (let i = 0; i < 5; i++) { const bt = box(0.018, 0.018, 0.01, '#3A3B32'); bt.position.set(0, torsoH * (0.2 + i * 0.16), front + 0.008); torso.add(bt); } const col = box(0.16, 0.05, 0.12, C.jacket); col.position.set(0, torsoH + 0.02, 0.0); torso.add(col);
+    if (o.collarTabs) for (const sx of [-1, 1]) { const tab = box(0.035, 0.03, 0.012, '#B5302A'); tab.position.set(sx * 0.055, torsoH + 0.02, 0.062); torso.add(tab); } }
   if (o.outfit === 'tourist') { const r = rng(9); for (let i = 0; i < 16; i++) { const f = box(0.05, 0.05, 0.01, [P.pink, P.green, P.white][i % 3]); f.position.set((r() - 0.5) * 0.36, r() * torsoH, front + 0.006); torso.add(f); } }
   if (o.outfit === 'worker' || o.outfit === 'firefighter') for (const y of [0.35, 0.6]) { const st = box(0.43 * Wd + 0.01, 0.035, 0.235, P.grey); st.position.y = torsoH * y; torso.add(st); }
 
@@ -282,6 +294,9 @@ function addHat(head, hat, hw, hh, hd, C) {
     case 'cowboy': { const b = box(hw * 2.2, 0.02, hd * 2.2, P.wood); g.add(b); g.add(box(hw * 1.1, 0.16, hd * 1.2, P.wood, { pivot: 'bottom', taper: 0.85 })); break; }
     case 'firehelmet': { g.add(box(hw * 1.25, 0.13, hd * 1.4, P.red, { pivot: 'bottom', taper: 0.75 })); const br = box(hw * 1.3, 0.02, hd * 2, P.red); br.position.z = -0.04; g.add(br); break; }
     case 'party': { const c = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.26, 6), mat(P.pink)); c.position.y = 0.13; g.add(c); break; }
+    case 'maocap': { const c = C.hat || '#4A5C70'; g.add(box(hw * 1.18, 0.1, hd * 1.25, c, { pivot: 'bottom', taper: { x: 1.12, z: 1.12 } }));
+      const vz = box(hw * 0.95, 0.018, 0.09, c); vz.position.set(0, 0.012, hd * 0.66); vz.rotation.x = 0.18; g.add(vz);
+      if (C.hatStar) { const st = box(0.045, 0.045, 0.01, '#C8281E'); st.position.set(0, 0.055, hd * 0.66); st.rotation.z = Math.PI / 4; g.add(st); } break; }
     case 'crown': { for (let i = 0; i < 5; i++) { const p = box(0.04, 0.12, 0.03, P.yellow, { taper: 0.2 }); const a = i / 5 * Math.PI * 2; p.position.set(Math.cos(a) * 0.09, 0.06, Math.sin(a) * 0.08); g.add(p); } g.add(box(hw * 0.9, 0.05, hd * 0.9, P.yellow, { pivot: 'bottom' })); break; }
   }
 }

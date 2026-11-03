@@ -919,6 +919,10 @@ const B = {
     if (o.cross) g.add(at(box(0.6, 0.06, 0.012, o.cross), 0.33, 1.38, 0), at(box(0.06, 0.4, 0.012, o.cross), 0.33, 1.38, 0));
     if (o.disc) [-1, 1].forEach(sd => g.add(at(cyl(0.11, 0.11, 0.004, o.disc, 16), 0.33, 1.38, sd * 0.0075, PI / 2))); // Japan: red disc; pirate: white skull disc
     if (o.skull) [-1, 1].forEach(sd => g.add(at(box(0.2, 0.03, 0.004, '#E6B84A'), 0.33, 1.47, sd * 0.009), at(box(0.04, 0.04, 0.004, P.ink), 0.29, 1.39, sd * 0.011), at(box(0.04, 0.04, 0.004, P.ink), 0.37, 1.39, sd * 0.011)));
+    if (o.prc) { const draw = (c, W, H) => { c.fillStyle = '#DE2910'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFDE00';
+        const star = (x, y, r, rot) => { c.beginPath(); for (let i = 0; i < 10; i++) { const a = rot + i * PI / 5, rr = i % 2 ? r * 0.38 : r; c.lineTo(x + Math.sin(a) * rr, y - Math.cos(a) * rr); } c.closePath(); c.fill(); };
+        const bx = W * 0.167, by = H * 0.25; star(bx, by, H * 0.15, 0); [[0.333, 0.1], [0.4, 0.2], [0.4, 0.35], [0.333, 0.45]].forEach(([x, y]) => star(W * x, H * y, H * 0.05, Math.atan2(bx - W * x, H * y - by))); };
+      [-1, 1].forEach(sd => g.add(at(canvasPlane(0.6, 0.4, draw, { res: 256 }), 0.33, 1.38, sd * 0.0065, 0, sd < 0 ? PI : 0, 0))); }
     if (o.grip) g.userData.grip = [0, 0.4, 0];
     return g; },
   boxHide(o) { // wearable cardboard box (Metal Gear gag): attach to the torso joint, legs stick out underneath
@@ -1094,6 +1098,108 @@ const B = {
   baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
   clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
+  // ---- "Le resto chinois": cutlery, chopsticks, dishes, the black market, the prison, the mob, the plane
+  fork(o) { // table fork along +y (handle end at y = 0, tines up); o.shine = glowing Western treasure
+    const c = o.color || '#C9CCD1', m = o.shine ? { emissive: '#7A6A30' } : {};
+    const g = grp(at(box(0.014, 0.12, 0.005, o.handle || c, o.handle ? { outline: 0.004 } : m), 0, 0.06, 0), at(box(0.009, 0.032, 0.005, c, m), 0, 0.136, 0), at(box(0.028, 0.012, 0.005, c, m), 0, 0.157, 0));
+    for (let i = 0; i < 4; i++) g.add(at(box(0.0045, 0.046, 0.0045, c, m), -0.0115 + i * 0.0077, 0.185, 0));
+    g.userData.grip = [0, 0.03, 0]; return g; },
+  knife(o) { // table knife along +y: handle 0-0.09, blade 0.09-0.21
+    const c = o.color || '#C9CCD1', m = o.shine ? { emissive: '#7A6A30' } : {};
+    const g = grp(at(box(0.017, 0.09, 0.009, o.handle || c, m), 0, 0.045, 0), at(box(0.021, 0.012, 0.007, c, m), 0, 0.096, 0),
+      at(box(0.02, 0.11, 0.003, c, { ...m, taper: { x: 0.7, z: 1 } }), 0.002, 0.157, 0));
+    g.userData.grip = [0, 0.04, 0]; return g; },
+  chopsticks(o) { // a pair of tapered chopsticks along +y (o.single: only one)
+    const c = o.color || '#7A3A22', g = grp();
+    (o.single ? [0] : [-0.009, 0.009]).forEach((x, i) => g.add(at(box(0.009, 0.24, 0.009, c, { pivot: 'bottom', taper: 0.45 }), x, 0, 0, 0, 0, o.single ? 0 : (i ? -0.03 : 0.03))));
+    g.userData.grip = [0, 0.08, 0]; return g; },
+  riceBowl(o) { // porcelain bowl, blue band, dome of rice
+    const rice = sphere(0.058, '#F7F3EA', 1); rice.scale.set(1, 0.42, 1); rice.position.y = 0.06;
+    return grp(at(cyl(0.065, 0.04, 0.06, P.white, 12, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.0665, 0.0665, 0.012, '#2C4A8A', 12), 0, 0.044, 0), rice); },
+  noodlePlate(o) { // plate of stir-fried noodles with greens and shrimps
+    const r = rng(o.seed || 8), pile = sphere(0.1, '#E2B65A', 1); pile.scale.set(1, 0.33, 0.85); pile.position.y = 0.034;
+    const g = grp(at(cyl(0.14, 0.12, 0.02, P.white, 16, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(torus(0.132, 0.006, '#B5302A', 4, 20), 0, 0.021, 0, PI / 2, 0, 0), pile);
+    for (let i = 0; i < 7; i++) g.add(at(box(0.032, 0.012, 0.016, i % 2 ? '#5E9A4A' : '#E8775F'), (r() - 0.5) * 0.12, 0.062, (r() - 0.5) * 0.1, 0, r() * 3, 0));
+    return g; },
+  powderLine(o) { // thin line of white powder on a counter; vanishes left to right from goneAt (0.35 s)
+    const Ln = o.length || 0.14, line = box(Ln, 0.006, 0.012, '#F4F4F2', { noGrain: true }); line.geometry.translate(Ln / 2, 0.003, 0); line.position.x = -Ln / 2;
+    const g = grp(line);
+    if (o.goneAt != null) g.userData.update = t => { const k = clamp01((t - o.goneAt) / 0.35); line.scale.x = Math.max(0.001, 1 - k); line.position.x = -Ln / 2 + Ln * k; line.visible = k < 1; };
+    return g; },
+  cutleryCase(o) { // the dealer's case: lid hinged at the back opens at openAt on red velvet, fork + knife + spoon, golden light
+    const w = 0.5, d = 0.34, h = 0.07;
+    const g = grp(at(box(w, h, d, '#2A2420', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(w - 0.04, 0.01, d - 0.04, '#9E1F24', { emissive: '#4A080C' }), 0, h - 0.002, 0),
+      at(box(0.16, 0.025, 0.03, P.ink), 0, h * 0.5, d / 2 + 0.015), at(box(0.04, 0.03, 0.012, '#D8A83A'), -0.15, h - 0.01, d / 2 + 0.006), at(box(0.04, 0.03, 0.012, '#D8A83A'), 0.15, h - 0.01, d / 2 + 0.006));
+    const sp = B.spoon({}); sp.scale.setScalar(1.25);
+    const items = grp(at(B.fork({ shine: true }), -0.11, h + 0.006, 0.11, -PI / 2, 0, 0), at(B.knife({ shine: true }), 0, h + 0.006, 0.11, -PI / 2, 0, 0), at(sp, 0.11, h + 0.006, 0.1, -PI / 2, 0, 0));
+    g.add(items);
+    const lid = grp(at(box(w, 0.05, d, '#2A2420', { outline: 0.008 }), 0, 0.025, d / 2), at(box(w - 0.04, 0.006, d - 0.04, '#9E1F24'), 0, -0.002, d / 2)); lid.position.set(0, h, -d / 2); g.add(lid);
+    const light = new THREE.PointLight('#FFD27A', 0, 2.4, 1.4); light.position.set(0, 0.3, 0.12); g.add(light);
+    const beam = mesh(new THREE.CylinderGeometry(0.2, 0.26, 0.9, 12, 1, true), fxMat('#FFE7A0', 0.22)); beam.position.y = h + 0.45; beam.castShadow = false; g.add(beam);
+    const setOpen = k => { lid.rotation.x = -1.95 * k; light.intensity = 2.4 * k; items.visible = k > 0.05; beam.visible = !!o.beam && k > 0.3; beam.scale.set(1, Math.max(0.01, (k - 0.3) / 0.7), 1); };
+    setOpen(o.open ?? 0); if (o.openAt != null) g.userData.update = t => setOpen(ease.out(clamp01((t - o.openAt) / 0.6)));
+    g.userData.grip = [0, 0.03, d / 2 + 0.03]; return g; },
+  boombox(o) { // cassette player: the two speaker cones pulse on the beat from playAt (o.bpm) until stopAt; the tape label shows o.text
+    const g = grp(at(box(0.46, 0.24, 0.13, '#3A3D44', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(0.32, 0.022, 0.022, P.greyDark), 0, 0.31, 0),
+      rod([-0.15, 0.24, 0], [-0.15, 0.31, 0], 0.008, P.greyDark), rod([0.15, 0.24, 0], [0.15, 0.31, 0], 0.008, P.greyDark));
+    const cones = [-0.15, 0.15].map(x => { const c = grp(at(cyl(0.072, 0.072, 0.01, '#1A1C20', 14), 0, 0, 0, PI / 2, 0, 0), at(cyl(0.046, 0.046, 0.012, '#5A5E66', 14), 0, 0, 0.004, PI / 2, 0, 0), at(cyl(0.016, 0.016, 0.016, '#C9CCD1', 8), 0, 0, 0.008, PI / 2, 0, 0)); c.position.set(x, 0.12, 0.066); g.add(c); return c; });
+    g.add(at(box(0.13, 0.08, 0.006, '#9AA6AC', { emissive: '#1A2024' }), 0, 0.14, 0.067), at(label(o.text || 'MUSIQUE', 0.11, 0.034, { bg: '#F2E8C8', fg: '#B5302A', wrap: false }), 0, 0.14, 0.0712));
+    for (let i = 0; i < 5; i++) g.add(at(box(0.02, 0.012, 0.02, i === 1 ? P.red : '#C9CCD1'), -0.05 + i * 0.025, 0.247, 0.03));
+    const bpm = o.bpm || 120;
+    if (o.playAt != null) g.userData.update = t => { const on = t >= o.playAt && (o.stopAt == null || t < o.stopAt), ph = ((t - o.playAt) * bpm / 60) % 1, s = on ? 1 + 0.22 * Math.exp(-ph * 6) : 1; cones.forEach(c => c.scale.set(s, s, 1)); };
+    return g; },
+  megaphone(o) { // hand megaphone: horn mouth along +z, pistol grip underneath
+    const c = o.color || '#E8E4D8';
+    const g = grp(at(cyl(0.05, 0.05, 0.12, c, 10, { outline: 0.01 }), 0, 0.1, 0, PI / 2, 0, 0), at(mesh(new THREE.CylinderGeometry(0.13, 0.05, 0.2, 12, 1, true), mat(c, { doubleSide: true })), 0, 0.1, 0.16, PI / 2, 0, 0),
+      at(torus(0.13, 0.009, '#B5302A', 4, 16), 0, 0.1, 0.26), at(box(0.03, 0.09, 0.04, '#3A3D44'), 0, 0.03, -0.01), at(cyl(0.022, 0.022, 0.02, '#3A3D44', 8), 0, 0.1, -0.07, PI / 2, 0, 0));
+    g.userData.grip = [0, 0.03, -0.01]; return g; },
+  planter(o) { // garden planter box with soil (o.w, o.d, o.h) and a few sprouts: what you "plant" animals in
+    const w = o.w || 1.1, d = o.d || 0.5, h = o.h || 0.45, r = rng(o.seed || 4);
+    const g = grp(at(box(w, h, d, o.color || '#B8643A', { pivot: 'bottom', outline: 0.008, taper: 1.08 }), 0, 0, 0), at(box(w * 1.08 + 0.06, 0.05, d * 1.08 + 0.06, '#9C4F2C'), 0, h, 0), at(box(w * 1.08 - 0.02, 0.03, d * 1.08 - 0.02, '#4A3424'), 0, h + 0.005, 0));
+    for (let i = 0; i < (o.sprouts ?? 4); i++) g.add(at(box(0.02, 0.09, 0.02, '#5E9A4A', { pivot: 'bottom' }), (r() - 0.5) * (w - 0.2), h + 0.02, (r() - 0.5) * (d - 0.15), 0, 0, (r() - 0.5) * 0.6));
+    return g; },
+  plane(o) { // airliner, nose along +x, about 15 m long (o.livery colour)
+    const c = o.livery || '#B5302A';
+    const g = grp(at(cyl(0.9, 0.9, 11, P.white, 12, { outline: 0.02 }), 0, 0, 0, 0, 0, PI / 2), at(mesh(new THREE.ConeGeometry(0.9, 1.8, 12), mat(P.white)), 6.4, 0, 0, 0, 0, -PI / 2),
+      at(mesh(new THREE.ConeGeometry(0.9, 2.6, 12), mat(P.white)), -6.8, 0.2, 0, 0, 0, PI / 2),
+      at(box(3.2, 0.16, 13, P.white, { taper: { x: 0.45, z: 1 }, taperAxis: 'y', outline: 0.02 }), -0.3, -0.35, 0), at(box(1.6, 2.4, 0.16, c, { taper: { x: 0.45, z: 1 } }), -6.6, 1.5, 0),
+      at(box(1.2, 0.1, 4.4, P.white, { taper: { x: 0.5, z: 1 }, taperAxis: 'y' }), -6.7, 0.5, 0), at(box(11, 0.32, 1.84, c), 0, -0.2, 0));
+    [-3.2, 3.2].forEach(z => g.add(at(cyl(0.38, 0.32, 1.4, '#C9CCD1', 10, { outline: 0.01 }), 0.6, -0.85, z, 0, 0, PI / 2)));
+    for (let i = 0; i < 12; i++) [-1, 1].forEach(s => g.add(at(box(0.2, 0.24, 0.02, '#2A3A55'), 3.9 - i * 0.75, 0.3, s * 0.915)));
+    return g; },
+  photo(o) { // small print photo with a white border (the yearly meal: a photo of rice); held like a card
+    const pic = canvasPlane(0.1, 0.122, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.fillStyle = '#C9B48A'; c.fillRect(W * 0.07, H * 0.06, W * 0.86, H * 0.7);
+      c.fillStyle = '#F7F3EA'; c.beginPath(); c.ellipse(W / 2, H * 0.42, W * 0.3, H * 0.14, 0, PI, TAU); c.fill(); c.fillStyle = '#E6DFCC'; for (let i = 0; i < 26; i++) { const a = PI + (i * 0.618 % 1) * PI, rr = (i * 0.37 % 1); c.fillRect(W / 2 + Math.cos(a) * W * 0.27 * rr - 2, H * 0.42 + Math.sin(a) * H * 0.12 * rr - 1, 5, 2); }
+      c.fillStyle = '#FFFFFF'; c.strokeStyle = '#2C4A8A'; c.lineWidth = W * 0.035; c.beginPath(); c.moveTo(W * 0.18, H * 0.42); c.quadraticCurveTo(W / 2, H * 0.74, W * 0.82, H * 0.42); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle = '#3A3A3A'; c.font = `bold ${H * 0.1}px Arial`; c.textAlign = 'center'; c.fillText(o.caption || 'RIZ', W / 2, H * 0.92); }, { res: 256 });
+    const g = grp(at(box(0.102, 0.124, 0.002, P.white), 0, 0, 0), at(pic, 0, 0, 0.0016)); g.userData.grip = [0, -0.05, 0]; return g; },
+  windowDrawing(o) { // a child-like crayon drawing of a window taped to a wall (the prisoner's only window)
+    const pic = canvasPlane(0.42, 0.42, (c, W, H) => { c.fillStyle = '#F7F3EA'; c.fillRect(0, 0, W, H); c.fillStyle = '#9CC8E8'; c.fillRect(W * 0.16, H * 0.16, W * 0.68, H * 0.62);
+      c.fillStyle = '#F2C230'; c.beginPath(); c.arc(W * 0.66, H * 0.31, W * 0.075, 0, TAU); c.fill(); c.fillStyle = '#FFFFFF'; c.beginPath(); c.ellipse(W * 0.33, H * 0.34, W * 0.1, H * 0.05, 0, 0, TAU); c.fill();
+      c.fillStyle = '#6FAE5A'; c.fillRect(W * 0.16, H * 0.64, W * 0.68, H * 0.14); c.strokeStyle = '#7A4A2A'; c.lineWidth = W * 0.045; c.lineJoin = 'round';
+      c.beginPath(); c.moveTo(W * 0.15, H * 0.17); c.lineTo(W * 0.85, H * 0.15); c.lineTo(W * 0.84, H * 0.79); c.lineTo(W * 0.16, H * 0.78); c.closePath(); c.moveTo(W * 0.51, H * 0.16); c.lineTo(W * 0.49, H * 0.78); c.moveTo(W * 0.16, H * 0.47); c.lineTo(W * 0.84, H * 0.48); c.stroke();
+      c.fillStyle = '#7A4A2A'; c.fillRect(W * 0.1, H * 0.8, W * 0.8, H * 0.05); }, { res: 384 });
+    const inner = grp(at(box(0.43, 0.43, 0.003, P.paper), 0, 0, 0), at(pic, 0, 0, 0.002)); [[-0.17, 0.2, 0.5], [0.17, 0.2, -0.5]].forEach(([x, y, rz]) => inner.add(at(box(0.09, 0.026, 0.004, '#E8DDB0'), x, y, 0.004, 0, 0, rz)));
+    inner.rotation.z = o.tilt ?? -0.04; return grp(inner); },
+  lantern(o) { // red paper lantern hanging from a cord (origin = top of the lantern, cord goes up o.cord metres)
+    const c = o.color || '#C8281E', s = sphere(0.22, c, 1, { emissive: '#4A0C06' }); s.scale.set(1, 0.82, 1); s.position.y = -0.26;
+    const ribs = grp(); for (let i = 0; i < 6; i++) ribs.add(at(torus(0.205, 0.004, '#7A1610', 3, 16), 0, 0, 0, 0, i * PI / 6, 0)); ribs.scale.set(1, 0.82, 1); ribs.position.y = -0.26;
+    return grp(s, ribs, at(cyl(0.09, 0.09, 0.05, '#D8A83A', 10), 0, -0.075, 0), at(cyl(0.09, 0.09, 0.05, '#D8A83A', 10), 0, -0.445, 0), at(box(0.03, 0.16, 0.03, '#D8A83A', { pivot: 'top' }), 0, -0.47, 0), rod([0, -0.05, 0], [0, o.cord ?? 1.2, 0], 0.006, P.ink)); },
+  aquarium(o) { // fish tank on a black cabinet: blue water, gravel, weeds, three fish swimming (pure function of t)
+    const w = o.w || 1.2, h = 0.6, d = 0.4, y0 = 0.8;
+    const g = grp(at(box(w + 0.04, y0, d + 0.04, '#1E1A18', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(w, 0.06, d, '#C9B48A'), 0, y0 + 0.03, 0),
+      at(mesh(new THREE.BoxGeometry(w, h, d), glassMat(0.32, '#6FB8D8')), 0, y0 + h / 2, 0), at(box(w + 0.04, 0.05, d + 0.04, '#1E1A18'), 0, y0 + h + 0.025, 0));
+    for (let i = 0; i < 4; i++) g.add(at(box(0.04, 0.2 + i * 0.05, 0.02, '#4E8A4A', { pivot: 'bottom', taper: 0.3 }), -w / 2 + 0.15 + i * 0.3, y0 + 0.06, -0.1 + (i % 2) * 0.15));
+    const fish = [0, 1, 2].map(i => { const f = grp(at(box(0.09, 0.05, 0.022, ['#E8742E', '#F2C230', '#E8742E'][i]), 0, 0, 0), at(box(0.035, 0.05, 0.01, '#C85A1E'), -0.06, 0, 0)); g.add(f); return f; });
+    g.userData.update = t => fish.forEach((f, i) => { const a = t * (0.5 + i * 0.17) + i * 2.1; f.position.set(Math.sin(a) * (w / 2 - 0.12), y0 + 0.22 + i * 0.1 + Math.sin(t * 1.3 + i) * 0.03, -0.08 + i * 0.08); f.rotation.y = Math.cos(a) > 0 ? 0 : PI; });
+    g.userData.update(0); return g; },
+  hornSpeaker(o) { // grey propaganda loudspeaker horn on a bracket, mouth along +z (tilted down)
+    const c = o.color || '#8C949A';
+    return grp(at(box(0.06, 0.06, 0.25, P.greyDark), 0, 0, 0.1), at(mesh(new THREE.CylinderGeometry(0.2, 0.05, 0.42, 12, 1, true), mat(c, { doubleSide: true })), 0, -0.07, 0.42, PI / 2 + 0.25, 0, 0), at(cyl(0.07, 0.07, 0.1, P.greyDark, 10), 0, -0.02, 0.22, PI / 2 + 0.25, 0, 0)); },
+  flame(o) { // gas burner flame: three flickering emissive cones (pure function of t)
+    const g = grp(), cones = [0, 1, 2].map(i => { const m = mesh(new THREE.ConeGeometry(0.075 - i * 0.017, 0.16 + i * 0.05, 7), mat(['#FF8A2A', '#FFB25A', '#FFE08A'][i], { emissive: ['#FF6A1A', '#FF9A3A', '#FFD27A'][i], noGrain: true })); m.castShadow = false; m.position.y = 0.08 + i * 0.02; g.add(m); return m; });
+    g.userData.update = t => cones.forEach((c, i) => c.scale.set(1, 1 + 0.18 * Math.sin(t * (17 + i * 5) + i) + 0.1 * Math.sin(t * 31 + i * 2), 1));
+    g.userData.update(0); return g; },
   
 };
 

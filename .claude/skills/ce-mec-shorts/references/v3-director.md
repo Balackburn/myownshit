@@ -171,3 +171,55 @@ The news series lives in `scripts-fr/actu_common.py` plus `actu01_pigeon.py` …
   barks to the camera (`face` toward it) reads better than one barking at the suspect.
 - **Queue.** Write and check the next story while the previous one renders. If you edit a JSON while its render has
   already started, that render uses the old version: stop it and queue it again.
+
+## Long story with a flashback (« Le resto chinois », 2 min 30)
+
+Working example: `scripts-fr/restochinois.py` (16 scenes, 51 lines, 91 camera set-ups).
+
+- **Per-scene grade.** `scene.grade` replaces the film grade (a CSS filter string). The flashback uses
+  `'contrast(0.9) saturate(0.45) sepia(0.62) brightness(1.04)'` on every past scene, and a white `flash` fx on both sides of
+  the cut into it. Rule of thumb: sepia = the past, normal = the present.
+- **Music cues.** A scene sfx named `music:<kind>` goes to the music stem and fades the episode bed out under it:
+  `{'at': 'R12', 'name': 'music:zouk', 'until': 'R14+1.0', 'vol': 0.42, 'file': 'assets/music/user/x.mp3', 'offset': 0}`.
+  - `until` (or `dur`) sets the length.
+  - When `file` exists (a track the user holds the rights to, kept out of git), it is played from `offset`. Otherwise the
+    procedural stand-in for `<kind>` plays: `zouk` is an original groove made in code.
+  - Never download a song from YouTube or any other site. Name the song in the narration if needed; say where the user can
+    drop their own file.
+- **New SFX:** `sniff`, `static`, `choir` (the "treasure" swell: cutlery, the greatness of China, falling in love), `jet`,
+  `fanfare`, `heartbeat`.
+- **New sets:**
+  - `chineseRestaurant`: `brand`, round tables, lanterns, fish tank, bar.
+  - `proKitchen`: wok range with live flames, prep island, a big clock with `clockRate`.
+  - `maoStreet`: 1970s hutong with Chinese slogans, a red gate, bicycles, a loudspeaker, a side alley.
+  - `tinyCell`: a 0.62 m niche behind bars, tally marks, a drawn window.
+  - `pavillon`: a suburban house front.
+  - `pressRoom` now takes `fontScale` (long backdrop words), `podium: false` and `flagOpts` (`{'colors': ['#DE2910'], 'prc': True}`).
+- **New props:**
+  - Cutlery and tableware: `fork` / `knife` (`handle` colour, `shine`), `chopsticks` (`single`), `riceBowl`, `noodlePlate`.
+  - Animated: `powderLine` (`goneAt`), `cutleryCase` (`openAt`, `beam`: golden light), `boombox` (`text` on the tape, `playAt`,
+    `stopAt`, `bpm`: the cones pulse), `flame`, `aquarium`.
+  - Set dressing and the rest: `megaphone`, `planter`, `plane`, `photo`, `windowDrawing`, `lantern`, `hornSpeaker`, and `flag`
+    with `prc`.
+- **New presets:** `restaurateur`, `restaurateurMao`, `policeMao`, `dealer`, `internaute`, `internaute2`, `officiel` and
+  `mecMao`.
+  - Hat `maocap` takes `hatColor` and `hatStar`. Outfits also take `pants` and `collarTabs`.
+  - `atlasBody: false` keeps the protagonist's painted head with any outfit (`mecMao` is "ce mec" in a tunic).
+- **What bit:**
+  - Two actors facing each other: `ry = degrees(atan2(dx, dz))` toward the other one. A sign error had the dealer talk to the
+    wall. A profile two-shot then sits at the worldAngle perpendicular to the line between them.
+  - A point frame (`[[x, y, z]]`) is narrow in 9:16. Two animals 1.4 m apart fell outside it and looked "missing". Frame on
+    their ids instead, and check positions with a probe before assuming a bug.
+  - A long prop attached behind an actor (the giant fork in his backside) disappears into a wall less than 0.8 m behind him.
+    Move the actor away from the wall, or drop the podium.
+  - The floor of a narrow barred cell cannot be filmed: the bottom rail, the posts and the man's legs are in the way. Give the
+    prop to the actor (he holds his one-chopstick "bed" up).
+  - In the press room the seated journalists block the solver's cameras. Use explicit POVs, from in front of them or from above
+    their heads at the back.
+  - Overhead and forward props both need `rot [π, 0, 0]` (`FORK_UP`, `SIGN_UP`). A held flag needs `withProps=True` on the
+    camera, or it is cut off above the frame.
+- **Satire of China:**
+  - No put-on accent: one voice, as everywhere else.
+  - Generic faces. Period clothes and props carry the setting.
+  - The joke aims at the regime and its propaganda, made obvious by a "SOURIEZ" cue card during "the happiest man in the world".
+  - Chinese text renders (WenQuanYi is installed). Use real, correct slogans (为人民服务) or plain phrases (禁止西方产品).
