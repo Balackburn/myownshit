@@ -23,6 +23,26 @@ node render/catalog.mjs         # prints every preset/clip/prop/set/creature nam
 ```
 Better voices: set `ELEVENLABS_API_KEY` (or `OPENAI_API_KEY`) and the pipeline uses it automatically.
 
+## Run locally (v3 pipeline: Le chrono, Le gorille)
+Requirements: Node 20+, ffmpeg, Python 3 with `numpy scipy pillow`, and an ElevenLabs key for the voice.
+```bash
+git clone https://github.com/Balackburn/myownshit.git && cd myownshit
+git checkout claude/admiring-volta-5odw34
+cd absurd-shorts
+npm install                      # three.js + Playwright
+npx playwright install chromium  # the headless browser used to render frames
+pip install numpy scipy pillow
+export ELEVENLABS_API_KEY=...    # voice "allan tiktok", model eleven_v4 (resolved by name)
+
+python3 scripts-fr/chrono4.py                                         # storyboard -> chrono4.json
+node render/render3.mjs scripts-fr/chrono4.json --w 360 --h 640 --stills cams   # framing QA sheet
+node render/render3.mjs scripts-fr/chrono4.json --preview              # 360x640 animated check
+node render/render3.mjs scripts-fr/chrono4.json                        # final 1080x1920 -> out/chrono4.mp4
+```
+`out/` is not in git (renders and the ElevenLabs cache `out/tts_cache3/`): a fresh clone regenerates the voice
+lines on the first run. Finished films are in `examples/`. The workflow is documented in
+`.claude/skills/ce-mec-shorts/references/v3-director.md`.
+
 ## Layout
 | path | what |
 |---|---|

@@ -7,9 +7,12 @@
     "serve": "node render/server.mjs",
     "render": "node render/render.mjs",
     "export-models": "node render/export-models.mjs",
-    "preview": "node render/preview.mjs"
+    "preview": "node render/preview.mjs",
+    "render3": "node render/render3.mjs",
+    "qa-sets": "node tools/qa_sets.mjs"
   },
   "dependencies": {
-    "three": "0.170.0"
+    "three": "0.170.0",
+    "playwright": "1.63.0"
   }
 }
