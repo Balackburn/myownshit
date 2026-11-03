@@ -29,6 +29,7 @@ const JOINTS = ['hips', 'torso', 'neck', 'head', 'shoulderL', 'elbowL', 'handL',
 const LOCO = {
   walk: [1.35, 1.63], strut: [1.05, 1.9], sneak: [0.7, 1.3], tiptoe: [0.6, 1.8], run: [3.3, 2.6], flee: [3.6, 2.6], flail: [3.4, 2.6],
   knuckleWalk: [1.3, 1.4], boxSneak: [0.55, 0.9], pushCartWalk: [1.15, 1.5], pushCart: [1.1, 1.5], carryBox: [1.1, 1.5], crawl: [0.7, 1.0],
+  walkEat: [1.0, 1.4], carryBags: [1.1, 1.5],
 };
 const SIZE = { // fraction of subject height framed from the top, fill of frame height, default elevation, lens
   ecu: { part: 'head', pad: 1.25, fill: 0.8, elev: 0, lens: 34 }, cu: { part: 'headShoulders', fill: 0.82, elev: 2, lens: 36 },
@@ -133,12 +134,15 @@ function setupScene(si, analyzing = false) {
   });
   S.actorById = Object.fromEntries(S.actors.map(a => [a.id, a]));
   // props
+  // prop options ending in "At" (openAt, writeAt, closeAt, ...) accept scene time expressions ('M2:nom+0.2') or lists of them
+  const optT = v => typeof v === 'string' ? T(v, sc) : Array.isArray(v) ? v.map(optT) : v;
+  const resolveOpts = o => Object.fromEntries(Object.entries(o || {}).map(([k, v]) => [k, /At$/.test(k) ? optT(v) : v]));
   S.props = (sc.props || []).map(cfg => {
-    const obj = Props.buildProp(cfg.name, cfg.opts || {}); obj.name = 'prop:' + (cfg.id || cfg.name); obj.userData.isSceneProp = true;
+    const obj = Props.buildProp(cfg.name, resolveOpts(cfg.opts)); obj.name = 'prop:' + (cfg.id || cfg.name); obj.userData.isSceneProp = true;
     S.root.add(obj);
     const Pp = prepProp(cfg, obj, sc, place);
     if (cfg.alt) { // one alternate look, or a list of them in time order (e.g. watch -> broken -> taped)
-      Pp.alts = [].concat(cfg.alt).map(a => { const o = Props.buildProp(a.name || cfg.name, a.opts || {}); o.userData.isSceneProp = true; S.root.add(o); return { obj: o, at: T(a.at, sc), rot: a.rot || null }; }).sort((x, y) => x.at - y.at);
+      Pp.alts = [].concat(cfg.alt).map(a => { const o = Props.buildProp(a.name || cfg.name, resolveOpts(a.opts)); o.userData.isSceneProp = true; S.root.add(o); return { obj: o, at: T(a.at, sc), rot: a.rot || null }; }).sort((x, y) => x.at - y.at);
       Pp.alt = Pp.alts[0].obj; Pp.altAt = Pp.alts[0].at; Pp.altRot = Pp.alts[0].rot;
     }
     return Pp;

@@ -84,6 +84,36 @@ function wedge(r, h, color, a0 = 0, a1 = TAU, seg = 12) {
   return mesh(new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: false, curveSegments: seg }).rotateX(-PI / 2), mat(color));
 }
 
+/* ------------------------------------------------------------------ felt-pen handwriting (shared) */
+// Canvas texture of wobbly marker letters. draw(k) reveals the text left to right (k = 0..1, a pure function of k:
+// the same jitter on every redraw, so frames render identically in any order).
+function scrawlTexture(text, aspect, o = {}) {
+  const res = o.res || 512, cv = document.createElement('canvas'); cv.width = res; cv.height = Math.max(8, Math.round(res / aspect));
+  const g = cv.getContext('2d'), W = cv.width, H = cv.height, tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+  const chars = [...String(text)], n = Math.max(1, chars.length), r = rng(o.seed || 7 + n);
+  const fs = Math.min(H * (o.fill || 0.78), W * 0.92 / (n * 0.74)), font = `italic 900 ${Math.round(fs)}px Arial, "Liberation Sans", sans-serif`;
+  g.font = font; const ws = chars.map(ch => g.measureText(ch).width * 1.04), tot = ws.reduce((a, b) => a + b, 0), x0 = (W - tot) / 2;
+  const jit = chars.map((_, i) => ({ dy: (r() - 0.5) * H * 0.12 - (i - n / 2) * H * 0.018, rot: (r() - 0.5) * 0.26 }));
+  const color = o.color || '#15171C'; let last = -1;
+  const draw = k => {
+    k = Math.round(clamp01(k) * 200) / 200; if (k === last) return; last = k;
+    g.clearRect(0, 0, W, H);
+    if (k > 0) {
+      g.save(); g.beginPath(); g.rect(0, 0, x0 + k * (tot + fs * 0.25), H); g.clip();
+      g.font = font; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round'; g.lineCap = 'round'; g.fillStyle = g.strokeStyle = color; g.lineWidth = fs * 0.09;
+      let x = x0; chars.forEach((ch, i) => { g.save(); g.translate(x + ws[i] / 2, H / 2 + jit[i].dy); g.rotate(jit[i].rot); g.strokeText(ch, 0, 0); g.fillText(ch, 0, 0); g.restore(); x += ws[i]; });
+      if (o.underline) { g.lineWidth = fs * 0.07; g.beginPath(); g.moveTo(x0, H / 2 + fs * 0.55); g.quadraticCurveTo(W / 2, H / 2 + fs * 0.72, x0 + tot + fs * 0.2, H / 2 + fs * 0.42); g.stroke(); }
+      g.restore();
+      if (o.strike) { g.save(); g.strokeStyle = o.strikeColor || color; g.lineCap = 'round'; g.lineWidth = fs * 0.12; g.beginPath(); g.moveTo(x0 - fs * 0.15, H * 0.64); g.lineTo(x0 + tot + fs * 0.15, H * 0.38); g.stroke(); g.restore(); }
+    }
+    tex.needsUpdate = true;
+  };
+  draw(1);
+  return { tex, draw };
+}
+const scrawlK = (o, t) => o.writeAt == null ? 1 : clamp01((t - o.writeAt) / (o.writeDur || 0.8));
+const scrawlMat = tex => new THREE.MeshLambertMaterial({ map: tex, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+
 /* ------------------------------------------------------------------ prop builders */
 const B = {
   // --- handheld / small objects -------------------------------------------------
@@ -317,7 +347,11 @@ const B = {
     for (let i = 0; i < (o.notes || 0); i++) piv.add(at(box(0.12, 0.12, 0.004, i % 4 === 3 ? P.pink : P.yellow), 0.15 + r() * 0.55, 0.85 + r() * 0.85, 0.073, 0, 0, (r() - 0.5) * 0.4));
     const setOpen = v => { piv.rotation.y = -clamp01(v) * 1.9; inside.emissive.set(v > 0.02 ? '#BFE3DA' : '#000000'); };
     setOpen(o.open || 0); g.userData.setOpen = setOpen;
-    if (o.openAt !== undefined) g.userData.update = t => setOpen(ease.out(clamp01((t - o.openAt) / 0.6)));
+    if (o.openAt !== undefined) { // open / close cycles: openAt and closeAt may be single times or lists
+      const ev = [...[].concat(o.openAt).map(a => [a, 1]), ...[].concat(o.closeAt ?? []).map(a => [a, 0])].sort((a, b) => a[0] - b[0]);
+      g.userData.update = t => { let v = o.open || 0; for (const [a, up] of ev) { if (t < a) break; v = up ? Math.max(v, ease.out(clamp01((t - a) / 0.5))) : Math.min(v, 1 - ease.inOut(clamp01((t - a) / 0.4))); } setOpen(v); };
+    }
+    if (o.hinge === 'R') g.scale.x = -1; // mirrored: door hinged on the right
     g.userData.front = [0, 0, D / 2 + 0.6]; return g;
   },
   toaster(o) {
@@ -466,8 +500,11 @@ const B = {
     piv.add(at(box(w, h, 0.05, o.color || P.red, { outline: 0.006 }), w / 2, h / 2, 0), at(box(w * 0.62, h * 0.3, 0.012, P.redDark), w / 2, h * 0.72, 0.03),
       at(box(w * 0.62, h * 0.3, 0.012, P.redDark), w / 2, h * 0.3, 0.03), at(sphere(0.045, P.yellow, 0), w - 0.11, h * 0.48, 0.06));
     if (o.color && o.color !== P.red) piv.children.slice(1, 3).forEach(m => m.material = mat(new THREE.Color(o.color).multiplyScalar(0.82).getStyle()));
+    if (o.plaque) piv.add(at(box(0.44, 0.13, 0.012, '#B8913A', { outline: 0.02 }), w / 2, h * 0.86, 0.042), at(label(o.plaque, 0.4, 0.1, { bg: '#D8B54A', fg: P.ink }), w / 2, h * 0.86, 0.049));
+    let nameUp = null; // felt-pen name on the leaf (moves with the door)
+    if (o.name) { const nw = w * 0.66, s = scrawlTexture(o.name, nw / 0.18, { ...o, color: o.inkColor || '#15171C' }); const m = new THREE.Mesh(new THREE.PlaneGeometry(nw, 0.18), scrawlMat(s.tex)); m.position.set(w / 2, o.nameY ?? h * 0.68, 0.046); m.renderOrder = 3; piv.add(m); nameUp = t => s.draw(scrawlK(o, t)); nameUp(-1e9); }
     const setOpen = v => { piv.rotation.y = -clamp01(v) * 1.6; }; setOpen(o.open || 0); g.userData.setOpen = setOpen;
-    if (o.openAt !== undefined) g.userData.update = t => setOpen(ease.out(clamp01((t - o.openAt) / 0.5)));
+    if (o.openAt !== undefined || nameUp) g.userData.update = t => { if (o.openAt !== undefined) setOpen(ease.out(clamp01((t - o.openAt) / 0.5)) - (o.closeAt !== undefined ? ease.inOut(clamp01((t - o.closeAt) / 0.4)) : 0)); nameUp?.(t); };
     return g;
   },
   window(o) {
@@ -925,6 +962,57 @@ const B = {
     const g = grp(at(box(w, 0.07, d, c, { outline: 0.006, taper: { x: 0.8, z: 0.8 } }), 0, 0.035, 0), at(box(w * 0.25, 0.01, d * 0.2, '#EFE6DA', { noGrain: true }), -w * 0.15, 0.072, d * 0.1));
     return g; },
   
+  // --- "son nom dessus": felt pen, yogurt, broom closet, shopping, bank sack --------------------------------
+  scrawl(o) { // felt-pen handwriting on any surface (door, chair, forehead, vault, car): opts text, w, h, color, writeAt, writeDur, strike, underline
+    const w = o.w || 0.6, h = o.h || 0.16, s = scrawlTexture(o.text || 'BERNARD', w / h, o);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), scrawlMat(s.tex)); m.renderOrder = 3;
+    const g = grp(m); g.userData.update = t => s.draw(scrawlK(o, t)); g.userData.update(-1e9); return g; },
+  yogurt(o) { // strawberry yogurt pot with a foil lid; opts: name (felt pen, writeAt), strike (crossed out), name2 (new owner, writeAt2), open (lid peeled back)
+    const R = 0.06, rb = 0.048, H = 0.12, g = grp(cyl(R, rb, H, '#F7F4EC', 14, { pivot: 'bottom', outline: 0.006 }),
+      at(cyl(R + 0.0015, R - 0.0035, 0.028, o.color || P.pink, 14), 0, H - 0.017, 0), at(cyl(R * 0.8, R * 0.8, 0.003, '#F2D6DE', 12), 0, H - 0.0005, 0));
+    const lid = grp(at(cyl(R + 0.006, R + 0.006, 0.005, '#C9CCD1', 14, { outline: 0.02 }), -R, 0, 0)); lid.position.set(R, H + 0.003, 0); lid.rotation.z = o.open ? -2.25 : 0; g.add(lid);
+    const ups = [], rAt = y => rb + (R - rb) * y / H;
+    const name = (text, y, opt) => { const s = scrawlTexture(text, 3.8, { res: 320, ...opt });
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(rAt(y + 0.017) + 0.002, rAt(y - 0.017) + 0.002, 0.034, 14, 1, true, -1.15, 2.3), scrawlMat(s.tex));
+      m.position.y = y; m.renderOrder = 3; g.add(m); ups.push(t => s.draw(scrawlK(opt, t))); };
+    if (o.name) name(o.name, o.name2 ? 0.074 : 0.062, { writeAt: o.writeAt, writeDur: o.writeDur, strike: o.strike, color: o.inkColor });
+    if (o.name2) name(o.name2, 0.034, { writeAt: o.writeAt2, writeDur: o.writeDur2, color: o.inkColor2 || '#B3261E', seed: 21 });
+    if (ups.length) { g.userData.update = t => ups.forEach(f => f(t)); g.userData.update(-1e9); }
+    g.userData.grip = [0, 0.06, 0]; return g; },
+  spoon(o) { const g = grp(at(box(0.012, 0.13, 0.005, '#C9CCD1'), 0, 0.065, 0), at(sphere(0.02, '#C9CCD1', 1), 0, 0.14, 0)); g.children[1].scale.set(0.9, 1.25, 0.35); g.userData.grip = [0, 0.03, 0]; return g; },
+  moneySack(o) { // tied burlap sack with a big euro sign
+    const c = o.color || '#B89462', body = sphere(0.26, c, 1); body.scale.set(1, 0.95, 0.85); body.position.y = 0.24; addOutline(body, 0.03);
+    const g = grp(body, at(cyl(0.06, 0.1, 0.12, c, 8), 0, 0.5, 0), at(torus(0.065, 0.015, '#8C6239', 4, 10), 0, 0.5, 0, PI / 2), at(cyl(0.1, 0.05, 0.08, c, 8), 0, 0.59, 0),
+      at(label(o.text || '€', 0.24, 0.24, { bg: null, fg: '#2E5E3A' }), 0, 0.25, 0.225));
+    g.userData.grip = [0, 0.58, 0]; return g; },
+  shoppingBag(o) { // kraft paper grocery bag with a baguette and a leek
+    const C = o.color || '#C9A06A', w = 0.34, h = 0.36, d = 0.2, g = grp(box(w, h, d, C, { pivot: 'bottom', outline: 0.008 }), at(box(w + 0.006, 0.04, d + 0.006, '#B48A55'), 0, h - 0.03, 0));
+    g.add(at(cyl(0.032, 0.03, 0.62, '#D9A35C', 7), -0.08, h + 0.1, -0.03, 0.12, 0, 0.22), at(cyl(0.024, 0.024, 0.26, P.white, 7), 0.08, h + 0.03, 0.03, -0.1, 0, -0.18), at(cyl(0.034, 0.012, 0.3, '#5E9C4A', 6), 0.115, h + 0.29, 0.06, -0.1, 0, -0.3));
+    [-1, 1].forEach(sd => g.add(at(torus(0.07, 0.008, '#8C6239', 4, 10, PI), 0, h, sd * 0.06)));
+    if (o.text) g.add(at(label(o.text, w * 0.8, 0.1, { bg: null, fg: P.redDark }), 0, h * 0.45, d / 2 + 0.004));
+    g.userData.grip = [0, h + 0.07, 0]; return g; },
+  cupboard(o) { // broom closet, door open: broom, bucket + mop, shelf with bottles, ceiling light; opts.sign on the header plate
+    const W = o.w || 1.0, H = o.h || 2.3, D = o.d || 0.7, c = o.color || '#C9C2AE', t = 0.04, g = grp();
+    g.add(at(box(W, H, t, c), 0, H / 2, -D / 2 + t / 2), at(box(t, H, D, c, { outline: 0.006 }), -W / 2 + t / 2, H / 2, 0), at(box(t, H, D, c, { outline: 0.006 }), W / 2 - t / 2, H / 2, 0),
+      at(box(W, t, D, c, { outline: 0.006 }), 0, H - t / 2, 0), at(box(W, 0.05, D, '#8C8676'), 0, 0.025, 0), at(box(W - 2 * t, H - 0.1, 0.01, '#E3DCC9'), 0, H / 2, -D / 2 + t + 0.006));
+    g.add(at(box(W, 0.2, 0.03, c, { outline: 0.006 }), 0, H - 0.1, D / 2 - 0.015));
+    if (o.sign) g.add(at(label(o.sign, W * 0.72, 0.13, { bg: '#2C2C2C', fg: '#E8D9A0' }), 0, H - 0.1, D / 2 + 0.002));
+    g.add(at(box(W - 2 * t, 0.025, D * 0.5, '#B9B2A2'), 0, H - 0.52, -D / 2 + D * 0.29), at(box(0.3, 0.02, 0.2, '#FFFFFF', { emissive: '#FFF3C8', noGrain: true }), 0, H - t - 0.012, -0.05));
+    [[-0.3, P.teal, 0.2], [-0.14, P.yellow, 0.24], [0.2, P.red, 0.18], [0.33, P.white, 0.22]].forEach(([x, col, hh]) => g.add(at(cyl(0.04, 0.045, hh, col, 7, { pivot: 'bottom' }), x * W, H - 0.507, -D / 2 + 0.14)));
+    g.add(rod([-W / 2 + 0.16, 0.12, -D / 2 + 0.24], [-W / 2 + 0.1, 1.45, -D / 2 + 0.08], 0.014, P.wood), at(box(0.28, 0.1, 0.07, '#C9A86A', { outline: 0.01 }), -W / 2 + 0.17, 0.1, -D / 2 + 0.25, 0, 0.3, 0));
+    g.add(at(cyl(0.15, 0.12, 0.28, '#3E6FB5', 9, { pivot: 'bottom', outline: 0.01 }), W / 2 - 0.2, 0.05, -D / 2 + 0.22), rod([W / 2 - 0.2, 0.2, -D / 2 + 0.22], [W / 2 - 0.12, 1.42, -D / 2 + 0.08], 0.013, P.grey));
+    const piv = grp(); piv.position.set(W / 2, 0.05, D / 2); g.add(piv); const dh = H - 0.27;
+    piv.add(at(box(W - 0.02, dh, 0.035, c, { outline: 0.006 }), -(W - 0.02) / 2, dh / 2, 0.0175), at(sphere(0.03, P.yellow, 0), -(W - 0.1), dh * 0.5, 0.05),
+      at(label('ENTRETIEN', 0.42, 0.1, { bg: '#E8E2D0', fg: P.ink }), -W / 2, dh * 0.8, 0.037));
+    piv.rotation.y = (o.open ?? 1) * 1.75;
+    g.userData.front = [0, 0, D / 2 + 0.6]; return g; },
+  officeChair(o) { // swivel office chair with a tall backrest on a 5-star base; front +Z, backrest front face ~ z -0.19
+    const c = o.color || '#B8BEC6', g = grp();
+    for (let i = 0; i < 5; i++) { const a = i * TAU / 5; g.add(at(box(0.04, 0.035, 0.3, P.greyDark), Math.sin(a) * 0.14, 0.06, Math.cos(a) * 0.14, 0, a, 0), at(sphere(0.03, P.ink, 0), Math.sin(a) * 0.28, 0.03, Math.cos(a) * 0.28)); }
+    g.add(at(cyl(0.025, 0.025, 0.36, P.grey, 8, { pivot: 'bottom' }), 0, 0.08, 0), at(box(0.5, 0.08, 0.48, c, { outline: 0.01 }), 0, 0.48, 0.01),
+      at(box(0.46, 0.7, 0.07, c, { outline: 0.01 }), 0, 0.92, -0.23, -0.08, 0, 0), at(box(0.06, 0.4, 0.04, P.greyDark), 0, 0.6, -0.25));
+    [-1, 1].forEach(sd => g.add(at(box(0.05, 0.03, 0.3, P.ink), sd * 0.27, 0.68, 0.0), at(box(0.03, 0.17, 0.03, P.ink, { pivot: 'bottom' }), sd * 0.27, 0.52, -0.05)));
+    g.userData.seat = [0, 0.52, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
   
 };

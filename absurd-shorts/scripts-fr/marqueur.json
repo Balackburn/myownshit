@@ -1,0 +1,2599 @@
+{
+ "version": 3,
+ "title": "Son nom dessus",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.07
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.4,
+   "rate": 1.02
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "madame": {
+   "preset": "madame"
+  },
+  "coll1": {
+   "preset": "lemec_glasses"
+  },
+  "patron": {
+   "preset": "boss",
+   "facial": "none"
+  },
+  "banquier": {
+   "preset": "lemec_charcoal",
+   "tie": "#2C4A8A",
+   "seed": 5
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "mamie": {
+   "preset": "mamie"
+  }
+ },
+ "scenes": [
+  {
+   "id": "frigo",
+   "set": "office",
+   "setOpts": {
+    "door": false,
+    "printer": false
+   },
+   "ambience": "office",
+   "lines": [
+    {
+     "id": "M1",
+     "text": "Ce mec se faisait voler son yaourt au bureau. Tous les jours.",
+     "highlight": [
+      "yaourt",
+      "Tous",
+      "jours."
+     ]
+    },
+    {
+     "id": "M2",
+     "text": "Alors il a écrit son nom dessus. Putain, plus personne n'y a touché.",
+     "highlight": [
+      "nom",
+      "Putain,"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "madame",
+     "pos": [
+      3.1,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "lookAround",
+     "keys": [
+      {
+       "at": 0.4,
+       "clip": "takeItem",
+       "expr": "neutral"
+      },
+      {
+       "at": 0.85,
+       "clip": "lookItem",
+       "expr": "happy"
+      },
+      {
+       "at": "M1:voler",
+       "path": [
+        [
+         2.55,
+         0,
+         -1.0
+        ],
+        [
+         0.5,
+         0,
+         -0.4
+        ]
+       ],
+       "clip": "walkEat",
+       "speed": 1.0,
+       "faceEnd": "mec",
+       "then": "eatSpoon",
+       "expr": "happy"
+      },
+      {
+       "at": "M2:écrit",
+       "path": [
+        [
+         2.6,
+         0,
+         -1.0
+        ],
+        [
+         3.0,
+         0,
+         -2.42
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "faceEnd": 180,
+       "then": "takeItem",
+       "expr": "neutral"
+      },
+      {
+       "at": "M2:personne+0.15",
+       "clip": "startle",
+       "expr": "scared",
+       "sfx": "gasp"
+      },
+      {
+       "at": "M2:touché+0.1",
+       "path": [
+        [
+         2.6,
+         0,
+         -1.2
+        ],
+        [
+         0.6,
+         0,
+         -0.5
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "expr": "scared"
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      5.2,
+      0,
+      0.4
+     ],
+     "ry": -140,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.3,
+       "path": [
+        [
+         4.0,
+         0,
+         -1.2
+        ],
+        [
+         3.15,
+         0,
+         -2.25
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.55,
+       "faceEnd": 180,
+       "then": "idle"
+      },
+      {
+       "at": "M1:Tous",
+       "clip": "takeItem"
+      },
+      {
+       "at": "M1:jours",
+       "clip": "stareCamera",
+       "expr": "sad",
+       "face": -20,
+       "turn": 0.3
+      },
+      {
+       "at": "M2",
+       "clip": "writeOnHeld",
+       "expr": "smug",
+       "face": -30,
+       "turn": 0.25
+      },
+      {
+       "at": "M2:dessus",
+       "clip": "giveItem",
+       "face": 180,
+       "turn": 0.2,
+       "expr": "happy"
+      },
+      {
+       "at": "M2:dessus+0.45",
+       "path": [
+        [
+         4.4,
+         0,
+         -1.6
+        ],
+        [
+         5.8,
+         0,
+         0.4
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "expr": "smug"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      3.3,
+      0,
+      -3.22
+     ],
+     "opts": {
+      "hinge": "R",
+      "openAt": [
+       -0.6,
+       "M1:Tous-0.1",
+       "M2:Putain+0.55"
+      ],
+      "closeAt": [
+       "M1:voler+0.25",
+       "M2:dessus+0.4"
+      ]
+     }
+    },
+    {
+     "id": "porte",
+     "name": "door",
+     "pos": [
+      4.7,
+      0,
+      -3.6
+     ],
+     "opts": {
+      "color": "#D9C9A6",
+      "plaque": "DIRECTEUR"
+     }
+    },
+    {
+     "id": "placard",
+     "name": "cupboard",
+     "pos": [
+      6.2,
+      0,
+      -3.25
+     ],
+     "opts": {
+      "sign": "ENTRETIEN"
+     }
+    },
+    {
+     "id": "chair",
+     "name": "officeChair",
+     "pos": [
+      1.9,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -2.85,
+      1.85,
+      -3.575
+     ]
+    },
+    {
+     "id": "y1",
+     "name": "yogurt",
+     "pos": [
+      3.3,
+      1.365,
+      -3.12
+     ],
+     "scale": 1.3,
+     "keys": [
+      {
+       "at": 0.65,
+       "attach": "madame",
+       "actor": "madame",
+       "hand": "L",
+       "rot": [
+        1.5708,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        -0.12,
+        -0.05
+       ]
+      },
+      {
+       "at": "M2",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "spoonM",
+     "name": "spoon",
+     "on": {
+      "actor": "madame",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "M1:voler",
+       "visible": true
+      },
+      {
+       "at": "M2",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "spoon",
+     "name": "spoon",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M2",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "y2h",
+     "name": "yogurt",
+     "opts": {
+      "name": "BERNARD",
+      "writeAt": "M2:écrit",
+      "writeDur": 1.0
+     },
+     "scale": 1.3,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "M2",
+       "visible": true
+      },
+      {
+       "at": "M2:dessus+0.3",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "y2",
+     "name": "yogurt",
+     "opts": {
+      "name": "BERNARD"
+     },
+     "pos": [
+      3.3,
+      1.365,
+      -3.12
+     ],
+     "scale": 1.3,
+     "visible": false,
+     "keys": [
+      {
+       "at": "M2:dessus+0.3",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "marker",
+     "name": "marker",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "M2",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M2:écrit",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M2:écrit+0.45",
+     "name": "squeak",
+     "vol": 0.5
+    },
+    {
+     "at": "M1:voler+0.6",
+     "name": "carDoor",
+     "vol": 0.15
+    },
+    {
+     "at": "M2:dessus+0.75",
+     "name": "carDoor",
+     "vol": 0.18
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      3.42,
+      1.6,
+      -3.45
+     ],
+     "lookAt": [
+      3.12,
+      1.78,
+      -2.3
+     ],
+     "lens": 62
+    },
+    {
+     "at": "M1:voler",
+     "size": "fs",
+     "angle": -35,
+     "move": "track",
+     "frame": "madame"
+    },
+    {
+     "at": "M1:Tous-0.15",
+     "from": [
+      3.42,
+      1.6,
+      -3.45
+     ],
+     "lookAt": [
+      3.15,
+      1.72,
+      -2.25
+     ],
+     "lens": 62
+    },
+    {
+     "at": "M1:jours",
+     "size": "fs",
+     "worldAngle": -5,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "madame"
+     ]
+    },
+    {
+     "at": "M2",
+     "size": "mcu",
+     "angle": 25,
+     "frame": "mec"
+    },
+    {
+     "at": "M2:écrit+0.1",
+     "size": "cu",
+     "worldAngle": -45,
+     "noOcclusion": true,
+     "frame": "y2h"
+    },
+    {
+     "at": "M2:dessus",
+     "from": [
+      3.42,
+      1.6,
+      -3.45
+     ],
+     "lookAt": [
+      3.1,
+      1.75,
+      -2.3
+     ],
+     "lens": 62
+    },
+    {
+     "at": "M2:touché+0.45",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.35,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "y2"
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "chaise",
+   "set": "office",
+   "setOpts": {
+    "door": false,
+    "printer": false
+   },
+   "ambience": "office",
+   "lines": [
+    {
+     "id": "M3",
+     "text": "Ce con en a conclu un truc. Si ton nom est dessus, c'est à toi.",
+     "highlight": [
+      "nom",
+      "toi."
+     ]
+    },
+    {
+     "id": "M4",
+     "text": "Il a écrit son nom sur la chaise de son collègue.",
+     "highlight": [
+      "chaise"
+     ]
+    },
+    {
+     "id": "M5",
+     "text": "Ah, pardon. Elle est à toi.",
+     "speaker": "coll1",
+     "highlight": [
+      "pardon."
+     ]
+    },
+    {
+     "id": "M6",
+     "text": "Puis sur le collègue.",
+     "pre": 0.5,
+     "highlight": [
+      "collègue."
+     ]
+    },
+    {
+     "id": "M7",
+     "text": "Ton café, Bernard. Je te masse les pieds ?",
+     "speaker": "coll1",
+     "pre": 0.6,
+     "highlight": [
+      "pieds"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.1,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "M3:conclu",
+       "clip": "think",
+       "expr": "smug"
+      },
+      {
+       "at": "M3:Si",
+       "look": "chair",
+       "expr": "suspicious",
+       "face": -60,
+       "turn": 0.3
+      },
+      {
+       "at": "M3:toi",
+       "clip": "stareCamera",
+       "expr": "smug",
+       "look": null,
+       "face": -10,
+       "turn": 0.2
+      },
+      {
+       "at": "M3:toi+0.25",
+       "to": [
+        2.4,
+        0,
+        -1.3
+       ],
+       "clip": "sneak",
+       "speed": 1.15,
+       "faceEnd": -134,
+       "then": "idle",
+       "expr": "smug"
+      },
+      {
+       "at": "M4:sur",
+       "clip": "drawMid"
+      },
+      {
+       "at": "M4:collègue+0.15",
+       "clip": "handsOnHips",
+       "expr": "smug",
+       "face": "coll1",
+       "turn": 0.25
+      },
+      {
+       "at": "M5:Elle",
+       "to": [
+        1.9,
+        0,
+        -1.1
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "faceEnd": 0,
+       "then": "idle"
+      },
+      {
+       "at": "M5.end",
+       "to": [
+        1.9,
+        0.14,
+        -1.5
+       ],
+       "glide": true,
+       "dur": 0.3,
+       "clip": "sit",
+       "then": "sit",
+       "face": "keep",
+       "expr": "happy"
+      },
+      {
+       "at": "M6",
+       "face": "coll1",
+       "turn": 0.35,
+       "expr": "smug"
+      },
+      {
+       "at": "M6:sur",
+       "clip": "sitDraw"
+      },
+      {
+       "at": "M6.end+0.3",
+       "clip": "sit",
+       "expr": "smug"
+      },
+      {
+       "at": "M7",
+       "face": "coll1",
+       "turn": 0.3
+      },
+      {
+       "at": "M7:café+0.15",
+       "clip": "sitTake"
+      },
+      {
+       "at": "M7:Bernard+0.2",
+       "clip": "sitSip",
+       "expr": "smug"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "coll1",
+     "pos": [
+      5.4,
+      0,
+      0.3
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "M4",
+       "to": [
+        1.75,
+        0,
+        -0.6500000000000001
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "faceEnd": "chair",
+       "then": "idle"
+      },
+      {
+       "at": "M5",
+       "clip": "doubleTake",
+       "expr": "surprised"
+      },
+      {
+       "at": "M5:Elle",
+       "clip": "present",
+       "expr": "happy",
+       "face": "mec",
+       "turn": 0.25
+      },
+      {
+       "at": "M5.end+0.1",
+       "to": [
+        1.4,
+        0,
+        -1.0
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "faceEnd": "mec",
+       "then": "sitFloor",
+       "expr": "neutral"
+      },
+      {
+       "at": "M6.end",
+       "face": 10,
+       "turn": 0.3,
+       "expr": "unimpressed"
+      },
+      {
+       "at": "M7",
+       "clip": "kneelGive",
+       "expr": "happy",
+       "face": "mec",
+       "turn": 0.25
+      },
+      {
+       "at": "M7:Je",
+       "clip": "kneelMassage",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      3.3,
+      0,
+      -3.22
+     ],
+     "opts": {
+      "hinge": "R",
+      "open": 1
+     }
+    },
+    {
+     "id": "porte",
+     "name": "door",
+     "pos": [
+      4.7,
+      0,
+      -3.6
+     ],
+     "opts": {
+      "color": "#D9C9A6",
+      "plaque": "DIRECTEUR"
+     }
+    },
+    {
+     "id": "placard",
+     "name": "cupboard",
+     "pos": [
+      6.2,
+      0,
+      -3.25
+     ],
+     "opts": {
+      "sign": "ENTRETIEN"
+     }
+    },
+    {
+     "id": "chair",
+     "name": "officeChair",
+     "pos": [
+      1.9,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -2.85,
+      1.85,
+      -3.575
+     ]
+    },
+    {
+     "id": "y2",
+     "name": "yogurt",
+     "opts": {
+      "name": "BERNARD"
+     },
+     "pos": [
+      3.3,
+      1.365,
+      -3.12
+     ],
+     "scale": 1.3
+    },
+    {
+     "id": "marker",
+     "name": "marker",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "M3:toi",
+       "visible": true
+      },
+      {
+       "at": "M6.end+0.3",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "nameChair",
+     "name": "scrawl",
+     "opts": {
+      "text": "BERNARD",
+      "w": 0.4,
+      "h": 0.12,
+      "writeAt": "M4:sur",
+      "writeDur": 1.0
+     },
+     "on": {
+      "actor": "chair",
+      "offset": [
+       0,
+       1.0,
+       -0.183
+      ],
+      "rot": [
+       -0.08,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "mug",
+     "name": "mug",
+     "opts": {
+      "color": "#F1E9D2"
+     },
+     "on": {
+      "actor": "coll1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M7:Bernard",
+       "attach": "mec",
+       "hand": "R"
+      }
+     ]
+    },
+    {
+     "id": "nameColl",
+     "name": "scrawl",
+     "opts": {
+      "text": "BERNARD",
+      "w": 0.17,
+      "h": 0.05,
+      "writeAt": "M6:sur+0.15",
+      "writeDur": 0.8
+     },
+     "on": {
+      "actor": "coll1",
+      "joint": "head",
+      "offset": [
+       0,
+       0.455,
+       0.094
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M4:sur",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M4:sur+0.5",
+     "name": "squeak",
+     "vol": 0.5
+    },
+    {
+     "at": "M6:sur+0.15",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M6:sur+0.55",
+     "name": "squeak",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      3.42,
+      1.6,
+      -3.45
+     ],
+     "lookAt": [
+      3.1,
+      1.7,
+      -2.3
+     ],
+     "lens": 62
+    },
+    {
+     "at": "M3:Si",
+     "size": "fs",
+     "worldAngle": -15,
+     "elev": 8,
+     "frame": [
+      "mec",
+      "chair"
+     ]
+    },
+    {
+     "at": "M3:toi",
+     "size": "ecu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    },
+    {
+     "at": "M3:toi+0.4",
+     "size": "fs",
+     "angle": 60,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "M4:sur",
+     "size": "ms",
+     "worldAngle": -40,
+     "frame": [
+      "mec",
+      "chair"
+     ]
+    },
+    {
+     "at": "M4:collègue+0.2",
+     "size": "cu",
+     "worldAngle": -30,
+     "noOcclusion": true,
+     "frame": [
+      [
+       1.9,
+       1.0,
+       -1.7830000000000001
+      ]
+     ]
+    },
+    {
+     "at": "M5",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "coll1"
+    },
+    {
+     "at": "M5:Elle",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "coll1",
+      "mec",
+      "chair"
+     ]
+    },
+    {
+     "at": "M6",
+     "size": "ms",
+     "worldAngle": 45,
+     "frame": [
+      "mec",
+      "coll1"
+     ]
+    },
+    {
+     "at": "M6.end+0.2",
+     "size": "ecu",
+     "worldAngle": 5,
+     "frame": "coll1"
+    },
+    {
+     "at": "M7",
+     "size": "ms",
+     "worldAngle": 45,
+     "frame": [
+      "mec",
+      "coll1"
+     ]
+    },
+    {
+     "at": "M7:masse",
+     "size": "ms",
+     "worldAngle": -20,
+     "elev": 30,
+     "frame": [
+      "mec",
+      "coll1"
+     ]
+    }
+   ],
+   "tail": 0.5
+  },
+  {
+   "id": "porte",
+   "set": "office",
+   "setOpts": {
+    "door": false,
+    "printer": false
+   },
+   "ambience": "office",
+   "lines": [
+    {
+     "id": "M8",
+     "text": "Puis sur la porte du patron. Le patron a déménagé dans le placard.",
+     "highlight": [
+      "porte",
+      "placard."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.3,
+      0,
+      -2.95
+     ],
+     "ry": 165,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "M8:sur",
+       "clip": "drawOn"
+      },
+      {
+       "at": "M8:patron.end-0.15",
+       "to": [
+        3.3,
+        0,
+        -2.0
+       ],
+       "clip": "walk",
+       "speed": 1.3,
+       "faceEnd": "porte",
+       "then": "handsOnHips"
+      },
+      {
+       "at": "M8:déménagé",
+       "path": [
+        [
+         4.6,
+         0,
+         -2.3
+        ],
+        [
+         4.7,
+         0,
+         -3.3
+        ]
+       ],
+       "clip": "strut",
+       "speed": 1.1,
+       "then": "idle"
+      },
+      {
+       "at": "M8.end+0.95",
+       "visible": false
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "patron",
+     "pos": [
+      4.7,
+      0,
+      -3.35
+     ],
+     "ry": 0,
+     "clip": "carry",
+     "keys": [
+      {
+       "at": "M8:Le+0.15",
+       "visible": true
+      },
+      {
+       "at": "M8:Le+0.2",
+       "path": [
+        [
+         5.3,
+         0,
+         -2.6
+        ],
+        [
+         6.2,
+         0,
+         -2.55
+        ],
+        [
+         6.2,
+         0,
+         -3.12
+        ]
+       ],
+       "clip": "carryBox",
+       "speed": 1.3,
+       "faceEnd": 0,
+       "then": "carry",
+       "expr": "sad"
+      }
+     ],
+     "visible": false,
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      3.3,
+      0,
+      -3.22
+     ],
+     "opts": {
+      "hinge": "R",
+      "open": 0
+     }
+    },
+    {
+     "id": "porte",
+     "name": "door",
+     "pos": [
+      4.7,
+      0,
+      -3.6
+     ],
+     "opts": {
+      "color": "#D9C9A6",
+      "plaque": "DIRECTEUR",
+      "name": "BERNARD",
+      "writeAt": "M8:sur+0.1",
+      "writeDur": 1.0,
+      "openAt": "M8:Le",
+      "closeAt": "M8.end+1.0"
+     }
+    },
+    {
+     "id": "placard",
+     "name": "cupboard",
+     "pos": [
+      6.2,
+      0,
+      -3.25
+     ],
+     "opts": {
+      "sign": "ENTRETIEN"
+     }
+    },
+    {
+     "id": "chair",
+     "name": "officeChair",
+     "pos": [
+      1.9,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -2.85,
+      1.85,
+      -3.575
+     ]
+    },
+    {
+     "id": "marker",
+     "name": "marker",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "box",
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "scale": 0.75,
+     "on": {
+      "actor": "patron",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.22,
+       0.34
+      ]
+     }
+    },
+    {
+     "id": "plant",
+     "name": "plant",
+     "scale": 0.35,
+     "on": {
+      "actor": "box",
+      "offset": [
+       0.1,
+       0.25,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M8:sur+0.1",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M8:sur+0.6",
+     "name": "squeak",
+     "vol": 0.5
+    },
+    {
+     "at": "M8:Le",
+     "name": "carDoor",
+     "vol": 0.25
+    },
+    {
+     "at": "M8.end+1.0",
+     "name": "carDoor",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 75,
+     "frame": "mec"
+    },
+    {
+     "at": "M8:patron",
+     "size": "cu",
+     "worldAngle": 45,
+     "noOcclusion": true,
+     "frame": [
+      [
+       4.7,
+       1.55,
+       -3.55
+      ]
+     ]
+    },
+    {
+     "at": "M8:Le",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "porte",
+      "placard",
+      "mec"
+     ]
+    },
+    {
+     "at": "M8.end+0.2",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "patron"
+    }
+   ],
+   "tail": 1.3
+  },
+  {
+   "id": "banque",
+   "set": "bank",
+   "ambience": "bank",
+   "lines": [
+    {
+     "id": "M9",
+     "text": "À la banque, il a écrit son nom sur le coffre.",
+     "highlight": [
+      "coffre."
+     ]
+    },
+    {
+     "id": "M10",
+     "text": "Tout est à vous, monsieur Bernard. Vous voulez un sac ?",
+     "speaker": "banquier",
+     "highlight": [
+      "sac"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "banquier",
+     "pos": [
+      -1.2,
+      0,
+      -2.1
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "M9:coffre",
+       "clip": "doubleTake",
+       "expr": "surprised",
+       "face": "mec",
+       "turn": 0.3
+      },
+      {
+       "at": "M9.end-0.1",
+       "path": [
+        [
+         0.9,
+         0,
+         -2.3
+        ],
+        [
+         2.65,
+         0,
+         -2.35
+        ]
+       ],
+       "clip": "run",
+       "speed": 2.4,
+       "faceEnd": "mec",
+       "then": "present",
+       "expr": "happy"
+      },
+      {
+       "at": "M10:Bernard",
+       "clip": "bow",
+       "expr": "happy"
+      },
+      {
+       "at": "M10:voulez",
+       "clip": "giveItem",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      2.6,
+      0,
+      -1.65
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        2.6,
+        0,
+        -2.72
+       ],
+       "clip": "strut",
+       "speed": 1.05,
+       "faceEnd": 180,
+       "then": "idle"
+      },
+      {
+       "at": "M9:écrit",
+       "clip": "drawOn"
+      },
+      {
+       "at": "M9:coffre+0.2",
+       "to": [
+        3.35,
+        0,
+        -2.6
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "faceEnd": -60,
+       "then": "present",
+       "expr": "smug"
+      },
+      {
+       "at": "M10",
+       "face": "banquier",
+       "turn": 0.3,
+       "clip": "handsOnHips",
+       "expr": "smug"
+      },
+      {
+       "at": "M10:sac",
+       "clip": "takeItem",
+       "expr": "happy"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "marker",
+     "name": "marker",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M10",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "nameVault",
+     "name": "scrawl",
+     "pos": [
+      2.6,
+      1.52,
+      -3.226
+     ],
+     "opts": {
+      "text": "BERNARD",
+      "w": 0.8,
+      "h": 0.2,
+      "writeAt": "M9:écrit+0.1",
+      "writeDur": 1.0
+     }
+    },
+    {
+     "id": "sack",
+     "name": "moneySack",
+     "scale": 0.8,
+     "visible": false,
+     "on": {
+      "actor": "banquier",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M10:voulez",
+       "visible": true
+      },
+      {
+       "at": "M10:sac+0.35",
+       "attach": "mec",
+       "hand": "R"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M9:écrit+0.1",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M9:écrit+0.6",
+     "name": "squeak",
+     "vol": 0.5
+    },
+    {
+     "at": "M10:sac+0.35",
+     "name": "cash",
+     "vol": 0.45
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 75,
+     "frame": "mec"
+    },
+    {
+     "at": "M9:écrit",
+     "size": "ms",
+     "worldAngle": -80,
+     "frame": "mec"
+    },
+    {
+     "at": "M9:coffre+0.3",
+     "size": "ms",
+     "worldAngle": -10,
+     "elev": 4,
+     "frame": [
+      "nameVault",
+      "mec"
+     ]
+    },
+    {
+     "at": "M10",
+     "size": "fs",
+     "angle": -50,
+     "move": "track",
+     "frame": "banquier"
+    },
+    {
+     "at": "M10:Bernard",
+     "size": "ms",
+     "angle": -40,
+     "frame": "banquier"
+    },
+    {
+     "at": "M10:voulez",
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": [
+      "banquier",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.5
+  },
+  {
+   "id": "flics",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "M11",
+     "text": "Les flics sont venus l'arrêter. Il a écrit son nom sur la voiture de police.",
+     "highlight": [
+      "flics",
+      "police."
+     ]
+    },
+    {
+     "id": "M12",
+     "text": "On vous dépose où, chef ?",
+     "speaker": "flic1",
+     "highlight": [
+      "chef"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.9,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -0.85,
+        0,
+        -1.1
+       ],
+       "clip": "strut",
+       "speed": 1.1,
+       "faceEnd": 60,
+       "then": "idle"
+      },
+      {
+       "at": "M11:arrêter+0.2",
+       "clip": "handsOnHips",
+       "expr": "smug"
+      },
+      {
+       "at": "M11:Il",
+       "to": [
+        -1.6,
+        -0.14,
+        -1.85
+       ],
+       "clip": "walk",
+       "speed": 1.3,
+       "faceEnd": 160,
+       "then": "drawLow"
+      },
+      {
+       "at": "M12",
+       "to": [
+        -2.4,
+        0,
+        -1.15
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": "flic1",
+       "then": "handsOnHips",
+       "expr": "smug"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      1.2999999999999998,
+      -0.14,
+      -2.2
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 1.05,
+       "visible": true
+      },
+      {
+       "at": 1.1,
+       "path": [
+        [
+         1.0,
+         -0.14,
+         -1.7
+        ],
+        [
+         1.0,
+         0,
+         -0.65
+        ]
+       ],
+       "clip": "run",
+       "speed": 3.0,
+       "faceEnd": "mec",
+       "then": "holdOut",
+       "expr": "angry"
+      },
+      {
+       "at": "M11:nom",
+       "clip": "stand",
+       "expr": "suspicious",
+       "face": "mec",
+       "turn": 0.3
+      },
+      {
+       "at": "M11:police",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "M12",
+       "clip": "salute",
+       "expr": "happy"
+      },
+      {
+       "at": "M12.end",
+       "clip": "present",
+       "expr": "happy"
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      0.35,
+      -0.14,
+      -2.2
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 1.12,
+       "visible": true
+      },
+      {
+       "at": 1.15,
+       "path": [
+        [
+         0.15,
+         -0.14,
+         -1.7
+        ],
+        [
+         0.3,
+         0,
+         -0.2
+        ]
+       ],
+       "clip": "run",
+       "speed": 3.0,
+       "faceEnd": "mec",
+       "then": "point",
+       "expr": "angry"
+      },
+      {
+       "at": "M11:nom",
+       "clip": "stand",
+       "expr": "suspicious",
+       "face": "mec",
+       "turn": 0.3
+      },
+      {
+       "at": "M11:police",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "M12:dépose",
+       "clip": "salute",
+       "expr": "happy"
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "policeCar",
+     "pos": [
+      -14,
+      -0.14,
+      -3.4
+     ],
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        0.6,
+        -0.14,
+        -3.4
+       ],
+       "dur": 1.0,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "sack",
+     "name": "moneySack",
+     "scale": 0.8,
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "marker",
+     "name": "marker",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "M11:Il",
+       "visible": true
+      },
+      {
+       "at": "M12",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "on": {
+      "actor": "flic1",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": 1.05,
+       "visible": true
+      },
+      {
+       "at": "M11:police",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "nameCar",
+     "name": "scrawl",
+     "opts": {
+      "text": "BERNARD",
+      "w": 1.2,
+      "h": 0.3,
+      "writeAt": "M11:nom+0.2",
+      "writeDur": 1.0
+     },
+     "on": {
+      "actor": "car",
+      "offset": [
+       -1.4,
+       0.72,
+       0.915
+      ]
+     }
+    },
+    {
+     "id": "bus",
+     "name": "busStop",
+     "pos": [
+      -5.6,
+      0,
+      -1.2
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -8.2,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "kind": "stand"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.0,
+     "name": "siren",
+     "vol": 0.45
+    },
+    {
+     "at": 0.55,
+     "name": "brake",
+     "vol": 0.5
+    },
+    {
+     "at": 1.02,
+     "name": "carDoor",
+     "vol": 0.45
+    },
+    {
+     "at": 1.1,
+     "name": "carDoor",
+     "vol": 0.4
+    },
+    {
+     "at": "M11:nom+0.2",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M11:nom+0.7",
+     "name": "squeak",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "M11:venus+0.25",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 8,
+     "frame": [
+      "car",
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "M11:arrêter+0.35",
+     "size": "ms",
+     "worldAngle": -25,
+     "frame": [
+      "flic1",
+      "flic2",
+      "mec"
+     ]
+    },
+    {
+     "at": "M11:nom",
+     "size": "ms",
+     "worldAngle": 35,
+     "frame": [
+      "mec",
+      "nameCar"
+     ]
+    },
+    {
+     "at": "M12",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "flic1"
+    },
+    {
+     "at": "M12:chef",
+     "size": "fs",
+     "worldAngle": 15,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "flic1",
+      "flic2",
+      "nameCar"
+     ]
+    }
+   ],
+   "tail": 0.6
+  },
+  {
+   "id": "monique",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "M13",
+     "text": "Puis dans la rue, il a croisé une mamie. Elle avait un marqueur.",
+     "highlight": [
+      "mamie.",
+      "marqueur."
+     ]
+    },
+    {
+     "id": "M14",
+     "text": "Toi, tu portes mes courses.",
+     "speaker": "mamie",
+     "pre": 1.9,
+     "highlight": [
+      "courses."
+     ]
+    },
+    {
+     "id": "M15",
+     "text": "Depuis, ce mec appartient à Monique.",
+     "highlight": [
+      "Monique."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -8.4,
+      0,
+      0.85
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -6.62,
+        0,
+        0.85
+       ],
+       "clip": "strut",
+       "speed": 1.1,
+       "faceEnd": 90,
+       "then": "idle"
+      },
+      {
+       "at": "M13:Elle",
+       "expr": "suspicious"
+      },
+      {
+       "at": "M13:marqueur",
+       "expr": "shocked"
+      },
+      {
+       "at": "M13.end",
+       "clip": "scared",
+       "expr": "shocked"
+      },
+      {
+       "at": "M14-1.35",
+       "clip": "kneel",
+       "expr": "scared"
+      },
+      {
+       "at": "M14",
+       "expr": "sad"
+      },
+      {
+       "at": "M14.end+0.15",
+       "clip": "holdBags",
+       "expr": "sad"
+      },
+      {
+       "at": "M15+0.35",
+       "path": [
+        [
+         -5.4,
+         0,
+         1.05
+        ],
+        [
+         -1.5999999999999996,
+         0,
+         1.0
+        ]
+       ],
+       "clip": "carryBags",
+       "speed": 0.95,
+       "expr": "sad"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "mamie",
+     "pos": [
+      -4.4,
+      0,
+      0.85
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -6.0,
+        0,
+        0.85
+       ],
+       "clip": "carryBags",
+       "speed": 1.0,
+       "faceEnd": -90,
+       "then": "holdBags"
+      },
+      {
+       "at": "M13:Elle",
+       "clip": "stand",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "M13:avait",
+       "clip": "showMarkerL",
+       "expr": "angry"
+      },
+      {
+       "at": "M14-1.5",
+       "clip": "pointDown",
+       "expr": "angry"
+      },
+      {
+       "at": "M14-1.05",
+       "clip": "drawOn",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "M14",
+       "clip": "point",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "M15",
+       "path": [
+        [
+         -4.4,
+         0,
+         1.0
+        ],
+        [
+         -0.7999999999999998,
+         0,
+         0.95
+        ]
+       ],
+       "clip": "walk",
+       "speed": 0.95,
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -4.0,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "M15:ce",
+       "clip": "salute",
+       "face": "mamie",
+       "turn": 0.3,
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -3.0,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "handsOnHips",
+     "keys": [
+      {
+       "at": "M15:ce+0.15",
+       "clip": "salute",
+       "face": "mamie",
+       "turn": 0.3,
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "policeCar",
+     "pos": [
+      -2.8,
+      -0.14,
+      -3.4
+     ]
+    },
+    {
+     "id": "nameCar",
+     "name": "scrawl",
+     "opts": {
+      "text": "BERNARD",
+      "w": 1.2,
+      "h": 0.3
+     },
+     "on": {
+      "actor": "car",
+      "offset": [
+       -1.4,
+       0.72,
+       0.915
+      ]
+     }
+    },
+    {
+     "id": "sack",
+     "name": "moneySack",
+     "scale": 0.8,
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "M13:marqueur",
+       "detach": true,
+       "fall": true,
+       "impact": "thud"
+      }
+     ]
+    },
+    {
+     "id": "bagL",
+     "name": "shoppingBag",
+     "on": {
+      "actor": "mamie",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "M13:Elle",
+       "detach": true,
+       "fall": true,
+       "impact": "paper"
+      },
+      {
+       "at": "M14.end+0.15",
+       "attach": "mec",
+       "hand": "L"
+      }
+     ]
+    },
+    {
+     "id": "bagR",
+     "name": "shoppingBag",
+     "opts": {
+      "text": "MARCHÉ"
+     },
+     "on": {
+      "actor": "mamie",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M13:Elle+0.1",
+       "detach": true,
+       "fall": true,
+       "impact": "paper"
+      },
+      {
+       "at": "M14.end+0.15",
+       "attach": "mec",
+       "hand": "R"
+      }
+     ]
+    },
+    {
+     "id": "bigMarker",
+     "name": "marker",
+     "opts": {
+      "color": "#B3261E"
+     },
+     "scale": 2.2,
+     "visible": false,
+     "on": {
+      "actor": "mamie",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.05,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "M13:avait",
+       "visible": true
+      },
+      {
+       "at": "M14-1.1",
+       "attach": "mamie",
+       "hand": "R",
+       "offset": [
+        0,
+        -0.09,
+        0
+       ],
+       "rot": [
+        0,
+        0,
+        0
+       ]
+      },
+      {
+       "at": "M14",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "nameMec",
+     "name": "scrawl",
+     "opts": {
+      "text": "MONIQUE",
+      "w": 0.17,
+      "h": 0.05,
+      "color": "#B3261E",
+      "writeAt": "M14-1.0",
+      "writeDur": 0.8
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.455,
+       0.094
+      ]
+     }
+    },
+    {
+     "id": "bus",
+     "name": "busStop",
+     "pos": [
+      -10.0,
+      0,
+      -1.2
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M14-1.0",
+     "name": "squeak",
+     "vol": 0.6
+    },
+    {
+     "at": "M14-0.55",
+     "name": "squeak",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 50,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "M13:mamie",
+     "size": "ms",
+     "angle": 25,
+     "frame": "mamie"
+    },
+    {
+     "at": "M13:avait",
+     "size": "mcu",
+     "angle": 50,
+     "frame": "mamie"
+    },
+    {
+     "at": "M13.end",
+     "size": "cu",
+     "angle": -55,
+     "frame": "mec"
+    },
+    {
+     "at": "M14-1.55",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mamie",
+      "mec"
+     ]
+    },
+    {
+     "at": "M14-0.6",
+     "size": "ecu",
+     "angle": 40,
+     "frame": "mec"
+    },
+    {
+     "at": "M14",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "mamie"
+    },
+    {
+     "at": "M15",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "mamie",
+      "mec",
+      "flic1",
+      "flic2"
+     ]
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "salon",
+   "set": "livingRoom",
+   "ambience": null,
+   "lighting": "interior",
+   "lines": [
+    {
+     "id": "M16",
+     "text": "Et Monique mange son yaourt.",
+     "pre": 0.3,
+     "highlight": [
+      "yaourt."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mamie",
+     "pos": [
+      -0.45,
+      0.23,
+      -2.72
+     ],
+     "ry": 0,
+     "clip": "sitEatSpoon",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.95,
+      0,
+      -2.2
+     ],
+     "ry": -10,
+     "clip": "holdBags",
+     "keys": [
+      {
+       "at": "M16:yaourt",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "yF",
+     "name": "yogurt",
+     "opts": {
+      "name": "BERNARD",
+      "strike": true,
+      "name2": "MONIQUE",
+      "inkColor2": "#B3261E",
+      "open": true
+     },
+     "scale": 1.3,
+     "on": {
+      "actor": "mamie",
+      "hand": "L",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     }
+    },
+    {
+     "id": "spoonF",
+     "name": "spoon",
+     "on": {
+      "actor": "mamie",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "bagL",
+     "name": "shoppingBag",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "bagR",
+     "name": "shoppingBag",
+     "opts": {
+      "text": "MARCHÉ"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "nameMec",
+     "name": "scrawl",
+     "opts": {
+      "text": "MONIQUE",
+      "w": 0.17,
+      "h": 0.05,
+      "color": "#B3261E"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.455,
+       0.094
+      ]
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "mamie",
+      "mec"
+     ]
+    },
+    {
+     "at": "M16:mange",
+     "size": "cu",
+     "worldAngle": -30,
+     "noOcclusion": true,
+     "frame": "yF"
+    },
+    {
+     "at": "M16:yaourt+0.1",
+     "size": "ms",
+     "worldAngle": 12,
+     "move": "push",
+     "amount": 0.06,
+     "frame": [
+      "mec",
+      "mamie"
+     ]
+    }
+   ],
+   "tail": 1.8
+  }
+ ]
+}

@@ -232,6 +232,24 @@ export const CLIPS = {
   sitGive: (t) => { const k = Math.min(1, t / 0.4); return { ...CLIPS.sit(t), shoulderR: [-0.7 - 0.6 * k, 0.15, 0.1], elbowR: [-0.8 + 0.5 * k, 0, 0], torso: [0.1 * k, 0, 0] }; },
   sitTake: (t) => { const k = Math.min(1, t / 0.35); return { ...CLIPS.sit(t), shoulderR: [-1.25 + 0.4 * k, -0.1, 0.1], elbowR: [-0.3 - 1.0 * k, 0, 0], head: [0.3, 0, 0] }; },
   sitLookItem: (t) => ({ ...CLIPS.sit(t), shoulderR: [-0.85, 0.35, 0.05], elbowR: [-1.35, 0, 0], head: [0.45, 0.15, 0] }),
+  // --- felt pen / yogurt gags ("son nom dessus") ------------------------------------
+  writeOnHeld: (t) => ({ ...CLIPS.stand(), shoulderL: [-0.55, -0.35, 0.1], elbowL: [-1.05, 0, 0], shoulderR: [-0.6, 0.85, -0.05], elbowR: [-1.25 + 0.12 * S(t * 16), 0.1 * C(t * 16), 0], head: [0.42, 0, 0], torso: [0.08, 0, 0] }), // pot in the left hand, writing on it
+  drawMid: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.75, 0.3, 0.05], elbowR: [-0.35 + 0.14 * S(t * 16), 0, 0.1 * C(t * 16)], torso: [0.3, 0, 0], head: [0.15, 0.1, 0] }), // leaning, writing at waist-chest height (chair back)
+  drawLow: (t) => ({ ...CLIPS.kneel(t), shoulderR: [-0.95, 0.25, 0.05], elbowR: [-0.3 + 0.14 * S(t * 16), 0, 0.1 * C(t * 16)], shoulderL: [-0.4, 0, 0.3], elbowL: [-0.9, 0, 0], torso: [0.3, 0, 0], head: [0.1, 0.1, 0] }), // crouched tagger (car door)
+  drawUp: (t) => ({ ...CLIPS.stand(), shoulderR: [-2.1, 0.3, 0.05], elbowR: [-0.3 + 0.14 * S(t * 16), 0, 0.1 * C(t * 16)], shoulderL: [-0.2, 0, 0.3], elbowL: [-0.6, 0, 0], head: [-0.25, 0.05, 0], root: { y: 0.04 } }), // reaching up
+  sitDraw: (t) => ({ ...CLIPS.sit(t), shoulderR: [-1.35, 0.25, 0.1], elbowR: [-0.4 + 0.12 * S(t * 16), 0, 0.1 * C(t * 16)], torso: [0.25, 0, 0], head: [0.1, 0.1, 0] }),
+  eatSpoon: (t, p = {}) => { const a = Math.max(0, S(t * 2 * PI * (p.freq ?? 1.4))); return { ...CLIPS.stand(), shoulderL: [-0.55, -0.45, 0.1], elbowL: [-1.05, 0, 0], shoulderR: [-0.6 - 0.7 * a, 0.4, -0.05], elbowR: [-1.2 - 1.0 * a, 0, 0], head: [0.15 - 0.15 * a, 0, 0], torso: [0.04, 0, 0] }; },
+  sitEatSpoon: (t, p = {}) => { const e = CLIPS.eatSpoon(t, p); return { ...CLIPS.sit(t), shoulderL: e.shoulderL, elbowL: e.elbowL, shoulderR: e.shoulderR, elbowR: e.elbowR, head: e.head }; },
+  walkEat: (t, p = {}) => { const w = CLIPS.walk(t, { freq: p.freq ?? 1.6, amp: 0.3 }), e = CLIPS.eatSpoon(t, { freq: 1.7 }); return { ...w, shoulderL: e.shoulderL, elbowL: e.elbowL, shoulderR: e.shoulderR, elbowR: e.elbowR, head: e.head }; },
+  sitSip: (t) => ({ ...CLIPS.sit(t), shoulderR: [-1.0, 0.45, -0.05], elbowR: [-1.9, 0, 0], head: [-0.18, 0, 0] }),
+  kneelGive: (t) => { const k = Math.min(1, t / 0.35); return { ...CLIPS.kneel(t), shoulderR: [-1.45 * k, 0.1, 0.1], elbowR: [-0.3, 0, 0], shoulderL: [-1.2 * k, -0.1, 0.1], elbowL: [-0.4, 0, 0], torso: [0.05, 0, 0], head: [-0.15, 0, 0] }; },
+  kneelMassage: (t) => { const k = 0.5 + 0.5 * S(t * 11); return { ...CLIPS.kneel(t), ...arms(m([-0.9 - 0.15 * k, -0.15, 0.1], [-0.9 - 0.15 * (1 - k), -0.15, 0.1]), m([-0.5, 0, 0], [-0.5, 0, 0])), torso: [0.45, 0, 0], head: [0.15, 0, 0] }; },
+  carryBags: (t, p = {}) => { const f = p.freq ?? 1.8, ph = t * 2 * PI * f, w = CLIPS.walk(t, { freq: f, amp: 0.32 }); return { ...w, ...arms(m([0.08 * S(ph), 0, 0.3], [-0.08 * S(ph), 0, 0.3]), m([-0.12, 0, 0], [-0.12, 0, 0])), torso: [0.1, 0, 0] }; },
+  holdBags: (t) => ({ ...CLIPS.stand(), ...arms(m([0, 0, 0.3], [0, 0, 0.3]), m([-0.12, 0, 0], [-0.12, 0, 0])), torso: [0.08, 0, 0], head: [0.01 * S(t), 0, 0] }),
+  bow: (t) => { const k = Math.min(1, t / 0.3); return { ...CLIPS.stand(), torso: [0.85 * k, 0, 0], head: [0.2 * k, 0, 0], ...arms(m([0.15 * k, 0, 0.1], [0.15 * k, 0, 0.1]), m([-0.2, 0, 0], [-0.2, 0, 0])) }; }, // deep servile bow
+  pointDown: (t) => ({ ...arms(m([0, 0, 0.08], [-0.75 + 0.05 * S(t * 3), 0.2, 0.1]), m([-0.1, 0, 0], [-0.05, 0, 0])), head: [0.3, 0, 0], torso: [0.08, 0, 0] }), // "à genoux"
+  showMarker: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.45, 0.15, -0.3], elbowR: [-2.15 + 0.06 * S(t * 9), 0, 0], shoulderL: [0, 0, 0.15], elbowL: [-0.3, 0, 0], head: [-0.06, -0.12, 0.05] }), // brandishes a marker beside the face
+  showMarkerL: (t) => ({ ...CLIPS.stand(), shoulderL: [-0.45, -0.15, 0.3], elbowL: [-2.15 + 0.06 * S(t * 9), 0, 0], shoulderR: [0, 0, -0.15], elbowR: [-0.3, 0, 0], head: [-0.06, 0.12, -0.05] }),
   lookItem: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.85, 0.35, 0.05], elbowR: [-1.35, 0, 0], head: [0.45, 0.15, 0] }),
 
   // --- creature/monster helper (vampire lurk, claw reach) -----------------

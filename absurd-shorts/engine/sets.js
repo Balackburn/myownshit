@@ -130,12 +130,13 @@ function windowsGrid(g, list, lit, dark) { if (list.lit.length) g.add(inst(new T
 
 /* ------------------------------------------------------------------ sets */
 const S = {
-  office() {
+  office(o = {}) { // o.door === false: no door (a scene prop door replaces it); o.printer === false: free the right corner
     const g = grp(), { back } = room(g, { wall: P.cream, band: P.teal, bandH: 1.05, trim: P.navy, floor: '#CDB894' });
     g.add(prop('carpet', { w: 4.8, d: 2.6, color: P.red }, 0, 0, -0.4), prop('window', { w: 1.3, h: 1.3, color: P.teal }, -1.75, 1.0, back),
       prop('table', { color: P.red, legs: P.redDark, w: 0.75, d: 0.5, h: 0.72 }, 2.0, 0, back + 0.45), tableLamp(1.8, 0.72, back + 0.4), prop('mug', { color: P.cream }, 2.2, 0.72, back + 0.5),
-      at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03), prop('door', {}, 4.7, 0, back), prop('plant', {}, -3.9, 0, back + 0.4),
+      at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03), prop('plant', {}, -3.9, 0, back + 0.4),
       prop('desk', {}, -4.6, 0, -1.4, 0.35), prop('chair', { color: P.navy }, -4.9, 0, -2.1, 0.35));
+    if (o.door !== false) g.add(prop('door', {}, 4.7, 0, back));
     g.add(at(grp(cyl(0.28, 0.28, 0.05, P.white, 12), at(torus(0.28, 0.03, P.navy, 4, 16), 0, 0, 0, PI / 2), at(box(0.02, 0.18, 0.01, P.ink), 0, 0.07, 0.03), at(box(0.13, 0.02, 0.01, P.ink), 0.05, 0, 0.03)), 3.4, 2.6, back + 0.03, PI / 2));
     // viz3d pass (lived-in office): background workstations under the window, filing cabinet, cork board with memos,
     // whiteboard, printer, water cooler, archive boxes, tube lights — acting areas (centre, desk front, door) stay clear
@@ -149,7 +150,7 @@ const S = {
     const wbd = canvasPlane(1.8, 1.0, (c, W, H) => { c.fillStyle = '#F7F7F2'; c.fillRect(0, 0, W, H); c.strokeStyle = '#2C4A8A'; c.lineWidth = 4; c.beginPath(); c.moveTo(W * 0.08, H * 0.8); [0.25, 0.4, 0.55, 0.7, 0.85].forEach((x, i) => c.lineTo(W * x, H * (0.7 - i * 0.12 + (i % 2) * 0.1))); c.stroke();
       c.fillStyle = '#B5302A'; c.font = `bold ${H * 0.13}px Arial`; c.fillText('OBJECTIFS Q3', W * 0.06, H * 0.18); c.fillStyle = '#2C4A8A'; c.font = `${H * 0.09}px Arial`; c.fillText('• synergies', W * 0.6, H * 0.4); c.fillText('• yaourts +12%', W * 0.6, H * 0.55); });
     g.add(at(box(1.9, 1.1, 0.04, '#C9CDCF', { outline: 0.006 }), 6.95, 1.6, -0.8, 0, -PI / 2, 0), at(wbd, 6.92, 1.6, -0.8, 0, -PI / 2, 0));
-    g.add(at(box(0.7, 0.75, 0.5, P.navyLight, { pivot: 'bottom', outline: 0.006 }), 6.2, 0, back + 0.4), at(box(0.55, 0.3, 0.42, '#E8E8E4', { outline: 0.006 }), 6.2, 0.9, back + 0.4), at(box(0.4, 0.02, 0.3, P.white), 6.2, 1.06, back + 0.45));
+    if (o.printer !== false) g.add(at(box(0.7, 0.75, 0.5, P.navyLight, { pivot: 'bottom', outline: 0.006 }), 6.2, 0, back + 0.4), at(box(0.55, 0.3, 0.42, '#E8E8E4', { outline: 0.006 }), 6.2, 0.9, back + 0.4), at(box(0.4, 0.02, 0.3, P.white), 6.2, 1.06, back + 0.45));
     g.add(at(grp(at(box(0.36, 1.0, 0.36, '#E8E8E4', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.15, 0.15, 0.42, '#9FD3E8', 10, { pivot: 'bottom', opacity: 0.7 }), 0, 1.0, 0)), -6.3, 0, back + 0.35));
     [[6.3, 0, 1.0], [6.3, 0.45, 1.05], [5.8, 0, 1.4]].forEach(([x, y, z]) => g.add(at(box(0.5, 0.45, 0.4, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y, z, 0, 0.2, 0)));
     [-2.5, 2.5].forEach(x => g.add(rod([x - 0.7, 3.6, -0.8], [x - 0.7, 3.35, -0.8], 0.006, P.ink), rod([x + 0.7, 3.6, -0.8], [x + 0.7, 3.35, -0.8], 0.006, P.ink), at(box(1.6, 0.06, 0.2, '#FFFFFF', { emissive: '#FFF6DA', noGrain: true }), x, 3.33, -0.8)));

@@ -108,3 +108,38 @@ Sets follow the `visualize-in-3d` skill (codepawl/viz3d, installed in `.claude/s
   `engine/qa/frame-guard.js` and `coplanar-check.js` are the viz3d scripts.
   Visible coplanar faces need ≥ 2 cm separation; flat ground details are slabs, not planes at y = 0.003.
 - **Brand signage** can be a set option (`restaurant` `setOpts: {brand: 'MASTER POULET'}`) instead of a floating scene prop.
+
+## Props that change over time, writing gags, inside-out cameras (from "Son nom dessus")
+
+Working example: `scripts-fr/marqueur.py`.
+
+- **Prop options ending in `At` accept time expressions**, single or as lists, for example `openAt`, `closeAt`,
+  `writeAt` and `writeAt2`: `opts: {'writeAt': 'M4:sur', 'writeDur': 1.0}` or `opts: {'openAt': [-0.6, 'M1:Tous-0.1'], 'closeAt': ['M1:voler+0.25']}`.
+  - The fridge opens and closes in cycles.
+  - The door takes `plaque`, a felt-pen `name` that moves with the leaf, plus `openAt` and `closeAt`.
+  - Check every word anchor: `L:word` matches the **first word containing** that text, so `'M10:Vous'` hit "vous," three words
+    earlier. Use `#index` or another word instead (`'M10:voulez'`).
+- **`scrawl`** writes felt-pen handwriting on any surface: `opts {text, w, h, color, writeAt, writeDur, strike, underline}`.
+  - The letters appear left to right while the writer holds `drawOn`, `drawMid` (chair back), `drawLow` (crouched, car
+    side), `drawUp` or `sitDraw`.
+  - Attach it to a prop with `on: {actor: 'chair', offset, rot}` or to a forehead with `{actor, joint: 'head', offset: [0, 0.455, 0.094]}`.
+  - Use dark ink on light surfaces only: black on a navy chair is unreadable, so the office chair is light grey.
+  - `yogurt` takes `name`, `strike` and `name2` (the new owner in red) for the "crossed-out name" punchline.
+- **Held cups and pots stay upright** with `on: {hand: 'L', rot: [1.5708, 0, 0], offset: [0, -0.12, -0.05]}` and a
+  forearm close to horizontal (shoulder + elbow pitch ≈ −1.6). Clips with that arm are `writeOnHeld`, `eatSpoon`, `sitEatSpoon` and `walkEat`.
+  - A prop held up beside the face (the granny's giant marker) needs `rot: [π, 0, 0]`. Put it in the hand on the camera
+    side, then re-`attach` it to the writing hand.
+- **Inside-out camera.** A person using a fridge, a door or a vault faces away from every front camera. Use an explicit
+  camera inside the object instead: `{'at': t, 'from': [3.42, 1.6, -3.45], 'lookAt': [3.12, 1.78, -2.3], 'lens': 62}`.
+  - That shot keeps the yogurt in the foreground and the face in the opening.
+  - When the door closes, the frame goes "dark" for a comic beat ("Putain,").
+  - Repeat the same POV as a motif: the theft, "Tous les jours.", the name, the startle.
+- **Inserts of written text** frame a point (`[[x, y, z]]`, a 0.8 m box) with `cu` and `noOcclusion`.
+  - Shoot them after the writer steps aside, or from the side away from the writer: the writer's body stands between a
+    front camera and the surface.
+- Other new clips: `bow` (servile banker), `pointDown` ("à genoux"), `kneelGive` and `kneelMassage`, `sitSip`,
+  `carryBags` and `holdBags` (shopping bags), and `showMarker` / `showMarkerL`.
+- Other new props: `officeChair`, `cupboard` (broom closet, `sign` on the header plate), `shoppingBag`, `moneySack` and
+  `spoon`.
+- `office` takes `setOpts {door: false, printer: false}`. The film then supplies its own animated door and puts the closet
+  in the right corner.
