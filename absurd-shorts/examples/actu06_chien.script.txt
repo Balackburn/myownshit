@@ -1,0 +1,23 @@
+## salon (livingRoom)
+[0.30–2.86] Ce mec a oublié d'acheter les croquettes de son chien.
+[3.04–7.76] Le chien a appelé les flics. Motif : séquestration et privation de nourriture.
+[7.94–9.62] Les flics ont embarqué ce mec.
+
+## gav (interrogation)
+[9.97–11.89] C'est le chien qui menait l'interrogatoire.
+[12.19–13.95] CHIEN : Wouf, wouf. Wouf !
+[14.25–16.09] FLIC1 : Il demande où étaient les croquettes.
+[16.39–19.35] MEC : Au supermarché. J'ai perdu une bataille d'aura au rayon.
+[19.55–20.43] CHIEN : Wouf.
+[20.73–21.85] FLIC1 : Quarante-huit heures.
+
+## tele (pressRoom)
+[22.20–25.08] À la télé, Mbappé s'excusait en trois langues.
+
+## excuses (interrogation)
+[25.33–27.25] Ce mec s'est excusé en chien.
+[27.55–29.07] MEC : Wouf. Wouf, wouf.
+[29.37–32.09] Le chien a accepté. Contre une promotion.
+
+## promenade (street)
+[32.44–35.80] Depuis, le chien est commissaire. Et c'est ce mec qu'on promène.
