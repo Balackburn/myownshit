@@ -87,11 +87,16 @@ function wedge(r, h, color, a0 = 0, a1 = TAU, seg = 12) {
 // A social-media post card (avatar, name, handle, "translated from" line, text, counters) drawn on a canvas.
 function tweetCard(g, W, H, o) {
   g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H);
-  const pad = W * 0.07, av = W * 0.16; g.fillStyle = o.avatar || '#E8775F'; g.beginPath(); g.arc(pad + av / 2, pad + av / 2, av / 2, 0, TAU); g.fill();
-  g.fillStyle = '#FFFFFF'; g.font = `900 ${av * 0.5}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(o.initial || 'K', pad + av / 2, pad + av / 2);
-  g.textAlign = 'left'; g.textBaseline = 'alphabetic'; g.fillStyle = '#14171A'; g.font = `bold ${W * 0.075}px Arial`; g.fillText(o.name || 'Kenji', pad * 1.4 + av, pad + av * 0.45);
-  g.fillStyle = '#657786'; g.font = `${W * 0.06}px Arial`; g.fillText(o.handle || '@kenji_lol', pad * 1.4 + av, pad + av * 0.95);
-  let y = pad * 2 + av; g.fillStyle = '#1D9BF0'; g.font = `${W * 0.055}px Arial`; g.fillText(o.via || 'Traduit du japonais par X', pad, y); y += W * 0.1;
+  let top = 0;
+  if (o.repost) { // "X a reposté" banner above the post, bold and readable
+    g.fillStyle = '#00A86B'; g.fillRect(0, 0, W, W * 0.2); g.fillStyle = '#FFFFFF'; g.font = `bold ${W * 0.068}px Arial`; g.textAlign = 'left'; g.textBaseline = 'middle';
+    const words = String(o.repost).split(' '); let line = '', yy = W * 0.065; for (const w of words) { const t = line ? line + ' ' + w : w; if (g.measureText(t).width > W * 0.88 && line) { g.fillText(line, W * 0.06, yy); yy += W * 0.075; line = w; } else line = t; } g.fillText(line, W * 0.06, yy);
+    top = W * 0.22; }
+  const pad = W * 0.07, av = W * 0.16; g.fillStyle = o.avatar || '#E8775F'; g.beginPath(); g.arc(pad + av / 2, top + pad + av / 2, av / 2, 0, TAU); g.fill();
+  g.fillStyle = '#FFFFFF'; g.font = `900 ${av * 0.5}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(o.initial || 'K', pad + av / 2, top + pad + av / 2);
+  g.textAlign = 'left'; g.textBaseline = 'alphabetic'; g.fillStyle = '#14171A'; g.font = `bold ${W * 0.075}px Arial`; g.fillText(o.name || 'Kenji', pad * 1.4 + av, top + pad + av * 0.45);
+  g.fillStyle = '#657786'; g.font = `${W * 0.06}px Arial`; g.fillText(o.handle || '@kenji_lol', pad * 1.4 + av, top + pad + av * 0.95);
+  let y = top + pad * 2 + av; g.fillStyle = '#1D9BF0'; g.font = `${W * 0.055}px Arial`; g.fillText(o.via || 'Traduit du japonais par X', pad, y); y += W * 0.1;
   g.fillStyle = '#14171A'; const fs = W * (o.fs || 0.082); g.font = `bold ${fs}px Arial`;
   const words = String(o.text || '').split(' '); let line = '';
   for (const w of words) { const t = line ? line + ' ' + w : w; if (g.measureText(t).width > W - pad * 2 && line) { g.fillText(line, pad, y); y += fs * 1.25; line = w; } else line = t; }

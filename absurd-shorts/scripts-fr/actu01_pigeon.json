@@ -50,15 +50,11 @@
     "seed": 7
    }
   },
-  "robot": {
-   "type": "creature",
-   "name": "robot",
-   "opts": {
-    "seed": 3
-   }
-  },
   "juge": {
    "preset": "judge"
+  },
+  "glucksmann": {
+   "preset": "politique"
   }
  },
  "scenes": [
@@ -523,10 +519,9 @@
     },
     {
      "id": "P9",
-     "text": "Personne n'a ri. Sauf le traducteur, qui a démissionné.",
+     "text": "Personne n'a ri.",
      "highlight": [
-      "traducteur,",
-      "démissionné."
+      "Personne"
      ]
     }
    ],
@@ -583,51 +578,6 @@
       }
      ],
      "expr": "neutral"
-    },
-    {
-     "id": "robot",
-     "pos": [
-      -3.3,
-      0,
-      -2.4
-     ],
-     "ry": 40,
-     "clip": "idle",
-     "keys": [
-      {
-       "at": "P9:Sauf",
-       "clip": "celebrate",
-       "expr": "happy"
-      },
-      {
-       "at": "P9:démissionné",
-       "path": [
-        [
-         -1.5,
-         0,
-         -2.25
-        ],
-        [
-         2.6,
-         0,
-         -2.25
-        ],
-        [
-         4.2,
-         0,
-         -1.25
-        ]
-       ],
-       "clip": "walk",
-       "speed": 1.6,
-       "expr": "sad"
-      },
-      {
-       "at": "P9.end+0.9",
-       "visible": false
-      }
-     ],
-     "expr": "neutral"
     }
    ],
    "props": [
@@ -650,30 +600,6 @@
       "text": "Le pigeon français vole le croissant, puis il fait grève contre le pain.",
       "likes": "0 rire · 2 likes"
      }
-    },
-    {
-     "id": "carton",
-     "name": "cardboardBox",
-     "opts": {
-      "text": ""
-     },
-     "scale": 0.6,
-     "visible": false,
-     "on": {
-      "actor": "robot",
-      "joint": "torso",
-      "offset": [
-       0,
-       0.1,
-       0.3
-      ]
-     },
-     "keys": [
-      {
-       "at": "P9:démissionné",
-       "visible": true
-      }
-     ]
     }
    ],
    "sfx": [
@@ -706,22 +632,108 @@
       "commissaire",
       "flic2"
      ]
-    },
-    {
-     "at": "P9:Sauf",
-     "size": "ms",
-     "angle": 15,
-     "frame": "robot"
-    },
-    {
-     "at": "P9:démissionné+0.1",
-     "size": "fs",
-     "angle": 70,
-     "move": "track",
-     "frame": "robot"
     }
    ],
-   "tail": 0.3
+   "tail": 0.25
+  },
+  {
+   "id": "glucksmann",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "CHARISME|PRIMAIRE|DÉBAT",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563"
+   },
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "P9b",
+     "text": "Sauf Raphaël Glucksmann. Et il a retweeté.",
+     "highlight": [
+      "Glucksmann.",
+      "retweeté."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksmann",
+     "pos": [
+      0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "laugh",
+     "keys": [
+      {
+       "at": "P9b:retweeté",
+       "clip": "podiumTalk",
+       "expr": "happy"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "rt",
+     "name": "tweetPhone",
+     "pos": [
+      0.0,
+      1.158,
+      -1.95
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Kenji",
+      "handle": "@kenji_lol",
+      "repost": "Raphaël Glucksmann a reposté",
+      "text": "Le pigeon français vole le croissant, puis il fait grève contre le pain.",
+      "likes": "1 rire · 1 repost"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P9b:retweeté",
+     "name": "pop",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "glucksmann"
+    },
+    {
+     "at": "P9b:Glucksmann",
+     "size": "cu",
+     "angle": 10,
+     "frame": "glucksmann"
+    },
+    {
+     "at": "P9b:retweeté",
+     "from": [
+      0.0,
+      1.5699999999999998,
+      -1.89
+     ],
+     "lookAt": [
+      0.0,
+      1.15,
+      -1.95
+     ],
+     "lens": 40
+    }
+   ],
+   "tail": 0.5
   },
   {
    "id": "tribunal",

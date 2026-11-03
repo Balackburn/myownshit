@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ACTU 01 — LE PIGEON. A pigeon steals his croissant -> he calls the cops (motif: pigeon trop confiant) -> the pigeon
 in custody under the lamp ("Rou." = a confession) -> a Japanese post about it, machine-translated, nobody laughs except
-the translator (a robot) who resigns -> trial: the pigeon has a pigeon lawyer, the man gets six months -> the pigeon
+Raphaël Glucksmann, who retweets it -> trial: the pigeon has a pigeon lawyer, the man gets six months -> the pigeon
 eats croissants at his cell window."""
 from actu_common import *
 
@@ -64,24 +64,30 @@ TW = (0.05, 0.785, -0.42)
 scenes.append({
   'id': 'tweet', 'set': 'interrogation', 'ambience': 'station',
   'lines': [L('P8', "Au Japon, un mec a tweeté une blague sur l'affaire.", highlight=['Japon,', 'blague']),
-            L('P9', "Personne n'a ri. Sauf le traducteur, qui a démissionné.", highlight=['traducteur,', 'démissionné.'])],
+            L('P9', "Personne n'a ri.", highlight=['Personne'])],
   'actors': [
     act('pigeon', IR_ON_TABLE, 0, 'eat', 'smug', scale=1.8),
     act('commissaire', IR_COP, -90, 'lookDown', 'neutral', keys=[k('P9', clip='stareCamera', expr='unimpressed', face=-30, turn=0.2)]),
     act('flic2', [-0.6, 0, -0.15], 160, 'lookDown', 'neutral', keys=[k('P9', clip='stareCamera', expr='unimpressed', face=10, turn=0.2)]),
-    act('robot', [-3.3, 0, -2.4], 40, 'idle', 'neutral', keys=[
-        k('P9:Sauf', clip='celebrate', expr='happy'),
-        k('P9:démissionné', path=[[-1.5, 0, -2.25], [2.6, 0, -2.25], [4.2, 0, -1.25]], clip='walk', speed=1.6, expr='sad'),
-        k('P9.end+0.9', visible=False)]),
   ],
-  'props': [tweet_on_table('tw', *TW, name='Kenji', handle='@kenji_lol', text="Le pigeon français vole le croissant, puis il fait grève contre le pain.", likes='0 rire · 2 likes'),
-            P('carton', 'cardboardBox', opts={'text': ''}, scale=0.6, visible=False, on={'actor': 'robot', 'joint': 'torso', 'offset': [0, 0.1, 0.3]}, keys=[k('P9:démissionné', visible=True)])],
+  'props': [tweet_on_table('tw', *TW, name='Kenji', handle='@kenji_lol', text="Le pigeon français vole le croissant, puis il fait grève contre le pain.", likes='0 rire · 2 likes')],
   'sfx': [{'at': 'P9', 'name': 'crickets', 'vol': 0.7}],
   'cams': [tweet_cam('P8:tweeté', *TW),
-           cam('P9', ['commissaire', 'flic2'], 'ms', worldAngle=-15),
-           cam('P9:Sauf', 'robot', 'ms', angle=15),
-           cam('P9:démissionné+0.1', 'robot', 'fs', angle=70, move='track')],
-  'tail': 0.3,
+           cam('P9', ['commissaire', 'flic2'], 'ms', worldAngle=-15)],
+  'tail': 0.25,
+})
+
+PH = (0.0, 1.15, -1.95)   # phone lying on the lectern
+scenes.append({
+  'id': 'glucksmann', 'set': 'pressRoom', 'setOpts': {'backdrop': 'CHARISME|PRIMAIRE|DÉBAT', 'bg': '#D9E2E8', 'fg': '#2E4563'}, 'ambience': 'station',
+  'lines': [L('P9b', "Sauf Raphaël Glucksmann. Et il a retweeté.", highlight=['Glucksmann.', 'retweeté.'])],
+  'actors': [act('glucksmann', PR_SPEAKER, 0, 'laugh', 'happy', keys=[k('P9b:retweeté', clip='podiumTalk', expr='happy')])],
+  'props': [tweet_on_table('rt', *PH, name='Kenji', handle='@kenji_lol', repost='Raphaël Glucksmann a reposté', text="Le pigeon français vole le croissant, puis il fait grève contre le pain.", likes='1 rire · 1 repost')],
+  'sfx': [{'at': 'P9b:retweeté', 'name': 'pop', 'vol': 0.5}],
+  'cams': [cam(0, 'glucksmann', 'ms', angle=0),
+           cam('P9b:Glucksmann', 'glucksmann', 'cu', angle=10),
+           tweet_cam('P9b:retweeté', *PH)],
+  'tail': 0.5,
 })
 
 scenes.append({
@@ -119,6 +125,6 @@ scenes.append({
 write('actu01_pigeon', 'Le pigeon', scenes, {
   'pigeon': {'type': 'creature', 'name': 'pigeon', 'opts': {'seed': 2}},
   'pigeon2': {'type': 'creature', 'name': 'pigeon', 'opts': {'seed': 7}},
-  'robot': {'type': 'creature', 'name': 'robot', 'opts': {'seed': 3}},
   'juge': {'preset': 'judge'},
+  'glucksmann': {'preset': 'politique'},
 })

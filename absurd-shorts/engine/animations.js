@@ -265,6 +265,7 @@ export const CLIPS = {
   clickCount: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.9, 0.3, 0.05], elbowR: [-0.9, 0, 0], handR: [0.25 * Math.max(0, S(t * 2 * PI * 4)), 0, 0], head: [-0.05, 0.25 * S(t * 1.5), 0] }), // tally counter, scanning the crowd
   readPhone: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.75, 0.35, 0.05], elbowR: [-1.45, 0, 0], handR: [0.3, 0, 0], head: [0.35, 0, 0] }), // phone at chest height, screen toward the face
   showPhone: (t) => ({ ...CLIPS.stand(), shoulderR: [-1.45, 0.15, 0.05], elbowR: [-0.15, 0, 0], handR: [0, 0, 0], head: [0.05, -0.1, 0] }), // arm out, screen toward the others
+  laugh: (t) => { const k = Math.abs(S(t * 2 * PI * 3)); return { ...CLIPS.stand(), torso: [0.15 + 0.12 * k, 0, 0], head: [-0.25 + 0.2 * k, 0, 0], ...arms(m([-0.45, -0.35, 0.1], [-0.45, -0.35, 0.1]), m([-1.4, 0, 0], [-1.4, 0, 0])), root: { y: 0.02 * k } }; }, // belly laugh, hands on the stomach
   lookItem: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.85, 0.35, 0.05], elbowR: [-1.35, 0, 0], head: [0.45, 0.15, 0] }),
 
   // --- creature/monster helper (vampire lurk, claw reach) -----------------
