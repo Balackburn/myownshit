@@ -1,0 +1,46 @@
+## pause (office)
+[0.30–3.18] Ce mec était le plus gros relou de la planète.
+[3.36–6.08] Dix ans de record de mots inutiles à la pause café.
+
+## patron (office)
+[6.73–10.73] Un jour, son patron l'a convoqué. Ce con pensait qu'on allait le féliciter.
+[11.03–15.03] PATRON : Quatre cents idées dans la boîte à suggestions. Des fusées. Des sous-marins.
+[15.33–16.37] MEC : Merci, patron !
+[16.67–19.07] PATRON : On fabrique des yaourts. Vous êtes viré.
+
+## bar (bar)
+[20.52–23.32] Alors il est allé chez Jo donner son avis sur le match.
+[23.62–26.34] MEC : Le foot, c'est truqué. Le ballon est carré.
+[26.64–27.92] Tout le bar s'est barré.
+[28.22–29.34] JO : Va boire ailleurs.
+[29.64–34.28] Ce con a payé un verre au dernier client, un vieux poivrot qui parlait comme en 1900.
+[34.58–39.06] VIEUX : Mazette, un godet ! Tiens, mon brave : une tocante qui arrête le temps.
+[39.36–40.40] Il a appuyé.
+[40.85–41.97] MEC : Putain…
+
+## demoPatron (office)
+[43.02–47.98] Il a voulu le montrer à son patron pour sauver la boîte. Temps arrêté, moustache, temps relancé.
+[48.28–50.20] PATRON : Et alors ? Vous êtes toujours viré.
+
+## demoBar (bar)
+[50.95–54.23] Au bar, il a figé tout le monde et retourné toutes les bières.
+[54.53–56.53] CLIENT1 : Jo… je crois que j'ai trop bu.
+[56.83–58.27] Personne n'a rien compris.
+
+## banque (bank)
+[59.02–60.70] Alors il a braqué une banque.
+[60.88–62.24] Il a quand même pris un ticket.
+[62.42–64.90] Mais en sortant, ce con a fait tomber le chrono.
+[65.08–67.08] Il a essayé de le réparer avec du scotch.
+[67.26–69.18] Le temps ne repartirait plus jamais.
+
+## rue (street)
+[70.13–71.81] MEC : Au secours ! Aidez-moi !
+[72.11–77.23] Il est allé se rendre aux flics. Ils étaient figés en plein contrôle au faciès d'un mec qui attendait le bus.
+[77.41–80.69] Lui, avec son caddie de billets, ils l'ont même pas regardé.
+
+## fin (bar)
+[81.44–83.92] Dix mille ans plus tard, il est retourné chez Jo.
+[84.32–86.16] MEC : Bon… je vous raconte le match ?
+[86.46–88.78] Pour la première fois, personne ne s'est barré.
+[89.18–91.58] Par contre, il avait toujours pas payé l'addition.
