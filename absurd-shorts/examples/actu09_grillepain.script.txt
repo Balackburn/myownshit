@@ -1,0 +1,18 @@
+## cuisine (kitchenNight)
+[0.30–3.02] Ce mec a perdu une bataille d'aura contre son grille-pain.
+[3.20–5.84] Le grille-pain lui a éjecté un toast en pleine face.
+[6.02–9.30] Il a appelé les flics. Motif : tentative d'homicide.
+
+## gav (interrogation)
+[9.65–11.41] Les flics ont embarqué le grille-pain.
+[11.71–12.99] COMMISSAIRE : Vous reconnaissez les faits ?
+[13.29–15.29] Le grille-pain a éjecté un toast.
+[15.59–17.19] COMMISSAIRE : Attendez. Filmez-moi.
+[17.49–19.81] Le grille-pain s'est évadé pendant la chorégraphie.
+
+## tokyo (street)
+[20.16–24.40] Il a fui au Japon. Là-bas, tout était propre et à l'heure. Il a fait un malaise.
+
+## retour (kitchenNight)
+[24.85–28.69] Rapatrié en France, il s'est remis tout de suite : il s'est mis en grève.
+[28.87–31.19] Depuis, ce mec mange son pain cru.
