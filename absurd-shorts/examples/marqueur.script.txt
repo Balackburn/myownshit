@@ -1,0 +1,29 @@
+## frigo (office)
+[0.30–3.50] Ce mec se faisait voler son yaourt au bureau. Tous les jours.
+[3.68–7.36] Alors il a écrit son nom dessus. Putain, plus personne n'y a touché.
+
+## chaise (office)
+[8.11–11.55] Ce con en a conclu un truc. Si ton nom est dessus, c'est à toi.
+[11.73–14.05] Il a écrit son nom sur la chaise de son collègue.
+[14.35–16.11] COLL1 : Ah, pardon. Elle est à toi.
+[16.61–17.97] Puis sur le collègue.
+[18.57–20.97] COLL1 : Ton café, Bernard. Je te masse les pieds ?
+
+## porte (office)
+[21.62–25.06] Puis sur la porte du patron. Le patron a déménagé dans le placard.
+
+## banque (bank)
+[26.51–28.99] À la banque, il a écrit son nom sur le coffre.
+[29.29–31.93] BANQUIER : Tout est à vous, monsieur Bernard. Vous voulez un sac ?
+
+## flics (street)
+[32.58–36.18] Les flics sont venus l'arrêter. Il a écrit son nom sur la voiture de police.
+[36.48–37.84] FLIC1 : On vous dépose où, chef ?
+
+## monique (street)
+[38.59–41.79] Puis dans la rue, il a croisé une mamie. Elle avait un marqueur.
+[43.69–45.37] MAMIE : Toi, tu portes mes courses.
+[45.67–47.83] Depuis, ce mec appartient à Monique.
+
+## salon (livingRoom)
+[48.68–50.44] Et Monique mange son yaourt.
