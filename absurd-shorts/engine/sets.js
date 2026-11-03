@@ -175,7 +175,7 @@ const S = {
     [-1.6, -0.6, 0.4].forEach(x => g.add(at(box(0.04, 0.7, 0.01, P.navy), x + 0.5, 0.45, back + 0.605), at(box(0.12, 0.03, 0.03, P.cream), x + 0.35, 0.75, back + 0.62)));
     g.add(at(box(0.9, 0.7, 0.36, '#3F7470', { pivot: 'bottom' }), -1.65, 1.75, back + 0.18), at(box(0.9, 0.7, 0.36, '#3F7470', { pivot: 'bottom' }), 0.45, 1.75, back + 0.18));
     g.add(prop('window', { w: 0.9, h: 0.8, color: P.cream, night: true }, -0.6, 1.25, back), at(cyl(0.12, 0.12, 0.01, P.cream, 10, { emissive: '#8A8460' }), -0.4, 1.95, back + 0.025, PI / 2));
-    g.add(prop('toaster', { color: P.red }, 0.3, 0.95, back + 0.3), prop('mug', { color: P.yellow }, -1.4, 0.95, back + 0.35));
+    if (o.toaster !== false) g.add(prop('toaster', { color: P.red }, 0.3, 0.95, back + 0.3)); g.add(prop('mug', { color: P.yellow }, -1.4, 0.95, back + 0.35));
     // arched doorway (dark opening + cream frame)
     const ax = 2.8, ay = 1.9;
     g.add(at(box(1.1, ay, 0.02, '#0E1218'), ax, ay / 2, back + 0.01), at(mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.02, 12, 1, false, PI / 2, PI), mat('#0E1218')), ax, ay, back + 0.01, PI / 2),

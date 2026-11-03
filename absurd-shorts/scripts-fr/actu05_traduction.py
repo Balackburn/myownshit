@@ -29,7 +29,9 @@ scenes.append({
            tweet_cam('T1:algérienne', 2.4, 0.0, 1.6),
            cam('T2', 'mec', 'cu', angle=10),
            tweet_cam('T2:Traduction', 3.4, 0.0, 1.6),
-           cam('T3', 'mec', 'cu', angle=-35)],
+           cam('T3', 'mec', 'cu', angle=-35),
+           cam('T3:Motif', 'mec', 'ecu', angle=0),
+           tweet_cam('T3:menaces', 3.4, 0.0, 1.6)],
   'tail': 0.2,
 })
 

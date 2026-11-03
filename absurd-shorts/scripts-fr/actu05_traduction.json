@@ -273,6 +273,26 @@
      "size": "cu",
      "angle": -35,
      "frame": "mec"
+    },
+    {
+     "at": "T3:Motif",
+     "size": "ecu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "T3:menaces",
+     "from": [
+      3.4,
+      0.42,
+      1.6600000000000001
+     ],
+     "lookAt": [
+      3.4,
+      0.0,
+      1.6
+     ],
+     "lens": 40
     }
    ],
    "tail": 0.2

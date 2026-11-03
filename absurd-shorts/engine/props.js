@@ -1082,6 +1082,10 @@ const B = {
   speedDisplay(o) { // "radar pédagogique": LED speed readout on a pole
     const c = canvasPlane(0.5, 0.28, (gg, W, H) => { gg.fillStyle = '#111'; gg.fillRect(0, 0, W, H); gg.fillStyle = o.color || '#FF8A2E'; gg.textAlign = 'center'; gg.textBaseline = 'middle'; gg.font = `900 ${H * 0.8}px "Courier New", monospace`; gg.fillText(String(o.value ?? 67), W / 2, H * 0.55); }, { res: 256, emissive: 0.9 });
     return grp(cyl(0.04, 0.04, 2.0, P.grey, 6, { pivot: 'bottom' }), at(box(0.6, 0.38, 0.12, P.greyDark, { outline: 0.01 }), 0, 2.2, 0), at(c, 0, 2.2, 0.062), at(label('km/h', 0.3, 0.07, { bg: P.greyDark, fg: P.white }), 0, 1.97, 0.062)); },
+  toast(o) { const c = o.raw ? '#F2E6CC' : '#D9A35C'; const g = grp(at(box(0.13, 0.13, 0.025, c, { outline: 0.02 }), 0, 0.065, 0), at(box(0.135, 0.02, 0.028, o.raw ? '#D9B98A' : '#9A6232'), 0, 0.13, 0)); g.userData.grip = [0, 0.03, 0]; return g; },
+  torii(o) { const R = '#C23A2E', g = grp(); [-1, 1].forEach(sd => g.add(at(cyl(0.12, 0.14, 3.0, R, 10, { pivot: 'bottom', outline: 0.01 }), sd * 1.3, 0, 0), at(box(0.34, 0.22, 0.34, P.ink), sd * 1.3, 0.11, 0)));
+    g.add(at(box(3.4, 0.2, 0.3, R, { outline: 0.01 }), 0, 2.55, 0), at(box(3.9, 0.18, 0.4, P.ink, { taper: { x: 1.0, z: 1.0 } }), 0, 3.05, 0), at(box(0.16, 0.5, 0.18, R), 0, 2.8, 0)); return g; },
+  boule(o) { const r = o.r || 0.045; const g = grp(at(sphere(r, o.color || '#9AA2A8', 1, { outline: 0.02 }), 0, r, 0), at(torus(r * 0.75, r * 0.06, '#5E666C', 4, 12), 0, r, 0, PI / 2)); return g; },
   baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
   clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },

@@ -1,0 +1,787 @@
+{
+ "version": 3,
+ "title": "Le grille-pain",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  }
+ },
+ "scenes": [
+  {
+   "id": "cuisine",
+   "set": "kitchenNight",
+   "setOpts": {
+    "toaster": false
+   },
+   "lighting": "interior",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "A1",
+     "text": "Ce mec a perdu une bataille d'aura contre son grille-pain.",
+     "highlight": [
+      "d'aura",
+      "grille-pain."
+     ]
+    },
+    {
+     "id": "A2",
+     "text": "Le grille-pain lui a éjecté un toast en pleine face.",
+     "highlight": [
+      "face."
+     ]
+    },
+    {
+     "id": "A3",
+     "text": "Il a appelé les flics. Motif : tentative d'homicide.",
+     "highlight": [
+      "Motif",
+      "d'homicide."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.35,
+      0,
+      -2.5
+     ],
+     "ry": 150,
+     "clip": "auraPose",
+     "keys": [
+      {
+       "at": "A1:perdu",
+       "clip": "auraPose2",
+       "expr": "angry"
+      },
+      {
+       "at": "A1#9",
+       "clip": "cry",
+       "expr": "sad"
+      },
+      {
+       "at": "A2:face",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "A3",
+       "clip": "phoneCall",
+       "expr": "angry",
+       "face": -25,
+       "turn": 0.2
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "gp",
+     "name": "toaster",
+     "pos": [
+      0.3,
+      0.95,
+      -3.3
+     ],
+     "opts": {
+      "color": "#C23A2E",
+      "popAt": "A2:éjecté-0.1"
+     }
+    },
+    {
+     "id": "toast",
+     "name": "toast",
+     "scale": 1.4,
+     "pos": [
+      0.3,
+      1.15,
+      -3.3
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "A2:éjecté",
+       "visible": true
+      },
+      {
+       "at": "A2:éjecté",
+       "to": [
+        -0.3,
+        1.62,
+        -2.6
+       ],
+       "dur": 0.45,
+       "arc": 0.5,
+       "ease": "in"
+      },
+      {
+       "at": "A2:face+0.1",
+       "to": [
+        -0.2,
+        0.02,
+        -2.2
+       ],
+       "dur": 0.5,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "A3",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "A2:éjecté-0.1",
+     "name": "boing",
+     "vol": 0.5
+    },
+    {
+     "at": "A2:face",
+     "name": "splat",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 70,
+     "frame": [
+      "mec",
+      [
+       0.3,
+       1.1,
+       -3.3
+      ]
+     ]
+    },
+    {
+     "at": "A1#9",
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.3,
+       1.1,
+       -3.3
+      ]
+     ]
+    },
+    {
+     "at": "A1#9+0.6",
+     "size": "cu",
+     "angle": -60,
+     "frame": "mec"
+    },
+    {
+     "at": "A2",
+     "size": "ms",
+     "worldAngle": 80,
+     "frame": [
+      "mec",
+      [
+       0.3,
+       1.1,
+       -3.3
+      ]
+     ]
+    },
+    {
+     "at": "A2:face",
+     "size": "cu",
+     "angle": -50,
+     "frame": "mec"
+    },
+    {
+     "at": "A3",
+     "size": "cu",
+     "angle": -35,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "A4",
+     "text": "Les flics ont embarqué le grille-pain.",
+     "highlight": [
+      "grille-pain."
+     ]
+    },
+    {
+     "id": "A5",
+     "text": "Vous reconnaissez les faits ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "A6",
+     "text": "Le grille-pain a éjecté un toast.",
+     "highlight": [
+      "toast."
+     ]
+    },
+    {
+     "id": "A7",
+     "text": "Attendez. Filmez-moi.",
+     "speaker": "commissaire",
+     "highlight": [
+      "Filmez-moi."
+     ]
+    },
+    {
+     "id": "A8",
+     "text": "Le grille-pain s'est évadé pendant la chorégraphie.",
+     "highlight": [
+      "évadé"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "A5",
+       "clip": "leanTable",
+       "expr": "angry"
+      },
+      {
+       "at": "A6:éjecté+0.3",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "A7",
+       "clip": "point",
+       "expr": "happy",
+       "face": "flic2",
+       "turn": 0.2
+      },
+      {
+       "at": "A8",
+       "clip": "dance",
+       "expr": "happy",
+       "face": 0,
+       "turn": 0.2
+      },
+      {
+       "at": "A8:chorégraphie+0.3",
+       "clip": "stand",
+       "expr": "shocked",
+       "face": -90,
+       "turn": 0.2
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -0.9,
+      0,
+      0.35
+     ],
+     "ry": 150,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "A7#1",
+       "clip": "showPhone",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "gp",
+     "name": "toaster",
+     "pos": [
+      0,
+      0.785,
+      -0.75
+     ],
+     "opts": {
+      "color": "#C23A2E",
+      "popAt": "A6:éjecté-0.1"
+     },
+     "keys": [
+      {
+       "at": "A8:évadé",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "toast",
+     "name": "toast",
+     "scale": 1.4,
+     "pos": [
+      0,
+      0.9850000000000001,
+      -0.75
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "A6:éjecté",
+       "visible": true
+      },
+      {
+       "at": "A6:éjecté",
+       "to": [
+        0.85,
+        1.75,
+        -0.75
+       ],
+       "dur": 0.35,
+       "arc": 0.3,
+       "ease": "in"
+      },
+      {
+       "at": "A6:toast",
+       "to": [
+        1.2,
+        0.02,
+        -0.5
+       ],
+       "dur": 0.45,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "opts": {
+      "screen": "tiktok"
+     },
+     "on": {
+      "actor": "flic2",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "A7#1",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "A6:éjecté-0.1",
+     "name": "boing",
+     "vol": 0.5
+    },
+    {
+     "at": "A8",
+     "name": "sting",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "commissaire",
+      [
+       0,
+       0.95,
+       -0.75
+      ]
+     ]
+    },
+    {
+     "at": "A5",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "commissaire"
+    },
+    {
+     "at": "A6",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0,
+       0.95,
+       -0.75
+      ]
+     ]
+    },
+    {
+     "at": "A6:toast",
+     "size": "cu",
+     "angle": 50,
+     "frame": "commissaire"
+    },
+    {
+     "at": "A7",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "commissaire",
+      "flic2"
+     ]
+    },
+    {
+     "at": "A8",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": "commissaire"
+    },
+    {
+     "at": "A8:chorégraphie",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "commissaire",
+      [
+       0,
+       0.95,
+       -0.75
+      ]
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tokyo",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "A9",
+     "text": "Il a fui au Japon. Là-bas, tout était propre et à l'heure. Il a fait un malaise.",
+     "highlight": [
+      "propre",
+      "l'heure.",
+      "malaise."
+     ]
+    }
+   ],
+   "actors": [],
+   "props": [
+    {
+     "id": "torii",
+     "name": "torii",
+     "pos": [
+      0.4,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "id": "sign",
+     "name": "signBoard",
+     "pos": [
+      -2.2,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "text": "TOKYO",
+      "bg": "#F6F1E3",
+      "fg": "#C23A2E",
+      "w": 1.2,
+      "h": 0.45,
+      "height": 1.6
+     }
+    },
+    {
+     "id": "horloge",
+     "name": "wallClock",
+     "pos": [
+      2.6,
+      2.4,
+      -1.25
+     ],
+     "opts": {
+      "rate": 0
+     }
+    },
+    {
+     "id": "gp",
+     "name": "toaster",
+     "pos": [
+      0.4,
+      0,
+      0.6
+     ],
+     "opts": {
+      "color": "#C23A2E"
+     },
+     "alt": {
+      "opts": {
+       "color": "#C23A2E"
+      },
+      "at": "A9:malaise-0.1",
+      "rot": [
+       0,
+       0,
+       1.5708
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "A9:malaise",
+     "name": "thud",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "withProps": true,
+     "frame": [
+      "torii",
+      "sign",
+      "gp"
+     ]
+    },
+    {
+     "at": "A9:propre",
+     "size": "ms",
+     "worldAngle": 15,
+     "elev": 10,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.4,
+       0.15,
+       0.6
+      ]
+     ]
+    },
+    {
+     "at": "A9:malaise",
+     "size": "cu",
+     "worldAngle": 0,
+     "elev": 20,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.4,
+       0.15,
+       0.6
+      ]
+     ]
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "retour",
+   "set": "kitchenNight",
+   "setOpts": {
+    "toaster": false
+   },
+   "lighting": "interior",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "A10",
+     "text": "Rapatrié en France, il s'est remis tout de suite : il s'est mis en grève.",
+     "highlight": [
+      "grève."
+     ]
+    },
+    {
+     "id": "A11",
+     "text": "Depuis, ce mec mange son pain cru.",
+     "highlight": [
+      "cru."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.4,
+      0,
+      -2.4
+     ],
+     "ry": 150,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "A11",
+       "clip": "eatHands",
+       "expr": "sad",
+       "face": 10,
+       "turn": 0.2
+      },
+      {
+       "at": "A11:cru",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "gp",
+     "name": "toaster",
+     "pos": [
+      0.3,
+      0.95,
+      -3.3
+     ],
+     "opts": {
+      "color": "#C23A2E"
+     }
+    },
+    {
+     "id": "greve",
+     "name": "protestSign",
+     "scale": 0.32,
+     "pos": [
+      0.62,
+      0.95,
+      -3.25
+     ],
+     "opts": {
+      "text": "GRÈVE",
+      "color": "#B3261E"
+     }
+    },
+    {
+     "id": "pain",
+     "name": "toast",
+     "opts": {
+      "raw": true
+     },
+     "scale": 1.3,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "A11",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.44999999999999996,
+       1.15,
+       -3.3
+      ]
+     ]
+    },
+    {
+     "at": "A11",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "A11:cru",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}
