@@ -26,7 +26,7 @@ Chaque gag tient en une phrase de narrateur ou une réplique, plus une image. Il
 
 | # | Gag | Réplique / narration type | Image | Chute réutilisable |
 |---|-----|---------------------------|-------|--------------------|
-| 1 | **Le motif absurde** | « Il a appelé les flics. Motif : pigeon trop confiant. » | Gros plan sur le téléphone, puis gyrophare. | Les flics arrivent en 3 secondes, sirène hurlante. |
+| 1 | **Le motif grave (toujours)** | « Il a appelé les flics. Motif : séquestration. » Le motif est **toujours un vrai chef d'accusation lourd**, énoncé platement, pour un incident minuscule. Exemples : vol avec violence en récidive (un pigeon vole un croissant), séquestration (des croquettes oubliées), usurpation d'identité (un flic déguisé en lycéen), abus de faiblesse (un parasol trop charismatique), abandon de domicile (des yaourts qui partent), tentative d'homicide (un toast éjecté), escroquerie en bande organisée (un chat dopé), cyberharcèlement et menaces de mort (une traduction automatique), outrage à agent, destruction de preuves, recel. | Gros plan sur le téléphone, puis gyrophare. | Les flics arrivent en 3 secondes, sirène hurlante, et prennent le motif au sérieux. |
 | 2 | **Les flics arrêtent le mauvais** | « Les flics ont embarqué le grille-pain. » | Menottes sur un objet, un animal ou la victime. | « Le grille-pain a gardé le silence. » |
 | 3 | **Garde à vue express** | « 48 h. » « Pour quoi ? » « On verra. » | Porte de cellule qui claque. | Le compteur repart : « 48 h de plus. » |
 | 4 | **L'interrogatoire à la lampe** | « Où étiez-vous le 17 octobre ? » « En bataille d'aura. » « Vous avez perdu ? » « …Oui. » « On vous garde. » | Lampe dans la figure, zoom lent. | L'objet interrogé « avoue » : le grille-pain éjecte un toast. |
@@ -48,7 +48,7 @@ Chaque gag tient en une phrase de narrateur ou une réplique, plus une image. Il
 ## Squelette d'épisode (40-45 s, montage rapide)
 
 1. **L'incident** (0-6 s) : un objet ou un animal fait un truc concret, montré en action.
-2. **Le motif** (6-10 s) : il appelle les flics pour un motif absurde (gag 1) ; ils débarquent tout de suite.
+2. **Le motif** (6-10 s) : il appelle les flics pour un motif grave, un vrai chef d'accusation (gag 1) ; ils débarquent tout de suite.
 3. **La garde à vue** (10-20 s) : ils arrêtent le mauvais (2), interrogatoire à la lampe (4), porte qui claque (3).
 4. **Le détour actu** (20-32 s) : un gag de l'automne (6, 8, 9, 10, 11 ou 12) qui fait avancer l'histoire. Ce n'est pas
    un sketch collé à côté.

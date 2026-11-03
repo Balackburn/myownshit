@@ -10,7 +10,7 @@ BENCH = [0, 0.11, -2.3]
 scenes.append({
   'id': 'parc', 'set': 'park', 'ambience': 'park',
   'lines': [L('P1', "Tous les matins, un pigeon volait le croissant de ce mec.", highlight=['pigeon', 'croissant']),
-            L('P2', "Il a appelé les flics. Motif : pigeon trop confiant.", highlight=['Motif', 'confiant.']),
+            L('P2', "Il a appelé les flics. Motif : vol avec violence, en récidive.", highlight=['Motif', 'récidive.']),
             L('P3', "Les flics sont arrivés en trois secondes.", highlight=['trois', 'secondes.'])],
   'actors': [
     act('mec', BENCH, 0, 'sitShow', 'happy', keys=[

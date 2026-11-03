@@ -15,7 +15,7 @@ scenes.append({
             L('I3', "Monsieur, personne parle comme ça.", 'lyc1', highlight=['personne']),
             L('I4', "Il a vérifié son lexique.", highlight=['lexique.']),
             L('I5', "Les lycéens l'ont défié en bataille d'aura.", highlight=['bataille', "d'aura."]),
-            L('I6', "Il a perdu. Alors il s'est arrêté lui-même. Motif : aura insuffisante.", highlight=['lui-même.', 'insuffisante.'])],
+            L('I6', "Il a perdu. Alors il s'est arrêté lui-même. Motif : usurpation d'identité.", highlight=['lui-même.', "d'identité."])],
   'actors': [
     act('mec', [-5.0, 0, 0.75], 90, 'idle', 'smug', keys=[
         k(0.05, to=[-0.15, 0, 0.6], clip='strut', speed=1.6, faceEnd=90, then='idle'),

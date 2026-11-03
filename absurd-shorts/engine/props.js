@@ -911,6 +911,9 @@ const B = {
   flag(o) { const c = o.colors || [P.ink, P.yellow, P.red], vertical = o.vertical !== false; const g = grp(at(cyl(0.015, 0.015, 1.6, P.grey, 5, { pivot: 'bottom' }), 0, 0, 0));
     c.forEach((col, i) => g.add(vertical ? at(box(0.6 / c.length, 0.4, 0.01, col), 0.03 + 0.3 / c.length + i * 0.6 / c.length, 1.38, 0) : at(box(0.6, 0.4 / c.length, 0.01, col), 0.33, 1.58 - 0.2 / c.length - i * 0.4 / c.length, 0)));
     if (o.cross) g.add(at(box(0.6, 0.06, 0.012, o.cross), 0.33, 1.38, 0), at(box(0.06, 0.4, 0.012, o.cross), 0.33, 1.38, 0));
+    if (o.disc) [-1, 1].forEach(sd => g.add(at(cyl(0.11, 0.11, 0.004, o.disc, 16), 0.33, 1.38, sd * 0.0075, PI / 2))); // Japan: red disc; pirate: white skull disc
+    if (o.skull) [-1, 1].forEach(sd => g.add(at(box(0.2, 0.03, 0.004, '#E6B84A'), 0.33, 1.47, sd * 0.009), at(box(0.04, 0.04, 0.004, P.ink), 0.29, 1.39, sd * 0.011), at(box(0.04, 0.04, 0.004, P.ink), 0.37, 1.39, sd * 0.011)));
+    if (o.grip) g.userData.grip = [0, 0.4, 0];
     return g; },
   boxHide(o) { // wearable cardboard box (Metal Gear gag): attach to the torso joint, legs stick out underneath
     const w = o.w || 0.8, h = o.h || 1.2, d = o.d || 0.75, c = '#B8925E', g = grp();

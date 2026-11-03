@@ -12,7 +12,7 @@ scenes.append({
   'id': 'plage', 'set': 'beach', 'ambience': 'park',
   'lines': [L('G1', "Ce mec a acheté un parasol. Même fermé, il avait plus de charisme que lui.", highlight=['fermé,', 'charisme']),
             L('G2', "Sur la plage, tout le monde faisait des selfies avec le parasol.", highlight=['selfies']),
-            L('G3', "Il a appelé les flics. Motif : vol de charisme.", highlight=['Motif', 'charisme.'])],
+            L('G3', "Il a appelé les flics. Motif : abus de faiblesse.", highlight=['Motif', 'faiblesse.'])],
   'actors': [
     act('mec', [-0.55, 0, -1.25], 15, 'present', 'happy', keys=[
         k('G1:fermé', clip='posing', expr='smug'),

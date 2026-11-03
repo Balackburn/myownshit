@@ -1,0 +1,900 @@
+{
+ "version": 3,
+ "title": "La traduction",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "chef": {
+   "preset": "chef",
+   "hairColor": "#17181B",
+   "hair": "crew",
+   "facial": "none"
+  },
+  "dipFR": {
+   "preset": "lemec_charcoal",
+   "tie": "#2C4A8A",
+   "seed": 31
+  },
+  "dipJP": {
+   "preset": "politique",
+   "hair": "crew",
+   "hairColor": "#17181B",
+   "suit": "#3A3D44",
+   "seed": 32
+  }
+ },
+ "scenes": [
+  {
+   "id": "cuisine",
+   "set": "kitchenNight",
+   "lighting": "interior",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "T1",
+     "text": "Ce mec a posté une photo : sushis, sauce algérienne.",
+     "highlight": [
+      "sushis,",
+      "algérienne."
+     ]
+    },
+    {
+     "id": "T2",
+     "text": "Un Japonais lui a répondu. Traduction automatique.",
+     "highlight": [
+      "Traduction"
+     ]
+    },
+    {
+     "id": "T3",
+     "text": "Ce con a appelé les flics. Motif : cyberharcèlement et menaces de mort.",
+     "highlight": [
+      "Motif",
+      "mort."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.3,
+      0,
+      -2.6
+     ],
+     "ry": 150,
+     "clip": "pour",
+     "keys": [
+      {
+       "at": "T1:photo",
+       "clip": "readPhone",
+       "expr": "smug",
+       "face": 140,
+       "turn": 0.15
+      },
+      {
+       "at": "T2",
+       "clip": "readPhone",
+       "expr": "suspicious",
+       "face": 0,
+       "turn": 0.2
+      },
+      {
+       "at": "T2:Traduction",
+       "expr": "shocked"
+      },
+      {
+       "at": "T3",
+       "clip": "phoneCall",
+       "expr": "angry",
+       "face": -25,
+       "turn": 0.2
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "sushi",
+     "name": "sushiPlate",
+     "pos": [
+      -0.65,
+      0.95,
+      -3.13
+     ]
+    },
+    {
+     "id": "sauce",
+     "name": "sauceBottle",
+     "scale": 1.2,
+     "pos": [
+      -0.23000000000000004,
+      0.95,
+      -3.15
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "T1:photo",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "post",
+     "name": "tweetPhone",
+     "pos": [
+      2.4,
+      0.008,
+      1.6
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "ce mec",
+      "handle": "@cemec_officiel",
+      "via": "Publication",
+      "initial": "C",
+      "avatar": "#2C4A8A",
+      "text": "Sushis + sauce algérienne. Les Japonais, vous allez rien faire.",
+      "likes": "12 likes"
+     }
+    },
+    {
+     "id": "rep",
+     "name": "tweetPhone",
+     "pos": [
+      3.4,
+      0.008,
+      1.6
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Hiro",
+      "handle": "@hiro_tokyo",
+      "initial": "H",
+      "text": "Votre sauce a insulté mon grand-père le riz.",
+      "likes": "0 rire · 3 likes"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "T1:photo+0.1",
+     "name": "shutter",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 60,
+     "frame": "mec"
+    },
+    {
+     "at": "T1:sushis",
+     "size": "cu",
+     "worldAngle": 20,
+     "elev": 25,
+     "noOcclusion": true,
+     "frame": [
+      [
+       -0.5,
+       1.05,
+       -3.13
+      ]
+     ]
+    },
+    {
+     "at": "T1:algérienne",
+     "from": [
+      2.4,
+      0.42,
+      1.6600000000000001
+     ],
+     "lookAt": [
+      2.4,
+      0.0,
+      1.6
+     ],
+     "lens": 40
+    },
+    {
+     "at": "T2",
+     "size": "cu",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "T2:Traduction",
+     "from": [
+      3.4,
+      0.42,
+      1.6600000000000001
+     ],
+     "lookAt": [
+      3.4,
+      0.0,
+      1.6
+     ],
+     "lens": 40
+    },
+    {
+     "at": "T3",
+     "size": "cu",
+     "angle": -35,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "T4",
+     "text": "Les flics ont interrogé le téléphone.",
+     "highlight": [
+      "téléphone."
+     ]
+    },
+    {
+     "id": "T5",
+     "text": "Vous reconnaissez les faits ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "T6",
+     "text": "La traduction a répondu.",
+     "highlight": [
+      "traduction"
+     ]
+    },
+    {
+     "id": "T7",
+     "text": "Dix ans.",
+     "speaker": "commissaire",
+     "highlight": [
+      "Dix",
+      "ans."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "T5",
+       "clip": "leanTable",
+       "expr": "angry"
+      },
+      {
+       "at": "T7",
+       "clip": "slamTable",
+       "expr": "angry",
+       "sfx": "thud",
+       "sfxAt": 0.12
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -1.35,
+      0,
+      -0.35
+     ],
+     "ry": 115,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "T6",
+       "clip": "lookDown",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "aveu0",
+     "name": "tweetPhone",
+     "pos": [
+      0.05,
+      0.793,
+      -0.5
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "ce mec",
+      "handle": "@cemec_officiel",
+      "via": "Publication",
+      "initial": "C",
+      "avatar": "#2C4A8A",
+      "text": "Sushis + sauce algérienne.",
+      "likes": ""
+     },
+     "keys": [
+      {
+       "at": "T6",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "aveu",
+     "name": "tweetPhone",
+     "pos": [
+      0.05,
+      0.794,
+      -0.5
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "visible": false,
+     "opts": {
+      "name": "ce mec",
+      "handle": "@cemec_officiel",
+      "via": "Traduit automatiquement",
+      "initial": "C",
+      "avatar": "#2C4A8A",
+      "text": "J'avoue avoir mangé la tour Eiffel avec de la mayonnaise.",
+      "likes": ""
+     },
+     "keys": [
+      {
+       "at": "T6",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 14,
+     "frame": [
+      "commissaire",
+      [
+       0.05,
+       0.9,
+       -0.5
+      ]
+     ]
+    },
+    {
+     "at": "T5",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "commissaire"
+    },
+    {
+     "at": "T6:répondu",
+     "from": [
+      0.05,
+      1.205,
+      -0.44
+     ],
+     "lookAt": [
+      0.05,
+      0.785,
+      -0.5
+     ],
+     "lens": 40
+    },
+    {
+     "at": "T7",
+     "size": "mcu",
+     "angle": 50,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "chef",
+   "set": "restaurant",
+   "setOpts": {
+    "brand": "SUSHI"
+   },
+   "ambience": null,
+   "lines": [
+    {
+     "id": "T8",
+     "text": "Puis un grand chef japonais a goûté la sauce.",
+     "highlight": [
+      "goûté"
+     ]
+    },
+    {
+     "id": "T9",
+     "text": "Traduction : délicieux, je veux épouser cette sauce.",
+     "highlight": [
+      "épouser"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chef",
+     "pos": [
+      0,
+      0,
+      -3.15
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "T8:goûté",
+       "clip": "eatHands",
+       "expr": "suspicious"
+      },
+      {
+       "at": "T8.end",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "sushi",
+     "name": "sushiPlate",
+     "pos": [
+      -0.15,
+      0.79,
+      -2.6
+     ]
+    },
+    {
+     "id": "sauce",
+     "name": "sauceBottle",
+     "scale": 1.2,
+     "pos": [
+      0.3,
+      0.79,
+      -2.55
+     ]
+    },
+    {
+     "id": "post",
+     "name": "tweetPhone",
+     "pos": [
+      2.6,
+      0.008,
+      1.5
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Chef Takumi",
+      "handle": "@chef_takumi",
+      "initial": "T",
+      "avatar": "#3F8A84",
+      "text": "Délicieux. Je veux épouser cette sauce.",
+      "likes": "3 M likes"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 10,
+     "frame": "chef"
+    },
+    {
+     "at": "T8.end",
+     "size": "mcu",
+     "angle": -15,
+     "frame": "chef"
+    },
+    {
+     "at": "T9",
+     "from": [
+      2.6,
+      0.42,
+      1.56
+     ],
+     "lookAt": [
+      2.6,
+      0.0,
+      1.5
+     ],
+     "lens": 40
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "traite",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "TRAITÉ DE PAIX|FRANCE|JAPON|SAUCE",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563",
+    "podium": false,
+    "flags": false
+   },
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "T10",
+     "text": "Traité de paix franco-japonais. Clause un : la France rend le drapeau de Luffy.",
+     "highlight": [
+      "Luffy."
+     ]
+    },
+    {
+     "id": "T11",
+     "text": "Clause deux : le Japon garde la sauce.",
+     "highlight": [
+      "sauce."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "dipFR",
+     "pos": [
+      -0.5,
+      0.12,
+      -2.05
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [
+      {
+       "at": "T10:rend",
+       "clip": "sitGive",
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "dipJP",
+     "pos": [
+      0.5,
+      0.12,
+      -2.05
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [
+      {
+       "at": "T10:Luffy",
+       "clip": "sitTake",
+       "expr": "happy"
+      },
+      {
+       "at": "T11:garde",
+       "clip": "sitShow",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -1.55
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 0.8,
+      "color": "#7A5C3A"
+     }
+    },
+    {
+     "id": "c1",
+     "name": "chair",
+     "pos": [
+      -0.5,
+      0,
+      -2.15
+     ]
+    },
+    {
+     "id": "c2",
+     "name": "chair",
+     "pos": [
+      0.5,
+      0,
+      -2.15
+     ]
+    },
+    {
+     "id": "fFR",
+     "name": "flag",
+     "pos": [
+      -1.7,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "colors": [
+       "#2C4A8A",
+       "#F6F1E3",
+       "#C23A2E"
+      ]
+     }
+    },
+    {
+     "id": "fJP",
+     "name": "flag",
+     "pos": [
+      1.4,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "colors": [
+       "#F6F1E3"
+      ],
+      "disc": "#C23A2E"
+     }
+    },
+    {
+     "id": "sushi",
+     "name": "sushiPlate",
+     "pos": [
+      0.05,
+      0.765,
+      -1.5
+     ]
+    },
+    {
+     "id": "sauce",
+     "name": "sauceBottle",
+     "scale": 1.2,
+     "pos": [
+      -0.15,
+      0.765,
+      -1.35
+     ],
+     "keys": [
+      {
+       "at": "T11:garde",
+       "attach": "dipJP",
+       "hand": "R"
+      }
+     ]
+    },
+    {
+     "id": "luffy",
+     "name": "flag",
+     "scale": 0.7,
+     "opts": {
+      "colors": [
+       "#141A22"
+      ],
+      "disc": "#F6F1E3",
+      "skull": true,
+      "grip": true
+     },
+     "on": {
+      "actor": "dipFR",
+      "hand": "R"
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "T10:rend",
+       "visible": true
+      },
+      {
+       "at": "T10:Luffy+0.2",
+       "attach": "dipJP",
+       "hand": "L"
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": [
+      "dipFR",
+      "dipJP"
+     ]
+    },
+    {
+     "at": "T10:rend",
+     "size": "ms",
+     "worldAngle": 0,
+     "withProps": true,
+     "frame": [
+      "dipFR",
+      "dipJP",
+      "luffy"
+     ]
+    },
+    {
+     "at": "T11",
+     "size": "mcu",
+     "angle": -10,
+     "frame": "dipJP"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "cellule",
+   "set": "prisonCell",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "T12",
+     "text": "Ce mec est resté en prison. Personne n'a traduit sa libération.",
+     "highlight": [
+      "traduit",
+      "libération."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.0,
+      0.24,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "T12:Personne",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "tweetPhone",
+     "pos": [
+      1.35,
+      0.008,
+      -1.55
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Ministère",
+      "handle": "@justice",
+      "initial": "J",
+      "avatar": "#B5302A",
+      "via": "Traduit du japonais par X",
+      "text": "Libération : traduction indisponible.",
+      "likes": ""
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -20,
+     "frame": "mec"
+    },
+    {
+     "at": "T12:traduit",
+     "from": [
+      1.35,
+      0.42,
+      -1.49
+     ],
+     "lookAt": [
+      1.35,
+      0.0,
+      -1.55
+     ],
+     "lens": 40
+    },
+    {
+     "at": "T12.end",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

@@ -60,7 +60,7 @@ scenes.append({
   'id': 'rue', 'set': 'street', 'ambience': 'street',
   'lines': [L('F5', "Alors ce con s'est excusé en douze langues. Au peuple chinois, au gouvernement chinois, puis au fromage.", highlight=['douze', 'fromage.']),
             L('F6', "Le fromage n'avait pas d'avis sur l'histoire chinoise.", highlight=['avis']),
-            L('F7', "Il a appelé les flics. Motif : abandon de produits laitiers.", highlight=['Motif', 'laitiers.']),
+            L('F7', "Il a appelé les flics. Motif : abandon de domicile.", highlight=['Motif', 'domicile.']),
             L('F8', "Les flics ont embarqué le fromage. Et ce mec, pour complicité.", highlight=['complicité.'])],
   'actors': [
     act('mec', [-0.1, 0, 0.6], 90, 'bowRepeat', 'sad', keys=[
