@@ -1,0 +1,1153 @@
+{
+ "version": 3,
+ "title": "Le fromage",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "mbappe": {
+   "preset": "footballeur"
+  }
+ },
+ "scenes": [
+  {
+   "id": "frigo",
+   "set": "kitchenNight",
+   "setOpts": {
+    "fridge": false
+   },
+   "lighting": "interior",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "F1",
+     "text": "Ce mec a collé un mème de lui en Mao sur son frigo.",
+     "highlight": [
+      "Mao"
+     ]
+    },
+    {
+     "id": "F2",
+     "text": "Le lendemain, son lait, son soda et son fromage sont partis.",
+     "highlight": [
+      "partis."
+     ]
+    },
+    {
+     "id": "F3",
+     "text": "Comme les sponsors de Mbappé.",
+     "highlight": [
+      "Mbappé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.15,
+      0,
+      -2.25
+     ],
+     "ry": -160,
+     "clip": "giveItem",
+     "keys": [
+      {
+       "at": "F1:Mao",
+       "to": [
+        -1.2,
+        0,
+        -1.7
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": -150,
+       "then": "handsOnHips",
+       "expr": "smug"
+      },
+      {
+       "at": "F2:lait",
+       "expr": "shocked",
+       "clip": "startle",
+       "face": -130,
+       "turn": 0.15
+      },
+      {
+       "at": "F2:fromage",
+       "clip": "scared",
+       "face": 60,
+       "turn": 0.25
+      },
+      {
+       "at": "F3",
+       "clip": "stareCamera",
+       "expr": "sad",
+       "face": 0,
+       "turn": 0.2
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "frigo",
+     "name": "fridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.22
+     ],
+     "opts": {
+      "notes": 7,
+      "openAt": "F2-0.25"
+     }
+    },
+    {
+     "id": "meme",
+     "name": "memePoster",
+     "scale": 0.5,
+     "pos": [
+      -2.55,
+      1.32,
+      -2.77
+     ],
+     "opts": {
+      "text": "MÈME",
+      "skin": "#D9A877"
+     },
+     "keys": [
+      {
+       "at": "F2-0.2",
+       "to": [
+        -2.4,
+        0.22,
+        -2.62
+       ],
+       "dur": 0.45,
+       "ease": "in",
+       "sfx": "paper"
+      }
+     ]
+    },
+    {
+     "id": "lait",
+     "name": "milkCarton",
+     "scale": 1.3,
+     "pos": [
+      -2.95,
+      1.365,
+      -3.0
+     ],
+     "keys": [
+      {
+       "at": "F2:lait-0.10",
+       "to": [
+        -2.2750000000000004,
+        0.6825,
+        -2.5
+       ],
+       "dur": 0.3864,
+       "arc": 0.25,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+0.32",
+       "to": [
+        -1.6,
+        0.0,
+        -2.0
+       ],
+       "dur": 0.3864,
+       "arc": 0.25,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+0.75",
+       "to": [
+        -0.8666666666666667,
+        0.0,
+        -2.225
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+1.17",
+       "to": [
+        -0.1333333333333333,
+        0.0,
+        -2.45
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+1.59",
+       "to": [
+        0.6000000000000001,
+        0.0,
+        -2.675
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+2.01",
+       "to": [
+        1.3333333333333335,
+        0.0,
+        -2.9
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+2.43",
+       "to": [
+        2.066666666666667,
+        0.0,
+        -3.125
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+2.85",
+       "to": [
+        2.8000000000000003,
+        0.0,
+        -3.35
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:lait+3.4",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "soda",
+     "name": "drinkCan",
+     "scale": 1.5,
+     "pos": [
+      -2.45,
+      1.365,
+      -3.0
+     ],
+     "opts": {
+      "color": "#C23A2E",
+      "text": "SODA"
+     },
+     "keys": [
+      {
+       "at": "F2:soda-0.10",
+       "to": [
+        -1.875,
+        0.6825,
+        -2.65
+       ],
+       "dur": 0.3864,
+       "arc": 0.25,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+0.32",
+       "to": [
+        -1.3,
+        0.0,
+        -2.3
+       ],
+       "dur": 0.3864,
+       "arc": 0.25,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+0.75",
+       "to": [
+        -0.6166666666666668,
+        0.0,
+        -2.4749999999999996
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+1.17",
+       "to": [
+        0.06666666666666643,
+        0.0,
+        -2.65
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+1.59",
+       "to": [
+        0.7499999999999998,
+        0.0,
+        -2.825
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+2.01",
+       "to": [
+        1.433333333333333,
+        0.0,
+        -3.0
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+2.43",
+       "to": [
+        2.1166666666666663,
+        0.0,
+        -3.175
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+2.85",
+       "to": [
+        2.8,
+        0.0,
+        -3.35
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:soda+3.4",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "fromage",
+     "name": "cheeseWheel",
+     "scale": 1.1,
+     "pos": [
+      -2.7,
+      0.565,
+      -3.0
+     ],
+     "keys": [
+      {
+       "at": "F2:fromage-0.10",
+       "to": [
+        -2.3,
+        0.2825,
+        -2.3
+       ],
+       "dur": 0.3864,
+       "arc": 0.25,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+0.32",
+       "to": [
+        -1.9,
+        0.0,
+        -1.6
+       ],
+       "dur": 0.3864,
+       "arc": 0.25,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+0.75",
+       "to": [
+        -1.2285714285714286,
+        0.0,
+        -1.85
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+1.17",
+       "to": [
+        -0.5571428571428574,
+        0.0,
+        -2.1
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+1.59",
+       "to": [
+        0.11428571428571388,
+        0.0,
+        -2.35
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+2.01",
+       "to": [
+        0.7857142857142851,
+        0.0,
+        -2.6
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+2.43",
+       "to": [
+        1.4571428571428569,
+        0.0,
+        -2.85
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+2.85",
+       "to": [
+        2.1285714285714277,
+        0.0,
+        -3.1
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+3.27",
+       "to": [
+        2.7999999999999994,
+        0.0,
+        -3.35
+       ],
+       "dur": 0.3864,
+       "arc": 0.3,
+       "ease": "inOut"
+      },
+      {
+       "at": "F2:fromage+3.8",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 90,
+     "frame": "mec"
+    },
+    {
+     "at": "F1:sur",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       -2.55,
+       1.32,
+       -2.77
+      ]
+     ]
+    },
+    {
+     "at": "F2",
+     "size": "ms",
+     "worldAngle": 25,
+     "frame": [
+      [
+       -2.7,
+       1.0,
+       -2.9
+      ]
+     ]
+    },
+    {
+     "at": "F2:soda",
+     "size": "fs",
+     "worldAngle": 20,
+     "move": "track",
+     "frame": "fromage"
+    },
+    {
+     "at": "F3",
+     "size": "ms",
+     "worldAngle": -25,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tele",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "PARDON|SORRY|LO SIENTO|SCUSATE|ENTSCHULDIGUNG|DESCULPA|EXCUSES"
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       2.1
+      ],
+      [
+       -1.2,
+       0.12,
+       2.1
+      ],
+      [
+       0.0,
+       0.12,
+       2.1
+      ],
+      [
+       1.1999999999999997,
+       0.12,
+       2.1
+      ],
+      [
+       2.4,
+       0.12,
+       2.1
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "F4",
+     "text": "À la télé, Mbappé s'excusait en trois langues.",
+     "highlight": [
+      "trois",
+      "langues."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mbappe",
+     "pos": [
+      0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": "F4:excusait",
+       "clip": "bowRepeat",
+       "params": {
+        "freq": 1.6
+       }
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "sfx": [
+    {
+     "at": "F4",
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": "F4:trois",
+     "name": "shutter",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "mbappe"
+    },
+    {
+     "at": "F4:trois",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 8,
+     "frame": "mbappe"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "rue",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "F5",
+     "text": "Alors ce con s'est excusé en douze langues. Au peuple chinois, au gouvernement chinois, puis au fromage.",
+     "highlight": [
+      "douze",
+      "fromage."
+     ]
+    },
+    {
+     "id": "F6",
+     "text": "Le fromage n'avait pas d'avis sur l'histoire chinoise.",
+     "highlight": [
+      "avis"
+     ]
+    },
+    {
+     "id": "F7",
+     "text": "Il a appelé les flics. Motif : abandon de produits laitiers.",
+     "highlight": [
+      "Motif",
+      "laitiers."
+     ]
+    },
+    {
+     "id": "F8",
+     "text": "Les flics ont embarqué le fromage. Et ce mec, pour complicité.",
+     "highlight": [
+      "complicité."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.1,
+      0,
+      0.6
+     ],
+     "ry": 90,
+     "clip": "bowRepeat",
+     "keys": [
+      {
+       "at": "F5:peuple",
+       "face": 0,
+       "turn": 0.15,
+       "clip": "bowRepeat",
+       "params": {
+        "freq": 1.8
+       }
+      },
+      {
+       "at": "F5:gouvernement",
+       "face": 60,
+       "turn": 0.15
+      },
+      {
+       "at": "F5:fromage",
+       "face": "fromage",
+       "turn": 0.15
+      },
+      {
+       "at": "F6",
+       "clip": "stand",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "F7",
+       "clip": "phoneCall",
+       "expr": "angry",
+       "face": -20,
+       "turn": 0.2
+      },
+      {
+       "at": "F8:mec",
+       "clip": "handcuffed",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      7.5,
+      0,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "F8",
+       "path": [
+        [
+         3.5,
+         0,
+         1.1
+        ],
+        [
+         1.55,
+         0,
+         0.75
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.2,
+       "faceEnd": "fromage",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      8.2,
+      0,
+      0.3
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "F8+0.15",
+       "path": [
+        [
+         3.0,
+         0,
+         0.0
+        ],
+        [
+         0.4,
+         0,
+         0.25
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.4,
+       "faceEnd": "mec",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "fromage",
+     "name": "cheeseWheel",
+     "scale": 1.1,
+     "pos": [
+      0.9,
+      0,
+      0.6
+     ],
+     "keys": [
+      {
+       "at": "F6:avis+0.00",
+       "to": [
+        1.325,
+        0.0,
+        0.6
+       ],
+       "dur": 0.3864,
+       "arc": 0.2,
+       "ease": "inOut"
+      },
+      {
+       "at": "F6:avis+0.42",
+       "to": [
+        1.75,
+        0.0,
+        0.6
+       ],
+       "dur": 0.3864,
+       "arc": 0.2,
+       "ease": "inOut"
+      },
+      {
+       "at": "F8:fromage",
+       "attach": "flic1",
+       "hand": "R",
+       "offset": [
+        0,
+        -0.12,
+        0.1
+       ]
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "F7",
+       "visible": true
+      },
+      {
+       "at": "F8",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "F8:mec",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "F8-0.3",
+     "name": "siren",
+     "vol": 0.45
+    },
+    {
+     "at": "F8:mec",
+     "name": "cuff",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 30,
+     "frame": "mec"
+    },
+    {
+     "at": "F5:peuple",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "F5:gouvernement",
+     "size": "ms",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "F5:fromage",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mec",
+      "fromage"
+     ]
+    },
+    {
+     "at": "F6",
+     "size": "cu",
+     "worldAngle": 10,
+     "frame": "fromage"
+    },
+    {
+     "at": "F7",
+     "size": "cu",
+     "angle": -35,
+     "frame": "mec"
+    },
+    {
+     "at": "F7:abandon",
+     "size": "cu",
+     "worldAngle": 10,
+     "frame": "fromage"
+    },
+    {
+     "at": "F8:fromage",
+     "size": "ms",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "flic1",
+      "flic2",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "F9",
+     "text": "Votre mème préféré ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "F10",
+     "text": "Celui en Mao.",
+     "speaker": "mec",
+     "highlight": [
+      "Mao."
+     ]
+    },
+    {
+     "id": "F11",
+     "text": "Mauvaise réponse. Quarante-huit heures.",
+     "speaker": "commissaire",
+     "highlight": [
+      "Mauvaise",
+      "réponse."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -1.33
+     ],
+     "ry": 0,
+     "clip": "sitCuffed",
+     "keys": [
+      {
+       "at": "F10",
+       "expr": "happy"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "F11",
+       "clip": "slamTable",
+       "expr": "angry",
+       "sfx": "thud",
+       "sfxAt": 0.12
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "fromage",
+     "name": "cheeseWheel",
+     "scale": 1.1,
+     "pos": [
+      -0.45,
+      0.785,
+      -0.62
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "commissaire",
+      "mec"
+     ]
+    },
+    {
+     "at": "F10",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "F11",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "cellule",
+   "set": "prisonCell",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "F12",
+     "text": "En cellule, il ne lui restait que le pain.",
+     "highlight": [
+      "pain."
+     ]
+    },
+    {
+     "id": "F13",
+     "text": "Et le pain était en grève.",
+     "highlight": [
+      "grève."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.0,
+      0.24,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "F13",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "pain",
+     "name": "baguette",
+     "scale": 1.2,
+     "pos": [
+      1.25,
+      0,
+      -1.7
+     ]
+    },
+    {
+     "id": "greve",
+     "name": "protestSign",
+     "scale": 0.3,
+     "pos": [
+      1.3,
+      0,
+      -1.88
+     ],
+     "opts": {
+      "text": "GRÈVE",
+      "color": "#B3261E"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -20,
+     "frame": "mec"
+    },
+    {
+     "at": "F13",
+     "size": "cu",
+     "worldAngle": 0,
+     "elev": 12,
+     "noOcclusion": true,
+     "frame": [
+      [
+       1.28,
+       0.2,
+       -1.8
+      ]
+     ]
+    },
+    {
+     "at": "F13.end",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

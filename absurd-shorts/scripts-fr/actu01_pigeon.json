@@ -1,0 +1,966 @@
+{
+ "version": 3,
+ "title": "Le pigeon",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "pigeon": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "seed": 2
+   }
+  },
+  "pigeon2": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "seed": 7
+   }
+  },
+  "robot": {
+   "type": "creature",
+   "name": "robot",
+   "opts": {
+    "seed": 3
+   }
+  },
+  "juge": {
+   "preset": "judge"
+  }
+ },
+ "scenes": [
+  {
+   "id": "parc",
+   "set": "park",
+   "ambience": "park",
+   "lines": [
+    {
+     "id": "P1",
+     "text": "Tous les matins, un pigeon volait le croissant de ce mec.",
+     "highlight": [
+      "pigeon",
+      "croissant"
+     ]
+    },
+    {
+     "id": "P2",
+     "text": "Il a appelé les flics. Motif : pigeon trop confiant.",
+     "highlight": [
+      "Motif",
+      "confiant."
+     ]
+    },
+    {
+     "id": "P3",
+     "text": "Les flics sont arrivés en trois secondes.",
+     "highlight": [
+      "trois",
+      "secondes."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.11,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "sitShow",
+     "keys": [
+      {
+       "at": "P1:croissant",
+       "expr": "shocked",
+       "clip": "sit"
+      },
+      {
+       "at": "P1:croissant+0.35",
+       "to": [
+        0.25,
+        0,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.22,
+       "clip": "startle",
+       "then": "startle",
+       "face": "keep"
+      },
+      {
+       "at": "P2",
+       "clip": "phoneCall",
+       "expr": "angry",
+       "face": -25,
+       "turn": 0.2
+      },
+      {
+       "at": "P3",
+       "clip": "point",
+       "expr": "smug",
+       "face": "pigeon",
+       "turn": 0.2
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "pigeon",
+     "pos": [
+      4.2,
+      2.4,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        0.5,
+        1.02,
+        -1.72
+       ],
+       "glide": true,
+       "dur": 1.0,
+       "clip": "fly",
+       "then": "fly"
+      },
+      {
+       "at": "P1:croissant+0.12",
+       "to": [
+        -1.8,
+        0,
+        -0.7
+       ],
+       "glide": true,
+       "dur": 0.75,
+       "arc": 0.5,
+       "clip": "fly",
+       "then": "eat",
+       "expr": "smug"
+      },
+      {
+       "at": "P3:secondes",
+       "clip": "angry",
+       "expr": "scared",
+       "face": "flic1",
+       "turn": 0.15
+      }
+     ],
+     "scale": 1.8,
+     "expr": "neutral"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -7.0,
+      0,
+      0.8
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P3",
+       "path": [
+        [
+         -4.5,
+         0,
+         0.6
+        ],
+        [
+         -2.75,
+         0,
+         -0.3
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.2,
+       "faceEnd": "pigeon",
+       "then": "point"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -7.6,
+      0,
+      1.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P3+0.1",
+       "path": [
+        [
+         -3.6,
+         0,
+         1.3
+        ],
+        [
+         -1.05,
+         0,
+         0.05
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.4,
+       "faceEnd": "pigeon",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "croissant",
+     "name": "croissant",
+     "scale": 1.6,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "P1:croissant",
+       "attach": "pigeon",
+       "joint": "head",
+       "offset": [
+        0,
+        0.02,
+        0.1
+       ]
+      },
+      {
+       "at": "P1:croissant+0.85",
+       "detach": true,
+       "fall": true
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "P2",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P1:croissant",
+     "name": "whoosh",
+     "vol": 0.5
+    },
+    {
+     "at": "P3-0.25",
+     "name": "siren",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "pigeon"
+     ]
+    },
+    {
+     "at": "P1:volait",
+     "size": "ms",
+     "worldAngle": 30,
+     "frame": [
+      "mec",
+      "pigeon"
+     ]
+    },
+    {
+     "at": "P1:croissant+0.25",
+     "size": "fs",
+     "angle": 50,
+     "move": "track",
+     "frame": "pigeon"
+    },
+    {
+     "at": "P2",
+     "size": "cu",
+     "angle": -35,
+     "frame": "mec"
+    },
+    {
+     "at": "P2:Motif",
+     "size": "cu",
+     "angle": 10,
+     "frame": "pigeon"
+    },
+    {
+     "at": "P3",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 8,
+     "frame": [
+      "flic1",
+      "flic2",
+      "pigeon"
+     ]
+    },
+    {
+     "at": "P3:secondes",
+     "size": "cu",
+     "angle": -20,
+     "frame": "pigeon"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "P4",
+     "text": "Garde à vue pour le pigeon.",
+     "highlight": [
+      "Garde",
+      "vue"
+     ]
+    },
+    {
+     "id": "P5",
+     "text": "Où étiez-vous ce matin à huit heures ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "P6",
+     "text": "Rou.",
+     "speaker": "pigeon",
+     "pre": 0.25
+    },
+    {
+     "id": "P7",
+     "text": "Il avoue.",
+     "speaker": "commissaire",
+     "pre": 0.2,
+     "highlight": [
+      "avoue."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "pigeon",
+     "pos": [
+      0,
+      0.785,
+      -0.85
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P6",
+       "clip": "talk",
+       "expr": "neutral"
+      },
+      {
+       "at": "P7",
+       "clip": "idle",
+       "expr": "scared"
+      }
+     ],
+     "scale": 1.8,
+     "expr": "smug"
+    },
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "P5",
+       "clip": "leanTable",
+       "expr": "angry"
+      },
+      {
+       "at": "P7",
+       "clip": "slamTable",
+       "expr": "smug",
+       "sfx": "thud",
+       "sfxAt": 0.12
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -1.35,
+      0,
+      -0.35
+     ],
+     "ry": 115,
+     "clip": "armsCrossed",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "preuve",
+     "name": "evidenceBag",
+     "pos": [
+      -0.5,
+      0.785,
+      -0.7
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "commissaire",
+      "pigeon"
+     ]
+    },
+    {
+     "at": "P5",
+     "size": "ms",
+     "ots": [
+      "commissaire",
+      "pigeon",
+      -1
+     ]
+    },
+    {
+     "at": "P6",
+     "size": "cu",
+     "angle": 0,
+     "elev": 5,
+     "frame": "pigeon"
+    },
+    {
+     "at": "P7",
+     "size": "mcu",
+     "angle": -25,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tweet",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "P8",
+     "text": "Au Japon, un mec a tweeté une blague sur l'affaire.",
+     "highlight": [
+      "Japon,",
+      "blague"
+     ]
+    },
+    {
+     "id": "P9",
+     "text": "Personne n'a ri. Sauf le traducteur, qui a démissionné.",
+     "highlight": [
+      "traducteur,",
+      "démissionné."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "pigeon",
+     "pos": [
+      0,
+      0.785,
+      -0.85
+     ],
+     "ry": 0,
+     "clip": "eat",
+     "keys": [],
+     "scale": 1.8,
+     "expr": "smug"
+    },
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "lookDown",
+     "keys": [
+      {
+       "at": "P9",
+       "clip": "stareCamera",
+       "expr": "unimpressed",
+       "face": -30,
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -0.6,
+      0,
+      -0.15
+     ],
+     "ry": 160,
+     "clip": "lookDown",
+     "keys": [
+      {
+       "at": "P9",
+       "clip": "stareCamera",
+       "expr": "unimpressed",
+       "face": 10,
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "robot",
+     "pos": [
+      -3.3,
+      0,
+      -2.4
+     ],
+     "ry": 40,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P9:Sauf",
+       "clip": "celebrate",
+       "expr": "happy"
+      },
+      {
+       "at": "P9:démissionné",
+       "path": [
+        [
+         -1.5,
+         0,
+         -2.25
+        ],
+        [
+         2.6,
+         0,
+         -2.25
+        ],
+        [
+         4.2,
+         0,
+         -1.25
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "expr": "sad"
+      },
+      {
+       "at": "P9.end+0.9",
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "tw",
+     "name": "tweetPhone",
+     "pos": [
+      0.05,
+      0.793,
+      -0.42
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Kenji",
+      "handle": "@kenji_lol",
+      "text": "Le pigeon français vole le croissant, puis il fait grève contre le pain.",
+      "likes": "0 rire · 2 likes"
+     }
+    },
+    {
+     "id": "carton",
+     "name": "cardboardBox",
+     "opts": {
+      "text": ""
+     },
+     "scale": 0.6,
+     "visible": false,
+     "on": {
+      "actor": "robot",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.1,
+       0.3
+      ]
+     },
+     "keys": [
+      {
+       "at": "P9:démissionné",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P9",
+     "name": "crickets",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": "P8:tweeté",
+     "from": [
+      0.05,
+      1.205,
+      -0.36
+     ],
+     "lookAt": [
+      0.05,
+      0.785,
+      -0.42
+     ],
+     "lens": 40
+    },
+    {
+     "at": "P9",
+     "size": "ms",
+     "worldAngle": -15,
+     "frame": [
+      "commissaire",
+      "flic2"
+     ]
+    },
+    {
+     "at": "P9:Sauf",
+     "size": "ms",
+     "angle": 15,
+     "frame": "robot"
+    },
+    {
+     "at": "P9:démissionné+0.1",
+     "size": "fs",
+     "angle": 70,
+     "move": "track",
+     "frame": "robot"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "P10",
+     "text": "Au procès, le pigeon avait pris un avocat. Un autre pigeon.",
+     "highlight": [
+      "avocat.",
+      "pigeon."
+     ]
+    },
+    {
+     "id": "P11",
+     "text": "Le pigeon est libre. Six mois pour vous : nourrissage illégal.",
+     "speaker": "juge",
+     "highlight": [
+      "Six",
+      "mois"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "P11",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "pigeon",
+     "pos": [
+      -3.55,
+      0.76,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P11:libre",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "scale": 1.8,
+     "expr": "smug"
+    },
+    {
+     "id": "pigeon2",
+     "pos": [
+      -3.0,
+      0.76,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P10:pigeon",
+       "clip": "talk"
+      },
+      {
+       "at": "P11",
+       "clip": "idle"
+      }
+     ],
+     "scale": 1.8,
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      3.3,
+      0,
+      1.8
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "P11:Six",
+       "expr": "shocked",
+       "clip": "scared"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P11:libre",
+     "name": "gavel",
+     "vol": 0.6
+    },
+    {
+     "at": "P11:illégal",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": "juge"
+    },
+    {
+     "at": "P10:avocat",
+     "size": "ms",
+     "worldAngle": 180,
+     "allowBack": true,
+     "frame": [
+      "pigeon",
+      "pigeon2"
+     ]
+    },
+    {
+     "at": "P11",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "P11:Six",
+     "size": "cu",
+     "worldAngle": 180,
+     "allowBack": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "cellule",
+   "set": "prisonCell",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "P12",
+     "text": "Depuis, le pigeon vient manger son croissant devant sa cellule.",
+     "highlight": [
+      "croissant"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.45,
+      0,
+      -2.25
+     ],
+     "ry": -25,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0,
+       "look": "pigeon"
+      },
+      {
+       "at": "P12:croissant",
+       "clip": "stareCamera",
+       "expr": "unimpressed",
+       "look": null
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "pigeon",
+     "pos": [
+      -0.6,
+      1.92,
+      -2.86
+     ],
+     "ry": 30,
+     "clip": "eat",
+     "keys": [],
+     "scale": 1.8,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "croissant",
+     "name": "croissant",
+     "scale": 1.6,
+     "pos": [
+      -0.42,
+      1.92,
+      -2.8
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 10,
+     "elev": 4,
+     "frame": [
+      "mec",
+      "pigeon"
+     ]
+    },
+    {
+     "at": "P12:manger",
+     "size": "cu",
+     "angle": 0,
+     "frame": "pigeon"
+    },
+    {
+     "at": "P12.end-0.2",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

@@ -20,6 +20,7 @@ Read before writing (in this order, only what you need):
 2. `references/scene-json.md`: JSON format + catalogue (presets, clips, expressions, props, sets, creatures, camera presets, FX, SFX). **Always before storyboarding.**
 3. `references/style-match.md`: measured style target (sheet + originals → engine parameters), acting rules, Blender notes. Read it before touching the character or the animations.
 4. `references/analysis.md`: frame-by-frame analysis of the 5 reference videos (timings, framings, mechanics, character design). Read it when you need to calibrate rhythm or framing, or when the user asks "why".
+5. `references/gags-actu-automne-2026.md`: recurring gags from the autumn 2026 French news (cops for an absurd motif, interrogation lamp, the undercover cop, the machine-translated Japanese joke, Mbappé's apologies, 6-7 / scuba / aura battles, Glucksmann vs the closed parasol), with dosage rules and an episode skeleton. Read it for any news-themed episode.
 
 ## Workflow
 

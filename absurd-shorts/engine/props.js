@@ -84,6 +84,22 @@ function wedge(r, h, color, a0 = 0, a1 = TAU, seg = 12) {
   return mesh(new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: false, curveSegments: seg }).rotateX(-PI / 2), mat(color));
 }
 
+// A social-media post card (avatar, name, handle, "translated from" line, text, counters) drawn on a canvas.
+function tweetCard(g, W, H, o) {
+  g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H);
+  const pad = W * 0.07, av = W * 0.16; g.fillStyle = o.avatar || '#E8775F'; g.beginPath(); g.arc(pad + av / 2, pad + av / 2, av / 2, 0, TAU); g.fill();
+  g.fillStyle = '#FFFFFF'; g.font = `900 ${av * 0.5}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(o.initial || 'K', pad + av / 2, pad + av / 2);
+  g.textAlign = 'left'; g.textBaseline = 'alphabetic'; g.fillStyle = '#14171A'; g.font = `bold ${W * 0.075}px Arial`; g.fillText(o.name || 'Kenji', pad * 1.4 + av, pad + av * 0.45);
+  g.fillStyle = '#657786'; g.font = `${W * 0.06}px Arial`; g.fillText(o.handle || '@kenji_lol', pad * 1.4 + av, pad + av * 0.95);
+  let y = pad * 2 + av; g.fillStyle = '#1D9BF0'; g.font = `${W * 0.055}px Arial`; g.fillText(o.via || 'Traduit du japonais par X', pad, y); y += W * 0.1;
+  g.fillStyle = '#14171A'; const fs = W * (o.fs || 0.082); g.font = `bold ${fs}px Arial`;
+  const words = String(o.text || '').split(' '); let line = '';
+  for (const w of words) { const t = line ? line + ' ' + w : w; if (g.measureText(t).width > W - pad * 2 && line) { g.fillText(line, pad, y); y += fs * 1.25; line = w; } else line = t; }
+  if (line) { g.fillText(line, pad, y); y += fs * 1.25; }
+  y += fs * 0.6; g.fillStyle = '#E1E8ED'; g.fillRect(pad, y, W - pad * 2, Math.max(2, W * 0.006)); y += fs * 1.2;
+  g.fillStyle = '#657786'; g.font = `${W * 0.06}px Arial`; g.fillText(o.likes || '0 rire · 0 like', pad, y);
+}
+
 /* ------------------------------------------------------------------ felt-pen handwriting (shared) */
 // Canvas texture of wobbly marker letters. draw(k) reveals the text left to right (k = 0..1, a pure function of k:
 // the same jitter on every redraw, so frames render identically in any order).
@@ -671,7 +687,7 @@ const B = {
   },
   dustPuff(o) {
     const r = rng(o.seed || 47), per = o.period || 1.2, puffs = [], g = grp();
-    for (let i = 0; i < 7; i++) { const m = sphere(0.16 + r() * 0.06, '#D8CFBA', 0, { unique: true, opacity: 0.99 }); m.castShadow = false; const a = i / 7 * TAU + r() * 0.5; puffs.push({ m, dx: Math.cos(a), dz: Math.sin(a) * 0.6, d: 0.4 + r() * 0.4 }); g.add(m); }
+    for (let i = 0; i < 7; i++) { const m = sphere(0.16 + r() * 0.06, o.color || '#D8CFBA', 0, { unique: true, opacity: 0.99 }); m.castShadow = false; const a = i / 7 * TAU + r() * 0.5; puffs.push({ m, dx: Math.cos(a), dz: Math.sin(a) * 0.6, d: 0.4 + r() * 0.4 }); g.add(m); }
     g.userData.update = t => { const p = o.once ? clamp01(t / per) : (t % per) / per, e = ease.out(p);
       puffs.forEach(({ m, dx, dz, d }) => { m.position.set(dx * d * e, 0.12 + 0.35 * p, dz * d * e); m.scale.setScalar(0.4 + 1.1 * e); m.material.opacity = 1 - p * p; }); };
     g.userData.update(0.3); return g;
@@ -1013,6 +1029,51 @@ const B = {
       at(box(0.46, 0.7, 0.07, c, { outline: 0.01 }), 0, 0.92, -0.23, -0.08, 0, 0), at(box(0.06, 0.4, 0.04, P.greyDark), 0, 0.6, -0.25));
     [-1, 1].forEach(sd => g.add(at(box(0.05, 0.03, 0.3, P.ink), sd * 0.27, 0.68, 0.0), at(box(0.03, 0.17, 0.03, P.ink, { pivot: 'bottom' }), sd * 0.27, 0.52, -0.05)));
     g.userData.seat = [0, 0.52, 0]; return g; },
+  // --- autumn-2026 news series --------------------------------------------------------------------------------
+  tweetPhone(o) { // phone showing a post with its machine translation: opts name, handle, via, text, likes, avatar
+    const scr = canvasPlane(0.1, 0.2, (g, W, H) => tweetCard(g, W, H, o), { res: 360, emissive: 0.55 });
+    const g = grp(at(box(0.11, 0.21, 0.012, P.ink, { outline: 0.03 }), 0, 0, 0), at(scr, 0, 0, 0.0065)); g.userData.grip = [0, -0.07, 0]; return g; },
+  tweetMonitor(o) { // desk monitor showing the same post, readable in a medium shot
+    const scr = canvasPlane(0.62, 0.86, (g, W, H) => tweetCard(g, W, H, o), { res: 512, emissive: 0.5 });
+    return grp(at(box(0.68, 0.92, 0.04, P.ink, { outline: 0.008 }), 0, 0.72, 0), at(scr, 0, 0.72, 0.021), at(box(0.06, 0.26, 0.06, P.greyDark, { pivot: 'bottom' }), 0, 0, -0.05), at(box(0.3, 0.02, 0.22, P.greyDark), 0, 0.01, -0.05)); },
+  protestSign(o) { // cardboard sign on a stick, felt-pen text (2 lines max)
+    const w = o.w || 0.62, h = o.h || 0.42, txt = o.text || '6-7', g = grp(at(box(0.03, 1.0, 0.03, P.wood, { pivot: 'bottom' }), 0, 0, 0), at(box(w, h, 0.015, '#C9A06A', { outline: 0.01 }), 0, 1.0 + h / 2, 0.02));
+    const c = canvasPlane(w * 0.94, h * 0.9, (gg, W, H) => { const lines = String(txt).split('\n'); gg.fillStyle = '#D8B582'; gg.fillRect(0, 0, W, H); gg.fillStyle = o.color || P.ink; gg.textAlign = 'center'; gg.textBaseline = 'middle';
+      const fs = Math.min(H * 0.8 / lines.length, W * 0.95 / (Math.max(...lines.map(l => l.length)) * 0.62)); gg.font = `900 ${fs}px Arial`; lines.forEach((l, i) => gg.fillText(l, W / 2, H * (i + 0.5) / lines.length)); }, { res: 384 });
+    g.add(at(c, 0, 1.0 + h / 2, 0.029)); g.userData.grip = [0, 0.35, 0]; return g; },
+  flourBag(o) { const g = grp(at(box(0.22, 0.3, 0.12, '#EDE6D6', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(label(o.text || 'FARINE', 0.2, 0.08, { bg: '#EDE6D6', fg: P.navy }), 0, 0.17, 0.062)); g.userData.grip = [0, 0.28, 0]; return g; },
+  cheeseWheel(o) { const g = grp(at(cyl(0.2, 0.2, 0.12, '#E9C46A', 16, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.2, 0.2, 0.005, '#B8862E', 16), 0, 0.122, 0), at(label(o.text || 'COMTÉ', 0.2, 0.06, { bg: '#F4E6B8', fg: P.redDark }), 0, 0.06, 0.201)); g.userData.grip = [0, 0.06, 0]; return g; },
+  milkCarton(o) { const g = grp(at(box(0.12, 0.24, 0.12, P.white, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(0.12, 0.06, 0.12, '#3E6FB5', { taper: { x: 1, z: 0.1 } }), 0, 0.27, 0), at(label(o.text || 'LAIT', 0.11, 0.06, { bg: P.white, fg: '#3E6FB5' }), 0, 0.13, 0.061)); g.userData.grip = [0, 0.12, 0]; return g; },
+  drinkCan(o) { const g = grp(at(cyl(0.045, 0.045, 0.16, o.color || P.red, 12, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.04, 0.045, 0.012, P.grey, 12), 0, 0.166, 0), at(label(o.text || 'SODA', 0.08, 0.04, { bg: null, fg: P.white }), 0, 0.08, 0.046)); g.userData.grip = [0, 0.08, 0]; return g; },
+  sushiPlate(o) { const g = grp(at(box(0.5, 0.04, 0.22, P.wood, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0));
+    for (let i = 0; i < 5; i++) g.add(at(box(0.07, 0.035, 0.045, '#F4F1EA'), -0.18 + i * 0.09, 0.058, 0), at(box(0.075, 0.015, 0.05, i % 2 ? '#E8775F' : '#F08A6A'), -0.18 + i * 0.09, 0.083, 0));
+    return g; },
+  sauceBottle(o) { const g = grp(at(cyl(0.05, 0.05, 0.18, '#E07A2E', 10, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.02, 0.05, 0.05, P.white, 10), 0, 0.205, 0), at(cyl(0.006, 0.02, 0.04, P.white, 6), 0, 0.25, 0),
+      at(label(o.text || 'ALGÉRIENNE', 0.1, 0.05, { bg: P.white, fg: P.redDark }), 0, 0.09, 0.051)); g.userData.grip = [0, 0.09, 0]; return g; },
+  croissant(o) { const g = grp(); for (let i = 0; i < 5; i++) { const a = -0.9 + i * 0.45, r = i === 2 ? 0.045 : i % 4 === 0 ? 0.025 : 0.038; g.add(at(sphere(r, '#D9A35C', 1), Math.sin(a) * 0.09, r * 0.8, -Math.cos(a) * 0.05 + 0.03)); } g.userData.grip = [0, 0.04, 0]; return g; },
+  notebook(o) { // small notebook with a printed cover (the undercover cop's slang guide)
+    const c = canvasPlane(0.15, 0.21, (gg, W, H) => { gg.fillStyle = o.bg || '#C23A2E'; gg.fillRect(0, 0, W, H); gg.fillStyle = '#F6F1E3'; gg.textAlign = 'center'; gg.textBaseline = 'middle';
+      const lines = String(o.text || 'LEXIQUE\nJEUNE\n—\nÉDITION\n2019').split('\n'); gg.font = `900 ${H * 0.11}px Arial`; lines.forEach((l, i) => gg.fillText(l, W / 2, H * (0.18 + i * 0.16))); }, { res: 256 });
+    const g = grp(at(box(0.155, 0.215, 0.02, '#8E2A21', { outline: 0.02 }), 0, 0, 0), at(c, 0, 0, 0.0105)); g.userData.grip = [0, -0.09, 0]; return g; },
+  ballonDor(o) { const g = grp(at(cyl(0.09, 0.11, 0.08, P.ink, 10, { pivot: 'bottom' }), 0, 0, 0), at(sphere(0.12, '#E6B84A', 1, { outline: 0.02 }), 0, 0.2, 0)); g.userData.grip = [0, 0.05, 0]; return g; },
+  memePoster(o) { // propaganda-style meme poster: a figure in a grey tunic, red background, caption
+    const c = canvasPlane(0.6, 0.85, (gg, W, H) => { gg.fillStyle = '#B5302A'; gg.fillRect(0, 0, W, H); gg.fillStyle = '#E6B84A'; for (let i = 0; i < 12; i++) { gg.save(); gg.translate(W / 2, H * 0.42); gg.rotate(i * Math.PI / 6); gg.fillRect(-W * 0.02, 0, W * 0.04, H * 0.6); gg.restore(); }
+      gg.fillStyle = '#7C7E68'; gg.beginPath(); gg.moveTo(W * 0.2, H * 0.92); gg.lineTo(W * 0.3, H * 0.55); gg.lineTo(W * 0.7, H * 0.55); gg.lineTo(W * 0.8, H * 0.92); gg.fill();
+      gg.fillStyle = o.skin || '#5E3F2C'; gg.fillRect(W * 0.4, H * 0.24, W * 0.2, H * 0.3); gg.fillStyle = '#17181B'; gg.fillRect(W * 0.4, H * 0.22, W * 0.2, H * 0.04);
+      gg.fillStyle = '#F6F1E3'; gg.textAlign = 'center'; gg.font = `900 ${H * 0.07}px Arial`; gg.fillText(o.text || 'MÈME', W / 2, H * 0.12); }, { res: 384 });
+    const g = grp(at(box(0.64, 0.89, 0.01, P.ink), 0, 0, 0), at(c, 0, 0, 0.006)); g.rotation.z = o.tilt ?? 0.03; return g; },
+  parasol(o) { // beach parasol on a pole with a weighted base; furled (closed) by default, opens at openAt
+    const R = o.radius || 1.0, H = o.height || 2.1, cols = o.colors || ['#C23A2E', '#F6F1E3'];
+    const g = grp(at(cyl(0.22, 0.25, 0.08, P.greyDark, 12, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.025, 0.025, H, P.wood, 6, { pivot: 'bottom' }), 0, 0.08, 0));
+    const can = grp(); g.add(can);
+    for (let i = 0; i < 8; i++) can.add(mesh(new THREE.ConeGeometry(R, R * 0.35, 1, 1, true, i * TAU / 8, TAU / 8), mat(cols[i % cols.length], { doubleSide: true })));
+    const strap = at(box(0.07, 0.05, 0.07, P.ink), 0, H - 0.35, 0); g.add(strap);
+    const setOpen = op => { can.scale.set(0.09 + 0.91 * op, 1 + (1 - op) * 2.6, 0.09 + 0.91 * op); can.position.y = H + 0.08 - (1 - op) * R * 0.455; strap.visible = op < 0.3; };
+    setOpen(o.open ?? 0);
+    if (o.openAt != null) g.userData.update = t => setOpen(ease.out(clamp01((t - o.openAt) / 0.5)));
+    g.userData.grip = [0, 1.0, 0]; return g; },
+  baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
+  clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
   
 };

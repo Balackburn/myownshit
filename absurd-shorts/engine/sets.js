@@ -165,11 +165,11 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], sofa: [0, 0, back + 0.55], sofaSeat: [0, 0.5, back + 0.75], lamp: [1.85, 0, back + 0.45], plant: [-1.85, 0, back + 0.4], picture: [0, 2.35, back], tv: [3.7, 0, -1.2], window: [3.6, 0, back + 0.7] };
     g.userData.lighting = 'interior'; return g;
   },
-  kitchenNight() {
+  kitchenNight(o = {}) { // o.fridge === false: no fridge (a scene fridge with an animated door replaces it)
     const g = grp(), { back } = room(g, { wall: '#2E5C59', band: '#24494A', bandH: 0.95, trim: P.navy, floor: P.navy });
     const tiles = []; for (let i = -12; i < 12; i++) for (let j = 0; j < 22; j++) if ((i + j) % 2 === 0) tiles.push([i * 0.8 + 0.4, 0.003, back + j * 0.8 + 0.4]);
     g.add(inst(new THREE.PlaneGeometry(0.8, 0.8).rotateX(-PI / 2), mat(P.redDark), tiles));
-    g.add(prop('fridge', { notes: 7 }, -2.7, 0, back + 0.38));
+    if (o.fridge !== false) g.add(prop('fridge', { notes: 7 }, -2.7, 0, back + 0.38));
     // counter + upper cabinets
     g.add(at(box(3.0, 0.9, 0.6, '#3F7470', { pivot: 'bottom' }), -0.6, 0, back + 0.3), at(box(3.1, 0.05, 0.66, P.cream), -0.6, 0.925, back + 0.33));
     [-1.6, -0.6, 0.4].forEach(x => g.add(at(box(0.04, 0.7, 0.01, P.navy), x + 0.5, 0.45, back + 0.605), at(box(0.12, 0.03, 0.03, P.cream), x + 0.35, 0.75, back + 0.62)));
@@ -593,6 +593,49 @@ const S = {
     g.add(at(box(0.4, 0.012, 0.4, '#2A2F2E'), 1.8, 0.006, -0.4));
     g.add(at(label('LABO', 1.4, 0.4, { bg: P.yellow, fg: P.ink }), 0, 2.6, back + 0.02));
     g.userData.anchors = { center: [0, 0, 0], table: [0, 0, back + 1.2] }; g.userData.lighting = 'interior'; return g;
+  },
+  interrogation(o = {}) { // police interrogation room: grey walls, metal table, two chairs, hanging lamp, one-way mirror, door
+    const g = grp(), { back } = room(g, { wall: '#5A6066', band: '#474C52', bandH: 1.0, trim: '#2F3338', floor: '#6A6E70', back: -3.2, half: 4.5, front: 6 });
+    g.add(at(box(1.5, 0.05, 0.85, '#8C949A', { outline: 0.008 }), 0, 0.76, -0.75));
+    [[-0.68, -0.38], [0.68, -0.38], [-0.68, -1.12], [0.68, -1.12]].forEach(([x, z]) => g.add(at(box(0.05, 0.74, 0.05, '#4A4F55', { pivot: 'bottom' }), x, 0, z)));
+    g.add(prop('chair', { color: '#3A3F45' }, 0, 0, -1.45), prop('chair', { color: '#3A3F45' }, 0.85, 0, 0.15, PI - 0.4));
+    g.add(rod([0, 3.4, -0.75], [0, 2.25, -0.75], 0.008, P.ink), at(mesh(new THREE.ConeGeometry(0.32, 0.26, 12, 1, true), mat('#2C3036', { doubleSide: true })), 0, 2.15, -0.75),
+      at(sphere(0.08, '#FFF2C0', 1, { emissive: '#FFE9A0', noGrain: true }), 0, 2.06, -0.75));
+    g.add(at(box(0.06, 1.2, 2.6, '#1B2026', { outline: 0.004 }), -4.46, 1.6, -0.6), at(box(0.04, 1.1, 2.5, '#2E3A44', { emissive: '#0A0F14' }), -4.42, 1.6, -0.6));
+    g.add(at(prop('door', { color: '#6F7A82' }), 4.45, 0, -1.2, 0, -PI / 2, 0));
+    g.add(prop('wallClock', { rate: 1 / 3600 }, 1.8, 2.5, back + 0.03));
+    g.add(at(box(1.4, 0.9, 0.03, '#B98A5A', { outline: 0.006 }), -1.9, 1.7, back + 0.03));
+    [[-2.25, 1.85, 0.05], [-1.9, 1.6, -0.04], [-1.55, 1.82, 0.03]].forEach(([x, y, rz], i) => g.add(at(box(0.26, 0.34, 0.01, ['#F7F3EA', '#F2E27A', '#F7F3EA'][i]), x, y, back + 0.05, 0, 0, rz)));
+    g.add(rod([-2.25, 1.85, back + 0.07], [-1.55, 1.82, back + 0.07], 0.006, P.red));
+    g.add(prop('documents', {}, 0.45, 0.785, -0.7), prop('mug', { color: P.white }, -0.5, 0.785, -0.6));
+    g.userData.anchors = { center: [0, 0, 0], table: [0, 0.785, -0.75], suspect: [0, 0, -1.45], cop: [0.35, 0, -0.05], mirror: [-4.4, 1.6, -0.6], door: [4.3, 0, -1.2] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  pressRoom(o = {}) { // press conference: backdrop with repeated words (o.backdrop 'A|B|C'), podium with microphones, flags, chairs, cameras
+    const g = grp(), { back } = room(g, { wall: '#2E4563', band: '#24384F', bandH: 0.8, trim: '#1E2E44', floor: '#3A3F45', back: -3.0 });
+    const bd = canvasPlane(6.0, 2.6, (c, W, H) => { c.fillStyle = o.bg || '#2E4563'; c.fillRect(0, 0, W, H); c.fillStyle = o.fg || 'rgba(255,255,255,0.85)'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.085}px Arial`;
+      const words = String(o.backdrop || 'CONFÉRENCE DE PRESSE').split('|'); for (let r = 0; r < 6; r++) for (let k = 0; k < 4; k++) c.fillText(words[(r * 4 + k) % words.length], W * (0.14 + k * 0.24 + (r % 2) * 0.06), H * (0.1 + r * 0.16)); }, { res: 1024 });
+    g.add(at(bd, 0, 1.9, back + 0.02), prop('podium', {}, 0, 0, back + 1.0));
+    [-0.08, 0.08].forEach(x => g.add(rod([x, 1.15, back + 1.05], [x * 1.6, 1.42, back + 0.86], 0.008, P.ink), at(sphere(0.025, P.ink, 0), x * 1.6, 1.43, back + 0.85)));
+    const fc = o.flag || ['#2C4A8A', P.white, P.red]; g.add(prop('flag', { colors: fc }, -1.5, 0, back + 0.4), prop('flag', { colors: fc }, 1.5, 0, back + 0.4));
+    for (let r = 0; r < 2; r++) for (let i = 0; i < 5; i++) g.add(prop('chair', { color: '#8C949A' }, -2.4 + i * 1.2, 0, 2.2 + r * 1.1, PI));
+    [-3.2, 3.2].forEach(x => g.add(rod([x, 0, 3.9], [x, 1.45, 3.6], 0.015, P.ink), rod([x - 0.25, 0, 3.4], [x, 1.45, 3.6], 0.015, P.ink), rod([x + 0.25, 0, 3.4], [x, 1.45, 3.6], 0.015, P.ink),
+      at(box(0.3, 0.22, 0.42, P.ink, { outline: 0.01 }), x, 1.55, 3.55), at(cyl(0.06, 0.06, 0.1, P.greyDark, 8), x, 1.55, 3.3, PI / 2)));
+    g.userData.anchors = { center: [0, 0, 0], podium: [0, 0, back + 1.0], speaker: [0, 0, back + 0.55], press: [0, 0, 2.2] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  classroom(o = {}) { // high-school classroom: chalk board (o.board / o.board2), 3x3 student desks with chairs facing it, teacher desk, clock, posters
+    const g = grp(), { back } = room(g, { wall: '#E9E1CC', band: '#8FAE9A', bandH: 1.0, trim: '#5C7A66', floor: '#C9A27A' });
+    const bb = canvasPlane(3.2, 1.2, (c, W, H) => { c.fillStyle = '#2F4A3A'; c.fillRect(0, 0, W, H); c.fillStyle = 'rgba(240,240,232,0.92)'; c.textAlign = 'left';
+      c.font = `bold ${H * 0.2}px Arial`; c.fillText(o.board || 'BAC — JUIN', W * 0.06, H * 0.3); c.font = `${H * 0.13}px Arial`; c.fillText(o.board2 || "Sujet : la bataille d'aura", W * 0.06, H * 0.58); c.fillText(o.board3 || '6 + 7 = 67', W * 0.06, H * 0.82); }, { res: 768 });
+    g.add(at(box(3.36, 1.36, 0.05, '#6B4A2E', { outline: 0.006 }), 0, 1.75, back + 0.03), at(bb, 0, 1.75, back + 0.06), at(box(3.2, 0.05, 0.08, '#6B4A2E'), 0, 1.07, back + 0.08));
+    g.add(prop('desk', { color: '#7A5C3A', w: 1.4 }, -2.9, 0, back + 1.15, PI), prop('chair', { color: '#5C4330' }, -2.9, 0, back + 0.45));
+    for (let r = 0; r < 3; r++) for (let cc = 0; cc < 3; cc++) { const x = -1.6 + cc * 1.6, z = -0.9 + r * 1.35;
+      g.add(prop('table', { w: 0.9, d: 0.55, h: 0.72, color: '#C99A62', legs: '#6E726F' }, x, 0, z), prop('chair', { color: '#2F62B5' }, x, 0, z + 0.55, PI)); }
+    g.add(prop('wallClock', { rate: 1 / 3600 }, 2.6, 2.7, back + 0.03));
+    [[3.4, 1.7, '#F2E27A', 'PARCOURSUP'], [-4.4, 1.8, '#9FC6D4', 'SILENCE']].forEach(([x, y, bg, t]) => g.add(at(label(t, 0.9, 0.5, { bg, fg: P.ink }), x, y, back + 0.03)));
+    g.userData.anchors = { center: [0, 0, 0], board: [0, 1.75, back], teacher: [-2.9, 0, back + 0.45], desk: [0, 0, -0.9] };
+    g.userData.lighting = 'interior'; return g;
   },
   bar() { // old-school bar: long counter, bottles on shelves, stools, neon sign
     const g = grp(), { back } = room(g, { wall: '#5A3A2E', band: P.red, bandH: 1.0, trim: P.ink, floor: '#3A2A22' });

@@ -11,7 +11,7 @@ import { PALETTE as P, mat, box, addOutline, rng } from './style.js';
 import { faceTexture, sideTexture } from './face.js';
 import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces } from './atlas.js';
 
-export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit'];
+export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
 export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'party', 'crown'];
 export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
@@ -44,6 +44,14 @@ export const PRESETS = {
   madame:    { outfit: 'skirtsuit', suit: P.red, lapel: P.cream, hair: 'bun', facial: 'none', lipstick: true, skin: P.skinPale },
   mamie:     { outfit: 'skirtsuit', suit: P.tealLight, lapel: P.cream, hair: 'curly', hairColor: '#D8D8D8', facial: 'none', glasses: true, build: { height: 0.9 } },
   gamin:     { outfit: 'tracksuit', hair: 'spiky', facial: 'none', build: { height: 0.62, width: 0.85, headScale: 1.15 } },
+  // autumn-2026 news series (satire of public images; generic low-poly designs, no caricature)
+  footballeur: { outfit: 'mao', hair: 'buzz', facial: 'none', skin: '#5E3F2C' },           // "Mbappé en Mao" meme: grey-green tunic, no tie
+  politique:   { outfit: 'suit', suit: '#2B3A55', tie: '#1F2A3D', lapel: '#2B3A55', hair: 'slick', hairColor: '#2A2420', facial: 'none', build: { height: 1.04, width: 0.94 } },
+  infiltre:    { outfit: 'tracksuit', suit: '#55595F', hat: 'beanie', hair: 'receding', hairColor: '#8A8A86', facial: 'mustache' }, // 52-year-old cop in a hoodie
+  lyceen:      { outfit: 'tracksuit', hair: 'spiky', facial: 'none', build: { height: 0.9, width: 0.9, headScale: 1.08 } },
+  lyceenne:    { outfit: 'tracksuit', suit: '#C9729A', hair: 'bun', facial: 'none', lipstick: true, skin: '#C8955F', build: { height: 0.88, width: 0.88, headScale: 1.08 } },
+  proviseur:   { outfit: 'suit', suit: '#5C4330', tie: '#C8372D', lapel: '#5C4330', hair: 'bald', facial: 'mustache', glasses: true, build: { belly: 0.1 } },
+  commissaire: { outfit: 'suit', suit: '#7A6448', tie: '#3A3D44', lapel: '#6B573E', hat: 'fedora', hair: 'receding', facial: 'mustache', build: { belly: 0.08 } },
 };
 
 const OUTFIT_COLORS = {
@@ -64,6 +72,7 @@ const OUTFIT_COLORS = {
   farmer:      { jacket: '#5A7FA6', shirt: P.red, pants: '#5A7FA6', shoes: P.woodDark, tie: null, lapel: '#5A7FA6', cuff: P.red },
   firefighter: { jacket: '#D9A23A', shirt: '#D9A23A', pants: '#D9A23A', shoes: P.black, tie: null, lapel: P.grey, cuff: P.grey },
   skirtsuit:   { jacket: P.red, shirt: P.shirt, pants: null, shoes: P.black, tie: null, lapel: P.cream, cuff: P.white, skirt: true },
+  mao:         { jacket: '#7C7E68', shirt: '#7C7E68', pants: '#7C7E68', shoes: P.black, tie: null, lapel: '#6A6C58', cuff: '#7C7E68' },
 };
 
 export function buildHuman(spec = {}) {
@@ -147,6 +156,7 @@ export function buildHuman(spec = {}) {
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }
   if (o.outfit === 'swat') { const vest = box(0.44 * Wd, torsoH * 0.6, 0.27, '#2A3442'); vest.position.y = torsoH * 0.55; torso.add(vest); const t = textLabel('SWAT', 0.16, 0.05); t.position.set(0, torsoH * 0.7, 0.14); torso.add(t); }
   if (o.outfit === 'prisoner' || o.outfit === 'pajamas') for (let i = 1; i < 6; i++) { const st = box(0.43 * Wd + 0.01, 0.025, 0.235, o.outfit === 'prisoner' ? '#B85A1E' : P.white); st.position.y = torsoH * i / 6; torso.add(st); }
+  if (o.outfit === 'mao') { for (const [x, y] of [[-0.1, 0.72], [0.1, 0.72], [-0.1, 0.32], [0.1, 0.32]]) { const pk = box(0.1, 0.08, 0.01, '#6A6C58'); pk.position.set(x, torsoH * y, front + 0.006); torso.add(pk); } for (let i = 0; i < 5; i++) { const bt = box(0.018, 0.018, 0.01, '#3A3B32'); bt.position.set(0, torsoH * (0.2 + i * 0.16), front + 0.008); torso.add(bt); } const col = box(0.16, 0.05, 0.12, C.jacket); col.position.set(0, torsoH + 0.02, 0.0); torso.add(col); }
   if (o.outfit === 'tourist') { const r = rng(9); for (let i = 0; i < 16; i++) { const f = box(0.05, 0.05, 0.01, [P.pink, P.green, P.white][i % 3]); f.position.set((r() - 0.5) * 0.36, r() * torsoH, front + 0.006); torso.add(f); } }
   if (o.outfit === 'worker' || o.outfit === 'firefighter') for (const y of [0.35, 0.6]) { const st = box(0.43 * Wd + 0.01, 0.035, 0.235, P.grey); st.position.y = torsoH * y; torso.add(st); }
 

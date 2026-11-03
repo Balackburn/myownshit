@@ -49,7 +49,7 @@ export async function load(script, { width, height } = {}) {
   const stage = createStage(W, H);
   stage.renderer.domElement.style.display = 'none';
   const out = document.createElement('canvas'); out.width = W; out.height = H; document.body.appendChild(out);
-  S = { script, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, scene: -1, warnings: [], events: [], camTimes: [], lineById: {} };
+  S = { script, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, scene: -1, warnings: [], events: [], camTimes: [], lineById: {}, tempo: script.tempo || 1 }; // tempo > 1: snappier gestures, blends and turns
   for (const [id, c] of Object.entries(script.cast || {})) S.cast[id] = buildActor(c, id);
   script.scenes.forEach((sc, si) => sc.lines.forEach(l => { S.lineById[l.id] = { ...l, si, rs: l.start - sc.start, re: l.end - sc.start }; }));
   S.total = script.scenes.reduce((m, sc) => Math.max(m, sc.start + sc.duration), 0);
@@ -191,7 +191,7 @@ function prepActor(cfg, obj, sc, place) {
     if (k.to != null || k.path) A.moves.push(k);
     else {
       if (k.clip) A.clipKeys.push({ at: k.t, clip: k.clip, params: k.params || {}, speed: k.speed ?? A.speed, key: k });
-      if (k.face != null) A.faceKeys.push({ at: k.t, face: k.face, turn: k.turn ?? 0.22 });
+      if (k.face != null) A.faceKeys.push({ at: k.t, face: k.face, turn: k.turn ?? 0.22 / S.tempo });
     }
     if (k.look !== undefined) A.lookKeys.push({ at: k.t, look: k.look });
     if (k.expr) A.exprKeys.push({ at: k.t, expr: k.expr });
@@ -283,9 +283,9 @@ function facingAt(A, t, depth = 0) {
       const endHead = mode === 'move' ? (mv.back ? headingAt(mv, mv.t1) + Math.PI : headingAt(mv, mv.t1)) : (faceTarget(A, mode, mv.t1) ?? from);
       if (mv.faceEnd == null) return endHead;
       const fe = faceTarget(A, mv.faceEnd, t) ?? endHead;
-      return lerpA(endHead, fe, ease.out(clamp01((t - mv.t1) / (mv.turnEnd ?? 0.25))));
+      return lerpA(endHead, fe, ease.out(clamp01((t - mv.t1) / (mv.turnEnd ?? 0.25 / S.tempo))));
     }
-    return lerpA(from, target, ease.out(clamp01((t - mv.t) / (mv.turn ?? 0.16))));
+    return lerpA(from, target, ease.out(clamp01((t - mv.t) / (mv.turn ?? 0.16 / S.tempo))));
   }
   const target = faceTarget(A, src.fk.face, t) ?? from;
   return lerpA(from, target, ease.out(clamp01((t - src.fk.at) / src.fk.turn)));
@@ -400,7 +400,7 @@ function speakingEnv(A, t) {
   return null;
 }
 function clipPoseFn(A, key, t) {
-  const lt = Math.max(0, (t - key.at) * (key.speed ?? 1) + A.phase);
+  const lt = Math.max(0, (t - key.at) * (key.speed ?? 1) * (key.move ? 1 : S.tempo) + A.phase); // gaits keep their speed-derived cadence
   return samplePose(key.clip, lt, key.params || {});
 }
 function snapshot(A) {
@@ -435,16 +435,17 @@ function evalActor(A, tIn) {
   else if ((expr === 'neutral' || expr === 'suspicious' || expr === 'unimpressed') && ((t + A.phase * 7) % 3.4) < 0.11) expr = 'blink';
   if (ud.kind === 'human') {
     let pose = clipPoseFn(A, cur, t);
-    if (prev && dt < BLEND + 0.12) pose = actingBlend(clipPoseFn(A, prev, t), pose, dt, { dur: BLEND, anticipation: 0.06, antDur: 0.08, overshoot: 0.5 });
+    const BL = BLEND / S.tempo;
+    if (prev && dt < BL + 0.12) pose = actingBlend(clipPoseFn(A, prev, t), pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
     applyHuman(A, pose, pos, ry, sc);
     ud.setExpression?.(expr);
   } else if (ud.kind === 'creature') {
     ud.setExpression?.(expr);
-    const lt = (k) => Math.max(0, (t - k.at) * (k.speed ?? 1) + A.phase);
-    if (prev && dt < BLEND) {
+    const lt = (k) => Math.max(0, (t - k.at) * (k.speed ?? 1) * (k.move ? 1 : S.tempo) + A.phase);
+    if (prev && dt < BLEND / S.tempo) {
       ud.animate(prev.clip, lt(prev), prev.params || {}); const a = snapshot(A);
       ud.animate(cur.clip, lt(cur), cur.params || {}); const b = snapshot(A);
-      writeSnap(A, a, b, ease.inOut(clamp01(dt / BLEND)));
+      writeSnap(A, a, b, ease.inOut(clamp01(dt / (BLEND / S.tempo))));
     } else ud.animate(cur.clip, lt(cur), cur.params || {});
     // pivot about the hips for human clips that ask for it (flips, lying down…)
     const hp = CLIPS[cur.clip] ? samplePose(cur.clip, lt(cur), cur.params || {}).root : null;

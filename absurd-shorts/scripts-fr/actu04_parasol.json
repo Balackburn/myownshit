@@ -1,0 +1,935 @@
+{
+ "version": 3,
+ "title": "Le parasol",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "touriste": {
+   "preset": "tourist"
+  },
+  "madame": {
+   "preset": "madame",
+   "seed": 9
+  },
+  "glucksmann": {
+   "preset": "politique"
+  },
+  "mili1": {
+   "preset": "lyceen",
+   "suit": "#C23A2E",
+   "build": {
+    "height": 1.0
+   },
+   "seed": 21
+  },
+  "mili2": {
+   "preset": "lyceenne",
+   "build": {
+    "height": 0.98
+   },
+   "seed": 22
+  }
+ },
+ "scenes": [
+  {
+   "id": "plage",
+   "set": "beach",
+   "ambience": "park",
+   "lines": [
+    {
+     "id": "G1",
+     "text": "Ce mec a acheté un parasol. Même fermé, il avait plus de charisme que lui.",
+     "highlight": [
+      "fermé,",
+      "charisme"
+     ]
+    },
+    {
+     "id": "G2",
+     "text": "Sur la plage, tout le monde faisait des selfies avec le parasol.",
+     "highlight": [
+      "selfies"
+     ]
+    },
+    {
+     "id": "G3",
+     "text": "Il a appelé les flics. Motif : vol de charisme.",
+     "highlight": [
+      "Motif",
+      "charisme."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.55,
+      0,
+      -1.25
+     ],
+     "ry": 15,
+     "clip": "present",
+     "keys": [
+      {
+       "at": "G1:fermé",
+       "clip": "posing",
+       "expr": "smug"
+      },
+      {
+       "at": "G1:charisme",
+       "clip": "stand",
+       "expr": "sad"
+      },
+      {
+       "at": "G2:selfies",
+       "path": [
+        [
+         -0.8,
+         0,
+         -0.95
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": 0,
+       "then": "present",
+       "expr": "happy"
+      },
+      {
+       "at": "G2.end-0.3",
+       "clip": "bigShrug",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "G3",
+       "clip": "phoneCall",
+       "expr": "angry",
+       "face": -25,
+       "turn": 0.2
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "touriste",
+     "pos": [
+      4.5,
+      0,
+      0.6
+     ],
+     "ry": -100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "G2",
+       "to": [
+        1.3,
+        0,
+        -1.15
+       ],
+       "clip": "walk",
+       "speed": 2.2,
+       "faceEnd": 0,
+       "then": "showPhone"
+      },
+      {
+       "at": "G2:selfies+0.4",
+       "clip": "showPhone",
+       "expr": "happy"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "madame",
+     "pos": [
+      5.2,
+      0,
+      1.4
+     ],
+     "ry": -100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "G2+0.15",
+       "to": [
+        -0.2,
+        0,
+        -1.3
+       ],
+       "clip": "walk",
+       "speed": 2.3,
+       "faceEnd": 0,
+       "then": "posing"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "parasol",
+     "name": "parasol",
+     "pos": [
+      0.5,
+      0,
+      -1.8
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "touriste",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "opts": {
+      "screen": "tiktok"
+     }
+    },
+    {
+     "id": "tel2",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "G3",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "G2:selfies",
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": "G2:selfies+0.5",
+     "name": "shutter",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "parasol"
+     ]
+    },
+    {
+     "at": "G1:fermé",
+     "size": "ms",
+     "worldAngle": -15,
+     "frame": "parasol"
+    },
+    {
+     "at": "G1:charisme",
+     "size": "cu",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "G2",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "touriste",
+      "madame",
+      "parasol"
+     ]
+    },
+    {
+     "at": "G2:selfies",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "touriste",
+      "madame",
+      "parasol",
+      "mec"
+     ]
+    },
+    {
+     "at": "G3",
+     "size": "cu",
+     "angle": -35,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "G4",
+     "text": "En garde à vue, le parasol n'a rien dit.",
+     "highlight": [
+      "rien"
+     ]
+    },
+    {
+     "id": "G5",
+     "text": "Il avoue ou il réfléchit ?",
+     "speaker": "flic1"
+    },
+    {
+     "id": "G6",
+     "text": "Avec un parasol, on sait jamais.",
+     "speaker": "commissaire",
+     "highlight": [
+      "jamais."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "G6",
+       "clip": "stand",
+       "expr": "unimpressed",
+       "face": 150,
+       "turn": 0.2
+      }
+     ],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -1.35,
+      0,
+      -0.35
+     ],
+     "ry": 115,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "G5",
+       "clip": "scratchHead",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "parasol",
+     "name": "parasol",
+     "pos": [
+      0,
+      0,
+      -1.45
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "commissaire",
+      [
+       0,
+       1.4,
+       -1.45
+      ]
+     ]
+    },
+    {
+     "at": "G4:rien",
+     "size": "ms",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0,
+       1.6,
+       -1.45
+      ]
+     ]
+    },
+    {
+     "at": "G5",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "flic1"
+    },
+    {
+     "at": "G6",
+     "size": "mcu",
+     "angle": 20,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "debat",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "DÉBAT|PRIMAIRE|CHARISME",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563"
+   },
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "G7",
+     "text": "Relâché, le parasol s'est présenté contre Glucksmann. Débat de charisme.",
+     "highlight": [
+      "Glucksmann.",
+      "charisme."
+     ]
+    },
+    {
+     "id": "G8",
+     "text": "Le parasol a gagné aux points.",
+     "highlight": [
+      "gagné"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksmann",
+     "pos": [
+      -1.1,
+      0,
+      -2.45
+     ],
+     "ry": 10,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": "G8",
+       "clip": "stand",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod1",
+     "name": "podium",
+     "pos": [
+      -1.1,
+      0,
+      -2.0
+     ]
+    },
+    {
+     "id": "pod2",
+     "name": "podium",
+     "pos": [
+      1.1,
+      0,
+      -2.0
+     ]
+    },
+    {
+     "id": "parasol",
+     "name": "parasol",
+     "pos": [
+      1.1,
+      0,
+      -2.45
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "G8:points",
+     "name": "tada",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "glucksmann",
+      [
+       1.1,
+       1.4,
+       -2.45
+      ]
+     ]
+    },
+    {
+     "at": "G7:Glucksmann",
+     "size": "mcu",
+     "angle": -10,
+     "frame": "glucksmann"
+    },
+    {
+     "at": "G7:Débat",
+     "size": "ms",
+     "worldAngle": -10,
+     "noOcclusion": true,
+     "frame": [
+      [
+       1.1,
+       1.6,
+       -2.45
+      ]
+     ]
+    },
+    {
+     "at": "G8",
+     "size": "ms",
+     "worldAngle": 0,
+     "elev": 8,
+     "move": "push",
+     "amount": 0.06,
+     "frame": [
+      "glucksmann",
+      [
+       1.1,
+       1.4,
+       -2.45
+      ]
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "farine",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "G9",
+     "text": "Glucksmann s'est fait enfariner. Aucune réaction.",
+     "highlight": [
+      "enfariner.",
+      "Aucune"
+     ]
+    },
+    {
+     "id": "G10",
+     "text": "Il est même pas énervé ?",
+     "speaker": "mili1"
+    },
+    {
+     "id": "G11",
+     "text": "Si. Ça se voit pas.",
+     "speaker": "mili2",
+     "highlight": [
+      "voit"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksmann",
+     "pos": [
+      -1.2,
+      0,
+      0.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.2,
+        0,
+        0.6
+       ],
+       "clip": "walk",
+       "speed": 1.2,
+       "then": "stand"
+      },
+      {
+       "at": "G9:enfariner",
+       "clip": "stand",
+       "expr": "neutral",
+       "face": 0,
+       "turn": 0.3
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mili1",
+     "pos": [
+      1.6,
+      0,
+      1.2
+     ],
+     "ry": -100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "G9:fait",
+       "clip": "giveItem",
+       "expr": "angry"
+      },
+      {
+       "at": "G10",
+       "clip": "stand",
+       "expr": "surprised",
+       "face": "mili2",
+       "turn": 0.2
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "mili2",
+     "pos": [
+      2.2,
+      0,
+      0.5
+     ],
+     "ry": -110,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "G11",
+       "clip": "talk",
+       "expr": "unimpressed",
+       "face": "mili1",
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "farine",
+     "name": "flourBag",
+     "on": {
+      "actor": "mili1",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "G9:fait+0.25",
+       "detach": true,
+       "fall": true,
+       "toss": [
+        -3.2,
+        1.2,
+        -1.2
+       ]
+      }
+     ]
+    },
+    {
+     "id": "nuage",
+     "name": "dustPuff",
+     "pos": [
+      0.2,
+      1.6,
+      0.6
+     ],
+     "opts": {
+      "color": "#FFFFFF",
+      "once": true,
+      "period": 1.0
+     },
+     "scale": 1.5,
+     "visible": false,
+     "keys": [
+      {
+       "at": "G9:enfariner",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "blanc",
+     "name": "baldCap",
+     "opts": {
+      "color": "#F4F4F0",
+      "w": 0.24,
+      "d": 0.22
+     },
+     "scale": 1.1,
+     "visible": false,
+     "on": {
+      "actor": "glucksmann",
+      "joint": "head",
+      "offset": [
+       0,
+       0.58,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "G9:enfariner+0.1",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "G9:enfariner",
+     "name": "poof",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 6,
+     "frame": [
+      "glucksmann",
+      "mili1"
+     ]
+    },
+    {
+     "at": "G9:enfariner",
+     "size": "ms",
+     "angle": 0,
+     "frame": "glucksmann"
+    },
+    {
+     "at": "G9:Aucune",
+     "size": "cu",
+     "angle": 0,
+     "frame": "glucksmann"
+    },
+    {
+     "at": "G10",
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": [
+      "mili1",
+      "mili2"
+     ]
+    },
+    {
+     "at": "G11:voit",
+     "size": "ecu",
+     "angle": 0,
+     "frame": "glucksmann"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fete",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "DÉBAT|PRIMAIRE|CHARISME",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563"
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 4,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "celebrate",
+     "ry": 180,
+     "positions": [
+      [
+       -2.7,
+       0,
+       1.4
+      ],
+      [
+       -1.7,
+       0,
+       1.9
+      ],
+      [
+       1.7,
+       0,
+       1.9
+      ],
+      [
+       2.7,
+       0,
+       1.4
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "G12",
+     "text": "Le soir, le parasol a fêté sa victoire. Ce mec lui servait de pied.",
+     "highlight": [
+      "victoire.",
+      "pied."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      -1.2
+     ],
+     "ry": 0,
+     "clip": "holdSign",
+     "keys": [
+      {
+       "at": "G12:pied",
+       "clip": "holdSign",
+       "expr": "sad"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "parasol",
+     "name": "parasol",
+     "opts": {
+      "openAt": "G12:fêté"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       1.0,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "G12:fêté",
+     "name": "whoosh",
+     "vol": 0.5
+    },
+    {
+     "at": "G12:victoire",
+     "name": "tada",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "parasol"
+     ]
+    },
+    {
+     "at": "G12:victoire",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 10,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "parasol"
+     ]
+    },
+    {
+     "at": "G12:pied",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

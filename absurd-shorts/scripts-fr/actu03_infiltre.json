@@ -1,0 +1,1044 @@
+{
+ "version": 3,
+ "title": "L'infiltré",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "infiltre"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "lyc1": {
+   "preset": "lyceen",
+   "suit": "#2F62B5",
+   "seed": 11
+  },
+  "lyc2": {
+   "preset": "lyceen",
+   "suit": "#C23A2E",
+   "skin": "#9A6A45",
+   "hair": "curly",
+   "seed": 12
+  },
+  "lyc3": {
+   "preset": "lyceen",
+   "suit": "#3F8A84",
+   "hair": "buzz",
+   "skin": "#C8955F",
+   "seed": 13
+  },
+  "lyc4": {
+   "preset": "lyceenne",
+   "seed": 14
+  },
+  "proviseur": {
+   "preset": "proviseur"
+  }
+ },
+ "scenes": [
+  {
+   "id": "blocus",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "I1",
+     "text": "Ce mec était flic depuis trente ans. On l'a infiltré dans un blocus de lycée.",
+     "highlight": [
+      "infiltré",
+      "blocus"
+     ]
+    },
+    {
+     "id": "I2",
+     "text": "Wesh la mif, c'est trop swag, YOLO, le 6-7 est dans la rue.",
+     "speaker": "mec",
+     "highlight": [
+      "YOLO,",
+      "6-7"
+     ]
+    },
+    {
+     "id": "I3",
+     "text": "Monsieur, personne parle comme ça.",
+     "speaker": "lyc1",
+     "highlight": [
+      "personne"
+     ]
+    },
+    {
+     "id": "I4",
+     "text": "Il a vérifié son lexique.",
+     "highlight": [
+      "lexique."
+     ]
+    },
+    {
+     "id": "I5",
+     "text": "Les lycéens l'ont défié en bataille d'aura.",
+     "highlight": [
+      "bataille",
+      "d'aura."
+     ]
+    },
+    {
+     "id": "I6",
+     "text": "Il a perdu. Alors il s'est arrêté lui-même. Motif : aura insuffisante.",
+     "highlight": [
+      "lui-même.",
+      "insuffisante."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -5.0,
+      0,
+      0.75
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -0.15,
+        0,
+        0.6
+       ],
+       "clip": "strut",
+       "speed": 1.6,
+       "faceEnd": 90,
+       "then": "idle"
+      },
+      {
+       "at": "I2",
+       "clip": "sixSeven",
+       "expr": "happy"
+      },
+      {
+       "at": "I3",
+       "clip": "stand",
+       "expr": "neutral"
+      },
+      {
+       "at": "I4",
+       "clip": "showPhone",
+       "expr": "suspicious",
+       "face": 0,
+       "turn": 0.2
+      },
+      {
+       "at": "I5:bataille",
+       "clip": "flex",
+       "expr": "angry"
+      },
+      {
+       "at": "I5:aura",
+       "clip": "auraPose2",
+       "expr": "smug"
+      },
+      {
+       "at": "I6",
+       "clip": "cry",
+       "expr": "sad"
+      },
+      {
+       "at": "I6:arrêté",
+       "clip": "handcuffed",
+       "expr": "sad",
+       "sfx": "cuff",
+       "sfxAt": 0.2
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "lyc1",
+     "pos": [
+      0.95,
+      0,
+      0.55
+     ],
+     "ry": -90,
+     "clip": "holdSign",
+     "keys": [
+      {
+       "at": "I2",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "I5",
+       "clip": "auraPose",
+       "expr": "smug"
+      },
+      {
+       "at": "I5:aura",
+       "clip": "scuba",
+       "expr": "smug"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc2",
+     "pos": [
+      1.7,
+      0,
+      0.0
+     ],
+     "ry": -110,
+     "clip": "holdSign",
+     "keys": [
+      {
+       "at": "I2",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "I5",
+       "clip": "auraPose",
+       "expr": "smug"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc3",
+     "pos": [
+      2.1,
+      0,
+      0.95
+     ],
+     "ry": -75,
+     "clip": "chant",
+     "keys": [
+      {
+       "at": "I2",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "I5",
+       "clip": "auraPose",
+       "expr": "smug"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc4",
+     "pos": [
+      1.45,
+      0,
+      1.45
+     ],
+     "ry": -70,
+     "clip": "holdSign",
+     "keys": [
+      {
+       "at": "I2",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "I5",
+       "clip": "auraPose",
+       "expr": "smug"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "s1",
+     "name": "protestSign",
+     "opts": {
+      "text": "6-7"
+     },
+     "on": {
+      "actor": "lyc1",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "I5",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "name": "protestSign",
+     "opts": {
+      "text": "ON VEUT\nDES PROFS"
+     },
+     "on": {
+      "actor": "lyc2",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "I5",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "name": "protestSign",
+     "opts": {
+      "text": "LECORNU\nT'ES FOUTU"
+     },
+     "on": {
+      "actor": "lyc4",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "I5",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "lexique",
+     "name": "notebook",
+     "scale": 1.6,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "I4",
+       "visible": true
+      },
+      {
+       "at": "I5",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "I6:arrêté",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "lycee",
+     "name": "signBoard",
+     "pos": [
+      1.2,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "LYCÉE",
+      "bg": "#1E2E44",
+      "fg": "#F6F1E3",
+      "w": 1.6,
+      "h": 0.5,
+      "height": 2.0
+     }
+    },
+    {
+     "id": "bin0",
+     "name": "trashCan",
+     "pos": [
+      0.4,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "id": "bin1",
+     "name": "trashCan",
+     "pos": [
+      1.15,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "id": "bin2",
+     "name": "trashCan",
+     "pos": [
+      1.9,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "id": "bin3",
+     "name": "trashCan",
+     "pos": [
+      2.65,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "name": "wmSign",
+     "id": "wm",
+     "pos": [
+      -4.2,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "kind": "stand"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 60,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "I1:infiltré",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "lyc1",
+      "lyc2",
+      "lyc4"
+     ]
+    },
+    {
+     "at": "I2",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "I2:YOLO",
+     "size": "cu",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "I3",
+     "size": "mcu",
+     "angle": -15,
+     "frame": "lyc1"
+    },
+    {
+     "at": "I4",
+     "size": "ms",
+     "angle": 30,
+     "frame": "mec"
+    },
+    {
+     "at": "I4:lexique",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.8,
+     "frame": "lexique"
+    },
+    {
+     "at": "I5",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mec",
+      "lyc1"
+     ]
+    },
+    {
+     "at": "I5:aura",
+     "size": "ms",
+     "angle": -10,
+     "frame": "lyc1"
+    },
+    {
+     "at": "I6",
+     "size": "ms",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "I6:Motif",
+     "size": "ecu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "I7",
+     "text": "Où étiez-vous le 17 octobre ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "I8",
+     "text": "En bataille d'aura.",
+     "speaker": "mec"
+    },
+    {
+     "id": "I9",
+     "text": "Vous avez perdu ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "I10",
+     "text": "Oui.",
+     "speaker": "mec",
+     "pre": 0.35
+    },
+    {
+     "id": "I11",
+     "text": "Quarante-huit heures.",
+     "speaker": "commissaire",
+     "highlight": [
+      "Quarante-huit"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -1.33
+     ],
+     "ry": 0,
+     "clip": "sitCuffed",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "I11",
+       "clip": "slamTable",
+       "expr": "angry",
+       "sfx": "thud",
+       "sfxAt": 0.12
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "lexique",
+     "name": "notebook",
+     "scale": 1.6,
+     "pos": [
+      -0.4,
+      0.795,
+      -0.6
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.3
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "commissaire",
+      "mec"
+     ]
+    },
+    {
+     "at": "I8",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "I9",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "commissaire"
+    },
+    {
+     "at": "I10",
+     "size": "ecu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "I11",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "scuba",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "I12",
+     "text": "Le proviseur est venu le chercher. Un scuba parfait. Tout le monde en cours.",
+     "highlight": [
+      "scuba",
+      "parfait."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "proviseur",
+     "pos": [
+      -1.0,
+      0,
+      0.9
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "I12:scuba",
+       "clip": "scuba",
+       "expr": "smug"
+      },
+      {
+       "at": "I12:Tout",
+       "clip": "point",
+       "expr": "angry",
+       "face": 180,
+       "turn": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      0.6
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "I12:Tout+0.2",
+       "path": [
+        [
+         0.8,
+         0,
+         -0.6
+        ],
+        [
+         1.2,
+         0,
+         -2.3
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.6
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "lyc1",
+     "pos": [
+      0.95,
+      0,
+      0.55
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "I12:scuba",
+       "expr": "shocked"
+      },
+      {
+       "at": "I12:Tout+0.0",
+       "path": [
+        [
+         0.95,
+         0,
+         -0.7
+        ],
+        [
+         1.2,
+         0,
+         -2.4
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc2",
+     "pos": [
+      1.7,
+      0,
+      0.0
+     ],
+     "ry": -110,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "I12:scuba",
+       "expr": "shocked"
+      },
+      {
+       "at": "I12:Tout+0.1",
+       "path": [
+        [
+         1.7,
+         0,
+         -0.7
+        ],
+        [
+         1.5,
+         0,
+         -2.4
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc3",
+     "pos": [
+      2.1,
+      0,
+      0.95
+     ],
+     "ry": -75,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "I12:scuba",
+       "expr": "shocked"
+      },
+      {
+       "at": "I12:Tout+0.2",
+       "path": [
+        [
+         2.1,
+         0,
+         -0.7
+        ],
+        [
+         1.7999999999999998,
+         0,
+         -2.4
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc4",
+     "pos": [
+      1.45,
+      0,
+      1.45
+     ],
+     "ry": -70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "I12:scuba",
+       "expr": "shocked"
+      },
+      {
+       "at": "I12:Tout+0.3",
+       "path": [
+        [
+         1.45,
+         0,
+         -0.7
+        ],
+        [
+         2.0999999999999996,
+         0,
+         -2.4
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "lycee",
+     "name": "signBoard",
+     "pos": [
+      1.2,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "LYCÉE",
+      "bg": "#1E2E44",
+      "fg": "#F6F1E3",
+      "w": 1.6,
+      "h": 0.5,
+      "height": 2.0
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 30,
+     "frame": "proviseur"
+    },
+    {
+     "at": "I12:scuba",
+     "size": "ms",
+     "angle": 10,
+     "frame": "proviseur"
+    },
+    {
+     "at": "I12:Tout",
+     "size": "fs",
+     "worldAngle": 15,
+     "elev": 8,
+     "frame": [
+      "proviseur",
+      "mec",
+      "lyc1",
+      "lyc2"
+     ]
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "classe",
+   "set": "classroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "I13",
+     "text": "Lui aussi. Il passe le bac en juin.",
+     "highlight": [
+      "bac"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -0.45
+     ],
+     "ry": 180,
+     "clip": "sitHoldUp",
+     "keys": [
+      {
+       "at": "I13:bac",
+       "clip": "sit",
+       "expr": "sad"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "lyc1",
+     "pos": [
+      -1.6,
+      0.12,
+      -0.45
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "lyc2",
+     "pos": [
+      1.6,
+      0.12,
+      -0.45
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "lyc4",
+     "pos": [
+      0,
+      0.12,
+      0.9
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.25,
+      1.85,
+      -2.75
+     ],
+     "lookAt": [
+      0,
+      0.95,
+      0.2
+     ],
+     "lens": 64
+    },
+    {
+     "at": "I13:bac",
+     "size": "cu",
+     "worldAngle": 180,
+     "allowBack": true,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}
