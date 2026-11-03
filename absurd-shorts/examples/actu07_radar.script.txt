@@ -1,0 +1,23 @@
+## radar (street)
+[0.30–4.06] Ce mec s'est fait flasher à 67 kilomètres-heure. À pied.
+[4.36–5.72] FLIC1 : Six-seven !
+
+## commissariat (policeStation)
+[6.02–7.78] Tout le commissariat a fait le geste.
+[7.96–13.40] Selon le ministère, cent soixante et un mille personnes. Selon les syndicats, quatre cent quatre-vingt mille.
+[13.58–17.26] Ce mec a été arrêté. Motif : rébellion en bande organisée.
+[17.44–22.56] Amende : 67 euros. Cellule 67. Garde à vue : 67 heures.
+
+## tweet (policeStation)
+[22.91–25.55] Au Japon, un mec a tweeté une blague sur l'affaire.
+[25.73–26.85] Personne n'a ri.
+
+## tribunal (courtroom)
+[27.40–29.72] Au procès, ce con a plaidé coupable.
+[30.02–30.90] JUGE : Vitesse ?
+[31.20–32.08] MEC : Six-seven.
+[32.38–34.70] Le juge a fait le geste. Relaxé.
+
+## sortie (street)
+[35.05–38.09] En sortant, le juge s'est fait flasher à 67.
+[38.39–39.51] FLIC1 : Six-seven !
