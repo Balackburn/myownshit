@@ -7,23 +7,23 @@
 [11.73–14.05] Il a écrit son nom sur la chaise de son collègue.
 [14.35–16.11] COLL1 : Ah, pardon. Elle est à toi.
 [16.61–17.97] Puis sur le collègue.
-[18.57–20.97] COLL1 : Ton café, Bernard. Je te masse les pieds ?
+[18.57–20.73] COLL1 : Ton café, Con. Je te masse les pieds ?
 
 ## porte (office)
-[21.62–25.06] Puis sur la porte du patron. Le patron a déménagé dans le placard.
+[21.38–24.74] Puis sur la porte du patron. Le patron a déménagé dans le placard.
 
 ## banque (bank)
-[26.51–28.99] À la banque, il a écrit son nom sur le coffre.
-[29.29–31.93] BANQUIER : Tout est à vous, monsieur Bernard. Vous voulez un sac ?
+[26.19–28.59] À la banque, il a écrit son nom sur le coffre.
+[28.89–31.29] BANQUIER : Tout est à vous, monsieur Con. Vous voulez un sac ?
 
 ## flics (street)
-[32.58–36.18] Les flics sont venus l'arrêter. Il a écrit son nom sur la voiture de police.
-[36.48–37.84] FLIC1 : On vous dépose où, chef ?
+[31.94–35.62] Les flics sont venus l'arrêter. Il a écrit son nom sur la voiture de police.
+[35.92–37.28] FLIC1 : On vous dépose où, chef ?
 
 ## monique (street)
-[38.59–41.79] Puis dans la rue, il a croisé une mamie. Elle avait un marqueur.
-[43.69–45.37] MAMIE : Toi, tu portes mes courses.
-[45.67–47.83] Depuis, ce mec appartient à Monique.
+[38.03–41.23] Puis dans la rue, il a croisé une mamie. Elle avait un marqueur.
+[43.13–44.81] MAMIE : Toi, tu portes mes courses.
+[45.11–47.27] Depuis, ce mec appartient à Monique.
 
 ## salon (livingRoom)
-[48.68–50.44] Et Monique mange son yaourt.
+[48.12–49.88] Et Monique mange son yaourt.
