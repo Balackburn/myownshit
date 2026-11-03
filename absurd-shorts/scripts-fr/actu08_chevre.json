@@ -1,0 +1,998 @@
+{
+ "version": 3,
+ "title": "La chèvre",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "chevre": {
+   "type": "creature",
+   "name": "goat",
+   "opts": {
+    "seed": 5
+   }
+  },
+  "lyc1": {
+   "preset": "lyceen",
+   "suit": "#2F62B5",
+   "seed": 11
+  },
+  "lyc4": {
+   "preset": "lyceenne",
+   "seed": 14
+  },
+  "pm": {
+   "preset": "lemec_charcoal",
+   "hair": "slick",
+   "glasses": true,
+   "facial": "none",
+   "tie": "#2C4A8A",
+   "seed": 71
+  },
+  "tiktok1": {
+   "preset": "lyceen",
+   "suit": "#C9729A",
+   "hair": "mohawk",
+   "build": {
+    "height": 1.0
+   },
+   "seed": 72
+  },
+  "tiktok2": {
+   "preset": "lyceenne",
+   "suit": "#E6B84A",
+   "build": {
+    "height": 0.98
+   },
+   "seed": 73
+  }
+ },
+ "scenes": [
+  {
+   "id": "blocus",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "K1",
+     "text": "La chèvre de ce mec a rejoint le blocus du lycée.",
+     "highlight": [
+      "chèvre",
+      "blocus"
+     ]
+    },
+    {
+     "id": "K2",
+     "text": "Elle mangeait les pancartes. Même celle du 6-7.",
+     "highlight": [
+      "pancartes.",
+      "6-7."
+     ]
+    },
+    {
+     "id": "K3",
+     "text": "Il a appelé les flics. Motif : dégradation de biens publics en réunion.",
+     "highlight": [
+      "Motif",
+      "réunion."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chevre",
+     "pos": [
+      -3.5,
+      0,
+      0.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        1.9,
+        0,
+        0.1
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "then": "eat",
+       "faceEnd": -150
+      },
+      {
+       "at": "K2:Même",
+       "to": [
+        -0.35,
+        0,
+        0.15
+       ],
+       "clip": "walk",
+       "speed": 2.0,
+       "faceEnd": -150,
+       "then": "eat",
+       "expr": "smug"
+      },
+      {
+       "at": "K3",
+       "clip": "celebrate",
+       "expr": "happy",
+       "face": 20,
+       "turn": 0.2
+      }
+     ],
+     "scale": 1.15,
+     "expr": "happy"
+    },
+    {
+     "id": "lyc1",
+     "pos": [
+      0.0,
+      0,
+      -0.9
+     ],
+     "ry": 10,
+     "clip": "chant",
+     "keys": [
+      {
+       "at": "K2",
+       "clip": "stand",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "lyc4",
+     "pos": [
+      1.1,
+      0,
+      -1.0
+     ],
+     "ry": -10,
+     "clip": "chant",
+     "keys": [
+      {
+       "at": "K2:Même",
+       "clip": "stand",
+       "expr": "angry"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -2.6,
+      0,
+      1.3
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "K2",
+       "clip": "facepalm",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "K3",
+       "clip": "phoneCall",
+       "expr": "angry",
+       "face": -10,
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pan0",
+     "name": "protestSign",
+     "scale": 0.75,
+     "pos": [
+      -0.6,
+      0,
+      -0.35
+     ],
+     "opts": {
+      "text": "6-7"
+     },
+     "keys": [
+      {
+       "at": "K2:Même+0.3",
+       "scale": 0.01,
+       "dur": 0.7
+      }
+     ]
+    },
+    {
+     "id": "pan1",
+     "name": "protestSign",
+     "scale": 0.75,
+     "pos": [
+      0.5,
+      0,
+      -0.35
+     ],
+     "opts": {
+      "text": "ON VEUT\nDES PROFS"
+     },
+     "keys": [
+      {
+       "at": "K2:pancartes+0.25",
+       "scale": 0.01,
+       "dur": 0.7
+      }
+     ]
+    },
+    {
+     "id": "pan2",
+     "name": "protestSign",
+     "scale": 0.75,
+     "pos": [
+      1.6,
+      0,
+      -0.35
+     ],
+     "opts": {
+      "text": "GRÈVE"
+     },
+     "keys": [
+      {
+       "at": "K2:pancartes+0.75",
+       "scale": 0.01,
+       "dur": 0.7
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K3",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "lycee",
+     "name": "signBoard",
+     "pos": [
+      0.5,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "LYCÉE",
+      "bg": "#1E2E44",
+      "fg": "#F6F1E3",
+      "w": 1.6,
+      "h": 0.5,
+      "height": 2.0
+     }
+    },
+    {
+     "id": "bin0",
+     "name": "trashCan",
+     "pos": [
+      -0.8,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "id": "bin1",
+     "name": "trashCan",
+     "pos": [
+      0.0,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "id": "bin2",
+     "name": "trashCan",
+     "pos": [
+      0.8,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "id": "bin3",
+     "name": "trashCan",
+     "pos": [
+      1.6000000000000003,
+      0,
+      -1.6
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K2:mangeait",
+     "name": "scratch",
+     "vol": 0.4
+    },
+    {
+     "at": "K2:Même+0.3",
+     "name": "scratch",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "chevre"
+    },
+    {
+     "at": "K1:blocus",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "chevre",
+      "lyc1",
+      "lyc4"
+     ]
+    },
+    {
+     "at": "K2",
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": "chevre"
+    },
+    {
+     "at": "K2:Même+0.15",
+     "size": "ms",
+     "worldAngle": 10,
+     "withProps": true,
+     "frame": [
+      "chevre",
+      "pan0"
+     ]
+    },
+    {
+     "at": "K3",
+     "size": "cu",
+     "angle": -35,
+     "frame": "mec"
+    },
+    {
+     "at": "K3:biens",
+     "size": "cu",
+     "angle": 0,
+     "frame": "chevre"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "K4",
+     "text": "Garde à vue pour la chèvre. Elle a mangé le procès-verbal.",
+     "highlight": [
+      "procès-verbal."
+     ]
+    },
+    {
+     "id": "K5",
+     "text": "Vous avez quelque chose à déclarer ?",
+     "speaker": "commissaire"
+    },
+    {
+     "id": "K6",
+     "text": "Mèèè.",
+     "speaker": "chevre",
+     "pre": 0.2
+    },
+    {
+     "id": "K7",
+     "text": "Destruction de preuves. Ça s'aggrave.",
+     "speaker": "commissaire",
+     "highlight": [
+      "Destruction",
+      "preuves."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chevre",
+     "pos": [
+      0,
+      0,
+      -1.35
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "K4:mangé",
+       "clip": "eat",
+       "expr": "happy"
+      },
+      {
+       "at": "K6",
+       "clip": "talk",
+       "expr": "neutral"
+      },
+      {
+       "at": "K7",
+       "clip": "idle",
+       "expr": "smug"
+      }
+     ],
+     "scale": 1.15,
+     "expr": "smug"
+    },
+    {
+     "id": "commissaire",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "leanTable",
+     "keys": [
+      {
+       "at": "K5",
+       "clip": "leanTable",
+       "expr": "angry"
+      },
+      {
+       "at": "K7",
+       "clip": "slamTable",
+       "expr": "angry",
+       "sfx": "thud",
+       "sfxAt": 0.12
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "pv",
+     "name": "documents",
+     "pos": [
+      -0.1,
+      0.785,
+      -0.85
+     ],
+     "keys": [
+      {
+       "at": "K4:mangé",
+       "scale": 0.01,
+       "dur": 0.8
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K4:mangé",
+     "name": "paper",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "commissaire",
+      "chevre"
+     ]
+    },
+    {
+     "at": "K4:mangé",
+     "size": "ms",
+     "angle": 0,
+     "frame": "chevre"
+    },
+    {
+     "at": "K5",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "commissaire"
+    },
+    {
+     "at": "K6",
+     "size": "cu",
+     "angle": 0,
+     "frame": "chevre"
+    },
+    {
+     "at": "K7",
+     "size": "mcu",
+     "angle": 50,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "matignon",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "MATIGNON|RÉPUBLIQUE|FRANÇAISE",
+    "bg": "#D9E2E8",
+    "fg": "#2E4563",
+    "podium": false
+   },
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "K8",
+     "text": "Matignon a reçu la chèvre avec des TikTokeurs.",
+     "highlight": [
+      "Matignon",
+      "TikTokeurs."
+     ]
+    },
+    {
+     "id": "K9",
+     "text": "Et pour Parcoursup ?",
+     "speaker": "mec"
+    },
+    {
+     "id": "K10",
+     "text": "Lien en bio.",
+     "speaker": "tiktok1",
+     "highlight": [
+      "Lien",
+      "bio."
+     ]
+    },
+    {
+     "id": "K11",
+     "text": "La chèvre a mangé le budget.",
+     "highlight": [
+      "budget."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "pm",
+     "pos": [
+      0,
+      0,
+      -2.15
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": "K11:budget",
+       "clip": "startle",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "tiktok1",
+     "pos": [
+      -1.35,
+      0,
+      -1.05
+     ],
+     "ry": 60,
+     "clip": "showPhone",
+     "keys": [
+      {
+       "at": "K10",
+       "clip": "readPhone",
+       "expr": "smug"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "tiktok2",
+     "pos": [
+      1.35,
+      0,
+      -1.05
+     ],
+     "ry": -60,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "chevre",
+     "pos": [
+      -0.55,
+      0,
+      -0.85
+     ],
+     "ry": 30,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "K11",
+       "to": [
+        -0.2,
+        0,
+        -1.0
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": -10,
+       "then": "eat",
+       "expr": "smug"
+      }
+     ],
+     "scale": 1.15,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.65,
+      0,
+      -0.55
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K9",
+       "clip": "present",
+       "expr": "suspicious",
+       "face": "tiktok1",
+       "turn": 0.2
+      },
+      {
+       "at": "K10",
+       "clip": "facepalm",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -1.55
+     ],
+     "opts": {
+      "w": 2.0,
+      "d": 0.8,
+      "color": "#7A5C3A"
+     }
+    },
+    {
+     "id": "budget",
+     "name": "notebook",
+     "scale": 1.8,
+     "pos": [
+      -0.2,
+      0.775,
+      -1.45
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "text": "BUDGET\n2027",
+      "bg": "#2C4A8A"
+     },
+     "keys": [
+      {
+       "at": "K11:budget",
+       "scale": 0.01,
+       "dur": 0.7
+      }
+     ]
+    },
+    {
+     "id": "tel1",
+     "name": "phone911",
+     "opts": {
+      "screen": "tiktok"
+     },
+     "on": {
+      "actor": "tiktok1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "tel2",
+     "name": "phone911",
+     "opts": {
+      "screen": "tiktok"
+     },
+     "on": {
+      "actor": "tiktok2",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K11:budget",
+     "name": "paper",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": [
+      "pm",
+      "tiktok1",
+      "tiktok2",
+      "chevre"
+     ]
+    },
+    {
+     "at": "K9",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "K10",
+     "size": "mcu",
+     "angle": -10,
+     "frame": "tiktok1"
+    },
+    {
+     "at": "K11",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "chevre",
+      "pm"
+     ]
+    },
+    {
+     "at": "K11:budget",
+     "size": "cu",
+     "angle": 0,
+     "frame": "pm"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "parcoursup",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "K12",
+     "text": "Elle a été acceptée sur Parcoursup. Ce mec est toujours en liste d'attente.",
+     "highlight": [
+      "acceptée",
+      "d'attente."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chevre",
+     "pos": [
+      -0.6,
+      0,
+      0.5
+     ],
+     "ry": 20,
+     "clip": "celebrate",
+     "keys": [],
+     "scale": 1.15,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.7,
+      0,
+      0.6
+     ],
+     "ry": -20,
+     "clip": "readPhone",
+     "keys": [
+      {
+       "at": "K12:Ce",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "admis",
+     "name": "notebook",
+     "scale": 2.2,
+     "opts": {
+      "text": "PARCOURSUP\n—\nADMISE\nSCIENCES\nPO",
+      "bg": "#3F8A84"
+     },
+     "on": {
+      "actor": "chevre",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0.28
+      ]
+     }
+    },
+    {
+     "id": "attente",
+     "name": "tweetPhone",
+     "pos": [
+      2.6,
+      0.008,
+      1.8
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Parcoursup",
+      "handle": "@parcoursup",
+      "initial": "P",
+      "avatar": "#2C4A8A",
+      "via": "Notification",
+      "text": "Statut : liste d'attente. Rang : 67 000.",
+      "likes": ""
+     }
+    },
+    {
+     "id": "lycee",
+     "name": "signBoard",
+     "pos": [
+      0.5,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "LYCÉE",
+      "bg": "#1E2E44",
+      "fg": "#F6F1E3",
+      "w": 1.6,
+      "h": 0.5,
+      "height": 2.0
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K12",
+     "name": "tada",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "chevre",
+      "mec"
+     ]
+    },
+    {
+     "at": "K12:acceptée",
+     "size": "cu",
+     "angle": 0,
+     "frame": "chevre"
+    },
+    {
+     "at": "K12:liste",
+     "from": [
+      2.6,
+      0.42,
+      1.86
+     ],
+     "lookAt": [
+      2.6,
+      0.0,
+      1.8
+     ],
+     "lens": 40
+    },
+    {
+     "at": "K12.end+0.1",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

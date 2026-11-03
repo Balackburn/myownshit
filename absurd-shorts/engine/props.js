@@ -552,13 +552,14 @@ const B = {
       g.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 32, 0.018, 4), mat(P.ink))); });
     g.userData.wireAt = wireY; g.userData.wireZ = [-0.45, 0, 0.45]; return g;
   },
-  trafficCamera() {
+  trafficCamera(o = {}) { // o.flashAt: time or list of times -> a white flash at the lens
     const led = mat(P.redDark, { unique: true, noGrain: true }), cam = grp();
     cam.position.set(0.8, 2.86, 0); cam.rotation.x = 0.25;
     cam.add(at(box(0.32, 0.24, 0.5, P.white, { outline: 0.03 }), 0, -0.12, 0.05), at(box(0.38, 0.04, 0.6, P.greyDark), 0, 0.02, 0.07),
       at(cyl(0.08, 0.08, 0.06, P.ink, 8), 0, -0.12, 0.32, PI / 2), at(new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.02), led), 0.11, -0.03, 0.31));
     const g = grp(cyl(0.06, 0.08, 3.0, P.grey, 6, { pivot: 'bottom' }), at(box(0.9, 0.07, 0.07, P.grey), 0.42, 2.95, 0), at(box(0.06, 0.08, 0.06, P.grey), 0.8, 2.9, 0), cam);
-    g.userData.update = t => { const on = (t % 1) < 0.15; led.emissive.set(on ? '#FF3B2E' : '#000000'); }; return g;
+    const fl = at(sphere(0.32, '#FFFFFF', 1, { emissive: '#FFFFFF', noGrain: true }), 0, -0.12, 0.45); fl.visible = false; cam.add(fl); const fls = [].concat(o.flashAt ?? []);
+    g.userData.update = t => { const on = (t % 1) < 0.15; led.emissive.set(on ? '#FF3B2E' : '#000000'); fl.visible = fls.some(f => t >= f && t < f + 0.12); }; return g;
   },
   speedSign(o) {
     return grp(cyl(0.04, 0.04, 2.2, P.grey, 6, { pivot: 'bottom' }), at(cyl(0.42, 0.42, 0.04, P.white, 16), 0, 2.3, 0, PI / 2), at(torus(0.37, 0.05, P.red, 4, 18), 0, 2.3, 0.0),
@@ -945,7 +946,7 @@ const B = {
   idCard(o) { const c = canvasPlane(0.086, 0.054, (g, W, H) => { g.fillStyle = '#DCE8F2'; g.fillRect(0, 0, W, H); g.fillStyle = '#2C4A8A'; g.fillRect(0, 0, W, H * 0.18); g.fillStyle = '#B9A48A'; g.fillRect(W * 0.07, H * 0.28, W * 0.26, H * 0.58); g.fillStyle = '#3A3A3A'; for (let i = 0; i < 4; i++) g.fillRect(W * 0.4, H * (0.32 + i * 0.14), W * (0.45 - i * 0.06), H * 0.05); }, { res: 128 });
     const g = grp(at(box(0.088, 0.056, 0.002, P.white), 0, 0, 0), at(c, 0, 0, 0.0015)); g.userData.grip = [-0.035, 0, 0]; return g; },
   bill(o) { // "l'addition"
-    const c = canvasPlane(0.15, 0.2, (g, W, H) => { g.fillStyle = '#F7F3EA'; g.fillRect(0, 0, W, H); g.fillStyle = '#2A2A2A'; g.textAlign = 'center'; g.font = `bold ${H * 0.1}px Arial`; g.fillText('ADDITION', W / 2, H * 0.14);
+    const c = canvasPlane(0.15, 0.2, (g, W, H) => { g.fillStyle = '#F7F3EA'; g.fillRect(0, 0, W, H); g.fillStyle = '#2A2A2A'; g.textAlign = 'center'; g.font = `bold ${H * 0.1}px Arial`; g.fillText(o.title || 'ADDITION', W / 2, H * 0.14);
       g.font = `${H * 0.052}px Arial`; g.textAlign = 'left'; (o.items || [['1 demi', '4,50'], ['1 godet', '3,00'], ['', '']]).forEach(([a, b], i) => { g.fillText(a, W * 0.08, H * (0.32 + i * 0.12)); g.textAlign = 'right'; g.fillText(b, W * 0.92, H * (0.32 + i * 0.12)); g.textAlign = 'left'; });
       g.fillRect(W * 0.08, H * 0.66, W * 0.84, H * 0.01); g.font = `bold ${H * 0.068}px Arial`; g.fillText('TOTAL', W * 0.08, H * 0.8); g.textAlign = 'right'; g.fillText(o.total || '7,50 €', W * 0.92, H * 0.8); }, { res: 384 });
     const g = grp(at(box(0.152, 0.202, 0.002, P.paper), 0, 0, 0), at(c, 0, 0, 0.0015)); g.userData.grip = [0, -0.09, 0]; return g; },
@@ -1075,6 +1076,12 @@ const B = {
     setOpen(o.open ?? 0);
     if (o.openAt != null) g.userData.update = t => setOpen(ease.out(clamp01((t - o.openAt) / 0.5)));
     g.userData.grip = [0, 1.0, 0]; return g; },
+  dogBowl(o) { const g = grp(cyl(0.17, 0.14, 0.08, o.color || P.red, 14, { pivot: 'bottom', outline: 0.01 }), at(cyl(0.13, 0.13, 0.01, '#3A2A20', 14), 0, 0.075, 0)); if (o.full) for (let i = 0; i < 9; i++) g.add(at(sphere(0.025, '#8C6239', 0), Math.cos(i) * 0.07, 0.09, Math.sin(i * 1.7) * 0.07)); return g; },
+  copCap(o) { const g = grp(at(cyl(0.11, 0.1, 0.07, P.navy, 12, { outline: 0.02 }), 0, 0.035, 0), at(cyl(0.12, 0.12, 0.012, P.navy, 12), 0, 0.075, 0), at(box(0.16, 0.012, 0.09, P.ink), 0, 0.012, 0.1, 0.25, 0, 0), at(box(0.04, 0.035, 0.01, P.yellow), 0, 0.04, 0.105)); return g; },
+  leash(o) { const L = o.length || 1.3, el = o.elev ?? 0.45; return grp(rod([0, 0, 0], [0, Math.sin(el) * L, -Math.cos(el) * L], 0.012, o.color || P.red), at(torus(0.05, 0.012, o.color || P.red, 4, 10), 0, Math.sin(el) * L, -Math.cos(el) * L)); },
+  speedDisplay(o) { // "radar pédagogique": LED speed readout on a pole
+    const c = canvasPlane(0.5, 0.28, (gg, W, H) => { gg.fillStyle = '#111'; gg.fillRect(0, 0, W, H); gg.fillStyle = o.color || '#FF8A2E'; gg.textAlign = 'center'; gg.textBaseline = 'middle'; gg.font = `900 ${H * 0.8}px "Courier New", monospace`; gg.fillText(String(o.value ?? 67), W / 2, H * 0.55); }, { res: 256, emissive: 0.9 });
+    return grp(cyl(0.04, 0.04, 2.0, P.grey, 6, { pivot: 'bottom' }), at(box(0.6, 0.38, 0.12, P.greyDark, { outline: 0.01 }), 0, 2.2, 0), at(c, 0, 2.2, 0.062), at(label('km/h', 0.3, 0.07, { bg: P.greyDark, fg: P.white }), 0, 1.97, 0.062)); },
   baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
   clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },

@@ -1,0 +1,928 @@
+{
+ "version": 3,
+ "title": "Le radar",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "juge": {
+   "preset": "judge"
+  },
+  "ministere": {
+   "preset": "lemec_charcoal",
+   "glasses": true,
+   "seed": 61
+  },
+  "syndicat": {
+   "preset": "worker",
+   "seed": 62
+  }
+ },
+ "scenes": [
+  {
+   "id": "radar",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "R1",
+     "text": "Ce mec s'est fait flasher à 67 kilomètres-heure. À pied.",
+     "highlight": [
+      "67",
+      "pied."
+     ]
+    },
+    {
+     "id": "R2",
+     "text": "Six-seven !",
+     "speaker": "flic1",
+     "highlight": [
+      "Six-seven"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -7.5,
+      0,
+      0.55
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        7.5,
+        0,
+        0.55
+       ],
+       "clip": "run",
+       "speed": 6.5,
+       "then": "idle"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      4.0,
+      0,
+      -0.55
+     ],
+     "ry": -60,
+     "clip": "clipboard",
+     "keys": [
+      {
+       "at": "R1:pied",
+       "clip": "lookItem",
+       "face": -40,
+       "turn": 0.2
+      },
+      {
+       "at": "R2",
+       "clip": "sixSeven",
+       "expr": "happy",
+       "face": 0,
+       "turn": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "radar",
+     "name": "trafficCamera",
+     "pos": [
+      1.4,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "flashAt": [
+       "R1:flasher",
+       "R1:flasher+0.18"
+      ]
+     }
+    },
+    {
+     "id": "affiche",
+     "name": "speedDisplay",
+     "pos": [
+      3.3,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "value": 67
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R1:flasher",
+     "name": "shutter",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "R1:flasher",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 4,
+     "frame": [
+      "radar",
+      "mec"
+     ]
+    },
+    {
+     "at": "R1:67",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       3.3,
+       2.2,
+       -1.25
+      ]
+     ]
+    },
+    {
+     "at": "R2",
+     "size": "ms",
+     "angle": 10,
+     "frame": "flic1"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "commissariat",
+   "set": "policeStation",
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "cops",
+     "count": 3,
+     "spec": {
+      "preset": "cop",
+      "seed": 51
+     },
+     "clip": "sixSeven",
+     "ry": 10,
+     "positions": [
+      [
+       -1.6,
+       0,
+       -1.2
+      ],
+      [
+       -0.5,
+       0,
+       -1.5
+      ],
+      [
+       0.7,
+       0,
+       -1.25
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "R3",
+     "text": "Tout le commissariat a fait le geste.",
+     "highlight": [
+      "geste."
+     ]
+    },
+    {
+     "id": "R4",
+     "text": "Selon le ministère, cent soixante et un mille personnes. Selon les syndicats, quatre cent quatre-vingt mille.",
+     "highlight": [
+      "ministère,",
+      "syndicats,"
+     ]
+    },
+    {
+     "id": "R5",
+     "text": "Ce mec a été arrêté. Motif : rébellion en bande organisée.",
+     "highlight": [
+      "Motif",
+      "organisée."
+     ]
+    },
+    {
+     "id": "R6",
+     "text": "Amende : 67 euros. Cellule 67. Garde à vue : 67 heures.",
+     "highlight": [
+      "67"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "flic1",
+     "pos": [
+      1.7,
+      0,
+      -0.9
+     ],
+     "ry": -20,
+     "clip": "sixSeven",
+     "keys": [
+      {
+       "at": "R5",
+       "clip": "cuffOther",
+       "expr": "neutral",
+       "face": "mec",
+       "turn": 0.2
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -2.6,
+      0,
+      -0.6
+     ],
+     "ry": 30,
+     "clip": "sixSeven",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "commissaire",
+     "pos": [
+      2.7,
+      0,
+      -1.4
+     ],
+     "ry": -30,
+     "clip": "sixSeven",
+     "keys": [
+      {
+       "at": "R6",
+       "clip": "showPhone",
+       "expr": "smug",
+       "face": "mec",
+       "turn": 0.2
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "ministere",
+     "pos": [
+      -4.0,
+      0,
+      1.2
+     ],
+     "ry": 60,
+     "clip": "clickCount",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "syndicat",
+     "pos": [
+      4.0,
+      0,
+      1.3
+     ],
+     "ry": -60,
+     "clip": "clickCount",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      2.2,
+      0,
+      0.3
+     ],
+     "ry": -10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R5:arrêté",
+       "clip": "handcuffed",
+       "expr": "sad"
+      },
+      {
+       "at": "R6:Cellule",
+       "to": [
+        5.1,
+        0,
+        -2.75
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "stand"
+      }
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "clic1",
+     "name": "clickCounter",
+     "on": {
+      "actor": "ministere",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "clic2",
+     "name": "clickCounter",
+     "on": {
+      "actor": "syndicat",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R5:arrêté",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "pv",
+     "name": "bill",
+     "scale": 1.6,
+     "visible": false,
+     "opts": {
+      "title": "AMENDE",
+      "items": [
+       [
+        "Excès de vitesse à pied",
+        "67,00"
+       ],
+       [
+        "Six-seven",
+        "0,00"
+       ]
+      ],
+      "total": "67,00 €"
+     },
+     "on": {
+      "actor": "commissaire",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "R6",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "num",
+     "name": "signBoard",
+     "pos": [
+      5.1,
+      0,
+      -1.92
+     ],
+     "opts": {
+      "text": "CELLULE 67",
+      "bg": "#F6F1E3",
+      "fg": "#141A22",
+      "w": 1.1,
+      "h": 0.3,
+      "posts": false,
+      "height": 2.2
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": [
+      "flic1",
+      "flic2",
+      "commissaire",
+      "cops1"
+     ]
+    },
+    {
+     "at": "R4",
+     "size": "ms",
+     "angle": 10,
+     "frame": "ministere"
+    },
+    {
+     "at": "R4:syndicats",
+     "size": "ms",
+     "angle": -10,
+     "frame": "syndicat"
+    },
+    {
+     "at": "R5",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "flic1"
+     ]
+    },
+    {
+     "at": "R6",
+     "size": "cu",
+     "worldAngle": -30,
+     "noOcclusion": true,
+     "zoom": 1.5,
+     "frame": "pv"
+    },
+    {
+     "at": "R6:Cellule",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.5,
+     "frame": [
+      [
+       5.1,
+       2.35,
+       -1.9
+      ]
+     ]
+    },
+    {
+     "at": "R6:Garde",
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tweet",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "R7",
+     "text": "Au Japon, un mec a tweeté une blague sur l'affaire.",
+     "highlight": [
+      "Japon,",
+      "blague"
+     ]
+    },
+    {
+     "id": "R8",
+     "text": "Personne n'a ri.",
+     "highlight": [
+      "Personne"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "flic2",
+     "pos": [
+      -2.7,
+      0.12,
+      -2.7
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "R8",
+       "clip": "sit",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -1.6,
+      0,
+      -1.6
+     ],
+     "ry": -100,
+     "clip": "lookDown",
+     "keys": [
+      {
+       "at": "R8",
+       "clip": "stareCamera",
+       "expr": "unimpressed",
+       "face": -20,
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "tw",
+     "name": "tweetPhone",
+     "pos": [
+      -2.55,
+      0.768,
+      -1.85
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Kenji",
+      "handle": "@kenji_lol",
+      "text": "Le Français compte jusqu'à sept, puis il fait grève.",
+      "likes": "0 rire · 1 like"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R8",
+     "name": "crickets",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": "R7:tweeté",
+     "from": [
+      -2.55,
+      1.18,
+      -1.79
+     ],
+     "lookAt": [
+      -2.55,
+      0.76,
+      -1.85
+     ],
+     "lens": 40
+    },
+    {
+     "at": "R8",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "flic2",
+      "flic1"
+     ]
+    }
+   ],
+   "tail": 0.4
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "R9",
+     "text": "Au procès, ce con a plaidé coupable.",
+     "highlight": [
+      "coupable."
+     ]
+    },
+    {
+     "id": "R10",
+     "text": "Vitesse ?",
+     "speaker": "juge"
+    },
+    {
+     "id": "R11",
+     "text": "Six-seven.",
+     "speaker": "mec",
+     "highlight": [
+      "Six-seven."
+     ]
+    },
+    {
+     "id": "R12",
+     "text": "Le juge a fait le geste. Relaxé.",
+     "highlight": [
+      "Relaxé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "R10",
+       "clip": "sitPoint",
+       "expr": "suspicious"
+      },
+      {
+       "at": "R12",
+       "to": [
+        0,
+        0.3,
+        -4.2
+       ],
+       "glide": true,
+       "dur": 0.2,
+       "clip": "sixSeven",
+       "then": "sixSeven",
+       "face": "keep",
+       "expr": "happy"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -1.6
+     ],
+     "ry": 180,
+     "clip": "handcuffed",
+     "keys": [
+      {
+       "at": "R11",
+       "clip": "sixSeven",
+       "expr": "smug"
+      },
+      {
+       "at": "R12:Relaxé",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R12:Relaxé",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R12:Relaxé",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": "juge"
+    },
+    {
+     "at": "R10",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "R11",
+     "size": "ms",
+     "worldAngle": 180,
+     "allowBack": true,
+     "frame": "mec"
+    },
+    {
+     "at": "R12",
+     "size": "ms",
+     "angle": 0,
+     "frame": "juge"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "sortie",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "R13",
+     "text": "En sortant, le juge s'est fait flasher à 67.",
+     "highlight": [
+      "67."
+     ]
+    },
+    {
+     "id": "R14",
+     "text": "Six-seven !",
+     "speaker": "flic1",
+     "highlight": [
+      "Six-seven"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      -7.5,
+      0,
+      0.55
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        7.5,
+        0,
+        0.55
+       ],
+       "clip": "run",
+       "speed": 6.5,
+       "then": "idle"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      4.0,
+      0,
+      -0.55
+     ],
+     "ry": -60,
+     "clip": "clipboard",
+     "keys": [
+      {
+       "at": "R14",
+       "clip": "sixSeven",
+       "expr": "happy",
+       "face": 0,
+       "turn": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "radar",
+     "name": "trafficCamera",
+     "pos": [
+      1.4,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "flashAt": [
+       "R13:flasher",
+       "R13:flasher+0.18"
+      ]
+     }
+    },
+    {
+     "id": "affiche",
+     "name": "speedDisplay",
+     "pos": [
+      3.3,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "value": 67
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R13:flasher",
+     "name": "shutter",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "juge"
+    },
+    {
+     "at": "R13:67",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       3.3,
+       2.2,
+       -1.25
+      ]
+     ]
+    },
+    {
+     "at": "R14",
+     "size": "ms",
+     "angle": 10,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "flic1"
+    }
+   ],
+   "tail": 1.3
+  }
+ ]
+}

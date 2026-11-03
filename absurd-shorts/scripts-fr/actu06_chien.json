@@ -1,0 +1,915 @@
+{
+ "version": 3,
+ "title": "Le chien",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "chien": {
+   "type": "creature",
+   "name": "dog",
+   "opts": {
+    "seed": 4
+   }
+  },
+  "mbappe": {
+   "preset": "footballeur"
+  }
+ },
+ "scenes": [
+  {
+   "id": "salon",
+   "set": "livingRoom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "C1",
+     "text": "Ce mec a oublié d'acheter les croquettes de son chien.",
+     "highlight": [
+      "croquettes"
+     ]
+    },
+    {
+     "id": "C2",
+     "text": "Le chien a appelé les flics. Motif : séquestration et privation de nourriture.",
+     "highlight": [
+      "Motif",
+      "séquestration"
+     ]
+    },
+    {
+     "id": "C3",
+     "text": "Les flics ont embarqué ce mec.",
+     "highlight": [
+      "embarqué"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.45,
+      0.17,
+      -2.75
+     ],
+     "ry": 20,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C3",
+       "to": [
+        0.6,
+        0,
+        -2.2
+       ],
+       "glide": true,
+       "dur": 0.25,
+       "clip": "startle",
+       "then": "startle",
+       "face": "keep",
+       "expr": "shocked"
+      },
+      {
+       "at": "C3:embarqué",
+       "clip": "handcuffed",
+       "expr": "sad"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      -0.55,
+      0,
+      -1.45
+     ],
+     "ry": 60,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C1:croquettes",
+       "clip": "angry",
+       "expr": "angry"
+      },
+      {
+       "at": "C2",
+       "clip": "talk",
+       "expr": "angry",
+       "face": 0,
+       "turn": 0.2
+      },
+      {
+       "at": "C2:Motif",
+       "clip": "talk",
+       "expr": "smug"
+      }
+     ],
+     "scale": 1.3,
+     "expr": "sad"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -6.0,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C3-0.3",
+       "path": [
+        [
+         -2.0,
+         0,
+         -1.6
+        ],
+        [
+         0.1,
+         0,
+         -2.0
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.5,
+       "faceEnd": "mec",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -6.6,
+      0,
+      -0.3
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C3-0.2",
+       "path": [
+        [
+         -1.6,
+         0,
+         -0.8
+        ],
+        [
+         1.25,
+         0,
+         -1.85
+        ]
+       ],
+       "clip": "run",
+       "speed": 4.8,
+       "faceEnd": "mec",
+       "then": "point"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bol",
+     "name": "dogBowl",
+     "pos": [
+      -0.95,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "scale": 1.2,
+     "visible": false,
+     "on": {
+      "actor": "chien",
+      "joint": "head",
+      "offset": [
+       0.12,
+       0.05,
+       0.1
+      ],
+      "rot": [
+       0,
+       0,
+       0.4
+      ]
+     },
+     "keys": [
+      {
+       "at": "C2",
+       "visible": true
+      },
+      {
+       "at": "C3",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C3:embarqué",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "C3-0.4",
+     "name": "siren",
+     "vol": 0.45
+    },
+    {
+     "at": "C3:embarqué",
+     "name": "cuff",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "chien"
+     ]
+    },
+    {
+     "at": "C1:croquettes",
+     "size": "cu",
+     "worldAngle": 10,
+     "elev": 30,
+     "noOcclusion": true,
+     "frame": [
+      [
+       -0.95,
+       0.1,
+       -1.25
+      ]
+     ]
+    },
+    {
+     "at": "C1:chien",
+     "size": "cu",
+     "angle": 0,
+     "frame": "chien"
+    },
+    {
+     "at": "C2",
+     "size": "ms",
+     "angle": 10,
+     "frame": "chien"
+    },
+    {
+     "at": "C2:Motif",
+     "size": "cu",
+     "angle": -10,
+     "frame": "chien"
+    },
+    {
+     "at": "C2:privation",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "C3",
+     "size": "ms",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "flic1",
+      "flic2"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "gav",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "C4",
+     "text": "C'est le chien qui menait l'interrogatoire.",
+     "highlight": [
+      "chien"
+     ]
+    },
+    {
+     "id": "C5",
+     "text": "Wouf, wouf. Wouf !",
+     "speaker": "chien"
+    },
+    {
+     "id": "C6",
+     "text": "Il demande où étaient les croquettes.",
+     "speaker": "flic1"
+    },
+    {
+     "id": "C7",
+     "text": "Au supermarché. J'ai perdu une bataille d'aura au rayon.",
+     "speaker": "mec",
+     "highlight": [
+      "bataille",
+      "d'aura"
+     ]
+    },
+    {
+     "id": "C8",
+     "text": "Wouf.",
+     "speaker": "chien",
+     "pre": 0.2
+    },
+    {
+     "id": "C9",
+     "text": "Quarante-huit heures.",
+     "speaker": "flic1",
+     "highlight": [
+      "Quarante-huit"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -1.33
+     ],
+     "ry": 0,
+     "clip": "sitCuffed",
+     "keys": [
+      {
+       "at": "C7",
+       "expr": "sad"
+      },
+      {
+       "at": "C9",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      0.5,
+      0.785,
+      -0.72
+     ],
+     "ry": -140,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C5",
+       "clip": "talk",
+       "expr": "angry",
+       "face": 15,
+       "turn": 0.15
+      },
+      {
+       "at": "C6",
+       "clip": "sit",
+       "face": -140,
+       "turn": 0.2
+      },
+      {
+       "at": "C8",
+       "clip": "talk",
+       "expr": "smug",
+       "face": 15,
+       "turn": 0.15
+      },
+      {
+       "at": "C9",
+       "clip": "sit"
+      }
+     ],
+     "scale": 1.3,
+     "expr": "angry"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      0.98,
+      0,
+      -0.78
+     ],
+     "ry": -90,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "C6",
+       "clip": "point",
+       "expr": "neutral"
+      },
+      {
+       "at": "C9",
+       "clip": "armsCrossed",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cap",
+     "name": "copCap",
+     "scale": 1.1,
+     "on": {
+      "actor": "chien",
+      "joint": "head",
+      "offset": [
+       0,
+       0.32,
+       0.02
+      ]
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 10,
+     "frame": [
+      "chien",
+      "mec"
+     ]
+    },
+    {
+     "at": "C5",
+     "size": "cu",
+     "angle": 0,
+     "frame": "chien"
+    },
+    {
+     "at": "C6",
+     "size": "mcu",
+     "angle": 60,
+     "frame": "flic1"
+    },
+    {
+     "at": "C7",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "C8",
+     "size": "cu",
+     "angle": 10,
+     "frame": "chien"
+    },
+    {
+     "at": "C9",
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": [
+      "chien",
+      "flic1"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tele",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "PARDON|SORRY|LO SIENTO|SCUSATE|ENTSCHULDIGUNG|DESCULPA|EXCUSES"
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "journo",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_charcoal"
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       2.1
+      ],
+      [
+       -1.2,
+       0.12,
+       2.1
+      ],
+      [
+       0.0,
+       0.12,
+       2.1
+      ],
+      [
+       1.1999999999999997,
+       0.12,
+       2.1
+      ],
+      [
+       2.4,
+       0.12,
+       2.1
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "C10",
+     "text": "À la télé, Mbappé s'excusait en trois langues.",
+     "highlight": [
+      "trois",
+      "langues."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mbappe",
+     "pos": [
+      0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": "C10:excusait",
+       "clip": "bowRepeat",
+       "params": {
+        "freq": 1.6
+       }
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "sfx": [
+    {
+     "at": "C10",
+     "name": "shutter",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "mbappe"
+    },
+    {
+     "at": "C10:trois",
+     "size": "mcu",
+     "angle": 15,
+     "frame": "mbappe"
+    }
+   ],
+   "tail": 0.1
+  },
+  {
+   "id": "excuses",
+   "set": "interrogation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "C11",
+     "text": "Ce mec s'est excusé en chien.",
+     "highlight": [
+      "chien."
+     ]
+    },
+    {
+     "id": "C12",
+     "text": "Wouf. Wouf, wouf.",
+     "speaker": "mec"
+    },
+    {
+     "id": "C13",
+     "text": "Le chien a accepté. Contre une promotion.",
+     "highlight": [
+      "promotion."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.2,
+      0,
+      -0.1
+     ],
+     "ry": 60,
+     "clip": "bowRepeat",
+     "keys": [
+      {
+       "at": "C12",
+       "clip": "bowRepeat",
+       "params": {
+        "freq": 2.0
+       },
+       "expr": "sad"
+      },
+      {
+       "at": "C13",
+       "clip": "stand",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      0.5,
+      0.785,
+      -0.72
+     ],
+     "ry": -100,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C13",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "scale": 1.3,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cap",
+     "name": "copCap",
+     "scale": 1.1,
+     "on": {
+      "actor": "chien",
+      "joint": "head",
+      "offset": [
+       0,
+       0.32,
+       0.02
+      ]
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mec",
+      "chien"
+     ]
+    },
+    {
+     "at": "C12",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "C13",
+     "size": "cu",
+     "angle": 0,
+     "frame": "chien"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "promenade",
+   "set": "street",
+   "ambience": "street",
+   "lines": [
+    {
+     "id": "C14",
+     "text": "Depuis, le chien est commissaire. Et c'est ce mec qu'on promène.",
+     "highlight": [
+      "commissaire.",
+      "promène."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -4.4,
+      0,
+      0.9
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        2.6,
+        0,
+        0.9
+       ],
+       "clip": "walk",
+       "speed": 1.3,
+       "then": "sit"
+      }
+     ],
+     "scale": 1.3,
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -5.75,
+      0,
+      0.9
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        1.25,
+        0,
+        0.9
+       ],
+       "clip": "walk",
+       "speed": 1.3,
+       "then": "stareCamera"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      0.6,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C14:commissaire",
+       "clip": "salute",
+       "face": "chien",
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      1.7,
+      0,
+      -0.75
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "C14:commissaire+0.2",
+       "clip": "salute",
+       "face": "chien",
+       "turn": 0.2
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cap",
+     "name": "copCap",
+     "scale": 1.1,
+     "on": {
+      "actor": "chien",
+      "joint": "head",
+      "offset": [
+       0,
+       0.32,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "laisse",
+     "name": "leash",
+     "opts": {
+      "length": 1.25,
+      "elev": 0.42
+     },
+     "on": {
+      "actor": "chien",
+      "joint": "head",
+      "offset": [
+       0,
+       0.0,
+       -0.05
+      ]
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C14:commissaire",
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "frame": [
+      "chien",
+      "flic1",
+      "flic2"
+     ]
+    },
+    {
+     "at": "C14:promène",
+     "size": "ms",
+     "worldAngle": 10,
+     "move": "push",
+     "amount": 0.05,
+     "frame": [
+      "mec",
+      "chien"
+     ]
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}
