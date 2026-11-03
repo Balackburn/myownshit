@@ -5,6 +5,7 @@ french-lowpoly-absurd-shorts mechanics: a concrete incident (his yogurt gets sto
 (if your name is written on it, it is yours), the world obeys it (colleague's chair, the colleague himself, the boss's
 door, the bank vault, the police car), then the rule turns against him (a granny with a marker writes HER name on him)
 and a visual punchline (Monique eats his yogurt, his name crossed out).
+The "name" he writes everywhere is CON (the narrator's "ce con" taken literally): people read it and call him "Con".
 
 Scenes: FRIGO (office) -> CHAISE (office) -> PORTE (office) -> BANQUE -> FLICS (street) -> MONIQUE (street) -> SALON
 Office geography (same in every office scene): fridge on the back wall at x 3.3 (door hinged right), the boss's door
@@ -70,9 +71,9 @@ scenes.append({
             P('y1', 'yogurt', pos=Y_SHELF, scale=1.3, keys=[k(0.65, attach='madame', **CUP_L('madame')), k('M2', visible=False)]),
             P('spoonM', 'spoon', on={'actor': 'madame', 'hand': 'R'}, visible=False, keys=[k('M1:voler', visible=True), k('M2', visible=False)]),
             P('spoon', 'spoon', on={'actor': 'mec', 'hand': 'R'}, keys=[k('M2', visible=False)]),
-            P('y2h', 'yogurt', opts={'name': 'BERNARD', 'writeAt': 'M2:écrit', 'writeDur': 1.0}, scale=1.3, visible=False,
+            P('y2h', 'yogurt', opts={'name': 'CON', 'writeAt': 'M2:écrit', 'writeDur': 0.7}, scale=1.3, visible=False,
               on=CUP_L('mec'), keys=[k('M2', visible=True), k('M2:dessus+0.3', visible=False)]),
-            P('y2', 'yogurt', opts={'name': 'BERNARD'}, pos=Y_SHELF, scale=1.3, visible=False, keys=[k('M2:dessus+0.3', visible=True)]),
+            P('y2', 'yogurt', opts={'name': 'CON'}, pos=Y_SHELF, scale=1.3, visible=False, keys=[k('M2:dessus+0.3', visible=True)]),
             P('marker', 'marker', on={'actor': 'mec', 'hand': 'R'}, visible=False, keys=[k('M2', visible=True)])],
   'sfx': [{'at': 'M2:écrit', 'name': 'squeak', 'vol': 0.6}, {'at': 'M2:écrit+0.45', 'name': 'squeak', 'vol': 0.5},
           {'at': 'M1:voler+0.6', 'name': 'carDoor', 'vol': 0.15}, {'at': 'M2:dessus+0.75', 'name': 'carDoor', 'vol': 0.18}],
@@ -96,7 +97,7 @@ scenes.append({
             L('M4', "Il a écrit son nom sur la chaise de son collègue.", highlight=['chaise']),
             L('M5', "Ah, pardon. Elle est à toi.", 'coll1', highlight=['pardon.']),
             L('M6', "Puis sur le collègue.", pre=0.5, highlight=['collègue.']),
-            L('M7', "Ton café, Bernard. Je te masse les pieds ?", 'coll1', pre=0.6, highlight=['pieds'])],
+            L('M7', "Ton café, Con. Je te masse les pieds ?", 'coll1', pre=0.6, highlight=['Con.', 'pieds'])],
   'actors': [
     act('mec', [3.1, 0, -2.3], 180, 'idle', 'happy', keys=[
         k('M3:conclu', clip='think', expr='smug'),
@@ -112,7 +113,7 @@ scenes.append({
         k('M6.end+0.3', clip='sit', expr='smug'),
         k('M7', face='coll1', turn=0.3),
         k('M7:café+0.15', clip='sitTake'),
-        k('M7:Bernard+0.2', clip='sitSip', expr='smug')]),
+        k('M7#2+0.2', clip='sitSip', expr='smug')]),
     act('coll1', [5.4, 0, 0.3], -90, 'idle', 'neutral', keys=[
         k('M4', to=[CX - 0.15, 0, CZ + 0.95], clip='walk', speed=1.6, faceEnd='chair', then='idle'),
         k('M5', clip='doubleTake', expr='surprised'),
@@ -123,11 +124,11 @@ scenes.append({
         k('M7:Je', clip='kneelMassage', expr='happy')]),
   ],
   'props': [*office_props(fridge={'open': 1}),
-            P('y2', 'yogurt', opts={'name': 'BERNARD'}, pos=Y_SHELF, scale=1.3),
+            P('y2', 'yogurt', opts={'name': 'CON'}, pos=Y_SHELF, scale=1.3),
             P('marker', 'marker', on={'actor': 'mec', 'hand': 'R'}, visible=False, keys=[k('M3:toi', visible=True), k('M6.end+0.3', visible=False)]),
-            P('nameChair', 'scrawl', opts={'text': 'BERNARD', 'w': 0.4, 'h': 0.12, 'writeAt': 'M4:sur', 'writeDur': 1.0}, on=SCRAWL_CHAIR),
-            P('mug', 'mug', opts={'color': '#F1E9D2'}, on={'actor': 'coll1', 'hand': 'R'}, keys=[k('M7:Bernard', attach='mec', hand='R')]),
-            P('nameColl', 'scrawl', opts={'text': 'BERNARD', 'w': 0.17, 'h': 0.05, 'writeAt': 'M6:sur+0.15', 'writeDur': 0.8},
+            P('nameChair', 'scrawl', opts={'text': 'CON', 'w': 0.36, 'h': 0.16, 'writeAt': 'M4:sur', 'writeDur': 0.7}, on=SCRAWL_CHAIR),
+            P('mug', 'mug', opts={'color': '#F1E9D2'}, on={'actor': 'coll1', 'hand': 'R'}, keys=[k('M7#2', attach='mec', hand='R')]),
+            P('nameColl', 'scrawl', opts={'text': 'CON', 'w': 0.16, 'h': 0.065, 'writeAt': 'M6:sur+0.15', 'writeDur': 0.6},
               on={'actor': 'coll1', 'joint': 'head', 'offset': FOREHEAD})],
   'sfx': [{'at': 'M4:sur', 'name': 'squeak', 'vol': 0.6}, {'at': 'M4:sur+0.5', 'name': 'squeak', 'vol': 0.5},
           {'at': 'M6:sur+0.15', 'name': 'squeak', 'vol': 0.6}, {'at': 'M6:sur+0.55', 'name': 'squeak', 'vol': 0.5}],
@@ -160,7 +161,7 @@ scenes.append({
         k('M8:Le+0.15', visible=True),
         k('M8:Le+0.2', path=[[5.3, 0, -2.6], [6.2, 0, -2.55], [6.2, 0, -3.12]], clip='carryBox', speed=1.3, faceEnd=0, then='carry', expr='sad')]),
   ],
-  'props': [*office_props(fridge={'open': 0}, door={'name': 'BERNARD', 'writeAt': 'M8:sur+0.1', 'writeDur': 1.0, 'openAt': 'M8:Le', 'closeAt': 'M8.end+1.0'}),
+  'props': [*office_props(fridge={'open': 0}, door={'name': 'CON', 'writeAt': 'M8:sur+0.1', 'writeDur': 0.7, 'openAt': 'M8:Le', 'closeAt': 'M8.end+1.0'}),
             P('marker', 'marker', on={'actor': 'mec', 'hand': 'R'}),
             P('box', 'cardboardBox', opts={'text': ''}, scale=0.75, on={'actor': 'patron', 'joint': 'torso', 'offset': [0, 0.22, 0.34]}),
             P('plant', 'plant', scale=0.35, on={'actor': 'box', 'offset': [0.1, 0.25, 0]})],
@@ -178,12 +179,12 @@ VAULT_TXT = [2.6, 1.52, -3.226]
 scenes.append({
   'id': 'banque', 'set': 'bank', 'ambience': 'bank',
   'lines': [L('M9', "À la banque, il a écrit son nom sur le coffre.", highlight=['coffre.']),
-            L('M10', "Tout est à vous, monsieur Bernard. Vous voulez un sac ?", 'banquier', highlight=['sac'])],
+            L('M10', "Tout est à vous, monsieur Con. Vous voulez un sac ?", 'banquier', highlight=['Con.', 'sac'])],
   'actors': [
     act('banquier', [-1.2, 0, -2.1], 0, 'idle', 'neutral', keys=[
         k('M9:coffre', clip='doubleTake', expr='surprised', face='mec', turn=0.3),
         k('M9.end-0.1', path=[[0.9, 0, -2.3], [2.65, 0, -2.35]], clip='run', speed=2.4, faceEnd='mec', then='present', expr='happy'),
-        k('M10:Bernard', clip='bow', expr='happy'),
+        k('M10#5', clip='bow', expr='happy'),
         k('M10:voulez', clip='giveItem', expr='happy')]),
     act('mec', [2.6, 0, -1.65], 180, 'idle', 'smug', keys=[
         k(0.1, to=[2.6, 0, -2.72], clip='strut', speed=1.05, faceEnd=180, then='idle'),
@@ -193,14 +194,14 @@ scenes.append({
         k('M10:sac', clip='takeItem', expr='happy')]),
   ],
   'props': [P('marker', 'marker', on={'actor': 'mec', 'hand': 'R'}, keys=[k('M10', visible=False)]),
-            P('nameVault', 'scrawl', pos=VAULT_TXT, opts={'text': 'BERNARD', 'w': 0.8, 'h': 0.2, 'writeAt': 'M9:écrit+0.1', 'writeDur': 1.0}),
+            P('nameVault', 'scrawl', pos=VAULT_TXT, opts={'text': 'CON', 'w': 0.7, 'h': 0.28, 'writeAt': 'M9:écrit+0.1', 'writeDur': 0.7}),
             P('sack', 'moneySack', scale=0.8, visible=False, on={'actor': 'banquier', 'hand': 'R'}, keys=[k('M10:voulez', visible=True), k('M10:sac+0.35', attach='mec', hand='R')])],
   'sfx': [{'at': 'M9:écrit+0.1', 'name': 'squeak', 'vol': 0.6}, {'at': 'M9:écrit+0.6', 'name': 'squeak', 'vol': 0.5}, {'at': 'M10:sac+0.35', 'name': 'cash', 'vol': 0.45}],
   'cams': [cam(0, 'mec', 'fs', worldAngle=75),
            cam('M9:écrit', 'mec', 'ms', worldAngle=-80),
            cam('M9:coffre+0.3', ['nameVault', 'mec'], 'ms', worldAngle=-10, elev=4),
            cam('M10', 'banquier', 'fs', angle=-50, move='track'),
-           cam('M10:Bernard', 'banquier', 'ms', angle=-40),
+           cam('M10#5', 'banquier', 'ms', angle=-40),
            cam('M10:voulez', ['banquier', 'mec'], 'ms', worldAngle=20)],
   'tail': 0.5,
 })
@@ -235,7 +236,7 @@ scenes.append({
             P('sack', 'moneySack', scale=0.8, on={'actor': 'mec', 'hand': 'L'}),
             P('marker', 'marker', on={'actor': 'mec', 'hand': 'R'}, visible=False, keys=[k('M11:Il', visible=True), k('M12', visible=False)]),
             P('cuffs', 'handcuffs', on={'actor': 'flic1', 'hand': 'R'}, visible=False, keys=[k(1.05, visible=True), k('M11:police', visible=False)]),
-            P('nameCar', 'scrawl', opts={'text': 'BERNARD', 'w': 1.2, 'h': 0.3, 'writeAt': 'M11:nom+0.2', 'writeDur': 1.0}, on={'actor': 'car', 'offset': [-1.4, 0.72, 0.915]}),
+            P('nameCar', 'scrawl', opts={'text': 'CON', 'w': 1.0, 'h': 0.38, 'writeAt': 'M11:nom+0.2', 'writeDur': 0.7}, on={'actor': 'car', 'offset': [-1.4, 0.72, 0.915]}),
             P('bus', 'busStop', pos=[-5.6, 0, -1.2]), WM(pos=[-8.2, 0, -1.3], opts={'kind': 'stand'})],
   'sfx': [{'at': 0.0, 'name': 'siren', 'vol': 0.45}, {'at': 0.55, 'name': 'brake', 'vol': 0.5},
           {'at': 1.02, 'name': 'carDoor', 'vol': 0.45}, {'at': 1.1, 'name': 'carDoor', 'vol': 0.4},
@@ -278,7 +279,7 @@ scenes.append({
     act('flic2', [MX + 3.0, 0, -0.7], 0, 'handsOnHips', 'neutral', keys=[k('M15:ce+0.15', clip='salute', face='mamie', turn=0.3, expr='happy')]),
   ],
   'props': [P('car', 'policeCar', pos=[MX + 3.2, -0.14, -3.4]),
-            P('nameCar', 'scrawl', opts={'text': 'BERNARD', 'w': 1.2, 'h': 0.3}, on={'actor': 'car', 'offset': [-1.4, 0.72, 0.915]}),
+            P('nameCar', 'scrawl', opts={'text': 'CON', 'w': 1.0, 'h': 0.38}, on={'actor': 'car', 'offset': [-1.4, 0.72, 0.915]}),
             P('sack', 'moneySack', scale=0.8, on={'actor': 'mec', 'hand': 'L'}, keys=[k('M13:marqueur', detach=True, fall=True, impact='thud')]),
             P('bagL', 'shoppingBag', on={'actor': 'mamie', 'hand': 'L'}, keys=[k('M13:Elle', detach=True, fall=True, impact='paper'), k('M14.end+0.15', attach='mec', hand='L')]),
             P('bagR', 'shoppingBag', opts={'text': 'MARCHÉ'}, on={'actor': 'mamie', 'hand': 'R'}, keys=[k('M13:Elle+0.1', detach=True, fall=True, impact='paper'), k('M14.end+0.15', attach='mec', hand='R')]),
@@ -306,7 +307,7 @@ scenes.append({
     act('mamie', [-0.45, 0.23, -2.72], 0, 'sitEatSpoon', 'happy'),
     act('mec', [0.95, 0, -2.2], -10, 'holdBags', 'sad', keys=[k('M16:yaourt', clip='stareCamera', expr='unimpressed')]),
   ],
-  'props': [P('yF', 'yogurt', opts={'name': 'BERNARD', 'strike': True, 'name2': 'MONIQUE', 'inkColor2': RED_INK, 'open': True}, scale=1.3, on=CUP_L('mamie')),
+  'props': [P('yF', 'yogurt', opts={'name': 'CON', 'strike': True, 'name2': 'MONIQUE', 'inkColor2': RED_INK, 'open': True}, scale=1.3, on=CUP_L('mamie')),
             P('spoonF', 'spoon', on={'actor': 'mamie', 'hand': 'R'}),
             P('bagL', 'shoppingBag', on={'actor': 'mec', 'hand': 'L'}), P('bagR', 'shoppingBag', opts={'text': 'MARCHÉ'}, on={'actor': 'mec', 'hand': 'R'}),
             P('nameMec', 'scrawl', opts={'text': 'MONIQUE', 'w': 0.17, 'h': 0.05, 'color': RED_INK}, on={'actor': 'mec', 'joint': 'head', 'offset': FOREHEAD})],
