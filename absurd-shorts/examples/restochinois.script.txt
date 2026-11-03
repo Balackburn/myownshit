@@ -1,0 +1,82 @@
+## resto (chineseRestaurant)
+[0.30–4.46] Ce mec a mangé dans un restaurant chinois. Avec une fourchette et un couteau.
+[4.64–6.64] Il ne savait pas se servir des baguettes.
+[6.94–8.86] SERVEUR : Des couverts ? Dans mon restaurant ?
+[9.16–10.92] Le serveur a pété un câble.
+
+## cuisine (proKitchen)
+[11.22–14.26] Pour se calmer, il est allé sniffer de la cocaïne en cuisine.
+[14.44–16.36] Ça a marché pendant quatre secondes.
+[16.54–19.10] Puis il est devenu complètement paranoïaque.
+[19.28–20.80] Et il a eu un flashback.
+
+## chine (maoStreet)
+[21.15–24.91] Chine, époque Mao. Tout produit occidental était interdit.
+[25.09–27.49] Mais lui était passionné par les États-Unis.
+[27.67–30.39] Au marché noir, il achetait de la musique occidentale.
+[30.57–32.81] « Fruit de la passion », de Franky Vincent.
+[32.99–35.23] Il pleurait devant tant de beauté.
+[36.83–40.75] DEALER : J'ai autre chose. Un produit occidental, d'une beauté immense.
+[41.05–42.01] Des couverts.
+
+## usages (maoStreet)
+[42.66–44.18] Il ne savait pas s'en servir.
+[44.36–47.08] La cuillère, il s'en servait pour appeler l'Amérique.
+[47.38–48.82] JEUNE : Allô ? L'Amérique ?
+[49.12–51.52] Le couteau, il le portait comme une cravate.
+[51.70–55.38] Et la fourchette lui servait d'antenne, pour capter la radio américaine.
+
+## arrestation (maoStreet)
+[55.73–60.21] La police est arrivée. Motif : haute trahison et intelligence avec l'ennemi.
+
+## prison (tinyCell)
+[60.66–63.70] Cinq ans de prison, dans une cellule de quarante centimètres.
+[63.88–66.12] Un repas par an : une photo de riz.
+[66.30–68.70] Pour lit, une baguette. Une seule.
+[68.88–71.04] Pour fenêtre, un dessin de fenêtre.
+
+## france (street)
+[71.49–74.69] Puis il est parti en France. Il a bossé comme un malade.
+
+## ouverture (chineseRestaurant)
+[74.94–76.54] Et il a ouvert son restaurant.
+
+## trace2 (proKitchen)
+[76.99–79.71] Retour en cuisine. Il a pris une deuxième trace.
+[79.89–81.97] Il s'est souvenu de la grandeur de la Chine.
+[82.15–84.71] Et de son amour pour le Parti communiste chinois.
+[84.89–87.85] Alors il a dénoncé ce mec sur les réseaux sociaux chinois.
+
+## scandale (pressRoom)
+[88.30–89.74] Scandale mondial.
+
+## foule (pavillon)
+[90.19–93.79] Des internautes patriotes ont débarqué chez lui. Avec des fourchettes.
+[94.09–96.57] INTERNAUTE : Avec des baguettes, ça ferait moins mal, pas vrai ?
+[96.87–99.59] Ils ont aussi planté ses animaux. Au couteau.
+[99.89–101.97] INTERNAUTE2 : Avec des baguettes, on y serait encore.
+[102.27–104.35] INTERNAUTE : Gloire à la République populaire !
+[104.65–107.05] En tête du cortège : Kylian Mbappé.
+[107.23–110.27] Il dénonçait la gravité des couverts dans un restaurant chinois.
+
+## excuses (pressRoom)
+[110.67–113.23] Ce mec avait tout perdu. Il a dû s'excuser.
+[113.41–116.93] Mbappé l'a humilié : lui, il s'excusait en douze langues.
+[117.11–120.07] Et là, d'un coup, ce mec est tombé amoureux de la Chine.
+
+## avion (airport)
+[120.42–122.50] Il a pris l'avion. Il est devenu chinois.
+
+## politique (pressRoom)
+[122.90–126.74] Il a rencontré les dirigeants chinois. Puis il est devenu dirigeant chinois.
+[127.04–132.24] MECMAO : La Chine est la plus grande démocratie du monde. Économiquement, culturellement, socialement.
+[132.42–134.42] MECMAO : Je suis l'homme le plus heureux du monde.
+[134.60–138.36] MECMAO : La Chine n'a que de bonnes intentions. Elle n'a jamais été une dictature.
+[138.54–140.78] MECMAO : Ça, c'est la propagande occidentale.
+
+## appel (pressRoom)
+[141.13–144.73] Puis il a appelé la police. Motif : trafic de stupéfiants.
+[145.03–147.75] MECMAO : Et sa cuisine n'est pas à la hauteur d'une nation souveraine.
+
+## fin (proKitchen)
+[148.55–150.79] Le serveur avait raison d'être paranoïaque.
