@@ -20,8 +20,8 @@ scenes.append({
         k('C1:croquettes', clip='angry', expr='angry'),
         k('C2', clip='talk', expr='angry', face=0, turn=0.2),
         k('C2:Motif', clip='talk', expr='smug')]),
-    act('flic1', [-6.0, 0, -1.0], 90, 'idle', 'angry', keys=[k('C3-0.3', path=[[-2.0, 0, -1.6], [0.1, 0, -2.0]], clip='run', speed=4.5, faceEnd='mec', then='cuffOther')]),
-    act('flic2', [-6.6, 0, -0.3], 90, 'idle', 'angry', keys=[k('C3-0.2', path=[[-1.6, 0, -0.8], [1.25, 0, -1.85]], clip='run', speed=4.8, faceEnd='mec', then='point')]),
+    act('flic1', [-3.2, 0, -1.2], 90, 'idle', 'angry', keys=[k('C3-0.35', path=[[-1.6, 0, -1.6], [0.1, 0, -2.0]], clip='run', speed=4.5, faceEnd='mec', then='cuffOther')]),
+    act('flic2', [-3.6, 0, -0.4], 90, 'idle', 'angry', keys=[k('C3-0.3', path=[[-1.2, 0, -0.8], [1.25, 0, -1.85]], clip='run', speed=4.8, faceEnd='mec', then='point')]),
   ],
   'props': [P('bol', 'dogBowl', pos=BOWL),
             P('tel', 'phone911', scale=1.2, visible=False, on={'actor': 'chien', 'joint': 'head', 'offset': [0.12, 0.05, 0.1], 'rot': [0, 0, 0.4]}, keys=[k('C2', visible=True), k('C3', visible=False)]),
@@ -33,7 +33,7 @@ scenes.append({
            cam('C2', 'chien', 'ms', angle=10),
            cam('C2:Motif', 'chien', 'cu', angle=-10),
            cam('C2:privation', 'mec', 'ms', angle=0),
-           cam('C3', ['mec', 'flic1', 'flic2'], 'ms', worldAngle=10, elev=6)],
+           cam('C3:embarqué-0.3', ['mec', 'flic1', 'flic2'], 'ms', worldAngle=10, elev=6)],
   'tail': 0.2,
 })
 

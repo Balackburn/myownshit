@@ -27,7 +27,8 @@ scenes.append({
            cam('A1#9+0.6', 'mec', 'cu', angle=-60),
            cam('A2', ['mec', [TO[0], 1.1, TO[2]]], 'ms', worldAngle=80),
            cam('A2:face', 'mec', 'cu', angle=-50),
-           cam('A3', 'mec', 'cu', angle=-35)],
+           cam('A3', 'mec', 'cu', angle=-35),
+           cam('A3:Motif', [[TO[0], 1.1, TO[2]]], 'cu', worldAngle=-15, noOcclusion=True)],
   'tail': 0.2,
 })
 
@@ -84,6 +85,8 @@ scenes.append({
             P('greve', 'protestSign', scale=0.32, pos=[TO[0] + 0.32, TO[1], TO[2] + 0.05], opts={'text': 'GRÈVE', 'color': '#B3261E'}),
             P('pain', 'toast', opts={'raw': True}, scale=1.3, visible=False, on={'actor': 'mec', 'hand': 'R'}, keys=[k('A11', visible=True)])],
   'cams': [cam(0, [[TO[0] + 0.15, 1.15, TO[2]]], 'cu', worldAngle=10, noOcclusion=True),
+           cam('A10:remis', 'mec', 'ms', angle=10),
+           cam('A10:grève', [[TO[0] + 0.15, 1.15, TO[2]]], 'cu', worldAngle=-10, noOcclusion=True),
            cam('A11', 'mec', 'ms', angle=0),
            cam('A11:cru', 'mec', 'cu', angle=0, move='push', amount=0.05)],
   'tail': 1.4,

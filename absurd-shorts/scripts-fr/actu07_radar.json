@@ -192,6 +192,13 @@
      ]
     },
     {
+     "at": "R1:pied",
+     "size": "fs",
+     "angle": -60,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
      "at": "R2",
      "size": "ms",
      "angle": 10,

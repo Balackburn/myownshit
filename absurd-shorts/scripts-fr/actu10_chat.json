@@ -89,6 +89,11 @@
      "clip": "stand",
      "keys": [
       {
+       "at": 0.15,
+       "clip": "giveItem",
+       "expr": "happy"
+      },
+      {
        "at": "B1:perdu",
        "clip": "facepalm",
        "expr": "sad"
@@ -163,19 +168,34 @@
      "name": "boule",
      "scale": 1.6,
      "pos": [
-      -1.2,
-      0,
-      -0.4
-     ]
-    },
-    {
-     "id": "b3",
-     "name": "boule",
-     "scale": 1.6,
-     "pos": [
       1.5,
       0,
       0.2
+     ]
+    },
+    {
+     "id": "lancer",
+     "name": "boule",
+     "scale": 1.6,
+     "pos": [
+      -1.15,
+      0.9,
+      0.85
+     ],
+     "keys": [
+      {
+       "at": 0.3,
+       "to": [
+        -0.05,
+        0,
+        -1.25
+       ],
+       "dur": 0.85,
+       "arc": 0.7,
+       "ease": "inOut",
+       "sfx": "clink",
+       "sfxAt": 0.85
+      }
      ]
     },
     {
@@ -234,6 +254,20 @@
      "frame": [
       "mec",
       "chat"
+     ]
+    },
+    {
+     "at": "B1:pétanque",
+     "size": "cu",
+     "worldAngle": 15,
+     "elev": 35,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.1,
+       0.1,
+       -1.45
+      ]
      ]
     },
     {
@@ -674,16 +708,11 @@
     },
     {
      "at": "B6",
-     "size": "fs",
-     "worldAngle": 0,
-     "elev": 8,
+     "size": "ms",
+     "worldAngle": 25,
+     "move": "track",
      "withProps": true,
-     "frame": [
-      "chat",
-      "lait",
-      "thon",
-      "croq"
-     ]
+     "frame": "thon"
     },
     {
      "at": "B6:croquettes",

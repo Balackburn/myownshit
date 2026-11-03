@@ -20,6 +20,7 @@ scenes.append({
   'cams': [cam(0, 'mec', 'fs', angle=-70, move='track'),
            cam('R1:flasher', ['radar', 'mec'], 'fs', worldAngle=10, elev=4),
            cam('R1:67', [[DISPLAY[0], 2.2, DISPLAY[2]]], 'cu', worldAngle=0, noOcclusion=True),
+           cam('R1:pied', 'mec', 'fs', angle=-60, move='track'),
            cam('R2', 'flic1', 'ms', angle=10)],
   'tail': 0.15,
 })

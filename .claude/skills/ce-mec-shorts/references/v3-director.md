@@ -143,3 +143,31 @@ Working example: `scripts-fr/marqueur.py`.
   `spoon`.
 - `office` takes `setOpts {door: false, printer: false}`. The film then supplies its own animated door and puts the closet
   in the right corner.
+
+## Fast news series (actu01–actu10): what changed and what bit
+
+The news series lives in `scripts-fr/actu_common.py` plus `actu01_pigeon.py` … `actu10_chat.py`, with the gag bank
+`gags-actu-automne-2026.md`.
+
+- **Pace.** Faster cutting and faster acting come from:
+  - episode `tempo: 1.35`, which plays gestures, blends and turns faster (gaits keep the cadence derived from their speed);
+  - narrator rate 1.12 and character rate 1.08;
+  - shots of about 1.5 s;
+  - an extra insert in any static shot longer than about 3 s.
+- **Standard set-ups** live in `actu_common.py`:
+  - interrogation room: suspect in the far chair, inspector at the table's right end with `ry -90`, so both are in profile from the front;
+  - a post lying flat on a table, read from above (`tweet_on_table` / `tweet_cam`);
+  - the press-room apology (`pressRoom`: backdrop words, `bg`/`fg`, optional podium and flags);
+  - the cell and the court.
+- **Overhead props.** With the arm raised, the hand's local +y points down, so anything held above the head needs
+  `rot [π, 0, 0]` and the grip offset along +y (`SIGN_UP`). Signs and the parasol came out upside down before this was
+  fixed. A flat card shown at arm's length uses `HAND_FLAT`.
+- **Contrast.** Navy suits vanish on the navy press-room backdrop. Use `bg '#D9E2E8', fg '#2E4563'` for debates and
+  treaties.
+  - Canvas text in the same colour as its background is invisible. A cream notebook needs a dark `bg`.
+- **Cells and bars.** An `ms` of two subjects 1 m apart puts the camera beyond the cell bars. Use an explicit `POV`
+  inside the cell.
+- **Creature speakers** (a pigeon's "Rou.", a goat's "Mèèè.", a dog's "Wouf") are spoken with the same voice. A dog that
+  barks to the camera (`face` toward it) reads better than one barking at the suspect.
+- **Queue.** Write and check the next story while the previous one renders. If you edit a JSON while its render has
+  already started, that render uses the old version: stop it and queue it again.
