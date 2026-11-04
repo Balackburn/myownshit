@@ -49,3 +49,32 @@ samples 3 frames per shot at 576×1024 against the reference.
   - a bigger painted tornado;
   - a sky gradient with clouds and green hills;
   - then block S2 and S4-S22.
+
+## Round 3: townhouses, voxel dog, big tornado, S2 and S4 blocked
+
+| shot | gap | SSIM | ΔE | edges | change |
+|---|---|---|---|---|---|
+| S4 | 2.827 | 0.535 | 31.9 | 0.319 | new |
+| S1 | 2.709 | 0.571 | 28.8 | 0.292 | +0.213 (worse) |
+| S2 | 2.586 | 0.775 | 21.5 | 0.110 | new |
+| S3 | 2.581 | 0.581 | 28.8 | 0.279 | -0.059 |
+
+- **New engine props:**
+  - `townhouse`: a 2-storey pastel house with a front gable, siding, framed windows, shutters and a porch. Exported in 6
+    colours through the new `--variants` export option. The street now reads very close to the reference.
+  - `voxelDog`: a cube head, black muzzle block and big eyes, with a tongue variant.
+  - `tornado` options: rings, taper, top flare and colours. The 22-ring "big" version spins via a script animator.
+- **Why S1 got worse:** the camera path does not follow the man.
+  - In the reference he walks toward a low camera, then the camera swings to the road side and looks at him in profile with
+    the houses behind.
+  - It ends behind him as the dog flies into the tornado on the right. Our camera falls behind his actual position.
+- **S4:** the composition is close (street behind, houses on both sides). The reference camera is closer:
+  - the face sits left of centre, the road is on the right and the phone is at the right edge;
+  - our phone hand stops at the shoulder;
+  - our face is too orange: the face material is exported unlit, while the reference face is shaded, tan and papery.
+- **Next:**
+  - S1 camera keyed to the man's real path, with the dog leading on the leash;
+  - S4 framing, and a phone attached to the hand;
+  - export the faces as lit materials;
+  - a global grade layer (lift, desaturate, paper texture);
+  - then S5-S8.

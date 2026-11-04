@@ -1,0 +1,11 @@
+[
+ {"out": "townhouse_white",  "prop": "townhouse", "opts": {"color": "#F2F0EA", "roof": "#3A4152", "door": "#2F5E8C"}},
+ {"out": "townhouse_purple", "prop": "townhouse", "opts": {"color": "#B9A6D6", "roof": "#3A4152", "door": "#B5302A"}},
+ {"out": "townhouse_yellow", "prop": "townhouse", "opts": {"color": "#F2D06B", "roof": "#7A3A2A", "shutter": "#2F5E8C", "door": "#2F5E8C"}},
+ {"out": "townhouse_blue",   "prop": "townhouse", "opts": {"color": "#9EC7E8", "roof": "#3A4152", "door": "#F2D06B"}},
+ {"out": "townhouse_pink",   "prop": "townhouse", "opts": {"color": "#F2B8C6", "roof": "#B5302A", "door": "#24324A"}},
+ {"out": "townhouse_red",    "prop": "townhouse", "opts": {"color": "#D9604C", "roof": "#3A4152", "door": "#F4F1E8"}},
+ {"out": "voxeldog",         "prop": "voxelDog",  "opts": {}},
+ {"out": "voxeldog_tongue",  "prop": "voxelDog",  "opts": {"tongue": true}},
+ {"out": "tornado_big",      "prop": "tornado",   "opts": {"rings": 22, "height": 5.8, "base": 0.3, "top": 1.75, "taper": 1.25, "flare": 0.35, "chips": 30, "cols": ["#7F8C7C", "#9AA693", "#6E7A6B", "#B3BCA8", "#879483"]}}
+]

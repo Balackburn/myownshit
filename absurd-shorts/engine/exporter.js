@@ -76,7 +76,7 @@ export async function list() {
   return { humans: Object.keys(PRESETS), creatures: C ? C.CREATURE_NAMES : [], props: P ? P.PROP_NAMES : [] };
 }
 
-export async function exportOne(kind, name, { bake = true } = {}) {
+export async function exportOne(kind, name, { bake = true, opts = {} } = {}) {
   let obj, anims = [];
   if (kind === 'human') {
     obj = buildHuman({ preset: name });
@@ -86,7 +86,7 @@ export async function exportOne(kind, name, { bake = true } = {}) {
   } else if (kind === 'creature') {
     const C = await import('/engine/creatures.js'); obj = C.buildCreature(name); obj.userData.animate?.('idle', 0); stripForExport(obj); obj.name = name;
   } else {
-    const P = await import('/engine/props.js'); obj = P.buildProp(name, {}); stripForExport(obj); obj.name = name;
+    const P = await import('/engine/props.js'); obj = P.buildProp(name, opts); stripForExport(obj); obj.name = name;
   }
   const scene = new THREE.Scene(); scene.add(obj); scene.updateMatrixWorld(true);
   return toGLB(scene, anims);

@@ -12,22 +12,27 @@ ROAD = '#6E6E72'
 LAWN = '#8CC063'
 
 
-def street(sh, z0=-400, n=7, far=True, colors=('#F2F0EA', '#B9A6D6', '#F2D06B', '#9EC7E8', '#F2B8C6', '#F2F0EA', '#C9E3B0')):
-    """suburban street along Z: road x -1050..-150 with a dashed centre line; near sidewalk, fence and houses on +X;
-    far sidewalk, fence and houses on -X (facing the road)"""
+TOWNHOUSES = ('townhouse_white', 'townhouse_purple', 'townhouse_yellow', 'townhouse_blue', 'townhouse_pink', 'townhouse_red')
+
+
+def street(sh, z0=-400, n=8, far=True, trees=True):
+    """suburban street along Z: road x -1050..-150 with a dashed centre line; near sidewalk, lawn, picket fence and a row of
+    pastel 2-storey townhouses on +X (fronts facing the road, rotY 90); the same on the far side (-X, rotY -90)"""
     sh.ground(SIDEWALK)
     sh.box((900, 4, 20000), (-600, -1, 0), ROAD, name='road', shadows=False)
-    for i in range(40): sh.box((14, 5, 160), (-600, -2, -4000 + i * 400), '#F4F1E8', name='dash', shadows=False)
-    sh.box((700, 4, 20000), (650, -1, 0), LAWN, name='lawns near', shadows=False)
-    sh.box((700, 4, 20000), (-1850, -1, 0), LAWN, name='lawns far', shadows=False)
+    for i in range(50): sh.box((14, 5, 160), (-600, -2, -5000 + i * 400), '#F4F1E8', name='dash', shadows=False)
+    sh.box((900, 4, 20000), (750, -1, 0), LAWN, name='lawns near', shadows=False)
+    sh.box((900, 4, 20000), (-1950, -1, 0), LAWN, name='lawns far', shadows=False)
     for i in range(n):
-        sh.model('house', (790, 0, z0 + i * 520), rot=(0, 90, 0), name=f'house near {i}')
-        if far: sh.model('house', (-1990, 0, z0 + 260 + i * 520), rot=(0, -90, 0), name=f'house far {i}')
+        sh.model(TOWNHOUSES[i % 6], (900, 0, z0 + i * 560), rot=(0, 90, 0), name=f'house near {i}')
+        if far: sh.model(TOWNHOUSES[(i + 3) % 6], (-2100, 0, z0 + 280 + i * 560), rot=(0, -90, 0), name=f'house far {i}')
     for i in range(n * 2):
         sh.model('fence', (300, 0, z0 - 150 + i * 300), rot=(0, 90, 0), name=f'fence near {i}')
         if far: sh.model('fence', (-1500, 0, z0 - 150 + i * 300), rot=(0, 90, 0), name=f'fence far {i}')
-    for i in range(4):
-        sh.model('tree', (-1380, 0, z0 + 300 + i * 900), name=f'tree {i}')
+    if trees:
+        for i in range(n // 2):
+            sh.model('tree', (520, 0, z0 + 420 + i * 1120), name=f'tree near {i}')
+            sh.model('tree', (-1720, 0, z0 + 700 + i * 1120), name=f'tree far {i}')
 
 
 def s1(d):
@@ -37,9 +42,10 @@ def s1(d):
     man = sh.model('lemec', (40, 0, 0), rot=(0, 0, 0), clip='walk', clip_rate=1.0, name='man')
     sh.anim(man, 'position', [(0, [40, 0, 0]), (sh.nframes, [40, 0, -230])])
     sh.anim(man, 'rotationY', [(0, 0), (24, 0), (44, 40, 'inout'), (sh.nframes, 60)], 'float')
-    dog = sh.model('dog', (-75, 0, -110), rot=(0, 0, 0), name='dog')
+    dog = sh.model('voxeldog', (-75, 0, -110), rot=(0, 0, 0), scale=125, name='dog')
     sh.anim(dog, 'position', [(0, [-75, 0, -110]), (34, [-60, 0, -290]), (42, [-20, -110, -200], 'in'), (sh.nframes, [520, -620, 1500], 'in')])
-    sh.model('tornado', (700, 0, 1900), scale=210, name='tornado')
+    tor = sh.model('tornado_big', (650, 0, 1700), scale=260, name='tornado')
+    sh.script(tor, 'rotationY', 'return input.time.seconds * 140;')
     # low and close, tracking back with him; swings round to his right side (motion blur in the reference, f10-25)
     sh.camera((-10, -85, -260), (30, -150, 0), fov=50,
               keys=[(0, [-10, -85, -260]), (10, [-10, -85, -330]), (24, [-300, -110, -210], 'inout'), (sh.nframes, [-330, -120, -300])],
@@ -55,12 +61,37 @@ def s3(d, rot=-130):
     sh.camera((40, -90, -40), (-150, -228, 20), fov=46)
 
 
+def s2(d):
+    """dog spinning inside the tornado wall: close tracking shot, the dog drifts left to centre, mouth opens"""
+    f0, f1 = FR['S2']; sh = Shot(d, 102, 'S2 dog in tornado', f0, f1, amb=0.7)
+    sh.ground(LAWN)
+    sh.sun(rx=-40, ry=-30, irradiance=3.0)
+    tor = sh.model('tornado_big', (0, 0, 420), scale=520, name='tornado wall')
+    sh.script(tor, 'rotationY', 'return input.time.seconds * 60;')
+    dog = sh.model('voxeldog_tongue', (-60, -620, 0), rot=(10, -35, -15), scale=160, name='dog')
+    sh.anim(dog, 'position', [(0, [-70, -620, 0]), (sh.nframes, [10, -640, 30])])
+    sh.anim(dog, 'rotationZ', [(0, -15), (sh.nframes, 10)], 'float')
+    sh.camera((-40, -640, -170), (-20, -630, 0), fov=50,
+              keys=[(0, [-60, -640, -170]), (sh.nframes, [0, -650, -150])], tkeys=[(0, [-40, -625, 0]), (sh.nframes, [10, -640, 20])])
+
+
+def s4(d):
+    """selfie close-up: phone at the ear, the street receding behind him, the tornado far down the road"""
+    f0, f1 = FR['S4']; sh = Shot(d, 104, 'S4 phone', f0, f1)
+    street(sh, z0=-200, n=12)
+    sh.sun(rx=-48, ry=-40, irradiance=3.4)
+    sh.model('lemec', (-60, 0, 0), rot=(0, 0, 0), clip='phoneCall', clip_rate=0.8, name='man')
+    tor = sh.model('tornado_big', (-450, 0, 6200), scale=300, name='tornado far')
+    sh.script(tor, 'rotationY', 'return input.time.seconds * 140;')
+    sh.camera((-40, -175, -95), (-60, -195, 0), fov=58, keys=[(0, [-40, -175, -95]), (sh.nframes, [-35, -178, -88])])
+
+
 CAPTIONS = SPEC['captions']
 
 
 def build(only=None, captions=True):
     d = Doc()
-    for fn in (s1, s3):
+    for fn in (s1, s2, s3, s4):
         sid = 'S' + fn.__name__[1:]
         if only and sid not in only: continue
         fn(d)

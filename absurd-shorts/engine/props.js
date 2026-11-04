@@ -503,6 +503,48 @@ const B = {
       at(box(L, 0.07, 0.04, o.rail || P.red), 0, H * 0.28, -0.01), at(box(L, 0.07, 0.04, o.rail || P.red), 0, H * 0.68, -0.01));
     return g;
   },
+  townhouse(o) { // narrow 2-storey American suburban house, front gable on the street (reference "tornado" short): siding lines, framed windows with shutters, porch
+    const w = o.w || 5, d = o.d || 7.5, h = o.h || 5.4, c = o.color || '#B9A6D6', roof = o.roof || '#3A4152', trim = o.trim || '#F4F1E8';
+    const frame = o.frame || '#24324A', shutter = o.shutter || '#E8B83A', door = o.door || P.red;
+    const darker = new THREE.Color(c).multiplyScalar(0.9).getStyle();
+    const g = grp(box(w, h, d, c, { pivot: 'bottom', outline: 0.004 }));
+    const rh = w * 0.42, pitch = Math.atan2(rh, w / 2), slope = Math.hypot(w / 2, rh) + 0.35;
+    [-1, 1].forEach(s => g.add(at(box(slope, 0.16, d + 0.5, roof, { outline: 0.004 }), s * (w / 4 + 0.05), h + rh / 2 + 0.02, 0, 0, 0, -s * pitch)));
+    // gable wall: a triangular prism under the roof
+    const tri = new THREE.Shape(); tri.moveTo(-w / 2, 0); tri.lineTo(w / 2, 0); tri.lineTo(0, rh); tri.lineTo(-w / 2, 0);
+    const gable = mesh(new THREE.ExtrudeGeometry(tri, { depth: d - 0.02, bevelEnabled: false }), mat(c)); gable.position.set(0, h, -d / 2 + 0.01); g.add(gable);
+    // siding: thin darker strips on the front and the gable
+    for (let y = 0.35; y < h + rh - 0.3; y += 0.32) { const ww = y < h ? w : w * (1 - (y - h) / rh) - 0.2; if (ww > 0.3) g.add(at(box(ww, 0.035, 0.02, darker), 0, y, d / 2 + 0.012)); }
+    g.add(at(box(w + 0.08, 0.14, 0.06, trim), 0, h, d / 2 + 0.03), at(box(0.14, h, 0.06, trim), -w / 2 + 0.05, h / 2, d / 2 + 0.03), at(box(0.14, h, 0.06, trim), w / 2 - 0.05, h / 2, d / 2 + 0.03));
+    const win = (x, y, sh = true) => {
+      g.add(at(box(1.0, 1.35, 0.06, frame), x, y, d / 2 + 0.04), at(box(0.82, 1.17, 0.07, '#9CC9D6'), x, y, d / 2 + 0.045), at(box(0.82, 0.06, 0.08, frame), x, y, d / 2 + 0.05), at(box(0.06, 1.17, 0.08, frame), x, y, d / 2 + 0.05),
+        at(box(1.2, 0.1, 0.16, trim), x, y - 0.72, d / 2 + 0.08));
+      if (sh) [-1, 1].forEach(s => g.add(at(box(0.36, 1.35, 0.05, shutter, { outline: 0.01 }), x + s * 0.72, y, d / 2 + 0.035)));
+    };
+    win(-w * 0.22, h * 0.72); win(w * 0.22, h * 0.72); win(-w * 0.24, h * 0.27); win(0, h + rh * 0.38, false);
+    // door + porch
+    const dx = w * 0.24;
+    g.add(at(box(0.95, 2.05, 0.08, door, { outline: 0.01 }), dx, 1.025 + 0.3, d / 2 + 0.04), at(sphere(0.045, P.yellow, 0), dx - 0.32, 1.35, d / 2 + 0.1),
+      at(box(1.9, 0.3, 1.2, trim), dx, 0.15, d / 2 + 0.6), at(box(2.1, 0.12, 1.4, roof), dx, 2.75, d / 2 + 0.65),
+      at(box(0.12, 2.45, 0.12, trim, { pivot: 'bottom' }), dx - 0.85, 0.3, d / 2 + 1.15), at(box(0.12, 2.45, 0.12, trim, { pivot: 'bottom' }), dx + 0.85, 0.3, d / 2 + 1.15));
+    g.userData.door = [dx, 0, d / 2 + 1.4]; return g;
+  },
+  voxelDog(o) { // blocky tan dog of the reference short: cube head, black muzzle block, big white eyes with black pupils, red collar
+    const tan = o.color || '#D9A15A', dark = new THREE.Color(tan).multiplyScalar(0.8).getStyle(), muzzle = o.muzzle || '#3A2A22';
+    const g = grp(at(box(0.3, 0.26, 0.56, tan, { outline: 0.01 }), 0, 0.42, 0));                              // body
+    [[-0.1, 0.18], [0.1, 0.18], [-0.1, -0.18], [0.1, -0.18]].forEach(([x, z]) => g.add(at(box(0.09, 0.3, 0.09, tan, { pivot: 'bottom', outline: 0.01 }), x, 0, z), at(box(0.095, 0.05, 0.1, dark), x, 0.02, z + 0.005)));
+    g.add(at(box(0.07, 0.24, 0.07, tan, { outline: 0.01 }), 0, 0.62, -0.27, -0.5, 0, 0));                     // tail, up
+    const head = grp(box(0.34, 0.32, 0.32, tan, { outline: 0.01 }),
+      at(box(0.2, 0.15, 0.14, muzzle, { outline: 0.01 }), 0, -0.07, 0.21),                                       // muzzle block
+      at(box(0.09, 0.06, 0.04, '#121212'), 0, -0.02, 0.29),                                                       // nose
+      at(box(0.1, 0.1, 0.02, '#FFFFFF'), -0.085, 0.06, 0.162), at(box(0.1, 0.1, 0.02, '#FFFFFF'), 0.085, 0.06, 0.162), // eyes
+      at(box(0.045, 0.05, 0.02, '#141414'), -0.075, 0.055, 0.172), at(box(0.045, 0.05, 0.02, '#141414'), 0.075, 0.055, 0.172),
+      at(box(0.08, 0.12, 0.06, dark), -0.19, 0.12, -0.02), at(box(0.08, 0.12, 0.06, dark), 0.19, 0.12, -0.02));  // ears
+    if (o.tongue) head.add(at(box(0.07, 0.02, 0.1, '#E05A6A'), 0, -0.15, 0.26, 0.4, 0, 0));
+    head.position.set(0, 0.66, 0.3); g.add(head);
+    g.add(at(box(0.32, 0.06, 0.06, P.red), 0, 0.53, 0.26, 0.3, 0, 0));                                            // collar
+    g.userData.head = head; return g;
+  },
   house(o) {
     const w = o.w || 4, d = o.d || 3.4, h = o.h || 2.5, dx = w * 0.15;
     const g = grp(box(w, h, d, o.color || P.cream, { pivot: 'bottom', outline: 0.005 }), at(box(w + 0.5, 1.5, d + 0.5, o.roof || P.navy, { taper: { x: 1, z: 0.02 } }), 0, h + 0.75, 0),
@@ -727,14 +769,14 @@ const B = {
   },
   // --- outdoor big set pieces ---------------------------------------------------
   tornado(o) {
-    const g = grp(), r = rng(o.seed || 5), rings = [], chips = [], N = 10, H = o.height || 5.5, cols = ['#8E9B8B', '#A9B4A2', '#7A8778', '#B8C1AE'];
-    const rad = i => 0.25 + Math.pow(i / N, 1.4) * 1.9;
+    const g = grp(), r = rng(o.seed || 5), rings = [], chips = [], N = o.rings || 10, H = o.height || 5.5, cols = o.cols || ['#8E9B8B', '#A9B4A2', '#7A8778', '#B8C1AE'];
+    const rad = i => (o.base ?? 0.25) + Math.pow(i / N, o.taper ?? 1.4) * (o.top ?? 1.9) + (o.flare && i >= N - 1 ? o.flare : 0);
     for (let i = 0; i < N; i++) {
       const m = cyl(rad(i + 1) + 0.12, rad(i), H / N * 1.3, cols[i % 4], 7, { open: true, doubleSide: true, pivot: 'bottom' });
       const piv = grp(m); piv.position.y = i * H / N; piv.rotation.z = (r() - 0.5) * 0.12; g.add(piv);
       rings.push({ piv, m, sp: (3 + r() * 2.5) * (1 - i * 0.045) * (i % 3 === 1 ? 0.6 : 1), ph: r() * TAU, i });
     }
-    for (let i = 0; i < 16; i++) { const y = 0.4 + r() * H * 0.9, R = rad(y / H * N) + 0.35 + r() * 0.7;
+    for (let i = 0; i < (o.chips ?? 16); i++) { const y = 0.4 + r() * H * 0.9, R = rad(y / H * N) + 0.35 + r() * 0.7;
       const m = box(0.1 + r() * 0.18, 0.04, 0.08 + r() * 0.14, i % 3 ? P.red : P.white); g.add(m); chips.push({ m, y, R, a: r() * TAU, w: 2.2 + r() * 1.8, ph: r() * TAU }); }
     g.userData.update = t => {
       rings.forEach(({ piv, m, sp, ph, i }) => { m.rotation.y = t * sp + ph; piv.position.x = Math.sin(t * 1.6 + i * 0.45) * 0.2 * (i / N); piv.position.z = Math.cos(t * 1.3 + i * 0.5) * 0.12 * (i / N); });
