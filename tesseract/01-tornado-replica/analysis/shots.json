@@ -1,0 +1,526 @@
+{
+ "reference": {
+  "file": "tiktok_outofthisworld_9_7704432418710670622.mp4",
+  "width": 576,
+  "height": 1024,
+  "fps": 30,
+  "frames": 864,
+  "duration": 28.8,
+  "video": "H.264 High, yuv420p, BT.709, ~1.39 Mb/s",
+  "audio": "HE-AACv2 44.1 kHz stereo ~32 kb/s"
+ },
+ "look": {
+  "captions": {
+   "font_guess": "heavy rounded sans (close to Arial Rounded MT Bold / Nunito Black)",
+   "fill": "#FEFEFC",
+   "highlight": "#D88168",
+   "outline": "#1C252A, ~3 px at 576 wide, plus soft shadow",
+   "centre_y": 0.81,
+   "cap_height_px_at_1024": 30,
+   "max_words": 4,
+   "lines": "1, sometimes 2"
+  },
+  "grade": "soft pastel daylight, gentle contrast, slightly desaturated sky (#A9CFE3 region), warm ground; dark desaturated grade for the ruins (S13-S14)",
+  "texture": "painted paper/canvas grain on most surfaces and the sky; flat low-poly shading with soft shadows",
+  "motion_blur": "camera-motion blur on fast moves (S1 swing, S6 dolly, S7 fly-over), rotor blur (S18)"
+ },
+ "shots": [
+  {
+   "id": "S1",
+   "frames": [
+    0,
+    56
+   ],
+   "t0": 0.0,
+   "t1": 1.9,
+   "title": "Street walk, the dog is pulled into the tornado",
+   "camera": "low camera on the sidewalk, man walks toward camera with the dog on a red leash; camera swings right (strong motion blur, ~frame 10-25) to a side view of the dog; ends wide on the man with the tornado in the background right, the dog flying into it",
+   "subjects": "lemec (walk cycle, then reaching), voxel dog (walk, then airborne), red leash, tornado (spinning rings + debris)",
+   "set": "suburban street: pastel townhouses (white, purple, yellow, blue, pink) with dark/red roofs, white picket fences, low-poly trees, sidewalk, road with white dashes, hills",
+   "fx": "camera motion blur on the swing; contact shadows; debris"
+  },
+  {
+   "id": "S2",
+   "frames": [
+    57,
+    102
+   ],
+   "t0": 1.9,
+   "t1": 3.433,
+   "title": "Dog spinning inside the tornado",
+   "camera": "close-up tracking the dog as it orbits in the tornado wall; dog drifts left→centre, mouth opens (barks)",
+   "subjects": "voxel dog (tan, black muzzle, white eyes with black pupils, red collar, red leash trailing), tornado wall texture (grey-green, paper blotches, horizontal bands), red/white debris chips",
+   "set": "grass and sky glimpsed behind",
+   "fx": "slight motion blur; debris"
+  },
+  {
+   "id": "S3",
+   "frames": [
+    103,
+    134
+   ],
+   "t0": 3.433,
+   "t1": 4.5,
+   "title": "'That was theft.' + THEFT title",
+   "camera": "medium low-angle shot of the man facing camera, both hands raised in front (explaining gesture); static camera",
+   "subjects": "lemec (gesture), THEFT title card",
+   "set": "street with houses, trees, fence, road",
+   "fx": "title card drops from the top with motion blur and a bounce (frames 110-115), dark navy box, white bold text"
+  },
+  {
+   "id": "S4",
+   "frames": [
+    135,
+    195
+   ],
+   "t0": 4.5,
+   "t1": 6.533,
+   "title": "Phone call",
+   "camera": "selfie close-up, man holds a black phone to his ear with the right hand; eyes glance sideways, blink",
+   "subjects": "lemec close-up, black phone (handle text on screen — replaced by a neutral text in the replica)",
+   "set": "street perspective, houses, fence, tornado far behind",
+   "fx": "static, slight drift"
+  },
+  {
+   "id": "S5",
+   "frames": [
+    196,
+    210
+   ],
+   "t0": 6.533,
+   "t1": 7.033,
+   "title": "Afterburner close-up",
+   "camera": "extreme close-up of an engine nozzle firing; petals dark with glowing orange inner edges",
+   "subjects": "jet nozzle + afterburner flame (white-yellow core, orange edge)",
+   "set": "runway concrete, sky",
+   "fx": "bloom on the flame"
+  },
+  {
+   "id": "S6",
+   "frames": [
+    211,
+    228
+   ],
+   "t0": 7.033,
+   "t1": 7.633,
+   "title": "Dolly along the jet",
+   "camera": "camera slides along the grey fuselage from the burning exhausts to the nose wheel",
+   "subjects": "fighter jet (grey, star-and-bar roundel, 'U.S. AIR FORCE' lettering), afterburners",
+   "set": "runway",
+   "fx": "fast camera move with motion blur"
+  },
+  {
+   "id": "S7",
+   "frames": [
+    229,
+    242
+   ],
+   "t0": 7.633,
+   "t1": 8.1,
+   "title": "Take-off and fly-over",
+   "camera": "wide runway shot, the jet takes off toward camera with dust, then passes over the camera (whip blur frames 240-242)",
+   "subjects": "fighter jet",
+   "set": "runway, hills, haze",
+   "fx": "dust; motion-blur whip"
+  },
+  {
+   "id": "S8",
+   "frames": [
+    243,
+    312
+   ],
+   "t0": 8.1,
+   "t1": 10.433,
+   "title": "Climb through clouds to the lock-on HUD",
+   "camera": "jet seen from behind climbing in blue sky (afterburners), camera passes through clouds (~f251-257), then looks down over the neighbourhood with the jet in the foreground and the tornado ahead; HUD corner brackets track the tornado, turn red, 'LOCKED' label",
+   "subjects": "fighter jet (rear), clouds, tornado (top-down), neighbourhood grid",
+   "set": "aerial neighbourhood: rows of small houses with red/blue/brown roofs, lawns, roads, trees",
+   "fx": "HUD overlay (white then red brackets, red LOCKED tag); cloud wipe"
+  },
+  {
+   "id": "S9",
+   "frames": [
+    313,
+    334
+   ],
+   "t0": 10.433,
+   "t1": 11.167,
+   "title": "'It fired'",
+   "camera": "jet in profile in blue sky above clouds, missiles launch forward with flame and white trails",
+   "subjects": "fighter jet, missiles, smoke trails",
+   "set": "sky, cumulus clouds",
+   "fx": "flames, trails"
+  },
+  {
+   "id": "S10",
+   "frames": [
+    335,
+    385
+   ],
+   "t0": 11.167,
+   "t1": 12.867,
+   "title": "Missile salvo on the tornado",
+   "camera": "aerial behind-the-jet view; dozens of white missile trails converge on the tornado; camera pushes toward it",
+   "subjects": "fighter jet (rear), missiles, tornado (top-down with rings)",
+   "set": "aerial neighbourhood grid",
+   "fx": "trails, flashes"
+  },
+  {
+   "id": "S11",
+   "frames": [
+    386,
+    430
+   ],
+   "t0": 12.867,
+   "t1": 14.367,
+   "title": "Hit",
+   "camera": "street level: the tornado behind the houses is hit, fireball and black smoke, debris flying",
+   "subjects": "tornado, explosion (fireball + smoke), debris",
+   "set": "street, houses (red, purple, yellow), white fence, road",
+   "fx": "explosion flash"
+  },
+  {
+   "id": "S12",
+   "frames": [
+    431,
+    482
+   ],
+   "t0": 14.367,
+   "t1": 16.1,
+   "title": "The neighbourhood is hit too",
+   "camera": "high wide view over rows of houses toward the tornado on the hills; explosions bloom among the houses",
+   "subjects": "tornado, explosions, smoke",
+   "set": "neighbourhood, hills",
+   "fx": "bright flashes, smoke"
+  },
+  {
+   "id": "S13",
+   "frames": [
+    483,
+    528
+   ],
+   "t0": 16.1,
+   "t1": 17.633,
+   "title": "'All of it.'",
+   "camera": "dark wide shot: the whole neighbourhood in ruins, fires and black smoke columns, tornado in the background",
+   "subjects": "burning ruins, smoke columns, tornado",
+   "set": "dark grey grade",
+   "fx": "dark, desaturated grade"
+  },
+  {
+   "id": "S14",
+   "frames": [
+    529,
+    583
+   ],
+   "t0": 17.633,
+   "t1": 19.467,
+   "title": "Surrender",
+   "camera": "street level on a burnt road: the tornado holds a white flag, burnt trees and fires behind",
+   "subjects": "tornado, white flag, burnt trees, fires",
+   "set": "burnt street, grey sky",
+   "fx": "desaturated"
+  },
+  {
+   "id": "S15",
+   "frames": [
+    584,
+    606
+   ],
+   "t0": 19.467,
+   "t1": 20.233,
+   "title": "Sentenced",
+   "camera": "courtroom: the tornado in the dock with giant handcuffs; judge small behind",
+   "subjects": "tornado, handcuffs, judge",
+   "set": "courtroom (white walls, navy/red panels)",
+   "fx": "debris"
+  },
+  {
+   "id": "S16",
+   "frames": [
+    607,
+    647
+   ],
+   "t0": 20.233,
+   "t1": 21.6,
+   "title": "Judge and gavel",
+   "camera": "low angle on the judge (white wig, round glasses) striking the gavel",
+   "subjects": "judge character, gavel",
+   "set": "judge's bench (navy panel with gold studs, name plate — replaced in the replica)",
+   "fx": "gavel impact"
+  },
+  {
+   "id": "S17",
+   "frames": [
+    648,
+    669
+   ],
+   "t0": 21.6,
+   "t1": 22.333,
+   "title": "'Now it powers'",
+   "camera": "the tornado, still handcuffed, spins under a wind turbine; debris",
+   "subjects": "tornado, handcuffs, wind turbine",
+   "set": "grassland, clouds, sky",
+   "fx": "debris"
+  },
+  {
+   "id": "S18",
+   "frames": [
+    670,
+    706
+   ],
+   "t0": 22.333,
+   "t1": 23.567,
+   "title": "Turbine close-up",
+   "camera": "low angle on the turbine hub, blades spinning fast (motion blur), tornado top below",
+   "subjects": "wind turbine, tornado top",
+   "set": "sky, clouds",
+   "fx": "rotor blur"
+  },
+  {
+   "id": "S19",
+   "frames": [
+    707,
+    723
+   ],
+   "t0": 23.567,
+   "t1": 24.133,
+   "title": "Wide: officer and tornado",
+   "camera": "wide shot, tiny officer at the tornado's base, turbines",
+   "subjects": "tornado, wind turbine, officer (tiny)",
+   "set": "grassland",
+   "fx": "debris"
+  },
+  {
+   "id": "S20",
+   "frames": [
+    724,
+    765
+   ],
+   "t0": 24.133,
+   "t1": 25.533,
+   "title": "Officer with a whip",
+   "camera": "officer cracks a whip at the tornado's base; rocks and debris",
+   "subjects": "officer (police uniform, cap), whip, rocks",
+   "set": "grassland, turbine",
+   "fx": "whip motion, dust"
+  },
+  {
+   "id": "S21",
+   "frames": [
+    766,
+    779
+   ],
+   "t0": 25.533,
+   "t1": 26.0,
+   "title": "'it doesn't slow down'",
+   "camera": "wide: the tornado keeps spinning, rubble pile at the base",
+   "subjects": "tornado, rubble, officer",
+   "set": "grassland, turbines",
+   "fx": "debris"
+  },
+  {
+   "id": "S22",
+   "frames": [
+    780,
+    863
+   ],
+   "t0": 26.0,
+   "t1": 28.8,
+   "title": "R.I.P.",
+   "camera": "gravestone with the dog's framed portrait, flowers, fresh dirt mound; slow push-in; small tornadoes in the background",
+   "subjects": "gravestone ('R.I.P.', framed dog portrait, small engraved text — replaced in the replica), flowers, dirt mound, grass",
+   "set": "grassland, sky, background tornadoes",
+   "fx": "slow push-in"
+  }
+ ],
+ "captions": [
+  {
+   "text": "This man lost his",
+   "highlight": [],
+   "t0": 0.0,
+   "t1": 1.12
+  },
+  {
+   "text": "dog in a tornado.",
+   "highlight": [
+    "dog",
+    "tornado."
+   ],
+   "t0": 1.12,
+   "t1": 3.38
+  },
+  {
+   "text": "That was theft.",
+   "highlight": [
+    "theft."
+   ],
+   "t0": 3.38,
+   "t1": 4.44
+  },
+  {
+   "text": "So he called",
+   "highlight": [],
+   "t0": 4.44,
+   "t1": 5.24
+  },
+  {
+   "text": "the U.S. military.",
+   "highlight": [
+    "U.S.",
+    "military."
+   ],
+   "t0": 5.24,
+   "t1": 6.52
+  },
+  {
+   "text": "The military sent",
+   "highlight": [
+    "military"
+   ],
+   "t0": 6.52,
+   "t1": 7.38
+  },
+  {
+   "text": "a fighter jet.",
+   "highlight": [
+    "fighter",
+    "jet."
+   ],
+   "t0": 7.38,
+   "t1": 9.24
+  },
+  {
+   "text": "It locked on.",
+   "highlight": [
+    "locked"
+   ],
+   "t0": 9.24,
+   "t1": 10.5
+  },
+  {
+   "text": "It fired",
+   "highlight": [
+    "fired"
+   ],
+   "t0": 10.5,
+   "t1": 10.82
+  },
+  {
+   "text": "everything it had.",
+   "highlight": [
+    "everything"
+   ],
+   "t0": 10.82,
+   "t1": 12.84
+  },
+  {
+   "text": "It hit the tornado.",
+   "highlight": [
+    "tornado."
+   ],
+   "t0": 12.84,
+   "t1": 14.34
+  },
+  {
+   "text": "It also hit",
+   "highlight": [],
+   "t0": 14.34,
+   "t1": 14.96
+  },
+  {
+   "text": "the neighborhood.",
+   "highlight": [
+    "neighborhood."
+   ],
+   "t0": 14.96,
+   "t1": 16.12
+  },
+  {
+   "text": "All of it.",
+   "highlight": [
+    "All"
+   ],
+   "t0": 16.12,
+   "t1": 17.66
+  },
+  {
+   "text": "The tornado surrendered.",
+   "highlight": [
+    "tornado",
+    "surrendered."
+   ],
+   "t0": 17.66,
+   "t1": 19.46
+  },
+  {
+   "text": "It was sentenced",
+   "highlight": [
+    "sentenced"
+   ],
+   "t0": 19.46,
+   "t1": 20.22
+  },
+  {
+   "text": "to hard labor.",
+   "highlight": [
+    "hard",
+    "labor."
+   ],
+   "t0": 20.22,
+   "t1": 21.64
+  },
+  {
+   "text": "Now it powers",
+   "highlight": [],
+   "t0": 21.64,
+   "t1": 22.32
+  },
+  {
+   "text": "a wind turbine.",
+   "highlight": [
+    "turbine."
+   ],
+   "t0": 22.32,
+   "t1": 22.72
+  },
+  {
+   "text": "An officer makes sure",
+   "highlight": [
+    "officer"
+   ],
+   "t0": 22.72,
+   "t1": 24.52
+  },
+  {
+   "text": "it doesn't slow down.",
+   "highlight": [
+    "down."
+   ],
+   "t0": 24.52,
+   "t1": 26.14
+  },
+  {
+   "text": "Oh,",
+   "highlight": [],
+   "t0": 26.14,
+   "t1": 26.78
+  },
+  {
+   "text": "and the dog",
+   "highlight": [
+    "dog"
+   ],
+   "t0": 26.78,
+   "t1": 27.62
+  },
+  {
+   "text": "is dead.",
+   "highlight": [
+    "dead."
+   ],
+   "t0": 27.62,
+   "t1": 28.8
+  }
+ ]
+}
