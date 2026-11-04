@@ -1,0 +1,17 @@
+## champ (farm)
+[0.30–4.38] Ce mec a planté un épouvantail dans son champ pour faire peur à deux cents corbeaux.
+[4.56–7.60] Les corbeaux ont pris un avocat. Pour harcèlement moral.
+
+## tribunal (courtroom)
+[7.95–11.55] Au tribunal, l'épouvantail n'a rien dit. Il avait l'air coupable.
+
+## prison (prisonCell)
+[11.85–12.97] Deux ans ferme.
+
+## champ2 (farm)
+[13.32–17.16] Sans épouvantail, les corbeaux ont mangé tout le champ. Puis la grange.
+[17.34–19.98] Alors ce con s'est planté lui-même au milieu du champ.
+[20.16–23.44] Les bras en croix et un chapeau de paille, pendant tout l'été.
+[23.62–25.38] Les corbeaux se sont posés sur lui.
+[25.56–28.04] Putain, ils ont fait leur nid dans son chapeau.
+[28.22–29.34] L'avocat aussi.
