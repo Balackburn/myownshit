@@ -172,3 +172,22 @@ def caption(doc, layer_id, text, highlights, t0, t1, font=("Nunito", "Black"), s
              "sourceText": {"text": text, "fontFamily": font[0], "fontStyle": font[1], "fontSize": size, "fillColor": ext(fill), "justification": "center",
                             "strokeEnabled": True, "strokeColor": ext(outline), "strokeWidth": stroke, "strokeOverFill": False},
              "animators": animators})
+
+
+def card(doc, layer_id, text, f0, f1, font=("Nunito ExtraLight", "Black"), size=46, w=528, h=84, cx=288, cy=86,
+         bg='#1F2E46', fg='#FFFFFF', drop=((0, -160), (2, -40), (3, 10), (5, 0))):
+    """title card (dark box + white word) that drops in from the top with a small bounce; drop = [(local frame, y offset)]"""
+    rid, tid = doc.nid(), doc.nid()
+    doc.add({"type": "createFxGroupLayer", "compositionId": "main", "layerId": layer_id, "name": f"card {text}", "insertIndex": 0,
+             "activeRange": {"start": ms(f0), "duration": ms(f1 + 1) - ms(f0)}, "transform": IDT},
+            {"type": "createFxRectLayer", "compositionId": "main", "parentLayerId": layer_id, "layerId": rid, "name": "card box", "insertIndex": 0,
+             "activeRange": {"start": 0, "duration": ms(f1 + 1) - ms(f0)},
+             "transform": {"anchorPoint": [0, 0], "position": [cx - w / 2, cy - h / 2], "scale": [100, 100], "rotation": 0, "opacity": 100},
+             "rect": {"size": [w, h], "fillColor": ext(bg)}},
+            {"type": "createFxTextLayer", "compositionId": "main", "parentLayerId": layer_id, "layerId": tid, "name": "card text", "insertIndex": 0,
+             "activeRange": {"start": 0, "duration": ms(f1 + 1) - ms(f0)},
+             "transform": {"anchorPoint": [0, 0], "position": [cx, cy + size * 0.36], "scale": [100, 100], "rotation": 0, "opacity": 100},
+             "sourceText": {"text": text, "fontFamily": font[0], "fontStyle": font[1], "fontSize": size, "fillColor": ext(fg), "justification": "center"}})
+    kx = [{"id": f"card{layer_id}x{i}", "layerTime": ms(f), "value": {"type": "float", "value": 0}, "easing": {"type": "linear"}} for i, (f, _) in enumerate(drop)]
+    ky = [{"id": f"card{layer_id}y{i}", "layerTime": ms(f), "value": {"type": "float", "value": dy}, "easing": ease('out' if i else 'linear')} for i, (f, dy) in enumerate(drop)]
+    doc.add({"type": "setFxPositionKeyframes", "compositionId": "main", "layerId": layer_id, "positionX": {"keyframes": kx}, "positionY": {"keyframes": ky}})

@@ -7,7 +7,7 @@ import { CLIPS, samplePose, applyPose } from './animations.js';
 
 const opt = async p => { try { return await import(p); } catch { return null; } };
 
-export const HUMAN_BAKE = ['idle', 'walk', 'run', 'flee', 'handsOnHips', 'oneHandHip', 'point', 'salute', 'wave', 'shrug', 'facepalm', 'phone', 'think', 'armsCrossed', 'talk', 'yell', 'celebrate', 'scared', 'surrender', 'handcuffed', 'pressGlass', 'cry', 'dance', 'sit', 'sitWrite', 'slumpDesk', 'jump', 'startle', 'hangWire', 'lookAround', 'stareCamera', 'lurk', 'climbDown', 'sneak', 'crawl', 'kneel'];
+export const HUMAN_BAKE = [...new Set(['idle', 'walk', 'run', 'flee', 'handsOnHips', 'oneHandHip', 'point', 'salute', 'wave', 'shrug', 'facepalm', 'phone', 'think', 'armsCrossed', 'talk', 'yell', 'celebrate', 'scared', 'surrender', 'handcuffed', 'pressGlass', 'cry', 'dance', 'sit', 'sitWrite', 'slumpDesk', 'jump', 'startle', 'hangWire', 'lookAround', 'stareCamera', 'lurk', 'climbDown', 'sneak', 'crawl', 'kneel', 'explain', 'phoneCall', 'point', 'stand', 'holdOut', 'present', 'showPhone'])];
 
 function deInstance(root) { // EXT_mesh_gpu_instancing is not read by every importer (Tesseract): expand instances into plain meshes
   const inst = []; root.traverse(n => { if (n.isInstancedMesh) inst.push(n); });

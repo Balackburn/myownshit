@@ -24,6 +24,16 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 
 ## Tesseract
 
+- (tornado) The camera aim constraint wants `up: [0, 1, 0]` for an upright picture, even though +Y points down; `[0, -1, 0]`
+  renders upside down.
+- (tornado) A glTF Model3D with `rotationY` 0 faces -Z, towards a camera at negative Z. -90 faces +X and 180 faces +Z. A
+  camera looking along -X has +Z on its left.
+- (tornado) The variable Nunito font registers as family `Nunito ExtraLight` with named instances: use style `Black`. Read
+  `fonts.json` from the import result rather than guessing.
+- (tornado) A light's colour is set on the Light3D item, not inside `emitter`.
+- (tornado) 576×1024 raster previews with a dozen imported models took about 16 s each (`render_samples.sh`: 3 samples per
+  shot is about 50 s per shot).
+
 - (setup) Scene3D raster on Mesa lavapipe took 55-75 s per 1080×1920 frame for a trivial scene. Budget renders before
   promising a full export.
 - (setup) Filmstrip tiles carry index and timecode labels. Comparison frames must come from `tsrct preview` or an export.
