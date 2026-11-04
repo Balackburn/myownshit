@@ -1,0 +1,24 @@
+## cabinet (hospital)
+[0.30–3.42] Ce mec a voulu faire dix mille pas par jour pour rester en forme.
+[3.72–5.40] MEDECIN : Vous tiendrez pas une semaine.
+
+## tout_droit (street)
+[5.75–8.79] Alors ce con est parti tout droit et il n'a jamais tourné.
+
+## pologne (farm)
+[9.09–11.25] Une semaine plus tard, il était en Pologne.
+
+## siberie (snow)
+[11.55–13.31] Un mois plus tard, en Sibérie.
+
+## ocean (beach)
+[13.61–16.49] Puis il y a eu l'océan. Il a continué par en dessous.
+
+## secu (poste)
+[16.79–19.91] Pendant ce temps, la Sécu l'a radié pour absence prolongée.
+
+## retour (pavillon)
+[20.26–23.38] Trois ans plus tard, il est revenu chez lui. Par l'autre côté.
+[23.56–25.48] Son médecin l'attendait devant la porte.
+[25.66–29.50] Putain, le podomètre affichait neuf mille neuf cent quatre-vingt-dix-neuf pas.
+[29.68–31.60] Il est reparti faire le dernier pas.
