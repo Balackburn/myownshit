@@ -1203,6 +1203,118 @@ const B = {
     const c = canvasPlane(0.42, 0.2, (g2, W, H) => { g2.fillStyle = '#141414'; g2.fillRect(0, 0, W, H); g2.fillStyle = '#F2F2EC'; g2.textAlign = 'center'; g2.textBaseline = 'middle';
       const L = String(o.text || 'POLICE\n38-2026').split('\n'); g2.font = `bold ${H * 0.3}px monospace`; L.forEach((l, i) => g2.fillText(l, W / 2, H * (0.3 + i * 0.4))); }, { res: 256 });
     const g = grp(at(box(0.43, 0.21, 0.015, '#2A2A2E'), 0, 0, 0), at(c, 0, 0, 0.009)); g.userData.grip = [0, -0.09, 0]; return g; },
+  selfCheckout(o) { // self-checkout kiosk: screen (BIENVENUE, then the red alert from alertAt), scanner glass, and a wide low bagging scale on its right (+x)
+    const scr = (txt, bg, fg) => { const p = canvasPlane(0.42, 0.3, (c, W, H) => { c.fillStyle = bg; c.fillRect(0, 0, W, H); c.fillStyle = fg; c.textAlign = 'center'; c.textBaseline = 'middle'; const L = String(txt).split('\n'); c.font = `900 ${H * (L.length > 2 ? 0.13 : 0.18)}px Arial`; L.forEach((l, i) => c.fillText(l, W / 2, H * (0.5 + (i - (L.length - 1) / 2) * 0.2))); }, { res: 256, emissive: 0.6 }); p.position.set(0, 1.42, 0.13); p.rotation.x = -0.25; return p; };
+    const ok = scr(o.text || 'BIENVENUE', '#2C6E49', '#F6F1E3'), bad = scr(o.alert || 'ARTICLE\nINATTENDU\nZONE\nD\'ENSACHAGE', '#B5302A', '#F6F1E3'); bad.visible = false;
+    const lamp = mat('#5A1A14', { unique: true, noGrain: true });
+    const g = grp(at(box(0.7, 0.95, 0.55, '#E6E2D8', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(box(0.66, 0.04, 0.5, '#2A2A2E'), 0, 0.97, 0.01),
+      at(box(0.3, 0.02, 0.22, '#141414', { emissive: '#3A0A0A' }), -0.12, 0.995, 0.05), at(box(0.06, 0.45, 0.06, P.grey), 0, 1.2, -0.02),
+      at(box(0.46, 0.34, 0.05, '#2A2A2E', { outline: 0.006 }), 0, 1.42, 0.1, -0.25, 0, 0), ok, bad,
+      at(box(1.0, 0.18, 0.95, '#C9CCD1', { pivot: 'bottom', outline: 0.008 }), 0.95, 0, 0.1), at(box(0.96, 0.02, 0.9, '#9CA3A8'), 0.95, 0.19, 0.1),
+      rod([0.5, 0.19, -0.3], [0.5, 1.1, -0.3], 0.02, P.grey), rod([1.4, 0.19, -0.3], [1.4, 1.1, -0.3], 0.02, P.grey), rod([0.5, 1.1, -0.3], [1.4, 1.1, -0.3], 0.02, P.grey),
+      at(label(o.zone || 'ZONE D\'ENSACHAGE', 0.8, 0.12, { bg: '#F2C230', fg: '#1E1E22', wrap: false }), 0.95, 1.18, -0.3),
+      rod([0.32, 0.97, -0.2], [0.32, 1.85, -0.2], 0.015, P.grey), at(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.12, 10), lamp), 0.32, 1.9, -0.2));
+    g.userData.update = t => { const a = o.alertAt != null && t >= o.alertAt && (o.alertEndAt == null || t < o.alertEndAt); ok.visible = !a; bad.visible = a; const on = a && Math.floor(t * 4) % 2 === 0; lamp.color.set(on ? '#FF3A2A' : '#5A1A14'); lamp.emissive.set(on ? '#FF2A1A' : '#000000'); };
+    g.userData.update(0); g.userData.scale = [0.95, 0.2, 0.1]; return g; },
+  vitrine(o) { // china cabinet with a glass front: plates on side shelves, a tall empty middle compartment (someone can stand in it)
+    const w = o.w || 1.5, h = o.h || 2.1, d = 0.55, c = o.color || '#8A5A3A', g = grp(at(box(w, 0.08, d, c, { outline: 0.008 }), 0, 0.04, 0), at(box(w, 0.08, d, c, { outline: 0.008 }), 0, h, 0),
+      at(box(0.06, h, d, c), -w / 2, h / 2, 0), at(box(0.06, h, d, c), w / 2, h / 2, 0), at(box(w, h, 0.03, '#C9B48A'), 0, h / 2, -d / 2), at(box(0.04, h, d, c), -w / 2 + 0.36, h / 2, 0), at(box(0.04, h, d, c), w / 2 - 0.36, h / 2, 0));
+    for (const sx of [-1, 1]) for (let i = 0; i < 4; i++) { const x = sx * (w / 2 - 0.18), y = 0.45 + i * 0.45; g.add(at(box(0.32, 0.025, d - 0.05, c), x, y, 0)); for (let k = 0; k < 2; k++) g.add(at(cyl(0.11, 0.11, 0.015, P.white, 14), x, y + 0.13, -0.12 + k * 0.03, 1.3, 0, 0)); }
+    g.add(at(mesh(new THREE.BoxGeometry(w, h, 0.015), glassMat(0.16, '#DDEEF2')), 0, h / 2, d / 2), at(box(0.025, h, 0.03, c), 0, h / 2, d / 2 + 0.01));
+    return g; },
+  catBasket(o) { // round pet basket with a cushion (scale it up for a person)
+    const c = o.color || '#C49A66'; return grp(at(torus(0.3, 0.07, c, 8, 18), 0, 0.1, 0, PI / 2, 0, 0), at(cyl(0.32, 0.3, 0.06, c, 18), 0, 0.03, 0), at(cyl(0.27, 0.27, 0.08, o.cushion || '#B5302A', 18), 0, 0.08, 0)); },
+  pcMonitor(o) { // office computer with a face on the screen: calm, then angry from angryAt; a keyboard in front
+    const face = mood => { const p = canvasPlane(0.5, 0.31, (c, W, H) => { c.fillStyle = '#2C6EB5'; c.fillRect(0, 0, W, H); c.fillStyle = '#F6F1E3'; c.strokeStyle = '#F6F1E3'; c.lineWidth = H * 0.06; c.lineCap = 'round';
+        const ey = H * 0.4; if (mood === 'angry') { c.beginPath(); c.moveTo(W * 0.28, ey - H * 0.14); c.lineTo(W * 0.42, ey - H * 0.04); c.moveTo(W * 0.72, ey - H * 0.14); c.lineTo(W * 0.58, ey - H * 0.04); c.stroke(); }
+        c.beginPath(); c.arc(W * 0.36, ey + H * 0.04, H * 0.06, 0, TAU); c.arc(W * 0.64, ey + H * 0.04, H * 0.06, 0, TAU); c.fill();
+        c.beginPath(); if (mood === 'angry') c.arc(W / 2, H * 0.86, W * 0.12, 1.15 * PI, 1.85 * PI); else c.arc(W / 2, H * 0.6, W * 0.1, 0.15 * PI, 0.85 * PI); c.stroke(); }, { res: 256, emissive: 0.7 }); p.position.set(0, 0.42, 0.028); return p; };
+    const calm = face('calm'), angry = face('angry'); angry.visible = false;
+    const g = grp(at(box(0.56, 0.37, 0.05, '#2A2A2E', { outline: 0.008 }), 0, 0.42, 0), calm, angry, at(box(0.06, 0.2, 0.05, '#2A2A2E'), 0, 0.15, -0.02), at(box(0.25, 0.02, 0.18, '#2A2A2E'), 0, 0.01, 0),
+      at(box(0.45, 0.025, 0.15, '#3A3D44', { outline: 0.004 }), 0, 0.012, 0.25));
+    g.userData.update = t => { const a = o.angryAt != null && [].concat(o.angryAt).some((x, i, arr) => t >= x && t < x + (o.angryFor ?? 1.2)); calm.visible = !a; angry.visible = a; };
+    g.userData.update(0); return g; },
+  laptop(o) { // open laptop: o.text on the screen (o.bg / o.fg), keyboard base
+    const scr = canvasPlane(0.34, 0.21, (c, W, H) => { c.fillStyle = o.bg || '#F2F2EC'; c.fillRect(0, 0, W, H); c.fillStyle = o.fg || '#B5302A'; c.textAlign = 'center'; c.textBaseline = 'middle'; const L = String(o.text || 'MOT DE PASSE\nINCORRECT').split('\n'); c.font = `900 ${H * 0.17}px Arial`; L.forEach((l, i) => c.fillText(l, W / 2, H * (0.5 + (i - (L.length - 1) / 2) * 0.24))); }, { res: 256, emissive: 0.5 });
+    const lid = grp(at(box(0.37, 0.24, 0.015, '#3A3D44', { outline: 0.004 }), 0, 0.12, 0), at(scr, 0, 0.12, 0.009)); lid.rotation.x = -0.25;
+    return grp(at(box(0.37, 0.018, 0.25, '#3A3D44', { outline: 0.004 }), 0, 0.009, 0.12), at(box(0.32, 0.004, 0.13, '#1E1E22'), 0, 0.02, 0.1), lid); },
+  doorKeypad(o) { // keypad box for a door (o.text on its small screen)
+    const scr = canvasPlane(0.12, 0.05, (c, W, H) => { c.fillStyle = '#141414'; c.fillRect(0, 0, W, H); c.fillStyle = o.fg || '#FF5A3A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.36}px monospace`; String(o.text || 'MOT DE PASSE ?').split('\n').forEach((l, i, a) => c.fillText(l, W / 2, H * (0.5 + (i - (a.length - 1) / 2) * 0.42))); }, { res: 256, emissive: 0.8 });
+    const g = grp(at(box(0.16, 0.24, 0.03, '#2A2A2E', { outline: 0.004 }), 0, 0, 0), at(scr, 0, 0.07, 0.016));
+    for (let r = 0; r < 3; r++) for (let k = 0; k < 3; k++) g.add(at(box(0.03, 0.025, 0.01, '#C9CCD1'), -0.04 + k * 0.04, 0.0 - r * 0.035, 0.018)); return g; },
+  stanchions(o) { // museum posts with a red velvet rope (o.w apart)
+    const w = o.w || 1.6, post = x => grp(at(cyl(0.12, 0.14, 0.04, '#C9A64A', 12), x, 0.02, 0), at(cyl(0.025, 0.025, 0.92, '#C9A64A', 8, { pivot: 'bottom' }), x, 0, 0), at(sphere(0.045, '#C9A64A', 1), x, 0.95, 0));
+    const g = grp(post(-w / 2), post(w / 2)); const N = 10; for (let i = 0; i < N; i++) { const a = i / N, b = (i + 1) / N, y = k => 0.88 - 0.18 * Math.sin(PI * k); g.add(rod([-w / 2 + a * w, y(a), 0], [-w / 2 + b * w, y(b), 0], 0.018, '#9A1E28')); } return g; },
+  gpsDevice(o) { // dashboard GPS: map + arrow + o.text
+    const scr = canvasPlane(0.16, 0.1, (c, W, H) => { c.fillStyle = '#9CC8A0'; c.fillRect(0, 0, W, H); c.fillStyle = '#E6E2D8'; c.fillRect(W * 0.4, 0, W * 0.2, H); c.fillRect(W * 0.4, H * 0.35, W * 0.6, H * 0.2); c.fillStyle = '#2C6EB5';
+      c.beginPath(); c.moveTo(W * 0.5, H * 0.55); c.lineTo(W * 0.62, H * 0.9); c.lineTo(W * 0.38, H * 0.9); c.fill(); c.fillStyle = '#1E1E22'; c.fillRect(0, 0, W, H * 0.22); c.fillStyle = '#F6F1E3'; c.font = `bold ${H * 0.17}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || '→ 200 m', W / 2, H * 0.11); }, { res: 256, emissive: 0.6 });
+    return grp(at(box(0.18, 0.12, 0.025, '#1E1E22', { outline: 0.004 }), 0, 0, 0), at(scr, 0, 0, 0.0135), rod([0, -0.06, -0.01], [0, -0.14, -0.06], 0.008, '#2A2A2E')); },
+  iceCreamCart(o) { // beach ice-cream cart: box on wheels with a sign, a parasol pole
+    return grp(at(box(1.1, 0.75, 0.6, '#F2F2EC', { pivot: 'bottom', outline: 0.008 }), 0, 0.18, 0), at(box(1.12, 0.12, 0.62, '#E8778A'), 0, 0.88, 0), at(cyl(0.18, 0.18, 0.06, P.ink, 10), -0.4, 0.18, 0.32, PI / 2), at(cyl(0.18, 0.18, 0.06, P.ink, 10), 0.4, 0.18, 0.32, PI / 2),
+      at(label(o.text || 'GLACES', 0.8, 0.22, { bg: '#E8778A', fg: '#F6F1E3', wrap: false }), 0, 0.6, 0.302), rod([0.45, 0.94, -0.2], [0.45, 2.2, -0.2], 0.02, P.grey),
+      at(mesh(new THREE.ConeGeometry(0.9, 0.35, 10), mat('#F2C230')), 0.45, 2.3, -0.2)); },
+  iceCream(o) { const g = grp(at(mesh(new THREE.ConeGeometry(0.035, 0.12, 8), mat('#D9A35C')), 0, -0.06, 0, PI, 0, 0), at(sphere(0.045, o.color || '#F2B8D0', 1), 0, 0.02, 0)); g.userData.grip = [0, -0.07, 0]; return g; },
+  elevator(o) { // elevator cabin (front = +z): glass walls (o.glass) so the rider shows, sliding doors (openAt / closeAt), a floor display counting up from countAt
+    const W = 1.6, H = 2.4, D = 1.5, c = o.color || '#9CA3A8', gl = glassMat(o.glass ? 0.12 : 0.9, o.glass ? '#DDEEF2' : c), g = grp();
+    g.add(at(box(W, 0.12, D, c, { outline: 0.008 }), 0, 0.06, 0), at(box(W, 0.12, D, c, { outline: 0.008 }), 0, H, 0), at(mesh(new THREE.BoxGeometry(0.03, H, D), gl), -W / 2, H / 2, 0), at(mesh(new THREE.BoxGeometry(0.03, H, D), gl), W / 2, H / 2, 0),
+      at(mesh(new THREE.BoxGeometry(W, H, 0.03), gl), 0, H / 2, -D / 2), at(box(0.08, H, 0.08, c), -W / 2, H / 2, D / 2), at(box(0.08, H, 0.08, c), W / 2, H / 2, D / 2),
+      at(box(0.18, 0.4, 0.03, '#2A2A2E'), W / 2 - 0.2, 1.2, D / 2 - 0.12, 0, PI, 0));
+    const doors = [-1, 1].map(s => { const d = o.glass ? at(mesh(new THREE.BoxGeometry(W / 2 - 0.05, H - 0.14, 0.03), glassMat(0.2, '#DDEEF2')), s * W / 4, H / 2, D / 2 + 0.02) : at(box(W / 2 - 0.05, H - 0.14, 0.03, '#C9CCD1', { outline: 0.006 }), s * W / 4, H / 2, D / 2 + 0.02); g.add(d); return d; });
+    const disp = n => { const p = canvasPlane(0.4, 0.16, (c2, W2, H2) => { c2.fillStyle = '#141414'; c2.fillRect(0, 0, W2, H2); c2.fillStyle = '#FF5A3A'; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.font = `bold ${H2 * 0.7}px monospace`; c2.fillText(String(n), W2 / 2, H2 * 0.55); }, { res: 256, emissive: 0.9 }); p.position.set(0, H + 0.2, D / 2 + 0.01); return p; };
+    const vals = [].concat(o.floors ?? [0, 1, 2, 3, 4, 7, 10, 25, 99, '∞']), frames = vals.map(disp); frames.forEach((f, i) => { f.visible = i === 0; g.add(f); });
+    g.add(at(box(0.44, 0.2, 0.03, '#2A2A2E'), 0, H + 0.2, D / 2 - 0.01));
+    g.userData.update = t => { const op = o.openAt != null && t >= o.openAt && (o.closeAt == null || t < o.closeAt); doors.forEach((d, i) => d.position.x = (i ? 1 : -1) * (W / 4 + (op ? W / 2 - 0.1 : 0)));
+      const i = o.countAt == null || t < o.countAt ? 0 : Math.min(frames.length - 1, Math.floor((t - o.countAt) * (o.rate || 2.5))); frames.forEach((f, j) => f.visible = j === i); };
+    g.userData.update(0); return g; },
+  moonSurface(o) { // grey lunar ground disc with craters (spaceVoid has no floor)
+    const R = o.r || 30, g = grp(at(cyl(R, R, 0.2, '#B8B6AE', 40), 0, -0.1, 0)), r = rng(o.seed || 12);
+    for (let i = 0; i < 26; i++) { const a = r() * TAU, d = 2 + r() * (R - 4), s = 0.4 + r() * 1.6; g.add(at(torus(s, s * 0.18, '#9E9C94', 6, 16), Math.cos(a) * d, 0.02, Math.sin(a) * d, PI / 2, 0, 0), at(cyl(s * 0.9, s * 0.9, 0.02, '#A8A69E', 16), Math.cos(a) * d, 0.005, Math.sin(a) * d)); }
+    return g; },
+  avisPassage(o) { // yellow "avis de passage" slip
+    const c = canvasPlane(0.15, 0.1, (g2, W, H) => { g2.fillStyle = '#F2D45A'; g2.fillRect(0, 0, W, H); g2.fillStyle = '#1E1E22'; g2.textAlign = 'center'; g2.font = `bold ${H * 0.16}px Arial`; g2.fillText(o.title || 'AVIS DE PASSAGE', W / 2, H * 0.24); g2.font = `${H * 0.12}px Arial`;
+      String(o.text || 'Vous étiez absent.\nLe technicien\nrepassera.').split('\n').forEach((l, i) => g2.fillText(l, W / 2, H * (0.48 + i * 0.17))); }, { res: 256 });
+    return grp(at(box(0.152, 0.102, 0.002, '#F2D45A'), 0, 0, 0), at(c, 0, 0, 0.0015)); },
+  fountain(o) { // park fountain: round basin with water, a column, a bowl and spouts; coins in the water
+    const R = o.r || 1.4, g = grp(at(torus(R, 0.16, '#C9C2B2', 8, 32), 0, 0.42, 0, PI / 2, 0, 0), at(cyl(R + 0.1, R + 0.15, 0.38, '#B8B0A0', 32, { pivot: 'bottom' }), 0, 0, 0),
+      at(cyl(R - 0.05, R - 0.05, 0.02, '#7FB8C8', 32, { opacity: 0.85 }), 0, 0.39, 0), at(cyl(0.16, 0.22, 1.2, '#C9C2B2', 12, { pivot: 'bottom' }), 0, 0.38, 0),
+      at(cyl(0.55, 0.25, 0.22, '#C9C2B2', 16, { outline: 0.006 }), 0, 1.65, 0), at(cyl(0.5, 0.5, 0.02, '#7FB8C8', 16), 0, 1.75, 0), at(sphere(0.12, '#C9C2B2', 1), 0, 1.85, 0));
+    for (let i = 0; i < 6; i++) { const a = i * TAU / 6; g.add(rod([Math.cos(a) * 0.45, 1.68, Math.sin(a) * 0.45], [Math.cos(a) * 1.0, 0.42, Math.sin(a) * 1.0], 0.025, '#BFE3EE')); }
+    const r = rng(o.seed || 5); for (let i = 0; i < 9; i++) { const a = r() * TAU, d = 0.4 + r() * (R - 0.6); g.add(at(cyl(0.03, 0.03, 0.006, '#E0B84A', 8), Math.cos(a) * d, 0.405, Math.sin(a) * d)); }
+    return g; },
+  cheque(o) { // a bank cheque (o.amount, o.text)
+    const c = canvasPlane(0.2, 0.09, (g2, W, H) => { g2.fillStyle = '#E8F0E4'; g2.fillRect(0, 0, W, H); g2.fillStyle = '#2C4A3A'; g2.font = `bold ${H * 0.14}px Arial`; g2.textAlign = 'left'; g2.fillText(o.bank || 'BANQUE', W * 0.04, H * 0.2);
+      g2.textAlign = 'right'; g2.font = `bold ${H * 0.2}px Arial`; g2.fillText(o.amount || '2 000,00 €', W * 0.96, H * 0.24); g2.textAlign = 'left'; g2.font = `${H * 0.12}px Arial`; g2.fillText(o.text || 'Payez contre ce chèque : deux mille euros', W * 0.04, H * 0.5);
+      g2.strokeStyle = '#2C4A3A'; g2.lineWidth = H * 0.03; g2.beginPath(); g2.moveTo(W * 0.62, H * 0.82); for (let i = 0; i < 6; i++) g2.lineTo(W * (0.64 + i * 0.05), H * (i % 2 ? 0.68 : 0.86)); g2.stroke(); }, { res: 384 });
+    const g = grp(at(box(0.202, 0.092, 0.002, '#E8F0E4'), 0, 0, 0), at(c, 0, 0, 0.0015)); g.userData.grip = [-0.09, 0, 0]; return g; },
+  lawnmower(o) { // push mower: deck, wheels, handle; shakes while running (runAt..stopAt)
+    const body = grp(at(box(0.5, 0.18, 0.6, o.color || '#B5302A', { outline: 0.008 }), 0, 0.2, 0), at(cyl(0.12, 0.14, 0.14, '#2A2A2E', 10), 0, 0.36, -0.05), at(cyl(0.06, 0.06, 0.05, P.grey, 8), 0, 0.46, -0.05));
+    for (const x of [-0.27, 0.27]) for (const z of [-0.24, 0.24]) body.add(at(cyl(0.09, 0.09, 0.05, P.ink, 10), x, 0.09, z, 0, 0, PI / 2));
+    body.add(rod([-0.2, 0.28, -0.3], [-0.22, 0.98, -0.85], 0.015, P.greyDark), rod([0.2, 0.28, -0.3], [0.22, 0.98, -0.85], 0.015, P.greyDark), rod([-0.24, 0.98, -0.85], [0.24, 0.98, -0.85], 0.02, P.ink));
+    const g = grp(body); g.userData.update = t => { const on = o.runAt != null && [].concat(o.runAt).some((a, i) => t >= a && t < (([].concat(o.stopAt ?? []))[i] ?? Infinity)); body.position.set(on ? 0.006 * Math.sin(t * 90) : 0, on ? 0.004 * Math.abs(Math.sin(t * 70)) : 0, 0); };
+    g.userData.update(0); g.userData.grip = [0, 0.98, -0.85]; return g; },
+  grassPatch(o) { // a square of lawn (the plaintiff): turf block with blades; add googlyEyes on top
+    const r = rng(o.seed || 3), g = grp(at(box(0.6, 0.12, 0.6, '#6A4A2A', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.6, 0.03, 0.6, '#5E9A4A'), 0, 0.13, 0));
+    for (let i = 0; i < 70; i++) g.add(at(box(0.012, 0.06 + r() * 0.06, 0.012, r() < 0.5 ? '#5E9A4A' : '#6FB05A', { pivot: 'bottom' }), (r() - 0.5) * 0.56, 0.14, (r() - 0.5) * 0.56, (r() - 0.5) * 0.3, 0, (r() - 0.5) * 0.3));
+    return g; },
+  tallGrass(o) { // a field of tall grass blades (o.w x o.d, o.h high): grow it with scale keys
+    const w = o.w || 6, d = o.d || 6, h = o.h || 1, r = rng(o.seed || 9), n = o.count || 420, cols = ['#5E9A4A', '#6FB05A', '#4E8A3E', '#7FBF5E'], g = grp();
+    const geo = new THREE.BoxGeometry(0.06, 1, 0.03); geo.translate(0, 0.5, 0);
+    cols.forEach((c, ci) => { const m = new THREE.InstancedMesh(geo, mat(c), Math.ceil(n / 4)); const M = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler();
+      for (let i = 0; i < m.count; i++) { e.set((r() - 0.5) * 0.35, r() * TAU, (r() - 0.5) * 0.35); q.setFromEuler(e); M.compose(new THREE.Vector3((r() - 0.5) * w, 0, (r() - 0.5) * d), q, new THREE.Vector3(1 + r(), h * (0.7 + r() * 0.5), 1)); m.setMatrixAt(i, M); }
+      m.castShadow = true; g.add(m); });
+    return g; },
+  wateringCan(o) { const c = o.color || '#2C8A6A', g = grp(at(cyl(0.12, 0.13, 0.24, c, 12, { outline: 0.006 }), 0, 0.12, 0), rod([0.1, 0.08, 0], [0.32, 0.26, 0], 0.018, c), at(cyl(0.035, 0.02, 0.05, c, 8), 0.33, 0.27, 0, 0, 0, -0.8),
+      at(torus(0.09, 0.015, c, 6, 12, PI), -0.02, 0.26, 0, 0, 0, 0)); g.userData.grip = [-0.02, 0.32, 0]; return g; },
+  topiaryRabbit(o) { // a huge clipped hedge in the shape of a rabbit (house-sized at scale 1: ~5 m)
+    const c = o.color || '#4E8A3E', c2 = o.color2 || '#5E9A4A', g = grp(at(sphere(2.0, c, 1), 0, 1.8, 0), at(sphere(1.25, c2, 1), 0.2, 3.9, 0.9), at(sphere(0.55, c, 1), -0.2, 1.2, -2.0));
+    g.children[0].scale.set(1.15, 0.95, 1.25);
+    for (const s of [-1, 1]) g.add(at(sphere(0.45, c2, 1), s * 0.45, 5.6, 0.7), at(sphere(0.6, c, 1), s * 1.1, 0.5, 1.5));
+    g.children.slice(-4).forEach((m, i) => { if (i % 2 === 0) m.scale.set(0.55, 2.2, 0.45); });
+    g.add(at(box(0.8, 1.6, 0.06, o.door || '#2F5E58', { outline: 0.01 }), 0.0, 0.8, 2.48), at(box(1.0, 0.9, 0.06, '#9CC8E8'), 1.0, 2.1, 2.2, 0, 0.35, 0));
+    return g; },
+  ladder(o) { // a straight ladder (o.h tall), leaning slightly with o.lean
+    const h = o.h || 3, c = o.color || '#C9A06A', g = grp(rod([-0.22, 0, 0], [-0.22, h, 0], 0.03, c), rod([0.22, 0, 0], [0.22, h, 0], 0.03, c));
+    for (let y = 0.3; y < h; y += 0.3) g.add(rod([-0.22, y, 0], [0.22, y, 0], 0.02, c)); g.rotation.x = -(o.lean ?? 0); return g; },
   securityCam(o) { // small surveillance camera on a wall bracket, red LED
     return grp(at(box(0.04, 0.04, 0.12, '#2A2A2E'), 0, 0, -0.06), at(box(0.1, 0.08, 0.18, '#F2F2EC', { outline: 0.006 }), 0, -0.02, 0.05, 0.35, 0, 0),
       at(cyl(0.03, 0.03, 0.02, '#141414', 12), 0, -0.05, 0.14, PI / 2 + 0.35, 0, 0), at(sphere(0.012, '#FF3A2A', 0, { emissive: '#FF2A1A', noGrain: true }), 0.035, 0.015, 0.1)); },

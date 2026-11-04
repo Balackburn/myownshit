@@ -1,0 +1,807 @@
+{
+ "version": 3,
+ "title": "La sieste",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "patron": {
+   "preset": "lemec_beige",
+   "seed": 33
+  },
+  "gardien": {
+   "preset": "cop",
+   "seed": 12
+  }
+ },
+ "scenes": [
+  {
+   "id": "bureau",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "daynight": {
+    "from": "SI2",
+    "period": 0.22
+   },
+   "lines": [
+    {
+     "id": "SI1",
+     "text": "Ce mec a fait une sieste de cinq minutes au bureau pour être plus productif.",
+     "highlight": [
+      "cinq",
+      "productif."
+     ]
+    },
+    {
+     "id": "SI2",
+     "text": "Il s'est réveillé vingt ans plus tard.",
+     "highlight": [
+      "vingt",
+      "ans"
+     ]
+    },
+    {
+     "id": "SI3",
+     "text": "Ses collègues étaient à la retraite. Son patron, en Ehpad.",
+     "highlight": [
+      "retraite.",
+      "Ehpad."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0.16,
+      -2.62
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "SI1:sieste",
+       "clip": "slumpDesk",
+       "expr": "sleepy"
+      },
+      {
+       "at": "SI2:tard",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "SI3",
+       "clip": "lookAround",
+       "expr": "worried"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "patron",
+     "pos": [
+      3.6,
+      0.12,
+      -2.4
+     ],
+     "ry": -20,
+     "clip": "sit",
+     "keys": [],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bureau",
+     "name": "desk",
+     "pos": [
+      0.4,
+      0,
+      -2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "w": 1.6
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "officeChair",
+     "pos": [
+      0.4,
+      0,
+      -2.67
+     ]
+    },
+    {
+     "id": "ecran",
+     "name": "pcMonitor",
+     "pos": [
+      0.10000000000000003,
+      0.76,
+      -1.95
+     ],
+     "ry": 180
+    },
+    {
+     "id": "zzz",
+     "name": "zzz",
+     "pos": [
+      0.6000000000000001,
+      1.2,
+      -2.62
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "SI1:sieste",
+       "visible": true
+      },
+      {
+       "at": "SI2:tard",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 0.05,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     },
+     "keys": [
+      {
+       "at": "SI2",
+       "scale": 2.4,
+       "dur": 1.6,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "toile1",
+     "name": "spiderWeb",
+     "scale": 0.05,
+     "pos": [
+      -0.35,
+      1.3,
+      -2.52
+     ],
+     "opts": {
+      "r": 0.4
+     },
+     "keys": [
+      {
+       "at": "SI2",
+       "scale": 1,
+       "dur": 1.6
+      }
+     ]
+    },
+    {
+     "id": "toile2",
+     "name": "spiderWeb",
+     "scale": 0.05,
+     "pos": [
+      1.1,
+      1.05,
+      -1.7
+     ],
+     "opts": {
+      "r": 0.3
+     },
+     "keys": [
+      {
+       "at": "SI2",
+       "scale": 1,
+       "dur": 1.6
+      }
+     ]
+    },
+    {
+     "id": "ehpad",
+     "name": "signBoard",
+     "pos": [
+      3.6,
+      0,
+      -2.95
+     ],
+     "opts": {
+      "text": "EHPAD",
+      "bg": "#F6F1E3",
+      "fg": "#2C4A8A",
+      "w": 0.9,
+      "h": 0.32,
+      "height": 1.75,
+      "posts": false
+     }
+    },
+    {
+     "id": "fauteuil",
+     "name": "sofaProp",
+     "scale": 0.55,
+     "pos": [
+      3.6,
+      0,
+      -2.75
+     ],
+     "opts": {
+      "color": "#7A8C9A",
+      "color2": "#9AAAB8"
+     }
+    },
+    {
+     "id": "patronBarbe",
+     "name": "beard",
+     "scale": 2.0,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "patron",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "SI1:sieste",
+     "name": "tick",
+     "vol": 0.3
+    },
+    {
+     "at": "SI2",
+     "name": "ticks",
+     "vol": 0.5
+    },
+    {
+     "at": "SI2:tard",
+     "name": "gasp",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      1.0,
+      1.5,
+      0.6000000000000001
+     ],
+     "lookAt": [
+      0.4,
+      1.0,
+      -2.62
+     ],
+     "lens": 48
+    },
+    {
+     "at": "SI2",
+     "size": "ms",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    },
+    {
+     "at": "SI3",
+     "from": [
+      1.0,
+      1.5,
+      0.6000000000000001
+     ],
+     "lookAt": [
+      0.4,
+      1.0,
+      -2.62
+     ],
+     "lens": 56
+    },
+    {
+     "at": "SI3:patron",
+     "from": [
+      3.0,
+      1.6,
+      -0.5
+     ],
+     "lookAt": [
+      3.6,
+      1.35,
+      -2.6
+     ],
+     "lens": 52
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "musee",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "crowd": [
+    {
+     "id": "visiteurs",
+     "count": 4,
+     "spec": {
+      "preset": "lemec_charcoal",
+      "seed": 91
+     },
+     "clip": "stand",
+     "ry": 180,
+     "positions": [
+      [
+       -1.9,
+       0,
+       -0.7
+      ],
+      [
+       -2.7,
+       0,
+       -1.3
+      ],
+      [
+       2.2,
+       0,
+       -0.6
+      ],
+      [
+       3.0,
+       0,
+       -1.2
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "SI4",
+     "text": "Le bureau était devenu un musée. Et ce mec, l'œuvre principale.",
+     "highlight": [
+      "musée.",
+      "l'œuvre"
+     ]
+    },
+    {
+     "id": "SI5",
+     "text": "Alors ce con a porté plainte pour séquestration.",
+     "highlight": [
+      "plainte",
+      "séquestration."
+     ]
+    },
+    {
+     "id": "SI6",
+     "text": "Le musée a gagné. Il est classé monument historique.",
+     "highlight": [
+      "monument",
+      "historique."
+     ]
+    },
+    {
+     "id": "SI7",
+     "text": "Il n'a plus le droit de bouger. Ni de bâiller.",
+     "highlight": [
+      "bouger.",
+      "bâiller."
+     ]
+    },
+    {
+     "id": "SI8",
+     "text": "Les visiteurs paient quinze euros pour le voir dormir.",
+     "highlight": [
+      "quinze",
+      "dormir."
+     ]
+    },
+    {
+     "id": "SI9",
+     "text": "Hier, il a mis un réveil. Cinq minutes.",
+     "highlight": [
+      "réveil.",
+      "Cinq"
+     ]
+    },
+    {
+     "id": "SI10",
+     "text": "Putain, il s'est rendormi.",
+     "highlight": [
+      "rendormi."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0.16,
+      -2.62
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "SI5",
+       "clip": "sitPoint",
+       "expr": "angry"
+      },
+      {
+       "at": "SI7",
+       "clip": "stiff",
+       "expr": "scared"
+      },
+      {
+       "at": "SI7:bâiller",
+       "clip": "yawnStretch",
+       "expr": "sleepy"
+      },
+      {
+       "at": "SI7.end",
+       "clip": "sit",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "SI8",
+       "clip": "slumpDesk",
+       "expr": "sleepy"
+      },
+      {
+       "at": "SI9",
+       "clip": "sit",
+       "expr": "neutral"
+      },
+      {
+       "at": "SI9:minutes",
+       "clip": "slumpDesk",
+       "expr": "sleepy"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "gardien",
+     "pos": [
+      2.2,
+      0,
+      -1.6
+     ],
+     "ry": -110,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "SI7:bâiller",
+       "clip": "whistleBlow",
+       "expr": "angry",
+       "sfx": "whistle"
+      },
+      {
+       "at": "SI7.end",
+       "clip": "armsCrossed"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bureau",
+     "name": "desk",
+     "pos": [
+      0.4,
+      0,
+      -2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "w": 1.6
+     }
+    },
+    {
+     "id": "chaise",
+     "name": "officeChair",
+     "pos": [
+      0.4,
+      0,
+      -2.67
+     ]
+    },
+    {
+     "id": "ecran",
+     "name": "pcMonitor",
+     "pos": [
+      0.10000000000000003,
+      0.76,
+      -1.95
+     ],
+     "ry": 180
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.4,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "cordon",
+     "name": "stanchions",
+     "pos": [
+      0.4,
+      0,
+      -1.05
+     ],
+     "opts": {
+      "w": 2.2
+     }
+    },
+    {
+     "id": "plaque",
+     "name": "signBoard",
+     "pos": [
+      -0.9999999999999999,
+      0,
+      -1.1
+     ],
+     "ry": 20,
+     "opts": {
+      "text": "EMPLOYÉ DE BUREAU — 2026",
+      "bg": "#F6F1E3",
+      "fg": "#1E1E22",
+      "w": 0.9,
+      "h": 0.28,
+      "height": 0.95
+     }
+    },
+    {
+     "id": "monument",
+     "name": "signBoard",
+     "visible": false,
+     "pos": [
+      1.7000000000000002,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "text": "MONUMENT HISTORIQUE",
+      "bg": "#2C4A8A",
+      "fg": "#F6F1E3",
+      "w": 1.1,
+      "h": 0.34,
+      "height": 1.5
+     },
+     "keys": [
+      {
+       "at": "SI6:classé",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "entree",
+     "name": "signBoard",
+     "pos": [
+      -2.6,
+      0,
+      -1.4
+     ],
+     "ry": 40,
+     "opts": {
+      "text": "ENTRÉE 15 €",
+      "bg": "#F2C230",
+      "fg": "#1E1E22",
+      "w": 0.8,
+      "h": 0.3,
+      "height": 1.2
+     }
+    },
+    {
+     "id": "reveil",
+     "name": "alarmClock",
+     "scale": 0.4,
+     "visible": false,
+     "pos": [
+      0.8500000000000001,
+      0.76,
+      -2.05
+     ],
+     "ry": 180,
+     "opts": {
+      "time": "00:05"
+     },
+     "keys": [
+      {
+       "at": "SI9",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "zzz",
+     "name": "zzz",
+     "pos": [
+      0.6000000000000001,
+      1.2,
+      -2.62
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "SI8",
+       "visible": true
+      },
+      {
+       "at": "SI9",
+       "visible": false
+      },
+      {
+       "at": "SI10",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "SI6:classé",
+     "name": "gavel",
+     "vol": 0.5
+    },
+    {
+     "at": "SI8:paient",
+     "name": "cash",
+     "vol": 0.4
+    },
+    {
+     "at": "SI8:dormir",
+     "name": "shutter",
+     "vol": 0.5
+    },
+    {
+     "at": "SI9:réveil",
+     "name": "click",
+     "vol": 0.5
+    },
+    {
+     "at": "SI10:rendormi",
+     "name": "shutter",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      1.6,
+      1.7,
+      2.5999999999999996
+     ],
+     "lookAt": [
+      0.4,
+      1.0,
+      -2.0
+     ],
+     "lens": 52
+    },
+    {
+     "at": "SI5",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "SI6:classé",
+     "size": "ms",
+     "worldAngle": 15,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "monument"
+     ]
+    },
+    {
+     "at": "SI7",
+     "size": "ms",
+     "worldAngle": -15,
+     "frame": [
+      "mec",
+      "gardien"
+     ]
+    },
+    {
+     "at": "SI8",
+     "from": [
+      1.6,
+      1.7,
+      2.5999999999999996
+     ],
+     "lookAt": [
+      0.4,
+      1.0,
+      -2.0
+     ],
+     "lens": 52
+    },
+    {
+     "at": "SI9",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "SI10",
+     "size": "mcu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

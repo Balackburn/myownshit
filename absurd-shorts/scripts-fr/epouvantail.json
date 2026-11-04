@@ -1,0 +1,960 @@
+{
+ "version": 3,
+ "title": "L'épouvantail",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "c0": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "c1": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "c2": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "c3": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "c4": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "c5": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "c6": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "avocat": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "color": "#26262C"
+   }
+  },
+  "juge": {
+   "preset": "judge"
+  },
+  "mecE": {
+   "preset": "lemec",
+   "hat": "cowboy",
+   "hatColor": "#E6C46A"
+  }
+ },
+ "scenes": [
+  {
+   "id": "champ",
+   "set": "farm",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "EP1",
+     "text": "Ce mec a planté un épouvantail dans son champ pour faire peur à deux cents corbeaux.",
+     "highlight": [
+      "épouvantail",
+      "deux",
+      "cents"
+     ]
+    },
+    {
+     "id": "EP2",
+     "text": "Les corbeaux ont pris un avocat. Pour harcèlement moral.",
+     "highlight": [
+      "avocat.",
+      "harcèlement"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.4,
+      0,
+      -1.2
+     ],
+     "ry": 20,
+     "clip": "handsOnHips",
+     "keys": [
+      {
+       "at": "EP2",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "c0",
+     "pos": [
+      -2.2,
+      0.85,
+      -4.0
+     ],
+     "ry": 10,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c1",
+     "pos": [
+      -1.4500000000000002,
+      0.85,
+      -4.0
+     ],
+     "ry": 17,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      -0.7000000000000002,
+      0.85,
+      -4.0
+     ],
+     "ry": 24,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c3",
+     "pos": [
+      0.04999999999999982,
+      0.85,
+      -4.0
+     ],
+     "ry": 31,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c4",
+     "pos": [
+      0.7999999999999998,
+      0.85,
+      -4.0
+     ],
+     "ry": 38,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c5",
+     "pos": [
+      1.5499999999999998,
+      0.85,
+      -4.0
+     ],
+     "ry": 45,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c6",
+     "pos": [
+      2.3,
+      0.85,
+      -4.0
+     ],
+     "ry": 52,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      3.5,
+      0,
+      -0.4
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "EP2-0.2",
+       "visible": true
+      },
+      {
+       "at": "EP2-0.2",
+       "to": [
+        1.4,
+        0,
+        -0.5
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": -60,
+       "then": "idle"
+      }
+     ],
+     "scale": 1.0,
+     "visible": false,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "epouvantail",
+     "name": "scarecrow",
+     "pos": [
+      0.6,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "id": "mallette",
+     "name": "briefcase",
+     "scale": 0.45,
+     "visible": false,
+     "on": {
+      "actor": "avocat",
+      "offset": [
+       0.12,
+       0.08,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "EP2-0.2",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.3,
+     "name": "cluck",
+     "vol": 0.25
+    },
+    {
+     "at": "EP1:corbeaux",
+     "name": "cluck",
+     "vol": 0.3
+    },
+    {
+     "at": "EP2:avocat",
+     "name": "sting",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 15,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "epouvantail"
+     ]
+    },
+    {
+     "at": "EP1:deux",
+     "size": "ms",
+     "worldAngle": 5,
+     "frame": [
+      "c1",
+      "c3",
+      "c5"
+     ]
+    },
+    {
+     "at": "EP2",
+     "size": "cu",
+     "angle": 0,
+     "noOcclusion": true,
+     "frame": "avocat"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "EP3",
+     "text": "Au tribunal, l'épouvantail n'a rien dit. Il avait l'air coupable.",
+     "highlight": [
+      "rien",
+      "coupable."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "EP3:coupable",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      -0.9,
+      0.79,
+      -1.9
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "scale": 1.0,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "epouvantail",
+     "name": "scarecrow",
+     "pos": [
+      0.9,
+      0,
+      -1.8
+     ],
+     "ry": 180
+    },
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      -0.9,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 0.9,
+      "d": 0.6,
+      "h": 0.79
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "EP3:rien",
+     "name": "crickets",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "withProps": true,
+     "frame": [
+      "juge",
+      "epouvantail"
+     ]
+    },
+    {
+     "at": "EP3:dit",
+     "from": [
+      0.9,
+      1.8,
+      -3.05
+     ],
+     "lookAt": [
+      0.9,
+      1.72,
+      -1.8
+     ],
+     "lens": 40
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "prison",
+   "set": "prisonCell",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "EP4",
+     "text": "Deux ans ferme.",
+     "highlight": [
+      "Deux",
+      "ferme."
+     ]
+    }
+   ],
+   "actors": [],
+   "props": [
+    {
+     "id": "epouvantail",
+     "name": "scarecrow",
+     "pos": [
+      0.0,
+      0,
+      1.4
+     ],
+     "ry": 0
+    }
+   ],
+   "sfx": [
+    {
+     "at": "EP4",
+     "name": "gavel",
+     "vol": 0.6
+    },
+    {
+     "at": "EP4:ferme",
+     "name": "cuff",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.3,
+      1.5,
+      4.6
+     ],
+     "lookAt": [
+      0.0,
+      1.2,
+      1.4
+     ],
+     "lens": 48
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "champ2",
+   "set": "farm",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "daynight": {
+    "from": "EP7",
+    "period": 0.6
+   },
+   "lines": [
+    {
+     "id": "EP5",
+     "text": "Sans épouvantail, les corbeaux ont mangé tout le champ. Puis la grange.",
+     "highlight": [
+      "mangé",
+      "grange."
+     ]
+    },
+    {
+     "id": "EP6",
+     "text": "Alors ce con s'est planté lui-même au milieu du champ.",
+     "highlight": [
+      "lui-même"
+     ]
+    },
+    {
+     "id": "EP7",
+     "text": "Les bras en croix et un chapeau de paille, pendant tout l'été.",
+     "highlight": [
+      "croix",
+      "l'été."
+     ]
+    },
+    {
+     "id": "EP8",
+     "text": "Les corbeaux se sont posés sur lui.",
+     "highlight": [
+      "lui."
+     ]
+    },
+    {
+     "id": "EP9",
+     "text": "Putain, ils ont fait leur nid dans son chapeau.",
+     "highlight": [
+      "nid",
+      "chapeau."
+     ]
+    },
+    {
+     "id": "EP10",
+     "text": "L'avocat aussi.",
+     "highlight": [
+      "L'avocat"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecE",
+     "pos": [
+      0.6,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "scarecrowPose",
+     "keys": [
+      {
+       "at": "EP6",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -1.5,
+      0,
+      0.2
+     ],
+     "ry": 30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "EP6",
+       "visible": false
+      }
+     ],
+     "expr": "shocked"
+    },
+    {
+     "id": "c0",
+     "pos": [
+      -1.6,
+      0,
+      -0.6
+     ],
+     "ry": 30,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "EP8",
+       "to": [
+        -0.75,
+        1.42,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.5,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c1",
+     "pos": [
+      1.9,
+      0,
+      -0.9
+     ],
+     "ry": -40,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "EP8",
+       "to": [
+        1.95,
+        1.42,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.58,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      -0.4,
+      0,
+      0.3
+     ],
+     "ry": 10,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "EP8",
+       "to": [
+        -0.5,
+        1.45,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.66,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c3",
+     "pos": [
+      2.6,
+      0,
+      -2.4
+     ],
+     "ry": -20,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "EP8",
+       "to": [
+        1.7,
+        1.45,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.74,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c4",
+     "pos": [
+      -2.5,
+      0,
+      -1.8
+     ],
+     "ry": 60,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "EP8",
+       "to": [
+        0.95,
+        1.5,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.8200000000000001,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "c5",
+     "pos": [
+      1.0,
+      0,
+      0.6
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "EP8",
+       "to": [
+        0.25,
+        1.5,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.9,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "scale": 0.9,
+     "visible": true,
+     "expr": "angry"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      3.6,
+      2.4,
+      -0.8
+     ],
+     "ry": -90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": "EP10",
+       "visible": true
+      },
+      {
+       "at": "EP10",
+       "to": [
+        0.6,
+        2.42,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.45,
+       "clip": "fly",
+       "then": "idle",
+       "face": 0
+      }
+     ],
+     "visible": false,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "ble",
+     "name": "tallGrass",
+     "pos": [
+      0.4,
+      0,
+      -2.4
+     ],
+     "opts": {
+      "w": 9,
+      "d": 4,
+      "h": 0.55,
+      "count": 360
+     },
+     "keys": [
+      {
+       "at": "EP5:mangé",
+       "scale": 0.04,
+       "dur": 0.9,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "nid",
+     "name": "nest",
+     "scale": 0.55,
+     "visible": false,
+     "opts": {
+      "max": 5,
+      "layAt": [
+       "EP9:nid",
+       "EP9:chapeau",
+       "EP10"
+      ]
+     },
+     "on": {
+      "actor": "mecE",
+      "joint": "head",
+      "offset": [
+       0,
+       0.66,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "EP9:nid",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "mallette",
+     "name": "briefcase",
+     "scale": 0.45,
+     "visible": false,
+     "on": {
+      "actor": "avocat",
+      "offset": [
+       0.12,
+       0.08,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "EP10",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "EP5",
+     "name": "cluck",
+     "vol": 0.4
+    },
+    {
+     "at": "EP5:mangé",
+     "name": "poof",
+     "vol": 0.4
+    },
+    {
+     "at": "EP8",
+     "name": "cluck",
+     "vol": 0.4
+    },
+    {
+     "at": "EP9:nid",
+     "name": "pop",
+     "vol": 0.4
+    },
+    {
+     "at": "EP10",
+     "name": "whoosh",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      1.0,
+      2.2,
+      4.8
+     ],
+     "lookAt": [
+      0.4,
+      0.6,
+      -2.4
+     ],
+     "lens": 50
+    },
+    {
+     "at": "EP6",
+     "size": "fs",
+     "worldAngle": 10,
+     "frame": "mecE"
+    },
+    {
+     "at": "EP8",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": "mecE"
+    },
+    {
+     "at": "EP9",
+     "size": "mcu",
+     "worldAngle": 5,
+     "frame": "mecE"
+    },
+    {
+     "at": "EP10",
+     "size": "ms",
+     "worldAngle": 10,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mecE"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

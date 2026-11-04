@@ -1,0 +1,773 @@
+{
+ "version": 3,
+ "title": "La pelouse",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "voisin": {
+   "preset": "mecPyjama",
+   "seed": 9
+  },
+  "juge": {
+   "preset": "judge"
+  }
+ },
+ "scenes": [
+  {
+   "id": "jardin",
+   "set": "pavillon",
+   "grade": "sepia(0.22) saturate(0.85) brightness(0.88) hue-rotate(-8deg)",
+   "ambience": "park",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "PE1",
+     "text": "Ce mec a tondu sa pelouse à six heures du matin pour avoir le plus beau jardin du quartier.",
+     "highlight": [
+      "six",
+      "heures",
+      "jardin"
+     ]
+    },
+    {
+     "id": "PE2",
+     "text": "Le voisin a crié par la fenêtre.",
+     "highlight": [
+      "voisin"
+     ]
+    },
+    {
+     "id": "PE3",
+     "text": "Encore une fois et j'appelle les flics !",
+     "speaker": "voisin"
+    },
+    {
+     "id": "PE4",
+     "text": "Alors ce con a tondu une deuxième fois.",
+     "highlight": [
+      "deuxième"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.4,
+      0,
+      -1.4
+     ],
+     "ry": -90,
+     "clip": "pushCart",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -3.8,
+        0,
+        -1.4
+       ],
+       "glide": true,
+       "dur": 4.4,
+       "clip": "pushCart",
+       "then": "stand",
+       "face": "keep"
+      },
+      {
+       "at": "PE2",
+       "face": -60,
+       "turn": 0.3,
+       "clip": "stand",
+       "expr": "neutral"
+      },
+      {
+       "at": "PE4",
+       "face": 90,
+       "turn": 0.25,
+       "clip": "pushCart",
+       "expr": "grin"
+      },
+      {
+       "at": "PE4+0.25",
+       "to": [
+        0.2,
+        0,
+        -1.4
+       ],
+       "glide": true,
+       "dur": 2.0,
+       "clip": "pushCart",
+       "then": "stand",
+       "face": "keep"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      -5.0,
+      0,
+      -1.5
+     ],
+     "ry": 55,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "PE2",
+       "clip": "yell",
+       "expr": "angry"
+      },
+      {
+       "at": "PE3",
+       "clip": "angryFist",
+       "expr": "angry"
+      }
+     ],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tondeuse",
+     "name": "lawnmower",
+     "pos": [
+      -1.1,
+      0,
+      -1.4
+     ],
+     "ry": -90,
+     "opts": {
+      "runAt": [
+       0
+      ],
+      "stopAt": [
+       "PE2"
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -4.5,
+        0,
+        -1.4
+       ],
+       "dur": 4.4,
+       "ease": "linear"
+      },
+      {
+       "at": "PE4",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "tondeuse2",
+     "name": "lawnmower",
+     "visible": false,
+     "pos": [
+      -3.1,
+      0,
+      -1.4
+     ],
+     "ry": 90,
+     "opts": {
+      "runAt": [
+       "PE4"
+      ]
+     },
+     "keys": [
+      {
+       "at": "PE4",
+       "visible": true
+      },
+      {
+       "at": "PE4+0.25",
+       "to": [
+        0.9,
+        0,
+        -1.4
+       ],
+       "dur": 2.0,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "maisonV",
+     "name": "house",
+     "pos": [
+      -10.2,
+      0,
+      -6.0
+     ],
+     "opts": {
+      "w": 4.5,
+      "d": 4,
+      "h": 2.6,
+      "color": "#D8CFBA",
+      "roof": "#5A4A6A"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "engine",
+     "vol": 0.55
+    },
+    {
+     "at": "PE2",
+     "name": "grunt",
+     "vol": 0.4
+    },
+    {
+     "at": "PE4:tondu",
+     "name": "engine",
+     "vol": 0.55
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      -5.2,
+      1.5,
+      1.0
+     ],
+     "to": [
+      -6.6,
+      1.5,
+      0.9
+     ],
+     "lookAt": [
+      -0.6,
+      1.0,
+      -1.4
+     ],
+     "lookAt2": [
+      -3.6,
+      1.0,
+      -1.4
+     ],
+     "lens": 40,
+     "ease": "linear"
+    },
+    {
+     "at": "PE2",
+     "size": "ms",
+     "angle": 0,
+     "frame": "voisin"
+    },
+    {
+     "at": "PE3",
+     "size": "cu",
+     "angle": 0,
+     "frame": "voisin"
+    },
+    {
+     "at": "PE4",
+     "size": "ms",
+     "angle": -60,
+     "move": "track",
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "PE5",
+     "text": "La pelouse a porté plainte pour coups et blessures.",
+     "highlight": [
+      "pelouse",
+      "blessures."
+     ]
+    },
+    {
+     "id": "PE6",
+     "text": "Le juge l'a condamné à l'arroser tous les jours.",
+     "highlight": [
+      "l'arroser",
+      "jours."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "PE6",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "PE6:arroser",
+       "face": 20,
+       "turn": 0.3,
+       "clip": "showPhone",
+       "expr": "sad"
+      }
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "herbe",
+     "name": "grassPatch",
+     "pos": [
+      2.5,
+      1.11,
+      -3.35
+     ]
+    },
+    {
+     "id": "yeux",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.05,
+      "sep": 0.07
+     },
+     "on": {
+      "actor": "herbe",
+      "offset": [
+       0,
+       0.23,
+       0.22
+      ]
+     }
+    },
+    {
+     "id": "pansement",
+     "name": "faceLumps",
+     "scale": 0.6,
+     "on": {
+      "actor": "herbe",
+      "offset": [
+       0.1,
+       0.18,
+       0.2
+      ]
+     }
+    },
+    {
+     "id": "arrosoir",
+     "name": "wateringCan",
+     "scale": 1.3,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "PE6:arroser",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "PE5:blessures",
+     "name": "sting",
+     "vol": 0.3
+    },
+    {
+     "at": "PE6:condamné",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.6,
+      1.5,
+      -2.2
+     ],
+     "lookAt": [
+      2.5,
+      1.25,
+      -3.35
+     ],
+     "lens": 40
+    },
+    {
+     "at": "PE6",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "PE6:arroser",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "jungle",
+   "set": "pavillon",
+   "ambience": "park",
+   "ambienceVol": 0.45,
+   "lines": [
+    {
+     "id": "PE7",
+     "text": "En trois mois, l'herbe a fait quatre mètres de haut.",
+     "highlight": [
+      "quatre",
+      "mètres"
+     ]
+    },
+    {
+     "id": "PE8",
+     "text": "La maison du voisin a disparu dedans. Le voisin aussi.",
+     "highlight": [
+      "disparu",
+      "aussi."
+     ]
+    },
+    {
+     "id": "PE9",
+     "text": "Putain, à six heures du matin, on a entendu une tondeuse.",
+     "highlight": [
+      "six",
+      "tondeuse."
+     ]
+    },
+    {
+     "id": "PE10",
+     "text": "C'était le voisin.",
+     "highlight": [
+      "voisin."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.8,
+      0,
+      2.3
+     ],
+     "ry": 20,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "PE7",
+       "expr": "shocked"
+      },
+      {
+       "at": "PE9",
+       "expr": "suspicious"
+      },
+      {
+       "at": "PE10",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      -4.6,
+      0,
+      1.4
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "PE8:voisin",
+       "to": [
+        -6.5,
+        0,
+        -1.6
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "faceEnd": -130,
+       "then": "walk",
+       "expr": "scared"
+      },
+      {
+       "at": "PE8.end+0.1",
+       "visible": false
+      },
+      {
+       "at": "PE10",
+       "visible": true
+      },
+      {
+       "at": "PE10",
+       "to": [
+        -3.2,
+        0,
+        1.2
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 90,
+       "clip": "pushCart",
+       "then": "pushCart",
+       "expr": "grin"
+      },
+      {
+       "at": "PE10+0.1",
+       "to": [
+        0.2,
+        0,
+        1.2
+       ],
+       "glide": true,
+       "dur": 2.2,
+       "clip": "pushCart",
+       "then": "stand",
+       "face": "keep"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "herbe",
+     "name": "tallGrass",
+     "scale": 0.05,
+     "pos": [
+      -3.5,
+      0,
+      -3.6
+     ],
+     "opts": {
+      "w": 14,
+      "d": 8,
+      "h": 4,
+      "count": 900
+     },
+     "keys": [
+      {
+       "at": "PE7",
+       "scale": 1,
+       "dur": 2.2,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "maisonV",
+     "name": "house",
+     "pos": [
+      -10.2,
+      0,
+      -6.0
+     ],
+     "opts": {
+      "w": 4.5,
+      "d": 4,
+      "h": 2.6,
+      "color": "#D8CFBA",
+      "roof": "#5A4A6A"
+     },
+     "keys": [
+      {
+       "at": "PE8:disparu",
+       "to": [
+        -10.2,
+        -5.5,
+        -6.0
+       ],
+       "dur": 1.2,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "arrosoir",
+     "name": "wateringCan",
+     "scale": 1.3,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "tondeuse",
+     "name": "lawnmower",
+     "pos": [
+      -2.5,
+      0,
+      1.2
+     ],
+     "ry": 90,
+     "opts": {
+      "runAt": [
+       "PE9"
+      ]
+     },
+     "keys": [
+      {
+       "at": "PE10+0.1",
+       "to": [
+        0.9,
+        0,
+        1.2
+       ],
+       "dur": 2.2,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "PE7:herbe",
+     "name": "whoosh",
+     "vol": 0.4
+    },
+    {
+     "at": "PE8:disparu",
+     "name": "gulp",
+     "vol": 0.4
+    },
+    {
+     "at": "PE9:tondeuse",
+     "name": "engine",
+     "vol": 0.6
+    },
+    {
+     "at": "PE10",
+     "name": "engine",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      4.2,
+      1.7,
+      7.6
+     ],
+     "lookAt": [
+      -1.0,
+      2.0,
+      -1.0
+     ],
+     "lens": 58
+    },
+    {
+     "at": "PE8",
+     "from": [
+      -2.0,
+      9.0,
+      7.0
+     ],
+     "lookAt": [
+      -8.5,
+      1.0,
+      -5.5
+     ],
+     "lens": 50
+    },
+    {
+     "at": "PE9",
+     "from": [
+      4.2,
+      1.7,
+      7.6
+     ],
+     "lookAt": [
+      -1.0,
+      2.0,
+      -1.0
+     ],
+     "lens": 58,
+     "grade": "sepia(0.22) saturate(0.85) brightness(0.88) hue-rotate(-8deg)"
+    },
+    {
+     "at": "PE10",
+     "size": "ms",
+     "angle": -60,
+     "move": "track",
+     "frame": "voisin",
+     "grade": "sepia(0.22) saturate(0.85) brightness(0.88) hue-rotate(-8deg)"
+    },
+    {
+     "at": "PE10.end+0.4",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec",
+     "grade": "sepia(0.22) saturate(0.85) brightness(0.88) hue-rotate(-8deg)"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

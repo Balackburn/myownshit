@@ -1,0 +1,989 @@
+{
+ "version": 3,
+ "title": "Le GPS",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "patron": {
+   "preset": "lemec_beige",
+   "seed": 33
+  }
+ },
+ "scenes": [
+  {
+   "id": "route",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "GP1",
+     "text": "Ce mec a suivi son GPS à la lettre pour aller au travail.",
+     "highlight": [
+      "GPS",
+      "lettre"
+     ]
+    },
+    {
+     "id": "GP2",
+     "text": "Dans deux cents mètres, tournez à droite.",
+     "speaker": "gps"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -13.95,
+      -0.020000000000000018,
+      -4.800000000000001
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        2.05,
+        -0.020000000000000018,
+        -4.800000000000001
+       ],
+       "glide": true,
+       "dur": 4.6,
+       "ease": "linear",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      -14,
+      -0.14,
+      -4.4
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        2.0,
+        -0.14,
+        -4.4
+       ],
+       "dur": 4.6,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "gps_voiture",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "→ 200 m"
+     },
+     "on": {
+      "actor": "voiture",
+      "offset": [
+       0.98,
+       1.12,
+       -0.25
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "engine",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.0,
+      5.5,
+      1.5
+     ],
+     "lookAt": [
+      -8.0,
+      0.0,
+      -4.4
+     ],
+     "lens": 50
+    },
+    {
+     "at": "GP1:GPS",
+     "size": "cu",
+     "worldAngle": 65,
+     "move": "track",
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "GP2",
+     "size": "cu",
+     "worldAngle": -60,
+     "noOcclusion": true,
+     "move": "track",
+     "frame": "gps_voiture"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "lac",
+   "set": "beach",
+   "ambience": "beach",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "GP3",
+     "text": "À droite, il y avait un lac.",
+     "highlight": [
+      "lac."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.6,
+      0.12,
+      -1.05
+     ],
+     "ry": 180,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        2.6,
+        0.12,
+        -5.6499999999999995
+       ],
+       "dur": 1.0,
+       "ease": "linear",
+       "glide": true,
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": 1.1,
+       "to": [
+        2.6,
+        -0.08000000000000002,
+        -8.450000000000001
+       ],
+       "dur": 0.45,
+       "ease": "linear",
+       "glide": true,
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": 1.55,
+       "to": [
+        2.6,
+        -1.08,
+        -10.450000000000001
+       ],
+       "dur": 0.5,
+       "ease": "in",
+       "glide": true,
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": "GP3:lac",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      3.0,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        3.0,
+        0.0,
+        -5.6
+       ],
+       "dur": 1.0,
+       "ease": "linear"
+      },
+      {
+       "at": 1.1,
+       "to": [
+        3.0,
+        -0.2,
+        -8.4
+       ],
+       "dur": 0.45,
+       "ease": "linear"
+      },
+      {
+       "at": 1.55,
+       "to": [
+        3.0,
+        -1.2,
+        -10.4
+       ],
+       "dur": 0.5,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "GP3:lac",
+     "name": "splash",
+     "vol": 0.8
+    },
+    {
+     "at": "GP3:lac+0.3",
+     "name": "gulp",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      7.5,
+      1.8,
+      0.5
+     ],
+     "lookAt": [
+      2.6,
+      0.3,
+      -7.2
+     ],
+     "lens": 50
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "champ",
+   "set": "farm",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "GP4",
+     "text": "Le GPS a recalculé. Puis un champ. Puis la Manche.",
+     "highlight": [
+      "recalculé.",
+      "Manche."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -8.95,
+      0.12,
+      -0.4
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        9.05,
+        0.12,
+        -0.4
+       ],
+       "glide": true,
+       "dur": 4.8,
+       "ease": "linear",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      -9,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        9,
+        0.0,
+        0.0
+       ],
+       "dur": 4.8,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "gps_voiture",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "RECALCUL…"
+     },
+     "on": {
+      "actor": "voiture",
+      "offset": [
+       0.98,
+       1.12,
+       -0.25
+      ]
+     }
+    },
+    {
+     "id": "ble",
+     "name": "tallGrass",
+     "pos": [
+      0,
+      0,
+      0.2
+     ],
+     "opts": {
+      "w": 14,
+      "d": 3.0,
+      "h": 0.9,
+      "count": 420
+     }
+    },
+    {
+     "id": "manche",
+     "name": "floorSlab",
+     "pos": [
+      16,
+      -0.13,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "d": 12,
+      "floor": "#3E7FA8",
+      "lamp": false
+     }
+    },
+    {
+     "id": "panneau",
+     "name": "signBoard",
+     "pos": [
+      8.6,
+      0,
+      -1.8
+     ],
+     "opts": {
+      "text": "LA MANCHE",
+      "bg": "#2C4A8A",
+      "fg": "#F6F1E3",
+      "w": 1.2,
+      "h": 0.4,
+      "height": 1.2
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "GP4:recalculé",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "GP4:champ",
+     "name": "engine",
+     "vol": 0.4
+    },
+    {
+     "at": "GP4:Manche",
+     "name": "splash",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": -60,
+     "noOcclusion": true,
+     "move": "track",
+     "frame": "gps_voiture"
+    },
+    {
+     "at": "GP4:Puis",
+     "size": "fs",
+     "worldAngle": 20,
+     "elev": 20,
+     "move": "track",
+     "noOcclusion": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "espagne",
+   "set": "beach",
+   "ambience": "beach",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "GP5",
+     "text": "Quatre jours plus tard, il était en Espagne.",
+     "highlight": [
+      "Quatre",
+      "Espagne."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -5.95,
+      0.12,
+      -6.9
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        0.25,
+        0.12,
+        -4.6000000000000005
+       ],
+       "glide": true,
+       "dur": 1.8,
+       "ease": "out",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep",
+       "expr": "grin"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      -6.0,
+      0,
+      -6.5
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        0.2,
+        0,
+        -4.2
+       ],
+       "dur": 1.8,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "espana",
+     "name": "signBoard",
+     "pos": [
+      2.6,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "ESPAÑA",
+      "bg": "#C8202A",
+      "fg": "#F2C230",
+      "w": 1.2,
+      "h": 0.42,
+      "height": 1.4
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "GP5:Espagne",
+     "name": "tada",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      3.6,
+      1.7,
+      2.2
+     ],
+     "lookAt": [
+      -1.2,
+      0.8,
+      -4.0
+     ],
+     "lens": 52
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "patron",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "GP6",
+     "text": "Son patron a signalé sa disparition à la police.",
+     "highlight": [
+      "disparition",
+      "police."
+     ]
+    },
+    {
+     "id": "GP7",
+     "text": "Alors ce con a démissionné par carte postale.",
+     "highlight": [
+      "démissionné",
+      "postale."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "patron",
+     "pos": [
+      0.4,
+      0,
+      -1.5
+     ],
+     "ry": 15,
+     "clip": "phoneCall",
+     "keys": [
+      {
+       "at": "GP7",
+       "clip": "showPhone",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "patron",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "GP7",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "affiche",
+     "name": "fitPoster",
+     "pos": [
+      -0.9,
+      1.75,
+      -3.55
+     ],
+     "opts": {
+      "text": "DISPARU",
+      "bg": "#F6F1E3",
+      "fg": "#B5302A"
+     }
+    },
+    {
+     "id": "carte",
+     "name": "notebook",
+     "scale": 1.7,
+     "visible": false,
+     "opts": {
+      "text": "BONS\nBAISERS\nD'ESPAGNE\n—\nJE\nDÉMISSIONNE",
+      "bg": "#2C8AB5"
+     },
+     "on": {
+      "actor": "patron",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "GP7",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "GP6:police",
+     "name": "siren",
+     "vol": 0.3
+    },
+    {
+     "at": "GP7:carte",
+     "name": "paper",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 10,
+     "frame": "patron"
+    },
+    {
+     "at": "GP7:carte",
+     "size": "mcu",
+     "worldAngle": 15,
+     "noOcclusion": true,
+     "frame": "carte"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "plage",
+   "set": "beach",
+   "ambience": "beach",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "GP8",
+     "text": "Il vend des glaces sur la plage.",
+     "highlight": [
+      "glaces"
+     ]
+    },
+    {
+     "id": "GP9",
+     "text": "Hier, son patron est arrivé sur la plage.",
+     "highlight": [
+      "patron"
+     ]
+    },
+    {
+     "id": "GP10",
+     "text": "Putain, avec le même GPS.",
+     "highlight": [
+      "GPS."
+     ]
+    },
+    {
+     "id": "GP11",
+     "text": "Il allait au travail.",
+     "highlight": [
+      "travail."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 10,
+     "clip": "giveItem",
+     "keys": [
+      {
+       "at": "GP9",
+       "clip": "stand",
+       "expr": "neutral"
+      },
+      {
+       "at": "GP10",
+       "expr": "shocked"
+      },
+      {
+       "at": "GP11",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "patron",
+     "pos": [
+      -8.95,
+      0.12,
+      -5.0
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": "GP9",
+       "to": [
+        -2.35,
+        0.12,
+        -5.0
+       ],
+       "glide": true,
+       "dur": 1.4,
+       "ease": "out",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": "GP11",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "chariot",
+     "name": "iceCreamCart",
+     "pos": [
+      1.4,
+      0,
+      -2.0
+     ],
+     "ry": -20
+    },
+    {
+     "id": "glace",
+     "name": "iceCream",
+     "scale": 1.8,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "GP9",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "voitureP",
+     "name": "car",
+     "pos": [
+      -9.0,
+      0,
+      -4.6
+     ],
+     "opts": {
+      "color": "#8C949A",
+      "plate": "BOSS-01"
+     },
+     "keys": [
+      {
+       "at": "GP9",
+       "to": [
+        -2.4,
+        0,
+        -4.6
+       ],
+       "dur": 1.4,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "gpsP",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "ARRIVÉE"
+     },
+     "on": {
+      "actor": "voitureP",
+      "offset": [
+       0.98,
+       1.12,
+       -0.25
+      ]
+     }
+    },
+    {
+     "id": "espana",
+     "name": "signBoard",
+     "pos": [
+      3.0,
+      0,
+      -2.8
+     ],
+     "opts": {
+      "text": "ESPAÑA",
+      "bg": "#C8202A",
+      "fg": "#F2C230",
+      "w": 1.2,
+      "h": 0.42,
+      "height": 1.4
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "GP9",
+     "name": "engine",
+     "vol": 0.4
+    },
+    {
+     "at": "GP9:arrivé+0.4",
+     "name": "brake",
+     "vol": 0.5
+    },
+    {
+     "at": "GP10:GPS",
+     "name": "beep",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": -20,
+     "frame": "mec"
+    },
+    {
+     "at": "GP9",
+     "from": [
+      3.4,
+      1.8,
+      1.8
+     ],
+     "lookAt": [
+      -1.5,
+      0.8,
+      -3.8
+     ],
+     "lens": 52
+    },
+    {
+     "at": "GP10:même",
+     "size": "cu",
+     "worldAngle": -60,
+     "noOcclusion": true,
+     "frame": "gpsP"
+    },
+    {
+     "at": "GP11",
+     "size": "cu",
+     "worldAngle": 65,
+     "noOcclusion": true,
+     "frame": "patron"
+    },
+    {
+     "at": "GP11:travail",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

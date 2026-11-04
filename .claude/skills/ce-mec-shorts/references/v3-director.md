@@ -335,4 +335,42 @@ Working examples: `scripts-fr/parking.py`, `pas.py`, `voisin.py`, `photo.py`. Th
   `floorSlab`, `pedometer` (`countAt`/`rate` or a fixed `value`), `rubberStamp`, `stampMark` (transparent red stamp:
   REFUSÉ, RADIÉ), `idPhoto` (`smile`), `photoBooth` (`flashAt`, seat), `mugshotBoard`, `placard`.
 - **New set and clip:** `cave` (cellar: low ceiling, bulb, pipes, mattress); `pokeUp` (jabbing the ceiling with a broom, `freq`).
-- **Expression `grin`.**
+- **Expression `grin`.** Added to `EXPRESSIONS` (face.js) and `EXPR_MAP` (atlas.js); the lemec face sheet has
+  `face_grin.png`. Use it for every real smile.
+
+## Twelve-story batch (caisse, service, épouvantail, chat, ordinateur, mot de passe, sieste, GPS, ascenseur, fontaine, pelouse, maison verte)
+
+Working examples: the twelve `scripts-fr/*.py` of that batch, 27-34 s each, written with `references/viral-loop-fr.md`.
+
+- **Explicit cameras beat auto-framing when the set fights back.** `{'at', 'from', 'to', 'lookAt', 'lookAt2', 'lens', 'ease'}`.
+  - `lens` is the vertical field of view in degrees, not a focal length: 60 is wide, 36 is tight.
+  - `to` and `lookAt2` turn it into a tracking move over the whole shot. Use `'ease': 'linear'` to follow a linear glide.
+  - On both hook shots that failed (pelouse, maison verte), the auto camera's occlusion dodge (a tree, a bush) swung it
+    behind the subject, so frame 0 showed his back. Check the `angle changed by …° to avoid occlusion` warnings on shot 0.
+  - A fast glide (6 m/s) followed by an auto `move='track'` camera gave a washed-out, see-through frame. An explicit
+    tracking camera and a slower glide fixed it.
+- **Working at a wall.** A man painting a wall shows the side of his head even in a pure profile. Let him turn to the camera on
+  the key word (`face=80, turn=0.3, expr='grin'`): the turn itself is the beat.
+- **Seated action.** `punch` is a standing clip: a seated man keyed to `punch` stands up and his head leaves the webcam frame.
+  Use `sitPunch` (the punch arms on the `sit` legs). The fists hit the monitor below a webcam's frame, so show the punches
+  with a profile shot and come back to the webcam for the face.
+- **Webcam POV.** Eye just above and behind the monitor. Aim at 1.5 m for the lemec seated (lens 64: his head fills the
+  upper half) and 1.8 m standing (lens 55). Use a separate POV for each posture.
+- **Lying down.** `lieBack` puts the head towards the actor's local −z. Turn the actor so the head lands on the camera side,
+  not behind a fountain column.
+- **Throws.** `detach=True, fall=True, toss=[vx, vy, vz]` (world m/s) with `impact='splash'`. For an over-the-shoulder throw
+  he faces the camera, `vz` points away from it, and `wave` starts 0.25 s before the release.
+- **Glass lifts.** `elevator` with `o.glass` has glass walls and glass doors: an opaque door hid the rider for half the ride.
+- **Four-metre grass.** `tallGrass` (instanced, grown with `scale` keys) hides everyone inside it. Keep the actors in front of
+  it and add a high POV to show the house sinking.
+- **New props:** `selfCheckout` (`alertAt`/`alertEndAt`), `vitrine`, `catBasket`, `pcMonitor` (`angryAt` list), `laptop`,
+  `doorKeypad`, `stanchions`, `gpsDevice`, `iceCreamCart`, `iceCream`, `elevator` (`openAt`/`closeAt`, floor display with
+  `countAt`/`rate`), `moonSurface`, `avisPassage`, `fountain`, `cheque`, `lawnmower` (`runAt`/`stopAt` lists), `grassPatch`,
+  `tallGrass`, `wateringCan`, `topiaryRabbit`, `ladder`.
+  - Only option keys ending in `At` are resolved as times; `alertEnd` stayed a raw string until it became `alertEndAt`.
+  - In props.js, mixing `&&` and `??` without parentheses is a syntax error, and the page fails to load.
+- **New clips:** `sitPunch`, `scarecrowPose`, `superman`, `shakeCan`, `tumble`, `pointSelf`.
+- **Sets:** `pavillon` takes `house: false` (the scene brings its own house, for colour swaps) or `houseColor`/`roof`/`door`/
+  `frame`. `daynight` takes `once`/`rise`, and the sky dome follows the tint.
+- **Attachments.** A badge on the chest goes on joint `torso` (there is no `chest` joint). In a car rotated `ry=90`, the
+  driver offset becomes (−0.4, 0.12, −0.05).

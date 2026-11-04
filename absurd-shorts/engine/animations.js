@@ -119,6 +119,7 @@ export const CLIPS = {
   // --- seated / ground --------------------------------------------------
   sit: (t) => ({ hipL: [-1.57, 0, 0.05], hipR: [-1.57, 0, -0.05], kneeL: [1.57, 0, 0], kneeR: [1.57, 0, 0], ...arms(m([-0.7, 0, 0.1], [-0.7, 0, 0.1]), m([-0.8, 0, 0], [-0.8, 0, 0])), head: [0.02 * S(t), 0, 0], root: { y: -0.45 } }),
   sitWrite: (t) => ({ ...CLIPS.sit(t), ...arms(m([-0.9, 0, 0.15], [-1.0 + 0.05 * S(t * 12), 0, 0.15]), m([-0.7, 0, 0], [-0.6, 0, 0])), head: [0.4, 0, 0], torso: [0.15, 0, 0] }),
+  sitPunch: (t) => { const { hipL, kneeL, ...up } = CLIPS.punch(t); return { ...CLIPS.sit(t), ...up }; }, // seated, hitting the monitor (upper body of punch)
   slumpDesk: (t) => ({ ...CLIPS.sit(t), torso: [1.15, 0, 0], head: [0.25, 0, 0.1], ...arms(m([-1.7, 0, 0.6], [-1.7, 0, 0.6]), m([0, 0, -0.4], [0, 0, -0.4])), root: { y: -0.45 + 0.004 * S(t * 2) } }), // the defeated ending
   kneel: () => ({ hipL: [-1.5, 0, 0], kneeL: [1.5, 0, 0], hipR: [0, 0, 0], kneeR: [1.55, 0, 0], footR: [0.6, 0, 0], root: { y: -0.5 }, ...arms(m([-0.2, 0, 0.1], [-0.2, 0, 0.1]), m([-0.4, 0, 0], [-0.4, 0, 0])) }),
   lieDown: (t) => ({ root: { rx: -PI / 2, y: 0.12, z: -0.9 }, ...arms(m([0, 0, 0.2], [0, 0, 0.2]), m([0, 0, 0], [0, 0, 0])), head: [0.01 * S(t), 0, 0] }),
@@ -159,6 +160,7 @@ export const CLIPS = {
   pointSelf: (t) => ({ ...arms(m([0, 0, 0.2], [-0.75, 0.6, 0.25]), m([-0.08, 0, -0.3], [-2.0, 0.4, 0])), handR: [0, 0, -0.3], head: [0.12, 0, 0], torso: [0.02 * S(t * 2), 0, 0] }), // index on the chest: 'moi ?'
   pokeUp: (t, p = {}) => { const f = p.freq ?? 2.4, k = Math.max(0, Math.sin(t * f * 2 * PI)); return { // jabbing the ceiling with a broom held overhead
     ...arms(m([-2.75 + 0.08 * k, 0, 0.3], [-2.75 + 0.08 * k, 0, 0.18]), m([-0.75 + 0.6 * k, 0, 0], [-0.75 + 0.6 * k, 0, 0])), head: [-0.4, 0, 0], torso: [-0.06, 0, 0], root: { y: 0.03 * k } }; },
+  scarecrowPose: (t) => ({ ...arms(m([0, 0, 1.52], [0, 0, 1.52]), m([0, 0, 0.12 + 0.03 * S(t * 1.3)], [0, 0, 0.1])), head: [0.2, 0, 0.18], torso: [0, 0, 0.03] }), // arms straight out, head on one side
   superman: (t) => ({ // flying horizontally, right fist forward, left arm back along the body (holds the jet can); face the travel direction
     root: { rx: 1.35, y: -0.88 + 0.03 * S(t * 7), rz: 0.04 * S(t * 5), pivot: 'hips' }, ...arms(m([0.35, 0, 0.12], [-2.95, 0, 0.1]), m([0, 0, 0], [-0.05, 0, 0])),
     hipL: [0.12, 0, 0.06], hipR: [0.2, 0, -0.06], kneeL: [0.3, 0, 0], kneeR: [0.15, 0, 0], head: [-0.95, 0, 0], torso: [-0.1, 0, 0] }),

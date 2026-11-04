@@ -1,0 +1,648 @@
+{
+ "version": 3,
+ "title": "Le service client",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "femme": {
+   "preset": "femme",
+   "seed": 21
+  },
+  "livreur": {
+   "preset": "lemec_beige",
+   "seed": 18,
+   "hat": "copcap",
+   "hatColor": "#B5302A"
+  },
+  "conseillere": {
+   "preset": "madame",
+   "seed": 52,
+   "glasses": true
+  }
+ },
+ "scenes": [
+  {
+   "id": "salon",
+   "set": "livingRoom",
+   "ambience": null,
+   "daynight": {
+    "from": "SC4",
+    "period": 0.55
+   },
+   "lines": [
+    {
+     "id": "SC1",
+     "text": "Ce mec a appelé le service client pour résilier son abonnement.",
+     "highlight": [
+      "service",
+      "résilier"
+     ]
+    },
+    {
+     "id": "SC2",
+     "text": "Votre appel est important pour nous. Tapez 1.",
+     "speaker": "robot"
+    },
+    {
+     "id": "SC3",
+     "text": "Il a tapé 1. Puis 2. Puis dièse.",
+     "highlight": [
+      "1.",
+      "2.",
+      "dièse."
+     ]
+    },
+    {
+     "id": "SC4",
+     "text": "Au bout de six mois, il connaissait la musique d'attente par cœur.",
+     "highlight": [
+      "six",
+      "cœur."
+     ]
+    },
+    {
+     "id": "SC5",
+     "text": "Au bout d'un an, sa femme est partie avec le livreur de pizza.",
+     "highlight": [
+      "an,",
+      "pizza."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -1.3
+     ],
+     "ry": 0,
+     "clip": "phoneCall",
+     "keys": [
+      {
+       "at": "SC3",
+       "clip": "pokeFinger",
+       "expr": "angry"
+      },
+      {
+       "at": "SC4",
+       "clip": "nod",
+       "expr": "sleepy",
+       "params": {
+        "freq": 1.6
+       }
+      },
+      {
+       "at": "SC5",
+       "clip": "phoneCall",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      -2.4,
+      0,
+      -2.2
+     ],
+     "ry": 30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "SC5-0.3",
+       "visible": true
+      },
+      {
+       "at": "SC5:partie",
+       "to": [
+        4.5,
+        0,
+        0.6
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "faceEnd": 90,
+       "then": "walk"
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "livreur",
+     "pos": [
+      -1.6,
+      0,
+      -2.4
+     ],
+     "ry": 30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "SC5-0.3",
+       "visible": true
+      },
+      {
+       "at": "SC5:partie+0.15",
+       "to": [
+        5.2,
+        0,
+        0.3
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "faceEnd": 90,
+       "then": "walk"
+      }
+     ],
+     "visible": false,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 0.2,
+     "opts": {
+      "color": "#2A2420"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     },
+     "keys": [
+      {
+       "at": "SC4",
+       "scale": 1.2,
+       "dur": 2.6,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "pizza",
+     "name": "pizza",
+     "scale": 0.9,
+     "on": {
+      "actor": "livreur",
+      "hand": "L",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "name": "music:zouk",
+     "at": 0,
+     "until": "SC5.end+0.2",
+     "vol": 0.22
+    },
+    {
+     "at": "SC3:1.",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "SC3:2.",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "SC3:dièse",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "SC5:partie",
+     "name": "step",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "SC2",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "SC3",
+     "size": "mcu",
+     "angle": -20,
+     "frame": "mec"
+    },
+    {
+     "at": "SC4",
+     "size": "ms",
+     "angle": 15,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    },
+    {
+     "at": "SC5",
+     "size": "fs",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "femme",
+      "livreur"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "police",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "SC6",
+     "text": "Alors ce con a porté plainte pour séquestration.",
+     "highlight": [
+      "plainte",
+      "séquestration."
+     ]
+    },
+    {
+     "id": "SC7",
+     "text": "La plainte aussi a été mise en attente.",
+     "highlight": [
+      "attente."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      -2.7,
+      0.12,
+      -2.72
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [
+      {
+       "at": "SC7",
+       "clip": "phoneCall",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -1.8000000000000003,
+      0,
+      -1.2000000000000002
+     ],
+     "ry": -140,
+     "clip": "phoneCall",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "telC",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "commissaire",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "SC7",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 1.4,
+     "opts": {
+      "color": "#2A2420"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "SC7:attente",
+     "name": "music:zouk",
+     "until": "SC7.end+0.2",
+     "vol": 0.22
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -50,
+     "frame": [
+      "mec",
+      "commissaire"
+     ]
+    },
+    {
+     "at": "SC7",
+     "size": "cu",
+     "angle": 0,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fin",
+   "set": "livingRoom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "SC8",
+     "text": "Trois ans plus tard, quelqu'un a décroché.",
+     "highlight": [
+      "Trois",
+      "décroché."
+     ]
+    },
+    {
+     "id": "SC9",
+     "text": "Bonjour, voulez-vous un nouveau forfait ?",
+     "speaker": "conseillere"
+    },
+    {
+     "id": "SC10",
+     "text": "Putain, il a dit oui.",
+     "highlight": [
+      "oui."
+     ]
+    },
+    {
+     "id": "SC11",
+     "text": "Il rappelle pour résilier.",
+     "highlight": [
+      "résilier."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -1.3
+     ],
+     "ry": 0,
+     "clip": "phoneCall",
+     "keys": [
+      {
+       "at": "SC8:décroché",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "SC9",
+       "clip": "phoneCall",
+       "expr": "shocked"
+      },
+      {
+       "at": "SC10",
+       "clip": "nod",
+       "expr": "grin"
+      },
+      {
+       "at": "SC11",
+       "clip": "pokeFinger",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sleepy"
+    },
+    {
+     "id": "conseillere",
+     "pos": [
+      -3.5,
+      0,
+      -2.6
+     ],
+     "ry": 30,
+     "clip": "phoneCall",
+     "keys": [
+      {
+       "at": "SC9",
+       "visible": true
+      },
+      {
+       "at": "SC10",
+       "visible": false
+      }
+     ],
+     "visible": false,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "telK",
+     "name": "phone911",
+     "on": {
+      "actor": "conseillere",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.6,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "toile",
+     "name": "spiderWeb",
+     "pos": [
+      -0.6,
+      1.9,
+      -1.9
+     ],
+     "opts": {
+      "r": 0.45
+     }
+    },
+    {
+     "id": "toile2",
+     "name": "spiderWeb",
+     "pos": [
+      1.6,
+      2.4,
+      -3.5
+     ],
+     "opts": {
+      "r": 0.6
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "music:zouk",
+     "until": "SC8:décroché",
+     "vol": 0.22
+    },
+    {
+     "at": "SC8:décroché",
+     "name": "needle",
+     "vol": 0.6
+    },
+    {
+     "at": "SC11:rappelle",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "SC11:pour",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "SC11.end+0.2",
+     "name": "music:zouk",
+     "until": "SC11.end+1.4",
+     "vol": 0.22
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "SC9",
+     "size": "ms",
+     "angle": 0,
+     "frame": "conseillere"
+    },
+    {
+     "at": "SC10",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "SC11",
+     "size": "ms",
+     "angle": 10,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

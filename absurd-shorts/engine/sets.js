@@ -806,7 +806,7 @@ const S = {
   },
   pavillon(o = {}) { // suburban French house front: lawn, garden path, low fence with a gate, mailbox, trees, the pavement in front
     const g = grp(); sky(g); clouds(g, 9, 6); g.add(ground(P.grass));
-    g.add(prop('house', { w: 6.5, d: 5, h: 2.9, color: '#EDE3CF', roof: '#7A3A2A', door: '#2F5E58', frame: '#2F5E58' }, 0, 0, -6.6));
+    if (o.house !== false) g.add(prop('house', { w: 6.5, d: 5, h: 2.9, color: o.houseColor || '#EDE3CF', roof: o.roof || '#7A3A2A', door: o.door || '#2F5E58', frame: o.frame || '#2F5E58' }, 0, 0, -6.6));   // o.houseColor / o.roof (the green house), o.house === false (a scene supplies its own)
     g.add(flat(1.2, 6.2, '#CFC6B4', 0.97, 0.004, -0.95), flat(60, 2.4, '#C9C2B2', 0, 0.006, 3.6), flat(60, 8, '#4A4F55', 0, -0.02, 9));
     g.add(prop('fence', { length: 5.4, height: 0.85, color: P.white }, -3.4, 0, 2.2), prop('fence', { length: 5.4, height: 0.85, color: P.white }, 4.9, 0, 2.2), prop('mailbox', { color: '#B5302A' }, 2.8, 0, 2.5));
     [[-6.5, -3, 2], [6.8, -2.5, 5], [-9, 0.5, 8], [9.5, 0, 11]].forEach(([x, z, s]) => g.add(prop('tree', { seed: s }, x, 0, z, 0, 1.2)));

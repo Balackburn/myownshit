@@ -18,36 +18,40 @@ HARD = [
     (r"(?i)\b(mine d'or|sauce secrète|bouton panique)\b", 'métaphore-chute'),
 ]
 NUM = (r"\d|\b(?:deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|treize|quatorze|quinze|seize|vingt|trente|"
-       r"quarante|cinquante|soixante|cent|cents|mille|million|millions|milliard)\b")
+       r"quarante|cinquante|soixante|cent|cents|mille|million|millions|milliard|"
+       r"deuxième|troisième|quatrième|cinquième|sixième|dixième|centième)\b")
 REHOOK = re.compile(r'(?i)' + NUM + r"|\b(mais|puis|alors|ensuite|sauf que|plus tard|le lendemain|depuis|soudain|"
                     r"finalement|enfin|maintenant|au bout de|un jour|quand)\b")
-INSTIT = r"(?i)\b(flics?|police|gendarmes?|plainte|juge|tribunal|avocat|pompiers|préfecture|mairie|huissier|fisc|samu|gign|raid|douane|syndic|sécu|contractuel)\b"
+INSTIT = r"(?i)\b(flics?|police|gendarmes?|plainte|juge|tribunal|avocat|pompiers|préfecture|mairie|huissier|fisc|samu|gign|raid|douane|syndic|sécu|contractuel|banque|nasa|musée|assurance|impôts|caf)\b"
 STOP = set("ce cette ces mec il elle ils elles une des les le la un de du a au aux et est pour que qui par sur dans avec son sa ses lui leur plus pas ne".split())
 
-def sentences(t): return [s.strip() for s in re.split(r'(?<=[.?!»])\s+|\n+', t) if s.strip()]
-def words(s): return re.findall(r"[\wÀ-ÿ'-]+", s.lower())
+def sentences(t):
+    t = re.sub(r'([.?!…])\s+»', r'\1»', t)                     # « ... . » stays one sentence
+    return [s.strip() for s in re.split(r'(?<=[.?!»])\s+|\n+', t) if s.strip()]
+def words(s): return [re.sub(r"^(?:[ldjmnstc]|qu|jusqu|lorsqu|puisqu)'", '', w) for w in re.findall(r"[\wÀ-ÿ'-]+", s.lower())]   # drop elisions: l'avocat -> avocat
+def nwords(s): return len([w for w in s.split() if w not in ('«', '»', '—')])
 
 def score(text):
     hard, soft = [], []
     lines = [l.strip() for l in text.strip().split('\n') if l.strip()]
-    n = len(text.split()); secs = round(n / 3.9)
+    n = nwords(text); secs = round(n / 3.9)
     if not 55 <= n <= 140: soft.append(f'longueur {n} mots ≈ {secs}s (viser 60-125, soit 15-32 s)')
     S = sentences(text); hook = S[0] if S else ''
     if not re.match(r'(?i)ce mec\b', hook): hard.append('B1 ne commence pas par « Ce mec »')
-    if len(hook.split()) > 22: soft.append(f'accroche de {len(hook.split())} mots (22 max)')
+    if nwords(hook) > 22: soft.append(f'accroche de {nwords(hook)} mots (22 max)')
     if not re.search(NUM, ' '.join(S[:2]), re.I) and not re.search(r'\b[A-ZÀ-Ý][a-zà-ÿ]+\b', hook[3:]):
         soft.append('ni nombre ni nom propre dans les 2 premières phrases')
     for rx, why in HARD:
         if re.search(rx, text): hard.append(why)
-    one = [s for s in S if len(s.split()) == 1]
+    one = [s for s in S if nwords(s) == 1]
     if len(one) > 1: hard.append(f'{len(one)} phrases d\'un seul mot : {one[:3]}')
-    long_ = [s for s in S if len(s.split()) > 26]
+    long_ = [s for s in S if nwords(s) > 26]
     if long_: soft.append(f'{len(long_)} phrase(s) de plus de 26 mots')
     q = [s for s in S[1:-1] if s.endswith('?')]
     if len(q) > 1: soft.append(f'{len(q)} questions rhétoriques dans le corps')
     gap = worst = 0
     for s in S[1:-1]:
-        gap = 0 if REHOOK.search(s) else gap + len(s.split()); worst = max(worst, gap)
+        gap = 0 if REHOOK.search(s) else gap + nwords(s); worst = max(worst, gap)
     if worst > 28: soft.append(f'{worst} mots (≈{round(worst / 3.9)} s) sans relance (nombre, « puis », « alors », saut dans le temps)')
     low = text.lower()
     if 'ce con' not in low: soft.append('pas de « ce con »')
@@ -55,10 +59,11 @@ def score(text):
     if low.count('putain') > 1: hard.append('« putain » plus d\'une fois')
     if not re.search(INSTIT, text): soft.append('aucune institution (flics, plainte, juge, préfecture...)')
     tag = lines[-1] if lines else ''
-    if len(tag.split()) > 7: soft.append(f'chute de {len(tag.split())} mots (7 max)')
+    if nwords(tag) > 7: soft.append(f'chute de {nwords(tag)} mots (7 max)')
     first = {w for s in S[:2] for w in words(s) if len(w) >= 4 and w not in STOP}
     last = {w for s in S[-2:] for w in words(s) if len(w) >= 4 and w not in STOP}
-    if not first & last: soft.append('la fin ne rappelle pas le début (callback / boucle)')
+    stem = lambda ws: {w[:4] for w in ws}                                      # vert / verte, avocat / avocats
+    if not stem(first) & stem(last): soft.append('la fin ne rappelle pas le début (callback / boucle)')
     total = max(0, 100 - 15 * len(hard) - 5 * len(soft))
     return total, hard, soft, n, secs
 

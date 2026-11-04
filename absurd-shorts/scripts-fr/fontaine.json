@@ -1,0 +1,786 @@
+{
+ "version": 3,
+ "title": "La fontaine",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "judge"
+  },
+  "banquier": {
+   "preset": "lemec_glasses",
+   "seed": 21
+  }
+ },
+ "scenes": [
+  {
+   "id": "parc",
+   "set": "park",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "FO1",
+     "text": "Ce mec a jeté une pièce de deux euros dans une fontaine pour faire un vœu.",
+     "highlight": [
+      "deux",
+      "euros",
+      "vœu."
+     ]
+    },
+    {
+     "id": "FO2",
+     "text": "La fontaine a rendu la pièce. Avec une facture.",
+     "highlight": [
+      "rendu",
+      "facture."
+     ]
+    },
+    {
+     "id": "FO3",
+     "text": "Le vœu coûtait deux mille euros.",
+     "highlight": [
+      "deux",
+      "mille"
+     ]
+    },
+    {
+     "id": "FO4",
+     "text": "Alors ce con a payé par chèque.",
+     "highlight": [
+      "chèque."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -1.9
+     ],
+     "ry": 145,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "FO1:jeté",
+       "clip": "giveItem",
+       "expr": "grin"
+      },
+      {
+       "at": "FO2:rendu",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "FO2:facture",
+       "clip": "showPhone",
+       "expr": "shocked"
+      },
+      {
+       "at": "FO4",
+       "clip": "writeOnHeld",
+       "expr": "angry"
+      },
+      {
+       "at": "FO4:chèque",
+       "clip": "giveItem"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fontaine",
+     "name": "fountain",
+     "pos": [
+      1.8,
+      0,
+      -3.9
+     ]
+    },
+    {
+     "id": "piece",
+     "name": "coin",
+     "scale": 1.6,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "FO1:jeté+0.15",
+       "detach": true,
+       "fall": true,
+       "toss": [
+        1.2,
+        2.6,
+        -1.6
+       ],
+       "impact": "splash"
+      }
+     ]
+    },
+    {
+     "id": "retour",
+     "name": "coin",
+     "scale": 1.6,
+     "visible": false,
+     "pos": [
+      1.3,
+      1.8,
+      -3.3
+     ],
+     "keys": [
+      {
+       "at": "FO2:rendu",
+       "visible": true
+      },
+      {
+       "at": "FO2:rendu",
+       "to": [
+        0.5,
+        1.2,
+        -2.1
+       ],
+       "dur": 0.5,
+       "ease": "out"
+      },
+      {
+       "at": "FO2:facture",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "facture",
+     "name": "bill",
+     "scale": 1.7,
+     "visible": false,
+     "opts": {
+      "title": "FACTURE",
+      "items": [
+       [
+        "Vœu",
+        "2 000,00"
+       ],
+       [
+        "Fontaine",
+        "TTC"
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "2 000,00 €"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "FO2:facture",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "cheque",
+     "name": "cheque",
+     "scale": 2.2,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "FO4",
+       "visible": true
+      },
+      {
+       "at": "FO4:chèque+0.15",
+       "detach": true,
+       "fall": true,
+       "toss": [
+        1.0,
+        2.2,
+        -1.5
+       ],
+       "impact": "splash"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "FO2:rendu",
+     "name": "pop",
+     "vol": 0.6
+    },
+    {
+     "at": "FO2:facture",
+     "name": "paper",
+     "vol": 0.5
+    },
+    {
+     "at": "FO3:mille",
+     "name": "cash",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.9,
+      1.55,
+      -1.3
+     ],
+     "lookAt": [
+      0.4,
+      1.3,
+      -1.9
+     ],
+     "lens": 50
+    },
+    {
+     "at": "FO1:fontaine",
+     "size": "fs",
+     "worldAngle": 30,
+     "withProps": true,
+     "frame": "fontaine"
+    },
+    {
+     "at": "FO2",
+     "from": [
+      2.9,
+      1.55,
+      -1.3
+     ],
+     "lookAt": [
+      0.4,
+      1.3,
+      -1.9
+     ],
+     "lens": 50
+    },
+    {
+     "at": "FO3",
+     "size": "mcu",
+     "worldAngle": 145,
+     "noOcclusion": true,
+     "frame": "facture"
+    },
+    {
+     "at": "FO4",
+     "from": [
+      2.9,
+      1.55,
+      -1.3
+     ],
+     "lookAt": [
+      0.4,
+      1.3,
+      -1.9
+     ],
+     "lens": 50
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "banque",
+   "set": "bank",
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "FO5",
+     "text": "Le chèque était sans provision.",
+     "highlight": [
+      "provision."
+     ]
+    },
+    {
+     "id": "FO6",
+     "text": "La banque a saisi sa maison.",
+     "highlight": [
+      "saisi",
+      "maison."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "banquier",
+     "pos": [
+      -1.2,
+      0,
+      -2.5
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [
+      {
+       "at": "FO6",
+       "clip": "point",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.4,
+      0,
+      -1.2
+     ],
+     "ry": -150,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "FO6:maison",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "cheque",
+     "name": "cheque",
+     "scale": 2.4,
+     "on": {
+      "actor": "banquier",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "FO6",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "tampon",
+     "name": "stampMark",
+     "scale": 0.6,
+     "visible": false,
+     "opts": {
+      "text": "SANS PROVISION",
+      "w": 0.36,
+      "h": 0.09
+     },
+     "on": {
+      "actor": "banquier",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.03
+      ]
+     },
+     "keys": [
+      {
+       "at": "FO5:provision",
+       "visible": true
+      },
+      {
+       "at": "FO6",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "FO5:provision",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "FO6:saisi",
+     "name": "gavel",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "mcu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "cheque"
+    },
+    {
+     "at": "FO6",
+     "size": "ms",
+     "worldAngle": -80,
+     "frame": [
+      "banquier",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "encheres",
+   "set": "courtroom",
+   "setOpts": {
+    "sign": "VENTE AUX ENCHÈRES"
+   },
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "FO7",
+     "text": "La fontaine l'a rachetée aux enchères.",
+     "highlight": [
+      "fontaine",
+      "enchères."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "FO7:rachetée",
+       "clip": "sitPoint",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fontaine",
+     "name": "fountain",
+     "scale": 0.6,
+     "pos": [
+      0.4,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "maison",
+     "name": "house",
+     "scale": 0.18,
+     "pos": [
+      -1.3,
+      0.79,
+      -3.3
+     ],
+     "opts": {
+      "w": 4,
+      "d": 3.4,
+      "h": 2.5
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "FO7:enchères",
+     "name": "gavel",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      1.4,
+      1.6,
+      2.6
+     ],
+     "lookAt": [
+      0.1,
+      1.2,
+      -2.6
+     ],
+     "lens": 52
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "parc2",
+   "set": "park",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "FO8",
+     "text": "Depuis trois ans, ce mec dort dans la fontaine.",
+     "highlight": [
+      "trois",
+      "fontaine."
+     ]
+    },
+    {
+     "id": "FO9",
+     "text": "Hier, il a jeté une pièce pour récupérer sa maison.",
+     "highlight": [
+      "pièce",
+      "maison."
+     ]
+    },
+    {
+     "id": "FO10",
+     "text": "Putain, la fontaine a demandé des intérêts.",
+     "highlight": [
+      "intérêts."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.0,
+      0.42,
+      -3.15
+     ],
+     "ry": 90,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "FO9",
+       "to": [
+        1.5,
+        0.38,
+        -3.15
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "stand",
+       "then": "stand",
+       "expr": "grin"
+      },
+      {
+       "at": "FO9:pièce-0.25",
+       "clip": "wave"
+      },
+      {
+       "at": "FO10",
+       "clip": "showPhone",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fontaine",
+     "name": "fountain",
+     "pos": [
+      1.8,
+      0,
+      -3.9
+     ]
+    },
+    {
+     "id": "piece",
+     "name": "coin",
+     "scale": 1.6,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "FO9",
+       "visible": true
+      },
+      {
+       "at": "FO9:pièce+0.1",
+       "detach": true,
+       "fall": true,
+       "toss": [
+        0.4,
+        2.2,
+        -0.8
+       ],
+       "impact": "splash"
+      }
+     ]
+    },
+    {
+     "id": "interets",
+     "name": "bill",
+     "scale": 1.7,
+     "visible": false,
+     "opts": {
+      "title": "INTÉRÊTS",
+      "items": [
+       [
+        "Vœu (3 ans)",
+        "2 000,00"
+       ],
+       [
+        "Intérêts",
+        "340,00"
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "2 340,00 €"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "FO10",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "FO8",
+     "name": "splash",
+     "vol": 0.3
+    },
+    {
+     "at": "FO10",
+     "name": "pop",
+     "vol": 0.6
+    },
+    {
+     "at": "FO10:intérêts",
+     "name": "paper",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.6000000000000001,
+      2.2,
+      -0.5
+     ],
+     "lookAt": [
+      1.7,
+      0.5,
+      -3.2
+     ],
+     "lens": 45
+    },
+    {
+     "at": "FO9",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "FO10:intérêts",
+     "size": "mcu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "interets"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

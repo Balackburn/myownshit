@@ -1,0 +1,901 @@
+{
+ "version": 3,
+ "title": "La caisse automatique",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "mamie": {
+   "preset": "mamie"
+  },
+  "mecV": {
+   "preset": "lemec"
+  }
+ },
+ "scenes": [
+  {
+   "id": "caisse",
+   "set": "supermarket",
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "CA1",
+     "text": "Ce mec a pris la caisse automatique pour gagner cinq minutes.",
+     "highlight": [
+      "automatique",
+      "cinq"
+     ]
+    },
+    {
+     "id": "CA2",
+     "text": "Article inattendu dans la zone d'ensachage.",
+     "speaker": "caisse"
+    },
+    {
+     "id": "CA3",
+     "text": "L'article, c'était lui.",
+     "highlight": [
+      "lui."
+     ]
+    },
+    {
+     "id": "CA4",
+     "text": "Alors la machine l'a scanné. Quatre euros quatre-vingt-dix-neuf.",
+     "highlight": [
+      "scanné.",
+      "quatre-vingt-dix-neuf."
+     ]
+    },
+    {
+     "id": "CA5",
+     "text": "Une mamie l'a acheté avec deux yaourts.",
+     "highlight": [
+      "mamie",
+      "yaourts."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.8,
+      0,
+      0.8800000000000001
+     ],
+     "ry": 180,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": "CA1:minutes",
+       "to": [
+        0.1499999999999999,
+        0.2,
+        0.32
+       ],
+       "glide": true,
+       "dur": 0.3,
+       "face": 0,
+       "clip": "sitFloor",
+       "then": "sitFloor",
+       "expr": "smug"
+      },
+      {
+       "at": "CA2",
+       "expr": "shocked"
+      },
+      {
+       "at": "CA3:lui",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "CA4:scanné",
+       "expr": "shocked"
+      },
+      {
+       "at": "CA5",
+       "to": [
+        0.44999999999999996,
+        0,
+        0.95
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 90,
+       "clip": "stand",
+       "then": "stand",
+       "expr": "sad"
+      },
+      {
+       "at": "CA5:yaourts",
+       "to": [
+        5.5,
+        0,
+        1.1
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "then": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mamie",
+     "pos": [
+      6.0,
+      0,
+      1.1
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "CA5-0.6",
+       "to": [
+        1.2,
+        0,
+        1.0
+       ],
+       "clip": "walk",
+       "speed": 2.6,
+       "faceEnd": -90,
+       "then": "giveItem"
+      },
+      {
+       "at": "CA5:yaourts",
+       "to": [
+        6.5,
+        0,
+        1.1
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "then": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "borne",
+     "name": "selfCheckout",
+     "pos": [
+      -0.8,
+      0,
+      0.2
+     ],
+     "opts": {
+      "alertAt": "CA2",
+      "alertEndAt": "CA5"
+     }
+    },
+    {
+     "id": "yaourt",
+     "name": "yogurt",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "CA1:minutes",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "prix",
+     "name": "priceTag",
+     "scale": 0.8,
+     "visible": false,
+     "opts": {
+      "text": "4,99 €"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.47,
+       0.105
+      ]
+     },
+     "keys": [
+      {
+       "at": "CA4:Quatre",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "laser",
+     "name": "beerStream",
+     "visible": false,
+     "pos": [
+      0.1499999999999999,
+      1.9,
+      0.6699999999999999
+     ],
+     "rot": [
+      0,
+      0,
+      1.5708
+     ],
+     "opts": {
+      "length": 1.1,
+      "r": 0.012,
+      "flare": 1,
+      "color": "#FF2A1A"
+     },
+     "keys": [
+      {
+       "at": "CA4:scanné-0.2",
+       "visible": true
+      },
+      {
+       "at": "CA4:scanné-0.2",
+       "to": [
+        0.1499999999999999,
+        0.25,
+        0.6699999999999999
+       ],
+       "dur": 0.7,
+       "ease": "linear"
+      },
+      {
+       "at": "CA4:Quatre",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "panier",
+     "name": "yogurt",
+     "scale": 1.2,
+     "on": {
+      "actor": "mamie",
+      "hand": "L",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "CA1:caisse",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "CA2",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "CA2+0.35",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "CA4:scanné",
+     "name": "beep",
+     "vol": 0.6
+    },
+    {
+     "at": "CA5:acheté",
+     "name": "cash",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      -1.15,
+      1.62,
+      -0.75
+     ],
+     "lookAt": [
+      -0.8,
+      1.45,
+      0.8800000000000001
+     ],
+     "lens": 52
+    },
+    {
+     "at": "CA1:minutes",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "CA2",
+     "from": [
+      -0.8,
+      1.56,
+      0.8200000000000001
+     ],
+     "lookAt": [
+      -0.8,
+      1.42,
+      0.33
+     ],
+     "lens": 34
+    },
+    {
+     "at": "CA3",
+     "size": "ms",
+     "worldAngle": 10,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    },
+    {
+     "at": "CA4",
+     "size": "ms",
+     "worldAngle": 25,
+     "frame": "mec"
+    },
+    {
+     "at": "CA4:Quatre",
+     "size": "cu",
+     "worldAngle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "CA5",
+     "size": "ms",
+     "worldAngle": 15,
+     "frame": [
+      "mamie",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "salon",
+   "set": "livingRoom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "CA6",
+     "text": "Alors ce con a appelé les flics pour séquestration.",
+     "highlight": [
+      "flics",
+      "séquestration."
+     ]
+    },
+    {
+     "id": "CA7",
+     "text": "Les flics ont vérifié le ticket. Tout était en règle.",
+     "highlight": [
+      "ticket.",
+      "règle."
+     ]
+    },
+    {
+     "id": "CA8",
+     "text": "Depuis trois ans, il vit dans son buffet, entre les assiettes.",
+     "highlight": [
+      "trois",
+      "buffet,"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.2
+     ],
+     "ry": -20,
+     "clip": "phoneCall",
+     "keys": [
+      {
+       "at": "CA7",
+       "clip": "stand",
+       "expr": "shocked"
+      },
+      {
+       "at": "CA8",
+       "visible": false
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "mecV",
+     "pos": [
+      -2.2,
+      0.08,
+      -3.28
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "CA8",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mamie",
+     "pos": [
+      -0.3,
+      0.17,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      3.2,
+      0,
+      -0.6
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "CA7-0.5",
+       "to": [
+        1.9,
+        0,
+        -0.9
+       ],
+       "clip": "walk",
+       "speed": 2.6,
+       "faceEnd": -30,
+       "then": "showPhone"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "CA7",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "prix",
+     "name": "priceTag",
+     "scale": 0.8,
+     "opts": {
+      "text": "4,99 €"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.47,
+       0.105
+      ]
+     }
+    },
+    {
+     "id": "prixV",
+     "name": "priceTag",
+     "scale": 0.8,
+     "opts": {
+      "text": "4,99 €"
+     },
+     "on": {
+      "actor": "mecV",
+      "joint": "head",
+      "offset": [
+       0,
+       0.47,
+       0.105
+      ]
+     }
+    },
+    {
+     "id": "ticket",
+     "name": "bill",
+     "scale": 1.7,
+     "opts": {
+      "title": "TICKET DE CAISSE",
+      "items": [
+       [
+        "Yaourts x2",
+        "1,80"
+       ],
+       [
+        "Ce mec",
+        "4,99"
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "6,79 €"
+     },
+     "on": {
+      "actor": "flic1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "vitrine",
+     "name": "vitrine",
+     "pos": [
+      -2.2,
+      0,
+      -3.28
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "CA7:ticket",
+     "name": "paper",
+     "vol": 0.5
+    },
+    {
+     "at": "CA7:règle",
+     "name": "ding",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "mamie"
+     ]
+    },
+    {
+     "at": "CA7:vérifié",
+     "size": "mcu",
+     "worldAngle": -30,
+     "noOcclusion": true,
+     "frame": "ticket"
+    },
+    {
+     "at": "CA8",
+     "size": "ms",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "noOcclusion": true,
+     "frame": "mecV"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "retour",
+   "set": "supermarket",
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "CA9",
+     "text": "Hier, elle l'a rapporté au magasin. Date dépassée.",
+     "highlight": [
+      "magasin.",
+      "dépassée."
+     ]
+    },
+    {
+     "id": "CA10",
+     "text": "Putain, remboursé en bon d'achat.",
+     "highlight": [
+      "d'achat."
+     ]
+    },
+    {
+     "id": "CA11",
+     "text": "Article inattendu dans la zone d'ensachage.",
+     "speaker": "caisse"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.3,
+      0,
+      0.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "CA11",
+       "to": [
+        0.1499999999999999,
+        0.2,
+        0.32
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "sitFloor",
+       "then": "sitFloor",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "mamie",
+     "pos": [
+      3.1,
+      0,
+      0.9
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "CA10",
+       "clip": "showPhone",
+       "expr": "happy"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "borne",
+     "name": "selfCheckout",
+     "pos": [
+      -0.8,
+      0,
+      0.2
+     ],
+     "opts": {
+      "alertAt": "CA11"
+     }
+    },
+    {
+     "id": "prix",
+     "name": "priceTag",
+     "scale": 0.8,
+     "opts": {
+      "text": "4,99 €"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.47,
+       0.105
+      ]
+     }
+    },
+    {
+     "id": "perime",
+     "name": "stampMark",
+     "scale": 0.55,
+     "visible": false,
+     "opts": {
+      "text": "PÉRIMÉ",
+      "w": 0.3,
+      "h": 0.11
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.33,
+       0.11
+      ]
+     },
+     "keys": [
+      {
+       "at": "CA9:Date",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "bon",
+     "name": "bill",
+     "scale": 1.6,
+     "visible": false,
+     "opts": {
+      "title": "BON D'ACHAT",
+      "items": [
+       [
+        "Retour article",
+        ""
+       ],
+       [
+        "Ce mec (périmé)",
+        "4,99"
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "4,99 €"
+     },
+     "on": {
+      "actor": "mamie",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "CA10",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "CA9:Date",
+     "name": "thud",
+     "vol": 0.5
+    },
+    {
+     "at": "CA10:remboursé",
+     "name": "cash",
+     "vol": 0.5
+    },
+    {
+     "at": "CA11",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "CA11+0.35",
+     "name": "beep",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mec",
+      "mamie"
+     ]
+    },
+    {
+     "at": "CA9:Date",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "CA10:remboursé",
+     "size": "mcu",
+     "worldAngle": -20,
+     "noOcclusion": true,
+     "frame": "bon"
+    },
+    {
+     "at": "CA11",
+     "from": [
+      -0.8,
+      1.56,
+      0.8200000000000001
+     ],
+     "lookAt": [
+      -0.8,
+      1.42,
+      0.33
+     ],
+     "lens": 34
+    },
+    {
+     "at": "CA11:zone",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

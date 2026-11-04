@@ -1,0 +1,807 @@
+{
+ "version": 3,
+ "title": "Le chat",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "chat": {
+   "type": "creature",
+   "name": "cat",
+   "opts": {
+    "seed": 6
+   }
+  },
+  "pompier1": {
+   "preset": "lemec_charcoal",
+   "outfit": "worker",
+   "hat": "firehelmet",
+   "suit": "#2C3A5A",
+   "seed": 3
+  },
+  "pompier2": {
+   "preset": "lemec_charcoal",
+   "outfit": "worker",
+   "hat": "firehelmet",
+   "suit": "#2C3A5A",
+   "seed": 5
+  }
+ },
+ "scenes": [
+  {
+   "id": "salle",
+   "set": "chambre",
+   "setOpts": {
+    "poster": "MIAOU",
+    "posterBg": "#F2C230",
+    "posterFg": "#B5302A"
+   },
+   "ambience": null,
+   "lines": [
+    {
+     "id": "CH1",
+     "text": "Ce mec a séché son chat au sèche-cheveux pour gagner deux minutes.",
+     "highlight": [
+      "sèche-cheveux",
+      "deux"
+     ]
+    },
+    {
+     "id": "CH2",
+     "text": "Le chat a gonflé. Puis il s'est envolé par la fenêtre.",
+     "highlight": [
+      "gonflé.",
+      "envolé"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -0.9
+     ],
+     "ry": -115,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": "CH2:gonflé",
+       "clip": "startle",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "chat",
+     "pos": [
+      -0.2,
+      0,
+      -1.25
+     ],
+     "ry": 70,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "CH2",
+       "scale": 3.2,
+       "dur": 0.9,
+       "ease": "out"
+      },
+      {
+       "at": "CH2:gonflé",
+       "expr": "surprised"
+      },
+      {
+       "at": "CH2:envolé",
+       "to": [
+        -4.0,
+        1.6,
+        -0.6
+       ],
+       "glide": true,
+       "dur": 1.0,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": "CH2:envolé+1.0",
+       "to": [
+        -7.5,
+        2.8,
+        -0.6
+       ],
+       "glide": true,
+       "dur": 0.6,
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "seche",
+     "name": "hairDryer",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "CH1:sèche",
+     "name": "wind",
+     "vol": 0.4
+    },
+    {
+     "at": "CH2:gonflé",
+     "name": "spring",
+     "vol": 0.5
+    },
+    {
+     "at": "CH2:envolé",
+     "name": "whoosh",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -70,
+     "frame": [
+      "mec",
+      "chat"
+     ]
+    },
+    {
+     "at": "CH2",
+     "size": "fs",
+     "worldAngle": 25,
+     "frame": [
+      "mec",
+      "chat"
+     ]
+    },
+    {
+     "at": "CH2:envolé",
+     "from": [
+      0.8,
+      1.6,
+      2.6
+     ],
+     "lookAt": [
+      -2.8,
+      1.6,
+      -0.6
+     ],
+     "lens": 56
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "ciel",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "CH3",
+     "text": "La tour de contrôle l'a repéré à trois mille mètres.",
+     "highlight": [
+      "trois",
+      "mille"
+     ]
+    },
+    {
+     "id": "CH4",
+     "text": "Alors ce con a appelé les pompiers. Ils ont sorti une échelle de trois mètres.",
+     "highlight": [
+      "pompiers.",
+      "trois"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      -6,
+      9.5,
+      -7
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6,
+        10.5,
+        -7
+       ],
+       "glide": true,
+       "dur": 7.0,
+       "face": "keep"
+      }
+     ],
+     "scale": 3.2,
+     "expr": "surprised"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      0.6
+     ],
+     "ry": 170,
+     "clip": "lookUp",
+     "keys": [
+      {
+       "at": "CH4",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "shocked"
+    },
+    {
+     "id": "pompier1",
+     "pos": [
+      -0.9,
+      0,
+      0.2
+     ],
+     "ry": 160,
+     "clip": "lookUp",
+     "keys": [
+      {
+       "at": "CH4:pompiers",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    },
+    {
+     "id": "pompier2",
+     "pos": [
+      1.6,
+      0,
+      0.1
+     ],
+     "ry": -160,
+     "clip": "lookUp",
+     "keys": [
+      {
+       "at": "CH4:pompiers",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "avion",
+     "name": "plane",
+     "scale": 0.6,
+     "pos": [
+      -40,
+      13,
+      -26
+     ],
+     "ry": 90,
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        40,
+        13,
+        -26
+       ],
+       "dur": 4.0,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "echelle",
+     "name": "ladder",
+     "visible": false,
+     "pos": [
+      0.4,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "h": 3.0,
+      "lean": 0.08
+     },
+     "keys": [
+      {
+       "at": "CH4:échelle",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.2,
+     "name": "jet",
+     "vol": 0.4
+    },
+    {
+     "at": "CH4:pompiers",
+     "name": "siren",
+     "vol": 0.35
+    },
+    {
+     "at": "CH4:échelle",
+     "name": "thud",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      1.0,
+      1.5,
+      4.5
+     ],
+     "lookAt": [
+      0,
+      8.5,
+      -7
+     ],
+     "lens": 60
+    },
+    {
+     "at": "CH4",
+     "from": [
+      0.9,
+      1.0,
+      5.5
+     ],
+     "lookAt": [
+      0.2,
+      3.0,
+      -2.0
+     ],
+     "lens": 62
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "stade",
+   "set": "fair",
+   "ambience": "park",
+   "ambienceVol": 0.6,
+   "crowd": [
+    {
+     "id": "fans",
+     "count": 6,
+     "spec": {
+      "preset": "lemec_charcoal",
+      "seed": 81
+     },
+     "clip": "celebrate",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0,
+       1.6
+      ],
+      [
+       -1.2,
+       0,
+       1.9
+      ],
+      [
+       1.2,
+       0,
+       1.9
+      ],
+      [
+       2.4,
+       0,
+       1.6
+      ],
+      [
+       -3.4,
+       0,
+       1.0
+      ],
+      [
+       3.4,
+       0,
+       1.0
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "CH5",
+     "text": "Le chat a atterri dans un stade. Les sponsors ont adoré.",
+     "highlight": [
+      "stade.",
+      "sponsors"
+     ]
+    },
+    {
+     "id": "CH6",
+     "text": "Depuis, il vole au-dessus des matchs, avec de la pub sur le ventre.",
+     "highlight": [
+      "pub"
+     ]
+    },
+    {
+     "id": "CH7",
+     "text": "Il gagne dix fois plus que ce mec.",
+     "highlight": [
+      "dix",
+      "fois"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      0,
+      3.6,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        0.6,
+        4.0,
+        -3.4
+       ],
+       "glide": true,
+       "dur": 6.0,
+       "face": "keep"
+      }
+     ],
+     "scale": 3.2,
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      1.1
+     ],
+     "ry": 180,
+     "clip": "lookUp",
+     "keys": [
+      {
+       "at": "CH7",
+       "face": 10,
+       "turn": 0.3,
+       "clip": "showPhone"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "pub",
+     "name": "signBoard",
+     "opts": {
+      "text": "CROQUETTES MIAOU",
+      "bg": "#F2C230",
+      "fg": "#B5302A",
+      "w": 1.5,
+      "h": 0.45,
+      "height": 0,
+      "posts": false
+     },
+     "on": {
+      "actor": "chat",
+      "offset": [
+       0,
+       -0.25,
+       0.42
+      ]
+     }
+    },
+    {
+     "id": "piece",
+     "name": "coin",
+     "scale": 1.4,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "CH7",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "magot",
+     "name": "moneySack",
+     "scale": 1.3,
+     "visible": false,
+     "pos": [
+      -1.6,
+      0.41,
+      -3.4
+     ],
+     "keys": [
+      {
+       "at": "CH7",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "CH5:stade",
+     "name": "whistle",
+     "vol": 0.4
+    },
+    {
+     "at": "CH5:adoré",
+     "name": "tada",
+     "vol": 0.4
+    },
+    {
+     "at": "CH7:dix",
+     "name": "cash",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.5,
+      2.2,
+      7.0
+     ],
+     "lookAt": [
+      0.2,
+      2.6,
+      -2.5
+     ],
+     "lens": 55
+    },
+    {
+     "at": "CH6",
+     "size": "ms",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "chat"
+    },
+    {
+     "at": "CH7",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "appart",
+   "set": "livingRoom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "CH8",
+     "text": "Le mois dernier, il a racheté l'appartement.",
+     "highlight": [
+      "l'appartement."
+     ]
+    },
+    {
+     "id": "CH9",
+     "text": "Putain, ce mec dort dans le panier.",
+     "highlight": [
+      "panier."
+     ]
+    },
+    {
+     "id": "CH10",
+     "text": "Le chat le sèche au sèche-cheveux.",
+     "highlight": [
+      "sèche-cheveux."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      0,
+      0.45,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "scale": 2.4,
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0.12,
+      -0.7
+     ],
+     "ry": 90,
+     "clip": "sleepSide",
+     "keys": [
+      {
+       "at": "CH10",
+       "expr": "shocked"
+      },
+      {
+       "at": "CH10:sèche",
+       "scale": 1.35,
+       "dur": 1.4,
+       "ease": "out"
+      }
+     ],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "panier",
+     "name": "catBasket",
+     "scale": 2.7,
+     "pos": [
+      1.3,
+      0,
+      -0.75
+     ]
+    },
+    {
+     "id": "vendu",
+     "name": "soldSign",
+     "pos": [
+      2.6,
+      0,
+      -2.4
+     ],
+     "ry": -30
+    },
+    {
+     "id": "papiers",
+     "name": "documents",
+     "pos": [
+      -0.6,
+      0.47,
+      -2.7
+     ]
+    },
+    {
+     "id": "seche",
+     "name": "hairDryer",
+     "scale": 2.2,
+     "visible": false,
+     "on": {
+      "actor": "chat",
+      "offset": [
+       0.45,
+       0.25,
+       0.55
+      ]
+     },
+     "keys": [
+      {
+       "at": "CH10",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "CH8:racheté",
+     "name": "cash",
+     "vol": 0.4
+    },
+    {
+     "at": "CH10:sèche",
+     "name": "wind",
+     "vol": 0.5
+    },
+    {
+     "at": "CH10.end+0.3",
+     "name": "spring",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "chat"
+    },
+    {
+     "at": "CH9",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "CH10",
+     "size": "fs",
+     "worldAngle": 15,
+     "frame": [
+      "mec",
+      "chat"
+     ]
+    },
+    {
+     "at": "CH10:sèche+0.3",
+     "size": "mcu",
+     "worldAngle": 10,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

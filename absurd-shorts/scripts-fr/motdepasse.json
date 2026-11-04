@@ -1,0 +1,762 @@
+{
+ "version": 3,
+ "title": "Le mot de passe",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  }
+ },
+ "scenes": [
+  {
+   "id": "chambre",
+   "set": "chambre",
+   "setOpts": {
+    "poster": "SÉCURITÉ",
+    "posterBg": "#2C4A8A",
+    "posterFg": "#F2C230"
+   },
+   "ambience": null,
+   "lines": [
+    {
+     "id": "MP1",
+     "text": "Ce mec a changé son mot de passe pour être plus en sécurité.",
+     "highlight": [
+      "mot",
+      "passe",
+      "sécurité."
+     ]
+    },
+    {
+     "id": "MP2",
+     "text": "Quatre secondes plus tard, il l'avait oublié.",
+     "highlight": [
+      "Quatre",
+      "oublié."
+     ]
+    },
+    {
+     "id": "MP3",
+     "text": "Il ne pouvait plus ouvrir ses mails. Ni son compte en banque.",
+     "highlight": [
+      "mails.",
+      "banque."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.5,
+      0.12,
+      -1.95
+     ],
+     "ry": 180,
+     "clip": "sitWrite",
+     "keys": [
+      {
+       "at": "MP2:oublié",
+       "clip": "sit",
+       "expr": "shocked"
+      },
+      {
+       "at": "MP3",
+       "expr": "worried"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "lap0",
+     "name": "laptop",
+     "pos": [
+      2.5,
+      0.77,
+      -2.62
+     ],
+     "visible": true,
+     "opts": {
+      "text": "NOUVEAU MOT\nDE PASSE : ●●●●●"
+     },
+     "keys": [
+      {
+       "at": "MP2",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "lap1",
+     "name": "laptop",
+     "pos": [
+      2.5,
+      0.77,
+      -2.62
+     ],
+     "visible": false,
+     "opts": {
+      "text": "MOT DE PASSE\nINCORRECT"
+     },
+     "keys": [
+      {
+       "at": "MP2",
+       "visible": true
+      },
+      {
+       "at": "MP3:mails",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "lap2",
+     "name": "laptop",
+     "pos": [
+      2.5,
+      0.77,
+      -2.62
+     ],
+     "visible": false,
+     "opts": {
+      "text": "MAILS\nACCÈS REFUSÉ"
+     },
+     "keys": [
+      {
+       "at": "MP3:mails",
+       "visible": true
+      },
+      {
+       "at": "MP3:banque",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "lap3",
+     "name": "laptop",
+     "pos": [
+      2.5,
+      0.77,
+      -2.62
+     ],
+     "visible": false,
+     "opts": {
+      "text": "BANQUE\nACCÈS REFUSÉ"
+     },
+     "keys": [
+      {
+       "at": "MP3:banque",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "MP1:changé",
+     "name": "click",
+     "vol": 0.4
+    },
+    {
+     "at": "MP2:oublié",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "MP3:mails",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "MP3:banque",
+     "name": "beep",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.5,
+      1.5,
+      -2.87
+     ],
+     "lookAt": [
+      2.5,
+      1.48,
+      -1.95
+     ],
+     "lens": 58
+    },
+    {
+     "at": "MP2:oublié-0.1",
+     "from": [
+      2.75,
+      1.32,
+      -1.87
+     ],
+     "lookAt": [
+      2.5,
+      0.92,
+      -2.62
+     ],
+     "lens": 34
+    },
+    {
+     "at": "MP2:oublié+0.6",
+     "from": [
+      2.5,
+      1.5,
+      -2.87
+     ],
+     "lookAt": [
+      2.5,
+      1.48,
+      -1.95
+     ],
+     "lens": 58
+    },
+    {
+     "at": "MP3:mails-0.1",
+     "from": [
+      2.75,
+      1.32,
+      -1.87
+     ],
+     "lookAt": [
+      2.5,
+      0.92,
+      -2.62
+     ],
+     "lens": 34
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "dehors",
+   "set": "pavillon",
+   "ambience": "park",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "MP4",
+     "text": "Ni sa voiture. Ni sa porte d'entrée.",
+     "highlight": [
+      "voiture.",
+      "d'entrée."
+     ]
+    },
+    {
+     "id": "MP5",
+     "text": "Mot de passe incorrect. Plus que deux essais.",
+     "speaker": "porte"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.9,
+      0,
+      -0.4500000000000002
+     ],
+     "ry": 180,
+     "clip": "pokeFinger",
+     "keys": [
+      {
+       "at": "MP4:porte",
+       "to": [
+        1.5,
+        0,
+        -3.4099999999999997
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 180,
+       "clip": "pokeFinger",
+       "then": "pokeFinger",
+       "expr": "angry"
+      },
+      {
+       "at": "MP5",
+       "clip": "stand",
+       "expr": "scared"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "color": "#2C4A8A"
+     }
+    },
+    {
+     "id": "padCar",
+     "name": "doorKeypad",
+     "pos": [
+      3.9,
+      1.25,
+      -0.67
+     ],
+     "opts": {
+      "text": "MOT DE\nPASSE ?"
+     }
+    },
+    {
+     "id": "pad0",
+     "name": "doorKeypad",
+     "pos": [
+      1.65,
+      1.25,
+      -4.06
+     ],
+     "visible": true,
+     "opts": {
+      "text": "MOT DE\nPASSE ?"
+     },
+     "keys": [
+      {
+       "at": "MP5",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "pad1",
+     "name": "doorKeypad",
+     "pos": [
+      1.65,
+      1.25,
+      -4.06
+     ],
+     "visible": false,
+     "opts": {
+      "text": "INCORRECT\n2 ESSAIS"
+     },
+     "keys": [
+      {
+       "at": "MP5",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "MP4:voiture",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "MP4:porte",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "MP5",
+     "name": "beep",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -90,
+     "frame": "mec"
+    },
+    {
+     "at": "MP4:porte",
+     "size": "ms",
+     "worldAngle": -90,
+     "frame": "mec"
+    },
+    {
+     "at": "MP5",
+     "from": [
+      1.65,
+      1.27,
+      -3.51
+     ],
+     "lookAt": [
+      1.65,
+      1.25,
+      -4.06
+     ],
+     "lens": 30
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "police",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "MP6",
+     "text": "Alors ce con a appelé la police pour prouver qui il était.",
+     "highlight": [
+      "police",
+      "prouver"
+     ]
+    },
+    {
+     "id": "MP7",
+     "text": "La police lui a demandé son mot de passe.",
+     "highlight": [
+      "mot",
+      "passe."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      -2.7,
+      0.12,
+      -2.72
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [
+      {
+       "at": "MP7",
+       "clip": "sitPoint",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -1.8000000000000003,
+      0,
+      -1.2000000000000002
+     ],
+     "ry": -140,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "MP6:prouver",
+       "clip": "pointSelf"
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "lapP",
+     "name": "laptop",
+     "pos": [
+      -2.7,
+      0.76,
+      -2.3000000000000003
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "MOT DE PASSE ?"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "MP7:passe",
+     "name": "sting",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -50,
+     "frame": [
+      "mec",
+      "commissaire"
+     ]
+    },
+    {
+     "at": "MP7",
+     "size": "cu",
+     "angle": 0,
+     "frame": "commissaire"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "paillasson",
+   "set": "pavillon",
+   "lighting": "night",
+   "ambience": "night",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "MP8",
+     "text": "Depuis trois mois, il dort sur son paillasson.",
+     "highlight": [
+      "trois",
+      "paillasson."
+     ]
+    },
+    {
+     "id": "MP9",
+     "text": "Hier, il s'en est enfin souvenu.",
+     "highlight": [
+      "souvenu."
+     ]
+    },
+    {
+     "id": "MP10",
+     "text": "Putain, le système lui a demandé de le changer.",
+     "highlight": [
+      "changer."
+     ]
+    },
+    {
+     "id": "MP11",
+     "text": "Il l'a déjà oublié.",
+     "highlight": [
+      "oublié."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.975,
+      0.14,
+      -3.3499999999999996
+     ],
+     "ry": 90,
+     "clip": "sleepSide",
+     "keys": [
+      {
+       "at": "MP9",
+       "to": [
+        1.5,
+        0,
+        -3.4099999999999997
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 180,
+       "clip": "pokeFinger",
+       "then": "pokeFinger",
+       "expr": "grin"
+      },
+      {
+       "at": "MP10",
+       "clip": "stand",
+       "expr": "shocked"
+      },
+      {
+       "at": "MP11",
+       "face": 10,
+       "turn": 0.3,
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tapis",
+     "name": "carpet",
+     "pos": [
+      0.975,
+      0.012,
+      -3.3499999999999996
+     ],
+     "opts": {
+      "w": 1.0,
+      "d": 0.6,
+      "color": "#8A5A3A",
+      "inner": "#B08A64"
+     }
+    },
+    {
+     "id": "lampadaire",
+     "name": "streetLamp",
+     "pos": [
+      2.6,
+      0,
+      -3.3
+     ],
+     "ry": -90,
+     "opts": {
+      "on": true,
+      "light": 6
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 1.1,
+     "opts": {
+      "color": "#2A2420"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "pad0",
+     "name": "doorKeypad",
+     "pos": [
+      1.65,
+      1.25,
+      -4.06
+     ],
+     "visible": true,
+     "opts": {
+      "text": "MOT DE\nPASSE ?"
+     },
+     "keys": [
+      {
+       "at": "MP10",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "pad1",
+     "name": "doorKeypad",
+     "pos": [
+      1.65,
+      1.25,
+      -4.06
+     ],
+     "visible": false,
+     "opts": {
+      "text": "NOUVEAU\nMOT DE PASSE ?"
+     },
+     "keys": [
+      {
+       "at": "MP10",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "crickets",
+     "vol": 0.35
+    },
+    {
+     "at": "MP9:souvenu",
+     "name": "ding",
+     "vol": 0.5
+    },
+    {
+     "at": "MP10",
+     "name": "beep",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.575,
+      1.4,
+      -1.5499999999999996
+     ],
+     "lookAt": [
+      0.975,
+      0.3,
+      -3.3499999999999996
+     ],
+     "lens": 48
+    },
+    {
+     "at": "MP9:souvenu",
+     "size": "ms",
+     "worldAngle": -90,
+     "frame": "mec"
+    },
+    {
+     "at": "MP10:système",
+     "from": [
+      1.65,
+      1.27,
+      -3.51
+     ],
+     "lookAt": [
+      1.65,
+      1.25,
+      -4.06
+     ],
+     "lens": 30
+    },
+    {
+     "at": "MP11",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

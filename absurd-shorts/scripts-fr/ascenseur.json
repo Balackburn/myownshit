@@ -1,0 +1,1035 @@
+{
+ "version": 3,
+ "title": "L'ascenseur",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "op1": {
+   "preset": "lemec_glasses",
+   "seed": 4
+  },
+  "op2": {
+   "preset": "madame",
+   "seed": 13,
+   "glasses": true
+  },
+  "technicien": {
+   "preset": "lemec_charcoal",
+   "outfit": "worker",
+   "hat": "hardhat",
+   "seed": 7
+  }
+ },
+ "scenes": [
+  {
+   "id": "hall",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "AS1",
+     "text": "Ce mec a pris l'ascenseur pour monter au troisième étage.",
+     "highlight": [
+      "l'ascenseur",
+      "troisième"
+     ]
+    },
+    {
+     "id": "AS2",
+     "text": "L'ascenseur ne s'est pas arrêté.",
+     "highlight": [
+      "arrêté."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.6,
+      0,
+      0.4
+     ],
+     "ry": -120,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        0,
+        0.12,
+        -2.85
+       ],
+       "clip": "walk",
+       "speed": 1.9,
+       "faceEnd": 0,
+       "then": "stand"
+      },
+      {
+       "at": "AS1:troisième",
+       "clip": "pokeFinger",
+       "expr": "smug"
+      },
+      {
+       "at": "AS2",
+       "clip": "stand",
+       "expr": "shocked"
+      },
+      {
+       "at": "AS2:arrêté-0.3",
+       "to": [
+        0,
+        14.12,
+        -2.85
+       ],
+       "glide": true,
+       "dur": 2.4,
+       "ease": "in",
+       "clip": "stand",
+       "then": "stand",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabine",
+     "name": "elevator",
+     "pos": [
+      0,
+      0,
+      -2.75
+     ],
+     "opts": {
+      "glass": true,
+      "floors": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       7,
+       10,
+       25,
+       99,
+       "∞"
+      ],
+      "openAt": 0,
+      "closeAt": "AS1:étage",
+      "countAt": "AS2",
+      "rate": 3.2
+     },
+     "keys": [
+      {
+       "at": "AS2:arrêté-0.3",
+       "to": [
+        0,
+        14,
+        -2.75
+       ],
+       "dur": 2.4,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "AS1:troisième",
+     "name": "ding",
+     "vol": 0.5
+    },
+    {
+     "at": "AS2",
+     "name": "whoosh",
+     "vol": 0.4
+    },
+    {
+     "at": "AS2:arrêté",
+     "name": "jet",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 25,
+     "frame": "mec"
+    },
+    {
+     "at": "AS1:étage",
+     "from": [
+      0,
+      2.45,
+      -1.1
+     ],
+     "lookAt": [
+      0,
+      2.6,
+      -1.99
+     ],
+     "lens": 32
+    },
+    {
+     "at": "AS2+0.3",
+     "from": [
+      2.4,
+      1.6,
+      4.4
+     ],
+     "lookAt": [
+      0,
+      3.0,
+      -2.75
+     ],
+     "lens": 56
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "toit",
+   "set": "rooftopPowerLine",
+   "ambience": "wind",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "AS3",
+     "text": "Il est passé au dixième. Puis sur le toit.",
+     "highlight": [
+      "dixième.",
+      "toit."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      -2.6,
+      -2.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "AS3:Puis",
+       "to": [
+        0,
+        6.12,
+        -2.0
+       ],
+       "glide": true,
+       "dur": 1.6,
+       "ease": "out",
+       "clip": "stand",
+       "then": "lookDown",
+       "face": "keep"
+      }
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabine",
+     "name": "elevator",
+     "pos": [
+      0,
+      -2.72,
+      -1.9
+     ],
+     "opts": {
+      "glass": true,
+      "floors": [
+       10,
+       10
+      ],
+      "countAt": 0
+     },
+     "keys": [
+      {
+       "at": "AS3:Puis",
+       "to": [
+        0,
+        6.0,
+        -1.9
+       ],
+       "dur": 1.6,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "trou",
+     "name": "dustPuff",
+     "scale": 2.0,
+     "visible": false,
+     "pos": [
+      0,
+      0.05,
+      -1.9
+     ],
+     "opts": {
+      "color": "#9CA3A8",
+      "once": true,
+      "period": 1.0,
+      "startAt": "AS3:Puis"
+     },
+     "keys": [
+      {
+       "at": "AS3:Puis",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "AS3:Puis",
+     "name": "thud",
+     "vol": 0.7
+    },
+    {
+     "at": "AS3:toit",
+     "name": "whoosh",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      3.2,
+      1.7,
+      4.5
+     ],
+     "lookAt": [
+      0,
+      2.6,
+      -1.9
+     ],
+     "lens": 58
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "nuages",
+   "set": "street",
+   "ambience": "wind",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "AS4",
+     "text": "Puis dans les nuages.",
+     "highlight": [
+      "nuages."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      40.12,
+      -3.0
+     ],
+     "ry": 0,
+     "clip": "lookDown",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        0,
+        46.12,
+        -3.0
+       ],
+       "glide": true,
+       "dur": 1.6,
+       "clip": "lookDown",
+       "then": "lookDown",
+       "face": "keep"
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabine",
+     "name": "elevator",
+     "pos": [
+      0,
+      40,
+      -2.9
+     ],
+     "opts": {
+      "glass": true,
+      "floors": [
+       99,
+       99
+      ],
+      "countAt": 0
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        0,
+        46,
+        -2.9
+       ],
+       "dur": 1.6
+      }
+     ]
+    },
+    {
+     "id": "nuage0",
+     "name": "cloud",
+     "pos": [
+      -3.5,
+      43,
+      -5
+     ],
+     "opts": {
+      "seed": 30,
+      "scale": 1.6
+     }
+    },
+    {
+     "id": "nuage1",
+     "name": "cloud",
+     "pos": [
+      3.2,
+      45,
+      -4
+     ],
+     "opts": {
+      "seed": 31,
+      "scale": 1.6
+     }
+    },
+    {
+     "id": "nuage2",
+     "name": "cloud",
+     "pos": [
+      -2.0,
+      47.5,
+      -1.5
+     ],
+     "opts": {
+      "seed": 32,
+      "scale": 1.6
+     }
+    },
+    {
+     "id": "nuage3",
+     "name": "cloud",
+     "pos": [
+      2.6,
+      41.5,
+      -1.0
+     ],
+     "opts": {
+      "seed": 33,
+      "scale": 1.6
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "wind",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 20,
+     "move": "track",
+     "noOcclusion": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "nasa",
+   "set": "classroom",
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "daynight": {
+    "from": "AS5:pendant",
+    "period": 0.45
+   },
+   "lines": [
+    {
+     "id": "AS5",
+     "text": "La NASA l'a suivi au radar pendant trois jours.",
+     "highlight": [
+      "NASA",
+      "radar",
+      "trois"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "op1",
+     "pos": [
+      -1.0,
+      0.12,
+      -0.3
+     ],
+     "ry": 180,
+     "clip": "sitWrite",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "op2",
+     "pos": [
+      1.0,
+      0.12,
+      -0.3
+     ],
+     "ry": 180,
+     "clip": "sitLookItem",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "radar",
+     "name": "tv",
+     "scale": 2.2,
+     "pos": [
+      0,
+      0.6,
+      -2.9
+     ],
+     "opts": {
+      "text": "● ASCENSEUR",
+      "on": true
+     }
+    },
+    {
+     "id": "controle",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "text": "CENTRE DE CONTRÔLE",
+      "bg": "#1E2A3A",
+      "fg": "#F2C230",
+      "w": 2.2,
+      "h": 0.36,
+      "height": 2.85,
+      "posts": false
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "AS5:radar",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "AS5:radar+0.6",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "AS5:jours",
+     "name": "beep",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.4,
+      1.7,
+      2.6
+     ],
+     "lookAt": [
+      0,
+      1.6,
+      -2.5
+     ],
+     "lens": 54
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "cabine",
+   "set": "spaceVoid",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "AS6",
+     "text": "Alors ce con a appuyé sur le bouton d'alarme.",
+     "highlight": [
+      "d'alarme."
+     ]
+    },
+    {
+     "id": "AS7",
+     "text": "Un technicien passera entre huit heures et dix-huit heures.",
+     "speaker": "hautparleur"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -0.1
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "AS6:appuyé",
+       "face": 80,
+       "turn": 0.2,
+       "clip": "pokeFinger",
+       "expr": "angry"
+      },
+      {
+       "at": "AS7",
+       "face": 0,
+       "turn": 0.3,
+       "clip": "stand",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabine",
+     "name": "elevator",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "glass": true,
+      "floors": [
+       "∞",
+       "∞"
+      ],
+      "countAt": 0
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "AS6:bouton",
+     "name": "ring",
+     "vol": 0.7
+    },
+    {
+     "at": "AS7",
+     "name": "static",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 20,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "AS7",
+     "size": "cu",
+     "angle": 0,
+     "noOcclusion": true,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "lune",
+   "set": "spaceVoid",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "AS8",
+     "text": "L'ascenseur s'est arrêté sur la Lune. Au troisième.",
+     "highlight": [
+      "Lune.",
+      "troisième."
+     ]
+    },
+    {
+     "id": "AS9",
+     "text": "Depuis deux ans, il attend le technicien.",
+     "highlight": [
+      "deux",
+      "technicien."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.12,
+      -2.1
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "AS8:troisième",
+       "to": [
+        1.3,
+        0,
+        -0.6
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": -20,
+       "clip": "sitFloor",
+       "then": "sitFloor",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "sol",
+     "name": "moonSurface",
+     "opts": {
+      "r": 30
+     }
+    },
+    {
+     "id": "cabine",
+     "name": "elevator",
+     "pos": [
+      0,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "glass": true,
+      "floors": [
+       3,
+       3
+      ],
+      "countAt": 0,
+      "openAt": 0
+     }
+    },
+    {
+     "id": "etage",
+     "name": "signBoard",
+     "pos": [
+      -1.4,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "text": "ÉTAGE 3",
+      "bg": "#F6F1E3",
+      "fg": "#1E1E22",
+      "w": 0.8,
+      "h": 0.3,
+      "height": 1.1
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 0.1,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     },
+     "keys": [
+      {
+       "at": "AS9",
+       "scale": 2.4,
+       "dur": 1.8,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "AS8:Lune",
+     "name": "ding",
+     "vol": 0.5
+    },
+    {
+     "at": "AS9:deux",
+     "name": "ticks",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.8,
+      1.6,
+      4.0
+     ],
+     "lookAt": [
+      0.2,
+      1.1,
+      -1.8
+     ],
+     "lens": 54
+    },
+    {
+     "at": "AS9",
+     "size": "ms",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "terre",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "AS10",
+     "text": "Putain, il est passé hier. Au troisième étage.",
+     "highlight": [
+      "hier.",
+      "troisième"
+     ]
+    },
+    {
+     "id": "AS11",
+     "text": "Il a laissé un avis de passage.",
+     "highlight": [
+      "avis",
+      "passage."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "technicien",
+     "pos": [
+      -2.4,
+      0,
+      0.6
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        0.55,
+        0,
+        -1.65
+       ],
+       "clip": "walk",
+       "speed": 2.0,
+       "faceEnd": 180,
+       "then": "pokeFinger"
+      },
+      {
+       "at": "AS11",
+       "to": [
+        3.2,
+        0,
+        0.8
+       ],
+       "clip": "walk",
+       "speed": 2.0,
+       "faceEnd": 60,
+       "then": "walk"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabine",
+     "name": "elevator",
+     "pos": [
+      0,
+      0,
+      -2.75
+     ],
+     "opts": {
+      "glass": false,
+      "floors": [
+       3,
+       3
+      ],
+      "countAt": 0
+     }
+    },
+    {
+     "id": "etage",
+     "name": "signBoard",
+     "pos": [
+      1.4,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "ÉTAGE 3",
+      "bg": "#F6F1E3",
+      "fg": "#1E1E22",
+      "w": 0.8,
+      "h": 0.3,
+      "height": 1.3
+     }
+    },
+    {
+     "id": "avis",
+     "name": "avisPassage",
+     "scale": 2.2,
+     "visible": false,
+     "pos": [
+      0.2,
+      1.35,
+      -1.96
+     ],
+     "keys": [
+      {
+       "at": "AS10:troisième",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "caisse",
+     "name": "briefcase",
+     "scale": 0.9,
+     "on": {
+      "actor": "technicien",
+      "hand": "L"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "AS10:troisième",
+     "name": "paper",
+     "vol": 0.5
+    },
+    {
+     "at": "AS11:passage",
+     "name": "ding",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 20,
+     "frame": "technicien"
+    },
+    {
+     "at": "AS11",
+     "from": [
+      0.2,
+      1.38,
+      -1.3
+     ],
+     "lookAt": [
+      0.2,
+      1.35,
+      -1.96
+     ],
+     "lens": 30
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}
