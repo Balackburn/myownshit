@@ -1,0 +1,20 @@
+## nuit (chambre)
+[0.30–3.50] Ce mec a acheté un réveil très puissant pour se lever à l'heure.
+[3.68–4.64] Il a sonné.
+
+## soleil (pavillon)
+[4.99–6.35] Le soleil s'est levé.
+
+## trois_h (chambre)
+[6.60–7.96] À trois heures du matin.
+
+## prefecture (pressRoom)
+[8.31–10.55] La préfecture a exigé des explications.
+
+## snooze (chambre)
+[10.90–13.06] Alors ce con a appuyé sur snooze.
+[13.36–14.24] Putain.
+[14.42–16.34] Il fait nuit depuis neuf minutes.
+
+## trois_ans (chambre)
+[17.19–18.39] Ça fait trois ans.
