@@ -1,0 +1,24 @@
+## hall (office)
+[0.30–3.02] Ce mec a pris l'ascenseur pour monter au troisième étage.
+[3.20–4.96] L'ascenseur ne s'est pas arrêté.
+
+## toit (rooftopPowerLine)
+[5.26–7.74] Il est passé au dixième. Puis sur le toit.
+
+## nuages (street)
+[8.04–9.24] Puis dans les nuages.
+
+## nasa (classroom)
+[9.59–12.07] La NASA l'a suivi au radar pendant trois jours.
+
+## cabine (spaceVoid)
+[12.42–14.90] Alors ce con a appuyé sur le bouton d'alarme.
+[15.20–18.00] HAUTPARLEUR : Un technicien passera entre huit heures et dix-huit heures.
+
+## lune (spaceVoid)
+[18.35–21.23] L'ascenseur s'est arrêté sur la Lune. Au troisième.
+[21.41–23.65] Depuis deux ans, il attend le technicien.
+
+## terre (office)
+[24.00–26.88] Putain, il est passé hier. Au troisième étage.
+[27.06–28.58] Il a laissé un avis de passage.

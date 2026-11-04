@@ -1,0 +1,22 @@
+## route (street)
+[0.30–3.58] Ce mec a suivi son GPS à la lettre pour aller au travail.
+[3.88–6.04] GPS : Dans deux cents mètres, tournez à droite.
+
+## lac (beach)
+[6.34–8.18] À droite, il y avait un lac.
+
+## champ (farm)
+[8.53–12.53] Le GPS a recalculé. Puis un champ. Puis la Manche.
+
+## espagne (beach)
+[12.83–15.23] Quatre jours plus tard, il était en Espagne.
+
+## patron (office)
+[15.58–18.06] Son patron a signalé sa disparition à la police.
+[18.24–20.88] Alors ce con a démissionné par carte postale.
+
+## plage (beach)
+[21.23–22.91] Il vend des glaces sur la plage.
+[23.09–25.41] Hier, son patron est arrivé sur la plage.
+[25.59–27.75] Putain, avec le même GPS.
+[27.93–29.13] Il allait au travail.
