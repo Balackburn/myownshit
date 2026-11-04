@@ -1,0 +1,6 @@
+[
+  {"type":"createFxScene3DLayer","compositionId":"main","layerId":1,"name":"Recipe","pixelsPerMeter":100,"view":{"id":9,"exposure":0},"activeRange":{"start":0,"duration":3000},"transform":{"anchorPoint":[0,0],"position":[0,0],"scale":[100,100],"rotation":0,"opacity":100},"world":{"id":2},"renderSettings":{"id":97,"filmGate":null,"overscan":null,"lightGroups":[],"lightCollections":[],"lightLinks":[],"outputs":[],"previewOutput":null}},
+  {"type":"addFxScene3DLayer","compositionId":"main","layerId":1,"item":{"type":"Camera3D","id":3,"parentId":null,"name":"Camera","transform":{"position":[300,-220,-1000],"relationships":{"constraints":[{"type":"aim","id":80,"target":{"id":81,"target":{"type":"world"},"offset":[0,0,0],"offsetSpace":"local"},"up":[0,1,0],"upSpace":"world","forwardAxis":"positiveZ","influence":1}]}},"lens":{"type":"angle","projection":{"type":"orthographic","scale":640}}}},
+  {"type":"setFxScene3DActiveCamera","compositionId":"main","layerId":1,"cameraItemId":3},
+  {"type":"addFxScene3DLayer","compositionId":"main","layerId":1,"item":{"type":"Light3D","id":4,"parentId":null,"name":"Sun","transform":{"rotation":{"type":"euler","order":"XYZ","orientation":[0,0,0],"rotationX":-45,"rotationY":0,"rotationZ":0}},"emitter":{"type":"parallel","irradiance":3}}}
+]

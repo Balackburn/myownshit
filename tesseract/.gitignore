@@ -1,0 +1,7 @@
+# regenerable Tesseract working files (keep action batches and notes)
+**/.tesseract-work/*.schema.json
+**/.tesseract-work/project.json
+**/.tesseract-work/editable.json
+**/.tesseract-work/checks/
+**/.tesseract-work/frames/
+**/.tesseract-work/*.log
