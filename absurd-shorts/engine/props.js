@@ -1098,6 +1098,66 @@ const B = {
   baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
   clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
+  // ---- "Le distributeur", "Le ticket", "La plante"
+  vending(o) { // snack vending machine: hollow cabinet, glass front with 5 rows of spirals and packets, keypad + LCD, coin slot,
+               // pickup flap; wobbles for 0.6 s after each shakeAt; o.stuck: a packet hanging at the front of B4; o.empty: no packet in B4
+    const w = 0.95, h = 1.9, d = 0.8, gx = -0.14, gw = 0.6, C = o.color || '#B5302A', IN = '#3A3A40';
+    const body = grp(at(box(w, h, 0.04, IN, { pivot: 'bottom', outline: 0.01 }), 0, 0, -d / 2 + 0.02),
+      at(box(0.04, h, d, C, { pivot: 'bottom', outline: 0.01 }), -w / 2 + 0.02, 0, 0), at(box(0.04, h, d, C, { pivot: 'bottom', outline: 0.01 }), w / 2 - 0.02, 0, 0),
+      at(box(w, 0.1, d, C, { outline: 0.01 }), 0, h - 0.05, 0), at(box(w, 0.42, d, C, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0),
+      at(box(w / 2 - (gx + gw / 2) - 0.02, h - 0.52, 0.06, C, { outline: 0.008 }), (gx + gw / 2 + w / 2 - 0.02) / 2, 0.42 + (h - 0.52) / 2, d / 2 - 0.03),
+      at(mesh(new THREE.BoxGeometry(gw, 1.36, 0.01), glassMat(0.18, '#DDEEF2')), gx, 1.12, d / 2 - 0.004),
+      at(box(gw + 0.05, 0.03, 0.03, '#2A2A2E'), gx, 1.81, d / 2 - 0.01), at(box(gw + 0.05, 0.03, 0.03, '#2A2A2E'), gx, 0.43, d / 2 - 0.01),
+      at(box(0.22, 0.6, 0.012, '#2A2A2E'), 0.32, 1.3, d / 2 + 0.006), at(box(0.17, 0.07, 0.006, '#9CE8A0', { emissive: '#3A8A40', noGrain: true }), 0.32, 1.52, d / 2 + 0.014),
+      at(box(0.5, 0.16, 0.02, '#1E1E22'), gx, 0.22, d / 2 + 0.01), at(box(0.045, 0.06, 0.01, '#C9CCD1'), 0.32, 1.08, d / 2 + 0.014),
+      at(label(o.text || 'SNACKS', 0.7, 0.14, { bg: '#F2C230', fg: '#1E1E22', wrap: false }), 0, 1.86, d / 2 + 0.012));
+    const keys = []; for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) keys.push([0.28 + c * 0.04, 1.4 - r * 0.045, d / 2 + 0.014]);
+    body.add(inst(new THREE.BoxGeometry(0.03, 0.03, 0.01), mat('#E6E2D8'), keys));
+    const packs = [], pc = [], cols = ['#E8742E', '#2C4A8A', '#5E9A4A', '#F2C230', '#9A5AB5', '#B5302A'];
+    for (let r = 0; r < 5; r++) { const y = 1.68 - r * 0.27; body.add(at(box(gw - 0.02, 0.012, d - 0.12, '#C9CCD1'), gx, y, -0.02));
+      for (let c = 0; c < 5; c++) { const x = gx - gw / 2 + 0.07 + c * (gw - 0.14) / 4;
+        body.add(at(torus(0.035, 0.004, '#8C949A', 3, 10), x, y + 0.05, d / 2 - 0.12, 0, PI / 2, 0));
+        if (!(o.empty && r === 1 && c === 3)) for (let k = 0; k < 3; k++) { packs.push([x, y + 0.085, d / 2 - 0.12 - k * 0.12, 0, 0, 0, 0.085, 0.15, 0.035]); pc.push(cols[(r * 2 + c + k) % cols.length]); } } }
+    body.add(inst(new THREE.BoxGeometry(1, 1, 1), mat(P.white), packs, pc));
+    const xB4 = gx - gw / 2 + 0.07 + 3 * (gw - 0.14) / 4;
+    body.add(at(label('B4', 0.07, 0.03, { bg: '#F2C230', fg: '#1E1E22', wrap: false }), xB4, 1.41 - 0.025, d / 2 - 0.05));
+    if (o.stuck) body.add(at(B.chipsPack({}), xB4, 1.41 + 0.02, d / 2 - 0.05, -0.5, 0, 0.12));
+    const g = grp(body);
+    const at0 = [].concat(o.shakeAt ?? []).filter(v => v != null);
+    if (at0.length) g.userData.update = t => { let a = 0; for (const s of at0) { const k = (t - s) / 0.6; if (k >= 0 && k < 1) a = Math.sin(k * PI * 6) * 0.07 * (1 - k); } body.rotation.z = a; body.position.x = a * 0.4; };
+    return g; },
+  chipsPack(o) { // a bag of crisps with a crimped top
+    const c = o.color || '#E8742E';
+    return grp(at(box(0.11, 0.15, 0.04, c, { outline: 0.004 }), 0, 0.075, 0), at(box(0.112, 0.012, 0.02, '#C9CCD1'), 0, 0.152, 0), at(label(o.text || 'CHIPS', 0.09, 0.04, { bg: '#F2C230', fg: '#B5302A', wrap: false }), 0, 0.085, 0.021)); },
+  queueDisplay(o) { // "now serving" number board; shows o.num, then o.num2 from switchAt (with a short blink)
+    const mk = n => canvasPlane(0.7, 0.3, (c, W, H) => { c.fillStyle = '#141414'; c.fillRect(0, 0, W, H); c.fillStyle = '#FF5A3A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.62}px monospace`; c.fillText(String(n), W / 2, H * 0.55); }, { res: 256, emissive: 0.85 });
+    const a = mk(o.num ?? '12'), b = mk(o.num2 ?? '4000'); a.position.z = b.position.z = 0.032; b.visible = false;
+    const g = grp(at(box(0.78, 0.38, 0.06, '#2A2A2E', { outline: 0.008 }), 0, 0, 0), a, b, at(label(o.title || 'GUICHET', 0.5, 0.08, { bg: '#2C4A8A', fg: '#F6F1E3', wrap: false }), 0, 0.25, 0.03));
+    if (o.switchAt != null) g.userData.update = t => { const k = t - o.switchAt; const on2 = k >= 0 && !(k < 0.3 && Math.floor(k * 10) % 2 === 0); b.visible = on2; a.visible = !on2 && k < 0; };
+    return g; },
+  queueTicket(o) { // the paper queue ticket, a big number on it (held like a card)
+    const pic = canvasPlane(0.07, 0.1, (c, W, H) => { c.fillStyle = '#F7F3EA'; c.fillRect(0, 0, W, H); c.fillStyle = '#2C4A8A'; c.fillRect(0, 0, W, H * 0.16); c.fillStyle = '#F6F1E3'; c.font = `bold ${H * 0.09}px Arial`; c.textAlign = 'center'; c.fillText('VOTRE NUMÉRO', W / 2, H * 0.11);
+      c.fillStyle = '#141414'; c.font = `bold ${H * 0.3}px Arial`; c.fillText(String(o.num ?? '4000'), W / 2, H * 0.58); c.font = `${H * 0.07}px Arial`; c.fillText(o.sub || 'Merci de patienter', W / 2, H * 0.85); }, { res: 256 });
+    const g = grp(at(box(0.071, 0.101, 0.002, P.white), 0, 0, 0), at(pic, 0, 0, 0.0015)); g.userData.grip = [0, -0.04, 0]; return g; },
+  sofaProp(o) { // a movable three-seat sofa (same design as the living room's)
+    const c = o.color || P.teal, c2 = o.color2 || P.tealLight;
+    return grp(box(2.2, 0.42, 0.9, c, { pivot: 'bottom', outline: 0.006 }), at(box(1.0, 0.14, 0.75, c2), -0.52, 0.49, 0.05), at(box(1.0, 0.14, 0.75, c2), 0.52, 0.49, 0.05),
+      at(box(2.2, 0.62, 0.24, c), 0, 0.73, -0.33), at(box(0.22, 0.66, 0.9, c, { pivot: 'bottom' }), -1.1, 0, 0), at(box(0.22, 0.66, 0.9, c, { pivot: 'bottom' }), 1.1, 0, 0),
+      at(box(0.4, 0.38, 0.12, P.red), -0.7, 0.72, -0.18, -0.2, 0.1, 0.1)); },
+  oxyMeter(o) { // wall-mounted "oxygen meter": a dial and digits that count up from countAt at o.rate per second
+    const draw = n => (c, W, H) => { c.fillStyle = '#F6F1E3'; c.fillRect(0, 0, W, H); c.fillStyle = '#1E1E22'; c.font = `bold ${H * 0.16}px Arial`; c.textAlign = 'center'; c.fillText(o.title || 'COMPTEUR O₂', W / 2, H * 0.2);
+      c.fillStyle = '#141414'; c.fillRect(W * 0.1, H * 0.34, W * 0.8, H * 0.3); c.fillStyle = '#F2C230'; c.font = `bold ${H * 0.24}px monospace`; c.fillText(String(n).padStart(6, '0') + ' €', W / 2, H * 0.57);
+      c.fillStyle = '#B5302A'; c.font = `bold ${H * 0.11}px Arial`; c.fillText(o.sub || 'À CRÉDIT', W / 2, H * 0.85); };
+    const frames = []; for (let i = 0; i < 12; i++) { const p = canvasPlane(0.5, 0.36, draw((o.start ?? 84312) + i * 3), { res: 256 }); p.position.z = 0.032; p.visible = i === 0; frames.push(p); }
+    const g = grp(at(box(0.56, 0.42, 0.06, '#8C949A', { outline: 0.008 }), 0, 0, 0), ...frames);
+    if (o.countAt != null) g.userData.update = t => { const i = Math.max(0, Math.min(11, Math.floor((t - o.countAt) * (o.rate || 1.5)))); frames.forEach((f, j) => f.visible = j === (t < o.countAt ? 0 : i)); };
+    return g; },
+  cactusPot(o) { // a cactus in a pot (the bailiff gets eyes, a hat and a briefcase in the scene)
+    const C = '#6E9C5A', g = grp(at(cyl(0.2, 0.16, 0.3, '#B8643A', 10, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.21, 0.21, 0.04, '#9C4F2C', 10), 0, 0.3, 0),
+      at(cyl(0.13, 0.15, 0.85, C, 8, { pivot: 'bottom', outline: 0.012 }), 0, 0.3, 0), at(sphere(0.13, C, 1), 0, 1.15, 0));
+    [[-1, 0.62], [1, 0.8]].forEach(([s, y]) => g.add(at(cyl(0.07, 0.07, 0.22, C, 8, { outline: 0.008 }), s * 0.2, y, 0, 0, 0, PI / 2), at(cyl(0.07, 0.08, 0.3, C, 8, { pivot: 'bottom', outline: 0.008 }), s * 0.3, y - 0.04, 0)));
+    for (let i = 0; i < 14; i++) g.add(at(box(0.006, 0.04, 0.006, '#F2EDE4'), Math.cos(i * 2.4) * 0.135, 0.45 + (i % 7) * 0.1, Math.sin(i * 2.4) * 0.135, 0, 0, Math.cos(i) * 0.8));
+    return g; },
   // ---- "Le looksmaxing": the course kit, the chainsaw, the face add-ons (jaw, eyes, lumps), the ring light, mirror, poster
   kit72(o) { // the course kit: a case of 72 coloured vials, the lid standing open with the label
     const w = 0.7, d = 0.45, h = 0.12, g = grp(at(box(w, h, d, '#1E1E22', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0));

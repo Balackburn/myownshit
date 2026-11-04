@@ -1,0 +1,688 @@
+{
+ "version": 3,
+ "title": "Le distributeur",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "juge": {
+   "preset": "judge"
+  },
+  "mecMini": {
+   "preset": "lemec"
+  },
+  "collegue": {
+   "preset": "lemec_beige",
+   "seed": 33
+  }
+ },
+ "scenes": [
+  {
+   "id": "bureau",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "D1",
+     "text": "Ce mec a mis deux euros dans un distributeur pour avoir des chips.",
+     "highlight": [
+      "euros",
+      "chips."
+     ]
+    },
+    {
+     "id": "D2",
+     "text": "Le paquet est resté coincé.",
+     "highlight": [
+      "coincé."
+     ]
+    },
+    {
+     "id": "D3",
+     "text": "Alors il a secoué la machine.",
+     "highlight": [
+      "secoué"
+     ]
+    },
+    {
+     "id": "D4",
+     "text": "La machine l'a secoué aussi.",
+     "highlight": [
+      "aussi."
+     ]
+    },
+    {
+     "id": "D5",
+     "text": "Ce con a appelé les flics.",
+     "highlight": [
+      "flics."
+     ]
+    },
+    {
+     "id": "D6",
+     "text": "Ils ont pris la déposition du distributeur.",
+     "highlight": [
+      "déposition"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      -2.15
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "D1:euros",
+       "clip": "giveItem",
+       "expr": "happy"
+      },
+      {
+       "at": "D2",
+       "clip": "stand",
+       "expr": "shocked"
+      },
+      {
+       "at": "D3",
+       "clip": "holdOut",
+       "expr": "angry"
+      },
+      {
+       "at": "D4:secoué",
+       "to": [
+        1.7,
+        0,
+        -0.7
+       ],
+       "glide": true,
+       "dur": 0.45,
+       "arc": 0.45,
+       "clip": "hitFly",
+       "then": "koFloor",
+       "face": "keep",
+       "expr": "shocked"
+      },
+      {
+       "at": "D5",
+       "to": [
+        1.6,
+        0,
+        -0.9
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": -30,
+       "clip": "phoneCall",
+       "then": "phoneCall",
+       "expr": "angry"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      5.2,
+      0,
+      -0.4
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "D6-0.6",
+       "visible": true
+      },
+      {
+       "at": "D6-0.6",
+       "to": [
+        1.25,
+        0,
+        -2.2
+       ],
+       "clip": "walk",
+       "speed": 4.0,
+       "faceEnd": -150,
+       "then": "clipboard"
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "vm",
+     "name": "vending",
+     "pos": [
+      0.4,
+      0,
+      -3.15
+     ],
+     "opts": {
+      "shakeAt": [
+       "D3:secoué",
+       "D3:machine",
+       "D4:secoué"
+      ]
+     }
+    },
+    {
+     "id": "piece",
+     "name": "coin",
+     "scale": 1.4,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "D1",
+       "visible": true
+      },
+      {
+       "at": "D1:chips",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "paquet",
+     "name": "chipsPack",
+     "pos": [
+      0.375,
+      1.43,
+      -2.85
+     ],
+     "visible": false,
+     "keys": [
+      {
+       "at": "D1:chips",
+       "visible": true
+      },
+      {
+       "at": "D1:chips",
+       "to": [
+        0.375,
+        1.43,
+        -2.77
+       ],
+       "dur": 0.6,
+       "ease": "out"
+      },
+      {
+       "at": "D2:coincé",
+       "to": [
+        0.375,
+        1.44,
+        -2.755
+       ],
+       "dur": 0.15
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "D5",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "D1:euros",
+     "name": "clink",
+     "vol": 0.6
+    },
+    {
+     "at": "D1:chips",
+     "name": "squeak",
+     "vol": 0.4
+    },
+    {
+     "at": "D2:coincé",
+     "name": "thud",
+     "vol": 0.4
+    },
+    {
+     "at": "D3:secoué",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "D3:machine",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "D4:secoué",
+     "name": "boing",
+     "vol": 0.6
+    },
+    {
+     "at": "D4:secoué+0.45",
+     "name": "punch",
+     "vol": 0.6
+    },
+    {
+     "at": "D6:déposition",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "D6:déposition+0.25",
+     "name": "beep",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 40,
+     "frame": [
+      "mec",
+      [
+       0.4,
+       1.3,
+       -3.15
+      ]
+     ]
+    },
+    {
+     "at": "D1:chips",
+     "size": "cu",
+     "worldAngle": -15,
+     "noOcclusion": true,
+     "zoom": 1.3,
+     "frame": [
+      [
+       0.375,
+       1.5299999999999998,
+       -2.77
+      ]
+     ]
+    },
+    {
+     "at": "D3",
+     "size": "ms",
+     "worldAngle": 55,
+     "frame": [
+      "mec",
+      [
+       0.4,
+       1.3,
+       -3.15
+      ]
+     ]
+    },
+    {
+     "at": "D4",
+     "size": "fs",
+     "worldAngle": 25,
+     "elev": 6,
+     "frame": [
+      "mec",
+      [
+       0.4,
+       1.3,
+       -3.15
+      ]
+     ]
+    },
+    {
+     "at": "D5+0.1",
+     "size": "cu",
+     "angle": -25,
+     "frame": "mec"
+    },
+    {
+     "at": "D6",
+     "size": "ms",
+     "worldAngle": -35,
+     "frame": [
+      "flic1",
+      [
+       0.4,
+       1.3,
+       -3.15
+      ]
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "D7",
+     "text": "Au tribunal, le juge a donné raison à la machine.",
+     "highlight": [
+      "raison"
+     ]
+    },
+    {
+     "id": "D8",
+     "text": "Vingt ans ferme. Dans le distributeur.",
+     "speaker": "juge"
+    },
+    {
+     "id": "D9",
+     "text": "Putain.",
+     "pre": 0.3
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "D8",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "D8:ferme",
+       "expr": "shocked",
+       "clip": "startle"
+      },
+      {
+       "at": "D9",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "vm",
+     "name": "vending",
+     "pos": [
+      -1.1,
+      0,
+      -2.0
+     ],
+     "ry": 25
+    }
+   ],
+   "sfx": [
+    {
+     "at": "D8:ferme",
+     "name": "gavel",
+     "vol": 0.6
+    },
+    {
+     "at": "D8:distributeur",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "withProps": true,
+     "frame": [
+      "juge",
+      "vm"
+     ]
+    },
+    {
+     "at": "D8",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "D9",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "prison",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "D10",
+     "text": "Rangée B4, deux euros.",
+     "highlight": [
+      "B4,"
+     ]
+    },
+    {
+     "id": "D11",
+     "text": "Hier, quelqu'un l'a acheté. Il est resté coincé.",
+     "highlight": [
+      "coincé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecMini",
+     "pos": [
+      0.375,
+      1.416,
+      -2.92
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "D11:acheté",
+       "to": [
+        0.375,
+        1.416,
+        -2.8000000000000003
+       ],
+       "glide": true,
+       "dur": 0.6,
+       "clip": "stand",
+       "then": "stiff",
+       "face": "keep",
+       "expr": "shocked"
+      },
+      {
+       "at": "D11:coincé",
+       "expr": "unimpressed",
+       "clip": "stareCamera"
+      }
+     ],
+     "scale": 0.12,
+     "expr": "sad"
+    },
+    {
+     "id": "collegue",
+     "pos": [
+      -2.6,
+      0,
+      -0.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "D10",
+       "to": [
+        0.75,
+        0,
+        -2.15
+       ],
+       "clip": "walk",
+       "speed": 2.6,
+       "faceEnd": 180,
+       "then": "stand"
+      },
+      {
+       "at": "D11",
+       "clip": "giveItem"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "vm",
+     "name": "vending",
+     "pos": [
+      0.4,
+      0,
+      -3.15
+     ],
+     "opts": {
+      "empty": true
+     }
+    },
+    {
+     "id": "prix",
+     "name": "priceTag",
+     "scale": 0.35,
+     "pos": [
+      0.425,
+      1.365,
+      -2.7399999999999998
+     ],
+     "opts": {
+      "text": "2,00 €"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "D11",
+     "name": "clink",
+     "vol": 0.6
+    },
+    {
+     "at": "D11:acheté",
+     "name": "squeak",
+     "vol": 0.4
+    },
+    {
+     "at": "D11:coincé",
+     "name": "thud",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": 0,
+     "noOcclusion": true,
+     "frame": "mecMini"
+    },
+    {
+     "at": "D11",
+     "size": "ms",
+     "worldAngle": 40,
+     "frame": [
+      "collegue",
+      [
+       0.4,
+       1.3,
+       -3.15
+      ]
+     ]
+    },
+    {
+     "at": "D11:resté",
+     "size": "fs",
+     "angle": 0,
+     "noOcclusion": true,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mecMini"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

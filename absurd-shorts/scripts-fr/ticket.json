@@ -1,0 +1,858 @@
+{
+ "version": 3,
+ "title": "Le ticket",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "guichetiere": {
+   "preset": "madame",
+   "seed": 44,
+   "glasses": true
+  },
+  "juge": {
+   "preset": "judge"
+  }
+ },
+ "scenes": [
+  {
+   "id": "poste",
+   "set": "poste",
+   "ambience": "station",
+   "ambienceVol": 0.6,
+   "daynight": {
+    "from": "P4",
+    "period": 0.55
+   },
+   "crowd": [
+    {
+     "id": "att",
+     "count": 4,
+     "spec": {
+      "preset": "lemec_charcoal",
+      "seed": 71
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.6,
+       0.12,
+       0.78
+      ],
+      [
+       1.0,
+       0.12,
+       0.78
+      ],
+      [
+       -1.7,
+       0.12,
+       1.98
+      ],
+      [
+       0.1,
+       0.12,
+       1.98
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "P1",
+     "text": "Ce mec a pris un ticket à la poste pour envoyer un colis.",
+     "highlight": [
+      "ticket",
+      "colis."
+     ]
+    },
+    {
+     "id": "P2",
+     "text": "Numéro quatre mille.",
+     "highlight": [
+      "quatre",
+      "mille."
+     ]
+    },
+    {
+     "id": "P3",
+     "text": "Au guichet, on en était au douze.",
+     "highlight": [
+      "douze."
+     ]
+    },
+    {
+     "id": "P4",
+     "text": "Il a attendu."
+    },
+    {
+     "id": "P5",
+     "text": "Sa barbe a poussé. Ses cheveux sont tombés.",
+     "highlight": [
+      "barbe",
+      "tombés."
+     ]
+    },
+    {
+     "id": "P6",
+     "text": "À soixante-cinq ans, son numéro est enfin sorti.",
+     "highlight": [
+      "soixante-cinq",
+      "sorti."
+     ]
+    },
+    {
+     "id": "P7",
+     "text": "C'est midi. On ferme.",
+     "speaker": "guichetiere"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      5.4,
+      0,
+      2.0
+     ],
+     "ry": -60,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        3.25,
+        0,
+        0.32
+       ],
+       "clip": "walk",
+       "speed": 1.8,
+       "faceEnd": 151,
+       "then": "stand"
+      },
+      {
+       "at": "P1:ticket",
+       "clip": "takeItem",
+       "expr": "happy"
+      },
+      {
+       "at": "P2",
+       "face": 10,
+       "turn": 0.2,
+       "clip": "showPhone",
+       "expr": "neutral"
+      },
+      {
+       "at": "P3",
+       "to": [
+        -0.8,
+        0.12,
+        0.78
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 180,
+       "clip": "sit",
+       "then": "sit",
+       "expr": "neutral"
+      },
+      {
+       "at": "P5",
+       "expr": "sad"
+      },
+      {
+       "at": "P5:tombés",
+       "expr": "sleepy"
+      },
+      {
+       "at": "P6:sorti",
+       "to": [
+        -0.8,
+        0,
+        0.55
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 180,
+       "clip": "stand",
+       "then": "stand",
+       "expr": "shocked"
+      },
+      {
+       "at": "P6:sorti+0.25",
+       "to": [
+        0,
+        0,
+        -1.62
+       ],
+       "clip": "sneak",
+       "speed": 1.0,
+       "faceEnd": 180,
+       "then": "stand",
+       "expr": "happy"
+      },
+      {
+       "at": "P7",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "guichetiere",
+     "pos": [
+      0,
+      0,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "P7",
+       "clip": "talk",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "colis",
+     "name": "cardboardBox",
+     "scale": 0.45,
+     "visible": true,
+     "opts": {
+      "text": "FRAGILE"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.15,
+       0.08
+      ]
+     },
+     "keys": [
+      {
+       "at": "P2",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "ticket",
+     "name": "queueTicket",
+     "scale": 1.6,
+     "visible": false,
+     "opts": {
+      "num": "4000"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "P1:ticket+0.2",
+       "visible": true
+      },
+      {
+       "at": "P3",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "ecran",
+     "name": "queueDisplay",
+     "pos": [
+      0,
+      2.72,
+      -3.35
+     ],
+     "opts": {
+      "num": "12",
+      "num2": "4000",
+      "switchAt": "P6:numéro"
+     }
+    },
+    {
+     "id": "horloge",
+     "name": "wallClock",
+     "scale": 1.0,
+     "pos": [
+      3.9,
+      2.4,
+      -3.37
+     ],
+     "opts": {
+      "rate": 0
+     },
+     "alt": {
+      "opts": {
+       "rate": 3
+      },
+      "at": "P4"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 0.05,
+     "visible": false,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     },
+     "keys": [
+      {
+       "at": "P5",
+       "visible": true
+      },
+      {
+       "at": "P5",
+       "scale": 2.3,
+       "dur": 1.2,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "crane",
+     "name": "baldCap",
+     "visible": false,
+     "opts": {
+      "w": 0.235,
+      "d": 0.215,
+      "color": "#E8B88E"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.545,
+       -0.005
+      ]
+     },
+     "keys": [
+      {
+       "at": "P5:cheveux",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "ferme",
+     "name": "signBoard",
+     "scale": 0.6,
+     "visible": false,
+     "pos": [
+      0,
+      1.12,
+      -2.2
+     ],
+     "opts": {
+      "text": "FERMÉ",
+      "bg": "#B5302A",
+      "fg": "#F6F1E3",
+      "w": 0.9,
+      "h": 0.35,
+      "height": 0.0
+     },
+     "keys": [
+      {
+       "at": "P7:ferme",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P1:ticket",
+     "name": "paper",
+     "vol": 0.5
+    },
+    {
+     "at": "P4",
+     "name": "ticks",
+     "vol": 0.6
+    },
+    {
+     "at": "P4+1.4",
+     "name": "ticks",
+     "vol": 0.6
+    },
+    {
+     "at": "P6:numéro",
+     "name": "bell",
+     "vol": 0.7
+    },
+    {
+     "at": "P7:ferme",
+     "name": "thud",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -60,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "P1:colis",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "P2+0.2",
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "zoom": 1.3,
+     "frame": "ticket"
+    },
+    {
+     "at": "P3",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.1,
+     "frame": [
+      [
+       0,
+       2.72,
+       -3.35
+      ]
+     ]
+    },
+    {
+     "at": "P4",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "P5",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "P6",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "zoom": 1.1,
+     "frame": [
+      [
+       0,
+       2.72,
+       -3.35
+      ]
+     ]
+    },
+    {
+     "at": "P6:sorti+0.2",
+     "size": "fs",
+     "angle": 40,
+     "frame": "mec"
+    },
+    {
+     "at": "P7",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "guichetiere"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "P8",
+     "text": "Alors ce con a porté plainte. Pour séquestration.",
+     "highlight": [
+      "plainte.",
+      "séquestration."
+     ]
+    },
+    {
+     "id": "P9",
+     "text": "La poste a été condamnée à lui verser sa putain de retraite.",
+     "highlight": [
+      "condamnée",
+      "retraite."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "P9:condamnée",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "P9:retraite",
+       "clip": "celebrate",
+       "expr": "happy"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "boite",
+     "name": "mailbox",
+     "pos": [
+      -1.0,
+      0,
+      -2.0
+     ],
+     "ry": 20,
+     "opts": {
+      "color": "#F2C230"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.3,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "crane",
+     "name": "baldCap",
+     "opts": {
+      "w": 0.235,
+      "d": 0.215,
+      "color": "#E8B88E"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.545,
+       -0.005
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P9:condamnée",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "withProps": true,
+     "frame": [
+      "juge",
+      "boite"
+     ]
+    },
+    {
+     "at": "P8:séquestration",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "P9",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "P9:retraite",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fin",
+   "set": "poste",
+   "ambience": "station",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "P10",
+     "text": "En recommandé. À retirer au guichet.",
+     "highlight": [
+      "recommandé.",
+      "guichet."
+     ]
+    },
+    {
+     "id": "P11",
+     "text": "Il a pris un ticket.",
+     "pre": 0.4,
+     "highlight": [
+      "ticket."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.25,
+      0,
+      0.32
+     ],
+     "ry": 10,
+     "clip": "showPhone",
+     "keys": [
+      {
+       "at": "P11-0.3",
+       "face": 151,
+       "turn": 0.2,
+       "clip": "takeItem",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "P11:ticket",
+       "face": 10,
+       "turn": 0.2,
+       "clip": "showPhone"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "avis",
+     "name": "notebook",
+     "scale": 1.8,
+     "opts": {
+      "text": "AVIS DE\nPASSAGE\n—\nÀ RETIRER\nAU GUICHET",
+      "bg": "#2C4A8A"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "P11",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "ticket",
+     "name": "queueTicket",
+     "scale": 1.6,
+     "visible": false,
+     "opts": {
+      "num": "8000"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "P11",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.3,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "crane",
+     "name": "baldCap",
+     "opts": {
+      "w": 0.235,
+      "d": 0.215,
+      "color": "#E8B88E"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.545,
+       -0.005
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "P11",
+     "name": "paper",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "zoom": 1.2,
+     "frame": "avis"
+    },
+    {
+     "at": "P11-0.3",
+     "size": "ms",
+     "worldAngle": 40,
+     "frame": "mec"
+    },
+    {
+     "at": "P11:ticket+0.25",
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "zoom": 1.3,
+     "frame": "ticket"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

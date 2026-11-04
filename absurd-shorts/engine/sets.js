@@ -157,10 +157,13 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], window: [-1.75, 0, back + 0.7], sideTable: [2.0, 0.72, back + 0.45], door: [4.7, 0, back + 0.6], desk: [-4.6, 0, -1.4], deskChair: [-4.9, 0, -2.1], picture: [2.0, 2.05, back] };
     g.userData.lighting = 'interior'; return g;
   },
-  livingRoom() {
+  livingRoom(o = {}) { // o.sofa / o.plant / o.tv / o.lamp === false: leave them out (a scene supplies movable ones)
     const g = grp(), { back } = room(g, { wall: P.cream, band: P.tealLight, bandH: 0.95, trim: P.teal, floor: P.wood });
-    g.add(at(sofa(), 0, 0, back + 0.55), floorLamp(1.85, back + 0.45), prop('plant', {}, -1.85, 0, back + 0.4), at(picture(1.4, 0.9, P.navy), 0, 2.35, back + 0.03),
-      prop('carpet', { w: 3.6, d: 2.4, color: P.red }, 0, 0, -0.6), prop('tv', { text: '' }, 3.7, 0, -1.2, -0.6), prop('window', { w: 1.2, h: 1.3, color: P.teal, curtains: P.red }, 3.6, 0.95, back),
+    if (o.sofa !== false) g.add(at(sofa(), 0, 0, back + 0.55));
+    if (o.lamp !== false) g.add(floorLamp(1.85, back + 0.45));
+    if (o.plant !== false) g.add(prop('plant', {}, -1.85, 0, back + 0.4));
+    if (o.tv !== false) g.add(prop('tv', { text: '' }, 3.7, 0, -1.2, -0.6));
+    g.add(at(picture(1.4, 0.9, P.navy), 0, 2.35, back + 0.03), prop('carpet', { w: 3.6, d: 2.4, color: P.red }, 0, 0, -0.6), prop('window', { w: 1.2, h: 1.3, color: P.teal, curtains: P.red }, 3.6, 0.95, back),
       prop('table', { w: 0.5, d: 0.5, h: 0.55, color: P.teal }, -3.4, 0, back + 0.5), tableLamp(-3.4, 0.55, back + 0.5, P.salmon));
     g.userData.anchors = { center: [0, 0, 0], sofa: [0, 0, back + 0.55], sofaSeat: [0, 0.5, back + 0.75], lamp: [1.85, 0, back + 0.45], plant: [-1.85, 0, back + 0.4], picture: [0, 2.35, back], tv: [3.7, 0, -1.2], window: [3.6, 0, back + 0.7] };
     g.userData.lighting = 'interior'; return g;
@@ -810,6 +813,23 @@ const S = {
     [[-2.6, -3.6], [3.8, -3.7], [-4.3, -3.5]].forEach(([x, z], i) => g.add(prop('bush', { seed: i + 40 }, x, 0, z, 0, 0.9)));
     g.userData.anchors = { center: [0, 0, 0], door: [0.97, 0, -3.6], path: [0.97, 0, -1.0], gate: [0.97, 0, 2.2], pavement: [0, 0, 3.6] };
     g.userData.lighting = 'day'; return g;
+  },
+  poste(o = {}) { // French post office — viz3d pass from real branch layouts: counter with three glazed windows, "now serving" board,
+                  // ticket dispenser, rows of waiting chairs, parcel shelves, posters, plants, a wall clock (o.clockRate)
+    const g = grp(), { back } = room(g, { wall: '#EDE8DC', band: '#F2C230', bandH: 1.0, trim: '#2C4A8A', floor: '#C9C2B2', back: -3.4, half: 6 });
+    g.add(at(box(6.0, 1.05, 0.7, '#2C4A8A', { pivot: 'bottom', outline: 0.006 }), 0, 0, back + 1.0), at(box(6.1, 0.05, 0.8, '#E6E2D8'), 0, 1.075, back + 1.0), at(box(6.0, 0.1, 0.02, '#F2C230'), 0, 0.8, back + 1.36));
+    [-2.0, 0, 2.0].forEach(x => { g.add(at(mesh(new THREE.BoxGeometry(1.5, 1.0, 0.012), glassMat(0.18, '#DDEEF2')), x, 1.6, back + 1.2), at(box(1.56, 0.05, 0.05, '#2A2A2E'), x, 2.12, back + 1.2), at(box(0.05, 1.05, 0.05, '#2A2A2E'), x - 0.78, 1.6, back + 1.2), at(box(0.05, 1.05, 0.05, '#2A2A2E'), x + 0.78, 1.6, back + 1.2), at(box(0.3, 0.04, 0.12, '#C9CCD1'), x, 1.1, back + 1.32)); });
+    [-2.0, 0, 2.0].forEach((x, i) => g.add(at(label(`GUICHET ${i + 1}`, 0.7, 0.16, { bg: '#2C4A8A', fg: '#F6F1E3', wrap: false }), x, 2.3, back + 1.22)));
+    g.add(at(label(o.title || 'BUREAU DE POSTE', 3.4, 0.4, { bg: '#F2C230', fg: '#2C4A8A', wrap: false }), 0, 3.2, back + 0.02));
+    for (let r = 0; r < 2; r++) for (let i = 0; i < 5; i++) g.add(prop('chair', { color: '#2C4A8A' }, -2.6 + i * 0.9 + (r ? 3.0 : 0) * 0, 0, 0.9 + r * 1.2, PI));
+    g.add(prop('ticketMachine', { num: o.ticketNum || '4000' }, 3.6, 0, -0.3, -0.5));
+    [[-5.2, 'COLIS'], [5.2, 'TIMBRES']].forEach(([x, t]) => g.add(at(buildProp('fitPoster', { text: t, bg: '#2C4A8A', fg: '#F2C230' }), x, 1.8, back + 0.02)));
+    for (let k = 0; k < 3; k++) g.add(at(box(1.4, 0.04, 0.4, '#C9A06A'), -4.6, 0.9 + k * 0.5, back + 0.22));
+    for (let k = 0; k < 9; k++) g.add(at(box(0.32, 0.22, 0.3, '#C49A66', { outline: 0.006 }), -5.1 + (k % 3) * 0.45, 1.03 + Math.floor(k / 3) * 0.5, back + 0.24));
+    g.add(prop('plant', { seed: 21 }, 5.4, 0, back + 0.5), prop('plant', { seed: 22 }, -5.4, 0, 2.0));
+    g.add(prop('wallClock', { rate: o.clockRate ?? 1 / 60 }, 3.9, 2.4, back + 0.03));
+    g.userData.anchors = { center: [0, 0, 0], counter: [0, 0, back + 1.0], clerk: [0, 0, back + 0.55], window: [0, 1.6, back + 1.2], customer: [0, 0, back + 1.75], chairs: [-2.6, 0, 0.9], ticket: [3.6, 0, -0.3] };
+    g.userData.lighting = 'interior'; return g;
   },
   chambre(o = {}) { // small bedroom: single bed, desk with a computer, wardrobe, full-length mirror, gym-guru poster, clothes on the floor,
                     // window with curtains; o.wall / o.poster / o.blanket restyle it (Glucksmann's room at the end)
