@@ -7,6 +7,7 @@ Times inside a shot are shot-local frames at 30 fps (converted to layer millisec
 import json, math
 
 FPS = 30
+SCALE = 1.0   # 2D layout scale (draft builds at half the reference canvas set this to 0.5)
 IDT = {"anchorPoint": [0, 0], "position": [0, 0], "scale": [100, 100], "rotation": 0, "opacity": 100}
 
 
@@ -63,6 +64,8 @@ class Shot:
         self.dur = ms(f1 + 1) - ms(f0); self._data = {}
         world = {"id": doc.nid(), "background": {"type": "color", "color": ext(sky)},
                  "light": {"source": {"type": "color", "color": ext(amb_color)}, "intensity": amb}}
+        import os
+        if os.environ.get('TSX_NOWORLDLIGHT'): world["light"] = None
         if fog: world["fog"] = {"color": ext(fog[0]), "startDistance": fog[1], "endDistance": fog[2]}
         doc.add({"type": "createFxScene3DLayer", "compositionId": "main", "layerId": layer_id, "name": name, "pixelsPerMeter": ppm,
                  "view": {"id": doc.nid(), "exposure": exposure}, "activeRange": {"start": ms(f0), "duration": self.dur}, "transform": IDT,
@@ -108,6 +111,8 @@ class Shot:
         return cid
 
     def sun(self, rx=-50, ry=-35, irradiance=3.2, color='#FFF6E8', shadows=True):
+        import os
+        if os.environ.get('TSX_NOSHADOW'): shadows = False
         lid = self.d.nid()
         self.d.add({"type": "addFxScene3DLayer", "compositionId": "main", "layerId": self.L, "item": {
             "type": "Light3D", "id": lid, "parentId": None, "name": "Sun", "castsShadows": shadows, "color": ext(color), "transform": {"rotation": euler(rx, ry, 0)},
@@ -158,6 +163,7 @@ class Shot:
 def caption(doc, layer_id, text, highlights, t0, t1, font=("Nunito", "Black"), size=33, y=846, stroke=4.0,
             fill='#FEFEFC', hl='#D88168', outline='#1C252A', width=576):
     """centred point-text caption with highlighted words (per-character fill overrides)."""
+    size, y, stroke, width = size * SCALE, y * SCALE, stroke * SCALE, width * SCALE
     animators = []
     for w in highlights:
         i = text.find(w)
@@ -177,6 +183,7 @@ def caption(doc, layer_id, text, highlights, t0, t1, font=("Nunito", "Black"), s
 def card(doc, layer_id, text, f0, f1, font=("Nunito ExtraLight", "Black"), size=46, w=528, h=84, cx=288, cy=86,
          bg='#1F2E46', fg='#FFFFFF', drop=((0, -160), (2, -40), (3, 10), (5, 0))):
     """title card (dark box + white word) that drops in from the top with a small bounce; drop = [(local frame, y offset)]"""
+    size, w, h, cx, cy = size * SCALE, w * SCALE, h * SCALE, cx * SCALE, cy * SCALE; drop = [(f, dy * SCALE) for f, dy in drop]
     rid, tid = doc.nid(), doc.nid()
     doc.add({"type": "createFxGroupLayer", "compositionId": "main", "layerId": layer_id, "name": f"card {text}", "insertIndex": 0,
              "activeRange": {"start": ms(f0), "duration": ms(f1 + 1) - ms(f0)}, "transform": IDT},
@@ -191,3 +198,28 @@ def card(doc, layer_id, text, f0, f1, font=("Nunito ExtraLight", "Black"), size=
     kx = [{"id": f"card{layer_id}x{i}", "layerTime": ms(f), "value": {"type": "float", "value": 0}, "easing": {"type": "linear"}} for i, (f, _) in enumerate(drop)]
     ky = [{"id": f"card{layer_id}y{i}", "layerTime": ms(f), "value": {"type": "float", "value": dy}, "easing": ease('out' if i else 'linear')} for i, (f, dy) in enumerate(drop)]
     doc.add({"type": "setFxPositionKeyframes", "compositionId": "main", "layerId": layer_id, "positionX": {"keyframes": kx}, "positionY": {"keyframes": ky}})
+
+
+def grade(doc, layer_id, f0, f1, **pg):
+    """adjustment layer with a primaryGrade over every layer below it (create after the shots, before captions)"""
+    p = {"semanticVersion": 1, "temperature": 0, "tint": 0, "exposure": 0, "contrast": 0, "highlights": 0, "shadows": 0, "whites": 0, "blacks": 0, "saturation": 0, "vibrance": 0}
+    p.update(pg)
+    doc.add({"type": "createFxAdjustmentLayer", "compositionId": "main", "layerId": layer_id, "name": "global grade", "insertIndex": 0,
+             "activeRange": {"start": ms(f0), "duration": ms(f1 + 1) - ms(f0)}, "transform": IDT},
+            {"type": "addFxLayerEffect", "compositionId": "main", "layerId": layer_id, "effectId": doc.nid(), "effect": {"type": "primaryGrade", **p}})
+
+
+def _attach_box(sh, size, offset, color, model, node, rot=(0, 0, 0), name='attached'):
+    """a box parented to an imported model's node (e.g. a phone in handR) through a childOf constraint"""
+    did, iid = sh.d.nid(), sh.d.nid(); slot = sh._slot(color, 0.5)
+    sh.d.add({"type": "addFxScene3DFragment", "compositionId": "main", "layerId": sh.L,
+              "data": [{"type": "mesh", "id": did, "name": name, "geometry": {"type": "box", "size": list(size)}, "regions": [{"key": "primary", "name": "Primary"}, {"key": "side", "name": "Side"}]}],
+              "items": [{"type": "Mesh3D", "id": iid, "parentId": None, "name": name, "dataId": did, "packing": "whole", "castsShadows": True,
+                         "transform": {"position": [0, 0, 0], "rotation": euler(*rot), "scale": [100, 100, 100],
+                                       "relationships": {"constraints": [{"type": "childOf", "id": sh.d.nid(), "influence": 1,
+                                                                          "target": {"id": sh.d.nid(), "target": {"type": "modelNode", "model": model, "node": node}, "offset": list(offset), "offsetSpace": "local"}}]}},
+                         "materialSlots": [slot], "regionSlots": [{"region": "primary", "slotId": slot["id"]}, {"region": "side", "slotId": slot["id"]}]}]})
+    return iid
+
+
+Shot.attach_box = _attach_box

@@ -2,12 +2,13 @@
 // (rigid parenting = posable in Blender/Unity) and baked animation clips.
 import * as THREE from 'three';
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { buildHuman, PRESETS } from './human.js';
 import { CLIPS, samplePose, applyPose } from './animations.js';
 
 const opt = async p => { try { return await import(p); } catch { return null; } };
 
-export const HUMAN_BAKE = [...new Set(['idle', 'walk', 'run', 'flee', 'handsOnHips', 'oneHandHip', 'point', 'salute', 'wave', 'shrug', 'facepalm', 'phone', 'think', 'armsCrossed', 'talk', 'yell', 'celebrate', 'scared', 'surrender', 'handcuffed', 'pressGlass', 'cry', 'dance', 'sit', 'sitWrite', 'slumpDesk', 'jump', 'startle', 'hangWire', 'lookAround', 'stareCamera', 'lurk', 'climbDown', 'sneak', 'crawl', 'kneel', 'explain', 'phoneCall', 'point', 'stand', 'holdOut', 'present', 'showPhone'])];
+export const HUMAN_BAKE = [...new Set(['idle', 'walk', 'run', 'flee', 'handsOnHips', 'oneHandHip', 'point', 'salute', 'wave', 'shrug', 'facepalm', 'phone', 'think', 'armsCrossed', 'talk', 'yell', 'celebrate', 'scared', 'surrender', 'handcuffed', 'pressGlass', 'cry', 'dance', 'sit', 'sitWrite', 'slumpDesk', 'jump', 'startle', 'hangWire', 'lookAround', 'stareCamera', 'lurk', 'climbDown', 'sneak', 'crawl', 'kneel', 'explain', 'phoneCall', 'phoneCallL', 'point', 'stand', 'holdOut', 'present', 'showPhone'])];
 
 function deInstance(root) { // EXT_mesh_gpu_instancing is not read by every importer (Tesseract): expand instances into plain meshes
   const inst = []; root.traverse(n => { if (n.isInstancedMesh) inst.push(n); });
@@ -71,12 +72,36 @@ async function toGLB(obj, animations = []) {
   return btoa(s);
 }
 
+// merge a static prop into one mesh per material (world transforms baked): far fewer draw calls for software renderers
+function mergeByMaterial(root) {
+  root.updateMatrixWorld(true);
+  const groups = new Map();
+  root.traverse(n => {
+    if (!n.isMesh || n.isSkinnedMesh || !n.geometry) return;
+    const mats = [].concat(n.material); if (mats.length !== 1) return;     // multi-material meshes stay as they are
+    let g = n.geometry.clone(); g.applyMatrix4(n.matrixWorld);
+    if (g.index) g = g.toNonIndexed();
+    for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
+    if (!g.attributes.normal) g.computeVertexNormals();
+    if (!g.attributes.uv) g.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
+    g.morphAttributes = {};
+    const key = mats[0].uuid; if (!groups.has(key)) groups.set(key, { mat: mats[0], geos: [], nodes: [] });
+    groups.get(key).geos.push(g); groups.get(key).nodes.push(n);
+  });
+  const out = new THREE.Group(); out.name = root.name;
+  for (const { mat, geos, nodes } of groups.values()) {
+    const merged = mergeGeometries(geos, false); if (!merged) { nodes.forEach(n => out.add(n.clone())); continue; }
+    const m = new THREE.Mesh(merged, mat); m.castShadow = true; m.receiveShadow = true; out.add(m);
+  }
+  return out;
+}
+
 export async function list() {
   const C = await opt('/engine/creatures.js'); const P = await opt('/engine/props.js');
   return { humans: Object.keys(PRESETS), creatures: C ? C.CREATURE_NAMES : [], props: P ? P.PROP_NAMES : [] };
 }
 
-export async function exportOne(kind, name, { bake = true, opts = {} } = {}) {
+export async function exportOne(kind, name, { bake = true, opts = {}, merge = false } = {}) {
   let obj, anims = [];
   if (kind === 'human') {
     obj = buildHuman({ preset: name });
@@ -87,6 +112,7 @@ export async function exportOne(kind, name, { bake = true, opts = {} } = {}) {
     const C = await import('/engine/creatures.js'); obj = C.buildCreature(name); obj.userData.animate?.('idle', 0); stripForExport(obj); obj.name = name;
   } else {
     const P = await import('/engine/props.js'); obj = P.buildProp(name, opts); stripForExport(obj); obj.name = name;
+    if (merge) obj = mergeByMaterial(obj);
   }
   const scene = new THREE.Scene(); scene.add(obj); scene.updateMatrixWorld(true);
   return toGLB(scene, anims);

@@ -201,6 +201,7 @@ export const CLIPS = {
     hipL: [-0.35, 0, 0], kneeL: [0.4, 0, 0], hipR: [0.25 * strike, 0, 0] }; },
   kneelBow: (t) => ({ ...CLIPS.kneel(t), torso: [0.75, 0, 0], head: [0.3, 0, 0], ...arms(m([-1.4, 0, 0.15], [-1.4, 0, 0.15]), m([-0.2, 0, 0], [-0.2, 0, 0])) }),
   fan: (t) => ({ shoulderR: [-1.6 + 0.35 * S(t * 12), 0, 0.3], elbowR: [-0.6, 0, 0], shoulderL: [0, 0, 0.2], elbowL: [-0.2, 0, -0.3], head: [0.05, -0.2, 0] }),
+  phoneCallL: (t) => { const q = CLIPS.phoneCall(t), f = v => v && [v[0], -v[1], -v[2]]; return { ...q, shoulderL: f(q.shoulderR), elbowL: f(q.elbowR), shoulderR: f(q.shoulderL), elbowR: f(q.elbowL), head: f(q.head) }; }, // phone in the LEFT hand (mirror of phoneCall)
   phoneCall: (t) => ({ shoulderR: [-0.55, 0, 0.75], elbowR: [-2.45, 0.2, 0], shoulderL: [-0.6 - 0.25 * Math.max(0, S(t * 3.3)), 0, 0.35], elbowL: [-1.2 + 0.3 * S(t * 3.3), 0.5, 0], head: [0.05 * S(t * 5), 0, -0.12], torso: [0, 0.08 * S(t * 1.7), 0] }),
   whistleBlow: (t) => ({ shoulderR: [-1.15, 0.6, 0], elbowR: [-2.3, 0, 0], shoulderL: [-1.45, -0.1, 0.1], elbowL: [0, 0, 0], head: [-0.1, 0, 0], torso: [-0.05, 0, 0] }),
   clipboard: (t) => ({ shoulderL: [-0.75, -0.45, 0.1], elbowL: [-1.6, 0, 0], shoulderR: [-0.85, 0.4, -0.05], elbowR: [-1.5 - 0.06 * S(t * 18), 0, 0], head: [0.35, 0, 0] }),

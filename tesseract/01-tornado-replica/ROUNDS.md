@@ -78,3 +78,30 @@ samples 3 frames per shot at 576×1024 against the reference.
   - export the faces as lit materials;
   - a global grade layer (lift, desaturate, paper texture);
   - then S5-S8.
+
+## Round 4: global grade, phone attachment, camera conventions, playable videos
+
+| shot | gap | SSIM | ΔE | edges | change |
+|---|---|---|---|---|---|
+| S4 | 2.926 | 0.530 | 32.6 | 0.337 | +0.099 |
+| S3 | 2.822 | 0.581 | 29.1 | 0.278 | +0.241 |
+| S1 | 2.705 | 0.586 | 27.5 | 0.310 | -0.004 |
+| S2 | 2.356 | 0.775 | 19.9 | 0.110 | -0.230 |
+
+- **Global grade:** an adjustment layer with a primaryGrade at saturation -0.3, below the captions.
+  - The face texture is really orange (216,152,88). Our three.js engine showed it lighter because it skipped the sRGB decode;
+    Tesseract decodes it correctly.
+  - With 30% desaturation the face lands on the reference tan (195,153,112), which the S4 sheet confirms.
+- **Wrong sides:**
+  - **S4:** the reference phone is in his left hand (frame right), and the road is on the right, so the shot moves to the far
+    sidewalk;
+  - **S3:** he faces camera-left (rotY -45, not -130);
+  - **S1:** it is an orbit (front → house side looking across the road → behind him looking down the street at the tornado),
+    and the tornado must stay out of frame at the start.
+
+  The coloured-box test fixed the camera conventions (see lessons). These fixes are in the code for round 5, with a mirrored
+  `phoneCallL` clip.
+- **Render cost:** about 9-12 s per frame is fixed cost on lavapipe (an empty scene with no assets is 9 s), so a half-size
+  canvas or merged meshes barely help.
+- **Playable videos** (asked by the user): `render_video.sh` renders the shots at 10 fps with 2 parallel previews and stacks
+  them beside the reference, with its sound. `Previews/r4_S1-S4_side_by_side.mp4` is the first one.

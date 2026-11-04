@@ -26,8 +26,20 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 
 - (tornado) The camera aim constraint wants `up: [0, 1, 0]` for an upright picture, even though +Y points down; `[0, -1, 0]`
   renders upside down.
-- (tornado) A glTF Model3D with `rotationY` 0 faces -Z, towards a camera at negative Z. -90 faces +X and 180 faces +Z. A
-  camera looking along -X has +Z on its left.
+- (tornado) A glTF Model3D with `rotationY` 0 faces -Z, towards a camera at negative Z. -90 faces +X and 180 faces +Z.
+- (tornado) Measured with coloured boxes, with the aim constraint's `up: [0, 1, 0]`:
+  - a camera looking +Z has +X on its right and -Y at the top;
+  - a camera looking +X has +Z on its left (-Z on its right);
+  - so a camera looking -X has +Z on its right.
+
+  Work out which side every subject should appear on before placing it.
+- (tornado) Render cost on Mesa lavapipe is mostly a fixed cost per frame, not a cost per pixel:
+  - an empty Scene3D takes about 9 s per preview, about 12 s with sun shadows;
+  - a street with about 70 models takes 24 s; a half-size canvas is no faster, and merging meshes per material saves little;
+  - `export` is not faster per frame (34 s at its 720p minimum).
+
+  For playable progress videos, run 2 previews in parallel at 10 fps (`render_video.sh`), and keep full 30 fps exports for
+  milestones.
 - (tornado) The variable Nunito font registers as family `Nunito ExtraLight` with named instances: use style `Black`. Read
   `fonts.json` from the import result rather than guessing.
 - (tornado) A light's colour is set on the Light3D item, not inside `emitter`.

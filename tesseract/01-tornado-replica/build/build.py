@@ -19,14 +19,14 @@ def tsrct(*args, capture=True):
     return r.stdout
 
 
-def base_doc():
+def base_doc(scale=1.0):
     """empty canvas + all assets; rebuilt when an asset file is newer than the cache"""
-    base = os.path.join(W, 'base.tsrct'); assets = sorted(glob.glob(os.path.join(ROOT, 'assets/models/*.glb'))) + sorted(glob.glob(os.path.join(ROOT, 'assets/fonts/*.ttf')))
+    base = os.path.join(W, 'base.tsrct' if scale == 1 else f'base_s{int(scale * 100)}.tsrct'); assets = sorted(glob.glob(os.path.join(ROOT, 'assets/models/*.glb'))) + sorted(glob.glob(os.path.join(ROOT, 'assets/fonts/*.ttf')))
     if os.path.exists(base) and all(os.path.getmtime(a) < os.path.getmtime(base) for a in assets): return base
     if os.path.exists(base): os.remove(base)
     tsrct('project', 'create', '--project', base)
     ed = os.path.join(W, 'base_editable.json'); tsrct('project', 'checkout', '--project', base, '--output', ed)
-    d = json.load(open(ed)); d['dimensions'] = {'width': 576, 'height': 1024}; d['duration'] = 28.8
+    d = json.load(open(ed)); d['dimensions'] = {'width': int(576 * scale), 'height': int(1024 * scale)}; d['duration'] = 28.8
     d['colorManagement'] = d.get('colorManagement', {'workingSpace': 'legacyDisplay'}); json.dump(d, open(ed, 'w')); tsrct('project', 'commit', '--project', base, '--file', ed)
     fonts = {}
     for a in assets:
@@ -41,9 +41,10 @@ def base_doc():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--only'); ap.add_argument('--no-captions', action='store_true'); ap.add_argument('--out', default=os.path.join(ROOT, 'Replica.tsrct'))
+    ap = argparse.ArgumentParser(); ap.add_argument('--only'); ap.add_argument('--no-captions', action='store_true'); ap.add_argument('--out', default=os.path.join(ROOT, 'Replica.tsrct')); ap.add_argument('--scale', type=float, default=1.0)
     a = ap.parse_args(); os.makedirs(W, exist_ok=True)
-    base = base_doc()
+    base = base_doc(a.scale)
+    import tsx; tsx.SCALE = a.scale
     import shots
     acts = shots.build(only=set(a.only.split(',')) if a.only else None, captions=not a.no_captions)
     json.dump(acts, open(os.path.join(W, 'actions.json'), 'w'))

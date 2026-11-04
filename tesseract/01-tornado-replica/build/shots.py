@@ -1,6 +1,6 @@
 """shots.py — the replica, shot by shot (frames from analysis/shots.json). Edit, rebuild with build.py, compare, repeat."""
 import json, os
-from tsx import Doc, Shot, caption, card, ms, lin, ext, euler, FPS
+from tsx import Doc, Shot, caption, card, grade, ms, lin, ext, euler, FPS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPEC = json.load(open(os.path.join(ROOT, 'analysis', 'shots.json')))
@@ -36,23 +36,24 @@ def street(sh, z0=-400, n=8, far=True, trees=True):
 
 
 def s1(d):
+    """the camera circles him: in front (low, he walks toward it), then on the house side looking across the road (profile,
+    he walks frame-left), then behind him looking down the street where the tornado takes the dog (tornado frame-right)"""
     f0, f1 = FR['S1']; sh = Shot(d, 101, 'S1 walk', f0, f1)
-    street(sh)
+    street(sh, z0=-3000, n=12)
     sh.sun(rx=-48, ry=-40, irradiance=3.4)
-    man = sh.model('lemec', (40, 0, 0), rot=(0, 0, 0), clip='walk', clip_rate=1.0, name='man')
-    sh.anim(man, 'position', [(0, [40, 0, 0]), (sh.nframes, [40, 0, -230])])
-    sh.anim(man, 'rotationY', [(0, 0), (24, 0), (44, 40, 'inout'), (sh.nframes, 60)], 'float')
-    dog = sh.model('voxeldog', (-75, 0, -110), rot=(0, 0, 0), scale=125, name='dog')
-    sh.anim(dog, 'position', [(0, [-75, 0, -110]), (34, [-60, 0, -290]), (42, [-20, -110, -200], 'in'), (sh.nframes, [520, -620, 1500], 'in')])
-    tor = sh.model('tornado_big', (650, 0, 1700), scale=260, name='tornado')
+    man = sh.model('lemec', (0, 0, 100), rot=(0, 0, 0), clip='walk', clip_rate=1.0, name='man')
+    sh.anim(man, 'position', [(0, [0, 0, 100]), (34, [0, 0, -160]), (44, [0, 0, -190], 'out'), (sh.nframes, [0, 0, -195])])
+    dog = sh.model('voxeldog', (-70, 0, -10), rot=(0, 0, 0), scale=125, name='dog')
+    sh.anim(dog, 'position', [(0, [-70, 0, -10]), (32, [-70, 0, -260]), (38, [-60, -150, -330], 'in'), (sh.nframes, [-450, -800, -2000], 'in')])
+    sh.anim(dog, 'rotationX', [(0, 0), (34, 0), (sh.nframes, 70)], 'float')
+    tor = sh.model('tornado_big', (-500, 0, -2400), scale=300, name='tornado')
     sh.script(tor, 'rotationY', 'return input.time.seconds * 140;')
-    # low and close, tracking back with him; swings round to his right side (motion blur in the reference, f10-25)
-    sh.camera((-10, -85, -260), (30, -150, 0), fov=50,
-              keys=[(0, [-10, -85, -260]), (10, [-10, -85, -330]), (24, [-300, -110, -210], 'inout'), (sh.nframes, [-330, -120, -300])],
-              tkeys=[(0, [30, -150, 0]), (10, [30, -150, -70]), (24, [60, -160, -40], 'inout'), (sh.nframes, [420, -330, 1300])])
+    sh.camera((-20, -55, -120), (0, -130, 100), fov=50,
+              keys=[(0, [-20, -55, -120]), (10, [-20, -55, -195]), (24, [240, -80, -70], 'inout'), (40, [120, -110, 120], 'inout'), (sh.nframes, [100, -120, 60])],
+              tkeys=[(0, [0, -130, 100]), (10, [0, -130, 25]), (24, [0, -140, -90], 'inout'), (40, [-150, -250, -1500], 'inout'), (sh.nframes, [-300, -350, -2000])])
 
 
-def s3(d, rot=-130):
+def s3(d, rot=-45):
     f0, f1 = FR['S3']; sh = Shot(d, 103, 'S3 theft', f0, f1)
     street(sh, z0=-1800, n=8)
     sh.sun(rx=-48, ry=-40, irradiance=3.4)
@@ -76,14 +77,17 @@ def s2(d):
 
 
 def s4(d):
-    """selfie close-up: phone at the ear, the street receding behind him, the tornado far down the road"""
+    """selfie close-up on the far sidewalk: phone in his LEFT hand (frame right), face left of centre, the road on the right
+    receding (camera looks +Z, so +X is frame-right), the tornado far down the road"""
     f0, f1 = FR['S4']; sh = Shot(d, 104, 'S4 phone', f0, f1)
     street(sh, z0=-200, n=12)
     sh.sun(rx=-48, ry=-40, irradiance=3.4)
-    sh.model('lemec', (-60, 0, 0), rot=(0, 0, 0), clip='phoneCall', clip_rate=0.8, name='man')
-    tor = sh.model('tornado_big', (-450, 0, 6200), scale=300, name='tornado far')
+    X = -1200
+    man = sh.model('lemec', (X, 0, 0), rot=(0, 0, 0), clip='phoneCallL', clip_rate=0.8, name='man')
+    sh.attach_box((10, 19, 2.4), (0, 4, 4), '#141416', man, 'handL', rot=(0, 0, -10), name='phone')
+    tor = sh.model('tornado_big', (-700, 0, 6200), scale=300, name='tornado far')
     sh.script(tor, 'rotationY', 'return input.time.seconds * 140;')
-    sh.camera((-40, -175, -95), (-60, -195, 0), fov=58, keys=[(0, [-40, -175, -95]), (sh.nframes, [-35, -178, -88])])
+    sh.camera((X - 10, -175, -80), (X + 32, -186, 0), fov=58, keys=[(0, [X - 10, -175, -80]), (sh.nframes, [X - 6, -177, -74])])
 
 
 CAPTIONS = SPEC['captions']
@@ -95,6 +99,7 @@ def build(only=None, captions=True):
         sid = 'S' + fn.__name__[1:]
         if only and sid not in only: continue
         fn(d)
+    grade(d, 700, 0, 863, saturation=-0.3)      # global look: the reference is ~30% less saturated than our textures
     if not only or 'S3' in only:
         card(d, 800, 'THEFT', 110, FR['S3'][1])    # drops in at f110 (3.67 s), lands by f115
     if captions:

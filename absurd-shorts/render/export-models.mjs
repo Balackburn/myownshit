@@ -20,7 +20,7 @@ const jobs = [...L.humans.map(n => ['human', n]), ...L.creatures.map(n => ['crea
 if (args.includes('--variants')) {
   const V = JSON.parse(fs.readFileSync(args[args.indexOf('--variants') + 1], 'utf8')); const dir = path.join(ROOT, 'models', 'props'); fs.mkdirSync(dir, { recursive: true });
   for (const v of V) {
-    try { const b64 = await page.evaluate(([n, o]) => window.__engine.exportOne('prop', n, { opts: o }), [v.prop, v.opts || {}]);
+    try { const b64 = await page.evaluate(([n, o, m]) => window.__engine.exportOne('prop', n, { opts: o, merge: m }), [v.prop, v.opts || {}, !!v.merge]);
       const f = path.join(dir, v.out + '.glb'); fs.writeFileSync(f, Buffer.from(b64, 'base64')); console.log('variant ', v.out.padEnd(22), (fs.statSync(f).size / 1024).toFixed(0) + ' KB');
     } catch (e) { console.log('FAILED variant', v.out, e.message.split('\n')[0]); }
   }
