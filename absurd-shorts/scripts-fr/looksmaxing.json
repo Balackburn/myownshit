@@ -1,0 +1,3528 @@
+{
+ "version": 3,
+ "title": "Le looksmaxing",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "clavicule": {
+   "preset": "clavicule"
+  },
+  "mecG": {
+   "preset": "mecGonfle"
+  },
+  "mecO": {
+   "preset": "mecOrange"
+  },
+  "mecM": {
+   "preset": "mecMonstre"
+  },
+  "mecBeau": {
+   "preset": "mecBeau"
+  },
+  "chirurgien": {
+   "preset": "doctor",
+   "seed": 12
+  },
+  "femme": {
+   "preset": "femme",
+   "seed": 21
+  },
+  "glucksPeur": {
+   "preset": "glucksPeur"
+  },
+  "glucksBeau": {
+   "preset": "glucksBeau"
+  },
+  "glucksMou": {
+   "preset": "glucksMou"
+  },
+  "journaliste": {
+   "preset": "journaliste",
+   "seed": 31
+  },
+  "lm1": {
+   "preset": "looksmaxeur",
+   "seed": 41
+  },
+  "lm2": {
+   "preset": "looksmaxeur",
+   "seed": 42
+  },
+  "rebelle": {
+   "preset": "swat",
+   "seed": 51
+  },
+  "r0": {
+   "preset": "swat",
+   "seed": 52
+  },
+  "r1": {
+   "preset": "looksmaxeur",
+   "seed": 53
+  },
+  "r2": {
+   "preset": "swat",
+   "seed": 54
+  },
+  "fan1": {
+   "preset": "lemec_beige",
+   "seed": 61
+  },
+  "fan2": {
+   "preset": "lemec_brown",
+   "seed": 62
+  }
+ },
+ "scenes": [
+  {
+   "id": "chambre",
+   "set": "chambre",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K1",
+     "text": "Ce con se trouvait moche.",
+     "highlight": [
+      "moche."
+     ]
+    },
+    {
+     "id": "K2",
+     "text": "Un soir, sur TikTok, il est tombé sur Clavicule Large, gourou du looksmaxing.",
+     "highlight": [
+      "Clavicule",
+      "Large,"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.55
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K2",
+       "to": [
+        -2.15,
+        0.27,
+        -1.6
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 90,
+       "clip": "sitLookItem",
+       "then": "sitLookItem",
+       "expr": "neutral"
+      },
+      {
+       "at": "K2:Clavicule",
+       "expr": "happy"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "opts": {
+      "screen": "tiktok"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K2",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.9,
+      1.7,
+      -2.86
+     ],
+     "lookAt": [
+      0.9,
+      1.74,
+      -1.55
+     ],
+     "lens": 58
+    },
+    {
+     "at": "K2",
+     "size": "ms",
+     "angle": 20,
+     "frame": "mec"
+    },
+    {
+     "at": "K2:Clavicule",
+     "size": "cu",
+     "angle": 10,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.1
+  },
+  {
+   "id": "tiktok",
+   "set": "gym",
+   "grade": "contrast(1.02) saturate(1.2) brightness(1.06)",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K3",
+     "text": "T'es moche ? Normal. Achète ma formation.",
+     "speaker": "clavicule"
+    }
+   ],
+   "actors": [
+    {
+     "id": "clavicule",
+     "pos": [
+      0,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "flex",
+     "keys": [
+      {
+       "at": "K3:Achète",
+       "clip": "point",
+       "expr": "smug"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "neon",
+     "name": "fitPoster",
+     "scale": 1.6,
+     "pos": [
+      0,
+      1.75,
+      -3.55
+     ],
+     "opts": {
+      "text": "CLAVICULE\nLARGE"
+     }
+    },
+    {
+     "id": "ring",
+     "name": "ringLight",
+     "pos": [
+      1.1,
+      0,
+      -0.5
+     ],
+     "ry": -30
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.05,
+     "name": "whoosh",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "clavicule"
+    },
+    {
+     "at": "K3:Achète",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.06,
+     "frame": "clavicule"
+    }
+   ],
+   "tail": 0.1
+  },
+  {
+   "id": "panneau",
+   "set": "chambre",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K4",
+     "text": "Ce con est tombé dans le panneau. Il était vraiment trop moche.",
+     "highlight": [
+      "panneau."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.15,
+      0.27,
+      -1.6
+     ],
+     "ry": 90,
+     "clip": "sitLookItem",
+     "keys": [
+      {
+       "at": "K4:vraiment",
+       "clip": "sit",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tel",
+     "name": "phone911",
+     "opts": {
+      "screen": "tiktok"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K4:vraiment",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K4:panneau",
+     "name": "kaching",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": -25,
+     "frame": "mec"
+    },
+    {
+     "at": "K4:vraiment",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "kit",
+   "set": "bathroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K5",
+     "text": "La méthode : soixante-douze produits à s'injecter.",
+     "highlight": [
+      "soixante-douze"
+     ]
+    },
+    {
+     "id": "K6",
+     "text": "Des stéroïdes : il a gonflé partout, sauf les muscles.",
+     "highlight": [
+      "stéroïdes",
+      "muscles."
+     ]
+    },
+    {
+     "id": "K7",
+     "text": "Un peptide pour bronzer : il est devenu orange.",
+     "highlight": [
+      "bronzer",
+      "orange."
+     ]
+    },
+    {
+     "id": "K8",
+     "text": "Un pour la peau lisse. Un pour maigrir.",
+     "highlight": [
+      "lisse.",
+      "maigrir."
+     ]
+    },
+    {
+     "id": "K9",
+     "text": "Et un pour bander, parce que les autres l'en empêchaient.",
+     "highlight": [
+      "bander,"
+     ]
+    },
+    {
+     "id": "K10",
+     "text": "À chaque essai, raté. Il était encore plus moche.",
+     "highlight": [
+      "raté.",
+      "moche."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K6",
+       "clip": "injectArm",
+       "expr": "neutral"
+      },
+      {
+       "at": "K6:gonflé",
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mecG",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K6:gonflé",
+       "visible": true
+      },
+      {
+       "at": "K7",
+       "clip": "injectArm",
+       "expr": "neutral"
+      },
+      {
+       "at": "K7:orange",
+       "visible": false
+      }
+     ],
+     "visible": false,
+     "expr": "shocked"
+    },
+    {
+     "id": "mecO",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K7:orange",
+       "visible": true
+      },
+      {
+       "at": "K8",
+       "clip": "injectButt",
+       "expr": "neutral"
+      },
+      {
+       "at": "K8:maigrir",
+       "clip": "injectArm"
+      },
+      {
+       "at": "K9",
+       "clip": "injectButt",
+       "expr": "suspicious"
+      },
+      {
+       "at": "K9:empêchaient",
+       "clip": "lookDown",
+       "expr": "sad"
+      },
+      {
+       "at": "K10",
+       "clip": "stand",
+       "expr": "sad"
+      }
+     ],
+     "visible": false,
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      2.15,
+      0,
+      -3.0
+     ],
+     "opts": {
+      "w": 0.8,
+      "d": 0.55,
+      "h": 0.86,
+      "color": "#E6E2D8"
+     }
+    },
+    {
+     "id": "kit",
+     "name": "kit72",
+     "pos": [
+      2.15,
+      0.86,
+      -3.0
+     ]
+    },
+    {
+     "id": "syr1",
+     "name": "syringeBig",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K6",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "syr2",
+     "name": "syringeBig",
+     "visible": false,
+     "on": {
+      "actor": "mecG",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K7",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "syr3",
+     "name": "syringeBig",
+     "visible": false,
+     "on": {
+      "actor": "mecO",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K8",
+       "visible": true
+      },
+      {
+       "at": "K10",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K6:gonflé",
+     "name": "poof",
+     "vol": 0.6
+    },
+    {
+     "at": "K7:orange",
+     "name": "poof",
+     "vol": 0.6
+    },
+    {
+     "at": "K8",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K8:maigrir",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K9",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K10:raté",
+     "name": "sting",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 10,
+     "elev": 35,
+     "noOcclusion": true,
+     "move": "push",
+     "amount": 0.08,
+     "frame": [
+      [
+       2.15,
+       1.01,
+       -3.0
+      ]
+     ]
+    },
+    {
+     "at": "K6",
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K6:gonflé",
+     "from": [
+      5.5,
+      1.35,
+      -1.15
+     ],
+     "lookAt": [
+      3.2,
+      1.05,
+      -2.3
+     ],
+     "lens": 58
+    },
+    {
+     "at": "K6:muscles",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.76,
+      -2.3
+     ],
+     "lens": 60
+    },
+    {
+     "at": "K7",
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K7:orange",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.76,
+      -2.3
+     ],
+     "lens": 60
+    },
+    {
+     "at": "K8",
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K9",
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K9:empêchaient",
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K10",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.76,
+      -2.3
+     ],
+     "lens": 60
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "drogues",
+   "set": "chambre",
+   "lighting": "night",
+   "ambience": "night",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "K11",
+     "text": "Pour le charisme, le programme prévoyait des drogues dures.",
+     "highlight": [
+      "charisme,",
+      "dures."
+     ]
+    },
+    {
+     "id": "K12",
+     "text": "Du carfentanil, pour ne plus stresser en parlant à une femme.",
+     "highlight": [
+      "carfentanil,"
+     ]
+    },
+    {
+     "id": "K13",
+     "text": "Et du crystal meth : plus de faim, plein d'énergie, et une confiance en béton.",
+     "highlight": [
+      "crystal",
+      "béton."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecO",
+     "pos": [
+      2.5,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K11:drogues",
+       "clip": "injectArm",
+       "expr": "neutral"
+      },
+      {
+       "at": "K12:femme",
+       "clip": "idle",
+       "expr": "sleepy",
+       "speed": 0.4
+      },
+      {
+       "at": "K13",
+       "clip": "injectArm",
+       "expr": "suspicious"
+      },
+      {
+       "at": "K13:faim",
+       "clip": "wired",
+       "expr": "shocked"
+      },
+      {
+       "at": "K13:béton",
+       "clip": "heroPose",
+       "expr": "smug"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "syr",
+     "name": "syringeBig",
+     "visible": false,
+     "on": {
+      "actor": "mecO",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K11:drogues",
+       "visible": true
+      },
+      {
+       "at": "K12:femme",
+       "visible": false
+      },
+      {
+       "at": "K13",
+       "visible": true
+      },
+      {
+       "at": "K13:faim",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K11:drogues",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K13",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K13:faim",
+     "name": "ticks",
+     "vol": 0.6
+    },
+    {
+     "at": "K13:faim+0.6",
+     "name": "heartbeat",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 20,
+     "frame": "mecO"
+    },
+    {
+     "at": "K12",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecO"
+    },
+    {
+     "at": "K13",
+     "size": "ms",
+     "angle": -20,
+     "frame": "mecO"
+    },
+    {
+     "at": "K13:faim",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.1,
+     "frame": "mecO"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "chirurgie",
+   "set": "hospital",
+   "ambience": "office",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "K14",
+     "text": "Ensuite, quatre chirurgies.",
+     "highlight": [
+      "quatre"
+     ]
+    },
+    {
+     "id": "K15",
+     "text": "Une mâchoire carrée. Des yeux plus attirants.",
+     "highlight": [
+      "carrée.",
+      "attirants."
+     ]
+    },
+    {
+     "id": "K16",
+     "text": "Des clavicules plus larges, évidemment.",
+     "highlight": [
+      "clavicules"
+     ]
+    },
+    {
+     "id": "K17",
+     "text": "Et l'agrandissement du sexe.",
+     "highlight": [
+      "l'agrandissement"
+     ]
+    },
+    {
+     "id": "K18",
+     "text": "Je vais avoir besoin d'une loupe.",
+     "speaker": "chirurgien"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecO",
+     "pos": [
+      -2.5,
+      0.64,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "K16:larges",
+       "visible": false
+      }
+     ],
+     "expr": "sleepy"
+    },
+    {
+     "id": "mecM",
+     "pos": [
+      -2.5,
+      0.64,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "K16:larges",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "sleepy"
+    },
+    {
+     "id": "chirurgien",
+     "pos": [
+      -1.35,
+      0,
+      -2.0
+     ],
+     "ry": -80,
+     "clip": "clipboard",
+     "keys": [
+      {
+       "at": "K15",
+       "clip": "lookItem"
+      },
+      {
+       "at": "K17:sexe",
+       "clip": "lookDown",
+       "expr": "suspicious"
+      },
+      {
+       "at": "K18",
+       "clip": "lookItem",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "jaw_mecO",
+     "name": "squareJaw",
+     "visible": false,
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecO",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "K15:carrée",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "eyes_mecO",
+     "name": "googlyEyes",
+     "visible": false,
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecO",
+      "joint": "head",
+      "offset": [
+       0,
+       0.258,
+       0.0851
+      ]
+     },
+     "keys": [
+      {
+       "at": "K15:yeux",
+       "visible": true,
+       "sfx": "pop"
+      }
+     ]
+    },
+    {
+     "id": "jaw_mecM",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "eyes_mecM",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.24,
+       0.08
+      ]
+     }
+    },
+    {
+     "id": "loupe",
+     "name": "magnifyingGlass",
+     "visible": false,
+     "on": {
+      "actor": "chirurgien",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K18",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K16:larges",
+     "name": "poof",
+     "vol": 0.6
+    },
+    {
+     "at": "K14",
+     "name": "beep",
+     "vol": 0.3
+    },
+    {
+     "at": "K14+0.9",
+     "name": "beep",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 30,
+     "elev": 12,
+     "frame": [
+      "mecO",
+      "chirurgien"
+     ]
+    },
+    {
+     "at": "K15",
+     "from": [
+      -2.45,
+      2.05,
+      -2.45
+     ],
+     "lookAt": [
+      -2.5,
+      0.78,
+      -3.0
+     ],
+     "lens": 42
+    },
+    {
+     "at": "K16",
+     "size": "ms",
+     "worldAngle": 35,
+     "elev": 15,
+     "frame": [
+      "mecM",
+      "chirurgien"
+     ]
+    },
+    {
+     "at": "K17",
+     "size": "ms",
+     "angle": 10,
+     "frame": "chirurgien"
+    },
+    {
+     "at": "K18",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "chirurgien"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "salle",
+   "set": "gym",
+   "ambience": "gym",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "K19",
+     "text": "Il fallait aussi du sport. Les stéroïdes, ça ne marche pas si on ne branle rien.",
+     "highlight": [
+      "sport.",
+      "branle"
+     ]
+    },
+    {
+     "id": "K20",
+     "text": "Pour un visage plus masculin : des micro-fractures. À la tronçonneuse.",
+     "speaker": "clavicule",
+     "highlight": [
+      "tronçonneuse."
+     ]
+    },
+    {
+     "id": "K21",
+     "text": "Ce con l'a fait.",
+     "highlight": [
+      "fait."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecM",
+     "pos": [
+      -0.7,
+      0,
+      -1.4
+     ],
+     "ry": 25,
+     "clip": "curls",
+     "keys": [
+      {
+       "at": "K20",
+       "clip": "stand",
+       "expr": "neutral",
+       "face": "clavicule",
+       "turn": 0.2
+      },
+      {
+       "at": "K21",
+       "clip": "lookItem",
+       "expr": "happy",
+       "face": 0,
+       "turn": 0.2
+      }
+     ],
+     "params": {
+      "freq": 1.6
+     },
+     "expr": "angry"
+    },
+    {
+     "id": "clavicule",
+     "pos": [
+      0.9,
+      0,
+      -1.2
+     ],
+     "ry": -70,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "K20",
+       "clip": "talk",
+       "expr": "smug"
+      },
+      {
+       "at": "K20:tronçonneuse",
+       "clip": "giveItem"
+      },
+      {
+       "at": "K21",
+       "clip": "armsCrossed",
+       "expr": "smug"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "jaw_mecM",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "eyes_mecM",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.24,
+       0.08
+      ]
+     }
+    },
+    {
+     "id": "db",
+     "name": "dumbbell",
+     "on": {
+      "actor": "mecM",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K20",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "db2",
+     "name": "dumbbell",
+     "on": {
+      "actor": "mecM",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "K20",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "scie",
+     "name": "chainsaw",
+     "visible": false,
+     "opts": {
+      "runAt": "K21",
+      "stopAt": "K21.end+0.4"
+     },
+     "on": {
+      "actor": "clavicule",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.1,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "K20:tronçonneuse",
+       "visible": true
+      },
+      {
+       "at": "K21-0.1",
+       "attach": "mecM",
+       "hand": "R",
+       "rot": [
+        1.5708,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        -0.1,
+        0.05
+       ]
+      }
+     ]
+    },
+    {
+     "id": "neon",
+     "name": "fitPoster",
+     "scale": 1.6,
+     "pos": [
+      0,
+      1.75,
+      -3.55
+     ],
+     "opts": {
+      "text": "CLAVICULE\nLARGE"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K21",
+     "name": "chainsaw",
+     "vol": 0.8
+    }
+   ],
+   "fx": [
+    {
+     "type": "fadeBlack",
+     "at": "K21.end-0.05",
+     "dur": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 15,
+     "frame": "mecM"
+    },
+    {
+     "at": "K19:branle",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecM"
+    },
+    {
+     "at": "K20",
+     "size": "ms",
+     "angle": 10,
+     "frame": "clavicule"
+    },
+    {
+     "at": "K20:tronçonneuse",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "clavicule",
+      "mecM"
+     ]
+    },
+    {
+     "at": "K21",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mecM"
+    }
+   ],
+   "tail": 0.35
+  },
+  {
+   "id": "miroir",
+   "set": "bathroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K22",
+     "text": "Il était défiguré. Mais pour la première fois, il se trouvait beau.",
+     "highlight": [
+      "défiguré.",
+      "beau."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecM",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K22:première",
+       "visible": false
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mecBeau",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "heroPose",
+     "keys": [
+      {
+       "at": "K22:première",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "jaw_mecM",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "eyes_mecM",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.24,
+       0.08
+      ]
+     }
+    },
+    {
+     "id": "lumps_mecM",
+     "name": "faceLumps",
+     "opts": {
+      "color": "#E99A60",
+      "seed": 5
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.22000000000000003,
+       0.07400000000000001
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K22:première",
+     "name": "choir",
+     "vol": 0.7
+    }
+   ],
+   "fx": [
+    {
+     "type": "fadeIn",
+     "at": 0,
+     "dur": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.76,
+      -2.3
+     ],
+     "lens": 60
+    },
+    {
+     "at": "K22:première",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.86,
+      -2.3
+     ],
+     "lens": 60,
+     "grade": "contrast(0.82) saturate(1.15) brightness(1.18) sepia(0.12)"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "rdv",
+   "set": "restaurant",
+   "setOpts": {
+    "brand": "POULET ROYAL"
+   },
+   "ambience": "bar",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "K23",
+     "text": "Il avait un rendez-vous. Il n'avait pas dormi depuis cinquante-six heures.",
+     "highlight": [
+      "rendez-vous.",
+      "cinquante-six"
+     ]
+    },
+    {
+     "id": "K24",
+     "text": "Salut. Je suis très détendu.",
+     "speaker": "mecM"
+    },
+    {
+     "id": "K25",
+     "text": "Elle est partie.",
+     "highlight": [
+      "partie."
+     ]
+    },
+    {
+     "id": "K26",
+     "text": "Une seule explication : il n'était pas allé assez loin.",
+     "highlight": [
+      "assez",
+      "loin."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecM",
+     "pos": [
+      -0.62,
+      0.12,
+      -2.6
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "K23:dormi",
+       "clip": "sitTalk",
+       "expr": "shocked",
+       "params": {
+        "freq": 3.0
+       }
+      },
+      {
+       "at": "K24",
+       "clip": "sitTalk",
+       "expr": "happy"
+      },
+      {
+       "at": "K25",
+       "clip": "sit",
+       "expr": "shocked"
+      },
+      {
+       "at": "K26",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "shocked"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      0.62,
+      0.12,
+      -2.6
+     ],
+     "ry": -90,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "K23:heures",
+       "expr": "shocked"
+      },
+      {
+       "at": "K24.end",
+       "expr": "scared"
+      },
+      {
+       "at": "K25-0.25",
+       "to": [
+        1.3,
+        0,
+        -2.0
+       ],
+       "glide": true,
+       "dur": 0.15,
+       "clip": "stand",
+       "then": "stand",
+       "face": "keep"
+      },
+      {
+       "at": "K25",
+       "to": [
+        6.5,
+        0,
+        0.8
+       ],
+       "clip": "run",
+       "speed": 4.5,
+       "then": "idle"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "jaw_mecM",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "eyes_mecM",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.24,
+       0.08
+      ]
+     }
+    },
+    {
+     "id": "lumps_mecM",
+     "name": "faceLumps",
+     "opts": {
+      "color": "#E99A60",
+      "seed": 5
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.22000000000000003,
+       0.07400000000000001
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K23:dormi",
+     "name": "heartbeat",
+     "vol": 0.7
+    },
+    {
+     "at": "K25",
+     "name": "whoosh",
+     "vol": 0.5
+    },
+    {
+     "at": "K25.end+0.1",
+     "name": "crickets",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mecM",
+      "femme"
+     ]
+    },
+    {
+     "at": "K23:dormi",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecM"
+    },
+    {
+     "at": "K24",
+     "size": "cu",
+     "angle": -15,
+     "frame": "mecM"
+    },
+    {
+     "at": "K24.end",
+     "size": "cu",
+     "angle": 0,
+     "frame": "femme"
+    },
+    {
+     "at": "K25",
+     "size": "ms",
+     "angle": -30,
+     "frame": "mecM"
+    },
+    {
+     "at": "K26",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mecM"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "conference",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "CLAVICULE LARGE|LOOKSMAXING|72 PRODUITS",
+    "bg": "#1E1E22",
+    "fg": "#F2C230",
+    "flags": false,
+    "fontScale": 0.55
+   },
+   "ambience": "station",
+   "crowd": [
+    {
+     "id": "aud",
+     "count": 3,
+     "spec": {
+      "preset": "looksmaxeur",
+      "seed": 80
+     },
+     "clip": "sit",
+     "ry": 180,
+     "positions": [
+      [
+       -2.4,
+       0.12,
+       3.2
+      ],
+      [
+       0.0,
+       0.12,
+       3.2
+      ],
+      [
+       2.4,
+       0.12,
+       3.2
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "K27",
+     "text": "Il a payé sept mille dollars pour la conférence de Clavicule Large.",
+     "highlight": [
+      "sept",
+      "mille"
+     ]
+    },
+    {
+     "id": "K28",
+     "text": "Vous êtes encore moches ? Allez plus loin.",
+     "speaker": "clavicule"
+    },
+    {
+     "id": "K29",
+     "text": "Dans la salle, il y avait Raphaël Glucksmann. Il avait l'air d'un enfant perdu.",
+     "highlight": [
+      "Glucksmann.",
+      "perdu."
+     ]
+    },
+    {
+     "id": "K30",
+     "text": "Il pensait que si personne ne votait pour lui, c'est qu'il ne prenait pas assez de produits.",
+     "highlight": [
+      "personne",
+      "produits."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecM",
+     "pos": [
+      -1.2,
+      0.12,
+      2.1
+     ],
+     "ry": 180,
+     "clip": "sitHoldUp",
+     "keys": [
+      {
+       "at": "K28",
+       "clip": "sit",
+       "expr": "happy"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "glucksPeur",
+     "pos": [
+      0.0,
+      0.12,
+      2.1
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "K30:produits",
+       "clip": "sitWrite",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "lm1",
+     "pos": [
+      -2.4,
+      0.12,
+      2.1
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "lm2",
+     "pos": [
+      1.2,
+      0.12,
+      2.1
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "clavicule",
+     "pos": [
+      0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "pass",
+     "name": "notebook",
+     "scale": 1.8,
+     "opts": {
+      "text": "PASS VIP\n—\n7 000 $",
+      "bg": "#1E1E22"
+     },
+     "on": {
+      "actor": "mecM",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "K28",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "jaw_mecM",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "eyes_mecM",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.24,
+       0.08
+      ]
+     }
+    },
+    {
+     "id": "lumps_mecM",
+     "name": "faceLumps",
+     "opts": {
+      "color": "#E99A60",
+      "seed": 5
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.22000000000000003,
+       0.07400000000000001
+      ]
+     }
+    },
+    {
+     "id": "jaw_lm1",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E8935A"
+     },
+     "on": {
+      "actor": "lm1",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "jaw_lm2",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E8935A"
+     },
+     "on": {
+      "actor": "lm2",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K27:dollars",
+     "name": "kaching",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 180,
+     "allowBack": true,
+     "noOcclusion": true,
+     "zoom": 1.4,
+     "frame": "pass"
+    },
+    {
+     "at": "K27:conférence",
+     "from": [
+      0,
+      2.4,
+      5.8
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      -2.0
+     ],
+     "lens": 34
+    },
+    {
+     "at": "K28",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "clavicule"
+    },
+    {
+     "at": "K29",
+     "size": "ms",
+     "angle": 0,
+     "frame": "glucksPeur"
+    },
+    {
+     "at": "K30",
+     "size": "mcu",
+     "angle": 20,
+     "frame": "glucksPeur"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "glucksmatin",
+   "set": "bathroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K31",
+     "text": "Alors, chaque matin, il s'est injecté le programme complet.",
+     "highlight": [
+      "programme"
+     ]
+    },
+    {
+     "id": "K32",
+     "text": "Un cocktail qui aurait tué un cheval. Sur Glucksmann, ça a marché.",
+     "highlight": [
+      "cheval.",
+      "marché."
+     ]
+    },
+    {
+     "id": "K33",
+     "text": "Et il dormait quand même, comme un bébé. Sa nature molle le protégeait.",
+     "highlight": [
+      "bébé.",
+      "molle"
+     ]
+    },
+    {
+     "id": "K34",
+     "text": "Il est devenu l'homme parfait.",
+     "highlight": [
+      "parfait."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksPeur",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K31:injecté",
+       "clip": "injectArm",
+       "expr": "scared"
+      },
+      {
+       "at": "K32",
+       "clip": "injectButt",
+       "expr": "scared"
+      },
+      {
+       "at": "K32:marché",
+       "clip": "stand",
+       "expr": "happy"
+      },
+      {
+       "at": "K33",
+       "clip": "nod",
+       "expr": "sleepy",
+       "params": {
+        "freq": 0.6
+       }
+      },
+      {
+       "at": "K34",
+       "visible": false
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "glucksBeau",
+     "pos": [
+      3.2,
+      0,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "heroPose",
+     "keys": [
+      {
+       "at": "K34",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      2.15,
+      0,
+      -3.0
+     ],
+     "opts": {
+      "w": 0.8,
+      "d": 0.55,
+      "h": 0.86,
+      "color": "#E6E2D8"
+     }
+    },
+    {
+     "id": "kit",
+     "name": "kit72",
+     "pos": [
+      2.15,
+      0.86,
+      -3.0
+     ]
+    },
+    {
+     "id": "syr",
+     "name": "syringeBig",
+     "visible": false,
+     "on": {
+      "actor": "glucksPeur",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "K31:injecté",
+       "visible": true
+      },
+      {
+       "at": "K33",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K31:injecté",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K32",
+     "name": "needle",
+     "vol": 0.5
+    },
+    {
+     "at": "K32:marché",
+     "name": "bell",
+     "vol": 0.5
+    },
+    {
+     "at": "K34",
+     "name": "choir",
+     "vol": 0.75
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K31:injecté",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.3,
+      -2.3
+     ],
+     "lens": 60
+    },
+    {
+     "at": "K32",
+     "from": [
+      5.25,
+      1.45,
+      -2.45
+     ],
+     "lookAt": [
+      3.2,
+      1.35,
+      -2.3
+     ],
+     "lens": 46
+    },
+    {
+     "at": "K32:marché",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.3,
+      -2.3
+     ],
+     "lens": 60
+    },
+    {
+     "at": "K33",
+     "from": [
+      3.2,
+      1.72,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.37,
+      -2.3
+     ],
+     "lens": 60
+    },
+    {
+     "at": "K34",
+     "size": "fs",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.08,
+     "frame": "glucksBeau",
+     "grade": "contrast(0.82) saturate(1.15) brightness(1.18) sepia(0.12)"
+    }
+   ],
+   "tail": 0.25
+  },
+  {
+   "id": "jt",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "LE 20H|INFO|DIRECT",
+    "bg": "#1E2E44",
+    "fg": "#F6F1E3",
+    "podium": false,
+    "flags": false
+   },
+   "ambience": "station",
+   "daynight": {
+    "from": "K35:Elle",
+    "period": 0.5
+   },
+   "lines": [
+    {
+     "id": "K35",
+     "text": "Son interview au journal de vingt heures devait durer deux minutes. Elle a duré quarante-huit heures.",
+     "highlight": [
+      "deux",
+      "quarante-huit"
+     ]
+    },
+    {
+     "id": "K36",
+     "text": "Vous allez devenir président.",
+     "speaker": "journaliste"
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksBeau",
+     "pos": [
+      -0.65,
+      0.12,
+      -1.7
+     ],
+     "ry": 55,
+     "clip": "sitTalk",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "journaliste",
+     "pos": [
+      0.65,
+      0.12,
+      -1.7
+     ],
+     "ry": -55,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "K35:Elle",
+       "expr": "happy"
+      },
+      {
+       "at": "K36",
+       "clip": "sitTalk",
+       "expr": "happy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "c1",
+     "name": "chair",
+     "pos": [
+      -0.77,
+      0,
+      -1.78
+     ],
+     "ry": 55,
+     "opts": {
+      "color": "#B5302A"
+     }
+    },
+    {
+     "id": "c2",
+     "name": "chair",
+     "pos": [
+      0.77,
+      0,
+      -1.78
+     ],
+     "ry": -55,
+     "opts": {
+      "color": "#B5302A"
+     }
+    },
+    {
+     "id": "horloge",
+     "name": "wallClock",
+     "scale": 1.4,
+     "pos": [
+      0,
+      2.95,
+      -2.97
+     ],
+     "opts": {
+      "rate": 0
+     },
+     "alt": {
+      "opts": {
+       "rate": 4
+      },
+      "at": "K35:Elle"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K35:Elle",
+     "name": "ticks",
+     "vol": 0.6
+    },
+    {
+     "at": "K35:Elle+1.4",
+     "name": "ticks",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "glucksBeau",
+      "journaliste"
+     ]
+    },
+    {
+     "at": "K35:Elle",
+     "size": "fs",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0,
+       2.95,
+       -2.95
+      ],
+      [
+       -0.65,
+       1.2,
+       -1.7
+      ],
+      [
+       0.65,
+       1.2,
+       -1.7
+      ]
+     ]
+    },
+    {
+     "at": "K36",
+     "size": "cu",
+     "angle": 0,
+     "frame": "journaliste"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "meeting",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.4,
+   "crowd": [
+    {
+     "id": "fid",
+     "count": 6,
+     "spec": {
+      "preset": "lemec_charcoal",
+      "seed": 90
+     },
+     "clip": "kneelBow",
+     "ry": 180,
+     "positions": [
+      [
+       -1.8,
+       0,
+       1.4
+      ],
+      [
+       -0.6,
+       0,
+       1.6
+      ],
+      [
+       0.6,
+       0,
+       1.5
+      ],
+      [
+       1.8,
+       0,
+       1.4
+      ],
+      [
+       -1.2,
+       0,
+       2.5
+      ],
+      [
+       1.2,
+       0,
+       2.6
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "K37",
+     "text": "À ses meetings, certains le comparaient à Dieu.",
+     "highlight": [
+      "Dieu."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksBeau",
+     "pos": [
+      0,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "armsUp",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "estrade",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "aureole",
+     "name": "halo",
+     "on": {
+      "actor": "glucksBeau",
+      "joint": "head",
+      "offset": [
+       0,
+       0.55,
+       0
+      ]
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": "K37:comparaient",
+       "visible": true,
+       "sfx": "choir"
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 12,
+     "frame": [
+      "glucksBeau",
+      "fid0",
+      "fid3"
+     ]
+    },
+    {
+     "at": "K37:comparaient",
+     "from": [
+      0.0,
+      1.25,
+      1.7
+     ],
+     "lookAt": [
+      0,
+      2.0,
+      -0.6
+     ],
+     "lens": 36,
+     "grade": "contrast(0.82) saturate(1.15) brightness(1.18) sepia(0.12)"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "elysee",
+   "set": "office",
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "K38",
+     "text": "Glucksmann est devenu président. Puis dictateur.",
+     "highlight": [
+      "président.",
+      "dictateur."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksBeau",
+     "pos": [
+      0,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K38:dictateur",
+       "clip": "armsUp",
+       "expr": "smug"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "bureau",
+     "name": "desk",
+     "pos": [
+      0,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "id": "drap1",
+     "name": "flag",
+     "pos": [
+      -1.2,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "colors": [
+       "#2C4A8A",
+       "#F6F1E3",
+       "#B5302A"
+      ]
+     }
+    },
+    {
+     "id": "drap2",
+     "name": "flag",
+     "pos": [
+      1.2,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "colors": [
+       "#2C4A8A",
+       "#F6F1E3",
+       "#B5302A"
+      ]
+     }
+    },
+    {
+     "id": "portrait",
+     "name": "memePoster",
+     "scale": 2.2,
+     "pos": [
+      0,
+      1.95,
+      -3.52
+     ],
+     "visible": false,
+     "opts": {
+      "text": "GLUCKSMANN",
+      "skin": "#E0B48A"
+     },
+     "keys": [
+      {
+       "at": "K38:dictateur",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K38:dictateur",
+     "name": "fanfare",
+     "vol": 0.7
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "glucksBeau"
+    },
+    {
+     "at": "K38:dictateur",
+     "size": "fs",
+     "angle": 0,
+     "elev": -6,
+     "frame": "glucksBeau"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "utopie",
+   "set": "street",
+   "grade": "contrast(0.82) saturate(1.15) brightness(1.18) sepia(0.12)",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "crowd": [
+    {
+     "id": "cit",
+     "count": 5,
+     "spec": {
+      "preset": "lemec_beige",
+      "seed": 95
+     },
+     "clip": "dance",
+     "ry": 0,
+     "positions": [
+      [
+       -2.2,
+       0,
+       0.4
+      ],
+      [
+       -0.9,
+       0,
+       0.9
+      ],
+      [
+       0.5,
+       0,
+       0.5
+      ],
+      [
+       1.8,
+       0,
+       0.9
+      ],
+      [
+       3.0,
+       0,
+       0.3
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "K39",
+     "text": "Une utopie. Les trains à l'heure, plus une seule grève. Même les Français ne râlaient plus.",
+     "highlight": [
+      "utopie.",
+      "râlaient"
+     ]
+    }
+   ],
+   "actors": [],
+   "props": [
+    {
+     "id": "aff1",
+     "name": "memePoster",
+     "scale": 2.0,
+     "pos": [
+      -1.5,
+      1.6,
+      -1.3
+     ],
+     "opts": {
+      "text": "MERCI GLUCKSMANN",
+      "skin": "#E0B48A"
+     }
+    },
+    {
+     "id": "quai",
+     "name": "signBoard",
+     "pos": [
+      1.6,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "text": "TRAINS : À L’HEURE",
+      "bg": "#1E2E44",
+      "fg": "#F2C230",
+      "w": 1.6,
+      "h": 0.45,
+      "height": 1.9
+     }
+    },
+    {
+     "id": "greve",
+     "name": "protestSign",
+     "scale": 0.9,
+     "pos": [
+      3.4,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "text": "GRÈVE ANNULÉE",
+      "color": "#3E8A5A"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K39:Français",
+     "name": "bell",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 8,
+     "frame": [
+      "cit1",
+      "cit2",
+      "cit3"
+     ]
+    },
+    {
+     "at": "K39:trains",
+     "size": "ms",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": [
+      [
+       1.6,
+       1.9,
+       -1.3
+      ]
+     ]
+    },
+    {
+     "at": "K39:Français",
+     "size": "ms",
+     "angle": 0,
+     "frame": "cit2"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "rebelles",
+   "set": "streetNight",
+   "ambience": "night",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "K40",
+     "text": "Mais ce mec connaissait son secret.",
+     "highlight": [
+      "secret."
+     ]
+    },
+    {
+     "id": "K41",
+     "text": "Lui n'avait jamais réussi à s'aimer. Jaloux, il a monté un groupe rebelle.",
+     "highlight": [
+      "Jaloux,",
+      "rebelle."
+     ]
+    },
+    {
+     "id": "K42",
+     "text": "Confisquez les produits.",
+     "speaker": "mecM"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecM",
+     "pos": [
+      0.3,
+      0,
+      0.6
+     ],
+     "ry": 190,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K41",
+       "face": 0,
+       "turn": 0.3,
+       "clip": "stand",
+       "expr": "sad"
+      },
+      {
+       "at": "K41:Jaloux",
+       "clip": "armsCrossed",
+       "expr": "angry"
+      },
+      {
+       "at": "K42",
+       "clip": "point",
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "r0",
+     "pos": [
+      -0.9,
+      0,
+      -0.2
+     ],
+     "ry": 0,
+     "clip": "chant",
+     "keys": [
+      {
+       "at": "K41:Jaloux",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    },
+    {
+     "id": "r1",
+     "pos": [
+      0.3,
+      0,
+      -0.5
+     ],
+     "ry": 0,
+     "clip": "chant",
+     "keys": [
+      {
+       "at": "K41:Jaloux",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    },
+    {
+     "id": "r2",
+     "pos": [
+      1.5,
+      0,
+      -0.2
+     ],
+     "ry": 0,
+     "clip": "chant",
+     "keys": [
+      {
+       "at": "K41:Jaloux",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "jaw_mecM",
+     "name": "squareJaw",
+     "opts": {
+      "color": "#E99A60"
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "eyes_mecM",
+     "name": "googlyEyes",
+     "opts": {
+      "r": 0.042,
+      "sep": 0.05
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.24,
+       0.08
+      ]
+     }
+    },
+    {
+     "id": "lumps_mecM",
+     "name": "faceLumps",
+     "opts": {
+      "color": "#E99A60",
+      "seed": 5
+     },
+     "on": {
+      "actor": "mecM",
+      "joint": "head",
+      "offset": [
+       0,
+       0.22000000000000003,
+       0.07400000000000001
+      ]
+     }
+    },
+    {
+     "id": "panneau",
+     "name": "signBoard",
+     "pos": [
+      0.4,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "text": "GLUCKSMANN\nPRÉSIDENT À VIE",
+      "bg": "#B5302A",
+      "fg": "#F6F1E3",
+      "w": 1.8,
+      "h": 0.9,
+      "height": 2.3
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": [
+      "mecM",
+      [
+       0.4,
+       2.0,
+       -1.4
+      ]
+     ]
+    },
+    {
+     "at": "K41",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecM"
+    },
+    {
+     "at": "K41:Jaloux",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "mecM",
+      "r0",
+      "r2"
+     ]
+    },
+    {
+     "at": "K42",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mecM"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "chute",
+   "set": "office",
+   "lighting": "dusk",
+   "ambience": "office",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "K43",
+     "text": "Sans ses produits, Glucksmann est redevenu tout mou.",
+     "highlight": [
+      "mou."
+     ]
+    },
+    {
+     "id": "K44",
+     "text": "Il pleurait comme un bébé. Ses adorateurs l'ont renié.",
+     "highlight": [
+      "bébé.",
+      "renié."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksBeau",
+     "pos": [
+      0,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K43:redevenu",
+       "visible": false
+      }
+     ],
+     "expr": "shocked"
+    },
+    {
+     "id": "glucksMou",
+     "pos": [
+      0,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K43:redevenu",
+       "visible": true
+      },
+      {
+       "at": "K44",
+       "clip": "cry",
+       "expr": "sad"
+      }
+     ],
+     "visible": false,
+     "expr": "sad"
+    },
+    {
+     "id": "rebelle",
+     "pos": [
+      -1.9,
+      0,
+      -0.2
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "K43",
+       "to": [
+        -0.5,
+        0,
+        -0.55
+       ],
+       "clip": "walk",
+       "speed": 2.2,
+       "then": "takeItem"
+      },
+      {
+       "at": "K43:mou",
+       "to": [
+        -2.6,
+        0,
+        0.6
+       ],
+       "clip": "run",
+       "speed": 3.5,
+       "then": "idle"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "fan1",
+     "pos": [
+      1.6,
+      0,
+      -0.4
+     ],
+     "ry": -100,
+     "clip": "kneelBow",
+     "keys": [
+      {
+       "at": "K44:adorateurs",
+       "clip": "armsCrossed",
+       "expr": "unimpressed",
+       "face": 80,
+       "turn": 0.4
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "fan2",
+     "pos": [
+      2.4,
+      0,
+      0.1
+     ],
+     "ry": -110,
+     "clip": "kneelBow",
+     "keys": [
+      {
+       "at": "K44:adorateurs+0.15",
+       "clip": "armsCrossed",
+       "expr": "unimpressed",
+       "face": 70,
+       "turn": 0.4
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bureau",
+     "name": "desk",
+     "pos": [
+      0,
+      0,
+      -1.25
+     ]
+    },
+    {
+     "id": "kit",
+     "name": "kit72",
+     "pos": [
+      -0.45,
+      0.76,
+      -1.25
+     ],
+     "keys": [
+      {
+       "at": "K43:produits",
+       "attach": "rebelle",
+       "hand": "R",
+       "offset": [
+        0,
+        -0.12,
+        0.1
+       ],
+       "rot": [
+        1.5708,
+        0,
+        0
+       ]
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "K43:redevenu",
+     "name": "poof",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "glucksBeau",
+      "rebelle"
+     ]
+    },
+    {
+     "at": "K43:redevenu",
+     "size": "ms",
+     "angle": 0,
+     "frame": "glucksMou"
+    },
+    {
+     "at": "K44",
+     "size": "cu",
+     "angle": 0,
+     "frame": "glucksMou"
+    },
+    {
+     "at": "K44:adorateurs",
+     "size": "fs",
+     "worldAngle": -10,
+     "frame": [
+      "fan1",
+      "fan2",
+      "glucksMou"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fin",
+   "set": "chambre",
+   "setOpts": {
+    "wall": "#E6D8C4",
+    "band": "#C9B79C",
+    "poster": "DANGER\nLOOKSMAXING",
+    "posterBg": "#F6F1E3",
+    "posterFg": "#B5302A",
+    "blanket": "#C9729A"
+   },
+   "ambience": null,
+   "lines": [
+    {
+     "id": "K45",
+     "text": "Aujourd'hui, il fait des vidéos sur les dangers du looksmaxing.",
+     "highlight": [
+      "dangers"
+     ]
+    },
+    {
+     "id": "K46",
+     "text": "Deux cents vues.",
+     "pre": 0.4,
+     "highlight": [
+      "Deux",
+      "cents"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "glucksMou",
+     "pos": [
+      0.9,
+      0,
+      -1.7
+     ],
+     "ry": 0,
+     "clip": "talk",
+     "keys": [
+      {
+       "at": "K45:dangers",
+       "clip": "cry",
+       "expr": "sad"
+      },
+      {
+       "at": "K46",
+       "clip": "stareCamera",
+       "expr": "sad"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "ring",
+     "name": "ringLight",
+     "pos": [
+      1.75,
+      0,
+      -1.05
+     ],
+     "ry": -125
+    },
+    {
+     "id": "vues",
+     "name": "tweetPhone",
+     "pos": [
+      2.85,
+      0.783,
+      -2.65
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "Raphaël G.",
+      "handle": "@raph_officiel",
+      "initial": "R",
+      "avatar": "#2C4A8A",
+      "via": "Vidéo",
+      "text": "Les dangers du looksmaxing (partie 47) · 200 vues",
+      "likes": "2 likes"
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "glucksMou"
+    },
+    {
+     "at": "K46",
+     "from": [
+      2.85,
+      1.195,
+      -2.59
+     ],
+     "lookAt": [
+      2.85,
+      0.775,
+      -2.65
+     ],
+     "lens": 40
+    },
+    {
+     "at": "K46.end+0.3",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "glucksMou"
+    }
+   ],
+   "tail": 1.5
+  }
+ ]
+}

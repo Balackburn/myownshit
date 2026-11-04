@@ -62,6 +62,19 @@ export const PRESETS = {
   internaute2:     { outfit: 'tracksuit', suit: '#E0B020', hair: 'bun', hairColor: '#17161A', facial: 'none', lipstick: true, skin: '#E8C09A', build: { height: 0.92, width: 0.9 } },
   officiel:        { outfit: 'mao', suit: '#3A3D44', pants: '#3A3D44', lapel: '#2E3036', hair: 'slick', hairColor: '#17161A', facial: 'none', glasses: true, skin: '#D9AA80', build: { belly: 0.06 } },
   mecMao:          { outfit: 'mao', suit: '#5B6150', pants: '#5B6150', lapel: '#4A5040', hair: 'crew', facial: 'stubble', atlas: 'lemec', atlasBody: false },
+  // "Le looksmaxing": the TikTok guru (fictional), the date, a TV journalist, the man's looksmaxing stages (inflated, orange),
+  // how he sees himself, Glucksmann scared / perfect / deflated (satire of the "no charisma" public image), extras
+  clavicule:   { outfit: 'tracksuit', suit: '#1E1E22', pants: '#1E1E22', hair: 'slick', hairColor: '#2A2420', facial: 'none', glasses: true, skin: '#C98A5A', build: { height: 1.05, width: 1.45, headScale: 0.82 } },
+  femme:       { outfit: 'skirtsuit', suit: '#5E8C7A', lapel: '#F2EDE4', hair: 'long', hairColor: '#5A3A28', facial: 'none', lipstick: true, skin: '#E8C09A', build: { height: 0.94, width: 0.9 } },
+  journaliste: { outfit: 'skirtsuit', suit: '#2E4563', lapel: '#F2EDE4', hair: 'bun', hairColor: '#3A2A20', facial: 'none', lipstick: true, glasses: true, skin: '#E8C09A', build: { height: 0.95, width: 0.9 } },
+  mecGonfle:   { outfit: 'suit', suit: P.suitNavy, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble', atlas: 'lemec', build: { width: 1.6, belly: 0.22, headScale: 0.86 } },
+  mecOrange:   { outfit: 'suit', suit: P.suitNavy, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble', atlas: 'lemec', tint: '#FF9A55', build: { width: 1.6, belly: 0.22, headScale: 0.86 } },
+  mecMonstre:  { outfit: 'suit', suit: P.suitNavy, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble', atlas: 'lemec', tint: '#FF9A55', build: { width: 1.95, belly: 0.14, headScale: 0.8 } },
+  mecBeau:     { outfit: 'suit', suit: P.suitNavy, tie: P.tieRed, lapel: P.lapelTeal, hair: 'crew', facial: 'stubble', atlas: 'lemec', build: { height: 1.07, width: 1.18, headScale: 0.95 } },
+  glucksPeur:  { outfit: 'suit', suit: '#2B3A55', tie: '#1F2A3D', lapel: '#2B3A55', hair: 'slick', hairColor: '#2A2420', facial: 'none', build: { height: 0.8, width: 0.8, headScale: 1.18 } },
+  glucksBeau:  { outfit: 'suit', suit: '#2B3A55', tie: '#B5302A', lapel: '#2B3A55', hair: 'slick', hairColor: '#17161A', facial: 'none', build: { height: 1.13, width: 1.32, headScale: 0.9 } },
+  glucksMou:   { outfit: 'suit', suit: '#2B3A55', tie: '#1F2A3D', lapel: '#2B3A55', hair: 'slick', hairColor: '#2A2420', facial: 'none', build: { height: 0.78, width: 0.76, belly: 0.06, headScale: 1.2 } },
+  looksmaxeur: { outfit: 'tracksuit', suit: '#2A2A30', pants: '#2A2A30', hair: 'buzz', facial: 'none', skin: '#E8935A', build: { width: 1.4, headScale: 0.86 } },
 };
 
 const OUTFIT_COLORS = {
@@ -111,8 +124,9 @@ export function buildHuman(spec = {}) {
   };
   // naked gag: every clothed part becomes skin (head keeps its painted/measured face), censor bar added below
   const CLOTHED = ['pelvis', 'jacket', 'tail', 'pad', 'sleeve', 'cuff', 'thighL', 'shinL', 'thighR', 'shinR', 'shoe'];
-  const part = (kind, w, h, d, color, opts = {}) => o.naked && CLOTHED.includes(kind) ? box(w, h, d, o.skin, opts)
+  const part0 = (kind, w, h, d, color, opts = {}) => o.naked && CLOTHED.includes(kind) ? box(w, h, d, o.skin, opts)
     : ATL && AT[kind] && (ATLB || kind === 'skin' || kind === 'neck') ? atlasBox(w, h, d, AT[kind], opts) : box(w, h, d, color, opts);
+  const part = (kind, ...a) => { const m = part0(kind, ...a); if (kind === 'skin' || kind === 'neck') m.userData.skinPart = true; return m; };
 
   const root = new THREE.Group(); root.name = 'human';
   const J = {}; // joints
@@ -265,6 +279,9 @@ for (let i = 0; i < pp.count; i++) {
   // rest pose snapshot for the animator
   root.userData.rest = Object.fromEntries(Object.entries(J).map(([k, v]) => [k, v.position.clone()]));
   root.traverse(n => { if (n.isMesh && n.name !== 'outline') { n.castShadow = true; } });
+  if (o.tint) { const tc = new THREE.Color(o.tint); // fake tan / sunburn: multiply the skin parts and the painted head (cloned materials)
+    const tintMat = m => { const c = m.clone(); c.color = (m.color ? m.color.clone() : new THREE.Color(1, 1, 1)).multiply(tc); return c; };
+    root.traverse(n => { if (n.isMesh && (n.userData.skinPart || n === headMesh)) n.material = Array.isArray(n.material) ? n.material.map(tintMat) : tintMat(n.material); }); }
   return root;
 }
 

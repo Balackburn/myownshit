@@ -749,9 +749,9 @@ function camPoseAt(c, t) {
 }
 function placeCamera(t) {
   const cam = S.stage.camera;
-  if (!S.cams.length) { cam.position.set(0, 1.6, 6); cam.lookAt(0, 1.2, 0); return; }
+  if (!S.cams.length) { S.curCam = null; cam.position.set(0, 1.6, 6); cam.lookAt(0, 1.2, 0); return; }
   let i = 0; for (let j = 0; j < S.cams.length; j++) if (S.cams[j].t0 <= t) i = j;
-  const c = S.cams[i];
+  const c = S.cams[i]; S.curCam = c;
   let p = camPoseAt(c, t);
   if (c.cut === false && i > 0) {
     const q = camPoseAt(S.cams[i - 1], c.t0), w = ease.inOut(clamp01((t - c.t0) / (c.glide ?? 0.8)));
@@ -780,7 +780,7 @@ export function renderFrame(tAbs) {
   renderer.render(scene, camera);
   const g = S.ctx;
   const frozen = frozenNow(lt);
-  g.filter = (S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
+  g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
   g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
   drawFX(g, lt);
   drawCaption(g, t);

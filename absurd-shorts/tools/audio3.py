@@ -202,6 +202,11 @@ def sfx(name, seed=0):
             for m in ms: ph = np.cumsum(np.full(len(t), A1.NOTE(m))) / SR; x += 2 * (ph % 1) - 1
             x = lp(x.astype(np.float32), 2200) * np.minimum(1, t / 0.02) * np.clip((d - t) / 0.08, 0, 1) * 0.14; i0 = int(st * SR); out[i0:i0 + len(x)] += x
         return out
+    if name == 'chainsaw':  # two-stroke engine revving up, a grinding burst, then idling down
+        d = 1.8; t = np.arange(int(d * SR)) / SR; f = 70 + 90 * np.clip(t / 0.5, 0, 1) - 40 * np.clip((t - 1.3) / 0.5, 0, 1)
+        ph = np.cumsum(f) / SR; saw = (2 * (ph % 1) - 1) * (1 + 0.4 * np.sin(2 * np.pi * 9 * t))
+        x = lp(saw.astype(np.float32), 1800) * 0.55 + bp(noise(d, seed), 1500, 6000) * 0.25 * np.clip((t - 0.45) / 0.1, 0, 1) * np.clip((1.3 - t) / 0.1, 0, 1)
+        return (x * np.minimum(1, t / 0.05) * np.clip((d - t) / 0.2, 0, 1)).astype(np.float32)
     if name == 'heartbeat':  # two low thumps (lub-dub)
         t = np.arange(int(0.16 * SR)) / SR; th = (np.sin(2 * np.pi * (55 - 15 * t / 0.16) * t) * np.exp(-t * 22)).astype(np.float32)
         out = np.zeros(int(0.6 * SR), np.float32); out[:len(th)] += th; i0 = int(0.22 * SR); out[i0:i0 + len(th)] += th * 0.7; return out

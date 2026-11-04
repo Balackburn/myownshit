@@ -811,6 +811,24 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], door: [0.97, 0, -3.6], path: [0.97, 0, -1.0], gate: [0.97, 0, 2.2], pavement: [0, 0, 3.6] };
     g.userData.lighting = 'day'; return g;
   },
+  chambre(o = {}) { // small bedroom: single bed, desk with a computer, wardrobe, full-length mirror, gym-guru poster, clothes on the floor,
+                    // window with curtains; o.wall / o.poster / o.blanket restyle it (Glucksmann's room at the end)
+    const g = grp(), { back } = room(g, { wall: o.wall || '#C9D3D6', band: o.band || '#AEB9BC', bandH: 0.9, trim: '#8A969A', floor: o.floor || '#B08A64', back: -3.0, half: 4.5 });
+    g.add(prop('bed', { w: 0.95, blanket: o.blanket || '#5A6E8C' }, -2.6, 0, back + 1.1));
+    g.add(at(box(1.3, 0.05, 0.6, '#E6E2D8', { outline: 0.006 }), 2.5, 0.74, back + 0.35));
+    [[-0.6, -0.25], [0.6, -0.25], [-0.6, 0.25], [0.6, 0.25]].forEach(([x, z]) => g.add(at(box(0.04, 0.74, 0.04, '#8A969A', { pivot: 'bottom' }), 2.5 + x, 0, back + 0.35 + z)));
+    g.add(at(box(0.6, 0.38, 0.04, P.ink, { outline: 0.006 }), 2.5, 1.0, back + 0.2), at(box(0.54, 0.32, 0.01, '#3E6FB5', { emissive: '#1A3A6A' }), 2.5, 1.0, back + 0.225), at(box(0.06, 0.2, 0.06, P.ink, { pivot: 'bottom' }), 2.5, 0.765, back + 0.18));
+    g.add(prop('chair', { color: '#3A3D44' }, 2.5, 0, back + 1.0, PI));
+    g.add(at(box(1.0, 2.1, 0.55, '#C9A06A', { pivot: 'bottom', outline: 0.008 }), 4.0, 0, back + 0.3), at(box(0.01, 2.0, 0.02, '#8A6A44'), 4.0, 1.05, back + 0.58), at(box(0.04, 0.12, 0.03, '#8A6A44'), 3.94, 1.1, back + 0.6), at(box(0.04, 0.12, 0.03, '#8A6A44'), 4.06, 1.1, back + 0.6));
+    g.add(prop('mirrorFull', {}, 0.9, 0, back + 0.05));
+    g.add(at(buildProp('fitPoster', { text: o.poster || 'CLAVICULE\nLARGE', bg: o.posterBg, fg: o.posterFg }), -0.6, 1.75, back + 0.02));
+    g.add(at(box(0.05, 1.2, 1.4, '#F2F2EC', { outline: 0.006 }), -4.48, 1.75, -0.6), at(box(0.03, 1.1, 1.3, '#9CC8E8', { emissive: '#2A4A5A' }), -4.45, 1.75, -0.6),
+      at(box(0.06, 1.6, 0.35, o.curtain || '#B5302A'), -4.42, 1.65, -1.45), at(box(0.06, 1.6, 0.35, o.curtain || '#B5302A'), -4.42, 1.65, 0.25));
+    [[-0.9, 0.02, 0.4, 0.4, '#2C4A8A'], [-0.6, 0.05, 0.6, -0.3, '#E8742E'], [1.9, 0.02, -1.5, 0.9, '#5E9A4A']].forEach(([x, y, z, ry, c]) => g.add(at(box(0.45, 0.05, 0.32, c, { outline: 0.004 }), x, y, z, 0, ry, 0)));
+    g.add(prop('plant', { pot: '#C9A06A', seed: 9 }, 3.3, 0, back + 0.35, 0, 0.8));
+    g.userData.anchors = { center: [0, 0, 0], bed: [-2.6, 0, back + 1.1], bedSit: [-2.6, 0.45, back + 1.6], desk: [2.5, 0, back + 0.35], chair: [2.5, 0, back + 1.0], mirror: [0.9, 0, back + 0.05], poster: [-0.6, 1.75, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
   cinema(o) {
     const g = grp(), { back } = room(g, { wall: '#3A1E22', floor: '#2A1F24', back: -9, half: 7 });
     const scr = canvasPlane(9, 4.0, (c, W, H) => { c.fillStyle = o.screenColor || '#C9D6DE'; c.fillRect(0, 0, W, H); if (o.screenText) { c.fillStyle = P.navy; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.18}px Arial`; c.fillText(o.screenText, W / 2, H / 2); } }, { emissive: 0.3 });

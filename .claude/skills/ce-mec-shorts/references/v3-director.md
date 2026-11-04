@@ -223,3 +223,43 @@ Working example: `scripts-fr/restochinois.py` (16 scenes, 51 lines, 91 camera se
   - Generic faces. Period clothes and props carry the setting.
   - The joke aims at the regime and its propaganda, made obvious by a "SOURIEZ" cue card during "the happiest man in the world".
   - Chinese text renders (WenQuanYi is installed). Use real, correct slogans (为人民服务) or plain phrases (禁止西方产品).
+
+## Transformation story (« Le looksmaxing », 2 min 27)
+
+Working example: `scripts-fr/looksmaxing.py`.
+
+- **POV `lens` is a vertical field of view in degrees.** Bigger means wider.
+  - About 58–60 shows head and chest at 1 m (a mirror shot).
+  - 34–40 is a tight insert.
+  - A "wide" POV with lens 30 at 1 m only shows the tie.
+- **A move key lands on a pose only with `then`.** Give both `clip` (during the move) and `then` (after). For a jump cut, use
+  `glide=True, dur=0.05, clip='sitLookItem', then='sitLookItem'`. With `clip` alone the old clip comes back after the move,
+  and `then` alone was not applied either.
+- **Per-camera grade.** A camera entry can carry `grade` (CSS filter): `{**POV(...), 'grade': DREAM}`. Two uses here:
+  - "how he sees himself": the handsome version in the same spot, bright and warm;
+  - the perfect man's reveal.
+- **Progressive uglification** means one cast id per stage, swapped in place with `visible` keys at the same position, plus a
+  `poof`.
+  - `mecGonfle`: width 1.6 and belly. `mecOrange`: the same with `tint`. `mecMonstre`: width 1.95, small head.
+  - `tint` multiplies the skin parts and the painted head (cloned materials), so the painted face keeps its expressions.
+- **Face add-ons** attach to the head joint, whose origin is the bottom of the head.
+  - `squareJaw` at y 0.02, z 0.05.
+  - `googlyEyes` at y = 0.5·hs·0.6, z = 0.085·hs + 0.012.
+  - `faceLumps` (bumps and bandages) at y = 0.5·hs·0.55.
+  - `monster_face(actor, hs)` in the script builds the set. They follow a lying head too (the surgery seen from above).
+- **Mirror scenes.** The person faces the mirror (`ry 180`), so the inside-out mirror POV gives the face. A side POV from the
+  hand side shows the injection. Keep about 1 m between person and mirror.
+- **New props:** `kit72` (case of 72 vials, the lid's label), `chainsaw` (`runAt` / `stopAt` shiver), `squareJaw`,
+  `googlyEyes`, `faceLumps`, `ringLight`, `mirrorFull`, `fitPoster`, `halo`.
+- **New set:** `chambre`, a bedroom restyled with `wall`, `poster`, `posterBg`/`posterFg`, `blanket` and `curtain`.
+- **New presets:**
+  - The guru: `clavicule`, a fictional character with tiny head and huge shoulders.
+  - `femme`, `journaliste`, the extras `looksmaxeur`, and `mecBeau` (how he sees himself).
+  - Glucksmann in three states: `glucksPeur` (small, scared), `glucksBeau` (tall, V-shaped) and `glucksMou` (small,
+    deflated).
+- **New SFX:** `chainsaw`.
+- **Violence by ellipsis.** The chainsaw goes up by his face with the buzz, the shot fades to black, and the next scene opens
+  on the bandages.
+- **Real people.** Nothing sexual and nothing about private life. A real partner of a public figure is replaced by a
+  fictional character: "48 hours instead of 2 minutes" became a TV interview, with the day/night cycle and a spinning clock.
+  Make no Nazi comparisons, and name no hard drugs for a real person ("le programme").

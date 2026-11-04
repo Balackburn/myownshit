@@ -1098,6 +1098,48 @@ const B = {
   baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
   clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
+  // ---- "Le looksmaxing": the course kit, the chainsaw, the face add-ons (jaw, eyes, lumps), the ring light, mirror, poster
+  kit72(o) { // the course kit: a case of 72 coloured vials, the lid standing open with the label
+    const w = 0.7, d = 0.45, h = 0.12, g = grp(at(box(w, h, d, '#1E1E22', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0));
+    const vl = [], vc = [], cols = ['#E8742E', '#5E9A4A', '#2C4A8A', '#B5302A', '#F2C230', '#9A5AB5', '#3E8A8A', '#F2EDE4'];
+    for (let r = 0; r < 6; r++) for (let c = 0; c < 12; c++) { vl.push([-w / 2 + 0.05 + c * (w - 0.1) / 11, h + 0.03, -d / 2 + 0.07 + r * (d - 0.14) / 5, 0, 0, 0, 0.024, 0.06, 0.024]); vc.push(cols[(r * 5 + c * 3) % cols.length]); }
+    g.add(inst(new THREE.BoxGeometry(1, 1, 1), mat(P.white), vl, vc));
+    const lid = grp(at(box(w, 0.03, d, '#1E1E22', { outline: 0.008 }), 0, 0, d / 2), at(label(o.text || 'MÉTHODE\nCLAVICULE LARGE\n72 PRODUITS', w * 0.9, d * 0.8, { bg: '#F2C230', fg: '#1E1E22' }), 0, -0.017, d / 2, PI / 2, 0, 0));
+    lid.position.set(0, h, -d / 2); lid.rotation.x = -1.75; g.add(lid);
+    return g; },
+  chainsaw(o) { // orange chainsaw, bar along +z; the chain shivers between runAt and stopAt
+    const body = at(box(0.22, 0.2, 0.36, '#E8742E', { outline: 0.01 }), 0, 0, 0);
+    const chain = at(box(0.05, 0.1, 0.54, '#3A3A3E', { outline: 0.006 }), 0, -0.02, 0.44);
+    const g = grp(body, at(box(0.2, 0.06, 0.12, '#2A2A2E'), 0, 0.13, -0.08), rod([-0.09, 0.1, 0.13], [0.09, 0.1, 0.13], 0.016, '#2A2A2E'), rod([-0.09, 0.0, 0.13], [-0.09, 0.1, 0.13], 0.016, '#2A2A2E'), chain,
+      at(box(0.03, 0.08, 0.5, '#C9CCD1'), 0, -0.02, 0.44), at(label(o.text || 'MASCU 3000', 0.2, 0.06, { bg: '#E8742E', fg: '#1E1E22', wrap: false }), 0.111, 0.02, 0, 0, PI / 2, 0));
+    if (o.runAt != null) g.userData.update = t => { const on = t >= o.runAt && (o.stopAt == null || t < o.stopAt); chain.position.y = -0.02 + (on ? 0.005 * Math.sin(t * 140) : 0); body.position.x = on ? 0.004 * Math.sin(t * 95) : 0; };
+    g.userData.grip = [0, 0.13, -0.08]; return g; },
+  squareJaw(o) { // surgically "squared" jaw: a big block under the face (attach to the head joint)
+    const c = o.color || '#E8B48A', w = o.w || 0.3, h = o.h || 0.15, d = o.d || 0.24;
+    return grp(at(box(w, h, d, c, { outline: 0.008 }), 0, 0, 0), at(box(w * 0.5, 0.012, 0.01, '#7A3A2A'), 0, h * 0.1, d / 2 + 0.003)); },
+  googlyEyes(o) { // "more attractive eyes": two big googly eyes (attach to the head, on the face)
+    const r = o.r || 0.045, g = grp();
+    [-1, 1].forEach(s => { const ball = sphere(r, P.white, 1); ball.scale.z = 0.6; const e = grp(ball, at(sphere(r * 0.42, P.ink, 1), (o.cross ? -s : s) * r * 0.25, -r * 0.18, r * 0.5)); e.position.x = s * (o.sep || 0.052); g.add(e); });
+    return g; },
+  faceLumps(o) { // micro-fracture bumps and bandages on the face (attach to the head, on the face)
+    const c = o.color || '#E8B48A', r = rng(o.seed || 3), g = grp();
+    for (let i = 0; i < (o.n || 8); i++) { const b = sphere(0.022 + r() * 0.026, c, 0); b.scale.z = 0.6; b.position.set((r() - 0.5) * 0.15, (r() - 0.5) * 0.3, 0); g.add(b); }
+    if (o.bandage !== false) g.add(at(box(0.21, 0.036, 0.012, '#F2EDE4', { outline: 0.004 }), 0, 0.09, 0.016, 0, 0, 0.5), at(box(0.036, 0.13, 0.012, '#F2EDE4', { outline: 0.004 }), -0.045, -0.06, 0.016, 0, 0, 0.25), at(box(0.12, 0.03, 0.012, '#F2EDE4', { outline: 0.004 }), 0.04, -0.11, 0.016, 0, 0, -0.3));
+    return g; },
+  ringLight(o) { // influencer ring light on a stand, phone in the middle
+    const H = o.height || 1.5, ring = torus(0.21, 0.026, '#FFF6E0', 6, 24); ring.material = glow('#FFF6E0'); ring.position.y = H + 0.21;
+    return grp(at(cyl(0.18, 0.2, 0.03, P.ink, 10, { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.012, 0.012, H, P.ink, 6, { pivot: 'bottom' }), 0, 0.03, 0), ring, at(box(0.075, 0.14, 0.012, P.ink), 0, H + 0.21, 0.012)); },
+  mirrorFull(o) { // full-length standing mirror
+    const w = o.w || 0.62, h = o.h || 1.7;
+    return grp(at(box(w + 0.08, h + 0.08, 0.04, o.frame || '#C9A06A', { pivot: 'bottom', outline: 0.008 }), 0, 0.12, 0), at(box(w, h, 0.01, '#CFE0E6', { emissive: '#22323A' }), 0, 0.16 + h / 2, 0.024),
+      at(box(0.07, 0.12, 0.3, '#8A6A44', { pivot: 'bottom' }), -w / 2, 0, 0), at(box(0.07, 0.12, 0.3, '#8A6A44', { pivot: 'bottom' }), w / 2, 0, 0)); },
+  halo(o) { const r = torus(o.r || 0.16, 0.018, '#FFE7A0', 6, 24); r.material = glow('#FFE7A0'); r.rotation.x = PI / 2; return grp(r); }, // compared to God (attach above the head)
+  fitPoster(o) { // gym-guru poster: a V-shaped silhouette and a slogan
+    const c = canvasPlane(0.62, 0.88, (gg, W, H) => { gg.fillStyle = o.bg || '#1E1E22'; gg.fillRect(0, 0, W, H); gg.fillStyle = o.fg || '#F2C230';
+      gg.beginPath(); gg.moveTo(W * 0.12, H * 0.38); gg.lineTo(W * 0.88, H * 0.38); gg.lineTo(W * 0.62, H * 0.86); gg.lineTo(W * 0.38, H * 0.86); gg.closePath(); gg.fill();
+      gg.beginPath(); gg.arc(W / 2, H * 0.3, W * 0.07, 0, TAU); gg.fill(); gg.textAlign = 'center'; gg.font = `900 ${H * 0.07}px Arial`;
+      String(o.text || 'CLAVICULE LARGE').split('\n').forEach((l, i) => gg.fillText(l, W / 2, H * (0.1 + i * 0.08))); }, { res: 384 });
+    return grp(at(box(0.64, 0.9, 0.01, P.ink), 0, 0, 0), at(c, 0, 0, 0.006)); },
   // ---- "Le resto chinois": cutlery, chopsticks, dishes, the black market, the prison, the mob, the plane
   fork(o) { // table fork along +y (handle end at y = 0, tines up); o.shine = glowing Western treasure
     const c = o.color || '#C9CCD1', m = o.shine ? { emissive: '#7A6A30' } : {};
