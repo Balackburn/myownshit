@@ -157,6 +157,8 @@ export const CLIPS = {
     ...arms(m([0, 0, 2.8], [0, 0, 2.8]), m([0, 0, 0], [0, 0, 0])), hipL: [0, 0, 0.6], hipR: [0, 0, -0.6] }; },
   vault: () => ({ ...arms(m([-1.0, 0, 0.25], [-1.0, 0, 0.25]), m([-0.1, 0, 0], [-0.1, 0, 0])), hipL: [-1.3, 0, 0.4], hipR: [-1.1, 0, 0.3], kneeL: [1.2, 0, 0], kneeR: [1.0, 0, 0], torso: [0.25, 0, 0.15] }),
   pointSelf: (t) => ({ ...arms(m([0, 0, 0.2], [-0.75, 0.6, 0.25]), m([-0.08, 0, -0.3], [-2.0, 0.4, 0])), handR: [0, 0, -0.3], head: [0.12, 0, 0], torso: [0.02 * S(t * 2), 0, 0] }), // index on the chest: 'moi ?'
+  pokeUp: (t, p = {}) => { const f = p.freq ?? 2.4, k = Math.max(0, Math.sin(t * f * 2 * PI)); return { // jabbing the ceiling with a broom held overhead
+    ...arms(m([-2.75 + 0.08 * k, 0, 0.3], [-2.75 + 0.08 * k, 0, 0.18]), m([-0.75 + 0.6 * k, 0, 0], [-0.75 + 0.6 * k, 0, 0])), head: [-0.4, 0, 0], torso: [-0.06, 0, 0], root: { y: 0.03 * k } }; },
   superman: (t) => ({ // flying horizontally, right fist forward, left arm back along the body (holds the jet can); face the travel direction
     root: { rx: 1.35, y: -0.88 + 0.03 * S(t * 7), rz: 0.04 * S(t * 5), pivot: 'hips' }, ...arms(m([0.35, 0, 0.12], [-2.95, 0, 0.1]), m([0, 0, 0], [-0.05, 0, 0])),
     hipL: [0.12, 0, 0.06], hipR: [0.2, 0, -0.06], kneeL: [0.3, 0, 0], kneeR: [0.15, 0, 0], head: [-0.95, 0, 0], torso: [-0.1, 0, 0] }),

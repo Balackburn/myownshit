@@ -12,7 +12,7 @@ import { rng } from './style.js';
 
 export const EXPRESSIONS = [
   'neutral', 'blink', 'surprised', 'shocked', 'suspicious', 'unimpressed', 'sad', 'worried', 'angry',
-  'smug', 'sleepy', 'scared', 'happy', 'disgusted', 'grimace', 'sideLook', 'dead', 'talk',
+  'smug', 'sleepy', 'scared', 'happy', 'disgusted', 'grimace', 'sideLook', 'dead', 'talk', 'grin',
 ];
 
 const cache = new Map();
@@ -51,7 +51,7 @@ export function faceTexture(o = {}) {
   if (opt.hair !== 'bald' && hairTop > 0) scribbleFringe(g, r, opt.hairColor, hairTop, opt.hair);
   if (opt.hair === 'long') { g.fillStyle = opt.hairColor; g.fillRect(0, 0, 22, H * 0.55); g.fillRect(W - 22, 0, 22, H * 0.55); }
 
-  const e = opt.expression, ink = '#111';
+  const e = opt.expression === 'grin' ? 'happy' : opt.expression, ink = '#111';   // grin: a measured face-set texture for the protagonist; drawn faces use happy
   const L = { x: 0.30 * W, y: 0.32 * H }, R = { x: 0.66 * W, y: 0.47 * H }, er = 0.088 * W; // eye radius (a touch larger than measured: readable at phone size)
   const LW = 1.7; // stroke weight multiplier: secondary faces must read in medium shots at 1080x1920
   // --- brows (thin arcs) --------------------------------------------------

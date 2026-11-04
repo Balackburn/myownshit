@@ -1,0 +1,1065 @@
+{
+ "version": 3,
+ "title": "La photo d'identité",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "agent": {
+   "preset": "madame",
+   "seed": 44,
+   "glasses": true
+  },
+  "mariee": {
+   "preset": "femme",
+   "suit": "#F7F3EA",
+   "seed": 12
+  },
+  "collegue1": {
+   "preset": "lemec_beige",
+   "seed": 33
+  },
+  "collegue2": {
+   "preset": "madame",
+   "seed": 9
+  },
+  "juge": {
+   "preset": "judge"
+  }
+ },
+ "scenes": [
+  {
+   "id": "photomaton",
+   "set": "poste",
+   "setOpts": {
+    "title": "PRÉFECTURE"
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "H1",
+     "text": "Ce mec a refait sa photo d'identité trente-huit fois pour avoir son passeport.",
+     "highlight": [
+      "trente-huit",
+      "passeport."
+     ]
+    },
+    {
+     "id": "H2",
+     "text": "À chaque fois, la préfecture la refusait. Il souriait.",
+     "highlight": [
+      "préfecture",
+      "souriait."
+     ]
+    },
+    {
+     "id": "H3",
+     "text": "Alors ce con a arrêté de sourire. Pour toujours.",
+     "highlight": [
+      "toujours."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -4.4,
+      0.12,
+      -2.1
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "H2",
+       "to": [
+        0,
+        0,
+        -1.62
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 180,
+       "clip": "stand",
+       "then": "stand",
+       "expr": "grin"
+      },
+      {
+       "at": "H3:sourire",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "agent",
+     "pos": [
+      0,
+      0,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "H2:refusait-0.2",
+       "clip": "slamTable",
+       "expr": "angry"
+      },
+      {
+       "at": "H2:souriait",
+       "clip": "shakeHead"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabine",
+     "name": "photoBooth",
+     "pos": [
+      -4.4,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "flashAt": [
+       "H1:photo",
+       "H1:fois",
+       "H1:passeport"
+      ]
+     }
+    },
+    {
+     "id": "photoId",
+     "name": "idPhoto",
+     "scale": 3.0,
+     "pos": [
+      0,
+      1.115,
+      -2.15
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "smile": true
+     }
+    },
+    {
+     "id": "refuse",
+     "name": "stampMark",
+     "visible": false,
+     "pos": [
+      0,
+      1.121,
+      -2.13
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.3
+     ],
+     "opts": {
+      "text": "REFUSÉ",
+      "w": 0.26,
+      "h": 0.09
+     },
+     "keys": [
+      {
+       "at": "H2:refusait",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "pile",
+     "name": "paperPile",
+     "scale": 0.35,
+     "pos": [
+      0.42,
+      1.115,
+      -2.3
+     ],
+     "opts": {
+      "count": 38,
+      "seed": 4
+     }
+    },
+    {
+     "id": "encreur",
+     "name": "rubberStamp",
+     "on": {
+      "actor": "agent",
+      "hand": "R"
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "H1:photo",
+     "dur": 0.16
+    },
+    {
+     "type": "flash",
+     "at": "H1:fois",
+     "dur": 0.16
+    },
+    {
+     "type": "flash",
+     "at": "H1:passeport",
+     "dur": 0.16
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H1:photo",
+     "name": "shutter",
+     "vol": 0.6
+    },
+    {
+     "at": "H1:fois",
+     "name": "shutter",
+     "vol": 0.6
+    },
+    {
+     "at": "H1:passeport",
+     "name": "shutter",
+     "vol": 0.6
+    },
+    {
+     "at": "H2:refusait",
+     "name": "thud",
+     "vol": 0.7
+    },
+    {
+     "at": "H3:toujours",
+     "name": "sting",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "H1:trente",
+     "size": "cu",
+     "angle": 0,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "H2",
+     "size": "ms",
+     "angle": 0,
+     "frame": "agent"
+    },
+    {
+     "at": "H2:refusait-0.3",
+     "from": [
+      0,
+      1.62,
+      -1.9
+     ],
+     "lookAt": [
+      0,
+      1.115,
+      -2.15
+     ],
+     "lens": 34
+    },
+    {
+     "at": "H2:souriait",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "H3",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "mariage",
+   "set": "church",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "H4",
+     "text": "À son mariage, il n'a pas souri. Sa femme a demandé le divorce.",
+     "highlight": [
+      "mariage,",
+      "divorce."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.45,
+      0.22,
+      -4.3
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mariee",
+     "pos": [
+      0.45,
+      0.22,
+      -4.3
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "H4:femme",
+       "expr": "angry"
+      },
+      {
+       "at": "H4:divorce",
+       "to": [
+        1.4,
+        0,
+        2.5
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "faceEnd": 10,
+       "then": "walk",
+       "expr": "angry"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "H4:souri",
+     "dur": 0.16
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H4",
+     "name": "choir",
+     "vol": 0.35
+    },
+    {
+     "at": "H4:souri",
+     "name": "shutter",
+     "vol": 0.6
+    },
+    {
+     "at": "H4:divorce",
+     "name": "sting",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "frame": [
+      "mec",
+      "mariee"
+     ]
+    },
+    {
+     "at": "H4:Sa",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mariee"
+    },
+    {
+     "at": "H4:divorce",
+     "size": "cu",
+     "angle": -60,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "bureau",
+   "set": "office",
+   "setOpts": {
+    "printer": false
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "H5",
+     "text": "Au boulot, on l'a nommé directeur. Il avait l'air sérieux.",
+     "highlight": [
+      "directeur.",
+      "sérieux."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0.16,
+      -2.75
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "collegue1",
+     "pos": [
+      -1.4,
+      0,
+      -1.5
+     ],
+     "ry": 50,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "H5:directeur",
+       "clip": "celebrate"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "collegue2",
+     "pos": [
+      1.4,
+      0,
+      -1.5
+     ],
+     "ry": -50,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "H5:directeur+0.15",
+       "clip": "celebrate"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bureau",
+     "name": "desk",
+     "pos": [
+      0,
+      0,
+      -2.15
+     ],
+     "opts": {
+      "w": 1.6
+     }
+    },
+    {
+     "id": "fauteuil",
+     "name": "officeChair",
+     "pos": [
+      0,
+      0,
+      -2.85
+     ],
+     "opts": {
+      "color": "#2A2A2E"
+     }
+    },
+    {
+     "id": "plaque",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      -1.82
+     ],
+     "opts": {
+      "text": "DIRECTEUR",
+      "w": 0.62,
+      "h": 0.14,
+      "height": 0.76,
+      "posts": false,
+      "bg": "#2A2A2E",
+      "fg": "#F2C230",
+      "frame": "#C9A06A"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H5:directeur",
+     "name": "tada",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "mec",
+      "collegue1",
+      "collegue2"
+     ]
+    },
+    {
+     "at": "H5:sérieux-0.4",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "boite",
+   "set": "pavillon",
+   "ambience": "park",
+   "ambienceVol": 0.45,
+   "lines": [
+    {
+     "id": "H6",
+     "text": "Trois ans plus tard, son passeport est enfin arrivé.",
+     "highlight": [
+      "Trois",
+      "passeport"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.35,
+      0,
+      3.15
+     ],
+     "ry": 125,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "H6:passeport",
+       "face": 10,
+       "turn": 0.25,
+       "clip": "showPhone"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "passeport",
+     "name": "notebook",
+     "scale": 1.7,
+     "visible": false,
+     "opts": {
+      "text": "PASSEPORT\n—\n2026",
+      "bg": "#6E1A2A"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "H6:passeport",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H6:passeport",
+     "name": "paper",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": -20,
+     "frame": "mec"
+    },
+    {
+     "at": "H6:arrivé",
+     "size": "mcu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "frame": "passeport"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "aeroport",
+   "set": "airport",
+   "ambience": "station",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "H7",
+     "text": "À l'aéroport, il était tellement content qu'il a souri.",
+     "highlight": [
+      "souri."
+     ]
+    },
+    {
+     "id": "H8",
+     "text": "La police l'a arrêté pour usurpation d'identité. Il ne ressemblait plus à sa photo.",
+     "highlight": [
+      "usurpation",
+      "photo."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -3.4,
+      0,
+      -1.75
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "H7:content",
+       "expr": "grin"
+      },
+      {
+       "at": "H8:arrêté",
+       "face": 20,
+       "turn": 0.3,
+       "clip": "cuffedFront",
+       "expr": "grin"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -3.4,
+      0,
+      -3.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "H8",
+       "clip": "point",
+       "expr": "suspicious"
+      },
+      {
+       "at": "H8:ressemblait",
+       "clip": "showPhone",
+       "expr": "angry"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -1.0,
+      0,
+      -1.4
+     ],
+     "ry": -110,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "H8-0.3",
+       "to": [
+        -2.65,
+        0,
+        -1.4
+       ],
+       "clip": "walk",
+       "speed": 3.0,
+       "faceEnd": "mec",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "valise",
+     "name": "briefcase",
+     "scale": 1.3,
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": "H8:arrêté",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "menottes",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "H8:arrêté",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "photoPass",
+     "name": "idPhoto",
+     "scale": 3.2,
+     "visible": false,
+     "opts": {
+      "smile": false
+     },
+     "on": {
+      "actor": "flic1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "H8:ressemblait",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H7:souri",
+     "name": "ding",
+     "vol": 0.5
+    },
+    {
+     "at": "H8:arrêté",
+     "name": "cuff",
+     "vol": 0.6
+    },
+    {
+     "at": "H8:police",
+     "name": "siren",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -70,
+     "frame": [
+      "mec",
+      "flic1"
+     ]
+    },
+    {
+     "at": "H7:souri-0.3",
+     "size": "cu",
+     "angle": -40,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    },
+    {
+     "at": "H8:arrêté",
+     "size": "ms",
+     "worldAngle": -10,
+     "frame": [
+      "mec",
+      "flic2"
+     ]
+    },
+    {
+     "at": "H8:ressemblait",
+     "size": "cu",
+     "worldAngle": 0,
+     "noOcclusion": true,
+     "frame": "photoPass"
+    },
+    {
+     "at": "H8:photo",
+     "size": "cu",
+     "angle": -45,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "H9",
+     "text": "Putain, trois ans ferme.",
+     "highlight": [
+      "trois",
+      "ferme."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "H9:trois",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "menottes",
+     "name": "handcuffs",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H9:trois",
+     "name": "gavel",
+     "vol": 0.6
+    },
+    {
+     "at": "H9:ferme",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "casier",
+   "set": "policeStation",
+   "ambience": "station",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "H10",
+     "text": "Sur la photo du casier, il sourit.",
+     "highlight": [
+      "casier,",
+      "sourit."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.4,
+      0,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [
+      {
+       "at": "H10:sourit-0.15",
+       "expr": "grin"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "toise",
+     "name": "mugshotBoard",
+     "pos": [
+      -0.4,
+      0,
+      -3.52
+     ]
+    },
+    {
+     "id": "ardoise",
+     "name": "placard",
+     "scale": 1.4,
+     "opts": {
+      "text": "POLICE\nN° 38"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "H10:sourit",
+     "dur": 0.16
+    }
+   ],
+   "sfx": [
+    {
+     "at": "H10:sourit",
+     "name": "shutter",
+     "vol": 0.8
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "H10:sourit-0.2",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

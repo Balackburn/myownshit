@@ -1,0 +1,1189 @@
+{
+ "version": 3,
+ "title": "Le voisin du dessus",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "mecPyjama"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "voisin": {
+   "preset": "lemec_brown",
+   "glasses": true,
+   "seed": 8
+  },
+  "g1": {
+   "preset": "lemec_charcoal",
+   "seed": 3
+  },
+  "g2": {
+   "preset": "femme",
+   "seed": 22
+  },
+  "g3": {
+   "preset": "lemec_beige",
+   "seed": 5
+  },
+  "g4": {
+   "preset": "madame",
+   "seed": 7
+  },
+  "juge": {
+   "preset": "judge"
+  }
+ },
+ "scenes": [
+  {
+   "id": "salon",
+   "set": "livingRoom",
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "lighting": "night",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "V1",
+     "text": "Ce mec a tapé au plafond avec un balai pour que son voisin baisse la musique.",
+     "highlight": [
+      "balai",
+      "musique."
+     ]
+    },
+    {
+     "id": "V2",
+     "text": "À trois heures du matin, le voisin a répondu.",
+     "highlight": [
+      "trois"
+     ]
+    },
+    {
+     "id": "V3",
+     "text": "Tape plus fort !",
+     "speaker": "voisin"
+    },
+    {
+     "id": "V4",
+     "text": "Alors il a tapé plus fort et le plafond est tombé.",
+     "highlight": [
+      "plafond",
+      "tombé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -0.9
+     ],
+     "ry": 10,
+     "clip": "pokeUp",
+     "keys": [
+      {
+       "at": "V2",
+       "clip": "stand",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "V4",
+       "clip": "pokeUp",
+       "expr": "angry",
+       "params": {
+        "freq": 4.2
+       }
+      },
+      {
+       "at": "V4:plafond+0.1",
+       "to": [
+        0.4,
+        0,
+        0.8
+       ],
+       "glide": true,
+       "dur": 0.3,
+       "clip": "startle",
+       "then": "stand",
+       "face": "keep",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      0.9,
+      3.14,
+      -1.5
+     ],
+     "ry": 10,
+     "clip": "dance",
+     "keys": [
+      {
+       "at": "V2:voisin",
+       "clip": "lookDown",
+       "expr": "smug"
+      },
+      {
+       "at": "V3",
+       "clip": "yell",
+       "expr": "angry"
+      },
+      {
+       "at": "V4",
+       "clip": "dance",
+       "expr": "grin"
+      },
+      {
+       "at": "V4:tombé",
+       "to": [
+        0.9,
+        0.28,
+        -1.5
+       ],
+       "glide": true,
+       "dur": 0.35,
+       "ease": "in",
+       "clip": "startle",
+       "then": "dance",
+       "face": "keep"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      -1.9,
+      3.14,
+      -1.2
+     ],
+     "ry": 30,
+     "clip": "dance",
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        -1.9,
+        0.28,
+        -1.2
+       ],
+       "glide": true,
+       "dur": 0.35,
+       "ease": "in",
+       "clip": "startle",
+       "then": "dance",
+       "face": "keep"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      -0.5,
+      3.14,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "dance",
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        -0.5,
+        0.28,
+        -2.6
+       ],
+       "glide": true,
+       "dur": 0.35,
+       "ease": "in",
+       "clip": "startle",
+       "then": "dance",
+       "face": "keep"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "g3",
+     "pos": [
+      2.0,
+      3.14,
+      -2.4
+     ],
+     "ry": -20,
+     "clip": "dance",
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        2.0,
+        0.28,
+        -2.4
+       ],
+       "glide": true,
+       "dur": 0.35,
+       "ease": "in",
+       "clip": "startle",
+       "then": "dance",
+       "face": "keep"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "g4",
+     "pos": [
+      -1.1,
+      3.14,
+      -0.7
+     ],
+     "ry": 15,
+     "clip": "dance",
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        -1.1,
+        0.28,
+        -0.7
+       ],
+       "glide": true,
+       "dur": 0.35,
+       "ease": "in",
+       "clip": "startle",
+       "then": "dance",
+       "face": "keep"
+      }
+     ],
+     "expr": "grin"
+    }
+   ],
+   "props": [
+    {
+     "id": "dalle",
+     "name": "floorSlab",
+     "pos": [
+      0,
+      3.0,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 3.4,
+      "lampX": -1.4,
+      "swing": 0.18,
+      "shakeAt": [
+       "V4:tapé",
+       "V4:plafond"
+      ]
+     },
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        0,
+        0.14,
+        -1.9
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "murHaut",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      -3.45
+     ],
+     "opts": {
+      "text": " ",
+      "bg": "#5A3A7A",
+      "fg": "#5A3A7A",
+      "w": 5.6,
+      "h": 2.5,
+      "height": 3.14,
+      "posts": false,
+      "frame": "#3A2A4A"
+     }
+    },
+    {
+     "id": "canape",
+     "name": "sofaProp",
+     "pos": [
+      -1.0,
+      3.14,
+      -3.05
+     ],
+     "opts": {
+      "color": "#B5302A",
+      "color2": "#D9534A"
+     },
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        -1.0,
+        0.28,
+        -3.05
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "radio",
+     "name": "boombox",
+     "pos": [
+      1.9,
+      3.14,
+      -3.2
+     ],
+     "opts": {
+      "playAt": 0
+     },
+     "keys": [
+      {
+       "at": "V4:tombé",
+       "to": [
+        1.9,
+        0.28,
+        -3.2
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "balai",
+     "name": "broom",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "chevet",
+     "name": "table",
+     "pos": [
+      -2.3,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.4,
+      "h": 0.55,
+      "color": "#C9A06A"
+     }
+    },
+    {
+     "id": "reveil",
+     "name": "alarmClock",
+     "scale": 0.55,
+     "pos": [
+      -2.3,
+      0.55,
+      -0.6
+     ],
+     "ry": 15,
+     "opts": {
+      "time": "03:00"
+     }
+    },
+    {
+     "id": "poussiere",
+     "name": "dustPuff",
+     "scale": 2.6,
+     "visible": false,
+     "pos": [
+      0.3,
+      0.3,
+      -0.5
+     ],
+     "opts": {
+      "color": "#CFC6B4",
+      "once": true,
+      "period": 1.0,
+      "startAt": "V4:tombé+0.35"
+     },
+     "keys": [
+      {
+       "at": "V4:tombé+0.3",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "name": "music:zouk",
+     "at": 0,
+     "until": "V4:tombé+0.4",
+     "vol": 0.32
+    },
+    {
+     "at": "V1:plafond",
+     "name": "thud",
+     "vol": 0.5
+    },
+    {
+     "at": "V1:balai",
+     "name": "thud",
+     "vol": 0.5
+    },
+    {
+     "at": "V1:voisin",
+     "name": "thud",
+     "vol": 0.5
+    },
+    {
+     "at": "V4:tapé",
+     "name": "thud",
+     "vol": 0.7
+    },
+    {
+     "at": "V4:plus",
+     "name": "thud",
+     "vol": 0.7
+    },
+    {
+     "at": "V4:plafond",
+     "name": "glass",
+     "vol": 0.4
+    },
+    {
+     "at": "V4:tombé+0.35",
+     "name": "thud",
+     "vol": 1.0
+    },
+    {
+     "at": "V4:tombé+0.38",
+     "name": "poof",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.6,
+      2.7,
+      6.4
+     ],
+     "lookAt": [
+      0.5,
+      2.5,
+      -1.5
+     ],
+     "lens": 50
+    },
+    {
+     "at": "V1:balai",
+     "from": [
+      1.5,
+      1.75,
+      0.9
+     ],
+     "lookAt": [
+      0.45,
+      2.55,
+      -0.9
+     ],
+     "lens": 52
+    },
+    {
+     "at": "V1:musique",
+     "size": "ms",
+     "angle": 0,
+     "frame": "voisin"
+    },
+    {
+     "at": "V2",
+     "from": [
+      -1.6,
+      0.95,
+      0.4
+     ],
+     "lookAt": [
+      -2.3,
+      0.75,
+      -0.6
+     ],
+     "lens": 36
+    },
+    {
+     "at": "V2:voisin",
+     "size": "ms",
+     "angle": 0,
+     "frame": "voisin"
+    },
+    {
+     "at": "V3",
+     "size": "cu",
+     "angle": 0,
+     "frame": "voisin"
+    },
+    {
+     "at": "V4",
+     "from": [
+      0.6,
+      2.7,
+      6.4
+     ],
+     "lookAt": [
+      0.5,
+      2.5,
+      -1.5
+     ],
+     "lens": 50
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fete",
+   "set": "livingRoom",
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "lighting": "night",
+   "ambience": null,
+   "crowd": [
+    {
+     "id": "foule",
+     "count": 6,
+     "spec": {
+      "preset": "lemec_charcoal",
+      "seed": 61
+     },
+     "clip": "dance",
+     "ry": 0,
+     "positions": [
+      [
+       -2.6,
+       0,
+       0.6
+      ],
+      [
+       2.4,
+       0,
+       0.4
+      ],
+      [
+       -1.4,
+       0,
+       1.5
+      ],
+      [
+       1.4,
+       0,
+       1.6
+      ],
+      [
+       2.9,
+       0,
+       -0.7
+      ],
+      [
+       -3.0,
+       0,
+       -0.9
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "V5",
+     "text": "Le voisin aussi, avec son canapé et quarante invités.",
+     "highlight": [
+      "quarante",
+      "invités."
+     ]
+    },
+    {
+     "id": "V6",
+     "text": "La fête a continué chez lui.",
+     "highlight": [
+      "fête"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.1,
+      0,
+      0.75
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      -1.0,
+      0.5,
+      -2.95
+     ],
+     "ry": 0,
+     "clip": "sitSip",
+     "keys": [],
+     "expr": "grin"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      -2.0,
+      0.28,
+      -1.0
+     ],
+     "ry": 0,
+     "clip": "dance",
+     "keys": [],
+     "expr": "grin"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      0.2,
+      0.28,
+      -2.4
+     ],
+     "ry": 0,
+     "clip": "dance",
+     "keys": [],
+     "expr": "grin"
+    },
+    {
+     "id": "g3",
+     "pos": [
+      1.8,
+      0.28,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "dance",
+     "keys": [],
+     "expr": "grin"
+    },
+    {
+     "id": "g4",
+     "pos": [
+      0.9,
+      0.28,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "dance",
+     "keys": [],
+     "expr": "grin"
+    }
+   ],
+   "props": [
+    {
+     "id": "dalle",
+     "name": "floorSlab",
+     "pos": [
+      0,
+      0.14,
+      -1.9
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 3.4,
+      "lamp": false
+     }
+    },
+    {
+     "id": "murHaut",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      -3.45
+     ],
+     "opts": {
+      "text": " ",
+      "bg": "#5A3A7A",
+      "fg": "#5A3A7A",
+      "w": 5.6,
+      "h": 2.5,
+      "height": 3.14,
+      "posts": false,
+      "frame": "#3A2A4A"
+     }
+    },
+    {
+     "id": "canape",
+     "name": "sofaProp",
+     "pos": [
+      -1.0,
+      0.28,
+      -3.05
+     ],
+     "opts": {
+      "color": "#B5302A",
+      "color2": "#D9534A"
+     }
+    },
+    {
+     "id": "radio",
+     "name": "boombox",
+     "pos": [
+      1.9,
+      0.28,
+      -3.2
+     ],
+     "opts": {
+      "playAt": 0
+     }
+    },
+    {
+     "id": "verre",
+     "name": "beerGlass",
+     "on": {
+      "actor": "voisin",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "balai",
+     "name": "broom",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "poussiere",
+     "name": "dustPuff",
+     "scale": 2.6,
+     "pos": [
+      0.3,
+      0.3,
+      -0.5
+     ],
+     "opts": {
+      "color": "#CFC6B4",
+      "once": true,
+      "period": 1.2,
+      "startAt": -0.6
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "name": "music:zouk",
+     "at": 0,
+     "until": "V6.end+0.2",
+     "vol": 0.5
+    },
+    {
+     "at": "V5:quarante",
+     "name": "tada",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "voisin"
+    },
+    {
+     "at": "V5:quarante",
+     "from": [
+      0.4,
+      2.3,
+      6.0
+     ],
+     "lookAt": [
+      0.2,
+      1.0,
+      -1.0
+     ],
+     "lens": 52
+    },
+    {
+     "at": "V6:chez",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "V7",
+     "text": "Alors ce con a porté plainte pour tapage nocturne.",
+     "highlight": [
+      "plainte",
+      "tapage"
+     ]
+    },
+    {
+     "id": "V8",
+     "text": "Le juge a donné raison au voisin. Le plafond lui appartenait, et tout ce qu'il y avait dessous.",
+     "highlight": [
+      "raison",
+      "dessous."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "V8:raison",
+       "clip": "sitPoint",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.8,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "V7:plainte",
+       "face": 90,
+       "turn": 0.25,
+       "clip": "point"
+      },
+      {
+       "at": "V8",
+       "face": 180,
+       "turn": 0.25,
+       "clip": "stand"
+      },
+      {
+       "at": "V8:dessous",
+       "clip": "startle",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      0.8,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "V8:dessous",
+       "clip": "celebrate",
+       "expr": "grin"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "balai",
+     "name": "broom",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "V8:raison",
+     "name": "gavel",
+     "vol": 0.6
+    },
+    {
+     "at": "V8:dessous",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "juge",
+      "mec",
+      "voisin"
+     ]
+    },
+    {
+     "at": "V7:plainte",
+     "size": "mcu",
+     "angle": -30,
+     "frame": "mec"
+    },
+    {
+     "at": "V8",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "V8:appartenait",
+     "size": "ms",
+     "worldAngle": 180,
+     "noOcclusion": true,
+     "frame": "voisin"
+    },
+    {
+     "at": "V8:dessous",
+     "size": "cu",
+     "worldAngle": 180,
+     "noOcclusion": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "cave",
+   "set": "cave",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "V9",
+     "text": "Putain, depuis, ce mec dort à la cave.",
+     "highlight": [
+      "cave."
+     ]
+    },
+    {
+     "id": "V10",
+     "text": "Il tape au plafond avec un balai.",
+     "highlight": [
+      "balai."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.5,
+      0.2,
+      -1.65
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "V10",
+       "to": [
+        -0.3,
+        0,
+        -1.0
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 10,
+       "clip": "pokeUp",
+       "then": "pokeUp",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "balai",
+     "name": "broom",
+     "opts": {
+      "grip": 1.3
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "name": "music:zouk",
+     "at": 0,
+     "until": "V10.end+1.4",
+     "vol": 0.16
+    },
+    {
+     "at": "V10:tape",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "V10:tape+0.42",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "V10:tape+0.84",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "V10:tape+1.26",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "V10:tape+1.68",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "V10:tape+2.1",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "V10:tape+2.52",
+     "name": "thud",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      1.6,
+      1.55,
+      2.4
+     ],
+     "lookAt": [
+      -0.9,
+      0.6,
+      -1.6
+     ],
+     "lens": 55
+    },
+    {
+     "at": "V9:cave",
+     "from": [
+      -1.45,
+      1.6,
+      -2.05
+     ],
+     "lookAt": [
+      -1.5,
+      0.4,
+      -2.35
+     ],
+     "lens": 50
+    },
+    {
+     "at": "V10",
+     "from": [
+      0.9,
+      1.3,
+      2.2
+     ],
+     "lookAt": [
+      -0.3,
+      1.45,
+      -1.0
+     ],
+     "lens": 55
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

@@ -47,7 +47,7 @@ export const atlasImage = await new Promise((res) => {
 const FACE_SET_DIR = '/characters/lemec/face';
 const EXPR_MAP = { neutral: 'neutral', talk: 'talk', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'skeptical',
   unimpressed: 'unimpressed', sideLook: 'unimpressed', surprised: 'surprised', shocked: 'shocked', scared: 'scared', angry: 'angry',
-  disgusted: 'angry', grimace: 'angry', sad: 'sad', worried: 'sad', happy: 'happy', dead: 'blink' };
+  disgusted: 'angry', grimace: 'angry', sad: 'sad', worried: 'sad', happy: 'happy', dead: 'blink', grin: 'grin' };
 export const faceSet = await (async () => {
   try {
     const lm = await (await fetch(FACE_SET_DIR + '/face_landmarks.json')).json();

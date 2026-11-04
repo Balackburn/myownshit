@@ -1,0 +1,1816 @@
+{
+ "version": 3,
+ "title": "La place",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "contractuel": {
+   "preset": "cop",
+   "seed": 52
+  },
+  "femme": {
+   "preset": "femme",
+   "seed": 21
+  }
+ },
+ "scenes": [
+  {
+   "id": "rue",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "daynight": {
+    "from": "Q4",
+    "period": 0.42
+   },
+   "lines": [
+    {
+     "id": "Q1",
+     "text": "Ce mec a tourné quarante-cinq minutes pour trouver une place de parking.",
+     "highlight": [
+      "quarante-cinq",
+      "parking."
+     ]
+    },
+    {
+     "id": "Q2",
+     "text": "Il l'a trouvée. Il n'est plus jamais reparti.",
+     "highlight": [
+      "jamais"
+     ]
+    },
+    {
+     "id": "Q3",
+     "text": "Le lendemain, un contractuel lui a mis une amende.",
+     "highlight": [
+      "contractuel",
+      "amende."
+     ]
+    },
+    {
+     "id": "Q4",
+     "text": "Puis une par jour.",
+     "highlight": [
+      "jour."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -12.95,
+      -0.020000000000000018,
+      -4.800000000000001
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        -3.35,
+        -0.020000000000000018,
+        -4.800000000000001
+       ],
+       "glide": true,
+       "dur": 3.9,
+       "ease": "linear",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": "Q2:trouvée",
+       "to": [
+        0.05,
+        -0.020000000000000018,
+        -2.9499999999999997
+       ],
+       "glide": true,
+       "dur": 0.8,
+       "ease": "inOut",
+       "clip": "drive",
+       "then": "sit",
+       "face": "keep",
+       "expr": "grin"
+      },
+      {
+       "at": "Q2:jamais",
+       "expr": "smug"
+      },
+      {
+       "at": "Q4",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "contractuel",
+     "pos": [
+      7.5,
+      0,
+      -0.9
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "Q3-0.4",
+       "to": [
+        2.1,
+        0,
+        -1.2
+       ],
+       "clip": "walk",
+       "speed": 2.4,
+       "faceEnd": -150,
+       "then": "writeOnHeld"
+      },
+      {
+       "at": "Q3:amende-0.3",
+       "clip": "giveItem",
+       "expr": "smug"
+      },
+      {
+       "at": "Q4-0.1",
+       "to": [
+        9.0,
+        0,
+        -0.9
+       ],
+       "clip": "walk",
+       "speed": 3.0,
+       "faceEnd": 90,
+       "then": "walk"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      -13.0,
+      -0.14,
+      -4.4
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        -3.4,
+        -0.14,
+        -4.4
+       ],
+       "dur": 3.9,
+       "ease": "linear"
+      },
+      {
+       "at": "Q2:trouvée",
+       "to": [
+        0,
+        -0.14,
+        -2.55
+       ],
+       "dur": 0.8,
+       "ease": "inOut"
+      }
+     ]
+    },
+    {
+     "id": "c0",
+     "name": "car",
+     "pos": [
+      -13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#3E6FB5",
+      "plate": "GH-404-KL"
+     }
+    },
+    {
+     "id": "c1",
+     "name": "car",
+     "pos": [
+      -9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#E8C14A",
+      "plate": "BC-777-XZ"
+     }
+    },
+    {
+     "id": "c2",
+     "name": "car",
+     "pos": [
+      -4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#5E8C7A",
+      "plate": "FR-312-ME"
+     }
+    },
+    {
+     "id": "c3",
+     "name": "car",
+     "pos": [
+      4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "TU-509-PO"
+     }
+    },
+    {
+     "id": "c4",
+     "name": "car",
+     "pos": [
+      9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#2C4A8A",
+      "plate": "DD-118-AA"
+     }
+    },
+    {
+     "id": "c5",
+     "name": "car",
+     "pos": [
+      13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#8A5A9A",
+      "plate": "LM-660-QS"
+     }
+    },
+    {
+     "id": "pv",
+     "name": "bill",
+     "scale": 0.9,
+     "visible": false,
+     "pos": [
+      1.55,
+      0.79,
+      -2.35
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.3
+     ],
+     "opts": {
+      "title": "AMENDE",
+      "total": "35,00 €",
+      "items": [
+       [
+        "Stationnement",
+        "35"
+       ],
+       [
+        "",
+        ""
+       ],
+       [
+        "",
+        ""
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": "Q3:amende",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "carnet",
+     "name": "notebook",
+     "scale": 0.9,
+     "visible": false,
+     "opts": {
+      "text": "PV",
+      "bg": "#2C4A8A"
+     },
+     "on": {
+      "actor": "contractuel",
+      "hand": "L",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "Q3-0.4",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "pvs",
+     "name": "paperPile",
+     "scale": 0.05,
+     "visible": false,
+     "pos": [
+      1.6,
+      0.78,
+      -2.75
+     ],
+     "opts": {
+      "count": 34,
+      "seed": 9
+     },
+     "keys": [
+      {
+       "at": "Q4",
+       "visible": true
+      },
+      {
+       "at": "Q4",
+       "scale": 1.0,
+       "dur": 1.3,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "engine",
+     "vol": 0.35
+    },
+    {
+     "at": "Q2:trouvée+0.7",
+     "name": "brake",
+     "vol": 0.5
+    },
+    {
+     "at": "Q3:amende",
+     "name": "paper",
+     "vol": 0.6
+    },
+    {
+     "at": "Q4",
+     "name": "paper",
+     "vol": 0.4
+    },
+    {
+     "at": "Q4+0.42",
+     "name": "paper",
+     "vol": 0.4
+    },
+    {
+     "at": "Q4+0.84",
+     "name": "paper",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.0,
+      5.5,
+      1.5
+     ],
+     "lookAt": [
+      -8.0,
+      0.0,
+      -4.4
+     ],
+     "lens": 50
+    },
+    {
+     "at": "Q1:minutes",
+     "size": "cu",
+     "worldAngle": 65,
+     "move": "track",
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "Q1:place",
+     "from": [
+      4.0,
+      1.8,
+      3.4
+     ],
+     "lookAt": [
+      -1.2,
+      0.6,
+      -2.8
+     ],
+     "lens": 55
+    },
+    {
+     "at": "Q2:jamais",
+     "size": "cu",
+     "worldAngle": 65,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "Q3-0.4",
+     "from": [
+      3.8,
+      1.6,
+      2.2
+     ],
+     "lookAt": [
+      1.3,
+      0.9,
+      -1.7
+     ],
+     "lens": 54
+    },
+    {
+     "at": "Q4",
+     "from": [
+      3.6,
+      2.3,
+      1.0
+     ],
+     "lookAt": [
+      1.3,
+      0.85,
+      -2.6
+     ],
+     "lens": 46
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "mur",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "Q5",
+     "text": "Alors ce con a construit un mur autour de sa voiture.",
+     "highlight": [
+      "mur"
+     ]
+    },
+    {
+     "id": "Q6",
+     "text": "Au bout de trois ans, la mairie lui a envoyé la taxe foncière.",
+     "highlight": [
+      "trois",
+      "foncière."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -1.25
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "Q5:construit",
+       "clip": "holdOut",
+       "expr": "grin"
+      },
+      {
+       "at": "Q6",
+       "to": [
+        0.05,
+        -0.020000000000000018,
+        -2.9499999999999997
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 90,
+       "clip": "sit",
+       "then": "sit",
+       "expr": "neutral"
+      },
+      {
+       "at": "Q6:mairie",
+       "clip": "sitShow",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "c0",
+     "name": "car",
+     "pos": [
+      -13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#3E6FB5",
+      "plate": "GH-404-KL"
+     }
+    },
+    {
+     "id": "c1",
+     "name": "car",
+     "pos": [
+      -9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#E8C14A",
+      "plate": "BC-777-XZ"
+     }
+    },
+    {
+     "id": "c2",
+     "name": "car",
+     "pos": [
+      -4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#5E8C7A",
+      "plate": "FR-312-ME"
+     }
+    },
+    {
+     "id": "c3",
+     "name": "car",
+     "pos": [
+      4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "TU-509-PO"
+     }
+    },
+    {
+     "id": "c4",
+     "name": "car",
+     "pos": [
+      9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#2C4A8A",
+      "plate": "DD-118-AA"
+     }
+    },
+    {
+     "id": "c5",
+     "name": "car",
+     "pos": [
+      13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#8A5A9A",
+      "plate": "LM-660-QS"
+     }
+    },
+    {
+     "id": "murA",
+     "name": "brickWall",
+     "pos": [
+      0,
+      -0.14,
+      -3.62
+     ],
+     "ry": 0,
+     "scale": 0.01,
+     "opts": {
+      "w": 4.9,
+      "h": 1.3
+     },
+     "keys": [
+      {
+       "at": "Q5:construit",
+       "scale": 1,
+       "dur": 0.25
+      }
+     ]
+    },
+    {
+     "id": "murB",
+     "name": "brickWall",
+     "pos": [
+      -2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 0.01,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": [
+      {
+       "at": "Q5:mur",
+       "scale": 1,
+       "dur": 0.25
+      }
+     ]
+    },
+    {
+     "id": "murC",
+     "name": "brickWall",
+     "pos": [
+      2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 0.01,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": [
+      {
+       "at": "Q5:voiture",
+       "scale": 1,
+       "dur": 0.25
+      }
+     ]
+    },
+    {
+     "id": "brique",
+     "name": "brickWall",
+     "scale": 0.12,
+     "opts": {
+      "w": 2.0,
+      "h": 0.8
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "Q6",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "boite",
+     "name": "mailbox",
+     "visible": false,
+     "pos": [
+      1.55,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "color": "#F2C230"
+     },
+     "keys": [
+      {
+       "at": "Q6",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "plante",
+     "name": "plant",
+     "scale": 0.45,
+     "visible": false,
+     "pos": [
+      -0.35,
+      1.92,
+      -2.55
+     ],
+     "keys": [
+      {
+       "at": "Q6",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "taxe",
+     "name": "bill",
+     "scale": 1.6,
+     "visible": false,
+     "opts": {
+      "title": "TAXE FONCIÈRE",
+      "items": [
+       [
+        "Place de parking",
+        "1 240"
+       ],
+       [
+        "Mur",
+        "380"
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "1 620,00 €"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "Q6:mairie",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "Q5:construit",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "Q5:mur",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "Q5:voiture",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "Q6:mairie",
+     "name": "paper",
+     "vol": 0.5
+    },
+    {
+     "at": "Q6:foncière",
+     "name": "cash",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      2.8,
+      1.75,
+      3.6
+     ],
+     "lookAt": [
+      0,
+      0.75,
+      -2.6
+     ],
+     "lens": 52
+    },
+    {
+     "at": "Q6",
+     "size": "ms",
+     "worldAngle": 40,
+     "elev": 10,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "Q6:taxe",
+     "size": "mcu",
+     "worldAngle": 90,
+     "noOcclusion": true,
+     "frame": "taxe"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "femme",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "Q7",
+     "text": "Sa femme est partie. À pied. Pour ne pas perdre la place.",
+     "highlight": [
+      "pied.",
+      "place."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      -0.020000000000000018,
+      -2.9499999999999997
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      0.4,
+      0,
+      -1.2
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "Q7",
+       "to": [
+        -9.0,
+        0,
+        -0.9
+       ],
+       "clip": "walk",
+       "speed": 1.5,
+       "faceEnd": -90,
+       "then": "walk"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "c0",
+     "name": "car",
+     "pos": [
+      -13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#3E6FB5",
+      "plate": "GH-404-KL"
+     }
+    },
+    {
+     "id": "c1",
+     "name": "car",
+     "pos": [
+      -9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#E8C14A",
+      "plate": "BC-777-XZ"
+     }
+    },
+    {
+     "id": "c2",
+     "name": "car",
+     "pos": [
+      -4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#5E8C7A",
+      "plate": "FR-312-ME"
+     }
+    },
+    {
+     "id": "c3",
+     "name": "car",
+     "pos": [
+      4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "TU-509-PO"
+     }
+    },
+    {
+     "id": "c4",
+     "name": "car",
+     "pos": [
+      9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#2C4A8A",
+      "plate": "DD-118-AA"
+     }
+    },
+    {
+     "id": "c5",
+     "name": "car",
+     "pos": [
+      13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#8A5A9A",
+      "plate": "LM-660-QS"
+     }
+    },
+    {
+     "id": "murA",
+     "name": "brickWall",
+     "pos": [
+      0,
+      -0.14,
+      -3.62
+     ],
+     "ry": 0,
+     "scale": 1,
+     "opts": {
+      "w": 4.9,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "murB",
+     "name": "brickWall",
+     "pos": [
+      -2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 1,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "murC",
+     "name": "brickWall",
+     "pos": [
+      2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 1,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "boite",
+     "name": "mailbox",
+     "pos": [
+      1.55,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "color": "#F2C230"
+     }
+    },
+    {
+     "id": "plante",
+     "name": "plant",
+     "scale": 0.45,
+     "pos": [
+      -0.35,
+      1.92,
+      -2.55
+     ]
+    },
+    {
+     "id": "valise",
+     "name": "briefcase",
+     "scale": 1.4,
+     "on": {
+      "actor": "femme",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "Q7",
+     "name": "step",
+     "vol": 0.4
+    },
+    {
+     "at": "Q7:pied",
+     "name": "step",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": "Q7",
+     "from": [
+      3.2,
+      1.6,
+      3.4
+     ],
+     "lookAt": [
+      -1.6,
+      0.9,
+      -1.6
+     ],
+     "lens": 55
+    },
+    {
+     "at": "Q7:pied",
+     "size": "fs",
+     "worldAngle": -35,
+     "move": "track",
+     "frame": "femme"
+    },
+    {
+     "at": "Q7:Pour",
+     "size": "cu",
+     "worldAngle": 65,
+     "noOcclusion": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "pain",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "Q8",
+     "text": "Douze ans plus tard, il est allé acheter du pain.",
+     "highlight": [
+      "Douze",
+      "pain."
+     ]
+    },
+    {
+     "id": "Q9",
+     "text": "Quand il est revenu, le contractuel était garé dessus.",
+     "highlight": [
+      "contractuel",
+      "dessus."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      -0.020000000000000018,
+      -2.9499999999999997
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "Q8:allé",
+       "to": [
+        14.05,
+        -0.020000000000000018,
+        -2.9499999999999997
+       ],
+       "glide": true,
+       "dur": 1.6,
+       "ease": "in",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep",
+       "expr": "grin"
+      },
+      {
+       "at": "Q9-0.2",
+       "to": [
+        -13.95,
+        -0.020000000000000018,
+        -4.800000000000001
+       ],
+       "glide": true,
+       "dur": 0.02,
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": "Q9",
+       "to": [
+        -0.5499999999999999,
+        -0.020000000000000018,
+        -4.800000000000001
+       ],
+       "glide": true,
+       "dur": 0.9,
+       "ease": "out",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      },
+      {
+       "at": "Q9:dessus",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "contractuel",
+     "pos": [
+      0.5,
+      0,
+      -1.2
+     ],
+     "ry": 10,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "Q9-0.2",
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": "Q8:allé",
+       "to": [
+        14,
+        -0.14,
+        -2.55
+       ],
+       "dur": 1.6,
+       "ease": "in"
+      },
+      {
+       "at": "Q9-0.2",
+       "to": [
+        -14,
+        -0.14,
+        -4.4
+       ],
+       "dur": 0.02
+      },
+      {
+       "at": "Q9",
+       "to": [
+        -0.6,
+        -0.14,
+        -4.4
+       ],
+       "dur": 0.9,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "asvp",
+     "name": "car",
+     "visible": false,
+     "pos": [
+      0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "PV-000-PV"
+     },
+     "keys": [
+      {
+       "at": "Q9-0.2",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "c0",
+     "name": "car",
+     "pos": [
+      -13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#3E6FB5",
+      "plate": "GH-404-KL"
+     }
+    },
+    {
+     "id": "c1",
+     "name": "car",
+     "pos": [
+      -9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#E8C14A",
+      "plate": "BC-777-XZ"
+     }
+    },
+    {
+     "id": "c2",
+     "name": "car",
+     "pos": [
+      -4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#5E8C7A",
+      "plate": "FR-312-ME"
+     }
+    },
+    {
+     "id": "c3",
+     "name": "car",
+     "pos": [
+      4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "TU-509-PO"
+     }
+    },
+    {
+     "id": "c4",
+     "name": "car",
+     "pos": [
+      9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#2C4A8A",
+      "plate": "DD-118-AA"
+     }
+    },
+    {
+     "id": "c5",
+     "name": "car",
+     "pos": [
+      13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#8A5A9A",
+      "plate": "LM-660-QS"
+     }
+    },
+    {
+     "id": "murA",
+     "name": "brickWall",
+     "pos": [
+      0,
+      -0.14,
+      -3.62
+     ],
+     "ry": 0,
+     "scale": 1,
+     "opts": {
+      "w": 4.9,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "murB",
+     "name": "brickWall",
+     "pos": [
+      -2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 1,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "murC",
+     "name": "brickWall",
+     "pos": [
+      2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 1,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": [
+      {
+       "at": "Q8:allé-0.1",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "boite",
+     "name": "mailbox",
+     "pos": [
+      1.55,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "color": "#F2C230"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.3,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "Q8:allé",
+     "name": "engine",
+     "vol": 0.45
+    },
+    {
+     "at": "Q9",
+     "name": "engine",
+     "vol": 0.35
+    },
+    {
+     "at": "Q9+0.85",
+     "name": "brake",
+     "vol": 0.5
+    },
+    {
+     "at": "Q9:dessus",
+     "name": "sting",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 65,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "Q8:allé-0.2",
+     "from": [
+      2.8,
+      1.75,
+      3.6
+     ],
+     "lookAt": [
+      0,
+      0.75,
+      -2.6
+     ],
+     "lens": 52
+    },
+    {
+     "at": "Q9",
+     "from": [
+      5.0,
+      2.2,
+      3.2
+     ],
+     "lookAt": [
+      0.2,
+      0.7,
+      -3.0
+     ],
+     "lens": 55
+    },
+    {
+     "at": "Q9:contractuel",
+     "size": "ms",
+     "angle": 0,
+     "frame": "contractuel"
+    },
+    {
+     "at": "Q9:dessus",
+     "size": "cu",
+     "worldAngle": 65,
+     "noOcclusion": true,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fin",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "Q10",
+     "text": "Putain, ça fait quarante-cinq minutes qu'il tourne.",
+     "pre": 0.2,
+     "highlight": [
+      "quarante-cinq",
+      "tourne."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -14.95,
+      -0.020000000000000018,
+      -4.800000000000001
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        -0.95,
+        -0.020000000000000018,
+        -4.800000000000001
+       ],
+       "glide": true,
+       "dur": 4.4,
+       "ease": "linear",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      -15.0,
+      -0.14,
+      -4.4
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        -1.0,
+        -0.14,
+        -4.4
+       ],
+       "dur": 4.4,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "asvp",
+     "name": "car",
+     "pos": [
+      0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "PV-000-PV"
+     }
+    },
+    {
+     "id": "c0",
+     "name": "car",
+     "pos": [
+      -13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#3E6FB5",
+      "plate": "GH-404-KL"
+     }
+    },
+    {
+     "id": "c1",
+     "name": "car",
+     "pos": [
+      -9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#E8C14A",
+      "plate": "BC-777-XZ"
+     }
+    },
+    {
+     "id": "c2",
+     "name": "car",
+     "pos": [
+      -4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#5E8C7A",
+      "plate": "FR-312-ME"
+     }
+    },
+    {
+     "id": "c3",
+     "name": "car",
+     "pos": [
+      4.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#F2F2EC",
+      "plate": "TU-509-PO"
+     }
+    },
+    {
+     "id": "c4",
+     "name": "car",
+     "pos": [
+      9.0,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#2C4A8A",
+      "plate": "DD-118-AA"
+     }
+    },
+    {
+     "id": "c5",
+     "name": "car",
+     "pos": [
+      13.6,
+      -0.14,
+      -2.55
+     ],
+     "opts": {
+      "color": "#8A5A9A",
+      "plate": "LM-660-QS"
+     }
+    },
+    {
+     "id": "murA",
+     "name": "brickWall",
+     "pos": [
+      0,
+      -0.14,
+      -3.62
+     ],
+     "ry": 0,
+     "scale": 1,
+     "opts": {
+      "w": 4.9,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "murB",
+     "name": "brickWall",
+     "pos": [
+      -2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 1,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": []
+    },
+    {
+     "id": "murC",
+     "name": "brickWall",
+     "pos": [
+      2.45,
+      -0.14,
+      -2.62
+     ],
+     "ry": 90,
+     "scale": 1,
+     "opts": {
+      "w": 2.05,
+      "h": 1.3
+     },
+     "keys": [
+      {
+       "at": 0,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.3,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "engine",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "cu",
+     "worldAngle": 65,
+     "move": "track",
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "Q10:minutes",
+     "from": [
+      2.0,
+      5.5,
+      1.5
+     ],
+     "lookAt": [
+      -8.0,
+      0.0,
+      -4.4
+     ],
+     "lens": 50
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

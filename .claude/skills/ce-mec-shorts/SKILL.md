@@ -21,10 +21,14 @@ Read before writing (in this order, only what you need):
 3. `references/style-match.md`: measured style target (sheet + originals → engine parameters), acting rules, Blender notes. Read it before touching the character or the animations.
 4. `references/analysis.md`: frame-by-frame analysis of the 5 reference videos (timings, framings, mechanics, character design). Read it when you need to calibrate rhythm or framing, or when the user asks "why".
 5. `references/gags-actu-automne-2026.md`: recurring gags from the autumn 2026 French news (cops for an absurd motif, interrogation lamp, the undercover cop, the machine-translated Japanese joke, Mbappé's apologies, 6-7 / scuba / aura battles, Glucksmann vs the closed parasol), with dosage rules and an episode skeleton. Read it for any news-themed episode.
+6. `references/viral-loop-fr.md`: how to write with the `viral-video-writing` skill in this format (5 hooks, 3 drafts, the story arc with a
+   doubter, a low point and a callback, a loop ending), with `scripts/score_fr.py`, the French checker. Read it whenever the user asks for
+   stories "that people watch to the end", for viral/retention-driven scripts, or when that skill is in play.
 
 ## Workflow
 
 ### 1. Script (text)
+- With `viral-video-writing` in play: follow `references/viral-loop-fr.md` (5 hooks, 3 drafts, `python3 .claude/skills/ce-mec-shorts/scripts/score_fr.py`, rewrite to 90+).
 - Unless the user gives a premise, propose **3 hooks** (B1) from `formula.md` §4 or invented ones, pick the strongest, and write the 8–11 sentences.
 - Apply the checklist in `formula.md` §3. Read it aloud mentally, deadpan. Cut every word that doesn't serve the logic.
 - Show the text to the user (one line per sentence, swears included) if they want to approve it; otherwise go straight on.

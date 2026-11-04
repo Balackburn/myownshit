@@ -305,3 +305,34 @@ Working examples: `scripts-fr/parfum.py`, `journal.py`, `frigo.py`, `canette.py`
   - `sun`, `securityCam`, `honeyJar`, `nest` (`layAt` list), `perfume`, `jean`.
   - `dustPuff` now takes `once` + `startAt`, for a burst on a word.
 - **New presets:** `apiculteur`, `avocat`, `prefet`, `mecPrisonnier`, `mecPyjama`.
+
+## Viral-loop batch (parking, pas, voisin, photo): staging lessons
+
+Working examples: `scripts-fr/parking.py`, `pas.py`, `voisin.py`, `photo.py`. They were written with
+`references/viral-loop-fr.md` and run 31-35 s.
+
+- **A man driving.** Use the `car` prop (faces +x, light glass). The driver is a separate actor at `userData.seat`, with clip
+  `drive` or `sit`, given the same glide as the car (same `to`, `dur` and `ease`, for example `ease='linear'`).
+  - Raise the roof enough: a seated head poked through the first version.
+  - In-car close-ups go through the windscreen (`worldAngle` about 65) with `noOcclusion=True`; the occlusion test treats glass
+    as a wall.
+  - Over a row of parked cars, side tracking shots only see roofs. Use a high plunging POV over the row instead; the same POV
+    first and last makes the loop.
+- **Paths with height.** `path` points can climb: he walks over a car parked on the pavement (boot, roof, bonnet) and over a
+  house roof (back eave, ridge, front eave, ground).
+  - Time the visible part with the speed. A slow descent arrives after the next line has started.
+- **Cross-section ("dollhouse").** A `floorSlab` (with a swinging lamp and `shakeAt`) at y about 3 over a living room, an upper
+  wall panel (a blank `signBoard`), and the party standing on the slab.
+  - The collapse is one key on the slab plus the same `to`/`dur`/`ease` glide on every actor and prop standing on it.
+  - Split the scene right after the impact. The next scene starts with the slab down and extras added via `crowd`. Crowd
+    extras can't move, so they must not exist before the fall.
+- **Smiles.** The protagonist's measured `happy` face has a downturned mouth (he never smiles in the footage). The designed
+  `grin` (an open smile painted over the measured neutral, labelled "designed" in `face_landmarks.json`) is the one to use. Drawn faces map
+  `grin` to `happy`.
+- **Counter shots.** A person facing a counter or ticket window has no room for a front close-up: the camera lands inside the
+  counter. Leave about 1 m, turn him (`face=20`), or use `angle` ±40.
+- **New props:** `car`, `brickWall` (pops up with `scale` keys), `broom` (`grip`; overhead with `rot [π,0,0]`),
+  `floorSlab`, `pedometer` (`countAt`/`rate` or a fixed `value`), `rubberStamp`, `stampMark` (transparent red stamp:
+  REFUSÉ, RADIÉ), `idPhoto` (`smile`), `photoBooth` (`flashAt`, seat), `mugshotBoard`, `placard`.
+- **New set and clip:** `cave` (cellar: low ceiling, bulb, pipes, mattress); `pokeUp` (jabbing the ceiling with a broom, `freq`).
+- **Expression `grin`.**

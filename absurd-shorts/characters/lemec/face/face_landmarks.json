@@ -432,6 +432,10 @@
   "talkWide": {
    "status": "designed (transformed measured strokes, not seen in the footage)",
    "from_source": "neutral"
+  },
+  "grin": {
+   "status": "designed (open smile painted over the measured neutral face, not seen in the footage)",
+   "from_source": "neutral"
   }
  },
  "color_gain_bgr": [

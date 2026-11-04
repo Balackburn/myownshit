@@ -831,6 +831,18 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], counter: [0, 0, back + 1.0], clerk: [0, 0, back + 0.55], window: [0, 1.6, back + 1.2], customer: [0, 0, back + 1.75], chairs: [-2.6, 0, 0.9], ticket: [3.6, 0, -0.3] };
     g.userData.lighting = 'interior'; return g;
   },
+  cave(o = {}) { // cellar: rough concrete, a low ceiling (bottom at 2.45 m), pipes, a bare bulb, cardboard boxes, a mattress on the floor, a tiny high window
+    const g = grp(), { back } = room(g, { wall: '#8E918A', band: '#7C7F78', bandH: 0.6, trim: '#6A6D66', floor: '#6E6F69', back: -2.8, half: 3.6, height: 3.2, front: 6 });
+    const ceil = at(box(7.6, 0.24, 9.0, '#86898A', { outline: 0.006 }), 0, 2.57, 1.6); ceil.traverse(n => { n.castShadow = false; }); g.add(ceil);
+    [[2.12, 0.05], [2.26, 0.04]].forEach(([y, r]) => g.add(rod([-3.5, y, back + 0.15], [3.5, y, back + 0.15], r, '#5A5E66')));
+    g.add(rod([2.6, 0, back + 0.2], [2.6, 2.45, back + 0.2], 0.05, '#5A5E66'), at(box(0.6, 0.3, 0.03, '#2A3A55'), -0.9, 2.05, back + 0.02), at(box(0.7, 0.4, 0.04, '#6A6D66'), -0.9, 2.05, back + 0.005));
+    g.add(rod([0.5, 2.45, -0.9], [0.5, 1.98, -0.9], 0.008, P.ink), at(sphere(0.07, '#FFF2C0', 1, { emissive: '#FFD27A', noGrain: true }), 0.5, 1.92, -0.9));
+    const bulb = new THREE.PointLight('#FFD9A0', 6, 7, 1.4); bulb.position.set(0.5, 1.85, -0.9); g.add(bulb);
+    [[2.2, 0, -2.2, 0.7], [2.9, 0, -2.0, 0.6], [2.5, 0.55, -2.15, 0.55], [-3.0, 0, -2.3, 0.6]].forEach(([x, y, z, sz]) => g.add(at(box(sz, sz * 0.8, sz * 0.9, '#C49A66', { pivot: 'bottom', outline: 0.006 }), x, y, z, 0, (x * 7 % 1) * 0.4, 0)));
+    g.add(at(box(0.95, 0.16, 1.95, '#D8D2C4', { pivot: 'bottom', outline: 0.006 }), -1.5, 0, -1.6), at(box(0.6, 0.12, 0.35, P.white), -1.5, 0.22, -2.35), at(box(0.97, 0.06, 1.1, '#5A6E8C'), -1.5, 0.17, -1.25));
+    g.userData.anchors = { center: [0, 0, 0], mattress: [-1.5, 0.16, -1.6], bulb: [0.5, 1.92, -0.9], window: [-0.9, 2.05, back] };
+    g.userData.lighting = 'dark'; return g;
+  },
   chambre(o = {}) { // small bedroom: single bed, desk with a computer, wardrobe, full-length mirror, gym-guru poster, clothes on the floor,
                     // window with curtains; o.wall / o.poster / o.blanket restyle it (Glucksmann's room at the end)
     const g = grp(), { back } = room(g, { wall: o.wall || '#C9D3D6', band: o.band || '#AEB9BC', bandH: 0.9, trim: '#8A969A', floor: o.floor || '#B08A64', back: -3.0, half: 4.5 });

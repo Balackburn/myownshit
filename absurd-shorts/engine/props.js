@@ -1136,6 +1136,73 @@ const B = {
       const j = Math.min(1, Math.abs(rate) / 25) * (o.shake ?? 1); body.position.set(0.012 * j * Math.sin(t * 61), 0.006 * j * Math.abs(Math.sin(t * 47)), 0.008 * j * Math.sin(t * 53)); body.rotation.z = 0.012 * j * Math.sin(t * 43);   // vibrates on fast spins
       if (lb) lb.visible = o.laundryAt == null || t >= o.laundryAt; };
     g.userData.update(0); g.userData.drum = [0, yc, D / 2 + 0.03]; return g; },
+  car(o) { // civilian car facing +x, see-through cabin so a driver shows (clip 'drive' at userData.seat); o.color, o.plate
+    const C = o.color || '#C9473A', g = grp(), gl = glassMat(o.glass ?? 0.07, '#E6F2F5');
+    g.add(at(box(4.0, 0.56, 1.8, C, { outline: 0.012 }), 0, 0.63, 0), at(box(4.02, 0.16, 1.82, P.greyDark), 0, 0.42, 0),
+      at(box(3.0, 0.07, 1.72, C, { outline: 0.008 }), -0.25, 2.02, 0));
+    for (const z of [-0.84, 0.84]) g.add(at(box(0.07, 1.2, 0.07, C), 1.32, 1.46, z, 0, 0, 0.4), at(box(0.07, 1.16, 0.07, C), -1.72, 1.46, z, 0, 0, -0.3), at(box(0.06, 1.1, 0.06, C), -0.25, 1.46, z));
+    g.add(at(mesh(new THREE.BoxGeometry(0.02, 1.2, 1.62), gl), 1.32, 1.46, 0, 0, 0, 0.4), at(mesh(new THREE.BoxGeometry(0.02, 1.16, 1.62), gl), -1.72, 1.46, 0, 0, 0, -0.3));
+    for (const z of [-0.86, 0.86]) g.add(at(mesh(new THREE.BoxGeometry(2.85, 1.05, 0.02), gl), -0.25, 1.46, z));
+    for (const z of [-0.4, 0.4]) g.add(at(box(0.5, 0.12, 0.48, '#3A3D44'), 0.05, 0.5, z), at(box(0.1, 0.62, 0.48, '#3A3D44'), -0.25, 0.82, z, 0, 0, 0.15));
+    g.add(at(box(0.3, 0.3, 1.6, '#2A2A2E'), 0.95, 0.85, 0), at(torus(0.16, 0.025, P.ink, 6, 16), 0.62, 1.06, -0.4, 0, PI / 2, 0));
+    for (const x of [-1.3, 1.3]) for (const z of [-0.8, 0.8]) g.add(at(cyl(0.34, 0.34, 0.26, P.ink, 12), x, 0.34, z, PI / 2), at(cyl(0.15, 0.15, 0.02, P.grey, 8), x, 0.34, z * 1.17, PI / 2));
+    for (const z of [-0.6, 0.6]) g.add(at(box(0.04, 0.14, 0.32, '#FFF6C8', { noGrain: true }), 2.01, 0.74, z), at(box(0.04, 0.14, 0.32, P.red), -2.01, 0.74, z));
+    for (const sx of [-1, 1]) g.add(at(label(o.plate || 'AB-123-CD', 0.52, 0.12, { bg: P.white, fg: P.ink, wrap: false }), sx * 2.012, 0.5, 0, 0, sx * PI / 2, 0));
+    g.userData.seat = [0.05, 0.12, -0.4]; g.userData.seat2 = [0.05, 0.12, 0.4]; return g; },
+  brickWall(o) { // a low brick wall along x (o.w, o.h): bricks drawn on both faces, a cap on top
+    const w = o.w || 2, h = o.h || 1.2, t = 0.22, col = o.color || '#B5532E';
+    const face = () => canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#E2D6C2'; c.fillRect(0, 0, W, H); const bw = W / (w / 0.26), bh = H / (h / 0.09); c.fillStyle = col;
+      for (let r = 0; r * bh < H; r++) for (let k = -1; k * bw < W; k++) { const x = k * bw + (r % 2 ? bw / 2 : 0); c.fillRect(x + 2, r * bh + 2, bw - 4, bh - 4); } }, { res: Math.min(1024, Math.round(256 * w)) });
+    const f = face(), b = face(); f.position.set(0, h / 2, t / 2 + 0.003); b.position.set(0, h / 2, -t / 2 - 0.003); b.rotation.y = PI;
+    return grp(at(box(w, h, t, col, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), f, b, at(box(w + 0.04, 0.05, t + 0.05, '#CFC3AE'), 0, h + 0.025, 0)); },
+  broom(o) { // household broom along +y, bristles at the top end (held overhead with rot [π,0,0] it pokes the ceiling)
+    const g = grp(cyl(0.018, 0.018, 1.3, o.color || '#C9A06A', 6, { pivot: 'bottom' }), at(box(0.3, 0.08, 0.06, '#C23A2E', { outline: 0.005 }), 0, 1.33, 0), at(box(0.28, 0.13, 0.05, '#E6C46A'), 0, 1.43, 0));
+    g.userData.grip = [0, o.grip ?? 0.95, 0]; return g; },
+  floorSlab(o) { // floor/ceiling slab seen in cross-section (o.w x o.d, 0.28 thick): floor on top, plaster below, a ceiling lamp that swings; shakes at shakeAt
+    const w = o.w || 6, d = o.d || 4, t = 0.28, body = grp(at(box(w, t, d, '#D8D2C4', { outline: 0.01 }), 0, 0, 0), at(box(w, 0.02, d, o.floor || '#B08A64'), 0, t / 2 + 0.01, 0));
+    let lamp = null; if (o.lamp !== false) { lamp = grp(rod([0, 0, 0], [0, -0.42, 0], 0.01, P.ink), at(cyl(0.05, 0.2, 0.16, o.lampColor || '#F2C230', 10), 0, -0.5, 0), at(sphere(0.06, '#FFF2C0', 1, { emissive: '#FFE08A', noGrain: true }), 0, -0.58, 0)); lamp.position.set(o.lampX ?? 0, -t / 2, o.lampZ ?? 0); body.add(lamp); }
+    const g = grp(body), sh = [].concat(o.shakeAt ?? []);
+    g.userData.update = tt => { const s = sh.some(a => tt >= a && tt < a + 0.4); body.position.set(s ? 0.025 * Math.sin(tt * 70) : 0, s ? 0.02 * Math.sin(tt * 55) : 0, 0); if (lamp) lamp.rotation.z = (o.swing ?? 0.12) * Math.sin(tt * (o.swingRate ?? 4.5)); };
+    g.userData.update(0); return g; },
+  pedometer(o) { // handheld step counter with a big LCD: o.value fixed, or counting up from o.start at o.rate steps/s from countAt; held like a phone
+    const lcd = v => { const p = canvasPlane(0.09, 0.06, (c, W, H) => { c.fillStyle = '#B8C9A0'; c.fillRect(0, 0, W, H); c.fillStyle = '#1E2A18'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.46}px monospace`; c.fillText(String(v), W / 2, H * 0.42); c.font = `bold ${H * 0.18}px Arial`; c.fillText(o.label || 'PAS', W / 2, H * 0.84); }, { res: 256 }); p.position.set(0, 0.02, 0.0158); return p; };
+    const frames = o.countAt != null ? Array.from({ length: 12 }, (_, i) => lcd((o.start ?? 0) + i)) : [lcd(o.value ?? '9 999')];
+    frames.forEach((f, i) => f.visible = i === 0);
+    const g = grp(at(box(0.11, 0.15, 0.025, o.color || '#2E7D5B', { outline: 0.004 }), 0, 0, 0), at(box(0.098, 0.072, 0.004, '#141414'), 0, 0.02, 0.012), ...frames, at(cyl(0.013, 0.013, 0.01, '#E8E2D0', 8), 0, -0.048, 0.013, PI / 2));
+    if (o.countAt != null) g.userData.update = t => { const i = t < o.countAt ? 0 : Math.min(11, Math.floor((t - o.countAt) * (o.rate || 2))); frames.forEach((f, j) => f.visible = j === i); };
+    g.userData.grip = [0, -0.06, 0]; return g; },
+  rubberStamp(o) { const g = grp(at(box(0.1, 0.03, 0.065, '#2A2A2E'), 0, 0.015, 0), at(box(0.06, 0.05, 0.04, '#5A3A28'), 0, 0.055, 0), at(sphere(0.035, o.color || '#C23A2E', 1), 0, 0.1, 0)); g.userData.grip = [0, 0.09, 0]; return g; },
+  stampMark(o) { // red rubber-stamp mark (o.text) with a transparent surround; lay it on a sheet or face the camera
+    const w = o.w || 0.3, h = o.h || 0.11, col = o.color || '#C8202A';
+    return grp(canvasPlane(w, h, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = col; c.lineWidth = H * 0.09; c.strokeRect(H * 0.07, H * 0.07, W - H * 0.14, H - H * 0.14); c.fillStyle = col; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.6}px Arial`; c.fillText(o.text || 'REFUSÉ', W / 2, H * 0.55); }, { res: 512, transparent: true })); },
+  idPhoto(o) { // passport photo of the mec (o.smile), light-blue background, white border; scale it up for inserts
+    const c = canvasPlane(0.07, 0.09, (g2, W, H) => { g2.fillStyle = '#DCE8F2'; g2.fillRect(0, 0, W, H);
+      g2.fillStyle = '#1E2A3A'; g2.fillRect(W * 0.12, H * 0.8, W * 0.76, H * 0.2); g2.fillStyle = '#F2F2EC'; g2.fillRect(W * 0.42, H * 0.8, W * 0.16, H * 0.2); g2.fillStyle = '#C23A2E'; g2.fillRect(W * 0.47, H * 0.82, W * 0.06, H * 0.18);
+      g2.fillStyle = o.skin || '#E2B07E'; g2.fillRect(W * 0.31, H * 0.12, W * 0.38, H * 0.66); g2.fillStyle = '#1A1A1A'; g2.fillRect(W * 0.29, H * 0.08, W * 0.42, H * 0.12);
+      g2.fillRect(W * 0.39, H * 0.37, W * 0.05, H * 0.03); g2.fillRect(W * 0.56, H * 0.37, W * 0.05, H * 0.03); g2.fillStyle = '#B07A50'; g2.fillRect(W * 0.485, H * 0.42, W * 0.03, H * 0.1);
+      g2.strokeStyle = '#3A1A10'; g2.lineWidth = W * 0.03; g2.lineCap = 'round'; g2.beginPath();
+      if (o.smile) g2.arc(W * 0.5, H * 0.53, W * 0.1, 0.12 * PI, 0.88 * PI); else { g2.moveTo(W * 0.42, H * 0.64); g2.lineTo(W * 0.58, H * 0.64); } g2.stroke(); }, { res: 256 });
+    const g = grp(at(box(0.078, 0.098, 0.002, P.white), 0, 0, 0), at(c, 0, 0, 0.0015)); g.userData.grip = [0, -0.04, 0]; return g; },
+  photoBooth(o) { // photo booth facing +z: cabin, curtain on the right half, stool (actor at userData.seat, clip 'sit'), "PHOTO" sign, a flash inside at flashAt
+    const W = 1.1, H = 2.0, D = 1.0, c = o.color || '#2C4A8A', g = grp(), fm = mat('#F2F2EC', { unique: true, noGrain: true }), fls = [].concat(o.flashAt ?? []);
+    g.add(at(box(W, H, 0.06, c, { pivot: 'bottom', outline: 0.008 }), 0, 0, -D / 2), at(box(0.06, H, D, c, { pivot: 'bottom', outline: 0.008 }), -W / 2, 0, 0),
+      at(box(0.06, H, D, c, { pivot: 'bottom', outline: 0.008 }), W / 2, 0, 0), at(box(W + 0.08, 0.08, D + 0.04, c), 0, H, 0),
+      at(box(0.95, 0.3, 0.06, '#1E2A3A'), 0, H + 0.2, D / 2 - 0.05), at(label(o.text || 'PHOTO', 0.9, 0.26, { bg: '#F2C230', fg: '#1E2A3A', wrap: false }), 0, H + 0.2, D / 2 - 0.015),
+      at(box(0.16, 1.55, 0.05, o.curtain || '#C23A2E', { pivot: 'bottom' }), W / 2 - 0.1, 0.35, D / 2 + 0.03), at(box(W, 0.04, 0.04, P.grey), 0, 1.92, D / 2 + 0.02),
+      at(cyl(0.18, 0.2, 0.06, '#2A2A2E', 10), 0, 0.45, -0.1), at(cyl(0.04, 0.05, 0.42, P.grey, 6, { pivot: 'bottom' }), 0, 0, -0.1),
+      at(box(0.3, 0.22, 0.04, '#141414'), 0, 1.32, -D / 2 + 0.05), at(cyl(0.05, 0.05, 0.03, '#3A5A7A', 10), 0, 1.32, -D / 2 + 0.08, PI / 2),
+      at(new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.06, 0.02), fm), 0, 1.52, -D / 2 + 0.07), at(box(0.18, 0.03, 0.05, '#141414'), W / 2 + 0.03, 1.0, 0.25));
+    g.userData.update = t => { const on = fls.some(f => t >= f && t < f + 0.1); fm.emissive.set(on ? '#FFFFFF' : '#000000'); };
+    g.userData.update(0); g.userData.seat = [0, 0.12, -0.1]; g.userData.lens = [0, 1.32, -D / 2 + 0.1]; return g; },
+  mugshotBoard(o) { // police mugshot wall: height lines every 10 cm with labels, against a wall (o.w x o.h)
+    const w = o.w || 1.6, h = o.h || 2.3;
+    const c = canvasPlane(w, h, (g2, W, H) => { g2.fillStyle = '#E9ECEF'; g2.fillRect(0, 0, W, H); g2.fillStyle = '#2A2A2E'; g2.textAlign = 'left'; g2.textBaseline = 'middle'; g2.font = `bold ${H * 0.026}px Arial`;
+      for (let cm = 100; cm <= 220; cm += 10) { const y = H * (1 - cm / 100 / h); g2.fillRect(0, y - H * 0.002, W, H * (cm % 50 === 0 ? 0.006 : 0.003)); g2.fillText(`${Math.floor(cm / 100)}m${String(cm % 100).padStart(2, '0')}`, W * 0.03, y - H * 0.016); } }, { res: 512 });
+    return grp(at(box(w + 0.06, h + 0.06, 0.03, '#9CA3A8'), 0, h / 2, 0), at(c, 0, h / 2, 0.017)); },
+  placard(o) { // black mugshot board with white text, held at chest height (HAND_FLAT)
+    const c = canvasPlane(0.42, 0.2, (g2, W, H) => { g2.fillStyle = '#141414'; g2.fillRect(0, 0, W, H); g2.fillStyle = '#F2F2EC'; g2.textAlign = 'center'; g2.textBaseline = 'middle';
+      const L = String(o.text || 'POLICE\n38-2026').split('\n'); g2.font = `bold ${H * 0.3}px monospace`; L.forEach((l, i) => g2.fillText(l, W / 2, H * (0.3 + i * 0.4))); }, { res: 256 });
+    const g = grp(at(box(0.43, 0.21, 0.015, '#2A2A2E'), 0, 0, 0), at(c, 0, 0, 0.009)); g.userData.grip = [0, -0.09, 0]; return g; },
   securityCam(o) { // small surveillance camera on a wall bracket, red LED
     return grp(at(box(0.04, 0.04, 0.12, '#2A2A2E'), 0, 0, -0.06), at(box(0.1, 0.08, 0.18, '#F2F2EC', { outline: 0.006 }), 0, -0.02, 0.05, 0.35, 0, 0),
       at(cyl(0.03, 0.03, 0.02, '#141414', 12), 0, -0.05, 0.14, PI / 2 + 0.35, 0, 0), at(sphere(0.012, '#FF3A2A', 0, { emissive: '#FF2A1A', noGrain: true }), 0.035, 0.015, 0.1)); },

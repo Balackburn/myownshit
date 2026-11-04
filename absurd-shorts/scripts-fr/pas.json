@@ -1,0 +1,1118 @@
+{
+ "version": 3,
+ "title": "Les dix mille pas",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "medecin": {
+   "preset": "doctor"
+  },
+  "agent": {
+   "preset": "madame",
+   "seed": 44,
+   "glasses": true
+  }
+ },
+ "scenes": [
+  {
+   "id": "cabinet",
+   "set": "hospital",
+   "ambience": "office",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "S1",
+     "text": "Ce mec a voulu faire dix mille pas par jour pour rester en forme.",
+     "highlight": [
+      "dix",
+      "mille"
+     ]
+    },
+    {
+     "id": "S2",
+     "text": "Vous tiendrez pas une semaine.",
+     "speaker": "medecin"
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -1.0
+     ],
+     "ry": -35,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "S2",
+       "clip": "stand",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "grin"
+    },
+    {
+     "id": "medecin",
+     "pos": [
+      0.2,
+      0,
+      -2.0
+     ],
+     "ry": 25,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "S2",
+       "clip": "point",
+       "expr": "smug"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "podo",
+     "name": "pedometer",
+     "scale": 1.3,
+     "opts": {
+      "countAt": 0.3,
+      "rate": 3.2,
+      "start": 0
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.3,
+     "name": "step",
+     "vol": 0.35
+    },
+    {
+     "at": 0.75,
+     "name": "step",
+     "vol": 0.35
+    },
+    {
+     "at": 1.2,
+     "name": "step",
+     "vol": 0.35
+    },
+    {
+     "at": 1.65,
+     "name": "step",
+     "vol": 0.35
+    },
+    {
+     "at": "S1:pas",
+     "name": "beep",
+     "vol": 0.3
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "medecin"
+     ]
+    },
+    {
+     "at": "S1:rester",
+     "size": "mcu",
+     "angle": 10,
+     "frame": "mec"
+    },
+    {
+     "at": "S2",
+     "size": "cu",
+     "angle": 0,
+     "frame": "medecin"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tout_droit",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "S3",
+     "text": "Alors ce con est parti tout droit et il n'a jamais tourné.",
+     "highlight": [
+      "droit",
+      "jamais"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -5.0,
+      0,
+      0.3
+     ],
+     "ry": 90,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0,
+       "path": [
+        [
+         -2.35,
+         0,
+         0.3
+        ],
+        [
+         -2.05,
+         0.92,
+         0.3
+        ],
+        [
+         -1.55,
+         2.07,
+         0.3
+        ],
+        [
+         0.9,
+         2.07,
+         0.3
+        ],
+        [
+         1.75,
+         0.92,
+         0.3
+        ],
+        [
+         2.3,
+         0,
+         0.3
+        ],
+        [
+         7.0,
+         0,
+         0.3
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.6,
+       "then": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "voiture",
+     "name": "car",
+     "pos": [
+      0.0,
+      0,
+      0.35
+     ],
+     "opts": {
+      "color": "#5E8C7A",
+      "plate": "TROTTOIR"
+     }
+    },
+    {
+     "id": "podo",
+     "name": "pedometer",
+     "scale": 1.3,
+     "opts": {
+      "value": 4
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "S3:droit",
+     "name": "thud",
+     "vol": 0.4
+    },
+    {
+     "at": "S3:jamais",
+     "name": "thud",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 12,
+     "move": "track",
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "pologne",
+   "set": "farm",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "S4",
+     "text": "Une semaine plus tard, il était en Pologne.",
+     "highlight": [
+      "Pologne."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -3.2,
+      0,
+      0.3
+     ],
+     "ry": 90,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        3.6,
+        0,
+        0.3
+       ],
+       "glide": true,
+       "dur": 2.6,
+       "clip": "walk",
+       "then": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "panneau",
+     "name": "signBoard",
+     "pos": [
+      0.8,
+      0,
+      -0.75
+     ],
+     "opts": {
+      "text": "POLSKA",
+      "bg": "#1C3F94",
+      "fg": "#F2C230",
+      "w": 1.2,
+      "h": 0.5,
+      "height": 1.3,
+      "frame": "#1C3F94"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 0.8,
+     "opts": {
+      "color": "#3A2E26"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "podo",
+     "name": "pedometer",
+     "scale": 1.3,
+     "opts": {
+      "value": "70 312"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 15,
+     "move": "track",
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "siberie",
+   "set": "snow",
+   "ambience": "wind",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "S5",
+     "text": "Un mois plus tard, en Sibérie.",
+     "highlight": [
+      "Sibérie."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.8,
+      0,
+      0.3
+     ],
+     "ry": 90,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        3.2,
+        0,
+        0.3
+       ],
+       "glide": true,
+       "dur": 2.2,
+       "clip": "walk",
+       "then": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 0,
+       "expr": "sad"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "panneau",
+     "name": "signBoard",
+     "pos": [
+      0.6,
+      0,
+      -0.75
+     ],
+     "opts": {
+      "text": "SIBÉRIE",
+      "bg": "#7A5A3A",
+      "fg": "#F6F1E3",
+      "w": 1.2,
+      "h": 0.45,
+      "height": 1.2,
+      "frame": "#5A3A2A"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 1.3,
+     "opts": {
+      "color": "#3A2E26"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "podo",
+     "name": "pedometer",
+     "scale": 1.3,
+     "opts": {
+      "value": "9 999"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "wind",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": -15,
+     "move": "track",
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "ocean",
+   "set": "beach",
+   "ambience": "beach",
+   "ambienceVol": 0.6,
+   "lines": [
+    {
+     "id": "S6",
+     "text": "Puis il y a eu l'océan. Il a continué par en dessous.",
+     "highlight": [
+      "océan.",
+      "dessous."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0,
+       "path": [
+        [
+         0.2,
+         0,
+         -6.6
+        ],
+        [
+         -0.4,
+         -0.9,
+         -8.8
+        ],
+        [
+         -1.0,
+         -2.7,
+         -11.6
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.3,
+       "then": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 1.5,
+     "opts": {
+      "color": "#3A2E26"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "bulles",
+     "name": "dustPuff",
+     "scale": 0.5,
+     "visible": false,
+     "pos": [
+      -1.0,
+      0.0,
+      -11.2
+     ],
+     "opts": {
+      "color": "#EAF7FA",
+      "once": true,
+      "period": 1.2,
+      "startAt": "S6:dessous"
+     },
+     "keys": [
+      {
+       "at": "S6:dessous",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "S6:océan",
+     "name": "splash",
+     "vol": 0.5
+    },
+    {
+     "at": "S6:dessous",
+     "name": "gulp",
+     "vol": 0.5
+    },
+    {
+     "at": "S6:dessous+0.3",
+     "name": "pop",
+     "vol": 0.35
+    },
+    {
+     "at": "S6:dessous+0.6",
+     "name": "pop",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      5.6,
+      1.7,
+      3.6
+     ],
+     "lookAt": [
+      -0.2,
+      0.4,
+      -6.4
+     ],
+     "lens": 55
+    }
+   ],
+   "tail": 0.15
+  },
+  {
+   "id": "secu",
+   "set": "poste",
+   "setOpts": {
+    "title": "SÉCURITÉ SOCIALE"
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "S7",
+     "text": "Pendant ce temps, la Sécu l'a radié pour absence prolongée.",
+     "highlight": [
+      "radié",
+      "prolongée."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "agent",
+     "pos": [
+      0,
+      0,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "S7:radié-0.2",
+       "clip": "slamTable",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "dossier",
+     "name": "bill",
+     "scale": 2.2,
+     "pos": [
+      0,
+      1.115,
+      -2.15
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "title": "DOSSIER 1 85 07",
+      "items": [
+       [
+        "Absent depuis",
+        "2 ans"
+       ],
+       [
+        "Pas",
+        "7 300 000"
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "0,00 €"
+     }
+    },
+    {
+     "id": "tampon",
+     "name": "stampMark",
+     "visible": false,
+     "pos": [
+      0.02,
+      1.121,
+      -2.1799999999999997
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.25
+     ],
+     "opts": {
+      "text": "RADIÉ",
+      "w": 0.28,
+      "h": 0.1
+     },
+     "keys": [
+      {
+       "at": "S7:radié",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "encreur",
+     "name": "rubberStamp",
+     "on": {
+      "actor": "agent",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "S7:radié",
+     "name": "thud",
+     "vol": 0.7
+    },
+    {
+     "at": "S7:Sécu",
+     "name": "paper",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 0,
+     "frame": "agent"
+    },
+    {
+     "at": "S7:radié-0.35",
+     "from": [
+      0,
+      1.62,
+      -1.9
+     ],
+     "lookAt": [
+      0,
+      1.115,
+      -2.15
+     ],
+     "lens": 36
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "retour",
+   "set": "pavillon",
+   "ambience": "park",
+   "ambienceVol": 0.45,
+   "lines": [
+    {
+     "id": "S8",
+     "text": "Trois ans plus tard, il est revenu chez lui. Par l'autre côté.",
+     "highlight": [
+      "Trois",
+      "côté."
+     ]
+    },
+    {
+     "id": "S9",
+     "text": "Son médecin l'attendait devant la porte.",
+     "highlight": [
+      "médecin"
+     ]
+    },
+    {
+     "id": "S10",
+     "text": "Putain, le podomètre affichait neuf mille neuf cent quatre-vingt-dix-neuf pas.",
+     "highlight": [
+      "quatre-vingt-dix-neuf"
+     ]
+    },
+    {
+     "id": "S11",
+     "text": "Il est reparti faire le dernier pas.",
+     "highlight": [
+      "dernier"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.2,
+      2.9,
+      -9.35
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": "S8+0.3",
+       "to": [
+        -1.2,
+        4.4,
+        -6.6
+       ],
+       "glide": true,
+       "dur": 1.9,
+       "clip": "walk",
+       "then": "walk",
+       "face": "keep"
+      },
+      {
+       "at": "S8:côté",
+       "path": [
+        [
+         -1.2,
+         2.9,
+         -3.85
+        ],
+        [
+         -1.2,
+         0,
+         -3.3
+        ],
+        [
+         0.0,
+         0,
+         -3.15
+        ]
+       ],
+       "clip": "walk",
+       "speed": 2.8,
+       "then": "stand",
+       "face": "keep",
+       "faceEnd": 90
+      },
+      {
+       "at": "S10",
+       "face": 10,
+       "turn": 0.25,
+       "clip": "showPhone",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "S11",
+       "face": 180,
+       "turn": 0.3,
+       "clip": "stand"
+      },
+      {
+       "at": "S11+0.3",
+       "path": [
+        [
+         0.0,
+         0,
+         -3.6
+        ],
+        [
+         0.0,
+         2.9,
+         -3.9
+        ],
+        [
+         0.0,
+         4.4,
+         -6.6
+        ],
+        [
+         0.0,
+         2.9,
+         -9.4
+        ],
+        [
+         0.0,
+         0,
+         -9.8
+        ]
+       ],
+       "clip": "walk",
+       "speed": 1.4,
+       "then": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "medecin",
+     "pos": [
+      1.0,
+      0,
+      -3.5
+     ],
+     "ry": -90,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "S10:neuf",
+       "clip": "lookItem",
+       "expr": "shocked"
+      },
+      {
+       "at": "S11:dernier",
+       "clip": "facepalm"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.6,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "podo",
+     "name": "pedometer",
+     "scale": 1.3,
+     "opts": {
+      "value": "9 999"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "S8:côté",
+     "name": "step",
+     "vol": 0.4
+    },
+    {
+     "at": "S9",
+     "name": "step",
+     "vol": 0.4
+    },
+    {
+     "at": "S10:neuf",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "S11:dernier",
+     "name": "step",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.4,
+      2.0,
+      6.5
+     ],
+     "lookAt": [
+      0,
+      2.4,
+      -5.0
+     ],
+     "lens": 58
+    },
+    {
+     "at": "S9",
+     "size": "ms",
+     "worldAngle": 5,
+     "frame": [
+      "mec",
+      "medecin"
+     ]
+    },
+    {
+     "at": "S10",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "S10:neuf",
+     "size": "cu",
+     "worldAngle": 10,
+     "noOcclusion": true,
+     "frame": "podo"
+    },
+    {
+     "at": "S11",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "medecin"
+     ]
+    },
+    {
+     "at": "S11+0.9",
+     "from": [
+      0.4,
+      2.0,
+      6.5
+     ],
+     "lookAt": [
+      0,
+      2.4,
+      -5.0
+     ],
+     "lens": 58
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}
