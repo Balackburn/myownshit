@@ -1,0 +1,954 @@
+{
+ "version": 3,
+ "title": "La canette",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "juge": {
+   "preset": "judge"
+  }
+ },
+ "scenes": [
+  {
+   "id": "rue",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "C1",
+     "text": "Ce mec a secoué une canette de soda pour l'ouvrir plus vite.",
+     "highlight": [
+      "canette",
+      "vite."
+     ]
+    },
+    {
+     "id": "C2",
+     "text": "Elle a explosé.",
+     "highlight": [
+      "explosé."
+     ]
+    },
+    {
+     "id": "C3",
+     "text": "Il a décollé.",
+     "highlight": [
+      "décollé."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0.8
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "C1:secoué",
+       "clip": "shakeCan",
+       "expr": "happy"
+      },
+      {
+       "at": "C2:explosé",
+       "clip": "startle",
+       "expr": "shocked"
+      },
+      {
+       "at": "C3",
+       "clip": "stiff",
+       "expr": "shocked"
+      },
+      {
+       "at": "C3:décollé",
+       "to": [
+        0,
+        7.5,
+        0.8
+       ],
+       "glide": true,
+       "dur": 0.9,
+       "ease": "in",
+       "clip": "stiff",
+       "then": "stiff"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "canette",
+     "name": "drinkCan",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C3",
+       "attach": "mec",
+       "hand": "R",
+       "rot": [
+        3.1416,
+        0,
+        0
+       ]
+      }
+     ]
+    },
+    {
+     "id": "mallette",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "gerbe",
+     "name": "dustPuff",
+     "scale": 1.2,
+     "visible": false,
+     "opts": {
+      "color": "#6B3A1E",
+      "once": true,
+      "period": 0.7,
+      "startAt": "C2:explosé"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "C2:explosé",
+       "visible": true
+      },
+      {
+       "at": "C3",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "jetR",
+     "name": "beerStream",
+     "visible": false,
+     "opts": {
+      "length": 1.1,
+      "r": 0.018,
+      "flare": 3.2,
+      "color": "#6B3A1E"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.12,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "C3",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "flaque",
+     "name": "dustPuff",
+     "scale": 1.1,
+     "visible": false,
+     "pos": [
+      0,
+      0,
+      0.8
+     ],
+     "opts": {
+      "color": "#C08A5A",
+      "once": true,
+      "period": 0.8,
+      "startAt": "C3:décollé"
+     },
+     "keys": [
+      {
+       "at": "C3:décollé",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "C1:secoué",
+     "name": "pour",
+     "vol": 0.3
+    },
+    {
+     "at": "C1:soda",
+     "name": "pour",
+     "vol": 0.3
+    },
+    {
+     "at": "C2:explosé",
+     "name": "pop",
+     "vol": 0.7
+    },
+    {
+     "at": "C2:explosé",
+     "name": "splash",
+     "vol": 0.6
+    },
+    {
+     "at": "C3:décollé",
+     "name": "jet",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": 15,
+     "frame": "mec"
+    },
+    {
+     "at": "C1:canette",
+     "size": "mcu",
+     "angle": -15,
+     "frame": "mec"
+    },
+    {
+     "at": "C3",
+     "from": [
+      0.4,
+      1.1,
+      6.0
+     ],
+     "lookAt": [
+      0,
+      2.1,
+      0.8
+     ],
+     "lens": 62
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "ciel",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "C4",
+     "text": "Un radar l'a flashé à trois cents kilomètres-heure.",
+     "highlight": [
+      "radar",
+      "trois",
+      "cents"
+     ]
+    },
+    {
+     "id": "C5",
+     "text": "Dans une zone trente.",
+     "highlight": [
+      "trente."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -5.978000000000001,
+      2.5,
+      0.3
+     ],
+     "ry": 90,
+     "clip": "superman",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        17.240000000000002,
+        2.5,
+        0.3
+       ],
+       "glide": true,
+       "dur": 2.47,
+       "clip": "superman",
+       "then": "superman",
+       "face": "keep"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "radar",
+     "name": "trafficCamera",
+     "pos": [
+      1.4,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "flashAt": "C4:flashé"
+     }
+    },
+    {
+     "id": "affichage",
+     "name": "speedDisplay",
+     "pos": [
+      3.6,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "value": 300,
+      "color": "#FF3B2E"
+     }
+    },
+    {
+     "id": "zone30",
+     "name": "speedSign",
+     "pos": [
+      -1.8,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "value": 30
+     }
+    },
+    {
+     "id": "canette",
+     "name": "drinkCan",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "jetL",
+     "name": "beerStream",
+     "visible": true,
+     "opts": {
+      "length": 1.1,
+      "r": 0.018,
+      "flare": 3.2,
+      "color": "#6B3A1E"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.12,
+       0
+      ]
+     },
+     "keys": []
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "C4:flashé",
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "jet",
+     "vol": 0.5
+    },
+    {
+     "at": "C4:flashé-0.25",
+     "name": "whoosh",
+     "vol": 0.6
+    },
+    {
+     "at": "C4:flashé",
+     "name": "shutter",
+     "vol": 0.8
+    },
+    {
+     "at": "C4:trois",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "C5:trente",
+     "name": "ding",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": -80,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C4:flashé-0.3",
+     "from": [
+      2.6,
+      1.7,
+      7.2
+     ],
+     "lookAt": [
+      2.6,
+      2.2,
+      -1.25
+     ],
+     "lens": 52
+    },
+    {
+     "at": "C4:trois",
+     "from": [
+      3.6,
+      2.2,
+      0.95
+     ],
+     "lookAt": [
+      3.6,
+      2.2,
+      -1.25
+     ],
+     "lens": 30
+    },
+    {
+     "at": "C5",
+     "from": [
+      -1.8,
+      2.3,
+      1.25
+     ],
+     "lookAt": [
+      -1.8,
+      2.3,
+      -1.25
+     ],
+     "lens": 34
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "C6",
+     "text": "Alors ce con a contesté l'amende.",
+     "highlight": [
+      "contesté"
+     ]
+    },
+    {
+     "id": "C7",
+     "text": "Le juge a suspendu son permis piéton.",
+     "highlight": [
+      "permis",
+      "piéton."
+     ]
+    },
+    {
+     "id": "C8",
+     "text": "Putain, interdit de marcher.",
+     "highlight": [
+      "marcher."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "C7:suspendu",
+       "clip": "sitPoint",
+       "expr": "angry"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -1.7
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "C6:contesté",
+       "clip": "showPhone",
+       "expr": "angry"
+      },
+      {
+       "at": "C7:permis",
+       "clip": "showPhone",
+       "expr": "shocked"
+      },
+      {
+       "at": "C8",
+       "face": 60,
+       "turn": 0.25,
+       "clip": "stand",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "C8:interdit-0.45",
+       "to": [
+        1.45,
+        0,
+        -1.4
+       ],
+       "glide": true,
+       "dur": 0.45,
+       "clip": "walk",
+       "then": "stiff",
+       "expr": "happy"
+      },
+      {
+       "at": "C8:interdit",
+       "expr": "shocked"
+      },
+      {
+       "at": "C8:marcher",
+       "face": 10,
+       "turn": 0.25,
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      2.6,
+      0,
+      -0.6
+     ],
+     "ry": -120,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "C8:interdit",
+       "clip": "whistleBlow",
+       "expr": "angry",
+       "sfx": "whistle"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "amende",
+     "name": "bill",
+     "scale": 1.7,
+     "opts": {
+      "title": "AMENDE",
+      "items": [
+       [
+        "Vitesse : 300 km/h",
+        ""
+       ],
+       [
+        "Zone : 30",
+        ""
+       ],
+       [
+        "",
+        ""
+       ]
+      ],
+      "total": "1 500,00 €"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "C7:permis",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "permis",
+     "name": "notebook",
+     "scale": 1.8,
+     "visible": false,
+     "opts": {
+      "text": "PERMIS\nPIÉTON\n—\nSUSPENDU",
+      "bg": "#C2557A"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "keys": [
+      {
+       "at": "C7:permis",
+       "visible": true
+      },
+      {
+       "at": "C8",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "sifflet",
+     "name": "whistle",
+     "on": {
+      "actor": "flic1",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "C6:amende",
+     "name": "paper",
+     "vol": 0.5
+    },
+    {
+     "at": "C7:suspendu",
+     "name": "gavel",
+     "vol": 0.6
+    },
+    {
+     "at": "C7:piéton",
+     "name": "gavel",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "juge",
+      "mec"
+     ]
+    },
+    {
+     "at": "C6:amende",
+     "size": "cu",
+     "worldAngle": 180,
+     "noOcclusion": true,
+     "zoom": 1.2,
+     "frame": "amende"
+    },
+    {
+     "at": "C7",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "juge"
+    },
+    {
+     "at": "C7:permis",
+     "size": "cu",
+     "worldAngle": 180,
+     "noOcclusion": true,
+     "zoom": 1.2,
+     "frame": "permis"
+    },
+    {
+     "at": "C8",
+     "size": "ms",
+     "worldAngle": -30,
+     "frame": [
+      "mec",
+      "flic1"
+     ]
+    },
+    {
+     "at": "C8:marcher",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "fin",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "C9",
+     "text": "Depuis, il va au travail en canette.",
+     "pre": 0.3,
+     "highlight": [
+      "travail",
+      "canette."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -26,
+      2.5,
+      0.3
+     ],
+     "ry": 90,
+     "clip": "superman",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        -6,
+        2.5,
+        0.3
+       ],
+       "glide": true,
+       "dur": 2.6,
+       "clip": "superman",
+       "then": "superman",
+       "face": "keep"
+      },
+      {
+       "at": "C9.end+0.25",
+       "to": [
+        -4.0,
+        2.5,
+        0.3
+       ],
+       "glide": true,
+       "dur": 0.02,
+       "clip": "superman",
+       "then": "superman",
+       "face": "keep"
+      },
+      {
+       "at": "C9.end+0.28",
+       "to": [
+        14.8,
+        2.5,
+        0.3
+       ],
+       "glide": true,
+       "dur": 2.0,
+       "clip": "superman",
+       "then": "superman",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "radar",
+     "name": "trafficCamera",
+     "pos": [
+      1.4,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "flashAt": "C9.end+0.94"
+     }
+    },
+    {
+     "id": "affichage",
+     "name": "speedDisplay",
+     "pos": [
+      3.6,
+      0,
+      -1.25
+     ],
+     "opts": {
+      "value": 300,
+      "color": "#FF3B2E"
+     }
+    },
+    {
+     "id": "canette",
+     "name": "drinkCan",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "mallette",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "jetL",
+     "name": "beerStream",
+     "visible": true,
+     "opts": {
+      "length": 1.1,
+      "r": 0.018,
+      "flare": 3.2,
+      "color": "#6B3A1E"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.12,
+       0
+      ]
+     },
+     "keys": []
+    }
+   ],
+   "fx": [
+    {
+     "type": "flash",
+     "at": "C9.end+0.94",
+     "dur": 0.3
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "jet",
+     "vol": 0.45
+    },
+    {
+     "at": "C9.end+0.28",
+     "name": "jet",
+     "vol": 0.5
+    },
+    {
+     "at": "C9.end+0.94",
+     "name": "shutter",
+     "vol": 0.8
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "angle": -70,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "C9.end+0.25",
+     "from": [
+      2.6,
+      1.7,
+      7.2
+     ],
+     "lookAt": [
+      2.6,
+      2.2,
+      -1.25
+     ],
+     "lens": 52
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

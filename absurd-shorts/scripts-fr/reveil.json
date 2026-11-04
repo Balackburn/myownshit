@@ -1,0 +1,853 @@
+{
+ "version": 3,
+ "title": "Le réveil",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "mecPyjama"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "mecLit": {
+   "preset": "mecPyjama"
+  },
+  "prefet": {
+   "preset": "prefet"
+  }
+ },
+ "scenes": [
+  {
+   "id": "nuit",
+   "set": "chambre",
+   "setOpts": {
+    "poster": "BONJOUR\nSOLEIL",
+    "posterBg": "#F2C230",
+    "posterFg": "#B5302A"
+   },
+   "lighting": "night",
+   "ambience": "night",
+   "ambienceVol": 0.35,
+   "lines": [
+    {
+     "id": "W1",
+     "text": "Ce mec a acheté un réveil très puissant pour se lever à l'heure.",
+     "highlight": [
+      "réveil",
+      "puissant"
+     ]
+    },
+    {
+     "id": "W2",
+     "text": "Il a sonné.",
+     "highlight": [
+      "sonné."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.15,
+      0,
+      -2.55
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.25,
+       "clip": "giveItem",
+       "expr": "happy"
+      },
+      {
+       "at": "W1:lever",
+       "visible": false
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mecLit",
+     "pos": [
+      -2.6,
+      0.64,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "W1:lever",
+       "visible": true
+      },
+      {
+       "at": "W2:sonné",
+       "expr": "shocked"
+      }
+     ],
+     "visible": false,
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "chevet",
+     "name": "table",
+     "pos": [
+      -1.72,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.42,
+      "h": 0.55,
+      "color": "#C9A06A"
+     }
+    },
+    {
+     "id": "reveil",
+     "name": "alarmClock",
+     "pos": [
+      -1.72,
+      0.55,
+      -2.6
+     ],
+     "ry": 20,
+     "opts": {
+      "time": "23:00",
+      "time2": "03:00",
+      "switchAt": "W2-0.2",
+      "ringAt": "W2:sonné"
+     }
+    },
+    {
+     "id": "zzz",
+     "name": "zzz",
+     "visible": false,
+     "pos": [
+      -2.45,
+      1.0,
+      -2.55
+     ],
+     "keys": [
+      {
+       "at": "W1:lever",
+       "visible": true
+      },
+      {
+       "at": "W2:sonné",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "W1:réveil",
+     "name": "click",
+     "vol": 0.4
+    },
+    {
+     "at": "W2:sonné",
+     "name": "ring",
+     "vol": 0.9
+    },
+    {
+     "at": "W2:sonné+0.6",
+     "name": "ring",
+     "vol": 0.9
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 15,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "reveil"
+     ]
+    },
+    {
+     "at": "W1:puissant",
+     "from": [
+      -1.3951,
+      0.82,
+      -1.7070000000000003
+     ],
+     "lookAt": [
+      -1.72,
+      0.78,
+      -2.6
+     ],
+     "lens": 44
+    },
+    {
+     "at": "W1:lever",
+     "from": [
+      -1.5,
+      2.2,
+      -0.9
+     ],
+     "lookAt": [
+      -2.5,
+      0.75,
+      -2.5
+     ],
+     "lens": 52
+    },
+    {
+     "at": "W2",
+     "from": [
+      -1.3951,
+      0.82,
+      -1.7070000000000003
+     ],
+     "lookAt": [
+      -1.72,
+      0.78,
+      -2.6
+     ],
+     "lens": 44
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "soleil",
+   "set": "pavillon",
+   "ambience": "park",
+   "ambienceVol": 0.3,
+   "daynight": {
+    "from": "W3:soleil",
+    "period": 1.8,
+    "rise": true
+   },
+   "lines": [
+    {
+     "id": "W3",
+     "text": "Le soleil s'est levé.",
+     "highlight": [
+      "soleil"
+     ]
+    }
+   ],
+   "actors": [],
+   "props": [
+    {
+     "id": "soleil",
+     "name": "sun",
+     "pos": [
+      1.6,
+      -5.0,
+      -16
+     ],
+     "opts": {
+      "r": 3.2
+     },
+     "keys": [
+      {
+       "at": "W3:soleil",
+       "to": [
+        1.6,
+        7.6,
+        -16
+       ],
+       "dur": 1.1,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "W3:soleil",
+     "name": "choir",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0,
+      1.5,
+      7.5
+     ],
+     "lookAt": [
+      0.6,
+      3.6,
+      -8
+     ],
+     "lens": 62
+    }
+   ],
+   "tail": 0.1
+  },
+  {
+   "id": "trois_h",
+   "set": "chambre",
+   "setOpts": {
+    "poster": "BONJOUR\nSOLEIL",
+    "posterBg": "#F2C230",
+    "posterFg": "#B5302A"
+   },
+   "lighting": "day",
+   "grade": "brightness(1.28) saturate(1.15) contrast(1.05)",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "W4",
+     "text": "À trois heures du matin.",
+     "highlight": [
+      "trois",
+      "matin."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mecLit",
+     "pos": [
+      -2.6,
+      0.64,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": "W4:matin",
+       "expr": "sleepy"
+      }
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "chevet",
+     "name": "table",
+     "pos": [
+      -1.72,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.42,
+      "h": 0.55,
+      "color": "#C9A06A"
+     }
+    },
+    {
+     "id": "reveil",
+     "name": "alarmClock",
+     "pos": [
+      -1.72,
+      0.55,
+      -2.6
+     ],
+     "ry": 20,
+     "opts": {
+      "time": "03:00"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "W4:trois",
+     "name": "tick",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      -1.3951,
+      0.82,
+      -1.7070000000000003
+     ],
+     "lookAt": [
+      -1.72,
+      0.78,
+      -2.6
+     ],
+     "lens": 40
+    },
+    {
+     "at": "W4:matin",
+     "from": [
+      -1.5,
+      2.2,
+      -0.9
+     ],
+     "lookAt": [
+      -2.5,
+      0.75,
+      -2.5
+     ],
+     "lens": 52
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "prefecture",
+   "set": "pressRoom",
+   "setOpts": {
+    "backdrop": "PRÉFECTURE",
+    "fontScale": 1.0
+   },
+   "ambience": "office",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "W5",
+     "text": "La préfecture a exigé des explications.",
+     "highlight": [
+      "préfecture",
+      "explications."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "prefet",
+     "pos": [
+      0,
+      0,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": "W5:exigé",
+       "clip": "slamTable",
+       "expr": "angry"
+      },
+      {
+       "at": "W5:explications",
+       "clip": "point",
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [],
+   "sfx": [
+    {
+     "at": "W5:préfecture",
+     "name": "shutter",
+     "vol": 0.4
+    },
+    {
+     "at": "W5:exigé+0.15",
+     "name": "thud",
+     "vol": 0.6
+    },
+    {
+     "at": "W5:explications",
+     "name": "shutter",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0,
+      1.6,
+      0.9
+     ],
+     "lookAt": [
+      0,
+      1.45,
+      -2.45
+     ],
+     "lens": 42
+    },
+    {
+     "at": "W5:explications",
+     "size": "cu",
+     "angle": 0,
+     "frame": "prefet"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "snooze",
+   "set": "chambre",
+   "setOpts": {
+    "poster": "BONJOUR\nSOLEIL",
+    "posterBg": "#F2C230",
+    "posterFg": "#B5302A"
+   },
+   "ambience": null,
+   "daynight": {
+    "from": "W6:snooze",
+    "period": 0.7,
+    "once": true
+   },
+   "lines": [
+    {
+     "id": "W6",
+     "text": "Alors ce con a appuyé sur snooze.",
+     "highlight": [
+      "snooze."
+     ]
+    },
+    {
+     "id": "W7",
+     "text": "Putain.",
+     "pre": 0.3
+    },
+    {
+     "id": "W8",
+     "text": "Il fait nuit depuis neuf minutes.",
+     "highlight": [
+      "nuit",
+      "neuf"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.15,
+      0,
+      -2.55
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "W6:appuyé",
+       "clip": "slamTable",
+       "expr": "angry"
+      },
+      {
+       "at": "W6:snooze+0.2",
+       "clip": "stand",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "W7",
+       "face": 0,
+       "turn": 0.25,
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "chevet",
+     "name": "table",
+     "pos": [
+      -1.72,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.42,
+      "h": 0.55,
+      "color": "#C9A06A"
+     }
+    },
+    {
+     "id": "reveil",
+     "name": "alarmClock",
+     "pos": [
+      -1.72,
+      0.55,
+      -2.6
+     ],
+     "ry": 20,
+     "opts": {
+      "time": "03:00",
+      "time2": "03:09",
+      "switchAt": "W8",
+      "ringAt": 0,
+      "stopAt": "W6:snooze"
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "ring",
+     "vol": 0.7
+    },
+    {
+     "at": 0.7,
+     "name": "ring",
+     "vol": 0.7
+    },
+    {
+     "at": "W6:appuyé",
+     "name": "ring",
+     "vol": 0.7
+    },
+    {
+     "at": "W6:snooze",
+     "name": "click",
+     "vol": 0.7
+    },
+    {
+     "at": "W6:snooze",
+     "name": "punch",
+     "vol": 0.5
+    },
+    {
+     "at": "W6:snooze+0.5",
+     "name": "crickets",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 15,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "reveil"
+     ]
+    },
+    {
+     "at": "W7",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec",
+     "grade": "brightness(0.62) saturate(0.75) contrast(1.1)"
+    },
+    {
+     "at": "W8",
+     "from": [
+      -1.3951,
+      0.82,
+      -1.7070000000000003
+     ],
+     "lookAt": [
+      -1.72,
+      0.78,
+      -2.6
+     ],
+     "lens": 40,
+     "grade": "brightness(0.62) saturate(0.75) contrast(1.1)"
+    }
+   ],
+   "tail": 0.3
+  },
+  {
+   "id": "trois_ans",
+   "set": "chambre",
+   "setOpts": {
+    "poster": "BONJOUR\nSOLEIL",
+    "posterBg": "#F2C230",
+    "posterFg": "#B5302A"
+   },
+   "lighting": "night",
+   "grade": "sepia(0.25) brightness(0.92) contrast(1.05)",
+   "ambience": "night",
+   "ambienceVol": 0.35,
+   "lines": [
+    {
+     "id": "W9",
+     "text": "Ça fait trois ans.",
+     "pre": 0.4,
+     "highlight": [
+      "trois",
+      "ans."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.15,
+      0,
+      -2.55
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "W9:trois",
+       "face": 0,
+       "turn": 0.35,
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "chevet",
+     "name": "table",
+     "pos": [
+      -1.72,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.42,
+      "h": 0.55,
+      "color": "#C9A06A"
+     }
+    },
+    {
+     "id": "reveil",
+     "name": "alarmClock",
+     "pos": [
+      -1.72,
+      0.55,
+      -2.6
+     ],
+     "ry": 20,
+     "opts": {
+      "time": "03:09"
+     }
+    },
+    {
+     "id": "barbe",
+     "name": "beard",
+     "scale": 2.3,
+     "opts": {
+      "color": "#E6E2D8"
+     },
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.02,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "toile1",
+     "name": "spiderWeb",
+     "pos": [
+      -1.42,
+      0.98,
+      -2.42
+     ],
+     "opts": {
+      "r": 0.3
+     }
+    },
+    {
+     "id": "toile2",
+     "name": "spiderWeb",
+     "pos": [
+      -3.6,
+      2.6,
+      -2.97
+     ],
+     "opts": {
+      "r": 0.7
+     }
+    },
+    {
+     "id": "toile3",
+     "name": "spiderWeb",
+     "pos": [
+      -0.95,
+      1.95,
+      -2.75
+     ],
+     "opts": {
+      "r": 0.35
+     }
+    },
+    {
+     "id": "toile4",
+     "name": "spiderWeb",
+     "pos": [
+      -1.15,
+      0.55,
+      -2.32
+     ],
+     "opts": {
+      "r": 0.22
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0,
+     "name": "crickets",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 15,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "reveil"
+     ]
+    },
+    {
+     "at": "W9:ans",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

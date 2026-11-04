@@ -13,7 +13,7 @@ import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSi
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
-export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'party', 'crown', 'maocap'];
+export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'party', 'crown', 'maocap', 'beekeeper'];
 export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
 
 // Named presets — the cast. `lemec` is the protagonist archetype.
@@ -74,6 +74,11 @@ export const PRESETS = {
   glucksPeur:  { outfit: 'suit', suit: '#2B3A55', tie: '#1F2A3D', lapel: '#2B3A55', hair: 'slick', hairColor: '#2A2420', facial: 'none', build: { height: 0.8, width: 0.8, headScale: 1.18 } },
   glucksBeau:  { outfit: 'suit', suit: '#2B3A55', tie: '#B5302A', lapel: '#2B3A55', hair: 'slick', hairColor: '#17161A', facial: 'none', build: { height: 1.13, width: 1.32, headScale: 0.9 } },
   glucksMou:   { outfit: 'suit', suit: '#2B3A55', tie: '#1F2A3D', lapel: '#2B3A55', hair: 'slick', hairColor: '#2A2420', facial: 'none', build: { height: 0.78, width: 0.76, belly: 0.06, headScale: 1.2 } },
+  apiculteur:  { outfit: 'doctor', suit: '#F2EDE4', pants: '#F2EDE4', hat: 'beekeeper', hair: 'crew', facial: 'beard', beardColor: '#6A4A2A', skin: '#E0B48A' },
+  avocat:      { outfit: 'judge', hat: 'none', hair: 'slick', hairColor: '#3A3A40', facial: 'none', glasses: true },
+  prefet:      { outfit: 'suit', suit: '#1E2E44', tie: '#B5302A', lapel: '#1E2E44', hair: 'receding', hairColor: '#8A8A86', facial: 'mustache', glasses: true, build: { belly: 0.08 } },
+  mecPrisonnier: { outfit: 'prisoner', hair: 'crew', facial: 'stubble', atlas: 'lemec', atlasBody: false },
+  mecPyjama:   { outfit: 'pajamas', hair: 'crew', facial: 'stubble', atlas: 'lemec', atlasBody: false },
   looksmaxeur: { outfit: 'tracksuit', suit: '#2A2A30', pants: '#2A2A30', hair: 'buzz', facial: 'none', skin: '#E8935A', build: { width: 1.4, headScale: 0.86 } },
 };
 
@@ -314,6 +319,8 @@ function addHat(head, hat, hw, hh, hd, C) {
     case 'maocap': { const c = C.hat || '#4A5C70'; g.add(box(hw * 1.18, 0.1, hd * 1.25, c, { pivot: 'bottom', taper: { x: 1.12, z: 1.12 } }));
       const vz = box(hw * 0.95, 0.018, 0.09, c); vz.position.set(0, 0.012, hd * 0.66); vz.rotation.x = 0.18; g.add(vz);
       if (C.hatStar) { const st = box(0.045, 0.045, 0.01, '#C8281E'); st.position.set(0, 0.055, hd * 0.66); st.rotation.z = Math.PI / 4; g.add(st); } break; }
+    case 'beekeeper': { const b = new THREE.Mesh(new THREE.CylinderGeometry(hw * 1.5, hw * 1.5, 0.02, 16), mat('#F2EDE4')); g.add(b); const c = new THREE.Mesh(new THREE.CylinderGeometry(hw * 0.75, hw * 0.8, 0.12, 12), mat('#F2EDE4')); c.position.y = 0.07; g.add(c);
+      const v = new THREE.Mesh(new THREE.CylinderGeometry(hw * 1.15, hw * 1.15, hh * 0.85, 16, 1, true), new THREE.MeshLambertMaterial({ color: '#2A2A2E', transparent: true, opacity: 0.45, side: THREE.DoubleSide, depthWrite: false })); v.position.y = -hh * 0.42; g.add(v); break; }
     case 'crown': { for (let i = 0; i < 5; i++) { const p = box(0.04, 0.12, 0.03, P.yellow, { taper: 0.2 }); const a = i / 5 * Math.PI * 2; p.position.set(Math.cos(a) * 0.09, 0.06, Math.sin(a) * 0.08); g.add(p); } g.add(box(hw * 0.9, 0.05, hd * 0.9, P.yellow, { pivot: 'bottom' })); break; }
   }
 }

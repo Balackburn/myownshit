@@ -1,0 +1,647 @@
+{
+ "version": 3,
+ "title": "Le frigo",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "mecPyjama"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "somnambule": {
+   "preset": "mecPyjama"
+  },
+  "detenu": {
+   "preset": "mecPrisonnier"
+  }
+ },
+ "scenes": [
+  {
+   "id": "cuisine",
+   "set": "kitchenNight",
+   "lighting": "night",
+   "ambience": "night",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "R1",
+     "text": "Ce mec a installé une caméra pour surveiller son frigo.",
+     "highlight": [
+      "caméra",
+      "frigo."
+     ]
+    },
+    {
+     "id": "R2",
+     "text": "La nuit, quelqu'un mangeait ses yaourts.",
+     "highlight": [
+      "yaourts."
+     ]
+    },
+    {
+     "id": "R3",
+     "text": "Il a regardé la vidéo.",
+     "highlight": [
+      "vidéo."
+     ]
+    },
+    {
+     "id": "R4",
+     "text": "C'était lui. Somnambule.",
+     "highlight": [
+      "lui.",
+      "Somnambule."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -1.9
+     ],
+     "ry": 10,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": "R2",
+       "visible": false
+      },
+      {
+       "at": "R3",
+       "visible": true
+      },
+      {
+       "at": "R3",
+       "to": [
+        -0.2,
+        0.12,
+        -1.2
+       ],
+       "glide": true,
+       "dur": 0.05,
+       "face": 0,
+       "clip": "sit",
+       "then": "sit",
+       "expr": "neutral"
+      },
+      {
+       "at": "R3:vidéo",
+       "clip": "sitLookItem"
+      },
+      {
+       "at": "R4:Somnambule",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "somnambule",
+     "pos": [
+      -2.55,
+      0,
+      -1.75
+     ],
+     "ry": 70,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": "R2",
+       "visible": true
+      },
+      {
+       "at": "R2:yaourts",
+       "clip": "eatSpoon"
+      },
+      {
+       "at": "R3",
+       "visible": false
+      },
+      {
+       "at": "R4",
+       "visible": true
+      },
+      {
+       "at": "R4",
+       "clip": "holdOut"
+      },
+      {
+       "at": "R4:Somnambule",
+       "visible": false
+      }
+     ],
+     "visible": false,
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cam",
+     "name": "securityCam",
+     "pos": [
+      1.5,
+      2.5,
+      -3.48
+     ],
+     "ry": -68
+    },
+    {
+     "id": "chaise",
+     "name": "chair",
+     "pos": [
+      -0.2,
+      0,
+      -1.28
+     ]
+    },
+    {
+     "id": "yaourt",
+     "name": "yogurt",
+     "visible": false,
+     "on": {
+      "actor": "somnambule",
+      "hand": "L",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "R2:yaourts",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "cuillere",
+     "name": "spoon",
+     "visible": false,
+     "on": {
+      "actor": "somnambule",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R2:yaourts",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R3",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R1:caméra",
+     "name": "beep",
+     "vol": 0.4
+    },
+    {
+     "at": "R2",
+     "name": "squeak",
+     "vol": 0.3
+    },
+    {
+     "at": "R4:Somnambule",
+     "name": "sting",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 10,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "cam"
+     ]
+    },
+    {
+     "at": "R1:caméra",
+     "size": "cu",
+     "worldAngle": -40,
+     "noOcclusion": true,
+     "zoom": 1.2,
+     "frame": [
+      [
+       1.5,
+       2.5,
+       -3.48
+      ]
+     ]
+    },
+    {
+     "at": "R2",
+     "from": [
+      1.42,
+      2.38,
+      -3.28
+     ],
+     "lookAt": [
+      -2.4,
+      1.0,
+      -1.8
+     ],
+     "lens": 48,
+     "grade": "sepia(1) hue-rotate(55deg) saturate(2.2) contrast(1.25) brightness(0.85)"
+    },
+    {
+     "at": "R3",
+     "size": "ms",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "R4",
+     "from": [
+      1.42,
+      2.38,
+      -3.28
+     ],
+     "lookAt": [
+      -2.4,
+      1.0,
+      -1.8
+     ],
+     "lens": 48,
+     "grade": "sepia(1) hue-rotate(55deg) saturate(2.2) contrast(1.25) brightness(0.85)"
+    },
+    {
+     "at": "R4:Somnambule",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "commissariat",
+   "set": "policeStation",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "R5",
+     "text": "Alors ce con a porté plainte. Contre lui-même.",
+     "highlight": [
+      "plainte.",
+      "lui-même."
+     ]
+    },
+    {
+     "id": "R6",
+     "text": "Les flics l'ont arrêté.",
+     "highlight": [
+      "arrêté."
+     ]
+    },
+    {
+     "id": "R7",
+     "text": "Deux ans ferme.",
+     "highlight": [
+      "Deux",
+      "ferme."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "commissaire",
+     "pos": [
+      -2.7,
+      0.12,
+      -2.72
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [
+      {
+       "at": "R5#7",
+       "clip": "sit",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -2.5,
+      0,
+      -1.1
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R5:Contre",
+       "clip": "pointSelf",
+       "expr": "angry"
+      },
+      {
+       "at": "R6",
+       "face": "flic1",
+       "turn": 0.3,
+       "clip": "stand",
+       "expr": "neutral"
+      },
+      {
+       "at": "R6:arrêté",
+       "clip": "cuffedFront",
+       "expr": "shocked"
+      },
+      {
+       "at": "R7",
+       "face": 10,
+       "turn": 0.3,
+       "expr": "sad"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic1",
+     "pos": [
+      -0.4,
+      0,
+      -0.5
+     ],
+     "ry": -110,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "R6-0.4",
+       "to": [
+        -1.7000000000000002,
+        0,
+        -0.9000000000000001
+       ],
+       "clip": "walk",
+       "speed": 3.0,
+       "faceEnd": "mec",
+       "then": "cuffOther"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "menottes",
+     "name": "handcuffs",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "R6:arrêté",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "R6:arrêté",
+     "name": "cuff",
+     "vol": 0.6
+    },
+    {
+     "at": "R7",
+     "name": "gavel",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      -0.7,
+      1.6,
+      0.4
+     ],
+     "lookAt": [
+      -2.6,
+      1.1,
+      -1.9
+     ],
+     "lens": 50
+    },
+    {
+     "at": "R5:Contre",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "R5#7",
+     "size": "cu",
+     "angle": 0,
+     "frame": "commissaire"
+    },
+    {
+     "at": "R6",
+     "size": "ms",
+     "worldAngle": -10,
+     "frame": [
+      "mec",
+      "flic1"
+     ]
+    },
+    {
+     "at": "R7",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "parloir",
+   "set": "interrogation",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "R8",
+     "text": "Putain, il se rend visite au parloir.",
+     "highlight": [
+      "parloir."
+     ]
+    },
+    {
+     "id": "R9",
+     "text": "Il s'apporte des yaourts.",
+     "highlight": [
+      "yaourts."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "detenu",
+     "pos": [
+      0,
+      0.12,
+      -1.33
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "R9:yaourts",
+       "clip": "sitTake",
+       "expr": "happy"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.98,
+      0,
+      -0.85
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "R9",
+       "clip": "giveItem",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "yaourt",
+     "name": "yogurt",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       -0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": "R9:yaourts",
+       "attach": "detenu",
+       "hand": "R",
+       "rot": [
+        1.5708,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        -0.12,
+        -0.05
+       ]
+      }
+     ]
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -20,
+     "frame": [
+      "detenu",
+      "mec"
+     ]
+    },
+    {
+     "at": "R8:parloir",
+     "size": "cu",
+     "angle": 0,
+     "frame": "detenu"
+    },
+    {
+     "at": "R9",
+     "size": "ms",
+     "worldAngle": -20,
+     "frame": [
+      "detenu",
+      "mec"
+     ]
+    },
+    {
+     "at": "R9:yaourts+0.3",
+     "size": "cu",
+     "angle": -35,
+     "move": "push",
+     "amount": 0.04,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

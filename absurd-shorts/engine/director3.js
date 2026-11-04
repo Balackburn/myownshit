@@ -113,6 +113,7 @@ function setupScene(si, analyzing = false) {
   S.root.add(set); S.set = set; S.staticBoxes = null;
   S.lights = setLighting(scene, sc.lighting || set.userData.lighting || 'day');
   S.lightBase = { hemi: S.lights.hemi.intensity, key: S.lights.key.intensity, bg: scene.background.clone() };
+  S.skyDome = null; set.traverse(o => { if (!S.skyDome && o.isMesh && o.renderOrder === -10 && o.material?.side === THREE.BackSide) S.skyDome = o; });   // exterior sets: tint the dome at night
   const anchors = set.userData.anchors || {};
   const place = (c) => {
     if (typeof c === 'string') { const a = anchors[c]; if (!a) warn(`[${sc.id}] unknown anchor ${c}`); return a ? [...a] : [0, 0, 0]; }
@@ -788,10 +789,13 @@ export function renderFrame(tAbs) {
 }
 function lightCycle(t) {
   const dn = S.sc.daynight; if (!dn) return;
-  const t0 = T(dn.from, S.sc); if (t < t0) return;
-  const k = 0.5 - 0.5 * Math.cos((t - t0) / (dn.period || 1.2) * 2 * Math.PI);   // 0 = day, 1 = night
+  // k: 0 = day, 1 = night. Default: day/night cycles from `from`; once: falls to night and stays; rise: night until `from`, then day
+  const t0 = T(dn.from, S.sc), P0 = dn.period || 1.2, u = (t - t0) / P0; let k;
+  if (dn.rise) k = t < t0 ? 1 : u >= 0.5 ? 0 : 0.5 + 0.5 * Math.cos(u * 2 * Math.PI);
+  else { if (t < t0) return; k = dn.once && u >= 0.5 ? 1 : 0.5 - 0.5 * Math.cos(u * 2 * Math.PI); }
   S.lights.hemi.intensity = lerp(S.lightBase.hemi, 0.7, k); S.lights.key.intensity = lerp(S.lightBase.key, 0.25, k);
   S.stage.scene.background = S.lightBase.bg.clone().lerp(new THREE.Color(P.skyNight), k);
+  if (S.skyDome) S.skyDome.material.color.set('#FFFFFF').lerp(new THREE.Color('#1A2238'), k);
 }
 function drawFX(g, t) {
   const W = S.W, H = S.H;

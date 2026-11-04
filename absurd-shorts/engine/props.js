@@ -694,7 +694,7 @@ const B = {
   dustPuff(o) {
     const r = rng(o.seed || 47), per = o.period || 1.2, puffs = [], g = grp();
     for (let i = 0; i < 7; i++) { const m = sphere(0.16 + r() * 0.06, o.color || '#D8CFBA', 0, { unique: true, opacity: 0.99 }); m.castShadow = false; const a = i / 7 * TAU + r() * 0.5; puffs.push({ m, dx: Math.cos(a), dz: Math.sin(a) * 0.6, d: 0.4 + r() * 0.4 }); g.add(m); }
-    g.userData.update = t => { const p = o.once ? clamp01(t / per) : (t % per) / per, e = ease.out(p);
+    g.userData.update = t => { const tt = Math.max(0, t - (o.startAt ?? 0)), p = o.once ? clamp01(tt / per) : (tt % per) / per, e = ease.out(p);   // startAt: when a `once` puff starts
       puffs.forEach(({ m, dx, dz, d }) => { m.position.set(dx * d * e, 0.12 + 0.35 * p, dz * d * e); m.scale.setScalar(0.4 + 1.1 * e); m.material.opacity = 1 - p * p; }); };
     g.userData.update(0.3); return g;
   },
@@ -869,7 +869,7 @@ const B = {
   marker(o) { const g = grp(at(cyl(0.012, 0.012, 0.13, o.color || P.ink, 6), 0, 0.065, 0), at(cyl(0.012, 0.004, 0.025, P.ink, 6), 0, -0.012, 0)); g.userData.grip = [0, 0.07, 0]; return g; },
   coffeeMachine(o) { return grp(at(box(0.5, 1.5, 0.45, P.greyDark, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.4, 0.3, 0.02, '#1E2A33'), 0, 1.15, 0.23), at(box(0.22, 0.18, 0.12, P.ink), 0, 0.62, 0.2),
     at(label('CAFÉ', 0.3, 0.1, { bg: P.red, fg: P.white }), 0, 1.38, 0.231), at(cyl(0.04, 0.035, 0.08, P.white, 8), 0, 0.5, 0.2)); },
-  beerStream(o) { const h = o.length || 0.45; const m = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.018, h, 8), new THREE.MeshLambertMaterial({ color: '#E6B44A', transparent: true, opacity: 0.85 })); m.position.y = -h / 2; return grp(m); },
+  beerStream(o) { const h = o.length || 0.45, r = o.r || 0.012; const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r * (o.flare || 1.5), h, 8), new THREE.MeshLambertMaterial({ color: o.color || '#E6B44A', transparent: true, opacity: 0.85 })); m.position.y = -h / 2; return grp(m); },
   dartboard(o) { const g = grp(); [[0.25, P.ink], [0.2, P.red], [0.14, P.cream], [0.08, P.green], [0.03, P.red]].forEach(([r, c], i) => g.add(at(cyl(r, r, 0.03 + i * 0.004, c, 16), 0, 0, i * 0.004, Math.PI / 2))); return g; },
   dart(o) { return grp(at(cyl(0.006, 0.006, 0.12, P.grey, 5), 0, 0, 0, Math.PI / 2), at(box(0.04, 0.002, 0.04, P.red), 0, 0, -0.07), at(box(0.002, 0.04, 0.04, P.red), 0, 0, -0.07)); },
   beard(o) { // grows by scaling (scale keys): pointed strands hanging from the chin, fanning out
@@ -1098,6 +1098,57 @@ const B = {
   baguette(o) { const g = grp(at(cyl(0.035, 0.03, 0.62, '#D9A35C', 8, { outline: 0.02 }), 0, 0.035, 0, 0, 0, PI / 2)); for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.006, 0.03, '#B5793A'), -0.2 + i * 0.13, 0.068, 0, 0, 0.5, 0)); g.userData.grip = [0, 0.035, 0]; return g; },
   clickCounter(o) { const g = grp(at(box(0.05, 0.06, 0.03, P.grey, { outline: 0.02 }), 0, 0, 0), at(box(0.02, 0.015, 0.02, P.greyDark), 0.0, 0.035, 0)); g.userData.grip = [0, 0, 0]; return g; },
   fastForward(o) { return grp(at(label('▶▶ x16', 0.8, 0.3, { bg: P.ink, fg: P.white }), 0, 0, 0)); },
+  // ---- six classic stories: the alarm clock, the sun, the washing machine, the fridge camera, honey, the nest of eggs
+  alarmClock(o) { // a huge twin-bell alarm clock with a digital face (o.time, then o.time2 from switchAt) and a snooze button on top;
+                  // shakes between ringAt and stopAt
+    const C = o.color || '#B5302A', face = t => canvasPlane(0.3, 0.14, (c, W, H) => { c.fillStyle = '#141414'; c.fillRect(0, 0, W, H); c.fillStyle = '#FF5A3A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.72}px monospace`; c.fillText(t, W / 2, H * 0.55); }, { res: 256, emissive: 0.9 });
+    const f1 = face(o.time || '06:00'), f2 = face(o.time2 || '03:09'); f1.position.set(0, 0.2, 0.096); f2.position.copy(f1.position); f2.visible = false;
+    const body = grp(at(box(0.42, 0.34, 0.18, C, { outline: 0.01 }), 0, 0.2, 0), at(box(0.34, 0.18, 0.02, '#1E1E22'), 0, 0.2, 0.082), f1, f2,
+      at(box(0.06, 0.05, 0.06, '#2A2A2E'), -0.15, 0.02, 0), at(box(0.06, 0.05, 0.06, '#2A2A2E'), 0.15, 0.02, 0), at(box(0.2, 0.05, 0.12, '#F2C230', { outline: 0.006 }), 0, 0.39, 0),
+      at(label('SNOOZE', 0.16, 0.035, { bg: '#F2C230', fg: '#1E1E22', wrap: false }), 0, 0.4, 0.061));
+    const bells = [-1, 1].map(s => { const b = grp(at(sphere(0.1, '#C9CCD1', 1), 0, 0, 0), rod([0, -0.05, 0], [0, -0.12, 0], 0.012, '#8C949A')); b.children[0].scale.y = 0.7; b.position.set(s * 0.17, 0.48, 0); body.add(b); return b; });
+    const g = grp(body);
+    g.userData.update = t => { const ring = o.ringAt != null && t >= o.ringAt && (o.stopAt == null || t < o.stopAt); body.rotation.z = ring ? 0.05 * Math.sin(t * 70) : 0; body.position.y = ring ? 0.01 * Math.abs(Math.sin(t * 55)) : 0;
+      bells.forEach((b, i) => b.rotation.z = ring ? 0.25 * Math.sin(t * 90 + i) : 0); const sw = o.switchAt != null && t >= o.switchAt; f1.visible = !sw; f2.visible = sw; };
+    g.userData.update(0); return g; },
+  perfume(o) { // a perfume bottle with a gold cap and a spray head
+    return grp(at(box(0.07, 0.09, 0.04, '#E89AB8', { outline: 0.004, opacity: 0.85 }), 0, 0.045, 0), at(cyl(0.012, 0.012, 0.02, '#D8A83A', 8), 0, 0.1, 0), at(box(0.026, 0.02, 0.026, '#D8A83A'), 0, 0.12, 0)); },
+  jean(o) { // a pair of jeans folded over the hand (o.color)
+    const c = o.color || '#3E5A8A'; return grp(at(box(0.3, 0.05, 0.22, c, { outline: 0.005 }), 0, 0, 0), at(box(0.12, 0.38, 0.04, c), -0.07, -0.2, 0.08), at(box(0.12, 0.38, 0.04, c), 0.07, -0.2, 0.08), at(box(0.3, 0.02, 0.01, '#C9A06A'), 0, 0.03, 0.111)); },
+  sun(o) { // a big cartoon sun: emissive disc-sphere with rays (move it with keys)
+    const R = o.r || 1.2, g = grp(at(sphere(R, '#FFD23A', 2, { emissive: '#FFB01A', noGrain: true }), 0, 0, 0));
+    for (let i = 0; i < 12; i++) { const a = i * PI / 6, r = box(0.12 * R, 0.55 * R, 0.05, '#FFE07A', { emissive: '#FFC03A', noGrain: true }); r.position.set(Math.sin(a) * R * 1.35, Math.cos(a) * R * 1.35, 0); r.rotation.z = -a; g.add(r); }
+    return g; },
+  washingMachine(o) { // front-loading washing machine: the drum turns at spinRates[i] (rad/s) from spinAt[i]; door at the front;
+                      // the drum window is a shallow dome in front of the body, so small things can live "inside" it
+    const W = 0.62, H = 0.86, D = 0.62, yc = 0.42, R = 0.21, body = grp(at(box(W, H, D, '#F2F2EC', { pivot: 'bottom', outline: 0.008 }), 0, 0, 0),
+      at(box(W, 0.12, 0.02, '#D8DCDD'), 0, H - 0.07, D / 2 + 0.006), at(cyl(0.035, 0.035, 0.03, '#8C949A', 12), 0.2, H - 0.07, D / 2 + 0.02, PI / 2, 0, 0),
+      at(box(0.14, 0.05, 0.01, '#9CE8A0', { emissive: '#3A8A40', noGrain: true }), -0.1, H - 0.07, D / 2 + 0.018),
+      at(torus(R + 0.03, 0.035, '#C9CCD1', 8, 28), 0, yc, D / 2 + 0.035), at(cyl(R + 0.02, R + 0.02, 0.01, '#2A2A2E', 28), 0, yc, D / 2 + 0.006, PI / 2, 0, 0));
+    const drum = grp(); drum.position.set(0, yc, D / 2 + 0.012);
+    drum.add(at(cyl(R, R, 0.008, '#8C949A', 28), 0, 0, 0, PI / 2, 0, 0));
+    for (let i = 0; i < 18; i++) { const a = i * TAU / 18, rr = (i % 2 ? 0.1 : 0.16); drum.add(at(cyl(0.012, 0.012, 0.01, '#5A5E66', 8), Math.cos(a) * rr, Math.sin(a) * rr, 0.003, PI / 2, 0, 0)); }
+    [0, 1, 2].forEach(i => drum.add(at(box(0.05, 0.03, 0.02, '#C9CCD1'), Math.cos(i * TAU / 3) * (R - 0.03), Math.sin(i * TAU / 3) * (R - 0.03), 0.01, 0, 0, i * TAU / 3)));
+    const lb = o.laundry ? at(box(0.16, 0.08, 0.03, o.laundry, { outline: 0.004 }), 0.02, -0.1, 0.02, 0, 0, 0.3) : null; if (lb) drum.add(lb);   // laundryAt: when it is put in
+    body.add(drum, at(mesh(new THREE.SphereGeometry(R + 0.01, 24, 8, 0, TAU, 0, PI / 2), glassMat(0.2, '#DDEEF2')), 0, yc, D / 2 + 0.02, PI / 2, 0, 0)); const g = grp(body);
+    const ts = [].concat(o.spinAt ?? []), rates = [].concat(o.spinRates ?? []);
+    g.userData.update = t => { let a = 0, rate = 0; for (let i = 0; i < ts.length; i++) { const t0 = ts[i], t1 = i + 1 < ts.length ? ts[i + 1] : Infinity; if (t > t0) a += (Math.min(t, t1) - t0) * (rates[i] || 0); if (t >= t0 && t < t1) rate = rates[i] || 0; } drum.rotation.z = -a;
+      const j = Math.min(1, Math.abs(rate) / 25) * (o.shake ?? 1); body.position.set(0.012 * j * Math.sin(t * 61), 0.006 * j * Math.abs(Math.sin(t * 47)), 0.008 * j * Math.sin(t * 53)); body.rotation.z = 0.012 * j * Math.sin(t * 43);   // vibrates on fast spins
+      if (lb) lb.visible = o.laundryAt == null || t >= o.laundryAt; };
+    g.userData.update(0); g.userData.drum = [0, yc, D / 2 + 0.03]; return g; },
+  securityCam(o) { // small surveillance camera on a wall bracket, red LED
+    return grp(at(box(0.04, 0.04, 0.12, '#2A2A2E'), 0, 0, -0.06), at(box(0.1, 0.08, 0.18, '#F2F2EC', { outline: 0.006 }), 0, -0.02, 0.05, 0.35, 0, 0),
+      at(cyl(0.03, 0.03, 0.02, '#141414', 12), 0, -0.05, 0.14, PI / 2 + 0.35, 0, 0), at(sphere(0.012, '#FF3A2A', 0, { emissive: '#FF2A1A', noGrain: true }), 0.035, 0.015, 0.1)); },
+  honeyJar(o) { // honey jar with a gingham lid and a label
+    return grp(at(cyl(0.06, 0.06, 0.13, '#E8A62A', 12, { pivot: 'bottom', outline: 0.006, emissive: '#3A2400' }), 0, 0, 0), at(cyl(0.065, 0.065, 0.025, o.lid || '#B5302A', 12), 0, 0.142, 0),
+      at(label(o.text || 'MIEL', 0.09, 0.05, { bg: '#F6F1E3', fg: '#B5302A', wrap: false }), 0, 0.065, 0.061)); },
+  nest(o) { // a big straw nest; eggs appear one by one at the layAt times (or all, o.eggs)
+    const g = grp(at(torus(0.42, 0.14, '#C9A06A', 6, 16), 0, 0.12, 0, PI / 2, 0, 0), at(cyl(0.4, 0.3, 0.1, '#A8844E', 16, { pivot: 'bottom' }), 0, 0, 0));
+    for (let i = 0; i < 16; i++) g.add(at(box(0.3, 0.02, 0.02, '#B8925E'), Math.cos(i * 2.2) * 0.42, 0.18 + (i % 3) * 0.03, Math.sin(i * 2.2) * 0.42, 0, i * 1.3, 0.3));
+    const eggs = []; for (let i = 0; i < (o.max || 14); i++) { const a = i * 2.39, r = 0.08 + (i % 5) * 0.06, e = sphere(0.07, '#F6F1E3', 1); e.scale.y = 1.3; e.position.set(Math.cos(a) * r, 0.16 + Math.floor(i / 7) * 0.09, Math.sin(a) * r); g.add(e); eggs.push(e); }
+    const lay = [].concat(o.layAt ?? []);
+    g.userData.update = t => { const n = lay.length ? lay.filter(x => t >= x).length * Math.ceil(eggs.length / lay.length) : (o.eggs ?? 0); eggs.forEach((e, i) => e.visible = i < n); };
+    g.userData.update(0); return g; },
   // ---- "Le distributeur", "Le ticket", "La plante"
   vending(o) { // snack vending machine: hollow cabinet, glass front with 5 rows of spirals and packets, keypad + LCD, coin slot,
                // pickup flap; wobbles for 0.6 s after each shakeAt; o.stuck: a packet hanging at the front of B4; o.empty: no packet in B4

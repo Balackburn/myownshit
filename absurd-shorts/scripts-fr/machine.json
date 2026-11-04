@@ -1,0 +1,676 @@
+{
+ "version": 3,
+ "title": "La machine à laver",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "juge": {
+   "preset": "judge"
+  },
+  "avocat": {
+   "preset": "avocat"
+  }
+ },
+ "scenes": [
+  {
+   "id": "buanderie",
+   "set": "bathroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "M1",
+     "text": "Ce mec a lavé son jean à quatre-vingt-dix degrés pour qu'il soit bien propre.",
+     "highlight": [
+      "jean",
+      "quatre-vingt-dix",
+      "propre."
+     ]
+    },
+    {
+     "id": "M2",
+     "text": "Le jean a rétréci.",
+     "highlight": [
+      "rétréci."
+     ]
+    },
+    {
+     "id": "M3",
+     "text": "Ce mec aussi.",
+     "highlight": [
+      "aussi."
+     ]
+    },
+    {
+     "id": "M4",
+     "text": "Il mesure maintenant trente centimètres.",
+     "highlight": [
+      "trente",
+      "centimètres."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.22,
+      0,
+      -2.45
+     ],
+     "ry": -120,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "M1:jean",
+       "clip": "giveItem",
+       "expr": "happy"
+      },
+      {
+       "at": "M1:degrés+0.2",
+       "clip": "stand",
+       "expr": "smug"
+      },
+      {
+       "at": "M2",
+       "face": 15,
+       "turn": 0.25,
+       "clip": "holdOut",
+       "expr": "shocked"
+      },
+      {
+       "at": "M3:aussi",
+       "scale": 0.167,
+       "dur": 0.35,
+       "clip": "stand",
+       "expr": "shocked"
+      },
+      {
+       "at": "M4",
+       "expr": "sad"
+      },
+      {
+       "at": "M4:centimètres",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "machine",
+     "name": "washingMachine",
+     "pos": [
+      -0.3,
+      0,
+      -3.07
+     ],
+     "opts": {
+      "laundry": "#3E5A8A",
+      "laundryAt": "M1:degrés",
+      "spinAt": [
+       "M1:degrés+0.25",
+       "M2-0.3"
+      ],
+      "spinRates": [
+       24,
+       0
+      ]
+     }
+    },
+    {
+     "id": "jean",
+     "name": "jean",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M1:degrés",
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "jeanMini",
+     "name": "jean",
+     "scale": 0.3,
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M2",
+       "visible": true
+      },
+      {
+       "at": "M3:aussi",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M1:degrés",
+     "name": "click",
+     "vol": 0.5
+    },
+    {
+     "at": "M1:degrés+0.25",
+     "name": "engine",
+     "vol": 0.35
+    },
+    {
+     "at": "M1:degrés+0.3",
+     "name": "pour",
+     "vol": 0.3
+    },
+    {
+     "at": "M2:rétréci",
+     "name": "squeak",
+     "vol": 0.5
+    },
+    {
+     "at": "M3:aussi",
+     "name": "boing",
+     "vol": 0.6
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": -45,
+     "withProps": true,
+     "frame": [
+      "mec",
+      "machine"
+     ]
+    },
+    {
+     "at": "M1:degrés+0.1",
+     "from": [
+      -0.3,
+      0.46,
+      -1.92
+     ],
+     "lookAt": [
+      -0.3,
+      0.4,
+      -2.7399999999999998
+     ],
+     "lens": 38
+    },
+    {
+     "at": "M2",
+     "size": "mcu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "M3",
+     "from": [
+      0.65,
+      1.1,
+      0.1
+     ],
+     "lookAt": [
+      0.15,
+      0.95,
+      -2.45
+     ],
+     "lens": 56
+    },
+    {
+     "at": "M4",
+     "from": [
+      0.65,
+      0.2,
+      -1.65
+     ],
+     "lookAt": [
+      0.05,
+      0.32,
+      -2.7
+     ],
+     "lens": 48
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tribunal",
+   "set": "courtroom",
+   "ambience": "station",
+   "lines": [
+    {
+     "id": "M5",
+     "text": "Alors ce con a porté plainte contre la machine. Pour violences aggravées.",
+     "highlight": [
+      "plainte",
+      "violences",
+      "aggravées."
+     ]
+    },
+    {
+     "id": "M6",
+     "text": "La machine a gardé le silence.",
+     "highlight": [
+      "silence."
+     ]
+    },
+    {
+     "id": "M7",
+     "text": "Puis elle a essoré l'avocat.",
+     "highlight": [
+      "essoré"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.42,
+      -4.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": "M6:silence",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      2.5,
+      1.11,
+      -3.3
+     ],
+     "ry": -75,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "M5:plainte",
+       "clip": "angryFist"
+      },
+      {
+       "at": "M5:machine",
+       "clip": "point"
+      },
+      {
+       "at": "M7:essoré+0.2",
+       "clip": "startle",
+       "expr": "shocked"
+      }
+     ],
+     "scale": 0.167,
+     "expr": "angry"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      0.7,
+      0,
+      -1.7
+     ],
+     "ry": -108,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "M5:violences",
+       "clip": "point",
+       "expr": "angry"
+      },
+      {
+       "at": "M6",
+       "clip": "handsOnHips",
+       "expr": "smug"
+      },
+      {
+       "at": "M7",
+       "to": [
+        -0.35,
+        0,
+        -1.55
+       ],
+       "glide": true,
+       "dur": 0.55,
+       "clip": "walk",
+       "then": "yell",
+       "face": -120,
+       "expr": "angry"
+      },
+      {
+       "at": "M7:essoré",
+       "to": [
+        -0.9000000000000001,
+        0.3155,
+        -1.9535898384862243
+       ],
+       "glide": true,
+       "dur": 0.25,
+       "clip": "flail",
+       "then": "tumble",
+       "face": 30,
+       "expr": "shocked"
+      },
+      {
+       "at": "M7:essoré",
+       "scale": 0.11,
+       "dur": 0.25
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "machine",
+     "name": "washingMachine",
+     "pos": [
+      -1.1,
+      0,
+      -2.3
+     ],
+     "ry": 30,
+     "opts": {
+      "spinAt": [
+       "M7:essoré"
+      ],
+      "spinRates": [
+       24
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M5:plainte",
+     "name": "paper",
+     "vol": 0.4
+    },
+    {
+     "at": "M5:aggravées",
+     "name": "gavel",
+     "vol": 0.5
+    },
+    {
+     "at": "M6:silence",
+     "name": "crickets",
+     "vol": 0.6
+    },
+    {
+     "at": "M7:essoré",
+     "name": "whoosh",
+     "vol": 0.6
+    },
+    {
+     "at": "M7:essoré+0.2",
+     "name": "engine",
+     "vol": 0.45
+    },
+    {
+     "at": "M7:essoré+0.25",
+     "name": "splash",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "worldAngle": 10,
+     "elev": 6,
+     "withProps": true,
+     "frame": [
+      "juge",
+      "machine",
+      "avocat"
+     ]
+    },
+    {
+     "at": "M5:plainte",
+     "size": "cu",
+     "angle": 0,
+     "noOcclusion": true,
+     "frame": "mec"
+    },
+    {
+     "at": "M5:violences",
+     "size": "ms",
+     "worldAngle": -30,
+     "withProps": true,
+     "frame": [
+      "avocat",
+      "machine"
+     ]
+    },
+    {
+     "at": "M6",
+     "from": [
+      -0.30000000000000016,
+      0.62,
+      -0.9143593539448978
+     ],
+     "lookAt": [
+      -1.1,
+      0.45,
+      -2.3
+     ],
+     "lens": 40
+    },
+    {
+     "at": "M7",
+     "size": "ms",
+     "worldAngle": -30,
+     "withProps": true,
+     "frame": [
+      "avocat",
+      "machine"
+     ]
+    },
+    {
+     "at": "M7:essoré+0.3",
+     "from": [
+      -0.4850000000000001,
+      0.46,
+      -1.23478875334514
+     ],
+     "lookAt": [
+      -0.935,
+      0.42,
+      -2.014211616751135
+     ],
+     "lens": 36
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "tambour",
+   "set": "bathroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "M8",
+     "text": "Putain, il vit dans le tambour.",
+     "highlight": [
+      "tambour."
+     ]
+    },
+    {
+     "id": "M9",
+     "text": "Programme délicat, le dimanche.",
+     "highlight": [
+      "délicat,",
+      "dimanche."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.3,
+      0.215,
+      -2.71
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": "M9",
+       "clip": "stand",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "M9:délicat",
+       "clip": "walk",
+       "expr": "unimpressed"
+      },
+      {
+       "at": "M9.end+0.95",
+       "clip": "stareCamera",
+       "expr": "unimpressed"
+      }
+     ],
+     "scale": 0.15,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "machine",
+     "name": "washingMachine",
+     "pos": [
+      -0.3,
+      0,
+      -3.07
+     ],
+     "opts": {
+      "spinAt": [
+       "M9:délicat",
+       "M9.end+0.9"
+      ],
+      "spinRates": [
+       1.7,
+       0
+      ],
+      "shake": 0
+     }
+    },
+    {
+     "id": "tasse",
+     "name": "mug",
+     "scale": 0.15,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "M9",
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "M9:délicat",
+     "name": "engine",
+     "vol": 0.2
+    },
+    {
+     "at": "M9.end+0.45",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "M9.end+0.7",
+     "name": "beep",
+     "vol": 0.5
+    },
+    {
+     "at": "M9.end+0.95",
+     "name": "beep",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      0.7,
+      1.15,
+      -0.7
+     ],
+     "lookAt": [
+      -0.3,
+      0.5,
+      -2.95
+     ],
+     "lens": 50
+    },
+    {
+     "at": "M8:tambour",
+     "from": [
+      -0.3,
+      0.46,
+      -1.92
+     ],
+     "lookAt": [
+      -0.3,
+      0.4,
+      -2.7399999999999998
+     ],
+     "lens": 42
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

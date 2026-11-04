@@ -1,0 +1,1108 @@
+{
+ "version": 3,
+ "title": "Le parfum",
+ "captionWords": 3,
+ "captionY": 0.66,
+ "tempo": 1.35,
+ "voice": {
+  "name": "allan tiktok",
+  "model": "eleven_v4",
+  "narrator": {
+   "stability": 0.8,
+   "style": 0.0,
+   "rate": 1.12
+  },
+  "character": {
+   "stability": 0.4,
+   "style": 0.45,
+   "rate": 1.08
+  }
+ },
+ "music": {
+  "mood": "quirky",
+  "vol": 0.06
+ },
+ "cast": {
+  "mec": {
+   "preset": "lemec"
+  },
+  "flic1": {
+   "preset": "cop"
+  },
+  "flic2": {
+   "preset": "cop2",
+   "seed": 41
+  },
+  "commissaire": {
+   "preset": "commissaire"
+  },
+  "apiculteur": {
+   "preset": "apiculteur"
+  },
+  "femme": {
+   "preset": "femme",
+   "seed": 21
+  },
+  "b0": {
+   "type": "creature",
+   "name": "bee",
+   "opts": {
+    "seed": 3
+   }
+  },
+  "b1": {
+   "type": "creature",
+   "name": "bee",
+   "opts": {
+    "seed": 4
+   }
+  },
+  "b2": {
+   "type": "creature",
+   "name": "bee",
+   "opts": {
+    "seed": 5
+   }
+  },
+  "b3": {
+   "type": "creature",
+   "name": "bee",
+   "opts": {
+    "seed": 6
+   }
+  },
+  "b4": {
+   "type": "creature",
+   "name": "bee",
+   "opts": {
+    "seed": 7
+   }
+  },
+  "b5": {
+   "type": "creature",
+   "name": "bee",
+   "opts": {
+    "seed": 8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "bain",
+   "set": "bathroom",
+   "ambience": null,
+   "lines": [
+    {
+     "id": "F1",
+     "text": "Ce mec a mis du parfum pour son premier rendez-vous.",
+     "highlight": [
+      "parfum",
+      "rendez-vous."
+     ]
+    },
+    {
+     "id": "F2",
+     "text": "Toute la bouteille.",
+     "highlight": [
+      "bouteille."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.2,
+      0,
+      -2.15
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "F1:parfum",
+       "clip": "phoneCall",
+       "expr": "smug"
+      },
+      {
+       "at": "F2",
+       "clip": "wired",
+       "expr": "happy"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "flacon",
+     "name": "perfume",
+     "scale": 1.6,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "nuage",
+     "name": "dustPuff",
+     "scale": 0.2,
+     "visible": false,
+     "pos": [
+      3.2,
+      1.3,
+      -2.05
+     ],
+     "opts": {
+      "color": "#F2B8D0"
+     },
+     "keys": [
+      {
+       "at": "F2",
+       "visible": true
+      },
+      {
+       "at": "F2",
+       "scale": 2.6,
+       "dur": 1.4,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": "F1:parfum",
+     "name": "poof",
+     "vol": 0.35
+    },
+    {
+     "at": "F2",
+     "name": "poof",
+     "vol": 0.4
+    },
+    {
+     "at": "F2+0.3",
+     "name": "poof",
+     "vol": 0.4
+    },
+    {
+     "at": "F2+0.6",
+     "name": "poof",
+     "vol": 0.4
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "from": [
+      3.2,
+      1.7,
+      -3.3
+     ],
+     "lookAt": [
+      3.2,
+      1.62,
+      -2.15
+     ],
+     "lens": 72
+    },
+    {
+     "at": "F2",
+     "from": [
+      5.3,
+      1.5,
+      -1.0
+     ],
+     "lookAt": [
+      3.2,
+      1.3,
+      -2.3
+     ],
+     "lens": 58
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "rue",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "F3",
+     "text": "Une abeille l'a suivi. Puis l'essaim entier.",
+     "highlight": [
+      "abeille",
+      "essaim"
+     ]
+    },
+    {
+     "id": "F4",
+     "text": "Elles l'ont élu reine.",
+     "highlight": [
+      "reine."
+     ]
+    },
+    {
+     "id": "F5",
+     "text": "Alors ce con a appelé les pompiers.",
+     "highlight": [
+      "pompiers."
+     ]
+    },
+    {
+     "id": "F6",
+     "text": "Ils ont envoyé un apiculteur.",
+     "highlight": [
+      "apiculteur."
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -4.6,
+      0,
+      0.6
+     ],
+     "ry": 90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        0.3,
+        0,
+        0.6
+       ],
+       "clip": "walk",
+       "speed": 1.7,
+       "faceEnd": 0,
+       "then": "stand"
+      },
+      {
+       "at": "F4",
+       "expr": "shocked"
+      },
+      {
+       "at": "F5",
+       "clip": "phoneCall",
+       "expr": "angry"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "b0",
+     "pos": [
+      -5.199999999999999,
+      1.5,
+      0.8
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -0.3,
+        1.5,
+        0.8
+       ],
+       "glide": true,
+       "dur": 2.9,
+       "clip": "fly",
+       "then": "fly"
+      }
+     ],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b1",
+     "pos": [
+      -4.1,
+      1.9,
+      0.3
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.16999999999999998,
+       "to": [
+        0.8,
+        1.9,
+        0.3
+       ],
+       "glide": true,
+       "dur": 2.9,
+       "clip": "fly",
+       "then": "fly"
+      }
+     ],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b2",
+     "pos": [
+      -4.8999999999999995,
+      2.2,
+      1.1
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.29,
+       "to": [
+        0.0,
+        2.2,
+        1.1
+       ],
+       "glide": true,
+       "dur": 2.9,
+       "clip": "fly",
+       "then": "fly"
+      }
+     ],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b3",
+     "pos": [
+      -3.8999999999999995,
+      1.4,
+      1.2
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.41,
+       "to": [
+        1.0,
+        1.4,
+        1.2
+       ],
+       "glide": true,
+       "dur": 2.9,
+       "clip": "fly",
+       "then": "fly"
+      }
+     ],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b4",
+     "pos": [
+      -5.3999999999999995,
+      2.0,
+      0.19999999999999996
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.53,
+       "to": [
+        -0.5,
+        2.0,
+        0.19999999999999996
+       ],
+       "glide": true,
+       "dur": 2.9,
+       "clip": "fly",
+       "then": "fly"
+      }
+     ],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b5",
+     "pos": [
+      -4.3999999999999995,
+      2.4,
+      0.7
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [
+      {
+       "at": 0.65,
+       "to": [
+        0.5,
+        2.4,
+        0.7
+       ],
+       "glide": true,
+       "dur": 2.9,
+       "clip": "fly",
+       "then": "fly"
+      }
+     ],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "apiculteur",
+     "pos": [
+      7.0,
+      0,
+      0.9
+     ],
+     "ry": -90,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": "F6-0.4",
+       "to": [
+        1.7,
+        0,
+        0.8
+       ],
+       "clip": "walk",
+       "speed": 3.0,
+       "faceEnd": "mec",
+       "then": "stand"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "couronne",
+     "name": "crown",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.56,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": "F4:reine",
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "tel",
+     "name": "phone911",
+     "visible": false,
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "keys": [
+      {
+       "at": "F5",
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [
+    {
+     "at": 0.2,
+     "name": "squeak",
+     "vol": 0.25
+    },
+    {
+     "at": "F3:essaim",
+     "name": "squeak",
+     "vol": 0.35
+    },
+    {
+     "at": "F4:reine",
+     "name": "bell",
+     "vol": 0.6
+    },
+    {
+     "at": "F6-0.4",
+     "name": "siren",
+     "vol": 0.35
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "fs",
+     "angle": -70,
+     "move": "track",
+     "frame": "mec"
+    },
+    {
+     "at": "F3:essaim",
+     "size": "ms",
+     "worldAngle": 10,
+     "frame": [
+      "mec",
+      "b2",
+      "b4"
+     ]
+    },
+    {
+     "at": "F4",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    },
+    {
+     "at": "F5",
+     "size": "cu",
+     "angle": -25,
+     "frame": "mec"
+    },
+    {
+     "at": "F6",
+     "size": "ms",
+     "worldAngle": 15,
+     "frame": [
+      "apiculteur",
+      "mec"
+     ]
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "nid",
+   "set": "park",
+   "ambience": "park",
+   "ambienceVol": 0.5,
+   "lines": [
+    {
+     "id": "F7",
+     "text": "Trop tard : il pondait déjà des œufs.",
+     "highlight": [
+      "œufs."
+     ]
+    },
+    {
+     "id": "F8",
+     "text": "Putain, quarante par jour.",
+     "highlight": [
+      "quarante"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0.1,
+      -1.45
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": "F8",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "b0",
+     "pos": [
+      -0.6,
+      1.5,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b1",
+     "pos": [
+      0.5,
+      1.9,
+      -1.7
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b2",
+     "pos": [
+      -0.3,
+      2.2,
+      -0.8999999999999999
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b3",
+     "pos": [
+      0.7,
+      1.4,
+      -0.7999999999999999
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b4",
+     "pos": [
+      -0.8,
+      2.0,
+      -1.7999999999999998
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b5",
+     "pos": [
+      0.2,
+      2.4,
+      -1.2999999999999998
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "apiculteur",
+     "pos": [
+      1.6,
+      0,
+      -0.6
+     ],
+     "ry": -60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": "F8",
+       "clip": "facepalm"
+      }
+     ],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "nid",
+     "name": "nest",
+     "scale": 1.3,
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "max": 14,
+      "layAt": [
+       "F7",
+       "F7:pondait",
+       "F7:œufs",
+       "F8",
+       "F8:quarante",
+       "F8:jour",
+       "F8.end+0.1"
+      ]
+     }
+    },
+    {
+     "id": "couronne",
+     "name": "crown",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.56,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "F7:pondait",
+     "name": "pop",
+     "vol": 0.5
+    },
+    {
+     "at": "F7:œufs",
+     "name": "pop",
+     "vol": 0.5
+    },
+    {
+     "at": "F8",
+     "name": "pop",
+     "vol": 0.5
+    },
+    {
+     "at": "F8:quarante",
+     "name": "pop",
+     "vol": 0.5
+    },
+    {
+     "at": "F8:jour",
+     "name": "pop",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 20,
+     "frame": [
+      "mec",
+      "apiculteur"
+     ]
+    },
+    {
+     "at": "F7:œufs",
+     "size": "cu",
+     "worldAngle": 0,
+     "elev": 35,
+     "noOcclusion": true,
+     "frame": [
+      [
+       0.0,
+       0.3,
+       -1.4
+      ]
+     ]
+    },
+    {
+     "at": "F8",
+     "size": "cu",
+     "angle": 0,
+     "frame": "mec"
+    }
+   ],
+   "tail": 0.2
+  },
+  {
+   "id": "marche",
+   "set": "street",
+   "ambience": "street",
+   "ambienceVol": 0.4,
+   "lines": [
+    {
+     "id": "F9",
+     "text": "La fille a épousé l'apiculteur.",
+     "highlight": [
+      "épousé"
+     ]
+    },
+    {
+     "id": "F10",
+     "text": "Ils vendent son miel au marché.",
+     "highlight": [
+      "miel"
+     ]
+    }
+   ],
+   "actors": [
+    {
+     "id": "femme",
+     "pos": [
+      -0.45,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "apiculteur",
+     "pos": [
+      0.45,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "armsCrossed",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.55,
+      0.78,
+      -1.55
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "b0",
+     "pos": [
+      -0.09999999999999998,
+      1.5,
+      -1.4000000000000001
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b1",
+     "pos": [
+      1.0,
+      1.9,
+      -1.9000000000000001
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b2",
+     "pos": [
+      0.2,
+      2.2,
+      -1.1
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b3",
+     "pos": [
+      1.2,
+      1.4,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b4",
+     "pos": [
+      -0.30000000000000004,
+      2.0,
+      -2.0
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    },
+    {
+     "id": "b5",
+     "pos": [
+      0.7,
+      2.4,
+      -1.5
+     ],
+     "ry": 90,
+     "clip": "fly",
+     "keys": [],
+     "scale": 0.2,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "etal",
+     "name": "table",
+     "pos": [
+      0.0,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 0.7,
+      "h": 0.78,
+      "color": "#C9A06A"
+     }
+    },
+    {
+     "id": "parasol",
+     "name": "parasol",
+     "pos": [
+      -1.2,
+      0,
+      -2.3
+     ],
+     "opts": {
+      "open": 1,
+      "colors": [
+       "#F2C230",
+       "#F6F1E3"
+      ]
+     }
+    },
+    {
+     "id": "enseigne",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      -2.75
+     ],
+     "opts": {
+      "text": "GELÉE ROYALE",
+      "bg": "#F2C230",
+      "fg": "#5A3A1E",
+      "w": 1.6,
+      "h": 0.4,
+      "height": 1.85
+     }
+    },
+    {
+     "id": "pot0",
+     "name": "honeyJar",
+     "scale": 1.2,
+     "pos": [
+      -0.65,
+      0.78,
+      -1.4
+     ]
+    },
+    {
+     "id": "pot1",
+     "name": "honeyJar",
+     "scale": 1.2,
+     "pos": [
+      -0.43000000000000005,
+      0.78,
+      -1.3199999999999998
+     ]
+    },
+    {
+     "id": "pot2",
+     "name": "honeyJar",
+     "scale": 1.2,
+     "pos": [
+      -0.21000000000000002,
+      0.78,
+      -1.4
+     ]
+    },
+    {
+     "id": "pot3",
+     "name": "honeyJar",
+     "scale": 1.2,
+     "pos": [
+      0.010000000000000009,
+      0.78,
+      -1.3199999999999998
+     ]
+    },
+    {
+     "id": "pot4",
+     "name": "honeyJar",
+     "scale": 1.2,
+     "pos": [
+      0.22999999999999998,
+      0.78,
+      -1.4
+     ]
+    },
+    {
+     "id": "couronne",
+     "name": "crown",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.56,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [
+    {
+     "at": "F9",
+     "name": "bell",
+     "vol": 0.4
+    },
+    {
+     "at": "F10:miel",
+     "name": "cash",
+     "vol": 0.5
+    }
+   ],
+   "cams": [
+    {
+     "at": 0,
+     "size": "ms",
+     "worldAngle": 0,
+     "frame": [
+      "femme",
+      "apiculteur"
+     ]
+    },
+    {
+     "at": "F10",
+     "size": "fs",
+     "worldAngle": 0,
+     "elev": 6,
+     "frame": [
+      "mec",
+      "femme",
+      "apiculteur"
+     ]
+    },
+    {
+     "at": "F10:miel",
+     "size": "cu",
+     "angle": 0,
+     "move": "push",
+     "amount": 0.05,
+     "frame": "mec"
+    }
+   ],
+   "tail": 1.4
+  }
+ ]
+}

@@ -149,10 +149,19 @@ export const CLIPS = {
     root: { rx: -2 * PI * ke, y: 4 * (p.height ?? 0.85) * k * (1 - k), pivot: 'hips' },
     hipL: [-1.6 * tuck, 0, 0.05], hipR: [-1.6 * tuck, 0, -0.05], kneeL: [2.0 * tuck, 0, 0], kneeR: [2.0 * tuck, 0, 0],
     ...arms(m([-1.2 * tuck - 0.6 * (1 - tuck), 0, 0.3], [-1.2 * tuck - 0.6 * (1 - tuck), 0, 0.3]), m([-1.2 * tuck, 0, 0], [-1.2 * tuck, 0, 0])), head: [0.4 * tuck, 0, 0] }; },
+  tumble: (t, p = {}) => ({ // tumbling round and round (in a washing-machine drum), limbs out
+    root: { rz: -(p.speed ?? 11) * t, pivot: 'hips' }, ...arms(m([0, 0, 2.3 + 0.3 * S(t * 9)], [0, 0, 2.3 + 0.3 * S(t * 9 + 1)]), m([0, 0, 0.3], [0, 0, 0.3])),
+    hipL: [-0.3 * S(t * 7), 0, 0.55], hipR: [0.3 * S(t * 7), 0, -0.55], kneeL: [0.4, 0, 0], kneeR: [0.4, 0, 0], head: [-0.2, 0, 0] }),
   cartwheel: (t, p = {}) => { const d = p.dur ?? 0.8, k = Math.min(1, Math.max(0, t / d)); return {
     root: { rz: -2 * PI * k, y: 0.25 * S(k * PI), pivot: 'hips' },
     ...arms(m([0, 0, 2.8], [0, 0, 2.8]), m([0, 0, 0], [0, 0, 0])), hipL: [0, 0, 0.6], hipR: [0, 0, -0.6] }; },
   vault: () => ({ ...arms(m([-1.0, 0, 0.25], [-1.0, 0, 0.25]), m([-0.1, 0, 0], [-0.1, 0, 0])), hipL: [-1.3, 0, 0.4], hipR: [-1.1, 0, 0.3], kneeL: [1.2, 0, 0], kneeR: [1.0, 0, 0], torso: [0.25, 0, 0.15] }),
+  pointSelf: (t) => ({ ...arms(m([0, 0, 0.2], [-0.75, 0.6, 0.25]), m([-0.08, 0, -0.3], [-2.0, 0.4, 0])), handR: [0, 0, -0.3], head: [0.12, 0, 0], torso: [0.02 * S(t * 2), 0, 0] }), // index on the chest: 'moi ?'
+  superman: (t) => ({ // flying horizontally, right fist forward, left arm back along the body (holds the jet can); face the travel direction
+    root: { rx: 1.35, y: -0.88 + 0.03 * S(t * 7), rz: 0.04 * S(t * 5), pivot: 'hips' }, ...arms(m([0.35, 0, 0.12], [-2.95, 0, 0.1]), m([0, 0, 0], [-0.05, 0, 0])),
+    hipL: [0.12, 0, 0.06], hipR: [0.2, 0, -0.06], kneeL: [0.3, 0, 0], kneeR: [0.15, 0, 0], head: [-0.95, 0, 0], torso: [-0.1, 0, 0] }),
+  shakeCan: (t) => ({ // shaking a can hard in the right hand, in front of the chest
+    ...arms(m([0, 0, 0.2], [-0.9 + 0.3 * S(t * 30), 0, 0.15]), m([-0.08, 0, -0.3], [-1.1 + 0.45 * S(t * 30), 0, 0])), torso: [0.02 * S(t * 30), 0, 0], head: [0.15, 0, 0], root: { y: 0.01 * Math.abs(S(t * 30)) } }),
   airborne: () => ({ ...arms(m([-0.4, 0, 1.4], [-0.4, 0, 1.4]), m([0, 0, 0.3], [0, 0, 0.3])), hipL: [-0.6, 0, 0], hipR: [-0.2, 0, 0], kneeL: [1.1, 0, 0], kneeR: [0.6, 0, 0], head: [-0.15, 0, 0] }),
   land: (t) => { const k = Math.max(0, 1 - t / 0.35); return { hipL: [-0.9 * k, 0, 0.05], hipR: [-0.9 * k, 0, -0.05], kneeL: [1.6 * k, 0, 0], kneeR: [1.6 * k, 0, 0], torso: [0.35 * k, 0, 0], ...arms(m([-0.6 * k, 0, 0.5 * k + 0.2], [-0.6 * k, 0, 0.5 * k + 0.2]), m([-0.4, 0, -0.3], [-0.4, 0, -0.3])), root: { y: -0.32 * k } }; },
   tantrum: (t) => { const ph = t * 2 * PI * 2.4, a = Math.max(0, S(ph)), b = Math.max(0, -S(ph)); return {

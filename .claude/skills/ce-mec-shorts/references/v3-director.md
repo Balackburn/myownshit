@@ -263,3 +263,45 @@ Working example: `scripts-fr/looksmaxing.py`.
 - **Real people.** Nothing sexual and nothing about private life. A real partner of a public figure is replaced by a
   fictional character: "48 hours instead of 2 minutes" became a TV interview, with the day/night cycle and a spinning clock.
   Make no Nazi comparisons, and name no hard drugs for a real person ("le programme").
+
+## Six classic shorts in one batch (parfum, journal, frigo, canette, machine, réveil)
+
+Working examples: `scripts-fr/parfum.py`, `journal.py`, `frigo.py`, `canette.py`, `machine.py`, `reveil.py` (about 19–23 s each).
+
+- **Time expressions with a hyphenated word fail.** `L:lui-même` is a "bad time" that resolves to 0, and a camera at 0
+  silently replaces the scene's first shot. Use the 0-based word index instead: `R5#7`. A number plus an offset as a string
+  (`"0.05+0.12"`) is also a bad time; compute the number in Python.
+- **Contact-sheet stills are taken at each shot's midpoint.** A white still can just be a flash event, and a prop "already
+  there" can be mid-move. Check with `--stills t1,t2,...` before changing anything.
+- **Someone facing an object against the back wall shows their back to every camera.** Stage them in profile (`ry ±90`) with
+  a front camera; the engine warns from about 100°. This applies to a nightstand alarm clock, a washing machine, a judge's
+  bench or a dog in the dock. Otherwise turn the subject (`face=10`) for the close-up.
+- **Day and night:**
+  - `daynight: {from, period, once: True}` falls to night and stays there (snooze).
+  - `rise: True` keeps the scene at night until `from`, then brings the day (a sunrise with the `sun` prop moving up).
+  - Exterior sets with a sky dome are tinted too.
+  - For an obvious night after a cut, add a per-camera `grade` (`brightness(0.62) saturate(0.75)`).
+- **Tiny people** (actor `scale` 0.11–0.17):
+  - A low POV next to a big prop sells the size; a close-up makes them look normal again.
+  - A shrink is a `scale` key with `dur`.
+  - Inside the `washingMachine` drum, put the hips at local z 0.36–0.40 in the glass dome. `tumble` spins them; `walk`
+    without a move is a hamster wheel (the engine warns, but here it is wanted).
+- **A flying man.** The `superman` clip lies flat with the face toward the travel direction. Film it with an `ms` track at
+  angle −70 to −80. A `cu` on it showed the top of the head.
+  - The soda jet is a recoloured `beerStream` (`color`, `r`, `flare`) on the hand, with the can held upside down
+    (`rot [π,0,0]`).
+  - A speed camera's `flashAt`, timed to the word, plus a `flash` fx: the actor's constant-speed glide is computed so he
+    passes the radar head on that word.
+- **CCTV footage.** A POV from the camera prop in the far corner, 4 m or more away, lens about 48, `grade` night vision.
+  Close above the subject it only shows an arm.
+- **Visiting room.** Bars seen edge-on fill the frame; use the `interrogation` table, with the inmate in the prisoner outfit.
+- **`stareCamera` is a standing pose.** On an actor sitting on a table it makes him stand up; keep the sitting clip and use
+  the expression only.
+- **New clips:** `superman`, `shakeCan`, `tumble`, `pointSelf` (index finger on the chest: "moi ?").
+- **New props:**
+  - `washingMachine`: `spinAt`/`spinRates` (rad/s), `laundry` + `laundryAt`. It vibrates on fast spins; set `shake: 0` to
+    stop that.
+  - `alarmClock`: `time`/`time2`/`switchAt`/`ringAt`/`stopAt`.
+  - `sun`, `securityCam`, `honeyJar`, `nest` (`layAt` list), `perfume`, `jean`.
+  - `dustPuff` now takes `once` + `startAt`, for a burst on a word.
+- **New presets:** `apiculteur`, `avocat`, `prefet`, `mecPrisonnier`, `mecPyjama`.
