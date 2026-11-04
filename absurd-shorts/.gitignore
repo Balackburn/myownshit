@@ -2,3 +2,6 @@ node_modules/
 out/
 __pycache__/
 assets/music/user/
+
+# props exported to GLB on demand (render/export-models.mjs --props)
+models/props/

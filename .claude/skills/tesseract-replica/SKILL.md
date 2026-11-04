@@ -24,6 +24,12 @@ Store the reference outside git. Commit only the measurements and small contact 
      word timings from faster-whisper `base.en`; if Hugging Face rate-limits, retry after the wait it reports.
    - Check every cut on `cuts_check.jpg`: whips, flashes and cloud wipes are not cuts, and gradual wipes are missed, so look for
      them on the start/middle/end sheets.
+   - Cross-check the cuts with `npx -y hyperframes@latest measure cuts REF.mp4 --json`. It is free, but on the tornado
+     reference it missed 3 fast cuts and flagged 3 in-shot events (a title drop, an explosion flash, a whip crack). Trust
+     neither tool without looking.
+   - Write each shot start as frame ÷ fps rounded down: frame 83 at 30 fps is 2.766666, and 2.767 lands a frame late. Read
+     consecutive frames around every change (cut, entrance, exit, flash): sheets sampled every quarter second miss 1-3 frame
+     timing and one-frame flashes.
    - Fill `shots.json`. Per shot: frames, camera, subjects, set, effects. Per caption group: text, highlighted words, on/off
      times. Write `ANALYSIS.md`. A worked example is in `tesseract/01-tornado-replica/analysis/`.
 2. **Plan the assets.** List each model and say where it comes from:
@@ -51,7 +57,15 @@ Store the reference outside git. Commit only the measurements and small contact 
    - what is still different, and why.
 
    Add every reusable finding to `references/lessons.md`.
-8. **Repeat** from step 4. Stop when the user asks, or when a round improves no shot and the remaining differences are
+8. **Final judge.** At each milestone, export the full video and run `npx -y hyperframes@latest diff REF.mp4 replica.mp4 --sbs`.
+   It runs locally without an account, comes from the `reverse-any-video` skill, and writes an original | yours side-by-side
+   video. It gives:
+   - per-frame SSIM, mean and p05, and the worst 4×4 cell;
+   - missed or extra cuts, missing-content spans, and the worst moments.
+
+   Score each caption box by itself with `--drawn x,y,w,h,a-b`: it reports the offset and the ink ratio, where under 1 means
+   lighter, thinner or smaller. Its pass marks (mean 0.92, p05 0.85, cell 0.75) are the objective "matches" line.
+9. **Repeat** from step 4. Stop when the user asks, or when a round improves no shot and the remaining differences are
    explained as unreachable: codec artefacts, a missing source asset, the narrator's voice, the creator's handle. After the
    visuals, export the full video and run `compare.py --cand` on it, including the audio timing check.
 

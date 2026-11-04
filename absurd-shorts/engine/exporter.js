@@ -9,9 +9,33 @@ const opt = async p => { try { return await import(p); } catch { return null; } 
 
 export const HUMAN_BAKE = ['idle', 'walk', 'run', 'flee', 'handsOnHips', 'oneHandHip', 'point', 'salute', 'wave', 'shrug', 'facepalm', 'phone', 'think', 'armsCrossed', 'talk', 'yell', 'celebrate', 'scared', 'surrender', 'handcuffed', 'pressGlass', 'cry', 'dance', 'sit', 'sitWrite', 'slumpDesk', 'jump', 'startle', 'hangWire', 'lookAround', 'stareCamera', 'lurk', 'climbDown', 'sneak', 'crawl', 'kneel'];
 
+function deInstance(root) { // EXT_mesh_gpu_instancing is not read by every importer (Tesseract): expand instances into plain meshes
+  const inst = []; root.traverse(n => { if (n.isInstancedMesh) inst.push(n); });
+  for (const im of inst) {
+    const g = new THREE.Group(); g.name = im.name; g.position.copy(im.position); g.quaternion.copy(im.quaternion); g.scale.copy(im.scale);
+    const m4 = new THREE.Matrix4();
+    for (let i = 0; i < im.count; i++) {
+      im.getMatrixAt(i, m4); const m = new THREE.Mesh(im.geometry, im.material); m.applyMatrix4(m4);
+      if (im.instanceColor) { const c = new THREE.Color(); im.getColorAt(i, c); m.material = im.material.clone(); m.material.color?.multiply(c); }
+      g.add(m);
+    }
+    const parent = im.parent; parent.add(g); parent.remove(im);
+  }
+}
+
+function clampMaterials(root) { // glTF factors must stay in 0..1 (our engine brightens some textures with colour > 1)
+  const seen = new Set();
+  root.traverse(n => [].concat(n.material || []).forEach(m => {
+    if (seen.has(m)) return; seen.add(m);
+    for (const k of ['color', 'emissive', 'specularColor', 'sheenColor', 'attenuationColor']) if (m[k]?.isColor) { m[k].r = Math.min(1, Math.max(0, m[k].r)); m[k].g = Math.min(1, Math.max(0, m[k].g)); m[k].b = Math.min(1, Math.max(0, m[k].b)); }
+    for (const k of ['metalness', 'roughness', 'opacity', 'transmission', 'clearcoat', 'sheen']) if (typeof m[k] === 'number') m[k] = Math.min(1, Math.max(0, m[k]));
+  }));
+}
+
 function stripForExport(root) {
   const kill = []; root.traverse(n => { if (n.name === 'outline') kill.push(n); });
   kill.forEach(n => n.parent.remove(n));
+  deInstance(root); clampMaterials(root);
   // userData holds rig references + closures; keep only a tiny serialisable spec as glTF extras
   const spec = root.userData.spec ? JSON.parse(JSON.stringify(root.userData.spec)) : undefined;
   root.traverse(n => { n.userData = {}; });
@@ -20,6 +44,7 @@ function stripForExport(root) {
 
 function bakeHuman(h, clips, fps = 30, dur = 2) {
   const J = h.userData.joints; const out = [];
+  for (const [jn, obj] of Object.entries(J)) if (!obj.name) obj.name = jn; // e.g. coatTail: an unnamed joint gives a channel with no target node
   const q = new THREE.Quaternion(), e = new THREE.Euler();
   for (const name of clips) {
     if (!CLIPS[name]) continue;

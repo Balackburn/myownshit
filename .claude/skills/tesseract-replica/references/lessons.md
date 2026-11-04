@@ -14,6 +14,14 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 - (tornado) Hugging Face rate-limits this shared IP (429). Wait for the time it reports and retry once. The `base.en` model is
   enough for clear English narration.
 
+- (tornado) reverse-any-video's matching rules apply to captions too:
+  - size the text from its ink (measure the reference glyph box, then the font size);
+  - take caption switch frames from the caption band's pixels, checked by eye;
+  - captions cut on and off hard.
+
+  Its HyperFrames `reverse start` flow needs a HeyGen sign-in on the Pro plan, and the right to use the video. Its `diff` and
+  `measure` commands work without either.
+
 ## Tesseract
 
 - (setup) Scene3D raster on Mesa lavapipe took 55-75 s per 1080×1920 frame for a trivial scene. Budget renders before
