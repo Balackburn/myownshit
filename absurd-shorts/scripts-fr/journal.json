@@ -44,8 +44,9 @@
    }
   },
   "journaliste": {
-   "preset": "journaliste",
-   "seed": 31
+   "preset": "lemec_glasses",
+   "seed": 31,
+   "suit": "#2E4563"
   },
   "juge": {
    "preset": "judge"

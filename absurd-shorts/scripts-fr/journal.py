@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """LE JOURNAL. Ce mec asks his dog to fetch the newspaper -> the dog fetches the journalist -> it was a kidnapping -> the
 journalist sues -> the dog gets six months suspended -> but ce con pays -> he must walk the journalist twice a day ->
-and pick up her articles. (Classic formula.)"""
+and pick up his articles. (Classic formula.)"""
 from actu_common import *
 
 scenes = []
@@ -55,4 +55,4 @@ scenes.append({
            cam('J8:articles', 'mec', 'cu', angle=0, move='push', amount=0.05)],
   'tail': 1.4,
 })
-write('journal', 'Le journal', scenes, {'chien': {'type': 'creature', 'name': 'dog', 'opts': {'seed': 4}}, 'journaliste': {'preset': 'journaliste', 'seed': 31}, 'juge': {'preset': 'judge'}})
+write('journal', 'Le journal', scenes, {'chien': {'type': 'creature', 'name': 'dog', 'opts': {'seed': 4}}, 'journaliste': {'preset': 'lemec_glasses', 'seed': 31, 'suit': '#2E4563'}, 'juge': {'preset': 'judge'}})
