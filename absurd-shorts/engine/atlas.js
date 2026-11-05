@@ -172,7 +172,7 @@ export function atlasFaceTexture(expression = 'neutral') {
       case 'happy': eye(L, { closed: true, happy: true }); eye(Rr, { closed: true, happy: true }); break;
       case 'dead': eye(L, { x: true }); eye(Rr, { x: true }); break;
       case 'surprised': eye(L, { s: 1.12 }); eye(Rr, { s: 1.35 }); break;
-      case 'shocked': case 'scared': eye(L, { s: 1.2, pupil: [0, 0.15] }); eye(Rr, { s: 1.5, pupil: [0, 0.15] }); break;
+      case 'shocked': case 'scared': eye(L, { s: 1.45, pupil: [0, 0.12] }); eye(Rr, { s: 1.75, pupil: [0, 0.12] }); break;   // wide-eyed (reads at phone size)
       case 'unimpressed': eye(L, { lid: 0.5, pupil: [0, 0.3] }); eye(Rr, { lid: 0.45, pupil: [0, 0.2] }); break;
       case 'suspicious': eye(L, { lid: 0.5, pupil: [0.35, 0.2] }); eye(Rr, { pupil: [0.35, 0] }); break;
       case 'smug': eye(L, { lid: 0.45, pupil: [0.25, 0.3] }); eye(Rr, { lid: 0.35, pupil: [0.25, 0.1] }); break;

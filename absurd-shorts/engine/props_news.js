@@ -2,7 +2,7 @@
 // Conventions as in props.js; small loops of motion built in (pure functions of t).
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
-import { grp, at, mesh, canvasPlane, inst, rod, torus } from './props.js';
+import { grp, at, mesh, canvasPlane, inst, rod, torus, label } from './props.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const keyAt = (list, t) => { let a0 = null; for (const [a, x] of (list || [])) if (t >= a && x) a0 = a; return a0; };
@@ -212,10 +212,11 @@ export const NEWS_PROPS = {
       const lid = mesh(new THREE.SphereGeometry(er * 1.06, 12, 6, 0, TAU, 0, PI / 2), mat(c)); lid.rotation.x = PI / 2; lid.scale.y = 0.01; ball.add(lid); lids.push(lid);
       ball.rotation.y = PI / 2 - sd * 0.14; ball.position.set(0, 0, sd * er * 1.12); eyes.add(ball); });
     eyes.position.set(0.47, 1.0, 0); body.add(eyes);
-    if (o.jersey) { const J = '#F2C94C', jw = 0.46, jh = 0.32, j = grp(at(box(jw, 0.03, 0.13, J, { outline: 0.004 }), 0, 0.02, 0));   // the yellow jersey draped over the top tube, sleeves hanging
-      for (const sz of [-1, 1]) j.add(at(box(jw, jh, 0.02, J, { outline: 0.004 }), 0, -jh / 2 + 0.03, sz * 0.06), at(box(0.13, 0.12, 0.02, J, { outline: 0.004 }), jw / 2 - 0.04, -0.03, sz * 0.1, 0, -sz * 0.55, 0),
-        at(box(jw * 0.9, 0.025, 0.004, '#E0A82E'), 0, -jh + 0.06, sz * 0.071));
-      j.position.set(0.15, 0.86, 0); body.add(j); }
+    if (o.jersey) { const J = '#F2C94C', D = '#E0A82E', j = grp();   // the maillot jaune worn by the bike: body draped over the top tube, sleeves along the handlebars, collar round the stem
+      for (const sz of [-1, 1]) j.add(at(box(0.44, 0.3, 0.02, J, { outline: 0.004 }), 0.13, 0.74, sz * 0.06), at(box(0.44, 0.03, 0.022, D), 0.13, 0.6, sz * 0.062),
+        at(box(0.1, 0.1, 0.2, J, { outline: 0.004 }), 0.38, 1.0, sz * 0.15), at(box(0.105, 0.105, 0.02, D), 0.38, 1.0, sz * 0.255));
+      j.add(at(box(0.46, 0.035, 0.14, J, { outline: 0.004 }), 0.13, 0.885, 0), at(box(0.12, 0.09, 0.14, J, { outline: 0.004 }), 0.36, 0.95, 0), at(torus(0.045, 0.014, D, 6, 14), 0.42, 0.985, 0, PI / 2, 0, 0));
+      body.add(j); }
     if (o.bib) { const b = canvasPlane(0.16, 0.12, (cc, W, Hh) => { cc.fillStyle = '#FFFFFF'; cc.fillRect(0, 0, W, Hh); cc.fillStyle = '#1C1C20'; cc.font = `900 ${Hh * 0.7}px Arial`; cc.textAlign = 'center'; cc.textBaseline = 'middle'; cc.fillText(String(o.bib), W / 2, Hh * 0.55); }, { res: 128 });
       b.position.set(0.0, 0.62, 0.045); body.add(b); const b2 = b.clone(); b2.position.z = -0.045; b2.rotation.y = PI; body.add(b2); }
     if (o.shades) { const ez = er * 1.12, lw = er * 1.85, lh = er * 1.5, sh = grp(at(box(0.016, lh, lw, '#141418'), 0, 0, ez), at(box(0.016, lh, lw, '#141418'), 0, 0, -ez), at(box(0.014, 0.018, ez * 2 - lw + 0.03, '#141418'), 0, lh * 0.3, 0),   // star sunglasses
@@ -236,20 +237,99 @@ export const NEWS_PROPS = {
       const l = canvasPlane(w * 0.5, w * 0.37, (c, W, H) => { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, H); c.fillStyle = '#2F62B5'; c.font = `900 ${H * 0.8}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(n, W / 2, H * 0.55); }, { res: 128 }); l.position.set(x, Math.min(h * 0.5, h - w * 0.25), w / 2 + 0.002); g.add(l); });
     return g;
   },
-  oilCan(o) { // a small oil can with a long spout; drops fall from the tip from o.dripAt
-    const g = grp(at(cyl(0.06, 0.07, 0.12, o.color || '#C8322A', 12, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.035, 0.06, 0.04, '#9AA0A6', 12, { pivot: 'bottom' }), 0, 0.12, 0), rod([0, 0.15, 0], [0.18, 0.3, 0], 0.008, '#9AA0A6'));
-    const drops = [0, 1, 2].map(() => { const d = sphere(0.012, '#3A2A10', 0, { noGrain: true }); d.scale.y = 1.4; g.add(d); return d; });
-    g.userData.update = t => { drops.forEach((d, i) => { const u = o.dripAt == null || t < o.dripAt ? -1 : ((t - o.dripAt) * 1.6 + i / 3) % 1; d.visible = u >= 0; d.position.set(0.18, 0.3 - u * 0.35, 0); }); };
-    g.userData.update(0); return g;
+  oilCan(o) { // a small oil can with a long spout; drops fall from the tip from o.dripAt. o.pour: the can tilted with the spout aiming down-forward, the drops fall straight down
+    // (tip at userData.tip); o.color, o.drop (colour), o.dropR
+    const g = grp(), can = grp(at(cyl(0.06, 0.07, 0.12, o.color || '#C8322A', 12, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.035, 0.06, 0.04, '#9AA0A6', 12, { pivot: 'bottom' }), 0, 0.12, 0));
+    const tip = o.pour ? [0.24, 0.05, 0] : [0.18, 0.3, 0]; if (o.pour) { can.rotation.z = -0.5; can.position.set(-0.04, 0.02, 0); } g.add(can, rod(o.pour ? [0.07, 0.17, 0] : [0, 0.15, 0], tip, 0.008, '#9AA0A6'));
+    const dr = o.dropR || 0.012, drops = [0, 1, 2].map(() => { const d = sphere(dr, o.drop || '#3A2A10', 0, { noGrain: true }); d.scale.y = 1.4; if (o.pour) d.add(at(sphere(dr * 0.35, '#FFF6D0', 0, { noGrain: true }), -dr * 0.35, dr * 0.35, dr * 0.6)); g.add(d); return d; });
+    const fall = o.fall || 0.35;
+    g.userData.update = t => { drops.forEach((d, i) => { const u = o.dripAt == null || t < o.dripAt ? -1 : ((t - o.dripAt) * 1.6 + i / 3) % 1; d.visible = u >= 0; d.position.set(tip[0], tip[1] - 0.01 - u * fall, 0); }); };
+    g.userData.tip = tip; g.userData.update(0); return g;
   },
   innerTube(o) { return grp(at(torus(o.r || 0.25, 0.03, '#1C1C20', 6, 22), 0, 0, 0)); },
+  petRock(o) { // "Le caillou": Gérard, a pet rock (about 0.4 m) with googly eyes that look around and blink; o.look / o.lookKeys [[t, up, side]], o.brows 'smug'|'angry',
+    // o.cap 'grad' (mortarboard) | 'guard' (security cap), o.sash (tricolour mayor's sash), o.medal, o.eyes false (a plain stone: the statue), o.color, o.seed. Grow it with scale keys.
+    const r = 0.2, col = o.color || '#9C9A94', g = grp(), body = new THREE.Mesh(grainGeo(r, o.seed || 11, 1), mat(col, { noGrain: true })); body.castShadow = body.receiveShadow = true; g.add(body);
+    body.geometry.computeBoundingBox(); const bb = body.geometry.boundingBox, H = bb.max.y, F = bb.max.z, Wd = bb.max.x;
+    const spots = []; const R = rng((o.seed || 11) + 5); for (let i = 0; i < 7; i++) { const sp = mesh(new THREE.CircleGeometry(r * (0.06 + R() * 0.07), 6), mat(i % 2 ? '#86847E' : '#B2B0A9', { noGrain: true }));
+      const a = R() * TAU, yy = H * (0.15 + R() * 0.55); sp.position.set(Math.cos(a) * Wd * 0.98, yy, Math.sin(a) * F * 0.98); sp.lookAt(sp.position.x * 2, yy, sp.position.z * 2); g.add(sp); spots.push(sp); }
+    const lids = [], pupils = [], er = r * 0.34;
+    if (o.eyes !== false) [-1, 1].forEach(sd => { const ball = sphere(er, '#FFFFFF', 1, { noGrain: true }); ball.scale.z = 0.8; const pu = sphere(er * 0.46, '#1C1C20', 0, { noGrain: true }); pu.position.set(0, 0, er * 0.7); ball.add(pu); pupils.push(pu);
+      const lid = mesh(new THREE.SphereGeometry(er * 1.06, 12, 6, 0, TAU, 0, PI / 2), mat(col)); lid.rotation.x = PI / 2; lid.scale.y = 0.01; ball.add(lid); lids.push(lid);
+      ball.rotation.y = sd * 0.16; ball.position.set(sd * er * 1.08, H * 0.62, F * 0.9); g.add(ball);
+      if (o.brows) { const b = box(er * 1.3, er * 0.28, er * 0.3, '#3A3A3E'); b.position.set(sd * er * 1.08, H * 0.62 + er * 1.15, F * 0.95); b.rotation.z = (o.brows === 'angry' ? -1 : 1) * sd * 0.35; g.add(b); } });
+    if (o.cap === 'grad') { const c = grp(at(box(r * 1.0, r * 0.28, r * 1.0, '#1C1C22'), 0, r * 0.12, 0), at(box(r * 1.7, r * 0.06, r * 1.7, '#1C1C22', { outline: 0.004 }), 0, r * 0.29, 0, 0, PI / 4, 0), rod([r * 0.6, r * 0.32, r * 0.6], [r * 0.72, -r * 0.1, r * 0.72], 0.006, '#E8B830'));
+      c.position.y = H * 0.92; g.add(c); }
+    if (o.cap === 'guard') { const c = grp(at(box(r * 1.15, r * 0.4, r * 1.1, '#1E2D4A', { taper: 1.1, outline: 0.004 }), 0, r * 0.2, 0), at(box(r * 1.0, r * 0.05, r * 0.45, '#111318'), 0, r * 0.03, r * 0.65, 0.25, 0, 0),
+        at(label('SÉCURITÉ', r * 1.05, r * 0.16, { bg: '#F2C94C', fg: '#1C1C20', wrap: false }), 0, r * 0.22, r * 0.56)); c.position.y = H * 0.9; c.rotation.x = -0.12; g.add(c); }
+    if (o.sash) { const sg = grp(); ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => sg.add(at(box(r * 0.14, H * 1.25, r * 0.03, c), (i - 1) * r * 0.14, 0, 0))); sg.rotation.z = -0.75; sg.position.set(0, H * 0.42, F * 0.99); g.add(sg); }
+    if (o.medal) { const m = grp(rod([-r * 0.3, H * 0.42, F * 0.95], [0, H * 0.18, F + 0.01], 0.006, '#2F62B5'), rod([r * 0.3, H * 0.42, F * 0.95], [0, H * 0.18, F + 0.01], 0.006, '#E0413A'), at(cyl(r * 0.2, r * 0.2, 0.012, '#E8B830', 16), 0, H * 0.14, F + 0.02, PI / 2)); g.add(m); }
+    const blink = rng(o.seed || 11)() * 3;
+    g.userData.update = t => { const K = o.lookKeys; let lk = o.look || [0, 0];
+      if (K) { lk = K[K.length - 1].slice(1); if (t <= K[0][0]) lk = K[0].slice(1); else for (let i = 1; i < K.length; i++) if (t < K[i][0]) { let u = (t - K[i - 1][0]) / (K[i][0] - K[i - 1][0]); u = u * u * (3 - 2 * u); lk = [K[i - 1][1] + (K[i][1] - K[i - 1][1]) * u, K[i - 1][2] + (K[i][2] - K[i - 1][2]) * u]; break; } }
+      pupils.forEach(pu => { pu.position.x = lk[1] * er * 0.38; pu.position.y = er * 0.1 * Math.sin(t * 0.8) + lk[0] * er * 0.38; });
+      const bl = ((t + blink) % 3.4) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); g.rotation.z = (o.wobble ?? 0) * Math.sin(t * 9); };
+    g.userData.update(0); return g; },
+  doghouse(o) { // a wooden dog kennel facing +z: plank walls, red gable roof, dark arched doorway (an actor at y 0 inside shows his head out); o.text plaque over the door
+    const w = o.w || 1.1, d = o.d || 1.3, h = o.h || 0.85, c = o.color || '#C9955A', g = grp();
+    g.add(at(box(w, h, 0.05, c, { pivot: 'bottom', outline: 0.006 }), 0, 0, -d / 2), at(box(0.05, h, d, c, { pivot: 'bottom', outline: 0.006 }), -w / 2, 0, 0), at(box(0.05, h, d, c, { pivot: 'bottom', outline: 0.006 }), w / 2, 0, 0));
+    const ow = w * 0.56, oh = h * 0.8; g.add(at(box((w - ow) / 2, h, 0.05, c, { pivot: 'bottom', outline: 0.006 }), -(w + ow) / 4, 0, d / 2), at(box((w - ow) / 2, h, 0.05, c, { pivot: 'bottom', outline: 0.006 }), (w + ow) / 4, 0, d / 2), at(box(ow, h - oh, 0.05, c, { pivot: 'bottom' }), 0, oh, d / 2));
+    for (let i = 1; i < 5; i++) for (const x of [-w / 2 - 0.028, w / 2 + 0.028]) g.add(at(box(0.004, 0.01, d, '#9C6E3E'), x, h * i / 5, 0));
+    const tri = new THREE.Shape([new THREE.Vector2(-w / 2 - 0.02, 0), new THREE.Vector2(w / 2 + 0.02, 0), new THREE.Vector2(0, h * 0.55)]);
+    for (const z of [-d / 2, d / 2]) { const gm = mesh(new THREE.ExtrudeGeometry(tri, { depth: 0.05, bevelEnabled: false }), mat(c)); gm.position.set(0, h, z - 0.025); g.add(gm); }
+    const sl = Math.hypot(w / 2 + 0.12, h * 0.55) + 0.05, ang = Math.atan2(h * 0.55, w / 2 + 0.12);
+    for (const sd of [-1, 1]) g.add(at(box(sl, 0.06, d + 0.24, o.roof || '#B5302A', { outline: 0.006 }), sd * (w / 4 + 0.03), h + h * 0.275 + 0.02, 0, 0, 0, -sd * ang));
+    if (o.text) g.add(at(label(o.text, ow * 0.95, 0.12, { bg: '#F4EBD6', fg: '#3A2A1A', wrap: false }), 0, oh + (h - oh) / 2, d / 2 + 0.03));
+    return g; },
+  collar(o) { // a red dog collar with a gold round tag (o.text) - attach to the torso joint at the neck, offset up
+    const g = grp(at(torus(o.r || 0.085, 0.018, o.color || '#C8322A', 6, 18), 0, 0, 0, PI / 2, 0, 0)), tg = grp(rod([0, 0, 0], [0, -0.05, 0], 0.004, '#B9BDC2'));
+    const disc = at(cyl(0.05, 0.05, 0.01, '#E8B830', 18, { outline: 0.003 }), 0, -0.1, 0, PI / 2, 0, 0); tg.add(disc);
+    const tx = canvasPlane(0.088, 0.04, (c, W, H) => { c.fillStyle = '#E8B830'; c.fillRect(0, 0, W, H); c.fillStyle = '#2A2010'; let fs = H * 0.78; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || 'MÉDOR').width; if (tw > W * 0.94) fs *= W * 0.94 / tw;
+      c.font = `900 ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'MÉDOR', W / 2, H * 0.55); }, { res: 256 }); tx.position.set(0, -0.1, 0.0065); tg.add(tx);
+    tg.position.set(0, -0.01, (o.r || 0.085) + 0.015); g.add(tg); g.userData.update = t => { tg.rotation.x = 0.06 * Math.sin(t * 3.3); }; return g; },
+  pedestal(o) { // a stone plinth (o.h) with a bronze plaque (o.text) on its front
+    const h = o.h || 1.0, w = o.w || 0.8, g = grp(at(box(w + 0.16, 0.12, w + 0.16, '#BDB6A8', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(w, h - 0.24, w, '#D8D1C2', { pivot: 'bottom', outline: 0.006 }), 0, 0.12, 0),
+      at(box(w + 0.12, 0.12, w + 0.12, '#BDB6A8', { pivot: 'bottom', outline: 0.006 }), 0, h - 0.12, 0));
+    if (o.text) g.add(at(label(o.text, w * 0.8, 0.16, { bg: '#9A7A3A', fg: '#F6E7B8', wrap: false }), 0, h * 0.55, w / 2 + 0.006)); return g; },
+  rockPoster(o) { // an election poster on a stand: a drawn rock with googly eyes, "VOTEZ" / o.name; o.popAt
+    const w = o.w || 0.9, h = w * 1.35, pl = canvasPlane(w, h, (c, W, Hh) => { c.fillStyle = '#2F62B5'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#F4F4F0'; c.fillRect(W * 0.06, Hh * 0.2, W * 0.88, Hh * 0.58);
+      c.fillStyle = '#9C9A94'; c.beginPath(); [[0.2, 0.68], [0.26, 0.42], [0.42, 0.33], [0.62, 0.34], [0.78, 0.45], [0.82, 0.68]].forEach(([x, y], i) => i ? c.lineTo(x * W, y * Hh) : c.moveTo(x * W, y * Hh)); c.closePath(); c.fill();
+      c.strokeStyle = '#6E6C66'; c.lineWidth = W * 0.012; c.stroke();
+      for (const x of [0.43, 0.59]) { c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(x * W, Hh * 0.47, W * 0.07, 0, TAU); c.fill(); c.fillStyle = '#1C1C20'; c.beginPath(); c.arc(x * W + W * 0.015, Hh * 0.48, W * 0.032, 0, TAU); c.fill(); }
+      c.fillStyle = '#F4F4F0'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Hh * 0.11}px Arial`; c.fillText('VOTEZ', W / 2, Hh * 0.11);
+      let fs = Hh * 0.12; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.name || 'GÉRARD').width; if (tw > W * 0.9) fs *= W * 0.9 / tw; c.font = `900 ${fs}px Arial`; c.fillStyle = '#F2C94C'; c.fillText(o.name || 'GÉRARD', W / 2, Hh * 0.89); }, { res: 512 });
+    const g = grp(), board = grp(at(box(w + 0.06, h + 0.06, 0.04, '#E8E1D0', { outline: 0.005 }), 0, 0, -0.025), pl); board.position.y = (o.lift ?? 0.55) + h / 2; g.add(board);
+    for (const x of [-w * 0.35, w * 0.35]) g.add(rod([x, 0, -0.05], [x, (o.lift ?? 0.55) + 0.1, -0.05], 0.025, '#6B4A2E'));
+    if (o.popAt != null) g.userData.update = t => { board.scale.setScalar(Math.max(0.001, ease.outBack(clamp01((t - o.popAt) / 0.3)))); };
+    if (g.userData.update) g.userData.update(0); return g; },
+  resultsBoard(o) { // election night: "RÉSULTATS" board, o.name with a bar filling to 100 % from o.fillAt, "AUTRES 0 %"
+    const w = o.w || 1.4, h = o.h || 0.9, g = grp(at(box(w + 0.08, h + 0.08, 0.05, '#1C252A', { outline: 0.006 }), 0, 0, -0.03));
+    const head = canvasPlane(w, h, (c, W, Hh) => { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#1C252A'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = `900 ${Hh * 0.14}px Arial`; c.fillText('RÉSULTATS', W * 0.06, Hh * 0.13);
+      c.font = `800 ${Hh * 0.11}px Arial`; c.fillText(o.name || 'GÉRARD', W * 0.06, Hh * 0.36); c.fillText('AUTRES', W * 0.06, Hh * 0.72); c.textAlign = 'right'; c.fillText('0 %', W * 0.94, Hh * 0.88);
+      c.fillStyle = '#D9D5CB'; c.fillRect(W * 0.06, Hh * 0.45, W * 0.88, Hh * 0.13); c.fillRect(W * 0.06, Hh * 0.8, W * 0.62, Hh * 0.13); }, { res: 512 }); g.add(head);
+    const bar = at(box(w * 0.88, h * 0.13, 0.012, '#2F62B5'), 0, 0, 0.008); const pct = canvasPlane(w * 0.3, h * 0.13, (c, W, Hh) => { c.fillStyle = '#2F62B5'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#FFFFFF'; c.font = `900 ${Hh * 0.8}px Arial`; c.textAlign = 'right'; c.textBaseline = 'middle'; c.fillText('100 %', W * 0.95, Hh * 0.55); }, { res: 256 });
+    const bg = grp(bar); g.add(bg); pct.position.set(w * 0.29, h * (0.5 - 0.515), 0.016); g.add(pct);
+    g.userData.update = t => { const k = o.fillAt == null ? 1 : ease.outCubic ? ease.outCubic(clamp01((t - o.fillAt) / 0.6)) : clamp01((t - o.fillAt) / 0.6); bar.scale.x = Math.max(0.001, k); bar.position.set(-w * 0.44 * (1 - k), h * (0.5 - 0.515), 0.008); pct.visible = k > 0.95; };
+    g.userData.update(0); return g; },
+  trophy(o) { // a gold cup on a black base (o.text plate)
+    const G = '#E8B830', g = grp(at(box(0.16, 0.08, 0.16, '#1C1C20', { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.025, 0.04, 0.1, G, 10, { pivot: 'bottom' }), 0, 0.08, 0), at(cyl(0.1, 0.05, 0.16, G, 12, { pivot: 'bottom', outline: 0.004 }), 0, 0.18, 0));
+    for (const sd of [-1, 1]) g.add(at(torus(0.045, 0.01, G, 4, 10), sd * 0.105, 0.28, 0, 0, 0, 0)); return g; },
   cutChain(o) { // a cut bike chain hanging from the grip (hold it with HAND_FLAT), an open padlock at its end; it swings a little
     const g = grp(), L = o.color || '#6A6E74', n = o.n || 8, sw = grp(); g.add(sw);
     for (let i = 0; i < n; i++) { const lk = torus(0.032, 0.01, L, 4, 8); lk.position.set(0, -0.02 - i * 0.055, 0); lk.rotation.y = i % 2 ? PI / 2 : 0; sw.add(lk); }
     const lock = grp(at(box(0.1, 0.11, 0.045, '#D4A82A', { outline: 0.005 }), 0, -0.055, 0), at(torus(0.035, 0.009, '#C9CCD1', 4, 10), 0.035, 0.03, 0, 0, 0, 0.8), at(box(0.02, 0.03, 0.002, '#1C1C20'), 0, -0.06, 0.024));
     lock.position.set(0, -0.02 - n * 0.055, 0); sw.add(lock);
-    g.userData.update = t => { sw.rotation.z = 0.1 * Math.sin(t * 3.1); sw.rotation.x = 0.06 * Math.sin(t * 2.3 + 1); };
+    const qw = new THREE.Quaternion(), qs = new THREE.Quaternion(), eu = new THREE.Euler();
+    g.userData.update = t => { eu.set(0.06 * Math.sin(t * 2.3 + 1), 0, 0.1 * Math.sin(t * 3.1)); qs.setFromEuler(eu);   // hang in world space: undo the hand's rotation
+      if (g.parent) { g.updateWorldMatrix(true, false); g.getWorldQuaternion(qw); qw.invert(); sw.quaternion.copy(qw).multiply(qs); } else sw.quaternion.copy(qs); };
     g.userData.update(0); return g; },
+  bikeSign(o) { // the blue "bike parking" sign on a pole: white bicycle pictogram (o.h pole height)
+    const h = o.h || 2.3, s = 0.5, g = grp(rod([0, 0, 0], [0, h, 0], 0.03, '#9AA0A6')), pl = canvasPlane(s, s, (c, W, H) => { c.fillStyle = '#2F62B5'; c.fillRect(0, 0, W, H); c.strokeStyle = '#FFFFFF'; c.lineWidth = W * 0.035;
+      c.strokeRect(W * 0.04, H * 0.04, W * 0.92, H * 0.92); c.lineWidth = W * 0.045; c.lineCap = 'round'; c.lineJoin = 'round'; const wr = W * 0.16, y = H * 0.66;
+      c.beginPath(); c.arc(W * 0.27, y, wr, 0, TAU); c.moveTo(W * 0.73 + wr, y); c.arc(W * 0.73, y, wr, 0, TAU); c.stroke();
+      c.beginPath(); c.moveTo(W * 0.27, y); c.lineTo(W * 0.45, y); c.lineTo(W * 0.62, H * 0.42); c.lineTo(W * 0.38, H * 0.42); c.lineTo(W * 0.27, y); c.moveTo(W * 0.45, y); c.lineTo(W * 0.36, H * 0.34);
+      c.moveTo(W * 0.3, H * 0.34); c.lineTo(W * 0.42, H * 0.34); c.moveTo(W * 0.73, y); c.lineTo(W * 0.62, H * 0.3); c.lineTo(W * 0.68, H * 0.27); c.stroke(); }, { res: 256 });
+    const back = at(box(s + 0.02, s + 0.02, 0.02, '#C9CCD1'), 0, h - s / 2, -0.012); pl.position.set(0, h - s / 2, 0.001); g.add(back, pl); return g; },
   bikeRack(o) { // a steel hoop bike rack (inverted U along x), empty; o.n hoops 0.8 m apart
     const g = grp(), R = '#A4AAB0', w = 0.62, h = 0.82, n = o.n || 1;
     for (let k = 0; k < n; k++) { const x0 = (k - (n - 1) / 2) * 0.8;
@@ -267,7 +347,7 @@ export const NEWS_PROPS = {
     const g = grp(at(box(0.16, 0.11, 0.075, '#1C1C20', { outline: 0.004 }), 0, 0, 0), at(cyl(0.045, 0.045, 0.11, '#2A2A2E', 10), 0, 0, 0.09, PI / 2), at(cyl(0.036, 0.036, 0.006, '#7FA6CC', 10), 0, 0, 0.147, PI / 2),
       at(box(0.07, 0.06, 0.06, '#1C1C20'), 0, 0.09, 0.0));
     const fl = mesh(new THREE.PlaneGeometry(0.06, 0.04), new THREE.MeshBasicMaterial({ color: '#C9CCD1' })); fl.position.set(0, 0.095, 0.031); g.add(fl);
-    const burst = mesh(new THREE.CircleGeometry(0.22, 14), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.9, depthWrite: false, side: THREE.DoubleSide })); burst.position.set(0, 0.095, 0.05); g.add(burst);
+    const burst = mesh(new THREE.CircleGeometry(o.burst || 0.22, 14), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.9, depthWrite: false, side: THREE.DoubleSide })); burst.position.set(0, 0.095, 0.05); g.add(burst);
     const fa = [].concat(o.flashAt ?? []); g.userData.update = t => { const on = fa.some(a => t >= a && t < a + 0.09); burst.visible = on; fl.material.color.set(on ? '#FFFFFF' : '#C9CCD1'); };
     g.userData.update(0); return g; },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
