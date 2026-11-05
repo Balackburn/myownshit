@@ -115,3 +115,8 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   matched, so the fix was a skin tint on the cast (the engine multiplies the painted head), not a grade that would shift the whole shot.
 - (tornado) Missing-content spans (from `hyperframes diff`) are the best pass planner: each span pointed at one structural miss (S3
   framing, S14 road, S20 framing, S18 sky). Fixing those took the share from 17.9% to 3.4% in six passes while mean SSIM moved little.
+- (tornado) **Measure camera tilt per frame, and check the sign.** In S7 I read the horizon off a thumbnail, got it wrong, then tilted
+  the camera the wrong way. Detecting the lowest sky row per frame gave the real curve (523 → 543 px, then a whip to all-sky by f240) and
+  showed the camera had to look *up* 1.1°, then whip up fast; a single linear tilt could never fit it.
+- (tornado) Soft, out-of-focus foreground (grass in front of a close subject) is cheap to fake: wider blades, lighter colour,
+  opacity ~0.55 with depthWrite off. It raised S22 by 0.013 where crisp thin blades had lowered it.

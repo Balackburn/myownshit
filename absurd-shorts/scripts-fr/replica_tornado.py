@@ -362,7 +362,7 @@ TORS18 = {**TORG, 'cols': ['#7E8A80', '#86928A', '#76827A', '#8E9A92'], 'stripe'
           'crownFlare': 1.15, 'crater': {'r0': 1.0, 'r1': 2.8, 'y': 7.25, 'dish': 0.12, 'bands': [[1.6, 1.8], [2.05, 2.25]], 'rocksIn': 10, 'rockIn': 0.26, 'rocksOut': 18,
           'rockOut': 0.17, 'color': '#7E8A82', 'rockColor': '#8A968E'}}   # the turbine stands in the crater crown: a drum, smooth light body, thin tan spirals
 scenes.append(scene(18, 'S18', 'grassland', props=[
-    P('turbine', 'windTurbine', pos=[0, 0, -60], opts={'h': 60, 'rpm': 34, 'blur': 1.4, 'blurSpread': 0.7, 'label': HANDLE}),
+    P('turbine', 'windTurbine', pos=[1.2, 0, -20], opts={'h': 31, 'rpm': 34, 'blur': 1.4, 'blurSpread': 0.7, 'label': HANDLE}),   # planted in the crater, left of its centre: hub at y ~267
     P('tornado', 'tornado', pos=[3.1, 2.0, -20], scale=2.0, opts=TORS18),         # crown 30 m out, ~70% of the width, rim at y ~790 like the original
     P('cuffs', 'bigCuffs', pos=[1.1, 16.1, -15.4], opts={'r': 0.75}),
     P('clouds', 'cloudCurtain', camLock=True, pos=[0, -10.1, -50], opts={'down': True, 'w': 34, 'h': 16, 'r': 1.9, 'seed': 18, 'bright': '#FBFAF6', 'shadow': '#C6D6E6',

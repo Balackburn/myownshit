@@ -7994,12 +7994,12 @@
      "id": "turbine",
      "name": "windTurbine",
      "pos": [
+      1.2,
       0,
-      0,
-      -60
+      -20
      ],
      "opts": {
-      "h": 60,
+      "h": 31,
       "rpm": 34,
       "blur": 1.4,
       "blurSpread": 0.7,

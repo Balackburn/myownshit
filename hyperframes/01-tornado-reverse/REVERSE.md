@@ -58,6 +58,7 @@ not have, so this project is built by hand to the same rules.
 | 27 | 0.683 | 0.480 | S5 nozzle seen from behind-left with a glowing mouth; S9 jet shows its top, missiles leave at its speed and dive ahead; S17 restaged from the measured rows (camera up 23°, tall narrow tornado, turbine just behind, cuffs outside the body); dense double crown ring |
 | 28 | 0.683 | 0.480 | S17 tornado with thin pale stripes on every ring and a lighter body (no lean: the original stands nearly straight) |
 | 29 | 0.685 | 0.480 | S22 soft out-of-focus foreground grass (+0.013); S4 round open eyes (neutral face); smaller nozzle glows on the aerial jet |
+| 30 | 0.685 | 0.480 | S7: jet wings level, banking as it passes over; camera holds the measured horizon (523 → 543 px), then whips up to all-sky by f240 |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20
