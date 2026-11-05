@@ -307,7 +307,7 @@ scenes.append(scene(12, 'S12', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[7, 0, -178], scale=5.0, opts={**TOR, 'chips': 30})]
     + [P(f'b{i + 1}', 'fireball', pos=pos, opts={'t0': t0, 'size': sz, 'seed': sd, **BLAST12}) for i, (pos, t0, sz, sd) in enumerate(B12)]
     + [P('msl', 'missileSalvo', opts={'size': 2.2, 'shots': [{'from': MSL12[i], 'to': B12[i][0], 't0': round(B12[i][1] - 0.27, 2), 'dur': 0.27, 'trail': 0.6} for i in range(4)]})],
-    cams=[cam(0.0, [0, 27, 38.8], [0.4, 27, 37.3], [0, 3.15, -41.2], [2.6, 3.15, -42.7], lens=48)], setOpts={'rows': 8, 'eaves': True, 'pitch': 7.6, 'overhang': 0.3,
+    cams=[cam(0.0, [0, 27, 38.8], [0.4, 27, 37.3], [0, 3.15, -41.2], [2.6, 3.15, -42.7], lens=48)], setOpts={'rows': 8, 'eaves': True, 'pitch': 8.6, 'overhang': 0.3, 'houseScale': 1.12,   # bigger detached houses on wider lots (A/B +0.008)
         'roofs': ['#7A4E3E', '#3F4E6B', '#A0473A', '#6B3B32', '#5A6577', '#8C4A3A'], 'walls': ['#F3E3C3', '#EFC9C9', '#BFDDB4', '#F2D58A', '#F2BCA2', '#CBDDF0', '#F4F2EC', '#E3D0EA']}))
 
 # S13 16.10-17.63: "All of it.": the same streets in ruins, dark grade, a forest of smoke columns and fires, the tornado far behind
@@ -338,7 +338,7 @@ scenes.append(scene(14, 'S14', 'ruinedStreet', props=[
 HANDLE = '@outofthisworld_9'
 TORC = {**TOR, 'cols': ['#7C8A82', '#8C9A92', '#6E7C74', '#96A49C'], 'paleColor': '#E2DCCB', 'stripe': '#E4DECF'}      # lit by the courtroom
 TORS = {**TOR, 'cols': ['#5E6962', '#646F68', '#5A655E', '#68736C'], 'pale': 2, 'paleColor': '#C2C5B9', 'bands': False, 'chips': 40}          # S17/S18: strong light/dark stripes
-TORG = {**TORS, 'cols': ['#555F59', '#5A645E', '#525C56', '#5E6862'], 'pale': None, 'bands': False, 'gap': 0.03, 'ribbons': 4, 'ribbonFollow': True, 'ribbonGap': 1.03,
+TORG = {**TORS, 'cols': ['#68736B', '#6E7970', '#646F67', '#727D75'], 'pale': None, 'bands': False, 'gap': 0.03, 'ribbons': 4, 'ribbonFollow': True, 'ribbonGap': 1.03,
         'ribbonY0': 0.16, 'ribbonDY': 0.64, 'ribbonH': 7.5, 'ribbonArc': 4.8, 'ribbonTilt': 0.62, 'ribbonColor': '#CEC4A8', 'ribbonSpeed': 3,
         'stripe': '#4E5852', 'stripeDark': '#4A544E'}   # S19-S21: dark body, thin pale spiral bands
 

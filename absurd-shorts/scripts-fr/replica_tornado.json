@@ -3446,8 +3446,9 @@
    "setOpts": {
     "rows": 8,
     "eaves": true,
-    "pitch": 7.6,
+    "pitch": 8.6,
     "overhang": 0.3,
+    "houseScale": 1.12,
     "roofs": [
      "#7A4E3E",
      "#3F4E6B",
@@ -8392,10 +8393,10 @@
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#555F59",
-       "#5A645E",
-       "#525C56",
-       "#5E6862"
+       "#68736B",
+       "#6E7970",
+       "#646F67",
+       "#727D75"
       ],
       "paleColor": "#C2C5B9",
       "stripe": "#4E5852",
@@ -8738,10 +8739,10 @@
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#555F59",
-       "#5A645E",
-       "#525C56",
-       "#5E6862"
+       "#68736B",
+       "#6E7970",
+       "#646F67",
+       "#727D75"
       ],
       "paleColor": "#C2C5B9",
       "stripe": "#4E5852",
@@ -8951,10 +8952,10 @@
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#555F59",
-       "#5A645E",
-       "#525C56",
-       "#5E6862"
+       "#68736B",
+       "#6E7970",
+       "#646F67",
+       "#727D75"
       ],
       "paleColor": "#C2C5B9",
       "stripe": "#4E5852",
