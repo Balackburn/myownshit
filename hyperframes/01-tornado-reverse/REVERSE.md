@@ -77,6 +77,7 @@ not have, so this project is built by hand to the same rules.
 | 46 | 0.699 | 0.510 | Sweep trims on the field shots: S21 camera at 0.8× the distance, panned 2° (0.735 → 0.767), S19 at 0.8× (0.737 → 0.753), S17 panned and tilted 1.5° (0.715 → 0.719). Sweeps found nothing to gain on the solved cameras (S11, S13, S14, S18) |
 | 47 | 0.699 | 0.510 | S2 camera 1.2× farther from the spinning dog (sweep: 0.806 → 0.813). S4 sweeps flat |
 | 48 | 0.699 | 0.510 | Void: the shared JSON was rewritten for the previous commit while this render was starting, so it re-rendered pass 47. Renders now read a snapshot (`replica_render.json`) |
+| 49 | 0.701 | 0.510 | Second sweep round: S15 camera 1.1× farther (0.637 → 0.657), S3 panned 3° and tilted 1.5° (0.708 → 0.725), S1 1.16× farther and tilted 1.5° (0.709 → 0.716), S5 and S6 tilted 2° down, S16 panned 1.5°. The S5 tilt and the S16 pan left areas empty that the original fills (missing content 11%), so pass 50 reverts them |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20

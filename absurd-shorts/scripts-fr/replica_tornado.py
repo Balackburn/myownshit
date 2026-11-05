@@ -68,7 +68,7 @@ scenes.append(scene(1, 'S1', 'replicaStreet', setOpts={'near': 'cottage', 'z0': 
                k(1.24, to=[-0.85, 1.0, WALK1 + 0.6], dur=0.07, ease='out'),
                k(1.31, to=[-8.5, 7.0, 26.0], dur=0.2, ease='linear')]),
            P('tornado', 'tornado', pos=[-8.5, 0, 28], scale=1.9, opts=TOR)],
-    cams=s1cams, blur=[[1.26, 1.5, 0.015]],   # the original's orbit (f12-f28) is crisp: no shutter there; a short one on the throw
+    cams=s1cams, camDolly=1.16, camTilt=1.5, blur=[[1.26, 1.5, 0.015]],   # the original's orbit (f12-f28) is crisp: no shutter there; a short one on the throw. Trims from a sweep (+0.008)
     tethers=[{'a': {'actor': 'mec', 'hand': 'L', 'offset': [0, -0.06, 0]}, 'b': {'prop': 'dog', 'offset': [0, 0.55, 0.28]}, 'color': '#C8322A', 'radius': 0.011, 'sag': 0.18, 'until': 1.3}]))
 
 # S2 1.90-3.43: close tracking shot of the dog spinning in the tornado wall, mouth open
@@ -81,7 +81,7 @@ scenes.append(scene(2, 'S2', 'replicaStreet',
 # S3 3.43-4.50: close 3/4 shot from chest height on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
 scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
     actors=[act('mec', [-1.2, 0, 0], -8, 'explainLook', 'neutral', params={'yaw': 1.0})],   # chest 3/4 toward screen-left (hands clear of the lens), face to the camera
-    cams=[cam(0.0, [-0.211, 0.912, 0.6], [-0.181, 0.922, 0.58], [-2.056, 2.027, -0.378], [-2.026, 2.047, -0.388], lens=74, shake=0.003)]))   # head 225 px tall, centred x ~350 (grid reads of f120)
+    cams=[cam(0.0, [-0.211, 0.912, 0.6], [-0.181, 0.922, 0.58], [-2.056, 2.027, -0.378], [-2.026, 2.047, -0.388], lens=74, shake=0.003)], camPan=3, camTilt=1.5))   # sweep trims +0.018   # head 225 px tall, centred x ~350 (grid reads of f120)
 
 # S4 4.50-6.53: selfie close-up on the far sidewalk (0.84 m from his face, camera just above eye level, nearly level, wide lens): the road on
 # the right, the townhouses beyond the fence on the left, the tornado ~60 m down the road behind his head; at f151 he brings up the phone beside his face,
@@ -99,12 +99,12 @@ scenes.append(scene(4, 'S4', 'replicaStreet',
 # S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
 # blasting frame-left over the runway, the tail fins above
 scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 2.4, 'glow': 3.9, 'glowColor': '#FFE6B0', 'hotCore': True, 'gear': True})],
-    cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.008))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us (the original is 4x sharper than a 0.02 s shutter)
+    cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.008, camTilt=-2))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us (the original is 4x sharper than a 0.02 s shutter); tilted 2 deg down (sweep +0.006)
 
 # S6 7.03-7.63: fast dolly above the jet's left side from the wing and its roundel (U.S. AIR FORCE on the fuselage) to the canopy and the
 # nose wheel, the runway beyond (motion blur)
 scenes.append(scene(6, 'S6', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.0, 'glow': 4, 'gear': True})],
-    cams=[cam(0.0, [-9.5, 8.5, -7.5], [-6.0, 3.4, 4.5], [-1.6, 1.5, -1.8], [-0.4, 0.8, 5.6], lens=50, ease='inOut', shake=0.02)], blur=0.005))   # the original's dolly is 3x sharper than a 0.012 s shutter
+    cams=[cam(0.0, [-9.5, 8.5, -7.5], [-6.0, 3.4, 4.5], [-1.6, 1.5, -1.8], [-0.4, 0.8, 5.6], lens=50, ease='inOut', shake=0.02)], blur=0.005, camTilt=-2))   # the original's dolly is 3x sharper than a 0.012 s shutter; tilted 2 deg down (sweep +0.005)
 
 # S7 7.63-8.10: wide runway, the jet lifts off far away (dust behind it) and roars over the camera banking up-right (whip, motion blur)
 scenes.append(scene(7, 'S7', 'runway',
@@ -348,7 +348,7 @@ scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
     props=[P('dock', 'dock', pos=[0, 0, 0], opts={'w': 7.5, 'd': 6.5, 'h': 1.5}),
            P('tornado', 'tornado', pos=[-0.7, 0.43, 0], rot=[0, 0, 0.13], scale=1.08, opts={**TORC, 'cols': ['#AAB8B0', '#B8C5BE', '#9EACA4', '#C2CFC8'], 'chips': 36, 'spin': 0.27}),   # crown at the frame top, base y ~840
            P('cuffs', 'bigCuffs', pos=[-0.9, 6.0, 3.4], opts={'r': 0.95})],
-    cams=[cam(0.0, [2.5, 3.0, 13.7], [2.3, 3.1, 12.6], [-0.96, 4.6, 0], [-1.41, 4.7, 0], lens=50)]))   # tornado centred near x 280 like the original
+    cams=[cam(0.0, [2.5, 3.0, 13.7], [2.3, 3.1, 12.6], [-0.96, 4.6, 0], [-1.41, 4.7, 0], lens=50)], camDolly=1.1))   # tornado centred near x 280 like the original; 10% farther (sweep +0.023)
 
 # S16 20.23-21.60: low on the bench, the judge strikes the gavel (raise f607-613, hit on the block at f619), slow push-in
 scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windowX': -1.5, 'chairW': 1.2, 'chairH': 2.75, 'chairX': 0.15, 'benchGlow': '#5A564A'},
@@ -357,7 +357,7 @@ scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windo
            P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
            P('gavel', 'gavel', pos=[-0.37, 1.41, -13.3], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),   # head upright on the block, handle to his hand
            P('block', 'soundBlock', pos=[0.1, 1.18, -13.3])],                     # in frame right of the judge (it sat 20 deg off-axis, outside the frame)
-    cams=[cam(0.0, [-0.1, 1.29, -11.8], [-0.12, 1.30, -12.05], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],   # 0.3 m closer (A/B +0.004; 0.6 m loses 0.02)
+    cams=[cam(0.0, [-0.1, 1.29, -11.8], [-0.12, 1.30, -12.05], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)], camPan=1.5,   # 0.3 m closer (A/B +0.004; 0.6 m loses 0.02), panned 1.5 deg left (sweep +0.006)
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.18, 'amount': 0.018}]))
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine
