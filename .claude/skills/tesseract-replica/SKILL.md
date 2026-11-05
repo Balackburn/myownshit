@@ -11,7 +11,8 @@ Scene3D basics and recipes) before writing actions. `tsrct` is `~/.local/share/T
 install it with `tesseract/README.md`.
 
 The replica copies the look, the timing and the craft, never someone else's identity:
-- leave out watermarks, account handles and logos printed in the reference;
+- leave out watermarks, account handles and logos printed in the reference, unless the person owns the video and asks for an exact
+  copy (then their own handle stays);
 - never imitate a real narrator's voice;
 - treat the replica as a study, not something to publish.
 
@@ -68,6 +69,32 @@ Store the reference outside git. Commit only the measurements and small contact 
 9. **Repeat** from step 4. Stop when the user asks, or when a round improves no shot and the remaining differences are
    explained as unreachable: codec artefacts, a missing source asset, the narrator's voice, the creator's handle. After the
    visuals, export the full video and run `compare.py --cand` on it, including the audio timing check.
+
+## Fast track: engine layer + HyperFrames (when Tesseract renders too slowly)
+
+On the tornado replica, Tesseract raster cost about 10-60 s per frame on the CPU, which made full passes impossible. This track
+closed most of the gap instead. It also runs each pass end to end in about 7 minutes.
+
+- **3D picture:** use the absurd-shorts engine with a timed script (scenes cut on the reference frames, no TTS):
+  `node render/render3.mjs script.json --timed --w 576 --h 1024 --workers 4 --out layer3d.mp4`. It renders about 4 fps.
+- **Composite:** build a HyperFrames project holding `layer3d.mp4`, the original sound, and the captions, cards and HUD as
+  sub-compositions keyed on measured frames. Run `npx hyperframes render`, then `npx hyperframes diff --sbs`. Show the
+  side-by-side video to the person after every pass.
+- **Loop on stills:**
+  1. `render3.mjs --stills t1,t2,...` (about 20 s);
+  2. `scripts/still_pairs.py` puts the reference frame next to each still;
+  3. fix, then repeat.
+- **Measure, don't guess:**
+  - `scripts/solve_cam.py` solves a camera from feature rows and widths read on a grid overlay of the reference;
+  - `scripts/shotstats.py` prints per-shot L*, a*, b* and chroma deltas, so global grade or lighting errors show up first;
+  - read HUD and overlay keys by colour class, frame by frame.
+- **Order of fixes that paid off:**
+  1. the shot's true geometry (which side the camera is on, which buildings are there);
+  2. the camera (solved);
+  3. model proportions;
+  4. the global grade (per-shot chroma);
+  5. motion blur on the fast moves;
+  6. details and micro-animation.
 
 ## Reading the numbers
 

@@ -49,3 +49,28 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 - (setup) Scene3D raster on Mesa lavapipe took 55-75 s per 1080×1920 frame for a trivial scene. Budget renders before
   promising a full export.
 - (setup) Filmstrip tiles carry index and timecode labels. Comparison frames must come from `tsrct preview` or an export.
+
+## Engine + HyperFrames track (what actually closed the gap on the tornado replica)
+
+- (tornado) When the target renderer is slow (Tesseract on lavapipe), build the 3D layer in a fast engine (three.js, about 4 fps at
+  576×1024 with 4 workers), cut on the reference's frames, and composite text, cards, HUD and the original sound in HyperFrames.
+  Score every pass with `npx hyperframes diff REF yours --sbs --json` and send the side-by-side video to the person.
+- (tornado) Iterate on **stills**, not videos: render 8-14 stills at measured times, put them next to the reference frames
+  (`still_pairs.py`), fix what you see, repeat. Render the full pass only when the stills are right; each still loop is about 20 s.
+- (tornado) **Measure before you move a camera.** Overlay a pixel grid on full-resolution reference frames, read the rows and widths
+  of 3-4 features (subject top, base, width, a known-size neighbour), then solve height, distance and pitch (`solve_cam.py`). Eyeballed
+  cameras were wrong by 2× in distance; the solved camera matched on the first render.
+- (tornado) Perspective lies about proportions: a low camera looking up shrinks the top of a tall subject. Measure proportions on a
+  frame where the subject is near the frame centre and the camera roughly level, or correct each width by its distance.
+- (tornado) Look for the shot's real geometry in the reference before building: in S1 the orbit went round the man's **road** side and
+  the houses beside him were one-storey cottages, not the townhouses further down the street. Getting this wrong cost a full pass.
+- (tornado) Per-shot colour statistics (`shotstats.py`: mean L*, a*, b*, chroma per shot) find systematic errors at once. Here the
+  engine's default grade desaturated every shot (chroma -4 to -20); one grade change fixed 20 shots. Check this before tuning shots.
+- (tornado) Motion blur matters on whips, orbits and fly-overs: average 5 sub-frames over a 20-50 ms shutter, only in the moving
+  windows. Rotor blur is cheaper as semi-transparent ghost blades lagging the real ones.
+- (tornado) HUD and graphic overlays: measure them frame by frame by colour class (white, amber, red pixel runs at least 40 px long)
+  to get the box per frame, the colour switch frames and blinks (here LOCKED blinked off for 2 frames). Animate them from those keys.
+- (tornado) A prop's yaw in the absurd-shorts director is `ry` in **degrees**; `rot` carries only pitch and roll in radians. Convert
+  once in the script so a rotated prop is never silently ignored.
+- (tornado) Models made of many small tilted facets read as noise up close (the tornado looked like a pinecone): use flat-topped tabs
+  and keep pointed spikes for the silhouette (the crown) only.
