@@ -5,7 +5,7 @@ from story_kit import *
 
 st = Story('heure')
 st.plan([(f'S{i:02d}', f'L{i:02d}', 0) for i in range(1, 20)])
-DOCCAM = [cam(0.0, [0.05, 1.55, 1.75], [0.05, 1.55, 1.55], [0, 1.5, 0], [0, 1.5, 0], lens=42)]
+DOCCAM = [cam(0.0, [0.05, 1.55, 2.1], [0.05, 1.55, 1.9], [0, 1.5, 0], [0, 1.5, 0], lens=42)]
 CLOCKCAM = [cam(0.0, [0.1, 1.2, 1.5], [0.1, 1.2, 1.3], [0, 1.12, 0], [0, 1.12, 0], lens=42)]
 EMPTY = lambda: [P(f'ch{i}', 'officeChair', pos=[-1.4 + i * 1.4, 0, -0.8]) for i in range(3)]
 COLL = [('c1', -0.9), ('c2', 0.0), ('c3', 0.9)]

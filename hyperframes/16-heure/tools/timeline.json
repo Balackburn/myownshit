@@ -1,0 +1,803 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a refusé le changement d'heure.",
+   "hl": [
+    "mec",
+    "refusé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.157,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.329,
+     "e": 0.557
+    },
+    {
+     "w": "a",
+     "s": 0.633,
+     "e": 0.71
+    },
+    {
+     "w": "refusé",
+     "s": 0.786,
+     "e": 1.167
+    },
+    {
+     "w": "le",
+     "s": 1.205,
+     "e": 1.243
+    },
+    {
+     "w": "changement",
+     "s": 1.319,
+     "e": 1.624
+    },
+    {
+     "w": "d'heure.",
+     "s": 1.662,
+     "e": 2.157
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il est resté à l'heure d'été.",
+   "hl": [
+    "l'heure",
+    "d'été."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L02.k.wav",
+   "file_start": 2.257,
+   "speech_start": 2.257,
+   "speech_end": 3.629,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.257,
+     "e": 2.333
+    },
+    {
+     "w": "est",
+     "s": 2.371,
+     "e": 2.41
+    },
+    {
+     "w": "resté",
+     "s": 2.486,
+     "e": 2.752
+    },
+    {
+     "w": "à",
+     "s": 2.79,
+     "e": 2.829
+    },
+    {
+     "w": "l'heure",
+     "s": 2.867,
+     "e": 3.019
+    },
+    {
+     "w": "d'été.",
+     "s": 3.045,
+     "e": 3.629
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il arrivait partout une heure en avance.",
+   "hl": [
+    "heure",
+    "avance."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L03.k.wav",
+   "file_start": 3.729,
+   "speech_start": 3.729,
+   "speech_end": 5.938,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.729,
+     "e": 3.805
+    },
+    {
+     "w": "arrivait",
+     "s": 3.881,
+     "e": 4.186
+    },
+    {
+     "w": "partout",
+     "s": 4.262,
+     "e": 4.719
+    },
+    {
+     "w": "une",
+     "s": 4.795,
+     "e": 4.871
+    },
+    {
+     "w": "heure",
+     "s": 4.948,
+     "e": 5.024
+    },
+    {
+     "w": "en",
+     "s": 5.1,
+     "e": 5.176
+    },
+    {
+     "w": "avance.",
+     "s": 5.252,
+     "e": 5.938
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Au bureau, il était seul.",
+   "hl": [
+    "seul."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L04.k.wav",
+   "file_start": 6.038,
+   "speech_start": 6.038,
+   "speech_end": 7.562,
+   "words": [
+    {
+     "w": "Au",
+     "s": 6.038,
+     "e": 6.114
+    },
+    {
+     "w": "bureau,",
+     "s": 6.152,
+     "e": 6.61
+    },
+    {
+     "w": "il",
+     "s": 6.648,
+     "e": 6.724
+    },
+    {
+     "w": "était",
+     "s": 6.838,
+     "e": 6.952
+    },
+    {
+     "w": "seul.",
+     "s": 7.029,
+     "e": 7.562
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il a fait le travail de tout le monde.",
+   "hl": [
+    "travail"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L05.k.wav",
+   "file_start": 7.662,
+   "speech_start": 7.662,
+   "speech_end": 9.414,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.662,
+     "e": 7.738
+    },
+    {
+     "w": "a",
+     "s": 7.776,
+     "e": 7.814
+    },
+    {
+     "w": "fait",
+     "s": 7.89,
+     "e": 7.967
+    },
+    {
+     "w": "le",
+     "s": 8.005,
+     "e": 8.043
+    },
+    {
+     "w": "travail",
+     "s": 8.119,
+     "e": 8.424
+    },
+    {
+     "w": "de",
+     "s": 8.5,
+     "e": 8.576
+    },
+    {
+     "w": "tout",
+     "s": 8.614,
+     "e": 8.652
+    },
+    {
+     "w": "le",
+     "s": 8.69,
+     "e": 8.729
+    },
+    {
+     "w": "monde.",
+     "s": 8.805,
+     "e": 9.414
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Promu directeur.",
+   "hl": [
+    "directeur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L06.k.wav",
+   "file_start": 9.514,
+   "speech_start": 9.514,
+   "speech_end": 10.81,
+   "words": [
+    {
+     "w": "Promu",
+     "s": 9.514,
+     "e": 9.819
+    },
+    {
+     "w": "directeur.",
+     "s": 9.895,
+     "e": 10.81
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Ses collègues ont voulu comprendre.",
+   "hl": [
+    "collègues"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L07.k.wav",
+   "file_start": 10.91,
+   "speech_start": 10.91,
+   "speech_end": 12.586,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 10.91,
+     "e": 11.062
+    },
+    {
+     "w": "collègues",
+     "s": 11.176,
+     "e": 11.367
+    },
+    {
+     "w": "ont",
+     "s": 11.443,
+     "e": 11.519
+    },
+    {
+     "w": "voulu",
+     "s": 11.545,
+     "e": 11.748
+    },
+    {
+     "w": "comprendre.",
+     "s": 11.824,
+     "e": 12.586
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Ils sont restés à l'heure d'été aussi.",
+   "hl": [
+    "d'été"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L08.k.wav",
+   "file_start": 12.686,
+   "speech_start": 12.686,
+   "speech_end": 14.438,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 12.686,
+     "e": 12.838
+    },
+    {
+     "w": "sont",
+     "s": 12.876,
+     "e": 12.99
+    },
+    {
+     "w": "restés",
+     "s": 13.105,
+     "e": 13.295
+    },
+    {
+     "w": "à",
+     "s": 13.333,
+     "e": 13.371
+    },
+    {
+     "w": "l'heure",
+     "s": 13.41,
+     "e": 13.524
+    },
+    {
+     "w": "d'été",
+     "s": 13.562,
+     "e": 13.829
+    },
+    {
+     "w": "aussi.",
+     "s": 13.943,
+     "e": 14.438
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Puis la ville.",
+   "hl": [
+    "ville."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L09.k.wav",
+   "file_start": 14.538,
+   "speech_start": 14.538,
+   "speech_end": 15.529,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 14.538,
+     "e": 14.69
+    },
+    {
+     "w": "la",
+     "s": 14.767,
+     "e": 14.843
+    },
+    {
+     "w": "ville.",
+     "s": 14.919,
+     "e": 15.529
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Puis la région.",
+   "hl": [
+    "région."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L10.k.wav",
+   "file_start": 15.629,
+   "speech_start": 15.629,
+   "speech_end": 16.619,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 15.629,
+     "e": 15.781
+    },
+    {
+     "w": "la",
+     "s": 15.819,
+     "e": 15.857
+    },
+    {
+     "w": "région.",
+     "s": 15.933,
+     "e": 16.619
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Deux France, deux heures.",
+   "hl": [
+    "Deux",
+    "heures."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L11.k.wav",
+   "file_start": 16.719,
+   "speech_start": 16.719,
+   "speech_end": 18.471,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 16.719,
+     "e": 16.871
+    },
+    {
+     "w": "France,",
+     "s": 16.948,
+     "e": 17.71
+    },
+    {
+     "w": "deux",
+     "s": 17.748,
+     "e": 17.862
+    },
+    {
+     "w": "heures.",
+     "s": 17.938,
+     "e": 18.471
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "À la frontière, on changeait de montre.",
+   "hl": [
+    "frontière,",
+    "montre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L12.k.wav",
+   "file_start": 18.571,
+   "speech_start": 18.571,
+   "speech_end": 20.476,
+   "words": [
+    {
+     "w": "À",
+     "s": 18.571,
+     "e": 18.61
+    },
+    {
+     "w": "la",
+     "s": 18.648,
+     "e": 18.724
+    },
+    {
+     "w": "frontière,",
+     "s": 18.838,
+     "e": 19.41
+    },
+    {
+     "w": "on",
+     "s": 19.486,
+     "e": 19.562
+    },
+    {
+     "w": "changeait",
+     "s": 19.676,
+     "e": 19.867
+    },
+    {
+     "w": "de",
+     "s": 19.905,
+     "e": 19.943
+    },
+    {
+     "w": "montre.",
+     "s": 20.057,
+     "e": 20.476
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Les trains arrivaient avant de partir.",
+   "hl": [
+    "trains",
+    "avant"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L13.k.wav",
+   "file_start": 20.576,
+   "speech_start": 20.576,
+   "speech_end": 22.557,
+   "words": [
+    {
+     "w": "Les",
+     "s": 20.576,
+     "e": 20.729
+    },
+    {
+     "w": "trains",
+     "s": 20.767,
+     "e": 20.957
+    },
+    {
+     "w": "arrivaient",
+     "s": 21.033,
+     "e": 21.414
+    },
+    {
+     "w": "avant",
+     "s": 21.49,
+     "e": 21.643
+    },
+    {
+     "w": "de",
+     "s": 21.719,
+     "e": 21.795
+    },
+    {
+     "w": "partir.",
+     "s": 21.91,
+     "e": 22.557
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les vaches ont refusé de choisir.",
+   "hl": [
+    "vaches"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L14.k.wav",
+   "file_start": 22.657,
+   "speech_start": 22.657,
+   "speech_end": 24.486,
+   "words": [
+    {
+     "w": "Les",
+     "s": 22.657,
+     "e": 22.733
+    },
+    {
+     "w": "vaches",
+     "s": 22.81,
+     "e": 23.114
+    },
+    {
+     "w": "ont",
+     "s": 23.19,
+     "e": 23.267
+    },
+    {
+     "w": "refusé",
+     "s": 23.381,
+     "e": 23.648
+    },
+    {
+     "w": "de",
+     "s": 23.686,
+     "e": 23.724
+    },
+    {
+     "w": "choisir.",
+     "s": 23.8,
+     "e": 24.486
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "L'Europe a tranché.",
+   "hl": [
+    "L'Europe",
+    "tranché."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L15.k.wav",
+   "file_start": 24.586,
+   "speech_start": 24.586,
+   "speech_end": 25.816,
+   "words": [
+    {
+     "w": "L'Europe",
+     "s": 24.586,
+     "e": 24.967
+    },
+    {
+     "w": "a",
+     "s": 25.005,
+     "e": 25.043
+    },
+    {
+     "w": "tranché.",
+     "s": 25.119,
+     "e": 25.805
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Plus jamais de changement d'heure.",
+   "hl": [
+    "jamais"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L16.k.wav",
+   "file_start": 25.916,
+   "speech_start": 25.916,
+   "speech_end": 27.516,
+   "words": [
+    {
+     "w": "Plus",
+     "s": 25.916,
+     "e": 26.068
+    },
+    {
+     "w": "jamais",
+     "s": 26.221,
+     "e": 26.525
+    },
+    {
+     "w": "de",
+     "s": 26.563,
+     "e": 26.602
+    },
+    {
+     "w": "changement",
+     "s": 26.678,
+     "e": 26.982
+    },
+    {
+     "w": "d'heure.",
+     "s": 27.021,
+     "e": 27.516
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Le mec a été décoré.",
+   "hl": [
+    "décoré."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L17.k.wav",
+   "file_start": 27.616,
+   "speech_start": 27.616,
+   "speech_end": 28.987,
+   "words": [
+    {
+     "w": "Le",
+     "s": 27.616,
+     "e": 27.692
+    },
+    {
+     "w": "mec",
+     "s": 27.768,
+     "e": 27.921
+    },
+    {
+     "w": "a",
+     "s": 27.959,
+     "e": 27.997
+    },
+    {
+     "w": "été",
+     "s": 28.111,
+     "e": 28.225
+    },
+    {
+     "w": "décoré.",
+     "s": 28.302,
+     "e": 28.987
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le lendemain, il est passé à l'heure d'hiver.",
+   "hl": [
+    "d'hiver."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L18.k.wav",
+   "file_start": 29.087,
+   "speech_start": 29.087,
+   "speech_end": 31.297,
+   "words": [
+    {
+     "w": "Le",
+     "s": 29.087,
+     "e": 29.163
+    },
+    {
+     "w": "lendemain,",
+     "s": 29.24,
+     "e": 29.887
+    },
+    {
+     "w": "il",
+     "s": 29.925,
+     "e": 30.002
+    },
+    {
+     "w": "est",
+     "s": 30.04,
+     "e": 30.078
+    },
+    {
+     "w": "passé",
+     "s": 30.192,
+     "e": 30.344
+    },
+    {
+     "w": "à",
+     "s": 30.382,
+     "e": 30.408
+    },
+    {
+     "w": "l'heure",
+     "s": 30.433,
+     "e": 30.535
+    },
+    {
+     "w": "d'hiver.",
+     "s": 30.611,
+     "e": 31.297
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il était de nouveau seul au bureau.",
+   "hl": [
+    "seul"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/heure/tts/L19.k.wav",
+   "file_start": 31.457,
+   "speech_start": 31.457,
+   "speech_end": 33.057,
+   "words": [
+    {
+     "w": "Il",
+     "s": 31.457,
+     "e": 31.533
+    },
+    {
+     "w": "était",
+     "s": 31.609,
+     "e": 31.762
+    },
+    {
+     "w": "de",
+     "s": 31.8,
+     "e": 31.838
+    },
+    {
+     "w": "nouveau",
+     "s": 31.876,
+     "e": 32.142
+    },
+    {
+     "w": "seul",
+     "s": 32.219,
+     "e": 32.371
+    },
+    {
+     "w": "au",
+     "s": 32.409,
+     "e": 32.447
+    },
+    {
+     "w": "bureau.",
+     "s": 32.523,
+     "e": 33.057
+    }
+   ]
+  }
+ ],
+ "total": 33.9
+}
