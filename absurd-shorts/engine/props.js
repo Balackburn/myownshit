@@ -229,6 +229,11 @@ const B = {
       g.beginPath(); g.arc(W / 2, H * 0.78, W * 0.13, 0, TAU); g.fillStyle = '#3DAA6A'; g.fill();
     }, { res: 256, emissive: 0.55 });
     const g = grp(box(0.14, 0.28, 0.018, P.ink, { pivot: 'bottom', outline: 0.03 }), at(screen, 0, 0.14, 0.0095));
+    if (o.hand) { // a blocky hand gripping the lower half (reference S4): four fingers over the right edge, the thumb on the left, the palm behind
+      const sk = typeof o.hand === 'string' ? o.hand : '#D9A377';
+      for (let i = 0; i < 4; i++) g.add(at(box(0.05, 0.03, 0.034, sk, { outline: 0.02 }), 0.072, 0.035 + i * 0.033, 0.006, 0, 0, -0.12));
+      g.add(at(box(0.034, 0.075, 0.03, sk, { outline: 0.02 }), -0.066, 0.06, 0.012, 0, 0, 0.35), at(box(0.13, 0.12, 0.03, sk), 0.0, 0.06, -0.026));
+    }
     g.userData.grip = [0, 0.08, -0.01]; return g;
   },
   handcuffs() {

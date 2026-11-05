@@ -1640,7 +1640,7 @@
     ]
    },
    "setOpts": {
-    "houseScale": 0.95,
+    "houseScale": 1.3,
     "gridRot": -0.33,
     "x": 1100,
     "road": "#8C9096",
@@ -2937,7 +2937,7 @@
     ]
    },
    "setOpts": {
-    "houseScale": 0.82,
+    "houseScale": 1.3,
     "gridRot": -0.36,
     "x": 1100,
     "road": "#8C9096",
@@ -7620,7 +7620,8 @@
    "duration": 1.533333,
    "setOpts": {
     "burnt": true,
-    "rows": 13
+    "rows": 13,
+    "houseScale": 1.25
    },
    "grade": "contrast(0.9) saturate(0.80) brightness(0.981)"
   },

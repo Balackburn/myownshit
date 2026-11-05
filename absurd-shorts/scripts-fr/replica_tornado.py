@@ -208,7 +208,7 @@ scenes.append(scene_f('S8b', 254, 313, 'aerialSuburb', props=[
     P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS8B, opts=TORA),
     P('jet', 'fighterJet', pos=rel(C8a, JR8a), rot=[-0.89, 3.1416, 0.04], opts=JETA, keys=[      # hidden in the bank until it slides past (f260)
         k(0.0, to=rel(c8(0.533), JR8a), dur=0.533, ease='linear'), k(0.533, to=rel(C8z, lerp3(JR8a, JR8b, 1.0 + 1 / 42)), dur=T8 - 0.533, ease='linear')])],
-    cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50, shake=0.12)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.95, 'gridRot': -0.33, 'x': 1100, **AER_SET},
+    cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50, shake=0.12)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 1.3, 'gridRot': -0.33, 'x': 1100, **AER_SET},   # houses as big as the original's (bottom rows ~60-70 px; A/B +0.02-0.04)
     blur=[[0, 0.34, 0.008]], blurSamples=8, fog=AERIAL_HAZE, fogTo={'near': 110, 'far': 440}))   # the veil thickens as the camera drops (band L* 73/70/68 at f300)
 
 # S9 10.43-11.17: over the cloud deck, the jet (seen nearly level, from the front-left 3/4, 38 m away) flies frame-left and lets the
@@ -277,7 +277,7 @@ scenes.append(scene_f('S10', 335, 386, 'aerialSuburb', props=[
                                      'trailOpacity': 0.95, 'trailWidth': 0.2, 'trailBase': 0.12, 'shots': salvo}),   # white body, orange flame with a pale heart, opaque thin trail
     P('salvo1', 'missileSalvo', opts={'size': 1.0, 'glow': 1.3, 'glowColor': '#FF8A30', 'flame': 1.2, 'flameW': 1.5, 'flameColor': '#F58A2E', 'core': '#FFF2B8', 'bodyColor': '#F4F4F2',
                                       'trailOpacity': 0.95, 'trailWidth': 0.1, 'trailBase': 0.08, 'shots': salvo1})],   # the first wave, seen near the jet
-    cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.82, 'gridRot': -0.36, 'x': 1100, **AER_SET},
+    cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 1.3, 'gridRot': -0.36, 'x': 1100, **AER_SET},   # houses as big as the original's (bottom rows ~60-70 px; A/B +0.02-0.03)
     fog=AERIAL_HAZE, fogTo={'near': 55, 'far': 330}))   # same veil all along the 229 -> 117 m descent (band L* 76/71/70 at f372, 73/72/72 at f384)
 
 # S11 12.87-14.37: a low camera (0.4 m) on the road near the curb, solved on f406 from the curb and the walk's far edge (dense line fits),
@@ -324,7 +324,7 @@ scenes.append(scene(13, 'S13', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[18, 0, -435], scale=13.5, opts={**TOR, 'chips': 30, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}),   # crown ~173 px wide, top y ~40 (grid reads)
     P('fires', 'flameField', opts={'points': fl, 'seed': 3}),
     P('smoke', 'smokeField', opts={'points': [[x_, z_, h_ * 0.8, y_] for x_, z_, h_, y_ in sm], 'size': 0.86, 'per': 30, 'seed': 5, 'twist': 13, 'twistAmp': 0.55, 'color': '#3B3533'})],   # twisted rope-like columns
-    cams=[cam(0.0, [0, 23.5, 40], [0.4, 23.5, 39.5], [0, 2.5, -60], [2.4, 2.5, -60.5], lens=48)], setOpts={'burnt': True, 'rows': 13}))
+    cams=[cam(0.0, [0, 23.5, 40], [0.4, 23.5, 39.5], [0, 2.5, -60], [2.4, 2.5, -60.5], lens=48)], setOpts={'burnt': True, 'rows': 13, 'houseScale': 1.25}))   # bigger shells (A/B +0.007-0.010)
 
 # S14 17.63-19.47: on the burnt road, low camera tilted up 18.6 deg (grid reads of f545: road vanishing point y 810, tornado base y ~805,
 # crown 340 px wide), the tornado ~30 m away waves a white flag; neutral light (the original's road is its raw asphalt colour #2B2A2F)
