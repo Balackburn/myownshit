@@ -1,0 +1,1050 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a déclaré l'indépendance de son appartement.",
+   "hl": [
+    "mec",
+    "l'indépendance",
+    "appartement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.614,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "déclaré",
+     "s": 0.633,
+     "e": 0.938
+    },
+    {
+     "w": "l'indépendance",
+     "s": 0.976,
+     "e": 1.548
+    },
+    {
+     "w": "de",
+     "s": 1.624,
+     "e": 1.7
+    },
+    {
+     "w": "son",
+     "s": 1.776,
+     "e": 1.852
+    },
+    {
+     "w": "appartement.",
+     "s": 1.929,
+     "e": 2.614
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a fait un drapeau.",
+   "hl": [
+    "drapeau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L02.k.wav",
+   "file_start": 2.714,
+   "speech_start": 2.714,
+   "speech_end": 3.857,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.714,
+     "e": 2.79
+    },
+    {
+     "w": "a",
+     "s": 2.829,
+     "e": 2.867
+    },
+    {
+     "w": "fait",
+     "s": 2.943,
+     "e": 3.019
+    },
+    {
+     "w": "un",
+     "s": 3.057,
+     "e": 3.095
+    },
+    {
+     "w": "drapeau.",
+     "s": 3.171,
+     "e": 3.857
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Un hymne national.",
+   "hl": [
+    "hymne",
+    "national."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L03.k.wav",
+   "file_start": 3.957,
+   "speech_start": 3.957,
+   "speech_end": 5.252,
+   "words": [
+    {
+     "w": "Un",
+     "s": 3.957,
+     "e": 4.033
+    },
+    {
+     "w": "hymne",
+     "s": 4.11,
+     "e": 4.338
+    },
+    {
+     "w": "national.",
+     "s": 4.414,
+     "e": 5.252
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Et une douane devant sa porte.",
+   "hl": [
+    "douane",
+    "porte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L04.k.wav",
+   "file_start": 5.352,
+   "speech_start": 5.352,
+   "speech_end": 7.029,
+   "words": [
+    {
+     "w": "Et",
+     "s": 5.352,
+     "e": 5.429
+    },
+    {
+     "w": "une",
+     "s": 5.543,
+     "e": 5.657
+    },
+    {
+     "w": "douane",
+     "s": 5.683,
+     "e": 5.962
+    },
+    {
+     "w": "devant",
+     "s": 6.0,
+     "e": 6.19
+    },
+    {
+     "w": "sa",
+     "s": 6.267,
+     "e": 6.343
+    },
+    {
+     "w": "porte.",
+     "s": 6.648,
+     "e": 7.029
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Sa femme a eu besoin d'un visa.",
+   "hl": [
+    "femme",
+    "visa."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L05.k.wav",
+   "file_start": 7.129,
+   "speech_start": 7.129,
+   "speech_end": 8.729,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 7.129,
+     "e": 7.205
+    },
+    {
+     "w": "femme",
+     "s": 7.357,
+     "e": 7.51
+    },
+    {
+     "w": "a",
+     "s": 7.548,
+     "e": 7.586
+    },
+    {
+     "w": "eu",
+     "s": 7.662,
+     "e": 7.738
+    },
+    {
+     "w": "besoin",
+     "s": 7.814,
+     "e": 7.967
+    },
+    {
+     "w": "d'un",
+     "s": 8.005,
+     "e": 8.119
+    },
+    {
+     "w": "visa.",
+     "s": 8.31,
+     "e": 8.729
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le facteur, d'un passeport.",
+   "hl": [
+    "facteur,",
+    "passeport."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L06.k.wav",
+   "file_start": 8.829,
+   "speech_start": 8.829,
+   "speech_end": 10.581,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.829,
+     "e": 8.905
+    },
+    {
+     "w": "facteur,",
+     "s": 8.981,
+     "e": 9.667
+    },
+    {
+     "w": "d'un",
+     "s": 9.717,
+     "e": 9.819
+    },
+    {
+     "w": "passeport.",
+     "s": 9.895,
+     "e": 10.581
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Mais la voisine a contesté la frontière.",
+   "hl": [
+    "voisine",
+    "frontière."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L07.k.wav",
+   "file_start": 10.681,
+   "speech_start": 10.681,
+   "speech_end": 12.662,
+   "words": [
+    {
+     "w": "Mais",
+     "s": 10.681,
+     "e": 10.757
+    },
+    {
+     "w": "la",
+     "s": 10.833,
+     "e": 10.91
+    },
+    {
+     "w": "voisine",
+     "s": 10.948,
+     "e": 11.214
+    },
+    {
+     "w": "a",
+     "s": 11.252,
+     "e": 11.29
+    },
+    {
+     "w": "contesté",
+     "s": 11.367,
+     "e": 11.748
+    },
+    {
+     "w": "la",
+     "s": 11.786,
+     "e": 11.824
+    },
+    {
+     "w": "frontière.",
+     "s": 11.976,
+     "e": 12.662
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Trois centimètres de paillasson.",
+   "hl": [
+    "Trois",
+    "centimètres",
+    "paillasson."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L08.k.wav",
+   "file_start": 12.762,
+   "speech_start": 12.762,
+   "speech_end": 14.438,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 12.762,
+     "e": 12.914
+    },
+    {
+     "w": "centimètres",
+     "s": 12.99,
+     "e": 13.524
+    },
+    {
+     "w": "de",
+     "s": 13.6,
+     "e": 13.676
+    },
+    {
+     "w": "paillasson.",
+     "s": 13.702,
+     "e": 14.438
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "C'était la guerre.",
+   "hl": [
+    "guerre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L09.k.wav",
+   "file_start": 14.538,
+   "speech_start": 14.538,
+   "speech_end": 15.605,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 14.538,
+     "e": 14.843
+    },
+    {
+     "w": "la",
+     "s": 14.881,
+     "e": 14.919
+    },
+    {
+     "w": "guerre.",
+     "s": 14.995,
+     "e": 15.605
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Elle a mis sa musique à fond.",
+   "hl": [
+    "musique",
+    "fond."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L10.k.wav",
+   "file_start": 15.705,
+   "speech_start": 15.705,
+   "speech_end": 17.229,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 15.705,
+     "e": 15.819
+    },
+    {
+     "w": "a",
+     "s": 15.857,
+     "e": 15.895
+    },
+    {
+     "w": "mis",
+     "s": 15.934,
+     "e": 16.01
+    },
+    {
+     "w": "sa",
+     "s": 16.086,
+     "e": 16.162
+    },
+    {
+     "w": "musique",
+     "s": 16.276,
+     "e": 16.467
+    },
+    {
+     "w": "à",
+     "s": 16.619,
+     "e": 16.657
+    },
+    {
+     "w": "fond.",
+     "s": 16.695,
+     "e": 17.229
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il a répondu à l'accordéon.",
+   "hl": [
+    "l'accordéon."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L11.k.wav",
+   "file_start": 17.329,
+   "speech_start": 17.329,
+   "speech_end": 18.776,
+   "words": [
+    {
+     "w": "Il",
+     "s": 17.329,
+     "e": 17.405
+    },
+    {
+     "w": "a",
+     "s": 17.443,
+     "e": 17.481
+    },
+    {
+     "w": "répondu",
+     "s": 17.557,
+     "e": 17.862
+    },
+    {
+     "w": "à",
+     "s": 17.938,
+     "e": 17.976
+    },
+    {
+     "w": "l'accordéon.",
+     "s": 18.014,
+     "e": 18.776
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "L'ONU a envoyé un médiateur.",
+   "hl": [
+    "L'ONU",
+    "médiateur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L12.k.wav",
+   "file_start": 18.876,
+   "speech_start": 18.876,
+   "speech_end": 20.781,
+   "words": [
+    {
+     "w": "L'ONU",
+     "s": 18.876,
+     "e": 19.334
+    },
+    {
+     "w": "a",
+     "s": 19.372,
+     "e": 19.41
+    },
+    {
+     "w": "envoyé",
+     "s": 19.486,
+     "e": 19.791
+    },
+    {
+     "w": "un",
+     "s": 19.829,
+     "e": 19.867
+    },
+    {
+     "w": "médiateur.",
+     "s": 19.943,
+     "e": 20.781
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a coupé le paillasson en deux.",
+   "hl": [
+    "coupé",
+    "deux."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L13.k.wav",
+   "file_start": 20.881,
+   "speech_start": 20.881,
+   "speech_end": 22.634,
+   "words": [
+    {
+     "w": "Il",
+     "s": 20.881,
+     "e": 20.957
+    },
+    {
+     "w": "a",
+     "s": 21.034,
+     "e": 21.11
+    },
+    {
+     "w": "coupé",
+     "s": 21.16,
+     "e": 21.338
+    },
+    {
+     "w": "le",
+     "s": 21.414,
+     "e": 21.491
+    },
+    {
+     "w": "paillasson",
+     "s": 21.541,
+     "e": 21.872
+    },
+    {
+     "w": "en",
+     "s": 21.948,
+     "e": 22.1
+    },
+    {
+     "w": "deux.",
+     "s": 22.138,
+     "e": 22.634
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "La paix a été signée.",
+   "hl": [
+    "paix",
+    "signée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L14.k.wav",
+   "file_start": 22.734,
+   "speech_start": 22.734,
+   "speech_end": 24.265,
+   "words": [
+    {
+     "w": "La",
+     "s": 22.734,
+     "e": 22.81
+    },
+    {
+     "w": "paix",
+     "s": 22.962,
+     "e": 23.191
+    },
+    {
+     "w": "a",
+     "s": 23.267,
+     "e": 23.305
+    },
+    {
+     "w": "été",
+     "s": 23.343,
+     "e": 23.572
+    },
+    {
+     "w": "signée.",
+     "s": 23.686,
+     "e": 24.257
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Mais le pays n'avait pas d'argent.",
+   "hl": [
+    "pays",
+    "d'argent."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L15.k.wav",
+   "file_start": 24.365,
+   "speech_start": 24.365,
+   "speech_end": 25.889,
+   "words": [
+    {
+     "w": "Mais",
+     "s": 24.365,
+     "e": 24.441
+    },
+    {
+     "w": "le",
+     "s": 24.517,
+     "e": 24.593
+    },
+    {
+     "w": "pays",
+     "s": 24.669,
+     "e": 24.822
+    },
+    {
+     "w": "n'avait",
+     "s": 24.86,
+     "e": 25.127
+    },
+    {
+     "w": "pas",
+     "s": 25.165,
+     "e": 25.203
+    },
+    {
+     "w": "d'argent.",
+     "s": 25.241,
+     "e": 25.889
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Alors il a imprimé sa propre monnaie.",
+   "hl": [
+    "imprimé",
+    "monnaie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L16.k.wav",
+   "file_start": 25.989,
+   "speech_start": 25.989,
+   "speech_end": 28.122,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 25.989,
+     "e": 26.293
+    },
+    {
+     "w": "il",
+     "s": 26.522,
+     "e": 26.598
+    },
+    {
+     "w": "a",
+     "s": 26.636,
+     "e": 26.674
+    },
+    {
+     "w": "imprimé",
+     "s": 26.712,
+     "e": 27.055
+    },
+    {
+     "w": "sa",
+     "s": 27.131,
+     "e": 27.208
+    },
+    {
+     "w": "propre",
+     "s": 27.284,
+     "e": 27.512
+    },
+    {
+     "w": "monnaie.",
+     "s": 27.589,
+     "e": 28.122
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Avec sa tête dessus.",
+   "hl": [
+    "tête"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L17.k.wav",
+   "file_start": 28.222,
+   "speech_start": 28.222,
+   "speech_end": 29.522,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 28.222,
+     "e": 28.45
+    },
+    {
+     "w": "sa",
+     "s": 28.527,
+     "e": 28.603
+    },
+    {
+     "w": "tête",
+     "s": 28.679,
+     "e": 28.831
+    },
+    {
+     "w": "dessus.",
+     "s": 28.908,
+     "e": 29.517
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le supermarché l'a refusée.",
+   "hl": [
+    "supermarché",
+    "refusée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L18.k.wav",
+   "file_start": 29.622,
+   "speech_start": 29.622,
+   "speech_end": 31.146,
+   "words": [
+    {
+     "w": "Le",
+     "s": 29.622,
+     "e": 29.698
+    },
+    {
+     "w": "supermarché",
+     "s": 29.774,
+     "e": 30.308
+    },
+    {
+     "w": "l'a",
+     "s": 30.333,
+     "e": 30.384
+    },
+    {
+     "w": "refusée.",
+     "s": 30.498,
+     "e": 31.146
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il a dû importer ses courses.",
+   "hl": [
+    "importer",
+    "courses."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L19.k.wav",
+   "file_start": 31.246,
+   "speech_start": 31.246,
+   "speech_end": 32.693,
+   "words": [
+    {
+     "w": "Il",
+     "s": 31.246,
+     "e": 31.322
+    },
+    {
+     "w": "a",
+     "s": 31.398,
+     "e": 31.436
+    },
+    {
+     "w": "dû",
+     "s": 31.474,
+     "e": 31.551
+    },
+    {
+     "w": "importer",
+     "s": 31.703,
+     "e": 31.932
+    },
+    {
+     "w": "ses",
+     "s": 32.008,
+     "e": 32.084
+    },
+    {
+     "w": "courses.",
+     "s": 32.274,
+     "e": 32.693
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Avec des droits de douane.",
+   "hl": [
+    "droits",
+    "douane."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L20.k.wav",
+   "file_start": 32.793,
+   "speech_start": 32.793,
+   "speech_end": 34.013,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 32.793,
+     "e": 33.022
+    },
+    {
+     "w": "des",
+     "s": 33.098,
+     "e": 33.174
+    },
+    {
+     "w": "droits",
+     "s": 33.213,
+     "e": 33.327
+    },
+    {
+     "w": "de",
+     "s": 33.365,
+     "e": 33.403
+    },
+    {
+     "w": "douane.",
+     "s": 33.441,
+     "e": 34.013
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Qu'il se payait à lui-même.",
+   "hl": [
+    "lui-même."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L21.k.wav",
+   "file_start": 34.113,
+   "speech_start": 34.113,
+   "speech_end": 35.484,
+   "words": [
+    {
+     "w": "Qu'il",
+     "s": 34.113,
+     "e": 34.265
+    },
+    {
+     "w": "se",
+     "s": 34.341,
+     "e": 34.417
+    },
+    {
+     "w": "payait",
+     "s": 34.493,
+     "e": 34.646
+    },
+    {
+     "w": "à",
+     "s": 34.684,
+     "e": 34.722
+    },
+    {
+     "w": "lui-même.",
+     "s": 34.76,
+     "e": 35.484
+    }
+   ]
+  },
+  {
+   "id": "L22",
+   "who": "N",
+   "text": "Puis le propriétaire a réclamé le loyer.",
+   "hl": [
+    "propriétaire",
+    "loyer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L22.k.wav",
+   "file_start": 35.584,
+   "speech_start": 35.584,
+   "speech_end": 37.717,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 35.584,
+     "e": 35.736
+    },
+    {
+     "w": "le",
+     "s": 35.813,
+     "e": 35.965
+    },
+    {
+     "w": "propriétaire",
+     "s": 36.117,
+     "e": 36.574
+    },
+    {
+     "w": "a",
+     "s": 36.613,
+     "e": 36.651
+    },
+    {
+     "w": "réclamé",
+     "s": 36.727,
+     "e": 37.032
+    },
+    {
+     "w": "le",
+     "s": 37.07,
+     "e": 37.108
+    },
+    {
+     "w": "loyer.",
+     "s": 37.222,
+     "e": 37.717
+    }
+   ]
+  },
+  {
+   "id": "L23",
+   "who": "N",
+   "text": "Alors il a demandé l'asile politique.",
+   "hl": [
+    "l'asile",
+    "politique."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L23.k.wav",
+   "file_start": 37.817,
+   "speech_start": 37.817,
+   "speech_end": 39.874,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 37.817,
+     "e": 38.122
+    },
+    {
+     "w": "il",
+     "s": 38.351,
+     "e": 38.427
+    },
+    {
+     "w": "a",
+     "s": 38.465,
+     "e": 38.503
+    },
+    {
+     "w": "demandé",
+     "s": 38.655,
+     "e": 38.884
+    },
+    {
+     "w": "l'asile",
+     "s": 38.91,
+     "e": 39.189
+    },
+    {
+     "w": "politique.",
+     "s": 39.265,
+     "e": 39.874
+    }
+   ]
+  },
+  {
+   "id": "L24",
+   "who": "N",
+   "text": "Chez la voisine.",
+   "hl": [
+    "voisine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L24.k.wav",
+   "file_start": 39.934,
+   "speech_start": 39.934,
+   "speech_end": 41.001,
+   "words": [
+    {
+     "w": "Chez",
+     "s": 39.934,
+     "e": 40.137
+    },
+    {
+     "w": "la",
+     "s": 40.189,
+     "e": 40.239
+    },
+    {
+     "w": "voisine.",
+     "s": 40.277,
+     "e": 41.001
+    }
+   ]
+  },
+  {
+   "id": "L25",
+   "who": "N",
+   "text": "Elle lui a demandé un visa.",
+   "hl": [
+    "visa."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/independance/tts/L25.k.wav",
+   "file_start": 41.161,
+   "speech_start": 41.161,
+   "speech_end": 42.609,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 41.161,
+     "e": 41.275
+    },
+    {
+     "w": "lui",
+     "s": 41.313,
+     "e": 41.39
+    },
+    {
+     "w": "a",
+     "s": 41.428,
+     "e": 41.466
+    },
+    {
+     "w": "demandé",
+     "s": 41.618,
+     "e": 41.847
+    },
+    {
+     "w": "un",
+     "s": 41.885,
+     "e": 41.923
+    },
+    {
+     "w": "visa.",
+     "s": 41.999,
+     "e": 42.609
+    }
+   ]
+  }
+ ],
+ "total": 43.45
+}

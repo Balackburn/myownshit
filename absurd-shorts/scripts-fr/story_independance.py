@@ -35,7 +35,7 @@ st.shot('S06', 'livingRoom', setOpts=LAND, actors=[act('femme', [D1 - 0.25, 0, Z
         props=landing(gate=True) + [P('pp', 'idCard', on={'actor': 'femme', 'hand': 'R', **HAND_FLAT}, scale=2.5), SEAL('visa', 'VISA', [D1 - 0.15, 1.45, ZD + 1.45], st.at('S06', 'L05', 6) - 0.05)],
         cams=[cam(0.0, [D1 + 2.0, 1.5, ZD + 3.0], [D1 + 1.9, 1.5, ZD + 2.8], [D1 - 0.3, 1.35, ZD + 1.35], [D1 - 0.3, 1.35, ZD + 1.35], lens=46)])
 st.shot('S07', 'livingRoom', setOpts=LAND, actors=[act('facteur', [D1 - 0.2, 0, ZD + 2.0], 160, 'carryBox', 'unimpressed'), act('mecD', [D1 - 0.15, 0, ZD + 0.75], 10, 'lookItem', 'suspicious')],
-        props=landing(gate=True) + [P('box', 'cardboardBox', on={'actor': 'facteur', 'hand': 'R'}, scale=0.5), P('pp', 'idCard', on={'actor': 'mecD', 'hand': 'R', **HAND_FLAT}, scale=2.2),
+        props=landing(gate=True) + [P('box', 'cardboardBox', on={'actor': 'facteur', 'hand': 'R'}, scale=0.5, opts={'text': ''}), P('pp', 'idCard', on={'actor': 'mecD', 'hand': 'R', **HAND_FLAT}, scale=2.2),
                                      P('loupe', 'magnifyingGlass', on={'actor': 'mecD', 'hand': 'L'}, scale=0.4)],
         cams=[cam(0.0, [D1 + 2.0, 1.5, ZD + 3.0], [D1 + 1.9, 1.5, ZD + 2.8], [D1 - 0.3, 1.35, ZD + 1.35], [D1 - 0.3, 1.35, ZD + 1.35], lens=46)])
 # 8-12: three centimetres of doormat: war
@@ -53,13 +53,13 @@ st.shot('S12', 'livingRoom', setOpts=LAND, actors=[act('mec', [D1, 0, ZD + 1.0],
 st.shot('S13', 'livingRoom', setOpts=LAND, actors=[act('mediateur', [0.05, 0, ZD + 3.2], 180, 'walk', 'smug', keys=[k(0.0, to=[0.05, 0, ZD + 1.5], dur=st.dur('S13'), clip='walk')]),
                                                 act('mec', [D1, 0, ZD + 1.0], 40, 'armsCrossed', 'angry'), act('voisine', [D2, 0, ZD + 1.0], -40, 'armsCrossed', 'angry')],
         props=landing(line=True) + [P('wf', 'whiteFlag', on={'actor': 'mediateur', 'hand': 'R'}, scale=0.8)], cams=WIDE)
-st.shot('S14', 'livingRoom', setOpts=LAND, actors=[act('mediateur', [D1 + 0.12, 0, ZD + 1.25], 180, 'holdOut', 'smug')],
-        props=landing(mat_split=st.at('S14', 'L13', 2)) + [P('saw', 'chainsaw', on={'actor': 'mediateur', 'hand': 'R'}, scale=0.9, opts={'runAt': 0.0})],
-        cams=[cam(0.0, [D1 + 1.9, 1.15, ZD + 2.3], [D1 + 1.8, 1.15, ZD + 2.15], [D1 + 0.1, 0.55, ZD + 0.75], [D1 + 0.1, 0.55, ZD + 0.75], lens=46)])
+st.shot('S14', 'livingRoom', setOpts=LAND, actors=[act('mediateur', [D1 - 0.62, 0, ZD + 0.32], 70, 'pushVacuum', 'smug')],
+        props=landing(mat_split=st.at('S14', 'L13', 2)) + [P('saw', 'chainsaw', on={'actor': 'mediateur', 'hand': 'R', 'rot': [0.9, 0, 0]}, scale=0.9, opts={'runAt': 0.0, 'text': 'ONU'})],
+        cams=[cam(0.0, [D1 + 0.8, 3.0, ZD + 4.7], [D1 + 0.75, 2.95, ZD + 4.45], [D1 - 0.2, 0.82, ZD + 0.45], [D1 - 0.2, 0.82, ZD + 0.45], lens=48)])
 st.shot('S15', 'livingRoom', setOpts=LAND, actors=[act('mec', [-0.42, 0, ZD + 1.45], 60, 'giveItem', 'happy'), act('voisine', [0.5, 0, ZD + 1.45], -60, 'takeItem', 'happy'), act('mediateur', [0.05, 0, ZD + 0.55], 0, 'present', 'smug')],
         props=landing(mat_split=-1.0) + [TAG('treaty', 'TRAITÉ DE PAIX', [0.05, 2.5, ZD + 0.9], 0.2, w=0.8, h=0.18)], cams=WS(0.05, ZD + 1.1, h=1.55, d=4.6, look_h=1.5))
 # 16-18: no money: his own banknotes, with his face
-st.shot('S16', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'lookDown', 'sad')], props=[P('box', 'cardboardBox', pos=[0.05, 0, 0.55], scale=0.8), TAG('tresor', 'TRÉSOR NATIONAL', [0.05, 0.5, 0.86], None, w=0.5, h=0.12)],
+st.shot('S16', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'lookDown', 'sad')], props=[P('box', 'cardboardBox', pos=[0.05, 0, 0.55], scale=0.8, opts={'text': ''}), TAG('tresor', 'TRÉSOR NATIONAL', [0.05, 0.5, 0.86], None, w=0.5, h=0.12)],
         cams=[cam(0.0, [0.3, 1.35, 3.0], [0.28, 1.35, 2.75], [0.02, 0.95, 0.2], [0.02, 0.95, 0.2], lens=46)])
 st.shot('S17', 'livingRoom', actors=[act('mec', [0.1, 0, -0.2], 0, 'explain', 'happy')],
         props=[P('t', 'table', pos=[0, 0, 0.45], opts={'w': 1.1, 'd': 0.6}), P('pc', 'laptop', pos=[-0.3, 0.76, 0.4], opts={'text': 'IMPRESSION\n100 %', 'fg': '#2F7F5C'})] +

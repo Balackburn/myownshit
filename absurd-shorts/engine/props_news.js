@@ -173,8 +173,9 @@ export const NEWS_PROPS = {
   },
   doormat(o) { // a coir doormat "BIENVENUE" (0.7 × 0.45) lying flat; o.line draws a dotted border across it; o.splitAt cuts it in two halves that slide apart
     const w = o.w || 0.7, d = o.d || 0.45, draw = (x0, x1) => (c, W, H) => { c.fillStyle = '#A9773F'; c.fillRect(0, 0, W, H); c.fillStyle = '#8A5E2E'; for (let i = 0; i < 300; i++) c.fillRect(((i * 97) % 1000) / 1000 * W, ((i * 61) % 1000) / 1000 * H, W * 0.006, H * 0.02);
-      c.save(); c.translate(-x0 * W / (x1 - x0), 0); c.scale(1 / (x1 - x0), 1); c.fillStyle = '#3A2A1A'; c.font = `900 ${H * 0.26}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'BIENVENUE', W / 2, H / 2);
-      if (o.line) { c.strokeStyle = '#F4F4F0'; c.lineWidth = W * 0.012; c.setLineDash([W * 0.03, W * 0.025]); c.beginPath(); c.moveTo(W * 0.62, 0); c.lineTo(W * 0.62, H); c.stroke(); } c.restore(); };
+      const Wf = W / (x1 - x0), txt = o.text || 'BIENVENUE'; let fs = H * 0.26; c.font = `900 ${fs}px Arial`; const tw = c.measureText(txt).width; if (tw > Wf * 0.86) fs *= Wf * 0.86 / tw;
+      c.save(); c.translate(-x0 * Wf, 0); c.fillStyle = '#3A2A1A'; c.font = `900 ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, Wf / 2, H / 2); // a half shows its part of the full mat's text
+      if (o.line) { c.strokeStyle = '#F4F4F0'; c.lineWidth = Wf * 0.012; c.setLineDash([Wf * 0.03, Wf * 0.025]); c.beginPath(); c.moveTo(Wf * 0.62, 0); c.lineTo(Wf * 0.62, H); c.stroke(); } c.restore(); };
     const half = (x0, x1) => { const pl = canvasPlane(w * (x1 - x0), d, draw(x0, x1), { res: 256 }); pl.rotation.x = -PI / 2; const gg = grp(at(box(w * (x1 - x0), 0.02, d, '#8A5E2E'), 0, 0.01, 0), pl); pl.position.y = 0.021; gg.position.x = (x0 + x1 - 1) / 2 * w; return gg; };
     const g = grp(), a = half(0, o.splitAt != null ? 0.5 : 1); g.add(a); let b = null; if (o.splitAt != null) { b = half(0.5, 1); g.add(b); }
     g.userData.update = t => { if (!b) return; const k = ease.outBack(clamp01((t - o.splitAt) / 0.4)); a.position.x = -w / 4 - 0.12 * k; b.position.x = w / 4 + 0.12 * k; a.rotation.y = 0.12 * k; b.rotation.y = -0.12 * k; };
