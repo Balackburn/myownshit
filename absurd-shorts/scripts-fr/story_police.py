@@ -45,7 +45,7 @@ st.shot('S09', ST, actors=[act('flic2', [5.55, 0, -0.2], 35, 'writeOnHeld', 'smu
         props=BAY() + [PAD('flic2'), P('fine', 'noticeBoard', pos=[3.95, 1.92, -0.6], rot=R90, opts={'text': 'AMENDE', 'style': 'tag', 'w': 0.6, 'h': 0.2, 'popAt': st.at('S09', 'L08', 2)})],
         cams=[cam(0.0, [8.1, 1.65, 3.1], [7.95, 1.65, 2.8], [5.0, 1.3, -0.6], [5.0, 1.3, -0.6], lens=44)])
 st.shot('S10', ST, actors=[act('flic', [6.2, 0, 0.6], 0, 'armsCrossed', 'angry', keys=[k(0.35, clip='shakeHead'), k(1.25, clip='armsCrossed')])], props=BAY(), cams=MS(6.2, 0.6, h=1.55, d=2.6))
-st.shot('S11', ST, actors=ARREST(), props=BAY() + [CUFFS('flic')], cams=[cam(0.0, [6.35, 1.5, 3.3], [6.3, 1.5, 3.05], [6.1, 1.25, 0.2], [6.1, 1.25, 0.2], lens=44)])
+st.shot('S11', ST, actors=ARREST(), props=BAY() + [CUFFS('flic')], cams=[cam(0.0, [6.35, 1.75, 3.55], [6.3, 1.75, 3.3], [6.1, 1.52, 0.2], [6.1, 1.52, 0.2], lens=44)])
 # 12-16: the chief takes his side (arrested), the prefect protests on TV (arrested)
 st.shot('S12', 'policeStation', actors=[act('chef', [-1.1, 0, -1.0], 60, 'walk', 'angry', keys=[k(0.0, to=[-0.55, 0, -0.65], dur=st.dur('S12'), clip='walk')]),
                                        act('flic', [0.7, 0, -0.3], -20, 'cuffedFront', 'sad'), act('flic2', [1.35, 0, -0.5], -40, 'stand', 'smug')],

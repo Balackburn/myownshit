@@ -1,0 +1,993 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a appelé la police pour faire arrêter la police.",
+   "hl": [
+    "mec",
+    "police",
+    "arrêter",
+    "police."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.995,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "appelé",
+     "s": 0.633,
+     "e": 0.786
+    },
+    {
+     "w": "la",
+     "s": 0.862,
+     "e": 0.938
+    },
+    {
+     "w": "police",
+     "s": 1.014,
+     "e": 1.319
+    },
+    {
+     "w": "pour",
+     "s": 1.395,
+     "e": 1.548
+    },
+    {
+     "w": "faire",
+     "s": 1.586,
+     "e": 1.776
+    },
+    {
+     "w": "arrêter",
+     "s": 1.89,
+     "e": 2.233
+    },
+    {
+     "w": "la",
+     "s": 2.31,
+     "e": 2.386
+    },
+    {
+     "w": "police.",
+     "s": 2.462,
+     "e": 2.995
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Un policier venait de lui mettre une amende.",
+   "hl": [
+    "policier",
+    "amende."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L02.k.wav",
+   "file_start": 3.095,
+   "speech_start": 3.095,
+   "speech_end": 5.079,
+   "words": [
+    {
+     "w": "Un",
+     "s": 3.095,
+     "e": 3.248
+    },
+    {
+     "w": "policier",
+     "s": 3.286,
+     "e": 3.705
+    },
+    {
+     "w": "venait",
+     "s": 3.781,
+     "e": 3.933
+    },
+    {
+     "w": "de",
+     "s": 3.971,
+     "e": 4.01
+    },
+    {
+     "w": "lui",
+     "s": 4.048,
+     "e": 4.124
+    },
+    {
+     "w": "mettre",
+     "s": 4.162,
+     "e": 4.314
+    },
+    {
+     "w": "une",
+     "s": 4.352,
+     "e": 4.39
+    },
+    {
+     "w": "amende.",
+     "s": 4.467,
+     "e": 5.076
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Stationnement gênant.",
+   "hl": [
+    "Stationnement",
+    "gênant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L03.k.wav",
+   "file_start": 5.179,
+   "speech_start": 5.179,
+   "speech_end": 6.552,
+   "words": [
+    {
+     "w": "Stationnement",
+     "s": 5.179,
+     "e": 5.788
+    },
+    {
+     "w": "gênant.",
+     "s": 5.865,
+     "e": 6.55
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Sauf que la voiture de police…",
+   "hl": [
+    "voiture",
+    "police…"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L04.k.wav",
+   "file_start": 6.592,
+   "speech_start": 6.592,
+   "speech_end": 8.269,
+   "words": [
+    {
+     "w": "Sauf",
+     "s": 6.592,
+     "e": 6.821
+    },
+    {
+     "w": "que",
+     "s": 6.859,
+     "e": 6.897
+    },
+    {
+     "w": "la",
+     "s": 6.973,
+     "e": 7.05
+    },
+    {
+     "w": "voiture",
+     "s": 7.088,
+     "e": 7.354
+    },
+    {
+     "w": "de",
+     "s": 7.392,
+     "e": 7.43
+    },
+    {
+     "w": "police…",
+     "s": 7.507,
+     "e": 8.269
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "… était garée sur une place handicapée.",
+   "hl": [
+    "place",
+    "handicapée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L05.k.wav",
+   "file_start": 8.309,
+   "speech_start": 8.309,
+   "speech_end": 10.213,
+   "words": [
+    {
+     "w": "…",
+     "s": 8.309,
+     "e": 8.347
+    },
+    {
+     "w": "était",
+     "s": 8.385,
+     "e": 8.537
+    },
+    {
+     "w": "garée",
+     "s": 8.613,
+     "e": 8.842
+    },
+    {
+     "w": "sur",
+     "s": 8.918,
+     "e": 8.994
+    },
+    {
+     "w": "une",
+     "s": 9.07,
+     "e": 9.147
+    },
+    {
+     "w": "place",
+     "s": 9.223,
+     "e": 9.299
+    },
+    {
+     "w": "handicapée.",
+     "s": 9.375,
+     "e": 10.213
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Alors il a fait le 17.",
+   "hl": [
+    "17."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L06.k.wav",
+   "file_start": 10.313,
+   "speech_start": 10.313,
+   "speech_end": 11.913,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 10.313,
+     "e": 10.618
+    },
+    {
+     "w": "il",
+     "s": 10.77,
+     "e": 10.847
+    },
+    {
+     "w": "a",
+     "s": 10.885,
+     "e": 10.923
+    },
+    {
+     "w": "fait",
+     "s": 10.961,
+     "e": 10.999
+    },
+    {
+     "w": "le",
+     "s": 11.075,
+     "e": 11.151
+    },
+    {
+     "w": "17.",
+     "s": 11.19,
+     "e": 11.913
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Deux policiers sont arrivés.",
+   "hl": [
+    "policiers"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L07.k.wav",
+   "file_start": 12.013,
+   "speech_start": 12.013,
+   "speech_end": 13.461,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 12.013,
+     "e": 12.166
+    },
+    {
+     "w": "policiers",
+     "s": 12.242,
+     "e": 12.623
+    },
+    {
+     "w": "sont",
+     "s": 12.673,
+     "e": 12.775
+    },
+    {
+     "w": "arrivés.",
+     "s": 12.89,
+     "e": 13.461
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Ils ont verbalisé la voiture de police.",
+   "hl": [
+    "verbalisé",
+    "police."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L08.k.wav",
+   "file_start": 13.561,
+   "speech_start": 13.561,
+   "speech_end": 15.618,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 13.561,
+     "e": 13.713
+    },
+    {
+     "w": "ont",
+     "s": 13.79,
+     "e": 13.866
+    },
+    {
+     "w": "verbalisé",
+     "s": 13.942,
+     "e": 14.323
+    },
+    {
+     "w": "la",
+     "s": 14.399,
+     "e": 14.475
+    },
+    {
+     "w": "voiture",
+     "s": 14.513,
+     "e": 14.78
+    },
+    {
+     "w": "de",
+     "s": 14.818,
+     "e": 14.856
+    },
+    {
+     "w": "police.",
+     "s": 14.932,
+     "e": 15.618
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Leur collègue a refusé de payer.",
+   "hl": [
+    "refusé",
+    "payer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L09.k.wav",
+   "file_start": 15.718,
+   "speech_start": 15.718,
+   "speech_end": 17.547,
+   "words": [
+    {
+     "w": "Leur",
+     "s": 15.718,
+     "e": 15.87
+    },
+    {
+     "w": "collègue",
+     "s": 15.947,
+     "e": 16.328
+    },
+    {
+     "w": "a",
+     "s": 16.404,
+     "e": 16.48
+    },
+    {
+     "w": "refusé",
+     "s": 16.594,
+     "e": 16.861
+    },
+    {
+     "w": "de",
+     "s": 16.937,
+     "e": 17.013
+    },
+    {
+     "w": "payer.",
+     "s": 17.166,
+     "e": 17.547
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Ils l'ont arrêté.",
+   "hl": [
+    "arrêté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L10.k.wav",
+   "file_start": 17.647,
+   "speech_start": 17.647,
+   "speech_end": 18.713,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 17.647,
+     "e": 17.799
+    },
+    {
+     "w": "l'ont",
+     "s": 17.825,
+     "e": 17.951
+    },
+    {
+     "w": "arrêté.",
+     "s": 18.142,
+     "e": 18.713
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Au commissariat, son chef a pris sa défense.",
+   "hl": [
+    "chef",
+    "défense."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L11.k.wav",
+   "file_start": 18.813,
+   "speech_start": 18.813,
+   "speech_end": 21.251,
+   "words": [
+    {
+     "w": "Au",
+     "s": 18.813,
+     "e": 18.89
+    },
+    {
+     "w": "commissariat,",
+     "s": 18.966,
+     "e": 19.766
+    },
+    {
+     "w": "son",
+     "s": 19.804,
+     "e": 19.956
+    },
+    {
+     "w": "chef",
+     "s": 20.032,
+     "e": 20.109
+    },
+    {
+     "w": "a",
+     "s": 20.185,
+     "e": 20.261
+    },
+    {
+     "w": "pris",
+     "s": 20.299,
+     "e": 20.375
+    },
+    {
+     "w": "sa",
+     "s": 20.413,
+     "e": 20.49
+    },
+    {
+     "w": "défense.",
+     "s": 20.566,
+     "e": 21.251
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Arrêté pour complicité.",
+   "hl": [
+    "Arrêté",
+    "complicité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L12.k.wav",
+   "file_start": 21.351,
+   "speech_start": 21.351,
+   "speech_end": 22.875,
+   "words": [
+    {
+     "w": "Arrêté",
+     "s": 21.351,
+     "e": 21.732
+    },
+    {
+     "w": "pour",
+     "s": 21.847,
+     "e": 21.961
+    },
+    {
+     "w": "complicité.",
+     "s": 22.037,
+     "e": 22.875
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le préfet a protesté à la télé.",
+   "hl": [
+    "préfet",
+    "télé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L13.k.wav",
+   "file_start": 22.975,
+   "speech_start": 22.975,
+   "speech_end": 24.88,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.975,
+     "e": 23.128
+    },
+    {
+     "w": "préfet",
+     "s": 23.242,
+     "e": 23.432
+    },
+    {
+     "w": "a",
+     "s": 23.509,
+     "e": 23.585
+    },
+    {
+     "w": "protesté",
+     "s": 23.661,
+     "e": 24.08
+    },
+    {
+     "w": "à",
+     "s": 24.118,
+     "e": 24.169
+    },
+    {
+     "w": "la",
+     "s": 24.22,
+     "e": 24.27
+    },
+    {
+     "w": "télé.",
+     "s": 24.309,
+     "e": 24.88
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Arrêté pour outrage.",
+   "hl": [
+    "Arrêté",
+    "outrage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L14.k.wav",
+   "file_start": 24.98,
+   "speech_start": 24.98,
+   "speech_end": 26.428,
+   "words": [
+    {
+     "w": "Arrêté",
+     "s": 24.98,
+     "e": 25.437
+    },
+    {
+     "w": "pour",
+     "s": 25.513,
+     "e": 25.59
+    },
+    {
+     "w": "outrage.",
+     "s": 25.666,
+     "e": 26.428
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "À midi, toute la police était en garde à vue.",
+   "hl": [
+    "police",
+    "garde",
+    "vue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L15.k.wav",
+   "file_start": 26.528,
+   "speech_start": 26.528,
+   "speech_end": 28.813,
+   "words": [
+    {
+     "w": "À",
+     "s": 26.528,
+     "e": 26.604
+    },
+    {
+     "w": "midi,",
+     "s": 26.832,
+     "e": 27.137
+    },
+    {
+     "w": "toute",
+     "s": 27.175,
+     "e": 27.29
+    },
+    {
+     "w": "la",
+     "s": 27.366,
+     "e": 27.442
+    },
+    {
+     "w": "police",
+     "s": 27.518,
+     "e": 27.747
+    },
+    {
+     "w": "était",
+     "s": 27.823,
+     "e": 27.899
+    },
+    {
+     "w": "en",
+     "s": 27.975,
+     "e": 28.051
+    },
+    {
+     "w": "garde",
+     "s": 28.128,
+     "e": 28.242
+    },
+    {
+     "w": "à",
+     "s": 28.28,
+     "e": 28.318
+    },
+    {
+     "w": "vue.",
+     "s": 28.356,
+     "e": 28.813
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Plus personne pour garder les cellules.",
+   "hl": [
+    "personne",
+    "cellules."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L16.k.wav",
+   "file_start": 28.913,
+   "speech_start": 28.913,
+   "speech_end": 30.59,
+   "words": [
+    {
+     "w": "Plus",
+     "s": 28.913,
+     "e": 29.066
+    },
+    {
+     "w": "personne",
+     "s": 29.218,
+     "e": 29.447
+    },
+    {
+     "w": "pour",
+     "s": 29.523,
+     "e": 29.599
+    },
+    {
+     "w": "garder",
+     "s": 29.713,
+     "e": 29.904
+    },
+    {
+     "w": "les",
+     "s": 29.942,
+     "e": 29.98
+    },
+    {
+     "w": "cellules.",
+     "s": 30.056,
+     "e": 30.59
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Alors la mairie a recruté le mec.",
+   "hl": [
+    "recruté",
+    "mec."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L17.k.wav",
+   "file_start": 30.69,
+   "speech_start": 30.69,
+   "speech_end": 32.67,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 30.69,
+     "e": 30.994
+    },
+    {
+     "w": "la",
+     "s": 31.223,
+     "e": 31.299
+    },
+    {
+     "w": "mairie",
+     "s": 31.337,
+     "e": 31.604
+    },
+    {
+     "w": "a",
+     "s": 31.642,
+     "e": 31.68
+    },
+    {
+     "w": "recruté",
+     "s": 31.756,
+     "e": 32.061
+    },
+    {
+     "w": "le",
+     "s": 32.099,
+     "e": 32.137
+    },
+    {
+     "w": "mec.",
+     "s": 32.175,
+     "e": 32.67
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Seul policier de la ville.",
+   "hl": [
+    "Seul",
+    "policier"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L18.k.wav",
+   "file_start": 32.77,
+   "speech_start": 32.77,
+   "speech_end": 34.142,
+   "words": [
+    {
+     "w": "Seul",
+     "s": 32.77,
+     "e": 32.999
+    },
+    {
+     "w": "policier",
+     "s": 33.037,
+     "e": 33.38
+    },
+    {
+     "w": "de",
+     "s": 33.418,
+     "e": 33.456
+    },
+    {
+     "w": "la",
+     "s": 33.494,
+     "e": 33.532
+    },
+    {
+     "w": "ville.",
+     "s": 33.609,
+     "e": 34.142
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Le soir même, quelqu'un a fait le 17.",
+   "hl": [
+    "17."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L19.k.wav",
+   "file_start": 34.242,
+   "speech_start": 34.242,
+   "speech_end": 36.451,
+   "words": [
+    {
+     "w": "Le",
+     "s": 34.242,
+     "e": 34.318
+    },
+    {
+     "w": "soir",
+     "s": 34.394,
+     "e": 34.547
+    },
+    {
+     "w": "même,",
+     "s": 34.623,
+     "e": 35.08
+    },
+    {
+     "w": "quelqu'un",
+     "s": 35.194,
+     "e": 35.385
+    },
+    {
+     "w": "a",
+     "s": 35.461,
+     "e": 35.537
+    },
+    {
+     "w": "fait",
+     "s": 35.575,
+     "e": 35.613
+    },
+    {
+     "w": "le",
+     "s": 35.69,
+     "e": 35.766
+    },
+    {
+     "w": "17.",
+     "s": 35.791,
+     "e": 36.451
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Une voiture de police sur une place handicapée.",
+   "hl": [
+    "police",
+    "handicapée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L20.k.wav",
+   "file_start": 36.551,
+   "speech_start": 36.551,
+   "speech_end": 38.761,
+   "words": [
+    {
+     "w": "Une",
+     "s": 36.551,
+     "e": 36.704
+    },
+    {
+     "w": "voiture",
+     "s": 36.742,
+     "e": 37.009
+    },
+    {
+     "w": "de",
+     "s": 37.047,
+     "e": 37.085
+    },
+    {
+     "w": "police",
+     "s": 37.161,
+     "e": 37.466
+    },
+    {
+     "w": "sur",
+     "s": 37.542,
+     "e": 37.618
+    },
+    {
+     "w": "une",
+     "s": 37.694,
+     "e": 37.77
+    },
+    {
+     "w": "place",
+     "s": 37.847,
+     "e": 37.923
+    },
+    {
+     "w": "handicapée.",
+     "s": 37.999,
+     "e": 38.761
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "C'était la sienne.",
+   "hl": [
+    "sienne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L21.k.wav",
+   "file_start": 38.861,
+   "speech_start": 38.861,
+   "speech_end": 39.851,
+   "words": [
+    {
+     "w": "C'était",
+     "s": 38.861,
+     "e": 39.09
+    },
+    {
+     "w": "la",
+     "s": 39.166,
+     "e": 39.242
+    },
+    {
+     "w": "sienne.",
+     "s": 39.318,
+     "e": 39.851
+    }
+   ]
+  },
+  {
+   "id": "L22",
+   "who": "N",
+   "text": "Il s'est arrêté lui-même.",
+   "hl": [
+    "arrêté",
+    "lui-même."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/police/tts/L22.k.wav",
+   "file_start": 40.011,
+   "speech_start": 40.011,
+   "speech_end": 41.459,
+   "words": [
+    {
+     "w": "Il",
+     "s": 40.011,
+     "e": 40.088
+    },
+    {
+     "w": "s'est",
+     "s": 40.164,
+     "e": 40.316
+    },
+    {
+     "w": "arrêté",
+     "s": 40.469,
+     "e": 40.659
+    },
+    {
+     "w": "lui-même.",
+     "s": 40.697,
+     "e": 41.459
+    }
+   ]
+  }
+ ],
+ "total": 42.3
+}
