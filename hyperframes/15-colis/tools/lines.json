@@ -1,0 +1,179 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec attendait un colis.",
+  "hl": [
+   "mec",
+   "colis."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il est resté derrière sa porte toute la journée.",
+  "hl": [
+   "porte"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le soir, il avait un avis de passage.",
+  "hl": [
+   "avis",
+   "passage."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "C",
+  "text": "« Vous étiez absent. »",
+  "hl": [
+   "absent."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a porté plainte contre la Poste.",
+  "hl": [
+   "plainte",
+   "Poste."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La convocation au tribunal est arrivée.",
+  "hl": [
+   "convocation"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "En avis de passage.",
+  "hl": [
+   "avis",
+   "passage."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il est allé la chercher.",
+  "hl": [
+   "chercher."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Ticket numéro quatre mille douze.",
+  "hl": [
+   "quatre",
+   "douze."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le guichet appelait le numéro un.",
+  "hl": [
+   "un."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il a attendu onze ans.",
+  "hl": [
+   "onze"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il s'est marié dans la file.",
+  "hl": [
+   "marié",
+   "file."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Ses enfants y ont grandi.",
+  "hl": [
+   "enfants",
+   "grandi."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Quatre mille onze.",
+  "hl": [
+   "onze."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "La guichetière est partie en pause.",
+  "hl": [
+   "pause."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il a pris sa place.",
+  "hl": [
+   "place."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Personne n'a rien remarqué.",
+  "hl": [
+   "rien"
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il est devenu facteur.",
+  "hl": [
+   "facteur."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il a livré son propre colis.",
+  "hl": [
+   "propre",
+   "colis."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Il n'était pas chez lui.",
+  "hl": [
+   "pas"
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "Il s'est laissé un avis de passage.",
+  "hl": [
+   "avis",
+   "passage."
+  ]
+ }
+]
