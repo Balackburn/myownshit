@@ -59,7 +59,7 @@ WALK0, WALK1, TW = 0.6, -1.9, 1.2                     # he walks 2.5 m in 1.2 s 
 def man_at(t): u = min(1.0, max(0.0, t / TW)); return [0.0, 0.0, WALK0 + (WALK1 - WALK0) * u]
 s1cams = [cam(0.0, [0.1, 0.6, WALK0 + 3.0], [0.1, 0.6, man_at(0.3)[2] + 3.0], [-0.35, 0.95, WALK0 - 3], [-0.35, 0.95, man_at(0.3)[2] - 3], lens=72)]
 s1cams += orbit_cams(0.3, 1.1, 8, man_at, 3.0, 2.5, 0, 180, 0.62, 0.85, 1.05)
-s1cams += [cam(1.1, [0, 0.85, man_at(1.1)[2] - 2.5], [0, 0.88, WALK1 - 2.7], [-0.26, 1.1, man_at(1.1)[2]], [-0.26, 1.2, WALK1], lens=72)]
+s1cams += [cam(1.1, [0.4, 0.45, man_at(1.1)[2] - 2.5], [0.4, 0.45, WALK1 - 2.7], [-0.4, 1.45, man_at(1.1)[2]], [-0.4, 1.45, WALK1], lens=72)]   # low and tilted up at him from his front-left, like the original's f33-f56 (+0.02-0.03 on stills)
 scenes.append(scene(1, 'S1', 'replicaStreet', setOpts={'near': 'cottage', 'z0': -44.2, 'nearTown': [5]},
     actors=[act('mec', [0, 0, WALK0], 180, 'walk', 'neutral', keys=[
         k(0.0, to=[0, 0, WALK1], dur=TW, clip='walk', then='stand'), k(1.28, clip='reachUpL')])],

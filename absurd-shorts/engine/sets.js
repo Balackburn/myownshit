@@ -368,7 +368,7 @@ const S = {
       if (!B) houses.add(at(box(perRow * px + 40, 0.03, 4.5, '#8DB75A'), 0, 0.015, z + 15.2));
       for (let i = 0; i < perRow; i++) {
         const x = (i - (perRow - 1) / 2) * px + (j % 2 ? px * 0.35 : 0) + (r() - 0.5) * 0.6, c = WC[Math.floor(r() * WC.length)], rf = RC[Math.floor(r() * RC.length)];
-        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, eaves: !!o.eaves, porch: o.porch ?? !o.eaves, overhang: o.overhang, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z);
+        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, eaves: !!o.eaves, porch: o.porch ?? !o.eaves, overhang: o.overhang, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z, 0, o.houseScale || 1);
         houses.add(hb);
         if (!B && r() < 0.35) houses.add(prop('tree', { seed: j * 17 + i, color: '#4E8A4A' }, x + px / 2, 0, z - 2 - r() * 4, 0, 1.6 + r() * 0.8));
         if (B && r() < 0.3) houses.add(prop('burntTree', { seed: j * 17 + i, h: 5 + r() * 2 }, x + px / 2, 0, z - 2 - r() * 4));
@@ -422,7 +422,7 @@ const S = {
     [-1, 1].forEach(s => g.add(at(box(0.16, 0.22, 0.16, '#D6A43A'), cx + s * (CW / 2 - 0.03), CH + 0.1, cz)));
     const plate = canvasPlane(1.5, 0.36, (c, Wc, Hc) => { c.fillStyle = '#D6A43A'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#1B2747'; c.fillRect(Wc * 0.03, Hc * 0.12, Wc * 0.94, Hc * 0.76);
       c.fillStyle = '#F2EEE2'; c.font = `bold italic ${Hc * 0.36}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle || '', Wc / 2, Hc / 2); }, { res: 512 });
-    plate.position.set(cx, CH - 0.65, cz + 0.135); plate.rotation.z = 0.06; plate.scale.setScalar(Math.min(1, CW / 1.7)); g.add(plate);
+    plate.position.set(cx, o.plateY ?? CH - 0.65, cz + 0.135); plate.rotation.z = 0.06; plate.scale.setScalar(Math.min(1, CW / 1.7)); g.add(plate);
     g.add(at(box(0.5, 4.5, 0.3, '#C2342A', { pivot: 'bottom' }), 0, 3.0, -15.6));                                                  // red pillar
     Object.assign(g.userData, { lighting: 'interior', anchors: { center: [0, 0, 0], judge: [0, 0, -14.0], bench: [0, 1.15, bz], dock: [0, 0, 0] } });
     return g;

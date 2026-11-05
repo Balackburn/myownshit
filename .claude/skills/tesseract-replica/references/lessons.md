@@ -161,3 +161,7 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   the same pipeline (a JPEG still against an H.264 frame carries a −0.003…−0.006 bias), and only then spend a 15-minute render.
   Rejected this way, at a minute each: front-gabled houses in S12 (−0.01), a longer grave mound (−0.01), a camera truck in S22 (−0.03),
   thinner smoke (−0.013).
+- (tornado) **In a busy repeated texture, element size is the big lever.** The aerial towns scored low for thirty passes. A/B stills
+  on house scale alone moved S8b by +0.02-0.04 and S10 by +0.02-0.03 per frame (0.95/0.82 → 1.3), more than any crater, haze or
+  missile change. Measure the repeated element on full-resolution frames (bottom rows and middle rows), set the scale to match, then
+  stop: past the measured size SSIM keeps rising only because coarser texture is easier to match.
