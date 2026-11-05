@@ -60,6 +60,7 @@ not have, so this project is built by hand to the same rules.
 | 29 | 0.685 | 0.480 | S22 soft out-of-focus foreground grass (+0.013); S4 round open eyes (neutral face); smaller nozzle glows on the aerial jet |
 | 30 | 0.685 | 0.480 | S7: jet wings level, banking as it passes over; camera holds the measured horizon (523 → 543 px), then whips up to all-sky by f240 |
 | 31 | 0.685 | 0.480 | S18 turbine planted in the crater, its thick tower rising out of the crown (the flagged S18 frames shrink) |
+| 32 | 0.685 | 0.479 | S7 flyover: the jet climbs over the camera to the upper left, banking, ~15 m away; the camera whips up after it with a short blur (S7 0.879 → 0.881) |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20
