@@ -51,6 +51,7 @@ not have, so this project is built by hand to the same rules.
 | 20 | 0.678 | 0.479 | distance haze on the aerial shots (bands within ~2-6 L*); S10 camera fitted to the crater (45°, squat tornado), jet from above with banking, ~50 missiles incl. a wing launch; THEFT card at the original's size, font, spring bounce and tilt |
 | 21 | 0.679 | 0.480 | S3 camera moved in to the original's framing (head size and position from grid reads; body 3/4, face to camera); S12 camera solved from the house rows, horizon and tornado, side-gabled cottages packed on a 7.6 m pitch, muted roofs; missing content 15.6% → 11.9% |
 | 22 | 0.679 | 0.480 | S14: the road had never rendered (1 cm above the ground: z-fight), now asphalt with dashes at the original's colour; camera tilt 18.6° as measured, closer V-shaped tornado with broken pale stripes, bigger flames, neutral light; missing content 11.9% → 5.6% |
+| 23 | 0.678 | 0.480 | S20 camera at the officer's measured size and place, turbine behind him, lighter tornado with tan swirls; S18 crater crown under the turbine; missing content 5.6% → 3.4% |
 
 Pass 19-20 notes:
 - **Engine:** `camLock` props live in camera space (screen-locked layers inside a 3D shot: the cloud bank); `rotTo` keys rotate props
