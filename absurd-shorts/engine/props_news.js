@@ -204,33 +204,72 @@ export const NEWS_PROPS = {
       w.position.set(...p); body.add(w); return w; });
     const crank = grp(at(cyl(0.07, 0.07, 0.02, '#9AA0A6', 10), 0, 0, 0.05, PI / 2), rod([0, 0, 0.06], [0, -0.17, 0.06], 0.012, '#5A5E62'), rod([0, 0, -0.06], [0, 0.17, -0.06], 0.012, '#5A5E62'),
       at(box(0.1, 0.02, 0.05, '#1C1C20'), 0, -0.17, 0.09), at(box(0.1, 0.02, 0.05, '#1C1C20'), 0, 0.17, -0.09)); crank.position.set(...Bb); body.add(crank);
-    body.add(rod([0, 0.33, 0.05], [-0.52, 0.355, 0.05], 0.006, '#3A3D44'));   // chain
-    const eyes = grp(), lids = [], pupils = []; [-1, 1].forEach(sd => { const ball = sphere(0.055, '#FFFFFF', 1, { noGrain: true }); ball.scale.z = 0.7; const pu = sphere(0.025, '#1C1C20', 0, { noGrain: true }); pu.position.set(0, 0, 0.04); ball.add(pu); pupils.push(pu);
-      const lid = mesh(new THREE.SphereGeometry(0.058, 12, 6, 0, TAU, 0, PI / 2), mat(c)); lid.rotation.x = -PI / 2; lid.scale.y = 0.01; ball.add(lid); lids.push(lid); ball.position.set(0, 0, sd * 0.065); eyes.add(ball); });
-    eyes.position.set(0.47, 0.98, 0); eyes.rotation.y = PI / 2; body.add(eyes);
-    if (o.jersey) { const j = grp(at(box(0.36, 0.2, 0.02, '#F2C94C'), 0, -0.07, 0.04), at(box(0.36, 0.2, 0.02, '#F2C94C'), 0, -0.07, -0.04), at(box(0.38, 0.03, 0.1, '#F2C94C'), 0, 0.03, 0)); j.position.set(0.15, 0.86, 0); body.add(j); }
+    for (const [y0, y1, r0, r1] of [[0.33 + 0.07, 0.355 + 0.045, 0, -0.52], [0.33 - 0.07, 0.355 - 0.045, 0, -0.52]]) {   // chain: two runs of dark links
+      const n = 13, ang = Math.atan2(y1 - y0, r1 - r0); for (let i = 0; i <= n; i++) { const u = i / n, lk = box(0.034, 0.014, 0.016, i % 2 ? '#2A2C30' : '#4A4E54'); lk.position.set(r0 + (r1 - r0) * u, y0 + (y1 - y0) * u, 0.05); lk.rotation.z = ang; body.add(lk); } }
+    body.add(at(cyl(0.045, 0.045, 0.018, '#5A5E62', 10), -0.52, 0.355, 0.05, PI / 2));   // rear sprocket
+    const er = o.eyeR || 0.068, eyes = grp(), lids = [], pupils = []; [-1, 1].forEach(sd => {   // two googly eyes side by side across the stem, looking forward (+x)
+      const ball = sphere(er, '#FFFFFF', 1, { noGrain: true }); ball.scale.z = 0.82; const pu = sphere(er * 0.46, '#1C1C20', 0, { noGrain: true }); pu.position.set(0, 0, er * 0.7); ball.add(pu); pupils.push(pu);
+      const lid = mesh(new THREE.SphereGeometry(er * 1.06, 12, 6, 0, TAU, 0, PI / 2), mat(c)); lid.rotation.x = PI / 2; lid.scale.y = 0.01; ball.add(lid); lids.push(lid);
+      ball.rotation.y = PI / 2 - sd * 0.14; ball.position.set(0, 0, sd * er * 1.12); eyes.add(ball); });
+    eyes.position.set(0.47, 1.0, 0); body.add(eyes);
+    if (o.jersey) { const J = '#F2C94C', jw = 0.46, jh = 0.32, j = grp(at(box(jw, 0.03, 0.13, J, { outline: 0.004 }), 0, 0.02, 0));   // the yellow jersey draped over the top tube, sleeves hanging
+      for (const sz of [-1, 1]) j.add(at(box(jw, jh, 0.02, J, { outline: 0.004 }), 0, -jh / 2 + 0.03, sz * 0.06), at(box(0.13, 0.12, 0.02, J, { outline: 0.004 }), jw / 2 - 0.04, -0.03, sz * 0.1, 0, -sz * 0.55, 0),
+        at(box(jw * 0.9, 0.025, 0.004, '#E0A82E'), 0, -jh + 0.06, sz * 0.071));
+      j.position.set(0.15, 0.86, 0); body.add(j); }
     if (o.bib) { const b = canvasPlane(0.16, 0.12, (cc, W, Hh) => { cc.fillStyle = '#FFFFFF'; cc.fillRect(0, 0, W, Hh); cc.fillStyle = '#1C1C20'; cc.font = `900 ${Hh * 0.7}px Arial`; cc.textAlign = 'center'; cc.textBaseline = 'middle'; cc.fillText(String(o.bib), W / 2, Hh * 0.55); }, { res: 128 });
       b.position.set(0.0, 0.62, 0.045); body.add(b); const b2 = b.clone(); b2.position.z = -0.045; b2.rotation.y = PI; body.add(b2); }
-    if (o.shades) { const sh = grp(at(box(0.012, 0.045, 0.06, '#1C1C20'), 0, 0, 0.065), at(box(0.012, 0.045, 0.06, '#1C1C20'), 0, 0, -0.065), at(box(0.01, 0.012, 0.07, '#1C1C20'), 0, 0.01, 0)); sh.position.set(0.53, 0.99, 0); body.add(sh); }
+    if (o.shades) { const ez = er * 1.12, lw = er * 1.85, lh = er * 1.5, sh = grp(at(box(0.016, lh, lw, '#141418'), 0, 0, ez), at(box(0.016, lh, lw, '#141418'), 0, 0, -ez), at(box(0.014, 0.018, ez * 2 - lw + 0.03, '#141418'), 0, lh * 0.3, 0),   // star sunglasses
+        at(box(0.004, lh * 0.32, lw * 0.28, '#FFFFFF', { noGrain: true }), 0.01, lh * 0.2, ez + lw * 0.22), at(box(0.004, lh * 0.32, lw * 0.28, '#FFFFFF', { noGrain: true }), 0.01, lh * 0.2, -ez + lw * 0.22));
+      sh.position.set(0.47 + er * 0.82 + 0.014, 1.0, 0); body.add(sh); }
     const g = grp(body), R = rng(o.seed || 7), blink = R() * 3;
-    g.userData.update = t => { const v = o.speed ?? 0, a = -t * v / 0.33; wheels.forEach(w => { w.rotation.z = a; }); crank.rotation.z = a * 0.45;
+    const dist = t => { const v = o.speed ?? 0; if (o.goAt == null) return v * t; const u = t - o.goAt; return u <= 0 ? 0 : u < 0.3 ? v * u * u / 0.6 : v * (u - 0.15); };
+    g.userData.update = t => { const v = o.goAt != null && t < o.goAt ? 0 : (o.speed ?? 0), a = -dist(t) / 0.33; wheels.forEach(w => { w.rotation.z = a; }); crank.rotation.z = a * 0.45;
       body.position.y = 0.012 * Math.abs(Math.sin(t * 5)) * (v > 0 ? 1 : 0.3); body.rotation.x = 0.04 * Math.sin(t * 1.7) * (v > 0 ? 1 : 0.4);
-      const lk = o.look || [0, 0]; pupils.forEach(pu => { pu.position.x = lk[1] * 0.02; pu.position.y = 0.012 * Math.sin(t * 0.9) + lk[0] * 0.02; });
+      const K = o.lookKeys; let lk = o.look || [0, 0];   // o.lookKeys: [[t, up, side], ...] eases the gaze between keys
+      if (K) { lk = K[K.length - 1].slice(1); if (t <= K[0][0]) lk = K[0].slice(1); else for (let i = 1; i < K.length; i++) if (t < K[i][0]) { let u = (t - K[i - 1][0]) / (K[i][0] - K[i - 1][0]); u = u * u * (3 - 2 * u); lk = [K[i - 1][1] + (K[i][1] - K[i - 1][1]) * u, K[i - 1][2] + (K[i][2] - K[i - 1][2]) * u]; break; } }
+      pupils.forEach(pu => { pu.position.x = lk[1] * er * 0.38; pu.position.y = er * 0.15 * Math.sin(t * 0.9) + lk[0] * er * 0.38; });
       const bl = ((t + blink) % 3.1) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); };
     g.userData.update(0); return g;
   },
-  winnersPodium(o) { // the three-step podium with 1 2 3 (centre step tallest), white with blue numbers
-    const g = grp(); [[0, 0.6, '1'], [-0.62, 0.42, '2'], [0.62, 0.28, '3']].forEach(([x, h, n]) => { g.add(at(box(0.6, h, 0.6, '#F4F4F0', { pivot: 'bottom', outline: 0.006 }), x, 0, 0));
-      const l = canvasPlane(0.3, 0.22, (c, W, H) => { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, H); c.fillStyle = '#2F62B5'; c.font = `900 ${H * 0.8}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(n, W / 2, H * 0.55); }, { res: 128 }); l.position.set(x, h * 0.5, 0.302); g.add(l); });
+  winnersPodium(o) { // the three-step podium with 1 2 3 (centre step tallest), white with blue numbers; o.w step width, o.hs height scale
+    const w = o.w || 0.6, hs = o.hs || 1, g = grp(); [[0, 0.6, '1'], [-1.03 * w, 0.42, '2'], [1.03 * w, 0.28, '3']].forEach(([x, h0, n]) => { const h = h0 * hs; g.add(at(box(w, h, w, '#F4F4F0', { pivot: 'bottom', outline: 0.006 }), x, 0, 0));
+      const l = canvasPlane(w * 0.5, w * 0.37, (c, W, H) => { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, H); c.fillStyle = '#2F62B5'; c.font = `900 ${H * 0.8}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(n, W / 2, H * 0.55); }, { res: 128 }); l.position.set(x, Math.min(h * 0.5, h - w * 0.25), w / 2 + 0.002); g.add(l); });
     return g;
   },
   oilCan(o) { // a small oil can with a long spout; drops fall from the tip from o.dripAt
-    const g = grp(at(cyl(0.06, 0.07, 0.12, '#C8322A', 12, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.035, 0.06, 0.04, '#9AA0A6', 12, { pivot: 'bottom' }), 0, 0.12, 0), rod([0, 0.15, 0], [0.18, 0.3, 0], 0.008, '#9AA0A6'));
+    const g = grp(at(cyl(0.06, 0.07, 0.12, o.color || '#C8322A', 12, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.035, 0.06, 0.04, '#9AA0A6', 12, { pivot: 'bottom' }), 0, 0.12, 0), rod([0, 0.15, 0], [0.18, 0.3, 0], 0.008, '#9AA0A6'));
     const drops = [0, 1, 2].map(() => { const d = sphere(0.012, '#3A2A10', 0, { noGrain: true }); d.scale.y = 1.4; g.add(d); return d; });
     g.userData.update = t => { drops.forEach((d, i) => { const u = o.dripAt == null || t < o.dripAt ? -1 : ((t - o.dripAt) * 1.6 + i / 3) % 1; d.visible = u >= 0; d.position.set(0.18, 0.3 - u * 0.35, 0); }); };
     g.userData.update(0); return g;
   },
   innerTube(o) { return grp(at(torus(o.r || 0.25, 0.03, '#1C1C20', 6, 22), 0, 0, 0)); },
+  cutChain(o) { // a cut bike chain hanging from the grip (hold it with HAND_FLAT), an open padlock at its end; it swings a little
+    const g = grp(), L = o.color || '#6A6E74', n = o.n || 8, sw = grp(); g.add(sw);
+    for (let i = 0; i < n; i++) { const lk = torus(0.032, 0.01, L, 4, 8); lk.position.set(0, -0.02 - i * 0.055, 0); lk.rotation.y = i % 2 ? PI / 2 : 0; sw.add(lk); }
+    const lock = grp(at(box(0.1, 0.11, 0.045, '#D4A82A', { outline: 0.005 }), 0, -0.055, 0), at(torus(0.035, 0.009, '#C9CCD1', 4, 10), 0.035, 0.03, 0, 0, 0, 0.8), at(box(0.02, 0.03, 0.002, '#1C1C20'), 0, -0.06, 0.024));
+    lock.position.set(0, -0.02 - n * 0.055, 0); sw.add(lock);
+    g.userData.update = t => { sw.rotation.z = 0.1 * Math.sin(t * 3.1); sw.rotation.x = 0.06 * Math.sin(t * 2.3 + 1); };
+    g.userData.update(0); return g; },
+  bikeRack(o) { // a steel hoop bike rack (inverted U along x), empty; o.n hoops 0.8 m apart
+    const g = grp(), R = '#A4AAB0', w = 0.62, h = 0.82, n = o.n || 1;
+    for (let k = 0; k < n; k++) { const x0 = (k - (n - 1) / 2) * 0.8;
+      g.add(rod([x0 - w / 2, 0, 0], [x0 - w / 2, h - 0.12, 0], 0.025, R), rod([x0 + w / 2, 0, 0], [x0 + w / 2, h - 0.12, 0], 0.025, R), rod([x0 - w / 2 + 0.1, h, 0], [x0 + w / 2 - 0.1, h, 0], 0.025, R),
+        rod([x0 - w / 2, h - 0.12, 0], [x0 - w / 2 + 0.1, h, 0], 0.025, R), rod([x0 + w / 2, h - 0.12, 0], [x0 + w / 2 - 0.1, h, 0], 0.025, R)); }
+    return g; },
+  crowdBarrier(o) { // a steel crowd-control barrier along x (o.length m), vertical bars, splayed feet; o.sign: a coloured panel with text
+    const L = o.length || 2.0, H = o.height || 1.0, R = '#C2C6CC', g = grp(grp(rod([-L / 2, 0.14, 0], [L / 2, 0.14, 0], 0.016, R), rod([-L / 2, H, 0], [L / 2, H, 0], 0.022, R), rod([-L / 2, 0.08, 0], [-L / 2, H, 0], 0.022, R), rod([L / 2, 0.08, 0], [L / 2, H, 0], 0.022, R)));
+    const n = Math.round(L / 0.13); for (let i = 1; i < n; i++) { const x = -L / 2 + i * L / n; g.add(rod([x, 0.14, 0], [x, H, 0], 0.009, R)); }
+    for (const x of [-L / 2 + 0.12, L / 2 - 0.12]) g.add(rod([x, 0, -0.28], [x, 0.14, 0], 0.014, R), rod([x, 0, 0.28], [x, 0.14, 0], 0.014, R));
+    if (o.sign) { const sg = canvasPlane(L * 0.7, 0.24, (c, W, Hh) => { c.fillStyle = o.bg || '#F2C94C'; c.fillRect(0, 0, W, Hh); c.fillStyle = o.fg || '#1C252A'; let fs = Hh * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.sign).width; if (tw > W * 0.9) fs *= W * 0.9 / tw;
+        c.font = `900 ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.sign, W / 2, Hh * 0.54); }, { res: 512 }); sg.position.set(0, H * 0.62, 0.014); g.add(sg); const sb = sg.clone(); sb.position.z = -0.014; sb.rotation.y = PI; g.add(sb); }
+    return g; },
+  pressCamera(o) { // a press photographer's camera, lens along +z; its flash fires (a white burst) at o.flashAt (seconds)
+    const g = grp(at(box(0.16, 0.11, 0.075, '#1C1C20', { outline: 0.004 }), 0, 0, 0), at(cyl(0.045, 0.045, 0.11, '#2A2A2E', 10), 0, 0, 0.09, PI / 2), at(cyl(0.036, 0.036, 0.006, '#7FA6CC', 10), 0, 0, 0.147, PI / 2),
+      at(box(0.07, 0.06, 0.06, '#1C1C20'), 0, 0.09, 0.0));
+    const fl = mesh(new THREE.PlaneGeometry(0.06, 0.04), new THREE.MeshBasicMaterial({ color: '#C9CCD1' })); fl.position.set(0, 0.095, 0.031); g.add(fl);
+    const burst = mesh(new THREE.CircleGeometry(0.22, 14), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.9, depthWrite: false, side: THREE.DoubleSide })); burst.position.set(0, 0.095, 0.05); g.add(burst);
+    const fa = [].concat(o.flashAt ?? []); g.userData.update = t => { const on = fa.some(a => t >= a && t < a + 0.09); burst.visible = on; fl.material.color.set(on ? '#FFFFFF' : '#C9CCD1'); };
+    g.userData.update(0); return g; },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });
     f.position.set(0.31, 1.38, 0); g.add(f); g.userData.update = t => { f.rotation.y = 0.14 * Math.sin(t * 2.6 + (o.seed || 0)); }; return g;

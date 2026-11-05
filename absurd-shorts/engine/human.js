@@ -182,6 +182,9 @@ export function buildHuman(spec = {}) {
     const chest = box(0.2, 0.2, 0.01, C.shirt); chest.position.set(0, torsoH * 0.82, front); torso.add(chest);
   }
   if (C.tie && !ATLB && !o.naked) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
+  if (o.bib && !o.naked) for (const sd of [1, -1]) { const c = document.createElement('canvas'); c.width = 128; c.height = 96; const x = c.getContext('2d'); x.fillStyle = '#FFFFFF'; x.fillRect(0, 0, 128, 96);   // race number, front and back
+    x.fillStyle = '#1C1C20'; x.font = '900 64px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(o.bib), 64, 52); const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+    const b = new THREE.Mesh(new THREE.PlaneGeometry(0.17, 0.13), new THREE.MeshLambertMaterial({ map: tx })); b.position.set(0, torsoH * 0.5, sd * (front + 0.016)); if (sd < 0) b.rotation.y = Math.PI; torso.add(b); }
   // buttons / badge details
   if (!ATLB && (o.outfit === 'suit' || o.outfit === 'waiter')) for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }
@@ -262,8 +265,8 @@ for (let i = 0; i < pp.count; i++) {
     const cuff = part('cuff', 0.1, 0.05, 0.11, C.cuff); cuff.position.y = -0.3 * H; el.add(cuff);
     const hand = joint('hand' + s, el, 0, -0.31 * H, 0);
     // mitten hand + thumb (flat paddle, slightly cupped like the source)
-    hand.add(part('skin', 0.085, 0.13, 0.04, o.skin, { pivot: 'top' }));
-    const th = part('skin', 0.025, 0.06, 0.03, o.skin, { pivot: 'top' }); th.position.set(sx * 0.04, -0.01, 0.01); th.rotation.z = sx * 0.5; hand.add(th);
+    hand.add(o.gloves ? box(0.09, 0.135, 0.045, o.gloves, { pivot: 'top' }) : part('skin', 0.085, 0.13, 0.04, o.skin, { pivot: 'top' }));   // o.gloves: e.g. a chauffeur's white gloves
+    const th = o.gloves ? box(0.03, 0.065, 0.035, o.gloves, { pivot: 'top' }) : part('skin', 0.025, 0.06, 0.03, o.skin, { pivot: 'top' }); th.position.set(sx * 0.04, -0.01, 0.01); th.rotation.z = sx * 0.5; hand.add(th);
     if (o.claws) for (let i = 0; i < 4; i++) { const f = box(0.014, 0.22, 0.014, '#D9D3C0', { pivot: 'top', taper: 0.3 }); f.position.set(-0.03 + i * 0.02, -0.1, 0); hand.add(f); }
   }
   // legs
@@ -314,6 +317,9 @@ function addHat(head, hat, hw, hh, hd, C) {
     case 'swatcap': { g.add(box(hw * 1.15, 0.08, hd * 1.2, P.swat, { pivot: 'bottom' })); const v = box(hw, 0.02, 0.1, P.swat); v.position.set(0, 0.01, hd * 0.65); g.add(v); break; }
     case 'hardhat': { const hc = C.hat || P.yellow; g.add(box(hw * 1.3, 0.12, hd * 1.4, hc, { pivot: 'bottom', taper: 0.8 })); const b = box(hw * 1.6, 0.02, hd * 1.7, hc); g.add(b); break; }   // hatColor: e.g. a UN blue helmet
     case 'toque': { const t = box(hw * 1.05, 0.28, hd * 1.1, P.white, { pivot: 'bottom', taper: 1.35 }); g.add(t); break; }
+    case 'bikehelmet': { const hc = C.hat || '#F2F2EE', sh = box(hw * 1.24, 0.12, hd * 1.42, hc, { pivot: 'bottom', taper: 0.72 }); sh.position.z = -hd * 0.06; g.add(sh);   // aero cycling helmet: dark vents, a short tail
+      for (const x of [-0.3, 0, 0.3]) { const v = box(hw * 0.13, 0.016, hd * 1.0, '#1C1C20'); v.position.set(x * hw, 0.118, -hd * 0.06); g.add(v); }
+      const tail = box(hw * 0.7, 0.07, hd * 0.4, hc, { pivot: 'bottom', taper: 0.55 }); tail.position.set(0, 0.0, -hd * 0.82); g.add(tail); break; }
     case 'wig': { // barrister's wig: a puffy white cap and three stacked rolls (curls) over each ear
       const W = '#EFEDE6', w = box(hw * 1.35, 0.13, hd * 1.3, W, { pivot: 'bottom', outline: 0.01 }); g.add(w);
       for (const s of [-1, 1]) for (let i = 0; i < 3; i++) { const c = cyl(0.055, 0.055, hd * 0.95, W, 8, { outline: 0.02 }); c.rotation.x = Math.PI / 2; c.position.set(s * (hw * 0.66 + 0.03), -0.02 - i * 0.1, -hd * 0.08); g.add(c); }

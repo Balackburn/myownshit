@@ -2,96 +2,116 @@
 """Le vélo: his bike steals itself and rides off; the police can't catch it; it enters the Tour de France with no rider, seventy
 kilos lighter than the others, wins the stage and the yellow jersey (doping test: a bit of oil on the chain); he sues for theft,
 the court sides with the bike (it belongs to itself); he owes it alimony, two inner tubes a month. Today the bike is a star with
-its own car and a chauffeur: him."""
+its own car and a chauffeur: him.
+Round 2 (critic review): the bike's eyes sit side by side (it reads head-on), every line shows the bike, riders wear helmets and
+numbers, the hook shows the cut chain, the podium puts the bike on top, and the last shot reveals him driving the bike."""
 from story_kit import *
 
 st = Story('velo')
 st.plan([(f'S{i:02d}', f'L{i:02d}', 0) for i in range(1, 12)] + [('S12', 'L11', 3)] + [(f'S{i + 1:02d}', f'L{i:02d}', 0) for i in range(12, 21)])
 ST = 'parisStreet'
-RZ = [0, -1.5708, 0]                                                     # a bike facing +Z (local +X forward)
-BIKE = lambda pos, rot=RZ, scale=1.0, keys=None, **o: P('velo', 'livingBike', pos=pos, rot=rot, scale=scale, opts={'speed': o.pop('speed', 0), **o}, **({'keys': keys} if keys else {}))
-RIDERS = [('r1', '#2F62B5'), ('r2', '#C9822E'), ('r3', '#2F7F5C')]
-def rider(aid, x, z, col, keys=None, bike_keys=None, expr='unimpressed'):   # a cyclist on a plain bicycle, both facing +Z
-    return (act(aid, [x, 0.55, z - 0.16], 0, 'drive', expr, keys=keys or []),
-            P(f'bk_{aid}', 'bicycle', pos=[x, 0, z], rot=RZ, opts={'color': col}, **({'keys': bike_keys} if bike_keys else {})))
-CROWD = lambda x0, z0, n=5: [act(f'fan{i}', [x0 + 0.62 * (i % 2), 0, z0 - 0.9 * i], -90, 'celebrate', 'happy') for i in range(n)]
+PI = math.pi
+def face(deg):                                                           # livingBike rotation so it faces (sin deg, cos deg): 0 = +Z (toward a camera at +Z)
+    return [0, math.radians(deg) - PI / 2, 0]
+RZ = face(0)
+BIKE = lambda pos, rot=RZ, scale=1.0, keys=None, pid='velo', **o: P(pid, 'livingBike', pos=pos, rot=rot, scale=scale, opts={'speed': o.pop('speed', 0), **o}, **({'keys': keys} if keys else {}))
+RIDERS = [('r1', '#2F62B5', 12), ('r2', '#C9822E', 27), ('r3', '#2F7F5C', 45)]
+def rider(aid, x, z, col, keys=None, bike_keys=None, expr='unimpressed', back=False, cadence=1.5, lean=0.6):   # a racing cyclist on a plain bicycle, facing +Z (or -Z)
+    sz = -1 if back else 1
+    return (act(aid, [x, 0.5, z - 0.16 * sz], 180 if back else 0, 'ride', expr, keys=keys or [], params={'cadence': cadence, 'lean': lean}),
+            P(f'bk_{aid}', 'bicycle', pos=[x, 0, z], rot=[0, PI / 2 if back else -PI / 2, 0], opts={'color': col}, **({'keys': bike_keys} if bike_keys else {})))
+KG = lambda pid, text, pos, at_, keys=None, rot=None, **kw: P(pid, 'noticeBoard', pos=pos, **({'rot': rot} if rot else {}), opts={'text': text, 'style': 'tag', 'w': kw.pop('w', 0.5), 'h': kw.pop('h', 0.17), 'popAt': at_, **kw}, **({'keys': keys} if keys else {}))
+CAR = dict(color='#17171C', plate='VÉLO-1', convertible=True)
+CX, CZ = 3.9, 1.0                                                        # the star's car, parked at the right kerb, facing -Z (passenger side +X = the pavement)
 
 # 1-5: stolen by itself, off on its own, the police can't catch it
-st.shot('S01', ST, actors=[act('mec', [6.4, 0, 0.8], 0, 'doubleTake', 'shocked')], props=[P('chain', 'innerTube', pos=[5.62, 0.9, 0.2], rot=[0, 0, 1.2], opts={'r': 0.12})],
-        cams=CU(6.4, 0.8, h=1.66, dx=0.3, d=1.9))
-st.shot('S02', ST, props=[BIKE([5.8, 0, -0.6], rot=[0, 1.5708, 0], speed=2.2, look=[0, -1], keys=[k(0.0, to=[5.8, 0, -3.0], dur=st.dur('S02'), ease='in')])],
-        cams=[cam(0.0, [6.3, 0.55, 1.6], [6.25, 0.57, 1.35], [5.8, 0.75, -1.0], [5.8, 0.75, -2.4], lens=46)])
-st.shot('S03', ST, props=[BIKE([2.0, 0, -4.0], speed=6, keys=[k(0.0, to=[2.0, 0, 4.0], dur=st.dur('S03'), ease='linear')]), P('speed', 'speedLines', pos=[2.0, 0.8, 0.0], rot=RZ)],
+st.shot('S01', ST, actors=[act('mec', [7.3, 0, 4.0], -35, 'showPhone', 'shocked')],
+        props=[P('chain', 'cutChain', on={'actor': 'mec', 'hand': 'R', **HAND_FLAT}), P('rack', 'bikeRack', pos=[8.0, 0, 4.55], rot=[0, PI / 2, 0], opts={'n': 2})],
+        cams=[cam(0.0, [5.85, 1.5, 6.0], [5.93, 1.48, 5.8], [7.05, 1.45, 3.85], [7.05, 1.45, 3.85], lens=44, shake=0.006)])
+st.shot('S02', ST, props=[BIKE([6.4, 0, 1.2], rot=face(180), speed=3.0, goAt=0.62, lookKeys=[[0.0, 0.0, -0.6], [0.3, 0.15, 0.7]], keys=[k(0.62, to=[6.4, 0, -2.6], dur=st.dur('S02') - 0.62, ease='in')]),
+                          P('rack', 'bikeRack', pos=[7.05, 0, 1.0], rot=[0, PI / 2, 0], opts={'n': 2})],
+        cams=[cam(0.0, [5.72, 1.08, -0.42], [5.76, 1.06, -0.3], [6.42, 0.93, 0.62], [6.42, 0.93, 0.62], lens=44)])
+st.shot('S03', ST, props=[BIKE([2.0, 0, -4.0], speed=6, look=[0.1, 0], keys=[k(0.0, to=[2.0, 0, 4.0], dur=st.dur('S03'), ease='linear')]), P('speed', 'speedLines', pos=[2.0, 0.8, 0.0], rot=RZ)],
         cams=[cam(0.0, [3.4, 0.6, -2.6], [3.4, 0.6, 2.6], [2.0, 0.7, -4.0], [2.0, 0.7, 4.0], lens=46)], blur=[[0.0, st.dur('S03'), 0.012]], blurSamples=6)
-st.shot('S04', ST, props=[BIKE([1.5, 0, -2.0], speed=7, keys=[k(0.0, to=[1.5, 0, 8.0], dur=st.dur('S04'), ease='linear')]),
-                         P('pcar', 'policeCar', pos=[1.6, 0, -8.5], rot=RZ, keys=[k(0.0, to=[1.6, 0, 1.5], dur=st.dur('S04'), ease='linear')])],
-        cams=[cam(0.0, [4.4, 1.0, -1.6], [4.4, 1.0, 8.4], [1.5, 0.9, -5.2], [1.5, 0.9, 4.8], lens=48, shake=0.015)], blur=[[0.0, st.dur('S04'), 0.01]], blurSamples=6)
-st.shot('S05', ST, actors=[act('flic', [2.6, 0, 1.0], 160, 'bigShrug', 'sad')], props=[P('pcar', 'policeCar', pos=[1.4, 0, 1.2], rot=RZ), BIKE([1.4, 0, -6.0], speed=6, keys=[k(0.0, to=[1.4, 0, -14.0], dur=st.dur('S05'), ease='linear')])],
-        cams=[cam(0.0, [3.4, 1.5, 3.6], [3.35, 1.52, 3.3], [2.0, 1.2, -2.0], [2.0, 1.2, -3.0], lens=46)])
+st.shot('S04', ST, props=[BIKE([2.0, 0, -1.0], speed=6.5, look=[0.25, -0.2], keys=[k(0.0, to=[2.0, 0, 8.4], dur=st.dur('S04'), ease='linear')]),
+                          P('pcar', 'policeCar', pos=[1.05, 0, -9.0], rot=RZ, keys=[k(0.0, to=[1.05, 0, 2.6], dur=st.dur('S04'), ease='linear')])],
+        cams=[cam(0.0, [2.65, 0.72, 2.3], [2.65, 0.72, 11.7], [1.7, 1.0, -2.6], [1.7, 1.0, 6.8], lens=46, shake=0.012)], blur=[[0.0, st.dur('S04'), 0.005]], blurSamples=5)
+st.shot('S05', ST, actors=[act('flic', [2.63, 0, 1.0], 22, 'bigShrug', 'sad')],
+        props=[P('pcar', 'policeCar', pos=[0.5, 0, -1.9], rot=face(180)), BIKE([2.2, 0, -12.0], speed=6, keys=[k(0.0, to=[2.2, 0, -18.0], dur=st.dur('S05'), ease='linear')], rot=face(180))],
+        cams=[cam(0.0, [2.5, 1.95, 3.45], [2.48, 1.95, 3.25], [2.5, 1.75, -10.0], [2.5, 1.75, -10.0], lens=46)])
 # 6-10: the Tour de France, no rider, seventy kilos lighter, the stage, the yellow jersey
-st.shot('S06', ST, actors=[act('official', [6.6, 0, -1.2], 0, 'clipboard', 'suspicious')],
-        props=[P('desk', 'table', pos=[6.6, 0, -0.55], opts={'w': 1.2, 'd': 0.6}), P('sign', 'noticeBoard', pos=[6.6, 2.42, -1.7], opts={'text': 'TOUR DE FRANCE\nINSCRIPTIONS', 'style': 'sign', 'w': 1.3, 'h': 0.4, 'bg': '#F2C94C', 'fg': '#1C252A', 'frame': '#1C252A'}),
-               BIKE([6.6, 0, 0.35], rot=[0, 3.1416, 0], look=[0.3, 0]), P('bib', 'noticeBoard', pos=[6.75, 1.1, 0.42], opts={'text': '1', 'style': 'tag', 'w': 0.16, 'h': 0.13, 'popAt': st.at('S06', 'L06', 4) - 0.05})],
-        cams=[cam(0.0, [7.4, 1.3, 3.0], [7.35, 1.32, 2.75], [6.6, 1.05, -0.4], [6.6, 1.05, -0.4], lens=46)])
-R7 = [rider(a, x, -0.6, c) for (a, c), x in zip(RIDERS, (-1.0, 1.0, 1.9))]
-st.shot('S07', ST, actors=[r[0] for r in R7], props=[r[1] for r in R7] + [BIKE([0.0, 0, 0.0], bib=1, look=[0.2, 0.5]),
-        P('start', 'signBoard', pos=[0.4, 0, -1.4], opts={'text': 'DÉPART', 'w': 3.2, 'h': 0.45, 'height': 2.5, 'bg': '#F4F4F0', 'fg': '#C8322A', 'frame': '#C8322A'})],
-        cams=[cam(0.0, [0.15, 0.62, 2.6], [0.15, 0.64, 2.35], [0.1, 0.95, -0.6], [0.1, 0.97, -0.6], lens=50)])
-R8 = [rider('r1', 1.4, 1.0, RIDERS[0][1], expr='sad', keys=[k(0.0, to=[1.4, 0.55, 1.45], dur=st.dur('S08'), clip='drive')], bike_keys=[k(0.0, to=[1.4, 0, 1.6], dur=st.dur('S08'))])]
-st.shot('S08', ST, actors=[r[0] for r in R8], props=[r[1] for r in R8] + [BIKE([0.4, 0, -0.6], speed=3, bib=1, keys=[k(0.0, to=[0.4, 0, 2.4], dur=st.dur('S08'), ease='linear')]),
+st.shot('S06', ST, actors=[act('official', [7.3, 0, -1.15], -25, 'clipboard', 'suspicious')],
+        props=[P('desk', 'table', pos=[7.05, 0, -0.55], opts={'w': 1.3, 'd': 0.6}), P('sign', 'noticeBoard', pos=[6.55, 2.75, -1.7], opts={'text': 'TOUR DE FRANCE\nINSCRIPTIONS', 'style': 'sign', 'w': 1.35, 'h': 0.42, 'bg': '#F2C94C', 'fg': '#1C252A', 'frame': '#1C252A'}),
+               BIKE([6.15, 0, 0.35], rot=face(35), look=[0.15, -0.5]), KG('bib', '1', [6.24, 1.06, 0.56], st.at('S06', 'L06', 4) - 0.05, w=0.2, h=0.16)],
+        cams=[cam(0.0, [6.6, 1.42, 3.65], [6.58, 1.43, 3.4], [6.45, 1.3, -0.4], [6.45, 1.31, -0.4], lens=46)])
+R7 = [rider(a, x, -0.75, c, cadence=0) for (a, c, n), x in zip(RIDERS[:2], (-0.82, 0.86))]
+st.shot('S07', ST, actors=[r[0] for r in R7], props=[r[1] for r in R7] + [BIKE([0.0, 0, -0.35], rot=face(32), bib=1, look=[0.15, -0.6]),
+        P('start', 'signBoard', pos=[0.2, 0, -3.2], opts={'text': 'DÉPART', 'w': 3.6, 'h': 0.5, 'height': 2.75, 'bg': '#F4F4F0', 'fg': '#C8322A', 'frame': '#C8322A'})],
+        cams=[cam(0.0, [0.1, 1.05, 4.6], [0.1, 1.06, 4.35], [0.05, 1.45, -0.6], [0.05, 1.46, -0.6], lens=50)])
+R8 = [rider('r1', 1.7, -0.6, RIDERS[0][1], expr='sad', cadence=1.0, lean=0.8, keys=[k(0.0, to=[1.7, 0.5, 0.75], dur=st.dur('S08'), clip='ride')], bike_keys=[k(0.0, to=[1.7, 0, 0.91], dur=st.dur('S08'))])]
+st.shot('S08', ST, actors=[r[0] for r in R8], props=[r[1] for r in R8] + [BIKE([0.45, 0, -2.6], speed=3.4, bib=1, look=[0.1, -0.4], keys=[k(0.0, to=[0.45, 0, 3.4], dur=st.dur('S08'), ease='linear')]),
         P('sweat', 'sweatDrop', on={'actor': 'r1', 'joint': 'head', 'offset': [0.12, 0.3, 0.1]}),
-        P('kg', 'noticeBoard', pos=[0.4, 1.55, 1.2], opts={'text': '− 70 KG', 'style': 'tag', 'w': 0.5, 'h': 0.17, 'fg': '#2F7F4F', 'frame': '#2F7F4F', 'popAt': st.at('S08', 'L08', 1) - 0.05},
-          keys=[k(0.0, to=[0.4, 1.55, 2.6], dur=st.dur('S08'), ease='linear')])],
-        cams=[cam(0.0, [2.0, 0.9, 4.6], [2.0, 0.92, 5.6], [0.8, 0.9, 0.0], [0.8, 0.9, 1.8], lens=46)])
-st.shot('S09', ST, actors=CROWD(5.6, 1.0), props=[BIKE([1.2, 0, -3.0], speed=6, bib=1, keys=[k(0.0, to=[1.2, 0, 3.0], dur=st.dur('S09'), ease='linear')]),
-        P('arch', 'signBoard', pos=[1.4, 0, 0.0], opts={'text': 'ARRIVÉE', 'w': 4.2, 'h': 0.6, 'height': 2.8, 'bg': '#F4F4F0', 'fg': '#1C252A', 'frame': '#C8322A'})],
-        cams=[cam(0.0, [2.6, 0.7, 5.2], [2.55, 0.72, 4.9], [1.3, 1.4, 0.0], [1.3, 1.45, 0.0], lens=48, shake=0.01)])
-st.shot('S10', ST, actors=[act('r2', [6.0, 0.42, -0.5], 0, 'celebrate', 'happy'), act('r3', [7.25, 0.28, -0.5], 0, 'stand', 'unimpressed')],
-        props=[P('pod', 'winnersPodium', pos=[6.62, 0, -0.5]), BIKE([6.62, 0.6, -0.5], rot=[0, 0, 0], jersey=True, bib=1, look=[0.3, 0]), P('fl', 'flowers', pos=[6.95, 0.6, -0.35], scale=1.2)],
-        cams=[cam(0.0, [6.75, 1.45, 4.5], [6.72, 1.47, 4.2], [6.62, 1.25, -0.5], [6.62, 1.27, -0.5], lens=50)])
+        KG('kg', '− 70 KG', [0.45, 1.55, -2.6], st.at('S08', 'L08', 1) - 0.05, keys=[k(0.0, to=[0.45, 1.55, 3.4], dur=st.dur('S08'), ease='linear')], rot=[0, -PI / 2, 0], fg='#2F7F4F', frame='#2F7F4F')],
+        cams=[cam(0.0, [-3.3, 1.05, -1.5], [-3.3, 1.05, 1.9], [1.0, 1.0, -1.2], [1.0, 1.0, 2.2], lens=46, roll=-7)])
+FANS = [act(f'fan{i}', [x, 0, z], ry, 'celebrate', 'happy') for i, (x, z, ry) in enumerate(((1.5, -2.6, -110), (1.55, -4.2, -100), (1.5, -5.8, -100), (-1.5, -3.2, 110), (-1.55, -4.8, 100), (1.45, -1.0, -125), (-1.5, -1.7, 120)))]
+st.shot('S09', ST, actors=FANS, props=[BIKE([0.25, 0, -3.6], speed=6, bib=1, look=[0.2, 0.2], keys=[k(0.0, to=[0.25, 0, 1.2], dur=st.dur('S09'), ease='out')]),
+        P('arch', 'signBoard', pos=[0.0, 0, -0.6], opts={'text': 'ARRIVÉE', 'w': 3.8, 'h': 0.55, 'height': 2.7, 'bg': '#F4F4F0', 'fg': '#1C252A', 'frame': '#C8322A'}),
+        P('bar1', 'crowdBarrier', pos=[1.12, 0, -3.0], rot=[0, PI / 2, 0], opts={'length': 6.4, 'sign': 'TOUR DE FRANCE'}), P('bar2', 'crowdBarrier', pos=[-1.12, 0, -3.2], rot=[0, -PI / 2, 0], opts={'length': 5.6, 'sign': 'TOUR DE FRANCE'})],
+        cams=[cam(0.0, [0.3, 1.1, 5.8], [0.28, 1.11, 5.5], [0.1, 1.25, -1.0], [0.1, 1.27, -1.0], lens=48, shake=0.01)])
+POD = dict(w=1.0, hs=1.85)                                               # step 1 is 1.11 m high: the bike stands above the slumped riders
+st.shot('S10', ST, actors=[act('r2', [5.57, 0.28, -0.2], 0, 'sitSlump', 'sad'), act('r3', [7.63, 0.02, -0.2], 0, 'sitSlump', 'sad')],
+        props=[P('pod', 'winnersPodium', pos=[6.6, 0, -0.5], opts=POD), BIKE([6.6, 1.11, -0.5], rot=face(30), scale=1.15, jersey=True, look=[0.25, -0.5]), P('fl', 'flowers', pos=[6.2, 1.11, -0.15], scale=1.3)],
+        cams=[cam(0.0, [6.68, 0.9, 4.9], [6.66, 0.95, 4.4], [6.6, 1.62, -0.5], [6.6, 1.68, -0.5], lens=50)])
 # 11-12: doping control: a bit of oil on the chain
-st.shot('S11', 'office', actors=[act('docteur', [0.55, 0, -0.35], -40, 'lookItem', 'suspicious')], props=[BIKE([-0.1, 0, 0.0], rot=[0, 0, 0], jersey=True, look=[0, 0.5]),
-        P('loupe', 'magnifyingGlass', on={'actor': 'docteur', 'hand': 'R'}, scale=0.45), P('lab', 'noticeBoard', pos=[0.0, 2.2, -1.3], opts={'text': 'ANTIDOPAGE', 'style': 'sign', 'w': 1.0, 'h': 0.26})],
-        cams=MS(0.15, 0.0, h=1.35, d=3.0))
-st.shot('S12', 'office', props=[BIKE([-0.1, 0, 0.0], rot=[0, 0, 0], jersey=True), P('oil', 'oilCan', pos=[-0.35, 0.36, 0.22], rot=[0, 0, -0.5], opts={'dripAt': 0.15})],
-        cams=[cam(0.0, [0.12, 0.62, 1.1], [0.1, 0.6, 0.95], [-0.25, 0.38, 0.0], [-0.25, 0.38, 0.0], lens=44)])
+st.shot('S11', 'office', actors=[act('docteur', [-0.12, 0, -0.62], 0, 'drawLow', 'suspicious')], props=[BIKE([-0.1, 0, 0.0], rot=[0, 0, 0], jersey=True, look=[-0.3, 0.7]),
+        P('loupe', 'magnifyingGlass', on={'actor': 'docteur', 'hand': 'R'}, scale=0.9), P('lab', 'noticeBoard', pos=[-0.75, 2.2, -1.3], opts={'text': 'ANTIDOPAGE', 'style': 'sign', 'w': 1.1, 'h': 0.28})],
+        cams=[cam(0.0, [0.3, 1.05, 3.2], [0.28, 1.05, 3.0], [-0.25, 1.08, -0.2], [-0.25, 1.08, -0.2], lens=46)])
+st.shot('S12', 'office', props=[BIKE([-0.1, 0, 0.0], rot=[0, 0, 0], jersey=True), P('oil', 'oilCan', pos=[-0.72, 0.52, 0.12], rot=[0, 0, -0.55], scale=1.15, opts={'dripAt': 0.12, 'color': '#2F9E5A'})],
+        cams=[cam(0.0, [-0.48, 0.6, 1.15], [-0.49, 0.59, 1.05], [-0.52, 0.47, 0.05], [-0.52, 0.47, 0.05], lens=44)])
 # 13-16: the complaint, the court, a bike belongs to itself, alimony
 st.shot('S13', 'policeStation', actors=[act('mec', [-1.85, 0, -1.2], -100, 'explain', 'angry', keys=st.talk('L12', 'S13', 'angry')), act('flic', [-2.7, 0, -2.75], 0, 'sitWrite', 'unimpressed')],
         cams=[cam(0.0, [-1.6, 1.5, 1.4], [-1.65, 1.5, 1.15], [-2.3, 1.2, -1.9], [-2.3, 1.2, -1.9], lens=46)])
-st.shot('S14', **JUDGE(0.5, 'TRIBUNAL'))
-st.shot('S15', 'courtroom', actors=[act('mec', [0.8, 0, -1.6], -20, 'angryFist', 'angry')], props=[BIKE([0.0, 0, -1.4], speed=2, look=[0.2, 0], keys=[k(0.0, to=[0.0, 0, 1.4], dur=st.dur('S15'), ease='linear')])],
+J14 = JUDGE(round(st.at('S14', 'L13', 4) - 0.05, 3), 'TRIBUNAL')
+J14['props'][0] = P('specs', 'glasses', on={'actor': 'juge', 'joint': 'head', 'offset': [0.02, 0.25, 0.15]}, opts={'r': 0.042, 'dx': 0.07})
+J14['cams'] = [cam(0.0, [-0.3, 1.32, -11.75], [-0.31, 1.33, -12.0], [-0.42, 1.74, -14.0], [-0.42, 1.74, -14.0], lens=45)]
+st.shot('S14', **J14)
+st.shot('S15', 'courtroom', actors=[act('mec', [0.8, 0, -1.6], -20, 'facepalm', 'sad')], props=[BIKE([0.0, 0, -1.4], speed=2, rot=face(-15), look=[0.25, 0.2], keys=[k(0.0, to=[0.0, 0, 1.2], dur=st.dur('S15'), ease='linear')])],
         cams=[cam(0.0, [0.35, 1.0, 3.6], [0.33, 1.02, 3.35], [0.2, 0.9, -0.6], [0.2, 0.92, 0.2], lens=46)])
 st.shot('S16', 'office', props=[P('doc', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': 'PENSION\nALIMENTAIRE', 'style': 'doc', 'w': 0.72, 'h': 0.9, 'popAt': 0.1, 'textSize': 0.4, 'stamp': 'À VIE'})],
         cams=[cam(0.0, [0.05, 1.55, 2.15], [0.05, 1.55, 1.95], [0, 1.5, 0], [0, 1.5, 0], lens=42)])
 # 17-21: two inner tubes a month; the star, its car, its chauffeur: him
-st.shot('S17', ST, actors=[act('mec', [7.1, 0, 0.3], -100, 'giveItem', 'sad')], props=[BIKE([6.0, 0, 0.0], rot=[0, 0, 0], look=[0.4, 0]),
-        P('tube1', 'innerTube', on={'actor': 'mec', 'hand': 'R'}, rot=[1.5708, 0, 0]), P('tube2', 'innerTube', pos=[6.65, 0.3, 0.55], rot=[1.5708, 0, 0.3])],
-        cams=[cam(0.0, [6.55, 1.25, 3.6], [6.55, 1.27, 3.35], [6.55, 0.95, 0.1], [6.55, 0.97, 0.1], lens=48)])
-st.shot('S18', ST, actors=[act(f'ph{i}', [x, 0, 0.9], ry, 'showPhone', 'happy') for i, (x, ry) in enumerate(((5.75, 120), (7.45, -120)))],
-        props=[P('carpet', 'carpet', pos=[6.6, 0, 0.0], rot=RZ, opts={'color': '#B5302A'}), BIKE([6.6, 0, -1.6], speed=1.2, shades=True, keys=[k(0.0, to=[6.6, 0, 0.0], dur=st.dur('S18'), ease='out')]),
-               P('st1', 'stanchions', pos=[5.9, 0, -0.5], rot=RZ), P('st2', 'stanchions', pos=[7.3, 0, -0.5], rot=RZ)],
-        cams=[cam(0.0, [6.65, 1.0, 3.2], [6.63, 1.02, 2.95], [6.6, 0.95, -0.4], [6.6, 0.97, -0.1], lens=50)],
-        fx=[{'type': 'flash', 'at': t, 'dur': 0.06} for t in (0.3, 0.75, 1.2, 1.6)])
-st.shot('S19', ST, props=[P('car', 'car', pos=[6.4, 0, -0.8], rot=[0, 0.25, 0], opts={'color': '#1C1C22', 'plate': 'VÉLO-1'}), BIKE([7.0, 0, 0.9], rot=[0, 0.4, 0], shades=True, look=[0.2, 0.3])],
-        cams=[cam(0.0, [8.2, 1.2, 4.2], [8.1, 1.22, 3.9], [6.7, 0.9, 0.0], [6.7, 0.92, 0.0], lens=46)])
-st.shot('S20', ST, actors=[act('chauffeur', [5.9, 0, 0.3], 30, 'present', 'unimpressed')], props=[P('car', 'car', pos=[6.4, 0, -0.8], rot=[0, 0.25, 0], opts={'color': '#1C1C22', 'plate': 'VÉLO-1'}),
-        BIKE([7.6, 0, 1.4], rot=[0, 2.6, 0], shades=True, speed=1.0, keys=[k(0.0, to=[6.9, 0, 0.7], dur=st.dur('S20'), ease='out')])],
-        cams=[cam(0.0, [7.0, 1.4, 3.6], [6.95, 1.42, 3.35], [6.4, 1.15, 0.2], [6.4, 1.17, 0.2], lens=46)])
-st.shot('S21', ST, actors=[act('chauffeur', [6.45, 0.12, -0.4], 90, 'drive', 'unimpressed', keys=[k(0.9, expr='sad')])],
-        props=[P('car', 'car', pos=[6.4, 0, 0.0], opts={'color': '#1C1C22', 'plate': 'VÉLO-1'}), BIKE([5.55, 0.32, 0.38], rot=[0, 0, 0], scale=0.62, shades=True, look=[0, 0])],
-        cams=[cam(0.0, [8.9, 1.35, -0.55], [8.75, 1.35, -0.52], [6.45, 1.2, -0.3], [6.45, 1.2, -0.3], lens=44)])
+TUBE = lambda pid, off, rot: P(pid, 'innerTube', on={'actor': 'mec', 'hand': 'R', 'rot': rot, 'offset': off}, opts={'r': 0.22})
+st.shot('S17', ST, actors=[act('mec', [7.15, 0, 0.25], -95, 'giveItem', 'sad')], props=[BIKE([5.95, 0, 0.1], rot=face(55), look=[0.2, -0.3]),
+        TUBE('tube1', [0, -0.1, -0.2], [PI / 2, PI / 2, 0]), TUBE('tube2', [0.0, -0.3, -0.24], [PI / 2, PI / 2 + 0.25, 0.08])],
+        cams=[cam(0.0, [6.7, 1.25, 3.7], [6.7, 1.26, 3.45], [6.68, 1.0, 0.1], [6.68, 1.01, 0.1], lens=48)])
+PHOTOG = [act(f'ph{i}', [x, 0, -0.15], ry, 'binocs', 'happy') for i, (x, ry) in enumerate(((5.98, 155), (7.22, -155)))]
+st.shot('S18', ST, actors=PHOTOG,
+        props=[P('carpet', 'carpet', pos=[6.6, 0, -0.4], rot=RZ, opts={'color': '#B5302A'}), BIKE([6.6, 0, -2.6], speed=1.2, rot=face(18), shades=True, look=[0.1, 0.2], keys=[k(0.0, to=[6.6, 0, -1.05], dur=st.dur('S18'), ease='out')]),
+               P('st1', 'stanchions', pos=[5.9, 0, -1.4], rot=RZ), P('st2', 'stanchions', pos=[7.3, 0, -1.4], rot=RZ),
+               P('cam0', 'pressCamera', on={'actor': 'ph0', 'hand': 'R', **HAND_FLAT}, opts={'flashAt': [0.3, 1.2]}), P('cam1', 'pressCamera', on={'actor': 'ph1', 'hand': 'R', **HAND_FLAT}, opts={'flashAt': [0.75, 1.6]})],
+        cams=[cam(0.0, [6.65, 1.35, 4.25], [6.63, 1.36, 4.0], [6.6, 1.0, -0.8], [6.6, 1.0, -0.8], lens=50)],
+        fx=[{'type': 'flash', 'at': t, 'dur': 0.05} for t in (0.3, 0.75, 1.2, 1.6)])
+st.shot('S19', ST, props=[P('car', 'car', pos=[CX, 0, CZ], rot=[0, PI / 2, 0], opts=CAR), BIKE([CX + 1.2, 0, CZ + 0.9], rot=face(-150), shades=True, look=[0.15, 0.4])],
+        cams=[cam(0.0, [CX + 1.3, 1.3, CZ - 5.8], [CX + 1.25, 1.31, CZ - 5.5], [CX + 0.4, 0.8, CZ - 0.5], [CX + 0.4, 0.81, CZ - 0.5], lens=46)])
+st.shot('S20', ST, actors=[act('chauffeur', [CX + 1.45, 0, CZ - 0.35], -90, 'presentL', 'unimpressed')],
+        props=[P('car', 'car', pos=[CX, 0, CZ], rot=[0, PI / 2, 0], opts={**CAR, 'rearDoorAt': 0.05, 'rearDoor': 1.2}),
+               BIKE([CX + 1.6, 0, CZ + 2.9], rot=face(180), shades=True, speed=1.4, look=[0.15, -0.4], keys=[k(0.0, to=[CX + 1.45, 0, CZ + 1.05], dur=st.dur('S20'), ease='out')])],
+        cams=[cam(0.0, [CX + 5.4, 1.5, CZ + 0.95], [CX + 5.15, 1.5, CZ + 0.9], [CX + 1.0, 1.12, CZ + 0.35], [CX + 1.0, 1.12, CZ + 0.35], lens=46)])
+st.shot('S21', ST, actors=[act('chauffeur', [CX - 0.4, 0.12, CZ - 0.15], 180, 'drive', 'unimpressed', keys=[k(1.2, expr='sad')])],
+        props=[P('car', 'car', pos=[CX, 0, CZ], rot=[0, PI / 2, 0], opts=CAR), BIKE([CX + 0.1, 0.61, CZ + 0.9], rot=face(180), scale=0.7, shades=True, look=[0.2, 0.3])],
+        cams=[cam(0.0, [CX + 1.0, 2.45, CZ - 2.4], [CX + 0.96, 2.42, CZ - 2.24], [CX - 0.15, 1.05, CZ + 0.5], [CX - 0.15, 1.05, CZ + 0.5], lens=48)])
 st.card('S07', 'SANS CYCLISTE'); st.card('S14', 'RELAXÉ')
-st.cue('sfx:gasp', 'S01', 0.4, 0.4); st.cue('sfx:spring', 'S02', 0.1, 0.25); st.cue('whoosh', 'S03', 0.1, 0.4, 1.0, 400, 3500)
-st.cue('engine', 'S04', 0.0, 0.4, st.dur('S04')); st.cue('whoosh', 'S04', 0.2, 0.4, 1.0, 400, 3500); st.cue('sfx:grunt', 'S05', 0.3, 0.3)
+st.cue('sfx:gasp', 'S01', 0.4, 0.4); st.cue('sfx:spring', 'S02', 0.25, 0.25); st.cue('whoosh', 'S02', 0.65, 0.3, 0.6, 500, 3000); st.cue('whoosh', 'S03', 0.1, 0.4, 1.0, 400, 3500)
+st.cue('sfx:siren', 'S04', 0.0, 0.3); st.cue('engine', 'S04', 0.0, 0.35, st.dur('S04')); st.cue('sfx:grunt', 'S05', 0.3, 0.3)
 st.cue('clack', 'S06', st.at('S06', 'L06', 4) - 0.05, 0.5); st.cue('sfx:whistle', 'S07', 0.3, 0.35); st.cue('thud', 'S07', 0.07, 0.45)
 st.cue('pop', 'S08', st.at('S08', 'L08', 1) - 0.05, 0.45); st.cue('whoosh', 'S09', 0.3, 0.4, 0.8, 400, 3000); st.cue('sfx:fanfare', 'S09', 0.5, 0.35)
 st.cue('sfx:choir', 'S10', 0.1, 0.25); st.cue('sfx:sniff', 'S11', 0.5, 0.3); [st.cue('sfx:pour', 'S12', t, 0.25) for t in (0.2, 0.8)]
-st.cue('thud', 'S13', 0.4, 0.3); st.cue('thud', 'S14', 0.07, 0.45); st.cue('thud', 'S14', 0.5, 0.8); st.cue('sfx:spring', 'S15', 0.2, 0.2)
+st.cue('thud', 'S13', 0.4, 0.3); st.cue('thud', 'S14', 0.07, 0.45); st.cue('thud', 'S14', st.at('S14', 'L13', 4) - 0.05, 0.8); st.cue('sfx:spring', 'S15', 0.2, 0.2)
 st.cue('sfx:paper', 'S16', 0.1, 0.45); st.cue('clack', 'S16', 0.5, 0.5); st.cue('sfx:squeak', 'S17', 0.5, 0.3)
-[st.cue('clack', 'S18', t, 0.3) for t in (0.3, 0.75, 1.2, 1.6)]; st.cue('sfx:carDoor', 'S20', 0.6, 0.35); st.cue('engine', 'S21', 0.0, 0.3, st.dur('S21'))
+[st.cue('clack', 'S18', t, 0.3) for t in (0.3, 0.75, 1.2, 1.6)]; st.cue('sfx:carDoor', 'S20', 0.1, 0.35); st.cue('engine', 'S21', 0.0, 0.3, st.dur('S21'))
 st.write('Le vélo', {
     'official': {'preset': 'lemec_glasses', 'seed': 21}, 'docteur': {'preset': 'doctor'},
-    'r1': {'preset': 'sportif', 'seed': 11, 'suit': '#2F62B5'}, 'r2': {'preset': 'sportif', 'seed': 13, 'suit': '#C9822E'}, 'r3': {'preset': 'sportif', 'seed': 17, 'suit': '#2F7F5C'},
-    **{f'fan{i}': {'preset': p, 'seed': 40 + i} for i, p in enumerate(('femme', 'tourist', 'mamie', 'gamin', 'fermier'))},
+    **{a: {'preset': 'sportif', 'seed': s, 'suit': c, 'hat': 'bikehelmet', 'hatColor': '#F4F4F0', 'bib': n} for (a, c, n), s in zip(RIDERS, (11, 13, 17))},
+    **{f'fan{i}': {'preset': p, 'seed': 40 + i} for i, p in enumerate(('femme', 'tourist', 'mamie', 'gamin', 'fermier', 'chef', 'worker'))},
     'ph0': {'preset': 'journaliste'}, 'ph1': {'preset': 'lemec_brown', 'seed': 7},
-    'chauffeur': {'preset': 'lemec', 'hat': 'copcap', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}})
+    'chauffeur': {'preset': 'lemec', 'hat': 'copcap', 'hatColor': '#1C1C22', 'gloves': '#F4F4F0', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}})

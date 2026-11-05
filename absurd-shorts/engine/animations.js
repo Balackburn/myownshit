@@ -231,6 +231,12 @@ export const CLIPS = {
   drawOn: (t) => ({ shoulderR: [-1.55, 0.2, 0.1], elbowR: [-0.5 + 0.12 * S(t * 16), 0, 0.1 * C(t * 16)], shoulderL: [-0.3, 0, 0.3], elbowL: [-1.4, 0, 0], head: [0.05, 0.1, 0], torso: [0.12, 0, 0] }),
   pour: (t) => ({ shoulderR: [-1.25, 0.3, 0.1], elbowR: [-0.6, 0, 0], handR: [0, 0, -0.9], shoulderL: [-1.05, -0.2, 0.1], elbowL: [-0.9, 0, 0], head: [0.4, 0, 0] }),
   wipeGlass: (t) => ({ shoulderR: [-0.95, 0.35, 0.05], elbowR: [-1.35 + 0.15 * S(t * 9), 0, 0.2 * S(t * 9)], shoulderL: [-0.95, -0.35, 0.05], elbowL: [-1.3, 0, 0], head: [0.3, 0, 0] }),
+  ride: (t, p = {}) => { const ph = t * 2 * PI * (p.cadence ?? 1.5), a = S(ph); // racing cyclist on a bicycle: leaning forward, hands on the bars, pedalling
+    return { hipL: [-1.3 + 0.42 * a, 0, 0.06], hipR: [-1.3 - 0.42 * a, 0, -0.06], kneeL: [1.35 - 0.5 * C(ph), 0, 0], kneeR: [1.35 + 0.5 * C(ph), 0, 0], torso: [p.lean ?? 0.6, 0, 0.025 * a], head: [-(p.lean ?? 0.6) * 0.85, 0, 0],
+      ...arms(m([-1.05, 0, 0.16], [-1.05, 0, 0.16]), m([-0.3, 0, 0], [-0.3, 0, 0])), root: { y: -0.4 + 0.012 * Math.abs(a) } }; },
+  sitSlump: (t) => ({ ...CLIPS.sit(t), torso: [0.35, 0, 0], head: [0.5 + 0.03 * S(t * 1.1), 0, 0], ...arms(m([-0.35, 0, 0.02], [-0.35, 0, 0.02]), m([-0.5, 0, 0], [-0.5, 0, 0])) }), // sitting, defeated: elbows on the knees, head down
+  presentL: (t) => { const q = CLIPS.present(t), f = v => v && [v[0], -v[1], -v[2]]; return { ...q, shoulderL: f(q.shoulderR), elbowL: f(q.elbowR), shoulderR: f(q.shoulderL), elbowR: f(q.elbowL), handL: f(q.handR), handR: f(q.handL), head: f(q.head) }; }, // "after you" with the left arm
+  slump: (t) => ({ ...CLIPS.stand(), torso: [0.2, 0, 0], head: [0.45 + 0.03 * S(t * 1.3), 0, 0], ...arms(m([-0.12, 0, 0.04], [-0.12, 0, 0.04]), m([-0.12, 0, 0], [-0.12, 0, 0])), root: { y: -0.015 } }), // defeated: head down, arms hanging
   drive: (t) => ({ ...CLIPS.sit(t), ...arms(m([-1.25, 0, 0.12], [-1.25, 0, 0.12]), m([-0.35 + 0.05 * S(t * 2), 0, 0], [-0.35 - 0.05 * S(t * 2), 0, 0])), head: [0, 0.08 * S(t * 0.7), 0] }),
   crouchHide: (t) => ({ hipL: [-1.2, 0, 0.1], hipR: [-1.2, 0, -0.1], kneeL: [2.0, 0, 0], kneeR: [2.0, 0, 0], torso: [0.6, 0, 0], head: [-0.4, 0.25 * S(t * 1.6), 0], ...arms(m([-1.0, 0, 0.2], [-1.0, 0, 0.2]), m([-1.3, 0, 0], [-1.3, 0, 0])), root: { y: -0.45 } }),
   boxSneak: (t, p = {}) => { const ph = t * 2 * PI * (p.freq ?? 1.8), a = Math.max(0, S(ph)), b = Math.max(0, -S(ph)); return { // crouched shuffle under a cardboard box

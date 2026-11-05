@@ -1347,7 +1347,8 @@ const B = {
       const j = Math.min(1, Math.abs(rate) / 25) * (o.shake ?? 1); body.position.set(0.012 * j * Math.sin(t * 61), 0.006 * j * Math.abs(Math.sin(t * 47)), 0.008 * j * Math.sin(t * 53)); body.rotation.z = 0.012 * j * Math.sin(t * 43);   // vibrates on fast spins
       if (lb) lb.visible = o.laundryAt == null || t >= o.laundryAt; };
     g.userData.update(0); g.userData.drum = [0, yc, D / 2 + 0.03]; return g; },
-  car(o) { // civilian car facing +x, see-through cabin so a driver shows (clip 'drive' at userData.seat); o.color, o.plate
+  car(o) { // civilian car facing +x, see-through cabin so a driver shows (clip 'drive' at userData.seat); o.color, o.plate; o.convertible: an open-top limousine
+    if (o.convertible) return B.convertible(o);
     const C = o.color || '#C9473A', g = grp(), gl = glassMat(o.glass ?? 0.07, '#E6F2F5');
     g.add(at(box(4.0, 0.56, 1.8, C, { outline: 0.012 }), 0, 0.63, 0), at(box(4.02, 0.16, 1.82, P.greyDark), 0, 0.42, 0),
       at(box(3.0, 0.07, 1.72, C, { outline: 0.008 }), -0.25, 2.02, 0));
@@ -1360,6 +1361,26 @@ const B = {
     for (const z of [-0.6, 0.6]) g.add(at(box(0.04, 0.14, 0.32, '#FFF6C8', { noGrain: true }), 2.01, 0.74, z), at(box(0.04, 0.14, 0.32, P.red), -2.01, 0.74, z));
     for (const sx of [-1, 1]) g.add(at(label(o.plate || 'AB-123-CD', 0.52, 0.12, { bg: P.white, fg: P.ink, wrap: false }), sx * 2.012, 0.5, 0, 0, sx * PI / 2, 0));
     g.userData.seat = [0.05, 0.12, -0.4]; g.userData.seat2 = [0.05, 0.12, 0.4]; return g; },
+  convertible(o) { // open-top car facing +x (a star's limousine): hollow tub, front bucket seats, a rear bench (userData.rear), chrome grille and bumpers,
+    // a low windscreen; o.rearDoor (radians) or o.rearDoorAt (s) swings the right rear door (+z side) open; driver at userData.seat (clip 'drive')
+    const C = o.color || '#1C1C22', g = grp(), gl = glassMat(o.glass ?? 0.1, '#E6F2F5'), CH = '#D9DDE2', IN = o.interior || '#C9A27A', y0 = 0.36, yt = 0.92;
+    g.add(at(box(4.4, 0.14, 1.84, P.greyDark), 0, 0.42, 0), at(box(1.5, yt - y0, 1.84, C, { pivot: 'bottom', outline: 0.012 }), 1.45, y0, 0), at(box(0.95, yt - y0, 1.84, C, { pivot: 'bottom', outline: 0.012 }), -1.725, y0, 0),
+      at(box(2.5, 0.1, 1.72, '#2A2A2E'), -0.0, y0 + 0.05, 0));                                  // hood, trunk, cabin floor
+    g.add(at(box(1.0, yt - y0, 0.08, C, { pivot: 'bottom', outline: 0.008 }), 0.2, y0, -0.88), at(box(0.95, yt - y0, 0.08, C, { pivot: 'bottom', outline: 0.008 }), -0.775, y0, -0.88),
+      at(box(1.0, yt - y0, 0.08, C, { pivot: 'bottom', outline: 0.008 }), 0.2, y0, 0.88));        // sides (the right rear door is separate)
+    const door = grp(at(box(0.95, yt - y0, 0.08, C, { outline: 0.008 }), -0.475, (yt - y0) / 2, 0), at(box(0.12, 0.03, 0.03, CH), -0.82, (yt - y0) * 0.78, 0.05)); door.position.set(-0.3, y0, 0.88); g.add(door);
+    for (const z of [-0.88, 0.88]) g.add(at(box(2.7, 0.04, 0.1, CH), -0.25, yt + 0.02, z));      // chrome trim
+    g.add(at(box(0.07, 0.48, 1.7, C), 0.68, yt + 0.22, 0, 0, 0, 0.45), at(mesh(new THREE.BoxGeometry(0.02, 0.4, 1.56), gl), 0.69, yt + 0.22, 0, 0, 0, 0.45));   // windscreen frame + glass
+    for (const z of [-0.4, 0.4]) g.add(at(box(0.5, 0.14, 0.5, IN), 0.15, 0.52, z), at(box(0.12, 0.62, 0.5, IN), -0.15, 0.84, z, 0, 0, 0.12));   // front seats
+    g.add(at(box(0.55, 0.16, 1.56, IN), -1.0, 0.53, 0), at(box(0.14, 0.62, 1.6, IN), -1.36, 0.86, 0, 0, 0, 0.14));   // rear bench
+    g.add(at(box(0.3, 0.3, 1.5, '#2A2A2E'), 0.5, 0.78, 0), at(torus(0.16, 0.025, P.ink, 6, 16), 0.42, 1.04, -0.4, 0, PI / 2, 0.35));   // dash + wheel
+    g.add(at(box(0.06, 0.34, 1.0, '#1C1C20'), 2.205, 0.66, 0)); for (let i = 0; i < 6; i++) g.add(at(box(0.065, 0.3, 0.02, CH), 2.21, 0.66, -0.4 + i * 0.16));   // grille
+    for (const sx of [-1, 1]) g.add(at(box(0.08, 0.1, 1.9, CH), sx * 2.22, 0.42, 0));            // bumpers
+    for (const x of [-1.38, 1.38]) for (const z of [-0.82, 0.82]) g.add(at(cyl(0.36, 0.36, 0.26, P.ink, 12), x, 0.36, z, PI / 2), at(cyl(0.17, 0.17, 0.02, CH, 8), x, 0.36, z * 1.17, PI / 2));
+    for (const z of [-0.66, 0.66]) g.add(at(cyl(0.11, 0.11, 0.04, '#FFF6C8', 10, { noGrain: true }), 2.2, 0.74, z, 0, 0, PI / 2), at(box(0.04, 0.12, 0.3, P.red), -2.21, 0.74, z));
+    for (const sx of [-1, 1]) g.add(at(label(o.plate || 'AB-123-CD', 0.52, 0.12, { bg: P.white, fg: P.ink, wrap: false }), sx * 2.27, 0.52, 0, 0, sx * PI / 2, 0));
+    g.userData.update = t => { const a = o.rearDoorAt != null ? (o.rearDoor ?? 1.1) * ease.outBack(clamp01((t - o.rearDoorAt) / 0.45)) : (o.rearDoor || 0); door.rotation.y = a; };
+    g.userData.update(0); g.userData.seat = [0.15, 0.12, -0.4]; g.userData.seat2 = [0.15, 0.12, 0.4]; g.userData.rear = [-1.0, 0.61, 0]; return g; },
   brickWall(o) { // a low brick wall along x (o.w, o.h): bricks drawn on both faces, a cap on top
     const w = o.w || 2, h = o.h || 1.2, t = 0.22, col = o.color || '#B5532E';
     const face = () => canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#E2D6C2'; c.fillRect(0, 0, W, H); const bw = W / (w / 0.26), bh = H / (h / 0.09); c.fillStyle = col;
