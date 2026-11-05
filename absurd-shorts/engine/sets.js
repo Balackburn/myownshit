@@ -360,14 +360,14 @@ const S = {
     skyFollow(g, o.sky || (B ? ['#8E8073', '#B5A898'] : ['#9FD0E6', '#D3EAF0']), 3000, B ? '#7A6E64' : '#C9E0E6');
     g.add(flat(9000, 9000, o.field || (B ? '#4D4640' : '#97BE63'), 0, 0, 0));
     const rows = o.rows || 10, perRow = o.perRow || 15, px = o.pitch || 10.5, pz = o.rowPitch || 23, houses = grp();
-    const WC = ['#F4EED8', '#EFC7C7', '#B9DDB0', '#F2D58A', '#F2B49A', '#C9DDF0', '#F4F2EC', '#E6CDE6'], RC = ['#B5402F', '#6A3A30', '#4E5E7E', '#B5402F', '#7A3A2A', '#5E83C6'];
+    const WC = o.walls || ['#F4EED8', '#EFC7C7', '#B9DDB0', '#F2D58A', '#F2B49A', '#C9DDF0', '#F4F2EC', '#E6CDE6'], RC = o.roofs || ['#B5402F', '#6A3A30', '#4E5E7E', '#B5402F', '#7A3A2A', '#5E83C6'];
     for (let j = 0; j < rows; j++) {
       const z = -j * pz;
       houses.add(at(box(perRow * px + 40, 0.05, 1.6, B ? '#6B645E' : '#E8E6E0'), 0, 0.03, z + 12.2));                           // sidewalk
       if (!B) houses.add(at(box(perRow * px + 40, 0.03, 4.5, '#8DB75A'), 0, 0.015, z + 15.2));
       for (let i = 0; i < perRow; i++) {
         const x = (i - (perRow - 1) / 2) * px + (j % 2 ? px * 0.35 : 0) + (r() - 0.5) * 0.6, c = WC[Math.floor(r() * WC.length)], rf = RC[Math.floor(r() * RC.length)];
-        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, eaves: !!o.eaves, porch: o.porch ?? !o.eaves, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z);
+        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, eaves: !!o.eaves, porch: o.porch ?? !o.eaves, overhang: o.overhang, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z);
         houses.add(hb);
         if (!B && r() < 0.35) houses.add(prop('tree', { seed: j * 17 + i, color: '#4E8A4A' }, x + px / 2, 0, z - 2 - r() * 4, 0, 1.6 + r() * 0.8));
         if (B && r() < 0.3) houses.add(prop('burntTree', { seed: j * 17 + i, h: 5 + r() * 2 }, x + px / 2, 0, z - 2 - r() * 4));
@@ -383,14 +383,14 @@ const S = {
   ruinedStreet(o = {}) { // S14: after the strike, street level along a dark road (along Z): charred shells, fires, dead trees, grey sky
     const g = grp(), r = rng(o.seed || 23);
     skyFollow(g, o.sky || ['#6E6966', '#7C7672'], 3000, '#5E5854');
-    g.add(flat(9000, 9000, o.ground || '#4A433D', 0, 0, 0), flat(9, 2000, '#2C2B30', 0, 0.01, 0), flat(3, 2000, '#5F5955', -6, 0.13, 0), flat(3, 2000, '#5F5955', 6, 0.13, 0));
+    g.add(flat(9000, 9000, o.ground || '#4A433D', 0, 0, 0), flat(9, 2000, o.road || '#2C2B30', 0, 0.06, 0), flat(3, 2000, '#5F5955', -6, 0.13, 0), flat(3, 2000, '#5F5955', 6, 0.13, 0));
     g.add(at(box(0.22, 0.16, 2000, '#55504C'), -4.5, 0.05, 0), at(box(0.22, 0.16, 2000, '#55504C'), 4.5, 0.05, 0));
-    const dash = []; for (let z = -900; z <= 100; z += 9) dash.push([0, 0.02, z]); g.add(inst(new THREE.BoxGeometry(0.22, 0.01, 3.2), mat('#E8E6E0'), dash));
+    const dash = []; for (let z = -900; z <= 100; z += 9) dash.push([0, 0.12, z]); g.add(inst(new THREE.BoxGeometry(0.22, 0.01, 3.2), mat('#E8E6E0'), dash));   // well above the road plane: 1 cm offsets z-fight in the headless renderer
     const shells = grp(), flames = [], smoke = [];
     for (let i = 0; i < 40; i++) for (const s of [-1, 1]) {
       const z = 20 - i * 12 + (s > 0 ? 6 : 0) + (r() - 0.5) * 2;
       shells.add(prop('cottage', { w: 7, d: 8, h: 3.2, burnt: true, seed: i * 7 + (s > 0 ? 3 : 0) }, s * (15 + r() * 2), 0, z, s > 0 ? -PI / 2 : PI / 2));
-      if (r() < 0.75) flames.push([s * (14 + r() * 3), 0.2 + r() * 1.5, z + (r() - 0.5) * 4, 1.4 + r() * 1.6]);
+      if (r() < 0.75) flames.push([s * (14 + r() * 3), 0.2 + r() * 1.5, z + (r() - 0.5) * 4, (1.4 + r() * 1.6) * (o.flameScale || 1)]);
       if (i % 2 === 0) shells.add(prop('burntTree', { seed: i * 3 + (s > 0 ? 1 : 0), h: 5.5 + r() * 2.5 }, s * (8.2 + r() * 0.6), 0, z + 3));
       if (i % 3 === 1) shells.add(prop('streetLamp', {}, s * 7.6, 0, z - 2, s > 0 ? -PI / 2 : PI / 2));
       if (r() < 0.12 && i > 4) smoke.push([s * (16 + r() * 6), z, 20 + r() * 14]);

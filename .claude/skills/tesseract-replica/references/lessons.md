@@ -97,3 +97,11 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   row then matched within 15 px at three frames on the first render.
 - (tornado) Read the shot boundary in the original: the white-out did not belong to one shot. The cloud bank slid in at the end of
   S8a and slid off at the start of S8b (edge rows measured frame by frame), and the jet emerged from it at f260, not from below.
+- (tornado) **Probe a colour that won't change.** S14's road never rendered in 20 passes: it lay 1 cm above a huge ground plane and
+  lost the depth test in the headless renderer, so the "olive road" I kept grading was bare ground. When tuning a material changes
+  nothing, paint it magenta and the suspect neighbour cyan, render one still and read the pixels. Keep coplanar layers ≥ 5 cm apart.
+- (tornado) Read pixel colours on the original before grading: its road was exactly the asphalt's base colour (#2B2A2F) while ours came
+  out warm because of the scene light. A per-scene neutral `light` override fixed it without touching the shared preset.
+- (tornado) Character framing: solving a camera from a guessed head position failed twice (the arm ended in the lens). Move the camera
+  along the head-camera line (the head keeps its screen position while its size scales by the distance ratio), then re-aim by the
+  pixel offset. Two stills were enough.

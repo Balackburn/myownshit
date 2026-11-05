@@ -1755,7 +1755,7 @@ const B = {
       g.add(at(box(0.55, 0.55, 0.06, trim), 0, h + rh * 0.38, F + 0.02), at(box(0.42, 0.42, 0.07, glass), 0, h + rh * 0.38, F + 0.025));
     } else {
       const pitch = Math.atan2(rh, d / 2), sl = Math.hypot(d / 2, rh) + 0.5;
-      [-1, 1].forEach(s => g.add(at(box(w + 0.7, 0.18, sl, roof, { outline: 0.004 }), 0, h + rh / 2 + 0.04, s * (d / 4 + 0.12), s * pitch, 0, 0)));
+      [-1, 1].forEach(s => g.add(at(box(w + (o.overhang ?? 0.7), 0.18, sl, roof, { outline: 0.004 }), 0, h + rh / 2 + 0.04, s * (d / 4 + 0.12), s * pitch, 0, 0)));
       const tri = new THREE.Shape(); tri.moveTo(-F, 0); tri.lineTo(F, 0); tri.lineTo(0, rh); tri.lineTo(-F, 0);
       const gab = mesh(new THREE.ExtrudeGeometry(tri, { depth: w - 0.02, bevelEnabled: false }), mat(c)); gab.rotation.y = PI / 2; gab.position.set(-w / 2 + 0.01, h, 0); g.add(gab);
       if (o.porch !== false) g.add(at(box(w * 0.62, 0.12, 1.5, o.porchRoof || roof, { outline: 0.004 }), -w * 0.12, h * 0.86, F + 0.7, 0.32, 0, 0));      // porch awning

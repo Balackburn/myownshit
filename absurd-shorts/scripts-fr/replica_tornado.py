@@ -79,8 +79,8 @@ scenes.append(scene(2, 'S2', 'replicaStreet',
 
 # S3 3.43-4.50: close 3/4 shot from chest height on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
 scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
-    actors=[act('mec', [-1.2, 0, 0], 12, 'explainLook', 'neutral', params={'yaw': 0.75})],
-    cams=[cam(0.0, [-0.475, 1.216, 0.44], [-0.445, 1.226, 0.42], [-2.421, 2.409, -0.302], [-2.391, 2.429, -0.312], lens=74, shake=0.003)]))   # solved (fit3): head top (350, 225), chin y 450, rooftops / fence rows kept
+    actors=[act('mec', [-1.2, 0, 0], -8, 'explainLook', 'neutral', params={'yaw': 1.0})],   # chest 3/4 toward screen-left (hands clear of the lens), face to the camera
+    cams=[cam(0.0, [-0.211, 0.912, 0.6], [-0.181, 0.922, 0.58], [-2.045, 2.04, -0.398], [-2.015, 2.06, -0.408], lens=74, shake=0.003)]))   # head 225 px tall, centred x ~350 (grid reads of f120)
 
 # S4 4.50-6.53: selfie close-up on the far sidewalk (0.7 m from his face, camera above eye level looking down 15 deg, wide lens): the road on
 # the right, the townhouses beyond the fence on the left, the tornado far down the road; at f151 he brings up the phone beside his face,
@@ -291,7 +291,8 @@ scenes.append(scene(12, 'S12', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[7, 0, -178], scale=5.0, opts={**TOR, 'chips': 30})]
     + [P(f'b{i + 1}', 'fireball', pos=pos, opts={'t0': t0, 'size': sz, 'seed': sd, **BLAST12}) for i, (pos, t0, sz, sd) in enumerate(B12)]
     + [P('msl', 'missileSalvo', opts={'size': 2.2, 'shots': [{'from': MSL12[i], 'to': B12[i][0], 't0': round(B12[i][1] - 0.27, 2), 'dur': 0.27, 'trail': 0.6} for i in range(4)]})],
-    cams=[cam(0.0, [0, 27, 38.8], [0.4, 27, 37.3], [0, 3.15, -41.2], [2.6, 3.15, -42.7], lens=48)], setOpts={'rows': 8, 'eaves': True, 'pitch': 7.6}))
+    cams=[cam(0.0, [0, 27, 38.8], [0.4, 27, 37.3], [0, 3.15, -41.2], [2.6, 3.15, -42.7], lens=48)], setOpts={'rows': 8, 'eaves': True, 'pitch': 7.6, 'overhang': 0.3,
+        'roofs': ['#7A4E3E', '#3F4E6B', '#A0473A', '#6B3B32', '#5A6577', '#8C4A3A'], 'walls': ['#F3E3C3', '#EFC9C9', '#BFDDB4', '#F2D58A', '#F2BCA2', '#CBDDF0', '#F4F2EC', '#E3D0EA']}))
 
 # S13 16.10-17.63: "All of it.": the same streets in ruins, dark grade, a forest of smoke columns and fires, the tornado far behind
 fl, sm = [], []
@@ -309,11 +310,13 @@ scenes.append(scene(13, 'S13', 'cottageRows', props=[
     P('smoke', 'smokeField', opts={'points': sm, 'size': 0.75, 'per': 16, 'seed': 5})],
     cams=[cam(0.0, [0, 23.5, 40], [0.4, 23.5, 39.5], [0, 2.5, -60], [2.4, 2.5, -60.5], lens=48)], setOpts={'burnt': True, 'rows': 13}))
 
-# S14 17.63-19.47: on the burnt road, low camera tilted up 18 deg, the tornado waves a white flag
+# S14 17.63-19.47: on the burnt road, low camera tilted up 18.6 deg (grid reads of f545: road vanishing point y 810, tornado base y ~805,
+# crown 340 px wide), the tornado ~30 m away waves a white flag; neutral light (the original's road is its raw asphalt colour #2B2A2F)
 scenes.append(scene(14, 'S14', 'ruinedStreet', props=[
-    P('tornado', 'tornado', pos=[0, 0, -34], scale=2.3, opts={**TOR, 'chips': 40, 'spin': 0.8, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}, keys=[k(0.0, to=[0, 0, -31], dur=1.83, ease='linear')]),
-    P('flag', 'whiteFlag', pos=[-0.6, 16.4, -29.5], rot=[0, 0, -0.32], scale=3.6, opts={'w': 1.6, 'h': 1.45, 'pole': 1.75, 'glow': '#A8A49E'}, keys=[k(0.0, to=[-0.6, 16.4, -26.5], dur=1.83, ease='linear')])],
-    cams=[cam(0.0, [0.3, 0.6, 6], [0.3, 0.6, 5.4], [0, 9.0, -30], [0, 9.1, -30], lens=60)]))
+    P('tornado', 'tornado', pos=[0, 0, -25.5], scale=2.3, opts={**TOR, 'height': 6.2, 'top': 2.35, 'taper': 1.0, 'base': 0.22, 'bands': False, 'pale': 2, 'crownSpike': 0.2, 'chips': 40, 'spin': 0.8, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}, keys=[k(0.0, to=[0, 0, -22.5], dur=1.83, ease='linear')]),   # shorter, wider
+    P('flag', 'whiteFlag', pos=[-0.6, 14.0, -21.0], rot=[0, 0, -0.32], scale=3.6, opts={'w': 1.6, 'h': 1.45, 'pole': 1.75, 'glow': '#A8A49E'}, keys=[k(0.0, to=[-0.6, 14.0, -18.0], dur=1.83, ease='linear')])],
+    cams=[cam(0.0, [0.3, 0.6, 6], [0.3, 0.6, 5.4], [0, 12.7, -30], [0, 12.8, -30], lens=60)], light={'key': '#E6E4E0', 'sky': '#CFCFCF', 'ground': '#3E3E44'},
+    setOpts={'flameScale': 1.6, 'road': '#302F36'}))   # renders ~#2B2A2F like the original's asphalt
 
 # --- act 3: court, hard labour, grave ----------------------------------------------------------------------------
 HANDLE = '@outofthisworld_9'
