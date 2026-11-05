@@ -600,6 +600,7 @@
    ],
    "start": 1.9,
    "duration": 1.533333,
+   "camDolly": 1.2,
    "grade": "contrast(0.9) saturate(1.01) brightness(1.118)",
    "soften": 0.62
   },

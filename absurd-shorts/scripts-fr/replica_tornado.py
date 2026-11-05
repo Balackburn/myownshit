@@ -76,7 +76,7 @@ scenes.append(scene(2, 'S2', 'replicaStreet',
     props=[P('tornado', 'tornado', pos=[0, 0, -6.0], scale=3.6, opts={**TOR, 'chips': 10, 'spin': 4.0}),
            P('dog', 'voxelDog', pos=[-0.6, 6.2, 0], rot=[0.17, 0.6, 0.26], scale=1.25, opts={'open': True, 'paddle': True}, keys=[k(0.0, to=[0.1, 6.4, -0.3], dur=1.53, ease='linear')]),
            P('leash2', 'leash', on={'actor': 'dog', 'offset': [0, 0.53, 0.3]}, opts={'length': 1.5, 'elev': -1.25, 'color': '#C8322A'})],
-    cams=[cam(0.0, [-0.55, 6.5, 2.7], [0.0, 6.6, 2.5], [-0.4, 6.42, 0], [0.12, 6.55, -0.2], lens=55)]))
+    cams=[cam(0.0, [-0.55, 6.5, 2.7], [0.0, 6.6, 2.5], [-0.4, 6.42, 0], [0.12, 6.55, -0.2], lens=55)], camDolly=1.2))   # a little farther (sweep +0.008)
 
 # S3 3.43-4.50: close 3/4 shot from chest height on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
 scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
