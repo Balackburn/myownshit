@@ -172,3 +172,7 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 - (tornado) Give the director per-scene framing trims (`camDolly`, `camTruck`, `camPed`, `camPan`, `camTilt`) so framing variants
   are pure JSON edits. A sweep script then renders the base and each variant at three sample times and ranks them by ffmpeg SSIM: about
   25 s per variant, small enough to run while a full pass renders.
+- (tornado) **Render from a snapshot of the timeline, never from the file you keep editing.** Pass 48 launched in the same step that
+  rewrote the shared JSON (back to the previous pass, for its commit). The renderer read the file a second later and re-rendered the
+  previous pass: a 15-minute pass with no change. Copy the JSON to a render-only file before launching, and check the first log
+  lines (or a printed list of the scene keys you changed) before trusting the result.
