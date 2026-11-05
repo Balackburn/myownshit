@@ -13,7 +13,7 @@ CLOUDS = lambda y=4.5, z=-3, opts=GREY, face='angry', signs=None, xs=(-2.4, 0, 2
     ([P(f's{i}', 'protestSign', pos=[x * 0.92, y - 1.9 + 0.3 * (i % 2), z + 1.4], scale=ss, opts={'text': t}) for i, (x, t) in enumerate(zip(xs, signs))] if signs else [])
 SKYCAM = [cam(0.0, [0.3, 1.2, 5.6], [0.25, 1.25, 5.1], [0, 3.4, -3], [0, 3.5, -3], lens=50)]
 
-st.shot('S01', 'grassland', props=CLOUDS(signs=['GRÈVE', 'PRIME DE\nPLUIE', 'ON LÂCHE\nRIEN'], xs=(-1.35, 0, 1.35), ss=1.5), cams=[cam(0.0, [0.2, 1.7, 4.6], [0.18, 1.75, 4.1], [0, 3.5, -3], [0, 3.6, -3], lens=50)])
+st.shot('S01', 'grassland', props=CLOUDS(signs=['GRÈVE', 'PRIME DE\nPLUIE', 'ON LÂCHE\nRIEN'], xs=(-1.35, 0, 1.35), ss=1.5), cams=[cam(0.0, [0.2, 1.9, 4.9], [0.18, 1.95, 4.4], [0, 4.3, -3], [0, 4.4, -3], lens=50)])
 st.shot('S02', 'seabed', setOpts={'dry': True}, actors=[act('fermier', [0, 0, 0], 0, 'lookUp', 'worried')], props=[P('can', 'wateringCan', pos=[0.6, 0, 0.3]), P('scare', 'scarecrow', pos=[-1.4, 0, -1.5])],
         cams=MS(0, 0, h=1.45, d=3.0))
 st.shot('S03', 'seabed', setOpts={'dry': True}, actors=[act('fermier', [-0.6, 0, 0], 20, 'flail', 'scared'), act('fermier2', [0.7, 0, -0.3], -20, 'scared', 'shocked')], cams=WS(0, 0, h=1.4, d=5.2, look_h=1.1))
