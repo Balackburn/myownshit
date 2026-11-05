@@ -1,0 +1,2431 @@
+{
+ "version": 3,
+ "title": "Le vélo",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "official": {
+   "preset": "lemec_glasses",
+   "seed": 21
+  },
+  "docteur": {
+   "preset": "doctor"
+  },
+  "r1": {
+   "preset": "sportif",
+   "seed": 11,
+   "suit": "#2F62B5"
+  },
+  "r2": {
+   "preset": "sportif",
+   "seed": 13,
+   "suit": "#C9822E"
+  },
+  "r3": {
+   "preset": "sportif",
+   "seed": 17,
+   "suit": "#2F7F5C"
+  },
+  "fan0": {
+   "preset": "femme",
+   "seed": 40
+  },
+  "fan1": {
+   "preset": "tourist",
+   "seed": 41
+  },
+  "fan2": {
+   "preset": "mamie",
+   "seed": 42
+  },
+  "fan3": {
+   "preset": "gamin",
+   "seed": 43
+  },
+  "fan4": {
+   "preset": "fermier",
+   "seed": 44
+  },
+  "ph0": {
+   "preset": "journaliste"
+  },
+  "ph1": {
+   "preset": "lemec_brown",
+   "seed": 7
+  },
+  "chauffeur": {
+   "preset": "lemec",
+   "hat": "copcap",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.4,
+      0,
+      0.8
+     ],
+     "ry": 0,
+     "clip": "doubleTake",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "chain",
+     "name": "innerTube",
+     "pos": [
+      5.62,
+      0.9,
+      0.2
+     ],
+     "rot": [
+      0,
+      0,
+      1.2
+     ],
+     "opts": {
+      "r": 0.12
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.7,
+      1.66,
+      2.7
+     ],
+     "to": [
+      6.67,
+      1.66,
+      2.52
+     ],
+     "lookAt": [
+      6.4,
+      1.63,
+      0.8
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.4,
+      1.64,
+      0.8
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      5.8,
+      0,
+      -0.6
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 2.2,
+      "look": [
+       0,
+       -1
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        5.8,
+        0,
+        -3.0
+       ],
+       "dur": 1.167,
+       "ease": "in"
+      }
+     ],
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.3,
+      0.55,
+      1.6
+     ],
+     "to": [
+      6.25,
+      0.57,
+      1.35
+     ],
+     "lookAt": [
+      5.8,
+      0.75,
+      -1.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      5.8,
+      0.75,
+      -2.4
+     ]
+    }
+   ],
+   "start": 1.8,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      2.0,
+      0,
+      -4.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 6
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        2.0,
+        0,
+        4.0
+       ],
+       "dur": 1.333,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "speed",
+     "name": "speedLines",
+     "pos": [
+      2.0,
+      0.8,
+      0.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.4,
+      0.6,
+      -2.6
+     ],
+     "to": [
+      3.4,
+      0.6,
+      2.6
+     ],
+     "lookAt": [
+      2.0,
+      0.7,
+      -4.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      2.0,
+      0.7,
+      4.0
+     ]
+    }
+   ],
+   "start": 2.9667,
+   "duration": 1.3333,
+   "blur": [
+    [
+     0.0,
+     1.333,
+     0.012
+    ]
+   ],
+   "blurSamples": 6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      1.5,
+      0,
+      -2.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 7
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.5,
+        0,
+        8.0
+       ],
+       "dur": 1.533,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      1.6,
+      0,
+      -8.5
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.6,
+        0,
+        1.5
+       ],
+       "dur": 1.533,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.4,
+      1.0,
+      -1.6
+     ],
+     "to": [
+      4.4,
+      1.0,
+      8.4
+     ],
+     "lookAt": [
+      1.5,
+      0.9,
+      -5.2
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      1.5,
+      0.9,
+      4.8
+     ],
+     "shake": 0.015
+    }
+   ],
+   "start": 4.3,
+   "duration": 1.5333,
+   "blur": [
+    [
+     0.0,
+     1.533,
+     0.01
+    ]
+   ],
+   "blurSamples": 6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      2.6,
+      0,
+      1.0
+     ],
+     "ry": 160,
+     "clip": "bigShrug",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      1.4,
+      0,
+      1.2
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      1.4,
+      0,
+      -6.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 6
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.4,
+        0,
+        -14.0
+       ],
+       "dur": 1.467,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.4,
+      1.5,
+      3.6
+     ],
+     "to": [
+      3.35,
+      1.52,
+      3.3
+     ],
+     "lookAt": [
+      2.0,
+      1.2,
+      -2.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      2.0,
+      1.2,
+      -3.0
+     ]
+    }
+   ],
+   "start": 5.8333,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "official",
+     "pos": [
+      6.6,
+      0,
+      -1.2
+     ],
+     "ry": 0,
+     "clip": "clipboard",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "table",
+     "pos": [
+      6.6,
+      0,
+      -0.55
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.6
+     }
+    },
+    {
+     "id": "sign",
+     "name": "noticeBoard",
+     "pos": [
+      6.6,
+      2.42,
+      -1.7
+     ],
+     "opts": {
+      "text": "TOUR DE FRANCE\nINSCRIPTIONS",
+      "style": "sign",
+      "w": 1.3,
+      "h": 0.4,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
+     }
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      6.6,
+      0,
+      0.35
+     ],
+     "rot": [
+      0,
+      3.1416,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "look": [
+       0.3,
+       0
+      ]
+     },
+     "ry": 180.0
+    },
+    {
+     "id": "bib",
+     "name": "noticeBoard",
+     "pos": [
+      6.75,
+      1.1,
+      0.42
+     ],
+     "opts": {
+      "text": "1",
+      "style": "tag",
+      "w": 0.16,
+      "h": 0.13,
+      "popAt": 0.753
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.3,
+      3.0
+     ],
+     "to": [
+      7.35,
+      1.32,
+      2.75
+     ],
+     "lookAt": [
+      6.6,
+      1.05,
+      -0.4
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      6.6,
+      1.05,
+      -0.4
+     ]
+    }
+   ],
+   "start": 7.3,
+   "duration": 1.7333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "r1",
+     "pos": [
+      -1.0,
+      0.55,
+      -0.76
+     ],
+     "ry": 0,
+     "clip": "drive",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "r2",
+     "pos": [
+      1.0,
+      0.55,
+      -0.76
+     ],
+     "ry": 0,
+     "clip": "drive",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "r3",
+     "pos": [
+      1.9,
+      0.55,
+      -0.76
+     ],
+     "ry": 0,
+     "clip": "drive",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bk_r1",
+     "name": "bicycle",
+     "pos": [
+      -1.0,
+      0,
+      -0.6
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#2F62B5"
+     },
+     "ry": -90.0
+    },
+    {
+     "id": "bk_r2",
+     "name": "bicycle",
+     "pos": [
+      1.0,
+      0,
+      -0.6
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#C9822E"
+     },
+     "ry": -90.0
+    },
+    {
+     "id": "bk_r3",
+     "name": "bicycle",
+     "pos": [
+      1.9,
+      0,
+      -0.6
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#2F7F5C"
+     },
+     "ry": -90.0
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "bib": 1,
+      "look": [
+       0.2,
+       0.5
+      ]
+     },
+     "ry": -90.0
+    },
+    {
+     "id": "start",
+     "name": "signBoard",
+     "pos": [
+      0.4,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "text": "DÉPART",
+      "w": 3.2,
+      "h": 0.45,
+      "height": 2.5,
+      "bg": "#F4F4F0",
+      "fg": "#C8322A",
+      "frame": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      0.62,
+      2.6
+     ],
+     "to": [
+      0.15,
+      0.64,
+      2.35
+     ],
+     "lookAt": [
+      0.1,
+      0.95,
+      -0.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      0.97,
+      -0.6
+     ]
+    }
+   ],
+   "start": 9.0333,
+   "duration": 1.2,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "r1",
+     "pos": [
+      1.4,
+      0.55,
+      0.84
+     ],
+     "ry": 0,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.4,
+        0.55,
+        1.45
+       ],
+       "dur": 2.0,
+       "clip": "drive"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "bk_r1",
+     "name": "bicycle",
+     "pos": [
+      1.4,
+      0,
+      1.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#2F62B5"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.4,
+        0,
+        1.6
+       ],
+       "dur": 2.0
+      }
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      0.4,
+      0,
+      -0.6
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 3,
+      "bib": 1
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.4,
+        0,
+        2.4
+       ],
+       "dur": 2.0,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "sweat",
+     "name": "sweatDrop",
+     "on": {
+      "actor": "r1",
+      "joint": "head",
+      "offset": [
+       0.12,
+       0.3,
+       0.1
+      ]
+     }
+    },
+    {
+     "id": "kg",
+     "name": "noticeBoard",
+     "pos": [
+      0.4,
+      1.55,
+      1.2
+     ],
+     "opts": {
+      "text": "− 70 KG",
+      "style": "tag",
+      "w": 0.5,
+      "h": 0.17,
+      "fg": "#2F7F4F",
+      "frame": "#2F7F4F",
+      "popAt": 0.506
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.4,
+        1.55,
+        2.6
+       ],
+       "dur": 2.0,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      0.9,
+      4.6
+     ],
+     "to": [
+      2.0,
+      0.92,
+      5.6
+     ],
+     "lookAt": [
+      0.8,
+      0.9,
+      0.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.8,
+      0.9,
+      1.8
+     ]
+    }
+   ],
+   "start": 10.2333,
+   "duration": 2.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "fan0",
+     "pos": [
+      5.6,
+      0,
+      1.0
+     ],
+     "ry": -90,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "fan1",
+     "pos": [
+      6.22,
+      0,
+      0.09999999999999998
+     ],
+     "ry": -90,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "fan2",
+     "pos": [
+      5.6,
+      0,
+      -0.8
+     ],
+     "ry": -90,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "fan3",
+     "pos": [
+      6.22,
+      0,
+      -1.7000000000000002
+     ],
+     "ry": -90,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "fan4",
+     "pos": [
+      5.6,
+      0,
+      -2.6
+     ],
+     "ry": -90,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      1.2,
+      0,
+      -3.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 6,
+      "bib": 1
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.2,
+        0,
+        3.0
+       ],
+       "dur": 1.3,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "arch",
+     "name": "signBoard",
+     "pos": [
+      1.4,
+      0,
+      0.0
+     ],
+     "opts": {
+      "text": "ARRIVÉE",
+      "w": 4.2,
+      "h": 0.6,
+      "height": 2.8,
+      "bg": "#F4F4F0",
+      "fg": "#1C252A",
+      "frame": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.6,
+      0.7,
+      5.2
+     ],
+     "to": [
+      2.55,
+      0.72,
+      4.9
+     ],
+     "lookAt": [
+      1.3,
+      1.4,
+      0.0
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      1.3,
+      1.45,
+      0.0
+     ],
+     "shake": 0.01
+    }
+   ],
+   "start": 12.2333,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "r2",
+     "pos": [
+      6.0,
+      0.42,
+      -0.5
+     ],
+     "ry": 0,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "r3",
+     "pos": [
+      7.25,
+      0.28,
+      -0.5
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "winnersPodium",
+     "pos": [
+      6.62,
+      0,
+      -0.5
+     ]
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      6.62,
+      0.6,
+      -0.5
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "jersey": true,
+      "bib": 1,
+      "look": [
+       0.3,
+       0
+      ]
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "fl",
+     "name": "flowers",
+     "pos": [
+      6.95,
+      0.6,
+      -0.35
+     ],
+     "scale": 1.2
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.75,
+      1.45,
+      4.5
+     ],
+     "to": [
+      6.72,
+      1.47,
+      4.2
+     ],
+     "lookAt": [
+      6.62,
+      1.25,
+      -0.5
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      6.62,
+      1.27,
+      -0.5
+     ]
+    }
+   ],
+   "start": 13.5333,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "docteur",
+     "pos": [
+      0.55,
+      0,
+      -0.35
+     ],
+     "ry": -40,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      -0.1,
+      0,
+      0.0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "jersey": true,
+      "look": [
+       0,
+       0.5
+      ]
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "loupe",
+     "name": "magnifyingGlass",
+     "on": {
+      "actor": "docteur",
+      "hand": "R"
+     },
+     "scale": 0.45
+    },
+    {
+     "id": "lab",
+     "name": "noticeBoard",
+     "pos": [
+      0.0,
+      2.2,
+      -1.3
+     ],
+     "opts": {
+      "text": "ANTIDOPAGE",
+      "style": "sign",
+      "w": 1.0,
+      "h": 0.26
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.35,
+      3.0
+     ],
+     "to": [
+      0.46499999999999997,
+      1.37,
+      2.7
+     ],
+     "lookAt": [
+      0.15,
+      1.3,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      1.32,
+      0.0
+     ]
+    }
+   ],
+   "start": 14.7,
+   "duration": 1.3333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      -0.1,
+      0,
+      0.0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "jersey": true
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "oil",
+     "name": "oilCan",
+     "pos": [
+      -0.35,
+      0.36,
+      0.22
+     ],
+     "rot": [
+      0,
+      0,
+      -0.5
+     ],
+     "opts": {
+      "dripAt": 0.15
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      0.62,
+      1.1
+     ],
+     "to": [
+      0.1,
+      0.6,
+      0.95
+     ],
+     "lookAt": [
+      -0.25,
+      0.38,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.25,
+      0.38,
+      0.0
+     ]
+    }
+   ],
+   "start": 16.0333,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.85,
+      0,
+      -1.2
+     ],
+     "ry": -100,
+     "clip": "explain",
+     "keys": [
+      {
+       "at": 0.027,
+       "expr": "talk"
+      },
+      {
+       "at": 0.073,
+       "expr": "angry"
+      },
+      {
+       "at": 0.18,
+       "expr": "talk"
+      },
+      {
+       "at": 0.302,
+       "expr": "angry"
+      },
+      {
+       "at": 0.37,
+       "expr": "talk"
+      },
+      {
+       "at": 0.378,
+       "expr": "angry"
+      },
+      {
+       "at": 0.522,
+       "expr": "talk"
+      },
+      {
+       "at": 0.683,
+       "expr": "angry"
+      },
+      {
+       "at": 0.827,
+       "expr": "talk"
+      },
+      {
+       "at": 0.988,
+       "expr": "angry"
+      },
+      {
+       "at": 1.094,
+       "expr": "talk"
+      },
+      {
+       "at": 1.14,
+       "expr": "angry"
+      },
+      {
+       "at": 1.246,
+       "expr": "talk"
+      },
+      {
+       "at": 1.75,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      -2.7,
+      0,
+      -2.75
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.6,
+      1.5,
+      1.4
+     ],
+     "to": [
+      -1.65,
+      1.5,
+      1.15
+     ],
+     "lookAt": [
+      -2.3,
+      1.2,
+      -1.9
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      -2.3,
+      1.2,
+      -1.9
+     ]
+    }
+   ],
+   "start": 17.3333,
+   "duration": 1.8334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "replicaCourt",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      -0.35,
+      -0.3,
+      -14.0
+     ],
+     "ry": -35,
+     "clip": "gavelStrikeL",
+     "keys": [],
+     "params": {
+      "hit": 0.5
+     }
+    }
+   ],
+   "props": [
+    {
+     "id": "specs",
+     "name": "glasses",
+     "on": {
+      "actor": "juge",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "gavelUp",
+     "name": "gavel",
+     "on": {
+      "actor": "juge",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.48,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "gavel",
+     "name": "gavel",
+     "pos": [
+      -0.37,
+      1.41,
+      -13.3
+     ],
+     "rot": [
+      0,
+      0,
+      -1.5708
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.48,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "block",
+     "name": "soundBlock",
+     "pos": [
+      0.1,
+      1.18,
+      -13.3
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.1,
+      1.29,
+      -11.8
+     ],
+     "to": [
+      -0.12,
+      1.3,
+      -12.05
+     ],
+     "lookAt": [
+      -0.27,
+      1.55,
+      -14.0
+     ],
+     "lens": 45,
+     "ease": "linear",
+     "lookAt2": [
+      -0.27,
+      1.55,
+      -14.0
+     ]
+    }
+   ],
+   "start": 19.1667,
+   "duration": 2.1666,
+   "setOpts": {
+    "handle": "TRIBUNAL",
+    "windowX": -1.5,
+    "chairW": 1.2,
+    "chairH": 2.75,
+    "chairX": 0.15,
+    "benchGlow": "#5A564A"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.5,
+     "dur": 0.18,
+     "amount": 0.018
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "courtroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      -1.6
+     ],
+     "ry": -20,
+     "clip": "angryFist",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 2,
+      "look": [
+       0.2,
+       0
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.0,
+        0,
+        1.4
+       ],
+       "dur": 1.767,
+       "ease": "linear"
+      }
+     ],
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.0,
+      3.6
+     ],
+     "to": [
+      0.33,
+      1.02,
+      3.35
+     ],
+     "lookAt": [
+      0.2,
+      0.9,
+      -0.6
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.2,
+      0.92,
+      0.2
+     ]
+    }
+   ],
+   "start": 21.3333,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "doc",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.5,
+      0
+     ],
+     "opts": {
+      "text": "PENSION\nALIMENTAIRE",
+      "style": "doc",
+      "w": 0.72,
+      "h": 0.9,
+      "popAt": 0.1,
+      "textSize": 0.4,
+      "stamp": "À VIE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.55,
+      2.15
+     ],
+     "to": [
+      0.05,
+      1.55,
+      1.95
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      0
+     ]
+    }
+   ],
+   "start": 23.1,
+   "duration": 1.5667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.1,
+      0,
+      0.3
+     ],
+     "ry": -100,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      6.0,
+      0,
+      0.0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "look": [
+       0.4,
+       0
+      ]
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "tube1",
+     "name": "innerTube",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "rot": [
+      1.5708,
+      0,
+      0
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "tube2",
+     "name": "innerTube",
+     "pos": [
+      6.65,
+      0.3,
+      0.55
+     ],
+     "rot": [
+      1.5708,
+      0,
+      0.3
+     ],
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.55,
+      1.25,
+      3.6
+     ],
+     "to": [
+      6.55,
+      1.27,
+      3.35
+     ],
+     "lookAt": [
+      6.55,
+      0.95,
+      0.1
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      6.55,
+      0.97,
+      0.1
+     ]
+    }
+   ],
+   "start": 24.6667,
+   "duration": 1.5333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ph0",
+     "pos": [
+      5.75,
+      0,
+      0.9
+     ],
+     "ry": 120,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "ph1",
+     "pos": [
+      7.45,
+      0,
+      0.9
+     ],
+     "ry": -120,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "carpet",
+     "name": "carpet",
+     "pos": [
+      6.6,
+      0,
+      0.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#B5302A"
+     },
+     "ry": -90.0
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      6.6,
+      0,
+      -1.6
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 1.2,
+      "shades": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.6,
+        0,
+        0.0
+       ],
+       "dur": 2.1,
+       "ease": "out"
+      }
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "st1",
+     "name": "stanchions",
+     "pos": [
+      5.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "ry": -90.0
+    },
+    {
+     "id": "st2",
+     "name": "stanchions",
+     "pos": [
+      7.3,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.65,
+      1.0,
+      3.2
+     ],
+     "to": [
+      6.63,
+      1.02,
+      2.95
+     ],
+     "lookAt": [
+      6.6,
+      0.95,
+      -0.4
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      6.6,
+      0.97,
+      -0.1
+     ]
+    }
+   ],
+   "start": 26.2,
+   "duration": 2.1,
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0.3,
+     "dur": 0.06
+    },
+    {
+     "type": "flash",
+     "at": 0.75,
+     "dur": 0.06
+    },
+    {
+     "type": "flash",
+     "at": 1.2,
+     "dur": 0.06
+    },
+    {
+     "type": "flash",
+     "at": 1.6,
+     "dur": 0.06
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      6.4,
+      0,
+      -0.8
+     ],
+     "rot": [
+      0,
+      0.25,
+      0
+     ],
+     "opts": {
+      "color": "#1C1C22",
+      "plate": "VÉLO-1"
+     },
+     "ry": 14.324
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      7.0,
+      0,
+      0.9
+     ],
+     "rot": [
+      0,
+      0.4,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 0,
+      "shades": true,
+      "look": [
+       0.2,
+       0.3
+      ]
+     },
+     "ry": 22.918
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.2,
+      1.2,
+      4.2
+     ],
+     "to": [
+      8.1,
+      1.22,
+      3.9
+     ],
+     "lookAt": [
+      6.7,
+      0.9,
+      0.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      6.7,
+      0.92,
+      0.0
+     ]
+    }
+   ],
+   "start": 28.3,
+   "duration": 1.6333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S20",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chauffeur",
+     "pos": [
+      5.9,
+      0,
+      0.3
+     ],
+     "ry": 30,
+     "clip": "present",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      6.4,
+      0,
+      -0.8
+     ],
+     "rot": [
+      0,
+      0.25,
+      0
+     ],
+     "opts": {
+      "color": "#1C1C22",
+      "plate": "VÉLO-1"
+     },
+     "ry": 14.324
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      7.6,
+      0,
+      1.4
+     ],
+     "rot": [
+      0,
+      2.6,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "speed": 1.0,
+      "shades": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.9,
+        0,
+        0.7
+       ],
+       "dur": 1.167,
+       "ease": "out"
+      }
+     ],
+     "ry": 148.969
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.0,
+      1.4,
+      3.6
+     ],
+     "to": [
+      6.95,
+      1.42,
+      3.35
+     ],
+     "lookAt": [
+      6.4,
+      1.15,
+      0.2
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      6.4,
+      1.17,
+      0.2
+     ]
+    }
+   ],
+   "start": 29.9333,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S21",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chauffeur",
+     "pos": [
+      6.45,
+      0.12,
+      -0.4
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.9,
+       "expr": "sad"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      6.4,
+      0,
+      0.0
+     ],
+     "opts": {
+      "color": "#1C1C22",
+      "plate": "VÉLO-1"
+     }
+    },
+    {
+     "id": "velo",
+     "name": "livingBike",
+     "pos": [
+      5.55,
+      0.32,
+      0.38
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "scale": 0.62,
+     "opts": {
+      "speed": 0,
+      "shades": true,
+      "look": [
+       0,
+       0
+      ]
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.9,
+      1.35,
+      -0.55
+     ],
+     "to": [
+      8.75,
+      1.35,
+      -0.52
+     ],
+     "lookAt": [
+      6.45,
+      1.2,
+      -0.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.45,
+      1.2,
+      -0.3
+     ]
+    }
+   ],
+   "start": 31.1,
+   "duration": 1.86,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 32.96
+}

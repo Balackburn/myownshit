@@ -2,7 +2,7 @@
 // Conventions as in props.js; small loops of motion built in (pure functions of t).
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
-import { grp, at, mesh, canvasPlane, inst } from './props.js';
+import { grp, at, mesh, canvasPlane, inst, rod, torus } from './props.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const keyAt = (list, t) => { let a0 = null; for (const [a, x] of (list || [])) if (t >= a && x) a0 = a; return a0; };
@@ -193,6 +193,43 @@ export const NEWS_PROPS = {
       c.font = `900 ${H * 0.09}px Arial`; c.fillText(o.text || 'RÉPUBLIQUE DU 3e GAUCHE', W * 0.6, H * 0.82); }, { res: 512 });
     return grp(n);
   },
+  livingBike(o) { // a bicycle that rides itself ("Le vélo"): spinning wheels and crank (o.speed m/s), googly eyes on the handlebar stem that
+    // look around and blink, a gentle lean and bob; o.jersey (yellow cloth on the top tube), o.bib (race number), o.shades (sunglasses), o.color
+    const c = o.color || '#C8322A', A = [-0.52, 0.355, 0], Bb = [0, 0.33, 0], S = [-0.12, 0.85, 0], H = [0.42, 0.86, 0], HL = [0.45, 0.72, 0], F = [0.52, 0.355, 0];
+    const body = grp(rod(Bb, S, 0.024, c), rod(S, H, 0.024, c), rod(Bb, HL, 0.026, c), rod(A, Bb, 0.019, c), rod(A, S, 0.017, c), rod(H, F, 0.021, '#9AA0A6'),
+      rod(S, [-0.14, 0.95, 0], 0.016, '#9AA0A6'), at(box(0.22, 0.05, 0.1, '#1C1C20'), -0.16, 0.97, 0), rod(H, [0.38, 1.02, 0], 0.017, '#9AA0A6'), rod([0.38, 1.02, -0.27], [0.38, 1.02, 0.27], 0.017, '#1C1C20'));
+    const wheels = [A, F].map(p => { const w = grp(at(torus(0.33, 0.026, '#1C1C20', 4, 18), 0, 0, 0), at(cyl(0.04, 0.04, 0.06, '#9AA0A6', 6), 0, 0, 0, PI / 2));
+      for (let i = 0; i < 6; i++) { const a = i / 6 * PI; w.add(rod([-Math.cos(a) * 0.31, -Math.sin(a) * 0.31, 0], [Math.cos(a) * 0.31, Math.sin(a) * 0.31, 0], 0.005, '#B9BDC2')); }
+      w.position.set(...p); body.add(w); return w; });
+    const crank = grp(at(cyl(0.07, 0.07, 0.02, '#9AA0A6', 10), 0, 0, 0.05, PI / 2), rod([0, 0, 0.06], [0, -0.17, 0.06], 0.012, '#5A5E62'), rod([0, 0, -0.06], [0, 0.17, -0.06], 0.012, '#5A5E62'),
+      at(box(0.1, 0.02, 0.05, '#1C1C20'), 0, -0.17, 0.09), at(box(0.1, 0.02, 0.05, '#1C1C20'), 0, 0.17, -0.09)); crank.position.set(...Bb); body.add(crank);
+    body.add(rod([0, 0.33, 0.05], [-0.52, 0.355, 0.05], 0.006, '#3A3D44'));   // chain
+    const eyes = grp(), lids = [], pupils = []; [-1, 1].forEach(sd => { const ball = sphere(0.055, '#FFFFFF', 1, { noGrain: true }); ball.scale.z = 0.7; const pu = sphere(0.025, '#1C1C20', 0, { noGrain: true }); pu.position.set(0, 0, 0.04); ball.add(pu); pupils.push(pu);
+      const lid = mesh(new THREE.SphereGeometry(0.058, 12, 6, 0, TAU, 0, PI / 2), mat(c)); lid.rotation.x = -PI / 2; lid.scale.y = 0.01; ball.add(lid); lids.push(lid); ball.position.set(0, 0, sd * 0.065); eyes.add(ball); });
+    eyes.position.set(0.47, 0.98, 0); eyes.rotation.y = PI / 2; body.add(eyes);
+    if (o.jersey) { const j = grp(at(box(0.36, 0.2, 0.02, '#F2C94C'), 0, -0.07, 0.04), at(box(0.36, 0.2, 0.02, '#F2C94C'), 0, -0.07, -0.04), at(box(0.38, 0.03, 0.1, '#F2C94C'), 0, 0.03, 0)); j.position.set(0.15, 0.86, 0); body.add(j); }
+    if (o.bib) { const b = canvasPlane(0.16, 0.12, (cc, W, Hh) => { cc.fillStyle = '#FFFFFF'; cc.fillRect(0, 0, W, Hh); cc.fillStyle = '#1C1C20'; cc.font = `900 ${Hh * 0.7}px Arial`; cc.textAlign = 'center'; cc.textBaseline = 'middle'; cc.fillText(String(o.bib), W / 2, Hh * 0.55); }, { res: 128 });
+      b.position.set(0.0, 0.62, 0.045); body.add(b); const b2 = b.clone(); b2.position.z = -0.045; b2.rotation.y = PI; body.add(b2); }
+    if (o.shades) { const sh = grp(at(box(0.012, 0.045, 0.06, '#1C1C20'), 0, 0, 0.065), at(box(0.012, 0.045, 0.06, '#1C1C20'), 0, 0, -0.065), at(box(0.01, 0.012, 0.07, '#1C1C20'), 0, 0.01, 0)); sh.position.set(0.53, 0.99, 0); body.add(sh); }
+    const g = grp(body), R = rng(o.seed || 7), blink = R() * 3;
+    g.userData.update = t => { const v = o.speed ?? 0, a = -t * v / 0.33; wheels.forEach(w => { w.rotation.z = a; }); crank.rotation.z = a * 0.45;
+      body.position.y = 0.012 * Math.abs(Math.sin(t * 5)) * (v > 0 ? 1 : 0.3); body.rotation.x = 0.04 * Math.sin(t * 1.7) * (v > 0 ? 1 : 0.4);
+      const lk = o.look || [0, 0]; pupils.forEach(pu => { pu.position.x = lk[1] * 0.02; pu.position.y = 0.012 * Math.sin(t * 0.9) + lk[0] * 0.02; });
+      const bl = ((t + blink) % 3.1) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); };
+    g.userData.update(0); return g;
+  },
+  winnersPodium(o) { // the three-step podium with 1 2 3 (centre step tallest), white with blue numbers
+    const g = grp(); [[0, 0.6, '1'], [-0.62, 0.42, '2'], [0.62, 0.28, '3']].forEach(([x, h, n]) => { g.add(at(box(0.6, h, 0.6, '#F4F4F0', { pivot: 'bottom', outline: 0.006 }), x, 0, 0));
+      const l = canvasPlane(0.3, 0.22, (c, W, H) => { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, H); c.fillStyle = '#2F62B5'; c.font = `900 ${H * 0.8}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(n, W / 2, H * 0.55); }, { res: 128 }); l.position.set(x, h * 0.5, 0.302); g.add(l); });
+    return g;
+  },
+  oilCan(o) { // a small oil can with a long spout; drops fall from the tip from o.dripAt
+    const g = grp(at(cyl(0.06, 0.07, 0.12, '#C8322A', 12, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(cyl(0.035, 0.06, 0.04, '#9AA0A6', 12, { pivot: 'bottom' }), 0, 0.12, 0), rod([0, 0.15, 0], [0.18, 0.3, 0], 0.008, '#9AA0A6'));
+    const drops = [0, 1, 2].map(() => { const d = sphere(0.012, '#3A2A10', 0, { noGrain: true }); d.scale.y = 1.4; g.add(d); return d; });
+    g.userData.update = t => { drops.forEach((d, i) => { const u = o.dripAt == null || t < o.dripAt ? -1 : ((t - o.dripAt) * 1.6 + i / 3) % 1; d.visible = u >= 0; d.position.set(0.18, 0.3 - u * 0.35, 0); }); };
+    g.userData.update(0); return g;
+  },
+  innerTube(o) { return grp(at(torus(o.r || 0.25, 0.03, '#1C1C20', 6, 22), 0, 0, 0)); },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });
     f.position.set(0.31, 1.38, 0); g.add(f); g.userData.update = t => { f.rotation.y = 0.14 * Math.sin(t * 2.6 + (o.seed || 0)); }; return g;
