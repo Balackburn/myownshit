@@ -272,8 +272,8 @@ const S = {
         if (c) g.add(prop('cottage', { w: c.w || 6.4, d: 8, h: 2.6, rh: 1.5, yard: 3.6, ...c }, 10.9, 0, z, -PI / 2));
         else g.add(prop('townhouse', { color: '#F2F0EA', roof: '#3A4152', door: '#2F5E8C', frame: '#2F5E9C', shutter: '#F2F0EA' }, 7.4, 0, z, -PI / 2)); }
       else g.add(prop('townhouse', { color: cols[i % 6], roof: roofs[i % 6], door: i % 3 ? '#B5302A' : '#2F5E8C' }, 7.4, 0, z, -PI / 2));
-      g.add(prop('townhouse', { color: cols[(i + 3) % 6], roof: roofs[(i + 3) % 6], door: i % 2 ? '#24324A' : '#F2D06B' }, -21.2, 0, z + 2.8, PI / 2));
-      if (i % 2 === 0) { g.add(prop('tree', { seed: i + 3 }, 4.2, 0, z + 2.6, 0, 0.9 + r() * 0.3)); g.add(prop('tree', { seed: i + 40 }, -17.3, 0, z + 0.4, 0, 0.9 + r() * 0.3)); }
+      g.add(prop('townhouse', { color: cols[(i + 3) % 6], roof: roofs[(i + 3) % 6], door: i % 2 ? '#24324A' : '#F2D06B' }, o.farX ?? -21.2, 0, z + 2.8, PI / 2));
+      if (i % 2 === 0) { g.add(prop('tree', { seed: i + 3 }, 4.2, 0, z + 2.6, 0, 0.9 + r() * 0.3)); g.add(prop('tree', { seed: i + 40 }, (o.farX ?? -21.2) + 3.9, 0, z + 0.4, 0, 0.9 + r() * 0.3)); }
     }
     g.add(prop('fence', { length: 400, height: 0.85, color: P.white }, 2.6, 0, 0, PI / 2), prop('fence', { length: 400, height: 0.85, color: P.white }, -13.05, 0, 0, PI / 2));
     // hills all around the horizon

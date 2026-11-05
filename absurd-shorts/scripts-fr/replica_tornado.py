@@ -224,15 +224,15 @@ fl, sm = [], []
 for j in range(9):
     for i in range(15):
         x = (i - 7) * 10.5 + (3.7 if j % 2 else 0); z = -j * 23
-        fl.append([x + ((i * 13 + j) % 5 - 2) * 0.8, 0.6 + (i % 3) * 0.6, z + 2.0, 3.0 + (i + j) % 3 * 0.9])
-        fl.append([x + 3.0, 0.4, z - 1.5, 2.2 + (i * j) % 3 * 0.7])
-        if j >= 2:
-            sm.append([x - 2.2, z - 1, 17 + (i * j % 5) * 2.5, 1.5])
-            sm.append([x + 2.6, z - 3, 15 + (i % 4) * 2.5, 1.0])
+        fl.append([x + ((i * 13 + j) % 5 - 2) * 0.8, 0.5 + (i % 3) * 0.5, z + 2.0, 2.3 + (i + j) % 3 * 0.6])
+        fl.append([x + 3.0, 0.4, z - 1.5, 1.8 + (i * j) % 3 * 0.5])
+        fl.append([x - 2.6, 0.6, z + 0.5, 1.6 + (i + 2 * j) % 3 * 0.4])
+        sm.append([x - 2.2, z - 1, 22 + (i * j % 5) * 3, 1.2])
+        sm.append([x + 2.6, z - 3, 19 + (i % 4) * 3, 0.8])
 scenes.append(scene(13, 'S13', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[6, 0, -330], scale=6.5, opts={**TOR, 'chips': 30, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}),
     P('fires', 'flameField', opts={'points': fl, 'seed': 3}),
-    P('smoke', 'smokeField', opts={'points': sm, 'size': 1.05, 'per': 14, 'seed': 5})],
+    P('smoke', 'smokeField', opts={'points': sm, 'size': 0.75, 'per': 16, 'seed': 5})],
     cams=[cam(0.0, [0, 23.5, 40], [0, 23.2, 38.5], [0, 2.5, -60], [0, 2.3, -61.5], lens=48)], setOpts={'burnt': True, 'rows': 13}))
 
 # S14 17.63-19.47: on the burnt road, low camera tilted up 18 deg, the tornado waves a white flag
@@ -252,8 +252,8 @@ TORG = {**TORS, 'pale': 4, 'paleColor': '#CFC4A8', 'ribbons': 5, 'ribbonFollow':
 scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
     actors=[act('judge', [0, -0.15, -14.0], 0, 'idle')],
     props=[P('dock', 'dock', pos=[0, 0, 0], opts={'w': 7.5, 'd': 6.5, 'h': 1.5}),
-           P('tornado', 'tornado', pos=[0, 0.43, 0], scale=1.05, opts={**TORC, 'chips': 36}),
-           P('cuffs', 'bigCuffs', pos=[-0.4, 6.4, 3.6], opts={'r': 0.85})],
+           P('tornado', 'tornado', pos=[-0.7, 0.43, 0], rot=[0, 0, 0.13], scale=0.9, opts={**TORC, 'chips': 36}),
+           P('cuffs', 'bigCuffs', pos=[-1.3, 5.3, 3.2], opts={'r': 0.8})],
     cams=[cam(0.0, [2.5, 3.0, 13.7], [2.3, 3.1, 12.6], [-0.3, 4.6, 0], [-0.3, 4.7, 0], lens=50)]))
 
 # S16 20.23-21.60: low on the bench, the judge strikes the gavel (raise f607-613, hit on the block at f619), slow push-in
@@ -325,7 +325,7 @@ scenes.append(scene(22, 'S22', 'grassland', props=[
     P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 700, 'seed': 12}),
     P('grassL', 'tallGrass', pos=[-1.6, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.5, 'count': 160, 'seed': 14}), P('grassR', 'tallGrass', pos=[1.7, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.5, 'count': 160, 'seed': 15}),
     P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.22, 'count': 50, 'seed': 13})],
-    cams=[cam(0.0, [0.1, 0.66, -0.75], [0.08, 0.68, -1.35], [0, 0.55, -3.5], [0, 0.56, -3.5], lens=50)]))
+    cams=[cam(0.0, [0.1, 0.72, 0.25], [0.08, 0.74, -0.55], [0, 0.42, -3.5], [0, 0.43, -3.5], lens=50)]))
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.
 import math

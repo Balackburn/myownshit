@@ -36,6 +36,7 @@ not have, so this project is built by hand to the same rules.
 | 8 | 0.675 | 0.482 | S16 judge rebuilt on the original's composition (bright bench, smaller chair, wall, window, 3/4 judge, gavel on its head): its L* gap halved |
 | 9 | 0.674 | 0.484 | per-shot grades calibrated on the measured deltas: every shot within ±3 L* and ±2.6 chroma of the original (most ±1) |
 | 10 | 0.670 | 0.460 | aerial grid at the original's house size and rotation, slimmer long-bodied aerial tornado; S12 camera, tornado and blasts (flash then dark smoke) rebuilt |
+| 11 | 0.670 | 0.460 | S13 smoke columns from every row with fire in each shell; S15 tornado smaller and leaning (bench visible); S22 push-in distance; S4 reframing tried and reverted |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado
