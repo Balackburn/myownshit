@@ -869,9 +869,12 @@ const B = {
     for (let i = 0; i < N; i++) {
       const crown = i === N - 1;
       const col = o.pale && !crown && i % o.pale === o.pale - 1 ? (o.paleColor || '#D3CCB8') : cols[i % cols.length];
-      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? 2.3 : (o.band ?? 1.75)), Math.round(9 + rad(i + 1) * 3.2), o.gap ?? 0.2, crown ? 0.6 : (o.spike ?? 0.2), i + 1), mat(col, { doubleSide: true }))
+      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? (o.crownH ?? 2.3) : (o.band ?? 1.75)), Math.round(9 + rad(i + 1) * 3.2), o.gap ?? 0.2, crown ? (o.crownSpike ?? 0.6) : (o.spike ?? 0.2), i + 1), mat(col, { doubleSide: true }))
         : cyl(rad(i + 1) + 0.12, rad(i), H / N * 1.3, cols[i % 4], 7, { open: true, doubleSide: true, pivot: 'bottom' });
       const piv = grp(m); piv.position.y = i * H / N; piv.rotation.z = (r() - 0.5) * 0.12; g.add(piv);
+      if (o.bands && i > 0 && !crown && i % (o.bandEvery || 1) === 0) { // a thin continuous pale band round the ring (reads as horizontal stripes)
+        const bh = H / N * (o.bands === true ? 0.32 : o.bands), bm = cyl(rad(i + 0.4) * 1.07 + 0.07, rad(i) * 1.07 + 0.07, bh, o.paleColor || '#D3CCB8', 16, { open: true, doubleSide: true, pivot: 'bottom' });
+        bm.castShadow = false; bm.position.y = H / N * 0.25; m.add(bm); }
       rings.push({ piv, m, sp: (3 + r() * 2.5) * (1 - i * 0.045) * (i % 3 === 1 ? 0.6 : 1), ph: r() * TAU, i });
     }
     for (let i = 0; i < (o.chips ?? 16); i++) { const y = 0.4 + r() * H * 0.9, R = rad(y / H * N) + 0.35 + r() * 0.7;
@@ -1794,11 +1797,11 @@ const B = {
     const r = rng(o.seed || 61), S = o.size || 4, t0 = o.t0 || 0, g = grp(), puffs = [], chips = [];
     for (let i = 0; i < (o.n || 26); i++) { const dir = V3(r() - 0.5, r() * 0.9 - 0.25, r() - 0.5).normalize(), heat = 1 - Math.min(1, r() * 1.3);
       const m = new THREE.Mesh(sphereGeo(1), new THREE.MeshLambertMaterial({ color: '#FFD45A', emissive: '#FF9A2A', map: grainTexture(), transparent: true, flatShading: !!o.facets }));
-      m.castShadow = false; g.add(m); puffs.push({ m, dir, d: 0.25 + (1 - heat) * 0.75 + r() * 0.15, s: 0.22 + r() * 0.26 + heat * 0.12, lag: r() * 0.08, heat, smoke: r() < (o.smoke ?? 0.6) }); }
+      m.castShadow = false; g.add(m); puffs.push({ m, dir, d: 0.25 + (1 - heat) * 0.75 + r() * 0.15, s: (0.22 + r() * 0.26 + heat * 0.12) * (o.puff || 1), lag: r() * 0.08, heat, smoke: r() < (o.smoke ?? 0.6) }); }
     const flash = glowSprite('#FFE7A8', S * 6, 1), glare = glowSprite('#FFF4D8', S * 9, 0.7); g.add(flash, glare);
     const cc = ['#B5302A', '#F2F0EA', '#2E3A55', '#D9A15A', '#5B7FC0', '#1E1E22'];
     for (let i = 0; i < (o.chips ?? 26); i++) { const m = box(0.25 + r() * 0.6, 0.05, 0.2 + r() * 0.5, cc[i % 6]); m.castShadow = false; g.add(m); chips.push({ m, v: V3((r() - 0.5) * 2, 0.3 + r() * 1.3, (r() - 0.5) * 2).multiplyScalar(S * (1.2 + r() * 1.8)), sp: 3 + r() * 10 }); }
-    const c = new THREE.Color(), e = new THREE.Color(), white = new THREE.Color('#FFF6D0'), yellow = new THREE.Color('#FFD23C'), orange = new THREE.Color('#F27A1E'), red = new THREE.Color('#B8401A');
+    const c = new THREE.Color(), e = new THREE.Color(), white = new THREE.Color('#FFF8D8'), yellow = new THREE.Color('#FFC628'), orange = new THREE.Color('#F2650E'), red = new THREE.Color('#A8300E');
     const smoke = new THREE.Color(o.smokeColor || '#3E3634'), eY = new THREE.Color('#FFB01E'), eO = new THREE.Color('#C8460A'), black = new THREE.Color('#000000');
     g.userData.update = t => {
       const tt = t - t0; g.visible = tt >= 0; if (tt < 0) return;
@@ -1851,7 +1854,7 @@ const B = {
   whiteFlag(o) { // white flag on a dark pole, cloth waving (o.w x o.h metres, pole o.pole tall), pure function of t
     const W = o.w || 1.6, Hh = o.h || 1.0, PL = o.pole || 3, g = grp(at(cyl(0.04, 0.05, PL, o.poleColor || '#3A2E28', 6, { pivot: 'bottom' }), 0, 0, 0));
     const geo = new THREE.PlaneGeometry(W, Hh, 14, 6); geo.translate(W / 2, PL - Hh / 2 - 0.05, 0); const base = geo.attributes.position.array.slice();
-    const cloth = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: o.color || '#F2F1EC', map: grainTexture(), side: THREE.DoubleSide })); cloth.castShadow = true; g.add(cloth);
+    const cloth = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: o.color || '#F2F1EC', map: grainTexture(), side: THREE.DoubleSide, emissive: new THREE.Color(o.glow || '#000000') })); cloth.castShadow = true; g.add(cloth);
     g.userData.update = t => { const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const x = base[i * 3], y = base[i * 3 + 1], k = x / W;
         p.setZ(i, Math.sin(x * 3.2 - t * (o.speed || 7)) * 0.16 * W * k + Math.sin(y * 4 + t * 3) * 0.04 * k); p.setY(i, y - k * k * 0.12 * Hh * (1 + 0.3 * Math.sin(t * 2))); }
       p.needsUpdate = true; geo.computeVertexNormals(); };
@@ -1911,7 +1914,7 @@ const B = {
     rip.position.set(0, 0.25 + H - W * 0.22, T / 2 + 0.004); g.add(rip);
     const fw = W * 0.72, fh = W * 0.8, fy = 0.25 + H - W * 0.37 - fh / 2;
     g.add(at(box(fw, fh, 0.05, '#6B3E26'), 0, fy, T / 2 + 0.025), at(box(fw * 0.86, fh * 0.88, 0.052, '#EADDB9'), 0, fy, T / 2 + 0.028));
-    const dog = B.voxelDog({ tongue: true, color: o.dogColor }), head = dog.userData.head; head.parent.remove(head);
+    const dog = B.voxelDog({ tongue: true, color: o.dogColor, muzzle: o.dogMuzzle }), head = dog.userData.head; head.parent.remove(head);
     head.scale.setScalar(fw * 1.7); head.position.set(0, fy - fh * 0.04, T / 2 + 0.06); g.add(head);
     if (o.handle) { const hl = canvasPlane(W * 1.1, W * 0.1, (c, Wc, Hc) => { c.fillStyle = '#4A4A48'; c.font = `bold ${Hc * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle, Wc / 2, Hc / 2); }, { res: 512, transparent: true });
       hl.position.set(0, 0.17, 0.08 + T * 1.3 + 0.004); g.add(hl); }

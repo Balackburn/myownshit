@@ -139,21 +139,23 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 30,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
-       "#6B776F",
-       "#7B877F",
-       "#5B675F",
-       "#84908A"
+       "#66726A",
+       "#6E7A72",
+       "#606C64",
+       "#727E76"
       ],
-      "pale": 3,
       "paleColor": "#D3CCB8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A"
      }
     }
@@ -455,21 +457,23 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 10,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
-       "#6B776F",
-       "#7B877F",
-       "#5B675F",
-       "#84908A"
+       "#66726A",
+       "#6E7A72",
+       "#606C64",
+       "#727E76"
       ],
-      "pale": 3,
       "paleColor": "#D3CCB8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A"
      }
     },
@@ -511,25 +515,25 @@
     {
      "at": 0.0,
      "from": [
-      -0.6,
+      -0.55,
       6.5,
-      3.9
+      2.7
      ],
      "to": [
       0.0,
       6.6,
-      3.6
+      2.5
      ],
      "lookAt": [
-      -0.35,
-      6.3,
+      -0.4,
+      6.42,
       0
      ],
      "lens": 55,
      "ease": "linear",
      "lookAt2": [
-      0.15,
-      6.45,
+      0.12,
+      6.55,
       -0.2
      ]
     }
@@ -661,21 +665,23 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 30,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
-       "#6B776F",
-       "#7B877F",
-       "#5B675F",
-       "#84908A"
+       "#66726A",
+       "#6E7A72",
+       "#606C64",
+       "#727E76"
       ],
-      "pale": 3,
       "paleColor": "#D3CCB8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A"
      }
     }
@@ -737,26 +743,26 @@
     {
      "at": 0.0,
      "from": [
-      -4.2,
-      1.45,
-      -5.6
+      -4.3,
+      1.0,
+      -7.0
      ],
      "to": [
-      -4.15,
-      1.46,
-      -5.7
+      -4.25,
+      1.01,
+      -7.1
      ],
      "lookAt": [
       -0.6,
-      1.55,
-      -7.9
+      1.62,
+      -7.15
      ],
      "lens": 50,
      "ease": "linear",
      "lookAt2": [
       -0.6,
-      1.55,
-      -7.95
+      1.62,
+      -7.2
      ]
     }
    ],
@@ -790,32 +796,32 @@
     {
      "at": 0.0,
      "from": [
-      4.6,
-      4.4,
-      -5.2
+      6.5,
+      6.0,
+      -6.5
      ],
      "to": [
+      4.0,
       3.0,
-      1.8,
-      4.0
+      3.5
      ],
      "lookAt": [
-      1.0,
+      2.0,
       1.5,
-      -1.6
+      -2.5
      ],
      "lens": 50,
      "ease": "inOut",
      "lookAt2": [
-      0.2,
-      0.7,
-      6.4
+      0.8,
+      0.8,
+      5.5
      ]
     }
    ],
    "start": 7.033333,
    "duration": 0.6,
-   "blur": 0.025
+   "blur": 0.01
   },
   {
    "id": "S7",
@@ -1128,21 +1134,24 @@
       "taper": 1.0,
       "flare": 0.0,
       "crownFlare": 1.15,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
        "#5B675F",
        "#66726A",
        "#4F5A53",
        "#6F7B73"
       ],
-      "pale": 2,
       "paleColor": "#C9BC9C",
       "stripe": "#4F5A53",
       "stripeDark": "#4A554E",
+      "pale": 2,
       "collar": [
        1.95,
        3.3
@@ -1465,21 +1474,24 @@
       "taper": 1.0,
       "flare": 0.0,
       "crownFlare": 1.15,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
        "#5B675F",
        "#66726A",
        "#4F5A53",
        "#6F7B73"
       ],
-      "pale": 2,
       "paleColor": "#C9BC9C",
       "stripe": "#4F5A53",
       "stripeDark": "#4A554E",
+      "pale": 2,
       "collar": [
        1.95,
        3.3
@@ -1896,21 +1908,23 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 44,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
-       "#6B776F",
-       "#7B877F",
-       "#5B675F",
-       "#84908A"
+       "#66726A",
+       "#6E7A72",
+       "#606C64",
+       "#727E76"
       ],
-      "pale": 3,
       "paleColor": "#D3CCB8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A"
      }
     },
@@ -1925,10 +1939,11 @@
      "opts": {
       "t0": 0.06,
       "size": 7.0,
-      "n": 30,
+      "n": 50,
       "seed": 3,
-      "glowShare": 0.3,
-      "smokeColor": "#4A4441"
+      "glowShare": 0.14,
+      "smokeColor": "#3E3836",
+      "puff": 0.62
      }
     },
     {
@@ -2091,21 +2106,23 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 30,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
-       "#6B776F",
-       "#7B877F",
-       "#5B675F",
-       "#84908A"
+       "#66726A",
+       "#6E7A72",
+       "#606C64",
+       "#727E76"
       ],
-      "pale": 3,
       "paleColor": "#D3CCB8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A"
      }
     },
@@ -2113,15 +2130,16 @@
      "id": "b1",
      "name": "fireball",
      "pos": [
-      0,
+      -4,
       4,
-      -205
+      -125
      ],
      "opts": {
-      "t0": 0.5,
-      "size": 11,
+      "t0": 0.55,
+      "size": 15,
       "seed": 4,
-      "glowShare": 0.35
+      "glowShare": 0.25,
+      "flash": 0.8
      }
     },
     {
@@ -2168,11 +2186,11 @@
          -300
         ],
         "to": [
-         0,
+         -4,
          4,
-         -205
+         -125
         ],
-        "t0": 0.2,
+        "t0": 0.25,
         "dur": 0.3,
         "trail": 0.5
        },
@@ -2266,19 +2284,21 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 30,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
        "#94A99D",
        "#A3B6AA",
        "#879C90",
        "#ABBDB1"
       ],
-      "pale": 3,
       "paleColor": "#DCE1D3",
       "stripe": "#DDE2D6",
       "stripeDark": "#7A9084"
@@ -5242,19 +5262,21 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
        "#94A99D",
        "#A3B6AA",
        "#879C90",
        "#ABBDB1"
       ],
-      "pale": 3,
       "paleColor": "#DCE1D3",
       "stripe": "#DDE2D6",
       "stripeDark": "#7A9084"
@@ -5276,27 +5298,28 @@
      "id": "flag",
      "name": "whiteFlag",
      "pos": [
-      0.4,
-      17.2,
+      -0.6,
+      16.4,
       -29.5
      ],
      "rot": [
       0,
       0,
-      -0.3
+      -0.32
      ],
      "scale": 3.6,
      "opts": {
       "w": 1.6,
       "h": 1.45,
-      "pole": 1.7
+      "pole": 1.75,
+      "glow": "#A8A49E"
      },
      "keys": [
       {
        "at": 0.0,
        "to": [
-        0.4,
-        17.2,
+        -0.6,
+        16.4,
         -26.5
        ],
        "dur": 1.83,
@@ -5385,19 +5408,21 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 36,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": 0.3,
       "cols": [
        "#7C8A82",
        "#8C9A92",
        "#6E7C74",
        "#96A49C"
       ],
-      "pale": 3,
       "paleColor": "#E2DCCB",
       "stripe": "#E4DECF",
       "stripeDark": "#55615A"
@@ -5494,25 +5519,25 @@
     {
      "at": 0.0,
      "from": [
-      0.5,
-      1.27,
-      -11.55
+      0.42,
+      1.3,
+      -11.75
      ],
      "to": [
-      0.46,
-      1.28,
-      -11.8
+      0.38,
+      1.31,
+      -12.0
      ],
      "lookAt": [
-      0.42,
-      1.55,
+      0.2,
+      1.58,
       -14.0
      ],
      "lens": 45,
      "ease": "linear",
      "lookAt2": [
-      0.42,
-      1.55,
+      0.2,
+      1.58,
       -14.0
      ]
     }
@@ -5555,9 +5580,9 @@
      "id": "tornado",
      "name": "tornado",
      "pos": [
-      5,
+      2.5,
       0,
-      -40
+      -33
      ],
      "scale": 3.1,
      "opts": {
@@ -5567,31 +5592,34 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": false,
       "cols": [
        "#5E6962",
-       "#6B766F",
-       "#535E57",
-       "#747F78"
+       "#646F68",
+       "#5A655E",
+       "#68736C"
       ],
-      "pale": 2,
-      "paleColor": "#BFC2B6",
-      "stripe": "#D9D2C0",
-      "stripeDark": "#55615A"
+      "paleColor": "#C2C5B9",
+      "stripe": "#B9B3A2",
+      "stripeDark": "#55615A",
+      "pale": 2
      }
     },
     {
      "id": "cuffs",
      "name": "bigCuffs",
      "pos": [
-      4.6,
+      2.1,
       20.0,
-      -35.5
+      -28.5
      ],
      "opts": {
       "r": 1.05
@@ -5601,9 +5629,9 @@
      "id": "rubble",
      "name": "rubble",
      "pos": [
-      5,
+      2.5,
       0,
-      -40
+      -33
      ],
      "opts": {
       "r": 3.2,
@@ -5697,22 +5725,25 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": false,
       "cols": [
        "#5E6962",
-       "#6B766F",
-       "#535E57",
-       "#747F78"
+       "#646F68",
+       "#5A655E",
+       "#68736C"
       ],
-      "pale": 2,
-      "paleColor": "#BFC2B6",
-      "stripe": "#D9D2C0",
-      "stripeDark": "#55615A"
+      "paleColor": "#C2C5B9",
+      "stripe": "#B9B3A2",
+      "stripeDark": "#55615A",
+      "pale": 2
      }
     },
     {
@@ -5807,22 +5838,25 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": false,
       "cols": [
        "#5E6962",
-       "#6B766F",
-       "#535E57",
-       "#747F78"
+       "#646F68",
+       "#5A655E",
+       "#68736C"
       ],
-      "pale": 4,
       "paleColor": "#CFC4A8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A",
+      "pale": 4,
       "ribbons": 5,
       "ribbonFollow": true,
       "ribbonY0": 0.15,
@@ -5982,22 +6016,25 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": false,
       "cols": [
        "#5E6962",
-       "#6B766F",
-       "#535E57",
-       "#747F78"
+       "#646F68",
+       "#5A655E",
+       "#68736C"
       ],
-      "pale": 4,
       "paleColor": "#CFC4A8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A",
+      "pale": 4,
       "ribbons": 0,
       "ribbonFollow": true,
       "ribbonY0": 0.15,
@@ -6060,25 +6097,25 @@
     {
      "at": 0.0,
      "from": [
-      -0.7,
-      1.0,
-      -1.0
+      -1.4,
+      1.05,
+      -1.5
      ],
      "to": [
-      0.6,
-      1.0,
-      -1.0
+      0.3,
+      1.05,
+      -1.5
      ],
      "lookAt": [
-      -0.5,
-      1.35,
+      -1.0,
+      1.45,
       -6
      ],
      "lens": 50,
      "ease": "linear",
      "lookAt2": [
-      1.6,
-      1.35,
+      1.2,
+      1.45,
       -6
      ]
     }
@@ -6134,22 +6171,25 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": false,
       "cols": [
        "#5E6962",
-       "#6B766F",
-       "#535E57",
-       "#747F78"
+       "#646F68",
+       "#5A655E",
+       "#68736C"
       ],
-      "pale": 4,
       "paleColor": "#CFC4A8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A",
+      "pale": 4,
       "ribbons": 5,
       "ribbonFollow": true,
       "ribbonY0": 0.15,
@@ -6266,7 +6306,8 @@
       "w": 1.0,
       "h": 1.25,
       "handle": "@outofthisworld_9",
-      "dogColor": "#D2862C"
+      "dogColor": "#C0711E",
+      "dogMuzzle": "#4A2816"
      }
     },
     {
@@ -6322,22 +6363,25 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.08,
+      "crownFlare": 1.1,
+      "crownH": 1.7,
+      "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.12,
+      "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
+      "bands": false,
       "cols": [
        "#5E6962",
-       "#6B766F",
-       "#535E57",
-       "#747F78"
+       "#646F68",
+       "#5A655E",
+       "#68736C"
       ],
-      "pale": 4,
       "paleColor": "#CFC4A8",
-      "stripe": "#D9D2C0",
+      "stripe": "#B9B3A2",
       "stripeDark": "#55615A",
+      "pale": 4,
       "ribbons": 5,
       "ribbonFollow": true,
       "ribbonY0": 0.15,
@@ -6367,14 +6411,46 @@
      "pos": [
       0,
       0,
-      -3.4
+      -4.3
      ],
      "opts": {
-      "w": 6,
-      "d": 2.4,
-      "h": 0.5,
+      "w": 7,
+      "d": 2.0,
+      "h": 0.6,
       "count": 700,
       "seed": 12
+     }
+    },
+    {
+     "id": "grassL",
+     "name": "tallGrass",
+     "pos": [
+      -1.6,
+      0,
+      -2.9
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 2.4,
+      "h": 0.5,
+      "count": 160,
+      "seed": 14
+     }
+    },
+    {
+     "id": "grassR",
+     "name": "tallGrass",
+     "pos": [
+      1.7,
+      0,
+      -2.9
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 2.4,
+      "h": 0.5,
+      "count": 160,
+      "seed": 15
      }
     },
     {
@@ -6400,24 +6476,24 @@
      "at": 0.0,
      "from": [
       0.1,
-      0.62,
-      -0.2
+      0.66,
+      -0.75
      ],
      "to": [
       0.08,
-      0.64,
-      -0.9
+      0.68,
+      -1.35
      ],
      "lookAt": [
       0,
-      0.46,
+      0.55,
       -3.5
      ],
      "lens": 50,
      "ease": "linear",
      "lookAt2": [
       0,
-      0.47,
+      0.56,
       -3.5
      ]
     }
