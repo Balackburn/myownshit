@@ -30,6 +30,7 @@ not have, so this project is built by hand to the same rules.
 | 2 | 0.676 | 0.546 | S1-S7, new proportions |
 | 3 | 0.668 | 0.491 | S1-S14: aerial strike, HUD, missiles, hit, explosions, ruins, white flag; new jet and tornado models |
 | 4 | 0.685 | 0.492 | S1-S22, all shots built: courtroom dock and handcuffs, judge and gavel, wind turbine, officer and whip, gravestone; flat-topped tornado tabs |
+| 5 | 0.685 | 0.492 | S1 reworked: cottages, orbit round his road side, tornado on the road, fast snatch; S4 close selfie with the phone showing the handle |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado
@@ -40,6 +41,6 @@ Pass 3 notes:
   texture and detail score lower than the earlier flat placeholders did.
 
 Still approximate:
-- S1 (the houses beside him are cottages, and the camera orbit) and S4 (a close selfie, with the phone showing the handle) need rework;
+- S3 (the explaining pose) and the fast moves (S1 orbit, S6 dolly, S7 fly-over), which still have no motion blur;
 - Nunito stands in for the original's rounded caption face;
 - the dog and the tornado are hand-built models.

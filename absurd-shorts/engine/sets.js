@@ -263,10 +263,15 @@ const S = {
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([-6, 0.008, z]);
     g.add(inst(new THREE.BoxGeometry(0.16, 0.01, 1.8), mat('#F4F1E8'), dash));
     const cols = o.houseColors || ['#F2F0EA', '#B9A6D6', '#F2D06B', '#9EC7E8', '#F2B8C6', '#D9604C'], roofs = ['#3A4152', '#3A4152', '#7A3A2A', '#3A4152', '#B5302A', '#3A4152'];
-    const z0 = o.z0 ?? -60, n = o.n ?? 22, step = 5.6;
+    const z0 = o.z0 ?? -60, n = o.n ?? 22, step = o.near === 'cottage' ? 7.2 : 5.6;
+    const NC = [{ color: '#F4F2EC', roof: '#C9473A', eaves: true, door: '#2F7F8C', shutters: '#E3B33A', porchRoof: '#C9473A', w: 7.0 }, { color: '#B8A6D9', roof: '#6A3A30', door: '#B5302A', w: 5.6 },
+      { color: '#E8A08A', roof: '#3E4A5E', door: '#2F5E8C', w: 5.6 }, { color: '#EDCF7A', roof: '#B5402F', w: 5.8 }, { color: '#F0C6CF', roof: '#5E83C6', w: 5.8 }, { color: '#A9C7E8', roof: '#B5402F', eaves: true, w: 6.0 }];
     for (let i = 0; i < n; i++) {
       const z = z0 + i * step;
-      g.add(prop('townhouse', { color: cols[i % 6], roof: roofs[i % 6], door: i % 3 ? '#B5302A' : '#2F5E8C' }, 7.4, 0, z, -PI / 2));
+      if (o.near === 'cottage') { const c = (o.nearTown || []).includes(i) ? null : NC[i % NC.length];
+        if (c) g.add(prop('cottage', { w: c.w || 6.4, d: 8, h: 2.6, rh: 1.5, yard: 3.6, ...c }, 10.9, 0, z, -PI / 2));
+        else g.add(prop('townhouse', { color: '#F2F0EA', roof: '#3A4152', door: '#2F5E8C', frame: '#2F5E9C', shutter: '#F2F0EA' }, 7.4, 0, z, -PI / 2)); }
+      else g.add(prop('townhouse', { color: cols[i % 6], roof: roofs[i % 6], door: i % 3 ? '#B5302A' : '#2F5E8C' }, 7.4, 0, z, -PI / 2));
       g.add(prop('townhouse', { color: cols[(i + 3) % 6], roof: roofs[(i + 3) % 6], door: i % 2 ? '#24324A' : '#F2D06B' }, -21.2, 0, z + 2.8, PI / 2));
       if (i % 2 === 0) { g.add(prop('tree', { seed: i + 3 }, 4.2, 0, z + 2.6, 0, 0.9 + r() * 0.3)); g.add(prop('tree', { seed: i + 40 }, -17.3, 0, z + 0.4, 0, 0.9 + r() * 0.3)); }
     }

@@ -212,6 +212,11 @@ const B = {
   phone911(o = {}) {
     const screen = canvasPlane(0.125, 0.25, (g, W, H) => {
       g.fillStyle = BLUE; g.fillRect(0, 0, W, H); g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      if (o.screen === 'handle') { // the creator's handle in a white-outlined box on a black screen (reference S4)
+        g.fillStyle = '#0D0D0F'; g.fillRect(0, 0, W, H); g.strokeStyle = '#F2F2F2'; g.lineWidth = W * 0.035; g.strokeRect(W * 0.1, H * 0.2, W * 0.8, H * 0.5);
+        g.fillStyle = '#F4F4F4'; g.font = `900 ${W * 0.2}px Arial`; (o.lines || ['@outof', 'this', 'world_9']).forEach((l, i) => g.fillText(l, W / 2, H * (0.32 + i * 0.13)));
+        return;
+      }
       if (o.screen === 'tiktok') { // generic short-video app: black feed, a flexing silhouette, colour-offset note, side buttons
         g.fillStyle = '#0B0B0D'; g.fillRect(0, 0, W, H);
         g.fillStyle = '#E8E8E8'; g.fillRect(W * 0.38, H * 0.3, W * 0.24, H * 0.28); g.beginPath(); g.arc(W * 0.5, H * 0.25, W * 0.1, 0, TAU); g.fill();

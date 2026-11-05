@@ -37,20 +37,36 @@ TOR = {'rings': 14, 'height': 7.3, 'base': 0.39, 'top': 2.03, 'taper': 0.6, 'fla
 TORL = {**TOR, 'cols': ['#94A99D', '#A3B6AA', '#879C90', '#ABBDB1'], 'paleColor': '#DCE1D3', 'stripe': '#DDE2D6', 'stripeDark': '#7A9084'}   # the paler tornado of the ruins
 scenes = []
 
-# S1 0.00-1.90: low camera behind him and the dog walking away (-Z, houses on his right = +X); it orbits 180 deg round his
-# right side (f16: profile from the house side, he walks frame-right) to his front (f34), revealing the tornado behind
-# him (it came from where he walked); the dog is pulled back over him into it, he raises his left arm (frame right)
-scenes.append(scene(1, 'S1', 'replicaStreet',
-    actors=[act('mec', [0, 0, 0], 180, 'walk', 'neutral', keys=[
-        k(0.0, to=[0, 0, -2.4], glide=True, dur=1.13, clip='walk', then='point', face='keep')])],
-    props=[P('dog', 'voxelDog', pos=[-0.6, 0, -0.5], rot=[0, 3.1416, 0], scale=1.25, opts={'walk': True}, keys=[
-               k(0.0, to=[-0.6, 0, -2.9], dur=1.13, ease='linear'),
-               k(1.2, to=[-0.4, 1.8, -2.2], dur=0.25, ease='in'),
-               k(1.45, to=[-12.0, 7.5, 22.0], dur=0.45, ease='in')]),
-           P('tornado', 'tornado', pos=[-14, 0, 26], scale=3.5, opts=TOR)],
-    cams=[cam(0.0, [0.5, 0.6, 2.2], [2.4, 0.9, -1.1], [0, 1.2, 0], [0, 1.3, -1.1], lens=72),
-          cam(0.533, [2.4, 0.9, -1.1], [0.6, 1.0, -5.0], [0, 1.3, -1.1], [0, 1.5, -2.4], lens=72),
-          cam(1.133, [0.6, 1.0, -5.0], [0.7, 1.05, -4.8], [0, 1.5, -2.4], [0, 1.8, -2.4], lens=72)]))
+# S1 0.00-1.90: low camera behind him and the dog walking away (-Z; cottages on his right = +X, the road on his left); it orbits 180 deg
+# round his LEFT (road) side - f18: from the road, looking at the cottages, he walks frame-left - to his front (f33), revealing the tornado
+# behind him across the road; he stops at f36, the dog is yanked up and away over his left shoulder into the tornado, his left arm flies up
+import math as _m1
+def orbit_cams(t0, t1, n, centre_at, r0, r1, a0, a1, h0, h1, look_h=1.0, lens=72):
+    """camera keys on an arc round a moving point: angle a (deg) 0 = behind (+Z side), 90 = his left (-X), 180 = in front (-Z)"""
+    ks = []
+    def pos(t):
+        u = (t - t0) / (t1 - t0); u = u * u * (3 - 2 * u)
+        a = _m1.radians(a0 + (a1 - a0) * u); r = r0 + (r1 - r0) * u; c = centre_at(t)
+        return [round(c[0] - r * _m1.sin(a), 3), round(h0 + (h1 - h0) * u, 3), round(c[2] + r * _m1.cos(a), 3)]
+    ts = [t0 + (t1 - t0) * i / n for i in range(n + 1)]
+    for i in range(n):
+        ca, cb = centre_at(ts[i]), centre_at(ts[i + 1])
+        ks.append(cam(round(ts[i], 4), pos(ts[i]), pos(ts[i + 1]), [ca[0], look_h, ca[2]], [cb[0], look_h, cb[2]], lens=lens))
+    return ks
+WALK0, WALK1, TW = 0.6, -1.9, 1.2                     # he walks 2.5 m in 1.2 s (f0-f36), then stops
+def man_at(t): u = min(1.0, max(0.0, t / TW)); return [0.0, 0.0, WALK0 + (WALK1 - WALK0) * u]
+s1cams = [cam(0.0, [0.1, 0.6, WALK0 + 3.0], [0.1, 0.6, man_at(0.3)[2] + 3.0], [-0.35, 0.95, WALK0 - 3], [-0.35, 0.95, man_at(0.3)[2] - 3], lens=72)]
+s1cams += orbit_cams(0.3, 1.1, 8, man_at, 3.0, 2.5, 0, 180, 0.62, 0.85, 1.05)
+s1cams += [cam(1.1, [0, 0.85, man_at(1.1)[2] - 2.5], [0, 0.88, WALK1 - 2.7], [-0.26, 1.1, man_at(1.1)[2]], [-0.26, 1.2, WALK1], lens=72)]
+scenes.append(scene(1, 'S1', 'replicaStreet', setOpts={'near': 'cottage', 'z0': -44.2, 'nearTown': [5]},
+    actors=[act('mec', [0, 0, WALK0], 180, 'walk', 'neutral', keys=[
+        k(0.0, to=[0, 0, WALK1], dur=TW, clip='walk', then='stand'), k(1.28, clip='reachUpL')])],
+    props=[P('dog', 'voxelDog', pos=[-0.65, 0, WALK0 + 0.35], rot=[0, 3.1416, 0], scale=1.0, opts={'walk': True}, keys=[
+               k(0.0, to=[-0.65, 0, WALK1 - 0.1], dur=TW, ease='linear'),
+               k(1.24, to=[-0.85, 1.0, WALK1 + 0.6], dur=0.07, ease='out'),
+               k(1.31, to=[-8.5, 7.0, 26.0], dur=0.2, ease='linear')]),
+           P('tornado', 'tornado', pos=[-8.5, 0, 28], scale=1.9, opts=TOR)],
+    cams=s1cams))
 
 # S2 1.90-3.43: close tracking shot of the dog spinning in the tornado wall, mouth open
 scenes.append(scene(2, 'S2', 'replicaStreet',
@@ -63,13 +79,14 @@ scenes.append(scene(3, 'S3', 'replicaStreet',
     actors=[act('mec', [-1.2, 0, 0], 45, 'explain', 'neutral')],
     cams=[cam(0.0, [0.2, 0.92, 0.3], [0.2, 0.92, 0.3], [-1.5, 2.25, -0.25], lens=74)]))
 
-# S4 4.50-6.53: selfie close-up on the far sidewalk, phone in his LEFT hand (frame right), face left of centre, the road on
-# the right (camera looks -Z, so +X is frame-right), the tornado far down the road
+# S4 4.50-6.53: selfie close-up on the far sidewalk (0.7 m from his face, camera above eye level looking down 15 deg, wide lens): the road on
+# the right, the townhouses beyond the fence on the left, the tornado far down the road; at f151 he brings up the phone beside his face,
+# screen to the camera, showing the creator's handle
 scenes.append(scene(4, 'S4', 'replicaStreet',
-    actors=[act('mec', [-12.0, 0, 0], 0, 'phoneCallL', 'neutral')],
-    props=[P('phone', 'phone911', on={'actor': 'mec', 'hand': 'L'}),
-           P('tornado', 'tornado', pos=[-7, 0, -62], scale=3.0, opts=TOR)],
-    cams=[cam(0.0, [-11.95, 1.68, 1.35], [-11.98, 1.7, 1.28], [-11.58, 1.84, 0], lens=74)]))
+    actors=[act('mec', [-12.0, 0, 0], 0, 'stand', 'neutral', keys=[k(0.5, clip='showPhoneFaceL')])],
+    props=[P('phone', 'phone911', pos=[-11.84, 1.45, 0.22], rot=[0, -0.15, -0.24], scale=1.12, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.84, 1.94, 0.22], dur=0.14, ease='out')]),
+           P('tornado', 'tornado', pos=[20, 0, -150], scale=3.0, opts=TOR)],
+    cams=[cam(0.0, [-12.0, 2.43, 0.9], [-11.97, 2.44, 0.89], [-11.96, 2.17, -0.07], [-11.94, 2.18, -0.07], lens=74)]))
 
 # S5 6.53-7.03: extreme close-up of a nozzle firing (afterburner), runway beyond
 scenes.append(scene(5, 'S5', 'runway',
@@ -296,7 +313,7 @@ scenes.append(scene(21, 'S21', 'grassland',
 # S22 26.00-28.80: "Oh, and the dog is dead.": the dog's grave, R.I.P., his framed portrait, flowers, a fresh mound; slow push-in; the
 # handcuffed tornado and the turbine far behind
 scenes.append(scene(22, 'S22', 'grassland', props=[
-    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#E8A040'}),
+    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#D2862C'}),
     P('mound', 'dirtMound', pos=[0.05, 0, -2.5], opts={'w': 1.35, 'd': 1.6, 'h': 0.3}),
     P('flowers', 'flowers', pos=[0.42, 0.25, -3.18], scale=1.4),
     P('turbine', 'windTurbine', pos=[-46, 0, -190], opts={'h': 60, 'rpm': 13}),

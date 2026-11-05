@@ -296,6 +296,8 @@ export const CLIPS = {
   clickCount: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.9, 0.3, 0.05], elbowR: [-0.9, 0, 0], handR: [0.25 * Math.max(0, S(t * 2 * PI * 4)), 0, 0], head: [-0.05, 0.25 * S(t * 1.5), 0] }), // tally counter, scanning the crowd
   readPhone: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.75, 0.35, 0.05], elbowR: [-1.45, 0, 0], handR: [0.3, 0, 0], head: [0.35, 0, 0] }), // phone at chest height, screen toward the face
   showPhone: (t) => ({ ...CLIPS.stand(), shoulderR: [-1.45, 0.15, 0.05], elbowR: [-0.15, 0, 0], handR: [0, 0, 0], head: [0.05, -0.1, 0] }), // arm out, screen toward the others
+  showPhoneFaceL: (t) => ({ ...CLIPS.stand(), shoulderL: [-1.15, 0.45, 0.62], elbowL: [-2.45, -0.5, 0], handL: [0, -0.2, 0], head: [0.03 * S(t * 2.2), -0.06, 0.04], torso: [0, -0.06, 0] }), // phone held up beside the face, screen to the camera (selfie)
+  reachUpL: (t) => ({ ...CLIPS.stand(), shoulderL: [-2.0 + 0.08 * S(t * 6), 0.3, 0.35], elbowL: [-0.25, 0, 0], head: [-0.12, 0.35, 0], torso: [-0.04, 0.2, 0] }), // left arm flung up toward something flying away behind him
   laugh: (t) => { const k = Math.abs(S(t * 2 * PI * 3)); return { ...CLIPS.stand(), torso: [0.15 + 0.12 * k, 0, 0], head: [-0.25 + 0.2 * k, 0, 0], ...arms(m([-0.45, -0.35, 0.1], [-0.45, -0.35, 0.1]), m([-1.4, 0, 0], [-1.4, 0, 0])), root: { y: 0.02 * k } }; }, // belly laugh, hands on the stomach
   lookItem: (t) => ({ ...CLIPS.stand(), shoulderR: [-0.85, 0.35, 0.05], elbowR: [-1.35, 0, 0], head: [0.45, 0.15, 0] }),
 
