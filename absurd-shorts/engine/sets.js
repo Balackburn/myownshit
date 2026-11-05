@@ -305,31 +305,31 @@ const S = {
     const g = grp(), r = rng(o.seed || 13);
     skyFollow(g, o.sky || ['#6BB4E3', '#BFDCEB'], 3000, o.haze || '#C3D5D2');
     g.add(flat(9000, 9000, o.lawn || '#8EC07A', 0, 0, 0));
-    const X = o.x || 720, Z0 = o.z0 ?? -2300, Z1 = o.z1 ?? 500, hx = o.pitch || 14, pair = o.pair || 50, blockN = o.block || 7;
+    const K = o.houseScale || 1, X = o.x || 720, Z0 = o.z0 ?? -2300, Z1 = o.z1 ?? 500, hx = (o.pitch || 14) * K, pair = (o.pair || 50) * K, blockN = o.block || 7;
     const walls = [], wallC = [], roofs = [], roofC = [], trees = [], treeC = [], roads = [], wins = [];
     const WC = o.walls || ['#F4F1EA', '#EFE2C4', '#F0C6CF', '#EDCF7A', '#C3B2DE', '#A9C7E8', '#F2F0EA', '#E6D8C2', '#E8B9A8'];
     const RC = o.roofs || ['#D9675C', '#E58A84', '#5E83C6', '#A0604E', '#D9675C', '#7A8FB8', '#C85A50', '#8C5446', '#6F8AC8'];
     const TC = ['#3F7A45', '#4E8A4A', '#5A9450', '#3A6E44'];
     for (let z = Z0; z < Z1; z += pair) {
-      roads.push([0, 0.03, z + 12.5, 0, 0, 0, 2 * X, 0.06, 7]);
+      roads.push([0, 0.03, z + 12.5 * K, 0, 0, 0, 2 * X, 0.06, 7 * K]);
       for (let x = -X; x < X; x += hx) {
         if (Math.floor((x + X) / hx) % (blockN + 1) === blockN) continue;
-        for (const [dz, face] of [[0, 1], [-21, -1]]) {
+        for (const [dz0, face] of [[0, 1], [-21, -1]]) {
           if (r() < 0.04) continue;
-          const w = 8 + r() * 1.6, d = 7 + r() * 1.2, h = 3.3 + r() * 0.7, cx = x + (r() - 0.5) * 1.2, cz = z + dz + (r() - 0.5) * 0.8;
+          const dz = dz0 * K, w = (8 + r() * 1.6) * K, d = (7 + r() * 1.2) * K, h = (3.3 + r() * 0.7) * K, cx = x + (r() - 0.5) * 1.2 * K, cz = z + dz + (r() - 0.5) * 0.8 * K;
           walls.push([cx, 0, cz, 0, 0, 0, w, h, d]); wallC.push(WC[Math.floor(r() * WC.length)]);
-          roofs.push([cx, h - 0.05, cz, 0, 0, 0, w + 0.9, 2.5 + r() * 0.7, d + 1.2]); roofC.push(RC[Math.floor(r() * RC.length)]);
-          wins.push([cx - w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3, 1.2, 0.1], [cx + w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3, 1.2, 0.1]);
-          if (r() < 0.6) { const s = 2.2 + r() * 1.6; trees.push([cx + (r() - 0.5) * 12, s * 0.9, cz + face * (5.5 + r() * 3.5), r() * 3, r() * 3, r() * 3, s, s * 0.95, s]); treeC.push(TC[Math.floor(r() * 4)]); }
+          roofs.push([cx, h - 0.05, cz, 0, 0, 0, w + 0.9 * K, (2.5 + r() * 0.7) * K, d + 1.2 * K]); roofC.push(RC[Math.floor(r() * RC.length)]);
+          wins.push([cx - w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3 * K, 1.2 * K, 0.1], [cx + w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3 * K, 1.2 * K, 0.1]);
+          if (r() < 0.6) { const s = (2.2 + r() * 1.6) * K; trees.push([cx + (r() - 0.5) * 12 * K, s * 0.9, cz + face * (5.5 + r() * 3.5) * K, r() * 3, r() * 3, r() * 3, s, s * 0.95, s]); treeC.push(TC[Math.floor(r() * 4)]); }
         }
       }
     }
-    for (let x = -X; x < X; x += hx * (blockN + 1)) roads.push([x + hx * blockN, 0.035, (Z0 + Z1) / 2, 0, 0, 0, 7, 0.06, Z1 - Z0]);
+    for (let x = -X; x < X; x += hx * (blockN + 1)) roads.push([x + hx * blockN, 0.035, (Z0 + Z1) / 2, 0, 0, 0, 7 * K, 0.06, Z1 - Z0]);
     const roofGeo = (() => { const s = new THREE.Shape([new THREE.Vector2(-0.5, 0), new THREE.Vector2(0.5, 0), new THREE.Vector2(0, 1)]); const geo = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false }); geo.translate(0, 0, -0.5); geo.rotateY(PI / 2); return geo; })();
     const unitBox = new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0), white = mat('#FFFFFF');
-    g.add(inst(unitBox, white, walls, wallC), inst(roofGeo, white, roofs, roofC), inst(new THREE.BoxGeometry(1, 1, 1), mat(o.road || '#A7A6A6'), roads), inst(new THREE.BoxGeometry(1, 1, 1), mat('#3E5872'), wins));
-    g.add(inst(new THREE.IcosahedronGeometry(1, 0), white, trees, treeC));
-    g.children.forEach(c => { if (c.isInstancedMesh) c.frustumCulled = false; });
+    const grid = grp(inst(unitBox, white, walls, wallC), inst(roofGeo, white, roofs, roofC), inst(new THREE.BoxGeometry(1, 1, 1), mat(o.road || '#A7A6A6'), roads), inst(new THREE.BoxGeometry(1, 1, 1), mat('#3E5872'), wins),
+      inst(new THREE.IcosahedronGeometry(1, 0), white, trees, treeC));
+    grid.children.forEach(c => { c.frustumCulled = false; }); grid.rotation.y = o.gridRot || 0; g.add(grid);
     Object.assign(g.userData, { lighting: 'aerial', near: 1, far: 5000, fog: { color: o.haze || '#C3D5D2', near: o.fogNear || 90, far: o.fogFar || 1050 }, anchors: { center: [0, 0, 0] } });
     return g;
   },

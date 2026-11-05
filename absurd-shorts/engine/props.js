@@ -1798,15 +1798,15 @@ const B = {
     for (let i = 0; i < (o.n || 26); i++) { const dir = V3(r() - 0.5, r() * 0.9 - 0.25, r() - 0.5).normalize(), heat = 1 - Math.min(1, r() * 1.3);
       const m = new THREE.Mesh(sphereGeo(1), new THREE.MeshLambertMaterial({ color: '#FFD45A', emissive: '#FF9A2A', map: grainTexture(), transparent: true, flatShading: !!o.facets }));
       m.castShadow = false; g.add(m); puffs.push({ m, dir, d: 0.25 + (1 - heat) * 0.75 + r() * 0.15, s: (0.22 + r() * 0.26 + heat * 0.12) * (o.puff || 1), lag: r() * 0.08, heat, smoke: r() < (o.smoke ?? 0.6) }); }
-    const flash = glowSprite('#FFE7A8', S * 6, 1), glare = glowSprite('#FFF4D8', S * 9, 0.7); g.add(flash, glare);
+    const FS = o.flashScale || 1, flash = glowSprite('#FFE7A8', S * 6 * FS, 1), glare = glowSprite('#FFF4D8', S * 9 * FS, 0.7); g.add(flash, glare);
     const cc = ['#B5302A', '#F2F0EA', '#2E3A55', '#D9A15A', '#5B7FC0', '#1E1E22'];
     for (let i = 0; i < (o.chips ?? 26); i++) { const m = box(0.25 + r() * 0.6, 0.05, 0.2 + r() * 0.5, cc[i % 6]); m.castShadow = false; g.add(m); chips.push({ m, v: V3((r() - 0.5) * 2, 0.3 + r() * 1.3, (r() - 0.5) * 2).multiplyScalar(S * (1.2 + r() * 1.8)), sp: 3 + r() * 10 }); }
     const c = new THREE.Color(), e = new THREE.Color(), white = new THREE.Color('#FFF8D8'), yellow = new THREE.Color('#FFC628'), orange = new THREE.Color('#F2650E'), red = new THREE.Color('#A8300E');
     const smoke = new THREE.Color(o.smokeColor || '#3E3634'), eY = new THREE.Color('#FFB01E'), eO = new THREE.Color('#C8460A'), black = new THREE.Color('#000000');
     g.userData.update = t => {
       const tt = t - t0; g.visible = tt >= 0; if (tt < 0) return;
-      flash.material.opacity = Math.max(0, 1 - tt / (o.flash || 0.6)); flash.scale.setScalar(S * (3 + 5 * Math.min(1, tt / 0.15)));
-      glare.material.opacity = 0.8 * Math.max(0, 1 - tt / (o.glare || 1.3)); glare.scale.setScalar(S * 9);
+      flash.material.opacity = Math.max(0, 1 - tt / (o.flash || 0.6)); flash.scale.setScalar(S * FS * (3 + 5 * Math.min(1, tt / 0.15)));
+      glare.material.opacity = 0.8 * Math.max(0, 1 - tt / (o.glare || 1.3)); glare.scale.setScalar(S * 9 * FS);
       puffs.forEach(p => { const k = Math.max(0, tt - p.lag), grow = ease.out(Math.min(1, k / 0.3)), drift = Math.max(0, k - 0.3);
         const rad = S * p.s * (0.3 + 0.9 * grow + (p.smoke ? 0.45 * drift : 0.15 * drift));
         p.m.position.copy(p.dir).multiplyScalar(S * p.d * (0.25 + 0.95 * grow) + drift * S * 0.22); p.m.position.y += drift * S * (p.smoke ? 0.55 : 0.3);

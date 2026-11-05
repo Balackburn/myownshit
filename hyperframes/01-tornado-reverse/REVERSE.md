@@ -35,6 +35,7 @@ not have, so this project is built by hand to the same rules.
 | 7 | 0.674 | 0.482 | tornado reads as pale horizontal stripes with a low crown; S2 dog closer; S5/S6 re-aimed; fireball palette; brighter flag; portrait muzzle; empty-content share 22% → 19% |
 | 8 | 0.675 | 0.482 | S16 judge rebuilt on the original's composition (bright bench, smaller chair, wall, window, 3/4 judge, gavel on its head): its L* gap halved |
 | 9 | 0.674 | 0.484 | per-shot grades calibrated on the measured deltas: every shot within ±3 L* and ±2.6 chroma of the original (most ±1) |
+| 10 | 0.670 | 0.460 | aerial grid at the original's house size and rotation, slimmer long-bodied aerial tornado; S12 camera, tornado and blasts (flash then dark smoke) rebuilt |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado
@@ -47,5 +48,7 @@ Pass 3 notes:
 Still approximate:
 - S3 (the explaining pose); S6, S16 and S22 are still 7-14 L* darker than the original;
 - `shotstats.py` (scratch tool) gives per-shot L*, a*, b* and chroma deltas, which steer the grade and lighting fixes;
+- SSIM caveat: matching a fine texture's scale without aligning it lowers SSIM. The denser house grid looks closer to the original but
+  scores lower on S8 and S10. Judge those shots by eye, and use SSIM per shot to rank the work.
 - Nunito stands in for the original's rounded caption face;
 - the dog and the tornado are hand-built models.

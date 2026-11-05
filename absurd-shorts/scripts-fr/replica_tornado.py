@@ -110,9 +110,9 @@ def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
             'start': round(f0 / FPS, 6), 'duration': round((f1 - f0) / FPS, 6), **kw}
 
 
-TORA = {**TOR, 'base': 0.3, 'top': 1.6, 'taper': 1.0, 'crownFlare': 1.15, 'cols': ['#5B675F', '#66726A', '#4F5A53', '#6F7B73'], 'pale': 2, 'paleColor': '#C9BC9C',
-        'collar': [1.95, 3.3], 'rim': 40, 'rimAt': 1.6, 'rimSize': 0.34, 'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 3.2, 'ribbonY0': 0.95, 'ribbonDY': 0.12,
-        'dust': 0.8, 'chips': 40, 'stripe': '#4F5A53', 'stripeDark': '#4A554E'}   # the aerial look: narrow striped body, flat dark collar with rocks, tan ring
+TORA = {**TOR, 'height': 8.6, 'base': 0.3, 'top': 1.45, 'taper': 1.0, 'crownFlare': 1.1, 'cols': ['#5B675F', '#66726A', '#4F5A53', '#6F7B73'], 'pale': 2, 'paleColor': '#C9BC9C',
+        'bands': False, 'collar': [1.55, 2.5], 'rim': 36, 'rimAt': 1.3, 'rimSize': 0.28, 'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 2.5, 'ribbonY0': 0.95, 'ribbonDY': 0.1,
+        'dust': 0.8, 'chips': 40, 'stripe': '#4F5A53', 'stripeDark': '#4A554E'}   # the aerial look: long striped body, flat dark collar with rocks, tan ring
 JETA = {'burner': 0.45, 'glow': 3.4, 'glowColor': '#FF6A22', 'missiles': 4}
 V = 55.0                                                               # strike speed (m/s) of the jet + chase camera
 
@@ -152,7 +152,7 @@ scenes.append(scene_f('S8b', 254, 313, 'aerialSuburb', props=[
     P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS, opts=TORA),
     P('jet', 'fighterJet', pos=rel(C8a, [0, -62, 6]), rot=[-0.8, 3.1416, 0.04], opts=JETA, keys=[
         k(0.0, to=rel(c8(0.533), JR8a), dur=0.533, ease='out'), k(0.533, to=rel(C8z, lerp3(JR8a, JR8b, 1.0 + 1 / 42)), dur=T8 - 0.533, ease='linear')])],
-    cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}))
+    cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.7, 'gridRot': 0.12}))
 
 # S9 10.43-11.17: over the cloud deck, the jet (seen nearly level, from the front-left 3/4, 38 m away) flies frame-left and lets the
 # missiles go (they drop, ignite, race ahead); the camera looks level, the jet 10 deg above centre
@@ -192,7 +192,7 @@ scenes.append(scene_f('S10', 335, 386, 'aerialSuburb', props=[
     P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS, opts=TORA),
     P('jet', 'fighterJet', pos=rel(C10a, JR10a), rot=[-0.8, 3.1416, -0.03], opts={**JETA, 'burner': 0.7}, keys=[k(0.0, to=rel(C10b, JR10b), dur=T10, ease='linear')]),
     P('salvo', 'missileSalvo', opts={'size': 1.6, 'glow': 1.0, 'trailOpacity': 0.85, 'trailWidth': 0.16, 'shots': salvo})],
-    cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}))
+    cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.66, 'gridRot': 0.2}))
 
 # S11 12.87-14.37: street level across the road (camera yawed ~8 deg right, pitched up ~6 deg, wide lens): the missile hits the tornado behind
 # the cottages, fireball and glare, then smoke, debris and a second hit lower right
@@ -210,14 +210,14 @@ scenes.append(scene(11, 'S11', 'cottageStreet', props=[
 
 # S12 14.37-16.10: high over the rows of cottages, the tornado on the field beyond; strikes land among the houses, closer and closer
 scenes.append(scene(12, 'S12', 'cottageRows', props=[
-    P('tornado', 'tornado', pos=[4, 0, -330], scale=6.5, opts={**TOR, 'chips': 30}),
-    P('b1', 'fireball', pos=[-4, 4, -125], opts={'t0': 0.55, 'size': 15, 'seed': 4, 'glowShare': 0.25, 'flash': 0.8}),
-    P('b2', 'fireball', pos=[-14, 4, -105], opts={'t0': 1.05, 'size': 14, 'seed': 6, 'glowShare': 0.35, 'flash': 0.9}),
-    P('b3', 'fireball', pos=[-16, 3, -38], opts={'t0': 1.5, 'size': 11, 'seed': 8, 'glowShare': 0.35}),
-    P('msl', 'missileSalvo', opts={'size': 2.5, 'shots': [{'from': [90, 160, -300], 'to': [-4, 4, -125], 't0': 0.25, 'dur': 0.3, 'trail': 0.5},
-                                                         {'from': [70, 170, -260], 'to': [-14, 4, -105], 't0': 0.75, 'dur': 0.3, 'trail': 0.6},
-                                                         {'from': [60, 160, -200], 'to': [-16, 3, -38], 't0': 1.2, 'dur': 0.3, 'trail': 0.6}]})],
-    cams=[cam(0.0, [0, 30, 48], [0, 30, 46], [0, 6, -40], [0, 6, -42], lens=48)], setOpts={'rows': 13}))
+    P('tornado', 'tornado', pos=[14, 0, -165], scale=5.0, opts={**TOR, 'chips': 30}),
+    P('b1', 'fireball', pos=[-11, 3, -100], opts={'t0': 0.3, 'size': 6.5, 'seed': 4, 'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.6, 'flashScale': 0.9, 'smoke': 0.75, 'smokeColor': '#3A3432'}),
+    P('b2', 'fireball', pos=[-5, 3, -62], opts={'t0': 1.1, 'size': 8.5, 'seed': 6, 'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.6, 'flashScale': 0.9, 'smoke': 0.75, 'smokeColor': '#3A3432'}),
+    P('b3', 'fireball', pos=[1, 3, -34], opts={'t0': 1.5, 'size': 8, 'seed': 8, 'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.6, 'flashScale': 0.9, 'smoke': 0.75, 'smokeColor': '#3A3432'}),
+    P('msl', 'missileSalvo', opts={'size': 2.5, 'shots': [{'from': [90, 160, -300], 'to': [-11, 3, -100], 't0': 0.0, 'dur': 0.3, 'trail': 0.5},
+                                                         {'from': [70, 170, -260], 'to': [-5, 3, -62], 't0': 0.8, 'dur': 0.3, 'trail': 0.6},
+                                                         {'from': [60, 160, -200], 'to': [1, 3, -34], 't0': 1.2, 'dur': 0.3, 'trail': 0.6}]})],
+    cams=[cam(0.0, [0, 25, 34], [0, 25, 32.5], [0, -2.0, -46], [0, -2.0, -47.5], lens=48)], setOpts={'rows': 7}))
 
 # S13 16.10-17.63: "All of it.": the same streets in ruins, dark grade, a forest of smoke columns and fires, the tornado far behind
 fl, sm = [], []

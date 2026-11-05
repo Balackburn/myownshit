@@ -1136,12 +1136,12 @@
      "scale": 9.0,
      "opts": {
       "rings": 14,
-      "height": 7.3,
+      "height": 8.6,
       "base": 0.3,
-      "top": 1.6,
+      "top": 1.45,
       "taper": 1.0,
       "flare": 0.0,
-      "crownFlare": 1.15,
+      "crownFlare": 1.1,
       "crownH": 1.7,
       "crownSpike": 0.42,
       "chips": 40,
@@ -1149,7 +1149,7 @@
       "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
-      "bands": 0.3,
+      "bands": false,
       "cols": [
        "#5B675F",
        "#66726A",
@@ -1161,17 +1161,17 @@
       "stripeDark": "#4A554E",
       "pale": 2,
       "collar": [
-       1.95,
-       3.3
+       1.55,
+       2.5
       ],
-      "rim": 40,
-      "rimAt": 1.6,
-      "rimSize": 0.34,
+      "rim": 36,
+      "rimAt": 1.3,
+      "rimSize": 0.28,
       "ribbons": 8,
       "ribbonFlat": true,
-      "ribbonR": 3.2,
+      "ribbonR": 2.5,
       "ribbonY0": 0.95,
-      "ribbonDY": 0.12,
+      "ribbonDY": 0.1,
       "dust": 0.8
      }
     },
@@ -1256,6 +1256,10 @@
      0,
      -400.0
     ]
+   },
+   "setOpts": {
+    "houseScale": 0.7,
+    "gridRot": 0.12
    },
    "grade": "contrast(0.9) saturate(0.86) brightness(1.111)"
   },
@@ -1478,12 +1482,12 @@
      "scale": 9.0,
      "opts": {
       "rings": 14,
-      "height": 7.3,
+      "height": 8.6,
       "base": 0.3,
-      "top": 1.6,
+      "top": 1.45,
       "taper": 1.0,
       "flare": 0.0,
-      "crownFlare": 1.15,
+      "crownFlare": 1.1,
       "crownH": 1.7,
       "crownSpike": 0.42,
       "chips": 40,
@@ -1491,7 +1495,7 @@
       "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
-      "bands": 0.3,
+      "bands": false,
       "cols": [
        "#5B675F",
        "#66726A",
@@ -1503,17 +1507,17 @@
       "stripeDark": "#4A554E",
       "pale": 2,
       "collar": [
-       1.95,
-       3.3
+       1.55,
+       2.5
       ],
-      "rim": 40,
-      "rimAt": 1.6,
-      "rimSize": 0.34,
+      "rim": 36,
+      "rimAt": 1.3,
+      "rimSize": 0.28,
       "ribbons": 8,
       "ribbonFlat": true,
-      "ribbonR": 3.2,
+      "ribbonR": 2.5,
       "ribbonY0": 0.95,
-      "ribbonDY": 0.12,
+      "ribbonDY": 0.1,
       "dust": 0.8
      }
     },
@@ -1895,6 +1899,10 @@
      -400.0
     ]
    },
+   "setOpts": {
+    "houseScale": 0.66,
+    "gridRot": 0.2
+   },
    "grade": "contrast(0.9) saturate(0.80) brightness(1.151)"
   },
   {
@@ -2106,11 +2114,11 @@
      "id": "tornado",
      "name": "tornado",
      "pos": [
-      4,
+      14,
       0,
-      -330
+      -165
      ],
-     "scale": 6.5,
+     "scale": 5.0,
      "opts": {
       "rings": 14,
       "height": 7.3,
@@ -2142,47 +2150,63 @@
      "id": "b1",
      "name": "fireball",
      "pos": [
-      -4,
-      4,
-      -125
+      -11,
+      3,
+      -100
      ],
      "opts": {
-      "t0": 0.55,
-      "size": 15,
+      "t0": 0.3,
+      "size": 6.5,
       "seed": 4,
-      "glowShare": 0.25,
-      "flash": 0.8
+      "glowShare": 0.3,
+      "flash": 0.6,
+      "glare": 0.3,
+      "life": 0.6,
+      "flashScale": 0.9,
+      "smoke": 0.75,
+      "smokeColor": "#3A3432"
      }
     },
     {
      "id": "b2",
      "name": "fireball",
      "pos": [
-      -14,
-      4,
-      -105
+      -5,
+      3,
+      -62
      ],
      "opts": {
-      "t0": 1.05,
-      "size": 14,
+      "t0": 1.1,
+      "size": 8.5,
       "seed": 6,
-      "glowShare": 0.35,
-      "flash": 0.9
+      "glowShare": 0.3,
+      "flash": 0.6,
+      "glare": 0.3,
+      "life": 0.6,
+      "flashScale": 0.9,
+      "smoke": 0.75,
+      "smokeColor": "#3A3432"
      }
     },
     {
      "id": "b3",
      "name": "fireball",
      "pos": [
-      -16,
+      1,
       3,
-      -38
+      -34
      ],
      "opts": {
       "t0": 1.5,
-      "size": 11,
+      "size": 8,
       "seed": 8,
-      "glowShare": 0.35
+      "glowShare": 0.3,
+      "flash": 0.6,
+      "glare": 0.3,
+      "life": 0.6,
+      "flashScale": 0.9,
+      "smoke": 0.75,
+      "smokeColor": "#3A3432"
      }
     },
     {
@@ -2198,11 +2222,11 @@
          -300
         ],
         "to": [
-         -4,
-         4,
-         -125
+         -11,
+         3,
+         -100
         ],
-        "t0": 0.25,
+        "t0": 0.0,
         "dur": 0.3,
         "trail": 0.5
        },
@@ -2213,11 +2237,11 @@
          -260
         ],
         "to": [
-         -14,
-         4,
-         -105
+         -5,
+         3,
+         -62
         ],
-        "t0": 0.75,
+        "t0": 0.8,
         "dur": 0.3,
         "trail": 0.6
        },
@@ -2228,9 +2252,9 @@
          -200
         ],
         "to": [
-         -16,
+         1,
          3,
-         -38
+         -34
         ],
         "t0": 1.2,
         "dur": 0.3,
@@ -2246,32 +2270,32 @@
      "at": 0.0,
      "from": [
       0,
-      30,
-      48
+      25,
+      34
      ],
      "to": [
       0,
-      30,
-      46
+      25,
+      32.5
      ],
      "lookAt": [
       0,
-      6,
-      -40
+      -2.0,
+      -46
      ],
      "lens": 48,
      "ease": "linear",
      "lookAt2": [
       0,
-      6,
-      -42
+      -2.0,
+      -47.5
      ]
     }
    ],
    "start": 14.366667,
    "duration": 1.733333,
    "setOpts": {
-    "rows": 13
+    "rows": 7
    },
    "grade": "contrast(0.9) saturate(1.04) brightness(1.022)"
   },
