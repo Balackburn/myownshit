@@ -98,7 +98,7 @@ scenes.append(scene(4, 'S4', 'replicaStreet',
 
 # S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
 # blasting frame-left over the runway, the tail fins above
-scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.5, 'glow': 2.6, 'glowColor': '#FFE6B0', 'hotCore': True, 'gear': True})],
+scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 2.4, 'glow': 3.9, 'glowColor': '#FFE6B0', 'hotCore': True, 'gear': True})],
     cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.008))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us (the original is 4x sharper than a 0.02 s shutter)
 
 # S6 7.03-7.63: fast dolly above the jet's left side from the wing and its roundel (U.S. AIR FORCE on the fuselage) to the canopy and the
@@ -322,7 +322,7 @@ for j in range(9):
         sm.append([x + 2.6, z - 3, 19 + (i % 4) * 3, 0.8])
 scenes.append(scene(13, 'S13', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[18, 0, -435], scale=13.5, opts={**TOR, 'chips': 30, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}),   # crown ~173 px wide, top y ~40 (grid reads)
-    P('fires', 'flameField', opts={'points': fl, 'seed': 3}),
+    P('fires', 'flameField', opts={'points': [[x_, y_, z_, s_ * 0.8] for x_, y_, z_, s_ in fl], 'seed': 3}),   # smaller (ours sit in other places than the original's: A/B +0.02 at x0.72; kept visible)
     P('smoke', 'smokeField', opts={'points': [[x_, z_, h_ * 0.8, y_] for x_, z_, h_, y_ in sm], 'size': 0.86, 'per': 30, 'seed': 5, 'twist': 13, 'twistAmp': 0.55, 'color': '#3B3533'})],   # twisted rope-like columns
     cams=[cam(0.0, [0, 23.5, 40], [0.4, 23.5, 39.5], [0, 2.5, -60], [2.4, 2.5, -60.5], lens=48)], setOpts={'burnt': True, 'rows': 13, 'houseScale': 1.25}))   # bigger shells (A/B +0.007-0.010)
 
@@ -332,7 +332,7 @@ scenes.append(scene(14, 'S14', 'ruinedStreet', props=[
     P('tornado', 'tornado', pos=[0, 0, -25.5], rot=[0, 0, -0.08], scale=2.3, opts={**TOR, 'height': 6.2, 'top': 2.0, 'taper': 1.0, 'base': 0.22, 'bands': False, 'pale': 2, 'crownSpike': 0.2, 'chips': 40, 'spin': 0.8, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}, keys=[k(0.0, to=[0, 0, -22.5], dur=1.83, ease='linear')]),   # shorter, wider
     P('flag', 'whiteFlag', pos=[1.4, 15.3, -21.0], rot=[0, 0, -0.32], scale=3.6, opts={'w': 1.6, 'h': 1.45, 'pole': 1.75, 'glow': '#A8A49E'}, keys=[k(0.0, to=[1.4, 15.3, -18.0], dur=1.83, ease='linear')])],   # the crown leans right ~4.5 deg (f560: top centre x 340 over a base at 280); cloth at x 373-560
     cams=[cam(0.0, [0.3, 0.6, 6], [0.3, 0.6, 5.4], [0, 12.7, -30], [0, 12.8, -30], lens=60)], light={'key': '#E6E4E0', 'sky': '#CFCFCF', 'ground': '#3E3E44'},
-    setOpts={'flameScale': 1.6, 'road': '#302F36'}))   # renders ~#2B2A2F like the original's asphalt
+    setOpts={'flameScale': 1.1, 'road': '#302F36'}))   # a lower flame band (A/B +0.004; the original's flames are fewer and sparser)   # renders ~#2B2A2F like the original's asphalt
 
 # --- act 3: court, hard labour, grave ----------------------------------------------------------------------------
 HANDLE = '@outofthisworld_9'
@@ -428,7 +428,7 @@ scenes.append(scene(22, 'S22', 'grassland', props=[
     P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 900, 'seed': 12, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
     P('grassL', 'tallGrass', pos=[-0.85, 0, -2.7], opts={'w': 0.8, 'd': 1.4, 'h': 0.62, 'count': 260, 'seed': 14, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}), P('grassR', 'tallGrass', pos=[1.0, 0, -2.7], opts={'w': 0.6, 'd': 1.4, 'h': 0.58, 'count': 200, 'seed': 15, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
     P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 45, 'seed': 13, 'thin': 0.045, 'soft': 0.55, 'cols': ['#9ED27C', '#B2DC8C', '#8CC86A', '#C0E29A']})],   # out-of-focus foreground
-    cams=[cam(0.0, [-0.05, 0.50, 0.25], [-0.07, 0.52, -0.55], [-0.15, 0.356, -3.5], [-0.12, 0.425, -3.5], lens=50)]))   # end framing nudged 0.4 deg right/up (phase correlation: 7 px left, 9 px down)   # lower and level: horizon at y ~450, stone top y ~160 -> 96 (f790/f850)
+    cams=[cam(0.0, [-0.05, 0.50, 0.25], [-0.07, 0.52, -0.55], [-0.15, 0.356, -3.5], [-0.15, 0.386, -3.5], lens=50)]))   # lower and level: horizon at y ~450, stone top y ~160 -> 96 (f790/f850)
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.
 import math

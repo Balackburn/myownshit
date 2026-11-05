@@ -72,6 +72,7 @@ not have, so this project is built by hand to the same rules.
 | 41 | 0.696 | 0.506 | Houses at the original's size, chosen on A/B stills: aerial towns houseScale 0.95/0.82 → 1.3 (S10 0.477 → 0.507, S8b 0.582 → 0.594), burnt S13 shells 1.25 (0.652 → 0.660); worst frame 0.44 → 0.49. Rejected on stills: S12 houses 1.1 (they merge into terraces, unlike the original's detached cottages), S16 nameplate higher, a phone hand in S4, a bigger S1 tornado |
 | 42 | 0.696 | 0.510 | S12 houses 1.12× on lots 8.6 m apart (bigger but still detached: 0.519 → 0.526); lighter body for the S19-S22 tornado (+0.002 in S19 and S21). Rejected on stills: denser aerial rows, a wider S17 tornado |
 | 43 | 0.696 | 0.510 | Framing nudges from phase correlation: S3 0.6° (0.705 → 0.708); S22's end framing was neutral on the full video (reverted in 44). Rejected on stills: brighter S9 missiles, an S5 camera move, a phone hand |
+| 44 | 0.697 | 0.510 | Bright elements in the wrong place cost more than missing ones: S13 flames ×0.8 (0.660 → 0.672), S14 flame band 1.6 → 1.1 (0.789 → 0.792); a bigger, brighter S5 afterburner (0.744 → 0.751) |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20
