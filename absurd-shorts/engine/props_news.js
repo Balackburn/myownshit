@@ -34,6 +34,9 @@ const flagDraw = kind => (c, W, H) => {
       for (let r = 0; r < 3; r++) for (let q = 0; q < 3; q++) { const x = W * (0.07 + q * 0.13 + (r % 2) * 0.06), y = H * (0.1 + r * 0.15); c.beginPath(); c.moveTo(x, y - H * 0.05); c.lineTo(x + W * 0.025, y + H * 0.04); c.lineTo(x - W * 0.025, y + H * 0.04); c.fill(); } }
     else if (kind === 'sard') { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8322A'; c.fillRect(W * 0.44, 0, W * 0.12, H); c.fillRect(0, H * 0.41, W, H * 0.18);
       c.fillStyle = '#17171B'; for (const [x, y] of [[0.22, 0.2], [0.78, 0.2], [0.22, 0.8], [0.78, 0.8]]) { c.beginPath(); c.arc(W * x, H * y, H * 0.11, 0, TAU); c.fill(); c.fillStyle = '#F4F4F0'; c.fillRect(W * x - H * 0.12, H * y - H * 0.04, H * 0.24, H * 0.05); c.fillStyle = '#17171B'; } }
+    else if (kind === 'mec') { c.fillStyle = '#2F8F7A'; c.fillRect(0, 0, W, H); c.fillStyle = '#F2C94C'; c.fillRect(0, H * 0.8, W, H * 0.2); c.fillRect(0, 0, W, H * 0.08);   // the flag of his apartment: his own face
+      c.fillStyle = '#E2B48A'; c.fillRect(W * 0.4, H * 0.2, W * 0.2, H * 0.48); c.fillStyle = '#1C1C20'; c.fillRect(W * 0.4, H * 0.17, W * 0.2, H * 0.07); c.fillRect(W * 0.44, H * 0.34, W * 0.03, H * 0.04); c.fillRect(W * 0.53, H * 0.34, W * 0.03, H * 0.04);
+      c.fillRect(W * 0.45, H * 0.5, W * 0.1, H * 0.02); c.fillStyle = '#7A5A48'; for (let i = 0; i < 14; i++) c.fillRect(W * (0.42 + (i * 37 % 16) / 100), H * (0.52 + (i * 53 % 14) / 100), W * 0.008, H * 0.012); c.fillStyle = '#C8322A'; c.fillRect(W * 0.48, H * 0.68, W * 0.04, H * 0.12); }
     else { const cols = kind === 'it' ? ['#2E8B4E', '#F4F4F0', '#C8322A'] : ['#24448E', '#F4F4F0', '#D03A34']; cols.forEach((col, i) => { c.fillStyle = col; c.fillRect(i * W / 3, 0, W / 3 + 1, H); }); }
 };
 function miniFlag(kind, w = 0.08) {
@@ -167,6 +170,28 @@ export const NEWS_PROPS = {
       stream.visible = k > 0.4; if (!stream.visible) return;
       drops.forEach((q, i) => { const u = ((t - o.tipAt) * 1.4 + ph[i]) % 1, x = -2.45 - u * 0.9, y = 1.2 - u * u * 1.6 + 0.3, z = (ph[i] - 0.5) * 1.6; M.position.set(x, Math.max(0.05, y), z); M.rotation.set(t * 5 + i, i, t * 3); M.updateMatrix(); stream.setMatrixAt(i, M.matrix); }); stream.instanceMatrix.needsUpdate = true; };
     g.userData.update(0); return g;
+  },
+  doormat(o) { // a coir doormat "BIENVENUE" (0.7 × 0.45) lying flat; o.line draws a dotted border across it; o.splitAt cuts it in two halves that slide apart
+    const w = o.w || 0.7, d = o.d || 0.45, draw = (x0, x1) => (c, W, H) => { c.fillStyle = '#A9773F'; c.fillRect(0, 0, W, H); c.fillStyle = '#8A5E2E'; for (let i = 0; i < 300; i++) c.fillRect(((i * 97) % 1000) / 1000 * W, ((i * 61) % 1000) / 1000 * H, W * 0.006, H * 0.02);
+      c.save(); c.translate(-x0 * W / (x1 - x0), 0); c.scale(1 / (x1 - x0), 1); c.fillStyle = '#3A2A1A'; c.font = `900 ${H * 0.26}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'BIENVENUE', W / 2, H / 2);
+      if (o.line) { c.strokeStyle = '#F4F4F0'; c.lineWidth = W * 0.012; c.setLineDash([W * 0.03, W * 0.025]); c.beginPath(); c.moveTo(W * 0.62, 0); c.lineTo(W * 0.62, H); c.stroke(); } c.restore(); };
+    const half = (x0, x1) => { const pl = canvasPlane(w * (x1 - x0), d, draw(x0, x1), { res: 256 }); pl.rotation.x = -PI / 2; const gg = grp(at(box(w * (x1 - x0), 0.02, d, '#8A5E2E'), 0, 0.01, 0), pl); pl.position.y = 0.021; gg.position.x = (x0 + x1 - 1) / 2 * w; return gg; };
+    const g = grp(), a = half(0, o.splitAt != null ? 0.5 : 1); g.add(a); let b = null; if (o.splitAt != null) { b = half(0.5, 1); g.add(b); }
+    g.userData.update = t => { if (!b) return; const k = ease.outBack(clamp01((t - o.splitAt) / 0.4)); a.position.x = -w / 4 - 0.12 * k; b.position.x = w / 4 + 0.12 * k; a.rotation.y = 0.12 * k; b.rotation.y = -0.12 * k; };
+    g.userData.update(0); return g;
+  },
+  accordion(o) { // an accordion held in both hands (attach to the right hand): red bellows that squeeze in and out, white keys
+    const g = grp(), bel = grp(); g.add(at(box(0.08, 0.32, 0.22, '#1C1C20', { outline: 0.006 }), -0.2, 0, 0), at(box(0.08, 0.32, 0.22, '#1C1C20', { outline: 0.006 }), 0.2, 0, 0), at(box(0.015, 0.28, 0.06, '#F4F4F0'), -0.245, 0, 0.06));
+    for (let i = 0; i < 7; i++) bel.add(at(box(0.04, 0.3, 0.21, i % 2 ? '#C8322A' : '#9A2420'), -0.12 + i * 0.04, 0, 0)); g.add(bel);
+    g.userData.update = t => { const k = 1 + 0.35 * Math.sin(t * 7); bel.scale.x = k; g.children[1].position.x = 0.2 * (0.6 + 0.4 * k); };
+    g.userData.update(0); return g;
+  },
+  banknote(o) { // a banknote of the apartment republic with his face on it: o.value, o.w (default 0.32 m)
+    const w = o.w || 0.32, n = canvasPlane(w, w * 0.5, (c, W, H) => { c.fillStyle = '#BFE0C9'; c.fillRect(0, 0, W, H); c.strokeStyle = '#2F7F5C'; c.lineWidth = H * 0.05; c.strokeRect(H * 0.05, H * 0.05, W - H * 0.1, H - H * 0.1);
+      c.fillStyle = '#E2B48A'; c.fillRect(W * 0.1, H * 0.2, W * 0.16, H * 0.6); c.fillStyle = '#1C1C20'; c.fillRect(W * 0.1, H * 0.16, W * 0.16, H * 0.09); c.fillRect(W * 0.13, H * 0.38, W * 0.025, H * 0.05); c.fillRect(W * 0.2, H * 0.38, W * 0.025, H * 0.05); c.fillRect(W * 0.14, H * 0.6, W * 0.08, H * 0.025);
+      c.fillStyle = '#C8322A'; c.fillRect(W * 0.17, H * 0.78, W * 0.025, H * 0.12); c.fillStyle = '#1E4E3A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.36}px Arial`; c.fillText(o.value || '100', W * 0.64, H * 0.46);
+      c.font = `900 ${H * 0.09}px Arial`; c.fillText(o.text || 'RÉPUBLIQUE DU 3e GAUCHE', W * 0.6, H * 0.82); }, { res: 512 });
+    return grp(n);
   },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });

@@ -312,7 +312,7 @@ function addHat(head, hat, hw, hh, hd, C) {
       const visor = box(hw * 1.1, 0.02, 0.1, P.black); visor.position.set(0, 0.01, hd * 0.7); visor.rotation.x = 0.25; g.add(visor);
       const badge = box(0.05, 0.04, 0.01, P.yellow); badge.position.set(0, 0.06, hd * 0.72); g.add(badge); break; }
     case 'swatcap': { g.add(box(hw * 1.15, 0.08, hd * 1.2, P.swat, { pivot: 'bottom' })); const v = box(hw, 0.02, 0.1, P.swat); v.position.set(0, 0.01, hd * 0.65); g.add(v); break; }
-    case 'hardhat': { g.add(box(hw * 1.3, 0.12, hd * 1.4, P.yellow, { pivot: 'bottom', taper: 0.8 })); const b = box(hw * 1.6, 0.02, hd * 1.7, P.yellow); g.add(b); break; }
+    case 'hardhat': { const hc = C.hat || P.yellow; g.add(box(hw * 1.3, 0.12, hd * 1.4, hc, { pivot: 'bottom', taper: 0.8 })); const b = box(hw * 1.6, 0.02, hd * 1.7, hc); g.add(b); break; }   // hatColor: e.g. a UN blue helmet
     case 'toque': { const t = box(hw * 1.05, 0.28, hd * 1.1, P.white, { pivot: 'bottom', taper: 1.35 }); g.add(t); break; }
     case 'wig': { // barrister's wig: a puffy white cap and three stacked rolls (curls) over each ear
       const W = '#EFEDE6', w = box(hw * 1.35, 0.13, hd * 1.3, W, { pivot: 'bottom', outline: 0.01 }); g.add(w);
