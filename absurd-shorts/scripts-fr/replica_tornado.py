@@ -257,10 +257,12 @@ scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
     cams=[cam(0.0, [2.5, 3.0, 13.7], [2.3, 3.1, 12.6], [-0.3, 4.6, 0], [-0.3, 4.7, 0], lens=50)]))
 
 # S16 20.23-21.60: low on the bench, the judge strikes the gavel (raise f607-613, hit on the block at f619), slow push-in
-scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE},
-    actors=[act('judge', [0, -0.15, -14.0], 0, 'gavelStrikeL', params={'hit': 0.4})],
-    props=[P('gavel', 'gavel', on={'actor': 'judge', 'hand': 'L'}), P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
-    cams=[cam(0.0, [0.42, 1.3, -11.75], [0.38, 1.31, -12.0], [0.2, 1.58, -14.0], [0.2, 1.58, -14.0], lens=45)],
+scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windowX': -1.5, 'chairW': 1.2, 'chairH': 2.75, 'chairX': 0.15, 'benchGlow': '#5A564A'},
+    actors=[act('judge', [-0.35, -0.3, -14.0], -35, 'gavelStrikeL', params={'hit': 0.4})],
+    props=[P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
+           P('gavel', 'gavel', pos=[0.03, 1.41, -13.65], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),
+           P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
+    cams=[cam(0.0, [0.05, 1.27, -11.2], [0.03, 1.28, -11.45], [-0.12, 1.56, -14.0], [-0.12, 1.56, -14.0], lens=45)],
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.12, 'amount': 0.006}]))
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine

@@ -411,17 +411,17 @@ const S = {
     const band = (y, h, c) => { g.add(wall(24, h, 0.05, c, 0, y, -15.83), wall(0.05, h, 46, c, -11.83, y, 7), wall(0.05, h, 46, c, 11.83, y, 7)); };
     band(6.3, 0.35, '#1F2D4E'); band(4.5, 0.25, '#1F2D4E'); band(3.9, 0.14, '#3E7F86');
     g.add(wall(5, 1.5, 0.06, '#C2342A', 6.5, 0.75, -15.8), wall(0.06, 1.5, 12, '#C2342A', 11.8, 0.75, -9));                  // red wainscot panels
-    g.add(at(box(2.2, 3.4, 0.05, '#A9D3E6'), -6.5, 3.2, -15.82), at(box(2.4, 3.6, 0.04, '#F7F6F2'), -6.5, 3.2, -15.84));         // window
+    g.add(at(box(2.2, 3.4, 0.05, '#A9D3E6'), o.windowX ?? -6.5, 3.2, -15.82), at(box(2.4, 3.6, 0.04, '#F7F6F2'), o.windowX ?? -6.5, 3.2, -15.84));         // window
     // judge's bench
-    const bz = -13, cz = -14.6;
-    g.add(at(box(4.4, 1.12, 1.2, '#EDE7DA', { pivot: 'bottom', outline: 0.003 }), 0, 0, bz), at(box(4.6, 0.06, 1.4, '#F4F0E6'), 0, 1.15, bz));
-    g.add(at(box(1.9, 3.2, 0.25, '#1F2D4E', { pivot: 'bottom', outline: 0.003 }), 0, 0, cz));
-    const studs = []; for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) studs.push([-0.6 + i * 0.4 + (j % 2) * 0.2, 1.1 + j * 0.32, cz + 0.14]);
+    const bz = -13, cz = -14.6, CW = o.chairW || 1.9, CH = o.chairH || 3.2, cx = o.chairX || 0;
+    g.add(at(box(4.4, 1.12, 1.2, '#EDE7DA', { pivot: 'bottom', outline: 0.003, emissive: o.benchGlow }), 0, 0, bz), at(box(4.6, 0.06, 1.4, '#F4F0E6', { emissive: o.benchGlow }), 0, 1.15, bz));
+    g.add(at(box(CW, CH, 0.25, '#1F2D4E', { pivot: 'bottom', outline: 0.003 }), cx, 0, cz));
+    const studs = []; for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) studs.push([cx + (-0.6 + i * 0.4 + (j % 2) * 0.2) * CW / 1.9, 1.1 + j * 0.32 * CH / 3.2, cz + 0.14]);
     g.add(inst(new THREE.BoxGeometry(0.045, 0.045, 0.02), mat('#D6A43A'), studs));
-    [-1, 1].forEach(s => g.add(at(box(0.16, 0.22, 0.16, '#D6A43A'), s * 0.92, 3.3, cz)));
+    [-1, 1].forEach(s => g.add(at(box(0.16, 0.22, 0.16, '#D6A43A'), cx + s * (CW / 2 - 0.03), CH + 0.1, cz)));
     const plate = canvasPlane(1.5, 0.36, (c, Wc, Hc) => { c.fillStyle = '#D6A43A'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#1B2747'; c.fillRect(Wc * 0.03, Hc * 0.12, Wc * 0.94, Hc * 0.76);
       c.fillStyle = '#F2EEE2'; c.font = `bold italic ${Hc * 0.36}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle || '', Wc / 2, Hc / 2); }, { res: 512 });
-    plate.position.set(0, 2.55, cz + 0.135); plate.rotation.z = 0.06; g.add(plate);
+    plate.position.set(cx, CH - 0.65, cz + 0.135); plate.rotation.z = 0.06; plate.scale.setScalar(Math.min(1, CW / 1.7)); g.add(plate);
     g.add(at(box(0.5, 4.5, 0.3, '#C2342A', { pivot: 'bottom' }), 0, 3.0, -15.6));                                                  // red pillar
     Object.assign(g.userData, { lighting: 'interior', anchors: { center: [0, 0, 0], judge: [0, 0, -14.0], bench: [0, 1.15, bz], dock: [0, 0, 0] } });
     return g;

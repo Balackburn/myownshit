@@ -33,6 +33,7 @@ not have, so this project is built by hand to the same rules.
 | 5 | 0.685 | 0.492 | S1 reworked: cottages, orbit round his road side, tornado on the road, fast snatch; S4 close selfie with the phone showing the handle |
 | 6 | 0.678 | 0.477 | motion blur (shutter accumulation) on fast moves; grade at the original's saturation (per-shot chroma gap ±4); S5 nozzle close-up rebuilt |
 | 7 | 0.674 | 0.482 | tornado reads as pale horizontal stripes with a low crown; S2 dog closer; S5/S6 re-aimed; fireball palette; brighter flag; portrait muzzle; empty-content share 22% → 19% |
+| 8 | 0.675 | 0.482 | S16 judge rebuilt on the original's composition (bright bench, smaller chair, wall, window, 3/4 judge, gavel on its head): its L* gap halved |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado

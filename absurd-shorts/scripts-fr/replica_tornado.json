@@ -5483,11 +5483,11 @@
     {
      "id": "judge",
      "pos": [
-      0,
-      -0.15,
+      -0.35,
+      -0.3,
       -14.0
      ],
-     "ry": 0,
+     "ry": -35,
      "clip": "gavelStrikeL",
      "keys": [],
      "params": {
@@ -5497,12 +5497,47 @@
    ],
    "props": [
     {
-     "id": "gavel",
+     "id": "gavelUp",
      "name": "gavel",
      "on": {
       "actor": "judge",
       "hand": "L"
-     }
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.38,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "gavel",
+     "name": "gavel",
+     "pos": [
+      0.03,
+      1.41,
+      -13.65
+     ],
+     "rot": [
+      0,
+      0,
+      -1.5708
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.38,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
     },
     {
      "id": "block",
@@ -5519,25 +5554,25 @@
     {
      "at": 0.0,
      "from": [
-      0.42,
-      1.3,
-      -11.75
+      0.05,
+      1.27,
+      -11.2
      ],
      "to": [
-      0.38,
-      1.31,
-      -12.0
+      0.03,
+      1.28,
+      -11.45
      ],
      "lookAt": [
-      0.2,
-      1.58,
+      -0.12,
+      1.56,
       -14.0
      ],
      "lens": 45,
      "ease": "linear",
      "lookAt2": [
-      0.2,
-      1.58,
+      -0.12,
+      1.56,
       -14.0
      ]
     }
@@ -5545,7 +5580,12 @@
    "start": 20.233333,
    "duration": 1.366667,
    "setOpts": {
-    "handle": "@outofthisworld_9"
+    "handle": "@outofthisworld_9",
+    "windowX": -1.5,
+    "chairW": 1.2,
+    "chairH": 2.75,
+    "chairX": 0.15,
+    "benchGlow": "#5A564A"
    },
    "fx": [
     {
