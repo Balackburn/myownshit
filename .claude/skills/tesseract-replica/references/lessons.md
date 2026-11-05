@@ -165,3 +165,10 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   on house scale alone moved S8b by +0.02-0.04 and S10 by +0.02-0.03 per frame (0.95/0.82 → 1.3), more than any crater, haze or
   missile change. Measure the repeated element on full-resolution frames (bottom rows and middle rows), set the scale to match, then
   stop: past the measured size SSIM keeps rising only because coarser texture is easier to match.
+- (tornado) **A bright element in the wrong place costs more than a missing one.** Fires, flashes and glows that sit elsewhere than
+  the original's are scored twice, once where they are and once where they should be. Shrinking S13's flames to 0.72× raised its stills by
+  +0.02; S14's flame band 1.6 → 1.0 gave +0.004. Where the element is right (S5's afterburner sits on the original's nozzle), bigger and
+  brighter wins instead (+0.007). Pick the size from the A/B, but keep the element visible if the original shows it.
+- (tornado) Give the director per-scene framing trims (`camDolly`, `camTruck`, `camPed`, `camPan`, `camTilt`) so framing variants
+  are pure JSON edits. A sweep script then renders the base and each variant at three sample times and ranks them by ffmpeg SSIM: about
+  25 s per variant, small enough to run while a full pass renders.

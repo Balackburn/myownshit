@@ -803,6 +803,17 @@ function placeCamera(t) {
     const q = camPoseAt(S.cams[i - 1], c.t0), w = ease.inOut(clamp01((t - c.t0) / (c.glide ?? 0.8)));
     p = { pos: q.pos.clone().lerp(p.pos, w), look: q.look.clone().lerp(p.look, w), fov: lerp(q.fov, p.fov, w) };
   }
+  const sc_ = S.sc;
+  if (sc_.camDolly || sc_.camTruck || sc_.camPed || sc_.camPan || sc_.camTilt) {   // per-scene framing trims (A/B sweeps): dolly factor, truck/ped (m), pan/tilt (deg)
+    const pos = p.pos.clone(), look = p.look.clone(), fwd = look.clone().sub(pos), right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
+    if (sc_.camDolly) { const off = pos.clone().sub(look).multiplyScalar(sc_.camDolly); pos.copy(look).add(off); }
+    if (sc_.camTruck) { pos.addScaledVector(right, sc_.camTruck); look.addScaledVector(right, sc_.camTruck); }
+    if (sc_.camPed) { pos.y += sc_.camPed; look.y += sc_.camPed; }
+    const d = look.clone().sub(pos), L = d.length();
+    if (sc_.camPan) look.addScaledVector(right, -Math.tan(sc_.camPan * D2R) * L);   // + pans left
+    if (sc_.camTilt) look.y += Math.tan(sc_.camTilt * D2R) * L;                     // + tilts up
+    p = { pos, look, fov: p.fov };
+  }
   cam.position.copy(p.pos); cam.fov = p.fov; cam.aspect = S.W / S.H; cam.updateProjectionMatrix();
   cam.up.set(0, 1, 0); cam.lookAt(p.look);
   if (c.roll) cam.rotateZ(c.roll * D2R);

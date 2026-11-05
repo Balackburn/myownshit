@@ -346,7 +346,7 @@ TORG = {**TORS, 'cols': ['#68736B', '#6E7970', '#646F67', '#727D75'], 'pale': No
 scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
     actors=[act('judge', [0, -0.15, -14.0], 0, 'idle')],
     props=[P('dock', 'dock', pos=[0, 0, 0], opts={'w': 7.5, 'd': 6.5, 'h': 1.5}),
-           P('tornado', 'tornado', pos=[-0.7, 0.43, 0], rot=[0, 0, 0.13], scale=1.08, opts={**TORC, 'cols': ['#9AA8A0', '#A8B5AE', '#8E9C94', '#B2BFB8'], 'chips': 36, 'spin': 0.27}),   # crown at the frame top, base y ~840
+           P('tornado', 'tornado', pos=[-0.7, 0.43, 0], rot=[0, 0, 0.13], scale=1.08, opts={**TORC, 'cols': ['#AAB8B0', '#B8C5BE', '#9EACA4', '#C2CFC8'], 'chips': 36, 'spin': 0.27}),   # crown at the frame top, base y ~840
            P('cuffs', 'bigCuffs', pos=[-0.9, 6.0, 3.4], opts={'r': 0.95})],
     cams=[cam(0.0, [2.5, 3.0, 13.7], [2.3, 3.1, 12.6], [-0.96, 4.6, 0], [-1.41, 4.7, 0], lens=50)]))   # tornado centred near x 280 like the original
 
@@ -357,7 +357,7 @@ scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windo
            P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
            P('gavel', 'gavel', pos=[-0.37, 1.41, -13.3], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),   # head upright on the block, handle to his hand
            P('block', 'soundBlock', pos=[0.1, 1.18, -13.3])],                     # in frame right of the judge (it sat 20 deg off-axis, outside the frame)
-    cams=[cam(0.0, [-0.05, 1.27, -11.5], [-0.07, 1.28, -11.75], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],
+    cams=[cam(0.0, [-0.1, 1.29, -11.8], [-0.12, 1.30, -12.05], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],   # 0.3 m closer (A/B +0.004; 0.6 m loses 0.02)
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.18, 'amount': 0.018}]))
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine
@@ -401,7 +401,7 @@ scenes.append(scene(20, 'S20', 'grassland',
            P('rubble', 'rubble', pos=[6.5, 0, -11], opts={'r': 3.6, 'n': 30, 'size': 0.7, 'fly': 0.4}),
            P('turbine', 'windTurbine', pos=[-12, 0, -70], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
            P('grass', 'tallGrass', pos=[0, 0, -4], opts={'w': 16, 'd': 6, 'h': 0.32, 'count': 160, 'seed': 8})],
-    cams=[cam(0.0, [-1.3, 1.05, -0.1], [-0.6, 1.05, -0.1], [-0.9, 1.45, -6], [-0.1, 1.45, -6], lens=50, shake=0.01)]))   # 5.9 m back: officer ~466 px tall, kept left of centre as he strides
+    cams=[cam(0.0, [-1.3, 1.05, -0.1], [-0.6, 1.05, -0.1], [-0.9, 1.45, -6], [-0.1, 1.45, -6], lens=50, shake=0.01)], camPan=-1.5))   # 5.9 m back: officer ~466 px tall, kept left of centre as he strides; trimmed 1.5 deg right (sweep +0.005)
 
 # S21 25.53-26.00: wide again, the officer whipping at the base
 scenes.append(scene(21, 'S21', 'grassland',
