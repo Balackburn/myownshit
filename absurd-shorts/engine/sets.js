@@ -258,7 +258,8 @@ const S = {
     const g = grp(), r = rng(o.seed || 7);
     sky(g, o.sky || ['#8FC2DF', '#D6E9F0']); clouds(g, 5, 9);
     g.add(ground(o.groundColor || '#93BC6A'));
-    g.add(flat(9, 400, '#6E6E72', -6, 0.004, 0), flat(4.5, 400, '#E4D6BE', 0.75, 0.006, 0), flat(2.5, 400, '#E4D6BE', -11.75, 0.006, 0));
+    const FF = o.farFenceX ?? -13.05, FW = -10.5 - FF;                                  // far sidewalk: from the curb (x -10.5) out to the far fence
+    g.add(flat(9, 400, '#6E6E72', -6, 0.004, 0), flat(4.5, 400, '#E4D6BE', 0.75, 0.006, 0), flat(FW, 400, '#E4D6BE', -10.5 - FW / 2, 0.006, 0));
     g.add(at(box(0.2, 0.16, 400, '#D9CDB4'), -1.5, 0.0, 0), at(box(0.2, 0.16, 400, '#D9CDB4'), -10.5, 0.0, 0));
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([-6, 0.008, z]);
     g.add(inst(new THREE.BoxGeometry(0.16, 0.01, 1.8), mat('#F4F1E8'), dash));
@@ -275,7 +276,7 @@ const S = {
       g.add(prop('townhouse', { color: cols[(i + 3) % 6], roof: roofs[(i + 3) % 6], door: i % 2 ? '#24324A' : '#F2D06B' }, o.farX ?? -21.2, 0, z + 2.8, PI / 2));
       if (i % 2 === 0) { g.add(prop('tree', { seed: i + 3 }, 4.2, 0, z + 2.6, 0, 0.9 + r() * 0.3)); g.add(prop('tree', { seed: i + 40 }, (o.farX ?? -21.2) + 3.9, 0, z + 0.4, 0, 0.9 + r() * 0.3)); }
     }
-    g.add(prop('fence', { length: 400, height: 0.85, color: P.white }, 2.6, 0, 0, PI / 2), prop('fence', { length: 400, height: 0.85, color: P.white }, -13.05, 0, 0, PI / 2));
+    g.add(prop('fence', { length: 400, height: 0.85, color: P.white }, 2.6, 0, 0, PI / 2), prop('fence', { length: 400, height: 0.85, color: P.white }, FF, 0, 0, PI / 2));
     // hills all around the horizon
     const hc = ['#9DB48A', '#8FA87E', '#A9BC96', '#86A271'];
     for (let i = 0; i < 18; i++) { const a = i / 18 * TAU + r() * 0.2, d = 95 + r() * 30, m = sphere(1, hc[i % 4], 1);

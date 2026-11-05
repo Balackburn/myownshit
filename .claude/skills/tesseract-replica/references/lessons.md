@@ -136,3 +136,14 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 - (tornado) Change one size factor at a time. Raising blast size, puff size, glare and flash together made the S12 explosions three
   times too big. Each factor alone was reasonable. A cloud of size S spans about 4.2·S, so size it from the measured pixel width:
   S ≈ width_px · depth / (4.2 · f).
+- (tornado) **Score a candidate still against the previous pass's 3D layer, not its delivery.** The delivery carries captions and the
+  HUD that the still lacks, which made every new still look worse. Read the same frame from the last 3D layer, mask the caption band,
+  and compare band by band (top, middle, bottom). This flagged an S13 re-stage that fit the street lines to within 10 px but lost 0.05 in
+  the bottom band: it was reverted before costing a 15-minute render.
+- (tornado) A camera solve that fits the lines is not enough when the content differs. The original's S13 town has bigger shells on
+  wider lots and a denser smoke forest. Matching the camera alone moved every object off its old place without landing on the
+  original's, and SSIM went down.
+- (tornado) **Selfie pans:** when the subject holds the camera, the background swings while he stays in place. Orbit the camera
+  around his head by the pan angle, turn the actor by the same angle with a `face` key, and lock the handheld prop to the camera
+  (`camLock`). In S4 the street's vanishing point jumps from x 325 to 200 in eight frames (f149-f156); a static camera could never
+  match either half.

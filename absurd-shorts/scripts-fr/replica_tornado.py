@@ -87,10 +87,14 @@ scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
 # the right, the townhouses beyond the fence on the left, the tornado ~60 m down the road behind his head; at f151 he brings up the phone beside his face,
 # screen to the camera, showing the creator's handle
 scenes.append(scene(4, 'S4', 'replicaStreet',
-    actors=[act('mec4', [-12.0, 0, 0], -16, 'stand', 'neutral', keys=[k(0.5, clip='showPhoneFaceL')])],   # round open eyes like the original
-    props=[P('phone', 'phone911', pos=[-11.935, 1.3, 0.26], rot=[0, -0.3, -0.38], scale=0.92, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.935, 1.78, 0.26], dur=0.14, ease='out')]),
-           P('tornado', 'tornado', pos=[1.5, 0, -75], scale=3.6, opts=TOR)],   # down the road, crown just right of his head (grid reads of f170)
-    cams=[cam(0.0, [-12.07, 2.02, 0.8], [-12.04, 2.03, 0.79], [-12.03, 2.088, -0.07], [-12.01, 2.098, -0.07], lens=74)]))   # solved from the head rows (top 347, chin 790): at head height, 0.8 m, tilted up 4.3 deg
+    actors=[act('mec4', [-11.933, 0, 0], -5.5, 'stand', 'neutral', keys=[k(0.48, face=-16, turn=0.22), k(0.5, clip='showPhoneFaceL')])],   # turns with his selfie camera
+    props=[P('phone', 'phone911', camLock=True, pos=[0.115, -0.674, -0.504], rot=[-0.077, -0.171, -0.38], scale=0.92, opts={'screen': 'handle'},
+             keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[0.115, -0.196, -0.541], dur=0.14, ease='out')]),   # held up beside his face (camera space; top at y ~485 like f180)
+           P('tornado', 'tornado', pos=[-0.5, 0, -77.3], scale=3.6, opts=TOR, keys=[k(0.48, to=[7.8, 0, -75], dur=0.22, ease='inOut')])],   # stays just right of his head through the swing (f136-f190)
+    cams=[cam(0.0, [-11.825, 2.006, 0.982], [-11.825, 2.006, 0.982], [-11.883, 2.088, -0.073], [-11.883, 2.088, -0.073], lens=74),     # vanishing point x ~325, head 386 px tall at x ~230 (f136-f148)
+          cam(0.48, [-11.825, 2.006, 0.982], [-12.07, 2.02, 0.8], [-11.883, 2.088, -0.073], [-11.957, 2.088, -0.07], lens=74, ease='inOut'),   # the selfie swing: 10.5 deg about his head, pulled in to 472 px (f149-f156)
+          cam(0.7, [-12.07, 2.02, 0.8], [-12.04, 2.03, 0.79], [-11.957, 2.088, -0.07], [-11.937, 2.098, -0.07], lens=74)],   # vanishing point x ~200 (f160-f195)
+    setOpts={'farFenceX': -13.5}))   # the original's walk is ~3 m wide: fence ~1.4 m left of the lens (its base meets x 0 at y ~760)   # solved from the head rows (top 347, chin 790): at head height, 0.8 m, tilted up 4.3 deg
 
 # S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
 # blasting frame-left over the runway, the tail fins above
@@ -296,7 +300,7 @@ scenes.append(scene(11, 'S11', 'cottageStreet', props=[
 # closer. Camera solved from grid reads of f433 (horizon y 170, row fronts y 960 / 700, tornado base (325, 320), crown top y 85): 27 m up,
 # pitch 16.6 deg, the nearest row 35 m ahead; houses 6.6 m wide on a 7.6 m pitch (eaves: ridge along the street, no porch). The blasts
 # keep the screen positions measured in pass 15, re-projected onto the ground for this camera (sizes scaled by the new distance)
-BLAST12 = {'glowShare': 0.9, 'flash': 0.4, 'glare': 0.35, 'life': 0.4, 'flashScale': 1.0, 'smoke': 0.8, 'smokeColor': '#3E3836', 'n': 40, 'puff': 1.0, 'spread': 0.35, 'rise': 0.7}   # white-hot core, dark smoke within ~0.3 s (f444 -> f453), a brief glare
+BLAST12 = {'glowShare': 0.9, 'flash': 0.4, 'glare': 0.35, 'life': 0.4, 'flashScale': 1.8, 'smoke': 0.8, 'smokeColor': '#3E3836', 'n': 40, 'puff': 1.0, 'spread': 0.35, 'rise': 0.7, 'lag': 0.02, 'growT': 0.15}   # white-hot core, dark smoke within ~0.3 s (f444 -> f453), a brief glare
 B12 = [([-10.16, 4, -132.77], 0.433, 8.4, 4), ([10.6, 5, -89.77], 0.833, 7.4, 6), ([-7.01, 5, -43.62], 1.233, 6.4, 8), ([4.45, 3.5, -19.56], 1.633, 5.0, 10)]   # hits at f444/f456/f468/f480, above the roofs
 MSL12 = [[40, 140, -190], [55, 140, -150], [45, 130, -95], [50, 120, -70]]
 scenes.append(scene(12, 'S12', 'cottageRows', props=[
