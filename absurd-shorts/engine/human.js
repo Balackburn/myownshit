@@ -7,7 +7,7 @@
 // Every part is a box so the rig is a hierarchy of pivots (no skinning) — exactly
 // the stiff, toy-like motion of the original.
 import * as THREE from 'three';
-import { PALETTE as P, mat, box, addOutline, rng } from './style.js';
+import { PALETTE as P, mat, box, cyl, addOutline, rng } from './style.js';
 import { faceTexture, sideTexture } from './face.js';
 import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces } from './atlas.js';
 
@@ -310,7 +310,11 @@ function addHat(head, hat, hw, hh, hd, C) {
     case 'swatcap': { g.add(box(hw * 1.15, 0.08, hd * 1.2, P.swat, { pivot: 'bottom' })); const v = box(hw, 0.02, 0.1, P.swat); v.position.set(0, 0.01, hd * 0.65); g.add(v); break; }
     case 'hardhat': { g.add(box(hw * 1.3, 0.12, hd * 1.4, P.yellow, { pivot: 'bottom', taper: 0.8 })); const b = box(hw * 1.6, 0.02, hd * 1.7, P.yellow); g.add(b); break; }
     case 'toque': { const t = box(hw * 1.05, 0.28, hd * 1.1, P.white, { pivot: 'bottom', taper: 1.35 }); g.add(t); break; }
-    case 'wig': { const w = box(hw * 1.4, 0.14, hd * 1.4, '#EDEBE4', { pivot: 'bottom' }); g.add(w); for (const s of [-1, 1]) { const c = box(0.07, 0.3, hd * 1.2, '#EDEBE4', { pivot: 'top' }); c.position.set(s * hw * 0.7, 0.05, 0); g.add(c); } break; }
+    case 'wig': { // barrister's wig: a puffy white cap and three stacked rolls (curls) over each ear
+      const W = '#EFEDE6', w = box(hw * 1.35, 0.13, hd * 1.3, W, { pivot: 'bottom', outline: 0.01 }); g.add(w);
+      for (const s of [-1, 1]) for (let i = 0; i < 3; i++) { const c = cyl(0.055, 0.055, hd * 0.95, W, 8, { outline: 0.02 }); c.rotation.x = Math.PI / 2; c.position.set(s * (hw * 0.66 + 0.03), -0.02 - i * 0.1, -hd * 0.08); g.add(c); }
+      for (let i = 0; i < 3; i++) { const c = cyl(0.06, 0.06, hw * 1.2, W, 8, { outline: 0.02 }); c.rotation.z = Math.PI / 2; c.position.set(0, 0.1, -hd * 0.3 + i * 0.12); g.add(c); }
+      break; }
     case 'beanie': g.add(box(hw * 1.15, 0.12, hd * 1.2, P.red, { pivot: 'bottom', taper: 0.8 })); break;
     case 'fedora': { g.add(box(hw * 1.7, 0.02, hd * 1.9, P.woodDark)); g.add(box(hw * 1.1, 0.12, hd * 1.2, P.woodDark, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); break; }
     case 'cowboy': { const b = box(hw * 2.2, 0.02, hd * 2.2, P.wood); g.add(b); g.add(box(hw * 1.1, 0.16, hd * 1.2, P.wood, { pivot: 'bottom', taper: 0.85 })); break; }

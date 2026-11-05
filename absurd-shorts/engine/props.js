@@ -158,7 +158,7 @@ export const sphereGeo = (detail = 2) => (_sph[detail] ||= new THREE.Icosahedron
 function toothBand(r0, r1, h, n, gap = 0.18, spike = 0.35, seed = 1) {
   const pos = [], uv = [], r = rng(seed), P = (a, rr, y) => [Math.cos(a) * rr, y, Math.sin(a) * rr];
   for (let i = 0; i < n; i++) {
-    const a0 = (i + r() * 0.15) / n * TAU, a1 = a0 + TAU / n * (1 - gap), am = (a0 + a1) / 2, sh = h * (1 - spike) * (0.85 + r() * 0.3), tip = h * (0.9 + r() * 0.25);
+    const a0 = (i + r() * 0.15) / n * TAU, a1 = a0 + TAU / n * (1 - gap), am = (a0 + a1) / 2, sh = h * (1 - spike) * (0.9 + r() * 0.2), tip = sh + h * spike * (0.9 + r() * 0.25); // spike 0 -> flat-topped tab
     const b0 = P(a0, r0, 0), b1 = P(a1, r0, 0), t0 = P(a0 + (a1 - a0) * 0.08, r1, sh), t1 = P(a1 - (a1 - a0) * 0.08, r1, sh), tp = P(am, r1 * 1.04, tip);
     pos.push(...b0, ...b1, ...t1, ...b0, ...t1, ...t0, ...t0, ...t1, ...tp);
     uv.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0.5, 1.4);
@@ -858,7 +858,7 @@ const B = {
     for (let i = 0; i < N; i++) {
       const crown = i === N - 1;
       const col = o.pale && !crown && i % o.pale === o.pale - 1 ? (o.paleColor || '#D3CCB8') : cols[i % cols.length];
-      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? 2.3 : 1.75), Math.round(9 + rad(i + 1) * 3.2), o.gap ?? 0.2, crown ? 0.6 : 0.38, i + 1), mat(col, { doubleSide: true }))
+      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? 2.3 : (o.band ?? 1.75)), Math.round(9 + rad(i + 1) * 3.2), o.gap ?? 0.2, crown ? 0.6 : (o.spike ?? 0.2), i + 1), mat(col, { doubleSide: true }))
         : cyl(rad(i + 1) + 0.12, rad(i), H / N * 1.3, cols[i % 4], 7, { open: true, doubleSide: true, pivot: 'bottom' });
       const piv = grp(m); piv.position.y = i * H / N; piv.rotation.z = (r() - 0.5) * 0.12; g.add(piv);
       rings.push({ piv, m, sp: (3 + r() * 2.5) * (1 - i * 0.045) * (i % 3 === 1 ? 0.6 : 1), ph: r() * TAU, i });
@@ -882,11 +882,12 @@ const B = {
         m.scale.set(s * 1.4, s, s * 1.2); m.position.set(Math.cos(a) * rr, H / N * 1.3 * (0.8 + r() * 0.3), Math.sin(a) * rr); m.rotation.set(r() * 3, r() * 3, r() * 3); top.m.add(m); }
     }
     for (let i = 0; i < (o.ribbons || 0); i++) { // tan dust bands whipping round the top
-      const R = (o.ribbonR || (rad(N) + 0.12)) * (1.02 + r() * 0.5), arc = 1.6 + r() * 2.6;
+      const yk = (o.ribbonY0 ?? 0.8) + r() * (o.ribbonDY ?? 0.22);
+      const R = o.ribbonFollow ? (rad(Math.min(N, yk * N)) * 1.08 + 0.12) * (1.0 + r() * 0.1) : (o.ribbonR || (rad(N) + 0.12)) * (1.02 + r() * 0.5), arc = o.ribbonArc ? o.ribbonArc * (0.8 + r() * 0.4) : 1.6 + r() * 2.6;
       const m = o.ribbonFlat ? mesh(new THREE.RingGeometry(R, R + 0.08 + r() * 0.1, 40, 1, 0, arc).rotateX(-PI / 2), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }))
         : mesh(new THREE.TorusGeometry(R, 0.035 + r() * 0.03, 3, 40, arc), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }));
-      if (o.ribbonFlat) m.rotation.set((r() - 0.5) * 0.12, 0, (r() - 0.5) * 0.12); else { m.rotation.x = PI / 2 + (r() - 0.5) * 0.25; m.scale.z = 3.5; }
-      m.castShadow = false; const piv = grp(m); piv.position.y = H * (o.ribbonY0 ?? 0.8) + H * r() * (o.ribbonDY ?? 0.22); g.add(piv); ribbons.push({ piv, sp: 5 + r() * 3, ph: r() * TAU });
+      if (o.ribbonFlat) m.rotation.set((r() - 0.5) * 0.12, 0, (r() - 0.5) * 0.12); else { m.rotation.x = PI / 2 + (r() - 0.5) * (o.ribbonTilt ?? 0.25); m.scale.z = o.ribbonH || 3.5; }
+      m.castShadow = false; const piv = grp(m); piv.position.y = H * yk; g.add(piv); ribbons.push({ piv, sp: (o.ribbonSpeed || 5) + r() * 3, ph: r() * TAU });
     }
     if (o.dust) { const dm = mat(o.dustColor || '#CDB896'); for (let i = 0; i < 10; i++) { const a = i / 10 * TAU + r() * 0.3, s = (0.35 + r() * 0.35) * (o.dust === true ? 1 : o.dust), m = new THREE.Mesh(sphereGeo(1), dm);
       m.scale.set(s * 1.5, s * 0.55, s * 1.5); m.position.set(Math.cos(a) * (rad(0) + 0.35 + r() * 0.3), s * 0.25, Math.sin(a) * (rad(0) + 0.35 + r() * 0.3)); m.castShadow = false; dust.add(m); } }
@@ -1843,6 +1844,87 @@ const B = {
     g.userData.update = t => { const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const x = base[i * 3], y = base[i * 3 + 1], k = x / W;
         p.setZ(i, Math.sin(x * 3.2 - t * (o.speed || 7)) * 0.16 * W * k + Math.sin(y * 4 + t * 3) * 0.04 * k); p.setY(i, y - k * k * 0.12 * Hh * (1 + 0.3 * Math.sin(t * 2))); }
       p.needsUpdate = true; geo.computeVertexNormals(); };
+    g.userData.update(0); return g;
+  },
+  // --- "tornado" replica, act 3: court, hard labour, grave ----------------------------------------------------------
+  soundBlock(o) { return grp(at(cyl(0.16, 0.17, 0.07, '#5A321C', 14, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(cyl(0.14, 0.14, 0.01, '#6E4026', 14), 0, 0.072, 0)); },
+  bigCuffs(o) { // giant white handcuffs facing +Z: two thick rings with dark rivets joined by a short chain (o.r ring radius)
+    const R = o.r || 0.5, t = R * (o.thick || 0.13), c = o.color || '#F4F4F0', g = grp(), mk = x => { const ring = torus(R, t, c, 6, 28); ring.position.x = x; g.add(ring);
+      [-1, 1].forEach(s => g.add(at(cyl(t * 0.6, t * 0.6, t * 0.5, '#2A2A2A', 8), x + s * R * 0.92, R * 0.18 * s, t * 0.9, PI / 2, 0, 0))); };
+    mk(-R * 1.15); mk(R * 1.15);
+    for (let i = 0; i < 3; i++) { const l = torus(R * 0.12, t * 0.45, c, 5, 10); l.position.set(-R * 0.18 + i * R * 0.18, -R * 0.05, 0); l.rotation.y = i % 2 ? PI / 2 : 0; g.add(l); }
+    g.userData.update = tt => { g.rotation.z = Math.sin(tt * 2.1) * 0.05; }; return g;
+  },
+  dock(o) { // courtroom dock: navy platform, white rails on red posts round three sides (front open toward the bench at -Z)
+    const W = o.w || 6, D = o.d || 5, H = o.h || 1.4, g = grp(at(box(W + 0.6, 0.35, D + 0.6, '#1F2D4E', { pivot: 'bottom' }), 0, 0, 0), at(box(W + 0.7, 0.08, D + 0.7, '#2E3F66'), 0, 0.35, 0));
+    const post = (x, z) => g.add(at(box(0.14, H, 0.14, '#C2342A', { pivot: 'bottom' }), x, 0.39, z));
+    [[-W / 2, D / 2], [W / 2, D / 2], [-W / 2, -D / 2], [W / 2, -D / 2], [0, D / 2], [-W / 2, 0], [W / 2, 0]].forEach(([x, z]) => post(x, z));
+    [0.55, 1.0].forEach(k => { const y = 0.39 + H * k; g.add(at(box(W + 0.2, 0.1, 0.12, '#F4F2EC'), 0, y, D / 2), at(box(0.12, 0.1, D + 0.2, '#F4F2EC'), -W / 2, y, 0), at(box(0.12, 0.1, D + 0.2, '#F4F2EC'), W / 2, y, 0)); });
+    return g;
+  },
+  windTurbine(o) { // white wind turbine: tapered tower (o.h m), base door, nacelle, hub, three blades with red tips turning about +Z (o.rpm);
+    // o.blur 0..1 adds lagging ghost blades (rotor motion blur, the reference's S18)
+    const H = o.h || 60, L = o.blade || H * 0.48, g = grp(cyl(H * 0.022, H * 0.04, H, '#F4F4F2', 14, { pivot: 'bottom' }));
+    g.add(at(box(H * 0.03, H * 0.045, 0.1, '#24345A'), 0, H * 0.025, H * 0.04), at(box(H * 0.08, 0.03, H * 0.09, '#DCDCD8'), 0, 0.015, 0));
+    if (o.label) { const lb = canvasPlane(H * 0.05, H * 0.008, (c, W, Hh) => { c.fillStyle = '#6A6E74'; c.font = `bold ${Hh * 0.8}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.label, W / 2, Hh / 2); }, { res: 256, transparent: true }); lb.position.set(0, H * 0.42, H * 0.031); g.add(lb); }
+    g.add(at(box(H * 0.05, H * 0.05, H * 0.12, '#F2F2F0', { outline: 0.004 }), 0, H + H * 0.02, -H * 0.02));
+    const rotor = grp(at(mesh(new THREE.ConeGeometry(H * 0.032, H * 0.06, 10), mat('#F7F7F5')), 0, 0, H * 0.03, PI / 2, 0, 0));
+    const blade = (a, op) => { const sh = new THREE.Shape([new THREE.Vector2(-L * 0.045, 0), new THREE.Vector2(L * 0.04, 0), new THREE.Vector2(L * 0.012, L), new THREE.Vector2(-L * 0.012, L)]);
+      const m = mesh(new THREE.ExtrudeGeometry(sh, { depth: L * 0.012, bevelEnabled: false }), op < 1 ? new THREE.MeshLambertMaterial({ color: '#F4F4F2', transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide }) : mat('#F4F4F2'));
+      const tip = mesh(new THREE.BoxGeometry(L * 0.026, L * 0.07, L * 0.014), op < 1 ? new THREE.MeshLambertMaterial({ color: '#C8352B', transparent: true, opacity: op, depthWrite: false }) : mat('#C8352B')); tip.position.set(0, L * 0.95, L * 0.006);
+      const b = grp(m, tip); b.rotation.z = a; b.rotation.y = 0.12; if (op < 1) b.traverse(n => { n.castShadow = false; }); return b; };
+    for (let i = 0; i < 3; i++) rotor.add(blade(i * TAU / 3, 1));
+    const ghosts = [], NG = o.ghosts || 16; if (o.blur) for (let k = 1; k <= NG; k++) { const gg = grp(); for (let i = 0; i < 3; i++) gg.add(blade(i * TAU / 3, 0.3 * o.blur * (1 - k / (NG + 1)))); rotor.add(gg); ghosts.push({ gg, k }); }
+    rotor.position.set(0, H + H * 0.02, H * 0.045); g.add(rotor);
+    const w = (o.rpm ?? 14) / 60 * TAU;
+    g.userData.update = t => { rotor.rotation.z = -(t * w + (o.phase || 0)); ghosts.forEach(({ gg, k }) => { gg.rotation.z = k * 0.045 * (o.blurSpread || 1); }); };
+    g.userData.update(0); return g;
+  },
+  whip(o) { // bullwhip held at the grip: dark leather handle and a long cord whose shape is a travelling wave (o.period s per crack)
+    const L = o.length || 2.6, N = 22, g = grp(at(cyl(0.022, 0.028, 0.3, '#3A2618', 6), 0, -0.15, 0)), cord = new THREE.Mesh(new THREE.BufferGeometry(), mat('#2A1A10'));
+    cord.castShadow = true; g.add(cord); const per = o.period || 0.55, pts = [];
+    for (let i = 0; i <= N; i++) pts.push(new THREE.Vector3());
+    g.userData.update = t => {
+      const ph = ((t + (o.phase || 0)) % per) / per;
+      for (let i = 0; i <= N; i++) { const s = i / N, wave = Math.sin(s * 7 - ph * TAU * 1.2) * s * (0.25 + 0.6 * Math.sin(ph * PI)), lift = Math.sin(ph * TAU) * s * s * 0.9;
+        pts[i].set(wave * L * 0.35, -0.3 - s * L * (0.75 + 0.2 * Math.cos(ph * TAU)), s * L * 0.55 * Math.sin(ph * PI) + lift * 0.3); }
+      cord.geometry.dispose(); cord.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.012, 4); };
+    g.userData.update(0); g.userData.grip = [0, -0.05, 0]; return g;
+  },
+  gravestone(o) { // arched grey headstone: R.I.P. carved at the top, a framed 3D portrait of the voxel dog, a handle line on the base slab
+    const W = o.w || 1.0, H = o.h || 1.25, T = 0.2, stone = o.color || '#ABABA8', g = grp();
+    g.add(at(box(W, H - W / 2, T, stone, { pivot: 'bottom', outline: 0.004 }), 0, 0.25, 0));
+    const arch = mesh(new THREE.CylinderGeometry(W / 2, W / 2, T, 24, 1, false, -PI / 2, PI), mat(stone)); arch.rotation.x = PI / 2; arch.position.set(0, 0.25 + H - W / 2, 0); g.add(arch);
+    g.add(at(box(W * 1.45, 0.25, T * 2.6, '#A2A29E', { pivot: 'bottom', outline: 0.004 }), 0, 0, 0.08));
+    const rip = canvasPlane(W * 0.8, W * 0.22, (c, Wc, Hc) => { c.fillStyle = '#2E2E2C'; c.font = `bold ${Hc * 0.92}px "Times New Roman", Georgia, serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'R.I.P.', Wc / 2, Hc * 0.55); }, { res: 512, transparent: true });
+    rip.position.set(0, 0.25 + H - W * 0.22, T / 2 + 0.004); g.add(rip);
+    const fw = W * 0.72, fh = W * 0.8, fy = 0.25 + H - W * 0.37 - fh / 2;
+    g.add(at(box(fw, fh, 0.05, '#6B3E26'), 0, fy, T / 2 + 0.025), at(box(fw * 0.86, fh * 0.88, 0.052, '#EADDB9'), 0, fy, T / 2 + 0.028));
+    const dog = B.voxelDog({ tongue: true, color: o.dogColor }), head = dog.userData.head; head.parent.remove(head);
+    head.scale.setScalar(fw * 1.7); head.position.set(0, fy - fh * 0.04, T / 2 + 0.06); g.add(head);
+    if (o.handle) { const hl = canvasPlane(W * 1.1, W * 0.1, (c, Wc, Hc) => { c.fillStyle = '#4A4A48'; c.font = `bold ${Hc * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle, Wc / 2, Hc / 2); }, { res: 512, transparent: true });
+      hl.position.set(0, 0.17, 0.08 + T * 1.3 + 0.004); g.add(hl); }
+    return g;
+  },
+  flowers(o) { // a little bunch of low-poly tulips (red, yellow, white) on green stems
+    const r = rng(o.seed || 5), g = grp(), cols = o.colors || ['#D9302A', '#F2C23A', '#F4F2EC', '#D9302A', '#E8452E'];
+    cols.forEach((c, i) => { const x = (i - (cols.length - 1) / 2) * 0.06 + (r() - 0.5) * 0.03, h = 0.22 + r() * 0.12, lean = (r() - 0.5) * 0.4;
+      g.add(rod([x, 0, 0], [x + lean * 0.12, h, (r() - 0.5) * 0.04], 0.006, '#4E8A3E', 4));
+      const b = mesh(new THREE.IcosahedronGeometry(0.035, 0), mat(c)); b.scale.set(1, 1.15, 1); b.position.set(x + lean * 0.12, h + 0.02, 0); g.add(b);
+      g.add(at(box(0.02, 0.08, 0.004, '#5E9A4A'), x + 0.02, h * 0.35, 0.01, 0, 0, -0.5)); });
+    return g;
+  },
+  dirtMound(o) { // fresh grave: a long faceted mound of brown earth
+    const m = mesh(new THREE.IcosahedronGeometry(1, 1), mat(o.color || '#7B4A2E')); m.scale.set((o.w || 1.2) / 2, o.h || 0.35, (o.d || 2) / 2); m.position.y = 0;
+    const r = rng(o.seed || 3), p = m.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i); if (y < 0) p.setY(i, y * 0.05); else p.setY(i, y * (0.85 + r() * 0.3)); }
+    p.needsUpdate = true; m.geometry.computeVertexNormals(); return grp(m);
+  },
+  rubble(o) { // a ring of tan/grey boulders round a point (the tornado's base); o.fly > 0 throws some outward (pure function of t)
+    const r = rng(o.seed || 7), g = grp(), geo = new THREE.DodecahedronGeometry(1, 0), cols = o.colors || ['#B9AE94', '#A39880', '#CDBFA0', '#8F877A'], fl = [];
+    for (let i = 0; i < (o.n || 24); i++) { const a = r() * TAU, d = (o.r || 2) * (0.7 + r() * 0.6), s = (o.size || 0.45) * (0.5 + r()), m = mesh(geo, mat(cols[i % cols.length]));
+      m.scale.set(s * 1.3, s * 0.8, s); m.position.set(Math.cos(a) * d, s * 0.4, Math.sin(a) * d); m.rotation.set(r() * 3, r() * 3, r() * 3); g.add(m);
+      if (o.fly && r() < o.fly) fl.push({ m, a, d, v: 2 + r() * 4, up: 3 + r() * 5, ph: r(), s }); }
+    g.userData.update = t => fl.forEach(f => { const k = ((t * 0.9 + f.ph) % 1.2), d = f.d + f.v * k, y = f.s * 0.4 + f.up * k - 4.9 * k * k * 0.8; f.m.position.set(Math.cos(f.a + k * 2) * d, Math.max(f.s * 0.4, y), Math.sin(f.a + k * 2) * d); f.m.rotation.x = k * 6; });
     g.userData.update(0); return g;
   },
 };

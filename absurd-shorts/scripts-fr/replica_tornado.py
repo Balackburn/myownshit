@@ -32,7 +32,7 @@ def scene(i, sid, set_, actors=(), props=(), cams=(), **kw):
             'start': round(st, 6), 'duration': round(du, 6), **kw}
 
 
-TOR = {'rings': 14, 'height': 7.3, 'base': 0.39, 'top': 2.03, 'taper': 0.6, 'flare': 0.0, 'crownFlare': 1.08, 'chips': 30, 'teeth': True, 'gap': 0.22,
+TOR = {'rings': 14, 'height': 7.3, 'base': 0.39, 'top': 2.03, 'taper': 0.6, 'flare': 0.0, 'crownFlare': 1.08, 'chips': 30, 'teeth': True, 'gap': 0.12, 'band': 1.3, 'spike': 0.0,
        'cols': ['#6B776F', '#7B877F', '#5B675F', '#84908A'], 'pale': 3, 'paleColor': '#D3CCB8', 'stripe': '#D9D2C0', 'stripeDark': '#55615A'}   # measured profile: 1.54x taller than wide
 TORL = {**TOR, 'cols': ['#94A99D', '#A3B6AA', '#879C90', '#ABBDB1'], 'paleColor': '#DCE1D3', 'stripe': '#DDE2D6', 'stripeDark': '#7A9084'}   # the paler tornado of the ruins
 scenes = []
@@ -54,7 +54,7 @@ scenes.append(scene(1, 'S1', 'replicaStreet',
 
 # S2 1.90-3.43: close tracking shot of the dog spinning in the tornado wall, mouth open
 scenes.append(scene(2, 'S2', 'replicaStreet',
-    props=[P('tornado', 'tornado', pos=[0, 0, -4.2], scale=5.2, opts={**TOR, 'chips': 10}),
+    props=[P('tornado', 'tornado', pos=[0, 0, -6.0], scale=3.6, opts={**TOR, 'chips': 10}),
            P('dog', 'voxelDog', pos=[-0.6, 6.2, 0], rot=[0.17, 0.6, 0.26], scale=1.25, opts={'tongue': True, 'paddle': True}, keys=[k(0.0, to=[0.1, 6.4, -0.3], dur=1.53, ease='linear')])],
     cams=[cam(0.0, [-0.6, 6.5, 3.9], [0.0, 6.6, 3.6], [-0.35, 6.3, 0], [0.15, 6.45, -0.2], lens=55)]))
 
@@ -223,11 +223,88 @@ scenes.append(scene(14, 'S14', 'ruinedStreet', props=[
     P('flag', 'whiteFlag', pos=[0.4, 17.2, -29.5], rot=[0, 0, -0.3], scale=3.6, opts={'w': 1.6, 'h': 1.45, 'pole': 1.7}, keys=[k(0.0, to=[0.4, 17.2, -26.5], dur=1.83, ease='linear')])],
     cams=[cam(0.0, [0.3, 0.6, 6], [0.3, 0.6, 5.4], [0, 9.0, -30], [0, 9.1, -30], lens=60)]))
 
-# S15-S22: placeholders until each shot is built (sky and tornado, so the full film plays in the comparison)
-for i in range(15, 23):
-    scenes.append(scene(i, f'S{i}', 'replicaStreet',
-        props=[P('tornado', 'tornado', pos=[-6, 0, -30], scale=3.0, opts=TOR)],
-        cams=[cam(0.0, [0, 1.6, 8], [0, 1.6, 8], [-6, 6, -30], lens=60)]))
+# --- act 3: court, hard labour, grave ----------------------------------------------------------------------------
+HANDLE = '@outofthisworld_9'
+TORC = {**TOR, 'cols': ['#7C8A82', '#8C9A92', '#6E7C74', '#96A49C'], 'paleColor': '#E2DCCB', 'stripe': '#E4DECF'}      # lit by the courtroom
+TORS = {**TOR, 'cols': ['#5E6962', '#6B766F', '#535E57', '#747F78'], 'pale': 2, 'paleColor': '#BFC2B6', 'chips': 40}          # S17/S18: strong light/dark stripes
+TORG = {**TORS, 'pale': 4, 'paleColor': '#CFC4A8', 'ribbons': 5, 'ribbonFollow': True, 'ribbonY0': 0.15, 'ribbonDY': 0.6, 'ribbonH': 5.5, 'ribbonArc': 4.4,
+        'ribbonTilt': 0.5, 'ribbonColor': '#CDC2A6', 'ribbonSpeed': 3}                                                                   # S19-S21: pale spiral bands
+
+# S15 19.47-20.23: the tornado in the dock, giant white handcuffs; the judge tiny at the bench behind; slow push-in
+scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
+    actors=[act('judge', [0, -0.15, -14.0], 0, 'idle')],
+    props=[P('dock', 'dock', pos=[0, 0, 0], opts={'w': 7.5, 'd': 6.5, 'h': 1.5}),
+           P('tornado', 'tornado', pos=[0, 0.43, 0], scale=1.05, opts={**TORC, 'chips': 36}),
+           P('cuffs', 'bigCuffs', pos=[-0.4, 6.4, 3.6], opts={'r': 0.85})],
+    cams=[cam(0.0, [2.5, 3.0, 13.7], [2.3, 3.1, 12.6], [-0.3, 4.6, 0], [-0.3, 4.7, 0], lens=50)]))
+
+# S16 20.23-21.60: low on the bench, the judge strikes the gavel (raise f607-613, hit on the block at f619), slow push-in
+scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE},
+    actors=[act('judge', [0, -0.15, -14.0], 0, 'gavelStrikeL', params={'hit': 0.4})],
+    props=[P('gavel', 'gavel', on={'actor': 'judge', 'hand': 'L'}), P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
+    cams=[cam(0.0, [0.55, 1.32, -11.75], [0.5, 1.33, -12.0], [0.3, 1.62, -14.0], [0.3, 1.62, -14.0], lens=45)],
+    fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.12, 'amount': 0.006}]))
+
+# S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine
+scenes.append(scene(17, 'S17', 'grassland', props=[
+    P('turbine', 'windTurbine', pos=[-21, 0, -72], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
+    P('tornado', 'tornado', pos=[5, 0, -40], scale=3.1, opts=TORS),
+    P('cuffs', 'bigCuffs', pos=[4.6, 20.0, -35.5], opts={'r': 1.05}),
+    P('rubble', 'rubble', pos=[5, 0, -40], opts={'r': 3.2, 'n': 18, 'size': 0.8}),
+    P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.5, 'count': 260, 'seed': 4})],
+    cams=[cam(0.0, [0, 1.2, 12], [0, 1.25, 11.4], [-2, 14, -40], [-2, 14.2, -40], lens=52)]))
+
+# S18 22.33-23.57: from the tornado's crown, looking up at the hub, the rotor spins up into a blur
+scenes.append(scene(18, 'S18', 'grassland', props=[
+    P('turbine', 'windTurbine', pos=[0, 0, -60], opts={'h': 60, 'rpm': 34, 'blur': 1.4, 'blurSpread': 0.7, 'label': HANDLE}),
+    P('tornado', 'tornado', pos=[-2.5, 0, -6], scale=2.0, opts=TORS),
+    P('cuffs', 'bigCuffs', pos=[-2.6, 15.2, -3.2], opts={'r': 0.7})],
+    cams=[cam(0.0, [2, 16, 10], [2, 16.2, 9.5], [0, 39.4, -60], [0, 39.8, -60], lens=50)]))
+
+# S19 23.57-24.13: wide: turbine left, the tornado right, a tiny officer whipping at its base
+scenes.append(scene(19, 'S19', 'grassland',
+    actors=[act('cop', [-6, 0, -50], 90, 'whipWalk')],
+    props=[P('turbine', 'windTurbine', pos=[-19, 0, -132], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
+           P('tornado', 'tornado', pos=[8, 0, -55], scale=5.4, opts=TORG),
+           P('cuffs', 'bigCuffs', pos=[7.5, 38, -49], opts={'r': 1.6}),
+           P('rubble', 'rubble', pos=[8, 0, -55], opts={'r': 5, 'n': 24, 'size': 1.1}),
+           P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
+           P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.45, 'count': 240, 'seed': 6})],
+    cams=[cam(0.0, [0, 2.0, 10], [0, 2.0, 9.6], [-1, 6.3, -50], [-1, 6.3, -50], lens=45)]))
+
+# S20 24.13-25.53: the officer strides in and cracks the whip at the tornado's base, boulders fly; the camera pans with him
+scenes.append(scene(20, 'S20', 'grassland',
+    actors=[act('cop', [-3.2, 0, -6], 90, 'stand', keys=[k(0.0, to=[0.9, 0, -6], dur=1.15, clip='whipWalk', then='stand'), k(1.15, face=0)])],
+    props=[P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
+           P('tornado', 'tornado', pos=[6.5, 0, -11], scale=5.4, opts={**TORG, 'ribbons': 0}),
+           P('rubble', 'rubble', pos=[6.5, 0, -11], opts={'r': 3.6, 'n': 30, 'size': 0.7, 'fly': 0.4}),
+           P('turbine', 'windTurbine', pos=[-12, 0, -70], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
+           P('grass', 'tallGrass', pos=[0, 0, -4], opts={'w': 16, 'd': 6, 'h': 0.32, 'count': 160, 'seed': 8})],
+    cams=[cam(0.0, [-0.7, 1.0, -1.0], [0.6, 1.0, -1.0], [-0.5, 1.35, -6], [1.6, 1.35, -6], lens=50)]))
+
+# S21 25.53-26.00: wide again, the officer whipping at the base
+scenes.append(scene(21, 'S21', 'grassland',
+    actors=[act('cop', [-1.5, 0, -50], 90, 'whipWalk')],
+    props=[P('turbine', 'windTurbine', pos=[-21, 0, -132], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
+           P('tornado', 'tornado', pos=[8, 0, -55], scale=5.4, opts=TORG),
+           P('cuffs', 'bigCuffs', pos=[7.5, 38, -49], opts={'r': 1.6}),
+           P('rubble', 'rubble', pos=[8, 0, -55], opts={'r': 5, 'n': 24, 'size': 1.1, 'fly': 0.3}),
+           P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
+           P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.45, 'count': 240, 'seed': 6})],
+    cams=[cam(0.0, [1, 2.0, 12], [1, 2.0, 11.7], [1, 6.3, -50], [1, 6.3, -50], lens=45)]))
+
+# S22 26.00-28.80: "Oh, and the dog is dead.": the dog's grave, R.I.P., his framed portrait, flowers, a fresh mound; slow push-in; the
+# handcuffed tornado and the turbine far behind
+scenes.append(scene(22, 'S22', 'grassland', props=[
+    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#E8A040'}),
+    P('mound', 'dirtMound', pos=[0.05, 0, -2.5], opts={'w': 1.35, 'd': 1.6, 'h': 0.3}),
+    P('flowers', 'flowers', pos=[0.42, 0.25, -3.18], scale=1.4),
+    P('turbine', 'windTurbine', pos=[-46, 0, -190], opts={'h': 60, 'rpm': 13}),
+    P('tornado', 'tornado', pos=[-34, 0, -150], scale=3.0, opts=TORG),
+    P('cuffs', 'bigCuffs', pos=[-34.5, 19.5, -146.5], opts={'r': 1.0}),
+    P('grass', 'tallGrass', pos=[0, 0, -3.4], opts={'w': 6, 'd': 2.4, 'h': 0.5, 'count': 700, 'seed': 12}),
+    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.22, 'count': 50, 'seed': 13})],
+    cams=[cam(0.0, [0.1, 0.62, -0.2], [0.08, 0.64, -0.9], [0, 0.46, -3.5], [0, 0.47, -3.5], lens=50)]))
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.
 import math
@@ -237,7 +314,9 @@ for sc_ in scenes:
             p_['ry'] = round(math.degrees(p_['rot'][1]), 3)
 
 doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
-       'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}}, 'scenes': scenes, 'total': CUTS[-1] / FPS}
+       'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
+                 'judge': {'preset': 'judge', 'facial': 'stubble', 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
+                 'cop': {'preset': 'cop', 'suit': '#1E2D4A', 'pants': '#1E2D4A', 'facial': 'none', 'build': {'width': 0.82, 'headWidth': 1.3}}}, 'scenes': scenes, 'total': CUTS[-1] / FPS}
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'replica_tornado.json')
 json.dump(doc, open(out, 'w'), indent=1)
 print(out, len(scenes), 'scenes', doc['total'], 's')

@@ -399,6 +399,38 @@ const S = {
     Object.assign(g.userData, { lighting: 'ruins', near: 0.2, far: 5000, fog: { color: '#6E6966', near: 60, far: 900 }, anchors: { center: [0, 0, 0] } });
     return g;
   },
+  replicaCourt(o = {}) { // S15/S16: white courtroom with navy/teal wall bands; the dock near the camera end (z = 0) and the judge's bench at
+    // z = -14: cream bench, navy high-backed chair with gold studs and finials, a gold-framed nameplate (o.handle), a red pillar, a pale window
+    const g = grp(), W = '#EEEBE4';
+    g.add(flat(300, 300, '#DCD6CA'), wall(60, 9, 0.3, W, 0, 4.5, -16), wall(0.3, 9, 60, W, -12, 4.5, 0), wall(0.3, 9, 60, W, 12, 4.5, 0), wall(60, 9, 0.3, W, 0, 4.5, 30));
+    const band = (y, h, c) => { g.add(wall(24, h, 0.05, c, 0, y, -15.83), wall(0.05, h, 46, c, -11.83, y, 7), wall(0.05, h, 46, c, 11.83, y, 7)); };
+    band(6.3, 0.35, '#1F2D4E'); band(4.5, 0.25, '#1F2D4E'); band(3.9, 0.14, '#3E7F86');
+    g.add(wall(5, 1.5, 0.06, '#C2342A', 6.5, 0.75, -15.8), wall(0.06, 1.5, 12, '#C2342A', 11.8, 0.75, -9));                  // red wainscot panels
+    g.add(at(box(2.2, 3.4, 0.05, '#A9D3E6'), -6.5, 3.2, -15.82), at(box(2.4, 3.6, 0.04, '#F7F6F2'), -6.5, 3.2, -15.84));         // window
+    // judge's bench
+    const bz = -13, cz = -14.6;
+    g.add(at(box(4.4, 1.12, 1.2, '#EDE7DA', { pivot: 'bottom', outline: 0.003 }), 0, 0, bz), at(box(4.6, 0.06, 1.4, '#F4F0E6'), 0, 1.15, bz));
+    g.add(at(box(1.9, 3.2, 0.25, '#1F2D4E', { pivot: 'bottom', outline: 0.003 }), 0, 0, cz));
+    const studs = []; for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) studs.push([-0.6 + i * 0.4 + (j % 2) * 0.2, 1.1 + j * 0.32, cz + 0.14]);
+    g.add(inst(new THREE.BoxGeometry(0.045, 0.045, 0.02), mat('#D6A43A'), studs));
+    [-1, 1].forEach(s => g.add(at(box(0.16, 0.22, 0.16, '#D6A43A'), s * 0.92, 3.3, cz)));
+    const plate = canvasPlane(1.5, 0.36, (c, Wc, Hc) => { c.fillStyle = '#D6A43A'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#1B2747'; c.fillRect(Wc * 0.03, Hc * 0.12, Wc * 0.94, Hc * 0.76);
+      c.fillStyle = '#F2EEE2'; c.font = `bold italic ${Hc * 0.36}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle || '', Wc / 2, Hc / 2); }, { res: 512 });
+    plate.position.set(0, 2.55, cz + 0.135); plate.rotation.z = 0.06; g.add(plate);
+    g.add(at(box(0.5, 4.5, 0.3, '#C2342A', { pivot: 'bottom' }), 0, 3.0, -15.6));                                                  // red pillar
+    Object.assign(g.userData, { lighting: 'interior', anchors: { center: [0, 0, 0], judge: [0, 0, -14.0], bench: [0, 1.15, bz], dock: [0, 0, 0] } });
+    return g;
+  },
+  grassland(o = {}) { // S17-S22: open green field, a bank of cumulus all round the horizon, scattered low-poly trees, blue sky
+    const g = grp(), r = rng(o.seed || 29);
+    skyFollow(g, o.sky || ['#86C3E6', '#CFE7F1'], 3000, '#D8E8E8');
+    g.add(flat(9000, 9000, o.grass || '#86BE5C', 0, 0, 0));
+    for (let i = 0; i < (o.clouds ?? 40); i++) { const a = i / (o.clouds ?? 40) * TAU + r() * 0.12, d = (o.cloudR || 650) * (0.85 + r() * 0.35);
+      g.add(prop('cumulus', { w: 150 + r() * 120, h: 55 + r() * 35, n: 22, seed: i + 3 }, Math.cos(a) * d, -8, Math.sin(a) * d)); }
+    for (let i = 0; i < 26; i++) { const a = r() * TAU, d = 60 + r() * 240; g.add(prop('tree', { seed: i + 9, color: '#4E8A4A' }, Math.cos(a) * d, 0, Math.sin(a) * d, 0, 2.2 + r() * 1.6)); }
+    Object.assign(g.userData, { lighting: 'day', near: 0.1, far: 5000, fog: { color: '#CFE3E6', near: 300, far: 2400 }, anchors: { center: [0, 0, 0] } });
+    return g;
+  },
   street(o) { return streetSet(o, false); },
   streetNight(o) { return streetSet(o, true); },
   fair(o) {
