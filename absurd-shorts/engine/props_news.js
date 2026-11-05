@@ -51,7 +51,74 @@ function wheelchair(g, cx, cy, u) {
   g.lineWidth = u * 0.075; g.beginPath(); g.arc(x0 + u * 0.36, y0 + u * 0.66, u * 0.26, -0.3 * PI, 1.25 * PI); g.stroke();
 }
 
+// a flat faceted disc (patty, lettuce): n-gon with jittered rim, pivot at its bottom
+function facetDisc(r, h, color, seed = 3) {
+  const R = rng(seed), shape = new THREE.Shape(), n = 14;
+  for (let i = 0; i <= n; i++) { const a = i / n * TAU, rr = r * (0.94 + R() * 0.1); i ? shape.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : shape.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: h, bevelEnabled: false }); geo.rotateX(-PI / 2);
+  const m = new THREE.Mesh(geo, mat(color)); m.castShadow = m.receiveShadow = true; return m;
+}
+
 export const NEWS_PROPS = {
+  burger(o) { // a burger at twice life size (Ø 0.25 m): bun, patty, cheese, lettuce, tomato, sesame dome; o.openAt lifts the top;
+    // o.pick: a toothpick flag (text, e.g. 'VEGAN') that pops in at o.pickAt
+    const g = grp(), BUN = o.bun || '#D9A15A', R0 = 0.12;
+    g.add(at(cyl(R0, R0 * 0.96, 0.04, BUN, 14, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0));
+    const patty = at(facetDisc(R0 * 1.04, 0.036, o.patty || '#6E4128', 3), 0, 0.04, 0); g.add(patty);
+    const ch = at(box(0.19, 0.008, 0.19, '#F2C230'), 0, 0.08, 0, 0, PI / 4, 0); g.add(ch);
+    const top = grp(at(facetDisc(R0 * 1.08, 0.012, '#7DBE5A', 9), 0, 0, 0), at(cyl(R0 * 0.82, R0 * 0.82, 0.012, '#D9483B', 12), 0, 0.012, 0));
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(R0, 16, 8, 0, TAU, 0, PI / 2), mat(BUN)); dome.scale.y = 0.62; dome.position.y = 0.026; dome.castShadow = true; top.add(dome);
+    const rs = rng(4); for (let i = 0; i < 14; i++) { const a = rs() * TAU, rr = R0 * (0.25 + rs() * 0.6), yy = 0.026 + 0.62 * Math.sqrt(Math.max(0, R0 * R0 - rr * rr)); const se = sphere(0.006, '#F6EED8', 0, { noGrain: true }); se.scale.set(1, 0.6, 1.6); se.position.set(Math.cos(a) * rr, yy, Math.sin(a) * rr); se.rotation.y = a; top.add(se); }
+    top.position.y = 0.086; g.add(top);
+    let pick = null; if (o.pick) { pick = grp(at(cyl(0.003, 0.003, 0.2, '#E9DDBF', 4, { pivot: 'bottom', noGrain: true }), 0, 0, 0)); const f = canvasPlane(0.09, 0.045, (c, W, H) => { c.fillStyle = '#4E9A4A'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF'; c.font = `900 ${H * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.pick, W / 2, H * 0.55); }, { res: 256 });
+      f.position.set(0.045, 0.175, 0); pick.add(f); pick.position.set(0.02, 0.1, 0.01); g.add(pick); }
+    g.userData.update = t => { const k = o.openAt != null && t > o.openAt ? ease.outBack(clamp01((t - o.openAt) / 0.35)) : 0; top.position.y = 0.086 + 0.17 * k; top.rotation.x = -0.5 * k; top.position.z = -0.05 * k;
+      if (pick) { pick.scale.setScalar(o.pickAt != null ? pop(t, o.pickAt, 0.3) : 1); pick.visible = !(o.openAt != null && t > o.openAt); } };
+    g.userData.update(0); return g;
+  },
+  soyCostume(o) { // cardboard sandwich-board costume for the soy character, with a hole for its face: o.kind 'steak' | 'milk' | 'cheese' | 'nugget';
+    // attach to the soy's 'head' joint with offset [0, 0.3, 0]; o.popAt pops it on
+    const W0 = 0.78, H0 = 0.9, kind = o.kind || 'steak';
+    const draw = (c, W, H) => {
+      const lab = (t, col, y) => { c.fillStyle = col; c.font = `900 ${H * 0.1}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(t, W / 2, H * y); };
+      if (kind === 'steak') { c.fillStyle = '#7A4428'; c.beginPath(); c.ellipse(W / 2, H * 0.52, W * 0.48, H * 0.42, 0.15, 0, TAU); c.fill(); c.strokeStyle = '#4A2814'; c.lineWidth = H * 0.035;
+        for (let i = -2; i <= 2; i++) { c.beginPath(); c.moveTo(W * (0.2 + i * 0.16), H * 0.25); c.lineTo(W * (0.45 + i * 0.16), H * 0.85); c.stroke(); } c.fillStyle = '#E8D8C8'; for (let i = 0; i < 9; i++) { c.beginPath(); c.arc(W * (0.2 + (i * 37 % 60) / 100), H * (0.3 + (i * 53 % 50) / 100), H * 0.012, 0, TAU); c.fill(); } lab('STEAK', '#FFF4E0', 0.86); }
+      else if (kind === 'milk') { c.fillStyle = '#F6F6F2'; c.fillRect(W * 0.08, H * 0.18, W * 0.84, H * 0.8); c.fillStyle = '#3E6FB5'; c.beginPath(); c.moveTo(W * 0.08, H * 0.18); c.lineTo(W * 0.5, H * 0.02); c.lineTo(W * 0.92, H * 0.18); c.fill(); c.fillRect(W * 0.08, H * 0.76, W * 0.84, H * 0.16);
+        c.fillStyle = '#1C1C20'; [[0.22, 0.3, 0.07], [0.78, 0.36, 0.06], [0.7, 0.68, 0.05], [0.25, 0.66, 0.05]].forEach(([x, y, r]) => { c.beginPath(); c.arc(W * x, H * y, W * r, 0, TAU); c.fill(); }); lab('LAIT', '#FFFFFF', 0.84); }
+      else if (kind === 'cheese') { c.fillStyle = '#F2C94C'; c.beginPath(); c.moveTo(W * 0.04, H * 0.96); c.lineTo(W * 0.96, H * 0.96); c.lineTo(W * 0.9, H * 0.08); c.closePath(); c.fill(); c.fillStyle = '#D9A92E';
+        [[0.72, 0.3, 0.05], [0.8, 0.62, 0.06], [0.3, 0.86, 0.04], [0.62, 0.84, 0.035]].forEach(([x, y, r]) => { c.beginPath(); c.arc(W * x, H * y, W * r, 0, TAU); c.fill(); }); lab('FROMAGE', '#7A4A10', 0.9); }
+      else { c.fillStyle = '#D9A04A'; c.beginPath(); for (let i = 0; i <= 14; i++) { const a = i / 14 * TAU, rr = 0.44 + 0.05 * Math.sin(i * 2.7); c.lineTo(W / 2 + Math.cos(a) * W * rr, H * 0.5 + Math.sin(a) * H * rr * 0.92); } c.fill(); c.fillStyle = '#B97A2A'; for (let i = 0; i < 30; i++) { c.beginPath(); c.arc(W * (0.15 + (i * 29 % 70) / 100), H * (0.15 + (i * 41 % 70) / 100), H * 0.01, 0, TAU); c.fill(); } lab('NUGGET', '#FFF4E0', 0.86); }
+      c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(W / 2, H * (0.5 - 0.09 / H0), W * 0.2, 0, TAU); c.fill(); c.globalCompositeOperation = 'source-over';
+    };
+    const g = grp(), front = canvasPlane(W0, H0, draw, { res: 512, transparent: true }), back = canvasPlane(W0, H0, draw, { res: 512, transparent: true });
+    front.position.z = 0.285; back.position.z = -0.285; back.rotation.y = PI; g.add(front, back);
+    for (const sx of [-1, 1]) g.add(at(box(0.025, 0.012, 0.57, '#C9A27A'), sx * 0.2, 0.36, 0));   // shoulder straps
+    g.userData.update = t => { if (o.popAt != null) g.scale.setScalar(pop(t, o.popAt, 0.3)); }; g.userData.update(0); return g;
+  },
+  conspiracyBoard(o) { // cork board: the soy's mugshot in the middle, its fake identities around, red strings drawing in from o.drawAt
+    const w = o.w || 1.6, h = o.h || 1.05, g = grp(at(box(w + 0.08, h + 0.08, 0.04, '#8A5A34', { outline: 0.006 }), 0, 0, 0), at(box(w, h, 0.045, '#C99A62'), 0, 0, 0.002));
+    const pins = [['SOJA', 0, 0.02, '#E6C878'], ['STEAK', -0.52, 0.28, '#7A4428'], ['LAIT', 0.52, 0.28, '#F6F6F2'], ['FROMAGE', -0.52, -0.28, '#F2C94C'], ['NUGGETS', 0.52, -0.28, '#D9A04A']];
+    const strings = [];
+    pins.forEach(([t, x, y, col], i) => { const ph = canvasPlane(0.3, 0.34, (c, W, H) => { c.fillStyle = '#FAFAF4'; c.fillRect(0, 0, W, H); c.fillStyle = col; c.fillRect(W * 0.08, H * 0.07, W * 0.84, H * 0.66);
+        if (i === 0) { c.fillStyle = '#1C1C20'; [0.38, 0.62].forEach(ex => { c.beginPath(); c.arc(W * ex, H * 0.36, W * 0.06, 0, TAU); c.fill(); }); c.fillRect(W * 0.4, H * 0.52, W * 0.2, H * 0.03); }
+        c.fillStyle = '#1C252A'; c.font = `900 ${H * 0.13}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; const ww = c.measureText(t).width; if (ww > W * 0.9) c.font = `900 ${H * 0.13 * W * 0.9 / ww}px Arial`; c.fillText(t, W / 2, H * 0.86); }, { res: 256 });
+      ph.position.set(x, y, 0.03); ph.rotation.z = ((i * 37) % 7 - 3) * 0.02; g.add(ph, at(sphere(0.016, '#C8322A', 0), x, y + 0.15, 0.04));
+      if (i) { const dx = x, dy = y, L = Math.hypot(dx, dy), st = grp(at(box(1, 0.012, 0.006, '#C8322A', { noGrain: true }), 0.5, 0, 0)); st.position.set(0, 0.02, 0.05); st.rotation.z = Math.atan2(dy, dx); st.userData.L = L; g.add(st); strings.push(st); } });
+    g.userData.update = t => { strings.forEach((st, i) => { const a0 = (o.drawAt ?? 0) + i * 0.18, k = clamp01((t - a0) / 0.25); st.scale.x = Math.max(0.001, st.userData.L * k); }); };
+    g.userData.update(0); return g;
+  },
+  chefHat(o) { // a white chef's toque (for the soy character: attach to its 'head' joint, offset about [0, 0.63, 0])
+    const g = grp(at(cyl(0.13, 0.13, 0.12, '#F6F6F2', 12, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0));
+    [[0, 0.2, 0, 0.15], [-0.09, 0.17, 0.02, 0.1], [0.09, 0.17, -0.02, 0.1], [0, 0.17, 0.08, 0.1]].forEach(([x, y, z, r]) => g.add(at(sphere(r, '#F6F6F2', 1), x, y, z)));
+    return g;
+  },
+  canteenTray(o) { // a grey prison-canteen tray with compartments: a patty, a glass of milk, a wedge of cheese (all soy, says the menu); o.extra adds a second patty
+    const g = grp(at(box(0.46, 0.022, 0.32, '#9AA2A8', { outline: 0.005 }), 0, 0.011, 0));
+    for (const [x, z, w, d] of [[0, 0, 0.012, 0.3], [0.08, 0.06, 0.3, 0.012]]) g.add(at(box(w, 0.03, d, '#8A9298'), x, 0.025, z));
+    g.add(at(facetDisc(0.07, 0.025, '#6E4128', 5), -0.11, 0.022, 0.0), at(cyl(0.035, 0.03, 0.09, '#F4F6F8', 10, { pivot: 'bottom' }), 0.14, 0.022, -0.08), at(box(0.07, 0.04, 0.05, '#F2C94C', { taper: { x: 0.2, z: 1 } }), 0.12, 0.042, 0.08));
+    if (o.extra) g.add(at(facetDisc(0.07, 0.025, '#6E4128', 8), -0.11, 0.048, 0.02));
+    return g;
+  },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });
     f.position.set(0.31, 1.38, 0); g.add(f); g.userData.update = t => { f.rotation.y = 0.14 * Math.sin(t * 2.6 + (o.seed || 0)); }; return g;

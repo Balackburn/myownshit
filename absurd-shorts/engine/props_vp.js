@@ -207,7 +207,7 @@ export const VP_PROPS = {
   noticeBoard(o) { // a sign / document with text that can pop in (scale with overshoot from o.popAt); o.style 'doc' | 'sign' | 'tag'
     const w = o.w || 1.2, h = o.h || 0.8, g = grp();
     const st = o.style || 'sign';
-    const bg = st === 'doc' ? '#F7F3E6' : st === 'tag' ? '#FFF6D8' : '#F4F1E8';
+    const bg = o.bg || (st === 'doc' ? '#F7F3E6' : st === 'tag' ? '#FFF6D8' : '#F4F1E8');   // o.bg: e.g. a chalkboard
     const b = textBoard(o.text || 'TEXTE', w, h, { bg, fg: o.fg || '#1E2A33', frame: st === 'doc' ? null : (o.frame || '#1E2A33'), size: o.textSize || 0.62 });
     const back = at(box(w + 0.04, h + 0.04, 0.03, st === 'doc' ? '#E2DCC8' : '#3A3D44'), 0, 0, -0.02);
     const inner = grp(back, b); g.add(inner);

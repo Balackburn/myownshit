@@ -1,0 +1,2830 @@
+{
+ "version": 3,
+ "title": "Le burger vegan",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "hair": "crew",
+   "facial": "mustache",
+   "seed": 41
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "serveur": {
+   "preset": "serveur"
+  },
+  "savant": {
+   "preset": "savant"
+  },
+  "soja": {
+   "type": "creature",
+   "name": "soja",
+   "opts": {
+    "seed": 3
+   }
+  },
+  "soja2": {
+   "type": "creature",
+   "name": "soja",
+   "opts": {
+    "seed": 5
+   }
+  },
+  "soja3": {
+   "type": "creature",
+   "name": "soja",
+   "opts": {
+    "seed": 9
+   }
+  },
+  "vache": {
+   "type": "creature",
+   "name": "cow",
+   "opts": {
+    "seed": 2
+   }
+  },
+  "vache2": {
+   "type": "creature",
+   "name": "cow",
+   "opts": {
+    "seed": 7
+   }
+  },
+  "mecP": {
+   "preset": "mecPrisonnier",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.45,
+      0,
+      -2.0
+     ],
+     "ry": -12,
+     "clip": "phoneCall",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.79,
+      -2.6
+     ],
+     "scale": 1.3
+    },
+    {
+     "id": "ph",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "text": "17",
+      "sub": "POLICE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      1.55,
+      0.7
+     ],
+     "to": [
+      0.72,
+      1.55,
+      0.45
+     ],
+     "lookAt": [
+      0.38,
+      1.5,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.38,
+      1.5,
+      -2.0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.3667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.79,
+      -2.6
+     ],
+     "scale": 1.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.16,
+      1.0,
+      -1.68
+     ],
+     "to": [
+      0.12,
+      0.99,
+      -1.82
+     ],
+     "lookAt": [
+      0,
+      0.9,
+      -2.6
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.9,
+      -2.6
+     ]
+    }
+   ],
+   "start": 1.3667,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -2.0
+     ],
+     "ry": 0,
+     "clip": "eatHands",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "b",
+     "name": "burger",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "scale": 0.65
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      1.62,
+      0.2999999999999998
+     ],
+     "to": [
+      0.7150000000000001,
+      1.6400000000000001,
+      -1.6653345369377348e-16
+     ],
+     "lookAt": [
+      0.4,
+      1.57,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      1.59,
+      -2.0
+     ]
+    }
+   ],
+   "start": 2.6667,
+   "duration": 1.7333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [
+    {
+     "id": "serveur",
+     "pos": [
+      -0.35,
+      0,
+      -1.9
+     ],
+     "ry": 18,
+     "clip": "explain",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.79,
+      -2.6
+     ],
+     "scale": 1.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.62,
+      0.8999999999999999
+     ],
+     "to": [
+      -0.034999999999999976,
+      1.6400000000000001,
+      0.5999999999999999
+     ],
+     "lookAt": [
+      -0.35,
+      1.57,
+      -1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.35,
+      1.59,
+      -1.9
+     ]
+    }
+   ],
+   "start": 4.4,
+   "duration": 1.3333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.79,
+      -2.6
+     ],
+     "scale": 1.3,
+     "opts": {
+      "pick": "VEGAN",
+      "pickAt": 0.358
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.14,
+      1.06,
+      -1.6
+     ],
+     "to": [
+      0.12,
+      1.05,
+      -1.74
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      -2.6
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.0,
+      -2.6
+     ]
+    }
+   ],
+   "start": 5.7333,
+   "duration": 1.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "tantrum",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.79,
+      -2.6
+     ],
+     "scale": 1.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6499999999999999,
+      1.5,
+      0.8999999999999999
+     ],
+     "to": [
+      0.615,
+      1.52,
+      0.5999999999999999
+     ],
+     "lookAt": [
+      0.3,
+      1.45,
+      -1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.47,
+      -1.9
+     ],
+     "shake": 0.03
+    }
+   ],
+   "start": 6.8333,
+   "duration": 1.5,
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.25,
+     "dur": 0.3,
+     "amount": 0.03
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "restaurant",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.79,
+      -2.6
+     ],
+     "scale": 1.3
+    },
+    {
+     "id": "moust",
+     "name": "mustache3d",
+     "pos": [
+      0,
+      0.918,
+      -2.438
+     ],
+     "scale": 1.3
+    },
+    {
+     "id": "specs",
+     "name": "glasses",
+     "pos": [
+      0,
+      0.9650000000000001,
+      -2.46
+     ],
+     "opts": {
+      "r": 0.03,
+      "dx": 0.045
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      1.02,
+      -1.7
+     ],
+     "to": [
+      0.1,
+      1.01,
+      -1.82
+     ],
+     "lookAt": [
+      0,
+      0.95,
+      -2.6
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.95,
+      -2.6
+     ]
+    }
+   ],
+   "start": 8.3333,
+   "duration": 2.4334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "wall",
+     "name": "mugshotBoard",
+     "pos": [
+      0,
+      0,
+      -3.45
+     ]
+    },
+    {
+     "id": "stool",
+     "name": "barStool",
+     "pos": [
+      0,
+      0,
+      -2.9
+     ]
+    },
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      0,
+      0.75,
+      -2.9
+     ],
+     "scale": 1.6
+    },
+    {
+     "id": "plac",
+     "name": "placard",
+     "pos": [
+      0,
+      0.84,
+      -2.62
+     ],
+     "rot": [
+      -0.15,
+      0,
+      0
+     ],
+     "opts": {
+      "text": "BURGER\n2026-042"
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.04,
+      1.05,
+      -1.0
+     ],
+     "to": [
+      0.04,
+      1.05,
+      -1.15
+     ],
+     "lookAt": [
+      0,
+      0.98,
+      -2.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.98,
+      -2.9
+     ]
+    }
+   ],
+   "start": 10.7667,
+   "duration": 1.8,
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0.45,
+     "dur": 0.08
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "lab",
+   "lines": [],
+   "actors": [
+    {
+     "id": "savant",
+     "pos": [
+      0.3,
+      0,
+      -1.45
+     ],
+     "ry": -10,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "t",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "w": 1.1,
+      "d": 0.7,
+      "h": 0.9,
+      "color": "#B9C0C2",
+      "legs": "#8E9698"
+     }
+    },
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      -0.1,
+      0.9,
+      -0.75
+     ],
+     "scale": 1.3
+    },
+    {
+     "id": "dome",
+     "name": "glassDome",
+     "pos": [
+      -0.1,
+      0.9,
+      -0.75
+     ],
+     "opts": {
+      "radius": 0.24,
+      "height": 0.5,
+      "base": false
+     }
+    },
+    {
+     "id": "loupe",
+     "name": "magnifyingGlass",
+     "on": {
+      "actor": "savant",
+      "hand": "R"
+     },
+     "scale": 0.45
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.72,
+      2.1
+     ],
+     "to": [
+      0.32,
+      1.7,
+      1.85
+     ],
+     "lookAt": [
+      0.05,
+      1.48,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      1.48,
+      -1.0
+     ]
+    }
+   ],
+   "start": 12.5667,
+   "duration": 1.5666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "lab",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0.22,
+      0.9,
+      -0.72
+     ],
+     "ry": -15,
+     "clip": "wave",
+     "keys": [
+      {
+       "at": 0.9,
+       "expr": "smug"
+      }
+     ],
+     "scale": 0.42,
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "t",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "w": 1.1,
+      "d": 0.7,
+      "h": 0.9,
+      "color": "#B9C0C2",
+      "legs": "#8E9698"
+     }
+    },
+    {
+     "id": "burger",
+     "name": "burger",
+     "pos": [
+      -0.12,
+      0.9,
+      -0.78
+     ],
+     "scale": 1.3,
+     "opts": {
+      "openAt": 0.1
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      1.22,
+      0.32
+     ],
+     "to": [
+      0.1,
+      1.2,
+      0.18
+     ],
+     "lookAt": [
+      0.05,
+      1.08,
+      -0.78
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      1.08,
+      -0.78
+     ]
+    }
+   ],
+   "start": 14.1333,
+   "duration": 2.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      -0.25,
+      0,
+      -2.0
+     ],
+     "ry": -40,
+     "clip": "point",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "board",
+     "name": "conspiracyBoard",
+     "pos": [
+      -1.15,
+      1.65,
+      -3.48
+     ],
+     "opts": {
+      "drawAt": 0.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.66,
+      1.62,
+      0.15
+     ],
+     "to": [
+      -0.7,
+      1.62,
+      -0.1
+     ],
+     "lookAt": [
+      -0.88,
+      1.55,
+      -3.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.88,
+      1.55,
+      -3.2
+     ]
+    }
+   ],
+   "start": 16.1333,
+   "duration": 1.9334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "airport",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      0.55,
+      0,
+      -1.75
+     ],
+     "ry": 0,
+     "clip": "clipboard",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "soja",
+     "pos": [
+      -1.6,
+      0.7,
+      -1.0
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.65,
+        0.7,
+        -1.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ],
+     "scale": 0.55,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "belt",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "opts": {
+      "w": 5.0,
+      "d": 0.6,
+      "h": 0.7,
+      "color": "#3A3D44",
+      "legs": "#2A2A2E"
+     }
+    },
+    {
+     "id": "box0",
+     "name": "cardboardBox",
+     "pos": [
+      -2.6,
+      0.7,
+      -1.0
+     ],
+     "scale": 0.6,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.3500000000000001,
+        0.7,
+        -1.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "box1",
+     "name": "cardboardBox",
+     "pos": [
+      -0.65,
+      0.7,
+      -1.0
+     ],
+     "scale": 0.6,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.6,
+        0.7,
+        -1.0
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "lab0",
+     "name": "noticeBoard",
+     "pos": [
+      -2.6,
+      0.98,
+      -0.72
+     ],
+     "opts": {
+      "text": "MAÏS",
+      "style": "tag",
+      "w": 0.32,
+      "h": 0.12
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.3500000000000001,
+        0.98,
+        -0.72
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "lab1",
+     "name": "noticeBoard",
+     "pos": [
+      -0.65,
+      0.98,
+      -0.72
+     ],
+     "opts": {
+      "text": "BLÉ",
+      "style": "tag",
+      "w": 0.32,
+      "h": 0.12
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.6,
+        0.98,
+        -0.72
+       ],
+       "dur": 2.067,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "douane",
+     "name": "noticeBoard",
+     "pos": [
+      0.1,
+      2.25,
+      -2.0
+     ],
+     "opts": {
+      "text": "DOUANE",
+      "style": "sign",
+      "w": 0.7,
+      "h": 0.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.15,
+      1.3,
+      1.95
+     ],
+     "to": [
+      0.15,
+      1.3,
+      1.75
+     ],
+     "lookAt": [
+      -0.3,
+      1.22,
+      -1.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.22,
+      -1.0
+     ]
+    }
+   ],
+   "start": 18.0667,
+   "duration": 2.0666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0,
+      0,
+      -2.0
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [
+      {
+       "at": 0.45,
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cos_soja",
+     "name": "soyCostume",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.3,
+       0
+      ]
+     },
+     "opts": {
+      "kind": "steak",
+      "popAt": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      0.95,
+      0.35
+     ],
+     "to": [
+      0.22,
+      0.95,
+      0.12
+     ],
+     "lookAt": [
+      0,
+      0.72,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.73,
+      -2.0
+     ]
+    }
+   ],
+   "start": 20.1333,
+   "duration": 1.8667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0,
+      0,
+      -2.0
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [
+      {
+       "at": 0.45,
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cos_soja",
+     "name": "soyCostume",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.3,
+       0
+      ]
+     },
+     "opts": {
+      "kind": "milk",
+      "popAt": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      0.95,
+      0.35
+     ],
+     "to": [
+      0.22,
+      0.95,
+      0.12
+     ],
+     "lookAt": [
+      0,
+      0.72,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.73,
+      -2.0
+     ]
+    }
+   ],
+   "start": 22.0,
+   "duration": 0.9333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0,
+      0,
+      -2.0
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [
+      {
+       "at": 0.45,
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cos_soja",
+     "name": "soyCostume",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.3,
+       0
+      ]
+     },
+     "opts": {
+      "kind": "cheese",
+      "popAt": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      0.95,
+      0.35
+     ],
+     "to": [
+      0.22,
+      0.95,
+      0.12
+     ],
+     "lookAt": [
+      0,
+      0.72,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.73,
+      -2.0
+     ]
+    }
+   ],
+   "start": 22.9333,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja2",
+     "pos": [
+      -0.36,
+      0,
+      -2.55
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [],
+     "scale": 0.66,
+     "expr": "smug"
+    },
+    {
+     "id": "soja",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [],
+     "scale": 0.66,
+     "expr": "smug"
+    },
+    {
+     "id": "soja3",
+     "pos": [
+      0.36,
+      0,
+      -2.55
+     ],
+     "ry": 0,
+     "clip": "stiff",
+     "keys": [],
+     "scale": 0.66,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cos_soja",
+     "name": "soyCostume",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.3,
+       0
+      ]
+     },
+     "opts": {
+      "kind": "nugget"
+     }
+    },
+    {
+     "id": "cos_soja2",
+     "name": "soyCostume",
+     "on": {
+      "actor": "soja2",
+      "joint": "head",
+      "offset": [
+       0,
+       0.3,
+       0
+      ]
+     },
+     "opts": {
+      "kind": "nugget"
+     }
+    },
+    {
+     "id": "cos_soja3",
+     "name": "soyCostume",
+     "on": {
+      "actor": "soja3",
+      "joint": "head",
+      "offset": [
+       0,
+       0.3,
+       0
+      ]
+     },
+     "opts": {
+      "kind": "nugget"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      0.95,
+      0.75
+     ],
+     "to": [
+      0.22,
+      0.95,
+      0.55
+     ],
+     "lookAt": [
+      0,
+      0.66,
+      -2.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.67,
+      -2.1
+     ]
+    }
+   ],
+   "start": 24.1,
+   "duration": 1.5333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      -1.3,
+      0,
+      -2.2
+     ],
+     "ry": 90,
+     "clip": "carryBox",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.0,
+        0,
+        -2.2
+       ],
+       "dur": 1.5,
+       "clip": "carryBox"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "box",
+     "name": "cardboardBox",
+     "on": {
+      "actor": "soja",
+      "hand": "R"
+     },
+     "scale": 0.45
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      0.2,
+      2.3,
+      -3.94
+     ],
+     "scale": 1.1,
+     "opts": {
+      "rate": 5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.45,
+      1.2,
+      1.2
+     ],
+     "to": [
+      0.35,
+      1.2,
+      1.1
+     ],
+     "lookAt": [
+      -0.6,
+      1.1,
+      -2.5
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.6,
+      1.1,
+      -2.5
+     ]
+    }
+   ],
+   "start": 25.6333,
+   "duration": 1.5,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "farm",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0.15,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "pour",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "vache",
+     "pos": [
+      -1.25,
+      0,
+      -1.6
+     ],
+     "ry": 75,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "vache2",
+     "pos": [
+      -0.55,
+      0,
+      -2.6
+     ],
+     "ry": 60,
+     "clip": "idle",
+     "keys": []
+    }
+   ],
+   "props": [
+    {
+     "id": "jug",
+     "name": "milkCarton",
+     "on": {
+      "actor": "soja",
+      "hand": "R"
+     },
+     "scale": 1.4
+    },
+    {
+     "id": "m0",
+     "name": "milkCarton",
+     "pos": [
+      0.52,
+      0,
+      -1.12
+     ],
+     "scale": 1.2
+    },
+    {
+     "id": "m1",
+     "name": "milkCarton",
+     "pos": [
+      0.68,
+      0,
+      -1.12
+     ],
+     "scale": 1.2
+    },
+    {
+     "id": "m2",
+     "name": "milkCarton",
+     "pos": [
+      0.8400000000000001,
+      0,
+      -1.12
+     ],
+     "scale": 1.2
+    },
+    {
+     "id": "m3",
+     "name": "milkCarton",
+     "pos": [
+      0.52,
+      0,
+      -0.9400000000000002
+     ],
+     "scale": 1.2
+    },
+    {
+     "id": "m4",
+     "name": "milkCarton",
+     "pos": [
+      0.68,
+      0,
+      -0.9400000000000002
+     ],
+     "scale": 1.2
+    },
+    {
+     "id": "m5",
+     "name": "milkCarton",
+     "pos": [
+      0.8400000000000001,
+      0,
+      -0.9400000000000002
+     ],
+     "scale": 1.2
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.95,
+      1.15,
+      3.3
+     ],
+     "to": [
+      0.9,
+      1.18,
+      3.0
+     ],
+     "lookAt": [
+      0.0,
+      0.8,
+      -1.4
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.82,
+      -1.4
+     ]
+    }
+   ],
+   "start": 27.1333,
+   "duration": 1.2334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "beach",
+   "lines": [],
+   "actors": [
+    {
+     "id": "vache",
+     "pos": [
+      -0.7,
+      0,
+      -1.5
+     ],
+     "ry": 25,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "vache2",
+     "pos": [
+      0.85,
+      0,
+      -1.9
+     ],
+     "ry": -25,
+     "clip": "idle",
+     "keys": []
+    }
+   ],
+   "props": [
+    {
+     "id": "para1",
+     "name": "parasol",
+     "pos": [
+      -1.15,
+      0,
+      -2.25
+     ],
+     "opts": {
+      "openAt": 0
+     }
+    },
+    {
+     "id": "para2",
+     "name": "parasol",
+     "pos": [
+      1.35,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "openAt": 0,
+      "colors": [
+       "#2F62B5",
+       "#F6F1E3"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.0,
+      3.3
+     ],
+     "to": [
+      0.28,
+      1.02,
+      3.0
+     ],
+     "lookAt": [
+      0.05,
+      0.95,
+      -1.8
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.97,
+      -1.8
+     ]
+    }
+   ],
+   "start": 28.3667,
+   "duration": 2.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S20",
+   "set": "replicaCourt",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      -0.35,
+      -0.3,
+      -14.0
+     ],
+     "ry": -35,
+     "clip": "gavelStrikeL",
+     "keys": [],
+     "params": {
+      "hit": 0.42
+     }
+    }
+   ],
+   "props": [
+    {
+     "id": "specs",
+     "name": "glasses",
+     "on": {
+      "actor": "juge",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "gavelUp",
+     "name": "gavel",
+     "on": {
+      "actor": "juge",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.4,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "gavel",
+     "name": "gavel",
+     "pos": [
+      -0.37,
+      1.41,
+      -13.3
+     ],
+     "rot": [
+      0,
+      0,
+      -1.5708
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.4,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "block",
+     "name": "soundBlock",
+     "pos": [
+      0.1,
+      1.18,
+      -13.3
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.1,
+      1.29,
+      -11.8
+     ],
+     "to": [
+      -0.12,
+      1.3,
+      -12.05
+     ],
+     "lookAt": [
+      -0.27,
+      1.55,
+      -14.0
+     ],
+     "lens": 45,
+     "ease": "linear",
+     "lookAt2": [
+      -0.27,
+      1.55,
+      -14.0
+     ]
+    }
+   ],
+   "start": 30.6667,
+   "duration": 1.4,
+   "setOpts": {
+    "handle": "TRIBUNAL",
+    "windowX": -1.5,
+    "chairW": 1.2,
+    "chairH": 2.75,
+    "chairX": 0.15,
+    "benchGlow": "#5A564A"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.42,
+     "dur": 0.18,
+     "amount": 0.018
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S21",
+   "set": "courtroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0,
+      0,
+      0.8
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      0.75,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.35,
+      -2.3
+     ],
+     "to": [
+      0.38,
+      1.35,
+      -2.05
+     ],
+     "lookAt": [
+      0.3,
+      1.05,
+      0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.06,
+      0.9
+     ]
+    }
+   ],
+   "start": 32.0667,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S22",
+   "set": "courtroom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "t",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 2.0,
+      "d": 0.6
+     }
+    },
+    {
+     "id": "ev0",
+     "name": "soyCostume",
+     "pos": [
+      -0.72,
+      0.94,
+      0.0
+     ],
+     "scale": 0.42,
+     "opts": {
+      "kind": "steak"
+     }
+    },
+    {
+     "id": "ev1",
+     "name": "soyCostume",
+     "pos": [
+      -0.24,
+      0.94,
+      0.0
+     ],
+     "scale": 0.42,
+     "opts": {
+      "kind": "milk"
+     }
+    },
+    {
+     "id": "ev2",
+     "name": "soyCostume",
+     "pos": [
+      0.24,
+      0.94,
+      0.0
+     ],
+     "scale": 0.42,
+     "opts": {
+      "kind": "cheese"
+     }
+    },
+    {
+     "id": "ev3",
+     "name": "soyCostume",
+     "pos": [
+      0.72,
+      0.94,
+      0.0
+     ],
+     "scale": 0.42,
+     "opts": {
+      "kind": "nugget"
+     }
+    },
+    {
+     "id": "tag0",
+     "name": "noticeBoard",
+     "pos": [
+      -0.72,
+      0.84,
+      0.32
+     ],
+     "opts": {
+      "text": "PIÈCE N° 1",
+      "style": "tag",
+      "w": 0.26,
+      "h": 0.07
+     }
+    },
+    {
+     "id": "tag1",
+     "name": "noticeBoard",
+     "pos": [
+      -0.24,
+      0.84,
+      0.32
+     ],
+     "opts": {
+      "text": "PIÈCE N° 2",
+      "style": "tag",
+      "w": 0.26,
+      "h": 0.07
+     }
+    },
+    {
+     "id": "tag2",
+     "name": "noticeBoard",
+     "pos": [
+      0.24,
+      0.84,
+      0.32
+     ],
+     "opts": {
+      "text": "PIÈCE N° 3",
+      "style": "tag",
+      "w": 0.26,
+      "h": 0.07
+     }
+    },
+    {
+     "id": "tag3",
+     "name": "noticeBoard",
+     "pos": [
+      0.72,
+      0.84,
+      0.32
+     ],
+     "opts": {
+      "text": "PIÈCE N° 4",
+      "style": "tag",
+      "w": 0.26,
+      "h": 0.07
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.55,
+      1.2,
+      1.55
+     ],
+     "to": [
+      0.55,
+      1.2,
+      1.55
+     ],
+     "lookAt": [
+      -0.45,
+      0.98,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      0.45,
+      0.98,
+      0.0
+     ]
+    }
+   ],
+   "start": 33.4667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S23",
+   "set": "brightCell",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0,
+      0,
+      0.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      0.95,
+      3.4
+     ],
+     "to": [
+      0.22,
+      0.95,
+      3.15
+     ],
+     "lookAt": [
+      0,
+      0.72,
+      0.95
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.72,
+      0.95
+     ]
+    }
+   ],
+   "start": 35.1667,
+   "duration": 1.2333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S24",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.1,
+      0,
+      0.2
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      -0.48,
+      0,
+      0.0
+     ],
+     "ry": 40,
+     "clip": "cuffOther",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs_mec",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      3.0
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.7
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0.2
+     ]
+    }
+   ],
+   "start": 36.4,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S25",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "phone",
+     "name": "phone911",
+     "pos": [
+      0,
+      1.12,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0.06
+     ],
+     "scale": 3.0,
+     "opts": {
+      "text": "17",
+      "sub": "POLICE"
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "abusif",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.45,
+      0.12
+     ],
+     "opts": {
+      "text": "APPEL ABUSIF",
+      "style": "sign",
+      "w": 0.62,
+      "h": 0.17,
+      "fg": "#C8322A",
+      "frame": "#C8322A",
+      "popAt": 0.126,
+      "tilt": -0.18
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.02,
+      1.52,
+      1.62
+     ],
+     "to": [
+      0.02,
+      1.52,
+      1.45
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      0
+     ]
+    }
+   ],
+   "start": 38.1667,
+   "duration": 1.1666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S26",
+   "set": "proKitchen",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mecP",
+     "pos": [
+      -0.5,
+      0,
+      -0.05
+     ],
+     "ry": 55,
+     "clip": "holdOut",
+     "keys": [
+      {
+       "at": 0.35,
+       "expr": "shocked"
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "soja",
+     "pos": [
+      0.3,
+      0.32,
+      -1.3
+     ],
+     "ry": -40,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "menuwall",
+     "name": "noticeBoard",
+     "pos": [
+      -1.6,
+      1.7,
+      -3.15
+     ],
+     "opts": {
+      "text": "CANTINE",
+      "style": "sign",
+      "w": 0.9,
+      "h": 0.25,
+      "bg": "#2F4A3A",
+      "fg": "#F4F4F0",
+      "frame": "#8A5A34"
+     }
+    },
+    {
+     "id": "tray",
+     "name": "canteenTray",
+     "on": {
+      "actor": "mecP",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "toque",
+     "name": "chefHat",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.6,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.62,
+      1.62,
+      2.95
+     ],
+     "to": [
+      0.6,
+      1.62,
+      2.75
+     ],
+     "lookAt": [
+      -0.15,
+      1.35,
+      -0.6
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      -0.15,
+      1.35,
+      -0.6
+     ]
+    }
+   ],
+   "start": 39.3333,
+   "duration": 2.0334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S27",
+   "set": "proKitchen",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soja",
+     "pos": [
+      0.3,
+      0.32,
+      -1.35
+     ],
+     "ry": 0,
+     "clip": "present",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "toque",
+     "name": "chefHat",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.6,
+       0
+      ]
+     }
+    },
+    {
+     "id": "ladle",
+     "name": "spoon",
+     "on": {
+      "actor": "soja",
+      "hand": "L"
+     },
+     "scale": 2.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.42,
+      1.38,
+      0.35
+     ],
+     "to": [
+      0.4,
+      1.38,
+      0.18
+     ],
+     "lookAt": [
+      0.3,
+      1.22,
+      -1.35
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.22,
+      -1.35
+     ]
+    }
+   ],
+   "start": 41.3667,
+   "duration": 1.2333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S28",
+   "set": "proKitchen",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "board",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.55,
+      0
+     ],
+     "opts": {
+      "text": " ",
+      "style": "sign",
+      "w": 0.9,
+      "h": 1.25,
+      "bg": "#2F4A3A",
+      "frame": "#8A5A34"
+     }
+    },
+    {
+     "id": "title",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      2.02,
+      0.03
+     ],
+     "opts": {
+      "text": "MENU",
+      "style": "tag",
+      "w": 0.5,
+      "h": 0.15,
+      "bg": "#2F4A3A",
+      "fg": "#F4F4F0",
+      "frame": "#2F4A3A"
+     }
+    },
+    {
+     "id": "it0",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.76,
+      0.03
+     ],
+     "opts": {
+      "text": "STEAK",
+      "style": "tag",
+      "w": 0.6,
+      "h": 0.15,
+      "bg": "#2F4A3A",
+      "fg": "#F4F4F0",
+      "frame": "#2F4A3A",
+      "popAt": 0.839
+     }
+    },
+    {
+     "id": "it1",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.54,
+      0.03
+     ],
+     "opts": {
+      "text": "LAIT",
+      "style": "tag",
+      "w": 0.6,
+      "h": 0.15,
+      "bg": "#2F4A3A",
+      "fg": "#F4F4F0",
+      "frame": "#2F4A3A",
+      "popAt": 1.334
+     }
+    },
+    {
+     "id": "it2",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.32,
+      0.03
+     ],
+     "opts": {
+      "text": "FROMAGE",
+      "style": "tag",
+      "w": 0.6,
+      "h": 0.15,
+      "bg": "#2F4A3A",
+      "fg": "#F4F4F0",
+      "frame": "#2F4A3A",
+      "popAt": 1.944
+     }
+    },
+    {
+     "id": "soy100",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.08,
+      0.03
+     ],
+     "opts": {
+      "text": "(100 % SOJA)",
+      "style": "tag",
+      "w": 0.56,
+      "h": 0.11,
+      "bg": "#2F4A3A",
+      "fg": "#F2C94C",
+      "frame": "#2F4A3A",
+      "popAt": 2.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.03,
+      1.56,
+      2.45
+     ],
+     "to": [
+      0.03,
+      1.56,
+      2.3
+     ],
+     "lookAt": [
+      0,
+      1.55,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.55,
+      0
+     ]
+    }
+   ],
+   "start": 42.6,
+   "duration": 2.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S29",
+   "set": "proKitchen",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mecP",
+     "pos": [
+      -0.5,
+      0,
+      -0.05
+     ],
+     "ry": 60,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "soja",
+     "pos": [
+      0.3,
+      0.32,
+      -1.3
+     ],
+     "ry": -45,
+     "clip": "present",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "menuwall",
+     "name": "noticeBoard",
+     "pos": [
+      -1.6,
+      1.7,
+      -3.15
+     ],
+     "opts": {
+      "text": "CANTINE",
+      "style": "sign",
+      "w": 0.9,
+      "h": 0.25,
+      "bg": "#2F4A3A",
+      "fg": "#F4F4F0",
+      "frame": "#8A5A34"
+     }
+    },
+    {
+     "id": "tray",
+     "name": "canteenTray",
+     "on": {
+      "actor": "mecP",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
+      ]
+     },
+     "opts": {
+      "extra": true
+     }
+    },
+    {
+     "id": "toque",
+     "name": "chefHat",
+     "on": {
+      "actor": "soja",
+      "joint": "head",
+      "offset": [
+       0,
+       0.6,
+       0
+      ]
+     }
+    },
+    {
+     "id": "ladle",
+     "name": "spoon",
+     "on": {
+      "actor": "soja",
+      "hand": "L"
+     },
+     "scale": 2.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.66,
+      1.62,
+      3.0
+     ],
+     "to": [
+      0.62,
+      1.62,
+      2.75
+     ],
+     "lookAt": [
+      -0.15,
+      1.33,
+      -0.6
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      -0.15,
+      1.35,
+      -0.6
+     ]
+    }
+   ],
+   "start": 45.3667,
+   "duration": 2.1633,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 47.53
+}

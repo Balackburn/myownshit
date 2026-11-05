@@ -964,6 +964,20 @@ const SPECIES = {
     }
     R.plan = 'blob'; R.loco = 'glide'; R.height = 1.45;
   },
+  soja(R, o) { // a living soybean (the "Le burger vegan" short): one big faceted bean is the body and the face, thin arms and legs,
+    // the dark hilum on its side; biped rig, so human clips and the walk cycle work; attach costumes to the 'head' joint (the bean)
+    const c = col(o, { body: '#E6C878', hilum: '#5A4630', limb: '#CFAE60', foot: '#8C6B3C', mouth: '#4A3220' });
+    R.ol = 0.012;
+    bipedBody(R, { leg: 0.16, legW: 0.05, footH: 0.04, footLen: 0.12, tw: 0.3, th: 0.1, td: 0.2, taper: 1, armW: 0.045, armU: 0.18, armF: 0.17, hand: 'mitten',
+      noTorso: true, noPelvis: true, shY: 2.6, shX: 0.28, colors: { body: c.body, arm: c.limb, leg: c.limb, hand: c.limb, foot: c.foot } });
+    const bean = R.joint('head', R.J.torso, 0, 0, 0);
+    R.a(bean, facet(0.3, 0.35, 0.26, c.body, { seed: 61, jit: 0.035, detail: 2 }), [0, 0.3, 0]);
+    R.a(bean, facet(0.014, 0.085, 0.04, c.hilum, { seed: 62, detail: 1 }), [0.288, 0.3, 0.03], [0, 0, 0.12], false);   // hilum
+    addEyes(R, bean, { x: 0.095, y: 0.42, z: 0.215, r: 0.072, lid: c.body });
+    const jaw = R.joint('jaw', bean, 0, 0.27, 0.25); R.a(jaw, facet(0.055, 0.022, 0.02, c.mouth, { detail: 0 }), null, null, false);
+    R.mouthScale = true;
+    R.height = 1.05;
+  },
   snowman(R, o) {
     const c = col(o, { body: '#F6F4EE', coal: '#1A1B20', carrot: '#E07A2E', hat: '#17181B', band: P.red, scarf: P.red, stick: P.woodDark });
     R.ol = 0.012;
