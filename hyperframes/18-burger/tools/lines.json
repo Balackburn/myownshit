@@ -1,0 +1,226 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a appelé la police à cause d'un burger.",
+  "hl": [
+   "mec",
+   "police",
+   "burger."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il le trouvait délicieux.",
+  "hl": [
+   "délicieux."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Jusqu'à ce que le serveur lui dise qu'il était vegan.",
+  "hl": [
+   "serveur",
+   "vegan."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il a pété un câble.",
+  "hl": [
+   "pété",
+   "câble."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Pour lui, c'était de l'usurpation d'identité.",
+  "hl": [
+   "usurpation",
+   "d'identité."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La police a arrêté le burger.",
+  "hl": [
+   "police",
+   "burger."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Direction le laboratoire.",
+  "hl": [
+   "laboratoire."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Verdict : c'était du soja.",
+  "hl": [
+   "Verdict",
+   "soja."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Et le soja avait tout un réseau.",
+  "hl": [
+   "soja",
+   "réseau."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Entré en France sans étiquette.",
+  "hl": [
+   "France",
+   "étiquette."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il se faisait passer pour du steak.",
+  "hl": [
+   "passer",
+   "steak."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Pour du lait.",
+  "hl": [
+   "lait."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Pour du fromage.",
+  "hl": [
+   "fromage."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Et même pour des nuggets.",
+  "hl": [
+   "nuggets."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il travaillait jour et nuit…",
+  "hl": [
+   "jour",
+   "nuit…"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "… à la place des vaches.",
+  "hl": [
+   "vaches."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Les vaches, elles, étaient en vacances.",
+  "hl": [
+   "vaches,",
+   "vacances."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le soja a été condamné pour travail illégal…",
+  "hl": [
+   "condamné",
+   "travail",
+   "illégal…"
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "… et usurpation d'identité.",
+  "hl": [
+   "usurpation",
+   "d'identité."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Dix ans de prison.",
+  "hl": [
+   "Dix",
+   "prison."
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "Le mec, lui, a pris six mois pour appel abusif.",
+  "hl": [
+   "six",
+   "mois",
+   "abusif."
+  ]
+ },
+ {
+  "id": "L22",
+  "who": "N",
+  "text": "En prison, il a retrouvé le soja.",
+  "hl": [
+   "prison,",
+   "soja."
+  ]
+ },
+ {
+  "id": "L23",
+  "who": "N",
+  "text": "Chef de la cantine.",
+  "hl": [
+   "Chef",
+   "cantine."
+  ]
+ },
+ {
+  "id": "L24",
+  "who": "N",
+  "text": "Au menu : steak, lait, fromage.",
+  "hl": [
+   "steak,",
+   "lait,",
+   "fromage."
+  ]
+ },
+ {
+  "id": "L25",
+  "who": "N",
+  "text": "Il a repris deux fois.",
+  "hl": [
+   "repris",
+   "deux",
+   "fois."
+  ]
+ }
+]
