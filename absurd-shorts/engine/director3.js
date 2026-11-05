@@ -795,16 +795,24 @@ export function renderFrame(tAbs) {
   let si = S.script.scenes.findIndex(sc => t >= sc.start && t < sc.start + sc.duration); if (si < 0) si = S.script.scenes.length - 1;
   if (si !== S.scene) setupScene(si);
   const sc = S.sc, lt = t - sc.start;
-  evalAll(lt);
-  lightCycle(lt);
-  placeCamera(lt);
-  for (const o of S.follow || []) o.position.copy(S.stage.camera.position);
   const { renderer, scene, camera } = S.stage;
-  renderer.render(scene, camera);
   const g = S.ctx;
-  const frozen = frozenNow(lt);
-  g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
-  g.drawImage(renderer.domElement, 0, 0, S.W, S.H); g.filter = 'none';
+  // camera/subject motion blur: sc.blur = shutter seconds, or [[t0, t1, shutter], ...] windows in scene time; K sub-frames averaged
+  let shutter = 0; if (typeof sc.blur === 'number') shutter = sc.blur; else if (Array.isArray(sc.blur)) for (const [a, b, sh] of sc.blur) if (lt >= a && lt < b) shutter = sh;
+  const K = shutter > 0 ? (sc.blurSamples || 5) : 1;
+  for (let k = 0; k < K; k++) {
+    const tk = K > 1 ? Math.max(0, lt - shutter * (K - 1 - k) / (K - 1)) : lt;
+    evalAll(tk);
+    lightCycle(tk);
+    placeCamera(tk);
+    for (const o of S.follow || []) o.position.copy(camera.position);
+    renderer.render(scene, camera);
+    const frozen = frozenNow(tk);
+    g.globalAlpha = 1 / (k + 1);
+    g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
+    g.drawImage(renderer.domElement, 0, 0, S.W, S.H);
+  }
+  g.globalAlpha = 1; g.filter = 'none';
   drawFX(g, lt);
   drawCaption(g, t);
   return si;

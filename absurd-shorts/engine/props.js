@@ -610,8 +610,12 @@ const B = {
       const noz = cyl(0.56, 0.5, 1.1, dark, 12, {}); noz.rotation.x = PI / 2; noz.position.set(s * 0.6, Y, -6.85); g.add(noz);
       const inner = cyl(0.4, 0.4, 0.05, '#1A1412', 12, {}); inner.rotation.x = PI / 2; inner.position.set(s * 0.6, Y, -7.42); g.add(inner);
       const ring = mesh(new THREE.TorusGeometry(0.48, 0.08, 4, 14), mat('#E8642A', { emissive: '#E8541A', noGrain: true })); ring.position.set(s * 0.6, Y, -7.42); g.add(ring);
-      const bu = o.burner ?? 1, flame = cyl(0.36, 0.06, 2.6 * bu, '#FFE6A0', 10, { emissive: '#FFC060', transparent: true, opacity: 0.9, noGrain: true });
+      for (let k = 0; k < 14; k++) { const a = k / 14 * TAU, pt = box(0.2, 0.05, 1.05, '#3A3E44'); pt.position.set(s * 0.6 + Math.cos(a) * 0.55, Y + Math.sin(a) * 0.55, -6.85); pt.rotation.z = a + PI / 2; g.add(pt);
+        const seam = box(0.03, 0.055, 1.0, '#FF7A22', { emissive: '#FF6A12', noGrain: true }); seam.position.set(s * 0.6 + Math.cos(a + PI / 14) * 0.555, Y + Math.sin(a + PI / 14) * 0.555, -6.85); seam.rotation.z = a + PI / 14 + PI / 2; g.add(seam); }
+      const bu = o.burner ?? 1, flame = cyl(0.36, 0.06, 2.6 * bu, '#FFE9A8', 10, { emissive: '#FFB84A', transparent: true, opacity: 0.92, noGrain: true });
       flame.rotation.x = -PI / 2; flame.position.set(s * 0.6, Y, -7.45 - 1.3 * bu); flame.visible = bu > 0; flame.castShadow = false; g.add(flame);
+      const outer = cyl(0.5, 0.12, 3.2 * bu, '#FF9A3A', 12, { emissive: '#FF7A1A', transparent: true, opacity: 0.55, noGrain: true });
+      outer.rotation.x = -PI / 2; outer.position.set(s * 0.6, Y, -7.45 - 1.6 * bu); outer.visible = bu > 0.5; outer.castShadow = false; outer.material.depthWrite = false; g.add(outer);
       // star roundel on the wing
       const star = canvasPlane(1.7, 1.7, (c, W, H) => { c.fillStyle = '#1F3A6E'; c.beginPath(); c.arc(W / 2, H / 2, H * 0.46, 0, Math.PI * 2); c.fill();
         c.fillStyle = '#FFFFFF'; c.beginPath(); for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, r = k % 2 ? H * 0.16 : H * 0.4; c.lineTo(W / 2 + Math.cos(a) * r, H / 2 + Math.sin(a) * r); } c.fill(); }, { res: 128, transparent: true });
@@ -623,6 +627,8 @@ const B = {
     });
     const side = canvasPlane(2.6, 0.45, (c, W, H) => { c.fillStyle = '#2A2F36'; c.font = `bold ${H * 0.55}px Arial`; c.textAlign = 'center'; c.fillText('U.S. AIR FORCE', W / 2, H * 0.68); }, { res: 256, transparent: true });
     side.rotation.y = PI / 2; side.position.set(1.14, Y + 0.05, -2.6); g.add(side);
+    const side2 = side.clone(); side2.rotation.y = -PI / 2; side2.position.set(-1.14, Y + 0.05, -2.6); g.add(side2);
+    [-1, 1].forEach(sd => { const st = box(0.02, 0.1, 1.4, '#E8902A'); st.position.set(sd * 1.15, Y - 0.25, -0.6); g.add(st); });
     if (o.glow) [-1, 1].forEach(s => { const a = glowSprite(o.glowColor || '#FF9A3C', o.glow, 0.95), b = glowSprite('#FFF1C8', o.glow * 0.45, 1); a.position.set(s * 0.6, Y, -7.6); b.position.set(s * 0.6, Y, -7.5); g.add(a, b); });
     if (o.gear) [[-1.5, 0.6, -1.5], [1.5, 0.6, -1.5], [0, 0.6, 6.0]].forEach(([x, y, z]) => g.add(at(cyl(0.32, 0.32, 0.26, '#1A1A1E', 10), x, 0.32, z, 0, 0, Math.PI / 2), at(box(0.12, Y - 0.6, 0.12, dark), x, Y / 2, z)));
     return g;

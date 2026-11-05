@@ -66,7 +66,7 @@ scenes.append(scene(1, 'S1', 'replicaStreet', setOpts={'near': 'cottage', 'z0': 
                k(1.24, to=[-0.85, 1.0, WALK1 + 0.6], dur=0.07, ease='out'),
                k(1.31, to=[-8.5, 7.0, 26.0], dur=0.2, ease='linear')]),
            P('tornado', 'tornado', pos=[-8.5, 0, 28], scale=1.9, opts=TOR)],
-    cams=s1cams))
+    cams=s1cams, blur=[[0.3, 1.1, 0.04], [1.26, 1.5, 0.03]]))
 
 # S2 1.90-3.43: close tracking shot of the dog spinning in the tornado wall, mouth open
 scenes.append(scene(2, 'S2', 'replicaStreet',
@@ -88,20 +88,21 @@ scenes.append(scene(4, 'S4', 'replicaStreet',
            P('tornado', 'tornado', pos=[20, 0, -150], scale=3.0, opts=TOR)],
     cams=[cam(0.0, [-12.0, 2.43, 0.9], [-11.97, 2.44, 0.89], [-11.96, 2.17, -0.07], [-11.94, 2.18, -0.07], lens=74)]))
 
-# S5 6.53-7.03: extreme close-up of a nozzle firing (afterburner), runway beyond
-scenes.append(scene(5, 'S5', 'runway',
-    props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.0, 'gear': True})],
-    cams=[cam(0.0, [2.2, 1.6, -7.4], [2.1, 1.6, -7.2], [0.1, 1.45, -6.6], [0.1, 1.45, -6.5], lens=50)]))
+# S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
+# blasting frame-left over the runway, the tail fins above
+scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.5, 'glow': 3.2, 'gear': True})],
+    cams=[cam(0.0, [-4.2, 1.45, -5.6], [-4.15, 1.46, -5.7], [-0.6, 1.55, -7.9], [-0.6, 1.55, -7.95], lens=50)], blur=0.02))
 
-# S6 7.03-7.63: fast dolly along the fuselage from the burning exhausts to the nose wheel (U.S. AIR FORCE, roundel)
-scenes.append(scene(6, 'S6', 'runway',
-    props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.0, 'gear': True})],
-    cams=[cam(0.0, [2.6, 2.6, -5.5], [2.4, 2.2, 6.5], [0.3, 1.5, -3.0], [0.0, 0.7, 8.0], lens=55)]))
+# S6 7.03-7.63: fast dolly above the jet's left side from the wing and its roundel (U.S. AIR FORCE on the fuselage) to the canopy and the
+# nose wheel, the runway beyond (motion blur)
+scenes.append(scene(6, 'S6', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.0, 'glow': 4, 'gear': True})],
+    cams=[cam(0.0, [4.6, 4.4, -5.2], [3.0, 1.8, 4.0], [1.0, 1.5, -1.6], [0.2, 0.7, 6.4], lens=50, ease='inOut')], blur=0.025))
 
-# S7 7.63-8.10: wide runway, the jet takes off toward the camera and passes over it
+# S7 7.63-8.10: wide runway, the jet lifts off far away (dust behind it) and roars over the camera banking up-right (whip, motion blur)
 scenes.append(scene(7, 'S7', 'runway',
-    props=[P('jet', 'fighterJet', pos=[0, 0, -60], opts={'burner': 1.0, 'gear': True}, keys=[k(0.0, to=[0, 2.0, -18], dur=0.3, ease='in'), k(0.3, to=[0, 7.0, 6], dur=0.17, ease='linear')])],
-    cams=[cam(0.0, [0, 1.4, 8], [0, 1.4, 8], [0, 1.6, -40], [0, 5.0, -5], lens=40)]))
+    props=[P('jet', 'fighterJet', pos=[0, 0.2, -60], rot=[0, 0, 0.35], opts={'burner': 1.0, 'glow': 5, 'gear': True, 'missiles': 4}, keys=[k(0.0, to=[0, 2.0, -18], dur=0.3, ease='in'), k(0.3, to=[1.5, 7.0, 6], dur=0.17, ease='linear')]),
+           P('dust', 'dustPuff', pos=[0, 0, -66], scale=6, opts={'color': '#D9C9A6', 'period': 0.8})],
+    cams=[cam(0.0, [0, 1.4, 8], [0, 1.4, 8], [0, 1.6, -40], [0.6, 5.0, -5], lens=40)], blur=[[0.3, 0.47, 0.05]]))
 
 def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
     """a scene between two reference frames (for shots split at an invisible cut, e.g. inside the S8 cloud white-out)"""
@@ -127,7 +128,7 @@ scenes.append(scene_f('S8a', 243, 254, 'skyHigh', props=[
     P('jet', 'fighterJet', pos=J0, rot=[0.9, 2.93, 0.18], opts={'burner': 1.0, 'glow': 4.5, 'missiles': 4}, keys=[k(0.0, to=J1, dur=0.27, ease='in')]),
     P('trail', 'missileSalvo', opts={'size': 3.0, 'trail': 1.0, 'trailWidth': 0.3, 'shots': [{'from': mv(J0, 18, -3, -14), 'to': J1, 't0': -0.03, 'dur': 0.3, 'body': False, 'hide': False, 'lin': True}]})],
     cams=[cam(0.0, [0, -150, 20], [0, -140, 8], [2, -146, -62], [18, -6, -120], lens=55, ease='in')],
-    setOpts={'w': 300, 'd': 300, 'n': 150, 'h': 26, 'cz': -40, 'fog': False, 'sky': ['#5CABDF', '#7DC3E9']}))
+    setOpts={'w': 300, 'd': 300, 'n': 150, 'h': 26, 'cz': -40, 'fog': False, 'sky': ['#5CABDF', '#7DC3E9']}, blur=0.03))
 
 # S8b 8.47-10.43: white-out (the camera dives through a cloud), then the strike seen from above-behind. Camera solved from the reference
 # (solve_cam: rim/base screen rows, rim width, house size; tornado scale 9): altitude 236 -> 160 m, 242 -> 121 m from the tornado, pitch
@@ -259,7 +260,7 @@ scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
 scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE},
     actors=[act('judge', [0, -0.15, -14.0], 0, 'gavelStrikeL', params={'hit': 0.4})],
     props=[P('gavel', 'gavel', on={'actor': 'judge', 'hand': 'L'}), P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
-    cams=[cam(0.0, [0.55, 1.32, -11.75], [0.5, 1.33, -12.0], [0.3, 1.62, -14.0], [0.3, 1.62, -14.0], lens=45)],
+    cams=[cam(0.0, [0.5, 1.27, -11.55], [0.46, 1.28, -11.8], [0.42, 1.55, -14.0], [0.42, 1.55, -14.0], lens=45)],
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.12, 'amount': 0.006}]))
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine
@@ -330,7 +331,7 @@ for sc_ in scenes:
         if 'rot' in p_ and 'ry' not in p_:
             p_['ry'] = round(math.degrees(p_['rot'][1]), 3)
 
-doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
+doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'grade': 'contrast(0.9) saturate(1.0) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
        'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
                  'judge': {'preset': 'judge', 'facial': 'stubble', 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
                  'cop': {'preset': 'cop', 'suit': '#1E2D4A', 'pants': '#1E2D4A', 'facial': 'none', 'build': {'width': 0.82, 'headWidth': 1.3}}}, 'scenes': scenes, 'total': CUTS[-1] / FPS}

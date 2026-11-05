@@ -285,8 +285,8 @@ const S = {
   },
   runway(o = {}) { // airbase runway along Z: concrete strip with white centre dashes and edge lines, grass, distant hills, hazy sky
     const g = grp(), r = rng(o.seed || 11);
-    sky(g, ['#7DB7DE', '#E3EEF0']); clouds(g, 8, 6);
-    g.add(ground('#9DBB7A'), flat(46, 400, '#CFC7B6', 0, 0.004, 0), flat(46.5, 400, '#BFB7A5', 0, 0.002, 0));
+    sky(g, o.sky || ['#5EADE0', '#A7D4EC']); clouds(g, 8, 6);
+    g.add(ground('#9DBB7A'), flat(46, 400, o.concrete || '#BEBEB9', 0, 0.004, 0), flat(46.5, 400, '#B0B0AA', 0, 0.002, 0));
     const dash = []; for (let z = -190; z <= 190; z += 12) dash.push([0, 0.008, z]);
     g.add(inst(new THREE.BoxGeometry(0.6, 0.01, 6), mat('#F4F1E8'), dash), at(box(0.4, 0.01, 400, '#F4F1E8'), -21, 0.007, 0), at(box(0.4, 0.01, 400, '#F4F1E8'), 21, 0.007, 0));
     const hc = ['#9DB48A', '#8FA87E', '#A9BC96'];
