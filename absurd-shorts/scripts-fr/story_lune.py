@@ -12,17 +12,17 @@ MOON = lambda: [P('ground', 'moonSurface', pos=[0, 0, 0], opts={'r': 40}), P('ea
 US = {'colors': ['#B22234', '#F4F4F0', '#3C3B6E']}
 def doc(text, pop=0.15, stamp=None, w=0.8, h=1.0, size=0.42):
     return P('doc', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': text, 'style': 'doc', 'w': w, 'h': h, 'popAt': pop, 'textSize': size, **({'stamp': stamp} if stamp else {})})
-DOCCAM = [cam(0.0, [0.05, 1.55, 1.75], [0.05, 1.55, 1.55], [0, 1.5, 0], [0, 1.5, 0], lens=42)]
+DOCCAM = [cam(0.0, [0.05, 1.55, 2.15], [0.05, 1.55, 1.95], [0, 1.5, 0], [0, 1.5, 0], lens=42)]
 
 st.shot('S01', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'clipboard', 'smug')], cams=MS(0, 0, h=1.45, d=2.6))
 st.shot('S02', 'spaceDark', props=[P('moon', 'moon', pos=[0, 0, 0], opts={'radius': 3}), P('house', 'cottage', pos=[0, 5.85, 0], scale=0.25, opts={'w': 6, 'd': 6, 'h': 2.6, 'rh': 1.6, 'color': '#F2D06B', 'roof': '#C9473A'}),
                                    P('sign', 'noticeBoard', pos=[1.2, 6.6, 0.8], opts={'text': 'RÉSIDENCE\nSECONDAIRE', 'style': 'sign', 'w': 1.2, 'h': 0.5, 'popAt': 0.3})],
         cams=[cam(0.0, [0.5, 4.8, 13.5], [0.4, 4.9, 12.0], [0, 5.0, 0], [0, 5.2, 0], lens=40)])
-st.shot('S03', 'office', props=[doc('DÉCLARATION\nRÉSIDENCE SECONDAIRE :\nLA LUNE', pop=None), P('ok', 'noticeBoard', pos=[0.1, 1.3, 0.03], opts={'text': 'ACCEPTÉ', 'style': 'sign', 'w': 0.5, 'h': 0.16, 'fg': '#2F7F4F', 'frame': '#2F7F4F', 'popAt': 0.35, 'tilt': 0.15})], cams=DOCCAM)
+st.shot('S03', 'office', props=[doc('DÉCLARATION\nRÉSIDENCE SECONDAIRE :\nLA LUNE', pop=None), P('ok', 'noticeBoard', pos=[0.05, 1.3, 0.03], opts={'text': 'ACCEPTÉ', 'style': 'sign', 'w': 0.5, 'h': 0.16, 'fg': '#2F7F4F', 'frame': '#2F7F4F', 'popAt': 0.35, 'tilt': 0.15})], cams=DOCCAM)
 st.shot('S04', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'holdOut', 'shocked')], props=[P('tax', 'noticeBoard', pos=[0.05, 1.4, 0.45], opts={'text': 'TAXE FONCIÈRE\nLA LUNE', 'style': 'doc', 'w': 0.55, 'h': 0.7, 'popAt': 0.1, 'textSize': 0.4})],
         cams=MS(0, 0, h=1.5, d=2.4))
-st.shot('S05', 'office', props=[P('sum', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': '38 000 000 000 €', 'style': 'sign', 'w': 0.85, 'h': 0.3, 'fg': '#C8322A', 'frame': '#C8322A', 'popAt': 0.1})],
-        cams=[cam(0.0, [0.0, 1.5, 1.6], [0.0, 1.5, 1.35], [0, 1.5, 0], [0, 1.5, 0], lens=42, shake=0.02)])
+st.shot('S05', 'office', props=[P('sum', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': '38 000 000 000 €', 'style': 'sign', 'w': 0.62, 'h': 0.24, 'fg': '#C8322A', 'frame': '#C8322A', 'popAt': 0.1})],
+        cams=[cam(0.0, [0.0, 1.5, 1.95], [0.0, 1.5, 1.72], [0, 1.5, 0], [0, 1.5, 0], lens=42, shake=0.02)])
 st.shot('S06', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'angryFist', 'angry')], cams=MS(0, 0, h=1.45, d=2.6, shake=0.015))
 st.shot('S07', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'point', 'angry', keys=st.talk('L06', 'S07', 'angry'))], cams=CU(0, 0))
 st.shot('S08', 'office', actors=[act('inspecteur', [0.3, 0, 1.5], 180, 'walk', 'suspicious', keys=[k(0.0, to=[0.3, 0, -0.3], dur=st.dur('S08'), clip='walk')])],

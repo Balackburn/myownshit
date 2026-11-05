@@ -42,3 +42,9 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
   `{'flag': [...]}` for another country, and split the backdrop words with `|` (`'VENTE|AUX ENCHÈRES'`) or they overlap.
 - **The beach was under water.** `seaSurface` ran its waves under the sand up to z = shore + 10; the sea now ends at the foam line.
 - **`JUDGE()` is built for the judge.** Re-cast as someone else (an auctioneer) it read as two faces; stage a new shot instead.
+- **Documents wider than the frame.** A 0.8 m document filmed from 1.55-1.75 m (lens 42) is wider than the 9:16 frame
+  (width = 2 · d · tan 12.2° ≈ 0.43 · d): once its text filled the board, the words ran off both edges. Keep the camera at
+  d ≥ (board width + 0.1) / 0.43, about 1.9-2.1 m for a 0.8 m document, at the END of the push-in.
+- **One bad shot does not need a full re-render.** Render that shot's frames with `--stills` (t = n / 30), splice them into
+  the 3D layer with ffmpeg `trim` + `concat`, check the frame count and that the frames outside the shot are unchanged, then re-run
+  only the HyperFrames render (about 3 min instead of 20).
