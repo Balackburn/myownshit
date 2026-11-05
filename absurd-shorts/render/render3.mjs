@@ -25,9 +25,10 @@ const work = path.join(ROOT, 'out', 'work', name); fs.mkdirSync(work, { recursiv
 const outFile = path.resolve(flag('out', path.join(ROOT, 'out', name + (preview ? '_preview' : '') + '.mp4')));
 const py = (...a) => { const r = spawnSync('python3', a, { stdio: 'inherit' }); if (r.status) process.exit(r.status); };
 
-// 1) voice + real word timings
-py(path.join(ROOT, 'tools/audio3.py'), 'tts', path.resolve(scriptPath), work);
-const timedPath = path.join(work, 'script.timed.json');
+// 1) voice + real word timings (--timed: the JSON already carries scene start/duration, e.g. a replica cut on a reference; no TTS, silent video)
+const timedMode = !!flag('timed', false);
+if (!timedMode) py(path.join(ROOT, 'tools/audio3.py'), 'tts', path.resolve(scriptPath), work);
+const timedPath = timedMode ? path.resolve(scriptPath) : path.join(work, 'script.timed.json');
 const timed = JSON.parse(fs.readFileSync(timedPath, 'utf8'));
 
 const srv = await startServer();
@@ -93,6 +94,7 @@ const list = path.join(work, 'segs.txt'); fs.writeFileSync(list, segs.filter(Boo
 const silent = path.join(work, 'video.mp4');
 spawnSync('ffmpeg', ['-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', list, '-c', 'copy', silent], { stdio: 'inherit' });
 
+if (timedMode) { fs.copyFileSync(silent, outFile); console.log('wrote', outFile, '(silent, timed)'); process.exit(0); }
 // 4) audio mix (voice + synced SFX + ambience + music stems), mux at -14 LUFS, SRT + script next to the video
 py(path.join(ROOT, 'tools/audio3.py'), 'mix', timedPath, path.join(work, 'events.json'), work);
 spawnSync('ffmpeg', ['-y', '-v', 'error', '-i', silent, '-i', path.join(work, 'mix.wav'), '-c:v', 'copy', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=7', '-ar', '44100', '-c:a', 'aac', '-b:a', '192k', '-shortest', outFile], { stdio: 'inherit' });

@@ -1,0 +1,1493 @@
+{
+ "version": 3,
+ "title": "Replica: man lost his dog in a tornado",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S1",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0,
+        0,
+        -2.4
+       ],
+       "glide": true,
+       "dur": 1.13,
+       "clip": "walk",
+       "then": "point",
+       "face": "keep"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "dog",
+     "name": "voxelDog",
+     "pos": [
+      -0.6,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      3.1416,
+      0
+     ],
+     "scale": 1.25,
+     "opts": {
+      "walk": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.6,
+        0,
+        -2.9
+       ],
+       "dur": 1.13,
+       "ease": "linear"
+      },
+      {
+       "at": 1.2,
+       "to": [
+        -0.4,
+        1.8,
+        -2.2
+       ],
+       "dur": 0.25,
+       "ease": "in"
+      },
+      {
+       "at": 1.45,
+       "to": [
+        -12.0,
+        7.5,
+        22.0
+       ],
+       "dur": 0.45,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -14,
+      0,
+      26
+     ],
+     "scale": 3.5,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      0.6,
+      2.2
+     ],
+     "to": [
+      2.4,
+      0.9,
+      -1.1
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 72,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.3,
+      -1.1
+     ]
+    },
+    {
+     "at": 0.533,
+     "from": [
+      2.4,
+      0.9,
+      -1.1
+     ],
+     "to": [
+      0.6,
+      1.0,
+      -5.0
+     ],
+     "lookAt": [
+      0,
+      1.3,
+      -1.1
+     ],
+     "lens": 72,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      -2.4
+     ]
+    },
+    {
+     "at": 1.133,
+     "from": [
+      0.6,
+      1.0,
+      -5.0
+     ],
+     "to": [
+      0.7,
+      1.05,
+      -4.8
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      -2.4
+     ],
+     "lens": 72,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.8,
+      -2.4
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.9
+  },
+  {
+   "id": "S2",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      0,
+      0,
+      -4.2
+     ],
+     "scale": 5.2,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 10,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    },
+    {
+     "id": "dog",
+     "name": "voxelDog",
+     "pos": [
+      -0.6,
+      6.2,
+      0
+     ],
+     "rot": [
+      0.17,
+      0.6,
+      0.26
+     ],
+     "scale": 1.25,
+     "opts": {
+      "tongue": true,
+      "paddle": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.1,
+        6.4,
+        -0.3
+       ],
+       "dur": 1.53,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.6,
+      6.5,
+      3.9
+     ],
+     "to": [
+      0.0,
+      6.6,
+      3.6
+     ],
+     "lookAt": [
+      -0.35,
+      6.3,
+      0
+     ],
+     "lens": 55,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      6.45,
+      -0.2
+     ]
+    }
+   ],
+   "start": 1.9,
+   "duration": 1.533333
+  },
+  {
+   "id": "S3",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.2,
+      0,
+      0
+     ],
+     "ry": 45,
+     "clip": "explain",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      0.92,
+      0.3
+     ],
+     "to": [
+      0.2,
+      0.92,
+      0.3
+     ],
+     "lookAt": [
+      -1.5,
+      2.25,
+      -0.25
+     ],
+     "lens": 74,
+     "ease": "linear"
+    }
+   ],
+   "start": 3.433333,
+   "duration": 1.066667
+  },
+  {
+   "id": "S4",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -12.0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "phoneCallL",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -7,
+      0,
+      -62
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -11.95,
+      1.68,
+      1.35
+     ],
+     "to": [
+      -11.98,
+      1.7,
+      1.28
+     ],
+     "lookAt": [
+      -11.58,
+      1.84,
+      0
+     ],
+     "lens": 74,
+     "ease": "linear"
+    }
+   ],
+   "start": 4.5,
+   "duration": 2.033333
+  },
+  {
+   "id": "S5",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "jet",
+     "name": "fighterJet",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "burner": 1.0,
+      "gear": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.2,
+      1.6,
+      -7.4
+     ],
+     "to": [
+      2.1,
+      1.6,
+      -7.2
+     ],
+     "lookAt": [
+      0.1,
+      1.45,
+      -6.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.45,
+      -6.5
+     ]
+    }
+   ],
+   "start": 6.533333,
+   "duration": 0.5
+  },
+  {
+   "id": "S6",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "jet",
+     "name": "fighterJet",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "burner": 1.0,
+      "gear": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.6,
+      2.6,
+      -5.5
+     ],
+     "to": [
+      2.4,
+      2.2,
+      6.5
+     ],
+     "lookAt": [
+      0.3,
+      1.5,
+      -3.0
+     ],
+     "lens": 55,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.7,
+      8.0
+     ]
+    }
+   ],
+   "start": 7.033333,
+   "duration": 0.6
+  },
+  {
+   "id": "S7",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "jet",
+     "name": "fighterJet",
+     "pos": [
+      0,
+      0,
+      -60
+     ],
+     "opts": {
+      "burner": 1.0,
+      "gear": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0,
+        2.0,
+        -18
+       ],
+       "dur": 0.3,
+       "ease": "in"
+      },
+      {
+       "at": 0.3,
+       "to": [
+        0,
+        7.0,
+        6
+       ],
+       "dur": 0.17,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.4,
+      8
+     ],
+     "to": [
+      0,
+      1.4,
+      8
+     ],
+     "lookAt": [
+      0,
+      1.6,
+      -40
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      5.0,
+      -5
+     ]
+    }
+   ],
+   "start": 7.633333,
+   "duration": 0.466667
+  },
+  {
+   "id": "S8",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 8.1,
+   "duration": 2.333333
+  },
+  {
+   "id": "S9",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 10.433333,
+   "duration": 0.733333
+  },
+  {
+   "id": "S10",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 11.166667,
+   "duration": 1.7
+  },
+  {
+   "id": "S11",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 12.866667,
+   "duration": 1.5
+  },
+  {
+   "id": "S12",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 14.366667,
+   "duration": 1.733333
+  },
+  {
+   "id": "S13",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 16.1,
+   "duration": 1.533333
+  },
+  {
+   "id": "S14",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 17.633333,
+   "duration": 1.833333
+  },
+  {
+   "id": "S15",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 19.466667,
+   "duration": 0.766667
+  },
+  {
+   "id": "S16",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 20.233333,
+   "duration": 1.366667
+  },
+  {
+   "id": "S17",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 21.6,
+   "duration": 0.733333
+  },
+  {
+   "id": "S18",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 22.333333,
+   "duration": 1.233333
+  },
+  {
+   "id": "S19",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 23.566667,
+   "duration": 0.566667
+  },
+  {
+   "id": "S20",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 24.133333,
+   "duration": 1.4
+  },
+  {
+   "id": "S21",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 25.533333,
+   "duration": 0.466667
+  },
+  {
+   "id": "S22",
+   "set": "replicaStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tornado",
+     "name": "tornado",
+     "pos": [
+      -6,
+      0,
+      -30
+     ],
+     "scale": 3.0,
+     "opts": {
+      "rings": 22,
+      "height": 5.8,
+      "base": 0.3,
+      "top": 1.75,
+      "taper": 1.25,
+      "flare": 0.35,
+      "chips": 30,
+      "cols": [
+       "#7F8C7C",
+       "#9AA693",
+       "#6E7A6B",
+       "#B3BCA8",
+       "#879483"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.6,
+      8
+     ],
+     "to": [
+      0,
+      1.6,
+      8
+     ],
+     "lookAt": [
+      -6,
+      6,
+      -30
+     ],
+     "lens": 60,
+     "ease": "linear"
+    }
+   ],
+   "start": 26.0,
+   "duration": 2.8
+  }
+ ],
+ "total": 28.8
+}

@@ -111,7 +111,7 @@ export function buildHuman(spec = {}) {
   if (o.suit) { C.jacket = o.suit; if (C.pants && o.outfit === 'suit') C.pants = o.suit; }
   if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel; if (o.pants) C.pants = o.pants;
   C.hat = o.hatColor; C.hatStar = !!o.hatStar;
-  const B = { height: 1, width: 1, belly: 0, headScale: 1.1, ...(preset.build || {}), ...(spec.build || {}) };
+  const B = { height: 1, width: 1, belly: 0, headScale: 1.1, headWidth: 1, ...(preset.build || {}), ...(spec.build || {}) };   // headWidth: widens the head box only (the tornado reference head is W/H ~0.48)
   const H = B.height, Wd = B.width;
   // Painted-atlas mode: every part samples its zone of assets/lemec_atlas.webp
   const ATL = o.atlas === 'lemec' && !!atlasImage, ATLB = ATL && o.atlasBody !== false;
@@ -197,7 +197,7 @@ export function buildHuman(spec = {}) {
   neck.add(part('neck', 0.085, 0.15, 0.08, o.skin, { pivot: 'bottom' }));
   const head = joint('head', neck, 0, 0.1, 0); // short neck: ≈ 4–5 % of the height visible (measured)
   const hs = B.headScale;
-  const hw = 0.185 * hs, hh = 0.5 * hs, hd = 0.17 * hs; // MEASURED: head = 20–22 % of the height, W/H ≈ 0.37
+  const hw = 0.185 * hs * B.headWidth, hh = 0.5 * hs, hd = 0.17 * hs; // MEASURED: head = 20–22 % of the height, W/H ≈ 0.37 (V1/V2); the tornado reference ≈ 0.48
   const faceOpts = { skin: o.skin, hair: o.hair, hairColor: o.hairColor, facial: o.facial === 'cop' ? 'mustache' : o.facial, glasses: o.glasses, lipstick: o.lipstick, seed: o.seed, redNose: o.redNose, beardColor: o.beardColor };
   const headMats = ATL ? [
     new THREE.MeshLambertMaterial({ map: atlasSideTexture(false) }), new THREE.MeshLambertMaterial({ map: atlasSideTexture(true) }),

@@ -532,7 +532,7 @@ const B = {
   voxelDog(o) { // blocky tan dog of the reference short: cube head, black muzzle block, big white eyes with black pupils, red collar
     const tan = o.color || '#D9A15A', dark = new THREE.Color(tan).multiplyScalar(0.8).getStyle(), muzzle = o.muzzle || '#3A2A22';
     const g = grp(at(box(0.3, 0.26, 0.56, tan, { outline: 0.01 }), 0, 0.42, 0));                              // body
-    [[-0.1, 0.18], [0.1, 0.18], [-0.1, -0.18], [0.1, -0.18]].forEach(([x, z]) => g.add(at(box(0.09, 0.3, 0.09, tan, { pivot: 'bottom', outline: 0.01 }), x, 0, z), at(box(0.095, 0.05, 0.1, dark), x, 0.02, z + 0.005)));
+    [[-0.1, 0.18], [0.1, 0.18], [-0.1, -0.18], [0.1, -0.18]].forEach(([x, z]) => { const leg = grp(at(box(0.09, 0.3, 0.09, tan, { outline: 0.01 }), 0, -0.15, 0), at(box(0.095, 0.05, 0.1, dark), 0, -0.28, 0.005)); leg.position.set(x, 0.3, z); leg.userData.leg = true; g.add(leg); }); // legs hinge at the hip
     g.add(at(box(0.07, 0.24, 0.07, tan, { outline: 0.01 }), 0, 0.62, -0.27, -0.5, 0, 0));                     // tail, up
     const head = grp(box(0.34, 0.32, 0.32, tan, { outline: 0.01 }),
       at(box(0.2, 0.15, 0.14, muzzle, { outline: 0.01 }), 0, -0.07, 0.21),                                       // muzzle block
@@ -543,7 +543,42 @@ const B = {
     if (o.tongue) head.add(at(box(0.07, 0.02, 0.1, '#E05A6A'), 0, -0.15, 0.26, 0.4, 0, 0));
     head.position.set(0, 0.66, 0.3); g.add(head);
     g.add(at(box(0.32, 0.06, 0.06, P.red), 0, 0.53, 0.26, 0.3, 0, 0));                                            // collar
-    g.userData.head = head; return g;
+    g.userData.head = head;
+    const legs = g.children.filter(c => c.userData.leg);
+    if (o.walk || o.paddle) g.userData.update = t => {
+      const f = (o.walk ? 2.2 : 3.2) * Math.PI * 2;                       // trot, or frantic paddling in mid-air
+      legs.forEach((l, i) => { l.rotation.x = Math.sin(t * f + (i === 0 || i === 3 ? 0 : Math.PI)) * (o.walk ? 0.45 : 0.8); });
+      head.position.y = 0.66 + Math.abs(Math.sin(t * f)) * 0.02; head.rotation.x = Math.sin(t * f * 0.5) * 0.06;
+    };
+    return g;
+  },
+  fighterJet(o) { // grey twin-tail fighter facing +Z, ~17 m long: tapered fuselage, nose, canopy, wings, stabilisers, two nozzles; o.burner 0..1
+    const grey = o.color || '#8E959E', dark = '#5C626B', g = grp();
+    g.add(at(box(1.5, 1.2, 11, grey, { taper: { x: 0.75, z: 1 }, outline: 0.004 }), 0, 1.6, 0.5));                  // fuselage
+    g.add(at(cyl(0.02, 0.62, 3.6, grey, 8, {}), 0, 1.65, 7.8, Math.PI / 2, 0, 0));                                   // nose cone
+    g.add(at(sphere(0.55, '#2C3E50', 1), 0, 2.2, 4.6), at(box(0.9, 0.5, 2.4, '#3E5468', { taper: { x: 0.7, z: 0.5 } }), 0, 2.15, 4.0)); // canopy
+    const wing = (s) => { const w = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(5.2 * s, -2.2), new THREE.Vector2(5.2 * s, -3.4), new THREE.Vector2(0, -5.2)]), { depth: 0.14, bevelEnabled: false }), mat(grey));
+      w.rotation.x = -Math.PI / 2; w.position.set(0.6 * s, 1.45, 3.2); return w; };
+    g.add(wing(1), wing(-1));
+    [-1, 1].forEach(s => {
+      const tail = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(-2.6, 0), new THREE.Vector2(-3.6, 2.6), new THREE.Vector2(-2.4, 2.6)]), { depth: 0.12, bevelEnabled: false }), mat(grey));
+      tail.rotation.y = Math.PI / 2; tail.rotation.z = s * 0.35; tail.position.set(s * 1.0, 2.0, -2.4); g.add(tail);
+      const stab = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(2.6 * s, -1.0), new THREE.Vector2(2.6 * s, -2.0), new THREE.Vector2(0, -2.6)]), { depth: 0.1, bevelEnabled: false }), mat(grey));
+      stab.rotation.x = -Math.PI / 2; stab.position.set(0.6 * s, 1.4, -3.0); g.add(stab);
+      const noz = cyl(0.55, 0.45, 1.3, dark, 12, {}); noz.rotation.x = Math.PI / 2; noz.position.set(s * 0.48, 1.45, -5.6); g.add(noz);
+      const ring = cyl(0.42, 0.42, 0.06, '#E8742A', 12, { emissive: '#E8742A' }); ring.rotation.x = Math.PI / 2; ring.position.set(s * 0.48, 1.45, -6.22); g.add(ring);
+      const flame = cyl(0.42, 0.05, 3.8 * (o.burner ?? 1), '#FFD27A', 10, { emissive: '#FFB347', transparent: true, opacity: 0.85 });
+      flame.rotation.x = -Math.PI / 2; flame.position.set(s * 0.48, 1.45, -6.25 - 1.9 * (o.burner ?? 1)); flame.visible = (o.burner ?? 1) > 0; g.add(flame);
+      // star-and-bar roundel on each wing and the fuselage side
+      const star = canvasPlane(1.6, 0.8, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, H * 0.3, W, H * 0.4); c.fillStyle = '#1F3A6E'; c.beginPath(); c.arc(W / 2, H / 2, H * 0.48, 0, Math.PI * 2); c.fill();
+        c.fillStyle = '#FFFFFF'; c.beginPath(); for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, r = k % 2 ? H * 0.16 : H * 0.4; c.lineTo(W / 2 + Math.cos(a) * r, H / 2 + Math.sin(a) * r); } c.fill();
+        c.fillStyle = '#B5302A'; c.fillRect(0, H * 0.46, W * 0.25, H * 0.08); c.fillRect(W * 0.75, H * 0.46, W * 0.25, H * 0.08); }, { res: 256 });
+      star.rotation.x = -Math.PI / 2; star.position.set(s * 3.6, 1.6, 0.6); g.add(star);
+    });
+    const side = canvasPlane(2.4, 0.5, (c, W, H) => { c.fillStyle = '#2A2F36'; c.font = `bold ${H * 0.55}px Arial`; c.textAlign = 'center'; c.fillText('U.S. AIR FORCE', W / 2, H * 0.68); }, { res: 256 });
+    side.rotation.y = Math.PI / 2; side.position.set(0.72, 1.75, 1.8); g.add(side);
+    if (o.gear) [[-1.4, 0.6, 2.2], [1.4, 0.6, 2.2], [0, 0.6, 6.4]].forEach(([x, y, z]) => g.add(at(cyl(0.3, 0.3, 0.25, '#1A1A1E', 10), x, 0.3, z, 0, 0, Math.PI / 2), at(box(0.12, 0.9, 0.12, dark), x, 0.75, z)));
+    return g;
   },
   house(o) {
     const w = o.w || 4, d = o.d || 3.4, h = o.h || 2.5, dx = w * 0.15;

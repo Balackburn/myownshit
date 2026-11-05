@@ -1,0 +1,4 @@
+# HyperFrames working output: renders and diffs are regenerated each pass (passes/ keeps the side-by-side of each pass)
+*/renders/
+*/diff/
+*/.hyperframes/
