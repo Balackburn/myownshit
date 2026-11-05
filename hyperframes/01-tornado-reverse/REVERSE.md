@@ -57,6 +57,7 @@ not have, so this project is built by hand to the same rules.
 | 26 | 0.683 | 0.480 | S16 gavel and sound block placed in frame (the block sat 20° off-axis, the gavel inside the robe); S15 bigger, paler tornado, cuffs at the original's height; flared crown plates in every street shot (−0.003 per shot: too sparse, made dense in pass 27) |
 | 27 | 0.683 | 0.480 | S5 nozzle seen from behind-left with a glowing mouth; S9 jet shows its top, missiles leave at its speed and dive ahead; S17 restaged from the measured rows (camera up 23°, tall narrow tornado, turbine just behind, cuffs outside the body); dense double crown ring |
 | 28 | 0.683 | 0.480 | S17 tornado with thin pale stripes on every ring and a lighter body (no lean: the original stands nearly straight) |
+| 29 | 0.685 | 0.480 | S22 soft out-of-focus foreground grass (+0.013); S4 round open eyes (neutral face); smaller nozzle glows on the aerial jet |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20

@@ -1502,7 +1502,8 @@ const B = {
   tallGrass(o) { // a field of tall grass blades (o.w x o.d, o.h high): grow it with scale keys
     const w = o.w || 6, d = o.d || 6, h = o.h || 1, r = rng(o.seed || 9), n = o.count || 420, cols = o.cols || ['#5E9A4A', '#6FB05A', '#4E8A3E', '#7FBF5E'], g = grp();
     const geo = o.thin ? new THREE.ConeGeometry(o.thin, 1, 3) : new THREE.BoxGeometry(0.06, 1, 0.03); geo.translate(0, 0.5, 0);   // o.thin: tapered blades of that base radius
-    cols.forEach((c, ci) => { const m = new THREE.InstancedMesh(geo, mat(c), Math.ceil(n / 4)); const M = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler();
+    const gm = c => { if (!o.soft) return mat(c); const m_ = mat(c).clone(); m_.transparent = true; m_.opacity = o.soft; m_.depthWrite = false; return m_; };   // o.soft: out-of-focus foreground blades
+    cols.forEach((c, ci) => { const m = new THREE.InstancedMesh(geo, gm(c), Math.ceil(n / 4)); const M = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler();
       for (let i = 0; i < m.count; i++) { e.set((r() - 0.5) * 0.35, r() * TAU, (r() - 0.5) * 0.35); q.setFromEuler(e); M.compose(new THREE.Vector3((r() - 0.5) * w, 0, (r() - 0.5) * d), q, new THREE.Vector3(1 + r(), h * (0.7 + r() * 0.5), 1)); m.setMatrixAt(i, M); }
       m.castShadow = true; g.add(m); });
     return g; },

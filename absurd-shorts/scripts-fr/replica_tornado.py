@@ -86,7 +86,7 @@ scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
 # the right, the townhouses beyond the fence on the left, the tornado ~60 m down the road behind his head; at f151 he brings up the phone beside his face,
 # screen to the camera, showing the creator's handle
 scenes.append(scene(4, 'S4', 'replicaStreet',
-    actors=[act('mec4', [-12.0, 0, 0], -16, 'stand', 'suspicious', keys=[k(0.5, clip='showPhoneFaceL')])],
+    actors=[act('mec4', [-12.0, 0, 0], -16, 'stand', 'neutral', keys=[k(0.5, clip='showPhoneFaceL')])],   # round open eyes like the original
     props=[P('phone', 'phone911', pos=[-11.935, 1.3, 0.26], rot=[0, -0.3, -0.38], scale=0.92, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.935, 1.78, 0.26], dur=0.14, ease='out')]),
            P('tornado', 'tornado', pos=[1.5, 0, -75], scale=3.6, opts=TOR)],   # down the road, crown just right of his head (grid reads of f170)
     cams=[cam(0.0, [-12.07, 2.02, 0.8], [-12.04, 2.03, 0.79], [-12.03, 2.088, -0.07], [-12.01, 2.098, -0.07], lens=74)]))   # solved from the head rows (top 347, chin 790): at head height, 0.8 m, tilted up 4.3 deg
@@ -103,9 +103,12 @@ scenes.append(scene(6, 'S6', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 
 
 # S7 7.63-8.10: wide runway, the jet lifts off far away (dust behind it) and roars over the camera banking up-right (whip, motion blur)
 scenes.append(scene(7, 'S7', 'runway',
-    props=[P('jet', 'fighterJet', pos=[0, 0.2, -60], rot=[0, 0, 0.35], opts={'burner': 1.0, 'glow': 5, 'gear': True, 'missiles': 4}, keys=[k(0.0, to=[0, 2.0, -18], dur=0.3, ease='in'), k(0.3, to=[1.5, 7.0, 6], dur=0.17, ease='linear')]),
+    props=[P('jet', 'fighterJet', pos=[0, 0.2, -60], rot=[0, 0, 0.0], opts={'burner': 1.0, 'glow': 5, 'gear': True, 'missiles': 4}, keys=[k(0.0, to=[0, 2.0, -18], dur=0.3, ease='in'), k(0.3, to=[1.5, 7.0, 6], dur=0.17, ease='linear'),
+                                                                                                                           k(0.25, rotTo=[0, 0, 0.35], dur=0.2)]),   # wings level, banks as it passes over
            P('dust', 'dustPuff', pos=[0, 0, -66], scale=6, opts={'color': '#D9C9A6', 'period': 0.8})],
-    cams=[cam(0.0, [0, 1.4, 8], [0, 1.4, 8], [0, 1.6, -40], [0.6, 5.0, -5], lens=40)], blur=[[0.3, 0.47, 0.05]]))
+    cams=[cam(0.0, [0, 1.4, 8], [0, 1.4, 8], [0, 2.5, -40], [0, 3.4, -40], lens=40),          # horizon y 523 -> 543 (measured), nearly still until f234
+          cam(0.17, [0, 1.4, 8], [0, 1.4, 8], [0, 3.4, -40], [0.6, 60.0, -5], lens=40, ease='in')],   # then a fast whip up: all sky by f240
+    blur=[[0.3, 0.47, 0.05]]))
 
 def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
     """a scene between two reference frames (for shots split at an invisible cut, e.g. inside the S8 cloud white-out)"""
@@ -118,7 +121,7 @@ TORA = {**TOR, 'height': 8.6, 'base': 0.3, 'top': 1.45, 'taper': 1.0, 'crownFlar
                    'color': '#99A49C', 'rockColor': '#A9B4AC'},
         'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 3.4, 'ribbonY0': 0.95, 'ribbonDY': 0.1,
         'dust': 0.8, 'chips': 40, 'stripe': '#8E8A78', 'stripeDark': '#4A554E'}   # the aerial look (S8b, S10): long striped body, a rock crater on top
-JETA = {'burner': 0.45, 'glow': 3.4, 'glowColor': '#FF6A22', 'missiles': 4}
+JETA = {'burner': 0.45, 'glow': 2.3, 'glowColor': '#FF6A22', 'missiles': 4}   # smaller nozzle glow, like the original
 V = 55.0                                                               # strike speed (m/s) of the jet + chase camera
 
 
@@ -410,7 +413,7 @@ scenes.append(scene(22, 'S22', 'grassland', props=[
     P('cuffs', 'bigCuffs', pos=[-34.5, 19.5, -146.5], opts={'r': 1.0}),
     P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 900, 'seed': 12, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
     P('grassL', 'tallGrass', pos=[-2.05, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.55, 'count': 260, 'seed': 14, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}), P('grassR', 'tallGrass', pos=[2.15, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.55, 'count': 260, 'seed': 15, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
-    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 120, 'seed': 13, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']})],
+    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 90, 'seed': 13, 'thin': 0.045, 'soft': 0.55, 'cols': ['#9ED27C', '#B2DC8C', '#8CC86A', '#C0E29A']})],   # out-of-focus foreground
     cams=[cam(0.0, [0.1, 0.72, 0.25], [0.08, 0.74, -0.55], [0, 0.42, -3.5], [0, 0.43, -3.5], lens=50)]))
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.

@@ -684,7 +684,7 @@
        "clip": "showPhoneFaceL"
       }
      ],
-     "expr": "suspicious"
+     "expr": "neutral"
     }
    ],
    "props": [
@@ -928,7 +928,7 @@
      "rot": [
       0,
       0,
-      0.35
+      0.0
      ],
      "opts": {
       "burner": 1.0,
@@ -956,6 +956,15 @@
        ],
        "dur": 0.17,
        "ease": "linear"
+      },
+      {
+       "at": 0.25,
+       "rotTo": [
+        0,
+        0,
+        0.35
+       ],
+       "dur": 0.2
       }
      ],
      "ry": 0.0
@@ -991,14 +1000,39 @@
      ],
      "lookAt": [
       0,
-      1.6,
+      2.5,
       -40
      ],
      "lens": 40,
      "ease": "linear",
      "lookAt2": [
+      0,
+      3.4,
+      -40
+     ]
+    },
+    {
+     "at": 0.17,
+     "from": [
+      0,
+      1.4,
+      8
+     ],
+     "to": [
+      0,
+      1.4,
+      8
+     ],
+     "lookAt": [
+      0,
+      3.4,
+      -40
+     ],
+     "lens": 40,
+     "ease": "in",
+     "lookAt2": [
       0.6,
-      5.0,
+      60.0,
       -5
      ]
     }
@@ -1459,7 +1493,7 @@
      ],
      "opts": {
       "burner": 0.45,
-      "glow": 3.4,
+      "glow": 2.3,
       "glowColor": "#FF6A22",
       "missiles": 4
      },
@@ -1847,7 +1881,7 @@
      ],
      "opts": {
       "burner": 1.0,
-      "glow": 3.4,
+      "glow": 2.3,
       "glowColor": "#FF6A22",
       "missiles": 4
      },
@@ -8832,14 +8866,15 @@
       "w": 3.4,
       "d": 0.5,
       "h": 0.32,
-      "count": 120,
+      "count": 90,
       "seed": 13,
-      "thin": 0.022,
+      "thin": 0.045,
+      "soft": 0.55,
       "cols": [
+       "#9ED27C",
+       "#B2DC8C",
        "#8CC86A",
-       "#A3D47A",
-       "#7BB85C",
-       "#B2DC88"
+       "#C0E29A"
       ]
      }
     }
