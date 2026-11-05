@@ -1,0 +1,1134 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec est parti se baigner.",
+   "hl": [
+    "mec",
+    "baigner."
+   ],
+   "file": "tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.409,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.245
+    },
+    {
+     "w": "mec",
+     "s": 0.282,
+     "e": 0.464
+    },
+    {
+     "w": "est",
+     "s": 0.5,
+     "e": 0.536
+    },
+    {
+     "w": "parti",
+     "s": 0.645,
+     "e": 0.791
+    },
+    {
+     "w": "se",
+     "s": 0.827,
+     "e": 0.9
+    },
+    {
+     "w": "baigner.",
+     "s": 0.973,
+     "e": 1.409
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il savait pas nager.",
+   "hl": [
+    "nager."
+   ],
+   "file": "tts/L02.k.wav",
+   "file_start": 1.509,
+   "speech_start": 1.509,
+   "speech_end": 2.6,
+   "words": [
+    {
+     "w": "Il",
+     "s": 1.509,
+     "e": 1.582
+    },
+    {
+     "w": "savait",
+     "s": 1.655,
+     "e": 1.873
+    },
+    {
+     "w": "pas",
+     "s": 1.945,
+     "e": 2.018
+    },
+    {
+     "w": "nager.",
+     "s": 2.055,
+     "e": 2.6
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il s'en est souvenu au beau milieu de l'océan.",
+   "hl": [
+    "souvenu",
+    "l'océan."
+   ],
+   "file": "tts/L03.k.wav",
+   "file_start": 2.7,
+   "speech_start": 2.7,
+   "speech_end": 4.664,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.7,
+     "e": 2.773
+    },
+    {
+     "w": "s'en",
+     "s": 2.845,
+     "e": 2.918
+    },
+    {
+     "w": "est",
+     "s": 2.991,
+     "e": 3.064
+    },
+    {
+     "w": "souvenu",
+     "s": 3.112,
+     "e": 3.391
+    },
+    {
+     "w": "au",
+     "s": 3.427,
+     "e": 3.573
+    },
+    {
+     "w": "beau",
+     "s": 3.597,
+     "e": 3.645
+    },
+    {
+     "w": "milieu",
+     "s": 3.718,
+     "e": 3.936
+    },
+    {
+     "w": "de",
+     "s": 3.961,
+     "e": 3.985
+    },
+    {
+     "w": "l'océan.",
+     "s": 4.009,
+     "e": 4.664
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il s'est noyé.",
+   "hl": [
+    "noyé."
+   ],
+   "file": "tts/L04.k.wav",
+   "file_start": 4.764,
+   "speech_start": 4.764,
+   "speech_end": 5.709,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.764,
+     "e": 4.836
+    },
+    {
+     "w": "s'est",
+     "s": 4.909,
+     "e": 5.055
+    },
+    {
+     "w": "noyé.",
+     "s": 5.127,
+     "e": 5.709
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Au fond, il respirait.",
+   "hl": [
+    "respirait."
+   ],
+   "file": "tts/L05.k.wav",
+   "file_start": 5.809,
+   "speech_start": 5.809,
+   "speech_end": 7.336,
+   "words": [
+    {
+     "w": "Au",
+     "s": 5.809,
+     "e": 5.882
+    },
+    {
+     "w": "fond,",
+     "s": 5.955,
+     "e": 6.391
+    },
+    {
+     "w": "il",
+     "s": 6.464,
+     "e": 6.536
+    },
+    {
+     "w": "respirait.",
+     "s": 6.645,
+     "e": 7.336
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Du coup, il s'est fait des potes poissons.",
+   "hl": [
+    "potes",
+    "poissons."
+   ],
+   "file": "tts/L06.k.wav",
+   "file_start": 7.436,
+   "speech_start": 7.436,
+   "speech_end": 9.4,
+   "words": [
+    {
+     "w": "Du",
+     "s": 7.436,
+     "e": 7.509
+    },
+    {
+     "w": "coup,",
+     "s": 7.582,
+     "e": 8.018
+    },
+    {
+     "w": "il",
+     "s": 8.091,
+     "e": 8.164
+    },
+    {
+     "w": "s'est",
+     "s": 8.2,
+     "e": 8.309
+    },
+    {
+     "w": "fait",
+     "s": 8.382,
+     "e": 8.455
+    },
+    {
+     "w": "des",
+     "s": 8.491,
+     "e": 8.527
+    },
+    {
+     "w": "potes",
+     "s": 8.6,
+     "e": 8.745
+    },
+    {
+     "w": "poissons.",
+     "s": 8.782,
+     "e": 9.4
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Trois bulles : bonjour.",
+   "hl": [
+    "bulles",
+    "bonjour."
+   ],
+   "file": "tts/L07.k.wav",
+   "file_start": 9.48,
+   "speech_start": 9.48,
+   "speech_end": 11.007,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 9.48,
+     "e": 9.625
+    },
+    {
+     "w": "bulles",
+     "s": 9.698,
+     "e": 9.916
+    },
+    {
+     "w": ":",
+     "s": 10.28,
+     "e": 10.353
+    },
+    {
+     "w": "bonjour.",
+     "s": 10.425,
+     "e": 11.007
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Quatre : ta gueule.",
+   "hl": [
+    "Quatre",
+    "gueule."
+   ],
+   "file": "tts/L08.k.wav",
+   "file_start": 11.127,
+   "speech_start": 11.127,
+   "speech_end": 12.436,
+   "words": [
+    {
+     "w": "Quatre",
+     "s": 11.127,
+     "e": 11.418
+    },
+    {
+     "w": ":",
+     "s": 11.709,
+     "e": 11.757
+    },
+    {
+     "w": "ta",
+     "s": 11.806,
+     "e": 11.855
+    },
+    {
+     "w": "gueule.",
+     "s": 11.927,
+     "e": 12.436
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a inventé le feu sous l'eau.",
+   "hl": [
+    "feu",
+    "l'eau."
+   ],
+   "file": "tts/L09.k.wav",
+   "file_start": 12.536,
+   "speech_start": 12.536,
+   "speech_end": 14.209,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.536,
+     "e": 12.609
+    },
+    {
+     "w": "a",
+     "s": 12.682,
+     "e": 12.718
+    },
+    {
+     "w": "inventé",
+     "s": 12.755,
+     "e": 13.082
+    },
+    {
+     "w": "le",
+     "s": 13.118,
+     "e": 13.264
+    },
+    {
+     "w": "feu",
+     "s": 13.336,
+     "e": 13.482
+    },
+    {
+     "w": "sous",
+     "s": 13.555,
+     "e": 13.627
+    },
+    {
+     "w": "l'eau.",
+     "s": 13.7,
+     "e": 14.209
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Premier barbecue : incident diplomatique.",
+   "hl": [
+    "barbecue",
+    "incident",
+    "diplomatique."
+   ],
+   "file": "tts/L10.k.wav",
+   "file_start": 14.309,
+   "speech_start": 14.309,
+   "speech_end": 16.636,
+   "words": [
+    {
+     "w": "Premier",
+     "s": 14.309,
+     "e": 14.527
+    },
+    {
+     "w": "barbecue",
+     "s": 14.6,
+     "e": 15.109
+    },
+    {
+     "w": ":",
+     "s": 15.327,
+     "e": 15.473
+    },
+    {
+     "w": "incident",
+     "s": 15.618,
+     "e": 15.764
+    },
+    {
+     "w": "diplomatique.",
+     "s": 15.836,
+     "e": 16.636
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Un poisson l'a éteint.",
+   "hl": [
+    "poisson",
+    "éteint."
+   ],
+   "file": "tts/L11.k.wav",
+   "file_start": 16.736,
+   "speech_start": 16.736,
+   "speech_end": 17.9,
+   "words": [
+    {
+     "w": "Un",
+     "s": 16.736,
+     "e": 16.809
+    },
+    {
+     "w": "poisson",
+     "s": 16.882,
+     "e": 17.173
+    },
+    {
+     "w": "l'a",
+     "s": 17.245,
+     "e": 17.318
+    },
+    {
+     "w": "éteint.",
+     "s": 17.391,
+     "e": 17.9
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Ils ont planté des algues, inventé la roue.",
+   "hl": [
+    "algues,",
+    "roue."
+   ],
+   "file": "tts/L12.k.wav",
+   "file_start": 18.0,
+   "speech_start": 18.0,
+   "speech_end": 20.255,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 18.0,
+     "e": 18.145
+    },
+    {
+     "w": "ont",
+     "s": 18.218,
+     "e": 18.291
+    },
+    {
+     "w": "planté",
+     "s": 18.4,
+     "e": 18.582
+    },
+    {
+     "w": "des",
+     "s": 18.655,
+     "e": 18.727
+    },
+    {
+     "w": "algues,",
+     "s": 18.8,
+     "e": 19.309
+    },
+    {
+     "w": "inventé",
+     "s": 19.382,
+     "e": 19.673
+    },
+    {
+     "w": "la",
+     "s": 19.709,
+     "e": 19.745
+    },
+    {
+     "w": "roue.",
+     "s": 19.818,
+     "e": 20.255
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Puis les embouteillages.",
+   "hl": [
+    "embouteillages."
+   ],
+   "file": "tts/L13.k.wav",
+   "file_start": 20.355,
+   "speech_start": 20.355,
+   "speech_end": 21.591,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 20.355,
+     "e": 20.5
+    },
+    {
+     "w": "les",
+     "s": 20.573,
+     "e": 20.718
+    },
+    {
+     "w": "embouteillages.",
+     "s": 20.791,
+     "e": 21.591
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Construire leur putain de ville lui a pris un an.",
+   "hl": [
+    "putain",
+    "ville",
+    "an."
+   ],
+   "file": "tts/L14.k.wav",
+   "file_start": 21.691,
+   "speech_start": 21.691,
+   "speech_end": 23.945,
+   "words": [
+    {
+     "w": "Construire",
+     "s": 21.691,
+     "e": 22.055
+    },
+    {
+     "w": "leur",
+     "s": 22.164,
+     "e": 22.273
+    },
+    {
+     "w": "putain",
+     "s": 22.382,
+     "e": 22.564
+    },
+    {
+     "w": "de",
+     "s": 22.6,
+     "e": 22.636
+    },
+    {
+     "w": "ville",
+     "s": 22.709,
+     "e": 22.855
+    },
+    {
+     "w": "lui",
+     "s": 22.891,
+     "e": 22.964
+    },
+    {
+     "w": "a",
+     "s": 23.0,
+     "e": 23.073
+    },
+    {
+     "w": "pris",
+     "s": 23.109,
+     "e": 23.291
+    },
+    {
+     "w": "un",
+     "s": 23.364,
+     "e": 23.436
+    },
+    {
+     "w": "an.",
+     "s": 23.509,
+     "e": 23.945
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le courant défaisait les murs chaque soir.",
+   "hl": [
+    "courant",
+    "murs"
+   ],
+   "file": "tts/L15.k.wav",
+   "file_start": 24.045,
+   "speech_start": 24.045,
+   "speech_end": 26.082,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.045,
+     "e": 24.191
+    },
+    {
+     "w": "courant",
+     "s": 24.3,
+     "e": 24.482
+    },
+    {
+     "w": "défaisait",
+     "s": 24.555,
+     "e": 24.845
+    },
+    {
+     "w": "les",
+     "s": 24.918,
+     "e": 24.991
+    },
+    {
+     "w": "murs",
+     "s": 25.027,
+     "e": 25.282
+    },
+    {
+     "w": "chaque",
+     "s": 25.355,
+     "e": 25.5
+    },
+    {
+     "w": "soir.",
+     "s": 25.573,
+     "e": 26.082
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il a branché une anguille.",
+   "hl": [
+    "branché",
+    "anguille."
+   ],
+   "file": "tts/L16.k.wav",
+   "file_start": 26.182,
+   "speech_start": 26.182,
+   "speech_end": 27.491,
+   "words": [
+    {
+     "w": "Il",
+     "s": 26.182,
+     "e": 26.255
+    },
+    {
+     "w": "a",
+     "s": 26.291,
+     "e": 26.327
+    },
+    {
+     "w": "branché",
+     "s": 26.473,
+     "e": 26.691
+    },
+    {
+     "w": "une",
+     "s": 26.727,
+     "e": 26.764
+    },
+    {
+     "w": "anguille.",
+     "s": 26.836,
+     "e": 27.491
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Électricité.",
+   "hl": [
+    "Électricité."
+   ],
+   "file": "tts/L17.k.wav",
+   "file_start": 27.571,
+   "speech_start": 27.571,
+   "speech_end": 28.444,
+   "words": [
+    {
+     "w": "Électricité.",
+     "s": 27.571,
+     "e": 28.444
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "En dix minutes, ils avaient des gratte-ciel, des robots et la 6G.",
+   "hl": [
+    "gratte-ciel,",
+    "robots",
+    "6G."
+   ],
+   "file": "tts/L18.k.wav",
+   "file_start": 28.544,
+   "speech_start": 28.544,
+   "speech_end": 32.035,
+   "words": [
+    {
+     "w": "En",
+     "s": 28.544,
+     "e": 28.689
+    },
+    {
+     "w": "dix",
+     "s": 28.725,
+     "e": 28.798
+    },
+    {
+     "w": "minutes,",
+     "s": 28.835,
+     "e": 29.344
+    },
+    {
+     "w": "ils",
+     "s": 29.416,
+     "e": 29.489
+    },
+    {
+     "w": "avaient",
+     "s": 29.562,
+     "e": 29.671
+    },
+    {
+     "w": "des",
+     "s": 29.707,
+     "e": 29.78
+    },
+    {
+     "w": "gratte-ciel,",
+     "s": 29.816,
+     "e": 30.507
+    },
+    {
+     "w": "des",
+     "s": 30.544,
+     "e": 30.58
+    },
+    {
+     "w": "robots",
+     "s": 30.653,
+     "e": 31.089
+    },
+    {
+     "w": "et",
+     "s": 31.162,
+     "e": 31.235
+    },
+    {
+     "w": "la",
+     "s": 31.307,
+     "e": 31.38
+    },
+    {
+     "w": "6G.",
+     "s": 31.489,
+     "e": 32.035
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Enfin du réseau.",
+   "hl": [
+    "réseau."
+   ],
+   "file": "tts/L19.k.wav",
+   "file_start": 32.135,
+   "speech_start": 32.135,
+   "speech_end": 33.371,
+   "words": [
+    {
+     "w": "Enfin",
+     "s": 32.135,
+     "e": 32.425
+    },
+    {
+     "w": "du",
+     "s": 32.644,
+     "e": 32.789
+    },
+    {
+     "w": "réseau.",
+     "s": 32.862,
+     "e": 33.371
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Il a appelé les flics.",
+   "hl": [
+    "flics."
+   ],
+   "file": "tts/L20.k.wav",
+   "file_start": 33.471,
+   "speech_start": 33.471,
+   "speech_end": 34.635,
+   "words": [
+    {
+     "w": "Il",
+     "s": 33.471,
+     "e": 33.544
+    },
+    {
+     "w": "a",
+     "s": 33.616,
+     "e": 33.665
+    },
+    {
+     "w": "appelé",
+     "s": 33.714,
+     "e": 33.871
+    },
+    {
+     "w": "les",
+     "s": 33.907,
+     "e": 33.98
+    },
+    {
+     "w": "flics.",
+     "s": 34.053,
+     "e": 34.635
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "C",
+   "text": "« L'océan a essayé de me tuer ! »",
+   "hl": [
+    "L'océan",
+    "tuer"
+   ],
+   "file": "tts/L21.k.wav",
+   "file_start": 34.695,
+   "speech_start": 34.695,
+   "speech_end": 36.44,
+   "words": [
+    {
+     "w": "L'océan",
+     "s": 34.695,
+     "e": 35.131
+    },
+    {
+     "w": "a",
+     "s": 35.167,
+     "e": 35.204
+    },
+    {
+     "w": "essayé",
+     "s": 35.349,
+     "e": 35.567
+    },
+    {
+     "w": "de",
+     "s": 35.592,
+     "e": 35.615
+    },
+    {
+     "w": "me",
+     "s": 35.64,
+     "e": 35.785
+    },
+    {
+     "w": "tuer",
+     "s": 35.822,
+     "e": 36.076
+    },
+    {
+     "w": "!",
+     "s": 36.367,
+     "e": 36.44
+    }
+   ]
+  },
+  {
+   "id": "L22",
+   "who": "N",
+   "text": "Tentative de meurtre.",
+   "hl": [
+    "Tentative",
+    "meurtre."
+   ],
+   "file": "tts/L22.k.wav",
+   "file_start": 36.54,
+   "speech_start": 36.54,
+   "speech_end": 37.704,
+   "words": [
+    {
+     "w": "Tentative",
+     "s": 36.54,
+     "e": 36.976
+    },
+    {
+     "w": "de",
+     "s": 37.013,
+     "e": 37.049
+    },
+    {
+     "w": "meurtre.",
+     "s": 37.122,
+     "e": 37.704
+    }
+   ]
+  },
+  {
+   "id": "L23",
+   "who": "N",
+   "text": "Les poissons étaient là.",
+   "hl": [
+    "poissons"
+   ],
+   "file": "tts/L23.k.wav",
+   "file_start": 37.804,
+   "speech_start": 37.804,
+   "speech_end": 38.967,
+   "words": [
+    {
+     "w": "Les",
+     "s": 37.804,
+     "e": 37.949
+    },
+    {
+     "w": "poissons",
+     "s": 37.985,
+     "e": 38.313
+    },
+    {
+     "w": "étaient",
+     "s": 38.349,
+     "e": 38.531
+    },
+    {
+     "w": "là.",
+     "s": 38.64,
+     "e": 38.967
+    }
+   ]
+  },
+  {
+   "id": "L24",
+   "who": "N",
+   "text": "Complices.",
+   "hl": [
+    "Complices."
+   ],
+   "file": "tts/L24.k.wav",
+   "file_start": 39.067,
+   "speech_start": 39.067,
+   "speech_end": 39.94,
+   "words": [
+    {
+     "w": "Complices.",
+     "s": 39.067,
+     "e": 39.94
+    }
+   ]
+  },
+  {
+   "id": "L25",
+   "who": "N",
+   "text": "Les flics ont coffré l'océan et tous ses potes.",
+   "hl": [
+    "coffré",
+    "l'océan",
+    "potes."
+   ],
+   "file": "tts/L25.k.wav",
+   "file_start": 40.04,
+   "speech_start": 40.04,
+   "speech_end": 42.44,
+   "words": [
+    {
+     "w": "Les",
+     "s": 40.04,
+     "e": 40.185
+    },
+    {
+     "w": "flics",
+     "s": 40.222,
+     "e": 40.452
+    },
+    {
+     "w": "ont",
+     "s": 40.501,
+     "e": 40.549
+    },
+    {
+     "w": "coffré",
+     "s": 40.622,
+     "e": 40.84
+    },
+    {
+     "w": "l'océan",
+     "s": 40.865,
+     "e": 41.349
+    },
+    {
+     "w": "et",
+     "s": 41.422,
+     "e": 41.567
+    },
+    {
+     "w": "tous",
+     "s": 41.615,
+     "e": 41.713
+    },
+    {
+     "w": "ses",
+     "s": 41.785,
+     "e": 41.858
+    },
+    {
+     "w": "potes.",
+     "s": 41.895,
+     "e": 42.44
+    }
+   ]
+  },
+  {
+   "id": "L26",
+   "who": "N",
+   "text": "La ville s'est asséchée.",
+   "hl": [
+    "asséchée."
+   ],
+   "file": "tts/L26.k.wav",
+   "file_start": 42.54,
+   "speech_start": 42.54,
+   "speech_end": 43.849,
+   "words": [
+    {
+     "w": "La",
+     "s": 42.54,
+     "e": 42.613
+    },
+    {
+     "w": "ville",
+     "s": 42.685,
+     "e": 42.904
+    },
+    {
+     "w": "s'est",
+     "s": 42.94,
+     "e": 43.049
+    },
+    {
+     "w": "asséchée.",
+     "s": 43.122,
+     "e": 43.849
+    }
+   ]
+  },
+  {
+   "id": "L27",
+   "who": "N",
+   "text": "Le mec a inventé la soif.",
+   "hl": [
+    "mec",
+    "soif."
+   ],
+   "file": "tts/L27.k.wav",
+   "file_start": 44.009,
+   "speech_start": 44.009,
+   "speech_end": 45.827,
+   "words": [
+    {
+     "w": "Le",
+     "s": 44.009,
+     "e": 44.082
+    },
+    {
+     "w": "mec",
+     "s": 44.155,
+     "e": 44.445
+    },
+    {
+     "w": "a",
+     "s": 44.518,
+     "e": 44.664
+    },
+    {
+     "w": "inventé",
+     "s": 44.736,
+     "e": 45.064
+    },
+    {
+     "w": "la",
+     "s": 45.1,
+     "e": 45.173
+    },
+    {
+     "w": "soif.",
+     "s": 45.245,
+     "e": 45.827
+    }
+   ]
+  }
+ ],
+ "total": 46.67
+}

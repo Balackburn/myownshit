@@ -74,16 +74,21 @@ K = [[0, -200, 1.5], [1, -153, 1.5], [2, 56.5, 3.2], [3, 29, 4.1], [4, 4.5, 3.4]
 K = [[f, round(y * 1.875, 1), r] for f, y, r in K]
 CARDS = [(f'c{i + 1}', kv.split(':', 1)[1]) for i, kv in enumerate(A.cards.split(',')) if kv]
 for cid, word in CARDS:
+    if len(word) > 12 and ' ' in word:   # long titles go on two lines in a taller card (same width, same spring)
+        sp = [i for i, ch in enumerate(word) if ch == ' ']; m = min(sp, key=lambda i: abs(i - len(word) / 2)); lines = [word[:m], word[m + 1:]]
+    else: lines = [word]
+    longest = max(len(l) for l in lines); fs = int(min(129, 900 / (longest * 0.66))); card_h = 214 if len(lines) == 1 else int(fs * 2.3 + 60)
+    word_html = '<br/>'.join(lines)
     open(os.path.join(PROJ, 'compositions', f'card-{cid}.html'), 'w').write(f'''<template>
   <style>
     #root {{ position: absolute; inset: 0; }}
-    #card-{cid} {{ position: absolute; left: 45px; top: 141px; width: 977px; height: 214px; background: #203447; border-radius: 2px;
+    #card-{cid} {{ position: absolute; left: 45px; top: 141px; width: 977px; height: {card_h}px; background: #203447; border-radius: 2px;
                   box-shadow: 0 6px 11px rgba(0, 0, 0, 0.22); display: flex; align-items: center; justify-content: center; opacity: 0; }}
-    #word-{cid} {{ font-family: "Poppins", sans-serif; font-weight: 600; font-size: {129 if len(word) <= 9 else 116}px; line-height: 1; color: #FFFFFF; letter-spacing: 1px;
+    #word-{cid} {{ font-family: "Poppins", sans-serif; font-weight: 600; font-size: {fs}px; line-height: 1.05; text-align: center; color: #FFFFFF; letter-spacing: 1px;
                   text-shadow: 0 0 9px rgba(255, 255, 255, 0.35); white-space: nowrap; }}
   </style>
   <div id="root" data-composition-id="card-{cid}" data-width="1080" data-height="1920">
-    <div id="card-{cid}"><span id="word-{cid}">{word}</span></div>
+    <div id="card-{cid}"><span id="word-{cid}">{word_html}</span></div>
   </div>
   <script>
     // The replica's THEFT card motion (measured frame by frame): drops in from above, overshoots, springs back, settles tilted 1.27 deg.

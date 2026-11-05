@@ -1214,6 +1214,39 @@ Object.assign(S, {
   },
 });
 
+Object.assign(S, {
+  seaSurface(o = {}) { // open sea in the replica's light: low-poly waves (moving), a sandy beach toward +Z, parasols, the bright sky
+    const g = grp(), r = rng(o.seed || 21);
+    sky(g, o.sky || ['#62AEE2', '#A7D4EC']); clouds(g, 9, 8);
+    const geo = new THREE.PlaneGeometry(420, 420, 84, 84).rotateX(-PI / 2), pos = geo.attributes.position, base = pos.array.slice();
+    const sea = mesh(geo, mat(o.sea || '#2FA5D2')); sea.receiveShadow = true; sea.castShadow = false; sea.position.z = -200 + (o.shore ?? 6); g.add(sea);
+    const sand = flat(420, 60, '#EAD9A8', 0, 0.02, (o.shore ?? 6) + 30); g.add(sand);
+    const foam = flat(420, 1.2, '#F4FBFF', 0, 0.05, (o.shore ?? 6) + 0.4); g.add(foam);
+    if (o.parasols !== false) { g.add(prop('parasol', {}, 6, 0, (o.shore ?? 6) + 6)); g.add(prop('parasol', { color: '#F2C230' }, -9, 0, (o.shore ?? 6) + 9)); }
+    g.userData.update = t => { for (let i = 0; i < pos.count; i++) { const x = base[i * 3], z = base[i * 3 + 2]; pos.array[i * 3 + 1] = 0.16 * Math.sin(x * 0.45 + t * 1.6) + 0.12 * Math.sin(z * 0.6 + t * 1.2) + 0.05 * Math.sin((x + z) * 1.3 + t * 2.4); } pos.needsUpdate = true; geo.computeVertexNormals(); };
+    g.userData.update(0);
+    g.userData.anchors = { center: [0, 0, 0] }; g.userData.lighting = 'day'; return g;
+  },
+  seabed(o = {}) { // under the sea: pale sand with dunes and rocks, seaweed, light shafts, the rippling surface overhead, blue haze
+    const g = grp(), r = rng(o.seed || 23), W = o.dry ? null : true;
+    sky(g, o.dry ? (o.sky || ['#62AEE2', '#A7D4EC']) : (o.water || ['#2E8DB5', '#1C6A8F']));
+    g.add(ground(o.sand || (o.dry ? '#D8C99E' : '#E2DBC1')));
+    for (let i = 0; i < 26; i++) { const a = r() * TAU, d = 8 + r() * 60, m = sphere(1, o.dry ? '#CDBE93' : '#D9D2B6', 1); m.scale.set(4 + r() * 6, 0.6 + r() * 1.2, 3 + r() * 5); m.position.set(Math.cos(a) * d, -0.3, Math.sin(a) * d - 10); m.castShadow = false; g.add(m); }
+    const rocks = new THREE.DodecahedronGeometry(1, 0);
+    for (let i = 0; i < 30; i++) { const m = mesh(rocks, mat(['#8E99A0', '#7F8A91', '#9AA4AA'][i % 3])); const s = 0.3 + r() * 1.1; m.scale.set(s * 1.4, s * 0.7, s); m.position.set((r() - 0.5) * 70, s * 0.25, -r() * 70 + 12); m.rotation.set(r() * 3, r() * 3, r() * 3); g.add(m); }
+    if (!o.dry) {
+      for (let i = 0; i < 18; i++) g.add(prop('seaweed', { seed: i + 3, n: 4 + (i % 4), h: 1.0 + r() * 1.4 }, (r() - 0.5) * 40, 0, -r() * 45 + 8));
+      g.add(prop('lightRays', { n: 7, w: 50, d: 50, h: 32 }, 0, 0, 0));
+      const surf = mesh(new THREE.PlaneGeometry(400, 400, 1, 1).rotateX(PI / 2), new THREE.MeshBasicMaterial({ color: '#7FD3F0', transparent: true, opacity: 0.35, side: THREE.DoubleSide, fog: false })); surf.position.y = o.surfaceY || 30; g.add(surf);
+      g.add(prop('bubbles', { rate: 1.2, h: 12, area: 30, seed: 9 }, 0, 0, -12));
+      Object.assign(g.userData, { fog: { color: o.fog || '#2678A0', near: o.fogNear || 10, far: o.fogFar || 75 }, light: { sky: '#A8DCF2', ground: '#6A9AAA', key: '#EAF7FF' } });
+    } else {
+      for (let i = 0; i < 10; i++) g.add(prop('seaweed', { seed: i + 30, n: 3, h: 0.5 }, (r() - 0.5) * 30, 0, -r() * 30 + 5));
+    }
+    g.userData.anchors = { center: [0, 0, 0] }; g.userData.lighting = 'day'; return g;
+  },
+});
+
 export const SET_NAMES = Object.keys(S);
 
 export function buildSet(name, opts = {}) {
