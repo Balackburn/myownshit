@@ -22,13 +22,13 @@ st.shot('S03', 'office', actors=[act('mec', [0.55, 0, -0.6], -20, 'stand', 'unim
 st.shot('S04', 'office', actors=[act('flic', [0, 0, 0], 0, 'point', 'suspicious', keys=st.talk('L04', 'S04', 'suspicious'))], cams=CU(0, 0, dx=0.3))
 st.shot('S05', 'office', props=[P('doc', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': 'REPUBBLICA ITALIANA\nRESTITUZIONE\n3 GRANI DI SABBIA', 'style': 'doc', 'w': 0.8, 'h': 1.0, 'popAt': 0.15, 'textSize': 0.4, 'stamp': 'URGENTE'})],
         cams=[cam(0.0, [0.05, 1.55, 1.75], [0.05, 1.55, 1.55], [0, 1.5, 0], [0, 1.5, 0], lens=42)])
-st.shot('S06', 'runway', props=[P('jet', 'plane', pos=[-8, 2.0, -6], rot=[0, 0, 0], scale=0.55, opts={'livery': '#C9A227'}, keys=[k(0.0, to=[10, 6.0, -6], dur=st.dur('S06'), ease='in'), k(0.3, rotTo=[0, 0, 0.25], dur=0.5)])],
-        cams=[cam(0.0, [1, 0.8, 9], [4, 1.0, 8], [-6, 2.2, -6], [8, 5.2, -6], lens=44)])
+st.shot('S06', 'runway', props=[P('jet', 'plane', pos=[-8, 2.0, -6], rot=[0, 0, 0], scale=0.55, opts={'livery': '#C9A227'}, keys=[k(0.0, to=[8, 5.0, -6], dur=st.dur('S06'), ease='linear'), k(0.3, rotTo=[0, 0, 0.25], dur=0.5)])],
+        cams=[cam(0.0, [-2, 0.9, 10], [2, 1.2, 9], [-6, 2.4, -6], [8, 5.2, -6], lens=44)])
 st.shot('S07', 'skyHigh', setOpts={'layer': True},
         props=[P('jet', 'plane', pos=[-20, 60, 0], scale=0.55, opts={'livery': '#C9A227'}, keys=[k(0.0, to=[20, 60, 0], dur=st.dur('S07'))]),
-               P('f1', 'fighterJet', pos=[-22, 60.6, -4], rot=[0, 1.5708, 0], scale=0.8, keys=[k(0.0, to=[18, 60.6, -4], dur=st.dur('S07'))]),
-               P('f2', 'fighterJet', pos=[-22, 59.6, 4], rot=[0, 1.5708, 0], scale=0.8, keys=[k(0.0, to=[18, 59.6, 4], dur=st.dur('S07'))])],
-        cams=[cam(0.0, [-17, 62.0, 34], [23, 62.0, 34], [-20, 60.2, 0], [20, 60.2, 0], lens=40, shake=0.02)])
+               P('f1', 'fighterJet', pos=[-24, 64.5, -8], rot=[0, 1.5708, 0], scale=0.7, keys=[k(0.0, to=[16, 64.5, -8], dur=st.dur('S07'))]),
+               P('f2', 'fighterJet', pos=[-24, 55.8, -8], rot=[0, 1.5708, 0], scale=0.7, keys=[k(0.0, to=[16, 55.8, -8], dur=st.dur('S07'))])],
+        cams=[cam(0.0, [-18, 61.0, 52], [22, 61.0, 52], [-21, 60.2, -3], [19, 60.2, -3], lens=40, shake=0.02)])
 st.shot('S08', 'office', props=[P('tray', 'noticeBoard', pos=[0, 0.95, 0], rot=[-1.5708, 0, 0], opts={'text': ' ', 'style': 'sign', 'w': 0.7, 'h': 0.5, 'frame': '#C8322A'})] +
         [P(f'g{i}', 'growIsland', pos=[x, 0.97, z], scale=3.0, opts={'stages': [[0, 0]]}) for i, (x, z) in enumerate([(-0.08, 0.0), (0.08, 0.02)])] +
         [P('loupe', 'magnifyingGlass', pos=[0.18, 1.05, 0.12], rot=[0, 0, 0.4], scale=1.4)], cams=TOP(0, 0, h=1.75, look_h=0.95))
