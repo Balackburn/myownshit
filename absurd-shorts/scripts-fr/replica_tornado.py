@@ -334,6 +334,35 @@ for sc_ in scenes:
         if 'rot' in p_ and 'ry' not in p_:
             p_['ry'] = round(math.degrees(p_['rot'][1]), 3)
 
+# per-shot grade, calibrated from the per-shot L* / chroma deltas against the reference (shotstats.py, pass 8)
+SHOT_GRADES = {
+ "S1": "contrast(0.9) saturate(1.02) brightness(1.091)",
+ "S2": "contrast(0.9) saturate(1.01) brightness(1.118)",
+ "S3": "contrast(0.9) saturate(0.85) brightness(1.055)",
+ "S4": "contrast(0.9) saturate(0.99) brightness(1.122)",
+ "S5": "contrast(0.9) saturate(1.26) brightness(1.116)",
+ "S6": "contrast(0.9) saturate(1.35) brightness(1.204)",
+ "S7": "contrast(0.9) saturate(1.13) brightness(1.077)",
+ "S8": "contrast(0.9) saturate(0.86) brightness(1.111)",
+ "S9": "contrast(0.9) saturate(1.12) brightness(1.031)",
+ "S10": "contrast(0.9) saturate(0.80) brightness(1.151)",
+ "S11": "contrast(0.9) saturate(1.14) brightness(1.108)",
+ "S12": "contrast(0.9) saturate(1.04) brightness(1.022)",
+ "S13": "contrast(0.9) saturate(0.80) brightness(0.981)",
+ "S14": "contrast(0.9) saturate(1.20) brightness(1.147)",
+ "S15": "contrast(0.9) saturate(0.99) brightness(0.932)",
+ "S16": "contrast(0.9) saturate(1.09) brightness(1.220)",
+ "S17": "contrast(0.9) saturate(0.95) brightness(1.159)",
+ "S18": "contrast(0.9) saturate(0.80) brightness(1.156)",
+ "S19": "contrast(0.9) saturate(0.87) brightness(1.094)",
+ "S20": "contrast(0.9) saturate(1.00) brightness(1.110)",
+ "S21": "contrast(0.9) saturate(0.87) brightness(1.116)",
+ "S22": "contrast(0.9) saturate(1.19) brightness(1.204)"
+}
+for sc_ in scenes:
+    key = 'S8' if sc_['id'] in ('S8a', 'S8b') else sc_['id']
+    if key in SHOT_GRADES: sc_['grade'] = SHOT_GRADES[key]
+
 doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'grade': 'contrast(0.9) saturate(1.0) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
        'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
                  'judge': {'preset': 'judge', 'facial': 'stubble', 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},

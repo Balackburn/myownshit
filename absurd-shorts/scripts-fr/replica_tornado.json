@@ -433,7 +433,8 @@
      1.5,
      0.03
     ]
-   ]
+   ],
+   "grade": "contrast(0.9) saturate(1.02) brightness(1.091)"
   },
   {
    "id": "S2",
@@ -539,7 +540,8 @@
     }
    ],
    "start": 1.9,
-   "duration": 1.533333
+   "duration": 1.533333,
+   "grade": "contrast(0.9) saturate(1.01) brightness(1.118)"
   },
   {
    "id": "S3",
@@ -584,7 +586,8 @@
     }
    ],
    "start": 3.433333,
-   "duration": 1.066667
+   "duration": 1.066667,
+   "grade": "contrast(0.9) saturate(0.85) brightness(1.055)"
   },
   {
    "id": "S4",
@@ -715,7 +718,8 @@
     }
    ],
    "start": 4.5,
-   "duration": 2.033333
+   "duration": 2.033333,
+   "grade": "contrast(0.9) saturate(0.99) brightness(1.122)"
   },
   {
    "id": "S5",
@@ -768,7 +772,8 @@
    ],
    "start": 6.533333,
    "duration": 0.5,
-   "blur": 0.02
+   "blur": 0.02,
+   "grade": "contrast(0.9) saturate(1.26) brightness(1.116)"
   },
   {
    "id": "S6",
@@ -821,7 +826,8 @@
    ],
    "start": 7.033333,
    "duration": 0.6,
-   "blur": 0.01
+   "blur": 0.01,
+   "grade": "contrast(0.9) saturate(1.35) brightness(1.204)"
   },
   {
    "id": "S7",
@@ -923,7 +929,8 @@
      0.47,
      0.05
     ]
-   ]
+   ],
+   "grade": "contrast(0.9) saturate(1.13) brightness(1.077)"
   },
   {
    "id": "S8a",
@@ -1034,7 +1041,8 @@
      "#7DC3E9"
     ]
    },
-   "blur": 0.03
+   "blur": 0.03,
+   "grade": "contrast(0.9) saturate(0.86) brightness(1.111)"
   },
   {
    "id": "S8b",
@@ -1248,7 +1256,8 @@
      0,
      -400.0
     ]
-   }
+   },
+   "grade": "contrast(0.9) saturate(0.86) brightness(1.111)"
   },
   {
    "id": "S9",
@@ -1449,7 +1458,8 @@
     "fogNear": 500,
     "fogFar": 1800,
     "fogColor": "#7DC2EC"
-   }
+   },
+   "grade": "contrast(0.9) saturate(1.12) brightness(1.031)"
   },
   {
    "id": "S10",
@@ -1884,7 +1894,8 @@
      0,
      -400.0
     ]
-   }
+   },
+   "grade": "contrast(0.9) saturate(0.80) brightness(1.151)"
   },
   {
    "id": "S11",
@@ -2082,7 +2093,8 @@
       "roof": "#3E4A5E"
      }
     ]
-   }
+   },
+   "grade": "contrast(0.9) saturate(1.14) brightness(1.108)"
   },
   {
    "id": "S12",
@@ -2260,7 +2272,8 @@
    "duration": 1.733333,
    "setOpts": {
     "rows": 13
-   }
+   },
+   "grade": "contrast(0.9) saturate(1.04) brightness(1.022)"
   },
   {
    "id": "S13",
@@ -5238,7 +5251,8 @@
    "setOpts": {
     "burnt": true,
     "rows": 13
-   }
+   },
+   "grade": "contrast(0.9) saturate(0.80) brightness(0.981)"
   },
   {
    "id": "S14",
@@ -5358,7 +5372,8 @@
     }
    ],
    "start": 17.633333,
-   "duration": 1.833333
+   "duration": 1.833333,
+   "grade": "contrast(0.9) saturate(1.20) brightness(1.147)"
   },
   {
    "id": "S15",
@@ -5473,7 +5488,8 @@
    "duration": 0.766667,
    "setOpts": {
     "handle": "@outofthisworld_9"
-   }
+   },
+   "grade": "contrast(0.9) saturate(0.99) brightness(0.932)"
   },
   {
    "id": "S16",
@@ -5594,7 +5610,8 @@
      "dur": 0.12,
      "amount": 0.006
     }
-   ]
+   ],
+   "grade": "contrast(0.9) saturate(1.09) brightness(1.220)"
   },
   {
    "id": "S17",
@@ -5725,7 +5742,8 @@
     }
    ],
    "start": 21.6,
-   "duration": 0.733333
+   "duration": 0.733333,
+   "grade": "contrast(0.9) saturate(0.95) brightness(1.159)"
   },
   {
    "id": "S18",
@@ -5828,7 +5846,8 @@
     }
    ],
    "start": 22.333333,
-   "duration": 1.233333
+   "duration": 1.233333,
+   "grade": "contrast(0.9) saturate(0.80) brightness(1.156)"
   },
   {
    "id": "S19",
@@ -5992,7 +6011,8 @@
     }
    ],
    "start": 23.566667,
-   "duration": 0.566667
+   "duration": 0.566667,
+   "grade": "contrast(0.9) saturate(0.87) brightness(1.094)"
   },
   {
    "id": "S20",
@@ -6161,7 +6181,8 @@
     }
    ],
    "start": 24.133333,
-   "duration": 1.4
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.00) brightness(1.110)"
   },
   {
    "id": "S21",
@@ -6326,7 +6347,8 @@
     }
    ],
    "start": 25.533333,
-   "duration": 0.466667
+   "duration": 0.466667,
+   "grade": "contrast(0.9) saturate(0.87) brightness(1.116)"
   },
   {
    "id": "S22",
@@ -6539,7 +6561,8 @@
     }
    ],
    "start": 26.0,
-   "duration": 2.8
+   "duration": 2.8,
+   "grade": "contrast(0.9) saturate(1.19) brightness(1.204)"
   }
  ],
  "total": 28.8
