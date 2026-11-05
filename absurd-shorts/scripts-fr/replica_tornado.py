@@ -62,17 +62,19 @@ s1cams += [cam(1.1, [0, 0.85, man_at(1.1)[2] - 2.5], [0, 0.88, WALK1 - 2.7], [-0
 scenes.append(scene(1, 'S1', 'replicaStreet', setOpts={'near': 'cottage', 'z0': -44.2, 'nearTown': [5]},
     actors=[act('mec', [0, 0, WALK0], 180, 'walk', 'neutral', keys=[
         k(0.0, to=[0, 0, WALK1], dur=TW, clip='walk', then='stand'), k(1.28, clip='reachUpL')])],
-    props=[P('dog', 'voxelDog', pos=[-0.65, 0, WALK0 + 0.35], rot=[0, 3.1416, 0], scale=1.0, opts={'walk': True}, keys=[
-               k(0.0, to=[-0.65, 0, WALK1 - 0.1], dur=TW, ease='linear'),
+    props=[P('dog', 'voxelDog', pos=[-0.7, 0, WALK0 + 1.1], rot=[0, 3.1416, 0], scale=1.0, opts={'walk': True}, keys=[
+               k(0.0, to=[-0.7, 0, WALK1 - 0.55], dur=TW, ease='linear'),
                k(1.24, to=[-0.85, 1.0, WALK1 + 0.6], dur=0.07, ease='out'),
                k(1.31, to=[-8.5, 7.0, 26.0], dur=0.2, ease='linear')]),
            P('tornado', 'tornado', pos=[-8.5, 0, 28], scale=1.9, opts=TOR)],
-    cams=s1cams, blur=[[0.3, 1.1, 0.04], [1.26, 1.5, 0.03]]))
+    cams=s1cams, blur=[[0.3, 1.1, 0.04], [1.26, 1.5, 0.03]],
+    tethers=[{'a': {'actor': 'mec', 'hand': 'L', 'offset': [0, -0.06, 0]}, 'b': {'prop': 'dog', 'offset': [0, 0.55, 0.28]}, 'color': '#C8322A', 'radius': 0.011, 'sag': 0.18, 'until': 1.3}]))
 
 # S2 1.90-3.43: close tracking shot of the dog spinning in the tornado wall, mouth open
 scenes.append(scene(2, 'S2', 'replicaStreet',
     props=[P('tornado', 'tornado', pos=[0, 0, -6.0], scale=3.6, opts={**TOR, 'chips': 10, 'spin': 4.0}),
-           P('dog', 'voxelDog', pos=[-0.6, 6.2, 0], rot=[0.17, 0.6, 0.26], scale=1.25, opts={'tongue': True, 'paddle': True}, keys=[k(0.0, to=[0.1, 6.4, -0.3], dur=1.53, ease='linear')])],
+           P('dog', 'voxelDog', pos=[-0.6, 6.2, 0], rot=[0.17, 0.6, 0.26], scale=1.25, opts={'open': True, 'paddle': True}, keys=[k(0.0, to=[0.1, 6.4, -0.3], dur=1.53, ease='linear')]),
+           P('leash2', 'leash', on={'actor': 'dog', 'offset': [0, 0.53, 0.3]}, opts={'length': 1.5, 'elev': -1.25, 'color': '#C8322A'})],
     cams=[cam(0.0, [-0.55, 6.5, 2.7], [0.0, 6.6, 2.5], [-0.4, 6.42, 0], [0.12, 6.55, -0.2], lens=55)]))
 
 # S3 3.43-4.50: low 3/4 medium shot on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses

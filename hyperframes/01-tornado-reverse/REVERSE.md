@@ -40,6 +40,7 @@ not have, so this project is built by hand to the same rules.
 | 10 | 0.670 | 0.460 | aerial grid at the original's house size and rotation, slimmer long-bodied aerial tornado; S12 camera, tornado and blasts (flash then dark smoke) rebuilt |
 | 11 | 0.670 | 0.460 | S13 smoke columns from every row with fire in each shell; S15 tornado smaller and leaning (bench visible); S22 push-in distance; S4 reframing tried and reverted |
 | 12 | 0.671 | 0.461 | micro-animation from optical flow: tornado spin per shot, camera shakes, pans and tilts; S2 wall streaming; S6 dolly direction; empty-content share 16% |
+| 13 | 0.670 | 0.461 | S1 leash (engine tethers: a cord between two moving anchors), dog walks from behind to ahead; S2 open mouth and dangling leash |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado

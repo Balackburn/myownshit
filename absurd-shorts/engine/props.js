@@ -575,7 +575,10 @@ const B = {
       at(box(0.1, 0.1, 0.02, '#FFFFFF'), -0.085, 0.06, 0.162), at(box(0.1, 0.1, 0.02, '#FFFFFF'), 0.085, 0.06, 0.162), // eyes
       at(box(0.045, 0.05, 0.02, '#141414'), -0.075, 0.055, 0.172), at(box(0.045, 0.05, 0.02, '#141414'), 0.075, 0.055, 0.172),
       at(box(0.08, 0.12, 0.06, dark), -0.19, 0.12, -0.02), at(box(0.08, 0.12, 0.06, dark), 0.19, 0.12, -0.02));  // ears
-    if (o.tongue) head.add(at(box(0.07, 0.02, 0.1, '#E05A6A'), 0, -0.15, 0.26, 0.4, 0, 0));
+    if (o.open) { // mouth wide open (S2 of the tornado short): the dark muzzle splits, red mouth and a big pink tongue inside
+      head.children[1].position.y = -0.03; head.children[1].scale.y = 0.75;
+      head.add(at(box(0.2, 0.05, 0.13, muzzle, { outline: 0.01 }), 0, -0.2, 0.2, 0.25, 0, 0), at(box(0.17, 0.08, 0.1, '#7A1E22'), 0, -0.135, 0.2), at(box(0.1, 0.03, 0.12, '#E86A84'), 0, -0.17, 0.25, 0.2, 0, 0));
+    } else if (o.tongue) head.add(at(box(0.07, 0.02, 0.1, '#E05A6A'), 0, -0.15, 0.26, 0.4, 0, 0));
     head.position.set(0, 0.66, 0.3); g.add(head);
     g.add(at(box(0.32, 0.06, 0.06, P.red), 0, 0.53, 0.26, 0.3, 0, 0));                                            // collar
     g.userData.head = head;

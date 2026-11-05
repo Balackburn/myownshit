@@ -150,6 +150,8 @@ function setupScene(si, analyzing = false) {
     return Pp;
   });
   S.propById = Object.fromEntries(S.props.map(p => [p.id, p]));
+  // tethers: a sagging cord rebuilt every frame between two moving anchors ({actor, hand|joint, offset} or {prop, offset}), e.g. a leash
+  S.tethers = (sc.tethers || []).map(td => { const m = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshLambertMaterial({ color: td.color || '#C0392B' })); m.castShadow = true; m.frustumCulled = false; S.root.add(m); return { td, m }; });
   // crowds (background extras, deterministic)
   for (const cr of sc.crowd || []) for (let i = 0; i < (cr.count || 4); i++) {
     const id = `${cr.id || 'crowd'}${i}`, pos = cr.positions?.[i] || [cr.center[0] + ((i * 1.37) % 1 - 0.5) * (cr.spread || 3), 0, cr.center[2] + ((i * 0.61) % 1 - 0.5) * (cr.spread || 3)];
@@ -522,11 +524,27 @@ function applyHuman(A, pose, pos, ry, s) {
   obj.position.copy(p);
 }
 
+function tetherAnchor(a) {
+  const off = V(...(a.offset || [0, 0, 0]));
+  if (a.actor && S.actorById[a.actor]) return jointFor(S.actorById[a.actor].obj, a).localToWorld(off);
+  if (a.prop && S.propById[a.prop]) return S.propById[a.prop].obj.localToWorld(off);
+  return null;
+}
+function evalTethers(t) {
+  for (const { td, m } of S.tethers || []) {
+    const on = (td.from == null || t >= td.from) && (td.until == null || t < td.until); m.visible = on; if (!on) continue;
+    const a = tetherAnchor(td.a), b = tetherAnchor(td.b); if (!a || !b) { m.visible = false; continue; }
+    const n = 10, sag = (td.sag ?? 0.25) * a.distanceTo(b), pts = [];
+    for (let i = 0; i <= n; i++) { const u = i / n, p = a.clone().lerp(b, u); p.y -= sag * 4 * u * (1 - u); pts.push(p); }
+    m.geometry.dispose(); m.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 20, td.radius || 0.012, 5);
+  }
+}
 function evalAll(t) {
   for (const A of S.actors) evalActor(A, t);
   for (const Pp of S.props) evalProp(Pp, effTime(Pp.id, t));
   S.set?.userData.update?.(effTime('__set__', t));
   S.stage.scene.updateMatrixWorld(true);
+  if (S.tethers?.length) { evalTethers(t); }
 }
 
 // ------------------------------------------------------------------------------------- camera
