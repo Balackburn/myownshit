@@ -22,3 +22,23 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
 - **Look for geometry that never shows.** Coplanar layers closer than 5 cm z-fight; parts rotated the wrong way hide inside others.
 - **SSIM is not the goal.** It rewards blur and emptiness. Use it to rank shots, then judge structure, motion and framing by eye and
   with the motion map; fix what the viewer sees (missing-content spans first).
+
+## Found on the seven "faits divers" stories (sable, lune, sapin, escargot, grève, colis, heure)
+
+- **The story has to make sense on screen.** The first « Le sable » was rejected: the grain looked like a cloud (a sand-coloured
+  `cloudChar`) and a dog appeared for no reason. Show each line literally, keep only characters the narration names, and give the key
+  object its real look (a grain of sand is a faceted golden quartz pebble: `sandGrain`, not a character with a face).
+- **Check stills at 85 % of each shot, not only 60 %.** Pop-in signs appear late and push-ins drift: « PENTHOUSE », « À VENDRE »,
+  « € UNIQUEMENT », a station board's times and two cow clocks were cut at the edge only at the end of their shots.
+- **Bold capitals are wider than 0.62 em.** Signs now measure their text (`textBoard`, `sign`, the queue ticket); keep sign text to
+  two short lines in 9:16 anyway.
+- **Same-colour effects vanish.** A light-blue water jet was invisible against the sky; use a saturated blue with white foam.
+  A jet that flies away from the camera is foreshortened to nothing: film it side-on.
+- **Comment placement.** A `// comment` pasted mid-line commented out `g.add(jet)`: nothing rendered and nothing errored.
+- **Holding things.** With `holdOut` / `showPhone` the right hand is screen-left: turn the actor (`ry` about -35) or move him so the
+  hand comes into frame, and attach flat items with `HAND_FLAT` so their face points at the lens (cards, shoes). Small held items
+  (trays) read better as free props placed at the hands.
+- **Sets bring their own furniture.** `pressRoom` has a podium and two French flags: pass `{'podium': False, 'flags': False}` or
+  `{'flag': [...]}` for another country, and split the backdrop words with `|` (`'VENTE|AUX ENCHÈRES'`) or they overlap.
+- **The beach was under water.** `seaSurface` ran its waves under the sand up to z = shore + 10; the sea now ends at the foam line.
+- **`JUDGE()` is built for the judge.** Re-cast as someone else (an auctioneer) it read as two faces; stage a new shot instead.
