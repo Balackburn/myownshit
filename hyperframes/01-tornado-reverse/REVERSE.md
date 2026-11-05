@@ -61,6 +61,7 @@ not have, so this project is built by hand to the same rules.
 | 30 | 0.685 | 0.480 | S7: jet wings level, banking as it passes over; camera holds the measured horizon (523 → 543 px), then whips up to all-sky by f240 |
 | 31 | 0.685 | 0.480 | S18 turbine planted in the crater, its thick tower rising out of the crown (the flagged S18 frames shrink) |
 | 32 | 0.685 | 0.479 | S7 flyover: the jet climbs over the camera to the upper left, banking, ~15 m away; the camera whips up after it with a short blur (S7 0.879 → 0.881) |
+| 33 | 0.680 | 0.429 | Aerial town grid turned the other way (−0.33/−0.36 rad: rows now slope down-right ~15° like the original), bigger denser houses with taller walls, pinkish roofs, blue-grey roads; S10 jet seen from behind (14°), level wings, measured path; white missiles with orange flames; S12 blasts on the original's hits (f444/456/468/480). Regression: a crisper near haze darkened the middle bands (S10 0.464 → 0.415, S8b 0.577 → 0.554) and the S14 lean went the wrong way |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20

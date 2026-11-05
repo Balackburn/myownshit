@@ -120,3 +120,19 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   showed the camera had to look *up* 1.1°, then whip up fast; a single linear tilt could never fit it.
 - (tornado) Soft, out-of-focus foreground (grass in front of a close subject) is cheap to fake: wider blades, lighter colour,
   opacity ~0.55 with depthWrite off. It raised S22 by 0.013 where crisp thin blades had lowered it.
+- (tornado) **Check the sign of a grid rotation with an edge-orientation histogram.** The aerial town in S8b/S10 had its rows sloping
+  up to the right for twenty passes; the original's slope down by ~15°. A magnitude-weighted histogram of Sobel edge angles over a band
+  (`edge = (atan2(gy, gx) + 90°) mod 180°`) put the peaks at 12-17° (original) vs 172-177° (ours) in seconds. A ground line at yaw ψ
+  projects to a screen slope of about tan ψ · sin(pitch), so 15° on screen at a 45° pitch is a ~20° yaw. The fix was a sign flip, not
+  a bigger angle.
+- (tornado) Distance fog with a camera that drops 110 m in a shot clears as the camera descends. To keep the veil at the same place on
+  screen (crisp bottom rows, white top band), key the fog's near/far over the shot (`fogTo`). Work from the ray lengths: bottom row
+  = altitude / sin(pitch + vfov/2), top row = altitude / sin(pitch − vfov/2).
+- (tornado) Trails launched near a fast camera sweep the lens. If a missile's start speed is lower than the camera's, the camera
+  overtakes its launch point and its old smoke fills the frame as thick wedges. Launch from points far below the frame (~180 m deep),
+  give missiles near the camera a start speed above the camera's, and keep their trails short.
+- (tornado) Calibrate a material against its rendered lightness with two renders, not a fog estimate. The crater went from L*67 to L*37
+  between two colours; a straight line through the two points gave the colour for the original's L*55 at the first try.
+- (tornado) Change one size factor at a time. Raising blast size, puff size, glare and flash together made the S12 explosions three
+  times too big. Each factor alone was reasonable. A cloud of size S spans about 4.2·S, so size it from the measured pixel width:
+  S ≈ width_px · depth / (4.2 · f).
