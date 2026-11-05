@@ -1,0 +1,882 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec est rentré de Sardaigne.",
+   "hl": [
+    "mec",
+    "Sardaigne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.7,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "est",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "rentré",
+     "s": 0.633,
+     "e": 0.862
+    },
+    {
+     "w": "de",
+     "s": 0.9,
+     "e": 0.938
+    },
+    {
+     "w": "Sardaigne.",
+     "s": 1.014,
+     "e": 1.7
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Avec trois grains de sable dans sa chaussure.",
+   "hl": [
+    "sable",
+    "chaussure."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L02.k.wav",
+   "file_start": 1.8,
+   "speech_start": 1.8,
+   "speech_end": 3.933,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 1.8,
+     "e": 2.029
+    },
+    {
+     "w": "trois",
+     "s": 2.105,
+     "e": 2.257
+    },
+    {
+     "w": "grains",
+     "s": 2.295,
+     "e": 2.41
+    },
+    {
+     "w": "de",
+     "s": 2.486,
+     "e": 2.562
+    },
+    {
+     "w": "sable",
+     "s": 2.6,
+     "e": 2.867
+    },
+    {
+     "w": "dans",
+     "s": 2.917,
+     "e": 3.019
+    },
+    {
+     "w": "sa",
+     "s": 3.057,
+     "e": 3.095
+    },
+    {
+     "w": "chaussure.",
+     "s": 3.133,
+     "e": 3.933
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "À l'aéroport, le chien a aboyé.",
+   "hl": [
+    "chien",
+    "aboyé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L03.k.wav",
+   "file_start": 4.033,
+   "speech_start": 4.033,
+   "speech_end": 6.167,
+   "words": [
+    {
+     "w": "À",
+     "s": 4.033,
+     "e": 4.071
+    },
+    {
+     "w": "l'aéroport,",
+     "s": 4.11,
+     "e": 4.871
+    },
+    {
+     "w": "le",
+     "s": 4.948,
+     "e": 5.024
+    },
+    {
+     "w": "chien",
+     "s": 5.1,
+     "e": 5.252
+    },
+    {
+     "w": "a",
+     "s": 5.329,
+     "e": 5.367
+    },
+    {
+     "w": "aboyé.",
+     "s": 5.405,
+     "e": 6.167
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "C",
+   "text": "« Contrebande de plage. »",
+   "hl": [
+    "Contrebande",
+    "plage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L04.k.wav",
+   "file_start": 6.227,
+   "speech_start": 6.227,
+   "speech_end": 7.598,
+   "words": [
+    {
+     "w": "Contrebande",
+     "s": 6.227,
+     "e": 6.76
+    },
+    {
+     "w": "de",
+     "s": 6.798,
+     "e": 6.836
+    },
+    {
+     "w": "plage.",
+     "s": 6.912,
+     "e": 7.598
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "L'Italie a exigé ses grains.",
+   "hl": [
+    "L'Italie",
+    "grains."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L05.k.wav",
+   "file_start": 7.698,
+   "speech_start": 7.698,
+   "speech_end": 9.527,
+   "words": [
+    {
+     "w": "L'Italie",
+     "s": 7.698,
+     "e": 8.231
+    },
+    {
+     "w": "a",
+     "s": 8.308,
+     "e": 8.384
+    },
+    {
+     "w": "exigé",
+     "s": 8.498,
+     "e": 8.841
+    },
+    {
+     "w": "ses",
+     "s": 8.917,
+     "e": 8.993
+    },
+    {
+     "w": "grains.",
+     "s": 9.031,
+     "e": 9.527
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il les a rendus en jet privé.",
+   "hl": [
+    "jet",
+    "privé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L06.k.wav",
+   "file_start": 9.627,
+   "speech_start": 9.627,
+   "speech_end": 11.227,
+   "words": [
+    {
+     "w": "Il",
+     "s": 9.627,
+     "e": 9.703
+    },
+    {
+     "w": "les",
+     "s": 9.779,
+     "e": 9.855
+    },
+    {
+     "w": "a",
+     "s": 9.931,
+     "e": 9.97
+    },
+    {
+     "w": "rendus",
+     "s": 10.008,
+     "e": 10.236
+    },
+    {
+     "w": "en",
+     "s": 10.312,
+     "e": 10.389
+    },
+    {
+     "w": "jet",
+     "s": 10.503,
+     "e": 10.617
+    },
+    {
+     "w": "privé.",
+     "s": 10.731,
+     "e": 11.227
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Escorte de deux avions de chasse.",
+   "hl": [
+    "Escorte",
+    "chasse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L07.k.wav",
+   "file_start": 11.327,
+   "speech_start": 11.327,
+   "speech_end": 13.079,
+   "words": [
+    {
+     "w": "Escorte",
+     "s": 11.327,
+     "e": 11.784
+    },
+    {
+     "w": "de",
+     "s": 11.86,
+     "e": 11.936
+    },
+    {
+     "w": "deux",
+     "s": 11.974,
+     "e": 12.089
+    },
+    {
+     "w": "avions",
+     "s": 12.165,
+     "e": 12.393
+    },
+    {
+     "w": "de",
+     "s": 12.431,
+     "e": 12.47
+    },
+    {
+     "w": "chasse.",
+     "s": 12.508,
+     "e": 13.079
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "À l'arrivée, il en manquait un.",
+   "hl": [
+    "manquait"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L08.k.wav",
+   "file_start": 13.179,
+   "speech_start": 13.179,
+   "speech_end": 14.855,
+   "words": [
+    {
+     "w": "À",
+     "s": 13.179,
+     "e": 13.217
+    },
+    {
+     "w": "l'arrivée,",
+     "s": 13.255,
+     "e": 13.903
+    },
+    {
+     "w": "il",
+     "s": 13.941,
+     "e": 13.979
+    },
+    {
+     "w": "en",
+     "s": 14.017,
+     "e": 14.093
+    },
+    {
+     "w": "manquait",
+     "s": 14.17,
+     "e": 14.398
+    },
+    {
+     "w": "un.",
+     "s": 14.589,
+     "e": 14.855
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Crise diplomatique.",
+   "hl": [
+    "Crise",
+    "diplomatique."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L09.k.wav",
+   "file_start": 14.955,
+   "speech_start": 14.955,
+   "speech_end": 16.25,
+   "words": [
+    {
+     "w": "Crise",
+     "s": 14.955,
+     "e": 15.184
+    },
+    {
+     "w": "diplomatique.",
+     "s": 15.26,
+     "e": 16.25
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le grain était resté sous son ongle.",
+   "hl": [
+    "ongle."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L10.k.wav",
+   "file_start": 16.35,
+   "speech_start": 16.35,
+   "speech_end": 18.179,
+   "words": [
+    {
+     "w": "Le",
+     "s": 16.35,
+     "e": 16.427
+    },
+    {
+     "w": "grain",
+     "s": 16.503,
+     "e": 16.655
+    },
+    {
+     "w": "était",
+     "s": 16.731,
+     "e": 16.884
+    },
+    {
+     "w": "resté",
+     "s": 16.998,
+     "e": 17.189
+    },
+    {
+     "w": "sous",
+     "s": 17.239,
+     "e": 17.341
+    },
+    {
+     "w": "son",
+     "s": 17.417,
+     "e": 17.493
+    },
+    {
+     "w": "ongle.",
+     "s": 17.57,
+     "e": 18.179
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "C",
+   "text": "« Il a le mal du pays. »",
+   "hl": [
+    "mal",
+    "pays."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L11.k.wav",
+   "file_start": 18.239,
+   "speech_start": 18.239,
+   "speech_end": 19.534,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.239,
+     "e": 18.315
+    },
+    {
+     "w": "a",
+     "s": 18.391,
+     "e": 18.43
+    },
+    {
+     "w": "le",
+     "s": 18.468,
+     "e": 18.544
+    },
+    {
+     "w": "mal",
+     "s": 18.62,
+     "e": 18.772
+    },
+    {
+     "w": "du",
+     "s": 18.849,
+     "e": 18.925
+    },
+    {
+     "w": "pays.",
+     "s": 18.963,
+     "e": 19.534
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le juge a accordé la garde partagée.",
+   "hl": [
+    "garde",
+    "partagée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L12.k.wav",
+   "file_start": 19.634,
+   "speech_start": 19.634,
+   "speech_end": 21.554,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.634,
+     "e": 19.787
+    },
+    {
+     "w": "juge",
+     "s": 19.825,
+     "e": 20.015
+    },
+    {
+     "w": "a",
+     "s": 20.053,
+     "e": 20.091
+    },
+    {
+     "w": "accordé",
+     "s": 20.168,
+     "e": 20.472
+    },
+    {
+     "w": "la",
+     "s": 20.51,
+     "e": 20.549
+    },
+    {
+     "w": "garde",
+     "s": 20.625,
+     "e": 20.853
+    },
+    {
+     "w": "partagée.",
+     "s": 20.968,
+     "e": 21.539
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Une semaine sur la plage, une semaine dans la chaussure.",
+   "hl": [
+    "plage,",
+    "chaussure."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L13.k.wav",
+   "file_start": 21.654,
+   "speech_start": 21.654,
+   "speech_end": 24.396,
+   "words": [
+    {
+     "w": "Une",
+     "s": 21.654,
+     "e": 21.806
+    },
+    {
+     "w": "semaine",
+     "s": 21.882,
+     "e": 22.111
+    },
+    {
+     "w": "sur",
+     "s": 22.149,
+     "e": 22.187
+    },
+    {
+     "w": "la",
+     "s": 22.263,
+     "e": 22.339
+    },
+    {
+     "w": "plage,",
+     "s": 22.416,
+     "e": 22.949
+    },
+    {
+     "w": "une",
+     "s": 23.025,
+     "e": 23.101
+    },
+    {
+     "w": "semaine",
+     "s": 23.177,
+     "e": 23.425
+    },
+    {
+     "w": "dans",
+     "s": 23.444,
+     "e": 23.482
+    },
+    {
+     "w": "la",
+     "s": 23.558,
+     "e": 23.635
+    },
+    {
+     "w": "chaussure.",
+     "s": 23.673,
+     "e": 24.396
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le grain a grandi.",
+   "hl": [
+    "grandi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L14.k.wav",
+   "file_start": 24.496,
+   "speech_start": 24.496,
+   "speech_end": 25.716,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.496,
+     "e": 24.573
+    },
+    {
+     "w": "grain",
+     "s": 24.649,
+     "e": 24.877
+    },
+    {
+     "w": "a",
+     "s": 24.916,
+     "e": 24.954
+    },
+    {
+     "w": "grandi.",
+     "s": 25.03,
+     "e": 25.716
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Il est devenu un caillou.",
+   "hl": [
+    "caillou."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L15.k.wav",
+   "file_start": 25.816,
+   "speech_start": 25.816,
+   "speech_end": 27.187,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.816,
+     "e": 25.892
+    },
+    {
+     "w": "est",
+     "s": 25.968,
+     "e": 26.044
+    },
+    {
+     "w": "devenu",
+     "s": 26.082,
+     "e": 26.349
+    },
+    {
+     "w": "un",
+     "s": 26.425,
+     "e": 26.501
+    },
+    {
+     "w": "caillou.",
+     "s": 26.539,
+     "e": 27.187
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Puis un rocher.",
+   "hl": [
+    "rocher."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L16.k.wav",
+   "file_start": 27.287,
+   "speech_start": 27.287,
+   "speech_end": 28.43,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 27.287,
+     "e": 27.516
+    },
+    {
+     "w": "un",
+     "s": 27.668,
+     "e": 27.744
+    },
+    {
+     "w": "rocher.",
+     "s": 27.82,
+     "e": 28.43
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Puis une île.",
+   "hl": [
+    "île."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L17.k.wav",
+   "file_start": 28.53,
+   "speech_start": 28.53,
+   "speech_end": 29.52,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 28.53,
+     "e": 28.758
+    },
+    {
+     "w": "une",
+     "s": 28.911,
+     "e": 29.063
+    },
+    {
+     "w": "île.",
+     "s": 29.101,
+     "e": 29.52
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "L'Italie a réclamé l'île.",
+   "hl": [
+    "réclamé",
+    "l'île."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L18.k.wav",
+   "file_start": 29.62,
+   "speech_start": 29.62,
+   "speech_end": 31.144,
+   "words": [
+    {
+     "w": "L'Italie",
+     "s": 29.62,
+     "e": 30.077
+    },
+    {
+     "w": "a",
+     "s": 30.116,
+     "e": 30.154
+    },
+    {
+     "w": "réclamé",
+     "s": 30.23,
+     "e": 30.535
+    },
+    {
+     "w": "l'île.",
+     "s": 30.611,
+     "e": 31.144
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Elle était toujours dans sa chaussure.",
+   "hl": [
+    "chaussure."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L19.k.wav",
+   "file_start": 31.244,
+   "speech_start": 31.244,
+   "speech_end": 32.844,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 31.244,
+     "e": 31.358
+    },
+    {
+     "w": "était",
+     "s": 31.396,
+     "e": 31.549
+    },
+    {
+     "w": "toujours",
+     "s": 31.587,
+     "e": 31.854
+    },
+    {
+     "w": "dans",
+     "s": 31.879,
+     "e": 31.93
+    },
+    {
+     "w": "sa",
+     "s": 32.006,
+     "e": 32.082
+    },
+    {
+     "w": "chaussure.",
+     "s": 32.12,
+     "e": 32.844
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Depuis, il boite.",
+   "hl": [
+    "boite."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L20.k.wav",
+   "file_start": 32.944,
+   "speech_start": 32.944,
+   "speech_end": 34.316,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 32.944,
+     "e": 33.554
+    },
+    {
+     "w": "il",
+     "s": 33.63,
+     "e": 33.706
+    },
+    {
+     "w": "boite.",
+     "s": 33.744,
+     "e": 34.316
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Et il paie la taxe de séjour.",
+   "hl": [
+    "taxe",
+    "séjour."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sable/tts/L21.k.wav",
+   "file_start": 34.476,
+   "speech_start": 34.476,
+   "speech_end": 36.076,
+   "words": [
+    {
+     "w": "Et",
+     "s": 34.476,
+     "e": 34.552
+    },
+    {
+     "w": "il",
+     "s": 34.666,
+     "e": 34.78
+    },
+    {
+     "w": "paie",
+     "s": 34.806,
+     "e": 34.856
+    },
+    {
+     "w": "la",
+     "s": 34.933,
+     "e": 35.009
+    },
+    {
+     "w": "taxe",
+     "s": 35.123,
+     "e": 35.263
+    },
+    {
+     "w": "de",
+     "s": 35.288,
+     "e": 35.314
+    },
+    {
+     "w": "séjour.",
+     "s": 35.39,
+     "e": 36.076
+    }
+   ]
+  }
+ ],
+ "total": 36.92
+}
