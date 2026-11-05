@@ -106,15 +106,21 @@ scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 
 scenes.append(scene(6, 'S6', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.0, 'glow': 4, 'gear': True})],
     cams=[cam(0.0, [-9.5, 8.5, -7.5], [-6.0, 3.4, 4.5], [-1.6, 1.5, -1.8], [-0.4, 0.8, 5.6], lens=50, ease='inOut', shake=0.02)], blur=0.005, camTilt=-2))   # the original's dolly is 3x sharper than a 0.012 s shutter; tilted 2 deg down (sweep +0.005)
 
-# S7 7.63-8.10: wide runway, the jet lifts off far away (dust behind it) and roars over the camera banking up-right (whip, motion blur)
+# S7 7.63-8.10: the jet comes in airborne, low over the runway (dust kicked up under it); the camera tilts up after it (horizon
+# y 547 -> 773 by f239, measured) and the jet roars overhead (belly f240, nozzles top-left f242). Wingspan read per frame: 293 px
+# (f229), 347 (f233), 432 (f236), 480 (f238) -> 51, 43, 34.5, 31 m away for our 10.6 m jet at lens 40
+JET7 = [(0.0, [0, 3.6, -42]), (0.133, [0, 3.5, -34]), (0.233, [0, 4.1, -25.5]), (0.3, [0, 5.2, -22]), (0.333, [0, 5.6, -16]),
+        (0.367, [-0.5, 9.0, 4]), (0.433, [-3.0, 14.0, 18])]
+S7LOOK = [(0.0, [0, 2.5, -40]), (0.133, [0, 3.0, -40]), (0.233, [0, 6.2, -40]), (0.3, [0, 8.4, -40]), (0.333, [0, 10.4, -40]),
+          (0.367, [0, 86.0, -40]), (0.433, [-0.8, 60.0, -5])]
+S7CAM = [0, 1.3, 9]
 scenes.append(scene(7, 'S7', 'runway',
-    props=[P('jet', 'fighterJet', pos=[0, 0.2, -60], rot=[0, 0, 0.0], opts={'burner': 1.0, 'glow': 5, 'gear': True, 'missiles': 4}, keys=[k(0.0, to=[0, 2.0, -18], dur=0.3, ease='in'),
-        k(0.3, to=[-2.0, 14.0, 4], dur=0.1, ease='linear'), k(0.4, to=[-5.0, 24.0, 22], dur=0.07, ease='linear'),   # stays ~15 m away as it climbs over
-        k(0.28, rotTo=[-0.5, 0, -0.4], dur=0.12)]),   # passes over to the upper left (nozzles there by f242), banking   # wings level, then nose up and banking as it climbs over the camera (belly, then rear, f238-f242)
-           P('dust', 'dustPuff', pos=[0, 0, -66], scale=6, opts={'color': '#D9C9A6', 'period': 0.8})],
-    cams=[cam(0.0, [0, 1.4, 8], [0, 1.4, 8], [0, 2.5, -40], [0, 3.4, -40], lens=40),          # horizon y 523 -> 543 (measured), nearly still until f234
-          cam(0.17, [0, 1.4, 8], [0, 1.4, 8], [0, 3.4, -40], [-0.8, 60.0, -5], lens=40, ease='in')],   # then a fast whip up: all sky by f240
-    blur=[[0.3, 0.47, 0.02]], blurSamples=10, camDolly=1.1, camTilt=2))   # sweep trims (+0.022, mostly the all-sky end)
+    props=[P('jet', 'fighterJet', pos=JET7[0][1], rot=[0, 0, 0.0], opts={'burner': 1.0, 'glow': 5, 'gear': True, 'missiles': 4},
+             keys=[k(a[0], to=b[1], dur=round(b[0] - a[0], 3), ease='linear') for a, b in zip(JET7, JET7[1:])] +
+                  [k(0.24, rotTo=[-0.26, 0, 0], dur=0.06), k(0.3, rotTo=[-0.55, 0, -0.3], dur=0.035), k(0.335, rotTo=[-0.85, 0, -0.4], dur=0.03)]),
+           P('dust', 'dustPuff', pos=[0.5, 0, -46], scale=5, opts={'color': '#D9C9A6', 'period': 0.8})],
+    cams=[cam(a[0], S7CAM, S7CAM, a[1], b[1], lens=40) for a, b in zip(S7LOOK, S7LOOK[1:])] + [cam(S7LOOK[-1][0], S7CAM, S7CAM, S7LOOK[-1][1], [-1.5, 50.0, 10], lens=40)],
+    blur=[[0.33, 0.47, 0.006]], blurSamples=8))   # the original's overhead pass reads clearly: short shutter
 
 def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
     """a scene between two reference frames (for shots split at an invisible cut, e.g. inside the S8 cloud white-out)"""
