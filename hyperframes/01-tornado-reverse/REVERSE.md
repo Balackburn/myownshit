@@ -74,6 +74,7 @@ not have, so this project is built by hand to the same rules.
 | 43 | 0.696 | 0.510 | Framing nudges from phase correlation: S3 0.6° (0.705 → 0.708); S22's end framing was neutral on the full video (reverted in 44). Rejected on stills: brighter S9 missiles, an S5 camera move, a phone hand |
 | 44 | 0.697 | 0.510 | Bright elements in the wrong place cost more than missing ones: S13 flames ×0.8 (0.660 → 0.672), S14 flame band 1.6 → 1.1 (0.789 → 0.792); a bigger, brighter S5 afterburner (0.744 → 0.751) |
 | 45 | 0.698 | 0.510 | Per-scene framing trims in the director (camDolly/Truck/Ped/Pan/Tilt) and a still sweep: S20 panned 1.5° (0.753 → 0.757), S16 camera 0.3 m closer (0.685 → 0.689), lighter S15 tornado (0.632 → 0.636) |
+| 46 | 0.699 | 0.510 | Sweep trims on the field shots: S21 camera at 0.8× the distance, panned 2° (0.735 → 0.767), S19 at 0.8× (0.737 → 0.753), S17 panned and tilted 1.5° (0.715 → 0.719). Sweeps found nothing to gain on the solved cameras (S11, S13, S14, S18) |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20

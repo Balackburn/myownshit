@@ -368,7 +368,7 @@ scenes.append(scene(17, 'S17', 'grassland', props=[
     P('cuffs', 'bigCuffs', pos=[-3.4, 22.0, -30.2], opts={'r': 1.6}),           # outside the body (it hid them), ~110 px wide
     P('rubble', 'rubble', pos=[-1.3, 0, -38], opts={'r': 3.2, 'n': 18, 'size': 0.8}),
     P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.5, 'count': 260, 'seed': 4})],
-    cams=[cam(0.0, [0, 1.2, 12], [0, 1.25, 11.4], [-2, 23.2, -40], [-2, 24.6, -40], lens=52)]))   # tilted up ~23 deg (rows of f660)
+    cams=[cam(0.0, [0, 1.2, 12], [0, 1.25, 11.4], [-2, 23.2, -40], [-2, 24.6, -40], lens=52)], camPan=1.5, camTilt=1.5))   # tilted up ~23 deg (rows of f660); sweep trims +0.005
 
 # S18 22.33-23.57: from the tornado's crown, looking up at the hub, the rotor spins up into a blur
 TORS18 = {**TORG, 'cols': ['#7E8A80', '#86928A', '#76827A', '#8E9A92'], 'stripe': '#7A867E', 'stripeDark': '#6E7A72', 'crownSpike': 0.0, 'crownH': 1.3,
@@ -391,7 +391,7 @@ scenes.append(scene(19, 'S19', 'grassland',
            P('rubble', 'rubble', pos=[8, 0, -55], opts={'r': 5, 'n': 24, 'size': 1.1}),
            P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
            P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.45, 'count': 240, 'seed': 6})],
-    cams=[cam(0.0, [0, 2.0, 10], [0, 2.0, 9.6], [-1, 6.3, -50], [-2.2, 6.3, -50], lens=45)]))
+    cams=[cam(0.0, [0, 2.0, 10], [0, 2.0, 9.6], [-1, 6.3, -50], [-2.2, 6.3, -50], lens=45)], camDolly=0.8))   # closer, from a still sweep (+0.021)
 
 # S20 24.13-25.53: the officer strides in and cracks the whip at the tornado's base, boulders fly; the camera pans with him
 scenes.append(scene(20, 'S20', 'grassland',
@@ -412,7 +412,7 @@ scenes.append(scene(21, 'S21', 'grassland',
            P('rubble', 'rubble', pos=[8, 0, -55], opts={'r': 5, 'n': 24, 'size': 1.1, 'fly': 0.3}),
            P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
            P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.45, 'count': 240, 'seed': 6})],
-    cams=[cam(0.0, [1, 2.0, 12], [1, 2.0, 11.7], [1, 6.3, -50], [0.6, 6.6, -50], lens=45, shake=0.08)]))
+    cams=[cam(0.0, [1, 2.0, 12], [1, 2.0, 11.7], [1, 6.3, -50], [0.6, 6.6, -50], lens=45, shake=0.08)], camDolly=0.8, camPan=2))   # trims from a still sweep (+0.037)
 
 # S22 26.00-28.80: "Oh, and the dog is dead.": the dog's grave, R.I.P., his framed portrait, flowers, a fresh mound; slow push-in; the
 # handcuffed tornado and the turbine far behind

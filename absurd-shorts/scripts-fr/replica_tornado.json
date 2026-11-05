@@ -8169,6 +8169,8 @@
    ],
    "start": 21.6,
    "duration": 0.733333,
+   "camPan": 1.5,
+   "camTilt": 1.5,
    "grade": "contrast(0.9) saturate(0.95) brightness(1.159)",
    "soften": 0.46
   },
@@ -8499,6 +8501,7 @@
    ],
    "start": 23.566667,
    "duration": 0.566667,
+   "camDolly": 0.8,
    "grade": "contrast(0.9) saturate(0.87) brightness(1.094)",
    "soften": 0.4
   },
@@ -8848,6 +8851,8 @@
    ],
    "start": 25.533333,
    "duration": 0.466667,
+   "camDolly": 0.8,
+   "camPan": 2,
    "grade": "contrast(0.9) saturate(0.87) brightness(1.116)",
    "soften": 0.49
   },
