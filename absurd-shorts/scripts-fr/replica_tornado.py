@@ -214,12 +214,14 @@ scenes.append(scene(11, 'S11', 'cottageStreet', props=[
 # S12 14.37-16.10: high over the rows of cottages, the tornado on the field beyond; strikes land among the houses, closer and closer
 scenes.append(scene(12, 'S12', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[14, 0, -165], scale=5.0, opts={**TOR, 'chips': 30}),
-    P('b1', 'fireball', pos=[-11, 3, -100], opts={'t0': 0.3, 'size': 6.5, 'seed': 4, 'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.6, 'flashScale': 0.9, 'smoke': 0.75, 'smokeColor': '#3A3432'}),
-    P('b2', 'fireball', pos=[-5, 3, -62], opts={'t0': 1.1, 'size': 8.5, 'seed': 6, 'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.6, 'flashScale': 0.9, 'smoke': 0.75, 'smokeColor': '#3A3432'}),
-    P('b3', 'fireball', pos=[1, 3, -34], opts={'t0': 1.5, 'size': 8, 'seed': 8, 'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.6, 'flashScale': 0.9, 'smoke': 0.75, 'smokeColor': '#3A3432'}),
-    P('msl', 'missileSalvo', opts={'size': 2.5, 'shots': [{'from': [90, 160, -300], 'to': [-11, 3, -100], 't0': 0.0, 'dur': 0.3, 'trail': 0.5},
-                                                         {'from': [70, 170, -260], 'to': [-5, 3, -62], 't0': 0.8, 'dur': 0.3, 'trail': 0.6},
-                                                         {'from': [60, 160, -200], 'to': [1, 3, -34], 't0': 1.2, 'dur': 0.3, 'trail': 0.6}]})],
+    P('b1', 'fireball', pos=[-7.4, 3, -90.8], opts={'t0': 0.47, 'size': 5.0, 'seed': 4, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
+    P('b2', 'fireball', pos=[8.2, 3, -64.5], opts={'t0': 0.9, 'size': 5.5, 'seed': 6, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
+    P('b3', 'fireball', pos=[-5.7, 3, -32.9], opts={'t0': 1.27, 'size': 5.5, 'seed': 8, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
+    P('b4', 'fireball', pos=[3.8, 3, -14.8], opts={'t0': 1.63, 'size': 5.0, 'seed': 10, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
+    P('msl', 'missileSalvo', opts={'size': 2.2, 'shots': [{'from': [40, 140, -150], 'to': [-7.4, 3, -90.8], 't0': 0.2, 'dur': 0.27, 'trail': 0.6},
+                                                         {'from': [55, 140, -120], 'to': [8.2, 3, -64.5], 't0': 0.63, 'dur': 0.27, 'trail': 0.6},
+                                                         {'from': [45, 130, -80], 'to': [-5.7, 3, -32.9], 't0': 1.0, 'dur': 0.27, 'trail': 0.6},
+                                                         {'from': [50, 120, -60], 'to': [3.8, 3, -14.8], 't0': 1.36, 'dur': 0.27, 'trail': 0.6}]})],
     cams=[cam(0.0, [0, 25, 34], [0.4, 25, 32.5], [0, -2.0, -46], [2.6, -2.0, -47.5], lens=48)], setOpts={'rows': 7}))
 
 # S13 16.10-17.63: "All of it.": the same streets in ruins, dark grade, a forest of smoke columns and fires, the tornado far behind
@@ -265,7 +267,7 @@ scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windo
     props=[P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
            P('gavel', 'gavel', pos=[0.03, 1.41, -13.65], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),
            P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
-    cams=[cam(0.0, [0.05, 1.27, -11.2], [0.03, 1.28, -11.45], [-0.12, 1.56, -14.0], [-0.12, 1.56, -14.0], lens=45)],
+    cams=[cam(0.0, [-0.05, 1.27, -11.5], [-0.07, 1.28, -11.75], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.18, 'amount': 0.018}]))
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine
