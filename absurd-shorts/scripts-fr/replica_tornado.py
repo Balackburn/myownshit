@@ -354,10 +354,12 @@ scenes.append(scene(17, 'S17', 'grassland', props=[
     cams=[cam(0.0, [0, 1.2, 12], [0, 1.25, 11.4], [-2, 14, -40], [-2, 15.8, -40], lens=52)]))
 
 # S18 22.33-23.57: from the tornado's crown, looking up at the hub, the rotor spins up into a blur
+TORS18 = {**TORS, 'crownSpike': 0.0, 'crownH': 0.8, 'crownFlare': 1.15, 'crater': {'r0': 1.1, 'r1': 3.0, 'bands': [[1.7, 1.9], [2.15, 2.35]], 'rocksIn': 10,
+          'rockIn': 0.26, 'rocksOut': 18, 'rockOut': 0.17, 'color': '#7E8A82', 'rockColor': '#8A968E'}}   # the turbine stands in the crater crown
 scenes.append(scene(18, 'S18', 'grassland', props=[
     P('turbine', 'windTurbine', pos=[0, 0, -60], opts={'h': 60, 'rpm': 34, 'blur': 1.4, 'blurSpread': 0.7, 'label': HANDLE}),
-    P('tornado', 'tornado', pos=[-2.5, 0, -6], scale=2.0, opts=TORS),
-    P('cuffs', 'bigCuffs', pos=[-2.6, 15.2, -3.2], opts={'r': 0.7})],
+    P('tornado', 'tornado', pos=[3.1, 0, -20], scale=2.45, opts=TORS18),          # crown 30 m out, rim 5 deg above eye level: y 790-1024 like the original
+    P('cuffs', 'bigCuffs', pos=[0.6, 18.2, -14.8], opts={'r': 0.9})],
     cams=[cam(0.0, [2, 16, 10], [2, 16.2, 9.5], [0, 39.4, -60], [0, 39.8, -60], lens=50)]))
 
 # S19 23.57-24.13: wide: turbine left, the tornado right, a tiny officer whipping at its base
@@ -375,11 +377,11 @@ scenes.append(scene(19, 'S19', 'grassland',
 scenes.append(scene(20, 'S20', 'grassland',
     actors=[act('cop', [-1.9, 0, -6], 90, 'stand', keys=[k(0.0, to=[-0.5, 0, -6], dur=1.15, clip='whipWalk', then='stand'), k(1.15, face=0)])],
     props=[P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
-           P('tornado', 'tornado', pos=[6.5, 0, -11], scale=5.4, opts={**TORG, 'ribbons': 0}),
+           P('tornado', 'tornado', pos=[6.5, 0, -11], scale=5.4, opts={**TORG, 'cols': ['#7E8A80', '#86928A', '#76827A', '#8E9A92'], 'stripe': '#7A867E', 'stripeDark': '#6E7A72'}),   # close and lit: light body, tan swirls
            P('rubble', 'rubble', pos=[6.5, 0, -11], opts={'r': 3.6, 'n': 30, 'size': 0.7, 'fly': 0.4}),
            P('turbine', 'windTurbine', pos=[-12, 0, -70], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
            P('grass', 'tallGrass', pos=[0, 0, -4], opts={'w': 16, 'd': 6, 'h': 0.32, 'count': 160, 'seed': 8})],
-    cams=[cam(0.0, [-0.6, 1.05, -1.5], [-0.3, 1.05, -1.5], [0.0, 1.45, -6], [0.25, 1.45, -6], lens=50, shake=0.01)]))
+    cams=[cam(0.0, [-1.3, 1.05, -0.1], [-0.6, 1.05, -0.1], [-0.9, 1.45, -6], [-0.1, 1.45, -6], lens=50, shake=0.01)]))   # 5.9 m back: officer ~466 px tall, kept left of centre as he strides
 
 # S21 25.53-26.00: wide again, the officer whipping at the base
 scenes.append(scene(21, 'S21', 'grassland',

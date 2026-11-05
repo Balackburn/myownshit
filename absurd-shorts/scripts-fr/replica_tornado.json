@@ -7928,11 +7928,11 @@
      "id": "tornado",
      "name": "tornado",
      "pos": [
-      -2.5,
+      3.1,
       0,
-      -6
+      -20
      ],
-     "scale": 2.0,
+     "scale": 2.45,
      "opts": {
       "rings": 14,
       "height": 7.3,
@@ -7940,9 +7940,9 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.15,
+      "crownH": 0.8,
+      "crownSpike": 0.0,
       "chips": 40,
       "teeth": true,
       "gap": 0.05,
@@ -7959,19 +7959,39 @@
       "paleColor": "#C2C5B9",
       "stripe": "#B9B3A2",
       "stripeDark": "#55615A",
-      "pale": 2
+      "pale": 2,
+      "crater": {
+       "r0": 1.1,
+       "r1": 3.0,
+       "bands": [
+        [
+         1.7,
+         1.9
+        ],
+        [
+         2.15,
+         2.35
+        ]
+       ],
+       "rocksIn": 10,
+       "rockIn": 0.26,
+       "rocksOut": 18,
+       "rockOut": 0.17,
+       "color": "#7E8A82",
+       "rockColor": "#8A968E"
+      }
      }
     },
     {
      "id": "cuffs",
      "name": "bigCuffs",
      "pos": [
-      -2.6,
-      15.2,
-      -3.2
+      0.6,
+      18.2,
+      -14.8
      ],
      "opts": {
-      "r": 0.7
+      "r": 0.9
      }
     }
    ],
@@ -8247,16 +8267,16 @@
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#555F59",
-       "#5A645E",
-       "#525C56",
-       "#5E6862"
+       "#7E8A80",
+       "#86928A",
+       "#76827A",
+       "#8E9A92"
       ],
       "paleColor": "#C2C5B9",
-      "stripe": "#4E5852",
-      "stripeDark": "#4A544E",
+      "stripe": "#7A867E",
+      "stripeDark": "#6E7A72",
       "pale": null,
-      "ribbons": 0,
+      "ribbons": 4,
       "ribbonFollow": true,
       "ribbonGap": 1.03,
       "ribbonY0": 0.16,
@@ -8319,24 +8339,24 @@
     {
      "at": 0.0,
      "from": [
-      -0.6,
+      -1.3,
       1.05,
-      -1.5
+      -0.1
      ],
      "to": [
-      -0.3,
+      -0.6,
       1.05,
-      -1.5
+      -0.1
      ],
      "lookAt": [
-      0.0,
+      -0.9,
       1.45,
       -6
      ],
      "lens": 50,
      "ease": "linear",
      "lookAt2": [
-      0.25,
+      -0.1,
       1.45,
       -6
      ],
