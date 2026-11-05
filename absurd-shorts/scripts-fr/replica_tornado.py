@@ -86,8 +86,8 @@ scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
 # the right, the townhouses beyond the fence on the left, the tornado far down the road; at f151 he brings up the phone beside his face,
 # screen to the camera, showing the creator's handle
 scenes.append(scene(4, 'S4', 'replicaStreet',
-    actors=[act('mec', [-12.0, 0, 0], 0, 'stand', 'neutral', keys=[k(0.5, clip='showPhoneFaceL')])],
-    props=[P('phone', 'phone911', pos=[-11.84, 1.45, 0.22], rot=[0, -0.15, -0.24], scale=1.12, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.84, 1.94, 0.22], dur=0.14, ease='out')]),
+    actors=[act('mec', [-12.0, 0, 0], -16, 'stand', 'suspicious', keys=[k(0.5, clip='showPhoneFaceL')])],
+    props=[P('phone', 'phone911', pos=[-11.9, 1.45, 0.26], rot=[0, -0.3, -0.24], scale=1.12, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.9, 1.94, 0.26], dur=0.14, ease='out')]),
            P('tornado', 'tornado', pos=[20, 0, -150], scale=3.0, opts=TOR)],
     cams=[cam(0.0, [-12.0, 2.43, 0.9], [-11.97, 2.44, 0.89], [-11.96, 2.17, -0.07], [-11.94, 2.18, -0.07], lens=74)]))
 

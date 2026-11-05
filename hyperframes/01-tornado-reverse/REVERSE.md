@@ -45,6 +45,7 @@ not have, so this project is built by hand to the same rules.
 | 14 | 0.674 | 0.469 | S3 staging (3/4 facing left, forearms out, head to camera, distant houses); delivery encode at the original's bitrate (H.264 High, ~1.4 Mb/s) |
 | 15 | 0.675 | 0.469 | S12 blasts at the original's frames (f445/458/469/480), positions projected from screen to ground; S16 framing |
 | 16 | 0.675 | 0.468 | S19/S21 tornado: dark smooth body with wide pale spiral bands wrapped tight; S17 layout; S22 lower mound |
+| 17 | 0.675 | 0.468 | S4 skeptical expression and head turn, phone against the cheek (a lower camera aim was tried again and scored worse) |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado
