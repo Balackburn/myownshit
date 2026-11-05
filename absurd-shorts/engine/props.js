@@ -572,13 +572,16 @@ const B = {
     const head = grp(box(0.34, 0.32, 0.32, tan, { outline: 0.01 }),
       at(box(0.2, 0.15, 0.14, muzzle, { outline: 0.01 }), 0, -0.07, 0.21),                                       // muzzle block
       at(box(0.09, 0.06, 0.04, '#121212'), 0, -0.02, 0.29),                                                       // nose
-      at(box(0.1, 0.1, 0.02, '#FFFFFF'), -0.085, 0.06, 0.162), at(box(0.1, 0.1, 0.02, '#FFFFFF'), 0.085, 0.06, 0.162), // eyes
-      at(box(0.045, 0.05, 0.02, '#141414'), -0.075, 0.055, 0.172), at(box(0.045, 0.05, 0.02, '#141414'), 0.075, 0.055, 0.172),
+      at(box(0.1 * (o.eyes || 1), 0.1 * (o.eyes || 1), 0.02, '#FFFFFF'), -0.085 - 0.01 * ((o.eyes || 1) - 1), 0.06 + 0.02 * ((o.eyes || 1) - 1), 0.162),
+      at(box(0.1 * (o.eyes || 1), 0.1 * (o.eyes || 1), 0.02, '#FFFFFF'), 0.085 + 0.01 * ((o.eyes || 1) - 1), 0.06 + 0.02 * ((o.eyes || 1) - 1), 0.162), // eyes (o.eyes scales them)
+      at(box(0.045 * (o.eyes || 1), 0.05 * (o.eyes || 1), 0.02, '#141414'), -0.075 - 0.01 * ((o.eyes || 1) - 1), 0.055 + 0.03 * ((o.eyes || 1) - 1), 0.172),
+      at(box(0.045 * (o.eyes || 1), 0.05 * (o.eyes || 1), 0.02, '#141414'), 0.075 + 0.01 * ((o.eyes || 1) - 1), 0.055 + 0.03 * ((o.eyes || 1) - 1), 0.172),
       at(box(0.08, 0.12, 0.06, dark), -0.19, 0.12, -0.02), at(box(0.08, 0.12, 0.06, dark), 0.19, 0.12, -0.02));  // ears
     if (o.open) { // mouth wide open (S2 of the tornado short): the dark muzzle splits, red mouth and a big pink tongue inside
       head.children[1].position.y = -0.03; head.children[1].scale.y = 0.75;
       head.add(at(box(0.2, 0.05, 0.13, muzzle, { outline: 0.01 }), 0, -0.2, 0.2, 0.25, 0, 0), at(box(0.17, 0.08, 0.1, '#7A1E22'), 0, -0.135, 0.2), at(box(0.1, 0.03, 0.12, '#E86A84'), 0, -0.17, 0.25, 0.2, 0, 0));
-    } else if (o.tongue) head.add(at(box(0.07, 0.02, 0.1, '#E05A6A'), 0, -0.15, 0.26, 0.4, 0, 0));
+    } else if (o.tongue === 'long') head.add(at(box(0.085, 0.13, 0.03, '#EE7890', { outline: 0.006 }), 0.04, -0.195, 0.27, 0.12, 0, 0.14));   // the portrait's tongue, hanging out
+    else if (o.tongue) head.add(at(box(0.07, 0.02, 0.1, '#E05A6A'), 0, -0.15, 0.26, 0.4, 0, 0));
     head.position.set(0, 0.66, 0.3); g.add(head);
     g.add(at(box(0.32, 0.06, 0.06, P.red), 0, 0.53, 0.26, 0.3, 0, 0));                                            // collar
     g.userData.head = head;
@@ -1493,8 +1496,8 @@ const B = {
     for (let i = 0; i < 70; i++) g.add(at(box(0.012, 0.06 + r() * 0.06, 0.012, r() < 0.5 ? '#5E9A4A' : '#6FB05A', { pivot: 'bottom' }), (r() - 0.5) * 0.56, 0.14, (r() - 0.5) * 0.56, (r() - 0.5) * 0.3, 0, (r() - 0.5) * 0.3));
     return g; },
   tallGrass(o) { // a field of tall grass blades (o.w x o.d, o.h high): grow it with scale keys
-    const w = o.w || 6, d = o.d || 6, h = o.h || 1, r = rng(o.seed || 9), n = o.count || 420, cols = ['#5E9A4A', '#6FB05A', '#4E8A3E', '#7FBF5E'], g = grp();
-    const geo = new THREE.BoxGeometry(0.06, 1, 0.03); geo.translate(0, 0.5, 0);
+    const w = o.w || 6, d = o.d || 6, h = o.h || 1, r = rng(o.seed || 9), n = o.count || 420, cols = o.cols || ['#5E9A4A', '#6FB05A', '#4E8A3E', '#7FBF5E'], g = grp();
+    const geo = o.thin ? new THREE.ConeGeometry(o.thin, 1, 3) : new THREE.BoxGeometry(0.06, 1, 0.03); geo.translate(0, 0.5, 0);   // o.thin: tapered blades of that base radius
     cols.forEach((c, ci) => { const m = new THREE.InstancedMesh(geo, mat(c), Math.ceil(n / 4)); const M = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler();
       for (let i = 0; i < m.count; i++) { e.set((r() - 0.5) * 0.35, r() * TAU, (r() - 0.5) * 0.35); q.setFromEuler(e); M.compose(new THREE.Vector3((r() - 0.5) * w, 0, (r() - 0.5) * d), q, new THREE.Vector3(1 + r(), h * (0.7 + r() * 0.5), 1)); m.setMatrixAt(i, M); }
       m.castShadow = true; g.add(m); });
@@ -1874,7 +1877,8 @@ const B = {
     m.castShadow = false; m.frustumCulled = false; const d = new THREE.Object3D();
     g_set(m, puffs, d, 0);
     function g_set(mm, pp, dd, t) { pp.forEach((p, i) => { const f = (p.ph + t * (o.speed || 0.06)) % 1, y = p.y0 + f * p.hgt, rad = p.s * (0.6 + 1.1 * f);
-      dd.position.set(p.x + Math.sin(f * 5 + p.wob) * 0.6 * f * p.s + f * (o.drift || 0) * p.hgt, y, p.z + Math.cos(f * 4 + p.wob) * 0.4 * f); dd.scale.set(rad, rad * 0.85, rad); dd.rotation.set(p.wob, f * 2, 0); dd.updateMatrix(); mm.setMatrixAt(i, dd.matrix); });
+      const tw = o.twist ? f * o.twist + p.ci * 1.7 + t * (o.twistSpeed ?? 1.2) : 0, ta = o.twist ? (o.twistAmp || 0.8) * p.s * (0.5 + f) : 0;   // o.twist: rope-like spiral columns
+      dd.position.set(p.x + Math.sin(f * 5 + p.wob) * 0.6 * f * p.s + f * (o.drift || 0) * p.hgt + Math.sin(tw) * ta, y, p.z + Math.cos(f * 4 + p.wob) * 0.4 * f + Math.cos(tw) * ta); dd.scale.set(rad, rad * 0.85, rad); dd.rotation.set(p.wob, f * 2, 0); dd.updateMatrix(); mm.setMatrixAt(i, dd.matrix); });
       mm.instanceMatrix.needsUpdate = true; }
     const g = grp(m); g.userData.update = t => g_set(m, puffs, d, t); return g;
   },
@@ -1953,14 +1957,14 @@ const B = {
   gravestone(o) { // arched grey headstone: R.I.P. carved at the top, a framed 3D portrait of the voxel dog, a handle line on the base slab
     const W = o.w || 1.0, H = o.h || 1.25, T = 0.2, stone = o.color || '#ABABA8', g = grp();
     g.add(at(box(W, H - W / 2, T, stone, { pivot: 'bottom', outline: 0.004 }), 0, 0.25, 0));
-    const arch = mesh(new THREE.CylinderGeometry(W / 2, W / 2, T, 24, 1, false, -PI / 2, PI), mat(stone)); arch.rotation.x = PI / 2; arch.position.set(0, 0.25 + H - W / 2, 0); g.add(arch);
+    const arch = mesh(new THREE.CylinderGeometry(W / 2, W / 2, T, 24, 1, false, -PI / 2, PI), mat(stone)); arch.rotation.x = -PI / 2; arch.position.set(0, 0.25 + H - W / 2, 0); g.add(arch);   // the +z half-disc turned up (it was turned down, inside the slab)
     g.add(at(box(W * 1.45, 0.25, T * 2.6, '#A2A29E', { pivot: 'bottom', outline: 0.004 }), 0, 0, 0.08));
-    const rip = canvasPlane(W * 0.8, W * 0.22, (c, Wc, Hc) => { c.fillStyle = '#2E2E2C'; c.font = `bold ${Hc * 0.92}px "Times New Roman", Georgia, serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'R.I.P.', Wc / 2, Hc * 0.55); }, { res: 512, transparent: true });
+    const rip = canvasPlane(W * (o.ripW || 0.8), W * (o.ripH || 0.22), (c, Wc, Hc) => { c.fillStyle = '#2E2E2C'; c.font = `bold ${Hc * 0.92}px "Times New Roman", Georgia, serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'R.I.P.', Wc / 2, Hc * 0.55); }, { res: 512, transparent: true });
     rip.position.set(0, 0.25 + H - W * 0.22, T / 2 + 0.004); g.add(rip);
     const fw = W * 0.72, fh = W * 0.8, fy = 0.25 + H - W * 0.37 - fh / 2;
     g.add(at(box(fw, fh, 0.05, '#6B3E26'), 0, fy, T / 2 + 0.025), at(box(fw * 0.86, fh * 0.88, 0.052, '#EADDB9'), 0, fy, T / 2 + 0.028));
-    const dog = B.voxelDog({ tongue: true, color: o.dogColor, muzzle: o.dogMuzzle }), head = dog.userData.head; head.parent.remove(head);
-    head.scale.setScalar(fw * 1.7); head.position.set(0, fy - fh * 0.04, T / 2 + 0.06); g.add(head);
+    const dog = B.voxelDog({ tongue: o.dogTongue || true, eyes: o.dogEyes, color: o.dogColor, muzzle: o.dogMuzzle }), head = dog.userData.head; head.parent.remove(head);
+    head.scale.setScalar(fw * (o.dogScale || 1.7)); head.position.set(0, fy - fh * 0.04, T / 2 + 0.06); head.rotation.y = o.dogYaw || 0; g.add(head);
     if (o.handle) { const hl = canvasPlane(W * 1.1, W * 0.1, (c, Wc, Hc) => { c.fillStyle = '#4A4A48'; c.font = `bold ${Hc * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle, Wc / 2, Hc / 2); }, { res: 512, transparent: true });
       hl.position.set(0, 0.17, 0.08 + T * 1.3 + 0.004); g.add(hl); }
     return g;

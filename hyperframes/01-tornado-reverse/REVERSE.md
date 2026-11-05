@@ -52,6 +52,7 @@ not have, so this project is built by hand to the same rules.
 | 21 | 0.679 | 0.480 | S3 camera moved in to the original's framing (head size and position from grid reads; body 3/4, face to camera); S12 camera solved from the house rows, horizon and tornado, side-gabled cottages packed on a 7.6 m pitch, muted roofs; missing content 15.6% → 11.9% |
 | 22 | 0.679 | 0.480 | S14: the road had never rendered (1 cm above the ground: z-fight), now asphalt with dashes at the original's colour; camera tilt 18.6° as measured, closer V-shaped tornado with broken pale stripes, bigger flames, neutral light; missing content 11.9% → 5.6% |
 | 23 | 0.678 | 0.480 | S20 camera at the officer's measured size and place, turbine behind him, lighter tornado with tan swirls; S18 crater crown under the turbine; missing content 5.6% → 3.4% |
+| 24 | 0.682 | 0.480 | S4 camera solved from the head rows (head height, 0.8 m, tilted up), phone and tornado placed; skin tinted to the original's (face #CB9765 → #B7906A); S18 cloud deck behind a drum-shaped crater crown; S22 arched headstone (the arch was inside the slab), big-eyed dog with its tongue out, thin grass; worst-cell SSIM 0.23 → 0.32 |
 
 Pass 19-20 notes:
 - **Engine:** `camLock` props live in camera space (screen-locked layers inside a 3D shot: the cloud bank); `rotTo` keys rotate props

@@ -82,14 +82,14 @@ scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
     actors=[act('mec', [-1.2, 0, 0], -8, 'explainLook', 'neutral', params={'yaw': 1.0})],   # chest 3/4 toward screen-left (hands clear of the lens), face to the camera
     cams=[cam(0.0, [-0.211, 0.912, 0.6], [-0.181, 0.922, 0.58], [-2.045, 2.04, -0.398], [-2.015, 2.06, -0.408], lens=74, shake=0.003)]))   # head 225 px tall, centred x ~350 (grid reads of f120)
 
-# S4 4.50-6.53: selfie close-up on the far sidewalk (0.7 m from his face, camera above eye level looking down 15 deg, wide lens): the road on
-# the right, the townhouses beyond the fence on the left, the tornado far down the road; at f151 he brings up the phone beside his face,
+# S4 4.50-6.53: selfie close-up on the far sidewalk (0.84 m from his face, camera just above eye level, nearly level, wide lens): the road on
+# the right, the townhouses beyond the fence on the left, the tornado ~60 m down the road behind his head; at f151 he brings up the phone beside his face,
 # screen to the camera, showing the creator's handle
 scenes.append(scene(4, 'S4', 'replicaStreet',
-    actors=[act('mec', [-12.0, 0, 0], -16, 'stand', 'suspicious', keys=[k(0.5, clip='showPhoneFaceL')])],
-    props=[P('phone', 'phone911', pos=[-11.9, 1.45, 0.26], rot=[0, -0.3, -0.24], scale=1.12, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.9, 1.94, 0.26], dur=0.14, ease='out')]),
-           P('tornado', 'tornado', pos=[20, 0, -150], scale=3.0, opts=TOR)],
-    cams=[cam(0.0, [-12.0, 2.43, 0.9], [-11.97, 2.44, 0.89], [-11.96, 2.17, -0.07], [-11.94, 2.18, -0.07], lens=74)]))
+    actors=[act('mec4', [-12.0, 0, 0], -16, 'stand', 'suspicious', keys=[k(0.5, clip='showPhoneFaceL')])],
+    props=[P('phone', 'phone911', pos=[-11.935, 1.3, 0.26], rot=[0, -0.3, -0.38], scale=0.92, opts={'screen': 'handle'}, keys=[k(0.0, visible=False), k(0.5, visible=True), k(0.5, to=[-11.935, 1.78, 0.26], dur=0.14, ease='out')]),
+           P('tornado', 'tornado', pos=[1.5, 0, -75], scale=3.6, opts=TOR)],   # down the road, crown just right of his head (grid reads of f170)
+    cams=[cam(0.0, [-12.07, 2.02, 0.8], [-12.04, 2.03, 0.79], [-12.03, 2.088, -0.07], [-12.01, 2.098, -0.07], lens=74)]))   # solved from the head rows (top 347, chin 790): at head height, 0.8 m, tilted up 4.3 deg
 
 # S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
 # blasting frame-left over the runway, the tail fins above
@@ -270,7 +270,7 @@ scenes.append(scene_f('S10', 335, 386, 'aerialSuburb', props=[
 # the cottages, fireball and glare, then smoke, debris and a second hit lower right
 scenes.append(scene(11, 'S11', 'cottageStreet', props=[
     P('tornado', 'tornado', pos=[8.8, 0, -40], scale=4.6, opts={**TOR, 'chips': 44}),
-    P('boom1', 'fireball', pos=[8.3, 18, -35], opts={'t0': 0.06, 'size': 7.0, 'n': 50, 'seed': 3, 'glowShare': 0.14, 'smokeColor': '#3E3836', 'puff': 0.62}),
+    P('boom1', 'fireball', pos=[8.3, 18, -35], opts={'t0': 0.06, 'size': 7.0, 'n': 50, 'seed': 3, 'glowShare': 1.0, 'glare': 1.0, 'flash': 0.5, 'flashScale': 1.3, 'life': 0.6, 'smokeColor': '#54473F', 'puff': 0.95}),   # one glowing mass, then brown-grey smoke
     P('boom2', 'fireball', pos=[11.5, 10.5, -34], opts={'t0': 0.86, 'size': 5.0, 'n': 22, 'seed': 9, 'smoke': 0.8, 'glowShare': 0.3, 'smokeColor': '#4A4441'}),
     P('msl', 'missileSalvo', opts={'size': 1.3, 'shots': [{'from': [40, 55, 0], 'to': [8.3, 18, -35], 't0': -0.2, 'dur': 0.26, 'trail': 0.5},
                                                          {'from': [42, 4, 2], 'to': [11.5, 10.5, -34], 't0': 0.56, 'dur': 0.3, 'trail': 0.6}]})],
@@ -284,7 +284,7 @@ scenes.append(scene(11, 'S11', 'cottageStreet', props=[
 # closer. Camera solved from grid reads of f433 (horizon y 170, row fronts y 960 / 700, tornado base (325, 320), crown top y 85): 27 m up,
 # pitch 16.6 deg, the nearest row 35 m ahead; houses 6.6 m wide on a 7.6 m pitch (eaves: ridge along the street, no porch). The blasts
 # keep the screen positions measured in pass 15, re-projected onto the ground for this camera (sizes scaled by the new distance)
-BLAST12 = {'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}
+BLAST12 = {'glowShare': 0.6, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}
 B12 = [([-10.16, 3, -132.77], 0.47, 7.9, 4), ([10.6, 3, -89.77], 0.9, 8.3, 6), ([-7.01, 3, -43.62], 1.27, 7.8, 8), ([4.45, 3, -19.56], 1.63, 6.8, 10)]
 MSL12 = [[40, 140, -190], [55, 140, -150], [45, 130, -95], [50, 120, -70]]
 scenes.append(scene(12, 'S12', 'cottageRows', props=[
@@ -305,9 +305,9 @@ for j in range(9):
         sm.append([x - 2.2, z - 1, 22 + (i * j % 5) * 3, 1.2])
         sm.append([x + 2.6, z - 3, 19 + (i % 4) * 3, 0.8])
 scenes.append(scene(13, 'S13', 'cottageRows', props=[
-    P('tornado', 'tornado', pos=[6, 0, -330], scale=6.5, opts={**TOR, 'chips': 30, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}),
+    P('tornado', 'tornado', pos=[18, 0, -435], scale=13.5, opts={**TOR, 'chips': 30, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}),   # crown ~173 px wide, top y ~40 (grid reads)
     P('fires', 'flameField', opts={'points': fl, 'seed': 3}),
-    P('smoke', 'smokeField', opts={'points': sm, 'size': 0.75, 'per': 16, 'seed': 5})],
+    P('smoke', 'smokeField', opts={'points': [[x_, z_, h_ * 0.8, y_] for x_, z_, h_, y_ in sm], 'size': 0.72, 'per': 30, 'seed': 5, 'twist': 13, 'twistAmp': 0.55, 'color': '#3B3533'})],   # twisted rope-like columns
     cams=[cam(0.0, [0, 23.5, 40], [0.4, 23.5, 39.5], [0, 2.5, -60], [2.4, 2.5, -60.5], lens=48)], setOpts={'burnt': True, 'rows': 13}))
 
 # S14 17.63-19.47: on the burnt road, low camera tilted up 18.6 deg (grid reads of f545: road vanishing point y 810, tornado base y ~805,
@@ -354,12 +354,15 @@ scenes.append(scene(17, 'S17', 'grassland', props=[
     cams=[cam(0.0, [0, 1.2, 12], [0, 1.25, 11.4], [-2, 14, -40], [-2, 15.8, -40], lens=52)]))
 
 # S18 22.33-23.57: from the tornado's crown, looking up at the hub, the rotor spins up into a blur
-TORS18 = {**TORS, 'crownSpike': 0.0, 'crownH': 0.8, 'crownFlare': 1.15, 'crater': {'r0': 1.1, 'r1': 3.0, 'bands': [[1.7, 1.9], [2.15, 2.35]], 'rocksIn': 10,
-          'rockIn': 0.26, 'rocksOut': 18, 'rockOut': 0.17, 'color': '#7E8A82', 'rockColor': '#8A968E'}}   # the turbine stands in the crater crown
+TORS18 = {**TORG, 'cols': ['#7E8A80', '#86928A', '#76827A', '#8E9A92'], 'stripe': '#7A867E', 'stripeDark': '#6E7A72', 'crownSpike': 0.0, 'crownH': 1.3,
+          'crownFlare': 1.15, 'crater': {'r0': 1.0, 'r1': 2.8, 'y': 7.25, 'dish': 0.12, 'bands': [[1.6, 1.8], [2.05, 2.25]], 'rocksIn': 10, 'rockIn': 0.26, 'rocksOut': 18,
+          'rockOut': 0.17, 'color': '#7E8A82', 'rockColor': '#8A968E'}}   # the turbine stands in the crater crown: a drum, smooth light body, thin tan spirals
 scenes.append(scene(18, 'S18', 'grassland', props=[
     P('turbine', 'windTurbine', pos=[0, 0, -60], opts={'h': 60, 'rpm': 34, 'blur': 1.4, 'blurSpread': 0.7, 'label': HANDLE}),
-    P('tornado', 'tornado', pos=[3.1, 0, -20], scale=2.45, opts=TORS18),          # crown 30 m out, rim 5 deg above eye level: y 790-1024 like the original
-    P('cuffs', 'bigCuffs', pos=[0.6, 18.2, -14.8], opts={'r': 0.9})],
+    P('tornado', 'tornado', pos=[3.1, 2.0, -20], scale=2.0, opts=TORS18),         # crown 30 m out, ~70% of the width, rim at y ~790 like the original
+    P('cuffs', 'bigCuffs', pos=[1.1, 16.1, -15.4], opts={'r': 0.75}),
+    P('clouds', 'cloudCurtain', camLock=True, pos=[0, -10.1, -50], opts={'down': True, 'w': 34, 'h': 16, 'r': 1.9, 'seed': 18, 'bright': '#FBFAF6', 'shadow': '#C6D6E6',
+      'plate': '#EEF2F5'})],                                                       # above the cloud deck: white puffs behind the crown, top edge y ~733
     cams=[cam(0.0, [2, 16, 10], [2, 16.2, 9.5], [0, 39.4, -60], [0, 39.8, -60], lens=50)]))
 
 # S19 23.57-24.13: wide: turbine left, the tornado right, a tiny officer whipping at its base
@@ -397,15 +400,16 @@ scenes.append(scene(21, 'S21', 'grassland',
 # S22 26.00-28.80: "Oh, and the dog is dead.": the dog's grave, R.I.P., his framed portrait, flowers, a fresh mound; slow push-in; the
 # handcuffed tornado and the turbine far behind
 scenes.append(scene(22, 'S22', 'grassland', props=[
-    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#C0711E', 'dogMuzzle': '#4A2816'}),
-    P('mound', 'dirtMound', pos=[0.05, 0, -2.25], opts={'w': 1.3, 'd': 1.5, 'h': 0.2}),
+    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#E0AC72', 'dogMuzzle': '#5A3420', 'dogYaw': -0.25, 'dogEyes': 1.35,
+                                                      'dogTongue': 'long', 'ripW': 0.95, 'ripH': 0.26}),
+    P('mound', 'dirtMound', pos=[0.05, 0, -2.05], opts={'w': 1.0, 'd': 1.15, 'h': 0.24, 'color': '#6E4630'}),
     P('flowers', 'flowers', pos=[0.42, 0.25, -3.18], scale=1.4),
     P('turbine', 'windTurbine', pos=[-46, 0, -190], opts={'h': 60, 'rpm': 13}),
     P('tornado', 'tornado', pos=[-34, 0, -150], scale=3.0, opts=TORG),
     P('cuffs', 'bigCuffs', pos=[-34.5, 19.5, -146.5], opts={'r': 1.0}),
-    P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 700, 'seed': 12}),
-    P('grassL', 'tallGrass', pos=[-1.6, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.5, 'count': 160, 'seed': 14}), P('grassR', 'tallGrass', pos=[1.7, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.5, 'count': 160, 'seed': 15}),
-    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.22, 'count': 50, 'seed': 13})],
+    P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 900, 'seed': 12, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
+    P('grassL', 'tallGrass', pos=[-2.05, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.55, 'count': 260, 'seed': 14, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}), P('grassR', 'tallGrass', pos=[2.15, 0, -2.9], opts={'w': 1.6, 'd': 2.4, 'h': 0.55, 'count': 260, 'seed': 15, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
+    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 120, 'seed': 13, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']})],
     cams=[cam(0.0, [0.1, 0.72, 0.25], [0.08, 0.74, -0.55], [0, 0.42, -3.5], [0, 0.43, -3.5], lens=50)]))
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.
@@ -446,7 +450,8 @@ for sc_ in scenes:
     if key in SHOT_GRADES: sc_['grade'] = SHOT_GRADES[key]
 
 doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'grade': 'contrast(0.9) saturate(1.0) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
-       'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
+       'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},   # skin tint: face #CB9765 -> #B7906A (S3)
+                 'mec4': {'preset': 'lemec', 'tint': '#D4E6FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},   # S4's close, bright key: #E8A768 -> #BF966E
                  'judge': {'preset': 'judge', 'facial': 'stubble', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
                  'cop': {'preset': 'cop', 'suit': '#1E2D4A', 'pants': '#1E2D4A', 'facial': 'none', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.82, 'headWidth': 1.3}}}, 'scenes': scenes, 'total': CUTS[-1] / FPS}
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'replica_tornado.json')
