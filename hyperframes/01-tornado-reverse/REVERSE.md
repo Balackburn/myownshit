@@ -46,6 +46,7 @@ not have, so this project is built by hand to the same rules.
 | 15 | 0.675 | 0.469 | S12 blasts at the original's frames (f445/458/469/480), positions projected from screen to ground; S16 framing |
 | 16 | 0.675 | 0.468 | S19/S21 tornado: dark smooth body with wide pale spiral bands wrapped tight; S17 layout; S22 lower mound |
 | 17 | 0.675 | 0.468 | S4 skeptical expression and head turn, phone against the cheek (a lower camera aim was tried again and scored worse) |
+| 18 | 0.675 | 0.468 | judge and officer with the painted lemec face like the original; judge glasses as a 3D prop; officer path kept left of centre |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado

@@ -265,7 +265,8 @@ scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
 # S16 20.23-21.60: low on the bench, the judge strikes the gavel (raise f607-613, hit on the block at f619), slow push-in
 scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windowX': -1.5, 'chairW': 1.2, 'chairH': 2.75, 'chairX': 0.15, 'benchGlow': '#5A564A'},
     actors=[act('judge', [-0.35, -0.3, -14.0], -35, 'gavelStrikeL', params={'hit': 0.4})],
-    props=[P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
+    props=[P('specs', 'glasses', on={'actor': 'judge', 'joint': 'head', 'offset': [0.02, 0.17, 0.15]}, opts={'r': 0.042, 'dx': 0.07}),
+           P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
            P('gavel', 'gavel', pos=[0.03, 1.41, -13.65], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),
            P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
     cams=[cam(0.0, [-0.05, 1.27, -11.5], [-0.07, 1.28, -11.75], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],
@@ -300,13 +301,13 @@ scenes.append(scene(19, 'S19', 'grassland',
 
 # S20 24.13-25.53: the officer strides in and cracks the whip at the tornado's base, boulders fly; the camera pans with him
 scenes.append(scene(20, 'S20', 'grassland',
-    actors=[act('cop', [-3.2, 0, -6], 90, 'stand', keys=[k(0.0, to=[0.9, 0, -6], dur=1.15, clip='whipWalk', then='stand'), k(1.15, face=0)])],
+    actors=[act('cop', [-1.9, 0, -6], 90, 'stand', keys=[k(0.0, to=[-0.5, 0, -6], dur=1.15, clip='whipWalk', then='stand'), k(1.15, face=0)])],
     props=[P('whip', 'whip', on={'actor': 'cop', 'hand': 'R'}, opts={'length': 2.8, 'period': 0.6}),
            P('tornado', 'tornado', pos=[6.5, 0, -11], scale=5.4, opts={**TORG, 'ribbons': 0}),
            P('rubble', 'rubble', pos=[6.5, 0, -11], opts={'r': 3.6, 'n': 30, 'size': 0.7, 'fly': 0.4}),
            P('turbine', 'windTurbine', pos=[-12, 0, -70], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
            P('grass', 'tallGrass', pos=[0, 0, -4], opts={'w': 16, 'd': 6, 'h': 0.32, 'count': 160, 'seed': 8})],
-    cams=[cam(0.0, [-0.9, 1.05, -1.5], [-0.6, 1.05, -1.5], [-0.3, 1.45, -6], [-0.1, 1.45, -6], lens=50, shake=0.01)]))
+    cams=[cam(0.0, [-0.6, 1.05, -1.5], [-0.3, 1.05, -1.5], [0.0, 1.45, -6], [0.25, 1.45, -6], lens=50, shake=0.01)]))
 
 # S21 25.53-26.00: wide again, the officer whipping at the base
 scenes.append(scene(21, 'S21', 'grassland',
@@ -371,8 +372,8 @@ for sc_ in scenes:
 
 doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'grade': 'contrast(0.9) saturate(1.0) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
        'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
-                 'judge': {'preset': 'judge', 'facial': 'stubble', 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
-                 'cop': {'preset': 'cop', 'suit': '#1E2D4A', 'pants': '#1E2D4A', 'facial': 'none', 'build': {'width': 0.82, 'headWidth': 1.3}}}, 'scenes': scenes, 'total': CUTS[-1] / FPS}
+                 'judge': {'preset': 'judge', 'facial': 'stubble', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
+                 'cop': {'preset': 'cop', 'suit': '#1E2D4A', 'pants': '#1E2D4A', 'facial': 'none', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.82, 'headWidth': 1.3}}}, 'scenes': scenes, 'total': CUTS[-1] / FPS}
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'replica_tornado.json')
 json.dump(doc, open(out, 'w'), indent=1)
 print(out, len(scenes), 'scenes', doc['total'], 's')
