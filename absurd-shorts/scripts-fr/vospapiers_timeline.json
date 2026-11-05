@@ -1,0 +1,1116 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec manifestait à Paris.",
+   "hl": [
+    "mec",
+    "Paris."
+   ],
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.581,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "manifestait",
+     "s": 0.693,
+     "e": 0.989
+    },
+    {
+     "w": "à",
+     "s": 1.026,
+     "e": 1.063
+    },
+    {
+     "w": "Paris.",
+     "s": 1.248,
+     "e": 1.581
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Un nuage lui a balancé une averse dans la gueule.",
+   "hl": [
+    "nuage",
+    "averse",
+    "gueule."
+   ],
+   "file_start": 1.681,
+   "speech_start": 1.681,
+   "speech_end": 3.978,
+   "words": [
+    {
+     "w": "Un",
+     "s": 1.681,
+     "e": 1.83
+    },
+    {
+     "w": "nuage",
+     "s": 1.904,
+     "e": 2.126
+    },
+    {
+     "w": "lui",
+     "s": 2.163,
+     "e": 2.274
+    },
+    {
+     "w": "a",
+     "s": 2.311,
+     "e": 2.348
+    },
+    {
+     "w": "balancé",
+     "s": 2.422,
+     "e": 2.719
+    },
+    {
+     "w": "une",
+     "s": 2.793,
+     "e": 2.867
+    },
+    {
+     "w": "averse",
+     "s": 3.052,
+     "e": 3.237
+    },
+    {
+     "w": "dans",
+     "s": 3.274,
+     "e": 3.348
+    },
+    {
+     "w": "la",
+     "s": 3.385,
+     "e": 3.459
+    },
+    {
+     "w": "gueule.",
+     "s": 3.533,
+     "e": 3.978
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "C",
+   "text": "« Agression ! »",
+   "hl": [
+    "Agression"
+   ],
+   "file_start": 4.038,
+   "speech_start": 4.038,
+   "speech_end": 5.001,
+   "words": [
+    {
+     "w": "Agression",
+     "s": 4.038,
+     "e": 4.63
+    },
+    {
+     "w": "!",
+     "s": 4.927,
+     "e": 5.001
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il a appelé les flics.",
+   "hl": [
+    "flics."
+   ],
+   "file_start": 5.081,
+   "speech_start": 5.081,
+   "speech_end": 6.266,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.081,
+     "e": 5.155
+    },
+    {
+     "w": "a",
+     "s": 5.229,
+     "e": 5.278
+    },
+    {
+     "w": "appelé",
+     "s": 5.328,
+     "e": 5.488
+    },
+    {
+     "w": "les",
+     "s": 5.525,
+     "e": 5.599
+    },
+    {
+     "w": "flics.",
+     "s": 5.673,
+     "e": 6.266
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le flic laissait passer les nuages blancs.",
+   "hl": [
+    "flic",
+    "blancs."
+   ],
+   "file_start": 6.366,
+   "speech_start": 6.366,
+   "speech_end": 8.292,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.366,
+     "e": 6.44
+    },
+    {
+     "w": "flic",
+     "s": 6.514,
+     "e": 6.736
+    },
+    {
+     "w": "laissait",
+     "s": 6.773,
+     "e": 7.033
+    },
+    {
+     "w": "passer",
+     "s": 7.107,
+     "e": 7.255
+    },
+    {
+     "w": "les",
+     "s": 7.329,
+     "e": 7.403
+    },
+    {
+     "w": "nuages",
+     "s": 7.44,
+     "e": 7.699
+    },
+    {
+     "w": "blancs.",
+     "s": 7.736,
+     "e": 8.292
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Celui-là était gris.",
+   "hl": [
+    "gris."
+   ],
+   "file_start": 8.392,
+   "speech_start": 8.392,
+   "speech_end": 9.577,
+   "words": [
+    {
+     "w": "Celui-là",
+     "s": 8.392,
+     "e": 8.799
+    },
+    {
+     "w": "était",
+     "s": 8.836,
+     "e": 9.059
+    },
+    {
+     "w": "gris.",
+     "s": 9.133,
+     "e": 9.577
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "C",
+   "text": "« Vos papiers ! »",
+   "hl": [
+    "papiers"
+   ],
+   "file_start": 9.697,
+   "speech_start": 9.697,
+   "speech_end": 10.66,
+   "words": [
+    {
+     "w": "Vos",
+     "s": 9.697,
+     "e": 9.845
+    },
+    {
+     "w": "papiers",
+     "s": 9.882,
+     "e": 10.216
+    },
+    {
+     "w": "!",
+     "s": 10.586,
+     "e": 10.66
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le nuage venait de Belgique.",
+   "hl": [
+    "Belgique."
+   ],
+   "file_start": 10.76,
+   "speech_start": 10.76,
+   "speech_end": 12.39,
+   "words": [
+    {
+     "w": "Le",
+     "s": 10.76,
+     "e": 10.834
+    },
+    {
+     "w": "nuage",
+     "s": 10.908,
+     "e": 11.204
+    },
+    {
+     "w": "venait",
+     "s": 11.279,
+     "e": 11.427
+    },
+    {
+     "w": "de",
+     "s": 11.501,
+     "e": 11.575
+    },
+    {
+     "w": "Belgique.",
+     "s": 11.686,
+     "e": 12.39
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il avait suivi le vent.",
+   "hl": [
+    "vent."
+   ],
+   "file_start": 12.49,
+   "speech_start": 12.49,
+   "speech_end": 13.675,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.49,
+     "e": 12.564
+    },
+    {
+     "w": "avait",
+     "s": 12.638,
+     "e": 12.786
+    },
+    {
+     "w": "suivi",
+     "s": 12.823,
+     "e": 13.008
+    },
+    {
+     "w": "le",
+     "s": 13.045,
+     "e": 13.082
+    },
+    {
+     "w": "vent.",
+     "s": 13.156,
+     "e": 13.675
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "C",
+   "text": "« Encore un étranger. On l'expulse. »",
+   "hl": [
+    "étranger.",
+    "l'expulse."
+   ],
+   "file_start": 13.775,
+   "speech_start": 13.775,
+   "speech_end": 15.849,
+   "words": [
+    {
+     "w": "Encore",
+     "s": 13.775,
+     "e": 14.071
+    },
+    {
+     "w": "un",
+     "s": 14.108,
+     "e": 14.145
+    },
+    {
+     "w": "étranger.",
+     "s": 14.219,
+     "e": 14.923
+    },
+    {
+     "w": "On",
+     "s": 14.96,
+     "e": 14.997
+    },
+    {
+     "w": "l'expulse.",
+     "s": 15.034,
+     "e": 15.849
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Ils l'ont menotté à un avion.",
+   "hl": [
+    "menotté",
+    "avion."
+   ],
+   "file_start": 15.949,
+   "speech_start": 15.949,
+   "speech_end": 17.43,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 15.949,
+     "e": 16.023
+    },
+    {
+     "w": "l'ont",
+     "s": 16.097,
+     "e": 16.171
+    },
+    {
+     "w": "menotté",
+     "s": 16.245,
+     "e": 16.616
+    },
+    {
+     "w": "à",
+     "s": 16.653,
+     "e": 16.69
+    },
+    {
+     "w": "un",
+     "s": 16.727,
+     "e": 16.764
+    },
+    {
+     "w": "avion.",
+     "s": 16.838,
+     "e": 17.43
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le vent l'a ramené avant le décollage.",
+   "hl": [
+    "vent",
+    "ramené"
+   ],
+   "file_start": 17.53,
+   "speech_start": 17.53,
+   "speech_end": 19.308,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.53,
+     "e": 17.604
+    },
+    {
+     "w": "vent",
+     "s": 17.679,
+     "e": 17.827
+    },
+    {
+     "w": "l'a",
+     "s": 17.852,
+     "e": 17.901
+    },
+    {
+     "w": "ramené",
+     "s": 17.975,
+     "e": 18.271
+    },
+    {
+     "w": "avant",
+     "s": 18.308,
+     "e": 18.419
+    },
+    {
+     "w": "le",
+     "s": 18.456,
+     "e": 18.493
+    },
+    {
+     "w": "décollage.",
+     "s": 18.567,
+     "e": 19.308
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "C",
+   "text": "« Complicité. »",
+   "hl": [
+    "Complicité."
+   ],
+   "file_start": 19.388,
+   "speech_start": 19.388,
+   "speech_end": 20.277,
+   "words": [
+    {
+     "w": "Complicité.",
+     "s": 19.388,
+     "e": 20.277
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Ils ont arrêté le vent.",
+   "hl": [
+    "arrêté",
+    "vent."
+   ],
+   "file_start": 20.377,
+   "speech_start": 20.377,
+   "speech_end": 21.714,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 20.377,
+     "e": 20.525
+    },
+    {
+     "w": "ont",
+     "s": 20.599,
+     "e": 20.673
+    },
+    {
+     "w": "arrêté",
+     "s": 20.747,
+     "e": 21.044
+    },
+    {
+     "w": "le",
+     "s": 21.081,
+     "e": 21.118
+    },
+    {
+     "w": "vent.",
+     "s": 21.192,
+     "e": 21.71
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Sauf qu'il avait fait le tour du monde.",
+   "hl": [
+    "tour",
+    "monde."
+   ],
+   "file_start": 21.814,
+   "speech_start": 21.814,
+   "speech_end": 23.591,
+   "words": [
+    {
+     "w": "Sauf",
+     "s": 21.814,
+     "e": 22.036
+    },
+    {
+     "w": "qu'il",
+     "s": 22.073,
+     "e": 22.184
+    },
+    {
+     "w": "avait",
+     "s": 22.221,
+     "e": 22.406
+    },
+    {
+     "w": "fait",
+     "s": 22.443,
+     "e": 22.48
+    },
+    {
+     "w": "le",
+     "s": 22.554,
+     "e": 22.629
+    },
+    {
+     "w": "tour",
+     "s": 22.703,
+     "e": 22.851
+    },
+    {
+     "w": "du",
+     "s": 22.925,
+     "e": 22.999
+    },
+    {
+     "w": "monde.",
+     "s": 23.073,
+     "e": 23.591
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "C",
+   "text": "« Tout cet air est étranger ! »",
+   "hl": [
+    "air",
+    "étranger"
+   ],
+   "file_start": 23.691,
+   "speech_start": 23.691,
+   "speech_end": 25.247,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 23.691,
+     "e": 23.84
+    },
+    {
+     "w": "cet",
+     "s": 23.877,
+     "e": 24.062
+    },
+    {
+     "w": "air",
+     "s": 24.136,
+     "e": 24.21
+    },
+    {
+     "w": "est",
+     "s": 24.247,
+     "e": 24.284
+    },
+    {
+     "w": "étranger",
+     "s": 24.358,
+     "e": 24.877
+    },
+    {
+     "w": "!",
+     "s": 25.173,
+     "e": 25.247
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Alors ils ont mis l'atmosphère en garde à vue.",
+   "hl": [
+    "l'atmosphère",
+    "garde",
+    "vue."
+   ],
+   "file_start": 25.347,
+   "speech_start": 25.347,
+   "speech_end": 27.495,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 25.347,
+     "e": 25.717
+    },
+    {
+     "w": "ils",
+     "s": 25.866,
+     "e": 26.014
+    },
+    {
+     "w": "ont",
+     "s": 26.051,
+     "e": 26.088
+    },
+    {
+     "w": "mis",
+     "s": 26.125,
+     "e": 26.162
+    },
+    {
+     "w": "l'atmosphère",
+     "s": 26.199,
+     "e": 26.68
+    },
+    {
+     "w": "en",
+     "s": 26.717,
+     "e": 26.754
+    },
+    {
+     "w": "garde",
+     "s": 26.829,
+     "e": 26.977
+    },
+    {
+     "w": "à",
+     "s": 27.014,
+     "e": 27.051
+    },
+    {
+     "w": "vue.",
+     "s": 27.162,
+     "e": 27.495
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le flic a respiré.",
+   "hl": [
+    "respiré."
+   ],
+   "file_start": 27.595,
+   "speech_start": 27.595,
+   "speech_end": 28.929,
+   "words": [
+    {
+     "w": "Le",
+     "s": 27.595,
+     "e": 27.669
+    },
+    {
+     "w": "flic",
+     "s": 27.817,
+     "e": 27.966
+    },
+    {
+     "w": "a",
+     "s": 28.04,
+     "e": 28.077
+    },
+    {
+     "w": "respiré.",
+     "s": 28.114,
+     "e": 28.929
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "C",
+   "text": "« Putain, t'en caches dans tes poumons ! »",
+   "hl": [
+    "Putain,",
+    "poumons"
+   ],
+   "file_start": 28.989,
+   "speech_start": 28.989,
+   "speech_end": 31.063,
+   "words": [
+    {
+     "w": "Putain,",
+     "s": 28.989,
+     "e": 29.655
+    },
+    {
+     "w": "t'en",
+     "s": 29.729,
+     "e": 29.877
+    },
+    {
+     "w": "caches",
+     "s": 29.914,
+     "e": 30.1
+    },
+    {
+     "w": "dans",
+     "s": 30.149,
+     "e": 30.248
+    },
+    {
+     "w": "tes",
+     "s": 30.322,
+     "e": 30.396
+    },
+    {
+     "w": "poumons",
+     "s": 30.445,
+     "e": 30.692
+    },
+    {
+     "w": "!",
+     "s": 30.989,
+     "e": 31.063
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Ses collègues l'ont coffré pour hébergement clandestin.",
+   "hl": [
+    "coffré",
+    "hébergement",
+    "clandestin."
+   ],
+   "file_start": 31.163,
+   "speech_start": 31.163,
+   "speech_end": 33.607,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 31.163,
+     "e": 31.311
+    },
+    {
+     "w": "collègues",
+     "s": 31.385,
+     "e": 31.607
+    },
+    {
+     "w": "l'ont",
+     "s": 31.681,
+     "e": 31.829
+    },
+    {
+     "w": "coffré",
+     "s": 31.866,
+     "e": 32.2
+    },
+    {
+     "w": "pour",
+     "s": 32.274,
+     "e": 32.348
+    },
+    {
+     "w": "hébergement",
+     "s": 32.385,
+     "e": 32.792
+    },
+    {
+     "w": "clandestin.",
+     "s": 32.829,
+     "e": 33.607
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Vingt ans ferme.",
+   "hl": [
+    "Vingt",
+    "ferme."
+   ],
+   "file_start": 33.727,
+   "speech_start": 33.727,
+   "speech_end": 34.764,
+   "words": [
+    {
+     "w": "Vingt",
+     "s": 33.727,
+     "e": 33.949
+    },
+    {
+     "w": "ans",
+     "s": 34.023,
+     "e": 34.097
+    },
+    {
+     "w": "ferme.",
+     "s": 34.171,
+     "e": 34.764
+    }
+   ]
+  },
+  {
+   "id": "L22",
+   "who": "N",
+   "text": "Le nuage a racheté la prison.",
+   "hl": [
+    "racheté",
+    "prison."
+   ],
+   "file_start": 34.864,
+   "speech_start": 34.864,
+   "speech_end": 36.568,
+   "words": [
+    {
+     "w": "Le",
+     "s": 34.864,
+     "e": 34.938
+    },
+    {
+     "w": "nuage",
+     "s": 35.012,
+     "e": 35.309
+    },
+    {
+     "w": "a",
+     "s": 35.346,
+     "e": 35.383
+    },
+    {
+     "w": "racheté",
+     "s": 35.457,
+     "e": 35.716
+    },
+    {
+     "w": "la",
+     "s": 35.753,
+     "e": 35.827
+    },
+    {
+     "w": "prison.",
+     "s": 35.864,
+     "e": 36.568
+    }
+   ]
+  },
+  {
+   "id": "L23",
+   "who": "N",
+   "text": "Maintenant, il pleut dans sa cellule.",
+   "hl": [
+    "pleut",
+    "cellule."
+   ],
+   "file_start": 36.668,
+   "speech_start": 36.668,
+   "speech_end": 38.594,
+   "words": [
+    {
+     "w": "Maintenant,",
+     "s": 36.668,
+     "e": 37.334
+    },
+    {
+     "w": "il",
+     "s": 37.446,
+     "e": 37.557
+    },
+    {
+     "w": "pleut",
+     "s": 37.594,
+     "e": 37.705
+    },
+    {
+     "w": "dans",
+     "s": 37.742,
+     "e": 37.853
+    },
+    {
+     "w": "sa",
+     "s": 37.927,
+     "e": 38.001
+    },
+    {
+     "w": "cellule.",
+     "s": 38.075,
+     "e": 38.594
+    }
+   ]
+  },
+  {
+   "id": "L24",
+   "who": "C",
+   "text": "« Vous n'avez pas le droit ! »",
+   "hl": [
+    "droit"
+   ],
+   "file_start": 38.694,
+   "speech_start": 38.694,
+   "speech_end": 39.953,
+   "words": [
+    {
+     "w": "Vous",
+     "s": 38.694,
+     "e": 38.768
+    },
+    {
+     "w": "n'avez",
+     "s": 38.842,
+     "e": 39.064
+    },
+    {
+     "w": "pas",
+     "s": 39.101,
+     "e": 39.138
+    },
+    {
+     "w": "le",
+     "s": 39.175,
+     "e": 39.212
+    },
+    {
+     "w": "droit",
+     "s": 39.286,
+     "e": 39.583
+    },
+    {
+     "w": "!",
+     "s": 39.879,
+     "e": 39.953
+    }
+   ]
+  },
+  {
+   "id": "L25",
+   "who": "N",
+   "text": "Le nuage a sorti ses papiers.",
+   "hl": [
+    "papiers."
+   ],
+   "file_start": 40.053,
+   "speech_start": 40.053,
+   "speech_end": 41.683,
+   "words": [
+    {
+     "w": "Le",
+     "s": 40.053,
+     "e": 40.127
+    },
+    {
+     "w": "nuage",
+     "s": 40.201,
+     "e": 40.497
+    },
+    {
+     "w": "a",
+     "s": 40.534,
+     "e": 40.571
+    },
+    {
+     "w": "sorti",
+     "s": 40.683,
+     "e": 40.868
+    },
+    {
+     "w": "ses",
+     "s": 40.942,
+     "e": 41.016
+    },
+    {
+     "w": "papiers.",
+     "s": 41.09,
+     "e": 41.683
+    }
+   ]
+  },
+  {
+   "id": "L26",
+   "who": "N",
+   "text": "Le flic était chez lui.",
+   "hl": [
+    "chez",
+    "lui."
+   ],
+   "file_start": 41.783,
+   "speech_start": 41.783,
+   "speech_end": 43.116,
+   "words": [
+    {
+     "w": "Le",
+     "s": 41.783,
+     "e": 41.857
+    },
+    {
+     "w": "flic",
+     "s": 41.931,
+     "e": 42.153
+    },
+    {
+     "w": "était",
+     "s": 42.264,
+     "e": 42.375
+    },
+    {
+     "w": "chez",
+     "s": 42.449,
+     "e": 42.523
+    },
+    {
+     "w": "lui.",
+     "s": 42.56,
+     "e": 43.116
+    }
+   ]
+  },
+  {
+   "id": "L27",
+   "who": "N",
+   "text": "Et la douche était en supplément.",
+   "hl": [
+    "douche",
+    "supplément."
+   ],
+   "file_start": 43.276,
+   "speech_start": 43.276,
+   "speech_end": 44.757,
+   "words": [
+    {
+     "w": "Et",
+     "s": 43.276,
+     "e": 43.35
+    },
+    {
+     "w": "la",
+     "s": 43.424,
+     "e": 43.498
+    },
+    {
+     "w": "douche",
+     "s": 43.535,
+     "e": 43.72
+    },
+    {
+     "w": "était",
+     "s": 43.831,
+     "e": 43.943
+    },
+    {
+     "w": "en",
+     "s": 43.98,
+     "e": 44.017
+    },
+    {
+     "w": "supplément.",
+     "s": 44.091,
+     "e": 44.757
+    }
+   ]
+  }
+ ],
+ "total": 45.6
+}

@@ -6,3 +6,4 @@ assets/music/user/
 # props exported to GLB on demand (render/export-models.mjs --props)
 models/props/
 scripts-fr/replica_render.json
+scripts-fr/vospapiers_render.json

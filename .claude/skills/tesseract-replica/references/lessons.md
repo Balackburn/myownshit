@@ -52,6 +52,18 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 
 ## Engine + HyperFrames track (what actually closed the gap on the tornado replica)
 
+- (tornado, pass 50) **Measure what moves, not only what matches.** `motion.py` (Farneback flow with the camera's homography removed,
+  per-cell mean over the shot) showed the original had 1.3-4× more small motion than our build in most shots (S6 2.4×, S16 2.5×, S18 4×).
+  Compare against the full render with overlays, not the bare 3D layer, or title cards and HUD read as missing motion.
+- (tornado, pass 50) A sweep that "wins" SSIM by tilting or pulling back can empty an area the original fills; `hyperframes diff`'s
+  missing-content spans catch it (S5 and S16 trims reverted, S7's tilt flagged). Treat a new span as a regression.
+- (tornado, pass 50) S7 was not a framing problem: the original's jet is airborne from f229 and climbs over a camera that tilts up after it.
+  Read the per-frame wingspan and horizon (293 → 480 px, horizon 547 → 773 px) and rebuild the motion instead of trimming the camera.
+- (tornado, French export) The original's voice can be removed for a dub: MDX-Net Inst HQ 3 (ONNX, onnxruntime, numpy STFT that
+  matches torch.stft) separated it cleanly (no envelope correlation with the voice in the 300-3400 Hz band). The mix is nearly mono
+  (L/R correlation 0.986), so centre cancelling cannot work. Keep the dub at the original voice's loudness (here -16 LUFS).
+- (tornado, French export) ElevenLabs `eleven_v4` ignores the `speed` voice setting; time-stretch with `atempo` (≤ 1.1) instead.
+
 - (tornado) When the target renderer is slow (Tesseract on lavapipe), build the 3D layer in a fast engine (three.js, about 4 fps at
   576×1024 with 4 workers), cut on the reference's frames, and composite text, cards, HUD and the original sound in HyperFrames.
   Score every pass with `npx hyperframes diff REF yours --sbs --json` and send the side-by-side video to the person.
