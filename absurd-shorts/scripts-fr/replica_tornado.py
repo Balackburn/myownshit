@@ -68,7 +68,7 @@ scenes.append(scene(1, 'S1', 'replicaStreet', setOpts={'near': 'cottage', 'z0': 
                k(1.24, to=[-0.85, 1.0, WALK1 + 0.6], dur=0.07, ease='out'),
                k(1.31, to=[-8.5, 7.0, 26.0], dur=0.2, ease='linear')]),
            P('tornado', 'tornado', pos=[-8.5, 0, 28], scale=1.9, opts=TOR)],
-    cams=s1cams, blur=[[0.3, 1.1, 0.04], [1.26, 1.5, 0.03]],
+    cams=s1cams, blur=[[1.26, 1.5, 0.015]],   # the original's orbit (f12-f28) is crisp: no shutter there; a short one on the throw
     tethers=[{'a': {'actor': 'mec', 'hand': 'L', 'offset': [0, -0.06, 0]}, 'b': {'prop': 'dog', 'offset': [0, 0.55, 0.28]}, 'color': '#C8322A', 'radius': 0.011, 'sag': 0.18, 'until': 1.3}]))
 
 # S2 1.90-3.43: close tracking shot of the dog spinning in the tornado wall, mouth open
@@ -99,12 +99,12 @@ scenes.append(scene(4, 'S4', 'replicaStreet',
 # S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
 # blasting frame-left over the runway, the tail fins above
 scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.5, 'glow': 2.6, 'glowColor': '#FFE6B0', 'hotCore': True, 'gear': True})],
-    cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.02))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us
+    cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.008))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us (the original is 4x sharper than a 0.02 s shutter)
 
 # S6 7.03-7.63: fast dolly above the jet's left side from the wing and its roundel (U.S. AIR FORCE on the fuselage) to the canopy and the
 # nose wheel, the runway beyond (motion blur)
 scenes.append(scene(6, 'S6', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 1.0, 'glow': 4, 'gear': True})],
-    cams=[cam(0.0, [-9.5, 8.5, -7.5], [-6.0, 3.4, 4.5], [-1.6, 1.5, -1.8], [-0.4, 0.8, 5.6], lens=50, ease='inOut', shake=0.02)], blur=0.012))
+    cams=[cam(0.0, [-9.5, 8.5, -7.5], [-6.0, 3.4, 4.5], [-1.6, 1.5, -1.8], [-0.4, 0.8, 5.6], lens=50, ease='inOut', shake=0.02)], blur=0.005))   # the original's dolly is 3x sharper than a 0.012 s shutter
 
 # S7 7.63-8.10: wide runway, the jet lifts off far away (dust behind it) and roars over the camera banking up-right (whip, motion blur)
 scenes.append(scene(7, 'S7', 'runway',
@@ -123,9 +123,9 @@ def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
 
 
 TORA = {**TOR, 'height': 8.6, 'base': 0.3, 'top': 1.45, 'taper': 1.0, 'crownFlare': 1.1, 'cols': ['#6A766E', '#76827A', '#5E6A62', '#808C84'], 'pale': 2, 'paleColor': '#D6CBAE',
-        'bands': False, 'crownFlare': 1.15, 'crownH': 0.8, 'crownSpike': 0.0, 'crater': {'r0': 1.3, 'r1': 3.55, 'bands': [[1.95, 2.12], [2.3, 2.5], [2.75, 2.88]], 'rocksIn': 8, 'rockIn': 0.36, 'rocksOut': 26, 'rockOut': 0.24,
+        'bands': False, 'crownFlare': 1.15, 'crownH': 0.8, 'crownSpike': 0.0, 'crater': {'r0': 1.3, 'r1': 3.55, 'bands': [[2.15, 2.85]], 'rocksIn': 14, 'rockIn': 0.5, 'rocksOut': 26, 'rockOut': 0.24, 'tilt': -0.2,
                    'color': '#727C75', 'rockColor': '#7E8881'},   # darker crater: the original reads L*55 (rendered L ~ 0.86 x material + 11)
-        'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 3.4, 'ribbonY0': 0.95, 'ribbonDY': 0.1,
+        'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 3.4, 'ribbonY0': 0.95, 'ribbonDY': 0.1, 'ribbonW': 2.5, 'ribbonFlatTilt': 0.35,   # one broad cream band, a thick inner wall, wide loose ribbons (f300 crop)
         'dust': 0.8, 'chips': 40, 'stripe': '#8E8A78', 'stripeDark': '#4A554E'}   # the aerial look (S8b, S10): long striped body, a rock crater on top
 JETA = {'burner': 0.45, 'glow': 2.3, 'glowColor': '#FF6A22', 'missiles': 4}   # smaller nozzle glow, like the original
 V = 55.0                                                               # strike speed (m/s) of the jet + chase camera
@@ -209,7 +209,7 @@ scenes.append(scene_f('S8b', 254, 313, 'aerialSuburb', props=[
     P('jet', 'fighterJet', pos=rel(C8a, JR8a), rot=[-0.89, 3.1416, 0.04], opts=JETA, keys=[      # hidden in the bank until it slides past (f260)
         k(0.0, to=rel(c8(0.533), JR8a), dur=0.533, ease='linear'), k(0.533, to=rel(C8z, lerp3(JR8a, JR8b, 1.0 + 1 / 42)), dur=T8 - 0.533, ease='linear')])],
     cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50, shake=0.12)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.95, 'gridRot': -0.33, 'x': 1100, **AER_SET},
-    blur=[[0, 0.34, 0.016]], blurSamples=8, fog=AERIAL_HAZE, fogTo={'near': 110, 'far': 440}))   # the veil thickens as the camera drops (band L* 73/70/68 at f300)
+    blur=[[0, 0.34, 0.008]], blurSamples=8, fog=AERIAL_HAZE, fogTo={'near': 110, 'far': 440}))   # the veil thickens as the camera drops (band L* 73/70/68 at f300)
 
 # S9 10.43-11.17: over the cloud deck, the jet (seen nearly level, from the front-left 3/4, 38 m away) flies frame-left and lets the
 # missiles go (they drop, ignite, race ahead); the camera looks level, the jet 10 deg above centre
@@ -419,7 +419,7 @@ scenes.append(scene(21, 'S21', 'grassland',
 scenes.append(scene(22, 'S22', 'grassland', props=[
     P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#E0AC72', 'dogMuzzle': '#5A3420', 'dogYaw': -0.25, 'dogEyes': 1.35,
                                                       'dogTongue': 'long', 'ripW': 0.95, 'ripH': 0.26, 'ripY': 0.15, 'baseW': 1.28, 'frameW': 0.77, 'frameH': 0.92, 'frameTop': 0.25,
-                                                      'dogScale': 1.8, 'dogY': 0.02}),   # measured on f820: base 1.28 x the stone, frame 0.77 x 0.74 of it, its top 0.2 below the arch
+                                                      'dogScale': 2.15, 'dogY': 0.0}),   # measured on f820: base 1.28 x the stone, frame 0.77 x 0.74 of it, its top 0.2 below the arch
     P('mound', 'dirtMound', pos=[0.15, 0, -2.05], opts={'w': 0.78, 'd': 1.15, 'h': 0.24, 'color': '#6E4630'}),   # 400 px wide, right of centre (f820)
     P('flowers', 'flowers', pos=[0.43, 0.0, -3.05], scale=1.1),   # on the grass in front of the base's right end, heads at y ~580
     P('turbine', 'windTurbine', pos=[-152, 0, -700], opts={'h': 60, 'rpm': 13}),   # small, on the horizon behind the tornado (x ~50, 120 px tall)
@@ -427,8 +427,8 @@ scenes.append(scene(22, 'S22', 'grassland', props=[
     P('cuffs', 'bigCuffs', pos=[-28.9, 19.5, -146.5], opts={'r': 1.0}),
     P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 900, 'seed': 12, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
     P('grassL', 'tallGrass', pos=[-0.85, 0, -2.7], opts={'w': 0.8, 'd': 1.4, 'h': 0.62, 'count': 260, 'seed': 14, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}), P('grassR', 'tallGrass', pos=[1.0, 0, -2.7], opts={'w': 0.6, 'd': 1.4, 'h': 0.58, 'count': 200, 'seed': 15, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
-    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 90, 'seed': 13, 'thin': 0.045, 'soft': 0.55, 'cols': ['#9ED27C', '#B2DC8C', '#8CC86A', '#C0E29A']})],   # out-of-focus foreground
-    cams=[cam(0.0, [-0.05, 0.50, 0.25], [-0.07, 0.52, -0.55], [-0.15, 0.454, -3.5], [-0.15, 0.484, -3.5], lens=50)]))   # lower and level: horizon at y ~490, stone centre x ~335
+    P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 45, 'seed': 13, 'thin': 0.045, 'soft': 0.55, 'cols': ['#9ED27C', '#B2DC8C', '#8CC86A', '#C0E29A']})],   # out-of-focus foreground
+    cams=[cam(0.0, [-0.05, 0.50, 0.25], [-0.07, 0.52, -0.55], [-0.15, 0.356, -3.5], [-0.15, 0.386, -3.5], lens=50)]))   # lower and level: horizon at y ~450, stone top y ~160 -> 96 (f790/f850)
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.
 import math
@@ -438,6 +438,9 @@ for sc_ in scenes:
             p_['ry'] = round(math.degrees(p_['rot'][1]), 3)
 
 # per-shot grade, calibrated from the per-shot L* / chroma deltas against the reference (shotstats.py, pass 8)
+# per-shot softness (Gaussian px) so our edges match the original's sharpness (median Laplacian variance per shot, pass 34)
+SOFTEN = {'S1': 0.5, 'S2': 0.62, 'S3': 0.49, 'S4': 0.35, 'S7': 0.42, 'S8a': 0.58, 'S11': 0.33, 'S14': 0.55, 'S16': 0.33, 'S17': 0.46,
+          'S18': 0.37, 'S19': 0.4, 'S20': 0.52, 'S21': 0.49, 'S22': 0.46}
 SHOT_GRADES = {
  "S1": "contrast(0.9) saturate(1.02) brightness(1.091)",
  "S2": "contrast(0.9) saturate(1.01) brightness(1.118)",
@@ -447,9 +450,9 @@ SHOT_GRADES = {
  "S6": "contrast(0.9) saturate(1.35) brightness(1.204)",
  "S7": "contrast(0.9) saturate(1.13) brightness(1.077)",
  "S8a": "contrast(0.9) saturate(0.86) brightness(1.111)",
- "S8b": "contrast(0.97) saturate(1.04) brightness(1.0)",
+ "S8b": "contrast(0.97) saturate(1.22) brightness(1.0)",
  "S9": "contrast(0.9) saturate(1.12) brightness(1.031)",
- "S10": "contrast(0.97) saturate(1.06) brightness(1.01)",
+ "S10": "contrast(0.97) saturate(1.3) brightness(1.01)",
  "S11": "contrast(0.9) saturate(1.14) brightness(1.108)",
  "S12": "contrast(0.9) saturate(1.04) brightness(1.022)",
  "S13": "contrast(0.9) saturate(0.80) brightness(0.981)",
@@ -466,6 +469,7 @@ SHOT_GRADES = {
 for sc_ in scenes:
     key = sc_['id']
     if key in SHOT_GRADES: sc_['grade'] = SHOT_GRADES[key]
+    if key in SOFTEN: sc_['soften'] = SOFTEN[key]
 
 doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'grade': 'contrast(0.9) saturate(1.0) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
        'voice': None, 'music': None, 'cast': {'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},   # skin tint: face #CB9765 -> #B7906A (S3)

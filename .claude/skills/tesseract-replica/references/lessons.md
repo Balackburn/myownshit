@@ -147,3 +147,11 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   around his head by the pan angle, turn the actor by the same angle with a `face` key, and lock the handheld prop to the camera
   (`camLock`). In S4 the street's vanishing point jumps from x 325 to 200 in eight frames (f149-f156); a static camera could never
   match either half.
+- (tornado) **Match sharpness per shot, and don't let SSIM talk you into blur.** Compare the median Laplacian variance of the original
+  and ours above the caption band, shot by shot. Ours was 1.3-4× crisper in fifteen shots and 3-4× blurrier where a long shutter
+  smeared a move the original keeps crisp (S1's orbit, S5, S6). A Gaussian blur on every frame raised SSIM in every shot, even the
+  already-soft ones: that is SSIM's bias toward blur, not a match. So soften only up to the measured match (a 0.3-0.6 px CSS blur on the
+  3D canvas, `soften`), and shorten the shutters the original doesn't show, even though both cost a little SSIM.
+- (tornado) A dense element can be scored by size alone: thicker S13 smoke columns raised SSIM monotonically (0.56 → 1.0: −0.013 …
+  +0.02) because the original's middle band is mostly smoke. Stop where it still reads like the original (distinct ropes, fire showing
+  through), not at the SSIM peak.

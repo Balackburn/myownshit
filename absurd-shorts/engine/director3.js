@@ -835,7 +835,7 @@ export function renderFrame(tAbs) {
     renderer.render(scene, camera);
     const frozen = frozenNow(tk);
     g.globalAlpha = 1 / (k + 1);
-    g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '');
+    g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '') + (S.sc.soften ? ` blur(${S.sc.soften}px)` : '');   // sc.soften: match the reference's softness (px)
     g.drawImage(renderer.domElement, 0, 0, S.W, S.H);
   }
   g.globalAlpha = 1; g.filter = 'none';

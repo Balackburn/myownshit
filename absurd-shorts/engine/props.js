@@ -917,7 +917,7 @@ const B = {
       const rockRing = (n, rr, sz, yy) => { for (let i = 0; i < n; i++) { const a = i / n * TAU + r() * 0.3, sc = sz * (0.75 + r() * 0.6), m = mesh(rgeo, rmat), R_ = rr * (0.93 + r() * 0.14);
         m.scale.set(sc * 1.3, sc * 0.75, sc * 1.1); m.position.set(Math.cos(a) * R_, yy + sc * 0.25, Math.sin(a) * R_); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = false; cp.add(m); } };
       rockRing(C.rocksIn ?? 14, C.r0 * 1.15, C.rockIn ?? 0.42, dh * 0.08); rockRing(C.rocksOut ?? 24, C.r1 * 0.96, C.rockOut ?? 0.3, dh * 0.92);
-      cp.add(dish); cp.position.y = yC; g.add(cp); ribbons.push({ piv: cp, sp: C.spin ?? 2.0, ph: 0 });
+      cp.add(dish); cp.position.y = yC; if (C.tilt) cp.rotation.x = C.tilt; g.add(cp); ribbons.push({ piv: cp, sp: C.spin ?? 2.0, ph: 0 });   // C.tilt: lean the dish (rad, -: away from a camera on +z)
     }
     if (o.lid) { // the aerial "lid": a flat tan debris annulus around the crown (seen from above as a pale ring)
       const topR = rad(N) * (o.crownFlare ?? 1.16), ring = mesh(new THREE.RingGeometry(topR * o.lid[0], topR * o.lid[1], 28, 1).rotateX(-PI / 2), mat(o.lidColor || '#D6C49E', { doubleSide: true }));
@@ -931,9 +931,9 @@ const B = {
     for (let i = 0; i < (o.ribbons || 0); i++) { // tan dust bands whipping round the top
       const yk = (o.ribbonY0 ?? 0.8) + r() * (o.ribbonDY ?? 0.22);
       const R = o.ribbonFollow ? (rad(Math.min(N, yk * N)) * (o.ribbonGap ?? 1.08) + 0.08) * (1.0 + r() * 0.06) : (o.ribbonR || (rad(N) + 0.12)) * (1.02 + r() * 0.5), arc = o.ribbonArc ? o.ribbonArc * (0.8 + r() * 0.4) : 1.6 + r() * 2.6;
-      const m = o.ribbonFlat ? mesh(new THREE.RingGeometry(R, R + 0.08 + r() * 0.1, 40, 1, 0, arc).rotateX(-PI / 2), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }))
+      const m = o.ribbonFlat ? mesh(new THREE.RingGeometry(R, R + (0.08 + r() * 0.1) * (o.ribbonW || 1), 40, 1, 0, arc).rotateX(-PI / 2), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }))
         : mesh(new THREE.TorusGeometry(R, 0.035 + r() * 0.03, 3, 40, arc), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }));
-      if (o.ribbonFlat) m.rotation.set((r() - 0.5) * 0.12, 0, (r() - 0.5) * 0.12); else { m.rotation.x = PI / 2 + (r() - 0.5) * (o.ribbonTilt ?? 0.25); m.scale.z = o.ribbonH || 3.5; }
+      if (o.ribbonFlat) m.rotation.set((r() - 0.5) * (o.ribbonFlatTilt ?? 0.12), 0, (r() - 0.5) * (o.ribbonFlatTilt ?? 0.12)); else { m.rotation.x = PI / 2 + (r() - 0.5) * (o.ribbonTilt ?? 0.25); m.scale.z = o.ribbonH || 3.5; }
       m.castShadow = false; const piv = grp(m); piv.position.y = H * yk; g.add(piv); ribbons.push({ piv, sp: (o.ribbonSpeed || 5) + r() * 3, ph: r() * TAU });
     }
     if (o.dust) { const dm = mat(o.dustColor || '#CDB896'); for (let i = 0; i < 10; i++) { const a = i / 10 * TAU + r() * 0.3, s = (0.35 + r() * 0.35) * (o.dust === true ? 1 : o.dust), m = new THREE.Mesh(sphereGeo(1), dm);
