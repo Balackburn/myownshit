@@ -79,6 +79,7 @@ export const PRESETS = {
   prefet:      { outfit: 'suit', suit: '#1E2E44', tie: '#B5302A', lapel: '#1E2E44', hair: 'receding', hairColor: '#8A8A86', facial: 'mustache', glasses: true, build: { belly: 0.08 } },
   mecPrisonnier: { outfit: 'prisoner', hair: 'crew', facial: 'stubble', atlas: 'lemec', atlasBody: false },
   mecPyjama:   { outfit: 'pajamas', hair: 'crew', facial: 'stubble', atlas: 'lemec', atlasBody: false },
+  carabiniere: { outfit: 'cop', suit: '#1B1C24', pants: '#1B1C24', tie: '#1B1C24', lapel: '#1B1C24', shirt: '#F2F2EE', cuff: '#1B1C24', hat: 'copcap', hatColor: '#1B1C24', hatBand: '#C8322A', sash: '#F2F2EE', hair: 'slick', hairColor: '#2A2420', facial: 'mustache', skin: '#E0B48A' },
   looksmaxeur: { outfit: 'tracksuit', suit: '#2A2A30', pants: '#2A2A30', hair: 'buzz', facial: 'none', skin: '#E8935A', build: { width: 1.4, headScale: 0.86 } },
 };
 
@@ -109,8 +110,8 @@ export function buildHuman(spec = {}) {
   const o = { skin: P.skin, hairColor: P.hair, glasses: false, hat: 'none', ears: 'normal', claws: false, seed: 3, ...preset, ...spec };
   const C = { ...OUTFIT_COLORS[o.outfit || 'suit'] };
   if (o.suit) { C.jacket = o.suit; if (C.pants && o.outfit === 'suit') C.pants = o.suit; }
-  if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel; if (o.pants) C.pants = o.pants;
-  C.hat = o.hatColor; C.hatStar = !!o.hatStar;
+  if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel; if (o.pants) C.pants = o.pants; if (o.shirt) C.shirt = o.shirt; if (o.cuff) C.cuff = o.cuff;
+  C.hat = o.hatColor; C.hatStar = !!o.hatStar; C.hatBand = o.hatBand;
   const B = { height: 1, width: 1, belly: 0, headScale: 1.1, headWidth: 1, ...(preset.build || {}), ...(spec.build || {}) };   // headWidth: widens the head box only (the tornado reference head is W/H ~0.48)
   const H = B.height, Wd = B.width;
   // Painted-atlas mode: every part samples its zone of assets/lemec_atlas.webp
@@ -184,6 +185,7 @@ export function buildHuman(spec = {}) {
   // buttons / badge details
   if (!ATLB && (o.outfit === 'suit' || o.outfit === 'waiter')) for (const y of [0.2, 0.1]) { const b = box(0.02, 0.02, 0.01, P.black); b.position.set(0.035, torsoH * y, front + 0.008); torso.add(b); }
   if (o.outfit === 'cop') { const badge = box(0.06, 0.05, 0.01, P.yellow); badge.position.set(0.1, torsoH * 0.78, front + 0.01); torso.add(badge); for (const s of [-1, 1]) { const pk = box(0.09, 0.06, 0.01, C.pants); pk.position.set(s * 0.1, torsoH * 0.68, front + 0.006); torso.add(pk); } const belt = box(0.42 * Wd, 0.05, 0.24 + B.belly, P.black); belt.position.y = 0.02; torso.add(belt); }
+  if (o.sash && !o.naked) { const sh = box(0.055, torsoH * 1.08, 0.014, o.sash); sh.rotation.z = -0.62; sh.position.set(0, torsoH * 0.55, front + 0.022); torso.add(sh); }   // white bandolier (carabiniere)
   if (o.outfit === 'swat') { const vest = box(0.44 * Wd, torsoH * 0.6, 0.27, '#2A3442'); vest.position.y = torsoH * 0.55; torso.add(vest); const t = textLabel('SWAT', 0.16, 0.05); t.position.set(0, torsoH * 0.7, 0.14); torso.add(t); }
   if (o.outfit === 'prisoner' || o.outfit === 'pajamas') for (let i = 1; i < 6; i++) { const st = box(0.43 * Wd + 0.01, 0.025, 0.235, o.outfit === 'prisoner' ? '#B85A1E' : P.white); st.position.y = torsoH * i / 6; torso.add(st); }
   if (o.outfit === 'mao') { for (const [x, y] of [[-0.1, 0.72], [0.1, 0.72], [-0.1, 0.32], [0.1, 0.32]]) { const pk = box(0.1, 0.08, 0.01, o.outfit === 'mao' && o.suit ? new THREE.Color(C.jacket).multiplyScalar(0.86).getStyle() : '#6A6C58'); pk.position.set(x, torsoH * y, front + 0.006); torso.add(pk); } for (let i = 0; i < 5; i++) { const bt = box(0.018, 0.018, 0.01, '#3A3B32'); bt.position.set(0, torsoH * (0.2 + i * 0.16), front + 0.008); torso.add(bt); } const col = box(0.16, 0.05, 0.12, C.jacket); col.position.set(0, torsoH + 0.02, 0.0); torso.add(col);
@@ -304,7 +306,8 @@ function addHat(head, hat, hw, hh, hd, C) {
   const g = new THREE.Group(); g.position.y = hh; head.add(g);
   switch (hat) {
     case 'copcap': {
-      const crown = box(hw * 1.25, 0.1, hd * 1.35, P.copBlueDark, { pivot: 'bottom', taper: { x: 1.15, z: 1.15 } }); g.add(crown);
+      const crown = box(hw * 1.25, 0.1, hd * 1.35, C.hat || P.copBlueDark, { pivot: 'bottom', taper: { x: 1.15, z: 1.15 } }); g.add(crown);
+      if (C.hatBand) { const band = box(hw * 1.33, 0.04, hd * 1.43, C.hatBand); band.position.y = 0.02; g.add(band); }   // carabiniere: red cap band
       const visor = box(hw * 1.1, 0.02, 0.1, P.black); visor.position.set(0, 0.01, hd * 0.7); visor.rotation.x = 0.25; g.add(visor);
       const badge = box(0.05, 0.04, 0.01, P.yellow); badge.position.set(0, 0.06, hd * 0.72); g.add(badge); break; }
     case 'swatcap': { g.add(box(hw * 1.15, 0.08, hd * 1.2, P.swat, { pivot: 'bottom' })); const v = box(hw, 0.02, 0.1, P.swat); v.position.set(0, 0.01, hd * 0.65); g.add(v); break; }

@@ -23,7 +23,7 @@ st.shot('S07', 'livingRoom', props=[DOOR(0, -1.0), P('avis', 'avisPassage', pos=
 st.shot('S08', 'poste', actors=[act('mec', [0.6, 0, 2.4], 180, 'walk', 'determined' if False else 'angry', keys=[k(0.0, to=[0.4, 0, 0.6], dur=st.dur('S08'), clip='walk')])],
         cams=[cam(0.0, [0.2, 1.5, 5.2], [0.2, 1.5, 4.8], [0.3, 1.2, 0], [0.3, 1.2, 0], lens=44)])
 st.shot('S09', 'poste', props=[P('tk', 'queueTicket', pos=[0, 1.5, 0.6], scale=4.0, opts={'num': '4012'})],
-        cams=[cam(0.0, [0.05, 1.5, 1.45], [0.05, 1.5, 1.3], [0, 1.5, 0.6], [0, 1.5, 0.6], lens=42)])
+        cams=[cam(0.0, [0.05, 1.5, 1.62], [0.05, 1.5, 1.46], [0, 1.5, 0.6], [0, 1.5, 0.6], lens=42)])
 st.shot('S10', 'poste', props=[P('disp', 'queueDisplay', pos=[0, 2.0, -2.6], scale=1.2, opts={'num': '1'})], cams=[cam(0.0, [0.2, 1.8, 0.9], [0.2, 1.82, 0.6], [0, 1.95, -2.6], [0, 1.95, -2.6], lens=42)])
 st.shot('S11', 'poste', setOpts={'clockRate': 6}, actors=[act('mec', [0, 0, 0.8], 180, 'idle', 'sleepy')] + QUEUE(3, 1.8), cams=[cam(0.0, [0.4, 1.5, -1.6], [0.38, 1.5, -1.4], [0.1, 1.4, 1.2], [0.1, 1.4, 1.2], lens=44)])
 st.shot('S12', 'poste', actors=[act('mec', [-0.3, 0, 0.8], 160, 'stand', 'happy'), act('femme', [0.3, 0, 0.8], 200, 'stand', 'happy')],
@@ -36,14 +36,14 @@ st.shot('S14', 'poste', props=[P('disp', 'queueDisplay', pos=[0, 2.0, -2.6], sca
 st.shot('S15', 'poste', actors=[act('guichetiere', [0, 0, -2.0], 0, 'walk', 'unimpressed', keys=[k(0.0, to=[1.6, 0, -2.0], dur=st.dur('S15'), clip='walk')])],
         props=[P('pause', 'noticeBoard', pos=[-0.4, 1.55, -2.3], opts={'text': 'PAUSE', 'style': 'sign', 'w': 0.6, 'h': 0.22, 'popAt': 0.3})], cams=[cam(0.0, [0.0, 1.5, 1.4], [0.0, 1.5, 1.2], [0, 1.3, -2.2], [0, 1.3, -2.2], lens=44)])
 st.shot('S16', 'poste', actors=[act('mec', [0, 0, -2.0], 0, 'handsOnHips', 'smug')], cams=[cam(0.0, [0.25, 1.6, 0.3], [0.22, 1.6, 0.1], [0, 1.5, -2.0], [0, 1.52, -2.0], lens=44)])
-st.shot('S17', 'poste', actors=QUEUE(4, -0.6), cams=[cam(0.0, [0.3, 1.5, -2.6], [0.3, 1.5, -2.4], [0.1, 1.3, 0.8], [0.1, 1.3, 0.8], lens=44)])
+st.shot('S17', 'poste', actors=QUEUE(4, -0.6), cams=[cam(0.0, [0.25, 1.55, -3.3], [0.25, 1.55, -3.1], [0.15, 1.35, 0.8], [0.15, 1.35, 0.8], lens=54)])
 st.shot('S18', 'cottageStreet', actors=[act('mecFacteur', [0, 0, 0], 0, 'heroPose', 'smug')], props=[CAP('mecFacteur'), P('bike', 'bicycle', pos=[0.9, 0, -0.2], rot=[0, 0.4, 0])], cams=LOW(0.2, 0, d=3.2, look_h=1.4))
 st.shot('S19', 'cottageStreet', actors=[act('mecFacteur', [0, 0, 0.6], 180, 'holdOut', 'happy')], props=[CAP('mecFacteur'), DOOR(0, -0.2), P('box', 'cardboardBox', on={'actor': 'mecFacteur', 'hand': 'R'}, scale=0.8)],
-        cams=[cam(0.0, [1.2, 1.5, 2.6], [1.1, 1.5, 2.4], [0, 1.3, 0.2], [0, 1.3, 0.2], lens=44)])
+        cams=[cam(0.0, [1.45, 1.65, 3.1], [1.35, 1.65, 2.9], [0, 1.45, 0.2], [0, 1.45, 0.2], lens=44)])
 st.shot('S20', 'livingRoom', props=[DOOR(-0.6, -1.3)], cams=[cam(0.0, [0.5, 1.5, 3.2], [0.45, 1.5, 3.0], [0, 1.3, -1.0], [0, 1.3, -1.0], lens=44)])
 st.shot('S21', 'cottageStreet', actors=[act('mecFacteur', [0, 0, 0.6], 180, 'writeOnHeld', 'unimpressed')],
         props=[CAP('mecFacteur'), DOOR(0, -0.2), P('avis', 'avisPassage', pos=[0.05, 1.3, -0.15], scale=2.0, keys=[k(0.0, scale=0.01), k(0.7, scale=2.0, dur=0.3, ease='outBack')])],
-        cams=[cam(0.0, [1.6, 1.5, 1.9], [1.55, 1.5, 1.75], [0, 1.35, -0.1], [0, 1.35, -0.1], lens=44)])
+        cams=[cam(0.0, [1.85, 1.65, 2.5], [1.8, 1.65, 2.35], [0, 1.45, -0.1], [0, 1.45, -0.1], lens=44)])
 st.card('S03', 'AVIS DE PASSAGE'); st.card('S09', 'N° 4012')
 st.cue('sfx:ticks', 'S02', 0.0, 0.4); st.cue('sfx:paper', 'S03', 0.15, 0.6); st.cue('thud', 'S03', 0.07, 0.45); [st.cue('sfx:step', 'S04', t, 0.35) for t in (0.3, 0.8)]
 st.cue('sfx:paper', 'S05', 0.3, 0.4); st.cue('pop', 'S06', 0.15, 0.5); st.cue('sfx:paper', 'S07', 0.1, 0.6); [st.cue('sfx:step', 'S08', t, 0.35) for t in (0.2, 0.7, 1.2)]

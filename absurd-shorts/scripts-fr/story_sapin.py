@@ -23,13 +23,13 @@ st.shot('S06', 'office', props=[P('doc', 'noticeBoard', pos=[0, 1.5, 0], opts={'
                                 P('ok', 'noticeBoard', pos=[0.05, 1.3, 0.03], opts={'text': 'IMMEUBLE', 'style': 'sign', 'w': 0.55, 'h': 0.17, 'fg': '#C8322A', 'frame': '#C8322A', 'popAt': 0.3, 'tilt': 0.15})], cams=DOCCAM)
 st.shot('S07', **TALL('S07'), cams=[cam(0.0, [-1.5, 1.2, 10], [-1.4, 1.4, 9.2], [1.5, 10, -14], [1.5, 13, -14], lens=46)])
 st.shot('S08', 'cottageStreet', actors=[act('locataire', [0.7, 0, 0.2], -20, 'handsOnHips', 'smug')], props=[P('fir', 'giantFir', pos=[-1.2, -6, -1.6], opts=FIR(14, windows=True))], cams=MS(0.5, 0.2, h=1.6, d=2.8))
-st.shot('S09', 'cottageStreet', props=[P('fir', 'giantFir', pos=[0, 0, -2], opts=FIR(10)), P('ph', 'noticeBoard', pos=[0.95, 9.6, -1.6], opts={'text': 'PENTHOUSE', 'style': 'sign', 'w': 1.1, 'h': 0.34, 'popAt': 0.25})],
+st.shot('S09', 'cottageStreet', props=[P('fir', 'giantFir', pos=[0, 0, -2], opts=FIR(10)), P('ph', 'noticeBoard', pos=[0.62, 9.3, -1.6], opts={'text': 'PENTHOUSE', 'style': 'sign', 'w': 1.0, 'h': 0.32, 'popAt': 0.25})],
         cams=[cam(0.0, [0.6, 9.6, 3.8], [0.5, 9.7, 3.4], [0.2, 9.6, -2], [0.2, 9.7, -2], lens=44)])
 st.shot('S10', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'celebrate', 'happy')], props=[P(f'm{i}', 'moneySack', pos=[-0.7 + i * 0.7, 0, 0.5], opts={'color': '#5BB06E'}) for i in range(3)], cams=WS(0, 0, h=1.3, d=3.8, look_h=1.1))
 st.shot('S11', 'cottageStreet', actors=[act('mec', [1.2, 0, 0.5], 90, 'pushCartWalk', 'smug', keys=[k(0.0, to=[1.9, 0, 0.5], dur=st.dur('S11'), clip='pushCartWalk')])],
         props=[P('fir', 'giantFir', pos=[0.75, 0.4, 0.5], rot=[0, 0, 1.5708], opts=FIR(2.2), keys=[k(0.0, to=[1.45, 0.4, 0.5], dur=st.dur('S11'))]), P('date', 'noticeBoard', pos=[-0.2, 2.0, -0.6], opts={'text': '7 JANVIER', 'style': 'sign', 'w': 0.9, 'h': 0.3, 'popAt': 0.2})],
         cams=WS(0.4, 0.3, h=1.3, d=5.2, look_h=0.9))
-st.shot('S12', 'cottageStreet', actors=[act(a, [x, 0, 0], 0, 'holdSign', 'angry') for a, x in [('locataire', -0.9), ('locataire2', 0), ('locataire3', 0.9)]],
+st.shot('S12', 'cottageStreet', actors=[act(a, [x, 0, 0], 0, 'holdSign', 'angry') for a, x in [('locataire', -0.75), ('locataire2', 0), ('locataire3', 0.75)]],
         props=[P(f's{i}', 'protestSign', opts={'text': t}, on={'actor': a, 'hand': 'R', **SIGN_UP}) for i, (a, t) in enumerate([('locataire', 'TOUCHE PAS\nÀ MON SAPIN'), ('locataire2', 'NON À\nL\'EXPULSION'), ('locataire3', 'SAPIN\nPOUR TOUS')])] +
               [P('fir', 'giantFir', pos=[2, 0, -14], opts=FIR(30, windows=True))], cams=WS(0, 0, h=1.6, d=6.5, look_h=1.6))
 st.shot('S13', 'cottageStreet', actors=[act('locataire', [0, 0, 0], 0, 'angryFist', 'angry', keys=st.talk('L13', 'S13', 'angry'))], cams=CU(0, 0))

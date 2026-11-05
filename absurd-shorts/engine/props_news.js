@@ -9,14 +9,76 @@ const keyAt = (list, t) => { let a0 = null; for (const [a, x] of (list || [])) i
 const pop = (t, a0, d = 0.3) => a0 == null || t < a0 ? 0 : Math.max(0.001, ease.outBack(clamp01((t - a0) / d)));
 function sign(text, w, h, bg = '#F4F1E8', fg = '#1E2A33') {
   return canvasPlane(w, h, (c, W, H) => { c.fillStyle = bg; c.fillRect(0, 0, W, H); c.fillStyle = fg; c.textAlign = 'center'; c.textBaseline = 'middle';
-    const L = String(text).split('\n'), m = Math.max(...L.map(l => l.length)), px = Math.min(H * 0.7 / L.length, W * 0.9 / (m * 0.62)); c.font = `900 ${px}px Arial`;
+    const L = String(text).split('\n'), m = Math.max(...L.map(l => l.length)); let px = Math.min(H * 0.7 / L.length, W * 0.9 / (m * 0.62)); c.font = `900 ${px}px Arial`;
+    const wide = Math.max(...L.map(l => c.measureText(l).width)); if (wide > W * 0.9) { px *= W * 0.9 / wide; c.font = `900 ${px}px Arial`; }
     L.forEach((l, i) => c.fillText(l, W / 2, H / 2 + (i - (L.length - 1) / 2) * px * 1.1)); }, { res: 512 });
 }
 function palm(h = 1) { const g = grp(at(cyl(0.05 * h, 0.08 * h, h, '#8A6440', 6, { pivot: 'bottom' }), 0, 0, 0));
   for (let i = 0; i < 6; i++) { const lf = box(0.7 * h, 0.03, 0.18 * h, '#3E9B5F', { taper: { x: 1, z: 0.3 } }); lf.position.set(Math.cos(i / 6 * TAU) * 0.3 * h, h, Math.sin(i / 6 * TAU) * 0.3 * h); lf.rotation.set(0, -i / 6 * TAU, -0.45); g.add(lf); }
   return g; }
 
+
+// a real grain of sand: an irregular faceted quartz pebble (icosahedron with per-vertex jitter, squashed), pivot at its bottom
+function grainGeo(r, seed, detail = 1) {
+  const R = rng(seed), geo = new THREE.IcosahedronGeometry(r, detail), pos = geo.attributes.position, v = new THREE.Vector3(), J = new Map();
+  const sx = 0.95 + R() * 0.45, sy = 0.62 + R() * 0.22, sz = 0.8 + R() * 0.3;
+  for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i); const key = `${v.x.toFixed(3)},${v.y.toFixed(3)},${v.z.toFixed(3)}`;
+    if (!J.has(key)) J.set(key, 0.82 + R() * 0.32); const s = J.get(key); pos.setXYZ(i, v.x * s * sx, v.y * s * sy, v.z * s * sz); }
+  geo.computeBoundingBox(); geo.translate(0, -geo.boundingBox.min.y, 0); geo.computeVertexNormals(); return geo;
+}
+const SAND = ['#E6C67E', '#DDB76C', '#EDD39A', '#D3AA62'];
+// tiny flags on toothpicks: Brittany (gwenn-ha-du), Sardinia (four Moors), Italy, France
+const flagDraw = kind => (c, W, H) => {
+    if (kind === 'bzh') { for (let i = 0; i < 9; i++) { c.fillStyle = i % 2 ? '#F4F4F0' : '#17171B'; c.fillRect(0, i * H / 9, W, H / 9 + 1); }
+      c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W * 0.42, H * 5 / 9); c.fillStyle = '#17171B';
+      for (let r = 0; r < 3; r++) for (let q = 0; q < 3; q++) { const x = W * (0.07 + q * 0.13 + (r % 2) * 0.06), y = H * (0.1 + r * 0.15); c.beginPath(); c.moveTo(x, y - H * 0.05); c.lineTo(x + W * 0.025, y + H * 0.04); c.lineTo(x - W * 0.025, y + H * 0.04); c.fill(); } }
+    else if (kind === 'sard') { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8322A'; c.fillRect(W * 0.44, 0, W * 0.12, H); c.fillRect(0, H * 0.41, W, H * 0.18);
+      c.fillStyle = '#17171B'; for (const [x, y] of [[0.22, 0.2], [0.78, 0.2], [0.22, 0.8], [0.78, 0.8]]) { c.beginPath(); c.arc(W * x, H * y, H * 0.11, 0, TAU); c.fill(); c.fillStyle = '#F4F4F0'; c.fillRect(W * x - H * 0.12, H * y - H * 0.04, H * 0.24, H * 0.05); c.fillStyle = '#17171B'; } }
+    else { const cols = kind === 'it' ? ['#2E8B4E', '#F4F4F0', '#C8322A'] : ['#24448E', '#F4F4F0', '#D03A34']; cols.forEach((col, i) => { c.fillStyle = col; c.fillRect(i * W / 3, 0, W / 3 + 1, H); }); }
+};
+function miniFlag(kind, w = 0.08) {
+  const h = w * 0.66, g = grp(at(cyl(0.0025 * w / 0.08, 0.0025 * w / 0.08, h * 2.4, '#E9DDBF', 4, { pivot: 'bottom', noGrain: true }), 0, 0, 0));
+  const f = canvasPlane(w, h, flagDraw(kind), { res: 256 });
+  f.position.set(w / 2, h * 2.4 - h / 2, 0); g.add(f); g.userData.cloth = f; return g;
+}
+
 export const NEWS_PROPS = {
+  regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
+    const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });
+    f.position.set(0.31, 1.38, 0); g.add(f); g.userData.update = t => { f.rotation.y = 0.14 * Math.sin(t * 2.6 + (o.seed || 0)); }; return g;
+  },
+  sandGrain(o) { // ONE real grain of sand, not a cloud: faceted golden quartz pebble with glints; o.seed, o.color, o.flag 'bzh'|'sard'|'it'|'fr', o.eyes, o.popAt
+    const g = grp(), body = new THREE.Mesh(grainGeo(0.05, o.seed || 3, 1), mat(o.color || '#E3C27A', { noGrain: true })); body.castShadow = body.receiveShadow = true; g.add(body);
+    const R = rng((o.seed || 3) + 17), gl = [];
+    for (let i = 0; i < 3; i++) { const sp = new THREE.Mesh(new THREE.OctahedronGeometry(0.006, 0), new THREE.MeshBasicMaterial({ color: '#FFFDF2' }));
+      const a = R() * TAU, y = 0.02 + R() * 0.03; sp.position.set(Math.cos(a) * 0.045, y, Math.abs(Math.sin(a)) * 0.04 + 0.01); sp.userData.ph = R(); g.add(sp); gl.push(sp); }
+    if (o.eyes) for (const sx of [-1, 1]) { const e = sphere(0.0055, '#17171B', 0, { noGrain: true }); e.position.set(sx * 0.014, 0.032, 0.048); g.add(e); }
+    let fl = null; if (o.flag) { fl = miniFlag(o.flag, o.flagW || 0.08); fl.position.set(0.035, 0.02, -0.01); g.add(fl); }
+    const rate = o.glint ?? 0.9;
+    g.userData.update = t => { gl.forEach(sp => { const f = ((t * rate + sp.userData.ph) % 1); sp.scale.setScalar(Math.max(0.001, 1 - Math.abs(f - 0.5) * 14)); sp.rotation.y = t * 3; });
+      if (fl) fl.userData.cloth.rotation.y = 0.18 * Math.sin(t * 5 + 1);
+      if (o.popAt != null) { const k = pop(t, o.popAt, 0.3); g.scale.setScalar(k); } };
+    g.userData.update(0); return g;
+  },
+  sandTray(o) { // a steel evidence tray holding grains in groups: o.groups [[n, x, z, color?, flag?]], o.w/o.d, o.countUp [t0, t1] pops them in one by one, o.label
+    const w = o.w || 0.6, d = o.d || 0.4, g = grp(); if (!o.noTray) { g.add(at(box(w, 0.012, d, '#B9C0C6', { noGrain: true }), 0, 0.006, 0));
+    for (const [x, z, bw, bd] of [[0, d / 2, w, 0.012], [0, -d / 2, w, 0.012], [w / 2, 0, 0.012, d], [-w / 2, 0, 0.012, d]]) g.add(at(box(bw, 0.03, bd, '#A3ABB2', { noGrain: true }), x, 0.015, z)); }
+    const R = rng(o.seed || 5), all = [], flags = [], N = (o.groups || [[40]]).reduce((a, q) => a + q[0], 0), pile = 0.014 * Math.sqrt(N) + 0.008;
+    for (const [n, gx, gz, col, flag] of (o.groups || [[40, 0, 0]])) {
+      const rad = 0.014 * Math.sqrt(n) + 0.008, geos = [0, 1, 2, 3].map(i => grainGeo(0.011, 40 + i * 7, 0));
+      for (let i = 0; i < n; i++) { const a = R() * TAU, r = rad * Math.sqrt(R()), m = new THREE.Mesh(geos[i % 4], mat(col || SAND[i % 4], { noGrain: true }));
+        m.position.set(gx + Math.cos(a) * r, o.noTray ? 0 : 0.012, gz + Math.sin(a) * r); m.rotation.y = R() * TAU; m.castShadow = true; g.add(m); all.push(m);
+        const a2 = R() * TAU, r2 = pile * Math.sqrt(R()); m.userData.end = m.position.clone(); m.userData.start = new THREE.Vector3(Math.cos(a2) * r2, m.position.y, Math.sin(a2) * r2); m.userData.lag = R(); }
+      if (flag) { const f = miniFlag(flag, o.flagW || 0.07); f.position.set(gx + rad * 0.6, 0.012, gz - rad * 0.4); g.add(f); flags.push(f); }
+    }
+    if (o.label) { const l = sign(o.label, w * 0.7, 0.05, '#F4F1E8', '#1E2A33'); l.position.set(0, 0.016, d / 2 + 0.008); g.add(l); }
+    const [c0, c1] = o.countUp || [null, null], order = all.map((m, i) => i).sort((a, b) => all[a].position.x - all[b].position.x);
+    const [s0, s1] = o.sortAt || [null, null];   // sortAt [t0, t1]: the grains start mixed in one pile and slide to their groups (staggered), flags pop at t1
+    g.userData.update = t => { if (c0 != null) order.forEach((idx, j) => { const tj = c0 + (c1 - c0) * j / Math.max(1, all.length - 1); all[idx].scale.setScalar(pop(t, tj, 0.12)); });
+      if (s0 != null) all.forEach(m => { const a = s0 + m.userData.lag * (s1 - s0) * 0.5, k = ease.inOut(clamp01((t - a) / ((s1 - s0) * 0.5))); m.position.lerpVectors(m.userData.start, m.userData.end, k); });
+      flags.forEach((f, i) => { f.userData.cloth.rotation.y = 0.15 * Math.sin(t * 4 + i); if (s0 != null) f.scale.setScalar(pop(t, s1, 0.3)); }); };
+    g.userData.update(0); return g;
+  },
   starsStripes(o) { // a stars-and-stripes flag on a pole (drawn), rippling a little
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0));
     const f = canvasPlane(0.9, 0.5, (c, W, H) => { for (let i = 0; i < 13; i++) { c.fillStyle = i % 2 ? '#F4F4F0' : '#B22234'; c.fillRect(0, i * H / 13, W, H / 13 + 1); }
@@ -85,8 +147,9 @@ export const NEWS_PROPS = {
     const g = grp(); g.add(at(box(4.4, 1.6, 1.8, '#C8322A', { outline: 0.015 }), 0, 1.2, 0), at(box(1.3, 1.1, 1.75, '#C8322A'), 2.5, 0.95, 0), at(box(0.5, 0.6, 1.6, '#7FC2EE'), 3.0, 1.25, 0));
     [[-1.4, 0.95], [-1.4, -0.95], [1.9, 0.95], [1.9, -0.95]].forEach(([x, z]) => g.add(at(cyl(0.4, 0.4, 0.3, '#1C1E22', 10), x, 0.4, z, PI / 2, 0, 0)));
     g.add(at(box(3.6, 0.12, 0.5, '#B9BDBF'), -0.3, 2.1, 0));
-    const jet = grp(); for (let i = 0; i < 36; i++) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.28, 0.9), new THREE.MeshBasicMaterial({ color: '#BFE6FF', transparent: true, opacity: 0.8 })); jet.add(d); } jet.position.set(-2.1, 1.9, 0); g.add(jet);
-    g.userData.update = t => { const a0 = keyAt(o.spray, t); jet.visible = a0 != null; if (a0 == null) return; jet.children.forEach((d, i) => { const k = ((t - a0) * 2 + i / 36) % 1, x = -k * 9, y = k * 2.4 - k * k * 4.2; d.position.set(x, y, 0.15 * Math.sin(i)); d.rotation.z = Math.atan2(2.4 - 8.4 * k, -9) ; }); };
+    const jet = grp(); for (let i = 0; i < 48; i++) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.26, 0.26), new THREE.MeshBasicMaterial({ color: i % 3 === 2 ? '#F2FAFF' : '#3B8FE0', transparent: true, opacity: 0.92 })); jet.add(d); } jet.position.set(-2.1, 1.9, 0); g.add(jet);   // saturated blue + white foam: reads against sky and clouds
+    const RE = o.reach || 9, LI = o.lift || 2.4;   // jet length along local -x and initial rise
+    g.userData.update = t => { const a0 = keyAt(o.spray, t); jet.visible = a0 != null; if (a0 == null) return; jet.children.forEach((d, i) => { const k = Math.min(((t - a0) * 2 + i / 48) % 1, (t - a0) * 1.6), x = -k * RE, y = k * LI - k * k * (LI + 1.8); d.position.set(x, y, 0.15 * Math.sin(i)); d.rotation.z = Math.atan2(LI - 2 * (LI + 1.8) * k, -RE); }); };
     g.userData.update(0); return g;
   },
   rainbow(o) { // a rainbow arc of radius o.r, drawing on from o.t0

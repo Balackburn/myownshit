@@ -1578,7 +1578,7 @@ const B = {
     if (o.switchAt != null) g.userData.update = t => { const k = t - o.switchAt; const on2 = k >= 0 && !(k < 0.3 && Math.floor(k * 10) % 2 === 0); b.visible = on2; a.visible = !on2 && k < 0; };
     return g; },
   queueTicket(o) { // the paper queue ticket, a big number on it (held like a card)
-    const pic = canvasPlane(0.07, 0.1, (c, W, H) => { c.fillStyle = '#F7F3EA'; c.fillRect(0, 0, W, H); c.fillStyle = '#2C4A8A'; c.fillRect(0, 0, W, H * 0.16); c.fillStyle = '#F6F1E3'; c.font = `bold ${H * 0.09}px Arial`; c.textAlign = 'center'; c.fillText('VOTRE NUMÉRO', W / 2, H * 0.11);
+    const pic = canvasPlane(0.07, 0.1, (c, W, H) => { c.fillStyle = '#F7F3EA'; c.fillRect(0, 0, W, H); c.fillStyle = '#2C4A8A'; c.fillRect(0, 0, W, H * 0.16); c.fillStyle = '#F6F1E3'; c.font = `bold ${H * 0.09}px Arial`; c.textAlign = 'center'; { const w = c.measureText('VOTRE NUMÉRO').width; if (w > W * 0.88) c.font = `bold ${H * 0.09 * W * 0.88 / w}px Arial`; } c.fillText('VOTRE NUMÉRO', W / 2, H * 0.11);
       c.fillStyle = '#141414'; c.font = `bold ${H * 0.3}px Arial`; c.fillText(String(o.num ?? '4000'), W / 2, H * 0.58); c.font = `${H * 0.07}px Arial`; c.fillText(o.sub || 'Merci de patienter', W / 2, H * 0.85); }, { res: 256 });
     const g = grp(at(box(0.071, 0.101, 0.002, P.white), 0, 0, 0), at(pic, 0, 0, 0.0015)); g.userData.grip = [0, -0.04, 0]; return g; },
   sofaProp(o) { // a movable three-seat sofa (same design as the living room's)

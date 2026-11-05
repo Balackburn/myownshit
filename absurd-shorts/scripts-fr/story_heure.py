@@ -6,13 +6,13 @@ from story_kit import *
 st = Story('heure')
 st.plan([(f'S{i:02d}', f'L{i:02d}', 0) for i in range(1, 20)])
 DOCCAM = [cam(0.0, [0.05, 1.55, 1.75], [0.05, 1.55, 1.55], [0, 1.5, 0], [0, 1.5, 0], lens=42)]
-CLOCKCAM = [cam(0.0, [0.1, 1.15, 1.5], [0.1, 1.15, 1.3], [0, 1.05, 0], [0, 1.05, 0], lens=42)]
+CLOCKCAM = [cam(0.0, [0.1, 1.2, 1.5], [0.1, 1.2, 1.3], [0, 1.12, 0], [0, 1.12, 0], lens=42)]
 EMPTY = lambda: [P(f'ch{i}', 'officeChair', pos=[-1.4 + i * 1.4, 0, -0.8]) for i in range(3)]
 COLL = [('c1', -0.9), ('c2', 0.0), ('c3', 0.9)]
 
 st.shot('S01', 'chambre', actors=[act('mec', [0.35, 0, 0], -20, 'shakeHead', 'smug')], props=[P('clock', 'alarmClock', pos=[-0.45, 0.75, 0.2], scale=0.9, opts={'time': '02:59', 'time2': '03:00', 'switchAt': 0.6})],
         cams=WS(0, 0, h=1.4, d=3.6, look_h=1.1))
-st.shot('S02', 'chambre', props=[P('clock', 'alarmClock', pos=[0, 0.7, 0], scale=1.2, opts={'time': '09:00'}), P('ete', 'noticeBoard', pos=[0.42, 1.25, 0.05], opts={'text': "HEURE D'ÉTÉ", 'style': 'tag', 'w': 0.5, 'h': 0.2, 'popAt': 0.3})], cams=CLOCKCAM)
+st.shot('S02', 'chambre', props=[P('clock', 'alarmClock', pos=[0, 0.7, 0], scale=1.2, opts={'time': '09:00'}), P('ete', 'noticeBoard', pos=[0.0, 1.47, 0.2], opts={'text': "HEURE D'ÉTÉ", 'style': 'tag', 'w': 0.5, 'h': 0.18, 'popAt': 0.3})], cams=CLOCKCAM)
 st.shot('S03', 'office', actors=[act('mec', [0.4, 0, 2.0], 180, 'walk', 'happy', keys=[k(0.0, to=[0.3, 0, 0.3], dur=st.dur('S03'), clip='walk')])], props=EMPTY() + [P('clock', 'wallClock', pos=[1.2, 2.1, -1.4], scale=1.2)],
         cams=[cam(0.0, [1.3, 1.5, -2.4], [1.3, 1.5, -2.7], [0.4, 1.3, 2.0], [0.3, 1.3, 0.3], lens=44)])
 st.shot('S04', 'office', actors=[act('mec', [0, 0, 0], 0, 'stand', 'unimpressed')], props=EMPTY(), cams=WS(0, 0, h=1.6, d=5.0, look_h=1.2))
@@ -23,21 +23,21 @@ st.shot('S06', 'office', actors=[act('mec', [0, 0, 0], 0, 'handsOnHips', 'smug')
 st.shot('S07', 'office', actors=[act(a, [x, 0, 1.2], 180, 'stand', 'suspicious') for a, x in COLL] + [act('mec', [0, 0, -0.6], 0, 'stand', 'smug')],
         cams=[cam(0.0, [0.3, 1.6, -3.4], [0.28, 1.6, -3.2], [0, 1.4, 0.6], [0, 1.4, 0.6], lens=44)])
 st.shot('S08', 'office', actors=[act(a, [x, 0, 0], 0, 'showPhone', 'happy') for a, x in COLL], props=[P(f'w{i}', 'bigWatch', on={'actor': a, 'hand': 'R'}, scale=1.4, opts={'time': '09:00'}) for i, (a, x) in enumerate(COLL)],
-        cams=WS(0, 0, h=1.5, d=4.4, look_h=1.3))
+        cams=WS(0, 0, h=1.5, d=5.6, look_h=1.3))
 st.shot('S09', 'parisStreet', actors=[act(f'p{i}', [6.4 + (i % 2) * 1.0, 0, -1 - i * 1.2], 0, 'walk', 'happy', keys=[k(0.0, to=[6.4 + (i % 2) * 1.0, 0, 0.4 - i * 1.2], dur=st.dur('S09'), clip='walk')]) for i in range(3)],
         props=[P('clock', 'wallClock', pos=[9.8, 4.2, -2], rot=[0, -1.5708, 0], scale=3.0)], cams=LOW(7, 0, d=5.2, look_h=2.2))
 st.shot('S10', 'skyHigh', setOpts={'layer': False, 'fog': False}, props=[P('map', 'splitMap', pos=[0, 0, 0], opts={'k': 10, 'west': '#F2C94C', 'east': '#F2C94C'})],
         cams=[cam(0.0, [6, 190, 40], [5, 170, 34], [1, 0, -2], [1, 0, -2], lens=42)], fog=None)
 st.shot('S11', 'skyHigh', setOpts={'layer': False, 'fog': False}, props=[P('map', 'splitMap', pos=[0, 0, 0], opts={'k': 10})],
         cams=[cam(0.0, [5, 165, 34], [4, 150, 30], [1, 0, -2], [1, 0, -2], lens=42)], fog=None)
-st.shot('S12', 'parisStreet', actors=[act('flic', [3.9, 0, 31.3], 160, 'holdOut', 'unimpressed')],
-        props=[P('gate', 'barrierGate', pos=[5.2, 0, 30.0], rot=[0, 3.1416, 0], opts={'length': 5.0, 'angle': 0, 'sign': 'FRONTIÈRE HORAIRE'}), P('w', 'bigWatch', on={'actor': 'flic', 'hand': 'R'}, scale=2.0, opts={'time': '10:00'})],
-        cams=[cam(0.0, [1.6, 1.4, 36.0], [1.8, 1.4, 35.5], [3.8, 1.5, 30.5], [3.8, 1.5, 30.5], lens=44)])
+st.shot('S12', 'parisStreet', actors=[act('flic', [3.45, 0, 31.0], 10, 'holdOut', 'unimpressed')],
+        props=[P('gate', 'barrierGate', pos=[4.35, 0, 30.0], opts={'length': 4.0, 'angle': 0, 'sign': 'FRONTIÈRE\nHORAIRE'}), P('w', 'bigWatch', on={'actor': 'flic', 'hand': 'R'}, scale=2.0, opts={'time': '10:00'})],
+        cams=[cam(0.0, [3.75, 1.5, 34.4], [3.8, 1.5, 34.1], [4.0, 1.45, 30.4], [4.0, 1.45, 30.4], lens=44)])
 st.shot('S13', 'runway', props=[P('train', 'train', pos=[-30, 0, -4], opts={'cars': 3, 'speed': 22}),
-                                 P('board', 'noticeBoard', pos=[1.6, 2.2, 0.5], opts={'text': 'ARRIVÉE  9:00\nDÉPART  10:00', 'style': 'sign', 'w': 1.6, 'h': 0.7, 'popAt': 0.4})],
+                                 P('board', 'noticeBoard', pos=[-0.2, 2.5, 1.5], opts={'text': 'ARRIVÉE  9:00\nDÉPART  10:00', 'style': 'sign', 'w': 1.6, 'h': 0.7, 'popAt': 0.4})],
         cams=[cam(0.0, [3.0, 1.6, 8.5], [2.8, 1.6, 8.2], [-1.5, 1.4, -3.5], [-1.5, 1.4, -3.5], lens=44)])
 st.shot('S14', 'grassland', actors=[act('vache', [-0.6, 0, 0], 30, 'idle'), act('vache2', [0.9, 0, -0.4], -30, 'idle')],
-        props=[P('cl1', 'wallClock', pos=[-1.6, 1.8, -1.4], scale=1.4, opts={'rate': 0.2}), P('cl2', 'wallClock', pos=[1.8, 1.8, -1.6], scale=1.4, opts={'rate': -0.2})], cams=WS(0, 0, h=1.4, d=5.6, look_h=1.0))
+        props=[P('cl1', 'wallClock', pos=[-0.75, 2.05, -1.2], scale=1.0, opts={'rate': 0.2}), P('cl2', 'wallClock', pos=[0.85, 2.05, -1.3], scale=1.0, opts={'rate': -0.2})], cams=WS(0, 0, h=1.4, d=5.6, look_h=1.0))
 st.shot('S15', 'pressRoom', actors=[act('euro', [0, 0, 0], 0, 'podiumTalk', 'suspicious')], props=[P('pod', 'podium', pos=[0, 0, 0.45]), P('flag', 'flag', pos=[-0.9, 0, -0.3], scale=1.3, opts={'colors': ['#003399', '#FFCC00', '#003399']})],
         cams=MS(0, 0, h=1.55, d=3.0))
 st.shot('S16', 'office', props=[P('doc', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': "DIRECTIVE EUROPÉENNE\nCHANGEMENT D'HEURE", 'style': 'doc', 'w': 0.8, 'h': 1.0, 'textSize': 0.3}),

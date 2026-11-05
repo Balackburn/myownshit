@@ -1219,11 +1219,12 @@ Object.assign(S, {
     const g = grp(), r = rng(o.seed || 21);
     sky(g, o.sky || ['#62AEE2', '#A7D4EC']); clouds(g, 9, 8);
     const geo = new THREE.PlaneGeometry(420, 420, 84, 84).rotateX(-PI / 2), pos = geo.attributes.position, base = pos.array.slice();
-    const sea = mesh(geo, mat(o.sea || '#2FA5D2')); sea.receiveShadow = true; sea.castShadow = false; sea.position.z = -200 + (o.shore ?? 6); g.add(sea);
-    const sand = flat(420, 60, '#EAD9A8', 0, 0.02, (o.shore ?? 6) + 30); g.add(sand);
+    const shore = o.shore ?? 6, sea = mesh(geo, mat(o.sea || '#2FA5D2')); sea.receiveShadow = true; sea.castShadow = false; sea.position.z = -210 + shore + 0.6; g.add(sea);   // the sea ends under the foam line: the beach stays dry
+    const sand = flat(420, 60, o.sand || '#EAD9A8', 0, 0.02, (o.shore ?? 6) + 30); g.add(sand);
     const foam = flat(420, 1.2, '#F4FBFF', 0, 0.05, (o.shore ?? 6) + 0.4); g.add(foam);
     if (o.parasols !== false) { g.add(prop('parasol', {}, 6, 0, (o.shore ?? 6) + 6)); g.add(prop('parasol', { color: '#F2C230' }, -9, 0, (o.shore ?? 6) + 9)); }
-    g.userData.update = t => { for (let i = 0; i < pos.count; i++) { const x = base[i * 3], z = base[i * 3 + 2]; pos.array[i * 3 + 1] = 0.16 * Math.sin(x * 0.45 + t * 1.6) + 0.12 * Math.sin(z * 0.6 + t * 1.2) + 0.05 * Math.sin((x + z) * 1.3 + t * 2.4); } pos.needsUpdate = true; geo.computeVertexNormals(); };
+    g.userData.update = t => { for (let i = 0; i < pos.count; i++) { const x = base[i * 3], z = base[i * 3 + 2], damp = Math.min(1, Math.max(0.1, (shore - z - sea.position.z) / 5));   // calmer near the beach
+        pos.array[i * 3 + 1] = damp * (0.16 * Math.sin(x * 0.45 + t * 1.6) + 0.12 * Math.sin(z * 0.6 + t * 1.2) + 0.05 * Math.sin((x + z) * 1.3 + t * 2.4)); } pos.needsUpdate = true; geo.computeVertexNormals(); };
     g.userData.update(0);
     g.userData.anchors = { center: [0, 0, 0] }; g.userData.lighting = 'day'; return g;
   },

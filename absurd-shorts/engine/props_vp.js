@@ -18,8 +18,10 @@ function textBoard(text, w, h, { bg = '#F4F1E8', fg = '#1E2A33', frame = null, f
     if (frame) { g.strokeStyle = frame; g.lineWidth = H * 0.06; g.strokeRect(H * 0.04, H * 0.04, W - H * 0.08, H - H * 0.08); }
     g.fillStyle = fg; g.textAlign = 'center'; g.textBaseline = 'middle';
     const maxLen = Math.max(...lines.map(l => l.length));
-    const px = Math.min(H * size / lines.length, W * 0.9 / (maxLen * 0.62));
+    let px = Math.min(H * size / lines.length, W * 0.9 / (maxLen * 0.62));
     g.font = `${weight} ${px}px ${font}`;
+    const wide = Math.max(...lines.map(l => g.measureText(l).width)), room = W - H * 0.3;   // measured fit: bold capitals are wider than the estimate
+    if (wide > room) { px *= room / wide; g.font = `${weight} ${px}px ${font}`; }
     lines.forEach((l, i) => g.fillText(l, W / 2, H / 2 + (i - (lines.length - 1) / 2) * px * 1.12));
   }, { res: 512 });
   return c;

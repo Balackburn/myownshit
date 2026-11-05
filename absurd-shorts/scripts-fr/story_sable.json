@@ -56,12 +56,39 @@
   "ministre": {
    "preset": "politique"
   },
-  "chien": {
-   "type": "creature",
-   "name": "dog",
-   "opts": {
-    "seed": 4
+  "c1": {
+   "preset": "carabiniere"
+  },
+  "c2": {
+   "preset": "carabiniere",
+   "facial": "none",
+   "hair": "crew",
+   "seed": 17,
+   "build": {
+    "belly": 0.06
    }
+  },
+  "gendarme": {
+   "preset": "cop2",
+   "seed": 23
+  },
+  "priseur": {
+   "preset": "proviseur"
+  },
+  "b1": {
+   "preset": "fermier",
+   "hat": "none",
+   "seed": 31
+  },
+  "b2": {
+   "preset": "mamie"
+  },
+  "b3": {
+   "preset": "femme"
+  },
+  "b4": {
+   "preset": "tourist",
+   "seed": 9
   }
  },
  "scenes": [
@@ -169,236 +196,130 @@
      "scale": 2.2
     },
     {
-     "id": "g0",
-     "name": "growIsland",
+     "id": "grain",
+     "name": "sandGrain",
      "pos": [
-      -0.08,
-      0.29,
-      0.02
+      0.04,
+      0.286,
+      0.0
      ],
-     "scale": 3.0,
+     "scale": 0.55,
      "opts": {
-      "stages": [
-       [
-        0,
-        0
-       ]
-      ]
-     }
-    },
-    {
-     "id": "g1",
-     "name": "growIsland",
-     "pos": [
-      0.02,
-      0.29,
-      -0.03
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        0
-       ]
-      ]
-     }
-    },
-    {
-     "id": "g2",
-     "name": "growIsland",
-     "pos": [
-      0.1,
-      0.29,
-      0.03
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        0
-       ]
-      ]
+      "seed": 3,
+      "color": "#E3BE6E",
+      "popAt": 0.402
      }
     }
    ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0.5,
-      0.75,
-      1.25
-     ],
-     "to": [
-      0.46,
-      0.72,
-      1.12
-     ],
-     "lookAt": [
-      0.0,
-      0.24,
-      0
-     ],
-     "lens": 40,
-     "ease": "linear",
-     "lookAt2": [
-      0.0,
-      0.24,
-      0
-     ]
-    }
-   ],
-   "start": 1.7667,
-   "duration": 2.2333,
-   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
-   "soften": 0.84
-  },
-  {
-   "id": "S03",
-   "set": "office",
-   "lines": [],
-   "actors": [
-    {
-     "id": "mec",
-     "pos": [
-      0.55,
-      0,
-      -0.6
-     ],
-     "ry": -20,
-     "clip": "stand",
-     "keys": [],
-     "expr": "unimpressed"
-    },
-    {
-     "id": "chien",
-     "pos": [
-      -0.45,
-      0,
-      0.2
-     ],
-     "ry": 60,
-     "clip": "angry",
-     "keys": []
-    }
-   ],
-   "props": [],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0.6,
-      1.0,
-      3.8
-     ],
-     "to": [
-      0.51,
-      1.05,
-      3.1999999999999997
-     ],
-     "lookAt": [
-      0.0,
-      0.8,
-      -0.2
-     ],
-     "lens": 44,
-     "ease": "linear",
-     "lookAt2": [
-      0.0,
-      0.8300000000000001,
-      -0.2
-     ]
-    }
-   ],
-   "start": 4.0,
-   "duration": 2.2,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
-   "id": "S04",
-   "set": "office",
-   "lines": [],
-   "actors": [
-    {
-     "id": "flic",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "ry": 0,
-     "clip": "point",
-     "keys": [
-      {
-       "at": 0.027,
-       "expr": "talk"
-      },
-      {
-       "at": 0.53,
-       "expr": "suspicious"
-      },
-      {
-       "at": 0.598,
-       "expr": "talk"
-      },
-      {
-       "at": 0.606,
-       "expr": "suspicious"
-      },
-      {
-       "at": 0.712,
-       "expr": "talk"
-      },
-      {
-       "at": 1.368,
-       "expr": "suspicious"
-      }
-     ],
-     "expr": "suspicious"
-    }
-   ],
-   "props": [],
    "sfx": [],
    "cams": [
     {
      "at": 0.0,
      "from": [
       0.3,
-      1.75,
-      1.7
+      0.5,
+      0.66
      ],
      "to": [
-      0.27,
-      1.75,
-      1.52
+      0.26,
+      0.47,
+      0.56
+     ],
+     "lookAt": [
+      0.04,
+      0.3,
+      0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.04,
+      0.3,
+      0
+     ]
+    }
+   ],
+   "start": 1.7667,
+   "duration": 2.1666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "seaSurface",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "sign",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      9.0
+     ],
+     "opts": {
+      "text": "VIETATO\nPORTARE VIA\nLA SABBIA",
+      "w": 1.1,
+      "h": 0.72,
+      "height": 0.75,
+      "bg": "#F4F1E8",
+      "fg": "#C8322A",
+      "frame": "#C8322A"
+     }
+    },
+    {
+     "id": "sard",
+     "name": "regionFlag",
+     "pos": [
+      -0.85,
+      0,
+      8.2
+     ],
+     "scale": 1.3,
+     "opts": {
+      "kind": "sard"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      1.25,
+      13.0
+     ],
+     "to": [
+      0.4,
+      1.28,
+      12.4
      ],
      "lookAt": [
       0,
-      1.72,
-      0
+      1.2,
+      9.0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       0,
-      1.73,
-      0
-     ],
-     "shake": 0.008
+      1.22,
+      9.0
+     ]
     }
    ],
-   "start": 6.2,
-   "duration": 1.4667,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "start": 3.9333,
+   "duration": 2.3667,
+   "setOpts": {
+    "shore": 6.0
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
    "soften": 0.84
   },
   {
-   "id": "S05",
+   "id": "S04",
    "set": "office",
    "lines": [],
    "actors": [],
@@ -412,13 +333,13 @@
       0
      ],
      "opts": {
-      "text": "REPUBBLICA ITALIANA\nRESTITUZIONE\n3 GRANI DI SABBIA",
+      "text": "REPUBBLICA ITALIANA\nMULTA\n3 000 €",
       "style": "doc",
       "w": 0.8,
       "h": 1.0,
-      "popAt": 0.15,
-      "textSize": 0.4,
-      "stamp": "URGENTE"
+      "popAt": 0.12,
+      "textSize": 0.36,
+      "stamp": "1 GRANO"
      }
     }
    ],
@@ -429,12 +350,12 @@
      "from": [
       0.05,
       1.55,
-      1.75
+      2.05
      ],
      "to": [
       0.05,
       1.55,
-      1.55
+      1.85
      ],
      "lookAt": [
       0,
@@ -450,55 +371,61 @@
      ]
     }
    ],
-   "start": 7.6667,
-   "duration": 1.9333,
+   "start": 6.3,
+   "duration": 1.7,
    "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   },
   {
-   "id": "S06",
-   "set": "runway",
+   "id": "S05",
+   "set": "office",
    "lines": [],
    "actors": [],
    "props": [
     {
-     "id": "jet",
-     "name": "plane",
+     "id": "table",
+     "name": "table",
      "pos": [
-      -8,
-      2.0,
-      -6
-     ],
-     "rot": [
       0,
       0,
       0
      ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.8
+     }
+    },
+    {
+     "id": "grain",
+     "name": "sandGrain",
+     "pos": [
+      -0.07,
+      0.76,
+      0.0
+     ],
      "scale": 0.55,
      "opts": {
-      "livery": "#C9A227"
-     },
-     "keys": [
-      {
-       "at": 0.0,
-       "to": [
-        8,
-        5.0,
-        -6
-       ],
-       "dur": 1.7,
-       "ease": "linear"
-      },
-      {
-       "at": 0.3,
-       "rotTo": [
-        0,
-        0,
-        0.25
-       ],
-       "dur": 0.5
-      }
+      "seed": 3,
+      "color": "#E3BE6E"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "priceTag",
+     "pos": [
+      0.03,
+      0.764,
+      0.0
      ],
+     "rot": [
+      -1.5708,
+      0,
+      0.25
+     ],
+     "scale": 0.35,
+     "opts": {
+      "text": "3 000 €"
+     },
      "ry": 0.0
     }
    ],
@@ -507,36 +434,933 @@
     {
      "at": 0.0,
      "from": [
-      -2,
-      0.9,
-      10
+      0.0,
+      1.38,
+      0.12
      ],
      "to": [
-      2,
-      1.2,
-      9
+      0.0,
+      1.3199999999999998,
+      0.09999999999999999
      ],
      "lookAt": [
-      -6,
-      2.4,
-      -6
+      0.0,
+      0.76,
+      0.0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.76,
+      0.0
+     ]
+    }
+   ],
+   "start": 8.0,
+   "duration": 1.1,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": 0.35,
+       "clip": "shakeHead"
+      },
+      {
+       "at": 1.1,
+       "clip": "armsCrossed"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.5,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.52,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.45,
+      0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      8,
-      5.2,
-      -6
+      0,
+      1.47,
+      0
      ]
     }
    ],
-   "start": 9.6,
-   "duration": 1.7,
-   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "start": 9.1,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   },
   {
    "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "c1",
+     "pos": [
+      6.6,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.6,
+        0,
+        -0.2
+       ],
+       "dur": 2.1,
+       "clip": "walk"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      7.45,
+      0,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        7.45,
+        0,
+        -0.6
+       ],
+       "dur": 2.1,
+       "clip": "walk"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.3,
+      0.5,
+      4.4
+     ],
+     "to": [
+      7.25,
+      0.52,
+      4.1
+     ],
+     "lookAt": [
+      7.0,
+      1.55,
+      -1.2
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.55,
+      -0.4
+     ]
+    }
+   ],
+   "start": 10.5667,
+   "duration": 2.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "c1",
+     "pos": [
+      -0.5,
+      0,
+      0.35
+     ],
+     "ry": 55,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      0.5,
+      0,
+      0.3
+     ],
+     "ry": -55,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.9,
+      "d": 0.8
+     }
+    },
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0.76,
+      0
+     ],
+     "rot": [
+      0,
+      0.4,
+      0
+     ],
+     "scale": 1.6,
+     "ry": 22.918
+    },
+    {
+     "id": "l1",
+     "name": "magnifyingGlass",
+     "on": {
+      "actor": "c1",
+      "hand": "R"
+     },
+     "scale": 0.45
+    },
+    {
+     "id": "l2",
+     "name": "magnifyingGlass",
+     "on": {
+      "actor": "c2",
+      "hand": "R"
+     },
+     "scale": 0.45
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.75,
+      5.6
+     ],
+     "to": [
+      0.51,
+      1.8,
+      5.0
+     ],
+     "lookAt": [
+      0,
+      1.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.48,
+      0
+     ]
+    }
+   ],
+   "start": 12.6667,
+   "duration": 1.1333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      -0.2,
+      1.72,
+      -0.1
+     ],
+     "scale": 0.8,
+     "opts": {
+      "rate": 9
+     }
+    },
+    {
+     "id": "cal",
+     "name": "calendar",
+     "pos": [
+      0.24,
+      1.6,
+      -0.08
+     ],
+     "scale": 0.85,
+     "opts": {
+      "rate": 2.4,
+      "start": -0.07100000000000001
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.68,
+      2.4
+     ],
+     "to": [
+      0.0,
+      1.68,
+      2.15
+     ],
+     "lookAt": [
+      0.0,
+      1.66,
+      -0.1
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.66,
+      -0.1
+     ]
+    }
+   ],
+   "start": 13.8,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.8
+     }
+    },
+    {
+     "id": "tray",
+     "name": "sandTray",
+     "pos": [
+      0,
+      0.76,
+      0
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.34,
+      "groups": [
+       [
+        39,
+        0,
+        0,
+        "#D6D0BE"
+       ],
+       [
+        1,
+        0,
+        0,
+        "#E3BE6E"
+       ]
+      ],
+      "countUp": [
+       0.15,
+       0.771
+      ],
+      "label": "PIÈCE À CONVICTION"
+     }
+    },
+    {
+     "id": "n40",
+     "name": "noticeBoard",
+     "pos": [
+      0.075,
+      0.8,
+      0.05
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "text": "40",
+      "style": "tag",
+      "w": 0.09,
+      "h": 0.06,
+      "popAt": 0.771
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.38,
+      0.22
+     ],
+     "to": [
+      0,
+      1.3199999999999998,
+      0.2
+     ],
+     "lookAt": [
+      0,
+      0.76,
+      0.02
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.76,
+      0.02
+     ]
+    }
+   ],
+   "start": 14.9667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 1.2,
+      "d": 0.8
+     }
+    },
+    {
+     "id": "tray",
+     "name": "sandTray",
+     "pos": [
+      0,
+      0.76,
+      0
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.34,
+      "flagW": 0.09,
+      "groups": [
+       [
+        39,
+        -0.06,
+        0.02,
+        "#D6D0BE",
+        "bzh"
+       ],
+       [
+        1,
+        0.1,
+        -0.02,
+        "#E3BE6E",
+        "sard"
+       ]
+      ],
+      "sortAt": [
+       0.1,
+       1.076
+      ],
+      "label": "PIÈCE À CONVICTION"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.03,
+      1.71,
+      0.3
+     ],
+     "to": [
+      0.03,
+      1.6400000000000001,
+      0.27
+     ],
+     "lookAt": [
+      0.03,
+      0.76,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.03,
+      0.76,
+      0
+     ]
+    }
+   ],
+   "start": 16.6667,
+   "duration": 1.9333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": 0.043,
+       "expr": "talk"
+      },
+      {
+       "at": 0.089,
+       "expr": "angry"
+      },
+      {
+       "at": 0.195,
+       "expr": "talk"
+      },
+      {
+       "at": 0.47,
+       "expr": "angry"
+      },
+      {
+       "at": 0.538,
+       "expr": "talk"
+      },
+      {
+       "at": 0.546,
+       "expr": "angry"
+      },
+      {
+       "at": 0.652,
+       "expr": "talk"
+      },
+      {
+       "at": 0.889,
+       "expr": "angry"
+      },
+      {
+       "at": 0.957,
+       "expr": "talk"
+      },
+      {
+       "at": 1.003,
+       "expr": "angry"
+      },
+      {
+       "at": 1.109,
+       "expr": "talk"
+      },
+      {
+       "at": 1.536,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ]
+    },
+    {
+     "id": "flag",
+     "name": "regionFlag",
+     "pos": [
+      -0.75,
+      0,
+      -0.35
+     ],
+     "scale": 1.3,
+     "opts": {
+      "kind": "fr"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      2.8
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.5
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0
+     ]
+    }
+   ],
+   "start": 18.6,
+   "duration": 1.6333,
+   "setOpts": {
+    "backdrop": "RÉPUBLIQUE|FRANÇAISE",
+    "fontScale": 0.85,
+    "podium": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gendarme",
+     "pos": [
+      -0.95,
+      0,
+      0.4
+     ],
+     "ry": 90,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "c1",
+     "pos": [
+      0.95,
+      0,
+      0.4
+     ],
+     "ry": -90,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "gate",
+     "name": "barrierGate",
+     "pos": [
+      -0.05,
+      0,
+      -0.9
+     ],
+     "scale": 1.25,
+     "opts": {
+      "length": 1.8,
+      "angle": 0,
+      "sign": "FRONTIÈRE"
+     }
+    },
+    {
+     "id": "t1",
+     "name": "sandTray",
+     "pos": [
+      -0.4,
+      1.2,
+      0.42
+     ],
+     "opts": {
+      "w": 0.3,
+      "d": 0.22,
+      "flagW": 0.09,
+      "groups": [
+       [
+        1,
+        0,
+        0,
+        "#E3BE6E",
+        "sard"
+       ]
+      ]
+     }
+    },
+    {
+     "id": "t2",
+     "name": "sandTray",
+     "pos": [
+      0.4,
+      1.2,
+      0.42
+     ],
+     "opts": {
+      "w": 0.3,
+      "d": 0.22,
+      "flagW": 0.09,
+      "groups": [
+       [
+        39,
+        0,
+        0,
+        "#D6D0BE",
+        "bzh"
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.95,
+      6.2
+     ],
+     "to": [
+      0.51,
+      2.0,
+      5.6000000000000005
+     ],
+     "lookAt": [
+      0.0,
+      1.25,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.28,
+      0
+     ]
+    }
+   ],
+   "start": 20.2333,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "gate",
+     "name": "barrierGate",
+     "pos": [
+      -1.4,
+      0,
+      -0.45
+     ],
+     "opts": {
+      "length": 3.0,
+      "angle": 0
+     }
+    },
+    {
+     "id": "a",
+     "name": "sandTray",
+     "pos": [
+      0.42,
+      1.06,
+      0.1
+     ],
+     "opts": {
+      "w": 0.36,
+      "d": 0.24,
+      "groups": [
+       [
+        39,
+        0,
+        0,
+        "#D6D0BE",
+        "bzh"
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.3,
+        1.06,
+        0.1
+       ],
+       "dur": 1.467,
+       "ease": "inOut"
+      }
+     ]
+    },
+    {
+     "id": "b",
+     "name": "sandTray",
+     "pos": [
+      -0.42,
+      1.06,
+      -0.2
+     ],
+     "opts": {
+      "w": 0.36,
+      "d": 0.24,
+      "groups": [
+       [
+        1,
+        0,
+        0,
+        "#E3BE6E",
+        "sard"
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.3,
+        1.06,
+        -0.2
+       ],
+       "dur": 1.467,
+       "ease": "inOut"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.5,
+      1.05
+     ],
+     "to": [
+      0.04,
+      1.47,
+      0.95
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      -0.05
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.0,
+      -0.05
+     ]
+    }
+   ],
+   "start": 22.0333,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
    "set": "skyHigh",
    "lines": [],
    "actors": [],
@@ -561,7 +1385,7 @@
         60,
         0
        ],
-       "dur": 1.833
+       "dur": 2.067
       }
      ]
     },
@@ -587,7 +1411,7 @@
         64.5,
         -8
        ],
-       "dur": 1.833
+       "dur": 2.067
       }
      ],
      "ry": 90.0
@@ -614,7 +1438,7 @@
         55.8,
         -8
        ],
-       "dur": 1.833
+       "dur": 2.067
       }
      ],
      "ry": 90.0
@@ -649,8 +1473,8 @@
      "shake": 0.02
     }
    ],
-   "start": 11.3,
-   "duration": 1.8333,
+   "start": 23.5,
+   "duration": 2.0667,
    "setOpts": {
     "layer": true
    },
@@ -658,572 +1482,48 @@
    "soften": 0.84
   },
   {
-   "id": "S08",
-   "set": "office",
-   "lines": [],
-   "actors": [],
-   "props": [
-    {
-     "id": "tray",
-     "name": "noticeBoard",
-     "pos": [
-      0,
-      0.95,
-      0
-     ],
-     "rot": [
-      -1.5708,
-      0,
-      0
-     ],
-     "opts": {
-      "text": " ",
-      "style": "sign",
-      "w": 0.7,
-      "h": 0.5,
-      "frame": "#C8322A"
-     },
-     "ry": 0.0
-    },
-    {
-     "id": "g0",
-     "name": "growIsland",
-     "pos": [
-      -0.08,
-      0.97,
-      0.0
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        0
-       ]
-      ]
-     }
-    },
-    {
-     "id": "g1",
-     "name": "growIsland",
-     "pos": [
-      0.08,
-      0.97,
-      0.02
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        0
-       ]
-      ]
-     }
-    },
-    {
-     "id": "loupe",
-     "name": "magnifyingGlass",
-     "pos": [
-      0.18,
-      1.05,
-      0.12
-     ],
-     "rot": [
-      0,
-      0,
-      0.4
-     ],
-     "scale": 1.4,
-     "ry": 0.0
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0,
-      1.75,
-      0.55
-     ],
-     "to": [
-      0,
-      1.7,
-      0.5
-     ],
-     "lookAt": [
-      0,
-      0.95,
-      0
-     ],
-     "lens": 42,
-     "ease": "linear",
-     "lookAt2": [
-      0,
-      0.95,
-      0
-     ]
-    }
-   ],
-   "start": 13.1333,
-   "duration": 1.8,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
-   "id": "S09",
-   "set": "pressRoom",
-   "lines": [],
-   "actors": [
-    {
-     "id": "ministre",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "ry": 0,
-     "clip": "podiumTalk",
-     "keys": [
-      {
-       "at": 0.022,
-       "expr": "talk"
-      },
-      {
-       "at": 0.221,
-       "expr": "angry"
-      },
-      {
-       "at": 0.327,
-       "expr": "talk"
-      },
-      {
-       "at": 1.287,
-       "expr": "angry"
-      }
-     ],
-     "expr": "angry"
-    }
-   ],
-   "props": [
-    {
-     "id": "pod",
-     "name": "podium",
-     "pos": [
-      0,
-      0,
-      0.45
-     ]
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0.35,
-      1.55,
-      2.6
-     ],
-     "to": [
-      0.315,
-      1.57,
-      2.3000000000000003
-     ],
-     "lookAt": [
-      0,
-      1.5,
-      0
-     ],
-     "lens": 44,
-     "ease": "linear",
-     "lookAt2": [
-      0,
-      1.52,
-      0
-     ]
-    }
-   ],
-   "start": 14.9333,
-   "duration": 1.4,
-   "fx": [
-    {
-     "type": "flash",
-     "at": 0.2,
-     "dur": 0.08
-    }
-   ],
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
-   "id": "S10",
-   "set": "parisStreet",
-   "lines": [],
-   "actors": [
-    {
-     "id": "mec",
-     "pos": [
-      7,
-      0,
-      0
-     ],
-     "ry": 0,
-     "clip": "lookItem",
-     "keys": [],
-     "expr": "surprised"
-    }
-   ],
-   "props": [
-    {
-     "id": "grain",
-     "name": "cloudChar",
-     "on": {
-      "actor": "mec",
-      "hand": "R",
-      "offset": [
-       0,
-       0.12,
-       0.1
-      ]
-     },
-     "scale": 0.14,
-     "opts": {
-      "color": "#E7D7A8",
-      "color2": "#EFE2BA",
-      "face": "happy",
-      "bob": 0.01
-     }
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      7.35,
-      1.62,
-      1.7
-     ],
-     "to": [
-      7.315,
-      1.62,
-      1.52
-     ],
-     "lookAt": [
-      7,
-      1.59,
-      0
-     ],
-     "lens": 44,
-     "ease": "linear",
-     "lookAt2": [
-      7,
-      1.6,
-      0
-     ],
-     "shake": 0.008
-    }
-   ],
-   "start": 16.3333,
-   "duration": 1.8667,
-   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
-   "soften": 0.84
-  },
-  {
-   "id": "S11",
-   "set": "parisStreet",
-   "lines": [],
-   "actors": [
-    {
-     "id": "mec",
-     "pos": [
-      7,
-      0,
-      0
-     ],
-     "ry": 0,
-     "clip": "lookItem",
-     "keys": [
-      {
-       "at": 0.039,
-       "expr": "talk"
-      },
-      {
-       "at": 0.085,
-       "expr": "sad"
-      },
-      {
-       "at": 0.191,
-       "expr": "talk"
-      },
-      {
-       "at": 0.2,
-       "expr": "sad"
-      },
-      {
-       "at": 0.268,
-       "expr": "talk"
-      },
-      {
-       "at": 0.314,
-       "expr": "sad"
-      },
-      {
-       "at": 0.42,
-       "expr": "talk"
-      },
-      {
-       "at": 0.542,
-       "expr": "sad"
-      },
-      {
-       "at": 0.649,
-       "expr": "talk"
-      },
-      {
-       "at": 0.695,
-       "expr": "sad"
-      },
-      {
-       "at": 0.763,
-       "expr": "talk"
-      },
-      {
-       "at": 1.304,
-       "expr": "sad"
-      }
-     ],
-     "expr": "sad"
-    }
-   ],
-   "props": [
-    {
-     "id": "grain",
-     "name": "cloudChar",
-     "on": {
-      "actor": "mec",
-      "hand": "R",
-      "offset": [
-       0,
-       0.12,
-       0.1
-      ]
-     },
-     "scale": 0.14,
-     "opts": {
-      "color": "#E7D7A8",
-      "color2": "#EFE2BA",
-      "face": "grumpy",
-      "bob": 0.01
-     }
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      7.35,
-      1.5,
-      2.2
-     ],
-     "to": [
-      7.315,
-      1.52,
-      1.9000000000000001
-     ],
-     "lookAt": [
-      7,
-      1.45,
-      0
-     ],
-     "lens": 44,
-     "ease": "linear",
-     "lookAt2": [
-      7,
-      1.47,
-      0
-     ]
-    }
-   ],
-   "start": 18.2,
-   "duration": 1.4,
-   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
-   "soften": 0.84
-  },
-  {
-   "id": "S12",
-   "set": "replicaCourt",
-   "lines": [],
-   "actors": [
-    {
-     "id": "juge",
-     "pos": [
-      -0.35,
-      -0.3,
-      -14.0
-     ],
-     "ry": -35,
-     "clip": "gavelStrikeL",
-     "keys": [],
-     "params": {
-      "hit": 0.45
-     }
-    }
-   ],
-   "props": [
-    {
-     "id": "specs",
-     "name": "glasses",
-     "on": {
-      "actor": "juge",
-      "joint": "head",
-      "offset": [
-       0.02,
-       0.17,
-       0.15
-      ]
-     },
-     "opts": {
-      "r": 0.042,
-      "dx": 0.07
-     }
-    },
-    {
-     "id": "gavelUp",
-     "name": "gavel",
-     "on": {
-      "actor": "juge",
-      "hand": "L"
-     },
-     "keys": [
-      {
-       "at": 0.0,
-       "visible": true
-      },
-      {
-       "at": 0.43,
-       "visible": false
-      }
-     ]
-    },
-    {
-     "id": "gavel",
-     "name": "gavel",
-     "pos": [
-      -0.37,
-      1.41,
-      -13.3
-     ],
-     "rot": [
-      0,
-      0,
-      -1.5708
-     ],
-     "keys": [
-      {
-       "at": 0.0,
-       "visible": false
-      },
-      {
-       "at": 0.43,
-       "visible": true
-      }
-     ],
-     "ry": 0.0
-    },
-    {
-     "id": "block",
-     "name": "soundBlock",
-     "pos": [
-      0.1,
-      1.18,
-      -13.3
-     ]
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      -0.1,
-      1.29,
-      -11.8
-     ],
-     "to": [
-      -0.12,
-      1.3,
-      -12.05
-     ],
-     "lookAt": [
-      -0.27,
-      1.55,
-      -14.0
-     ],
-     "lens": 45,
-     "ease": "linear",
-     "lookAt2": [
-      -0.27,
-      1.55,
-      -14.0
-     ]
-    }
-   ],
-   "start": 19.6,
-   "duration": 2.0333,
-   "setOpts": {
-    "handle": "GARDE PARTAGÉE",
-    "windowX": -1.5,
-    "chairW": 1.2,
-    "chairH": 2.75,
-    "chairX": 0.15,
-    "benchGlow": "#5A564A"
-   },
-   "fx": [
-    {
-     "type": "shake",
-     "at": 0.45,
-     "dur": 0.18,
-     "amount": 0.018
-    }
-   ],
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
-   "id": "S13",
+   "id": "S16",
    "set": "seaSurface",
    "lines": [],
    "actors": [],
    "props": [
     {
      "id": "grain",
-     "name": "cloudChar",
+     "name": "sandGrain",
      "pos": [
       0,
       0.02,
       9.0
      ],
-     "scale": 0.12,
+     "scale": 0.5,
      "opts": {
-      "color": "#E7D7A8",
-      "color2": "#EFE2BA",
-      "face": "happy",
-      "bob": 0.01
+      "seed": 3,
+      "color": "#E3BE6E",
+      "flag": "sard",
+      "flagW": 0.07
      }
     },
     {
-     "id": "para",
-     "name": "parasol",
+     "id": "beach",
+     "name": "sandTray",
      "pos": [
-      0.6,
-      0,
-      8.3
+      0.02,
+      0.02,
+      9.0
      ],
-     "scale": 0.12
+     "scale": 1.7,
+     "opts": {
+      "noTray": true,
+      "seed": 8,
+      "groups": [
+       [
+        70,
+        0.0,
+        0.0,
+        null
+       ]
+      ]
+     }
     }
    ],
    "sfx": [],
@@ -1231,276 +1531,157 @@
     {
      "at": 0.0,
      "from": [
-      0.15,
-      0.12,
-      9.7
+      0.1,
+      0.11,
+      9.42
      ],
      "to": [
-      0.12,
-      0.12,
-      9.6
+      0.9,
+      1.7,
+      14.5
      ],
      "lookAt": [
-      0,
-      0.08,
+      0.0,
+      0.04,
       9.0
      ],
-     "lens": 40,
-     "ease": "linear",
+     "lens": 42,
+     "ease": "inOut",
      "lookAt2": [
-      0,
-      0.08,
-      9.0
+      0.0,
+      0.7,
+      6.5
      ]
     }
    ],
-   "start": 21.6333,
-   "duration": 1.3667,
+   "start": 25.5667,
+   "duration": 1.9333,
+   "setOpts": {
+    "shore": 6.0
+   },
    "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
    "soften": 0.84
   },
   {
-   "id": "S14",
-   "set": "office",
-   "lines": [],
-   "actors": [],
-   "props": [
-    {
-     "id": "shoe",
-     "name": "bigShoe",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "scale": 3.0
-    },
-    {
-     "id": "grain",
-     "name": "cloudChar",
-     "pos": [
-      0.05,
-      0.36,
-      0
-     ],
-     "scale": 0.12,
-     "opts": {
-      "color": "#E7D7A8",
-      "color2": "#EFE2BA",
-      "face": "smug",
-      "bob": 0.01
-     }
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0.55,
-      0.85,
-      1.55
-     ],
-     "to": [
-      0.5,
-      0.82,
-      1.4
-     ],
-     "lookAt": [
-      0.05,
-      0.38,
-      0
-     ],
-     "lens": 42,
-     "ease": "linear",
-     "lookAt2": [
-      0.05,
-      0.38,
-      0
-     ]
-    }
-   ],
-   "start": 23.0,
-   "duration": 1.4667,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
-   "id": "S15",
-   "set": "office",
-   "lines": [],
-   "actors": [],
-   "props": [
-    {
-     "id": "shoe",
-     "name": "bigShoe",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "scale": 3.0
-    },
-    {
-     "id": "isle",
-     "name": "growIsland",
-     "pos": [
-      0.05,
-      0.36,
-      0
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        0
-       ],
-       [
-        0.35,
-        1
-       ]
-      ]
-     }
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0.55,
-      0.85,
-      1.55
-     ],
-     "to": [
-      0.5,
-      0.82,
-      1.4
-     ],
-     "lookAt": [
-      0.05,
-      0.38,
-      0
-     ],
-     "lens": 42,
-     "ease": "linear",
-     "lookAt2": [
-      0.05,
-      0.38,
-      0
-     ]
-    }
-   ],
-   "start": 24.4667,
-   "duration": 1.3,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
-   "id": "S16",
-   "set": "office",
-   "lines": [],
-   "actors": [],
-   "props": [
-    {
-     "id": "shoe",
-     "name": "bigShoe",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "scale": 3.0
-    },
-    {
-     "id": "isle",
-     "name": "growIsland",
-     "pos": [
-      0.05,
-      0.36,
-      0
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        1
-       ]
-      ]
-     }
-    }
-   ],
-   "sfx": [],
-   "cams": [
-    {
-     "at": 0.0,
-     "from": [
-      0.55,
-      0.85,
-      1.55
-     ],
-     "to": [
-      0.5,
-      0.82,
-      1.4
-     ],
-     "lookAt": [
-      0.05,
-      0.38,
-      0
-     ],
-     "lens": 42,
-     "ease": "linear",
-     "lookAt2": [
-      0.05,
-      0.38,
-      0
-     ]
-    }
-   ],
-   "start": 25.7667,
-   "duration": 1.5,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
-   "soften": 0.84
-  },
-  {
    "id": "S17",
-   "set": "office",
+   "set": "seaSurface",
    "lines": [],
-   "actors": [],
-   "props": [
+   "actors": [
     {
-     "id": "shoe",
-     "name": "bigShoe",
+     "id": "b1",
      "pos": [
+      -0.95,
       0,
-      0,
-      0
+      7.6
      ],
-     "scale": 3.0
+     "ry": 15,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
     },
     {
-     "id": "isle",
-     "name": "growIsland",
+     "id": "b2",
      "pos": [
-      0.05,
-      0.36,
-      0
+      -0.3,
+      0,
+      7.35
      ],
-     "scale": 3.0,
+     "ry": 5,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "b3",
+     "pos": [
+      0.35,
+      0,
+      7.35
+     ],
+     "ry": -5,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "b4",
+     "pos": [
+      1.0,
+      0,
+      7.6
+     ],
+     "ry": -15,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "table",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      8.6
+     ],
      "opts": {
-      "stages": [
+      "w": 0.9,
+      "d": 0.5
+     }
+    },
+    {
+     "id": "tray",
+     "name": "sandTray",
+     "pos": [
+      0,
+      0.76,
+      8.6
+     ],
+     "scale": 1.4,
+     "opts": {
+      "w": 0.36,
+      "d": 0.24,
+      "groups": [
        [
+        39,
         0,
-        1
-       ],
-       [
-        0.15,
-        2
+        0,
+        "#D6D0BE",
+        "bzh"
        ]
       ]
+     }
+    },
+    {
+     "id": "ban",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      6.5
+     ],
+     "opts": {
+      "text": "DEGEMER MAT !",
+      "w": 1.6,
+      "h": 0.48,
+      "height": 2.25,
+      "bg": "#F4F4F0",
+      "fg": "#17171B",
+      "frame": "#17171B"
+     }
+    },
+    {
+     "id": "fl1",
+     "name": "regionFlag",
+     "pos": [
+      -1.2,
+      0,
+      8.3
+     ],
+     "scale": 0.8,
+     "opts": {
+      "kind": "bzh"
      }
     }
    ],
@@ -1509,71 +1690,80 @@
     {
      "at": 0.0,
      "from": [
-      0.55,
-      0.85,
-      1.55
+      0.6,
+      1.5,
+      14.0
      ],
      "to": [
-      0.5,
-      0.82,
-      1.4
+      0.51,
+      1.55,
+      13.4
      ],
      "lookAt": [
-      0.05,
-      0.38,
-      0
+      0,
+      1.5,
+      7.6
      ],
-     "lens": 42,
+     "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.05,
-      0.38,
-      0
+      0,
+      1.53,
+      7.6
      ]
     }
    ],
-   "start": 27.2667,
-   "duration": 1.2333,
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "start": 27.5,
+   "duration": 2.4,
+   "setOpts": {
+    "shore": 6.0,
+    "parasols": false,
+    "sand": "#E2DCCB",
+    "sky": [
+     "#86AFCF",
+     "#C8DAE6"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
    "soften": 0.84
   },
   {
    "id": "S18",
-   "set": "office",
+   "set": "livingRoom",
    "lines": [],
-   "actors": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      0
+     ],
+     "ry": -35,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
    "props": [
     {
      "id": "shoe",
      "name": "bigShoe",
-     "pos": [
-      0,
-      0,
-      0
-     ],
-     "scale": 3.0
-    },
-    {
-     "id": "isle",
-     "name": "growIsland",
-     "pos": [
-      0.05,
-      0.36,
-      0
-     ],
-     "scale": 3.0,
-     "opts": {
-      "stages": [
-       [
-        0,
-        2
-       ],
-       [
-        0.15,
-        3
-       ]
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.13,
+       0.02
       ]
-     }
+     },
+     "scale": 1.1
     }
    ],
    "sfx": [],
@@ -1581,31 +1771,31 @@
     {
      "at": 0.0,
      "from": [
-      0.55,
-      0.85,
-      1.55
+      0.5,
+      1.5,
+      2.8
      ],
      "to": [
-      0.5,
-      0.82,
-      1.4
+      0.46499999999999997,
+      1.52,
+      2.5
      ],
      "lookAt": [
-      0.05,
-      0.38,
+      0.15,
+      1.45,
       0
      ],
-     "lens": 42,
+     "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.05,
-      0.38,
+      0.15,
+      1.47,
       0
      ]
     }
    ],
-   "start": 28.5,
-   "duration": 1.1,
+   "start": 29.9,
+   "duration": 1.8333,
    "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   },
@@ -1615,49 +1805,16 @@
    "lines": [],
    "actors": [
     {
-     "id": "ministre",
+     "id": "priseur",
      "pos": [
       0,
       0,
       0
      ],
      "ry": 0,
-     "clip": "podiumTalk",
-     "keys": [
-      {
-       "at": 0.02,
-       "expr": "talk"
-      },
-      {
-       "at": 0.447,
-       "expr": "angry"
-      },
-      {
-       "at": 0.516,
-       "expr": "talk"
-      },
-      {
-       "at": 0.524,
-       "expr": "angry"
-      },
-      {
-       "at": 0.63,
-       "expr": "talk"
-      },
-      {
-       "at": 0.905,
-       "expr": "angry"
-      },
-      {
-       "at": 1.011,
-       "expr": "talk"
-      },
-      {
-       "at": 1.514,
-       "expr": "angry"
-      }
-     ],
-     "expr": "angry"
+     "clip": "explain",
+     "keys": [],
+     "expr": "happy"
     }
    ],
    "props": [
@@ -1668,7 +1825,55 @@
       0,
       0,
       0.45
-     ]
+     ],
+     "opts": {
+      "text": "ENCHÈRES"
+     }
+    },
+    {
+     "id": "ped",
+     "name": "table",
+     "pos": [
+      0.58,
+      0,
+      0.35
+     ],
+     "opts": {
+      "w": 0.4,
+      "d": 0.4,
+      "h": 0.95,
+      "color": "#3A2A22"
+     }
+    },
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0.58,
+      0.95,
+      0.35
+     ],
+     "rot": [
+      0,
+      0.5,
+      0
+     ],
+     "scale": 1.2,
+     "ry": 28.648
+    },
+    {
+     "id": "dome",
+     "name": "glassDome",
+     "pos": [
+      0.58,
+      0.95,
+      0.35
+     ],
+     "opts": {
+      "radius": 0.2,
+      "height": 0.45,
+      "base": false
+     }
     }
    ],
    "sfx": [],
@@ -1676,73 +1881,98 @@
     {
      "at": 0.0,
      "from": [
-      0.35,
-      1.55,
-      2.6
+      0.6,
+      1.35,
+      3.4
      ],
      "to": [
-      0.315,
-      1.57,
-      2.3000000000000003
+      0.565,
+      1.37,
+      3.1
      ],
      "lookAt": [
-      0,
-      1.5,
+      0.25,
+      1.3,
       0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0,
-      1.52,
+      0.25,
+      1.32,
       0
      ]
     }
    ],
-   "start": 29.6,
-   "duration": 1.6,
+   "start": 31.7333,
+   "duration": 0.8334,
+   "setOpts": {
+    "backdrop": "VENTE|AUX ENCHÈRES",
+    "fontScale": 0.85,
+    "flags": false,
+    "podium": false
+   },
    "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   },
   {
    "id": "S20",
-   "set": "parisStreet",
+   "set": "pressRoom",
    "lines": [],
    "actors": [
     {
-     "id": "mec",
+     "id": "priseur",
      "pos": [
-      7,
+      0,
       0,
       0
      ],
-     "ry": 10,
-     "clip": "stand",
+     "ry": 0,
+     "clip": "gavelStrike",
      "keys": [],
-     "expr": "unimpressed"
+     "params": {
+      "hit": 0.42
+     },
+     "expr": "happy"
     }
    ],
    "props": [
     {
-     "id": "isle",
-     "name": "growIsland",
-     "on": {
-      "actor": "mec",
-      "joint": "footR",
-      "offset": [
-       0,
-       0.1,
-       0.05
-      ]
-     },
-     "scale": 1.6,
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ],
      "opts": {
-      "stages": [
-       [
-        0,
-        3
-       ]
-      ]
+      "text": "ENCHÈRES"
+     }
+    },
+    {
+     "id": "gavel",
+     "name": "gavel",
+     "on": {
+      "actor": "priseur",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "adj",
+     "name": "noticeBoard",
+     "pos": [
+      0.36,
+      1.95,
+      0.35
+     ],
+     "opts": {
+      "text": "ADJUGÉ\n3 000 €",
+      "style": "sign",
+      "w": 0.42,
+      "h": 0.28,
+      "fg": "#C8322A",
+      "frame": "#C8322A",
+      "popAt": 0.44
      }
     }
    ],
@@ -1751,84 +1981,97 @@
     {
      "at": 0.0,
      "from": [
-      7.45,
-      0.35,
-      1.5
+      0.47,
+      1.55,
+      2.7
      ],
      "to": [
-      7.4,
-      0.36,
-      1.35
+      0.435,
+      1.57,
+      2.4000000000000004
      ],
      "lookAt": [
-      7.0,
-      0.35,
+      0.12,
+      1.5,
       0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      7.0,
-      0.37,
+      0.12,
+      1.52,
       0
      ]
     }
    ],
-   "start": 31.2,
-   "duration": 1.7,
-   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "start": 32.5667,
+   "duration": 1.1,
+   "setOpts": {
+    "backdrop": "VENTE|AUX ENCHÈRES",
+    "fontScale": 0.85,
+    "flags": false,
+    "podium": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.42,
+     "dur": 0.18,
+     "amount": 0.018
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   },
   {
    "id": "S21",
-   "set": "parisStreet",
+   "set": "pressRoom",
    "lines": [],
    "actors": [
     {
-     "id": "mec",
+     "id": "c1",
      "pos": [
-      7,
+      0.4,
       0,
-      2.5
+      0
      ],
-     "ry": 180,
-     "clip": "walk",
-     "keys": [
-      {
-       "at": 0.0,
-       "to": [
-        7,
-        0,
-        0.2
-       ],
-       "dur": 1.533,
-       "clip": "sneak"
-      }
-     ],
-     "expr": "sad"
+     "ry": -35,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "smug"
     }
    ],
    "props": [
     {
-     "id": "isle",
-     "name": "growIsland",
+     "id": "shoe",
+     "name": "bigShoe",
      "on": {
-      "actor": "mec",
-      "joint": "footR",
+      "actor": "c1",
+      "hand": "R",
+      "rot": [
+       1.5708,
+       0,
+       0
+      ],
       "offset": [
        0,
-       0.1,
-       0.05
+       -0.13,
+       0.02
       ]
      },
-     "scale": 1.6,
+     "scale": 1.1
+    },
+    {
+     "id": "flag",
+     "name": "regionFlag",
+     "pos": [
+      0.1,
+      0,
+      -0.5
+     ],
+     "scale": 1.3,
      "opts": {
-      "stages": [
-       [
-        0,
-        3
-       ]
-      ]
+      "kind": "it"
      }
     }
    ],
@@ -1837,83 +2080,101 @@
     {
      "at": 0.0,
      "from": [
-      6.4,
-      0.6,
-      -2.6
+      0.5,
+      1.5,
+      2.8
      ],
      "to": [
-      6.4,
-      0.6,
-      -2.8
+      0.46499999999999997,
+      1.52,
+      2.5
      ],
      "lookAt": [
-      7,
-      0.9,
-      2.5
+      0.15,
+      1.45,
+      0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      7,
-      0.9,
-      0.2
+      0.15,
+      1.47,
+      0
      ]
     }
    ],
-   "start": 32.9,
-   "duration": 1.5333,
-   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "start": 33.6667,
+   "duration": 1.7666,
+   "setOpts": {
+    "backdrop": "REPUBBLICA|ITALIANA",
+    "fontScale": 0.85,
+    "flag": [
+     "#2E8B4E",
+     "#F4F4F0",
+     "#C8322A"
+    ],
+    "podium": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   },
   {
    "id": "S22",
-   "set": "poste",
+   "set": "livingRoom",
    "lines": [],
    "actors": [
     {
      "id": "mec",
      "pos": [
+      -0.48,
       0,
-      0,
-      0.6
+      0.1
      ],
-     "ry": 180,
+     "ry": 90,
      "clip": "giveItem",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "c1",
+     "pos": [
+      0.5,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "takeItem",
      "keys": [],
      "expr": "unimpressed"
     }
    ],
    "props": [
     {
-     "id": "tax",
-     "name": "noticeBoard",
-     "pos": [
-      0.22,
-      1.7,
-      0.0
-     ],
-     "rot": [
-      0,
-      3.1416,
-      0
-     ],
-     "opts": {
-      "text": "TAXE DE SÉJOUR\n2 €",
-      "style": "tag",
-      "w": 0.6,
-      "h": 0.36,
-      "popAt": 0.5
-     },
-     "ry": 180.0
-    },
-    {
-     "id": "coin",
-     "name": "coin",
+     "id": "sack",
+     "name": "moneySack",
      "on": {
       "actor": "mec",
       "hand": "R"
      },
-     "scale": 2.0
+     "scale": 0.6
+    },
+    {
+     "id": "paid",
+     "name": "noticeBoard",
+     "pos": [
+      0.15,
+      2.12,
+      0.2
+     ],
+     "opts": {
+      "text": "AMENDE PAYÉE",
+      "style": "tag",
+      "w": 0.7,
+      "h": 0.18,
+      "fg": "#2F7F4F",
+      "frame": "#2F7F4F",
+      "popAt": 0.537
+     }
     }
    ],
    "sfx": [],
@@ -1921,34 +2182,34 @@
     {
      "at": 0.0,
      "from": [
-      0.4,
-      1.6,
-      -1.8
+      0.6,
+      1.5,
+      4.2
      ],
      "to": [
-      0.38,
-      1.6,
-      -1.6
+      0.51,
+      1.55,
+      3.6
      ],
      "lookAt": [
-      0.1,
-      1.5,
-      0.6
+      0,
+      1.3,
+      0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.1,
-      1.5,
-      0.6
+      0,
+      1.33,
+      0
      ]
     }
    ],
-   "start": 34.4333,
-   "duration": 2.4867,
+   "start": 35.4333,
+   "duration": 2.2367,
    "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
    "soften": 0.84
   }
  ],
- "total": 36.92
+ "total": 37.67
 }

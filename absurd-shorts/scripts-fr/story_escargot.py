@@ -18,7 +18,7 @@ st.shot('S05', ROAD, actors=[SN(0.8, 0.4, ry=90, scale=2.2, keys=[k(0.0, to=[0.8
         props=[P('car', 'policeCar', pos=[-2.0, 0, 0.4], rot=[0, 1.5708, 0], keys=[k(0.0, to=[-1.95, 0, 0.4], dur=st.dur('S05'))])],
         cams=[cam(0.0, [-0.4, 0.8, 7.6], [-0.45, 0.82, 7.2], [-0.5, 0.6, 0.4], [-0.5, 0.6, 0.4], lens=44)])
 st.shot('S06', 'office', props=[P('clock', 'wallClock', pos=[0, 1.6, -0.1], scale=1.6, opts={'rate': 6})], cams=[cam(0.0, [0.1, 1.6, 1.6], [0.1, 1.6, 1.4], [0, 1.6, -0.1], [0, 1.6, -0.1], lens=42)])
-st.shot('S07', ROAD, actors=[act('flic', [0, 0, 0], 0, 'holdOut', 'smug')], props=[P('permis', 'idCard', on={'actor': 'flic', 'hand': 'R'}, scale=8.0)], cams=MS(0, 0, h=1.5, d=2.4))
+st.shot('S07', ROAD, actors=[act('flic', [0.38, 0, 0], 0, 'holdOut', 'smug')], props=[P('permis', 'idCard', on={'actor': 'flic', 'hand': 'R', **HAND_FLAT}, scale=3.6)], cams=MS(0.12, 0, h=1.5, d=2.7))
 st.shot('S08', 'replicaCourt', setOpts={'handle': 'TRIBUNAL'}, actors=[SN(0.35, -10.0, ry=0, clip='idle', scale=2.2)], props=[P('avocat', 'tortoise', pos=[-0.35, 0, -10.0], rot=[0, -1.2, 0], scale=1.4)],
         cams=[cam(0.0, [0.05, 0.7, -7.2], [0.05, 0.72, -7.45], [0, 0.35, -10.0], [0, 0.35, -10.0], lens=44)])
 st.shot('S09', **JUDGE(9.0, 'TRIBUNAL', extra_props=[P('clock', 'wallClock', pos=[1.6, 2.6, -15.5], scale=1.6, opts={'rate': 8})]))
@@ -32,7 +32,8 @@ st.shot('S13', ROAD, actors=[SN(-6, 0, ry=90, clip='idle', y=0.6, scale=1.4, key
 st.shot('S14', ROAD, props=RADAR(None, '130'), cams=[cam(0.0, [-1.1, 1.9, 1.2], [-1.12, 1.9, 1.0], [-1.3, 1.9, -1.2], [-1.3, 1.9, -1.2], lens=42, shake=0.02)])
 st.shot('S15', ROAD, actors=[act('flic', [0, 0, 0], 0, 'holdOut', 'smug')], props=[P('bag', 'evidenceBag', on={'actor': 'flic', 'hand': 'R'}, scale=2.2),
         P('saisie', 'noticeBoard', pos=[0.35, 1.8, 0.3], opts={'text': 'SAISIE', 'style': 'tag', 'w': 0.5, 'h': 0.22, 'popAt': 0.3})], cams=MS(0.15, 0, h=1.5, d=2.6))
-st.shot('S16', ROAD, props=[P('nu', 'slug', pos=[0, 0, 0], scale=2.6)], cams=MACRO(0, 0, h=0.45, d=2.2))
+st.shot('S16', ROAD, props=[P('nu', 'slug', pos=[0.05, 0, -0.2], rot=[0, -1.5708, 0], scale=2.6), P('cb', 'censorBar', pos=[0.05, 0.2, 0.25], opts={'w': 0.62, 'h': 0.16}, keys=[k(0.0, scale=0.01), k(0.25, scale=1.0, dur=0.2, ease='outBack')])],
+        cams=MACRO(0, 0, h=0.45, d=2.0))
 st.shot('S17', ROAD, props=[P('nu', 'slug', pos=[0, 0, 0], scale=2.6)] + SLUGS(4, -0.5), cams=MACRO(0, -0.2, h=0.6, d=2.8))
 st.shot('S18', ROAD, props=[P('sign', 'signBoard', pos=[0, 0, -1.4], opts={'text': 'AUTO-ÉCOLE', 'w': 1.4, 'h': 0.5, 'height': 0.6, 'bg': '#2F62B5', 'fg': '#FFFFFF'})] + SLUGS(4, 0) +
         [P(f'c{i}', 'trafficCone', pos=[-1.0 + i * 0.66, 0, 0.6], scale=0.6) for i in range(4)], cams=[cam(0.0, [0.3, 0.55, 2.8], [0.28, 0.58, 2.6], [0, 0.55, -0.6], [0, 0.6, -0.6], lens=44)])

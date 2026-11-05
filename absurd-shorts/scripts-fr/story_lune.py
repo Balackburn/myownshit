@@ -33,14 +33,14 @@ st.shot('S09', 'runway', props=[P('rocket', 'rocket', pos=[0, 0, -10], scale=3.0
 st.shot('S10', 'spaceDark', actors=[act('inspecteur', [0.8, 0, 0.6], -40, 'lookItem', 'suspicious')], props=MOON() + [HELMET('inspecteur'), P('flag', 'starsStripes', pos=[-0.4, 0, -0.4], scale=1.4)],
         cams=WS(0.1, 0, h=1.1, d=4.6, look_h=1.0))
 st.shot('S11', 'spaceDark', actors=[act('inspecteur', [0, 0, 0], 0, 'point', 'angry', keys=st.talk('L10', 'S11', 'angry'))], props=MOON() + [HELMET('inspecteur')], cams=CU(0, 0, d=1.9))
-st.shot('S12', 'spaceDark', actors=[act('inspecteur', [0.6, 0, 0.4], -60, 'holdOut', 'smug')],
-        props=MOON() + [HELMET('inspecteur'), P('flag', 'starsStripes', pos=[-0.4, 0, -0.2], scale=1.4), P('fine', 'noticeBoard', pos=[-0.33, 1.25, -0.15], opts={'text': 'AMENDE', 'style': 'tag', 'w': 0.4, 'h': 0.22, 'popAt': 0.4})],
-        cams=WS(0.0, 0, h=1.3, d=3.4, look_h=1.1))
+st.shot('S12', 'spaceDark', actors=[act('inspecteur', [0.35, 0, 0.4], -60, 'holdOut', 'smug')],
+        props=MOON() + [HELMET('inspecteur'), P('flag', 'starsStripes', pos=[-0.4, 0, -0.2], scale=1.4), P('fine', 'noticeBoard', pos=[-0.12, 1.0, 0.6], opts={'text': 'AMENDE', 'style': 'tag', 'w': 0.4, 'h': 0.22, 'popAt': 0.4})],
+        cams=WS(0.0, 0, h=1.35, d=4.3, look_h=1.2))
 st.shot('S13', 'spaceDark', actors=[act('inspecteur', [0.4, 0, 0], -20, 'stand', 'suspicious')],
         props=MOON() + [HELMET('inspecteur')] + [P(f'm{i}', 'moneySack', pos=[-0.6 + i * 0.35, 3.0, 0.4], opts={'color': '#5BB06E'}, keys=[k(0.1 + i * 0.12, to=[-0.6 + i * 0.35, 0, 0.4], dur=0.35, ease='in')]) for i in range(3)],
         cams=WS(0.0, 0, h=1.2, d=3.6, look_h=0.9))
-st.shot('S14', 'spaceDark', actors=[act('inspecteur', [0, 0, 0], 0, 'shakeHead', 'unimpressed')],
-        props=MOON() + [HELMET('inspecteur'), P('eur', 'noticeBoard', pos=[0.75, 1.6, 0.2], opts={'text': '€ UNIQUEMENT', 'style': 'sign', 'w': 0.7, 'h': 0.25, 'popAt': 0.4})], cams=MS(0.2, 0, h=1.6, d=2.8))
+st.shot('S14', 'spaceDark', actors=[act('inspecteur', [-0.05, 0, 0], 0, 'shakeHead', 'unimpressed')],
+        props=MOON() + [HELMET('inspecteur'), P('eur', 'noticeBoard', pos=[0.5, 1.5, 0.25], opts={'text': '€\nUNIQUEMENT', 'style': 'sign', 'w': 0.42, 'h': 0.32, 'popAt': 0.4})], cams=MS(0.2, 0, h=1.6, d=2.8))
 for sid, txt, col in [('S15', 'BANQUE', '#203447'), ('S16', 'BOULANGERIE', '#B5302A'), ('S17', 'POSTE', '#E0B020')]:
     shops = [P('b1', 'shopFront', pos=[-2.2, 0, -2], opts={'text': 'BANQUE', 'signBg': '#203447', 'w': 2.0}), P('b2', 'shopFront', pos=[0, 0, -3.2], opts={'text': 'BOULANGERIE', 'signBg': '#B5302A', 'w': 2.4}), P('b3', 'shopFront', pos=[2.2, 0, -2], opts={'text': 'POSTE', 'signBg': '#E0B020', 'w': 2.0})]
     i = ['S15', 'S16', 'S17'].index(sid); shops[i]['opts']['popAt'] = 0.15
@@ -48,8 +48,8 @@ for sid, txt, col in [('S15', 'BANQUE', '#203447'), ('S16', 'BOULANGERIE', '#B53
 st.shot('S18', 'spaceDark', actors=[act(f'q{i}', [3 + 0.25 * (i % 2), 0, -0.6 + i * 1.1], 180, 'idle', 'unimpressed') for i in range(6)],
         props=MOON() + [P('b3', 'shopFront', pos=[3, 0, -2], opts={'text': 'POSTE', 'signBg': '#E0B020'})] + [HELMET(f'q{i}') for i in range(6)],
         cams=[cam(0.0, [5.5, 0.9, 9.5], [5.2, 1.0, 9.0], [3.0, 1.2, 0.5], [3.0, 1.2, 0.5], lens=46)])
-st.shot('S19', 'spaceDark', actors=[act('mec', [0, 0, 0], 0, 'present', 'happy')],
-        props=MOON() + [HELMET('mec'), P('sale', 'noticeBoard', pos=[0.5, 1.25, 0.25], opts={'text': 'À VENDRE', 'style': 'sign', 'w': 0.8, 'h': 0.32, 'fg': '#C8322A', 'frame': '#C8322A', 'popAt': 0.2})], cams=MS(0.2, 0, h=1.45, d=3.0))
+st.shot('S19', 'spaceDark', actors=[act('mec', [-0.1, 0, 0], 0, 'present', 'happy')],
+        props=MOON() + [HELMET('mec'), P('sale', 'noticeBoard', pos=[0.5, 1.25, 0.25], opts={'text': 'À\nVENDRE', 'style': 'sign', 'w': 0.44, 'h': 0.4, 'fg': '#C8322A', 'frame': '#C8322A', 'popAt': 0.2})], cams=MS(0.15, 0, h=1.45, d=3.0))
 st.shot('S20', 'spaceDark', props=MOON() + [P('tw', 'tumbleweed', pos=[-4, 0.4, 0], scale=1.2, keys=[k(0.0, to=[4, 0.4, 0], dur=st.dur('S20'), ease='linear')])],
         cams=[cam(0.0, [0, 1.0, 6], [0, 1.0, 5.6], [0, 0.8, 0], [0, 0.8, 0], lens=44)])
 st.shot('S21', 'spaceDark', actors=[act('acheteuse', [0, 0, 0], 0, 'handsOnHips', 'unimpressed', keys=st.talk('L20', 'S21', 'unimpressed'))], props=MOON() + [HELMET('acheteuse')], cams=CU(0, 0, d=1.9))

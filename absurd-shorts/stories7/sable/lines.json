@@ -11,8 +11,9 @@
  {
   "id": "L02",
   "who": "N",
-  "text": "Avec trois grains de sable dans sa chaussure.",
+  "text": "Avec un grain de sable dans sa chaussure.",
   "hl": [
+   "grain",
    "sable",
    "chaussure."
   ]
@@ -20,164 +21,165 @@
  {
   "id": "L03",
   "who": "N",
-  "text": "À l'aéroport, le chien a aboyé.",
+  "text": "Là-bas, emporter du sable est interdit.",
   "hl": [
-   "chien",
-   "aboyé."
+   "sable",
+   "interdit."
   ]
  },
  {
   "id": "L04",
-  "who": "C",
-  "text": "« Contrebande de plage. »",
+  "who": "N",
+  "text": "Amende : trois mille euros.",
   "hl": [
-   "Contrebande",
-   "plage."
+   "Amende",
+   "euros."
   ]
  },
  {
   "id": "L05",
   "who": "N",
-  "text": "L'Italie a exigé ses grains.",
+  "text": "Pour un grain.",
   "hl": [
-   "L'Italie",
-   "grains."
+   "grain."
   ]
  },
  {
   "id": "L06",
   "who": "N",
-  "text": "Il les a rendus en jet privé.",
+  "text": "Il a refusé de payer.",
   "hl": [
-   "jet",
-   "privé."
+   "refusé",
+   "payer."
   ]
  },
  {
   "id": "L07",
   "who": "N",
-  "text": "Escorte de deux avions de chasse.",
+  "text": "L'Italie a envoyé deux carabiniers.",
   "hl": [
-   "Escorte",
-   "chasse."
+   "L'Italie",
+   "carabiniers."
   ]
  },
  {
   "id": "L08",
   "who": "N",
-  "text": "À l'arrivée, il en manquait un.",
+  "text": "Ils ont fouillé sa chaussure pendant trois jours.",
   "hl": [
-   "manquait"
+   "fouillé",
+   "chaussure",
+   "jours."
   ]
  },
  {
   "id": "L09",
   "who": "N",
-  "text": "Crise diplomatique.",
+  "text": "Ils ont trouvé quarante grains.",
   "hl": [
-   "Crise",
-   "diplomatique."
+   "quarante",
+   "grains."
   ]
  },
  {
   "id": "L10",
   "who": "N",
-  "text": "Le grain était resté sous son ongle.",
+  "text": "Trente-neuf venaient de Bretagne.",
   "hl": [
-   "ongle."
+   "Trente-neuf",
+   "Bretagne."
   ]
  },
  {
   "id": "L11",
-  "who": "C",
-  "text": "« Il a le mal du pays. »",
+  "who": "N",
+  "text": "La France a réclamé les siens.",
   "hl": [
-   "mal",
-   "pays."
+   "France",
+   "réclamé"
   ]
  },
  {
   "id": "L12",
   "who": "N",
-  "text": "Le juge a accordé la garde partagée.",
+  "text": "Échange de grains à la frontière.",
   "hl": [
-   "garde",
-   "partagée."
+   "Échange",
+   "frontière."
   ]
  },
  {
   "id": "L13",
   "who": "N",
-  "text": "Une semaine sur la plage, une semaine dans la chaussure.",
+  "text": "Trente-neuf contre un.",
   "hl": [
-   "plage,",
-   "chaussure."
+   "Trente-neuf",
+   "un."
   ]
  },
  {
   "id": "L14",
   "who": "N",
-  "text": "Le grain a grandi.",
+  "text": "Sous escorte de deux avions de chasse.",
   "hl": [
-   "grandi."
+   "escorte",
+   "chasse."
   ]
  },
  {
   "id": "L15",
   "who": "N",
-  "text": "Il est devenu un caillou.",
+  "text": "Le grain sarde est rentré chez lui.",
   "hl": [
-   "caillou."
+   "sarde",
+   "chez",
+   "lui."
   ]
  },
  {
   "id": "L16",
   "who": "N",
-  "text": "Puis un rocher.",
+  "text": "Les trente-neuf ont été accueillis en héros.",
   "hl": [
-   "rocher."
+   "trente-neuf",
+   "héros."
   ]
  },
  {
   "id": "L17",
   "who": "N",
-  "text": "Puis une île.",
+  "text": "Le mec, lui, a vendu sa chaussure aux enchères.",
   "hl": [
-   "île."
+   "chaussure",
+   "enchères."
   ]
  },
  {
   "id": "L18",
   "who": "N",
-  "text": "L'Italie a réclamé l'île.",
+  "text": "Trois mille euros.",
   "hl": [
-   "réclamé",
-   "l'île."
+   "Trois",
+   "mille",
+   "euros."
   ]
  },
  {
   "id": "L19",
   "who": "N",
-  "text": "Elle était toujours dans sa chaussure.",
+  "text": "Acheteur : l'Italie.",
   "hl": [
-   "chaussure."
+   "Acheteur",
+   "l'Italie."
   ]
  },
  {
   "id": "L20",
   "who": "N",
-  "text": "Depuis, il boite.",
+  "text": "Il a payé l'amende avec.",
   "hl": [
-   "boite."
-  ]
- },
- {
-  "id": "L21",
-  "who": "N",
-  "text": "Et il paie la taxe de séjour.",
-  "hl": [
-   "taxe",
-   "séjour."
+   "payé",
+   "l'amende"
   ]
  }
 ]
