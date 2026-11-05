@@ -1,0 +1,792 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Cet escargot a été flashé sur l'autoroute.",
+   "hl": [
+    "escargot",
+    "flashé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.31,
+   "words": [
+    {
+     "w": "Cet",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "escargot",
+     "s": 0.329,
+     "e": 0.71
+    },
+    {
+     "w": "a",
+     "s": 0.748,
+     "e": 0.786
+    },
+    {
+     "w": "été",
+     "s": 0.9,
+     "e": 1.014
+    },
+    {
+     "w": "flashé",
+     "s": 1.167,
+     "e": 1.395
+    },
+    {
+     "w": "sur",
+     "s": 1.471,
+     "e": 1.548
+    },
+    {
+     "w": "l'autoroute.",
+     "s": 1.598,
+     "e": 2.31
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Pour excès de lenteur.",
+   "hl": [
+    "excès",
+    "lenteur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L02.k.wav",
+   "file_start": 2.41,
+   "speech_start": 2.41,
+   "speech_end": 3.781,
+   "words": [
+    {
+     "w": "Pour",
+     "s": 2.41,
+     "e": 2.562
+    },
+    {
+     "w": "excès",
+     "s": 2.676,
+     "e": 2.867
+    },
+    {
+     "w": "de",
+     "s": 2.905,
+     "e": 2.943
+    },
+    {
+     "w": "lenteur.",
+     "s": 2.981,
+     "e": 3.781
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Zéro virgule zéro trois kilomètre-heure.",
+   "hl": [
+    "Zéro"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L03.k.wav",
+   "file_start": 3.881,
+   "speech_start": 3.881,
+   "speech_end": 6.167,
+   "words": [
+    {
+     "w": "Zéro",
+     "s": 3.881,
+     "e": 4.186
+    },
+    {
+     "w": "virgule",
+     "s": 4.262,
+     "e": 4.567
+    },
+    {
+     "w": "zéro",
+     "s": 4.719,
+     "e": 4.871
+    },
+    {
+     "w": "trois",
+     "s": 4.948,
+     "e": 5.176
+    },
+    {
+     "w": "kilomètre-heure.",
+     "s": 5.252,
+     "e": 6.167
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les gendarmes l'ont pris en chasse.",
+   "hl": [
+    "gendarmes",
+    "chasse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L04.k.wav",
+   "file_start": 6.267,
+   "speech_start": 6.267,
+   "speech_end": 7.943,
+   "words": [
+    {
+     "w": "Les",
+     "s": 6.267,
+     "e": 6.419
+    },
+    {
+     "w": "gendarmes",
+     "s": 6.533,
+     "e": 6.838
+    },
+    {
+     "w": "l'ont",
+     "s": 6.876,
+     "e": 7.029
+    },
+    {
+     "w": "pris",
+     "s": 7.067,
+     "e": 7.181
+    },
+    {
+     "w": "en",
+     "s": 7.257,
+     "e": 7.333
+    },
+    {
+     "w": "chasse.",
+     "s": 7.371,
+     "e": 7.943
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ça a duré trois semaines.",
+   "hl": [
+    "semaines."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L05.k.wav",
+   "file_start": 8.043,
+   "speech_start": 8.043,
+   "speech_end": 9.49,
+   "words": [
+    {
+     "w": "Ça",
+     "s": 8.043,
+     "e": 8.157
+    },
+    {
+     "w": "a",
+     "s": 8.195,
+     "e": 8.271
+    },
+    {
+     "w": "duré",
+     "s": 8.348,
+     "e": 8.576
+    },
+    {
+     "w": "trois",
+     "s": 8.614,
+     "e": 8.729
+    },
+    {
+     "w": "semaines.",
+     "s": 8.805,
+     "e": 9.49
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Retrait de permis.",
+   "hl": [
+    "Retrait"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L06.k.wav",
+   "file_start": 9.59,
+   "speech_start": 9.59,
+   "speech_end": 10.657,
+   "words": [
+    {
+     "w": "Retrait",
+     "s": 9.59,
+     "e": 9.971
+    },
+    {
+     "w": "de",
+     "s": 10.01,
+     "e": 10.048
+    },
+    {
+     "w": "permis.",
+     "s": 10.162,
+     "e": 10.657
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Son avocat était une tortue.",
+   "hl": [
+    "avocat",
+    "tortue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L07.k.wav",
+   "file_start": 10.757,
+   "speech_start": 10.757,
+   "speech_end": 12.51,
+   "words": [
+    {
+     "w": "Son",
+     "s": 10.757,
+     "e": 10.91
+    },
+    {
+     "w": "avocat",
+     "s": 10.986,
+     "e": 11.367
+    },
+    {
+     "w": "était",
+     "s": 11.481,
+     "e": 11.595
+    },
+    {
+     "w": "une",
+     "s": 11.71,
+     "e": 11.824
+    },
+    {
+     "w": "tortue.",
+     "s": 11.9,
+     "e": 12.51
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le procès a duré douze ans.",
+   "hl": [
+    "douze"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L08.k.wav",
+   "file_start": 12.61,
+   "speech_start": 12.61,
+   "speech_end": 14.286,
+   "words": [
+    {
+     "w": "Le",
+     "s": 12.61,
+     "e": 12.686
+    },
+    {
+     "w": "procès",
+     "s": 12.762,
+     "e": 13.143
+    },
+    {
+     "w": "a",
+     "s": 13.181,
+     "e": 13.219
+    },
+    {
+     "w": "duré",
+     "s": 13.333,
+     "e": 13.6
+    },
+    {
+     "w": "douze",
+     "s": 13.638,
+     "e": 13.829
+    },
+    {
+     "w": "ans.",
+     "s": 13.943,
+     "e": 14.286
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le juge est parti à la retraite deux fois.",
+   "hl": [
+    "retraite"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L09.k.wav",
+   "file_start": 14.386,
+   "speech_start": 14.386,
+   "speech_end": 16.595,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.386,
+     "e": 14.462
+    },
+    {
+     "w": "juge",
+     "s": 14.614,
+     "e": 14.767
+    },
+    {
+     "w": "est",
+     "s": 14.843,
+     "e": 14.919
+    },
+    {
+     "w": "parti",
+     "s": 15.033,
+     "e": 15.186
+    },
+    {
+     "w": "à",
+     "s": 15.224,
+     "e": 15.25
+    },
+    {
+     "w": "la",
+     "s": 15.274,
+     "e": 15.3
+    },
+    {
+     "w": "retraite",
+     "s": 15.376,
+     "e": 15.833
+    },
+    {
+     "w": "deux",
+     "s": 15.871,
+     "e": 15.986
+    },
+    {
+     "w": "fois.",
+     "s": 16.062,
+     "e": 16.595
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Verdict : il doit accélérer.",
+   "hl": [
+    "accélérer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L10.k.wav",
+   "file_start": 16.695,
+   "speech_start": 16.695,
+   "speech_end": 18.752,
+   "words": [
+    {
+     "w": "Verdict",
+     "s": 16.695,
+     "e": 17.229
+    },
+    {
+     "w": ":",
+     "s": 17.533,
+     "e": 17.584
+    },
+    {
+     "w": "il",
+     "s": 17.635,
+     "e": 17.686
+    },
+    {
+     "w": "doit",
+     "s": 17.724,
+     "e": 17.914
+    },
+    {
+     "w": "accélérer.",
+     "s": 18.029,
+     "e": 18.752
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il s'est acheté une moto.",
+   "hl": [
+    "moto."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L11.k.wav",
+   "file_start": 18.852,
+   "speech_start": 18.852,
+   "speech_end": 20.224,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.852,
+     "e": 18.929
+    },
+    {
+     "w": "s'est",
+     "s": 19.005,
+     "e": 19.157
+    },
+    {
+     "w": "acheté",
+     "s": 19.233,
+     "e": 19.424
+    },
+    {
+     "w": "une",
+     "s": 19.462,
+     "e": 19.538
+    },
+    {
+     "w": "moto.",
+     "s": 19.576,
+     "e": 20.224
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il a été reflashé.",
+   "hl": [
+    "reflashé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L12.k.wav",
+   "file_start": 20.324,
+   "speech_start": 20.324,
+   "speech_end": 21.543,
+   "words": [
+    {
+     "w": "Il",
+     "s": 20.324,
+     "e": 20.4
+    },
+    {
+     "w": "a",
+     "s": 20.438,
+     "e": 20.476
+    },
+    {
+     "w": "été",
+     "s": 20.59,
+     "e": 20.705
+    },
+    {
+     "w": "reflashé.",
+     "s": 20.819,
+     "e": 21.543
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Excès de vitesse, cette fois.",
+   "hl": [
+    "vitesse,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L13.k.wav",
+   "file_start": 21.643,
+   "speech_start": 21.643,
+   "speech_end": 23.243,
+   "words": [
+    {
+     "w": "Excès",
+     "s": 21.643,
+     "e": 21.871
+    },
+    {
+     "w": "de",
+     "s": 21.91,
+     "e": 21.948
+    },
+    {
+     "w": "vitesse,",
+     "s": 22.1,
+     "e": 22.557
+    },
+    {
+     "w": "cette",
+     "s": 22.595,
+     "e": 22.71
+    },
+    {
+     "w": "fois.",
+     "s": 22.786,
+     "e": 23.243
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Sa coquille a été saisie.",
+   "hl": [
+    "coquille",
+    "saisie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L14.k.wav",
+   "file_start": 23.343,
+   "speech_start": 23.343,
+   "speech_end": 24.79,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 23.343,
+     "e": 23.419
+    },
+    {
+     "w": "coquille",
+     "s": 23.495,
+     "e": 23.8
+    },
+    {
+     "w": "a",
+     "s": 23.876,
+     "e": 23.914
+    },
+    {
+     "w": "été",
+     "s": 23.952,
+     "e": 24.105
+    },
+    {
+     "w": "saisie.",
+     "s": 24.181,
+     "e": 24.79
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Il a vécu tout nu pendant un an.",
+   "hl": [
+    "nu"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L15.k.wav",
+   "file_start": 24.89,
+   "speech_start": 24.89,
+   "speech_end": 26.795,
+   "words": [
+    {
+     "w": "Il",
+     "s": 24.89,
+     "e": 24.967
+    },
+    {
+     "w": "a",
+     "s": 25.043,
+     "e": 25.081
+    },
+    {
+     "w": "vécu",
+     "s": 25.119,
+     "e": 25.424
+    },
+    {
+     "w": "tout",
+     "s": 25.5,
+     "e": 25.576
+    },
+    {
+     "w": "nu",
+     "s": 25.69,
+     "e": 25.805
+    },
+    {
+     "w": "pendant",
+     "s": 25.881,
+     "e": 26.11
+    },
+    {
+     "w": "un",
+     "s": 26.186,
+     "e": 26.338
+    },
+    {
+     "w": "an.",
+     "s": 26.452,
+     "e": 26.795
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Les limaces l'ont accueilli.",
+   "hl": [
+    "limaces"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L16.k.wav",
+   "file_start": 26.895,
+   "speech_start": 26.895,
+   "speech_end": 28.343,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.895,
+     "e": 27.048
+    },
+    {
+     "w": "limaces",
+     "s": 27.162,
+     "e": 27.429
+    },
+    {
+     "w": "l'ont",
+     "s": 27.467,
+     "e": 27.581
+    },
+    {
+     "w": "accueilli.",
+     "s": 27.657,
+     "e": 28.343
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Il a ouvert une auto-école pour elles.",
+   "hl": [
+    "auto-école"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L17.k.wav",
+   "file_start": 28.443,
+   "speech_start": 28.443,
+   "speech_end": 30.2,
+   "words": [
+    {
+     "w": "Il",
+     "s": 28.443,
+     "e": 28.519
+    },
+    {
+     "w": "a",
+     "s": 28.557,
+     "e": 28.595
+    },
+    {
+     "w": "ouvert",
+     "s": 28.671,
+     "e": 28.9
+    },
+    {
+     "w": "une",
+     "s": 28.938,
+     "e": 28.976
+    },
+    {
+     "w": "auto-école",
+     "s": 29.09,
+     "e": 29.51
+    },
+    {
+     "w": "pour",
+     "s": 29.586,
+     "e": 29.738
+    },
+    {
+     "w": "elles.",
+     "s": 29.852,
+     "e": 30.195
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Cent pour cent de réussite.",
+   "hl": [
+    "Cent"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L18.k.wav",
+   "file_start": 30.3,
+   "speech_start": 30.3,
+   "speech_end": 31.747,
+   "words": [
+    {
+     "w": "Cent",
+     "s": 30.3,
+     "e": 30.452
+    },
+    {
+     "w": "pour",
+     "s": 30.604,
+     "e": 30.681
+    },
+    {
+     "w": "cent",
+     "s": 30.757,
+     "e": 30.833
+    },
+    {
+     "w": "de",
+     "s": 30.909,
+     "e": 30.985
+    },
+    {
+     "w": "réussite.",
+     "s": 31.061,
+     "e": 31.747
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Personne n'a jamais fini l'examen.",
+   "hl": [
+    "Personne",
+    "l'examen."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/escargot/tts/L19.k.wav",
+   "file_start": 31.907,
+   "speech_start": 31.907,
+   "speech_end": 33.812,
+   "words": [
+    {
+     "w": "Personne",
+     "s": 31.907,
+     "e": 32.288
+    },
+    {
+     "w": "n'a",
+     "s": 32.326,
+     "e": 32.441
+    },
+    {
+     "w": "jamais",
+     "s": 32.517,
+     "e": 32.745
+    },
+    {
+     "w": "fini",
+     "s": 32.821,
+     "e": 32.974
+    },
+    {
+     "w": "l'examen.",
+     "s": 33.05,
+     "e": 33.812
+    }
+   ]
+  }
+ ],
+ "total": 34.65
+}

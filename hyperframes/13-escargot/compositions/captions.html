@@ -1,0 +1,137 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .cap { position: absolute; left: 0; width: 1080px; top: 1522px; text-align: center; opacity: 0; visibility: hidden;
+           font-family: "Nunito", sans-serif; font-weight: 900; font-size: 60px; line-height: 1.12; color: #FEFEFC; letter-spacing: -0.4px;
+           -webkit-text-stroke: 13px #1C252A; paint-order: stroke fill; text-shadow: 0 4px 6px rgba(0, 0, 0, 0.35); }
+    .cap .hl { color: #D88168; }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+      <div id="cap-00" class="cap"><span class="">Cet</span> <span class="hl">escargot</span> <span class="">a</span> <span class="">été</span></div>
+      <div id="cap-01" class="cap"><span class="hl">flashé</span></div>
+      <div id="cap-02" class="cap"><span class="">sur</span> <span class="">l&#x27;autoroute.</span></div>
+      <div id="cap-03" class="cap"><span class="">Pour</span> <span class="hl">excès</span> <span class="">de</span> <span class="hl">lenteur.</span></div>
+      <div id="cap-04" class="cap"><span class="hl">Zéro</span> <span class="">virgule</span></div>
+      <div id="cap-05" class="cap"><span class="">zéro</span></div>
+      <div id="cap-06" class="cap"><span class="">trois</span> <span class="">kilomètre-heure.</span></div>
+      <div id="cap-07" class="cap"><span class="">Les</span> <span class="hl">gendarmes</span> <span class="">l&#x27;ont</span></div>
+      <div id="cap-08" class="cap"><span class="">pris</span> <span class="">en</span> <span class="hl">chasse.</span></div>
+      <div id="cap-09" class="cap"><span class="">Ça</span> <span class="">a</span> <span class="">duré</span></div>
+      <div id="cap-10" class="cap"><span class="">trois</span> <span class="hl">semaines.</span></div>
+      <div id="cap-11" class="cap"><span class="hl">Retrait</span> <span class="">de</span> <span class="">permis.</span></div>
+      <div id="cap-12" class="cap"><span class="">Son</span> <span class="hl">avocat</span></div>
+      <div id="cap-13" class="cap"><span class="">était</span> <span class="">une</span> <span class="hl">tortue.</span></div>
+      <div id="cap-14" class="cap"><span class="">Le</span> <span class="">procès</span></div>
+      <div id="cap-15" class="cap"><span class="">a</span> <span class="">duré</span> <span class="hl">douze</span> <span class="">ans.</span></div>
+      <div id="cap-16" class="cap"><span class="">Le</span> <span class="">juge</span></div>
+      <div id="cap-17" class="cap"><span class="">est</span> <span class="">parti</span></div>
+      <div id="cap-18" class="cap"><span class="">à</span> <span class="">la</span> <span class="hl">retraite</span></div>
+      <div id="cap-19" class="cap"><span class="">deux</span> <span class="">fois.</span></div>
+      <div id="cap-20" class="cap"><span class="">Verdict :</span> <span class="">il</span></div>
+      <div id="cap-21" class="cap"><span class="">doit</span> <span class="hl">accélérer.</span></div>
+      <div id="cap-22" class="cap"><span class="">Il</span> <span class="">s&#x27;est</span></div>
+      <div id="cap-23" class="cap"><span class="">acheté</span> <span class="">une</span> <span class="hl">moto.</span></div>
+      <div id="cap-24" class="cap"><span class="">Il</span> <span class="">a</span> <span class="">été</span> <span class="hl">reflashé.</span></div>
+      <div id="cap-25" class="cap"><span class="">Excès</span> <span class="">de</span> <span class="hl">vitesse,</span></div>
+      <div id="cap-26" class="cap"><span class="">cette</span> <span class="">fois.</span></div>
+      <div id="cap-27" class="cap"><span class="">Sa</span> <span class="hl">coquille</span></div>
+      <div id="cap-28" class="cap"><span class="">a</span> <span class="">été</span> <span class="hl">saisie.</span></div>
+      <div id="cap-29" class="cap"><span class="">Il</span> <span class="">a</span> <span class="">vécu</span></div>
+      <div id="cap-30" class="cap"><span class="">tout</span> <span class="hl">nu</span> <span class="">pendant</span> <span class="">un</span> <span class="">an.</span></div>
+      <div id="cap-31" class="cap"><span class="">Les</span> <span class="hl">limaces</span></div>
+      <div id="cap-32" class="cap"><span class="">l&#x27;ont</span> <span class="">accueilli.</span></div>
+      <div id="cap-33" class="cap"><span class="">Il</span> <span class="">a</span> <span class="">ouvert</span></div>
+      <div id="cap-34" class="cap"><span class="">une</span> <span class="hl">auto-école</span></div>
+      <div id="cap-35" class="cap"><span class="">pour</span> <span class="">elles.</span></div>
+      <div id="cap-36" class="cap"><span class="hl">Cent</span> <span class="">pour</span> <span class="">cent</span></div>
+      <div id="cap-37" class="cap"><span class="">de</span> <span class="">réussite.</span></div>
+      <div id="cap-38" class="cap"><span class="hl">Personne</span> <span class="">n&#x27;a</span></div>
+      <div id="cap-39" class="cap"><span class="">jamais</span> <span class="">fini</span> <span class="hl">l&#x27;examen.</span></div>
+  </div>
+  <script>
+    // The tornado replica's caption style (Nunito 900, white, dark stroke, keywords in #D88168), scaled x1.875 for 1080x1920.
+    // Groups of up to 3 words, cut at punctuation, each shown from its first spoken word to the next group's.
+    const tl = gsap.timeline({ paused: true });
+    tl.set("#cap-00", { opacity: 1, visibility: "visible" }, 0.000);
+    tl.set("#cap-00", { opacity: 0, visibility: "hidden" }, 1.137);
+    tl.set("#cap-01", { opacity: 1, visibility: "visible" }, 1.137);
+    tl.set("#cap-01", { opacity: 0, visibility: "hidden" }, 1.441);
+    tl.set("#cap-02", { opacity: 1, visibility: "visible" }, 1.441);
+    tl.set("#cap-02", { opacity: 0, visibility: "hidden" }, 2.380);
+    tl.set("#cap-03", { opacity: 1, visibility: "visible" }, 2.380);
+    tl.set("#cap-03", { opacity: 0, visibility: "hidden" }, 3.851);
+    tl.set("#cap-04", { opacity: 1, visibility: "visible" }, 3.851);
+    tl.set("#cap-04", { opacity: 0, visibility: "hidden" }, 4.689);
+    tl.set("#cap-05", { opacity: 1, visibility: "visible" }, 4.689);
+    tl.set("#cap-05", { opacity: 0, visibility: "hidden" }, 4.918);
+    tl.set("#cap-06", { opacity: 1, visibility: "visible" }, 4.918);
+    tl.set("#cap-06", { opacity: 0, visibility: "hidden" }, 6.237);
+    tl.set("#cap-07", { opacity: 1, visibility: "visible" }, 6.237);
+    tl.set("#cap-07", { opacity: 0, visibility: "hidden" }, 7.037);
+    tl.set("#cap-08", { opacity: 1, visibility: "visible" }, 7.037);
+    tl.set("#cap-08", { opacity: 0, visibility: "hidden" }, 8.013);
+    tl.set("#cap-09", { opacity: 1, visibility: "visible" }, 8.013);
+    tl.set("#cap-09", { opacity: 0, visibility: "hidden" }, 8.584);
+    tl.set("#cap-10", { opacity: 1, visibility: "visible" }, 8.584);
+    tl.set("#cap-10", { opacity: 0, visibility: "hidden" }, 9.560);
+    tl.set("#cap-11", { opacity: 1, visibility: "visible" }, 9.560);
+    tl.set("#cap-11", { opacity: 0, visibility: "hidden" }, 10.727);
+    tl.set("#cap-12", { opacity: 1, visibility: "visible" }, 10.727);
+    tl.set("#cap-12", { opacity: 0, visibility: "hidden" }, 11.451);
+    tl.set("#cap-13", { opacity: 1, visibility: "visible" }, 11.451);
+    tl.set("#cap-13", { opacity: 0, visibility: "hidden" }, 12.580);
+    tl.set("#cap-14", { opacity: 1, visibility: "visible" }, 12.580);
+    tl.set("#cap-14", { opacity: 0, visibility: "hidden" }, 13.151);
+    tl.set("#cap-15", { opacity: 1, visibility: "visible" }, 13.151);
+    tl.set("#cap-15", { opacity: 0, visibility: "hidden" }, 14.356);
+    tl.set("#cap-16", { opacity: 1, visibility: "visible" }, 14.356);
+    tl.set("#cap-16", { opacity: 0, visibility: "hidden" }, 14.813);
+    tl.set("#cap-17", { opacity: 1, visibility: "visible" }, 14.813);
+    tl.set("#cap-17", { opacity: 0, visibility: "hidden" }, 15.194);
+    tl.set("#cap-18", { opacity: 1, visibility: "visible" }, 15.194);
+    tl.set("#cap-18", { opacity: 0, visibility: "hidden" }, 15.841);
+    tl.set("#cap-19", { opacity: 1, visibility: "visible" }, 15.841);
+    tl.set("#cap-19", { opacity: 0, visibility: "hidden" }, 16.665);
+    tl.set("#cap-20", { opacity: 1, visibility: "visible" }, 16.665);
+    tl.set("#cap-20", { opacity: 0, visibility: "hidden" }, 17.694);
+    tl.set("#cap-21", { opacity: 1, visibility: "visible" }, 17.694);
+    tl.set("#cap-21", { opacity: 0, visibility: "hidden" }, 18.822);
+    tl.set("#cap-22", { opacity: 1, visibility: "visible" }, 18.822);
+    tl.set("#cap-22", { opacity: 0, visibility: "hidden" }, 19.203);
+    tl.set("#cap-23", { opacity: 1, visibility: "visible" }, 19.203);
+    tl.set("#cap-23", { opacity: 0, visibility: "hidden" }, 20.294);
+    tl.set("#cap-24", { opacity: 1, visibility: "visible" }, 20.294);
+    tl.set("#cap-24", { opacity: 0, visibility: "hidden" }, 21.613);
+    tl.set("#cap-25", { opacity: 1, visibility: "visible" }, 21.613);
+    tl.set("#cap-25", { opacity: 0, visibility: "hidden" }, 22.565);
+    tl.set("#cap-26", { opacity: 1, visibility: "visible" }, 22.565);
+    tl.set("#cap-26", { opacity: 0, visibility: "hidden" }, 23.313);
+    tl.set("#cap-27", { opacity: 1, visibility: "visible" }, 23.313);
+    tl.set("#cap-27", { opacity: 0, visibility: "hidden" }, 23.846);
+    tl.set("#cap-28", { opacity: 1, visibility: "visible" }, 23.846);
+    tl.set("#cap-28", { opacity: 0, visibility: "hidden" }, 24.860);
+    tl.set("#cap-29", { opacity: 1, visibility: "visible" }, 24.860);
+    tl.set("#cap-29", { opacity: 0, visibility: "hidden" }, 25.470);
+    tl.set("#cap-30", { opacity: 1, visibility: "visible" }, 25.470);
+    tl.set("#cap-30", { opacity: 0, visibility: "hidden" }, 26.865);
+    tl.set("#cap-31", { opacity: 1, visibility: "visible" }, 26.865);
+    tl.set("#cap-31", { opacity: 0, visibility: "hidden" }, 27.437);
+    tl.set("#cap-32", { opacity: 1, visibility: "visible" }, 27.437);
+    tl.set("#cap-32", { opacity: 0, visibility: "hidden" }, 28.413);
+    tl.set("#cap-33", { opacity: 1, visibility: "visible" }, 28.413);
+    tl.set("#cap-33", { opacity: 0, visibility: "hidden" }, 28.908);
+    tl.set("#cap-34", { opacity: 1, visibility: "visible" }, 28.908);
+    tl.set("#cap-34", { opacity: 0, visibility: "hidden" }, 29.556);
+    tl.set("#cap-35", { opacity: 1, visibility: "visible" }, 29.556);
+    tl.set("#cap-35", { opacity: 0, visibility: "hidden" }, 30.270);
+    tl.set("#cap-36", { opacity: 1, visibility: "visible" }, 30.270);
+    tl.set("#cap-36", { opacity: 0, visibility: "hidden" }, 30.879);
+    tl.set("#cap-37", { opacity: 1, visibility: "visible" }, 30.879);
+    tl.set("#cap-37", { opacity: 0, visibility: "hidden" }, 31.877);
+    tl.set("#cap-38", { opacity: 1, visibility: "visible" }, 31.877);
+    tl.set("#cap-38", { opacity: 0, visibility: "hidden" }, 32.487);
+    tl.set("#cap-39", { opacity: 1, visibility: "visible" }, 32.487);
+    tl.set("#cap-39", { opacity: 0, visibility: "hidden" }, 34.650);
+    window.__timelines["captions"] = tl;
+  </script>
+</template>
