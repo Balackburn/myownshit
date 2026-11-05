@@ -1,0 +1,200 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a gagné dix millions au loto.",
+  "hl": [
+   "mec",
+   "millions",
+   "loto."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Payés en pièces de un centime.",
+  "hl": [
+   "pièces",
+   "centime."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Un milliard de pièces.",
+  "hl": [
+   "milliard",
+   "pièces."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Livrées par cent camions.",
+  "hl": [
+   "cent",
+   "camions."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Sa rue a disparu dessous.",
+  "hl": [
+   "rue",
+   "disparu"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La banque a refusé de les prendre.",
+  "hl": [
+   "banque",
+   "refusé"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Alors il a tout payé en pièces.",
+  "hl": [
+   "tout",
+   "pièces."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Sa baguette : cent dix pièces.",
+  "hl": [
+   "baguette",
+   "cent",
+   "dix"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Sa voiture : deux millions.",
+  "hl": [
+   "voiture",
+   "millions."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le vendeur compte encore.",
+  "hl": [
+   "vendeur",
+   "encore."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Puis le fisc a réclamé ses impôts.",
+  "hl": [
+   "fisc",
+   "impôts."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Trois millions d'euros.",
+  "hl": [
+   "Trois",
+   "millions"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il les a payés… en pièces.",
+  "hl": [
+   "pièces."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les agents ont compté pendant six ans.",
+  "hl": [
+   "compté",
+   "six",
+   "ans."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il manquait un centime.",
+  "hl": [
+   "manquait",
+   "centime."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Redressement fiscal.",
+  "hl": [
+   "Redressement",
+   "fiscal."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Il a payé l'amende… en pièces.",
+  "hl": [
+   "l'amende…",
+   "pièces."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le fisc a tout recompté.",
+  "hl": [
+   "recompté."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Cette fois, il y avait un centime de trop.",
+  "hl": [
+   "centime",
+   "trop."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Le fisc le lui a remboursé.",
+  "hl": [
+   "remboursé."
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "Frais de dossier : quinze euros.",
+  "hl": [
+   "Frais",
+   "quinze",
+   "euros."
+  ]
+ },
+ {
+  "id": "L22",
+  "who": "N",
+  "text": "Il a payé en pièces.",
+  "hl": [
+   "pièces."
+  ]
+ }
+]

@@ -2,7 +2,7 @@
 // Conventions as in props.js; small loops of motion built in (pure functions of t).
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
-import { grp, at, mesh, canvasPlane } from './props.js';
+import { grp, at, mesh, canvasPlane, inst } from './props.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const keyAt = (list, t) => { let a0 = null; for (const [a, x] of (list || [])) if (t >= a && x) a0 = a; return a0; };
@@ -58,6 +58,15 @@ function facetDisc(r, h, color, seed = 3) {
   const geo = new THREE.ExtrudeGeometry(shape, { depth: h, bevelEnabled: false }); geo.rotateX(-PI / 2);
   const m = new THREE.Mesh(geo, mat(color)); m.castShadow = m.receiveShadow = true; return m;
 }
+
+// copper one-cent coins: the face texture (the common side: a big 1, EURO CENT, a ring of stars) and an instanced pile/scatter of plain coins
+const CU = ['#C9783F', '#B86A36', '#D48A4E', '#A85F31'];
+function centFace(c, W, H, value = '1') {
+  c.fillStyle = '#C9783F'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.5, 0, TAU); c.fill(); c.strokeStyle = '#A85F31'; c.lineWidth = W * 0.05; c.beginPath(); c.arc(W / 2, H / 2, W * 0.46, 0, TAU); c.stroke();
+  c.fillStyle = '#8E4E26'; for (let i = 0; i < 12; i++) { const a = i / 12 * TAU, x = W / 2 + Math.cos(a) * W * 0.38, y = H / 2 + Math.sin(a) * H * 0.38; c.beginPath(); for (let k = 0; k < 10; k++) { const b = a + k * PI / 5, r = k % 2 ? W * 0.012 : W * 0.03; c.lineTo(x + Math.cos(b) * r, y + Math.sin(b) * r); } c.fill(); }
+  c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${W * 0.4}px Arial`; c.fillText(value, W * 0.42, H * 0.47); c.font = `900 ${W * 0.07}px Arial`; c.fillText('EURO', W * 0.66, H * 0.4); c.fillText('CENT', W * 0.66, H * 0.5);
+}
+function coinScatter(list, r = 0.03) { const geo = new THREE.CylinderGeometry(r, r, r * 0.2, 10); return inst(geo, mat('#C9783F', { noGrain: true }), list.map(q => q.slice(0, 9)), list.map(q => q[9])); }
 
 export const NEWS_PROPS = {
   burger(o) { // a burger at twice life size (Ø 0.25 m): bun, patty, cheese, lettuce, tomato, sesame dome; o.openAt lifts the top;
@@ -118,6 +127,46 @@ export const NEWS_PROPS = {
     g.add(at(facetDisc(0.07, 0.025, '#6E4128', 5), -0.11, 0.022, 0.0), at(cyl(0.035, 0.03, 0.09, '#F4F6F8', 10, { pivot: 'bottom' }), 0.14, 0.022, -0.08), at(box(0.07, 0.04, 0.05, '#F2C94C', { taper: { x: 0.2, z: 1 } }), 0.12, 0.042, 0.08));
     if (o.extra) g.add(at(facetDisc(0.07, 0.025, '#6E4128', 8), -0.11, 0.048, 0.02));
     return g;
+  },
+  centCoin(o) { // a one-cent coin at hero size (o.r, default 0.08): copper, drawn faces; o.spin [t0, t1] spins on its edge then falls flat (like a coin on a table)
+    const r = o.r || 0.08, face = canvasPlane(2 * r, 2 * r, (c, W, H) => centFace(c, W, H, o.value || '1'), { res: 256, transparent: true });
+    const body = at(cyl(r, r, r * 0.16, '#B86A36', 24, { noGrain: true }), 0, 0, 0, PI / 2); const f1 = face, f2 = face.clone(); f1.position.z = r * 0.081; f2.position.z = -r * 0.081; f2.rotation.y = PI;
+    const coin = grp(body, f1, f2), g = grp(coin); coin.position.y = r;
+    g.userData.update = t => { if (!o.spin) return; const [a, b] = o.spin, k = clamp01((t - a) / (b - a)); coin.rotation.y = (t - a > 0 ? (t - a) : 0) * 14 * (1 - k * 0.7);
+      const fall = clamp01((k - 0.6) / 0.4); coin.rotation.x = -fall * PI / 2; coin.position.y = r * (1 - fall) + r * 0.08 * fall + 0.002; };
+    g.userData.update(0); return g;
+  },
+  coinHeap(o) { // a heap of one-cent coins: a copper mound with loose coins on its surface; o.R radius, o.H height, o.n coins; o.grow [t0, t1] piles it up
+    const R0 = o.R || 1, H0 = o.H || 0.6, n = o.n || 300, rr = rng(o.seed || 11), g = grp();
+    const mound = new THREE.Mesh(new THREE.ConeGeometry(R0, H0, 18, 3), mat('#B86A36', { noGrain: true })); mound.position.y = H0 / 2; mound.castShadow = mound.receiveShadow = true;
+    const pos = mound.geometry.attributes.position; for (let i = 0; i < pos.count; i++) { const y = pos.getY(i); if (y < H0 / 2 - 0.001 && y > -H0 / 2 + 0.001) { pos.setX(i, pos.getX(i) * (0.92 + rr() * 0.16)); pos.setZ(i, pos.getZ(i) * (0.92 + rr() * 0.16)); } } mound.geometry.computeVertexNormals(); g.add(mound);
+    const list = []; for (let i = 0; i < n; i++) { const a = rr() * TAU, u = Math.sqrt(rr()), d = u * R0, y = H0 * (1 - u) + 0.01; list.push([Math.cos(a) * d, y, Math.sin(a) * d, (rr() - 0.5) * 1.2, rr() * TAU, (rr() - 0.5) * 1.2, 1, 1, 1, CU[i % 4]]); }
+    g.add(coinScatter(list, o.coinR || 0.035));
+    g.userData.update = t => { if (!o.grow) return; const [a, b] = o.grow, k = Math.max(0.01, ease.out(clamp01((t - a) / (b - a)))); g.scale.set(0.6 + 0.4 * k, k, 0.6 + 0.4 * k); };
+    g.userData.update(0); return g;
+  },
+  coinLayer(o) { // a street buried in coins: a copper slab o.w × o.d, o.h deep, its top strewn with coins and soft bumps
+    const w = o.w || 10, d = o.d || 10, h = o.h || 0.8, rr = rng(o.seed || 13), g = grp();
+    const geo = new THREE.PlaneGeometry(w, d, 24, 24).rotateX(-PI / 2), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setY(i, h + 0.12 * Math.sin(pos.getX(i) * 1.3 + rr()) * Math.cos(pos.getZ(i) * 1.1) + rr() * 0.05);
+    geo.computeVertexNormals(); const top = new THREE.Mesh(geo, mat('#B86A36', { noGrain: true })); top.receiveShadow = true; g.add(top);
+    const list = []; for (let i = 0; i < (o.n || 900); i++) { const x = (rr() - 0.5) * w, z = (rr() - 0.5) * d; list.push([x, h + 0.12 * Math.sin(x * 1.3) * Math.cos(z * 1.1) + 0.07, z, (rr() - 0.5) * 1.0, rr() * TAU, (rr() - 0.5) * 1.0, 1, 1, 1, CU[i % 4]]); }
+    g.add(coinScatter(list, o.coinR || 0.04)); return g;
+  },
+  dumpTruck(o) { // a dump truck facing +X (cab at +X), its bed full of coins; o.tipAt raises the bed and pours a stream of coins out of the back
+    const C = o.color || '#E9B23A', g = grp();
+    g.add(at(box(4.6, 0.3, 1.9, '#2A2A2E'), 0, 0.75, 0), at(box(1.5, 1.5, 2.0, C, { outline: 0.012 }), 1.7, 1.55, 0), at(box(0.06, 0.7, 1.7, '#7FC2EE', { emissive: '#2A4A60' }), 2.46, 1.85, 0));
+    [[1.6, 1.0], [1.6, -1.0], [-0.8, 1.0], [-0.8, -1.0], [-1.7, 1.0], [-1.7, -1.0]].forEach(([x, z]) => g.add(at(cyl(0.45, 0.45, 0.35, '#1C1E22', 12), x, 0.45, z, PI / 2, 0, 0)));
+    const bed = grp(); bed.position.set(-2.3, 0.95, 0); g.add(bed);
+    bed.add(at(box(3.2, 0.12, 2.0, C), 1.6, 0.06, 0), at(box(3.2, 1.0, 0.1, C, { outline: 0.01 }), 1.6, 0.5, 0.95), at(box(3.2, 1.0, 0.1, C, { outline: 0.01 }), 1.6, 0.5, -0.95), at(box(0.1, 1.1, 2.0, C, { outline: 0.01 }), 3.15, 0.55, 0));
+    const fill = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 6, 0, TAU, 0, PI / 2), mat('#B86A36', { noGrain: true })); fill.scale.set(1.5, 0.55, 0.9); fill.position.set(1.6, 0.85, 0); bed.add(fill);
+    const rr = rng(o.seed || 17), drops = []; for (let i = 0; i < 70; i++) drops.push([0, 0, 0, rr() * 3, rr() * 3, rr() * 3, 1, 1, 1, CU[i % 4]]);
+    const stream = coinScatter(drops, 0.05); g.add(stream); stream.visible = false;
+    const M = new THREE.Object3D(), ph = drops.map(() => rr());
+    g.userData.update = t => { const k = o.tipAt != null ? ease.inOut(clamp01((t - o.tipAt) / 0.7)) : 0; bed.rotation.z = 0.85 * k; fill.scale.y = 0.55 * (1 - 0.6 * clamp01((t - (o.tipAt ?? 1e9) - 0.4) / 1.5));
+      stream.visible = k > 0.4; if (!stream.visible) return;
+      drops.forEach((q, i) => { const u = ((t - o.tipAt) * 1.4 + ph[i]) % 1, x = -2.45 - u * 0.9, y = 1.2 - u * u * 1.6 + 0.3, z = (ph[i] - 0.5) * 1.6; M.position.set(x, Math.max(0.05, y), z); M.rotation.set(t * 5 + i, i, t * 3); M.updateMatrix(); stream.setMatrixAt(i, M.matrix); }); stream.instanceMatrix.needsUpdate = true; };
+    g.userData.update(0); return g;
   },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });
