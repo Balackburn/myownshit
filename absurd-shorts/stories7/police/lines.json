@@ -1,0 +1,198 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a appelé la police pour faire arrêter la police.",
+  "hl": [
+   "mec",
+   "police",
+   "arrêter",
+   "police."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Un policier venait de lui mettre une amende.",
+  "hl": [
+   "policier",
+   "amende."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Stationnement gênant.",
+  "hl": [
+   "Stationnement",
+   "gênant."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Sauf que la voiture de police…",
+  "hl": [
+   "voiture",
+   "police…"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "… était garée sur une place handicapée.",
+  "hl": [
+   "place",
+   "handicapée."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Alors il a fait le 17.",
+  "hl": [
+   "17."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Deux policiers sont arrivés.",
+  "hl": [
+   "policiers"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ils ont verbalisé la voiture de police.",
+  "hl": [
+   "verbalisé",
+   "police."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Leur collègue a refusé de payer.",
+  "hl": [
+   "refusé",
+   "payer."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Ils l'ont arrêté.",
+  "hl": [
+   "arrêté."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Au commissariat, son chef a pris sa défense.",
+  "hl": [
+   "chef",
+   "défense."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Arrêté pour complicité.",
+  "hl": [
+   "Arrêté",
+   "complicité."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le préfet a protesté à la télé.",
+  "hl": [
+   "préfet",
+   "télé."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Arrêté pour outrage.",
+  "hl": [
+   "Arrêté",
+   "outrage."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "À midi, toute la police était en garde à vue.",
+  "hl": [
+   "police",
+   "garde",
+   "vue."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Plus personne pour garder les cellules.",
+  "hl": [
+   "personne",
+   "cellules."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Alors la mairie a recruté le mec.",
+  "hl": [
+   "recruté",
+   "mec."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Seul policier de la ville.",
+  "hl": [
+   "Seul",
+   "policier"
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Le soir même, quelqu'un a fait le 17.",
+  "hl": [
+   "17."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Une voiture de police sur une place handicapée.",
+  "hl": [
+   "police",
+   "handicapée."
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "C'était la sienne.",
+  "hl": [
+   "sienne."
+  ]
+ },
+ {
+  "id": "L22",
+  "who": "N",
+  "text": "Il s'est arrêté lui-même.",
+  "hl": [
+   "arrêté",
+   "lui-même."
+  ]
+ }
+]

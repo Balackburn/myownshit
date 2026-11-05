@@ -42,10 +42,29 @@ function miniFlag(kind, w = 0.08) {
   f.position.set(w / 2, h * 2.4 - h / 2, 0); g.add(f); g.userData.cloth = f; return g;
 }
 
+// the international wheelchair pictogram, drawn white, centred at (cx, cy), u = overall size in px
+function wheelchair(g, cx, cy, u) {
+  const x0 = cx - u * 0.41, y0 = cy - u * 0.46; g.lineCap = 'round'; g.lineJoin = 'round'; g.fillStyle = g.strokeStyle = '#F4F4F0';
+  g.beginPath(); g.arc(x0 + u * 0.28, y0 + u * 0.09, u * 0.085, 0, TAU); g.fill();
+  g.lineWidth = u * 0.1; g.beginPath(); g.moveTo(x0 + u * 0.28, y0 + u * 0.24); g.lineTo(x0 + u * 0.3, y0 + u * 0.56); g.lineTo(x0 + u * 0.62, y0 + u * 0.56); g.lineTo(x0 + u * 0.72, y0 + u * 0.84); g.stroke();
+  g.beginPath(); g.moveTo(x0 + u * 0.29, y0 + u * 0.36); g.lineTo(x0 + u * 0.52, y0 + u * 0.36); g.stroke();
+  g.lineWidth = u * 0.075; g.beginPath(); g.arc(x0 + u * 0.36, y0 + u * 0.66, u * 0.26, -0.3 * PI, 1.25 * PI); g.stroke();
+}
+
 export const NEWS_PROPS = {
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples
     const g = grp(at(cyl(0.015, 0.015, 1.6, '#9AA0A6', 5, { pivot: 'bottom' }), 0, 0, 0)), f = canvasPlane(0.6, 0.4, flagDraw(o.kind || 'bzh'), { res: 512 });
     f.position.set(0.31, 1.38, 0); g.add(f); g.userData.update = t => { f.rotation.y = 0.14 * Math.sin(t * 2.6 + (o.seed || 0)); }; return g;
+  },
+  disabledSpot(o) { // a disabled parking bay painted on the ground: blue rectangle, white border, white wheelchair pictogram (upright seen from +Z);
+    // o.sign: the blue wheelchair sign on a pole at the kerb side (+Z), facing +Z
+    const w = o.w || 5.0, d = o.d || 2.6, c = canvasPlane(w, d, (g, W, H) => {
+      g.fillStyle = o.color || '#2F62B5'; g.fillRect(0, 0, W, H); g.strokeStyle = '#F4F4F0'; g.lineWidth = H * 0.05; g.strokeRect(H * 0.04, H * 0.04, W - H * 0.08, H - H * 0.08); wheelchair(g, W / 2, H / 2, Math.min(H * 0.7, W * 0.72));
+    }, { res: 512 });
+    c.rotation.x = -PI / 2; c.position.y = 0.012; c.receiveShadow = true; const gr = grp(c);
+    if (o.sign) { const pole = at(cyl(0.03, 0.03, 2.0, '#9AA0A6', 6, { pivot: 'bottom' }), w * 0.32, 0, d / 2 + 0.45), pan = canvasPlane(0.5, 0.5, (g, W, H) => { g.fillStyle = '#2F62B5'; g.fillRect(0, 0, W, H); g.strokeStyle = '#F4F4F0'; g.lineWidth = W * 0.04; g.strokeRect(W * 0.05, H * 0.05, W * 0.9, H * 0.9); wheelchair(g, W / 2, H / 2, W * 0.66); }, { res: 256 });
+      pan.position.set(w * 0.32, 1.95, d / 2 + 0.48); gr.add(pole, pan, at(box(0.54, 0.54, 0.02, '#D9DCDF'), w * 0.32, 1.95, d / 2 + 0.465)); }
+    return gr;
   },
   sandGrain(o) { // ONE real grain of sand, not a cloud: faceted golden quartz pebble with glints; o.seed, o.color, o.flag 'bzh'|'sard'|'it'|'fr', o.eyes, o.popAt
     const g = grp(), body = new THREE.Mesh(grainGeo(0.05, o.seed || 3, 1), mat(o.color || '#E3C27A', { noGrain: true })); body.castShadow = body.receiveShadow = true; g.add(body);

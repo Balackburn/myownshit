@@ -1,0 +1,2826 @@
+{
+ "version": 3,
+ "title": "La police contre la police",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "hair": "crew",
+   "facial": "mustache",
+   "seed": 41,
+   "build": {
+    "belly": 0.06
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "hair": "receding",
+   "facial": "stubble",
+   "seed": 43
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "flic3": {
+   "preset": "cop",
+   "hair": "buzz",
+   "facial": "none",
+   "seed": 47
+  },
+  "flic4": {
+   "preset": "cop",
+   "hair": "curly",
+   "facial": "beard",
+   "seed": 53
+  },
+  "flic5": {
+   "preset": "cop",
+   "hair": "slick",
+   "facial": "none",
+   "seed": 59,
+   "build": {
+    "height": 0.95
+   }
+  },
+  "chef": {
+   "preset": "commissaire"
+  },
+  "prefet": {
+   "preset": "prefet"
+  },
+  "maire": {
+   "preset": "politique",
+   "hair": "receding",
+   "hairColor": "#8A8A86",
+   "facial": "mustache",
+   "sash": [
+    "#24448E",
+    "#F4F4F0",
+    "#D03A34"
+   ],
+   "sashW": 0.14,
+   "build": {
+    "belly": 0.1
+   }
+  },
+  "mecFlic": {
+   "preset": "cop",
+   "hat": "copcap",
+   "hair": "crew",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.2,
+      0,
+      1.6
+     ],
+     "ry": -15,
+     "clip": "phoneCall",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "ph",
+     "name": "phone911",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "text": "17",
+      "sub": "POLICE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.75,
+      1.62,
+      4.0
+     ],
+     "to": [
+      6.7,
+      1.62,
+      3.75
+     ],
+     "lookAt": [
+      6.1,
+      1.55,
+      1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.1,
+      1.55,
+      1.6
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.3667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      6.1,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      5.5,
+      0,
+      0.05
+     ],
+     "ry": 40,
+     "clip": "cuffOther",
+     "keys": [],
+     "expr": "angry"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      6.75,
+      0,
+      0.0
+     ],
+     "ry": -40,
+     "clip": "point",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "cuffs_flic",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "flic",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.55,
+      0.85,
+      4.3
+     ],
+     "to": [
+      6.5,
+      0.9,
+      4.0
+     ],
+     "lookAt": [
+      6.1,
+      1.45,
+      0.1
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      6.1,
+      1.45,
+      0.1
+     ]
+    }
+   ],
+   "start": 1.3667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      5.4,
+      0,
+      6.6
+     ],
+     "ry": -70,
+     "clip": "writeOnHeld",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      6.3,
+      0,
+      7.4
+     ],
+     "ry": -110,
+     "clip": "stand",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "mycar",
+     "name": "car",
+     "pos": [
+      3.9,
+      0,
+      6.4
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pad",
+     "name": "notebook",
+     "on": {
+      "actor": "flic",
+      "hand": "L"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.05,
+      1.5,
+      10.5
+     ],
+     "to": [
+      6.0,
+      1.5,
+      10.2
+     ],
+     "lookAt": [
+      5.85,
+      1.2,
+      6.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      5.85,
+      1.2,
+      6.9
+     ]
+    }
+   ],
+   "start": 3.0667,
+   "duration": 2.0666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "mycar",
+     "name": "car",
+     "pos": [
+      3.9,
+      0,
+      6.4
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pv",
+     "name": "noticeBoard",
+     "pos": [
+      6.4,
+      1.5,
+      3.0
+     ],
+     "opts": {
+      "text": "AMENDE\nSTATIONNEMENT GÊNANT\n35 €",
+      "style": "doc",
+      "w": 0.7,
+      "h": 0.9,
+      "popAt": 0.1,
+      "textSize": 0.4,
+      "stamp": "POLICE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.45,
+      1.55,
+      5.25
+     ],
+     "to": [
+      6.45,
+      1.55,
+      5.05
+     ],
+     "lookAt": [
+      6.4,
+      1.5,
+      3.0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      6.4,
+      1.5,
+      3.0
+     ]
+    }
+   ],
+   "start": 5.1333,
+   "duration": 1.4334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "mycar",
+     "name": "car",
+     "pos": [
+      3.9,
+      0,
+      6.4
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.6,
+      1.45,
+      3.0
+     ],
+     "to": [
+      7.6,
+      1.5,
+      2.8
+     ],
+     "lookAt": [
+      3.9,
+      1.0,
+      6.2
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      3.9,
+      1.0,
+      -0.6
+     ]
+    }
+   ],
+   "start": 6.5667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.3,
+      1.95,
+      -2.3
+     ],
+     "to": [
+      9.2,
+      3.4,
+      2.4
+     ],
+     "lookAt": [
+      5.65,
+      1.9,
+      -2.15
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      4.3,
+      0.5,
+      -0.9
+     ]
+    }
+   ],
+   "start": 8.2667,
+   "duration": 2.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "phone",
+     "name": "phone911",
+     "pos": [
+      6.3,
+      1.12,
+      3.0
+     ],
+     "rot": [
+      0,
+      0,
+      0.08
+     ],
+     "scale": 3.0,
+     "opts": {
+      "text": "17",
+      "sub": "POLICE"
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.32,
+      1.52,
+      4.55
+     ],
+     "to": [
+      6.32,
+      1.52,
+      4.35
+     ],
+     "lookAt": [
+      6.3,
+      1.5,
+      3.0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      6.3,
+      1.5,
+      3.0
+     ]
+    }
+   ],
+   "start": 10.2667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic2",
+     "pos": [
+      5.9,
+      0,
+      -6.0
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        5.9,
+        0,
+        -3.4
+       ],
+       "dur": 1.567,
+       "clip": "walk"
+      }
+     ],
+     "expr": "smug"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      6.75,
+      0,
+      -6.4
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.75,
+        0,
+        -3.8
+       ],
+       "dur": 1.567,
+       "clip": "walk"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "pcar2",
+     "name": "policeCar",
+     "pos": [
+      2.0,
+      0,
+      -16.0
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        2.0,
+        0,
+        -9.5
+       ],
+       "dur": 1.2536,
+       "ease": "out"
+      }
+     ],
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.3,
+      0.95,
+      3.2
+     ],
+     "to": [
+      7.2,
+      1.0,
+      2.9
+     ],
+     "lookAt": [
+      6.0,
+      1.35,
+      -4.5
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      6.0,
+      1.35,
+      -4.0
+     ]
+    }
+   ],
+   "start": 11.9667,
+   "duration": 1.5666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic2",
+     "pos": [
+      5.55,
+      0,
+      -0.2
+     ],
+     "ry": 35,
+     "clip": "writeOnHeld",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      6.6,
+      0,
+      0.5
+     ],
+     "ry": -20,
+     "clip": "handsOnHips",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "pad",
+     "name": "notebook",
+     "on": {
+      "actor": "flic2",
+      "hand": "L"
+     }
+    },
+    {
+     "id": "fine",
+     "name": "noticeBoard",
+     "pos": [
+      3.95,
+      1.92,
+      -0.6
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "text": "AMENDE",
+      "style": "tag",
+      "w": 0.6,
+      "h": 0.2,
+      "popAt": 0.409
+     },
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.1,
+      1.65,
+      3.1
+     ],
+     "to": [
+      7.95,
+      1.65,
+      2.8
+     ],
+     "lookAt": [
+      5.0,
+      1.3,
+      -0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      5.0,
+      1.3,
+      -0.6
+     ]
+    }
+   ],
+   "start": 13.5333,
+   "duration": 2.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      6.2,
+      0,
+      0.6
+     ],
+     "ry": 0,
+     "clip": "armsCrossed",
+     "keys": [
+      {
+       "at": 0.35,
+       "clip": "shakeHead"
+      },
+      {
+       "at": 1.25,
+       "clip": "armsCrossed"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.55,
+      1.55,
+      3.2
+     ],
+     "to": [
+      6.515000000000001,
+      1.57,
+      2.9000000000000004
+     ],
+     "lookAt": [
+      6.2,
+      1.5,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.2,
+      1.52,
+      0.6
+     ]
+    }
+   ],
+   "start": 15.7,
+   "duration": 1.9,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      6.1,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      5.5,
+      0,
+      0.05
+     ],
+     "ry": 40,
+     "clip": "cuffOther",
+     "keys": [],
+     "expr": "angry"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      6.75,
+      0,
+      0.0
+     ],
+     "ry": -40,
+     "clip": "point",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "cuffs_flic",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "flic",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.35,
+      1.5,
+      3.3
+     ],
+     "to": [
+      6.3,
+      1.5,
+      3.05
+     ],
+     "lookAt": [
+      6.1,
+      1.25,
+      0.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.1,
+      1.25,
+      0.2
+     ]
+    }
+   ],
+   "start": 17.6,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef",
+     "pos": [
+      -1.1,
+      0,
+      -1.0
+     ],
+     "ry": 60,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.55,
+        0,
+        -0.65
+       ],
+       "dur": 1.0,
+       "clip": "walk"
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      0.7,
+      0,
+      -0.3
+     ],
+     "ry": -20,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      1.35,
+      0,
+      -0.5
+     ],
+     "ry": -40,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.7,
+      5.2
+     ],
+     "to": [
+      0.35,
+      1.72,
+      4.8
+     ],
+     "lookAt": [
+      0,
+      1.6,
+      -2.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.62,
+      -2.0
+     ]
+    }
+   ],
+   "start": 18.7667,
+   "duration": 1.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef",
+     "pos": [
+      -0.55,
+      0,
+      0.3
+     ],
+     "ry": 70,
+     "clip": "explain",
+     "keys": [],
+     "expr": "angry"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      0.75,
+      0,
+      0.2
+     ],
+     "ry": -70,
+     "clip": "stand",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      1.3,
+      0,
+      -0.3
+     ],
+     "ry": -40,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs_flic",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "flic",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.85,
+      1.6,
+      5.1
+     ],
+     "to": [
+      0.76,
+      1.6500000000000001,
+      4.5
+     ],
+     "lookAt": [
+      0.25,
+      1.35,
+      0.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.25,
+      1.3800000000000001,
+      0.1
+     ]
+    }
+   ],
+   "start": 19.7667,
+   "duration": 1.5666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef",
+     "pos": [
+      0,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "scared"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      0.05,
+      0,
+      -0.35
+     ],
+     "ry": 0,
+     "clip": "cuffOther",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs_chef",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "chef",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      3.0999999999999996
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.8
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0.3
+     ]
+    }
+   ],
+   "start": 21.3333,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "prefet",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": 0.042,
+       "expr": "talk"
+      },
+      {
+       "at": 0.165,
+       "expr": "angry"
+      },
+      {
+       "at": 0.309,
+       "expr": "talk"
+      },
+      {
+       "at": 0.469,
+       "expr": "angry"
+      },
+      {
+       "at": 0.576,
+       "expr": "talk"
+      },
+      {
+       "at": 0.622,
+       "expr": "angry"
+      },
+      {
+       "at": 0.728,
+       "expr": "talk"
+      },
+      {
+       "at": 1.117,
+       "expr": "angry"
+      },
+      {
+       "at": 1.185,
+       "expr": "talk"
+      },
+      {
+       "at": 1.206,
+       "expr": "angry"
+      },
+      {
+       "at": 1.287,
+       "expr": "talk"
+      },
+      {
+       "at": 1.307,
+       "expr": "angry"
+      },
+      {
+       "at": 1.376,
+       "expr": "talk"
+      },
+      {
+       "at": 1.917,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ]
+    },
+    {
+     "id": "live",
+     "name": "noticeBoard",
+     "pos": [
+      0.26,
+      2.02,
+      0.3
+     ],
+     "opts": {
+      "text": "EN DIRECT",
+      "style": "sign",
+      "w": 0.44,
+      "h": 0.13,
+      "fg": "#C8322A",
+      "frame": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      2.9
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.6
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0
+     ]
+    }
+   ],
+   "start": 22.9333,
+   "duration": 2.0,
+   "setOpts": {
+    "backdrop": "PRÉFECTURE|DE POLICE",
+    "fontScale": 0.68,
+    "podium": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "prefet",
+     "pos": [
+      0.15,
+      0,
+      0.2
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      0.2,
+      0,
+      -0.42
+     ],
+     "ry": 0,
+     "clip": "cuffOther",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      -0.62,
+      0,
+      0.45
+     ]
+    },
+    {
+     "id": "live",
+     "name": "noticeBoard",
+     "pos": [
+      -0.2,
+      2.02,
+      0.3
+     ],
+     "opts": {
+      "text": "EN DIRECT",
+      "style": "sign",
+      "w": 0.44,
+      "h": 0.13,
+      "fg": "#C8322A",
+      "frame": "#C8322A"
+     }
+    },
+    {
+     "id": "cuffs_prefet",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "prefet",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.6,
+      3.2
+     ],
+     "to": [
+      0.315,
+      1.62,
+      2.9000000000000004
+     ],
+     "lookAt": [
+      0,
+      1.55,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.57,
+      0
+     ]
+    }
+   ],
+   "start": 24.9333,
+   "duration": 1.5667,
+   "setOpts": {
+    "backdrop": "PRÉFECTURE|DE POLICE",
+    "fontScale": 0.68,
+    "podium": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      -1.25,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -0.75,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      -0.25,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic4",
+     "pos": [
+      0.25,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic5",
+     "pos": [
+      0.75,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "chef",
+     "pos": [
+      1.25,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      -0.95,
+      2.2,
+      -3.45
+     ],
+     "scale": 1.1,
+     "opts": {
+      "rate": 0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.6,
+      6.6000000000000005
+     ],
+     "to": [
+      0.51,
+      1.6500000000000001,
+      6.000000000000001
+     ],
+     "lookAt": [
+      0,
+      1.65,
+      -0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.68,
+      -0.6
+     ]
+    }
+   ],
+   "start": 26.5,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "brightCell",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      -0.95,
+      0,
+      -0.55
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -0.3,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      0.35,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic4",
+     "pos": [
+      0.98,
+      0,
+      -0.5
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "chef",
+     "pos": [
+      -0.62,
+      0,
+      0.35
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "prefet",
+     "pos": [
+      0.05,
+      0,
+      0.25
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic5",
+     "pos": [
+      0.7,
+      0,
+      0.4
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.6,
+      4.5
+     ],
+     "to": [
+      0.28,
+      1.6,
+      4.3
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      0
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.42,
+      0
+     ]
+    }
+   ],
+   "start": 27.8,
+   "duration": 1.0667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "chair",
+     "name": "officeChair",
+     "pos": [
+      -2.25,
+      0,
+      -1.1500000000000001
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "rotTo": [
+        0,
+        4.0,
+        0
+       ],
+       "dur": 1.8,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "tw",
+     "name": "tumbleweed",
+     "pos": [
+      -5.2,
+      0.35,
+      -0.9
+     ],
+     "scale": 0.9,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.6,
+        0.35,
+        -0.9
+       ],
+       "dur": 1.8,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.75,
+      2.3,
+      1.2
+     ],
+     "to": [
+      -1.85,
+      2.25,
+      0.95
+     ],
+     "lookAt": [
+      -2.65,
+      0.6,
+      -2.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.65,
+      0.6,
+      -2.5
+     ]
+    }
+   ],
+   "start": 28.8667,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S20",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "maire",
+     "pos": [
+      -0.5,
+      0,
+      0.1
+     ],
+     "ry": 55,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.52,
+      0,
+      0.0
+     ],
+     "ry": -55,
+     "clip": "takeItem",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cap",
+     "name": "copCap",
+     "on": {
+      "actor": "maire",
+      "hand": "R"
+     },
+     "scale": 1.0
+    },
+    {
+     "id": "fr",
+     "name": "regionFlag",
+     "pos": [
+      -1.05,
+      0,
+      -0.7
+     ],
+     "opts": {
+      "kind": "fr"
+     }
+    },
+    {
+     "id": "rec",
+     "name": "noticeBoard",
+     "pos": [
+      0.05,
+      2.12,
+      0.2
+     ],
+     "opts": {
+      "text": "RECRUTÉ",
+      "style": "tag",
+      "w": 0.5,
+      "h": 0.16,
+      "popAt": 1.089
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.5,
+      4.4
+     ],
+     "to": [
+      0.51,
+      1.55,
+      3.8000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.35,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.3800000000000001,
+      0
+     ]
+    }
+   ],
+   "start": 30.6667,
+   "duration": 2.0666,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S21",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mecFlic",
+     "pos": [
+      0.4,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "heroPose",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "tw",
+     "name": "tumbleweed",
+     "pos": [
+      -6.0,
+      0.4,
+      -3.5
+     ],
+     "scale": 1.1,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.0,
+        0.4,
+        -3.5
+       ],
+       "dur": 1.467,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.8,
+      0.45,
+      3.4
+     ],
+     "to": [
+      0.76,
+      0.48,
+      3.15
+     ],
+     "lookAt": [
+      0.4,
+      1.6,
+      0
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      1.6500000000000001,
+      0
+     ]
+    }
+   ],
+   "start": 32.7333,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S22",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mecFlic",
+     "pos": [
+      -2.7,
+      0,
+      -2.72
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "chair",
+     "name": "officeChair",
+     "pos": [
+      -2.7,
+      0,
+      -2.8
+     ]
+    },
+    {
+     "id": "mug",
+     "name": "mug",
+     "pos": [
+      -2.35,
+      0.76,
+      -2.0
+     ]
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      -2.1500000000000004,
+      2.15,
+      -3.45
+     ],
+     "scale": 0.9,
+     "opts": {
+      "rate": 0,
+      "hours": 8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.05,
+      1.35,
+      0.9
+     ],
+     "to": [
+      -2.1,
+      1.35,
+      0.65
+     ],
+     "lookAt": [
+      -2.65,
+      1.05,
+      -2.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.65,
+      1.05,
+      -2.6
+     ]
+    }
+   ],
+   "start": 34.2,
+   "duration": 0.9667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S23",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ph",
+     "name": "phone911",
+     "pos": [
+      -2.8000000000000003,
+      0.79,
+      -1.78
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0.3
+     ],
+     "scale": 1.6,
+     "opts": {
+      "text": "17",
+      "sub": "APPEL"
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.18
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 0.26,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.42
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 0.42,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.18
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 0.58,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.42
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 0.74,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.18
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 0.9,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.42
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 1.06,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.18
+       ],
+       "dur": 0.08
+      },
+      {
+       "at": 1.22,
+       "rotTo": [
+        -1.5708,
+        0,
+        0.42
+       ],
+       "dur": 0.08
+      }
+     ],
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.8000000000000003,
+      1.6,
+      -1.7000000000000002
+     ],
+     "to": [
+      -2.8000000000000003,
+      1.5,
+      -1.7400000000000002
+     ],
+     "lookAt": [
+      -2.8000000000000003,
+      0.79,
+      -1.98
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      -2.8000000000000003,
+      0.79,
+      -1.98
+     ]
+    }
+   ],
+   "start": 35.1667,
+   "duration": 1.3666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S24",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "bay",
+     "name": "disabledSpot",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "opts": {
+      "sign": true
+     },
+     "ry": 90.0
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      3.9,
+      0,
+      -0.5
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      9.3,
+      3.4,
+      2.5
+     ],
+     "to": [
+      9.15,
+      3.3,
+      2.2
+     ],
+     "lookAt": [
+      4.3,
+      0.5,
+      -0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      4.3,
+      0.5,
+      -0.9
+     ]
+    }
+   ],
+   "start": 36.5333,
+   "duration": 2.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S25",
+   "set": "policeStation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mecFlic",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "phoneCall",
+     "keys": [
+      {
+       "at": 0.25,
+       "expr": "shocked"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ph",
+     "name": "phone911",
+     "on": {
+      "actor": "mecFlic",
+      "hand": "R"
+     },
+     "opts": {
+      "text": "17",
+      "sub": "POLICE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.75,
+      1.9
+     ],
+     "to": [
+      0.225,
+      1.75,
+      1.72
+     ],
+     "lookAt": [
+      0,
+      1.72,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.73,
+      0
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 38.8333,
+   "duration": 1.1334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S26",
+   "set": "brightCell",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      -0.95,
+      0,
+      -0.55
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -0.3,
+      0,
+      -0.7
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "flic3",
+     "pos": [
+      0.35,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "flic4",
+     "pos": [
+      0.98,
+      0,
+      -0.5
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "chef",
+     "pos": [
+      -0.62,
+      0,
+      0.35
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "flic5",
+     "pos": [
+      0.7,
+      0,
+      0.4
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mecFlic",
+     "pos": [
+      0.12,
+      0,
+      1.12
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "cuffs_mecFlic",
+     "name": "bigCuffs",
+     "on": {
+      "actor": "mecFlic",
+      "hand": "R"
+     },
+     "opts": {
+      "r": 0.062,
+      "thick": 0.2,
+      "color": "#D2D6DB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      1.78,
+      2.6
+     ],
+     "to": [
+      0.3,
+      1.6,
+      4.4
+     ],
+     "lookAt": [
+      0.12,
+      1.75,
+      1.0
+     ],
+     "lens": 46,
+     "ease": "inOut",
+     "lookAt2": [
+      0.05,
+      1.42,
+      0.3
+     ]
+    }
+   ],
+   "start": 39.9667,
+   "duration": 2.3333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 42.3
+}

@@ -1098,7 +1098,7 @@ const B = {
     for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; g.add(at(box(0.015, 0.05, 0.01, P.ink), Math.sin(a) * 0.23, Math.cos(a) * 0.23, 0.03, 0, 0, -a)); }
     const hh = grp(at(box(0.02, 0.15, 0.01, P.ink, { pivot: 'bottom' }), 0, 0, 0)), mh = grp(at(box(0.012, 0.22, 0.01, P.red, { pivot: 'bottom' }), 0, 0, 0));
     hh.position.z = 0.035; mh.position.z = 0.04; g.add(hh, mh);
-    const rate = o.rate ?? 1 / 60; g.userData.update = t => { mh.rotation.z = -t * rate * Math.PI * 2; hh.rotation.z = -t * rate * Math.PI * 2 / 12; };
+    const rate = o.rate ?? 1 / 60, H0 = o.hours ?? 0; g.userData.update = t => { const turns = H0 + t * rate; mh.rotation.z = -turns * Math.PI * 2; hh.rotation.z = -turns * Math.PI * 2 / 12; };   // o.hours: the time shown at t = 0 (8 = eight o'clock)
     return g; },
   calendar(o) { // page number flips with time: opts.rate pages/s from opts.start
     const g = grp(at(box(0.42, 0.5, 0.02, P.paper, { outline: 0.004 }), 0, 0, 0), at(box(0.42, 0.1, 0.025, P.red), 0, 0.2, 0.002));
