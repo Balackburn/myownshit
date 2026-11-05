@@ -900,7 +900,7 @@ const B = {
     }
     for (let i = 0; i < (o.ribbons || 0); i++) { // tan dust bands whipping round the top
       const yk = (o.ribbonY0 ?? 0.8) + r() * (o.ribbonDY ?? 0.22);
-      const R = o.ribbonFollow ? (rad(Math.min(N, yk * N)) * 1.08 + 0.12) * (1.0 + r() * 0.1) : (o.ribbonR || (rad(N) + 0.12)) * (1.02 + r() * 0.5), arc = o.ribbonArc ? o.ribbonArc * (0.8 + r() * 0.4) : 1.6 + r() * 2.6;
+      const R = o.ribbonFollow ? (rad(Math.min(N, yk * N)) * (o.ribbonGap ?? 1.08) + 0.08) * (1.0 + r() * 0.06) : (o.ribbonR || (rad(N) + 0.12)) * (1.02 + r() * 0.5), arc = o.ribbonArc ? o.ribbonArc * (0.8 + r() * 0.4) : 1.6 + r() * 2.6;
       const m = o.ribbonFlat ? mesh(new THREE.RingGeometry(R, R + 0.08 + r() * 0.1, 40, 1, 0, arc).rotateX(-PI / 2), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }))
         : mesh(new THREE.TorusGeometry(R, 0.035 + r() * 0.03, 3, 40, arc), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }));
       if (o.ribbonFlat) m.rotation.set((r() - 0.5) * 0.12, 0, (r() - 0.5) * 0.12); else { m.rotation.x = PI / 2 + (r() - 0.5) * (o.ribbonTilt ?? 0.25); m.scale.z = o.ribbonH || 3.5; }

@@ -6944,7 +6944,7 @@
      "id": "turbine",
      "name": "windTurbine",
      "pos": [
-      -21,
+      -15,
       0,
       -72
      ],
@@ -6958,9 +6958,9 @@
      "id": "tornado",
      "name": "tornado",
      "pos": [
-      2.5,
+      0.5,
       0,
-      -33
+      -38
      ],
      "scale": 3.1,
      "opts": {
@@ -6997,9 +6997,9 @@
      "id": "cuffs",
      "name": "bigCuffs",
      "pos": [
-      2.1,
+      0.1,
       20.0,
-      -28.5
+      -33.5
      ],
      "opts": {
       "r": 1.05
@@ -7009,9 +7009,9 @@
      "id": "rubble",
      "name": "rubble",
      "pos": [
-      2.5,
+      0.5,
       0,
-      -33
+      -38
      ],
      "opts": {
       "r": 3.2,
@@ -7226,29 +7226,30 @@
       "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.05,
+      "gap": 0.03,
       "band": 1.3,
       "spike": 0.0,
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#5E6962",
-       "#646F68",
-       "#5A655E",
-       "#68736C"
+       "#555F59",
+       "#5A645E",
+       "#525C56",
+       "#5E6862"
       ],
-      "paleColor": "#CFC4A8",
-      "stripe": "#B9B3A2",
-      "stripeDark": "#55615A",
-      "pale": 4,
-      "ribbons": 5,
+      "paleColor": "#C2C5B9",
+      "stripe": "#4E5852",
+      "stripeDark": "#4A544E",
+      "pale": null,
+      "ribbons": 4,
       "ribbonFollow": true,
-      "ribbonY0": 0.15,
-      "ribbonDY": 0.6,
-      "ribbonH": 5.5,
-      "ribbonArc": 4.4,
-      "ribbonTilt": 0.5,
-      "ribbonColor": "#CDC2A6",
+      "ribbonGap": 1.03,
+      "ribbonY0": 0.16,
+      "ribbonDY": 0.64,
+      "ribbonH": 7.5,
+      "ribbonArc": 4.8,
+      "ribbonTilt": 0.62,
+      "ribbonColor": "#CEC4A8",
       "ribbonSpeed": 3
      }
     },
@@ -7406,29 +7407,30 @@
       "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.05,
+      "gap": 0.03,
       "band": 1.3,
       "spike": 0.0,
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#5E6962",
-       "#646F68",
-       "#5A655E",
-       "#68736C"
+       "#555F59",
+       "#5A645E",
+       "#525C56",
+       "#5E6862"
       ],
-      "paleColor": "#CFC4A8",
-      "stripe": "#B9B3A2",
-      "stripeDark": "#55615A",
-      "pale": 4,
+      "paleColor": "#C2C5B9",
+      "stripe": "#4E5852",
+      "stripeDark": "#4A544E",
+      "pale": null,
       "ribbons": 0,
       "ribbonFollow": true,
-      "ribbonY0": 0.15,
-      "ribbonDY": 0.6,
-      "ribbonH": 5.5,
-      "ribbonArc": 4.4,
-      "ribbonTilt": 0.5,
-      "ribbonColor": "#CDC2A6",
+      "ribbonGap": 1.03,
+      "ribbonY0": 0.16,
+      "ribbonDY": 0.64,
+      "ribbonH": 7.5,
+      "ribbonArc": 4.8,
+      "ribbonTilt": 0.62,
+      "ribbonColor": "#CEC4A8",
       "ribbonSpeed": 3
      }
     },
@@ -7564,29 +7566,30 @@
       "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.05,
+      "gap": 0.03,
       "band": 1.3,
       "spike": 0.0,
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#5E6962",
-       "#646F68",
-       "#5A655E",
-       "#68736C"
+       "#555F59",
+       "#5A645E",
+       "#525C56",
+       "#5E6862"
       ],
-      "paleColor": "#CFC4A8",
-      "stripe": "#B9B3A2",
-      "stripeDark": "#55615A",
-      "pale": 4,
-      "ribbons": 5,
+      "paleColor": "#C2C5B9",
+      "stripe": "#4E5852",
+      "stripeDark": "#4A544E",
+      "pale": null,
+      "ribbons": 4,
       "ribbonFollow": true,
-      "ribbonY0": 0.15,
-      "ribbonDY": 0.6,
-      "ribbonH": 5.5,
-      "ribbonArc": 4.4,
-      "ribbonTilt": 0.5,
-      "ribbonColor": "#CDC2A6",
+      "ribbonGap": 1.03,
+      "ribbonY0": 0.16,
+      "ribbonDY": 0.64,
+      "ribbonH": 7.5,
+      "ribbonArc": 4.8,
+      "ribbonTilt": 0.62,
+      "ribbonColor": "#CEC4A8",
       "ribbonSpeed": 3
      }
     },
@@ -7707,12 +7710,12 @@
      "pos": [
       0.05,
       0,
-      -2.5
+      -2.25
      ],
      "opts": {
-      "w": 1.35,
-      "d": 1.6,
-      "h": 0.3
+      "w": 1.3,
+      "d": 1.5,
+      "h": 0.2
      }
     },
     {
@@ -7759,29 +7762,30 @@
       "crownSpike": 0.42,
       "chips": 40,
       "teeth": true,
-      "gap": 0.05,
+      "gap": 0.03,
       "band": 1.3,
       "spike": 0.0,
       "bands": false,
       "spinJitter": 0.35,
       "cols": [
-       "#5E6962",
-       "#646F68",
-       "#5A655E",
-       "#68736C"
+       "#555F59",
+       "#5A645E",
+       "#525C56",
+       "#5E6862"
       ],
-      "paleColor": "#CFC4A8",
-      "stripe": "#B9B3A2",
-      "stripeDark": "#55615A",
-      "pale": 4,
-      "ribbons": 5,
+      "paleColor": "#C2C5B9",
+      "stripe": "#4E5852",
+      "stripeDark": "#4A544E",
+      "pale": null,
+      "ribbons": 4,
       "ribbonFollow": true,
-      "ribbonY0": 0.15,
-      "ribbonDY": 0.6,
-      "ribbonH": 5.5,
-      "ribbonArc": 4.4,
-      "ribbonTilt": 0.5,
-      "ribbonColor": "#CDC2A6",
+      "ribbonGap": 1.03,
+      "ribbonY0": 0.16,
+      "ribbonDY": 0.64,
+      "ribbonH": 7.5,
+      "ribbonArc": 4.8,
+      "ribbonTilt": 0.62,
+      "ribbonColor": "#CEC4A8",
       "ribbonSpeed": 3
      }
     },

@@ -250,8 +250,9 @@ scenes.append(scene(14, 'S14', 'ruinedStreet', props=[
 HANDLE = '@outofthisworld_9'
 TORC = {**TOR, 'cols': ['#7C8A82', '#8C9A92', '#6E7C74', '#96A49C'], 'paleColor': '#E2DCCB', 'stripe': '#E4DECF'}      # lit by the courtroom
 TORS = {**TOR, 'cols': ['#5E6962', '#646F68', '#5A655E', '#68736C'], 'pale': 2, 'paleColor': '#C2C5B9', 'bands': False, 'chips': 40}          # S17/S18: strong light/dark stripes
-TORG = {**TORS, 'pale': 4, 'paleColor': '#CFC4A8', 'ribbons': 5, 'ribbonFollow': True, 'ribbonY0': 0.15, 'ribbonDY': 0.6, 'ribbonH': 5.5, 'ribbonArc': 4.4,
-        'ribbonTilt': 0.5, 'ribbonColor': '#CDC2A6', 'ribbonSpeed': 3}                                                                   # S19-S21: pale spiral bands
+TORG = {**TORS, 'cols': ['#555F59', '#5A645E', '#525C56', '#5E6862'], 'pale': None, 'bands': False, 'gap': 0.03, 'ribbons': 4, 'ribbonFollow': True, 'ribbonGap': 1.03,
+        'ribbonY0': 0.16, 'ribbonDY': 0.64, 'ribbonH': 7.5, 'ribbonArc': 4.8, 'ribbonTilt': 0.62, 'ribbonColor': '#CEC4A8', 'ribbonSpeed': 3,
+        'stripe': '#4E5852', 'stripeDark': '#4A544E'}   # S19-S21: dark body, thin pale spiral bands
 
 # S15 19.47-20.23: the tornado in the dock, giant white handcuffs; the judge tiny at the bench behind; slow push-in
 scenes.append(scene(15, 'S15', 'replicaCourt', setOpts={'handle': HANDLE},
@@ -272,10 +273,10 @@ scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windo
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine
 scenes.append(scene(17, 'S17', 'grassland', props=[
-    P('turbine', 'windTurbine', pos=[-21, 0, -72], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
-    P('tornado', 'tornado', pos=[2.5, 0, -33], scale=3.1, opts={**TORS, 'spin': 1.8}),
-    P('cuffs', 'bigCuffs', pos=[2.1, 20.0, -28.5], opts={'r': 1.05}),
-    P('rubble', 'rubble', pos=[2.5, 0, -33], opts={'r': 3.2, 'n': 18, 'size': 0.8}),
+    P('turbine', 'windTurbine', pos=[-15, 0, -72], opts={'h': 60, 'rpm': 13, 'label': HANDLE}),
+    P('tornado', 'tornado', pos=[0.5, 0, -38], scale=3.1, opts={**TORS, 'spin': 1.8}),
+    P('cuffs', 'bigCuffs', pos=[0.1, 20.0, -33.5], opts={'r': 1.05}),
+    P('rubble', 'rubble', pos=[0.5, 0, -38], opts={'r': 3.2, 'n': 18, 'size': 0.8}),
     P('grass', 'tallGrass', pos=[0, 0, 4], opts={'w': 26, 'd': 10, 'h': 0.5, 'count': 260, 'seed': 4})],
     cams=[cam(0.0, [0, 1.2, 12], [0, 1.25, 11.4], [-2, 14, -40], [-2, 15.8, -40], lens=52)]))
 
@@ -322,7 +323,7 @@ scenes.append(scene(21, 'S21', 'grassland',
 # handcuffed tornado and the turbine far behind
 scenes.append(scene(22, 'S22', 'grassland', props=[
     P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#C0711E', 'dogMuzzle': '#4A2816'}),
-    P('mound', 'dirtMound', pos=[0.05, 0, -2.5], opts={'w': 1.35, 'd': 1.6, 'h': 0.3}),
+    P('mound', 'dirtMound', pos=[0.05, 0, -2.25], opts={'w': 1.3, 'd': 1.5, 'h': 0.2}),
     P('flowers', 'flowers', pos=[0.42, 0.25, -3.18], scale=1.4),
     P('turbine', 'windTurbine', pos=[-46, 0, -190], opts={'h': 60, 'rpm': 13}),
     P('tornado', 'tornado', pos=[-34, 0, -150], scale=3.0, opts=TORG),
