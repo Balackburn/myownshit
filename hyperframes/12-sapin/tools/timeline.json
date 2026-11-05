@@ -1,0 +1,920 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a acheté un sapin trop grand.",
+   "hl": [
+    "mec",
+    "sapin",
+    "grand."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.005,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "acheté",
+     "s": 0.633,
+     "e": 0.862
+    },
+    {
+     "w": "un",
+     "s": 0.9,
+     "e": 0.938
+    },
+    {
+     "w": "sapin",
+     "s": 1.014,
+     "e": 1.319
+    },
+    {
+     "w": "trop",
+     "s": 1.357,
+     "e": 1.548
+    },
+    {
+     "w": "grand.",
+     "s": 1.7,
+     "e": 2.005
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a percé le plafond.",
+   "hl": [
+    "plafond."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L02.k.wav",
+   "file_start": 2.105,
+   "speech_start": 2.105,
+   "speech_end": 3.4,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.105,
+     "e": 2.181
+    },
+    {
+     "w": "a",
+     "s": 2.257,
+     "e": 2.333
+    },
+    {
+     "w": "percé",
+     "s": 2.448,
+     "e": 2.638
+    },
+    {
+     "w": "le",
+     "s": 2.676,
+     "e": 2.714
+    },
+    {
+     "w": "plafond.",
+     "s": 2.752,
+     "e": 3.4
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Puis le toit.",
+   "hl": [
+    "toit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L03.k.wav",
+   "file_start": 3.5,
+   "speech_start": 3.5,
+   "speech_end": 4.49,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 3.5,
+     "e": 3.729
+    },
+    {
+     "w": "le",
+     "s": 3.805,
+     "e": 3.881
+    },
+    {
+     "w": "toit.",
+     "s": 3.957,
+     "e": 4.49
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Puis les nuages.",
+   "hl": [
+    "nuages."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L04.k.wav",
+   "file_start": 4.59,
+   "speech_start": 4.59,
+   "speech_end": 5.657,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 4.59,
+     "e": 4.743
+    },
+    {
+     "w": "les",
+     "s": 4.819,
+     "e": 4.895
+    },
+    {
+     "w": "nuages.",
+     "s": 4.971,
+     "e": 5.657
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La mairie a exigé un permis de construire.",
+   "hl": [
+    "mairie",
+    "permis"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L05.k.wav",
+   "file_start": 5.757,
+   "speech_start": 5.757,
+   "speech_end": 8.043,
+   "words": [
+    {
+     "w": "La",
+     "s": 5.757,
+     "e": 5.833
+    },
+    {
+     "w": "mairie",
+     "s": 5.91,
+     "e": 6.214
+    },
+    {
+     "w": "a",
+     "s": 6.29,
+     "e": 6.367
+    },
+    {
+     "w": "exigé",
+     "s": 6.481,
+     "e": 6.748
+    },
+    {
+     "w": "un",
+     "s": 6.824,
+     "e": 6.9
+    },
+    {
+     "w": "permis",
+     "s": 6.976,
+     "e": 7.129
+    },
+    {
+     "w": "de",
+     "s": 7.167,
+     "e": 7.205
+    },
+    {
+     "w": "construire.",
+     "s": 7.281,
+     "e": 8.043
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le sapin a été classé immeuble.",
+   "hl": [
+    "immeuble."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L06.k.wav",
+   "file_start": 8.143,
+   "speech_start": 8.143,
+   "speech_end": 10.2,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.143,
+     "e": 8.219
+    },
+    {
+     "w": "sapin",
+     "s": 8.295,
+     "e": 8.676
+    },
+    {
+     "w": "a",
+     "s": 8.752,
+     "e": 8.79
+    },
+    {
+     "w": "été",
+     "s": 8.829,
+     "e": 8.981
+    },
+    {
+     "w": "classé",
+     "s": 9.133,
+     "e": 9.438
+    },
+    {
+     "w": "immeuble.",
+     "s": 9.514,
+     "e": 10.2
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Des gens ont loué les branches.",
+   "hl": [
+    "loué",
+    "branches."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L07.k.wav",
+   "file_start": 10.3,
+   "speech_start": 10.3,
+   "speech_end": 11.9,
+   "words": [
+    {
+     "w": "Des",
+     "s": 10.3,
+     "e": 10.452
+    },
+    {
+     "w": "gens",
+     "s": 10.529,
+     "e": 10.681
+    },
+    {
+     "w": "ont",
+     "s": 10.757,
+     "e": 10.833
+    },
+    {
+     "w": "loué",
+     "s": 10.871,
+     "e": 11.062
+    },
+    {
+     "w": "les",
+     "s": 11.138,
+     "e": 11.214
+    },
+    {
+     "w": "branches.",
+     "s": 11.443,
+     "e": 11.9
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Trois pièces, vue sur la guirlande.",
+   "hl": [
+    "guirlande."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L08.k.wav",
+   "file_start": 12.0,
+   "speech_start": 12.0,
+   "speech_end": 13.981,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 12.0,
+     "e": 12.152
+    },
+    {
+     "w": "pièces,",
+     "s": 12.229,
+     "e": 12.838
+    },
+    {
+     "w": "vue",
+     "s": 12.914,
+     "e": 12.99
+    },
+    {
+     "w": "sur",
+     "s": 13.067,
+     "e": 13.143
+    },
+    {
+     "w": "la",
+     "s": 13.181,
+     "e": 13.219
+    },
+    {
+     "w": "guirlande.",
+     "s": 13.295,
+     "e": 13.981
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "L'étoile est devenue un penthouse.",
+   "hl": [
+    "L'étoile",
+    "penthouse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L09.k.wav",
+   "file_start": 14.081,
+   "speech_start": 14.081,
+   "speech_end": 15.833,
+   "words": [
+    {
+     "w": "L'étoile",
+     "s": 14.081,
+     "e": 14.462
+    },
+    {
+     "w": "est",
+     "s": 14.5,
+     "e": 14.538
+    },
+    {
+     "w": "devenue",
+     "s": 14.614,
+     "e": 14.843
+    },
+    {
+     "w": "un",
+     "s": 14.919,
+     "e": 14.995
+    },
+    {
+     "w": "penthouse.",
+     "s": 15.11,
+     "e": 15.833
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le mec est devenu milliardaire.",
+   "hl": [
+    "milliardaire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L10.k.wav",
+   "file_start": 15.933,
+   "speech_start": 15.933,
+   "speech_end": 17.61,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.933,
+     "e": 16.01
+    },
+    {
+     "w": "mec",
+     "s": 16.086,
+     "e": 16.238
+    },
+    {
+     "w": "est",
+     "s": 16.276,
+     "e": 16.314
+    },
+    {
+     "w": "devenu",
+     "s": 16.39,
+     "e": 16.619
+    },
+    {
+     "w": "milliardaire.",
+     "s": 16.695,
+     "e": 17.61
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le sept janvier, il a voulu jeter le sapin.",
+   "hl": [
+    "jeter"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L11.k.wav",
+   "file_start": 17.71,
+   "speech_start": 17.71,
+   "speech_end": 20.071,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.71,
+     "e": 17.786
+    },
+    {
+     "w": "sept",
+     "s": 17.862,
+     "e": 18.014
+    },
+    {
+     "w": "janvier,",
+     "s": 18.09,
+     "e": 18.662
+    },
+    {
+     "w": "il",
+     "s": 18.7,
+     "e": 18.738
+    },
+    {
+     "w": "a",
+     "s": 18.776,
+     "e": 18.852
+    },
+    {
+     "w": "voulu",
+     "s": 18.878,
+     "e": 19.081
+    },
+    {
+     "w": "jeter",
+     "s": 19.157,
+     "e": 19.31
+    },
+    {
+     "w": "le",
+     "s": 19.348,
+     "e": 19.386
+    },
+    {
+     "w": "sapin.",
+     "s": 19.5,
+     "e": 20.071
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Les locataires ont manifesté.",
+   "hl": [
+    "locataires",
+    "manifesté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L12.k.wav",
+   "file_start": 20.171,
+   "speech_start": 20.171,
+   "speech_end": 21.695,
+   "words": [
+    {
+     "w": "Les",
+     "s": 20.171,
+     "e": 20.248
+    },
+    {
+     "w": "locataires",
+     "s": 20.362,
+     "e": 20.705
+    },
+    {
+     "w": "ont",
+     "s": 20.743,
+     "e": 20.781
+    },
+    {
+     "w": "manifesté.",
+     "s": 21.048,
+     "e": 21.695
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "C",
+   "text": "« On ne jette pas les gens avec le sapin ! »",
+   "hl": [
+    "jette",
+    "sapin"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L13.k.wav",
+   "file_start": 21.755,
+   "speech_start": 21.755,
+   "speech_end": 23.812,
+   "words": [
+    {
+     "w": "On",
+     "s": 21.755,
+     "e": 21.831
+    },
+    {
+     "w": "ne",
+     "s": 21.908,
+     "e": 21.984
+    },
+    {
+     "w": "jette",
+     "s": 22.06,
+     "e": 22.212
+    },
+    {
+     "w": "pas",
+     "s": 22.289,
+     "e": 22.365
+    },
+    {
+     "w": "les",
+     "s": 22.441,
+     "e": 22.517
+    },
+    {
+     "w": "gens",
+     "s": 22.593,
+     "e": 22.746
+    },
+    {
+     "w": "avec",
+     "s": 22.86,
+     "e": 22.974
+    },
+    {
+     "w": "le",
+     "s": 23.012,
+     "e": 23.05
+    },
+    {
+     "w": "sapin",
+     "s": 23.127,
+     "e": 23.736
+    },
+    {
+     "w": "!",
+     "s": 23.774,
+     "e": 23.812
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le préfet a interdit de perdre ses aiguilles.",
+   "hl": [
+    "préfet",
+    "aiguilles."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L14.k.wav",
+   "file_start": 23.912,
+   "speech_start": 23.912,
+   "speech_end": 26.28,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.912,
+     "e": 23.989
+    },
+    {
+     "w": "préfet",
+     "s": 24.065,
+     "e": 24.446
+    },
+    {
+     "w": "a",
+     "s": 24.522,
+     "e": 24.598
+    },
+    {
+     "w": "interdit",
+     "s": 24.75,
+     "e": 24.979
+    },
+    {
+     "w": "de",
+     "s": 25.055,
+     "e": 25.131
+    },
+    {
+     "w": "perdre",
+     "s": 25.208,
+     "e": 25.436
+    },
+    {
+     "w": "ses",
+     "s": 25.512,
+     "e": 25.589
+    },
+    {
+     "w": "aiguilles.",
+     "s": 25.639,
+     "e": 26.274
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le sapin les a perdues quand même.",
+   "hl": [
+    "perdues"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L15.k.wav",
+   "file_start": 26.38,
+   "speech_start": 26.38,
+   "speech_end": 28.057,
+   "words": [
+    {
+     "w": "Le",
+     "s": 26.38,
+     "e": 26.457
+    },
+    {
+     "w": "sapin",
+     "s": 26.533,
+     "e": 26.838
+    },
+    {
+     "w": "les",
+     "s": 26.914,
+     "e": 26.99
+    },
+    {
+     "w": "a",
+     "s": 27.028,
+     "e": 27.066
+    },
+    {
+     "w": "perdues",
+     "s": 27.142,
+     "e": 27.371
+    },
+    {
+     "w": "quand",
+     "s": 27.421,
+     "e": 27.523
+    },
+    {
+     "w": "même.",
+     "s": 27.638,
+     "e": 28.057
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Expulsion générale.",
+   "hl": [
+    "Expulsion"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L16.k.wav",
+   "file_start": 28.157,
+   "speech_start": 28.157,
+   "speech_end": 29.604,
+   "words": [
+    {
+     "w": "Expulsion",
+     "s": 28.157,
+     "e": 28.766
+    },
+    {
+     "w": "générale.",
+     "s": 28.842,
+     "e": 29.604
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Les locataires ont squatté le père Noël.",
+   "hl": [
+    "squatté",
+    "Noël."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L17.k.wav",
+   "file_start": 29.704,
+   "speech_start": 29.704,
+   "speech_end": 31.761,
+   "words": [
+    {
+     "w": "Les",
+     "s": 29.704,
+     "e": 29.78
+    },
+    {
+     "w": "locataires",
+     "s": 29.895,
+     "e": 30.314
+    },
+    {
+     "w": "ont",
+     "s": 30.39,
+     "e": 30.466
+    },
+    {
+     "w": "squatté",
+     "s": 30.542,
+     "e": 30.809
+    },
+    {
+     "w": "le",
+     "s": 30.847,
+     "e": 30.923
+    },
+    {
+     "w": "père",
+     "s": 30.961,
+     "e": 31.076
+    },
+    {
+     "w": "Noël.",
+     "s": 31.152,
+     "e": 31.761
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le père Noël a porté plainte.",
+   "hl": [
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L18.k.wav",
+   "file_start": 31.861,
+   "speech_start": 31.861,
+   "speech_end": 33.538,
+   "words": [
+    {
+     "w": "Le",
+     "s": 31.861,
+     "e": 31.938
+    },
+    {
+     "w": "père",
+     "s": 32.014,
+     "e": 32.166
+    },
+    {
+     "w": "Noël",
+     "s": 32.242,
+     "e": 32.471
+    },
+    {
+     "w": "a",
+     "s": 32.509,
+     "e": 32.547
+    },
+    {
+     "w": "porté",
+     "s": 32.661,
+     "e": 32.852
+    },
+    {
+     "w": "plainte.",
+     "s": 33.004,
+     "e": 33.538
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Le sapin a été condamné.",
+   "hl": [
+    "condamné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L19.k.wav",
+   "file_start": 33.638,
+   "speech_start": 33.638,
+   "speech_end": 35.314,
+   "words": [
+    {
+     "w": "Le",
+     "s": 33.638,
+     "e": 33.714
+    },
+    {
+     "w": "sapin",
+     "s": 33.866,
+     "e": 34.247
+    },
+    {
+     "w": "a",
+     "s": 34.285,
+     "e": 34.323
+    },
+    {
+     "w": "été",
+     "s": 34.438,
+     "e": 34.552
+    },
+    {
+     "w": "condamné.",
+     "s": 34.666,
+     "e": 35.314
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Travaux d'intérêt général.",
+   "hl": [
+    "intérêt",
+    "général."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L20.k.wav",
+   "file_start": 35.414,
+   "speech_start": 35.414,
+   "speech_end": 36.861,
+   "words": [
+    {
+     "w": "Travaux",
+     "s": 35.414,
+     "e": 35.718
+    },
+    {
+     "w": "d'intérêt",
+     "s": 35.757,
+     "e": 36.099
+    },
+    {
+     "w": "général.",
+     "s": 36.176,
+     "e": 36.861
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Il fait sentir bon les commissariats.",
+   "hl": [
+    "sentir",
+    "commissariats."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sapin/tts/L21.k.wav",
+   "file_start": 37.021,
+   "speech_start": 37.021,
+   "speech_end": 39.002,
+   "words": [
+    {
+     "w": "Il",
+     "s": 37.021,
+     "e": 37.098
+    },
+    {
+     "w": "fait",
+     "s": 37.174,
+     "e": 37.326
+    },
+    {
+     "w": "sentir",
+     "s": 37.44,
+     "e": 37.707
+    },
+    {
+     "w": "bon",
+     "s": 37.783,
+     "e": 37.936
+    },
+    {
+     "w": "les",
+     "s": 38.012,
+     "e": 38.088
+    },
+    {
+     "w": "commissariats.",
+     "s": 38.126,
+     "e": 39.002
+    }
+   ]
+  }
+ ],
+ "total": 39.84
+}
