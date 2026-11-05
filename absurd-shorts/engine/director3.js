@@ -112,6 +112,7 @@ function setupScene(si, analyzing = false) {
   try { set = Sets.buildSet(sc.set || 'whiteVoid', sc.setOpts || {}); } catch (e) { warn(`set ${sc.set} failed: ${e.message}`); set = Sets.buildSet('whiteVoid', {}); }
   S.root.add(set); S.set = set; S.staticBoxes = null;
   S.lights = setLighting(scene, sc.lighting || set.userData.lighting || 'day');
+  atmosphere(sc, set);
   S.lightBase = { hemi: S.lights.hemi.intensity, key: S.lights.key.intensity, bg: scene.background.clone() };
   S.skyDome = null; set.traverse(o => { if (!S.skyDome && o.isMesh && o.renderOrder === -10 && o.material?.side === THREE.BackSide) S.skyDome = o; });   // exterior sets: tint the dome at night
   const anchors = set.userData.anchors || {};
@@ -164,6 +165,26 @@ function setupScene(si, analyzing = false) {
   S.cams.forEach((c, i) => { c.t1 = i + 1 < S.cams.length ? S.cams[i + 1].t0 : sc.duration; });
   S.cams.forEach(c => { c.sol = solveCam(c, sc); });
   if (analyzing) collectEvents(sc);
+}
+
+// Per-scene atmosphere (scene keys override the set's userData): light tweaks {hemi, sky, ground, keyI, key, dir, bg}, linear fog
+// {color, near, far}, camera clip planes near/far (aerial shots see kilometres), a shadow box {size, center} for wide exteriors,
+// and objects flagged userData.followCam (a sky dome that stays centred on the camera, so the horizon is always at eye level).
+function atmosphere(sc, set) {
+  const { scene, camera } = S.stage, U = set.userData, L = S.lights;
+  const l = { ...(U.light || {}), ...(sc.light || {}) };
+  if (l.hemi != null) L.hemi.intensity = l.hemi; if (l.sky) L.hemi.color.set(l.sky); if (l.ground) L.hemi.groundColor.set(l.ground);
+  if (l.keyI != null) L.key.intensity = l.keyI; if (l.key) L.key.color.set(l.key); if (l.dir) L.key.position.set(...l.dir); if (l.bg) scene.background = new THREE.Color(l.bg);
+  const fog = sc.fog ?? U.fog; scene.fog = fog ? new THREE.Fog(fog.color, fog.near, fog.far) : null;
+  camera.near = sc.near ?? U.near ?? 0.05; camera.far = sc.far ?? U.far ?? 400; camera.updateProjectionMatrix();
+  const sh = sc.shadow ?? U.shadow;
+  if (sh) {
+    const c = V(...(sh.center || [0, 0, 0])), d = L.key.position.clone().normalize(), size = sh.size || 40, cam = L.key.shadow.camera;
+    L.key.target.position.copy(c); L.key.position.copy(c).add(d.multiplyScalar(size * 2));
+    cam.left = cam.bottom = -size; cam.right = cam.top = size; cam.near = 1; cam.far = size * 4.5; cam.updateProjectionMatrix();
+    L.key.shadow.bias = sh.bias ?? -0.0008;
+  }
+  S.follow = []; set.traverse(o => { if (o.userData.followCam) S.follow.push(o); });
 }
 
 function attachStatic(obj, spec) {
@@ -777,6 +798,7 @@ export function renderFrame(tAbs) {
   evalAll(lt);
   lightCycle(lt);
   placeCamera(lt);
+  for (const o of S.follow || []) o.position.copy(S.stage.camera.position);
   const { renderer, scene, camera } = S.stage;
   renderer.render(scene, camera);
   const g = S.ctx;

@@ -7,6 +7,7 @@
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, rng } from './style.js';
 import { buildProp, grp, at, rod, label, canvasPlane, glow, glassMat, inst, mesh, torus } from './props.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const SKY_DAY = ['#8CAFBD', '#D6E1DA'], SKY_NIGHT = ['#111A2A', '#2C3B57'];
@@ -128,6 +129,33 @@ function shelf(len, seed, levels = 4) {
 }
 function windowsGrid(g, list, lit, dark) { if (list.lit.length) g.add(inst(new THREE.BoxGeometry(0.7, 0.9, 0.06), lit, list.lit)); if (list.dark.length) g.add(inst(new THREE.BoxGeometry(0.7, 0.9, 0.06), dark, list.dark)); }
 
+// Sky dome centred on the camera every frame (userData.followCam): the horizon stays at eye level at any altitude, and it writes no
+// depth, so terrain kilometres away still draws over it. R must stay below the camera's far plane.
+function skyFollow(g, [top, bottom], R = 3000, below) {
+  const geo = new THREE.IcosahedronGeometry(R, 3), c = new THREE.Color(), ct = new THREE.Color(top), cb = new THREE.Color(bottom), cl = new THREE.Color(below || bottom), pos = geo.attributes.position, col = [];
+  for (let i = 0; i < pos.count; i++) { const y = pos.getY(i) / R; if (y < 0) c.copy(cb).lerp(cl, Math.min(1, -y * 4)); else c.lerpColors(cb, ct, Math.pow(Math.min(1, y * 1.4), 0.6)); col.push(c.r, c.g, c.b); }
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide, fog: false, depthWrite: false }));
+  m.renderOrder = -10; m.userData.followCam = true; m.castShadow = m.receiveShadow = false; g.add(m); return m;
+}
+// Merge a static group into one mesh per material (world transforms baked): hundreds of houses in a handful of draw calls.
+function mergeStatic(root) {
+  root.updateMatrixWorld(true);
+  const groups = new Map();
+  root.traverse(n => {
+    if (!n.isMesh || n.isInstancedMesh || !n.geometry || Array.isArray(n.material)) return;
+    let geo = n.geometry.index ? n.geometry.toNonIndexed() : n.geometry.clone(); geo.applyMatrix4(n.matrixWorld);
+    for (const k of Object.keys(geo.attributes)) if (!['position', 'normal', 'uv'].includes(k)) geo.deleteAttribute(k);
+    if (!geo.attributes.normal) geo.computeVertexNormals();
+    if (!geo.attributes.uv) geo.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count * 2), 2));
+    geo.morphAttributes = {};
+    const key = n.material.uuid + (n.castShadow ? 'c' : '');
+    if (!groups.has(key)) groups.set(key, { m: n.material, geos: [], cast: n.castShadow }); groups.get(key).geos.push(geo);
+  });
+  const out = new THREE.Group();
+  for (const { m, geos, cast } of groups.values()) { const merged = mergeGeometries(geos, false); if (!merged) continue; const mm = new THREE.Mesh(merged, m); mm.castShadow = cast; mm.receiveShadow = true; out.add(mm); }
+  return out;
+}
 /* ------------------------------------------------------------------ sets */
 const S = {
   office(o = {}) { // o.door === false: no door (a scene prop door replaces it); o.printer === false: free the right corner
@@ -260,6 +288,116 @@ const S = {
     for (let i = 0; i < 14; i++) { const a = i / 14 * TAU, d = 130 + r() * 30, m = sphere(1, hc[i % 3], 1); m.scale.set(30, 8 * (0.6 + r() * 0.6), 16); m.position.set(Math.cos(a) * d, -1, Math.sin(a) * d); m.castShadow = false; g.add(m); }
     g.add(at(box(14, 6, 10, '#B8BEC4', { pivot: 'bottom' }), -40, 0, -60), at(box(9, 4, 8, '#A8AEB4', { pivot: 'bottom' }), -55, 0, -45));      // hangars
     g.userData.anchors = { center: [0, 0, 0] }; g.userData.lighting = 'day'; return g;
+  },
+  // --- "tornado" replica, act 2 -----------------------------------------------------------------------------------
+  skyHigh(o = {}) { // above the clouds: blue sky centred on the camera and a deck of cumulus tops at y = 0
+    const g = grp(); skyFollow(g, o.sky || ['#5AA8DE', '#9ACDEB'], 3000, o.below || '#DCE5EA');
+    g.add(prop('cloudLayer', { w: o.w || 1400, d: o.d || 1400, n: o.n || 420, h: o.h || 36, seed: o.seed || 5 }, o.cx || 0, 0, o.cz || 0));
+    Object.assign(g.userData, { lighting: 'aerial', near: 0.5, far: 5000, fog: o.fog === false ? null : { color: o.fogColor || '#BFDCEF', near: o.fogNear || 500, far: o.fogFar || 2200 }, anchors: { center: [0, 0, 0] } });
+    return g;
+  },
+  aerialSuburb(o = {}) { // the strike seen from ~150 m: an endless grid of small gabled houses (instanced), lawns, streets, round trees, haze
+    const g = grp(), r = rng(o.seed || 13);
+    skyFollow(g, o.sky || ['#6BB4E3', '#BFDCEB'], 3000, o.haze || '#C3D5D2');
+    g.add(flat(9000, 9000, o.lawn || '#8EC07A', 0, 0, 0));
+    const X = o.x || 720, Z0 = o.z0 ?? -2300, Z1 = o.z1 ?? 500, hx = o.pitch || 14, pair = o.pair || 50, blockN = o.block || 7;
+    const walls = [], wallC = [], roofs = [], roofC = [], trees = [], treeC = [], roads = [], wins = [];
+    const WC = o.walls || ['#F4F1EA', '#EFE2C4', '#F0C6CF', '#EDCF7A', '#C3B2DE', '#A9C7E8', '#F2F0EA', '#E6D8C2', '#E8B9A8'];
+    const RC = o.roofs || ['#D9675C', '#E58A84', '#5E83C6', '#A0604E', '#D9675C', '#7A8FB8', '#C85A50', '#8C5446', '#6F8AC8'];
+    const TC = ['#3F7A45', '#4E8A4A', '#5A9450', '#3A6E44'];
+    for (let z = Z0; z < Z1; z += pair) {
+      roads.push([0, 0.03, z + 12.5, 0, 0, 0, 2 * X, 0.06, 7]);
+      for (let x = -X; x < X; x += hx) {
+        if (Math.floor((x + X) / hx) % (blockN + 1) === blockN) continue;
+        for (const [dz, face] of [[0, 1], [-21, -1]]) {
+          if (r() < 0.04) continue;
+          const w = 8 + r() * 1.6, d = 7 + r() * 1.2, h = 3.3 + r() * 0.7, cx = x + (r() - 0.5) * 1.2, cz = z + dz + (r() - 0.5) * 0.8;
+          walls.push([cx, 0, cz, 0, 0, 0, w, h, d]); wallC.push(WC[Math.floor(r() * WC.length)]);
+          roofs.push([cx, h - 0.05, cz, 0, 0, 0, w + 0.9, 2.5 + r() * 0.7, d + 1.2]); roofC.push(RC[Math.floor(r() * RC.length)]);
+          wins.push([cx - w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3, 1.2, 0.1], [cx + w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3, 1.2, 0.1]);
+          if (r() < 0.6) { const s = 2.2 + r() * 1.6; trees.push([cx + (r() - 0.5) * 12, s * 0.9, cz + face * (5.5 + r() * 3.5), r() * 3, r() * 3, r() * 3, s, s * 0.95, s]); treeC.push(TC[Math.floor(r() * 4)]); }
+        }
+      }
+    }
+    for (let x = -X; x < X; x += hx * (blockN + 1)) roads.push([x + hx * blockN, 0.035, (Z0 + Z1) / 2, 0, 0, 0, 7, 0.06, Z1 - Z0]);
+    const roofGeo = (() => { const s = new THREE.Shape([new THREE.Vector2(-0.5, 0), new THREE.Vector2(0.5, 0), new THREE.Vector2(0, 1)]); const geo = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false }); geo.translate(0, 0, -0.5); geo.rotateY(PI / 2); return geo; })();
+    const unitBox = new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0), white = mat('#FFFFFF');
+    g.add(inst(unitBox, white, walls, wallC), inst(roofGeo, white, roofs, roofC), inst(new THREE.BoxGeometry(1, 1, 1), mat(o.road || '#A7A6A6'), roads), inst(new THREE.BoxGeometry(1, 1, 1), mat('#3E5872'), wins));
+    g.add(inst(new THREE.IcosahedronGeometry(1, 0), white, trees, treeC));
+    g.children.forEach(c => { if (c.isInstancedMesh) c.frustumCulled = false; });
+    Object.assign(g.userData, { lighting: 'aerial', near: 1, far: 5000, fog: { color: o.haze || '#C3D5D2', near: o.fogNear || 90, far: o.fogFar || 1050 }, anchors: { center: [0, 0, 0] } });
+    return g;
+  },
+  cottageStreet(o = {}) { // S11: street-level view across a road at single-storey pastel cottages behind a picket fence (road along X)
+    const g = grp(), r = rng(o.seed || 17);
+    sky(g, o.sky || ['#86C0DF', '#C6E3EF']); clouds(g, 6, 8);
+    g.add(ground(o.lawn || '#8DBB5E'), flat(400, 9, o.roadColor || '#7E828C', 0, 0.004, 4.5), flat(400, 2.6, '#EEDDBD', 0, 0.12, -1.3), flat(400, 3, '#EEDDBD', 0, 0.12, 10.5));
+    g.add(at(box(400, 0.16, 0.22, '#D7C9AC'), 0, 0.04, 0), at(box(400, 0.16, 0.22, '#D7C9AC'), 0, 0.04, 9));
+    const fz = -2.9; g.add(prop('fence', { length: 400, height: 1.05, color: '#F6F4EE', rail: '#F6F4EE' }, 0, 0, fz));
+    const spec = o.houses || [
+      { x: -7.2, color: '#F4F2EC', roof: '#C9473A', eaves: true, door: '#2F7F8C', shutters: '#E3B33A', porchRoof: '#C9473A' },
+      { x: 1.6, color: '#B8A6D9', roof: '#6A3A30', door: '#B5302A' },
+      { x: 9.6, color: '#E8A08A', roof: '#3E4A5E', door: '#2F5E8C' },
+      { x: -15.4, color: '#F0C6CF', roof: '#5E83C6', eaves: true, porchRoof: '#5E83C6' },
+      { x: 17.6, color: '#EDCF7A', roof: '#B5402F' }, { x: -23.6, color: '#A9C7E8', roof: '#B5402F' }, { x: 25.6, color: '#F4F2EC', roof: '#3E4A5E', eaves: true }];
+    spec.forEach(h => { g.add(prop('cottage', { w: 6.8, d: 8, h: 2.6, rh: 1.5, ...h }, h.x, 0, o.houseZ ?? -9.2)); });
+    for (let i = 0; i < 14; i++) g.add(prop('tree', { seed: i + 5 }, -60 + i * 9 + r() * 3, 0, -17 - r() * 6, 0, 1.4 + r() * 0.6));
+    [-3.4, 5.6, 13.5, -11.2].forEach((x, i) => g.add(prop('bush', { seed: i + 3 }, x, 0, fz - 0.9, 0, 0.9)));
+    g.add(prop('mailbox', {}, -9.6, 0, fz + 0.4));
+    const hc = ['#9DB48A', '#8FA87E', '#A9BC96'];
+    for (let i = 0; i < 12; i++) { const a = PI + 0.15 + i / 11 * (PI - 0.3), d = 120 + r() * 25, m = sphere(1, hc[i % 3], 1); m.scale.set(30, 9 * (0.6 + r() * 0.6), 16); m.position.set(Math.cos(a) * d, -1, Math.sin(a) * d); m.castShadow = false; g.add(m); }
+    Object.assign(g.userData, { lighting: 'day', anchors: { center: [0, 0, 0], road: [0, 0, 4.5] } });
+    return g;
+  },
+  cottageRows(o = {}) { // S12/S13: rows of pastel cottages facing +Z with front paths and flower beds, a field and green hills behind;
+    // o.burnt: the same streets as charred shells under a grey sky (fires and smoke are scene props: flameField / smokeField)
+    const g = grp(), r = rng(o.seed || 19), B = !!o.burnt;
+    skyFollow(g, o.sky || (B ? ['#8E8073', '#B5A898'] : ['#9FD0E6', '#D3EAF0']), 3000, B ? '#7A6E64' : '#C9E0E6');
+    g.add(flat(9000, 9000, o.field || (B ? '#4D4640' : '#97BE63'), 0, 0, 0));
+    const rows = o.rows || 10, perRow = o.perRow || 15, px = o.pitch || 10.5, pz = o.rowPitch || 23, houses = grp();
+    const WC = ['#F4EED8', '#EFC7C7', '#B9DDB0', '#F2D58A', '#F2B49A', '#C9DDF0', '#F4F2EC', '#E6CDE6'], RC = ['#B5402F', '#6A3A30', '#4E5E7E', '#B5402F', '#7A3A2A', '#5E83C6'];
+    for (let j = 0; j < rows; j++) {
+      const z = -j * pz;
+      houses.add(at(box(perRow * px + 40, 0.05, 1.6, B ? '#6B645E' : '#E8E6E0'), 0, 0.03, z + 12.2));                           // sidewalk
+      if (!B) houses.add(at(box(perRow * px + 40, 0.03, 4.5, '#8DB75A'), 0, 0.015, z + 15.2));
+      for (let i = 0; i < perRow; i++) {
+        const x = (i - (perRow - 1) / 2) * px + (j % 2 ? px * 0.35 : 0) + (r() - 0.5) * 0.6, c = WC[Math.floor(r() * WC.length)], rf = RC[Math.floor(r() * RC.length)];
+        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z);
+        houses.add(hb);
+        if (!B && r() < 0.35) houses.add(prop('tree', { seed: j * 17 + i, color: '#4E8A4A' }, x + px / 2, 0, z - 2 - r() * 4, 0, 1.6 + r() * 0.8));
+        if (B && r() < 0.3) houses.add(prop('burntTree', { seed: j * 17 + i, h: 5 + r() * 2 }, x + px / 2, 0, z - 2 - r() * 4));
+      }
+    }
+    const merged = mergeStatic(houses); g.add(merged);
+    const hc = B ? ['#6E5F55', '#5A4C43', '#7C6C60'] : ['#A9C9A0', '#9DBE94', '#B4D2AA'];
+    for (let i = 0; i < 9; i++) { const m = sphere(1, hc[i % 3], 1); m.scale.set(260 + r() * 140, (40 + r() * 35) * (B ? 1.1 : 1), 120); m.position.set(-900 + i * 230 + (r() - 0.5) * 80, -8, -650 - r() * 300); m.castShadow = false; g.add(m); }
+    if (B) for (let i = 0; i < 6; i++) { const m = sphere(1, '#3C322C', 1); m.scale.set(300, 30 + r() * 20, 80); m.position.set(-700 + i * 280, -6, -420 - r() * 60); m.castShadow = false; g.add(m); }
+    Object.assign(g.userData, { lighting: B ? 'ruins' : 'day', near: 0.5, far: 5000, fog: { color: B ? '#8C8074' : '#C2DCE4', near: o.fogNear || 120, far: o.fogFar || 1300 }, anchors: { center: [0, 0, 0] } });
+    return g;
+  },
+  ruinedStreet(o = {}) { // S14: after the strike, street level along a dark road (along Z): charred shells, fires, dead trees, grey sky
+    const g = grp(), r = rng(o.seed || 23);
+    skyFollow(g, o.sky || ['#6E6966', '#7C7672'], 3000, '#5E5854');
+    g.add(flat(9000, 9000, o.ground || '#4A433D', 0, 0, 0), flat(9, 2000, '#2C2B30', 0, 0.01, 0), flat(3, 2000, '#5F5955', -6, 0.13, 0), flat(3, 2000, '#5F5955', 6, 0.13, 0));
+    g.add(at(box(0.22, 0.16, 2000, '#55504C'), -4.5, 0.05, 0), at(box(0.22, 0.16, 2000, '#55504C'), 4.5, 0.05, 0));
+    const dash = []; for (let z = -900; z <= 100; z += 9) dash.push([0, 0.02, z]); g.add(inst(new THREE.BoxGeometry(0.22, 0.01, 3.2), mat('#E8E6E0'), dash));
+    const shells = grp(), flames = [], smoke = [];
+    for (let i = 0; i < 40; i++) for (const s of [-1, 1]) {
+      const z = 20 - i * 12 + (s > 0 ? 6 : 0) + (r() - 0.5) * 2;
+      shells.add(prop('cottage', { w: 7, d: 8, h: 3.2, burnt: true, seed: i * 7 + (s > 0 ? 3 : 0) }, s * (15 + r() * 2), 0, z, s > 0 ? -PI / 2 : PI / 2));
+      if (r() < 0.75) flames.push([s * (14 + r() * 3), 0.2 + r() * 1.5, z + (r() - 0.5) * 4, 1.4 + r() * 1.6]);
+      if (i % 2 === 0) shells.add(prop('burntTree', { seed: i * 3 + (s > 0 ? 1 : 0), h: 5.5 + r() * 2.5 }, s * (8.2 + r() * 0.6), 0, z + 3));
+      if (i % 3 === 1) shells.add(prop('streetLamp', {}, s * 7.6, 0, z - 2, s > 0 ? -PI / 2 : PI / 2));
+      if (r() < 0.12 && i > 4) smoke.push([s * (16 + r() * 6), z, 20 + r() * 14]);
+    }
+    shells.add(prop('fence', { length: 2000, height: 1.0, color: '#2A2726', rail: '#2A2726' }, -9.2, 0, 0, PI / 2), prop('fence', { length: 2000, height: 1.0, color: '#2A2726', rail: '#2A2726' }, 9.2, 0, 0, PI / 2));
+    g.add(mergeStatic(shells));
+    const fl = prop('flameField', { points: flames, seed: 5 }); g.add(fl); const sm = prop('smokeField', { points: smoke, size: 2.2, seed: 7 }); g.add(sm);
+    const hc = ['#77706B', '#6C645F', '#827A73'];
+    for (let i = 0; i < 12; i++) { const a = i / 12 * TAU, d = 700 + r() * 200, m = sphere(1, hc[i % 3], 1); m.scale.set(300, 40 + r() * 30, 160); m.position.set(Math.cos(a) * d, -8, Math.sin(a) * d); m.castShadow = false; g.add(m); }
+    g.userData.update = t => { fl.userData.update(t); sm.userData.update(t); };
+    Object.assign(g.userData, { lighting: 'ruins', near: 0.2, far: 5000, fog: { color: '#6E6966', near: 60, far: 900 }, anchors: { center: [0, 0, 0] } });
+    return g;
   },
   street(o) { return streetSet(o, false); },
   streetNight(o) { return streetSet(o, true); },

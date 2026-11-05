@@ -13,7 +13,7 @@
   <body>
     <!-- Replica of the "man lost his dog in a tornado" short (the person owns the rights).
          layer3d: the 3D picture rendered by the absurd-shorts engine (scripts-fr/replica_tornado.py), cut on the original's frames.
-         The sound is the original's, as one audio over the whole film. Captions and the THEFT card are HTML scenes. -->
+         The sound is the original's, as one audio over the whole film. Captions, the THEFT card and the S8 lock-on HUD are HTML scenes. -->
     <div id="root" data-composition-id="main" data-start="0" data-duration="28.8" data-width="576" data-height="1024">
       <video id="layer3d" class="clip" src="assets/layer3d.mp4" muted playsinline
              data-start="0" data-duration="28.8" data-track-index="0"
@@ -22,6 +22,9 @@
       <div id="theft" data-composition-id="theft" data-composition-src="compositions/theft.html"
            data-start="3.667" data-duration="0.8" data-track-index="2" data-track-kind="graphics"
            data-width="576" data-height="1024" style="z-index: 3"></div>
+      <div id="hud" data-composition-id="hud" data-composition-src="compositions/hud.html"
+           data-start="8.533" data-duration="1.9" data-track-index="4" data-track-kind="graphics"
+           data-width="576" data-height="1024" style="z-index: 2"></div>
       <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html"
            data-start="0" data-duration="28.8" data-track-index="3" data-track-kind="captions"
            data-width="576" data-height="1024" style="z-index: 4"></div>

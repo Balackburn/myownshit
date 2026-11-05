@@ -22,6 +22,8 @@ export const LIGHTING = {
   dusk:     { sky: '#F6C9A0', ground: '#6C6A7A', hemi: 1.4, key: '#FFC48A', keyI: 1.0, dir: [-6, 4, 4], bg: '#E7B08E', fog: null },
   savannah: { sky: '#FFF4DE', ground: '#C9A86A', hemi: 1.9, key: '#FFE8C4', keyI: 1.6, dir: [5, 9, 4], bg: P.sky, fog: null },
   dark:     { sky: '#4A5A70', ground: '#1A1D24', hemi: 0.8, key: '#E8E0C8', keyI: 0.9, dir: [1, 6, 3], bg: '#121621', fog: null },
+  aerial:   { sky: '#FFFFFF', ground: '#A9BCCD', hemi: 2.0, key: '#FFF4E2', keyI: 1.35, dir: [4, 10, 6], bg: '#8FC5E8', fog: null },
+  ruins:    { sky: '#D9CDBF', ground: '#4A423C', hemi: 1.35, key: '#F0DDC4', keyI: 0.75, dir: [-3, 8, 5], bg: '#8C8074', fog: null },
 };
 export function setLighting(scene, name = 'day') {
   const L = LIGHTING[name] || LIGHTING.day;

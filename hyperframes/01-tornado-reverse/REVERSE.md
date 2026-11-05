@@ -14,7 +14,11 @@ not have, so this project is built by hand to the same rules.
 - **HTML scenes:**
   - `compositions/captions.html` has the 24 caption groups in Nunito 900, fill #FEFEFC, highlight #D88168, a 7 px dark
     outline and a drop shadow, switched hard at the original's switch frames;
-  - `compositions/theft.html` is the THEFT card, dropping in at f110.
+  - `compositions/theft.html` is the THEFT card, dropping in at f110;
+  - `compositions/hud.html` is the S8 lock-on HUD. Every key was measured on the original frame by frame: the brackets
+    zoom in at f256 (white, #FFFFFF), turn amber (#F7C837) at f282, then orange at f290, then red (#E92E2B) from f291,
+    settling on (68,84)-(513,529). The diamond marker tracks the tornado, white outline then filled red. LOCKED scales
+    in over f293-f297 and blinks off at f302-f303.
 - **Passes:**
   - each pass renders the engine layer (about 3.5 min), then `npx hyperframes render` (about 1 min), then
     `npx hyperframes diff ref.mp4 renders/passN.mp4 --sbs`;
@@ -24,8 +28,17 @@ not have, so this project is built by hand to the same rules.
 |---|---|---|---|
 | 1 | 0.671 | 0.546 | S1-S4 |
 | 2 | 0.676 | 0.546 | S1-S7, new proportions |
+| 3 | 0.668 | 0.491 | S1-S14: aerial strike, HUD, missiles, hit, explosions, ruins, white flag; new jet and tornado models |
+
+Pass 3 notes:
+- **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado
+  scale 9). It is a 50° dive with the jet 24 m ahead (S8) or 40 m ahead (S10), nose down, nozzles facing the camera.
+- **Tornado:** stacked bands of jagged teeth, a crown of spikes and pale bands, measured 1.54× taller than wide. Seen from
+  above it is a narrow striped body under a flat dark collar with rocks, a tan inner ring and flat tan swirl bands.
+- **Mean SSIM:** it fell slightly although the shots are now built: frames that are close in structure but still differ in
+  texture and detail score lower than the earlier flat placeholders did.
 
 Still approximate:
-- S8-S22 are placeholders;
+- S15-S22 are placeholders;
 - Nunito stands in for the original's rounded caption face;
 - the dog and the tornado are hand-built models.

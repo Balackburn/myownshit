@@ -1,0 +1,59 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .c { position: absolute; left: 0; top: 0; border: 0 solid #FFFFFF; opacity: 0; }
+    .w { width: 88px; height: 88px; }
+    .r { width: 74px; height: 74px; border-color: #E92E2B; }
+    .tl { border-top-width: 3px; border-left-width: 3px; }
+    .tr { border-top-width: 3px; border-right-width: 3px; }
+    .bl { border-bottom-width: 3px; border-left-width: 3px; }
+    .br { border-bottom-width: 3px; border-right-width: 3px; }
+    #dia-w { position: absolute; left: 0; top: 0; width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; border: 3px solid #FFFFFF; opacity: 0; }
+    #dia-r { position: absolute; left: 0; top: 0; width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; background: #EE2A26; opacity: 0; }
+    #locked { position: absolute; left: 204px; top: 544px; width: 174px; height: 44px; background: #F01C1C; opacity: 0;
+              display: flex; align-items: center; justify-content: center; }
+    #locked span { font-family: "Roboto", sans-serif; font-weight: 700; font-size: 21px; color: #FFFFFF; letter-spacing: 0.5px; }
+  </style>
+  <div id="root" data-composition-id="hud" data-width="576" data-height="1024">
+    <div id="w-tl" class="c w tl"></div><div id="w-tr" class="c w tr"></div><div id="w-bl" class="c w bl"></div><div id="w-br" class="c w br"></div>
+    <div id="r-tl" class="c r tl"></div><div id="r-tr" class="c r tr"></div><div id="r-bl" class="c r bl"></div><div id="r-br" class="c r br"></div>
+    <div id="dia-w"></div><div id="dia-r"></div>
+    <div id="locked"><span>LOCKED</span></div>
+  </div>
+  <script>
+    // Lock-on HUD of S8 (host starts at f256 = 8.533 s). All positions and colours measured on the original, frame by frame:
+    // white brackets zoom in at f256 and track the tornado, turn amber at f282 and close in jittering, orange at f290, red from f291 settling on
+    // (68,84)-(513,529); the diamond follows the tornado (white outline, then filled red); LOCKED scales in f293-f297 and blinks off f302-f303.
+    const tl = gsap.timeline({ paused: true });
+    const T = f => (f - 256) / 30;
+    // box keys: [frame, x0, y0, x1, y1]
+    const W = [[256, 10, 28, 564, 590], [258, 31, 46, 554, 560], [262, 20, 42, 550, 571], [270, 22, 53, 522, 553], [281, 30, 54, 536, 560],
+               [283, 36, 58, 530, 548], [286, 64, 56, 518, 540], [288, 48, 74, 520, 535], [290, 42, 82, 518, 532]];
+    const R = [[291, 69, 90, 513, 529], [296, 74, 86, 519, 530], [300, 69, 84, 513, 529]];
+    const place = (pre, A, keys) => {
+      const [f0, x0, y0, x1, y1] = keys[0];
+      tl.set(`#${pre}-tl`, { x: x0, y: y0 }, 0); tl.set(`#${pre}-tr`, { x: x1 - A, y: y0 }, 0);
+      tl.set(`#${pre}-bl`, { x: x0, y: y1 - A }, 0); tl.set(`#${pre}-br`, { x: x1 - A, y: y1 - A }, 0);
+      for (let i = 1; i < keys.length; i++) {
+        const [fa] = keys[i - 1], [fb, a0, b0, a1, b1] = keys[i], d = T(fb) - T(fa), at = T(fa);
+        tl.to(`#${pre}-tl`, { x: a0, y: b0, duration: d, ease: "none" }, at); tl.to(`#${pre}-tr`, { x: a1 - A, y: b0, duration: d, ease: "none" }, at);
+        tl.to(`#${pre}-bl`, { x: a0, y: b1 - A, duration: d, ease: "none" }, at); tl.to(`#${pre}-br`, { x: a1 - A, y: b1 - A, duration: d, ease: "none" }, at);
+      }
+    };
+    place("w", 88, W); place("r", 74, R);
+    tl.fromTo(".w", { opacity: 0 }, { opacity: 1, duration: T(258), ease: "none" }, 0);
+    tl.set(".w", { borderColor: "#F7C837" }, T(282));
+    tl.set(".w", { borderColor: "#F79544" }, T(290));
+    tl.set(".w", { opacity: 0 }, T(291)); tl.set(".r", { opacity: 1 }, T(291));
+    // diamond marker on the tornado
+    const D = [[257, 288, 302], [270, 273, 303], [290, 282, 305], [312, 290, 308]];
+    tl.set("#dia-w", { x: D[0][1], y: D[0][2], rotation: 45, opacity: 1 }, T(257));
+    tl.set("#dia-r", { x: D[2][1], y: D[2][2], rotation: 45 }, 0);
+    for (let i = 1; i < D.length; i++) { const d = T(D[i][0]) - T(D[i - 1][0]); tl.to(["#dia-w", "#dia-r"], { x: D[i][1], y: D[i][2], duration: d, ease: "none" }, T(D[i - 1][0])); }
+    tl.set("#dia-w", { opacity: 0 }, T(291)); tl.set("#dia-r", { opacity: 1 }, T(291));
+    // LOCKED tag
+    tl.fromTo("#locked", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: T(297) - T(293), ease: "back.out(2)" }, T(293));
+    tl.set("#locked", { opacity: 0 }, T(302)); tl.set("#locked", { opacity: 1 }, T(304));
+    window.__timelines["hud"] = tl;
+  </script>
+</template>

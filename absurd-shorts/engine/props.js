@@ -135,6 +135,36 @@ function scrawlTexture(text, aspect, o = {}) {
 const scrawlK = (o, t) => o.writeAt == null ? 1 : clamp01((t - o.writeAt) / (o.writeDur || 0.8));
 const scrawlMat = tex => new THREE.MeshLambertMaterial({ map: tex, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
 
+// Additive soft glow (afterburners, flames, explosion flash): a camera-facing sprite with a radial falloff, never fogged or shadowed.
+let _glowTex = null;
+function glowTex() {
+  if (_glowTex) return _glowTex;
+  const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.22, 'rgba(255,255,255,0.75)'); gr.addColorStop(0.55, 'rgba(255,255,255,0.2)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 128, 128); _glowTex = new THREE.CanvasTexture(c); _glowTex.colorSpace = THREE.SRGBColorSpace; return _glowTex;
+}
+export function glowSprite(color, size, opacity = 1) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex(), color, blending: THREE.AdditiveBlending, transparent: true, opacity, depthWrite: false, fog: false }));
+  s.scale.set(size, size, 1); return s;
+}
+// Smooth-shaded puff material and geometry (clouds, fireballs, smoke): soft round forms, unlike the faceted paper look.
+const _cloudMats = new Map();
+export function cloudMat(color = '#BEBEBA', emissive = '#97A6B6') { // stylised cloud: a blue-grey glow (the shadow side) + a diffuse share lit by the warm sun
+  const k = color + emissive; if (!_cloudMats.has(k)) _cloudMats.set(k, new THREE.MeshLambertMaterial({ color, emissive, map: grainTexture() })); return _cloudMats.get(k); }
+const _sph = {};
+export const sphereGeo = (detail = 2) => (_sph[detail] ||= new THREE.IcosahedronGeometry(1, detail));
+// Ring of jagged "teeth" (the reference tornado's skin): n trapezoid teeth from radius r0 at y=0 to r1 at the shoulder, each ending in a
+// spike at height h; gap = fraction of each sector left open (the striped inner cone shows through). Non-indexed -> flat facets.
+function toothBand(r0, r1, h, n, gap = 0.18, spike = 0.35, seed = 1) {
+  const pos = [], uv = [], r = rng(seed), P = (a, rr, y) => [Math.cos(a) * rr, y, Math.sin(a) * rr];
+  for (let i = 0; i < n; i++) {
+    const a0 = (i + r() * 0.15) / n * TAU, a1 = a0 + TAU / n * (1 - gap), am = (a0 + a1) / 2, sh = h * (1 - spike) * (0.85 + r() * 0.3), tip = h * (0.9 + r() * 0.25);
+    const b0 = P(a0, r0, 0), b1 = P(a1, r0, 0), t0 = P(a0 + (a1 - a0) * 0.08, r1, sh), t1 = P(a1 - (a1 - a0) * 0.08, r1, sh), tp = P(am, r1 * 1.04, tip);
+    pos.push(...b0, ...b1, ...t1, ...b0, ...t1, ...t0, ...t0, ...t1, ...tp);
+    uv.push(0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0.5, 1.4);
+  }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.computeVertexNormals(); return geo;
+}
 /* ------------------------------------------------------------------ prop builders */
 const B = {
   // --- handheld / small objects -------------------------------------------------
@@ -552,32 +582,44 @@ const B = {
     };
     return g;
   },
-  fighterJet(o) { // grey twin-tail fighter facing +Z, ~17 m long: tapered fuselage, nose, canopy, wings, stabilisers, two nozzles; o.burner 0..1
-    const grey = o.color || '#8E959E', dark = '#5C626B', g = grp();
-    g.add(at(box(1.5, 1.2, 11, grey, { taper: { x: 0.75, z: 1 }, outline: 0.004 }), 0, 1.6, 0.5));                  // fuselage
-    g.add(at(cyl(0.02, 0.62, 3.6, grey, 8, {}), 0, 1.65, 7.8, Math.PI / 2, 0, 0));                                   // nose cone
-    g.add(at(sphere(0.55, '#2C3E50', 1), 0, 2.2, 4.6), at(box(0.9, 0.5, 2.4, '#3E5468', { taper: { x: 0.7, z: 0.5 } }), 0, 2.15, 4.0)); // canopy
-    const wing = (s) => { const w = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(5.2 * s, -2.2), new THREE.Vector2(5.2 * s, -3.4), new THREE.Vector2(0, -5.2)]), { depth: 0.14, bevelEnabled: false }), mat(grey));
-      w.rotation.x = -Math.PI / 2; w.position.set(0.6 * s, 1.45, 3.2); return w; };
-    g.add(wing(1), wing(-1));
+  fighterJet(o) { // low-poly twin-tail fighter facing +Z, ~18 m long (reference "tornado" short): chined faceted fuselage, long faceted nose,
+    // bubble canopy, LEX, swept trapezoid wings, outward-canted fins, stabilisers, two round nozzles with fiery rims; o.burner 0..1 flame,
+    // o.glow sprite size (afterburner bloom), o.missiles per wing (white, red tips), o.gear landing gear
+    const grey = o.color || '#737980', light = o.panel || '#8C929A', dark = '#4A4F56', g = grp(), Y = 1.6;
+    const flatPart = (pts, depth, color, y) => { // shape given in world (x, z) pairs, lying flat at height y
+      const m = mesh(new THREE.ExtrudeGeometry(new THREE.Shape(pts.map(([x, z]) => new THREE.Vector2(x, -z))), { depth, bevelEnabled: false }), mat(color)); m.rotation.x = -PI / 2; m.position.y = y - depth / 2; return m; };
+    // fuselage: wide engine section aft, tapering forward, chined (octagonal) cross-section via 8-sided cylinders scaled flat
+    const sec = (z0, z1, w0, w1, h0, h1, color) => { const m = mesh(new THREE.CylinderGeometry(1, 1, 1, 8, 1), mat(color)); m.geometry = new THREE.CylinderGeometry(w1, w0, Math.abs(z1 - z0), 8, 1);
+      m.geometry.rotateX(PI / 2); m.geometry.rotateZ(PI / 8); m.scale.y = (h0 + h1) / (w0 + w1); m.position.set(0, Y, (z0 + z1) / 2); addOutline(m, 0.004); return m; };
+    g.add(sec(-6.4, -1.0, 1.25, 1.2, 0.75, 0.75, grey), sec(-1.0, 3.6, 1.2, 0.85, 0.75, 0.62, grey), sec(3.6, 7.4, 0.85, 0.45, 0.62, 0.4, grey));
+    const nose = mesh(new THREE.ConeGeometry(0.45, 2.6, 6), mat(dark)); nose.rotation.x = PI / 2; nose.scale.y = 1; nose.position.set(0, Y - 0.04, 8.7); nose.scale.set(1, 1, 0.82); g.add(nose);
+    g.add(at(box(1.9, 0.08, 6.5, light), 0, Y + 0.7, -2.4));                                                                         // light dorsal panel
+    const can = mesh(new THREE.SphereGeometry(0.42, 8, 6), mat('#B9C8D6', { emissive: '#22303C' })); can.scale.set(1, 0.85, 3.0); can.position.set(0, Y + 0.55, 5.2); g.add(can);
+    g.add(flatPart([[0, 7.2], [1.15, 2.6], [1.15, 1.6], [0, 1.6]], 0.1, grey, Y + 0.05), flatPart([[0, 7.2], [-1.15, 2.6], [-1.15, 1.6], [0, 1.6]], 0.1, grey, Y + 0.05)); // LEX
     [-1, 1].forEach(s => {
-      const tail = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(-2.6, 0), new THREE.Vector2(-3.6, 2.6), new THREE.Vector2(-2.4, 2.6)]), { depth: 0.12, bevelEnabled: false }), mat(grey));
-      tail.rotation.y = Math.PI / 2; tail.rotation.z = s * 0.35; tail.position.set(s * 1.0, 2.0, -2.4); g.add(tail);
-      const stab = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(2.6 * s, -1.0), new THREE.Vector2(2.6 * s, -2.0), new THREE.Vector2(0, -2.6)]), { depth: 0.1, bevelEnabled: false }), mat(grey));
-      stab.rotation.x = -Math.PI / 2; stab.position.set(0.6 * s, 1.4, -3.0); g.add(stab);
-      const noz = cyl(0.55, 0.45, 1.3, dark, 12, {}); noz.rotation.x = Math.PI / 2; noz.position.set(s * 0.48, 1.45, -5.6); g.add(noz);
-      const ring = cyl(0.42, 0.42, 0.06, '#E8742A', 12, { emissive: '#E8742A' }); ring.rotation.x = Math.PI / 2; ring.position.set(s * 0.48, 1.45, -6.22); g.add(ring);
-      const flame = cyl(0.42, 0.05, 3.8 * (o.burner ?? 1), '#FFD27A', 10, { emissive: '#FFB347', transparent: true, opacity: 0.85 });
-      flame.rotation.x = -Math.PI / 2; flame.position.set(s * 0.48, 1.45, -6.25 - 1.9 * (o.burner ?? 1)); flame.visible = (o.burner ?? 1) > 0; g.add(flame);
-      // star-and-bar roundel on each wing and the fuselage side
-      const star = canvasPlane(1.6, 0.8, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, H * 0.3, W, H * 0.4); c.fillStyle = '#1F3A6E'; c.beginPath(); c.arc(W / 2, H / 2, H * 0.48, 0, Math.PI * 2); c.fill();
-        c.fillStyle = '#FFFFFF'; c.beginPath(); for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, r = k % 2 ? H * 0.16 : H * 0.4; c.lineTo(W / 2 + Math.cos(a) * r, H / 2 + Math.sin(a) * r); } c.fill();
-        c.fillStyle = '#B5302A'; c.fillRect(0, H * 0.46, W * 0.25, H * 0.08); c.fillRect(W * 0.75, H * 0.46, W * 0.25, H * 0.08); }, { res: 256 });
-      star.rotation.x = -Math.PI / 2; star.position.set(s * 3.6, 1.6, 0.6); g.add(star);
+      g.add(at(box(0.55, 0.62, 2.2, '#16181B'), s * 1.02, Y - 0.42, 2.4));                                                           // intake
+      g.add(flatPart([[s * 1.0, 2.2], [s * 5.7, -2.1], [s * 5.7, -3.2], [s * 1.0, -3.8]], 0.16, grey, Y));                            // wing
+      g.add(flatPart([[s * 1.0, -4.3], [s * 3.6, -5.8], [s * 3.6, -6.6], [s * 1.0, -6.6]], 0.1, grey, Y - 0.05));                       // stabiliser
+      const fin = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(-3.4, 0), new THREE.Vector2(-6.2, 0), new THREE.Vector2(-6.5, 3.0), new THREE.Vector2(-5.3, 3.0)]), { depth: 0.12, bevelEnabled: false }), mat(grey));
+      fin.rotation.y = -PI / 2; fin.position.set(s * 0.06, 0, 0); const finP = grp(fin); finP.position.set(s * 0.75, Y + 0.4, 0); finP.rotation.z = -s * 0.36; g.add(finP);
+      const noz = cyl(0.56, 0.5, 1.1, dark, 12, {}); noz.rotation.x = PI / 2; noz.position.set(s * 0.6, Y, -6.85); g.add(noz);
+      const inner = cyl(0.4, 0.4, 0.05, '#1A1412', 12, {}); inner.rotation.x = PI / 2; inner.position.set(s * 0.6, Y, -7.42); g.add(inner);
+      const ring = mesh(new THREE.TorusGeometry(0.48, 0.08, 4, 14), mat('#E8642A', { emissive: '#E8541A', noGrain: true })); ring.position.set(s * 0.6, Y, -7.42); g.add(ring);
+      const bu = o.burner ?? 1, flame = cyl(0.36, 0.06, 2.6 * bu, '#FFE6A0', 10, { emissive: '#FFC060', transparent: true, opacity: 0.9, noGrain: true });
+      flame.rotation.x = -PI / 2; flame.position.set(s * 0.6, Y, -7.45 - 1.3 * bu); flame.visible = bu > 0; flame.castShadow = false; g.add(flame);
+      // star roundel on the wing
+      const star = canvasPlane(1.7, 1.7, (c, W, H) => { c.fillStyle = '#1F3A6E'; c.beginPath(); c.arc(W / 2, H / 2, H * 0.46, 0, Math.PI * 2); c.fill();
+        c.fillStyle = '#FFFFFF'; c.beginPath(); for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, r = k % 2 ? H * 0.16 : H * 0.4; c.lineTo(W / 2 + Math.cos(a) * r, H / 2 + Math.sin(a) * r); } c.fill(); }, { res: 128, transparent: true });
+      star.rotation.x = -PI / 2; star.position.set(s * 4.3, Y + 0.1, -2.0); g.add(star);
+      if (o.missiles) for (let i = 0; i < o.missiles; i++) { const x = s * (2.0 + i * 0.95), z = 0.2 - i * 0.55;
+        g.add(at(box(0.08, 0.3, 1.2, dark), x, Y - 0.2, z - 0.6),
+          at(grp(at(cyl(0.12, 0.12, 2.3, '#E6E6E2', 7), 0, 0, 0, PI / 2, 0, 0), at(mesh(new THREE.ConeGeometry(0.12, 0.42, 7), mat('#C8432E')), 0, 0, 1.36, PI / 2, 0, 0),
+            at(box(0.55, 0.03, 0.3, '#E6E6E2'), 0, 0, -1.0), at(box(0.03, 0.55, 0.3, '#E6E6E2'), 0, 0, -1.0)), x, Y - 0.48, z - 0.4)); }
     });
-    const side = canvasPlane(2.4, 0.5, (c, W, H) => { c.fillStyle = '#2A2F36'; c.font = `bold ${H * 0.55}px Arial`; c.textAlign = 'center'; c.fillText('U.S. AIR FORCE', W / 2, H * 0.68); }, { res: 256 });
-    side.rotation.y = Math.PI / 2; side.position.set(0.72, 1.75, 1.8); g.add(side);
-    if (o.gear) [[-1.4, 0.6, 2.2], [1.4, 0.6, 2.2], [0, 0.6, 6.4]].forEach(([x, y, z]) => g.add(at(cyl(0.3, 0.3, 0.25, '#1A1A1E', 10), x, 0.3, z, 0, 0, Math.PI / 2), at(box(0.12, 0.9, 0.12, dark), x, 0.75, z)));
+    const side = canvasPlane(2.6, 0.45, (c, W, H) => { c.fillStyle = '#2A2F36'; c.font = `bold ${H * 0.55}px Arial`; c.textAlign = 'center'; c.fillText('U.S. AIR FORCE', W / 2, H * 0.68); }, { res: 256, transparent: true });
+    side.rotation.y = PI / 2; side.position.set(1.14, Y + 0.05, -2.6); g.add(side);
+    if (o.glow) [-1, 1].forEach(s => { const a = glowSprite(o.glowColor || '#FF9A3C', o.glow, 0.95), b = glowSprite('#FFF1C8', o.glow * 0.45, 1); a.position.set(s * 0.6, Y, -7.6); b.position.set(s * 0.6, Y, -7.5); g.add(a, b); });
+    if (o.gear) [[-1.5, 0.6, -1.5], [1.5, 0.6, -1.5], [0, 0.6, 6.0]].forEach(([x, y, z]) => g.add(at(cyl(0.32, 0.32, 0.26, '#1A1A1E', 10), x, 0.32, z, 0, 0, Math.PI / 2), at(box(0.12, Y - 0.6, 0.12, dark), x, Y / 2, z)));
     return g;
   },
   house(o) {
@@ -806,14 +848,50 @@ const B = {
   tornado(o) {
     const g = grp(), r = rng(o.seed || 5), rings = [], chips = [], N = o.rings || 10, H = o.height || 5.5, cols = o.cols || ['#8E9B8B', '#A9B4A2', '#7A8778', '#B8C1AE'];
     const rad = i => (o.base ?? 0.25) + Math.pow(i / N, o.taper ?? 1.4) * (o.top ?? 1.9) + (o.flare && i >= N - 1 ? o.flare : 0);
+    let inner = null;
+    if (o.teeth) { // striped inner funnel (pale bands seen through the gaps between the teeth, and as rings from above)
+      inner = grp(); const M = N * 2;
+      for (let i = 0; i < M; i++) { const m = cyl(rad((i + 1) / 2) * 0.84, rad(i / 2) * 0.84, H / M * 1.02, i % 2 ? (o.stripeDark || '#55615A') : (o.stripe || '#D9D2C0'), 12, { open: true, doubleSide: true, pivot: 'bottom' });
+        m.position.y = i * H / M; m.castShadow = false; inner.add(m); }
+      g.add(inner);
+    }
     for (let i = 0; i < N; i++) {
-      const m = cyl(rad(i + 1) + 0.12, rad(i), H / N * 1.3, cols[i % 4], 7, { open: true, doubleSide: true, pivot: 'bottom' });
+      const crown = i === N - 1;
+      const col = o.pale && !crown && i % o.pale === o.pale - 1 ? (o.paleColor || '#D3CCB8') : cols[i % cols.length];
+      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? 2.3 : 1.75), Math.round(9 + rad(i + 1) * 3.2), o.gap ?? 0.2, crown ? 0.6 : 0.38, i + 1), mat(col, { doubleSide: true }))
+        : cyl(rad(i + 1) + 0.12, rad(i), H / N * 1.3, cols[i % 4], 7, { open: true, doubleSide: true, pivot: 'bottom' });
       const piv = grp(m); piv.position.y = i * H / N; piv.rotation.z = (r() - 0.5) * 0.12; g.add(piv);
       rings.push({ piv, m, sp: (3 + r() * 2.5) * (1 - i * 0.045) * (i % 3 === 1 ? 0.6 : 1), ph: r() * TAU, i });
     }
     for (let i = 0; i < (o.chips ?? 16); i++) { const y = 0.4 + r() * H * 0.9, R = rad(y / H * N) + 0.35 + r() * 0.7;
       const m = box(0.1 + r() * 0.18, 0.04, 0.08 + r() * 0.14, i % 3 ? P.red : P.white); g.add(m); chips.push({ m, y, R, a: r() * TAU, w: 2.2 + r() * 1.8, ph: r() * TAU }); }
+    const ribbons = [], dust = grp(); g.add(dust);
+    if (o.collar) { // the aerial look: a wide flat dark collar (slightly dished) at the crown top + a tan inner ring; o.collar = [inner, outer] radii
+      const [c0, c1] = o.collar, yC = o.collarY ?? H * (1 + 0.9 / N), cg = new THREE.CylinderGeometry(c1, c0, (c1 - c0) * 0.18, 30, 1, true).translate(0, (c1 - c0) * 0.09, 0);
+      const col = mesh(cg, mat(o.collarColor || '#56615A', { doubleSide: true })); col.position.y = yC; col.castShadow = true;
+      const tan = mesh(new THREE.RingGeometry(c0 * 0.78, c0 * 1.01, 30, 1).rotateX(-PI / 2), mat(o.lidColor || '#D2C29E', { doubleSide: true })); tan.position.y = yC - 0.02; tan.castShadow = false;
+      const cp = grp(col, tan); g.add(cp); ribbons.push({ piv: cp, sp: 2.4, ph: 0 });
+    }
+    if (o.lid) { // the aerial "lid": a flat tan debris annulus around the crown (seen from above as a pale ring)
+      const topR = rad(N) * (o.crownFlare ?? 1.16), ring = mesh(new THREE.RingGeometry(topR * o.lid[0], topR * o.lid[1], 28, 1).rotateX(-PI / 2), mat(o.lidColor || '#D6C49E', { doubleSide: true }));
+      ring.position.y = H * (1 + 0.6 / N); ring.castShadow = false; const lp = grp(ring); g.add(lp); ribbons.push({ piv: lp, sp: 2.2, ph: 0 });
+    }
+    if (o.rim) { // chunky low-poly rocks crowning the top ring (the reference's jagged rim, very visible from above)
+      const top = rings[N - 1], topR = (rad(N) + 0.12) * (o.rimAt || 1), geo = new THREE.DodecahedronGeometry(1, 0), rm = mat(o.rimColor || '#5B655E');
+      for (let i = 0; i < o.rim; i++) { const a = i / o.rim * TAU + r() * 0.25, s = (o.rimSize || 0.26) * (0.8 + r() * 0.6), m = mesh(geo, rm), rr = topR * (0.9 + r() * 0.16);
+        m.scale.set(s * 1.4, s, s * 1.2); m.position.set(Math.cos(a) * rr, H / N * 1.3 * (0.8 + r() * 0.3), Math.sin(a) * rr); m.rotation.set(r() * 3, r() * 3, r() * 3); top.m.add(m); }
+    }
+    for (let i = 0; i < (o.ribbons || 0); i++) { // tan dust bands whipping round the top
+      const R = (o.ribbonR || (rad(N) + 0.12)) * (1.02 + r() * 0.5), arc = 1.6 + r() * 2.6;
+      const m = o.ribbonFlat ? mesh(new THREE.RingGeometry(R, R + 0.08 + r() * 0.1, 40, 1, 0, arc).rotateX(-PI / 2), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }))
+        : mesh(new THREE.TorusGeometry(R, 0.035 + r() * 0.03, 3, 40, arc), mat(o.ribbonColor || '#D9C7A3', { doubleSide: true }));
+      if (o.ribbonFlat) m.rotation.set((r() - 0.5) * 0.12, 0, (r() - 0.5) * 0.12); else { m.rotation.x = PI / 2 + (r() - 0.5) * 0.25; m.scale.z = 3.5; }
+      m.castShadow = false; const piv = grp(m); piv.position.y = H * (o.ribbonY0 ?? 0.8) + H * r() * (o.ribbonDY ?? 0.22); g.add(piv); ribbons.push({ piv, sp: 5 + r() * 3, ph: r() * TAU });
+    }
+    if (o.dust) { const dm = mat(o.dustColor || '#CDB896'); for (let i = 0; i < 10; i++) { const a = i / 10 * TAU + r() * 0.3, s = (0.35 + r() * 0.35) * (o.dust === true ? 1 : o.dust), m = new THREE.Mesh(sphereGeo(1), dm);
+      m.scale.set(s * 1.5, s * 0.55, s * 1.5); m.position.set(Math.cos(a) * (rad(0) + 0.35 + r() * 0.3), s * 0.25, Math.sin(a) * (rad(0) + 0.35 + r() * 0.3)); m.castShadow = false; dust.add(m); } }
     g.userData.update = t => {
+      ribbons.forEach(({ piv, sp, ph }) => { piv.rotation.y = t * sp + ph; }); dust.rotation.y = t * 1.5; if (inner) inner.rotation.y = t * 1.3;
       rings.forEach(({ piv, m, sp, ph, i }) => { m.rotation.y = t * sp + ph; piv.position.x = Math.sin(t * 1.6 + i * 0.45) * 0.2 * (i / N); piv.position.z = Math.cos(t * 1.3 + i * 0.5) * 0.12 * (i / N); });
       chips.forEach(({ m, y, R, a, w, ph }) => { const ang = a + t * w; m.position.set(Math.cos(ang) * R, y + Math.sin(t * 2 + ph) * 0.2, Math.sin(ang) * R); m.rotation.set(t * 3 + ph, t * 2, ph); });
     };
@@ -1610,6 +1688,163 @@ const B = {
     g.userData.update = t => cones.forEach((c, i) => c.scale.set(1, 1 + 0.18 * Math.sin(t * (17 + i * 5) + i) + 0.1 * Math.sin(t * 31 + i * 2), 1));
     g.userData.update(0); return g; },
   
+  // --- "tornado" replica, act 2: aerial strike, explosions, ruins -------------------------------------------------
+  cottage(o) { // one-storey pastel suburban house, front faces +Z. Default: front gable (ridge along Z). o.eaves: ridge along X with a porch
+    // roof over the door. o.yard: front path + flower beds. o.burnt: roofless charred shell with dark window holes (rubble inside)
+    const w = o.w || 6.4, d = o.d || 7, h = o.h || 2.9, rh = o.rh || (o.eaves ? 2.1 : 2.3), c = o.color || '#F2F0EA', roof = o.roof || '#B5402F';
+    const trim = o.trim || '#F4F1E8', glass = o.glass || '#7FAFCF', door = o.door || '#B5302A', g = grp(), F = d / 2;
+    if (o.burnt) {
+      const soot = o.color || '#5E5853', dark = '#262322', r = rng(o.seed || 9);
+      const wallT = 0.25, hh = h * (0.75 + r() * 0.25);
+      g.add(at(box(w, hh, wallT, soot), 0, hh / 2, F - wallT / 2), at(box(w, hh * (0.6 + r() * 0.4), wallT, soot), 0, hh * 0.4, -F + wallT / 2),
+        at(box(wallT, hh, d, soot), -w / 2 + wallT / 2, hh / 2, 0), at(box(wallT, hh * (0.5 + r() * 0.5), d, soot), w / 2 - wallT / 2, hh * 0.35, 0));
+      [-w * 0.27, w * 0.27].forEach(x => g.add(at(box(0.95, 0.95, 0.05, dark), x, h * 0.5, F + 0.01)));
+      g.add(at(box(0.9, 1.8, 0.05, dark), w * 0.02, 0.9, F + 0.01));
+      if (r() < 0.6) g.add(at(box(w * 0.7, 0.14, d * 0.6, '#3A3432'), (r() - 0.5) * 1.2, hh * 0.55, (r() - 0.5) * 1.5, (r() - 0.5) * 0.5, 0, (r() - 0.5) * 0.7));   // fallen roof slab
+      for (let i = 0; i < 6; i++) g.add(at(box(0.5 + r() * 0.8, 0.3 + r() * 0.4, 0.5 + r() * 0.8, i % 2 ? '#6E6862' : '#4A4542'), (r() - 0.5) * (w - 1), 0.2, (r() - 0.5) * (d - 1), 0, r() * 3, 0));
+      if (r() < 0.5) g.add(at(box(0.5, 1.6 + r(), 0.5, '#4A4542', { pivot: 'bottom' }), w * 0.28, hh * 0.6, -0.8));                                       // chimney stump
+      return g;
+    }
+    g.add(box(w, h, d, c, { pivot: 'bottom', outline: 0.003 }));
+    if (!o.eaves) {
+      const pitch = Math.atan2(rh, w / 2), sl = Math.hypot(w / 2, rh) + 0.4;
+      [-1, 1].forEach(s => g.add(at(box(sl, 0.18, d + 0.7, roof, { outline: 0.004 }), s * (w / 4 + 0.1), h + rh / 2 + 0.04, 0, 0, 0, -s * pitch)));
+      const tri = new THREE.Shape(); tri.moveTo(-w / 2, 0); tri.lineTo(w / 2, 0); tri.lineTo(0, rh); tri.lineTo(-w / 2, 0);
+      const gab = mesh(new THREE.ExtrudeGeometry(tri, { depth: d - 0.02, bevelEnabled: false }), mat(c)); gab.position.set(0, h, -F + 0.01); g.add(gab);
+      g.add(at(box(0.55, 0.55, 0.06, trim), 0, h + rh * 0.38, F + 0.02), at(box(0.42, 0.42, 0.07, glass), 0, h + rh * 0.38, F + 0.025));
+    } else {
+      const pitch = Math.atan2(rh, d / 2), sl = Math.hypot(d / 2, rh) + 0.5;
+      [-1, 1].forEach(s => g.add(at(box(w + 0.7, 0.18, sl, roof, { outline: 0.004 }), 0, h + rh / 2 + 0.04, s * (d / 4 + 0.12), s * pitch, 0, 0)));
+      const tri = new THREE.Shape(); tri.moveTo(-F, 0); tri.lineTo(F, 0); tri.lineTo(0, rh); tri.lineTo(-F, 0);
+      const gab = mesh(new THREE.ExtrudeGeometry(tri, { depth: w - 0.02, bevelEnabled: false }), mat(c)); gab.rotation.y = PI / 2; gab.position.set(-w / 2 + 0.01, h, 0); g.add(gab);
+      g.add(at(box(w * 0.62, 0.12, 1.5, o.porchRoof || roof, { outline: 0.004 }), -w * 0.12, h * 0.86, F + 0.7, 0.32, 0, 0));      // porch awning
+    }
+    if (o.chimney !== false) g.add(at(box(0.6, 1.5, 0.6, o.chimneyColor || trim, { pivot: 'bottom' }), w * 0.22, h + rh * 0.35, -d * 0.18));
+    const dx = o.doorX ?? w * 0.08, win = (x, y) => {
+      g.add(at(box(1.15, 1.15, 0.06, trim), x, y, F + 0.03), at(box(0.95, 0.95, 0.07, glass), x, y, F + 0.035), at(box(0.06, 0.95, 0.08, trim), x, y, F + 0.04), at(box(0.95, 0.06, 0.08, trim), x, y, F + 0.04));
+      if (o.shutters) [-1, 1].forEach(s => g.add(at(box(0.32, 1.15, 0.05, o.shutters), x + s * 0.76, y, F + 0.03)));
+      g.add(at(box(1.2, 0.22, 0.28, '#6A4632'), x, y - 0.7, F + 0.14), at(box(1.1, 0.12, 0.2, o.flowers || '#D9405A'), x, y - 0.55, F + 0.14));
+    };
+    win(-w * 0.3, h * 0.55); win(w * 0.3 + (o.eaves ? 0.3 : 0), h * 0.55);
+    g.add(at(box(0.95, 1.95, 0.08, door, { outline: 0.01 }), dx, 0.975, F + 0.04), at(box(1.15, 2.1, 0.06, trim), dx, 1.05, F + 0.02), at(box(1.3, 0.16, 0.6, '#D8D2C4'), dx, 0.08, F + 0.3));
+    if (o.yard) {
+      const L = o.yard === true ? 6 : o.yard;
+      g.add(at(box(1.1, 0.04, L, '#E6E2D8'), dx, 0.02, F + 0.6 + L / 2));
+      [-1, 1].forEach(s => { const bx = dx + s * 2.2, bed = at(box(2.2, 0.08, 1.1, '#5C3B2A'), bx, 0.04, F + L - 0.4); g.add(bed);
+        for (let i = 0; i < 5; i++) g.add(at(box(0.22, 0.14, 0.22, ['#D9405A', '#B04FC8', '#F2F0EA', '#E86A3A'][(i + (s > 0 ? 1 : 0)) % 4]), bx - 0.8 + i * 0.4, 0.12, F + L - 0.4 + (i % 2 ? 0.25 : -0.25))); });
+    }
+    g.userData.door = [dx, 0, F + 0.6]; return g;
+  },
+  cumulus(o) { // fluffy cumulus heap: smooth white puffs, flat-ish bottom, bigger in the middle (o.w wide, o.h tall)
+    const r = rng(o.seed || 21), n = o.n || 14, W = o.w || 30, H = o.h || 12, g = grp(), m = cloudMat(o.color, o.emissive);
+    for (let i = 0; i < n; i++) { const a = r() * TAU, dd = Math.sqrt(r()), x = Math.cos(a) * dd * W * 0.5, z = Math.sin(a) * dd * W * 0.32, k = 1 - dd;
+      const rad = (0.22 + 0.32 * k + r() * 0.14) * H, s = new THREE.Mesh(sphereGeo(), m); s.scale.set(rad, rad * 0.86, rad); s.position.set(x, rad * 0.35 + k * H * 0.32, z); s.castShadow = false; s.receiveShadow = true; g.add(s); }
+    return g;
+  },
+  cloudLayer(o) { // a sea of cumulus tops over o.w x o.d metres (one instanced mesh); y = 0 is the cloud deck
+    const r = rng(o.seed || 23), W = o.w || 800, D = o.d || 800, n = o.n || 260, H = o.h || 40, list = [];
+    for (let i = 0; i < n; i++) { const cx = (r() - 0.5) * W, cz = (r() - 0.5) * D, big = 0.6 + r() * 0.7, per = 5 + Math.floor(r() * 5);
+      for (let j = 0; j < per; j++) { const a = r() * TAU, dd = Math.sqrt(r()), k = 1 - dd, rad = (0.3 + 0.45 * k + r() * 0.2) * H * big;
+        list.push([cx + Math.cos(a) * dd * H * 1.6 * big, rad * 0.25 + k * H * 0.35 * big - H * 0.25, cz + Math.sin(a) * dd * H * 1.2 * big, 0, 0, 0, rad, rad * 0.8, rad]); } }
+    const m = inst(sphereGeo(), cloudMat(o.color, o.emissive), list); m.castShadow = false; m.frustumCulled = false; return grp(m);
+  },
+  missileSalvo(o) { // missiles flying from launch points to a target: grey body, orange flame + glow, white smoke trail (pure function of t)
+    // o.shots: [{from:[x,y,z], to:[x,y,z], ctrl?:[x,y,z], t0, dur}] in prop-local metres; o.size scales body/trail; o.trail: trail length (0..1 of path)
+    const S = o.size || 1, g = grp(), body = mat('#D8DADC'), finM = mat('#5C626B'), trailM = new THREE.MeshBasicMaterial({ color: o.trailColor || '#F4F4F2', transparent: true, opacity: o.trailOpacity ?? 0.85, depthWrite: false, fog: true });
+    const flameM = new THREE.MeshBasicMaterial({ color: '#FFB04A', fog: false }), trailGeo = new THREE.CylinderGeometry(1, 1, 1, 6, 1, true).translate(0, 0.5, 0);
+    const SEG = 6, shots = (o.shots || []).map(sh => {
+      const m = grp(at(cyl(0.16 * S, 0.16 * S, 2.6 * S, '#D8DADC', 7, { material: body }), 0, 0, 0, PI / 2, 0, 0), at(mesh(new THREE.ConeGeometry(0.16 * S, 0.5 * S, 7), body), 0, 0, 1.55 * S, PI / 2, 0, 0),
+        at(box(0.7 * S, 0.04 * S, 0.4 * S, '#5C626B', { material: finM }), 0, 0, -1.1 * S), at(box(0.04 * S, 0.7 * S, 0.4 * S, '#5C626B', { material: finM }), 0, 0, -1.1 * S),
+        at(new THREE.Mesh(new THREE.ConeGeometry(0.2 * S, 1.6 * S, 7), flameM), 0, 0, -2.1 * S, -PI / 2, 0, 0), at(glowSprite('#FFA040', (o.glow ?? 1.1) * S, 0.9), 0, 0, -1.8 * S));
+      m.traverse(n => { n.castShadow = false; }); g.add(m);
+      const trail = []; for (let i = 0; i < SEG; i++) { const tm = new THREE.Mesh(trailGeo, trailM); tm.castShadow = false; g.add(tm); trail.push(tm); }
+      const A = V3(...sh.from), Bp = V3(...sh.to), C = sh.ctrl ? V3(...sh.ctrl) : A.clone().lerp(Bp, 0.5);
+      if (sh.body === false) m.children.slice(0, 4).forEach(c => { c.visible = false; });
+      return { m, trail, A, B: Bp, C, t0: sh.t0 || 0, dur: sh.dur || 1, len: sh.trail ?? o.trail ?? 0.6, hit: sh.hide !== false, lin: !!sh.lin, v0: sh.v0 ?? o.v0 };
+    });
+    const pt = (s, u) => { const a = s.A.clone().multiplyScalar((1 - u) * (1 - u)), b = s.C.clone().multiplyScalar(2 * u * (1 - u)), c = s.B.clone().multiplyScalar(u * u); return a.add(b).add(c); };
+    const up = V3(0, 1, 0);
+    g.userData.update = t => shots.forEach(s => {
+      const k = (t - s.t0) / s.dur, on = k >= 0 && (k < 1 || !s.hit);
+      s.m.visible = on; s.trail.forEach(tm => { tm.visible = on && k > 0.001; });
+      if (!on) return;
+      const kk = Math.min(1, k), u = s.lin ? kk : s.v0 != null ? s.v0 * kk + (1 - s.v0) * kk * kk : Math.min(1, ease.in(kk) * 0.75 + kk * 0.25), p = pt(s, u), q = pt(s, Math.min(1, u + 0.01));
+      s.m.position.copy(p); if (q.distanceTo(p) > 1e-6) s.m.lookAt(q);
+      const u0 = Math.max(0, u - s.len);
+      for (let i = 0; i < SEG; i++) { const a = pt(s, u0 + (u - u0) * i / SEG), b = pt(s, u0 + (u - u0) * (i + 1) / SEG), dir = b.clone().sub(a), L = dir.length(), tm = s.trail[i];
+        if (L < 1e-4) { tm.visible = false; continue; }
+        const rad = (0.05 + (o.trailWidth ?? 0.22) * (1 - (i + 0.5) / SEG)) * S; tm.position.copy(a); tm.quaternion.setFromUnitVectors(up, dir.normalize()); tm.scale.set(rad, L, rad); }
+    });
+    g.userData.update(0); return g;
+  },
+  fireball(o) { // explosion at prop origin starting at o.t0: white flash and glare -> lumpy fireball (yellow core, orange rim) -> dark rolling
+    // smoke with embers; paper chips fly out under gravity. o.size ~ fireball radius (m)
+    const r = rng(o.seed || 61), S = o.size || 4, t0 = o.t0 || 0, g = grp(), puffs = [], chips = [];
+    for (let i = 0; i < (o.n || 26); i++) { const dir = V3(r() - 0.5, r() * 0.9 - 0.25, r() - 0.5).normalize(), heat = 1 - Math.min(1, r() * 1.3);
+      const m = new THREE.Mesh(sphereGeo(1), new THREE.MeshLambertMaterial({ color: '#FFD45A', emissive: '#FF9A2A', map: grainTexture(), transparent: true, flatShading: !!o.facets }));
+      m.castShadow = false; g.add(m); puffs.push({ m, dir, d: 0.25 + (1 - heat) * 0.75 + r() * 0.15, s: 0.22 + r() * 0.26 + heat * 0.12, lag: r() * 0.08, heat, smoke: r() < (o.smoke ?? 0.6) }); }
+    const flash = glowSprite('#FFE7A8', S * 6, 1), glare = glowSprite('#FFF4D8', S * 9, 0.7); g.add(flash, glare);
+    const cc = ['#B5302A', '#F2F0EA', '#2E3A55', '#D9A15A', '#5B7FC0', '#1E1E22'];
+    for (let i = 0; i < (o.chips ?? 26); i++) { const m = box(0.25 + r() * 0.6, 0.05, 0.2 + r() * 0.5, cc[i % 6]); m.castShadow = false; g.add(m); chips.push({ m, v: V3((r() - 0.5) * 2, 0.3 + r() * 1.3, (r() - 0.5) * 2).multiplyScalar(S * (1.2 + r() * 1.8)), sp: 3 + r() * 10 }); }
+    const c = new THREE.Color(), e = new THREE.Color(), white = new THREE.Color('#FFF6D0'), yellow = new THREE.Color('#FFD23C'), orange = new THREE.Color('#F27A1E'), red = new THREE.Color('#B8401A');
+    const smoke = new THREE.Color(o.smokeColor || '#3E3634'), eY = new THREE.Color('#FFB01E'), eO = new THREE.Color('#C8460A'), black = new THREE.Color('#000000');
+    g.userData.update = t => {
+      const tt = t - t0; g.visible = tt >= 0; if (tt < 0) return;
+      flash.material.opacity = Math.max(0, 1 - tt / (o.flash || 0.6)); flash.scale.setScalar(S * (3 + 5 * Math.min(1, tt / 0.15)));
+      glare.material.opacity = 0.8 * Math.max(0, 1 - tt / (o.glare || 1.3)); glare.scale.setScalar(S * 9);
+      puffs.forEach(p => { const k = Math.max(0, tt - p.lag), grow = ease.out(Math.min(1, k / 0.3)), drift = Math.max(0, k - 0.3);
+        const rad = S * p.s * (0.3 + 0.9 * grow + (p.smoke ? 0.45 * drift : 0.15 * drift));
+        p.m.position.copy(p.dir).multiplyScalar(S * p.d * (0.25 + 0.95 * grow) + drift * S * 0.22); p.m.position.y += drift * S * (p.smoke ? 0.55 : 0.3);
+        p.m.scale.setScalar(Math.max(0.01, rad));
+        const life = (o.life || 1) * (0.55 + 0.6 * p.heat), u = clamp01(k / life);             // 0 hot .. 1 burnt out
+        if (u < 0.25) { c.copy(white).lerp(yellow, u / 0.25); e.copy(eY); }
+        else if (u < 0.55) { c.copy(yellow).lerp(orange, (u - 0.25) / 0.3); e.copy(eY).lerp(eO, (u - 0.25) / 0.3); }
+        else { const w = clamp01((u - 0.55) / 0.45); c.copy(orange).lerp(red, Math.min(1, w * 2)); if (p.smoke) c.lerp(smoke, w); e.copy(eO).lerp(black, w); }
+        if (p.heat < 0.3 && u < 0.5) c.lerp(orange, 0.5);                                        // the rim is orange from the start
+        p.m.material.color.copy(c); p.m.material.emissive.copy(e).multiplyScalar(o.glowShare ?? 0.5);
+        p.m.material.opacity = p.smoke ? 1 : 1 - clamp01((k - life) / 0.35); p.m.visible = p.m.material.opacity > 0.02; });
+      chips.forEach(ch => { ch.m.position.copy(ch.v).multiplyScalar(tt); ch.m.position.y -= 4.9 * tt * tt * (o.gravity ?? 0.6); ch.m.rotation.set(tt * ch.sp, tt * ch.sp * 0.7, 0); });
+    };
+    g.userData.update(o.at ?? 1); return g;
+  },
+  smokeField(o) { // dark smoke columns rising from o.points [[x, z, height, base y?]] (instanced puffs, loop upward, pure function of t)
+    const r = rng(o.seed || 71), list = [], cols = o.points || [[0, 0, 12]], puffs = [], per = o.per || 11;
+    cols.forEach(([x, z, hgt, y0 = 0], ci) => { for (let i = 0; i < per; i++) puffs.push({ x, z, y0, hgt, ph: i / per, wob: r() * TAU, s: (o.size || 1) * (0.8 + r() * 0.5), ci }); });
+    const m = new THREE.InstancedMesh(sphereGeo(1), new THREE.MeshLambertMaterial({ color: o.color || '#2E2A28', map: grainTexture(), flatShading: true }), puffs.length);
+    m.castShadow = false; m.frustumCulled = false; const d = new THREE.Object3D();
+    g_set(m, puffs, d, 0);
+    function g_set(mm, pp, dd, t) { pp.forEach((p, i) => { const f = (p.ph + t * (o.speed || 0.06)) % 1, y = p.y0 + f * p.hgt, rad = p.s * (0.6 + 1.1 * f);
+      dd.position.set(p.x + Math.sin(f * 5 + p.wob) * 0.6 * f * p.s + f * (o.drift || 0) * p.hgt, y, p.z + Math.cos(f * 4 + p.wob) * 0.4 * f); dd.scale.set(rad, rad * 0.85, rad); dd.rotation.set(p.wob, f * 2, 0); dd.updateMatrix(); mm.setMatrixAt(i, dd.matrix); });
+      mm.instanceMatrix.needsUpdate = true; }
+    const g = grp(m); g.userData.update = t => g_set(m, puffs, d, t); return g;
+  },
+  flameField(o) { // flat jagged cartoon flames (crossed cards, red-orange with an orange-yellow core) at o.points [[x, y, z, scale]] flickering
+    const r = rng(o.seed || 73), pts = o.points || [[0, 0, 0, 1]];
+    const shape = (k) => { const s = new THREE.Shape(), n = 5; s.moveTo(-0.5, 0); for (let i = 0; i <= n * 2; i++) { const x = -0.5 + i / (n * 2), tall = i % 2 ? 0.45 + 0.35 * Math.sin(i * 1.7 + k) ** 2 : 1.0 - Math.abs(x) * 0.9 + 0.15 * Math.cos(i * 2.3 + k); s.lineTo(x * (1 - 0.15 * (i % 2)), Math.max(0.2, i % 2 ? tall * 0.6 : tall)); } s.lineTo(0.5, 0); s.lineTo(-0.5, 0); return new THREE.ShapeGeometry(s); };
+    const outer = new THREE.InstancedMesh(shape(0), new THREE.MeshBasicMaterial({ color: o.color || '#F2441C', side: THREE.DoubleSide, fog: true }), pts.length * 2);
+    const inner = new THREE.InstancedMesh(shape(1.3), new THREE.MeshBasicMaterial({ color: o.core || '#FF9A2E', side: THREE.DoubleSide, fog: true }), pts.length * 2);
+    [outer, inner].forEach(m => { m.castShadow = false; m.frustumCulled = false; });
+    const ph = pts.map(() => r() * TAU), d = new THREE.Object3D();
+    const set = t => { pts.forEach(([x, y, z, s = 1, ry = 0], i) => { const fl = 1 + 0.16 * Math.sin(t * 13 + ph[i]) + 0.08 * Math.sin(t * 29 + ph[i] * 2);
+      for (let k = 0; k < 2; k++) { d.position.set(x, y, z); d.rotation.set(0, ry + k * PI / 2 + ph[i] * 0.2, 0); d.scale.set(s * (1.6 + 0.1 * Math.sin(t * 7 + i)), s * 1.6 * fl, 1); d.updateMatrix(); outer.setMatrixAt(i * 2 + k, d.matrix);
+        d.position.y = y + 0.01 * s; d.scale.set(s * 1.0, s * 1.0 * fl * (1 + 0.1 * Math.sin(t * 17 + i)), 1); d.position.x = x + Math.sin(ry + k * PI / 2) * 0.02; d.updateMatrix(); inner.setMatrixAt(i * 2 + k, d.matrix); } });
+      outer.instanceMatrix.needsUpdate = inner.instanceMatrix.needsUpdate = true; };
+    set(0); const g = grp(outer, inner); g.userData.update = set; return g;
+  },
+  burntTree(o) { // black dead tree: trunk + bare angled branches
+    const r = rng(o.seed || 79), H = o.h || 5, c = o.color || '#151414', g = grp(rod([0, 0, 0], [0.15, H, 0], 0.14, c, 5));
+    for (let i = 0; i < (o.n || 6); i++) { const y = H * (0.45 + r() * 0.5), a = r() * TAU, L = H * (0.25 + r() * 0.3); g.add(rod([0.15 * y / H, y, 0], [Math.cos(a) * L, y + L * (0.5 + r() * 0.6), Math.sin(a) * L], 0.05, c, 4)); }
+    return g;
+  },
+  whiteFlag(o) { // white flag on a dark pole, cloth waving (o.w x o.h metres, pole o.pole tall), pure function of t
+    const W = o.w || 1.6, Hh = o.h || 1.0, PL = o.pole || 3, g = grp(at(cyl(0.04, 0.05, PL, o.poleColor || '#3A2E28', 6, { pivot: 'bottom' }), 0, 0, 0));
+    const geo = new THREE.PlaneGeometry(W, Hh, 14, 6); geo.translate(W / 2, PL - Hh / 2 - 0.05, 0); const base = geo.attributes.position.array.slice();
+    const cloth = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: o.color || '#F2F1EC', map: grainTexture(), side: THREE.DoubleSide })); cloth.castShadow = true; g.add(cloth);
+    g.userData.update = t => { const p = geo.attributes.position; for (let i = 0; i < p.count; i++) { const x = base[i * 3], y = base[i * 3 + 1], k = x / W;
+        p.setZ(i, Math.sin(x * 3.2 - t * (o.speed || 7)) * 0.16 * W * k + Math.sin(y * 4 + t * 3) * 0.04 * k); p.setY(i, y - k * k * 0.12 * Hh * (1 + 0.3 * Math.sin(t * 2))); }
+      p.needsUpdate = true; geo.computeVertexNormals(); };
+    g.userData.update(0); return g;
+  },
 };
 
 export const PROP_NAMES = Object.keys(B);
