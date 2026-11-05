@@ -339,8 +339,8 @@ scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windo
     actors=[act('judge', [-0.35, -0.3, -14.0], -35, 'gavelStrikeL', params={'hit': 0.4})],
     props=[P('specs', 'glasses', on={'actor': 'judge', 'joint': 'head', 'offset': [0.02, 0.17, 0.15]}, opts={'r': 0.042, 'dx': 0.07}),
            P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
-           P('gavel', 'gavel', pos=[0.03, 1.41, -13.65], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),
-           P('block', 'soundBlock', pos=[0.5, 1.18, -13.65])],
+           P('gavel', 'gavel', pos=[-0.37, 1.41, -13.3], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),   # head upright on the block, handle to his hand
+           P('block', 'soundBlock', pos=[0.1, 1.18, -13.3])],                     # in frame right of the judge (it sat 20 deg off-axis, outside the frame)
     cams=[cam(0.0, [-0.05, 1.27, -11.5], [-0.07, 1.28, -11.75], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.18, 'amount': 0.018}]))
 

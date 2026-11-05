@@ -105,3 +105,13 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 - (tornado) Character framing: solving a camera from a guessed head position failed twice (the arm ended in the lens). Move the camera
   along the head-camera line (the head keeps its screen position while its size scales by the distance ratio), then re-aim by the
   pixel offset. Two stills were enough.
+- (tornado) **Look for geometry that never shows.** Two props had parts hidden for 20 passes: the road (z-fight, see above) and the
+  headstone's arch, turned by +90° instead of -90° so the half-disc sat inside the slab. When a model "looks flat" on screen, check each
+  part's orientation in a close still before tuning colours or cameras.
+- (tornado) **Read what the background really is.** In S18 the bottom of the frame was clouds, not grass: the turbine and the tornado's
+  crown stood above the cloud deck. A camera-locked cloud bank behind the crown fixed the shot (+0.025 SSIM) where moving the camera
+  never could.
+- (tornado) Measure skin on a close-up, not on the shot grade: the face was too orange (#E8A768 vs #BF966E) while the sky and suit
+  matched, so the fix was a skin tint on the cast (the engine multiplies the painted head), not a grade that would shift the whole shot.
+- (tornado) Missing-content spans (from `hyperframes diff`) are the best pass planner: each span pointed at one structural miss (S3
+  framing, S14 road, S20 framing, S18 sky). Fixing those took the share from 17.9% to 3.4% in six passes while mean SSIM moved little.
