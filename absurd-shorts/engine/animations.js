@@ -201,6 +201,7 @@ export const CLIPS = {
     hipL: [-0.35, 0, 0], kneeL: [0.4, 0, 0], hipR: [0.25 * strike, 0, 0] }; },
   kneelBow: (t) => ({ ...CLIPS.kneel(t), torso: [0.75, 0, 0], head: [0.3, 0, 0], ...arms(m([-1.4, 0, 0.15], [-1.4, 0, 0.15]), m([-0.2, 0, 0], [-0.2, 0, 0])) }),
   fan: (t) => ({ shoulderR: [-1.6 + 0.35 * S(t * 12), 0, 0.3], elbowR: [-0.6, 0, 0], shoulderL: [0, 0, 0.2], elbowL: [-0.2, 0, -0.3], head: [0.05, -0.2, 0] }),
+  explainLook: (t, p = {}) => ({ ...CLIPS.explain(t), head: [0.02 * S(t * 2.3), p.yaw ?? 0.7, 0.04], torso: [0, (p.yaw ?? 0.7) * 0.25, 0] }), // explaining toward someone off to the side, face turned to the camera
   gavelStrike: (t, p = {}) => { // judge: right arm raises the gavel over the head and brings it down on the block at p.hit, then holds it there
     const hit = p.hit ?? 0.37, r0 = hit - 0.2, e = x => x * x;
     let sh, el;

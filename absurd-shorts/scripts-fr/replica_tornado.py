@@ -78,9 +78,9 @@ scenes.append(scene(2, 'S2', 'replicaStreet',
     cams=[cam(0.0, [-0.55, 6.5, 2.7], [0.0, 6.6, 2.5], [-0.4, 6.42, 0], [0.12, 6.55, -0.2], lens=55)]))
 
 # S3 3.43-4.50: low 3/4 medium shot on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
-scenes.append(scene(3, 'S3', 'replicaStreet',
-    actors=[act('mec', [-1.2, 0, 0], 45, 'explain', 'neutral')],
-    cams=[cam(0.0, [0.2, 0.92, 0.3], [0.23, 0.93, 0.28], [-1.5, 2.25, -0.25], [-1.47, 2.27, -0.26], lens=74, shake=0.003)]))
+scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
+    actors=[act('mec', [-1.2, 0, 0], 12, 'explainLook', 'neutral', params={'yaw': 0.75})],
+    cams=[cam(0.0, [0.5, 0.85, 0.45], [0.53, 0.86, 0.43], [-1.45, 2.1, -0.3], [-1.42, 2.12, -0.31], lens=74, shake=0.003)]))
 
 # S4 4.50-6.53: selfie close-up on the far sidewalk (0.7 m from his face, camera above eye level looking down 15 deg, wide lens): the road on
 # the right, the townhouses beyond the fence on the left, the tornado far down the road; at f151 he brings up the phone beside his face,

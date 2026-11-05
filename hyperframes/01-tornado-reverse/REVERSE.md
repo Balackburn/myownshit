@@ -23,7 +23,8 @@ not have, so this project is built by hand to the same rules.
   - pin the CLI (`npx --yes hyperframes@0.9.13 ...`): an unpinned `npx hyperframes` fetched a version the registry mirror did not
     serve yet and failed;
   - each pass renders the engine layer (about 5 min), then `npx hyperframes render` (about 1 min), then
-    `npx hyperframes diff ref.mp4 renders/passN.mp4 --sbs`;
+    `npx hyperframes diff ref.mp4 renders/passN_delivery.mp4 --sbs`, the delivery file being re-encoded like the original
+    (`libx264 -profile:v high -b:v 1380k`; flat areas of the original measure 2-5× smoother than our 5.5 Mb/s render);
   - the side-by-side video goes to `passes/passN_sbs.mp4` and is shown in the chat.
 
 | pass | mean SSIM | p05 | shots built |
@@ -41,6 +42,7 @@ not have, so this project is built by hand to the same rules.
 | 11 | 0.670 | 0.460 | S13 smoke columns from every row with fire in each shell; S15 tornado smaller and leaning (bench visible); S22 push-in distance; S4 reframing tried and reverted |
 | 12 | 0.671 | 0.461 | micro-animation from optical flow: tornado spin per shot, camera shakes, pans and tilts; S2 wall streaming; S6 dolly direction; empty-content share 16% |
 | 13 | 0.670 | 0.461 | S1 leash (engine tethers: a cord between two moving anchors), dog walks from behind to ahead; S2 open mouth and dangling leash |
+| 14 | 0.674 | 0.469 | S3 staging (3/4 facing left, forearms out, head to camera, distant houses); delivery encode at the original's bitrate (H.264 High, ~1.4 Mb/s) |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado
