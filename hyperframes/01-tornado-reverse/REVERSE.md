@@ -47,6 +47,17 @@ not have, so this project is built by hand to the same rules.
 | 16 | 0.675 | 0.468 | S19/S21 tornado: dark smooth body with wide pale spiral bands wrapped tight; S17 layout; S22 lower mound |
 | 17 | 0.675 | 0.468 | S4 skeptical expression and head turn, phone against the cheek (a lower camera aim was tried again and scored worse) |
 | 18 | 0.675 | 0.468 | judge and officer with the painted lemec face like the original; judge glasses as a 3D prop; officer path kept left of centre |
+| 19 | 0.674 | 0.463 | S8 rebuilt from measurements: locked chase with a contrail fixed to the jet, a camera-locked cloud bank sliding 166 px/frame that swallows the jet (f250) and slides off in S8b (jet emerges at f260); aerial crown is a rock crater sized on grid reads; missing content 17.9% → 15.5% |
+| 20 | 0.678 | 0.479 | distance haze on the aerial shots (bands within ~2-6 L*); S10 camera fitted to the crater (45°, squat tornado), jet from above with banking, ~50 missiles incl. a wing launch; THEFT card at the original's size, font, spring bounce and tilt |
+
+Pass 19-20 notes:
+- **Engine:** `camLock` props live in camera space (screen-locked layers inside a 3D shot: the cloud bank); `rotTo` keys rotate props
+  (the S10 jet banks); `cloudCurtain` is a self-shaded bank of lumps; the jet carries an optional contrail fixed to its nozzles; the
+  tornado has an aerial `crater` crown (dish, inner and outer rock rings, cream bands).
+- **Measured, not eyeballed:** the cloud edge rows per frame, its slide by phase correlation, the crater width/top/bottom/base rows on
+  50 px grids, then the camera fitted by projecting our own geometry (S8b end point pulled back 20%, S10 refit to a 45° view).
+- **SSIM caveat again:** the real cloud lumps sliding off scored lower than the old flat white-out on f258-f272 (pass 19), although they
+  match the original; the haze in pass 20 brought S8b above its pass-18 score anyway.
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado

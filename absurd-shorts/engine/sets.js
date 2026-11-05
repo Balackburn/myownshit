@@ -297,7 +297,7 @@ const S = {
   // --- "tornado" replica, act 2 -----------------------------------------------------------------------------------
   skyHigh(o = {}) { // above the clouds: blue sky centred on the camera and a deck of cumulus tops at y = 0
     const g = grp(); skyFollow(g, o.sky || ['#5AA8DE', '#9ACDEB'], 3000, o.below || '#DCE5EA');
-    g.add(prop('cloudLayer', { w: o.w || 1400, d: o.d || 1400, n: o.n || 420, h: o.h || 36, seed: o.seed || 5 }, o.cx || 0, 0, o.cz || 0));
+    if (o.layer !== false) g.add(prop('cloudLayer', { w: o.w || 1400, d: o.d || 1400, n: o.n || 420, h: o.h || 36, seed: o.seed || 5 }, o.cx || 0, 0, o.cz || 0));
     Object.assign(g.userData, { lighting: 'aerial', near: 0.5, far: 5000, fog: o.fog === false ? null : { color: o.fogColor || '#BFDCEF', near: o.fogNear || 500, far: o.fogFar || 2200 }, anchors: { center: [0, 0, 0] } });
     return g;
   },
@@ -367,7 +367,7 @@ const S = {
       if (!B) houses.add(at(box(perRow * px + 40, 0.03, 4.5, '#8DB75A'), 0, 0.015, z + 15.2));
       for (let i = 0; i < perRow; i++) {
         const x = (i - (perRow - 1) / 2) * px + (j % 2 ? px * 0.35 : 0) + (r() - 0.5) * 0.6, c = WC[Math.floor(r() * WC.length)], rf = RC[Math.floor(r() * RC.length)];
-        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z);
+        const hb = prop('cottage', { w: 6.6, d: 7.2, h: 3.0, eaves: !!o.eaves, porch: o.porch ?? !o.eaves, color: B ? ['#5E5853', '#56504B', '#625B55'][i % 3] : c, roof: rf, door: ['#2F7F8C', '#B5302A', '#3E6E3E', '#E3B33A'][Math.floor(r() * 4)], yard: 7, burnt: B, seed: j * 31 + i, flowers: ['#D9405A', '#B04FC8', '#E86A3A'][i % 3] }, x, 0, z);
         houses.add(hb);
         if (!B && r() < 0.35) houses.add(prop('tree', { seed: j * 17 + i, color: '#4E8A4A' }, x + px / 2, 0, z - 2 - r() * 4, 0, 1.6 + r() * 0.8));
         if (B && r() < 0.3) houses.add(prop('burntTree', { seed: j * 17 + i, h: 5 + r() * 2 }, x + px / 2, 0, z - 2 - r() * 4));

@@ -325,7 +325,7 @@ function scaleAt(A, t) {
 // ------------------------------------------------------------------------------------- props
 function prepProp(cfg, obj, sc, place) {
   const Pp = { id: cfg.id || cfg.name, cfg, obj, kind: 'prop', pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), ry0: (cfg.ry || 0) * D2R, rx0: cfg.rot?.[0] || 0, rz0: cfg.rot?.[2] || 0,
-    scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [] };
+    scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [], rotKeys: [] };
   if (cfg.on) Pp.own.push({ at: -1e6, attach: cfg.on.actor || cfg.on, ...(typeof cfg.on === 'object' ? cfg.on : {}) });
   const keys = (cfg.keys || []).map(k => ({ ...k, t: frozenRemap(cfg.id || cfg.name, T(k.at ?? 0, sc)) })).sort((a, b) => a.t - b.t);
   for (const k of keys) {
@@ -335,6 +335,7 @@ function prepProp(cfg, obj, sc, place) {
     if (k.visible != null) Pp.visKeys.push({ at: k.t, visible: k.visible });
     if (k.scale != null && k.to == null) Pp.scaleKeys.push({ at: k.t, scale: k.scale, dur: k.dur ?? 0.4, ease: k.ease || 'inOut' });
     if (k.sfx) Pp.sfx.push({ t: k.t, name: k.sfx, vol: k.vol ?? 0.6 });
+    if (k.rotTo) Pp.rotKeys.push({ t: k.t, rot: k.rotTo, dur: k.dur ?? 0.4, ease: k.ease || 'inOut' });   // radians [x, y, z], Euler XYZ
   }
   for (const mv of Pp.moves) {
     const start = propBasePos(Pp, mv.t);
@@ -401,6 +402,11 @@ function evalProp(Pp, t) {
     if (o.restRot && t >= (o.landT ?? 0)) Pp.obj.rotation.set(...o.restRot);
   } else {
     Pp.obj.position.copy(propBasePos(Pp, t)); Pp.obj.rotation.set(Pp.rx0, Pp.ry0 + (Pp.spin ? Pp.spin * t : 0), Pp.rz0);
+    if (Pp.rotKeys.length) { // rotTo keys: Euler lerp from the previous orientation (a roll is a change of z when the prop's nose is +Z)
+      let r = [Pp.rx0, Pp.ry0, Pp.rz0];
+      for (const rk of Pp.rotKeys) { if (t < rk.t) break; const w = rk.dur ? (ease[rk.ease] || ease.inOut)(clamp01((t - rk.t) / rk.dur)) : 1; r = r.map((v, i) => lerp(v, rk.rot[i], w)); }
+      Pp.obj.rotation.set(r[0], r[1], r[2]);
+    }
     const mv = Pp.moves.find(m => t >= m.t && t <= m.t1 && m.faceMove);
     if (mv) Pp.obj.rotation.y = headingAt(mv, t) + (mv.yawOffset || 0) * D2R;
     else { const last = [...Pp.moves].reverse().find(m => t > m.t1 && m.faceMove); if (last) Pp.obj.rotation.y = last.segs[last.segs.length - 1].head + (last.yawOffset || 0) * D2R; }
@@ -824,6 +830,7 @@ export function renderFrame(tAbs) {
     lightCycle(tk);
     placeCamera(tk);
     for (const o of S.follow || []) o.position.copy(camera.position);
+    camLocked(camera);
     renderer.render(scene, camera);
     const frozen = frozenNow(tk);
     g.globalAlpha = 1 / (k + 1);
@@ -834,6 +841,14 @@ export function renderFrame(tAbs) {
   drawFX(g, lt);
   drawCaption(g, t);
   return si;
+}
+// props with cfg.camLock live in camera space (x right, y up, looking down -z): their pos, keys and rot are evaluated as usual, then
+// carried by the camera (shake included). For screen-locked layers in 3D: a cloud bank sliding across the frame, a lens-close foreground.
+const _q = new THREE.Quaternion();
+function camLocked(camera) {
+  let any = false;
+  for (const Pp of S.props) { if (!Pp.cfg.camLock) continue; if (!any) { camera.updateMatrixWorld(true); any = true; }
+    const o = Pp.obj; _q.setFromEuler(o.rotation); o.position.applyMatrix4(camera.matrixWorld); o.quaternion.copy(camera.quaternion).multiply(_q); o.updateMatrixWorld(true); }
 }
 function lightCycle(t) {
   const dn = S.sc.daynight; if (!dn) return;

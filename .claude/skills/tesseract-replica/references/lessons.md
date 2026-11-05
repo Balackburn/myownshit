@@ -82,3 +82,18 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   fast in one, 44% too slow in another). Match these numbers before judging by eye.
 - (tornado) Pin the HyperFrames CLI version in every command (`npx --yes hyperframes@X.Y.Z`). An unpinned `npx` grabbed a release the
   registry mirror did not serve yet and the render failed.
+- (tornado) **Is a layer sliding or zooming?** Phase-correlate one band of the frame between consecutive frames (`cv2.phaseCorrelate`
+  on the top 400 rows). A steady shift (here +160 px/frame, vertical, for 8 frames) means the layer slides as one piece: a camera
+  rotation or a screen-locked layer, not a fly-through. In S8 the cloud deck's edge and its texture moved at the same 166 px/frame, so
+  a fog trick or a world-space deck could never match it.
+- (tornado) For a screen-locked layer inside a 3D shot (a cloud bank the camera punches into, a lens-close foreground), give the prop
+  `camLock: true`: its pos, keys and rot are read in camera space (x right, y up, looking down -z) and it follows the camera, shake
+  included. Key its edge in pixels: y_px = 512 - f_px * y / depth, with f_px = 512 / tan(fov / 2).
+- (tornado) A contrail behind a jet in a locked chase must move with the jet (a cylinder fixed to the nozzles, growing in length).
+  A world-space trail streaks under motion blur because the camera flies past it; the original's trail stayed crisp.
+- (tornado) **Never read sizes off thumbnails.** On 216 px panels I judged the aerial tornado 20% too big; a 50 px grid on
+  full-resolution frames showed it was 30% too small. Measure on full frames with a grid, then project your own geometry through
+  your camera (a 30-line pinhole script from the scene JSON) to tune scale and camera path before rendering: the crater width and top
+  row then matched within 15 px at three frames on the first render.
+- (tornado) Read the shot boundary in the original: the white-out did not belong to one shot. The cloud bank slid in at the end of
+  S8a and slid off at the start of S8b (edge rows measured frame by frame), and the jet emerged from it at f260, not from below.

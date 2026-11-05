@@ -77,10 +77,10 @@ scenes.append(scene(2, 'S2', 'replicaStreet',
            P('leash2', 'leash', on={'actor': 'dog', 'offset': [0, 0.53, 0.3]}, opts={'length': 1.5, 'elev': -1.25, 'color': '#C8322A'})],
     cams=[cam(0.0, [-0.55, 6.5, 2.7], [0.0, 6.6, 2.5], [-0.4, 6.42, 0], [0.12, 6.55, -0.2], lens=55)]))
 
-# S3 3.43-4.50: low 3/4 medium shot on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
+# S3 3.43-4.50: close 3/4 shot from chest height on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
 scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
     actors=[act('mec', [-1.2, 0, 0], 12, 'explainLook', 'neutral', params={'yaw': 0.75})],
-    cams=[cam(0.0, [0.5, 0.85, 0.45], [0.53, 0.86, 0.43], [-1.45, 2.1, -0.3], [-1.42, 2.12, -0.31], lens=74, shake=0.003)]))
+    cams=[cam(0.0, [-0.475, 1.216, 0.44], [-0.445, 1.226, 0.42], [-2.421, 2.409, -0.302], [-2.391, 2.429, -0.312], lens=74, shake=0.003)]))   # solved (fit3): head top (350, 225), chin y 450, rooftops / fence rows kept
 
 # S4 4.50-6.53: selfie close-up on the far sidewalk (0.7 m from his face, camera above eye level looking down 15 deg, wide lens): the road on
 # the right, the townhouses beyond the fence on the left, the tornado far down the road; at f151 he brings up the phone beside his face,
@@ -113,9 +113,11 @@ def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
             'start': round(f0 / FPS, 6), 'duration': round((f1 - f0) / FPS, 6), **kw}
 
 
-TORA = {**TOR, 'height': 8.6, 'base': 0.3, 'top': 1.45, 'taper': 1.0, 'crownFlare': 1.1, 'cols': ['#5B675F', '#66726A', '#4F5A53', '#6F7B73'], 'pale': 2, 'paleColor': '#C9BC9C',
-        'bands': False, 'collar': [1.55, 2.5], 'rim': 36, 'rimAt': 1.3, 'rimSize': 0.28, 'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 2.5, 'ribbonY0': 0.95, 'ribbonDY': 0.1,
-        'dust': 0.8, 'chips': 40, 'stripe': '#4F5A53', 'stripeDark': '#4A554E'}   # the aerial look: long striped body, flat dark collar with rocks, tan ring
+TORA = {**TOR, 'height': 8.6, 'base': 0.3, 'top': 1.45, 'taper': 1.0, 'crownFlare': 1.1, 'cols': ['#6A766E', '#76827A', '#5E6A62', '#808C84'], 'pale': 2, 'paleColor': '#D6CBAE',
+        'bands': False, 'crownFlare': 1.15, 'crownH': 0.8, 'crownSpike': 0.0, 'crater': {'r0': 1.3, 'r1': 3.55, 'bands': [[1.95, 2.12], [2.3, 2.5], [2.75, 2.88]], 'rocksIn': 16, 'rockIn': 0.48, 'rocksOut': 26, 'rockOut': 0.24,
+                   'color': '#99A49C', 'rockColor': '#A9B4AC'},
+        'ribbons': 8, 'ribbonFlat': True, 'ribbonR': 3.4, 'ribbonY0': 0.95, 'ribbonDY': 0.1,
+        'dust': 0.8, 'chips': 40, 'stripe': '#8E8A78', 'stripeDark': '#4A554E'}   # the aerial look (S8b, S10): long striped body, a rock crater on top
 JETA = {'burner': 0.45, 'glow': 3.4, 'glowColor': '#FF6A22', 'missiles': 4}
 V = 55.0                                                               # strike speed (m/s) of the jet + chase camera
 
@@ -124,38 +126,80 @@ def mv(p, dz, dx=0.0, dy=0.0):
     return [round(p[0] + dx, 3), round(p[1] + dy, 3), round(p[2] + dz, 3)]
 
 
-# S8a 8.10-8.47: from below and behind, the jet climbs away into the blue and punches into the cloud deck overhead (contrail left
-# behind); the deck is a small patch right above, so the first frames are pure sky
-J0, J1 = [2, -147, -62], [20, -6, -150]
+# S8a 8.10-8.47: a locked chase measured on the original. The camera trails the climbing jet (wingspan 86% of the frame at f244,
+# 74% at f249: the jet pulls away ~0.74 m a frame), seen from just above-right of its path, so the contrail it starts at f246 streams
+# to the lower-left corner (its tail recedes ~9 m a frame: 270 m/s airspeed, camera 3.8 m off the path). The cloud deck pops in at
+# f248 with its scalloped edge at y = 320 px and slides down the frame 166 px a frame as one piece (phase correlation: pure
+# vertical shift), swallowing the jet at f249.7 and the frame at f252.5: a camera-locked cloud bank (cloudCurtain), 5 m away.
+import math as _m8
+def _rx(v, a): c, s_ = _m8.cos(a), _m8.sin(a); return [v[0], c * v[1] - s_ * v[2], s_ * v[1] + c * v[2]]
+def _ry(v, a): c, s_ = _m8.cos(a), _m8.sin(a); return [c * v[0] + s_ * v[2], v[1], -s_ * v[0] + c * v[2]]
+def _rz(v, a): c, s_ = _m8.cos(a), _m8.sin(a); return [c * v[0] - s_ * v[1], s_ * v[0] + c * v[1], v[2]]
+def rot_xyz(rot, v): return _rx(_ry(_rz(v, rot[2]), rot[1]), rot[0])          # three.js Euler XYZ: R = Rx Ry Rz
+def nrm3(v): n_ = _m8.sqrt(sum(x * x for x in v)); return [x / n_ for x in v]
+def cross3(a_, b_): return [a_[1] * b_[2] - a_[2] * b_[1], a_[2] * b_[0] - a_[0] * b_[2], a_[0] * b_[1] - a_[1] * b_[0]]
+def comb(*terms): return [round(sum(k_ * v[i] for k_, v in terms), 3) for i in range(3)]   # sum of scalar * vector
+def euler_from_basis(X, Y, Z):                                                  # rotation whose columns are X, Y, Z -> Euler XYZ
+    y_ = _m8.asin(max(-1.0, min(1.0, Z[0])))
+    if abs(Z[0]) < 0.9999999: return [round(_m8.atan2(-Z[1], Z[2]), 5), round(y_, 5), round(_m8.atan2(-Y[0], X[0]), 5)]
+    return [round(_m8.atan2(Y[2], Y[1]), 5), round(y_, 5), 0.0]
+def view_basis(fwd):                                                            # three.js lookAt with world up: right, up
+    z_ = [-c for c in fwd]; x_ = nrm3(cross3([0, 1, 0], z_)); return x_, cross3(z_, x_)
+JROT8 = [1.05, 3.04, 0.08]; F8 = nrm3(rot_xyz(JROT8, [0, 0, 1])); VJ8 = 270.0; T8A = 11 / 30
+RS8, US8 = view_basis(F8)
+J8a = [0.0, -78.0, -40.0]; J8b = comb((1, J8a), (VJ8 * T8A, F8))
+JC8 = rot_xyz(JROT8, [0, 1.6, -3.0]); NZ8 = rot_xyz(JROT8, [0, 1.6, -7.45])     # the jet's visual centre and nozzle centre, from its pivot
+O8 = comb((3.8 * 0.491, RS8), (3.8 * 0.871, US8))                                  # camera offset from the path: up-right (trail -> lower-left corner)
+def d8(t): return 24.5                                                            # camera -> jet distance, locked from f245 (wingspan ~80% of the frame)
+def jet8(t): return comb((1, J8a), (VJ8 * t, F8))
+def cam8(t, d=None, off=None): return comb((1, jet8(t)), (1, JC8), (-(d or d8(t)), F8), (1, off or O8))
+def look8(t): return comb((1, jet8(t)), (1, JC8), (0.25, RS8), (0.1, US8))
+CAM8_0 = cam8(0.0, 15.0, comb((-0.6, RS8), (-2.2, US8)))                          # f243: closer and below (nozzles above the wing line, banked look),
+                                                                                 # pulling back to the locked chase by f245
+# cloud bank 5 m ahead of the camera, tilted 7 deg (its edge is ~65 px higher on the right), edge y_px = 320 + 166 (f - 248)
+def fpy(lens): return 512 / _m8.tan(_m8.radians(lens / 2))                       # focal length in px (1024 px tall frame)
+def bank_keys(fys, f0, dc, lens):
+    """camera-space slide of a camLock cloud bank: fys = [(frame, edge y px at the frame centre)], f0 = scene start frame"""
+    at_ = lambda y: [0.0, round((512 - y) * dc / fpy(lens), 4), -dc]
+    keys_ = [k(round((fa - f0) / 30, 4), to=at_(yb), dur=round((fb - fa) / 30, 4), ease='linear') for (fa, ya), (fb, yb) in zip(fys, fys[1:])]
+    return at_(fys[0][1]), keys_
+DECK8_POS, DECK8_KEYS = bank_keys([(243, 320 - 166 * 5), (254, 320 + 166 * 6)], 243, 5.0, 55)   # edge y = 320 + 166 (f - 248)
+noz_at = lambda t: comb((1, jet8(t)), (1, NZ8))
 scenes.append(scene_f('S8a', 243, 254, 'skyHigh', props=[
-    P('jet', 'fighterJet', pos=J0, rot=[0.9, 2.93, 0.18], opts={'burner': 1.0, 'glow': 4.5, 'missiles': 4}, keys=[k(0.0, to=J1, dur=0.27, ease='in')]),
-    P('trail', 'missileSalvo', opts={'size': 3.0, 'trail': 1.0, 'trailWidth': 0.3, 'shots': [{'from': mv(J0, 18, -3, -14), 'to': J1, 't0': -0.03, 'dur': 0.3, 'body': False, 'hide': False, 'lin': True}]})],
-    cams=[cam(0.0, [0, -150, 20], [0, -140, 8], [2, -146, -62], [18, -6, -120], lens=55, ease='in')],
-    setOpts={'w': 300, 'd': 300, 'n': 150, 'h': 26, 'cz': -40, 'fog': False, 'sky': ['#5CABDF', '#7DC3E9']}, blur=0.03))
+    P('jet', 'fighterJet', pos=J8a, rot=JROT8, opts={'burner': 0.25, 'glow': 1.3, 'glowColor': '#FFB050', 'missiles': 4,
+        'contrail': {'t0': 3 / 30, 'speed': 270, 'len': 45, 'r': 0.17, 'color': '#F3EDE2', 'soft': 0.35}}, keys=[k(0.0, to=J8b, dur=T8A, ease='linear')]),
+    P('deck', 'cloudCurtain', camLock=True, pos=DECK8_POS, rot=[0, 0, round(_m8.radians(7), 4)], opts={'w': 5.6, 'h': 9.0, 'r': 0.62, 'seed': 37, 'bright': '#F4E9D7', 'shadow': '#B9CADC', 'plate': '#DEDCD6'},
+      keys=[k(0.0, visible=False), k(0.14, visible=True)] + DECK8_KEYS)],   # its edge ~65 px higher on the right
+    cams=[cam(0.0, CAM8_0, cam8(2 / 30), look8(0.0), look8(2 / 30), lens=55),
+          cam(2 / 30, cam8(2 / 30), cam8(T8A), look8(2 / 30), look8(T8A), lens=55)],
+    setOpts={'layer': False, 'fog': False, 'sky': ['#5EAEE0', '#8ACBEE']}, blur=[[0, 0.025, 0.03], [0.025, 0.15, 0.006], [0.15, 1, 0.013]], blurSamples=12))
 
 # S8b 8.47-10.43: white-out (the camera dives through a cloud), then the strike seen from above-behind. Camera solved from the reference
 # (solve_cam: rim/base screen rows, rim width, house size; tornado scale 9): altitude 236 -> 160 m, 242 -> 121 m from the tornado, pitch
 # 48 -> 54 deg; the jet 24 m ahead, nose-down, nozzles facing us; the lock-on HUD is a HyperFrames layer
 import math as _m
 TZ = -520.0; TS = 9.0                        # tornado position (z) and scale for the aerial shots
+AERIAL_HAZE = {'color': '#EEECE6', 'near': 150, 'far': 600}   # the original's veil grows with distance: top band +12 L*, chroma 26 -> 9
+TS8B = 9.0                                   # S8b: crater width measured on grid overlays (270 px at f270, 350 at f290, 420 at f312)
 def vdir(deg): return [0.0, -_m.sin(_m.radians(deg)), -_m.cos(_m.radians(deg))]
 def ahead(c, deg, k=300.0): d = vdir(deg); return [round(c[i] + d[i] * k, 2) for i in range(3)]
 def rel(c, r): return [round(c[0] + r[0], 2), round(c[1] + r[1], 2), round(c[2] + r[2], 2)]
 def lerp3(a, b, u): return [round(a[i] + (b[i] - a[i]) * u, 2) for i in range(3)]
-C8a, C8z = [0, 236, TZ + 242], [0, 160, TZ + 121]; P8a, P8z = 48.1, 53.6; T8 = 1.967
+C8a, C8z = [0, 236, TZ + 242], [0, 175, TZ + 145]; P8a, P8z = 46.2, 51.0; T8 = 1.967     # pitch 1.9 deg up: the base sits at y 490 (f290);
+# the end point pulled back 20%: the crater grows 270 -> 350 -> 420 px (f270, f290, f312) on the original
 def c8(t): return lerp3(C8a, C8z, t / T8)
-JR8a, JR8b = [-1.15, -20.34, -13.45], [0.13, -21.96, -11.02]        # jet relative to the camera at f270 and f312 (solved)
+JR8a, JR8b = [-1.26, -22.37, -14.8], [0.14, -24.16, -12.12]         # jet relative to the camera at f270 and f312 (solved, x1.1: wingspan)
 def cl_at(c, deg, k, off): p = ahead(c, deg, k); return [round(p[0] + off[0], 2), round(p[1] + off[1], 2), round(p[2] + off[2], 2)]
+DECK8B_POS, DECK8B_KEYS = bank_keys([(254, -150), (255, -60), (256, 40), (257, 143), (258, 246), (259, 338), (260, 410), (261, 470), (262, 570), (263, 660),
+                                      (266, 720), (270, 800), (275, 860), (281, 900), (285, 960), (290, 1110)], 254, 5.0, 50)
 scenes.append(scene_f('S8b', 254, 313, 'aerialSuburb', props=[
-    P('cl1', 'cumulus', pos=cl_at(C8a, P8a, 5, [0, -4, 0]), opts={'w': 14, 'h': 8, 'n': 14, 'seed': 3}),
-    P('cl2', 'cumulus', pos=cl_at(C8a, P8a + 16, 80, [-26, -14, 0]), opts={'w': 80, 'h': 30, 'n': 30, 'seed': 8}),
-    P('cl3', 'cumulus', pos=cl_at(C8a, P8a + 18, 84, [30, -16, 0]), opts={'w': 76, 'h': 28, 'n': 28, 'seed': 12}),
-    P('cl4', 'cumulus', pos=cl_at(C8a, P8a + 24, 70, [0, -12, 0]), opts={'w': 90, 'h': 30, 'n': 34, 'seed': 15}),
-    P('cl5', 'cumulus', pos=cl_at(C8a, P8a + 12, 26, [-4, -8, 0]), opts={'w': 60, 'h': 22, 'n': 30, 'seed': 21}),
-    P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS, opts=TORA),
-    P('jet', 'fighterJet', pos=rel(C8a, [0, -62, 6]), rot=[-0.8, 3.1416, 0.04], opts=JETA, keys=[
-        k(0.0, to=rel(c8(0.533), JR8a), dur=0.533, ease='out'), k(0.533, to=rel(C8z, lerp3(JR8a, JR8b, 1.0 + 1 / 42)), dur=T8 - 0.533, ease='linear')])],
-    cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50, shake=0.12)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.7, 'gridRot': 0.12}))
+    P('deck', 'cloudCurtain', camLock=True, pos=DECK8B_POS, rot=[-0.6, 0, 0.25], keys=DECK8B_KEYS,
+      opts={'down': True, 'w': 6.0, 'h': 7.0, 'r': 0.45, 'seed': 41, 'bright': '#F4E9D7', 'shadow': '#BDCCDC', 'plate': '#E2DFD8'}),   # lower lumps nearer (tilted), edge higher on the right
+    P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS8B, opts=TORA),
+    P('jet', 'fighterJet', pos=rel(C8a, JR8a), rot=[-0.8, 3.1416, 0.04], opts=JETA, keys=[      # hidden in the bank until it slides past (f260)
+        k(0.0, to=rel(c8(0.533), JR8a), dur=0.533, ease='linear'), k(0.533, to=rel(C8z, lerp3(JR8a, JR8b, 1.0 + 1 / 42)), dur=T8 - 0.533, ease='linear')])],
+    cams=[cam(0.0, C8a, C8z, ahead(C8a, P8a), ahead(C8z, P8z), lens=50, shake=0.12)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.7, 'gridRot': 0.12},
+    blur=[[0, 0.34, 0.016]], blurSamples=8, fog=AERIAL_HAZE))
 
 # S9 10.43-11.17: over the cloud deck, the jet (seen nearly level, from the front-left 3/4, 38 m away) flies frame-left and lets the
 # missiles go (they drop, ignite, race ahead); the camera looks level, the jet 10 deg above centre
@@ -178,24 +222,49 @@ scenes.append(scene_f('S9', 313, 335, 'skyHigh', props=[
     cams=[cam(0.0, rel(J9a, CAM9), rel(J9b, CAM9), rel(J9a, [-1.7, -6.0, -10]), rel(J9b, [-1.7, -6.0, -10]), lens=48, shake=0.06)],
     setOpts={'cz': -40, 'h': 30, 'n': 520, 'w': 1300, 'd': 1300, 'sky': ['#62AEE2', '#7CC2EC'], 'fogNear': 500, 'fogFar': 1800, 'fogColor': '#7DC2EC'}))
 
-# S10 11.17-12.87: back on the chase view (solved: altitude 257 -> 157 m, 243 -> 105 m from the tornado, pitch 51 -> 56 deg; the jet ~40 m
-# ahead, drifting left); the salvo streaks ahead from under the wings and converges on the tornado
-C10a, C10b = [0, 257, TZ + 243], [0, 157, TZ + 105]; P10a, P10b = 51.0, 56.0; T10 = 1.7
-JR10a, JR10b = [-0.67, -36.25, -21.79], [-3.65, -34.30, -12.36]
-salvo = []
-for i in range(14):
-    t0 = 0.04 + i * 0.075
-    side = -1 if i % 2 else 1
-    u = t0 / T10
-    st = rel(lerp3(C10a, C10b, u), rel(lerp3(JR10a, JR10b, u), [side * (2.0 + (i % 4) * 0.95), -0.6, 0.5]))
-    tgt = [side * (2.5 + (i % 3) * 3), TS * (3.2 + (i % 5) * 0.8), TZ + (i % 4) * 2]
-    mid = lerp3(st, tgt, 0.45)
-    salvo.append({'from': st, 'ctrl': [round(mid[0] + side * (35 + (i % 4) * 18), 2), mid[1] + 10, mid[2]], 'to': tgt, 't0': t0, 'dur': 1.0 + (i % 3) * 0.12, 'trail': 0.6, 'v0': 0.4})
+# S10 11.17-12.87: back on the chase. Camera fitted (fit10: Nelder-Mead on the crater width, top and bottom rows and the base row read on
+# grid overlays at f335/f358/f374/f385, all within ~20 px): 229 -> 117 m up, pitch 48 -> 42.6 deg, a linear move; the crater is seen
+# ~30 deg above its plane (ellipse half as tall as wide) and sits lower than in S8b (height factor 0.67). The jet is seen from above
+# (wings in plan view), drifting left then back; ~40 missiles streak up from under the camera and converge on the crater
+C10a, C10b = [0, 228.8, TZ + 262.6], [0, 117.4, TZ + 138.3]; P10a, P10b = 47.9, 42.6; T10 = 1.7
+TORA10 = {**TORA, 'height': 5.76}                                              # the squat S10 tornado (crater at 53 m)
+def scr(x, y, d, lens=50): f_ = fpy(lens); return [round((x - 288) * d / f_, 3), round((512 - y) * d / f_, 3), -d]   # camera space of a pixel at depth d
+JET10 = [(335, 290, 665, 50.0), (350, 235, 662, 47.0), (366, 172, 680, 44.2), (385, 192, 690, 41.5)]   # (frame, x, y px, depth m): wingspan 250 -> 300 px
+PHI10 = _m8.radians(27)                                                          # the jet's axis 27 deg flatter than the view: its back faces us
+JROT10 = euler_from_basis([-1, 0, 0], [0, _m8.cos(PHI10), _m8.sin(PHI10)], [0, _m8.sin(PHI10), -_m8.cos(PHI10)])
+def bank10(deg): return [JROT10[0], JROT10[1], round(JROT10[2] + _m8.radians(deg), 4)]   # roll about the nose (+: left wing up)
+BANK10 = [(335, 8), (348, 0), (360, -10), (372, -14), (385, -10)]                 # read on close crops of the original
+import random as _rnd
+_r10 = _rnd.Random(10); salvo = []
+for i in range(40):
+    t0 = round(0.02 + i * 0.034 + _r10.uniform(-0.012, 0.012), 3)
+    cp_ = lerp3(C10a, C10b, t0 / T10)
+    st = [round(_r10.uniform(-50, 50), 2), round(cp_[1] - _r10.uniform(48, 95), 2), round(cp_[2] + _r10.uniform(0, 30), 2)]   # under / behind the camera, never at the lens
+    an = _r10.uniform(0, 2 * _m8.pi); rr = _r10.uniform(6, 30)
+    tgt = [round(rr * _m8.cos(an), 2), round(_r10.uniform(35, 82), 2), round(TZ + rr * _m8.sin(an), 2)]                      # round the crater
+    salvo.append({'from': st, 'to': tgt, 't0': t0, 'dur': round(_r10.uniform(0.8, 1.15), 3), 'trail': 0.75, 'v0': 0.55})
+def cam10_world(t, pc):                                                             # a camera-space point of S10 at time t, in world space
+    u = t / T10; c_ = lerp3(C10a, C10b, u); la_, lb_ = ahead(C10a, P10a), ahead(C10b, P10b); l_ = lerp3(la_, lb_, u)
+    z_ = nrm3([c_[i] - l_[i] for i in range(3)]); x_ = nrm3(cross3([0, 1, 0], z_)); y_ = cross3(z_, x_)
+    return [round(c_[i] + x_[i] * pc[0] + y_[i] * pc[1] + z_[i] * pc[2], 2) for i in range(3)]
+def jet10_at(t):                                                                   # the jet's camera-space position at t (linear between keys)
+    f_ = 335 + t * 30
+    for (fa, xa, ya, da), (fb, xb, yb, db) in zip(JET10, JET10[1:]):
+        if f_ <= fb: w_ = (f_ - fa) / (fb - fa); return scr(xa + (xb - xa) * w_, ya + (yb - ya) * w_, da + (db - da) * w_)
+    return scr(*JET10[-1][1:])
+for i in range(10):                                                                # the first wave leaves from under the jet's wings (f335-f344)
+    t0 = round(i * 0.03, 3); jp = jet10_at(t0); side = -1 if i % 2 else 1
+    st = cam10_world(t0, [jp[0] + side * (2.0 + (i % 4) * 1.0), jp[1] - 0.8, jp[2] + 1.5])
+    an = _r10.uniform(0, 2 * _m8.pi); rr = _r10.uniform(6, 26)
+    salvo.append({'from': st, 'to': [round(rr * _m8.cos(an), 2), round(_r10.uniform(40, 80), 2), round(TZ + rr * _m8.sin(an), 2)], 't0': t0, 'dur': round(_r10.uniform(1.0, 1.25), 3), 'trail': 0.5, 'v0': 0.25})
 scenes.append(scene_f('S10', 335, 386, 'aerialSuburb', props=[
-    P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS, opts=TORA),
-    P('jet', 'fighterJet', pos=rel(C10a, JR10a), rot=[-0.8, 3.1416, -0.03], opts={**JETA, 'burner': 0.7}, keys=[k(0.0, to=rel(C10b, JR10b), dur=T10, ease='linear')]),
-    P('salvo', 'missileSalvo', opts={'size': 1.6, 'glow': 1.0, 'trailOpacity': 0.85, 'trailWidth': 0.16, 'shots': salvo})],
-    cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.66, 'gridRot': 0.2}))
+    P('tornado', 'tornado', pos=[0, 0, TZ], scale=TS, opts=TORA10),
+    P('jet', 'fighterJet', camLock=True, pos=scr(*JET10[0][1:]), rot=bank10(8), opts={**JETA, 'burner': 1.0},
+      keys=[k(round((fa - 335) / 30, 4), to=scr(*b_[1:]), dur=round((b_[0] - fa) / 30, 4), ease='inOut') for (fa, *_), b_ in zip(JET10, JET10[1:])]
+           + [k(round((fa - 335) / 30, 4), rotTo=bank10(rb), dur=round((fb - fa) / 30, 4)) for (fa, _), (fb, rb) in zip(BANK10, BANK10[1:])]),
+    P('salvo', 'missileSalvo', opts={'size': 1.4, 'glow': 2.4, 'trailOpacity': 0.8, 'trailWidth': 0.1, 'shots': salvo})],
+    cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.66, 'gridRot': 0.2},
+    fog=AERIAL_HAZE))
 
 # S11 12.87-14.37: street level across the road (camera yawed ~8 deg right, pitched up ~6 deg, wide lens): the missile hits the tornado behind
 # the cottages, fireball and glare, then smoke, debris and a second hit lower right
@@ -211,18 +280,18 @@ scenes.append(scene(11, 'S11', 'cottageStreet', props=[
         {'x': 17.4, 'w': 5.8, 'color': '#EDCF7A', 'roof': '#B5402F'}, {'x': -7.6, 'w': 5.8, 'color': '#F0C6CF', 'roof': '#5E83C6'},
         {'x': -14.6, 'w': 6.0, 'color': '#A9C7E8', 'roof': '#B5402F', 'eaves': True}, {'x': 23.2, 'w': 5.8, 'color': '#F4F2EC', 'roof': '#3E4A5E'}]}))
 
-# S12 14.37-16.10: high over the rows of cottages, the tornado on the field beyond; strikes land among the houses, closer and closer
+# S12 14.37-16.10: high over the rows of side-gabled cottages, the tornado on the field beyond; strikes land among the houses, closer and
+# closer. Camera solved from grid reads of f433 (horizon y 170, row fronts y 960 / 700, tornado base (325, 320), crown top y 85): 27 m up,
+# pitch 16.6 deg, the nearest row 35 m ahead; houses 6.6 m wide on a 7.6 m pitch (eaves: ridge along the street, no porch). The blasts
+# keep the screen positions measured in pass 15, re-projected onto the ground for this camera (sizes scaled by the new distance)
+BLAST12 = {'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}
+B12 = [([-10.16, 3, -132.77], 0.47, 7.9, 4), ([10.6, 3, -89.77], 0.9, 8.3, 6), ([-7.01, 3, -43.62], 1.27, 7.8, 8), ([4.45, 3, -19.56], 1.63, 6.8, 10)]
+MSL12 = [[40, 140, -190], [55, 140, -150], [45, 130, -95], [50, 120, -70]]
 scenes.append(scene(12, 'S12', 'cottageRows', props=[
-    P('tornado', 'tornado', pos=[14, 0, -165], scale=5.0, opts={**TOR, 'chips': 30}),
-    P('b1', 'fireball', pos=[-7.4, 3, -90.8], opts={'t0': 0.47, 'size': 5.0, 'seed': 4, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
-    P('b2', 'fireball', pos=[8.2, 3, -64.5], opts={'t0': 0.9, 'size': 5.5, 'seed': 6, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
-    P('b3', 'fireball', pos=[-5.7, 3, -32.9], opts={'t0': 1.27, 'size': 5.5, 'seed': 8, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
-    P('b4', 'fireball', pos=[3.8, 3, -14.8], opts={'t0': 1.63, 'size': 5.0, 'seed': 10, **{'glowShare': 0.3, 'flash': 0.6, 'glare': 0.3, 'life': 0.75, 'flashScale': 1.0, 'smoke': 0.75, 'smokeColor': '#3A3432'}}),
-    P('msl', 'missileSalvo', opts={'size': 2.2, 'shots': [{'from': [40, 140, -150], 'to': [-7.4, 3, -90.8], 't0': 0.2, 'dur': 0.27, 'trail': 0.6},
-                                                         {'from': [55, 140, -120], 'to': [8.2, 3, -64.5], 't0': 0.63, 'dur': 0.27, 'trail': 0.6},
-                                                         {'from': [45, 130, -80], 'to': [-5.7, 3, -32.9], 't0': 1.0, 'dur': 0.27, 'trail': 0.6},
-                                                         {'from': [50, 120, -60], 'to': [3.8, 3, -14.8], 't0': 1.36, 'dur': 0.27, 'trail': 0.6}]})],
-    cams=[cam(0.0, [0, 25, 34], [0.4, 25, 32.5], [0, -2.0, -46], [2.6, -2.0, -47.5], lens=48)], setOpts={'rows': 7}))
+    P('tornado', 'tornado', pos=[7, 0, -178], scale=5.0, opts={**TOR, 'chips': 30})]
+    + [P(f'b{i + 1}', 'fireball', pos=pos, opts={'t0': t0, 'size': sz, 'seed': sd, **BLAST12}) for i, (pos, t0, sz, sd) in enumerate(B12)]
+    + [P('msl', 'missileSalvo', opts={'size': 2.2, 'shots': [{'from': MSL12[i], 'to': B12[i][0], 't0': round(B12[i][1] - 0.27, 2), 'dur': 0.27, 'trail': 0.6} for i in range(4)]})],
+    cams=[cam(0.0, [0, 27, 38.8], [0.4, 27, 37.3], [0, 3.15, -41.2], [2.6, 3.15, -42.7], lens=48)], setOpts={'rows': 8, 'eaves': True, 'pitch': 7.6}))
 
 # S13 16.10-17.63: "All of it.": the same streets in ruins, dark grade, a forest of smoke columns and fires, the tornado far behind
 fl, sm = [], []
@@ -350,9 +419,10 @@ SHOT_GRADES = {
  "S5": "contrast(0.9) saturate(1.26) brightness(1.116)",
  "S6": "contrast(0.9) saturate(1.35) brightness(1.204)",
  "S7": "contrast(0.9) saturate(1.13) brightness(1.077)",
- "S8": "contrast(0.9) saturate(0.86) brightness(1.111)",
+ "S8a": "contrast(0.9) saturate(0.86) brightness(1.111)",
+ "S8b": "contrast(0.9) saturate(0.92) brightness(1.0)",
  "S9": "contrast(0.9) saturate(1.12) brightness(1.031)",
- "S10": "contrast(0.9) saturate(0.80) brightness(1.151)",
+ "S10": "contrast(0.9) saturate(0.96) brightness(1.01)",
  "S11": "contrast(0.9) saturate(1.14) brightness(1.108)",
  "S12": "contrast(0.9) saturate(1.04) brightness(1.022)",
  "S13": "contrast(0.9) saturate(0.80) brightness(0.981)",
@@ -367,7 +437,7 @@ SHOT_GRADES = {
  "S22": "contrast(0.9) saturate(1.19) brightness(1.204)"
 }
 for sc_ in scenes:
-    key = 'S8' if sc_['id'] in ('S8a', 'S8b') else sc_['id']
+    key = sc_['id']
     if key in SHOT_GRADES: sc_['grade'] = SHOT_GRADES[key]
 
 doc = {'version': 3, 'title': 'Replica: man lost his dog in a tornado', 'grade': 'contrast(0.9) saturate(1.0) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,

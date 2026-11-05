@@ -634,6 +634,16 @@ const B = {
     [-1, 1].forEach(sd => { const st = box(0.02, 0.1, 1.4, '#E8902A'); st.position.set(sd * 1.15, Y - 0.25, -0.6); g.add(st); });
     if (o.glow) [-1, 1].forEach(s => { const a = glowSprite(o.glowColor || '#FF9A3C', o.glow, 0.95), b = glowSprite('#FFF1C8', o.glow * 0.45, 1); a.position.set(s * 0.6, Y, -7.6); b.position.set(s * 0.6, Y, -7.5); g.add(a, b); });
     if (o.gear) [[-1.5, 0.6, -1.5], [1.5, 0.6, -1.5], [0, 0.6, 6.0]].forEach(([x, y, z]) => g.add(at(cyl(0.32, 0.32, 0.26, '#1A1A1E', 10), x, 0.32, z, 0, 0, Math.PI / 2), at(box(0.12, Y - 0.6, 0.12, dark), x, Y / 2, z)));
+    if (o.contrail) { // a contrail fixed to the jet (with a locked chase camera it stays crisp on screen, as in the reference): it grows
+      // from contrail.t0 (scene time) at contrail.speed m/s up to contrail.len metres behind the nozzles; opaque core + soft sheath
+      const C = o.contrail, cg = grp(), tg = new THREE.CylinderGeometry(1, 1, 1, 12, 1, true).translate(0, -0.5, 0).rotateX(PI / 2), col = C.color || '#F4EFE6';
+      const core = new THREE.Mesh(tg, new THREE.MeshBasicMaterial({ color: col, fog: false })), sheath = new THREE.Mesh(tg, new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: C.soft ?? 0.35, depthWrite: false, fog: false }));
+      [core, sheath].forEach(m => { m.castShadow = false; cg.add(m); }); cg.position.set(0, Y, -7.5); g.add(cg);
+      const r = C.r || 0.12;
+      g.userData.update = t => { const L = Math.min(C.len || 60, Math.max(0, (t - (C.t0 || 0)) * (C.speed || 270))); cg.visible = L > 0.01;
+        core.scale.set(r, r, Math.max(L, 0.01)); sheath.scale.set(r * (C.sheath || 1.6), r * (C.sheath || 1.6), Math.max(L, 0.01)); };
+      g.userData.update(0);
+    }
     return g;
   },
   house(o) {
@@ -888,6 +898,19 @@ const B = {
       const col = mesh(cg, mat(o.collarColor || '#56615A', { doubleSide: true })); col.position.y = yC; col.castShadow = true;
       const tan = mesh(new THREE.RingGeometry(c0 * 0.78, c0 * 1.01, 30, 1).rotateX(-PI / 2), mat(o.lidColor || '#D2C29E', { doubleSide: true })); tan.position.y = yC - 0.02; tan.castShadow = false;
       const cp = grp(col, tan); g.add(cp); ribbons.push({ piv: cp, sp: 2.4, ph: 0 });
+    }
+    if (o.crater) { // the aerial crown seen from above (reference S8b/S10): a shallow dark dish round the hole, an inner wall of big rocks,
+      // a cream debris band on the dish, an outer ring of rocks. o.crater = {r0 hole radius, r1 outer radius, y, band: [b0, b1], rocksIn, rocksOut}
+      const C = o.crater, yC = C.y ?? H * (1 + 0.4 / N), cp = grp(), dh = (C.r1 - C.r0) * (C.dish ?? 0.22);
+      const dish = mesh(new THREE.CylinderGeometry(C.r1, C.r0, dh, 36, 1, true).translate(0, dh / 2, 0), mat(C.color || '#5E6A62', { doubleSide: true }));
+      const bm = mat(C.bandColor || '#E2D3B2', { doubleSide: true }); dish.castShadow = false;
+      for (const [b0, b1] of C.bands || [C.band || [C.r0 + (C.r1 - C.r0) * 0.38, C.r0 + (C.r1 - C.r0) * 0.62]]) { // cream debris bands lying on the dish
+        const band = mesh(new THREE.RingGeometry(b0, b1, 48, 1).rotateX(-PI / 2), bm); band.position.y = dh * ((b0 + b1) / 2 - C.r0) / (C.r1 - C.r0) + 0.04; band.castShadow = false; cp.add(band); }
+      const rgeo = new THREE.DodecahedronGeometry(1, 0), rmat = mat(C.rockColor || '#66726B');
+      const rockRing = (n, rr, sz, yy) => { for (let i = 0; i < n; i++) { const a = i / n * TAU + r() * 0.3, sc = sz * (0.75 + r() * 0.6), m = mesh(rgeo, rmat), R_ = rr * (0.93 + r() * 0.14);
+        m.scale.set(sc * 1.3, sc * 0.75, sc * 1.1); m.position.set(Math.cos(a) * R_, yy + sc * 0.25, Math.sin(a) * R_); m.rotation.set(r() * 3, r() * 3, r() * 3); m.castShadow = false; cp.add(m); } };
+      rockRing(C.rocksIn ?? 14, C.r0 * 1.15, C.rockIn ?? 0.42, dh * 0.08); rockRing(C.rocksOut ?? 24, C.r1 * 0.96, C.rockOut ?? 0.3, dh * 0.92);
+      cp.add(dish); cp.position.y = yC; g.add(cp); ribbons.push({ piv: cp, sp: C.spin ?? 2.0, ph: 0 });
     }
     if (o.lid) { // the aerial "lid": a flat tan debris annulus around the crown (seen from above as a pale ring)
       const topR = rad(N) * (o.crownFlare ?? 1.16), ring = mesh(new THREE.RingGeometry(topR * o.lid[0], topR * o.lid[1], 28, 1).rotateX(-PI / 2), mat(o.lidColor || '#D6C49E', { doubleSide: true }));
@@ -1735,7 +1758,7 @@ const B = {
       [-1, 1].forEach(s => g.add(at(box(w + 0.7, 0.18, sl, roof, { outline: 0.004 }), 0, h + rh / 2 + 0.04, s * (d / 4 + 0.12), s * pitch, 0, 0)));
       const tri = new THREE.Shape(); tri.moveTo(-F, 0); tri.lineTo(F, 0); tri.lineTo(0, rh); tri.lineTo(-F, 0);
       const gab = mesh(new THREE.ExtrudeGeometry(tri, { depth: w - 0.02, bevelEnabled: false }), mat(c)); gab.rotation.y = PI / 2; gab.position.set(-w / 2 + 0.01, h, 0); g.add(gab);
-      g.add(at(box(w * 0.62, 0.12, 1.5, o.porchRoof || roof, { outline: 0.004 }), -w * 0.12, h * 0.86, F + 0.7, 0.32, 0, 0));      // porch awning
+      if (o.porch !== false) g.add(at(box(w * 0.62, 0.12, 1.5, o.porchRoof || roof, { outline: 0.004 }), -w * 0.12, h * 0.86, F + 0.7, 0.32, 0, 0));      // porch awning
     }
     if (o.chimney !== false) g.add(at(box(0.6, 1.5, 0.6, o.chimneyColor || trim, { pivot: 'bottom' }), w * 0.22, h + rh * 0.35, -d * 0.18));
     const dx = o.doorX ?? w * 0.08, win = (x, y) => {
@@ -1766,6 +1789,24 @@ const B = {
         list.push([cx + Math.cos(a) * dd * H * 1.6 * big, rad * 0.25 + k * H * 0.35 * big - H * 0.25, cz + Math.sin(a) * dd * H * 1.2 * big, 0, 0, 0, rad, rad * 0.8, rad]); } }
     const m = inst(sphereGeo(), cloudMat(o.color, o.emissive), list); m.castShadow = false; m.frustumCulled = false; return grp(m);
   },
+  cloudCurtain(o) { // a bank of soft cloud lumps in the local XY plane facing +Z, its scalloped lower edge at y = 0, o.w wide and o.h tall;
+    // self-shaded (cream tops, blue-grey undersides in its own frame, whatever the scene light) so it can be locked to a camera and slid
+    // across the frame: the jet punching into the deck. o.r lump radius, o.bright / o.shadow colours, o.edgeTint for the bluish lower rows
+    const r = rng(o.seed || 31), W = o.w || 6, H = o.h || 8, R = o.r || 0.5, list = [], cols = [];
+    const geo = new THREE.IcosahedronGeometry(1, 3), nrm = geo.attributes.normal, vc = [], cb = new THREE.Color(o.bright || '#F6EDDF'), cs = new THREE.Color(o.shadow || '#B7CADB'), c = new THREE.Color();
+    for (let i = 0; i < nrm.count; i++) { const k = Math.min(1, Math.max(0, (o.mid ?? 0.45) + (o.ky ?? 0.6) * nrm.getY(i) + (o.kz ?? 0.25) * nrm.getZ(i))); c.copy(cs).lerp(cb, k * k * (3 - 2 * k)); vc.push(c.r, c.g, c.b); }
+    geo.setAttribute('color', new THREE.Float32BufferAttribute(vc, 3));
+    const et = new THREE.Color(o.edgeTint || '#D6E2EE'), white = new THREE.Color('#FFFFFF');
+    const dn = o.down ? -1 : 1;   // o.down: the scalloped edge on top, the lumps hanging below y = 0 (the bank's far edge)
+    for (let y = 0; y < H; y += R * 0.85) for (let x = -W / 2; x < W / 2; x += R * 1.0) {
+      const rad = R * (0.7 + r() * 0.65), px = x + (r() - 0.5) * R * 0.9, py = y + (r() - 0.5) * R * 0.7 + rad * 0.55;
+      list.push([px, dn * py, -r() * R * 1.4, 0, 0, 0, rad, rad * 0.92, rad * 0.75]);
+      cols.push('#' + (o.down ? white : c.copy(et).lerp(white, Math.min(1, py / (R * 3.2)))).getHexString()); }
+    const m = inst(geo, new THREE.MeshBasicMaterial({ vertexColors: true, fog: false }), list, cols); m.castShadow = m.receiveShadow = false; m.frustumCulled = false;
+    const plateH = H - R * 1.3, plate = new THREE.Mesh(new THREE.PlaneGeometry(W, plateH), new THREE.MeshBasicMaterial({ color: o.plate || '#D2DBE3', fog: false }));
+    plate.position.set(0, (o.down ? -1 : 1) * (R * 1.3 + plateH / 2), -R * 1.6); plate.castShadow = false;   // backing: nothing behind shows through the gaps
+    return grp(m, plate);
+  },
   missileSalvo(o) { // missiles flying from launch points to a target: grey body, orange flame + glow, white smoke trail (pure function of t)
     // o.shots: [{from:[x,y,z], to:[x,y,z], ctrl?:[x,y,z], t0, dur}] in prop-local metres; o.size scales body/trail; o.trail: trail length (0..1 of path)
     const S = o.size || 1, g = grp(), body = mat('#D8DADC'), finM = mat('#5C626B'), trailM = new THREE.MeshBasicMaterial({ color: o.trailColor || '#F4F4F2', transparent: true, opacity: o.trailOpacity ?? 0.85, depthWrite: false, fog: true });
@@ -1778,6 +1819,7 @@ const B = {
       const trail = []; for (let i = 0; i < SEG; i++) { const tm = new THREE.Mesh(trailGeo, trailM); tm.castShadow = false; g.add(tm); trail.push(tm); }
       const A = V3(...sh.from), Bp = V3(...sh.to), C = sh.ctrl ? V3(...sh.ctrl) : A.clone().lerp(Bp, 0.5);
       if (sh.body === false) m.children.slice(0, 4).forEach(c => { c.visible = false; });
+      if (sh.head === false) m.children.slice(4).forEach(c => { c.visible = false; });   // trail only (a contrail left by another object)
       return { m, trail, A, B: Bp, C, t0: sh.t0 || 0, dur: sh.dur || 1, len: sh.trail ?? o.trail ?? 0.6, hit: sh.hide !== false, lin: !!sh.lin, v0: sh.v0 ?? o.v0 };
     });
     const pt = (s, u) => { const a = s.A.clone().multiplyScalar((1 - u) * (1 - u)), b = s.C.clone().multiplyScalar(2 * u * (1 - u)), c = s.B.clone().multiplyScalar(u * u); return a.add(b).add(c); };
