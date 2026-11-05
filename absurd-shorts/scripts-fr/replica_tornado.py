@@ -273,8 +273,8 @@ scenes.append(scene_f('S10', 335, 386, 'aerialSuburb', props=[
     P('jet', 'fighterJet', camLock=True, pos=scr(*JET10[0][1:]), rot=bank10(BANK10[0][1]), opts={**JETA, 'burner': 1.0},
       keys=[k(round((fa - 335) / 30, 4), to=scr(*b_[1:]), dur=round((b_[0] - fa) / 30, 4), ease='linear') for (fa, *_), b_ in zip(JET10, JET10[1:])]
            + [k(round((fa - 335) / 30, 4), rotTo=bank10(rb), dur=round((fb - fa) / 30, 4)) for (fa, _), (fb, rb) in zip(BANK10, BANK10[1:])]),
-    P('salvo', 'missileSalvo', opts={'size': 1.6, 'glow': 1.4, 'glowColor': '#FF8A30', 'flame': 1.4, 'flameW': 1.8, 'flameColor': '#F58A2E', 'core': '#FFF2B8', 'bodyColor': '#F4F4F2',
-                                     'trailOpacity': 0.95, 'trailWidth': 0.09, 'trailBase': 0.09, 'shots': salvo}),   # white body, orange flame with a pale heart, opaque thin trail
+    P('salvo', 'missileSalvo', opts={'size': 1.6, 'glow': 2.0, 'glowColor': '#FF8A30', 'flame': 1.4, 'flameW': 1.8, 'flameColor': '#F58A2E', 'core': '#FFF2B8', 'bodyColor': '#F4F4F2',
+                                     'trailOpacity': 0.95, 'trailWidth': 0.2, 'trailBase': 0.12, 'shots': salvo}),   # white body, orange flame with a pale heart, opaque thin trail
     P('salvo1', 'missileSalvo', opts={'size': 1.0, 'glow': 1.3, 'glowColor': '#FF8A30', 'flame': 1.2, 'flameW': 1.5, 'flameColor': '#F58A2E', 'core': '#FFF2B8', 'bodyColor': '#F4F4F2',
                                       'trailOpacity': 0.95, 'trailWidth': 0.1, 'trailBase': 0.08, 'shots': salvo1})],   # the first wave, seen near the jet
     cams=[cam(0.0, C10a, C10b, ahead(C10a, P10a), ahead(C10b, P10b), lens=50)], shadow={'size': 300, 'center': [0, 0, TZ + 120]}, setOpts={'houseScale': 0.82, 'gridRot': -0.36, 'x': 1100, **AER_SET},
@@ -323,7 +323,7 @@ for j in range(9):
 scenes.append(scene(13, 'S13', 'cottageRows', props=[
     P('tornado', 'tornado', pos=[18, 0, -435], scale=13.5, opts={**TOR, 'chips': 30, **{k_: v_ for k_, v_ in TORL.items() if k_ in ('cols', 'stripe', 'stripeDark', 'paleColor')}}),   # crown ~173 px wide, top y ~40 (grid reads)
     P('fires', 'flameField', opts={'points': fl, 'seed': 3}),
-    P('smoke', 'smokeField', opts={'points': [[x_, z_, h_ * 0.8, y_] for x_, z_, h_, y_ in sm], 'size': 0.72, 'per': 30, 'seed': 5, 'twist': 13, 'twistAmp': 0.55, 'color': '#3B3533'})],   # twisted rope-like columns
+    P('smoke', 'smokeField', opts={'points': [[x_, z_, h_ * 0.8, y_] for x_, z_, h_, y_ in sm], 'size': 0.86, 'per': 30, 'seed': 5, 'twist': 13, 'twistAmp': 0.55, 'color': '#3B3533'})],   # twisted rope-like columns
     cams=[cam(0.0, [0, 23.5, 40], [0.4, 23.5, 39.5], [0, 2.5, -60], [2.4, 2.5, -60.5], lens=48)], setOpts={'burnt': True, 'rows': 13}))
 
 # S14 17.63-19.47: on the burnt road, low camera tilted up 18.6 deg (grid reads of f545: road vanishing point y 810, tornado base y ~805,
@@ -450,9 +450,9 @@ SHOT_GRADES = {
  "S6": "contrast(0.9) saturate(1.35) brightness(1.204)",
  "S7": "contrast(0.9) saturate(1.13) brightness(1.077)",
  "S8a": "contrast(0.9) saturate(0.86) brightness(1.111)",
- "S8b": "contrast(0.97) saturate(1.22) brightness(1.0)",
+ "S8b": "contrast(0.97) saturate(1.04) brightness(1.0)",
  "S9": "contrast(0.9) saturate(1.12) brightness(1.031)",
- "S10": "contrast(0.97) saturate(1.3) brightness(1.01)",
+ "S10": "contrast(0.97) saturate(1.06) brightness(1.01)",
  "S11": "contrast(0.9) saturate(1.14) brightness(1.108)",
  "S12": "contrast(0.9) saturate(1.04) brightness(1.022)",
  "S13": "contrast(0.9) saturate(0.80) brightness(0.981)",

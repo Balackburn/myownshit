@@ -1970,7 +1970,7 @@ const B = {
     const fw = W * (o.frameW || 0.72), fh = W * (o.frameH || 0.8), fy = 0.25 + H - W * (o.frameTop || 0.37) - fh / 2;   // the portrait frame (width, height, top below the arch)
     g.add(at(box(fw, fh, 0.05, '#6B3E26'), 0, fy, T / 2 + 0.025), at(box(fw * 0.86, fh * 0.88, 0.052, '#EADDB9'), 0, fy, T / 2 + 0.028));
     const dog = B.voxelDog({ tongue: o.dogTongue || true, eyes: o.dogEyes, color: o.dogColor, muzzle: o.dogMuzzle }), head = dog.userData.head; head.parent.remove(head);
-    head.scale.setScalar(fw * (o.dogScale || 1.7)); head.position.set(0, fy + fh * (o.dogY ?? -0.04), T / 2 + 0.06); head.rotation.y = o.dogYaw || 0; g.add(head);
+    head.scale.setScalar(fw * (o.dogScale || 1.7)); head.position.set(0, fy + fh * (o.dogY ?? -0.04), T / 2 + 0.06); head.rotation.set(o.dogPitch || 0, o.dogYaw || 0, o.dogRoll || 0); g.add(head);   // dogPitch: + tips the head's top toward us
     if (o.handle) { const hl = canvasPlane(W * 1.1, W * 0.1, (c, Wc, Hc) => { c.fillStyle = '#4A4A48'; c.font = `bold ${Hc * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle, Wc / 2, Hc / 2); }, { res: 512, transparent: true });
       hl.position.set(0, 0.17, 0.08 + T * 1.3 + 0.004); g.add(hl); }
     return g;
