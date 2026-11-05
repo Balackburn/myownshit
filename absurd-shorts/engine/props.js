@@ -614,7 +614,7 @@ const B = {
       const fin = mesh(new THREE.ExtrudeGeometry(new THREE.Shape([new THREE.Vector2(-3.4, 0), new THREE.Vector2(-6.2, 0), new THREE.Vector2(-6.5, 3.0), new THREE.Vector2(-5.3, 3.0)]), { depth: 0.12, bevelEnabled: false }), mat(grey));
       fin.rotation.y = -PI / 2; fin.position.set(s * 0.06, 0, 0); const finP = grp(fin); finP.position.set(s * 0.75, Y + 0.4, 0); finP.rotation.z = -s * 0.36; g.add(finP);
       const noz = cyl(0.56, 0.5, 1.1, dark, 12, {}); noz.rotation.x = PI / 2; noz.position.set(s * 0.6, Y, -6.85); g.add(noz);
-      const inner = cyl(0.4, 0.4, 0.05, '#1A1412', 12, {}); inner.rotation.x = PI / 2; inner.position.set(s * 0.6, Y, -7.42); g.add(inner);
+      const inner = cyl(0.4, 0.4, 0.05, o.hotCore ? '#FFE2A0' : '#1A1412', 12, o.hotCore ? { emissive: '#FFB040', noGrain: true } : {}); inner.rotation.x = PI / 2; inner.position.set(s * 0.6, Y, -7.42); g.add(inner);   // o.hotCore: the mouth glows
       const ring = mesh(new THREE.TorusGeometry(0.48, 0.08, 4, 14), mat('#E8642A', { emissive: '#E8541A', noGrain: true })); ring.position.set(s * 0.6, Y, -7.42); g.add(ring);
       for (let k = 0; k < 14; k++) { const a = k / 14 * TAU, pt = box(0.2, 0.05, 1.05, '#3A3E44'); pt.position.set(s * 0.6 + Math.cos(a) * 0.55, Y + Math.sin(a) * 0.55, -6.85); pt.rotation.z = a + PI / 2; g.add(pt);
         const seam = box(0.03, 0.055, 1.0, '#FF7A22', { emissive: '#FF6A12', noGrain: true }); seam.position.set(s * 0.6 + Math.cos(a + PI / 14) * 0.555, Y + Math.sin(a + PI / 14) * 0.555, -6.85); seam.rotation.z = a + PI / 14 + PI / 2; g.add(seam); }
@@ -885,9 +885,13 @@ const B = {
     for (let i = 0; i < N; i++) {
       const crown = i === N - 1;
       const col = o.pale && !crown && i % o.pale === o.pale - 1 ? (o.paleColor || '#D3CCB8') : cols[i % cols.length];
-      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? (o.crownH ?? 2.3) : (o.band ?? 1.75)), Math.round(9 + rad(i + 1) * 3.2), o.gap ?? 0.2, crown ? (o.crownSpike ?? 0.6) : (o.spike ?? 0.2), i + 1), mat(col, { doubleSide: true }))
+      const nT = Math.round((9 + rad(i + 1) * 3.2) * (crown ? (o.crownTeeth || 1) : 1));   // o.crownTeeth: denser crown plates
+      const m = o.teeth ? mesh(toothBand(rad(i), rad(i + 1) * (crown ? (o.crownFlare ?? 1.16) : 1.05) + 0.06, H / N * (crown ? (o.crownH ?? 2.3) : (o.band ?? 1.75)), nT, o.gap ?? 0.2, crown ? (o.crownSpike ?? 0.6) : (o.spike ?? 0.2), i + 1), mat(col, { doubleSide: true }))
         : cyl(rad(i + 1) + 0.12, rad(i), H / N * 1.3, cols[i % 4], 7, { open: true, doubleSide: true, pivot: 'bottom' });
       const piv = grp(m); piv.position.y = i * H / N; piv.rotation.z = (r() - 0.5) * 0.12; g.add(piv);
+      if (crown && o.teeth && o.crownLayers === 2) { // a second, staggered ring of plates just inside: the original's dense, overlapping crown
+        const m2 = mesh(toothBand(rad(i) * 0.97, (rad(i + 1) * (o.crownFlare ?? 1.16) + 0.06) * 0.95, H / N * (o.crownH ?? 2.3) * 0.88, nT, o.gap ?? 0.2, o.crownSpike ?? 0.6, i + 9), mat(cols[(i + 1) % cols.length], { doubleSide: true }));
+        m2.rotation.y = PI / nT; piv.add(m2); }
       if (o.bands && i > 0 && !crown && i % (o.bandEvery || 1) === 0) { // a thin continuous pale band round the ring (reads as horizontal stripes)
         const bh = H / N * (o.bands === true ? 0.32 : o.bands), bm = cyl(rad(i + 0.4) * 1.07 + 0.07, rad(i) * 1.07 + 0.07, bh, o.paleColor || '#D3CCB8', 16, { open: true, doubleSide: true, pivot: 'bottom' });
         bm.castShadow = false; bm.position.y = H / N * 0.25; m.add(bm); }

@@ -153,9 +153,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 30,
       "teeth": true,
       "gap": 0.05,
@@ -498,9 +500,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 10,
       "teeth": true,
       "gap": 0.05,
@@ -739,9 +743,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 30,
       "teeth": true,
       "gap": 0.05,
@@ -809,7 +815,9 @@
      ],
      "opts": {
       "burner": 1.5,
-      "glow": 3.2,
+      "glow": 2.6,
+      "glowColor": "#FFE6B0",
+      "hotCore": true,
       "gear": true
      }
     }
@@ -819,26 +827,26 @@
     {
      "at": 0.0,
      "from": [
-      -4.3,
-      1.0,
-      -7.0
+      -2.93,
+      1.3,
+      -8.98
      ],
      "to": [
-      -4.25,
-      1.01,
-      -7.1
+      -2.88,
+      1.31,
+      -9.08
      ],
      "lookAt": [
       -0.6,
-      1.62,
-      -7.15
+      1.5,
+      -7.3
      ],
      "lens": 50,
      "ease": "linear",
      "lookAt2": [
       -0.6,
-      1.62,
-      -7.2
+      1.5,
+      -7.35
      ],
      "shake": 0.03
     }
@@ -1385,6 +1393,8 @@
       "crownFlare": 1.15,
       "crownH": 0.8,
       "crownSpike": 0.0,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.05,
@@ -1553,7 +1563,7 @@
      "rot": [
       0.6,
       -1.134,
-      0.45
+      -0.15
      ],
      "opts": {
       "burner": 0.5,
@@ -1578,7 +1588,9 @@
      "id": "msl",
      "name": "missileSalvo",
      "opts": {
-      "size": 1.0,
+      "size": 1.3,
+      "trailWidth": 0.12,
+      "glow": 1.6,
       "shots": [
        {
         "from": [
@@ -1593,12 +1605,13 @@
         ],
         "to": [
          -157.37,
-         57.0,
+         24.0,
          76.54
         ],
         "t0": 0.08,
         "dur": 0.8,
-        "trail": 0.3
+        "trail": 0.7,
+        "v0": 0.3
        },
        {
         "from": [
@@ -1613,12 +1626,13 @@
         ],
         "to": [
          -160.67,
-         56.0,
+         20.0,
          73.12
         ],
         "t0": 0.15000000000000002,
         "dur": 0.8,
-        "trail": 0.3
+        "trail": 0.7,
+        "v0": 0.3
        },
        {
         "from": [
@@ -1633,12 +1647,13 @@
         ],
         "to": [
          -165.58,
-         55.0,
+         16.0,
          80.99
         ],
         "t0": 0.22000000000000003,
         "dur": 0.8,
-        "trail": 0.3
+        "trail": 0.7,
+        "v0": 0.3
        },
        {
         "from": [
@@ -1653,12 +1668,13 @@
         ],
         "to": [
          -168.88,
-         54.0,
+         12.0,
          75.77
         ],
         "t0": 0.29000000000000004,
         "dur": 0.8,
-        "trail": 0.3
+        "trail": 0.7,
+        "v0": 0.3
        }
       ]
      }
@@ -1764,6 +1780,8 @@
       "crownFlare": 1.15,
       "crownH": 0.8,
       "crownSpike": 0.0,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.05,
@@ -2787,9 +2805,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 44,
       "teeth": true,
       "gap": 0.05,
@@ -3005,9 +3025,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 30,
       "teeth": true,
       "gap": 0.05,
@@ -3258,9 +3280,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 30,
       "teeth": true,
       "gap": 0.05,
@@ -7411,9 +7435,11 @@
       "top": 2.35,
       "taper": 1.0,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
       "crownSpike": 0.2,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.05,
@@ -7567,7 +7593,7 @@
       0,
       0.13
      ],
-     "scale": 0.9,
+     "scale": 1.08,
      "opts": {
       "rings": 14,
       "height": 7.3,
@@ -7575,9 +7601,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 36,
       "teeth": true,
       "gap": 0.05,
@@ -7586,10 +7614,10 @@
       "bands": 0.3,
       "spinJitter": 0.35,
       "cols": [
-       "#7C8A82",
-       "#8C9A92",
-       "#6E7C74",
-       "#96A49C"
+       "#9AA8A0",
+       "#A8B5AE",
+       "#8E9C94",
+       "#B2BFB8"
       ],
       "paleColor": "#E2DCCB",
       "stripe": "#E4DECF",
@@ -7602,12 +7630,12 @@
      "id": "cuffs",
      "name": "bigCuffs",
      "pos": [
-      -1.3,
-      5.3,
-      3.2
+      -0.9,
+      6.0,
+      3.4
      ],
      "opts": {
-      "r": 0.8
+      "r": 0.95
      }
     }
    ],
@@ -7626,14 +7654,14 @@
       12.6
      ],
      "lookAt": [
-      -0.3,
+      -0.96,
       4.6,
       0
      ],
      "lens": 50,
      "ease": "linear",
      "lookAt2": [
-      -0.75,
+      -1.41,
       4.7,
       0
      ]
@@ -7795,7 +7823,7 @@
      "id": "turbine",
      "name": "windTurbine",
      "pos": [
-      -15,
+      -11,
       0,
       -72
      ],
@@ -7809,38 +7837,41 @@
      "id": "tornado",
      "name": "tornado",
      "pos": [
-      0.5,
+      -1.3,
       0,
       -38
      ],
-     "scale": 3.1,
+     "scale": 3.6,
      "opts": {
       "rings": 14,
-      "height": 7.3,
+      "height": 8.5,
       "base": 0.39,
-      "top": 2.03,
+      "top": 1.5,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.05,
       "band": 1.3,
       "spike": 0.0,
-      "bands": false,
+      "bands": 0.5,
       "spinJitter": 0.35,
       "cols": [
-       "#5E6962",
-       "#646F68",
-       "#5A655E",
-       "#68736C"
+       "#6E7A72",
+       "#76827A",
+       "#6A766E",
+       "#7E8A82"
       ],
       "paleColor": "#C2C5B9",
       "stripe": "#B9B3A2",
       "stripeDark": "#55615A",
-      "pale": 2,
+      "pale": null,
+      "bandEvery": 1,
       "spin": 1.8
      }
     },
@@ -7848,19 +7879,19 @@
      "id": "cuffs",
      "name": "bigCuffs",
      "pos": [
-      0.1,
-      20.0,
-      -33.5
+      -3.4,
+      22.0,
+      -30.2
      ],
      "opts": {
-      "r": 1.05
+      "r": 1.6
      }
     },
     {
      "id": "rubble",
      "name": "rubble",
      "pos": [
-      0.5,
+      -1.3,
       0,
       -38
      ],
@@ -7903,14 +7934,14 @@
      ],
      "lookAt": [
       -2,
-      14,
+      23.2,
       -40
      ],
      "lens": 52,
      "ease": "linear",
      "lookAt2": [
       -2,
-      15.8,
+      24.6,
       -40
      ]
     }
@@ -7960,6 +7991,8 @@
       "crownFlare": 1.15,
       "crownH": 1.3,
       "crownSpike": 0.0,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.03,
@@ -8124,9 +8157,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.03,
@@ -8305,9 +8340,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.03,
@@ -8464,9 +8501,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.03,
@@ -8666,9 +8705,11 @@
       "top": 2.03,
       "taper": 0.6,
       "flare": 0.0,
-      "crownFlare": 1.1,
-      "crownH": 1.7,
-      "crownSpike": 0.42,
+      "crownFlare": 1.24,
+      "crownH": 1.15,
+      "crownSpike": 0.25,
+      "crownTeeth": 1.35,
+      "crownLayers": 2,
       "chips": 40,
       "teeth": true,
       "gap": 0.03,
