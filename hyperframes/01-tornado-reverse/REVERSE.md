@@ -78,6 +78,7 @@ not have, so this project is built by hand to the same rules.
 | 47 | 0.699 | 0.510 | S2 camera 1.2× farther from the spinning dog (sweep: 0.806 → 0.813). S4 sweeps flat |
 | 48 | 0.699 | 0.510 | Void: the shared JSON was rewritten for the previous commit while this render was starting, so it re-rendered pass 47. Renders now read a snapshot (`replica_render.json`) |
 | 49 | 0.701 | 0.510 | Second sweep round: S15 camera 1.1× farther (0.637 → 0.657), S3 panned 3° and tilted 1.5° (0.708 → 0.725), S1 1.16× farther and tilted 1.5° (0.709 → 0.716), S5 and S6 tilted 2° down, S16 panned 1.5°. The S5 tilt and the S16 pan left areas empty that the original fills (missing content 11%), so pass 50 reverts them |
+| 50 | 0.701 | 0.510 | S7 camera 1.1× farther and tilted 2° (0.881 → 0.890), S9 1.2× farther (0.846 → 0.854); the S5 tilt and the S16 pan reverted (missing content 11% → 8%). The S7 tilt opened a new missing span (7.6–8.0 s): the shot needs a re-stage (the original's jet is airborne from f229), not a trim |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20

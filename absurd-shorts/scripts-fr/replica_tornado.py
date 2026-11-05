@@ -99,7 +99,7 @@ scenes.append(scene(4, 'S4', 'replicaStreet',
 # S5 6.53-7.03: extreme close-up from the jet's right side (camera at -X looking +X): the ribbed nozzle centre-right, a white-hot afterburner
 # blasting frame-left over the runway, the tail fins above
 scenes.append(scene(5, 'S5', 'runway', props=[P('jet', 'fighterJet', pos=[0, 0, 0], opts={'burner': 2.4, 'glow': 3.9, 'glowColor': '#FFE6B0', 'hotCore': True, 'gear': True})],
-    cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.008, camTilt=-2))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us (the original is 4x sharper than a 0.02 s shutter); tilted 2 deg down (sweep +0.006)
+    cams=[cam(0.0, [-2.93, 1.3, -8.98], [-2.88, 1.31, -9.08], [-0.6, 1.5, -7.3], [-0.6, 1.5, -7.35], lens=50, shake=0.03)], blur=0.008))   # rear-left 3/4, close: one nozzle, its glowing mouth toward us (the original is 4x sharper than a 0.02 s shutter); a 2 deg tilt-down scored +0.006 but emptied the tail fin at the top
 
 # S6 7.03-7.63: fast dolly above the jet's left side from the wing and its roundel (U.S. AIR FORCE on the fuselage) to the canopy and the
 # nose wheel, the runway beyond (motion blur)
@@ -114,7 +114,7 @@ scenes.append(scene(7, 'S7', 'runway',
            P('dust', 'dustPuff', pos=[0, 0, -66], scale=6, opts={'color': '#D9C9A6', 'period': 0.8})],
     cams=[cam(0.0, [0, 1.4, 8], [0, 1.4, 8], [0, 2.5, -40], [0, 3.4, -40], lens=40),          # horizon y 523 -> 543 (measured), nearly still until f234
           cam(0.17, [0, 1.4, 8], [0, 1.4, 8], [0, 3.4, -40], [-0.8, 60.0, -5], lens=40, ease='in')],   # then a fast whip up: all sky by f240
-    blur=[[0.3, 0.47, 0.02]], blurSamples=10))
+    blur=[[0.3, 0.47, 0.02]], blurSamples=10, camDolly=1.1, camTilt=2))   # sweep trims (+0.022, mostly the all-sky end)
 
 def scene_f(sid, f0, f1, set_, actors=(), props=(), cams=(), **kw):
     """a scene between two reference frames (for shots split at an invisible cut, e.g. inside the S8 cloud white-out)"""
@@ -230,7 +230,7 @@ scenes.append(scene_f('S9', 313, 335, 'skyHigh', props=[
     P('msl', 'missileSalvo', opts={'size': 1.3, 'trailWidth': 0.12, 'glow': 1.6, 'shots': msl9}),
     P('smk', 'missileSalvo', opts={'size': 1.6, 'trailOpacity': 0.6, 'shots': smk9})],
     cams=[cam(0.0, rel(J9a, CAM9), rel(J9b, CAM9), rel(J9a, [-1.7, -6.0, -10]), rel(J9b, [-1.7, -6.0, -10]), lens=48, shake=0.06)],
-    setOpts={'cz': -40, 'h': 30, 'n': 520, 'w': 1300, 'd': 1300, 'sky': ['#62AEE2', '#7CC2EC'], 'fogNear': 500, 'fogFar': 1800, 'fogColor': '#7DC2EC'}))
+    setOpts={'cz': -40, 'h': 30, 'n': 520, 'w': 1300, 'd': 1300, 'sky': ['#62AEE2', '#7CC2EC'], 'fogNear': 500, 'fogFar': 1800, 'fogColor': '#7DC2EC'}, camDolly=1.2))   # 20% farther (sweep +0.008)
 
 # S10 11.17-12.87: back on the chase. Camera fitted (fit10: Nelder-Mead on the crater width, top and bottom rows and the base row read on
 # grid overlays at f335/f358/f374/f385, all within ~20 px): 229 -> 117 m up, pitch 48 -> 42.6 deg, a linear move; the crater is seen
@@ -357,7 +357,7 @@ scenes.append(scene(16, 'S16', 'replicaCourt', setOpts={'handle': HANDLE, 'windo
            P('gavelUp', 'gavel', on={'actor': 'judge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(0.38, visible=False)]),
            P('gavel', 'gavel', pos=[-0.37, 1.41, -13.3], rot=[0, 0, -1.5708], keys=[k(0.0, visible=False), k(0.38, visible=True)]),   # head upright on the block, handle to his hand
            P('block', 'soundBlock', pos=[0.1, 1.18, -13.3])],                     # in frame right of the judge (it sat 20 deg off-axis, outside the frame)
-    cams=[cam(0.0, [-0.1, 1.29, -11.8], [-0.12, 1.30, -12.05], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)], camPan=1.5,   # 0.3 m closer (A/B +0.004; 0.6 m loses 0.02), panned 1.5 deg left (sweep +0.006)
+    cams=[cam(0.0, [-0.1, 1.29, -11.8], [-0.12, 1.30, -12.05], [-0.27, 1.55, -14.0], [-0.27, 1.55, -14.0], lens=45)],   # 0.3 m closer (A/B +0.004; 0.6 m loses 0.02); a 1.5 deg pan scored +0.003 but left content missing
     fx=[{'type': 'shake', 'at': 0.4, 'dur': 0.18, 'amount': 0.018}]))
 
 # S17 21.60-22.33: low wide on the field: the handcuffed tornado spins in front of the wind turbine

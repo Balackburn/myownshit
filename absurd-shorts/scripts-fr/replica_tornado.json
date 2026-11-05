@@ -929,7 +929,6 @@
    "start": 6.533333,
    "duration": 0.5,
    "blur": 0.008,
-   "camTilt": -2,
    "grade": "contrast(0.9) saturate(1.26) brightness(1.116)"
   },
   {
@@ -1134,6 +1133,8 @@
     ]
    ],
    "blurSamples": 10,
+   "camDolly": 1.1,
+   "camTilt": 2,
    "grade": "contrast(0.9) saturate(1.13) brightness(1.077)",
    "soften": 0.42
   },
@@ -1893,6 +1894,7 @@
     "fogFar": 1800,
     "fogColor": "#7DC2EC"
    },
+   "camDolly": 1.2,
    "grade": "contrast(0.9) saturate(1.12) brightness(1.031)"
   },
   {
@@ -8031,7 +8033,6 @@
     "chairX": 0.15,
     "benchGlow": "#5A564A"
    },
-   "camPan": 1.5,
    "fx": [
     {
      "type": "shake",
