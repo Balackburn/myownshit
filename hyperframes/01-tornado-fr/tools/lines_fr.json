@@ -1,0 +1,16 @@
+[
+ {"id": "L01", "at": 0.10, "slot": 3.433, "text": "Ce mec a perdu son chien dans une tornade.", "groups": ["Ce mec a perdu", "son chien dans une tornade."], "hl": ["chien", "tornade."]},
+ {"id": "L02", "at": 3.433, "slot": 4.500, "text": "C'était du vol.", "groups": ["C'était du vol."], "hl": ["vol."]},
+ {"id": "L03", "at": 4.500, "slot": 6.633, "text": "Alors il a appelé l'armée américaine.", "groups": ["Alors il a appelé", "l'armée américaine."], "hl": ["l'armée", "américaine."]},
+ {"id": "L04", "at": 6.633, "slot": 9.366, "text": "L'armée a envoyé un avion de chasse.", "groups": ["L'armée a envoyé", "un avion de chasse."], "hl": ["L'armée", "avion", "chasse."]},
+ {"id": "L05", "at": 9.366, "slot": 10.433, "text": "Cible verrouillée.", "groups": ["Cible verrouillée."], "hl": ["verrouillée."]},
+ {"id": "L06", "at": 10.433, "slot": 12.866, "text": "Il a tiré tout ce qu'il avait.", "groups": ["Il a tiré", "tout ce qu'il avait."], "hl": ["tiré", "tout"]},
+ {"id": "L07", "at": 12.866, "slot": 14.366, "text": "Il a touché la tornade.", "groups": ["Il a touché la tornade."], "hl": ["tornade."]},
+ {"id": "L08", "at": 14.366, "slot": 16.100, "text": "Il a aussi touché le quartier.", "groups": ["Il a aussi touché", "le quartier."], "hl": ["quartier."]},
+ {"id": "L09", "at": 16.100, "slot": 17.633, "text": "Tout entier.", "groups": ["Tout entier."], "hl": ["Tout"]},
+ {"id": "L10", "at": 17.633, "slot": 19.466, "text": "La tornade s'est rendue.", "groups": ["La tornade<br/>s'est rendue."], "hl": ["tornade", "rendue."]},
+ {"id": "L11", "at": 19.466, "slot": 21.600, "text": "Elle a été condamnée aux travaux forcés.", "groups": ["Elle a été condamnée", "aux travaux forcés."], "hl": ["condamnée", "travaux", "forcés."]},
+ {"id": "L12", "at": 21.600, "slot": 23.567, "text": "Maintenant, elle alimente une éolienne.", "groups": ["Maintenant, elle alimente", "une éolienne."], "hl": ["éolienne."]},
+ {"id": "L13", "at": 23.567, "slot": 26.000, "text": "Un agent s'assure qu'elle ne ralentit pas.", "groups": ["Un agent s'assure", "qu'elle ne ralentit pas."], "hl": ["agent", "ralentit"]},
+ {"id": "L14", "at": 26.000, "slot": 28.700, "text": "Ah, et le chien est mort.", "groups": ["Ah,", "et le chien", "est mort."], "hl": ["chien", "mort."]}
+]

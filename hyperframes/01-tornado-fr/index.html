@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=576, height=1024" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 576px; height: 1024px; overflow: hidden; background: #000; }
+      body { font-family: "Nunito", sans-serif; }
+    </style>
+  </head>
+  <body>
+    <!-- French version of the tornado replica (the person owns the rights to the original).
+         layer3d: the same 3D picture as 01-tornado-reverse (absurd-shorts scripts-fr/replica_tornado.py).
+         Sound: the French narration (ElevenLabs, the person's narrator voice, word-timed) mixed over the original's music and effects,
+         separated from the English voice. Captions, the VOL card and the VERROUILLÉ lock-on tag are HTML scenes. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="28.8" data-width="576" data-height="1024">
+      <video id="layer3d" class="clip" src="assets/layer3d.mp4" muted playsinline
+             data-start="0" data-duration="28.8" data-track-index="0"
+             style="position: absolute; left: 0; top: 0; width: 576px; height: 1024px; object-fit: contain; z-index: 1"></video>
+      <audio id="audio-fr" class="clip" src="assets/audio_fr.wav" data-start="0" data-duration="28.8" data-track-index="1" data-volume="1"></audio>
+      <div id="theft" data-composition-id="theft" data-composition-src="compositions/theft.html"
+           data-start="3.667" data-duration="0.8" data-track-index="2" data-track-kind="graphics"
+           data-width="576" data-height="1024" style="z-index: 3"></div>
+      <div id="hud" data-composition-id="hud" data-composition-src="compositions/hud.html"
+           data-start="8.533" data-duration="1.9" data-track-index="4" data-track-kind="graphics"
+           data-width="576" data-height="1024" style="z-index: 2"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html"
+           data-start="0" data-duration="28.8" data-track-index="3" data-track-kind="captions"
+           data-width="576" data-height="1024" style="z-index: 4"></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
