@@ -907,7 +907,7 @@ const B = {
       m.scale.set(s * 1.5, s * 0.55, s * 1.5); m.position.set(Math.cos(a) * (rad(0) + 0.35 + r() * 0.3), s * 0.25, Math.sin(a) * (rad(0) + 0.35 + r() * 0.3)); m.castShadow = false; dust.add(m); } }
     g.userData.update = t => {
       ribbons.forEach(({ piv, sp, ph }) => { piv.rotation.y = t * sp + ph; }); dust.rotation.y = t * 1.5; if (inner) inner.rotation.y = t * 1.3;
-      rings.forEach(({ piv, m, sp, ph, i }) => { m.rotation.y = t * sp + ph; piv.position.x = Math.sin(t * 1.6 + i * 0.45) * 0.2 * (i / N); piv.position.z = Math.cos(t * 1.3 + i * 0.5) * 0.12 * (i / N); });
+      const SP = o.spin ?? 1; rings.forEach(({ piv, m, sp, ph, i }) => { m.rotation.y = t * sp * SP * (1 + (o.spinJitter || 0) * Math.sin(t * 2.3 + i * 1.7)) + ph; piv.position.x = Math.sin(t * 1.6 + i * 0.45) * 0.2 * (i / N); piv.position.z = Math.cos(t * 1.3 + i * 0.5) * 0.12 * (i / N); });
       chips.forEach(({ m, y, R, a, w, ph }) => { const ang = a + t * w; m.position.set(Math.cos(ang) * R, y + Math.sin(t * 2 + ph) * 0.2, Math.sin(ang) * R); m.rotation.set(t * 3 + ph, t * 2, ph); });
     };
     g.userData.update(0); return g;

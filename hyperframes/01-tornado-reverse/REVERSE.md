@@ -20,7 +20,9 @@ not have, so this project is built by hand to the same rules.
     settling on (68,84)-(513,529). The diamond marker tracks the tornado, white outline then filled red. LOCKED scales
     in over f293-f297 and blinks off at f302-f303.
 - **Passes:**
-  - each pass renders the engine layer (about 3.5 min), then `npx hyperframes render` (about 1 min), then
+  - pin the CLI (`npx --yes hyperframes@0.9.13 ...`): an unpinned `npx hyperframes` fetched a version the registry mirror did not
+    serve yet and failed;
+  - each pass renders the engine layer (about 5 min), then `npx hyperframes render` (about 1 min), then
     `npx hyperframes diff ref.mp4 renders/passN.mp4 --sbs`;
   - the side-by-side video goes to `passes/passN_sbs.mp4` and is shown in the chat.
 
@@ -37,6 +39,7 @@ not have, so this project is built by hand to the same rules.
 | 9 | 0.674 | 0.484 | per-shot grades calibrated on the measured deltas: every shot within ±3 L* and ±2.6 chroma of the original (most ±1) |
 | 10 | 0.670 | 0.460 | aerial grid at the original's house size and rotation, slimmer long-bodied aerial tornado; S12 camera, tornado and blasts (flash then dark smoke) rebuilt |
 | 11 | 0.670 | 0.460 | S13 smoke columns from every row with fire in each shell; S15 tornado smaller and leaning (bench visible); S22 push-in distance; S4 reframing tried and reverted |
+| 12 | 0.671 | 0.461 | micro-animation from optical flow: tornado spin per shot, camera shakes, pans and tilts; S2 wall streaming; S6 dolly direction; empty-content share 16% |
 
 Pass 3 notes:
 - **Chase camera (S8b, S10):** solved from the original (`solve_cam.py`: rim and base rows, rim width, house size; tornado

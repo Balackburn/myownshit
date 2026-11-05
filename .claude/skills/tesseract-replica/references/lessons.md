@@ -74,3 +74,11 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
   once in the script so a rotated prop is never silently ignored.
 - (tornado) Models made of many small tilted facets read as noise up close (the tornado looked like a pinecone): use flat-topped tabs
   and keep pointed spikes for the silhouette (the crown) only.
+- (tornado) Micro-animation is measurable. Use Farneback optical flow, frame to frame:
+  - **global median per shot:** gives camera drift, pans and shake (jitter = mean |Δ| of the per-frame median);
+  - **median in a subject box:** gives a spin or scroll speed (the tornado's horizontal px/frame).
+
+  The original moved its camera in shots I had built static (S3, S5, S8, S9, S11, S12...), and the spin speed differed per shot (3.6× too
+  fast in one, 44% too slow in another). Match these numbers before judging by eye.
+- (tornado) Pin the HyperFrames CLI version in every command (`npx --yes hyperframes@X.Y.Z`). An unpinned `npx` grabbed a release the
+  registry mirror did not serve yet and the render failed.
