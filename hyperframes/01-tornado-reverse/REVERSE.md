@@ -67,6 +67,7 @@ not have, so this project is built by hand to the same rules.
 | 36 | 0.690 | 0.483 | Sharpness matched per shot (median Laplacian variance): a 0.33-0.62 px soften on the over-crisp shots (S2, S3, S14, S17, S20-S22 up 0.001-0.003); motion blur removed where the original is crisp (S1 orbit f12-f28, S5, S6, S8b cloud exit: faithful, −0.001 to −0.004 SSIM); S22 camera tilted down 1.6°, bigger dog face |
 | 37 | 0.690 | 0.480 | Aerial crater rebuilt from the f300 crop: one broad cream band, a thick wall of big inner rocks, wide loose ribbons, the dish tilted 11° away (luma SSIM +0.010 in S10); a saturation boost on S8b/S10 cost more in the chroma planes (U/V −0.03) than it gained, so S10 fell to 0.467: reverted in pass 38. The HyperFrames score is ffmpeg's SSIM over Y, U and V |
 | 38 | 0.691 | 0.486 | Saturation boost reverted (the chroma planes recover) with the rebuilt crater kept: S10 0.467 → 0.476 and S8b 0.575 → 0.582, both best yet; S10 trails 2× thicker with bigger flame glows; S13 smoke columns thicker (size 0.72 → 0.86): 0.644 → 0.652 |
+| 39 | 0.692 | 0.488 | S22 dog portrait frontal and tipped 0.35 rad toward us (its top shows, ears at the top corners), smaller eyes and head (S22 0.672 → 0.679); S11 blast smoke in 90 smaller lumps. Rejected on A/B stills: S12 front gables, thicker S10 trails, a longer grave mound, an S22 camera truck, a bigger S1 tornado |
 
 Pass 21-27 notes:
 - **Missing content as the planner:** each span `hyperframes diff` flagged pointed at one structural miss: S3 framing, the S14 road, S20

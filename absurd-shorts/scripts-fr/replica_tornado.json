@@ -3024,7 +3024,7 @@
      "opts": {
       "t0": 0.06,
       "size": 7.0,
-      "n": 50,
+      "n": 90,
       "seed": 3,
       "glowShare": 1.0,
       "glare": 1.0,
@@ -3032,7 +3032,7 @@
       "flashScale": 1.3,
       "life": 0.6,
       "smokeColor": "#54473F",
-      "puff": 0.95
+      "puff": 0.72
      }
     },
     {
@@ -8868,8 +8868,9 @@
       "handle": "@outofthisworld_9",
       "dogColor": "#E0AC72",
       "dogMuzzle": "#5A3420",
-      "dogYaw": -0.25,
-      "dogEyes": 1.35,
+      "dogYaw": 0.0,
+      "dogPitch": 0.35,
+      "dogEyes": 1.1,
       "dogTongue": "long",
       "ripW": 0.95,
       "ripH": 0.26,
@@ -8878,8 +8879,8 @@
       "frameW": 0.77,
       "frameH": 0.92,
       "frameTop": 0.25,
-      "dogScale": 2.15,
-      "dogY": 0.0
+      "dogScale": 1.9,
+      "dogY": 0.03
      }
     },
     {

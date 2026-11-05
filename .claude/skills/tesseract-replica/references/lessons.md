@@ -155,3 +155,9 @@ Add a dated line for each finding you can reuse. Keep the newest at the top of e
 - (tornado) A dense element can be scored by size alone: thicker S13 smoke columns raised SSIM monotonically (0.56 → 1.0: −0.013 …
   +0.02) because the original's middle band is mostly smoke. Stop where it still reads like the original (distinct ropes, fire showing
   through), not at the SSIM peak.
+- (tornado) **Test with the scoring tool's own metric.** `hyperframes diff` reports ffmpeg's SSIM over Y, U and V (All, weighted by
+  plane size), not a grey-level SSIM. A saturation boost that looked right raised luma SSIM in S10 (+0.010) but lowered both chroma
+  planes (−0.03), and the shot fell. Score candidates with `ffmpeg -lavfi ssim` on yuv420p. Render base and variant stills through
+  the same pipeline (a JPEG still against an H.264 frame carries a −0.003…−0.006 bias), and only then spend a 15-minute render.
+  Rejected this way, at a minute each: front-gabled houses in S12 (−0.01), a longer grave mound (−0.01), a camera truck in S22 (−0.03),
+  thinner smoke (−0.013).

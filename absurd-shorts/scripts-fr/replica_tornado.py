@@ -286,7 +286,7 @@ scenes.append(scene_f('S10', 335, 386, 'aerialSuburb', props=[
 # the cottages, fireball and glare, then smoke, debris and a second hit lower right
 scenes.append(scene(11, 'S11', 'cottageStreet', props=[
     P('tornado', 'tornado', pos=[25.97, 2.0, -36.42], scale=4.6, opts={**TOR, 'chips': 44}),
-    P('boom1', 'fireball', pos=[22.27, 21.43, -30.66], opts={'t0': 0.06, 'size': 7.0, 'n': 50, 'seed': 3, 'glowShare': 1.0, 'glare': 1.0, 'flash': 0.5, 'flashScale': 1.3, 'life': 0.6, 'smokeColor': '#54473F', 'puff': 0.95}),   # one glowing mass, then brown-grey smoke
+    P('boom1', 'fireball', pos=[22.27, 21.43, -30.66], opts={'t0': 0.06, 'size': 7.0, 'n': 90, 'seed': 3, 'glowShare': 1.0, 'glare': 1.0, 'flash': 0.5, 'flashScale': 1.3, 'life': 0.6, 'smokeColor': '#54473F', 'puff': 0.72}),   # one glowing mass, then brown-grey smoke
     P('boom2', 'fireball', pos=[24.9, 13.85, -28.91], opts={'t0': 0.86, 'size': 5.0, 'n': 22, 'seed': 9, 'smoke': 0.8, 'glowShare': 0.3, 'smokeColor': '#4A4441'}),
     P('msl', 'missileSalvo', opts={'size': 1.3, 'shots': [{'from': [30.97, 54.39, 18.71], 'to': [22.27, 21.43, -30.66], 't0': -0.2, 'dur': 0.26, 'trail': 0.5},
                                                          {'from': [34.03, 3.45, 16.66], 'to': [24.9, 13.85, -28.91], 't0': 0.56, 'dur': 0.3, 'trail': 0.6}]})],   # props re-placed along their old screen rays
@@ -417,9 +417,9 @@ scenes.append(scene(21, 'S21', 'grassland',
 # S22 26.00-28.80: "Oh, and the dog is dead.": the dog's grave, R.I.P., his framed portrait, flowers, a fresh mound; slow push-in; the
 # handcuffed tornado and the turbine far behind
 scenes.append(scene(22, 'S22', 'grassland', props=[
-    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#E0AC72', 'dogMuzzle': '#5A3420', 'dogYaw': -0.25, 'dogEyes': 1.35,
+    P('stone', 'gravestone', pos=[0, 0, -3.5], opts={'w': 1.0, 'h': 1.25, 'handle': HANDLE, 'dogColor': '#E0AC72', 'dogMuzzle': '#5A3420', 'dogYaw': 0.0, 'dogPitch': 0.35, 'dogEyes': 1.1,
                                                       'dogTongue': 'long', 'ripW': 0.95, 'ripH': 0.26, 'ripY': 0.15, 'baseW': 1.28, 'frameW': 0.77, 'frameH': 0.92, 'frameTop': 0.25,
-                                                      'dogScale': 2.15, 'dogY': 0.0}),   # measured on f820: base 1.28 x the stone, frame 0.77 x 0.74 of it, its top 0.2 below the arch
+                                                      'dogScale': 1.9, 'dogY': 0.03}),   # measured on f820: base 1.28 x the stone, frame 0.77 x 0.74 of it, its top 0.2 below the arch
     P('mound', 'dirtMound', pos=[0.15, 0, -2.05], opts={'w': 0.78, 'd': 1.15, 'h': 0.24, 'color': '#6E4630'}),   # 400 px wide, right of centre (f820)
     P('flowers', 'flowers', pos=[0.43, 0.0, -3.05], scale=1.1),   # on the grass in front of the base's right end, heads at y ~580
     P('turbine', 'windTurbine', pos=[-152, 0, -700], opts={'h': 60, 'rpm': 13}),   # small, on the horizon behind the tornado (x ~50, 120 px tall)
