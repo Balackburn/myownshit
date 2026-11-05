@@ -81,7 +81,7 @@ scenes.append(scene(2, 'S2', 'replicaStreet',
 # S3 3.43-4.50: close 3/4 shot from chest height on the near kerb, explaining hands; the camera looks across the road (-X) at the far houses
 scenes.append(scene(3, 'S3', 'replicaStreet', setOpts={'farX': -34.0},
     actors=[act('mec', [-1.2, 0, 0], -8, 'explainLook', 'neutral', params={'yaw': 1.0})],   # chest 3/4 toward screen-left (hands clear of the lens), face to the camera
-    cams=[cam(0.0, [-0.211, 0.912, 0.6], [-0.181, 0.922, 0.58], [-2.045, 2.04, -0.398], [-2.015, 2.06, -0.408], lens=74, shake=0.003)]))   # head 225 px tall, centred x ~350 (grid reads of f120)
+    cams=[cam(0.0, [-0.211, 0.912, 0.6], [-0.181, 0.922, 0.58], [-2.056, 2.027, -0.378], [-2.026, 2.047, -0.388], lens=74, shake=0.003)]))   # head 225 px tall, centred x ~350 (grid reads of f120)
 
 # S4 4.50-6.53: selfie close-up on the far sidewalk (0.84 m from his face, camera just above eye level, nearly level, wide lens): the road on
 # the right, the townhouses beyond the fence on the left, the tornado ~60 m down the road behind his head; at f151 he brings up the phone beside his face,
@@ -428,7 +428,7 @@ scenes.append(scene(22, 'S22', 'grassland', props=[
     P('grass', 'tallGrass', pos=[0, 0, -4.3], opts={'w': 7, 'd': 2.0, 'h': 0.6, 'count': 900, 'seed': 12, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
     P('grassL', 'tallGrass', pos=[-0.85, 0, -2.7], opts={'w': 0.8, 'd': 1.4, 'h': 0.62, 'count': 260, 'seed': 14, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}), P('grassR', 'tallGrass', pos=[1.0, 0, -2.7], opts={'w': 0.6, 'd': 1.4, 'h': 0.58, 'count': 200, 'seed': 15, 'thin': 0.022, 'cols': ['#8CC86A', '#A3D47A', '#7BB85C', '#B2DC88']}),
     P('grass2', 'tallGrass', pos=[0, 0, -1.3], opts={'w': 3.4, 'd': 0.5, 'h': 0.32, 'count': 45, 'seed': 13, 'thin': 0.045, 'soft': 0.55, 'cols': ['#9ED27C', '#B2DC8C', '#8CC86A', '#C0E29A']})],   # out-of-focus foreground
-    cams=[cam(0.0, [-0.05, 0.50, 0.25], [-0.07, 0.52, -0.55], [-0.15, 0.356, -3.5], [-0.15, 0.386, -3.5], lens=50)]))   # lower and level: horizon at y ~450, stone top y ~160 -> 96 (f790/f850)
+    cams=[cam(0.0, [-0.05, 0.50, 0.25], [-0.07, 0.52, -0.55], [-0.15, 0.356, -3.5], [-0.12, 0.425, -3.5], lens=50)]))   # end framing nudged 0.4 deg right/up (phase correlation: 7 px left, 9 px down)   # lower and level: horizon at y ~450, stone top y ~160 -> 96 (f790/f850)
 
 # the director reads a prop's yaw from 'ry' (degrees); rot carries only the pitch and roll (radians). Convert rot[1] once here.
 import math
