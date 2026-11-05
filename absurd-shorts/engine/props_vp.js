@@ -20,7 +20,7 @@ function textBoard(text, w, h, { bg = '#F4F1E8', fg = '#1E2A33', frame = null, f
     const maxLen = Math.max(...lines.map(l => l.length));
     let px = Math.min(H * size / lines.length, W * 0.9 / (maxLen * 0.62));
     g.font = `${weight} ${px}px ${font}`;
-    const wide = Math.max(...lines.map(l => g.measureText(l).width)), room = W - H * 0.3;   // measured fit: bold capitals are wider than the estimate
+    const wide = Math.max(...lines.map(l => g.measureText(l).width)), room = (W - (frame ? 2 * H * 0.1 : 0)) * 0.92;   // measured fit: bold capitals are wider than the estimate (inside the frame stroke)
     if (wide > room) { px *= room / wide; g.font = `${weight} ${px}px ${font}`; }
     lines.forEach((l, i) => g.fillText(l, W / 2, H / 2 + (i - (lines.length - 1) / 2) * px * 1.12));
   }, { res: 512 });
