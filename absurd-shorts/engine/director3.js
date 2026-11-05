@@ -829,6 +829,7 @@ export function renderFrame(tAbs) {
     evalAll(tk);
     lightCycle(tk);
     placeCamera(tk);
+    if (sc.fogTo && scene.fog && sc.fog) { const u = Math.min(1, Math.max(0, tk / sc.duration)); scene.fog.near = sc.fog.near + (sc.fogTo.near - sc.fog.near) * u; scene.fog.far = sc.fog.far + (sc.fogTo.far - sc.fog.far) * u; }   // sc.fogTo: the veil follows a descending camera
     for (const o of S.follow || []) o.position.copy(camera.position);
     camLocked(camera);
     renderer.render(scene, camera);

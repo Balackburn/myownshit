@@ -1817,12 +1817,13 @@ const B = {
   },
   missileSalvo(o) { // missiles flying from launch points to a target: grey body, orange flame + glow, white smoke trail (pure function of t)
     // o.shots: [{from:[x,y,z], to:[x,y,z], ctrl?:[x,y,z], t0, dur}] in prop-local metres; o.size scales body/trail; o.trail: trail length (0..1 of path)
-    const S = o.size || 1, g = grp(), body = mat('#D8DADC'), finM = mat('#5C626B'), trailM = new THREE.MeshBasicMaterial({ color: o.trailColor || '#F4F4F2', transparent: true, opacity: o.trailOpacity ?? 0.85, depthWrite: false, fog: true });
-    const flameM = new THREE.MeshBasicMaterial({ color: '#FFB04A', fog: false }), trailGeo = new THREE.CylinderGeometry(1, 1, 1, 6, 1, true).translate(0, 0.5, 0);
+    const S = o.size || 1, g = grp(), body = mat(o.bodyColor || '#D8DADC'), finM = mat('#5C626B'), trailM = new THREE.MeshBasicMaterial({ color: o.trailColor || '#F4F4F2', transparent: true, opacity: o.trailOpacity ?? 0.85, depthWrite: false, fog: true });
+    const FL = o.flame || 1, FW = o.flameW || FL, flameM = new THREE.MeshBasicMaterial({ color: o.flameColor || '#FFB04A', fog: false }), coreM = new THREE.MeshBasicMaterial({ color: o.core || '#FFF0B8', fog: false }), trailGeo = new THREE.CylinderGeometry(1, 1, 1, 6, 1, true).translate(0, 0.5, 0);
     const SEG = 6, shots = (o.shots || []).map(sh => {
       const m = grp(at(cyl(0.16 * S, 0.16 * S, 2.6 * S, '#D8DADC', 7, { material: body }), 0, 0, 0, PI / 2, 0, 0), at(mesh(new THREE.ConeGeometry(0.16 * S, 0.5 * S, 7), body), 0, 0, 1.55 * S, PI / 2, 0, 0),
         at(box(0.7 * S, 0.04 * S, 0.4 * S, '#5C626B', { material: finM }), 0, 0, -1.1 * S), at(box(0.04 * S, 0.7 * S, 0.4 * S, '#5C626B', { material: finM }), 0, 0, -1.1 * S),
-        at(new THREE.Mesh(new THREE.ConeGeometry(0.2 * S, 1.6 * S, 7), flameM), 0, 0, -2.1 * S, -PI / 2, 0, 0), at(glowSprite('#FFA040', (o.glow ?? 1.1) * S, 0.9), 0, 0, -1.8 * S));
+        at(new THREE.Mesh(new THREE.ConeGeometry(0.2 * S * FW, 1.6 * S * FL, 7), flameM), 0, 0, -1.3 * S - 0.8 * S * FL, -PI / 2, 0, 0), at(glowSprite(o.glowColor || '#FFA040', (o.glow ?? 1.1) * S, 0.9), 0, 0, -1.3 * S - 0.5 * S * FL));
+      if (o.core) { const c = at(new THREE.Mesh(sphereGeo(1), coreM), 0, 0, -1.3 * S - 0.12 * S * FL); c.scale.setScalar(0.25 * S * FW); m.add(c); }   // o.core: a yellow-white heart where the flame leaves the body
       m.traverse(n => { n.castShadow = false; }); g.add(m);
       const trail = []; for (let i = 0; i < SEG; i++) { const tm = new THREE.Mesh(trailGeo, trailM); tm.castShadow = false; g.add(tm); trail.push(tm); }
       const A = V3(...sh.from), Bp = V3(...sh.to), C = sh.ctrl ? V3(...sh.ctrl) : A.clone().lerp(Bp, 0.5);
@@ -1841,7 +1842,7 @@ const B = {
       const u0 = Math.max(0, u - s.len);
       for (let i = 0; i < SEG; i++) { const a = pt(s, u0 + (u - u0) * i / SEG), b = pt(s, u0 + (u - u0) * (i + 1) / SEG), dir = b.clone().sub(a), L = dir.length(), tm = s.trail[i];
         if (L < 1e-4) { tm.visible = false; continue; }
-        const rad = (0.05 + (o.trailWidth ?? 0.22) * (1 - (i + 0.5) / SEG)) * S; tm.position.copy(a); tm.quaternion.setFromUnitVectors(up, dir.normalize()); tm.scale.set(rad, L, rad); }
+        const rad = ((o.trailBase ?? 0.05) + (o.trailWidth ?? 0.22) * (1 - (i + 0.5) / SEG)) * S; tm.position.copy(a); tm.quaternion.setFromUnitVectors(up, dir.normalize()); tm.scale.set(rad, L, rad); }
     });
     g.userData.update(0); return g;
   },
@@ -1861,8 +1862,8 @@ const B = {
       flash.material.opacity = Math.max(0, 1 - tt / (o.flash || 0.6)); flash.scale.setScalar(S * FS * (3 + 5 * Math.min(1, tt / 0.15)));
       glare.material.opacity = 0.8 * Math.max(0, 1 - tt / (o.glare || 1.3)); glare.scale.setScalar(S * 9 * FS);
       puffs.forEach(p => { const k = Math.max(0, tt - p.lag), grow = ease.out(Math.min(1, k / 0.3)), drift = Math.max(0, k - 0.3);
-        const rad = S * p.s * (0.3 + 0.9 * grow + (p.smoke ? 0.45 * drift : 0.15 * drift));
-        p.m.position.copy(p.dir).multiplyScalar(S * p.d * (0.25 + 0.95 * grow) + drift * S * 0.22); p.m.position.y += drift * S * (p.smoke ? 0.55 : 0.3);
+        const SP = o.spread ?? 1, RI = o.rise ?? 1, rad = S * p.s * (0.3 + 0.9 * grow + (p.smoke ? 0.45 * drift : 0.15 * drift) * SP);   // o.spread / o.rise: how fast the smoke swells and climbs after 0.3 s
+        p.m.position.copy(p.dir).multiplyScalar(S * p.d * (0.25 + 0.95 * grow) + drift * S * 0.22 * SP); p.m.position.y += drift * S * (p.smoke ? 0.55 : 0.3) * RI;
         p.m.scale.setScalar(Math.max(0.01, rad));
         const life = (o.life || 1) * (0.55 + 0.6 * p.heat), u = clamp01(k / life);             // 0 hot .. 1 burnt out
         if (u < 0.25) { c.copy(white).lerp(yellow, u / 0.25); e.copy(eY); }
@@ -1963,13 +1964,13 @@ const B = {
     const W = o.w || 1.0, H = o.h || 1.25, T = 0.2, stone = o.color || '#ABABA8', g = grp();
     g.add(at(box(W, H - W / 2, T, stone, { pivot: 'bottom', outline: 0.004 }), 0, 0.25, 0));
     const arch = mesh(new THREE.CylinderGeometry(W / 2, W / 2, T, 24, 1, false, -PI / 2, PI), mat(stone)); arch.rotation.x = -PI / 2; arch.position.set(0, 0.25 + H - W / 2, 0); g.add(arch);   // the +z half-disc turned up (it was turned down, inside the slab)
-    g.add(at(box(W * 1.45, 0.25, T * 2.6, '#A2A29E', { pivot: 'bottom', outline: 0.004 }), 0, 0, 0.08));
+    g.add(at(box(W * (o.baseW || 1.45), 0.25, T * 2.6, '#A2A29E', { pivot: 'bottom', outline: 0.004 }), 0, 0, 0.08));
     const rip = canvasPlane(W * (o.ripW || 0.8), W * (o.ripH || 0.22), (c, Wc, Hc) => { c.fillStyle = '#2E2E2C'; c.font = `bold ${Hc * 0.92}px "Times New Roman", Georgia, serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'R.I.P.', Wc / 2, Hc * 0.55); }, { res: 512, transparent: true });
-    rip.position.set(0, 0.25 + H - W * 0.22, T / 2 + 0.004); g.add(rip);
-    const fw = W * 0.72, fh = W * 0.8, fy = 0.25 + H - W * 0.37 - fh / 2;
+    rip.position.set(0, 0.25 + H - W * (o.ripY || 0.22), T / 2 + 0.004); g.add(rip);
+    const fw = W * (o.frameW || 0.72), fh = W * (o.frameH || 0.8), fy = 0.25 + H - W * (o.frameTop || 0.37) - fh / 2;   // the portrait frame (width, height, top below the arch)
     g.add(at(box(fw, fh, 0.05, '#6B3E26'), 0, fy, T / 2 + 0.025), at(box(fw * 0.86, fh * 0.88, 0.052, '#EADDB9'), 0, fy, T / 2 + 0.028));
     const dog = B.voxelDog({ tongue: o.dogTongue || true, eyes: o.dogEyes, color: o.dogColor, muzzle: o.dogMuzzle }), head = dog.userData.head; head.parent.remove(head);
-    head.scale.setScalar(fw * (o.dogScale || 1.7)); head.position.set(0, fy - fh * 0.04, T / 2 + 0.06); head.rotation.y = o.dogYaw || 0; g.add(head);
+    head.scale.setScalar(fw * (o.dogScale || 1.7)); head.position.set(0, fy + fh * (o.dogY ?? -0.04), T / 2 + 0.06); head.rotation.y = o.dogYaw || 0; g.add(head);
     if (o.handle) { const hl = canvasPlane(W * 1.1, W * 0.1, (c, Wc, Hc) => { c.fillStyle = '#4A4A48'; c.font = `bold ${Hc * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.handle, Wc / 2, Hc / 2); }, { res: 512, transparent: true });
       hl.position.set(0, 0.17, 0.08 + T * 1.3 + 0.004); g.add(hl); }
     return g;

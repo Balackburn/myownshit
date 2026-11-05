@@ -314,9 +314,9 @@ const S = {
       roads.push([0, 0.03, z + 12.5 * K, 0, 0, 0, 2 * X, 0.06, 7 * K]);
       for (let x = -X; x < X; x += hx) {
         if (Math.floor((x + X) / hx) % (blockN + 1) === blockN) continue;
-        for (const [dz0, face] of [[0, 1], [-21, -1]]) {
+        for (const [dz0, face] of [[0, 1], [-(o.back || 21), -1]]) {
           if (r() < 0.04) continue;
-          const dz = dz0 * K, w = (8 + r() * 1.6) * K, d = (7 + r() * 1.2) * K, h = (3.3 + r() * 0.7) * K, cx = x + (r() - 0.5) * 1.2 * K, cz = z + dz + (r() - 0.5) * 0.8 * K;
+          const dz = dz0 * K, w = (8 + r() * 1.6) * K, d = (7 + r() * 1.2) * K, h = (3.3 + r() * 0.7) * K * (o.wallH || 1), cx = x + (r() - 0.5) * 1.2 * K, cz = z + dz + (r() - 0.5) * 0.8 * K;
           walls.push([cx, 0, cz, 0, 0, 0, w, h, d]); wallC.push(WC[Math.floor(r() * WC.length)]);
           roofs.push([cx, h - 0.05, cz, 0, 0, 0, w + 0.9 * K, (2.5 + r() * 0.7) * K, d + 1.2 * K]); roofC.push(RC[Math.floor(r() * RC.length)]);
           wins.push([cx - w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3 * K, 1.2 * K, 0.1], [cx + w * 0.25, h * 0.5, cz + face * (d / 2 + 0.05), 0, 0, 0, 1.3 * K, 1.2 * K, 0.1]);
