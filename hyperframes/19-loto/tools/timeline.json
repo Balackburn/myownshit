@@ -1,0 +1,945 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a gagné dix millions au loto.",
+   "hl": [
+    "mec",
+    "millions",
+    "loto."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.386,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.329,
+     "e": 0.557
+    },
+    {
+     "w": "a",
+     "s": 0.633,
+     "e": 0.71
+    },
+    {
+     "w": "gagné",
+     "s": 0.748,
+     "e": 1.09
+    },
+    {
+     "w": "dix",
+     "s": 1.167,
+     "e": 1.243
+    },
+    {
+     "w": "millions",
+     "s": 1.319,
+     "e": 1.7
+    },
+    {
+     "w": "au",
+     "s": 1.738,
+     "e": 1.776
+    },
+    {
+     "w": "loto.",
+     "s": 1.814,
+     "e": 2.386
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Payés en pièces de un centime.",
+   "hl": [
+    "pièces",
+    "centime."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L02.k.wav",
+   "file_start": 2.486,
+   "speech_start": 2.486,
+   "speech_end": 4.39,
+   "words": [
+    {
+     "w": "Payés",
+     "s": 2.486,
+     "e": 2.79
+    },
+    {
+     "w": "en",
+     "s": 2.867,
+     "e": 2.943
+    },
+    {
+     "w": "pièces",
+     "s": 2.981,
+     "e": 3.171
+    },
+    {
+     "w": "de",
+     "s": 3.248,
+     "e": 3.4
+    },
+    {
+     "w": "un",
+     "s": 3.476,
+     "e": 3.552
+    },
+    {
+     "w": "centime.",
+     "s": 3.705,
+     "e": 4.39
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Un milliard de pièces.",
+   "hl": [
+    "milliard",
+    "pièces."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L03.k.wav",
+   "file_start": 4.49,
+   "speech_start": 4.49,
+   "speech_end": 6.014,
+   "words": [
+    {
+     "w": "Un",
+     "s": 4.49,
+     "e": 4.643
+    },
+    {
+     "w": "milliard",
+     "s": 4.719,
+     "e": 5.1
+    },
+    {
+     "w": "de",
+     "s": 5.176,
+     "e": 5.252
+    },
+    {
+     "w": "pièces.",
+     "s": 5.329,
+     "e": 6.014
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Livrées par cent camions.",
+   "hl": [
+    "cent",
+    "camions."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L04.k.wav",
+   "file_start": 6.114,
+   "speech_start": 6.114,
+   "speech_end": 7.79,
+   "words": [
+    {
+     "w": "Livrées",
+     "s": 6.114,
+     "e": 6.571
+    },
+    {
+     "w": "par",
+     "s": 6.686,
+     "e": 6.8
+    },
+    {
+     "w": "cent",
+     "s": 6.876,
+     "e": 7.029
+    },
+    {
+     "w": "camions.",
+     "s": 7.143,
+     "e": 7.79
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Sa rue a disparu dessous.",
+   "hl": [
+    "rue",
+    "disparu"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L05.k.wav",
+   "file_start": 7.89,
+   "speech_start": 7.89,
+   "speech_end": 9.567,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 7.89,
+     "e": 8.043
+    },
+    {
+     "w": "rue",
+     "s": 8.119,
+     "e": 8.271
+    },
+    {
+     "w": "a",
+     "s": 8.348,
+     "e": 8.424
+    },
+    {
+     "w": "disparu",
+     "s": 8.538,
+     "e": 8.881
+    },
+    {
+     "w": "dessous.",
+     "s": 8.995,
+     "e": 9.567
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La banque a refusé de les prendre.",
+   "hl": [
+    "banque",
+    "refusé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L06.k.wav",
+   "file_start": 9.667,
+   "speech_start": 9.667,
+   "speech_end": 11.343,
+   "words": [
+    {
+     "w": "La",
+     "s": 9.667,
+     "e": 9.743
+    },
+    {
+     "w": "banque",
+     "s": 9.819,
+     "e": 10.048
+    },
+    {
+     "w": "a",
+     "s": 10.086,
+     "e": 10.124
+    },
+    {
+     "w": "refusé",
+     "s": 10.238,
+     "e": 10.505
+    },
+    {
+     "w": "de",
+     "s": 10.543,
+     "e": 10.581
+    },
+    {
+     "w": "les",
+     "s": 10.657,
+     "e": 10.733
+    },
+    {
+     "w": "prendre.",
+     "s": 10.848,
+     "e": 11.343
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Alors il a tout payé en pièces.",
+   "hl": [
+    "tout",
+    "pièces."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L07.k.wav",
+   "file_start": 11.443,
+   "speech_start": 11.443,
+   "speech_end": 13.275,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 11.443,
+     "e": 11.748
+    },
+    {
+     "w": "il",
+     "s": 11.9,
+     "e": 11.976
+    },
+    {
+     "w": "a",
+     "s": 12.052,
+     "e": 12.129
+    },
+    {
+     "w": "tout",
+     "s": 12.205,
+     "e": 12.281
+    },
+    {
+     "w": "payé",
+     "s": 12.357,
+     "e": 12.51
+    },
+    {
+     "w": "en",
+     "s": 12.586,
+     "e": 12.662
+    },
+    {
+     "w": "pièces.",
+     "s": 12.7,
+     "e": 13.271
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Sa baguette : cent dix pièces.",
+   "hl": [
+    "baguette",
+    "cent",
+    "dix"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L08.k.wav",
+   "file_start": 13.375,
+   "speech_start": 13.375,
+   "speech_end": 15.28,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 13.375,
+     "e": 13.527
+    },
+    {
+     "w": "baguette",
+     "s": 13.604,
+     "e": 13.985
+    },
+    {
+     "w": ":",
+     "s": 14.289,
+     "e": 14.34
+    },
+    {
+     "w": "cent",
+     "s": 14.391,
+     "e": 14.442
+    },
+    {
+     "w": "dix",
+     "s": 14.48,
+     "e": 14.594
+    },
+    {
+     "w": "pièces.",
+     "s": 14.67,
+     "e": 15.28
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Sa voiture : deux millions.",
+   "hl": [
+    "voiture",
+    "millions."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L09.k.wav",
+   "file_start": 15.38,
+   "speech_start": 15.38,
+   "speech_end": 17.132,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 15.38,
+     "e": 15.532
+    },
+    {
+     "w": "voiture",
+     "s": 15.57,
+     "e": 15.989
+    },
+    {
+     "w": ":",
+     "s": 16.294,
+     "e": 16.32
+    },
+    {
+     "w": "deux",
+     "s": 16.345,
+     "e": 16.408
+    },
+    {
+     "w": "millions.",
+     "s": 16.447,
+     "e": 17.132
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le vendeur compte encore.",
+   "hl": [
+    "vendeur",
+    "encore."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L10.k.wav",
+   "file_start": 17.232,
+   "speech_start": 17.232,
+   "speech_end": 18.68,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.232,
+     "e": 17.308
+    },
+    {
+     "w": "vendeur",
+     "s": 17.385,
+     "e": 17.689
+    },
+    {
+     "w": "compte",
+     "s": 17.766,
+     "e": 17.918
+    },
+    {
+     "w": "encore.",
+     "s": 17.994,
+     "e": 18.68
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Puis le fisc a réclamé ses impôts.",
+   "hl": [
+    "fisc",
+    "impôts."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L11.k.wav",
+   "file_start": 18.78,
+   "speech_start": 18.78,
+   "speech_end": 20.761,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 18.78,
+     "e": 18.932
+    },
+    {
+     "w": "le",
+     "s": 19.008,
+     "e": 19.161
+    },
+    {
+     "w": "fisc",
+     "s": 19.237,
+     "e": 19.466
+    },
+    {
+     "w": "a",
+     "s": 19.504,
+     "e": 19.542
+    },
+    {
+     "w": "réclamé",
+     "s": 19.618,
+     "e": 19.923
+    },
+    {
+     "w": "ses",
+     "s": 19.999,
+     "e": 20.075
+    },
+    {
+     "w": "impôts.",
+     "s": 20.151,
+     "e": 20.761
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Trois millions d'euros.",
+   "hl": [
+    "Trois",
+    "millions"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L12.k.wav",
+   "file_start": 20.861,
+   "speech_start": 20.861,
+   "speech_end": 22.004,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 20.861,
+     "e": 21.013
+    },
+    {
+     "w": "millions",
+     "s": 21.089,
+     "e": 21.394
+    },
+    {
+     "w": "d'euros.",
+     "s": 21.432,
+     "e": 22.004
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il les a payés… en pièces.",
+   "hl": [
+    "pièces."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L13.k.wav",
+   "file_start": 22.104,
+   "speech_start": 22.104,
+   "speech_end": 24.085,
+   "words": [
+    {
+     "w": "Il",
+     "s": 22.104,
+     "e": 22.18
+    },
+    {
+     "w": "les",
+     "s": 22.256,
+     "e": 22.332
+    },
+    {
+     "w": "a",
+     "s": 22.408,
+     "e": 22.485
+    },
+    {
+     "w": "payés…",
+     "s": 22.599,
+     "e": 23.221
+    },
+    {
+     "w": "en",
+     "s": 23.272,
+     "e": 23.323
+    },
+    {
+     "w": "pièces.",
+     "s": 23.361,
+     "e": 24.085
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les agents ont compté pendant six ans.",
+   "hl": [
+    "compté",
+    "six",
+    "ans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L14.k.wav",
+   "file_start": 24.185,
+   "speech_start": 24.185,
+   "speech_end": 26.242,
+   "words": [
+    {
+     "w": "Les",
+     "s": 24.185,
+     "e": 24.337
+    },
+    {
+     "w": "agents",
+     "s": 24.413,
+     "e": 24.642
+    },
+    {
+     "w": "ont",
+     "s": 24.718,
+     "e": 24.794
+    },
+    {
+     "w": "compté",
+     "s": 24.832,
+     "e": 25.099
+    },
+    {
+     "w": "pendant",
+     "s": 25.175,
+     "e": 25.48
+    },
+    {
+     "w": "six",
+     "s": 25.594,
+     "e": 25.708
+    },
+    {
+     "w": "ans.",
+     "s": 25.937,
+     "e": 26.242
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Il manquait un centime.",
+   "hl": [
+    "manquait",
+    "centime."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L15.k.wav",
+   "file_start": 26.342,
+   "speech_start": 26.342,
+   "speech_end": 27.868,
+   "words": [
+    {
+     "w": "Il",
+     "s": 26.342,
+     "e": 26.418
+    },
+    {
+     "w": "manquait",
+     "s": 26.494,
+     "e": 26.875
+    },
+    {
+     "w": "un",
+     "s": 26.951,
+     "e": 27.027
+    },
+    {
+     "w": "centime.",
+     "s": 27.18,
+     "e": 27.866
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Redressement fiscal.",
+   "hl": [
+    "Redressement",
+    "fiscal."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L16.k.wav",
+   "file_start": 27.968,
+   "speech_start": 27.968,
+   "speech_end": 29.263,
+   "words": [
+    {
+     "w": "Redressement",
+     "s": 27.968,
+     "e": 28.425
+    },
+    {
+     "w": "fiscal.",
+     "s": 28.501,
+     "e": 29.263
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Il a payé l'amende… en pièces.",
+   "hl": [
+    "l'amende…",
+    "pièces."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L17.k.wav",
+   "file_start": 29.363,
+   "speech_start": 29.363,
+   "speech_end": 31.496,
+   "words": [
+    {
+     "w": "Il",
+     "s": 29.363,
+     "e": 29.439
+    },
+    {
+     "w": "a",
+     "s": 29.477,
+     "e": 29.516
+    },
+    {
+     "w": "payé",
+     "s": 29.592,
+     "e": 29.744
+    },
+    {
+     "w": "l'amende…",
+     "s": 29.782,
+     "e": 30.544
+    },
+    {
+     "w": "en",
+     "s": 30.582,
+     "e": 30.658
+    },
+    {
+     "w": "pièces.",
+     "s": 30.735,
+     "e": 31.496
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le fisc a tout recompté.",
+   "hl": [
+    "recompté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L18.k.wav",
+   "file_start": 31.596,
+   "speech_start": 31.596,
+   "speech_end": 33.196,
+   "words": [
+    {
+     "w": "Le",
+     "s": 31.596,
+     "e": 31.749
+    },
+    {
+     "w": "fisc",
+     "s": 31.787,
+     "e": 32.054
+    },
+    {
+     "w": "a",
+     "s": 32.13,
+     "e": 32.282
+    },
+    {
+     "w": "tout",
+     "s": 32.358,
+     "e": 32.435
+    },
+    {
+     "w": "recompté.",
+     "s": 32.511,
+     "e": 33.196
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Cette fois, il y avait un centime de trop.",
+   "hl": [
+    "centime",
+    "trop."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L19.k.wav",
+   "file_start": 33.296,
+   "speech_start": 33.296,
+   "speech_end": 35.43,
+   "words": [
+    {
+     "w": "Cette",
+     "s": 33.296,
+     "e": 33.525
+    },
+    {
+     "w": "fois,",
+     "s": 33.639,
+     "e": 33.906
+    },
+    {
+     "w": "il",
+     "s": 33.982,
+     "e": 34.058
+    },
+    {
+     "w": "y",
+     "s": 34.084,
+     "e": 34.109
+    },
+    {
+     "w": "avait",
+     "s": 34.135,
+     "e": 34.363
+    },
+    {
+     "w": "un",
+     "s": 34.439,
+     "e": 34.516
+    },
+    {
+     "w": "centime",
+     "s": 34.63,
+     "e": 34.82
+    },
+    {
+     "w": "de",
+     "s": 34.896,
+     "e": 34.973
+    },
+    {
+     "w": "trop.",
+     "s": 35.011,
+     "e": 35.43
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Le fisc le lui a remboursé.",
+   "hl": [
+    "remboursé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L20.k.wav",
+   "file_start": 35.53,
+   "speech_start": 35.53,
+   "speech_end": 37.13,
+   "words": [
+    {
+     "w": "Le",
+     "s": 35.53,
+     "e": 35.606
+    },
+    {
+     "w": "fisc",
+     "s": 35.682,
+     "e": 35.987
+    },
+    {
+     "w": "le",
+     "s": 36.063,
+     "e": 36.139
+    },
+    {
+     "w": "lui",
+     "s": 36.165,
+     "e": 36.216
+    },
+    {
+     "w": "a",
+     "s": 36.292,
+     "e": 36.33
+    },
+    {
+     "w": "remboursé.",
+     "s": 36.368,
+     "e": 37.13
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Frais de dossier : quinze euros.",
+   "hl": [
+    "Frais",
+    "quinze",
+    "euros."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L21.k.wav",
+   "file_start": 37.25,
+   "speech_start": 37.25,
+   "speech_end": 39.078,
+   "words": [
+    {
+     "w": "Frais",
+     "s": 37.25,
+     "e": 37.478
+    },
+    {
+     "w": "de",
+     "s": 37.516,
+     "e": 37.555
+    },
+    {
+     "w": "dossier",
+     "s": 37.593,
+     "e": 38.012
+    },
+    {
+     "w": ":",
+     "s": 38.316,
+     "e": 38.342
+    },
+    {
+     "w": "quinze",
+     "s": 38.367,
+     "e": 38.469
+    },
+    {
+     "w": "euros.",
+     "s": 38.545,
+     "e": 39.078
+    }
+   ]
+  },
+  {
+   "id": "L22",
+   "who": "N",
+   "text": "Il a payé en pièces.",
+   "hl": [
+    "pièces."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/loto/tts/L22.k.wav",
+   "file_start": 39.238,
+   "speech_start": 39.238,
+   "speech_end": 40.534,
+   "words": [
+    {
+     "w": "Il",
+     "s": 39.238,
+     "e": 39.315
+    },
+    {
+     "w": "a",
+     "s": 39.391,
+     "e": 39.467
+    },
+    {
+     "w": "payé",
+     "s": 39.543,
+     "e": 39.696
+    },
+    {
+     "w": "en",
+     "s": 39.772,
+     "e": 39.848
+    },
+    {
+     "w": "pièces.",
+     "s": 39.886,
+     "e": 40.534
+    }
+   ]
+  }
+ ],
+ "total": 41.37
+}
