@@ -1,0 +1,161 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a refusé le changement d'heure.",
+  "hl": [
+   "mec",
+   "refusé"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il est resté à l'heure d'été.",
+  "hl": [
+   "l'heure",
+   "d'été."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il arrivait partout une heure en avance.",
+  "hl": [
+   "heure",
+   "avance."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Au bureau, il était seul.",
+  "hl": [
+   "seul."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a fait le travail de tout le monde.",
+  "hl": [
+   "travail"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Promu directeur.",
+  "hl": [
+   "directeur."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Ses collègues ont voulu comprendre.",
+  "hl": [
+   "collègues"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ils sont restés à l'heure d'été aussi.",
+  "hl": [
+   "d'été"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Puis la ville.",
+  "hl": [
+   "ville."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Puis la région.",
+  "hl": [
+   "région."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Deux France, deux heures.",
+  "hl": [
+   "Deux",
+   "heures."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "À la frontière, on changeait de montre.",
+  "hl": [
+   "frontière,",
+   "montre."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Les trains arrivaient avant de partir.",
+  "hl": [
+   "trains",
+   "avant"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les vaches ont refusé de choisir.",
+  "hl": [
+   "vaches"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "L'Europe a tranché.",
+  "hl": [
+   "L'Europe",
+   "tranché."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Plus jamais de changement d'heure.",
+  "hl": [
+   "jamais"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Le mec a été décoré.",
+  "hl": [
+   "décoré."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le lendemain, il est passé à l'heure d'hiver.",
+  "hl": [
+   "d'hiver."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il était de nouveau seul au bureau.",
+  "hl": [
+   "seul"
+  ]
+ }
+]

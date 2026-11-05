@@ -1,0 +1,1923 @@
+{
+ "version": 3,
+ "title": "La grève des nuages",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "fermier": {
+   "preset": "fermier"
+  },
+  "fermier2": {
+   "preset": "fermier",
+   "seed": 12,
+   "facial": "mustache"
+  },
+  "ministre": {
+   "preset": "politique"
+  },
+  "pompier": {
+   "preset": "pompier"
+  },
+  "pompier2": {
+   "preset": "pompier",
+   "seed": 21
+  },
+  "bonhomme": {
+   "type": "creature",
+   "name": "snowman",
+   "opts": {
+    "seed": 2
+   }
+  },
+  "g0": {
+   "preset": "gamin"
+  },
+  "g1": {
+   "preset": "gamin",
+   "seed": 5
+  },
+  "g2": {
+   "preset": "lyceenne"
+  },
+  "ministreBain": {
+   "preset": "politique",
+   "atlasBody": false,
+   "suit": "#D9A47E",
+   "lapel": "#D9A47E",
+   "tie": "#D9A47E",
+   "shirt": "#D9A47E",
+   "cuff": "#D9A47E",
+   "pants": "#2F62B5"
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "c0",
+     "name": "cloudChar",
+     "pos": [
+      -2.4,
+      4.5,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 3
+     }
+    },
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      4.8,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 4
+     }
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      2.4,
+      4.5,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 5
+     }
+    },
+    {
+     "id": "s0",
+     "name": "protestSign",
+     "pos": [
+      -2.1999999999999997,
+      2.6,
+      -2.4
+     ],
+     "scale": 1.1,
+     "opts": {
+      "text": "GRÈVE"
+     }
+    },
+    {
+     "id": "s1",
+     "name": "protestSign",
+     "pos": [
+      0.2,
+      2.9,
+      -2.4
+     ],
+     "scale": 1.1,
+     "opts": {
+      "text": "PRIME DE\nPLUIE"
+     }
+    },
+    {
+     "id": "s2",
+     "name": "protestSign",
+     "pos": [
+      2.6,
+      2.6,
+      -2.4
+     ],
+     "scale": 1.1,
+     "opts": {
+      "text": "ON LÂCHE\nRIEN"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.2,
+      5.6
+     ],
+     "to": [
+      0.25,
+      1.25,
+      5.1
+     ],
+     "lookAt": [
+      0,
+      3.4,
+      -3
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      3.5,
+      -3
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "seabed",
+   "lines": [],
+   "actors": [
+    {
+     "id": "fermier",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "lookUp",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "can",
+     "name": "wateringCan",
+     "pos": [
+      0.6,
+      0,
+      0.3
+     ]
+    },
+    {
+     "id": "scare",
+     "name": "scarecrow",
+     "pos": [
+      -1.4,
+      0,
+      -1.5
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.45,
+      3.0
+     ],
+     "to": [
+      0.315,
+      1.47,
+      2.7
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.42,
+      0
+     ]
+    }
+   ],
+   "start": 1.8,
+   "duration": 1.7667,
+   "setOpts": {
+    "dry": true
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "seabed",
+   "lines": [],
+   "actors": [
+    {
+     "id": "fermier",
+     "pos": [
+      -0.6,
+      0,
+      0
+     ],
+     "ry": 20,
+     "clip": "flail",
+     "keys": [],
+     "expr": "scared"
+    },
+    {
+     "id": "fermier2",
+     "pos": [
+      0.7,
+      0,
+      -0.3
+     ],
+     "ry": -20,
+     "clip": "scared",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.4,
+      5.2
+     ],
+     "to": [
+      0.51,
+      1.45,
+      4.6000000000000005
+     ],
+     "lookAt": [
+      0,
+      1.1,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.1300000000000001,
+      0
+     ]
+    }
+   ],
+   "start": 3.5667,
+   "duration": 1.8333,
+   "setOpts": {
+    "dry": true
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      -0.4
+     ],
+     "ry": 0,
+     "clip": "explain",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      -0.75,
+      1.0,
+      0.7
+     ],
+     "rot": [
+      0,
+      2.8,
+      0
+     ],
+     "scale": 0.45,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "grumpy"
+     },
+     "ry": 160.428
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      0.75,
+      1.1,
+      0.8
+     ],
+     "rot": [
+      0,
+      -2.8,
+      0
+     ],
+     "scale": 0.45,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 7
+     },
+     "ry": -160.428
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.5,
+      4.6
+     ],
+     "to": [
+      0.51,
+      1.55,
+      3.9999999999999996
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.23,
+      0
+     ]
+    }
+   ],
+   "start": 5.4,
+   "duration": 1.9,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "c",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      0.9,
+      0
+     ],
+     "scale": 0.6,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "expr": [
+       [
+        0,
+        "angry"
+       ],
+       [
+        0.034,
+        "shocked"
+       ],
+       [
+        0.156,
+        "angry"
+       ],
+       [
+        0.224,
+        "shocked"
+       ],
+       [
+        0.309,
+        "angry"
+       ],
+       [
+        0.415,
+        "shocked"
+       ],
+       [
+        0.461,
+        "angry"
+       ],
+       [
+        0.605,
+        "shocked"
+       ],
+       [
+        0.689,
+        "angry"
+       ],
+       [
+        0.796,
+        "shocked"
+       ],
+       [
+        0.842,
+        "angry"
+       ],
+       [
+        0.91,
+        "shocked"
+       ],
+       [
+        1.147,
+        "angry"
+       ],
+       [
+        1.558,
+        "shocked"
+       ],
+       [
+        1.604,
+        "angry"
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.35,
+      1.9
+     ],
+     "to": [
+      0.1,
+      1.35,
+      1.7
+     ],
+     "lookAt": [
+      0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 7.3,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      -0.4
+     ],
+     "ry": 0,
+     "clip": "slamTable",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      -1.1,
+      0.9,
+      0.6
+     ],
+     "scale": 0.5,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry"
+     },
+     "keys": [
+      {
+       "at": 0.3,
+       "to": [
+        -3.5,
+        1.4,
+        1.0
+       ],
+       "dur": 0.8,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      1.1,
+      1.0,
+      0.7
+     ],
+     "scale": 0.5,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 7
+     },
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        3.5,
+        1.4,
+        1.0
+       ],
+       "dur": 0.8,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.5,
+      4.6
+     ],
+     "to": [
+      0.51,
+      1.55,
+      3.9999999999999996
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.23,
+      0
+     ],
+     "shake": 0.02
+    }
+   ],
+   "start": 9.0,
+   "duration": 1.5333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "pompier",
+     "pos": [
+      -0.4,
+      0,
+      0.6
+     ],
+     "ry": 20,
+     "clip": "salute",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "pompier2",
+     "pos": [
+      0.5,
+      0,
+      0.8
+     ],
+     "ry": -20,
+     "clip": "handsOnHips",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "truck",
+     "name": "fireTruck",
+     "pos": [
+      0,
+      0,
+      -1.6
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.4,
+      6.5
+     ],
+     "to": [
+      0.51,
+      1.45,
+      5.9
+     ],
+     "lookAt": [
+      0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.33,
+      0
+     ]
+    }
+   ],
+   "start": 10.5333,
+   "duration": 2.0334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "truck",
+     "name": "fireTruck",
+     "pos": [
+      3,
+      0,
+      -2
+     ],
+     "rot": [
+      0,
+      0.3,
+      0
+     ],
+     "opts": {
+      "spray": [
+       [
+        0.1,
+        true
+       ]
+      ]
+     },
+     "ry": 17.189
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -3,
+      1.2,
+      8
+     ],
+     "to": [
+      -2.8,
+      1.3,
+      7.5
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      -3
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.6,
+      -3
+     ]
+    }
+   ],
+   "start": 12.5667,
+   "duration": 1.9,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "c0",
+     "name": "cloudChar",
+     "pos": [
+      -2.4,
+      6.0,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 3
+     }
+    },
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      6.3,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 4
+     }
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      2.4,
+      6.0,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "angry",
+      "seed": 5
+     }
+    },
+    {
+     "id": "truck",
+     "name": "fireTruck",
+     "pos": [
+      0,
+      0,
+      -2.5
+     ],
+     "rot": [
+      0,
+      0.3,
+      0
+     ],
+     "ry": 17.189
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      0.8,
+      9
+     ],
+     "to": [
+      0.35,
+      0.85,
+      8.5
+     ],
+     "lookAt": [
+      0,
+      3.6,
+      -3
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      3.8,
+      -3
+     ],
+     "shake": 0.015
+    }
+   ],
+   "start": 14.4667,
+   "duration": 2.4,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "c0",
+     "name": "cloudChar",
+     "pos": [
+      -2.4,
+      4.0,
+      -1.5
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#6E7680",
+      "color2": "#808892",
+      "face": "angry",
+      "seed": 3
+     }
+    },
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      4.3,
+      -1.5
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#6E7680",
+      "color2": "#808892",
+      "face": "angry",
+      "seed": 4
+     }
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      2.4,
+      4.0,
+      -1.5
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#6E7680",
+      "color2": "#808892",
+      "face": "angry",
+      "seed": 5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      2.5,
+      7.5
+     ],
+     "to": [
+      0.2,
+      2.6,
+      6.6
+     ],
+     "lookAt": [
+      0,
+      3.8,
+      -1.5
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      3.9,
+      -1.5
+     ],
+     "shake": 0.02
+    }
+   ],
+   "start": 16.8667,
+   "duration": 1.6333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "bonhomme",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "fir",
+     "name": "giantFir",
+     "pos": [
+      1.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "h": 1.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6499999999999999,
+      1.0,
+      3.0
+     ],
+     "to": [
+      0.615,
+      1.02,
+      2.7
+     ],
+     "lookAt": [
+      0.3,
+      0.95,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.97,
+      0
+     ]
+    }
+   ],
+   "start": 18.5,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "g0",
+     "pos": [
+      5.2,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "holdSign",
+     "keys": [],
+     "scale": 0.75,
+     "expr": "angry"
+    },
+    {
+     "id": "g1",
+     "pos": [
+      6,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "holdSign",
+     "keys": [],
+     "scale": 0.75,
+     "expr": "angry"
+    },
+    {
+     "id": "g2",
+     "pos": [
+      6.8,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "holdSign",
+     "keys": [],
+     "scale": 0.75,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "s0",
+     "name": "protestSign",
+     "opts": {
+      "text": "ON VEUT\nDE LA NEIGE"
+     },
+     "on": {
+      "actor": "g0",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "s1",
+     "name": "protestSign",
+     "opts": {
+      "text": "NEIGE\nPOUR TOUS"
+     },
+     "on": {
+      "actor": "g1",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "s2",
+     "name": "protestSign",
+     "opts": {
+      "text": "NOËL\nBLANC"
+     },
+     "on": {
+      "actor": "g2",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.6,
+      1.1,
+      4.8
+     ],
+     "to": [
+      6.51,
+      1.1500000000000001,
+      4.2
+     ],
+     "lookAt": [
+      6,
+      1.0,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6,
+      1.03,
+      0
+     ]
+    }
+   ],
+   "start": 20.2667,
+   "duration": 1.9333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "bigShrug",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.5,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.52,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.47,
+      0
+     ]
+    }
+   ],
+   "start": 22.2,
+   "duration": 1.5333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      -1.6,
+      0,
+      1.0
+     ],
+     "ry": 40,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "c0",
+     "name": "cloudChar",
+     "pos": [
+      -2.4,
+      3.5,
+      -2.5
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "happy",
+      "seed": 3
+     }
+    },
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      3.8,
+      -2.5
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "happy",
+      "seed": 4
+     }
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      2.4,
+      3.5,
+      -2.5
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "happy",
+      "seed": 5
+     }
+    },
+    {
+     "id": "arc",
+     "name": "rainbow",
+     "pos": [
+      0,
+      0,
+      -4
+     ],
+     "opts": {
+      "r": 4.5,
+      "t0": 0.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.4,
+      9.0
+     ],
+     "to": [
+      0.0,
+      1.5,
+      8.5
+     ],
+     "lookAt": [
+      0,
+      2.6,
+      -2
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      2.7,
+      -2
+     ]
+    }
+   ],
+   "start": 23.7333,
+   "duration": 2.5334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "c0",
+     "name": "cloudChar",
+     "pos": [
+      -2.4,
+      4.5,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "happy",
+      "seed": 3,
+      "raining": true,
+      "rainH": 4.0,
+      "drops": 90
+     }
+    },
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      4.8,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "happy",
+      "seed": 4,
+      "raining": true,
+      "rainH": 4.0,
+      "drops": 90
+     }
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      2.4,
+      4.5,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "happy",
+      "seed": 5,
+      "raining": true,
+      "rainH": 4.0,
+      "drops": 90
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.2,
+      5.6
+     ],
+     "to": [
+      0.25,
+      1.25,
+      5.1
+     ],
+     "lookAt": [
+      0,
+      3.4,
+      -3
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      3.5,
+      -3
+     ]
+    }
+   ],
+   "start": 26.2667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "c0",
+     "name": "cloudChar",
+     "pos": [
+      -2.4,
+      4.5,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "grumpy",
+      "seed": 3,
+      "raining": true,
+      "rainH": 4.0,
+      "drops": 90
+     }
+    },
+    {
+     "id": "c1",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      4.8,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "grumpy",
+      "seed": 4,
+      "raining": true,
+      "rainH": 4.0,
+      "drops": 90
+     }
+    },
+    {
+     "id": "c2",
+     "name": "cloudChar",
+     "pos": [
+      2.4,
+      4.5,
+      -3
+     ],
+     "scale": 1.1,
+     "opts": {
+      "color": "#9AA4AE",
+      "color2": "#B0B9C2",
+      "face": "grumpy",
+      "seed": 5,
+      "raining": true,
+      "rainH": 4.0,
+      "drops": 90
+     }
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      0,
+      2.4,
+      -2.4
+     ],
+     "scale": 2.0,
+     "opts": {
+      "rate": 5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.2,
+      5.6
+     ],
+     "to": [
+      0.25,
+      1.25,
+      5.1
+     ],
+     "lookAt": [
+      0,
+      3.4,
+      -3
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      3.5,
+      -3
+     ]
+    }
+   ],
+   "start": 27.9667,
+   "duration": 1.5666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "rain",
+     "name": "rain",
+     "pos": [
+      7,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 8,
+      "d": 6,
+      "h": 8,
+      "n": 500,
+      "speed": 4
+     }
+    },
+    {
+     "id": "cal",
+     "name": "noticeBoard",
+     "pos": [
+      7,
+      1.8,
+      -1.0
+     ],
+     "opts": {
+      "text": "40 JOURS",
+      "style": "sign",
+      "w": 1.0,
+      "h": 0.34,
+      "popAt": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.6,
+      1.5,
+      5.0
+     ],
+     "to": [
+      7.51,
+      1.55,
+      4.4
+     ],
+     "lookAt": [
+      7,
+      1.6,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7,
+      1.6300000000000001,
+      0
+     ]
+    }
+   ],
+   "start": 29.5333,
+   "duration": 1.6334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "seaSurface",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "eiffel",
+     "name": "eiffelTower",
+     "pos": [
+      0,
+      -14,
+      -40
+     ],
+     "opts": {
+      "h": 40
+     }
+    },
+    {
+     "id": "h0",
+     "name": "cottage",
+     "pos": [
+      -8,
+      -1.9,
+      -14
+     ],
+     "opts": {
+      "w": 5,
+      "d": 5,
+      "h": 2.4,
+      "rh": 1.5,
+      "color": "#F2D06B",
+      "roof": "#C9473A"
+     }
+    },
+    {
+     "id": "h1",
+     "name": "cottage",
+     "pos": [
+      7,
+      -1.9,
+      -18
+     ],
+     "opts": {
+      "w": 5,
+      "d": 5,
+      "h": 2.4,
+      "rh": 1.5,
+      "color": "#B9A6D6",
+      "roof": "#C9473A"
+     }
+    },
+    {
+     "id": "h2",
+     "name": "cottage",
+     "pos": [
+      -3,
+      -1.9,
+      -24
+     ],
+     "opts": {
+      "w": 5,
+      "d": 5,
+      "h": 2.4,
+      "rh": 1.5,
+      "color": "#9EC7E8",
+      "roof": "#C9473A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2,
+      3.0,
+      14
+     ],
+     "to": [
+      1.8,
+      3.2,
+      13
+     ],
+     "lookAt": [
+      0,
+      8,
+      -30
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      9,
+      -30
+     ]
+    }
+   ],
+   "start": 31.1667,
+   "duration": 1.9,
+   "setOpts": {
+    "parasols": false,
+    "shore": 200
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ]
+    },
+    {
+     "id": "dem",
+     "name": "noticeBoard",
+     "pos": [
+      0.45,
+      1.8,
+      0.35
+     ],
+     "opts": {
+      "text": "DÉMISSION",
+      "style": "doc",
+      "w": 0.6,
+      "h": 0.4,
+      "popAt": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.55,
+      2.9
+     ],
+     "to": [
+      0.515,
+      1.57,
+      2.6
+     ],
+     "lookAt": [
+      0.2,
+      1.5,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.2,
+      1.52,
+      0
+     ]
+    }
+   ],
+   "start": 33.0667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S20",
+   "set": "seaSurface",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministreBain",
+     "pos": [
+      0,
+      -0.95,
+      0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.9,
+       "expr": "sad"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      0.9,
+      2.6
+     ],
+     "to": [
+      0.28,
+      0.9,
+      2.4
+     ],
+     "lookAt": [
+      0,
+      0.8,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.82,
+      0
+     ]
+    }
+   ],
+   "start": 34.7667,
+   "duration": 1.8633,
+   "setOpts": {
+    "parasols": false,
+    "shore": 200
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 36.63
+}

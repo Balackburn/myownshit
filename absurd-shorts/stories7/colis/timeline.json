@@ -1,0 +1,878 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec attendait un colis.",
+   "hl": [
+    "mec",
+    "colis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.624,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.329
+    },
+    {
+     "w": "mec",
+     "s": 0.405,
+     "e": 0.557
+    },
+    {
+     "w": "attendait",
+     "s": 0.71,
+     "e": 0.938
+    },
+    {
+     "w": "un",
+     "s": 1.014,
+     "e": 1.09
+    },
+    {
+     "w": "colis.",
+     "s": 1.167,
+     "e": 1.624
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il est resté derrière sa porte toute la journée.",
+   "hl": [
+    "porte"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L02.k.wav",
+   "file_start": 1.724,
+   "speech_start": 1.724,
+   "speech_end": 4.01,
+   "words": [
+    {
+     "w": "Il",
+     "s": 1.724,
+     "e": 1.8
+    },
+    {
+     "w": "est",
+     "s": 1.838,
+     "e": 1.876
+    },
+    {
+     "w": "resté",
+     "s": 1.952,
+     "e": 2.181
+    },
+    {
+     "w": "derrière",
+     "s": 2.219,
+     "e": 2.486
+    },
+    {
+     "w": "sa",
+     "s": 2.562,
+     "e": 2.638
+    },
+    {
+     "w": "porte",
+     "s": 2.79,
+     "e": 2.943
+    },
+    {
+     "w": "toute",
+     "s": 3.019,
+     "e": 3.171
+    },
+    {
+     "w": "la",
+     "s": 3.21,
+     "e": 3.248
+    },
+    {
+     "w": "journée.",
+     "s": 3.324,
+     "e": 4.01
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le soir, il avait un avis de passage.",
+   "hl": [
+    "avis",
+    "passage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L03.k.wav",
+   "file_start": 4.11,
+   "speech_start": 4.11,
+   "speech_end": 6.167,
+   "words": [
+    {
+     "w": "Le",
+     "s": 4.11,
+     "e": 4.186
+    },
+    {
+     "w": "soir,",
+     "s": 4.262,
+     "e": 4.795
+    },
+    {
+     "w": "il",
+     "s": 4.833,
+     "e": 4.871
+    },
+    {
+     "w": "avait",
+     "s": 4.948,
+     "e": 5.1
+    },
+    {
+     "w": "un",
+     "s": 5.138,
+     "e": 5.176
+    },
+    {
+     "w": "avis",
+     "s": 5.29,
+     "e": 5.405
+    },
+    {
+     "w": "de",
+     "s": 5.443,
+     "e": 5.481
+    },
+    {
+     "w": "passage.",
+     "s": 5.595,
+     "e": 6.167
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "C",
+   "text": "« Vous étiez absent. »",
+   "hl": [
+    "absent."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L04.k.wav",
+   "file_start": 6.227,
+   "speech_start": 6.227,
+   "speech_end": 7.217,
+   "words": [
+    {
+     "w": "Vous",
+     "s": 6.227,
+     "e": 6.303
+    },
+    {
+     "w": "étiez",
+     "s": 6.379,
+     "e": 6.608
+    },
+    {
+     "w": "absent.",
+     "s": 6.722,
+     "e": 7.217
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il a porté plainte contre la Poste.",
+   "hl": [
+    "plainte",
+    "Poste."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L05.k.wav",
+   "file_start": 7.317,
+   "speech_start": 7.317,
+   "speech_end": 9.07,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.317,
+     "e": 7.393
+    },
+    {
+     "w": "a",
+     "s": 7.431,
+     "e": 7.47
+    },
+    {
+     "w": "porté",
+     "s": 7.546,
+     "e": 7.774
+    },
+    {
+     "w": "plainte",
+     "s": 7.85,
+     "e": 8.079
+    },
+    {
+     "w": "contre",
+     "s": 8.193,
+     "e": 8.308
+    },
+    {
+     "w": "la",
+     "s": 8.384,
+     "e": 8.46
+    },
+    {
+     "w": "Poste.",
+     "s": 8.612,
+     "e": 9.07
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La convocation au tribunal est arrivée.",
+   "hl": [
+    "convocation"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L06.k.wav",
+   "file_start": 9.17,
+   "speech_start": 9.17,
+   "speech_end": 11.227,
+   "words": [
+    {
+     "w": "La",
+     "s": 9.17,
+     "e": 9.246
+    },
+    {
+     "w": "convocation",
+     "s": 9.322,
+     "e": 9.855
+    },
+    {
+     "w": "au",
+     "s": 9.893,
+     "e": 9.931
+    },
+    {
+     "w": "tribunal",
+     "s": 10.046,
+     "e": 10.389
+    },
+    {
+     "w": "est",
+     "s": 10.427,
+     "e": 10.465
+    },
+    {
+     "w": "arrivée.",
+     "s": 10.541,
+     "e": 11.227
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "En avis de passage.",
+   "hl": [
+    "avis",
+    "passage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L07.k.wav",
+   "file_start": 11.327,
+   "speech_start": 11.327,
+   "speech_end": 12.546,
+   "words": [
+    {
+     "w": "En",
+     "s": 11.327,
+     "e": 11.403
+    },
+    {
+     "w": "avis",
+     "s": 11.479,
+     "e": 11.631
+    },
+    {
+     "w": "de",
+     "s": 11.67,
+     "e": 11.708
+    },
+    {
+     "w": "passage.",
+     "s": 11.784,
+     "e": 12.546
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il est allé la chercher.",
+   "hl": [
+    "chercher."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L08.k.wav",
+   "file_start": 12.646,
+   "speech_start": 12.646,
+   "speech_end": 13.802,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.646,
+     "e": 12.722
+    },
+    {
+     "w": "est",
+     "s": 12.798,
+     "e": 12.874
+    },
+    {
+     "w": "allé",
+     "s": 12.912,
+     "e": 13.027
+    },
+    {
+     "w": "la",
+     "s": 13.103,
+     "e": 13.179
+    },
+    {
+     "w": "chercher.",
+     "s": 13.255,
+     "e": 13.789
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Ticket numéro quatre mille douze.",
+   "hl": [
+    "quatre",
+    "douze."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L09.k.wav",
+   "file_start": 13.902,
+   "speech_start": 13.902,
+   "speech_end": 15.737,
+   "words": [
+    {
+     "w": "Ticket",
+     "s": 13.902,
+     "e": 14.207
+    },
+    {
+     "w": "numéro",
+     "s": 14.283,
+     "e": 14.588
+    },
+    {
+     "w": "quatre",
+     "s": 14.664,
+     "e": 14.816
+    },
+    {
+     "w": "mille",
+     "s": 14.892,
+     "e": 14.969
+    },
+    {
+     "w": "douze.",
+     "s": 15.121,
+     "e": 15.73
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le guichet appelait le numéro un.",
+   "hl": [
+    "un."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L10.k.wav",
+   "file_start": 15.837,
+   "speech_start": 15.837,
+   "speech_end": 17.742,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.837,
+     "e": 15.913
+    },
+    {
+     "w": "guichet",
+     "s": 15.989,
+     "e": 16.446
+    },
+    {
+     "w": "appelait",
+     "s": 16.523,
+     "e": 16.751
+    },
+    {
+     "w": "le",
+     "s": 16.789,
+     "e": 16.827
+    },
+    {
+     "w": "numéro",
+     "s": 16.903,
+     "e": 17.208
+    },
+    {
+     "w": "un.",
+     "s": 17.284,
+     "e": 17.742
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il a attendu onze ans.",
+   "hl": [
+    "onze"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L11.k.wav",
+   "file_start": 17.842,
+   "speech_start": 17.842,
+   "speech_end": 19.289,
+   "words": [
+    {
+     "w": "Il",
+     "s": 17.842,
+     "e": 17.918
+    },
+    {
+     "w": "a",
+     "s": 17.994,
+     "e": 18.032
+    },
+    {
+     "w": "attendu",
+     "s": 18.07,
+     "e": 18.527
+    },
+    {
+     "w": "onze",
+     "s": 18.603,
+     "e": 18.756
+    },
+    {
+     "w": "ans.",
+     "s": 18.832,
+     "e": 19.289
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il s'est marié dans la file.",
+   "hl": [
+    "marié",
+    "file."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L12.k.wav",
+   "file_start": 19.389,
+   "speech_start": 19.389,
+   "speech_end": 20.839,
+   "words": [
+    {
+     "w": "Il",
+     "s": 19.389,
+     "e": 19.542
+    },
+    {
+     "w": "s'est",
+     "s": 19.592,
+     "e": 19.694
+    },
+    {
+     "w": "marié",
+     "s": 19.732,
+     "e": 19.999
+    },
+    {
+     "w": "dans",
+     "s": 20.024,
+     "e": 20.075
+    },
+    {
+     "w": "la",
+     "s": 20.151,
+     "e": 20.227
+    },
+    {
+     "w": "file.",
+     "s": 20.303,
+     "e": 20.837
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Ses enfants y ont grandi.",
+   "hl": [
+    "enfants",
+    "grandi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L13.k.wav",
+   "file_start": 20.939,
+   "speech_start": 20.939,
+   "speech_end": 22.387,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 20.939,
+     "e": 21.091
+    },
+    {
+     "w": "enfants",
+     "s": 21.168,
+     "e": 21.472
+    },
+    {
+     "w": "y",
+     "s": 21.511,
+     "e": 21.549
+    },
+    {
+     "w": "ont",
+     "s": 21.625,
+     "e": 21.701
+    },
+    {
+     "w": "grandi.",
+     "s": 21.853,
+     "e": 22.387
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Quatre mille onze.",
+   "hl": [
+    "onze."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L14.k.wav",
+   "file_start": 22.487,
+   "speech_start": 22.487,
+   "speech_end": 23.706,
+   "words": [
+    {
+     "w": "Quatre",
+     "s": 22.487,
+     "e": 22.639
+    },
+    {
+     "w": "mille",
+     "s": 22.791,
+     "e": 22.868
+    },
+    {
+     "w": "onze.",
+     "s": 23.02,
+     "e": 23.706
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "La guichetière est partie en pause.",
+   "hl": [
+    "pause."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L15.k.wav",
+   "file_start": 23.806,
+   "speech_start": 23.806,
+   "speech_end": 25.558,
+   "words": [
+    {
+     "w": "La",
+     "s": 23.806,
+     "e": 23.882
+    },
+    {
+     "w": "guichetière",
+     "s": 23.958,
+     "e": 24.339
+    },
+    {
+     "w": "est",
+     "s": 24.415,
+     "e": 24.491
+    },
+    {
+     "w": "partie",
+     "s": 24.568,
+     "e": 24.72
+    },
+    {
+     "w": "en",
+     "s": 24.796,
+     "e": 24.872
+    },
+    {
+     "w": "pause.",
+     "s": 24.949,
+     "e": 25.558
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il a pris sa place.",
+   "hl": [
+    "place."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L16.k.wav",
+   "file_start": 25.658,
+   "speech_start": 25.658,
+   "speech_end": 26.801,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.658,
+     "e": 25.734
+    },
+    {
+     "w": "a",
+     "s": 25.772,
+     "e": 25.811
+    },
+    {
+     "w": "pris",
+     "s": 25.887,
+     "e": 25.963
+    },
+    {
+     "w": "sa",
+     "s": 26.039,
+     "e": 26.115
+    },
+    {
+     "w": "place.",
+     "s": 26.191,
+     "e": 26.801
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Personne n'a rien remarqué.",
+   "hl": [
+    "rien"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L17.k.wav",
+   "file_start": 26.901,
+   "speech_start": 26.901,
+   "speech_end": 28.288,
+   "words": [
+    {
+     "w": "Personne",
+     "s": 26.901,
+     "e": 27.282
+    },
+    {
+     "w": "n'a",
+     "s": 27.308,
+     "e": 27.358
+    },
+    {
+     "w": "rien",
+     "s": 27.434,
+     "e": 27.587
+    },
+    {
+     "w": "remarqué.",
+     "s": 27.663,
+     "e": 28.272
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Il est devenu facteur.",
+   "hl": [
+    "facteur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L18.k.wav",
+   "file_start": 28.388,
+   "speech_start": 28.388,
+   "speech_end": 29.76,
+   "words": [
+    {
+     "w": "Il",
+     "s": 28.388,
+     "e": 28.465
+    },
+    {
+     "w": "est",
+     "s": 28.541,
+     "e": 28.617
+    },
+    {
+     "w": "devenu",
+     "s": 28.655,
+     "e": 28.922
+    },
+    {
+     "w": "facteur.",
+     "s": 29.036,
+     "e": 29.76
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il a livré son propre colis.",
+   "hl": [
+    "propre",
+    "colis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L19.k.wav",
+   "file_start": 29.86,
+   "speech_start": 29.86,
+   "speech_end": 31.46,
+   "words": [
+    {
+     "w": "Il",
+     "s": 29.86,
+     "e": 29.936
+    },
+    {
+     "w": "a",
+     "s": 29.974,
+     "e": 30.012
+    },
+    {
+     "w": "livré",
+     "s": 30.126,
+     "e": 30.317
+    },
+    {
+     "w": "son",
+     "s": 30.393,
+     "e": 30.545
+    },
+    {
+     "w": "propre",
+     "s": 30.622,
+     "e": 30.85
+    },
+    {
+     "w": "colis.",
+     "s": 30.965,
+     "e": 31.46
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Il n'était pas chez lui.",
+   "hl": [
+    "pas"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L20.k.wav",
+   "file_start": 31.56,
+   "speech_start": 31.56,
+   "speech_end": 32.779,
+   "words": [
+    {
+     "w": "Il",
+     "s": 31.56,
+     "e": 31.636
+    },
+    {
+     "w": "n'était",
+     "s": 31.674,
+     "e": 31.941
+    },
+    {
+     "w": "pas",
+     "s": 31.979,
+     "e": 32.017
+    },
+    {
+     "w": "chez",
+     "s": 32.093,
+     "e": 32.169
+    },
+    {
+     "w": "lui.",
+     "s": 32.207,
+     "e": 32.779
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Il s'est laissé un avis de passage.",
+   "hl": [
+    "avis",
+    "passage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/colis/tts/L21.k.wav",
+   "file_start": 32.939,
+   "speech_start": 32.939,
+   "speech_end": 34.615,
+   "words": [
+    {
+     "w": "Il",
+     "s": 32.939,
+     "e": 33.015
+    },
+    {
+     "w": "s'est",
+     "s": 33.091,
+     "e": 33.167
+    },
+    {
+     "w": "laissé",
+     "s": 33.205,
+     "e": 33.472
+    },
+    {
+     "w": "un",
+     "s": 33.51,
+     "e": 33.548
+    },
+    {
+     "w": "avis",
+     "s": 33.625,
+     "e": 33.777
+    },
+    {
+     "w": "de",
+     "s": 33.815,
+     "e": 33.853
+    },
+    {
+     "w": "passage.",
+     "s": 34.005,
+     "e": 34.615
+    }
+   ]
+  }
+ ],
+ "total": 35.45
+}

@@ -1,0 +1,169 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Les nuages se sont mis en grève.",
+  "hl": [
+   "nuages",
+   "grève."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Plus une goutte depuis lundi.",
+  "hl": [
+   "goutte"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Les agriculteurs ont paniqué.",
+  "hl": [
+   "agriculteurs"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le ministre a reçu les nuages.",
+  "hl": [
+   "ministre",
+   "nuages."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "C",
+  "text": "« On veut une prime de pluie ! »",
+  "hl": [
+   "prime",
+   "pluie"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Négociations rompues.",
+  "hl": [
+   "rompues."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "L'État a réquisitionné les pompiers.",
+  "hl": [
+   "réquisitionné",
+   "pompiers."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ils ont arrosé la Beauce au tuyau.",
+  "hl": [
+   "Beauce",
+   "tuyau."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les nuages ont crié aux briseurs de grève.",
+  "hl": [
+   "briseurs"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Ils ont durci le mouvement.",
+  "hl": [
+   "durci"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Grève de la neige à Noël.",
+  "hl": [
+   "neige",
+   "Noël."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Les enfants sont descendus dans la rue.",
+  "hl": [
+   "enfants",
+   "rue."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le ministre a cédé.",
+  "hl": [
+   "cédé."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Prime de pluie : un arc-en-ciel par mois.",
+  "hl": [
+   "arc-en-ciel"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Les nuages ont repris le travail.",
+  "hl": [
+   "repris"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ils ont rattrapé les heures.",
+  "hl": [
+   "rattrapé"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Il a plu quarante jours.",
+  "hl": [
+   "quarante"
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "La France est devenue une piscine.",
+  "hl": [
+   "piscine."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Le ministre a démissionné.",
+  "hl": [
+   "démissionné."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "En maillot de bain.",
+  "hl": [
+   "maillot"
+  ]
+ }
+]

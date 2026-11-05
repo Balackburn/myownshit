@@ -1,0 +1,183 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec est rentré de Sardaigne.",
+  "hl": [
+   "mec",
+   "Sardaigne."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Avec trois grains de sable dans sa chaussure.",
+  "hl": [
+   "sable",
+   "chaussure."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "À l'aéroport, le chien a aboyé.",
+  "hl": [
+   "chien",
+   "aboyé."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "C",
+  "text": "« Contrebande de plage. »",
+  "hl": [
+   "Contrebande",
+   "plage."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "L'Italie a exigé ses grains.",
+  "hl": [
+   "L'Italie",
+   "grains."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il les a rendus en jet privé.",
+  "hl": [
+   "jet",
+   "privé."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Escorte de deux avions de chasse.",
+  "hl": [
+   "Escorte",
+   "chasse."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "À l'arrivée, il en manquait un.",
+  "hl": [
+   "manquait"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Crise diplomatique.",
+  "hl": [
+   "Crise",
+   "diplomatique."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le grain était resté sous son ongle.",
+  "hl": [
+   "ongle."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "C",
+  "text": "« Il a le mal du pays. »",
+  "hl": [
+   "mal",
+   "pays."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le juge a accordé la garde partagée.",
+  "hl": [
+   "garde",
+   "partagée."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Une semaine sur la plage, une semaine dans la chaussure.",
+  "hl": [
+   "plage,",
+   "chaussure."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le grain a grandi.",
+  "hl": [
+   "grandi."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il est devenu un caillou.",
+  "hl": [
+   "caillou."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Puis un rocher.",
+  "hl": [
+   "rocher."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Puis une île.",
+  "hl": [
+   "île."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "L'Italie a réclamé l'île.",
+  "hl": [
+   "réclamé",
+   "l'île."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Elle était toujours dans sa chaussure.",
+  "hl": [
+   "chaussure."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Depuis, il boite.",
+  "hl": [
+   "boite."
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "Et il paie la taxe de séjour.",
+  "hl": [
+   "taxe",
+   "séjour."
+  ]
+ }
+]

@@ -1,0 +1,1954 @@
+{
+ "version": 3,
+ "title": "Le sable",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "ministre": {
+   "preset": "politique"
+  },
+  "chien": {
+   "type": "creature",
+   "name": "dog",
+   "opts": {
+    "seed": 4
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "runway",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      -3.0
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0,
+        0,
+        -0.8
+       ],
+       "dur": 1.767,
+       "clip": "walk"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "plane",
+     "name": "plane",
+     "pos": [
+      -2,
+      2.2,
+      -16
+     ],
+     "rot": [
+      0,
+      0.5,
+      0
+     ],
+     "ry": 28.648
+    },
+    {
+     "id": "bag",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      0.5,
+      2.6
+     ],
+     "to": [
+      0.5,
+      0.52,
+      3.6
+     ],
+     "lookAt": [
+      0,
+      1.6,
+      -3.0
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.6,
+      -0.8
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "scale": 2.2
+    },
+    {
+     "id": "g0",
+     "name": "growIsland",
+     "pos": [
+      -0.08,
+      0.29,
+      0.02
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "g1",
+     "name": "growIsland",
+     "pos": [
+      0.02,
+      0.29,
+      -0.03
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "g2",
+     "name": "growIsland",
+     "pos": [
+      0.1,
+      0.29,
+      0.03
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      0.75,
+      1.25
+     ],
+     "to": [
+      0.46,
+      0.72,
+      1.12
+     ],
+     "lookAt": [
+      0.0,
+      0.24,
+      0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.24,
+      0
+     ]
+    }
+   ],
+   "start": 1.7667,
+   "duration": 2.2333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.55,
+      0,
+      -0.6
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      -0.45,
+      0,
+      0.2
+     ],
+     "ry": 60,
+     "clip": "angry",
+     "keys": []
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.0,
+      3.8
+     ],
+     "to": [
+      0.51,
+      1.05,
+      3.1999999999999997
+     ],
+     "lookAt": [
+      0.0,
+      0.8,
+      -0.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.8300000000000001,
+      -0.2
+     ]
+    }
+   ],
+   "start": 4.0,
+   "duration": 2.2,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "point",
+     "keys": [
+      {
+       "at": 0.027,
+       "expr": "talk"
+      },
+      {
+       "at": 0.53,
+       "expr": "suspicious"
+      },
+      {
+       "at": 0.598,
+       "expr": "talk"
+      },
+      {
+       "at": 0.606,
+       "expr": "suspicious"
+      },
+      {
+       "at": 0.712,
+       "expr": "talk"
+      },
+      {
+       "at": 1.368,
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.75,
+      1.7
+     ],
+     "to": [
+      0.27,
+      1.75,
+      1.52
+     ],
+     "lookAt": [
+      0,
+      1.72,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.73,
+      0
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 6.2,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "doc",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.5,
+      0
+     ],
+     "opts": {
+      "text": "REPUBBLICA ITALIANA\nRESTITUZIONE\n3 GRANI DI SABBIA",
+      "style": "doc",
+      "w": 0.8,
+      "h": 1.0,
+      "popAt": 0.15,
+      "textSize": 0.4,
+      "stamp": "URGENTE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.55,
+      1.75
+     ],
+     "to": [
+      0.05,
+      1.55,
+      1.55
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      0
+     ]
+    }
+   ],
+   "start": 7.6667,
+   "duration": 1.9333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "jet",
+     "name": "plane",
+     "pos": [
+      -8,
+      2.0,
+      -6
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "scale": 0.55,
+     "opts": {
+      "livery": "#C9A227"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        10,
+        6.0,
+        -6
+       ],
+       "dur": 1.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.3,
+       "rotTo": [
+        0,
+        0,
+        0.25
+       ],
+       "dur": 0.5
+      }
+     ],
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1,
+      0.8,
+      9
+     ],
+     "to": [
+      4,
+      1.0,
+      8
+     ],
+     "lookAt": [
+      -6,
+      2.2,
+      -6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8,
+      5.2,
+      -6
+     ]
+    }
+   ],
+   "start": 9.6,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "jet",
+     "name": "plane",
+     "pos": [
+      -20,
+      60,
+      0
+     ],
+     "scale": 0.55,
+     "opts": {
+      "livery": "#C9A227"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        20,
+        60,
+        0
+       ],
+       "dur": 1.833
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "fighterJet",
+     "pos": [
+      -22,
+      60.6,
+      -4
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "scale": 0.8,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        18,
+        60.6,
+        -4
+       ],
+       "dur": 1.833
+      }
+     ],
+     "ry": 90.0
+    },
+    {
+     "id": "f2",
+     "name": "fighterJet",
+     "pos": [
+      -22,
+      59.6,
+      4
+     ],
+     "rot": [
+      0,
+      1.5708,
+      0
+     ],
+     "scale": 0.8,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        18,
+        59.6,
+        4
+       ],
+       "dur": 1.833
+      }
+     ],
+     "ry": 90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -17,
+      62.0,
+      34
+     ],
+     "to": [
+      23,
+      62.0,
+      34
+     ],
+     "lookAt": [
+      -20,
+      60.2,
+      0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      20,
+      60.2,
+      0
+     ],
+     "shake": 0.02
+    }
+   ],
+   "start": 11.3,
+   "duration": 1.8333,
+   "setOpts": {
+    "layer": true
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tray",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      0.95,
+      0
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "text": " ",
+      "style": "sign",
+      "w": 0.7,
+      "h": 0.5,
+      "frame": "#C8322A"
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "g0",
+     "name": "growIsland",
+     "pos": [
+      -0.08,
+      0.97,
+      0.0
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "g1",
+     "name": "growIsland",
+     "pos": [
+      0.08,
+      0.97,
+      0.02
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "loupe",
+     "name": "magnifyingGlass",
+     "pos": [
+      0.18,
+      1.05,
+      0.12
+     ],
+     "rot": [
+      0,
+      0,
+      0.4
+     ],
+     "scale": 1.4,
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.75,
+      0.55
+     ],
+     "to": [
+      0,
+      1.7,
+      0.5
+     ],
+     "lookAt": [
+      0,
+      0.95,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.95,
+      0
+     ]
+    }
+   ],
+   "start": 13.1333,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": 0.022,
+       "expr": "talk"
+      },
+      {
+       "at": 0.221,
+       "expr": "angry"
+      },
+      {
+       "at": 0.327,
+       "expr": "talk"
+      },
+      {
+       "at": 1.287,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0
+     ]
+    }
+   ],
+   "start": 14.9333,
+   "duration": 1.4,
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0.2,
+     "dur": 0.08
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "grain",
+     "name": "cloudChar",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.12,
+       0.1
+      ]
+     },
+     "scale": 0.14,
+     "opts": {
+      "color": "#E7D7A8",
+      "color2": "#EFE2BA",
+      "face": "happy",
+      "bob": 0.01
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.35,
+      1.62,
+      1.7
+     ],
+     "to": [
+      7.315,
+      1.62,
+      1.52
+     ],
+     "lookAt": [
+      7,
+      1.59,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7,
+      1.6,
+      0
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 16.3333,
+   "duration": 1.8667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "lookItem",
+     "keys": [
+      {
+       "at": 0.039,
+       "expr": "talk"
+      },
+      {
+       "at": 0.085,
+       "expr": "sad"
+      },
+      {
+       "at": 0.191,
+       "expr": "talk"
+      },
+      {
+       "at": 0.2,
+       "expr": "sad"
+      },
+      {
+       "at": 0.268,
+       "expr": "talk"
+      },
+      {
+       "at": 0.314,
+       "expr": "sad"
+      },
+      {
+       "at": 0.42,
+       "expr": "talk"
+      },
+      {
+       "at": 0.542,
+       "expr": "sad"
+      },
+      {
+       "at": 0.649,
+       "expr": "talk"
+      },
+      {
+       "at": 0.695,
+       "expr": "sad"
+      },
+      {
+       "at": 0.763,
+       "expr": "talk"
+      },
+      {
+       "at": 1.304,
+       "expr": "sad"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "grain",
+     "name": "cloudChar",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.12,
+       0.1
+      ]
+     },
+     "scale": 0.14,
+     "opts": {
+      "color": "#E7D7A8",
+      "color2": "#EFE2BA",
+      "face": "grumpy",
+      "bob": 0.01
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.35,
+      1.5,
+      2.2
+     ],
+     "to": [
+      7.315,
+      1.52,
+      1.9000000000000001
+     ],
+     "lookAt": [
+      7,
+      1.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7,
+      1.47,
+      0
+     ]
+    }
+   ],
+   "start": 18.2,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "replicaCourt",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      -0.35,
+      -0.3,
+      -14.0
+     ],
+     "ry": -35,
+     "clip": "gavelStrikeL",
+     "keys": [],
+     "params": {
+      "hit": 0.45
+     }
+    }
+   ],
+   "props": [
+    {
+     "id": "specs",
+     "name": "glasses",
+     "on": {
+      "actor": "juge",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "gavelUp",
+     "name": "gavel",
+     "on": {
+      "actor": "juge",
+      "hand": "L"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": true
+      },
+      {
+       "at": 0.43,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "gavel",
+     "name": "gavel",
+     "pos": [
+      -0.37,
+      1.41,
+      -13.3
+     ],
+     "rot": [
+      0,
+      0,
+      -1.5708
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.43,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "block",
+     "name": "soundBlock",
+     "pos": [
+      0.1,
+      1.18,
+      -13.3
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.1,
+      1.29,
+      -11.8
+     ],
+     "to": [
+      -0.12,
+      1.3,
+      -12.05
+     ],
+     "lookAt": [
+      -0.27,
+      1.55,
+      -14.0
+     ],
+     "lens": 45,
+     "ease": "linear",
+     "lookAt2": [
+      -0.27,
+      1.55,
+      -14.0
+     ]
+    }
+   ],
+   "start": 19.6,
+   "duration": 2.0333,
+   "setOpts": {
+    "handle": "GARDE PARTAGÉE",
+    "windowX": -1.5,
+    "chairW": 1.2,
+    "chairH": 2.75,
+    "chairX": 0.15,
+    "benchGlow": "#5A564A"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.45,
+     "dur": 0.18,
+     "amount": 0.018
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "seaSurface",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "grain",
+     "name": "cloudChar",
+     "pos": [
+      0,
+      0.02,
+      9.0
+     ],
+     "scale": 0.12,
+     "opts": {
+      "color": "#E7D7A8",
+      "color2": "#EFE2BA",
+      "face": "happy",
+      "bob": 0.01
+     }
+    },
+    {
+     "id": "para",
+     "name": "parasol",
+     "pos": [
+      0.6,
+      0,
+      8.3
+     ],
+     "scale": 0.12
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      0.12,
+      9.7
+     ],
+     "to": [
+      0.12,
+      0.12,
+      9.6
+     ],
+     "lookAt": [
+      0,
+      0.08,
+      9.0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.08,
+      9.0
+     ]
+    }
+   ],
+   "start": 21.6333,
+   "duration": 1.3667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "grain",
+     "name": "cloudChar",
+     "pos": [
+      0.05,
+      0.36,
+      0
+     ],
+     "scale": 0.12,
+     "opts": {
+      "color": "#E7D7A8",
+      "color2": "#EFE2BA",
+      "face": "smug",
+      "bob": 0.01
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      0.85,
+      1.55
+     ],
+     "to": [
+      0.5,
+      0.82,
+      1.4
+     ],
+     "lookAt": [
+      0.05,
+      0.38,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.38,
+      0
+     ]
+    }
+   ],
+   "start": 23.0,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "isle",
+     "name": "growIsland",
+     "pos": [
+      0.05,
+      0.36,
+      0
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        0
+       ],
+       [
+        0.35,
+        1
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      0.85,
+      1.55
+     ],
+     "to": [
+      0.5,
+      0.82,
+      1.4
+     ],
+     "lookAt": [
+      0.05,
+      0.38,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.38,
+      0
+     ]
+    }
+   ],
+   "start": 24.4667,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "isle",
+     "name": "growIsland",
+     "pos": [
+      0.05,
+      0.36,
+      0
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        1
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      0.85,
+      1.55
+     ],
+     "to": [
+      0.5,
+      0.82,
+      1.4
+     ],
+     "lookAt": [
+      0.05,
+      0.38,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.38,
+      0
+     ]
+    }
+   ],
+   "start": 25.7667,
+   "duration": 1.5,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "isle",
+     "name": "growIsland",
+     "pos": [
+      0.05,
+      0.36,
+      0
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        1
+       ],
+       [
+        0.15,
+        2
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      0.85,
+      1.55
+     ],
+     "to": [
+      0.5,
+      0.82,
+      1.4
+     ],
+     "lookAt": [
+      0.05,
+      0.38,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.38,
+      0
+     ]
+    }
+   ],
+   "start": 27.2667,
+   "duration": 1.2333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "shoe",
+     "name": "bigShoe",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "isle",
+     "name": "growIsland",
+     "pos": [
+      0.05,
+      0.36,
+      0
+     ],
+     "scale": 3.0,
+     "opts": {
+      "stages": [
+       [
+        0,
+        2
+       ],
+       [
+        0.15,
+        3
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      0.85,
+      1.55
+     ],
+     "to": [
+      0.5,
+      0.82,
+      1.4
+     ],
+     "lookAt": [
+      0.05,
+      0.38,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.38,
+      0
+     ]
+    }
+   ],
+   "start": 28.5,
+   "duration": 1.1,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ministre",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [
+      {
+       "at": 0.02,
+       "expr": "talk"
+      },
+      {
+       "at": 0.447,
+       "expr": "angry"
+      },
+      {
+       "at": 0.516,
+       "expr": "talk"
+      },
+      {
+       "at": 0.524,
+       "expr": "angry"
+      },
+      {
+       "at": 0.63,
+       "expr": "talk"
+      },
+      {
+       "at": 0.905,
+       "expr": "angry"
+      },
+      {
+       "at": 1.011,
+       "expr": "talk"
+      },
+      {
+       "at": 1.514,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0
+     ]
+    }
+   ],
+   "start": 29.6,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S20",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7,
+      0,
+      0
+     ],
+     "ry": 10,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "isle",
+     "name": "growIsland",
+     "on": {
+      "actor": "mec",
+      "joint": "footR",
+      "offset": [
+       0,
+       0.1,
+       0.05
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "stages": [
+       [
+        0,
+        3
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.45,
+      0.35,
+      1.5
+     ],
+     "to": [
+      7.4,
+      0.36,
+      1.35
+     ],
+     "lookAt": [
+      7.0,
+      0.35,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      0.37,
+      0
+     ]
+    }
+   ],
+   "start": 31.2,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S21",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7,
+      0,
+      2.5
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        7,
+        0,
+        0.2
+       ],
+       "dur": 1.533,
+       "clip": "sneak"
+      }
+     ],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "isle",
+     "name": "growIsland",
+     "on": {
+      "actor": "mec",
+      "joint": "footR",
+      "offset": [
+       0,
+       0.1,
+       0.05
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "stages": [
+       [
+        0,
+        3
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.4,
+      0.6,
+      -2.6
+     ],
+     "to": [
+      6.4,
+      0.6,
+      -2.8
+     ],
+     "lookAt": [
+      7,
+      0.9,
+      2.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7,
+      0.9,
+      0.2
+     ]
+    }
+   ],
+   "start": 32.9,
+   "duration": 1.5333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S22",
+   "set": "poste",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0.6
+     ],
+     "ry": 180,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tax",
+     "name": "noticeBoard",
+     "pos": [
+      0.22,
+      1.7,
+      0.0
+     ],
+     "rot": [
+      0,
+      3.1416,
+      0
+     ],
+     "opts": {
+      "text": "TAXE DE SÉJOUR\n2 €",
+      "style": "tag",
+      "w": 0.6,
+      "h": 0.36,
+      "popAt": 0.5
+     },
+     "ry": 180.0
+    },
+    {
+     "id": "coin",
+     "name": "coin",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "scale": 2.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.6,
+      -1.8
+     ],
+     "to": [
+      0.38,
+      1.6,
+      -1.6
+     ],
+     "lookAt": [
+      0.1,
+      1.5,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.5,
+      0.6
+     ]
+    }
+   ],
+   "start": 34.4333,
+   "duration": 2.4867,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 36.92
+}

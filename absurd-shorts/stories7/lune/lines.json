@@ -1,0 +1,186 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a déclaré la Lune comme résidence secondaire.",
+  "hl": [
+   "mec",
+   "Lune",
+   "secondaire."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le fisc a dit oui.",
+  "hl": [
+   "fisc",
+   "oui."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Puis il a envoyé la taxe foncière.",
+  "hl": [
+   "taxe",
+   "foncière."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Trente-huit milliards d'euros.",
+  "hl": [
+   "milliards"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Le mec a contesté.",
+  "hl": [
+   "contesté."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "C",
+  "text": "« Il y a des Américains dedans ! »",
+  "hl": [
+   "Américains"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le fisc a envoyé un inspecteur.",
+  "hl": [
+   "inspecteur."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "En fusée.",
+  "hl": [
+   "fusée."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il a trouvé un drapeau planté.",
+  "hl": [
+   "drapeau"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "C",
+  "text": "« Occupation illégale. »",
+  "hl": [
+   "Occupation",
+   "illégale."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Amende pour les Américains.",
+  "hl": [
+   "Amende"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Ils ont payé en dollars.",
+  "hl": [
+   "dollars."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Refusé : la Lune est en euros.",
+  "hl": [
+   "Refusé",
+   "euros."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Alors ils ont ouvert une banque sur la Lune.",
+  "hl": [
+   "banque"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Puis une boulangerie.",
+  "hl": [
+   "boulangerie."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Puis un bureau de poste.",
+  "hl": [
+   "poste."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "La file d'attente faisait le tour de la Lune.",
+  "hl": [
+   "file",
+   "tour"
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le mec a voulu vendre.",
+  "hl": [
+   "vendre."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Personne n'en voulait.",
+  "hl": [
+   "Personne"
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "C",
+  "text": "« Trop loin des transports. »",
+  "hl": [
+   "transports."
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "Il a installé un péage.",
+  "hl": [
+   "péage."
+  ]
+ },
+ {
+  "id": "L22",
+  "who": "N",
+  "text": "Maintenant, les marées paient pour passer.",
+  "hl": [
+   "marées",
+   "paient"
+  ]
+ }
+]

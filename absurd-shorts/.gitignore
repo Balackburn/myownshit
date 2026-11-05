@@ -8,3 +8,4 @@ models/props/
 scripts-fr/replica_render.json
 scripts-fr/vospapiers_render.json
 scripts-fr/potespoissons_render.json
+scripts-fr/story_*_render.json

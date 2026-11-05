@@ -1,0 +1,181 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a acheté un sapin trop grand.",
+  "hl": [
+   "mec",
+   "sapin",
+   "grand."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a percé le plafond.",
+  "hl": [
+   "plafond."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Puis le toit.",
+  "hl": [
+   "toit."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Puis les nuages.",
+  "hl": [
+   "nuages."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La mairie a exigé un permis de construire.",
+  "hl": [
+   "mairie",
+   "permis"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le sapin a été classé immeuble.",
+  "hl": [
+   "immeuble."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Des gens ont loué les branches.",
+  "hl": [
+   "loué",
+   "branches."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Trois pièces, vue sur la guirlande.",
+  "hl": [
+   "guirlande."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "L'étoile est devenue un penthouse.",
+  "hl": [
+   "L'étoile",
+   "penthouse."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le mec est devenu milliardaire.",
+  "hl": [
+   "milliardaire."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le sept janvier, il a voulu jeter le sapin.",
+  "hl": [
+   "jeter"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Les locataires ont manifesté.",
+  "hl": [
+   "locataires",
+   "manifesté."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "C",
+  "text": "« On ne jette pas les gens avec le sapin ! »",
+  "hl": [
+   "jette",
+   "sapin"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le préfet a interdit de perdre ses aiguilles.",
+  "hl": [
+   "préfet",
+   "aiguilles."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le sapin les a perdues quand même.",
+  "hl": [
+   "perdues"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Expulsion générale.",
+  "hl": [
+   "Expulsion"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Les locataires ont squatté le père Noël.",
+  "hl": [
+   "squatté",
+   "Noël."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le père Noël a porté plainte.",
+  "hl": [
+   "plainte."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Le sapin a été condamné.",
+  "hl": [
+   "condamné."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Travaux d'intérêt général.",
+  "hl": [
+   "intérêt",
+   "général."
+  ]
+ },
+ {
+  "id": "L21",
+  "who": "N",
+  "text": "Il fait sentir bon les commissariats.",
+  "hl": [
+   "sentir",
+   "commissariats."
+  ]
+ }
+]

@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, textPlane, addOutline, rng, ease, clamp01, grainTexture } from './style.js';
 import { VP_PROPS } from './props_vp.js';
 import { OCEAN_PROPS } from './props_ocean.js';
+import { NEWS_PROPS } from './props_news.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -2005,7 +2006,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.

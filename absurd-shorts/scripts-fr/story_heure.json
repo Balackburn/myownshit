@@ -1,0 +1,1688 @@
+{
+ "version": 3,
+ "title": "Le changement d'heure",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "c1": {
+   "preset": "madame"
+  },
+  "c2": {
+   "preset": "boss"
+  },
+  "c3": {
+   "preset": "worker"
+  },
+  "p0": {
+   "preset": "femme"
+  },
+  "p1": {
+   "preset": "tourist"
+  },
+  "p2": {
+   "preset": "mamie"
+  },
+  "vache": {
+   "type": "creature",
+   "name": "cow",
+   "opts": {
+    "seed": 2
+   }
+  },
+  "vache2": {
+   "type": "creature",
+   "name": "cow",
+   "opts": {
+    "seed": 7
+   }
+  },
+  "euro": {
+   "preset": "politique",
+   "seed": 33
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "chambre",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.35,
+      0,
+      0
+     ],
+     "ry": -20,
+     "clip": "shakeHead",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "clock",
+     "name": "alarmClock",
+     "pos": [
+      -0.45,
+      0.75,
+      0.2
+     ],
+     "scale": 0.9,
+     "opts": {
+      "time": "02:59",
+      "time2": "03:00",
+      "switchAt": 0.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.4,
+      3.6
+     ],
+     "to": [
+      0.51,
+      1.45,
+      3.0
+     ],
+     "lookAt": [
+      0,
+      1.1,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.1300000000000001,
+      0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.2333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "chambre",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "clock",
+     "name": "alarmClock",
+     "pos": [
+      0,
+      0.7,
+      0
+     ],
+     "scale": 1.2,
+     "opts": {
+      "time": "09:00"
+     }
+    },
+    {
+     "id": "ete",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      1.25,
+      0.05
+     ],
+     "opts": {
+      "text": "HEURE D'ÉTÉ",
+      "style": "tag",
+      "w": 0.5,
+      "h": 0.2,
+      "popAt": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.15,
+      1.5
+     ],
+     "to": [
+      0.1,
+      1.15,
+      1.3
+     ],
+     "lookAt": [
+      0,
+      1.05,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.05,
+      0
+     ]
+    }
+   ],
+   "start": 2.2333,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.3,
+        0,
+        0.3
+       ],
+       "dur": 2.3,
+       "clip": "walk"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "ch0",
+     "name": "officeChair",
+     "pos": [
+      -1.4,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "ch1",
+     "name": "officeChair",
+     "pos": [
+      0.0,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "ch2",
+     "name": "officeChair",
+     "pos": [
+      1.4,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      1.2,
+      2.1,
+      -1.4
+     ],
+     "scale": 1.2
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.3,
+      1.5,
+      -2.4
+     ],
+     "to": [
+      1.3,
+      1.5,
+      -2.7
+     ],
+     "lookAt": [
+      0.4,
+      1.3,
+      2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.3,
+      0.3
+     ]
+    }
+   ],
+   "start": 3.7,
+   "duration": 2.3,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ch0",
+     "name": "officeChair",
+     "pos": [
+      -1.4,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "ch1",
+     "name": "officeChair",
+     "pos": [
+      0.0,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "ch2",
+     "name": "officeChair",
+     "pos": [
+      1.4,
+      0,
+      -0.8
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.6,
+      5.0
+     ],
+     "to": [
+      0.51,
+      1.6500000000000001,
+      4.4
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.23,
+      0
+     ]
+    }
+   ],
+   "start": 6.0,
+   "duration": 1.6333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "explain",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "pp0",
+     "name": "paperPile",
+     "pos": [
+      -1.3,
+      0,
+      0.6
+     ],
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.1,
+       "scale": 1.4,
+       "dur": 0.25,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pp1",
+     "name": "paperPile",
+     "pos": [
+      -0.65,
+      0,
+      -0.7999999999999999
+     ],
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.2,
+       "scale": 1.4,
+       "dur": 0.25,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pp2",
+     "name": "paperPile",
+     "pos": [
+      0.0,
+      0,
+      0.6
+     ],
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.30000000000000004,
+       "scale": 1.4,
+       "dur": 0.25,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pp3",
+     "name": "paperPile",
+     "pos": [
+      0.6500000000000001,
+      0,
+      -0.7999999999999999
+     ],
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.4,
+       "scale": 1.4,
+       "dur": 0.25,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pp4",
+     "name": "paperPile",
+     "pos": [
+      1.3,
+      0,
+      0.6
+     ],
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.5,
+       "scale": 1.4,
+       "dur": 0.25,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.6,
+      5.2
+     ],
+     "to": [
+      0.51,
+      1.6500000000000001,
+      4.6000000000000005
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.03,
+      0
+     ]
+    }
+   ],
+   "start": 7.6333,
+   "duration": 1.8334,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "handsOnHips",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "dir",
+     "name": "noticeBoard",
+     "pos": [
+      0.3,
+      1.15,
+      0.5
+     ],
+     "opts": {
+      "text": "DIRECTEUR",
+      "style": "sign",
+      "w": 0.6,
+      "h": 0.2,
+      "popAt": 0.2,
+      "fg": "#E8B830",
+      "frame": "#E8B830"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.5,
+      2.6
+     ],
+     "to": [
+      0.46499999999999997,
+      1.52,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0.15,
+      1.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      1.47,
+      0
+     ]
+    }
+   ],
+   "start": 9.4667,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "c1",
+     "pos": [
+      -0.9,
+      0,
+      1.2
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      0.0,
+      0,
+      1.2
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "c3",
+     "pos": [
+      0.9,
+      0,
+      1.2
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      -0.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.6,
+      -3.4
+     ],
+     "to": [
+      0.28,
+      1.6,
+      -3.2
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.4,
+      0.6
+     ]
+    }
+   ],
+   "start": 10.8667,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "c1",
+     "pos": [
+      -0.9,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "c2",
+     "pos": [
+      0.0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "c3",
+     "pos": [
+      0.9,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "w0",
+     "name": "bigWatch",
+     "on": {
+      "actor": "c1",
+      "hand": "R"
+     },
+     "scale": 1.4,
+     "opts": {
+      "time": "09:00"
+     }
+    },
+    {
+     "id": "w1",
+     "name": "bigWatch",
+     "on": {
+      "actor": "c2",
+      "hand": "R"
+     },
+     "scale": 1.4,
+     "opts": {
+      "time": "09:00"
+     }
+    },
+    {
+     "id": "w2",
+     "name": "bigWatch",
+     "on": {
+      "actor": "c3",
+      "hand": "R"
+     },
+     "scale": 1.4,
+     "opts": {
+      "time": "09:00"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.5,
+      4.4
+     ],
+     "to": [
+      0.51,
+      1.55,
+      3.8000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.33,
+      0
+     ]
+    }
+   ],
+   "start": 12.6667,
+   "duration": 1.8333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "p0",
+     "pos": [
+      6.4,
+      0,
+      -1.0
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.4,
+        0,
+        0.4
+       ],
+       "dur": 1.1,
+       "clip": "walk"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "p1",
+     "pos": [
+      7.4,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        7.4,
+        0,
+        -0.7999999999999999
+       ],
+       "dur": 1.1,
+       "clip": "walk"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "p2",
+     "pos": [
+      6.4,
+      0,
+      -3.4
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.4,
+        0,
+        -2.0
+       ],
+       "dur": 1.1,
+       "clip": "walk"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      9.8,
+      4.2,
+      -2
+     ],
+     "rot": [
+      0,
+      -1.5708,
+      0
+     ],
+     "scale": 3.0,
+     "ry": -90.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      0.45,
+      5.2
+     ],
+     "to": [
+      7.36,
+      0.48,
+      4.95
+     ],
+     "lookAt": [
+      7,
+      2.2,
+      0
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      7,
+      2.25,
+      0
+     ]
+    }
+   ],
+   "start": 14.5,
+   "duration": 1.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "map",
+     "name": "splitMap",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "k": 10,
+      "west": "#F2C94C",
+      "east": "#F2C94C"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6,
+      190,
+      40
+     ],
+     "to": [
+      5,
+      170,
+      34
+     ],
+     "lookAt": [
+      1,
+      0,
+      -2
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      1,
+      0,
+      -2
+     ]
+    }
+   ],
+   "start": 15.6,
+   "duration": 1.1,
+   "setOpts": {
+    "layer": false,
+    "fog": false
+   },
+   "fog": null,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "map",
+     "name": "splitMap",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "k": 10
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5,
+      165,
+      34
+     ],
+     "to": [
+      4,
+      150,
+      30
+     ],
+     "lookAt": [
+      1,
+      0,
+      -2
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      1,
+      0,
+      -2
+     ]
+    }
+   ],
+   "start": 16.7,
+   "duration": 1.8333,
+   "setOpts": {
+    "layer": false,
+    "fog": false
+   },
+   "fog": null,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      3.9,
+      0,
+      31.3
+     ],
+     "ry": 160,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "gate",
+     "name": "barrierGate",
+     "pos": [
+      5.2,
+      0,
+      30.0
+     ],
+     "rot": [
+      0,
+      3.1416,
+      0
+     ],
+     "opts": {
+      "length": 5.0,
+      "angle": 0,
+      "sign": "FRONTIÈRE HORAIRE"
+     },
+     "ry": 180.0
+    },
+    {
+     "id": "w",
+     "name": "bigWatch",
+     "on": {
+      "actor": "flic",
+      "hand": "R"
+     },
+     "scale": 2.0,
+     "opts": {
+      "time": "10:00"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.6,
+      1.4,
+      36.0
+     ],
+     "to": [
+      1.8,
+      1.4,
+      35.5
+     ],
+     "lookAt": [
+      3.8,
+      1.5,
+      30.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      3.8,
+      1.5,
+      30.5
+     ]
+    }
+   ],
+   "start": 18.5333,
+   "duration": 2.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "train",
+     "name": "train",
+     "pos": [
+      -30,
+      0,
+      -4
+     ],
+     "opts": {
+      "cars": 3,
+      "speed": 22
+     }
+    },
+    {
+     "id": "board",
+     "name": "noticeBoard",
+     "pos": [
+      1.6,
+      2.2,
+      0.5
+     ],
+     "opts": {
+      "text": "ARRIVÉE  9:00\nDÉPART  10:00",
+      "style": "sign",
+      "w": 1.6,
+      "h": 0.7,
+      "popAt": 0.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.0,
+      1.6,
+      8.5
+     ],
+     "to": [
+      2.8,
+      1.6,
+      8.2
+     ],
+     "lookAt": [
+      -1.5,
+      1.4,
+      -3.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.5,
+      1.4,
+      -3.5
+     ]
+    }
+   ],
+   "start": 20.5333,
+   "duration": 2.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "vache",
+     "pos": [
+      -0.6,
+      0,
+      0
+     ],
+     "ry": 30,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "vache2",
+     "pos": [
+      0.9,
+      0,
+      -0.4
+     ],
+     "ry": -30,
+     "clip": "idle",
+     "keys": []
+    }
+   ],
+   "props": [
+    {
+     "id": "cl1",
+     "name": "wallClock",
+     "pos": [
+      -1.6,
+      1.8,
+      -1.4
+     ],
+     "scale": 1.4,
+     "opts": {
+      "rate": 0.2
+     }
+    },
+    {
+     "id": "cl2",
+     "name": "wallClock",
+     "pos": [
+      1.8,
+      1.8,
+      -1.6
+     ],
+     "scale": 1.4,
+     "opts": {
+      "rate": -0.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.4,
+      5.6
+     ],
+     "to": [
+      0.51,
+      1.45,
+      5.0
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.03,
+      0
+     ]
+    }
+   ],
+   "start": 22.6333,
+   "duration": 1.9334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "euro",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "podiumTalk",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "podium",
+     "pos": [
+      0,
+      0,
+      0.45
+     ]
+    },
+    {
+     "id": "flag",
+     "name": "flag",
+     "pos": [
+      -0.9,
+      0,
+      -0.3
+     ],
+     "scale": 1.3,
+     "opts": {
+      "colors": [
+       "#003399",
+       "#FFCC00",
+       "#003399"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      3.0
+     ],
+     "to": [
+      0.315,
+      1.57,
+      2.7
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.52,
+      0
+     ]
+    }
+   ],
+   "start": 24.5667,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "doc",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.5,
+      0
+     ],
+     "opts": {
+      "text": "DIRECTIVE EUROPÉENNE\nCHANGEMENT D'HEURE",
+      "style": "doc",
+      "w": 0.8,
+      "h": 1.0,
+      "textSize": 0.3
+     }
+    },
+    {
+     "id": "stamp",
+     "name": "noticeBoard",
+     "pos": [
+      0.05,
+      1.3,
+      0.03
+     ],
+     "opts": {
+      "text": "ABOLI",
+      "style": "sign",
+      "w": 0.5,
+      "h": 0.18,
+      "fg": "#C8322A",
+      "frame": "#C8322A",
+      "popAt": 0.3,
+      "tilt": 0.15
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.55,
+      1.75
+     ],
+     "to": [
+      0.05,
+      1.55,
+      1.55
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      0
+     ]
+    }
+   ],
+   "start": 25.8667,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "heroPose",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal",
+     "name": "medal",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.08,
+       0.35,
+       0.16
+      ]
+     },
+     "scale": 2.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.5,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.52,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.47,
+      0
+     ]
+    }
+   ],
+   "start": 27.5667,
+   "duration": 1.5,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "chambre",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.35,
+      0,
+      0
+     ],
+     "ry": -20,
+     "clip": "pointDown",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "clock",
+     "name": "alarmClock",
+     "pos": [
+      -0.4,
+      0.75,
+      0.3
+     ],
+     "scale": 0.9,
+     "opts": {
+      "time": "09:00",
+      "time2": "08:00",
+      "switchAt": 0.7
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.3,
+      3.4
+     ],
+     "to": [
+      0.51,
+      1.35,
+      2.8
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.03,
+      0
+     ]
+    }
+   ],
+   "start": 29.0667,
+   "duration": 2.3666,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 1.0,
+       "expr": "sad"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ch0",
+     "name": "officeChair",
+     "pos": [
+      -1.4,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "ch1",
+     "name": "officeChair",
+     "pos": [
+      0.0,
+      0,
+      -0.8
+     ]
+    },
+    {
+     "id": "ch2",
+     "name": "officeChair",
+     "pos": [
+      1.4,
+      0,
+      -0.8
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.6,
+      6.0
+     ],
+     "to": [
+      0.51,
+      1.6500000000000001,
+      5.4
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.23,
+      0
+     ]
+    }
+   ],
+   "start": 31.4333,
+   "duration": 2.4667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 33.9
+}

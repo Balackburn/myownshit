@@ -1,0 +1,847 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Les nuages se sont mis en grève.",
+   "hl": [
+    "nuages",
+    "grève."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.717,
+   "words": [
+    {
+     "w": "Les",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "nuages",
+     "s": 0.329,
+     "e": 0.633
+    },
+    {
+     "w": "se",
+     "s": 0.671,
+     "e": 0.71
+    },
+    {
+     "w": "sont",
+     "s": 0.786,
+     "e": 0.862
+    },
+    {
+     "w": "mis",
+     "s": 0.938,
+     "e": 1.014
+    },
+    {
+     "w": "en",
+     "s": 1.052,
+     "e": 1.09
+    },
+    {
+     "w": "grève.",
+     "s": 1.167,
+     "e": 1.7
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Plus une goutte depuis lundi.",
+   "hl": [
+    "goutte"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L02.k.wav",
+   "file_start": 1.817,
+   "speech_start": 1.817,
+   "speech_end": 3.493,
+   "words": [
+    {
+     "w": "Plus",
+     "s": 1.817,
+     "e": 2.045
+    },
+    {
+     "w": "une",
+     "s": 2.121,
+     "e": 2.274
+    },
+    {
+     "w": "goutte",
+     "s": 2.35,
+     "e": 2.579
+    },
+    {
+     "w": "depuis",
+     "s": 2.655,
+     "e": 2.845
+    },
+    {
+     "w": "lundi.",
+     "s": 2.883,
+     "e": 3.493
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les agriculteurs ont paniqué.",
+   "hl": [
+    "agriculteurs"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L03.k.wav",
+   "file_start": 3.593,
+   "speech_start": 3.593,
+   "speech_end": 5.345,
+   "words": [
+    {
+     "w": "Les",
+     "s": 3.593,
+     "e": 3.745
+    },
+    {
+     "w": "agriculteurs",
+     "s": 3.821,
+     "e": 4.355
+    },
+    {
+     "w": "ont",
+     "s": 4.431,
+     "e": 4.507
+    },
+    {
+     "w": "paniqué.",
+     "s": 4.583,
+     "e": 5.345
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le ministre a reçu les nuages.",
+   "hl": [
+    "ministre",
+    "nuages."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L04.k.wav",
+   "file_start": 5.445,
+   "speech_start": 5.445,
+   "speech_end": 7.274,
+   "words": [
+    {
+     "w": "Le",
+     "s": 5.445,
+     "e": 5.521
+    },
+    {
+     "w": "ministre",
+     "s": 5.598,
+     "e": 5.979
+    },
+    {
+     "w": "a",
+     "s": 6.055,
+     "e": 6.131
+    },
+    {
+     "w": "reçu",
+     "s": 6.207,
+     "e": 6.359
+    },
+    {
+     "w": "les",
+     "s": 6.436,
+     "e": 6.512
+    },
+    {
+     "w": "nuages.",
+     "s": 6.626,
+     "e": 7.274
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "C",
+   "text": "« On veut une prime de pluie ! »",
+   "hl": [
+    "prime",
+    "pluie"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L05.k.wav",
+   "file_start": 7.334,
+   "speech_start": 7.334,
+   "speech_end": 8.934,
+   "words": [
+    {
+     "w": "On",
+     "s": 7.334,
+     "e": 7.486
+    },
+    {
+     "w": "veut",
+     "s": 7.524,
+     "e": 7.639
+    },
+    {
+     "w": "une",
+     "s": 7.715,
+     "e": 7.791
+    },
+    {
+     "w": "prime",
+     "s": 7.905,
+     "e": 8.019
+    },
+    {
+     "w": "de",
+     "s": 8.096,
+     "e": 8.172
+    },
+    {
+     "w": "pluie",
+     "s": 8.21,
+     "e": 8.477
+    },
+    {
+     "w": "!",
+     "s": 8.858,
+     "e": 8.934
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Négociations rompues.",
+   "hl": [
+    "rompues."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L06.k.wav",
+   "file_start": 9.034,
+   "speech_start": 9.034,
+   "speech_end": 10.481,
+   "words": [
+    {
+     "w": "Négociations",
+     "s": 9.034,
+     "e": 9.719
+    },
+    {
+     "w": "rompues.",
+     "s": 9.796,
+     "e": 10.481
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "L'État a réquisitionné les pompiers.",
+   "hl": [
+    "réquisitionné",
+    "pompiers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L07.k.wav",
+   "file_start": 10.581,
+   "speech_start": 10.581,
+   "speech_end": 12.486,
+   "words": [
+    {
+     "w": "L'État",
+     "s": 10.581,
+     "e": 10.962
+    },
+    {
+     "w": "a",
+     "s": 11.039,
+     "e": 11.115
+    },
+    {
+     "w": "réquisitionné",
+     "s": 11.191,
+     "e": 11.724
+    },
+    {
+     "w": "les",
+     "s": 11.8,
+     "e": 11.877
+    },
+    {
+     "w": "pompiers.",
+     "s": 11.902,
+     "e": 12.486
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Ils ont arrosé la Beauce au tuyau.",
+   "hl": [
+    "Beauce",
+    "tuyau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L08.k.wav",
+   "file_start": 12.586,
+   "speech_start": 12.586,
+   "speech_end": 14.415,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 12.586,
+     "e": 12.739
+    },
+    {
+     "w": "ont",
+     "s": 12.815,
+     "e": 12.891
+    },
+    {
+     "w": "arrosé",
+     "s": 12.967,
+     "e": 13.234
+    },
+    {
+     "w": "la",
+     "s": 13.272,
+     "e": 13.348
+    },
+    {
+     "w": "Beauce",
+     "s": 13.424,
+     "e": 13.653
+    },
+    {
+     "w": "au",
+     "s": 13.691,
+     "e": 13.729
+    },
+    {
+     "w": "tuyau.",
+     "s": 13.805,
+     "e": 14.415
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les nuages ont crié aux briseurs de grève.",
+   "hl": [
+    "briseurs"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L09.k.wav",
+   "file_start": 14.515,
+   "speech_start": 14.515,
+   "speech_end": 16.8,
+   "words": [
+    {
+     "w": "Les",
+     "s": 14.515,
+     "e": 14.667
+    },
+    {
+     "w": "nuages",
+     "s": 14.743,
+     "e": 14.972
+    },
+    {
+     "w": "ont",
+     "s": 15.048,
+     "e": 15.124
+    },
+    {
+     "w": "crié",
+     "s": 15.2,
+     "e": 15.505
+    },
+    {
+     "w": "aux",
+     "s": 15.581,
+     "e": 15.658
+    },
+    {
+     "w": "briseurs",
+     "s": 15.696,
+     "e": 16.039
+    },
+    {
+     "w": "de",
+     "s": 16.077,
+     "e": 16.115
+    },
+    {
+     "w": "grève.",
+     "s": 16.191,
+     "e": 16.8
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Ils ont durci le mouvement.",
+   "hl": [
+    "durci"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L10.k.wav",
+   "file_start": 16.9,
+   "speech_start": 16.9,
+   "speech_end": 18.424,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 16.9,
+     "e": 17.053
+    },
+    {
+     "w": "ont",
+     "s": 17.129,
+     "e": 17.205
+    },
+    {
+     "w": "durci",
+     "s": 17.319,
+     "e": 17.586
+    },
+    {
+     "w": "le",
+     "s": 17.624,
+     "e": 17.662
+    },
+    {
+     "w": "mouvement.",
+     "s": 17.739,
+     "e": 18.424
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Grève de la neige à Noël.",
+   "hl": [
+    "neige",
+    "Noël."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L11.k.wav",
+   "file_start": 18.524,
+   "speech_start": 18.524,
+   "speech_end": 20.2,
+   "words": [
+    {
+     "w": "Grève",
+     "s": 18.524,
+     "e": 18.829
+    },
+    {
+     "w": "de",
+     "s": 18.867,
+     "e": 18.905
+    },
+    {
+     "w": "la",
+     "s": 18.943,
+     "e": 18.981
+    },
+    {
+     "w": "neige",
+     "s": 19.058,
+     "e": 19.362
+    },
+    {
+     "w": "à",
+     "s": 19.439,
+     "e": 19.515
+    },
+    {
+     "w": "Noël.",
+     "s": 19.629,
+     "e": 20.2
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Les enfants sont descendus dans la rue.",
+   "hl": [
+    "enfants",
+    "rue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L12.k.wav",
+   "file_start": 20.3,
+   "speech_start": 20.3,
+   "speech_end": 22.129,
+   "words": [
+    {
+     "w": "Les",
+     "s": 20.3,
+     "e": 20.453
+    },
+    {
+     "w": "enfants",
+     "s": 20.529,
+     "e": 20.758
+    },
+    {
+     "w": "sont",
+     "s": 20.834,
+     "e": 20.986
+    },
+    {
+     "w": "descendus",
+     "s": 21.1,
+     "e": 21.367
+    },
+    {
+     "w": "dans",
+     "s": 21.405,
+     "e": 21.481
+    },
+    {
+     "w": "la",
+     "s": 21.519,
+     "e": 21.596
+    },
+    {
+     "w": "rue.",
+     "s": 21.672,
+     "e": 22.129
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le ministre a cédé.",
+   "hl": [
+    "cédé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L13.k.wav",
+   "file_start": 22.229,
+   "speech_start": 22.229,
+   "speech_end": 23.677,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.229,
+     "e": 22.305
+    },
+    {
+     "w": "ministre",
+     "s": 22.381,
+     "e": 22.762
+    },
+    {
+     "w": "a",
+     "s": 22.839,
+     "e": 22.915
+    },
+    {
+     "w": "cédé.",
+     "s": 22.991,
+     "e": 23.677
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Prime de pluie : un arc-en-ciel par mois.",
+   "hl": [
+    "arc-en-ciel"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L14.k.wav",
+   "file_start": 23.777,
+   "speech_start": 23.777,
+   "speech_end": 26.215,
+   "words": [
+    {
+     "w": "Prime",
+     "s": 23.777,
+     "e": 24.005
+    },
+    {
+     "w": "de",
+     "s": 24.081,
+     "e": 24.158
+    },
+    {
+     "w": "pluie",
+     "s": 24.234,
+     "e": 24.462
+    },
+    {
+     "w": ":",
+     "s": 24.767,
+     "e": 24.818
+    },
+    {
+     "w": "un",
+     "s": 24.869,
+     "e": 24.919
+    },
+    {
+     "w": "arc-en-ciel",
+     "s": 24.996,
+     "e": 25.453
+    },
+    {
+     "w": "par",
+     "s": 25.529,
+     "e": 25.605
+    },
+    {
+     "w": "mois.",
+     "s": 25.681,
+     "e": 26.215
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Les nuages ont repris le travail.",
+   "hl": [
+    "repris"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L15.k.wav",
+   "file_start": 26.315,
+   "speech_start": 26.315,
+   "speech_end": 27.915,
+   "words": [
+    {
+     "w": "Les",
+     "s": 26.315,
+     "e": 26.467
+    },
+    {
+     "w": "nuages",
+     "s": 26.543,
+     "e": 26.772
+    },
+    {
+     "w": "ont",
+     "s": 26.81,
+     "e": 26.848
+    },
+    {
+     "w": "repris",
+     "s": 26.924,
+     "e": 27.153
+    },
+    {
+     "w": "le",
+     "s": 27.191,
+     "e": 27.229
+    },
+    {
+     "w": "travail.",
+     "s": 27.267,
+     "e": 27.915
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Ils ont rattrapé les heures.",
+   "hl": [
+    "rattrapé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L16.k.wav",
+   "file_start": 28.015,
+   "speech_start": 28.015,
+   "speech_end": 29.462,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 28.015,
+     "e": 28.167
+    },
+    {
+     "w": "ont",
+     "s": 28.243,
+     "e": 28.319
+    },
+    {
+     "w": "rattrapé",
+     "s": 28.358,
+     "e": 28.7
+    },
+    {
+     "w": "les",
+     "s": 28.777,
+     "e": 28.853
+    },
+    {
+     "w": "heures.",
+     "s": 28.891,
+     "e": 29.462
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Il a plu quarante jours.",
+   "hl": [
+    "quarante"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L17.k.wav",
+   "file_start": 29.562,
+   "speech_start": 29.562,
+   "speech_end": 31.086,
+   "words": [
+    {
+     "w": "Il",
+     "s": 29.562,
+     "e": 29.639
+    },
+    {
+     "w": "a",
+     "s": 29.715,
+     "e": 29.791
+    },
+    {
+     "w": "plu",
+     "s": 29.829,
+     "e": 30.019
+    },
+    {
+     "w": "quarante",
+     "s": 30.096,
+     "e": 30.4
+    },
+    {
+     "w": "jours.",
+     "s": 30.477,
+     "e": 31.086
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "La France est devenue une piscine.",
+   "hl": [
+    "piscine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L18.k.wav",
+   "file_start": 31.186,
+   "speech_start": 31.186,
+   "speech_end": 33.015,
+   "words": [
+    {
+     "w": "La",
+     "s": 31.186,
+     "e": 31.262
+    },
+    {
+     "w": "France",
+     "s": 31.339,
+     "e": 31.643
+    },
+    {
+     "w": "est",
+     "s": 31.681,
+     "e": 31.719
+    },
+    {
+     "w": "devenue",
+     "s": 31.796,
+     "e": 32.024
+    },
+    {
+     "w": "une",
+     "s": 32.139,
+     "e": 32.253
+    },
+    {
+     "w": "piscine.",
+     "s": 32.329,
+     "e": 33.015
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Le ministre a démissionné.",
+   "hl": [
+    "démissionné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L19.k.wav",
+   "file_start": 33.115,
+   "speech_start": 33.115,
+   "speech_end": 34.639,
+   "words": [
+    {
+     "w": "Le",
+     "s": 33.115,
+     "e": 33.191
+    },
+    {
+     "w": "ministre",
+     "s": 33.267,
+     "e": 33.648
+    },
+    {
+     "w": "a",
+     "s": 33.686,
+     "e": 33.724
+    },
+    {
+     "w": "démissionné.",
+     "s": 33.8,
+     "e": 34.639
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "En maillot de bain.",
+   "hl": [
+    "maillot"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/greve/tts/L20.k.wav",
+   "file_start": 34.799,
+   "speech_start": 34.799,
+   "speech_end": 35.789,
+   "words": [
+    {
+     "w": "En",
+     "s": 34.799,
+     "e": 34.875
+    },
+    {
+     "w": "maillot",
+     "s": 34.951,
+     "e": 35.179
+    },
+    {
+     "w": "de",
+     "s": 35.218,
+     "e": 35.256
+    },
+    {
+     "w": "bain.",
+     "s": 35.294,
+     "e": 35.789
+    }
+   ]
+  }
+ ],
+ "total": 36.63
+}

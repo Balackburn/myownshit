@@ -1,0 +1,2417 @@
+{
+ "version": 3,
+ "title": "La Lune",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "inspecteur": {
+   "preset": "boss"
+  },
+  "acheteuse": {
+   "preset": "madame"
+  },
+  "q0": {
+   "preset": "madame"
+  },
+  "q1": {
+   "preset": "worker"
+  },
+  "q2": {
+   "preset": "tourist"
+  },
+  "q3": {
+   "preset": "mamie"
+  },
+  "q4": {
+   "preset": "boss"
+  },
+  "q5": {
+   "preset": "gamin"
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "clipboard",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.45,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.47,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.42,
+      0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.0667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "moon",
+     "name": "moon",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "radius": 3
+     }
+    },
+    {
+     "id": "house",
+     "name": "cottage",
+     "pos": [
+      0,
+      5.85,
+      0
+     ],
+     "scale": 0.25,
+     "opts": {
+      "w": 6,
+      "d": 6,
+      "h": 2.6,
+      "rh": 1.6,
+      "color": "#F2D06B",
+      "roof": "#C9473A"
+     }
+    },
+    {
+     "id": "sign",
+     "name": "noticeBoard",
+     "pos": [
+      1.2,
+      6.6,
+      0.8
+     ],
+     "opts": {
+      "text": "RÉSIDENCE\nSECONDAIRE",
+      "style": "sign",
+      "w": 1.2,
+      "h": 0.5,
+      "popAt": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      4.8,
+      13.5
+     ],
+     "to": [
+      0.4,
+      4.9,
+      12.0
+     ],
+     "lookAt": [
+      0,
+      5.0,
+      0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      5.2,
+      0
+     ]
+    }
+   ],
+   "start": 1.0667,
+   "duration": 1.7666,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "doc",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.5,
+      0
+     ],
+     "opts": {
+      "text": "DÉCLARATION\nRÉSIDENCE SECONDAIRE :\nLA LUNE",
+      "style": "doc",
+      "w": 0.8,
+      "h": 1.0,
+      "popAt": null,
+      "textSize": 0.42
+     }
+    },
+    {
+     "id": "ok",
+     "name": "noticeBoard",
+     "pos": [
+      0.1,
+      1.3,
+      0.03
+     ],
+     "opts": {
+      "text": "ACCEPTÉ",
+      "style": "sign",
+      "w": 0.5,
+      "h": 0.16,
+      "fg": "#2F7F4F",
+      "frame": "#2F7F4F",
+      "popAt": 0.35,
+      "tilt": 0.15
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.55,
+      1.75
+     ],
+     "to": [
+      0.05,
+      1.55,
+      1.55
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      0
+     ]
+    }
+   ],
+   "start": 2.8333,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "tax",
+     "name": "noticeBoard",
+     "pos": [
+      0.05,
+      1.4,
+      0.45
+     ],
+     "opts": {
+      "text": "TAXE FONCIÈRE\nLA LUNE",
+      "style": "doc",
+      "w": 0.55,
+      "h": 0.7,
+      "popAt": 0.1,
+      "textSize": 0.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.5,
+      2.4
+     ],
+     "to": [
+      0.315,
+      1.52,
+      2.1
+     ],
+     "lookAt": [
+      0,
+      1.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.47,
+      0
+     ]
+    }
+   ],
+   "start": 4.2333,
+   "duration": 2.0667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "sum",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      1.5,
+      0
+     ],
+     "opts": {
+      "text": "38 000 000 000 €",
+      "style": "sign",
+      "w": 0.85,
+      "h": 0.3,
+      "fg": "#C8322A",
+      "frame": "#C8322A",
+      "popAt": 0.1
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.5,
+      1.6
+     ],
+     "to": [
+      0.0,
+      1.5,
+      1.35
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.5,
+      0
+     ],
+     "shake": 0.02
+    }
+   ],
+   "start": 6.3,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "angryFist",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.45,
+      2.6
+     ],
+     "to": [
+      0.315,
+      1.47,
+      2.3000000000000003
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.42,
+      0
+     ],
+     "shake": 0.015
+    }
+   ],
+   "start": 8.1,
+   "duration": 1.2,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "point",
+     "keys": [
+      {
+       "at": 0.022,
+       "expr": "talk"
+      },
+      {
+       "at": 0.068,
+       "expr": "angry"
+      },
+      {
+       "at": 0.124,
+       "expr": "talk"
+      },
+      {
+       "at": 0.119,
+       "expr": "angry"
+      },
+      {
+       "at": 0.174,
+       "expr": "talk"
+      },
+      {
+       "at": 0.22,
+       "expr": "angry"
+      },
+      {
+       "at": 0.327,
+       "expr": "talk"
+      },
+      {
+       "at": 0.373,
+       "expr": "angry"
+      },
+      {
+       "at": 0.479,
+       "expr": "talk"
+      },
+      {
+       "at": 0.906,
+       "expr": "angry"
+      },
+      {
+       "at": 1.012,
+       "expr": "talk"
+      },
+      {
+       "at": 1.211,
+       "expr": "angry"
+      },
+      {
+       "at": 1.622,
+       "expr": "talk"
+      },
+      {
+       "at": 1.668,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.75,
+      1.7
+     ],
+     "to": [
+      0.225,
+      1.75,
+      1.52
+     ],
+     "lookAt": [
+      0,
+      1.72,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.73,
+      0
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 9.3,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "inspecteur",
+     "pos": [
+      0.3,
+      0,
+      1.5
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.3,
+        0,
+        -0.3
+       ],
+       "dur": 2.0,
+       "clip": "walk"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "case",
+     "name": "briefcase",
+     "on": {
+      "actor": "inspecteur",
+      "hand": "R"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.4,
+      -2.6
+     ],
+     "to": [
+      0.0,
+      1.4,
+      -2.9
+     ],
+     "lookAt": [
+      0.3,
+      1.3,
+      1.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.3,
+      -0.3
+     ]
+    }
+   ],
+   "start": 11.0667,
+   "duration": 2.0,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "runway",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "rocket",
+     "name": "rocket",
+     "pos": [
+      0,
+      0,
+      -10
+     ],
+     "scale": 3.0,
+     "opts": {
+      "flame": true
+     },
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        0,
+        30,
+        -10
+       ],
+       "dur": 0.783,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "dust",
+     "name": "dustPuff",
+     "pos": [
+      0,
+      0,
+      -10
+     ],
+     "scale": 4
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3,
+      0.6,
+      6
+     ],
+     "to": [
+      3,
+      0.7,
+      5.6
+     ],
+     "lookAt": [
+      0,
+      3,
+      -10
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      9,
+      -10
+     ],
+     "shake": 0.04
+    }
+   ],
+   "start": 13.0667,
+   "duration": 0.9333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "inspecteur",
+     "pos": [
+      0.8,
+      0,
+      0.6
+     ],
+     "ry": -40,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_inspecteur",
+     "name": "glassDome",
+     "on": {
+      "actor": "inspecteur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "flag",
+     "name": "starsStripes",
+     "pos": [
+      -0.4,
+      0,
+      -0.4
+     ],
+     "scale": 1.4
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.7,
+      1.1,
+      4.6
+     ],
+     "to": [
+      0.61,
+      1.1500000000000001,
+      3.9999999999999996
+     ],
+     "lookAt": [
+      0.1,
+      1.0,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.03,
+      0
+     ]
+    }
+   ],
+   "start": 14.0,
+   "duration": 1.6,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "inspecteur",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "point",
+     "keys": [
+      {
+       "at": 0.025,
+       "expr": "talk"
+      },
+      {
+       "at": 0.528,
+       "expr": "angry"
+      },
+      {
+       "at": 0.71,
+       "expr": "talk"
+      },
+      {
+       "at": 1.519,
+       "expr": "angry"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_inspecteur",
+     "name": "glassDome",
+     "on": {
+      "actor": "inspecteur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.75,
+      1.9
+     ],
+     "to": [
+      0.225,
+      1.75,
+      1.72
+     ],
+     "lookAt": [
+      0,
+      1.72,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.73,
+      0
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 15.6,
+   "duration": 1.6,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "inspecteur",
+     "pos": [
+      0.6,
+      0,
+      0.4
+     ],
+     "ry": -60,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_inspecteur",
+     "name": "glassDome",
+     "on": {
+      "actor": "inspecteur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "flag",
+     "name": "starsStripes",
+     "pos": [
+      -0.4,
+      0,
+      -0.2
+     ],
+     "scale": 1.4
+    },
+    {
+     "id": "fine",
+     "name": "noticeBoard",
+     "pos": [
+      -0.33,
+      1.25,
+      -0.15
+     ],
+     "opts": {
+      "text": "AMENDE",
+      "style": "tag",
+      "w": 0.4,
+      "h": 0.22,
+      "popAt": 0.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.3,
+      3.4
+     ],
+     "to": [
+      0.51,
+      1.35,
+      2.8
+     ],
+     "lookAt": [
+      0.0,
+      1.1,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.1300000000000001,
+      0
+     ]
+    }
+   ],
+   "start": 17.2,
+   "duration": 1.6333,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "inspecteur",
+     "pos": [
+      0.4,
+      0,
+      0
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_inspecteur",
+     "name": "glassDome",
+     "on": {
+      "actor": "inspecteur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "m0",
+     "name": "moneySack",
+     "pos": [
+      -0.6,
+      3.0,
+      0.4
+     ],
+     "opts": {
+      "color": "#5BB06E"
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        -0.6,
+        0,
+        0.4
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "m1",
+     "name": "moneySack",
+     "pos": [
+      -0.25,
+      3.0,
+      0.4
+     ],
+     "opts": {
+      "color": "#5BB06E"
+     },
+     "keys": [
+      {
+       "at": 0.22,
+       "to": [
+        -0.25,
+        0,
+        0.4
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "m2",
+     "name": "moneySack",
+     "pos": [
+      0.09999999999999998,
+      3.0,
+      0.4
+     ],
+     "opts": {
+      "color": "#5BB06E"
+     },
+     "keys": [
+      {
+       "at": 0.33999999999999997,
+       "to": [
+        0.09999999999999998,
+        0,
+        0.4
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.2,
+      3.6
+     ],
+     "to": [
+      0.51,
+      1.25,
+      3.0
+     ],
+     "lookAt": [
+      0.0,
+      0.9,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.93,
+      0
+     ]
+    }
+   ],
+   "start": 18.8333,
+   "duration": 1.5667,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "inspecteur",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "shakeHead",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_inspecteur",
+     "name": "glassDome",
+     "on": {
+      "actor": "inspecteur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "eur",
+     "name": "noticeBoard",
+     "pos": [
+      0.75,
+      1.6,
+      0.2
+     ],
+     "opts": {
+      "text": "€ UNIQUEMENT",
+      "style": "sign",
+      "w": 0.7,
+      "h": 0.25,
+      "popAt": 0.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.6,
+      2.8
+     ],
+     "to": [
+      0.515,
+      1.62,
+      2.5
+     ],
+     "lookAt": [
+      0.2,
+      1.55,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.2,
+      1.57,
+      0
+     ]
+    }
+   ],
+   "start": 20.4,
+   "duration": 2.0,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "b1",
+     "name": "shopFront",
+     "pos": [
+      -2.2,
+      0,
+      -2
+     ],
+     "opts": {
+      "text": "BANQUE",
+      "signBg": "#203447",
+      "w": 2.0,
+      "popAt": 0.15
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.7,
+      13.0
+     ],
+     "to": [
+      0.35,
+      1.75,
+      12.2
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      -2.4
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.45,
+      -2.4
+     ]
+    }
+   ],
+   "start": 22.4,
+   "duration": 2.3667,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "b1",
+     "name": "shopFront",
+     "pos": [
+      -2.2,
+      0,
+      -2
+     ],
+     "opts": {
+      "text": "BANQUE",
+      "signBg": "#203447",
+      "w": 2.0
+     }
+    },
+    {
+     "id": "b2",
+     "name": "shopFront",
+     "pos": [
+      0,
+      0,
+      -3.2
+     ],
+     "opts": {
+      "text": "BOULANGERIE",
+      "signBg": "#B5302A",
+      "w": 2.4,
+      "popAt": 0.15
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.7,
+      13.0
+     ],
+     "to": [
+      0.35,
+      1.75,
+      12.2
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      -2.4
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.45,
+      -2.4
+     ]
+    }
+   ],
+   "start": 24.7667,
+   "duration": 1.4666,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "b1",
+     "name": "shopFront",
+     "pos": [
+      -2.2,
+      0,
+      -2
+     ],
+     "opts": {
+      "text": "BANQUE",
+      "signBg": "#203447",
+      "w": 2.0
+     }
+    },
+    {
+     "id": "b2",
+     "name": "shopFront",
+     "pos": [
+      0,
+      0,
+      -3.2
+     ],
+     "opts": {
+      "text": "BOULANGERIE",
+      "signBg": "#B5302A",
+      "w": 2.4
+     }
+    },
+    {
+     "id": "b3",
+     "name": "shopFront",
+     "pos": [
+      2.2,
+      0,
+      -2
+     ],
+     "opts": {
+      "text": "POSTE",
+      "signBg": "#E0B020",
+      "w": 2.0,
+      "popAt": 0.15
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.7,
+      13.0
+     ],
+     "to": [
+      0.35,
+      1.75,
+      12.2
+     ],
+     "lookAt": [
+      0,
+      1.4,
+      -2.4
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.45,
+      -2.4
+     ]
+    }
+   ],
+   "start": 26.2333,
+   "duration": 1.4,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "q0",
+     "pos": [
+      3.0,
+      0,
+      -0.6
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "q1",
+     "pos": [
+      3.25,
+      0,
+      0.5000000000000001
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "q2",
+     "pos": [
+      3.0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "q3",
+     "pos": [
+      3.25,
+      0,
+      2.7
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "q4",
+     "pos": [
+      3.0,
+      0,
+      3.8000000000000003
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "q5",
+     "pos": [
+      3.25,
+      0,
+      4.9
+     ],
+     "ry": 180,
+     "clip": "idle",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "b3",
+     "name": "shopFront",
+     "pos": [
+      3,
+      0,
+      -2
+     ],
+     "opts": {
+      "text": "POSTE",
+      "signBg": "#E0B020"
+     }
+    },
+    {
+     "id": "dome_q0",
+     "name": "glassDome",
+     "on": {
+      "actor": "q0",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "dome_q1",
+     "name": "glassDome",
+     "on": {
+      "actor": "q1",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "dome_q2",
+     "name": "glassDome",
+     "on": {
+      "actor": "q2",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "dome_q3",
+     "name": "glassDome",
+     "on": {
+      "actor": "q3",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "dome_q4",
+     "name": "glassDome",
+     "on": {
+      "actor": "q4",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "dome_q5",
+     "name": "glassDome",
+     "on": {
+      "actor": "q5",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.5,
+      0.9,
+      9.5
+     ],
+     "to": [
+      5.2,
+      1.0,
+      9.0
+     ],
+     "lookAt": [
+      3.0,
+      1.2,
+      0.5
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      3.0,
+      1.2,
+      0.5
+     ]
+    }
+   ],
+   "start": 27.6333,
+   "duration": 2.4,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_mec",
+     "name": "glassDome",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "sale",
+     "name": "noticeBoard",
+     "pos": [
+      0.5,
+      1.25,
+      0.25
+     ],
+     "opts": {
+      "text": "À VENDRE",
+      "style": "sign",
+      "w": 0.8,
+      "h": 0.32,
+      "fg": "#C8322A",
+      "frame": "#C8322A",
+      "popAt": 0.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.45,
+      3.0
+     ],
+     "to": [
+      0.515,
+      1.47,
+      2.7
+     ],
+     "lookAt": [
+      0.2,
+      1.4,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.2,
+      1.42,
+      0
+     ]
+    }
+   ],
+   "start": 30.0333,
+   "duration": 1.4,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S20",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "tw",
+     "name": "tumbleweed",
+     "pos": [
+      -4,
+      0.4,
+      0
+     ],
+     "scale": 1.2,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        4,
+        0.4,
+        0
+       ],
+       "dur": 1.133,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0,
+      1.0,
+      6
+     ],
+     "to": [
+      0,
+      1.0,
+      5.6
+     ],
+     "lookAt": [
+      0,
+      0.8,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      0.8,
+      0
+     ]
+    }
+   ],
+   "start": 31.4333,
+   "duration": 1.1334,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S21",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "acheteuse",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "ry": 0,
+     "clip": "handsOnHips",
+     "keys": [
+      {
+       "at": 0.018,
+       "expr": "talk"
+      },
+      {
+       "at": 0.14,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.208,
+       "expr": "talk"
+      },
+      {
+       "at": 0.293,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.399,
+       "expr": "talk"
+      },
+      {
+       "at": 0.445,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.627,
+       "expr": "talk"
+      },
+      {
+       "at": 1.283,
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_acheteuse",
+     "name": "glassDome",
+     "on": {
+      "actor": "acheteuse",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.75,
+      1.9
+     ],
+     "to": [
+      0.225,
+      1.75,
+      1.72
+     ],
+     "lookAt": [
+      0,
+      1.72,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.73,
+      0
+     ],
+     "shake": 0.008
+    }
+   ],
+   "start": 32.5667,
+   "duration": 1.3666,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S22",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.1,
+      0,
+      0.6
+     ],
+     "ry": -30,
+     "clip": "handsOnHips",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -14,
+      14,
+      -60
+     ],
+     "opts": {
+      "radius": 4,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome_mec",
+     "name": "glassDome",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.22,
+      "base": false
+     }
+    },
+    {
+     "id": "gate",
+     "name": "barrierGate",
+     "pos": [
+      -0.4,
+      0,
+      0
+     ],
+     "opts": {
+      "length": 3.5,
+      "angle": 0,
+      "sign": "PÉAGE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.95,
+      1.2,
+      6.0
+     ],
+     "to": [
+      0.86,
+      1.25,
+      5.4
+     ],
+     "lookAt": [
+      0.35,
+      1.0,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.35,
+      1.03,
+      0
+     ]
+    }
+   ],
+   "start": 33.9333,
+   "duration": 1.6334,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S23",
+   "set": "seaSurface",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "gate",
+     "name": "barrierGate",
+     "pos": [
+      -1.5,
+      0,
+      6.4
+     ],
+     "opts": {
+      "length": 4.0,
+      "angle": 0,
+      "open": [
+       [
+        0.9,
+        80
+       ]
+      ],
+      "sign": "PÉAGE"
+     }
+    },
+    {
+     "id": "moon",
+     "name": "moon",
+     "pos": [
+      -6,
+      18,
+      -50
+     ],
+     "opts": {
+      "radius": 5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      1.0,
+      13.5
+     ],
+     "to": [
+      0.1,
+      1.05,
+      13.0
+     ],
+     "lookAt": [
+      -0.6,
+      3.0,
+      5.0
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      -0.6,
+      3.4,
+      5.0
+     ]
+    }
+   ],
+   "start": 35.5667,
+   "duration": 3.1433,
+   "setOpts": {
+    "parasols": false
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 38.71
+}

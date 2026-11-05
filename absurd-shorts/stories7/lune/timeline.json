@@ -1,0 +1,901 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a déclaré la Lune comme résidence secondaire.",
+   "hl": [
+    "mec",
+    "Lune",
+    "secondaire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.767,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "déclaré",
+     "s": 0.633,
+     "e": 0.938
+    },
+    {
+     "w": "la",
+     "s": 0.976,
+     "e": 1.014
+    },
+    {
+     "w": "Lune",
+     "s": 1.09,
+     "e": 1.319
+    },
+    {
+     "w": "comme",
+     "s": 1.357,
+     "e": 1.471
+    },
+    {
+     "w": "résidence",
+     "s": 1.548,
+     "e": 1.929
+    },
+    {
+     "w": "secondaire.",
+     "s": 2.081,
+     "e": 2.767
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le fisc a dit oui.",
+   "hl": [
+    "fisc",
+    "oui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L02.k.wav",
+   "file_start": 2.867,
+   "speech_start": 2.867,
+   "speech_end": 4.162,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.867,
+     "e": 3.019
+    },
+    {
+     "w": "fisc",
+     "s": 3.095,
+     "e": 3.4
+    },
+    {
+     "w": "a",
+     "s": 3.476,
+     "e": 3.552
+    },
+    {
+     "w": "dit",
+     "s": 3.629,
+     "e": 3.705
+    },
+    {
+     "w": "oui.",
+     "s": 3.819,
+     "e": 4.162
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Puis il a envoyé la taxe foncière.",
+   "hl": [
+    "taxe",
+    "foncière."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L03.k.wav",
+   "file_start": 4.262,
+   "speech_start": 4.262,
+   "speech_end": 6.243,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 4.262,
+     "e": 4.49
+    },
+    {
+     "w": "il",
+     "s": 4.643,
+     "e": 4.719
+    },
+    {
+     "w": "a",
+     "s": 4.795,
+     "e": 4.833
+    },
+    {
+     "w": "envoyé",
+     "s": 4.871,
+     "e": 5.138
+    },
+    {
+     "w": "la",
+     "s": 5.176,
+     "e": 5.252
+    },
+    {
+     "w": "taxe",
+     "s": 5.367,
+     "e": 5.531
+    },
+    {
+     "w": "foncière.",
+     "s": 5.583,
+     "e": 6.243
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Trente-huit milliards d'euros.",
+   "hl": [
+    "milliards"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L04.k.wav",
+   "file_start": 6.343,
+   "speech_start": 6.343,
+   "speech_end": 8.019,
+   "words": [
+    {
+     "w": "Trente-huit",
+     "s": 6.343,
+     "e": 6.724
+    },
+    {
+     "w": "milliards",
+     "s": 6.876,
+     "e": 7.257
+    },
+    {
+     "w": "d'euros.",
+     "s": 7.295,
+     "e": 8.019
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le mec a contesté.",
+   "hl": [
+    "contesté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L05.k.wav",
+   "file_start": 8.119,
+   "speech_start": 8.119,
+   "speech_end": 9.262,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.119,
+     "e": 8.195
+    },
+    {
+     "w": "mec",
+     "s": 8.271,
+     "e": 8.424
+    },
+    {
+     "w": "a",
+     "s": 8.462,
+     "e": 8.5
+    },
+    {
+     "w": "contesté.",
+     "s": 8.729,
+     "e": 9.262
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "C",
+   "text": "« Il y a des Américains dedans ! »",
+   "hl": [
+    "Américains"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L06.k.wav",
+   "file_start": 9.322,
+   "speech_start": 9.322,
+   "speech_end": 10.998,
+   "words": [
+    {
+     "w": "Il",
+     "s": 9.322,
+     "e": 9.398
+    },
+    {
+     "w": "y",
+     "s": 9.424,
+     "e": 9.449
+    },
+    {
+     "w": "a",
+     "s": 9.474,
+     "e": 9.55
+    },
+    {
+     "w": "des",
+     "s": 9.627,
+     "e": 9.703
+    },
+    {
+     "w": "Américains",
+     "s": 9.779,
+     "e": 10.236
+    },
+    {
+     "w": "dedans",
+     "s": 10.312,
+     "e": 10.541
+    },
+    {
+     "w": "!",
+     "s": 10.922,
+     "e": 10.998
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le fisc a envoyé un inspecteur.",
+   "hl": [
+    "inspecteur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L07.k.wav",
+   "file_start": 11.098,
+   "speech_start": 11.098,
+   "speech_end": 13.003,
+   "words": [
+    {
+     "w": "Le",
+     "s": 11.098,
+     "e": 11.174
+    },
+    {
+     "w": "fisc",
+     "s": 11.25,
+     "e": 11.555
+    },
+    {
+     "w": "a",
+     "s": 11.631,
+     "e": 11.708
+    },
+    {
+     "w": "envoyé",
+     "s": 11.784,
+     "e": 12.012
+    },
+    {
+     "w": "un",
+     "s": 12.05,
+     "e": 12.089
+    },
+    {
+     "w": "inspecteur.",
+     "s": 12.165,
+     "e": 13.003
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "En fusée.",
+   "hl": [
+    "fusée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L08.k.wav",
+   "file_start": 13.103,
+   "speech_start": 13.103,
+   "speech_end": 13.941,
+   "words": [
+    {
+     "w": "En",
+     "s": 13.103,
+     "e": 13.255
+    },
+    {
+     "w": "fusée.",
+     "s": 13.293,
+     "e": 13.941
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a trouvé un drapeau planté.",
+   "hl": [
+    "drapeau"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L09.k.wav",
+   "file_start": 14.041,
+   "speech_start": 14.041,
+   "speech_end": 15.565,
+   "words": [
+    {
+     "w": "Il",
+     "s": 14.041,
+     "e": 14.117
+    },
+    {
+     "w": "a",
+     "s": 14.155,
+     "e": 14.193
+    },
+    {
+     "w": "trouvé",
+     "s": 14.231,
+     "e": 14.498
+    },
+    {
+     "w": "un",
+     "s": 14.536,
+     "e": 14.574
+    },
+    {
+     "w": "drapeau",
+     "s": 14.612,
+     "e": 14.879
+    },
+    {
+     "w": "planté.",
+     "s": 15.031,
+     "e": 15.565
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "C",
+   "text": "« Occupation illégale. »",
+   "hl": [
+    "Occupation",
+    "illégale."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L10.k.wav",
+   "file_start": 15.625,
+   "speech_start": 15.625,
+   "speech_end": 17.149,
+   "words": [
+    {
+     "w": "Occupation",
+     "s": 15.625,
+     "e": 16.158
+    },
+    {
+     "w": "illégale.",
+     "s": 16.31,
+     "e": 17.149
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Amende pour les Américains.",
+   "hl": [
+    "Amende"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L11.k.wav",
+   "file_start": 17.249,
+   "speech_start": 17.249,
+   "speech_end": 18.772,
+   "words": [
+    {
+     "w": "Amende",
+     "s": 17.249,
+     "e": 17.63
+    },
+    {
+     "w": "pour",
+     "s": 17.706,
+     "e": 17.782
+    },
+    {
+     "w": "les",
+     "s": 17.858,
+     "e": 17.934
+    },
+    {
+     "w": "Américains.",
+     "s": 17.972,
+     "e": 18.772
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Ils ont payé en dollars.",
+   "hl": [
+    "dollars."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L12.k.wav",
+   "file_start": 18.872,
+   "speech_start": 18.872,
+   "speech_end": 20.32,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 18.872,
+     "e": 19.025
+    },
+    {
+     "w": "ont",
+     "s": 19.101,
+     "e": 19.177
+    },
+    {
+     "w": "payé",
+     "s": 19.253,
+     "e": 19.406
+    },
+    {
+     "w": "en",
+     "s": 19.482,
+     "e": 19.558
+    },
+    {
+     "w": "dollars.",
+     "s": 19.634,
+     "e": 20.32
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Refusé : la Lune est en euros.",
+   "hl": [
+    "Refusé",
+    "euros."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L13.k.wav",
+   "file_start": 20.42,
+   "speech_start": 20.42,
+   "speech_end": 22.325,
+   "words": [
+    {
+     "w": "Refusé",
+     "s": 20.42,
+     "e": 20.877
+    },
+    {
+     "w": ":",
+     "s": 21.182,
+     "e": 21.208
+    },
+    {
+     "w": "la",
+     "s": 21.232,
+     "e": 21.258
+    },
+    {
+     "w": "Lune",
+     "s": 21.334,
+     "e": 21.487
+    },
+    {
+     "w": "est",
+     "s": 21.563,
+     "e": 21.639
+    },
+    {
+     "w": "en",
+     "s": 21.677,
+     "e": 21.715
+    },
+    {
+     "w": "euros.",
+     "s": 21.791,
+     "e": 22.325
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Alors ils ont ouvert une banque sur la Lune.",
+   "hl": [
+    "banque"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L14.k.wav",
+   "file_start": 22.425,
+   "speech_start": 22.425,
+   "speech_end": 24.71,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 22.425,
+     "e": 22.806
+    },
+    {
+     "w": "ils",
+     "s": 22.958,
+     "e": 23.11
+    },
+    {
+     "w": "ont",
+     "s": 23.149,
+     "e": 23.187
+    },
+    {
+     "w": "ouvert",
+     "s": 23.263,
+     "e": 23.491
+    },
+    {
+     "w": "une",
+     "s": 23.568,
+     "e": 23.644
+    },
+    {
+     "w": "banque",
+     "s": 23.72,
+     "e": 23.872
+    },
+    {
+     "w": "sur",
+     "s": 23.949,
+     "e": 24.025
+    },
+    {
+     "w": "la",
+     "s": 24.063,
+     "e": 24.101
+    },
+    {
+     "w": "Lune.",
+     "s": 24.177,
+     "e": 24.71
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Puis une boulangerie.",
+   "hl": [
+    "boulangerie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L15.k.wav",
+   "file_start": 24.81,
+   "speech_start": 24.81,
+   "speech_end": 26.182,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 24.81,
+     "e": 25.115
+    },
+    {
+     "w": "une",
+     "s": 25.191,
+     "e": 25.344
+    },
+    {
+     "w": "boulangerie.",
+     "s": 25.394,
+     "e": 26.182
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Puis un bureau de poste.",
+   "hl": [
+    "poste."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L16.k.wav",
+   "file_start": 26.282,
+   "speech_start": 26.282,
+   "speech_end": 27.577,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 26.282,
+     "e": 26.434
+    },
+    {
+     "w": "un",
+     "s": 26.51,
+     "e": 26.663
+    },
+    {
+     "w": "bureau",
+     "s": 26.701,
+     "e": 26.891
+    },
+    {
+     "w": "de",
+     "s": 26.93,
+     "e": 26.968
+    },
+    {
+     "w": "poste.",
+     "s": 27.044,
+     "e": 27.577
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "La file d'attente faisait le tour de la Lune.",
+   "hl": [
+    "file",
+    "tour"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L17.k.wav",
+   "file_start": 27.677,
+   "speech_start": 27.677,
+   "speech_end": 29.963,
+   "words": [
+    {
+     "w": "La",
+     "s": 27.677,
+     "e": 27.753
+    },
+    {
+     "w": "file",
+     "s": 27.83,
+     "e": 27.982
+    },
+    {
+     "w": "d'attente",
+     "s": 28.058,
+     "e": 28.439
+    },
+    {
+     "w": "faisait",
+     "s": 28.49,
+     "e": 28.668
+    },
+    {
+     "w": "le",
+     "s": 28.782,
+     "e": 28.896
+    },
+    {
+     "w": "tour",
+     "s": 29.01,
+     "e": 29.125
+    },
+    {
+     "w": "de",
+     "s": 29.163,
+     "e": 29.201
+    },
+    {
+     "w": "la",
+     "s": 29.239,
+     "e": 29.277
+    },
+    {
+     "w": "Lune.",
+     "s": 29.353,
+     "e": 29.963
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le mec a voulu vendre.",
+   "hl": [
+    "vendre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L18.k.wav",
+   "file_start": 30.063,
+   "speech_start": 30.063,
+   "speech_end": 31.358,
+   "words": [
+    {
+     "w": "Le",
+     "s": 30.063,
+     "e": 30.139
+    },
+    {
+     "w": "mec",
+     "s": 30.215,
+     "e": 30.368
+    },
+    {
+     "w": "a",
+     "s": 30.406,
+     "e": 30.444
+    },
+    {
+     "w": "voulu",
+     "s": 30.482,
+     "e": 30.672
+    },
+    {
+     "w": "vendre.",
+     "s": 30.749,
+     "e": 31.358
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Personne n'en voulait.",
+   "hl": [
+    "Personne"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L19.k.wav",
+   "file_start": 31.458,
+   "speech_start": 31.458,
+   "speech_end": 32.525,
+   "words": [
+    {
+     "w": "Personne",
+     "s": 31.458,
+     "e": 31.839
+    },
+    {
+     "w": "n'en",
+     "s": 31.89,
+     "e": 31.991
+    },
+    {
+     "w": "voulait.",
+     "s": 32.03,
+     "e": 32.525
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "C",
+   "text": "« Trop loin des transports. »",
+   "hl": [
+    "transports."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L20.k.wav",
+   "file_start": 32.585,
+   "speech_start": 32.585,
+   "speech_end": 33.88,
+   "words": [
+    {
+     "w": "Trop",
+     "s": 32.585,
+     "e": 32.737
+    },
+    {
+     "w": "loin",
+     "s": 32.775,
+     "e": 32.89
+    },
+    {
+     "w": "des",
+     "s": 32.966,
+     "e": 33.042
+    },
+    {
+     "w": "transports.",
+     "s": 33.194,
+     "e": 33.88
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Il a installé un péage.",
+   "hl": [
+    "péage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L21.k.wav",
+   "file_start": 33.98,
+   "speech_start": 33.98,
+   "speech_end": 35.428,
+   "words": [
+    {
+     "w": "Il",
+     "s": 33.98,
+     "e": 34.056
+    },
+    {
+     "w": "a",
+     "s": 34.094,
+     "e": 34.132
+    },
+    {
+     "w": "installé",
+     "s": 34.285,
+     "e": 34.513
+    },
+    {
+     "w": "un",
+     "s": 34.59,
+     "e": 34.666
+    },
+    {
+     "w": "péage.",
+     "s": 34.78,
+     "e": 35.428
+    }
+   ]
+  },
+  {
+   "id": "L22",
+   "who": "N",
+   "text": "Maintenant, les marées paient pour passer.",
+   "hl": [
+    "marées",
+    "paient"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/lune/tts/L22.k.wav",
+   "file_start": 35.588,
+   "speech_start": 35.588,
+   "speech_end": 37.873,
+   "words": [
+    {
+     "w": "Maintenant,",
+     "s": 35.588,
+     "e": 36.273
+    },
+    {
+     "w": "les",
+     "s": 36.35,
+     "e": 36.426
+    },
+    {
+     "w": "marées",
+     "s": 36.502,
+     "e": 36.807
+    },
+    {
+     "w": "paient",
+     "s": 36.845,
+     "e": 37.035
+    },
+    {
+     "w": "pour",
+     "s": 37.111,
+     "e": 37.188
+    },
+    {
+     "w": "passer.",
+     "s": 37.264,
+     "e": 37.873
+    }
+   ]
+  }
+ ],
+ "total": 38.71
+}
