@@ -57,7 +57,7 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
   a podium number or a bike's body in the caption band is "hidden"; lift it by tilting the camera DOWN (lower look target).
   Faces under a title card get covered: check every shot that carries a card.
 - **Calibrate projections on a render.** The characters are tall: a man's head top is about 2.1–2.3 m (2.3 m with a helmet);
-  a rider's helmet on a bike about 2.3 m. The helper `scratchpad/tools/proj.py` (where a world point lands in the 9:16 frame)
+  a rider's helmet on a bike about 2.3 m. The helper `scripts/proj.py` (where a world point lands in the 9:16 frame for a camera position, target and lens)
   is reliable once the heights are right.
 - **Googly eyes for an object character must sit side by side across its front**, not one behind the other: head-on, the
   bike's eyes read as one ball ("a football"). A 3/4 angle reads best for any object character.
