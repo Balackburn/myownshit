@@ -310,6 +310,9 @@ export const CLIPS = {
   floatTilt: (t) => ({ ...CLIPS.float(t), root: { y: 0.1 * S(t * 1.5), rz: 0.2 + 0.05 * S(t * 0.9), rx: -0.12 } }), // weightless, tilted to one side
   floatTiltB: (t) => ({ ...CLIPS.float(t + 1.3), root: { y: 0.1 * S(t * 1.3 + 1), rz: -0.18 + 0.05 * S(t * 0.8), rx: 0.1 } }),
   checkWatch: (t) => ({ ...CLIPS.stand(), shoulderL: [-0.42, 0, 0.12], elbowL: [-1.55, 0.75, 0], handL: [0, 0, 0.45], head: [0.42 + 0.02 * S(t * 2), 0.22, 0], torso: [0.05, 0, 0] }), // left forearm across the chest, wrist up, head down at the watch
+  // « Le ver de terre »: pushing a lawnmower, both hands on the handle bar
+  pushMower: (t, p = {}) => ({ ...CLIPS.walk(t, { freq: p.freq ?? 1.7, amp: 0.38 }), ...arms(m([-0.78, 0, 0.14], [-0.78, 0, 0.14]), m([-0.32, 0, 0], [-0.32, 0, 0])), torso: [0.12, 0, 0], head: [-0.08 + 0.02 * S(t * 7), 0, 0] }),
+  pushMowerStand: (t) => ({ ...arms(m([-0.78, 0, 0.14], [-0.78, 0, 0.14]), m([-0.32, 0, 0], [-0.32, 0, 0])), torso: [0.1, 0, 0], head: [-0.05, 0, 0] }),
   // « La canicule »: life cross-legged in a fridge
   sitFloorSpoon: (t, p = {}) => { const e = CLIPS.eatSpoon(t, p); return { ...CLIPS.sitFloor(t), shoulderL: e.shoulderL, elbowL: e.elbowL, shoulderR: e.shoulderR, elbowR: e.elbowR, head: e.head }; },
   sitFloorWave: (t) => ({ ...CLIPS.sitFloor(t), shoulderR: [0, 0, -2.6], elbowR: [0, 0, -(0.5 + 0.45 * S(t * 9))], head: [0.02 * S(t), -0.15, 0] }),

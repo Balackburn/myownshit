@@ -1021,7 +1021,7 @@ const SPECIES = {
     addEyes(R, hd, { x: r0 * 0.46, y: r0 * 1.3, z: r0 * 0.86, r: r0 * 0.43, lid: c.body, browY: 1.45, browT: 0.2 });
     const jaw = R.joint('jaw', hd, 0, r0 * 0.6, r0 * 1.02); R.a(jaw, facet(r0 * 0.36, r0 * 0.14, 0.012, c.mouth, { detail: 0 }), null, null, false);
     R.a(jaw, facet(r0 * 0.2, r0 * 0.06, 0.008, c.tongue, { detail: 0 }), [0, -r0 * 0.05, 0.004], null, false);
-    if (o.bowtie) { const bt = R.joint('bowtie', parent, 0, L * 0.9, r0 * 0.95); for (const sd of [-1, 1]) R.a(bt, box(0.05, 0.04, 0.012, '#C8322A', { taper: { x: 0.35, z: 1 }, taperAxis: 'x' }), [sd * 0.026, 0, 0], [0, 0, sd * PI / 2], R.ol * 0.6); R.a(bt, box(0.016, 0.02, 0.016, '#A82828'), null, null, R.ol * 0.6); }
+    if (o.bowtie) { const bt = R.joint('bowtie', R.J.seg6, 0, L * 0.55, r0 * 0.97); for (const sd of [-1, 1]) R.a(bt, box(0.036, 0.03, 0.01, '#C8322A', { taper: { x: 0.35, z: 1 }, taperAxis: 'x' }), [sd * 0.019, 0, 0], [0, 0, sd * PI / 2], R.ol * 0.6); R.a(bt, box(0.012, 0.015, 0.012, '#A82828'), null, null, R.ol * 0.6); }
     R.mouthScale = true; R.plan = 'worm'; R.height = N * L - 0.15 + r0 * 2.2;
     R.post = (q, cl, t, p) => { const g = q.gulp; R.bulges.forEach((b, i) => { b.visible = g != null && Math.abs(g - (N - 1 - i)) < 0.75; }); };
   },
@@ -1041,12 +1041,10 @@ const SPECIES = {
     R.a(av, facet(0.072, 0.078, 0.05, c.stone, { seed: 64, jit: 0.04, detail: 2 }), [0, 0.13, 0.068]);
     R.a(av, facet(0.02, 0.014, 0.008, '#B07A52', { detail: 0 }), [-0.025, 0.165, 0.112], null, false);   // shine on the stone
     addEyes(R, av, { x: 0.042, y: 0.335, z: 0.08, r: 0.034, lid: c.flesh, browY: 1.5 });
-    const jaw = R.joint('jaw', av, 0, 0.262, 0.078); R.a(jaw, facet(0.026, 0.01, 0.008, c.mouth, { detail: 0 }), null, null, false); R.mouthScale = true;
+    const jaw = R.joint('jaw', av, 0, 0.258, 0.078); R.a(jaw, facet(0.04, 0.014, 0.008, c.mouth, { detail: 0 }), null, null, false); R.mouthScale = true;
     // the robe: a back panel and shoulders round the skin side, and the white rabat with its two bands; the épitoge on the left shoulder
     R.a(av, box(0.3, 0.34, 0.025, c.robe, { taper: { x: 0.8, z: 1 } }), [0, 0.18, -0.085], [0.05, 0, 0]);
     for (const sd of [-1, 1]) R.a(av, box(0.07, 0.2, 0.15, c.robe, { taper: { x: 0.7, z: 0.8 } }), [sd * 0.12, 0.22, -0.02], [0, 0, sd * 0.28]);
-    R.a(av, box(0.075, 0.016, 0.014, c.white), [0, 0.235, 0.088], null, R.ol * 0.5);
-    for (const sd of [-1, 1]) R.a(av, box(0.022, 0.05, 0.008, c.white), [sd * 0.014, 0.205, 0.094], [0, 0, sd * 0.06], R.ol * 0.5);
     R.a(av, box(0.045, 0.16, 0.018, c.robe), [0.135, 0.26, 0.04], [0.15, 0, -0.35]); R.a(av, box(0.05, 0.035, 0.022, c.white), [0.16, 0.19, 0.06], [0.15, 0, -0.35], R.ol * 0.5);
     R.height = 0.72;
   },

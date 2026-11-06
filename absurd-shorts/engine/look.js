@@ -37,6 +37,7 @@ const GradeShader = {
     uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb; float l = dot(c, vec3(0.299, 0.587, 0.114));
+      c = c * 0.95 + 0.035;   // lift the shade: navy suits and black robes keep their detail
       c = mix(vec3(l), c, sat); c = (c - 0.5) * contrast + 0.5;
       vec3 shadowTint = vec3(0.94, 0.99, 1.06), hiTint = vec3(1.045, 1.0, 0.94);
       c *= mix(vec3(1.0), mix(shadowTint, hiTint, smoothstep(0.12, 0.85, l)), warm);
@@ -85,7 +86,7 @@ export function createLook(stage, W, H, o = {}) {
       const indoor = (set.userData.lighting || 'day') === 'interior' || (set.userData.lighting === 'dark') || sc.indoor === true;
       look.outdoor = !indoor && sc.indoor !== true;
       const k = sc.look || {};
-      L.hemi.intensity = (k.fill ?? 1) * L.hemi.intensity * (indoor ? 0.72 : 0.62); L.key.intensity = (k.sun ?? 1) * (indoor ? 2.4 : 3.0);
+      L.hemi.intensity = (k.fill ?? 1) * L.hemi.intensity * (indoor ? 0.88 : 0.78); L.key.intensity = (k.sun ?? 1) * (indoor ? 2.4 : 3.0);
       L.hemi.color.set(indoor ? '#DCE6FF' : '#9DC0FF'); L.hemi.groundColor.set(indoor ? '#B89A78' : '#A88A62');
       L.key.color.set(k.sunColor || (indoor ? '#FFE6C4' : '#FFD8A6'));
       // a lower sun: long shadows (keep its azimuth)
@@ -96,12 +97,12 @@ export function createLook(stage, W, H, o = {}) {
       L.key.shadow.radius = 4; L.key.shadow.normalBias = 0.02; L.key.shadow.bias = Math.min(L.key.shadow.bias, -0.0004);
       ao.blendIntensity = k.ao ?? o.ao ?? 1.0; bloom.strength = k.bloom ?? o.bloom ?? 0.28; shafts.uniforms.intensity.value = k.shafts ?? 0.55;
       grade.uniforms.sat.value = k.sat ?? 1.12; grade.uniforms.contrast.value = k.contrast ?? 1.05; grade.uniforms.warm.value = k.warm ?? 1.0;
-      renderer.toneMappingExposure = k.exposure ?? o.exposure ?? (indoor ? 1.12 : 1.08);
+      renderer.toneMappingExposure = k.exposure ?? o.exposure ?? (indoor ? 1.2 : 1.12);
       // distance haze outdoors, coloured like the horizon
       if (look.outdoor && !scene.fog && k.haze !== false) { const hz = new THREE.Color(k.hazeColor || '#CFE3F0'); scene.fog = new THREE.Fog(hz, k.hazeNear ?? 70, k.hazeFar ?? Math.max(260, camera.far * 1.1)); }
       set.traverse(n => { if (!isSky(n)) return; n.material.fog = false; n.material.toneMapped = false;   // the authored gradient, made a little deeper (shader skies)
         const ca = n.geometry.attributes.color; if (!ca || n.userData.deepSky || k.deepSky === false) return; n.userData.deepSky = true; const c = new THREE.Color(), hsl = {};
-        for (let i = 0; i < ca.count; i++) { c.fromBufferAttribute(ca, i); c.getHSL(hsl); if (hsl.h > 0.45 && hsl.h < 0.7) { c.setHSL(hsl.h, Math.min(1, hsl.s * 1.35 + 0.05), hsl.l * 0.94); ca.setXYZ(i, c.r, c.g, c.b); } } ca.needsUpdate = true; });
+        for (let i = 0; i < ca.count; i++) { c.fromBufferAttribute(ca, i); c.getHSL(hsl); if (hsl.h > 0.42 && hsl.h < 0.72) { const top = Math.max(0, n.geometry.attributes.position.getY(i)) / (n.geometry.boundingSphere?.radius || 180); c.setHSL(0.575 + (hsl.h - 0.575) * 0.3, Math.min(0.82, hsl.s * 1.6 + 0.22 + 0.15 * top), Math.min(0.78, hsl.l * (0.97 - 0.12 * top))); ca.setXYZ(i, c.r, c.g, c.b); } } ca.needsUpdate = true; });
       sun.visible = look.outdoor && k.sunDisc !== false; sun.material.color.set(k.sunColor || '#FFF0D8');
       look.L = L;
     },

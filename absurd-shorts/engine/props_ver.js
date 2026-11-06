@@ -66,6 +66,7 @@ export const VER_PROPS = {
       const cuc = (x, y, s) => { c.fillStyle = '#3E7A2E'; c.beginPath(); c.arc(x, y, s, 0, TAU); c.fill(); c.fillStyle = '#CDE8A0'; c.beginPath(); c.arc(x, y, s * 0.8, 0, TAU); c.fill(); c.fillStyle = '#F2F6D8'; for (let k = 0; k < 5; k++) { const a = k / 5 * TAU; c.beginPath(); c.arc(x + Math.cos(a) * s * 0.4, y + Math.sin(a) * s * 0.4, s * 0.1, 0, TAU); c.fill(); } };
       leaf(W * 0.24, bh * 0.45, bh * 0.22, -0.4); leaf(W * 0.5, bh * 0.38, bh * 0.25, 0.3); leaf(W * 0.76, bh * 0.5, bh * 0.21, -0.2); tom(W * 0.38, bh * 0.62, bh * 0.13); cuc(W * 0.63, bh * 0.66, bh * 0.12); tom(W * 0.85, bh * 0.3, bh * 0.08);
     }, { res: 512, transparent: true });
+    pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide, toneMapped: false });
     const g = grp(pl); pl.userData.noAO = true;
     g.userData.update = t => { const k = o.popAt == null ? 1 : t < o.popAt ? 0 : Math.max(0.001, ease.outBack(clamp01((t - o.popAt) / 0.3))); g.visible = k > 0.001; g.scale.setScalar(Math.max(0.001, k)); };
     g.userData.update(0); return g;
@@ -79,6 +80,17 @@ export const VER_PROPS = {
       while (seg < 3 && tt > T[seg]) { tt -= T[seg]; seg++; } let y = 0; if (seg < 3) { const q = tt / T[seg]; y = seg === 0 ? h0 * (1 - q) + 4 * hs[0] * 0.6 * q * (1 - q) : 4 * hs[seg] * q * (1 - q); }
       s.position.set(to[0] * ease.out(fx), (o.r || 0.06) + Math.max(0, y), to[1] * ease.out(fx)); s.rotation.set(u * 12 * (1 - fx), 0, -u * 9 * (1 - fx)); void x0; };
     g.userData.update(0); return g;
+  },
+  leaf(o) {   // one lettuce leaf (stuck on a head: attach to the head joint)
+    const L = new THREE.Mesh(new THREE.PlaneGeometry(o.w || 0.12, (o.w || 0.12) * 1.2), new THREE.MeshLambertMaterial({ map: leafTexture(), transparent: true, alphaTest: 0.3, side: THREE.DoubleSide }));
+    L.userData.noAO = true; return grp(L);
+  },
+  phone17(o) {   // a smartphone calling the police: a big « 17 » and « POLICE » on a green call screen (screen +Z), unlit so it reads at phone size
+    const w = o.w || 0.1, h = w * 2.05, g = grp(at(box(w, h, 0.012, '#1C1F24', { outline: 0.01 }), 0, 0, -0.007));
+    const scr = canvasPlane(w * 0.9, h * 0.92, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#2FA35E'); gr.addColorStop(1, '#1E6E3E'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.13}px Arial`; c.fillText('POLICE', W / 2, H * 0.22); c.font = `900 ${H * 0.3}px Arial`; c.fillText('17', W / 2, H * 0.48);
+      c.beginPath(); c.arc(W / 2, H * 0.8, W * 0.16, 0, TAU); c.fill(); c.fillStyle = '#2FA35E'; c.font = `900 ${W * 0.2}px Arial`; c.fillText('☎', W / 2, H * 0.805); }, { res: 256 });
+    scr.material = new THREE.MeshBasicMaterial({ map: scr.material.map, toneMapped: false }); g.add(scr); return g;
   },
   policeFlash(o) {   // the light bar's glow sweeping a scene: a blue and a red point light alternating (o.rate Hz), place it behind the camera
     const b = new THREE.PointLight('#3C7BFF', 0, o.dist || 14, 1.4), r = new THREE.PointLight('#FF3A3A', 0, o.dist || 14, 1.4); b.position.x = -0.4; r.position.x = 0.4; const g = grp(b, r);

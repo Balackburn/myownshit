@@ -690,8 +690,10 @@ export const NEWS_PROPS = {
       rr(c.lineWidth, c.lineWidth, W - 2 * c.lineWidth, bh - 2 * c.lineWidth, r); c.fill(); c.stroke();
       const tx = o.tail === 'right' ? W * 0.72 : o.tail === 'down' ? W * 0.5 : W * 0.28; c.beginPath(); c.moveTo(tx - bh * 0.18, bh - c.lineWidth * 1.5); c.lineTo(tx + (o.tail === 'right' ? bh * 0.3 : o.tail === 'down' ? 0 : -bh * 0.3), H - c.lineWidth); c.lineTo(tx + bh * 0.18, bh - c.lineWidth * 1.5); c.closePath(); c.fill(); c.stroke();
       c.fillStyle = '#FFFFFF'; c.fillRect(tx - bh * 0.15, bh - c.lineWidth * 3, bh * 0.3, c.lineWidth * 2.4);
-      c.fillStyle = o.fg || '#1C252A'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = bh * 0.46; c.font = `900 ${px}px Arial`; const tw = c.measureText(o.text || 'WOUF !').width; if (tw > W * 0.82) { px *= W * 0.82 / tw; c.font = `900 ${px}px Arial`; }
-      c.fillText(o.text || 'WOUF !', W / 2, bh * 0.52); }, { res: 512, transparent: true });
+      c.fillStyle = o.fg || '#1C252A'; c.textAlign = 'center'; c.textBaseline = 'middle'; const lines = String(o.text || 'WOUF !').split('\n');
+      let px = bh * (lines.length > 1 ? 0.34 : 0.46); c.font = `900 ${px}px Arial`; const tw = Math.max(...lines.map(l => c.measureText(l).width)); if (tw > W * 0.84) { px *= W * 0.84 / tw; c.font = `900 ${px}px Arial`; }
+      lines.forEach((l, i) => c.fillText(l, W / 2, bh * 0.52 + (i - (lines.length - 1) / 2) * px * 1.08)); }, { res: 512, transparent: true });
+    pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide, toneMapped: false }); pl.userData.noAO = true;
     const inner = grp(pl); pl.position.y = -h * 0.175; const g = grp(inner);
     g.userData.update = t => { if (o.popAt == null) return; const u = clamp01((t - o.popAt) / 0.28); inner.visible = t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u))); };
     g.userData.update(0); return g;
