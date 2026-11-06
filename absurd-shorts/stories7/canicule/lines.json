@@ -1,0 +1,89 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Il faisait quarante degrés.",
+  "hl": [
+   "quarante",
+   "degrés."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Ce mec a ouvert le frigo pour se rafraîchir.",
+  "hl": [
+   "frigo"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Puis il est entré dedans.",
+  "hl": [
+   "entré",
+   "dedans."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Et il a fermé la porte.",
+  "hl": [
+   "fermé",
+   "porte."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il y est resté tout l'été.",
+  "hl": [
+   "tout",
+   "l'été."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le facteur lui livrait le courrier dans le bac à légumes.",
+  "hl": [
+   "facteur",
+   "légumes."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "En septembre, il est enfin sorti.",
+  "hl": [
+   "septembre,",
+   "sorti."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Dehors, il neigeait.",
+  "hl": [
+   "neigeait."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Alors il est retourné dans le frigo.",
+  "hl": [
+   "retourné",
+   "frigo."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Pour se réchauffer.",
+  "hl": [
+   "réchauffer."
+  ]
+ }
+]
