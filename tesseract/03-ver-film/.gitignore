@@ -4,3 +4,6 @@ shots/*.glb
 *.mp4
 *.log
 frames/
+*.tsrct
+*.jpg
+!fast_cmp.jpg
