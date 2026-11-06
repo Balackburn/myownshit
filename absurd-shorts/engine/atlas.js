@@ -76,6 +76,32 @@ const skinPlateImg = await new Promise(res => { const im = new Image(); im.onloa
 const HERO_SKIN = '#D9A877', FW = 400, FH = 1080;
 const FEAT = { eyeL: [33, 231, 103, 101], eyeR: [249, 455, 104, 77], mouth: [117, 818, 194, 34], nose: [215, 685] };
 const rgbOf = c => { const k = new THREE.Color(c); return [k.r, k.g, k.b]; };
+// paint pass for features drawn on a face (lashes, moustache, beard, red nose, glasses): the measured face's hand-painted pixels —
+// wobbly contours (two-scale smooth displacement), uneven thickness (blurred coverage, noisy threshold), ragged 1-px edges, flat colours
+function rngJs(seed) { let s = (seed >>> 0) || 1; return () => (s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296; }
+function smoothField(W, H, step, amp, r) {
+  const gw = Math.ceil(W / step) + 2, gh = Math.ceil(H / step) + 2, g = new Float32Array(gw * gh); for (let i = 0; i < g.length; i++) g[i] = (r() * 2 - 1) * amp;
+  return (x, y) => { const fx = x / step, fy = y / step, ix = Math.floor(fx), iy = Math.floor(fy), tx = fx - ix, ty = fy - iy, sx = tx * tx * (3 - 2 * tx), sy = ty * ty * (3 - 2 * ty), i0 = iy * gw + ix;
+    return (g[i0] * (1 - sx) + g[i0 + 1] * sx) * (1 - sy) + (g[i0 + gw] * (1 - sx) + g[i0 + gw + 1] * sx) * sy; };
+}
+function paintLayer(cv, seed = 7) {
+  const W = cv.width, H = cv.height, c = cv.getContext('2d'), s = c.getImageData(0, 0, W, H).data, r = rngJs(seed), N = W * H;
+  const a0 = new Float32Array(N); for (let i = 0; i < N; i++) a0[i] = s[i * 4 + 3] / 255;
+  const blur = (a, R) => { const t = new Float32Array(N), o = new Float32Array(N), cl = (v, m) => v < 0 ? 0 : v > m ? m : v;
+    for (let y = 0; y < H; y++) { let acc = 0; for (let x = -R; x <= R; x++) acc += a[y * W + cl(x, W - 1)]; for (let x = 0; x < W; x++) { t[y * W + x] = acc / (2 * R + 1); acc += a[y * W + cl(x + R + 1, W - 1)] - a[y * W + cl(x - R, W - 1)]; } }
+    for (let x = 0; x < W; x++) { let acc = 0; for (let y = -R; y <= R; y++) acc += t[cl(y, H - 1) * W + x]; for (let y = 0; y < H; y++) { o[y * W + x] = acc / (2 * R + 1); acc += t[cl(y + R + 1, H - 1) * W + x] - t[cl(y - R, H - 1) * W + x]; } }
+    return o; };
+  const ab = blur(blur(a0, 2), 2), dx1 = smoothField(W, H, 12, 2.2, r), dy1 = smoothField(W, H, 12, 2.2, r), dx2 = smoothField(W, H, 4, 0.7, r), dy2 = smoothField(W, H, 4, 0.7, r), th = smoothField(W, H, 13, 0.32, r);
+  const out = c.createImageData(W, H), d = out.data, NB = [[1, 0], [-1, 0], [0, 1], [0, -1], [2, 0], [-2, 0], [0, 2], [0, -2], [1, 1], [-1, -1], [1, -1], [-1, 1], [3, 0], [-3, 0], [0, 3], [0, -3]];
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const ix = Math.round(x + dx1(x, y) + dx2(x, y)), iy = Math.round(y + dy1(x, y) + dy2(x, y)); if (ix < 0 || iy < 0 || ix >= W || iy >= H) continue;
+    const j = iy * W + ix, cov = ab[j]; if (cov <= 0.02) continue;
+    const a = Math.min(1, Math.max(0, (cov - (0.5 + th(x, y) + (r() - 0.5) * 0.4)) / 0.14 + 0.5)); if (a <= 0) continue;
+    let k = j; if (s[k * 4 + 3] < 128) for (const [ox, oy] of NB) { const xx = ix + ox, yy = iy + oy; if (xx >= 0 && yy >= 0 && xx < W && yy < H && s[(yy * W + xx) * 4 + 3] >= 128) { k = yy * W + xx; break; } }
+    const i = (y * W + x) * 4; d[i] = s[k * 4]; d[i + 1] = s[k * 4 + 1]; d[i + 2] = s[k * 4 + 2]; d[i + 3] = a * 255;
+  }
+  c.putImageData(out, 0, 0); return cv;
+}
 const variantCache = new Map();
 export function variantFaceTexture(expression = 'neutral', v = {}, blink = false) {
   if (!faceSet) return null;
@@ -96,14 +122,15 @@ export function variantFaceTexture(expression = 'neutral', v = {}, blink = false
   // lipstick: the mouth's ink turns red (open mouths keep their dark inside)
   if (v.lipstick) { const [mx, my, mw, mh] = FEAT.mouth; for (let y = my - 40; y < my + mh + 90; y++) for (let x = mx - 40; x < mx + mw + 40; x++) { const i = (y * FW + x) * 4; if (d[i] + d[i + 1] + d[i + 2] < 210 && d[i] < 90) { d[i] = 168; d[i + 1] = 38; d[i + 2] = 42; } } }
   g.putImageData(id, 0, 0);
-  const ink = '#2B231E'; g.lineCap = 'round'; g.lineJoin = 'round';
+  const G = g, ovc = document.createElement('canvas'); ovc.width = FW; ovc.height = FH;
+  { const g = ovc.getContext('2d');   // features go on an overlay that is painted like the measured strokes, then laid on the face
+  const ink = '#2D251F'; g.lineCap = 'round'; g.lineJoin = 'round';
   if (v.lipstick && !blink) {   // lashes at the outer corners
-    g.strokeStyle = ink; g.lineWidth = 6; for (const [ex, ey, ew, eh, sd] of [[...FEAT.eyeL, -1], [...FEAT.eyeR, 1]]) { const ox = sd < 0 ? ex + 6 : ex + ew - 6, oy = ey + 10; for (let j = 0; j < 3; j++) { g.beginPath(); g.moveTo(ox, oy + j * 9); g.lineTo(ox + sd * 20, oy - 10 + j * 9); g.stroke(); } }
+    g.strokeStyle = ink; g.lineWidth = 7; for (const [ex, ey, ew, eh, sd] of [[...FEAT.eyeL, -1], [...FEAT.eyeR, 1]]) { const ox = sd < 0 ? ex + 6 : ex + ew - 6, oy = ey + 10; for (let j = 0; j < 3; j++) { g.beginPath(); g.moveTo(ox, oy + j * 9); g.lineTo(ox + sd * 20, oy - 10 + j * 9); g.stroke(); } }
   }
   if (v.facial === 'mustache') {   // a bushy moustache over the upper lip
     const [mx, my, mw] = FEAT.mouth, cx = mx + mw / 2, col = v.beardColor || v.hairColor || '#2A1E16'; g.fillStyle = col; g.beginPath();
     g.moveTo(cx - mw * 0.55, my - 2); g.quadraticCurveTo(cx - mw * 0.35, my - 48, cx, my - 34); g.quadraticCurveTo(cx + mw * 0.35, my - 48, cx + mw * 0.55, my - 2); g.quadraticCurveTo(cx, my - 18, cx - mw * 0.55, my - 2); g.fill();
-    g.strokeStyle = 'rgba(0,0,0,0.35)'; g.lineWidth = 3; for (let j = -6; j <= 6; j++) { g.beginPath(); g.moveTo(cx + j * 13, my - 30); g.lineTo(cx + j * 15, my - 12); g.stroke(); }
   }
   if (v.facial === 'beard') {   // a full beard around the jaw, the mouth left open
     const col = v.beardColor || v.hairColor || '#2A1E16', r0 = (v.seed || 3) * 7; g.fillStyle = col;
@@ -112,11 +139,13 @@ export function variantFaceTexture(expression = 'neutral', v = {}, blink = false
   }
   if (v.redNose) { g.fillStyle = '#D7262E'; g.beginPath(); g.arc(FEAT.nose[0] - 8, FEAT.nose[1], 26, 0, Math.PI * 2); g.fill(); }
   if (v.glasses) {   // frames around both eyes, a bridge and the temples
-    const col = v.glassesColor || '#1C1C1E'; g.strokeStyle = col; g.lineWidth = 11; g.fillStyle = 'rgba(190,225,255,0.18)';
-    const fr = ([x, y, w, h]) => { const p = 14, X0 = x - p, Y0 = y - p, X1 = x + w + p, Y1 = y + h + p, rr = 26; g.beginPath(); g.moveTo(X0 + rr, Y0); g.arcTo(X1, Y0, X1, Y1, rr); g.arcTo(X1, Y1, X0, Y1, rr); g.arcTo(X0, Y1, X0, Y0, rr); g.arcTo(X0, Y0, X1, Y0, rr); g.closePath(); g.fill(); g.stroke(); return [X0, Y0, X1, Y1]; };
+    const col = v.glassesColor || '#1C1C1E'; g.strokeStyle = col; g.lineWidth = 11; G.fillStyle = 'rgba(190,225,255,0.18)';
+    const fr = ([x, y, w, h]) => { const p = 14, X0 = x - p, Y0 = y - p, X1 = x + w + p, Y1 = y + h + p, rr = 26; g.beginPath(); g.moveTo(X0 + rr, Y0); g.arcTo(X1, Y0, X1, Y1, rr); g.arcTo(X1, Y1, X0, Y1, rr); g.arcTo(X0, Y1, X0, Y0, rr); g.arcTo(X0, Y0, X1, Y0, rr); g.closePath(); g.stroke(); G.beginPath(); G.roundRect?.(X0, Y0, X1 - X0, Y1 - Y0, rr); G.fill(); return [X0, Y0, X1, Y1]; };
     const A = fr(FEAT.eyeL), B = fr(FEAT.eyeR); g.beginPath(); g.moveTo(A[2], (A[1] + A[3]) / 2 + 20); g.quadraticCurveTo((A[2] + B[0]) / 2, (A[3] + B[1]) / 2 - 10, B[0], (B[1] + B[3]) / 2 - 10); g.stroke();
     g.beginPath(); g.moveTo(A[0], (A[1] + A[3]) / 2); g.lineTo(0, (A[1] + A[3]) / 2 - 12); g.stroke(); g.beginPath(); g.moveTo(B[2], (B[1] + B[3]) / 2); g.lineTo(FW, (B[1] + B[3]) / 2 - 16); g.stroke();
   }
+  }
+  G.drawImage(paintLayer(ovc, (v.seed || 3) * 31 + name.length), 0, 0);
   g.strokeStyle = '#151313'; g.lineWidth = Math.round(FW * 0.03); g.strokeRect(g.lineWidth / 2, g.lineWidth / 2, FW - g.lineWidth, FH - g.lineWidth);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; variantCache.set(key, t); return t;
 }

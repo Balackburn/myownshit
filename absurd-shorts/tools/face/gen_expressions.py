@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw, ImageFilter
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 D = os.path.join(ROOT, 'characters', 'lemec', 'face')
 W, H, SS = 400, 1080, 4
-INK, WHITE, TONGUE, MOUTH_IN, TEAR, BLUSH, RED = (43, 35, 30), (220, 212, 200), (214, 96, 104), (70, 20, 18), (120, 190, 240), (236, 120, 120), (215, 38, 46)
+INK, WHITE, TONGUE, MOUTH_IN, TEAR, BLUSH, RED = (45, 37, 31), (205, 189, 166), (206, 98, 98), (78, 28, 22), (126, 184, 226), (226, 122, 112), (200, 48, 44)   # ink and eye white sampled on the measured neutral face
 
 neutral = cv2.imread(os.path.join(D, 'expressions', 'face_neutral.png'))
 plate = cv2.imread(os.path.join(D, 'skin_plate_neutral.png'))
@@ -39,7 +39,7 @@ def axis(k):   # brow endpoints along its main axis, and its thickness
 BROW = {s: axis('brow' + s) for s in 'LR'}
 EYE = {s: bbox('eye' + s) for s in 'LR'}
 MX0, MY0, MW, MH = bbox('mouth'); MOUTH = ((MX0 + 4, MY0 + MH / 2), (MX0 + MW - 4, MY0 + MH / 2))
-STROKE = 13
+STROKE = 10   # eye outlines on the measured face are ~9-10 px
 
 # ---- blank face: brows, eyes and mouth erased (stubble kept around the mouth: only the mouth's own pixels are replaced)
 blank = neutral.copy()
@@ -63,6 +63,13 @@ class Pen:
         pts = [P(*p) for p in pts]; s.d.line(pts, fill=col + (255,), width=int(w * SS), joint='curve')
         r = w * SS / 2
         for (x, y) in (pts[0], pts[-1]): s.d.ellipse([x - r, y - r, x + r, y + r], fill=col + (255,))
+    def taper(s, pts, w0, w1, col=INK, belly=0.0):
+        pts = [np.array(p, float) for p in pts]; L, R = [], []; n = len(pts)
+        for i, p in enumerate(pts):
+            d = pts[min(i + 1, n - 1)] - pts[max(i - 1, 0)]; d = d / (np.linalg.norm(d) + 1e-9); nrm = np.array([-d[1], d[0]])
+            u = i / (n - 1); w = (w0 + (w1 - w0) * u) * (1 + belly * math.sin(math.pi * u)) / 2; L.append(p + nrm * w); R.append(p - nrm * w)
+        s.d.polygon([P(*q) for q in L + R[::-1]], fill=col + (255,))
+        for (q, w) in ((pts[0], w0), (pts[-1], w1)): r = w * SS / 2; x, y = P(*q); s.d.ellipse([x - r, y - r, x + r, y + r], fill=col + (255,))
     def poly(s, pts, fill, outline=None, w=STROKE):
         s.d.polygon([P(*p) for p in pts], fill=fill + (255,))
         if outline: s.line(list(pts) + [pts[0]], w, outline)
@@ -79,6 +86,38 @@ def superellipse(cx, cy, rx, ry, e=3.0, k=48):
         pts.append((cx + rx * math.copysign(abs(c) ** (2 / e), c), cy + ry * math.copysign(abs(s_) ** (2 / e), s_)))
     return pts
 
+# ---- paint: turn the clean supersampled drawing into the measured face's hand-painted pixels
+# wobbly contours (smooth displacement), uneven stroke thickness (noisy threshold on a blurred mask), ragged pixel edges at the native
+# resolution (fine-noise threshold, 1-px transition band) and the measured palette (one ink, one eye white) with a little per-pixel noise
+def paint(im4, seed=7):
+    rs = np.random.RandomState(seed); A = np.asarray(im4).astype(np.float32) / 255; H4, W4 = A.shape[:2]
+    def field(step, amp):
+        n = rs.randn(H4 // step + 3, W4 // step + 3).astype(np.float32); n = cv2.resize(n, (W4, H4), interpolation=cv2.INTER_CUBIC)
+        return n / (np.abs(n).max() + 1e-6) * amp
+    yy, xx = np.mgrid[0:H4, 0:W4].astype(np.float32)
+    A = cv2.remap(A, xx + field(48, 8.0) + field(14, 2.6), yy + field(48, 8.0) + field(14, 2.6), cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    a = A[..., 3]; rgb = A[..., :3]; lum = rgb @ np.array([0.299, 0.587, 0.114], np.float32)
+    ink4 = a * (lum < 0.33); fill4 = a * (lum >= 0.33)
+    inkT = cv2.GaussianBlur(ink4, (0, 0), 3.8) > np.clip(0.5 + field(52, 0.46) + field(18, 0.12), 0.14, 0.86)   # uneven thickness, bites
+    fillT = cv2.GaussianBlur(fill4, (0, 0), 1.6) > 0.5
+    down = lambda x: cv2.resize(x.astype(np.float32), (W, H), interpolation=cv2.INTER_AREA)
+    ci, cf, a1 = down(inkT), down(fillT), down(fill4)
+    fcol = down(rgb * fill4[..., None]) / np.maximum(a1[..., None], 1e-4)
+    fine = lambda: rs.rand(H, W).astype(np.float32)
+    ragged = lambda cov: np.clip((cov - (0.5 + (fine() - 0.5) * 0.42)) / 0.14 + 0.5, 0, 1)   # 1-px transition band, noisy threshold
+    ai, af = ragged(ci), ragged(cf)
+    fl = fcol @ np.array([0.299, 0.587, 0.114], np.float32); fs = fcol.max(-1) - fcol.min(-1); wh = (fl > 0.6) & (fs < 0.2)
+    fcol[wh] = np.array(WHITE, np.float32) / 255   # flat paint, like the measured face
+    inkc = np.array(INK, np.float32) / 255
+    col = fcol * (1 - ai[..., None]) + inkc * ai[..., None]; alpha = np.maximum(af, ai)
+    out = np.dstack([np.clip(col, 0, 1), alpha]); return Image.fromarray((out * 255).astype(np.uint8), 'RGBA')
+
+def jitter_poly(pts, k, amp, seed):   # resample a closed shape to k points and push each in/out: a hand-drawn polygon
+    r = np.random.RandomState(seed); n = len(pts); cx = sum(p[0] for p in pts) / n; cy = sum(p[1] for p in pts) / n; out = []
+    for i in range(k):
+        x, y = pts[int(i * n / k)]; f = 1 + (r.rand() - 0.5) * 2 * amp; out.append((cx + (x - cx) * f, cy + (y - cy) * f))
+    return out
+
 # ---- features
 def brow(pen, side, dy=0, rot=0, bulge=0, thick=1.0, dx=0):   # rot > 0 lifts the inner end (worried), < 0 lowers it (angry)
     p0, p1, th = BROW[side]; m = (p0 + p1) / 2
@@ -86,16 +125,20 @@ def brow(pen, side, dy=0, rot=0, bulge=0, thick=1.0, dx=0):   # rot > 0 lifts th
         q = p - m; a = math.radians(-rot); q = np.array([q[0] * math.cos(a) - q[1] * math.sin(a), q[0] * math.sin(a) + q[1] * math.cos(a)]); return q + m + [dx, dy]
     a, b = tr(p0), tr(p1); mid = (a + b) / 2; nrm = np.array([-(b - a)[1], (b - a)[0]]); nrm = nrm / np.linalg.norm(nrm)
     if nrm[1] > 0: nrm = -nrm   # bulge > 0 arches upward
-    pen.line(bez(tuple(a), tuple(mid + nrm * bulge), tuple(b)), w=th * 0.9 * thick)
+    inner_first = (side == 'L') == (a[0] > b[0])   # the inner end (toward the nose) is the thick one
+    pts = bez(tuple(a), tuple(mid + nrm * (bulge + 4)), tuple(b), k=16)
+    w_in, w_out = th * 1.12 * thick, th * 0.62 * thick
+    pen.taper(pts, w_in if inner_first else w_out, w_out if inner_first else w_in, belly=0.12)
 
 def eye(pen, side, kind='open', s=1.0, pupil=(0, 0), lid=0.0, low=0.0, psize=1.0, shine=False):
     x, y, w, h = EYE[side]; cx, cy = x + w / 2, y + h / 2; rx, ry = (w / 2 - STROKE / 2) * s, (h / 2 - STROKE / 2) * s
     if kind == 'open':
-        shape = superellipse(cx, cy, rx, ry, 2.6)
+        shape = jitter_poly(superellipse(cx, cy, rx, ry, 3.4, k=56), 8, 0.07, int(cx * 7 + cy))
+        shape = [p for i in range(len(shape)) for p in (shape[i], ((shape[i][0] * 2 + shape[(i + 1) % len(shape)][0]) / 3, (shape[i][1] * 2 + shape[(i + 1) % len(shape)][1]) / 3))]
         pen.poly(shape, WHITE)
         prx, pry = (6.5 if side == 'L' else 5) * psize, (11.5 if side == 'L' else 7.5) * psize
         px, py = cx + pupil[0] * (rx - prx - 4), cy + pupil[1] * (ry - pry - 4)
-        pen.ellipse(px, py, prx, pry, fill=INK)
+        pen.poly(jitter_poly(superellipse(px, py, prx, pry, 2.8, k=24), 6, 0.16, int(px * 3 + py)), INK)
         if shine: pen.ellipse(px - prx * 0.35, py - pry * 0.4, prx * 0.35, pry * 0.25, fill=(255, 255, 255))
         if lid > 0:   # upper lid: skin over the top of the eye, ink lid line
             ly = cy - ry + 2 * ry * lid; pen.poly([(cx - rx - 8, cy - ry - 10), (cx + rx + 8, cy - ry - 10), (cx + rx + 8, ly), (cx - rx - 8, ly)], (211, 163, 117))
@@ -125,7 +168,7 @@ def eye(pen, side, kind='open', s=1.0, pupil=(0, 0), lid=0.0, low=0.0, psize=1.0
 def mouth(pen, kind='line', dx=0, dy=0, w=1.0, curve=0.0, tilt=0.0):
     (x0, y0), (x1, y1) = MOUTH; cx = (x0 + x1) / 2 + dx; cy = (y0 + y1) / 2 + dy; hw = (x1 - x0) / 2 * w
     L, R = (cx - hw, cy + tilt), (cx + hw, cy - tilt)
-    if kind == 'line': pen.line(bez(L, (cx, cy + curve), R), w=16)
+    if kind == 'line': pen.taper(bez(L, (cx, cy + curve), R, k=16), 13, 12, belly=0.25)
     elif kind == 'smile': pen.line(bez(L, (cx, cy + 46 * (curve or 1)), R), w=16)
     elif kind == 'frown': pen.line(bez((L[0], L[1] + 10), (cx, cy - 40 * (curve or 1)), (R[0], R[1] + 10)), w=16)
     elif kind == 'smirk': pen.line(bez((cx - hw * 0.9, cy + 6), (cx + hw * 0.2, cy + 14), (cx + hw, cy - 26)), w=16)
@@ -229,7 +272,7 @@ def render(rec):
     for s in 'LR': eye(pen, s, **(rec.get('eyes', {}).get(s, {})))
     mouth(pen, **rec.get('mouth', {}))
     for e in rec.get('extras', []): extra(pen, e)
-    ov = pen.im.resize((W, H), Image.LANCZOS)
+    ov = paint(pen.im, seed=sum(map(ord, str(rec))) % 9973)
     out = BLANK.copy().convert('RGBA'); out.alpha_composite(ov); return out.convert('RGB')
 
 # ---- variants: <name>_blink (eyes closed, brows and mouth kept) and <name>_clean (no stubble), for every expression
@@ -255,7 +298,7 @@ def blinked(rgb_img):
     base = Image.fromarray(cv2.cvtColor((bgr * (1 - m) + plate * m).astype(np.uint8), cv2.COLOR_BGR2RGB)).convert('RGBA')
     pen = Pen()
     for s in 'LR': eye(pen, s, kind='closed')
-    base.alpha_composite(pen.im.resize((W, H), Image.LANCZOS)); return base.convert('RGB')
+    base.alpha_composite(paint(pen.im, seed=11)); return base.convert('RGB')
 def save(img, name): img.quantize(colors=112, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(os.path.join(D, 'expressions', f'face_{name}.png'), optimize=True)
 
 if __name__ == '__main__':

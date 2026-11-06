@@ -22,7 +22,7 @@ export const CREATURE_NAMES = [
   'lion', 'zebra', 'giraffe', 'elephant', 'hippo', 'crocodile', 'monkey', 'gorilla',
   'bear', 'dog', 'cat', 'rat', 'cow', 'pig', 'sheep', 'horse', 'goat', 'rabbit',
   'frog', 'shark', 'fish', 'octopus', 'penguin', 'owl', 'alien', 'robot', 'ghost',
-  'snowman', 'banana-man',
+  'snowman', 'banana-man', 'worm', 'avocat',
 ];
 export const CREATURE_CLIPS = ['idle', 'walk', 'run', 'flee', 'fly', 'hop', 'peck', 'sit', 'talk', 'celebrate', 'sleep', 'angry', 'eat', 'grow', 'carry', 'point'];
 export const CREATURE_EXPRESSIONS = ['neutral', 'angry', 'sad', 'surprised', 'shocked', 'smug', 'sleepy', 'happy', 'scared', 'suspicious', 'closed', 'blink', 'dead', 'talk'];
@@ -1004,6 +1004,52 @@ const SPECIES = {
     }
     R.plan = 'blob'; R.loco = 'hop'; R.height = 1.65;
   },
+  worm(R, o) { // « Le ver de terre »: a big pink earthworm standing out of the ground — joints seg0..seg8 (seg0 starts 0.15 m under y = 0), a round head
+    // with googly eyes, brows and a mouth that opens huge ('gulp' clip), a darker saddle band; o.bowtie adds a little red bow tie under the head (court)
+    const c = col(o, { body: '#E79C98', band: '#C66F6C', groove: '#C98480', mouth: '#5A1E22', tongue: '#D9606A' });
+    R.ol = 0.008;
+    const N = 9, L = o.seg || 0.075, r0 = o.r || 0.058; let parent = R.mover; R.bulges = [];
+    for (let i = 0; i < N; i++) {
+      const j = R.joint('seg' + i, parent, 0, i === 0 ? -0.15 : L, 0), rr = r0 * (1 - Math.max(0, i - 3) * 0.018);
+      R.a(j, cyl(rr * 0.98, rr, L * 1.1, i === 5 || i === 6 ? c.band : c.body, 12, { pivot: 'bottom' }), null, null, R.ol);
+      R.a(j, new THREE.Mesh(new THREE.TorusGeometry(rr * 1.0, 0.0045, 4, 14), mat(c.groove)), [0, L * 0.99, 0], [PI / 2, 0, 0], false);
+      const b = R.a(j, facet(rr * 1.75, L * 1.1, rr * 1.75, c.body, { seed: 80 + i, jit: 0.04 }), [0, L * 0.5, 0], null, R.ol); b.visible = false; R.bulges.push(b);   // the swallowed lump
+      parent = j;
+    }
+    const hd = R.joint('head', parent, 0, L, 0);
+    R.a(hd, facet(r0 * 1.12, r0 * 1.3, r0 * 1.08, c.body, { seed: 71, jit: 0.03, detail: 2 }), [0, r0 * 0.95, 0]);
+    addEyes(R, hd, { x: r0 * 0.46, y: r0 * 1.3, z: r0 * 0.86, r: r0 * 0.43, lid: c.body, browY: 1.45, browT: 0.2 });
+    const jaw = R.joint('jaw', hd, 0, r0 * 0.6, r0 * 1.02); R.a(jaw, facet(r0 * 0.36, r0 * 0.14, 0.012, c.mouth, { detail: 0 }), null, null, false);
+    R.a(jaw, facet(r0 * 0.2, r0 * 0.06, 0.008, c.tongue, { detail: 0 }), [0, -r0 * 0.05, 0.004], null, false);
+    if (o.bowtie) { const bt = R.joint('bowtie', parent, 0, L * 0.9, r0 * 0.95); for (const sd of [-1, 1]) R.a(bt, box(0.05, 0.04, 0.012, '#C8322A', { taper: { x: 0.35, z: 1 }, taperAxis: 'x' }), [sd * 0.026, 0, 0], [0, 0, sd * PI / 2], R.ol * 0.6); R.a(bt, box(0.016, 0.02, 0.016, '#A82828'), null, null, R.ol * 0.6); }
+    R.mouthScale = true; R.plan = 'worm'; R.height = N * L - 0.15 + r0 * 2.2;
+    R.post = (q, cl, t, p) => { const g = q.gulp; R.bulges.forEach((b, i) => { b.visible = g != null && Math.abs(g - (N - 1 - i)) < 0.75; }); };
+  },
+  avocat(R, o) { // « Le ver de terre »: the lawyer is an avocado — a half avocado standing (the cut face forward: pale flesh with a green rim, the brown stone
+    // as a belly), dark skin round the back, thin legs; a black lawyer's robe (back, shoulders, sleeves), the white bands (rabat) under the mouth, the épitoge
+    const c = col(o, { skin: '#2E4620', rim: '#94C450', flesh: '#E2EA9A', stone: '#7A4A2A', limb: '#2E4620', robe: '#17181C', white: '#F4F1EA', mouth: '#3A2A18' });
+    R.ol = 0.01;
+    bipedBody(R, { leg: 0.11, legW: 0.035, footH: 0.035, footLen: 0.09, tw: 0.24, th: 0.08, td: 0.16, taper: 1, armW: 0.034, armU: 0.13, armF: 0.13, hand: 'mitten', noTorso: true, noPelvis: true, shY: 2.6, shX: 0.17,
+      colors: { body: c.skin, arm: c.robe, leg: c.limb, hand: c.limb, foot: '#17181C' } });
+    const av = R.joint('head', R.J.torso, 0, -0.02, 0);
+    const hull = pts => { pts = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); const cr = (o2, a, b) => (a[0] - o2[0]) * (b[1] - o2[1]) - (a[1] - o2[1]) * (b[0] - o2[0]); const lo = [], up = [];
+      for (const p2 of pts) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], p2) <= 0) lo.pop(); lo.push(p2); } for (const p2 of pts.slice().reverse()) { while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], p2) <= 0) up.pop(); up.push(p2); } return lo.slice(0, -1).concat(up.slice(0, -1)); };
+    const pear = k => { const pts = []; for (let i = 0; i < 28; i++) { const a = i / 28 * 2 * PI; pts.push([Math.cos(a) * 0.135 * k, 0.14 + Math.sin(a) * 0.135 * k], [Math.cos(a) * 0.08 * k, 0.36 + Math.sin(a) * 0.08 * k]); } return new THREE.Shape(hull(pts).map(([x, y]) => new THREE.Vector2(x, y))); };
+    const eg = new THREE.ExtrudeGeometry(pear(1), { depth: 0.08, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.02, bevelSegments: 2, curveSegments: 6 }); eg.translate(0, 0, -0.04);
+    const body = new THREE.Mesh(eg, [mat(c.rim), mat(c.skin)]); body.castShadow = body.receiveShadow = true; R.a(av, body, [0, 0, 0]);
+    const fg = new THREE.ShapeGeometry(pear(0.86)); fg.translate(0, 0.022, 0); R.a(av, new THREE.Mesh(fg, mat(c.flesh)), [0, 0, 0.0712], null, false);   // the pale flesh inside the green rim
+    R.a(av, facet(0.072, 0.078, 0.05, c.stone, { seed: 64, jit: 0.04, detail: 2 }), [0, 0.13, 0.068]);
+    R.a(av, facet(0.02, 0.014, 0.008, '#B07A52', { detail: 0 }), [-0.025, 0.165, 0.112], null, false);   // shine on the stone
+    addEyes(R, av, { x: 0.042, y: 0.335, z: 0.08, r: 0.034, lid: c.flesh, browY: 1.5 });
+    const jaw = R.joint('jaw', av, 0, 0.262, 0.078); R.a(jaw, facet(0.026, 0.01, 0.008, c.mouth, { detail: 0 }), null, null, false); R.mouthScale = true;
+    // the robe: a back panel and shoulders round the skin side, and the white rabat with its two bands; the épitoge on the left shoulder
+    R.a(av, box(0.3, 0.34, 0.025, c.robe, { taper: { x: 0.8, z: 1 } }), [0, 0.18, -0.085], [0.05, 0, 0]);
+    for (const sd of [-1, 1]) R.a(av, box(0.07, 0.2, 0.15, c.robe, { taper: { x: 0.7, z: 0.8 } }), [sd * 0.12, 0.22, -0.02], [0, 0, sd * 0.28]);
+    R.a(av, box(0.075, 0.016, 0.014, c.white), [0, 0.235, 0.088], null, R.ol * 0.5);
+    for (const sd of [-1, 1]) R.a(av, box(0.022, 0.05, 0.008, c.white), [sd * 0.014, 0.205, 0.094], [0, 0, sd * 0.06], R.ol * 0.5);
+    R.a(av, box(0.045, 0.16, 0.018, c.robe), [0.135, 0.26, 0.04], [0.15, 0, -0.35]); R.a(av, box(0.05, 0.035, 0.022, c.white), [0.16, 0.19, 0.06], [0.15, 0, -0.35], R.ol * 0.5);
+    R.height = 0.72;
+  },
   'banana-man'(R, o) {
     const c = col(o, { body: '#E8C34A', dark: '#B8932A', tip: '#5A4022', limb: '#17181B' });
     R.ol = 0.01;
@@ -1334,7 +1380,30 @@ function blobPose(c, t, p, R) { // ghost, snowman, octopus, snail, frog
   return q;
 }
 
-const PLAN_POSE = { biped: bipedPose, quad: quadPose, bird: birdPose, legs: legsPose, flyer: flyerPose, swim: swimPose, blob: blobPose };
+function wormPose(c, t, p, R) { // the earthworm: the body sways (segments), talks bobbing, leans toward a phone, shakes with anger, swallows ('gulp')
+  const q = { root: {} }, N = 9, sway = (amp, f, lean = 0) => { for (let i = 1; i < N; i++) q['seg' + i] = [lean + amp * 0.45 * S(t * f + i * 0.7), 0, amp * S(t * f * 0.8 + i * 0.6)]; };
+  switch (c) {
+    case 'talk': sway(0.055, 3.2); q.head = [0.1 * S(t * 7), 0.12 * S(t * 1.6), 0]; q.jaw = [0.5 * abs(S(t * 12)), 0, 0]; break;
+    case 'point': sway(0.03, 2.4, 0.13); q.head = [0.35, 0, 0]; q.jaw = [0.45 * abs(S(t * 12)), 0, 0]; break;   // bent down to a phone on the grass, talking
+    case 'angry': sway(0.09, 11, 0.04); q.root.x = 0.008 * S(t * 47); q.head = [0.12, 0, 0.1 * S(t * 23)]; q.jaw = [0.3, 0, 0]; q.expr = 'angry'; break;
+    case 'celebrate': sway(0.12, 5); q.head = [-0.1, 0.25 * S(t * 6), 0]; q.jaw = [0.4, 0, 0]; q.expr = 'happy'; break;
+    case 'grow': { const k = clamp01(t / (p.dur ?? 0.5)); sway(0.08 * (1 - k), 9); q.root.y = -0.6 * (1 - ease.outBack(k)); break; }   // pops out of the ground
+    case 'eat': { // the gulp, t from the key: rear back with the mouth opening, lunge (head swells, mouth huge), back up, the lump travels down, a burp
+      const u = t, rear = clamp01(u / 0.22), lunge = clamp01((u - 0.22) / 0.16), back = clamp01((u - 0.4) / 0.25);
+      const bend = -0.16 * ease.out(rear) * (1 - lunge) + 0.3 * ease.out(lunge) * (1 - ease.inOut(back));
+      for (let i = 1; i < N; i++) q['seg' + i] = [bend, 0, 0.02 * S(t * 9 + i)];
+      const open = u < 0.4 ? ease.out(clamp01(u / 0.3)) : 1 - ease.inOut(back), sw = 1 + 0.9 * open * (u < 0.55 ? 1 : 0);
+      q.jaw = [2.4 * open, 0, 0]; q.scl = { head: [sw, sw, sw] }; q.expr = u < 0.4 ? 'angry' : u < 1.7 ? 'surprised' : 'smug';
+      if (u > 0.62 && u < 1.75) q.gulp = (u - 0.62) / 1.1 * (N - 1);   // lump position, from the head (0) to the ground (N - 1)
+      if (u > 1.85 && u < 2.15) q.jaw = [0.9, 0, 0];   // burp
+      break;
+    }
+    default: sway(0.05, 1.8); q.head = [0.03 * S(t * 0.9), 0.1 * S(t * 0.5), 0];
+  }
+  if (R.mouthScale && q.jaw) { const a = q.jaw[0]; delete q.jaw; q.scl = { ...(q.scl || {}), jaw: [1 + a * 0.55, 1 + a * 3.2, 1] }; }
+  return q;
+}
+const PLAN_POSE = { worm: wormPose, biped: bipedPose, quad: quadPose, bird: birdPose, legs: legsPose, flyer: flyerPose, swim: swimPose, blob: blobPose };
 const CLIP_ALIAS = { stand: 'idle', stareCamera: 'idle', swim: 'walk', jump: 'hop', dance: 'celebrate', wave: 'celebrate', yell: 'angry', angryFist: 'angry', scared: 'flee', chew: 'eat', lieDown: 'sleep', faint: 'sleep', sitWrite: 'sit', slumpDesk: 'sleep', holdOut: 'carry', sneak: 'walk', startle: 'flee', nod: 'talk', shakeHead: 'angry', float: 'fly' };
 
 function resolveClip(R, clip) {
