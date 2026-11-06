@@ -1,0 +1,1522 @@
+{
+ "version": 3,
+ "title": "Le wifi",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "astro1": {
+   "preset": "worker",
+   "seed": 131,
+   "suit": "#2C4A8A",
+   "lapel": "#2C4A8A",
+   "shirt": "#F2F2EE",
+   "pants": "#3A3D44",
+   "hat": "none"
+  },
+  "astro2": {
+   "preset": "madame",
+   "seed": 132,
+   "suit": "#3E7D5A",
+   "lapel": "#F2EDE4",
+   "pants": "#3A3D44"
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.35,
+      0,
+      -1.5
+     ],
+     "ry": -10,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "rage"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone",
+     "name": "smartPhone",
+     "pos": [
+      0.25,
+      1.62,
+      -0.98
+     ],
+     "ry": -10,
+     "scale": 2.0
+    },
+    {
+     "id": "tbl",
+     "name": "table",
+     "pos": [
+      -0.45,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "w": 0.6,
+      "d": 0.45,
+      "h": 0.75
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      -0.45,
+      0.75,
+      -1.6
+     ],
+     "ry": 15
+    },
+    {
+     "id": "bars0",
+     "name": "signalBars",
+     "pos": [
+      -0.3,
+      2.45,
+      -1.25
+     ],
+     "ry": 4,
+     "opts": {
+      "n": 0,
+      "popAt": 0.25,
+      "w": 0.42
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      1.75,
+      1.8
+     ],
+     "to": [
+      0.14,
+      1.74,
+      1.6
+     ],
+     "lookAt": [
+      0.05,
+      1.65,
+      -1.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      1.66,
+      -1.5
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.7667,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.15,
+      0,
+      -1.4
+     ],
+     "ry": -55,
+     "clip": "armsUp",
+     "keys": [
+      {
+       "at": 0.55,
+       "clip": "stand",
+       "expr": "proud",
+       "to": [
+        0.4,
+        0,
+        -1.2
+       ],
+       "dur": 0.3,
+       "face": "keep"
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "arm",
+     "name": "armoire",
+     "pos": [
+      -0.75,
+      0,
+      -2.0
+     ]
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      -0.65,
+      2.03,
+      -1.95
+     ],
+     "ry": 10
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.05,
+      1.75,
+      2.9
+     ],
+     "to": [
+      -0.05,
+      1.76,
+      2.7
+     ],
+     "lookAt": [
+      -0.2,
+      1.5,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.2,
+      1.52,
+      -1.6
+     ]
+    }
+   ],
+   "start": 1.7667,
+   "duration": 1.8333,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "arm",
+     "name": "armoire",
+     "pos": [
+      -0.75,
+      0,
+      -2.0
+     ]
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      -0.65,
+      2.03,
+      -1.95
+     ],
+     "ry": 10
+    },
+    {
+     "id": "bars1",
+     "name": "signalBars",
+     "pos": [
+      -0.65,
+      2.42,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "n": 1,
+      "popAt": -0.021,
+      "w": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.45,
+      2.3,
+      -0.44999999999999996
+     ],
+     "to": [
+      -0.47,
+      2.3,
+      -0.5800000000000001
+     ],
+     "lookAt": [
+      -0.65,
+      2.25,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.65,
+      2.27,
+      -2.0
+     ]
+    }
+   ],
+   "start": 3.6,
+   "duration": 0.8667,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "rooftopPowerLine",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -3.0
+     ],
+     "ry": 15,
+     "clip": "holdUp",
+     "keys": [],
+     "expr": "squint"
+    }
+   ],
+   "props": [
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      0.4,
+      2.55,
+      -2.95
+     ],
+     "ry": 10
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.4,
+      1.15,
+      0.6
+     ],
+     "to": [
+      1.36,
+      1.18,
+      0.4
+     ],
+     "lookAt": [
+      0.35,
+      1.75,
+      -3.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.35,
+      1.77,
+      -3.0
+     ]
+    }
+   ],
+   "start": 4.4667,
+   "duration": 1.4666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "rooftopPowerLine",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -3.0
+     ],
+     "ry": 15,
+     "clip": "holdUp",
+     "keys": [],
+     "expr": "smirk"
+    }
+   ],
+   "props": [
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      0.4,
+      2.55,
+      -2.95
+     ],
+     "ry": 10
+    },
+    {
+     "id": "bars2",
+     "name": "signalBars",
+     "pos": [
+      0.52,
+      2.92,
+      -2.5
+     ],
+     "ry": 0,
+     "opts": {
+      "n": 2,
+      "popAt": -0.007000000000000006,
+      "w": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.8500000000000001,
+      2.4,
+      -0.7000000000000002
+     ],
+     "to": [
+      0.8300000000000001,
+      2.4,
+      -0.8500000000000001
+     ],
+     "lookAt": [
+      0.5,
+      2.35,
+      -3.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.5,
+      2.36,
+      -3.0
+     ]
+    }
+   ],
+   "start": 5.9333,
+   "duration": 1.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      24.66,
+      -40.0
+     ],
+     "ry": 10,
+     "clip": "holdUp",
+     "keys": [],
+     "fx": {
+      "sweat": true,
+      "shiver": true
+     },
+     "expr": "nervous"
+    }
+   ],
+   "props": [
+    {
+     "id": "crane",
+     "name": "towerCrane",
+     "pos": [
+      -4.0,
+      0,
+      -40.0
+     ],
+     "opts": {
+      "h": 24,
+      "jib": 16
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      -2.0,
+      27.21,
+      -39.95
+     ],
+     "ry": 10
+    },
+    {
+     "id": "bars3",
+     "name": "signalBars",
+     "pos": [
+      -1.85,
+      27.58,
+      -39.45
+     ],
+     "ry": 0,
+     "opts": {
+      "n": 3,
+      "popAt": 0.96,
+      "w": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      9.0,
+      2.0,
+      -12.0
+     ],
+     "to": [
+      8.6,
+      2.6,
+      -12.6
+     ],
+     "lookAt": [
+      -2.0,
+      14.0,
+      -40.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.0,
+      15.0,
+      -40.0
+     ]
+    },
+    {
+     "at": 0.66,
+     "from": [
+      -0.3999999999999999,
+      26.56,
+      -36.6
+     ],
+     "to": [
+      -0.5,
+      26.61,
+      -36.85
+     ],
+     "lookAt": [
+      -1.8,
+      26.81,
+      -40.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.8,
+      26.83,
+      -40.0
+     ]
+    }
+   ],
+   "start": 6.9333,
+   "duration": 1.9,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      24.66,
+      -40.0
+     ],
+     "ry": 10,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "proud"
+    }
+   ],
+   "props": [
+    {
+     "id": "crane",
+     "name": "towerCrane",
+     "pos": [
+      -4.0,
+      0,
+      -40.0
+     ],
+     "opts": {
+      "h": 24,
+      "jib": 16
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      -1.95,
+      26.11,
+      -39.5
+     ],
+     "ry": 10
+    },
+    {
+     "id": "bunch",
+     "name": "balloonBunch",
+     "pos": [
+      -1.95,
+      26.18,
+      -39.5
+     ],
+     "opts": {
+      "len": 1.8
+     },
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.3,
+       "scale": 1.0,
+       "dur": 0.35,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.7,
+      26.16,
+      -36.0
+     ],
+     "to": [
+      -0.75,
+      26.18,
+      -36.2
+     ],
+     "lookAt": [
+      -1.95,
+      27.01,
+      -40.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.95,
+      27.03,
+      -40.0
+     ]
+    }
+   ],
+   "start": 8.8333,
+   "duration": 2.0334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      24.66,
+      -40.0
+     ],
+     "ry": 10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.15,
+       "clip": "armsUp",
+       "expr": "shocked",
+       "look": [
+        -1.35,
+        30.61,
+        -40.1
+       ]
+      },
+      {
+       "at": 0.75,
+       "expr": "sob",
+       "fx": {
+        "tears": true
+       }
+      }
+     ],
+     "expr": "proud"
+    }
+   ],
+   "props": [
+    {
+     "id": "crane",
+     "name": "towerCrane",
+     "pos": [
+      -4.0,
+      0,
+      -40.0
+     ],
+     "opts": {
+      "h": 24,
+      "jib": 16
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      -1.95,
+      26.11,
+      -39.5
+     ],
+     "ry": 10,
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -1.35,
+        30.54,
+        -40.1
+       ],
+       "dur": 1.3,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "bunch",
+     "name": "balloonBunch",
+     "pos": [
+      -1.95,
+      26.18,
+      -39.5
+     ],
+     "opts": {
+      "len": 1.8
+     },
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -1.35,
+        30.61,
+        -40.1
+       ],
+       "dur": 1.3,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.3999999999999999,
+      25.66,
+      -35.8
+     ],
+     "to": [
+      -0.44999999999999996,
+      25.76,
+      -35.9
+     ],
+     "lookAt": [
+      -1.8,
+      26.86,
+      -40.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.7,
+      28.06,
+      -40.0
+     ]
+    }
+   ],
+   "start": 10.8667,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "city",
+     "name": "cityBlocks",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "x0": -142,
+      "x1": 150,
+      "z0": -330,
+      "z1": 90,
+      "skip": [
+       [
+        -21,
+        21,
+        -128,
+        120
+       ]
+      ],
+      "park": [
+       -46,
+       32,
+       -222,
+       -132
+      ]
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      2.0,
+      62.0,
+      -62.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        70.0,
+        -50.0
+       ],
+       "dur": 1.767
+      }
+     ]
+    },
+    {
+     "id": "bunch",
+     "name": "balloonBunch",
+     "pos": [
+      2.0,
+      62.07,
+      -62.0
+     ],
+     "opts": {
+      "len": 1.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        70.07,
+        -50.0
+       ],
+       "dur": 1.767
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.6,
+      68.0,
+      -68.5
+     ],
+     "to": [
+      2.1,
+      76.0,
+      -56.5
+     ],
+     "lookAt": [
+      2.0,
+      50.0,
+      -53.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.5,
+      58.0,
+      -41.0
+     ]
+    }
+   ],
+   "start": 12.1667,
+   "duration": 1.7666,
+   "far": 900,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "clouds",
+     "name": "cloudLayer",
+     "pos": [
+      0,
+      118,
+      -60
+     ],
+     "opts": {
+      "w": 500,
+      "d": 500,
+      "n": 200,
+      "h": 18
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      0.0,
+      128.0,
+      -60.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.0,
+        136.0,
+        -64.0
+       ],
+       "dur": 1.7
+      }
+     ]
+    },
+    {
+     "id": "bunch",
+     "name": "balloonBunch",
+     "pos": [
+      0.0,
+      128.07,
+      -60.0
+     ],
+     "opts": {
+      "len": 1.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.0,
+        136.07,
+        -64.0
+       ],
+       "dur": 1.7
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.4,
+      126.6,
+      -55.8
+     ],
+     "to": [
+      2.4,
+      135.0,
+      -59.8
+     ],
+     "lookAt": [
+      0.0,
+      128.4,
+      -60.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      136.4,
+      -64.0
+     ]
+    }
+   ],
+   "start": 13.9333,
+   "duration": 1.7,
+   "setOpts": {
+    "sky": [
+     "#2F5FA8",
+     "#B9DDF2"
+    ],
+    "eiffel": false
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      0,
+      -124,
+      -30
+     ],
+     "opts": {
+      "radius": 58
+     }
+    },
+    {
+     "id": "iss",
+     "name": "spaceStation",
+     "pos": [
+      0.0,
+      0.0,
+      -14.0
+     ],
+     "ry": 20,
+     "opts": {
+      "size": 12,
+      "spin": 0.0
+     }
+    },
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      3.5,
+      -3.0,
+      -10.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.6,
+        1.95,
+        -13.6
+       ],
+       "dur": 0.786,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "bars4",
+     "name": "signalBars",
+     "pos": [
+      2.2,
+      3.3,
+      -11.5
+     ],
+     "ry": 0,
+     "opts": {
+      "n": 4,
+      "popAt": 0.786,
+      "w": 1.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.5,
+      6.5,
+      6.0
+     ],
+     "to": [
+      3.2,
+      6.6,
+      5.2
+     ],
+     "lookAt": [
+      0.3,
+      -2.5,
+      -14.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      -2.0,
+      -14.0
+     ]
+    }
+   ],
+   "start": 15.6333,
+   "duration": 1.7,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "stationInside",
+   "lines": [],
+   "actors": [
+    {
+     "id": "astro1",
+     "pos": [
+      -0.45,
+      0.55,
+      -0.9
+     ],
+     "ry": 15,
+     "clip": "celebrate",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.45,
+        0.65,
+        -0.9
+       ],
+       "dur": 2.0,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "expr": "starEyes"
+    },
+    {
+     "id": "astro2",
+     "pos": [
+      0.55,
+      0.45,
+      -1.15
+     ],
+     "ry": -20,
+     "clip": "celebrate",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.55,
+        0.57,
+        -1.15
+       ],
+       "dur": 2.0,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "expr": "bigGrin"
+    }
+   ],
+   "props": [
+    {
+     "id": "modem",
+     "name": "wifiModem",
+     "pos": [
+      0.95,
+      1.7,
+      -2.33
+     ],
+     "ry": 0,
+     "rot": [
+      1.5708,
+      0,
+      0
+     ]
+    },
+    {
+     "id": "bars5",
+     "name": "signalBars",
+     "pos": [
+      0.8999999999999999,
+      2.35,
+      -2.2
+     ],
+     "ry": 0,
+     "opts": {
+      "n": 4,
+      "popAt": 0.15,
+      "w": 0.5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      2.25,
+      3.2
+     ],
+     "to": [
+      0.14,
+      2.26,
+      2.95
+     ],
+     "lookAt": [
+      0.05,
+      2.05,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      2.06,
+      -1.0
+     ]
+    }
+   ],
+   "start": 17.3333,
+   "duration": 2.1667,
+   "setOpts": {
+    "winX": -1.2
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "stationInside",
+   "lines": [],
+   "actors": [
+    {
+     "id": "astro1",
+     "pos": [
+      -0.5,
+      0.55,
+      -0.2
+     ],
+     "ry": 165,
+     "clip": "float",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.5,
+        0.65,
+        -0.2
+       ],
+       "dur": 2.0,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "expr": "love"
+    },
+    {
+     "id": "astro2",
+     "pos": [
+      0.45,
+      0.45,
+      -0.3
+     ],
+     "ry": 195,
+     "clip": "float",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.45,
+        0.53,
+        -0.3
+       ],
+       "dur": 2.0,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "expr": "laugh"
+    }
+   ],
+   "props": [
+    {
+     "id": "screen",
+     "name": "seriesScreen",
+     "pos": [
+      0.0,
+      1.75,
+      -2.3
+     ],
+     "opts": {
+      "w": 1.3,
+      "h": 0.78
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      2.2,
+      2.6
+     ],
+     "to": [
+      0.52,
+      2.2,
+      2.35
+     ],
+     "lookAt": [
+      0.0,
+      1.95,
+      -1.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.96,
+      -1.2
+     ]
+    }
+   ],
+   "start": 19.5,
+   "duration": 2.1667,
+   "setOpts": {
+    "winX": 1.6
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.1,
+      0,
+      -1.5
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [
+      {
+       "at": 0.74,
+       "expr": "sob",
+       "fx": {
+        "tears": true
+       }
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone",
+     "name": "smartPhone",
+     "pos": [
+      -0.2,
+      1.62,
+      -0.98
+     ],
+     "scale": 2.0
+    },
+    {
+     "id": "bars6",
+     "name": "signalBars",
+     "pos": [
+      0.3,
+      2.42,
+      -1.2
+     ],
+     "ry": 0,
+     "opts": {
+      "n": 0,
+      "popAt": 0.2,
+      "w": 0.3
+     }
+    },
+    {
+     "id": "bill",
+     "name": "waterBill",
+     "pos": [
+      0.158,
+      1.949,
+      -0.709
+     ],
+     "ry": -2.6,
+     "opts": {
+      "w": 0.3,
+      "h": 0.23,
+      "popAt": 0.64,
+      "title": "ABONNEMENT",
+      "amount": "49,99 €",
+      "sub": "CHAQUE MOIS",
+      "stamp": "PRÉLEVÉ"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      1.75,
+      1.5
+     ],
+     "to": [
+      0.12,
+      1.75,
+      1.3
+     ],
+     "lookAt": [
+      0.0,
+      1.7,
+      -1.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.7,
+      -1.5
+     ]
+    },
+    {
+     "at": 0.59,
+     "from": [
+      0.12,
+      1.75,
+      1.3
+     ],
+     "to": [
+      0.1,
+      1.82,
+      0.55
+     ],
+     "lookAt": [
+      0.0,
+      1.7,
+      -1.5
+     ],
+     "lens": 44,
+     "ease": "out",
+     "lookAt2": [
+      0.0,
+      1.75,
+      -1.5
+     ]
+    }
+   ],
+   "start": 21.6667,
+   "duration": 2.3133,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 23.98
+}
