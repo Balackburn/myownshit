@@ -25,15 +25,15 @@ st.shot('S03', 'livingRoom', setOpts=LR, props=[P('arm', 'armoire', pos=ARM), MO
         cams=[cam(0.0, [ARM[0] + 0.3, 2.3, ARM[2] + 1.55], [ARM[0] + 0.28, 2.3, ARM[2] + 1.42], [ARM[0] + 0.1, 2.25, ARM[2]], [ARM[0] + 0.1, 2.27, ARM[2]], lens=44)])
 # 4-6: on the roof: two bars; on a crane: three bars
 ROOF = [0.4, 0, -3.0]
-st.shot('S04', 'rooftopPowerLine', actors=[act('mec', ROOF, 15, 'holdUp', 'squint')], props=[MODEM([ROOF[0], 2.55, ROOF[2] + 0.05], ry=10)],
+st.shot('S04', 'rooftopPowerLine', actors=[act('mec', ROOF, 15, 'holdUp', 'squint')], props=[MODEM([ROOF[0], 2.36, ROOF[2] + 0.05], ry=10)],
         cams=[cam(0.0, [1.4, 1.15, 0.6], [1.36, 1.18, 0.4], [0.35, 1.75, -3.0], [0.35, 1.77, -3.0], lens=44)])
 T5 = st.at('S05', 'L03', 6)
-st.shot('S05', 'rooftopPowerLine', actors=[act('mec', ROOF, 15, 'holdUp', 'smirk')], props=[MODEM([ROOF[0], 2.55, ROOF[2] + 0.05], ry=10), BARS('bars2', 2, [ROOF[0] + 0.12, 2.92, ROOF[2] + 0.5], T5 - 0.05, w=0.3)],
+st.shot('S05', 'rooftopPowerLine', actors=[act('mec', ROOF, 15, 'holdUp', 'smirk')], props=[MODEM([ROOF[0], 2.36, ROOF[2] + 0.05], ry=10), BARS('bars2', 2, [ROOF[0] + 0.12, 2.92, ROOF[2] + 0.5], T5 - 0.05, w=0.3)],
         cams=[cam(0.0, [ROOF[0] + 0.45, 2.4, ROOF[2] + 2.3], [ROOF[0] + 0.43, 2.4, ROOF[2] + 2.15], [ROOF[0] + 0.1, 2.35, ROOF[2]], [ROOF[0] + 0.1, 2.36, ROOF[2]], lens=44)])
 CRANE = [-4.0, 0, -40.0]; TOP = [CRANE[0] + 2.0, 24.66, CRANE[2]]   # the walkway at the jib root (towerCrane userData.top)
 T6 = st.at('S06', 'L04', 3)
 CRANE_P = P('crane', 'towerCrane', pos=CRANE, opts={'h': 24, 'jib': 16})
-st.shot('S06', 'parisStreet', actors=[act('mec', TOP, 10, 'holdUp', 'nervous', fx={'sweat': True, 'shiver': True})], props=[CRANE_P, MODEM([TOP[0], TOP[1] + 2.55, TOP[2] + 0.05], ry=10), BARS('bars3', 3, [TOP[0] + 0.15, TOP[1] + 2.92, TOP[2] + 0.55], T6 - 0.05, w=0.3)],
+st.shot('S06', 'parisStreet', actors=[act('mec', TOP, 10, 'holdUp', 'nervous', fx={'sweat': True, 'shiver': True})], props=[CRANE_P, MODEM([TOP[0], TOP[1] + 2.36, TOP[2] + 0.05], ry=10), BARS('bars3', 3, [TOP[0] + 0.15, TOP[1] + 2.92, TOP[2] + 0.55], T6 - 0.05, w=0.3)],
         cams=[cam(0.0, [9.0, 2.0, -12.0], [8.6, 2.6, -12.6], [-2.0, 14.0, -40.0], [-2.0, 15.0, -40.0], lens=44), cam(T6 - 0.35, [TOP[0] + 1.6, TOP[1] + 1.9, TOP[2] + 3.4], [TOP[0] + 1.5, TOP[1] + 1.95, TOP[2] + 3.15], [TOP[0] + 0.2, TOP[1] + 2.15, TOP[2]], [TOP[0] + 0.2, TOP[1] + 2.17, TOP[2]], lens=44)])
 # 7-8: he ties it to balloons; the balloons leave
 HAND = [TOP[0] + 0.05, TOP[1] + 1.45, TOP[2] + 0.5]
@@ -48,7 +48,7 @@ st.shot('S08', 'parisStreet', actors=[act('mec', TOP, 10, 'stand', 'proud', keys
 CITY = P('city', 'cityBlocks', pos=[0, 0, 0], opts={'x0': -142, 'x1': 150, 'z0': -330, 'z1': 90, 'skip': [[-21, 21, -128, 120]], 'park': [-46, 32, -222, -132]})
 D9 = st.dur('S09'); B9 = [2.0, 62.0, -62.0]; B9b = [0.5, 70.0, -50.0]
 st.shot('S09', 'parisStreet', props=[CITY, MODEM(B9, keys=[k(0.0, to=B9b, dur=D9)]), P('bunch', 'balloonBunch', pos=[B9[0], B9[1] + 0.07, B9[2]], opts={'len': 1.2}, keys=[k(0.0, to=[B9b[0], B9b[1] + 0.07, B9b[2]], dur=D9)])],
-        cams=[cam(0.0, [B9[0] + 1.6, B9[1] + 6.0, B9[2] - 6.5], [B9b[0] + 1.6, B9b[1] + 6.0, B9b[2] - 6.5], [B9[0], B9[1] - 12.0, B9[2] + 9.0], [B9b[0], B9b[1] - 12.0, B9b[2] + 9.0], lens=44)], far=900)
+        cams=[cam(0.0, [B9[0] + 1.6, B9[1] + 6.0, B9[2] - 6.5], [B9b[0] + 1.6, B9b[1] + 6.0, B9b[2] - 6.5], [B9[0], B9[1] - 9.0, B9[2] + 9.0], [B9b[0], B9b[1] - 9.0, B9b[2] + 9.0], lens=44)], far=900)
 D10 = st.dur('S10'); B10 = [0.0, 128.0, -60.0]; B10b = [0.0, 136.0, -64.0]
 st.shot('S10', 'parisStreet', setOpts={'sky': ['#2F5FA8', '#B9DDF2'], 'eiffel': False}, props=[P('clouds', 'cloudLayer', pos=[0, 118, -60], opts={'w': 500, 'd': 500, 'n': 200, 'h': 18}),
         MODEM(B10, keys=[k(0.0, to=B10b, dur=D10)]), P('bunch', 'balloonBunch', pos=[B10[0], B10[1] + 0.07, B10[2]], opts={'len': 1.2}, keys=[k(0.0, to=[B10b[0], B10b[1] + 0.07, B10b[2]], dur=D10)])],
@@ -67,7 +67,7 @@ st.shot('S12', 'stationInside', setOpts={'winX': -1.2}, actors=[act('astro1', [-
 st.shot('S13', 'stationInside', setOpts={'winX': 1.6}, actors=[act('astro1', [-0.5, 0.55, -0.2], 165, 'float', 'love', keys=[k(0.0, to=[-0.5, 0.65, -0.2], dur=2.0, glide=True, face='keep')]),
         act('astro2', [0.45, 0.45, -0.3], 195, 'float', 'laugh', keys=[k(0.0, to=[0.45, 0.53, -0.3], dur=2.0, glide=True, face='keep')])],
         props=[P('screen', 'seriesScreen', pos=[0.0, 1.75, -2.3], opts={'w': 1.3, 'h': 0.78})],
-        cams=[cam(0.0, [0.55, 2.2, 2.6], [0.52, 2.2, 2.35], [0.0, 1.95, -1.2], [0.0, 1.96, -1.2], lens=44)])
+        cams=[cam(0.0, [0.55, 2.2, 2.6], [0.52, 2.2, 2.35], [0.0, 1.95, -1.2], [0.0, 1.96, -1.2], lens=44), cam(1.05, [0.0, 2.45, -2.2], [0.0, 2.45, -2.1], [0.0, 2.3, 0.2], [0.0, 2.31, 0.2], lens=62)])
 # 14: and he pays the subscription (zero bars, the bill pops, push in)
 T14 = st.at('S14', 'L12', 5) - 0.1   # « l'abonnement »
 CAM14, LOOK14 = [0.1, 1.82, 0.55], [0.0, 1.75, -1.5]
@@ -78,7 +78,7 @@ def _onscreen(cam_, look, d, sx, sy):
     return [round(cam_[i] + d * (f[i] + 0.2272 * sx * r[i] + 0.4040 * sy * u[i]), 3) for i in range(3)]
 BILL14 = _onscreen(CAM14, LOOK14, 1.25, 0.42, 0.34); BILL14_RY = round(math.degrees(math.atan2(CAM14[0] - BILL14[0], CAM14[2] - BILL14[2])), 1)
 st.shot('S14', 'livingRoom', setOpts=LR, actors=[act('mec', [-0.1, 0, -1.5], 0, 'showPhone', 'unimpressed', keys=[k(T14 + 0.1, expr='sob', fx={'tears': True})])],
-        props=[P('phone', 'smartPhone', pos=[-0.2, 1.62, -0.98], scale=2.0), BARS('bars6', 0, [0.3, 2.42, -1.2], 0.2, w=0.3),
+        props=[P('phone', 'smartPhone', pos=[-0.2, 1.62, -0.98], scale=2.0), BARS('bars6', 0, [0.2, 2.42, -1.2], 0.2, w=0.26),
                P('bill', 'waterBill', pos=BILL14, ry=BILL14_RY, opts={'w': 0.3, 'h': 0.23, 'popAt': T14, 'title': 'ABONNEMENT', 'amount': '49,99 €', 'sub': 'CHAQUE MOIS', 'stamp': 'PRÉLEVÉ'})],
         cams=[cam(0.0, [0.12, 1.75, 1.5], [0.12, 1.75, 1.3], [0.0, 1.7, -1.5], [0.0, 1.7, -1.5], lens=44), cam(T14 - 0.05, [0.12, 1.75, 1.3], CAM14, [0.0, 1.7, -1.5], LOOK14, lens=44, ease='out')])
 st.card('S03', 'UNE BARRE'); st.card('S10', 'TOUJOURS PLUS HAUT'); st.card('S12', 'LE WIFI')

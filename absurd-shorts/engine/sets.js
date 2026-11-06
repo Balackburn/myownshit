@@ -1199,6 +1199,7 @@ Object.assign(S, {
   stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light
     const g = grp(), back = -2.4, half = 3.2;
     room(g, { wall: '#E9ECEF', floor: '#D3D8DD', back, half, height: 4, front: 6 });
+    g.add(at(box(2 * half + 0.6, 0.2, 9.0, '#DCE1E6'), 0, 4.1, 1.8));   // ceiling (a module, not a room under the sky)
     for (let i = -3; i <= 3; i++) g.add(at(box(0.04, 3.6, 0.03, '#C3C9CF'), i * 0.9, 1.9, back + 0.02));
     for (const y of [0.9, 2.6]) g.add(at(box(2 * half - 0.4, 0.05, 0.08, '#F2C230'), 0, y, back + 0.08));
     [[-2.4, 1.5], [-1.5, 0.6], [1.6, 0.7], [2.5, 1.6]].forEach(([x, y]) => { g.add(at(box(0.7, 0.5, 0.12, '#B9C0C7', { outline: 0.008 }), x, y, back + 0.07));
