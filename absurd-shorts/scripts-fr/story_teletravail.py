@@ -32,7 +32,7 @@ st.shot('S05', 'office', setOpts={'door': False}, actors=[act('boss1', [-0.4, 0,
         cams=[cam(0.0, [0.05, 1.6, 2.6], [0.05, 1.6, 2.35], [0.0, 1.55, -0.9], [0.0, 1.55, -0.9], lens=44)])
 st.shot('S06', 'office', setOpts={'door': False}, actors=[act('chien', [0.0, 0, -1.95], 0, 'sit', 'happy', scale=DOGS)],
         props=DESK(tag='CADRE') + [TIE()],
-        cams=[cam(0.0, [0.35, 1.3, 1.1], [0.33, 1.3, 0.85], [0.0, 1.32, -1.7], [0.0, 1.32, -1.7], lens=44)])
+        cams=[cam(0.0, [0.35, 1.3, 1.1], [0.33, 1.3, 0.85], [0.0, 1.12, -1.7], [0.0, 1.12, -1.7], lens=44)])   # the CADRE plate above the caption band
 TAB = [P('mt', 'table', pos=[0, 0, -0.8], opts={'w': 0.9, 'd': 2.2, 'h': 0.74, 'color': '#C99A62'})] + [P(f'mc{i}', 'chair', pos=[x, 0, z], ry=r, opts={'color': '#2F62B5'}) for i, (x, z, r) in enumerate(((-0.75, -0.3, 90), (-0.75, -1.2, 90), (0.75, -0.3, -90), (0.75, -1.2, -90)))]
 TEAM = lambda e='neutral': [act('emp1', [-0.75, 0, -1.2], 90, 'sit', 'neutral'), act('emp2', [0.75, 0, -1.2], -90, 'sit', 'neutral'), act('emp3', [0.75, 0, -0.3], -90, 'sit', 'neutral'), act('mec', [-0.75, 0, -0.3], 90, 'sit', e)]
 st.shot('S07', 'office', setOpts={'door': False}, actors=TEAM() + [act('chien', [0.0, 0, -2.2], 0, 'point', 'smug', scale=DOGS)],
