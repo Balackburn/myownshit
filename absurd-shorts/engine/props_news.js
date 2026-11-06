@@ -557,4 +557,92 @@ export const NEWS_PROPS = {
     const sea = mesh(new THREE.PlaneGeometry(60 * K, 60 * K).rotateX(-PI / 2), mat(o.sea || '#5AA3DB')); sea.position.y = 0; g.add(sea);
     return g;
   },
+  bathScale(o) { // la balance: a digital bathroom scale (o.w square, white, glass top), a flat LCD near its front (+Z) edge read from above.
+    // o.show [[t, v, from]]: v a number (counts up from `from` over 0.35 s, then blinks twice), 'plane' (airplane-mode icon), '' (off). o.pressAt: the red button sinks.
+    // o.wingsAt: wings, a tail fin (back, -Z), a nose propeller and blinking wingtip lights pop out: a little plane whose nose is the display edge. o.bob [amp, freq, t0]
+    const w = o.w || 0.36, d = w * 0.92, h = 0.04, g = grp(), body = grp(); g.add(body);
+    body.add(at(box(w, h, d, '#F6F6F2', { pivot: 'bottom', outline: 0.004 }), 0, 0.012, 0), at(box(w * 0.93, 0.004, d * 0.9, '#CFDDE4'), 0, h + 0.013, 0));
+    for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) body.add(at(cyl(0.014, 0.016, 0.012, '#4A5058', 8, { pivot: 'bottom' }), sx * w * 0.38, 0, sz * d * 0.38));
+    const dw = w * 0.46, dh = w * 0.17, cv = document.createElement('canvas'); cv.width = 320; cv.height = Math.round(320 * dh / dw);
+    const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+    const lcd = new THREE.Mesh(new THREE.PlaneGeometry(dw, dh), new THREE.MeshBasicMaterial({ map: tex })); lcd.rotation.x = -PI / 2; lcd.position.set(0, h + 0.0165, d / 2 - dh / 2 - 0.022); body.add(lcd);
+    body.add(at(box(dw + 0.014, 0.003, dh + 0.014, '#2A3236'), 0, h + 0.0145, d / 2 - dh / 2 - 0.022));
+    const btn = at(cyl(0.013, 0.013, 0.008, '#C8322A', 10, { pivot: 'bottom' }), -w * 0.38, h + 0.012, d / 2 - 0.03); body.add(btn);
+    const SEG = { 0: 'abcdef', 1: 'bc', 2: 'abdeg', 3: 'abcdg', 4: 'bcfg', 5: 'acdfg', 6: 'acdefg', 7: 'abc', 8: 'abcdefg', 9: 'abcdfg', '-': 'g' };
+    const seg7 = (c, x, y, sw, sh, ch, on, off) => { const t = sw * 0.18, v = sh / 2 - 1.5 * t, R = { a: [x + t, y, sw - 2 * t, t], g: [x + t, y + sh / 2 - t / 2, sw - 2 * t, t], d: [x + t, y + sh - t, sw - 2 * t, t],
+      f: [x, y + t, t, v], b: [x + sw - t, y + t, t, v], e: [x, y + sh / 2 + t / 2, t, v], c: [x + sw - t, y + sh / 2 + t / 2, t, v] };
+      for (const [k, r] of Object.entries(R)) { c.fillStyle = (SEG[ch] || '').includes(k) ? on : off; c.fillRect(...r); } };
+    let cur = null; const draw = s => { if (s === cur) return; cur = s; const c = cv.getContext('2d'), W = cv.width, H = cv.height, on = '#93F8E8', off = 'rgba(147,248,232,0.035)';
+      c.fillStyle = '#132327'; c.fillRect(0, 0, W, H); c.fillStyle = on;
+      if (s === 'plane') { c.save(); c.translate(W / 2, H / 2); const q = H * 0.43; const poly = pts => { c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(x * q, y * q) : c.moveTo(x * q, y * q)); c.closePath(); c.fill(); };
+        c.beginPath(); c.moveTo(-1.0 * q, -0.1 * q); c.lineTo(0.78 * q, -0.1 * q); c.quadraticCurveTo(1.08 * q, 0, 0.78 * q, 0.1 * q); c.lineTo(-1.0 * q, 0.1 * q); c.closePath(); c.fill();
+        poly([[0.18, -0.08], [-0.28, -0.98], [-0.06, -0.98], [0.5, -0.08]]); poly([[0.18, 0.08], [-0.28, 0.98], [-0.06, 0.98], [0.5, 0.08]]);
+        poly([[-0.74, -0.08], [-0.96, -0.44], [-0.83, -0.44], [-0.54, -0.08]]); poly([[-0.74, 0.08], [-0.96, 0.44], [-0.83, 0.44], [-0.54, 0.08]]); c.restore(); }
+      else if (s !== '') { const n = 3, sh = H * 0.7, sw = sh * 0.56, gap = sh * 0.16, kg = H * 0.3, tot = n * sw + (n - 1) * gap + kg * 1.3, x0 = (W - tot) / 2, y0 = (H - sh) / 2, str = String(s).padStart(n, ' ');
+        for (let i = 0; i < n; i++) seg7(c, x0 + i * (sw + gap), y0, sw, sh, str[i], on, off);
+        c.fillStyle = on; c.font = `bold ${kg}px Arial`; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText('kg', x0 + n * (sw + gap) + kg * 0.1, y0 + sh); }
+      tex.needsUpdate = true; };
+    const show = (o.show || []).map(([t0, v, from]) => ({ t0, v, from })).sort((a, b) => a.t0 - b.t0);
+    const textAt = t => { let k = null; for (const x of show) if (t >= x.t0) k = x; if (!k) return o.idle ?? '';
+      if (typeof k.v === 'number') { const u = clamp01((t - k.t0) / 0.35); if (k.from != null && u < 1) return String(Math.round(k.from + (k.v - k.from) * ease.out(u)));
+        const b = t - k.t0 - (k.from != null ? 0.35 : 0); return b < 0.3 && Math.floor(b / 0.075) % 2 === 1 ? '   ' : String(k.v); }
+      if (k.v === 'plane') return t - k.t0 < 0.3 && Math.floor((t - k.t0) / 0.075) % 2 === 1 ? '' : 'plane';
+      return k.v; };
+    const wing = sd => { const p = grp(at(box(0.3, 0.012, 0.12, '#F6F6F2', { outline: 0.003 }), sd * 0.15, 0, 0), at(sphere(0.014, sd < 0 ? '#FF3B30' : '#34C759', 1, { emissive: sd < 0 ? '#FF3B30' : '#34C759' }), sd * 0.3, 0.004, -0.03));
+      p.position.set(sd * w / 2, h * 0.6, 0.0); p.rotation.y = sd * 0.28; body.add(p); return p; };
+    const wL = wing(-1), wR = wing(1);
+    const tail = grp(at(box(0.012, 0.13, 0.1, '#F6F6F2', { pivot: 'bottom', outline: 0.003 }), 0, 0, 0), at(box(0.2, 0.01, 0.06, '#F6F6F2', { outline: 0.003 }), 0, 0.01, 0.0), at(box(0.014, 0.03, 0.05, '#C8322A'), 0, 0.12, -0.02));
+    tail.position.set(0, h + 0.012, -d / 2 + 0.05); body.add(tail);
+    const blades = grp(at(box(0.17, 0.02, 0.006, '#3A3F46'), 0, 0, 0), at(box(0.02, 0.17, 0.006, '#3A3F46'), 0, 0, 0));
+    const blur = new THREE.Mesh(new THREE.CircleGeometry(0.09, 20), new THREE.MeshBasicMaterial({ color: '#C9D3DA', transparent: true, opacity: 0.35, depthWrite: false }));
+    const nose = grp(at(cyl(0.018, 0.022, 0.03, '#C8322A', 10), 0, 0, 0, PI / 2, 0, 0), blades, blur); blades.position.z = 0.02; blur.position.z = 0.021;
+    nose.position.set(0, h * 0.55 + 0.012, d / 2 + 0.018); body.add(nose);
+    const lights = [wL.children[1], wR.children[1]];
+    g.userData.update = t => { draw(textAt(t)); btn.position.y = h + 0.012 - (o.pressAt != null && t >= o.pressAt && t < o.pressAt + 0.3 ? 0.006 : 0);
+      const s = Math.max(0.001, pop(t, o.wingsAt ?? null, 0.32)); for (const x of [wL, wR, tail, nose]) x.scale.setScalar(s);
+      blades.rotation.z = t * 31; lights.forEach(l => { l.visible = Math.floor(t * 2.5) % 2 === 0; });
+      if (o.bob) { const [a, f, t0] = o.bob, u = clamp01((t - t0) / 0.4); body.position.y = u * a * Math.sin(TAU * f * (t - t0)); body.rotation.z = u * 0.07 * Math.sin(TAU * f * 0.7 * (t - t0)); } };
+    g.userData.update(0); return g;
+  },
+  serviceCloud(o) { // a big flat-topped cumulus to land on (o.w wide, top at y = o.top), with a scale-like LCD on its front (+Z) reading o.text ('HORS SERVICE'),
+    // blinking from o.blinkAt; o.squashAt: squash-and-bounce when something lands (pivot at its bottom)
+    const W = o.w || 3.4, D = W * 0.55, TOP = o.top || 1.1, r = rng(o.seed || 23), g = grp(), body = grp(); g.add(body);
+    const geo = new THREE.IcosahedronGeometry(1, 1), mw = mat('#FFFFFF', { flat: true }), ms = mat('#E6EEF5', { flat: true }), L = [];
+    for (let i = 0; i < 7; i++) { const u = i / 6 - 0.5, R = (0.4 + r() * 0.16) * W / 3.4; L.push([u * W * 0.86, R * 0.8, (r() - 0.5) * D * 0.3, R * 1.15, R * 0.8, R * 1.05]); }
+    for (let i = 0; i < 5; i++) { const u = i / 4 - 0.5, R = (0.46 + r() * 0.16) * W / 3.4; L.push([u * W * 0.66, TOP - R * 0.5, (r() - 0.5) * D * 0.3 - 0.05, R * 1.2, R * 0.55, R * 1.05]); }
+    for (const [x, y, z, sx, sy, sz] of L) { const m = mesh(geo, r() < 0.3 ? ms : mw); m.position.set(x, y, z); m.scale.set(sx, sy, sz); body.add(m); }
+    body.add(at(cyl(W * 0.3, W * 0.34, 0.1, '#FFFFFF', 14), 0, TOP - 0.05, -0.05));
+    const front = Math.max(...L.filter(l => Math.abs(l[0]) < W * 0.25 && l[1] < TOP * 0.75).map(l => l[2] + l[5] * 0.82));
+    const dw = o.dw || W * 0.42, dh = dw * 0.3, txt = o.text || 'HORS SERVICE';
+    const pl = canvasPlane(dw, dh, (c, Wc, Hc) => { c.fillStyle = '#132327'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#FF5A3C'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      let px = Hc * 0.5; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * 0.88) { px *= Wc * 0.88 / tw; c.font = `900 ${px}px Arial`; } c.fillText(txt, Wc / 2, Hc * 0.54); }, { res: 512, emissive: 0.9 });
+    const led = at(sphere(dh * 0.09, '#FF3B30', 1, { emissive: '#FF3B30' }), dw / 2 - dh * 0.02, dh / 2 + 0.005, 0.02);
+    const panel = grp(at(box(dw + 0.08, dh + 0.08, 0.06, '#2A3236', { outline: 0.006 }), 0, 0, -0.03), at(pl, 0, 0, 0.002), led); panel.position.set(0, TOP * 0.45, front + 0.16); body.add(panel);
+    g.userData.update = t => { const bl = o.blinkAt != null && t >= o.blinkAt ? (t - o.blinkAt) % 0.5 : 0; led.visible = bl < 0.25; pl.material.emissiveIntensity = o.blinkAt != null && t >= o.blinkAt && bl >= 0.25 ? 0.55 : 0.9;
+      const u = o.squashAt == null ? -1 : t - o.squashAt; if (u >= 0 && u < 0.7) { const s = 1 - 0.2 * Math.sin(u / 0.7 * TAU) * (1 - u / 0.7); body.scale.set(1 + (1 - s) * 0.45, s, 1 + (1 - s) * 0.45); } else body.scale.set(1, 1, 1); };
+    g.userData.update(0); return g;
+  },
+  gymBuilding(o) { // a flat-roofed sports hall o.w × o.d × o.h (front +Z): pale walls, a band of big windows, its name painted huge on the roof (o.text) with a dumbbell (canvas top = -Z), the name on the facade
+    const W = o.w || 26, D = o.d || 30, H = o.h || 9, g = grp(), name = o.text || 'SALLE DE SPORT', rc = o.roof || '#C8463C';
+    g.add(at(box(W, H, D, o.color || '#E4E7EA', { pivot: 'bottom', outline: 0.02 }), 0, 0, 0));
+    for (const [x, z, ry, len] of [[0, D / 2 + 0.03, 0, W], [0, -D / 2 - 0.03, PI, W], [W / 2 + 0.03, 0, PI / 2, D], [-W / 2 - 0.03, 0, -PI / 2, D]]) g.add(at(box(len * 0.9, H * 0.3, 0.06, '#3E6A8E'), x, H * 0.52, z, 0, ry, 0));
+    for (const [x, z, sx, sz] of [[0, D / 2, W + 0.4, 0.4], [0, -D / 2, W + 0.4, 0.4], [W / 2, 0, 0.4, D], [-W / 2, 0, 0.4, D]]) g.add(at(box(sx, 0.5, sz, '#B9BEC4'), x, H + 0.25, z));
+    const roof = canvasPlane(W - 0.5, D - 0.5, (c, Wc, Hc) => { c.fillStyle = rc; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = 'rgba(255,255,255,0.9)'; c.lineWidth = Wc * 0.012; c.strokeRect(Wc * 0.04, Hc * 0.04, Wc * 0.92, Hc * 0.92);
+      c.fillStyle = '#FFFFFF'; const cx = Wc / 2, cy = Hc * 0.27, u = Wc * 0.1; c.fillRect(cx - u * 1.6, cy - u * 0.12, u * 3.2, u * 0.24);
+      for (const sd of [-1, 1]) { c.fillRect(cx + sd * u * 1.15 - u * 0.17, cy - u * 0.62, u * 0.34, u * 1.24); c.fillRect(cx + sd * u * 1.6 - u * 0.13, cy - u * 0.42, u * 0.26, u * 0.84); }
+      c.textAlign = 'center'; c.textBaseline = 'middle'; const lines = o.stack ? name.split(' ') : name.split(' ').length > 2 ? [name.split(' ')[0], name.split(' ').slice(1).join(' ')] : [name], mw = Wc * (o.textW || 0.86);
+      let px = Hc * (o.stack ? 0.15 : 0.17); c.font = `900 ${px}px Arial`; const tw = Math.max(...lines.map(l => c.measureText(l).width)); if (tw > mw) { px *= mw / tw; c.font = `900 ${px}px Arial`; }
+      lines.forEach((l, i) => c.fillText(l, Wc / 2, Hc * 0.6 + (i - (lines.length - 1) / 2) * px * 1.12)); }, { res: 1024 });
+    roof.rotation.x = -PI / 2; roof.position.set(0, H + 0.03, 0); g.add(roof);
+    const sl = name.split(' '); g.add(at(box(8.3, 2.7, 0.12, '#FFFFFF'), 0, H * 0.83, D / 2 + 0.05), at(sign(sl.length > 2 ? sl[0] + '\n' + sl.slice(1).join(' ') : name, 8, 2.4, rc, '#FFFFFF'), 0, H * 0.83, D / 2 + 0.12));
+    return g;
+  },
+  openWindow(o) { // an open French window on a facade (front +Z): the dark room behind, a white frame, a stone sill to stand on (top at y = 0), two blue shutters folded flat on the wall; o.w × o.h
+    const w = o.w || 1.2, h = o.h || 2.2, g = grp(), fc = '#F4F1E8';
+    g.add(at(box(w, h, 0.02, '#1E252D'), 0, h / 2, 0.01), at(box(w, h * 0.3, 0.01, '#5E8F88'), 0, h * 0.15, 0.022), at(box(w * 0.5, 0.06, 0.012, '#C8322A'), -w * 0.12, h * 0.55, 0.023));
+    g.add(at(box(w + 0.14, 0.08, 0.06, fc), 0, h + 0.04, 0.03), at(box(0.07, h, 0.06, fc), -w / 2 - 0.035, h / 2, 0.03), at(box(0.07, h, 0.06, fc), w / 2 + 0.035, h / 2, 0.03));
+    g.add(at(box(w + 0.32, 0.1, 0.34, '#E2D8C4', { outline: 0.004 }), 0, -0.05, 0.13));
+    for (const sd of [-1, 1]) g.add(at(box(w * 0.5, h, 0.04, o.shutter || '#5B7894', { outline: 0.004 }), sd * (w / 2 + 0.08 + w * 0.25), h / 2, 0.04));
+    return g;
+  },
 };

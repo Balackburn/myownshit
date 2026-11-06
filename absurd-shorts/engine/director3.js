@@ -517,6 +517,8 @@ function lookOffsets(A, target, t, pos, ry, sc) {
 function applyHuman(A, pose, pos, ry, s) {
   const obj = A.obj, J = obj.userData.joints;
   for (const j of JOINTS) { if (!J[j]) continue; const r = pose[j] || ZERO; J[j].rotation.set(r[0], r[1], r[2]); }
+  if (J.head) J.head.scale.setScalar(pose.headScale || 1);   // a clip can inflate the head (holding the breath) and flush it red (pose.flush 0..1)
+  const hm = obj.userData.headMesh; if (hm && (pose.flush || hm.userData.flushed)) { const f = pose.flush || 0; for (const m of [].concat(hm.material)) { if (!m.color) continue; m.userData.c0 = m.userData.c0 || m.color.clone(); m.color.copy(m.userData.c0).multiply(new THREE.Color(1, 1 - 0.42 * f, 1 - 0.5 * f)); } hm.userData.flushed = f > 0; }
   const rt = pose.root || {};
   obj.rotation.order = 'YXZ';
   obj.rotation.set(rt.rx || 0, ry + (rt.ry || 0), rt.rz || 0);

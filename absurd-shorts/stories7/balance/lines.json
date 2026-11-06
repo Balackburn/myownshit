@@ -1,0 +1,126 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce con de mec monte sur la balance et voit 100 kilos.",
+  "hl": [
+   "con",
+   "100",
+   "kilos."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il se met sur la pointe des pieds.",
+  "hl": [
+   "pointe",
+   "pieds."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "100 kilos.",
+  "hl": [
+   "100",
+   "kilos."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il retient sa respiration.",
+  "hl": [
+   "respiration."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "100 kilos.",
+  "hl": [
+   "100",
+   "kilos."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il la met en mode avion pour qu'elle soit plus légère.",
+  "hl": [
+   "mode",
+   "avion",
+   "légère."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "La balance décolle par la fenêtre.",
+  "hl": [
+   "décolle",
+   "fenêtre."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il saute dessus pour ne pas reprendre de poids.",
+  "hl": [
+   "saute",
+   "poids."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Elle survole la salle de sport.",
+  "hl": [
+   "salle",
+   "sport."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il fait coucou.",
+  "hl": [
+   "coucou."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "En altitude, elle affiche zéro.",
+  "hl": [
+   "zéro."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Son poids idéal.",
+  "hl": [
+   "idéal."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Elle atterrit sur un nuage qui affiche « hors service ».",
+  "hl": [
+   "nuage",
+   "hors",
+   "service."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il ne s'est jamais senti aussi léger.",
+  "hl": [
+   "léger."
+  ]
+ }
+]

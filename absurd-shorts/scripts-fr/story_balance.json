@@ -1,0 +1,1906 @@
+{
+ "version": 3,
+ "title": "La balance",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.3,
+    "headScale": 1.0,
+    "belly": 0.1
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      -2.1
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.742,
+       "to": [
+        0.3,
+        0.056,
+        -1.6600000000000001
+       ],
+       "dur": 0.36,
+       "clip": "walk",
+       "then": "lookDown"
+      },
+      {
+       "at": 1.319,
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.3,
+      1.25,
+      2.2
+     ],
+     "to": [
+      1.25,
+      1.24,
+      2.02
+     ],
+     "lookAt": [
+      0.3,
+      0.92,
+      -1.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.92,
+      -1.6
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.8333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0.056,
+      -1.6600000000000001
+     ],
+     "ry": 0,
+     "clip": "lookDown",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "show": [
+       [
+        0.177,
+        100,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.36,
+      0.8,
+      -0.9570000000000001
+     ],
+     "to": [
+      0.355,
+      0.76,
+      -0.9970000000000001
+     ],
+     "lookAt": [
+      0.3,
+      0.05,
+      -1.467
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.05,
+      -1.467
+     ]
+    }
+   ],
+   "start": 1.8333,
+   "duration": 1.4667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0.056,
+      -1.6600000000000001
+     ],
+     "ry": 0,
+     "clip": "lookDown",
+     "keys": [
+      {
+       "at": 0.48700000000000004,
+       "clip": "onTiptoes",
+       "expr": "suspicious"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "show": [
+       [
+        0.0,
+        100
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.25,
+      1.2,
+      1.35
+     ],
+     "to": [
+      2.2,
+      1.18,
+      1.2
+     ],
+     "lookAt": [
+      0.3,
+      1.0,
+      -1.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.98,
+      -1.6
+     ]
+    }
+   ],
+   "start": 3.3,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0.056,
+      -1.6600000000000001
+     ],
+     "ry": 0,
+     "clip": "onTiptoes",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "show": [
+       [
+        0.0,
+        100,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.36,
+      0.8,
+      -0.9570000000000001
+     ],
+     "to": [
+      0.355,
+      0.76,
+      -0.9970000000000001
+     ],
+     "lookAt": [
+      0.3,
+      0.05,
+      -1.467
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.05,
+      -1.467
+     ]
+    }
+   ],
+   "start": 5.0667,
+   "duration": 1.6333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0.056,
+      -1.6600000000000001
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.19699999999999998,
+       "clip": "holdBreath",
+       "expr": "angry"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "show": [
+       [
+        0.0,
+        100
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6599999999999999,
+      1.92,
+      0.0
+     ],
+     "to": [
+      0.64,
+      1.92,
+      -0.18000000000000016
+     ],
+     "lookAt": [
+      0.3,
+      1.9,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.9,
+      -1.6
+     ],
+     "shake": 0.004
+    }
+   ],
+   "start": 6.7,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0.056,
+      -1.6600000000000001
+     ],
+     "ry": 0,
+     "clip": "holdBreath",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "show": [
+       [
+        0.0,
+        100,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.21999999999999997,
+      0.82,
+      -0.9570000000000001
+     ],
+     "to": [
+      0.22499999999999998,
+      0.78,
+      -0.9970000000000001
+     ],
+     "lookAt": [
+      0.3,
+      0.05,
+      -1.467
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.05,
+      -1.467
+     ]
+    }
+   ],
+   "start": 8.4667,
+   "duration": 1.5666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.27999999999999997,
+      0,
+      -1.58
+     ],
+     "ry": 90,
+     "clip": "kneelPress",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "pressAt": 0.554
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      1.0,
+      1.35
+     ],
+     "to": [
+      0.72,
+      0.98,
+      1.22
+     ],
+     "lookAt": [
+      0.0,
+      0.6,
+      -1.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.58,
+      -1.6
+     ]
+    }
+   ],
+   "start": 10.0333,
+   "duration": 1.1334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.27999999999999997,
+      0,
+      -1.58
+     ],
+     "ry": 90,
+     "clip": "kneelPress",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "show": [
+       [
+        0.12,
+        "plane"
+       ]
+      ],
+      "pressAt": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.36,
+      0.8,
+      -0.9570000000000001
+     ],
+     "to": [
+      0.355,
+      0.76,
+      -0.9970000000000001
+     ],
+     "lookAt": [
+      0.3,
+      0.05,
+      -1.467
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      0.05,
+      -1.467
+     ]
+    }
+   ],
+   "start": 11.1667,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.27999999999999997,
+      0,
+      -1.58
+     ],
+     "ry": 90,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.22,
+       "clip": "sitFloor",
+       "expr": "surprised"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "win",
+     "name": "window",
+     "pos": [
+      -1.0,
+      1.15,
+      -3.365
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 1.1,
+      "clouds": true,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.3,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": 0.04,
+      "bob": [
+       0.025,
+       1.6,
+       0.55
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        0.3,
+        0.72,
+        -1.6
+       ],
+       "dur": 0.45,
+       "ease": "out"
+      },
+      {
+       "at": 0.45,
+       "rotTo": [
+        0,
+        -2.488746022489019,
+        0
+       ],
+       "dur": 0.35
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      0.85,
+      1.2
+     ],
+     "to": [
+      0.7,
+      0.88,
+      1.05
+     ],
+     "lookAt": [
+      -0.05,
+      0.75,
+      -1.8
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -0.05,
+      0.8,
+      -1.8
+     ],
+     "shake": 0.006
+    }
+   ],
+   "start": 12.4667,
+   "duration": 0.9333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      10.85,
+      6.19,
+      -2.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.42,
+       "to": [
+        9.950000000000001,
+        6.19,
+        -2.0
+       ],
+       "dur": 0.42,
+       "clip": "walk",
+       "face": "keep",
+       "then": "stand"
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "bld",
+     "name": "haussmann",
+     "pos": [
+      10.15,
+      0,
+      -2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 12.6,
+      "h": 18,
+      "floors": 6,
+      "cols": 5,
+      "color": "#F2DCCB",
+      "awning": "#2F7F5C"
+     }
+    },
+    {
+     "id": "ow",
+     "name": "openWindow",
+     "pos": [
+      10.135,
+      6.19,
+      -2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.2,
+      "h": 2.2
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      10.85,
+      7.19,
+      -2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "bob": [
+       0.015,
+       1.4,
+       0.85
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "path": [
+        [
+         9.700000000000001,
+         7.19,
+         -2.0
+        ],
+        [
+         9.3,
+         6.4,
+         -1.85
+        ],
+        [
+         8.72,
+         5.72,
+         -2.0
+        ]
+       ],
+       "dur": 0.8,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.6,
+      3.6,
+      0.4
+     ],
+     "to": [
+      6.65,
+      3.68,
+      0.3
+     ],
+     "lookAt": [
+      9.4,
+      6.9,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.35,
+      6.85,
+      -2.0
+     ],
+     "shake": 0.006
+    }
+   ],
+   "start": 13.4,
+   "duration": 0.9333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.950000000000001,
+      6.19,
+      -2.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.12,
+       "to": [
+        8.72,
+        5.776,
+        -1.96
+       ],
+       "dur": 0.42,
+       "clip": "airborne",
+       "arc": 0.55,
+       "face": "keep",
+       "then": "surfRide"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bld",
+     "name": "haussmann",
+     "pos": [
+      10.15,
+      0,
+      -2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 12.6,
+      "h": 18,
+      "floors": 6,
+      "cols": 5,
+      "color": "#F2DCCB",
+      "awning": "#2F7F5C"
+     }
+    },
+    {
+     "id": "ow",
+     "name": "openWindow",
+     "pos": [
+      10.135,
+      6.19,
+      -2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.2,
+      "h": 2.2
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      8.72,
+      5.72,
+      -2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "bob": [
+       0.015,
+       1.4,
+       0.0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.7,
+      7.35,
+      1.35
+     ],
+     "to": [
+      4.8,
+      7.3,
+      1.15
+     ],
+     "lookAt": [
+      9.2,
+      6.95,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.15,
+      6.85,
+      -2.0
+     ]
+    }
+   ],
+   "start": 14.3333,
+   "duration": 0.8334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.0,
+      9.056,
+      1.0
+     ],
+     "ry": -165.96375653207352,
+     "clip": "surfRide",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.0,
+        10.056,
+        -11.0
+       ],
+       "dur": 1.567,
+       "glide": true,
+       "face": "keep",
+       "ease": "linear"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      4.0,
+      9.0,
+      1.0
+     ],
+     "ry": -165.96375653207352,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.0,
+        10.0,
+        -11.0
+       ],
+       "dur": 1.567,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.5,
+      9.55,
+      -2.3
+     ],
+     "to": [
+      2.5,
+      10.55,
+      -14.3
+     ],
+     "lookAt": [
+      4.0,
+      10.25,
+      1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.0,
+      11.25,
+      -11.0
+     ]
+    }
+   ],
+   "start": 15.1667,
+   "duration": 1.5666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "aerialSuburb",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.8,
+      12.056,
+      26.0
+     ],
+     "ry": 90,
+     "clip": "surfRide",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.2,
+        12.056,
+        26.0
+       ],
+       "dur": 1.767,
+       "glide": true,
+       "face": "keep",
+       "ease": "linear"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "gym",
+     "name": "gymBuilding",
+     "pos": [
+      3.0,
+      0,
+      -10.0
+     ],
+     "opts": {
+      "w": 26,
+      "d": 30,
+      "h": 9,
+      "text": "SALLE DE SPORT"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      -0.8,
+      12.0,
+      26.0
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.2,
+        12.0,
+        26.0
+       ],
+       "dur": 1.767,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.5,
+      11.7,
+      34.6
+     ],
+     "to": [
+      6.5,
+      11.7,
+      34.6
+     ],
+     "lookAt": [
+      -0.5,
+      11.7,
+      5.100000000000001
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.5,
+      11.7,
+      5.100000000000001
+     ]
+    }
+   ],
+   "start": 16.7333,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "aerialSuburb",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.4,
+      12.056,
+      26.0
+     ],
+     "ry": 90,
+     "clip": "rideWave",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        10.6,
+        12.056,
+        26.0
+       ],
+       "dur": 1.0,
+       "glide": true,
+       "face": "keep",
+       "ease": "linear"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "gym",
+     "name": "gymBuilding",
+     "pos": [
+      3.0,
+      0,
+      -10.0
+     ],
+     "opts": {
+      "w": 26,
+      "d": 30,
+      "h": 9,
+      "text": "SALLE DE SPORT"
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      7.4,
+      12.0,
+      26.0
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        10.6,
+        12.0,
+        26.0
+       ],
+       "dur": 1.0,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      10.3,
+      13.9,
+      26.9
+     ],
+     "to": [
+      13.5,
+      13.9,
+      26.9
+     ],
+     "lookAt": [
+      7.4,
+      13.25,
+      26.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      10.6,
+      13.25,
+      26.0
+     ]
+    }
+   ],
+   "start": 18.5,
+   "duration": 1.0,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      120.056,
+      -0.06
+     ],
+     "ry": 0,
+     "clip": "surfRide",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0,
+      120.0,
+      0
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "show": [
+       [
+        0.0,
+        100
+       ],
+       [
+        1.056,
+        0,
+        100
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.06,
+      120.82,
+      0.64
+     ],
+     "to": [
+      0.055,
+      120.78,
+      0.6
+     ],
+     "lookAt": [
+      0,
+      120.05,
+      0.132
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      120.05,
+      0.132
+     ]
+    }
+   ],
+   "start": 19.5,
+   "duration": 2.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      120.056,
+      -0.06
+     ],
+     "ry": 0,
+     "clip": "rideCheer",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0,
+      120.0,
+      0
+     ],
+     "ry": 0,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "show": [
+       [
+        0.0,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      120.55,
+      2.6
+     ],
+     "to": [
+      0.7,
+      120.6,
+      2.35
+     ],
+     "lookAt": [
+      0,
+      121.25,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      121.28,
+      0
+     ]
+    }
+   ],
+   "start": 21.6,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.4,
+      102.75599999999999,
+      1.8
+     ],
+     "ry": 125,
+     "clip": "surfRide",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.25,
+        101.15599999999999,
+        -0.2
+       ],
+       "dur": 0.55,
+       "glide": true,
+       "face": "keep",
+       "ease": "out"
+      },
+      {
+       "at": 0.55,
+       "clip": "land",
+       "expr": "surprised"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "serviceCloud",
+     "pos": [
+      0,
+      100.0,
+      0
+     ],
+     "opts": {
+      "w": 3.6,
+      "top": 1.1,
+      "text": "HORS SERVICE",
+      "squashAt": 0.55
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      -2.4,
+      102.69999999999999,
+      1.8
+     ],
+     "ry": 125,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "show": [
+       [
+        0.0,
+        0
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.25,
+        101.1,
+        -0.2
+       ],
+       "dur": 0.55,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.3,
+      102.05,
+      5.4
+     ],
+     "to": [
+      3.15,
+      102.0,
+      5.1
+     ],
+     "lookAt": [
+      -0.15,
+      101.85,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      101.75,
+      0.0
+     ],
+     "shake": 0.006
+    }
+   ],
+   "start": 23.0,
+   "duration": 1.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.25,
+      101.15599999999999,
+      -0.2
+     ],
+     "ry": 125,
+     "clip": "lookDown",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "serviceCloud",
+     "pos": [
+      0,
+      100.0,
+      0
+     ],
+     "opts": {
+      "w": 3.6,
+      "top": 1.1,
+      "text": "HORS SERVICE",
+      "blinkAt": 0.12
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.25,
+      101.1,
+      -0.2
+     ],
+     "ry": 125,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "show": [
+       [
+        0.0,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      101.58,
+      7.1
+     ],
+     "to": [
+      0.15,
+      101.56,
+      6.8
+     ],
+     "lookAt": [
+      0.08,
+      101.55,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.08,
+      101.53,
+      0.0
+     ]
+    }
+   ],
+   "start": 24.1,
+   "duration": 1.6667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.25,
+      101.1,
+      -0.25
+     ],
+     "ry": 70,
+     "clip": "lieRelax",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "serviceCloud",
+     "pos": [
+      0,
+      100.0,
+      0
+     ],
+     "opts": {
+      "w": 3.6,
+      "top": 1.1,
+      "text": "HORS SERVICE",
+      "blinkAt": 0.0
+     }
+    },
+    {
+     "id": "scale",
+     "name": "bathScale",
+     "pos": [
+      0.75,
+      101.1,
+      0.1
+     ],
+     "ry": 200,
+     "opts": {
+      "w": 0.44,
+      "wingsAt": -1,
+      "show": [
+       [
+        0.0,
+        0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      102.6,
+      2.5
+     ],
+     "to": [
+      1.9,
+      103.6,
+      5.2
+     ],
+     "lookAt": [
+      0.0,
+      101.2,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      0.0,
+      101.0,
+      0.0
+     ]
+    }
+   ],
+   "start": 25.7667,
+   "duration": 2.8433,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 28.61
+}
