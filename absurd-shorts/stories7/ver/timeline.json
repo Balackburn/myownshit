@@ -42,7 +42,7 @@
   {
    "id": "L02",
    "who": "N",
-   "text": "quand tout à coup, un ver de terre lui a dit :",
+   "text": "quand tout à coup, un ver de terre lui a dit:",
    "hl": [
     "ver",
     "terre"
@@ -264,7 +264,7 @@
   {
    "id": "L06",
    "who": "N",
-   "text": "Motif : dégradation de bien personnel.",
+   "text": "Motif: dégradation de bien personnel.",
    "hl": [
     "dégradation"
    ],
