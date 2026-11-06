@@ -1,0 +1,2279 @@
+{
+ "version": 3,
+ "title": "Le télétravail",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "chien": {
+   "type": "creature",
+   "name": "dog",
+   "opts": {
+    "seed": 4,
+    "upright": true
+   }
+  },
+  "boss1": {
+   "preset": "boss",
+   "seed": 51
+  },
+  "boss2": {
+   "preset": "madame",
+   "seed": 52,
+   "glasses": true
+  },
+  "emp1": {
+   "preset": "politique",
+   "seed": 53
+  },
+  "emp2": {
+   "preset": "madame",
+   "seed": 54
+  },
+  "emp3": {
+   "preset": "prefet",
+   "seed": 55
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.75,
+      0,
+      -1.55
+     ],
+     "ry": -40,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "lap",
+     "name": "laptop",
+     "pos": [
+      0,
+      0.75,
+      -1.3
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "RÉUNION\n9H00",
+      "bg": "#DCE8F2",
+      "fg": "#2C4A8A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.6,
+      2.4
+     ],
+     "to": [
+      0.48,
+      1.6,
+      2.15
+     ],
+     "lookAt": [
+      0.32,
+      1.38,
+      -1.7
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.32,
+      1.38,
+      -1.7
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "lap",
+     "name": "laptop",
+     "pos": [
+      0,
+      0.75,
+      -1.3
+     ],
+     "ry": 180
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.4,
+      0.35
+     ],
+     "to": [
+      0.28,
+      1.4,
+      0.15
+     ],
+     "lookAt": [
+      0.0,
+      1.25,
+      -1.95
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.25,
+      -1.95
+     ]
+    }
+   ],
+   "start": 1.3,
+   "duration": 1.0667,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "grid",
+     "name": "callGrid",
+     "pos": [
+      0,
+      1.05,
+      -1.3
+     ],
+     "opts": {
+      "w": 0.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.03,
+      1.05,
+      -0.45
+     ],
+     "to": [
+      0.03,
+      1.05,
+      -0.6
+     ],
+     "lookAt": [
+      0.0,
+      1.05,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.05,
+      -1.3
+     ]
+    }
+   ],
+   "start": 2.3667,
+   "duration": 1.9333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "sitTalk",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "w",
+     "name": "speechBubble",
+     "pos": [
+      0.12,
+      2.12,
+      -1.9
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "WOUF !",
+      "popAt": 0.25,
+      "tail": "down",
+      "w": 0.62,
+      "h": 0.31
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      1.65,
+      0.5
+     ],
+     "to": [
+      0.19,
+      1.65,
+      0.3
+     ],
+     "lookAt": [
+      0.05,
+      1.62,
+      -1.95
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      1.62,
+      -1.95
+     ],
+     "shake": 0.004
+    }
+   ],
+   "start": 4.3,
+   "duration": 2.2333,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "boss1",
+     "pos": [
+      -0.4,
+      0,
+      -0.9
+     ],
+     "ry": 15,
+     "clip": "nod",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "boss2",
+     "pos": [
+      0.45,
+      0,
+      -0.95
+     ],
+     "ry": -15,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "oui",
+     "name": "speechBubble",
+     "pos": [
+      -0.4,
+      2.55,
+      -0.9
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "OUI !",
+      "popAt": 0.3,
+      "tail": "down",
+      "w": 0.55,
+      "h": 0.275
+     }
+    },
+    {
+     "id": "oui2",
+     "name": "speechBubble",
+     "pos": [
+      0.45,
+      2.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "OUI !",
+      "popAt": 0.6,
+      "tail": "down",
+      "w": 0.55,
+      "h": 0.275
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.6,
+      2.6
+     ],
+     "to": [
+      0.05,
+      1.6,
+      2.35
+     ],
+     "lookAt": [
+      0.0,
+      1.55,
+      -0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.55,
+      -0.9
+     ]
+    }
+   ],
+   "start": 6.5333,
+   "duration": 1.9334,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "noticeBoard",
+     "pos": [
+      0.15,
+      0.84,
+      -0.98
+     ],
+     "opts": {
+      "text": "MANAGER",
+      "style": "tag",
+      "w": 0.46,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.45,
+      1.0
+     ],
+     "to": [
+      0.33,
+      1.45,
+      0.75
+     ],
+     "lookAt": [
+      0.0,
+      1.15,
+      -1.7
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.15,
+      -1.7
+     ]
+    }
+   ],
+   "start": 8.4667,
+   "duration": 1.1,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "emp1",
+     "pos": [
+      -0.75,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "emp2",
+     "pos": [
+      0.75,
+      0,
+      -1.2
+     ],
+     "ry": -90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "emp3",
+     "pos": [
+      0.75,
+      0,
+      -0.3
+     ],
+     "ry": -90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.75,
+      0,
+      -0.3
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      0.0,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "point",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "mt",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "w": 0.9,
+      "d": 2.2,
+      "h": 0.74,
+      "color": "#C99A62"
+     }
+    },
+    {
+     "id": "mc0",
+     "name": "chair",
+     "pos": [
+      -0.75,
+      0,
+      -0.3
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "mc1",
+     "name": "chair",
+     "pos": [
+      -0.75,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "mc2",
+     "name": "chair",
+     "pos": [
+      0.75,
+      0,
+      -0.3
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "mc3",
+     "name": "chair",
+     "pos": [
+      0.75,
+      0,
+      -1.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "chf",
+     "name": "noticeBoard",
+     "pos": [
+      0,
+      2.45,
+      -2.3
+     ],
+     "opts": {
+      "text": "CHEF D'ÉQUIPE",
+      "style": "sign",
+      "w": 0.9,
+      "h": 0.22,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.85,
+      2.2
+     ],
+     "to": [
+      0.1,
+      1.83,
+      1.95
+     ],
+     "lookAt": [
+      0.0,
+      1.2,
+      -1.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.2,
+      -1.1
+     ]
+    }
+   ],
+   "start": 9.5667,
+   "duration": 1.2333,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "emp1",
+     "pos": [
+      -0.75,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "emp2",
+     "pos": [
+      0.75,
+      0,
+      -1.2
+     ],
+     "ry": -90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "emp3",
+     "pos": [
+      0.75,
+      0,
+      -0.3
+     ],
+     "ry": -90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.75,
+      0,
+      -0.3
+     ],
+     "ry": 90,
+     "clip": "sit",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "chien",
+     "pos": [
+      0.0,
+      0,
+      -2.2
+     ],
+     "ry": 0,
+     "clip": "point",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "mt",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "w": 0.9,
+      "d": 2.2,
+      "h": 0.74,
+      "color": "#C99A62"
+     }
+    },
+    {
+     "id": "mc0",
+     "name": "chair",
+     "pos": [
+      -0.75,
+      0,
+      -0.3
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "mc1",
+     "name": "chair",
+     "pos": [
+      -0.75,
+      0,
+      -1.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "mc2",
+     "name": "chair",
+     "pos": [
+      0.75,
+      0,
+      -0.3
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "mc3",
+     "name": "chair",
+     "pos": [
+      0.75,
+      0,
+      -1.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.5,
+      0.55
+     ],
+     "to": [
+      0.5,
+      1.5,
+      0.4
+     ],
+     "lookAt": [
+      -0.75,
+      1.42,
+      -0.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.75,
+      1.42,
+      -0.3
+     ],
+     "shake": 0.005
+    }
+   ],
+   "start": 10.8,
+   "duration": 1.2333,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -1.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.4,
+        0,
+        6.0
+       ],
+       "dur": 1.567,
+       "clip": "walk",
+       "face": "keep"
+      }
+     ],
+     "scale": 1.45,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -2.15,
+      0,
+      6.05
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.25,
+        0,
+        6.05
+       ],
+       "dur": 1.567,
+       "clip": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "collar",
+     "name": "collar",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.66,
+       0.0
+      ]
+     },
+     "opts": {
+      "text": "MEC"
+     },
+     "scale": 1.6
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.4,
+      11.6
+     ],
+     "to": [
+      1.6,
+      1.4,
+      11.6
+     ],
+     "lookAt": [
+      -0.6,
+      1.1,
+      6.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.0,
+      1.1,
+      6.0
+     ]
+    }
+   ],
+   "start": 12.0333,
+   "duration": 1.5667,
+   "tethers": [
+    {
+     "a": {
+      "actor": "chien",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.05,
+       0
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.66,
+       0.1
+      ]
+     },
+     "color": "#C8322A",
+     "radius": 0.012,
+     "sag": 0.15
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "park",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.8,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.9,
+        0,
+        0.0
+       ],
+       "dur": 0.967,
+       "clip": "walk",
+       "face": "keep"
+      }
+     ],
+     "scale": 1.45,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -1.95,
+      0,
+      0.05
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.2499999999999999,
+        0,
+        0.05
+       ],
+       "dur": 0.967,
+       "clip": "walk",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "collar",
+     "name": "collar",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.66,
+       0.0
+      ]
+     },
+     "opts": {
+      "text": "MEC"
+     },
+     "scale": 1.6
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.6,
+      1.0,
+      2.6
+     ],
+     "to": [
+      2.8,
+      1.0,
+      2.3
+     ],
+     "lookAt": [
+      -0.2,
+      1.2,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      1.2,
+      0.0
+     ]
+    }
+   ],
+   "start": 13.6,
+   "duration": 0.9667,
+   "tethers": [
+    {
+     "a": {
+      "actor": "chien",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.05,
+       0
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.66,
+       0.1
+      ]
+     },
+     "color": "#C8322A",
+     "radius": 0.012,
+     "sag": 0.15
+    }
+   ],
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.9,
+      0,
+      -1.6
+     ],
+     "ry": 60,
+     "clip": "raiseOverhead",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      -0.6
+     ],
+     "ry": -110,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        -0.4,
+        0,
+        -1.1
+       ],
+       "dur": 0.7,
+       "clip": "run",
+       "then": "giveItem"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "fold",
+     "name": "folderDoc",
+     "pos": [
+      1.1,
+      0.9,
+      -0.8
+     ],
+     "opts": {
+      "text": "DOSSIER"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "attach": {
+        "actor": "mec",
+        "hand": "R",
+        "rot": [
+         1.5708,
+         0,
+         0
+        ],
+        "offset": [
+         0,
+         -0.13,
+         0.02
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      1.55,
+      2.5
+     ],
+     "to": [
+      0.18,
+      1.55,
+      2.25
+     ],
+     "lookAt": [
+      0.0,
+      1.15,
+      -1.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.15,
+      1.15,
+      -1.2
+     ]
+    }
+   ],
+   "start": 14.5667,
+   "duration": 1.5,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 70,
+     "clip": "sitTalk",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.75,
+      0,
+      -1.3
+     ],
+     "ry": -70,
+     "clip": "sit",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "ry": 90
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      0.84,
+      -1.28
+     ],
+     "ry": 90,
+     "opts": {
+      "text": "MANAGER",
+      "style": "tag",
+      "w": 0.46,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "mch",
+     "name": "chair",
+     "pos": [
+      0.75,
+      0,
+      -1.3
+     ],
+     "ry": -70,
+     "opts": {
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "bg",
+     "name": "speechBubble",
+     "pos": [
+      -0.35,
+      2.2,
+      -1.4
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "BON GARÇON !",
+      "popAt": 0.35,
+      "tail": "down",
+      "w": 0.9,
+      "h": 0.45
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.5,
+      2.9
+     ],
+     "to": [
+      0.39,
+      1.5,
+      2.65
+     ],
+     "lookAt": [
+      0.15,
+      1.25,
+      -1.35
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      1.25,
+      -1.35
+     ]
+    }
+   ],
+   "start": 16.0667,
+   "duration": 2.2333,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "ry": 0,
+     "clip": "lookDown",
+     "keys": [
+      {
+       "at": 0.9,
+       "expr": "sad"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "t",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      -0.75
+     ],
+     "opts": {
+      "w": 0.8,
+      "d": 0.6,
+      "h": 0.74,
+      "color": "#C99A62"
+     }
+    },
+    {
+     "id": "gift",
+     "name": "giftBone",
+     "pos": [
+      0,
+      0.74,
+      -0.7
+     ],
+     "opts": {
+      "openAt": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.6,
+      1.25
+     ],
+     "to": [
+      0.29,
+      1.6,
+      1.05
+     ],
+     "lookAt": [
+      0.0,
+      1.35,
+      -0.95
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.35,
+      -0.95
+     ]
+    }
+   ],
+   "start": 18.3,
+   "duration": 2.1333,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 70,
+     "clip": "sit",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      -1.25
+     ],
+     "ry": -70,
+     "clip": "explain",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "ry": 90
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      0.84,
+      -1.28
+     ],
+     "ry": 90,
+     "opts": {
+      "text": "MANAGER",
+      "style": "tag",
+      "w": 0.46,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.5,
+      2.9
+     ],
+     "to": [
+      0.39,
+      1.5,
+      2.65
+     ],
+     "lookAt": [
+      0.15,
+      1.25,
+      -1.35
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      1.25,
+      -1.35
+     ]
+    }
+   ],
+   "start": 20.4333,
+   "duration": 2.1,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 70,
+     "clip": "pointDown",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "ry": 90
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      0.84,
+      -1.28
+     ],
+     "ry": 90,
+     "opts": {
+      "text": "MANAGER",
+      "style": "tag",
+      "w": 0.46,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "as",
+     "name": "speechBubble",
+     "pos": [
+      -0.05,
+      2.05,
+      -1.3
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "ASSIS !",
+      "popAt": 0.2,
+      "tail": "left",
+      "w": 0.62,
+      "h": 0.31
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.6,
+      0.75
+     ],
+     "to": [
+      0.57,
+      1.6,
+      0.55
+     ],
+     "lookAt": [
+      -0.4,
+      1.58,
+      -1.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.4,
+      1.58,
+      -1.4
+     ],
+     "shake": 0.005
+    }
+   ],
+   "start": 22.5333,
+   "duration": 1.8334,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 70,
+     "clip": "sit",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      -1.25
+     ],
+     "ry": -70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.15,
+       "clip": "sitFloor",
+       "expr": "neutral"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "ry": 90
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      0.84,
+      -1.28
+     ],
+     "ry": 90,
+     "opts": {
+      "text": "MANAGER",
+      "style": "tag",
+      "w": 0.46,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.7,
+      1.2,
+      2.2
+     ],
+     "to": [
+      0.68,
+      1.18,
+      1.95
+     ],
+     "lookAt": [
+      0.32,
+      0.88,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.32,
+      0.86,
+      -1.3
+     ]
+    }
+   ],
+   "start": 24.3667,
+   "duration": 1.0333,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chien",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 70,
+     "clip": "giveItem",
+     "keys": [],
+     "scale": 1.45,
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      -1.25
+     ],
+     "ry": -70,
+     "clip": "sitFloor",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.4
+     ],
+     "ry": 90
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      -0.55,
+      0,
+      -1.4
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "tag",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      0.84,
+      -1.28
+     ],
+     "ry": 90,
+     "opts": {
+      "text": "MANAGER",
+      "style": "tag",
+      "w": 0.46,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "tie_chien",
+     "name": "necktie",
+     "on": {
+      "actor": "chien",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.4,
+       0.12
+      ]
+     },
+     "opts": {
+      "len": 0.24
+     }
+    },
+    {
+     "id": "sugar",
+     "name": "sugarCube",
+     "on": {
+      "actor": "chien",
+      "hand": "R"
+     },
+     "scale": 1.6
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.65,
+      1.2,
+      2.0
+     ],
+     "to": [
+      0.63,
+      1.19,
+      1.78
+     ],
+     "lookAt": [
+      0.28,
+      0.95,
+      -1.32
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.28,
+      0.95,
+      -1.32
+     ]
+    }
+   ],
+   "start": 25.4,
+   "duration": 1.93,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 27.33
+}

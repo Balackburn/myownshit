@@ -298,7 +298,7 @@ const S = {
   // --- "tornado" replica, act 2 -----------------------------------------------------------------------------------
   skyHigh(o = {}) { // above the clouds: blue sky centred on the camera and a deck of cumulus tops at y = 0
     const g = grp(); skyFollow(g, o.sky || ['#5AA8DE', '#9ACDEB'], 3000, o.below || '#DCE5EA');
-    if (o.layer !== false) g.add(prop('cloudLayer', { w: o.w || 1400, d: o.d || 1400, n: o.n || 420, h: o.h || 36, seed: o.seed || 5 }, o.cx || 0, 0, o.cz || 0));
+    if (o.layer !== false) g.add(prop('cloudLayer', { w: o.w || 1400, d: o.d || 1400, n: o.n || 420, h: o.h || 36, seed: o.seed || 5, color: o.cloudColor }, o.cx || 0, 0, o.cz || 0));
     Object.assign(g.userData, { lighting: 'aerial', near: 0.5, far: 5000, fog: o.fog === false ? null : { color: o.fogColor || '#BFDCEF', near: o.fogNear || 500, far: o.fogFar || 2200 }, anchors: { center: [0, 0, 0] } });
     return g;
   },

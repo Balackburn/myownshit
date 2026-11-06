@@ -1,0 +1,127 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a mis son chien en télétravail.",
+  "hl": [
+   "chien",
+   "télétravail."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le chien a fait toutes les réunions.",
+  "hl": [
+   "réunions."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il répondait « wouf » à chaque question.",
+  "hl": [
+   "wouf"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Ses chefs ont compris « oui. »",
+  "hl": [
+   "oui."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a été promu.",
+  "hl": [
+   "promu."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Puis chef d'équipe.",
+  "hl": [
+   "chef",
+   "d'équipe."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "De l'équipe du mec.",
+  "hl": [
+   "mec."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Maintenant, c'est le chien qui le sort deux fois par jour.",
+  "hl": [
+   "chien",
+   "sort"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le mec rapporte les dossiers.",
+  "hl": [
+   "rapporte",
+   "dossiers."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Entretien annuel: « bon garçon. »",
+  "hl": [
+   "bon",
+   "garçon."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Prime de fin d'année: un os.",
+  "hl": [
+   "os."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Hier, il a demandé une augmentation.",
+  "hl": [
+   "augmentation."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le chien a dit: « assis. »",
+  "hl": [
+   "assis."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il s'est assis.",
+  "hl": [
+   "assis."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Il a eu un sucre.",
+  "hl": [
+   "sucre."
+  ]
+ }
+]

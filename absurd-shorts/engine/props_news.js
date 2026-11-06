@@ -561,7 +561,7 @@ export const NEWS_PROPS = {
     // o.show [[t, v, from]]: v a number (counts up from `from` over 0.35 s, then blinks twice), 'plane' (airplane-mode icon), '' (off). o.pressAt: the red button sinks.
     // o.wingsAt: wings, a tail fin (back, -Z), a nose propeller and blinking wingtip lights pop out: a little plane whose nose is the display edge. o.bob [amp, freq, t0]
     const w = o.w || 0.36, d = w * 0.92, h = 0.04, g = grp(), body = grp(); g.add(body);
-    body.add(at(box(w, h, d, '#F6F6F2', { pivot: 'bottom', outline: 0.004 }), 0, 0.012, 0), at(box(w * 0.93, 0.004, d * 0.9, '#CFDDE4'), 0, h + 0.013, 0));
+    body.add(at(box(w, h, d, '#F6F6F2', { pivot: 'bottom', outline: o.outline ?? 0.004 }), 0, 0.012, 0), at(box(w * 0.93, 0.004, d * 0.9, '#CFDDE4'), 0, h + 0.013, 0));
     for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) body.add(at(cyl(0.014, 0.016, 0.012, '#4A5058', 8, { pivot: 'bottom' }), sx * w * 0.38, 0, sz * d * 0.38));
     const dw = w * 0.46, dh = w * 0.17, cv = document.createElement('canvas'); cv.width = 320; cv.height = Math.round(320 * dh / dw);
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
@@ -616,15 +616,21 @@ export const NEWS_PROPS = {
     const geo = new THREE.IcosahedronGeometry(1, 1), mw = mat('#FFFFFF', { flat: true }), ms = mat('#E6EEF5', { flat: true }), L = [];
     for (let i = 0; i < 7; i++) { const u = i / 6 - 0.5, R = (0.4 + r() * 0.16) * W / 3.4; L.push([u * W * 0.86, R * 0.8, (r() - 0.5) * D * 0.3, R * 1.15, R * 0.8, R * 1.05]); }
     for (let i = 0; i < 5; i++) { const u = i / 4 - 0.5, R = (0.46 + r() * 0.16) * W / 3.4; L.push([u * W * 0.66, TOP - R * 0.5, (r() - 0.5) * D * 0.3 - 0.05, R * 1.2, R * 0.55, R * 1.05]); }
-    for (const [x, y, z, sx, sy, sz] of L) { const m = mesh(geo, r() < 0.3 ? ms : mw); m.position.set(x, y, z); m.scale.set(sx, sy, sz); body.add(m); }
+    const mlow = mat(o.lowColor || '#D3DEE9', { flat: true });
+    for (const [x, y, z, sx, sy, sz] of L) { const m = mesh(geo, y < TOP * 0.45 ? mlow : r() < 0.3 ? ms : mw); m.position.set(x, y, z); m.scale.set(sx, sy, sz); body.add(m); }
     body.add(at(cyl(W * 0.3, W * 0.34, 0.1, '#FFFFFF', 14), 0, TOP - 0.05, -0.05));
     const front = Math.max(...L.filter(l => Math.abs(l[0]) < W * 0.25 && l[1] < TOP * 0.85).map(l => l[2] + l[5] * 0.82));
     const dw = o.dw || W * 0.42, dh = dw * 0.3, txt = o.text || 'HORS SERVICE';
-    const pl = canvasPlane(dw, dh, (c, Wc, Hc) => { c.fillStyle = '#132327'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = o.textColor || '#FF3B3B'; c.textAlign = 'center'; c.textBaseline = 'middle';
-      let px = Hc * 0.5; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * 0.88) { px *= Wc * 0.88 / tw; c.font = `900 ${px}px Arial`; } c.fillText(txt, Wc / 2, Hc * 0.54); }, { res: 512, emissive: 0.9 });
+    const lcdBg = (c, Wc, Hc) => { c.fillStyle = '#132327'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = 'rgba(255,90,70,0.07)'; const n = 12, cw = Wc * 0.86 / n;   // unlit ghost cells, like the scale's LCD
+      for (let i = 0; i < n; i++) { const x = Wc * 0.07 + i * cw; c.fillRect(x + cw * 0.12, Hc * 0.2, cw * 0.76, Hc * 0.08); c.fillRect(x + cw * 0.12, Hc * 0.72, cw * 0.76, Hc * 0.08); c.fillRect(x + cw * 0.08, Hc * 0.26, cw * 0.1, Hc * 0.48); c.fillRect(x + cw * 0.78, Hc * 0.26, cw * 0.1, Hc * 0.48); } };
+    const pl = canvasPlane(dw, dh, (c, Wc, Hc) => { lcdBg(c, Wc, Hc); c.fillStyle = o.textColor || '#FF3B3B'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      let px = Hc * 0.5; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * 0.88) { px *= Wc * 0.88 / tw; c.font = `900 ${px}px Arial`; } c.fillText(txt, Wc / 2, Hc * 0.54);
+      c.fillStyle = 'rgba(19,35,39,0.35)'; for (let y = 0; y < Hc; y += Math.max(2, Hc / 40)) c.fillRect(0, y, Wc, Math.max(1, Hc / 120)); }, { res: 512, emissive: 0.9 });
+    const dark = canvasPlane(dw, dh, (c, Wc, Hc) => lcdBg(c, Wc, Hc), { res: 256 }); dark.position.z = 0.001;
     const led = at(sphere(dh * 0.09, '#FF3B30', 1, { emissive: '#FF3B30' }), dw / 2 - dh * 0.02, dh / 2 + 0.005, 0.02);
-    const panel = grp(at(box(dw + 0.08, dh + 0.08, 0.06, '#2A3236', { outline: 0.006 }), 0, 0, -0.03), at(pl, 0, 0, 0.002), led); panel.position.set(0, TOP * (o.panelY ?? 0.45), front + 0.16); body.add(panel);
-    g.userData.update = t => { const bl = o.blinkAt != null && t >= o.blinkAt ? (t - o.blinkAt) % 0.5 : 0; led.visible = bl < 0.25; pl.material.emissiveIntensity = o.blinkAt != null && t >= o.blinkAt && bl >= 0.25 ? 0.55 : 0.9;
+    const panel = grp(at(box(dw + 0.08, dh + 0.08, 0.06, '#2A3236', { outline: 0.006 }), 0, 0, -0.03), at(pl, 0, 0, 0.002), dark, led); panel.position.set(o.panelX || 0, TOP * (o.panelY ?? 0.45), front + 0.16); body.add(panel);
+    g.userData.update = t => { const on = o.bootAt == null || (t >= o.bootAt && (t - o.bootAt > 0.32 || Math.floor((t - o.bootAt) / 0.06) % 2 === 1)); pl.visible = on; dark.visible = !on;
+      const bl = o.blinkAt != null && t >= o.blinkAt ? (t - o.blinkAt) % 0.5 : 0; led.visible = on && bl < 0.25; pl.material.emissiveIntensity = o.blinkAt != null && t >= o.blinkAt && bl >= 0.25 ? 0.6 : 0.9;
       const u = o.squashAt == null ? -1 : t - o.squashAt; if (u >= 0 && u < 0.7) { const s = 1 - 0.2 * Math.sin(u / 0.7 * TAU) * (1 - u / 0.7); body.scale.set(1 + (1 - s) * 0.45, s, 1 + (1 - s) * 0.45); } else body.scale.set(1, 1, 1); };
     g.userData.update(0); return g;
   },
@@ -668,5 +674,51 @@ export const NEWS_PROPS = {
     const m = at(sphere(o.r || 0.06, o.color || '#E2A97C', 1), 0, 0, 0); m.scale.set(0.9, 0.8, 0.55); const g = grp(m);
     g.userData.update = t => { const u = o.growAt == null ? 1 : clamp01((t - o.growAt) / (o.dur || 0.6)); m.visible = u > 0.02; const k = ease.outBack(u) * (1 + 0.04 * Math.sin(t * 13)); m.scale.set(0.9 * k, 0.8 * k, 0.55 * k); };
     g.userData.update(0); return g;
+  },
+  speechBubble(o) { // a white comic speech bubble (o.text) with a tail toward o.tail ('left' | 'right' | 'down'), pops in at o.popAt; faces +Z
+    const w = o.w || 0.7, h = o.h || 0.36, pl = canvasPlane(w, h * 1.35, (c, W, H) => { const bh = H / 1.35, r = bh * 0.45; c.clearRect(0, 0, W, H);
+      c.fillStyle = '#FFFFFF'; c.strokeStyle = '#1C252A'; c.lineWidth = bh * 0.06;
+      const rr = (x, y, ww, hh, rad) => { c.beginPath(); c.moveTo(x + rad, y); c.arcTo(x + ww, y, x + ww, y + hh, rad); c.arcTo(x + ww, y + hh, x, y + hh, rad); c.arcTo(x, y + hh, x, y, rad); c.arcTo(x, y, x + ww, y, rad); c.closePath(); };
+      rr(c.lineWidth, c.lineWidth, W - 2 * c.lineWidth, bh - 2 * c.lineWidth, r); c.fill(); c.stroke();
+      const tx = o.tail === 'right' ? W * 0.72 : o.tail === 'down' ? W * 0.5 : W * 0.28; c.beginPath(); c.moveTo(tx - bh * 0.18, bh - c.lineWidth * 1.5); c.lineTo(tx + (o.tail === 'right' ? bh * 0.3 : o.tail === 'down' ? 0 : -bh * 0.3), H - c.lineWidth); c.lineTo(tx + bh * 0.18, bh - c.lineWidth * 1.5); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle = '#FFFFFF'; c.fillRect(tx - bh * 0.15, bh - c.lineWidth * 3, bh * 0.3, c.lineWidth * 2.4);
+      c.fillStyle = o.fg || '#1C252A'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = bh * 0.46; c.font = `900 ${px}px Arial`; const tw = c.measureText(o.text || 'WOUF !').width; if (tw > W * 0.82) { px *= W * 0.82 / tw; c.font = `900 ${px}px Arial`; }
+      c.fillText(o.text || 'WOUF !', W / 2, bh * 0.52); }, { res: 512, transparent: true });
+    const inner = grp(pl); pl.position.y = -h * 0.175; const g = grp(inner);
+    g.userData.update = t => { if (o.popAt == null) return; const u = clamp01((t - o.popAt) / 0.28); inner.visible = t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u))); };
+    g.userData.update(0); return g;
+  },
+  giftBone(o) { // a red gift box with a gold ribbon whose lid pops off at o.openAt, revealing a big cartoon bone that rises out of it
+    const g = grp(at(box(0.32, 0.22, 0.32, '#C8322A', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(0.06, 0.225, 0.325, '#F2C94C'), 0, 0.112, 0), at(box(0.325, 0.225, 0.06, '#F2C94C'), 0, 0.112, 0));
+    const lid = grp(at(box(0.35, 0.06, 0.35, '#C8322A', { outline: 0.006 }), 0, 0.03, 0), at(box(0.07, 0.065, 0.355, '#F2C94C'), 0, 0.03, 0), at(torus(0.05, 0.015, '#F2C94C', 6, 12), 0, 0.09, 0, PI / 2, 0, 0)); lid.position.y = 0.22; g.add(lid);
+    const bone = grp(at(cyl(0.035, 0.035, 0.34, '#F4EFE2', 8), 0, 0, 0, 0, 0, PI / 2)); for (const sx of [-1, 1]) for (const sz of [-1, 1]) bone.add(at(sphere(0.05, '#F4EFE2', 1), sx * 0.18, 0, sz * 0.035));
+    bone.position.y = 0.12; g.add(bone);
+    g.userData.update = t => { const u = o.openAt == null ? 0 : clamp01((t - o.openAt) / 0.35); lid.position.set(0.25 * u, 0.22 + 0.25 * Math.sin(u * PI) * 1.2, 0); lid.rotation.z = -1.4 * u; bone.position.y = 0.12 + 0.28 * ease.outBack(clamp01((t - (o.openAt ?? 1e9) - 0.1) / 0.35)); bone.rotation.z = 0.3 * Math.sin(t * 3) * u; };
+    g.userData.update(0); return g;
+  },
+  folderDoc(o) { // a manila folder with papers (o.text on its tab label); hold it or throw it
+    const g = grp(at(box(0.32, 0.02, 0.24, '#E2B866', { outline: 0.004 }), 0, 0, 0), at(box(0.29, 0.012, 0.22, '#F7F3EA'), 0, 0.012, 0.005), at(box(0.1, 0.022, 0.03, '#E2B866'), -0.08, 0, -0.13));
+    if (o.text) g.add(at(label(o.text, 0.16, 0.05, { bg: '#FFFFFF', fg: '#1C252A' }), 0, 0.02, 0.0, -PI / 2, 0, 0));
+    return g;
+  },
+  sugarCube(o) { return grp(at(box(0.035, 0.035, 0.035, '#FFFFFF', { outline: 0.002 }), 0, 0.0175, 0)); },  // a sugar cube
+  callGrid(o) { // a laptop-style video call: o.tiles faces in a 2x2 grid (o.labels), o.bark tile index shows a "WOUF" bubble from o.barkAt; front +Z, o.w wide
+    const w = o.w || 0.34, h = w * 0.62, labels = o.labels || ['CHIEN', 'BOSS', 'RH', 'COMPTA'];
+    const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#1E2229'; c.fillRect(0, 0, W, H); const tw = W / 2, th = H / 2;
+      const bgs = ['#7FA7C9', '#C9A27A', '#9FC49A', '#C99AB8'];
+      for (let i = 0; i < 4; i++) { const x = (i % 2) * tw, y = Math.floor(i / 2) * th; c.fillStyle = bgs[i]; c.fillRect(x + 3, y + 3, tw - 6, th - 6);
+        if (i === 0) { c.fillStyle = '#C99A62'; c.fillRect(x + tw * 0.32, y + th * 0.22, tw * 0.36, th * 0.55); c.fillStyle = '#7A5232'; c.fillRect(x + tw * 0.24, y + th * 0.24, tw * 0.1, th * 0.3); c.fillRect(x + tw * 0.66, y + th * 0.24, tw * 0.1, th * 0.3);
+          c.fillStyle = '#E8D2AE'; c.fillRect(x + tw * 0.42, y + th * 0.5, tw * 0.16, th * 0.16); c.fillStyle = '#1C1C20'; c.fillRect(x + tw * 0.47, y + th * 0.5, tw * 0.06, th * 0.05); c.fillRect(x + tw * 0.39, y + th * 0.38, tw * 0.04, th * 0.06); c.fillRect(x + tw * 0.57, y + th * 0.38, tw * 0.04, th * 0.06);
+          c.fillStyle = '#C8322A'; c.fillRect(x + tw * 0.46, y + th * 0.78, tw * 0.08, th * 0.2); }
+        else { c.fillStyle = ['#E2A97C', '#D9AA80', '#C98A5A'][i - 1]; c.fillRect(x + tw * 0.36, y + th * 0.2, tw * 0.28, th * 0.48); c.fillStyle = ['#2A2420', '#8A8A86', '#17161A'][i - 1]; c.fillRect(x + tw * 0.34, y + th * 0.16, tw * 0.32, th * 0.1);
+          c.fillStyle = '#1C1C20'; c.fillRect(x + tw * 0.42, y + th * 0.36, tw * 0.04, th * 0.06); c.fillRect(x + tw * 0.54, y + th * 0.36, tw * 0.04, th * 0.06); c.fillRect(x + tw * 0.44, y + th * 0.55, tw * 0.12, th * 0.03);
+          c.fillStyle = ['#2E4563', '#3A3D44', '#5C4330'][i - 1]; c.fillRect(x + tw * 0.26, y + th * 0.72, tw * 0.48, th * 0.26); }
+        c.fillStyle = 'rgba(0,0,0,0.55)'; c.fillRect(x + 6, y + th - 6 - th * 0.16, tw * 0.5, th * 0.14); c.fillStyle = '#FFFFFF'; c.font = `bold ${th * 0.1}px Arial`; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(labels[i] || '', x + 10, y + th - 6 - th * 0.09); } }, { res: 512, emissive: 0.6 });
+    return grp(at(box(w + 0.02, h + 0.02, 0.01, '#3A3D44'), 0, 0, -0.006), pl);
+  },
+  necktie(o) { // a necktie (knot at y 0, blade hanging down o.len), o.color; attach to a torso joint at the collar, front +Z
+    const c = o.color || '#C8322A', L = o.len || 0.26, g = grp(at(box(0.05, 0.04, 0.025, c, { outline: 0.003 }), 0, -0.02, 0), at(box(0.06, L, 0.018, c, { pivot: 'top', outline: 0.003 }), 0, -0.035, 0),
+      at(box(0.042, 0.042, 0.018, c), 0, -0.035 - L, 0, 0, 0, PI / 4));   // straight blade with a pointed tip
+    return g;
   },
 };
