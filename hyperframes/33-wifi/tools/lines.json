@@ -1,0 +1,106 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec ne captait plus le wifi.",
+  "hl": [
+   "wifi."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a posé son modem sur l'armoire, une barre.",
+  "hl": [
+   "l'armoire,",
+   "barre."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il l'a monté sur le toit, deux barres.",
+  "hl": [
+   "toit,",
+   "deux",
+   "barres."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Sur une grue, trois barres.",
+  "hl": [
+   "grue,",
+   "trois",
+   "barres."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Alors il l'a accroché à des ballons.",
+  "hl": [
+   "ballons."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les ballons sont partis.",
+  "hl": [
+   "partis."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Ils sont passés au-dessus de Paris.",
+  "hl": [
+   "Paris."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Puis au-dessus des nuages.",
+  "hl": [
+   "nuages."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Jusqu'à la station spatiale.",
+  "hl": [
+   "station",
+   "spatiale."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Aujourd'hui, les astronautes ont le wifi.",
+  "hl": [
+   "astronautes",
+   "wifi."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Ils regardent des séries toute la journée.",
+  "hl": [
+   "séries"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Et c'est lui qui paie l'abonnement.",
+  "hl": [
+   "paie",
+   "l'abonnement."
+  ]
+ }
+]

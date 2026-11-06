@@ -1,0 +1,546 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec ne captait plus le wifi.",
+   "hl": [
+    "wifi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.7,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.329,
+     "e": 0.481
+    },
+    {
+     "w": "ne",
+     "s": 0.557,
+     "e": 0.633
+    },
+    {
+     "w": "captait",
+     "s": 0.748,
+     "e": 0.938
+    },
+    {
+     "w": "plus",
+     "s": 1.014,
+     "e": 1.09
+    },
+    {
+     "w": "le",
+     "s": 1.129,
+     "e": 1.167
+    },
+    {
+     "w": "wifi.",
+     "s": 1.357,
+     "e": 1.7
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a posé son modem sur l'armoire, une barre.",
+   "hl": [
+    "l'armoire,",
+    "barre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L02.k.wav",
+   "file_start": 1.8,
+   "speech_start": 1.8,
+   "speech_end": 4.39,
+   "words": [
+    {
+     "w": "Il",
+     "s": 1.8,
+     "e": 1.876
+    },
+    {
+     "w": "a",
+     "s": 1.952,
+     "e": 1.99
+    },
+    {
+     "w": "posé",
+     "s": 2.029,
+     "e": 2.257
+    },
+    {
+     "w": "son",
+     "s": 2.333,
+     "e": 2.41
+    },
+    {
+     "w": "modem",
+     "s": 2.486,
+     "e": 2.714
+    },
+    {
+     "w": "sur",
+     "s": 2.79,
+     "e": 2.867
+    },
+    {
+     "w": "l'armoire,",
+     "s": 2.892,
+     "e": 3.552
+    },
+    {
+     "w": "une",
+     "s": 3.629,
+     "e": 3.705
+    },
+    {
+     "w": "barre.",
+     "s": 3.781,
+     "e": 4.39
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il l'a monté sur le toit, deux barres.",
+   "hl": [
+    "toit,",
+    "deux",
+    "barres."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L03.k.wav",
+   "file_start": 4.49,
+   "speech_start": 4.49,
+   "speech_end": 6.852,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.49,
+     "e": 4.567
+    },
+    {
+     "w": "l'a",
+     "s": 4.643,
+     "e": 4.719
+    },
+    {
+     "w": "monté",
+     "s": 4.795,
+     "e": 5.024
+    },
+    {
+     "w": "sur",
+     "s": 5.1,
+     "e": 5.176
+    },
+    {
+     "w": "le",
+     "s": 5.252,
+     "e": 5.329
+    },
+    {
+     "w": "toit,",
+     "s": 5.405,
+     "e": 5.938
+    },
+    {
+     "w": "deux",
+     "s": 5.976,
+     "e": 6.09
+    },
+    {
+     "w": "barres.",
+     "s": 6.167,
+     "e": 6.852
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Sur une grue, trois barres.",
+   "hl": [
+    "grue,",
+    "trois",
+    "barres."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L04.k.wav",
+   "file_start": 6.952,
+   "speech_start": 6.952,
+   "speech_end": 8.781,
+   "words": [
+    {
+     "w": "Sur",
+     "s": 6.952,
+     "e": 7.105
+    },
+    {
+     "w": "une",
+     "s": 7.181,
+     "e": 7.257
+    },
+    {
+     "w": "grue,",
+     "s": 7.333,
+     "e": 7.867
+    },
+    {
+     "w": "trois",
+     "s": 7.943,
+     "e": 8.095
+    },
+    {
+     "w": "barres.",
+     "s": 8.21,
+     "e": 8.781
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Alors il l'a accroché à des ballons.",
+   "hl": [
+    "ballons."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L05.k.wav",
+   "file_start": 8.881,
+   "speech_start": 8.881,
+   "speech_end": 10.786,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 8.881,
+     "e": 9.186
+    },
+    {
+     "w": "il",
+     "s": 9.414,
+     "e": 9.49
+    },
+    {
+     "w": "l'a",
+     "s": 9.516,
+     "e": 9.567
+    },
+    {
+     "w": "accroché",
+     "s": 9.643,
+     "e": 9.948
+    },
+    {
+     "w": "à",
+     "s": 10.024,
+     "e": 10.062
+    },
+    {
+     "w": "des",
+     "s": 10.1,
+     "e": 10.176
+    },
+    {
+     "w": "ballons.",
+     "s": 10.252,
+     "e": 10.786
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les ballons sont partis.",
+   "hl": [
+    "partis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L06.k.wav",
+   "file_start": 10.886,
+   "speech_start": 10.886,
+   "speech_end": 12.105,
+   "words": [
+    {
+     "w": "Les",
+     "s": 10.886,
+     "e": 10.962
+    },
+    {
+     "w": "ballons",
+     "s": 11.038,
+     "e": 11.267
+    },
+    {
+     "w": "sont",
+     "s": 11.343,
+     "e": 11.419
+    },
+    {
+     "w": "partis.",
+     "s": 11.495,
+     "e": 12.105
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Ils sont passés au-dessus de Paris.",
+   "hl": [
+    "Paris."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L07.k.wav",
+   "file_start": 12.205,
+   "speech_start": 12.205,
+   "speech_end": 13.881,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 12.205,
+     "e": 12.357
+    },
+    {
+     "w": "sont",
+     "s": 12.408,
+     "e": 12.51
+    },
+    {
+     "w": "passés",
+     "s": 12.586,
+     "e": 12.814
+    },
+    {
+     "w": "au-dessus",
+     "s": 12.852,
+     "e": 13.195
+    },
+    {
+     "w": "de",
+     "s": 13.233,
+     "e": 13.271
+    },
+    {
+     "w": "Paris.",
+     "s": 13.348,
+     "e": 13.881
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Puis au-dessus des nuages.",
+   "hl": [
+    "nuages."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L08.k.wav",
+   "file_start": 13.981,
+   "speech_start": 13.981,
+   "speech_end": 15.581,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 13.981,
+     "e": 14.286
+    },
+    {
+     "w": "au-dessus",
+     "s": 14.362,
+     "e": 14.705
+    },
+    {
+     "w": "des",
+     "s": 14.743,
+     "e": 14.819
+    },
+    {
+     "w": "nuages.",
+     "s": 14.895,
+     "e": 15.581
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Jusqu'à la station spatiale.",
+   "hl": [
+    "station",
+    "spatiale."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L09.k.wav",
+   "file_start": 15.681,
+   "speech_start": 15.681,
+   "speech_end": 17.281,
+   "words": [
+    {
+     "w": "Jusqu'à",
+     "s": 15.681,
+     "e": 15.986
+    },
+    {
+     "w": "la",
+     "s": 16.024,
+     "e": 16.062
+    },
+    {
+     "w": "station",
+     "s": 16.138,
+     "e": 16.443
+    },
+    {
+     "w": "spatiale.",
+     "s": 16.519,
+     "e": 17.281
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Aujourd'hui, les astronautes ont le wifi.",
+   "hl": [
+    "astronautes",
+    "wifi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L10.k.wav",
+   "file_start": 17.381,
+   "speech_start": 17.381,
+   "speech_end": 19.438,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 17.381,
+     "e": 18.029
+    },
+    {
+     "w": "les",
+     "s": 18.067,
+     "e": 18.143
+    },
+    {
+     "w": "astronautes",
+     "s": 18.219,
+     "e": 18.6
+    },
+    {
+     "w": "ont",
+     "s": 18.638,
+     "e": 18.676
+    },
+    {
+     "w": "le",
+     "s": 18.714,
+     "e": 18.752
+    },
+    {
+     "w": "wifi.",
+     "s": 19.057,
+     "e": 19.438
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Ils regardent des séries toute la journée.",
+   "hl": [
+    "séries"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L11.k.wav",
+   "file_start": 19.538,
+   "speech_start": 19.538,
+   "speech_end": 21.595,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 19.538,
+     "e": 19.69
+    },
+    {
+     "w": "regardent",
+     "s": 19.767,
+     "e": 20.071
+    },
+    {
+     "w": "des",
+     "s": 20.148,
+     "e": 20.224
+    },
+    {
+     "w": "séries",
+     "s": 20.25,
+     "e": 20.529
+    },
+    {
+     "w": "toute",
+     "s": 20.567,
+     "e": 20.757
+    },
+    {
+     "w": "la",
+     "s": 20.795,
+     "e": 20.833
+    },
+    {
+     "w": "journée.",
+     "s": 20.91,
+     "e": 21.595
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Et c'est lui qui paie l'abonnement.",
+   "hl": [
+    "paie",
+    "l'abonnement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/wifi/tts/L12.k.wav",
+   "file_start": 21.695,
+   "speech_start": 21.695,
+   "speech_end": 23.143,
+   "words": [
+    {
+     "w": "Et",
+     "s": 21.695,
+     "e": 21.771
+    },
+    {
+     "w": "c'est",
+     "s": 21.848,
+     "e": 21.924
+    },
+    {
+     "w": "lui",
+     "s": 21.962,
+     "e": 22.152
+    },
+    {
+     "w": "qui",
+     "s": 22.229,
+     "e": 22.305
+    },
+    {
+     "w": "paie",
+     "s": 22.33,
+     "e": 22.381
+    },
+    {
+     "w": "l'abonnement.",
+     "s": 22.407,
+     "e": 23.143
+    }
+   ]
+  }
+ ],
+ "total": 23.98
+}
