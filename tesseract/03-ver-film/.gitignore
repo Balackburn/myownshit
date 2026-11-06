@@ -7,3 +7,5 @@ frames/
 *.tsrct
 *.jpg
 !fast_cmp.jpg
+parts.txt
+check/
