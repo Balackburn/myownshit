@@ -1,0 +1,600 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a monté une armoire en kit.",
+   "hl": [
+    "armoire",
+    "kit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.005,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.329,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "monté",
+     "s": 0.671,
+     "e": 0.862
+    },
+    {
+     "w": "une",
+     "s": 0.9,
+     "e": 0.938
+    },
+    {
+     "w": "armoire",
+     "s": 1.014,
+     "e": 1.319
+    },
+    {
+     "w": "en",
+     "s": 1.395,
+     "e": 1.471
+    },
+    {
+     "w": "kit.",
+     "s": 1.624,
+     "e": 2.005
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "À la fin, il restait une vis.",
+   "hl": [
+    "restait",
+    "vis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L02.k.wav",
+   "file_start": 2.105,
+   "speech_start": 2.105,
+   "speech_end": 4.086,
+   "words": [
+    {
+     "w": "À",
+     "s": 2.105,
+     "e": 2.143
+    },
+    {
+     "w": "la",
+     "s": 2.181,
+     "e": 2.257
+    },
+    {
+     "w": "fin,",
+     "s": 2.333,
+     "e": 2.752
+    },
+    {
+     "w": "il",
+     "s": 2.79,
+     "e": 2.867
+    },
+    {
+     "w": "restait",
+     "s": 2.981,
+     "e": 3.171
+    },
+    {
+     "w": "une",
+     "s": 3.248,
+     "e": 3.4
+    },
+    {
+     "w": "vis.",
+     "s": 3.705,
+     "e": 4.086
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a racheté la même armoire pour savoir où elle allait.",
+   "hl": [
+    "racheté",
+    "armoire"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L03.k.wav",
+   "file_start": 4.186,
+   "speech_start": 4.186,
+   "speech_end": 6.776,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.186,
+     "e": 4.262
+    },
+    {
+     "w": "a",
+     "s": 4.3,
+     "e": 4.338
+    },
+    {
+     "w": "racheté",
+     "s": 4.376,
+     "e": 4.681
+    },
+    {
+     "w": "la",
+     "s": 4.719,
+     "e": 4.795
+    },
+    {
+     "w": "même",
+     "s": 4.871,
+     "e": 5.024
+    },
+    {
+     "w": "armoire",
+     "s": 5.138,
+     "e": 5.481
+    },
+    {
+     "w": "pour",
+     "s": 5.557,
+     "e": 5.633
+    },
+    {
+     "w": "savoir",
+     "s": 5.71,
+     "e": 5.938
+    },
+    {
+     "w": "où",
+     "s": 6.014,
+     "e": 6.065
+    },
+    {
+     "w": "elle",
+     "s": 6.09,
+     "e": 6.167
+    },
+    {
+     "w": "allait.",
+     "s": 6.243,
+     "e": 6.776
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il restait deux vis.",
+   "hl": [
+    "deux",
+    "vis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L04.k.wav",
+   "file_start": 6.876,
+   "speech_start": 6.876,
+   "speech_end": 8.248,
+   "words": [
+    {
+     "w": "Il",
+     "s": 6.876,
+     "e": 7.029
+    },
+    {
+     "w": "restait",
+     "s": 7.143,
+     "e": 7.41
+    },
+    {
+     "w": "deux",
+     "s": 7.448,
+     "e": 7.562
+    },
+    {
+     "w": "vis.",
+     "s": 7.638,
+     "e": 8.248
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il en a racheté dix.",
+   "hl": [
+    "dix."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L05.k.wav",
+   "file_start": 8.348,
+   "speech_start": 8.348,
+   "speech_end": 9.643,
+   "words": [
+    {
+     "w": "Il",
+     "s": 8.348,
+     "e": 8.424
+    },
+    {
+     "w": "en",
+     "s": 8.5,
+     "e": 8.576
+    },
+    {
+     "w": "a",
+     "s": 8.614,
+     "e": 8.652
+    },
+    {
+     "w": "racheté",
+     "s": 8.703,
+     "e": 9.033
+    },
+    {
+     "w": "dix.",
+     "s": 9.071,
+     "e": 9.643
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il restait vingt vis.",
+   "hl": [
+    "vingt",
+    "vis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L06.k.wav",
+   "file_start": 9.743,
+   "speech_start": 9.743,
+   "speech_end": 11.114,
+   "words": [
+    {
+     "w": "Il",
+     "s": 9.743,
+     "e": 9.819
+    },
+    {
+     "w": "restait",
+     "s": 9.895,
+     "e": 10.276
+    },
+    {
+     "w": "vingt",
+     "s": 10.352,
+     "e": 10.467
+    },
+    {
+     "w": "vis.",
+     "s": 10.505,
+     "e": 11.114
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Son appartement est devenu un magasin de meubles.",
+   "hl": [
+    "magasin",
+    "meubles."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L07.k.wav",
+   "file_start": 11.214,
+   "speech_start": 11.214,
+   "speech_end": 13.576,
+   "words": [
+    {
+     "w": "Son",
+     "s": 11.214,
+     "e": 11.367
+    },
+    {
+     "w": "appartement",
+     "s": 11.443,
+     "e": 11.9
+    },
+    {
+     "w": "est",
+     "s": 11.976,
+     "e": 12.052
+    },
+    {
+     "w": "devenu",
+     "s": 12.129,
+     "e": 12.357
+    },
+    {
+     "w": "un",
+     "s": 12.433,
+     "e": 12.51
+    },
+    {
+     "w": "magasin",
+     "s": 12.586,
+     "e": 12.89
+    },
+    {
+     "w": "de",
+     "s": 12.929,
+     "e": 12.967
+    },
+    {
+     "w": "meubles.",
+     "s": 13.043,
+     "e": 13.576
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les voisins venaient y faire leurs courses.",
+   "hl": [
+    "voisins",
+    "courses."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L08.k.wav",
+   "file_start": 13.676,
+   "speech_start": 13.676,
+   "speech_end": 15.581,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.676,
+     "e": 13.829
+    },
+    {
+     "w": "voisins",
+     "s": 13.867,
+     "e": 14.133
+    },
+    {
+     "w": "venaient",
+     "s": 14.21,
+     "e": 14.438
+    },
+    {
+     "w": "y",
+     "s": 14.476,
+     "e": 14.514
+    },
+    {
+     "w": "faire",
+     "s": 14.552,
+     "e": 14.667
+    },
+    {
+     "w": "leurs",
+     "s": 14.743,
+     "e": 14.895
+    },
+    {
+     "w": "courses.",
+     "s": 15.2,
+     "e": 15.581
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le magasin l'a embauché.",
+   "hl": [
+    "embauché."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L09.k.wav",
+   "file_start": 15.681,
+   "speech_start": 15.681,
+   "speech_end": 17.052,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.681,
+     "e": 15.757
+    },
+    {
+     "w": "magasin",
+     "s": 15.833,
+     "e": 16.214
+    },
+    {
+     "w": "l'a",
+     "s": 16.24,
+     "e": 16.29
+    },
+    {
+     "w": "embauché.",
+     "s": 16.367,
+     "e": 17.052
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Son premier client a acheté une armoire.",
+   "hl": [
+    "client",
+    "armoire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L10.k.wav",
+   "file_start": 17.152,
+   "speech_start": 17.152,
+   "speech_end": 19.286,
+   "words": [
+    {
+     "w": "Son",
+     "s": 17.152,
+     "e": 17.305
+    },
+    {
+     "w": "premier",
+     "s": 17.381,
+     "e": 17.61
+    },
+    {
+     "w": "client",
+     "s": 17.8,
+     "e": 17.99
+    },
+    {
+     "w": "a",
+     "s": 18.067,
+     "e": 18.143
+    },
+    {
+     "w": "acheté",
+     "s": 18.219,
+     "e": 18.448
+    },
+    {
+     "w": "une",
+     "s": 18.486,
+     "e": 18.524
+    },
+    {
+     "w": "armoire.",
+     "s": 18.638,
+     "e": 19.286
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le lendemain, il est revenu.",
+   "hl": [
+    "revenu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L11.k.wav",
+   "file_start": 19.386,
+   "speech_start": 19.386,
+   "speech_end": 20.986,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.386,
+     "e": 19.462
+    },
+    {
+     "w": "lendemain,",
+     "s": 19.538,
+     "e": 20.148
+    },
+    {
+     "w": "il",
+     "s": 20.186,
+     "e": 20.224
+    },
+    {
+     "w": "est",
+     "s": 20.3,
+     "e": 20.376
+    },
+    {
+     "w": "revenu.",
+     "s": 20.414,
+     "e": 20.986
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il lui restait une vis.",
+   "hl": [
+    "vis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L12.k.wav",
+   "file_start": 21.086,
+   "speech_start": 21.086,
+   "speech_end": 22.305,
+   "words": [
+    {
+     "w": "Il",
+     "s": 21.086,
+     "e": 21.124
+    },
+    {
+     "w": "lui",
+     "s": 21.162,
+     "e": 21.238
+    },
+    {
+     "w": "restait",
+     "s": 21.314,
+     "e": 21.543
+    },
+    {
+     "w": "une",
+     "s": 21.619,
+     "e": 21.695
+    },
+    {
+     "w": "vis.",
+     "s": 21.886,
+     "e": 22.305
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le mec a dit: « C'est normal. »",
+   "hl": [
+    "normal."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/armoire/tts/L13.k.wav",
+   "file_start": 22.405,
+   "speech_start": 22.405,
+   "speech_end": 24.233,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.405,
+     "e": 22.481
+    },
+    {
+     "w": "mec",
+     "s": 22.557,
+     "e": 22.71
+    },
+    {
+     "w": "a",
+     "s": 22.748,
+     "e": 22.786
+    },
+    {
+     "w": "dit:",
+     "s": 22.862,
+     "e": 23.395
+    },
+    {
+     "w": "C'est",
+     "s": 23.421,
+     "e": 23.471
+    },
+    {
+     "w": "normal.",
+     "s": 23.548,
+     "e": 24.233
+    }
+   ]
+  }
+ ],
+ "total": 25.07
+}

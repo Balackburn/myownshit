@@ -1,0 +1,114 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a monté une armoire en kit.",
+  "hl": [
+   "armoire",
+   "kit."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "À la fin, il restait une vis.",
+  "hl": [
+   "restait",
+   "vis."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a racheté la même armoire pour savoir où elle allait.",
+  "hl": [
+   "racheté",
+   "armoire"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il restait deux vis.",
+  "hl": [
+   "deux",
+   "vis."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il en a racheté dix.",
+  "hl": [
+   "dix."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il restait vingt vis.",
+  "hl": [
+   "vingt",
+   "vis."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Son appartement est devenu un magasin de meubles.",
+  "hl": [
+   "magasin",
+   "meubles."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les voisins venaient y faire leurs courses.",
+  "hl": [
+   "voisins",
+   "courses."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le magasin l'a embauché.",
+  "hl": [
+   "embauché."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Son premier client a acheté une armoire.",
+  "hl": [
+   "client",
+   "armoire."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le lendemain, il est revenu.",
+  "hl": [
+   "revenu."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il lui restait une vis.",
+  "hl": [
+   "vis."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le mec a dit: « C'est normal. »",
+  "hl": [
+   "normal."
+  ]
+ }
+]
