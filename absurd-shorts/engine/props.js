@@ -781,7 +781,9 @@ const B = {
   },
   trashCan(o) {
     const c = o.color || '#7E8A84';
-    const g = grp(cyl(0.26, 0.22, 0.75, c, 8, { pivot: 'bottom' }), at(cyl(0.29, 0.29, 0.06, P.greyDark, 8), 0, 0.78, 0), at(box(0.12, 0.04, 0.04, P.ink), 0, 0.83, 0));
+    const g = o.open ? grp(at(new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.22, 0.75, 8, 1, true), mat(c, { doubleSide: true })), 0, 0.375, 0),   // o.open: no lid, a dark inside
+        at(cyl(0.235, 0.235, 0.01, '#2A2D30', 8), 0, 0.6, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.05, 8, 1, true), mat(P.greyDark, { doubleSide: true })), 0, 0.76, 0))
+      : grp(cyl(0.26, 0.22, 0.75, c, 8, { pivot: 'bottom' }), at(cyl(0.29, 0.29, 0.06, P.greyDark, 8), 0, 0.78, 0), at(box(0.12, 0.04, 0.04, P.ink), 0, 0.83, 0));
     for (let i = 0; i < 4; i++) { const a = i * TAU / 4 + PI / 8; g.add(at(box(0.04, 0.7, 0.02, P.greyDark), Math.sin(a) * 0.245, 0.38, Math.cos(a) * 0.245, -0.05 * 0, a, 0)); }
     return g;
   },

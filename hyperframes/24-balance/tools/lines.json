@@ -7,7 +7,8 @@
    "con",
    "100",
    "kilos."
-  ]
+  ],
+  "say": "Ce con de mec monte sur la balance et voit cent kilos."
  },
  {
   "id": "L02",
@@ -25,7 +26,8 @@
   "hl": [
    "100",
    "kilos."
-  ]
+  ],
+  "say": "Cent kilos."
  },
  {
   "id": "L04",
@@ -42,7 +44,8 @@
   "hl": [
    "100",
    "kilos."
-  ]
+  ],
+  "say": "Cent kilos."
  },
  {
   "id": "L06",

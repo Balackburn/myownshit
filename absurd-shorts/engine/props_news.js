@@ -703,7 +703,7 @@ export const NEWS_PROPS = {
   },
   sugarCube(o) { return grp(at(box(0.035, 0.035, 0.035, '#FFFFFF', { outline: 0.002 }), 0, 0.0175, 0)); },  // a sugar cube
   callGrid(o) { // a laptop-style video call: o.tiles faces in a 2x2 grid (o.labels), o.bark tile index shows a "WOUF" bubble from o.barkAt; front +Z, o.w wide
-    const w = o.w || 0.34, h = w * 0.62, labels = o.labels || ['CHIEN', 'BOSS', 'RH', 'COMPTA'];
+    const w = o.w || 0.34, h = w * 0.62, labels = o.labels || ['CHIEN', 'CHEF', 'RH', 'COMPTA'];
     const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#1E2229'; c.fillRect(0, 0, W, H); const tw = W / 2, th = H / 2;
       const bgs = ['#7FA7C9', '#C9A27A', '#9FC49A', '#C99AB8'];
       for (let i = 0; i < 4; i++) { const x = (i % 2) * tw, y = Math.floor(i / 2) * th; c.fillStyle = bgs[i]; c.fillRect(x + 3, y + 3, tw - 6, th - 6);
@@ -780,26 +780,38 @@ export const NEWS_PROPS = {
       else { pl.visible = false; line.visible = u < 0.34; line.scale.set(0.02, 1, 1); } };
     g.userData.update(0); return g;
   },
-  robotVacuum(o) { // l'aspirateur: a round robot vacuum (r 0.17) with two glowing LED eyes on its front (+Z), spinning side brushes, a status light
-    // (o.low: red light + sleepy half-closed eyes), o.mood 'happy' | 'menace' | 'tired'; o.suckAt: a white suction swirl in front of its mouth from that time
-    // (o.suckUntil); o.binWindow: a clear window on top showing a seated cat-silhouette (« le chat va bien »)
+  robotVacuum(o) { // l'aspirateur: a round robot vacuum (r 0.17) with two glowing LED eyes curved onto its front band (+Z), spinning side brushes, a status light
+    // (o.low: red light + drooping red slits), o.mood 'happy' | 'menace' (angry slant) | 'tired' (drooping); o.suckAt: a white suction swirl in front of its mouth
+    // from that time (o.suckUntil); o.onAt: dark eyes and still brushes until then, then the eyes flicker on; o.hopAt: a little hop; o.binWindow: a clear top window
     const R = 0.17, H = 0.085, g = grp(), body = grp(); g.add(body);
     body.add(at(cyl(R, R, H, o.color || '#2B2F36', 28, { pivot: 'bottom', outline: 0.004 }), 0, 0.012, 0), at(cyl(R * 0.98, R * 0.98, 0.006, '#C9CED4', 28), 0, H + 0.012, 0),
       at(cyl(R * 0.9, R * 0.9, 0.004, o.color || '#2B2F36', 28), 0, H + 0.016, 0));
     const bump = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.01, R * 1.01, H * 0.6, 28, 1, true, -PI * 0.42, PI * 0.84), mat('#9AA3AD', { doubleSide: true })); bump.position.set(0, 0.012 + H * 0.45, 0); body.add(bump);
-    body.add(at(box(R * 0.9, 0.01, 0.02, '#111316'), 0, 0.02, R * 0.95));   // mouth slot
-    const mood = o.mood || 'happy', ec = o.low ? '#FF5A3C' : '#6FF2E4', eyes = grp();
-    for (const sd of [-1, 1]) { const e = at(box(0.045, mood === 'tired' || o.low ? 0.008 : 0.024, 0.006, ec, { emissive: ec }), sd * 0.055, H * 0.62 + 0.012, R * 1.0); e.rotation.z = mood === 'menace' ? sd * -0.35 : 0; eyes.add(e); }
-    body.add(eyes);
+    // a curved strip on the round side (angle ac from +Z, angular width aw, height h); slant tilts it (y += slant · arc length from its centre)
+    const arc = (r, y, h, ac, aw, c, mo = {}, slant = 0) => { const geo = new THREE.CylinderGeometry(r, r, h, 10, 1, true, ac - aw / 2, aw);
+      if (slant) { const q = geo.attributes.position; for (let i = 0; i < q.count; i++) q.setY(i, q.getY(i) + slant * (Math.atan2(q.getX(i), q.getZ(i)) - ac) * r); q.needsUpdate = true; geo.computeVertexNormals(); }
+      const m = new THREE.Mesh(geo, mo.glow ? new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: mo.glow, side: THREE.DoubleSide, depthWrite: false }) : mat(c, { emissive: mo.emissive, doubleSide: true, noGrain: !!mo.emissive }));
+      m.position.y = y; return m; };
+    body.add(arc(R * 1.012, 0.021, 0.008, 0, 0.9, '#15171A'));   // mouth slot: a thin dark curve (no flat slab under the body)
+    const mood = o.mood || 'happy', tired = mood === 'tired' || o.low, ec = o.low ? '#FF5A3C' : '#6FF2E4', ey = H * 0.62 + 0.012, eh = tired ? 0.0075 : 0.026;
+    const eyesOn = grp(), eyesOff = grp();
+    for (const sd of [-1, 1]) { const ac = sd * 0.33, sl = mood === 'menace' ? sd * 0.55 : tired ? -sd * 0.32 : 0;
+      eyesOn.add(arc(R * 1.024, ey, eh, ac, 0.27, ec, { emissive: ec }, sl), arc(R * 1.02, ey, eh + 0.022, ac, 0.4, ec, { glow: 0.26 }, sl));
+      eyesOff.add(arc(R * 1.024, ey, eh, ac, 0.27, '#1F2A2D', {}, sl)); }
+    body.add(eyesOn, eyesOff);
     const light = at(sphere(0.012, o.low ? '#FF3B30' : '#34C759', 1, { emissive: o.low ? '#FF3B30' : '#34C759' }), 0, H + 0.02, R * 0.55); body.add(light);
     if (o.binWindow) { body.add(at(cyl(R * 0.5, R * 0.5, 0.006, '#BFE3EE', 20), 0, H + 0.02, -R * 0.15)); body.add(at(box(0.05, 0.04, 0.03, '#E0A35A'), 0, H + 0.04, -R * 0.15), at(box(0.035, 0.03, 0.025, '#E0A35A'), 0, H + 0.065, -R * 0.12)); }
-    const brushes = [-1, 1].map(sd => { const b = grp(); for (let i = 0; i < 3; i++) { const a = at(box(0.07, 0.003, 0.006, '#D9D2C2'), 0, 0, 0); a.position.set(0.035 * Math.cos(i * TAU / 3), 0, 0.035 * Math.sin(i * TAU / 3)); a.rotation.y = -i * TAU / 3; b.add(a); }
-      b.position.set(sd * R * 0.72, 0.006, R * 0.68); body.add(b); return b; });
+    const brushes = [-1, 1].map(sd => { const b = grp(); for (let i = 0; i < 3; i++) { const a = at(box(0.09, 0.004, 0.011, '#E8E1D0'), 0, 0, 0); a.position.set(0.042 * Math.cos(i * TAU / 3), 0, 0.042 * Math.sin(i * TAU / 3)); a.rotation.y = -i * TAU / 3; b.add(a); }
+      b.add(at(cyl(0.012, 0.012, 0.008, '#5C636B', 8), 0, 0, 0)); b.position.set(sd * R * 0.72, 0.007, R * 0.68); body.add(b); return b; });
     const swirl = grp(); for (let i = 0; i < 4; i++) { const t = new THREE.Mesh(new THREE.TorusGeometry(0.03 + i * 0.018, 0.0025, 4, 20, PI * 1.2), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.45 - i * 0.09, depthWrite: false })); t.rotation.y = PI / 2; t.position.set(0, 0.035, R + 0.02 + i * 0.035); swirl.add(t); }
     body.add(swirl);
-    g.userData.update = t => { brushes.forEach((b, i) => { b.rotation.y = (i ? -1 : 1) * t * 18; });
-      const on = o.suckAt != null && t >= o.suckAt && (o.suckUntil == null || t < o.suckUntil); swirl.visible = on; swirl.children.forEach((r, i) => { r.rotation.x = t * 9 + i; });
-      light.visible = !o.low || Math.floor(t * 3) % 2 === 0; body.position.y = o.idleBob ? 0.004 * Math.sin(t * 11) : 0; };
+    g.userData.update = t => { const on = o.onAt == null || (t >= o.onAt && !(t >= o.onAt + 0.05 && t < o.onAt + 0.1)), spin = o.onAt == null || t >= o.onAt;
+      eyesOn.visible = on; eyesOff.visible = !on;
+      brushes.forEach((b, i) => { b.rotation.y = spin ? (i ? -1 : 1) * (t - (o.onAt || 0)) * 18 : 0; });
+      const suck = o.suckAt != null && t >= o.suckAt && (o.suckUntil == null || t < o.suckUntil); swirl.visible = suck; swirl.children.forEach((r, i) => { r.rotation.x = t * 9 + i; });
+      light.visible = spin && (!o.low || Math.floor(t * 3) % 2 === 0);
+      const hp = o.hopAt != null && t >= o.hopAt && t < o.hopAt + 0.32 ? Math.sin(PI * (t - o.hopAt) / 0.32) : 0;
+      body.position.y = (o.idleBob && spin ? 0.004 * Math.sin(t * 11) : 0) + 0.045 * hp; body.rotation.x = -0.12 * hp; };
     g.userData.update(0); return g;
   },
   chargingDock(o) { // the robot vacuum's charging base (front +Z): a slanted back with a green/red light and two contacts
@@ -830,8 +842,28 @@ export const NEWS_PROPS = {
     ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => g.add(at(box(0.36, 0.7, 0.02, c), 0.18 + i * 0.36, H + 1.75, 0)));
     return g;
   },
-  sockPair(o) { // two striped socks (L-shaped), lying or flying
-    const g = grp(); [[-0.06, '#C8322A'], [0.06, '#2F62B5']].forEach(([x, c]) => { g.add(at(box(0.06, 0.03, 0.22, c, { outline: 0.003 }), x, 0.015, 0), at(box(0.06, 0.03, 0.1, c, { outline: 0.003 }), x, 0.015, 0.14, 0, 0.5, 0), at(box(0.062, 0.032, 0.03, '#F4F1E8'), x, 0.015, -0.09)); });
+  sockPair(o) { // two striped socks (L-shaped), lying or flying; o.colors [base, stripes] (default white with navy stripes, so they read on the red floor)
+    const [bc, sc] = o.colors || ['#F4F1E8', '#2C3E66'], g = grp();
+    [-0.06, 0.06].forEach((x, j) => { const foot = at(box(0.06, 0.03, 0.1, bc, { outline: 0.003 }), x, 0.015, 0.14, 0, j ? 0.5 : 0.35, 0); foot.add(at(box(0.063, 0.033, 0.03, sc), 0, 0, 0.037));
+      g.add(at(box(0.06, 0.03, 0.22, bc, { outline: 0.003 }), x, 0.015, 0), foot, at(box(0.064, 0.034, 0.03, sc), x, 0.015, -0.095));
+      for (const z of [-0.05, -0.005]) g.add(at(box(0.063, 0.033, 0.02, sc), x, 0.015, z)); });
     return g;
+  },
+  dustBunny(o) { // a small grey fluffy dust ball (about 7 cm): faceted grey puffs and a few stray hairs; it wobbles
+    const r = rng(o.seed || 9), g = grp(), core = grp(), cols = ['#A9A9A9', '#C2C2C2', '#909090', '#CFCFCF']; g.add(core);
+    core.add(at(sphere(0.027, cols[0], 0), 0, 0.03, 0));
+    for (let i = 0; i < 14; i++) { const a = r() * TAU, b = (r() - 0.35) * 1.3, rr = 0.024 + r() * 0.01; core.add(at(sphere(0.01 + r() * 0.009, cols[i % 4], 0), Math.cos(a) * Math.cos(b) * rr, 0.03 + Math.sin(b) * rr, Math.sin(a) * Math.cos(b) * rr)); }
+    for (let i = 0; i < 7; i++) { const a = r() * TAU, h = at(box(0.0025, 0.0025, 0.03 + r() * 0.025, '#7A7A7A'), Math.cos(a) * 0.033, 0.03 + (r() - 0.5) * 0.03, Math.sin(a) * 0.033); h.rotation.set(r() - 0.5, PI / 2 - a, 0); core.add(h); }
+    g.userData.update = t => { core.rotation.y = 0.5 * Math.sin(t * 5); const w = Math.sin(t * 13); core.scale.set(1 + 0.06 * w, 1 - 0.05 * w, 1 + 0.06 * w); };
+    g.userData.update(0); return g;
+  },
+  batteryIcon(o) { // a "battery empty" icon in the series' sign style (o.w wide): white card, dark battery outline, one red bar that blinks; pops in at o.popAt; faces +Z
+    const W = o.w || 0.3, Hh = W * 0.56, g = grp();
+    const draw = bar => (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.fillStyle = '#F4F1E8'; c.strokeStyle = '#1C252A'; c.lineWidth = Hc * 0.06; c.beginPath(); c.roundRect(c.lineWidth / 2, c.lineWidth / 2, Wc - c.lineWidth, Hc - c.lineWidth, Hc * 0.16); c.fill(); c.stroke();
+      const bx = Wc * 0.16, by = Hc * 0.27, bw = Wc * 0.6, bh = Hc * 0.46; c.lineWidth = Hc * 0.07; c.beginPath(); c.roundRect(bx, by, bw, bh, Hc * 0.06); c.stroke(); c.fillStyle = '#1C252A'; c.fillRect(bx + bw + Hc * 0.02, by + bh * 0.3, Wc * 0.06, bh * 0.4);
+      if (bar) { c.fillStyle = '#E0302A'; c.fillRect(bx + Hc * 0.08, by + Hc * 0.08, bw * 0.17, bh - Hc * 0.16); } };
+    const full = canvasPlane(W, Hh, draw(true), { res: 256, transparent: true }), empty = canvasPlane(W, Hh, draw(false), { res: 256, transparent: true }); g.add(full, empty);
+    g.userData.update = t => { g.scale.setScalar(o.popAt == null ? 1 : pop(t, o.popAt, 0.25)); const b = Math.floor(t * 3.4) % 2 === 0; full.visible = b; empty.visible = !b; };
+    g.userData.update(0); return g;
   },
 };

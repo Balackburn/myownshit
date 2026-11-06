@@ -9,6 +9,7 @@
     "100",
     "kilos."
    ],
+   "say": "Ce con de mec monte sur la balance et voit cent kilos.",
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L01.k.wav",
    "file_start": 0.1,
    "speech_start": 0.1,
@@ -139,20 +140,21 @@
     "100",
     "kilos."
    ],
+   "say": "Cent kilos.",
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L03.k.wav",
    "file_start": 5.106,
    "speech_start": 5.106,
-   "speech_end": 6.63,
+   "speech_end": 6.097,
    "words": [
     {
      "w": "100",
      "s": 5.106,
-     "e": 5.64
+     "e": 5.335
     },
     {
      "w": "kilos.",
-     "s": 5.716,
-     "e": 6.63
+     "s": 5.411,
+     "e": 6.097
     }
    ]
   },
@@ -164,29 +166,29 @@
     "respiration."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L04.k.wav",
-   "file_start": 6.73,
-   "speech_start": 6.73,
-   "speech_end": 8.406,
+   "file_start": 6.197,
+   "speech_start": 6.197,
+   "speech_end": 7.873,
    "words": [
     {
      "w": "Il",
-     "s": 6.73,
-     "e": 6.883
+     "s": 6.197,
+     "e": 6.349
     },
     {
      "w": "retient",
-     "s": 6.997,
-     "e": 7.187
+     "s": 6.464,
+     "e": 6.654
     },
     {
      "w": "sa",
-     "s": 7.264,
-     "e": 7.34
+     "s": 6.73,
+     "e": 6.806
     },
     {
      "w": "respiration.",
-     "s": 7.416,
-     "e": 8.406
+     "s": 6.883,
+     "e": 7.873
     }
    ]
   },
@@ -198,20 +200,21 @@
     "100",
     "kilos."
    ],
+   "say": "Cent kilos.",
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L05.k.wav",
-   "file_start": 8.506,
-   "speech_start": 8.506,
-   "speech_end": 9.954,
+   "file_start": 7.973,
+   "speech_start": 7.973,
+   "speech_end": 8.887,
    "words": [
     {
      "w": "100",
-     "s": 8.506,
-     "e": 8.964
+     "s": 7.973,
+     "e": 8.202
     },
     {
      "w": "kilos.",
-     "s": 9.116,
-     "e": 9.954
+     "s": 8.278,
+     "e": 8.887
     }
    ]
   },
@@ -225,64 +228,64 @@
     "légère."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L06.k.wav",
-   "file_start": 10.054,
-   "speech_start": 10.054,
-   "speech_end": 12.416,
+   "file_start": 8.987,
+   "speech_start": 8.987,
+   "speech_end": 11.349,
    "words": [
     {
      "w": "Il",
-     "s": 10.054,
-     "e": 10.13
+     "s": 8.987,
+     "e": 9.064
     },
     {
      "w": "la",
-     "s": 10.206,
-     "e": 10.283
+     "s": 9.14,
+     "e": 9.216
     },
     {
      "w": "met",
-     "s": 10.359,
-     "e": 10.435
+     "s": 9.292,
+     "e": 9.368
     },
     {
      "w": "en",
-     "s": 10.473,
-     "e": 10.511
+     "s": 9.406,
+     "e": 9.445
     },
     {
      "w": "mode",
-     "s": 10.587,
-     "e": 10.664
+     "s": 9.521,
+     "e": 9.597
     },
     {
      "w": "avion",
-     "s": 10.74,
-     "e": 11.121
+     "s": 9.673,
+     "e": 10.054
     },
     {
      "w": "pour",
-     "s": 11.197,
-     "e": 11.273
+     "s": 10.13,
+     "e": 10.206
     },
     {
      "w": "qu'elle",
-     "s": 11.299,
-     "e": 11.349
+     "s": 10.232,
+     "e": 10.283
     },
     {
      "w": "soit",
-     "s": 11.425,
-     "e": 11.578
+     "s": 10.359,
+     "e": 10.511
     },
     {
      "w": "plus",
-     "s": 11.616,
-     "e": 11.654
+     "s": 10.549,
+     "e": 10.587
     },
     {
      "w": "légère.",
-     "s": 11.73,
-     "e": 12.416
+     "s": 10.664,
+     "e": 11.349
     }
    ]
   },
@@ -295,39 +298,39 @@
     "fenêtre."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L07.k.wav",
-   "file_start": 12.516,
-   "speech_start": 12.516,
-   "speech_end": 14.268,
+   "file_start": 11.449,
+   "speech_start": 11.449,
+   "speech_end": 13.202,
    "words": [
     {
      "w": "La",
-     "s": 12.516,
-     "e": 12.592
+     "s": 11.449,
+     "e": 11.525
     },
     {
      "w": "balance",
-     "s": 12.668,
-     "e": 12.973
+     "s": 11.602,
+     "e": 11.906
     },
     {
      "w": "décolle",
-     "s": 13.049,
-     "e": 13.354
+     "s": 11.983,
+     "e": 12.287
     },
     {
      "w": "par",
-     "s": 13.43,
-     "e": 13.506
+     "s": 12.364,
+     "e": 12.44
     },
     {
      "w": "la",
-     "s": 13.545,
-     "e": 13.583
+     "s": 12.478,
+     "e": 12.516
     },
     {
      "w": "fenêtre.",
-     "s": 13.659,
-     "e": 14.268
+     "s": 12.592,
+     "e": 13.202
     }
    ]
   },
@@ -340,54 +343,54 @@
     "poids."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L08.k.wav",
-   "file_start": 14.368,
-   "speech_start": 14.368,
-   "speech_end": 16.654,
+   "file_start": 13.302,
+   "speech_start": 13.302,
+   "speech_end": 15.587,
    "words": [
     {
      "w": "Il",
-     "s": 14.368,
-     "e": 14.445
+     "s": 13.302,
+     "e": 13.378
     },
     {
      "w": "saute",
-     "s": 14.521,
-     "e": 14.673
+     "s": 13.454,
+     "e": 13.606
     },
     {
      "w": "dessus",
-     "s": 14.749,
-     "e": 15.13
+     "s": 13.683,
+     "e": 14.064
     },
     {
      "w": "pour",
-     "s": 15.206,
-     "e": 15.283
+     "s": 14.14,
+     "e": 14.216
     },
     {
      "w": "ne",
-     "s": 15.359,
-     "e": 15.435
+     "s": 14.292,
+     "e": 14.368
     },
     {
      "w": "pas",
-     "s": 15.473,
-     "e": 15.511
+     "s": 14.406,
+     "e": 14.445
     },
     {
      "w": "reprendre",
-     "s": 15.587,
-     "e": 15.968
+     "s": 14.521,
+     "e": 14.902
     },
     {
      "w": "de",
-     "s": 16.006,
-     "e": 16.045
+     "s": 14.94,
+     "e": 14.978
     },
     {
      "w": "poids.",
-     "s": 16.121,
-     "e": 16.654
+     "s": 15.054,
+     "e": 15.587
     }
    ]
   },
@@ -400,39 +403,39 @@
     "sport."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L09.k.wav",
-   "file_start": 16.754,
-   "speech_start": 16.754,
-   "speech_end": 18.43,
+   "file_start": 15.687,
+   "speech_start": 15.687,
+   "speech_end": 17.364,
    "words": [
     {
      "w": "Elle",
-     "s": 16.754,
-     "e": 16.906
+     "s": 15.687,
+     "e": 15.84
     },
     {
      "w": "survole",
-     "s": 17.021,
-     "e": 17.287
+     "s": 15.954,
+     "e": 16.221
     },
     {
      "w": "la",
-     "s": 17.364,
-     "e": 17.44
+     "s": 16.297,
+     "e": 16.373
     },
     {
      "w": "salle",
-     "s": 17.49,
-     "e": 17.592
+     "s": 16.424,
+     "e": 16.525
     },
     {
      "w": "de",
-     "s": 17.63,
-     "e": 17.668
+     "s": 16.564,
+     "e": 16.602
     },
     {
      "w": "sport.",
-     "s": 17.745,
-     "e": 18.43
+     "s": 16.678,
+     "e": 17.364
     }
    ]
   },
@@ -444,24 +447,24 @@
     "coucou."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L10.k.wav",
-   "file_start": 18.53,
-   "speech_start": 18.53,
-   "speech_end": 19.445,
+   "file_start": 17.464,
+   "speech_start": 17.464,
+   "speech_end": 18.378,
    "words": [
     {
      "w": "Il",
-     "s": 18.53,
-     "e": 18.606
+     "s": 17.464,
+     "e": 17.54
     },
     {
      "w": "fait",
-     "s": 18.683,
-     "e": 18.835
+     "s": 17.616,
+     "e": 17.768
     },
     {
      "w": "coucou.",
-     "s": 18.911,
-     "e": 19.445
+     "s": 17.845,
+     "e": 18.378
     }
    ]
   },
@@ -473,34 +476,34 @@
     "zéro."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L11.k.wav",
-   "file_start": 19.545,
-   "speech_start": 19.545,
-   "speech_end": 21.53,
+   "file_start": 18.478,
+   "speech_start": 18.478,
+   "speech_end": 20.463,
    "words": [
     {
      "w": "En",
-     "s": 19.545,
-     "e": 19.621
+     "s": 18.478,
+     "e": 18.554
     },
     {
      "w": "altitude,",
-     "s": 19.697,
-     "e": 20.383
+     "s": 18.63,
+     "e": 19.316
     },
     {
      "w": "elle",
-     "s": 20.459,
-     "e": 20.535
+     "s": 19.392,
+     "e": 19.468
     },
     {
      "w": "affiche",
-     "s": 20.611,
-     "e": 20.84
+     "s": 19.545,
+     "e": 19.773
     },
     {
      "w": "zéro.",
-     "s": 20.916,
-     "e": 21.525
+     "s": 19.849,
+     "e": 20.459
     }
    ]
   },
@@ -512,24 +515,24 @@
     "idéal."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L12.k.wav",
-   "file_start": 21.63,
-   "speech_start": 21.63,
-   "speech_end": 22.925,
+   "file_start": 20.563,
+   "speech_start": 20.563,
+   "speech_end": 21.859,
    "words": [
     {
      "w": "Son",
-     "s": 21.63,
-     "e": 21.782
+     "s": 20.563,
+     "e": 20.716
     },
     {
      "w": "poids",
-     "s": 21.859,
-     "e": 22.087
+     "s": 20.792,
+     "e": 21.021
     },
     {
      "w": "idéal.",
-     "s": 22.163,
-     "e": 22.925
+     "s": 21.097,
+     "e": 21.859
     }
    ]
   },
@@ -543,54 +546,54 @@
     "service."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L13.k.wav",
-   "file_start": 23.025,
-   "speech_start": 23.025,
-   "speech_end": 25.692,
+   "file_start": 21.959,
+   "speech_start": 21.959,
+   "speech_end": 24.625,
    "words": [
     {
      "w": "Elle",
-     "s": 23.025,
-     "e": 23.102
+     "s": 21.959,
+     "e": 22.035
     },
     {
      "w": "atterrit",
-     "s": 23.216,
-     "e": 23.482
+     "s": 22.149,
+     "e": 22.416
     },
     {
      "w": "sur",
-     "s": 23.559,
-     "e": 23.635
+     "s": 22.492,
+     "e": 22.568
     },
     {
      "w": "un",
-     "s": 23.673,
-     "e": 23.711
+     "s": 22.606,
+     "e": 22.644
     },
     {
      "w": "nuage",
-     "s": 23.787,
-     "e": 24.092
+     "s": 22.721,
+     "e": 23.025
     },
     {
      "w": "qui",
-     "s": 24.13,
-     "e": 24.168
+     "s": 23.063,
+     "e": 23.102
     },
     {
      "w": "affiche",
-     "s": 24.244,
-     "e": 24.702
+     "s": 23.178,
+     "e": 23.635
     },
     {
      "w": "hors",
-     "s": 24.752,
-     "e": 24.854
+     "s": 23.685,
+     "e": 23.787
     },
     {
      "w": "service.",
-     "s": 25.121,
-     "e": 25.692
+     "s": 24.054,
+     "e": 24.625
     }
    ]
   },
@@ -602,47 +605,47 @@
     "léger."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L14.k.wav",
-   "file_start": 25.792,
-   "speech_start": 25.792,
-   "speech_end": 27.773,
+   "file_start": 24.725,
+   "speech_start": 24.725,
+   "speech_end": 26.706,
    "words": [
     {
      "w": "Il",
-     "s": 25.792,
-     "e": 25.868
+     "s": 24.725,
+     "e": 24.802
     },
     {
      "w": "ne",
-     "s": 25.944,
-     "e": 26.021
+     "s": 24.878,
+     "e": 24.954
     },
     {
      "w": "s'est",
-     "s": 26.059,
-     "e": 26.249
+     "s": 24.992,
+     "e": 25.182
     },
     {
      "w": "jamais",
-     "s": 26.325,
-     "e": 26.554
+     "s": 25.259,
+     "e": 25.487
     },
     {
      "w": "senti",
-     "s": 26.656,
-     "e": 26.859
+     "s": 25.589,
+     "e": 25.792
     },
     {
      "w": "aussi",
-     "s": 26.973,
-     "e": 27.125
+     "s": 25.906,
+     "e": 26.059
     },
     {
      "w": "léger.",
-     "s": 27.163,
-     "e": 27.773
+     "s": 26.097,
+     "e": 26.706
     }
    ]
   }
  ],
- "total": 28.61
+ "total": 27.55
 }

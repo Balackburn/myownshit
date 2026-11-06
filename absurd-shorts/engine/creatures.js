@@ -733,7 +733,7 @@ const SPECIES = {
   },
   cat(R, o) {
     const c = col(o, { body: '#D9863F', stripe: '#A85A22', belly: '#F2E2C8', nose: P.pink });
-    R.ol = 0.007;
+    R.ol = o.ol ?? 0.007;
     const up = mammal(R, o, {
       head: { w: 0.24, h: 0.2, d: 0.18, color: c.body, taper: { x: 0.92, z: 0.9 }, snout: { w: 0.1, h: 0.06, d: 0.05, color: c.belly, y: 0.05 }, nose: c.nose, noseW: 0.5, noseH: 0.35,
         eye: { x: 0.055, y: 0.12, r: 0.052 }, ears: { type: 'pointy', size: 0.08, x: 0.08, y: 0.18, color: c.body, inner: P.pink } },

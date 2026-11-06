@@ -22,7 +22,7 @@ st.shot('S01', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sit', 'ha
         cams=[cam(0.0, [0.5, 1.6, 2.4], [0.48, 1.6, 2.15], [0.32, 1.38, -1.7], [0.32, 1.38, -1.7], lens=44)])
 st.shot('S02', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sitWrite', 'neutral', scale=DOGS)], props=DESK() + [TIE(), P('lap', 'laptop', pos=[0, 0.75, -1.3], ry=180)],
         cams=[cam(0.0, [0.3, 1.4, 0.35], [0.28, 1.4, 0.15], [0.0, 1.25, -1.95], [0.0, 1.25, -1.95], lens=44)])
-st.shot('S03', 'livingRoom', props=DESK() + [P('grid', 'callGrid', pos=[0, 1.05, -1.3], opts={'w': 0.42})],
+st.shot('S03', 'livingRoom', props=DESK() + [P('grid', 'callGrid', pos=[0, 1.05, -1.3], opts={'w': 0.42, 'labels': ['CHIEN', 'CHEF', 'RH', 'COMPTA']})],
         cams=[cam(0.0, [0.02, 1.0, -0.2], [0.02, 1.0, -0.3], [0.0, 1.0, -1.3], [0.0, 1.0, -1.3], lens=44)])
 st.shot('S04', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sitTalk', 'happy', scale=DOGS)], props=DESK() + [TIE(), BUBBLE('w', 'WOUF !', [0.36, 1.95, -1.7], 0.25, 'left', 0.5)],
         cams=[cam(0.0, [0.2, 1.65, 0.5], [0.19, 1.65, 0.3], [0.05, 1.62, -1.95], [0.05, 1.62, -1.95], lens=44, shake=0.004)])
@@ -31,7 +31,7 @@ st.shot('S05', 'office', setOpts={'door': False}, actors=[act('boss1', [-0.4, 0,
         props=[BUBBLE('oui', 'OUI !', [-0.45, 2.68, -0.9], 0.3, 'down', 0.5), BUBBLE('oui2', 'OUI !', [0.5, 2.66, -0.95], 0.6, 'down', 0.5)],
         cams=[cam(0.0, [0.05, 1.6, 2.6], [0.05, 1.6, 2.35], [0.0, 1.55, -0.9], [0.0, 1.55, -0.9], lens=44)])
 st.shot('S06', 'office', setOpts={'door': False}, actors=[act('chien', [0.0, 0, -1.95], 0, 'sit', 'happy', scale=DOGS)],
-        props=DESK(tag='MANAGER') + [TIE()],
+        props=DESK(tag='CADRE') + [TIE()],
         cams=[cam(0.0, [0.35, 1.3, 1.1], [0.33, 1.3, 0.85], [0.0, 1.32, -1.7], [0.0, 1.32, -1.7], lens=44)])
 TAB = [P('mt', 'table', pos=[0, 0, -0.8], opts={'w': 0.9, 'd': 2.2, 'h': 0.74, 'color': '#C99A62'})] + [P(f'mc{i}', 'chair', pos=[x, 0, z], ry=r, opts={'color': '#2F62B5'}) for i, (x, z, r) in enumerate(((-0.75, -0.3, 90), (-0.75, -1.2, 90), (0.75, -0.3, -90), (0.75, -1.2, -90)))]
 TEAM = lambda e='neutral': [act('emp1', [-0.75, 0, -1.2], 90, 'sit', 'neutral'), act('emp2', [0.75, 0, -1.2], -90, 'sit', 'neutral'), act('emp3', [0.75, 0, -0.3], -90, 'sit', 'neutral'), act('mec', [-0.75, 0, -0.3], 90, 'sit', e)]
@@ -54,7 +54,7 @@ st.shot('S11', 'office', setOpts={'door': False}, actors=[act('chien', [-0.9, 0,
         props=[TIE(), P('fold', 'folderDoc', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.08, 0.17], 'rot': [-1.4, 0, 0]}, scale=1.6, opts={'text': 'DOSSIER', 'color': '#F2A33A'})],
         cams=[cam(0.0, [-0.3, 1.45, 3.0], [-0.3, 1.45, 2.7], [-0.2, 1.2, -1.1], [-0.35, 1.2, -1.2], lens=44)])
 BD = [P('desk', 'desk', pos=[0.0, 0, -1.4], ry=90), P('chair', 'chair', pos=[-0.55, 0, -1.4], ry=90, opts={'color': '#3A3D44'}),
-      P('tag', 'noticeBoard', pos=[0.42, 0.84, -1.28], ry=90, opts={'text': 'MANAGER', 'style': 'tag', 'w': 0.46, 'h': 0.12})]
+      P('tag', 'noticeBoard', pos=[0.42, 0.84, -1.28], ry=90, opts={'text': 'CHEF', 'style': 'tag', 'w': 0.46, 'h': 0.12})]
 DOGD = lambda clip='sit', expr='smug', keys=None: act('chien', [-0.55, 0, -1.4], 70, clip, expr, scale=DOGS, keys=keys)
 TWO = lambda: [cam(0.0, [0.4, 1.5, 2.9], [0.39, 1.5, 2.65], [0.15, 1.25, -1.35], [0.15, 1.25, -1.35], lens=44)]
 st.shot('S12', 'office', setOpts={'door': False}, actors=[DOGD('sitTalk', 'smug'), act('mec', [0.75, 0, -1.3], -50, 'sit', 'happy')],

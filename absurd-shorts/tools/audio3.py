@@ -54,6 +54,11 @@ def words_from_alignment(text, al):
         if not cur: s0 = a
         cur += c; e0 = b
     if cur: words.append({'w': cur, 's': s0, 'e': e0})
+    merged = []   # a punctuation-only token (a lone "." or "!" left after removing « ») joins the word before it
+    for w in words:
+        if merged and not any(ch.isalnum() for ch in w['w']): merged[-1] = {**merged[-1], 'w': merged[-1]['w'] + w['w'], 'e': w['e']}
+        else: merged.append(w)
+    words = merged
     # display words = the caption text's words (keeps « » / punctuation as written); map 1:1 when counts match
     disp = text.split()
     if len(disp) == len(words):
