@@ -74,7 +74,7 @@ st.shot('S05', 'parisStreet', setOpts=GOLDEN, actors=[act('mec', TAIL, FACE_T, '
         cams=[cam(0.0, [9.75, 1.6, TAIL[2] - 2.2], [9.7, 1.62, TAIL[2] - 2.05], [8.3, 2.0, TAIL[2] + 0.5], [8.3, 2.02, TAIL[2] + 0.5], lens=44)])
 st.shot('S06', 'parisStreet', setOpts={'night': True}, actors=[act('mec', TAIL, FACE_T, 'stand', 'drool'), act('pigeon', HEADTOP, 150, 'sleep', 'neutral', scale=0.8), EXTRA('qf', Q1, L1, expr='sleepy'),
         act('qb1', B1, FB, 'idle', 'yawn'), act('qb2', B2, FB, 'idle', 'drool')],
-        props=[QUEUE(Q1, holes=[L1]), QUEUE([[TAIL[0], TAIL[2] + 2.4], [TAIL[0], 110.0], [-20.0, 110.0]], 'queue2', seed=34), DOORP()],
+        props=[QUEUE(Q1, holes=[L1], mood='night'), QUEUE([[TAIL[0], TAIL[2] + 2.4], [TAIL[0], 110.0], [-20.0, 110.0]], 'queue2', seed=34, mood='night'), DOORP()],
         cams=[cam(0.0, [9.8, 1.35, TAIL[2] - 2.3], [9.76, 1.37, TAIL[2] - 2.15], [8.3, 1.85, TAIL[2] + 0.6], [8.3, 1.87, TAIL[2] + 0.6], lens=44)])
 # 7: behind him the queue went round Paris (low on him with the queue behind, then a fast crane up over the city: a red ribbon of people round it)
 CITY = P('city', 'cityBlocks', pos=[0, 0, 0], opts={'x0': -402, 'x1': 420, 'z0': -657, 'z1': 460, 'skip': [[-21, 21, -128, 120]], 'park': [-46, 32, -222, -132]})

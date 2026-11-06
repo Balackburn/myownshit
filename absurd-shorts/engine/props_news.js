@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
 import { grp, at, mesh, canvasPlane, inst, rod, torus, label } from './props.js';
 import { model as glbSource } from './models.js';
+import { variantFaceTexture } from './atlas.js';
 
 const PI = Math.PI, TAU = PI * 2;
 function canvasTexture(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
@@ -1193,7 +1194,8 @@ export const NEWS_PROPS = {
     const holes = new Set(o.holes || []), list = pts.slice(0, o.max || 400).filter((_, i) => i >= (o.skip || 0) && !holes.has(i)), n = list.length, PPL = !!o.people, J = PPL ? '#FFFFFF' : (o.colors || {}).jacket || '#2F5E9E', Pn = PPL ? '#FFFFFF' : (o.colors || {}).pants || '#22385E';
     const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, PPL ? '#FFFFFF' : (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125],   // ... and two eyes,
       [0.07, 0.016, 0.02, '#2A1E16', 0.058, 1.685, 0.125], [0.07, 0.016, 0.02, '#2A1E16', -0.058, 1.685, 0.125], [0.085, 0.016, 0.02, '#7A2E2A', 0, 1.535, 0.125]];   // brows and a mouth (the series' painted faces, simplified)
-    if (PPL) parts[5] = [0.001, 0.001, 0.001, '#FFFFFF', 0, 0, 0];   // people: no toolbox
+    if (PPL) { parts[5] = [0.001, 0.001, 0.001, '#FFFFFF', 0, 0, 0];   // people: no toolbox; the hero's face on taller heads (below), hair on top
+      parts[3] = [0.001, 0.001, 0.001, '#FFFFFF', 0, 1.6, 0]; parts[4] = [0.215, 0.07, 0.215, '#FFFFFF', 0, 1.925, 0]; for (let q = 8; q < parts.length; q++) parts[q] = [0.001, 0.001, 0.001, '#1C1E22', 0, 1.6, 0]; }
     const g = grp(), meshes = parts.map(([w, h, d, c]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(w, h, d), mat(c), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
     const info = list.map(() => ({ s: (0.93 + r() * 0.14) * (o.size || 1), ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
     const skinC = new THREE.Color(); info.forEach((f, i) => meshes[3].setColorAt(i, skinC.set(f.skin))); if (meshes[3].instanceColor) meshes[3].instanceColor.needsUpdate = true;
@@ -1202,10 +1204,23 @@ export const NEWS_PROPS = {
       list.forEach((_, i) => { const j = JK[Math.floor(r() * JK.length)], pt = PT[Math.floor(r() * PT.length)], h = HR[Math.floor(r() * HR.length)];
         [2, 6, 7].forEach(k => meshes[k].setColorAt(i, c3.set(j))); [0, 1].forEach(k => meshes[k].setColorAt(i, c3.set(pt))); meshes[4].setColorAt(i, c3.set(h)); });
       [0, 1, 2, 4, 6, 7].forEach(k => { if (meshes[k].instanceColor) meshes[k].instanceColor.needsUpdate = true; }); }
+    let heads = null;
+    if (PPL) {   // every extra wears the hero's face (four variants: clean, glasses, moustache, stubble), bored by day, asleep at night
+      const FACES = o.faces || (o.mood === 'night' ? ['sleepy', 'drool', 'blink', 'yawn'] : ['unimpressed', 'neutral', 'lookSide', 'smug']);
+      const VARS = [{ facial: 'none' }, { facial: 'none', glasses: true, glassesColor: '#1C1C1E' }, { facial: 'mustache', beardColor: '#3A2A1E' }, { facial: 'stubble' }];
+      const hero = new THREE.Color('#D9A877'), c4 = new THREE.Color(), skinM = new THREE.MeshLambertMaterial({ color: '#FFFFFF' });
+      heads = VARS.map((v, vi) => { const tex = variantFaceTexture(FACES[vi % FACES.length], { ...v, hair: 'bald' });
+        const hm = new THREE.InstancedMesh(new THREE.BoxGeometry(0.2, 0.42, 0.2), [skinM, skinM, skinM, skinM, new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(0.97, 0.97, 0.97) }), skinM], n);
+        hm.castShadow = true; g.add(hm); return hm; });
+      info.forEach((f, i) => { f.v = Math.floor(r() * VARS.length); c4.set(f.skin); c4.setRGB(Math.min(1, c4.r / hero.r), Math.min(1, c4.g / hero.g), Math.min(1, c4.b / hero.b)); heads.forEach(h => h.setColorAt(i, c4)); });
+      heads.forEach(h => { if (h.instanceColor) h.instanceColor.needsUpdate = true; });
+    }
+    const Z0 = new THREE.Matrix4().makeScale(0, 0, 0);
     const o3 = new THREE.Object3D(), place = t => { list.forEach(([x, z, a], i) => { const f = info[i], sway = 0.04 * Math.sin(t * 2.2 + f.ph);
+        if (heads) { o3.position.set(x, 0, z); o3.rotation.set(0, a, sway * 0.5); o3.scale.setScalar(f.s); o3.updateMatrix(); o3.matrix.multiply(new THREE.Matrix4().makeTranslation(0, 1.68, 0)); heads.forEach((h, k) => h.setMatrixAt(i, k === f.v ? o3.matrix : Z0)); }
       parts.forEach(([w, h, d, c, px, py, pz], k) => { o3.position.set(x, 0, z); o3.rotation.set(0, a, sway * 0.5); o3.scale.setScalar(f.s); o3.updateMatrix();
         const loc = new THREE.Matrix4().makeTranslation(px, py, pz); o3.matrix.multiply(loc); meshes[k].setMatrixAt(i, o3.matrix); }); });
-      meshes.forEach(m => { m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); }); };
+      meshes.forEach(m => { m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); }); if (heads) heads.forEach(m => { m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); }); };
     if (o.ribbon) {   // a bright flat ribbon under the queue so the line reads from the air
       const rc = o.ribbon.color || '#F2C230', rw = o.ribbon.width || 2.4, rm = mat(rc, { noGrain: true });
       for (let i = 0; i < path.length - 1; i++) { const [x0, z0] = path[i], [x1, z1] = path[i + 1], L = Math.hypot(x1 - x0, z1 - z0), b = new THREE.Mesh(new THREE.BoxGeometry(rw, 0.03, L + rw * 0.5), rm);

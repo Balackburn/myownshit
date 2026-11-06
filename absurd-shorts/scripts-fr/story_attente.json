@@ -951,7 +951,8 @@
       "seed": 32,
       "holes": [
        101
-      ]
+      ],
+      "mood": "night"
      }
     },
     {
@@ -980,7 +981,8 @@
       "gap": 0.75,
       "people": true,
       "size": 1.12,
-      "seed": 34
+      "seed": 34,
+      "mood": "night"
      }
     },
     {
