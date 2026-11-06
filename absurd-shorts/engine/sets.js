@@ -1300,9 +1300,11 @@ Object.assign(S, {
 Object.assign(S, {
   laundryRoom(o = {}) { // « Les chaussettes »: a bright laundry corner — pale blue walls, a white tiled band, the big washing machine (o.washer === false: a scene
     // bigWasher replaces it; anchors.washer is its spot), a shelf of washing powder, a basket of laundry, a clothes horse with socks, a sunny window
-    const g = grp(), { back } = room(g, { wall: '#CFE3EC', band: '#F4F6F8', bandH: 1.1, trim: '#8FB8CC', floor: '#E9E2D4', half: 6 });
+    const g = grp(), { back, half } = room(g, { wall: '#C9DFEA', band: '#F4F6F8', bandH: 1.1, trim: '#6F9DB5', floor: '#D9DEE1', half: 6 });
     const tiles = []; for (let i = -10; i < 10; i++) for (let j = 0; j < 20; j++) if ((i + j) % 2 === 0) tiles.push([i * 0.5 + 0.25, 0.003, back + j * 0.5 + 0.25]);
-    g.add(inst(new THREE.PlaneGeometry(0.5, 0.5).rotateX(-PI / 2), mat('#DCD3C1'), tiles));
+    g.add(inst(new THREE.PlaneGeometry(0.5, 0.5).rotateX(-PI / 2), mat('#B7C2CA'), tiles));
+    g.add(at(box(2 * half, 0.12, 0.03, '#4F6B7D', { pivot: 'bottom' }), 0, 0, back + 0.03));   // a dark skirting board: one deeper value for depth
+    for (const sx of [-1, 1]) g.add(at(box(0.03, 0.12, 20, '#4F6B7D', { pivot: 'bottom' }), sx * (half - 0.03), 0, back + 10));
     if (o.washer !== false) g.add(prop('bigWasher', { open: o.open ?? 0 }, -1.2, 0, back + 0.62));
     g.add(at(box(2.2, 0.05, 0.4, '#E8E1D0', { outline: 0.006 }), 1.4, 2.0, back + 0.2));   // shelf
     [['#3C8DD9', 0.7], ['#E0413A', 1.15], ['#F2C230', 1.55], ['#7FC4B2', 1.95]].forEach(([c, x]) => g.add(at(box(0.3, 0.42, 0.22, c, { pivot: 'bottom', outline: 0.006 }), x, 2.025, back + 0.2),
@@ -1344,9 +1346,9 @@ Object.assign(S, {
     hills(g, ['#C3CDE0', '#D8CFE6', '#C9DCE0'], { seed: 6, n: 7, z0: -30, z1: -60, sx: 16, sy: 5 });
     const r = rng(o.seed || 8);
     for (let i = 0; i < 9; i++) { const m = sphere(1, ['#D3DAE8', '#DCD2EA', '#CFE0E4'][i % 3], 1); m.scale.set(2.5 + r() * 2, 0.5 + r() * 0.6, 2 + r() * 1.5); m.position.set((r() - 0.5) * 30, 0, -6 - r() * 16); m.castShadow = false; m.receiveShadow = true; g.add(m); }   // lint mounds
-    g.add(prop('sockField', { n: o.n ?? 220, w: 30, d: 22, seed: 9, clear: [[0, -9, 4.5], [0, 0, 3.2]], piles: [[-7, -10, 1.4], [8, -12, 1.8], [-11, -4, 1.0], [10, -3, 1.1]] }, 0, 0, -6));
-    g.add(prop('laundryCastle', { size: 1.1 }, 0, 0, -13));
-    g.add(prop('throne', { size: 1 }, 0, 0, -8.6));
+    g.add(prop('sockSea', { n: o.n ?? 2200, w: 74, d: 56, seed: 9, clear: [[0, -3, 4.2], [0, 4, 3.0]], heaps: [[-15, -22, 7, 4.5], [13, -25, 8, 5.5], [-27, -11, 6, 3.2], [25, -10, 6.5, 3.5], [-6, -27, 5, 3], [4, -12, 2.2, 1.0], [-9, -6, 2.0, 0.8], [9, -4, 1.8, 0.7]] }, 0, 0, -6));
+    if (o.crowd) g.add(prop('sockCrowd', { n: o.crowd === true ? 240 : o.crowd, w: 26, d: 16, seed: 12, face: o.crowdFace || [1.2, 9], clear: [[0, 3.5, 2.6], [0, -2.6, 3.0], ...(o.crowdClear || [])] }, 0, 0, -3));
+    if (o.castle !== false) { g.add(prop('laundryCastle', { size: 1.1 }, 0, 0, -13)); g.add(prop('throne', { size: 1 }, 0, 0, -8.6)); }
     g.add(prop('soapBubbles', { n: 22, w: 26, h: 10, d: 16, size: 0.35 }, 0, 0.5, -8));
     const port = grp(at(torus(16, 1.6, '#C9CCD1', 10, 48), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(16, 48), new THREE.MeshBasicMaterial({ color: '#BFD9E6', transparent: true, opacity: 0.55, fog: false, toneMapped: false })), 0, 0, -0.2));
     port.position.set(-30, 46, -120); port.lookAt(0, 0, 0); port.traverse(n => { if (n.isMesh) { n.castShadow = false; n.material.fog = false; } }); g.add(port);

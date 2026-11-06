@@ -122,9 +122,12 @@ export const CHAUSSETTES_PROPS = {
     g.add(at(box(1.3 * s, 1.6 * s, 0.1 * s, '#5A3A22', { pivot: 'bottom' }), 0, 0, 2.18 * s), at(torus(0.65 * s, 0.09 * s, '#E8E1D0', 6, 16, PI), 0, 1.6 * s, 2.24 * s));
     // the banner: a pole and a flag with a sock on it
     const pole = at(cyl(0.05 * s, 0.05 * s, 2.4 * s, '#8C949A', 8, { pivot: 'bottom' }), 0, 3.4 * s, 0); g.add(pole);
-    const flag = canvasPlane(1.4 * s, 0.9 * s, (c, Wc, Hc) => { c.fillStyle = '#7A3FB0'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#F2C94C'; c.fillRect(0, Hc * 0.82, Wc, Hc * 0.18);
-      c.fillStyle = '#F4F1E8'; c.save(); c.translate(Wc * 0.5, Hc * 0.42); c.rotate(-0.25); c.fillRect(-Wc * 0.07, -Hc * 0.3, Wc * 0.14, Hc * 0.46); c.fillRect(-Wc * 0.07, Hc * 0.08, Wc * 0.26, Hc * 0.16);
-      c.fillStyle = '#E0413A'; c.fillRect(-Wc * 0.075, -Hc * 0.18, Wc * 0.15, Hc * 0.06); c.fillRect(-Wc * 0.075, -Hc * 0.06, Wc * 0.15, Hc * 0.06); c.restore(); }, { res: 256, doubleSide: true });
+    const flag = canvasPlane(1.4 * s, 0.9 * s, (c, Wc, Hc) => { c.fillStyle = '#7A3FB0'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#F2C94C'; c.fillRect(0, Hc * 0.84, Wc, Hc * 0.16);
+      const x0 = Wc * 0.42, y0 = Hc * 0.12, lw = Wc * 0.13, lh = Hc * 0.42;   // a sock: cuff band, leg with two stripes, a round heel, the foot and toe to the right
+      c.fillStyle = '#F4F1E8'; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x0 + lw, y0); c.lineTo(x0 + lw, y0 + lh); c.lineTo(x0 + lw + Wc * 0.17, y0 + lh); c.arc(x0 + lw + Wc * 0.17, y0 + lh + Hc * 0.1, Hc * 0.1, -Math.PI / 2, Math.PI / 2);
+      c.lineTo(x0 + Hc * 0.1, y0 + lh + Hc * 0.2); c.arc(x0 + Hc * 0.1, y0 + lh + Hc * 0.1, Hc * 0.1, Math.PI / 2, Math.PI); c.closePath(); c.fill();
+      c.fillStyle = '#E0413A'; c.fillRect(x0, y0 + Hc * 0.1, lw, Hc * 0.06); c.fillRect(x0, y0 + Hc * 0.24, lw, Hc * 0.06); c.fillRect(x0 + lw + Wc * 0.12, y0 + lh, Wc * 0.05, Hc * 0.2);
+      c.fillStyle = '#D9D3C0'; c.fillRect(x0 - Wc * 0.01, y0, lw + Wc * 0.02, Hc * 0.06); }, { res: 256 });
     const fl = grp(flag); flag.position.x = 0.7 * s; fl.position.set(0.05 * s, 5.4 * s, 0); g.add(fl);
     g.userData.update = t => { fl.rotation.y = 0.12 * Math.sin(t * 2.1); flag.rotation.y = 0.1 * Math.sin(t * 3.3 + 1); };
     g.userData.update(0); return g;
@@ -160,8 +163,8 @@ export const CHAUSSETTES_PROPS = {
   noteCard(o) { // a note taped up: o.text ('JE REJOINS|MA MOITIÉ', | = new line), o.w × o.h, a small heart; readable from the front (+Z)
     const w = o.w || 0.32, h = o.h || 0.24, g = grp(), lines = String(o.text || 'JE REJOINS|MA MOITIÉ').split('|');
     const paper = canvasPlane(w, h, (c, Wc, Hc) => { c.fillStyle = '#FFF8E6'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#B9D4EA'; c.lineWidth = Hc * 0.008; for (let y = Hc * 0.2; y < Hc; y += Hc * 0.16) { c.beginPath(); c.moveTo(0, y); c.lineTo(Wc, y); c.stroke(); }
-      c.fillStyle = '#1F2A44'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = Hc * 0.2; c.font = `italic 900 ${px}px Arial`;
-      const wmax = Math.max(...lines.map(l => c.measureText(l).width)); if (wmax > Wc * 0.88) { px *= Wc * 0.88 / wmax; c.font = `italic 900 ${px}px Arial`; }
+      c.fillStyle = '#121418'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = Hc * 0.21; c.font = `italic 900 ${px}px Arial`;
+      const wmax = Math.max(...lines.map(l => c.measureText(l).width)); if (wmax > Wc * 0.82) { px *= Wc * 0.82 / wmax; c.font = `italic 900 ${px}px Arial`; }
       lines.forEach((l, i) => c.fillText(l, Wc / 2, Hc * (0.36 + i * 0.26 - (lines.length - 2) * 0.1)));
       c.fillStyle = '#E0413A'; const hx = Wc * 0.84, hy = Hc * 0.84, hs = Hc * 0.06; c.beginPath(); c.moveTo(hx, hy + hs); c.bezierCurveTo(hx - hs * 2, hy - hs * 0.5, hx - hs, hy - hs * 1.8, hx, hy - hs * 0.6); c.bezierCurveTo(hx + hs, hy - hs * 1.8, hx + hs * 2, hy - hs * 0.5, hx, hy + hs); c.fill(); }, { res: 512 });
     g.add(paper, at(box(w * 0.32, h * 0.12, 0.004, '#F4EBC2'), 0, h * 0.48, 0.003, 0, 0, 0.06));
@@ -180,7 +183,7 @@ export const CHAUSSETTES_PROPS = {
     const s = o.size || 1, sk = o.skin || P.skin, g = grp(), leg = grp(); g.add(leg);
     leg.add(at(box(0.36 * s, 1.6 * s, 0.36 * s, sk, { pivot: 'bottom', outline: 0.01 }), 0, 0.12 * s, -0.08 * s), at(box(0.46 * s, 0.9 * s, 0.46 * s, o.pants || P.suitNavy, { pivot: 'bottom', outline: 0.01 }), 0, 1.25 * s, -0.08 * s));
     const foot = grp(at(box(0.4 * s, 0.24 * s, 0.78 * s, sk, { outline: 0.01 }), 0, 0, 0.32 * s)); foot.rotation.x = 1.05; foot.position.set(0, 0.18 * s, 0); leg.add(foot);
-    [[0.11, 0.1, 0.12], [0.075, 0.08, 0.1], [0.07, 0.075, 0.09], [0.065, 0.07, 0.08], [0.06, 0.065, 0.07]].forEach(([w, h, d], i) => foot.add(at(box(w * s, h * s, d * s, sk, { outline: 0.006 }), (-0.15 + i * 0.075) * s, -0.04 * s, (0.71 + d / 2 - i * 0.012) * s)));
+    [[0.13, 0.12, 0.16], [0.095, 0.1, 0.13], [0.09, 0.095, 0.12], [0.085, 0.09, 0.11], [0.08, 0.085, 0.1]].forEach(([w, h, d], i) => foot.add(at(box(w * s, h * s, d * s, sk, { outline: 0.008 }), (-0.17 + i * 0.087) * s, -0.04 * s, (0.71 + d / 2 - i * 0.02) * s, 0, (i - 2) * 0.12, 0)));   // big splayed toes
     foot.add(at(box(0.05 * s, 0.03 * s, 0.03 * s, '#F4D7C8'), -0.15 * s, -0.01 * s, 0.79 * s));   // a toenail
     g.userData.update = t => { foot.rotation.x = 1.05 + 0.08 * Math.sin(t * 9); foot.children.slice(1).forEach((c, i) => { c.rotation.x = 0.25 * Math.max(0, Math.sin(t * 12 - i * 0.6)); }); };   // wiggling toes
     g.userData.update(0); return g;
@@ -194,6 +197,53 @@ export const CHAUSSETTES_PROPS = {
       m.position.x = (i / Math.max(1, n - 1) - 0.5) * w; g.add(m); lines.push(m);
     }
     g.userData.update = t => { lines.forEach((m, i) => { const u = ((t - (o.at || 0)) * 0.9 + i * 0.27) % 1, on = t >= (o.at || 0); m.position.y = u * 0.25; m.material.opacity = on ? Math.sin(u * PI) * 0.95 : 0; m.rotation.y = 0.3 * Math.sin(t * 2 + i); }); };
+    g.userData.update(0); return g;
+  },
+  sockSea(o) { // thousands of lost socks lying in heaps to the horizon (instanced: a handful of draw calls): o.n, o.w × o.d area round the origin,
+    // o.clear [[x, z, r], ...] kept free, o.heaps [[x, z, r, h], ...] mounded piles, colours from the lost-sock palette
+    const r = rng(o.seed || 31), n = o.n || 1500, w = o.w || 60, d = o.d || 50, clear = o.clear || [], heaps = o.heaps || [];
+    const parts = [['leg', [0.07, 0.025, 0.24], [0, 0.0125, 0]], ['foot', [0.07, 0.025, 0.13], [0, 0.0125, 0.17]], ['toe', [0.073, 0.027, 0.04], [0, 0.0125, 0.225]], ['st1', [0.074, 0.027, 0.022], [0, 0.0125, -0.07]], ['st2', [0.074, 0.027, 0.022], [0, 0.0125, -0.02]]];
+    const g = grp(), M = new THREE.Matrix4(), Q = new THREE.Quaternion(), E = new THREE.Euler(), S3 = new THREE.Vector3(), P3 = new THREE.Vector3(), C = new THREE.Color();
+    const meshes = parts.map(([nm, [bx, by, bz]]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(bx, by, bz), new THREE.MeshLambertMaterial(), n); m.castShadow = false; m.receiveShadow = true; g.add(m); return m; });
+    for (let i = 0; i < n; i++) {
+      let x, z, y = 0, tries = 0; const hp = heaps.length && r() < (o.heapShare ?? 0.55) ? heaps[Math.floor(r() * heaps.length)] : null;
+      if (hp) { const a = r() * TAU, rr = Math.sqrt(r()) * hp[2]; x = hp[0] + Math.cos(a) * rr; z = hp[1] + Math.sin(a) * rr; y = hp[3] * Math.max(0, 1 - (rr / hp[2]) ** 2) * (0.75 + 0.25 * r()); }
+      else do { x = (r() - 0.5) * w; z = (r() - 0.5) * d; tries++; } while (tries < 10 && clear.some(([cx, cz, cr]) => Math.hypot(x - cx, z - cz) < cr));
+      const sc = 1.3 + r() * 1.4, col = SOCK_COLORS[Math.floor(r() * SOCK_COLORS.length)];
+      E.set((r() - 0.5) * (hp ? 1.2 : 0.2), r() * TAU, (r() - 0.5) * (hp ? 1.2 : 0.2)); Q.setFromEuler(E); S3.setScalar(sc);
+      parts.forEach(([nm, , off], j) => { P3.set(off[0] * sc, off[1] * sc, off[2] * sc).applyQuaternion(Q).add(new THREE.Vector3(x, y, z)); M.compose(P3, Q, S3); meshes[j].setMatrixAt(i, M);
+        meshes[j].setColorAt(i, C.set(nm === 'toe' ? col[2] : nm.startsWith('st') ? col[1] : col[0])); });
+    }
+    meshes.forEach(m => { m.instanceMatrix.needsUpdate = true; m.instanceColor.needsUpdate = true; m.computeBoundingSphere(); });
+    return g;
+  },
+
+  sockCrowd(o) { // a crowd of little standing sock people (googly eyes), all turned toward o.face [x, z], bobbing; instanced. o.n, o.w × o.d, o.clear like sockSea
+    const r = rng(o.seed || 41), n = o.n || 220, w = o.w || 24, d = o.d || 18, clear = o.clear || [], face = o.face || [0, 30];
+    const H = [0.11, 0.45, 0.1];   // foot, leg, cuff heights (a sock person ~0.66 m)
+    const defs = [['foot', [0.16, 0.11, 0.3], [0, 0.055, 0.07], 0], ['leg', [0.16, 0.45, 0.15], [0, 0.11 + 0.225, -0.005], 0], ['st1', [0.168, 0.032, 0.158], [0, 0.2, -0.005], 1], ['st2', [0.168, 0.032, 0.158], [0, 0.36, -0.005], 1],
+      ['cuff', [0.172, 0.1, 0.162], [0, 0.61, -0.005], 2], ['eyeL', [0.05, 0.05, 0.02], [0.036, 0.47, 0.08], 3], ['eyeR', [0.05, 0.05, 0.02], [-0.036, 0.47, 0.08], 3], ['pupL', [0.022, 0.022, 0.012], [0.036, 0.465, 0.093], 4], ['pupR', [0.022, 0.022, 0.012], [-0.036, 0.465, 0.093], 4]];
+    const g = grp(), meshes = defs.map(([nm, [bx, by, bz]]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(bx, by, bz), new THREE.MeshLambertMaterial(), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
+    const people = [], C = new THREE.Color();
+    for (let i = 0; i < n; i++) {
+      let x, z, tries = 0; do { x = (r() - 0.5) * w; z = (r() - 0.5) * d; tries++; } while (tries < 12 && clear.some(([cx, cz, cr]) => Math.hypot(x - cx, z - cz) < cr));
+      const col = SOCK_COLORS[Math.floor(r() * SOCK_COLORS.length)], ry = Math.atan2(face[0] - x, face[1] - z) + (r() - 0.5) * 0.5, sc = 0.85 + r() * 0.4;
+      people.push({ x, z, ry, sc, ph: r() * TAU, f: 2 + r() * 2.5, hop: r() < (o.hoppers ?? 0.3) });
+      defs.forEach(([nm, , , ci], j) => meshes[j].setColorAt(i, C.set([col[0], col[1], col[1] === '#F4F1E8' ? '#F4F1E8' : col[1], '#F8F5EC', '#0B0C0F'][ci])));
+    }
+    const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), Y = new THREE.Vector3(0, 1, 0), S3 = new THREE.Vector3(), P3 = new THREE.Vector3(), B = new THREE.Vector3();
+    g.userData.update = t => { people.forEach((p, i) => { const up = p.hop ? 0.09 * Math.abs(Math.sin(t * p.f + p.ph)) : 0.012 * Math.sin(t * p.f + p.ph); Q.setFromAxisAngle(Y, p.ry + 0.08 * Math.sin(t * 1.3 + p.ph)); S3.setScalar(p.sc); B.set(p.x, up, p.z);
+      defs.forEach(([, , off], j) => { P3.set(off[0] * p.sc, off[1] * p.sc, off[2] * p.sc).applyQuaternion(Q).add(B); M.compose(P3, Q, S3); meshes[j].setMatrixAt(i, M); }); });
+      meshes.forEach(m => { m.instanceMatrix.needsUpdate = true; }); };
+    g.userData.update(0); meshes.forEach(m => { m.instanceColor.needsUpdate = true; m.computeBoundingSphere(); });
+    return g;
+  },
+
+  heartPop(o) { // a red heart that pops in at o.at and floats up a little, wobbling (faces +Z)
+    const s = o.size || 0.25, sh = new THREE.Shape(); sh.moveTo(0, -0.5); sh.bezierCurveTo(-0.9, 0.1, -0.5, 0.75, 0, 0.35); sh.bezierCurveTo(0.5, 0.75, 0.9, 0.1, 0, -0.5);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.2, bevelEnabled: true, bevelSize: 0.05, bevelThickness: 0.05, bevelSegments: 2, curveSegments: 10 }); geo.center();
+    const m = mesh(geo, mat('#E0413A', { outline: 0.01 })), g = grp(m); m.scale.setScalar(s);
+    g.userData.update = t => { const u = t - (o.at || 0); const k = u < 0 ? 0 : u < 0.25 ? ease.out(u / 0.25) * 1.15 : 1 + 0.05 * Math.sin(u * 6); g.scale.setScalar(Math.max(0.001, k)); m.position.y = u > 0 ? Math.min(0.15, u * 0.12) : 0; m.rotation.y = 0.25 * Math.sin(u * 2.4); };
     g.userData.update(0); return g;
   },
 };
