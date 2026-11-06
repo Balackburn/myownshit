@@ -1,0 +1,6 @@
+.tesseract-work/
+shots/*.glb
+*.png
+*.mp4
+*.log
+frames/

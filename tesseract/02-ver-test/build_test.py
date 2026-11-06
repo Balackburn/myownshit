@@ -13,14 +13,14 @@ def tsrct(*a):
     if r.returncode: raise SystemExit(f"tsrct {' '.join(a[:3])} failed:\n{(r.stderr or r.stdout)[:3000]}")
     return r.stdout
 ap = argparse.ArgumentParser(); ap.add_argument('--renderer', default='raster'); ap.add_argument('--samples', type=int, default=0); ap.add_argument('--out', default=os.path.join(HERE, 'still.png'))
-ap.add_argument('--sun', type=float, default=3.4); ap.add_argument('--amb', type=float, default=0.5); a = ap.parse_args()
+ap.add_argument('--glb', default='shot.glb'); ap.add_argument('--w', type=int, default=1080); ap.add_argument('--h', type=int, default=1920); ap.add_argument('--project', default='VerTest.tsrct'); ap.add_argument('--no-preview', action='store_true'); ap.add_argument('--sun', type=float, default=3.4); ap.add_argument('--amb', type=float, default=0.5); a = ap.parse_args()
 J = json.load(open(os.path.join(HERE, 'shot.json')))
-P = os.path.join(HERE, 'VerTest.tsrct')
+P = os.path.join(HERE, a.project)
 if os.path.exists(P): os.remove(P)
 tsrct('project', 'create', '--project', P)
 ed = os.path.join(W, 'editable.json'); tsrct('project', 'checkout', '--project', P, '--output', ed)
-d = json.load(open(ed)); d['dimensions'] = {'width': 1080, 'height': 1920}; d['duration'] = 1.0; json.dump(d, open(ed, 'w')); tsrct('project', 'commit', '--project', P, '--file', ed)
-imp = tsrct('project', 'import-asset', '--project', P, '--file', os.path.join(HERE, 'shot.glb'), '--asset-id', 'shot', '--kind', 'model3d')
+d = json.load(open(ed)); d['dimensions'] = {'width': a.w, 'height': a.h}; d['duration'] = 1.0; json.dump(d, open(ed, 'w')); tsrct('project', 'commit', '--project', P, '--file', ed)
+imp = tsrct('project', 'import-asset', '--project', P, '--file', os.path.join(HERE, a.glb), '--asset-id', 'shot', '--kind', 'model3d')
 open(os.path.join(W, 'import.txt'), 'w').write(imp)
 cv = lambda v: [round(v[0] * 100, 3), round(-v[1] * 100, 3), round(-v[2] * 100, 3)]   # engine metres (Y up, -Z forward) -> scene pixels (Y down, Z in)
 doc = Doc(1000); L = 1
@@ -47,6 +47,7 @@ sd = J['sun']['direction']; sun_pos = [cp[i] + sd[i] * 40 for i in range(3)]
 aimed('Light3D', 'Sun', cv(sun_pos), cv(cp), {"castsShadows": True, "color": ext('#FFE2BE'), "emitter": {"type": "parallel", "irradiance": a.sun, "angularDiameter": 1.2}})
 acts = os.path.join(W, 'actions.json'); doc.save(acts)
 tsrct('project', 'apply', '--project', P, '--actions', acts)
+if a.no_preview: raise SystemExit(0)
 args = ['preview', '--project', P, '--time', '0.1', '--output', a.out, '--renderer', a.renderer]
 if a.samples: args += ['--samples', str(a.samples)]
 import time; t0 = time.time(); r = tsrct(*args); print(r.strip()[:600]); print('wall seconds', round(time.time() - t0, 1))

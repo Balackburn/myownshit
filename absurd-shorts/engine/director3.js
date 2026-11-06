@@ -970,9 +970,10 @@ export function _S() { return S; }
 // The posed scene at time t as a binary glTF (metres, Y up) + the camera, for a path-traced comparison in Tesseract Scene3D.
 // Ink outlines, the sky dome, sprites, particles and lights are left out; instances are expanded (Tesseract does not read
 // EXT_mesh_gpu_instancing); every material becomes a rough non-metal MeshStandardMaterial (lit), screens and bubbles stay emissive.
-export async function exportSceneGLB(tAbs) {
+export async function exportSceneGLB(tAbs, opts = {}) {
   renderFrame(tAbs);
   const { GLTFExporter } = await import('three/addons/exporters/GLTFExporter.js');
+  const { mergeGeometries } = await import('three/addons/utils/BufferGeometryUtils.js');
   const root = S.root, cam = S.stage.camera; root.updateMatrixWorld(true);
   const kill = []; root.traverse(n => { const m = n.material;
     if (n.name === 'outline' || n.isSprite || n.isPoints || n.isLine || n.isLight || !n.visible || (n.isMesh && n.renderOrder === -10 && m?.side === THREE.BackSide)) kill.push(n); });
@@ -989,10 +990,81 @@ export async function exportSceneGLB(tAbs) {
       else if (em) { s.emissive = cl(m.emissive); s.emissiveMap = m.emissiveMap || null; }
       conv.set(m, s); return s; };
     n.material = Array.isArray(n.material) ? n.material.map(one) : one(n.material); });
-  const buf = await new GLTFExporter().parseAsync(root, { binary: true, onlyVisible: true, maxTextureSize: 1024 });
+  let out = root;
+  if (opts.merge) {   // one mesh per material (world transforms baked): a handful of draw calls instead of thousands
+    root.updateMatrixWorld(true); const groups = new Map();
+    root.traverse(n => { if (!n.isMesh || Array.isArray(n.material)) return; const g = n.geometry.index ? n.geometry.toNonIndexed() : n.geometry.clone(); g.applyMatrix4(n.matrixWorld);
+      for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
+      if (!g.attributes.normal) g.computeVertexNormals(); if (!g.attributes.uv) g.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
+      (groups.get(n.material) || groups.set(n.material, []).get(n.material)).push(g); });
+    out = new THREE.Group(); for (const [m, gs] of groups) { const mg = mergeGeometries(gs, false); if (mg) out.add(new THREE.Mesh(mg, m)); }
+  }
+  const buf = await new GLTFExporter().parseAsync(out, { binary: true, onlyVisible: true, maxTextureSize: opts.maxTex || 1024 });
   let bin = ''; const u8 = new Uint8Array(buf); for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
   const dir = new THREE.Vector3(); cam.getWorldDirection(dir);
   return { glb: btoa(bin), camera: { position: cam.position.toArray(), direction: dir.toArray(), fov: cam.fov, aspect: cam.aspect },
            sun: S.lights?.key ? { direction: S.lights.key.position.clone().sub(S.lights.key.target.position).normalize().toArray(), intensity: S.lights.key.intensity, color: '#' + S.lights.key.color.getHexString() } : null,
            sky: '#' + (S.stage.scene.background?.getHexString?.() || 'a7d4ec') };
+}
+
+// One shot with its motion baked into glTF, for rendering in Tesseract: transforms sampled at `fps` over the shot (scene time),
+// static meshes merged by material, every moving mesh flattened to the root with world-space position/quaternion/scale tracks
+// (scale ~0 while hidden), a mesh whose texture changes (faces: expressions, blinks, lip flaps) split into one mesh per texture
+// shown by a stepped scale track; instanced meshes expanded per instance. Returns the GLB (base64) + per-frame camera, the sun, the sky.
+function poseAt(tAbs) {
+  const t = Math.min(tAbs, S.total - 1e-4);
+  let si = S.script.scenes.findIndex(sc => t >= sc.start && t < sc.start + sc.duration); if (si < 0) si = S.script.scenes.length - 1;
+  if (si !== S.scene) setupScene(si);
+  const lt = t - S.sc.start; evalAll(lt); lightCycle(lt); placeCamera(lt);
+  for (const o of S.follow || []) o.position.copy(S.stage.camera.position);
+  camLocked(S.stage.camera); S.root.updateMatrixWorld(true); S.stage.camera.updateMatrixWorld(true);
+}
+export async function exportShotGLB(si, { fps = 15, maxTex = 1024 } = {}) {
+  const { GLTFExporter } = await import('three/addons/exporters/GLTFExporter.js');
+  const { mergeGeometries } = await import('three/addons/utils/BufferGeometryUtils.js');
+  const sc = S.script.scenes[si], n = Math.max(2, Math.round(sc.duration * fps) + 1), times = [...Array(n)].map((_, f) => Math.min(f / fps, sc.duration - 1e-3));
+  poseAt(sc.start + 1e-4);
+  const skip = o => o.name === 'outline' || o.isSprite || o.isPoints || o.isLine || o.isLight || (o.isMesh && o.renderOrder === -10 && o.material?.side === THREE.BackSide);
+  const shown = o => { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; };
+  const items = []; S.root.traverse(o => { if (skip(o)) return; if (o.isInstancedMesh) for (let i = 0; i < o.count; i++) items.push({ o, i });
+    else if (o.isMesh && Array.isArray(o.material)) (o.geometry.groups.length ? o.geometry.groups : [{ start: 0, count: Infinity, materialIndex: 0 }]).forEach(g => items.push({ o, g }));   // heads: one box, six materials (the face is one of them)
+    else if (o.isMesh) items.push({ o }); });
+  const matOf = it => it.g ? it.o.material[it.g.materialIndex] : it.o.material;
+  const m4 = new THREE.Matrix4(), cam = S.stage.camera, dir = new THREE.Vector3(), camS = [];
+  for (const it of items) { it.M = []; it.vis = []; it.map = []; }
+  for (let f = 0; f < n; f++) {
+    poseAt(sc.start + times[f]);
+    for (const it of items) { const o = it.o; if (it.i != null) { o.getMatrixAt(it.i, m4); it.M.push(o.matrixWorld.clone().multiply(m4)); } else it.M.push(o.matrixWorld.clone()); it.vis.push(shown(o) && !skip(o)); it.map.push(it.i == null ? (matOf(it)?.map || null) : null); }
+    cam.getWorldDirection(dir); camS.push({ p: cam.position.toArray(), d: dir.toArray(), fov: cam.fov });
+  }
+  const conv = new Map(), cl = c => new THREE.Color(Math.min(1, c.r), Math.min(1, c.g), Math.min(1, c.b));
+  const toStd = (m, map) => { const key = m.uuid + '|' + (map?.uuid || ''); if (conv.has(key)) return conv.get(key);
+    const glowing = m.isMeshBasicMaterial && m.toneMapped === false, em = m.emissive && (m.emissive.r + m.emissive.g + m.emissive.b) > 0.02;
+    const s = new THREE.MeshStandardMaterial({ color: m.color ? cl(m.color) : new THREE.Color(1, 1, 1), map: map ?? m.map ?? null, roughness: 0.92, metalness: 0, transparent: !!m.transparent, opacity: m.opacity ?? 1, alphaTest: m.alphaTest || 0, side: m.side ?? THREE.FrontSide });
+    if (glowing) { s.emissive = new THREE.Color(1, 1, 1); s.emissiveMap = map ?? m.map ?? null; s.color.setRGB(0, 0, 0); } else if (em) { s.emissive = cl(m.emissive); s.emissiveMap = m.emissiveMap || null; }
+    conv.set(key, s); return s; };
+  const out = new THREE.Group(); out.name = 'shot'; const groups = new Map(), tracks = [], P = new THREE.Vector3(), Q = new THREE.Quaternion(), Sc = new THREE.Vector3(); let id = 0;
+  const geoOf = (o, grp) => { let g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone();
+    if (grp) { const a = grp.start, b = Math.min(grp.start + grp.count, g.attributes.position.count), sub = new THREE.BufferGeometry(); for (const k of Object.keys(g.attributes)) { const at = g.attributes[k]; sub.setAttribute(k, new THREE.BufferAttribute(at.array.slice(a * at.itemSize, b * at.itemSize), at.itemSize)); } g = sub; }
+    g.clearGroups(); for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
+    if (!g.attributes.normal) g.computeVertexNormals(); if (!g.attributes.uv) g.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2)); return g; };
+  for (const it of items) {
+    const o = it.o, om = matOf(it); if (!it.vis.some(Boolean) || !om || Array.isArray(om)) continue;
+    const maps = [...new Set(it.map)], still = it.M.every(M => M.equals(it.M[0])) && it.vis.every(Boolean) && maps.length === 1;
+    if (still) { const g = geoOf(o, it.g); g.applyMatrix4(it.M[0]); const mat = toStd(om, maps[0]); (groups.get(mat) || groups.set(mat, []).get(mat)).push(g); continue; }
+    for (const mp of maps) {   // one mesh per texture it shows during the shot
+      const mesh = new THREE.Mesh(geoOf(o, it.g), toStd(om, mp)); mesh.name = 'a' + (id++); out.add(mesh);
+      const pv = [], qv = [], sv = [];
+      let Qp = new THREE.Quaternion(); it.M.forEach((M, f) => { M.decompose(P, Q, Sc); const ql = Q.length(); if (!(ql > 1e-6) || !isFinite(ql)) Q.copy(Qp); else Q.normalize(); if (Qp.dot(Q) < 0) Q.set(-Q.x, -Q.y, -Q.z, -Q.w); Qp.copy(Q); const on = it.vis[f] && it.map[f] === mp, k = on ? 1 : 1e-4; pv.push(P.x, P.y, P.z); qv.push(Q.x, Q.y, Q.z, Q.w); sv.push(Sc.x * k, Sc.y * k, Sc.z * k); });
+      tracks.push(new THREE.VectorKeyframeTrack(mesh.name + '.position', times, pv), new THREE.QuaternionKeyframeTrack(mesh.name + '.quaternion', times, qv),
+        new THREE.VectorKeyframeTrack(mesh.name + '.scale', times, sv, maps.length > 1 || !it.vis.every(Boolean) ? THREE.InterpolateDiscrete : THREE.InterpolateLinear));
+    }
+  }
+  for (const [m, gs] of groups) { const mg = mergeGeometries(gs, false); if (mg) { const mm = new THREE.Mesh(mg, m); mm.name = 's' + (id++); out.add(mm); } }
+  const clip = new THREE.AnimationClip('shot', times[n - 1], tracks);
+  const buf = await new GLTFExporter().parseAsync(out, { binary: true, animations: tracks.length ? [clip] : [], onlyVisible: false, maxTextureSize: maxTex });
+  let bin = ''; const u8 = new Uint8Array(buf); for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+  return { glb: btoa(bin), id: sc.id, start: sc.start, duration: sc.duration, fps, times, camera: camS, aspect: cam.aspect, animated: tracks.length / 3,
+           sun: S.lights?.key ? { direction: S.lights.key.position.clone().sub(S.lights.key.target.position).normalize().toArray(), intensity: S.lights.key.intensity, color: '#' + S.lights.key.color.getHexString() } : null,
+           indoor: S.look ? !S.look.outdoor : false, sky: '#' + (S.stage.scene.background?.getHexString?.() || 'a7d4ec') };
 }
