@@ -15,6 +15,7 @@ Read, in this order:
 3. `references/production.md`: the one-pass pipeline, command by command, with the QA gates.
 4. `references/pitfalls.md`: what went wrong on the first stills of a new story and how to avoid it.
 5. `references/sand3d-models.md`: when the engine lacks an object, search the sand3d datasets (about 100 000 objects as programs,
+- `references/faces-and-fx.md`: every character wears the hero's face with variations (glasses, moustache, beard, lipstick, skin tone), 56 expressions, automatic micro-animation, face FX (wet hair and drops, tears, sweat, blush, shiver) and FLUX-generated textures. Give every beat a playing expression and use FX whenever the situation calls for it (rain = wet).
    CC BY 4.0), build a GLB and use it with the `glbModel` prop.
 
 Rules that always apply:
