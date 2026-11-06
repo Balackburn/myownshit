@@ -51,7 +51,7 @@ export async function load(script, { width, height } = {}) {
   stage.renderer.domElement.style.display = 'none';
   const out = document.createElement('canvas'); out.width = W; out.height = H; document.body.appendChild(out);
   S = { script, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, scene: -1, warnings: [], events: [], camTimes: [], lineById: {}, tempo: script.tempo || 1 }; // tempo > 1: snappier gestures, blends and turns
-  await Models.preload(Models.srcsIn(script));
+  await Models.preload(Models.srcsIn(script)); await Models.preloadImages(Models.allTextures());
   for (const [id, c] of Object.entries(script.cast || {})) S.cast[id] = buildActor(c, id);
   script.scenes.forEach((sc, si) => sc.lines.forEach(l => { S.lineById[l.id] = { ...l, si, rs: l.start - sc.start, re: l.end - sc.start }; }));
   S.total = script.scenes.reduce((m, sc) => Math.max(m, sc.start + sc.duration), 0);
@@ -206,7 +206,7 @@ function frozenRemap(id, t) { // scene time -> the actor's own clock (frozen act
 function prepActor(cfg, obj, sc, place) {
   const A = { id: cfg.id, cfg, obj, kind: obj.userData.kind, pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), scale0: cfg.scale ?? 1,
     ry0: typeof cfg.ry === 'number' ? cfg.ry * D2R : 0, face0: cfg.face ?? null, phase: cfg.phase || 0, speed: cfg.speed ?? 1,
-    moves: [], clipKeys: [], faceKeys: [], lookKeys: [], exprKeys: [], scaleKeys: [], visKeys: [], sfx: [] };
+    moves: [], clipKeys: [], faceKeys: [], lookKeys: [], exprKeys: [], scaleKeys: [], visKeys: [], sfx: [], fxKeys: [{ at: -1e6, fx: cfg.fx || {} }] };
   A.clipKeys.push({ at: -1e6, clip: cfg.clip || 'idle', params: cfg.params || {}, speed: cfg.speed ?? 1 });
   A.exprKeys.push({ at: -1e6, expr: cfg.expr || 'neutral' });
   A.scaleKeys.push({ at: -1e6, scale: A.scale0, dur: 0 });
@@ -221,6 +221,7 @@ function prepActor(cfg, obj, sc, place) {
     }
     if (k.look !== undefined) A.lookKeys.push({ at: k.t, look: k.look });
     if (k.expr) A.exprKeys.push({ at: k.t, expr: k.expr });
+    if (k.fx) A.fxKeys.push({ at: k.t, fx: { ...k.fx } });   // face FX: {wet, tears, sweat, blush, shiver}
     if (k.scale != null && k.to == null) A.scaleKeys.push({ at: k.t, scale: k.scale, dur: k.dur ?? 0.6, ease: k.ease || 'inOut' });
     if (k.visible != null) A.visKeys.push({ at: k.t, visible: k.visible });
     if (k.sfx) A.sfx.push({ t: k.t + (k.sfxAt || 0), name: k.sfx, vol: k.vol ?? 0.6 });
@@ -453,6 +454,8 @@ function effTime(id, t) {
 }
 const frozenNow = t => S.freezeAt != null && t >= S.freezeAt && t < S.freezeUntil;
 
+const EYES_SHUT = new Set(['blink', 'sleepy', 'happy', 'dead', 'laugh', 'cry', 'tongue', 'proud', 'yawn', 'kiss', 'relieved', 'drool', 'pain', 'bigGrin', 'tongueOut', 'dizzy', 'love', 'starEyes', 'wink']);
+const STRONG = new Set(['shocked', 'surprised', 'scared', 'awe', 'angry', 'rage', 'sob', 'nervous', 'surprisedHappy', 'puppy']);
 function evalActor(A, tIn) {
   const t = effTime(A.id, tIn);
   const obj = A.obj, ud = obj.userData;
@@ -461,18 +464,26 @@ function evalActor(A, tIn) {
   const cur = lastKey(A.clipKeys, t), prev = prevKey(A.clipKeys, cur);
   const dt = t - cur.at;
   // expression (+ blink, + lip flaps while this actor speaks)
-  let expr = lastKey(A.exprKeys, t).expr;
-  const env = speakingEnv(A, tIn);
-  if (env != null && env > 0.16 && !['shocked', 'surprised', 'scared', 'sleepy', 'dead', 'happy'].includes(expr)) expr = 'talk';
-  else if ((expr === 'neutral' || expr === 'suspicious' || expr === 'unimpressed') && ((t + A.phase * 7) % 3.4) < 0.11) expr = 'blink';
+  const ek = lastKey(A.exprKeys, t); let expr = ek.expr, blink = false;
+  const env = speakingEnv(A, tIn), ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0);
+  if (env != null && env > 0.16 && !['shocked', 'surprised', 'scared', 'sleepy', 'dead', 'happy', 'laugh', 'cry', 'yawn', 'awe'].includes(expr)) expr = env > 0.55 ? 'talkWide' : 'talk';
+  else if (!EYES_SHUT.has(expr)) {
+    // micro-animation: blinks (each expression keeps its own brows and mouth), a quick blink just before a strong reaction, idle glances
+    const sinceKey = t - ek.at, cyc = (t + ph) % 3.3;
+    if (cyc < 0.11 || (cyc > 0.3 && cyc < 0.38 && Math.floor((t + ph) / 3.3) % 3 === 1)) blink = true;
+    if (sinceKey >= 0 && sinceKey < 0.09 && STRONG.has(expr)) blink = true;
+    if (expr === 'neutral' && env == null) { const g = (t + ph * 1.7) % 4.1; if (g > 2.2 && g < 2.65) expr = Math.floor((t + ph) / 4.1) % 2 ? 'lookSide' : 'lookLeft'; }
+  }
   if (ud.kind === 'human') {
     let pose = clipPoseFn(A, cur, t);
     const BL = BLEND / S.tempo;
     if (prev && dt < BL + 0.12) pose = actingBlend(clipPoseFn(A, prev, t), pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
     applyHuman(A, pose, pos, ry, sc);
-    ud.setExpression?.(expr);
+    ud.setExpression?.(expr, blink);
+    const fx = lastKey(A.fxKeys, t).fx; ud.setFx?.(fx, t);
+    if (fx.shiver && ud.joints?.head) { ud.joints.head.rotation.z += 0.045 * Math.sin(t * 47); ud.joints.head.rotation.x += 0.02 * Math.sin(t * 61 + 1); }
   } else if (ud.kind === 'creature') {
-    ud.setExpression?.(expr);
+    ud.setExpression?.(expr === 'talkWide' ? 'talk' : (expr === 'lookSide' || expr === 'lookLeft') ? ek.expr : expr);
     const lt = (k) => Math.max(0, (t - k.at) * (k.speed ?? 1) * (k.move ? 1 : S.tempo) + A.phase);
     if (prev && dt < BLEND / S.tempo) {
       ud.animate(prev.clip, lt(prev), prev.params || {}); const a = snapshot(A);

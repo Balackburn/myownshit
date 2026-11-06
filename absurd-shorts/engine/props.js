@@ -670,7 +670,13 @@ const B = {
   door(o) {
     const w = o.w || 0.95, h = o.h || 2.1, fr = o.frame || P.cream, piv = grp();
     const g = grp(at(box(0.1, h + 0.1, 0.12, fr), -w / 2 - 0.05, (h + 0.1) / 2, 0.06), at(box(0.1, h + 0.1, 0.12, fr), w / 2 + 0.05, (h + 0.1) / 2, 0.06),
-      at(box(w + 0.3, 0.1, 0.12, fr), 0, h + 0.05, 0.06), at(box(w, h, 0.01, P.ink), 0, h / 2, 0.005), piv);
+      at(box(w + 0.3, 0.1, 0.12, fr), 0, h + 0.05, 0.06), o.inside === 'empty' ? at(canvasPlane(w, h, (c, W, H) => {   // an empty, lit cupboard: walls in perspective, a bare bulb on a cord
+        c.fillStyle = '#B9AE92'; c.fillRect(0, 0, W, H); c.fillStyle = '#E8DFC4'; c.fillRect(W * 0.2, H * 0.14, W * 0.6, H * 0.62);
+        c.fillStyle = '#CFC5A8'; c.beginPath(); c.moveTo(0, 0); c.lineTo(W * 0.2, H * 0.14); c.lineTo(W * 0.2, H * 0.76); c.lineTo(0, H); c.fill(); c.beginPath(); c.moveTo(W, 0); c.lineTo(W * 0.8, H * 0.14); c.lineTo(W * 0.8, H * 0.76); c.lineTo(W, H); c.fill();
+        c.fillStyle = '#9C8F72'; c.beginPath(); c.moveTo(0, H); c.lineTo(W * 0.2, H * 0.76); c.lineTo(W * 0.8, H * 0.76); c.lineTo(W, H); c.fill();
+        c.strokeStyle = '#3A3530'; c.lineWidth = W * 0.012; c.beginPath(); c.moveTo(W / 2, 0); c.lineTo(W / 2, H * 0.3); c.stroke();
+        const gr = c.createRadialGradient(W / 2, H * 0.33, 1, W / 2, H * 0.33, W * 0.45); gr.addColorStop(0, 'rgba(255,240,180,0.9)'); gr.addColorStop(1, 'rgba(255,240,180,0)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+        c.fillStyle = '#FFF4C8'; c.beginPath(); c.arc(W / 2, H * 0.33, W * 0.05, 0, Math.PI * 2); c.fill(); }, { res: 256, emissive: 0.85 }), 0, h / 2, 0.006) : at(box(w, h, 0.01, P.ink), 0, h / 2, 0.005), piv);
     piv.position.set(-w / 2, 0, 0.035);
     piv.add(at(box(w, h, 0.05, o.color || P.red, { outline: 0.006 }), w / 2, h / 2, 0), at(box(w * 0.62, h * 0.3, 0.012, P.redDark), w / 2, h * 0.72, 0.03),
       at(box(w * 0.62, h * 0.3, 0.012, P.redDark), w / 2, h * 0.3, 0.03), at(sphere(0.045, P.yellow, 0), w - 0.11, h * 0.48, 0.06));

@@ -45,9 +45,9 @@ export const atlasImage = await new Promise((res) => {
 // When present it REPLACES the painted-over atlas face: these textures are reconstructed 1:1 from the footage.
 // Engine expression names → face-set names (measured or "designed" variants, see face_landmarks.json).
 const FACE_SET_DIR = '/characters/lemec/face';
-const EXPR_MAP = { neutral: 'neutral', talk: 'talk', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'skeptical',
-  unimpressed: 'unimpressed', sideLook: 'unimpressed', surprised: 'surprised', shocked: 'shocked', scared: 'scared', angry: 'angry',
-  disgusted: 'angry', grimace: 'angry', sad: 'sad', worried: 'sad', happy: 'happy', dead: 'blink', grin: 'grin' };
+const EXPR_MAP = { neutral: 'neutral', talk: 'talk', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'smug',
+  unimpressed: 'unimpressed', sideLook: 'lookSide', surprised: 'surprised', shocked: 'shocked', scared: 'scared', angry: 'angry',
+  disgusted: 'disgusted', grimace: 'pain', sad: 'sad', worried: 'worried', happy: 'happy', dead: 'dead', grin: 'grin' };   // other names (laugh, cry, wink, rage, love…) map to themselves
 export const faceSet = await (async () => {
   try {
     const lm = await (await fetch(FACE_SET_DIR + '/face_landmarks.json')).json();
@@ -57,8 +57,8 @@ export const faceSet = await (async () => {
   } catch { return null; }
 })();
 const faceSetCache = {};
-function faceSetTexture(expression) {
-  const n = EXPR_MAP[expression] || expression; const im = faceSet.imgs[n] || faceSet.imgs.neutral;
+function faceSetTexture(expression, blink = false) {
+  const n0 = EXPR_MAP[expression] || expression, n = blink ? (faceSet.imgs[n0 + '_blink'] ? n0 + '_blink' : 'blink') : n0; const im = faceSet.imgs[n] || faceSet.imgs.neutral;
   if (!im) return null;
   if (faceSetCache[n]) return faceSetCache[n];
   const c = document.createElement('canvas'); c.width = im.width; c.height = im.height; const g = c.getContext('2d');
@@ -68,6 +68,59 @@ function faceSetTexture(expression) {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
   return (faceSetCache[n] = t);
 }
+
+
+// ---- every other character wears the hero's face set, varied: skin tone, hair-line colour (or bald), clean-shaven or stubble,
+// glasses, moustache, beard, lipstick + lashes, red nose. Expression names as for the hero; blink picks <name>_blink when it exists.
+const skinPlateImg = await new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = FACE_SET_DIR + '/skin_plate_neutral.png'; });
+const HERO_SKIN = '#D9A877', FW = 400, FH = 1080;
+const FEAT = { eyeL: [33, 231, 103, 101], eyeR: [249, 455, 104, 77], mouth: [117, 818, 194, 34], nose: [215, 685] };
+const rgbOf = c => { const k = new THREE.Color(c); return [k.r, k.g, k.b]; };
+const variantCache = new Map();
+export function variantFaceTexture(expression = 'neutral', v = {}, blink = false) {
+  if (!faceSet) return null;
+  const clean = !['stubble', 'beard'].includes(v.facial ?? 'stubble'), n0 = EXPR_MAP[expression] || expression, has = n => !!faceSet.imgs[n];
+  const name = [`${n0}${clean ? '_clean' : ''}${blink ? '_blink' : ''}`, `${n0}${blink ? '_blink' : ''}`, blink ? (clean ? 'neutral_clean_blink' : 'blink') : null, clean ? `${n0}_clean` : null, n0, 'neutral'].find(n => n && has(n));
+  const key = name + '|' + [v.skin, v.hair, v.hairColor, v.facial, v.glasses, v.glassesColor, v.lipstick, v.redNose, v.beardColor].join('|');
+  if (variantCache.has(key)) return variantCache.get(key);
+  const c = document.createElement('canvas'); c.width = FW; c.height = FH; const g = c.getContext('2d');
+  g.filter = 'brightness(0.935) contrast(1.163) saturate(1.282)'; g.drawImage(faceSet.imgs[name], 0, 0, FW, FH); g.filter = 'none';
+  // skin tone: scale skin-like pixels (warm, mid-bright) by target/hero; hair line (top band): recolour the dark curls
+  const id = g.getImageData(0, 0, FW, FH), d = id.data, hs = rgbOf(HERO_SKIN), ts = rgbOf(v.skin || HERO_SKIN), k = ts.map((x, i) => x / hs[i]);
+  const bald = v.hair === 'bald', hc = rgbOf(v.hairColor || '#17181B').map(x => x * 255), tint = Math.abs(k[0] - 1) + Math.abs(k[1] - 1) + Math.abs(k[2] - 1) > 0.02;
+  for (let y = 0; y < FH; y++) for (let x = 0; x < FW; x++) {
+    const i = (y * FW + x) * 4, r = d[i], gg = d[i + 1], b = d[i + 2], lum = 0.3 * r + 0.59 * gg + 0.11 * b;
+    if (y < 78 && lum < 115) { if (bald) { d[i] = 255 * ts[0] * 0.95; d[i + 1] = 255 * ts[1] * 0.95; d[i + 2] = 255 * ts[2] * 0.95; } else { const f = 0.75 + lum / 460; d[i] = hc[0] * f; d[i + 1] = hc[1] * f; d[i + 2] = hc[2] * f; } continue; }
+    if (tint && r - b > 40 && lum > 70) { d[i] = Math.min(255, r * k[0]); d[i + 1] = Math.min(255, gg * k[1]); d[i + 2] = Math.min(255, b * k[2]); }
+  }
+  // lipstick: the mouth's ink turns red (open mouths keep their dark inside)
+  if (v.lipstick) { const [mx, my, mw, mh] = FEAT.mouth; for (let y = my - 40; y < my + mh + 90; y++) for (let x = mx - 40; x < mx + mw + 40; x++) { const i = (y * FW + x) * 4; if (d[i] + d[i + 1] + d[i + 2] < 210 && d[i] < 90) { d[i] = 168; d[i + 1] = 38; d[i + 2] = 42; } } }
+  g.putImageData(id, 0, 0);
+  const ink = '#2B231E'; g.lineCap = 'round'; g.lineJoin = 'round';
+  if (v.lipstick && !blink) {   // lashes at the outer corners
+    g.strokeStyle = ink; g.lineWidth = 6; for (const [ex, ey, ew, eh, sd] of [[...FEAT.eyeL, -1], [...FEAT.eyeR, 1]]) { const ox = sd < 0 ? ex + 6 : ex + ew - 6, oy = ey + 10; for (let j = 0; j < 3; j++) { g.beginPath(); g.moveTo(ox, oy + j * 9); g.lineTo(ox + sd * 20, oy - 10 + j * 9); g.stroke(); } }
+  }
+  if (v.facial === 'mustache') {   // a bushy moustache over the upper lip
+    const [mx, my, mw] = FEAT.mouth, cx = mx + mw / 2, col = v.beardColor || v.hairColor || '#2A1E16'; g.fillStyle = col; g.beginPath();
+    g.moveTo(cx - mw * 0.55, my - 2); g.quadraticCurveTo(cx - mw * 0.35, my - 48, cx, my - 34); g.quadraticCurveTo(cx + mw * 0.35, my - 48, cx + mw * 0.55, my - 2); g.quadraticCurveTo(cx, my - 18, cx - mw * 0.55, my - 2); g.fill();
+    g.strokeStyle = 'rgba(0,0,0,0.35)'; g.lineWidth = 3; for (let j = -6; j <= 6; j++) { g.beginPath(); g.moveTo(cx + j * 13, my - 30); g.lineTo(cx + j * 15, my - 12); g.stroke(); }
+  }
+  if (v.facial === 'beard') {   // a full beard around the jaw, the mouth left open
+    const col = v.beardColor || v.hairColor || '#2A1E16', r0 = (v.seed || 3) * 7; g.fillStyle = col;
+    for (let j = 0; j < 520; j++) { const a = ((j * 97 + r0) % 1000) / 1000, b = ((j * 61 + r0 * 3) % 1000) / 1000, x = 10 + a * 380, y = 760 + b * 320;
+      const [mx, my, mw, mh] = FEAT.mouth; if (x > mx - 14 && x < mx + mw + 14 && y > my - 12 && y < my + mh + 30) continue; g.fillRect(x, y, 7, 13); }
+  }
+  if (v.redNose) { g.fillStyle = '#D7262E'; g.beginPath(); g.arc(FEAT.nose[0] - 8, FEAT.nose[1], 26, 0, Math.PI * 2); g.fill(); }
+  if (v.glasses) {   // frames around both eyes, a bridge and the temples
+    const col = v.glassesColor || '#1C1C1E'; g.strokeStyle = col; g.lineWidth = 11; g.fillStyle = 'rgba(190,225,255,0.18)';
+    const fr = ([x, y, w, h]) => { const p = 14, X0 = x - p, Y0 = y - p, X1 = x + w + p, Y1 = y + h + p, rr = 26; g.beginPath(); g.moveTo(X0 + rr, Y0); g.arcTo(X1, Y0, X1, Y1, rr); g.arcTo(X1, Y1, X0, Y1, rr); g.arcTo(X0, Y1, X0, Y0, rr); g.arcTo(X0, Y0, X1, Y0, rr); g.closePath(); g.fill(); g.stroke(); return [X0, Y0, X1, Y1]; };
+    const A = fr(FEAT.eyeL), B = fr(FEAT.eyeR); g.beginPath(); g.moveTo(A[2], (A[1] + A[3]) / 2 + 20); g.quadraticCurveTo((A[2] + B[0]) / 2, (A[3] + B[1]) / 2 - 10, B[0], (B[1] + B[3]) / 2 - 10); g.stroke();
+    g.beginPath(); g.moveTo(A[0], (A[1] + A[3]) / 2); g.lineTo(0, (A[1] + A[3]) / 2 - 12); g.stroke(); g.beginPath(); g.moveTo(B[2], (B[1] + B[3]) / 2); g.lineTo(FW, (B[1] + B[3]) / 2 - 16); g.stroke();
+  }
+  g.strokeStyle = '#151313'; g.lineWidth = Math.round(FW * 0.03); g.strokeRect(g.lineWidth / 2, g.lineWidth / 2, FW - g.lineWidth, FH - g.lineWidth);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; variantCache.set(key, t); return t;
+}
+export const hasFaceSet = !!faceSet;
 
 let _tex = null, _mat = null;
 export function atlasTexture() {
@@ -132,8 +185,8 @@ function feathered(ctx, img, x, y, w, h, f = 18) {
 
 function crop(r) { const c = document.createElement('canvas'); c.width = r[2] - r[0]; c.height = r[3] - r[1]; c.getContext('2d').drawImage(atlasImage, r[0], r[1], c.width, c.height, 0, 0, c.width, c.height); return c; }
 
-export function atlasFaceTexture(expression = 'neutral') {
-  if (faceSet) { const t = faceSetTexture(expression); if (t) return t; }
+export function atlasFaceTexture(expression = 'neutral', blink = false) {
+  if (faceSet) { const t = faceSetTexture(expression, blink); if (t) return t; }
   if (!atlasImage) return null;
   if (faceCache.has(expression)) return faceCache.get(expression);
   const r = R.face, c = crop(r), g = c.getContext('2d');

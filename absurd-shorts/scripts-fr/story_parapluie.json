@@ -108,10 +108,10 @@
      "keys": [
       {
        "at": 0.733,
-       "expr": "happy"
+       "expr": "proud"
       }
      ],
-     "expr": "smug"
+     "expr": "smirk"
     }
    ],
    "props": [
@@ -414,6 +414,9 @@
        "clip": "walk"
       }
      ],
+     "fx": {
+      "wet": true
+     },
      "expr": "unimpressed"
     },
     {
@@ -435,7 +438,7 @@
        ]
       }
      ],
-     "expr": "surprised"
+     "expr": "smirk"
     }
    ],
    "props": [
@@ -529,7 +532,10 @@
      "ry": 0,
      "clip": "sitWrite",
      "keys": [],
-     "expr": "unimpressed"
+     "fx": {
+      "wet": true
+     },
+     "expr": "squint"
     },
     {
      "id": "collegue",
@@ -644,6 +650,9 @@
      "ry": -15,
      "clip": "stand",
      "keys": [],
+     "fx": {
+      "wet": true
+     },
      "expr": "unimpressed"
     },
     {
@@ -656,7 +665,7 @@
      "ry": 10,
      "clip": "stand",
      "keys": [],
-     "expr": "happy"
+     "expr": "whistle"
     },
     {
      "id": "collegue",
@@ -747,6 +756,9 @@
      "ry": 180,
      "clip": "sit",
      "keys": [],
+     "fx": {
+      "wet": true
+     },
      "expr": "unimpressed"
     },
     {
@@ -768,7 +780,7 @@
        ]
       }
      ],
-     "expr": "shocked"
+     "expr": "disgusted"
     },
     {
      "id": "collegue",
@@ -789,7 +801,7 @@
        ]
       }
      ],
-     "expr": "angry"
+     "expr": "rage"
     },
     {
      "id": "spect1",
@@ -810,7 +822,7 @@
        ]
       }
      ],
-     "expr": "unimpressed"
+     "expr": "eyeRoll"
     },
     {
      "id": "spect2",
@@ -831,7 +843,7 @@
        ]
       }
      ],
-     "expr": "surprised"
+     "expr": "awe"
     }
    ],
    "props": [
@@ -915,7 +927,11 @@
      "ry": 0,
      "clip": "stand",
      "keys": [],
-     "expr": "shocked"
+     "fx": {
+      "wet": true,
+      "tears": true
+     },
+     "expr": "cry"
     },
     {
      "id": "marie",
@@ -927,7 +943,7 @@
      "ry": -10,
      "clip": "stand",
      "keys": [],
-     "expr": "surprised"
+     "expr": "shocked"
     },
     {
      "id": "mec",
@@ -939,7 +955,7 @@
      "ry": 30,
      "clip": "stand",
      "keys": [],
-     "expr": "unimpressed"
+     "expr": "whistle"
     }
    ],
    "props": [
@@ -1022,7 +1038,7 @@
      "ry": 180,
      "clip": "giveItem",
      "keys": [],
-     "expr": "neutral"
+     "expr": "puppy"
     },
     {
      "id": "guichet",
@@ -1034,7 +1050,7 @@
      "ry": 0,
      "clip": "stand",
      "keys": [],
-     "expr": "suspicious"
+     "expr": "disgusted"
     }
    ],
    "props": [
@@ -1120,7 +1136,10 @@
      "ry": 0,
      "clip": "scared",
      "keys": [],
-     "expr": "shocked"
+     "fx": {
+      "wet": true
+     },
+     "expr": "sob"
     }
    ],
    "props": [
@@ -1289,7 +1308,7 @@
        "face": "keep"
       }
      ],
-     "expr": "happy"
+     "expr": "bigGrin"
     }
    ],
    "props": [
@@ -1459,7 +1478,7 @@
      "ry": -10,
      "clip": "present",
      "keys": [],
-     "expr": "grin"
+     "expr": "proud"
     }
    ],
    "props": [
@@ -1556,8 +1575,16 @@
      ],
      "ry": 70,
      "clip": "sitFloor",
-     "keys": [],
-     "expr": "grin"
+     "keys": [
+      {
+       "at": 1.442,
+       "expr": "starEyes"
+      }
+     ],
+     "fx": {
+      "wet": true
+     },
+     "expr": "relieved"
     }
    ],
    "props": [

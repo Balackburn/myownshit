@@ -9,7 +9,7 @@
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, addOutline, rng } from './style.js';
 import { faceTexture, sideTexture } from './face.js';
-import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces } from './atlas.js';
+import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces, variantFaceTexture, hasFaceSet } from './atlas.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
@@ -108,6 +108,7 @@ export function buildHuman(spec = {}) {
   if (typeof spec === 'string') spec = { preset: spec };
   const preset = PRESETS[spec.preset || 'lemec'] || {};
   const o = { skin: P.skin, hairColor: P.hair, glasses: false, hat: 'none', ears: 'normal', claws: false, seed: 3, ...preset, ...spec };
+  if (preset.glasses === undefined && spec.glasses === undefined && spec.preset && spec.preset !== 'lemec' && !preset.atlas && (o.seed % 3 === 0)) { o.glasses = true; o.glassesColor = o.glassesColor || ['#1C1C1E', '#7A3B22', '#2C4A8A', '#B5302A'][o.seed % 4]; }   // variation: some extras wear glasses
   const C = { ...OUTFIT_COLORS[o.outfit || 'suit'] };
   if (o.suit) { C.jacket = o.suit; if (C.pants && o.outfit === 'suit') C.pants = o.suit; }
   if (o.tie) C.tie = o.tie; if (o.lapel) C.lapel = o.lapel; if (o.pants) C.pants = o.pants; if (o.shirt) C.shirt = o.shirt; if (o.cuff) C.cuff = o.cuff;
@@ -204,7 +205,8 @@ export function buildHuman(spec = {}) {
   const head = joint('head', neck, 0, 0.1, 0); // short neck: ≈ 4–5 % of the height visible (measured)
   const hs = B.headScale;
   const hw = 0.185 * hs * B.headWidth, hh = 0.5 * hs, hd = 0.17 * hs; // MEASURED: head = 20–22 % of the height, W/H ≈ 0.37 (V1/V2); the tornado reference ≈ 0.48
-  const faceOpts = { skin: o.skin, hair: o.hair, hairColor: o.hairColor, facial: o.facial === 'cop' ? 'mustache' : o.facial, glasses: o.glasses, lipstick: o.lipstick, seed: o.seed, redNose: o.redNose, beardColor: o.beardColor };
+  const faceOpts = { skin: o.skin, hair: o.hair, hairColor: o.hairColor, facial: o.facial === 'cop' ? 'mustache' : o.facial, glasses: o.glasses, glassesColor: o.glassesColor, lipstick: o.lipstick, seed: o.seed, redNose: o.redNose, beardColor: o.beardColor };
+  const HEROFACE = !ATL && hasFaceSet && o.ownFace !== true;   // every character wears the hero's face set (with variations), unless ownFace
   const headMats = ATL ? [
     new THREE.MeshLambertMaterial({ map: atlasSideTexture(false) }), new THREE.MeshLambertMaterial({ map: atlasSideTexture(true) }),
     atlasMaterial(), atlasMaterial(),
@@ -213,7 +215,7 @@ export function buildHuman(spec = {}) {
   ] : [
     new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }), new THREE.MeshLambertMaterial({ map: mirrored(sideTexture(faceOpts)) }),
     mat(o.hair === 'bald' ? o.skin : o.hairColor), mat(o.skin),
-    new THREE.MeshLambertMaterial({ map: faceTexture({ ...faceOpts, expression: 'neutral' }) }),
+    HEROFACE ? new THREE.MeshBasicMaterial({ map: variantFaceTexture('neutral', faceOpts), color: new THREE.Color(0.97, 0.97, 0.97) }) : new THREE.MeshLambertMaterial({ map: faceTexture({ ...faceOpts, expression: 'neutral' }) }),
     new THREE.MeshLambertMaterial({ map: sideTexture({ ...faceOpts, back: true }) }),
   ];
   const headGeo = new THREE.BoxGeometry(hw, hh, hd); headGeo.translate(0, hh / 2, 0);
@@ -283,11 +285,12 @@ for (let i = 0; i < pp.count; i++) {
   }
 
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.1 + hh };
-  root.userData.setExpression = (expr) => {
+  root.userData.setExpression = (expr, blink = false) => {
     const m = headMesh.material[4];
-    const tex = ATL ? atlasFaceTexture(expr) : faceTexture({ ...faceOpts, expression: expr });
-    if (m.map !== tex) { m.map = tex; m.needsUpdate = true; }
+    const tex = ATL ? atlasFaceTexture(expr, blink) : HEROFACE ? variantFaceTexture(expr, faceOpts, blink) : faceTexture({ ...faceOpts, expression: blink ? 'blink' : expr });
+    if (tex && m.map !== tex) { m.map = tex; m.needsUpdate = true; }
   };
+  root.userData.setFx = buildFaceFx(head, hw, hh, hd, o);
   // rest pose snapshot for the animator
   root.userData.rest = Object.fromEntries(Object.entries(J).map(([k, v]) => [k, v.position.clone()]));
   root.traverse(n => { if (n.isMesh && n.name !== 'outline') { n.castShadow = true; } });
@@ -338,4 +341,58 @@ function addHat(head, hat, hw, hh, hd, C) {
       const v = new THREE.Mesh(new THREE.CylinderGeometry(hw * 1.15, hw * 1.15, hh * 0.85, 16, 1, true), new THREE.MeshLambertMaterial({ color: '#2A2A2E', transparent: true, opacity: 0.45, side: THREE.DoubleSide, depthWrite: false })); v.position.y = -hh * 0.42; g.add(v); break; }
     case 'crown': { for (let i = 0; i < 5; i++) { const p = box(0.04, 0.12, 0.03, P.yellow, { taper: 0.2 }); const a = i / 5 * Math.PI * 2; p.position.set(Math.cos(a) * 0.09, 0.06, Math.sin(a) * 0.08); g.add(p); } g.add(box(hw * 0.9, 0.05, hd * 0.9, P.yellow, { pivot: 'bottom' })); break; }
   }
+}
+
+
+// ---- face FX: wet hair strands with drips and drops running down the face, tears, sweat, blush; setFx({wet, tears, sweat, blush}, t)
+let _dropTex = null, _blushTex = null;
+function dropTexture() {
+  if (_dropTex) return _dropTex;
+  const c = document.createElement('canvas'); c.width = 64; c.height = 96; const g = c.getContext('2d');
+  g.fillStyle = 'rgba(150,208,248,0.96)'; g.strokeStyle = 'rgba(40,60,90,0.9)'; g.lineWidth = 4;
+  g.beginPath(); g.moveTo(32, 4); g.bezierCurveTo(46, 34, 58, 52, 58, 66); g.arc(32, 66, 26, 0, Math.PI); g.bezierCurveTo(6, 52, 18, 34, 32, 4); g.fill(); g.stroke();
+  g.fillStyle = 'rgba(255,255,255,0.95)'; g.beginPath(); g.ellipse(24, 62, 6, 10, -0.3, 0, Math.PI * 2); g.fill();
+  _dropTex = new THREE.CanvasTexture(c); _dropTex.colorSpace = THREE.SRGBColorSpace; return _dropTex;
+}
+function blushTexture() {
+  if (_blushTex) return _blushTex;
+  const c = document.createElement('canvas'); c.width = 128; c.height = 64; const g = c.getContext('2d');
+  g.fillStyle = 'rgba(236,110,110,0.62)'; g.beginPath(); g.ellipse(64, 32, 60, 28, 0, 0, Math.PI * 2); g.fill();
+  g.strokeStyle = 'rgba(190,60,60,0.8)'; g.lineWidth = 6; for (let k = 0; k < 3; k++) { g.beginPath(); g.moveTo(34 + k * 26, 44); g.lineTo(48 + k * 26, 20); g.stroke(); }
+  _blushTex = new THREE.CanvasTexture(c); _blushTex.colorSpace = THREE.SRGBColorSpace; return _blushTex;
+}
+function buildFaceFx(head, hw, hh, hd, o) {
+  const FX = new THREE.Group(); FX.name = 'faceFx'; FX.visible = false; head.add(FX);
+  const P2 = (cx, cy) => [(cx / 400 - 0.5) * hw, (1 - cy / 1080) * hh], Z = y => hd / 2 - 0.015 * (y / hh) + 0.004;
+  const dm = new THREE.MeshBasicMaterial({ map: dropTexture(), transparent: true, depthWrite: false });
+  const DW = 34 / 400 * hw, DH = 52 / 1080 * hh, dgeo = new THREE.PlaneGeometry(DW, DH);
+  const drop = () => { const m = new THREE.Mesh(dgeo, dm); m.renderOrder = 3; FX.add(m); return m; };
+  const at2 = (m, cx, cy, s = 1) => { const [x, y] = P2(cx, cy); m.position.set(x, y, Z(y) + 0.001); m.scale.setScalar(s); };
+  // wet: strands of hair stuck on the forehead, drips forming at their tips, drops running down the face
+  const hairC = new THREE.Color(o.atlas ? '#17120F' : (o.hairColor || '#17181B')).multiplyScalar(0.8);
+  const strands = [[64, 150, 0.22], [142, 215, -0.08], [238, 175, 0.14], [326, 125, -0.22]].map(([cx, len, rot]) => {
+    const L = len / 1080 * hh, w = 15 / 400 * hw, g = new THREE.Group(), seg = new THREE.Mesh(new THREE.BoxGeometry(w, L, 0.004), new THREE.MeshBasicMaterial({ color: hairC }));
+    seg.position.y = -L / 2; g.add(seg); const tip = new THREE.Mesh(new THREE.BoxGeometry(w * 0.8, w * 2.2, 0.004), new THREE.MeshBasicMaterial({ color: hairC })); tip.position.set(w * 0.8 * Math.sign(rot || 1), -L, 0); tip.rotation.z = -0.9 * Math.sign(rot || 1); g.add(tip);
+    const [x, y] = P2(cx, 26); g.position.set(x, y, Z(y) + 0.002); g.rotation.z = rot; FX.add(g); return { g, cx, len, rot, drip: drop() }; });
+  const runs = [[58, 0.0, 150], [118, 0.37, 210], [196, 0.71, 170], [262, 0.18, 230], [318, 0.55, 190], [368, 0.86, 160]].map(([cx, ph, v]) => ({ m: drop(), cx, ph, v }));
+  // tears: streams under both eyes
+  const tears = [[85, 336], [301, 534]].flatMap(([cx, cy]) => [0, 0.33, 0.66].map(ph => ({ m: drop(), cx, cy, ph })));
+  // sweat: drops at the temples and a big drop on the side
+  const sweat = [[30, 220, 0.0], [374, 300, 0.5]].map(([cx, cy, ph]) => ({ m: drop(), cx, cy, ph })), bigSweat = drop();
+  // blush: two pink patches on the cheeks
+  const bm = new THREE.MeshBasicMaterial({ map: blushTexture(), transparent: true, depthWrite: false }), bgeo = new THREE.PlaneGeometry(96 / 400 * hw, 48 / 1080 * hh * 2.2);
+  const blush = [[92, 450], [318, 640]].map(([cx, cy]) => { const m = new THREE.Mesh(bgeo, bm); m.renderOrder = 2; at2(m, cx, cy); FX.add(m); return m; });
+  const all = [...runs.map(r => r.m), ...tears.map(r => r.m), ...sweat.map(r => r.m), bigSweat, ...blush, ...strands.flatMap(s => [s.g, s.drip])];
+  return (fx = {}, t = 0) => {
+    const on = !!(fx.wet || fx.tears || fx.sweat || fx.blush); FX.visible = on; if (!on) return;
+    all.forEach(m => { m.visible = false; });
+    if (fx.wet) {
+      strands.forEach((s, i) => { s.g.visible = true; const q = (t * 0.8 + i * 0.29) % 1, tx = s.cx + Math.sin(s.rot) * s.len * 0.9, ty = 26 + s.len * Math.cos(s.rot) + 18;   // a drip swells at the tip, then falls
+        s.drip.visible = true; if (q < 0.55) at2(s.drip, tx, ty, 0.35 + q); else at2(s.drip, tx, ty + (q - 0.55) * 900, 0.9); });
+      runs.forEach(r => { const q = (t * r.v / 900 + r.ph) % 1, y = 140 + q * 900; r.m.visible = q < 0.93; at2(r.m, r.cx + 8 * Math.sin(q * 9 + r.ph * 6), y, 0.85 + 0.25 * Math.sin(r.ph * 7)); });
+    }
+    if (fx.tears) tears.forEach(r => { const q = (t * 0.9 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx - 14 * q, r.cy + q * 330, 0.9); });
+    if (fx.sweat) { sweat.forEach(r => { const q = (t * 0.25 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, r.cy + q * 260, 0.8); }); bigSweat.visible = true; at2(bigSweat, 352, 175 + 6 * Math.sin(t * 3), 1.9); }
+    if (fx.blush) blush.forEach(m => { m.visible = true; });
+  };
 }

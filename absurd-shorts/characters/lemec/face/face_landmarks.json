@@ -436,6 +436,876 @@
   "grin": {
    "status": "designed (open smile painted over the measured neutral face, not seen in the footage)",
    "from_source": "neutral"
+  },
+  "laugh": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "cry": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "sob": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "wink": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "tongue": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "rage": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "love": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "dizzy": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "nervous": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "proud": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "pout": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "yawn": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "kiss": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "blush": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "sweat": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "whistle": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "lookSide": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "lookLeft": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "lookUp": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "lookDown": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "starEyes": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "smirk": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "confused": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "determined": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "eyeRoll": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "awe": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "sneaky": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "pain": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "disgust": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "relieved": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "drool": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "squint": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "cold": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "surprisedHappy": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "evil": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "puppy": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "worried": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "disgusted": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "dead": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "smug": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "bigGrin": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "tongueOut": {
+   "status": "designed",
+   "from_source": "neutral",
+   "tool": "tools/face/gen_expressions.py"
+  },
+  "neutral_clean": {
+   "status": "designed",
+   "from_source": "neutral",
+   "variant": "clean"
+  },
+  "neutral_blink": {
+   "status": "designed",
+   "from_source": "neutral",
+   "variant": "blink"
+  },
+  "neutral_clean_blink": {
+   "status": "designed",
+   "from_source": "neutral",
+   "variant": "clean+blink"
+  },
+  "skeptical_clean": {
+   "status": "designed",
+   "from_source": "skeptical",
+   "variant": "clean"
+  },
+  "skeptical_blink": {
+   "status": "designed",
+   "from_source": "skeptical",
+   "variant": "blink"
+  },
+  "skeptical_clean_blink": {
+   "status": "designed",
+   "from_source": "skeptical",
+   "variant": "clean+blink"
+  },
+  "unimpressed_clean": {
+   "status": "designed",
+   "from_source": "unimpressed",
+   "variant": "clean"
+  },
+  "unimpressed_blink": {
+   "status": "designed",
+   "from_source": "unimpressed",
+   "variant": "blink"
+  },
+  "unimpressed_clean_blink": {
+   "status": "designed",
+   "from_source": "unimpressed",
+   "variant": "clean+blink"
+  },
+  "surprised_clean": {
+   "status": "designed",
+   "from_source": "surprised",
+   "variant": "clean"
+  },
+  "surprised_blink": {
+   "status": "designed",
+   "from_source": "surprised",
+   "variant": "blink"
+  },
+  "surprised_clean_blink": {
+   "status": "designed",
+   "from_source": "surprised",
+   "variant": "clean+blink"
+  },
+  "shocked_clean": {
+   "status": "designed",
+   "from_source": "shocked",
+   "variant": "clean"
+  },
+  "shocked_blink": {
+   "status": "designed",
+   "from_source": "shocked",
+   "variant": "blink"
+  },
+  "shocked_clean_blink": {
+   "status": "designed",
+   "from_source": "shocked",
+   "variant": "clean+blink"
+  },
+  "angry_clean": {
+   "status": "designed",
+   "from_source": "angry",
+   "variant": "clean"
+  },
+  "angry_blink": {
+   "status": "designed",
+   "from_source": "angry",
+   "variant": "blink"
+  },
+  "angry_clean_blink": {
+   "status": "designed",
+   "from_source": "angry",
+   "variant": "clean+blink"
+  },
+  "sad_clean": {
+   "status": "designed",
+   "from_source": "sad",
+   "variant": "clean"
+  },
+  "sad_blink": {
+   "status": "designed",
+   "from_source": "sad",
+   "variant": "blink"
+  },
+  "sad_clean_blink": {
+   "status": "designed",
+   "from_source": "sad",
+   "variant": "clean+blink"
+  },
+  "happy_clean": {
+   "status": "designed",
+   "from_source": "happy",
+   "variant": "clean"
+  },
+  "sleepy_clean": {
+   "status": "designed",
+   "from_source": "sleepy",
+   "variant": "clean"
+  },
+  "blink_clean": {
+   "status": "designed",
+   "from_source": "blink",
+   "variant": "clean"
+  },
+  "scared_clean": {
+   "status": "designed",
+   "from_source": "scared",
+   "variant": "clean"
+  },
+  "scared_blink": {
+   "status": "designed",
+   "from_source": "scared",
+   "variant": "blink"
+  },
+  "scared_clean_blink": {
+   "status": "designed",
+   "from_source": "scared",
+   "variant": "clean+blink"
+  },
+  "talk_clean": {
+   "status": "designed",
+   "from_source": "talk",
+   "variant": "clean"
+  },
+  "talk_blink": {
+   "status": "designed",
+   "from_source": "talk",
+   "variant": "blink"
+  },
+  "talk_clean_blink": {
+   "status": "designed",
+   "from_source": "talk",
+   "variant": "clean+blink"
+  },
+  "talkWide_clean": {
+   "status": "designed",
+   "from_source": "talkWide",
+   "variant": "clean"
+  },
+  "talkWide_blink": {
+   "status": "designed",
+   "from_source": "talkWide",
+   "variant": "blink"
+  },
+  "talkWide_clean_blink": {
+   "status": "designed",
+   "from_source": "talkWide",
+   "variant": "clean+blink"
+  },
+  "grin_clean": {
+   "status": "designed",
+   "from_source": "grin",
+   "variant": "clean"
+  },
+  "grin_blink": {
+   "status": "designed",
+   "from_source": "grin",
+   "variant": "blink"
+  },
+  "grin_clean_blink": {
+   "status": "designed",
+   "from_source": "grin",
+   "variant": "clean+blink"
+  },
+  "laugh_clean": {
+   "status": "designed",
+   "from_source": "laugh",
+   "variant": "clean"
+  },
+  "cry_clean": {
+   "status": "designed",
+   "from_source": "cry",
+   "variant": "clean"
+  },
+  "sob_clean": {
+   "status": "designed",
+   "from_source": "sob",
+   "variant": "clean"
+  },
+  "sob_blink": {
+   "status": "designed",
+   "from_source": "sob",
+   "variant": "blink"
+  },
+  "sob_clean_blink": {
+   "status": "designed",
+   "from_source": "sob",
+   "variant": "clean+blink"
+  },
+  "wink_clean": {
+   "status": "designed",
+   "from_source": "wink",
+   "variant": "clean"
+  },
+  "wink_blink": {
+   "status": "designed",
+   "from_source": "wink",
+   "variant": "blink"
+  },
+  "wink_clean_blink": {
+   "status": "designed",
+   "from_source": "wink",
+   "variant": "clean+blink"
+  },
+  "tongue_clean": {
+   "status": "designed",
+   "from_source": "tongue",
+   "variant": "clean"
+  },
+  "rage_clean": {
+   "status": "designed",
+   "from_source": "rage",
+   "variant": "clean"
+  },
+  "rage_blink": {
+   "status": "designed",
+   "from_source": "rage",
+   "variant": "blink"
+  },
+  "rage_clean_blink": {
+   "status": "designed",
+   "from_source": "rage",
+   "variant": "clean+blink"
+  },
+  "love_clean": {
+   "status": "designed",
+   "from_source": "love",
+   "variant": "clean"
+  },
+  "dizzy_clean": {
+   "status": "designed",
+   "from_source": "dizzy",
+   "variant": "clean"
+  },
+  "nervous_clean": {
+   "status": "designed",
+   "from_source": "nervous",
+   "variant": "clean"
+  },
+  "nervous_blink": {
+   "status": "designed",
+   "from_source": "nervous",
+   "variant": "blink"
+  },
+  "nervous_clean_blink": {
+   "status": "designed",
+   "from_source": "nervous",
+   "variant": "clean+blink"
+  },
+  "proud_clean": {
+   "status": "designed",
+   "from_source": "proud",
+   "variant": "clean"
+  },
+  "pout_clean": {
+   "status": "designed",
+   "from_source": "pout",
+   "variant": "clean"
+  },
+  "pout_blink": {
+   "status": "designed",
+   "from_source": "pout",
+   "variant": "blink"
+  },
+  "pout_clean_blink": {
+   "status": "designed",
+   "from_source": "pout",
+   "variant": "clean+blink"
+  },
+  "yawn_clean": {
+   "status": "designed",
+   "from_source": "yawn",
+   "variant": "clean"
+  },
+  "kiss_clean": {
+   "status": "designed",
+   "from_source": "kiss",
+   "variant": "clean"
+  },
+  "blush_clean": {
+   "status": "designed",
+   "from_source": "blush",
+   "variant": "clean"
+  },
+  "blush_blink": {
+   "status": "designed",
+   "from_source": "blush",
+   "variant": "blink"
+  },
+  "blush_clean_blink": {
+   "status": "designed",
+   "from_source": "blush",
+   "variant": "clean+blink"
+  },
+  "sweat_clean": {
+   "status": "designed",
+   "from_source": "sweat",
+   "variant": "clean"
+  },
+  "sweat_blink": {
+   "status": "designed",
+   "from_source": "sweat",
+   "variant": "blink"
+  },
+  "sweat_clean_blink": {
+   "status": "designed",
+   "from_source": "sweat",
+   "variant": "clean+blink"
+  },
+  "whistle_clean": {
+   "status": "designed",
+   "from_source": "whistle",
+   "variant": "clean"
+  },
+  "whistle_blink": {
+   "status": "designed",
+   "from_source": "whistle",
+   "variant": "blink"
+  },
+  "whistle_clean_blink": {
+   "status": "designed",
+   "from_source": "whistle",
+   "variant": "clean+blink"
+  },
+  "lookSide_clean": {
+   "status": "designed",
+   "from_source": "lookSide",
+   "variant": "clean"
+  },
+  "lookSide_blink": {
+   "status": "designed",
+   "from_source": "lookSide",
+   "variant": "blink"
+  },
+  "lookSide_clean_blink": {
+   "status": "designed",
+   "from_source": "lookSide",
+   "variant": "clean+blink"
+  },
+  "lookLeft_clean": {
+   "status": "designed",
+   "from_source": "lookLeft",
+   "variant": "clean"
+  },
+  "lookLeft_blink": {
+   "status": "designed",
+   "from_source": "lookLeft",
+   "variant": "blink"
+  },
+  "lookLeft_clean_blink": {
+   "status": "designed",
+   "from_source": "lookLeft",
+   "variant": "clean+blink"
+  },
+  "lookUp_clean": {
+   "status": "designed",
+   "from_source": "lookUp",
+   "variant": "clean"
+  },
+  "lookUp_blink": {
+   "status": "designed",
+   "from_source": "lookUp",
+   "variant": "blink"
+  },
+  "lookUp_clean_blink": {
+   "status": "designed",
+   "from_source": "lookUp",
+   "variant": "clean+blink"
+  },
+  "lookDown_clean": {
+   "status": "designed",
+   "from_source": "lookDown",
+   "variant": "clean"
+  },
+  "lookDown_blink": {
+   "status": "designed",
+   "from_source": "lookDown",
+   "variant": "blink"
+  },
+  "lookDown_clean_blink": {
+   "status": "designed",
+   "from_source": "lookDown",
+   "variant": "clean+blink"
+  },
+  "starEyes_clean": {
+   "status": "designed",
+   "from_source": "starEyes",
+   "variant": "clean"
+  },
+  "smirk_clean": {
+   "status": "designed",
+   "from_source": "smirk",
+   "variant": "clean"
+  },
+  "smirk_blink": {
+   "status": "designed",
+   "from_source": "smirk",
+   "variant": "blink"
+  },
+  "smirk_clean_blink": {
+   "status": "designed",
+   "from_source": "smirk",
+   "variant": "clean+blink"
+  },
+  "confused_clean": {
+   "status": "designed",
+   "from_source": "confused",
+   "variant": "clean"
+  },
+  "confused_blink": {
+   "status": "designed",
+   "from_source": "confused",
+   "variant": "blink"
+  },
+  "confused_clean_blink": {
+   "status": "designed",
+   "from_source": "confused",
+   "variant": "clean+blink"
+  },
+  "determined_clean": {
+   "status": "designed",
+   "from_source": "determined",
+   "variant": "clean"
+  },
+  "determined_blink": {
+   "status": "designed",
+   "from_source": "determined",
+   "variant": "blink"
+  },
+  "determined_clean_blink": {
+   "status": "designed",
+   "from_source": "determined",
+   "variant": "clean+blink"
+  },
+  "eyeRoll_clean": {
+   "status": "designed",
+   "from_source": "eyeRoll",
+   "variant": "clean"
+  },
+  "eyeRoll_blink": {
+   "status": "designed",
+   "from_source": "eyeRoll",
+   "variant": "blink"
+  },
+  "eyeRoll_clean_blink": {
+   "status": "designed",
+   "from_source": "eyeRoll",
+   "variant": "clean+blink"
+  },
+  "awe_clean": {
+   "status": "designed",
+   "from_source": "awe",
+   "variant": "clean"
+  },
+  "awe_blink": {
+   "status": "designed",
+   "from_source": "awe",
+   "variant": "blink"
+  },
+  "awe_clean_blink": {
+   "status": "designed",
+   "from_source": "awe",
+   "variant": "clean+blink"
+  },
+  "sneaky_clean": {
+   "status": "designed",
+   "from_source": "sneaky",
+   "variant": "clean"
+  },
+  "sneaky_blink": {
+   "status": "designed",
+   "from_source": "sneaky",
+   "variant": "blink"
+  },
+  "sneaky_clean_blink": {
+   "status": "designed",
+   "from_source": "sneaky",
+   "variant": "clean+blink"
+  },
+  "pain_clean": {
+   "status": "designed",
+   "from_source": "pain",
+   "variant": "clean"
+  },
+  "disgust_clean": {
+   "status": "designed",
+   "from_source": "disgust",
+   "variant": "clean"
+  },
+  "disgust_blink": {
+   "status": "designed",
+   "from_source": "disgust",
+   "variant": "blink"
+  },
+  "disgust_clean_blink": {
+   "status": "designed",
+   "from_source": "disgust",
+   "variant": "clean+blink"
+  },
+  "relieved_clean": {
+   "status": "designed",
+   "from_source": "relieved",
+   "variant": "clean"
+  },
+  "drool_clean": {
+   "status": "designed",
+   "from_source": "drool",
+   "variant": "clean"
+  },
+  "squint_clean": {
+   "status": "designed",
+   "from_source": "squint",
+   "variant": "clean"
+  },
+  "squint_blink": {
+   "status": "designed",
+   "from_source": "squint",
+   "variant": "blink"
+  },
+  "squint_clean_blink": {
+   "status": "designed",
+   "from_source": "squint",
+   "variant": "clean+blink"
+  },
+  "cold_clean": {
+   "status": "designed",
+   "from_source": "cold",
+   "variant": "clean"
+  },
+  "cold_blink": {
+   "status": "designed",
+   "from_source": "cold",
+   "variant": "blink"
+  },
+  "cold_clean_blink": {
+   "status": "designed",
+   "from_source": "cold",
+   "variant": "clean+blink"
+  },
+  "surprisedHappy_clean": {
+   "status": "designed",
+   "from_source": "surprisedHappy",
+   "variant": "clean"
+  },
+  "surprisedHappy_blink": {
+   "status": "designed",
+   "from_source": "surprisedHappy",
+   "variant": "blink"
+  },
+  "surprisedHappy_clean_blink": {
+   "status": "designed",
+   "from_source": "surprisedHappy",
+   "variant": "clean+blink"
+  },
+  "evil_clean": {
+   "status": "designed",
+   "from_source": "evil",
+   "variant": "clean"
+  },
+  "evil_blink": {
+   "status": "designed",
+   "from_source": "evil",
+   "variant": "blink"
+  },
+  "evil_clean_blink": {
+   "status": "designed",
+   "from_source": "evil",
+   "variant": "clean+blink"
+  },
+  "puppy_clean": {
+   "status": "designed",
+   "from_source": "puppy",
+   "variant": "clean"
+  },
+  "puppy_blink": {
+   "status": "designed",
+   "from_source": "puppy",
+   "variant": "blink"
+  },
+  "puppy_clean_blink": {
+   "status": "designed",
+   "from_source": "puppy",
+   "variant": "clean+blink"
+  },
+  "worried_clean": {
+   "status": "designed",
+   "from_source": "worried",
+   "variant": "clean"
+  },
+  "worried_blink": {
+   "status": "designed",
+   "from_source": "worried",
+   "variant": "blink"
+  },
+  "worried_clean_blink": {
+   "status": "designed",
+   "from_source": "worried",
+   "variant": "clean+blink"
+  },
+  "disgusted_clean": {
+   "status": "designed",
+   "from_source": "disgusted",
+   "variant": "clean"
+  },
+  "disgusted_blink": {
+   "status": "designed",
+   "from_source": "disgusted",
+   "variant": "blink"
+  },
+  "disgusted_clean_blink": {
+   "status": "designed",
+   "from_source": "disgusted",
+   "variant": "clean+blink"
+  },
+  "dead_clean": {
+   "status": "designed",
+   "from_source": "dead",
+   "variant": "clean"
+  },
+  "smug_clean": {
+   "status": "designed",
+   "from_source": "smug",
+   "variant": "clean"
+  },
+  "smug_blink": {
+   "status": "designed",
+   "from_source": "smug",
+   "variant": "blink"
+  },
+  "smug_clean_blink": {
+   "status": "designed",
+   "from_source": "smug",
+   "variant": "clean+blink"
+  },
+  "bigGrin_clean": {
+   "status": "designed",
+   "from_source": "bigGrin",
+   "variant": "clean"
+  },
+  "tongueOut_clean": {
+   "status": "designed",
+   "from_source": "tongueOut",
+   "variant": "clean"
   }
  },
  "color_gain_bgr": [

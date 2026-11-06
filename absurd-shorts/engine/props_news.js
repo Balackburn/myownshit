@@ -1011,6 +1011,83 @@ export const NEWS_PROPS = {
       g.add(crowns, trunks); }
     return g;
   },
+  // ---- Le wifi (story 33)
+  wifiModem(o) { // a white home modem (front +Z, 0.34 × 0.07 × 0.24): two antennas, a row of green LEDs that blink (o.blink false: steady), o.color
+    const c = o.color || '#F4F4F2', g = grp(at(box(0.34, 0.07, 0.24, c, { pivot: 'bottom', outline: 0.005 }), 0, 0, 0), at(box(0.3, 0.012, 0.2, '#DADAD6'), 0, 0.071, 0));
+    for (const sx of [-1, 1]) { const a = grp(at(cyl(0.012, 0.014, 0.2, '#2A2D33', 6, { pivot: 'bottom', outline: 0.003 }), 0, 0, 0)); a.position.set(sx * 0.13, 0.06, -0.09); a.rotation.z = -sx * 0.25; g.add(a); }
+    const leds = [0, 1, 2, 3].map(i => { const m = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.012, 0.004), new THREE.MeshBasicMaterial({ color: '#3CC46E' })); m.position.set(-0.075 + i * 0.05, 0.035, 0.121); g.add(m); return m; });
+    g.userData.update = t => leds.forEach((m, i) => { m.visible = o.blink === false || ((Math.floor(t * 7 + i * 1.7) + i) % 3) !== 0; }); g.userData.update(0); return g;
+  },
+  signalBars(o) { // a pop-in signal card (front +Z, o.w wide): a wifi fan and four bars, the first o.n green (o.n 0: a red cross), pops at o.popAt with an overshoot
+    const w = o.w || 0.5, h = w * 0.62, n = o.n ?? 1, g = grp(), inner = grp(); g.add(inner);
+    inner.add(at(canvasPlane(w, h, (c, W, H) => { c.clearRect(0, 0, W, H); const rr = H * 0.18; c.fillStyle = '#FFFFFF'; c.strokeStyle = '#1E3A5F'; c.lineWidth = H * 0.05;
+      c.beginPath(); c.moveTo(rr, c.lineWidth); c.arcTo(W - c.lineWidth, c.lineWidth, W - c.lineWidth, H - c.lineWidth, rr); c.arcTo(W - c.lineWidth, H - c.lineWidth, c.lineWidth, H - c.lineWidth, rr); c.arcTo(c.lineWidth, H - c.lineWidth, c.lineWidth, c.lineWidth, rr); c.arcTo(c.lineWidth, c.lineWidth, W - c.lineWidth, c.lineWidth, rr); c.closePath(); c.fill(); c.stroke();
+      const cx = W * 0.27, cy = H * 0.7, on = n > 0 ? '#3CC46E' : '#B9BEC5'; c.lineCap = 'round';
+      for (let k = 0; k < 3; k++) { c.strokeStyle = k < Math.min(3, n) ? on : '#C9CDD2'; c.lineWidth = H * 0.08; c.beginPath(); c.arc(cx, cy, H * (0.14 + k * 0.15), PI * 1.25, PI * 1.75); c.stroke(); }
+      c.fillStyle = n > 0 ? on : '#C9CDD2'; c.beginPath(); c.arc(cx, cy, H * 0.05, 0, TAU); c.fill();
+      for (let k = 0; k < 4; k++) { const bh = H * (0.16 + k * 0.13); c.fillStyle = k < n ? '#3CC46E' : '#D5D9DE'; c.fillRect(W * (0.52 + k * 0.1), H * 0.8 - bh, W * 0.07, bh); }
+      if (n === 0) { c.strokeStyle = '#D7262E'; c.lineWidth = H * 0.1; c.beginPath(); c.moveTo(W * 0.14, H * 0.2); c.lineTo(W * 0.86, H * 0.82); c.moveTo(W * 0.86, H * 0.2); c.lineTo(W * 0.14, H * 0.82); c.stroke(); } }, { res: 512, transparent: true, emissive: 0.35 }), 0, 0, 0));
+    g.userData.update = t => { if (o.popAt == null) return; const u = clamp01((t - o.popAt) / 0.3); inner.visible = t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u))); }; g.userData.update(0); return g;
+  },
+  towerCrane(o) { // a yellow tower crane: a lattice mast o.h tall (default 24), a cab and a walkway on top (userData.top), a jib o.jib long toward +X with trolley and hook, a counter-jib with a concrete block
+    const H = o.h || 24, Wm = 1.6, J = o.jib || 16, CJ = o.cjib || 6, Y = o.color || '#F2C230', g = grp();
+    const lat = (w, h, cells) => canvasTexture(256, Math.round(256 * h / w), (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = Y; c.lineWidth = Wc * 0.06; c.strokeRect(c.lineWidth / 2, 0, Wc - c.lineWidth, Hc);
+      const ch = Hc / cells; c.lineWidth = Wc * 0.04; for (let i = 0; i < cells; i++) { c.beginPath(); c.moveTo(0, i * ch); c.lineTo(Wc, (i + 1) * ch); c.moveTo(Wc, i * ch); c.lineTo(0, (i + 1) * ch); c.moveTo(0, i * ch); c.lineTo(Wc, i * ch); c.stroke(); } });
+    const latMat = (w, h, cells) => new THREE.MeshLambertMaterial({ map: lat(w, h, cells), transparent: true, alphaTest: 0.3, side: THREE.DoubleSide });
+    const mastM = latMat(Wm, H, Math.round(H / Wm));
+    for (let k = 0; k < 4; k++) { const f = new THREE.Mesh(new THREE.PlaneGeometry(Wm, H), mastM); const a = k * PI / 2; f.position.set(Math.sin(a) * Wm / 2, H / 2, Math.cos(a) * Wm / 2); f.rotation.y = a; g.add(f); }
+    g.add(at(box(Wm + 0.6, 0.5, Wm + 0.6, '#9A9A96'), 0, 0.25, 0));
+    const top = H + 0.6; g.add(at(box(Wm + 0.4, 0.3, Wm + 0.4, Y, { outline: 0.02 }), 0, H + 0.15, 0));
+    g.add(at(box(1.4, 1.3, 1.3, '#F4F4F2', { outline: 0.02 }), 0.2, H + 0.95, Wm / 2 + 0.75), at(box(1.2, 0.6, 0.02, '#7FB8E0'), 0.2, H + 1.1, Wm / 2 + 1.41));
+    const jibM = latMat(J, 1.2, Math.round(J / 1.2)), cjM = latMat(CJ, 1.0, Math.round(CJ / 1.0));
+    for (const sz of [-1, 1]) { const jf = new THREE.Mesh(new THREE.PlaneGeometry(J, 1.2), jibM); jf.position.set(J / 2 + Wm / 2, top + 0.6, sz * 0.6); g.add(jf);
+      const cf = new THREE.Mesh(new THREE.PlaneGeometry(CJ, 1.0), cjM); cf.position.set(-CJ / 2 - Wm / 2, top + 0.5, sz * 0.6); g.add(cf); }
+    g.add(at(box(J, 0.08, 1.2, Y), J / 2 + Wm / 2, top + 0.02, 0), at(box(CJ, 0.08, 1.2, Y), -CJ / 2 - Wm / 2, top + 0.02, 0));   // walkways (the man can stand on the jib root)
+    g.add(at(box(2.0, 1.4, 1.6, '#A9A9A3', { outline: 0.02 }), -CJ - Wm / 2 + 1.0, top + 0.8, 0));   // counterweight
+    const tower = grp(at(box(0.25, 0.25, 0.25, Y), 0, 0, 0)); g.add(at(box(0.3, 3.2, 0.3, Y, { pivot: 'bottom', outline: 0.01 }), 0, top, 0));   // the A-frame peak
+    const tx = Wm / 2 + J * 0.7; g.add(at(box(0.6, 0.3, 1.0, '#3A3D44'), tx, top - 0.1, 0), at(box(0.03, 6, 0.03, '#2A2D33', { pivot: 'top' }), tx, top - 0.25, 0), at(box(0.3, 0.4, 0.1, '#D7262E', { outline: 0.01 }), tx, top - 6.4, 0));
+    g.userData.top = [Wm / 2 + 1.2, top + 0.06, 0]; return g;
+  },
+  balloonBunch(o) { // o.n party balloons (default 7) on strings that meet at the origin (tie the modem there), bobbing; o.len (string length), o.colors
+    const n = o.n || 7, L = o.len || 1.3, r = rng(o.seed || 9), C = o.colors || ['#D7262E', '#F2C230', '#3C8DD9', '#3CC46E', '#E07A5F', '#9B5DE5', '#F28AB2'], g = grp(), list = [];
+    for (let i = 0; i < n; i++) { const a = i / n * TAU + r() * 0.4, sp = 0.25 + r() * 0.2, top = [Math.cos(a) * sp, L + r() * 0.35, Math.sin(a) * sp], b = grp();
+      b.add(at(sphere(0.21, C[i % C.length], 1), 0, 0.2, 0), at(box(0.04, 0.05, 0.04, C[i % C.length]), 0, -0.02, 0)); b.children[0].scale.set(1, 1.18, 1);
+      const len = Math.hypot(...top), str = new THREE.Mesh(new THREE.BoxGeometry(0.006, len, 0.006), mat('#F4F1E8')); str.position.set(top[0] / 2, top[1] / 2, top[2] / 2);
+      str.lookAt(new THREE.Vector3(...top)); str.rotateX(PI / 2); g.add(str, b); b.position.set(...top); list.push({ b, top, ph: r() * 6 }); }
+    g.userData.update = t => list.forEach(q => { q.b.position.set(q.top[0] + 0.03 * Math.sin(t * 1.7 + q.ph), q.top[1] + 0.03 * Math.sin(t * 2.3 + q.ph), q.top[2]); }); g.userData.update(0); return g;
+  },
+  spaceStation(o) { // a low-poly space station: a long truss, white and silver modules, four pairs of blue solar wings (o.size: overall length, default 12)
+    const L = o.size || 12, g = grp(), k = L / 12;
+    g.add(at(box(L, 0.35 * k, 0.35 * k, '#C9CDD2', { outline: 0.02 * k }), 0, 0, 0));
+    const wing = (x, sz) => { const w = grp(at(canvasPlane(1.6 * k, 4.2 * k, (c, W, H) => { c.fillStyle = '#1F4E8C'; c.fillRect(0, 0, W, H); c.strokeStyle = '#7FB0E8'; c.lineWidth = W * 0.02; for (let i = 1; i < 4; i++) { c.beginPath(); c.moveTo(i * W / 4, 0); c.lineTo(i * W / 4, H); c.stroke(); } for (let j = 1; j < 10; j++) { c.beginPath(); c.moveTo(0, j * H / 10); c.lineTo(W, j * H / 10); c.stroke(); } }, { res: 128, emissive: 0.15 }), 0, 0, 0, -PI / 2, 0, 0));
+      w.position.set(x, 0, sz * 2.4 * k); return w; };
+    for (const x of [-L * 0.42, -L * 0.3, L * 0.3, L * 0.42]) for (const sz of [-1, 1]) g.add(wing(x, sz));
+    [[0, 0.9, '#F4F4F2'], [0, -0.9, '#E2E5E8'], [-1.8, 0.9, '#D9DCE0'], [1.8, 0.9, '#F4F4F2']].forEach(([x, y, c]) => g.add(at(cyl(0.6 * k, 0.6 * k, 2.6 * k, c, 12, { outline: 0.02 * k }), x * k, y * k, 0, 0, 0, PI / 2)));
+    g.add(at(box(1.2 * k, 0.05 * k, 0.8 * k, '#F4F4F2'), 0, 1.9 * k, 0), at(box(0.8 * k, 0.4 * k, 0.8 * k, '#E2E5E8'), 0, 1.6 * k, 0));
+    g.userData.update = t => { g.rotation.y = (o.spin ?? 0.02) * t; }; return g;
+  },
+  spaceHelmet(o) { // an astronaut's glass bubble for the head joint (offset to the head's centre) with a white collar ring
+    const R = o.r || 0.42, g = grp(new THREE.Mesh(new THREE.SphereGeometry(R, 16, 12), new THREE.MeshLambertMaterial({ color: '#CFE8FF', transparent: true, opacity: 0.28, depthWrite: false })));
+    g.add(at(torus(R * 0.62, 0.05, '#F4F4F2', 6, 18), 0, -R * 0.82, 0, PI / 2, 0, 0)); return g;
+  },
+  seriesScreen(o) { // a flat screen (front +Z, o.w × o.h) showing a colourful series frame: two cartoon heads, a sunset, a progress bar that moves
+    const w = o.w || 0.9, h = o.h || 0.55, g = grp(at(box(w + 0.05, h + 0.05, 0.04, '#1C1F24', { outline: 0.006 }), 0, 0, -0.02));
+    g.add(at(canvasPlane(w, h, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#F28A5A'); gr.addColorStop(1, '#F7D08A'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      c.fillStyle = '#F7E27A'; c.beginPath(); c.arc(W * 0.5, H * 0.62, H * 0.18, 0, TAU); c.fill(); c.fillStyle = '#3E6B8A'; c.fillRect(0, H * 0.68, W, H * 0.32);
+      [[0.3, '#E8B98F', '#2A1E16'], [0.7, '#C98E62', '#1A1A1A']].forEach(([x, sk, hr]) => { c.fillStyle = sk; c.fillRect(W * (x - 0.07), H * 0.3, W * 0.14, H * 0.28); c.fillStyle = hr; c.fillRect(W * (x - 0.075), H * 0.26, W * 0.15, H * 0.07); c.fillStyle = '#1C252A'; c.fillRect(W * (x - 0.035), H * 0.4, W * 0.015, H * 0.03); c.fillRect(W * (x + 0.02), H * 0.4, W * 0.015, H * 0.03); });
+      c.fillStyle = '#F4F4F2'; c.beginPath(); c.moveTo(W * 0.44, H * 0.12); c.lineTo(W * 0.56, H * 0.12); c.lineTo(W * 0.5, H * 0.2); c.closePath(); }, { res: 384, emissive: 0.6 }), 0, 0, 0.001));
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(1, h * 0.03, 0.002), new THREE.MeshBasicMaterial({ color: '#D7262E' })); bar.position.set(-w / 2, -h * 0.44, 0.004); g.add(bar);
+    g.userData.update = t => { const f = 0.3 + 0.02 * t; bar.scale.x = w * f; bar.position.x = -w / 2 + w * f / 2; }; g.userData.update(0); return g;
+  },
+  clockCard(o) { // a pop-in watch face (front +Z, o.r radius): navy rim, twelve ticks, hands that sweep o.spin turns per second (time passing), pops at o.popAt
+    const R = o.r || 0.3, g = grp(), inner = grp(); g.add(inner);
+    inner.add(at(cyl(R, R, 0.03, '#1E3A5F', 32, { outline: 0.01 }), 0, 0, 0, PI / 2, 0, 0), at(cyl(R * 0.9, R * 0.9, 0.032, '#FFFFFF', 32), 0, 0, 0.002, PI / 2, 0, 0));
+    for (let i = 0; i < 12; i++) { const a = i * TAU / 12, t = at(box(i % 3 ? 0.012 : 0.022, R * (i % 3 ? 0.1 : 0.16), 0.01, '#1E3A5F'), Math.sin(a) * R * 0.76, Math.cos(a) * R * 0.76, 0.02); t.rotation.z = -a; inner.add(t); }
+    const hand = (len, w, c) => { const h = grp(at(box(w, len, 0.01, c), 0, len / 2 - 0.02, 0)); h.position.z = 0.03; inner.add(h); return h; };
+    const hm = hand(R * 0.72, 0.022, '#1C252A'), hh = hand(R * 0.46, 0.034, '#1C252A'); inner.add(at(cyl(0.03, 0.03, 0.02, '#D7262E', 12), 0, 0, 0.04, PI / 2, 0, 0));
+    g.userData.update = t => { const u = o.popAt == null ? 1 : clamp01((t - o.popAt) / 0.3); inner.visible = o.popAt == null || t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u)));
+      const turns = (o.start || 0) + (o.spin ?? 1) * Math.max(0, t - (o.popAt || 0)); hm.rotation.z = -turns * TAU; hh.rotation.z = -turns * TAU / 12 - (o.hour || 2) * TAU / 12; }; g.userData.update(0); return g;
+  },
   flickerLight(o) { // a coloured point light whose intensity flickers (a cinema screen, a TV): o.color, o.intensity (default 12), o.distance (default 12), o.rate
     const l = new THREE.PointLight(o.color || '#CFE0FF', o.intensity ?? 12, o.distance ?? 12, 1.3), g = grp(l), I = o.intensity ?? 12, r = o.rate || 1;
     g.userData.update = t => { l.intensity = I * (0.82 + 0.12 * Math.sin(t * 11 * r) + 0.08 * Math.sin(t * 23.7 * r + 1.3) + 0.06 * Math.sin(t * 5.3 * r + 0.4)); }; g.userData.update(0); return g;
@@ -1105,20 +1182,21 @@ export const NEWS_PROPS = {
     return g;
   },
   queueFigures(o) { // a queue of small locksmiths (blue overalls, navy beanie, red toolbox) along o.path [[x, z], ...] every o.gap m (default 0.75), facing the front of the queue;
-    // o.people: passers-by instead (varied coats, trousers and hair, no toolbox); o.skip drops the first n figures (the front of the queue); o.size scales them all
+    // o.people: passers-by instead (varied coats, trousers and hair, no toolbox); o.skip drops the first n figures (the front of the queue), o.holes drops given indices (put actors there); o.size scales them all; o.ribbon {color, width}: a bright strip under the line for aerials
     // (the first point); a gentle idle sway; o.colors {jacket, pants}; o.max caps the count. Instanced, so hundreds are cheap.
     const path = o.path || [[0, 0], [10, 0]], gap = o.gap || 0.75, r = rng(o.seed || 7), pts = [];
     const segs = []; let tot = 0;
     for (let i = 0; i < path.length - 1; i++) { const [x0, z0] = path[i], [x1, z1] = path[i + 1], L = Math.hypot(x1 - x0, z1 - z0); segs.push([x0, z0, x1, z1, L, tot]); tot += L; }
     for (let d = 0; d < tot; d += gap) { const sg = segs.find(q => d >= q[5] && d < q[5] + q[4]) || segs[segs.length - 1], u = (d - sg[5]) / sg[4];
       pts.push([sg[0] + (sg[2] - sg[0]) * u + (r() - 0.5) * (o.jitter ?? 0.12), sg[1] + (sg[3] - sg[1]) * u + (r() - 0.5) * (o.jitter ?? 0.12), Math.atan2(sg[0] - sg[2], sg[1] - sg[3]) + (r() - 0.5) * 0.5]); }
-    const list = pts.slice(o.skip || 0, o.max || 400), n = list.length, PPL = !!o.people, J = PPL ? '#FFFFFF' : (o.colors || {}).jacket || '#2F5E9E', Pn = PPL ? '#FFFFFF' : (o.colors || {}).pants || '#22385E';
-    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, PPL ? '#FFFFFF' : (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125]];   // ... and two eyes
+    const holes = new Set(o.holes || []), list = pts.slice(0, o.max || 400).filter((_, i) => i >= (o.skip || 0) && !holes.has(i)), n = list.length, PPL = !!o.people, J = PPL ? '#FFFFFF' : (o.colors || {}).jacket || '#2F5E9E', Pn = PPL ? '#FFFFFF' : (o.colors || {}).pants || '#22385E';
+    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, PPL ? '#FFFFFF' : (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125],   // ... and two eyes,
+      [0.07, 0.016, 0.02, '#2A1E16', 0.058, 1.685, 0.125], [0.07, 0.016, 0.02, '#2A1E16', -0.058, 1.685, 0.125], [0.085, 0.016, 0.02, '#7A2E2A', 0, 1.535, 0.125]];   // brows and a mouth (the series' painted faces, simplified)
     if (PPL) parts[5] = [0.001, 0.001, 0.001, '#FFFFFF', 0, 0, 0];   // people: no toolbox
     const g = grp(), meshes = parts.map(([w, h, d, c]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(w, h, d), mat(c), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
     const info = list.map(() => ({ s: (0.93 + r() * 0.14) * (o.size || 1), ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
     const skinC = new THREE.Color(); info.forEach((f, i) => meshes[3].setColorAt(i, skinC.set(f.skin))); if (meshes[3].instanceColor) meshes[3].instanceColor.needsUpdate = true;
-    if (PPL) { const JK = ['#B5302A', '#2F5E8C', '#3E7D5A', '#C9822E', '#6B4E8F', '#2E3A46', '#D9A441', '#8C3B4A', '#4F9FB0', '#7A7F87', '#E07A5F', '#F2F2EE'],
+    if (PPL) { const JK = ['#B5302A', '#2F5E8C', '#3E7D5A', '#C9822E', '#2E8B8B', '#2E3A46', '#D9A441', '#8C3B4A', '#4F9FB0', '#7A7F87', '#E07A5F', '#F2F2EE'],
       PT = ['#22385E', '#2E3A46', '#4A3B2F', '#3C3F45', '#1F2A36', '#5A5F66'], HR = ['#2A1E16', '#4A3222', '#1A1A1A', '#8A6A3A', '#C9B28A', '#6B6B6B', '#3A2A1E'], c3 = new THREE.Color();
       list.forEach((_, i) => { const j = JK[Math.floor(r() * JK.length)], pt = PT[Math.floor(r() * PT.length)], h = HR[Math.floor(r() * HR.length)];
         [2, 6, 7].forEach(k => meshes[k].setColorAt(i, c3.set(j))); [0, 1].forEach(k => meshes[k].setColorAt(i, c3.set(pt))); meshes[4].setColorAt(i, c3.set(h)); });
@@ -1127,6 +1205,10 @@ export const NEWS_PROPS = {
       parts.forEach(([w, h, d, c, px, py, pz], k) => { o3.position.set(x, 0, z); o3.rotation.set(0, a, sway * 0.5); o3.scale.setScalar(f.s); o3.updateMatrix();
         const loc = new THREE.Matrix4().makeTranslation(px, py, pz); o3.matrix.multiply(loc); meshes[k].setMatrixAt(i, o3.matrix); }); });
       meshes.forEach(m => { m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); }); };
+    if (o.ribbon) {   // a bright flat ribbon under the queue so the line reads from the air
+      const rc = o.ribbon.color || '#F2C230', rw = o.ribbon.width || 2.4, rm = mat(rc, { noGrain: true });
+      for (let i = 0; i < path.length - 1; i++) { const [x0, z0] = path[i], [x1, z1] = path[i + 1], L = Math.hypot(x1 - x0, z1 - z0), b = new THREE.Mesh(new THREE.BoxGeometry(rw, 0.03, L + rw * 0.5), rm);
+        b.position.set((x0 + x1) / 2, 0.02, (z0 + z1) / 2); b.rotation.y = Math.atan2(x1 - x0, z1 - z0); g.add(b); } }
     place(0); g.userData.update = place; g.userData.count = n; return g;
   },
 };

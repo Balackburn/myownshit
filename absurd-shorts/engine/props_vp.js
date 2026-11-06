@@ -3,6 +3,7 @@
 // Same conventions as props.js: origin at the base, front +Z, metres, userData.update(t) is a pure function of the
 // scene time. Small movements are built in (blinks, bobbing, wobble, spin, rain loops) so a held shot never freezes.
 import * as THREE from 'three';
+import { imageTexture, TEXTURES } from './models.js';
 import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
 import { grp, at, mesh, canvasPlane, label } from './props.js';
 
@@ -68,7 +69,8 @@ export const VP_PROPS = {
   haussmann(o) { // Paris building: cream stone facade (canvas: windows, wrought-iron balconies, shop fronts with awnings), grey-blue mansard roof with dormers; front +Z
     const W = o.w || 12, H = o.h || 16, D = o.d || 10, floors = o.floors || 6, cols = o.cols || 5, g = grp();
     const wallC = o.color || '#EFE6D2', awn = o.awning || '#B5302A';
-    const tex = canvasPlane(W, H, (c, Wp, Hp) => {
+    const ft = !o.night && o.flux !== false ? imageTexture(TEXTURES.facades[Math.abs(o.seed ?? 0) % TEXTURES.facades.length]) : null;   // FLUX facades by day
+    const tex = ft ? new THREE.Mesh(new THREE.PlaneGeometry(W, H), new THREE.MeshLambertMaterial({ map: ft })) : canvasPlane(W, H, (c, Wp, Hp) => {
       c.fillStyle = wallC; c.fillRect(0, 0, Wp, Hp);
       const fh = Hp / (floors + 0.3);
       c.strokeStyle = 'rgba(120,100,70,0.18)'; c.lineWidth = Hp * 0.004; for (let f = 1; f < floors; f++) { c.beginPath(); c.moveTo(0, Hp - f * fh); c.lineTo(Wp, Hp - f * fh); c.stroke(); }

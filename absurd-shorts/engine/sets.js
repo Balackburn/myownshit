@@ -1196,6 +1196,19 @@ Object.assign(S, {
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0] };
     g.userData.lighting = night ? 'night' : 'day'; return g;
   },
+  stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light
+    const g = grp(), back = -2.4, half = 3.2;
+    room(g, { wall: '#E9ECEF', floor: '#D3D8DD', back, half, height: 4, front: 6 });
+    for (let i = -3; i <= 3; i++) g.add(at(box(0.04, 3.6, 0.03, '#C3C9CF'), i * 0.9, 1.9, back + 0.02));
+    for (const y of [0.9, 2.6]) g.add(at(box(2 * half - 0.4, 0.05, 0.08, '#F2C230'), 0, y, back + 0.08));
+    [[-2.4, 1.5], [-1.5, 0.6], [1.6, 0.7], [2.5, 1.6]].forEach(([x, y]) => { g.add(at(box(0.7, 0.5, 0.12, '#B9C0C7', { outline: 0.008 }), x, y, back + 0.07));
+      for (let k = 0; k < 4; k++) g.add(at(box(0.07, 0.07, 0.02, ['#3CC46E', '#D7262E', '#F2C230', '#3C8DD9'][k]), x - 0.2 + k * 0.13, y + 0.1, back + 0.14)); });
+    const wx = o.winX ?? 0.2, win = canvasPlane(1.1, 1.1, (c, W, H) => { c.fillStyle = '#05091A'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF'; for (let i = 0; i < 40; i++) c.fillRect((i * 53 % 97) / 97 * W, (i * 31 % 89) / 89 * H, 2, 2);
+      const gr = c.createRadialGradient(W * 0.55, H * 1.25, H * 0.2, W * 0.55, H * 1.25, H * 0.95); gr.addColorStop(0, '#2E7FD1'); gr.addColorStop(0.85, '#4FA3E0'); gr.addColorStop(1, '#BFE3FF'); c.fillStyle = gr; c.beginPath(); c.arc(W * 0.55, H * 1.25, H * 0.9, 0, TAU); c.fill();
+      c.fillStyle = '#5FAF5A'; c.beginPath(); c.ellipse(W * 0.42, H * 0.62, W * 0.12, H * 0.06, 0.3, 0, TAU); c.fill(); c.beginPath(); c.ellipse(W * 0.7, H * 0.74, W * 0.1, H * 0.05, -0.2, 0, TAU); c.fill(); }, { res: 256, emissive: 0.9 });
+    g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.08, 6, 24), mat('#AEB5BC')), wx, 2.0, back + 0.06), at(win, wx, 2.0, back + 0.04));
+    g.userData.anchors = { center: [0, 0, 0], window: [wx, 2.0, back] }; g.userData.lighting = 'day'; return g;
+  },
   spaceDark(o = {}) { // deep space: navy gradient dome + stars; the Earth goes in as a prop
     const g = grp(); sky(g, o.sky || ['#050913', '#0E1A33']); g.add(prop('stars', { radius: 150, count: o.stars || 600 }));
     g.userData.anchors = { center: [0, 0, 0] }; g.userData.lighting = o.lighting || 'day'; return g;
