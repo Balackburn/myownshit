@@ -46,6 +46,14 @@
  {
   "id": "L06",
   "who": "N",
+  "text": "Il y a même fêté son anniversaire.",
+  "hl": [
+   "anniversaire."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
   "text": "Le facteur lui livrait le courrier dans le bac à légumes.",
   "hl": [
    "facteur",
@@ -53,7 +61,7 @@
   ]
  },
  {
-  "id": "L07",
+  "id": "L08",
   "who": "N",
   "text": "En septembre, il est enfin sorti.",
   "hl": [
@@ -62,7 +70,7 @@
   ]
  },
  {
-  "id": "L08",
+  "id": "L09",
   "who": "N",
   "text": "Dehors, il neigeait.",
   "hl": [
@@ -70,7 +78,7 @@
   ]
  },
  {
-  "id": "L09",
+  "id": "L10",
   "who": "N",
   "text": "Alors il est retourné dans le frigo.",
   "hl": [
@@ -79,7 +87,7 @@
   ]
  },
  {
-  "id": "L10",
+  "id": "L11",
   "who": "N",
   "text": "Pour se réchauffer.",
   "hl": [
