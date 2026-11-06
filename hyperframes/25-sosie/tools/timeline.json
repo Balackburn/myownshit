@@ -1,0 +1,695 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a participé à un concours de sosies.",
+   "hl": [
+    "mec",
+    "sosies."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.538,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "participé",
+     "s": 0.671,
+     "e": 1.167
+    },
+    {
+     "w": "à",
+     "s": 1.205,
+     "e": 1.243
+    },
+    {
+     "w": "un",
+     "s": 1.319,
+     "e": 1.395
+    },
+    {
+     "w": "concours",
+     "s": 1.51,
+     "e": 1.776
+    },
+    {
+     "w": "de",
+     "s": 1.814,
+     "e": 1.852
+    },
+    {
+     "w": "sosies.",
+     "s": 1.929,
+     "e": 2.538
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "De lui-même.",
+   "hl": [
+    "lui-même."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L02.k.wav",
+   "file_start": 2.638,
+   "speech_start": 2.638,
+   "speech_end": 3.552,
+   "words": [
+    {
+     "w": "De",
+     "s": 2.638,
+     "e": 2.79
+    },
+    {
+     "w": "lui-même.",
+     "s": 2.829,
+     "e": 3.552
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a fini troisième.",
+   "hl": [
+    "troisième."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L03.k.wav",
+   "file_start": 3.652,
+   "speech_start": 3.652,
+   "speech_end": 4.871,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.652,
+     "e": 3.729
+    },
+    {
+     "w": "a",
+     "s": 3.767,
+     "e": 3.805
+    },
+    {
+     "w": "fini",
+     "s": 3.881,
+     "e": 4.033
+    },
+    {
+     "w": "troisième.",
+     "s": 4.11,
+     "e": 4.871
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les deux premiers lui ressemblaient plus que lui.",
+   "hl": [
+    "ressemblaient",
+    "plus"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L04.k.wav",
+   "file_start": 4.971,
+   "speech_start": 4.971,
+   "speech_end": 7.105,
+   "words": [
+    {
+     "w": "Les",
+     "s": 4.971,
+     "e": 5.124
+    },
+    {
+     "w": "deux",
+     "s": 5.162,
+     "e": 5.276
+    },
+    {
+     "w": "premiers",
+     "s": 5.352,
+     "e": 5.581
+    },
+    {
+     "w": "lui",
+     "s": 5.619,
+     "e": 5.733
+    },
+    {
+     "w": "ressemblaient",
+     "s": 5.81,
+     "e": 6.19
+    },
+    {
+     "w": "plus",
+     "s": 6.305,
+     "e": 6.419
+    },
+    {
+     "w": "que",
+     "s": 6.495,
+     "e": 6.571
+    },
+    {
+     "w": "lui.",
+     "s": 6.648,
+     "e": 7.105
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il a fait une réclamation.",
+   "hl": [
+    "réclamation."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L05.k.wav",
+   "file_start": 7.205,
+   "speech_start": 7.205,
+   "speech_end": 8.576,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.205,
+     "e": 7.281
+    },
+    {
+     "w": "a",
+     "s": 7.319,
+     "e": 7.357
+    },
+    {
+     "w": "fait",
+     "s": 7.433,
+     "e": 7.51
+    },
+    {
+     "w": "une",
+     "s": 7.548,
+     "e": 7.586
+    },
+    {
+     "w": "réclamation.",
+     "s": 7.662,
+     "e": 8.576
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le jury a demandé une preuve.",
+   "hl": [
+    "preuve."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L06.k.wav",
+   "file_start": 8.676,
+   "speech_start": 8.676,
+   "speech_end": 10.276,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.676,
+     "e": 8.752
+    },
+    {
+     "w": "jury",
+     "s": 8.829,
+     "e": 9.133
+    },
+    {
+     "w": "a",
+     "s": 9.171,
+     "e": 9.21
+    },
+    {
+     "w": "demandé",
+     "s": 9.362,
+     "e": 9.565
+    },
+    {
+     "w": "une",
+     "s": 9.616,
+     "e": 9.667
+    },
+    {
+     "w": "preuve.",
+     "s": 9.743,
+     "e": 10.276
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Il a montré sa carte d'identité.",
+   "hl": [
+    "d'identité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L07.k.wav",
+   "file_start": 10.376,
+   "speech_start": 10.376,
+   "speech_end": 12.205,
+   "words": [
+    {
+     "w": "Il",
+     "s": 10.376,
+     "e": 10.452
+    },
+    {
+     "w": "a",
+     "s": 10.529,
+     "e": 10.567
+    },
+    {
+     "w": "montré",
+     "s": 10.605,
+     "e": 10.833
+    },
+    {
+     "w": "sa",
+     "s": 10.91,
+     "e": 10.986
+    },
+    {
+     "w": "carte",
+     "s": 11.062,
+     "e": 11.29
+    },
+    {
+     "w": "d'identité.",
+     "s": 11.316,
+     "e": 12.205
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le jury a reconnu le gagnant.",
+   "hl": [
+    "gagnant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L08.k.wav",
+   "file_start": 12.305,
+   "speech_start": 12.305,
+   "speech_end": 13.905,
+   "words": [
+    {
+     "w": "Le",
+     "s": 12.305,
+     "e": 12.381
+    },
+    {
+     "w": "jury",
+     "s": 12.457,
+     "e": 12.762
+    },
+    {
+     "w": "a",
+     "s": 12.8,
+     "e": 12.838
+    },
+    {
+     "w": "reconnu",
+     "s": 12.914,
+     "e": 13.219
+    },
+    {
+     "w": "le",
+     "s": 13.257,
+     "e": 13.295
+    },
+    {
+     "w": "gagnant.",
+     "s": 13.371,
+     "e": 13.905
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le gagnant est reparti avec le trophée.",
+   "hl": [
+    "trophée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L09.k.wav",
+   "file_start": 14.005,
+   "speech_start": 14.005,
+   "speech_end": 16.214,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.005,
+     "e": 14.157
+    },
+    {
+     "w": "gagnant",
+     "s": 14.195,
+     "e": 14.538
+    },
+    {
+     "w": "est",
+     "s": 14.614,
+     "e": 14.69
+    },
+    {
+     "w": "reparti",
+     "s": 14.767,
+     "e": 15.148
+    },
+    {
+     "w": "avec",
+     "s": 15.262,
+     "e": 15.376
+    },
+    {
+     "w": "le",
+     "s": 15.414,
+     "e": 15.452
+    },
+    {
+     "w": "trophée.",
+     "s": 15.49,
+     "e": 16.214
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Et avec sa vie.",
+   "hl": [
+    "vie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L10.k.wav",
+   "file_start": 16.314,
+   "speech_start": 16.314,
+   "speech_end": 17.392,
+   "words": [
+    {
+     "w": "Et",
+     "s": 16.314,
+     "e": 16.39
+    },
+    {
+     "w": "avec",
+     "s": 16.467,
+     "e": 16.619
+    },
+    {
+     "w": "sa",
+     "s": 16.695,
+     "e": 16.848
+    },
+    {
+     "w": "vie.",
+     "s": 16.962,
+     "e": 17.381
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Son boulot.",
+   "hl": [
+    "boulot."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L11.k.wav",
+   "file_start": 17.492,
+   "speech_start": 17.492,
+   "speech_end": 18.412,
+   "words": [
+    {
+     "w": "Son",
+     "s": 17.492,
+     "e": 17.721
+    },
+    {
+     "w": "boulot.",
+     "s": 17.771,
+     "e": 18.406
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Son appart.",
+   "hl": [
+    "appart."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L12.k.wav",
+   "file_start": 18.512,
+   "speech_start": 18.512,
+   "speech_end": 19.579,
+   "words": [
+    {
+     "w": "Son",
+     "s": 18.512,
+     "e": 18.665
+    },
+    {
+     "w": "appart.",
+     "s": 18.741,
+     "e": 19.579
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Sa femme a trouvé qu'il avait changé.",
+   "hl": [
+    "changé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L13.k.wav",
+   "file_start": 19.679,
+   "speech_start": 19.679,
+   "speech_end": 21.508,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 19.679,
+     "e": 19.755
+    },
+    {
+     "w": "femme",
+     "s": 19.908,
+     "e": 20.06
+    },
+    {
+     "w": "a",
+     "s": 20.098,
+     "e": 20.136
+    },
+    {
+     "w": "trouvé",
+     "s": 20.174,
+     "e": 20.441
+    },
+    {
+     "w": "qu'il",
+     "s": 20.479,
+     "e": 20.593
+    },
+    {
+     "w": "avait",
+     "s": 20.631,
+     "e": 20.822
+    },
+    {
+     "w": "changé.",
+     "s": 20.974,
+     "e": 21.508
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "En mieux.",
+   "hl": [
+    "mieux."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L14.k.wav",
+   "file_start": 21.608,
+   "speech_start": 21.608,
+   "speech_end": 22.293,
+   "words": [
+    {
+     "w": "En",
+     "s": 21.608,
+     "e": 21.76
+    },
+    {
+     "w": "mieux.",
+     "s": 21.798,
+     "e": 22.293
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Aujourd'hui, le mec est sosie professionnel.",
+   "hl": [
+    "sosie",
+    "professionnel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L15.k.wav",
+   "file_start": 22.393,
+   "speech_start": 22.393,
+   "speech_end": 24.831,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 22.393,
+     "e": 23.041
+    },
+    {
+     "w": "le",
+     "s": 23.079,
+     "e": 23.155
+    },
+    {
+     "w": "mec",
+     "s": 23.193,
+     "e": 23.384
+    },
+    {
+     "w": "est",
+     "s": 23.46,
+     "e": 23.536
+    },
+    {
+     "w": "sosie",
+     "s": 23.574,
+     "e": 23.841
+    },
+    {
+     "w": "professionnel.",
+     "s": 24.07,
+     "e": 24.831
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Du gagnant.",
+   "hl": [
+    "gagnant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L16.k.wav",
+   "file_start": 24.931,
+   "speech_start": 24.931,
+   "speech_end": 25.77,
+   "words": [
+    {
+     "w": "Du",
+     "s": 24.931,
+     "e": 25.008
+    },
+    {
+     "w": "gagnant.",
+     "s": 25.084,
+     "e": 25.77
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Le week-end dernier, il a refait le concours.",
+   "hl": [
+    "concours."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L17.k.wav",
+   "file_start": 25.87,
+   "speech_start": 25.87,
+   "speech_end": 28.003,
+   "words": [
+    {
+     "w": "Le",
+     "s": 25.87,
+     "e": 26.022
+    },
+    {
+     "w": "week-end",
+     "s": 26.098,
+     "e": 26.327
+    },
+    {
+     "w": "dernier,",
+     "s": 26.403,
+     "e": 26.86
+    },
+    {
+     "w": "il",
+     "s": 26.898,
+     "e": 26.936
+    },
+    {
+     "w": "a",
+     "s": 27.012,
+     "e": 27.05
+    },
+    {
+     "w": "refait",
+     "s": 27.089,
+     "e": 27.267
+    },
+    {
+     "w": "le",
+     "s": 27.291,
+     "e": 27.317
+    },
+    {
+     "w": "concours.",
+     "s": 27.393,
+     "e": 28.003
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Troisième.",
+   "hl": [
+    "Troisième."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/sosie/tts/L18.k.wav",
+   "file_start": 28.103,
+   "speech_start": 28.103,
+   "speech_end": 28.941,
+   "words": [
+    {
+     "w": "Troisième.",
+     "s": 28.103,
+     "e": 28.941
+    }
+   ]
+  }
+ ],
+ "total": 29.78
+}

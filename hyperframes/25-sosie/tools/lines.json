@@ -1,0 +1,149 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a participé à un concours de sosies.",
+  "hl": [
+   "mec",
+   "sosies."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "De lui-même.",
+  "hl": [
+   "lui-même."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a fini troisième.",
+  "hl": [
+   "troisième."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les deux premiers lui ressemblaient plus que lui.",
+  "hl": [
+   "ressemblaient",
+   "plus"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a fait une réclamation.",
+  "hl": [
+   "réclamation."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le jury a demandé une preuve.",
+  "hl": [
+   "preuve."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il a montré sa carte d'identité.",
+  "hl": [
+   "d'identité."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le jury a reconnu le gagnant.",
+  "hl": [
+   "gagnant."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le gagnant est reparti avec le trophée.",
+  "hl": [
+   "trophée."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Et avec sa vie.",
+  "hl": [
+   "vie."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Son boulot.",
+  "hl": [
+   "boulot."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Son appart.",
+  "hl": [
+   "appart."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Sa femme a trouvé qu'il avait changé.",
+  "hl": [
+   "changé."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "En mieux.",
+  "hl": [
+   "mieux."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Aujourd'hui, le mec est sosie professionnel.",
+  "hl": [
+   "sosie",
+   "professionnel."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Du gagnant.",
+  "hl": [
+   "gagnant."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Le week-end dernier, il a refait le concours.",
+  "hl": [
+   "concours."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Troisième.",
+  "hl": [
+   "Troisième."
+  ]
+ }
+]
