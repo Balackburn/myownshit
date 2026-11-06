@@ -1,0 +1,501 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Il faisait quarante degrés.",
+   "hl": [
+    "quarante",
+    "degrés."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.548,
+   "words": [
+    {
+     "w": "Il",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "faisait",
+     "s": 0.303,
+     "e": 0.557
+    },
+    {
+     "w": "quarante",
+     "s": 0.633,
+     "e": 0.862
+    },
+    {
+     "w": "degrés.",
+     "s": 0.938,
+     "e": 1.548
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Ce mec a ouvert le frigo pour se rafraîchir.",
+   "hl": [
+    "frigo"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L02.k.wav",
+   "file_start": 1.648,
+   "speech_start": 1.648,
+   "speech_end": 3.933,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 1.648,
+     "e": 1.8
+    },
+    {
+     "w": "mec",
+     "s": 1.838,
+     "e": 2.029
+    },
+    {
+     "w": "a",
+     "s": 2.067,
+     "e": 2.105
+    },
+    {
+     "w": "ouvert",
+     "s": 2.143,
+     "e": 2.333
+    },
+    {
+     "w": "le",
+     "s": 2.371,
+     "e": 2.41
+    },
+    {
+     "w": "frigo",
+     "s": 2.486,
+     "e": 2.79
+    },
+    {
+     "w": "pour",
+     "s": 2.867,
+     "e": 2.943
+    },
+    {
+     "w": "se",
+     "s": 2.981,
+     "e": 3.019
+    },
+    {
+     "w": "rafraîchir.",
+     "s": 3.095,
+     "e": 3.933
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Puis il est entré dedans.",
+   "hl": [
+    "entré",
+    "dedans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L03.k.wav",
+   "file_start": 4.033,
+   "speech_start": 4.033,
+   "speech_end": 5.481,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 4.033,
+     "e": 4.338
+    },
+    {
+     "w": "il",
+     "s": 4.414,
+     "e": 4.49
+    },
+    {
+     "w": "est",
+     "s": 4.529,
+     "e": 4.567
+    },
+    {
+     "w": "entré",
+     "s": 4.643,
+     "e": 4.871
+    },
+    {
+     "w": "dedans.",
+     "s": 4.948,
+     "e": 5.481
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Et il a fermé la porte.",
+   "hl": [
+    "fermé",
+    "porte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L04.k.wav",
+   "file_start": 5.581,
+   "speech_start": 5.581,
+   "speech_end": 6.952,
+   "words": [
+    {
+     "w": "Et",
+     "s": 5.581,
+     "e": 5.657
+    },
+    {
+     "w": "il",
+     "s": 5.695,
+     "e": 5.733
+    },
+    {
+     "w": "a",
+     "s": 5.81,
+     "e": 5.886
+    },
+    {
+     "w": "fermé",
+     "s": 5.962,
+     "e": 6.19
+    },
+    {
+     "w": "la",
+     "s": 6.267,
+     "e": 6.343
+    },
+    {
+     "w": "porte.",
+     "s": 6.495,
+     "e": 6.952
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il y est resté tout l'été.",
+   "hl": [
+    "tout",
+    "l'été."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L05.k.wav",
+   "file_start": 7.052,
+   "speech_start": 7.052,
+   "speech_end": 8.5,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.052,
+     "e": 7.129
+    },
+    {
+     "w": "y",
+     "s": 7.205,
+     "e": 7.23
+    },
+    {
+     "w": "est",
+     "s": 7.255,
+     "e": 7.281
+    },
+    {
+     "w": "resté",
+     "s": 7.357,
+     "e": 7.662
+    },
+    {
+     "w": "tout",
+     "s": 7.738,
+     "e": 7.814
+    },
+    {
+     "w": "l'été.",
+     "s": 7.84,
+     "e": 8.5
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il y a même fêté son anniversaire.",
+   "hl": [
+    "anniversaire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L06.k.wav",
+   "file_start": 8.6,
+   "speech_start": 8.6,
+   "speech_end": 10.352,
+   "words": [
+    {
+     "w": "Il",
+     "s": 8.6,
+     "e": 8.676
+    },
+    {
+     "w": "y",
+     "s": 8.702,
+     "e": 8.727
+    },
+    {
+     "w": "a",
+     "s": 8.752,
+     "e": 8.829
+    },
+    {
+     "w": "même",
+     "s": 8.905,
+     "e": 8.981
+    },
+    {
+     "w": "fêté",
+     "s": 9.057,
+     "e": 9.286
+    },
+    {
+     "w": "son",
+     "s": 9.362,
+     "e": 9.438
+    },
+    {
+     "w": "anniversaire.",
+     "s": 9.476,
+     "e": 10.352
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le facteur lui livrait le courrier dans le bac à légumes.",
+   "hl": [
+    "facteur",
+    "légumes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L07.k.wav",
+   "file_start": 10.452,
+   "speech_start": 10.452,
+   "speech_end": 12.967,
+   "words": [
+    {
+     "w": "Le",
+     "s": 10.452,
+     "e": 10.529
+    },
+    {
+     "w": "facteur",
+     "s": 10.605,
+     "e": 10.986
+    },
+    {
+     "w": "lui",
+     "s": 11.011,
+     "e": 11.062
+    },
+    {
+     "w": "livrait",
+     "s": 11.138,
+     "e": 11.367
+    },
+    {
+     "w": "le",
+     "s": 11.443,
+     "e": 11.519
+    },
+    {
+     "w": "courrier",
+     "s": 11.595,
+     "e": 11.824
+    },
+    {
+     "w": "dans",
+     "s": 11.862,
+     "e": 11.938
+    },
+    {
+     "w": "le",
+     "s": 11.976,
+     "e": 12.052
+    },
+    {
+     "w": "bac",
+     "s": 12.129,
+     "e": 12.205
+    },
+    {
+     "w": "à",
+     "s": 12.281,
+     "e": 12.307
+    },
+    {
+     "w": "légumes.",
+     "s": 12.331,
+     "e": 12.967
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "En septembre, il est enfin sorti.",
+   "hl": [
+    "septembre,",
+    "sorti."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L08.k.wav",
+   "file_start": 13.067,
+   "speech_start": 13.067,
+   "speech_end": 15.2,
+   "words": [
+    {
+     "w": "En",
+     "s": 13.067,
+     "e": 13.219
+    },
+    {
+     "w": "septembre,",
+     "s": 13.295,
+     "e": 13.867
+    },
+    {
+     "w": "il",
+     "s": 13.905,
+     "e": 13.981
+    },
+    {
+     "w": "est",
+     "s": 14.057,
+     "e": 14.133
+    },
+    {
+     "w": "enfin",
+     "s": 14.21,
+     "e": 14.438
+    },
+    {
+     "w": "sorti.",
+     "s": 14.59,
+     "e": 15.2
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Dehors, il neigeait.",
+   "hl": [
+    "neigeait."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L09.k.wav",
+   "file_start": 15.3,
+   "speech_start": 15.3,
+   "speech_end": 16.748,
+   "words": [
+    {
+     "w": "Dehors,",
+     "s": 15.3,
+     "e": 15.91
+    },
+    {
+     "w": "il",
+     "s": 15.986,
+     "e": 16.062
+    },
+    {
+     "w": "neigeait.",
+     "s": 16.138,
+     "e": 16.748
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Alors il est retourné dans le frigo.",
+   "hl": [
+    "retourné",
+    "frigo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L10.k.wav",
+   "file_start": 16.848,
+   "speech_start": 16.848,
+   "speech_end": 18.676,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 16.848,
+     "e": 17.152
+    },
+    {
+     "w": "il",
+     "s": 17.381,
+     "e": 17.457
+    },
+    {
+     "w": "est",
+     "s": 17.495,
+     "e": 17.533
+    },
+    {
+     "w": "retourné",
+     "s": 17.61,
+     "e": 17.914
+    },
+    {
+     "w": "dans",
+     "s": 17.94,
+     "e": 17.99
+    },
+    {
+     "w": "le",
+     "s": 18.029,
+     "e": 18.067
+    },
+    {
+     "w": "frigo.",
+     "s": 18.105,
+     "e": 18.676
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Pour se réchauffer.",
+   "hl": [
+    "réchauffer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/canicule/tts/L11.k.wav",
+   "file_start": 18.776,
+   "speech_start": 18.776,
+   "speech_end": 19.843,
+   "words": [
+    {
+     "w": "Pour",
+     "s": 18.776,
+     "e": 18.929
+    },
+    {
+     "w": "se",
+     "s": 19.005,
+     "e": 19.081
+    },
+    {
+     "w": "réchauffer.",
+     "s": 19.157,
+     "e": 19.843
+    }
+   ]
+  }
+ ],
+ "total": 21.34
+}
