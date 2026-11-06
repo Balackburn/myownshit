@@ -1004,6 +1004,7 @@ export const NEWS_PROPS = {
     cells.forEach(([x, z, h], i) => { o3.position.set(x, h / 2, z); o3.scale.set(1, h, 1); o3.updateMatrix(); walls.setMatrixAt(i, o3.matrix); walls.setColorAt(i, col.set(WC[Math.floor(r() * WC.length)]));
       o3.position.set(x, h + 1.3, z); o3.scale.set(1, 1, 1); o3.updateMatrix(); roofs.setMatrixAt(i, o3.matrix); });
     if (walls.instanceColor) walls.instanceColor.needsUpdate = true; walls.receiveShadow = roofs.receiveShadow = true; g.add(walls, roofs);
+    if (o.ground !== false) { const x0 = o.x0 ?? -130, x1 = o.x1 ?? 130, z0 = o.z0 ?? -330, z1 = o.z1 ?? 80, gp = new THREE.Mesh(new THREE.PlaneGeometry(x1 - x0 + 60, z1 - z0 + 60).rotateX(-PI / 2), mat(o.groundColor || '#BDB6A6')); gp.position.set((x0 + x1) / 2, -0.02, (z0 + z1) / 2); g.add(gp); }   // streets between the blocks
     if (o.park) { const [xa, xb, za, zb] = o.park, lawn = new THREE.Mesh(new THREE.PlaneGeometry(xb - xa, zb - za).rotateX(-PI / 2), mat(o.lawn || '#8CC56A')); lawn.position.set((xa + xb) / 2, 0.01, (za + zb) / 2); g.add(lawn);
       const tp = []; for (let x = xa + 3; x < xb - 2; x += 6) { tp.push([x, za + 3], [x, zb - 3]); } for (let z = za + 9; z < zb - 8; z += 6) { tp.push([xa + 3, z], [xb - 3, z]); }
       const crowns = new THREE.InstancedMesh(new THREE.SphereGeometry(2.2, 7, 5), mat('#4E9A4A'), tp.length), trunks = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.25, 0.3, 2.4, 5), mat('#7A5A3A'), tp.length);

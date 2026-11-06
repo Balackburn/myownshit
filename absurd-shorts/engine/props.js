@@ -677,7 +677,7 @@ const B = {
         c.strokeStyle = '#3A3530'; c.lineWidth = W * 0.012; c.beginPath(); c.moveTo(W / 2, 0); c.lineTo(W / 2, H * 0.3); c.stroke();
         const gr = c.createRadialGradient(W / 2, H * 0.33, 1, W / 2, H * 0.33, W * 0.45); gr.addColorStop(0, 'rgba(255,240,180,0.9)'); gr.addColorStop(1, 'rgba(255,240,180,0)'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
         c.fillStyle = '#FFF4C8'; c.beginPath(); c.arc(W / 2, H * 0.33, W * 0.05, 0, Math.PI * 2); c.fill(); }, { res: 256, emissive: 0.85 }), 0, h / 2, 0.006) : at(box(w, h, 0.01, P.ink), 0, h / 2, 0.005), piv);
-    piv.position.set(-w / 2, 0, 0.035);
+    piv.position.set(o.hinge === 'right' ? w / 2 : -w / 2, 0, 0.035); if (o.hinge === 'right') piv.scale.x = -1;   // o.hinge 'right': mirrored leaf, swings to the other side
     piv.add(at(box(w, h, 0.05, o.color || P.red, { outline: 0.006 }), w / 2, h / 2, 0), at(box(w * 0.62, h * 0.3, 0.012, P.redDark), w / 2, h * 0.72, 0.03),
       at(box(w * 0.62, h * 0.3, 0.012, P.redDark), w / 2, h * 0.3, 0.03), at(sphere(0.045, P.yellow, 0), w - 0.11, h * 0.48, 0.06));
     if (o.color && o.color !== P.red) piv.children.slice(1, 3).forEach(m => m.material = mat(new THREE.Color(o.color).multiplyScalar(0.82).getStyle()));
