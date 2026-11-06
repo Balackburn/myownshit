@@ -217,6 +217,27 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], fridge: [-2.7, 0, back + 0.38], fridgeFront: [-2.7, 0, back + 1.5], counter: [-0.6, 0.95, back + 0.3], door: [ax, 0, back + 0.4], window: [-0.6, 1.25, back], lamp: [0, 2.6, -1.0] };
     g.userData.lighting = 'dark'; return g;
   },
+  kitchenDay(o = {}) { // « La canicule »: a sunny pastel kitchen in a heatwave — peach walls, mint tiled band, a blazing window, a counter with a fan and a wilting plant;
+    // o.fridge === false (a scene bigFridge replaces it; anchors.fridge is its spot)
+    const g = grp(), { back } = room(g, { wall: '#F6D7AE', band: '#9FD8C8', bandH: 1.05, trim: '#E8A97E', floor: '#F4E6CC' });
+    const tiles = []; for (let i = -12; i < 12; i++) for (let j = 0; j < 22; j++) if ((i + j) % 2 === 0) tiles.push([i * 0.6 + 0.3, 0.003, back + j * 0.6 + 0.3]);
+    g.add(inst(new THREE.PlaneGeometry(0.6, 0.6).rotateX(-PI / 2), mat('#E9B88E'), tiles));
+    if (o.fridge !== false) g.add(prop('bigFridge', { mode: 'full', open: 0 }, -2.7, 0, back + 0.5));
+    g.add(at(box(3.0, 0.9, 0.6, '#7FC4B2', { pivot: 'bottom' }), 0.2, 0, back + 0.3), at(box(3.1, 0.05, 0.66, P.cream), 0.2, 0.925, back + 0.33));
+    [-0.8, 0.2, 1.2].forEach(x => g.add(at(box(0.04, 0.7, 0.01, '#5E9E8E'), x + 0.5, 0.45, back + 0.605), at(box(0.12, 0.03, 0.03, P.cream), x + 0.35, 0.75, back + 0.62)));
+    g.add(at(box(0.9, 0.7, 0.36, '#7FC4B2', { pivot: 'bottom' }), -0.85, 1.75, back + 0.18), at(box(0.9, 0.7, 0.36, '#7FC4B2', { pivot: 'bottom' }), 1.25, 1.75, back + 0.18));
+    // the blazing window: a white-hot sky with the sun in it, and its light on the floor
+    g.add(prop('window', { w: 1.0, h: 0.85, color: P.cream }, 0.2, 1.3, back));
+    g.add(at(canvasPlane(0.96, 0.8, (c, W, H) => { const gr = c.createRadialGradient(W * 0.65, H * 0.35, 4, W * 0.65, H * 0.35, W * 0.9); gr.addColorStop(0, '#FFFFF4'); gr.addColorStop(0.18, '#FFF1B0'); gr.addColorStop(0.5, '#FFD27A'); gr.addColorStop(1, '#F6B65C'); c.fillStyle = gr; c.fillRect(0, 0, W, H); }, { res: 256, emissive: 1 }), 0.2, 1.3, back + 0.012));
+    const patch = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.6).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFE7A8', transparent: true, opacity: 0.35, depthWrite: false })); patch.position.set(0.35, 0.006, back + 1.6); patch.rotation.y = 0.15; g.add(patch);
+    g.add(prop('deskFan', { color: '#5FA8D3' }, 1.2, 0.95, back + 0.32, -0.3), prop('wiltPlant', { wilt: 1 }, -0.9, 0.95, back + 0.32), prop('mug', { color: P.yellow }, 0.6, 0.95, back + 0.35));
+    const ax = 2.8, ay = 1.9;   // arched doorway
+    g.add(at(box(1.1, ay, 0.02, '#3A2E28'), ax, ay / 2, back + 0.01), at(mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.02, 12, 1, false, PI / 2, PI), mat('#3A2E28')), ax, ay, back + 0.01, PI / 2),
+      at(torus(0.61, 0.06, P.cream, 4, 12, PI), ax, ay, back + 0.04), at(box(0.12, ay, 0.12, P.cream, { pivot: 'bottom' }), ax - 0.61, 0, back + 0.04), at(box(0.12, ay, 0.12, P.cream, { pivot: 'bottom' }), ax + 0.61, 0, back + 0.04));
+    g.add(hangLamp(0, 2.7, -1.0, P.yellow, 7));
+    g.userData.anchors = { center: [0, 0, 0], fridge: [-2.7, 0, back + 0.5], fridgeFront: [-2.7, 0, back + 1.6], counter: [0.2, 0.95, back + 0.3], window: [0.2, 1.3, back], door: [ax, 0, back + 0.4], wall: [-1.2, 1.5, back] };
+    g.userData.sun = [-0.4, 0.62, 0.68]; g.userData.lighting = 'interior'; return g;
+  },
   suburbDay(o = {}) {   // o.sky [top, bottom]: e.g. an evening sky
     const g = grp(); sky(g, o.sky); clouds(g, 3);
     g.add(ground('#9DAF88'), flat(240, 3.4, P.cream, 0, 0.01, 0), flat(240, 0.25, P.creamDark, 0, 0.012, -1.75), flat(1.5, 4.6, P.cream, 0, 0.011, -5.9));
@@ -1180,10 +1201,11 @@ function streetSet(o, night) {
 Object.assign(S, {
   parisStreet(o = {}) { // bright Paris street for the tornado-style remakes: asphalt road along Z, pale sidewalks, Haussmann blocks both sides (o.night: stars, lit windows and lamps),
     // round trees, lamps, the Eiffel tower at the far end, the replica's blue sky and white clouds
-    const g = grp(), r = rng(o.seed || 12), night = !!o.night;
-    if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || ['#62AEE2', '#A7D4EC']); clouds(g, 6, 8); }
-    g.add(ground(night ? '#8E8A80' : '#C9C2B3'));
-    g.add(flat(10, 400, '#6E6E72', 0, 0.004, 0), flat(5, 400, '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, '#E4D6BE', -7.5, 0.006, 0));
+    const g = grp(), r = rng(o.seed || 12), night = !!o.night, snow = !!o.snow;   // o.snow: snowed-in street, flakes falling round the origin
+    if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || (snow ? ['#A9B9C9', '#E6ECF0'] : ['#62AEE2', '#A7D4EC'])); clouds(g, 6, 8); }
+    g.add(ground(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3'));
+    g.add(flat(10, 400, snow ? '#C9CED4' : '#6E6E72', 0, 0.004, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', -7.5, 0.006, 0));
+    if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); g.add(prop('snowfall', { w: 30, h: 12, d: 40, n: 3200, size: 0.13 }, 0, 0, 0), prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2)); }
     g.add(at(box(0.2, 0.16, 400, '#D9CDB4'), 5, 0, 0), at(box(0.2, 0.16, 400, '#D9CDB4'), -5, 0, 0));
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([0, 0.008, z]);
     g.add(inst(new THREE.BoxGeometry(0.16, 0.01, 1.8), mat('#F4F1E8'), dash));
@@ -1198,6 +1220,7 @@ Object.assign(S, {
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70 }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0] };
     g.userData.sun = [-0.35, 0.78, 0.52];   // shader look: down the street, the pavements lit
+    if (snow) g.userData.snow = true;
     g.userData.lighting = night ? 'night' : 'day'; return g;
   },
   stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light

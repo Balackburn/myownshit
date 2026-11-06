@@ -211,10 +211,11 @@ export const CANICULE_PROPS = {
   shoulderBlanket(o) {   // a tartan blanket draped over the shoulders (attach to the torso joint): a back panel, two front flaps, a rolled top
     const tartan = tex(128, 128, (c, W) => { c.fillStyle = o.color || '#C8423A'; c.fillRect(0, 0, W, W); c.fillStyle = 'rgba(30,40,60,0.45)'; for (let i = 0; i < 4; i++) { c.fillRect(i * 32 + 8, 0, 10, W); c.fillRect(0, i * 32 + 8, W, 10); } c.fillStyle = 'rgba(250,240,210,0.5)'; for (let i = 0; i < 4; i++) { c.fillRect(i * 32 + 24, 0, 3, W); c.fillRect(0, i * 32 + 24, W, 3); } });
     tartan.wrapS = tartan.wrapT = THREE.RepeatWrapping; tartan.repeat.set(2, 2);
-    const m = new THREE.MeshLambertMaterial({ map: tartan }), w = o.w || 0.62, hb = o.h || 0.62;
+    const m = new THREE.MeshLambertMaterial({ map: tartan }), w = o.w || 0.56, hb = o.h || 0.55;
     const part = (pw, ph, pd, x, y, z, rx = 0, rz = 0) => { const b = new THREE.Mesh(new THREE.BoxGeometry(pw, ph, pd), m); b.position.set(x, y, z); b.rotation.set(rx, 0, rz); b.castShadow = true; return b; };
-    const g = grp(part(w, hb, 0.04, 0, -hb / 2 + 0.05, -0.17, 0.08), part(0.17, hb * 0.8, 0.04, -w / 2 + 0.1, -hb * 0.4 + 0.05, 0.16, -0.05, 0.08), part(0.17, hb * 0.8, 0.04, w / 2 - 0.1, -hb * 0.4 + 0.05, 0.16, -0.05, -0.08));
-    const roll = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, w + 0.04, 8), m); roll.rotation.z = PI / 2; roll.position.set(0, 0.06, -0.02); roll.scale.set(1, 1, 3.6); g.add(roll);
+    const g = grp(part(w, hb, 0.035, 0, -hb / 2 + 0.06, -0.15, 0.1));   // a cape: the back, over both shoulders, the front left open
+    for (const sd of [-1, 1]) g.add(part(0.13, 0.05, 0.3, sd * (w / 2 - 0.07), 0.07, 0.0, 0, sd * -0.25), part(0.11, 0.22, 0.035, sd * (w / 2 - 0.05), -0.05, 0.14, -0.1, sd * 0.12));
+    const roll = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, w + 0.02, 8), m); roll.rotation.z = PI / 2; roll.position.set(0, 0.08, -0.12); g.add(roll);
     return g;
   },
   pharmacyCross(o) {   // a French pharmacy's green LED cross on a wall bracket, alternating the cross and o.text (the temperature) every o.period s

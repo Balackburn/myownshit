@@ -117,3 +117,22 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
 - **A camera in front of a queue looks through the queue.** For people standing in line, shoot from the side (3/4), never from the front along the line, or the person ahead covers the subject.
 - **Aerial shots need a city around the set:** the street set alone shows empty ground from above. `cityBlocks` adds instanced blocks (skip rectangles for the set) and a park; scale the queue figures up (size 1.8) so the line reads as people from 70 m.
 - **Prop names are global and the last definition wins silently.** A second `veil` in the props file replaced the one an older story used; grep for the name in every props file before adding one. When splicing code between two markers, search the end marker from the start position (`s.index(end, i)`): a repeated name made one edit duplicate 1 000 lines.
+
+## Le ver de terre and La canicule (stories 35 and 34)
+- Cameras behind characters: an over-the-shoulder that starts behind a head (the mec facing the avocado, the postman at the fridge, the mec at
+  the fridge door) shows a wall of suit or hair. Put the camera beside the head, 30-45 degrees off the line, and check the first still.
+- The thing the line is about must be the subject: « il a pris un avocat » is the avocado's reveal, not the mec's back; « dans le bac à
+  légumes » is a low shot of the drawer sliding out with the letter dropping in.
+- Puns made literal carry the joke: the lawyer IS an avocado (a half avocado with the stone as a belly, a black robe, the white rabat), « raconter
+  des salades » shows lettuce flying out of its mouth and a speech bubble full of salad (`saladLeaves`, `saladBubble`).
+- Stage the eater behind the victim, the victim facing the camera: the gulp reads (the worm's head comes down over the avocado's face), then
+  the lump travels down the body (`worm` clip `eat`: bulges per segment), a burp, the stone spat into the lens (a key move to the camera + shake).
+- A move key turns the actor toward its target; add `face='keep'` when something is pulled (into a mouth, out of a door) without turning.
+- Speech bubbles: 0.24 x 0.12 m at 0.6 m from the lens is already a big bubble; place them with `onscreen()` and `yaw_to()`.
+- Props attached to a hand follow the hand's axes, which change with the clip: hold a board against the chest with `joint: 'torso'`
+  (`offset` [0, 0.18, 0.26]) instead of a hand.
+- A canvas label backed by a box: put the box behind the canvas (z -0.009 for a 0.012 box), or the box hides the text from the front.
+- A big fridge to live in (`bigFridge`): frame the inside from 1.9-2.1 m in front of the opening (the fridge is a natural 9:16 frame);
+  a POV from inside the fridge looking out works with the camera just inside the back wall.
+- The snowy street needs its snow in frame: falling flakes at 0.13 m, the ground, kerb banks and the pharmacy cross; a tight shot on the face
+  against a facade loses the snow.

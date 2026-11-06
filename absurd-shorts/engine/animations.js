@@ -310,6 +310,14 @@ export const CLIPS = {
   floatTilt: (t) => ({ ...CLIPS.float(t), root: { y: 0.1 * S(t * 1.5), rz: 0.2 + 0.05 * S(t * 0.9), rx: -0.12 } }), // weightless, tilted to one side
   floatTiltB: (t) => ({ ...CLIPS.float(t + 1.3), root: { y: 0.1 * S(t * 1.3 + 1), rz: -0.18 + 0.05 * S(t * 0.8), rx: 0.1 } }),
   checkWatch: (t) => ({ ...CLIPS.stand(), shoulderL: [-0.42, 0, 0.12], elbowL: [-1.55, 0.75, 0], handL: [0, 0, 0.45], head: [0.42 + 0.02 * S(t * 2), 0.22, 0], torso: [0.05, 0, 0] }), // left forearm across the chest, wrist up, head down at the watch
+  // « La canicule »: life cross-legged in a fridge
+  sitFloorSpoon: (t, p = {}) => { const e = CLIPS.eatSpoon(t, p); return { ...CLIPS.sitFloor(t), shoulderL: e.shoulderL, elbowL: e.elbowL, shoulderR: e.shoulderR, elbowR: e.elbowR, head: e.head }; },
+  sitFloorWave: (t) => ({ ...CLIPS.sitFloor(t), shoulderR: [0, 0, -2.6], elbowR: [0, 0, -(0.5 + 0.45 * S(t * 9))], head: [0.02 * S(t), -0.15, 0] }),
+  sitFloorSip: (t) => ({ ...CLIPS.sitFloor(t), shoulderR: [-1.0, 0.45, -0.05], elbowR: [-1.9, 0, 0], head: [-0.18, 0, 0] }),
+  sitFloorClap: (t) => { const k = Math.abs(S(t * PI * 4)); return { ...CLIPS.sitFloor(t), ...arms(m([-1.25, 0, 0.1 + 0.3 * k], [-1.25, 0, 0.1 + 0.3 * k]), m([-0.95, 0, 0], [-0.95, 0, 0])), head: [-0.12, 0.12 * S(t * 3), 0] }; },
+  sitFloorBlow: (t) => ({ ...CLIPS.sitFloor(t), torso: [0.32, 0, 0], head: [0.25, 0, 0], ...arms(m([-0.3, 0, 0.35], [-0.3, 0, 0.35]), m([-0.5, 0, 0], [-0.5, 0, 0])) }),
+  stiffStand: (t) => ({ ...arms(m([0, 0, 0.05], [0, 0, 0.05]), m([0, 0, 0], [0, 0, 0])), head: [0.01 * S(t * 40), 0, 0] }),   // frozen stiff, arms glued to the body
+  hugCold: (t) => ({ ...arms(m([-1.15, 0.6, 0.15], [-1.15, 0.6, 0.15]), m([-1.9, 0, 0], [-1.9, 0, 0])), torso: [0.12, 0, 0], head: [0.15 + 0.02 * S(t * 37), 0, 0] }),   // hugging himself, shivering
   sitWave: (t) => ({ ...CLIPS.sit(t), ...arms(m([0, 0, 0.06], [0, 0, 2.6]), m([-0.1, 0, 0], [0, 0, 0.5 + 0.45 * S(t * 9)])), head: [0.02 * S(t), 0.15, 0] }), // seated, waving bye-bye with the right arm (the postman leaving by boat)
   dangleItem: (t) => ({ ...CLIPS.stand(), shoulderR: [-1.55, 0.3, 0.15], elbowR: [-1.2, 0, 0], shoulderL: [0, 0, 0.06], elbowL: [-0.25, 0, 0], head: [0.2 + 0.02 * S(t * 3), 0.3, 0] }), // holds something up beside the face at eye height (keys dangling), head turned to look at it
   holdSign: (t) => ({ ...CLIPS.stand(), ...arms(m([-2.7, -0.2, 0.15], [-2.7, -0.2, 0.15]), m([-0.3, 0, 0], [-0.3, 0, 0])), head: [-0.1, 0, 0], root: { y: 0.02 * Math.abs(S(t * 6)) } }), // protest sign overhead, bouncing

@@ -1,0 +1,1328 @@
+{
+ "version": 3,
+ "title": "La canicule",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "facteur": {
+   "preset": "cop",
+   "seed": 96,
+   "suit": "#2F62B5",
+   "hatColor": "#F2C94C"
+  },
+  "passant": {
+   "preset": "lemec_brown",
+   "hat": "beanie",
+   "hatColor": "#C8322A",
+   "seed": 44,
+   "glasses": true
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.55,
+      0,
+      -1.7
+     ],
+     "ry": 8,
+     "clip": "fan",
+     "keys": [],
+     "fx": {
+      "sweat": true
+     },
+     "expr": "pain"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "full",
+      "notes": 6
+     }
+    },
+    {
+     "id": "thermo",
+     "name": "thermometer",
+     "pos": [
+      -1.38,
+      1.55,
+      -3.57
+     ],
+     "opts": {
+      "w": 0.3,
+      "h": 1.0,
+      "temp": 40,
+      "from": 27,
+      "riseAt": 0.12,
+      "dur": 0.9
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.62,
+      1.72,
+      0.3
+     ],
+     "to": [
+      -0.64,
+      1.72,
+      0.1
+     ],
+     "lookAt": [
+      -1.05,
+      1.62,
+      -1.7
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.05,
+      1.63,
+      -1.7
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.6,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.45,
+      0,
+      -2.0
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.17,
+       "clip": "giveItem"
+      },
+      {
+       "at": 0.8200000000000001,
+       "expr": "surprisedHappy"
+      }
+     ],
+     "fx": {
+      "sweat": true
+     },
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "full",
+      "notes": 6,
+      "openAt": 0.32
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.25,
+      1.55,
+      -1.25
+     ],
+     "to": [
+      -1.3,
+      1.55,
+      -1.32
+     ],
+     "lookAt": [
+      -2.62,
+      1.35,
+      -2.55
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.62,
+      1.36,
+      -2.55
+     ]
+    }
+   ],
+   "start": 1.6,
+   "duration": 1.2333,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.45,
+      0,
+      -2.0
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [],
+     "expr": "relieved"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "full",
+      "notes": 6,
+      "open": 1
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.6,
+      1.95,
+      -3.12
+     ],
+     "to": [
+      -2.6,
+      1.95,
+      -3.05
+     ],
+     "lookAt": [
+      -2.45,
+      2.0,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.45,
+      2.01,
+      -2.0
+     ]
+    }
+   ],
+   "start": 2.8333,
+   "duration": 1.1667,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.45,
+      0,
+      -2.0
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        -2.65,
+        0.22,
+        -2.95
+       ],
+       "dur": 0.55
+      },
+      {
+       "at": 0.85,
+       "clip": "sitFloor",
+       "to": [
+        -2.7,
+        0.22,
+        -3.2
+       ],
+       "dur": 0.25,
+       "face": 180
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "open": 1
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.05,
+      1.35,
+      -1.45
+     ],
+     "to": [
+      -1.1,
+      1.34,
+      -1.5
+     ],
+     "lookAt": [
+      -2.7,
+      0.95,
+      -2.95
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.7,
+      0.95,
+      -2.95
+     ]
+    }
+   ],
+   "start": 4.0,
+   "duration": 1.5333,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "open": 1,
+      "closeAt": 0.35,
+      "shakeAt": 0.73
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.05,
+      1.2,
+      -0.45
+     ],
+     "to": [
+      -2.08,
+      1.2,
+      -0.55
+     ],
+     "lookAt": [
+      -2.75,
+      1.0,
+      -3.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.75,
+      1.0,
+      -3.0
+     ]
+    }
+   ],
+   "start": 5.5333,
+   "duration": 1.5,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloorSpoon",
+     "keys": [],
+     "expr": "relieved"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "light": true,
+      "open": 1,
+      "mist": false
+     }
+    },
+    {
+     "id": "yog",
+     "name": "yogurt",
+     "on": {
+      "actor": "mec",
+      "hand": "L"
+     },
+     "opts": {
+      "open": true
+     }
+    },
+    {
+     "id": "cal",
+     "name": "monthCalendar",
+     "pos": [
+      -2.215,
+      1.22,
+      -3.05
+     ],
+     "ry": -90,
+     "opts": {
+      "months": [
+       "JUILLET",
+       "AOÛT",
+       "SEPTEMBRE"
+      ],
+      "flipAt": 0.45,
+      "dur": 0.55,
+      "w": 0.26,
+      "h": 0.34
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.62,
+      1.18,
+      -1.05
+     ],
+     "to": [
+      -2.63,
+      1.17,
+      -1.25
+     ],
+     "lookAt": [
+      -2.7,
+      1.02,
+      -3.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.7,
+      1.02,
+      -3.2
+     ]
+    }
+   ],
+   "start": 7.0333,
+   "duration": 1.5334,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloorClap",
+     "keys": [
+      {
+       "at": 0.7589999999999999,
+       "clip": "sitFloorBlow",
+       "expr": "kiss"
+      },
+      {
+       "at": 1.4089999999999998,
+       "clip": "sitFloorClap",
+       "expr": "bigGrin"
+      }
+     ],
+     "expr": "laugh"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "party",
+      "notes": 6,
+      "light": true,
+      "open": 0.82,
+      "mist": false
+     }
+    },
+    {
+     "id": "hat",
+     "name": "partyHat",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.05,
+       0.5,
+       0.0
+      ]
+     },
+     "opts": {
+      "tilt": -0.2
+     }
+    },
+    {
+     "id": "cake",
+     "name": "birthdayCake",
+     "pos": [
+      -2.7,
+      0.39,
+      -2.86
+     ],
+     "scale": 0.85,
+     "opts": {
+      "candles": 5,
+      "outAt": 1.059
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.25,
+      1.2,
+      -1.0
+     ],
+     "to": [
+      -2.27,
+      1.19,
+      -1.18
+     ],
+     "lookAt": [
+      -2.75,
+      1.02,
+      -3.15
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.75,
+      1.02,
+      -3.15
+     ]
+    }
+   ],
+   "start": 8.5667,
+   "duration": 1.8666,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "facteur",
+     "pos": [
+      -2.05,
+      0,
+      -2.05
+     ],
+     "ry": 225,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloorWave",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "light": true,
+      "openAt": 0.05,
+      "letters": 2
+     }
+    },
+    {
+     "id": "env",
+     "name": "envelope",
+     "on": {
+      "actor": "facteur",
+      "hand": "R"
+     },
+     "opts": {
+      "to": "M. LE MEC",
+      "addr": "BAC À LÉGUMES"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.95,
+      1.55,
+      -0.85
+     ],
+     "to": [
+      -2.93,
+      1.55,
+      -0.98
+     ],
+     "lookAt": [
+      -2.45,
+      1.2,
+      -2.85
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.45,
+      1.2,
+      -2.85
+     ]
+    }
+   ],
+   "start": 10.4333,
+   "duration": 1.4,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "light": true,
+      "open": 1,
+      "letters": 2,
+      "drawerAt": 0.12
+     }
+    },
+    {
+     "id": "env2",
+     "name": "envelope",
+     "pos": [
+      -2.62,
+      0.62,
+      -2.35
+     ],
+     "rot": [
+      -1.2,
+      0.2,
+      0.3
+     ],
+     "opts": {
+      "to": "M. LE MEC",
+      "addr": "BAC À LÉGUMES"
+     },
+     "keys": [
+      {
+       "at": 0.52,
+       "to": [
+        -2.6,
+        0.3,
+        -2.58
+       ],
+       "dur": 0.35,
+       "ease": "in"
+      },
+      {
+       "at": 0.52,
+       "rotTo": [
+        -1.5,
+        0.1,
+        0.6
+       ],
+       "dur": 0.35
+      }
+     ],
+     "ry": 11.459
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.3,
+      0.62,
+      -1.75
+     ],
+     "to": [
+      -2.32,
+      0.6,
+      -1.85
+     ],
+     "lookAt": [
+      -2.68,
+      0.28,
+      -2.68
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.68,
+      0.28,
+      -2.68
+     ]
+    }
+   ],
+   "start": 11.8333,
+   "duration": 1.2,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": 0.65,
+       "clip": "stiffStand",
+       "to": [
+        -2.62,
+        0,
+        -2.25
+       ],
+       "dur": 0.6,
+       "face": "keep"
+      },
+      {
+       "at": 1.4,
+       "to": [
+        -2.55,
+        0,
+        -1.65
+       ],
+       "dur": 0.8,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "fx": {
+      "frozen": true,
+      "breath": true,
+      "shiver": true
+     },
+     "expr": "cold"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "light": true,
+      "openAt": 0.2
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.35,
+      1.55,
+      -0.2
+     ],
+     "to": [
+      -2.36,
+      1.56,
+      -0.35
+     ],
+     "lookAt": [
+      -2.65,
+      1.32,
+      -2.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.6,
+      1.55,
+      -1.7
+     ]
+    }
+   ],
+   "start": 13.0333,
+   "duration": 2.2334,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.55,
+      0,
+      2.0
+     ],
+     "ry": -90,
+     "clip": "hugCold",
+     "keys": [
+      {
+       "at": 0.5,
+       "expr": "cold"
+      }
+     ],
+     "fx": {
+      "frozen": true,
+      "breath": true,
+      "shiver": true
+     },
+     "expr": "shocked"
+    },
+    {
+     "id": "passant",
+     "pos": [
+      8.2,
+      0,
+      7.0
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        8.2,
+        0,
+        -3.0
+       ],
+       "dur": 2.4528
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pharma",
+     "name": "pharmacyCross",
+     "pos": [
+      9.85,
+      2.75,
+      3.2
+     ],
+     "ry": -55,
+     "opts": {
+      "text": "−12°",
+      "size": 0.8,
+      "period": 0.7
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.4,
+      1.35,
+      5.4
+     ],
+     "to": [
+      6.45,
+      1.37,
+      5.2
+     ],
+     "lookAt": [
+      9.4,
+      1.65,
+      2.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.4,
+      1.67,
+      2.2
+     ]
+    }
+   ],
+   "start": 15.2667,
+   "duration": 1.5333,
+   "setOpts": {
+    "snow": true
+   },
+   "look": {
+    "sunColor": "#EAF2FF",
+    "sun": 0.62,
+    "hazeColor": "#E4EAEE",
+    "hazeNear": 18,
+    "hazeFar": 110,
+    "warm": 0.25,
+    "sat": 0.95,
+    "elevation": 30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.4,
+      0,
+      -1.2
+     ],
+     "ry": -110,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        -2.45,
+        0,
+        -2.0
+       ],
+       "dur": 0.85
+      },
+      {
+       "at": 1.05,
+       "to": [
+        -2.7,
+        0.22,
+        -3.2
+       ],
+       "dur": 0.3,
+       "clip": "sitFloor",
+       "face": 0
+      }
+     ],
+     "fx": {
+      "frozen": "thaw",
+      "breath": true
+     },
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "lived",
+      "notes": 6,
+      "open": 1,
+      "closeAt": 1.45,
+      "shakeAt": 1.77
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.7,
+      1.6,
+      1.3
+     ],
+     "to": [
+      0.6,
+      1.58,
+      1.15
+     ],
+     "lookAt": [
+      -1.5,
+      1.0,
+      -2.35
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.2,
+      1.0,
+      -2.7
+     ]
+    }
+   ],
+   "start": 16.8,
+   "duration": 1.9333,
+   "setOpts": {
+    "fridge": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.7,
+      0.22,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "sitFloorSip",
+     "keys": [],
+     "fx": {
+      "frozen": "thaw",
+      "blush": true
+     },
+     "expr": "relieved"
+    }
+   ],
+   "props": [
+    {
+     "id": "fridge",
+     "name": "bigFridge",
+     "pos": [
+      -2.7,
+      0,
+      -3.1
+     ],
+     "opts": {
+      "mode": "cosy",
+      "notes": 6,
+      "light": true,
+      "open": 1,
+      "mist": false
+     }
+    },
+    {
+     "id": "blanket",
+     "name": "shoulderBlanket",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.42,
+       0
+      ]
+     }
+    },
+    {
+     "id": "mug",
+     "name": "hotMug",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "thermo4",
+     "name": "thermometer",
+     "pos": [
+      -2.215,
+      1.2,
+      -3.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.16,
+      "h": 0.5,
+      "temp": 4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.6,
+      1.16,
+      -0.95
+     ],
+     "to": [
+      -2.62,
+      1.14,
+      -1.35
+     ],
+     "lookAt": [
+      -2.7,
+      1.02,
+      -3.2
+     ],
+     "lens": 44,
+     "ease": "out",
+     "lookAt2": [
+      -2.7,
+      1.02,
+      -3.2
+     ]
+    }
+   ],
+   "start": 18.7333,
+   "duration": 2.6067,
+   "setOpts": {
+    "fridge": false
+   },
+   "look": {
+    "sunColor": "#FFD9A6"
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 21.34,
+ "look": "shaders"
+}

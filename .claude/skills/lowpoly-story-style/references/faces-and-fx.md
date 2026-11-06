@@ -49,3 +49,16 @@ pastel, "stylized low-poly video-game texture, no perspective, no shadows, no pe
 with curl within the hour, save as WebP in `absurd-shorts/assets/textures/`, list it in `engine/models.js` `TEXTURES` (preloaded before the
 first frame) and use it with `imageTexture(url)`. In place: three Haussmann facades (cream, pink, grey) used by `parisStreet` by day
 (the procedural facade stays at night for the lit windows; `flux: false` on a building opts out).
+
+## Painted strokes (user feedback: « face should have pixels like drawn with paint »)
+- `tools/face/gen_expressions.py` draws the features clean at 4x, then `paint()` repaints them like the measured face: a two-scale smooth
+  displacement (wobbly contours), the ink processed apart from the fills with a noisy threshold on a blurred mask (uneven thickness, bites),
+  a ragged 1-px edge at the native 400x1080 resolution, flat colours sampled on `face_neutral.png` (ink 45,37,31; eye white 205,189,166).
+  Eyes are jittered 8-gons (hand-drawn quads), pupils jittered blobs, brows tapered (thick inner end), the mouth line tapered with a fat middle.
+- Runtime variant features (glasses, moustache, beard, red nose, lashes) are drawn on an overlay canvas and passed through `paintLayer()`
+  in `engine/atlas.js` (same idea in JS) before they go on the face; the glasses' lens tint stays smooth.
+
+## New face FX (La canicule)
+- `frozen: true`: frost over the face (white speckles at the edges, a pale blue wash), icicles along the jaw and under the nose, a frosted cap
+  on the hair; `frozen: 'thaw'`: half the icicles, drops running at the jaw. `breath: true`: vapour puffs from the mouth (cold air).
+  Combine with `shiver` and the expressions `cold` / `shocked`; clips `stiffStand` (frozen stiff) and `hugCold` (hugging himself).

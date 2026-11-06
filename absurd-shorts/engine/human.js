@@ -361,6 +361,17 @@ function blushTexture() {
   g.strokeStyle = 'rgba(190,60,60,0.8)'; g.lineWidth = 6; for (let k = 0; k < 3; k++) { g.beginPath(); g.moveTo(34 + k * 26, 44); g.lineTo(48 + k * 26, 20); g.stroke(); }
   _blushTex = new THREE.CanvasTexture(c); _blushTex.colorSpace = THREE.SRGBColorSpace; return _blushTex;
 }
+let _frostTex = null, _puffTex = null;
+function frostTexture() {   // hoar frost round the face's edges, a pale blue wash in the middle (transparent canvas)
+  if (_frostTex) return _frostTex;
+  const c = document.createElement('canvas'); c.width = 200; c.height = 540; const g = c.getContext('2d');
+  g.fillStyle = 'rgba(190,225,255,0.22)'; g.fillRect(0, 0, 200, 540);
+  let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 900; i++) { const edge = r() < 0.5, x = edge ? (r() < 0.5 ? r() * 34 : 200 - r() * 34) : r() * 200, y = edge ? r() * 540 : (r() < 0.5 ? r() * 60 : 540 - r() * 50);
+    g.fillStyle = `rgba(${235 + r() * 20},${245 + r() * 10},255,${0.5 + r() * 0.45})`; const w = 2 + r() * 7; g.fillRect(x, y, w, w * (0.4 + r())); }
+  _frostTex = new THREE.CanvasTexture(c); _frostTex.colorSpace = THREE.SRGBColorSpace; return _frostTex;
+}
+function puffTex() { if (_puffTex) return _puffTex; const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); _puffTex = new THREE.CanvasTexture(c); return _puffTex; }
 function buildFaceFx(head, hw, hh, hd, o) {
   const FX = new THREE.Group(); FX.name = 'faceFx'; FX.visible = false; head.add(FX);
   const P2 = (cx, cy) => [(cx / 400 - 0.5) * hw, (1 - cy / 1080) * hh], Z = y => hd / 2 - 0.015 * (y / hh) + 0.004;
@@ -382,9 +393,18 @@ function buildFaceFx(head, hw, hh, hd, o) {
   // blush: two pink patches on the cheeks
   const bm = new THREE.MeshBasicMaterial({ map: blushTexture(), transparent: true, depthWrite: false }), bgeo = new THREE.PlaneGeometry(96 / 400 * hw, 48 / 1080 * hh * 2.2);
   const blush = [[92, 450], [318, 640]].map(([cx, cy]) => { const m = new THREE.Mesh(bgeo, bm); m.renderOrder = 2; at2(m, cx, cy); FX.add(m); return m; });
-  const all = [...runs.map(r => r.m), ...tears.map(r => r.m), ...sweat.map(r => r.m), bigSweat, ...blush, ...strands.flatMap(s => [s.g, s.drip])];
+  // frozen: frost over the face, icicles along the jaw and one under the nose, a frosted cap on the hair
+  const frost = new THREE.Mesh(new THREE.PlaneGeometry(hw * 1.0, hh * 1.0), new THREE.MeshBasicMaterial({ map: frostTexture(), transparent: true, depthWrite: false }));
+  frost.position.set(0, hh / 2, hd / 2 + 0.006); frost.renderOrder = 3; FX.add(frost);
+  const iceM = new THREE.MeshLambertMaterial({ color: '#DDF2FF', emissive: '#5A7A90', transparent: true, opacity: 0.92 });
+  const icicles = [[40, 0.05], [110, 0.08], [170, 0.06], [250, 0.09], [330, 0.05], [372, 0.07]].map(([cx, L]) => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.012, L, 5), iceM); const [x] = P2(cx, 1080); m.position.set(x, -L / 2 + 0.004, hd / 2 - 0.004); m.rotation.x = Math.PI; FX.add(m); return m; });
+  const noseIce = new THREE.Mesh(new THREE.ConeGeometry(0.01, 0.07, 5), iceM); { const [x, y] = P2(212, 712); noseIce.position.set(x, y - 0.035, Z(y) + 0.012); noseIce.rotation.x = Math.PI; } FX.add(noseIce);
+  const cap = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.04, 0.03, hd * 1.04), new THREE.MeshLambertMaterial({ color: '#F4FAFF' })); cap.position.set(0, hh + 0.075, 0); FX.add(cap);
+  // breath: vapour puffs from the mouth in the cold
+  const pm = new THREE.SpriteMaterial({ map: puffTex(), transparent: true, depthWrite: false, opacity: 0 }), puffs = [0, 1, 2].map(() => { const sp = new THREE.Sprite(pm.clone()); FX.add(sp); return sp; });
+  const all = [...runs.map(r => r.m), ...tears.map(r => r.m), ...sweat.map(r => r.m), bigSweat, ...blush, ...strands.flatMap(s => [s.g, s.drip]), frost, ...icicles, noseIce, cap, ...puffs];
   return (fx = {}, t = 0) => {
-    const on = !!(fx.wet || fx.tears || fx.sweat || fx.blush || fx.zeroG); FX.visible = on; if (!on) return;
+    const on = !!(fx.wet || fx.tears || fx.sweat || fx.blush || fx.zeroG || fx.frozen || fx.breath); FX.visible = on; if (!on) return;
     all.forEach(m => { m.visible = false; });
     if (fx.wet) {
       strands.forEach((s, i) => { s.g.visible = true; const q = (t * 0.8 + i * 0.29) % 1, tx = s.cx + Math.sin(s.rot) * s.len * 0.9, ty = 26 + s.len * Math.cos(s.rot) + 18;   // a drip swells at the tip, then falls
@@ -395,5 +415,8 @@ function buildFaceFx(head, hw, hh, hd, o) {
     if (fx.tears) tears.forEach(r => { const q = (t * 0.9 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx - 14 * q, r.cy + q * 330, 0.9); });
     if (fx.sweat) { sweat.forEach(r => { const q = (t * 0.25 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, r.cy + q * 260, 0.8); }); bigSweat.visible = true; at2(bigSweat, 352, 175 + 6 * Math.sin(t * 3), 1.9); }
     if (fx.blush) blush.forEach(m => { m.visible = true; });
+    if (fx.frozen) { const thaw = fx.frozen === 'thaw'; frost.visible = !thaw; cap.visible = !thaw; icicles.forEach((m, i) => { m.visible = !thaw || i % 2 === 0; }); noseIce.visible = true;
+      if (thaw) runs.slice(0, 3).forEach(r => { const q = (t * r.v / 1400 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, 1000 + q * 120, 0.6); }); }
+    if (fx.breath) { const [mx, my] = P2(212, 840); puffs.forEach((p, i) => { const q = (t * 0.7 + i / 3) % 1; p.visible = true; p.position.set(mx + 0.02 * Math.sin(i * 2 + t), my + q * 0.08, hd / 2 + 0.04 + q * 0.32); p.scale.setScalar(0.06 + q * 0.2); p.material.opacity = 0.75 * Math.sin(Math.PI * Math.min(1, q * 1.2)) * (q < 0.6 || i % 3 === 0 ? 1 : 0.6); }); }
   };
 }

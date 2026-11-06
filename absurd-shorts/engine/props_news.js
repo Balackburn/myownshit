@@ -736,7 +736,10 @@ export const NEWS_PROPS = {
     for (let i = 0; i < (o.candles || 5); i++) { const a = i / (o.candles || 5) * TAU, x = Math.cos(a) * 0.07, z = Math.sin(a) * 0.07;
       g.add(at(cyl(0.008, 0.008, 0.07, ['#5FA8D3', '#F2C94C', '#C8322A', '#4CAF50', '#9B6FD0'][i % 5], 6, { pivot: 'bottom' }), x, 0.265, z));
       const f = at(sphere(0.014, '#FFB13B', 1, { emissive: '#FF9A2E' }), x, 0.345, z); f.scale.set(0.7, 1.3, 0.7); g.add(f); flames.push(f); }
-    g.userData.update = t => flames.forEach((f, i) => { const k = 1 + 0.18 * Math.sin(t * 17 + i * 1.7); f.scale.set(0.7 * k, 1.3 / k, 0.7 * k); });
+    const smoke = flames.map(f => { const s2 = sphere(0.012, '#CFCFCF', 0, { opacity: 0.6 }); s2.position.copy(f.position); s2.visible = false; g.add(s2); return s2; });
+    g.userData.update = t => { const out = o.outAt != null && t >= o.outAt;
+      flames.forEach((f, i) => { const k = 1 + 0.18 * Math.sin(t * 17 + i * 1.7) + (o.outAt != null && t > o.outAt - 0.25 && !out ? 0.4 * Math.sin(t * 60) : 0); f.visible = !out; f.scale.set(0.7 * k, 1.3 / k, 0.7 * k); });
+      smoke.forEach((s2, i) => { const u = out ? t - o.outAt : -1; s2.visible = u >= 0 && u < 1.2; if (s2.visible) { s2.position.set(flames[i].position.x + 0.02 * Math.sin(u * 6 + i), flames[i].position.y + u * 0.25, flames[i].position.z); s2.scale.setScalar(1 + u * 2.5); } }); };
     return g;
   },
   problemCloud(o) { // le GPS: one of his "problems": a small grey storm cloud with a face (o.mood 'smug' | 'angry' | 'happy'), bobbing; o.bolt a yellow lightning bolt under it,
