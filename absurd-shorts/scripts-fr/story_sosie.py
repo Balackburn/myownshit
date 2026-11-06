@@ -78,8 +78,8 @@ PARTY = {'sofa': False, 'tv': False}
 st.shot('S16', 'livingRoom', setOpts=PARTY, actors=[act('mec', [0.0, 0, -1.7], 0, 'present', 'happy'), act('k1', [-0.65, 0, -0.75], 150, 'celebrate', 'happy'), act('k2', [0.7, 0, -0.8], -150, 'celebrate', 'happy')],
         props=BALLOONS + [BADGE('mec', 'SOSIE PRO', 0.32), SIGN('pro', 'SOSIE PROFESSIONNEL', [0.0, 2.55, -2.9], w=1.3, h=0.26)],
         cams=[cam(0.0, [0.2, 1.4, 2.6], [0.19, 1.42, 2.3], [0.0, 1.35, -1.7], [0.0, 1.37, -1.7], lens=44)])
-st.shot('S17', 'livingRoom', setOpts=PARTY, actors=[act('gagnant', [-0.42, 0, -1.8], 8, 'heroPose', 'smug'), act('mec', [0.42, 0, -1.8], -8, 'heroPose', 'smug')],
-        props=BALLOONS + [MEDAL(), BADGE('mec', 'SOSIE PRO', 0.32), SIGN('o', "L'ORIGINAL", [-0.42, 2.5, -1.8], '#F2C94C', w=0.62, h=0.17), SIGN('s', 'LE SOSIE', [0.42, 2.5, -1.8], '#FFFFFF', w=0.62, h=0.17)],
+st.shot('S17', 'livingRoom', setOpts=PARTY, actors=[act('gagnant', [-0.52, 0, -1.8], 8, 'heroPose', 'smug'), act('mec', [0.52, 0, -1.8], -8, 'heroPose', 'smug')],
+        props=BALLOONS + [MEDAL(), BADGE('mec', 'SOSIE PRO', 0.32), SIGN('o', "L'ORIGINAL", [-0.52, 2.5, -1.8], '#F2C94C', w=0.62, h=0.17), SIGN('s', 'LE SOSIE', [0.52, 2.5, -1.8], '#FFFFFF', w=0.62, h=0.17)],
         cams=[cam(0.0, [0.05, 1.5, 2.15], [0.05, 1.51, 1.9], [0.0, 1.55, -1.8], [0.0, 1.56, -1.8], lens=44)])
 st.shot('S18', 'pressRoom', setOpts=STAGE, actors=[act('mec', [0.0, 0, -1.9], 0, 'wave', 'happy')],
         props=[BADGE('mec'), SIGN('ed', 'ÉDITION 2027', [0.0, 2.72, BK + 0.1], w=1.1, h=0.26)],
