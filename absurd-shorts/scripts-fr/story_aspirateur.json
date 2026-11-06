@@ -1,0 +1,1771 @@
+{
+ "version": 3,
+ "title": "L'aspirateur",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "chat": {
+   "type": "creature",
+   "name": "cat",
+   "opts": {
+    "seed": 6
+   }
+  },
+  "maire": {
+   "preset": "politique",
+   "seed": 61
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.35,
+      0,
+      -1.7
+     ],
+     "ry": -15,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      -0.35,
+      0,
+      -1.1
+     ],
+     "ry": 20,
+     "scale": 1.0,
+     "opts": {}
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.35,
+      1.6
+     ],
+     "to": [
+      0.38,
+      1.3,
+      1.35
+     ],
+     "lookAt": [
+      0.05,
+      0.95,
+      -1.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.9,
+      -1.4
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 0.8667,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "ry": 0,
+     "scale": 1.0,
+     "opts": {
+      "mood": "happy",
+      "idleBob": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      0.2,
+      -0.25
+     ],
+     "to": [
+      0.09,
+      0.2,
+      -0.35
+     ],
+     "lookAt": [
+      0.0,
+      0.08,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.08,
+      -1.0
+     ]
+    }
+   ],
+   "start": 0.8667,
+   "duration": 1.3666,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0.15,
+      0,
+      -1.0
+     ],
+     "ry": -10,
+     "scale": 1.0,
+     "opts": {
+      "suckAt": 0.3
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.05,
+        0,
+        -0.9
+       ],
+       "dur": 2.467,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "dust",
+     "name": "dustPuff",
+     "pos": [
+      -0.05,
+      0.04,
+      -0.5
+     ],
+     "scale": 0.5,
+     "keys": [
+      {
+       "at": 0.5,
+       "to": [
+        -0.05,
+        0.05,
+        -0.75
+       ],
+       "dur": 0.8,
+       "ease": "in"
+      },
+      {
+       "at": 0.5,
+       "scale": 0.05,
+       "dur": 0.8,
+       "ease": "in"
+      },
+      {
+       "at": 1.3,
+       "visible": false
+      }
+     ],
+     "opts": {
+      "color": "#B8B0A0"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      0.28,
+      0.2499999999999999
+     ],
+     "to": [
+      0.09,
+      0.28,
+      0.14999999999999988
+     ],
+     "lookAt": [
+      0.0,
+      0.08,
+      -0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.08,
+      -0.9
+     ]
+    }
+   ],
+   "start": 2.2333,
+   "duration": 2.4667,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "ry": 0,
+     "scale": 1.0,
+     "opts": {
+      "suckAt": 0.2
+     }
+    },
+    {
+     "id": "socks",
+     "name": "sockPair",
+     "pos": [
+      0.25,
+      0.25,
+      -0.3
+     ],
+     "scale": 1.3,
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        0.0,
+        0.05,
+        -0.8
+       ],
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.35,
+       "scale": 0.1,
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 1.1,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      0.32,
+      0.35
+     ],
+     "to": [
+      0.09,
+      0.32,
+      0.24999999999999997
+     ],
+     "lookAt": [
+      0.0,
+      0.08,
+      -0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.08,
+      -0.9
+     ]
+    }
+   ],
+   "start": 4.7,
+   "duration": 2.0,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      0.05,
+      0,
+      -0.3
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        0.0,
+        0.04,
+        -0.82
+       ],
+       "dur": 1.35,
+       "glide": true,
+       "face": "keep",
+       "ease": "in"
+      },
+      {
+       "at": 0.25,
+       "scale": 0.15,
+       "dur": 1.35,
+       "ease": "in"
+      },
+      {
+       "at": 1.62,
+       "visible": false
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -1.9
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "ry": 0,
+     "scale": 1.0,
+     "opts": {
+      "suckAt": 0.25,
+      "mood": "menace"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      0.65,
+      0.9
+     ],
+     "to": [
+      0.43,
+      0.65,
+      0.78
+     ],
+     "lookAt": [
+      0.05,
+      0.45,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.05,
+      0.45,
+      -1.0
+     ]
+    }
+   ],
+   "start": 6.7,
+   "duration": 1.9333,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chat",
+     "pos": [
+      0.0,
+      0.105,
+      -1.02
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "scale": 0.32,
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "ry": 0,
+     "scale": 1.0,
+     "opts": {
+      "mood": "happy"
+     }
+    },
+    {
+     "id": "dome",
+     "name": "glassDome",
+     "pos": [
+      0.0,
+      0.1,
+      -1.02
+     ],
+     "opts": {
+      "radius": 0.13,
+      "opacity": 0.25,
+      "base": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      0.4,
+      -0.35
+     ],
+     "to": [
+      0.11,
+      0.39,
+      -0.42
+     ],
+     "lookAt": [
+      0.0,
+      0.2,
+      -1.02
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.2,
+      -1.02
+     ]
+    }
+   ],
+   "start": 8.6333,
+   "duration": 1.0667,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0.9,
+      0,
+      -0.6
+     ],
+     "ry": -75,
+     "scale": 5.0,
+     "opts": {
+      "suckAt": 0.0,
+      "mood": "menace"
+     }
+    },
+    {
+     "id": "sofa",
+     "name": "sofaProp",
+     "pos": [
+      -1.2,
+      0,
+      -1.4
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        0.2,
+        0.15,
+        -0.65
+       ],
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.15,
+       "scale": 0.1,
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.9,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.6,
+      3.6
+     ],
+     "to": [
+      0.0,
+      1.55,
+      3.3
+     ],
+     "lookAt": [
+      -0.1,
+      0.7,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.1,
+      0.7,
+      -1.0
+     ]
+    }
+   ],
+   "start": 9.7,
+   "duration": 1.1667,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      7.0,
+      0,
+      -6.0
+     ],
+     "ry": -60,
+     "scale": 42.0,
+     "opts": {
+      "suckAt": 0.0,
+      "mood": "menace"
+     }
+    },
+    {
+     "id": "house",
+     "name": "cottage",
+     "pos": [
+      -4.0,
+      0,
+      -8.0
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        2.0,
+        1.5,
+        -6.5
+       ],
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "scale": 0.05,
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.7999999999999999,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.0,
+      3.0,
+      14.0
+     ],
+     "to": [
+      -0.8,
+      3.1,
+      13.4
+     ],
+     "lookAt": [
+      1.0,
+      3.0,
+      -6.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.0,
+      3.0,
+      -6.0
+     ]
+    }
+   ],
+   "start": 10.8667,
+   "duration": 1.0333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "aerialSuburb",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0,
+      0,
+      -40.0
+     ],
+     "ry": 0,
+     "scale": 260.0,
+     "opts": {
+      "suckAt": 0.0,
+      "mood": "menace"
+     }
+    },
+    {
+     "id": "h0",
+     "name": "cottage",
+     "pos": [
+      -22,
+      0,
+      40
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        0,
+        20,
+        -10
+       ],
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "scale": 0.05,
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.7999999999999999,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "h1",
+     "name": "cottage",
+     "pos": [
+      18,
+      0,
+      46
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.22,
+       "to": [
+        0,
+        20,
+        -10
+       ],
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.22,
+       "scale": 0.05,
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.9199999999999999,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "h2",
+     "name": "cottage",
+     "pos": [
+      -8,
+      0,
+      60
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.33999999999999997,
+       "to": [
+        0,
+        20,
+        -10
+       ],
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.33999999999999997,
+       "scale": 0.05,
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 1.04,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "h3",
+     "name": "cottage",
+     "pos": [
+      26,
+      0,
+      62
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.45999999999999996,
+       "to": [
+        0,
+        20,
+        -10
+       ],
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 0.45999999999999996,
+       "scale": 0.05,
+       "dur": 0.7,
+       "ease": "in"
+      },
+      {
+       "at": 1.16,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      10.0,
+      70.0,
+      150.0
+     ],
+     "to": [
+      9.0,
+      68.0,
+      140.0
+     ],
+     "lookAt": [
+      0.0,
+      10.0,
+      -20.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      10.0,
+      -20.0
+     ]
+    }
+   ],
+   "start": 11.9,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "maire",
+     "pos": [
+      0.2,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "holdSign",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "th",
+     "name": "townHall",
+     "pos": [
+      0,
+      0,
+      -5.0
+     ],
+     "opts": {
+      "w": 6,
+      "h": 4.5,
+      "d": 4
+     }
+    },
+    {
+     "id": "sash",
+     "name": "necktie",
+     "on": {
+      "actor": "maire",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.4,
+       0.13
+      ]
+     },
+     "opts": {
+      "color": "#2F62B5",
+      "len": 0.3
+     }
+    },
+    {
+     "id": "pl",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "maire",
+      "hand": "R",
+      "offset": [
+       0.12,
+       0.3,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "opts": {
+      "text": "PLAINTE",
+      "style": "sign",
+      "w": 0.7,
+      "h": 0.3,
+      "bg": "#F4F1E8",
+      "fg": "#C8322A",
+      "frame": "#1C2E4A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.6,
+      2.6
+     ],
+     "to": [
+      0.58,
+      1.6,
+      2.35
+     ],
+     "lookAt": [
+      0.1,
+      1.85,
+      -1.8
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.85,
+      -1.8
+     ]
+    }
+   ],
+   "start": 13.0667,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "maire",
+     "pos": [
+      1.0,
+      0,
+      3.0
+     ],
+     "ry": 160,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.2,
+       "to": [
+        3.5,
+        0,
+        6.0
+       ],
+       "dur": 1.2,
+       "clip": "run"
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      -14.0,
+      0,
+      -6.0
+     ],
+     "ry": 80,
+     "scale": 60.0,
+     "opts": {
+      "suckAt": 0.0,
+      "mood": "menace"
+     }
+    },
+    {
+     "id": "th",
+     "name": "townHall",
+     "pos": [
+      0,
+      0,
+      -5.0
+     ],
+     "opts": {
+      "w": 6,
+      "h": 4.5,
+      "d": 4
+     },
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        -7.0,
+        2.0,
+        -5.0
+       ],
+       "dur": 1.0,
+       "ease": "in"
+      },
+      {
+       "at": 0.15,
+       "scale": 0.05,
+       "dur": 1.0,
+       "ease": "in"
+      },
+      {
+       "at": 1.16,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.0,
+      3.0,
+      12.0
+     ],
+     "to": [
+      5.6,
+      3.1,
+      11.4
+     ],
+     "lookAt": [
+      -3.0,
+      4.0,
+      -5.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -3.0,
+      4.0,
+      -5.0
+     ]
+    }
+   ],
+   "start": 14.6667,
+   "duration": 1.6333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "desert",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "tk0",
+     "name": "armyTank",
+     "pos": [
+      -2.6,
+      0,
+      -1.0
+     ],
+     "scale": 3.0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -2.6,
+        0,
+        1.0
+       ],
+       "dur": 1.867,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "tk1",
+     "name": "armyTank",
+     "pos": [
+      0.0,
+      0,
+      -2.2
+     ],
+     "scale": 3.0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.0,
+        0,
+        -0.20000000000000018
+       ],
+       "dur": 1.867,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "tk2",
+     "name": "armyTank",
+     "pos": [
+      2.6,
+      0,
+      -1.0
+     ],
+     "scale": 3.0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        2.6,
+        0,
+        1.0
+       ],
+       "dur": 1.867,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.4,
+      9.0
+     ],
+     "to": [
+      0.9,
+      1.35,
+      8.6
+     ],
+     "lookAt": [
+      0.0,
+      1.2,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.2,
+      0.5
+     ],
+     "shake": 0.01
+    }
+   ],
+   "start": 16.3,
+   "duration": 1.8667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "desert",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0.0,
+      0,
+      -30.0
+     ],
+     "ry": 0,
+     "scale": 70.0,
+     "opts": {
+      "suckAt": 0.0,
+      "mood": "menace"
+     }
+    },
+    {
+     "id": "tk0",
+     "name": "armyTank",
+     "pos": [
+      -2.6,
+      0,
+      -1.0
+     ],
+     "scale": 3.0,
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        -0.78,
+        2.5,
+        -18.0
+       ],
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "scale": 0.3,
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.86,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "tk1",
+     "name": "armyTank",
+     "pos": [
+      0.0,
+      0,
+      -2.2
+     ],
+     "scale": 3.0,
+     "keys": [
+      {
+       "at": 0.22,
+       "to": [
+        0.0,
+        3.5,
+        -18.0
+       ],
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.22,
+       "scale": 0.3,
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.98,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "tk2",
+     "name": "armyTank",
+     "pos": [
+      2.6,
+      0,
+      -1.0
+     ],
+     "scale": 3.0,
+     "keys": [
+      {
+       "at": 0.33999999999999997,
+       "to": [
+        0.78,
+        4.5,
+        -18.0
+       ],
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 0.33999999999999997,
+       "scale": 0.3,
+       "dur": 0.75,
+       "ease": "in"
+      },
+      {
+       "at": 1.1,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      2.0,
+      10.0
+     ],
+     "to": [
+      1.8,
+      2.2,
+      9.5
+     ],
+     "lookAt": [
+      0.0,
+      3.5,
+      -10.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      3.8,
+      -10.0
+     ],
+     "shake": 0.012
+    }
+   ],
+   "start": 18.1667,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "dock",
+     "name": "chargingDock",
+     "pos": [
+      0.0,
+      0,
+      -1.6
+     ]
+    },
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0.0,
+      0,
+      -0.6
+     ],
+     "ry": 180,
+     "scale": 1.0,
+     "opts": {
+      "idleBob": true
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        0.0,
+        0,
+        -1.45
+       ],
+       "dur": 1.5,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      0.55,
+      0.6
+     ],
+     "to": [
+      0.52,
+      0.53,
+      0.5
+     ],
+     "lookAt": [
+      0.0,
+      0.1,
+      -1.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.1,
+      -1.4
+     ]
+    }
+   ],
+   "start": 19.7667,
+   "duration": 1.8,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "dock",
+     "name": "chargingDock",
+     "pos": [
+      0.0,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "low": true
+     }
+    },
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "pos": [
+      0.0,
+      0,
+      -1.45
+     ],
+     "ry": 0,
+     "scale": 1.0,
+     "opts": {
+      "low": true,
+      "mood": "tired"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      0.17,
+      -0.83
+     ],
+     "to": [
+      0.09,
+      0.17,
+      -0.9299999999999999
+     ],
+     "lookAt": [
+      0.0,
+      0.08,
+      -1.45
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.08,
+      -1.45
+     ]
+    }
+   ],
+   "start": 21.5667,
+   "duration": 1.1,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.75
+     ],
+     "ry": 20,
+     "clip": "holdOut",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "chat",
+     "pos": [
+      0.55,
+      0.0,
+      -1.15
+     ],
+     "ry": -20,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "ps",
+     "name": "sockPair",
+     "pos": [
+      0.1,
+      0.75,
+      -1.05
+     ],
+     "scale": 0.8,
+     "keys": [
+      {
+       "at": 0.3,
+       "to": [
+        0.05,
+        0.05,
+        -1.25
+       ],
+       "dur": 0.4,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "pc",
+     "name": "cottage",
+     "pos": [
+      -0.05,
+      0.85,
+      -1.05
+     ],
+     "scale": 0.035,
+     "keys": [
+      {
+       "at": 0.45,
+       "to": [
+        -0.15,
+        0.05,
+        -1.35
+       ],
+       "dur": 0.4,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "pt",
+     "name": "armyTank",
+     "pos": [
+      0.0,
+      0.85,
+      -1.05
+     ],
+     "scale": 0.16,
+     "keys": [
+      {
+       "at": 0.6,
+       "to": [
+        0.18,
+        0.05,
+        -1.35
+       ],
+       "dur": 0.4,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "pm",
+     "name": "townHall",
+     "pos": [
+      0.0,
+      0.9,
+      -1.05
+     ],
+     "scale": 0.03,
+     "keys": [
+      {
+       "at": 0.75,
+       "to": [
+        -0.05,
+        0.05,
+        -1.45
+       ],
+       "dur": 0.4,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "bin",
+     "name": "trashCan",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ]
+    },
+    {
+     "id": "vac",
+     "name": "robotVacuum",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       3.1416,
+       0,
+       0
+      ],
+      "offset": [
+       0.0,
+       -0.2,
+       0.18
+      ]
+     },
+     "opts": {
+      "mood": "tired",
+      "low": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.85,
+      1.45,
+      2.05
+     ],
+     "to": [
+      0.82,
+      1.43,
+      1.9
+     ],
+     "lookAt": [
+      0.15,
+      1.0,
+      -1.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      0.98,
+      -1.4
+     ]
+    }
+   ],
+   "start": 22.6667,
+   "duration": 2.6833,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 25.35
+}

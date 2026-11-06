@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      body { font-family: "Nunito", sans-serif; }
+    </style>
+  </head>
+  <body>
+    <!-- La balance: a story in the tornado replica's style (.claude/skills/lowpoly-story-style). 3D layer from
+         absurd-shorts/scripts-fr/story_balance.py, the series' French narrator back to back, the tornado film's music bed and effects on the actions,
+         the replica's captions and THEFT-card spring for the title cards. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="28.61" data-width="1080" data-height="1920">
+      <video id="layer3d" class="clip" src="assets/layer3d.mp4" muted playsinline
+             data-start="0" data-duration="28.61" data-track-index="0"
+             style="position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: contain; z-index: 1"></video>
+      <audio id="soundtrack" class="clip" src="assets/audio.wav" data-start="0" data-duration="28.61" data-track-index="1" data-volume="1"></audio>
+      <div id="host-c1" data-composition-id="card-c1" data-composition-src="compositions/card-c1.html"
+           data-start="11.237" data-duration="1.2" data-track-index="3" data-track-kind="graphics"
+           data-width="1080" data-height="1920" style="z-index: 3"></div>
+      <div id="host-c2" data-composition-id="card-c2" data-composition-src="compositions/card-c2.html"
+           data-start="21.67" data-duration="1.3" data-track-index="3" data-track-kind="graphics"
+           data-width="1080" data-height="1920" style="z-index: 3"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html"
+           data-start="0" data-duration="28.61" data-track-index="2" data-track-kind="captions"
+           data-width="1080" data-height="1920" style="z-index: 4"></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

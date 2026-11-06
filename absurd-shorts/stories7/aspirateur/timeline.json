@@ -1,0 +1,587 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a acheté un aspirateur robot.",
+   "hl": [
+    "aspirateur",
+    "robot."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.157,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "acheté",
+     "s": 0.633,
+     "e": 0.862
+    },
+    {
+     "w": "un",
+     "s": 0.9,
+     "e": 0.938
+    },
+    {
+     "w": "aspirateur",
+     "s": 1.014,
+     "e": 1.548
+    },
+    {
+     "w": "robot.",
+     "s": 1.738,
+     "e": 2.157
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le premier jour, il a aspiré la poussière.",
+   "hl": [
+    "poussière."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L02.k.wav",
+   "file_start": 2.257,
+   "speech_start": 2.257,
+   "speech_end": 4.619,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.257,
+     "e": 2.41
+    },
+    {
+     "w": "premier",
+     "s": 2.486,
+     "e": 2.714
+    },
+    {
+     "w": "jour,",
+     "s": 2.867,
+     "e": 3.171
+    },
+    {
+     "w": "il",
+     "s": 3.248,
+     "e": 3.324
+    },
+    {
+     "w": "a",
+     "s": 3.35,
+     "e": 3.374
+    },
+    {
+     "w": "aspiré",
+     "s": 3.4,
+     "e": 3.743
+    },
+    {
+     "w": "la",
+     "s": 3.781,
+     "e": 3.857
+    },
+    {
+     "w": "poussière.",
+     "s": 3.895,
+     "e": 4.619
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le deuxième jour, les chaussettes.",
+   "hl": [
+    "chaussettes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L03.k.wav",
+   "file_start": 4.719,
+   "speech_start": 4.719,
+   "speech_end": 6.624,
+   "words": [
+    {
+     "w": "Le",
+     "s": 4.719,
+     "e": 4.795
+    },
+    {
+     "w": "deuxième",
+     "s": 4.871,
+     "e": 5.176
+    },
+    {
+     "w": "jour,",
+     "s": 5.252,
+     "e": 5.71
+    },
+    {
+     "w": "les",
+     "s": 5.786,
+     "e": 5.862
+    },
+    {
+     "w": "chaussettes.",
+     "s": 5.9,
+     "e": 6.624
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le troisième jour, le chat.",
+   "hl": [
+    "chat."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L04.k.wav",
+   "file_start": 6.724,
+   "speech_start": 6.724,
+   "speech_end": 8.552,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.724,
+     "e": 6.8
+    },
+    {
+     "w": "troisième",
+     "s": 6.876,
+     "e": 7.181
+    },
+    {
+     "w": "jour,",
+     "s": 7.257,
+     "e": 7.79
+    },
+    {
+     "w": "le",
+     "s": 7.867,
+     "e": 7.943
+    },
+    {
+     "w": "chat.",
+     "s": 8.019,
+     "e": 8.552
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le chat va bien.",
+   "hl": [
+    "bien."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L05.k.wav",
+   "file_start": 8.652,
+   "speech_start": 8.652,
+   "speech_end": 9.643,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.652,
+     "e": 8.729
+    },
+    {
+     "w": "chat",
+     "s": 8.805,
+     "e": 8.957
+    },
+    {
+     "w": "va",
+     "s": 9.033,
+     "e": 9.11
+    },
+    {
+     "w": "bien.",
+     "s": 9.148,
+     "e": 9.643
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Puis le canapé.",
+   "hl": [
+    "canapé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L06.k.wav",
+   "file_start": 9.743,
+   "speech_start": 9.743,
+   "speech_end": 10.81,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 9.743,
+     "e": 9.895
+    },
+    {
+     "w": "le",
+     "s": 10.048,
+     "e": 10.124
+    },
+    {
+     "w": "canapé.",
+     "s": 10.2,
+     "e": 10.81
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Puis la maison.",
+   "hl": [
+    "maison."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L07.k.wav",
+   "file_start": 10.91,
+   "speech_start": 10.91,
+   "speech_end": 11.824,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 10.91,
+     "e": 11.062
+    },
+    {
+     "w": "la",
+     "s": 11.138,
+     "e": 11.214
+    },
+    {
+     "w": "maison.",
+     "s": 11.252,
+     "e": 11.824
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Puis le quartier.",
+   "hl": [
+    "quartier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L08.k.wav",
+   "file_start": 11.924,
+   "speech_start": 11.924,
+   "speech_end": 12.99,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 11.924,
+     "e": 12.076
+    },
+    {
+     "w": "le",
+     "s": 12.152,
+     "e": 12.229
+    },
+    {
+     "w": "quartier.",
+     "s": 12.305,
+     "e": 12.99
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La mairie a porté plainte.",
+   "hl": [
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L09.k.wav",
+   "file_start": 13.09,
+   "speech_start": 13.09,
+   "speech_end": 14.614,
+   "words": [
+    {
+     "w": "La",
+     "s": 13.09,
+     "e": 13.243
+    },
+    {
+     "w": "mairie",
+     "s": 13.345,
+     "e": 13.548
+    },
+    {
+     "w": "a",
+     "s": 13.586,
+     "e": 13.624
+    },
+    {
+     "w": "porté",
+     "s": 13.738,
+     "e": 13.929
+    },
+    {
+     "w": "plainte.",
+     "s": 14.081,
+     "e": 14.614
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il a aspiré la mairie.",
+   "hl": [
+    "mairie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L10.k.wav",
+   "file_start": 14.714,
+   "speech_start": 14.714,
+   "speech_end": 16.238,
+   "words": [
+    {
+     "w": "Il",
+     "s": 14.714,
+     "e": 14.79
+    },
+    {
+     "w": "a",
+     "s": 14.867,
+     "e": 14.943
+    },
+    {
+     "w": "aspiré",
+     "s": 15.019,
+     "e": 15.438
+    },
+    {
+     "w": "la",
+     "s": 15.476,
+     "e": 15.552
+    },
+    {
+     "w": "mairie.",
+     "s": 15.59,
+     "e": 16.238
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "L'armée a envoyé les chars.",
+   "hl": [
+    "chars."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L11.k.wav",
+   "file_start": 16.338,
+   "speech_start": 16.338,
+   "speech_end": 18.09,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 16.338,
+     "e": 16.795
+    },
+    {
+     "w": "a",
+     "s": 16.833,
+     "e": 16.871
+    },
+    {
+     "w": "envoyé",
+     "s": 16.948,
+     "e": 17.29
+    },
+    {
+     "w": "les",
+     "s": 17.329,
+     "e": 17.405
+    },
+    {
+     "w": "chars.",
+     "s": 17.481,
+     "e": 18.09
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il a aspiré les chars.",
+   "hl": [
+    "chars."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L12.k.wav",
+   "file_start": 18.19,
+   "speech_start": 18.19,
+   "speech_end": 19.714,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.19,
+     "e": 18.267
+    },
+    {
+     "w": "a",
+     "s": 18.343,
+     "e": 18.419
+    },
+    {
+     "w": "aspiré",
+     "s": 18.495,
+     "e": 18.876
+    },
+    {
+     "w": "les",
+     "s": 18.952,
+     "e": 19.029
+    },
+    {
+     "w": "chars.",
+     "s": 19.333,
+     "e": 19.714
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Puis il est rentré à sa base.",
+   "hl": [
+    "base."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L13.k.wav",
+   "file_start": 19.814,
+   "speech_start": 19.814,
+   "speech_end": 21.49,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 19.814,
+     "e": 20.119
+    },
+    {
+     "w": "il",
+     "s": 20.195,
+     "e": 20.271
+    },
+    {
+     "w": "est",
+     "s": 20.31,
+     "e": 20.348
+    },
+    {
+     "w": "rentré",
+     "s": 20.424,
+     "e": 20.576
+    },
+    {
+     "w": "à",
+     "s": 20.652,
+     "e": 20.69
+    },
+    {
+     "w": "sa",
+     "s": 20.729,
+     "e": 20.805
+    },
+    {
+     "w": "base.",
+     "s": 20.881,
+     "e": 21.49
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Batterie faible.",
+   "hl": [
+    "Batterie",
+    "faible."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L14.k.wav",
+   "file_start": 21.59,
+   "speech_start": 21.59,
+   "speech_end": 22.584,
+   "words": [
+    {
+     "w": "Batterie",
+     "s": 21.59,
+     "e": 21.895
+    },
+    {
+     "w": "faible.",
+     "s": 21.971,
+     "e": 22.581
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Ce soir, le mec doit le vider.",
+   "hl": [
+    "vider."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aspirateur/tts/L15.k.wav",
+   "file_start": 22.684,
+   "speech_start": 22.684,
+   "speech_end": 24.513,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 22.684,
+     "e": 22.761
+    },
+    {
+     "w": "soir,",
+     "s": 22.837,
+     "e": 23.446
+    },
+    {
+     "w": "le",
+     "s": 23.484,
+     "e": 23.523
+    },
+    {
+     "w": "mec",
+     "s": 23.599,
+     "e": 23.751
+    },
+    {
+     "w": "doit",
+     "s": 23.789,
+     "e": 23.904
+    },
+    {
+     "w": "le",
+     "s": 23.942,
+     "e": 23.98
+    },
+    {
+     "w": "vider.",
+     "s": 24.132,
+     "e": 24.513
+    }
+   ]
+  }
+ ],
+ "total": 25.35
+}

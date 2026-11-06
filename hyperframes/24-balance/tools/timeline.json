@@ -1,0 +1,648 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce con de mec monte sur la balance et voit 100 kilos.",
+   "hl": [
+    "con",
+    "100",
+    "kilos."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.225,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "con",
+     "s": 0.329,
+     "e": 0.481
+    },
+    {
+     "w": "de",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "mec",
+     "s": 0.595,
+     "e": 0.786
+    },
+    {
+     "w": "monte",
+     "s": 0.862,
+     "e": 1.052
+    },
+    {
+     "w": "sur",
+     "s": 1.09,
+     "e": 1.167
+    },
+    {
+     "w": "la",
+     "s": 1.205,
+     "e": 1.243
+    },
+    {
+     "w": "balance",
+     "s": 1.319,
+     "e": 1.776
+    },
+    {
+     "w": "et",
+     "s": 1.852,
+     "e": 1.929
+    },
+    {
+     "w": "voit",
+     "s": 2.005,
+     "e": 2.233
+    },
+    {
+     "w": "100",
+     "s": 2.31,
+     "e": 2.386
+    },
+    {
+     "w": "kilos.",
+     "s": 2.538,
+     "e": 3.224
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il se met sur la pointe des pieds.",
+   "hl": [
+    "pointe",
+    "pieds."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L02.k.wav",
+   "file_start": 3.325,
+   "speech_start": 3.325,
+   "speech_end": 5.006,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.325,
+     "e": 3.477
+    },
+    {
+     "w": "se",
+     "s": 3.515,
+     "e": 3.553
+    },
+    {
+     "w": "met",
+     "s": 3.63,
+     "e": 3.706
+    },
+    {
+     "w": "sur",
+     "s": 3.782,
+     "e": 3.858
+    },
+    {
+     "w": "la",
+     "s": 3.934,
+     "e": 4.011
+    },
+    {
+     "w": "pointe",
+     "s": 4.087,
+     "e": 4.239
+    },
+    {
+     "w": "des",
+     "s": 4.315,
+     "e": 4.391
+    },
+    {
+     "w": "pieds.",
+     "s": 4.43,
+     "e": 5.001
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "100 kilos.",
+   "hl": [
+    "100",
+    "kilos."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L03.k.wav",
+   "file_start": 5.106,
+   "speech_start": 5.106,
+   "speech_end": 6.63,
+   "words": [
+    {
+     "w": "100",
+     "s": 5.106,
+     "e": 5.64
+    },
+    {
+     "w": "kilos.",
+     "s": 5.716,
+     "e": 6.63
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il retient sa respiration.",
+   "hl": [
+    "respiration."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L04.k.wav",
+   "file_start": 6.73,
+   "speech_start": 6.73,
+   "speech_end": 8.406,
+   "words": [
+    {
+     "w": "Il",
+     "s": 6.73,
+     "e": 6.883
+    },
+    {
+     "w": "retient",
+     "s": 6.997,
+     "e": 7.187
+    },
+    {
+     "w": "sa",
+     "s": 7.264,
+     "e": 7.34
+    },
+    {
+     "w": "respiration.",
+     "s": 7.416,
+     "e": 8.406
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "100 kilos.",
+   "hl": [
+    "100",
+    "kilos."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L05.k.wav",
+   "file_start": 8.506,
+   "speech_start": 8.506,
+   "speech_end": 9.954,
+   "words": [
+    {
+     "w": "100",
+     "s": 8.506,
+     "e": 8.964
+    },
+    {
+     "w": "kilos.",
+     "s": 9.116,
+     "e": 9.954
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il la met en mode avion pour qu'elle soit plus légère.",
+   "hl": [
+    "mode",
+    "avion",
+    "légère."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L06.k.wav",
+   "file_start": 10.054,
+   "speech_start": 10.054,
+   "speech_end": 12.416,
+   "words": [
+    {
+     "w": "Il",
+     "s": 10.054,
+     "e": 10.13
+    },
+    {
+     "w": "la",
+     "s": 10.206,
+     "e": 10.283
+    },
+    {
+     "w": "met",
+     "s": 10.359,
+     "e": 10.435
+    },
+    {
+     "w": "en",
+     "s": 10.473,
+     "e": 10.511
+    },
+    {
+     "w": "mode",
+     "s": 10.587,
+     "e": 10.664
+    },
+    {
+     "w": "avion",
+     "s": 10.74,
+     "e": 11.121
+    },
+    {
+     "w": "pour",
+     "s": 11.197,
+     "e": 11.273
+    },
+    {
+     "w": "qu'elle",
+     "s": 11.299,
+     "e": 11.349
+    },
+    {
+     "w": "soit",
+     "s": 11.425,
+     "e": 11.578
+    },
+    {
+     "w": "plus",
+     "s": 11.616,
+     "e": 11.654
+    },
+    {
+     "w": "légère.",
+     "s": 11.73,
+     "e": 12.416
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "La balance décolle par la fenêtre.",
+   "hl": [
+    "décolle",
+    "fenêtre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L07.k.wav",
+   "file_start": 12.516,
+   "speech_start": 12.516,
+   "speech_end": 14.268,
+   "words": [
+    {
+     "w": "La",
+     "s": 12.516,
+     "e": 12.592
+    },
+    {
+     "w": "balance",
+     "s": 12.668,
+     "e": 12.973
+    },
+    {
+     "w": "décolle",
+     "s": 13.049,
+     "e": 13.354
+    },
+    {
+     "w": "par",
+     "s": 13.43,
+     "e": 13.506
+    },
+    {
+     "w": "la",
+     "s": 13.545,
+     "e": 13.583
+    },
+    {
+     "w": "fenêtre.",
+     "s": 13.659,
+     "e": 14.268
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il saute dessus pour ne pas reprendre de poids.",
+   "hl": [
+    "saute",
+    "poids."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L08.k.wav",
+   "file_start": 14.368,
+   "speech_start": 14.368,
+   "speech_end": 16.654,
+   "words": [
+    {
+     "w": "Il",
+     "s": 14.368,
+     "e": 14.445
+    },
+    {
+     "w": "saute",
+     "s": 14.521,
+     "e": 14.673
+    },
+    {
+     "w": "dessus",
+     "s": 14.749,
+     "e": 15.13
+    },
+    {
+     "w": "pour",
+     "s": 15.206,
+     "e": 15.283
+    },
+    {
+     "w": "ne",
+     "s": 15.359,
+     "e": 15.435
+    },
+    {
+     "w": "pas",
+     "s": 15.473,
+     "e": 15.511
+    },
+    {
+     "w": "reprendre",
+     "s": 15.587,
+     "e": 15.968
+    },
+    {
+     "w": "de",
+     "s": 16.006,
+     "e": 16.045
+    },
+    {
+     "w": "poids.",
+     "s": 16.121,
+     "e": 16.654
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Elle survole la salle de sport.",
+   "hl": [
+    "salle",
+    "sport."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L09.k.wav",
+   "file_start": 16.754,
+   "speech_start": 16.754,
+   "speech_end": 18.43,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 16.754,
+     "e": 16.906
+    },
+    {
+     "w": "survole",
+     "s": 17.021,
+     "e": 17.287
+    },
+    {
+     "w": "la",
+     "s": 17.364,
+     "e": 17.44
+    },
+    {
+     "w": "salle",
+     "s": 17.49,
+     "e": 17.592
+    },
+    {
+     "w": "de",
+     "s": 17.63,
+     "e": 17.668
+    },
+    {
+     "w": "sport.",
+     "s": 17.745,
+     "e": 18.43
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il fait coucou.",
+   "hl": [
+    "coucou."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L10.k.wav",
+   "file_start": 18.53,
+   "speech_start": 18.53,
+   "speech_end": 19.445,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.53,
+     "e": 18.606
+    },
+    {
+     "w": "fait",
+     "s": 18.683,
+     "e": 18.835
+    },
+    {
+     "w": "coucou.",
+     "s": 18.911,
+     "e": 19.445
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "En altitude, elle affiche zéro.",
+   "hl": [
+    "zéro."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L11.k.wav",
+   "file_start": 19.545,
+   "speech_start": 19.545,
+   "speech_end": 21.53,
+   "words": [
+    {
+     "w": "En",
+     "s": 19.545,
+     "e": 19.621
+    },
+    {
+     "w": "altitude,",
+     "s": 19.697,
+     "e": 20.383
+    },
+    {
+     "w": "elle",
+     "s": 20.459,
+     "e": 20.535
+    },
+    {
+     "w": "affiche",
+     "s": 20.611,
+     "e": 20.84
+    },
+    {
+     "w": "zéro.",
+     "s": 20.916,
+     "e": 21.525
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Son poids idéal.",
+   "hl": [
+    "idéal."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L12.k.wav",
+   "file_start": 21.63,
+   "speech_start": 21.63,
+   "speech_end": 22.925,
+   "words": [
+    {
+     "w": "Son",
+     "s": 21.63,
+     "e": 21.782
+    },
+    {
+     "w": "poids",
+     "s": 21.859,
+     "e": 22.087
+    },
+    {
+     "w": "idéal.",
+     "s": 22.163,
+     "e": 22.925
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Elle atterrit sur un nuage qui affiche « hors service. »",
+   "hl": [
+    "nuage",
+    "hors",
+    "service."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L13.k.wav",
+   "file_start": 23.025,
+   "speech_start": 23.025,
+   "speech_end": 25.692,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 23.025,
+     "e": 23.102
+    },
+    {
+     "w": "atterrit",
+     "s": 23.216,
+     "e": 23.482
+    },
+    {
+     "w": "sur",
+     "s": 23.559,
+     "e": 23.635
+    },
+    {
+     "w": "un",
+     "s": 23.673,
+     "e": 23.711
+    },
+    {
+     "w": "nuage",
+     "s": 23.787,
+     "e": 24.092
+    },
+    {
+     "w": "qui",
+     "s": 24.13,
+     "e": 24.168
+    },
+    {
+     "w": "affiche",
+     "s": 24.244,
+     "e": 24.702
+    },
+    {
+     "w": "hors",
+     "s": 24.752,
+     "e": 24.854
+    },
+    {
+     "w": "service.",
+     "s": 25.121,
+     "e": 25.692
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il ne s'est jamais senti aussi léger.",
+   "hl": [
+    "léger."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/balance/tts/L14.k.wav",
+   "file_start": 25.792,
+   "speech_start": 25.792,
+   "speech_end": 27.773,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.792,
+     "e": 25.868
+    },
+    {
+     "w": "ne",
+     "s": 25.944,
+     "e": 26.021
+    },
+    {
+     "w": "s'est",
+     "s": 26.059,
+     "e": 26.249
+    },
+    {
+     "w": "jamais",
+     "s": 26.325,
+     "e": 26.554
+    },
+    {
+     "w": "senti",
+     "s": 26.656,
+     "e": 26.859
+    },
+    {
+     "w": "aussi",
+     "s": 26.973,
+     "e": 27.125
+    },
+    {
+     "w": "léger.",
+     "s": 27.163,
+     "e": 27.773
+    }
+   ]
+  }
+ ],
+ "total": 28.61
+}

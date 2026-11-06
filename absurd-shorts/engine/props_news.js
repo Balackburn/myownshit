@@ -745,24 +745,93 @@ export const NEWS_PROPS = {
     if (o.glasses) body.add(at(box(0.25 * k, 0.05 * k, 0.02 * k, '#111114'), 0, 0.035 * k, fz + 0.06 * k), at(box(0.3 * k, 0.012 * k, 0.012 * k, '#111114'), 0, 0.055 * k, fz + 0.055 * k));
     if (o.bolt) { const sh = new THREE.Shape([[0, 0], [0.06, 0], [0.02, -0.08], [0.07, -0.08], [-0.03, -0.22], [0.0, -0.11], [-0.05, -0.11]].map(([x, y]) => new THREE.Vector2(x * k, y * k))); body.add(at(new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.02 * k, bevelEnabled: false }), mat('#F2C94C', { emissive: '#B8860B' })), 0.02 * k, -0.25 * k, 0.05 * k)); }
     if (o.suitcase) g.add(at(box(0.22 * k, 0.16 * k, 0.08 * k, '#8A5A34', { outline: 0.004 }), 0.33 * k, -0.28 * k, 0.05 * k), at(torus(0.03 * k, 0.008 * k, '#3A2210', 4, 10), 0.33 * k, -0.18 * k, 0.05 * k));
-    if (o.skis) for (const sd of [-1, 1]) g.add(at(box(0.05 * k, 0.012 * k, 0.6 * k, '#C8322A', { outline: 0.003 }), sd * 0.08 * k, -0.33 * k, 0.05 * k));
+    if (o.skis) for (const sd of [-1, 1]) { g.add(at(box(0.05 * k, 0.012 * k, 1.0 * k, '#C8322A', { outline: 0.003 }), sd * 0.09 * k, -0.33 * k, 0.05 * k), at(box(0.05 * k, 0.03 * k, 0.06 * k, '#C8322A'), sd * 0.09 * k, -0.32 * k, 0.55 * k, 0.5, 0, 0));
+      g.add(rod([sd * 0.3 * k, -0.05 * k, 0.1 * k], [sd * 0.36 * k, -0.42 * k, -0.15 * k], 0.006 * k, '#2F3540')); }
     if (o.belt) body.add(at(box(0.5 * k, 0.04 * k, 0.03 * k, '#2F3540'), 0, -0.13 * k, 0.24 * k, 0, 0, 0.5));
     if (o.ticket) g.add(at(label('VOL 404', 0.16 * k, 0.07 * k, { bg: '#F4F1E8', fg: '#2C4A8A' }), -0.36 * k, -0.06 * k, 0.12 * k, 0, 0, 0.25));
     const ph = r() * TAU; g.userData.update = t => { body.position.y = 0.035 * k * Math.sin(t * 2.2 + ph); body.rotation.z = 0.05 * Math.sin(t * 1.6 + ph); };
     g.userData.update(0); return g;
   },
-  gpsScreen(o) { // a big GPS screen (o.w wide): top bar instruction (o.text), a map with a route to o.dest (label) and an arrow; o.off: a black screen; o.recalc: "RECALCUL…" spinner text
+  gpsScreen(o) { // a big GPS screen (o.w wide) with a bezel: top bar instruction (o.text), a map with a route to o.dest (white callout on a red pin) and an arrow;
+    // o.long: a dead-straight route running off the top with a big distance readout (o.km) and a tiny right turn at the far end; o.recalc: a « RECALCUL… » overlay;
+    // o.off: a black screen; o.offAt: the picture collapses like an old TV (to a line, then a dot) at that time
     const w = o.w || 0.5, h = w * 0.62, pl = canvasPlane(w, h, (c, W, H) => {
       if (o.off) { c.fillStyle = '#0E1012'; c.fillRect(0, 0, W, H); return; }
       c.fillStyle = '#A6D1A8'; c.fillRect(0, 0, W, H); c.fillStyle = '#7FB585'; for (let i = 0; i < 6; i++) c.fillRect(W * (0.05 + i * 0.17), H * (0.3 + (i % 3) * 0.18), W * 0.1, H * 0.12);
-      c.strokeStyle = '#F1EDE2'; c.lineWidth = H * 0.06; c.beginPath(); c.moveTo(W * 0.5, H * 1.05); c.lineTo(W * 0.5, H * 0.62); c.lineTo(W * 0.82, H * 0.4); c.stroke();
-      c.strokeStyle = '#2F7BD8'; c.lineWidth = H * 0.035; c.beginPath(); c.moveTo(W * 0.5, H * 1.05); c.lineTo(W * 0.5, H * 0.62); c.lineTo(W * 0.82, H * 0.4); c.stroke();
-      if (o.dest) { c.fillStyle = '#C8322A'; c.beginPath(); c.arc(W * 0.84, H * 0.37, H * 0.05, 0, TAU); c.fill(); c.fillStyle = '#1C252A'; c.font = `900 ${H * 0.09}px Arial`; c.textAlign = 'center'; c.fillText(o.dest, W * 0.8, H * 0.3); }
+      const road = (pts, lw, col) => { c.strokeStyle = col; c.lineWidth = lw; c.beginPath(); pts.forEach(([x, y], k) => k ? c.lineTo(x * W, y * H) : c.moveTo(x * W, y * H)); c.stroke(); };
+      const R = o.long ? [[0.5, 1.05], [0.5, 0.27], [0.56, 0.27]] : [[0.5, 1.05], [0.5, 0.62], [0.82, 0.4]];
+      road(R, H * 0.06, '#F1EDE2'); road(R, H * 0.035, '#2F7BD8');
+      if (o.long) { c.fillStyle = '#1E2229'; c.beginPath(); c.roundRect(W * 0.6, H * 0.45, W * 0.36, H * 0.22, H * 0.04); c.fill(); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        c.font = `900 ${H * 0.11}px Arial`; c.fillText(o.km || '3000 km', W * 0.78, H * 0.56); c.fillStyle = '#C8322A'; c.beginPath(); c.moveTo(W * 0.56, H * 0.24); c.lineTo(W * 0.6, H * 0.27); c.lineTo(W * 0.56, H * 0.3); c.fill(); }
+      if (o.dest) { const px = W * 0.83, py = H * 0.41; c.fillStyle = '#C8322A'; c.beginPath(); c.arc(px, py, H * 0.05, 0, TAU); c.fill(); c.beginPath(); c.moveTo(px - H * 0.035, py + H * 0.02); c.lineTo(px, py + H * 0.1); c.lineTo(px + H * 0.035, py + H * 0.02); c.fill();
+        c.font = `900 ${H * 0.1}px Arial`; const tw = c.measureText(o.dest).width, bx = Math.min(W - tw - H * 0.12, px - tw / 2 - H * 0.06), by = H * 0.52;
+        c.fillStyle = '#FFFFFF'; c.strokeStyle = '#1C252A'; c.lineWidth = H * 0.012; c.beginPath(); c.roundRect(bx, by, tw + H * 0.12, H * 0.15, H * 0.04); c.fill(); c.stroke();
+        c.fillStyle = '#C8322A'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(o.dest, bx + H * 0.06, by + H * 0.077); }
       c.fillStyle = '#2F7BD8'; c.beginPath(); c.moveTo(W * 0.5, H * 0.72); c.lineTo(W * 0.56, H * 0.86); c.lineTo(W * 0.44, H * 0.86); c.closePath(); c.fill();
       c.fillStyle = '#1E2229'; c.fillRect(0, 0, W, H * 0.24); c.fillStyle = '#F6F1E3'; c.textAlign = 'center'; c.textBaseline = 'middle'; const L = String(o.text || '').split('\n');
       let px = H * 0.1; c.font = `900 ${px}px Arial`; const tw = Math.max(...L.map(l => c.measureText(l).width)); if (tw > W * 0.92) { px *= W * 0.92 / tw; c.font = `900 ${px}px Arial`; }
       L.forEach((l, i) => c.fillText(l, W / 2, H * 0.12 + (i - (L.length - 1) / 2) * px * 1.1));
-      if (o.recalc) { c.fillStyle = 'rgba(30,34,41,0.75)'; c.fillRect(W * 0.18, H * 0.42, W * 0.64, H * 0.2); c.fillStyle = '#F6F1E3'; c.font = `900 ${H * 0.09}px Arial`; c.fillText('RECALCUL…', W / 2, H * 0.52); } }, { res: 640, emissive: 0.55 });
-    return grp(at(box(w + 0.03, h + 0.03, 0.03, '#1E1E22', { outline: 0.005 }), 0, 0, -0.016), pl);
+      if (o.recalc) { c.fillStyle = 'rgba(30,34,41,0.75)'; c.fillRect(W * 0.18, H * 0.42, W * 0.64, H * 0.2); c.fillStyle = '#F6F1E3'; c.font = `900 ${H * 0.09}px Arial`; c.fillText('RECALCUL…', W / 2, H * 0.52); } }, { res: 640, emissive: 0.6 });
+    const black = at(box(w, h, 0.004, '#0E1012'), 0, 0, -0.003), line = at(box(w, h * 0.04, 0.002, '#FFFFFF', { emissive: '#FFFFFF' }), 0, 0, 0.002); line.visible = false;
+    const g = grp(at(box(w + 0.05, h + 0.05, 0.035, '#1E1E22', { outline: 0.006 }), 0, 0, -0.02), black, pl, line, at(sphere(0.012, '#34C759', 1, { emissive: '#34C759' }), w / 2 + 0.008, -h / 2 - 0.012, 0.0));
+    g.userData.update = t => { if (o.offAt == null) return; const u = t - o.offAt; if (u < 0) { pl.visible = true; line.visible = false; pl.scale.set(1, 1, 1); return; }
+      if (u < 0.12) { pl.visible = true; pl.scale.set(1, Math.max(0.02, 1 - u / 0.12), 1); line.visible = false; }
+      else if (u < 0.26) { pl.visible = false; line.visible = true; line.scale.set(Math.max(0.02, 1 - (u - 0.12) / 0.14), 1, 1); }
+      else { pl.visible = false; line.visible = u < 0.34; line.scale.set(0.02, 1, 1); } };
+    g.userData.update(0); return g;
+  },
+  robotVacuum(o) { // l'aspirateur: a round robot vacuum (r 0.17) with two glowing LED eyes on its front (+Z), spinning side brushes, a status light
+    // (o.low: red light + sleepy half-closed eyes), o.mood 'happy' | 'menace' | 'tired'; o.suckAt: a white suction swirl in front of its mouth from that time
+    // (o.suckUntil); o.binWindow: a clear window on top showing a seated cat-silhouette (« le chat va bien »)
+    const R = 0.17, H = 0.085, g = grp(), body = grp(); g.add(body);
+    body.add(at(cyl(R, R, H, o.color || '#2B2F36', 28, { pivot: 'bottom', outline: 0.004 }), 0, 0.012, 0), at(cyl(R * 0.98, R * 0.98, 0.006, '#C9CED4', 28), 0, H + 0.012, 0),
+      at(cyl(R * 0.9, R * 0.9, 0.004, o.color || '#2B2F36', 28), 0, H + 0.016, 0));
+    const bump = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.01, R * 1.01, H * 0.6, 28, 1, true, -PI * 0.42, PI * 0.84), mat('#9AA3AD', { doubleSide: true })); bump.position.set(0, 0.012 + H * 0.45, 0); body.add(bump);
+    body.add(at(box(R * 0.9, 0.01, 0.02, '#111316'), 0, 0.02, R * 0.95));   // mouth slot
+    const mood = o.mood || 'happy', ec = o.low ? '#FF5A3C' : '#6FF2E4', eyes = grp();
+    for (const sd of [-1, 1]) { const e = at(box(0.045, mood === 'tired' || o.low ? 0.008 : 0.024, 0.006, ec, { emissive: ec }), sd * 0.055, H * 0.62 + 0.012, R * 1.0); e.rotation.z = mood === 'menace' ? sd * -0.35 : 0; eyes.add(e); }
+    body.add(eyes);
+    const light = at(sphere(0.012, o.low ? '#FF3B30' : '#34C759', 1, { emissive: o.low ? '#FF3B30' : '#34C759' }), 0, H + 0.02, R * 0.55); body.add(light);
+    if (o.binWindow) { body.add(at(cyl(R * 0.5, R * 0.5, 0.006, '#BFE3EE', 20), 0, H + 0.02, -R * 0.15)); body.add(at(box(0.05, 0.04, 0.03, '#E0A35A'), 0, H + 0.04, -R * 0.15), at(box(0.035, 0.03, 0.025, '#E0A35A'), 0, H + 0.065, -R * 0.12)); }
+    const brushes = [-1, 1].map(sd => { const b = grp(); for (let i = 0; i < 3; i++) { const a = at(box(0.07, 0.003, 0.006, '#D9D2C2'), 0, 0, 0); a.position.set(0.035 * Math.cos(i * TAU / 3), 0, 0.035 * Math.sin(i * TAU / 3)); a.rotation.y = -i * TAU / 3; b.add(a); }
+      b.position.set(sd * R * 0.72, 0.006, R * 0.68); body.add(b); return b; });
+    const swirl = grp(); for (let i = 0; i < 4; i++) { const t = new THREE.Mesh(new THREE.TorusGeometry(0.03 + i * 0.018, 0.0025, 4, 20, PI * 1.2), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.45 - i * 0.09, depthWrite: false })); t.rotation.y = PI / 2; t.position.set(0, 0.035, R + 0.02 + i * 0.035); swirl.add(t); }
+    body.add(swirl);
+    g.userData.update = t => { brushes.forEach((b, i) => { b.rotation.y = (i ? -1 : 1) * t * 18; });
+      const on = o.suckAt != null && t >= o.suckAt && (o.suckUntil == null || t < o.suckUntil); swirl.visible = on; swirl.children.forEach((r, i) => { r.rotation.x = t * 9 + i; });
+      light.visible = !o.low || Math.floor(t * 3) % 2 === 0; body.position.y = o.idleBob ? 0.004 * Math.sin(t * 11) : 0; };
+    g.userData.update(0); return g;
+  },
+  chargingDock(o) { // the robot vacuum's charging base (front +Z): a slanted back with a green/red light and two contacts
+    const g = grp(at(box(0.22, 0.012, 0.12, '#2B2F36', { pivot: 'bottom', outline: 0.004 }), 0, 0, 0.04), at(box(0.22, 0.12, 0.06, '#2B2F36', { pivot: 'bottom', outline: 0.004 }), 0, 0, -0.03, -0.25, 0, 0),
+      at(sphere(0.01, o.low ? '#FF3B30' : '#34C759', 1, { emissive: o.low ? '#FF3B30' : '#34C759' }), 0, 0.1, 0.0));
+    for (const sd of [-1, 1]) g.add(at(box(0.03, 0.01, 0.02, '#D9B85A'), sd * 0.05, 0.03, 0.02));
+    return g;
+  },
+  armyTank(o) { // a low-poly army tank (front +Z), olive with a white star; o.len ~ 1 (scale it); turret faces front
+    const c = o.color || '#5E6B3A', d = '#2F3324', g = grp();
+    g.add(at(box(0.5, 0.14, 0.9, c, { pivot: 'bottom', outline: 0.01 }), 0, 0.1, 0), at(box(0.4, 0.06, 0.2, c, { taper: { x: 1, z: 0.6 } }), 0, 0.27, 0.42));
+    for (const sd of [-1, 1]) { g.add(at(box(0.12, 0.16, 0.98, d, { pivot: 'bottom', outline: 0.008 }), sd * 0.3, 0, 0)); for (let i = 0; i < 5; i++) g.add(at(cyl(0.055, 0.055, 0.13, '#4A4F3A', 10), sd * 0.3, 0.06, -0.36 + i * 0.18, 0, 0, PI / 2)); }
+    const tur = grp(at(box(0.32, 0.12, 0.36, c, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.025, 0.03, 0.55, c, 8), 0, 0.06, 0.42, PI / 2, 0, 0), at(cyl(0.05, 0.05, 0.03, d, 8), 0, 0.12, -0.05));
+    tur.position.y = 0.24; g.add(tur);
+    const st = canvasPlane(0.14, 0.14, (cc, W, Hh) => { cc.clearRect(0, 0, W, Hh); cc.fillStyle = '#F4F1E8'; cc.beginPath(); for (let i = 0; i < 10; i++) { const a = -PI / 2 + i * PI / 5, rr = i % 2 ? W * 0.2 : W * 0.48; cc.lineTo(W / 2 + rr * Math.cos(a), Hh / 2 + rr * Math.sin(a)); } cc.closePath(); cc.fill(); }, { res: 128, transparent: true });
+    st.rotation.y = PI / 2; st.position.set(0.161, 0.3, 0.0); tur.add(st);
+    return g;
+  },
+  townHall(o) { // « MAIRIE »: a pale stone town hall (front +Z, o.w wide): steps, columns, pediment with a clock, the name, a French flag on top
+    const W = o.w || 6, H = o.h || 4.5, D = o.d || 4, g = grp(), st = '#EDE4D0';
+    g.add(at(box(W, H, D, st, { pivot: 'bottom', outline: 0.03 }), 0, 0, 0), at(box(W + 0.4, 0.25, D + 0.6, '#D9CDB4', { pivot: 'bottom' }), 0, 0, 0.1), at(box(W * 0.5, 0.15, 0.6, '#D9CDB4', { pivot: 'bottom' }), 0, 0.25, D / 2 + 0.3));
+    for (let i = 0; i < 6; i++) g.add(at(cyl(0.16, 0.18, H * 0.72, '#F6F1E3', 10, { pivot: 'bottom', outline: 0.01 }), -W * 0.36 + i * W * 0.144, 0.25, D / 2 + 0.25));
+    g.add(at(box(W + 0.2, 0.35, D + 0.7, '#E2D8C4'), 0, H * 0.75, 0.15));
+    const ped = new THREE.Mesh(new THREE.CylinderGeometry(0.01, W * 0.62, H * 0.32, 3, 1), mat('#E2D8C4')); ped.rotation.y = PI / 2; ped.scale.set(1, 1, 0.12); ped.position.set(0, H * 0.75 + 0.18 + H * 0.16, D / 2 + 0.25); g.add(ped);
+    g.add(at(sign(o.text || 'MAIRIE', W * 0.55, 0.55, '#1C2E4A', '#F4F1E8'), 0, H * 0.75, D / 2 + 0.52));
+    g.add(at(cyl(0.32, 0.32, 0.05, '#F4F1E8', 18), 0, H * 0.75 + 0.62, D / 2 + 0.3, PI / 2, 0, 0), at(box(0.03, 0.22, 0.01, '#1C252A'), 0, H * 0.75 + 0.69, D / 2 + 0.34), at(box(0.16, 0.03, 0.01, '#1C252A'), 0.06, H * 0.75 + 0.62, D / 2 + 0.34));
+    g.add(rod([0, H, 0], [0, H + 2.2, 0], 0.035, '#8C949A'));
+    ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => g.add(at(box(0.36, 0.7, 0.02, c), 0.18 + i * 0.36, H + 1.75, 0)));
+    return g;
+  },
+  sockPair(o) { // two striped socks (L-shaped), lying or flying
+    const g = grp(); [[-0.06, '#C8322A'], [0.06, '#2F62B5']].forEach(([x, c]) => { g.add(at(box(0.06, 0.03, 0.22, c, { outline: 0.003 }), x, 0.015, 0), at(box(0.06, 0.03, 0.1, c, { outline: 0.003 }), x, 0.015, 0.14, 0, 0.5, 0), at(box(0.062, 0.032, 0.03, '#F4F1E8'), x, 0.015, -0.09)); });
+    return g;
   },
 };

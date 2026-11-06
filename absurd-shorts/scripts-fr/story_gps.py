@@ -19,24 +19,29 @@ SCREEN = lambda text, **o: P('scr', 'gpsScreen', pos=[0, 1.2, 0], opts={'text': 
 SCREEN_CAM = [cam(0.0, [0.02, 1.2, 1.0], [0.02, 1.2, 0.9], [0, 1.2, 0], [0, 1.2, 0], lens=44)]
 NIGHT = {'hemi': 0.45, 'sky': '#4A5C8A', 'ground': '#1B2238', 'keyI': 0.55, 'key': '#B8C8FF'}
 
-# 1-5: the request; the problems; "in 3000 km turn right"; all night
-st.shot('S01', 'parisStreet', actors=[act('mec', seat(0.0, 3.0), 90, 'drive', 'neutral')], props=CAR(0.0, 3.0),
-        cams=[cam(0.0, [2.6, 1.7, 6.6], [2.5, 1.7, 6.3], [0.55, 1.2, 2.7], [0.55, 1.2, 2.7], lens=44)])
-st.shot('S02', 'parisStreet', actors=[act('mec', seat(0.0, 3.0), 90, 'drive', 'unimpressed', keys=[k(0.2, look=[0.2, 2.6, 2.6])])], props=CAR(0.0, 3.0) + TRIO([0.3, 0, 2.6], y=2.45, dx=0.8, bolt=True),
-        cams=[cam(0.0, [0.9, 1.3, 7.6], [0.85, 1.35, 7.2], [0.3, 1.75, 2.6], [0.3, 1.8, 2.6], lens=44)])
-st.shot('S03', 'parisStreet', props=[SCREEN('CALCUL DE\nL\'ITINÉRAIRE…', recalc=False)], cams=SCREEN_CAM)
-st.shot('S04', 'parisStreet', props=[SCREEN('DANS 3000 KM,\nTOURNEZ À DROITE')], cams=[cam(0.0, [0.03, 1.2, 0.98], [0.03, 1.2, 0.84], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
+# 1-5: the request (his problems already above the car); the destination typed; his face; « in 3000 km, turn right » on a dead-straight route; all night
+SPACE = {'sky': ['#22306E', '#4A4790']}
+NIGHT = {'hemi': 0.8, 'sky': '#8A93D0', 'ground': '#2A2550', 'keyI': 0.85, 'key': '#C8D2FF'}
+st.shot('S01', 'parisStreet', actors=[act('mec', seat(0.0, 3.0), 90, 'drive', 'neutral')], props=CAR(0.0, 3.0) + TRIO([0.3, 0, 2.6], y=2.45, dx=0.8, bolt=True),
+        cams=[cam(0.0, [1.2, 1.45, 8.2], [1.0, 1.5, 7.4], [0.35, 1.7, 2.6], [0.35, 1.72, 2.6], lens=44)])
+st.shot('S02', 'parisStreet', props=[P('scr', 'gpsScreen', pos=[0, 1.2, 0], opts={'text': 'DESTINATION :\nLOIN DE MES PROBLÈMES', 'w': 0.42})],
+        cams=[cam(0.0, [0.04, 1.18, 1.0], [0.03, 1.19, 0.86], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
+st.shot('S03', 'parisStreet', actors=[act('mec', seat(0.0, 3.0), 90, 'drive', 'surprised', keys=[k(0.0, look=[1.0, 1.2, 2.75])])], props=CAR(0.0, 3.0, gps='CALCUL…') + TRIO([0.2, 0, 2.6], y=2.5, dx=0.8),
+        cams=[cam(0.0, [1.25, 1.75, 4.1], [1.2, 1.75, 3.95], [0.05, 1.6, 2.6], [0.05, 1.6, 2.6], lens=44)])
+st.shot('S04', 'parisStreet', props=[P('scr', 'gpsScreen', pos=[0, 1.2, 0], opts={'text': 'DANS 3000 KM,\nTOURNEZ À DROITE', 'w': 0.42, 'long': True, 'km': '3000 km'})],
+        cams=[cam(0.0, [0.03, 1.2, 0.98], [0.03, 1.2, 0.84], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
 D5 = st.dur('S05')
-st.shot('S05', 'spaceDark', light=NIGHT, actors=[act('mec', seat(-3.0, 0.0), 90, 'drive', 'sleepy', keys=[k(0, to=seat(3.0, 0.0), glide=True, dur=D5, ease='linear', clip='drive', then='drive', face='keep')])],
-        props=[P('sand', 'carpet', pos=[0, -0.02, 0], opts={'w': 300, 'd': 300, 'color': '#3A3550', 'inner': '#3A3550'}), P('road', 'carpet', pos=[0, -0.005, 0.0], opts={'w': 300, 'd': 3.0, 'color': '#2A2D36', 'inner': '#2A2D36'}),
-               P('car', 'car', pos=[-3.0, 0, 0.0], opts={'color': '#C9473A'}, keys=[k(0, to=[3.0, 0, 0.0], dur=D5, ease='linear')]), P('moon', 'moon', pos=[-6, 9, -30], opts={'radius': 2.0})],
-        cams=[cam(0.0, [-1.6, 1.4, 7.5], [1.6, 1.4, 7.5], [-1.0, 1.0, 0.0], [1.0, 1.0, 0.0], lens=44)])
+HEAD = lambda: [P(f'hl{sd}', 'sugarCube', on={'actor': 'car', 'offset': [1.95, 0.55, sd * 0.55]}, scale=2.2, opts={}) for sd in (-1, 1)]
+st.shot('S05', 'spaceDark', setOpts={'sky': ['#1C2A63', '#4E3F86']}, light=NIGHT, actors=[act('mec', seat(-3.0, 0.0), 90, 'drive', 'sleepy', keys=[k(0, to=seat(3.0, 0.0), glide=True, dur=D5, ease='linear', clip='drive', then='drive', face='keep')])],
+        props=[P('sand', 'carpet', pos=[0, -0.02, 0], opts={'w': 300, 'd': 300, 'color': '#5A4F7A', 'inner': '#5A4F7A'}), P('road', 'carpet', pos=[0, -0.005, 0.0], opts={'w': 300, 'd': 3.0, 'color': '#3A3D4C', 'inner': '#3A3D4C'}),
+               P('car', 'car', pos=[-3.0, 0, 0.0], opts={'color': '#E04A3C'}, keys=[k(0, to=[3.0, 0, 0.0], dur=D5, ease='linear')]), P('moon', 'moon', pos=[-6, 9, -30], opts={'radius': 2.0})] + HEAD(),
+        cams=[cam(0.0, [-1.6, 1.3, 6.5], [1.6, 1.3, 6.5], [-1.0, 1.0, 0.0], [1.0, 1.0, 0.0], lens=44)])
 # 6-9: the desert: they were waiting (sunglasses), they took the plane; he leaves again
 st.shot('S06', 'desert', actors=[act('mec', [0.6, 0, -0.2], -30, 'stand', 'happy')], props=CAR(-1.2, -1.2) + TRIO([0.6, 0, -2.8], y=1.1, dx=0.9, glasses=True),
         cams=[cam(0.0, [1.4, 1.5, 4.2], [1.35, 1.5, 3.9], [0.4, 1.15, -1.0], [0.4, 1.15, -1.0], lens=44)])
-st.shot('S07', 'desert', actors=[act('mec', [0.8, 0, 0.3], -60, 'doubleTake', 'shocked')], props=TRIO([-0.4, 0, -0.6], y=1.4, dx=0.7, glasses=True),
-        cams=[cam(0.0, [0.5, 1.55, 3.9], [0.48, 1.55, 3.6], [0.3, 1.45, -0.2], [0.3, 1.45, -0.2], lens=44)])
-st.shot('S08', 'desert', props=TRIO([0.0, 0, 0.0], y=1.3, dx=0.8, suitcase=True, ticket=True) + [P('jet', 'plane', pos=[-30, 14, -45], ry=-10, keys=[k(0.0, to=[25, 18, -55], dur=st.dur('S08'), ease='linear')])],
+st.shot('S07', 'desert', actors=[act('mec', [0.5, 0, 0.3], -40, 'doubleTake', 'surprised')], props=TRIO([-0.55, 0, -0.5], y=1.75, dx=0.6, glasses=True),
+        cams=[cam(0.0, [0.35, 1.85, 2.45], [0.34, 1.86, 2.25], [0.15, 1.82, -0.1], [0.15, 1.83, -0.1], lens=44)])
+st.shot('S08', 'desert', props=TRIO([0.0, 0, 0.0], y=1.3, dx=0.8, suitcase=True, ticket=True, glasses=True, size=1.25) + [P('jet', 'plane', pos=[-30, 14, -45], ry=-10, keys=[k(0.0, to=[25, 18, -55], dur=st.dur('S08'), ease='linear')])],
         cams=[cam(0.0, [0.1, 1.35, 3.1], [0.1, 1.38, 2.85], [0.0, 1.6, 0.0], [0.0, 1.62, 0.0], lens=44)])
 D9 = st.dur('S09')
 st.shot('S09', 'desert', actors=[act('mec', seat(-1.0, 0.0), 90, 'drive', 'angry', keys=[k(0, to=seat(9.0, 0.0), glide=True, dur=D9, ease='in', clip='drive', then='drive', face='keep')])],
@@ -47,27 +52,33 @@ st.shot('S10', 'snow', actors=[act('mec', [0.0, 0, 0.0], 0, 'scared', 'sad')], p
         cams=[cam(0.0, [0.35, 1.5, 3.0], [0.33, 1.5, 2.75], [-0.2, 1.3, -0.3], [-0.2, 1.3, -0.3], lens=44)])
 D11 = st.dur('S11')
 st.shot('S11', 'snow', props=[PB(i, [-1.6 + i * 0.75, 1.55 - i * 0.18, -0.6 - i * 0.5], skis=True, mood='happy', size=1.35, keys=[k(0.0, to=[0.6 + i * 0.75, 0.75 - i * 0.18, 0.4 - i * 0.5], dur=D11, ease='linear')]) for i in range(3)],
-        cams=[cam(0.0, [0.0, 1.35, 3.6], [0.1, 1.3, 3.4], [-0.5, 1.05, -0.6], [0.4, 0.85, -0.3], lens=44)])
+        cams=[cam(0.0, [0.0, 1.35, 3.6], [0.1, 1.3, 3.4], [-0.5, 1.05, -0.6], [0.4, 0.85, -0.3], lens=44, roll=-14)])
 D12 = st.dur('S12')
 st.shot('S12', 'desert', props=[P('rk', 'rocket', pos=[0, 0, -2.0], scale=1.4, keys=[k(0.1, to=[0, 7, -2.0], dur=D12 - 0.1, ease='inOut')]), P('smk', 'dustPuff', pos=[0, 0.1, -2.0], scale=3.0), P('fl', 'flame', on={'actor': 'rk', 'offset': [0, 0.1, 0]}, rot=[3.1416, 0, 0], scale=2.5)],
         cams=[cam(0.0, [0.5, 1.6, 7.2], [0.48, 1.9, 6.9], [0.0, 2.6, -2.0], [0.0, 6.4, -2.0], lens=44, shake=0.012)])
-SEATS = [P(f'st{i}', 'chair', pos=[x, 0, 0.0], opts={'color': '#3A3D44'}) for i, x in enumerate((-0.7, 0.0, 0.7))]
-st.shot('S13', 'spaceDark', actors=[act('mec', [0.0, 0, 0.0], 0, 'sit', 'unimpressed')], props=SEATS + [PB(0, [-0.7, 1.0, 0.05], belt=True), PB(1, [0.7, 1.0, 0.05], belt=True, mood='smug')],
-        cams=[cam(0.0, [0.1, 1.4, 3.6], [0.1, 1.4, 3.35], [0.0, 1.1, 0.0], [0.0, 1.1, 0.0], lens=44)])
-# 14-18: on the Moon the GPS recalculates: "apologise"; he switches it off; he lives there, with his problems
+SEATS = [P(f'st{i}', 'chair', pos=[x, 0, 0.0], opts={'color': '#C8322A'}) for i, x in enumerate((-0.62, 0.0, 0.62))] + [P('cabin', 'carpet', pos=[0, 1.5, -0.6], rot=[1.5708, 0, 0], opts={'w': 3.2, 'd': 3.0, 'color': '#D9DEE3', 'inner': '#E9ECEF'}),
+         P('port', 'window', pos=[0.0, 1.35, -0.55], opts={'w': 0.55, 'h': 0.55, 'color': '#8C949A', 'night': True})]
+st.shot('S13', 'spaceDark', actors=[act('mec', [0.0, 0, 0.0], 0, 'sit', 'unimpressed')], props=SEATS + [PB(0, [-0.62, 1.0, 0.05], belt=True, size=0.9), PB(1, [0.62, 1.0, 0.05], belt=True, mood='smug', size=0.9)],
+        cams=[cam(0.0, [0.1, 1.35, 3.9], [0.1, 1.35, 3.65], [0.0, 1.15, 0.0], [0.0, 1.15, 0.0], lens=44)])
+# 14-18: on the Moon the GPS recalculates: « apologise »; he switches it off; he lives there, with his problems (a brighter space sky)
 MOON = [P('ground', 'moonSurface', pos=[0, 0, 0], opts={'r': 40}), P('earth', 'earthGlobe', pos=[-6, 10, -40], opts={'radius': 3.2, 'spin': 0.1})]
-HELMET = P('dome', 'glassDome', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.05, 0]}, opts={'radius': 0.32, 'opacity': 0.2, 'base': False})
-st.shot('S14', 'spaceDark', actors=[act('mec', [0.0, 0, 0.0], 0, 'readPhone', 'unimpressed')], props=MOON + [HELMET, P('hgps', 'gpsDevice', opts={'text': 'RECALCUL…'}, on={'actor': 'mec', 'hand': 'R', 'rot': [-1.2, 0, 0], 'offset': [0, -0.12, 0.04]}, scale=1.5)] + TRIO([0.0, 0, -1.4], y=2.2, dx=0.8),
+st.shot('S14', 'spaceDark', setOpts=SPACE, actors=[act('mec', [0.0, 0, 0.0], 0, 'readPhone', 'unimpressed')], props=MOON + [P('hgps', 'gpsDevice', opts={'text': 'RECALCUL…'}, on={'actor': 'mec', 'hand': 'R', 'rot': [-1.2, 0, 0], 'offset': [0, -0.12, 0.04]}, scale=1.5)] + TRIO([0.0, 0, -1.4], y=2.2, dx=0.8),
         cams=[cam(0.0, [0.35, 1.55, 3.0], [0.33, 1.55, 2.75], [0.0, 1.5, -0.4], [0.0, 1.5, -0.4], lens=44)])
-st.shot('S15', 'spaceDark', props=[SCREEN('ITINÉRAIRE LE PLUS COURT :\nVOUS EXCUSER', dest='CHEZ ELLE', w=0.42)], cams=[cam(0.0, [0.02, 1.2, 1.12], [0.02, 1.2, 1.0], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
-st.shot('S16', 'spaceDark', props=[P('scr', 'gpsScreen', pos=[0, 1.2, 0], opts={'text': 'VOUS EXCUSER', 'w': 0.5}, keys=[k(0.55, visible=False)]), P('scr2', 'gpsScreen', pos=[0, 1.2, 0.001], opts={'off': True, 'w': 0.5}, visible=False, keys=[k(0.55, visible=True)])],
-        cams=[cam(0.0, [0.02, 1.2, 1.05], [0.02, 1.2, 0.95], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
-st.shot('S17', 'spaceDark', props=MOON + [P('house', 'cottage', pos=[0.3, 0, -1.5], scale=0.35, opts={'w': 6, 'd': 6, 'h': 2.6, 'rh': 1.6, 'color': '#F2D06B', 'roof': '#C9473A'}), P('mail', 'noticeBoard', pos=[1.6, 0, -0.4], opts={'text': 'LE MEC', 'style': 'tag', 'w': 0.4, 'h': 0.14, 'height': 0.9})],
-        cams=[cam(0.0, [1.2, 1.6, 6.0], [1.1, 1.65, 5.6], [0.3, 1.3, -1.5], [0.3, 1.35, -1.5], lens=44)])
-st.shot('S18', 'spaceDark', actors=[act('mec', [0.0, 0, 0.0], 160, 'sit', 'unimpressed')], props=MOON + [HELMET, P('ch', 'chair', pos=[0.0, 0, 0.0], ry=160, opts={'color': '#2F7F8C'}), PB(0, [-0.85, 1.25, 0.1], glasses=True), PB(1, [0.85, 1.2, -0.05], glasses=True, mood='happy'), PB(2, [0.1, 1.95, 0.55], glasses=True), P('earth2', 'earthGlobe', pos=[5, 9, 40], opts={'radius': 3.2, 'spin': 0.1})],
-        cams=[cam(0.0, [-0.7, 1.45, -3.4], [-0.65, 1.47, -3.15], [0.0, 1.15, 0.0], [0.0, 1.17, 0.0], lens=44)])
+GPS_MOON = lambda **o: [P('scr', 'gpsScreen', pos=[0, 1.2, 0.0], opts={'w': 0.42, **o})] + [P('ground', 'moonSurface', pos=[0, 0, -2.0], opts={'r': 40}), P('earth', 'earthGlobe', pos=[1.6, 2.4, -14.0], opts={'radius': 1.6, 'spin': 0.1})]
+st.shot('S15', 'spaceDark', setOpts=SPACE, props=GPS_MOON(text='ITINÉRAIRE LE PLUS COURT :\nVOUS EXCUSER', dest='CHEZ ELLE'),
+        cams=[cam(0.0, [0.03, 1.15, 1.12], [0.03, 1.15, 1.0], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
+st.shot('S16', 'spaceDark', setOpts=SPACE, props=GPS_MOON(text='VOUS EXCUSER', dest='CHEZ ELLE', offAt=0.45),
+        cams=[cam(0.0, [0.03, 1.15, 1.1], [0.03, 1.15, 1.02], [0, 1.2, 0], [0, 1.2, 0], lens=44)])
+st.shot('S17', 'spaceDark', setOpts=SPACE, props=MOON + [P('house', 'cottage', pos=[0.3, 0, -1.5], scale=0.35, opts={'w': 6, 'd': 6, 'h': 2.6, 'rh': 1.6, 'color': '#F2D06B', 'roof': '#C9473A'}),
+        P('mail', 'signBoard', pos=[1.75, 0, -0.35], opts={'text': 'LE MEC', 'w': 0.6, 'h': 0.24, 'height': 0.95, 'bg': '#F4F1E8', 'fg': '#1C252A', 'frame': '#C9473A'})],
+        cams=[cam(0.0, [1.2, 1.5, 6.0], [1.1, 1.55, 5.6], [0.6, 1.25, -1.2], [0.6, 1.3, -1.2], lens=44)])
+FAMILY = [PB(0, [-0.6, 1.2, 0.2], glasses=True, mood='smug', size=0.85), PB(1, [0.62, 1.25, 0.15], glasses=True, mood='happy', size=0.85), PB(2, [0.05, 2.4, -0.25], glasses=True, mood='smug', size=0.85)]
+st.shot('S18', 'spaceDark', setOpts=SPACE, actors=[act('mec', [0.0, 0, 0.0], 0, 'sit', 'unimpressed')],
+        props=[P('ground', 'moonSurface', pos=[0, 0, 0], opts={'r': 40}), P('earth2', 'earthGlobe', pos=[3.2, 7.5, -26], opts={'radius': 2.6, 'spin': 0.1}), P('ch', 'chair', pos=[0.0, 0, 0.0], opts={'color': '#2F7F8C'}),
+               P('house', 'cottage', pos=[-0.4, 0, -3.2], scale=0.35, opts={'w': 6, 'd': 6, 'h': 2.6, 'rh': 1.6, 'color': '#F2D06B', 'roof': '#C9473A'})] + FAMILY,
+        cams=[cam(0.0, [0.1, 1.55, 5.0], [0.1, 1.55, 4.7], [0.05, 1.5, 0.0], [0.05, 1.51, 0.0], lens=44)])
 st.card('S04', '3000 KM'); st.card('S15', 'VOUS EXCUSER')
 st.cue('sfx:beep', 'S01', 0.5, 0.25); st.cue('thunder', 'S02', 0.25, 0.35); st.cue('sfx:beep', 'S04', 0.1, 0.3); st.cue('engine', 'S05', 0.0, 0.35); st.cue('sfx:jet', 'S08', 0.1, 0.25)
 st.cue('engine', 'S09', 0.0, 0.45); st.cue('whoosh', 'S09', 0.3, 0.4); st.cue('gust', 'S10', 0.0, 0.3); st.cue('whoosh', 'S11', 0.1, 0.35); st.cue('sfx:jet', 'S12', 0.2, 0.45); st.cue('thud', 'S12', 0.25, 0.4)
-st.cue('sfx:beep', 'S14', 0.3, 0.3); st.cue('sfx:beep', 'S15', 0.1, 0.3); st.cue('sfx:click', 'S16', 0.55, 0.45); st.cue('pop', 'S17', 0.1, 0.25)
+st.cue('sfx:beep', 'S14', 0.3, 0.3); st.cue('sfx:beep', 'S15', 0.1, 0.3); st.cue('sfx:click', 'S16', 0.45, 0.45); st.cue('pop', 'S17', 0.1, 0.25)
 st.write('Le GPS')
