@@ -99,3 +99,9 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
   side view, and the feet above the caption band.
 - **Engine reminders:** a camera segment glides from the previous one only with `cut: False` (+ `glide` seconds); `roll` is in
   degrees; a scene can take `light` overrides (night: low hemi, blue key); a clip can return `headScale` / `flush` (held breath).
+
+## French only: numbers read in English, English words on screen (La balance, Le télétravail)
+- The TTS read a line made only of digits and a noun, « 100 kilos. », in English ("one hundred kilos") with the French voice; the same digits inside a longer French sentence were read in French. Check every line before placing it: faster-whisper `detect_language` on each TTS file gives fr/en probabilities (the English lines scored en 0.99; a French line scores fr ≥ 0.9). Decode with ffmpeg to a numpy array if PyAV refuses the file.
+- Fix with a `say` field on the line: the voice reads `say` (« Cent kilos. »), the caption keeps `text` (« 100 kilos. »). Both must have the same number of words, because the caption words are mapped 1:1 onto the spoken words' timings. Spell numbers out in `say` whenever a line is short or starts with digits.
+- No English words on screen either, even common loanwords: CADRE / CHEF, not MANAGER / BOSS; SALLE DE SPORT, not GYM. Check prop defaults too (a call grid had a BOSS tile by default).
+- A lone punctuation mark left after removing « » (« hors service ». → "service ." in the TTS text) used to count as an extra word and broke the caption build; the alignment now folds punctuation-only tokens into the previous word. Still put the final period inside the quotes.
