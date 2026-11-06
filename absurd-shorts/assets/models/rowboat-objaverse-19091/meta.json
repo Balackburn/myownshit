@@ -1,0 +1,22 @@
+{
+ "id": "objaverse-ff7f24f48af346ebbc7f9e9e6e8e7a59",
+ "source": "objaverse",
+ "source_group": "objaverse",
+ "family": "watercraft",
+ "split": "train",
+ "entry": "rowboat",
+ "usda_path": "usda/0001/objaverse-ff7f24f48af346ebbc7f9e9e6e8e7a59.usda",
+ "n_joints": 0,
+ "f_score": 0.9998983617747036,
+ "license": "CC-BY-4.0",
+ "source_license": "CC-BY-4.0",
+ "attribution": "\"Boat\" by metin1, https://sketchfab.com/3d-models/ff7f24f48af346ebbc7f9e9e6e8e7a59, CC-BY-4.0; modified: rewritten as a sand3d program",
+ "license_status": "ok",
+ "asset_id": "objaverse:ff7f24f48af346ebbc7f9e9e6e8e7a59",
+ "sand3d_version": "1.5.0",
+ "usda_bytes": 74903,
+ "usda_sha256": "592101f75afa59edbc14d3deb486babbe3251708093c6d72b4b19ff3f3216bed",
+ "program_sha256": "55e2f580bb13b2b8a14025e226468df6390702bf82226d9b593afcebb67593cf",
+ "dataset": "Sandflow/sand3d-objaverse",
+ "row": 19091
+}

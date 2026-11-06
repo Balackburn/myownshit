@@ -1,0 +1,525 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a commandé un parapluie sur internet.",
+   "hl": [
+    "parapluie",
+    "internet."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.462,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "commandé",
+     "s": 0.633,
+     "e": 0.938
+    },
+    {
+     "w": "un",
+     "s": 1.014,
+     "e": 1.09
+    },
+    {
+     "w": "parapluie",
+     "s": 1.167,
+     "e": 1.548
+    },
+    {
+     "w": "sur",
+     "s": 1.624,
+     "e": 1.7
+    },
+    {
+     "w": "internet.",
+     "s": 1.967,
+     "e": 2.462
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a reçu la pluie.",
+   "hl": [
+    "pluie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L02.k.wav",
+   "file_start": 2.562,
+   "speech_start": 2.562,
+   "speech_end": 3.781,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.562,
+     "e": 2.638
+    },
+    {
+     "w": "a",
+     "s": 2.714,
+     "e": 2.752
+    },
+    {
+     "w": "reçu",
+     "s": 2.79,
+     "e": 3.019
+    },
+    {
+     "w": "la",
+     "s": 3.095,
+     "e": 3.171
+    },
+    {
+     "w": "pluie.",
+     "s": 3.21,
+     "e": 3.781
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Un petit nuage, dans un carton.",
+   "hl": [
+    "nuage,",
+    "carton."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L03.k.wav",
+   "file_start": 3.881,
+   "speech_start": 3.881,
+   "speech_end": 5.862,
+   "words": [
+    {
+     "w": "Un",
+     "s": 3.881,
+     "e": 3.957
+    },
+    {
+     "w": "petit",
+     "s": 4.033,
+     "e": 4.224
+    },
+    {
+     "w": "nuage,",
+     "s": 4.262,
+     "e": 4.871
+    },
+    {
+     "w": "dans",
+     "s": 4.91,
+     "e": 5.024
+    },
+    {
+     "w": "un",
+     "s": 5.1,
+     "e": 5.176
+    },
+    {
+     "w": "carton.",
+     "s": 5.29,
+     "e": 5.862
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le nuage l'a suivi partout.",
+   "hl": [
+    "suivi",
+    "partout."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L04.k.wav",
+   "file_start": 5.962,
+   "speech_start": 5.962,
+   "speech_end": 7.638,
+   "words": [
+    {
+     "w": "Le",
+     "s": 5.962,
+     "e": 6.038
+    },
+    {
+     "w": "nuage",
+     "s": 6.114,
+     "e": 6.419
+    },
+    {
+     "w": "l'a",
+     "s": 6.457,
+     "e": 6.571
+    },
+    {
+     "w": "suivi",
+     "s": 6.61,
+     "e": 6.876
+    },
+    {
+     "w": "partout.",
+     "s": 6.952,
+     "e": 7.638
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Au bureau.",
+   "hl": [
+    "bureau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L05.k.wav",
+   "file_start": 7.738,
+   "speech_start": 7.738,
+   "speech_end": 8.663,
+   "words": [
+    {
+     "w": "Au",
+     "s": 7.738,
+     "e": 7.89
+    },
+    {
+     "w": "bureau.",
+     "s": 8.017,
+     "e": 8.652
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "À l'arrêt du bus.",
+   "hl": [
+    "bus."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L06.k.wav",
+   "file_start": 8.763,
+   "speech_start": 8.763,
+   "speech_end": 9.982,
+   "words": [
+    {
+     "w": "À",
+     "s": 8.763,
+     "e": 8.839
+    },
+    {
+     "w": "l'arrêt",
+     "s": 8.865,
+     "e": 9.068
+    },
+    {
+     "w": "du",
+     "s": 9.144,
+     "e": 9.22
+    },
+    {
+     "w": "bus.",
+     "s": 9.411,
+     "e": 9.982
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Au cinéma, en plein film.",
+   "hl": [
+    "cinéma,",
+    "film."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L07.k.wav",
+   "file_start": 10.082,
+   "speech_start": 10.082,
+   "speech_end": 11.987,
+   "words": [
+    {
+     "w": "Au",
+     "s": 10.082,
+     "e": 10.158
+    },
+    {
+     "w": "cinéma,",
+     "s": 10.234,
+     "e": 10.882
+    },
+    {
+     "w": "en",
+     "s": 10.92,
+     "e": 10.996
+    },
+    {
+     "w": "plein",
+     "s": 11.073,
+     "e": 11.225
+    },
+    {
+     "w": "film.",
+     "s": 11.301,
+     "e": 11.987
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Au mariage de sa sœur.",
+   "hl": [
+    "mariage",
+    "sœur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L08.k.wav",
+   "file_start": 12.087,
+   "speech_start": 12.087,
+   "speech_end": 13.458,
+   "words": [
+    {
+     "w": "Au",
+     "s": 12.087,
+     "e": 12.163
+    },
+    {
+     "w": "mariage",
+     "s": 12.239,
+     "e": 12.544
+    },
+    {
+     "w": "de",
+     "s": 12.582,
+     "e": 12.62
+    },
+    {
+     "w": "sa",
+     "s": 12.696,
+     "e": 12.773
+    },
+    {
+     "w": "sœur.",
+     "s": 12.849,
+     "e": 13.458
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a voulu le renvoyer.",
+   "hl": [
+    "renvoyer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L09.k.wav",
+   "file_start": 13.558,
+   "speech_start": 13.558,
+   "speech_end": 14.853,
+   "words": [
+    {
+     "w": "Il",
+     "s": 13.558,
+     "e": 13.634
+    },
+    {
+     "w": "a",
+     "s": 13.673,
+     "e": 13.711
+    },
+    {
+     "w": "voulu",
+     "s": 13.787,
+     "e": 13.939
+    },
+    {
+     "w": "le",
+     "s": 13.977,
+     "e": 14.015
+    },
+    {
+     "w": "renvoyer.",
+     "s": 14.092,
+     "e": 14.853
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "La poste a été inondée.",
+   "hl": [
+    "poste",
+    "inondée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L10.k.wav",
+   "file_start": 14.953,
+   "speech_start": 14.953,
+   "speech_end": 16.553,
+   "words": [
+    {
+     "w": "La",
+     "s": 14.953,
+     "e": 15.106
+    },
+    {
+     "w": "poste",
+     "s": 15.22,
+     "e": 15.373
+    },
+    {
+     "w": "a",
+     "s": 15.411,
+     "e": 15.449
+    },
+    {
+     "w": "été",
+     "s": 15.487,
+     "e": 15.715
+    },
+    {
+     "w": "inondée.",
+     "s": 15.792,
+     "e": 16.553
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le facteur est reparti en bateau.",
+   "hl": [
+    "facteur",
+    "bateau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L11.k.wav",
+   "file_start": 16.653,
+   "speech_start": 16.653,
+   "speech_end": 18.482,
+   "words": [
+    {
+     "w": "Le",
+     "s": 16.653,
+     "e": 16.73
+    },
+    {
+     "w": "facteur",
+     "s": 16.806,
+     "e": 17.111
+    },
+    {
+     "w": "est",
+     "s": 17.187,
+     "e": 17.263
+    },
+    {
+     "w": "reparti",
+     "s": 17.339,
+     "e": 17.644
+    },
+    {
+     "w": "en",
+     "s": 17.72,
+     "e": 17.796
+    },
+    {
+     "w": "bateau.",
+     "s": 17.911,
+     "e": 18.482
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Alors il l'a gardé.",
+   "hl": [
+    "gardé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L12.k.wav",
+   "file_start": 18.582,
+   "speech_start": 18.582,
+   "speech_end": 19.877,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 18.582,
+     "e": 18.887
+    },
+    {
+     "w": "il",
+     "s": 18.963,
+     "e": 19.039
+    },
+    {
+     "w": "l'a",
+     "s": 19.065,
+     "e": 19.115
+    },
+    {
+     "w": "gardé.",
+     "s": 19.192,
+     "e": 19.877
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Aujourd'hui, il ne paie plus l'eau.",
+   "hl": [
+    "paie",
+    "l'eau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/parapluie/tts/L13.k.wav",
+   "file_start": 19.977,
+   "speech_start": 19.977,
+   "speech_end": 21.806,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 19.977,
+     "e": 20.701
+    },
+    {
+     "w": "il",
+     "s": 20.739,
+     "e": 20.815
+    },
+    {
+     "w": "ne",
+     "s": 20.892,
+     "e": 20.968
+    },
+    {
+     "w": "paie",
+     "s": 21.006,
+     "e": 21.12
+    },
+    {
+     "w": "plus",
+     "s": 21.196,
+     "e": 21.273
+    },
+    {
+     "w": "l'eau.",
+     "s": 21.425,
+     "e": 21.806
+    }
+   ]
+  }
+ ],
+ "total": 22.65
+}

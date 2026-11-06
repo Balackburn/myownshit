@@ -1,0 +1,1383 @@
+{
+ "version": 3,
+ "title": "Le parapluie",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "passante": {
+   "preset": "madame",
+   "seed": 91
+  },
+  "collegue": {
+   "preset": "boss",
+   "seed": 92
+  },
+  "soeur": {
+   "preset": "madame",
+   "seed": 93,
+   "suit": "#F7F5F0",
+   "lapel": "#FFFFFF"
+  },
+  "marie": {
+   "preset": "politique",
+   "seed": 94
+  },
+  "guichet": {
+   "preset": "serveur",
+   "seed": 95
+  },
+  "facteur": {
+   "preset": "cop",
+   "seed": 96,
+   "suit": "#2F62B5",
+   "hatColor": "#F2C94C"
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ],
+     "ry": 0,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone",
+     "name": "shopPhone",
+     "pos": [
+      -0.12,
+      1.66,
+      -0.62
+     ],
+     "scale": 2.2
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.85,
+      0.75
+     ],
+     "to": [
+      0.09,
+      1.84,
+      0.55
+     ],
+     "lookAt": [
+      -0.04,
+      1.72,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.04,
+      1.72,
+      -1.3
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.5333,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.45,
+      0,
+      -1.55
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "box",
+     "name": "cardboardBox",
+     "pos": [
+      -0.15,
+      0,
+      -1.05
+     ],
+     "opts": {
+      "text": ""
+     }
+    },
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      -0.15,
+      0,
+      -1.05
+     ],
+     "opts": {
+      "h": 0.55,
+      "size": 0.6,
+      "mood": "happy",
+      "rain": true,
+      "puddle": false
+     },
+     "keys": [
+      {
+       "at": 0.15,
+       "scale": 1.0,
+       "dur": 0.01
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.55,
+      1.9
+     ],
+     "to": [
+      0.22,
+      1.53,
+      1.65
+     ],
+     "lookAt": [
+      0.1,
+      1.28,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.3,
+      -1.3
+     ]
+    }
+   ],
+   "start": 2.5333,
+   "duration": 1.3,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "box",
+     "name": "cardboardBox",
+     "pos": [
+      0.0,
+      0,
+      -1.0
+     ],
+     "opts": {
+      "text": ""
+     }
+    },
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.0,
+      0,
+      -1.0
+     ],
+     "opts": {
+      "h": 0.95,
+      "size": 0.55,
+      "mood": "happy",
+      "rain": true,
+      "puddle": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      0.75,
+      0.0
+     ],
+     "to": [
+      0.11,
+      0.74,
+      -0.1
+     ],
+     "lookAt": [
+      0.0,
+      0.72,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.74,
+      -1.0
+     ]
+    }
+   ],
+   "start": 3.8333,
+   "duration": 2.1,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.1,
+      0,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.15,
+        0,
+        -1.0
+       ],
+       "dur": 1.767,
+       "clip": "walk"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "passante",
+     "pos": [
+      -0.9,
+      0,
+      -0.6
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.1,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "h": 2.55,
+      "size": 0.75,
+      "mood": "happy",
+      "rain": true,
+      "puddle": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.15,
+        0,
+        -1.0
+       ],
+       "dur": 1.767
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.6,
+      2.6
+     ],
+     "to": [
+      0.33,
+      1.6,
+      2.35
+     ],
+     "lookAt": [
+      0.1,
+      1.55,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.55,
+      -1.6
+     ]
+    }
+   ],
+   "start": 5.9333,
+   "duration": 1.7667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "collegue",
+     "pos": [
+      1.3,
+      0,
+      -2.4
+     ],
+     "ry": -25,
+     "clip": "stand",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "chair",
+     "name": "chair",
+     "pos": [
+      0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.0,
+      0,
+      -1.85
+     ],
+     "opts": {
+      "h": 2.3,
+      "size": 0.7,
+      "mood": "happy",
+      "rain": true,
+      "puddle": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.75,
+      1.2
+     ],
+     "to": [
+      0.28,
+      1.73,
+      0.95
+     ],
+     "lookAt": [
+      0.1,
+      1.35,
+      -1.8
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.35,
+      -1.8
+     ]
+    }
+   ],
+   "start": 7.7,
+   "duration": 1.0333,
+   "setOpts": {
+    "door": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.85,
+      0,
+      -1.4
+     ],
+     "ry": -15,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "passante",
+     "pos": [
+      -0.35,
+      0,
+      -1.75
+     ],
+     "ry": 10,
+     "clip": "stand",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "collegue",
+     "pos": [
+      -0.95,
+      0,
+      -1.6
+     ],
+     "ry": 20,
+     "clip": "readPhone",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "stop",
+     "name": "busStop",
+     "pos": [
+      -0.6,
+      0,
+      -2.0
+     ]
+    },
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.85,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "h": 2.55,
+      "size": 0.75,
+      "mood": "happy",
+      "rain": true,
+      "puddle": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      1.6,
+      2.9
+     ],
+     "to": [
+      0.43,
+      1.6,
+      2.65
+     ],
+     "lookAt": [
+      0.3,
+      1.5,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.5,
+      -1.6
+     ]
+    }
+   ],
+   "start": 8.7333,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "cinema",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0.0,
+      -3.4
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "passante",
+     "pos": [
+      -1.1,
+      0.0,
+      -3.4
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "collegue",
+     "pos": [
+      1.1,
+      0.0,
+      -3.4
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.0,
+      0,
+      -3.35
+     ],
+     "opts": {
+      "h": 2.05,
+      "size": 0.6,
+      "mood": "happy",
+      "rain": true,
+      "puddle": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      1.5,
+      -6.9
+     ],
+     "to": [
+      0.14,
+      1.5,
+      -6.7
+     ],
+     "lookAt": [
+      0.0,
+      1.3,
+      -3.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.3,
+      -3.4
+     ]
+    }
+   ],
+   "start": 10.0333,
+   "duration": 2.0334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "church",
+   "lines": [],
+   "actors": [
+    {
+     "id": "soeur",
+     "pos": [
+      -0.35,
+      0.22,
+      -1.2
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "marie",
+     "pos": [
+      0.4,
+      0.22,
+      -1.25
+     ],
+     "ry": -15,
+     "clip": "stand",
+     "keys": [],
+     "expr": "surprised"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0.0,
+      -0.2
+     ],
+     "ry": -35,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "veil",
+     "name": "veil",
+     "on": {
+      "actor": "soeur",
+      "joint": "head",
+      "offset": [
+       0,
+       0.42,
+       0
+      ]
+     }
+    },
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      -0.35,
+      0.22,
+      -1.2
+     ],
+     "opts": {
+      "h": 2.5,
+      "size": 0.7,
+      "mood": "smug",
+      "rain": true,
+      "puddle": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.85,
+      3.3
+     ],
+     "to": [
+      0.58,
+      1.85,
+      3.05
+     ],
+     "lookAt": [
+      0.45,
+      1.6,
+      -0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.45,
+      1.6,
+      -0.9
+     ]
+    }
+   ],
+   "start": 12.0667,
+   "duration": 1.4666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "poste",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.65
+     ],
+     "ry": 180,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "guichet",
+     "pos": [
+      0.0,
+      0,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "parcel",
+     "name": "cardboardBox",
+     "pos": [
+      0.0,
+      1.0,
+      -2.3
+     ],
+     "scale": 0.6,
+     "opts": {
+      "text": ""
+     }
+    },
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.0,
+      1.0,
+      -2.3
+     ],
+     "opts": {
+      "h": 0.75,
+      "size": 0.45,
+      "mood": "smug",
+      "rain": true,
+      "puddle": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.4,
+      1.75,
+      -0.2
+     ],
+     "to": [
+      1.3,
+      1.74,
+      -0.4
+     ],
+     "lookAt": [
+      0.0,
+      1.45,
+      -2.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.45,
+      -2.3
+     ]
+    }
+   ],
+   "start": 13.5333,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "poste",
+   "lines": [],
+   "actors": [
+    {
+     "id": "guichet",
+     "pos": [
+      0.0,
+      0,
+      -2.85
+     ],
+     "ry": 0,
+     "clip": "scared",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      0.4,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "h": 2.7,
+      "size": 0.9,
+      "mood": "happy",
+      "rain": true,
+      "puddle": true
+     }
+    },
+    {
+     "id": "flood",
+     "name": "floodWater",
+     "pos": [
+      0,
+      0,
+      -1.0
+     ],
+     "opts": {
+      "w": 12,
+      "d": 10,
+      "y0": 0.2,
+      "y1": 1.15,
+      "t0": 0.0,
+      "t1": 1.7
+     }
+    },
+    {
+     "id": "pb",
+     "name": "cardboardBox",
+     "pos": [
+      -0.9,
+      0.9,
+      -1.4
+     ],
+     "scale": 0.45,
+     "opts": {
+      "text": ""
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.6,
+        1.12,
+        -1.2
+       ],
+       "dur": 1.7
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.9,
+      1.6
+     ],
+     "to": [
+      0.55,
+      1.88,
+      1.35
+     ],
+     "lookAt": [
+      0.1,
+      1.45,
+      -2.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.45,
+      -2.2
+     ]
+    }
+   ],
+   "start": 14.9333,
+   "duration": 1.7,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "facteur",
+     "pos": [
+      0.0,
+      0.19,
+      -2.0
+     ],
+     "ry": -45,
+     "clip": "sitWave",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.0,
+        0.19,
+        -3.0
+       ],
+       "dur": 1.9,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "flood",
+     "name": "floodWater",
+     "pos": [
+      0,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "w": 14,
+      "d": 30,
+      "y0": 0.55,
+      "y1": 0.55
+     }
+    },
+    {
+     "id": "boat",
+     "name": "glbModel",
+     "pos": [
+      0.0,
+      0.42,
+      -2.0
+     ],
+     "ry": 45,
+     "opts": {
+      "src": "/assets/models/rowboat-objaverse-19091/model.glb",
+      "size": 2.2,
+      "outline": 0.012,
+      "lay": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.0,
+        0.42,
+        -3.0
+       ],
+       "dur": 1.9
+      }
+     ]
+    },
+    {
+     "id": "pk0",
+     "name": "cardboardBox",
+     "pos": [
+      0.42,
+      0.62,
+      -2.42
+     ],
+     "ry": 45,
+     "scale": 0.3,
+     "opts": {
+      "text": ""
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.42,
+        0.62,
+        -3.42
+       ],
+       "dur": 1.9
+      }
+     ]
+    },
+    {
+     "id": "pk1",
+     "name": "cardboardBox",
+     "pos": [
+      0.52,
+      0.62,
+      -2.3
+     ],
+     "ry": 57,
+     "scale": 0.3,
+     "opts": {
+      "text": ""
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.52,
+        0.62,
+        -3.3
+       ],
+       "dur": 1.9
+      }
+     ]
+    },
+    {
+     "id": "pk2",
+     "name": "cardboardBox",
+     "pos": [
+      0.45999999999999996,
+      0.78,
+      -2.37
+     ],
+     "ry": 69,
+     "scale": 0.3,
+     "opts": {
+      "text": ""
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.46,
+        0.78,
+        -3.37
+       ],
+       "dur": 1.9
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.7,
+      1.7
+     ],
+     "to": [
+      0.6,
+      1.68,
+      1.45
+     ],
+     "lookAt": [
+      0.4,
+      1.1,
+      -2.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.6,
+      1.05,
+      -2.7
+     ]
+    }
+   ],
+   "start": 16.6333,
+   "duration": 1.9,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      -1.5
+     ],
+     "ry": 0,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      -0.35,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "h": 1.9,
+      "size": 0.7,
+      "mood": "happy",
+      "rain": true,
+      "puddle": true
+     }
+    },
+    {
+     "id": "plant",
+     "name": "plant",
+     "pos": [
+      -0.35,
+      0,
+      -1.4
+     ],
+     "scale": 0.9
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.6,
+      1.5
+     ],
+     "to": [
+      0.1,
+      1.58,
+      1.25
+     ],
+     "lookAt": [
+      0.0,
+      1.35,
+      -1.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.35,
+      -1.5
+     ]
+    }
+   ],
+   "start": 18.5333,
+   "duration": 1.4,
+   "setOpts": {
+    "sofa": true,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "bathroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.85,
+      0.19,
+      -2.95
+     ],
+     "ry": 70,
+     "clip": "sitFloor",
+     "keys": [],
+     "expr": "grin"
+    }
+   ],
+   "props": [
+    {
+     "id": "cloud",
+     "name": "rainCloud",
+     "pos": [
+      -2.8,
+      0,
+      -2.95
+     ],
+     "opts": {
+      "h": 2.3,
+      "size": 0.7,
+      "mood": "happy",
+      "rain": true,
+      "puddle": false
+     }
+    },
+    {
+     "id": "bill",
+     "name": "noticeBoard",
+     "pos": [
+      -2.3,
+      1.8,
+      -3.33
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "FACTURE D'EAU\n0,00 €",
+      "style": "doc",
+      "w": 0.46,
+      "h": 0.4,
+      "popAt": 1.392
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.2,
+      1.62,
+      -0.3
+     ],
+     "to": [
+      -1.25,
+      1.6,
+      -0.5
+     ],
+     "lookAt": [
+      -2.5,
+      1.45,
+      -3.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.5,
+      1.45,
+      -3.0
+     ]
+    }
+   ],
+   "start": 19.9333,
+   "duration": 2.7167,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 22.65
+}

@@ -1,0 +1,114 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a commandé un parapluie sur internet.",
+  "hl": [
+   "parapluie",
+   "internet."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a reçu la pluie.",
+  "hl": [
+   "pluie."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Un petit nuage, dans un carton.",
+  "hl": [
+   "nuage,",
+   "carton."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le nuage l'a suivi partout.",
+  "hl": [
+   "suivi",
+   "partout."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Au bureau.",
+  "hl": [
+   "bureau."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "À l'arrêt du bus.",
+  "hl": [
+   "bus."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Au cinéma, en plein film.",
+  "hl": [
+   "cinéma,",
+   "film."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Au mariage de sa sœur.",
+  "hl": [
+   "mariage",
+   "sœur."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il a voulu le renvoyer.",
+  "hl": [
+   "renvoyer."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "La poste a été inondée.",
+  "hl": [
+   "poste",
+   "inondée."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le facteur est reparti en bateau.",
+  "hl": [
+   "facteur",
+   "bateau."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Alors il l'a gardé.",
+  "hl": [
+   "gardé."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Aujourd'hui, il ne paie plus l'eau.",
+  "hl": [
+   "paie",
+   "l'eau."
+  ]
+ }
+]

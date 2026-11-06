@@ -905,6 +905,41 @@ export const NEWS_PROPS = {
     w.scale.setScalar(k); w.position.set(-c.x * k, -bb.min.y * k, -c.z * k); g.add(w);
     g.userData.size = [sz.x * k, sz.y * k, sz.z * k]; return g;
   },
+  // ---- Le parapluie (story 31)
+  rainCloud(o) { // the little grey rain cloud with a face (problemCloud) at height o.h above the prop's origin, raining a column of drops to the ground
+    // (o.rain: true | false | [[t, bool]]), a puddle under it (o.puddle false | true | 'grow'); o.size (cloud scale), o.mood, o.w (rain width)
+    const H = o.h ?? 2.6, k = o.size || 0.8, g = grp(), cloud = NEWS_PROPS.problemCloud({ mood: o.mood || 'happy', size: k, seed: o.seed || 11 });
+    cloud.position.y = H; g.add(cloud);
+    const r = rng(o.seed || 12), N = o.n || 50, W = o.w || 0.5 * k, drops = [], dm = new THREE.MeshBasicMaterial({ color: '#8EC9F0', transparent: true, opacity: 0.9, depthWrite: false }), geo = new THREE.BoxGeometry(0.014, 0.15, 0.014);
+    for (let i = 0; i < N; i++) { const d = new THREE.Mesh(geo, dm); drops.push({ d, x: (r() - 0.5) * W, z: (r() - 0.5) * W * 0.7, ph: r(), v: 0.85 + r() * 0.3 }); g.add(d); }
+    const puddle = new THREE.Mesh(new THREE.CircleGeometry(0.42 * k, 20).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#7FB8E0', transparent: true, opacity: 0.55, depthWrite: false })); puddle.position.y = 0.006; g.add(puddle);
+    const top = H - 0.2 * k;
+    g.userData.update = t => { cloud.userData.update?.(t); const on = Array.isArray(o.rain) ? keyAt(o.rain, t) != null : o.rain !== false;
+      drops.forEach(p => { p.d.visible = on; if (on) { const q = (t * 2.4 * p.v / Math.max(0.5, top) + p.ph) % 1; p.d.position.set(p.x, top * (1 - q), p.z); } });
+      puddle.visible = !!o.puddle; puddle.scale.setScalar(o.puddle === 'grow' ? Math.min(1, 0.25 + t * 0.5) : 1); };
+    g.userData.update(0); return g;
+  },
+  floodWater(o) { // a flood: a translucent blue water slab (o.w × o.d) whose surface rises from o.y0 to o.y1 between o.t0 and o.t1 (ease out), gently bobbing
+    const W = o.w || 8, D = o.d || 8, g = grp(), m = new THREE.Mesh(new THREE.BoxGeometry(W, 1, D), new THREE.MeshLambertMaterial({ color: o.color || '#4FA3D9', transparent: true, opacity: o.opacity ?? 0.72, depthWrite: false }));
+    const top = new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#CFEAF8', transparent: true, opacity: 0.4, depthWrite: false })); g.add(m, top);
+    g.userData.update = t => { const t0 = o.t0 || 0, t1 = o.t1 ?? t0, k = t1 > t0 ? clamp01((t - t0) / (t1 - t0)) : 1, e = 1 - (1 - k) * (1 - k);
+      const y = Math.max(0.002, (o.y0 ?? 0) + ((o.y1 ?? 1) - (o.y0 ?? 0)) * e + 0.012 * Math.sin(t * 3)); m.scale.y = y; m.position.y = y / 2; top.position.y = y + 0.002; };
+    g.userData.update(0); return g;
+  },
+  veil(o) { // a bride's veil to attach to an actor's head joint (offset to the top of the head): a translucent white drape down the back and a headband of flowers
+    const g = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.95, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthWrite: false })), 0, -0.35, -0.1));
+    g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.016, 6, 18), mat('#F4F1E8')), 0, 0, 0, PI / 2, 0, 0));
+    for (let i = 0; i < 6; i++) g.add(at(sphere(0.026, i % 2 ? '#F7C6D9' : '#FFFFFF', 0), Math.cos(i * TAU / 6) * 0.14, 0.01, Math.sin(i * TAU / 6) * 0.14));
+    return g;
+  },
+  shopPhone(o) { // a phone showing a shopping page (screen +Z): a red umbrella, o.label (default « PARAPLUIE ») and o.price, a green « COMMANDER » button
+    const g = grp(at(box(0.075, 0.15, 0.01, '#1C1F24', { outline: 0.004 }), 0, 0, 0));
+    g.add(at(canvasPlane(0.067, 0.134, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); const cx = W / 2, cy = H * 0.36, R = W * 0.32;
+      c.fillStyle = '#C8322A'; c.beginPath(); c.arc(cx, cy, R, PI, 0); c.closePath(); c.fill(); c.strokeStyle = '#1C252A'; c.lineWidth = W * 0.035; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx, cy + R * 0.95); c.arc(cx - R * 0.15, cy + R * 0.95, R * 0.15, 0, PI); c.stroke();
+      c.fillStyle = '#1C252A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${W * 0.12}px Arial`; c.fillText(o.label || 'PARAPLUIE', cx, H * 0.66); c.fillStyle = '#C8322A'; c.font = `900 ${W * 0.14}px Arial`; c.fillText(o.price || '19,99 €', cx, H * 0.76);
+      c.fillStyle = '#2E8B57'; c.fillRect(W * 0.12, H * 0.84, W * 0.76, H * 0.1); c.fillStyle = '#FFFFFF'; c.font = `bold ${W * 0.085}px Arial`; c.fillText(o.button || 'COMMANDER', cx, H * 0.89); }, { res: 192, emissive: 0.55 }), 0, 0, 0.0055));
+    g.userData.grip = [0, -0.05, 0]; return g;
+  },
   // ---- L'armoire (story 30)
   armoire(o) { // a flat-pack two-door wardrobe (front +Z, o.w × o.h × o.d), pale wood, round handles, a plinth; o.tag: a price label hanging on a handle
     const W = o.w || 1.0, H = o.h || 2.0, D = o.d || 0.55, c = o.color || '#4F9FB0', dk = o.dark || '#3B7F8E', dc = o.door || '#6FBFCC', g = grp();   // teal: stands off a cream wall
