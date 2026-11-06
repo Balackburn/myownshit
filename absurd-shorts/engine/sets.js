@@ -1031,7 +1031,7 @@ const S = {
     const g = grp(), { back } = room(g, { wall: '#EDE8DC', band: '#F2C230', bandH: 1.0, trim: '#2C4A8A', floor: '#C9C2B2', back: -3.4, half: 6 });
     g.add(at(box(6.0, 1.05, 0.7, '#2C4A8A', { pivot: 'bottom', outline: 0.006 }), 0, 0, back + 1.0), at(box(6.1, 0.05, 0.8, '#E6E2D8'), 0, 1.075, back + 1.0), at(box(6.0, 0.1, 0.02, '#F2C230'), 0, 0.8, back + 1.36));
     [-2.0, 0, 2.0].forEach(x => { g.add(at(mesh(new THREE.BoxGeometry(1.5, 1.0, 0.012), glassMat(0.18, '#DDEEF2')), x, 1.6, back + 1.2), at(box(1.56, 0.05, 0.05, '#2A2A2E'), x, 2.12, back + 1.2), at(box(0.05, 1.05, 0.05, '#2A2A2E'), x - 0.78, 1.6, back + 1.2), at(box(0.05, 1.05, 0.05, '#2A2A2E'), x + 0.78, 1.6, back + 1.2), at(box(0.3, 0.04, 0.12, '#C9CCD1'), x, 1.1, back + 1.32)); });
-    [-2.0, 0, 2.0].forEach((x, i) => g.add(at(label(`GUICHET ${i + 1}`, 0.7, 0.16, { bg: '#2C4A8A', fg: '#F6F1E3', wrap: false }), x, 2.3, back + 1.22)));
+    if (o.guichets !== false) [-2.0, 0, 2.0].forEach((x, i) => g.add(at(label(`GUICHET ${i + 1}`, 0.7, 0.16, { bg: '#2C4A8A', fg: '#F6F1E3', wrap: false }), x, 2.3, back + 1.22)));   // o.guichets false: no window signs
     g.add(at(label(o.title || 'BUREAU DE POSTE', 3.4, 0.4, { bg: '#F2C230', fg: '#2C4A8A', wrap: false }), 0, 3.2, back + 0.02));
     for (let r = 0; r < 2; r++) for (let i = 0; i < 5; i++) g.add(prop('chair', { color: '#2C4A8A' }, -2.6 + i * 0.9 + (r ? 3.0 : 0) * 0, 0, 0.9 + r * 1.2, PI));
     g.add(prop('ticketMachine', { num: o.ticketNum || '4000' }, 3.6, 0, -0.3, -0.5));
@@ -1175,11 +1175,11 @@ function streetSet(o, night) {
 }
 
 Object.assign(S, {
-  parisStreet(o = {}) { // bright Paris street for the tornado-style remakes: asphalt road along Z, pale sidewalks, Haussmann blocks both sides,
+  parisStreet(o = {}) { // bright Paris street for the tornado-style remakes: asphalt road along Z, pale sidewalks, Haussmann blocks both sides (o.night: stars, lit windows and lamps),
     // round trees, lamps, the Eiffel tower at the far end, the replica's blue sky and white clouds
-    const g = grp(), r = rng(o.seed || 12);
-    sky(g, o.sky || ['#62AEE2', '#A7D4EC']); clouds(g, 6, 8);
-    g.add(ground('#C9C2B3'));
+    const g = grp(), r = rng(o.seed || 12), night = !!o.night;
+    if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || ['#62AEE2', '#A7D4EC']); clouds(g, 6, 8); }
+    g.add(ground(night ? '#8E8A80' : '#C9C2B3'));
     g.add(flat(10, 400, '#6E6E72', 0, 0.004, 0), flat(5, 400, '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, '#E4D6BE', -7.5, 0.006, 0));
     g.add(at(box(0.2, 0.16, 400, '#D9CDB4'), 5, 0, 0), at(box(0.2, 0.16, 400, '#D9CDB4'), -5, 0, 0));
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([0, 0.008, z]);
@@ -1188,13 +1188,13 @@ Object.assign(S, {
     const z0 = o.z0 ?? -120, n = o.n ?? 16;
     for (let i = 0; i < n; i++) {
       const z = z0 + i * 13, h = 15 + r() * 5;
-      g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: 12.6 }, 10.2, 0, z, -PI / 2));
-      g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: 12.6 }, -10.2, 0, z + 5, PI / 2));
-      if (i % 2 === 0) { g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); g.add(prop('streetLamp', {}, 5.6, 0, z + 9)); }
+      g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: 12.6, night, seed: i }, 10.2, 0, z, -PI / 2));
+      g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: 12.6, night, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
+      if (i % 2 === 0) { g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
     }
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70 }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0] };
-    g.userData.lighting = 'day'; return g;
+    g.userData.lighting = night ? 'night' : 'day'; return g;
   },
   spaceDark(o = {}) { // deep space: navy gradient dome + stars; the Earth goes in as a prop
     const g = grp(); sky(g, o.sky || ['#050913', '#0E1A33']); g.add(prop('stars', { radius: 150, count: o.stars || 600 }));

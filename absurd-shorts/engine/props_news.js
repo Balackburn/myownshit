@@ -6,6 +6,7 @@ import { grp, at, mesh, canvasPlane, inst, rod, torus, label } from './props.js'
 import { model as glbSource } from './models.js';
 
 const PI = Math.PI, TAU = PI * 2;
+function canvasTexture(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
 const keyAt = (list, t) => { let a0 = null; for (const [a, x] of (list || [])) if (t >= a && x) a0 = a; return a0; };
 const pop = (t, a0, d = 0.3) => a0 == null || t < a0 ? 0 : Math.max(0.001, ease.outBack(clamp01((t - a0) / d)));
 function sign(text, w, h, bg = '#F4F1E8', fg = '#1E2A33') {
@@ -919,26 +920,74 @@ export const NEWS_PROPS = {
       puddle.visible = !!o.puddle; puddle.scale.setScalar(o.puddle === 'grow' ? Math.min(1, 0.25 + t * 0.5) : 1); };
     g.userData.update(0); return g;
   },
-  floodWater(o) { // a flood: a translucent blue water slab (o.w × o.d) whose surface rises from o.y0 to o.y1 between o.t0 and o.t1 (ease out), gently bobbing
+  floodWater(o) { // a flood: a translucent blue water slab (o.w × o.d) whose surface rises from o.y0 to o.y1 between o.t0 and o.t1 (ease out), gently bobbing;
+    // a wavy surface texture; o.ripples [[x, z], ...]: expanding rings where the rain lands; o.floaters [{kind: 'parcel' | 'letter' | 'stool' | 'chair', x, z, ry, s}] ride the surface
     const W = o.w || 8, D = o.d || 8, g = grp(), m = new THREE.Mesh(new THREE.BoxGeometry(W, 1, D), new THREE.MeshLambertMaterial({ color: o.color || '#4FA3D9', transparent: true, opacity: o.opacity ?? 0.72, depthWrite: false }));
-    const top = new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#CFEAF8', transparent: true, opacity: 0.4, depthWrite: false })); g.add(m, top);
+    const wt = canvasTexture(512, 512, (c, Wc, Hc) => { c.fillStyle = '#9FD3F2'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = 'rgba(255,255,255,0.75)'; c.lineWidth = 6;
+      for (let r = 0; r < 9; r++) { c.beginPath(); for (let x = 0; x <= Wc; x += 8) { const y = (r + 0.5) * Hc / 9 + Math.sin(x / Wc * TAU * 3 + r * 1.7) * 10; x ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); } });
+    wt.wrapS = wt.wrapT = THREE.RepeatWrapping; wt.repeat.set(W / 2.2, D / 2.2);
+    const top = new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ map: wt, transparent: true, opacity: o.topOpacity ?? 0.62, depthWrite: false })); g.add(m, top);
+    const rings = (o.ripples || []).flatMap(([x, z], i) => [0, 1, 2].map(k => { const rm = new THREE.Mesh(new THREE.RingGeometry(0.8, 1, 28).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.8, depthWrite: false }));
+      g.add(rm); return { rm, x, z, ph: k / 3 + i * 0.17 }; }));
+    const FL = (o.floaters || []).map((f, i) => { const k = f.s || 1, fg = grp();
+      if (f.kind === 'letter') fg.add(at(box(0.24 * k, 0.012, 0.16 * k, '#FFFFFF', { outline: 0.004 }), 0, 0, 0), at(box(0.04 * k, 0.014, 0.05 * k, '#D7262E'), 0.08 * k, 0.001, -0.04 * k));
+      else if (f.kind === 'stool') fg.add(at(cyl(0.18 * k, 0.18 * k, 0.05, '#B5793C', 10, { outline: 0.006 }), 0, 0, 0), ...[0, 1, 2].map(q => at(cyl(0.02, 0.02, 0.42 * k, '#8A5A2B', 5, { pivot: 'bottom' }), Math.cos(q * TAU / 3) * 0.12 * k, 0, Math.sin(q * TAU / 3) * 0.12 * k, PI, 0, 0)));
+      else if (f.kind === 'chair') fg.add(at(box(0.42 * k, 0.05, 0.42 * k, '#3A3D44', { outline: 0.006 }), 0, 0, 0), at(box(0.42 * k, 0.45 * k, 0.05, '#3A3D44'), 0, 0.22 * k, -0.19 * k));
+      else fg.add(at(box(0.36 * k, 0.26 * k, 0.28 * k, '#C49A66', { outline: 0.006 }), 0, 0.06 * k, 0), at(box(0.37 * k, 0.03, 0.06 * k, '#E2C48A'), 0, 0.19 * k + 0.001, 0));
+      fg.rotation.y = f.ry || 0; g.add(fg); return { fg, f, ph: i * 1.3 }; });
     g.userData.update = t => { const t0 = o.t0 || 0, t1 = o.t1 ?? t0, k = t1 > t0 ? clamp01((t - t0) / (t1 - t0)) : 1, e = 1 - (1 - k) * (1 - k);
-      const y = Math.max(0.002, (o.y0 ?? 0) + ((o.y1 ?? 1) - (o.y0 ?? 0)) * e + 0.012 * Math.sin(t * 3)); m.scale.y = y; m.position.y = y / 2; top.position.y = y + 0.002; };
+      const y = Math.max(0.002, (o.y0 ?? 0) + ((o.y1 ?? 1) - (o.y0 ?? 0)) * e + 0.012 * Math.sin(t * 3)); m.scale.y = y; m.position.y = y / 2; top.position.y = y + 0.002;
+      wt.offset.set((t * 0.05) % 1, (t * 0.12) % 1);
+      rings.forEach(R => { const q = (t * 1.1 + R.ph) % 1, rad = 0.06 + q * 0.42; R.rm.scale.set(rad, 1, rad); R.rm.position.set(R.x, y + 0.006, R.z); R.rm.material.opacity = 0.85 * (1 - q); });
+      FL.forEach(F => { F.fg.position.set(F.f.x + 0.03 * Math.sin(t * 1.3 + F.ph), y + (F.f.kind === 'letter' ? 0.004 : 0.02) + 0.015 * Math.sin(t * 2.6 + F.ph), F.f.z + 0.03 * Math.cos(t * 1.1 + F.ph));
+        F.fg.rotation.x = 0.08 * Math.sin(t * 2.2 + F.ph) + (F.f.tilt || 0); F.fg.rotation.z = 0.08 * Math.cos(t * 1.9 + F.ph); });
+    };
     g.userData.update(0); return g;
   },
-  veil(o) { // a bride's veil to attach to an actor's head joint (offset to the top of the head): a translucent white drape down the back and a headband of flowers
+  brideVeil(o) { // a bride's veil to attach to an actor's head joint (offset to the top of the head): a translucent white drape down the back and a headband of flowers
     const g = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.95, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthWrite: false })), 0, -0.35, -0.1));
     g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.016, 6, 18), mat('#F4F1E8')), 0, 0, 0, PI / 2, 0, 0));
     for (let i = 0; i < 6; i++) g.add(at(sphere(0.026, i % 2 ? '#F7C6D9' : '#FFFFFF', 0), Math.cos(i * TAU / 6) * 0.14, 0.01, Math.sin(i * TAU / 6) * 0.14));
     return g;
   },
-  shopPhone(o) { // a phone showing a shopping page (screen +Z): a red umbrella, o.label (default « PARAPLUIE ») and o.price, a green « COMMANDER » button
+  shopPhone(o) { // a phone showing a shopping page (screen +Z): a red umbrella, o.label (default « PARAPLUIE ») and o.price, a green « COMMANDER » button;
+    // o.tapAt: a finger taps the button at that time and it turns into « ✓ COMMANDÉ »
     const g = grp(at(box(0.075, 0.15, 0.01, '#1C1F24', { outline: 0.004 }), 0, 0, 0));
-    g.add(at(canvasPlane(0.067, 0.134, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); const cx = W / 2, cy = H * 0.36, R = W * 0.32;
+    const page = (done) => at(canvasPlane(0.067, 0.134, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); const cx = W / 2, cy = H * 0.36, R = W * 0.32;
       c.fillStyle = '#C8322A'; c.beginPath(); c.arc(cx, cy, R, PI, 0); c.closePath(); c.fill(); c.strokeStyle = '#1C252A'; c.lineWidth = W * 0.035; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx, cy + R * 0.95); c.arc(cx - R * 0.15, cy + R * 0.95, R * 0.15, 0, PI); c.stroke();
       c.fillStyle = '#1C252A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${W * 0.12}px Arial`; c.fillText(o.label || 'PARAPLUIE', cx, H * 0.66); c.fillStyle = '#C8322A'; c.font = `900 ${W * 0.14}px Arial`; c.fillText(o.price || '19,99 €', cx, H * 0.76);
-      c.fillStyle = '#2E8B57'; c.fillRect(W * 0.12, H * 0.84, W * 0.76, H * 0.1); c.fillStyle = '#FFFFFF'; c.font = `bold ${W * 0.085}px Arial`; c.fillText(o.button || 'COMMANDER', cx, H * 0.89); }, { res: 192, emissive: 0.55 }), 0, 0, 0.0055));
+      c.fillStyle = done ? '#3CC46E' : '#2E8B57'; c.fillRect(W * (done ? 0.08 : 0.12), H * (done ? 0.83 : 0.84), W * (done ? 0.84 : 0.76), H * (done ? 0.12 : 0.1)); c.fillStyle = '#FFFFFF'; c.font = `bold ${W * (done ? 0.095 : 0.085)}px Arial`;
+      c.fillText(done ? '✓ COMMANDÉ' : (o.button || 'COMMANDER'), cx, H * 0.89); }, { res: 192, emissive: 0.55 }), 0, 0, 0.0055);
+    const A = page(false), B = o.tapAt != null ? page(true) : null; g.add(A); if (B) { B.visible = false; g.add(B); }
+    if (o.tapAt != null) {   // the finger: a skin-coloured stub sliding in from the lower right, pressing, and leaving
+      const f = grp(at(box(0.017, 0.075, 0.017, o.skin || '#E8B98F', { outline: 0.0025 }), 0, -0.0375, 0)); f.rotation.z = 0.55; g.add(f);
+      const P0 = [0.075, -0.14, 0.03], P1 = [0.004, -0.05, 0.014];
+      g.userData.update = t => { const a = clamp01((t - (o.tapAt - 0.22)) / 0.22), b = clamp01((t - (o.tapAt + 0.12)) / 0.25), u = ease.out(a) * (1 - ease.inOut(b)), press = t >= o.tapAt && t < o.tapAt + 0.12 ? 0.006 : 0;
+        f.visible = u > 0.01; f.position.set(P0[0] + (P1[0] - P0[0]) * u, P0[1] + (P1[1] - P0[1]) * u, P0[2] + (P1[2] - P0[2]) * u - press); A.visible = t < o.tapAt; B.visible = t >= o.tapAt; };
+      g.userData.update(0);
+    }
     g.userData.grip = [0, -0.05, 0]; return g;
+  },
+  waterBill(o) { // a big water bill (front +Z, o.w × o.h, default 0.7 × 0.56): white paper, navy border, « FACTURE D'EAU », grey lines, a huge red « 0,00 € » (the biggest element),
+    // pops in with an overshoot at o.popAt and a red stamp « PAYÉ » lands o.stampDelay later (default 0.25 s)
+    const w = o.w || 0.7, h = o.h || 0.56, g = grp(), inner = grp(); g.add(inner);
+    inner.add(at(box(w + 0.03, h + 0.03, 0.02, '#1E3A5F', { outline: 0.006 }), 0, 0, -0.012));
+    inner.add(at(canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#1E3A5F'; c.lineWidth = W * 0.02; c.strokeRect(W * 0.03, H * 0.04, W * 0.94, H * 0.92);
+      c.fillStyle = '#1E3A5F'; c.fillRect(W * 0.03, H * 0.04, W * 0.94, H * 0.2); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      let px = H * 0.13; c.font = `900 ${px}px Arial`; const t1 = o.title || "FACTURE D'EAU", tw = c.measureText(t1).width; if (tw > W * 0.86) { px *= W * 0.86 / tw; c.font = `900 ${px}px Arial`; } c.fillText(t1, W / 2, H * 0.14);
+      c.fillStyle = '#C9CDD2'; for (let i = 0; i < 2; i++) c.fillRect(W * 0.12, H * (0.32 + i * 0.07), W * (0.76 - i * 0.2), H * 0.025);
+      c.fillStyle = '#D7262E'; let pa = H * 0.34; c.font = `900 ${pa}px Arial`; const t2 = o.amount || '0,00 €', aw = c.measureText(t2).width; if (aw > W * 0.88) { pa *= W * 0.88 / aw; c.font = `900 ${pa}px Arial`; } c.fillText(t2, W / 2, H * 0.68);
+      c.fillStyle = '#5A6470'; c.font = `bold ${H * 0.06}px Arial`; c.fillText(o.sub || 'À PAYER', W / 2, H * 0.88); }, { res: 512 }), 0, 0, 0.001));
+    const stamp = o.stamp === false ? null : grp(at(canvasPlane(w * 0.42, h * 0.2, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = '#D7262E'; c.lineWidth = H * 0.1; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H - H * 0.16);
+      c.fillStyle = '#D7262E'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.62}px Arial`; c.fillText(o.stamp || 'GRATUIT', W / 2, H * 0.54); }, { res: 256 }), 0, 0, 0));
+    if (stamp) { stamp.position.set(w * 0.2, -h * 0.37, 0.006); stamp.rotation.z = 0.14; inner.add(stamp); }
+    g.userData.update = t => { if (o.popAt == null) return; const u = clamp01((t - o.popAt) / (o.popDur || 0.3)); inner.visible = t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u))); inner.rotation.z = (o.tilt || 0) + 0.1 * (1 - u) * Math.sin(u * 9);
+      if (stamp) { const sd = o.popAt + (o.stampDelay ?? 0.3), v = clamp01((t - sd) / 0.14); stamp.visible = t >= sd; stamp.scale.setScalar(Math.max(0.01, 1.8 - 0.8 * ease.out(v))); } };
+    g.userData.update(0); return g;
+  },
+  flickerLight(o) { // a coloured point light whose intensity flickers (a cinema screen, a TV): o.color, o.intensity (default 12), o.distance (default 12), o.rate
+    const l = new THREE.PointLight(o.color || '#CFE0FF', o.intensity ?? 12, o.distance ?? 12, 1.3), g = grp(l), I = o.intensity ?? 12, r = o.rate || 1;
+    g.userData.update = t => { l.intensity = I * (0.82 + 0.12 * Math.sin(t * 11 * r) + 0.08 * Math.sin(t * 23.7 * r + 1.3) + 0.06 * Math.sin(t * 5.3 * r + 0.4)); }; g.userData.update(0); return g;
   },
   // ---- L'armoire (story 30)
   armoire(o) { // a flat-pack two-door wardrobe (front +Z, o.w × o.h × o.d), pale wood, round handles, a plinth; o.tag: a price label hanging on a handle
@@ -1029,18 +1078,25 @@ export const NEWS_PROPS = {
       side.position.set(-0.55, 0.38 + 0.9, sd * 0.953); if (sd < 0) side.rotation.y = PI; g.add(side); }
     return g;
   },
-  queueFigures(o) { // a queue of small locksmiths (blue overalls, navy beanie, red toolbox) along o.path [[x, z], ...] every o.gap m (default 0.75), facing the front of the queue
+  queueFigures(o) { // a queue of small locksmiths (blue overalls, navy beanie, red toolbox) along o.path [[x, z], ...] every o.gap m (default 0.75), facing the front of the queue;
+    // o.people: passers-by instead (varied coats, trousers and hair, no toolbox); o.skip drops the first n figures (the front of the queue)
     // (the first point); a gentle idle sway; o.colors {jacket, pants}; o.max caps the count. Instanced, so hundreds are cheap.
     const path = o.path || [[0, 0], [10, 0]], gap = o.gap || 0.75, r = rng(o.seed || 7), pts = [];
     const segs = []; let tot = 0;
     for (let i = 0; i < path.length - 1; i++) { const [x0, z0] = path[i], [x1, z1] = path[i + 1], L = Math.hypot(x1 - x0, z1 - z0); segs.push([x0, z0, x1, z1, L, tot]); tot += L; }
     for (let d = 0; d < tot; d += gap) { const sg = segs.find(q => d >= q[5] && d < q[5] + q[4]) || segs[segs.length - 1], u = (d - sg[5]) / sg[4];
       pts.push([sg[0] + (sg[2] - sg[0]) * u + (r() - 0.5) * (o.jitter ?? 0.12), sg[1] + (sg[3] - sg[1]) * u + (r() - 0.5) * (o.jitter ?? 0.12), Math.atan2(sg[0] - sg[2], sg[1] - sg[3]) + (r() - 0.5) * 0.5]); }
-    const list = pts.slice(0, o.max || 400), n = list.length, J = (o.colors || {}).jacket || '#2F5E9E', Pn = (o.colors || {}).pants || '#22385E';
-    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125]];   // ... and two eyes
+    const list = pts.slice(o.skip || 0, o.max || 400), n = list.length, PPL = !!o.people, J = PPL ? '#FFFFFF' : (o.colors || {}).jacket || '#2F5E9E', Pn = PPL ? '#FFFFFF' : (o.colors || {}).pants || '#22385E';
+    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, PPL ? '#FFFFFF' : (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125]];   // ... and two eyes
+    if (PPL) parts[5] = [0.001, 0.001, 0.001, '#FFFFFF', 0, 0, 0];   // people: no toolbox
     const g = grp(), meshes = parts.map(([w, h, d, c]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(w, h, d), mat(c), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
     const info = list.map(() => ({ s: 0.93 + r() * 0.14, ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
     const skinC = new THREE.Color(); info.forEach((f, i) => meshes[3].setColorAt(i, skinC.set(f.skin))); if (meshes[3].instanceColor) meshes[3].instanceColor.needsUpdate = true;
+    if (PPL) { const JK = ['#B5302A', '#2F5E8C', '#3E7D5A', '#C9822E', '#6B4E8F', '#2E3A46', '#D9A441', '#8C3B4A', '#4F9FB0', '#7A7F87', '#E07A5F', '#F2F2EE'],
+      PT = ['#22385E', '#2E3A46', '#4A3B2F', '#3C3F45', '#1F2A36', '#5A5F66'], HR = ['#2A1E16', '#4A3222', '#1A1A1A', '#8A6A3A', '#C9B28A', '#6B6B6B', '#3A2A1E'], c3 = new THREE.Color();
+      list.forEach((_, i) => { const j = JK[Math.floor(r() * JK.length)], pt = PT[Math.floor(r() * PT.length)], h = HR[Math.floor(r() * HR.length)];
+        [2, 6, 7].forEach(k => meshes[k].setColorAt(i, c3.set(j))); [0, 1].forEach(k => meshes[k].setColorAt(i, c3.set(pt))); meshes[4].setColorAt(i, c3.set(h)); });
+      [0, 1, 2, 4, 6, 7].forEach(k => { if (meshes[k].instanceColor) meshes[k].instanceColor.needsUpdate = true; }); }
     const o3 = new THREE.Object3D(), place = t => { list.forEach(([x, z, a], i) => { const f = info[i], sway = 0.04 * Math.sin(t * 2.2 + f.ph);
       parts.forEach(([w, h, d, c, px, py, pz], k) => { o3.position.set(x, 0, z); o3.rotation.set(0, a, sway * 0.5); o3.scale.setScalar(f.s); o3.updateMatrix();
         const loc = new THREE.Matrix4().makeTranslation(px, py, pz); o3.matrix.multiply(loc); meshes[k].setMatrixAt(i, o3.matrix); }); });
