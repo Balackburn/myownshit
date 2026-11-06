@@ -52,7 +52,7 @@ export async function load(script, { width, height } = {}) {
   stage.renderer.domElement.style.display = 'none';
   const out = document.createElement('canvas'); out.width = W; out.height = H; document.body.appendChild(out);
   S = { script, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, scene: -1, warnings: [], events: [], camTimes: [], lineById: {}, tempo: script.tempo || 1 }; // tempo > 1: snappier gestures, blends and turns
-  if (script.look === 'shaders') S.look = createLook(stage, W, H, script.lookOpts || {});   // Minecraft-shader-style light (engine/look.js)
+  if (script.look === 'shaders' || script.look === 'natural') S.look = createLook(stage, W, H, { ...(script.lookOpts || {}), natural: script.look === 'natural' });   // engine/look.js: Minecraft-shader-style light, or 'natural' (scene light probe, soft VSM shadows, Neutral tone mapping)
   await Models.preload(Models.srcsIn(script)); await Models.preloadImages(Models.allTextures());
   for (const [id, c] of Object.entries(script.cast || {})) S.cast[id] = buildActor(c, id);
   script.scenes.forEach((sc, si) => sc.lines.forEach(l => { S.lineById[l.id] = { ...l, si, rs: l.start - sc.start, re: l.end - sc.start }; }));

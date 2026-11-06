@@ -46,6 +46,26 @@ const GradeShader = {
     }`,
 };
 
+// A light probe captured from the scene itself (sync port of three's LightProbeGenerator.fromCubeRenderTarget): the sky, the sunlit
+// ground and walls around the action, as spherical harmonics. It works with the engine's Lambert materials and stands in for bounced light.
+function probeFromCube(renderer, rt) {
+  const flip = -1, w = rt.width, data = new Uint16Array(w * w * 4), sh = new THREE.SphericalHarmonics3(), co = sh.coefficients;
+  const coord = new THREE.Vector3(), dir = new THREE.Vector3(), basis = [0, 0, 0, 0, 0, 0, 0, 0, 0], px = 2 / w; let total = 0;
+  for (let f = 0; f < 6; f++) {
+    renderer.readRenderTargetPixels(rt, 0, 0, w, w, data, f);
+    for (let i = 0; i < data.length; i += 4) {
+      const r = THREE.DataUtils.fromHalfFloat(data[i]), g = THREE.DataUtils.fromHalfFloat(data[i + 1]), b = THREE.DataUtils.fromHalfFloat(data[i + 2]);
+      const pi = i / 4, col = (1 - (pi % w + 0.5) * px) * flip, row = 1 - (Math.floor(pi / w) + 0.5) * px;
+      switch (f) { case 0: coord.set(-1 * flip, row, col * flip); break; case 1: coord.set(1 * flip, row, -col * flip); break; case 2: coord.set(col, 1, -row); break;
+        case 3: coord.set(col, -1, row); break; case 4: coord.set(col, row, 1); break; case 5: coord.set(-col, row, -1); break; }
+      const l2 = coord.lengthSq(), wt = 4 / (Math.sqrt(l2) * l2); total += wt; dir.copy(coord).normalize(); THREE.SphericalHarmonics3.getBasisAt(dir, basis);
+      for (let j = 0; j < 9; j++) { co[j].x += basis[j] * r * wt; co[j].y += basis[j] * g * wt; co[j].z += basis[j] * b * wt; }
+    }
+  }
+  const norm = 4 * Math.PI / total; for (let j = 0; j < 9; j++) co[j].multiplyScalar(norm);
+  return new THREE.LightProbe(sh);
+}
+
 let _sunTex = null;
 function sunTexture() {
   if (_sunTex) return _sunTex;
@@ -57,7 +77,10 @@ function sunTexture() {
 
 export function createLook(stage, W, H, o = {}) {
   const { renderer, scene, camera } = stage;
-  renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = o.exposure ?? 1.0;   // Khronos neutral: keeps the paper hues, rolls off the brighter sun
+  const natural = !!o.natural;   // 'natural': light captured from the scene (probe), soft shadows, a filmic curve
+  renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = o.exposure ?? 1.0;   // neutral keeps the paper hues; AgX rolls off like film
+  if (natural) renderer.shadowMap.type = THREE.VSMShadowMap;   // blurred shadow maps: soft penumbras, like a sun with a size
+  const cubeRT = natural ? new THREE.WebGLCubeRenderTarget(48, { type: THREE.HalfFloatType }) : null, cubeCam = natural ? new THREE.CubeCamera(0.05, 400, cubeRT) : null; let probe = null;
   const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: 4 });
   const composer = new EffectComposer(renderer, rt); composer.setPixelRatio(1);
   composer.addPass(new RenderPass(scene, camera));
@@ -80,7 +103,7 @@ export function createLook(stage, W, H, o = {}) {
   sun.renderOrder = -9; sun.userData.noAO = true; scene.add(sun);
   const v = new THREE.Vector3(), dir = new THREE.Vector3();
   const look = {
-    outdoor: true, shaftsK: 1,
+    outdoor: true, shaftsK: 1, probeDirty: false,
     // per scene: retune the rig set by setLighting / atmosphere (called from setupScene)
     setupLights(L, set, sc = {}) {
       const indoor = (set.userData.lighting || 'day') === 'interior' || (set.userData.lighting === 'dark') || sc.indoor === true;
@@ -94,10 +117,11 @@ export function createLook(stage, W, H, o = {}) {
       const sd = k.sunDir || set.userData.sun; if (sd) { dir.set(...sd).normalize(); L.key.position.copy(L.key.target.position).addScaledVector(dir, len); }   // per set: the sun that lights the playing area
       const maxEl = (k.elevation ?? (indoor ? 50 : sd ? 80 : 38)) * Math.PI / 180, el = Math.asin(Math.min(1, dir.y));
       if (el > maxEl) { const hz = Math.hypot(dir.x, dir.z) || 1; dir.x *= Math.cos(maxEl) / hz; dir.z *= Math.cos(maxEl) / hz; dir.y = Math.sin(maxEl); L.key.position.copy(L.key.target.position).addScaledVector(dir, len); }
-      L.key.shadow.radius = 4; L.key.shadow.normalBias = 0.02; L.key.shadow.bias = Math.min(L.key.shadow.bias, -0.0004);
+      L.key.shadow.radius = natural ? (k.softness ?? (indoor ? 9 : 6)) : 4; L.key.shadow.normalBias = 0.02; L.key.shadow.bias = Math.min(L.key.shadow.bias, -0.0004);
+      if (natural) { L.key.shadow.blurSamples = 16; L.hemi.intensity *= k.hemi ?? 0.45; L.key.intensity *= k.sunN ?? 0.95; look.probeK = k.probe ?? (indoor ? 1.7 : 1.2); look.probeDirty = true; look.probeAt = k.probeAt || null; }
       ao.blendIntensity = k.ao ?? o.ao ?? 1.0; bloom.strength = k.bloom ?? o.bloom ?? 0.28; shafts.uniforms.intensity.value = k.shafts ?? 0.55;
-      grade.uniforms.sat.value = k.sat ?? 1.12; grade.uniforms.contrast.value = k.contrast ?? 1.05; grade.uniforms.warm.value = k.warm ?? 1.0;
-      renderer.toneMappingExposure = k.exposure ?? o.exposure ?? (indoor ? 1.2 : 1.12);
+      grade.uniforms.sat.value = k.sat ?? (natural ? (indoor ? 1.1 : 1.16) : 1.12); grade.uniforms.contrast.value = k.contrast ?? (natural ? (indoor ? 0.98 : 1.04) : 1.05); grade.uniforms.warm.value = k.warm ?? (natural ? 0.85 : 1.0);
+      renderer.toneMappingExposure = k.exposure ?? o.exposure ?? (natural ? (indoor ? 1.32 : 1.14) : (indoor ? 1.2 : 1.12));
       // distance haze outdoors, coloured like the horizon
       if (look.outdoor && !scene.fog && k.haze !== false) { const hz = new THREE.Color(k.hazeColor || '#CFE3F0'); scene.fog = new THREE.Fog(hz, k.hazeNear ?? 70, k.hazeFar ?? Math.max(260, camera.far * 1.1)); }
       set.traverse(n => { if (!isSky(n)) return; n.material.fog = false; n.material.toneMapped = false;   // the authored gradient, made a little deeper (shader skies)
@@ -118,6 +142,13 @@ export function createLook(stage, W, H, o = {}) {
         on = inFront ? Math.max(0, 1 - out / 0.35) : 0;
       }
       shafts.uniforms.sunOn.value = on * look.shaftsK; shafts.enabled = on > 0.001;
+      if (natural && look.probeDirty) {   // once per scene: capture the light around the action (the camera's look point, ~2.5 m ahead)
+        look.probeDirty = false; if (probe) { scene.remove(probe); probe = null; }
+        dir.set(0, 0, -1).applyQuaternion(camera.quaternion);
+        const at = look.probeAt ? new THREE.Vector3(...look.probeAt) : camera.position.clone().addScaledVector(dir, 2.5); at.y = Math.max(at.y, 0.6);
+        const sv = sun.visible; sun.visible = false; cubeCam.position.copy(at); cubeCam.update(renderer, scene); sun.visible = sv;
+        probe = probeFromCube(renderer, cubeRT); probe.intensity = look.probeK; scene.add(probe);
+      }
       composer.render();
     },
   };
