@@ -27,7 +27,8 @@ export function srcsIn(script) {
 }
 
 // ---- image textures (FLUX-generated set dressing in assets/textures/), preloaded like the GLBs so frames stay deterministic
-export const TEXTURES = { facades: ['/assets/textures/facade_cream.webp', '/assets/textures/facade_pink.webp', '/assets/textures/facade_grey.webp'] };
+export const TEXTURES = { facades: ['/assets/textures/facade_cream.webp', '/assets/textures/facade_pink.webp', '/assets/textures/facade_grey.webp'],
+  paintings: ['/assets/textures/painting_hills.webp', '/assets/textures/painting_sea.webp'] };
 const images = new Map(), texCache = new Map();
 export async function preloadImages(urls) {
   await Promise.all([...new Set(urls)].filter(u => u && !images.has(u)).map(u => new Promise(res => {

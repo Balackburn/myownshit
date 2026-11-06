@@ -5,6 +5,7 @@
 // behind (negative z) and at the sides; a ~2.5 m radius around the origin stays clear for
 // actors; ground extends far (>=150 m) so wide shots never show an edge.
 import * as THREE from 'three';
+import { imageTexture, TEXTURES } from './models.js';
 import { PALETTE as P, mat, box, cyl, sphere, rng } from './style.js';
 import { buildProp, grp, at, rod, label, canvasPlane, glow, glassMat, inst, mesh, torus } from './props.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -78,7 +79,8 @@ function bunting(a, b, sag, cols = [P.red, P.teal, P.cream]) {
 }
 // Painted canvas picture in a frame (wall decoration).
 function picture(w, h, frame = P.navy, scene = 'hills') {
-  const art = canvasPlane(w - 0.12, h - 0.12, (g, W, H) => {
+  const ft = imageTexture(TEXTURES.paintings[scene === 'sea' ? 1 : 0]);   // FLUX paintings (assets/textures) when loaded
+  const art = ft ? new THREE.Mesh(new THREE.PlaneGeometry(w - 0.12, h - 0.12), new THREE.MeshLambertMaterial({ map: ft })) : canvasPlane(w - 0.12, h - 0.12, (g, W, H) => {
     g.fillStyle = scene === 'sea' ? '#BFD6D3' : P.tealPale; g.fillRect(0, 0, W, H);
     g.fillStyle = P.yellow; g.beginPath(); g.arc(W * 0.72, H * 0.3, H * 0.12, 0, TAU); g.fill();
     g.fillStyle = scene === 'sea' ? P.teal : P.green; g.beginPath(); g.moveTo(0, H); g.lineTo(0, H * 0.62); g.quadraticCurveTo(W * 0.3, H * 0.35, W * 0.55, H * 0.66); g.quadraticCurveTo(W * 0.8, H * 0.5, W, H * 0.6); g.lineTo(W, H); g.fill();
