@@ -1,0 +1,21 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #card-c1 { position: absolute; left: 45px; top: 141px; width: 977px; height: 214px; background: #203447; border-radius: 2px;
+                  box-shadow: 0 6px 11px rgba(0, 0, 0, 0.22); display: flex; align-items: center; justify-content: center; opacity: 0; }
+    #word-c1 { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 129px; line-height: 1.05; text-align: center; color: #FFFFFF; letter-spacing: 1px;
+                  text-shadow: 0 0 9px rgba(255, 255, 255, 0.35); white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="card-c1" data-width="1080" data-height="1920">
+    <div id="card-c1"><span id="word-c1">UNE HEURE</span></div>
+  </div>
+  <script>
+    // The replica's THEFT card motion (measured frame by frame): drops in from above, overshoots, springs back, settles tilted 1.27 deg.
+    const tl = gsap.timeline({ paused: true });
+    const K = [[0, -375.0, 1.5], [1, -286.9, 1.5], [2, 105.9, 3.2], [3, 54.4, 4.1], [4, 8.4, 3.4], [5, -37.5, 2.3], [6, -60.0, 1.3], [7, -56.2, 0.5], [8, -36.6, 0.4], [9, -14.1, 0.6], [10, 1.9, 1.0], [11, 8.4, 1.4], [12, 4.7, 1.65], [13, -2.8, 1.65], [14, -9.4, 1.5], [15, -13.1, 1.3], [16, -14.1, 1.15], [17, -10.3, 1.15], [18, -6.6, 1.15], [19, -1.9, 1.3], [20, 0.0, 1.27]];
+    tl.set("#card-c1", { opacity: 0, y: K[0][1], rotation: K[0][2] }, 0);
+    for (let i = 1; i < K.length; i++) tl.to("#card-c1", { y: K[i][1], rotation: K[i][2], duration: 1 / 30, ease: "none" }, (K[i - 1][0]) / 30);
+    tl.set("#card-c1", { opacity: 1 }, 0.5 / 30);
+    window.__timelines["card-c1"] = tl;
+  </script>
+</template>
