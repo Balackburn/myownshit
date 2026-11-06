@@ -12,6 +12,7 @@ import { OCEAN_PROPS } from './props_ocean.js';
 import { NEWS_PROPS } from './props_news.js';
 import { CANICULE_PROPS } from './props_canicule.js';
 import { VER_PROPS } from './props_ver.js';
+import { CHAUSSETTES_PROPS } from './props_chaussettes.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -2043,7 +2044,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.

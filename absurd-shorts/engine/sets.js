@@ -228,8 +228,11 @@ const S = {
     g.add(at(box(0.9, 0.7, 0.36, '#7FC4B2', { pivot: 'bottom' }), -0.85, 1.75, back + 0.18), at(box(0.9, 0.7, 0.36, '#7FC4B2', { pivot: 'bottom' }), 1.25, 1.75, back + 0.18));
     // the blazing window: a white-hot sky with the sun in it, and its light on the floor
     g.add(prop('window', { w: 1.0, h: 0.85, color: P.cream }, 0.2, 1.3, back));
-    g.add(at(canvasPlane(0.96, 0.8, (c, W, H) => { const gr = c.createRadialGradient(W * 0.65, H * 0.35, 4, W * 0.65, H * 0.35, W * 0.9); gr.addColorStop(0, '#FFFFF4'); gr.addColorStop(0.18, '#FFF1B0'); gr.addColorStop(0.5, '#FFD27A'); gr.addColorStop(1, '#F6B65C'); c.fillStyle = gr; c.fillRect(0, 0, W, H); }, { res: 256, emissive: 1 }), 0.2, 1.3, back + 0.012));
-    const patch = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.6).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFE7A8', transparent: true, opacity: 0.35, depthWrite: false })); patch.position.set(0.35, 0.006, back + 1.6); patch.rotation.y = 0.15; g.add(patch);
+    if (o.cold) g.add(at(canvasPlane(0.96, 0.8, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#9FB2C4'); gr.addColorStop(1, '#E4EBF0'); c.fillStyle = gr; c.fillRect(0, 0, W, H);   // o.cold (September): a grey snowy sky, flakes, frost in the corners
+      c.fillStyle = '#FFFFFF'; for (let i = 0; i < 46; i++) { c.beginPath(); c.arc((i * 53 % 97) / 97 * W, (i * 37 % 89) / 89 * H, 2 + (i % 3), 0, 2 * PI); c.fill(); }
+      c.fillStyle = 'rgba(255,255,255,0.85)'; for (const [x, y] of [[0, 0], [W, 0], [0, H], [W, H]]) { c.beginPath(); c.arc(x, y, W * 0.22, 0, 2 * PI); c.fill(); } }, { res: 256, emissive: 0.8 }), 0.2, 1.3, back + 0.012));
+    else g.add(at(canvasPlane(0.96, 0.8, (c, W, H) => { const gr = c.createRadialGradient(W * 0.65, H * 0.35, 4, W * 0.65, H * 0.35, W * 0.9); gr.addColorStop(0, '#FFFFF4'); gr.addColorStop(0.18, '#FFF1B0'); gr.addColorStop(0.5, '#FFD27A'); gr.addColorStop(1, '#F6B65C'); c.fillStyle = gr; c.fillRect(0, 0, W, H); }, { res: 256, emissive: 1 }), 0.2, 1.3, back + 0.012));
+    const patch = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.6).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: '#FFE7A8', transparent: true, opacity: 0.35, depthWrite: false })); patch.position.set(0.35, 0.006, back + 1.6); patch.rotation.y = 0.15; if (!o.cold) g.add(patch);
     g.add(prop('deskFan', { color: '#5FA8D3' }, 1.2, 0.95, back + 0.32, -0.3), prop('wiltPlant', { wilt: 1 }, -0.9, 0.95, back + 0.32), prop('mug', { color: P.yellow }, 0.6, 0.95, back + 0.35));
     const ax = 2.8, ay = 1.9;   // arched doorway
     g.add(at(box(1.1, ay, 0.02, '#3A2E28'), ax, ay / 2, back + 0.01), at(mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.02, 12, 1, false, PI / 2, PI), mat('#3A2E28')), ax, ay, back + 0.01, PI / 2),
@@ -1202,10 +1205,10 @@ Object.assign(S, {
   parisStreet(o = {}) { // bright Paris street for the tornado-style remakes: asphalt road along Z, pale sidewalks, Haussmann blocks both sides (o.night: stars, lit windows and lamps),
     // round trees, lamps, the Eiffel tower at the far end, the replica's blue sky and white clouds
     const g = grp(), r = rng(o.seed || 12), night = !!o.night, snow = !!o.snow;   // o.snow: snowed-in street, flakes falling round the origin
-    if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || (snow ? ['#A9B9C9', '#E6ECF0'] : ['#62AEE2', '#A7D4EC'])); clouds(g, 6, 8); }
+    if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || (snow ? ['#C3CCD5', '#EEF1F3'] : ['#62AEE2', '#A7D4EC'])); clouds(g, 6, 8); }
     g.add(ground(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3'));
     g.add(flat(10, 400, snow ? '#C9CED4' : '#6E6E72', 0, 0.004, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', -7.5, 0.006, 0));
-    if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); g.add(prop('snowfall', { w: 30, h: 12, d: 40, n: 3200, size: 0.13 }, 0, 0, 0), prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2)); }
+    if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); g.add(prop('snowfall', { w: 30, h: 12, d: 40, n: o.snowN || 3200, size: o.snowSize || 0.13 }, o.snowX || 0, 0, 0), prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2)); }
     g.add(at(box(0.2, 0.16, 400, '#D9CDB4'), 5, 0, 0), at(box(0.2, 0.16, 400, '#D9CDB4'), -5, 0, 0));
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([0, 0.008, z]);
     g.add(inst(new THREE.BoxGeometry(0.16, 0.01, 1.8), mat('#F4F1E8'), dash));
@@ -1290,6 +1293,65 @@ Object.assign(S, {
       for (let i = 0; i < 10; i++) g.add(prop('seaweed', { seed: i + 30, n: 3, h: 0.5 }, (r() - 0.5) * 30, 0, -r() * 30 + 5));
     }
     g.userData.anchors = { center: [0, 0, 0] }; g.userData.lighting = 'day'; return g;
+  },
+});
+
+
+Object.assign(S, {
+  laundryRoom(o = {}) { // « Les chaussettes »: a bright laundry corner — pale blue walls, a white tiled band, the big washing machine (o.washer === false: a scene
+    // bigWasher replaces it; anchors.washer is its spot), a shelf of washing powder, a basket of laundry, a clothes horse with socks, a sunny window
+    const g = grp(), { back } = room(g, { wall: '#CFE3EC', band: '#F4F6F8', bandH: 1.1, trim: '#8FB8CC', floor: '#E9E2D4', half: 6 });
+    const tiles = []; for (let i = -10; i < 10; i++) for (let j = 0; j < 20; j++) if ((i + j) % 2 === 0) tiles.push([i * 0.5 + 0.25, 0.003, back + j * 0.5 + 0.25]);
+    g.add(inst(new THREE.PlaneGeometry(0.5, 0.5).rotateX(-PI / 2), mat('#DCD3C1'), tiles));
+    if (o.washer !== false) g.add(prop('bigWasher', { open: o.open ?? 0 }, -1.2, 0, back + 0.62));
+    g.add(at(box(2.2, 0.05, 0.4, '#E8E1D0', { outline: 0.006 }), 1.4, 2.0, back + 0.2));   // shelf
+    [['#3C8DD9', 0.7], ['#E0413A', 1.15], ['#F2C230', 1.55], ['#7FC4B2', 1.95]].forEach(([c, x]) => g.add(at(box(0.3, 0.42, 0.22, c, { pivot: 'bottom', outline: 0.006 }), x, 2.025, back + 0.2),
+      at(box(0.31, 0.1, 0.225, '#FFFFFF', { pivot: 'bottom' }), x, 2.2, back + 0.2)));
+    g.add(prop('window', { w: 1.1, h: 0.9, color: P.cream }, 1.5, 1.35, back));
+    g.add(at(canvasPlane(1.06, 0.86, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#8CC8F0'); gr.addColorStop(1, '#D8EEFA'); c.fillStyle = gr; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF'; c.beginPath(); c.ellipse(W * 0.3, H * 0.35, W * 0.16, H * 0.07, 0, 0, TAU); c.fill(); }, { res: 256, emissive: 0.9 }), 1.5, 1.35, back + 0.01));
+    // laundry basket with clothes, a clothes horse with socks (all in pairs but one)
+    const bask = mesh(new THREE.CylinderGeometry(0.34, 0.28, 0.42, 14, 1, true), mat('#C99A5A', { doubleSide: true })); bask.position.set(0.55, 0.21, back + 0.75); g.add(bask, at(cyl(0.3, 0.3, 0.1, '#7FA8D9', 10), 0.55, 0.36, back + 0.75), at(cyl(0.22, 0.22, 0.1, '#F2C94C', 10), 0.62, 0.42, back + 0.72));
+    g.add(prop('dryingRack', { w: 1.2 }, 2.6, 0, back + 1.4, -0.3));
+    g.add(hangLamp(0, 3.2, -0.5, '#F4F6F8', 6));
+    g.userData.anchors = { center: [0, 0, 0], washer: [-1.2, 0, back + 0.62], washerFront: [-1.2, 0, back + 1.9] };
+    g.userData.sun = [0.45, 0.6, 0.66]; g.userData.lighting = 'interior'; return g;
+  },
+  drumTunnel(o = {}) { // inside the drum: a perforated steel tube running away along -Z (axis y = R, so its bottom is the floor at y = 0), three lifters,
+    // socks drifting in the air, a bright round exit far down the tube (the kingdom's light), the porthole behind (z = 9)
+    const g = grp(), R = o.r || 1.3, L = o.len || 34, z0 = 9;
+    const geo = new THREE.CylinderGeometry(R, R, L, 40, 1, true); geo.rotateX(PI / 2); geo.translate(0, R, z0 - L / 2);
+    const c = document.createElement('canvas'); c.width = c.height = 256; const x2 = c.getContext('2d'); const gr = x2.createLinearGradient(0, 0, 256, 0); gr.addColorStop(0, '#B9C0C8'); gr.addColorStop(0.5, '#DDE2E7'); gr.addColorStop(1, '#B9C0C8'); x2.fillStyle = gr; x2.fillRect(0, 0, 256, 256);
+    x2.fillStyle = '#4A4F57'; for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) { x2.beginPath(); x2.arc(x * 32 + (y % 2 ? 16 : 0) + 8, y * 32 + 16, 6.5, 0, TAU); x2.fill(); }
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(14, 22);
+    const tube = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: t, side: THREE.BackSide })); tube.receiveShadow = true; g.add(tube);
+    for (let i = 0; i < 3; i++) { const a = -PI / 2 + i * TAU / 3 + PI / 3; g.add(at(box(0.22, 0.16, L, '#C9CED4', { outline: 0.008 }), Math.cos(a) * (R - 0.08), R + Math.sin(a) * (R - 0.08), z0 - L / 2, 0, 0, a + PI / 2)); }
+    const exitZ = z0 - L + 0.05;
+    g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.98, 40), new THREE.MeshBasicMaterial({ color: '#FFF4D8', toneMapped: false })), 0, R, exitZ));
+    const lamp = new THREE.PointLight('#FFE7B8', o.exitLight ?? 9, 30, 1.4); lamp.position.set(0, R, exitZ + 1.5); g.add(lamp);
+    g.add(at(new THREE.Mesh(new THREE.CircleGeometry(R, 40), new THREE.MeshLambertMaterial({ color: '#7FA6BE', side: THREE.DoubleSide })), 0, R, z0 + 0.02, 0, PI, 0));   // the porthole glass, from inside
+    g.add(at(torus(R, 0.12, '#C9CCD1', 8, 40), 0, R, z0));
+    const r = rng(o.seed || 5), socks = []; for (let i = 0; i < (o.socks ?? 7); i++) { const s = prop('sockSingle', { colors: [['#D9453A', '#F4F1E8', '#F4F1E8'], ['#2F5E8C', '#F2C94C', '#F2C94C'], ['#4CA36C', '#F4F1E8', '#2C6E4A'], ['#F2C94C', '#E0413A', '#E0413A'], ['#8E5BB5', '#F4F1E8', '#F4F1E8']][i % 5] }); s.scale.setScalar(1.4); g.add(s); socks.push({ s, x: (r() - 0.5) * 1.4, y: 0.7 + r() * 1.2, z: z0 - 3 - r() * 22, ph: r() * TAU }); }
+    g.userData.update = tt => { for (const k of socks) { k.s.position.set(k.x + 0.25 * Math.sin(tt * 0.9 + k.ph), k.y + 0.15 * Math.sin(tt * 1.3 + k.ph), k.z + tt * 0.6); k.s.rotation.set(tt * 0.7 + k.ph, tt * 0.5, 0.4 * Math.sin(tt + k.ph)); } };
+    g.userData.update(0);
+    g.userData.anchors = { center: [0, 0, 0], exit: [0, 0, exitZ] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  sockKingdom(o = {}) { // the kingdom of lost socks at the bottom of the drum: soft lint plains and hills, thousands of socks lying about, a laundry-basket castle,
+    // soap bubbles in a lilac sky, and high in the sky the porthole of the machine (the way home); throne at anchors.throne
+    const g = grp(); sky(g, o.sky || ['#8FC2EE', '#F3DDF0']);
+    for (let i = 0; i < 6; i++) g.add(prop('cloud', { seed: 70 + i, scale: 3 + (i % 3) }, (i / 5 - 0.5) * 140, 16 + (i % 2) * 8, -60 - (i % 3) * 15, 0.2 * i));
+    g.add(ground('#CBD3E2'));
+    hills(g, ['#C3CDE0', '#D8CFE6', '#C9DCE0'], { seed: 6, n: 7, z0: -30, z1: -60, sx: 16, sy: 5 });
+    const r = rng(o.seed || 8);
+    for (let i = 0; i < 9; i++) { const m = sphere(1, ['#D3DAE8', '#DCD2EA', '#CFE0E4'][i % 3], 1); m.scale.set(2.5 + r() * 2, 0.5 + r() * 0.6, 2 + r() * 1.5); m.position.set((r() - 0.5) * 30, 0, -6 - r() * 16); m.castShadow = false; m.receiveShadow = true; g.add(m); }   // lint mounds
+    g.add(prop('sockField', { n: o.n ?? 220, w: 30, d: 22, seed: 9, clear: [[0, -9, 4.5], [0, 0, 3.2]], piles: [[-7, -10, 1.4], [8, -12, 1.8], [-11, -4, 1.0], [10, -3, 1.1]] }, 0, 0, -6));
+    g.add(prop('laundryCastle', { size: 1.1 }, 0, 0, -13));
+    g.add(prop('throne', { size: 1 }, 0, 0, -8.6));
+    g.add(prop('soapBubbles', { n: 22, w: 26, h: 10, d: 16, size: 0.35 }, 0, 0.5, -8));
+    const port = grp(at(torus(16, 1.6, '#C9CCD1', 10, 48), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(16, 48), new THREE.MeshBasicMaterial({ color: '#BFD9E6', transparent: true, opacity: 0.55, fog: false, toneMapped: false })), 0, 0, -0.2));
+    port.position.set(-30, 46, -120); port.lookAt(0, 0, 0); port.traverse(n => { if (n.isMesh) { n.castShadow = false; n.material.fog = false; } }); g.add(port);
+    g.userData.anchors = { center: [0, 0, 0], throne: [0, 0, -8.6], seat: [0, 0.7, -8.55], gate: [0, 0, -10.4] };
+    g.userData.sun = [0.35, 0.72, 0.6]; g.userData.lighting = 'day'; return g;
   },
 });
 

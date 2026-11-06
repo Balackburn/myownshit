@@ -1,0 +1,13 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a perdu une chaussette dans la machine à laver.", "hl": ["chaussette", "machine"]},
+ {"id": "L02", "who": "N", "text": "Alors il est entré dedans pour la chercher.", "hl": ["entré", "dedans"]},
+ {"id": "L03", "who": "N", "text": "Au fond du tambour, il y avait toutes les chaussettes perdues du monde.", "hl": ["toutes", "chaussettes", "perdues"]},
+ {"id": "L04", "who": "N", "text": "Elles avaient fondé un royaume.", "hl": ["royaume."]},
+ {"id": "L05", "who": "N", "text": "Et la reine, c'était sa chaussette.", "hl": ["reine,", "chaussette."]},
+ {"id": "L06", "who": "N", "text": "Il lui a demandé de rentrer.", "hl": ["rentrer."]},
+ {"id": "L07", "who": "N", "text": "Elle a refusé.", "hl": ["refusé."]},
+ {"id": "L08", "who": "N", "text": "Chez lui, elle était à ses pieds.", "hl": ["pieds."]},
+ {"id": "L09", "who": "N", "text": "Le lendemain, l'autre chaussette est partie aussi.", "hl": ["l'autre", "partie"]},
+ {"id": "L10", "who": "N", "text": "Elle a laissé un mot.", "hl": ["mot."]},
+ {"id": "L11", "who": "N", "text": "Depuis, ce mec vit pieds nus.", "hl": ["pieds", "nus."]}
+]

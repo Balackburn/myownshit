@@ -339,8 +339,8 @@ export const NEWS_PROPS = {
       [['E', 0.22], ['F P', 0.14], ['T O Z', 0.1], ['L P E D', 0.075], ['P E C F D', 0.055], ['E D F C Z P', 0.04]].forEach(([t, s], i, a) => { c.font = `900 ${H * s}px Arial`; c.fillText(t, W / 2, H * (0.14 + i * 0.15)); }); }, { res: 512 });
     return grp(at(box(w + 0.03, h + 0.03, 0.015, '#3A3D44'), 0, 0, -0.01), pl); },
   envelope(o) { // a letter in a white envelope (address lines, a stamp) - hold it like a card
-    const w = o.w || 0.22, h = w * 0.62, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F7F4EC'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8322A'; c.fillRect(W * 0.78, H * 0.08, W * 0.15, H * 0.24);
-      c.fillStyle = '#3A3D44'; c.font = `700 ${H * 0.12}px Arial`; c.textAlign = 'left'; c.fillText(o.to || 'M. LE MEC', W * 0.32, H * 0.55); c.font = `600 ${H * 0.1}px Arial`; c.fillText(o.addr || "SALLE D'ATTENTE", W * 0.32, H * 0.72); }, { res: 256 });
+    const w = o.w || 0.22, h = w * 0.62, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = o.color || '#F7F4EC'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8322A'; c.fillRect(W * 0.78, H * 0.08, W * 0.15, H * 0.24);
+      c.fillStyle = o.bold ? '#16181C' : '#3A3D44'; c.font = `${o.bold ? 900 : 700} ${H * (o.bold ? 0.16 : 0.12)}px Arial`; c.textAlign = 'left'; c.fillText(o.to || 'M. LE MEC', W * (o.bold ? 0.1 : 0.32), H * 0.55); c.font = `${o.bold ? 900 : 600} ${H * (o.bold ? 0.13 : 0.1)}px Arial`; c.fillText(o.addr || "SALLE D'ATTENTE", W * (o.bold ? 0.1 : 0.32), H * 0.74); }, { res: 256 });
     return grp(at(box(w, h, 0.004, '#EDE8DC'), 0, 0, -0.003), pl); },
   veil(o) { // a bride's veil (attach to the head joint, offset up): a little white headband with a translucent fall at the back
     const g = grp(at(torus(o.r || 0.14, 0.015, '#FFFFFF', 4, 16), 0, 0, 0, PI / 2, 0, 0));

@@ -104,7 +104,7 @@ export const CANICULE_PROPS = {
       const cf = CANICULE_PROPS.confetti({ w: W - 0.1, h: top - seatY - 0.05, d: D - 0.2, n: 90 }); cf.position.set(0, seatY + 0.02, 0); g.add(cf); conf.push(cf);
     }
     if (mode === 'cosy') {   // fairy lights along the top edge, a plaid rug on the seat, a framed photo on the side wall
-      const fl = []; for (let i = 0; i < 11; i++) { const L = new THREE.Mesh(new THREE.SphereGeometry(0.014, 6, 4), new THREE.MeshBasicMaterial({ color: ['#FFD27A', '#FF8F8F', '#9FE0A0', '#8FC8FF'][i % 4] })); L.position.set(-W / 2 + 0.06 + i * (W - 0.12) / 10, top - 0.06 - 0.05 * Math.sin(i / 10 * PI), D / 2 - 0.08); g.add(L); fl.push(L); }
+      const fl = []; for (let i = 0; i < 11; i++) { const L = new THREE.Mesh(new THREE.SphereGeometry(0.014, 6, 4), new THREE.MeshBasicMaterial({ color: ['#FFD27A', '#FF8F8F', '#9FE0A0', '#8FC8FF'][i % 4] })); const sd = i % 2 ? 1 : -1, k = Math.floor(i / 2) / 5; L.position.set(sd * (W / 2 - 0.035), 0.55 + k * 1.2 + 0.03 * Math.sin(k * 9), D / 2 - 0.1 - 0.06 * Math.sin(k * PI)); g.add(L); fl.push(L); }   // two strings down the side walls: they frame him, never cross his face
       g.userData.fairy = fl;
       g.add(at(box(W - 0.1, 0.012, D - 0.16, '#C8423A'), 0, seatY + 0.006, -0.02));
       g.add(at(canvasPlane(0.16, 0.2, (c, Wc, Hc) => { c.fillStyle = '#B98A5A'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#9FD3F0'; c.fillRect(Wc * 0.12, Hc * 0.1, Wc * 0.76, Hc * 0.8); c.fillStyle = '#F2C94C'; c.beginPath(); c.arc(Wc * 0.65, Hc * 0.3, Wc * 0.12, 0, TAU); c.fill(); c.fillStyle = '#E8D3A0'; c.fillRect(Wc * 0.12, Hc * 0.62, Wc * 0.76, Hc * 0.28); }, { res: 128 }), -W / 2 + 0.013, seatY + 0.95, -0.1, 0, PI / 2, 0));
@@ -115,6 +115,12 @@ export const CANICULE_PROPS = {
     piv.add(at(box(DW, DH, 0.08, C, { outline: 0.006, pivot: 'bottom' }), DW / 2, y0, 0.04), at(box(DW - 0.08, DH - 0.1, 0.012, C), DW / 2, y0 + DH / 2, 0.086));
     piv.add(at(box(0.04, 0.55, 0.05, '#D9DDE2', { outline: 0.02 }), DW - 0.08, y0 + DH * 0.58, 0.11), at(box(0.12, 0.05, 0.02, '#D9DDE2'), DW / 2, y0 + DH - 0.1, 0.09));
     const notes = rng(o.seed || 21); for (let i = 0; i < (o.notes ?? 5); i++) piv.add(at(box(0.11, 0.11, 0.004, ['#F2E36B', '#F2A0B8', '#9FD8F0', '#F2E36B'][i % 4]), 0.2 + notes() * 0.7, y0 + 0.95 + notes() * 0.75, 0.094, 0, 0, (notes() - 0.5) * 0.4));
+    let hanger = null; if (o.hanger) {   // o.hanger: a hotel-style door hanger on the handle ('NE PAS|DÉRANGER')
+      hanger = grp(); const card = canvasPlane(0.2, 0.44, (c, Wc, Hc) => { c.fillStyle = '#C8322A'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#FFFFFF'; c.fillRect(Wc * 0.06, Hc * 0.24, Wc * 0.88, Hc * 0.7);
+        c.fillStyle = '#F4F1E8'; c.beginPath(); c.arc(Wc / 2, Hc * 0.11, Wc * 0.17, 0, TAU); c.fill(); c.fillStyle = '#C8322A'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        const ls = String(o.hanger).split('|'); let px = Wc * 0.2; c.font = `900 ${px}px Arial`; const wm = Math.max(...ls.map(l => c.measureText(l).width)); if (wm > Wc * 0.8) { px *= Wc * 0.8 / wm; c.font = `900 ${px}px Arial`; }
+        ls.forEach((l, i) => c.fillText(l, Wc / 2, Hc * (0.59 + (i - (ls.length - 1) / 2) * 0.17))); }, { res: 256 });
+      card.position.y = -0.2; hanger.add(card); hanger.position.set(DW - 0.08, y0 + DH * 0.58 + 0.25, 0.14); piv.add(hanger); }
     if (o.drawing !== false) piv.add(at(canvasPlane(0.24, 0.18, (c, Wc, Hc) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#F2C94C'; c.beginPath(); c.arc(Wc * 0.78, Hc * 0.25, Hc * 0.14, 0, TAU); c.fill(); c.strokeStyle = '#F2C94C'; c.lineWidth = 4; for (let k = 0; k < 8; k++) { const a = k / 8 * TAU; c.beginPath(); c.moveTo(Wc * 0.78 + Math.cos(a) * Hc * 0.18, Hc * 0.25 + Math.sin(a) * Hc * 0.18); c.lineTo(Wc * 0.78 + Math.cos(a) * Hc * 0.26, Hc * 0.25 + Math.sin(a) * Hc * 0.26); c.stroke(); }
       c.fillStyle = '#3F7FD1'; c.fillRect(Wc * 0.25, Hc * 0.4, Wc * 0.2, Hc * 0.4); c.fillStyle = '#E2B48A'; c.fillRect(Wc * 0.27, Hc * 0.2, Wc * 0.16, Hc * 0.2); c.strokeStyle = '#1C1C20'; c.lineWidth = 3; c.strokeRect(Wc * 0.25, Hc * 0.4, Wc * 0.2, Hc * 0.4); }, { res: 256 }), 0.45, y0 + 1.25, 0.093, 0, 0, 0.06));
     // inside of the door: liner, three bins with eggs and bottles
@@ -136,6 +142,7 @@ export const CANICULE_PROPS = {
       lamp.intensity = lit * (o.lamp ?? 2.2);
       drawer.position.z = 0.36 * openness(dev, tt, 0, 0.35, 0.3);
       if (shakes.length) { let sk = 0; for (const a of shakes) if (tt >= a && tt < a + 0.5) sk = Math.sin((tt - a) * 60) * 0.012 * (1 - (tt - a) / 0.5); g.rotation.z = sk; g.position.x = sk * 0.6; }
+      if (hanger) { let sw = 0; for (const a of shakes) if (tt >= a && tt < a + 1.2) sw = Math.sin((tt - a) * 14) * 0.35 * (1 - (tt - a) / 1.2); hanger.rotation.z = 0.04 * Math.sin(tt * 2.3) + sw; }
       const tO = lastOpen(ev, tt), burst = tO == null ? 0 : 0.45 + 0.55 * Math.exp(-(tt - tO) / 1.2);
       puffs.forEach(p => { const q = ((tt * 0.45) + p.ph) % 1; p.s.position.set(p.x + 0.15 * Math.sin(q * 5 + p.ph * 9), Math.max(0.08, p.y - 0.85 * q * q), D / 2 + 0.08 + 0.7 * q); p.s.scale.setScalar(0.22 + 0.75 * q); p.s.material.opacity = v * burst * 0.5 * Math.sin(PI * Math.min(1, q * 1.15)); p.s.visible = p.s.material.opacity > 0.01; });
       eggs.forEach((e, i) => { if (mode === 'party') e.rotation.z = 0.12 * Math.sin(tt * 7 + i * 1.3); });
@@ -205,7 +212,7 @@ export const CANICULE_PROPS = {
     const r = o.r || 0.06, g = grp(cyl(r, r * 0.92, r * 1.7, o.color || '#E0413A', 12, { pivot: 'bottom', outline: 0.02 }), at(cyl(r * 0.88, r * 0.88, 0.004, '#6B3E26', 12), 0, r * 1.6, 0),
       at(torus(r * 0.45, r * 0.12, o.color || '#E0413A', 6, 10, PI), r * 1.05, r * 0.85, 0, 0, 0, -PI / 2), at(box(r * 0.9, r * 0.5, 0.002, '#FFFFFF'), 0, r * 0.85, r * 0.93));
     const steam = []; for (let i = 0; i < 6; i++) { const s = puffSprite('#FFFFFF'); g.add(s); steam.push(s); }
-    g.userData.update = t => steam.forEach((s, i) => { const q = ((t * 0.55) + i / 6) % 1; s.position.set(0.02 * Math.sin(q * 7 + i), r * 1.7 + q * 0.28, 0.01 * Math.cos(q * 5 + i)); s.scale.setScalar(0.04 + q * 0.09); s.material.opacity = 0.7 * Math.sin(PI * q); });
+    g.userData.update = t => steam.forEach((s, i) => { const q = ((t * 0.55) + i / 6) % 1; s.position.set(0.02 * Math.sin(q * 7 + i), r * 1.7 + q * 0.28, 0.01 * Math.cos(q * 5 + i)); s.scale.setScalar(0.06 + q * 0.15); s.material.opacity = 0.88 * Math.sin(PI * q); });
     g.userData.update(0); g.userData.grip = [0, r * 0.8, 0]; return g;
   },
   shoulderBlanket(o) {   // a tartan blanket draped over the shoulders (attach to the torso joint): a back panel, two front flaps, a rolled top
@@ -214,7 +221,7 @@ export const CANICULE_PROPS = {
     const m = new THREE.MeshLambertMaterial({ map: tartan }), w = o.w || 0.56, hb = o.h || 0.55;
     const part = (pw, ph, pd, x, y, z, rx = 0, rz = 0) => { const b = new THREE.Mesh(new THREE.BoxGeometry(pw, ph, pd), m); b.position.set(x, y, z); b.rotation.set(rx, 0, rz); b.castShadow = true; return b; };
     const g = grp(part(w, hb, 0.035, 0, -hb / 2 + 0.06, -0.15, 0.1));   // a cape: the back, over both shoulders, the front left open
-    for (const sd of [-1, 1]) g.add(part(0.13, 0.05, 0.3, sd * (w / 2 - 0.07), 0.07, 0.0, 0, sd * -0.25), part(0.11, 0.22, 0.035, sd * (w / 2 - 0.05), -0.05, 0.14, -0.1, sd * 0.12));
+    for (const sd of [-1, 1]) g.add(part(0.15, 0.05, 0.32, sd * (w / 2 - 0.07), 0.07, 0.0, 0, sd * -0.25), part(0.2, 0.46, 0.035, sd * (w / 2 - 0.1), -0.16, 0.15, -0.06, sd * 0.06));   // front flaps wrapped round the chest
     const roll = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, w + 0.02, 8), m); roll.rotation.z = PI / 2; roll.position.set(0, 0.08, -0.12); g.add(roll);
     return g;
   },

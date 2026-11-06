@@ -200,6 +200,9 @@ export const CLIPS = {
     shoulderL: [-1.0, 0, 0.3], elbowL: [-1.6, 0, 0], torso: [0.1, -0.45 * wind * (1 - strike) + 0.35 * strike, 0], head: [0, 0.2 * wind * (1 - strike) - 0.2 * strike, 0],
     hipL: [-0.35, 0, 0], kneeL: [0.4, 0, 0], hipR: [0.25 * strike, 0, 0] }; },
   kneelBow: (t) => ({ ...CLIPS.kneel(t), torso: [0.75, 0, 0], head: [0.3, 0, 0], ...arms(m([-1.4, 0, 0.15], [-1.4, 0, 0.15]), m([-0.2, 0, 0], [-0.2, 0, 0])) }),
+  fanSide: (t) => ({ shoulderR: [-0.35, 0, 1.75], elbowR: [-1.35 + 0.35 * S(t * 13), 0, 0], handR: [0, 0, 0.5 * S(t * 13)], shoulderL: [-0.45, 0, 0.12], elbowL: [-2.0, 0, 0], torso: [0.08, 0, 0], head: [-0.12 + 0.03 * S(t * 2), 0.12, 0.05], root: { y: -0.01 } }),   // fanning his face from the side (the face stays clear), the other hand pulling his collar
+  frozenTopple: (t, p = {}) => { const k = Math.min(1, Math.max(0, t / (p.dur ?? 0.5))), b = k >= 1 ? 0.06 * Math.max(0, 1 - (t - (p.dur ?? 0.5)) / 0.25) * Math.sin((t - (p.dur ?? 0.5)) * 40) : 0;
+    return { ...CLIPS.sitFloor(0), head: [0, 0, 0], root: { y: -0.8, rx: 1.45 * k * k - b, pivot: 'hips' } }; },   // frozen solid in the cross-legged pose, he tips forward like a block (p.dur) and bounces once
   fan: (t) => ({ shoulderR: [-1.6 + 0.35 * S(t * 12), 0, 0.3], elbowR: [-0.6, 0, 0], shoulderL: [0, 0, 0.2], elbowL: [-0.2, 0, -0.3], head: [0.05, -0.2, 0] }),
   explainLook: (t, p = {}) => ({ ...CLIPS.explain(t), head: [0.02 * S(t * 2.3), p.yaw ?? 0.7, 0.04], torso: [0, (p.yaw ?? 0.7) * 0.25, 0] }), // explaining toward someone off to the side, face turned to the camera
   gavelStrike: (t, p = {}) => { // judge: right arm raises the gavel over the head and brings it down on the block at p.hit, then holds it there
@@ -316,7 +319,7 @@ export const CLIPS = {
   // « La canicule »: life cross-legged in a fridge
   sitFloorSpoon: (t, p = {}) => { const e = CLIPS.eatSpoon(t, p); return { ...CLIPS.sitFloor(t), shoulderL: e.shoulderL, elbowL: e.elbowL, shoulderR: e.shoulderR, elbowR: e.elbowR, head: e.head }; },
   sitFloorWave: (t) => ({ ...CLIPS.sitFloor(t), shoulderR: [0, 0, -2.6], elbowR: [0, 0, -(0.5 + 0.45 * S(t * 9))], head: [0.02 * S(t), -0.15, 0] }),
-  sitFloorSip: (t) => ({ ...CLIPS.sitFloor(t), shoulderR: [-1.0, 0.45, -0.05], elbowR: [-1.9, 0, 0], head: [-0.18, 0, 0] }),
+  sitFloorSip: (t) => { const k = Math.max(0, Math.sin(t * 2.2 - 0.6)) ** 2; return { ...CLIPS.sitFloor(t), shoulderR: [-1.0 - 0.42 * k, 0.45, -0.05], elbowR: [-1.9 - 0.25 * k, 0, 0], head: [-0.18 - 0.16 * k, 0, 0] }; },   // seated, sipping from the mug (a sip every ~2.9 s)
   sitFloorClap: (t) => { const k = Math.abs(S(t * PI * 4)); return { ...CLIPS.sitFloor(t), ...arms(m([-1.25, 0, 0.1 + 0.3 * k], [-1.25, 0, 0.1 + 0.3 * k]), m([-0.95, 0, 0], [-0.95, 0, 0])), head: [-0.12, 0.12 * S(t * 3), 0] }; },
   sitFloorBlow: (t) => ({ ...CLIPS.sitFloor(t), torso: [0.32, 0, 0], head: [0.25, 0, 0], ...arms(m([-0.3, 0, 0.35], [-0.3, 0, 0.35]), m([-0.5, 0, 0], [-0.5, 0, 0])) }),
   stiffStand: (t) => ({ ...arms(m([0, 0, 0.05], [0, 0, 0.05]), m([0, 0, 0], [0, 0, 0])), head: [0.01 * S(t * 40), 0, 0] }),   // frozen stiff, arms glued to the body

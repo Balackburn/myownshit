@@ -31,16 +31,17 @@ const ShaftShader = {
     }`,
 };
 const GradeShader = {
-  uniforms: { tDiffuse: { value: null }, sat: { value: 1.12 }, contrast: { value: 1.05 }, vignette: { value: 0.18 }, warm: { value: 1.0 }, lift: { value: 0.035 } },
+  uniforms: { tDiffuse: { value: null }, sat: { value: 1.12 }, contrast: { value: 1.05 }, vignette: { value: 0.18 }, warm: { value: 1.0 }, lift: { value: 0.035 }, tint: { value: new THREE.Vector3(1, 1, 1) } },
   vertexShader: vertex,
   fragmentShader: `
-    uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm, lift; varying vec2 vUv;
+    uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm, lift; uniform vec3 tint; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb; float l = dot(c, vec3(0.299, 0.587, 0.114));
       c = c * (1.0 - lift * 1.43) + lift;   // lift the shade: navy suits and black robes keep their detail
       c = mix(vec3(l), c, sat); c = (c - 0.5) * contrast + 0.5;
       vec3 shadowTint = vec3(0.94, 0.99, 1.06), hiTint = vec3(1.045, 1.0, 0.94);
       c *= mix(vec3(1.0), mix(shadowTint, hiTint, smoothstep(0.12, 0.85, l)), warm);
+      c *= tint;   // a per-shot colour cast (a cold September morning, a warm memory)
       float v = smoothstep(1.05, 0.38, length((vUv - 0.5) * vec2(1.0, 1.15))); c *= mix(1.0 - vignette, 1.0, v);
       gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
     }`,
@@ -135,7 +136,7 @@ export function createLook(stage, W, H, o = {}) {
       L.key.shadow.radius = natural ? (k.softness ?? (indoor ? 9 : 6)) : 4; L.key.shadow.normalBias = 0.02; L.key.shadow.bias = Math.min(L.key.shadow.bias, -0.0004);
       if (natural) { L.key.shadow.blurSamples = 16; L.hemi.intensity *= k.hemi ?? 0.45; L.key.intensity *= k.sunN ?? 0.95; look.probeK = k.probe ?? (indoor ? 1.7 : 1.2); look.probeTarget = k.probeTarget ?? o.probeTarget ?? 0.3; look.meterRef = k.meterRef ?? o.meterRef ?? (indoor ? 0.42 : 0.32); look.probeDirty = true; look.probeAt = k.probeAt || null; }
       ao.blendIntensity = k.ao ?? o.ao ?? 1.0; bloom.strength = k.bloom ?? o.bloom ?? 0.28; shafts.uniforms.intensity.value = k.shafts ?? 0.55;
-      grade.uniforms.lift.value = k.lift ?? (natural ? 0.014 : 0.035); bloom.threshold = k.bloomThreshold ?? (natural ? 1.35 : 0.92);
+      grade.uniforms.lift.value = k.lift ?? (natural ? 0.014 : 0.035); grade.uniforms.tint.value.set(...(k.tint || [1, 1, 1])); bloom.threshold = k.bloomThreshold ?? (natural ? 1.35 : 0.92);
       look.baseExposure = k.exposure ?? o.exposure ?? (natural ? (indoor ? 1.32 : 1.14) : (indoor ? 1.2 : 1.12)); look.autoExposure = natural && k.exposure == null && k.autoExposure !== false;
       grade.uniforms.sat.value = k.sat ?? (natural ? (indoor ? 1.1 : 1.16) : 1.12); grade.uniforms.contrast.value = k.contrast ?? (natural ? (indoor ? 0.98 : 1.04) : 1.05); grade.uniforms.warm.value = k.warm ?? (natural ? 0.85 : 1.0);
       renderer.toneMappingExposure = look.baseExposure;

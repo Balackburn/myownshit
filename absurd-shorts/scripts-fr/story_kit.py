@@ -38,7 +38,7 @@ def TOP(x=0, z=0, h=1.6, look_h=0.8, lens=42, shake=None):              # top-do
 
 class Story:
     def __init__(self, name, look=None):
-        self.name = name; self.look = look   # look='shaders': Minecraft-shader-style light (engine/look.js)
+        self.name = name; self.look = look   # look='natural' (light probe, soft shadows, auto exposure) or 'shaders' (engine/look.js)
         self.TL = json.load(open(os.path.join(ROOT, 'stories7', name, 'timeline.json')))
         self.L = {l['id']: l for l in self.TL['lines']}; self.total = self.TL['total']
         self.scenes = []; self.SH = {}; self.cues = []; self.cards = []
@@ -47,7 +47,7 @@ class Story:
     def cut(self, lid, w=0): return round(round((self.ws(lid, w) - 1 / FPS) * FPS) / FPS, 4)
 
     def plan(self, shots):
-        t = [0.0] + [self.cut(l, w) for _, l, w in shots[1:]] + [self.total]
+        t = [0.0] + [self.cut(l, w) if isinstance(l, str) else round(round(l * FPS) / FPS, 4) for _, l, w in shots[1:]] + [self.total]   # ('S15', 22.25, 0): a cut at a time (after the narration)
         self.SH = {sid: (t[i], t[i + 1]) for i, (sid, _, _) in enumerate(shots)}
         return self.SH
 

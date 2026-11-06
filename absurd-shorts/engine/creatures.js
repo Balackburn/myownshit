@@ -22,9 +22,9 @@ export const CREATURE_NAMES = [
   'lion', 'zebra', 'giraffe', 'elephant', 'hippo', 'crocodile', 'monkey', 'gorilla',
   'bear', 'dog', 'cat', 'rat', 'cow', 'pig', 'sheep', 'horse', 'goat', 'rabbit',
   'frog', 'shark', 'fish', 'octopus', 'penguin', 'owl', 'alien', 'robot', 'ghost',
-  'snowman', 'banana-man', 'worm', 'avocat',
+  'snowman', 'banana-man', 'worm', 'avocat', 'sock',
 ];
-export const CREATURE_CLIPS = ['idle', 'walk', 'run', 'flee', 'fly', 'hop', 'peck', 'sit', 'talk', 'celebrate', 'sleep', 'angry', 'eat', 'grow', 'carry', 'point'];
+export const CREATURE_CLIPS = ['idle', 'walk', 'run', 'flee', 'fly', 'hop', 'peck', 'sit', 'talk', 'celebrate', 'sleep', 'angry', 'eat', 'grow', 'carry', 'point', 'refuse', 'bow', 'sad'];
 export const CREATURE_EXPRESSIONS = ['neutral', 'angry', 'sad', 'surprised', 'shocked', 'smug', 'sleepy', 'happy', 'scared', 'suspicious', 'closed', 'blink', 'dead', 'talk'];
 const NAME_ALIASES = { banana: 'banana-man', bananaman: 'banana-man', banana_man: 'banana-man', mouse: 'rat', kitten: 'cat', puppy: 'dog', gull: 'seagull', hen: 'chicken', rooster: 'chicken', ape: 'gorilla', donkey: 'horse', bull: 'cow', lamb: 'sheep', bunny: 'rabbit', toad: 'frog', squid: 'octopus', ufo: 'alien', android: 'robot' };
 
@@ -1069,6 +1069,30 @@ const SPECIES = {
     const jaw = R.joint('jaw', hd, 0, 0.075, 0.105); R.a(jaw, box(0.07, 0.025, 0.012, c.body, { pivot: 'top' }), [0, 0, 0.005], null, false);
     R.height = 1.65;
   },
+  sock(R, o) { // « Les chaussettes »: a sock standing up as a person — the foot along +Z on the ground (toe and heel patches), the leg in three
+    // segments (leg1..leg3, stripes), a ribbed cuff on top with its dark opening; googly eyes and a mouth on the upper leg; o.colors {body, stripe, toe, cuff}
+    const c = col(o, { body: '#D9453A', stripe: '#F4F1E8', toe: '#F4F1E8', cuff: '#F4F1E8', hole: '#3A2626', mouth: '#4A1E1E' });
+    R.ol = 0.007; const W = 0.16, Dp = 0.15, SH = 0.15, FH = 0.11;
+    const base = R.joint('leg0', R.mover, 0, 0, 0);
+    R.a(base, box(W, FH, 0.3, c.body, { pivot: 'bottom' }), [0, 0, 0.07]);
+    R.a(base, box(W + 0.006, FH + 0.006, 0.075, c.toe, { pivot: 'bottom' }), [0, -0.003, 0.19], null, false);   // toe cap
+    R.a(base, box(W + 0.006, FH * 0.9, 0.07, c.toe, { pivot: 'bottom' }), [0, 0, -0.055], null, false);        // heel patch
+    let parent = base;
+    for (let i = 1; i <= 3; i++) {
+      const j = R.joint('leg' + i, parent, 0, i === 1 ? FH : SH, i === 1 ? -0.005 : 0);
+      R.a(j, box(W, SH * 1.02, Dp, c.body, { pivot: 'bottom' }));
+      if (o.plain !== true) R.a(j, box(W + 0.008, 0.032, Dp + 0.008, c.stripe, { pivot: 'bottom' }), [0, SH * 0.45, 0], null, false);
+      parent = j;
+    }
+    const cuff = R.joint('cuff', parent, 0, SH, 0);
+    R.a(cuff, box(W + 0.012, 0.1, Dp + 0.012, c.cuff, { pivot: 'bottom' }));
+    for (let k = -3; k <= 3; k++) R.a(cuff, box(0.004, 0.09, 0.004, P.ink), [k * 0.024, 0.005, (Dp + 0.012) / 2 + 0.001], null, false);   // ribbing
+    R.a(cuff, box(W - 0.03, 0.006, Dp - 0.03, c.hole), [0, 0.1, 0], null, false);   // the opening
+    const face = R.J.leg3;
+    addEyes(R, face, { x: 0.036, y: SH * 0.62, z: Dp / 2 + 0.006, r: 0.031, lid: c.body, browY: 1.4, browT: 0.2, browColor: P.ink });
+    const jaw = R.joint('jaw', face, 0, SH * 0.2, Dp / 2 + 0.004); R.a(jaw, facet(0.03, 0.012, 0.008, c.mouth, { detail: 0 }), null, null, false);
+    R.mouthScale = true; R.plan = 'sock'; R.height = FH + 3 * SH + 0.1;
+  },
 };
 
 function antHead(R, hd, c, s) {
@@ -1400,7 +1424,26 @@ function wormPose(c, t, p, R) { // the earthworm: the body sways (segments), tal
   if (R.mouthScale && q.jaw) { const a = q.jaw[0]; delete q.jaw; q.scl = { ...(q.scl || {}), jaw: [1 + a * 0.55, 1 + a * 3.2, 1] }; }
   return q;
 }
-const PLAN_POSE = { worm: wormPose, biped: bipedPose, quad: quadPose, bird: birdPose, legs: legsPose, flyer: flyerPose, swim: swimPose, blob: blobPose };
+function sockPose(c, t, p, R) { // a sock: the leg bends in three segments, hops to move (no legs), talks, refuses (turns its face away, nose up), bows, droops
+  const q = { root: {} }, sway = (amp, f, lean = 0) => { for (let i = 1; i <= 3; i++) q['leg' + i] = [lean + amp * 0.6 * S(t * f + i * 0.8), 0, amp * S(t * f * 0.85 + i * 0.7)]; q.cuff = [amp * 0.5 * S(t * f + 3), 0, amp * 0.6 * S(t * f * 0.8 + 3.3)]; };
+  switch (c) {
+    case 'walk': case 'run': case 'hop': case 'flee': { const f = c === 'hop' ? 2.6 : (p.freq || 2.2) * 1.4, ph = (t * f) % 1, up = S(ph * PI);
+      q.root.y = (c === 'hop' ? 0.16 : 0.09) * up; sway(0.04, 3); for (let i = 1; i <= 3; i++) q['leg' + i][0] += -0.12 * up + 0.1 * (1 - up);
+      q.scl = { leg1: [1 + 0.12 * (1 - up) ** 6, 1 - 0.18 * (1 - up) ** 6, 1 + 0.12 * (1 - up) ** 6] }; break; }   // squash on landing
+    case 'talk': sway(0.06, 3.1); q.leg3[0] += 0.08 * S(t * 7); q.jaw = [0.5 * abs(S(t * 12)), 0, 0]; break;
+    case 'angry': sway(0.1, 10, 0.05); q.root.x = 0.006 * S(t * 47); q.jaw = [0.35, 0, 0]; q.expr = 'angry'; break;
+    case 'refuse': { const k = ease.out(clamp01(t / 0.35)); sway(0.02, 1.4); q.leg2[1] += 0.45 * k; q.leg3[1] += 0.75 * k; q.leg3[0] += -0.3 * k; q.cuff[0] += -0.15 * k;   // turns away, nose in the air
+      q.root.y = 0.03 * S(clamp01(t / 0.25) * PI); q.expr = 'smug'; break; }
+    case 'bow': { const k = ease.inOut(clamp01(t / 0.4)); for (let i = 1; i <= 3; i++) q['leg' + i] = [0.32 * k, 0, 0]; q.cuff = [0.1 * k, 0, 0]; break; }
+    case 'sad': sway(0.025, 1.1, 0.16); q.expr = 'sad'; break;
+    case 'celebrate': sway(0.12, 5); q.root.y = 0.07 * abs(S(t * 7)); q.jaw = [0.4, 0, 0]; q.expr = 'happy'; break;
+    case 'sleep': for (let i = 1; i <= 3; i++) q['leg' + i] = [0.42, 0, 0]; q.expr = 'closed'; break;
+    default: sway(0.035, 1.7); q.root.y = 0.006 * S(t * 3.2);
+  }
+  if (R.mouthScale && q.jaw) { const a = q.jaw[0]; delete q.jaw; q.scl = { ...(q.scl || {}), jaw: [1 + a * 0.6, 1 + a * 3.0, 1] }; }
+  return q;
+}
+const PLAN_POSE = { sock: sockPose, worm: wormPose, biped: bipedPose, quad: quadPose, bird: birdPose, legs: legsPose, flyer: flyerPose, swim: swimPose, blob: blobPose };
 const CLIP_ALIAS = { stand: 'idle', stareCamera: 'idle', swim: 'walk', jump: 'hop', dance: 'celebrate', wave: 'celebrate', yell: 'angry', angryFist: 'angry', scared: 'flee', chew: 'eat', lieDown: 'sleep', faint: 'sleep', sitWrite: 'sit', slumpDesk: 'sleep', holdOut: 'carry', sneak: 'walk', startle: 'flee', nod: 'talk', shakeHead: 'angry', float: 'fly' };
 
 function resolveClip(R, clip) {

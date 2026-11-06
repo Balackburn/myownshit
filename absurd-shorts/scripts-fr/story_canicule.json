@@ -81,7 +81,7 @@
       -1.7
      ],
      "ry": 8,
-     "clip": "fan",
+     "clip": "fanSide",
      "keys": [],
      "fx": {
       "sweat": true
@@ -169,7 +169,7 @@
       0,
       -2.0
      ],
-     "ry": 180,
+     "ry": 148,
      "clip": "stand",
      "keys": [
       {
@@ -208,26 +208,26 @@
     {
      "at": 0.0,
      "from": [
-      -1.6,
-      1.7,
-      -2.72
+      -0.45,
+      1.9,
+      -2.5
      ],
      "to": [
-      -1.62,
-      1.7,
-      -2.68
+      -0.55,
+      1.9,
+      -2.42
      ],
      "lookAt": [
-      -2.55,
-      1.75,
-      -2.0
+      -2.6,
+      1.78,
+      -2.12
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      -2.55,
-      1.76,
-      -2.0
+      -2.6,
+      1.79,
+      -2.12
      ]
     }
    ],
@@ -279,13 +279,13 @@
      "at": 0.0,
      "from": [
       -2.62,
-      1.42,
-      -3.02
+      1.72,
+      -3.0
      ],
      "to": [
       -2.62,
-      1.43,
-      -2.96
+      1.72,
+      -2.95
      ],
      "lookAt": [
       -2.45,
@@ -305,6 +305,9 @@
    "duration": 1.1667,
    "setOpts": {
     "fridge": false
+   },
+   "look": {
+    "exposure": 0.85
    },
    "grade": "none",
    "soften": 0.3
@@ -331,7 +334,8 @@
         0.22,
         -2.95
        ],
-       "dur": 0.5
+       "dur": 0.5,
+       "clip": "boxSneak"
       },
       {
        "at": 0.75,
@@ -371,24 +375,24 @@
      "at": 0.0,
      "from": [
       -3.55,
-      1.75,
+      1.85,
       0.55
      ],
      "to": [
       -3.5,
-      1.74,
+      1.84,
       0.4
      ],
      "lookAt": [
       -2.6,
-      1.15,
+      1.3,
       -2.6
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       -2.62,
-      1.12,
+      1.25,
       -2.65
      ]
     }
@@ -433,7 +437,8 @@
       "notes": 6,
       "open": 1,
       "closeAt": 0.35,
-      "shakeAt": 0.73
+      "shakeAt": 0.73,
+      "hanger": "NE PAS|DÉRANGER"
      }
     }
    ],
@@ -442,25 +447,25 @@
     {
      "at": 0.0,
      "from": [
-      -2.05,
-      1.2,
-      -0.45
+      -1.6,
+      1.45,
+      0.6
      ],
      "to": [
-      -2.08,
-      1.2,
-      -0.55
+      -1.66,
+      1.45,
+      0.42
      ],
      "lookAt": [
-      -2.75,
-      1.0,
+      -2.7,
+      1.1,
       -3.0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      -2.75,
-      1.0,
+      -2.7,
+      1.1,
       -3.0
      ]
     }
@@ -488,7 +493,7 @@
      "ry": 0,
      "clip": "sitFloorSpoon",
      "keys": [],
-     "expr": "relieved"
+     "expr": "happy"
     }
    ],
    "props": [
@@ -523,19 +528,19 @@
      "id": "cal",
      "name": "monthCalendar",
      "pos": [
-      -2.215,
-      1.22,
-      -3.05
+      -2.3,
+      1.5,
+      -3.49
      ],
-     "ry": -90,
+     "ry": 0,
      "opts": {
       "months": [
+       "JUIN",
        "JUILLET",
-       "AOÛT",
-       "SEPTEMBRE"
+       "AOÛT"
       ],
-      "flipAt": 0.45,
-      "dur": 0.55,
+      "flipAt": 0.35,
+      "dur": 0.5,
       "w": 0.26,
       "h": 0.34
      }
@@ -547,24 +552,24 @@
      "at": 0.0,
      "from": [
       -2.62,
-      1.18,
-      -1.05
+      1.38,
+      -1.0
      ],
      "to": [
       -2.63,
-      1.17,
-      -1.25
+      1.37,
+      -1.2
      ],
      "lookAt": [
       -2.7,
-      1.02,
+      1.3,
       -3.2
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       -2.7,
-      1.02,
+      1.3,
       -3.2
      ]
     }
@@ -573,6 +578,10 @@
    "duration": 1.5334,
    "setOpts": {
     "fridge": false
+   },
+   "look": {
+    "exposure": 0.8,
+    "bloom": 0.15
    },
    "grade": "none",
    "soften": 0.3
@@ -644,7 +653,7 @@
      "name": "birthdayCake",
      "pos": [
       -2.7,
-      0.39,
+      0.58,
       -2.86
      ],
      "scale": 0.85,
@@ -659,25 +668,25 @@
     {
      "at": 0.0,
      "from": [
-      -2.25,
-      1.2,
-      -1.0
+      -2.22,
+      1.3,
+      -0.72
      ],
      "to": [
-      -2.27,
-      1.19,
-      -1.18
+      -2.24,
+      1.29,
+      -0.86
      ],
      "lookAt": [
       -2.75,
-      1.02,
+      1.1,
       -3.15
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       -2.75,
-      1.02,
+      1.1,
       -3.15
      ]
     }
@@ -686,6 +695,10 @@
    "duration": 1.8666,
    "setOpts": {
     "fridge": false
+   },
+   "look": {
+    "exposure": 0.8,
+    "bloom": 0.15
    },
    "grade": "none",
    "soften": 0.3
@@ -734,7 +747,8 @@
       "notes": 6,
       "light": true,
       "openAt": 0.05,
-      "letters": 2
+      "letters": 2,
+      "mist": false
      }
     },
     {
@@ -746,7 +760,10 @@
      },
      "opts": {
       "to": "M. LE MEC",
-      "addr": "BAC À LÉGUMES"
+      "addr": "BAC À LÉGUMES",
+      "color": "#F2C94C",
+      "bold": true,
+      "w": 0.3
      }
     }
    ],
@@ -782,6 +799,10 @@
    "duration": 1.4,
    "setOpts": {
     "fridge": false
+   },
+   "look": {
+    "exposure": 0.8,
+    "bloom": 0.15
    },
    "grade": "none",
    "soften": 0.3
@@ -819,7 +840,8 @@
       "light": true,
       "open": 1,
       "letters": 2,
-      "drawerAt": 0.12
+      "drawerAt": 0.12,
+      "mist": false
      }
     },
     {
@@ -837,7 +859,10 @@
      ],
      "opts": {
       "to": "M. LE MEC",
-      "addr": "BAC À LÉGUMES"
+      "addr": "BAC À LÉGUMES",
+      "color": "#F2C94C",
+      "bold": true,
+      "w": 0.3
      },
      "keys": [
       {
@@ -868,26 +893,26 @@
     {
      "at": 0.0,
      "from": [
-      -2.3,
-      0.62,
-      -1.75
-     ],
-     "to": [
-      -2.32,
-      0.6,
+      -2.5,
+      1.2,
       -1.85
      ],
+     "to": [
+      -2.52,
+      1.15,
+      -1.95
+     ],
      "lookAt": [
-      -2.68,
-      0.28,
-      -2.68
+      -2.64,
+      0.3,
+      -2.6
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      -2.68,
-      0.28,
-      -2.68
+      -2.64,
+      0.3,
+      -2.6
      ]
     }
    ],
@@ -895,6 +920,10 @@
    "duration": 1.2,
    "setOpts": {
     "fridge": false
+   },
+   "look": {
+    "exposure": 0.8,
+    "bloom": 0.15
    },
    "grade": "none",
    "soften": 0.3
@@ -915,27 +944,31 @@
      "clip": "sitFloor",
      "keys": [
       {
-       "at": 0.65,
-       "clip": "stiffStand",
+       "at": 0.55,
        "to": [
-        -2.62,
-        0,
-        -2.25
+        -2.66,
+        0.22,
+        -2.74
        ],
-       "dur": 0.6,
-       "face": "keep",
-       "then": "stiffStand"
-      },
-      {
-       "at": 1.4,
-       "to": [
-        -2.55,
-        0,
-        -1.9
-       ],
-       "dur": 0.8,
+       "dur": 0.35,
        "glide": true,
        "face": "keep"
+      },
+      {
+       "at": 0.95,
+       "clip": "frozenTopple",
+       "params": {
+        "dur": 0.5
+       },
+       "to": [
+        -2.66,
+        0.0,
+        -2.25
+       ],
+       "dur": 0.5,
+       "glide": true,
+       "face": "keep",
+       "then": "frozenTopple"
       }
      ],
      "fx": {
@@ -968,33 +1001,44 @@
     {
      "at": 0.0,
      "from": [
-      -2.35,
-      1.55,
-      -0.2
+      -1.9,
+      1.3,
+      0.85
      ],
      "to": [
-      -2.38,
-      1.72,
-      0.1
+      -1.95,
+      1.25,
+      0.7
      ],
      "lookAt": [
-      -2.65,
-      1.32,
-      -2.6
+      -2.6,
+      0.85,
+      -2.45
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       -2.6,
-      1.85,
-      -1.8
+      0.8,
+      -2.4
      ]
     }
    ],
    "start": 13.0333,
    "duration": 2.2334,
    "setOpts": {
-    "fridge": false
+    "fridge": false,
+    "cold": true
+   },
+   "look": {
+    "tint": [
+     0.9,
+     0.97,
+     1.08
+    ],
+    "sunColor": "#DCE8FF",
+    "warm": 0.3,
+    "sat": 0.92
    },
    "grade": "none",
    "soften": 0.3
@@ -1097,17 +1141,23 @@
    "start": 15.2667,
    "duration": 1.5333,
    "setOpts": {
-    "snow": true
+    "snow": true,
+    "snowN": 7000,
+    "snowSize": 0.15,
+    "snowX": 9
    },
    "look": {
     "sunColor": "#EAF2FF",
-    "sun": 0.62,
+    "sun": 0.55,
     "hazeColor": "#E4EAEE",
-    "hazeNear": 18,
-    "hazeFar": 110,
+    "hazeNear": 14,
+    "hazeFar": 90,
     "warm": 0.25,
     "sat": 0.95,
-    "elevation": 30
+    "elevation": 30,
+    "deepSky": false,
+    "sunDisc": false,
+    "shafts": 0
    },
    "grade": "none",
    "soften": 0.3
@@ -1205,7 +1255,18 @@
    "start": 16.8,
    "duration": 1.9333,
    "setOpts": {
-    "fridge": false
+    "fridge": false,
+    "cold": true
+   },
+   "look": {
+    "tint": [
+     0.9,
+     0.97,
+     1.08
+    ],
+    "sunColor": "#DCE8FF",
+    "warm": 0.3,
+    "sat": 0.92
    },
    "grade": "none",
    "soften": 0.3
@@ -1224,9 +1285,13 @@
      ],
      "ry": 0,
      "clip": "sitFloorSip",
-     "keys": [],
+     "keys": [
+      {
+       "at": 1.3,
+       "expr": "happy"
+      }
+     ],
      "fx": {
-      "frozen": "thaw",
       "blush": true
      },
      "expr": "relieved"
@@ -1274,16 +1339,34 @@
      "id": "thermo4",
      "name": "thermometer",
      "pos": [
-      -2.215,
-      1.2,
-      -3.0
+      -2.33,
+      1.42,
+      -3.49
      ],
-     "ry": -90,
+     "ry": 0,
      "opts": {
-      "w": 0.16,
-      "h": 0.5,
+      "w": 0.17,
+      "h": 0.52,
       "temp": 4
-     }
+     },
+     "keys": [
+      {
+       "at": 0,
+       "scale": 0.01,
+       "dur": 0
+      },
+      {
+       "at": 0.424,
+       "scale": 1.15,
+       "dur": 0.18,
+       "ease": "out"
+      },
+      {
+       "at": 0.604,
+       "scale": 1.0,
+       "dur": 0.12
+      }
+     ]
     }
    ],
    "sfx": [],
@@ -1320,7 +1403,9 @@
     "fridge": false
    },
    "look": {
-    "sunColor": "#FFD9A6"
+    "sunColor": "#FFD9A6",
+    "exposure": 0.85,
+    "bloom": 0.18
    },
    "grade": "none",
    "soften": 0.3

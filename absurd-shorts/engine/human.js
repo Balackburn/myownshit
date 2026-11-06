@@ -281,7 +281,10 @@ for (let i = 0; i < pp.count; i++) {
     kn.add(C.skirt ? box(0.07, legLen, 0.07, o.skin, { pivot: 'top' }) : part('shin' + s, 0.13 * Wd, legLen, 0.13, C.pants, { pivot: 'top' }));
     const ft = joint('foot' + s, kn, 0, -legLen, 0);
     const shoe = part('shoe', 0.14, 0.09, 0.29, C.shoes, { pivot: 'top' }); shoe.position.z = 0.06; // big boxy shoes (measured) ft.add(shoe);
-    if (o.shoes) { const sh = part('shoe', 0.15, 0.085, 0.27, C.shoes, { pivot: 'bottom' }); sh.position.set(0, 0.0, 0.07); ft.add(sh); }   // o.shoes: visible shoes around the ankle (feet that must read: tiptoe, a step onto a scale)
+    if (o.barefoot) { const f = part('skin', 0.13, 0.06, 0.25, o.skin, { pivot: 'bottom' }); f.position.set(0, 0.0, 0.075); ft.add(f);   // o.barefoot: bare feet with toes under the trousers
+      [[0.034, 0.036, 0.042], [0.022, 0.03, 0.034], [0.02, 0.028, 0.03], [0.019, 0.026, 0.027], [0.017, 0.024, 0.024]].forEach(([w, h, d], i) => {
+        const toe = part('skin', w, h, d, o.skin, { pivot: 'bottom' }); toe.position.set(-sx * (0.046 - i * 0.024), 0.0, 0.2 + d / 2 - 0.004 - i * 0.004); toe.name = 'toe'; ft.add(toe); }); }
+    else if (o.shoes) { const sh = part('shoe', 0.15, 0.085, 0.27, C.shoes, { pivot: 'bottom' }); sh.position.set(0, 0.0, 0.07); ft.add(sh); }   // o.shoes: visible shoes around the ankle (feet that must read: tiptoe, a step onto a scale)
   }
 
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.1 + hh };
@@ -362,13 +365,23 @@ function blushTexture() {
   _blushTex = new THREE.CanvasTexture(c); _blushTex.colorSpace = THREE.SRGBColorSpace; return _blushTex;
 }
 let _frostTex = null, _puffTex = null;
-function frostTexture() {   // hoar frost round the face's edges, a pale blue wash in the middle (transparent canvas)
+function frostTexture() {   // frozen face: a pale blue wash, a solid white rim of hoar frost round the panel (ragged inner edge) and a few big crystals in the corners;
+  // the eyes and the mouth stay clean so the expression reads at phone size
   if (_frostTex) return _frostTex;
-  const c = document.createElement('canvas'); c.width = 200; c.height = 540; const g = c.getContext('2d');
-  g.fillStyle = 'rgba(190,225,255,0.22)'; g.fillRect(0, 0, 200, 540);
+  const W = 200, H = 540, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+  g.fillStyle = 'rgba(165,212,255,0.3)'; g.fillRect(0, 0, W, H);
   let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
-  for (let i = 0; i < 900; i++) { const edge = r() < 0.5, x = edge ? (r() < 0.5 ? r() * 34 : 200 - r() * 34) : r() * 200, y = edge ? r() * 540 : (r() < 0.5 ? r() * 60 : 540 - r() * 50);
-    g.fillStyle = `rgba(${235 + r() * 20},${245 + r() * 10},255,${0.5 + r() * 0.45})`; const w = 2 + r() * 7; g.fillRect(x, y, w, w * (0.4 + r())); }
+  g.fillStyle = 'rgba(246,251,255,0.97)';
+  const rim = (len, pos) => { const pts = []; for (let i = 0; i <= 24; i++) pts.push([i / 24 * len, 10 + r() * 14 + (i % 3 === 0 ? 8 : 0)]); return pts.map(pos); };
+  const band = pts => { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fill(); };
+  band([[0, 0], ...rim(W, ([u, d]) => [u, d]), [W, 0]]);                         // top
+  band([[0, H], ...rim(W, ([u, d]) => [u, H - d * 0.8]), [W, H]]);               // bottom (thinner: the icicles hang from it)
+  band([[0, 0], ...rim(H, ([u, d]) => [d * 0.9, u]), [0, H]]);                   // left
+  band([[W, 0], ...rim(H, ([u, d]) => [W - d * 0.9, u]), [W, H]]);               // right
+  const crystal = (x, y, R) => { g.save(); g.translate(x, y); g.strokeStyle = 'rgba(255,255,255,0.95)'; g.lineWidth = R * 0.16; g.lineCap = 'round';
+    for (let k = 0; k < 6; k++) { g.rotate(Math.PI / 3); g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -R); g.moveTo(0, -R * 0.55); g.lineTo(R * 0.25, -R * 0.78); g.moveTo(0, -R * 0.55); g.lineTo(-R * 0.25, -R * 0.78); g.stroke(); }
+    g.restore(); };
+  crystal(30, 40, 26); crystal(172, 52, 22); crystal(24, 500, 20); crystal(176, 492, 24); crystal(178, 300, 14); crystal(20, 250, 12);
   _frostTex = new THREE.CanvasTexture(c); _frostTex.colorSpace = THREE.SRGBColorSpace; return _frostTex;
 }
 function puffTex() { if (_puffTex) return _puffTex; const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); _puffTex = new THREE.CanvasTexture(c); return _puffTex; }
@@ -397,7 +410,7 @@ function buildFaceFx(head, hw, hh, hd, o) {
   const frost = new THREE.Mesh(new THREE.PlaneGeometry(hw * 1.0, hh * 1.0), new THREE.MeshBasicMaterial({ map: frostTexture(), transparent: true, depthWrite: false }));
   frost.position.set(0, hh / 2, hd / 2 + 0.006); frost.renderOrder = 3; FX.add(frost);
   const iceM = new THREE.MeshLambertMaterial({ color: '#DDF2FF', emissive: '#5A7A90', transparent: true, opacity: 0.92 });
-  const icicles = [[40, 0.05], [110, 0.08], [170, 0.06], [250, 0.09], [330, 0.05], [372, 0.07]].map(([cx, L]) => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.012, L, 5), iceM); const [x] = P2(cx, 1080); m.position.set(x, -L / 2 + 0.004, hd / 2 - 0.004); m.rotation.x = Math.PI; FX.add(m); return m; });
+  const icicles = [[40, 0.08], [110, 0.13], [170, 0.09], [250, 0.14], [330, 0.08], [372, 0.11]].map(([cx, L]) => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.018, L, 5), iceM); const [x] = P2(cx, 1080); m.position.set(x, -L / 2 + 0.004, hd / 2 - 0.004); m.rotation.x = Math.PI; FX.add(m); return m; });
   const noseIce = new THREE.Mesh(new THREE.ConeGeometry(0.01, 0.07, 5), iceM); { const [x, y] = P2(212, 712); noseIce.position.set(x, y - 0.035, Z(y) + 0.012); noseIce.rotation.x = Math.PI; } FX.add(noseIce);
   const cap = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.04, 0.03, hd * 1.04), new THREE.MeshLambertMaterial({ color: '#F4FAFF' })); cap.position.set(0, hh + 0.075, 0); FX.add(cap);
   // breath: vapour puffs from the mouth in the cold
@@ -417,6 +430,6 @@ function buildFaceFx(head, hw, hh, hd, o) {
     if (fx.blush) blush.forEach(m => { m.visible = true; });
     if (fx.frozen) { const thaw = fx.frozen === 'thaw'; frost.visible = !thaw; cap.visible = !thaw; icicles.forEach((m, i) => { m.visible = !thaw || i % 2 === 0; }); noseIce.visible = true;
       if (thaw) runs.slice(0, 3).forEach(r => { const q = (t * r.v / 1400 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, 1000 + q * 120, 0.6); }); }
-    if (fx.breath) { const [mx, my] = P2(212, 840); puffs.forEach((p, i) => { const q = (t * 0.7 + i / 3) % 1; p.visible = true; p.position.set(mx + 0.02 * Math.sin(i * 2 + t), my + q * 0.08, hd / 2 + 0.04 + q * 0.32); p.scale.setScalar(0.06 + q * 0.2); p.material.opacity = 0.75 * Math.sin(Math.PI * Math.min(1, q * 1.2)) * (q < 0.6 || i % 3 === 0 ? 1 : 0.6); }); }
+    if (fx.breath) { const [mx, my] = P2(212, 840); puffs.forEach((p, i) => { const q = (t * 0.7 + i / 3) % 1; p.visible = true; p.position.set(mx + 0.02 * Math.sin(i * 2 + t), my + q * 0.08, hd / 2 + 0.04 + q * 0.32); p.scale.setScalar(0.1 + q * 0.32); p.material.opacity = 0.9 * Math.sin(Math.PI * Math.min(1, q * 1.2)) * (q < 0.6 || i % 3 === 0 ? 1 : 0.6); }); }
   };
 }
