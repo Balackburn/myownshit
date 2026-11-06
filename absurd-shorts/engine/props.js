@@ -751,7 +751,7 @@ const B = {
       at(box(w, h, t, C, { outline: 0.02 }), 0, h / 2, d / 2), at(box(w, h, t, C), 0, h / 2, -d / 2), at(box(t, h, d, C), w / 2, h / 2, 0), at(box(t, h, d, C), -w / 2, h / 2, 0));
     const flap = (px, pz, cx, cz, rx, rz, fw, fd) => { const p = grp(at(box(fw, t, fd, C), cx, 0, cz)); p.position.set(px, h, pz); p.rotation.set(rx, 0, rz); g.add(p); };
     flap(0, d / 2, 0, 0.11, 0.55, 0, w, 0.22); flap(0, -d / 2, 0, -0.11, -0.4, 0, w, 0.22); flap(w / 2, 0, 0.1, 0, 0, -0.5, 0.2, d); flap(-w / 2, 0, -0.1, 0, 0, 0.6, 0.2, d);
-    const txt = o.text ?? 'SPARE CHANGE?';
+    const txt = o.text ?? 'UNE PIÈCE ?';   // the beggar's sign; text '' for a plain box (French only on screen)
     if (txt) { const s = grp(at(box(0.6, 0.42, 0.015, C, { pivot: 'bottom' }), 0, 0, 0), at(label(txt, 0.54, 0.36, { bg: '#D8B582', fg: P.ink }), 0, 0.21, 0.009));
       s.position.set(0, 0, d / 2 + 0.25); s.rotation.x = -0.36; g.add(s); }
     return g;

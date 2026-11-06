@@ -329,7 +329,7 @@ function addHat(head, hat, hw, hh, hd, C) {
     case 'beanie': g.add(box(hw * 1.15, 0.12, hd * 1.2, P.red, { pivot: 'bottom', taper: 0.8 })); break;
     case 'fedora': { g.add(box(hw * 1.7, 0.02, hd * 1.9, P.woodDark)); g.add(box(hw * 1.1, 0.12, hd * 1.2, P.woodDark, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); break; }
     case 'cowboy': { const b = box(hw * 2.2, 0.02, hd * 2.2, P.wood); g.add(b); g.add(box(hw * 1.1, 0.16, hd * 1.2, P.wood, { pivot: 'bottom', taper: 0.85 })); break; }
-    case 'firehelmet': { g.add(box(hw * 1.25, 0.13, hd * 1.4, P.red, { pivot: 'bottom', taper: 0.75 })); const br = box(hw * 1.3, 0.02, hd * 2, P.red); br.position.z = -0.04; g.add(br); break; }
+    case 'firehelmet': { const hc = C.hat || P.red; g.add(box(hw * 1.25, 0.13, hd * 1.4, hc, { pivot: 'bottom', taper: 0.75 })); const br = box(hw * 1.3, 0.02, hd * 2, hc); br.position.z = -0.04; g.add(br); break; }   // hatColor: e.g. the silver French F1 helmet
     case 'party': { const c = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.26, 6), mat(P.pink)); c.position.y = 0.13; g.add(c); break; }
     case 'maocap': { const c = C.hat || '#4A5C70'; g.add(box(hw * 1.18, 0.1, hd * 1.25, c, { pivot: 'bottom', taper: { x: 1.12, z: 1.12 } }));
       const vz = box(hw * 0.95, 0.018, 0.09, c); vz.position.set(0, 0.012, hd * 0.66); vz.rotation.x = 0.18; g.add(vz);

@@ -519,7 +519,12 @@ export const NEWS_PROPS = {
   fireTruck(o) { // red fire engine with a ladder; o.spray [[t, true]] shoots a water jet from the hose
     const g = grp(); g.add(at(box(4.4, 1.6, 1.8, '#C8322A', { outline: 0.015 }), 0, 1.2, 0), at(box(1.3, 1.1, 1.75, '#C8322A'), 2.5, 0.95, 0), at(box(0.5, 0.6, 1.6, '#7FC2EE'), 3.0, 1.25, 0));
     [[-1.4, 0.95], [-1.4, -0.95], [1.9, 0.95], [1.9, -0.95]].forEach(([x, z]) => g.add(at(cyl(0.4, 0.4, 0.3, '#1C1E22', 10), x, 0.4, z, PI / 2, 0, 0)));
-    g.add(at(box(3.6, 0.12, 0.5, '#B9BDBF'), -0.3, 2.1, 0));
+    for (const sd of [-1, 1]) g.add(at(box(3.6, 0.07, 0.07, '#B9BDBF', { outline: 0.004 }), -0.3, 2.1, sd * 0.24));   // the ladder: two rails and rungs
+    for (let i = 0; i < 12; i++) g.add(at(box(0.05, 0.05, 0.48, '#D5D9DC'), -2.0 + i * 0.31, 2.1, 0));
+    for (const sd of [-1, 1]) { g.add(at(box(0.16, 0.12, 0.3, '#3B7FE0', { emissive: '#3B7FE0' }), 2.5, 1.56, sd * 0.45));   // blue beacons on the cab
+      const side = canvasPlane(4.3, 0.62, (c, W, H) => { c.fillStyle = '#F4F1E8'; c.fillRect(0, H * 0.62, W, H * 0.22); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        let px = H * 0.5; c.font = `900 ${px}px Arial`; const tx = o.text || 'POMPIERS'; const tw = c.measureText(tx).width; if (tw > W * 0.7) { px *= W * 0.7 / tw; c.font = `900 ${px}px Arial`; } c.fillText(tx, W / 2, H * 0.32); }, { res: 512, transparent: true });
+      side.position.set(-0.05, 1.3, sd * 0.905); if (sd < 0) side.rotation.y = PI; g.add(side); }
     const jet = grp(); for (let i = 0; i < 48; i++) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.26, 0.26), new THREE.MeshBasicMaterial({ color: i % 3 === 2 ? '#F2FAFF' : '#3B8FE0', transparent: true, opacity: 0.92 })); jet.add(d); } jet.position.set(-2.1, 1.9, 0); g.add(jet);   // saturated blue + white foam: reads against sky and clouds
     const RE = o.reach || 9, LI = o.lift || 2.4;   // jet length along local -x and initial rise
     g.userData.update = t => { const a0 = keyAt(o.spray, t); jet.visible = a0 != null; if (a0 == null) return; jet.children.forEach((d, i) => { const k = Math.min(((t - a0) * 2 + i / 48) % 1, (t - a0) * 1.6), x = -k * RE, y = k * LI - k * k * (LI + 1.8); d.position.set(x, y, 0.15 * Math.sin(i)); d.rotation.z = Math.atan2(LI - 2 * (LI + 1.8) * k, -RE); }); };
@@ -939,7 +944,7 @@ export const NEWS_PROPS = {
     for (let d = 0; d < tot; d += gap) { const sg = segs.find(q => d >= q[5] && d < q[5] + q[4]) || segs[segs.length - 1], u = (d - sg[5]) / sg[4];
       pts.push([sg[0] + (sg[2] - sg[0]) * u + (r() - 0.5) * (o.jitter ?? 0.12), sg[1] + (sg[3] - sg[1]) * u + (r() - 0.5) * (o.jitter ?? 0.12), Math.atan2(sg[0] - sg[2], sg[1] - sg[3]) + (r() - 0.5) * 0.5]); }
     const list = pts.slice(0, o.max || 400), n = list.length, J = (o.colors || {}).jacket || '#2F5E9E', Pn = (o.colors || {}).pants || '#22385E';
-    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0]];
+    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125]];   // ... and two eyes
     const g = grp(), meshes = parts.map(([w, h, d, c]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(w, h, d), mat(c), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
     const info = list.map(() => ({ s: 0.93 + r() * 0.14, ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
     const skinC = new THREE.Color(); info.forEach((f, i) => meshes[3].setColorAt(i, skinC.set(f.skin))); if (meshes[3].instanceColor) meshes[3].instanceColor.needsUpdate = true;
