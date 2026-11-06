@@ -1,0 +1,2721 @@
+{
+ "version": 3,
+ "title": "Le sosie",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "gagnant": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "second": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "sosie4": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "juge0": {
+   "preset": "politique",
+   "seed": 31
+  },
+  "juge1": {
+   "preset": "madame",
+   "seed": 32,
+   "glasses": true
+  },
+  "juge2": {
+   "preset": "prefet",
+   "seed": 33
+  },
+  "femme": {
+   "preset": "femme"
+  },
+  "k1": {
+   "preset": "gamin",
+   "seed": 41
+  },
+  "k2": {
+   "preset": "gamin",
+   "seed": 42,
+   "suit": "#C9822E"
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "wave",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.55,
+      0.7
+     ],
+     "to": [
+      0.28,
+      1.55,
+      0.5
+     ],
+     "lookAt": [
+      0.0,
+      1.5,
+      -1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.5,
+      -1.9
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.1667,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ban",
+     "name": "signBoard",
+     "pos": [
+      0,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "CONCOURS DE SOSIES",
+      "w": 2.4,
+      "h": 0.62,
+      "height": 1.75,
+      "bg": "#C8322A",
+      "fg": "#FFFFFF",
+      "frame": "#F2C94C",
+      "posts": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      2.25,
+      0.9
+     ],
+     "to": [
+      0.1,
+      2.12,
+      0.55
+     ],
+     "lookAt": [
+      0.0,
+      2.08,
+      -2.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      2.06,
+      -2.6
+     ]
+    }
+   ],
+   "start": 1.1667,
+   "duration": 1.4333,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "sosie4",
+     "pos": [
+      -1.05,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "gagnant",
+     "pos": [
+      -0.35,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.35,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "second",
+     "pos": [
+      1.05,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "badge_sosie4",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "sosie4",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 1",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "badge_gagnant",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 2",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "badge_second",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "second",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 4",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.45,
+      3.8
+     ],
+     "to": [
+      0.1,
+      1.45,
+      3.5
+     ],
+     "lookAt": [
+      0.0,
+      1.32,
+      -1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.32,
+      -1.9
+     ]
+    }
+   ],
+   "start": 2.6,
+   "duration": 1.0333,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0.6,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "second",
+     "pos": [
+      -0.77,
+      0.42,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.77,
+      0.28,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "winnersPodium",
+     "pos": [
+      0,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "w": 0.75,
+      "hs": 1.0
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.55,
+      1.15,
+      2.3
+     ],
+     "to": [
+      1.5,
+      1.17,
+      2.1
+     ],
+     "lookAt": [
+      0.6,
+      1.45,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.62,
+      1.47,
+      -1.6
+     ]
+    }
+   ],
+   "start": 3.6333,
+   "duration": 1.3,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0.6,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "second",
+     "pos": [
+      -0.77,
+      0.42,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.77,
+      0.28,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "winnersPodium",
+     "pos": [
+      0,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "w": 0.75,
+      "hs": 1.0
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "p1",
+     "name": "noticeBoard",
+     "pos": [
+      0.0,
+      3.0,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "99 %",
+      "style": "sign",
+      "w": 0.6,
+      "h": 0.18,
+      "bg": "#4CAF50",
+      "fg": "#FFFFFF",
+      "frame": "#1C252A",
+      "popAt": 0.2
+     }
+    },
+    {
+     "id": "p2",
+     "name": "noticeBoard",
+     "pos": [
+      -0.77,
+      2.82,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "98 %",
+      "style": "sign",
+      "w": 0.6,
+      "h": 0.18,
+      "bg": "#4CAF50",
+      "fg": "#FFFFFF",
+      "frame": "#1C252A",
+      "popAt": 0.55
+     }
+    },
+    {
+     "id": "p3",
+     "name": "noticeBoard",
+     "pos": [
+      0.77,
+      2.68,
+      -1.6
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "41 %",
+      "style": "sign",
+      "w": 0.6,
+      "h": 0.18,
+      "bg": "#C8322A",
+      "fg": "#FFFFFF",
+      "frame": "#1C252A",
+      "popAt": 1.15
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      1.6,
+      3.9
+     ],
+     "to": [
+      0.12,
+      1.6,
+      3.6
+     ],
+     "lookAt": [
+      0.0,
+      1.6,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.6,
+      -1.6
+     ]
+    }
+   ],
+   "start": 4.9333,
+   "duration": 2.2334,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge0",
+     "pos": [
+      -0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "juge1",
+     "pos": [
+      0.0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "juge2",
+     "pos": [
+      0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      0,
+      0.42
+     ],
+     "ry": 0,
+     "clip": "slamTable",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "jtab",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      1.2
+     ],
+     "opts": {
+      "w": 2.0,
+      "d": 0.6,
+      "h": 0.75,
+      "color": "#2C4A8A"
+     }
+    },
+    {
+     "id": "jch0",
+     "name": "chair",
+     "pos": [
+      -0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "jch1",
+     "name": "chair",
+     "pos": [
+      0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "jch2",
+     "name": "chair",
+     "pos": [
+      0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "form",
+     "name": "noticeBoard",
+     "pos": [
+      0.05,
+      0.765,
+      0.98
+     ],
+     "rot": [
+      -1.5707963267948966,
+      0,
+      0
+     ],
+     "opts": {
+      "text": "RÉCLAMATION",
+      "style": "tag",
+      "w": 0.3,
+      "h": 0.1
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.4,
+      1.65,
+      1.05
+     ],
+     "to": [
+      3.15,
+      1.65,
+      1.02
+     ],
+     "lookAt": [
+      0.0,
+      1.3,
+      1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.3,
+      1.0
+     ]
+    }
+   ],
+   "start": 7.1667,
+   "duration": 1.4666,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge0",
+     "pos": [
+      -0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "juge1",
+     "pos": [
+      0.0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sitPoint",
+     "keys": [],
+     "expr": "suspicious"
+    },
+    {
+     "id": "juge2",
+     "pos": [
+      0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "jtab",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      1.2
+     ],
+     "opts": {
+      "w": 2.0,
+      "d": 0.6,
+      "h": 0.75,
+      "color": "#2C4A8A"
+     }
+    },
+    {
+     "id": "jch0",
+     "name": "chair",
+     "pos": [
+      -0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "jch1",
+     "name": "chair",
+     "pos": [
+      0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "jch2",
+     "name": "chair",
+     "pos": [
+      0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "proof",
+     "name": "noticeBoard",
+     "pos": [
+      0.0,
+      2.15,
+      1.6500000000000001
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "PREUVE ?",
+      "style": "sign",
+      "w": 0.6,
+      "h": 0.18,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A",
+      "popAt": 0.3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.12,
+      1.6,
+      -2.3
+     ],
+     "to": [
+      0.12,
+      1.6,
+      -2.05
+     ],
+     "lookAt": [
+      0.0,
+      1.3,
+      1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.32,
+      1.6
+     ]
+    }
+   ],
+   "start": 8.6333,
+   "duration": 1.7,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      0.42
+     ],
+     "ry": 0,
+     "clip": "showPhoneFaceL",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "idc",
+     "name": "idCardMec",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "rot": [
+       0,
+       -1.5708,
+       3.1416
+      ],
+      "offset": [
+       0,
+       -0.17,
+       0.035
+      ]
+     },
+     "scale": 2.2
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      1.72,
+      2.55
+     ],
+     "to": [
+      0.14,
+      1.72,
+      2.35
+     ],
+     "lookAt": [
+      0.1,
+      1.68,
+      0.42
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.1,
+      1.68,
+      0.42
+     ]
+    }
+   ],
+   "start": 10.3333,
+   "duration": 1.9334,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge0",
+     "pos": [
+      -0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sitPoint",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "juge1",
+     "pos": [
+      0.0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sitPoint",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "juge2",
+     "pos": [
+      0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "clip": "sitPoint",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "gagnant",
+     "pos": [
+      0.35,
+      0,
+      -0.35
+     ],
+     "ry": 0,
+     "clip": "heroPose",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      1.05,
+      0,
+      -0.3
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "jtab",
+     "name": "table",
+     "pos": [
+      0,
+      0,
+      1.2
+     ],
+     "opts": {
+      "w": 2.0,
+      "d": 0.6,
+      "h": 0.75,
+      "color": "#2C4A8A"
+     }
+    },
+    {
+     "id": "jch0",
+     "name": "chair",
+     "pos": [
+      -0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "jch1",
+     "name": "chair",
+     "pos": [
+      0,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "jch2",
+     "name": "chair",
+     "pos": [
+      0.62,
+      0,
+      1.6
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "lui",
+     "name": "noticeBoard",
+     "pos": [
+      0.35,
+      2.5,
+      -0.35
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "C'EST LUI !",
+      "style": "sign",
+      "w": 0.7,
+      "h": 0.2,
+      "bg": "#4CAF50",
+      "fg": "#FFFFFF",
+      "frame": "#1C252A",
+      "popAt": 0.5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      2.9,
+      3.6
+     ],
+     "to": [
+      0.3,
+      2.86,
+      3.35
+     ],
+     "lookAt": [
+      0.6,
+      1.2,
+      -0.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.6,
+      1.22,
+      -0.3
+     ]
+    }
+   ],
+   "start": 12.2667,
+   "duration": 1.7,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.25,
+      0,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.25,
+        0,
+        0.3
+       ],
+       "dur": 2.3,
+       "clip": "carryBox",
+       "face": "keep"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "cup",
+     "name": "trophy",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.18,
+       0.3
+      ]
+     },
+     "scale": 1.5
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.42,
+      1.45,
+      1.4
+     ],
+     "to": [
+      0.4,
+      1.45,
+      2.7
+     ],
+     "lookAt": [
+      0.25,
+      1.35,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.25,
+      1.35,
+      0.3
+     ]
+    }
+   ],
+   "start": 13.9667,
+   "duration": 2.3,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      6.3,
+      0,
+      0.6
+     ],
+     "ry": 75,
+     "clip": "takeItem",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      7.15,
+      0,
+      0.6
+     ],
+     "ry": -75,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "case",
+     "name": "briefcase",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "cup",
+     "name": "trophy",
+     "pos": [
+      5.85,
+      0,
+      0.75
+     ],
+     "scale": 1.4
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.85,
+      1.55,
+      4.6
+     ],
+     "to": [
+      6.83,
+      1.55,
+      4.35
+     ],
+     "lookAt": [
+      6.72,
+      1.5,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      6.72,
+      1.5,
+      0.6
+     ]
+    }
+   ],
+   "start": 16.2667,
+   "duration": 1.2,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "sitWrite",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "d",
+     "name": "desk",
+     "pos": [
+      0,
+      0,
+      -1.4
+     ]
+    },
+    {
+     "id": "np",
+     "name": "noticeBoard",
+     "pos": [
+      0.12,
+      0.84,
+      -0.98
+     ],
+     "opts": {
+      "text": "LE MEC",
+      "style": "tag",
+      "w": 0.42,
+      "h": 0.12
+     }
+    },
+    {
+     "id": "ch",
+     "name": "chair",
+     "pos": [
+      0,
+      0,
+      -1.95
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "cup",
+     "name": "trophy",
+     "pos": [
+      -0.45,
+      0.76,
+      -1.45
+     ],
+     "scale": 1.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.32,
+      1.4,
+      1.05
+     ],
+     "to": [
+      0.3,
+      1.4,
+      0.8
+     ],
+     "lookAt": [
+      0.0,
+      1.12,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.12,
+      -1.6
+     ]
+    }
+   ],
+   "start": 17.4667,
+   "duration": 1.0,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0,
+      -2.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "st",
+     "name": "table",
+     "pos": [
+      0.85,
+      0,
+      -2.6999999999999997
+     ],
+     "opts": {
+      "w": 0.45,
+      "d": 0.45,
+      "h": 0.5,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "cup",
+     "name": "trophy",
+     "pos": [
+      0.85,
+      0.5,
+      -2.6999999999999997
+     ],
+     "scale": 1.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      1.3,
+      0.6
+     ],
+     "to": [
+      0.42,
+      1.31,
+      0.35
+     ],
+     "lookAt": [
+      0.25,
+      1.0,
+      -2.8
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.25,
+      1.0,
+      -2.8
+     ]
+    }
+   ],
+   "start": 18.4667,
+   "duration": 1.1666,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0,
+      -2.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      -0.95,
+      0,
+      -2.05
+     ],
+     "ry": 50,
+     "clip": "handsOnHips",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "st",
+     "name": "table",
+     "pos": [
+      0.85,
+      0,
+      -2.6999999999999997
+     ],
+     "opts": {
+      "w": 0.45,
+      "d": 0.45,
+      "h": 0.5,
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "cup",
+     "name": "trophy",
+     "pos": [
+      0.85,
+      0.5,
+      -2.6999999999999997
+     ],
+     "scale": 1.3
+    },
+    {
+     "id": "q",
+     "name": "noticeBoard",
+     "pos": [
+      -0.95,
+      2.2,
+      -2.05
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "?",
+      "style": "sign",
+      "w": 0.22,
+      "h": 0.22,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A",
+      "popAt": 0.45
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.15,
+      1.45,
+      1.4
+     ],
+     "to": [
+      -0.16,
+      1.46,
+      1.15
+     ],
+     "lookAt": [
+      -0.45,
+      1.2,
+      -2.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.45,
+      1.2,
+      -2.5
+     ]
+    }
+   ],
+   "start": 19.6333,
+   "duration": 1.9334,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0,
+      -2.8
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      -0.75,
+      0,
+      -2.25
+     ],
+     "ry": 60,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "h0",
+     "name": "heart",
+     "pos": [
+      -0.75,
+      2.2,
+      -2.4
+     ],
+     "scale": 0.3,
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01
+      },
+      {
+       "at": 0.06,
+       "scale": 0.3,
+       "dur": 0.22,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "h1",
+     "name": "heart",
+     "pos": [
+      -0.3,
+      2.36,
+      -2.4
+     ],
+     "scale": 0.3,
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01
+      },
+      {
+       "at": 0.18,
+       "scale": 0.3,
+       "dur": 0.22,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "h2",
+     "name": "heart",
+     "pos": [
+      0.15,
+      2.16,
+      -2.4
+     ],
+     "scale": 0.3,
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01
+      },
+      {
+       "at": 0.3,
+       "scale": 0.3,
+       "dur": 0.22,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.2,
+      1.55,
+      1.05
+     ],
+     "to": [
+      -0.21,
+      1.56,
+      0.85
+     ],
+     "lookAt": [
+      -0.35,
+      1.45,
+      -2.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.35,
+      1.47,
+      -2.5
+     ]
+    }
+   ],
+   "start": 21.5667,
+   "duration": 0.8,
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.7
+     ],
+     "ry": 0,
+     "clip": "present",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "k1",
+     "pos": [
+      -0.65,
+      0,
+      -0.75
+     ],
+     "ry": 150,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "k2",
+     "pos": [
+      0.7,
+      0,
+      -0.8
+     ],
+     "ry": -150,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bl0",
+     "name": "balloon",
+     "pos": [
+      -1.25,
+      0,
+      -2.4
+     ],
+     "opts": {
+      "color": "#C8322A",
+      "string": 1.3
+     }
+    },
+    {
+     "id": "bl1",
+     "name": "balloon",
+     "pos": [
+      1.2,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#2F62B5",
+      "string": 1.5
+     }
+    },
+    {
+     "id": "bl2",
+     "name": "balloon",
+     "pos": [
+      -0.75,
+      0,
+      -2.8
+     ],
+     "opts": {
+      "color": "#F2C94C",
+      "string": 1.3
+     }
+    },
+    {
+     "id": "bl3",
+     "name": "balloon",
+     "pos": [
+      0.8,
+      0,
+      -2.85
+     ],
+     "opts": {
+      "color": "#2F7F5C",
+      "string": 1.5
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "SOSIE PRO",
+      "style": "tag",
+      "w": 0.32,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "pro",
+     "name": "noticeBoard",
+     "pos": [
+      0.0,
+      2.55,
+      -2.9
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "SOSIE PROFESSIONNEL",
+      "style": "sign",
+      "w": 1.3,
+      "h": 0.26,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.2,
+      1.4,
+      2.6
+     ],
+     "to": [
+      0.19,
+      1.42,
+      2.3
+     ],
+     "lookAt": [
+      0.0,
+      1.35,
+      -1.7
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.37,
+      -1.7
+     ]
+    }
+   ],
+   "start": 22.3667,
+   "duration": 2.5333,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      -0.42,
+      0,
+      -1.8
+     ],
+     "ry": 8,
+     "clip": "heroPose",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.42,
+      0,
+      -1.8
+     ],
+     "ry": -8,
+     "clip": "heroPose",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "bl0",
+     "name": "balloon",
+     "pos": [
+      -1.25,
+      0,
+      -2.4
+     ],
+     "opts": {
+      "color": "#C8322A",
+      "string": 1.3
+     }
+    },
+    {
+     "id": "bl1",
+     "name": "balloon",
+     "pos": [
+      1.2,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#2F62B5",
+      "string": 1.5
+     }
+    },
+    {
+     "id": "bl2",
+     "name": "balloon",
+     "pos": [
+      -0.75,
+      0,
+      -2.8
+     ],
+     "opts": {
+      "color": "#F2C94C",
+      "string": 1.3
+     }
+    },
+    {
+     "id": "bl3",
+     "name": "balloon",
+     "pos": [
+      0.8,
+      0,
+      -2.85
+     ],
+     "opts": {
+      "color": "#2F7F5C",
+      "string": 1.5
+     }
+    },
+    {
+     "id": "medal_gagnant",
+     "name": "medal",
+     "on": {
+      "actor": "gagnant",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.62,
+       0.14
+      ]
+     },
+     "scale": 1.7
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "SOSIE PRO",
+      "style": "tag",
+      "w": 0.32,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "o",
+     "name": "noticeBoard",
+     "pos": [
+      -0.42,
+      2.5,
+      -1.8
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "L'ORIGINAL",
+      "style": "sign",
+      "w": 0.62,
+      "h": 0.17,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
+     }
+    },
+    {
+     "id": "s",
+     "name": "noticeBoard",
+     "pos": [
+      0.42,
+      2.5,
+      -1.8
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "LE SOSIE",
+      "style": "sign",
+      "w": 0.62,
+      "h": 0.17,
+      "bg": "#FFFFFF",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.5,
+      2.15
+     ],
+     "to": [
+      0.05,
+      1.51,
+      1.9
+     ],
+     "lookAt": [
+      0.0,
+      1.55,
+      -1.8
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.56,
+      -1.8
+     ]
+    }
+   ],
+   "start": 24.9,
+   "duration": 0.9333,
+   "setOpts": {
+    "sofa": false,
+    "tv": false
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -1.9
+     ],
+     "ry": 0,
+     "clip": "wave",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
+    {
+     "id": "ed",
+     "name": "noticeBoard",
+     "pos": [
+      0.0,
+      2.72,
+      -2.9
+     ],
+     "ry": 0,
+     "opts": {
+      "text": "ÉDITION 2027",
+      "style": "sign",
+      "w": 1.1,
+      "h": 0.26,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.7,
+      0.95
+     ],
+     "to": [
+      0.28,
+      1.7,
+      0.7
+     ],
+     "lookAt": [
+      0.0,
+      1.85,
+      -1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.85,
+      -1.9
+     ]
+    }
+   ],
+   "start": 25.8333,
+   "duration": 2.2334,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  },
+  {
+   "id": "S19",
+   "set": "pressRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gagnant",
+     "pos": [
+      0.0,
+      0.6,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "second",
+     "pos": [
+      -0.77,
+      0.42,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.77,
+      0.28,
+      -1.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "pod",
+     "name": "winnersPodium",
+     "pos": [
+      0,
+      0,
+      -1.6
+     ],
+     "opts": {
+      "w": 0.75,
+      "hs": 1.0
+     }
+    },
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.55,
+      1.15,
+      2.3
+     ],
+     "to": [
+      1.05,
+      2.0,
+      -0.2
+     ],
+     "lookAt": [
+      0.6,
+      1.45,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      0.77,
+      2.08,
+      -1.6
+     ]
+    }
+   ],
+   "start": 28.0667,
+   "duration": 1.7133,
+   "setOpts": {
+    "backdrop": "SOSIES|CONCOURS",
+    "fontScale": 0.66,
+    "bg": "#F6D77A",
+    "fg": "rgba(200,50,42,0.55)",
+    "wall": "#8FC1DE",
+    "band": "#6FA3C4",
+    "trim": "#3E6E8E",
+    "floor": "#C2554A",
+    "podium": false,
+    "flags": false,
+    "chairColor": "#2F62B5"
+   },
+   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "soften": 0.84
+  }
+ ],
+ "total": 29.78
+}

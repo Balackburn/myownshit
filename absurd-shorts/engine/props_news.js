@@ -588,10 +588,14 @@ export const NEWS_PROPS = {
         const b = t - k.t0 - (k.from != null ? 0.35 : 0); return b < 0.3 && Math.floor(b / 0.075) % 2 === 1 ? '   ' : String(k.v); }
       if (k.v === 'plane') return t - k.t0 < 0.3 && Math.floor((t - k.t0) / 0.075) % 2 === 1 ? '' : 'plane';
       return k.v; };
-    const wing = sd => { const p = grp(at(box(0.3, 0.012, 0.12, '#F6F6F2', { outline: 0.003 }), sd * 0.15, 0, 0), at(sphere(0.014, sd < 0 ? '#FF3B30' : '#34C759', 1, { emissive: sd < 0 ? '#FF3B30' : '#34C759' }), sd * 0.3, 0.004, -0.03));
+    body.add(at(box(w * 0.96, 0.006, d * 0.94, '#3A4048'), 0, 0.009, 0));   // dark underside: reads against white tiles and clouds
+    const WC = o.wingColor || '#D8382E';
+    const wing = sd => { const p = grp(at(box(0.3, 0.014, 0.12, WC, { outline: 0.004 }), sd * 0.15, 0, 0), at(box(0.06, 0.016, 0.125, '#F6F6F2'), sd * 0.27, 0.001, 0), at(sphere(0.016, sd < 0 ? '#FF3B30' : '#34C759', 1, { emissive: sd < 0 ? '#FF3B30' : '#34C759' }), sd * 0.31, 0.006, -0.03));
       p.position.set(sd * w / 2, h * 0.6, 0.0); p.rotation.y = sd * 0.28; body.add(p); return p; };
     const wL = wing(-1), wR = wing(1);
-    const tail = grp(at(box(0.012, 0.13, 0.1, '#F6F6F2', { pivot: 'bottom', outline: 0.003 }), 0, 0, 0), at(box(0.2, 0.01, 0.06, '#F6F6F2', { outline: 0.003 }), 0, 0.01, 0.0), at(box(0.014, 0.03, 0.05, '#C8322A'), 0, 0.12, -0.02));
+    const tail = grp(at(box(0.014, 0.13, 0.1, WC, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0), at(box(0.2, 0.012, 0.06, WC, { outline: 0.004 }), 0, 0.01, 0.0), at(box(0.016, 0.03, 0.05, '#F6F6F2'), 0, 0.12, -0.02));
+    const trails = grp(); if (o.trail) for (const sd of [-1, 1]) { const L = o.trail, m = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.035, L), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.55, depthWrite: false })); m.position.set(sd * (w / 2 + 0.3), h * 0.6, -L / 2 - 0.05); trails.add(m); }
+    body.add(trails);
     tail.position.set(0, h + 0.012, -d / 2 + 0.05); body.add(tail);
     const blades = grp(at(box(0.17, 0.02, 0.006, '#3A3F46'), 0, 0, 0), at(box(0.02, 0.17, 0.006, '#3A3F46'), 0, 0, 0));
     const blur = new THREE.Mesh(new THREE.CircleGeometry(0.09, 20), new THREE.MeshBasicMaterial({ color: '#C9D3DA', transparent: true, opacity: 0.35, depthWrite: false }));
@@ -600,6 +604,8 @@ export const NEWS_PROPS = {
     const lights = [wL.children[1], wR.children[1]];
     g.userData.update = t => { draw(textAt(t)); btn.position.y = h + 0.012 - (o.pressAt != null && t >= o.pressAt && t < o.pressAt + 0.3 ? 0.006 : 0);
       const s = Math.max(0.001, pop(t, o.wingsAt ?? null, 0.32)); for (const x of [wL, wR, tail, nose]) x.scale.setScalar(s);
+      if (o.grow) g.scale.setScalar(1 + (o.grow - 1) * Math.min(1, Math.max(0, s)));   // it grows into a little plane as the wings come out
+      trails.visible = !!o.trail && t >= (o.trailAt ?? 0); trails.scale.z = o.trail ? Math.min(1, Math.max(0.01, (t - (o.trailAt ?? 0)) / 0.35)) : 1;
       blades.rotation.z = t * 31; lights.forEach(l => { l.visible = Math.floor(t * 2.5) % 2 === 0; });
       if (o.bob) { const [a, f, t0] = o.bob, u = clamp01((t - t0) / 0.4); body.position.y = u * a * Math.sin(TAU * f * (t - t0)); body.rotation.z = u * 0.07 * Math.sin(TAU * f * 0.7 * (t - t0)); } };
     g.userData.update(0); return g;
@@ -644,5 +650,23 @@ export const NEWS_PROPS = {
     g.add(at(box(w + 0.32, 0.1, 0.34, '#E2D8C4', { outline: 0.004 }), 0, -0.05, 0.13));
     for (const sd of [-1, 1]) g.add(at(box(w * 0.5, h, 0.04, o.shutter || '#5B7894', { outline: 0.004 }), sd * (w / 2 + 0.08 + w * 0.25), h / 2, 0.04));
     return g;
+  },
+  idCardMec(o) { // le sosie: a French ID card (o.w wide) with the mec's photo (box face, black hair, stubble, red tie) and o.name; front +Z, grip at its left edge
+    const w = o.w || 0.16, h = w * 0.63, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#DCE9F2'; c.fillRect(0, 0, W, H); c.fillStyle = '#F2D9E0'; c.fillRect(0, H * 0.55, W, H * 0.45);
+      c.fillStyle = '#2C4A8A'; c.fillRect(0, 0, W, H * 0.17); c.fillStyle = '#FFFFFF'; c.font = `bold ${H * 0.09}px Arial`; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText("CARTE NATIONALE D'IDENTITÉ", W * 0.05, H * 0.085);
+      const fx = W * 0.06, fy = H * 0.24, fw = W * 0.3, fh = H * 0.68; c.fillStyle = '#C9D6DE'; c.fillRect(fx, fy, fw, fh);
+      c.fillStyle = '#1E2A3A'; c.fillRect(fx + fw * 0.08, fy + fh * 0.78, fw * 0.84, fh * 0.22); c.fillStyle = '#FFFFFF'; c.fillRect(fx + fw * 0.42, fy + fh * 0.78, fw * 0.16, fh * 0.22); c.fillStyle = '#C8322A'; c.fillRect(fx + fw * 0.46, fy + fh * 0.8, fw * 0.08, fh * 0.2);
+      const hx = fx + fw * 0.22, hy = fy + fh * 0.08, hw = fw * 0.56, hh = fh * 0.66; c.fillStyle = '#E2A97C'; c.fillRect(hx, hy, hw, hh); c.fillStyle = '#17161A'; c.fillRect(hx - fw * 0.02, hy - fh * 0.03, hw + fw * 0.04, hh * 0.18);
+      c.fillStyle = '#FFFFFF'; [0.3, 0.7].forEach(u => c.fillRect(hx + hw * u - hw * 0.1, hy + hh * 0.36, hw * 0.2, hh * 0.1)); c.fillStyle = '#17161A'; [0.3, 0.7].forEach(u => c.fillRect(hx + hw * u - hw * 0.03, hy + hh * 0.37, hw * 0.07, hh * 0.08));
+      c.fillRect(hx + hw * 0.3, hy + hh * 0.74, hw * 0.4, hh * 0.04); c.fillStyle = 'rgba(60,40,30,0.55)'; for (let i = 0; i < 26; i++) c.fillRect(hx + hw * (0.12 + ((i * 37) % 76) / 100), hy + hh * (0.6 + ((i * 53) % 34) / 100), 2, 2);
+      c.fillStyle = '#1C252A'; c.font = `bold ${H * 0.1}px Arial`; c.fillText('NOM :', W * 0.42, H * 0.34); c.font = `900 ${H * 0.13}px Arial`; c.fillText(o.name || 'LE MEC', W * 0.42, H * 0.48);
+      c.font = `bold ${H * 0.08}px Arial`; c.fillText('NÉ LE : 03.05.1988', W * 0.42, H * 0.64); c.strokeStyle = '#2C4A8A'; c.lineWidth = H * 0.02; c.beginPath(); c.moveTo(W * 0.45, H * 0.85);
+      for (let i = 0; i < 8; i++) c.lineTo(W * (0.47 + i * 0.05), H * (0.85 + (i % 2 ? -0.07 : 0.04))); c.stroke(); }, { res: 512 });
+    const g = grp(at(box(w + 0.004, h + 0.004, 0.003, '#FFFFFF'), 0, 0, -0.002), pl); pl.position.z = 0.0005; g.userData.grip = [-w * 0.42, 0, 0]; return g;
+  },
+  cheekPuff(o) { // a puffed cheek (skin-coloured flattened ball) that inflates from o.growAt over o.dur; attach to a head joint
+    const m = at(sphere(o.r || 0.06, o.color || '#E2A97C', 1), 0, 0, 0); m.scale.set(0.9, 0.8, 0.55); const g = grp(m);
+    g.userData.update = t => { const u = o.growAt == null ? 1 : clamp01((t - o.growAt) / (o.dur || 0.6)); m.visible = u > 0.02; const k = ease.outBack(u) * (1 + 0.04 * Math.sin(t * 13)); m.scale.set(0.9 * k, 0.8 * k, 0.55 * k); };
+    g.userData.update(0); return g;
   },
 };

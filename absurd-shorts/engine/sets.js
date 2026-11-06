@@ -827,13 +827,13 @@ const S = {
     g.userData.lighting = 'interior'; return g;
   },
   pressRoom(o = {}) { // press conference: backdrop with repeated words (o.backdrop 'A|B|C'), podium with microphones, flags, chairs, cameras
-    const g = grp(), { back } = room(g, { wall: '#2E4563', band: '#24384F', bandH: 0.8, trim: '#1E2E44', floor: '#3A3F45', back: -3.0 });
+    const g = grp(), { back } = room(g, { wall: o.wall || '#2E4563', band: o.band || '#24384F', bandH: 0.8, trim: o.trim || '#1E2E44', floor: o.floor || '#3A3F45', back: -3.0 });
     const bd = canvasPlane(6.0, 2.6, (c, W, H) => { c.fillStyle = o.bg || '#2E4563'; c.fillRect(0, 0, W, H); c.fillStyle = o.fg || 'rgba(255,255,255,0.85)'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.085 * (o.fontScale || 1)}px Arial`;
       const words = String(o.backdrop || 'CONFÉRENCE DE PRESSE').split('|'); for (let r = 0; r < 6; r++) for (let k = 0; k < 4; k++) c.fillText(words[(r * 4 + k) % words.length], W * (0.14 + k * 0.24 + (r % 2) * 0.06), H * (0.1 + r * 0.16)); }, { res: 1024 });
     g.add(at(bd, 0, 1.9, back + 0.02));
     if (o.podium !== false) { g.add(prop('podium', {}, 0, 0, back + 1.0)); [-0.08, 0.08].forEach(x => g.add(rod([x, 1.15, back + 1.05], [x * 1.6, 1.42, back + 0.86], 0.008, P.ink), at(sphere(0.025, P.ink, 0), x * 1.6, 1.43, back + 0.85))); }
     const fc = o.flag || ['#2C4A8A', P.white, P.red], fo = o.flagOpts || { colors: fc }; if (o.flags !== false) g.add(prop('flag', fo, -1.5, 0, back + 0.4), prop('flag', fo, 1.5, 0, back + 0.4));
-    for (let r = 0; r < 2; r++) for (let i = 0; i < 5; i++) g.add(prop('chair', { color: '#8C949A' }, -2.4 + i * 1.2, 0, 2.2 + r * 1.1, PI));
+    if (o.chairs !== false) for (let r = 0; r < 2; r++) for (let i = 0; i < 5; i++) g.add(prop('chair', { color: o.chairColor || '#8C949A' }, -2.4 + i * 1.2, 0, 2.2 + r * 1.1, PI));
     [-3.2, 3.2].forEach(x => g.add(rod([x, 0, 3.9], [x, 1.45, 3.6], 0.015, P.ink), rod([x - 0.25, 0, 3.4], [x, 1.45, 3.6], 0.015, P.ink), rod([x + 0.25, 0, 3.4], [x, 1.45, 3.6], 0.015, P.ink),
       at(box(0.3, 0.22, 0.42, P.ink, { outline: 0.01 }), x, 1.55, 3.55), at(cyl(0.06, 0.06, 0.1, P.greyDark, 8), x, 1.55, 3.3, PI / 2)));
     g.userData.anchors = { center: [0, 0, 0], podium: [0, 0, back + 1.0], speaker: [0, 0, back + 0.55], press: [0, 0, 2.2] };
