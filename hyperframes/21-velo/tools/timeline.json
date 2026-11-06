@@ -1,0 +1,827 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est fait voler son vélo.",
+   "hl": [
+    "mec",
+    "voler",
+    "vélo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.776,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.329,
+     "e": 0.481
+    },
+    {
+     "w": "s'est",
+     "s": 0.557,
+     "e": 0.633
+    },
+    {
+     "w": "fait",
+     "s": 0.71,
+     "e": 0.786
+    },
+    {
+     "w": "voler",
+     "s": 0.862,
+     "e": 1.09
+    },
+    {
+     "w": "son",
+     "s": 1.167,
+     "e": 1.243
+    },
+    {
+     "w": "vélo.",
+     "s": 1.319,
+     "e": 1.776
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Par son vélo.",
+   "hl": [
+    "vélo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L02.k.wav",
+   "file_start": 1.836,
+   "speech_start": 1.836,
+   "speech_end": 2.903,
+   "words": [
+    {
+     "w": "Par",
+     "s": 1.836,
+     "e": 1.912
+    },
+    {
+     "w": "son",
+     "s": 2.065,
+     "e": 2.217
+    },
+    {
+     "w": "vélo.",
+     "s": 2.293,
+     "e": 2.903
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il est parti tout seul.",
+   "hl": [
+    "tout",
+    "seul."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L03.k.wav",
+   "file_start": 3.003,
+   "speech_start": 3.003,
+   "speech_end": 4.222,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.003,
+     "e": 3.079
+    },
+    {
+     "w": "est",
+     "s": 3.117,
+     "e": 3.155
+    },
+    {
+     "w": "parti",
+     "s": 3.231,
+     "e": 3.46
+    },
+    {
+     "w": "tout",
+     "s": 3.536,
+     "e": 3.612
+    },
+    {
+     "w": "seul.",
+     "s": 3.689,
+     "e": 4.222
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La police l'a pris en chasse.",
+   "hl": [
+    "police",
+    "chasse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L04.k.wav",
+   "file_start": 4.322,
+   "speech_start": 4.322,
+   "speech_end": 5.77,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.322,
+     "e": 4.398
+    },
+    {
+     "w": "police",
+     "s": 4.474,
+     "e": 4.779
+    },
+    {
+     "w": "l'a",
+     "s": 4.805,
+     "e": 4.855
+    },
+    {
+     "w": "pris",
+     "s": 4.931,
+     "e": 5.084
+    },
+    {
+     "w": "en",
+     "s": 5.122,
+     "e": 5.16
+    },
+    {
+     "w": "chasse.",
+     "s": 5.198,
+     "e": 5.77
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Impossible de le rattraper.",
+   "hl": [
+    "Impossible",
+    "rattraper."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L05.k.wav",
+   "file_start": 5.87,
+   "speech_start": 5.87,
+   "speech_end": 7.241,
+   "words": [
+    {
+     "w": "Impossible",
+     "s": 5.87,
+     "e": 6.327
+    },
+    {
+     "w": "de",
+     "s": 6.403,
+     "e": 6.479
+    },
+    {
+     "w": "le",
+     "s": 6.517,
+     "e": 6.555
+    },
+    {
+     "w": "rattraper.",
+     "s": 6.593,
+     "e": 7.241
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il s'est inscrit au Tour de France.",
+   "hl": [
+    "Tour",
+    "France."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L06.k.wav",
+   "file_start": 7.341,
+   "speech_start": 7.341,
+   "speech_end": 9.017,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.341,
+     "e": 7.417
+    },
+    {
+     "w": "s'est",
+     "s": 7.493,
+     "e": 7.646
+    },
+    {
+     "w": "inscrit",
+     "s": 7.722,
+     "e": 7.95
+    },
+    {
+     "w": "au",
+     "s": 7.989,
+     "e": 8.027
+    },
+    {
+     "w": "Tour",
+     "s": 8.103,
+     "e": 8.179
+    },
+    {
+     "w": "de",
+     "s": 8.255,
+     "e": 8.331
+    },
+    {
+     "w": "France.",
+     "s": 8.522,
+     "e": 9.017
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Sans cycliste.",
+   "hl": [
+    "Sans",
+    "cycliste."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L07.k.wav",
+   "file_start": 9.077,
+   "speech_start": 9.077,
+   "speech_end": 10.155,
+   "words": [
+    {
+     "w": "Sans",
+     "s": 9.077,
+     "e": 9.306
+    },
+    {
+     "w": "cycliste.",
+     "s": 9.42,
+     "e": 10.144
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Soixante-dix kilos de moins que les autres.",
+   "hl": [
+    "Soixante-dix",
+    "kilos"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L08.k.wav",
+   "file_start": 10.255,
+   "speech_start": 10.255,
+   "speech_end": 12.16,
+   "words": [
+    {
+     "w": "Soixante-dix",
+     "s": 10.255,
+     "e": 10.751
+    },
+    {
+     "w": "kilos",
+     "s": 10.789,
+     "e": 11.017
+    },
+    {
+     "w": "de",
+     "s": 11.094,
+     "e": 11.17
+    },
+    {
+     "w": "moins",
+     "s": 11.208,
+     "e": 11.322
+    },
+    {
+     "w": "que",
+     "s": 11.36,
+     "e": 11.398
+    },
+    {
+     "w": "les",
+     "s": 11.475,
+     "e": 11.551
+    },
+    {
+     "w": "autres.",
+     "s": 11.627,
+     "e": 12.16
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a gagné l'étape.",
+   "hl": [
+    "gagné",
+    "l'étape."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L09.k.wav",
+   "file_start": 12.26,
+   "speech_start": 12.26,
+   "speech_end": 13.479,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.26,
+     "e": 12.336
+    },
+    {
+     "w": "a",
+     "s": 12.375,
+     "e": 12.413
+    },
+    {
+     "w": "gagné",
+     "s": 12.489,
+     "e": 12.679
+    },
+    {
+     "w": "l'étape.",
+     "s": 12.717,
+     "e": 13.479
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Puis le maillot jaune.",
+   "hl": [
+    "maillot",
+    "jaune."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L10.k.wav",
+   "file_start": 13.579,
+   "speech_start": 13.579,
+   "speech_end": 14.646,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 13.579,
+     "e": 13.732
+    },
+    {
+     "w": "le",
+     "s": 13.808,
+     "e": 13.884
+    },
+    {
+     "w": "maillot",
+     "s": 13.922,
+     "e": 14.113
+    },
+    {
+     "w": "jaune.",
+     "s": 14.189,
+     "e": 14.646
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Contrôle antidopage : un peu d'huile sur la chaîne.",
+   "hl": [
+    "antidopage",
+    "d'huile",
+    "chaîne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L11.k.wav",
+   "file_start": 14.746,
+   "speech_start": 14.746,
+   "speech_end": 17.26,
+   "words": [
+    {
+     "w": "Contrôle",
+     "s": 14.746,
+     "e": 15.051
+    },
+    {
+     "w": "antidopage",
+     "s": 15.127,
+     "e": 15.736
+    },
+    {
+     "w": ":",
+     "s": 15.965,
+     "e": 16.015
+    },
+    {
+     "w": "un",
+     "s": 16.067,
+     "e": 16.117
+    },
+    {
+     "w": "peu",
+     "s": 16.155,
+     "e": 16.219
+    },
+    {
+     "w": "d'huile",
+     "s": 16.244,
+     "e": 16.422
+    },
+    {
+     "w": "sur",
+     "s": 16.498,
+     "e": 16.575
+    },
+    {
+     "w": "la",
+     "s": 16.613,
+     "e": 16.651
+    },
+    {
+     "w": "chaîne.",
+     "s": 16.727,
+     "e": 17.26
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le mec a porté plainte pour vol.",
+   "hl": [
+    "plainte",
+    "vol."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L12.k.wav",
+   "file_start": 17.36,
+   "speech_start": 17.36,
+   "speech_end": 19.113,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.36,
+     "e": 17.436
+    },
+    {
+     "w": "mec",
+     "s": 17.513,
+     "e": 17.665
+    },
+    {
+     "w": "a",
+     "s": 17.703,
+     "e": 17.741
+    },
+    {
+     "w": "porté",
+     "s": 17.855,
+     "e": 18.046
+    },
+    {
+     "w": "plainte",
+     "s": 18.16,
+     "e": 18.351
+    },
+    {
+     "w": "pour",
+     "s": 18.427,
+     "e": 18.503
+    },
+    {
+     "w": "vol.",
+     "s": 18.579,
+     "e": 19.113
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le tribunal a donné raison au vélo.",
+   "hl": [
+    "tribunal",
+    "raison",
+    "vélo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L13.k.wav",
+   "file_start": 19.213,
+   "speech_start": 19.213,
+   "speech_end": 21.27,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.213,
+     "e": 19.289
+    },
+    {
+     "w": "tribunal",
+     "s": 19.365,
+     "e": 19.822
+    },
+    {
+     "w": "a",
+     "s": 19.898,
+     "e": 19.975
+    },
+    {
+     "w": "donné",
+     "s": 20.051,
+     "e": 20.203
+    },
+    {
+     "w": "raison",
+     "s": 20.355,
+     "e": 20.508
+    },
+    {
+     "w": "au",
+     "s": 20.584,
+     "e": 20.66
+    },
+    {
+     "w": "vélo.",
+     "s": 20.698,
+     "e": 21.27
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il ne s'appartenait qu'à lui-même.",
+   "hl": [
+    "lui-même."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L14.k.wav",
+   "file_start": 21.37,
+   "speech_start": 21.37,
+   "speech_end": 23.046,
+   "words": [
+    {
+     "w": "Il",
+     "s": 21.37,
+     "e": 21.446
+    },
+    {
+     "w": "ne",
+     "s": 21.522,
+     "e": 21.598
+    },
+    {
+     "w": "s'appartenait",
+     "s": 21.649,
+     "e": 22.132
+    },
+    {
+     "w": "qu'à",
+     "s": 22.157,
+     "e": 22.208
+    },
+    {
+     "w": "lui-même.",
+     "s": 22.284,
+     "e": 23.046
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le mec lui doit une pension.",
+   "hl": [
+    "pension."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L15.k.wav",
+   "file_start": 23.146,
+   "speech_start": 23.146,
+   "speech_end": 24.596,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.146,
+     "e": 23.298
+    },
+    {
+     "w": "mec",
+     "s": 23.349,
+     "e": 23.451
+    },
+    {
+     "w": "lui",
+     "s": 23.489,
+     "e": 23.603
+    },
+    {
+     "w": "doit",
+     "s": 23.641,
+     "e": 23.755
+    },
+    {
+     "w": "une",
+     "s": 23.832,
+     "e": 23.908
+    },
+    {
+     "w": "pension.",
+     "s": 24.035,
+     "e": 24.594
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Deux chambres à air par mois.",
+   "hl": [
+    "chambres",
+    "air"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L16.k.wav",
+   "file_start": 24.696,
+   "speech_start": 24.696,
+   "speech_end": 26.144,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 24.696,
+     "e": 24.849
+    },
+    {
+     "w": "chambres",
+     "s": 24.925,
+     "e": 25.154
+    },
+    {
+     "w": "à",
+     "s": 25.23,
+     "e": 25.28
+    },
+    {
+     "w": "air",
+     "s": 25.332,
+     "e": 25.382
+    },
+    {
+     "w": "par",
+     "s": 25.458,
+     "e": 25.611
+    },
+    {
+     "w": "mois.",
+     "s": 25.649,
+     "e": 26.144
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Aujourd'hui, le vélo est une star.",
+   "hl": [
+    "vélo",
+    "star."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L17.k.wav",
+   "file_start": 26.244,
+   "speech_start": 26.244,
+   "speech_end": 28.225,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 26.244,
+     "e": 26.98
+    },
+    {
+     "w": "le",
+     "s": 27.032,
+     "e": 27.082
+    },
+    {
+     "w": "vélo",
+     "s": 27.12,
+     "e": 27.311
+    },
+    {
+     "w": "est",
+     "s": 27.349,
+     "e": 27.387
+    },
+    {
+     "w": "une",
+     "s": 27.463,
+     "e": 27.539
+    },
+    {
+     "w": "star.",
+     "s": 27.615,
+     "e": 28.225
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Il a sa propre voiture.",
+   "hl": [
+    "voiture."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L18.k.wav",
+   "file_start": 28.325,
+   "speech_start": 28.325,
+   "speech_end": 29.849,
+   "words": [
+    {
+     "w": "Il",
+     "s": 28.325,
+     "e": 28.401
+    },
+    {
+     "w": "a",
+     "s": 28.439,
+     "e": 28.477
+    },
+    {
+     "w": "sa",
+     "s": 28.554,
+     "e": 28.706
+    },
+    {
+     "w": "propre",
+     "s": 28.782,
+     "e": 29.011
+    },
+    {
+     "w": "voiture.",
+     "s": 29.049,
+     "e": 29.849
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Avec chauffeur.",
+   "hl": [
+    "chauffeur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L19.k.wav",
+   "file_start": 29.969,
+   "speech_start": 29.969,
+   "speech_end": 30.97,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 29.969,
+     "e": 30.197
+    },
+    {
+     "w": "chauffeur.",
+     "s": 30.235,
+     "e": 30.959
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "C'est le mec.",
+   "hl": [
+    "mec."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/velo/tts/L20.k.wav",
+   "file_start": 31.13,
+   "speech_start": 31.13,
+   "speech_end": 32.12,
+   "words": [
+    {
+     "w": "C'est",
+     "s": 31.13,
+     "e": 31.282
+    },
+    {
+     "w": "le",
+     "s": 31.359,
+     "e": 31.435
+    },
+    {
+     "w": "mec.",
+     "s": 31.511,
+     "e": 32.12
+    }
+   ]
+  }
+ ],
+ "total": 32.96
+}

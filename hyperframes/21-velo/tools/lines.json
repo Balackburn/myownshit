@@ -1,0 +1,179 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est fait voler son vélo.",
+  "hl": [
+   "mec",
+   "voler",
+   "vélo."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Par son vélo.",
+  "hl": [
+   "vélo."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il est parti tout seul.",
+  "hl": [
+   "tout",
+   "seul."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "La police l'a pris en chasse.",
+  "hl": [
+   "police",
+   "chasse."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Impossible de le rattraper.",
+  "hl": [
+   "Impossible",
+   "rattraper."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il s'est inscrit au Tour de France.",
+  "hl": [
+   "Tour",
+   "France."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Sans cycliste.",
+  "hl": [
+   "Sans",
+   "cycliste."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Soixante-dix kilos de moins que les autres.",
+  "hl": [
+   "Soixante-dix",
+   "kilos"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il a gagné l'étape.",
+  "hl": [
+   "gagné",
+   "l'étape."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Puis le maillot jaune.",
+  "hl": [
+   "maillot",
+   "jaune."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Contrôle antidopage : un peu d'huile sur la chaîne.",
+  "hl": [
+   "antidopage",
+   "d'huile",
+   "chaîne."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le mec a porté plainte pour vol.",
+  "hl": [
+   "plainte",
+   "vol."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le tribunal a donné raison au vélo.",
+  "hl": [
+   "tribunal",
+   "raison",
+   "vélo."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il ne s'appartenait qu'à lui-même.",
+  "hl": [
+   "lui-même."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le mec lui doit une pension.",
+  "hl": [
+   "pension."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Deux chambres à air par mois.",
+  "hl": [
+   "chambres",
+   "air"
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Aujourd'hui, le vélo est une star.",
+  "hl": [
+   "vélo",
+   "star."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il a sa propre voiture.",
+  "hl": [
+   "voiture."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Avec chauffeur.",
+  "hl": [
+   "chauffeur."
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "C'est le mec.",
+  "hl": [
+   "mec."
+  ]
+ }
+]

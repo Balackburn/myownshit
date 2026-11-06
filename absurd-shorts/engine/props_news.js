@@ -229,7 +229,7 @@ export const NEWS_PROPS = {
       const K = o.lookKeys; let lk = o.look || [0, 0];   // o.lookKeys: [[t, up, side], ...] eases the gaze between keys
       if (K) { lk = K[K.length - 1].slice(1); if (t <= K[0][0]) lk = K[0].slice(1); else for (let i = 1; i < K.length; i++) if (t < K[i][0]) { let u = (t - K[i - 1][0]) / (K[i][0] - K[i - 1][0]); u = u * u * (3 - 2 * u); lk = [K[i - 1][1] + (K[i][1] - K[i - 1][1]) * u, K[i - 1][2] + (K[i][2] - K[i - 1][2]) * u]; break; } }
       pupils.forEach(pu => { pu.position.x = lk[1] * er * 0.38; pu.position.y = er * 0.15 * Math.sin(t * 0.9) + lk[0] * er * 0.38; });
-      const bl = ((t + blink) % 3.1) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); };
+      const bl = ((t + blink) % 3.1) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); pupils.forEach(pu => { pu.visible = !bl; }); };
     g.userData.update(0); return g;
   },
   winnersPodium(o) { // the three-step podium with 1 2 3 (centre step tallest), white with blue numbers; o.w step width, o.hs height scale
@@ -249,7 +249,8 @@ export const NEWS_PROPS = {
   innerTube(o) { return grp(at(torus(o.r || 0.25, 0.03, '#1C1C20', 6, 22), 0, 0, 0)); },
   petRock(o) { // "Le caillou": Gérard, a pet rock (about 0.4 m) with googly eyes that look around and blink; o.look / o.lookKeys [[t, up, side]], o.brows 'smug'|'angry',
     // o.cap 'grad' (mortarboard) | 'guard' (security cap), o.sash (tricolour mayor's sash), o.medal, o.eyes false (a plain stone: the statue), o.color, o.seed. Grow it with scale keys.
-    const r = 0.2, col = o.color || '#9C9A94', g = grp(), body = new THREE.Mesh(grainGeo(r, o.seed || 11, 1), mat(col, { noGrain: true })); body.castShadow = body.receiveShadow = true; g.add(body);
+    const r = 0.2, col = o.color || '#9C9A94', g = grp(), geo = grainGeo(r, o.seed || 11, 1); if (o.sy) { geo.scale(1, o.sy, 1); geo.computeVertexNormals(); }
+    const body = new THREE.Mesh(geo, mat(col, { noGrain: true })); body.castShadow = body.receiveShadow = true; g.add(body);
     body.geometry.computeBoundingBox(); const bb = body.geometry.boundingBox, H = bb.max.y, F = bb.max.z, Wd = bb.max.x;
     const spots = []; const R = rng((o.seed || 11) + 5); for (let i = 0; i < 7; i++) { const sp = mesh(new THREE.CircleGeometry(r * (0.06 + R() * 0.07), 6), mat(i % 2 ? '#86847E' : '#B2B0A9', { noGrain: true }));
       const a = R() * TAU, yy = H * (0.15 + R() * 0.55); sp.position.set(Math.cos(a) * Wd * 0.98, yy, Math.sin(a) * F * 0.98); sp.lookAt(sp.position.x * 2, yy, sp.position.z * 2); g.add(sp); spots.push(sp); }
@@ -260,15 +261,16 @@ export const NEWS_PROPS = {
       if (o.brows) { const b = box(er * 1.3, er * 0.28, er * 0.3, '#3A3A3E'); b.position.set(sd * er * 1.08, H * 0.62 + er * 1.15, F * 0.95); b.rotation.z = (o.brows === 'angry' ? -1 : 1) * sd * 0.35; g.add(b); } });
     if (o.cap === 'grad') { const c = grp(at(box(r * 1.0, r * 0.28, r * 1.0, '#1C1C22'), 0, r * 0.12, 0), at(box(r * 1.7, r * 0.06, r * 1.7, '#1C1C22', { outline: 0.004 }), 0, r * 0.29, 0, 0, PI / 4, 0), rod([r * 0.6, r * 0.32, r * 0.6], [r * 0.72, -r * 0.1, r * 0.72], 0.006, '#E8B830'));
       c.position.y = H * 0.92; g.add(c); }
-    if (o.cap === 'guard') { const c = grp(at(box(r * 1.15, r * 0.4, r * 1.1, '#1E2D4A', { taper: 1.1, outline: 0.004 }), 0, r * 0.2, 0), at(box(r * 1.0, r * 0.05, r * 0.45, '#111318'), 0, r * 0.03, r * 0.65, 0.25, 0, 0),
-        at(label('SÉCURITÉ', r * 1.05, r * 0.16, { bg: '#F2C94C', fg: '#1C1C20', wrap: false }), 0, r * 0.22, r * 0.56)); c.position.y = H * 0.9; c.rotation.x = -0.12; g.add(c); }
+    if (o.cap === 'guard') { const c = grp(at(box(r * 1.15, r * 0.4, r * 1.1, '#2A3D66', { taper: 1.1, outline: 0.006 }), 0, r * 0.2, 0), at(box(r * 1.25, r * 0.06, r * 0.7, '#111318', { outline: 0.004 }), 0, r * 0.02, r * 0.78, 0.18, 0, 0),
+        at(box(r * 1.2, r * 0.07, r * 1.15, '#C9CCD1'), 0, r * 0.05, 0), at(label('SÉCURITÉ', r * 1.05, r * 0.16, { bg: '#F2C94C', fg: '#1C1C20', wrap: false }), 0, r * 0.24, r * 0.56),
+        at(cyl(r * 0.1, r * 0.1, 0.01, '#F2C94C', 8), 0, r * 0.36, r * 0.52, PI / 2)); c.position.y = H * 0.9; c.rotation.x = -0.12; g.add(c); }
     if (o.sash) { const sg = grp(); ['#2F62B5', '#F4F4F0', '#E0413A'].forEach((c, i) => sg.add(at(box(r * 0.14, H * 1.25, r * 0.03, c), (i - 1) * r * 0.14, 0, 0))); sg.rotation.z = -0.75; sg.position.set(0, H * 0.42, F * 0.99); g.add(sg); }
     if (o.medal) { const m = grp(rod([-r * 0.3, H * 0.42, F * 0.95], [0, H * 0.18, F + 0.01], 0.006, '#2F62B5'), rod([r * 0.3, H * 0.42, F * 0.95], [0, H * 0.18, F + 0.01], 0.006, '#E0413A'), at(cyl(r * 0.2, r * 0.2, 0.012, '#E8B830', 16), 0, H * 0.14, F + 0.02, PI / 2)); g.add(m); }
     const blink = rng(o.seed || 11)() * 3;
     g.userData.update = t => { const K = o.lookKeys; let lk = o.look || [0, 0];
       if (K) { lk = K[K.length - 1].slice(1); if (t <= K[0][0]) lk = K[0].slice(1); else for (let i = 1; i < K.length; i++) if (t < K[i][0]) { let u = (t - K[i - 1][0]) / (K[i][0] - K[i - 1][0]); u = u * u * (3 - 2 * u); lk = [K[i - 1][1] + (K[i][1] - K[i - 1][1]) * u, K[i - 1][2] + (K[i][2] - K[i - 1][2]) * u]; break; } }
       pupils.forEach(pu => { pu.position.x = lk[1] * er * 0.38; pu.position.y = er * 0.1 * Math.sin(t * 0.8) + lk[0] * er * 0.38; });
-      const bl = ((t + blink) % 3.4) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); g.rotation.z = (o.wobble ?? 0) * Math.sin(t * 9); };
+      const bl = ((t + blink) % 3.4) < 0.12 ? 1 : 0; lids.forEach(l => { l.scale.y = 0.01 + bl * 0.99; }); pupils.forEach(pu => { pu.visible = !bl; }); g.rotation.z = (o.wobble ?? 0) * Math.sin(t * 9); };
     g.userData.update(0); return g; },
   doghouse(o) { // a wooden dog kennel facing +z: plank walls, red gable roof, dark arched doorway (an actor at y 0 inside shows his head out); o.text plaque over the door
     const w = o.w || 1.1, d = o.d || 1.3, h = o.h || 0.85, c = o.color || '#C9955A', g = grp();
@@ -282,10 +284,10 @@ export const NEWS_PROPS = {
     if (o.text) g.add(at(label(o.text, ow * 0.95, 0.12, { bg: '#F4EBD6', fg: '#3A2A1A', wrap: false }), 0, oh + (h - oh) / 2, d / 2 + 0.03));
     return g; },
   collar(o) { // a red dog collar with a gold round tag (o.text) - attach to the torso joint at the neck, offset up
-    const g = grp(at(torus(o.r || 0.085, 0.018, o.color || '#C8322A', 6, 18), 0, 0, 0, PI / 2, 0, 0)), tg = grp(rod([0, 0, 0], [0, -0.05, 0], 0.004, '#B9BDC2'));
-    const disc = at(cyl(0.05, 0.05, 0.01, '#E8B830', 18, { outline: 0.003 }), 0, -0.1, 0, PI / 2, 0, 0); tg.add(disc);
+    const g = grp(at(torus(o.r || 0.085, 0.018, o.color || '#C8322A', 6, 18), 0, 0, 0, PI / 2, 0, 0)), tg = grp(at(torus(0.014, 0.004, '#C9CCD1', 4, 10), 0, -0.012, 0));
+    const disc = at(cyl(0.05, 0.05, 0.01, '#E8B830', 18, { outline: 0.003 }), 0, -0.075, 0, PI / 2, 0, 0); tg.add(disc);
     const tx = canvasPlane(0.088, 0.04, (c, W, H) => { c.fillStyle = '#E8B830'; c.fillRect(0, 0, W, H); c.fillStyle = '#2A2010'; let fs = H * 0.78; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || 'MÉDOR').width; if (tw > W * 0.94) fs *= W * 0.94 / tw;
-      c.font = `900 ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'MÉDOR', W / 2, H * 0.55); }, { res: 256 }); tx.position.set(0, -0.1, 0.0065); tg.add(tx);
+      c.font = `900 ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'MÉDOR', W / 2, H * 0.55); }, { res: 256 }); tx.position.set(0, -0.075, 0.0065); tg.add(tx);
     tg.position.set(0, 0.03, (o.r || 0.085) + (o.tagOut ?? 0.06)); g.add(tg); g.userData.update = t => { tg.rotation.x = 0.06 * Math.sin(t * 3.3); }; return g; },
   pedestal(o) { // a stone plinth (o.h) with a bronze plaque (o.text) on its front
     const h = o.h || 1.0, w = o.w || 0.8, g = grp(at(box(w + 0.16, 0.12, w + 0.16, '#BDB6A8', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(w, h - 0.24, w, '#D8D1C2', { pivot: 'bottom', outline: 0.006 }), 0, 0.12, 0),
