@@ -1026,6 +1026,7 @@ const S = {
     [[-6.5, -3, 2], [6.8, -2.5, 5], [-9, 0.5, 8], [9.5, 0, 11]].forEach(([x, z, s]) => g.add(prop('tree', { seed: s }, x, 0, z, 0, 1.2)));
     [[-2.6, -3.6], [3.8, -3.7], [-4.3, -3.5]].forEach(([x, z], i) => g.add(prop('bush', { seed: i + 40 }, x, 0, z, 0, 0.9)));
     g.userData.anchors = { center: [0, 0, 0], door: [0.97, 0, -3.6], path: [0.97, 0, -1.0], gate: [0.97, 0, 2.2], pavement: [0, 0, 3.6] };
+    g.userData.sun = [0.55, 0.62, 0.56];   // shader look: from the front right, long shadows across the lawn
     g.userData.lighting = 'day'; return g;
   },
   poste(o = {}) { // French post office — viz3d pass from real branch layouts: counter with three glazed windows, "now serving" board,
@@ -1196,6 +1197,7 @@ Object.assign(S, {
     }
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70 }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0] };
+    g.userData.sun = [-0.35, 0.78, 0.52];   // shader look: down the street, the pavements lit
     g.userData.lighting = night ? 'night' : 'day'; return g;
   },
   stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light

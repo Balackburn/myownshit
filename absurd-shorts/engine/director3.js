@@ -14,6 +14,7 @@
 //   • AUDIO  : footsteps generated from the gait, key/scene SFX, lip flaps from the voice envelope.
 import * as THREE from 'three';
 import { createStage, setLighting, LIGHTING } from './scene.js';
+import { createLook } from './look.js';
 import { buildHuman } from './human.js';
 import { CLIPS, samplePose, actingBlend } from './animations.js';
 import { ease, clamp01, lerp, PALETTE as P } from './style.js';
@@ -51,6 +52,7 @@ export async function load(script, { width, height } = {}) {
   stage.renderer.domElement.style.display = 'none';
   const out = document.createElement('canvas'); out.width = W; out.height = H; document.body.appendChild(out);
   S = { script, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, scene: -1, warnings: [], events: [], camTimes: [], lineById: {}, tempo: script.tempo || 1 }; // tempo > 1: snappier gestures, blends and turns
+  if (script.look === 'shaders') S.look = createLook(stage, W, H, script.lookOpts || {});   // Minecraft-shader-style light (engine/look.js)
   await Models.preload(Models.srcsIn(script)); await Models.preloadImages(Models.allTextures());
   for (const [id, c] of Object.entries(script.cast || {})) S.cast[id] = buildActor(c, id);
   script.scenes.forEach((sc, si) => sc.lines.forEach(l => { S.lineById[l.id] = { ...l, si, rs: l.start - sc.start, re: l.end - sc.start }; }));
@@ -115,6 +117,7 @@ function setupScene(si, analyzing = false) {
   S.root.add(set); S.set = set; S.staticBoxes = null;
   S.lights = setLighting(scene, sc.lighting || set.userData.lighting || 'day');
   atmosphere(sc, set);
+  if (S.look) S.look.setupLights(S.lights, set, sc);
   S.lightBase = { hemi: S.lights.hemi.intensity, key: S.lights.key.intensity, bg: scene.background.clone() };
   S.skyDome = null; set.traverse(o => { if (!S.skyDome && o.isMesh && o.renderOrder === -10 && o.material?.side === THREE.BackSide) S.skyDome = o; });   // exterior sets: tint the dome at night
   const anchors = set.userData.anchors || {};
@@ -858,10 +861,10 @@ export function renderFrame(tAbs) {
     if (sc.fogTo && scene.fog && sc.fog) { const u = Math.min(1, Math.max(0, tk / sc.duration)); scene.fog.near = sc.fog.near + (sc.fogTo.near - sc.fog.near) * u; scene.fog.far = sc.fog.far + (sc.fogTo.far - sc.fog.far) * u; }   // sc.fogTo: the veil follows a descending camera
     for (const o of S.follow || []) o.position.copy(camera.position);
     camLocked(camera);
-    renderer.render(scene, camera);
+    if (S.look) S.look.render(); else renderer.render(scene, camera);
     const frozen = frozenNow(tk);
     g.globalAlpha = 1 / (k + 1);
-    g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? GRADE) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '') + (S.sc.soften ? ` blur(${S.sc.soften}px)` : '');   // sc.soften: match the reference's softness (px)
+    g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? (S.look ? 'none' : GRADE)) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '') + (S.sc.soften ? ` blur(${S.sc.soften}px)` : '');   // sc.soften: match the reference's softness (px)
     g.drawImage(renderer.domElement, 0, 0, S.W, S.H);
   }
   g.globalAlpha = 1; g.filter = 'none';
