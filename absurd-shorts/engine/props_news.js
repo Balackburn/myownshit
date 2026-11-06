@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
 import { grp, at, mesh, canvasPlane, inst, rod, torus, label } from './props.js';
+import { model as glbSource } from './models.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const keyAt = (list, t) => { let a0 = null; for (const [a, x] of (list || [])) if (t >= a && x) a0 = a; return a0; };
@@ -866,6 +867,30 @@ export const NEWS_PROPS = {
     g.userData.update = t => { g.scale.setScalar(o.popAt == null ? 1 : pop(t, o.popAt, 0.25)); const b = Math.floor(t * 3.4) % 2 === 0; full.visible = b; empty.visible = !b; };
     g.userData.update(0); return g;
   },
+  glbModel(o) { // a GLB model preloaded by the director (o.src, a served path such as '/assets/models/toolbox-objaverse-40685/model.glb'): scaled so its height
+    // (o.height, metres) or its largest side (o.size) fits, centred on x/z and set on the ground; restyled to the series' look by default (flat Lambert with the
+    // paper grain, each material's colour kept, swapped through o.colors {'#rrggbb': '#rrggbb'} or pulled toward o.tint [colour, 0..1]); o.outline: ink outline
+    // in metres (constant thickness, off-centre safe); o.yaw (degrees) turns the model inside the prop when its front is not +Z
+    const src = glbSource(o.src), g = grp();
+    if (!src) { g.add(at(box(0.3, 0.3, 0.3, '#FF00FF', { pivot: 'bottom' }), 0, 0, 0)); return g; }
+    const m = src.clone(true), w = grp(); w.add(m); if (o.yaw) m.rotation.y += o.yaw * PI / 180;
+    w.updateMatrixWorld(true);
+    const bb = new THREE.Box3().setFromObject(w), sz = bb.getSize(new THREE.Vector3()), c = bb.getCenter(new THREE.Vector3());
+    const k = o.height ? o.height / Math.max(sz.y, 1e-6) : o.size ? o.size / Math.max(sz.x, sz.y, sz.z, 1e-6) : 1;
+    const ink = new THREE.MeshBasicMaterial({ color: P.ink, side: THREE.BackSide }), sc = new THREE.Vector3();
+    const meshes = []; m.traverse(n => { if (n.isMesh) meshes.push(n); });   // listed first: the outlines added below are meshes too
+    meshes.forEach(n => {
+      if (o.restyle !== false) { const re = mt => { let col = '#' + (mt.color ? mt.color.getHexString() : 'cccccc'); if (o.colors?.[col]) col = o.colors[col];
+          if (o.tint) col = '#' + new THREE.Color(col).lerp(new THREE.Color(o.tint[0]), o.tint[1]).getHexString(); return mat(col); };
+        n.material = Array.isArray(n.material) ? n.material.map(re) : re(n.material); }
+      n.castShadow = n.receiveShadow = true;
+      if (o.outline) { const geo = n.geometry; if (!geo.boundingBox) geo.computeBoundingBox(); const s3 = geo.boundingBox.getSize(new THREE.Vector3()), c3 = geo.boundingBox.getCenter(new THREE.Vector3());
+        n.matrixWorld.decompose(new THREE.Vector3(), new THREE.Quaternion(), sc); const t = o.outline / (k * Math.max(sc.x, 1e-6));
+        const kk = [1 + 2 * t / Math.max(s3.x, 0.004), 1 + 2 * t / Math.max(s3.y, 0.004), 1 + 2 * t / Math.max(s3.z, 0.004)], ol = new THREE.Mesh(geo, ink);
+        ol.name = 'outline'; ol.castShadow = false; ol.scale.set(...kk); ol.position.set(c3.x * (1 - kk[0]), c3.y * (1 - kk[1]), c3.z * (1 - kk[2])); n.add(ol); } });
+    w.scale.setScalar(k); w.position.set(-c.x * k, -bb.min.y * k, -c.z * k); g.add(w);
+    g.userData.size = [sz.x * k, sz.y * k, sz.z * k]; return g;
+  },
   // ---- Le serrurier (story 29)
   smartPhone(o) { // a plain smartphone (screen +Z), held to the ear (phoneEar) or shown; o.call: a green call screen
     const g = grp(at(box(0.072, 0.148, 0.01, '#1C1F24', { outline: 0.004 }), 0, 0, 0));
@@ -880,7 +905,7 @@ export const NEWS_PROPS = {
     const key = (c, head, a) => { const k = grp(at(cyl(0.012, 0.012, 0.003, head, 10, {}), 0, -0.032, 0, PI / 2, 0, 0), at(box(0.008, 0.05, 0.003, c), 0, -0.068, 0));
       for (let i = 0; i < 4; i++) k.add(at(box(0.005, 0.004, 0.003, c), 0.006, -0.06 - i * 0.008 + (i % 2) * 0.002, 0));
       k.add(at(box(0.004, 0.012, 0.0035, c), 0, -0.02, 0)); k.rotation.z = a; return k; };
-    sw.add(key('#D4A93A', '#D4A93A', -0.35), key('#C9CED4', '#C9CED4', 0.05), key('#C9CED4', '#C8322A', 0.42));
+    if (!o.bare) sw.add(key('#D4A93A', '#D4A93A', -0.35), key('#C9CED4', '#C9CED4', 0.05), key('#C9CED4', '#C8322A', 0.42));   // o.bare: the ring and the fob only (hang glbModel keys on it)
     const fob = at(box(0.022, 0.03, 0.008, '#2F62B5', { outline: 0.002 }), -0.02, -0.035, 0.004); fob.rotation.z = -0.7; sw.add(fob);
     g.userData.update = t => { sw.rotation.z = (o.swing ?? 0.12) * Math.sin(t * 5.5); };
     g.userData.update(0); return g;

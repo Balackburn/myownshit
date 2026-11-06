@@ -23,6 +23,7 @@ Produire une vidéo réellement animée, cohérente avec les références fourni
 - Lire [la bible visuelle](references/style-bible.md) pour les invariants et [le mécanisme des gags](references/gags.md) pour le rythme. La demande courante prévaut sur les préférences d’un ancien épisode.
 - Un MP4 ne contient pas le maillage, le rig ou les matériaux sources. Si le projet 3D original est fourni, le réutiliser. Sinon créer une reconstruction visuelle et la nommer ainsi ; ne pas promettre une identité technique avec le modèle original.
 - Conserver ensuite le même asset maître entre les plans et les épisodes : proportions, visage, cheveux, costume, matériaux et rig. Ne pas réinventer le personnage dans chaque prompt. Partir des assets livrés dans `assets/` lorsqu’ils existent, puis enregistrer toute évolution validée dans une nouvelle version.
+- Pour un objet absent du moteur (clé, cadenas, camionnette…), chercher d’abord dans les jeux de données sand3d, environ 100 000 objets écrits comme programmes, sous CC BY 4.0 : `../lowpoly-story-style/references/sand3d-models.md` (`sand3d_models.py find`, `get`, `build`, puis la prop `glbModel`). Ne lancer un programme téléchargé que par `build`, qui refuse tout sauf les appels sand3d, et garder les crédits avec l’histoire.
 - Une recréation d’un épisode conserve son gag, ses causes et sa chute. Une adaptation à un nouveau sujet conserve la mécanique comique, mais réécrit les actions et décors pour ce sujet.
 
 ## Produire

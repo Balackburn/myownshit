@@ -21,6 +21,7 @@ import { ease, clamp01, lerp, PALETTE as P } from './style.js';
 const Props = await import('/engine/props.js');
 const Sets = await import('/engine/sets.js');
 const Creatures = await import('/engine/creatures.js');
+const Models = await import('/engine/models.js');   // GLB models (glbModel props), loaded before the first frame
 
 export const GRADE = 'contrast(0.86) saturate(0.78) brightness(1.07)';
 const FPS = 30, D2R = Math.PI / 180, ZERO = [0, 0, 0];
@@ -50,6 +51,7 @@ export async function load(script, { width, height } = {}) {
   stage.renderer.domElement.style.display = 'none';
   const out = document.createElement('canvas'); out.width = W; out.height = H; document.body.appendChild(out);
   S = { script, W, H, stage, out, ctx: out.getContext('2d'), cast: {}, scene: -1, warnings: [], events: [], camTimes: [], lineById: {}, tempo: script.tempo || 1 }; // tempo > 1: snappier gestures, blends and turns
+  await Models.preload(Models.srcsIn(script));
   for (const [id, c] of Object.entries(script.cast || {})) S.cast[id] = buildActor(c, id);
   script.scenes.forEach((sc, si) => sc.lines.forEach(l => { S.lineById[l.id] = { ...l, si, rs: l.start - sc.start, re: l.end - sc.start }; }));
   S.total = script.scenes.reduce((m, sc) => Math.max(m, sc.start + sc.duration), 0);

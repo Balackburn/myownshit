@@ -21,6 +21,9 @@ Paths use `{{WORK_DIR}}` for the folder where projects live (the current directo
    whether to wait or go on without it. Without it, follow `references/no-blender.md` and say in the report that
    model quality is lower.
 2. **Node 20+ and Playwright with Chromium** for recording; **ffmpeg** for encoding and checks.
+   **Ready-made objects:** before modelling an everyday object or a mechanical part, search the sand3d datasets (about 100 000
+   objects written as sand3d programs, CC BY 4.0): `../lowpoly-story-style/scripts/sand3d_models.py find --entry NAME --sheet …`, then
+   `get` and `build` to a GLB (a checked, isolated build). Credit each model as its `credits` line says.
 3. **Subagents:** where the harness has them, give each pass to a fresh subagent with its brief and keep it inside
    about 80 tool calls. Where it does not, run the passes one after another in this session, finish and check one
    before starting the next, and re-read the plan file at the start of each.

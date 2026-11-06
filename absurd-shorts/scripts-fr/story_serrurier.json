@@ -1,0 +1,2111 @@
+{
+ "version": 3,
+ "title": "Le serrurier",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "seed": 21
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "serr1": {
+   "preset": "worker",
+   "hat": "beanie",
+   "hatColor": "#1C2E4A",
+   "suit": "#2F5E9E",
+   "pants": "#22385E",
+   "cuff": "#2F5E9E",
+   "lapel": "#F2C94C",
+   "seed": 41
+  },
+  "serr2": {
+   "preset": "worker",
+   "hat": "beanie",
+   "hatColor": "#1C2E4A",
+   "suit": "#2F5E9E",
+   "pants": "#22385E",
+   "cuff": "#2F5E9E",
+   "lapel": "#F2C94C",
+   "seed": 42
+  },
+  "serr3": {
+   "preset": "worker",
+   "hat": "beanie",
+   "hatColor": "#1C2E4A",
+   "suit": "#2F5E9E",
+   "pants": "#22385E",
+   "cuff": "#2F5E9E",
+   "lapel": "#F2C94C",
+   "seed": 43
+  },
+  "serr4": {
+   "preset": "worker",
+   "hat": "beanie",
+   "hatColor": "#1C2E4A",
+   "suit": "#2F5E9E",
+   "pants": "#22385E",
+   "cuff": "#2F5E9E",
+   "lapel": "#F2C94C",
+   "seed": 44
+  },
+  "serr5": {
+   "preset": "worker",
+   "hat": "beanie",
+   "hatColor": "#1C2E4A",
+   "suit": "#2F5E9E",
+   "pants": "#22385E",
+   "cuff": "#2F5E9E",
+   "lapel": "#F2C94C",
+   "seed": 45
+  },
+  "serr6": {
+   "preset": "worker",
+   "hat": "beanie",
+   "hatColor": "#1C2E4A",
+   "suit": "#2F5E9E",
+   "pants": "#22385E",
+   "cuff": "#2F5E9E",
+   "lapel": "#F2C94C",
+   "seed": 46
+  },
+  "pompier": {
+   "preset": "pompier",
+   "seed": 31
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -7.55
+     ],
+     "ry": 0,
+     "clip": "patPockets",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -8.29
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 2.35,
+      "color": "#2F62B5"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.75,
+      -5.0
+     ],
+     "to": [
+      0.33,
+      1.75,
+      -5.22
+     ],
+     "lookAt": [
+      0.0,
+      1.55,
+      -7.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.55,
+      -7.6
+     ],
+     "shake": 0.004
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.5,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -7.55
+     ],
+     "ry": -15,
+     "clip": "phoneEar",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -8.29
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 2.35,
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "ph_mec",
+     "name": "smartPhone",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.08,
+       0.03
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.05,
+      1.9,
+      -5.4
+     ],
+     "to": [
+      -0.98,
+      1.9,
+      -5.55
+     ],
+     "lookAt": [
+      0.0,
+      1.75,
+      -7.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.75,
+      -7.6
+     ]
+    }
+   ],
+   "start": 1.5,
+   "duration": 1.4,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "serr1",
+     "pos": [
+      -0.75,
+      0,
+      2.0
+     ],
+     "ry": 0,
+     "clip": "patPockets",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "van",
+     "name": "serrurierVan",
+     "pos": [
+      1.0,
+      0,
+      0.55
+     ],
+     "ry": 0,
+     "opts": {
+      "band": "#2F62B5"
+     }
+    },
+    {
+     "id": "tb1",
+     "name": "toolbox",
+     "pos": [
+      -0.25,
+      0,
+      2.15
+     ],
+     "ry": 20
+    },
+    {
+     "id": "q1",
+     "name": "speechBubble",
+     "pos": [
+      -0.75,
+      2.55,
+      2.0
+     ],
+     "opts": {
+      "text": "?",
+      "popAt": 1.3139999999999998,
+      "tail": "down",
+      "w": 0.5,
+      "h": 0.25
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.1,
+      1.6,
+      6.3
+     ],
+     "to": [
+      -0.1,
+      1.6,
+      6.0
+     ],
+     "lookAt": [
+      -0.25,
+      1.4,
+      1.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.25,
+      1.4,
+      1.5
+     ]
+    }
+   ],
+   "start": 2.9,
+   "duration": 2.1,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "serr1",
+     "pos": [
+      -0.75,
+      0,
+      2.0
+     ],
+     "ry": 10,
+     "clip": "phoneEar",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "van",
+     "name": "serrurierVan",
+     "pos": [
+      1.0,
+      0,
+      0.55
+     ],
+     "ry": 0,
+     "opts": {
+      "band": "#2F62B5"
+     }
+    },
+    {
+     "id": "tb1",
+     "name": "toolbox",
+     "pos": [
+      -0.25,
+      0,
+      2.15
+     ],
+     "ry": 20
+    },
+    {
+     "id": "ph_serr1",
+     "name": "smartPhone",
+     "on": {
+      "actor": "serr1",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.08,
+       0.03
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.9,
+      4.5
+     ],
+     "to": [
+      0.2,
+      1.9,
+      4.3
+     ],
+     "lookAt": [
+      -0.6,
+      1.75,
+      1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.6,
+      1.75,
+      1.9
+     ]
+    }
+   ],
+   "start": 5.0,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "serr2",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ],
+     "ry": 0,
+     "clip": "phoneEar",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "van",
+     "name": "serrurierVan",
+     "pos": [
+      0.6,
+      0,
+      -3.2
+     ],
+     "ry": 0,
+     "opts": {
+      "band": "#2E8B57"
+     }
+    },
+    {
+     "id": "ph_serr2",
+     "name": "smartPhone",
+     "on": {
+      "actor": "serr2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.08,
+       0.03
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.65,
+      1.05,
+      1.7
+     ],
+     "to": [
+      0.6,
+      1.05,
+      1.5
+     ],
+     "lookAt": [
+      0.0,
+      1.75,
+      -1.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.75,
+      -1.4
+     ]
+    }
+   ],
+   "start": 6.6,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "park",
+   "lines": [],
+   "actors": [
+    {
+     "id": "serr3",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "ry": -10,
+     "clip": "phoneEar",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "van",
+     "name": "serrurierVan",
+     "pos": [
+      -0.4,
+      0,
+      -3.3
+     ],
+     "ry": 0,
+     "opts": {
+      "band": "#E07A2E"
+     }
+    },
+    {
+     "id": "ph_serr3",
+     "name": "smartPhone",
+     "on": {
+      "actor": "serr3",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.08,
+       0.03
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.6,
+      1.9,
+      1.5
+     ],
+     "to": [
+      -0.55,
+      1.9,
+      1.3
+     ],
+     "lookAt": [
+      0.0,
+      1.8,
+      -1.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.8,
+      -1.3
+     ],
+     "roll": 8
+    }
+   ],
+   "start": 8.4,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -7.55
+     ],
+     "ry": 0,
+     "clip": "shrug",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "serr1",
+     "pos": [
+      -0.75,
+      0,
+      -6.6
+     ],
+     "ry": 195,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "serr2",
+     "pos": [
+      0.75,
+      0,
+      -6.5
+     ],
+     "ry": 165,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "serr3",
+     "pos": [
+      -1.4,
+      0,
+      -5.8999999999999995
+     ],
+     "ry": 205,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "serr4",
+     "pos": [
+      1.35,
+      0,
+      -5.8
+     ],
+     "ry": 160,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "serr5",
+     "pos": [
+      -0.4,
+      0,
+      -5.6
+     ],
+     "ry": 185,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "serr6",
+     "pos": [
+      0.5,
+      0,
+      -5.3
+     ],
+     "ry": 172,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -8.29
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 2.35,
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.0,
+        -5.2
+       ],
+       [
+        0.0,
+        -0.7
+       ],
+       [
+        26.0,
+        -0.7
+       ]
+      ],
+      "gap": 0.78,
+      "seed": 3
+     }
+    },
+    {
+     "id": "tc0",
+     "name": "toolbox",
+     "pos": [
+      -0.45,
+      0,
+      -6.4
+     ],
+     "ry": 10
+    },
+    {
+     "id": "tc1",
+     "name": "toolbox",
+     "pos": [
+      1.05,
+      0,
+      -6.3
+     ],
+     "ry": -30
+    },
+    {
+     "id": "tc2",
+     "name": "toolbox",
+     "pos": [
+      -1.1,
+      0,
+      -5.7
+     ],
+     "ry": 40
+    },
+    {
+     "id": "tc3",
+     "name": "toolbox",
+     "pos": [
+      0.95,
+      0,
+      -5.5
+     ],
+     "ry": 5
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.0,
+      6.2,
+      5.0
+     ],
+     "to": [
+      4.7,
+      6.0,
+      4.6
+     ],
+     "lookAt": [
+      0.0,
+      0.9,
+      -4.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.9,
+      -4.3
+     ]
+    }
+   ],
+   "start": 10.0,
+   "duration": 2.5667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.0,
+        -5.2
+       ],
+       [
+        0.0,
+        -0.7
+       ],
+       [
+        70.0,
+        -0.7
+       ],
+       [
+        70.0,
+        -40.0
+       ],
+       [
+        -30.0,
+        -40.0
+       ]
+      ],
+      "gap": 0.8,
+      "seed": 5,
+      "max": 260
+     }
+    },
+    {
+     "id": "hc0",
+     "name": "cottage",
+     "pos": [
+      18,
+      0,
+      -9.5
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 50
+     }
+    },
+    {
+     "id": "hc1",
+     "name": "cottage",
+     "pos": [
+      27,
+      0,
+      -9.5
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 51
+     }
+    },
+    {
+     "id": "hc2",
+     "name": "cottage",
+     "pos": [
+      36,
+      0,
+      -9.5
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 52
+     }
+    },
+    {
+     "id": "hc3",
+     "name": "cottage",
+     "pos": [
+      45,
+      0,
+      -9.5
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 53
+     }
+    },
+    {
+     "id": "hc4",
+     "name": "cottage",
+     "pos": [
+      54,
+      0,
+      -9.5
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 54
+     }
+    },
+    {
+     "id": "hc5",
+     "name": "cottage",
+     "pos": [
+      63,
+      0,
+      -9.5
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 55
+     }
+    },
+    {
+     "id": "hc6",
+     "name": "cottage",
+     "pos": [
+      -12,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 56
+     }
+    },
+    {
+     "id": "hc7",
+     "name": "cottage",
+     "pos": [
+      -3,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 57
+     }
+    },
+    {
+     "id": "hc8",
+     "name": "cottage",
+     "pos": [
+      6,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 58
+     }
+    },
+    {
+     "id": "hc9",
+     "name": "cottage",
+     "pos": [
+      15,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 59
+     }
+    },
+    {
+     "id": "hc10",
+     "name": "cottage",
+     "pos": [
+      24,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 60
+     }
+    },
+    {
+     "id": "hc11",
+     "name": "cottage",
+     "pos": [
+      33,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 61
+     }
+    },
+    {
+     "id": "hc12",
+     "name": "cottage",
+     "pos": [
+      42,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 62
+     }
+    },
+    {
+     "id": "hc13",
+     "name": "cottage",
+     "pos": [
+      51,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 63
+     }
+    },
+    {
+     "id": "hc14",
+     "name": "cottage",
+     "pos": [
+      60,
+      0,
+      9.0
+     ],
+     "ry": 180,
+     "opts": {
+      "seed": 64
+     }
+    },
+    {
+     "id": "hc15",
+     "name": "cottage",
+     "pos": [
+      80.0,
+      0,
+      -8
+     ],
+     "ry": -90,
+     "opts": {
+      "seed": 65
+     }
+    },
+    {
+     "id": "hc16",
+     "name": "cottage",
+     "pos": [
+      80.0,
+      0,
+      -17
+     ],
+     "ry": -90,
+     "opts": {
+      "seed": 66
+     }
+    },
+    {
+     "id": "hc17",
+     "name": "cottage",
+     "pos": [
+      80.0,
+      0,
+      -26
+     ],
+     "ry": -90,
+     "opts": {
+      "seed": 67
+     }
+    },
+    {
+     "id": "hc18",
+     "name": "cottage",
+     "pos": [
+      80.0,
+      0,
+      -35
+     ],
+     "ry": -90,
+     "opts": {
+      "seed": 68
+     }
+    },
+    {
+     "id": "hc19",
+     "name": "cottage",
+     "pos": [
+      60,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 69
+     }
+    },
+    {
+     "id": "hc20",
+     "name": "cottage",
+     "pos": [
+      50,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 70
+     }
+    },
+    {
+     "id": "hc21",
+     "name": "cottage",
+     "pos": [
+      40,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 71
+     }
+    },
+    {
+     "id": "hc22",
+     "name": "cottage",
+     "pos": [
+      30,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 72
+     }
+    },
+    {
+     "id": "hc23",
+     "name": "cottage",
+     "pos": [
+      20,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 73
+     }
+    },
+    {
+     "id": "hc24",
+     "name": "cottage",
+     "pos": [
+      10,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 74
+     }
+    },
+    {
+     "id": "hc25",
+     "name": "cottage",
+     "pos": [
+      0,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 75
+     }
+    },
+    {
+     "id": "hc26",
+     "name": "cottage",
+     "pos": [
+      -10,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 76
+     }
+    },
+    {
+     "id": "hc27",
+     "name": "cottage",
+     "pos": [
+      -20,
+      0,
+      -50.0
+     ],
+     "ry": 0,
+     "opts": {
+      "seed": 77
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -9.0,
+      21.0,
+      15.0
+     ],
+     "to": [
+      -7.5,
+      21.5,
+      14.0
+     ],
+     "lookAt": [
+      14.0,
+      0.0,
+      -6.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      16.0,
+      0.0,
+      -7.0
+     ]
+    }
+   ],
+   "start": 12.5667,
+   "duration": 2.6666,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.0,
+        -5.2
+       ],
+       [
+        0.0,
+        -0.7
+       ],
+       [
+        26.0,
+        -0.7
+       ]
+      ],
+      "gap": 0.78,
+      "seed": 3
+     }
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      -15.0,
+      0,
+      0.9
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -4.5,
+        0,
+        0.9
+       ],
+       "dur": 0.9,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.8,
+      1.1,
+      5.8
+     ],
+     "to": [
+      2.6,
+      1.1,
+      5.6
+     ],
+     "lookAt": [
+      -4.0,
+      1.0,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -4.3,
+      1.0,
+      0.6
+     ]
+    }
+   ],
+   "start": 15.2333,
+   "duration": 1.2667,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "flic",
+     "pos": [
+      -3.4,
+      0,
+      2.3
+     ],
+     "ry": 10,
+     "clip": "patPockets",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.0,
+        -5.2
+       ],
+       [
+        0.0,
+        -0.7
+       ],
+       [
+        26.0,
+        -0.7
+       ]
+      ],
+      "gap": 0.78,
+      "seed": 3
+     }
+    },
+    {
+     "id": "pcar",
+     "name": "policeCar",
+     "pos": [
+      -4.5,
+      0,
+      0.9
+     ]
+    },
+    {
+     "id": "q2",
+     "name": "speechBubble",
+     "pos": [
+      -3.4,
+      2.55,
+      2.3
+     ],
+     "opts": {
+      "text": "?",
+      "popAt": 0.707,
+      "tail": "down",
+      "w": 0.5,
+      "h": 0.25
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.6,
+      1.7,
+      6.0
+     ],
+     "to": [
+      -2.65,
+      1.7,
+      5.75
+     ],
+     "lookAt": [
+      -3.45,
+      1.45,
+      1.8
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -3.45,
+      1.45,
+      1.8
+     ]
+    }
+   ],
+   "start": 16.5,
+   "duration": 1.4667,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "pompier",
+     "pos": [
+      -8.2,
+      0,
+      2.4
+     ],
+     "ry": 15,
+     "clip": "patPockets",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "ftruck",
+     "name": "fireTruck",
+     "pos": [
+      -9.0,
+      0,
+      0.6
+     ]
+    },
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.0,
+        -5.2
+       ],
+       [
+        0.0,
+        -0.7
+       ],
+       [
+        26.0,
+        -0.7
+       ]
+      ],
+      "gap": 0.78,
+      "seed": 3
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -7.0,
+      1.65,
+      6.6
+     ],
+     "to": [
+      -7.1,
+      1.65,
+      6.35
+     ],
+     "lookAt": [
+      -8.3,
+      1.5,
+      1.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -8.3,
+      1.5,
+      1.9
+     ]
+    }
+   ],
+   "start": 17.9667,
+   "duration": 1.1666,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -7.55
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.35,
+       "clip": "handInPocket"
+      },
+      {
+       "at": 1.783,
+       "expr": "surprised"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -8.29
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 2.35,
+      "color": "#2F62B5"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.75,
+      -4.75
+     ],
+     "to": [
+      0.24,
+      1.75,
+      -4.95
+     ],
+     "lookAt": [
+      0.0,
+      1.43,
+      -7.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.43,
+      -7.6
+     ]
+    }
+   ],
+   "start": 19.1333,
+   "duration": 2.1334,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -7.55
+     ],
+     "ry": 0,
+     "clip": "lookItem",
+     "keys": [],
+     "expr": "grimace"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -8.29
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 2.35,
+      "color": "#2F62B5"
+     }
+    },
+    {
+     "id": "keys",
+     "name": "keyRing",
+     "pos": [
+      -0.13,
+      1.585,
+      -6.96
+     ],
+     "scale": 1.6,
+     "opts": {
+      "bare": true,
+      "swing": 0.05
+     }
+    },
+    {
+     "id": "key0",
+     "name": "glbModel",
+     "pos": [
+      -0.17,
+      1.515,
+      -6.95
+     ],
+     "ry": 15,
+     "rot": [
+      1.4,
+      0,
+      0.3
+     ],
+     "opts": {
+      "src": "/assets/models/key-objaverse-4643/model.glb",
+      "size": 0.105,
+      "outline": 0.0012
+     }
+    },
+    {
+     "id": "key1",
+     "name": "glbModel",
+     "pos": [
+      -0.13,
+      1.515,
+      -6.945
+     ],
+     "ry": 0,
+     "rot": [
+      1.4,
+      0,
+      3.1416
+     ],
+     "opts": {
+      "src": "/assets/models/key-objaverse-18162/model.glb",
+      "size": 0.105,
+      "outline": 0.0012
+     }
+    },
+    {
+     "id": "key2",
+     "name": "glbModel",
+     "pos": [
+      -0.09,
+      1.515,
+      -6.94
+     ],
+     "ry": -15,
+     "rot": [
+      1.4,
+      0,
+      -0.3
+     ],
+     "opts": {
+      "src": "/assets/models/key-objaverse-16286/model.glb",
+      "size": 0.105,
+      "outline": 0.0012
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      1.8,
+      -5.75
+     ],
+     "to": [
+      0.04,
+      1.8,
+      -5.9
+     ],
+     "lookAt": [
+      -0.08,
+      1.69,
+      -7.55
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.08,
+      1.69,
+      -7.55
+     ]
+    }
+   ],
+   "start": 21.2667,
+   "duration": 1.3333,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -7.55
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "serr1",
+     "pos": [
+      -0.45,
+      0,
+      -6.4
+     ],
+     "ry": 190,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "serr2",
+     "pos": [
+      0.5,
+      0,
+      -6.3
+     ],
+     "ry": 170,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      -1.05,
+      0,
+      -5.9
+     ],
+     "ry": 195,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "pompier",
+     "pos": [
+      1.1,
+      0,
+      -5.8
+     ],
+     "ry": 165,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -8.29
+     ],
+     "opts": {
+      "w": 1.0,
+      "h": 2.35,
+      "color": "#2F62B5"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.95,
+      -4.4
+     ],
+     "to": [
+      0.24,
+      1.95,
+      -4.55
+     ],
+     "lookAt": [
+      0.0,
+      1.45,
+      -7.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.45,
+      -7.6
+     ]
+    }
+   ],
+   "start": 22.6,
+   "duration": 1.1,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "suburbDay",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.8,
+      0,
+      1.4
+     ],
+     "ry": -90,
+     "clip": "carry",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -2.4,
+        0,
+        1.4
+       ],
+       "dur": 1.93,
+       "clip": "carryBox"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.0,
+        -5.2
+       ],
+       [
+        0.0,
+        -0.7
+       ],
+       [
+        26.0,
+        -0.7
+       ]
+      ],
+      "gap": 0.78,
+      "seed": 3
+     }
+    },
+    {
+     "id": "box",
+     "name": "cardboardBox",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.3,
+       0.42
+      ]
+     },
+     "scale": 0.75
+    },
+    {
+     "id": "sale",
+     "name": "signBoard",
+     "pos": [
+      -2.4,
+      0,
+      -4.4
+     ],
+     "opts": {
+      "text": "À VENDRE",
+      "w": 1.1,
+      "h": 0.42,
+      "height": 1.55,
+      "bg": "#F4F1E8",
+      "fg": "#C8322A",
+      "frame": "#1C2E4A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.6,
+      1.65,
+      5.2
+     ],
+     "to": [
+      1.3,
+      1.65,
+      5.0
+     ],
+     "lookAt": [
+      -0.6,
+      1.3,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.0,
+      1.3,
+      -1.0
+     ]
+    }
+   ],
+   "start": 23.7,
+   "duration": 1.93,
+   "setOpts": {
+    "sky": [
+     "#33437E",
+     "#F2A06E"
+    ]
+   },
+   "light": {
+    "hemi": 0.78,
+    "sky": "#FFCFA6",
+    "ground": "#4A3D50",
+    "keyI": 0.85,
+    "key": "#FFB683"
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 25.63
+}

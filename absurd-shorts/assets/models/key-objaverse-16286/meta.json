@@ -1,0 +1,22 @@
+{
+ "id": "objaverse-b38390b8221c45efba819eb68b7e52b6",
+ "source": "objaverse",
+ "source_group": "objaverse",
+ "family": "fastener or hardware",
+ "split": "train",
+ "entry": "key",
+ "usda_path": "usda/0001/objaverse-b38390b8221c45efba819eb68b7e52b6.usda",
+ "n_joints": 0,
+ "f_score": 0.9996194011748543,
+ "license": "CC-BY-4.0",
+ "source_license": "CC-BY-4.0",
+ "attribution": "\"Key\" by mnardia1996mor, https://sketchfab.com/3d-models/b38390b8221c45efba819eb68b7e52b6, CC-BY-4.0; modified: rewritten as a sand3d program",
+ "license_status": "ok",
+ "asset_id": "objaverse:b38390b8221c45efba819eb68b7e52b6",
+ "sand3d_version": "1.5.0",
+ "usda_bytes": 36220,
+ "usda_sha256": "f6c50cef0f06ae77360e31048c3cb413d5cdd484986841b519c4967ffe18aea3",
+ "program_sha256": "5c2b45707077376b544ed4f78e681385a020275393234defd3758dc033a24e48",
+ "dataset": "Sandflow/sand3d-objaverse",
+ "row": 16286
+}

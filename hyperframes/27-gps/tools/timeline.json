@@ -1,0 +1,691 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a demandé à son GPS de l'emmener loin de ses problèmes.",
+   "hl": [
+    "GPS",
+    "problèmes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.148,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "demandé",
+     "s": 0.671,
+     "e": 0.862
+    },
+    {
+     "w": "à",
+     "s": 0.9,
+     "e": 0.938
+    },
+    {
+     "w": "son",
+     "s": 1.014,
+     "e": 1.09
+    },
+    {
+     "w": "GPS",
+     "s": 1.167,
+     "e": 1.624
+    },
+    {
+     "w": "de",
+     "s": 1.7,
+     "e": 1.738
+    },
+    {
+     "w": "l'emmener",
+     "s": 1.776,
+     "e": 2.081
+    },
+    {
+     "w": "loin",
+     "s": 2.157,
+     "e": 2.31
+    },
+    {
+     "w": "de",
+     "s": 2.348,
+     "e": 2.386
+    },
+    {
+     "w": "ses",
+     "s": 2.462,
+     "e": 2.538
+    },
+    {
+     "w": "problèmes.",
+     "s": 2.614,
+     "e": 3.148
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le GPS a dit: « Dans 3000 kilomètres, tournez à droite. »",
+   "hl": [
+    "3000",
+    "kilomètres,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L02.k.wav",
+   "file_start": 3.248,
+   "speech_start": 3.248,
+   "speech_end": 6.676,
+   "words": [
+    {
+     "w": "Le",
+     "s": 3.248,
+     "e": 3.324
+    },
+    {
+     "w": "GPS",
+     "s": 3.4,
+     "e": 3.819
+    },
+    {
+     "w": "a",
+     "s": 3.857,
+     "e": 3.933
+    },
+    {
+     "w": "dit:",
+     "s": 4.048,
+     "e": 4.467
+    },
+    {
+     "w": "Dans",
+     "s": 4.543,
+     "e": 4.619
+    },
+    {
+     "w": "3000",
+     "s": 4.657,
+     "e": 4.924
+    },
+    {
+     "w": "kilomètres,",
+     "s": 5.0,
+     "e": 5.686
+    },
+    {
+     "w": "tournez",
+     "s": 5.762,
+     "e": 5.914
+    },
+    {
+     "w": "à",
+     "s": 5.99,
+     "e": 6.029
+    },
+    {
+     "w": "droite.",
+     "s": 6.067,
+     "e": 6.676
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a roulé toute la nuit.",
+   "hl": [
+    "nuit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L03.k.wav",
+   "file_start": 6.776,
+   "speech_start": 6.776,
+   "speech_end": 8.3,
+   "words": [
+    {
+     "w": "Il",
+     "s": 6.776,
+     "e": 6.852
+    },
+    {
+     "w": "a",
+     "s": 6.929,
+     "e": 6.967
+    },
+    {
+     "w": "roulé",
+     "s": 7.005,
+     "e": 7.31
+    },
+    {
+     "w": "toute",
+     "s": 7.386,
+     "e": 7.538
+    },
+    {
+     "w": "la",
+     "s": 7.576,
+     "e": 7.614
+    },
+    {
+     "w": "nuit.",
+     "s": 7.69,
+     "e": 8.3
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Dans le désert, ses problèmes l'attendaient déjà.",
+   "hl": [
+    "désert,",
+    "problèmes"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L04.k.wav",
+   "file_start": 8.4,
+   "speech_start": 8.4,
+   "speech_end": 10.838,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 8.4,
+     "e": 8.476
+    },
+    {
+     "w": "le",
+     "s": 8.552,
+     "e": 8.629
+    },
+    {
+     "w": "désert,",
+     "s": 8.667,
+     "e": 9.276
+    },
+    {
+     "w": "ses",
+     "s": 9.314,
+     "e": 9.39
+    },
+    {
+     "w": "problèmes",
+     "s": 9.467,
+     "e": 9.771
+    },
+    {
+     "w": "l'attendaient",
+     "s": 9.797,
+     "e": 10.152
+    },
+    {
+     "w": "déjà.",
+     "s": 10.229,
+     "e": 10.838
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ils avaient pris l'avion.",
+   "hl": [
+    "l'avion."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L05.k.wav",
+   "file_start": 10.938,
+   "speech_start": 10.938,
+   "speech_end": 12.157,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 10.938,
+     "e": 11.09
+    },
+    {
+     "w": "avaient",
+     "s": 11.167,
+     "e": 11.319
+    },
+    {
+     "w": "pris",
+     "s": 11.357,
+     "e": 11.471
+    },
+    {
+     "w": "l'avion.",
+     "s": 11.548,
+     "e": 12.157
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il est reparti.",
+   "hl": [
+    "reparti."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L06.k.wav",
+   "file_start": 12.257,
+   "speech_start": 12.257,
+   "speech_end": 13.185,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.257,
+     "e": 12.333
+    },
+    {
+     "w": "est",
+     "s": 12.371,
+     "e": 12.41
+    },
+    {
+     "w": "reparti.",
+     "s": 12.486,
+     "e": 13.171
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Au pôle Nord.",
+   "hl": [
+    "pôle",
+    "Nord."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L07.k.wav",
+   "file_start": 13.285,
+   "speech_start": 13.285,
+   "speech_end": 14.276,
+   "words": [
+    {
+     "w": "Au",
+     "s": 13.285,
+     "e": 13.362
+    },
+    {
+     "w": "pôle",
+     "s": 13.438,
+     "e": 13.59
+    },
+    {
+     "w": "Nord.",
+     "s": 13.628,
+     "e": 14.276
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Ses problèmes faisaient du ski.",
+   "hl": [
+    "ski."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L08.k.wav",
+   "file_start": 14.376,
+   "speech_start": 14.376,
+   "speech_end": 15.9,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 14.376,
+     "e": 14.528
+    },
+    {
+     "w": "problèmes",
+     "s": 14.605,
+     "e": 14.985
+    },
+    {
+     "w": "faisaient",
+     "s": 15.024,
+     "e": 15.214
+    },
+    {
+     "w": "du",
+     "s": 15.29,
+     "e": 15.366
+    },
+    {
+     "w": "ski.",
+     "s": 15.519,
+     "e": 15.9
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il a pris une fusée pour la Lune.",
+   "hl": [
+    "fusée",
+    "Lune."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L09.k.wav",
+   "file_start": 16.0,
+   "speech_start": 16.0,
+   "speech_end": 17.687,
+   "words": [
+    {
+     "w": "Il",
+     "s": 16.0,
+     "e": 16.076
+    },
+    {
+     "w": "a",
+     "s": 16.114,
+     "e": 16.152
+    },
+    {
+     "w": "pris",
+     "s": 16.228,
+     "e": 16.305
+    },
+    {
+     "w": "une",
+     "s": 16.381,
+     "e": 16.457
+    },
+    {
+     "w": "fusée",
+     "s": 16.533,
+     "e": 16.838
+    },
+    {
+     "w": "pour",
+     "s": 16.876,
+     "e": 16.914
+    },
+    {
+     "w": "la",
+     "s": 16.99,
+     "e": 17.066
+    },
+    {
+     "w": "Lune.",
+     "s": 17.105,
+     "e": 17.676
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Ses problèmes avaient réservé la place à côté.",
+   "hl": [
+    "réservé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L10.k.wav",
+   "file_start": 17.787,
+   "speech_start": 17.787,
+   "speech_end": 20.149,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 17.787,
+     "e": 17.94
+    },
+    {
+     "w": "problèmes",
+     "s": 18.016,
+     "e": 18.473
+    },
+    {
+     "w": "avaient",
+     "s": 18.549,
+     "e": 18.702
+    },
+    {
+     "w": "réservé",
+     "s": 18.778,
+     "e": 19.045
+    },
+    {
+     "w": "la",
+     "s": 19.083,
+     "e": 19.159
+    },
+    {
+     "w": "place",
+     "s": 19.235,
+     "e": 19.387
+    },
+    {
+     "w": "à",
+     "s": 19.464,
+     "e": 19.502
+    },
+    {
+     "w": "côté.",
+     "s": 19.54,
+     "e": 20.149
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Sur la Lune, le GPS a recalculé.",
+   "hl": [
+    "recalculé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L11.k.wav",
+   "file_start": 20.249,
+   "speech_start": 20.249,
+   "speech_end": 22.459,
+   "words": [
+    {
+     "w": "Sur",
+     "s": 20.249,
+     "e": 20.402
+    },
+    {
+     "w": "la",
+     "s": 20.44,
+     "e": 20.478
+    },
+    {
+     "w": "Lune,",
+     "s": 20.554,
+     "e": 21.011
+    },
+    {
+     "w": "le",
+     "s": 21.087,
+     "e": 21.164
+    },
+    {
+     "w": "GPS",
+     "s": 21.24,
+     "e": 21.621
+    },
+    {
+     "w": "a",
+     "s": 21.659,
+     "e": 21.697
+    },
+    {
+     "w": "recalculé.",
+     "s": 21.773,
+     "e": 22.459
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Itinéraire le plus court: vous excuser.",
+   "hl": [
+    "vous",
+    "excuser."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L12.k.wav",
+   "file_start": 22.559,
+   "speech_start": 22.559,
+   "speech_end": 24.921,
+   "words": [
+    {
+     "w": "Itinéraire",
+     "s": 22.559,
+     "e": 23.016
+    },
+    {
+     "w": "le",
+     "s": 23.092,
+     "e": 23.168
+    },
+    {
+     "w": "plus",
+     "s": 23.245,
+     "e": 23.321
+    },
+    {
+     "w": "court:",
+     "s": 23.473,
+     "e": 23.93
+    },
+    {
+     "w": "vous",
+     "s": 24.006,
+     "e": 24.083
+    },
+    {
+     "w": "excuser.",
+     "s": 24.159,
+     "e": 24.921
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a éteint le GPS.",
+   "hl": [
+    "éteint"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L13.k.wav",
+   "file_start": 25.021,
+   "speech_start": 25.021,
+   "speech_end": 26.392,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.021,
+     "e": 25.097
+    },
+    {
+     "w": "a",
+     "s": 25.173,
+     "e": 25.211
+    },
+    {
+     "w": "éteint",
+     "s": 25.249,
+     "e": 25.478
+    },
+    {
+     "w": "le",
+     "s": 25.516,
+     "e": 25.554
+    },
+    {
+     "w": "GPS.",
+     "s": 25.63,
+     "e": 26.392
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Aujourd'hui, il vit sur la Lune.",
+   "hl": [
+    "Lune."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L14.k.wav",
+   "file_start": 26.492,
+   "speech_start": 26.492,
+   "speech_end": 28.321,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 26.492,
+     "e": 27.14
+    },
+    {
+     "w": "il",
+     "s": 27.178,
+     "e": 27.254
+    },
+    {
+     "w": "vit",
+     "s": 27.33,
+     "e": 27.406
+    },
+    {
+     "w": "sur",
+     "s": 27.483,
+     "e": 27.559
+    },
+    {
+     "w": "la",
+     "s": 27.635,
+     "e": 27.673
+    },
+    {
+     "w": "Lune.",
+     "s": 27.711,
+     "e": 28.321
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Avec ses problèmes.",
+   "hl": [
+    "problèmes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/gps/tts/L15.k.wav",
+   "file_start": 28.421,
+   "speech_start": 28.421,
+   "speech_end": 29.487,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 28.421,
+     "e": 28.649
+    },
+    {
+     "w": "ses",
+     "s": 28.726,
+     "e": 28.802
+    },
+    {
+     "w": "problèmes.",
+     "s": 28.878,
+     "e": 29.487
+    }
+   ]
+  }
+ ],
+ "total": 30.33
+}

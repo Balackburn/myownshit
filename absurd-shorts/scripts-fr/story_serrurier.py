@@ -57,8 +57,10 @@ st.shot('S11', 'suburbDay', setOpts=DUSK, light=EVENING, actors=[act('pompier', 
 st.shot('S12', 'suburbDay', setOpts=DUSK, light=EVENING, actors=[act('mec', MEC_DOOR, 0, 'stand', 'neutral', keys=[k(0.35, clip='handInPocket'), k(st.dur('S12') - 0.35, expr='surprised')])], props=[DOOR],
         cams=[cam(0.0, [0.25, 1.75, -4.75], [0.24, 1.75, -4.95], [0.0, 1.43, -7.6], [0.0, 1.43, -7.6], lens=44)])
 st.shot('S13', 'suburbDay', setOpts=DUSK, light=EVENING, actors=[act('mec', MEC_DOOR, 0, 'lookItem', 'grimace')],
-        props=[DOOR, P('keys', 'keyRing', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.05, 0.04], 'rot': [0, 0, 0]}, scale=1.8)],
-        cams=[cam(0.0, [0.05, 1.75, -5.75], [0.04, 1.75, -5.9], [-0.08, 1.65, -7.55], [-0.08, 1.65, -7.55], lens=44)])
+        props=[DOOR, P('keys', 'keyRing', pos=[-0.13, 1.585, -6.96], scale=1.6, opts={'bare': True, 'swing': 0.05})]
+              + [P(f'key{i}', 'glbModel', pos=[-0.13 + dx, 1.515, -6.95 + 0.005 * i], ry=ry, rot=[1.4, 0, tz], opts={'src': f'/assets/models/key-objaverse-{row}/model.glb', 'size': 0.105, 'outline': 0.0012})
+                 for i, (row, dx, ry, tz) in enumerate(((4643, -0.04, 15, 0.3), (18162, 0.0, 0, 3.1416), (16286, 0.04, -15, -0.3)))],   # sand3d keys (CC BY 4.0, credits in tools/credits.txt)
+        cams=[cam(0.0, [0.05, 1.8, -5.75], [0.04, 1.8, -5.9], [-0.08, 1.69, -7.55], [-0.08, 1.69, -7.55], lens=44)])
 st.shot('S14', 'suburbDay', setOpts=DUSK, light=EVENING, actors=[act('mec', MEC_DOOR, 0, 'stand', 'unimpressed')] + [act(a, [x, 0, z], 180 + r, 'stand', 'neutral') for a, (x, z, r) in zip(['serr1', 'serr2', 'flic', 'pompier'], ((-0.45, -6.4, 10), (0.5, -6.3, -10), (-1.05, -5.9, 15), (1.1, -5.8, -15)))],
         props=[DOOR], cams=[cam(0.0, [0.25, 1.95, -4.4], [0.24, 1.95, -4.55], [0.0, 1.45, -7.6], [0.0, 1.45, -7.6], lens=44)])
 D15 = st.dur('S15')
