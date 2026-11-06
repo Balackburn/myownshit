@@ -349,6 +349,22 @@ export const NEWS_PROPS = {
   ringMark(o) { // a red highlight ring that pops in at o.popAt (face the camera)
     const g = grp(at(torus(o.r || 0.06, 0.008, o.color || '#E0302A', 4, 24), 0, 0, 0)); if (o.popAt != null) { g.userData.update = t => { g.scale.setScalar(Math.max(0.001, ease.outBack(clamp01((t - o.popAt) / 0.25)))); }; g.userData.update(0); }
     return g; },
+  briefcase(o) { // a leather briefcase (hold it by the handle: attach to the hand)
+    const c = o.color || '#6B3E22', g = grp(at(box(0.42, 0.3, 0.1, c, { outline: 0.005 }), 0, -0.2, 0), at(box(0.43, 0.03, 0.105, '#4A2A16'), 0, -0.1, 0), at(box(0.05, 0.03, 0.11, '#D9B85A'), 0.12, -0.11, 0),
+      at(box(0.05, 0.03, 0.11, '#D9B85A'), -0.12, -0.11, 0), at(torus(0.05, 0.01, '#3A2210', 4, 10), 0, -0.04, 0)); return g; },
+  scoreCard(o) { // a jury score paddle held up (o.text, e.g. '10'), white card on a stick
+    const w = o.w || 0.26, h = w * 0.75, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FBFAF6'; c.fillRect(0, 0, W, H); c.strokeStyle = '#1C252A'; c.lineWidth = H * 0.05; c.strokeRect(H * 0.04, H * 0.04, W - H * 0.08, H - H * 0.08);
+      c.fillStyle = o.color || '#1C252A'; c.font = `900 ${H * 0.62}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(o.text ?? '10'), W / 2, H * 0.55); }, { res: 256 });
+    const g = grp(rod([0, -0.32, 0], [0, 0, 0], 0.012, '#8A6A44'), at(box(w + 0.01, h + 0.01, 0.008, '#D9D3C6'), 0, h / 2, -0.006), pl); pl.position.set(0, h / 2, 0.001); g.userData.grip = [0, -0.25, 0]; return g; },
+  portraitPoster(o) { // a framed poster of the mec's face (drawn like his passport photo) with a caption (o.text) under it
+    const w = o.w || 0.7, h = w * 1.3, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = o.bg || '#DCE8F2'; c.fillRect(0, 0, W, H); const fw = W * 0.5, fh = H * 0.5, fx = (W - fw) / 2, fy = H * 0.1;
+      c.fillStyle = '#1C1C20'; c.fillRect(fx + fw * 0.04, fy - H * 0.02, fw * 0.92, fh * 0.16); c.fillStyle = '#E8B48A'; c.fillRect(fx, fy + fh * 0.1, fw, fh * 0.9); c.fillStyle = '#1C1C20'; c.fillRect(fx, fy, fw, fh * 0.12);
+      c.fillStyle = '#FFFFFF'; [0.3, 0.68].forEach(x => { c.beginPath(); c.arc(fx + fw * x, fy + fh * 0.42, fw * 0.08, 0, Math.PI * 2); c.fill(); }); c.fillStyle = '#1C1C20'; [0.3, 0.68].forEach(x => { c.beginPath(); c.arc(fx + fw * x, fy + fh * 0.43, fw * 0.035, 0, Math.PI * 2); c.fill(); });
+      c.fillRect(fx + fw * 0.32, fy + fh * 0.78, fw * 0.36, fh * 0.03); c.fillStyle = '#7A5A44'; for (let i = 0; i < 40; i++) c.fillRect(fx + fw * (0.12 + ((i * 37) % 76) / 100), fy + fh * (0.66 + ((i * 53) % 28) / 100), 2, 2);
+      c.fillStyle = '#1C252A'; c.fillRect(fx + fw * 0.2, fy + fh * 1.0, fw * 0.6, H * 0.12); c.fillStyle = '#C8322A'; c.fillRect(fx + fw * 0.45, fy + fh * 1.0, fw * 0.1, H * 0.1);
+      c.fillStyle = '#1C252A'; let fs = H * 0.08; const t = o.text || "L'ORIGINAL"; c.font = `900 ${fs}px Arial`; const tw = c.measureText(t).width; if (tw > W * 0.88) fs *= W * 0.88 / tw; c.font = `900 ${fs}px Arial`;
+      c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(t, W / 2, H * 0.88); }, { res: 512 });
+    return grp(at(box(w + 0.06, h + 0.06, 0.04, o.frame || '#C9A227', { outline: 0.005 }), 0, 0, -0.025), pl); },
   cutChain(o) { // a cut bike chain hanging from the grip (hold it with HAND_FLAT), an open padlock at its end; it swings a little
     const g = grp(), L = o.color || '#6A6E74', n = o.n || 8, sw = grp(); g.add(sw);
     for (let i = 0; i < n; i++) { const lk = torus(0.032, 0.01, L, 4, 8); lk.position.set(0, -0.02 - i * 0.055, 0); lk.rotation.y = i % 2 ? PI / 2 : 0; sw.add(lk); }
