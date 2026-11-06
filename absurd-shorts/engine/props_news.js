@@ -721,4 +721,14 @@ export const NEWS_PROPS = {
       at(box(0.042, 0.042, 0.018, c), 0, -0.035 - L, 0, 0, 0, PI / 4));   // straight blade with a pointed tip
     return g;
   },
+  birthdayCake(o) { // a two-tier birthday cake (pink icing, white drips) with lit candles (flames flicker)
+    const g = grp(at(cyl(0.2, 0.2, 0.14, '#F4E3C3', 16, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0), at(cyl(0.205, 0.205, 0.035, '#F29AB8', 16, { pivot: 'bottom' }), 0, 0.12, 0),
+      at(cyl(0.13, 0.13, 0.1, '#F4E3C3', 14, { pivot: 'bottom', outline: 0.004 }), 0, 0.155, 0), at(cyl(0.135, 0.135, 0.03, '#F29AB8', 14, { pivot: 'bottom' }), 0, 0.235, 0));
+    const flames = [];
+    for (let i = 0; i < (o.candles || 5); i++) { const a = i / (o.candles || 5) * TAU, x = Math.cos(a) * 0.07, z = Math.sin(a) * 0.07;
+      g.add(at(cyl(0.008, 0.008, 0.07, ['#5FA8D3', '#F2C94C', '#C8322A', '#4CAF50', '#9B6FD0'][i % 5], 6, { pivot: 'bottom' }), x, 0.265, z));
+      const f = at(sphere(0.014, '#FFB13B', 1, { emissive: '#FF9A2E' }), x, 0.345, z); f.scale.set(0.7, 1.3, 0.7); g.add(f); flames.push(f); }
+    g.userData.update = t => flames.forEach((f, i) => { const k = 1 + 0.18 * Math.sin(t * 17 + i * 1.7); f.scale.set(0.7 * k, 1.3 / k, 0.7 * k); });
+    return g;
+  },
 };

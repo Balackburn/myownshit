@@ -122,7 +122,7 @@
      "ry": 0,
      "clip": "wave",
      "keys": [],
-     "expr": "happy"
+     "expr": "grin"
     }
    ],
    "props": [
@@ -178,13 +178,13 @@
    "duration": 1.1667,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -196,26 +196,70 @@
    "id": "S02",
    "set": "pressRoom",
    "lines": [],
-   "actors": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.62,
+      0,
+      -1.4
+     ],
+     "ry": -12,
+     "clip": "pointSelf",
+     "keys": [],
+     "expr": "grin"
+    }
+   ],
    "props": [
+    {
+     "id": "badge_mec",
+     "name": "noticeBoard",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.09,
+       0.5,
+       0.135
+      ]
+     },
+     "opts": {
+      "text": "N° 3",
+      "style": "tag",
+      "w": 0.22,
+      "h": 0.08
+     }
+    },
     {
      "id": "ban",
      "name": "signBoard",
      "pos": [
-      0,
-      0,
+      -0.15,
+      1.6,
       -2.6
      ],
      "opts": {
-      "text": "CONCOURS DE SOSIES",
-      "w": 2.4,
+      "text": "CONCOURS\nDE SOSIES",
+      "w": 1.2,
       "h": 0.62,
-      "height": 1.75,
+      "height": 2.0,
       "bg": "#C8322A",
       "fg": "#FFFFFF",
       "frame": "#F2C94C",
       "posts": false
-     }
+     },
+     "keys": [
+      {
+       "at": 0.12,
+       "to": [
+        -0.15,
+        0,
+        -2.6
+       ],
+       "dur": 0.35,
+       "ease": "outBack"
+      }
+     ]
     }
    ],
    "sfx": [],
@@ -223,26 +267,26 @@
     {
      "at": 0.0,
      "from": [
-      0.12,
-      2.25,
-      0.9
+      0.45,
+      1.8,
+      1.7
      ],
      "to": [
-      0.1,
-      2.12,
-      0.55
+      0.38,
+      1.85,
+      1.0
      ],
      "lookAt": [
-      0.0,
-      2.08,
-      -2.6
+      0.2,
+      2.0,
+      -1.9
      ],
      "lens": 44,
-     "ease": "linear",
+     "ease": "out",
      "lookAt2": [
-      0.0,
-      2.06,
-      -2.6
+      0.2,
+      2.02,
+      -1.9
      ]
     }
    ],
@@ -250,13 +294,13 @@
    "duration": 1.4333,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -428,13 +472,13 @@
    "duration": 1.0333,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -524,24 +568,24 @@
      "at": 0.0,
      "from": [
       1.55,
-      1.15,
-      2.3
+      1.6,
+      2.4
      ],
      "to": [
       1.5,
-      1.17,
-      2.1
+      1.6,
+      2.2
      ],
      "lookAt": [
       0.6,
-      1.45,
+      1.08,
       -1.6
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       0.62,
-      1.47,
+      1.1,
       -1.6
      ]
     }
@@ -550,13 +594,13 @@
    "duration": 1.3,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -602,8 +646,17 @@
      ],
      "ry": 0,
      "clip": "stand",
-     "keys": [],
-     "expr": "sad"
+     "keys": [
+      {
+       "at": 1.2,
+       "expr": "shocked"
+      },
+      {
+       "at": 1.7,
+       "expr": "sad"
+      }
+     ],
+     "expr": "unimpressed"
     }
    ],
    "props": [
@@ -644,7 +697,7 @@
      "name": "noticeBoard",
      "pos": [
       0.0,
-      3.0,
+      3.22,
       -1.6
      ],
      "ry": 0,
@@ -664,7 +717,7 @@
      "name": "noticeBoard",
      "pos": [
       -0.77,
-      2.82,
+      3.04,
       -1.6
      ],
      "ry": 0,
@@ -684,7 +737,7 @@
      "name": "noticeBoard",
      "pos": [
       0.77,
-      2.68,
+      2.9,
       -1.6
      ],
      "ry": 0,
@@ -706,24 +759,24 @@
      "at": 0.0,
      "from": [
       0.12,
-      1.6,
-      3.9
+      1.75,
+      4.1
      ],
      "to": [
       0.12,
-      1.6,
-      3.6
+      1.75,
+      3.8
      ],
      "lookAt": [
       0.0,
-      1.6,
+      1.78,
       -1.6
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       0.0,
-      1.6,
+      1.78,
       -1.6
      ]
     }
@@ -732,13 +785,13 @@
    "duration": 2.2334,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -761,7 +814,7 @@
      "ry": 180,
      "clip": "sit",
      "keys": [],
-     "expr": "suspicious"
+     "expr": "surprised"
     },
     {
      "id": "juge1",
@@ -773,7 +826,7 @@
      "ry": 180,
      "clip": "sit",
      "keys": [],
-     "expr": "suspicious"
+     "expr": "surprised"
     },
     {
      "id": "juge2",
@@ -785,7 +838,7 @@
      "ry": 180,
      "clip": "sit",
      "keys": [],
-     "expr": "suspicious"
+     "expr": "surprised"
     },
     {
      "id": "mec",
@@ -795,8 +848,13 @@
       0.42
      ],
      "ry": 0,
-     "clip": "slamTable",
-     "keys": [],
+     "clip": "yell",
+     "keys": [
+      {
+       "at": 0.25,
+       "clip": "slamTable"
+      }
+     ],
      "expr": "angry"
     }
    ],
@@ -878,8 +936,8 @@
      "id": "form",
      "name": "noticeBoard",
      "pos": [
-      0.05,
-      0.765,
+      0.1,
+      0.77,
       0.98
      ],
      "rot": [
@@ -889,9 +947,9 @@
      ],
      "opts": {
       "text": "RÉCLAMATION",
-      "style": "tag",
-      "w": 0.3,
-      "h": 0.1
+      "style": "doc",
+      "w": 0.42,
+      "h": 0.3
      },
      "ry": 0.0
     }
@@ -901,40 +959,68 @@
     {
      "at": 0.0,
      "from": [
-      3.4,
-      1.65,
-      1.05
+      2.15,
+      1.85,
+      2.35
      ],
      "to": [
-      3.15,
-      1.65,
-      1.02
+      2.1,
+      1.84,
+      2.2
      ],
      "lookAt": [
-      0.0,
-      1.3,
-      1.0
+      0.15,
+      1.5,
+      0.42
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.0,
-      1.3,
-      1.0
+      0.15,
+      1.5,
+      0.42
      ]
+    },
+    {
+     "at": 0.3,
+     "from": [
+      2.1,
+      1.84,
+      2.2
+     ],
+     "to": [
+      2.07,
+      1.83,
+      2.12
+     ],
+     "lookAt": [
+      0.15,
+      1.5,
+      0.42
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      1.5,
+      0.42
+     ],
+     "shake": 0.03,
+     "cut": false,
+     "glide": 0.05
     }
    ],
    "start": 7.1667,
    "duration": 1.4666,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -1092,13 +1178,13 @@
    "duration": 1.7,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -1196,13 +1282,13 @@
    "duration": 1.9334,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -1273,7 +1359,7 @@
      "ry": -20,
      "clip": "stand",
      "keys": [],
-     "expr": "sad"
+     "expr": "shocked"
     }
    ],
    "props": [
@@ -1368,16 +1454,16 @@
      "id": "lui",
      "name": "noticeBoard",
      "pos": [
-      0.35,
-      2.5,
+      -0.03,
+      2.12,
       -0.35
      ],
      "ry": 0,
      "opts": {
       "text": "C'EST LUI !",
       "style": "sign",
-      "w": 0.7,
-      "h": 0.2,
+      "w": 0.44,
+      "h": 0.15,
       "bg": "#4CAF50",
       "fg": "#FFFFFF",
       "frame": "#1C252A",
@@ -1417,13 +1503,13 @@
    "duration": 1.7,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -1484,8 +1570,8 @@
       "joint": "torso",
       "offset": [
        0.0,
-       0.18,
-       0.3
+       -0.02,
+       0.36
       ]
      },
      "scale": 1.5
@@ -1523,13 +1609,13 @@
    "duration": 2.3,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -1883,7 +1969,7 @@
       -2.05
      ],
      "ry": 50,
-     "clip": "handsOnHips",
+     "clip": "armsCrossed",
      "keys": [],
      "expr": "suspicious"
     }
@@ -1930,22 +2016,18 @@
     },
     {
      "id": "q",
-     "name": "noticeBoard",
+     "name": "speechBubble",
      "pos": [
-      -0.95,
-      2.2,
-      -2.05
+      -0.55,
+      2.02,
+      -1.9499999999999997
      ],
-     "ry": 0,
      "opts": {
       "text": "?",
-      "style": "sign",
-      "w": 0.22,
-      "h": 0.22,
-      "bg": "#F2C94C",
-      "fg": "#1C252A",
-      "frame": "#1C252A",
-      "popAt": 0.45
+      "popAt": 0.45,
+      "tail": "left",
+      "w": 0.34,
+      "h": 0.24
      }
     }
    ],
@@ -2129,29 +2211,29 @@
   },
   {
    "id": "S16",
-   "set": "livingRoom",
+   "set": "park",
    "lines": [],
    "actors": [
     {
      "id": "mec",
      "pos": [
-      0.0,
+      0.05,
       0,
-      -1.7
+      -1.3
      ],
      "ry": 0,
      "clip": "present",
      "keys": [],
-     "expr": "happy"
+     "expr": "grin"
     },
     {
      "id": "k1",
      "pos": [
-      -0.65,
+      -0.68,
       0,
-      -0.75
+      -1.1
      ],
-     "ry": 150,
+     "ry": 25,
      "clip": "celebrate",
      "keys": [],
      "expr": "happy"
@@ -2159,11 +2241,11 @@
     {
      "id": "k2",
      "pos": [
-      0.7,
+      0.72,
       0,
-      -0.8
+      -1.15
      ],
-     "ry": -150,
+     "ry": -25,
      "clip": "celebrate",
      "keys": [],
      "expr": "happy"
@@ -2174,53 +2256,108 @@
      "id": "bl0",
      "name": "balloon",
      "pos": [
-      -1.25,
+      -1.4,
       0,
-      -2.4
+      -2.2
      ],
      "opts": {
       "color": "#C8322A",
-      "string": 1.3
+      "string": 1.4
      }
     },
     {
      "id": "bl1",
      "name": "balloon",
      "pos": [
-      1.2,
+      1.35,
       0,
-      -2.5
+      -2.3
      ],
      "opts": {
       "color": "#2F62B5",
-      "string": 1.5
+      "string": 1.5999999999999999
      }
     },
     {
      "id": "bl2",
      "name": "balloon",
      "pos": [
-      -0.75,
+      -0.95,
       0,
-      -2.8
+      -2.7
      ],
      "opts": {
       "color": "#F2C94C",
-      "string": 1.3
+      "string": 1.4
      }
     },
     {
      "id": "bl3",
      "name": "balloon",
      "pos": [
-      0.8,
+      0.95,
       0,
-      -2.85
+      -2.75
      ],
      "opts": {
       "color": "#2F7F5C",
-      "string": 1.5
+      "string": 1.5999999999999999
      }
+    },
+    {
+     "id": "bl4",
+     "name": "balloon",
+     "pos": [
+      -1.7,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "color": "#F29AB8",
+      "string": 1.4
+     }
+    },
+    {
+     "id": "ban",
+     "name": "signBoard",
+     "pos": [
+      -1.15,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "JOYEUX\nANNIVERSAIRE",
+      "w": 1.0,
+      "h": 0.5,
+      "height": 1.25,
+      "bg": "#F29AB8",
+      "fg": "#FFFFFF",
+      "frame": "#2F62B5"
+     }
+    },
+    {
+     "id": "ptab",
+     "name": "table",
+     "pos": [
+      -1.05,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 0.8,
+      "d": 0.6,
+      "h": 0.72,
+      "color": "#F4F1E8"
+     }
+    },
+    {
+     "id": "cake",
+     "name": "birthdayCake",
+     "pos": [
+      -1.05,
+      0.72,
+      -1.9
+     ]
     },
     {
      "id": "badge_mec",
@@ -2245,9 +2382,9 @@
      "id": "pro",
      "name": "noticeBoard",
      "pos": [
-      0.0,
-      2.55,
-      -2.9
+      0.05,
+      2.75,
+      -2.2
      ],
      "ry": 0,
      "opts": {
@@ -2266,49 +2403,45 @@
     {
      "at": 0.0,
      "from": [
-      0.2,
-      1.4,
-      2.6
+      0.25,
+      1.35,
+      2.7
      ],
      "to": [
-      0.19,
-      1.42,
-      2.3
+      0.24,
+      1.37,
+      2.4
      ],
      "lookAt": [
-      0.0,
-      1.35,
-      -1.7
+      0.05,
+      1.3,
+      -1.3
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.0,
-      1.37,
-      -1.7
+      0.05,
+      1.32,
+      -1.3
      ]
     }
    ],
    "start": 22.3667,
    "duration": 2.5333,
-   "setOpts": {
-    "sofa": false,
-    "tv": false
-   },
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
    "soften": 0.84
   },
   {
    "id": "S17",
-   "set": "livingRoom",
+   "set": "park",
    "lines": [],
    "actors": [
     {
      "id": "gagnant",
      "pos": [
-      -0.52,
+      -0.62,
       0,
-      -1.8
+      -1.6
      ],
      "ry": 8,
      "clip": "heroPose",
@@ -2318,9 +2451,9 @@
     {
      "id": "mec",
      "pos": [
-      0.52,
+      0.62,
       0,
-      -1.8
+      -1.6
      ],
      "ry": -8,
      "clip": "heroPose",
@@ -2333,53 +2466,108 @@
      "id": "bl0",
      "name": "balloon",
      "pos": [
-      -1.25,
+      -1.4,
       0,
-      -2.4
+      -2.2
      ],
      "opts": {
       "color": "#C8322A",
-      "string": 1.3
+      "string": 1.4
      }
     },
     {
      "id": "bl1",
      "name": "balloon",
      "pos": [
-      1.2,
+      1.35,
       0,
-      -2.5
+      -2.3
      ],
      "opts": {
       "color": "#2F62B5",
-      "string": 1.5
+      "string": 1.5999999999999999
      }
     },
     {
      "id": "bl2",
      "name": "balloon",
      "pos": [
-      -0.75,
+      -0.95,
       0,
-      -2.8
+      -2.7
      ],
      "opts": {
       "color": "#F2C94C",
-      "string": 1.3
+      "string": 1.4
      }
     },
     {
      "id": "bl3",
      "name": "balloon",
      "pos": [
-      0.8,
+      0.95,
       0,
-      -2.85
+      -2.75
      ],
      "opts": {
       "color": "#2F7F5C",
-      "string": 1.5
+      "string": 1.5999999999999999
      }
+    },
+    {
+     "id": "bl4",
+     "name": "balloon",
+     "pos": [
+      -1.7,
+      0,
+      -1.4
+     ],
+     "opts": {
+      "color": "#F29AB8",
+      "string": 1.4
+     }
+    },
+    {
+     "id": "ban",
+     "name": "signBoard",
+     "pos": [
+      -1.15,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "text": "JOYEUX\nANNIVERSAIRE",
+      "w": 1.0,
+      "h": 0.5,
+      "height": 1.25,
+      "bg": "#F29AB8",
+      "fg": "#FFFFFF",
+      "frame": "#2F62B5"
+     }
+    },
+    {
+     "id": "ptab",
+     "name": "table",
+     "pos": [
+      -1.05,
+      0,
+      -1.9
+     ],
+     "opts": {
+      "w": 0.8,
+      "d": 0.6,
+      "h": 0.72,
+      "color": "#F4F1E8"
+     }
+    },
+    {
+     "id": "cake",
+     "name": "birthdayCake",
+     "pos": [
+      -1.05,
+      0.72,
+      -1.9
+     ]
     },
     {
      "id": "medal_gagnant",
@@ -2418,9 +2606,9 @@
      "id": "o",
      "name": "noticeBoard",
      "pos": [
-      -0.52,
+      -0.62,
       2.5,
-      -1.8
+      -1.6
      ],
      "ry": 0,
      "opts": {
@@ -2437,9 +2625,9 @@
      "id": "s",
      "name": "noticeBoard",
      "pos": [
-      0.52,
+      0.62,
       2.5,
-      -1.8
+      -1.6
      ],
      "ry": 0,
      "opts": {
@@ -2460,34 +2648,30 @@
      "from": [
       0.05,
       1.5,
-      2.15
+      2.75
      ],
      "to": [
       0.05,
       1.51,
-      1.9
+      2.5
      ],
      "lookAt": [
       0.0,
       1.55,
-      -1.8
+      -1.6
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       0.0,
       1.56,
-      -1.8
+      -1.6
      ]
     }
    ],
    "start": 24.9,
-   "duration": 0.9333,
-   "setOpts": {
-    "sofa": false,
-    "tv": false
-   },
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "duration": 1.9667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
    "soften": 0.84
   },
   {
@@ -2538,7 +2722,7 @@
      ],
      "ry": 0,
      "opts": {
-      "text": "ÉDITION 2027",
+      "text": "2E ÉDITION",
       "style": "sign",
       "w": 1.1,
       "h": 0.26,
@@ -2576,17 +2760,17 @@
      ]
     }
    ],
-   "start": 25.8333,
-   "duration": 2.2334,
+   "start": 26.8667,
+   "duration": 1.2,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
@@ -2676,8 +2860,8 @@
      "at": 0.0,
      "from": [
       1.55,
-      1.15,
-      2.3
+      1.6,
+      2.4
      ],
      "to": [
       1.05,
@@ -2686,7 +2870,7 @@
      ],
      "lookAt": [
       0.6,
-      1.45,
+      1.08,
       -1.6
      ],
      "lens": 44,
@@ -2702,13 +2886,13 @@
    "duration": 1.7133,
    "setOpts": {
     "backdrop": "SOSIES|CONCOURS",
-    "fontScale": 0.66,
-    "bg": "#F6D77A",
-    "fg": "rgba(200,50,42,0.55)",
+    "fontScale": 0.6,
+    "bg": "#F1E4C3",
+    "fg": "rgba(214,110,60,0.3)",
     "wall": "#8FC1DE",
     "band": "#6FA3C4",
     "trim": "#3E6E8E",
-    "floor": "#C2554A",
+    "floor": "#B8645A",
     "podium": false,
     "flags": false,
     "chairColor": "#2F62B5"
