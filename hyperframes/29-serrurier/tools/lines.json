@@ -1,0 +1,123 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a perdu ses clés, il a appelé un serrurier.",
+  "hl": [
+   "perdu",
+   "clés,",
+   "serrurier."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le serrurier avait perdu les siennes.",
+  "hl": [
+   "serrurier",
+   "siennes."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a appelé un serrurier.",
+  "hl": [
+   "serrurier."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Qui a appelé un serrurier.",
+  "hl": [
+   "serrurier."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Qui a appelé un serrurier.",
+  "hl": [
+   "serrurier."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "À midi, ils étaient quarante devant la porte.",
+  "hl": [
+   "quarante",
+   "porte."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le soir, la file faisait le tour du quartier.",
+  "hl": [
+   "file",
+   "quartier."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "La police est venue.",
+  "hl": [
+   "police"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Elle avait perdu ses clés.",
+  "hl": [
+   "perdu",
+   "clés."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les pompiers aussi.",
+  "hl": [
+   "pompiers",
+   "aussi."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Puis le mec a mis la main dans sa poche.",
+  "hl": [
+   "main",
+   "poche."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Ses clés étaient bien là.",
+  "hl": [
+   "clés",
+   "là."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il n'a rien dit.",
+  "hl": [
+   "rien"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il a déménagé.",
+  "hl": [
+   "déménagé."
+  ]
+ }
+]

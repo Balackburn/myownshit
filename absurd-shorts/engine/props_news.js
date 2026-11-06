@@ -896,6 +896,55 @@ export const NEWS_PROPS = {
     w.scale.setScalar(k); w.position.set(-c.x * k, -bb.min.y * k, -c.z * k); g.add(w);
     g.userData.size = [sz.x * k, sz.y * k, sz.z * k]; return g;
   },
+  // ---- L'armoire (story 30)
+  armoire(o) { // a flat-pack two-door wardrobe (front +Z, o.w × o.h × o.d), pale wood, round handles, a plinth; o.tag: a price label hanging on a handle
+    const W = o.w || 1.0, H = o.h || 2.0, D = o.d || 0.55, c = o.color || '#E3C79A', dk = '#B8935E', g = grp();
+    g.add(at(box(W, H - 0.08, D, c, { pivot: 'bottom', outline: 0.008 }), 0, 0.08, 0), at(box(W - 0.04, 0.08, D - 0.04, dk, { pivot: 'bottom' }), 0, 0, 0), at(box(W + 0.03, 0.03, D + 0.03, c, { outline: 0.004 }), 0, H, 0));
+    g.add(at(box(0.012, H - 0.16, 0.006, dk), 0, H / 2 + 0.04, D / 2 + 0.003));   // the gap between the doors
+    for (const sd of [-1, 1]) { g.add(at(box(W / 2 - 0.05, H - 0.2, 0.004, '#EAD3AA'), sd * W / 4, H / 2 + 0.04, D / 2 + 0.002)); g.add(at(cyl(0.02, 0.02, 0.025, '#3A3530', 10), sd * 0.06, H * 0.55, D / 2 + 0.014, PI / 2, 0, 0)); }
+    if (o.tag) { const t = grp(at(box(0.16, 0.1, 0.004, '#F4F1E8', { outline: 0.03 }), 0, -0.07, 0), at(label(o.tag, 0.14, 0.08, { bg: null, fg: '#C8322A' }), 0, -0.07, 0.003)); t.position.set(0.06, H * 0.55 - 0.02, D / 2 + 0.03); t.rotation.z = 0.15; g.add(t); }
+    return g;
+  },
+  flatBox(o) { // a flat-pack box standing (front +Z, o.w × o.h × o.d, default 0.62 × 1.9 × 0.12) or lying (o.lying), brown cardboard with a wardrobe drawing and « ARMOIRE »
+    const W = o.w || 0.62, H = o.h || 1.9, D = o.d || 0.12, g = grp(), b = grp(); g.add(b);
+    b.add(at(box(W, H, D, '#C49A66', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0));
+    for (const sd of [-1, 1]) { const f = canvasPlane(W * 0.9, H * 0.9, (c, Wc, Hc) => { c.fillStyle = '#C49A66'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#3A2A1A'; c.lineWidth = Wc * 0.025;
+        c.strokeRect(Wc * 0.25, Hc * 0.18, Wc * 0.5, Hc * 0.5); c.beginPath(); c.moveTo(Wc / 2, Hc * 0.18); c.lineTo(Wc / 2, Hc * 0.68); c.stroke(); for (const x of [0.45, 0.55]) { c.beginPath(); c.arc(Wc * x, Hc * 0.44, Wc * 0.018, 0, 6.3); c.fillStyle = '#3A2A1A'; c.fill(); }
+        c.fillStyle = '#1C252A'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = Wc * 0.17; c.font = `900 ${px}px Arial`; const tx = o.text || 'ARMOIRE'; const tw = c.measureText(tx).width; if (tw > Wc * 0.86) { px *= Wc * 0.86 / tw; c.font = `900 ${px}px Arial`; }
+        c.fillText(tx, Wc / 2, Hc * 0.8); c.font = `bold ${Wc * 0.08}px Arial`; c.fillText(o.sub || 'EN KIT', Wc / 2, Hc * 0.9); }, { res: 256 });
+      f.position.set(0, H / 2, sd * (D / 2 + 0.002)); if (sd < 0) f.rotation.y = PI; b.add(f); }
+    if (o.lying) { b.rotation.x = -PI / 2; b.position.set(0, D / 2, H / 2); }
+    return g;
+  },
+  screw(o) { // a wood screw (about 4.5 cm at scale 1; scale it up for close-ups): a flat head with a cross, a threaded shank, a point; lying along +Z
+    const g = grp(), m = '#C9CED4', d = '#6E747C', s = grp(); g.add(s);
+    s.add(at(cyl(0.0048, 0.0042, 0.0022, m, 14, { outline: 0.06 }), 0, 0, 0), at(cyl(0.0021, 0.0021, 0.036, m, 10), 0, -0.019, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.0021, 0.008, 10), mat(m)), 0, -0.041, 0, PI, 0, 0));
+    for (let i = 0; i < 7; i++) s.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.0022, 0.0005, 4, 12), mat(d)), 0, -0.008 - i * 0.0045, 0, PI / 2 + 0.25, 0, 0));
+    for (const r of [0, PI / 2]) s.add(at(box(0.0075, 0.0012, 0.0012, '#3A3F45'), 0, 0.0012, 0, 0, r, 0));
+    if (o.lying !== false) { s.rotation.x = PI / 2; s.position.y = 0.005; }
+    return g;
+  },
+  screwPile(o) { // o.n screws scattered on the floor within radius o.r (deterministic), each about 4.5 cm × o.k
+    const n = o.n || 20, R = o.r || 0.35, k = o.k || 1, r = rng(o.seed || 21), g = grp();
+    for (let i = 0; i < n; i++) { const sc = NEWS_PROPS.screw({}); const a = r() * TAU, d = Math.sqrt(r()) * R; sc.position.set(Math.cos(a) * d, 0, Math.sin(a) * d); sc.rotation.y = r() * TAU; sc.scale.setScalar(k); g.add(sc); }
+    return g;
+  },
+  allenKey(o) { // an L-shaped hex key (long arm 8 cm along -Y, short arm 2.5 cm along +X), dark steel
+    const c = o.color || '#3A3F45', g = grp(at(cyl(0.0028, 0.0028, 0.08, c, 6, { outline: 0.05 }), 0, -0.04, 0), at(cyl(0.0028, 0.0028, 0.025, c, 6, { outline: 0.05 }), 0.0125, 0, 0, 0, 0, PI / 2));
+    return g;
+  },
+  storeVest(o) { // a shop employee's vest to attach to an actor's torso joint (offset [0, 0, 0]): blue panels over the suit and a yellow name badge (o.name)
+    const c = o.color || '#2F62B5', g = grp(), H = o.h || 0.55, Wd = o.w || 0.42, front = o.front || 0.135;
+    g.add(at(box(Wd, H, 0.02, c, { pivot: 'bottom', outline: 0.02 }), 0, 0.06, front + 0.01), at(box(Wd, H, 0.02, c, { pivot: 'bottom' }), 0, 0.06, -front - 0.01));
+    g.add(at(box(0.14, 0.06, 0.006, '#F2C94C', { outline: 0.03 }), -0.1, 0.45, front + 0.024), at(label(o.name || 'LE MEC', 0.13, 0.05, { bg: null, fg: '#1C252A' }), -0.1, 0.45, front + 0.028));
+    return g;
+  },
+  cashCounter(o) { // a shop counter (front +Z, o.w wide) with a till: a screen showing o.price and a keypad
+    const W = o.w || 1.4, g = grp(at(box(W, 0.95, 0.6, '#F2EEE6', { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(W + 0.04, 0.04, 0.64, '#B8935E', { pivot: 'bottom' }), 0, 0.95, 0));
+    g.add(at(box(0.36, 0.16, 0.3, '#2B2F36', { pivot: 'bottom', outline: 0.006 }), W * 0.25, 0.99, 0), at(box(0.3, 0.2, 0.03, '#2B2F36', { outline: 0.006 }), W * 0.25, 1.28, -0.1, -0.3, 0, 0));
+    g.add(at(canvasPlane(0.26, 0.15, (c, Wc, Hc) => { c.fillStyle = '#1D3B2A'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#7CF29A'; const tx = o.price || '149,00 €'; let px = Hc * 0.5; c.font = `bold ${px}px monospace`; const tw = c.measureText(tx).width; if (tw > Wc * 0.88) { px *= Wc * 0.88 / tw; c.font = `bold ${px}px monospace`; } c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(tx, Wc / 2, Hc / 2); }, { res: 256, emissive: 0.6 }), W * 0.25, 1.285, -0.08, -0.3, 0, 0));
+    return g;
+  },
   // ---- Le serrurier (story 29)
   smartPhone(o) { // a plain smartphone (screen +Z), held to the ear (phoneEar) or shown; o.call: a green call screen
     const g = grp(at(box(0.072, 0.148, 0.01, '#1C1F24', { outline: 0.004 }), 0, 0, 0));

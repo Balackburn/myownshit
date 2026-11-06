@@ -735,7 +735,7 @@ const B = {
   },
   priceTag(o) {
     const tag = grp(at(box(0.42, 0.24, 0.012, P.paper, { outline: 0.03 }), 0.06, 0, 0), at(box(0.17, 0.17, 0.012, P.paper), -0.15, 0, 0, 0, 0, PI / 4),
-      at(cyl(0.025, 0.025, 0.014, P.ink, 8), -0.17, 0, 0, PI / 2), at(label(o.text || '$5', 0.32, 0.2, { bg: null, fg: P.red }), 0.08, 0, 0.008));
+      at(cyl(0.025, 0.025, 0.014, P.ink, 8), -0.17, 0, 0, PI / 2), at(label(o.text || '5 €', 0.32, 0.2, { bg: null, fg: P.red }), 0.08, 0, 0.008));
     tag.position.set(0.05, 0.18, 0); tag.rotation.z = 0.12;
     const g = grp(tag, rod([-0.1, 0.17, 0], [-0.22, 0.42, 0], 0.005, P.ink)); g.userData.grip = [-0.22, 0.42, 0]; return g;
   },
