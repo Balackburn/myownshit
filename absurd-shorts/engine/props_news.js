@@ -875,10 +875,19 @@ export const NEWS_PROPS = {
   glbModel(o) { // a GLB model preloaded by the director (o.src, a served path such as '/assets/models/toolbox-objaverse-40685/model.glb'): scaled so its height
     // (o.height, metres) or its largest side (o.size) fits, centred on x/z and set on the ground; restyled to the series' look by default (flat Lambert with the
     // paper grain, each material's colour kept, swapped through o.colors {'#rrggbb': '#rrggbb'} or pulled toward o.tint [colour, 0..1]); o.outline: ink outline
-    // in metres (constant thickness, off-centre safe); o.yaw (degrees) turns the model inside the prop when its front is not +Z
+    // in metres (constant thickness, off-centre safe); o.yaw (degrees) turns the model inside the prop when its front is not +Z; o.lay / o.up put the long side
+    // along x (lying) / y (standing) whatever axis the file uses; o.thick fattens the short axes; o.stretch [x, y, z] multipliers in the file's axes
     const src = glbSource(o.src), g = grp();
     if (!src) { g.add(at(box(0.3, 0.3, 0.3, '#FF00FF', { pivot: 'bottom' }), 0, 0, 0)); return g; }
     const m = src.clone(true), w = grp(); w.add(m); if (o.yaw) m.rotation.y += o.yaw * PI / 180;
+    if (o.stretch) m.scale.multiply(new THREE.Vector3(...o.stretch));   // per-axis multipliers in the file's own axes
+    if (o.thick || o.lay || o.up) {   // whatever axis the file uses: o.thick fattens the two short axes (a thin screw on a phone screen); o.lay puts the long
+      w.updateMatrixWorld(true);        // side along x (lying), o.up stands it along y
+      const s0 = new THREE.Box3().setFromObject(w).getSize(new THREE.Vector3()), L = s0.x >= s0.y && s0.x >= s0.z ? 'x' : s0.y >= s0.z ? 'y' : 'z';
+      if (o.thick) { const v = new THREE.Vector3(o.thick, o.thick, o.thick); v[L] = 1; m.scale.multiply(v); }
+      if (o.lay) { if (L === 'y') m.rotation.z += PI / 2; else if (L === 'z') m.rotation.y += PI / 2; }
+      else if (o.up) { if (L === 'x') m.rotation.z += PI / 2; else if (L === 'z') m.rotation.x -= PI / 2; }
+    }
     w.updateMatrixWorld(true);
     const bb = new THREE.Box3().setFromObject(w), sz = bb.getSize(new THREE.Vector3()), c = bb.getCenter(new THREE.Vector3());
     const k = o.height ? o.height / Math.max(sz.y, 1e-6) : o.size ? o.size / Math.max(sz.x, sz.y, sz.z, 1e-6) : 1;
@@ -898,11 +907,11 @@ export const NEWS_PROPS = {
   },
   // ---- L'armoire (story 30)
   armoire(o) { // a flat-pack two-door wardrobe (front +Z, o.w × o.h × o.d), pale wood, round handles, a plinth; o.tag: a price label hanging on a handle
-    const W = o.w || 1.0, H = o.h || 2.0, D = o.d || 0.55, c = o.color || '#E3C79A', dk = '#B8935E', g = grp();
+    const W = o.w || 1.0, H = o.h || 2.0, D = o.d || 0.55, c = o.color || '#4F9FB0', dk = o.dark || '#3B7F8E', dc = o.door || '#6FBFCC', g = grp();   // teal: stands off a cream wall
     g.add(at(box(W, H - 0.08, D, c, { pivot: 'bottom', outline: 0.008 }), 0, 0.08, 0), at(box(W - 0.04, 0.08, D - 0.04, dk, { pivot: 'bottom' }), 0, 0, 0), at(box(W + 0.03, 0.03, D + 0.03, c, { outline: 0.004 }), 0, H, 0));
-    g.add(at(box(0.012, H - 0.16, 0.006, dk), 0, H / 2 + 0.04, D / 2 + 0.003));   // the gap between the doors
-    for (const sd of [-1, 1]) { g.add(at(box(W / 2 - 0.05, H - 0.2, 0.004, '#EAD3AA'), sd * W / 4, H / 2 + 0.04, D / 2 + 0.002)); g.add(at(cyl(0.02, 0.02, 0.025, '#3A3530', 10), sd * 0.06, H * 0.55, D / 2 + 0.014, PI / 2, 0, 0)); }
-    if (o.tag) { const t = grp(at(box(0.16, 0.1, 0.004, '#F4F1E8', { outline: 0.03 }), 0, -0.07, 0), at(label(o.tag, 0.14, 0.08, { bg: null, fg: '#C8322A' }), 0, -0.07, 0.003)); t.position.set(0.06, H * 0.55 - 0.02, D / 2 + 0.03); t.rotation.z = 0.15; g.add(t); }
+    g.add(at(box(0.012, H - 0.16, 0.006, '#2E6874'), 0, H / 2 + 0.04, D / 2 + 0.003));   // the gap between the doors
+    for (const sd of [-1, 1]) { g.add(at(box(W / 2 - 0.05, H - 0.2, 0.004, dc), sd * W / 4, H / 2 + 0.04, D / 2 + 0.002)); g.add(at(cyl(0.022, 0.022, 0.025, '#F4F1E8', 10), sd * 0.06, H * 0.55, D / 2 + 0.014, PI / 2, 0, 0)); }
+    if (o.tag) { const t = grp(at(box(0.36, 0.2, 0.006, '#F4F1E8', { outline: 0.03 }), 0, -0.12, 0), at(label(o.tag, 0.32, 0.16, { bg: null, fg: '#C8322A' }), 0, -0.12, 0.004)); t.position.set(0.2, H * 0.62, D / 2 + 0.03); t.rotation.z = 0.08; g.add(t); }   // a big readable price card
     return g;
   },
   flatBox(o) { // a flat-pack box standing (front +Z, o.w × o.h × o.d, default 0.62 × 1.9 × 0.12) or lying (o.lying), brown cardboard with a wardrobe drawing and « ARMOIRE »

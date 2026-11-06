@@ -33,8 +33,11 @@ python3 $T credits absurd-shorts/assets/models/key-objaverse-*      # attributio
 - The programs are code from the internet. `build` refuses anything but `import sand3d as s3d` and `math`: no file, system, `eval`,
   dunder or private-`s3d` access; then it runs the program in an isolated process (`python -I`, a temporary working directory, a time
   limit). Never run a dataset program any other way, and never relax the check to make one pass: pick another row.
-- The Hugging Face dataset viewer API has short outages (HTTP 500/502, "authentication check failed"). The tool retries with backoff;
-  if a call still fails, wait a minute and run it again.
+- The Hugging Face dataset viewer API has outages (HTTP 500/502/504, "authentication check failed"), sometimes for an hour. Build the
+  local index once per session: `python3 $T index --sources objaverse` (about 80 s: it reads only the name, category, score and licence
+  columns of the Parquet files, 28 MB for objaverse, kept in `~/.cache/sand3d_index/`). Then `find` and `search` fall back on it, and
+  `get` reads the program and the render straight from the Parquet files (`find --local` skips the API). These commands need pyarrow,
+  so they re-run themselves in the sand3d venv.
 - Choose on the render sheet, not the name: prefer `f_score` ≥ 0.95, few parts, a clear silhouette at phone size. Check
   `license_status` is `ok` and the licence is CC BY 4.0 (or more open).
 
@@ -52,12 +55,20 @@ P('key', 'glbModel', pos=[-0.13, 1.5, -6.95], ry=15, rot=[1.4, 0, 0.3],
   the GLB's materials.
 - `outline`: ink outline thickness in metres (constant, safe for off-centre geometry): 0.001-0.002 for hand props, 0.01-0.03 for
   cars and buildings, like the hand-made props.
-- `yaw` (degrees) turns the model inside the prop when its front is not +Z. Flat objects (keys, cards, coins) come lying in the XZ
-  plane: stand them up with `rot=[1.4..1.57, 0, tilt]`; if one ends up upside down (its program builds it the other way), add π to the
-  tilt.
+- Each file uses its own axes (a sand3d screw lies along Z, a key lies in the XZ plane): look at a still before trusting an orientation.
+  `lay: true` puts the long side along x (lying; then `ry` spins it on the floor, and ry ≈ 90 points it back at a camera that looks along
+  -Z, end-on and invisible); `up: true` stands it along y. `yaw` (degrees) turns the model inside the prop when its front is not +Z.
+  Flat objects (keys, cards, coins) lying in the XZ plane stand up with `rot=[1.4..1.57, 0, tilt]`; add π to the tilt if one comes out
+  upside down.
+- `thick: 2.4` fattens the two short axes: a real-proportion screw is a hair on a phone screen. `stretch: [x, y, z]` scales the file's
+  own axes.
 - A missing or unreadable GLB renders a magenta cube: look at a still before rendering the film.
 
 ## Lessons (Le serrurier, the first story with sand3d models)
+
+- L'armoire: the sand3d screw (objaverse row 21338) reads in the floor close-ups and held up beside a face only with `lay`/`up` and
+  `thick: 2.4`; 20 GLB screws for the pile cost nothing noticeable in render time. The dataset's wardrobes were plain boxes, so the
+  wardrobe stayed hand-made: pick on the render sheet and keep the hand-made prop when the dataset's version reads worse.
 
 - Three objaverse keys (rows 4643, 18162, 16286) built in about 10 s each, 11-16 KB per GLB, and read far better in the close-up
   than the hand-made keys: real bows, teeth and holes.

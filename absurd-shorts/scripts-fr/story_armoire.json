@@ -75,7 +75,7 @@
     {
      "id": "mec",
      "pos": [
-      0.45,
+      0.3,
       0,
       -1.25
      ],
@@ -90,7 +90,7 @@
      "id": "w0",
      "name": "armoire",
      "pos": [
-      -0.45,
+      -0.55,
       0,
       -2.02
      ],
@@ -101,13 +101,14 @@
      "id": "fb",
      "name": "flatBox",
      "pos": [
-      0.3,
-      0,
-      -0.6
+      0.85,
+      0.0,
+      -2.2
      ],
-     "ry": 15,
+     "ry": -8,
+     "scale": 1.0,
      "opts": {
-      "lying": true
+      "lying": false
      }
     },
     {
@@ -131,25 +132,25 @@
     {
      "at": 0.0,
      "from": [
-      0.3,
-      1.5,
-      2.2
+      0.35,
+      1.4,
+      3.1
      ],
      "to": [
-      0.27,
-      1.48,
-      1.9
+      0.3,
+      1.45,
+      1.55
      ],
      "lookAt": [
-      0.0,
-      1.35,
+      0.15,
+      1.3,
       -1.6
      ],
      "lens": 44,
-     "ease": "linear",
+     "ease": "out",
      "lookAt2": [
-      0.0,
-      1.35,
+      0.15,
+      1.33,
       -1.6
      ]
     }
@@ -195,16 +196,20 @@
     },
     {
      "id": "s1",
-     "name": "screw",
+     "name": "glbModel",
      "pos": [
-      0.05,
+      0.03,
       0,
       -0.72
      ],
-     "ry": 30,
-     "scale": 7.0,
+     "ry": 60,
      "opts": {
-      "lying": true
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.3,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
      }
     }
    ],
@@ -277,16 +282,20 @@
     },
     {
      "id": "s1",
-     "name": "screw",
+     "name": "glbModel",
      "pos": [
       -0.09,
-      2.08,
+      1.93,
       -0.7000000000000001
      ],
      "ry": 0,
-     "scale": 5.0,
      "opts": {
-      "lying": false
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.24,
+      "outline": 0.002,
+      "lay": false,
+      "up": true,
+      "thick": 2.4
      }
     }
    ],
@@ -340,17 +349,17 @@
       -0.9
      ],
      "ry": -90,
-     "clip": "carry",
+     "clip": "walk",
      "keys": [
       {
        "at": 0.0,
        "to": [
-        0.4,
+        0.45,
         0,
         -0.9
        ],
        "dur": 1.267,
-       "clip": "carryBox"
+       "clip": "walk"
       }
      ],
      "expr": "neutral"
@@ -361,7 +370,7 @@
      "id": "w0",
      "name": "armoire",
      "pos": [
-      -0.45,
+      -0.55,
       0,
       -2.02
      ],
@@ -375,12 +384,17 @@
       "actor": "mec",
       "joint": "torso",
       "offset": [
-       0.0,
-       -0.45,
-       0.32
+       0.3,
+       -0.72,
+       0.0
+      ],
+      "rot": [
+       0,
+       1.5708,
+       0
       ]
      },
-     "scale": 0.8
+     "scale": 0.65
     }
    ],
    "sfx": [],
@@ -388,25 +402,25 @@
     {
      "at": 0.0,
      "from": [
-      0.3,
+      0.65,
       1.5,
-      2.7
+      2.9
      ],
      "to": [
-      0.25,
+      0.6,
       1.48,
-      2.45
+      2.65
      ],
      "lookAt": [
-      0.6,
-      1.35,
+      0.85,
+      1.3,
       -1.0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.4,
-      1.35,
+      0.65,
+      1.3,
       -1.0
      ]
     }
@@ -529,30 +543,38 @@
     },
     {
      "id": "s1",
-     "name": "screw",
+     "name": "glbModel",
      "pos": [
       0.0,
       0,
       -0.68
      ],
-     "ry": 95,
-     "scale": 5.0,
+     "ry": 6,
      "opts": {
-      "lying": true
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
      }
     },
     {
      "id": "s2",
-     "name": "screw",
+     "name": "glbModel",
      "pos": [
-      0.03,
+      0.04,
       0,
       -0.92
      ],
-     "ry": 75,
-     "scale": 5.0,
+     "ry": -14,
      "opts": {
-      "lying": true
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
      }
     }
    ],
@@ -617,10 +639,11 @@
      "name": "flatBox",
      "pos": [
       -1.9,
-      0,
+      0.0,
       -2.2
      ],
      "ry": -4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -630,10 +653,11 @@
      "name": "flatBox",
      "pos": [
       -1.48,
-      0,
+      0.0,
       -2.1500000000000004
      ],
      "ry": 0,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -643,10 +667,11 @@
      "name": "flatBox",
      "pos": [
       -1.06,
-      0,
+      0.0,
       -2.2
      ],
      "ry": 4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -656,10 +681,11 @@
      "name": "flatBox",
      "pos": [
       -0.6399999999999999,
-      0,
+      0.0,
       -2.1500000000000004
      ],
      "ry": -4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -669,10 +695,11 @@
      "name": "flatBox",
      "pos": [
       -0.21999999999999997,
-      0,
+      0.0,
       -2.2
      ],
      "ry": 0,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -682,10 +709,11 @@
      "name": "flatBox",
      "pos": [
       0.20000000000000018,
-      0,
+      0.0,
       -2.1500000000000004
      ],
      "ry": 4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -695,10 +723,11 @@
      "name": "flatBox",
      "pos": [
       0.6200000000000001,
-      0,
+      0.0,
       -2.2
      ],
      "ry": -4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -708,10 +737,11 @@
      "name": "flatBox",
      "pos": [
       1.04,
-      0,
+      0.0,
       -2.1500000000000004
      ],
      "ry": 0,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -721,10 +751,11 @@
      "name": "flatBox",
      "pos": [
       1.46,
-      0,
+      0.0,
       -2.2
      ],
      "ry": 4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -734,10 +765,11 @@
      "name": "flatBox",
      "pos": [
       1.88,
-      0,
+      0.0,
       -2.1500000000000004
      ],
      "ry": -4,
+     "scale": 1.0,
      "opts": {
       "lying": false
      }
@@ -790,7 +822,7 @@
      "pos": [
       0.0,
       0,
-      -1.0
+      -1.3
      ],
      "ry": 0,
      "clip": "sitFloor",
@@ -833,18 +865,363 @@
      "opts": {}
     },
     {
-     "id": "pile",
-     "name": "screwPile",
+     "id": "p0",
+     "name": "glbModel",
      "pos": [
-      0.0,
+      0.04689787752697272,
       0,
-      -0.3
+      -0.8411857070529342
      ],
+     "ry": 10.813287078405743,
      "opts": {
-      "n": 20,
-      "r": 0.62,
-      "k": 4.5,
-      "seed": 8
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p1",
+     "name": "glbModel",
+     "pos": [
+      0.18436290467131422,
+      0,
+      -0.879195826136129
+     ],
+     "ry": 92.61971099265932,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p2",
+     "name": "glbModel",
+     "pos": [
+      -0.12336208484012706,
+      0,
+      -0.6720424861881571
+     ],
+     "ry": 355.9720357453397,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p3",
+     "name": "glbModel",
+     "pos": [
+      -0.04616038792485,
+      0,
+      -0.503127196351199
+     ],
+     "ry": 357.325917897106,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p4",
+     "name": "glbModel",
+     "pos": [
+      -0.30878935731186813,
+      0,
+      -0.9451303458217561
+     ],
+     "ry": 57.564368002662476,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p5",
+     "name": "glbModel",
+     "pos": [
+      0.4102832777747468,
+      0,
+      -0.6922137301057911
+     ],
+     "ry": 330.2865593481097,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p6",
+     "name": "glbModel",
+     "pos": [
+      0.566602928923526,
+      0,
+      -0.6658765661177617
+     ],
+     "ry": 192.67372159320996,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p7",
+     "name": "glbModel",
+     "pos": [
+      -0.5188427620999981,
+      0,
+      -0.968715169732745
+     ],
+     "ry": 289.9059432939769,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p8",
+     "name": "glbModel",
+     "pos": [
+      0.20636365663826595,
+      0,
+      -0.6137543639105912
+     ],
+     "ry": 203.63488848786992,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p9",
+     "name": "glbModel",
+     "pos": [
+      0.20867251108673024,
+      0,
+      -0.6734130469717354
+     ],
+     "ry": 322.26323417715594,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p10",
+     "name": "glbModel",
+     "pos": [
+      -0.4658999775636476,
+      0,
+      -0.7426637985691567
+     ],
+     "ry": 111.30985860946996,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p11",
+     "name": "glbModel",
+     "pos": [
+      0.3952139077361473,
+      0,
+      -0.5590030468283018
+     ],
+     "ry": 90.73086040108625,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p12",
+     "name": "glbModel",
+     "pos": [
+      -0.5035890239029696,
+      0,
+      -0.86325265872699
+     ],
+     "ry": 113.26140167317216,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p13",
+     "name": "glbModel",
+     "pos": [
+      0.3235620352215557,
+      0,
+      -0.7833314231047563
+     ],
+     "ry": 269.9638639545602,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p14",
+     "name": "glbModel",
+     "pos": [
+      -0.23885436791994585,
+      0,
+      -0.7286036063084748
+     ],
+     "ry": 67.09272660261868,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p15",
+     "name": "glbModel",
+     "pos": [
+      0.174461168032079,
+      0,
+      -0.7337096603467536
+     ],
+     "ry": 310.5583977440051,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p16",
+     "name": "glbModel",
+     "pos": [
+      0.538155397763114,
+      0,
+      -0.7303911495054272
+     ],
+     "ry": 24.57201188268474,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p17",
+     "name": "glbModel",
+     "pos": [
+      0.5247253923661496,
+      0,
+      -0.5264749618671333
+     ],
+     "ry": 170.73136893003726,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p18",
+     "name": "glbModel",
+     "pos": [
+      -0.01721930568037322,
+      0,
+      -0.5323831624548886
+     ],
+     "ry": 91.32075078051506,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
+     }
+    },
+    {
+     "id": "p19",
+     "name": "glbModel",
+     "pos": [
+      -0.2932814786342326,
+      0,
+      -0.6462897686568507
+     ],
+     "ry": 242.99201981122422,
+     "opts": {
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.26,
+      "outline": 0.002,
+      "lay": true,
+      "up": false,
+      "thick": 2.4
      }
     }
    ],
@@ -853,26 +1230,26 @@
     {
      "at": 0.0,
      "from": [
-      0.05,
-      2.6,
-      0.9
+      0.0,
+      3.5,
+      0.55
      ],
      "to": [
-      0.05,
-      2.55,
-      0.8
+      0.0,
+      3.45,
+      0.45
      ],
      "lookAt": [
       0.0,
-      0.3,
-      -0.75
+      0.2,
+      -0.95
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       0.0,
-      0.3,
-      -0.75
+      0.2,
+      -0.95
      ]
     }
    ],
@@ -895,7 +1272,7 @@
      "pos": [
       0.0,
       0,
-      -0.9
+      0.9
      ],
      "ry": 0,
      "clip": "present",
@@ -905,10 +1282,10 @@
    ],
    "props": [
     {
-     "id": "w0",
+     "id": "w0-20",
      "name": "armoire",
      "pos": [
-      -1.85,
+      -1.8,
       0,
       -2.02
      ],
@@ -918,10 +1295,10 @@
      }
     },
     {
-     "id": "w1",
+     "id": "w1-20",
      "name": "armoire",
      "pos": [
-      -0.65,
+      -0.6,
       0,
       -2.02
      ],
@@ -931,10 +1308,10 @@
      }
     },
     {
-     "id": "w2",
+     "id": "w2-20",
      "name": "armoire",
      "pos": [
-      0.55,
+      0.6,
       0,
       -2.02
      ],
@@ -944,10 +1321,10 @@
      }
     },
     {
-     "id": "w3",
+     "id": "w3-20",
      "name": "armoire",
      "pos": [
-      1.75,
+      1.8,
       0,
       -2.02
      ],
@@ -957,29 +1334,73 @@
      }
     },
     {
-     "id": "w4",
+     "id": "m0-9",
      "name": "armoire",
      "pos": [
-      -2.3,
+      -1.8,
       0,
-      -0.7
+      -0.9
      ],
-     "ry": 90,
+     "ry": 0,
      "opts": {
       "tag": "149 €"
      }
     },
     {
-     "id": "w5",
+     "id": "m1-9",
      "name": "armoire",
      "pos": [
-      2.2,
+      -0.6,
       0,
-      -0.7
+      -0.9
      ],
-     "ry": -90,
+     "ry": 0,
      "opts": {
       "tag": "149 €"
+     }
+    },
+    {
+     "id": "m2-9",
+     "name": "armoire",
+     "pos": [
+      0.6,
+      0,
+      -0.9
+     ],
+     "ry": 0,
+     "opts": {
+      "tag": "149 €"
+     }
+    },
+    {
+     "id": "m3-9",
+     "name": "armoire",
+     "pos": [
+      1.8,
+      0,
+      -0.9
+     ],
+     "ry": 0,
+     "opts": {
+      "tag": "149 €"
+     }
+    },
+    {
+     "id": "sign",
+     "name": "noticeBoard",
+     "pos": [
+      0.0,
+      2.25,
+      -2.32
+     ],
+     "opts": {
+      "text": "MEUBLES",
+      "style": "sign",
+      "w": 1.5,
+      "h": 0.38,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
      }
     }
    ],
@@ -988,26 +1409,26 @@
     {
      "at": 0.0,
      "from": [
-      0.4,
-      1.9,
-      3.6
+      0.5,
+      3.3,
+      4.4
      ],
      "to": [
-      0.35,
-      1.85,
-      3.25
+      0.45,
+      3.25,
+      4.0
      ],
      "lookAt": [
       0.0,
-      1.2,
-      -1.2
+      0.9,
+      -0.9
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       0.0,
-      1.2,
-      -1.2
+      0.9,
+      -0.9
      ]
     }
    ],
@@ -1022,29 +1443,28 @@
   },
   {
    "id": "S10",
-   "set": "livingRoom",
+   "set": "parisStreet",
    "lines": [],
    "actors": [
     {
      "id": "voisine",
      "pos": [
-      0.95,
+      0.55,
       0,
-      -0.3
+      -2.4
      ],
-     "ry": -90,
+     "ry": 0,
      "clip": "stand",
      "keys": [
       {
        "at": 0.0,
        "to": [
-        0.38,
+        0.5,
         0,
-        -0.45
+        -0.9
        ],
        "dur": 2.0,
-       "clip": "walk",
-       "face": "keep"
+       "clip": "walk"
       }
      ],
      "expr": "happy"
@@ -1052,107 +1472,28 @@
     {
      "id": "mamie",
      "pos": [
-      -0.95,
+      -0.45,
       0,
-      -0.1
+      -2.0
      ],
-     "ry": 90,
+     "ry": 0,
      "clip": "stand",
      "keys": [
       {
-       "at": 0.2,
+       "at": 0.15,
        "to": [
-        -0.38,
+        -0.4,
         0,
-        -0.2
+        -0.75
        ],
-       "dur": 1.8,
-       "clip": "walk",
-       "face": "keep"
+       "dur": 1.85,
+       "clip": "walk"
       }
      ],
      "expr": "happy"
     }
    ],
    "props": [
-    {
-     "id": "w0",
-     "name": "armoire",
-     "pos": [
-      -1.85,
-      0,
-      -2.02
-     ],
-     "ry": 0,
-     "opts": {
-      "tag": "149 €"
-     }
-    },
-    {
-     "id": "w1",
-     "name": "armoire",
-     "pos": [
-      -0.65,
-      0,
-      -2.02
-     ],
-     "ry": 0,
-     "opts": {
-      "tag": "149 €"
-     }
-    },
-    {
-     "id": "w2",
-     "name": "armoire",
-     "pos": [
-      0.55,
-      0,
-      -2.02
-     ],
-     "ry": 0,
-     "opts": {
-      "tag": "149 €"
-     }
-    },
-    {
-     "id": "w3",
-     "name": "armoire",
-     "pos": [
-      1.75,
-      0,
-      -2.02
-     ],
-     "ry": 0,
-     "opts": {
-      "tag": "149 €"
-     }
-    },
-    {
-     "id": "w4",
-     "name": "armoire",
-     "pos": [
-      -2.3,
-      0,
-      -0.7
-     ],
-     "ry": 90,
-     "opts": {
-      "tag": "149 €"
-     }
-    },
-    {
-     "id": "w5",
-     "name": "armoire",
-     "pos": [
-      2.2,
-      0,
-      -0.7
-     ],
-     "ry": -90,
-     "opts": {
-      "tag": "149 €"
-     }
-    },
     {
      "id": "bag1",
      "name": "shoppingBag",
@@ -1162,11 +1503,40 @@
      }
     },
     {
-     "id": "bag2",
-     "name": "shoppingBag",
+     "id": "mb",
+     "name": "flatBox",
      "on": {
       "actor": "mamie",
-      "hand": "L"
+      "joint": "torso",
+      "offset": [
+       -0.3,
+       -0.72,
+       0.0
+      ],
+      "rot": [
+       0,
+       -1.5708,
+       0
+      ]
+     },
+     "scale": 0.55
+    },
+    {
+     "id": "shop",
+     "name": "signBoard",
+     "pos": [
+      1.0,
+      0,
+      -2.4
+     ],
+     "opts": {
+      "text": "MEUBLES 2E ÉTAGE",
+      "w": 0.9,
+      "h": 0.5,
+      "height": 1.3,
+      "bg": "#F2C94C",
+      "fg": "#1C252A",
+      "frame": "#1C252A"
      }
     }
    ],
@@ -1175,36 +1545,32 @@
     {
      "at": 0.0,
      "from": [
-      0.0,
-      1.6,
-      3.5
+      0.4,
+      1.55,
+      2.8
      ],
      "to": [
-      0.0,
-      1.6,
-      3.2
+      0.38,
+      1.55,
+      2.55
      ],
      "lookAt": [
-      0.0,
-      1.25,
-      -0.8
+      0.1,
+      1.45,
+      -1.5
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.0,
-      1.25,
-      -0.8
+      0.1,
+      1.45,
+      -1.5
      ]
     }
    ],
    "start": 13.6333,
    "duration": 2.0,
-   "setOpts": {
-    "sofa": false,
-    "tv": false
-   },
-   "grade": "contrast(0.9) saturate(1.06) brightness(1.1)",
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
    "soften": 0.84
   },
   {
@@ -1227,10 +1593,10 @@
    ],
    "props": [
     {
-     "id": "w0",
+     "id": "w0-20",
      "name": "armoire",
      "pos": [
-      -1.85,
+      -1.8,
       0,
       -2.02
      ],
@@ -1240,10 +1606,10 @@
      }
     },
     {
-     "id": "w1",
+     "id": "w1-20",
      "name": "armoire",
      "pos": [
-      -0.65,
+      -0.6,
       0,
       -2.02
      ],
@@ -1253,10 +1619,10 @@
      }
     },
     {
-     "id": "w2",
+     "id": "w2-20",
      "name": "armoire",
      "pos": [
-      0.55,
+      0.6,
       0,
       -2.02
      ],
@@ -1266,10 +1632,10 @@
      }
     },
     {
-     "id": "w3",
+     "id": "w3-20",
      "name": "armoire",
      "pos": [
-      1.75,
+      1.8,
       0,
       -2.02
      ],
@@ -1279,7 +1645,7 @@
      }
     },
     {
-     "id": "w4",
+     "id": "ws1",
      "name": "armoire",
      "pos": [
       -2.3,
@@ -1292,7 +1658,7 @@
      }
     },
     {
-     "id": "w5",
+     "id": "ws2",
      "name": "armoire",
      "pos": [
       2.2,
@@ -1328,6 +1694,23 @@
        0
       ]
      }
+    },
+    {
+     "id": "contract",
+     "name": "noticeBoard",
+     "pos": [
+      0.02,
+      1.62,
+      -0.5
+     ],
+     "ry": 8,
+     "opts": {
+      "text": "CONTRAT\nD'EMBAUCHE\n✔ LE MEC",
+      "style": "doc",
+      "w": 0.5,
+      "h": 0.64,
+      "popAt": 0.634
+     }
     }
    ],
    "sfx": [],
@@ -1335,24 +1718,24 @@
     {
      "at": 0.0,
      "from": [
-      0.55,
+      0.4,
       1.75,
-      1.6
+      1.55
      ],
      "to": [
-      0.5,
+      0.37,
       1.75,
-      1.35
+      1.3
      ],
      "lookAt": [
-      0.3,
+      0.12,
       1.5,
       -1.3
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.3,
+      0.12,
       1.5,
       -1.3
      ]
@@ -1387,11 +1770,11 @@
     {
      "id": "client",
      "pos": [
-      0.6,
+      1.05,
       0,
-      0.0
+      -0.45
      ],
-     "ry": 180,
+     "ry": -66,
      "clip": "stand",
      "keys": [],
      "expr": "happy"
@@ -1399,10 +1782,10 @@
    ],
    "props": [
     {
-     "id": "w0",
+     "id": "w0-20",
      "name": "armoire",
      "pos": [
-      -1.85,
+      -1.8,
       0,
       -2.02
      ],
@@ -1412,10 +1795,10 @@
      }
     },
     {
-     "id": "w1",
+     "id": "w1-20",
      "name": "armoire",
      "pos": [
-      -0.65,
+      -0.6,
       0,
       -2.02
      ],
@@ -1425,10 +1808,10 @@
      }
     },
     {
-     "id": "w2",
+     "id": "w2-20",
      "name": "armoire",
      "pos": [
-      0.55,
+      0.6,
       0,
       -2.02
      ],
@@ -1438,10 +1821,10 @@
      }
     },
     {
-     "id": "w3",
+     "id": "w3-20",
      "name": "armoire",
      "pos": [
-      1.75,
+      1.8,
       0,
       -2.02
      ],
@@ -1451,7 +1834,7 @@
      }
     },
     {
-     "id": "w4",
+     "id": "ws1",
      "name": "armoire",
      "pos": [
       -2.3,
@@ -1464,7 +1847,7 @@
      }
     },
     {
-     "id": "w5",
+     "id": "ws2",
      "name": "armoire",
      "pos": [
       2.2,
@@ -1505,13 +1888,14 @@
      "id": "cb",
      "name": "flatBox",
      "pos": [
-      1.25,
-      0,
-      -0.25
+      0.55,
+      0.99,
+      -0.8
      ],
-     "ry": -25,
+     "ry": 90,
+     "scale": 0.5,
      "opts": {
-      "lying": false
+      "lying": true
      }
     }
    ],
@@ -1520,26 +1904,26 @@
     {
      "at": 0.0,
      "from": [
-      -1.0,
-      1.7,
-      1.9
+      0.75,
+      1.85,
+      2.1
      ],
      "to": [
-      -0.92,
-      1.7,
-      1.7
+      0.72,
+      1.83,
+      1.9
      ],
      "lookAt": [
-      0.45,
-      1.4,
-      -0.6
+      0.75,
+      1.35,
+      -0.8
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.45,
-      1.4,
-      -0.6
+      0.75,
+      1.35,
+      -0.8
      ]
     }
    ],
@@ -1560,45 +1944,33 @@
     {
      "id": "client",
      "pos": [
-      1.5,
+      -1.15,
       0,
-      0.6
+      -1.7
      ],
-     "ry": -120,
+     "ry": 0,
      "clip": "stand",
      "keys": [
       {
        "at": 0.0,
        "to": [
-        0.5,
+        -0.95,
         0,
-        0.05
+        0.15
        ],
-       "dur": 1.5,
+       "dur": 1.55,
        "clip": "walk"
       }
      ],
      "expr": "angry"
-    },
-    {
-     "id": "mec",
-     "pos": [
-      0.35,
-      0,
-      -1.35
-     ],
-     "ry": 0,
-     "clip": "stand",
-     "keys": [],
-     "expr": "neutral"
     }
    ],
    "props": [
     {
-     "id": "w0",
+     "id": "w0-20",
      "name": "armoire",
      "pos": [
-      -1.85,
+      -1.8,
       0,
       -2.02
      ],
@@ -1608,10 +1980,10 @@
      }
     },
     {
-     "id": "w1",
+     "id": "w1-20",
      "name": "armoire",
      "pos": [
-      -0.65,
+      -0.6,
       0,
       -2.02
      ],
@@ -1621,10 +1993,10 @@
      }
     },
     {
-     "id": "w2",
+     "id": "w2-20",
      "name": "armoire",
      "pos": [
-      0.55,
+      0.6,
       0,
       -2.02
      ],
@@ -1634,10 +2006,10 @@
      }
     },
     {
-     "id": "w3",
+     "id": "w3-20",
      "name": "armoire",
      "pos": [
-      1.75,
+      1.8,
       0,
       -2.02
      ],
@@ -1647,7 +2019,7 @@
      }
     },
     {
-     "id": "w4",
+     "id": "ws1",
      "name": "armoire",
      "pos": [
       -2.3,
@@ -1660,7 +2032,7 @@
      }
     },
     {
-     "id": "w5",
+     "id": "ws2",
      "name": "armoire",
      "pos": [
       2.2,
@@ -1703,26 +2075,26 @@
     {
      "at": 0.0,
      "from": [
-      -0.3,
+      -0.75,
       1.7,
-      3.4
+      2.7
      ],
      "to": [
-      -0.25,
-      1.7,
-      3.15
+      -0.77,
+      1.68,
+      2.45
      ],
      "lookAt": [
-      0.6,
-      1.4,
-      -0.3
+      -0.95,
+      1.45,
+      -0.7
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.5,
-      1.4,
-      -0.3
+      -0.95,
+      1.45,
+      -0.7
      ]
     }
    ],
@@ -1755,10 +2127,10 @@
    ],
    "props": [
     {
-     "id": "w0",
+     "id": "w0-20",
      "name": "armoire",
      "pos": [
-      -1.85,
+      -1.8,
       0,
       -2.02
      ],
@@ -1768,10 +2140,10 @@
      }
     },
     {
-     "id": "w1",
+     "id": "w1-20",
      "name": "armoire",
      "pos": [
-      -0.65,
+      -0.6,
       0,
       -2.02
      ],
@@ -1781,10 +2153,10 @@
      }
     },
     {
-     "id": "w2",
+     "id": "w2-20",
      "name": "armoire",
      "pos": [
-      0.55,
+      0.6,
       0,
       -2.02
      ],
@@ -1794,10 +2166,10 @@
      }
     },
     {
-     "id": "w3",
+     "id": "w3-20",
      "name": "armoire",
      "pos": [
-      1.75,
+      1.8,
       0,
       -2.02
      ],
@@ -1807,7 +2179,7 @@
      }
     },
     {
-     "id": "w4",
+     "id": "ws1",
      "name": "armoire",
      "pos": [
       -2.3,
@@ -1820,7 +2192,7 @@
      }
     },
     {
-     "id": "w5",
+     "id": "ws2",
      "name": "armoire",
      "pos": [
       2.2,
@@ -1834,16 +2206,20 @@
     },
     {
      "id": "s9",
-     "name": "screw",
+     "name": "glbModel",
      "pos": [
       -0.09,
-      2.08,
+      1.93,
       -0.4
      ],
      "ry": 0,
-     "scale": 5.0,
      "opts": {
-      "lying": false
+      "src": "/assets/models/screw-objaverse-21338/model.glb",
+      "size": 0.24,
+      "outline": 0.002,
+      "lay": false,
+      "up": true,
+      "thick": 2.4
      }
     }
    ],
@@ -1853,24 +2229,24 @@
      "at": 0.0,
      "from": [
       0.1,
-      1.95,
+      2.05,
       0.85
      ],
      "to": [
       0.09,
-      1.95,
+      2.05,
       0.7
      ],
      "lookAt": [
       -0.08,
-      1.85,
+      1.96,
       -1.0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       -0.08,
-      1.85,
+      1.96,
       -1.0
      ]
     }
@@ -1904,10 +2280,10 @@
    ],
    "props": [
     {
-     "id": "w0",
+     "id": "w0-20",
      "name": "armoire",
      "pos": [
-      -1.85,
+      -1.8,
       0,
       -2.02
      ],
@@ -1917,10 +2293,10 @@
      }
     },
     {
-     "id": "w1",
+     "id": "w1-20",
      "name": "armoire",
      "pos": [
-      -0.65,
+      -0.6,
       0,
       -2.02
      ],
@@ -1930,10 +2306,10 @@
      }
     },
     {
-     "id": "w2",
+     "id": "w2-20",
      "name": "armoire",
      "pos": [
-      0.55,
+      0.6,
       0,
       -2.02
      ],
@@ -1943,10 +2319,10 @@
      }
     },
     {
-     "id": "w3",
+     "id": "w3-20",
      "name": "armoire",
      "pos": [
-      1.75,
+      1.8,
       0,
       -2.02
      ],
@@ -1956,7 +2332,7 @@
      }
     },
     {
-     "id": "w4",
+     "id": "ws1",
      "name": "armoire",
      "pos": [
       -2.3,
@@ -1969,7 +2345,7 @@
      }
     },
     {
-     "id": "w5",
+     "id": "ws2",
      "name": "armoire",
      "pos": [
       2.2,
@@ -2010,16 +2386,16 @@
      "id": "cn",
      "name": "speechBubble",
      "pos": [
-      0.32,
-      2.45,
-      -1.15
+      0.15,
+      2.42,
+      -1.2
      ],
      "opts": {
       "text": "C'EST NORMAL.",
       "popAt": 1.0310000000000001,
       "tail": "down",
-      "w": 0.55,
-      "h": 0.231
+      "w": 0.5,
+      "h": 0.21
      }
     }
    ],
@@ -2029,24 +2405,24 @@
      "at": 0.0,
      "from": [
       0.4,
-      2.0,
+      2.05,
       0.55
      ],
      "to": [
       0.39,
-      2.0,
+      2.05,
       0.4
      ],
      "lookAt": [
-      0.32,
-      1.85,
+      0.3,
+      1.95,
       -1.35
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      0.32,
-      1.85,
+      0.3,
+      1.95,
       -1.35
      ]
     }

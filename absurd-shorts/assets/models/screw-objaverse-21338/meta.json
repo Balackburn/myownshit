@@ -1,0 +1,22 @@
+{
+ "id": "objaverse-435b98777e8c43f08395aae531aaf141",
+ "source": "objaverse",
+ "source_group": "objaverse",
+ "family": "fastener or hardware",
+ "split": "train",
+ "entry": "screw",
+ "usda_path": "usda/0002/objaverse-435b98777e8c43f08395aae531aaf141.usda",
+ "n_joints": 0,
+ "f_score": 1.0,
+ "license": "CC-BY-4.0",
+ "source_license": "CC-BY-4.0",
+ "attribution": "\"DWSC90\" by evolutionfasteners, https://sketchfab.com/3d-models/435b98777e8c43f08395aae531aaf141, CC-BY-4.0; modified: rewritten as a sand3d program",
+ "license_status": "ok",
+ "asset_id": "objaverse:435b98777e8c43f08395aae531aaf141",
+ "sand3d_version": "1.5.0",
+ "usda_bytes": 2775062,
+ "usda_sha256": "20d4ffed03a73ac4f73fe469ae12bab6aff6a75a7407c22535406a8239900989",
+ "program_sha256": "1abb4866379210f4d2885b919562dc47edaa31c28c06555605eaf2b4d9c9c9ed",
+ "dataset": "Sandflow/sand3d-objaverse",
+ "row": 21338
+}

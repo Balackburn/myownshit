@@ -37,7 +37,7 @@ async function openPage(w = W, h = H) {
   const browser = await chromium.launch({ args: LAUNCH_ARGS });
   const page = await browser.newPage({ viewport: { width: Math.min(w, 1200), height: Math.min(h, 1200) } });
   page.on('pageerror', e => console.log('[pageerror]', e.message));
-  page.on('console', m => { if (m.type() === 'error') console.log('[page]', m.text()); });
+  page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.log('[page]', m.text()); });   // warnings too: a prop that failed to build says so
   await page.goto(url); await page.waitForFunction(() => window.__ready, null, { timeout: 60000 });
   const tl = await page.evaluate(async ({ s, w, h }) => window.__engine.load(s, { width: w, height: h }), { s: timed, w, h });
   return { browser, page, tl };
