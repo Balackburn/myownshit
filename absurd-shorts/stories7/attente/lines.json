@@ -1,0 +1,109 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a vu une file d'attente dans la rue.",
+  "hl": [
+   "file",
+   "d'attente"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il s'est mis au bout, sans savoir pour quoi.",
+  "hl": [
+   "bout,",
+   "pour",
+   "quoi."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a attendu une heure.",
+  "hl": [
+   "heure."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Puis deux heures.",
+  "hl": [
+   "deux",
+   "heures."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Puis toute la nuit.",
+  "hl": [
+   "nuit."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Derrière lui, la file faisait le tour de Paris.",
+  "hl": [
+   "tour",
+   "Paris."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Au matin, il était le premier.",
+  "hl": [
+   "premier."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "La porte s'est ouverte.",
+  "hl": [
+   "porte",
+   "ouverte."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La dame a demandé: « C'est pour quoi? »",
+  "hl": [
+   "pour",
+   "quoi?"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il a dit: « Je ne sais pas. »",
+  "hl": [
+   "sais",
+   "pas."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Elle a dit: « Moi non plus. »",
+  "hl": [
+   "Moi",
+   "non",
+   "plus."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Alors ils se sont mis au bout de la file.",
+  "hl": [
+   "bout",
+   "file."
+  ]
+ }
+]

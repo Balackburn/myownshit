@@ -1,0 +1,1892 @@
+{
+ "version": 3,
+ "title": "La file d'attente",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "dame": {
+   "preset": "madame",
+   "seed": 105,
+   "suit": "#7A5C8E"
+  },
+  "pigeon": {
+   "type": "creature",
+   "name": "pigeon",
+   "opts": {
+    "seed": 2
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.45,
+      0,
+      -5.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.45,
+        0,
+        -1.5
+       ],
+       "dur": 1.7336,
+       "clip": "walk",
+       "face": "keep",
+       "look": [
+        8.3,
+        1.8,
+        -9.0
+       ]
+      },
+      {
+       "at": 1.7336,
+       "clip": "stand",
+       "look": [
+        8.3,
+        1.8,
+        -14.0
+       ]
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -30.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.15,
+      1.3,
+      3.3
+     ],
+     "to": [
+      6.2,
+      1.32,
+      3.0
+     ],
+     "lookAt": [
+      7.5,
+      1.5,
+      -12.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.5,
+      1.5,
+      -12.0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.9,
+      0,
+      -32.2
+     ],
+     "ry": 40,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        8.3,
+        0,
+        -30.555
+       ],
+       "dur": 0.8002499999999999,
+       "clip": "walk"
+      },
+      {
+       "at": 0.8002499999999999,
+       "clip": "stand",
+       "face": 0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -30.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.35,
+      1.65,
+      -27.9
+     ],
+     "to": [
+      6.42,
+      1.65,
+      -28.1
+     ],
+     "lookAt": [
+      8.2,
+      1.5,
+      -31.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.25,
+      1.5,
+      -31.0
+     ]
+    }
+   ],
+   "start": 2.1667,
+   "duration": 1.0666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.3,
+      0,
+      -30.555
+     ],
+     "ry": 0,
+     "clip": "shrug",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -30.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.9,
+      1.95,
+      -28.35
+     ],
+     "to": [
+      6.97,
+      1.95,
+      -28.5
+     ],
+     "lookAt": [
+      8.3,
+      1.85,
+      -30.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      1.86,
+      -30.6
+     ]
+    }
+   ],
+   "start": 3.2333,
+   "duration": 1.1667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.3,
+      0,
+      -30.555
+     ],
+     "ry": 0,
+     "clip": "checkWatch",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -30.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    },
+    {
+     "id": "watch",
+     "name": "wristWatch",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0.0,
+       0.06
+      ],
+      "rot": [
+       1.5708,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      9.75,
+      1.8,
+      -28.55
+     ],
+     "to": [
+      9.7,
+      1.8,
+      -28.75
+     ],
+     "lookAt": [
+      8.3,
+      1.7,
+      -30.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      1.7,
+      -30.6
+     ]
+    }
+   ],
+   "start": 4.4,
+   "duration": 1.6,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.3,
+      0,
+      -30.555
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "pigeon",
+     "pos": [
+      8.3,
+      2.2,
+      -30.555
+     ],
+     "ry": 35,
+     "clip": "idle",
+     "keys": [],
+     "scale": 0.8,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -30.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32
+     }
+    },
+    {
+     "id": "queue2",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        8.3,
+        -31.355
+       ],
+       [
+        8.3,
+        -33.755
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 33
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      9.6,
+      1.6,
+      -28.2
+     ],
+     "to": [
+      9.55,
+      1.62,
+      -28.4
+     ],
+     "lookAt": [
+      8.3,
+      2.0,
+      -30.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      2.02,
+      -30.6
+     ]
+    }
+   ],
+   "start": 6.0,
+   "duration": 1.2667,
+   "setOpts": {
+    "sky": [
+     "#F2A65A",
+     "#F8D7A8"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.3,
+      0,
+      -30.555
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "sleepy"
+    },
+    {
+     "id": "pigeon",
+     "pos": [
+      8.3,
+      2.2,
+      -30.555
+     ],
+     "ry": 35,
+     "clip": "sleep",
+     "keys": [],
+     "scale": 0.8,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -30.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32
+     }
+    },
+    {
+     "id": "queue2",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        8.3,
+        -31.355
+       ],
+       [
+        8.3,
+        -70.555
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 34
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      9.8,
+      1.3,
+      -28.3
+     ],
+     "to": [
+      9.76,
+      1.32,
+      -28.5
+     ],
+     "lookAt": [
+      8.3,
+      1.95,
+      -31.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      1.97,
+      -31.0
+     ]
+    }
+   ],
+   "start": 7.2667,
+   "duration": 1.2333,
+   "setOpts": {
+    "night": true
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.8,
+      "seed": 32,
+      "max": 400
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    },
+    {
+     "id": "city",
+     "name": "cityBlocks",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "x0": -142,
+      "x1": 150,
+      "z0": -330,
+      "z1": 90,
+      "skip": [
+       [
+        -21,
+        21,
+        -128,
+        120
+       ]
+      ],
+      "park": [
+       -46,
+       32,
+       -222,
+       -132
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      40.0,
+      72.0,
+      -96.0
+     ],
+     "to": [
+      46.0,
+      86.0,
+      -88.0
+     ],
+     "lookAt": [
+      -6.0,
+      0.0,
+      -168.0
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      -6.0,
+      0.0,
+      -171.0
+     ]
+    }
+   ],
+   "start": 8.5,
+   "duration": 2.7,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.35,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "handsOnHips",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.4,
+        1.6,
+        2.4
+       ]
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32,
+      "skip": 1,
+      "max": 400
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.6,
+      1.5,
+      3.0
+     ],
+     "to": [
+      6.66,
+      1.52,
+      2.8
+     ],
+     "lookAt": [
+      9.45,
+      1.7,
+      -1.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.45,
+      1.72,
+      -1.6
+     ]
+    }
+   ],
+   "start": 11.2,
+   "duration": 1.9333,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.35,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      9.95,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.33999999999999997,
+       "visible": true
+      }
+     ],
+     "visible": false,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32,
+      "skip": 1,
+      "max": 400
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A",
+      "openAt": 0.12
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.0,
+      2.15,
+      0.25
+     ],
+     "to": [
+      8.06,
+      2.14,
+      0.12
+     ],
+     "lookAt": [
+      10.1,
+      1.5,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      10.1,
+      1.52,
+      -1.0
+     ]
+    }
+   ],
+   "start": 13.1333,
+   "duration": 1.3667,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.35,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      9.95,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "talk",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32,
+      "skip": 1,
+      "max": 400
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A",
+      "open": 1
+     }
+    },
+    {
+     "id": "b1",
+     "name": "speechBubble",
+     "pos": [
+      9.78,
+      2.32,
+      -0.9
+     ],
+     "ry": -51,
+     "opts": {
+      "text": "C'EST POUR QUOI ?",
+      "popAt": 0.578,
+      "tail": "down",
+      "w": 0.36,
+      "h": 0.1512
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.7,
+      1.98,
+      -0.25
+     ],
+     "to": [
+      8.76,
+      1.98,
+      -0.33
+     ],
+     "lookAt": [
+      9.95,
+      1.95,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.95,
+      1.96,
+      -1.0
+     ]
+    }
+   ],
+   "start": 14.5,
+   "duration": 2.1,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.35,
+      0,
+      -1.0
+     ],
+     "ry": 45,
+     "clip": "shrug",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      9.95,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32,
+      "skip": 1,
+      "max": 400
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A",
+      "open": 1
+     }
+    },
+    {
+     "id": "b2",
+     "name": "speechBubble",
+     "pos": [
+      9.15,
+      2.52,
+      -0.94
+     ],
+     "ry": 23,
+     "opts": {
+      "text": "JE NE SAIS PAS.",
+      "popAt": 0.826,
+      "tail": "down",
+      "w": 0.5,
+      "h": 0.21
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      10.0,
+      2.0,
+      1.25
+     ],
+     "to": [
+      9.98,
+      2.0,
+      1.05
+     ],
+     "lookAt": [
+      9.35,
+      1.95,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.35,
+      1.96,
+      -1.0
+     ]
+    }
+   ],
+   "start": 16.6,
+   "duration": 1.7,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.35,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      9.95,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "shrug",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32,
+      "skip": 1,
+      "max": 400
+     }
+    },
+    {
+     "id": "door",
+     "name": "door",
+     "pos": [
+      10.17,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#C8322A",
+      "open": 1
+     }
+    },
+    {
+     "id": "b3",
+     "name": "speechBubble",
+     "pos": [
+      9.8,
+      2.32,
+      -0.92
+     ],
+     "ry": -42.5,
+     "opts": {
+      "text": "MOI NON PLUS.",
+      "popAt": 0.814,
+      "tail": "down",
+      "w": 0.4,
+      "h": 0.168
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.6,
+      1.92,
+      0.15
+     ],
+     "to": [
+      8.66,
+      1.92,
+      0.05
+     ],
+     "lookAt": [
+      9.95,
+      1.82,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.95,
+      1.83,
+      -1.0
+     ]
+    }
+   ],
+   "start": 18.3,
+   "duration": 1.7,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -14.706,
+      0,
+      -149.88
+     ],
+     "ry": -118.6,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -13.653,
+        0,
+        -151.811
+       ],
+       "dur": 0.9,
+       "clip": "walk"
+      },
+      {
+       "at": 0.95,
+       "clip": "stand",
+       "face": -118.6
+      },
+      {
+       "at": 1.5,
+       "clip": "checkWatch",
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      -14.015,
+      0,
+      -149.503
+     ],
+     "ry": -118.6,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        -12.962,
+        0,
+        -151.434
+       ],
+       "dur": 0.9,
+       "clip": "walk"
+      },
+      {
+       "at": 1.05,
+       "clip": "stand",
+       "face": -118.6
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        9.35,
+        -1.0
+       ],
+       [
+        8.3,
+        -1.9
+       ],
+       [
+        8.3,
+        -150.0
+       ],
+       [
+        12.0,
+        -175.0
+       ],
+       [
+        7.0,
+        -194.0
+       ],
+       [
+        -8.0,
+        -200.0
+       ],
+       [
+        -24.0,
+        -193.0
+       ],
+       [
+        -31.0,
+        -175.0
+       ],
+       [
+        -25.0,
+        -158.0
+       ],
+       [
+        -14.0,
+        -152.0
+       ]
+      ],
+      "gap": 0.75,
+      "people": true,
+      "size": 1.12,
+      "seed": 32,
+      "max": 400
+     }
+    },
+    {
+     "id": "watch",
+     "name": "wristWatch",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0.0,
+       0.06
+      ],
+      "rot": [
+       1.5708,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -17.779,
+      1.7,
+      -149.05
+     ],
+     "to": [
+      -17.515631328125686,
+      1.72,
+      -148.90634436079583
+     ],
+     "lookAt": [
+      -13.609,
+      1.45,
+      -151.787
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -13.609,
+      1.5,
+      -151.787
+     ]
+    }
+   ],
+   "start": 20.0,
+   "duration": 2.77,
+   "setOpts": {
+    "sky": [
+     "#8EC5EA",
+     "#F6D1C1"
+    ]
+   },
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  }
+ ],
+ "total": 22.77
+}

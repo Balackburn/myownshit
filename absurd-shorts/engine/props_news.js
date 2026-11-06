@@ -985,6 +985,32 @@ export const NEWS_PROPS = {
       if (stamp) { const sd = o.popAt + (o.stampDelay ?? 0.3), v = clamp01((t - sd) / 0.14); stamp.visible = t >= sd; stamp.scale.setScalar(Math.max(0.01, 1.8 - 0.8 * ease.out(v))); } };
     g.userData.update(0); return g;
   },
+  wristWatch(o) { // a wristwatch to hang on a hand (strap round the wrist, a big white face with a red hand), o.face: its colour
+    const g = grp(at(box(0.075, 0.03, 0.075, '#2A2D33', { outline: 0.003 }), 0, 0, 0));
+    g.add(at(cyl(0.032, 0.032, 0.012, '#C9CDD2', 14, { outline: 0.003 }), 0, 0.02, 0), at(cyl(0.026, 0.026, 0.013, o.face || '#FFFFFF', 14), 0, 0.021, 0), at(box(0.004, 0.003, 0.02, '#D7262E'), 0, 0.029, 0.007));
+    return g;
+  },
+  cityBlocks(o) { // a cheap city seen from the air: a grid of instanced Haussmann blocks (cream walls with window bands, grey-blue roofs) over x0..x1 × z0..z1,
+    // o.block (18 m) and o.street (8 m); o.skip [[xa, xb, za, zb], ...] leaves rectangles empty; o.park [xa, xb, za, zb]: a lawn with rows of round trees
+    const r = rng(o.seed || 17), B = o.block || 18, St = o.street || 8, pitch = B + St, g = grp(), cells = [];
+    const inR = (x, z, q) => x > q[0] - B / 2 && x < q[1] + B / 2 && z > q[2] - B / 2 && z < q[3] + B / 2;
+    for (let x = o.x0 ?? -130; x <= (o.x1 ?? 130); x += pitch) for (let z = o.z0 ?? -330; z <= (o.z1 ?? 80); z += pitch) {
+      if ((o.skip || []).some(q => inR(x, z, q)) || (o.park && inR(x, z, o.park))) continue; cells.push([x, z, 14 + r() * 7]); }
+    const wallTex = canvasTexture(256, 256, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.fillStyle = '#7F93A8'; for (let f = 0; f < 6; f++) for (let k = 0; k < 8; k++) c.fillRect(k * W / 8 + 6, f * H / 6 + 10, W / 8 - 12, H / 6 - 22); });
+    wallTex.wrapS = wallTex.wrapT = THREE.RepeatWrapping; wallTex.repeat.set(3, 1);
+    const walls = new THREE.InstancedMesh(new THREE.BoxGeometry(B, 1, B), new THREE.MeshLambertMaterial({ map: wallTex }), cells.length);
+    const roofs = new THREE.InstancedMesh(new THREE.BoxGeometry(B * 0.96, 2.6, B * 0.96), mat(o.roof || '#7C8A99'), cells.length);
+    const WC = ['#EFE6D2', '#F2DCCB', '#F3E9C9', '#E8E1EE', '#F0D9D9', '#E2EAF0'], o3 = new THREE.Object3D(), col = new THREE.Color();
+    cells.forEach(([x, z, h], i) => { o3.position.set(x, h / 2, z); o3.scale.set(1, h, 1); o3.updateMatrix(); walls.setMatrixAt(i, o3.matrix); walls.setColorAt(i, col.set(WC[Math.floor(r() * WC.length)]));
+      o3.position.set(x, h + 1.3, z); o3.scale.set(1, 1, 1); o3.updateMatrix(); roofs.setMatrixAt(i, o3.matrix); });
+    if (walls.instanceColor) walls.instanceColor.needsUpdate = true; walls.receiveShadow = roofs.receiveShadow = true; g.add(walls, roofs);
+    if (o.park) { const [xa, xb, za, zb] = o.park, lawn = new THREE.Mesh(new THREE.PlaneGeometry(xb - xa, zb - za).rotateX(-PI / 2), mat(o.lawn || '#8CC56A')); lawn.position.set((xa + xb) / 2, 0.01, (za + zb) / 2); g.add(lawn);
+      const tp = []; for (let x = xa + 3; x < xb - 2; x += 6) { tp.push([x, za + 3], [x, zb - 3]); } for (let z = za + 9; z < zb - 8; z += 6) { tp.push([xa + 3, z], [xb - 3, z]); }
+      const crowns = new THREE.InstancedMesh(new THREE.SphereGeometry(2.2, 7, 5), mat('#4E9A4A'), tp.length), trunks = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.25, 0.3, 2.4, 5), mat('#7A5A3A'), tp.length);
+      tp.forEach(([x, z], i) => { o3.position.set(x, 3.6, z); o3.scale.set(1, 1, 1); o3.updateMatrix(); crowns.setMatrixAt(i, o3.matrix); o3.position.set(x, 1.2, z); o3.updateMatrix(); trunks.setMatrixAt(i, o3.matrix); });
+      g.add(crowns, trunks); }
+    return g;
+  },
   flickerLight(o) { // a coloured point light whose intensity flickers (a cinema screen, a TV): o.color, o.intensity (default 12), o.distance (default 12), o.rate
     const l = new THREE.PointLight(o.color || '#CFE0FF', o.intensity ?? 12, o.distance ?? 12, 1.3), g = grp(l), I = o.intensity ?? 12, r = o.rate || 1;
     g.userData.update = t => { l.intensity = I * (0.82 + 0.12 * Math.sin(t * 11 * r) + 0.08 * Math.sin(t * 23.7 * r + 1.3) + 0.06 * Math.sin(t * 5.3 * r + 0.4)); }; g.userData.update(0); return g;
@@ -1079,7 +1105,7 @@ export const NEWS_PROPS = {
     return g;
   },
   queueFigures(o) { // a queue of small locksmiths (blue overalls, navy beanie, red toolbox) along o.path [[x, z], ...] every o.gap m (default 0.75), facing the front of the queue;
-    // o.people: passers-by instead (varied coats, trousers and hair, no toolbox); o.skip drops the first n figures (the front of the queue)
+    // o.people: passers-by instead (varied coats, trousers and hair, no toolbox); o.skip drops the first n figures (the front of the queue); o.size scales them all
     // (the first point); a gentle idle sway; o.colors {jacket, pants}; o.max caps the count. Instanced, so hundreds are cheap.
     const path = o.path || [[0, 0], [10, 0]], gap = o.gap || 0.75, r = rng(o.seed || 7), pts = [];
     const segs = []; let tot = 0;
@@ -1090,7 +1116,7 @@ export const NEWS_PROPS = {
     const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, PPL ? '#FFFFFF' : (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0], [0.045, 0.06, 0.02, '#1C1E22', 0.055, 1.63, 0.125], [0.045, 0.06, 0.02, '#1C1E22', -0.055, 1.63, 0.125]];   // ... and two eyes
     if (PPL) parts[5] = [0.001, 0.001, 0.001, '#FFFFFF', 0, 0, 0];   // people: no toolbox
     const g = grp(), meshes = parts.map(([w, h, d, c]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(w, h, d), mat(c), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
-    const info = list.map(() => ({ s: 0.93 + r() * 0.14, ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
+    const info = list.map(() => ({ s: (0.93 + r() * 0.14) * (o.size || 1), ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
     const skinC = new THREE.Color(); info.forEach((f, i) => meshes[3].setColorAt(i, skinC.set(f.skin))); if (meshes[3].instanceColor) meshes[3].instanceColor.needsUpdate = true;
     if (PPL) { const JK = ['#B5302A', '#2F5E8C', '#3E7D5A', '#C9822E', '#6B4E8F', '#2E3A46', '#D9A441', '#8C3B4A', '#4F9FB0', '#7A7F87', '#E07A5F', '#F2F2EE'],
       PT = ['#22385E', '#2E3A46', '#4A3B2F', '#3C3F45', '#1F2A36', '#5A5F66'], HR = ['#2A1E16', '#4A3222', '#1A1A1A', '#8A6A3A', '#C9B28A', '#6B6B6B', '#3A2A1E'], c3 = new THREE.Color();

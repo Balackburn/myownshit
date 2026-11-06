@@ -1,0 +1,584 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a vu une file d'attente dans la rue.",
+   "hl": [
+    "file",
+    "d'attente"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.088,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "vu",
+     "s": 0.595,
+     "e": 0.633
+    },
+    {
+     "w": "une",
+     "s": 0.71,
+     "e": 0.786
+    },
+    {
+     "w": "file",
+     "s": 0.862,
+     "e": 1.014
+    },
+    {
+     "w": "d'attente",
+     "s": 1.04,
+     "e": 1.395
+    },
+    {
+     "w": "dans",
+     "s": 1.433,
+     "e": 1.51
+    },
+    {
+     "w": "la",
+     "s": 1.548,
+     "e": 1.624
+    },
+    {
+     "w": "rue.",
+     "s": 1.662,
+     "e": 2.081
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il s'est mis au bout, sans savoir pour quoi.",
+   "hl": [
+    "bout,",
+    "pour",
+    "quoi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L02.k.wav",
+   "file_start": 2.188,
+   "speech_start": 2.188,
+   "speech_end": 4.321,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.188,
+     "e": 2.34
+    },
+    {
+     "w": "s'est",
+     "s": 2.378,
+     "e": 2.493
+    },
+    {
+     "w": "mis",
+     "s": 2.569,
+     "e": 2.645
+    },
+    {
+     "w": "au",
+     "s": 2.683,
+     "e": 2.721
+    },
+    {
+     "w": "bout,",
+     "s": 2.797,
+     "e": 3.178
+    },
+    {
+     "w": "sans",
+     "s": 3.255,
+     "e": 3.331
+    },
+    {
+     "w": "savoir",
+     "s": 3.407,
+     "e": 3.635
+    },
+    {
+     "w": "pour",
+     "s": 3.712,
+     "e": 3.788
+    },
+    {
+     "w": "quoi.",
+     "s": 3.902,
+     "e": 4.321
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a attendu une heure.",
+   "hl": [
+    "heure."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L03.k.wav",
+   "file_start": 4.421,
+   "speech_start": 4.421,
+   "speech_end": 5.945,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.421,
+     "e": 4.497
+    },
+    {
+     "w": "a",
+     "s": 4.574,
+     "e": 4.612
+    },
+    {
+     "w": "attendu",
+     "s": 4.65,
+     "e": 5.107
+    },
+    {
+     "w": "une",
+     "s": 5.183,
+     "e": 5.259
+    },
+    {
+     "w": "heure.",
+     "s": 5.335,
+     "e": 5.945
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Puis deux heures.",
+   "hl": [
+    "deux",
+    "heures."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L04.k.wav",
+   "file_start": 6.045,
+   "speech_start": 6.045,
+   "speech_end": 7.188,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 6.045,
+     "e": 6.197
+    },
+    {
+     "w": "deux",
+     "s": 6.35,
+     "e": 6.502
+    },
+    {
+     "w": "heures.",
+     "s": 6.578,
+     "e": 7.188
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Puis toute la nuit.",
+   "hl": [
+    "nuit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L05.k.wav",
+   "file_start": 7.288,
+   "speech_start": 7.288,
+   "speech_end": 8.431,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 7.288,
+     "e": 7.516
+    },
+    {
+     "w": "toute",
+     "s": 7.669,
+     "e": 7.821
+    },
+    {
+     "w": "la",
+     "s": 7.897,
+     "e": 7.974
+    },
+    {
+     "w": "nuit.",
+     "s": 8.012,
+     "e": 8.431
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Derrière lui, la file faisait le tour de Paris.",
+   "hl": [
+    "tour",
+    "Paris."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L06.k.wav",
+   "file_start": 8.531,
+   "speech_start": 8.531,
+   "speech_end": 11.121,
+   "words": [
+    {
+     "w": "Derrière",
+     "s": 8.531,
+     "e": 8.835
+    },
+    {
+     "w": "lui,",
+     "s": 8.912,
+     "e": 9.369
+    },
+    {
+     "w": "la",
+     "s": 9.445,
+     "e": 9.521
+    },
+    {
+     "w": "file",
+     "s": 9.597,
+     "e": 9.75
+    },
+    {
+     "w": "faisait",
+     "s": 9.826,
+     "e": 9.978
+    },
+    {
+     "w": "le",
+     "s": 10.055,
+     "e": 10.131
+    },
+    {
+     "w": "tour",
+     "s": 10.207,
+     "e": 10.359
+    },
+    {
+     "w": "de",
+     "s": 10.435,
+     "e": 10.512
+    },
+    {
+     "w": "Paris.",
+     "s": 10.664,
+     "e": 11.121
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Au matin, il était le premier.",
+   "hl": [
+    "premier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L07.k.wav",
+   "file_start": 11.221,
+   "speech_start": 11.221,
+   "speech_end": 13.05,
+   "words": [
+    {
+     "w": "Au",
+     "s": 11.221,
+     "e": 11.297
+    },
+    {
+     "w": "matin,",
+     "s": 11.412,
+     "e": 11.907
+    },
+    {
+     "w": "il",
+     "s": 11.983,
+     "e": 12.059
+    },
+    {
+     "w": "était",
+     "s": 12.135,
+     "e": 12.212
+    },
+    {
+     "w": "le",
+     "s": 12.288,
+     "e": 12.364
+    },
+    {
+     "w": "premier.",
+     "s": 12.44,
+     "e": 13.05
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "La porte s'est ouverte.",
+   "hl": [
+    "porte",
+    "ouverte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L08.k.wav",
+   "file_start": 13.15,
+   "speech_start": 13.15,
+   "speech_end": 14.445,
+   "words": [
+    {
+     "w": "La",
+     "s": 13.15,
+     "e": 13.226
+    },
+    {
+     "w": "porte",
+     "s": 13.302,
+     "e": 13.531
+    },
+    {
+     "w": "s'est",
+     "s": 13.569,
+     "e": 13.683
+    },
+    {
+     "w": "ouverte.",
+     "s": 13.759,
+     "e": 14.445
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La dame a demandé: « C'est pour quoi? »",
+   "hl": [
+    "pour",
+    "quoi?"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L09.k.wav",
+   "file_start": 14.545,
+   "speech_start": 14.545,
+   "speech_end": 16.526,
+   "words": [
+    {
+     "w": "La",
+     "s": 14.545,
+     "e": 14.621
+    },
+    {
+     "w": "dame",
+     "s": 14.697,
+     "e": 14.85
+    },
+    {
+     "w": "a",
+     "s": 14.888,
+     "e": 14.926
+    },
+    {
+     "w": "demandé:",
+     "s": 15.078,
+     "e": 15.459
+    },
+    {
+     "w": "C'est",
+     "s": 15.764,
+     "e": 15.84
+    },
+    {
+     "w": "pour",
+     "s": 15.916,
+     "e": 15.993
+    },
+    {
+     "w": "quoi?",
+     "s": 16.107,
+     "e": 16.526
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il a dit: « Je ne sais pas. »",
+   "hl": [
+    "sais",
+    "pas."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L10.k.wav",
+   "file_start": 16.626,
+   "speech_start": 16.626,
+   "speech_end": 18.226,
+   "words": [
+    {
+     "w": "Il",
+     "s": 16.626,
+     "e": 16.702
+    },
+    {
+     "w": "a",
+     "s": 16.778,
+     "e": 16.855
+    },
+    {
+     "w": "dit:",
+     "s": 16.969,
+     "e": 17.388
+    },
+    {
+     "w": "Je",
+     "s": 17.426,
+     "e": 17.464
+    },
+    {
+     "w": "ne",
+     "s": 17.502,
+     "e": 17.54
+    },
+    {
+     "w": "sais",
+     "s": 17.616,
+     "e": 17.693
+    },
+    {
+     "w": "pas.",
+     "s": 17.769,
+     "e": 18.226
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Elle a dit: « Moi non plus. »",
+   "hl": [
+    "Moi",
+    "non",
+    "plus."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L11.k.wav",
+   "file_start": 18.326,
+   "speech_start": 18.326,
+   "speech_end": 19.926,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 18.326,
+     "e": 18.44
+    },
+    {
+     "w": "a",
+     "s": 18.478,
+     "e": 18.555
+    },
+    {
+     "w": "dit:",
+     "s": 18.669,
+     "e": 19.088
+    },
+    {
+     "w": "Moi",
+     "s": 19.114,
+     "e": 19.164
+    },
+    {
+     "w": "non",
+     "s": 19.24,
+     "e": 19.316
+    },
+    {
+     "w": "plus.",
+     "s": 19.393,
+     "e": 19.926
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Alors ils se sont mis au bout de la file.",
+   "hl": [
+    "bout",
+    "file."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/attente/tts/L12.k.wav",
+   "file_start": 20.026,
+   "speech_start": 20.026,
+   "speech_end": 21.931,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 20.026,
+     "e": 20.331
+    },
+    {
+     "w": "ils",
+     "s": 20.483,
+     "e": 20.559
+    },
+    {
+     "w": "se",
+     "s": 20.635,
+     "e": 20.712
+    },
+    {
+     "w": "sont",
+     "s": 20.75,
+     "e": 20.864
+    },
+    {
+     "w": "mis",
+     "s": 20.94,
+     "e": 21.016
+    },
+    {
+     "w": "au",
+     "s": 21.055,
+     "e": 21.093
+    },
+    {
+     "w": "bout",
+     "s": 21.131,
+     "e": 21.169
+    },
+    {
+     "w": "de",
+     "s": 21.245,
+     "e": 21.295
+    },
+    {
+     "w": "la",
+     "s": 21.347,
+     "e": 21.397
+    },
+    {
+     "w": "file.",
+     "s": 21.55,
+     "e": 21.931
+    }
+   ]
+  }
+ ],
+ "total": 22.77
+}
