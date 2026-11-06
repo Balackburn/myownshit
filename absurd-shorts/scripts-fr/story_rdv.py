@@ -23,7 +23,7 @@ def room(cal=(2026, 2026), flip=None, dur=1.0, extra_chairs=True):
     return p
 BEARD = lambda s0, s1=None, at_=0.15, dur=1.0, col='#2A2420', actor='mec': P('beard', 'beard', on={'actor': actor, 'joint': 'head', 'offset': [0, 0.05, 0.12]}, opts={'color': col},
                                                                           keys=[k(0.0, scale=s0)] + ([k(at_, scale=s1, dur=dur)] if s1 is not None else []))
-SEATCAM = lambda d=3.4, h=1.3, x=0.0, dx=0.25: [cam(0.0, [x + dx, h, BK + 0.55 + d], [x + dx * 0.9, h, BK + 0.55 + d - 0.3], [x, 0.95, BK + 0.55], [x, 0.96, BK + 0.55], lens=44)]
+SEATCAM = lambda d=3.4, h=1.3, x=0.0, dx=0.25, ly=0.95, lens=44: [cam(0.0, [x + dx, h, BK + 0.55 + d], [x + dx * 0.9, h, BK + 0.55 + d - 0.3], [x, ly, BK + 0.55], [x, ly + 0.01, BK + 0.55], lens=lens)]
 DOC = lambda text, stamp, size=0.3: P('doc', 'noticeBoard', pos=[0, 1.5, 0], opts={'text': text, 'style': 'doc', 'w': 0.72, 'h': 0.9, 'popAt': 0.1, 'textSize': size, 'stamp': stamp})
 DOC_CAM = [cam(0.0, [0.05, 1.55, 2.15], [0.05, 1.55, 1.95], [0, 1.5, 0], [0, 1.5, 0], lens=42)]
 SIT = lambda aid, x, clip='sit', expr='unimpressed', **kw: act(aid, [x, 0, BK + 0.55], 0, clip, expr, **kw)
@@ -31,8 +31,8 @@ SIT = lambda aid, x, clip='sit', expr='unimpressed', **kw: act(aid, [x, 0, BK + 
 # 1-4: the booking
 st.shot('S01', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'phoneCall', 'happy')], cams=CU(0, 0, h=1.75, d=1.8))
 st.shot('S02', 'livingRoom', setOpts=WR, props=[P('door', 'door', pos=[0, 0, BK], opts={'color': '#F4F1E8', 'frame': '#C9C2B2'}),
-                                                 P('plq', 'noticeBoard', pos=[0.8, 1.55, BK + 0.05], opts={'text': 'DERMATOLOGUE', 'style': 'sign', 'w': 0.8, 'h': 0.22, 'bg': '#F4F1E8', 'fg': '#1C252A', 'frame': '#B9A06A'})],
-        cams=[cam(0.0, [0.8, 1.5, BK + 2.9], [0.82, 1.5, BK + 2.6], [0.78, 1.42, BK], [0.8, 1.45, BK], lens=44)])
+                                                 P('plq', 'noticeBoard', pos=[1.08, 1.55, BK + 0.05], opts={'text': 'DERMATOLOGUE', 'style': 'sign', 'w': 0.8, 'h': 0.22, 'bg': '#F4F1E8', 'fg': '#1C252A', 'frame': '#B9A06A'})],
+        cams=[cam(0.0, [0.9, 1.5, BK + 2.9], [0.92, 1.5, BK + 2.6], [0.88, 1.42, BK], [0.9, 1.45, BK], lens=44)])
 st.shot('S03', 'office', props=[DOC('RENDEZ-VOUS\nDERMATO\n\n2031', 'CONFIRMÉ', 0.28)], cams=DOC_CAM)
 st.shot('S04', 'livingRoom', actors=[act('mec', [0, 0, 0], 0, 'nod', 'happy')], cams=MS(0, 0, h=1.5, d=2.6))
 # 5-9: the waiting room; magazines from 1998; he celebrates alone
@@ -53,12 +53,12 @@ st.shot('S12', 'livingRoom', setOpts=WR, actors=[SIT('mec', 0.0, 'sitTake'), act
         cams=[cam(0.0, [0.25, 1.35, BK + 4.2], [0.23, 1.35, BK + 3.95], [0.1, 0.95, BK + 0.9], [0.1, 0.96, BK + 0.9], lens=46)])
 st.shot('S13', 'livingRoom', setOpts=WR, actors=[SIT('mec', 0.0, 'sitTalk', 'happy'), SIT('dame', 0.75, 'sitShow', 'happy')],
         props=room() + [BEARD(1.7), P('veil', 'veil', on={'actor': 'dame', 'joint': 'head', 'offset': [0, 0.42, -0.02]}), P('bq', 'flowers', on={'actor': 'dame', 'hand': 'R'}, scale=0.9)],
-        cams=SEATCAM(2.6, 1.35, x=0.38))
-st.shot('S14', 'livingRoom', setOpts=WR, actors=[act('dame', [-1.15, 0, BK + 0.95], 205, 'lookItem', 'suspicious')],
+        cams=SEATCAM(3.0, 1.45, x=0.38, ly=1.15))
+st.shot('S14', 'livingRoom', setOpts=WR, actors=[act('dame', [-1.15, 0, BK + 0.95], 152, 'lookItem', 'suspicious')],
         props=room() + [P('chart', 'eyeChart', pos=[-1.25, 1.55, BK + 0.04], opts={'w': 0.5}), P('oph', 'noticeBoard', pos=[-1.25, 2.28, BK + 0.06], opts={'text': 'OPHTALMO →', 'style': 'tag', 'w': 0.6, 'h': 0.13})],
         cams=[cam(0.0, [0.75, 1.75, BK + 1.4], [0.65, 1.75, BK + 1.35], [-1.2, 1.72, BK + 0.6], [-1.2, 1.72, BK + 0.6], lens=46)])
 st.shot('S15', 'livingRoom', setOpts=WR, actors=[SIT('mec', -0.75, expr='happy'), SIT('fils', 0.0, expr='happy'), SIT('dame', 0.75, expr='happy')], props=room() + [BEARD(1.9)],
-        cams=SEATCAM(3.0, 1.3))
+        cams=SEATCAM(3.4, 1.35, ly=1.0, lens=48))
 st.shot('S16', 'livingRoom', setOpts=WR, actors=[act('ado', [0.0, 0, BK + 1.0], 0, 'sitWrite', 'suspicious'), SIT('mec', -0.75, expr='unimpressed'), SIT('dame', 0.75, expr='unimpressed')],
         props=room() + [BEARD(2.2), P('chA', 'chair', pos=[0.0, 0, BK + 1.0], opts={'color': '#2F7F7A'}),
                         P('exam', 'noticeBoard', pos=[0.0, 0.44, BK + 1.42], rot=[-1.25, 0, 0], opts={'text': 'BAC\n2031', 'style': 'doc', 'w': 0.3, 'h': 0.38, 'textSize': 0.26})],
