@@ -1,4 +1,7 @@
-# The shader look (light like "Minecraft with shaders")
+# The shader look and the natural look
+
+Two light modes share `engine/look.js`: `'shaders'` (Minecraft-with-shaders: hard warm sun, blue shade) and, since « La canicule »
+(story 34), `'natural'` (light bounced from the scene, soft shadows, auto exposure), the default for new stories. See the last section.
 
 Since « Le ver de terre » (story 35), new stories render with `Story(name, look='shaders')` (`scripts-fr/story_kit.py`), which writes
 `"look": "shaders"` in the script and per-scene `grade: 'none'`, `soften: 0.3`. The engine (`engine/look.js`, wired in `director3.js`)
@@ -29,3 +32,21 @@ for grey rooms like `interrogation`), `sunColor`, `elevation` (max sun elevation
 - Cost: about 4x the flat look on the CPU (SwiftShader): a 22 s story at 1080x1920 takes ~45 min with 3 workers on 4 cores. Don't run other
   renders (stills, critics) in parallel with a full render if you can avoid it.
 - A/B tool: `scratchpad/look/ab.sh STORY "t1,t2,t3"` renders old vs shader stills side by side.
+
+## The natural look: `Story(name, look='natural')` (default for new stories)
+The user asked for more natural light without a path tracer (Tesseract was too slow and drops the ink outlines). Same post chain, plus:
+- A light probe per shot: a cube camera (48 px, half float) captured on the first frame of each scene, in front of the first solid surface the
+  camera looks at (raycast; never inside a wall, a fridge or a head), projected to spherical harmonics (sync port of three's
+  `LightProbeGenerator`), added as a `THREE.LightProbe`. The bounce takes the set's colours (peach walls warm the faces, snow cools them).
+  NaN/Inf texels are skipped (one bad shader texel turned whole frames black) and each texel is capped at 6.
+- The probe's strength adapts: `probe` (1.7 indoors, 1.2 outdoors) times `min(1, probeTarget / mean radiance)` with `probeTarget` 0.3,
+  so a white kitchen or a snowy street does not wash out.
+- Auto exposure (a camera's light meter): a 48x86 linear render, centre-weighted mean luminance, exposure = base x (ref / mean)^0.7
+  clamped to [0.7, 1.08] (ref 0.42 indoors, 0.32 outdoors; base 1.32 indoors, 1.14 outdoors). A shot that sets `look={'exposure': ...}`
+  keeps that exposure.
+- Soft VSM sun shadows (radius 9 indoors, 6 outdoors, 16 blur samples), sky fill x 0.45, Neutral tone mapping, bloom threshold 1.35
+  (only lamps and glints bloom), grade lift 0.014 (no milky veil), saturation 1.1 indoors / 1.16 outdoors, contrast 0.98 / 1.04, warm 0.85.
+- Per-shot extras: `probe`, `probeTarget`, `probeAt` [x, y, z], `meterRef`, `autoExposure` false, `softness`, `hemi`, `sunN`, `lift`,
+  `bloomThreshold`. Debug: `"lookOpts": {"debugProbe": true}` logs the probe spot, its mean radiance, the meter and the exposure per shot.
+- Lessons: the mec is about 2.3 m to the top of his head: aim standing shots at y 1.8-1.9. A move with `clip='sitFloor'` reverts to the
+  previous clip when it ends (a walk becomes idle: he stands up again): add `then='sitFloor'` (or `then='stiffStand'`) to the key.

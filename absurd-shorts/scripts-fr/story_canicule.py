@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """La canicule (story 34): it was 40 degrees. This man opened the fridge to cool down, then stepped inside and closed the door. He stayed there
 all summer — he even had his birthday party in it, and the postman delivered his mail to the vegetable drawer. In September he finally came out:
-outside, it was snowing. So he went back into the fridge. To warm up. Shader look (engine/look.js)."""
+outside, it was snowing. So he went back into the fridge. To warm up. Natural look (engine/look.js: scene light probe, soft shadows)."""
 from story_kit import *
 
-st = Story('canicule', look='shaders')
+st = Story('canicule', look='natural')
 st.plan([('S01', 'L01', 0), ('S02', 'L02', 0), ('S03', 'L02', 6), ('S04', 'L03', 0), ('S05', 'L04', 0), ('S06', 'L05', 0), ('S07', 'L06', 0),
          ('S08', 'L07', 0), ('S09', 'L07', 6), ('S10', 'L08', 0), ('S11', 'L09', 0), ('S12', 'L10', 0), ('S13', 'L11', 0)])
 def add(a, b): return [round(a[i] + b[i], 3) for i in range(3)]
@@ -17,9 +17,9 @@ FRIDGE = lambda **o: P('fridge', 'bigFridge', pos=FR, opts={'mode': 'lived', 'no
 INSIDE = lambda: [cam(0.0, [-2.62, 1.18, -1.05], [-2.63, 1.17, -1.25], [-2.7, 1.02, -3.2], [-2.7, 1.02, -3.2], lens=44)]
 
 # 1: the heatwave: sweating, fanning himself, the thermometer climbs to 40° and shakes, the fan, the wilting plant
-st.shot('S01', 'kitchenDay', setOpts=KD, actors=[act('mec', [-0.55, 0, -1.7], 8, 'fan', 'pain', fx={'sweat': True})],
-        props=[FRIDGE(mode='full'), P('thermo', 'thermometer', pos=[-1.38, 1.55, -3.57], opts={'w': 0.3, 'h': 1.0, 'temp': 40, 'from': 27, 'riseAt': 0.12, 'dur': 0.9})],
-        cams=[cam(0.0, [-0.62, 1.88, 0.45], [-0.64, 1.88, 0.25], [-1.0, 1.82, -1.7], [-1.0, 1.83, -1.7], lens=44)])
+st.shot('S01', 'kitchenDay', setOpts=KD, actors=[act('mec', [-0.95, 0, -1.7], 8, 'fan', 'pain', fx={'sweat': True})],
+        props=[FRIDGE(mode='full'), P('thermo', 'thermometer', pos=[-1.85, 1.55, -3.57], opts={'w': 0.3, 'h': 1.0, 'temp': 40, 'from': 27, 'riseAt': 0.12, 'dur': 0.9})],
+        cams=[cam(0.0, [-0.85, 1.85, 0.9], [-0.86, 1.85, 0.72], [-1.15, 1.78, -2.0], [-1.15, 1.79, -2.0], lens=44)])
 # 2-3: he opens the fridge: cold light and mist; then the fridge's view of him: eyes shut, bliss, vapour on his face
 T2 = 0.32
 st.shot('S02', 'kitchenDay', setOpts=KD, actors=[act('mec', FRONT, 180, 'stand', 'determined', fx={'sweat': True}, keys=[k(T2 - 0.15, clip='giveItem'), k(T2 + 0.5, expr='surprisedHappy')])],
@@ -30,9 +30,9 @@ st.shot('S03', 'kitchenDay', setOpts=KD, actors=[act('mec', FRONT, 180, 'stand',
         cams=[cam(0.0, [-2.62, 1.42, -3.02], [-2.62, 1.43, -2.96], add(FRONT, [0, 1.98, 0]), add(FRONT, [0, 1.99, 0]), lens=44)])
 # 4: he climbs in (side view) and sits cross-legged on the crisper
 T4 = 0.25
-st.shot('S04', 'kitchenDay', setOpts=KD, actors=[act('mec', FRONT, 180, 'walk', 'happy', keys=[k(T4, to=add(SEAT, [0.05, 0, 0.25]), dur=0.55), k(T4 + 0.6, clip='sitFloor', to=SEAT, dur=0.25, face=180)])],
+st.shot('S04', 'kitchenDay', setOpts=KD, actors=[act('mec', FRONT, 180, 'walk', 'happy', keys=[k(T4, to=add(SEAT, [0.05, 0, 0.25]), dur=0.5), k(T4 + 0.5, clip='sitFloor', to=SEAT, dur=0.25, face=0, then='sitFloor')])],
         props=[FRIDGE(mode='lived', open=1)],
-        cams=[cam(0.0, [-1.05, 1.35, -1.45], [-1.1, 1.34, -1.5], [-2.7, 0.95, -2.95], [-2.7, 0.95, -2.95], lens=44)])
+        cams=[cam(0.0, [-3.55, 1.75, 0.55], [-3.5, 1.74, 0.4], [-2.6, 1.15, -2.6], [-2.62, 1.12, -2.65], lens=44)])
 # 5: he pulls the door shut from inside: the light goes, the fridge rocks
 T5 = 0.35
 st.shot('S05', 'kitchenDay', setOpts=KD, actors=[act('mec', SEAT, 0, 'sitFloor', 'smug')],
@@ -50,9 +50,9 @@ st.shot('S07', 'kitchenDay', setOpts=KD, actors=[act('mec', SEAT, 0, 'sitFloorCl
                P('cake', 'birthdayCake', pos=[-2.7, 0.39, -2.86], scale=0.85, opts={'candles': 5, 'outAt': TB})],
         cams=[cam(0.0, [-2.25, 1.2, -1.0], [-2.27, 1.19, -1.18], [-2.75, 1.02, -3.15], [-2.75, 1.02, -3.15], lens=44)])
 # 8-9: the postman opens the fridge, the mec waves; the crisper slides out and a letter drops in among the lettuces
-st.shot('S08', 'kitchenDay', setOpts=KD, actors=[act('facteur', [-2.05, 0, -2.05], 225, 'giveItem', 'smug'), act('mec', SEAT, 0, 'sitFloorWave', 'happy')],
+st.shot('S08', 'kitchenDay', setOpts=KD, actors=[act('facteur', [-2.05, 0, -2.15], 240, 'giveItem', 'smug'), act('mec', SEAT, 0, 'sitFloorWave', 'happy')],
         props=[FRIDGE(mode='lived', light=True, openAt=0.05, letters=2), P('env', 'envelope', on={'actor': 'facteur', 'hand': 'R'}, opts={'to': 'M. LE MEC', 'addr': 'BAC À LÉGUMES'})],
-        cams=[cam(0.0, [-2.95, 1.55, -0.85], [-2.93, 1.55, -0.98], [-2.45, 1.2, -2.85], [-2.45, 1.2, -2.85], lens=44)])
+        cams=[cam(0.0, [-3.25, 1.85, -0.1], [-3.23, 1.85, -0.22], [-2.35, 1.45, -2.6], [-2.35, 1.45, -2.6], lens=50)])
 T9 = 0.12
 st.shot('S09', 'kitchenDay', setOpts=KD, actors=[act('mec', SEAT, 0, 'sitFloor', 'happy')],
         props=[FRIDGE(mode='lived', light=True, open=1, letters=2, drawerAt=T9),
@@ -61,27 +61,27 @@ st.shot('S09', 'kitchenDay', setOpts=KD, actors=[act('mec', SEAT, 0, 'sitFloor',
 # 10: September: the door opens in a cloud of vapour, he comes out frozen stiff (frost, icicles, breath), shivering
 T10 = 0.2
 st.shot('S10', 'kitchenDay', setOpts=KD, actors=[act('mec', SEAT, 0, 'sitFloor', 'cold', fx={'frozen': True, 'breath': True, 'shiver': True},
-        keys=[k(T10 + 0.45, clip='stiffStand', to=[-2.62, 0, -2.25], dur=0.6, face='keep'), k(T10 + 1.2, to=[-2.55, 0, -1.65], dur=0.8, glide=True, face='keep')])],
+        keys=[k(T10 + 0.45, clip='stiffStand', to=[-2.62, 0, -2.25], dur=0.6, face='keep', then='stiffStand'), k(T10 + 1.2, to=[-2.55, 0, -1.9], dur=0.8, glide=True, face='keep')])],
         props=[FRIDGE(mode='lived', light=True, openAt=T10)],
-        cams=[cam(0.0, [-2.35, 1.55, -0.2], [-2.36, 1.56, -0.35], [-2.65, 1.32, -2.6], [-2.6, 1.55, -1.7], lens=44)])
+        cams=[cam(0.0, [-2.35, 1.55, -0.2], [-2.38, 1.72, 0.1], [-2.65, 1.32, -2.6], [-2.6, 1.85, -1.8], lens=44)])
 # 11: outside, the street under snow: frozen on the doorstep, a pharmacy cross reads -12°, a bundled-up passer-by
 COLD = {'sunColor': '#EAF2FF', 'sun': 0.62, 'hazeColor': '#E4EAEE', 'hazeNear': 18, 'hazeFar': 110, 'warm': 0.25, 'sat': 0.95, 'elevation': 30}
 D11 = st.dur('S11')
-st.shot('S11', 'parisStreet', setOpts={'snow': True}, actors=[act('mec', [9.55, 0, 2.0], -90, 'hugCold', 'shocked', fx={'frozen': True, 'breath': True, 'shiver': True}, keys=[k(0.5, expr='cold')]),
-        act('passant', [8.5, 0, 0.6], 180, 'walk', 'neutral', keys=[k(0.0, to=[8.5, 0, -6.0], dur=D11 * 2.2)])],
-        props=[P('pharma', 'pharmacyCross', pos=[9.85, 2.75, 3.2], ry=-55, opts={'text': '−12°', 'size': 0.8, 'period': 0.7})],
-        cams=[cam(0.0, [6.4, 1.35, 5.4], [6.45, 1.37, 5.2], [9.4, 1.65, 2.2], [9.4, 1.67, 2.2], lens=44)], look=COLD)
+st.shot('S11', 'parisStreet', setOpts={'snow': True}, actors=[act('mec', [9.55, 0, 2.0], -25, 'hugCold', 'shocked', fx={'frozen': True, 'breath': True, 'shiver': True}, keys=[k(0.5, expr='cold')]),
+        act('passant', [8.3, 0, -9.0], 0, 'walk', 'neutral', keys=[k(0.0, to=[8.3, 0, -5.5], dur=D11)])],
+        props=[P('pharma', 'pharmacyCross', pos=[9.75, 3.6, -1.0], ry=0, opts={'text': '−12°', 'size': 0.85, 'period': 1.0})],
+        cams=[cam(0.0, [8.6, 1.5, 7.0], [8.62, 1.52, 6.75], [9.3, 1.75, 1.0], [9.3, 1.76, 1.0], lens=44)], look=COLD)
 # 12: back home at a run, he dives into the fridge, the door slams, it rocks
 T12 = 0.15
 st.shot('S12', 'kitchenDay', setOpts=KD, actors=[act('mec', [1.4, 0, -1.2], -110, 'run', 'determined', fx={'frozen': 'thaw', 'breath': True},
-        keys=[k(T12, to=FRONT, dur=0.85), k(T12 + 0.9, to=SEAT, dur=0.3, clip='sitFloor', face=0)])],
+        keys=[k(T12, to=FRONT, dur=0.85), k(T12 + 0.9, to=SEAT, dur=0.3, clip='sitFloor', face=0, then='sitFloor')])],
         props=[FRIDGE(mode='lived', open=1, closeAt=T12 + 1.3, shakeAt=T12 + 1.62)],
         cams=[cam(0.0, [0.7, 1.6, 1.3], [0.6, 1.58, 1.15], [-1.5, 1.0, -2.35], [-2.2, 1.0, -2.7], lens=44)])
 # 13: to warm up: wrapped in a blanket with a hot chocolate, fairy lights, the fridge's thermometer at 4°
 st.shot('S13', 'kitchenDay', setOpts=KD, actors=[act('mec', SEAT, 0, 'sitFloorSip', 'relieved', fx={'frozen': 'thaw', 'blush': True})],
         props=[FRIDGE(mode='cosy', light=True, open=1, mist=False), P('blanket', 'shoulderBlanket', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.42, 0]}),
                P('mug', 'hotMug', on={'actor': 'mec', 'hand': 'R'}), P('thermo4', 'thermometer', pos=[-2.215, 1.2, -3.0], ry=-90, opts={'w': 0.16, 'h': 0.5, 'temp': 4})],
-        cams=[cam(0.0, [-2.6, 1.16, -0.95], [-2.62, 1.14, -1.35], [-2.7, 1.02, -3.2], [-2.7, 1.02, -3.2], lens=44, ease='out')], look={'sunColor': '#FFD9A6'})
+        cams=[cam(0.0, [-2.6, 1.32, -0.9], [-2.62, 1.3, -1.15], [-2.7, 1.22, -3.2], [-2.7, 1.22, -3.2], lens=44, ease='out')], look={'sunColor': '#FFD9A6'})
 st.card('S01', '40°'); st.card('S06', "TOUT L'ÉTÉ"); st.card('S10', 'SEPTEMBRE')
 st.cue('whoosh', 'S01', 0.0, 0.12, 1.6, 300, 1200); st.cue('sfx:squeak', 'S02', T2, 0.35); st.cue('gust', 'S02', T2 + 0.1, 0.25, 1.2)
 st.cue('sfx:step', 'S04', T4 + 0.2, 0.3); st.cue('thud', 'S05', T5 + 0.35, 0.45); st.cue('sfx:paper', 'S06', 0.45, 0.3); st.cue('sfx:paper', 'S06', 1.0, 0.3)
