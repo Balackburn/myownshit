@@ -29,7 +29,7 @@ PEEK = [W[0], -0.5, W[2]]
 st.shot('S01', 'pavillon', actors=[act('mec', [X, 0, Z0], 0, 'pushMower', 'whistle', keys=[k(0.0, to=[X, 0, Z1], dur=D1, glide=True, face='keep')]),
         act('ver', PEEK, 20, 'idle', 'scared', keys=[k(0.9, expr='surprised')])],
         props=[LAWN, HOLE, P('mower', 'mowerRun', pos=MOW(Z0), opts={'runAt': 0.0}, keys=[k(0.0, to=MOW(Z1), dur=D1)])],
-        cams=[cam(0.0, [X + 0.32, 0.24, 2.3], [X + 0.29, 0.27, 2.12], [X + 0.02, 0.52, -1.4], [X + 0.02, 0.56, -1.4], lens=44)])
+        cams=[cam(0.0, [X + 0.32, 0.24, 2.12], [X + 0.29, 0.27, 1.95], [X + 0.02, 0.52, -1.4], [X + 0.02, 0.56, -1.4], lens=44)])   # in front of the fence rail (z 2.2): a path tracer sees inside the rail box
 # 2: the worm pops out of the ground (dirt), surprised, then angry at the mower; the mower stops
 TP = st.at('S02', 'L02', 3) - 0.05
 st.shot('S02', 'pavillon', actors=[act('mec', [X, 0, Z1], 0, 'pushMowerStand', 'neutral', keys=[k(TP + 0.25, expr='surprised')]),
