@@ -74,3 +74,28 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
 - **Paparazzi/celebrity beats**: flashes must fire at the sampled times too (bursts all along the shot, a volley on the key word).
 - **JS edit trap, again**: appending a `// comment` to a line that continues (`...; g.userData.update = ...`) comments out
   the rest of the line. Put comments only at the real end of a statement line, and run `node --check` after every engine edit.
+
+## From the critic rounds of « La balance » (6.5 → 7.3 → 7.4), « Le sosie », « Le télétravail »
+
+- **Thumbnails lie about placement.** A 180-px sheet tile can put a prop 20 % lower than it is; check placement on the
+  full-size still (`out/work/story_X/stills/s_###.jpg`) before re-framing, and trust `scripts/proj.py` once heights are right.
+- **Displays that change must read at 60 % and 85 %.** Count-ups land on the spoken number; blinks after a value lands stay
+  under 0.3 s (75 ms phases) so a sampled frame never shows a blank display; ghost (unlit) segments at about 4 % alpha.
+- **Do not show the twist before it is said.** A sign that carries the punchline (« HORS SERVICE ») stays dark/unlit until the
+  word, then boots (flicker 0.3 s) on it, and lives in a close insert that fills about 80 % of the width.
+- **No speech bubble where a title card lands** (8–18 %). If the card says the same word, drop the bubble and let the card shout.
+- **The payoff prop must be big and must change hands in frame:** at least 10 % of the frame width, at 35–65 % of the height,
+  handed over (or eaten) on its word, in a new angle (not a repeat of the previous set-up). End on a tableau that shows the gag
+  (character + the prop/sign that makes it), not on a portrait that crops the gag out.
+- **Expression range:** `grin` reads as proud/happy; `happy` often reads flat; `angry` reads as straining (holding the breath);
+  `surprised`/`shocked` for the fall. Give the man a visible arc (proud → humiliated → outraged) across the story.
+- **Over-the-shoulder through close heads fails:** a juror's head 1.3 m from the lens fills a third of the frame. Use a high OTS
+  (camera ~1.5 m above the heads) or a 3/4 front angle that keeps the near heads at the frame edge.
+- **Background landmarks behind heads** (the Eiffel tower, a lamp post) read as hats or horns; move the camera so they sit in
+  clear sky.
+- **Wide objects in 9:16** (a winged scale, a 2x2 video grid) cannot be big and whole: shrink the prop or turn it 3/4, and check
+  that all four tiles / both wingtips are inside 90 % of the width.
+- **Feet that must act** (tiptoe, stepping onto a scale) need the cast option `shoes: True` (boxy shoes around the ankle), a
+  side view, and the feet above the caption band.
+- **Engine reminders:** a camera segment glides from the previous one only with `cut: False` (+ `glide` seconds); `roll` is in
+  degrees; a scene can take `light` overrides (night: low hemi, blue key); a clip can return `headScale` / `flush` (held breath).
