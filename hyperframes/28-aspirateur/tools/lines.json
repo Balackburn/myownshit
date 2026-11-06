@@ -1,0 +1,124 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a acheté un aspirateur robot.",
+  "hl": [
+   "aspirateur",
+   "robot."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le premier jour, il a aspiré la poussière.",
+  "hl": [
+   "poussière."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le deuxième jour, les chaussettes.",
+  "hl": [
+   "chaussettes."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le troisième jour, le chat.",
+  "hl": [
+   "chat."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Le chat va bien.",
+  "hl": [
+   "bien."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Puis le canapé.",
+  "hl": [
+   "canapé."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Puis la maison.",
+  "hl": [
+   "maison."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Puis le quartier.",
+  "hl": [
+   "quartier."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La mairie a porté plainte.",
+  "hl": [
+   "plainte."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il a aspiré la mairie.",
+  "hl": [
+   "mairie."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "L'armée a envoyé les chars.",
+  "hl": [
+   "chars."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il a aspiré les chars.",
+  "hl": [
+   "chars."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Puis il est rentré à sa base.",
+  "hl": [
+   "base."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Batterie faible.",
+  "hl": [
+   "Batterie",
+   "faible."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Ce soir, le mec doit le vider.",
+  "hl": [
+   "vider."
+  ]
+ }
+]

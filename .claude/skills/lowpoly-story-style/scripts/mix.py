@@ -51,7 +51,7 @@ for c in json.load(open(A.cues)):
     elif name == 'rain': x = rain(c[3])
     elif name == 'whoosh': x = whoosh(*c[3:6]) if len(c) > 3 else whoosh()
     elif name == 'gust': x = gust(c[3]) if len(c) > 3 else gust()
-    elif name == 'engine': x = engine(c[3])
+    elif name == 'engine': x = engine(c[3] if len(c) > 3 else 1.5)
     else: x = FX[name]()
     put(x, t, g)
 SF = SF[:N]

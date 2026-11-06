@@ -866,4 +866,62 @@ export const NEWS_PROPS = {
     g.userData.update = t => { g.scale.setScalar(o.popAt == null ? 1 : pop(t, o.popAt, 0.25)); const b = Math.floor(t * 3.4) % 2 === 0; full.visible = b; empty.visible = !b; };
     g.userData.update(0); return g;
   },
+  // ---- Le serrurier (story 29)
+  smartPhone(o) { // a plain smartphone (screen +Z), held to the ear (phoneEar) or shown; o.call: a green call screen
+    const g = grp(at(box(0.072, 0.148, 0.01, '#1C1F24', { outline: 0.004 }), 0, 0, 0));
+    g.add(at(canvasPlane(0.064, 0.13, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#2E8B57'); gr.addColorStop(1, '#1E5E3C'); c.fillStyle = o.call === false ? '#1E2A44' : gr; c.fillRect(0, 0, W, H);
+      c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(W / 2, H * 0.78, W * 0.14, 0, Math.PI * 2); c.fill(); c.fillStyle = '#2E8B57'; c.font = `900 ${W * 0.16}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('☎', W / 2, H * 0.785);
+      c.fillStyle = '#FFFFFF'; c.font = `bold ${W * 0.11}px Arial`; c.fillText(o.label || 'APPEL…', W / 2, H * 0.3); }, { res: 128, emissive: 0.6 }), 0, 0, 0.0055));
+    g.userData.grip = [0, -0.05, 0]; return g;
+  },
+  keyRing(o) { // a key ring (about 10 cm): a steel ring, a gold key, a silver key, a red-headed key and a little fob, hanging down from the ring (ring at the origin)
+    const g = grp(), sw = new THREE.Group(); g.add(sw);
+    sw.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.02, 0.003, 6, 20), mat('#B8BEC6', { noGrain: true })), 0, 0, 0));
+    const key = (c, head, a) => { const k = grp(at(cyl(0.012, 0.012, 0.003, head, 10, {}), 0, -0.032, 0, PI / 2, 0, 0), at(box(0.008, 0.05, 0.003, c), 0, -0.068, 0));
+      for (let i = 0; i < 4; i++) k.add(at(box(0.005, 0.004, 0.003, c), 0.006, -0.06 - i * 0.008 + (i % 2) * 0.002, 0));
+      k.add(at(box(0.004, 0.012, 0.0035, c), 0, -0.02, 0)); k.rotation.z = a; return k; };
+    sw.add(key('#D4A93A', '#D4A93A', -0.35), key('#C9CED4', '#C9CED4', 0.05), key('#C9CED4', '#C8322A', 0.42));
+    const fob = at(box(0.022, 0.03, 0.008, '#2F62B5', { outline: 0.002 }), -0.02, -0.035, 0.004); fob.rotation.z = -0.7; sw.add(fob);
+    g.userData.update = t => { sw.rotation.z = (o.swing ?? 0.12) * Math.sin(t * 5.5); };
+    g.userData.update(0); return g;
+  },
+  toolbox(o) { // a red metal toolbox (o.w ~0.42 wide, front +Z) with a handle and two latches
+    const W = o.w || 0.42, c = o.color || '#C8322A', g = grp(at(box(W, 0.17, 0.2, c, { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(W + 0.01, 0.045, 0.21, '#A82A23', { pivot: 'bottom' }), 0, 0.17, 0),
+      at(box(W * 0.98, 0.006, 0.205, '#7E1F1A'), 0, 0.172, 0));
+    for (const sd of [-1, 1]) g.add(at(box(0.035, 0.03, 0.01, '#C9CED4'), sd * W * 0.32, 0.165, 0.106), at(box(0.012, 0.07, 0.012, '#2B2F36'), sd * 0.1, 0.25, 0));
+    g.add(at(box(0.22, 0.016, 0.022, '#2B2F36', { outline: 0.003 }), 0, 0.285, 0)); g.userData.grip = [0, 0.29, 0]; return g;
+  },
+  serrurierVan(o) { // a white utility van (facing +x like the car), a blue band and « SERRURIER » with a big key on both sides; o.text, o.band
+    const Wh = '#F2F2EE', band = o.band || '#2F62B5', g = grp();
+    g.add(at(box(3.3, 1.75, 1.9, Wh, { pivot: 'bottom', outline: 0.014 }), -0.55, 0.38, 0), at(box(1.45, 1.25, 1.88, Wh, { pivot: 'bottom', outline: 0.012 }), 1.8, 0.38, 0),
+      at(box(0.62, 0.62, 1.86, P.tealPale, { taper: { x: 0.55, z: 1 } }), 2.18, 1.3, 0), at(box(0.24, 0.24, 1.94, P.greyDark), 2.5, 0.5, 0), at(box(0.2, 0.24, 1.94, P.greyDark), -2.18, 0.5, 0),
+      at(box(1.0, 0.5, 1.9, P.tealPale), 1.75, 1.22, 0));
+    for (const x of [1.55, -1.45]) for (const sd of [-1, 1]) g.add(at(cyl(0.36, 0.36, 0.26, P.ink, 14), x, 0.36, sd * 0.86, PI / 2, 0, 0), at(cyl(0.18, 0.18, 0.27, '#B5BCC4', 10), x, 0.36, sd * 0.86, PI / 2, 0, 0));
+    for (const sd of [-1, 1]) { g.add(at(box(0.04, 0.14, 0.3, P.yellow, { noGrain: true }), 2.53, 0.78, sd * 0.62), at(box(0.04, 0.14, 0.26, P.red), -2.22, 0.9, sd * 0.62));
+      const side = canvasPlane(3.1, 1.5, (c, W, H) => { c.fillStyle = Wh; c.fillRect(0, 0, W, H); c.fillStyle = band; c.fillRect(0, H * 0.62, W, H * 0.16);
+        c.fillStyle = '#1C2E4A'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = H * 0.26; c.font = `900 ${px}px Arial`; const tx = o.text || 'SERRURIER'; const tw = c.measureText(tx).width; if (tw > W * 0.62) { px *= W * 0.62 / tw; c.font = `900 ${px}px Arial`; }
+        c.fillText(tx, W * 0.6, H * 0.36); c.font = `bold ${H * 0.1}px Arial`; c.fillStyle = '#FFFFFF'; c.fillText(o.sub || '24H/24 · 7J/7', W * 0.6, H * 0.7);
+        const kx = W * 0.13, ky = H * 0.38, kr = H * 0.15; c.strokeStyle = '#D4A93A'; c.fillStyle = '#D4A93A'; c.lineWidth = kr * 0.45; c.beginPath(); c.arc(kx, ky, kr, 0, Math.PI * 2); c.stroke();
+        c.fillRect(kx + kr * 0.9, ky - kr * 0.22, kr * 3.2, kr * 0.44); c.fillRect(kx + kr * 3.1, ky, kr * 0.4, kr * 0.8); c.fillRect(kx + kr * 3.7, ky, kr * 0.4, kr * 0.6); }, { res: 512 });
+      side.position.set(-0.55, 0.38 + 0.9, sd * 0.953); if (sd < 0) side.rotation.y = PI; g.add(side); }
+    return g;
+  },
+  queueFigures(o) { // a queue of small locksmiths (blue overalls, navy beanie, red toolbox) along o.path [[x, z], ...] every o.gap m (default 0.75), facing the front of the queue
+    // (the first point); a gentle idle sway; o.colors {jacket, pants}; o.max caps the count. Instanced, so hundreds are cheap.
+    const path = o.path || [[0, 0], [10, 0]], gap = o.gap || 0.75, r = rng(o.seed || 7), pts = [];
+    const segs = []; let tot = 0;
+    for (let i = 0; i < path.length - 1; i++) { const [x0, z0] = path[i], [x1, z1] = path[i + 1], L = Math.hypot(x1 - x0, z1 - z0); segs.push([x0, z0, x1, z1, L, tot]); tot += L; }
+    for (let d = 0; d < tot; d += gap) { const sg = segs.find(q => d >= q[5] && d < q[5] + q[4]) || segs[segs.length - 1], u = (d - sg[5]) / sg[4];
+      pts.push([sg[0] + (sg[2] - sg[0]) * u + (r() - 0.5) * (o.jitter ?? 0.12), sg[1] + (sg[3] - sg[1]) * u + (r() - 0.5) * (o.jitter ?? 0.12), Math.atan2(sg[0] - sg[2], sg[1] - sg[3]) + (r() - 0.5) * 0.5]); }
+    const list = pts.slice(0, o.max || 400), n = list.length, J = (o.colors || {}).jacket || '#2F5E9E', Pn = (o.colors || {}).pants || '#22385E';
+    const parts = [[0.13, 0.82, 0.13, Pn, -0.075, 0.41, 0], [0.13, 0.82, 0.13, Pn, 0.075, 0.41, 0], [0.42, 0.62, 0.25, J, 0, 1.13, 0], [0.24, 0.3, 0.24, '#FFFFFF', 0, 1.6, 0], [0.26, 0.12, 0.26, (o.colors || {}).cap || '#C8322A', 0, 1.77, 0], [0.3, 0.16, 0.13, '#C8322A', 0.32, 0.62, 0], [0.1, 0.55, 0.1, J, 0.25, 1.05, 0], [0.1, 0.55, 0.1, J, -0.25, 1.05, 0]];
+    const g = grp(), meshes = parts.map(([w, h, d, c]) => { const m = new THREE.InstancedMesh(new THREE.BoxGeometry(w, h, d), mat(c), n); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; });
+    const info = list.map(() => ({ s: 0.93 + r() * 0.14, ph: r() * 6.28, skin: ['#E8B98F', '#C98E62', '#8D5A3B', '#F1C9A5'][Math.floor(r() * 4)] }));
+    const skinC = new THREE.Color(); info.forEach((f, i) => meshes[3].setColorAt(i, skinC.set(f.skin))); if (meshes[3].instanceColor) meshes[3].instanceColor.needsUpdate = true;
+    const o3 = new THREE.Object3D(), place = t => { list.forEach(([x, z, a], i) => { const f = info[i], sway = 0.04 * Math.sin(t * 2.2 + f.ph);
+      parts.forEach(([w, h, d, c, px, py, pz], k) => { o3.position.set(x, 0, z); o3.rotation.set(0, a, sway * 0.5); o3.scale.setScalar(f.s); o3.updateMatrix();
+        const loc = new THREE.Matrix4().makeTranslation(px, py, pz); o3.matrix.multiply(loc); meshes[k].setMatrixAt(i, o3.matrix); }); });
+      meshes.forEach(m => { m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); }); };
+    place(0); g.userData.update = place; g.userData.count = n; return g;
+  },
 };

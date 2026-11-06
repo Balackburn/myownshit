@@ -215,8 +215,8 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], fridge: [-2.7, 0, back + 0.38], fridgeFront: [-2.7, 0, back + 1.5], counter: [-0.6, 0.95, back + 0.3], door: [ax, 0, back + 0.4], window: [-0.6, 1.25, back], lamp: [0, 2.6, -1.0] };
     g.userData.lighting = 'dark'; return g;
   },
-  suburbDay() {
-    const g = grp(); sky(g); clouds(g, 3);
+  suburbDay(o = {}) {   // o.sky [top, bottom]: e.g. an evening sky
+    const g = grp(); sky(g, o.sky); clouds(g, 3);
     g.add(ground('#9DAF88'), flat(240, 3.4, P.cream, 0, 0.01, 0), flat(240, 0.25, P.creamDark, 0, 0.012, -1.75), flat(1.5, 4.6, P.cream, 0, 0.011, -5.9));
     g.add(prop('fence', { length: 11 }, -6.5, 0, -3.5), prop('fence', { length: 11 }, 6.5, 0, -3.5), prop('house', {}, -0.6, 0, -10), prop('mailbox', {}, 1.5, 0, -3.1));
     g.add(prop('house', { color: P.tealPale, roof: P.red, door: P.navy }, -11, 0, -15), prop('house', { color: P.creamDark, roof: P.teal }, 10, 0, -16, -0.2));

@@ -1,0 +1,625 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a perdu ses clés, il a appelé un serrurier.",
+   "hl": [
+    "perdu",
+    "clés,",
+    "serrurier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.843,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "perdu",
+     "s": 0.633,
+     "e": 0.786
+    },
+    {
+     "w": "ses",
+     "s": 0.862,
+     "e": 1.014
+    },
+    {
+     "w": "clés,",
+     "s": 1.09,
+     "e": 1.471
+    },
+    {
+     "w": "il",
+     "s": 1.548,
+     "e": 1.624
+    },
+    {
+     "w": "a",
+     "s": 1.662,
+     "e": 1.7
+    },
+    {
+     "w": "appelé",
+     "s": 1.776,
+     "e": 1.979
+    },
+    {
+     "w": "un",
+     "s": 2.03,
+     "e": 2.081
+    },
+    {
+     "w": "serrurier.",
+     "s": 2.119,
+     "e": 2.843
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le serrurier avait perdu les siennes.",
+   "hl": [
+    "serrurier",
+    "siennes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L02.k.wav",
+   "file_start": 2.943,
+   "speech_start": 2.943,
+   "speech_end": 4.924,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.943,
+     "e": 3.019
+    },
+    {
+     "w": "serrurier",
+     "s": 3.095,
+     "e": 3.629
+    },
+    {
+     "w": "avait",
+     "s": 3.705,
+     "e": 3.857
+    },
+    {
+     "w": "perdu",
+     "s": 3.933,
+     "e": 4.086
+    },
+    {
+     "w": "les",
+     "s": 4.162,
+     "e": 4.238
+    },
+    {
+     "w": "siennes.",
+     "s": 4.314,
+     "e": 4.924
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a appelé un serrurier.",
+   "hl": [
+    "serrurier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L03.k.wav",
+   "file_start": 5.024,
+   "speech_start": 5.024,
+   "speech_end": 6.548,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.024,
+     "e": 5.1
+    },
+    {
+     "w": "a",
+     "s": 5.176,
+     "e": 5.214
+    },
+    {
+     "w": "appelé",
+     "s": 5.252,
+     "e": 5.519
+    },
+    {
+     "w": "un",
+     "s": 5.557,
+     "e": 5.633
+    },
+    {
+     "w": "serrurier.",
+     "s": 5.71,
+     "e": 6.548
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Qui a appelé un serrurier.",
+   "hl": [
+    "serrurier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L04.k.wav",
+   "file_start": 6.648,
+   "speech_start": 6.648,
+   "speech_end": 8.324,
+   "words": [
+    {
+     "w": "Qui",
+     "s": 6.648,
+     "e": 6.724
+    },
+    {
+     "w": "a",
+     "s": 6.8,
+     "e": 6.876
+    },
+    {
+     "w": "appelé",
+     "s": 6.99,
+     "e": 7.257
+    },
+    {
+     "w": "un",
+     "s": 7.333,
+     "e": 7.41
+    },
+    {
+     "w": "serrurier.",
+     "s": 7.448,
+     "e": 8.324
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Qui a appelé un serrurier.",
+   "hl": [
+    "serrurier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L05.k.wav",
+   "file_start": 8.424,
+   "speech_start": 8.424,
+   "speech_end": 9.948,
+   "words": [
+    {
+     "w": "Qui",
+     "s": 8.424,
+     "e": 8.5
+    },
+    {
+     "w": "a",
+     "s": 8.576,
+     "e": 8.652
+    },
+    {
+     "w": "appelé",
+     "s": 8.729,
+     "e": 8.957
+    },
+    {
+     "w": "un",
+     "s": 8.995,
+     "e": 9.033
+    },
+    {
+     "w": "serrurier.",
+     "s": 9.11,
+     "e": 9.948
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "À midi, ils étaient quarante devant la porte.",
+   "hl": [
+    "quarante",
+    "porte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L06.k.wav",
+   "file_start": 10.048,
+   "speech_start": 10.048,
+   "speech_end": 12.486,
+   "words": [
+    {
+     "w": "À",
+     "s": 10.048,
+     "e": 10.124
+    },
+    {
+     "w": "midi,",
+     "s": 10.352,
+     "e": 10.619
+    },
+    {
+     "w": "ils",
+     "s": 10.657,
+     "e": 10.81
+    },
+    {
+     "w": "étaient",
+     "s": 10.886,
+     "e": 11.114
+    },
+    {
+     "w": "quarante",
+     "s": 11.152,
+     "e": 11.495
+    },
+    {
+     "w": "devant",
+     "s": 11.571,
+     "e": 11.724
+    },
+    {
+     "w": "la",
+     "s": 11.8,
+     "e": 11.876
+    },
+    {
+     "w": "porte.",
+     "s": 12.143,
+     "e": 12.486
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le soir, la file faisait le tour du quartier.",
+   "hl": [
+    "file",
+    "quartier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L07.k.wav",
+   "file_start": 12.586,
+   "speech_start": 12.586,
+   "speech_end": 15.176,
+   "words": [
+    {
+     "w": "Le",
+     "s": 12.586,
+     "e": 12.662
+    },
+    {
+     "w": "soir,",
+     "s": 12.738,
+     "e": 13.271
+    },
+    {
+     "w": "la",
+     "s": 13.348,
+     "e": 13.424
+    },
+    {
+     "w": "file",
+     "s": 13.5,
+     "e": 13.652
+    },
+    {
+     "w": "faisait",
+     "s": 13.729,
+     "e": 13.881
+    },
+    {
+     "w": "le",
+     "s": 13.957,
+     "e": 14.11
+    },
+    {
+     "w": "tour",
+     "s": 14.186,
+     "e": 14.262
+    },
+    {
+     "w": "du",
+     "s": 14.338,
+     "e": 14.414
+    },
+    {
+     "w": "quartier.",
+     "s": 14.49,
+     "e": 15.176
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "La police est venue.",
+   "hl": [
+    "police"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L08.k.wav",
+   "file_start": 15.276,
+   "speech_start": 15.276,
+   "speech_end": 16.419,
+   "words": [
+    {
+     "w": "La",
+     "s": 15.276,
+     "e": 15.429
+    },
+    {
+     "w": "police",
+     "s": 15.505,
+     "e": 15.733
+    },
+    {
+     "w": "est",
+     "s": 15.771,
+     "e": 15.81
+    },
+    {
+     "w": "venue.",
+     "s": 15.962,
+     "e": 16.419
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Elle avait perdu ses clés.",
+   "hl": [
+    "perdu",
+    "clés."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L09.k.wav",
+   "file_start": 16.519,
+   "speech_start": 16.519,
+   "speech_end": 17.89,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 16.519,
+     "e": 16.633
+    },
+    {
+     "w": "avait",
+     "s": 16.671,
+     "e": 16.824
+    },
+    {
+     "w": "perdu",
+     "s": 16.9,
+     "e": 17.129
+    },
+    {
+     "w": "ses",
+     "s": 17.205,
+     "e": 17.281
+    },
+    {
+     "w": "clés.",
+     "s": 17.357,
+     "e": 17.89
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les pompiers aussi.",
+   "hl": [
+    "pompiers",
+    "aussi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L10.k.wav",
+   "file_start": 17.99,
+   "speech_start": 17.99,
+   "speech_end": 19.057,
+   "words": [
+    {
+     "w": "Les",
+     "s": 17.99,
+     "e": 18.067
+    },
+    {
+     "w": "pompiers",
+     "s": 18.143,
+     "e": 18.448
+    },
+    {
+     "w": "aussi.",
+     "s": 18.562,
+     "e": 19.057
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Puis le mec a mis la main dans sa poche.",
+   "hl": [
+    "main",
+    "poche."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L11.k.wav",
+   "file_start": 19.157,
+   "speech_start": 19.157,
+   "speech_end": 21.214,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 19.157,
+     "e": 19.386
+    },
+    {
+     "w": "le",
+     "s": 19.538,
+     "e": 19.614
+    },
+    {
+     "w": "mec",
+     "s": 19.69,
+     "e": 19.843
+    },
+    {
+     "w": "a",
+     "s": 19.881,
+     "e": 19.919
+    },
+    {
+     "w": "mis",
+     "s": 19.957,
+     "e": 19.995
+    },
+    {
+     "w": "la",
+     "s": 20.071,
+     "e": 20.148
+    },
+    {
+     "w": "main",
+     "s": 20.224,
+     "e": 20.3
+    },
+    {
+     "w": "dans",
+     "s": 20.326,
+     "e": 20.376
+    },
+    {
+     "w": "sa",
+     "s": 20.452,
+     "e": 20.605
+    },
+    {
+     "w": "poche.",
+     "s": 20.643,
+     "e": 21.214
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Ses clés étaient bien là.",
+   "hl": [
+    "clés",
+    "là."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L12.k.wav",
+   "file_start": 21.314,
+   "speech_start": 21.314,
+   "speech_end": 22.533,
+   "words": [
+    {
+     "w": "Ses",
+     "s": 21.314,
+     "e": 21.543
+    },
+    {
+     "w": "clés",
+     "s": 21.581,
+     "e": 21.695
+    },
+    {
+     "w": "étaient",
+     "s": 21.733,
+     "e": 21.924
+    },
+    {
+     "w": "bien",
+     "s": 21.962,
+     "e": 22.076
+    },
+    {
+     "w": "là.",
+     "s": 22.152,
+     "e": 22.533
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il n'a rien dit.",
+   "hl": [
+    "rien"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L13.k.wav",
+   "file_start": 22.633,
+   "speech_start": 22.633,
+   "speech_end": 23.624,
+   "words": [
+    {
+     "w": "Il",
+     "s": 22.633,
+     "e": 22.71
+    },
+    {
+     "w": "n'a",
+     "s": 22.786,
+     "e": 22.862
+    },
+    {
+     "w": "rien",
+     "s": 22.976,
+     "e": 23.09
+    },
+    {
+     "w": "dit.",
+     "s": 23.205,
+     "e": 23.624
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il a déménagé.",
+   "hl": [
+    "déménagé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/serrurier/tts/L14.k.wav",
+   "file_start": 23.724,
+   "speech_start": 23.724,
+   "speech_end": 24.79,
+   "words": [
+    {
+     "w": "Il",
+     "s": 23.724,
+     "e": 23.8
+    },
+    {
+     "w": "a",
+     "s": 23.876,
+     "e": 23.914
+    },
+    {
+     "w": "déménagé.",
+     "s": 23.952,
+     "e": 24.79
+    }
+   ]
+  }
+ ],
+ "total": 25.63
+}
