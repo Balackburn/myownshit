@@ -1,0 +1,492 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec passait la tondeuse,",
+   "hl": [
+    "tondeuse,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.548,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "passait",
+     "s": 0.557,
+     "e": 0.71
+    },
+    {
+     "w": "la",
+     "s": 0.786,
+     "e": 0.862
+    },
+    {
+     "w": "tondeuse,",
+     "s": 0.938,
+     "e": 1.548
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "quand tout à coup, un ver de terre lui a dit :",
+   "hl": [
+    "ver",
+    "terre"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L02.k.wav",
+   "file_start": 1.648,
+   "speech_start": 1.648,
+   "speech_end": 3.933,
+   "words": [
+    {
+     "w": "quand",
+     "s": 1.648,
+     "e": 1.8
+    },
+    {
+     "w": "tout",
+     "s": 1.876,
+     "e": 1.952
+    },
+    {
+     "w": "à",
+     "s": 2.029,
+     "e": 2.067
+    },
+    {
+     "w": "coup,",
+     "s": 2.105,
+     "e": 2.486
+    },
+    {
+     "w": "un",
+     "s": 2.562,
+     "e": 2.638
+    },
+    {
+     "w": "ver",
+     "s": 2.714,
+     "e": 2.79
+    },
+    {
+     "w": "de",
+     "s": 2.867,
+     "e": 2.943
+    },
+    {
+     "w": "terre",
+     "s": 2.981,
+     "e": 3.095
+    },
+    {
+     "w": "lui",
+     "s": 3.171,
+     "e": 3.248
+    },
+    {
+     "w": "a",
+     "s": 3.286,
+     "e": 3.324
+    },
+    {
+     "w": "dit:",
+     "s": 3.4,
+     "e": 3.933
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "C",
+   "text": "Mec, t'as pas le droit de faire ça.",
+   "hl": [
+    "droit"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L03.k.wav",
+   "file_start": 4.033,
+   "speech_start": 4.033,
+   "speech_end": 5.786,
+   "words": [
+    {
+     "w": "Mec,",
+     "s": 4.033,
+     "e": 4.567
+    },
+    {
+     "w": "t'as",
+     "s": 4.592,
+     "e": 4.719
+    },
+    {
+     "w": "pas",
+     "s": 4.757,
+     "e": 4.795
+    },
+    {
+     "w": "le",
+     "s": 4.833,
+     "e": 4.871
+    },
+    {
+     "w": "droit",
+     "s": 4.91,
+     "e": 5.024
+    },
+    {
+     "w": "de",
+     "s": 5.062,
+     "e": 5.1
+    },
+    {
+     "w": "faire",
+     "s": 5.138,
+     "e": 5.252
+    },
+    {
+     "w": "ça.",
+     "s": 5.329,
+     "e": 5.786
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le ver de terre a appelé la police.",
+   "hl": [
+    "police."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L04.k.wav",
+   "file_start": 5.886,
+   "speech_start": 5.886,
+   "speech_end": 7.79,
+   "words": [
+    {
+     "w": "Le",
+     "s": 5.886,
+     "e": 5.962
+    },
+    {
+     "w": "ver",
+     "s": 6.038,
+     "e": 6.19
+    },
+    {
+     "w": "de",
+     "s": 6.267,
+     "e": 6.343
+    },
+    {
+     "w": "terre",
+     "s": 6.419,
+     "e": 6.648
+    },
+    {
+     "w": "a",
+     "s": 6.724,
+     "e": 6.762
+    },
+    {
+     "w": "appelé",
+     "s": 6.8,
+     "e": 7.029
+    },
+    {
+     "w": "la",
+     "s": 7.105,
+     "e": 7.181
+    },
+    {
+     "w": "police.",
+     "s": 7.257,
+     "e": 7.79
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La police a arrêté le mec.",
+   "hl": [
+    "arrêté"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L05.k.wav",
+   "file_start": 7.89,
+   "speech_start": 7.89,
+   "speech_end": 9.414,
+   "words": [
+    {
+     "w": "La",
+     "s": 7.89,
+     "e": 7.967
+    },
+    {
+     "w": "police",
+     "s": 8.043,
+     "e": 8.348
+    },
+    {
+     "w": "a",
+     "s": 8.386,
+     "e": 8.424
+    },
+    {
+     "w": "arrêté",
+     "s": 8.576,
+     "e": 8.754
+    },
+    {
+     "w": "le",
+     "s": 8.779,
+     "e": 8.805
+    },
+    {
+     "w": "mec.",
+     "s": 8.881,
+     "e": 9.414
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Motif : dégradation de bien personnel.",
+   "hl": [
+    "dégradation"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L06.k.wav",
+   "file_start": 9.514,
+   "speech_start": 9.514,
+   "speech_end": 12.029,
+   "words": [
+    {
+     "w": "Motif:",
+     "s": 9.514,
+     "e": 10.327
+    },
+    {
+     "w": "dégradation",
+     "s": 10.378,
+     "e": 10.886
+    },
+    {
+     "w": "de",
+     "s": 10.962,
+     "e": 11.038
+    },
+    {
+     "w": "bien",
+     "s": 11.089,
+     "e": 11.19
+    },
+    {
+     "w": "personnel.",
+     "s": 11.343,
+     "e": 12.029
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "En prison, le mec a pris un avocat.",
+   "hl": [
+    "avocat."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L07.k.wav",
+   "file_start": 12.129,
+   "speech_start": 12.129,
+   "speech_end": 14.186,
+   "words": [
+    {
+     "w": "En",
+     "s": 12.129,
+     "e": 12.205
+    },
+    {
+     "w": "prison,",
+     "s": 12.281,
+     "e": 12.814
+    },
+    {
+     "w": "le",
+     "s": 12.89,
+     "e": 12.967
+    },
+    {
+     "w": "mec",
+     "s": 13.005,
+     "e": 13.119
+    },
+    {
+     "w": "a",
+     "s": 13.157,
+     "e": 13.195
+    },
+    {
+     "w": "pris",
+     "s": 13.271,
+     "e": 13.348
+    },
+    {
+     "w": "un",
+     "s": 13.424,
+     "e": 13.5
+    },
+    {
+     "w": "avocat.",
+     "s": 13.538,
+     "e": 14.186
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "L'avocat a raconté des salades.",
+   "hl": [
+    "salades."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L08.k.wav",
+   "file_start": 14.286,
+   "speech_start": 14.286,
+   "speech_end": 16.343,
+   "words": [
+    {
+     "w": "L'avocat",
+     "s": 14.286,
+     "e": 14.819
+    },
+    {
+     "w": "a",
+     "s": 14.857,
+     "e": 14.895
+    },
+    {
+     "w": "raconté",
+     "s": 14.971,
+     "e": 15.314
+    },
+    {
+     "w": "des",
+     "s": 15.352,
+     "e": 15.505
+    },
+    {
+     "w": "salades.",
+     "s": 15.619,
+     "e": 16.343
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le jour du jugement,",
+   "hl": [
+    "jugement,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L09.k.wav",
+   "file_start": 16.443,
+   "speech_start": 16.443,
+   "speech_end": 17.518,
+   "words": [
+    {
+     "w": "Le",
+     "s": 16.443,
+     "e": 16.519
+    },
+    {
+     "w": "jour",
+     "s": 16.595,
+     "e": 16.748
+    },
+    {
+     "w": "du",
+     "s": 16.786,
+     "e": 16.824
+    },
+    {
+     "w": "jugement,",
+     "s": 16.9,
+     "e": 17.51
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "le ver de terre, pas content, a mangé l'avocat.",
+   "hl": [
+    "mangé",
+    "l'avocat."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ver/tts/L10.k.wav",
+   "file_start": 17.618,
+   "speech_start": 17.618,
+   "speech_end": 20.437,
+   "words": [
+    {
+     "w": "le",
+     "s": 17.618,
+     "e": 17.694
+    },
+    {
+     "w": "ver",
+     "s": 17.77,
+     "e": 17.922
+    },
+    {
+     "w": "de",
+     "s": 17.998,
+     "e": 18.075
+    },
+    {
+     "w": "terre,",
+     "s": 18.151,
+     "e": 18.532
+    },
+    {
+     "w": "pas",
+     "s": 18.608,
+     "e": 18.684
+    },
+    {
+     "w": "content,",
+     "s": 18.875,
+     "e": 19.294
+    },
+    {
+     "w": "a",
+     "s": 19.37,
+     "e": 19.446
+    },
+    {
+     "w": "mangé",
+     "s": 19.522,
+     "e": 19.751
+    },
+    {
+     "w": "l'avocat.",
+     "s": 19.801,
+     "e": 20.437
+    }
+   ]
+  }
+ ],
+ "total": 22.34
+}

@@ -1,0 +1,84 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec passait la tondeuse,",
+  "hl": [
+   "tondeuse,"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "quand tout à coup, un ver de terre lui a dit :",
+  "hl": [
+   "ver",
+   "terre"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "C",
+  "text": "Mec, t'as pas le droit de faire ça.",
+  "hl": [
+   "droit"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le ver de terre a appelé la police.",
+  "hl": [
+   "police."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La police a arrêté le mec.",
+  "hl": [
+   "arrêté"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Motif : dégradation de bien personnel.",
+  "hl": [
+   "dégradation"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "En prison, le mec a pris un avocat.",
+  "hl": [
+   "avocat."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "L'avocat a raconté des salades.",
+  "hl": [
+   "salades."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le jour du jugement,",
+  "hl": [
+   "jugement,"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "le ver de terre, pas content, a mangé l'avocat.",
+  "hl": [
+   "mangé",
+   "l'avocat."
+  ]
+ }
+]
