@@ -107,7 +107,7 @@ st.shot('S15', 'skyHigh', setOpts=SKY, actors=[act('mec', [0, HY + TOPF, -0.08],
         props=[FLY((0, HY, 0), 0, trail=0, show=[[0.0, 100], [st.at('S15', 'L11', 4) - 0.36, 0, 100]])],
         cams=[cam(0.0, [0.08, HY + 0.95, 0.75], [0.07, HY + 0.9, 0.7], [0, HY + 0.07, 0.17], [0, HY + 0.07, 0.17], lens=40)])
 st.shot('S16', 'skyHigh', setOpts=SKY, actors=[act('mec', [0, HY + TOPF, -0.08], 0, 'rideCheer', 'grin')], props=[FLY((0, HY, 0), 0, show=[[0.0, 0]])],
-        cams=[cam(0.0, [0.55, HY - 0.5, 1.8], [0.52, HY - 0.45, 1.65], [0, HY + 1.55, -0.05], [0, HY + 1.57, -0.05], lens=44)])
+        cams=[cam(0.0, [0.55, HY - 0.5, 1.8], [0.52, HY - 0.45, 1.65], [0, HY + 1.8, -0.05], [0, HY + 1.82, -0.05], lens=44)])
 # 17-19: it lands on a cloud that reads "hors service"; he has never felt so light
 CY, CT = 100.0, 1.1
 CLOUD = lambda **o: P('cloud', 'serviceCloud', pos=[0, CY, 0], opts={'w': 3.6, 'top': CT, 'text': 'HORS SERVICE', 'panelY': 0.62, **o})
@@ -119,11 +119,10 @@ T_HS = st.at('S18', 'L13', 7) - 0.05     # « hors service »: the panel boots o
 st.shot('S18', 'skyHigh', setOpts=SKY, actors=[act('mec', [L1[0], L1[1] + TOPF, L1[2]], 125, 'lookDown', 'surprised')],
         props=[CLOUD(bootAt=T_HS, blinkAt=T_HS + 0.32), FLY(L1, 125, trail=0, show=[[0.0, 0]])],
         cams=[cam(0.0, [0.05, CY + 0.35, 5.5], [0.05, CY + 0.36, 5.25], [0.0, CY + 0.8, 0.0], [0.0, CY + 0.8, 0.0], lens=44)])
-SEAT = [-0.55, CY + CT - 0.5, 0.92]
-st.shot('S19', 'skyHigh', setOpts=SKY, actors=[act('mec', SEAT, 0, 'sitEdge', 'happy')],
-        props=[CLOUD(blinkAt=0.0, panelX=0.55), FLY([-1.25, CY + CT, 0.25], 160, trail=0, show=[[0.0, 0]])],
-        cams=[cam(0.0, [0.2, CY + 1.6, 5.2], [-0.4, CY + 1.95, 2.95], [0.1, CY + 1.15, 0.5], [-0.52, CY + 1.88, 0.9], lens=44, ease='inOut'),
-              {**cam(1.35, [-0.4, CY + 1.95, 2.95], [-0.42, CY + 1.96, 2.8], [-0.52, CY + 1.88, 0.9], [-0.52, CY + 1.89, 0.9], lens=44), 'cut': False, 'glide': 0.25}])
+SEAT = [-0.42, CY + CT - 0.5, 0.92]     # post-review (round 3, both critics): end on a medium-wide tableau: him on the edge, the lit panel and the parked scale in frame
+st.shot('S19', 'skyHigh', setOpts=SKY, actors=[act('mec', SEAT, 0, 'sitEdge', 'grin')],
+        props=[CLOUD(blinkAt=0.0, panelX=0.55, panelY=0.75, dw=1.0), FLY([0.4, CY + CT, -0.3], 200, trail=0, show=[[0.0, 0]])],
+        cams=[cam(0.0, [0.25, CY + 2.0, 6.3], [0.15, CY + 1.95, 5.3], [0.15, CY + 1.42, 0.5], [0.15, CY + 1.45, 0.5], lens=44, ease='out')])
 st.card('S08', 'MODE AVION'); st.card('S16', 'POIDS IDÉAL')
 st.cue('clack', 'S01', T_STEP + 0.3, 0.35); st.cue('sfx:beep', 'S02', st.at('S02', 'L01', 10) + 0.05, 0.3); st.cue('sfx:squeak', 'S03', st.at('S03', 'L02', 5) - 0.3, 0.25)
 st.cue('sfx:beep', 'S04', 0.36, 0.3); st.cue('sfx:gasp', 'S05', T_BR, 0.35); st.cue('sfx:beep', 'S06', 0.36, 0.3); st.cue('thud', 'S06', 0.4, 0.3)
