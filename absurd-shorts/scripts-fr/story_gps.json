@@ -1,0 +1,1931 @@
+{
+ "version": 3,
+ "title": "Le GPS",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      0.12,
+      2.6
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      0.0,
+      0,
+      3.0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "gps",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "LOIN DE MES"
+     },
+     "on": {
+      "actor": "car",
+      "offset": [
+       0.98,
+       1.12,
+       -0.25
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.6,
+      1.7,
+      6.6
+     ],
+     "to": [
+      2.5,
+      1.7,
+      6.3
+     ],
+     "lookAt": [
+      0.55,
+      1.2,
+      2.7
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.55,
+      1.2,
+      2.7
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.6667,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      0.12,
+      2.6
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.2,
+       "look": [
+        0.2,
+        2.6,
+        2.6
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      0.0,
+      0,
+      3.0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "gps",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "LOIN DE MES"
+     },
+     "on": {
+      "actor": "car",
+      "offset": [
+       0.98,
+       1.12,
+       -0.25
+      ]
+     }
+    },
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -0.5,
+      2.45,
+      2.6
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug",
+      "bolt": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      0.3,
+      2.5700000000000003,
+      2.7
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "angry",
+      "bolt": true
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      1.1,
+      2.45,
+      2.6
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "smug",
+      "bolt": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      1.3,
+      7.6
+     ],
+     "to": [
+      0.85,
+      1.35,
+      7.2
+     ],
+     "lookAt": [
+      0.3,
+      1.75,
+      2.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.8,
+      2.6
+     ]
+    }
+   ],
+   "start": 1.6667,
+   "duration": 1.5333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "scr",
+     "name": "gpsScreen",
+     "pos": [
+      0,
+      1.2,
+      0
+     ],
+     "opts": {
+      "text": "CALCUL DE\nL'ITINÉRAIRE…",
+      "w": 0.5,
+      "recalc": false
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.02,
+      1.2,
+      1.0
+     ],
+     "to": [
+      0.02,
+      1.2,
+      0.9
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.2,
+      0
+     ]
+    }
+   ],
+   "start": 3.2,
+   "duration": 1.3,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "scr",
+     "name": "gpsScreen",
+     "pos": [
+      0,
+      1.2,
+      0
+     ],
+     "opts": {
+      "text": "DANS 3000 KM,\nTOURNEZ À DROITE",
+      "w": 0.5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.03,
+      1.2,
+      0.98
+     ],
+     "to": [
+      0.03,
+      1.2,
+      0.84
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.2,
+      0
+     ]
+    }
+   ],
+   "start": 4.5,
+   "duration": 2.2333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S05",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.95,
+      0.12,
+      -0.4
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        3.05,
+        0.12,
+        -0.4
+       ],
+       "glide": true,
+       "dur": 1.633,
+       "ease": "linear",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      }
+     ],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "sand",
+     "name": "carpet",
+     "pos": [
+      0,
+      -0.02,
+      0
+     ],
+     "opts": {
+      "w": 300,
+      "d": 300,
+      "color": "#3A3550",
+      "inner": "#3A3550"
+     }
+    },
+    {
+     "id": "road",
+     "name": "carpet",
+     "pos": [
+      0,
+      -0.005,
+      0.0
+     ],
+     "opts": {
+      "w": 300,
+      "d": 3.0,
+      "color": "#2A2D36",
+      "inner": "#2A2D36"
+     }
+    },
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      -3.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        3.0,
+        0,
+        0.0
+       ],
+       "dur": 1.633,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "moon",
+     "name": "moon",
+     "pos": [
+      -6,
+      9,
+      -30
+     ],
+     "opts": {
+      "radius": 2.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.6,
+      1.4,
+      7.5
+     ],
+     "to": [
+      1.6,
+      1.4,
+      7.5
+     ],
+     "lookAt": [
+      -1.0,
+      1.0,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.0,
+      1.0,
+      0.0
+     ]
+    }
+   ],
+   "start": 6.7333,
+   "duration": 1.6334,
+   "light": {
+    "hemi": 0.45,
+    "sky": "#4A5C8A",
+    "ground": "#1B2238",
+    "keyI": 0.55,
+    "key": "#B8C8FF"
+   },
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S06",
+   "set": "desert",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -0.2
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      -1.2,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "gps",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "LOIN DE MES"
+     },
+     "on": {
+      "actor": "car",
+      "offset": [
+       0.98,
+       1.12,
+       -0.25
+      ]
+     }
+    },
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -0.30000000000000004,
+      1.1,
+      -2.8
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      0.6,
+      1.2200000000000002,
+      -2.6999999999999997
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "angry",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      1.5,
+      1.1,
+      -2.8
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "smug",
+      "glasses": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.4,
+      1.5,
+      4.2
+     ],
+     "to": [
+      1.35,
+      1.5,
+      3.9
+     ],
+     "lookAt": [
+      0.4,
+      1.15,
+      -1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      1.15,
+      -1.0
+     ]
+    }
+   ],
+   "start": 8.3667,
+   "duration": 0.9,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S07",
+   "set": "desert",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.8,
+      0,
+      0.3
+     ],
+     "ry": -60,
+     "clip": "doubleTake",
+     "keys": [],
+     "expr": "shocked"
+    }
+   ],
+   "props": [
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -1.1,
+      1.4,
+      -0.6
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      -0.4,
+      1.52,
+      -0.5
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "angry",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      0.29999999999999993,
+      1.4,
+      -0.6
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "smug",
+      "glasses": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.55,
+      3.9
+     ],
+     "to": [
+      0.48,
+      1.55,
+      3.6
+     ],
+     "lookAt": [
+      0.3,
+      1.45,
+      -0.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.45,
+      -0.2
+     ]
+    }
+   ],
+   "start": 9.2667,
+   "duration": 1.6333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S08",
+   "set": "desert",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -0.8,
+      1.3,
+      0.0
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug",
+      "suitcase": true,
+      "ticket": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      0.0,
+      1.42,
+      0.1
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "angry",
+      "suitcase": true,
+      "ticket": true
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      0.8,
+      1.3,
+      0.0
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "smug",
+      "suitcase": true,
+      "ticket": true
+     }
+    },
+    {
+     "id": "jet",
+     "name": "plane",
+     "pos": [
+      -30,
+      14,
+      -45
+     ],
+     "ry": -10,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        25,
+        18,
+        -55
+       ],
+       "dur": 1.333,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.35,
+      3.1
+     ],
+     "to": [
+      0.1,
+      1.38,
+      2.85
+     ],
+     "lookAt": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.62,
+      0.0
+     ]
+    }
+   ],
+   "start": 10.9,
+   "duration": 1.3333,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S09",
+   "set": "desert",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.95,
+      0.12,
+      -0.4
+     ],
+     "ry": 90,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        9.05,
+        0.12,
+        -0.4
+       ],
+       "glide": true,
+       "dur": 1.033,
+       "ease": "in",
+       "clip": "drive",
+       "then": "drive",
+       "face": "keep"
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "car",
+     "name": "car",
+     "pos": [
+      -1.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "color": "#C9473A"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        9.0,
+        0,
+        0.0
+       ],
+       "dur": 1.033,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -2.4000000000000004,
+      1.4,
+      -1.6
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "happy",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      -1.6,
+      1.52,
+      -1.5
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "happy",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      -0.8,
+      1.4,
+      -1.6
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "happy",
+      "glasses": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.2,
+      1.3,
+      5.6
+     ],
+     "to": [
+      0.2,
+      1.3,
+      5.4
+     ],
+     "lookAt": [
+      -0.3,
+      1.0,
+      -0.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.6,
+      1.0,
+      -0.4
+     ]
+    }
+   ],
+   "start": 12.2333,
+   "duration": 1.0334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S10",
+   "set": "snow",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "scared",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [
+    {
+     "id": "np",
+     "name": "signBoard",
+     "pos": [
+      -0.75,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "text": "PÔLE NORD",
+      "w": 1.0,
+      "h": 0.32,
+      "height": 1.85,
+      "bg": "#F4F1E8",
+      "fg": "#2C4A8A",
+      "frame": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.5,
+      3.0
+     ],
+     "to": [
+      0.33,
+      1.5,
+      2.75
+     ],
+     "lookAt": [
+      -0.2,
+      1.3,
+      -0.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.2,
+      1.3,
+      -0.3
+     ]
+    }
+   ],
+   "start": 13.2667,
+   "duration": 1.0666,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S11",
+   "set": "snow",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -1.6,
+      1.55,
+      -0.6
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "happy",
+      "skis": true,
+      "size": 1.35,
+      "keys": [
+       {
+        "at": 0.0,
+        "to": [
+         0.6,
+         0.75,
+         0.4
+        ],
+        "dur": 1.633,
+        "ease": "linear"
+       }
+      ]
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      -0.8500000000000001,
+      1.37,
+      -1.1
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "happy",
+      "skis": true,
+      "size": 1.35,
+      "keys": [
+       {
+        "at": 0.0,
+        "to": [
+         1.35,
+         0.5700000000000001,
+         -0.09999999999999998
+        ],
+        "dur": 1.633,
+        "ease": "linear"
+       }
+      ]
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      -0.10000000000000009,
+      1.19,
+      -1.6
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "happy",
+      "skis": true,
+      "size": 1.35,
+      "keys": [
+       {
+        "at": 0.0,
+        "to": [
+         2.1,
+         0.39,
+         -0.6
+        ],
+        "dur": 1.633,
+        "ease": "linear"
+       }
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.35,
+      3.6
+     ],
+     "to": [
+      0.1,
+      1.3,
+      3.4
+     ],
+     "lookAt": [
+      -0.5,
+      1.05,
+      -0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      0.85,
+      -0.3
+     ]
+    }
+   ],
+   "start": 14.3333,
+   "duration": 1.6334,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S12",
+   "set": "desert",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "rk",
+     "name": "rocket",
+     "pos": [
+      0,
+      0,
+      -2.0
+     ],
+     "scale": 1.4,
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        0,
+        7,
+        -2.0
+       ],
+       "dur": 1.7,
+       "ease": "inOut"
+      }
+     ]
+    },
+    {
+     "id": "smk",
+     "name": "dustPuff",
+     "pos": [
+      0,
+      0.1,
+      -2.0
+     ],
+     "scale": 3.0
+    },
+    {
+     "id": "fl",
+     "name": "flame",
+     "on": {
+      "actor": "rk",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "rot": [
+      3.1416,
+      0,
+      0
+     ],
+     "scale": 2.5,
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.6,
+      7.2
+     ],
+     "to": [
+      0.48,
+      1.9,
+      6.9
+     ],
+     "lookAt": [
+      0.0,
+      2.6,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      6.4,
+      -2.0
+     ],
+     "shake": 0.012
+    }
+   ],
+   "start": 15.9667,
+   "duration": 1.8,
+   "grade": "contrast(0.9) saturate(1.08) brightness(1.08)",
+   "soften": 0.84
+  },
+  {
+   "id": "S13",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "st0",
+     "name": "chair",
+     "pos": [
+      -0.7,
+      0,
+      0.0
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "st1",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "st2",
+     "name": "chair",
+     "pos": [
+      0.7,
+      0,
+      0.0
+     ],
+     "opts": {
+      "color": "#3A3D44"
+     }
+    },
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -0.7,
+      1.0,
+      0.05
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug",
+      "belt": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      0.7,
+      1.0,
+      0.05
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "smug",
+      "belt": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.1,
+      1.4,
+      3.6
+     ],
+     "to": [
+      0.1,
+      1.4,
+      3.35
+     ],
+     "lookAt": [
+      0.0,
+      1.1,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.1,
+      0.0
+     ]
+    }
+   ],
+   "start": 17.7667,
+   "duration": 2.4333,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S14",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "readPhone",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -6,
+      10,
+      -40
+     ],
+     "opts": {
+      "radius": 3.2,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome",
+     "name": "glassDome",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.2,
+      "base": false
+     }
+    },
+    {
+     "id": "hgps",
+     "name": "gpsDevice",
+     "opts": {
+      "text": "RECALCUL…"
+     },
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "rot": [
+       -1.2,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       -0.12,
+       0.04
+      ]
+     },
+     "scale": 1.5
+    },
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -0.8,
+      2.2,
+      -1.4
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug"
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      0.0,
+      2.3200000000000003,
+      -1.2999999999999998
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "angry"
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      0.8,
+      2.2,
+      -1.4
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "smug"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.55,
+      3.0
+     ],
+     "to": [
+      0.33,
+      1.55,
+      2.75
+     ],
+     "lookAt": [
+      0.0,
+      1.5,
+      -0.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.5,
+      -0.4
+     ]
+    }
+   ],
+   "start": 20.2,
+   "duration": 2.3333,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S15",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "scr",
+     "name": "gpsScreen",
+     "pos": [
+      0,
+      1.2,
+      0
+     ],
+     "opts": {
+      "text": "ITINÉRAIRE LE PLUS COURT :\nVOUS EXCUSER",
+      "w": 0.42,
+      "dest": "CHEZ ELLE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.02,
+      1.2,
+      1.12
+     ],
+     "to": [
+      0.02,
+      1.2,
+      1.0
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.2,
+      0
+     ]
+    }
+   ],
+   "start": 22.5333,
+   "duration": 2.4667,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S16",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "scr",
+     "name": "gpsScreen",
+     "pos": [
+      0,
+      1.2,
+      0
+     ],
+     "opts": {
+      "text": "VOUS EXCUSER",
+      "w": 0.5
+     },
+     "keys": [
+      {
+       "at": 0.55,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "scr2",
+     "name": "gpsScreen",
+     "pos": [
+      0,
+      1.2,
+      0.001
+     ],
+     "opts": {
+      "off": true,
+      "w": 0.5
+     },
+     "visible": false,
+     "keys": [
+      {
+       "at": 0.55,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.02,
+      1.2,
+      1.05
+     ],
+     "to": [
+      0.02,
+      1.2,
+      0.95
+     ],
+     "lookAt": [
+      0,
+      1.2,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.2,
+      0
+     ]
+    }
+   ],
+   "start": 25.0,
+   "duration": 1.4667,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S17",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -6,
+      10,
+      -40
+     ],
+     "opts": {
+      "radius": 3.2,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "house",
+     "name": "cottage",
+     "pos": [
+      0.3,
+      0,
+      -1.5
+     ],
+     "scale": 0.35,
+     "opts": {
+      "w": 6,
+      "d": 6,
+      "h": 2.6,
+      "rh": 1.6,
+      "color": "#F2D06B",
+      "roof": "#C9473A"
+     }
+    },
+    {
+     "id": "mail",
+     "name": "noticeBoard",
+     "pos": [
+      1.6,
+      0,
+      -0.4
+     ],
+     "opts": {
+      "text": "LE MEC",
+      "style": "tag",
+      "w": 0.4,
+      "h": 0.14,
+      "height": 0.9
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.2,
+      1.6,
+      6.0
+     ],
+     "to": [
+      1.1,
+      1.65,
+      5.6
+     ],
+     "lookAt": [
+      0.3,
+      1.3,
+      -1.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      1.35,
+      -1.5
+     ]
+    }
+   ],
+   "start": 26.4667,
+   "duration": 1.9333,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  },
+  {
+   "id": "S18",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 160,
+     "clip": "sit",
+     "keys": [],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "ground",
+     "name": "moonSurface",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "r": 40
+     }
+    },
+    {
+     "id": "earth",
+     "name": "earthGlobe",
+     "pos": [
+      -6,
+      10,
+      -40
+     ],
+     "opts": {
+      "radius": 3.2,
+      "spin": 0.1
+     }
+    },
+    {
+     "id": "dome",
+     "name": "glassDome",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.05,
+       0
+      ]
+     },
+     "opts": {
+      "radius": 0.32,
+      "opacity": 0.2,
+      "base": false
+     }
+    },
+    {
+     "id": "ch",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 160,
+     "opts": {
+      "color": "#2F7F8C"
+     }
+    },
+    {
+     "id": "pb0",
+     "name": "problemCloud",
+     "pos": [
+      -0.85,
+      1.25,
+      0.1
+     ],
+     "opts": {
+      "seed": 11,
+      "mood": "smug",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb1",
+     "name": "problemCloud",
+     "pos": [
+      0.85,
+      1.2,
+      -0.05
+     ],
+     "opts": {
+      "seed": 12,
+      "mood": "happy",
+      "glasses": true
+     }
+    },
+    {
+     "id": "pb2",
+     "name": "problemCloud",
+     "pos": [
+      0.1,
+      1.95,
+      0.55
+     ],
+     "opts": {
+      "seed": 13,
+      "mood": "smug",
+      "glasses": true
+     }
+    },
+    {
+     "id": "earth2",
+     "name": "earthGlobe",
+     "pos": [
+      5,
+      9,
+      40
+     ],
+     "opts": {
+      "radius": 3.2,
+      "spin": 0.1
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.7,
+      1.45,
+      -3.4
+     ],
+     "to": [
+      -0.65,
+      1.47,
+      -3.15
+     ],
+     "lookAt": [
+      0.0,
+      1.15,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.17,
+      0.0
+     ]
+    }
+   ],
+   "start": 28.4,
+   "duration": 1.93,
+   "grade": "contrast(0.95) saturate(1.1) brightness(1.02)",
+   "soften": 0.84
+  }
+ ],
+ "total": 30.33
+}

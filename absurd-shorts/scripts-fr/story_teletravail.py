@@ -22,22 +22,22 @@ st.shot('S01', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sit', 'ha
         cams=[cam(0.0, [0.5, 1.6, 2.4], [0.48, 1.6, 2.15], [0.32, 1.38, -1.7], [0.32, 1.38, -1.7], lens=44)])
 st.shot('S02', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sitWrite', 'neutral', scale=DOGS)], props=DESK() + [TIE(), P('lap', 'laptop', pos=[0, 0.75, -1.3], ry=180)],
         cams=[cam(0.0, [0.3, 1.4, 0.35], [0.28, 1.4, 0.15], [0.0, 1.25, -1.95], [0.0, 1.25, -1.95], lens=44)])
-st.shot('S03', 'livingRoom', props=DESK() + [P('grid', 'callGrid', pos=[0, 1.05, -1.3], opts={'w': 0.6})],
-        cams=[cam(0.0, [0.03, 1.05, -0.45], [0.03, 1.05, -0.6], [0.0, 1.05, -1.3], [0.0, 1.05, -1.3], lens=44)])
-st.shot('S04', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sitTalk', 'happy', scale=DOGS)], props=DESK() + [TIE(), BUBBLE('w', 'WOUF !', [0.12, 2.12, -1.9], 0.25, 'down', 0.62)],
+st.shot('S03', 'livingRoom', props=DESK() + [P('grid', 'callGrid', pos=[0, 1.05, -1.3], opts={'w': 0.42})],
+        cams=[cam(0.0, [0.02, 1.0, -0.2], [0.02, 1.0, -0.3], [0.0, 1.0, -1.3], [0.0, 1.0, -1.3], lens=44)])
+st.shot('S04', 'livingRoom', actors=[act('chien', [0.0, 0, -1.95], 0, 'sitTalk', 'happy', scale=DOGS)], props=DESK() + [TIE(), BUBBLE('w', 'WOUF !', [0.36, 1.95, -1.7], 0.25, 'left', 0.5)],
         cams=[cam(0.0, [0.2, 1.65, 0.5], [0.19, 1.65, 0.3], [0.05, 1.62, -1.95], [0.05, 1.62, -1.95], lens=44, shake=0.004)])
 # 5-8: the bosses hear "yes": promoted, team leader, of the man's team
 st.shot('S05', 'office', setOpts={'door': False}, actors=[act('boss1', [-0.4, 0, -0.9], 15, 'nod', 'happy'), act('boss2', [0.45, 0, -0.95], -15, 'present', 'happy')],
-        props=[BUBBLE('oui', 'OUI !', [-0.4, 2.55, -0.9], 0.3, 'down', 0.55), BUBBLE('oui2', 'OUI !', [0.45, 2.5, -0.95], 0.6, 'down', 0.55)],
+        props=[BUBBLE('oui', 'OUI !', [-0.45, 2.68, -0.9], 0.3, 'down', 0.5), BUBBLE('oui2', 'OUI !', [0.5, 2.66, -0.95], 0.6, 'down', 0.5)],
         cams=[cam(0.0, [0.05, 1.6, 2.6], [0.05, 1.6, 2.35], [0.0, 1.55, -0.9], [0.0, 1.55, -0.9], lens=44)])
 st.shot('S06', 'office', setOpts={'door': False}, actors=[act('chien', [0.0, 0, -1.95], 0, 'sit', 'happy', scale=DOGS)],
         props=DESK(tag='MANAGER') + [TIE()],
-        cams=[cam(0.0, [0.35, 1.45, 1.0], [0.33, 1.45, 0.75], [0.0, 1.15, -1.7], [0.0, 1.15, -1.7], lens=44)])
+        cams=[cam(0.0, [0.35, 1.3, 1.1], [0.33, 1.3, 0.85], [0.0, 1.32, -1.7], [0.0, 1.32, -1.7], lens=44)])
 TAB = [P('mt', 'table', pos=[0, 0, -0.8], opts={'w': 0.9, 'd': 2.2, 'h': 0.74, 'color': '#C99A62'})] + [P(f'mc{i}', 'chair', pos=[x, 0, z], ry=r, opts={'color': '#2F62B5'}) for i, (x, z, r) in enumerate(((-0.75, -0.3, 90), (-0.75, -1.2, 90), (0.75, -0.3, -90), (0.75, -1.2, -90)))]
 TEAM = lambda e='neutral': [act('emp1', [-0.75, 0, -1.2], 90, 'sit', 'neutral'), act('emp2', [0.75, 0, -1.2], -90, 'sit', 'neutral'), act('emp3', [0.75, 0, -0.3], -90, 'sit', 'neutral'), act('mec', [-0.75, 0, -0.3], 90, 'sit', e)]
 st.shot('S07', 'office', setOpts={'door': False}, actors=TEAM() + [act('chien', [0.0, 0, -2.2], 0, 'point', 'smug', scale=DOGS)],
-        props=TAB + [TIE(), P('chf', 'noticeBoard', pos=[0, 2.45, -2.3], opts={'text': "CHEF D'ÉQUIPE", 'style': 'sign', 'w': 0.9, 'h': 0.22, 'bg': '#F2C94C', 'fg': '#1C252A', 'frame': '#1C252A'})],
-        cams=[cam(0.0, [0.1, 1.85, 2.2], [0.1, 1.83, 1.95], [0.0, 1.2, -1.1], [0.0, 1.2, -1.1], lens=44)])
+        props=TAB + [TIE(), P('chf', 'noticeBoard', pos=[0, 2.28, -2.3], opts={'text': "CHEF D'ÉQUIPE", 'style': 'sign', 'w': 0.9, 'h': 0.22, 'bg': '#F2C94C', 'fg': '#1C252A', 'frame': '#1C252A'})],
+        cams=[cam(0.0, [0.1, 1.8, 2.4], [0.1, 1.78, 2.15], [0.0, 1.45, -1.1], [0.0, 1.45, -1.1], lens=44)])
 st.shot('S08', 'office', setOpts={'door': False}, actors=TEAM('shocked') + [act('chien', [0.0, 0, -2.2], 0, 'point', 'smug', scale=DOGS)], props=TAB + [TIE()],
         cams=[cam(0.0, [0.55, 1.5, 0.55], [0.5, 1.5, 0.4], [-0.75, 1.42, -0.3], [-0.75, 1.42, -0.3], lens=44, shake=0.005)])
 # 9-10: now the dog walks him, twice a day
@@ -46,34 +46,34 @@ WALK = lambda x0, x1, z, d: [act('chien', [x0, 0, z], 90, 'stand', 'happy', scal
                              act('mec', [x0 - 1.15, 0, z + 0.05], 90, 'stand', 'unimpressed', keys=[k(0.0, to=[x1 - 1.15, 0, z + 0.05], dur=d, clip='walk', face='keep')])]
 LEASH = [{'a': {'actor': 'chien', 'hand': 'R', 'offset': [0, -0.05, 0]}, 'b': {'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.66, 0.1]}, 'color': '#C8322A', 'radius': 0.012, 'sag': 0.15}]
 st.shot('S09', 'parisStreet', actors=WALK(-1.0, 1.4, 6.0, D9), props=[TIE(), COLLAR], tethers=LEASH,
-        cams=[cam(0.0, [0.0, 1.4, 11.6], [1.6, 1.4, 11.6], [-0.6, 1.1, 6.0], [1.0, 1.1, 6.0], lens=44)])
+        cams=[cam(0.0, [3.2, 1.45, 10.4], [4.6, 1.45, 10.2], [-0.2, 1.15, 6.0], [1.2, 1.15, 6.0], lens=44)])
 st.shot('S10', 'park', actors=WALK(-0.8, 0.9, 0.0, D10), props=[TIE(), COLLAR], tethers=LEASH,
         cams=[cam(0.0, [2.6, 1.0, 2.6], [2.8, 1.0, 2.3], [-0.2, 1.2, 0.0], [0.4, 1.2, 0.0], lens=44)])
 # 11-13: he fetches the files; annual review "good boy"; the bonus is a bone (the boss desk turned side-on: the dog at its left, him at its right, both cheated 3/4)
 st.shot('S11', 'office', setOpts={'door': False}, actors=[act('chien', [-0.9, 0, -1.6], 60, 'raiseOverhead', 'happy', scale=DOGS), act('mec', [0.9, 0, -0.6], -110, 'stand', 'happy', keys=[k(0.35, to=[-0.4, 0, -1.1], dur=0.7, clip='run', then='giveItem')])],
-        props=[TIE(), P('fold', 'folderDoc', pos=[1.1, 0.9, -0.8], opts={'text': 'DOSSIER'}, keys=[k(0.0, attach={'actor': 'mec', 'hand': 'R', **HAND_FLAT})])],
-        cams=[cam(0.0, [0.2, 1.55, 2.5], [0.18, 1.55, 2.25], [0.0, 1.15, -1.1], [-0.15, 1.15, -1.2], lens=44)])
+        props=[TIE(), P('fold', 'folderDoc', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.08, 0.17], 'rot': [-1.4, 0, 0]}, scale=1.6, opts={'text': 'DOSSIER', 'color': '#F2A33A'})],
+        cams=[cam(0.0, [-0.3, 1.45, 3.0], [-0.3, 1.45, 2.7], [-0.2, 1.2, -1.1], [-0.35, 1.2, -1.2], lens=44)])
 BD = [P('desk', 'desk', pos=[0.0, 0, -1.4], ry=90), P('chair', 'chair', pos=[-0.55, 0, -1.4], ry=90, opts={'color': '#3A3D44'}),
       P('tag', 'noticeBoard', pos=[0.42, 0.84, -1.28], ry=90, opts={'text': 'MANAGER', 'style': 'tag', 'w': 0.46, 'h': 0.12})]
 DOGD = lambda clip='sit', expr='smug', keys=None: act('chien', [-0.55, 0, -1.4], 70, clip, expr, scale=DOGS, keys=keys)
 TWO = lambda: [cam(0.0, [0.4, 1.5, 2.9], [0.39, 1.5, 2.65], [0.15, 1.25, -1.35], [0.15, 1.25, -1.35], lens=44)]
-st.shot('S12', 'office', setOpts={'door': False}, actors=[DOGD('sitTalk', 'smug'), act('mec', [0.75, 0, -1.3], -70, 'sit', 'happy')],
-        props=BD + [TIE(), P('mch', 'chair', pos=[0.75, 0, -1.3], ry=-70, opts={'color': '#2F62B5'}), BUBBLE('bg', 'BON GARÇON !', [-0.35, 2.2, -1.4], 0.35, 'down', 0.9)], cams=TWO())
+st.shot('S12', 'office', setOpts={'door': False}, actors=[DOGD('sitTalk', 'smug'), act('mec', [0.75, 0, -1.3], -50, 'sit', 'happy')],
+        props=BD + [TIE(), P('mch', 'chair', pos=[0.75, 0, -1.3], ry=-50, opts={'color': '#2F62B5'}), BUBBLE('bg', 'BON GARÇON !', [-0.35, 2.2, -1.4], 0.35, 'down', 0.9)], cams=TWO())
 st.shot('S13', 'office', setOpts={'door': False}, actors=[act('mec', [0.0, 0, -1.2], 0, 'lookDown', 'unimpressed', keys=[k(0.9, expr='sad')])],
         props=[P('t', 'table', pos=[0, 0, -0.75], opts={'w': 0.8, 'd': 0.6, 'h': 0.74, 'color': '#C99A62'}), P('gift', 'giftBone', pos=[0, 0.74, -0.7], opts={'openAt': 0.3})],
-        cams=[cam(0.0, [0.3, 1.6, 1.25], [0.29, 1.6, 1.05], [0.0, 1.35, -0.95], [0.0, 1.35, -0.95], lens=44)])
+        cams=[cam(0.0, [0.3, 1.9, 1.75], [0.29, 1.88, 1.55], [0.0, 1.32, -0.95], [0.0, 1.32, -0.95], lens=44)])
 # 14-17: he asks for a raise; "sit"; he sits; he gets a sugar cube
-st.shot('S14', 'office', setOpts={'door': False}, actors=[DOGD('sit', 'unimpressed'), act('mec', [0.8, 0, -1.25], -70, 'explain', 'worried')], props=BD + [TIE()], cams=TWO())
-st.shot('S15', 'office', setOpts={'door': False}, actors=[DOGD('pointDown', 'angry')], props=BD + [TIE(), BUBBLE('as', 'ASSIS !', [-0.05, 2.05, -1.3], 0.2, 'left', 0.62)],
-        cams=[cam(0.0, [0.6, 1.6, 0.75], [0.57, 1.6, 0.55], [-0.4, 1.58, -1.4], [-0.4, 1.58, -1.4], lens=44, shake=0.005)])
-st.shot('S16', 'office', setOpts={'door': False}, actors=[DOGD('sit', 'smug'), act('mec', [0.8, 0, -1.25], -70, 'stand', 'neutral', keys=[k(0.15, clip='sitFloor', expr='neutral')])], props=BD + [TIE()],
-        cams=[cam(0.0, [0.7, 1.2, 2.2], [0.68, 1.18, 1.95], [0.32, 0.88, -1.3], [0.32, 0.86, -1.3], lens=44)])
-st.shot('S17', 'office', setOpts={'door': False}, actors=[DOGD('giveItem', 'happy'), act('mec', [0.8, 0, -1.25], -70, 'sitFloor', 'happy')],
-        props=BD + [TIE(), P('sugar', 'sugarCube', on={'actor': 'chien', 'hand': 'R'}, scale=1.6)],
-        cams=[cam(0.0, [0.65, 1.2, 2.0], [0.63, 1.19, 1.78], [0.28, 0.95, -1.32], [0.28, 0.95, -1.32], lens=44)])
+st.shot('S14', 'office', setOpts={'door': False}, actors=[DOGD('sit', 'unimpressed'), act('mec', [0.8, 0, -1.25], -45, 'explain', 'worried')], props=BD + [TIE()], cams=TWO())
+st.shot('S15', 'office', setOpts={'door': False}, actors=[act('chien', [0.25, 0, -0.75], 28, 'commandSit', 'angry', scale=DOGS)], props=BD + [TIE()],
+        cams=[cam(0.0, [1.35, 0.8, 1.35], [1.3, 0.78, 1.25], [0.3, 1.55, -0.8], [0.3, 1.55, -0.8], lens=44, shake=0.005)])
+st.shot('S16', 'office', setOpts={'door': False}, actors=[DOGD('sit', 'smug'), act('mec', [0.8, 0, -1.25], -35, 'stand', 'neutral', keys=[k(0.15, clip='sitFloor', expr='neutral')])], props=BD + [TIE()],
+        cams=[cam(0.0, [1.6, 3.0, 0.9], [1.55, 2.95, 0.8], [0.6, 0.6, -1.2], [0.6, 0.55, -1.2], lens=44)])
+st.shot('S17', 'office', setOpts={'door': False}, actors=[act('chien', [0.15, 0, -1.65], 40, 'feedTreat', 'happy', scale=DOGS), act('mec', [0.8, 0, -1.25], -35, 'sitFloor', 'neutral', keys=[k(st.at('S17', 'L15', 4) + 0.05, expr='happy')])],
+        props=BD + [TIE(), P('sugar', 'sugarCube', on={'actor': 'chien', 'hand': 'R', 'offset': [0, -0.12, 0.05]}, scale=4.2, keys=[k(st.at('S17', 'L15', 4) + 0.05, visible=False)])],
+        cams=[cam(0.0, [-0.1, 1.25, 0.45], [-0.08, 1.24, 0.35], [0.6, 1.08, -1.3], [0.6, 1.08, -1.3], lens=44)])
 st.card('S06', 'PROMU'); st.card('S15', 'ASSIS')
 st.cue('pop', 'S04', 0.25, 0.4); st.cue('pop', 'S05', 0.3, 0.35); st.cue('pop', 'S05', 0.6, 0.35); st.cue('sfx:fanfare', 'S06', 0.1, 0.3); st.cue('sfx:step', 'S09', 0.2, 0.3)
-st.cue('whoosh', 'S11', 0.3, 0.4); st.cue('pop', 'S12', 0.35, 0.35); st.cue('sfx:ding', 'S13', 0.3, 0.35); st.cue('pop', 'S15', 0.2, 0.45); st.cue('thud', 'S16', 0.4, 0.4); st.cue('sfx:clink', 'S17', 0.4, 0.3)
+st.cue('whoosh', 'S11', 0.3, 0.4); st.cue('pop', 'S12', 0.35, 0.35); st.cue('sfx:ding', 'S13', 0.3, 0.35); st.cue('pop', 'S15', 0.2, 0.45); st.cue('thud', 'S16', 0.4, 0.4); st.cue('sfx:clink', 'S17', st.at('S17', 'L15', 4) + 0.05, 0.35)
 st.write('Le télétravail', {'chien': {'type': 'creature', 'name': 'dog', 'opts': {'seed': 4, 'upright': True}},
                             'boss1': {'preset': 'boss', 'seed': 51}, 'boss2': {'preset': 'madame', 'seed': 52, 'glasses': True},
                             'emp1': {'preset': 'politique', 'seed': 53}, 'emp2': {'preset': 'madame', 'seed': 54}, 'emp3': {'preset': 'prefet', 'seed': 55}})

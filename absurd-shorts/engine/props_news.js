@@ -697,8 +697,8 @@ export const NEWS_PROPS = {
     g.userData.update(0); return g;
   },
   folderDoc(o) { // a manila folder with papers (o.text on its tab label); hold it or throw it
-    const g = grp(at(box(0.32, 0.02, 0.24, '#E2B866', { outline: 0.004 }), 0, 0, 0), at(box(0.29, 0.012, 0.22, '#F7F3EA'), 0, 0.012, 0.005), at(box(0.1, 0.022, 0.03, '#E2B866'), -0.08, 0, -0.13));
-    if (o.text) g.add(at(label(o.text, 0.16, 0.05, { bg: '#FFFFFF', fg: '#1C252A' }), 0, 0.02, 0.0, -PI / 2, 0, 0));
+    const fc = o.color || '#E2B866', g = grp(at(box(0.32, 0.02, 0.24, fc, { outline: 0.004 }), 0, 0, 0), at(box(0.29, 0.012, 0.22, '#F7F3EA'), 0, 0.012, 0.005), at(box(0.1, 0.022, 0.03, fc), -0.08, 0, -0.13));
+    if (o.text) g.add(at(label(o.text, 0.24, 0.08, { bg: '#FFFFFF', fg: '#1C252A' }), 0, 0.022, 0.0, -PI / 2, 0, 0));
     return g;
   },
   sugarCube(o) { return grp(at(box(0.035, 0.035, 0.035, '#FFFFFF', { outline: 0.002 }), 0, 0.0175, 0)); },  // a sugar cube
@@ -730,5 +730,39 @@ export const NEWS_PROPS = {
       const f = at(sphere(0.014, '#FFB13B', 1, { emissive: '#FF9A2E' }), x, 0.345, z); f.scale.set(0.7, 1.3, 0.7); g.add(f); flames.push(f); }
     g.userData.update = t => flames.forEach((f, i) => { const k = 1 + 0.18 * Math.sin(t * 17 + i * 1.7); f.scale.set(0.7 * k, 1.3 / k, 0.7 * k); });
     return g;
+  },
+  problemCloud(o) { // le GPS: one of his "problems": a small grey storm cloud with a face (o.mood 'smug' | 'angry' | 'happy'), bobbing; o.bolt a yellow lightning bolt under it,
+    // o.glasses sunglasses, o.suitcase a little suitcase beside it, o.skis two red skis under it, o.belt a seat belt strap; o.size scales it (default 0.7 m wide)
+    const k = o.size || 1, r = rng(o.seed || 7), g = grp(), body = grp(); g.add(body);
+    const geo = new THREE.IcosahedronGeometry(1, 1), m1 = mat(o.color || '#7D8896'), m2 = mat('#6A7482');
+    [[0, 0, 0, 0.3], [-0.22, -0.04, 0.02, 0.22], [0.22, -0.03, 0.01, 0.23], [-0.1, 0.12, -0.02, 0.2], [0.12, 0.13, -0.01, 0.21], [0, -0.1, 0.04, 0.24]].forEach(([x, y, z, rr], i) => { const mm = mesh(geo, i % 3 ? m1 : m2); mm.position.set(x * k, y * k, z * k); mm.scale.set(rr * k * 1.1, rr * k * 0.85, rr * k * 0.95); body.add(mm); });
+    const fz = 0.27 * k, eye = (x) => grp(at(sphere(0.055 * k, '#FFFFFF', 1), x * k, 0.03 * k, fz), at(sphere(0.026 * k, '#1C1C20', 1), x * k + (o.look || 0) * 0.012 * k, 0.025 * k, fz + 0.04 * k));
+    body.add(eye(-0.085), eye(0.085));
+    const mood = o.mood || 'smug', bc = '#2A2E35';
+    for (const sd of [-1, 1]) { const b = at(box(0.09 * k, 0.018 * k, 0.02 * k, bc), sd * 0.085 * k, 0.1 * k, fz + 0.02 * k); b.rotation.z = sd * (mood === 'angry' ? -0.45 : mood === 'happy' ? 0.25 : -0.15); body.add(b); }
+    const mouth = at(box(0.1 * k, 0.018 * k, 0.02 * k, bc), 0.01 * k, -0.06 * k, fz + 0.03 * k); mouth.rotation.z = mood === 'smug' ? 0.25 : 0; body.add(mouth);
+    if (mood === 'happy') { mouth.scale.set(1.2, 2.5, 1); }
+    if (o.glasses) body.add(at(box(0.25 * k, 0.05 * k, 0.02 * k, '#111114'), 0, 0.035 * k, fz + 0.06 * k), at(box(0.3 * k, 0.012 * k, 0.012 * k, '#111114'), 0, 0.055 * k, fz + 0.055 * k));
+    if (o.bolt) { const sh = new THREE.Shape([[0, 0], [0.06, 0], [0.02, -0.08], [0.07, -0.08], [-0.03, -0.22], [0.0, -0.11], [-0.05, -0.11]].map(([x, y]) => new THREE.Vector2(x * k, y * k))); body.add(at(new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.02 * k, bevelEnabled: false }), mat('#F2C94C', { emissive: '#B8860B' })), 0.02 * k, -0.25 * k, 0.05 * k)); }
+    if (o.suitcase) g.add(at(box(0.22 * k, 0.16 * k, 0.08 * k, '#8A5A34', { outline: 0.004 }), 0.33 * k, -0.28 * k, 0.05 * k), at(torus(0.03 * k, 0.008 * k, '#3A2210', 4, 10), 0.33 * k, -0.18 * k, 0.05 * k));
+    if (o.skis) for (const sd of [-1, 1]) g.add(at(box(0.05 * k, 0.012 * k, 0.6 * k, '#C8322A', { outline: 0.003 }), sd * 0.08 * k, -0.33 * k, 0.05 * k));
+    if (o.belt) body.add(at(box(0.5 * k, 0.04 * k, 0.03 * k, '#2F3540'), 0, -0.13 * k, 0.24 * k, 0, 0, 0.5));
+    if (o.ticket) g.add(at(label('VOL 404', 0.16 * k, 0.07 * k, { bg: '#F4F1E8', fg: '#2C4A8A' }), -0.36 * k, -0.06 * k, 0.12 * k, 0, 0, 0.25));
+    const ph = r() * TAU; g.userData.update = t => { body.position.y = 0.035 * k * Math.sin(t * 2.2 + ph); body.rotation.z = 0.05 * Math.sin(t * 1.6 + ph); };
+    g.userData.update(0); return g;
+  },
+  gpsScreen(o) { // a big GPS screen (o.w wide): top bar instruction (o.text), a map with a route to o.dest (label) and an arrow; o.off: a black screen; o.recalc: "RECALCUL…" spinner text
+    const w = o.w || 0.5, h = w * 0.62, pl = canvasPlane(w, h, (c, W, H) => {
+      if (o.off) { c.fillStyle = '#0E1012'; c.fillRect(0, 0, W, H); return; }
+      c.fillStyle = '#A6D1A8'; c.fillRect(0, 0, W, H); c.fillStyle = '#7FB585'; for (let i = 0; i < 6; i++) c.fillRect(W * (0.05 + i * 0.17), H * (0.3 + (i % 3) * 0.18), W * 0.1, H * 0.12);
+      c.strokeStyle = '#F1EDE2'; c.lineWidth = H * 0.06; c.beginPath(); c.moveTo(W * 0.5, H * 1.05); c.lineTo(W * 0.5, H * 0.62); c.lineTo(W * 0.82, H * 0.4); c.stroke();
+      c.strokeStyle = '#2F7BD8'; c.lineWidth = H * 0.035; c.beginPath(); c.moveTo(W * 0.5, H * 1.05); c.lineTo(W * 0.5, H * 0.62); c.lineTo(W * 0.82, H * 0.4); c.stroke();
+      if (o.dest) { c.fillStyle = '#C8322A'; c.beginPath(); c.arc(W * 0.84, H * 0.37, H * 0.05, 0, TAU); c.fill(); c.fillStyle = '#1C252A'; c.font = `900 ${H * 0.09}px Arial`; c.textAlign = 'center'; c.fillText(o.dest, W * 0.8, H * 0.3); }
+      c.fillStyle = '#2F7BD8'; c.beginPath(); c.moveTo(W * 0.5, H * 0.72); c.lineTo(W * 0.56, H * 0.86); c.lineTo(W * 0.44, H * 0.86); c.closePath(); c.fill();
+      c.fillStyle = '#1E2229'; c.fillRect(0, 0, W, H * 0.24); c.fillStyle = '#F6F1E3'; c.textAlign = 'center'; c.textBaseline = 'middle'; const L = String(o.text || '').split('\n');
+      let px = H * 0.1; c.font = `900 ${px}px Arial`; const tw = Math.max(...L.map(l => c.measureText(l).width)); if (tw > W * 0.92) { px *= W * 0.92 / tw; c.font = `900 ${px}px Arial`; }
+      L.forEach((l, i) => c.fillText(l, W / 2, H * 0.12 + (i - (L.length - 1) / 2) * px * 1.1));
+      if (o.recalc) { c.fillStyle = 'rgba(30,34,41,0.75)'; c.fillRect(W * 0.18, H * 0.42, W * 0.64, H * 0.2); c.fillStyle = '#F6F1E3'; c.font = `900 ${H * 0.09}px Arial`; c.fillText('RECALCUL…', W / 2, H * 0.52); } }, { res: 640, emissive: 0.55 });
+    return grp(at(box(w + 0.03, h + 0.03, 0.03, '#1E1E22', { outline: 0.005 }), 0, 0, -0.016), pl);
   },
 };

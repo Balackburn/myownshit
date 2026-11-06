@@ -1,0 +1,128 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a demandé à son GPS de l'emmener loin de ses problèmes.",
+  "hl": [
+   "GPS",
+   "problèmes."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le GPS a dit: « Dans 3000 kilomètres, tournez à droite. »",
+  "hl": [
+   "3000",
+   "kilomètres,"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a roulé toute la nuit.",
+  "hl": [
+   "nuit."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Dans le désert, ses problèmes l'attendaient déjà.",
+  "hl": [
+   "désert,",
+   "problèmes"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Ils avaient pris l'avion.",
+  "hl": [
+   "l'avion."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il est reparti.",
+  "hl": [
+   "reparti."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Au pôle Nord.",
+  "hl": [
+   "pôle",
+   "Nord."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ses problèmes faisaient du ski.",
+  "hl": [
+   "ski."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il a pris une fusée pour la Lune.",
+  "hl": [
+   "fusée",
+   "Lune."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Ses problèmes avaient réservé la place à côté.",
+  "hl": [
+   "réservé"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Sur la Lune, le GPS a recalculé.",
+  "hl": [
+   "recalculé."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Itinéraire le plus court: vous excuser.",
+  "hl": [
+   "vous",
+   "excuser."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a éteint le GPS.",
+  "hl": [
+   "éteint"
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Aujourd'hui, il vit sur la Lune.",
+  "hl": [
+   "Lune."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Avec ses problèmes.",
+  "hl": [
+   "problèmes."
+  ]
+ }
+]
