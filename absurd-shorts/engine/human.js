@@ -384,13 +384,14 @@ function buildFaceFx(head, hw, hh, hd, o) {
   const blush = [[92, 450], [318, 640]].map(([cx, cy]) => { const m = new THREE.Mesh(bgeo, bm); m.renderOrder = 2; at2(m, cx, cy); FX.add(m); return m; });
   const all = [...runs.map(r => r.m), ...tears.map(r => r.m), ...sweat.map(r => r.m), bigSweat, ...blush, ...strands.flatMap(s => [s.g, s.drip])];
   return (fx = {}, t = 0) => {
-    const on = !!(fx.wet || fx.tears || fx.sweat || fx.blush); FX.visible = on; if (!on) return;
+    const on = !!(fx.wet || fx.tears || fx.sweat || fx.blush || fx.zeroG); FX.visible = on; if (!on) return;
     all.forEach(m => { m.visible = false; });
     if (fx.wet) {
       strands.forEach((s, i) => { s.g.visible = true; const q = (t * 0.8 + i * 0.29) % 1, tx = s.cx + Math.sin(s.rot) * s.len * 0.9, ty = 26 + s.len * Math.cos(s.rot) + 18;   // a drip swells at the tip, then falls
         s.drip.visible = true; if (q < 0.55) at2(s.drip, tx, ty, 0.35 + q); else at2(s.drip, tx, ty + (q - 0.55) * 900, 0.9); });
       runs.forEach(r => { const q = (t * r.v / 900 + r.ph) % 1, y = 140 + q * 900; r.m.visible = q < 0.93; at2(r.m, r.cx + 8 * Math.sin(q * 9 + r.ph * 6), y, 0.85 + 0.25 * Math.sin(r.ph * 7)); });
     }
+    if (fx.zeroG) strands.forEach((s, i) => { s.g.visible = true; s.g.rotation.z = Math.PI - s.rot * 1.6 + 0.18 * Math.sin(t * 1.7 + i); const [x, y] = P2(s.cx, 18); s.g.position.set(x, y + 0.012, Z(y) + 0.002); });   // floating hair sticks up
     if (fx.tears) tears.forEach(r => { const q = (t * 0.9 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx - 14 * q, r.cy + q * 330, 0.9); });
     if (fx.sweat) { sweat.forEach(r => { const q = (t * 0.25 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, r.cy + q * 260, 0.8); }); bigSweat.visible = true; at2(bigSweat, 352, 175 + 6 * Math.sin(t * 3), 1.9); }
     if (fx.blush) blush.forEach(m => { m.visible = true; });

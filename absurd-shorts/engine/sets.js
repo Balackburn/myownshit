@@ -1200,10 +1200,14 @@ Object.assign(S, {
   },
   stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light
     const g = grp(), back = -2.4, half = 3.2;
-    room(g, { wall: '#E9ECEF', floor: '#D3D8DD', back, half, height: 4, front: 6 });
+    room(g, { wall: '#EFE6D2', floor: '#D9CFBC', back, half, height: 4, front: 6 });
     g.add(at(box(2 * half + 0.6, 0.2, 9.0, '#DCE1E6'), 0, 4.1, 1.8));   // ceiling (a module, not a room under the sky)
     for (let i = -3; i <= 3; i++) g.add(at(box(0.04, 3.6, 0.03, '#C3C9CF'), i * 0.9, 1.9, back + 0.02));
     for (const y of [0.9, 2.6]) g.add(at(box(2 * half - 0.4, 0.05, 0.08, '#F2C230'), 0, y, back + 0.08));
+    const cable = (pts, c) => { for (let q = 0; q < pts.length - 1; q++) { const [x0, y0] = pts[q], [x1, y1] = pts[q + 1], L = Math.hypot(x1 - x0, y1 - y0), m = at(box(L, 0.035, 0.035, c), (x0 + x1) / 2, (y0 + y1) / 2, back + 0.1); m.rotation.z = Math.atan2(y1 - y0, x1 - x0); g.add(m); } };
+    cable([[-3.0, 3.4], [-2.2, 3.1], [-1.4, 3.35], [-0.4, 3.0], [0.8, 3.3]], '#2A2D33'); cable([[0.6, 3.6], [1.5, 3.2], [2.4, 3.45], [3.0, 3.1]], '#D7262E'); cable([[-3.0, 0.5], [-2.1, 0.35], [-1.0, 0.55]], '#2C4A8A');
+    [[-2.7, 2.2, '#4F7FB5'], [2.75, 2.4, '#7A8794'], [-1.9, 0.25, '#4F7FB5'], [2.2, 0.3, '#C9824E']].forEach(([x, y, c]) => g.add(at(box(0.55, 0.42, 0.25, c, { outline: 0.008 }), x, y, back + 0.16), at(box(0.5, 0.04, 0.26, '#F2C230'), x, y + 0.12, back + 0.17)));   // stowage bags
+    for (const x of [-1.6, 1.6]) g.add(at(box(0.6, 0.06, 0.4, '#FFF4C8', { emissive: '#FFE7A0', noGrain: true }), x, 3.85, -0.6));   // warm ceiling lights
     [[-2.4, 1.5], [-1.5, 0.6], [1.6, 0.7], [2.5, 1.6]].forEach(([x, y]) => { g.add(at(box(0.7, 0.5, 0.12, '#B9C0C7', { outline: 0.008 }), x, y, back + 0.07));
       for (let k = 0; k < 4; k++) g.add(at(box(0.07, 0.07, 0.02, ['#3CC46E', '#D7262E', '#F2C230', '#3C8DD9'][k]), x - 0.2 + k * 0.13, y + 0.1, back + 0.14)); });
     const wx = o.winX ?? 0.2, win = canvasPlane(1.1, 1.1, (c, W, H) => { c.fillStyle = '#05091A'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF'; for (let i = 0; i < 40; i++) c.fillRect((i * 53 % 97) / 97 * W, (i * 31 % 89) / 89 * H, 2, 2);

@@ -980,7 +980,7 @@ export const NEWS_PROPS = {
       c.fillStyle = '#D7262E'; let pa = H * 0.34; c.font = `900 ${pa}px Arial`; const t2 = o.amount || '0,00 €', aw = c.measureText(t2).width; if (aw > W * 0.88) { pa *= W * 0.88 / aw; c.font = `900 ${pa}px Arial`; } c.fillText(t2, W / 2, H * 0.68);
       c.fillStyle = '#5A6470'; c.font = `bold ${H * 0.06}px Arial`; c.fillText(o.sub || 'À PAYER', W / 2, H * 0.88); }, { res: 512 }), 0, 0, 0.001));
     const stamp = o.stamp === false ? null : grp(at(canvasPlane(w * 0.42, h * 0.2, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = '#D7262E'; c.lineWidth = H * 0.1; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H - H * 0.16);
-      c.fillStyle = '#D7262E'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.62}px Arial`; c.fillText(o.stamp || 'GRATUIT', W / 2, H * 0.54); }, { res: 256 }), 0, 0, 0));
+      c.fillStyle = '#D7262E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let sz = H * 0.62; c.font = `900 ${sz}px Arial`; const tw = c.measureText(o.stamp || 'GRATUIT').width; if (tw > W * 0.82) { sz *= W * 0.82 / tw; c.font = `900 ${sz}px Arial`; } c.fillText(o.stamp || 'GRATUIT', W / 2, H * 0.54); }, { res: 256 }), 0, 0, 0));
     if (stamp) { stamp.position.set(w * 0.2, -h * 0.37, 0.006); stamp.rotation.z = 0.14; inner.add(stamp); }
     g.userData.update = t => { if (o.popAt == null) return; const u = clamp01((t - o.popAt) / (o.popDur || 0.3)); inner.visible = t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u))); inner.rotation.z = (o.tilt || 0) + 0.1 * (1 - u) * Math.sin(u * 9);
       if (stamp) { const sd = o.popAt + (o.stampDelay ?? 0.3), v = clamp01((t - sd) / 0.14); stamp.visible = t >= sd; stamp.scale.setScalar(Math.max(0.01, 1.8 - 0.8 * ease.out(v))); } };
@@ -1066,6 +1066,9 @@ export const NEWS_PROPS = {
     for (const x of [-L * 0.42, -L * 0.3, L * 0.3, L * 0.42]) for (const sz of [-1, 1]) g.add(wing(x, sz));
     [[0, 0.9, '#F4F4F2'], [0, -0.9, '#E2E5E8'], [-1.8, 0.9, '#D9DCE0'], [1.8, 0.9, '#F4F4F2']].forEach(([x, y, c]) => g.add(at(cyl(0.6 * k, 0.6 * k, 2.6 * k, c, 12, { outline: 0.02 * k }), x * k, y * k, 0, 0, 0, PI / 2)));
     g.add(at(box(1.2 * k, 0.05 * k, 0.8 * k, '#F4F4F2'), 0, 1.9 * k, 0), at(box(0.8 * k, 0.4 * k, 0.8 * k, '#E2E5E8'), 0, 1.6 * k, 0));
+    g.add(at(cyl(0.62 * k, 0.62 * k, 1.6 * k, '#D4A93C', 12, { outline: 0.02 * k }), -3.4 * k, 0.9 * k, 0, 0, 0, PI / 2), at(cyl(0.45 * k, 0.6 * k, 0.6 * k, '#C9CDD2', 8, { outline: 0.02 * k }), 0.6 * k, -1.7 * k, 0));   // gold-foil module, the cupola
+    for (const sx of [-1, 1]) g.add(at(box(1.6 * k, 0.04 * k, 0.9 * k, '#F4F4F2', { outline: 0.01 * k }), sx * 1.2 * k, 0, 1.6 * k));   // radiators
+    g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.35 * k, 0.06 * k, 6, 16), mat('#7A8794')), 1.8 * k + 1.35 * k, 0.9 * k, 0, 0, PI / 2, 0));   // docking ring at the end of a module
     g.userData.update = t => { g.rotation.y = (o.spin ?? 0.02) * t; }; return g;
   },
   spaceHelmet(o) { // an astronaut's glass bubble for the head joint (offset to the head's centre) with a white collar ring
@@ -1077,9 +1080,12 @@ export const NEWS_PROPS = {
     g.add(at(canvasPlane(w, h, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#F28A5A'); gr.addColorStop(1, '#F7D08A'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
       c.fillStyle = '#F7E27A'; c.beginPath(); c.arc(W * 0.5, H * 0.62, H * 0.18, 0, TAU); c.fill(); c.fillStyle = '#3E6B8A'; c.fillRect(0, H * 0.68, W, H * 0.32);
       [[0.3, '#E8B98F', '#2A1E16'], [0.7, '#C98E62', '#1A1A1A']].forEach(([x, sk, hr]) => { c.fillStyle = sk; c.fillRect(W * (x - 0.07), H * 0.3, W * 0.14, H * 0.28); c.fillStyle = hr; c.fillRect(W * (x - 0.075), H * 0.26, W * 0.15, H * 0.07); c.fillStyle = '#1C252A'; c.fillRect(W * (x - 0.035), H * 0.4, W * 0.015, H * 0.03); c.fillRect(W * (x + 0.02), H * 0.4, W * 0.015, H * 0.03); });
-      c.fillStyle = '#F4F4F2'; c.beginPath(); c.moveTo(W * 0.44, H * 0.12); c.lineTo(W * 0.56, H * 0.12); c.lineTo(W * 0.5, H * 0.2); c.closePath(); }, { res: 384, emissive: 0.6 }), 0, 0, 0.001));
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(1, h * 0.03, 0.002), new THREE.MeshBasicMaterial({ color: '#D7262E' })); bar.position.set(-w / 2, -h * 0.44, 0.004); g.add(bar);
-    g.userData.update = t => { const f = 0.3 + 0.02 * t; bar.scale.x = w * f; bar.position.x = -w / 2 + w * f / 2; }; g.userData.update(0); return g;
+      c.fillStyle = 'rgba(0,0,0,0.55)'; c.fillRect(W * 0.03, H * 0.04, W * 0.24, H * 0.11); c.fillStyle = '#FFFFFF'; c.font = `bold ${H * 0.07}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.ep || 'S4 · É12', W * 0.15, H * 0.1);
+      c.fillStyle = '#FFFFFF'; c.strokeStyle = '#1C252A'; c.lineWidth = H * 0.012; const bx = W * 0.6, by = H * 0.66, bw = W * 0.36, bh = H * 0.13; c.fillRect(bx, by, bw, bh); c.strokeRect(bx, by, bw, bh);
+      c.fillStyle = '#1C252A'; c.font = `900 ${H * 0.055}px Arial`; c.fillText(o.next || 'ÉPISODE SUIVANT ▶', bx + bw / 2, by + bh / 2);
+      c.fillStyle = 'rgba(0,0,0,0.45)'; c.fillRect(0, H * 0.86, W, H * 0.14); c.fillStyle = '#FFFFFF'; c.beginPath(); c.moveTo(W * 0.04, H * 0.885); c.lineTo(W * 0.075, H * 0.93); c.lineTo(W * 0.04, H * 0.975); c.closePath(); c.fill(); }, { res: 384, emissive: 0.6 }), 0, 0, 0.001));
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(1, h * 0.03, 0.002), new THREE.MeshBasicMaterial({ color: '#D7262E' })); bar.position.set(-w / 2 + w * 0.1, -h * 0.43, 0.004); g.add(bar);
+    g.userData.update = t => { const f = 0.3 + 0.02 * t; bar.scale.x = w * 0.86 * f; bar.position.x = -w / 2 + w * 0.1 + w * 0.86 * f / 2; }; g.userData.update(0); return g;
   },
   clockCard(o) { // a pop-in watch face (front +Z, o.r radius): navy rim, twelve ticks, hands that sweep o.spin turns per second (time passing), pops at o.popAt
     const R = o.r || 0.3, g = grp(), inner = grp(); g.add(inner);
@@ -1089,6 +1095,35 @@ export const NEWS_PROPS = {
     const hm = hand(R * 0.72, 0.022, '#1C252A'), hh = hand(R * 0.46, 0.034, '#1C252A'); inner.add(at(cyl(0.03, 0.03, 0.02, '#D7262E', 12), 0, 0, 0.04, PI / 2, 0, 0));
     g.userData.update = t => { const u = o.popAt == null ? 1 : clamp01((t - o.popAt) / 0.3); inner.visible = o.popAt == null || t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u)));
       const turns = (o.start || 0) + (o.spin ?? 1) * Math.max(0, t - (o.popAt || 0)); hm.rotation.z = -turns * TAU; hh.rotation.z = -turns * TAU / 12 - (o.hour || 2) * TAU / 12; }; g.userData.update(0); return g;
+  },
+  zincRoof(o) { // a Paris rooftop piece (front +Z): grey-blue zinc slopes with seams, a flat walkway along the ridge (userData.top), terracotta chimney stacks, a dormer
+    const W = o.w || 6, g = grp(), Z = '#8C9AA8', ZD = '#76838F';
+    for (const sd of [-1, 1]) { const sl = at(box(W, 0.06, 2.4, sd > 0 ? Z : ZD, { outline: 0.01 }), 0, -0.55, sd * 1.05); sl.rotation.x = sd * 0.5; g.add(sl);
+      for (let k = -W / 2 + 0.4; k < W / 2; k += 0.5) { const sm = at(box(0.025, 0.07, 2.4, '#A9B5C0'), k, -0.53, sd * 1.05); sm.rotation.x = sd * 0.5; g.add(sm); } }
+    g.add(at(box(W, 0.08, 0.5, '#9AA7B3', { outline: 0.008 }), 0, 0.0, 0));   // the flat ridge walkway
+    [[-W * 0.36, 0], [W * 0.38, -0.2]].forEach(([x, z]) => { g.add(at(box(0.9, 1.1, 0.5, '#C9824E', { pivot: 'bottom', outline: 0.01 }), x, 0.04, z - 0.6));
+      for (let q = 0; q < 3; q++) g.add(at(cyl(0.07, 0.09, 0.32, '#B5653A', 8, { pivot: 'bottom' }), x - 0.28 + q * 0.28, 1.14, z - 0.6)); });
+    g.add(at(box(0.8, 0.8, 0.7, '#E9E2D2', { outline: 0.01 }), W * 0.12, -0.75, 1.4), at(box(0.5, 0.45, 0.02, '#5B7894'), W * 0.12, -0.72, 1.76));
+    g.userData.top = [0, 0.04, 0]; return g;
+  },
+  floatSnacks(o) { // weightless snacks drifting and spinning: popcorn, a juice pouch, a sandwich, a crisp packet (o.n sets of them, spread over o.r metres)
+    const r = rng(o.seed || 21), R = o.r || 1.2, g = grp(), items = [];
+    const mk = k => { const it = grp();
+      if (k === 0) for (let q = 0; q < 5; q++) it.add(at(sphere(0.03, '#FFF4C8', 0), (r() - 0.5) * 0.08, (r() - 0.5) * 0.08, (r() - 0.5) * 0.08));
+      else if (k === 1) it.add(at(box(0.09, 0.13, 0.03, '#F2C230', { outline: 0.004 }), 0, 0, 0), at(cyl(0.006, 0.006, 0.06, '#FFFFFF', 5), 0.02, 0.09, 0));
+      else if (k === 2) it.add(at(box(0.13, 0.025, 0.1, '#E9C38A', { outline: 0.004 }), 0, 0.03, 0), at(box(0.13, 0.02, 0.1, '#5FAF5A'), 0, 0.005, 0), at(box(0.13, 0.025, 0.1, '#E9C38A'), 0, -0.02, 0));
+      else it.add(at(box(0.12, 0.15, 0.03, '#D7262E', { outline: 0.004 }), 0, 0, 0));
+      g.add(it); return it; };
+    for (let i = 0; i < (o.n || 8); i++) items.push({ it: mk(i % 4), p: [(r() - 0.5) * R * 2, (r() - 0.5) * R, (r() - 0.5) * R], v: [(r() - 0.5) * 0.08, (r() - 0.5) * 0.06, (r() - 0.5) * 0.05], w: [(r() - 0.5) * 1.6, (r() - 0.5) * 1.6, (r() - 0.5) * 1.6] });
+    g.userData.update = t => items.forEach(q => { q.it.position.set(q.p[0] + q.v[0] * t, q.p[1] + q.v[1] * t + 0.03 * Math.sin(t * 1.3 + q.p[0] * 5), q.p[2] + q.v[2] * t); q.it.rotation.set(q.w[0] * t, q.w[1] * t, q.w[2] * t); });
+    g.userData.update(0); return g;
+  },
+  missionPatch(o) { // a round embroidered mission patch for a flight suit (front +Z, o.r radius): navy disc, gold rim, a rocket and stars; o.color for the field
+    const R = o.r || 0.055, g = grp(at(cyl(R, R, 0.008, '#D4A93C', 16), 0, 0, 0, PI / 2, 0, 0));
+    g.add(at(canvasPlane(R * 1.7, R * 1.7, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = o.color || '#1E3A5F'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.48, 0, TAU); c.fill();
+      c.fillStyle = '#FFFFFF'; c.beginPath(); c.moveTo(W * 0.5, H * 0.18); c.lineTo(W * 0.62, H * 0.6); c.lineTo(W * 0.38, H * 0.6); c.closePath(); c.fill(); c.fillStyle = '#D7262E'; c.fillRect(W * 0.44, H * 0.6, W * 0.12, H * 0.14);
+      c.fillStyle = '#F2C230'; [[0.24, 0.36], [0.76, 0.42], [0.3, 0.72], [0.7, 0.7]].forEach(([x, y]) => { c.beginPath(); c.arc(W * x, H * y, W * 0.035, 0, TAU); c.fill(); }); }, { res: 128, transparent: true }), 0, 0, 0.005));
+    return g;
   },
   flickerLight(o) { // a coloured point light whose intensity flickers (a cinema screen, a TV): o.color, o.intensity (default 12), o.distance (default 12), o.rate
     const l = new THREE.PointLight(o.color || '#CFE0FF', o.intensity ?? 12, o.distance ?? 12, 1.3), g = grp(l), I = o.intensity ?? 12, r = o.rate || 1;
