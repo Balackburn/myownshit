@@ -3,3 +3,6 @@ shot.glb
 *.png
 VerTest.tsrct
 pt*.log
+*.log
+*.mp4
+*.tsrct
