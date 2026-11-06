@@ -136,3 +136,16 @@ Found on the first two still rounds of "Vos papiers" (30 shots) and in 50 replic
   a POV from inside the fridge looking out works with the camera just inside the back wall.
 - The snowy street needs its snow in frame: falling flakes at 0.13 m, the ground, kerb banks and the pharmacy cross; a tight shot on the face
   against a facade loses the snow.
+- Critic round on « Le ver de terre » (7.0 / 7.4 before fixes), what they caught:
+  - Frame 1 must ask a question: the worm's eyes peeking out of the grass in the foreground while the mower rolls toward the lens. Keep the
+    peeking face above the caption band (eyes above about 72 % of the frame height).
+  - Check that hands touch what they push: `pushCart*` arms are set for a cart; a lawnmower handle needs `pushMower` / `pushMowerStand`.
+  - Title-card band (8-18 %, two-line cards to 24 %): a reaction face (the mugshot) must sit lower, eyes at 25-35 %; an in-scene sign
+    (TRIBUNAL) must not sit in that band either, or two labels pile up.
+  - The main character must be in the payoff and react (a deadpan close-up with a lettuce leaf on his head), and the last gag can come at him:
+    the worm turns and spits the stone into his point of view. Compute a projectile's path along the camera's real view direction (the first
+    try flew past the lens).
+  - `speechBubble` takes several lines (`\n`) at a larger size and renders unlit; `phone17` shows « POLICE 17 » big and unlit, held
+    against a head with `on={'joint': 'head'}`.
+  - The shader look must keep the series' brightness: they measured mean luma 102 vs 140 and up to 43 % near-black on the first pass. Now:
+    fill x 0.78 outdoors / 0.88 indoors, exposure 1.12 / 1.2, the grade lifts the shade (c * 0.95 + 0.035), the sky pushed to a real blue.
