@@ -965,3 +965,34 @@ export function cams() { return S.camTimes; }
 // analysis entry point used by render.mjs: builds every scene once to collect events, camera list and warnings
 export async function analyze() { S.camTimes = []; S.events = []; S.warnings = []; for (let i = 0; i < S.script.scenes.length; i++) setupScene(i, true); S.scene = -1; return { warnings: S.warnings, events: S.events, cams: S.camTimes }; }
 export function _S() { return S; }
+
+// ------------------------------------------------------------------------------------- scene export (Tesseract test)
+// The posed scene at time t as a binary glTF (metres, Y up) + the camera, for a path-traced comparison in Tesseract Scene3D.
+// Ink outlines, the sky dome, sprites, particles and lights are left out; instances are expanded (Tesseract does not read
+// EXT_mesh_gpu_instancing); every material becomes a rough non-metal MeshStandardMaterial (lit), screens and bubbles stay emissive.
+export async function exportSceneGLB(tAbs) {
+  renderFrame(tAbs);
+  const { GLTFExporter } = await import('three/addons/exporters/GLTFExporter.js');
+  const root = S.root, cam = S.stage.camera; root.updateMatrixWorld(true);
+  const kill = []; root.traverse(n => { const m = n.material;
+    if (n.name === 'outline' || n.isSprite || n.isPoints || n.isLine || n.isLight || !n.visible || (n.isMesh && n.renderOrder === -10 && m?.side === THREE.BackSide)) kill.push(n); });
+  kill.forEach(n => n.parent?.remove(n));
+  const inst = []; root.traverse(n => { if (n.isInstancedMesh) inst.push(n); });
+  for (const im of inst) { const g = new THREE.Group(); g.position.copy(im.position); g.quaternion.copy(im.quaternion); g.scale.copy(im.scale); const m4 = new THREE.Matrix4(), c = new THREE.Color();
+    for (let i = 0; i < im.count; i++) { im.getMatrixAt(i, m4); const mm = new THREE.Mesh(im.geometry, im.material); if (im.instanceColor) { im.getColorAt(i, c); mm.material = im.material.clone(); mm.material.color?.multiply(c); } mm.applyMatrix4(m4); g.add(mm); }
+    im.parent.add(g); im.parent.remove(im); }
+  const conv = new Map(), cl = c => new THREE.Color(Math.min(1, c.r), Math.min(1, c.g), Math.min(1, c.b));
+  root.traverse(n => { if (!n.isMesh) return; const one = m => { if (!m) return m; if (conv.has(m)) return conv.get(m);
+      const glowing = m.isMeshBasicMaterial && m.toneMapped === false, em = m.emissive && (m.emissive.r + m.emissive.g + m.emissive.b) > 0.02;
+      const s = new THREE.MeshStandardMaterial({ color: m.color ? cl(m.color) : new THREE.Color(1, 1, 1), map: m.map || null, roughness: 0.92, metalness: 0, transparent: !!m.transparent, opacity: m.opacity ?? 1, alphaTest: m.alphaTest || 0, side: m.side ?? THREE.FrontSide });
+      if (glowing) { s.emissive = new THREE.Color(1, 1, 1); s.emissiveMap = m.map || null; s.color.setRGB(0, 0, 0); }
+      else if (em) { s.emissive = cl(m.emissive); s.emissiveMap = m.emissiveMap || null; }
+      conv.set(m, s); return s; };
+    n.material = Array.isArray(n.material) ? n.material.map(one) : one(n.material); });
+  const buf = await new GLTFExporter().parseAsync(root, { binary: true, onlyVisible: true, maxTextureSize: 1024 });
+  let bin = ''; const u8 = new Uint8Array(buf); for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+  const dir = new THREE.Vector3(); cam.getWorldDirection(dir);
+  return { glb: btoa(bin), camera: { position: cam.position.toArray(), direction: dir.toArray(), fov: cam.fov, aspect: cam.aspect },
+           sun: S.lights?.key ? { direction: S.lights.key.position.clone().sub(S.lights.key.target.position).normalize().toArray(), intensity: S.lights.key.intensity, color: '#' + S.lights.key.color.getHexString() } : null,
+           sky: '#' + (S.stage.scene.background?.getHexString?.() || 'a7d4ec') };
+}
