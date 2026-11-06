@@ -1387,10 +1387,9 @@ function wormPose(c, t, p, R) { // the earthworm: the body sways (segments), tal
     case 'point': sway(0.03, 2.4, 0.13); q.head = [0.35, 0, 0]; q.jaw = [0.45 * abs(S(t * 12)), 0, 0]; break;   // bent down to a phone on the grass, talking
     case 'angry': sway(0.09, 11, 0.04); q.root.x = 0.008 * S(t * 47); q.head = [0.12, 0, 0.1 * S(t * 23)]; q.jaw = [0.3, 0, 0]; q.expr = 'angry'; break;
     case 'celebrate': sway(0.12, 5); q.head = [-0.1, 0.25 * S(t * 6), 0]; q.jaw = [0.4, 0, 0]; q.expr = 'happy'; break;
-    case 'grow': { const k = clamp01(t / (p.dur ?? 0.5)); sway(0.08 * (1 - k), 9); q.root.y = -0.6 * (1 - ease.outBack(k)); break; }   // pops out of the ground
     case 'eat': { // the gulp, t from the key: rear back with the mouth opening, lunge (head swells, mouth huge), back up, the lump travels down, a burp
       const u = t, rear = clamp01(u / 0.22), lunge = clamp01((u - 0.22) / 0.16), back = clamp01((u - 0.4) / 0.25);
-      const bend = -0.16 * ease.out(rear) * (1 - lunge) + 0.3 * ease.out(lunge) * (1 - ease.inOut(back));
+      const bend = -0.09 * ease.out(rear) * (1 - lunge) + (p.reach ?? 0.17) * ease.out(lunge) * (1 - ease.inOut(back));
       for (let i = 1; i < N; i++) q['seg' + i] = [bend, 0, 0.02 * S(t * 9 + i)];
       const open = u < 0.4 ? ease.out(clamp01(u / 0.3)) : 1 - ease.inOut(back), sw = 1 + 0.9 * open * (u < 0.55 ? 1 : 0);
       q.jaw = [2.4 * open, 0, 0]; q.scl = { head: [sw, sw, sw] }; q.expr = u < 0.4 ? 'angry' : u < 1.7 ? 'surprised' : 'smug';

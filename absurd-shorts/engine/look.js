@@ -99,7 +99,9 @@ export function createLook(stage, W, H, o = {}) {
       renderer.toneMappingExposure = k.exposure ?? o.exposure ?? (indoor ? 1.12 : 1.08);
       // distance haze outdoors, coloured like the horizon
       if (look.outdoor && !scene.fog && k.haze !== false) { const hz = new THREE.Color(k.hazeColor || '#CFE3F0'); scene.fog = new THREE.Fog(hz, k.hazeNear ?? 70, k.hazeFar ?? Math.max(260, camera.far * 1.1)); }
-      set.traverse(n => { if (isSky(n)) { n.material.fog = false; n.material.toneMapped = false; } });   // the authored sky gradient, untouched
+      set.traverse(n => { if (!isSky(n)) return; n.material.fog = false; n.material.toneMapped = false;   // the authored gradient, made a little deeper (shader skies)
+        const ca = n.geometry.attributes.color; if (!ca || n.userData.deepSky || k.deepSky === false) return; n.userData.deepSky = true; const c = new THREE.Color(), hsl = {};
+        for (let i = 0; i < ca.count; i++) { c.fromBufferAttribute(ca, i); c.getHSL(hsl); if (hsl.h > 0.45 && hsl.h < 0.7) { c.setHSL(hsl.h, Math.min(1, hsl.s * 1.35 + 0.05), hsl.l * 0.94); ca.setXYZ(i, c.r, c.g, c.b); } } ca.needsUpdate = true; });
       sun.visible = look.outdoor && k.sunDisc !== false; sun.material.color.set(k.sunColor || '#FFF0D8');
       look.L = L;
     },

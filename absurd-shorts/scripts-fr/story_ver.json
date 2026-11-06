@@ -1,0 +1,1593 @@
+{
+ "version": 3,
+ "title": "Le ver de terre",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "hat": "none",
+   "hair": "receding",
+   "facial": "none",
+   "glasses": true,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "ver": {
+   "type": "creature",
+   "name": "worm",
+   "opts": {
+    "seed": 5
+   }
+  },
+  "verC": {
+   "type": "creature",
+   "name": "worm",
+   "opts": {
+    "seed": 5,
+    "bowtie": true
+   }
+  },
+  "avocat": {
+   "type": "creature",
+   "name": "avocat",
+   "opts": {
+    "seed": 7
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      0,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "pushCartWalk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -2.0,
+        0,
+        -1.75
+       ],
+       "dur": 1.6,
+       "glide": true,
+       "face": "keep"
+      }
+     ],
+     "expr": "whistle"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn",
+     "name": "mowedLawn",
+     "pos": [
+      -2.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 4.6,
+      "d": 5.0,
+      "cut": 0.42,
+      "stripes": 8,
+      "h": 0.17
+     }
+    },
+    {
+     "id": "mower",
+     "name": "mowerRun",
+     "pos": [
+      -1.98,
+      0,
+      -1.35
+     ],
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -1.98,
+        0,
+        -0.8
+       ],
+       "dur": 1.6
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.45,
+      0.42,
+      1.55
+     ],
+     "to": [
+      -1.5,
+      0.46,
+      1.35
+     ],
+     "lookAt": [
+      -2.05,
+      0.95,
+      -1.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.05,
+      0.97,
+      -1.4
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.6,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      0,
+      -1.75
+     ],
+     "ry": 0,
+     "clip": "pushCart",
+     "keys": [
+      {
+       "at": 0.7050000000000001,
+       "clip": "stand",
+       "expr": "surprised"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "ver",
+     "pos": [
+      -1.88,
+      -0.8,
+      0.6
+     ],
+     "ry": 8,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.455,
+       "to": [
+        -1.88,
+        0,
+        0.6
+       ],
+       "dur": 0.32,
+       "ease": "outBack",
+       "move": true
+      },
+      {
+       "at": 1.381,
+       "expr": "angry",
+       "clip": "angry"
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn",
+     "name": "mowedLawn",
+     "pos": [
+      -2.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 4.6,
+      "d": 5.0,
+      "cut": 0.42,
+      "stripes": 8,
+      "h": 0.17
+     }
+    },
+    {
+     "id": "hole",
+     "name": "dirtMound",
+     "pos": [
+      -1.88,
+      0,
+      0.6
+     ]
+    },
+    {
+     "id": "mower",
+     "name": "mowerRun",
+     "pos": [
+      -1.98,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "runAt": 0.0,
+      "stopAt": 0.605
+     }
+    },
+    {
+     "id": "burst",
+     "name": "dirtBurst",
+     "pos": [
+      -1.88,
+      0,
+      0.6
+     ],
+     "opts": {
+      "popAt": 0.455
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.66,
+      0.16,
+      1.55
+     ],
+     "to": [
+      -1.67,
+      0.17,
+      1.48
+     ],
+     "lookAt": [
+      -1.9,
+      0.4,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.9,
+      0.42,
+      0.6
+     ]
+    }
+   ],
+   "start": 1.6,
+   "duration": 2.4,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      0,
+      -1.75
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 1.0579999999999998,
+       "expr": "awe"
+      }
+     ],
+     "expr": "shocked"
+    },
+    {
+     "id": "ver",
+     "pos": [
+      -1.88,
+      0,
+      0.6
+     ],
+     "ry": 180,
+     "clip": "talk",
+     "keys": [],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn",
+     "name": "mowedLawn",
+     "pos": [
+      -2.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 4.6,
+      "d": 5.0,
+      "cut": 0.42,
+      "stripes": 8,
+      "h": 0.17
+     }
+    },
+    {
+     "id": "hole",
+     "name": "dirtMound",
+     "pos": [
+      -1.88,
+      0,
+      0.6
+     ]
+    },
+    {
+     "id": "mower",
+     "name": "mowerRun",
+     "pos": [
+      -1.98,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "runAt": 0.0,
+      "stopAt": 0.0
+     }
+    },
+    {
+     "id": "bub",
+     "name": "speechBubble",
+     "pos": [
+      -1.899,
+      0.66,
+      0.399
+     ],
+     "ry": -166.3,
+     "opts": {
+      "text": "T'AS PAS LE DROIT\nDE FAIRE ÇA !",
+      "popAt": 0.04,
+      "tail": "down",
+      "w": 0.24,
+      "h": 0.12
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.05,
+      0.62,
+      -0.22
+     ],
+     "to": [
+      -2.03,
+      0.6,
+      -0.16
+     ],
+     "lookAt": [
+      -1.84,
+      0.47,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.84,
+      0.47,
+      0.6
+     ]
+    },
+    {
+     "at": 1.0579999999999998,
+     "from": [
+      -1.78,
+      1.6,
+      -0.3999999999999999
+     ],
+     "to": [
+      -1.79,
+      1.6,
+      -0.53
+     ],
+     "lookAt": [
+      -2.0,
+      1.82,
+      -1.75
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.0,
+      1.83,
+      -1.75
+     ]
+    }
+   ],
+   "start": 4.0,
+   "duration": 1.8667,
+   "look": {
+    "sunDir": [
+     -0.35,
+     0.62,
+     -0.7
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      0,
+      -1.75
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "confused"
+    },
+    {
+     "id": "ver",
+     "pos": [
+      -1.88,
+      0,
+      0.6
+     ],
+     "ry": 0,
+     "clip": "point",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn",
+     "name": "mowedLawn",
+     "pos": [
+      -2.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 4.6,
+      "d": 5.0,
+      "cut": 0.42,
+      "stripes": 8,
+      "h": 0.17
+     }
+    },
+    {
+     "id": "hole",
+     "name": "dirtMound",
+     "pos": [
+      -1.88,
+      0,
+      0.6
+     ]
+    },
+    {
+     "id": "mower",
+     "name": "mowerRun",
+     "pos": [
+      -1.98,
+      0,
+      -0.8
+     ],
+     "opts": {
+      "runAt": 0.0,
+      "stopAt": 0.0
+     }
+    },
+    {
+     "id": "phone",
+     "name": "smartPhone",
+     "pos": [
+      -1.88,
+      0.08,
+      1.1
+     ],
+     "rot": [
+      -1.05,
+      0.6,
+      0
+     ],
+     "scale": 1.6,
+     "opts": {
+      "call": true,
+      "label": "POLICE 17"
+     },
+     "ry": 34.377
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.63,
+      0.32,
+      0.98
+     ],
+     "to": [
+      -0.7,
+      0.33,
+      0.98
+     ],
+     "lookAt": [
+      -1.88,
+      0.3,
+      0.88
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.88,
+      0.31,
+      0.88
+     ]
+    }
+   ],
+   "start": 5.8667,
+   "duration": 2.0,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.0,
+      0,
+      -0.9
+     ],
+     "ry": 0,
+     "clip": "cuffedBack",
+     "keys": [
+      {
+       "at": 0.709,
+       "expr": "pout"
+      }
+     ],
+     "expr": "sad"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      -2.62,
+      0,
+      -1.02
+     ],
+     "ry": 20,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "determined"
+    },
+    {
+     "id": "flic2",
+     "pos": [
+      -1.4,
+      0,
+      -1.05
+     ],
+     "ry": -25,
+     "clip": "giveItem",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "ver",
+     "pos": [
+      -1.62,
+      0,
+      0.75
+     ],
+     "ry": -20,
+     "clip": "idle",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn",
+     "name": "mowedLawn",
+     "pos": [
+      -2.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 4.6,
+      "d": 5.0,
+      "cut": 0.42,
+      "stripes": 8,
+      "h": 0.17
+     }
+    },
+    {
+     "id": "hole2",
+     "name": "dirtMound",
+     "pos": [
+      -1.62,
+      0,
+      0.75
+     ]
+    },
+    {
+     "id": "cuffs",
+     "name": "handcuffs",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     }
+    },
+    {
+     "id": "flash",
+     "name": "policeFlash",
+     "pos": [
+      -1.5,
+      2.2,
+      3.6
+     ],
+     "opts": {
+      "power": 10
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.55,
+      1.6,
+      2.75
+     ],
+     "to": [
+      -1.57,
+      1.6,
+      2.62
+     ],
+     "lookAt": [
+      -2.0,
+      1.3,
+      -0.9
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -2.0,
+      1.32,
+      -0.9
+     ]
+    }
+   ],
+   "start": 7.8667,
+   "duration": 1.6,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "interrogation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      -2.72
+     ],
+     "ry": 0,
+     "clip": "cuffedFront",
+     "keys": [
+      {
+       "at": 0.911,
+       "expr": "confused"
+      }
+     ],
+     "expr": "pout"
+    }
+   ],
+   "props": [
+    {
+     "id": "wallm",
+     "name": "mugshotBoard",
+     "pos": [
+      0,
+      0,
+      -3.17
+     ],
+     "opts": {
+      "w": 1.7,
+      "h": 2.3
+     }
+    },
+    {
+     "id": "plate",
+     "name": "mugshotPlate",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0,
+       0.18,
+       0.26
+      ]
+     },
+     "opts": {
+      "lines": [
+       "LE MEC",
+       "N° 0042"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.04,
+      1.6,
+      -0.62
+     ],
+     "to": [
+      0.04,
+      1.6,
+      -0.72
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      -2.72
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.51,
+      -2.72
+     ]
+    }
+   ],
+   "start": 9.4667,
+   "duration": 2.6333,
+   "look": {
+    "exposure": 1.45,
+    "fill": 1.3
+   },
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0.12,
+     "dur": 0.25
+    },
+    {
+     "type": "flash",
+     "at": 0.911,
+     "dur": 0.25
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "prisonCell",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.95,
+      0.08,
+      -2.45
+     ],
+     "ry": 0,
+     "clip": "sitSlump",
+     "keys": [],
+     "expr": "worried"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.3,
+      1.7
+     ],
+     "to": [
+      1.03,
+      1.29,
+      1.55
+     ],
+     "lookAt": [
+      1.92,
+      1.0,
+      -2.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.92,
+      1.0,
+      -2.4
+     ]
+    }
+   ],
+   "start": 12.1,
+   "duration": 1.3,
+   "look": {
+    "exposure": 1.35
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "interrogation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.25,
+      0,
+      -0.05
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "surprised"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      -0.05,
+      0.785,
+      -0.85
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.138,
+       "clip": "wave",
+       "expr": "happy"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "case",
+     "name": "briefcase",
+     "on": {
+      "actor": "avocat",
+      "hand": "L"
+     },
+     "scale": 0.55
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.85,
+      1.42,
+      0.38
+     ],
+     "to": [
+      0.8,
+      1.42,
+      0.28
+     ],
+     "lookAt": [
+      -0.05,
+      1.185,
+      -0.85
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.05,
+      1.195,
+      -0.85
+     ]
+    }
+   ],
+   "start": 13.4,
+   "duration": 0.8667,
+   "look": {
+    "exposure": 1.55,
+    "fill": 1.4
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "interrogation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.25,
+      0,
+      -0.05
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "expr": "neutral"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      -0.05,
+      0.785,
+      -0.85
+     ],
+     "ry": 0,
+     "clip": "talk",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "case",
+     "name": "briefcase",
+     "on": {
+      "actor": "avocat",
+      "hand": "L"
+     },
+     "scale": 0.55
+    },
+    {
+     "id": "leaves",
+     "name": "saladLeaves",
+     "pos": [
+      -0.05,
+      1.325,
+      -0.76
+     ],
+     "opts": {
+      "onAt": 0.05,
+      "n": 10
+     }
+    },
+    {
+     "id": "sbub",
+     "name": "saladBubble",
+     "pos": [
+      -0.186,
+      1.46,
+      -0.493
+     ],
+     "ry": -32.1,
+     "opts": {
+      "popAt": 0.08,
+      "w": 0.24,
+      "h": 0.15,
+      "tail": "left"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.62,
+      1.38,
+      0.2
+     ],
+     "to": [
+      -0.58,
+      1.38,
+      0.1
+     ],
+     "lookAt": [
+      -0.05,
+      1.235,
+      -0.85
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.05,
+      1.235,
+      -0.85
+     ]
+    }
+   ],
+   "start": 14.2667,
+   "duration": 1.0666,
+   "look": {
+    "exposure": 1.55,
+    "fill": 1.4
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "interrogation",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.25,
+      0,
+      -0.05
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.55,
+       "expr": "awe"
+      }
+     ],
+     "expr": "confused"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      -0.05,
+      0.785,
+      -0.85
+     ],
+     "ry": 0,
+     "clip": "talk",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "leaves",
+     "name": "saladLeaves",
+     "pos": [
+      -0.05,
+      1.325,
+      -0.76
+     ],
+     "ry": 180,
+     "opts": {
+      "onAt": -1.0,
+      "n": 12,
+      "seed": 19
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.15,
+      1.58,
+      -1.65
+     ],
+     "to": [
+      -0.58,
+      1.5,
+      -1.45
+     ],
+     "lookAt": [
+      0.25,
+      1.55,
+      -0.05
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.25,
+      1.56,
+      -0.05
+     ]
+    }
+   ],
+   "start": 15.3333,
+   "duration": 1.0667,
+   "look": {
+    "exposure": 1.45,
+    "fill": 1.4,
+    "sunDir": [
+     -0.35,
+     0.7,
+     -0.62
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "courtroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "juge",
+     "pos": [
+      0,
+      0.3,
+      -4.2
+     ],
+     "ry": 0,
+     "clip": "gavelStrikeL",
+     "keys": [],
+     "params": {
+      "hit": 0.28
+     },
+     "expr": "determined"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -2.75,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [],
+     "fx": {
+      "sweat": true
+     },
+     "expr": "nervous"
+    },
+    {
+     "id": "verC",
+     "pos": [
+      3.47,
+      1.05,
+      0.55
+     ],
+     "ry": -139.1,
+     "clip": "idle",
+     "keys": [],
+     "expr": "angry"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      3.15,
+      0.79,
+      0.18
+     ],
+     "ry": 180,
+     "clip": "talk",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "pot",
+     "name": "flowerPot",
+     "pos": [
+      3.47,
+      0.79,
+      0.55
+     ]
+    },
+    {
+     "id": "leaves",
+     "name": "saladLeaves",
+     "pos": [
+      3.15,
+      1.33,
+      0.09
+     ],
+     "ry": 180,
+     "opts": {
+      "onAt": 0.0,
+      "n": 8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.35,
+      1.95,
+      0.6
+     ],
+     "to": [
+      0.34,
+      1.97,
+      0.45
+     ],
+     "lookAt": [
+      0,
+      2.15,
+      -4.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      2.16,
+      -4.2
+     ]
+    },
+    {
+     "at": 0.6,
+     "from": [
+      2.72,
+      1.55,
+      -1.65
+     ],
+     "to": [
+      2.74,
+      1.55,
+      -1.52
+     ],
+     "lookAt": [
+      3.25,
+      1.2,
+      0.35
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      3.25,
+      1.21,
+      0.35
+     ]
+    }
+   ],
+   "start": 16.4,
+   "duration": 1.2,
+   "look": {
+    "sunDir": [
+     0.35,
+     0.72,
+     -0.6
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "courtroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "verC",
+     "pos": [
+      3.47,
+      1.05,
+      0.55
+     ],
+     "ry": -139.1,
+     "clip": "angry",
+     "keys": [],
+     "expr": "angry"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      3.15,
+      0.79,
+      0.18
+     ],
+     "ry": 180,
+     "clip": "talk",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "pot",
+     "name": "flowerPot",
+     "pos": [
+      3.47,
+      0.79,
+      0.55
+     ]
+    },
+    {
+     "id": "leaves",
+     "name": "saladLeaves",
+     "pos": [
+      3.15,
+      1.33,
+      0.09
+     ],
+     "ry": 180,
+     "opts": {
+      "onAt": -0.5,
+      "n": 8,
+      "seed": 23
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.05,
+      1.52,
+      -0.95
+     ],
+     "to": [
+      3.07,
+      1.52,
+      -0.85
+     ],
+     "lookAt": [
+      3.35,
+      1.5,
+      0.45
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      3.35,
+      1.51,
+      0.45
+     ]
+    }
+   ],
+   "start": 17.6,
+   "duration": 1.7333,
+   "look": {
+    "sunDir": [
+     0.35,
+     0.72,
+     -0.6
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "courtroom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "verC",
+     "pos": [
+      3.47,
+      1.05,
+      0.55
+     ],
+     "ry": -139.1,
+     "clip": "angry",
+     "keys": [
+      {
+       "at": 0.056999999999999995,
+       "clip": "eat",
+       "params": {
+        "reach": 0.17
+       }
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "avocat",
+     "pos": [
+      3.15,
+      0.79,
+      0.18
+     ],
+     "ry": 180,
+     "clip": "talk",
+     "keys": [
+      {
+       "at": 0.03699999999999999,
+       "clip": "stand",
+       "expr": "scared"
+      },
+      {
+       "at": 0.297,
+       "to": [
+        3.235,
+        0.87,
+        0.278
+       ],
+       "dur": 0.16,
+       "ease": "in",
+       "move": true,
+       "face": "keep"
+      },
+      {
+       "at": 0.317,
+       "scale": 0.3
+      },
+      {
+       "at": 0.477,
+       "visible": false
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "pot",
+     "name": "flowerPot",
+     "pos": [
+      3.47,
+      0.79,
+      0.55
+     ]
+    },
+    {
+     "id": "stone",
+     "name": "avocadoStone",
+     "pos": [
+      3.36,
+      1.6,
+      0.42
+     ],
+     "opts": {
+      "still": true,
+      "r": 0.05
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 2.3369999999999997,
+       "visible": true
+      },
+      {
+       "at": 2.3369999999999997,
+       "to": [
+        3.14,
+        1.47,
+        -0.98
+       ],
+       "dur": 0.34,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.12,
+      1.5,
+      -1.25
+     ],
+     "to": [
+      3.13,
+      1.49,
+      -1.1
+     ],
+     "lookAt": [
+      3.3,
+      1.32,
+      0.35
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      3.3,
+      1.31,
+      0.35
+     ]
+    }
+   ],
+   "start": 19.3333,
+   "duration": 3.0067,
+   "look": {
+    "sunDir": [
+     0.35,
+     0.72,
+     -0.6
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 2.657,
+     "dur": 0.3,
+     "amount": 0.03
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 22.34,
+ "look": "shaders"
+}

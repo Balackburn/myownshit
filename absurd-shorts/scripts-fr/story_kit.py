@@ -37,8 +37,8 @@ def TOP(x=0, z=0, h=1.6, look_h=0.8, lens=42, shake=None):              # top-do
 
 
 class Story:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, name, look=None):
+        self.name = name; self.look = look   # look='shaders': Minecraft-shader-style light (engine/look.js)
         self.TL = json.load(open(os.path.join(ROOT, 'stories7', name, 'timeline.json')))
         self.L = {l['id']: l for l in self.TL['lines']}; self.total = self.TL['total']
         self.scenes = []; self.SH = {}; self.cues = []; self.cards = []
@@ -80,6 +80,7 @@ class Story:
             for p in sc['props']:
                 if 'rot' in p and 'ry' not in p: p['ry'] = round(math.degrees(p['rot'][1]), 3)
             s = sc['set']; dry = sc.get('setOpts', {}).get('dry')
+            if self.look: sc.setdefault('grade', 'none'); sc.setdefault('soften', 0.3)
             sc.setdefault('grade', {'spaceDark': 'contrast(0.95) saturate(1.1) brightness(1.02)', 'seabed': 'contrast(0.92) saturate(1.12) brightness(1.06)' if not dry else 'contrast(0.9) saturate(1.08) brightness(1.08)'}
                           .get(s, 'contrast(0.9) saturate(1.06) brightness(1.1)' if s in ('office', 'brightCell', 'poste', 'livingRoom', 'replicaCourt', 'pressRoom', 'chambre', 'interrogation') else 'contrast(0.9) saturate(1.08) brightness(1.08)'))
             sc.setdefault('soften', 0.84)
@@ -89,7 +90,7 @@ class Story:
                 'juge': {'preset': 'judge', 'facial': 'stubble', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
                 **(extra_cast or {})}
         doc = {'version': 3, 'title': title, 'grade': 'contrast(0.9) saturate(1.05) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
-               'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total}
+               'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total, **({'look': self.look} if self.look else {})}
         out = os.path.join(HERE, f'story_{self.name}.json')
         json.dump(doc, open(out, 'w'), indent=1, ensure_ascii=False)
         print(out, len(self.scenes), 'shots', self.total, 's')
