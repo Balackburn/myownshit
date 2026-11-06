@@ -41,9 +41,12 @@ export const CHAUSSETTES_PROPS = {
     // a front-loading washing machine big enough to crawl into: body o.w × o.h × o.d (1.25 × 1.7 × 1.15), a porthole door (radius 0.46) hinged on the left that
     // opens toward the viewer — o.open (0..1) or o.openAt / o.closeAt; o.shakeAt rocks it; o.spinAt [t, ...] / o.spinStop spin the drum (it vibrates);
     // o.laundry: clothes tumbling in the drum; userData.opening (centre of the porthole), inside (centre of the drum)
-    const W = o.w || 1.25, H = o.h || 1.7, D = o.d || 1.15, yc = o.yc || 0.8, R = 0.46, g = grp(), body = grp(g), C = o.color || '#F2F2EC';
+    const W = o.w || 1.25, H = o.h || 1.7, D = o.d || 1.15, yc = o.yc || 0.8, R = 0.46, g = grp(), body = grp(), C = o.color || '#F2F2EC'; g.add(body);
     // the shell, with a round hole in the front (a ring of boxes is enough: the door covers the edge)
-    body.add(at(box(W, H, D - 0.05, C, { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.05));
+    // a hollow shell (back, sides, top) so the porthole shows the drum, not a wall
+    body.add(at(box(W, H, 0.04, C, { pivot: 'bottom', outline: 0.01 }), 0, 0, -D / 2 + 0.02));
+    for (const sx of [-1, 1]) body.add(at(box(0.04, H, D - 0.05, C, { pivot: 'bottom', outline: 0.01 }), sx * (W / 2 - 0.02), 0, -0.025));
+    body.add(at(box(W, 0.04, D - 0.05, C, { outline: 0.01 }), 0, H - 0.02, -0.025));
     const front = new THREE.Shape([[-W / 2, 0], [W / 2, 0], [W / 2, H], [-W / 2, H]].map(([x, y]) => new THREE.Vector2(x, y)));
     const hole = new THREE.Path(); hole.absarc(0, yc, R - 0.02, 0, TAU, true); front.holes.push(hole);
     const fg = new THREE.ExtrudeGeometry(front, { depth: 0.05, bevelEnabled: false, curveSegments: 28 }); body.add(at(mesh(fg, mat(C)), 0, 0, D / 2 - 0.05));

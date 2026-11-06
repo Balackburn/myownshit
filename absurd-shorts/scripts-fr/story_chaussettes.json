@@ -1,0 +1,1475 @@
+{
+ "version": 3,
+ "title": "Les chaussettes",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "mecPN": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "barefoot": true
+  },
+  "reine": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 3,
+    "colors": {
+     "body": "#D9453A",
+     "stripe": "#F4F1E8",
+     "toe": "#F4F1E8",
+     "cuff": "#F4F1E8"
+    },
+    "scale": 1.15
+   }
+  },
+  "reineH": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 3,
+    "colors": {
+     "body": "#D9453A",
+     "stripe": "#F4F1E8",
+     "toe": "#F4F1E8",
+     "cuff": "#F4F1E8"
+    }
+   }
+  },
+  "jumelle": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 4,
+    "colors": {
+     "body": "#D9453A",
+     "stripe": "#F4F1E8",
+     "toe": "#F4F1E8",
+     "cuff": "#F4F1E8"
+    }
+   }
+  },
+  "sk1": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 11,
+    "colors": {
+     "body": "#2F5E8C",
+     "stripe": "#F2C94C",
+     "toe": "#F2C94C",
+     "cuff": "#F2C94C"
+    }
+   }
+  },
+  "sk2": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 12,
+    "colors": {
+     "body": "#4CA36C",
+     "stripe": "#F4F1E8",
+     "toe": "#2C6E4A",
+     "cuff": "#F4F1E8"
+    }
+   }
+  },
+  "sk3": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 13,
+    "colors": {
+     "body": "#F2C94C",
+     "stripe": "#E0413A",
+     "toe": "#E0413A",
+     "cuff": "#E0413A"
+    }
+   }
+  },
+  "sk4": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 14,
+    "colors": {
+     "body": "#8E5BB5",
+     "stripe": "#F4F1E8",
+     "toe": "#F4F1E8",
+     "cuff": "#F4F1E8"
+    }
+   }
+  },
+  "sk5": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 15,
+    "colors": {
+     "body": "#E8879E",
+     "stripe": "#F4F1E8",
+     "toe": "#C8322A",
+     "cuff": "#F4F1E8"
+    }
+   }
+  },
+  "sk6": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 16,
+    "colors": {
+     "body": "#F4F1E8",
+     "stripe": "#2C3E66",
+     "toe": "#2C3E66",
+     "cuff": "#2C3E66"
+    }
+   }
+  },
+  "sk7": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 17,
+    "colors": {
+     "body": "#3A3D44",
+     "stripe": "#C9CCD1",
+     "toe": "#C9CCD1",
+     "cuff": "#C9CCD1"
+    }
+   }
+  },
+  "sk8": {
+   "type": "creature",
+   "name": "sock",
+   "opts": {
+    "seed": 18,
+    "colors": {
+     "body": "#E07A2E",
+     "stripe": "#2F5E8C",
+     "toe": "#2F5E8C",
+     "cuff": "#2F5E8C"
+    }
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.15,
+      0,
+      -1.6
+     ],
+     "ry": -25,
+     "clip": "lookItem",
+     "keys": [
+      {
+       "at": 0.7,
+       "expr": "sad"
+      }
+     ],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "chau",
+     "name": "sockSingle",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "colors": [
+       "#D9453A",
+       "#F4F1E8",
+       "#F4F1E8"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.8,
+      1.05
+     ],
+     "to": [
+      0.45,
+      1.8,
+      0.85
+     ],
+     "lookAt": [
+      -0.7,
+      1.5,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.7,
+      1.5,
+      -2.0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.3333,
+   "setOpts": {
+    "open": 1
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.2,
+      0,
+      -1.6
+     ],
+     "ry": 180,
+     "clip": "peerIn",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.2,
+      0.82,
+      -2.8
+     ],
+     "to": [
+      -1.2,
+      0.83,
+      -2.75
+     ],
+     "lookAt": [
+      -1.2,
+      1.3,
+      -1.95
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -1.2,
+      1.31,
+      -1.95
+     ]
+    }
+   ],
+   "start": 1.3333,
+   "duration": 1.2,
+   "setOpts": {
+    "open": 1
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.2,
+      0,
+      -1.35
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        -1.2,
+        -0.35,
+        -1.95
+       ],
+       "dur": 0.25,
+       "clip": "diveIn",
+       "then": "diveIn"
+      },
+      {
+       "at": 0.52,
+       "to": [
+        -1.2,
+        -0.35,
+        -3.7
+       ],
+       "dur": 0.95,
+       "glide": true
+      },
+      {
+       "at": 1.5,
+       "visible": false
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "washer",
+     "name": "bigWasher",
+     "pos": [
+      -1.2,
+      0,
+      -2.98
+     ],
+     "opts": {
+      "open": 1,
+      "shakeAt": [
+       1.5,
+       1.72
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.45,
+      1.25,
+      -0.2
+     ],
+     "to": [
+      -0.5,
+      1.2,
+      -0.35
+     ],
+     "lookAt": [
+      -1.2,
+      0.75,
+      -2.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.2,
+      0.75,
+      -2.5
+     ]
+    }
+   ],
+   "start": 2.5333,
+   "duration": 2.0667,
+   "setOpts": {
+    "washer": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "drumTunnel",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0,
+      0,
+      5.5
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0,
+        0,
+        2.0
+       ],
+       "dur": 1.767
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.0,
+      8.2
+     ],
+     "to": [
+      0.35,
+      1.05,
+      7.6
+     ],
+     "lookAt": [
+      0,
+      1.3,
+      -10
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.3,
+      -10
+     ]
+    }
+   ],
+   "start": 4.6,
+   "duration": 1.5667,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.2,
+      0,
+      2.6
+     ],
+     "ry": 200,
+     "clip": "stand",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "sk1",
+     "pos": [
+      -1.5,
+      0,
+      -2.5
+     ],
+     "ry": 15,
+     "clip": "hop",
+     "keys": []
+    },
+    {
+     "id": "sk2",
+     "pos": [
+      0.3,
+      0,
+      -3.2
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "sk3",
+     "pos": [
+      2.4,
+      0,
+      -2.0
+     ],
+     "ry": -20,
+     "clip": "talk",
+     "keys": []
+    },
+    {
+     "id": "sk4",
+     "pos": [
+      -3.2,
+      0,
+      -4.0
+     ],
+     "ry": 25,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "sk5",
+     "pos": [
+      3.6,
+      0,
+      -4.6
+     ],
+     "ry": -25,
+     "clip": "hop",
+     "keys": []
+    },
+    {
+     "id": "sk6",
+     "pos": [
+      -0.8,
+      0,
+      -5.5
+     ],
+     "ry": 5,
+     "clip": "celebrate",
+     "keys": []
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.6,
+      3.4,
+      7.0
+     ],
+     "to": [
+      2.4,
+      3.2,
+      6.4
+     ],
+     "lookAt": [
+      0,
+      1.5,
+      -6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.4,
+      -6.5
+     ]
+    }
+   ],
+   "start": 6.1667,
+   "duration": 1.9,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "sk7",
+     "pos": [
+      -1.0,
+      0,
+      -10.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "sk8",
+     "pos": [
+      1.0,
+      0,
+      -10.6
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": []
+    },
+    {
+     "id": "reine",
+     "pos": [
+      0,
+      0.7,
+      -8.55
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "crown_reine",
+     "name": "crown",
+     "on": {
+      "actor": "reine",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.62
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      0.62,
+      -3.2
+     ],
+     "to": [
+      0.8,
+      0.66,
+      -3.8
+     ],
+     "lookAt": [
+      0,
+      3.7,
+      -13
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      3.8,
+      -13
+     ]
+    }
+   ],
+   "start": 8.0667,
+   "duration": 1.8333,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "reine",
+     "pos": [
+      0,
+      0.7,
+      -8.55
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "expr": "smug"
+    },
+    {
+     "id": "sk1",
+     "pos": [
+      -0.6,
+      0,
+      -7.9
+     ],
+     "ry": 50,
+     "clip": "bow",
+     "keys": []
+    },
+    {
+     "id": "sk2",
+     "pos": [
+      0.6,
+      0,
+      -7.9
+     ],
+     "ry": -50,
+     "clip": "bow",
+     "keys": []
+    }
+   ],
+   "props": [
+    {
+     "id": "crown_reine",
+     "name": "crown",
+     "on": {
+      "actor": "reine",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.62
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.6,
+      1.3,
+      -5.6
+     ],
+     "to": [
+      0.55,
+      1.3,
+      -5.9
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      -8.55
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.0,
+      -8.55
+     ]
+    }
+   ],
+   "start": 9.9,
+   "duration": 0.8667,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.3,
+      0,
+      -7.35
+     ],
+     "ry": 190,
+     "clip": "showPhone",
+     "keys": [],
+     "expr": "shocked"
+    },
+    {
+     "id": "reine",
+     "pos": [
+      0,
+      0.7,
+      -8.55
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "chau",
+     "name": "sockSingle",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "colors": [
+       "#D9453A",
+       "#F4F1E8",
+       "#F4F1E8"
+      ]
+     }
+    },
+    {
+     "id": "crown_reine",
+     "name": "crown",
+     "on": {
+      "actor": "reine",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.62
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.6,
+      1.4,
+      -7.55
+     ],
+     "to": [
+      3.5,
+      1.4,
+      -7.65
+     ],
+     "lookAt": [
+      0.2,
+      1.2,
+      -7.95
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.2,
+      1.2,
+      -7.95
+     ]
+    }
+   ],
+   "start": 10.7667,
+   "duration": 1.1666,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.25,
+      0,
+      -7.1
+     ],
+     "ry": 180,
+     "clip": "kneelGive",
+     "keys": [],
+     "expr": "sad"
+    },
+    {
+     "id": "reine",
+     "pos": [
+      0,
+      0.7,
+      -8.55
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [],
+     "expr": "suspicious"
+    }
+   ],
+   "props": [
+    {
+     "id": "chau",
+     "name": "sockSingle",
+     "on": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "opts": {
+      "colors": [
+       "#D9453A",
+       "#F4F1E8",
+       "#F4F1E8"
+      ]
+     }
+    },
+    {
+     "id": "crown_reine",
+     "name": "crown",
+     "on": {
+      "actor": "reine",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.62
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.2,
+      1.2,
+      -7.4
+     ],
+     "to": [
+      4.1,
+      1.2,
+      -7.5
+     ],
+     "lookAt": [
+      0.15,
+      0.95,
+      -7.85
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.15,
+      0.95,
+      -7.85
+     ]
+    }
+   ],
+   "start": 11.9333,
+   "duration": 1.6,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "reine",
+     "pos": [
+      0,
+      0.7,
+      -8.55
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.1,
+       "clip": "refuse"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "crown_reine",
+     "name": "crown",
+     "on": {
+      "actor": "reine",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.62
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      1.45,
+      -6.9
+     ],
+     "to": [
+      0.4,
+      1.45,
+      -7.05
+     ],
+     "lookAt": [
+      0,
+      1.3,
+      -8.55
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.3,
+      -8.55
+     ]
+    }
+   ],
+   "start": 13.5333,
+   "duration": 1.1,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "reineH",
+     "pos": [
+      0.4,
+      0,
+      -1.3
+     ],
+     "ry": 0,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.55,
+       "clip": "angry",
+       "expr": "shocked"
+      }
+     ],
+     "expr": "scared"
+    }
+   ],
+   "props": [
+    {
+     "id": "pied",
+     "name": "giantFoot",
+     "pos": [
+      0.4,
+      2.6,
+      -1.6
+     ],
+     "opts": {
+      "size": 0.8
+     },
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        0.4,
+        1.07,
+        -1.6
+       ],
+       "dur": 0.55,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "stink",
+     "name": "stinkLines",
+     "pos": [
+      0.4,
+      1.15,
+      -1.25
+     ],
+     "opts": {
+      "n": 4,
+      "w": 0.45,
+      "h": 0.6,
+      "at": 0.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.35,
+      0.4,
+      -0.4
+     ],
+     "to": [
+      1.3,
+      0.38,
+      -0.5
+     ],
+     "lookAt": [
+      0.4,
+      0.8,
+      -1.35
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      0.8,
+      -1.35
+     ]
+    }
+   ],
+   "start": 14.6333,
+   "duration": 1.8667,
+   "setOpts": {
+    "open": 0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "jumelle",
+     "pos": [
+      0.9,
+      0,
+      -1.2
+     ],
+     "ry": -100,
+     "clip": "idle",
+     "keys": [
+      {
+       "at": 0.15,
+       "to": [
+        -1.0,
+        0,
+        -1.9
+       ],
+       "dur": 1.2,
+       "clip": "hop"
+      },
+      {
+       "at": 1.4,
+       "to": [
+        -1.2,
+        0.4,
+        -2.45
+       ],
+       "dur": 0.3,
+       "clip": "hop"
+      },
+      {
+       "at": 1.7,
+       "to": [
+        -1.2,
+        0.4,
+        -2.95
+       ],
+       "dur": 0.25,
+       "glide": true
+      },
+      {
+       "at": 1.95,
+       "visible": false
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "bindle",
+     "name": "bindle",
+     "on": {
+      "actor": "jumelle",
+      "joint": "cuff",
+      "offset": [
+       0.0,
+       0.08,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0.7
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.55,
+      1.15,
+      0.5
+     ],
+     "to": [
+      0.45,
+      1.1,
+      0.3
+     ],
+     "lookAt": [
+      -0.55,
+      0.55,
+      -2.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.55,
+      0.55,
+      -2.1
+     ]
+    }
+   ],
+   "start": 16.5,
+   "duration": 2.4333,
+   "setOpts": {
+    "open": 1
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "washer",
+     "name": "bigWasher",
+     "pos": [
+      -1.2,
+      0,
+      -2.98
+     ],
+     "opts": {
+      "note": "JE REJOINS|MA MOITIÉ"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.06,
+      1.08,
+      -1.7
+     ],
+     "to": [
+      -1.06,
+      1.07,
+      -1.82
+     ],
+     "lookAt": [
+      -1.08,
+      1.05,
+      -2.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.08,
+      1.05,
+      -2.3
+     ]
+    }
+   ],
+   "start": 18.9333,
+   "duration": 1.4,
+   "setOpts": {
+    "washer": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "laundryRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mecPN",
+     "pos": [
+      -0.2,
+      0,
+      -1.4
+     ],
+     "ry": 10,
+     "clip": "slump",
+     "keys": [],
+     "expr": "sad"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.6,
+      0.9
+     ],
+     "to": [
+      0.3,
+      0.55,
+      0.55
+     ],
+     "lookAt": [
+      -0.2,
+      1.75,
+      -1.4
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      -0.2,
+      0.22,
+      -1.4
+     ]
+    }
+   ],
+   "start": 20.3333,
+   "duration": 2.1667,
+   "setOpts": {
+    "open": 0
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "sockKingdom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "reine",
+     "pos": [
+      -0.17,
+      0.7,
+      -8.55
+     ],
+     "ry": 10,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    },
+    {
+     "id": "jumelle",
+     "pos": [
+      0.17,
+      0.7,
+      -8.55
+     ],
+     "ry": -10,
+     "clip": "celebrate",
+     "keys": [],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "crown_reine",
+     "name": "crown",
+     "on": {
+      "actor": "reine",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.62
+    },
+    {
+     "id": "crown_jumelle",
+     "name": "crown",
+     "on": {
+      "actor": "jumelle",
+      "joint": "cuff",
+      "offset": [
+       0,
+       0.1,
+       0
+      ]
+     },
+     "scale": 0.55
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      1.3,
+      -6.2
+     ],
+     "to": [
+      0.8,
+      1.3,
+      -6.5
+     ],
+     "lookAt": [
+      0,
+      1.0,
+      -8.55
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0,
+      1.0,
+      -8.55
+     ]
+    }
+   ],
+   "start": 22.5,
+   "duration": 1.29,
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 23.79,
+ "look": "natural"
+}

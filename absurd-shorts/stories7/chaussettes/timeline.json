@@ -465,14 +465,15 @@
   {
    "id": "L10",
    "who": "N",
-   "text": "Elle a laissé un mot.",
+   "text": "Elle a laissé un petit mot.",
    "hl": [
+    "petit",
     "mot."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L10.k.wav",
    "file_start": 18.981,
    "speech_start": 18.981,
-   "speech_end": 20.051,
+   "speech_end": 20.282,
    "words": [
     {
      "w": "Elle",
@@ -481,23 +482,28 @@
     },
     {
      "w": "a",
-     "s": 19.133,
-     "e": 19.159
+     "s": 19.095,
+     "e": 19.133
     },
     {
      "w": "laissé",
-     "s": 19.184,
-     "e": 19.438
+     "s": 19.171,
+     "e": 19.4
     },
     {
      "w": "un",
-     "s": 19.476,
+     "s": 19.438,
      "e": 19.514
     },
     {
-     "w": "mot.",
+     "w": "petit",
      "s": 19.59,
-     "e": 20.048
+     "e": 19.743
+    },
+    {
+     "w": "mot.",
+     "s": 19.857,
+     "e": 20.276
     }
    ]
   },
@@ -510,42 +516,42 @@
     "nus."
    ],
    "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L11.k.wav",
-   "file_start": 20.151,
-   "speech_start": 20.151,
-   "speech_end": 22.055,
+   "file_start": 20.382,
+   "speech_start": 20.382,
+   "speech_end": 22.286,
    "words": [
     {
      "w": "Depuis,",
-     "s": 20.151,
-     "e": 20.836
+     "s": 20.382,
+     "e": 21.067
     },
     {
      "w": "ce",
-     "s": 20.913,
-     "e": 20.989
+     "s": 21.144,
+     "e": 21.22
     },
     {
      "w": "mec",
-     "s": 21.027,
-     "e": 21.217
+     "s": 21.258,
+     "e": 21.448
     },
     {
      "w": "vit",
-     "s": 21.294,
-     "e": 21.37
+     "s": 21.524,
+     "e": 21.601
     },
     {
      "w": "pieds",
-     "s": 21.408,
-     "e": 21.624
+     "s": 21.639,
+     "e": 21.855
     },
     {
      "w": "nus.",
-     "s": 21.649,
-     "e": 22.055
+     "s": 21.88,
+     "e": 22.286
     }
    ]
   }
  ],
- "total": 23.56
+ "total": 23.79
 }
