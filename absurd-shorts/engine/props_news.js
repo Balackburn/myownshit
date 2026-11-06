@@ -343,6 +343,12 @@ export const NEWS_PROPS = {
     const g = grp(at(torus(o.r || 0.14, 0.015, '#FFFFFF', 4, 16), 0, 0, 0, PI / 2, 0, 0));
     const v = mesh(new THREE.ConeGeometry(0.32, 0.9, 10, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false }));
     v.position.set(0, -0.4, -0.12); g.add(v); g.add(at(sphere(0.03, '#F4C2C2', 0), 0.12, 0.02, 0.06), at(sphere(0.025, '#FFFFFF', 0), 0.09, 0.03, 0.09)); return g; },
+  handset(o) { // a smartphone held to the ear (attach to the hand; o.screen colour)
+    return grp(at(box(0.075, 0.15, 0.014, '#1C1C22', { outline: 0.004 }), 0, -0.06, 0), at(box(0.062, 0.12, 0.002, o.screen || '#5FA8E8', { noGrain: true }), 0, -0.06, 0.008)); },
+  mole(o) { return grp(at(sphere(o.r || 0.014, o.color || '#4A2E22', 0, { noGrain: true }), 0, 0, 0)); },   // a grain de beauté: stick it on a cheek (head joint offset)
+  ringMark(o) { // a red highlight ring that pops in at o.popAt (face the camera)
+    const g = grp(at(torus(o.r || 0.06, 0.008, o.color || '#E0302A', 4, 24), 0, 0, 0)); if (o.popAt != null) { g.userData.update = t => { g.scale.setScalar(Math.max(0.001, ease.outBack(clamp01((t - o.popAt) / 0.25)))); }; g.userData.update(0); }
+    return g; },
   cutChain(o) { // a cut bike chain hanging from the grip (hold it with HAND_FLAT), an open padlock at its end; it swings a little
     const g = grp(), L = o.color || '#6A6E74', n = o.n || 8, sw = grp(); g.add(sw);
     for (let i = 0; i < n; i++) { const lk = torus(0.032, 0.01, L, 4, 8); lk.position.set(0, -0.02 - i * 0.055, 0); lk.rotation.y = i % 2 ? PI / 2 : 0; sw.add(lk); }

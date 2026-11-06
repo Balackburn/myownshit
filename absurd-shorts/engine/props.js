@@ -684,7 +684,10 @@ const B = {
   },
   window(o) {
     const w = o.w || 1.2, h = o.h || 1.2, c = o.color || P.teal, y = 0.14, gc = o.glass || (o.lit ? '#F2C46B' : o.night ? '#2A3A55' : P.sky);
-    const g = grp(at(box(w, h, 0.02, gc, o.lit ? { emissive: '#C9922E' } : {}), 0, y + h / 2, 0.01),
+    const pane = o.clouds ? at(canvasPlane(w, h, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#62AEE2'); gr.addColorStop(1, '#BFE0F0'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      c.fillStyle = '#FFFFFF'; [[0.3, 0.32, 0.16], [0.42, 0.28, 0.12], [0.2, 0.36, 0.1], [0.72, 0.6, 0.11], [0.82, 0.57, 0.08]].forEach(([x, yy, r]) => { c.beginPath(); c.arc(x * W, yy * H, r * W, 0, Math.PI * 2); c.fill(); }); }, { res: 256 }), 0, y + h / 2, 0.021)
+      : at(box(w, h, 0.02, gc, o.lit ? { emissive: '#C9922E' } : {}), 0, y + h / 2, 0.01);
+    const g = grp(pane,
       at(box(w + 0.18, 0.09, 0.08, c), 0, y + h + 0.045, 0.04), at(box(w + 0.18, 0.09, 0.08, c), 0, y - 0.045, 0.04),
       at(box(0.09, h, 0.08, c), -w / 2 - 0.045, y + h / 2, 0.04), at(box(0.09, h, 0.08, c), w / 2 + 0.045, y + h / 2, 0.04),
       at(box(w, 0.05, 0.05, c), 0, y + h / 2, 0.03), at(box(0.05, h, 0.05, c), 0, y + h / 2, 0.03), at(box(w + 0.36, 0.06, 0.18, o.sill || P.cream), 0, 0.03, 0.09));
@@ -1407,7 +1410,9 @@ const B = {
   rubberStamp(o) { const g = grp(at(box(0.1, 0.03, 0.065, '#2A2A2E'), 0, 0.015, 0), at(box(0.06, 0.05, 0.04, '#5A3A28'), 0, 0.055, 0), at(sphere(0.035, o.color || '#C23A2E', 1), 0, 0.1, 0)); g.userData.grip = [0, 0.09, 0]; return g; },
   stampMark(o) { // red rubber-stamp mark (o.text) with a transparent surround; lay it on a sheet or face the camera
     const w = o.w || 0.3, h = o.h || 0.11, col = o.color || '#C8202A';
-    return grp(canvasPlane(w, h, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = col; c.lineWidth = H * 0.09; c.strokeRect(H * 0.07, H * 0.07, W - H * 0.14, H - H * 0.14); c.fillStyle = col; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.6}px Arial`; c.fillText(o.text || 'REFUSÉ', W / 2, H * 0.55); }, { res: 512, transparent: true })); },
+    return grp(canvasPlane(w, h, (c, W, H) => { c.clearRect(0, 0, W, H); const lw = Math.min(W, H) * 0.09; c.strokeStyle = col; c.lineWidth = lw; c.strokeRect(lw, lw, W - 2 * lw, H - 2 * lw); c.fillStyle = col; c.textAlign = 'center'; c.textBaseline = 'middle';
+      const lines = String(o.text || 'REFUSÉ').split('\n'), n = lines.length; let fs = (H - 4 * lw) / n * 0.82; c.font = `900 ${fs}px Arial`; const mw = Math.max(...lines.map(t => c.measureText(t).width)); if (mw > W * 0.86) fs *= W * 0.86 / mw;
+      c.font = `900 ${fs}px Arial`; lines.forEach((t, i) => c.fillText(t, W / 2, H / 2 + (i - (n - 1) / 2) * fs * 1.05 + fs * 0.05)); }, { res: 512, transparent: true })); },   // o.text may hold several lines
   idPhoto(o) { // passport photo of the mec (o.smile), light-blue background, white border; scale it up for inserts
     const c = canvasPlane(0.07, 0.09, (g2, W, H) => { g2.fillStyle = '#DCE8F2'; g2.fillRect(0, 0, W, H);
       g2.fillStyle = '#1E2A3A'; g2.fillRect(W * 0.12, H * 0.8, W * 0.76, H * 0.2); g2.fillStyle = '#F2F2EC'; g2.fillRect(W * 0.42, H * 0.8, W * 0.16, H * 0.2); g2.fillStyle = '#C23A2E'; g2.fillRect(W * 0.47, H * 0.82, W * 0.06, H * 0.18);

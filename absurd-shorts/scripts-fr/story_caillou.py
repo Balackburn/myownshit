@@ -6,7 +6,7 @@ Today the man sleeps in the kennel; Gérard bought him a collar and named him Ca
 from story_kit import *
 
 st = Story('caillou')
-st.plan([(f'S{i:02d}', f'L{i:02d}', 0) for i in range(1, 7)] + [('S07', 'L06', 4)] + [(f'S{i + 1:02d}', f'L{i:02d}', 0) for i in range(7, 20)])
+st.plan([(f'S{i:02d}', f'L{i:02d}', 0) for i in range(1, 7)] + [('S07', 'L06', 4)] + [(f'S{i + 1:02d}', f'L{i:02d}', 0) for i in range(7, 20)] + [('S21', 'L19', 4)])
 PI = math.pi
 ROCK = lambda pid, pos, scale=1.0, rot=None, keys=None, on=None, **o: P(pid, 'petRock', **({'pos': pos} if pos else {}), **({'on': on} if on else {}), scale=scale,
                                                                         **({'rot': rot} if rot else {}), opts=o, **({'keys': keys} if keys else {}))
@@ -46,10 +46,10 @@ SHOP = [P('door', 'door', pos=[10.12, 0, 3.0], rot=[0, -PI / 2, 0], opts={'color
         P('stool', 'chair', pos=[9.62, 0, 3.0], rot=[0, -PI / 2, 0], opts={'color': '#3A3D44'}),
         P('shop', 'noticeBoard', pos=[10.06, 2.42, 3.0], rot=[0, -PI / 2, 0], opts={'text': 'SUPERMARCHÉ', 'style': 'sign', 'w': 1.8, 'h': 0.42, 'bg': '#2F7F5C', 'fg': '#FFFFFF', 'frame': '#1E4F3A'})]
 st.shot('S08', 'parisStreet', props=SHOP + [ROCK('rock', [9.6, 0.46, 3.0], 1.3, rot=[0, -1.07, 0], cap='guard', brows='angry', look=[0.1, 0.0])],
-        cams=[cam(0.0, [7.35, 1.05, 3.75], [7.47, 1.05, 3.7], [9.55, 1.02, 3.0], [9.55, 1.04, 3.0], lens=50)])
-QUEUE = [act(f'q{i}', [8.85 - 0.85 * i, 0, 3.0 + (0.12 if i % 2 else -0.08)], 90, c, e) for i, (c, e) in enumerate((('armsCrossed', 'angry'), ('readPhone', 'unimpressed'), ('handsOnHips', 'angry'), ('armsCrossed', 'sad'), ('idle', 'unimpressed')))]
+        cams=[cam(0.0, [7.4, 0.82, 3.75], [7.52, 0.83, 3.7], [9.55, 1.0, 3.0], [9.55, 1.02, 3.0], lens=50)])
+QUEUE = [act(f'q{i}', [8.75 - 0.85 * i, 0, 2.62 + (0.1 if i % 2 else -0.06)], 80, c, e) for i, (c, e) in enumerate((('armsCrossed', 'angry'), ('readPhone', 'unimpressed'), ('handsOnHips', 'angry'), ('armsCrossed', 'sad'), ('idle', 'unimpressed')))]
 st.shot('S09', 'parisStreet', actors=QUEUE, props=SHOP + [ROCK('rock', [9.6, 0.46, 3.0], 1.3, rot=[0, -PI / 2, 0], cap='guard', brows='angry', look=[0.0, 0.0])],
-        cams=[cam(0.0, [7.95, 0.95, 1.55], [8.02, 0.95, 1.65], [9.2, 0.78, 3.0], [9.2, 0.78, 3.0], lens=46)])
+        cams=[cam(0.0, [3.2, 1.25, 3.72], [3.55, 1.22, 3.68], [9.6, 0.95, 3.0], [9.6, 0.95, 3.0], lens=30)])
 # 10-13: mayor: zero broken promises (none made), elected with 100 %
 st.shot('S10', 'parisStreet', actors=[act('mec', [7.35, 0, -0.55], -35, 'present', 'smug')],
         props=[P('poster', 'rockPoster', pos=[6.55, 0, -1.0], opts={'popAt': st.at('S10', 'L09', 3) - 0.1, 'w': 0.85}), P('flagfr', 'regionFlag', pos=[5.75, 0, -1.6], scale=1.3, opts={'kind': 'fr'})],
@@ -79,22 +79,24 @@ st.shot('S17', 'chambre', actors=[act('mec', [-1.55, 0, -0.95], -60, 'sitFloor',
         cams=[cam(0.0, [-0.9, 1.35, 1.9], [-0.92, 1.36, 1.7], [-2.0, 0.85, -1.6], [-2.0, 0.86, -1.6], lens=46)])
 # 18-20: the kennel, the collar, the name
 KEN = P('ken', 'doghouse', pos=[-1.6, 0, -0.6], scale=2.2)
-st.shot('S18', 'pavillon', actors=[act('mec', [-1.6, 0, -0.35], 0, 'sitFloor', 'sad')], props=[KEN, ROCK('rock', [2.4, 0, -3.2], BIG, sy=BSY, rot=[0, -0.5, 0], brows='smug', look=[-0.2, 0.8])],
-        cams=[cam(0.0, [-1.3, 2.5, 3.95], [-1.32, 2.46, 3.7], [-1.55, 0.95, -0.45], [-1.55, 0.95, -0.45], lens=46)])
+st.shot('S18', 'pavillon', actors=[act('mec', [-1.6, 0, 0.42], 0, 'sitFloor', 'sad')], props=[KEN, ROCK('rock', [2.4, 0, -3.2], BIG, sy=BSY, rot=[0, -0.5, 0], brows='smug', look=[-0.2, 0.8])],
+        cams=[cam(0.0, [-1.3, 2.6, 3.4], [-1.32, 2.55, 3.15], [-1.55, 1.0, -0.2], [-1.55, 1.0, -0.2], lens=46)])
 st.shot('S19', 'pavillon', actors=[act('mec', [-0.35, 0, 0.6], 15, 'stand', 'sad')],
         props=[KEN, P('collar', 'collar', on={'actor': 'mec', 'joint': 'head', 'offset': [0, -0.05, 0.0]}, opts={'text': 'CAILLOU'}), ROCK('rock', [1.5, 0, -1.6], BIG, sy=BSY, rot=[0, -0.45, 0], brows='smug', look=[-0.35, 0.7])],
         cams=[cam(0.0, [0.15, 1.5, 4.9], [0.14, 1.52, 4.65], [-0.3, 1.25, -0.4], [-0.3, 1.26, -0.4], lens=48)])
-st.shot('S20', 'pavillon', actors=[act('mec', [-0.35, 0, 0.6], 0, 'stand', 'unimpressed', keys=[k(1.0, expr='sad')])],
+st.shot('S20', 'pavillon', props=[ROCK('rock', [0.9, 0, -1.2], BIG, sy=BSY, rot=[0, -0.35, 0], brows='smug', lookKeys=[[0.0, -0.35, 0.5], [0.5, -0.45, 0.3]])],   # « Et il l'a appelé… »: the namer
+        cams=[cam(0.0, [0.3, 1.75, 3.9], [0.32, 1.8, 3.55], [0.6, 1.85, -0.6], [0.6, 1.88, -0.6], lens=44)])
+st.shot('S21', 'pavillon', actors=[act('mec', [-0.35, 0, 0.6], 0, 'stand', 'unimpressed', keys=[k(0.9, expr='sad')])],   # « …Caillou. »: the tag on the word, then up to his face
         props=[P('collar', 'collar', on={'actor': 'mec', 'joint': 'head', 'offset': [0, -0.05, 0.0]}, opts={'text': 'CAILLOU'})],
-        cams=[cam(0.0, [-0.3, 1.62, 1.32], [-0.3, 1.62, 1.29], [-0.35, 1.62, 0.6], [-0.35, 1.62, 0.6], lens=40), cam(0.78, [-0.3, 1.62, 1.29], [-0.3, 1.86, 1.9], [-0.35, 1.62, 0.6], [-0.35, 1.86, 0.6], lens=40, ease='inOut'),
-              cam(1.55, [-0.3, 1.86, 1.9], [-0.3, 1.87, 1.82], [-0.35, 1.86, 0.6], [-0.35, 1.87, 0.6], lens=40)])
+        cams=[cam(0.0, [-0.3, 1.62, 1.32], [-0.3, 1.62, 1.29], [-0.35, 1.62, 0.6], [-0.35, 1.62, 0.6], lens=40), cam(0.42, [-0.3, 1.62, 1.29], [-0.3, 1.86, 1.9], [-0.35, 1.62, 0.6], [-0.35, 1.86, 0.6], lens=40, ease='inOut'),
+              cam(0.98, [-0.3, 1.86, 1.9], [-0.3, 1.87, 1.82], [-0.35, 1.86, 0.6], [-0.35, 1.87, 0.6], lens=40)])
 st.card('S02', 'GÉRARD'); st.card('S14', 'LA GROSSE TÊTE')
 st.cue('sfx:choir', 'S01', 0.2, 0.25); st.cue('pop', 'S02', 0.6, 0.4); st.cue('sfx:bell', 'S03', 0.1, 0.35); st.cue('sfx:static', 'S04', 0.0, 0.12)
 st.cue('sfx:paper', 'S05', 0.1, 0.45); st.cue('clack', 'S05', 0.55, 0.5); st.cue('sfx:fanfare', 'S06', 0.1, 0.35); st.cue('sfx:whistle', 'S07', SOLEIL - 0.05, 0.35)
 st.cue('sfx:step', 'S08', 0.3, 0.3); st.cue('sfx:grunt', 'S09', 0.5, 0.3); st.cue('pop', 'S10', st.at('S10', 'L09', 3) - 0.1, 0.45)
 [st.cue('clack', 'S11', t, 0.3) for t in (0.25, 0.6, 0.95, 1.3)]; st.cue('sfx:paper', 'S12', 0.1, 0.45); st.cue('clack', 'S12', 0.55, 0.5); st.cue('sfx:cash', 'S13', 0.75, 0.35)
 st.cue('whoosh', 'S14', 0.2, 0.5, 1.0, 120, 1500); st.cue('thud', 'S14', 0.9, 0.6); st.cue('sfx:choir', 'S15', 0.1, 0.25); st.cue('thud', 'S16', 0.07, 0.45); st.cue('thud', 'S17', 0.07, 0.45)
-st.cue('sfx:sniff', 'S18', 1.0, 0.3); st.cue('clink', 'S19', 0.4, 0.35) if False else st.cue('sfx:clink', 'S19', 0.4, 0.35); st.cue('sfx:clink', 'S20', 0.3, 0.35)
+st.cue('sfx:sniff', 'S18', 1.0, 0.3); st.cue('clink', 'S19', 0.4, 0.35) if False else st.cue('sfx:clink', 'S19', 0.4, 0.35); st.cue('sfx:clink', 'S21', 0.05, 0.35)
 st.write('Le caillou', {
     'e1': {'preset': 'lyceen', 'seed': 31}, 'e2': {'preset': 'lyceenne', 'seed': 32}, 'e3': {'preset': 'lyceen', 'seed': 33, 'suit': '#C9822E'},
     'maitresse': {'preset': 'madame', 'glasses': True},
