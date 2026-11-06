@@ -212,11 +212,11 @@ export const NEWS_PROPS = {
       const lid = mesh(new THREE.SphereGeometry(er * 1.06, 12, 6, 0, TAU, 0, PI / 2), mat(c)); lid.rotation.x = PI / 2; lid.scale.y = 0.01; ball.add(lid); lids.push(lid);
       ball.rotation.y = PI / 2 - sd * 0.14; ball.position.set(0, 0, sd * er * 1.12); eyes.add(ball); });
     eyes.position.set(0.47, 1.0, 0); body.add(eyes);
-    if (o.jersey) { const J = '#F2C94C', D = '#E0A82E', j = grp();   // the maillot jaune worn by the bike: body draped over the top tube, sleeves along the handlebars, collar round the stem
-      for (const sz of [-1, 1]) j.add(at(box(0.44, 0.3, 0.02, J, { outline: 0.004 }), 0.13, 0.74, sz * 0.06), at(box(0.44, 0.03, 0.022, D), 0.13, 0.6, sz * 0.062),
-        at(box(0.1, 0.1, 0.2, J, { outline: 0.004 }), 0.38, 1.0, sz * 0.15), at(box(0.105, 0.105, 0.02, D), 0.38, 1.0, sz * 0.255));
-      j.add(at(box(0.46, 0.035, 0.14, J, { outline: 0.004 }), 0.13, 0.885, 0), at(box(0.12, 0.09, 0.14, J, { outline: 0.004 }), 0.36, 0.95, 0), at(torus(0.045, 0.014, D, 6, 14), 0.42, 0.985, 0, PI / 2, 0, 0));
-      body.add(j); }
+    if (o.jersey) { const j = grp(), tee = canvasPlane(0.56, 0.44, (cc, W, Hh) => { cc.fillStyle = '#F2C94C'; cc.strokeStyle = '#B88A1E'; cc.lineWidth = W * 0.018;   // the maillot jaune: a T-shirt shape on each side
+        cc.beginPath(); [[0.3, 0.04], [0.42, 0.04], [0.5, 0.14], [0.58, 0.04], [0.7, 0.04], [0.98, 0.26], [0.86, 0.42], [0.76, 0.34], [0.76, 0.97], [0.24, 0.97], [0.24, 0.34], [0.14, 0.42], [0.02, 0.26]].forEach(([x, y], i) => i ? cc.lineTo(x * W, y * Hh) : cc.moveTo(x * W, y * Hh));
+        cc.closePath(); cc.fill(); cc.stroke(); cc.fillStyle = '#B88A1E'; cc.fillRect(W * 0.24, Hh * 0.86, W * 0.52, Hh * 0.05); cc.beginPath(); cc.moveTo(W * 0.42, Hh * 0.04); cc.lineTo(W * 0.5, Hh * 0.2); cc.lineTo(W * 0.58, Hh * 0.04); cc.stroke(); }, { res: 256, transparent: true });
+      for (const sz of [-1, 1]) { const t = tee.clone(); t.position.set(0.15, 0.68, sz * 0.05); if (sz < 0) t.rotation.y = PI; j.add(t); }
+      j.add(at(box(0.3, 0.025, 0.11, '#F2C94C'), 0.15, 0.88, 0), at(torus(0.045, 0.014, '#B88A1E', 6, 14), 0.42, 0.985, 0, PI / 2, 0, 0)); body.add(j); }
     if (o.bib) { const b = canvasPlane(0.16, 0.12, (cc, W, Hh) => { cc.fillStyle = '#FFFFFF'; cc.fillRect(0, 0, W, Hh); cc.fillStyle = '#1C1C20'; cc.font = `900 ${Hh * 0.7}px Arial`; cc.textAlign = 'center'; cc.textBaseline = 'middle'; cc.fillText(String(o.bib), W / 2, Hh * 0.55); }, { res: 128 });
       b.position.set(0.0, 0.62, 0.045); body.add(b); const b2 = b.clone(); b2.position.z = -0.045; b2.rotation.y = PI; body.add(b2); }
     if (o.shades) { const ez = er * 1.12, lw = er * 1.85, lh = er * 1.5, sh = grp(at(box(0.016, lh, lw, '#141418'), 0, 0, ez), at(box(0.016, lh, lw, '#141418'), 0, 0, -ez), at(box(0.014, 0.018, ez * 2 - lw + 0.03, '#141418'), 0, lh * 0.3, 0),   // star sunglasses
@@ -286,7 +286,7 @@ export const NEWS_PROPS = {
     const disc = at(cyl(0.05, 0.05, 0.01, '#E8B830', 18, { outline: 0.003 }), 0, -0.1, 0, PI / 2, 0, 0); tg.add(disc);
     const tx = canvasPlane(0.088, 0.04, (c, W, H) => { c.fillStyle = '#E8B830'; c.fillRect(0, 0, W, H); c.fillStyle = '#2A2010'; let fs = H * 0.78; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || 'MÉDOR').width; if (tw > W * 0.94) fs *= W * 0.94 / tw;
       c.font = `900 ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || 'MÉDOR', W / 2, H * 0.55); }, { res: 256 }); tx.position.set(0, -0.1, 0.0065); tg.add(tx);
-    tg.position.set(0, -0.01, (o.r || 0.085) + 0.015); g.add(tg); g.userData.update = t => { tg.rotation.x = 0.06 * Math.sin(t * 3.3); }; return g; },
+    tg.position.set(0, 0.03, (o.r || 0.085) + (o.tagOut ?? 0.06)); g.add(tg); g.userData.update = t => { tg.rotation.x = 0.06 * Math.sin(t * 3.3); }; return g; },
   pedestal(o) { // a stone plinth (o.h) with a bronze plaque (o.text) on its front
     const h = o.h || 1.0, w = o.w || 0.8, g = grp(at(box(w + 0.16, 0.12, w + 0.16, '#BDB6A8', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(w, h - 0.24, w, '#D8D1C2', { pivot: 'bottom', outline: 0.006 }), 0, 0.12, 0),
       at(box(w + 0.12, 0.12, w + 0.12, '#BDB6A8', { pivot: 'bottom', outline: 0.006 }), 0, h - 0.12, 0));
@@ -314,6 +314,33 @@ export const NEWS_PROPS = {
   trophy(o) { // a gold cup on a black base (o.text plate)
     const G = '#E8B830', g = grp(at(box(0.16, 0.08, 0.16, '#1C1C20', { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.025, 0.04, 0.1, G, 10, { pivot: 'bottom' }), 0, 0.08, 0), at(cyl(0.1, 0.05, 0.16, G, 12, { pivot: 'bottom', outline: 0.004 }), 0, 0.18, 0));
     for (const sd of [-1, 1]) g.add(at(torus(0.045, 0.01, G, 4, 10), sd * 0.105, 0.28, 0, 0, 0, 0)); return g; },
+  yearCalendar(o) { // a wall calendar showing the year: o.years [y0, y1] flips one page per year between o.flipAt and o.flipAt + o.dur (or holds o.years[0])
+    const ys = o.years || [2026, 2026], n = ys[1] - ys[0] + 1, g = grp(at(box(0.56, 0.62, 0.02, '#F4F1E8', { outline: 0.005 }), 0, 0, 0), at(box(0.56, 0.12, 0.025, '#C8322A'), 0, 0.25, 0.003));
+    for (const x of [-0.16, 0.16]) g.add(at(cyl(0.012, 0.012, 0.05, '#3A3D44', 6), x, 0.31, 0.02));
+    const pages = []; for (let i = 0; i < n; i++) { const p = canvasPlane(0.5, 0.42, (c, W, H) => { c.fillStyle = '#F4F1E8'; c.fillRect(0, 0, W, H); c.fillStyle = '#1C252A'; c.font = `900 ${H * 0.4}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(String(ys[0] + i), W / 2, H * 0.42);
+        c.fillStyle = '#8A8F96'; c.font = `700 ${H * 0.12}px Arial`; c.fillText('JANVIER', W / 2, H * 0.82); }, { res: 256 }); p.position.set(0, -0.06, 0.012); g.add(p); pages.push(p); }
+    g.userData.update = t => { const k = o.flipAt == null ? 0 : Math.max(0, Math.min(n - 1, Math.floor((t - o.flipAt) / ((o.dur || 1) / Math.max(1, n - 1)) + 1e-6))); pages.forEach((p, i) => { p.visible = i === k; }); };
+    g.userData.update(0); return g; },
+  magazine(o) { // an old magazine held open-faced (cover facing +z): masthead, date, headline, a gold cup; held like a phone (HAND_FLAT)
+    const w = o.w || 0.3, h = w * 1.3, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F2EEE4'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8322A'; c.fillRect(0, 0, W, H * 0.17);
+      c.fillStyle = '#FFFFFF'; c.font = `900 ${H * 0.11}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.title || 'ACTU MAG', W / 2, H * 0.09);
+      c.fillStyle = '#1C252A'; c.font = `800 ${H * 0.055}px Arial`; c.fillText(o.date || 'JUILLET 1998', W / 2, H * 0.23);
+      c.fillStyle = '#E8B830'; c.beginPath(); c.moveTo(W * 0.38, H * 0.33); c.lineTo(W * 0.62, H * 0.33); c.lineTo(W * 0.57, H * 0.5); c.lineTo(W * 0.43, H * 0.5); c.closePath(); c.fill(); c.fillRect(W * 0.47, H * 0.5, W * 0.06, H * 0.08); c.fillRect(W * 0.4, H * 0.58, W * 0.2, H * 0.04);
+      c.fillStyle = '#1C252A'; let fs = H * 0.085; const t = o.headline || 'CHAMPIONS DU MONDE !'; c.font = `900 ${fs}px Arial`; const tw = c.measureText(t).width; if (tw > W * 0.92) fs *= W * 0.92 / tw; c.font = `900 ${fs}px Arial`;
+      c.fillText(t, W / 2, H * 0.74); c.fillStyle = '#8A8F96'; c.font = `700 ${H * 0.04}px Arial`; c.fillText('N° 1998', W / 2, H * 0.92); }, { res: 512 });
+    const g = grp(at(box(w + 0.01, h + 0.01, 0.012, '#D9D3C6'), 0, 0, -0.008), pl); g.userData.grip = [0, -h * 0.4, 0]; return g; },
+  eyeChart(o) { // an optician's letter chart on the wall
+    const w = o.w || 0.5, h = w * 1.4, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FBFAF6'; c.fillRect(0, 0, W, H); c.fillStyle = '#1C1C20'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      [['E', 0.22], ['F P', 0.14], ['T O Z', 0.1], ['L P E D', 0.075], ['P E C F D', 0.055], ['E D F C Z P', 0.04]].forEach(([t, s], i, a) => { c.font = `900 ${H * s}px Arial`; c.fillText(t, W / 2, H * (0.14 + i * 0.15)); }); }, { res: 512 });
+    return grp(at(box(w + 0.03, h + 0.03, 0.015, '#3A3D44'), 0, 0, -0.01), pl); },
+  envelope(o) { // a letter in a white envelope (address lines, a stamp) - hold it like a card
+    const w = o.w || 0.22, h = w * 0.62, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F7F4EC'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8322A'; c.fillRect(W * 0.78, H * 0.08, W * 0.15, H * 0.24);
+      c.fillStyle = '#3A3D44'; c.font = `700 ${H * 0.12}px Arial`; c.textAlign = 'left'; c.fillText(o.to || 'M. LE MEC', W * 0.32, H * 0.55); c.font = `600 ${H * 0.1}px Arial`; c.fillText(o.addr || "SALLE D'ATTENTE", W * 0.32, H * 0.72); }, { res: 256 });
+    return grp(at(box(w, h, 0.004, '#EDE8DC'), 0, 0, -0.003), pl); },
+  veil(o) { // a bride's veil (attach to the head joint, offset up): a little white headband with a translucent fall at the back
+    const g = grp(at(torus(o.r || 0.14, 0.015, '#FFFFFF', 4, 16), 0, 0, 0, PI / 2, 0, 0));
+    const v = mesh(new THREE.ConeGeometry(0.32, 0.9, 10, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false }));
+    v.position.set(0, -0.4, -0.12); g.add(v); g.add(at(sphere(0.03, '#F4C2C2', 0), 0.12, 0.02, 0.06), at(sphere(0.025, '#FFFFFF', 0), 0.09, 0.03, 0.09)); return g; },
   cutChain(o) { // a cut bike chain hanging from the grip (hold it with HAND_FLAT), an open padlock at its end; it swings a little
     const g = grp(), L = o.color || '#6A6E74', n = o.n || 8, sw = grp(); g.add(sw);
     for (let i = 0; i < n; i++) { const lk = torus(0.032, 0.01, L, 4, 8); lk.position.set(0, -0.02 - i * 0.055, 0); lk.rotation.y = i % 2 ? PI / 2 : 0; sw.add(lk); }
@@ -347,7 +374,11 @@ export const NEWS_PROPS = {
     const g = grp(at(box(0.16, 0.11, 0.075, '#1C1C20', { outline: 0.004 }), 0, 0, 0), at(cyl(0.045, 0.045, 0.11, '#2A2A2E', 10), 0, 0, 0.09, PI / 2), at(cyl(0.036, 0.036, 0.006, '#7FA6CC', 10), 0, 0, 0.147, PI / 2),
       at(box(0.07, 0.06, 0.06, '#1C1C20'), 0, 0.09, 0.0));
     const fl = mesh(new THREE.PlaneGeometry(0.06, 0.04), new THREE.MeshBasicMaterial({ color: '#C9CCD1' })); fl.position.set(0, 0.095, 0.031); g.add(fl);
-    const burst = mesh(new THREE.CircleGeometry(o.burst || 0.22, 14), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.9, depthWrite: false, side: THREE.DoubleSide })); burst.position.set(0, 0.095, 0.05); g.add(burst);
+    const bc = document.createElement('canvas'); bc.width = bc.height = 128; const bx = bc.getContext('2d'), gr = bx.createRadialGradient(64, 64, 2, 64, 64, 64);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.25, 'rgba(255,255,240,0.95)'); gr.addColorStop(0.55, 'rgba(255,250,220,0.35)'); gr.addColorStop(1, 'rgba(255,250,220,0)'); bx.fillStyle = gr; bx.fillRect(0, 0, 128, 128);
+    for (let i = 0; i < 8; i++) { bx.save(); bx.translate(64, 64); bx.rotate(i * PI / 4); bx.fillStyle = 'rgba(255,255,255,0.55)'; bx.fillRect(-1.5, 0, 3, 62); bx.restore(); }
+    const btex = new THREE.CanvasTexture(bc); btex.colorSpace = THREE.SRGBColorSpace;
+    const burst = new THREE.Sprite(new THREE.SpriteMaterial({ map: btex, transparent: true, depthWrite: false, depthTest: false })); const bs = (o.burst || 0.22) * 2.6; burst.scale.set(bs, bs, 1); burst.position.set(0, 0.095, 0.06); burst.renderOrder = 10; g.add(burst);
     const fa = [].concat(o.flashAt ?? []); g.userData.update = t => { const on = fa.some(a => t >= a && t < a + 0.09); burst.visible = on; fl.material.color.set(on ? '#FFFFFF' : '#C9CCD1'); };
     g.userData.update(0); return g; },
   regionFlag(o) { // a full-size flag on a pole, drawn: o.kind 'bzh' (Brittany), 'sard' (Sardinia), 'it', 'fr'; ripples

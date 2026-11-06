@@ -2,8 +2,8 @@
 # queue2.sh STORY...: re-render the given stories (3D layer -> project -> HyperFrames render) next to the main queue
 cd /home/user/myownshit/absurd-shorts
 SC=/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7
-declare -A NUM=([sable]=10 [lune]=11 [sapin]=12 [escargot]=13 [greve]=14 [colis]=15 [heure]=16 [police]=17 [burger]=18 [loto]=19 [independance]=20)
-declare -A TITLE=([sable]="Le sable" [lune]="La Lune" [sapin]="Le sapin" [escargot]="L'escargot" [greve]="La grève des nuages" [colis]="L'avis de passage" [heure]="Le changement d'heure" [police]="La police contre la police" [burger]="Le burger vegan" [loto]="Le loto" [independance]="L'indépendance")
+declare -A NUM=([sable]=10 [lune]=11 [sapin]=12 [escargot]=13 [greve]=14 [colis]=15 [heure]=16 [police]=17 [burger]=18 [loto]=19 [independance]=20 [velo]=21 [caillou]=22)
+declare -A TITLE=([sable]="Le sable" [lune]="La Lune" [sapin]="Le sapin" [escargot]="L'escargot" [greve]="La grève des nuages" [colis]="L'avis de passage" [heure]="Le changement d'heure" [police]="La police contre la police" [burger]="Le burger vegan" [loto]="Le loto" [independance]="L'indépendance" [velo]="Le vélo" [caillou]="Le caillou")
 for S in "$@"; do
   mkdir -p $SC/$S
   cp scripts-fr/story_$S.json scripts-fr/story_${S}_render.json

@@ -1,0 +1,896 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a pris rendez-vous chez le dermatologue.",
+   "hl": [
+    "mec",
+    "dermatologue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.233,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "pris",
+     "s": 0.595,
+     "e": 0.71
+    },
+    {
+     "w": "rendez-vous",
+     "s": 0.786,
+     "e": 1.09
+    },
+    {
+     "w": "chez",
+     "s": 1.167,
+     "e": 1.243
+    },
+    {
+     "w": "le",
+     "s": 1.281,
+     "e": 1.319
+    },
+    {
+     "w": "dermatologue.",
+     "s": 1.395,
+     "e": 2.233
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Prochain créneau : 2031.",
+   "hl": [
+    "2031."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L02.k.wav",
+   "file_start": 2.333,
+   "speech_start": 2.333,
+   "speech_end": 4.39,
+   "words": [
+    {
+     "w": "Prochain",
+     "s": 2.333,
+     "e": 2.638
+    },
+    {
+     "w": "créneau",
+     "s": 2.714,
+     "e": 3.019
+    },
+    {
+     "w": ":",
+     "s": 3.324,
+     "e": 3.343
+    },
+    {
+     "w": "2031.",
+     "s": 3.362,
+     "e": 4.39
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a dit oui.",
+   "hl": [
+    "oui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L03.k.wav",
+   "file_start": 4.49,
+   "speech_start": 4.49,
+   "speech_end": 5.405,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.49,
+     "e": 4.567
+    },
+    {
+     "w": "a",
+     "s": 4.643,
+     "e": 4.681
+    },
+    {
+     "w": "dit",
+     "s": 4.719,
+     "e": 4.795
+    },
+    {
+     "w": "oui.",
+     "s": 4.871,
+     "e": 5.405
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il s'est installé dans la salle d'attente.",
+   "hl": [
+    "d'attente."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L04.k.wav",
+   "file_start": 5.505,
+   "speech_start": 5.505,
+   "speech_end": 7.257,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.505,
+     "e": 5.581
+    },
+    {
+     "w": "s'est",
+     "s": 5.657,
+     "e": 5.733
+    },
+    {
+     "w": "installé",
+     "s": 5.81,
+     "e": 6.152
+    },
+    {
+     "w": "dans",
+     "s": 6.19,
+     "e": 6.267
+    },
+    {
+     "w": "la",
+     "s": 6.305,
+     "e": 6.343
+    },
+    {
+     "w": "salle",
+     "s": 6.419,
+     "e": 6.571
+    },
+    {
+     "w": "d'attente.",
+     "s": 6.597,
+     "e": 7.257
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les magazines dataient de 1998.",
+   "hl": [
+    "magazines",
+    "1998."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L05.k.wav",
+   "file_start": 7.357,
+   "speech_start": 7.357,
+   "speech_end": 9.795,
+   "words": [
+    {
+     "w": "Les",
+     "s": 7.357,
+     "e": 7.433
+    },
+    {
+     "w": "magazines",
+     "s": 7.51,
+     "e": 7.967
+    },
+    {
+     "w": "dataient",
+     "s": 8.043,
+     "e": 8.195
+    },
+    {
+     "w": "de",
+     "s": 8.271,
+     "e": 8.348
+    },
+    {
+     "w": "1998.",
+     "s": 8.386,
+     "e": 9.795
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il a appris que la France avait gagné la Coupe du monde.",
+   "hl": [
+    "France",
+    "Coupe",
+    "monde."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L06.k.wav",
+   "file_start": 9.895,
+   "speech_start": 9.895,
+   "speech_end": 12.333,
+   "words": [
+    {
+     "w": "Il",
+     "s": 9.895,
+     "e": 9.971
+    },
+    {
+     "w": "a",
+     "s": 10.01,
+     "e": 10.048
+    },
+    {
+     "w": "appris",
+     "s": 10.124,
+     "e": 10.352
+    },
+    {
+     "w": "que",
+     "s": 10.39,
+     "e": 10.429
+    },
+    {
+     "w": "la",
+     "s": 10.505,
+     "e": 10.581
+    },
+    {
+     "w": "France",
+     "s": 10.733,
+     "e": 10.886
+    },
+    {
+     "w": "avait",
+     "s": 10.924,
+     "e": 11.038
+    },
+    {
+     "w": "gagné",
+     "s": 11.114,
+     "e": 11.343
+    },
+    {
+     "w": "la",
+     "s": 11.381,
+     "e": 11.419
+    },
+    {
+     "w": "Coupe",
+     "s": 11.495,
+     "e": 11.648
+    },
+    {
+     "w": "du",
+     "s": 11.686,
+     "e": 11.724
+    },
+    {
+     "w": "monde.",
+     "s": 11.8,
+     "e": 12.333
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Il a fêté ça tout seul.",
+   "hl": [
+    "tout",
+    "seul."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L07.k.wav",
+   "file_start": 12.433,
+   "speech_start": 12.433,
+   "speech_end": 13.881,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.433,
+     "e": 12.51
+    },
+    {
+     "w": "a",
+     "s": 12.548,
+     "e": 12.586
+    },
+    {
+     "w": "fêté",
+     "s": 12.624,
+     "e": 12.89
+    },
+    {
+     "w": "ça",
+     "s": 12.967,
+     "e": 13.043
+    },
+    {
+     "w": "tout",
+     "s": 13.119,
+     "e": 13.195
+    },
+    {
+     "w": "seul.",
+     "s": 13.271,
+     "e": 13.881
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Sa barbe a poussé.",
+   "hl": [
+    "barbe"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L08.k.wav",
+   "file_start": 13.981,
+   "speech_start": 13.981,
+   "speech_end": 15.276,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 13.981,
+     "e": 14.057
+    },
+    {
+     "w": "barbe",
+     "s": 14.21,
+     "e": 14.362
+    },
+    {
+     "w": "a",
+     "s": 14.438,
+     "e": 14.514
+    },
+    {
+     "w": "poussé.",
+     "s": 14.54,
+     "e": 15.276
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Une plante a poussé sur sa chaise.",
+   "hl": [
+    "plante",
+    "chaise."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L09.k.wav",
+   "file_start": 15.376,
+   "speech_start": 15.376,
+   "speech_end": 17.205,
+   "words": [
+    {
+     "w": "Une",
+     "s": 15.376,
+     "e": 15.605
+    },
+    {
+     "w": "plante",
+     "s": 15.643,
+     "e": 15.833
+    },
+    {
+     "w": "a",
+     "s": 15.91,
+     "e": 15.986
+    },
+    {
+     "w": "poussé",
+     "s": 16.011,
+     "e": 16.214
+    },
+    {
+     "w": "sur",
+     "s": 16.29,
+     "e": 16.367
+    },
+    {
+     "w": "sa",
+     "s": 16.443,
+     "e": 16.595
+    },
+    {
+     "w": "chaise.",
+     "s": 16.633,
+     "e": 17.205
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il a fait suivre son courrier.",
+   "hl": [
+    "courrier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L10.k.wav",
+   "file_start": 17.305,
+   "speech_start": 17.305,
+   "speech_end": 18.752,
+   "words": [
+    {
+     "w": "Il",
+     "s": 17.305,
+     "e": 17.381
+    },
+    {
+     "w": "a",
+     "s": 17.419,
+     "e": 17.457
+    },
+    {
+     "w": "fait",
+     "s": 17.533,
+     "e": 17.61
+    },
+    {
+     "w": "suivre",
+     "s": 17.686,
+     "e": 17.99
+    },
+    {
+     "w": "son",
+     "s": 18.067,
+     "e": 18.143
+    },
+    {
+     "w": "courrier.",
+     "s": 18.219,
+     "e": 18.752
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il a épousé la dame d'à côté.",
+   "hl": [
+    "épousé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L11.k.wav",
+   "file_start": 18.852,
+   "speech_start": 18.852,
+   "speech_end": 20.529,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.852,
+     "e": 18.929
+    },
+    {
+     "w": "a",
+     "s": 18.967,
+     "e": 19.005
+    },
+    {
+     "w": "épousé",
+     "s": 19.081,
+     "e": 19.386
+    },
+    {
+     "w": "la",
+     "s": 19.462,
+     "e": 19.538
+    },
+    {
+     "w": "dame",
+     "s": 19.589,
+     "e": 19.69
+    },
+    {
+     "w": "d'à",
+     "s": 19.741,
+     "e": 19.843
+    },
+    {
+     "w": "côté.",
+     "s": 19.881,
+     "e": 20.529
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Elle attendait l'ophtalmo.",
+   "hl": [
+    "l'ophtalmo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L12.k.wav",
+   "file_start": 20.629,
+   "speech_start": 20.629,
+   "speech_end": 21.848,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 20.629,
+     "e": 20.743
+    },
+    {
+     "w": "attendait",
+     "s": 20.781,
+     "e": 21.086
+    },
+    {
+     "w": "l'ophtalmo.",
+     "s": 21.105,
+     "e": 21.848
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Ils ont eu un fils.",
+   "hl": [
+    "fils."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L13.k.wav",
+   "file_start": 21.948,
+   "speech_start": 21.948,
+   "speech_end": 23.09,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 21.948,
+     "e": 22.1
+    },
+    {
+     "w": "ont",
+     "s": 22.176,
+     "e": 22.252
+    },
+    {
+     "w": "eu",
+     "s": 22.29,
+     "e": 22.329
+    },
+    {
+     "w": "un",
+     "s": 22.405,
+     "e": 22.481
+    },
+    {
+     "w": "fils.",
+     "s": 22.519,
+     "e": 23.09
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le fils a passé son bac en salle d'attente.",
+   "hl": [
+    "bac"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L14.k.wav",
+   "file_start": 23.19,
+   "speech_start": 23.19,
+   "speech_end": 25.4,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.19,
+     "e": 23.267
+    },
+    {
+     "w": "fils",
+     "s": 23.343,
+     "e": 23.571
+    },
+    {
+     "w": "a",
+     "s": 23.61,
+     "e": 23.648
+    },
+    {
+     "w": "passé",
+     "s": 23.762,
+     "e": 23.914
+    },
+    {
+     "w": "son",
+     "s": 23.952,
+     "e": 24.105
+    },
+    {
+     "w": "bac",
+     "s": 24.219,
+     "e": 24.333
+    },
+    {
+     "w": "en",
+     "s": 24.371,
+     "e": 24.41
+    },
+    {
+     "w": "salle",
+     "s": 24.486,
+     "e": 24.638
+    },
+    {
+     "w": "d'attente.",
+     "s": 24.664,
+     "e": 25.4
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "En 2031, la secrétaire a appelé son nom.",
+   "hl": [
+    "2031,",
+    "nom."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L15.k.wav",
+   "file_start": 25.5,
+   "speech_start": 25.5,
+   "speech_end": 28.243,
+   "words": [
+    {
+     "w": "En",
+     "s": 25.5,
+     "e": 25.652
+    },
+    {
+     "w": "2031,",
+     "s": 25.678,
+     "e": 26.567
+    },
+    {
+     "w": "la",
+     "s": 26.643,
+     "e": 26.719
+    },
+    {
+     "w": "secrétaire",
+     "s": 26.795,
+     "e": 27.176
+    },
+    {
+     "w": "a",
+     "s": 27.252,
+     "e": 27.303
+    },
+    {
+     "w": "appelé",
+     "s": 27.354,
+     "e": 27.557
+    },
+    {
+     "w": "son",
+     "s": 27.633,
+     "e": 27.71
+    },
+    {
+     "w": "nom.",
+     "s": 27.786,
+     "e": 28.243
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le médecin lui a demandé ce qu'il avait.",
+   "hl": [
+    "qu'il",
+    "avait."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L16.k.wav",
+   "file_start": 28.343,
+   "speech_start": 28.343,
+   "speech_end": 30.324,
+   "words": [
+    {
+     "w": "Le",
+     "s": 28.343,
+     "e": 28.419
+    },
+    {
+     "w": "médecin",
+     "s": 28.495,
+     "e": 28.8
+    },
+    {
+     "w": "lui",
+     "s": 28.838,
+     "e": 28.914
+    },
+    {
+     "w": "a",
+     "s": 28.952,
+     "e": 28.99
+    },
+    {
+     "w": "demandé",
+     "s": 29.029,
+     "e": 29.371
+    },
+    {
+     "w": "ce",
+     "s": 29.41,
+     "e": 29.486
+    },
+    {
+     "w": "qu'il",
+     "s": 29.536,
+     "e": 29.638
+    },
+    {
+     "w": "avait.",
+     "s": 29.714,
+     "e": 30.324
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Un grain de beauté.",
+   "hl": [
+    "grain",
+    "beauté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L17.k.wav",
+   "file_start": 30.424,
+   "speech_start": 30.424,
+   "speech_end": 31.567,
+   "words": [
+    {
+     "w": "Un",
+     "s": 30.424,
+     "e": 30.576
+    },
+    {
+     "w": "grain",
+     "s": 30.614,
+     "e": 30.805
+    },
+    {
+     "w": "de",
+     "s": 30.843,
+     "e": 30.881
+    },
+    {
+     "w": "beauté.",
+     "s": 30.919,
+     "e": 31.567
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Il avait disparu.",
+   "hl": [
+    "disparu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L18.k.wav",
+   "file_start": 31.667,
+   "speech_start": 31.667,
+   "speech_end": 32.81,
+   "words": [
+    {
+     "w": "Il",
+     "s": 31.667,
+     "e": 31.743
+    },
+    {
+     "w": "avait",
+     "s": 31.819,
+     "e": 31.971
+    },
+    {
+     "w": "disparu.",
+     "s": 32.086,
+     "e": 32.81
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Le médecin a facturé quand même.",
+   "hl": [
+    "facturé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L19.k.wav",
+   "file_start": 32.91,
+   "speech_start": 32.91,
+   "speech_end": 34.591,
+   "words": [
+    {
+     "w": "Le",
+     "s": 32.91,
+     "e": 32.986
+    },
+    {
+     "w": "médecin",
+     "s": 33.062,
+     "e": 33.367
+    },
+    {
+     "w": "a",
+     "s": 33.405,
+     "e": 33.443
+    },
+    {
+     "w": "facturé",
+     "s": 33.519,
+     "e": 33.9
+    },
+    {
+     "w": "quand",
+     "s": 33.938,
+     "e": 34.052
+    },
+    {
+     "w": "même.",
+     "s": 34.167,
+     "e": 34.586
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Cinquante euros. Non remboursés.",
+   "hl": [
+    "Cinquante",
+    "euros.",
+    "remboursés."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/rdv/tts/L20.k.wav",
+   "file_start": 34.691,
+   "speech_start": 34.691,
+   "speech_end": 36.672,
+   "words": [
+    {
+     "w": "Cinquante",
+     "s": 34.691,
+     "e": 35.072
+    },
+    {
+     "w": "euros.",
+     "s": 35.11,
+     "e": 35.682
+    },
+    {
+     "w": "Non",
+     "s": 35.758,
+     "e": 35.834
+    },
+    {
+     "w": "remboursés.",
+     "s": 35.91,
+     "e": 36.672
+    }
+   ]
+  }
+ ],
+ "total": 37.51
+}

@@ -160,7 +160,7 @@ function mergeStatic(root) {
 const S = {
   office(o = {}) { // o.door === false: no door (a scene prop door replaces it); o.printer === false: free the right corner
     const g = grp(), { back } = room(g, { wall: P.cream, band: P.teal, bandH: 1.05, trim: P.navy, floor: '#CDB894' });
-    g.add(prop('carpet', { w: 4.8, d: 2.6, color: P.red }, 0, 0, -0.4), prop('window', { w: 1.3, h: 1.3, color: P.teal }, -1.75, 1.0, back),
+    g.add(prop('carpet', { w: 4.8, d: 2.6, color: o.carpet || P.red }, 0, 0, -0.4), prop('window', { w: 1.3, h: 1.3, color: P.teal }, -1.75, 1.0, back),
       prop('table', { color: P.red, legs: P.redDark, w: 0.75, d: 0.5, h: 0.72 }, 2.0, 0, back + 0.45), tableLamp(1.8, 0.72, back + 0.4), prop('mug', { color: P.cream }, 2.2, 0.72, back + 0.5),
       at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03), prop('plant', {}, -3.9, 0, back + 0.4),
       prop('desk', {}, -4.6, 0, -1.4, 0.35), prop('chair', { color: P.navy }, -4.9, 0, -2.1, 0.35));
@@ -241,7 +241,7 @@ const S = {
   },
   courtroom(o) {
     const g = grp(), { back } = room(g, { wall: '#F3EFE6', floor: '#B98A5A', back: -4.6 });
-    g.add(flat(2.2, 18, P.red, 0, 0.004, 4.4));
+    g.add(flat(2.2, 18, o.runner || P.red, 0, 0.004, 4.4));
     [-6.2, -4.4, -2.6, 2.6, 4.4, 6.2].forEach((x, i) => { const c = i % 2 ? P.teal : P.red; g.add(at(box(0.8, 5.2, 0.12, c, { outline: 0.004 }), x, 3.1, back + 0.07), at(box(0.8, 0.5, 0.12, c, { taper: { x: 0.02, z: 1 } }), x, 0.25, back + 0.07, 0, 0, PI), at(cyl(0.22, 0.22, 0.03, P.cream, 10), x, 4.6, back + 0.15, PI / 2)); });
     g.add(prop('courtBench', {}, 0, 0, back + 1.2), prop('signBoard', { text: o.sign || 'TRIBUNAL', bg: P.navy, fg: P.cream, w: 2.6, h: 0.6, posts: false, height: 0, frame: P.yellow }, 0, 3.0, back + 0.04));
     const sy = 4.25; // seal above the sign (kept off the actor's head line)

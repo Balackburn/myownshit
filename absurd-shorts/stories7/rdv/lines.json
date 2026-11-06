@@ -1,0 +1,173 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a pris rendez-vous chez le dermatologue.",
+  "hl": [
+   "mec",
+   "dermatologue."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Prochain créneau : 2031.",
+  "hl": [
+   "2031."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a dit oui.",
+  "hl": [
+   "oui."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il s'est installé dans la salle d'attente.",
+  "hl": [
+   "d'attente."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les magazines dataient de 1998.",
+  "hl": [
+   "magazines",
+   "1998."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il a appris que la France avait gagné la Coupe du monde.",
+  "hl": [
+   "France",
+   "Coupe",
+   "monde."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il a fêté ça tout seul.",
+  "hl": [
+   "tout",
+   "seul."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Sa barbe a poussé.",
+  "hl": [
+   "barbe"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Une plante a poussé sur sa chaise.",
+  "hl": [
+   "plante",
+   "chaise."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il a fait suivre son courrier.",
+  "hl": [
+   "courrier."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il a épousé la dame d'à côté.",
+  "hl": [
+   "épousé"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Elle attendait l'ophtalmo.",
+  "hl": [
+   "l'ophtalmo."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Ils ont eu un fils.",
+  "hl": [
+   "fils."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Le fils a passé son bac en salle d'attente.",
+  "hl": [
+   "bac"
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "En 2031, la secrétaire a appelé son nom.",
+  "hl": [
+   "2031,",
+   "nom."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le médecin lui a demandé ce qu'il avait.",
+  "hl": [
+   "qu'il",
+   "avait."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Un grain de beauté.",
+  "hl": [
+   "grain",
+   "beauté."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il avait disparu.",
+  "hl": [
+   "disparu."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Le médecin a facturé quand même.",
+  "hl": [
+   "facturé"
+  ]
+ },
+ {
+  "id": "L20",
+  "who": "N",
+  "text": "Cinquante euros. Non remboursés.",
+  "hl": [
+   "Cinquante",
+   "euros.",
+   "remboursés."
+  ]
+ }
+]
