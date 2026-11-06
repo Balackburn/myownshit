@@ -618,12 +618,12 @@ export const NEWS_PROPS = {
     for (let i = 0; i < 5; i++) { const u = i / 4 - 0.5, R = (0.46 + r() * 0.16) * W / 3.4; L.push([u * W * 0.66, TOP - R * 0.5, (r() - 0.5) * D * 0.3 - 0.05, R * 1.2, R * 0.55, R * 1.05]); }
     for (const [x, y, z, sx, sy, sz] of L) { const m = mesh(geo, r() < 0.3 ? ms : mw); m.position.set(x, y, z); m.scale.set(sx, sy, sz); body.add(m); }
     body.add(at(cyl(W * 0.3, W * 0.34, 0.1, '#FFFFFF', 14), 0, TOP - 0.05, -0.05));
-    const front = Math.max(...L.filter(l => Math.abs(l[0]) < W * 0.25 && l[1] < TOP * 0.75).map(l => l[2] + l[5] * 0.82));
+    const front = Math.max(...L.filter(l => Math.abs(l[0]) < W * 0.25 && l[1] < TOP * 0.85).map(l => l[2] + l[5] * 0.82));
     const dw = o.dw || W * 0.42, dh = dw * 0.3, txt = o.text || 'HORS SERVICE';
-    const pl = canvasPlane(dw, dh, (c, Wc, Hc) => { c.fillStyle = '#132327'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = '#FF5A3C'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    const pl = canvasPlane(dw, dh, (c, Wc, Hc) => { c.fillStyle = '#132327'; c.fillRect(0, 0, Wc, Hc); c.fillStyle = o.textColor || '#FF3B3B'; c.textAlign = 'center'; c.textBaseline = 'middle';
       let px = Hc * 0.5; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > Wc * 0.88) { px *= Wc * 0.88 / tw; c.font = `900 ${px}px Arial`; } c.fillText(txt, Wc / 2, Hc * 0.54); }, { res: 512, emissive: 0.9 });
     const led = at(sphere(dh * 0.09, '#FF3B30', 1, { emissive: '#FF3B30' }), dw / 2 - dh * 0.02, dh / 2 + 0.005, 0.02);
-    const panel = grp(at(box(dw + 0.08, dh + 0.08, 0.06, '#2A3236', { outline: 0.006 }), 0, 0, -0.03), at(pl, 0, 0, 0.002), led); panel.position.set(0, TOP * 0.45, front + 0.16); body.add(panel);
+    const panel = grp(at(box(dw + 0.08, dh + 0.08, 0.06, '#2A3236', { outline: 0.006 }), 0, 0, -0.03), at(pl, 0, 0, 0.002), led); panel.position.set(0, TOP * (o.panelY ?? 0.45), front + 0.16); body.add(panel);
     g.userData.update = t => { const bl = o.blinkAt != null && t >= o.blinkAt ? (t - o.blinkAt) % 0.5 : 0; led.visible = bl < 0.25; pl.material.emissiveIntensity = o.blinkAt != null && t >= o.blinkAt && bl >= 0.25 ? 0.55 : 0.9;
       const u = o.squashAt == null ? -1 : t - o.squashAt; if (u >= 0 && u < 0.7) { const s = 1 - 0.2 * Math.sin(u / 0.7 * TAU) * (1 - u / 0.7); body.scale.set(1 + (1 - s) * 0.45, s, 1 + (1 - s) * 0.45); } else body.scale.set(1, 1, 1); };
     g.userData.update(0); return g;

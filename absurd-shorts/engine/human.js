@@ -279,6 +279,7 @@ for (let i = 0; i < pp.count; i++) {
     kn.add(C.skirt ? box(0.07, legLen, 0.07, o.skin, { pivot: 'top' }) : part('shin' + s, 0.13 * Wd, legLen, 0.13, C.pants, { pivot: 'top' }));
     const ft = joint('foot' + s, kn, 0, -legLen, 0);
     const shoe = part('shoe', 0.14, 0.09, 0.29, C.shoes, { pivot: 'top' }); shoe.position.z = 0.06; // big boxy shoes (measured) ft.add(shoe);
+    if (o.shoes) { const sh = part('shoe', 0.15, 0.085, 0.27, C.shoes, { pivot: 'bottom' }); sh.position.set(0, 0.0, 0.07); ft.add(sh); }   // o.shoes: visible shoes around the ankle (feet that must read: tiptoe, a step onto a scale)
   }
 
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.1 + hh };
