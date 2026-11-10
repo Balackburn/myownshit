@@ -55,7 +55,8 @@ OFFICE = lambda bx, **kw: {'title': 'MÉTÉO', 'map': False, 'plate': False, 'ba
 FX, FZ = -1.7, 0.1                                  # the forecaster, left of the desk
 # 4: the forecaster holds up her anemometer: the gust arrives, the cups blur, and it is she who turns: three turns, like a top
 G4 = 0.22
-st.shot('S04', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.58), actors=[act('meteo', [FX, 0, FZ], 0, 'raiseOverhead', 'proud', keys=[k(0.0, look=[FX - 0.4, 2.9, 0.6]), k(G4, look=None, expr='surprised'),
+st.shot('S04', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.58), actors=[act('meteo', [FX, 0, FZ], 0, 'raiseOverhead', 'proud', keys=[k(0.0, look=[FX - 0.4, 2.9, 0.6]), k(0.0, toon={'sq': [1.04, 0.94, 1.04]}, toonDur=0), k(0.03, toon={'sq': [0.96, 1.07, 0.96], 'bend': {'spine': [0, 0, 0.07, 1, None]}}, toonDur=0.15, toonEase='outBack'),   # she stretches up with it, on her toes
+        k(G4, look=None, expr='surprised'),
         k(G4 + 0.06, clip='spinTop', params={'turns': [[0, 0], [0.2, 5], [0.575, 5], [0.825, 0]]}, blend=0.06, toon=MESSY, toonDur=0.15), k(G4 + 0.95, expr='dizzy')])],
         props=[P('anemo', 'anemometer', on={'actor': 'meteo', 'hand': 'R', 'offset': [0, -0.1, 0], 'rot': [3.1416, 0, 0]}, opts={'spin': [[0, 0.7], [G4, 0.9], [G4 + 0.08, 15], [G4 + 0.7, 15], [G4 + 1.0, 2]], 'cups': '#F2C230', 'blur': '#F2D25A'}),   # yellow cups: red ones vanished on the red end of the banner
                P('gust', 'sneezeBlast', pos=[FX - 3.6, 0.35, FZ - 0.5], ry=90, opts={'at': G4 - 0.05, 'dur': 0.75, 'len': 7.5, 'spread': 1.7, 'n': 30, 'puff': 0.45}),
@@ -80,12 +81,12 @@ M6 = st.at('S06', 'L04', 2)                        # « cent »: the rider goes 
 RY = lambda i: round(BY + 1.6 * (0.5 - (0.17 + i * 0.275 + 0.125)), 3)   # the rider's height on band i (0: TEMPÊTE, 2: BRISE)
 FING = lambda y, z=-2.5: {'R': [BX + 0.53, y, z, 1, 0.16]}                 # his fingertip under the rider (a guided hand: toon channel `reach`)
 PT = lambda y, z=-2.5, **kw: {**MESSY, 'hands': {'R': 'point'}, 'reach': FING(y, z), **kw}
-WAIT6 = lambda y: [CX + 0.34, y, CZ + 0.42, 1, 0.16, [1, -0.6, 0.2]]   # his other index, beside his face (further out it sat on the edge of the frame, the forearm cut)
+WAIT6 = lambda y: [CX + 0.42, y, CZ + 0.42, 1, 0.16, [1, -0.6, 0.2]]   # his other index, beside his face (further out it sat on the edge of the frame, the forearm cut)
 LISTW, LISTH = 1.2, 1.9
 ROLLED = P('list', 'nameList', pos=[BX, LY, -2.5], opts={'at': 9, 'w': LISTW, 'h': LISTH, 'unroll': [9, 0.27]})   # the roller list above the scale, rolled up: its knob hangs there from the start
 st.shot('S06', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ], 10, 'stand', 'determined', keys=[k(0.0, toon=PT(RY(2) - 0.07), toonDur=0),
         k(0.08, toon=PT(RY(2) - 0.12, -2.3), toonDur=0.06), k(0.15, toon=PT(RY(2) - 0.07), toonDur=0.04), k(0.24, toon=PT(RY(2) - 0.12, -2.3), toonDur=0.06), k(0.31, toon=PT(RY(2) - 0.07), toonDur=0.04),   # two taps under the rider
-        k(M6 - 0.16, look=LOOK6(RY(1))), k(M6 + 0.1, look=None, expr='proud'),   # a look at the rider as it goes, then back to us: he presents to the camera
+        k(M6 - 0.16, look=LOOK6(RY(1))), k(M6 + 0.1, look=None, expr='determined'),   # eyes open on us for the « wait »   # a look at the rider as it goes, then back to us: he presents to the camera
         k(M6 - 0.05, toon=PT(RY(1) - 0.07), toonDur=0.2, toonEase='out'),
         k(M6 + 0.26, toon=PT(RY(1) - 0.07, hands={'R': 'point', 'L': 'point'}, reach={**FING(RY(1) - 0.07), 'L': WAIT6(2.34)}, scl={'handL': [1.35, 1.35, 1.35]}, sq=[0.98, 1.03, 0.98]), toonDur=0.14, toonEase='outBack'),   # « attendez » : the other index goes up, to us
         k(M6 + 0.52, toon=PT(RY(1) - 0.07, hands={'R': 'point', 'L': 'point'}, reach={**FING(RY(1) - 0.07), 'L': WAIT6(2.43)}, scl={'handL': [1.35, 1.35, 1.35]}), toonDur=0.08), k(M6 + 0.62, toon=PT(RY(1) - 0.07), toonDur=0.14),
@@ -93,24 +94,24 @@ st.shot('S06', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ], 10, 'sta
         k(T6 - 0.26, toon=PT(RY(1) - 0.13, sq=[1.05, 0.93, 1.05]), toonDur=0.12), k(T6 - 0.12, toon=PT(RY(0) - 0.07, sq=[0.95, 1.1, 0.95]), toonDur=0.22, toonEase='out'),   # a dip, then up on his toes to the red band
         k(T6 + 0.06, look=None, expr='proud'), k(T6 + 0.14, toon=PT(RY(0) - 0.07), toonDur=0.15), k(T6 + 0.3, clip='handsOnHips', expr='proud', face=10, blend=0.2, look=None), k(T6 + 0.3, toon=MESSY, toonDur=0.18)])],
         props=[P('scale', 'windScale', pos=[BX, BY, -2.575], opts={'at': T6 - 0.12, 'midAt': M6 - 0.05, 'w': 1.15, 'h': 1.6, 'side': 1}), ROLLED],
-        cams=[cam(0.0, [BX + 2.0, 1.95, 1.6], [BX + 1.95, 1.97, 1.35], [BX + 0.45, 2.05, -2.3], [BX + 0.43, 2.07, -2.3], lens=44)])   # three quarters from his side: a medium shot, cut at the knees; the next shot opens out to the floor
+        cams=[cam(0.0, [BX + 2.0, 1.95, 1.6], [BX + 1.95, 1.97, 1.35], [BX + 0.62, 2.05, -2.3], [BX + 0.6, 2.07, -2.3], lens=44)])   # three quarters from his side: a medium shot, cut at the knees; the next shot opens out to the floor
 # 7: and a storm has a first name: the knob of the list is out of reach: he hops for it and comes down with the list on his weight; it snaps back up like a
 #    blind and takes him with it: he flies up after his arm, hangs from the knob with his legs swinging, and his weight brings the list down again
 T7 = st.at('S07', 'L05', 6)
-P7 = round(T7 - 0.42, 3)                            # he pulls the cord
+P7 = round(T7 - 0.62, 3)                            # he pulls the cord: early (the list is down on « ça porte un », the snap-back falls on « prénom »): the hang gets its frames
 PULL = 0.27                                         # the list comes down in eight frames
 KX, KZ = BX + LISTW * 0.36, -2.44                   # the knob of the cord
 KY = lambda k_: round(LY + LISTH / 2 - LISTH * k_ - 0.16, 3)   # its height when the list is unrolled by k_ (0..1)
 GRAB = lambda y, hand='grip', **kw: {**MESSY, 'hands': {'R': hand}, 'reach': {'R': [KX, y, KZ, 1, 0.1]}, **kw}
 UP7 = round(P7 + PULL + 0.1, 3)                     # the topper: the list snaps back up like a blind, his hand still on the knob
-SNAP7, HANG7, DOWN7, K7 = 0.08, 0.34, 0.2, 0.06     # up to the top in two frames; he flies up after his arm, drops and hangs (ten frames in all); then his weight brings it down again
+SNAP7, HANG7, DOWN7, K7 = 0.08, 0.54, 0.2, 0.06     # up to the top in two frames; he flies up after his arm, drops and hangs (ten frames in all); then his weight brings it down again
 ROLL7 = [[UP7, 1.0], [UP7 + SNAP7, K7], [UP7 + HANG7, K7], [UP7 + HANG7 + DOWN7, 1.0]]
 END7 = round(UP7 + HANG7 + DOWN7, 3)
 C7 = [KX + 0.5, 0, KZ + 0.42]                       # where he stands to pull: right of the knob, so that his arm shows beside his head
 HOP7, H7 = 0.45, 0.52                               # how high he hops for the knob; how high his feet hang when the list has snapped up
 SW7 = lambda a_: {'legL': [a_, 0, 0, 1.05, None], 'legR': [-0.8 * a_, 0, 0, 1.05, None]}   # his legs swing
 UP = lambda y: [C7[0], y, C7[2]]
-st.shot('S07', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ + 0.1], 10, 'handsOnHips', 'proud', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.12, clip='thinkChin', expr='hmm', blend=0.16, look=[CX + 0.6, 2.6, 2.5]),
+st.shot('S07', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ + 0.1], 10, 'handsOnHips', 'proud', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.05, clip='thinkChin', expr='hmm', blend=0.12, look=[CX + 0.6, 2.6, 2.5]),
         k(P7 - 0.56, clip='pokeUp', expr='surprised', blend=0.1, look=None), k(P7 - 0.56, toon={**MESSY, 'sq': [0.94, 1.1, 0.94], 'hands': {'R': 'point'}}, toonDur=0.08, toonEase='outBack'), k(P7 - 0.42, toon={**MESSY, 'hands': {'R': 'point'}}, toonDur=0.1),
         k(P7 - 0.4, to=C7, dur=0.18, glide=True, ease='inOut', face=-25), k(P7 - 0.4, clip='stand', expr='determined', blend=0.12, look=[C7[0] - 1.0, 3.2, C7[2] + 1.0]),   # one step to the board, the eyes on the knob first
         k(P7 - 0.24, toon={**MESSY, 'sq': [1.1, 0.84, 1.1], 'hands': {'R': 'open'}}, toonDur=0.1, toonEase='out'),   # he crouches: the knob is too high
@@ -122,7 +123,8 @@ st.shot('S07', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ + 0.1], 10
         k(UP7 + 0.03, to=UP(H7 + 0.14), dur=0.1, glide=True, ease='out', face='keep'),   # the body flies up after it, a little too high (his head stays in the frame)
         k(UP7 + 0.08, toon=GRAB(KY(K7), sq=[1.12, 0.84, 1.12], bend=SW7(-0.5)), toonDur=0.05),   # squashed at the top, knees up
         k(UP7 + 0.14, to=UP(H7), dur=0.08, glide=True, ease='in', face='keep'), k(UP7 + 0.2, toon=GRAB(KY(K7), sq=[0.93, 1.13, 0.93], bend=SW7(0.5)), toonDur=0.05),   # he drops: the arm takes his weight, the legs swing out
-        k(UP7 + 0.24, expr='deadpan'), k(UP7 + 0.26, toon=GRAB(KY(K7), bend=SW7(-0.3)), toonDur=0.08),   # he hangs, a look at us; the legs swing back
+        k(UP7 + 0.24, expr='deadpan'), k(UP7 + 0.27, toon=GRAB(KY(K7), bend=SW7(-0.4)), toonDur=0.09), k(UP7 + 0.37, toon=GRAB(KY(K7), bend=SW7(0.3), face={'lid': 1}), toonDur=0.09),   # he hangs, a look at us, a blink; the legs swing back, and again,
+        k(UP7 + 0.46, toon=GRAB(KY(K7), bend=SW7(-0.15)), toonDur=0.08),
         k(UP7 + HANG7, toon=GRAB(KY(1.0), sq=[1.05, 0.92, 1.05], bend=SW7(0.15)), toonDur=DOWN7, toonEase='inOut'), k(UP7 + HANG7, to=UP(0), dur=DOWN7 - 0.03, glide=True, ease='inOut', face='keep'), k(UP7 + HANG7, expr='worried'),
         k(END7 - 0.04, toon=GRAB(KY(1.0), sq=[1.12, 0.82, 1.12]), toonDur=0.04), k(END7 + 0.03, toon=GRAB(KY(1.0)), toonDur=0.1, toonEase='outBack'), k(END7 + 0.03, expr='proud')])],   # he lands flat-footed, squashed, and holds the list down
         props=[P('scale', 'windScale', pos=[BX, BY, -2.575], opts={'at': -1, 'w': 1.15, 'h': 1.6, 'side': 1}),
@@ -133,7 +135,7 @@ st.shot('S07', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ + 0.1], 10
 T8 = st.dur('S08')
 NY = lambda i: round(LY + LISTH / 2 - (0.2 + i * 0.076) * LISTH, 3)   # the height of name i on the list (9: JOSIANE)
 st.shot('S08', 'mairie', setOpts=OFF6, props=[P('list', 'nameList', pos=[BX, LY, -2.52], opts={'at': T8 - 0.22, 'w': LISTW, 'h': LISTH, 'unroll': [-5, PULL]}),
-        P('hand', 'pointerHand', pos=[BX + 0.3, NY(0) + 0.05, -2.42], keys=[k(0.05, to=[BX + 0.3, NY(8), -2.42], dur=T8 - 0.4, ease='inOut'), k(T8 - 0.3, to=[BX + 0.36, NY(9), -2.42], dur=0.12, ease='out')])],
+        P('hand', 'pointerHand', pos=[BX + 0.3, NY(0) + 0.05, -2.42], keys=[k(round(0.06 + 0.088 * (i - 1), 3), to=[BX + 0.3, NY(i), -2.42], dur=0.045, ease='out') for i in range(1, 9)] + [k(T8 - 0.3, to=[BX + 0.36, NY(9), -2.42], dur=0.12, ease='out')])],   # it ticks down the names one by one
         cams=[cam(0.0, [BX + 0.08, LY + 0.15, 0.35], [BX + 0.06, LY - 0.25, 0.15], [BX, LY + 0.25, -2.5], [BX, LY - 0.45, -2.5], lens=44)])
 # 9: Josiane. The badge on his chest; he looks at it, then at us
 B9 = 0.3
@@ -144,22 +146,30 @@ st.shot('S09', 'mairie', setOpts=OFFICE(4.6), actors=[act('mec', [0.2, 0, 0.3], 
         fx=[{'type': 'shake', 'at': B9, 'dur': 0.15, 'amount': 0.02}],
         cams=[cam(0.0, [0.5, 1.7, 3.3], [0.45, 1.72, 2.9], [0.3, 1.7, 0.3], [0.28, 1.75, 0.3], lens=44)])
 # 10: the weather report: the storm on the map has his name; the forecaster, hair on end, reaches up: her arm goes out like a telescopic pointer to tap it
-MAPX, MAPY, MAPW, MAPH = 0.8, 3.05, 1.2, 1.75
+MAPX, MAPY, MAPW, MAPH = 0.62, 3.05, 1.2, 1.75
 TAG = [MAPX + 0.02 * MAPW - 0.31 * MAPW - 0.06, MAPY - 0.3 * MAPH, -2.44]   # just left of the storm's name tag (stormMap with bandTop: 0.3 h under the middle): her finger lands beside the name
+F10 = [-1.15, 0, -2.0]                               # the forecaster: at the foot of the wall, in the corner of the frame opposite the map: the arm crosses the frame, not the depth
 ARM10 = lambda pt, **kw: {**MESSY, 'hands': {'L': 'point'}, 'reach': {'L': [pt[0], pt[1], pt[2], 1, 0.16, [0.5, -1, 0.2]]}, 'scl': {'handL': [1.5, 1.5, 1.5]}, **kw}
-BACK10 = lambda d: [round(TAG[0] - 0.55 * d, 3), round(TAG[1] - 0.42 * d, 3), round(TAG[2] + 0.5 * d, 3)]   # the fingertip pulled back d metres along the arm
-TAP10 = 0.36
-TAPS10 = [TAP10, TAP10 + 0.34, TAP10 + 0.6]
-W10 = lambda a: {'armL': [a, 0, 0, 1, None], 'foreL': [-a * 1.3, 0, 0, 1, None]}   # a wobble that runs down the arm
-st.shot('S10', 'mairie', setOpts=OFFICE(4.6), actors=[act('meteo', [-0.95, 0, -1.3], 12, 'stand', 'happy', keys=[k(0.0, toon=MESSY, toonDur=0),
-        k(0.08, toon={**MESSY, 'hands': {'L': 'point'}, 'reach': {'L': [-0.45, 1.95, -1.75, 1, 0.16, [0.5, -1, 0.2]]}, 'sq': [1.04, 0.94, 1.04]}, toonDur=0.12), k(0.1, expr='proud'),   # the arm comes up, short: an ordinary arm
-        k(0.26, toon=ARM10([TAG[0] + 0.12, TAG[1] + 0.1, TAG[2] - 0.02], sq=[0.97, 1.05, 0.97]), toonDur=0.1, toonEase='outBack'),   # then it shoots up the diagonal, too far (the map takes it), and settles beside the name
-        k(TAP10 + 0.02, toon=ARM10(TAG, bend=W10(0.3)), toonDur=0.05), k(TAP10 + 0.08, toon=ARM10(TAG, bend=W10(-0.2)), toonDur=0.06), k(TAP10 + 0.15, toon=ARM10(TAG, bend=W10(0.1)), toonDur=0.06), k(TAP10 + 0.22, toon=ARM10(TAG), toonDur=0.06),
-        k(TAPS10[1] - 0.1, toon=ARM10(BACK10(0.3)), toonDur=0.08), k(TAPS10[1] - 0.02, toon=ARM10(TAG), toonDur=0.04), k(TAPS10[1] + 0.04, toon=ARM10(TAG, bend=W10(0.18)), toonDur=0.05), k(TAPS10[1] + 0.1, toon=ARM10(TAG), toonDur=0.06),
-        k(TAPS10[2] - 0.1, toon=ARM10(BACK10(0.3)), toonDur=0.08), k(TAPS10[2] - 0.02, toon=ARM10(TAG), toonDur=0.04), k(TAPS10[2] + 0.04, toon=ARM10(TAG, bend=W10(0.18), face={'lid': 1}), toonDur=0.05), k(TAPS10[2] + 0.1, toon=ARM10(TAG), toonDur=0.06)])],
-        props=[P('map', 'stormMap', pos=[MAPX, MAPY, -2.5], opts={'w': MAPW, 'h': MAPH, 'bandTop': True, 'tapAt': TAPS10, 'tapAmp': 0.09})],
-        fx=[{'type': 'shake', 'at': TAP10, 'dur': 0.1, 'amount': 0.014}],
-        cams=[cam(0.0, [-0.4, 1.7, 4.7], [-0.38, 1.75, 4.4], [-0.05, 2.3, -2.0], [-0.03, 2.33, -2.0], lens=44)])
+BACK10 = lambda d: [round(TAG[0] - 0.85 * d, 3), round(TAG[1] - 0.5 * d, 3), round(TAG[2] + 0.15 * d, 3)]   # the fingertip pulled back d metres along the arm (negative: past the tag)
+SHORT10 = [-0.55, 2.2, -2.2]                         # where an ordinary arm gets to: a good metre short of the name
+GO10 = 0.3                                          # the arm shoots
+TAP10 = round(GO10 + 0.066, 3)
+TAPS10 = [TAP10, TAP10 + 0.3, TAP10 + 0.54]
+LEAN10 = lambda a: {'spine': [0, 0, a, 1, None]}    # her body leans against the arm
+W10 = lambda a: {'armL': [a, 0, 0, 1, None], 'foreL': [-a * 1.4, 0, 0, 1, None]}   # a wave that runs down the arm
+st.shot('S10', 'mairie', setOpts=OFFICE(4.6), actors=[act('meteo', F10, 15, 'stand', 'happy', keys=[k(0.0, toon=MESSY, toonDur=0),
+        k(0.03, toon={**MESSY, 'hands': {'L': 'point'}, 'reach': {'L': [*SHORT10, 1, 0.16, [0.5, -1, 0.2]]}, 'sq': [1.03, 0.96, 1.03]}, toonDur=0.1, toonEase='outBack'),   # an ordinary arm: it stops a good metre short
+        k(0.1, toon={**MESSY, 'hands': {'L': 'point'}, 'reach': {'L': [*SHORT10, 1, 0.16, [0.5, -1, 0.2]]}, 'face': {'gx': 0.9, 'gy': -0.6}}, toonDur=0.06), k(0.1, expr='hmm'),   # a glance at the map: too far
+        k(0.2, toon={**MESSY, 'hands': {'L': 'point'}, 'reach': {'L': [SHORT10[0] - 0.1, SHORT10[1] - 0.08, SHORT10[2], 1, 0.16, [0.5, -1, 0.2]]}, 'sq': [1.05, 0.93, 1.05], 'bend': LEAN10(0.12)}, toonDur=0.08), k(0.2, expr='proud'),   # back to us, a smile; she winds up
+        k(GO10, toon=ARM10(BACK10(-0.22), sq=[0.96, 1.06, 0.96], bend=LEAN10(-0.22)), toonDur=0.066, toonEase='in'),   # the arm shoots up the diagonal in two frames, past the name: the map takes it
+        k(TAP10 + 0.02, toon=ARM10(TAG, bend={**W10(0.5), **LEAN10(-0.1)}), toonDur=0.06), k(TAP10 + 0.09, toon=ARM10(TAG, bend={**W10(-0.32), **LEAN10(0.06)}), toonDur=0.07),
+        k(TAP10 + 0.16, toon=ARM10(TAG, bend=W10(0.16)), toonDur=0.06), k(TAP10 + 0.22, toon=ARM10(TAG), toonDur=0.05),   # it comes back to the name, a wave running down it; her body leans the other way
+        k(TAPS10[1] - 0.1, toon=ARM10(BACK10(0.35), bend=LEAN10(0.1)), toonDur=0.07), k(TAPS10[1] - 0.03, toon=ARM10(BACK10(-0.08), bend=LEAN10(-0.14)), toonDur=0.03), k(TAPS10[1] + 0.04, toon=ARM10(TAG, bend=W10(0.25)), toonDur=0.05), k(TAPS10[1] + 0.1, toon=ARM10(TAG), toonDur=0.06),
+        k(TAPS10[2] - 0.12, toon=ARM10(BACK10(0.5), bend=LEAN10(0.16), sq=[1.04, 0.95, 1.04]), toonDur=0.08), k(TAPS10[2] - 0.03, toon=ARM10(BACK10(-0.12), bend=LEAN10(-0.2)), toonDur=0.03), k(TAPS10[2] + 0.04, toon=ARM10(TAG, bend=W10(0.3), face={'lid': 1}), toonDur=0.05),
+        k(TAPS10[2] + 0.1, toon=ARM10(TAG), toonDur=0.06)])],   # two more taps, each harder: the last leaves the map askew
+        props=[P('map', 'stormMap', pos=[MAPX, MAPY, -2.5], opts={'w': MAPW, 'h': MAPH, 'bandTop': True, 'tapAt': TAPS10, 'tapAmps': [0.3, 0.22, 0.34], 'tapFreq': 13, 'tapDecay': 3.4, 'pivotTop': True, 'crooked': 0.16})],
+        fx=[{'type': 'shake', 'at': TAP10, 'dur': 0.12, 'amount': 0.018}, {'type': 'shake', 'at': TAPS10[2], 'dur': 0.1, 'amount': 0.014}],
+        cams=[cam(0.0, [-0.4, 1.7, 4.7], [-0.38, 1.75, 4.4], [-0.04, 2.3, -2.0], [-0.02, 2.33, -2.0], lens=44)])   # the map keeps the frame when it swings
 # 11: red alert: he walks down the street, a beacon turning on his head; the passers-by bend away from him one after the other, like wheat
 SIDE11 = [('p1', MX - 0.56, 1.2, 1), ('p2', MX + 0.8, 0.2, -1), ('p3', MX - 0.56, -0.8, 1)]   # who, x, z, which way he bends (away from the middle)
 V11 = 2.3                                           # his speed (m/s)
@@ -179,9 +189,9 @@ AWAY12 = [MX + 5.0, 1.6, 9.0]                       # where they were looking
 GO12 = st.dur('S12') - 0.13                         # their legs start to spin: it carries over the cut
 LEAN12 = {'bend': {'spine': [0, 0.2, 0, 1, None], 'neck': [0, 0.18, 0, 1.25, None]}}   # they lean toward him, necks out
 st.shot('S12', 'parisStreet', setOpts=STREET_B, actors=[act('mec', [MX, 0, HZ], 0, 'stand', 'worried', keys=[k(0.03, clip='sniff', params={'n': 1, 'ik': 1}, blend=0.06), k(0.45, clip='sniff', params={'n': 1, 'ik': 1, 'held': 1}, blend=0.03)])] +
-        [act(w, [x, 0, z], 0, 'stand', 'neutral', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.0, look=AWAY12), k(0.1, look='mec', expr='hmm'), k(0.13, toon={**MESSY, **LEAN12}, toonDur=0.08, toonEase='outBack'),
+        [act(w, [x, 0, z], 0, 'stand', 'neutral', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.0, look=AWAY12), k(0.1, look='mec', expr='neutral'), k(0.13, toon={**MESSY, **LEAN12}, toonDur=0.08, toonEase='outBack'),
             k(0.33, look=AWAY12, expr='neutral'), k(0.33, toon=MESSY, toonDur=0.08),
-            k(0.6 + 0.05 * i, look='mec', clip='startle', expr='scared', blend=0.05), k(0.6 + 0.05 * i, toon={**MESSY, **LEAN12, 'face': {'pop': 0.5, 'popLen': 0.08, 'eyeScale': 1.2}}, toonDur=0.07, toonEase='outBack'),
+            k(0.56 + 0.05 * i, toon={**MESSY, 'sq': [1.08, 0.88, 1.08]}, toonDur=0.04), k(0.6 + 0.05 * i, look='mec', clip='startle', expr='scared', blend=0.05),   # a squash, then the pop k(0.6 + 0.05 * i, toon={**MESSY, **LEAN12, 'face': {'pop': 0.5, 'popLen': 0.08, 'eyeScale': 1.2}}, toonDur=0.07, toonEase='outBack'),
             k(GO12 + 0.03 * i, clip='scramble', params={'dur': 0.36, 'expr': 'scared'}, blend=0.04)]) for i, (w, x, z) in enumerate(P12)],
         props=[BEACON, BADGE],
         cams=[cam(0.0, [MX - 0.5, 1.95, 5.0], [MX - 0.48, 1.95, 4.8], [MX + 0.7, 1.9, 0.5], [MX + 0.7, 1.9, 0.5], lens=44)])
@@ -218,10 +228,12 @@ K_TOP2 = [-0.8, 3.08, 0.05]                          # during the hold the stamp
 EY = lambda x, y, **kw: {'face': {'gx': x, 'gy': y}, **kw}   # the hero's eyes alone (toon face.gx / gy; - = to his right / up): his head stays on us
 K_LOW, K_TOP, K_HIT, K_IN, K_REB, K_END = [-0.72, 1.4, 0.72], [-0.74, 2.5, 0.18], [HX14, 2.34 + 0.42 * SK, HZ14], [HX14, 1.92 + 0.42 * SK, HZ14], [-0.5, 3.05, 0.42], [-1.0, 1.15, 0.7]
 BACK14 = [-2.3, 0, 0.3]                              # the insurer walks off to the left once he has read his stamp: the fall is the hero's alone
-GR = lambda pt, **kw: {'hands': {'R': 'grip'}, 'reach': {'R': [pt[0], pt[1], pt[2], 1, 0.05]}, **kw}
+GR = lambda pt, **kw: {'hands': {'R': 'grip', 'L': 'grip'}, 'reach': {'R': [pt[0], pt[1], pt[2], 1, 0.05], 'L': [pt[0] + 0.07, pt[1] - 0.09, pt[2] + 0.06, 1, 0.05]}, **kw}   # both hands on the stamp: his face shows between his arms
 UP14, W14, RB14 = 0.42, 0.07, 0.2                   # the stamp goes up in that time; the strike takes two frames; the rebound
-st.shot('S14', 'mairie', setOpts=INSUR, actors=[act('mec', [HX14, 0, HZ14], -8, 'stand', 'worried', keys=[k(0.0, toon=EY(-0.8, 0.0), toonDur=0), k(0.05, expr='surprised'), k(0.05, toon=EY(-0.7, -0.9), toonDur=UP14, toonEase='out'),   # only his eyes go to the stamp and climb after it, wide
-            k(0.5, expr='gulp'), k(0.5, toon=EY(-0.6, -1.0, sq=[1.05, 0.92, 1.05], bend={'neck': [0, 0, 0, 0.8, None]}), toonDur=HIT14 - 0.62, toonEase='inOut'), k(HIT14 - 0.24, expr='scared'),   # he swallows and shrinks under it, the neck goes in
+st.shot('S14', 'mairie', setOpts=INSUR, actors=[act('mec', [HX14, 0, HZ14], -8, 'stand', 'worried', keys=[k(0.0, toon=EY(-0.8, 0.0), toonDur=0), k(0.04, expr='surprised'), k(0.05, toon=EY(-0.75, -0.55), toonDur=0.1, toonEase='outBack'),   # his eyes, wide, go to the stamp: a first step up with it,
+            k(0.2, toon=EY(-0.72, -0.6, sq=[1.03, 0.95, 1.03], bend={'neck': [0, 0, 0, 0.92, None]}), toonDur=0.22),   # and he starts to sink as it climbs
+            k(0.44, expr='shocked'), k(0.45, toon=EY(-0.6, -1.0, sq=[1.05, 0.92, 1.05], bend={'neck': [0, 0, 0, 0.84, None]}), toonDur=0.1, toonEase='outBack'),   # a second step: the brows go up with the pupils
+            k(0.6, toon=EY(-0.55, -1.0, sq=[1.08, 0.88, 1.08], bend={'neck': [0, 0, 0, 0.74, None]}), toonDur=HIT14 - 0.7, toonEase='inOut'),   # the neck goes in
             k(HIT14 - 0.02, clip='headHammer', params={'at': 0.02}, blend=0.02), k(HIT14 - 0.02, toon={}, toonDur=0.02), k(HIT14 + 0.42, expr='dizzy'), k(HIT14 + 0.42, toon={'face': {'cross': 1, 'stars': 1}}, toonDur=0.1), k(HIT14 + 0.5, clip='jelly', params={'amp': 0.1, 'freq': 5, 'decay': 0.6}, blend=0.15),
             k(FALL14, clip='plankFall', params={'dur': 0.27, 'hang': 0.17, 'feet': 0.95}, blend=0.05), k(FALL14, toon={'face': {'cross': 1, 'stars': 1}, 'auto': 0}, toonDur=0.05),
             k(FALL14 + 0.58, toon={'face': {'cross': 1, 'stars': 1}, 'auto': 0, 'bend': {'neck': [1.0, 0, 0, 1.3, None]}}, toonDur=0.12, toonEase='outBack')]),   # flat on his back, legs up, he lifts his head: the stamped face comes to us between his feet
@@ -287,26 +299,25 @@ st.shot('S16', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act(
 #     bumps him). Then the far corner of the field: the blast runs up to the turbines, they spin up one after the other; beside each one a town comes on at
 #     once, under a warm glow: one, two, three
 SN17 = 0.0
-HIT17, BOW17, HOLD17, FLY17 = 0.1, 0.08, 0.12, 0.2  # he hits the mattress; it bows; it holds him; his flight out
+HIT17, BOW17, HOLD17, FLY17 = 0.1, 0.08, 0.06, 0.2  # he hits the mattress; it bows; it holds him; his flight out
 OUT17 = round(HIT17 + BOW17 + HOLD17, 3)            # the mattress springs back: it throws him out
 B17 = 0.7                                           # the cut to the turbines
 IN17 = lambda d, y=-0.32: [round(-0.707 * d, 3), y, round(0.707 * d, 3)]   # d metres behind where he stood
-LAND17 = [-0.25, 0, 0.25]                           # where he comes down: short of where he stood (further on, the frame cut him, squashed, in two)
+LAND17 = [0.05, 0, -0.05]                           # where he comes down: where he stood, the mattress well behind him: the ball crosses clear sky (further on, the pancake, arms out, ran out of the frame)
 E17 = [-1.41, 0, 0.73]                              # the engineer, behind the far end of the mattress: his head shows over it
 UPT = lambda i: round(B17 + 0.2 + 0.15 * i, 3)      # turbine i has reached its speed: its town comes on
 st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0.3, 0], 135, 'stand', 'worried', keys=[k(-SNAP, clip='sneeze', params=SNZ, blend=0.001),
             k(SN17 + 0.03, to=IN17(0.72), dur=HIT17 - 0.03, glide=True, ease='out', face='keep'), k(SN17 + 0.03, clip='blownBack', blend=0.04),
             k(HIT17, to=IN17(1.0), dur=BOW17, glide=True, ease='out', face='keep'), k(HIT17 + 0.02, toon={'sq': [1.15, 1.0, 0.72]}, toonDur=BOW17, toonEase='out'),   # he sinks into it, pressed
-            k(OUT17, to=LAND17, dur=FLY17, glide=True, ease='linear', arc=0.6, face='keep'), k(OUT17, clip='cannonball', params={'spin': 1 / FLY17, 'expr': 'dizzy'}, blend=0.03), k(OUT17, toon={'sq': [0.92, 1.12, 0.92]}, toonDur=0.05),   # thrown out, rolled in a ball: one turn
-            k(OUT17 + FLY17, clip='land', expr='dizzy', blend=0.02), k(OUT17 + FLY17, toon={'sq': [1.5, 0.58, 1.0], 'face': {'stars': 1, 'cross': 1}}, toonDur=0.04),   # he lands flat-footed, squashed to half his height (wider across the shoulders, not longer: seen from the side he stays in the frame)
-            k(OUT17 + FLY17 + 0.05, toon={'sq': [0.92, 1.1, 0.92], 'face': {'stars': 1, 'cross': 1}}, toonDur=0.1, toonEase='outBack'), k(OUT17 + FLY17 + 0.16, toon={'face': {'stars': 1, 'cross': 1}}, toonDur=0.1)]),
+            k(OUT17, to=LAND17, dur=FLY17, glide=True, ease='linear', arc=1.0, face='keep'), k(OUT17, clip='cannonball', params={'spin': 1 / FLY17, 'expr': 'dizzy'}, blend=0.03), k(OUT17, toon={'sq': [0.92, 1.12, 0.92]}, toonDur=0.05),   # thrown out, rolled in a ball, on one arc through the sky: one turn
+            k(OUT17 + FLY17, clip='pancake', params={'flat': 0.1, 'stars': 1, 'popAt': 0.23}, blend=0.02), k(OUT17 + FLY17, toon={}, toonDur=0.02)]),   # he lands as flat as a pancake and stays so six frames; he is puffing back up at the cut
         act('inge', E17, 135, 'stand', 'scared', keys=[k(0.0, look=[0, 1.6, 0]), k(0.0, toon={'sq': [1.08, 0.86, 1.08]}, toonDur=0),
             k(HIT17 + 0.02, toon={'sq': [0.9, 1.14, 0.9], 'hat': [0.3, 0.3, 0]}, toonDur=0.06, toonEase='out'), k(HIT17 + 0.02, clip='startle', expr='surprised', blend=0.04), k(HIT17 + 0.12, toon={'sq': [1.05, 0.92, 1.05]}, toonDur=0.12, toonEase='outBack'),   # the mattress bumps him: his helmet jumps
             k(OUT17 + 0.1, toon={}, toonDur=0.1), k(OUT17 + 0.1, look='mec'), k(OUT17 + FLY17 + 0.08, look=[8, 5, -9])])],   # he watches him go by, then looks up at the turbines
         props=TURB(lambda i: [[0, 0], [UPT(i) - 0.16, 0], [UPT(i), 95], [9, 95]], blur=0.8, ghosts=3, blurSpread=4) +
               [MAT(hitAt=HIT17, dent=0.3, hold=BOW17 + HOLD17), P('blast', 'sneezeBlast', pos=[0.3, 1.7, -0.3], ry=135, opts={'at': SN17, 'dur': 0.6, 'len': 16, 'spread': 2.4, 'n': 36}),
                P('towns', 'townLights', pos=[17.88, 0, -32.49], ry=-27.2, scale=1.4, opts={'at': [UPT(0), UPT(1), UPT(2)], 'houses': 3, 'landmarks': True, 'sites': [[-3.2, 4.29], [0, 0], [4.83, -4.29]], 'pop': True, 'glow': 12, 'glowK': 0.9})],   # one town beside each turbine, as wide as the gap between two towers allows
-        fx=[{'type': 'wind', 'at': SN17, 'dur': 0.5, 'v': [20, 0, -20], 'attack': 0.03, 'release': 0.3}, {'type': 'shake', 'at': SN17, 'dur': 0.3, 'amount': 0.04}, {'type': 'shake', 'at': HIT17, 'dur': 0.12, 'amount': 0.03}, {'type': 'shake', 'at': OUT17 + FLY17, 'dur': 0.12, 'amount': 0.02}],
+        fx=[{'type': 'wind', 'at': SN17, 'dur': 0.5, 'v': [20, 0, -20], 'attack': 0.03, 'release': 0.3}, {'type': 'shake', 'at': SN17, 'dur': 0.3, 'amount': 0.04}, {'type': 'shake', 'at': HIT17, 'dur': 0.12, 'amount': 0.03}, {'type': 'shake', 'at': OUT17 + FLY17, 'dur': 0.14, 'amount': 0.028}],
         cams=[cam(0.0, [4.7, 1.5, 1.55], [4.6, 1.5, 1.55], [-0.12, 1.0, 0.12], [-0.12, 1.0, 0.12], lens=44),   # wide enough for the mattress and for where he lands, aimed low: the landing above the captions
               cam(B17, [-1.0, 1.5, 9.5], [-0.9, 1.55, 9.2], [8.0, 4.3, -8.0], [8.0, 4.4, -8.0], lens=50)])
 # ---- spring: the same field in flower: daisies, buttercups and poppies all over the grass, tufts, trees in blossom; the turbines far away at the edges
@@ -328,14 +339,15 @@ st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 's
 #     top of the biggest breath, held, trembling, before the sneeze. He faces us (a quarter turn toward the cloud): the last image keeps his face
 T19 = [0.0, 0.66, 1.2, 1.64, 2.0]                   # when each breath starts, after 0.35 s: gaps of 20, 16, 13, 11 frames
 PULL19 = [[0.3, 0.0]] + [x for t_, a0, a1 in zip(T19, [0.0, 0.2, 0.42, 0.66, 0.92], [0.2, 0.42, 0.66, 0.92, 1.25]) for x in ([round(0.35 + t_, 3), a0], [round(0.35 + t_ + 0.2, 3), a1])]   # how far the flowers lean to him
-st.shot('S19', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 25, 'stand', 'scared', keys=[k(0.0, look=[6, 2, 1]), k(0.35, clip='sneezeUp', params={'times': T19, 'last': 0.36, 'tremble': 2.5, 'float': 1.3, 'ik': 1, 'back': 0.55}, blend=0.08, look=None),
-            ] + [k(round(0.35 + t_ + 0.08, 3), toon={'sq': [v, round(0.82 * v + 0.18, 3), v]}, toonDur=0.2, toonEase='outBack') for t_, v in zip(T19, [1.15, 1.35, 1.58, 1.82, 2.1])])],
+st.shot('S19', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 25, 'stand', 'worried', keys=[k(0.0, look=[6, 2, 1]), k(0.04, toon={'face': {'gx': 0.9}}, toonDur=0.05), k(0.1, expr='scared'), k(0.1, toon={'bend': {'spine': [-0.16, 0, -0.1, 1, None]}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.14, toonEase='outBack'),   # his eyes go to the cloud, then he leans away from it
+            k(0.3, toon={}, toonDur=0.08), k(0.35, clip='sneezeUp', params={'times': T19, 'last': 0.36, 'tremble': 2.5, 'float': 1.3, 'ik': 1, 'back': 0.55}, blend=0.08, look=None),
+            ] + [k(round(0.35 + t_ + 0.08, 3), toon={'sq': [v, round(0.82 * v + 0.18, 3), v]}, toonDur=0.2, toonEase='outBack') for t_, v in zip(T19, [1.15, 1.38, 1.65, 1.95, 2.3])])],
         props=[P(f'turb{i}', 'windTurbine', pos=[x, 0, z], opts={'h': 9, 'rpm': 0, 'phase': 0.5 + i}) for i, (x, z) in enumerate([(-14.9, -44.0), (4.5, -52.0)])] + [P('cloud', 'pollenCloud', pos=[7.5, 2.0, 0.5], opts={'n': 150, 'size': [7, 3.4, 3.5], 'dir': [-2.3, -0.05, -0.1], 'seed': 12}),
-               MEADOW(toward=[0, 4], pull=PULL19), TUFTS, BLOSSOM('bt1', -2.3, -13.0, 2.3), BLOSSOM('bt2', 3.4, -19.0, 2.6, 8),
+               MEADOW(toward=[0, 4], pull=PULL19), TUFTS, BLOSSOM('bt1', -3.9, -13.0, 2.3), BLOSSOM('bt2', 3.4, -19.0, 2.6, 8),   # the first tree left of his head, not behind it
                P('pp1', 'flyingPaper', pos=[4.2, 1.2, 1.2], keys=[k(0.9, to=[1.25, 3.0, 0.6], dur=1.9, arc=0.5, ease='linear')]),   # they come with the wind, slowly, on his breath: in the frame for the last ten frames, still on their way at the cut
                P('wig', 'wig', pos=[3.6, 3.6, 0.7], keys=[k(0.6, to=[1.2, 5.45, 0.5], dur=2.25, ease='linear')])],   # the wig high in the clear sky, toward his nose
         fx=[{'type': 'wind', 'at': 0.6, 'dur': 2.2, 'v': [-6, 0, 0], 'attack': 1.2, 'release': 0.1}],
-        cams=[cam(0.0, [0.7, 1.9, 4.8], [1.0, 2.6, 9.3], [0.2, 1.7, 0], [0.1, 3.5, 0], lens=44, ease='inOut')])   # the frame keeps his hair when a breath lifts it
+        cams=[cam(0.0, [0.7, 1.9, 4.8], [1.0, 2.7, 10.0], [0.2, 1.7, 0], [0.1, 3.75, 0], lens=44, ease='inOut')])   # the frame keeps his hair when a breath lifts it
 
 # sound on the actions
 for i_, t_ in enumerate(T01): st.cue('sfx:stretch', 'S01', t_, 0.3 + 0.05 * i_)
@@ -345,7 +357,7 @@ for t_ in SLIDE.values(): st.cue('sfx:squeak', 'S03', t_, 0.35)
 st.cue('whoosh', 'S04', G4, 0.4, 0.7, 400, 2500); st.cue('sfx:zip', 'S04', G4 + 0.08, 0.3)
 st.cue('sfx:twang', 'S05', 0.14, 0.4); st.cue('pop', 'S05', 0.02, 0.3)
 st.cue('sfx:tick', 'S06', 0.15, 0.2); st.cue('sfx:tick', 'S06', 0.31, 0.2); st.cue('sfx:slideUp', 'S06', M6 - 0.05, 0.25); st.cue('sfx:slideUp', 'S06', T6 - 0.12, 0.35); st.cue('sfx:zip', 'S07', P7, 0.3); st.cue('clack', 'S07', P7 + PULL, 0.4); st.cue('sfx:spring', 'S07', UP7, 0.4); st.cue('sfx:slideUp', 'S07', UP7 + HANG7, 0.3); st.cue('clack', 'S07', END7, 0.35); st.cue('sfx:tick', 'S08', T8 - 0.22, 0.4)
-st.cue('sfx:splat', 'S09', B9, 0.4); st.cue('sfx:zip', 'S10', 0.26, 0.3); st.cue('pop', 'S10', TAP10, 0.35); st.cue('sfx:tick', 'S10', TAPS10[1], 0.28); st.cue('sfx:tick', 'S10', TAPS10[2], 0.28)
+st.cue('sfx:splat', 'S09', B9, 0.4); st.cue('sfx:zip', 'S10', GO10, 0.3); st.cue('pop', 'S10', TAP10, 0.4); st.cue('sfx:tick', 'S10', TAPS10[1], 0.28); st.cue('sfx:tick', 'S10', TAPS10[2], 0.28)
 for i, (_, _, z, _) in enumerate(SIDE11): st.cue('sfx:squeak', 'S11', round((z - Z11 - 0.9) / V11, 3), 0.3)
 st.cue('sfx:gasp', 'S12', 0.62, 0.35)
 for _, _, d, _ in RUN13: st.cue('sfx:zip', 'S13', SPIN13 + d, 0.35)

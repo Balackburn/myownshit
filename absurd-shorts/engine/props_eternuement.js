@@ -101,7 +101,12 @@ export const ETERNUEMENT_PROPS = {
     sp.position.set(0.02 * w, (0.03 + dy) * h, 0.012);
     const tag = canvasPlane(0.62 * w, 0.14 * w, (g, W, H) => { g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.12; g.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H * 0.88); txt(g, name, W / 2, H * 0.52, fit(g, name, W * 0.86, H * 0.66), '#C8202A'); }, { res: 384 }); tag.position.set(0.02 * w, (-0.2 + dy) * h, 0.03);
     const g = grp(at(box(w * 1.04, h * 1.03, 0.05, '#23262C', { outline: 0.008 }), 0, 0, -0.03), face, sp, tag);
-    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); if (o.tapAt != null) { let sh = 0; for (const ta of [].concat(o.tapAt)) if (t >= ta) sh = wob(t - ta, 46, 9); g.rotation.z = (o.tapAmp ?? 0.035) * sh; g.position.x = (g.userData.x0 ??= g.position.x) + 0.3 * (o.tapAmp ?? 0.035) * sh; tag.scale.multiplyScalar(1 + 0.25 * Math.abs(sh)); } };   // o.tapAt (a time or several): it swings when it is tapped (o.tapAmp rad)
+    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); if (o.tapAt != null) { const taps = [].concat(o.tapAt); let sh = 0, amp = o.tapAmp ?? 0.035, rest = 0; taps.forEach((ta, i) => { if (t >= ta) { sh = wob(t - ta, o.tapFreq ?? 46, o.tapDecay ?? 9); amp = o.tapAmps?.[i] ?? (o.tapAmp ?? 0.035); if (i === taps.length - 1 && o.crooked) rest = o.crooked * (1 - Math.exp(-(t - ta) * 9)); } });
+        const a = amp * sh + rest; g.rotation.z = a; g.userData.x0 ??= g.position.x; g.userData.y0 ??= g.position.y;
+        if (o.pivotTop) { g.position.x = g.userData.x0 + h / 2 * Math.sin(a); g.position.y = g.userData.y0 - h / 2 * (1 - Math.cos(a)); } else g.position.x = g.userData.x0 + 0.3 * amp * sh;
+        tag.scale.multiplyScalar(1 + 0.25 * Math.min(1, Math.abs(sh))); } };
+    // o.tapAt (a time or several): it swings when it is tapped: o.tapAmp rad, or o.tapAmps [per tap]; o.tapFreq / o.tapDecay (46 rad/s, 9: a shiver; 13 and 3: a pendulum);
+    // o.pivotTop: it swings from its top edge (it hangs on a nail); o.crooked (rad): the last tap leaves it hanging askew
     return g;
   },
 

@@ -93,6 +93,31 @@
     "headWidth": 1.3
    }
   },
+  "remp": {
+   "preset": "lemec_brown",
+   "seed": 71,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   }
+  },
+  "t1": {
+   "preset": "tourist",
+   "seed": 73,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   }
+  },
+  "tech": {
+   "preset": "worker",
+   "seed": 77,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   },
+   "glasses": false
+  },
   "r0": {
    "preset": "femme",
    "seed": 60,
@@ -102,7 +127,7 @@
    }
   },
   "r1": {
-   "preset": "serveur",
+   "preset": "proviseur",
    "seed": 61,
    "build": {
     "width": 0.86,
@@ -2231,24 +2256,24 @@
      "from": [
       3.5,
       1.7,
-      0.0
+      -0.2
      ],
      "to": [
       3.7,
       1.7,
-      -0.05
+      -0.25
      ],
      "lookAt": [
       9.6,
       1.65,
-      -0.15
+      -0.38
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       9.6,
       1.65,
-      -0.15
+      -0.38
      ]
     }
    ],
@@ -2608,25 +2633,25 @@
      "at": 0.42,
      "from": [
       7.0,
-      1.93,
-      -1.5
+      2.35,
+      -1.2
      ],
      "to": [
       7.1,
-      1.93,
-      -1.5
+      2.35,
+      -1.2
      ],
      "lookAt": [
       9.12,
-      1.9,
-      -1.42
+      1.7,
+      -1.12
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       9.12,
-      1.9,
-      -1.42
+      1.7,
+      -1.12
      ]
     }
    ],
@@ -2749,9 +2774,9 @@
       {
        "at": 0.25,
        "to": [
-        7.2,
+        8.9,
         0,
-        -1.82
+        -3.4
        ],
        "dur": 0.75,
        "clip": "sneak",
@@ -2937,74 +2962,17 @@
        "toonEase": "inOut"
       },
       {
-       "at": 2.02,
-       "to": [
-        9.12,
-        0,
-        -1.02
-       ],
-       "dur": 0.14,
-       "glide": true,
-       "ease": "inOut",
-       "face": "keep"
-      },
-      {
-       "at": 2.02,
-       "clip": "stand",
-       "expr": "deadpan",
-       "blend": 0.1
-      },
-      {
-       "at": 2.02,
-       "toon": {
-        "hands": {
-         "L": "grip"
-        },
-        "reach": {
-         "L": [
-          9.021,
-          1.1,
-          -0.416,
-          1,
-          0.05,
-          [
-           0.2,
-           -1,
-           0.5
-          ]
-         ]
-        },
-        "sq": [
-         0.9,
-         1.1,
-         0.9
-        ]
+       "at": 1.96,
+       "clip": "poster",
+       "params": {
+        "high": 0.0,
+        "slideAt": 0.04,
+        "slide": 0.35,
+        "peelK": 1.1,
+        "stars": 1
        },
-       "toonDur": 0.1,
-       "toonEase": "outBack"
-      },
-      {
-       "at": 2.14,
-       "toon": {
-        "hands": {
-         "L": "grip"
-        },
-        "reach": {
-         "L": [
-          9.021,
-          1.1,
-          -0.416,
-          1,
-          0.05,
-          [
-           0.2,
-           -1,
-           0.5
-          ]
-         ]
-        }
-       },
-       "toonDur": 0.08
+       "expr": "dizzy",
+       "blend": 0.05
       }
      ],
      "expr": "deadpan"
@@ -3116,26 +3084,26 @@
     {
      "at": 0.0,
      "from": [
-      5.3,
-      1.9,
-      -2.7
+      4.6,
+      1.8,
+      -7.0
      ],
      "to": [
-      5.25,
-      1.9,
-      -2.72
+      4.65,
+      1.8,
+      -6.9
      ],
      "lookAt": [
-      9.9,
-      1.5,
-      0.0
+      9.2,
+      1.65,
+      -2.0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      9.9,
-      1.5,
-      0.0
+      9.2,
+      1.65,
+      -2.0
      ]
     },
     {
@@ -3183,6 +3151,2559 @@
      "amount": 0.03
     }
    ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "remp",
+     "pos": [
+      7.05,
+      0,
+      9.4
+     ],
+     "ry": 185,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        8.6,
+        1.7,
+        -1.0
+       ]
+      },
+      {
+       "at": 0.1,
+       "clip": "wave",
+       "blend": 0.1
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0,
+          2.3,
+          null
+         ],
+         "spine": [
+          0,
+          0,
+          -0.25,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         0.96,
+         1.08,
+         0.96
+        ]
+       },
+       "toonDur": 0.22,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.9199999999999999,
+       "expr": "bigGrin"
+      },
+      {
+       "at": 0.9199999999999999,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.12,
+          2.5,
+          null
+         ],
+         "spine": [
+          0,
+          0,
+          -0.25,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.1199999999999999,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          -0.12,
+          2.5,
+          null
+         ],
+         "spine": [
+          0,
+          0,
+          -0.25,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ],
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        7.7,
+        1.6
+       ],
+       [
+        7.5,
+        190.0
+       ]
+      ],
+      "gap": 0.8,
+      "people": true,
+      "seed": 9
+     }
+    },
+    {
+     "id": "rcap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "remp",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "ticket",
+     "name": "queueTicket",
+     "on": {
+      "actor": "remp",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.02
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 3.0,
+     "opts": {
+      "num": "2",
+      "sub": "Porte"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.7,
+      1.6,
+      -1.6
+     ],
+     "to": [
+      8.68,
+      1.62,
+      -1.4
+     ],
+     "lookAt": [
+      7.5,
+      1.5,
+      14.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.5,
+      1.5,
+      14.0
+     ]
+    },
+    {
+     "at": 0.42,
+     "from": [
+      8.1,
+      2.3,
+      5.6
+     ],
+     "to": [
+      8.05,
+      2.3,
+      5.75
+     ],
+     "lookAt": [
+      7.05,
+      2.75,
+      9.4
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.05,
+      2.75,
+      9.4
+     ],
+     "cut": false,
+     "glide": 0.22
+    }
+   ],
+   "start": 12.2333,
+   "duration": 1.5667,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.95,
+      0,
+      -4.6
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        8.9,
+        0,
+        -6.9
+       ],
+       "dur": 1.433,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "hands": {
+         "L": "grip",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ],
+         "R": [
+          8.5,
+          2.75,
+          -5.9,
+          1,
+          0.1
+         ]
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "hands": {
+         "L": "grip",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ],
+         "R": [
+          8.75,
+          2.8,
+          -6.2,
+          1,
+          0.1
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "deadpan"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ],
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "color": "#17161A"
+     }
+    },
+    {
+     "id": "cap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "pg1",
+     "name": "pigeon",
+     "pos": [
+      9.0,
+      1.42,
+      -2.2
+     ],
+     "ry": 90,
+     "opts": {
+      "ph": 0.3
+     }
+    },
+    {
+     "id": "pg2",
+     "name": "pigeon",
+     "pos": [
+      8.98,
+      1.52,
+      -3.3
+     ],
+     "ry": 90,
+     "opts": {
+      "ph": 1.7
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.3,
+      3.0,
+      2.2
+     ],
+     "to": [
+      8.35,
+      3.1,
+      2.5
+     ],
+     "lookAt": [
+      8.95,
+      1.3,
+      -6.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.95,
+      1.3,
+      -6.4
+     ]
+    }
+   ],
+   "start": 13.8,
+   "duration": 1.4333,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false,
+    "night": true
+   },
+   "lighting": "night",
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "chambre",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -2.6,
+      0.62,
+      -1.7
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          -4.7,
+          1.75,
+          -0.6,
+          1,
+          0.05
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          -4.7,
+          1.75,
+          -0.6,
+          1,
+          0.05
+         ]
+        },
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ]
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.5,
+       "to": [
+        -4.05,
+        0.75,
+        -1.1
+       ],
+       "dur": 0.1,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          -4.7,
+          1.75,
+          -0.6,
+          1,
+          0.05
+         ]
+        },
+        "sq": [
+         0.9,
+         1.2,
+         0.9
+        ]
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.6,
+       "clip": "poster",
+       "params": {
+        "high": 0.0,
+        "slideAt": 9,
+        "stars": 0
+       },
+       "expr": "sleepy",
+       "blend": 0.02,
+       "face": 90
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          -4.7,
+          1.75,
+          -0.6,
+          1,
+          0.05
+         ]
+        },
+        "sq": [
+         1.2,
+         1.0,
+         0.3
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          -4.7,
+          1.75,
+          -0.6,
+          1,
+          0.05
+         ]
+        },
+        "sq": [
+         1.0,
+         1.0,
+         0.6
+        ]
+       },
+       "toonDur": 0.15,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "sleepy"
+    }
+   ],
+   "props": [
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "color": "#17161A"
+     }
+    },
+    {
+     "id": "cap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.4,
+      1.9,
+      -1.65
+     ],
+     "to": [
+      3.3,
+      1.9,
+      -1.65
+     ],
+     "lookAt": [
+      -4.4,
+      1.25,
+      -1.65
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -4.4,
+      1.25,
+      -1.65
+     ]
+    }
+   ],
+   "start": 15.2333,
+   "duration": 1.1,
+   "setOpts": {
+    "poster": "SERVICE\nPUBLIC",
+    "posterBg": "#2A4B9B",
+    "posterFg": "#F4F1E8"
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.6,
+     "dur": 0.15,
+     "amount": 0.025
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "gx": -0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "gx": -0.9
+        },
+        "bend": {
+         "neck": [
+          0,
+          0,
+          -0.22,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.62,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "gx": -0.9
+        },
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.1,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.71,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "gx": -0.9
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.9,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "deadpan"
+    },
+    {
+     "id": "t1",
+     "pos": [
+      8.6,
+      0,
+      -5.6
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        9.0,
+        0,
+        -2.1
+       ],
+       "dur": 0.8,
+       "clip": "walk",
+       "ease": "out",
+       "face": -110
+      },
+      {
+       "at": 0.8,
+       "clip": "showPhoneFaceL",
+       "expr": "bigGrin",
+       "blend": 0.12,
+       "look": null
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "sq": [
+         1.05,
+         0.93,
+         1.05
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "sq": [
+         0.97,
+         1.05,
+         0.97
+        ],
+        "bend": {
+         "spine": [
+          0,
+          0,
+          -0.18,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.33,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          8.9,
+          2.02,
+          -1.5,
+          1,
+          0.16
+         ]
+        },
+        "bend": {
+         "spine": [
+          0,
+          0,
+          -0.18,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.14,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.52,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          8.98,
+          2.02,
+          -1.22,
+          1,
+          0.16
+         ]
+        },
+        "bend": {
+         "spine": [
+          0,
+          0,
+          -0.18,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.6500000000000001,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          8.9,
+          2.02,
+          -1.5,
+          1,
+          0.16
+         ]
+        },
+        "bend": {
+         "spine": [
+          0,
+          0,
+          -0.18,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.6500000000000001,
+       "expr": "laugh"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ],
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "color": "#17161A"
+     }
+    },
+    {
+     "id": "cap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "web",
+     "name": "spiderWeb",
+     "pos": [
+      9.02,
+      1.42,
+      -0.7
+     ],
+     "ry": -90,
+     "opts": {
+      "r": 0.3
+     }
+    },
+    {
+     "id": "bronze",
+     "name": "bronzePlaque",
+     "pos": [
+      9.84,
+      2.62,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {
+      "text": "MONUMENT/HISTORIQUE",
+      "w": 1.3,
+      "h": 0.72
+     },
+     "scale": 0.01,
+     "keys": [
+      {
+       "at": 0.887,
+       "scale": 1.0,
+       "dur": 0.12,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "phone",
+     "name": "smartPhone",
+     "on": {
+      "actor": "t1",
+      "hand": "L",
+      "offset": [
+       0,
+       0.02,
+       0.02
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "call": false
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.8,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "pg",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.6,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "opts": {
+      "ph": 0.5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.6,
+      1.8,
+      -7.0
+     ],
+     "to": [
+      4.7,
+      1.8,
+      -6.85
+     ],
+     "lookAt": [
+      9.2,
+      1.65,
+      -2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.2,
+      1.65,
+      -2.0
+     ]
+    }
+   ],
+   "start": 16.3333,
+   "duration": 2.0667,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.987,
+     "dur": 0.1,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "gx": 0.9,
+         "gy": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "deadpan"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ],
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "color": "#17161A"
+     }
+    },
+    {
+     "id": "cap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "web",
+     "name": "spiderWeb",
+     "pos": [
+      9.02,
+      1.42,
+      -0.7
+     ],
+     "ry": -90,
+     "opts": {
+      "r": 0.3
+     }
+    },
+    {
+     "id": "bronze2",
+     "name": "bronzePlaque",
+     "pos": [
+      8.98,
+      1.17,
+      -0.84
+     ],
+     "ry": -90,
+     "rot": [
+      0,
+      0,
+      -0.35
+     ],
+     "scale": 0.01,
+     "opts": {
+      "text": "BRAS/CLASSÉ",
+      "w": 0.3,
+      "h": 0.18
+     },
+     "keys": [
+      {
+       "at": 0.14,
+       "scale": 1.0,
+       "dur": 0.1,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pg",
+     "name": "pigeon",
+     "pos": [
+      9.1,
+      2.62,
+      -1.02
+     ],
+     "ry": -90,
+     "opts": {
+      "ph": 0.5
+     },
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        9.05,
+        1.42,
+        -0.86
+       ],
+       "dur": 0.22,
+       "ease": "out",
+       "arc": 0.2
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.6,
+      2.25,
+      -0.9
+     ],
+     "to": [
+      6.7,
+      2.25,
+      -0.9
+     ],
+     "lookAt": [
+      9.1,
+      1.58,
+      -0.88
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.1,
+      1.58,
+      -0.88
+     ]
+    }
+   ],
+   "start": 18.4,
+   "duration": 0.9333,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.2,
+     "dur": 0.08,
+     "amount": 0.01
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "tech",
+     "pos": [
+      9.0,
+      0,
+      4.4
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        9.2,
+        0,
+        1.6
+       ],
+       "dur": 0.7,
+       "clip": "walk",
+       "ease": "out",
+       "face": -60
+      },
+      {
+       "at": 0.7,
+       "clip": "stand",
+       "blend": 0.1,
+       "look": [
+        9.9,
+        2.4,
+        0.0
+       ],
+       "expr": "hmm"
+      },
+      {
+       "at": 1.0,
+       "look": [
+        9.88,
+        1.4,
+        2.15
+       ],
+       "expr": "surprised"
+      },
+      {
+       "at": 1.267,
+       "toon": {
+        "hands": {
+         "L": "point"
+        },
+        "reach": {
+         "L": [
+          9.58,
+          1.4,
+          2.1,
+          1,
+          0.16
+         ]
+        },
+        "sq": [
+         0.98,
+         1.03,
+         0.98
+        ]
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.527,
+       "toon": {
+        "hands": {
+         "L": "point"
+        },
+        "reach": {
+         "L": [
+          9.81,
+          1.3499999999999999,
+          2.15,
+          1,
+          0.16
+         ]
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.647,
+       "expr": "happy",
+       "look": [
+        9.9,
+        1.6,
+        0.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ],
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "box",
+     "name": "toolbox",
+     "pos": [
+      8.8,
+      0,
+      2.5
+     ],
+     "ry": -70
+    },
+    {
+     "id": "switch",
+     "name": "wallSwitch",
+     "pos": [
+      9.88,
+      1.4,
+      2.15
+     ],
+     "ry": -90,
+     "scale": 0.01,
+     "opts": {
+      "at": 1.567,
+      "label": "AUTO"
+     },
+     "keys": [
+      {
+       "at": 0.95,
+       "scale": 1.7,
+       "dur": 0.12,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.3,
+      1.45,
+      2.6
+     ],
+     "to": [
+      6.45,
+      1.45,
+      2.55
+     ],
+     "lookAt": [
+      9.8,
+      1.4,
+      2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.8,
+      1.4,
+      2.0
+     ]
+    }
+   ],
+   "start": 19.3333,
+   "duration": 1.8667,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.1,
+       "look": [
+        9.9,
+        1.3,
+        0.0
+       ],
+       "expr": "surprised"
+      },
+      {
+       "at": 0.36,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "gx": 0.9,
+         "gy": 0.4
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.5,
+       "look": [
+        9.9,
+        1.3,
+        0.2
+       ]
+      },
+      {
+       "at": 0.62,
+       "clip": "doubleTakeToon",
+       "blend": 0.04,
+       "look": null
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.0,
+       "clip": "stand",
+       "expr": "deadpan",
+       "blend": 0.1
+      }
+     ],
+     "expr": "deadpan"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        80
+       ],
+       [
+        0.05,
+        80
+       ],
+       [
+        0.3,
+        0
+       ]
+      ],
+      "slide": [
+       [
+        0,
+        0
+       ],
+       [
+        0.42,
+        0
+       ],
+       [
+        0.6,
+        0.95
+       ],
+       [
+        0.74,
+        0.95
+       ],
+       [
+        0.88,
+        0
+       ],
+       [
+        0.96,
+        0
+       ],
+       [
+        1.1,
+        0.95
+       ]
+      ],
+      "led": 0.4,
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "color": "#17161A"
+     }
+    },
+    {
+     "id": "cap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "bronze",
+     "name": "bronzePlaque",
+     "pos": [
+      9.84,
+      2.62,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {
+      "text": "MONUMENT/HISTORIQUE",
+      "w": 1.3,
+      "h": 0.72
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.2,
+      1.7,
+      -2.6
+     ],
+     "to": [
+      5.3,
+      1.7,
+      -2.5
+     ],
+     "lookAt": [
+      9.6,
+      1.55,
+      -0.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.6,
+      1.55,
+      -0.5
+     ]
+    }
+   ],
+   "start": 21.2,
+   "duration": 1.2,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.3,
+       "look": "dame",
+       "expr": "surprised"
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "hands": {
+         "L": "grip",
+         "R": "point"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ],
+         "R": [
+          8.75,
+          2.25,
+          -1.5,
+          1,
+          0.16
+         ]
+        },
+        "sq": [
+         0.97,
+         1.05,
+         0.97
+        ]
+       },
+       "toonDur": 0.14,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.2,
+       "expr": "yell"
+      },
+      {
+       "at": 1.62,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "sq": [
+         1.03,
+         0.96,
+         1.03
+        ]
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.62,
+       "expr": "sad",
+       "look": [
+        8.0,
+        1.2,
+        -5.0
+       ]
+      },
+      {
+       "at": 1.88,
+       "look": [
+        9.021,
+        1.1,
+        -0.416
+       ],
+       "expr": "hmm"
+      },
+      {
+       "at": 2.0,
+       "toon": {
+        "hands": {
+         "L": "grip",
+         "R": "open"
+        },
+        "reach": {
+         "L": [
+          9.0,
+          0.95,
+          -1.0,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ],
+         "R": [
+          9.0,
+          1.05,
+          -1.0,
+          1,
+          0.08
+         ]
+        },
+        "sq": [
+         1.03,
+         0.96,
+         1.03
+        ]
+       },
+       "toonDur": 0.22,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 2.36,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ]
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 2.36,
+       "expr": "surprised"
+      },
+      {
+       "at": 2.6,
+       "look": null,
+       "expr": "deadpan"
+      },
+      {
+       "at": 2.6,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "deadpan"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      10.5,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.25,
+       "visible": true
+      },
+      {
+       "at": 0.25,
+       "to": [
+        8.6,
+        0,
+        0.05
+       ],
+       "dur": 0.55,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.8,
+       "to": [
+        8.2,
+        0,
+        -1.6
+       ],
+       "dur": 0.5,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 1.3,
+       "to": [
+        7.9,
+        0,
+        -6.5
+       ],
+       "dur": 1.5,
+       "clip": "walk",
+       "ease": "linear"
+      }
+     ],
+     "expr": "smug"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.5,
+      "swing": [
+       [
+        0,
+        0
+       ]
+      ],
+      "slide": [
+       [
+        0,
+        0
+       ],
+       [
+        0.05,
+        0
+       ],
+       [
+        0.22,
+        0.95
+       ],
+       [
+        1.0,
+        0.95
+       ],
+       [
+        1.2,
+        0
+       ],
+       [
+        2.5,
+        0
+       ],
+       [
+        2.66,
+        0.95
+       ]
+      ],
+      "led": 0.0,
+      "sign": "SERVICE PUBLIC",
+      "signBg": "#2A4B9B",
+      "signFg": "#F4F1E8"
+     }
+    },
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "color": "#17161A"
+     }
+    },
+    {
+     "id": "cap",
+     "name": "doormanCap",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.5,
+       0.0
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "bronze",
+     "name": "bronzePlaque",
+     "pos": [
+      9.84,
+      2.62,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {
+      "text": "MONUMENT/HISTORIQUE",
+      "w": 1.3,
+      "h": 0.72
+     }
+    },
+    {
+     "id": "bread",
+     "name": "baguette",
+     "on": {
+      "actor": "dame",
+      "hand": "R",
+      "offset": [
+       0,
+       0.1,
+       0
+      ],
+      "rot": [
+       0,
+       0,
+       1.3
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.25,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.6,
+      1.7,
+      -2.0
+     ],
+     "to": [
+      4.8,
+      1.7,
+      -1.9
+     ],
+     "lookAt": [
+      9.5,
+      1.55,
+      -0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.5,
+      1.55,
+      -0.6
+     ]
+    }
+   ],
+   "start": 22.4,
+   "duration": 2.96,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
    "grade": "none",
    "soften": 0.3
   }
