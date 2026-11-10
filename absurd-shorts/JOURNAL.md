@@ -214,6 +214,10 @@ Quatrième passe :
 | S12-S13 | bras tendu 6 images, 13 px de large ; têtes qui tressautent | S13 prend 0,2 s à S12 ; creux de 3 images, bras tenu 9 images, deux fois plus épais ; les trois cous restent tendus (ils visent un point fixe, plus la lettre attachée à la main : sa position sautait une image) ; la lettre à l'endroit |
 | S17-S18 | changement de pose à la coupe ; seuls la tête et le chapeau réagissent ; fonte pliée ; cou qui dépasse ; regard final 6 images | les têtes sont déjà tournées (clés avant 0), il finit son dérapage de S17 ; tout le corps saute au take ; fonte droite comme une bougie (la tête rentre dans les épaules, le tronc raccourcit et s'élargit, il descend dans ses chaussures) ; flaque dégagée des gravats ; panneau plus large (les deux mots à la même hauteur), à 5 % du bord ; regard caméra du groupe tenu 17 images, clignement fini 6 images avant la fin |
 
+**Livraison** : `hyperframes/37-trou/renders/trou.mp4`, 1080×1920, 24,07 s, −16,0 LUFS, 0 erreur aux contrôles HyperFrames, aucun éclair de
+chaussée détecté sur les plans à caméra fixe (`tools/flash_check.py` ; les images de S02 qu'il signale correspondent au recul de la
+caméra, vérifiées à l'œil). Rendu 3D : 44 minutes. Film envoyé avec les notes du troisième tour, sans prétendre à mieux.
+
 Erreurs trouvées (consignées dans le skill) : deux surfaces à 4 mm l'une de l'autre ; la partie d'un membre au-delà de l'articulation ;
 un regard vers un accessoire qu'on attache en cours de plan ; une coupe sans changement de cadre exige la continuité des poses ; un
 moulinet à plus de 60° par image ne tourne pas, il clignote.
