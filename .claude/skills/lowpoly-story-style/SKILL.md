@@ -152,5 +152,5 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperTh
 - (4e passe) Texte d'accessoire : l'ajuster à son cadre par mesure (`measureText`), jamais à taille fixe (« AUCUN TROL ») ; deux états d'un même panneau
   (LIBRE / COMPLET) à la même hauteur de lettres, le dernier affiché le plus contrasté ; 5 % de marge avec les bords de l'image, y compris en fin de travelling.
 - (4e passe) Un accessoire laissé en l'air doit montrer sa face lisible : incliné vers la caméra (dessus éclairé), pas en rotation (une plaque noire une image sur deux).
-- (4e passe) Visages à peau foncée : à petite taille les traits noirs se perdent. Ne pas éclaircir la peau : corriger le rig (piste ouverte, voir le journal).
+- (4e passe) Visages à peau foncée : à petite taille les traits noirs se perdent. Ne pas éclaircir la peau : donner `faceRim: True` au personnage (contour clair autour des sourcils, des yeux et de la bouche ; cycle 2).
 

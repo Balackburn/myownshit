@@ -80,6 +80,9 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 - **Scene wind**: `fx=[{'type': 'wind', 'at': t, 'dur': d, 'v': [x, y, z], 'attack': 0.06, 'release': 0.25}]` (m/s, world; gusts add up).
 - **Idle weight shift** (`idleShift=1`): standing actors change their supporting leg in short moves, each at his own time.
 - `face.cross: 0..1`: cross-eyed (painted eyes and popped eyes). The engine warns when a one-shot clip is given as an actor's base clip.
+- **Dark skins**: cast `faceRim: True` (or 0..1) draws a crisp pale outline round the brows, the eyes and the mouth of the painted face. Without it the
+  black line work has no contrast on a dark skin and the face reads as a plain box at phone size. Never lighten the skin instead. Check with
+  `node tools/face/rig_sheet.mjs out.jpg --variant '{"skin":"#8A5A3C","rim":true}'` and look at it reduced to a fifth.
 - Clips: `sneezeUp` (dur, breaths, float), `sneeze`, `sniff`, `poster` (pinned flat on a wall, then sliding down: high, slideAt, slide), `spinTop`
   (turns), `headHammer` (at), `blownBack`, `leanAway` (side).
 - Facts: `lens` in `cam()` is the vertical field of view in degrees (44 gives a horizontal half-angle of 12.8 deg; a bigger number is wider). A key at

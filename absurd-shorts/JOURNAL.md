@@ -276,6 +276,9 @@ Leçon de méthode appliquée dès ce cycle : la revue des critiques se fait sur
 - **Vent de scène** (`fx` de type `wind`) et **changement d'appui au repos** (`idleShift`) : chacun à son moment, par à-coups.
 - **Visage** : yeux qui louchent (`cross`), paupière posée par clé (`lid`), globes orientables au bout des tiges (`eyeYaw`, `eyeRoll`), paupières
   sur les yeux sortis (`popBlink`). **Corps** : une main qui grossit (`scl.handL / handR`).
+- **Visages à peau foncée** (piste ouverte par la troisième revue de « Le trou ») : option `faceRim` par personnage : un contour clair net autour
+  des sourcils, des yeux et de la bouche. Un premier essai en halo flou était invisible à petite taille ; le contour net se lit à un cinquième
+  de la taille. L'ingénieur de l'histoire 38 l'utilise.
 - **Garde-fous** : le moteur avertit quand un clip à déroulement unique est donné comme clip de départ ; la partie d'un membre qui dépasse
   l'articulation suivante ne s'étire plus.
 - Anciennes animations : 0,00 % de pixels modifiés sur « La file d'attente », 0,52 % au plus sur les trois autres histoires de contrôle
