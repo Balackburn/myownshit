@@ -175,6 +175,49 @@ Erreurs trouvées pendant la passe (consignées dans le skill) :
 - **Un avant-bras étiré de 3,5 m balaie un mètre** pour un balancement de 0,1 radian : la main sortait du cadre. Le balancement se dose
   (`foreAmp`), et le membre est mis à la verticale avant d'être étiré.
 
+### 5 quater. Troisième revue (7,5 et 7,5) sur le brouillon, quatrième passe, puis envoi
+
+Troisième et dernière revue, cette fois **sur le brouillon complet à 360 px** et sur seize images en grand, pendant que le rendu final
+tournait (c'est la leçon du tour précédent ; elle a servi : le rendu en cours a été jeté sans regret). Direction artistique **7,5/10**,
+direction d'animation **7,5/10** : plus bas qu'au deuxième tour (7,8 et 7,7), parce que la troisième passe avait introduit ou révélé deux
+défauts de finition que les deux critiques ont relevés indépendamment, chiffres à l'appui.
+
+- **La chaussée clignotait** : sur 15 des 99 images échantillonnées des plans S01, S02, S17 et S18, l'asphalte passait au beige pâle. La
+  route était posée 4 mm au-dessus du sol général du décor : en vue longue dans l'axe de la rue, les deux surfaces se disputent la
+  profondeur. Le sol général de la rue de Paris est maintenant 12 cm plus bas.
+- **Le cou de cygne traversait la tête** : la partie du cou logée dans la tête (2,4 cm) était étirée huit fois, comme le reste, et
+  ressortait par le visage dès que le cou était courbé. La partie d'un membre qui dépasse l'articulation suivante reste désormais rigide.
+- La fonte se lisait comme un homme qui se plie en deux ; le visage souriant du maire traversait la bande des sous-titres ; le képi sortait
+  du cadre par le haut ; AUCUN TROU débordait de son cadre (« AUCUN TROL ») ; COMPLET, dernier mot du film, était plus petit que LIBRE ;
+  la pile changeait de pose à la coupe S17/S18 ; le regard final du groupe ne tenait que 6 images et finissait en plein clignement ; le
+  bras de S13 (2,3 % de la largeur) et le freinage de S08 restaient en dessous du reste.
+
+Décisions (sans poser de question) :
+
+- **Pas de quatrième revue** : le protocole en prévoit trois au plus. Les corrections sont vérifiées par mes soins sur bandes et sur images
+  en grand ; les notes annoncées à l'envoi sont celles du troisième tour (7,5 et 7,5), pas une estimation de ce qu'elles seraient après.
+- **Durée conservée** (24,07 s) : le regard final est payé à l'intérieur du plan (le chapeau ne reste plus en l'air après la fonte, le cou
+  monte pendant qu'il se pose).
+- **Visage du figurant à peau foncée** (S16) : les traits noirs se perdent sur ce ton à petite taille. Je ne l'éclaircis pas pour
+  contourner le problème ; c'est le rig du visage qui doit donner un liseré clair aux traits ou des blancs d'yeux plus grands (piste du
+  cycle suivant, notée ci-dessous).
+
+Quatrième passe :
+
+| Plan | Troisième passe | Quatrième passe |
+| --- | --- | --- |
+| S03 | à plat 8 images, étoiles de 3 px | à plat 10 images, étoiles presque deux fois plus grandes |
+| S04 | feuille à 98 % de la largeur, tampon vert qui déborde | feuille plus petite et recentrée, texte du tampon ajusté à son cadre |
+| S07 | le képi sort par le haut, puis pend comme une plaque noire | saut du képi réduit, cadre abaissé ; le képi pend incliné vers nous (dessus bleu éclairé), sans tourner |
+| S08 | arrêt sans inversion, moulinets qui « clignotent » (140° par vignette) | sprint plus court, coupe franche vers le dérapage (`thenBlend=0.03`) : il glisse encore, penché en arrière, s'écrase, bascule sur la pointe des pieds ; moulinets plus lents (ils tournent), inclinaison qui grandit, bras allongés |
+| S10 | le visage du maire traverse la bande des sous-titres | le bord du trou reste à 70-76 % : son sourire disparaît derrière le bord proche, juste au-dessus du sous-titre ; la caméra se resserre moins |
+| S12-S13 | bras tendu 6 images, 13 px de large ; têtes qui tressautent | S13 prend 0,2 s à S12 ; creux de 3 images, bras tenu 9 images, deux fois plus épais ; les trois cous restent tendus (ils visent un point fixe, plus la lettre attachée à la main : sa position sautait une image) ; la lettre à l'endroit |
+| S17-S18 | changement de pose à la coupe ; seuls la tête et le chapeau réagissent ; fonte pliée ; cou qui dépasse ; regard final 6 images | les têtes sont déjà tournées (clés avant 0), il finit son dérapage de S17 ; tout le corps saute au take ; fonte droite comme une bougie (la tête rentre dans les épaules, le tronc raccourcit et s'élargit, il descend dans ses chaussures) ; flaque dégagée des gravats ; panneau plus large (les deux mots à la même hauteur), à 5 % du bord ; regard caméra du groupe tenu 17 images, clignement fini 6 images avant la fin |
+
+Erreurs trouvées (consignées dans le skill) : deux surfaces à 4 mm l'une de l'autre ; la partie d'un membre au-delà de l'articulation ;
+un regard vers un accessoire qu'on attache en cours de plan ; une coupe sans changement de cadre exige la continuité des poses ; un
+moulinet à plus de 60° par image ne tourne pas, il clignote.
+
 ### 6. Pistes pour le cycle 2
 
 - Cravate, pans de veste et cheveux en mouvement secondaire (la cravate est peinte : il faut une cravate en volume).
@@ -189,6 +232,11 @@ Erreurs trouvées pendant la passe (consignées dans le skill) :
   les démarches sans déplacement.
 - (après la seconde passe) Faire la revue des critiques sur un brouillon complet AVANT de lancer un rendu d'une heure : c'est le brouillon à
   360 px (5 minutes) qui doit passer la revue, pas le film fini.
+- (après la quatrième passe) Visages à peau foncée : les traits noirs se perdent à petite taille. Donner au rig du visage un liseré clair
+  ou des blancs d'yeux plus marqués selon la luminance de la peau, et le vérifier à la taille d'un téléphone.
+- (après la quatrième passe) Un contrôle automatique des « éclairs » (une surface qui change de couleur une image sur N) sur le brouillon :
+  `scratchpad/tools/roadflick.py` est un début ; à intégrer aux outils du dépôt.
+- (après la quatrième passe) Traînées multiples pour les membres qui tournent vite (moulinets) : aujourd'hui seulement l'allongement.
 
 ---
 

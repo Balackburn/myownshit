@@ -63,6 +63,11 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 - Prop `meltPuddle` (props_trou.js): `color`, `dots` (the pattern of the shirt), `r`, `at` + `dur` (it spreads), `landAt` (it jiggles), `eyesAt`,
   `gaze: [[t, x, y, z], ...]` (directions), `blinks: [t, ...]`. Hat `firecrest` (a fireman's helmet that reads from far).
 
+- Fourth pass: `meltDown` takes `sink: 1` (upright, like a candle: head into the shoulders, trunk shorter and wider, legs last; nothing folds forward);
+  the part of a stretched limb that lies past its far joint (the bit of neck inside the head) stays rigid; `completSign` takes `onColor` / `onGlow`;
+  `windTurbine` takes `rpmKeys: [[t, rpm], ...]` (ghost blades only once it is fast); new clips `stampDown` (hit) and `shakeHands` (role, stopAt, thumbAt).
+- A flash check for coplanar surfaces: `python3 absurd-shorts/tools/flash_check.py FILM.mp4 scripts-fr/story_x.json`.
+
 ## Added in cycle 2 (opt-in: `st.write(..., fingers=True, cloth=True, idleShift=1)` or per cast member)
 
 - **Finger hands** (`engine/fingers.js`): a palm, four two-part fingers, a two-part thumb in place of the mitten. Toon channel
