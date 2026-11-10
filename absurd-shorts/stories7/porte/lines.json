@@ -1,0 +1,98 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a tenu la porte à une dame. Il la tient encore.",
+  "hl": [
+   "porte",
+   "encore."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Derrière elle, il y avait la ville.",
+  "hl": [
+   "ville."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La mairie a compté :",
+  "hl": [
+   "mairie"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "C",
+  "text": "« Quatre mille passages par jour. »",
+  "hl": [
+   "Quatre",
+   "mille"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "À ce niveau-là, c'est un service public.",
+  "hl": [
+   "service",
+   "public."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Et un service public, ça ne ferme pas.",
+  "hl": [
+   "ferme",
+   "pas."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Son remplaçant est dans la file.",
+  "hl": [
+   "remplaçant",
+   "file."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le soir, il rentre. Le bras reste.",
+  "hl": [
+   "bras",
+   "reste."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La porte est classée monument historique. Le bras aussi.",
+  "hl": [
+   "monument",
+   "historique.",
+   "aussi."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Hier, un technicien est passé : elle était automatique.",
+  "hl": [
+   "automatique."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "La dame n'a jamais dit merci.",
+  "hl": [
+   "merci."
+  ]
+ }
+]
