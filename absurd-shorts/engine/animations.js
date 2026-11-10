@@ -551,9 +551,9 @@ Object.assign(CLIPS, {
     const d = p.dur ?? 0.9, n = p.breaths ?? 3, st = d / n; let L = 0;
     for (let i = 0; i < n; i++) { const u = t - i * st; if (u > 0) L += (eo(u / (st * 0.42)) - (i < n - 1 ? 0.22 * S(c01((u - st * 0.5) / (st * 0.5)) * PI) : 0)) / n; }
     L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22);
-    return { ...arms(m([0.25 * L, 0, 0.3 + 0.75 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.6) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? 1.3) * up, 0], head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
+    return { ...arms(m([0.25 * L, 0, 0.3 + 0.45 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.85) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? 1.3) * up, 0], head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
       footL: [0.55 * L, 0, 0], footR: [0.55 * L, 0, 0], root: { y: (p.float ?? 0.25) * L * L + 0.03 * L },
-      toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.18 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 1.1) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
+      toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.18 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 0.45) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
         face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.42 * L } } };   // jaw under 0.45: a round « aah », not a laugh
   },
   // the sneeze itself: the body whips forward in two frames, holds bent and shaking (p.hold 0.3 s), then comes back up dazed. The recoil is a move of the story
@@ -595,10 +595,15 @@ Object.assign(CLIPS, {
   // a big stamp brought down on something as high as a head, an arm's length in front (p.hit): the right arm goes up and back, he rises on his toes and leans
   // back (held, trembling), then the arm comes over in two frames to point up and forward, the body lunging after it; a small rebound. The story stretches
   // the arm (toon armR / foreR x1.7 at the hit) so that the hand ends 0.8 m above his shoulder, 0.85 m in front
-  stampDown: (t, p = {}) => { const hit = p.hit ?? 0.5, u = t - hit, a = back(t / Math.max(0.12, hit - 0.16), 1.5), d = c01((t - (hit - 0.066)) / 0.066), reb = wob(u, 26, 7), sh = a > 0.95 && d === 0 ? 0.02 * S(t * 55) : 0;
-    return { shoulderR: [-0.3 - 2.95 * a + 0.4 * d + 0.08 * reb + sh, 0, 0.05], elbowR: [-0.1 - 0.9 * a * (1 - d), 0, 0], shoulderL: [0.5 * a - 0.9 * d, 0, 0.2], elbowL: [-0.4, 0, -0.2],
-      torso: [-0.22 * a + 0.52 * d + 0.05 * reb, 0, 0], head: [-0.2 * a + 0.32 * d, 0, 0], footL: [0.5 * a * (1 - d), 0, 0], footR: [0.5 * a * (1 - d), 0, 0], root: { y: 0.07 * a * (1 - d) },
+  stampDown: (t, p = {}) => { const hit = p.hit ?? 0.5, u = t - hit, a = back(t / Math.max(0.12, hit - 0.16), 1.5), d = c01((t - (hit - 0.066)) / 0.066), reb = wob(u, 26, 7), sh = a > 0.95 && d === 0 ? 0.02 * S(t * 55) : 0,
+      r = eio((u - (p.rest ?? 0.3)) / 0.28);   // p.rest (0.3 s after the hit): he takes the stamp back and holds it in front of him, pleased
+    return { shoulderR: [mix(-0.3 - 2.95 * a + 0.4 * d + 0.08 * reb + sh, -1.25, r), 0, 0.05], elbowR: [mix(-0.1 - 0.9 * a * (1 - d), -1.1, r), 0, 0], shoulderL: [mix(0.5 * a - 0.9 * d, 0, r), 0, 0.2], elbowL: [-0.4, 0, -0.2],
+      torso: [mix(-0.22 * a + 0.52 * d + 0.05 * reb, -0.04, r), 0, 0], head: [mix(-0.2 * a + 0.32 * d, -0.08, r), 0, 0], footL: [0.5 * a * (1 - d), 0, 0], footR: [0.5 * a * (1 - d), 0, 0], root: { y: 0.07 * a * (1 - d) },
       toon: { hands: { R: 'grip' }, sq: sqv(1 + 0.08 * a * (1 - d) - 0.1 * d * Math.max(0, 1 - u * 6)) } }; },
+  // stiff as a plank, he tips over backward (p.dir -1) or forward (+1) about his heels in p.dur (0.4 s) and lands flat with one small bounce: the delayed
+  // fall of somebody who has just been hit on the head
+  plankFall: (t, p = {}) => { const d = p.dur ?? 0.4, dir = p.dir ?? -1, k = c01(t / d), b = t > d ? 0.07 * Math.exp(-(t - d) * 9) * Math.abs(S((t - d) * 24)) : 0;
+    return { ...CLIPS.stiff(), head: [0, 0, 0], root: { rx: dir * (1.5 * k * k - b) }, toon: { face: { expr: p.expr ?? 'dizzy', exprW: 1 } } }; },
   // a handshake that is too hearty. p.role 'pump': the one who shakes (right arm out, the forearm pumping, the body firm, a grin); 'wave': the one who is
   // shaken: the pumping travels up his arm as a wave (arm, forearm), into the spine and the head, his feet leave the ground on each stroke.
   // p.freq (6 strokes/s), p.stopAt: the shaking stops (the wave dies out); p.thumbAt (pump): the left thumb comes up

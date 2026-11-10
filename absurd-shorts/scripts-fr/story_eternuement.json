@@ -1128,10 +1128,40 @@
        "toonDur": 0
       },
       {
+       "at": 0.48200000000000004,
+       "toon": {
+        "hairUp": 0.85,
+        "hands": {
+         "R": "point"
+        },
+        "bend": {
+         "armR": [
+          -0.42,
+          0,
+          0,
+          1.1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "outBack"
+      },
+      {
        "at": 1.238,
        "clip": "raiseOverhead",
        "expr": "proud",
        "blend": 0.18
+      },
+      {
+       "at": 1.238,
+       "toon": {
+        "hairUp": 0.85,
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.1
       },
       {
        "at": 1.738,
@@ -1158,6 +1188,7 @@
      ],
      "opts": {
       "at": 1.318,
+      "midAt": 0.512,
       "w": 1.15,
       "h": 1.6
      }
@@ -1218,23 +1249,64 @@
       -1.5999999999999999
      ],
      "ry": 10,
-     "clip": "oneHandHip",
+     "clip": "handsOnHips",
      "keys": [
       {
        "at": 0.0,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.12,
+       "clip": "thinkChin",
+       "expr": "hmm",
+       "blend": 0.16,
+       "look": [
+        1.1,
+        2.6,
+        0.5
+       ]
+      },
+      {
+       "at": 0.532,
+       "clip": "pokeUp",
+       "expr": "surprised",
+       "blend": 0.1,
+       "look": null
+      },
+      {
+       "at": 0.532,
+       "toon": {
+        "hairUp": 0.85,
+        "sq": [
+         0.94,
+         1.1,
+         0.94
+        ],
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.672,
        "toon": {
         "hairUp": 0.85,
         "hands": {
          "R": "point"
         }
        },
-       "toonDur": 0
+       "toonDur": 0.1
       },
       {
-       "at": 0.732,
+       "at": 0.792,
        "clip": "reachUpL",
        "expr": "determined",
-       "blend": 0.14
+       "blend": 0.12
       },
       {
        "at": 1.032,
@@ -1261,6 +1333,20 @@
    ],
    "props": [
     {
+     "id": "scale",
+     "name": "windScale",
+     "pos": [
+      -0.5,
+      1.95,
+      -2.54
+     ],
+     "opts": {
+      "at": -1,
+      "w": 1.15,
+      "h": 1.6
+     }
+    },
+    {
      "id": "list",
      "name": "nameList",
      "opts": {
@@ -1271,7 +1357,7 @@
      "pos": [
       -0.5,
       4.7,
-      -2.52
+      -2.5
      ],
      "keys": [
       {
@@ -1279,7 +1365,7 @@
        "to": [
         -0.5,
         2.0,
-        -2.52
+        -2.5
        ],
        "dur": 0.26,
        "ease": "outBack"
@@ -2666,24 +2752,40 @@
        "at": 1.458,
        "toon": {
         "face": {
-         "cross": 1
+         "cross": 1,
+         "stars": 1
         }
        },
        "toonDur": 0.1
       },
       {
-       "at": 1.815,
-       "toon": {},
-       "toonDur": 0.15
+       "at": 1.508,
+       "clip": "jelly",
+       "params": {
+        "amp": 0.1,
+        "freq": 5,
+        "decay": 0.6
+       },
+       "blend": 0.15
       },
       {
-       "at": 1.865,
-       "expr": "deadpan",
-       "look": [
-        0.3,
-        1.6,
-        6.0
-       ]
+       "at": 2.113,
+       "clip": "plankFall",
+       "params": {
+        "dur": 0.36
+       },
+       "blend": 0.05
+      },
+      {
+       "at": 2.113,
+       "toon": {
+        "face": {
+         "cross": 1,
+         "stars": 1
+        },
+        "auto": 0
+       },
+       "toonDur": 0.05
       }
      ],
      "expr": "worried"
@@ -2699,13 +2801,18 @@
      "clip": "stand",
      "keys": [
       {
-       "at": 0.4079999999999999,
+       "at": 0.02,
        "clip": "stampDown",
        "params": {
-        "hit": 0.55
+        "hit": 0.938,
+        "rest": 0.3
        },
        "expr": "determined",
-       "blend": 0.08
+       "blend": 0.1
+      },
+      {
+       "at": 0.05,
+       "look": "mec"
       },
       {
        "at": 0.8879999999999999,
@@ -2736,10 +2843,16 @@
        "toonDur": 0.15
       },
       {
-       "at": 1.258,
-       "clip": "handsOnHips",
-       "expr": "proud",
-       "blend": 0.2
+       "at": 1.358,
+       "expr": "proud"
+      },
+      {
+       "at": 2.213,
+       "look": [
+        0.6,
+        0.4,
+        1.2
+       ]
       }
      ],
      "expr": "smug"
@@ -2762,13 +2875,7 @@
        0,
        0
       ]
-     },
-     "keys": [
-      {
-       "at": 1.258,
-       "visible": false
-      }
-     ]
+     }
     },
     {
      "id": "mark",
@@ -2812,8 +2919,8 @@
      "id": "diploma",
      "name": "catNatDiploma",
      "pos": [
-      -0.12,
-      4.6,
+      0.42,
+      4.9,
       -2.52
      ],
      "opts": {
@@ -2824,8 +2931,8 @@
       {
        "at": 1.265,
        "to": [
-        -0.12,
-        2.25,
+        0.42,
+        2.72,
         -2.52
        ],
        "dur": 0.2,
@@ -2839,25 +2946,25 @@
     {
      "at": 0.0,
      "from": [
-      -0.05,
-      1.8,
-      3.9
+      -0.3,
+      1.85,
+      4.3
      ],
      "to": [
-      -0.08,
-      1.82,
-      3.5
+      -0.32,
+      1.87,
+      3.9
      ],
      "lookAt": [
-      -0.12,
-      1.75,
+      -0.32,
+      1.85,
       0.4
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
-      -0.12,
-      1.8,
+      -0.32,
+      1.9,
       0.4
      ]
     }
@@ -3169,14 +3276,14 @@
      "id": "mat",
      "name": "mattressWall",
      "pos": [
-      -1.4,
+      -0.72,
       0,
-      1.4
+      0.72
      ],
      "ry": -45,
      "opts": {
-      "n": 3,
-      "h": 1.15
+      "n": 1,
+      "h": 1.5
      }
     }
    ],
@@ -3249,22 +3356,22 @@
       {
        "at": 0.12,
        "to": [
-        -1.25,
-        0.25,
-        1.25
+        -0.58,
+        0.2,
+        0.58
        ],
-       "dur": 0.1,
+       "dur": 0.07,
        "glide": true,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.22000000000000003,
+       "at": 0.19,
        "clip": "poster",
        "params": {
-        "high": 0.25,
-        "slideAt": 0.7,
-        "slide": 0.25,
+        "high": 0.2,
+        "slideAt": 0.75,
+        "slide": 0.2,
         "stars": 1
        },
        "blend": 0.02,
@@ -3385,15 +3492,15 @@
      "id": "mat",
      "name": "mattressWall",
      "pos": [
-      -1.4,
+      -0.72,
       0,
-      1.4
+      0.72
      ],
      "ry": -45,
      "opts": {
-      "n": 3,
-      "h": 1.15,
-      "hitAt": 0.22000000000000003
+      "n": 1,
+      "h": 1.5,
+      "hitAt": 0.19
      }
     },
     {
@@ -3667,27 +3774,52 @@
        "look": null
       },
       {
-       "at": 0.6,
+       "at": 0.43,
        "toon": {
         "sq": [
-         1.0,
-         1.0,
-         1.0
+         1.18,
+         1.148,
+         1.18
         ]
        },
-       "toonDur": 0.01
+       "toonDur": 0.2,
+       "toonEase": "outBack"
       },
       {
-       "at": 0.6,
+       "at": 0.98,
        "toon": {
         "sq": [
-         2.0,
-         1.75,
-         2.0
+         1.42,
+         1.344,
+         1.42
         ]
        },
-       "toonDur": 1.95,
-       "toonEase": "in"
+       "toonDur": 0.2,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.53,
+       "toon": {
+        "sq": [
+         1.7,
+         1.574,
+         1.7
+        ]
+       },
+       "toonDur": 0.2,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 2.08,
+       "toon": {
+        "sq": [
+         2.05,
+         1.861,
+         2.05
+        ]
+       },
+       "toonDur": 0.2,
+       "toonEase": "outBack"
       }
      ],
      "expr": "scared"

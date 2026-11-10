@@ -260,6 +260,36 @@ Reporté : phonèmes pour les répliques citées, sourcils courbes, rig des cré
 
 Leçon de méthode appliquée dès ce cycle : la revue des critiques se fait sur le brouillon complet (360 px, 5 minutes), avant le rendu d'une heure.
 
+### 2. Rigs (tout est au choix : `fingers`, `cloth`, `idleShift` ; sans ces options un personnage est exactement celui du cycle 1)
+
+- **Mains à doigts** (`engine/fingers.js`) : paume, quatre doigts à deux phalanges, pouce à deux phalanges, à la place de la moufle. Canal `hands`
+  (une pose par main, par nom ou en six nombres) ; dix poses : repos, ouverte, éventail, poing, index pointé, deux doigts, pince, pouce levé,
+  prise, griffe. Les clips du cycle 1 qui en profitent le plus : le salut, la main qui tâtonne, le doigt sous le nez.
+- **Ce qui traîne** (`engine/cloth.js`) : une cravate en trois segments (la cravate peinte est retirée de la veste du héros : texture sans
+  cravate) et une mèche sur le crâne, toutes deux pilotées par le vent apparent (vent de la scène moins la vitesse du personnage), calculé sans
+  état, dans le repère du torse et de la tête. La cravate pend, part en avant à l'arrêt, monte dans une chute, ne passe par-dessus l'épaule que
+  par vent de face fort ; la mèche se dresse et penche. Canal `hairUp` pour laisser quelqu'un décoiffé.
+- **Vent de scène** (`fx` de type `wind`) et **changement d'appui au repos** (`idleShift`) : chacun à son moment, par à-coups.
+- **Visage** : yeux qui louchent (`cross`), paupière posée par clé (`lid`), globes orientables au bout des tiges (`eyeYaw`, `eyeRoll`), paupières
+  sur les yeux sortis (`popBlink`). **Corps** : une main qui grossit (`scl.handL / handR`).
+- **Garde-fous** : le moteur avertit quand un clip à déroulement unique est donné comme clip de départ ; la partie d'un membre qui dépasse
+  l'articulation suivante ne s'étire plus.
+- Anciennes animations : 0,00 % de pixels modifiés sur « La file d'attente », 0,52 % au plus sur les trois autres histoires de contrôle
+  (bruit de mesure 0,54 %), après chaque lot de modifications.
+
+### 3. Animations (clips écrits pour l'histoire 38, réutilisables)
+
+`sneezeUp` (trois inspirations de plus en plus grandes : le torse gonfle, la tête part en arrière, il monte sur la pointe des pieds puis
+décolle, l'index vient sous le nez), `sneeze` (deux images pour partir, tenu plié et tremblant), `sniff`, `poster` (plaqué contre un mur comme
+une affiche, puis il se décolle par le haut et glisse), `spinTop` (toupie), `headHammer` (la tête rentre dans les épaules, tenue 4 images,
+ressort trop loin et oscille, les yeux louchent), `blownBack`, `leanAway` (le corps en C pour s'écarter de quelqu'un), `stampDown` (grand
+tampon abattu à hauteur de tête, avec élan sur la pointe des pieds et reprise), `shakeHands` (une poignée de main trop franche : la secousse
+remonte le bras de l'autre comme une vague, jusqu'à la tête), `meltDown` en mode `sink`.
+
+Principes appliqués : anticipation avant chaque geste fort (les trois inspirations, l'élan du tampon, le creux avant le bras élastique),
+impact en deux images sans fondu, tenue de la pose forte 8 à 16 images, retombée avec dépassement, actions décalées de 2 images dans les
+groupes, regard qui précède la tête.
+
 ### 4 (commencé en avance, pendant le rendu final de « Le trou »). Histoire : texte et voix
 
 Type du skill : histoire nouvelle dans le style. Structure respectée : accroche (le mec + l'événement absurde), institution au pied de la

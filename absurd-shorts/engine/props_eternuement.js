@@ -48,7 +48,9 @@ export const ETERNUEMENT_PROPS = {
     }, { res: 512 });
     const rider = grp(at(box(0.16 * w, 0.09 * h, 0.03, '#1B1B1E'), 0, 0, 0), at(box(0.09 * w, 0.09 * h, 0.03, '#1B1B1E'), 0.09 * w, 0, 0, 0, 0, PI / 4)); rider.position.set(-0.4 * w, 0, 0.03);
     const g = grp(at(box(w, h, 0.03, '#F7F4EA', { outline: 0.006 }), 0, 0, -0.02), face, rider), yAt = i => h * (0.5 - (0.17 + i * 0.275 + 0.125)), at_ = o.at ?? 0.3;
-    g.userData.update = t => { const u = t - at_, k = u < 0 ? 0 : ease.out(clamp01(u / 0.22)); rider.position.y = yAt(2) + (yAt(0) - yAt(2)) * k + (u > 0.22 ? 0.03 * h * wob(u - 0.22, 34, 7) : 0); };
+    const mid = o.midAt;   // o.midAt: the rider first climbs to the middle band (VENT) at that time, then to the top at o.at
+    g.userData.update = t => { const u = t - at_, k = u < 0 ? 0 : ease.out(clamp01(u / 0.22)), um = mid != null ? t - mid : -1, km = um < 0 ? 0 : ease.out(clamp01(um / 0.2)), y0 = yAt(2) + (yAt(1) - yAt(2)) * km;
+      rider.position.y = y0 + (yAt(0) - y0) * k + (u > 0.22 ? 0.03 * h * wob(u - 0.22, 34, 7) : um > 0.2 && u < 0 ? 0.02 * h * wob(um - 0.2, 30, 8) : 0); };
     g.userData.update(0); return g;
   },
 
