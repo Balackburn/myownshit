@@ -1,8 +1,8 @@
 // « L'éternuement » (story 38): a sneeze measured, named, put on red alert, insured, and put to work.
 // Every animated prop is a pure function of the shot time (userData.update(t)), so any frame renders alone.
 import * as THREE from 'three';
-import { PALETTE as P, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
-import { grp, at, mesh, canvasPlane } from './props.js';
+import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
+import { grp, at, mesh, canvasPlane, glowSprite } from './props.js';
 
 const PI = Math.PI, TAU = 2 * PI;
 const txt = (g, s, x, y, px, color = '#1B1B1E', weight = '900') => { g.fillStyle = color; g.font = `${weight} ${px}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s, x, y); };
@@ -71,7 +71,9 @@ export const ETERNUEMENT_PROPS = {
     if (o.unroll) { const [t0, dur] = o.unroll, cx = o.cordX ?? w * 0.36, top = new THREE.Group(); top.position.y = h / 2; g.remove(sheet); sheet.position.y = -h / 2; top.add(sheet); g.add(top);
       const bar = at(box(w * 1.04, 0.05, 0.05, '#6B4A32', { outline: 0.006 }), 0, 0, 0.01), cord = at(cyl(0.006, 0.006, 0.14, '#3A3A40', 5), cx, -0.07, 0.03), knob = at(sphere(0.045, '#C8202A', 1, { outline: 0.008 }), cx, -0.16, 0.03), low = grp(bar, cord, knob); g.add(low);
       g.add(at(cyl(0.05, 0.05, w * 1.08, '#6B4A32', 10, { outline: 0.006 }), 0, h / 2 + 0.03, 0.02, 0, 0, PI / 2));   // the tube
-      const kAt = t => { const u = (t - t0) / dur; return u <= 0 ? 0.015 : u >= 1 ? 1 + 0.035 * wob(t - t0 - dur, 30, 9) : 0.015 + 0.985 * ease.inOut(u); };
+      // o.roll [[t, k], ...]: after the first pull, the unrolled share k (0..1) follows these keys (a blind that snaps back up, is pulled down again)
+      const rk = o.roll, kRoll = t => { for (let i = 0; i < rk.length - 1; i++) if (t < rk[i + 1][0]) return rk[i][1] + (rk[i + 1][1] - rk[i][1]) * ease.inOut(clamp01((t - rk[i][0]) / (rk[i + 1][0] - rk[i][0]))); return rk[rk.length - 1][1] * (1 + 0.03 * wob(t - rk[rk.length - 1][0], 30, 9)); };
+      const kAt = t => { if (rk && t >= rk[0][0]) return Math.max(0.015, kRoll(t)); const u = (t - t0) / dur; return u <= 0 ? 0.015 : u >= 1 ? 1 + 0.035 * wob(t - t0 - dur, 30, 9) : 0.015 + 0.985 * ease.inOut(u); };
       un = t => { const k = kAt(t); top.scale.y = k; low.position.y = h / 2 - h * k; };
       g.userData.handleY = t => h / 2 - h * kAt(t) - 0.16; }
     g.userData.update = t => { const u = t - at_; fr.visible = u >= 0; const k = u < 0 ? 0 : ease.outBack(clamp01(u / 0.16)); fr.scale.set(1.5 - 0.5 * k, 1.5 - 0.5 * k, 1); un?.(t); };
@@ -98,7 +100,7 @@ export const ETERNUEMENT_PROPS = {
     sp.position.set(0.02 * w, (0.03 + dy) * h, 0.012);
     const tag = canvasPlane(0.62 * w, 0.14 * w, (g, W, H) => { g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.12; g.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H * 0.88); txt(g, name, W / 2, H * 0.52, fit(g, name, W * 0.86, H * 0.66), '#C8202A'); }, { res: 384 }); tag.position.set(0.02 * w, (-0.2 + dy) * h, 0.03);
     const g = grp(at(box(w * 1.04, h * 1.03, 0.05, '#23262C', { outline: 0.008 }), 0, 0, -0.03), face, sp, tag);
-    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); if (o.tapAt != null) { const sh = wob(t - o.tapAt, 46, 9); g.rotation.z = 0.035 * sh; tag.scale.multiplyScalar(1 + 0.25 * Math.abs(sh)); } };   // o.tapAt: it shakes when it is tapped
+    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); if (o.tapAt != null) { let sh = 0; for (const ta of [].concat(o.tapAt)) if (t >= ta) sh = wob(t - ta, 46, 9); g.rotation.z = (o.tapAmp ?? 0.035) * sh; g.position.x = (g.userData.x0 ??= g.position.x) + 0.3 * (o.tapAmp ?? 0.035) * sh; tag.scale.multiplyScalar(1 + 0.25 * Math.abs(sh)); } };   // o.tapAt (a time or several): it swings when it is tapped (o.tapAmp rad)
     return g;
   },
 
@@ -154,7 +156,7 @@ export const ETERNUEMENT_PROPS = {
     const L = o.len ?? 1.9, tip = [0, L * 0.5, L * 0.86], g = grp(at(cyl(0.02, 0.012, L, '#6B4A32', 6), 0, tip[1] / 2, tip[2] / 2, Math.atan2(tip[2], tip[1]), 0, 0)), line = new THREE.Group(); line.position.set(...tip); g.add(line);
     const drop = o.drop ?? 0.7, k = o.pot ?? 1, pot = new THREE.Group(); pot.position.y = -drop; pot.rotation.y = o.potRy ?? 0; line.add(at(cyl(0.004, 0.004, drop, '#EDEDED', 4), 0, -drop / 2, 0), pot);   // o.pot: its size (1.6 reads at phone size); o.potRy: turns its label to the camera
     pot.add(at(cyl(0.05 * k, 0.06 * k, 0.13 * k, '#F4F1E8', 12, { outline: 0.008 }), 0, -0.06 * k, 0), at(cyl(0.052 * k, 0.04 * k, 0.035 * k, '#8A9097', 12), 0, 0.02 * k, 0));
-    for (const sd of [1, -1]) { const lb = canvasPlane(0.105 * k, 0.07 * k, (c, W, H) => { c.fillStyle = '#1B1B1E'; c.fillRect(0, 0, W, H); txt(c, 'POIVRE', W / 2, H * 0.54, fit(c, 'POIVRE', W * 0.88, H * 0.62), '#F4F1E8'); }, { res: 256 }); lb.position.set(0, -0.06 * k, sd * 0.0585 * k); if (sd < 0) lb.rotation.y = PI; pot.add(lb); }
+    for (const sd of (o.back === false ? [1] : [1, -1])) { const lb = canvasPlane(0.105 * k, 0.07 * k, (c, W, H) => { c.fillStyle = '#1B1B1E'; c.fillRect(0, 0, W, H); txt(c, 'POIVRE', W / 2, H * 0.54, fit(c, 'POIVRE', W * 0.88, H * 0.62), '#F4F1E8'); }, { res: 256 }); lb.position.set(0, -0.06 * k, sd * 0.0585 * k); if (sd < 0) lb.rotation.y = PI; pot.add(lb); }
     const sp = []; if (o.specks !== false) { const q = rng(8); for (let i = 0; i < 14; i++) { const m = box(0.012 * k, 0.012 * k, 0.012 * k, '#2A2420'); m.castShadow = false; pot.add(m); sp.push([m, q(), (q() - 0.5) * 0.16 * k, (q() - 0.5) * 0.16 * k]); } }   // pepper falls out of it
     g.userData.update = t => { line.rotation.x = (o.swing ?? 0.25) * Math.sin(t * 3.1); line.rotation.z = 0.5 * (o.swing ?? 0.25) * Math.sin(t * 2.3 + 1);
       for (const [m, ph, x, z] of sp) { const u = (t * 1.3 + ph) % 1; m.position.set(x * (0.3 + u), -0.13 * k - 0.45 * u * u, z * (0.3 + u)); m.visible = u < 0.9; } };
@@ -171,7 +173,7 @@ export const ETERNUEMENT_PROPS = {
           if (k % 3 === 1) for (const x of [-0.24, 0.24]) b.add(at(cyl(0.028, 0.028, 0.012, '#3C5F9E', 8), x, 0, sd * 0.126, PI / 2, 0, 0)); } }
       g.add(m); ms.push([m, sl]); }
     // o.hitAt: somebody is thrown into it from the -Z side (o.hitDir -1: from +Z): it bows deep in two frames, springs back past straight, settles
-    g.userData.update = t => { const u = t - (o.hitAt ?? 1e9), d = u < 0 ? 0 : (o.dent ?? 0.34) * Math.min(1, u / 0.05) * Math.exp(-u * 4.5) * Math.cos(u * 15) * (o.hitDir ?? 1);
+    g.userData.update = t => { const u = t - (o.hitAt ?? 1e9), hold = o.hold ?? 0, v = Math.max(0, u - hold), d = u < 0 ? 0 : (o.dent ?? 0.34) * Math.min(1, u / 0.08) * Math.exp(-v * 4.5) * Math.cos(v * 15) * (o.hitDir ?? 1);   // o.hold (s): it stays bowed that long before it springs back
       ms.forEach(([m, sl], i) => { const kk = i === Math.floor(n / 2) ? 1 : 0.45; sl.forEach((b, k) => { const v = (k + 0.5) / NS, bow = Math.sin(v * PI); b.position.z = d * kk * bow; b.rotation.x = (k === 0 ? PI : 0) + Math.atan(d * kk * PI * Math.cos(v * PI) / H); }); }); };   // each slice follows the slope of the bow
     g.userData.update(0); return g;
   },
@@ -184,7 +186,35 @@ export const ETERNUEMENT_PROPS = {
         if (mid) g.add(at(box(0.95, 1.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.05, z: 0.05 } }), x, h, b.position.z));   // a steeple: one town, one steeple
         else if (i % 3 === 1) g.add(at(box(w * 1.05, 0.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.2, z: 1 } }), x, h, b.position.z));
         for (let a = 0; a < Math.floor(h / 0.5); a++) for (let c = 0; c < 2; c++) { if (r() < 0.25) continue; const wn = at(box(0.2, 0.24, 0.02, '#FFD76A'), x + (c - 0.5) * w * 0.45, 0.4 + a * 0.5, b.position.z + 0.46); wn.material = wn.material.clone(); wn.material.emissive = new THREE.Color('#FFC94A'); wn.castShadow = false; g.add(wn); wins[k].push([wn, r()]); } } }
-    g.userData.update = t => wins.forEach((ws, k) => ws.forEach(([m, ph]) => { const u = t - ats[k] - ph * 0.22, on = u > 0; m.material.emissiveIntensity = on ? 1.4 + 0.5 * Math.exp(-u * 8) : 0; m.material.color.set(on ? '#FFD76A' : '#1E2233'); }));
+    // o.pop: a town comes on all at once (its windows within a frame) under a warm glow (o.glow: its size in metres, o.glowK: its strength, 0.5), instead of window by window
+    const glows = o.pop ? [0, 1, 2].map(k => { const cx = o.sites ? o.sites[k][0] : (k - 1) * spread, cz = o.sites ? o.sites[k][1] : -depth[k], sp = glowSprite('#FFC24A', (o.glow ?? 9), 0.0); sp.position.set(cx, 2.2, cz + 0.6); g.add(sp); return sp; }) : null;
+    g.userData.update = t => { wins.forEach((ws, k) => ws.forEach(([m, ph]) => { const u = t - ats[k] - ph * (o.pop ? 0.035 : 0.22), on = u > 0; m.material.emissiveIntensity = on ? 1.4 + 0.5 * Math.exp(-u * 8) : 0; m.material.color.set(on ? '#FFD76A' : '#1E2233'); }));
+      if (glows) glows.forEach((sp, k) => { const u = t - ats[k]; sp.material.opacity = u > 0 ? (o.glowK ?? 0.5) * Math.min(1, u / 0.05) * (1 + 0.5 * Math.exp(-u * 9)) : 0; sp.scale.setScalar((o.glow ?? 9) * (u > 0 ? 1 + 0.25 * Math.exp(-u * 9) : 1)); }); };
+    g.userData.update(0); return g;
+  },
+
+  // a meadow in flower: o.n low-poly flowers (a stem and a head: white, yellow, poppy red, pink) over o.w x o.d metres, denser toward +Z when o.near (0..1), none
+  // within o.clear [x, z, r] (where somebody stands); o.h: their height, o.head: the radius of a head. They sway (o.sway rad) and can all lean toward a point
+  // (o.toward [x, z], in the prop's frame) by the angles of o.pull [[t, rad], ...], stretching as they lean: a breath that draws the whole field in. Origin
+  // at the middle of the field
+  flowerMeadow(o) {
+    const w = o.w ?? 14, d = o.d ?? 14, n = o.n ?? 240, r = rng(o.seed ?? 21), g = new THREE.Group(), cols = o.colors || ['#FFFFFF', '#F6D23A', '#E8453C', '#F29CC0', '#FFFFFF', '#F6D23A'], near = o.near ?? 0.6, cl = o.clear, sway = o.sway ?? 0.06;
+    const stemG = new THREE.CylinderGeometry(0.007, 0.011, 1, 4); stemG.translate(0, 0.5, 0);
+    const headG = new THREE.IcosahedronGeometry(1, 0); headG.scale(1, 0.62, 1);
+    const fl = [];
+    for (let i = 0; i < n; i++) { const x = (r() - 0.5) * w, z = (Math.pow(r(), 1 / (1 + 2 * near)) - 0.5) * d, f = { x, z, h: (o.h ?? 0.32) * (0.6 + 0.8 * r()), s: (o.head ?? 0.07) * (0.7 + 0.6 * r()), c: Math.floor(r() * cols.length), ph: r() * TAU, a: r() * TAU };
+      if (!(cl && Math.hypot(x - cl[0], z - cl[1]) < cl[2])) fl.push(f); }
+    const stems = new THREE.InstancedMesh(stemG, mat('#4E8A3E'), fl.length), heads = cols.map((c, ci) => new THREE.InstancedMesh(headG, mat(c), Math.max(1, fl.filter(f => f.c === ci).length)));
+    stems.castShadow = false; heads.forEach(h => { h.castShadow = false; }); g.add(stems, ...heads);
+    const M = new THREE.Matrix4(), q = new THREE.Quaternion(), ax = new THREE.Vector3(), P_ = new THREE.Vector3(), Sc = new THREE.Vector3(), pk = o.pull, tw = o.toward;
+    const pull = t => { if (!pk) return 0; if (t <= pk[0][0]) return pk[0][1]; for (let i = 0; i < pk.length - 1; i++) if (t < pk[i + 1][0]) return pk[i][1] + (pk[i + 1][1] - pk[i][1]) * ease.out((t - pk[i][0]) / (pk[i + 1][0] - pk[i][0])); return pk[pk.length - 1][1]; };
+    g.userData.update = t => { const pl = pull(t), cnt = cols.map(() => 0);
+      fl.forEach((f, i) => { const sw = sway * Math.sin(t * 1.7 + f.ph); let lx = sw * Math.cos(f.a), lz = sw * Math.sin(f.a);
+        if (pl && tw) { const dx = tw[0] - f.x, dz = tw[1] - f.z, dd = Math.hypot(dx, dz) || 1, k = pl * (1 + 0.15 * Math.sin(t * 23 + f.ph)); lx += dx / dd * k; lz += dz / dd * k; }
+        const a = Math.hypot(lx, lz), dxn = a ? lx / a : 1, dzn = a ? lz / a : 0, hh = f.h * (1 + 0.5 * pl); ax.set(dzn, 0, -dxn); q.setFromAxisAngle(ax, a);
+        Sc.set(1, hh, 1); P_.set(f.x, 0, f.z); M.compose(P_, q, Sc); stems.setMatrixAt(i, M);
+        P_.set(f.x + dxn * Math.sin(a) * hh, Math.cos(a) * hh, f.z + dzn * Math.sin(a) * hh); Sc.set(f.s, f.s, f.s); M.compose(P_, q, Sc); heads[f.c].setMatrixAt(cnt[f.c]++, M); });
+      stems.instanceMatrix.needsUpdate = true; heads.forEach((h, ci) => { h.count = cnt[ci]; h.instanceMatrix.needsUpdate = true; }); };
     g.userData.update(0); return g;
   },
 
@@ -230,7 +260,7 @@ export const ETERNUEMENT_PROPS = {
   },
   // a wig that has left its head (a curly mop; origin at its base): it tumbles when moved by the story
   wig(o) { const c = o.color || '#5A3A28', w = o.w ?? 0.34, g = grp(at(box(w, 0.1, 0.25, c, { pivot: 'bottom', outline: 0.008, taper: { x: 0.9, z: 0.86 } }), 0, 0.0, 0), at(box(w * 1.04, 0.5, 0.06, c, { pivot: 'top', outline: 0.008, taper: { x: 0.86, z: 1 } }), 0, 0.06, -0.12),
-      at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), -w / 2 - 0.005, 0.06, -0.02), at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), w / 2 + 0.005, 0.06, -0.02), at(box(w * 0.9, 0.06, 0.05, c, { pivot: 'top' }), 0, 0.07, 0.115)); return g; },   // o.w: as wide as the head it left (origin: the top of that head)
+      at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), -w / 2 - 0.005, 0.06, -0.02), at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), w / 2 + 0.005, 0.06, -0.02), at(box(w * 0.9, 0.06, 0.05, c, { pivot: 'top' }), 0, 0.07, 0.115), at(box(0.03, 0.3, 0.03, c, { pivot: 'top' }), -w * 0.3, -0.42, -0.13, -0.5, 0, 0.2), at(box(0.03, 0.36, 0.03, c, { pivot: 'top' }), 0, -0.42, -0.13, -0.6, 0, 0), at(box(0.03, 0.28, 0.03, c, { pivot: 'top' }), w * 0.3, -0.42, -0.13, -0.45, 0, -0.2)); return g; },   // o.w: as wide as the head it left (origin: the top of that head)
   // a sheet of newspaper carried by the wind: it flaps (two halves hinged), origin at the fold
   flyingPaper(o) {
     const half = s => { const m = canvasPlane(0.28, 0.4, (g, W, H) => { g.fillStyle = '#F4F1E8'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B1B1E'; g.fillRect(W * 0.08, H * 0.06, W * 0.84, H * 0.1); g.fillStyle = '#8A8A90'; for (let i = 0; i < 9; i++) g.fillRect(W * 0.08, H * (0.22 + i * 0.08), W * (0.84 - (i % 3) * 0.2), H * 0.03); }, { res: 256 }); m.position.x = s * 0.14; const k = new THREE.Group(); k.add(m); return k; };

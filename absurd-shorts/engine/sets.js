@@ -1287,10 +1287,10 @@ Object.assign(S, {
     g.add(prop('flag', { colors: ['#2A4B9B', '#F4F1E8', '#C8202A'] }, o.flagX ?? 2.9, 0, back + 0.45, 0, 1.5));
     for (const x of [-3.6, -4.3]) { g.add(at(box(0.62, 1.5, 0.5, '#9AA3A8', { pivot: 'bottom', outline: 0.006 }), x, 0, back + 0.3)); for (let k = 0; k < 4; k++) g.add(at(box(0.52, 0.3, 0.02, '#B4BCC1', { outline: 0.01 }), x, 0.2 + k * 0.36, back + 0.56), at(box(0.14, 0.03, 0.03, '#5A6268'), x, 0.24 + k * 0.36, back + 0.58)); }
     g.add(prop('plant', { seed: 5 }, 4.2, 0, back + 0.6), prop('wallClock', { rate: 1 / 60 }, o.clockX ?? 3.6, 2.9, back + 0.03));
-    const dz = o.deskZ ?? -0.9; g.add(at(box(1.9, 0.07, 0.85, '#8A6A45', { outline: 0.005 }), 0, 0.78, dz), at(box(1.8, 0.74, 0.04, '#7A5A3C'), 0, 0.37, dz + 0.38), at(box(0.06, 0.76, 0.75, '#7A5A3C'), -0.88, 0.38, dz), at(box(0.06, 0.76, 0.75, '#7A5A3C'), 0.88, 0.38, dz));
-    g.add(at(box(0.34, 0.012, 0.24, '#F4F1E8'), -0.5, 0.822, dz + 0.05, 0, 0.2, 0), at(box(0.3, 0.05, 0.22, '#5A3A28', { outline: 0.01 }), 0.62, 0.84, dz - 0.1), at(box(0.16, 0.03, 0.1, '#2A2A2E'), 0.62, 0.875, dz - 0.1));   // papers, an in-tray, an ink pad
-    if (o.plate !== false) g.add(at(label(o.plate || 'ÉTAT CIVIL', 0.5, 0.11, { bg: '#1B2A4A', fg: '#F4F1E8', wrap: false }), 0, 0.55, dz + 0.405));
-    g.userData.anchors = { center: [0, 0, 0], desk: [0, 0.82, dz], clerk: [0, 0, dz - 0.75], visitor: [0, 0, dz + 1.3] };
+    const dz = o.deskZ ?? -0.9, dx = o.deskX ?? 0, dk = o.desk || '#8A6A45', ds = o.deskSide || '#7A5A3C'; g.add(at(box(1.9, 0.07, 0.85, dk, { outline: 0.005 }), dx, 0.78, dz), at(box(1.8, 0.74, 0.04, ds), dx, 0.37, dz + 0.38), at(box(0.06, 0.76, 0.75, ds), dx - 0.88, 0.38, dz), at(box(0.06, 0.76, 0.75, ds), dx + 0.88, 0.38, dz));   // o.desk / o.deskSide: its colours; o.deskX / o.deskZ: where it stands
+    g.add(at(box(0.34, 0.012, 0.24, '#F4F1E8'), dx - 0.5, 0.822, dz + 0.05, 0, 0.2, 0), at(box(0.3, 0.05, 0.22, '#5A3A28', { outline: 0.01 }), dx + 0.62, 0.84, dz - 0.1), at(box(0.16, 0.03, 0.1, '#2A2A2E'), dx + 0.62, 0.875, dz - 0.1));   // papers, an in-tray, an ink pad
+    if (o.plate !== false) g.add(at(label(o.plate || 'ÉTAT CIVIL', 0.5, 0.11, { bg: '#1B2A4A', fg: '#F4F1E8', wrap: false }), dx, 0.55, dz + 0.405));
+    g.userData.anchors = { center: [0, 0, 0], desk: [dx, 0.82, dz], clerk: [dx, 0, dz - 0.75], visitor: [dx, 0, dz + 1.3] };
     g.userData.sun = o.sun || [0.3, 0.75, 0.6]; g.userData.lighting = 'day'; return g;
   },
   stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light

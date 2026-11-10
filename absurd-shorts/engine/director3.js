@@ -677,6 +677,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     if (jw > 0.45) st.mouth = { ...st.mouth, spr: 'scream', w: 1, h: 0.5 + 0.5 * Math.min(1, jw), tilt: 0, dx: 0, dy: 0 }; else if (jw > 0.12 && !/scream|yawn|laugh|O/.test(st.mouth.spr)) st.mouth = { ...st.mouth, spr: 'O', w: 1, h: 0.8 + jw, tilt: 0, dx: 0, dy: 0 };
     if ((cf.pop || 0) > 0.08) for (const s of 'LR') { E[s] = { ...E[s], kind: 'dot', s: 2.2, open: 1 }; st.brows[s].dy -= 26 * cf.pop; }
     if (cf.cross) { E.L.px = clamp(E.L.px + CROSS_SIGN * 0.95 * cf.cross, -1, 1); E.R.px = clamp(E.R.px - CROSS_SIGN * 0.95 * cf.cross, -1, 1); }   // cross-eyed (painted eyes)
+    if (cf.gx || cf.gy) for (const s of 'LR') { E[s].px = clamp(E[s].px + (cf.gx || 0), -1, 1); E[s].py = clamp(E[s].py + (cf.gy || 0), -1, 1); }   // face.gx / face.gy (-1..1): the pupils alone look aside (- = toward his right: screen left when he faces us) / down (+) or up (-), the head stays where it is (eyes that follow a thing while the face stays on us)
   }
   return st;
 }

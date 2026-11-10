@@ -21,6 +21,7 @@
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
 //           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
+//           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
 //           eyeYaw / eyeRoll (rad: the popped eyeballs turn on their stalks), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
 //           lid: 0..1 (the painted eyes close: a keyed blink), cross: 0..1 (cross-eyed) }
 import * as THREE from 'three';

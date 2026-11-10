@@ -807,7 +807,7 @@ const B = {
   tree(o) {
     const r = rng(o.seed || 7), c = o.color || P.green, s = 0.85 + r() * 0.35;
     const g = grp(cyl(0.1, 0.15, 1.3 * s, P.woodDark, 6, { pivot: 'bottom' }));
-    const top = at(sphere(0.9 * s, c, 0), 0, 1.9 * s, 0, r(), r(), r()); top.scale.y = 1.1; g.add(top, at(sphere(0.55 * s, '#7FA86A', 0), 0.35 * s, 2.45 * s, 0.1, r(), r(), r()), at(sphere(0.5 * s, '#5F8F63', 0), -0.45 * s, 1.75 * s, 0.25, r(), r(), r()));
+    const top = at(sphere(0.9 * s, c, 0), 0, 1.9 * s, 0, r(), r(), r()); top.scale.y = 1.1; g.add(top, at(sphere(0.55 * s, o.color2 || '#7FA86A', 0), 0.35 * s, 2.45 * s, 0.1, r(), r(), r()), at(sphere(0.5 * s, o.color3 || '#5F8F63', 0), -0.45 * s, 1.75 * s, 0.25, r(), r(), r()));   // o.color2 / o.color3: the two smaller masses (a tree in blossom: three pinks)
     return g;
   },
   acaciaTree(o) {
