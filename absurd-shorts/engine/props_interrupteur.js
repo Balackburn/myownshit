@@ -1,0 +1,269 @@
+// « L'interrupteur » (story 40): a man turns his light off and the whole city goes out with it.
+// Conventions as in props.js (metres, front +Z, pivot at the floor); every animated prop is a pure function of the shot time.
+// Props meant for a shot in the dark (scene `dark`) use unlit materials, so that `inDark: true` shows them as they are.
+import * as THREE from 'three';
+import { PALETTE as P, mat, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
+import { grp, at, canvasPlane } from './props.js';
+
+const PI = Math.PI, TAU = 2 * PI;
+const txt = (g, s, x, y, px, color = '#1B1B1E', weight = '900') => { g.fillStyle = color; g.font = `${weight} ${px}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s, x, y); };
+const fit = (g, s, w, px, weight = '900') => { g.font = `${weight} ${px}px Arial`; const m = g.measureText(s).width; return m > w ? px * w / m : px; };
+const wob = (t, f = 30, d = 6) => (t <= 0 ? 0 : Math.sin(t * f) * Math.exp(-t * d));
+const keyed = (keys, t, e) => { if (!keys || !keys.length) return 0; if (t <= keys[0][0]) return keys[0][1]; for (let i = 0; i < keys.length - 1; i++) { const [t0, v0] = keys[i], [t1, v1] = keys[i + 1]; if (t < t1) { const u = clamp01((t - t0) / Math.max(1e-6, t1 - t0)); return v0 + (v1 - v0) * (e ? e(u) : u); } } return keys[keys.length - 1][1]; };
+const flat = (color, o = {}) => new THREE.MeshBasicMaterial({ color, toneMapped: false, fog: false, ...o });   // a colour that owes nothing to the light of the set
+const quad = (w, h, m) => { const q = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); q.castShadow = false; q.receiveShadow = false; return q; };
+const solid = (w, h, d, m) => { const q = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); q.castShadow = false; q.receiveShadow = false; return q; };
+// the state of a thing that switches with the city: keys [[t, lit (0|1), spread (s)], ...]; a thing at distance d (0..1) follows each key `spread * d` later
+const litAt = (keys, lit0, d, t, lag = 0) => { let s = lit0; for (const [t0, v, sp = 0.5] of keys) { if (t >= t0 + sp * d + (v ? 0 : lag)) s = v; else break; } return s; };
+
+export const INTERRUPTEUR_PROPS = {
+  // Paris at night from a height, as a painted depth of unlit shapes: a deep blue sky with stars and a moon, four rows of roofs with lit windows, the tower
+  // with its lights and its beam. Origin: where the viewer stands (a balcony); the city runs toward -Z, its roofs about o.drop (12 m) below.
+  // o.keys [[t, lit (0|1), spread], ...]: the city goes out (0) or comes back (1) as a wave that leaves the viewer and takes `spread` seconds to reach the far
+  // rows; the tower follows the last row, o.towerLag (0.3 s) late when it goes out: it stands alone in the black, then pops. o.lit (1): the state at the start.
+  // o.sparkle [t0, t1]: the tower glitters between these times (it does on the hour). o.eyes (40): pairs of eyes that open in the dark windows o.eyesLag
+  // (0.45 s) after the black. o.moon false: no moon. Give it `inDark: true` in a shot that goes dark: it keeps its own lights
+  cityNight(o) {
+    const r = rng(o.seed || 23), drop = o.drop ?? 12, keys = (o.keys || []).slice().sort((a, b) => a[0] - b[0]), lit0 = o.lit ?? 1, g = grp();
+    const sky = canvasPlane(420, 150, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#0B1230'); gr.addColorStop(0.55, '#1B2A5C'); gr.addColorStop(1, '#3A4C86'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      const q = rng(5); for (let i = 0; i < 260; i++) { const x = q() * W, y = q() * H * 0.8, s = 0.6 + q() * 1.6; c.fillStyle = `rgba(255, 250, 235, ${0.35 + 0.6 * q()})`; c.fillRect(x, y, s, s); } }, { res: 1024 });
+    sky.material = flat('#FFFFFF', { map: sky.material.map }); sky.position.set(0, 40 - drop, -150); sky.renderOrder = -5; g.add(sky);
+    if (o.moon !== false) { const m = quad(11, 11, flat('#F4EFD8', { map: null })); m.geometry = new THREE.CircleGeometry(5.5, 28); m.position.set(-34, 46 - drop, -148); g.add(m, at(new THREE.Mesh(new THREE.CircleGeometry(1.2, 14), flat('#DDD6B8')), -35.6, 47.4 - drop, -147.9), at(new THREE.Mesh(new THREE.CircleGeometry(0.8, 12), flat('#DDD6B8')), -32.4, 44.6 - drop, -147.9)); }
+    g.add(at(solid(420, 0.5, 190, flat('#0C1122')), 0, -drop - 6.2, -70));
+    // the rows of buildings: each a dark block with a paler zinc roof and chimneys; the windows of all rows are one instanced mesh
+    const WALL = ['#1A2238', '#202A44', '#161D31', '#232E4A'], ROOF = ['#2C3856', '#333F60', '#28334E'], wins = [], eyes = [], dMax = 128;
+    const rows = [[-16, 9, 1.0], [-34, 13, 1.25], [-58, 17, 1.6], [-90, 22, 2.1]];
+    rows.forEach(([z, hBase, k], ri) => {
+      let x = -62 * k * 0.6 - r() * 4;
+      while (x < 62 * k * 0.6) {
+        const w = (5.5 + r() * 4.5) * k, h = (hBase + r() * 7) * (0.8 + 0.25 * k), y0 = -drop - 6, cx = x + w / 2, top = y0 + h;
+        g.add(at(solid(w, h, 6, flat(WALL[Math.floor(r() * WALL.length)])), cx, y0 + h / 2, z - 3), at(solid(w + 0.3, 1.1 * k, 6.3, flat(ROOF[Math.floor(r() * ROOF.length)])), cx, top + 0.55 * k, z - 3));
+        for (let i = 0; i < 2; i++) if (r() < 0.7) g.add(at(solid(0.6 * k, 1.2 * k, 0.6 * k, flat('#3A2A2A')), cx + (r() - 0.5) * w * 0.7, top + 1.6 * k, z - 3));
+        const cols = Math.max(2, Math.round(w / (1.5 * k))), floors = Math.max(2, Math.floor((h - 1.5) / (2.1 * k))), ww = 0.62 * k, wh = 1.05 * k;
+        for (let f = 0; f < floors; f++) for (let cI = 0; cI < cols; cI++) {
+          const wx = cx - w / 2 + (cI + 0.5) * w / cols, wy = top - 1.4 * k - f * 2.1 * k; if (wy < y0 + 1) continue;
+          const d = clamp01(Math.hypot(wx, z) / dMax);
+          if (r() < 0.62) wins.push({ x: wx, y: wy, z: z + 0.02, w: ww, h: wh, d, c: r() });
+          else if (ri < 3 && r() < 0.5) eyes.push({ x: wx, y: wy, z: z + 0.05, s: 0.17 * k, d, ph: r() * 7, gz: (r() - 0.5) * 0.5 });
+        }
+        x += w + 0.25 * k;
+      }
+    });
+    const wm = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), flat('#FFFFFF'), wins.length), M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), col = new THREE.Color();
+    wins.forEach((w, i) => { w.m = new THREE.Matrix4().makeScale(w.w, w.h, 1).setPosition(w.x, w.y, w.z); wm.setMatrixAt(i, w.m); wm.setColorAt(i, col.set(w.c < 0.6 ? '#FFD27A' : w.c < 0.85 ? '#FFB85A' : '#DCE9FF')); w.on = true; });
+    wm.frustumCulled = false; wm.castShadow = false; g.add(wm);
+    // the eyes in the dark windows: two white dots a little apart, a blink now and then
+    const nE = Math.min(o.eyes ?? 40, eyes.length), em = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 10), flat('#F6F1E2'), nE * 2), pm = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 8), flat('#0A0C14'), nE * 2);
+    em.frustumCulled = pm.frustumCulled = false; em.castShadow = pm.castShadow = false; em.count = pm.count = 0; g.add(em, pm);
+    // the tower: a painted silhouette and two sets of light dots that take turns when it glitters; its beam turns
+    const TH = o.towerH ?? 46, TW = TH * 0.42, tx = o.towerX ?? 20, tz = -112, ty = -drop - 6;
+    const prof = v => 0.04 + 0.46 * Math.pow(1 - v, 2.1);   // half width (as a part of TW) at height v (0 = foot .. 1 = tip)
+    const tower = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#2A3350'; c.beginPath(); for (let i = 0; i <= 40; i++) { const v = i / 40; c.lineTo(W / 2 - prof(v) * W, H * (1 - v)); } for (let i = 40; i >= 0; i--) { const v = i / 40; c.lineTo(W / 2 + prof(v) * W, H * (1 - v)); } c.fill();
+      c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.ellipse(W / 2, H, W * 0.26, H * 0.2, 0, PI, TAU); c.fill(); c.globalCompositeOperation = 'source-over';   // the arch between the feet
+      c.fillStyle = '#343E60'; [0.2, 0.42].forEach(v => c.fillRect(W / 2 - prof(v) * W - W * 0.02, H * (1 - v) - H * 0.012, 2 * prof(v) * W + W * 0.04, H * 0.024)); }, { res: 512, transparent: true });
+    tower.material = flat('#FFFFFF', { map: tower.material.map, transparent: true, alphaTest: 0.3 }); tower.position.set(tx, ty + TH / 2, tz); g.add(tower);
+    const dots = k => { const pl = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); const q = rng(40 + k); for (let i = 0; i <= 46; i++) { const v = i / 46; for (const sd of [-1, 1]) { if (q() < 0.25) continue; c.fillStyle = q() < 0.5 ? '#FFE9A8' : '#FFD27A'; c.beginPath(); c.arc(W / 2 + sd * prof(v) * W, H * (1 - v), W * 0.011, 0, TAU); c.fill(); } }
+      [0.2, 0.42].forEach(v => { for (let x = -1; x <= 1; x += 0.2) { if (q() < 0.2) continue; c.fillStyle = '#FFE9A8'; c.beginPath(); c.arc(W / 2 + x * prof(v) * W, H * (1 - v), W * 0.011, 0, TAU); c.fill(); } }); }, { res: 512, transparent: true });
+      pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, depthWrite: false }); pl.position.set(tx, ty + TH / 2, tz + 0.1); g.add(pl); return pl; };
+    const dA = dots(0), dB = dots(1), beam = quad(70, 1.6, flat('#FFF2C0', { transparent: true, opacity: 0.2, depthWrite: false, side: THREE.DoubleSide })), bp = grp(at(beam, 35, 0, 0)), tip = at(new THREE.Mesh(new THREE.CircleGeometry(0.9, 12), flat('#FFF6D8')), tx, ty + TH + 0.4, tz + 0.2);
+    bp.position.set(tx, ty + TH, tz + 0.15); g.add(bp, tip);
+    const eLag = o.eyesLag ?? 0.45, tLag = o.towerLag ?? 0.3; let darkSince = -1;
+    g.userData.update = t => {
+      let any = false, allOff = true;
+      wins.forEach((w, i) => { const on = !!litAt(keys, lit0, w.d, t); if (on) allOff = false; if (on !== w.on) { w.on = on; wm.setMatrixAt(i, on ? w.m : Z); any = true; } });
+      if (any) wm.instanceMatrix.needsUpdate = true;
+      const tw = !!litAt(keys, lit0, 1, t, tLag), sp = o.sparkle && t >= o.sparkle[0] && t < o.sparkle[1], fl = Math.floor(t * 14) % 2;
+      dA.visible = tw && (!sp || fl === 0); dB.visible = tw && sp && fl === 1; beam.visible = tip.visible = tw; bp.rotation.y = t * 1.3;
+      // the eyes: once every window is out, they open one after the other, look about, blink
+      let n = 0;
+      if (allOff && nE) {
+        let t0 = 0; for (const [tk, v, sp2 = 0.5] of keys) if (!v && t >= tk) t0 = tk + sp2;
+        for (let i = 0; i < nE; i++) { const e = eyes[i], u = t - t0 - eLag - (i % 9) * 0.035; if (u < 0) continue;
+          const open = Math.min(1, u / 0.06), cyc = (t * 0.9 + e.ph) % 2.6, bl = cyc < 0.1 ? Math.abs(1 - cyc / 0.05) : 1, sy = Math.max(0.05, open * bl), lookX = e.gz + 0.35 * Math.sin(t * 1.1 + e.ph * 2);
+          for (const sd of [-1, 1]) { M.makeScale(e.s, e.s * 1.25 * sy, 1).setPosition(e.x + sd * e.s * 1.25, e.y, e.z); em.setMatrixAt(n, M); M.makeScale(e.s * 0.42, e.s * 0.5 * sy, 1).setPosition(e.x + sd * e.s * 1.25 + lookX * e.s * 0.5, e.y, e.z + 0.02); pm.setMatrixAt(n, M); n++; } }
+      }
+      em.count = pm.count = n; if (n) { em.instanceMatrix.needsUpdate = true; pm.instanceMatrix.needsUpdate = true; }
+    };
+    g.userData.update(0); return g;
+  },
+
+  // a balcony to stand on above the city: a stone slab, an iron rail with upright bars, the wall of the flat behind with a lit French window.
+  // Origin: the middle of the slab's top, the rail toward +Z when o.rail is 'front' (default: 'back', toward -Z: he faces us, the city behind him)
+  balcony(o) {
+    const w = o.w ?? 3.2, d = o.d ?? 1.3, back = (o.rail || 'back') === 'back', zr = back ? -d / 2 + 0.04 : d / 2 - 0.04, iron = '#20242C';
+    const g = grp(at(box(w, 0.22, d, '#B9B2A4', { outline: 0.006 }), 0, -0.11, 0), at(box(w, 0.05, 0.06, iron), 0, 1.02, zr), at(box(w, 0.04, 0.05, iron), 0, 0.14, zr));
+    for (let x = -w / 2 + 0.06; x <= w / 2 - 0.05; x += 0.16) g.add(at(box(0.025, 0.86, 0.025, iron), x, 0.58, zr));
+    for (const sx of [-1, 1]) g.add(at(box(0.05, 1.04, 0.05, iron), sx * (w / 2 - 0.03), 0.52, zr), at(box(0.05, 0.05, d, iron), sx * (w / 2 - 0.03), 1.02, 0), at(box(0.04, 0.04, d, iron), sx * (w / 2 - 0.03), 0.14, 0));
+    for (let z = -d / 2 + 0.2; z <= d / 2 - 0.1; z += 0.16) for (const sx of [-1, 1]) g.add(at(box(0.025, 0.86, 0.025, iron), sx * (w / 2 - 0.03), 0.58, z));
+    return g;
+  },
+
+  // a rocker switch on its plate, three times its size so that it reads: o.flips [t, ...]: the rocker tips at each of these times (it starts on: o.on false
+  // starts it off), and a little star of sparks marks the click. Origin: the middle of the plate, against the wall, front +Z
+  rockerSwitch(o) {
+    const s = o.s ?? 1, fl = (o.flips || []).slice().sort((a, b) => a - b), piv = grp(at(box(0.09 * s, 0.15 * s, 0.035 * s, '#FBFAF4', { outline: 0.012 }), 0, 0, 0.012 * s)); piv.position.z = 0.02 * s;
+    const g = grp(at(box(0.2 * s, 0.28 * s, 0.02 * s, '#EDEAE0', { outline: 0.012 }), 0, 0, 0.01 * s), piv), sparks = grp(); sparks.position.z = 0.06 * s; g.add(sparks);
+    for (let i = 0; i < 6; i++) { const a = i * TAU / 6 + 0.3, q = quad(0.016 * s, 0.07 * s, flat('#FFE27A')); q.position.set(Math.sin(a) * 0.16 * s, Math.cos(a) * 0.16 * s, 0); q.rotation.z = -a; sparks.add(q); }
+    g.userData.update = t => { let n = 0, last = -9; for (const f of fl) if (t >= f) { n++; last = f; }
+      const on = ((o.on ?? true) ? 1 : 0) ^ (n % 2), u = t - last, k = u < 0.05 ? u / 0.05 : 1, a0 = on ? 0.3 : -0.3;
+      piv.rotation.x = n ? -a0 + (a0 * 2) * k + 0.12 * wob(u - 0.05, 60, 14) * (on ? 1 : -1) : a0;
+      sparks.visible = n > 0 && u < 0.14; if (sparks.visible) { const q = u / 0.14; sparks.scale.setScalar(0.6 + 1.1 * ease.out(q)); sparks.children.forEach(c => c.scale.y = 1 - q); } };
+    g.userData.update(0); return g;
+  },
+
+  // an electrician's meter, big enough to read: a yellow box, a white dial with a red end, a needle. o.needle [[t, 0..1], ...] (it trembles past 0.85);
+  // o.smokeAt: it starts to smoke. Origin: under the box, the dial toward +Z
+  voltMeter(o) {
+    const w = o.w ?? 0.5, h = w * 0.72, body = at(box(w, h, 0.16, '#F2C230', { outline: 0.012 }), 0, h / 2, 0), piv = grp(at(box(0.012, h * 0.52, 0.01, '#1B1B1E'), 0, h * 0.26, 0)); piv.position.set(0, h * 0.2, 0.09);
+    const dial = canvasPlane(w * 0.84, h * 0.66, (c, W, H) => { c.fillStyle = '#FBFAF2'; c.fillRect(0, 0, W, H); c.lineWidth = H * 0.1; c.strokeStyle = '#2B2B30'; c.beginPath(); c.arc(W / 2, H * 0.98, H * 0.74, PI * 1.18, PI * 1.82); c.stroke();
+      c.strokeStyle = '#D8322A'; c.beginPath(); c.arc(W / 2, H * 0.98, H * 0.74, PI * 1.66, PI * 1.82); c.stroke(); c.fillStyle = '#2B2B30'; for (let i = 0; i <= 8; i++) { const a = PI * (1.18 + 0.64 * i / 8); c.save(); c.translate(W / 2 + Math.cos(a) * H * 0.6, H * 0.98 + Math.sin(a) * H * 0.6); c.rotate(a + PI / 2); c.fillRect(-W * 0.006, -H * 0.05, W * 0.012, H * 0.1); c.restore(); }
+      txt(c, 'V', W * 0.5, H * 0.2, H * 0.24, '#2B2B30'); }, { res: 384 });
+    const g = grp(body, at(dial, 0, h * 0.56, 0.082), piv, at(sphere(0.022, '#1B1B1E', 1), 0, h * 0.2, 0.095), at(box(0.07, 0.035, 0.03, '#D8322A', { outline: 0.008 }), -w * 0.22, h * 0.09, 0.085), at(box(0.07, 0.035, 0.03, '#1B1B1E', { outline: 0.008 }), w * 0.22, h * 0.09, 0.085));
+    const puffs = [0, 1, 2, 3].map(i => { const p = at(sphere(0.07, '#8E8E92', 1, { opacity: 0.8, unique: true }), 0, h, 0); p.castShadow = false; g.add(p); return p; });
+    g.userData.update = t => { const v = keyed(o.needle, t, ease.out), tr = v > 0.85 ? 0.05 * Math.sin(t * 70) : 0; piv.rotation.z = (0.5 - v) * 1.15 * 2 * 0.5 + tr; body.rotation.z = v > 0.85 ? 0.012 * Math.sin(t * 83) : 0;
+      puffs.forEach((p, i) => { const u = o.smokeAt == null ? -1 : ((t - o.smokeAt) * 1.3 + i * 0.25) % 1; p.visible = o.smokeAt != null && t >= o.smokeAt + i * 0.19; if (p.visible) { p.position.set(w * 0.2 * Math.sin(i * 2.1 + u * 3), h + u * 0.55, 0); p.scale.setScalar(0.6 + 1.5 * u); p.material.opacity = 0.8 * (1 - u); } }); };
+    g.userData.update(0); return g;
+  },
+
+  // a jumper cable: from the origin to o.to [x, y, z] (in the prop's frame), hanging by o.sag (0.25 m), a crocodile clip at its far end. o.color
+  jumperCable(o) {
+    const to = new THREE.Vector3(...(o.to || [1, 0, 0])), mid = to.clone().multiplyScalar(0.5); mid.y -= o.sag ?? 0.25;
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(), mid, to), 14, o.r ?? 0.012, 5), mat(o.color || '#D8322A')); tube.castShadow = true;
+    const clip = grp(at(box(0.035, 0.03, 0.1, o.color || '#D8322A', { outline: 0.006, taper: { x: 0.6 } }), 0, 0.016, 0.03), at(box(0.035, 0.03, 0.1, o.color || '#D8322A', { outline: 0.006, taper: { x: 0.6 } }), 0, -0.016, 0.03)); clip.position.copy(to); clip.lookAt(to.clone().add(to.clone().sub(mid)));
+    return grp(tube, clip);
+  },
+
+  // the label of a fuse box, to slap on somebody: yellow, a black frame, a lightning triangle, o.text ('GÉNÉRAL'). Origin: its middle, front +Z
+  fusePlate(o) {
+    const w = o.w ?? 0.3, h = o.h ?? w * 0.5, s = o.text || 'GÉNÉRAL';
+    const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F7CE2B'; c.fillRect(0, 0, W, H); c.strokeStyle = '#17171A'; c.lineWidth = H * 0.09; c.strokeRect(H * 0.045, H * 0.045, W - H * 0.09, H - H * 0.09);
+      c.fillStyle = '#17171A'; c.beginPath(); c.moveTo(W * 0.14, H * 0.2); c.lineTo(W * 0.26, H * 0.2); c.lineTo(W * 0.19, H * 0.47); c.lineTo(W * 0.27, H * 0.47); c.lineTo(W * 0.13, H * 0.84); c.lineTo(W * 0.17, H * 0.56); c.lineTo(W * 0.09, H * 0.56); c.closePath(); c.fill();
+      txt(c, s, W * 0.63, H * 0.54, fit(c, s, W * 0.62, H * 0.5), '#17171A'); }, { res: 384 });
+    return grp(at(box(w, h, 0.008, '#17171A'), 0, 0, -0.005), pl);
+  },
+
+  // a public clock with lit figures: a dark case on the wall, amber digits. It shows o.from ('21:59') until o.at, then o.to ('22:00'), with a small jump of
+  // the figures; the colon blinks. Unlit materials: it reads in a night set. Origin: its middle, front +Z
+  ledClock(o) {
+    const w = o.w ?? 1.0, h = w * 0.42, a0 = o.from || '21:59', a1 = o.to || '22:00';
+    const face = s => { const pl = canvasPlane(w * 0.9, h * 0.72, (c, W, H) => { c.fillStyle = '#0D0E12'; c.fillRect(0, 0, W, H); txt(c, s.replace(':', ' '), W / 2, H * 0.55, fit(c, s, W * 0.9, H * 0.9), '#FFB02E'); }, { res: 384 }); pl.material = flat('#FFFFFF', { map: pl.material.map }); return pl; };
+    const fa = at(face(a0), 0, 0, 0.045), fb = at(face(a1), 0, 0, 0.045), colon = grp(at(quad(h * 0.07, h * 0.07, flat('#FFB02E')), 0, h * 0.13, 0), at(quad(h * 0.07, h * 0.07, flat('#FFB02E')), 0, -h * 0.13, 0)); colon.position.z = 0.05;
+    const g = grp(at(box(w, h, 0.08, '#1A1C22', { outline: 0.01 }), 0, 0, 0), fa, fb, colon);
+    g.userData.update = t => { const on = o.at != null && t >= o.at, u = on ? t - o.at : 9; fa.visible = !on; fb.visible = on; const k = 1 + 0.22 * Math.max(0, 1 - u / 0.07) + 0.1 * wob(u - 0.07, 40, 12); fb.scale.set(k, k, 1); colon.visible = Math.floor(t * 2.4) % 2 === 0 || u < 0.3; };
+    g.userData.update(0); return g;
+  },
+
+  // a candle in its holder (a dish with a ring to hold it by): the flame flickers; o.litAt: it lights then; o.outAt: it goes out, a thread of smoke goes up.
+  // The flame and its halo are unlit (give the prop `inDark` in a dark shot). Origin: under the dish; held by the ring: on={..., offset}
+  candle(o) {
+    const fl = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.085, 7), flat('#FFB23A')), 0, 0.045, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.012, 0.05, 6), flat('#FFF0B0')), 0, 0.032, 0)); fl.position.y = 0.2;
+    const halo = at(new THREE.Mesh(new THREE.CircleGeometry(0.16, 20), flat('#FFC860', { transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide })), 0, 0.245, 0);
+    const smoke = [0, 1, 2].map(() => { const p = sphere(0.014, '#C9C9CF', 1, { opacity: 0.7, unique: true }); p.castShadow = false; return p; });
+    const g = grp(at(cyl(0.085, 0.07, 0.02, '#C9A24A', 12, { outline: 0.006 }), 0, 0.01, 0), at(cyl(0.024, 0.026, 0.17, '#F6F1E2', 8, { outline: 0.004 }), 0, 0.105, 0), at(box(0.004, 0.02, 0.004, '#1B1B1E'), 0, 0.2, 0), fl, halo, ...smoke);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.007, 5, 12), mat('#C9A24A')); ring.position.set(0.1, 0.02, 0); ring.rotation.x = PI / 2; g.add(ring);
+    g.userData.update = t => { const on = (o.litAt == null || t >= o.litAt) && (o.outAt == null || t < o.outAt), u = o.outAt != null ? t - o.outAt : -1;
+      fl.visible = halo.visible = on; if (on) { const k = 1 + 0.16 * Math.sin(t * 19) + 0.09 * Math.sin(t * 37 + 1); fl.scale.set(1, k, 1); fl.rotation.z = 0.1 * Math.sin(t * 11); halo.scale.setScalar(1 + 0.07 * Math.sin(t * 23)); }
+      smoke.forEach((p, i) => { const q = u - i * 0.07; p.visible = u >= 0 && q > 0 && q < 0.7; if (p.visible) { p.position.set(0.02 * Math.sin(q * 9 + i), 0.22 + q * 0.5, 0); p.scale.setScalar(1 + q * 3); p.material.opacity = 0.7 * (1 - q / 0.7); } }); };
+    g.userData.update(0); return g;
+  },
+
+  // the sun as a lamp: a disc with rays and a face. o.offAt: it goes out like a bulb: the disc turns to cold grey, the rays fold back, a red thread of
+  // filament dies in the middle, its eyes go wide then shut. Unlit: with `inDark` it stays in the black sky. Origin: its centre, front +Z; o.r (1.2 m)
+  sunLamp(o) {
+    const R = o.r ?? 1.2, disc = new THREE.Mesh(new THREE.CircleGeometry(R, 28), flat('#FFD23A')), rays = grp(), fil = at(new THREE.Mesh(new THREE.RingGeometry(R * 0.18, R * 0.24, 20), flat('#FF5A2A', { transparent: true, side: THREE.DoubleSide })), 0, -R * 0.1, 0.03);
+    for (let i = 0; i < 12; i++) { const a = i * PI / 6, q = quad(0.14 * R, 0.5 * R, flat('#FFE07A')); q.geometry = new THREE.PlaneGeometry(0.14 * R, 0.5 * R).translate(0, 0.25 * R, 0); const p = grp(q); p.position.set(Math.sin(a) * R * 1.1, Math.cos(a) * R * 1.1, -0.01); p.rotation.z = -a; rays.add(p); }
+    const eye = sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.15, 16), flat('#FFFDF2')), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.07, 12), flat('#2A1E12')), 0, 0, 0.01)); e.position.set(sx * R * 0.34, R * 0.2, 0.02); return e; };
+    const eL = eye(-1), eR = eye(1), lids = [-1, 1].map(sx => at(quad(R * 0.34, R * 0.04, flat('#2A1E12')), sx * R * 0.34, R * 0.2, 0.03));
+    const mouth = at(new THREE.Mesh(new THREE.RingGeometry(R * 0.2, R * 0.25, 16, 1, PI * 1.15, PI * 0.7), flat('#2A1E12', { side: THREE.DoubleSide })), 0, -R * 0.1, 0.02), oh = at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.1, 14), flat('#2A1E12')), 0, -R * 0.32, 0.02);
+    const inner = grp(rays, disc, eL, eR, ...lids, mouth, oh, fil), g = grp(inner), cOn = new THREE.Color('#FFD23A'), cOff = new THREE.Color(o.offColor || '#3A4152');
+    g.userData.update = t => { const u = o.offAt == null ? -1 : t - o.offAt, off = u >= 0, k = off ? clamp01(u / 0.06) : 0;
+      disc.material.color.copy(cOn).lerp(cOff, k); rays.children.forEach((p, i) => { p.scale.y = off ? Math.max(0.001, 1 - ease.out(clamp01(u / 0.12))) : 1 + 0.08 * Math.sin(t * 5 + i); p.visible = !off || u < 0.12; }); rays.rotation.z = off ? 0 : t * 0.25;
+      const scared = o.scareAt != null && t >= o.scareAt && !off, shut = off && u > 0.45;
+      for (const e of [eL, eR]) { e.visible = !shut; e.scale.setScalar(scared || (off && !shut) ? 1.45 : 1); e.children[1].scale.setScalar(scared || off ? 0.6 : 1); }
+      lids.forEach(l => l.visible = shut); mouth.visible = !scared && !off; oh.visible = scared || off; oh.scale.setScalar(shut ? 0.5 : 1);
+      fil.visible = off && u < 0.9; if (fil.visible) fil.material.opacity = Math.max(0, 1 - u / 0.9) * (0.7 + 0.3 * Math.sin(t * 40)); inner.scale.setScalar(off ? 1 - 0.06 * Math.max(0, 1 - u / 0.2) : 1); };
+    g.userData.update(0); return g;
+  },
+
+  // a telescope on its tripod: a white tube in three draws that slide out one from the other. o.extend [[t, 0..1], ...]; o.tilt (deg above the horizon,
+  // default 40). Origin: under the tripod; it points toward +Z and up
+  telescope(o) {
+    const tilt = (o.tilt ?? 40) * PI / 180, L = o.len ?? 0.9, piv = grp(); piv.position.y = 1.15; piv.rotation.x = -tilt;
+    const d1 = at(cyl(0.085, 0.085, L, '#F4F1E8', 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0), d2 = at(cyl(0.068, 0.068, L, '#E3DFD2', 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0), d3 = at(cyl(0.052, 0.052, L, '#CFCABB', 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0);
+    const rim = at(cyl(0.062, 0.062, 0.05, '#1B1B1E', 12), 0, 0, L / 2, PI / 2, 0, 0); d3.add(rim); rim.rotation.set(0, 0, 0); rim.position.set(0, L / 2, 0);
+    piv.add(d1, d2, d3, at(cyl(0.03, 0.03, 0.14, '#1B1B1E', 8), 0, 0.06, -L / 2 + 0.05), at(cyl(0.022, 0.03, 0.08, '#1B1B1E', 8), 0, 0, -L / 2 - 0.04, PI / 2, 0, 0));
+    const g = grp(piv, at(sphere(0.06, '#2B2B30', 1), 0, 1.15, 0));
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3 + 0.5, leg = box(0.03, 1.2, 0.03, '#2B2B30', { pivot: 'top' }); leg.position.set(0, 1.13, 0); leg.rotation.set(0.3 * Math.cos(a), 0, -0.3 * Math.sin(a)); g.add(leg); }
+    g.userData.update = t => { const k = keyed(o.extend, t, ease.outBack); d2.position.z = 0.012 + k * L * 0.82; d3.position.z = 0.024 + k * L * 1.64; };
+    g.userData.update(0); g.userData.eyepiece = [0, 1.15 + Math.sin(tilt) * (-L / 2 - 0.08), Math.cos(tilt) * (-L / 2 - 0.08)]; return g;
+  },
+
+  // the beam of a torch: a pale cone that widens from the origin along +Z, o.len long (6 m), o.r wide at its end (0.9 m). o.sweep [[t, deg], ...]: it turns
+  // about the vertical; o.pitch [[t, deg], ...]: it lifts. Unlit and see-through: give it `inDark` in a dark shot
+  torchBeam(o) {
+    const L = o.len ?? 6, R = o.r ?? 0.9, cone = new THREE.Mesh(new THREE.ConeGeometry(R, L, 18, 1, true).rotateX(-PI / 2).translate(0, 0, L / 2), flat(o.color || '#FFF1B8', { transparent: true, opacity: o.opacity ?? 0.3, depthWrite: false, side: THREE.DoubleSide }));
+    const piv = grp(cone, at(new THREE.Mesh(new THREE.CircleGeometry(0.035, 10), flat('#FFFBE6', { side: THREE.DoubleSide })), 0, 0, 0.01)), g = grp(piv);
+    g.userData.update = t => { piv.rotation.set(-keyed(o.pitch, t, ease.inOut) * PI / 180, keyed(o.sweep, t, ease.inOut) * PI / 180, 0, 'YXZ'); };
+    g.userData.update(0); return g;
+  },
+
+  // a nightcap: a long striped cone that falls to one side, a pompon at its tip that swings. Origin: the top of the head (attach it to the head)
+  nightCap(o) {
+    const c1 = o.color || '#F4F1E8', c2 = o.stripe || '#3F6FB5', g = grp(at(box(0.3, 0.07, 0.3, c1, { outline: 0.006 }), 0, 0.035, 0)), a = grp(), b = grp(), pom = sphere(0.06, c1, 1);
+    for (let i = 0; i < 3; i++) { const sg = box(0.26 - i * 0.05, 0.1, 0.26 - i * 0.05, i % 2 ? c1 : c2, { pivot: 'bottom', taper: 0.8 }); sg.position.y = 0.07 + i * 0.1; g.add(sg); }
+    a.position.set(0, 0.36, 0); g.add(a); for (let i = 0; i < 3; i++) { const sg = box(0.11 - i * 0.02, 0.12, 0.11 - i * 0.02, i % 2 ? c2 : c1, { pivot: 'bottom', taper: 0.8 }); sg.position.y = i * 0.12; (i < 2 ? a : b).add(sg); }
+    b.position.y = 0.24; a.add(b); pom.position.y = 0.26; b.add(pom); b.children[0].position.y = 0;
+    g.userData.update = t => { const s = Math.sin(t * 2.6 + (o.ph || 0)); a.rotation.z = -0.75 + 0.07 * s; b.rotation.z = -0.9 + 0.16 * Math.sin(t * 2.6 + (o.ph || 0) - 0.6); };
+    g.userData.update(0); return g;
+  },
+
+  // a letter that can be far too big: a white envelope with its flap line, a red stamp, a window. o.w (0.3 m), o.to / o.line2 (the address lines in the
+  // window), o.title (printed top left). o.eyes [t0, t1]: two eyes look out of the window between these times (somebody is under it), and blink.
+  // Unlit front (it reads in a dark shot with `inDark`). Origin: its middle, front +Z
+  bigEnvelope(o) {
+    const w = o.w ?? 0.3, h = w * 0.62;
+    const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = o.color || '#FBF8EE'; c.fillRect(0, 0, W, H); c.strokeStyle = '#CFC8B4'; c.lineWidth = H * 0.012; c.beginPath(); c.moveTo(0, 0); c.lineTo(W / 2, H * 0.42); c.lineTo(W, 0); c.stroke(); c.strokeRect(0, 0, W, H);
+      c.fillStyle = '#C8322A'; c.fillRect(W * 0.8, H * 0.08, W * 0.13, H * 0.26); c.fillStyle = '#FBF8EE'; c.fillRect(W * 0.825, H * 0.12, W * 0.08, H * 0.18);
+      if (o.title) { c.textAlign = 'left'; c.fillStyle = '#2B4C8C'; c.font = `900 ${H * 0.13}px Arial`; c.textBaseline = 'middle'; c.fillText(o.title, W * 0.06, H * 0.16); }
+      c.fillStyle = '#DCE6EC'; c.fillRect(W * 0.1, H * 0.5, W * 0.62, H * 0.36); c.strokeStyle = '#9AA6AE'; c.lineWidth = H * 0.012; c.strokeRect(W * 0.1, H * 0.5, W * 0.62, H * 0.36);
+      if (o.to) txt(c, o.to, W * 0.41, H * 0.61, fit(c, o.to, W * 0.56, H * 0.15), '#17171A'); if (o.line2) txt(c, o.line2, W * 0.41, H * 0.77, fit(c, o.line2, W * 0.56, H * 0.13), '#17171A'); }, { res: 512 });
+    pl.material = flat('#FFFFFF', { map: pl.material.map, side: THREE.DoubleSide });
+    const g = grp(at(solid(w, h, w * 0.012, flat('#E9E4D4')), 0, 0, -w * 0.008), pl), eyes = grp(); eyes.position.set(-w * 0.09, h * (0.5 - 0.68), w * 0.004); g.add(eyes);
+    const cover = at(quad(w * 0.6, h * 0.34, flat('#DCE6EC')), 0, 0, 0); eyes.add(cover);
+    const E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(h * 0.1, 14), flat('#FFFFFF')), 0, 0, 0.001), at(new THREE.Mesh(new THREE.CircleGeometry(h * 0.045, 10), flat('#17171A')), 0, 0, 0.002)); e.position.x = sx * h * 0.15; e.children[0].scale.y = 1.2; eyes.add(e); return e; });
+    g.userData.update = t => { const on = !!o.eyes && t >= o.eyes[0] && t < o.eyes[1]; eyes.visible = on; if (!on) return; const u = t - o.eyes[0], cyc = u % 1.3, bl = cyc > 0.5 && cyc < 0.62 ? Math.abs(1 - (cyc - 0.5) / 0.06) : 1, op = Math.min(1, u / 0.08);
+      E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = h * 0.03 * Math.sin(u * 2.2); }); };
+    g.userData.update(0); return g;
+  },
+
+  // a match: a little stick with a red head. o.litAt: its flame takes; o.outAt: blown out. The flame is unlit (inDark). Origin: its foot, upright
+  matchStick(o) {
+    const fl = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.11, 7), flat('#FFB23A')), 0, 0.055, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.016, 0.065, 6), flat('#FFF0B0')), 0, 0.04, 0)); fl.position.y = 0.2;
+    const halo = at(new THREE.Mesh(new THREE.CircleGeometry(0.2, 20), flat('#FFC860', { transparent: true, opacity: 0.2, depthWrite: false, side: THREE.DoubleSide })), 0, 0.25, 0);
+    const g = grp(at(box(0.014, 0.2, 0.014, '#D9B98A', { pivot: 'bottom' }), 0, 0, 0), at(box(0.024, 0.03, 0.024, '#B5302A'), 0, 0.2, 0), fl, halo);
+    g.userData.update = t => { const on = o.litAt != null && t >= o.litAt && (o.outAt == null || t < o.outAt), u = t - (o.litAt || 0); fl.visible = halo.visible = on;
+      if (on) { const k = (u < 0.1 ? 1 + 1.6 * (1 - u / 0.1) : 1) * (1 + 0.14 * Math.sin(t * 21) + 0.08 * Math.sin(t * 39)); fl.scale.set(k > 1.6 ? 1.5 : 1, k, k > 1.6 ? 1.5 : 1); halo.scale.setScalar((u < 0.1 ? 1.6 : 1) * (1 + 0.06 * Math.sin(t * 25))); } };
+    g.userData.update(0); return g;
+  },
+
+  // a pair of eyes of its own, for what has no face rig (a pigeon, a cat, a statue) in a dark shot: two pale ovals, two pupils. o.s (0.05 m: the half
+  // width of an eye), o.look [[t, -1..1], ...] (the pupils go aside), o.blinks [t, ...], o.openAt / o.shutAt. Unlit: give it `inDark`. Front +Z
+  eyesPair(o) {
+    const s = o.s ?? 0.05, g = grp(), E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(s, 14), flat('#F6F1E2', { side: THREE.DoubleSide })), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(s * 0.42, 10), flat('#0A0C14', { side: THREE.DoubleSide })), 0, 0, 0.002)); e.position.x = sx * s * (o.gap ?? 1.25); e.children[0].scale.y = o.tall ?? 1.25; g.add(e); return e; });
+    g.userData.update = t => { const on = (o.openAt == null || t >= o.openAt) && (o.shutAt == null || t < o.shutAt); g.visible = on; if (!on) return;
+      let bl = 1; for (const b of o.blinks || []) { const u = t - b; if (u >= 0 && u < 0.12) bl = Math.abs(1 - u / 0.06); } const op = o.openAt == null ? 1 : Math.min(1, (t - o.openAt) / 0.06), lx = keyed(o.look, t, ease.inOut);
+      E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = lx * s * 0.5; }); };
+    g.userData.update(0); return g;
+  },
+
+  // a burglar's mask to wear over the painted face: a black band along the line of the eyes (the painted face is askew: one eye sits 10 cm above the
+  // other) with two holes: the painted eyes show through. Sized for the face panel of the series (0.24 x 0.5 m); attach it to the head:
+  // on={actor, joint: 'head', offset: [0, 0.25, 0.092]}. o.th: the width of the band (0.1 m)
+  bandMask(o) {
+    const w = o.w ?? 0.24, h = o.h ?? 0.5, th = o.th ?? 0.1;
+    const pl = canvasPlane(w, h, (c, W, H) => { c.clearRect(0, 0, W, H); const ex = [0.211 * W, 0.752 * W], ey = [0.262 * H, 0.457 * H], a = Math.atan2(ey[1] - ey[0], ex[1] - ex[0]);
+      c.save(); c.translate((ex[0] + ex[1]) / 2, (ey[0] + ey[1]) / 2); c.rotate(a); c.fillStyle = '#141418'; c.fillRect(-W * 1.5, -th / w * W / 2, W * 3, th / w * W); c.restore();
+      c.globalCompositeOperation = 'destination-out'; for (const k of [0, 1]) { c.beginPath(); c.ellipse(ex[k], ey[k], W * 0.17, H * (k ? 0.045 : 0.055), 0, 0, TAU); c.fill(); } c.globalCompositeOperation = 'source-over'; }, { res: 256, transparent: true });
+    return grp(pl);
+  },
+};

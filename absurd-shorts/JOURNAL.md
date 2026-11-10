@@ -474,3 +474,36 @@ Mise en scène (17 plans), gags appuyés sur le rig :
 Décisions prises sans question : la boulangerie est « nationalisée » à l'image (la plaque bleue recouvre l'enseigne à partir de S08) ; une seule
 carte de titre, « LE BRAS RESTE », sur le plan de la chambre ; l'enseigne réduite à la largeur de la porte (elle coupait tous les plans serrés).
 
+
+## Cycle 4 — rig : un visage réglable élément par élément, des membres qui ondulent, le noir (commencé pendant le rendu final de l'histoire 38)
+
+### 1. Analyse (troisième revue de l'histoire 38, premier brouillon de l'histoire 39, rigs des cycles 1 à 3)
+
+Faiblesses relevées, et ce qui est corrigé dans ce cycle :
+
+| # | Faiblesse | Où | Correction |
+|---|-----------|----|------------|
+| 1 | **Expressions pauvres dès que la tête fait moins de 15 % de la largeur** : le rig ne savait que tirer tout le visage vers une expression nommée ; impossible de lever un seul sourcil, de fermer un seul œil, de changer la bouche sans changer les yeux. Résultat : des visages symétriques, et un « regard d'effroi » lu comme deux fentes (38, S14). | 38 S06, S14 ; 39 S02, S05 | **Corrigé** : canaux de visage par élément et par côté (voir Rigs). |
+| 2 | **Un membre étiré est une tringle** : le bras télescopique (38, S10) et le bras corde à linge (39) restent droits ; le relecteur demandait « une onde visible le long du bras ». | 38 S10 ; 39 S03 à S12 | **Corrigé** : canal `wave` (une onde le long d'un membre, d'un cou, du buste). |
+| 3 | **Aucun gag possible dans le noir** : la seule nuit du moteur est un décor bleu ; pas de noir de dessin animé où il ne reste que les yeux. | — | **Corrigé** : plan `dark` (voir Rigs), pour l'histoire 40. |
+| 4 | Les relances (« toppers ») ont le moins d'images ; des gags posés au bord du cadre ou trop petits. | 38 S06, S07, S15, S17 | Règle d'écriture déjà au skill (cycle 3) ; appliquée dès le découpage de l'histoire 40 (chaque gag a son plan et au moins six images de tenue). |
+| 5 | Plusieurs poses debout symétriques (« twinning »). | 38 | Reporté au cycle 5 (appui sur une jambe par défaut, épaules désaxées). |
+
+### 2. Rigs (ajouts ; rien ne change pour les histoires existantes)
+
+- **Visage, un élément à la fois, un côté à la fois** (`engine/director3.js`, canal `face` du rig cartoon). Chaque valeur est un écart par rapport à
+  l'expression en place (0 = inchangé), donc une clé déforme une expression au lieu de la remplacer : `brow`, `browL`, `browR` (1 = jusqu'aux
+  cheveux, −1 = sur l'œil), `browTilt…` (degrés), `lidL`, `lidR` (un clin d'œil, un œil lourd), `low…` (paupière du bas : un plissement), `eye`,
+  `eyeL`, `eyeR` (un œil plus gros que l'autre), `mouth` (une bouche par son nom : O, teeth, wavy, kiss, whistle, smirk…), `mouthW`, `mouthH`,
+  `mouthTilt`, `mouthDx`, `mouthDy` (une bouche tirée d'un côté), `cheeks`, `puff`, `sweat`, `blush`, `tears`, `tear`, `vein`, `shadow`.
+  Attention : L = le côté gauche **de l'image** quand il nous fait face (son œil droit, celui qui est haut).
+- **Onde le long d'un membre** (`engine/toon.js`, canal `wave`) : `{armL: [amplitude (m), nombre d'ondes, phase (tours), libre, axe]}`. Les deux
+  bouts restent en place (une main guidée garde son point) ; `libre: 1` laisse fouetter le bout (une tête au bout d'un cou en nouille). On fait
+  voyager l'onde en animant la phase. Axe π/2 = onde verticale sur un bras tendu à l'horizontale (celle qui se lit de face).
+- **Le noir** (`engine/look.js`, `engine/facerig.js`, `engine/human.js`) : `dark=[[t, k, rampe]]` sur un plan éteint ou rallume la lumière en une
+  image ; l'image tombe à des silhouettes froides à peine visibles (`darkFloor`, 0 = noir complet). **Les yeux restent** : le rig de visage dessine
+  les yeux seuls (et une bouche qui montre les dents) sur une seconde peau de la tête, non éclairée, tracée par-dessus l'image assombrie et cachée
+  par ce qui est devant elle. Dans le noir les yeux grossissent (×1,3) et une paupière lourde se lève ; un clignement les fait disparaître ; les
+  yeux dessinés (croix, spirales, arcs) passent en clair, les cœurs et les étoiles gardent leur couleur ; les yeux sortis sur tiges se voient
+  aussi. Un accessoire marqué `inDark` reste visible (une flamme, une torche, une enveloppe blanche).
+- Essais : trois planches d'images (visage, onde, noir) avant d'écrire l'histoire 40 ; non-régression lancée dès que le processeur est libre.
