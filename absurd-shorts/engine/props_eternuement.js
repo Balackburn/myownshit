@@ -1,0 +1,191 @@
+// « L'éternuement » (story 38): a sneeze measured, named, put on red alert, insured, and put to work.
+// Every animated prop is a pure function of the shot time (userData.update(t)), so any frame renders alone.
+import * as THREE from 'three';
+import { PALETTE as P, box, cyl, sphere, rng, ease, clamp01 } from './style.js';
+import { grp, at, mesh, canvasPlane } from './props.js';
+
+const PI = Math.PI, TAU = 2 * PI;
+const txt = (g, s, x, y, px, color = '#1B1B1E', weight = '900') => { g.fillStyle = color; g.font = `${weight} ${px}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s, x, y); };
+const fit = (g, s, w, px, weight = '900') => { g.font = `${weight} ${px}px Arial`; const m = g.measureText(s).width; return m > w ? px * w / m : px; };   // a font size that keeps the text inside w
+// speed keys [[t, turns per second], ...] (linear between keys) -> turns done at time t
+const turnsAt = (keys, t) => { let a = 0; for (let i = 0; i < keys.length; i++) { const [t0, v0] = keys[i], nx = keys[i + 1]; if (t <= t0) break; const t1 = nx ? Math.min(t, nx[0]) : t, v1 = nx ? v0 + (nx[1] - v0) * (t1 - t0) / Math.max(1e-6, nx[0] - t0) : v0; a += (v0 + v1) / 2 * (t1 - t0); } return a; };
+const wob = (t, f = 30, d = 6) => (t <= 0 ? 0 : Math.sin(t * f) * Math.exp(-t * d));
+
+export const ETERNUEMENT_PROPS = {
+  // a hand anemometer: grip, mast, three cups on arms (origin at the grip, the rotor 0.34 m above). o.spin [[t, turns/s], ...]; the cups blur into a disc when fast
+  anemometer(o) {
+    const g = grp(at(cyl(0.022, 0.026, 0.16, '#2A2E35', 8), 0, 0, 0), at(cyl(0.012, 0.012, 0.26, '#C9CED3', 6), 0, 0.2, 0)), rotor = new THREE.Group(); rotor.position.y = 0.34; g.add(rotor);
+    for (let i = 0; i < 3; i++) { const a = new THREE.Group(); a.rotation.y = i * TAU / 3; rotor.add(a); a.add(at(box(0.16, 0.012, 0.012, '#C9CED3'), 0.08, 0, 0), at(sphere(0.045, '#C8202A', 1, { outline: 0.012 }), 0.17, 0, 0)); }
+    const disc = at(cyl(0.2, 0.2, 0.012, '#E06A5A', 20), 0, 0, 0); disc.material = disc.material.clone(); disc.material.transparent = true; disc.material.opacity = 0; rotor.add(disc);
+    const keys = o.spin || [[0, 0.6]];
+    g.userData.update = t => { const k = keys.length; let v = keys[k - 1][1]; for (let i = 0; i < k - 1; i++) if (t < keys[i + 1][0]) { v = keys[i][1] + (keys[i + 1][1] - keys[i][1]) * clamp01((t - keys[i][0]) / (keys[i + 1][0] - keys[i][0])); break; }
+      rotor.rotation.y = turnsAt(keys, t) * TAU; disc.material.opacity = clamp01((Math.abs(v) - 4) / 8) * 0.75; };
+    g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // a round wind gauge that pops in: « km/h », a needle that slams to o.value (0..o.max) at o.at and trembles against the stop. Front +Z, origin at its centre
+  windGauge(o) {
+    const r = o.r ?? 0.5, max = o.max ?? 200, val = o.value ?? 200, a0 = 2.3, a1 = -2.3;   // needle angle at 0 and at max (radians from the top, + = left)
+    const face = canvasPlane(2 * r, 2 * r, (g, W, H) => {
+      g.clearRect(0, 0, W, H); g.fillStyle = '#F7F4EA'; g.beginPath(); g.arc(W / 2, H / 2, W * 0.48, 0, TAU); g.fill(); g.lineWidth = W * 0.035; g.strokeStyle = '#1B2A4A'; g.stroke();
+      for (let i = 0; i <= 10; i++) { const a = a0 + (a1 - a0) * i / 10, c = Math.sin(a), s = Math.cos(a); g.strokeStyle = i >= 5 ? '#C8202A' : '#1B1B1E'; g.lineWidth = W * (i % 5 ? 0.012 : 0.022); g.beginPath(); g.moveTo(W / 2 - c * W * 0.4, H / 2 - s * W * 0.4); g.lineTo(W / 2 - c * W * 0.33, H / 2 - s * W * 0.33); g.stroke();
+        if (i % 5 === 0) txt(g, String(max * i / 10), W / 2 - c * W * 0.25, H / 2 - s * W * 0.25, W * 0.085, i >= 5 ? '#C8202A' : '#1B1B1E'); }
+      txt(g, 'km/h', W / 2, H * 0.72, W * 0.1, '#1B2A4A');
+    }, { res: 512, transparent: true });
+    const needle = new THREE.Group(); needle.add(at(box(0.035 * r * 2, r * 0.8, 0.012, '#C8202A'), 0, r * 0.34, 0), at(cyl(0.06 * r * 2, 0.06 * r * 2, 0.03, '#1B2A4A', 12), 0, 0, 0, PI / 2, 0, 0)); needle.position.z = 0.02;
+    const g = grp(at(cyl(r * 1.02, r * 1.02, 0.03, '#1B2A4A', 28), 0, 0, -0.02, PI / 2, 0, 0), face, needle), at_ = o.at ?? 0.2, k = val / max;
+    g.userData.update = t => { const u = t - at_, w = u < 0 ? 0 : ease.out(clamp01(u / 0.14)); needle.rotation.z = a0 + (a1 * k * 1.0 - a0) * w + (u > 0.14 ? 0.07 * Math.sin(t * 60) * Math.exp(-(u - 0.14) * 1.2) + 0.03 * Math.sin(t * 47) : 0); };
+    g.userData.update(0); return g;
+  },
+
+  // the wind scale on the wall: three bands (BRISE, VENT, TEMPÊTE), a rider that climbs to the top band at o.at. Front +Z, origin at its centre
+  windScale(o) {
+    const w = o.w ?? 1.1, h = o.h ?? 1.5, rows = [['TEMPÊTE', '#C8202A', '> 100'], ['VENT', '#E8A33C', '50 - 100'], ['BRISE', '#5E9C6A', '0 - 50']];
+    const face = canvasPlane(w, h, (g, W, H) => {
+      g.fillStyle = '#F7F4EA'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B2A4A'; g.fillRect(0, 0, W, H * 0.14); txt(g, 'ÉCHELLE DU VENT', W / 2, H * 0.072, fit(g, 'ÉCHELLE DU VENT', W * 0.9, H * 0.075), '#F7F4EA');
+      rows.forEach(([nm, c, rg], i) => { const y = H * (0.17 + i * 0.275); g.fillStyle = c; g.fillRect(W * 0.2, y, W * 0.74, H * 0.25); txt(g, nm, W * 0.57, y + H * 0.105, fit(g, nm, W * 0.66, H * 0.1), '#FFFFFF'); txt(g, rg + ' km/h', W * 0.57, y + H * 0.195, H * 0.045, '#FFFFFF', 'bold'); });
+      g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H - W * 0.012);
+    }, { res: 512 });
+    const rider = grp(at(box(0.16 * w, 0.09 * h, 0.03, '#1B1B1E'), 0, 0, 0), at(box(0.09 * w, 0.09 * h, 0.03, '#1B1B1E'), 0.09 * w, 0, 0, 0, 0, PI / 4)); rider.position.set(-0.4 * w, 0, 0.03);
+    const g = grp(at(box(w, h, 0.03, '#F7F4EA', { outline: 0.006 }), 0, 0, -0.02), face, rider), yAt = i => h * (0.5 - (0.17 + i * 0.275 + 0.125)), at_ = o.at ?? 0.3;
+    g.userData.update = t => { const u = t - at_, k = u < 0 ? 0 : ease.out(clamp01(u / 0.22)); rider.position.y = yAt(2) + (yAt(0) - yAt(2)) * k + (u > 0.22 ? 0.03 * h * wob(u - 0.22, 34, 7) : 0); };
+    g.userData.update(0); return g;
+  },
+
+  // the list of first names for the storms: earlier names struck out, the next one framed in red at o.at. Front +Z, origin at its centre
+  nameList(o) {
+    const w = o.w ?? 0.9, h = o.h ?? 1.5, names = o.names || ['AMÉLIE', 'BENOÎT', 'CHANTAL', 'DIDIER', 'ÉLODIE', 'FERNAND', 'GISÈLE', 'HUBERT', 'IRÈNE'], next = o.next || 'JOSIANE', rowY = i => 0.2 + i * 0.076;
+    const face = canvasPlane(w, h, (g, W, H) => {
+      g.fillStyle = '#FBF8EE'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B2A4A'; g.fillRect(0, 0, W, H * 0.13); txt(g, 'PRÉNOMS', W / 2, H * 0.068, H * 0.08, '#FBF8EE');
+      names.forEach((n, i) => { const y = H * rowY(i); txt(g, n, W / 2, y, H * 0.05, '#8A8A90', 'bold'); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.007; g.beginPath(); g.moveTo(W * 0.22, y); g.lineTo(W * 0.78, y - H * 0.004); g.stroke(); });
+      txt(g, next, W / 2, H * rowY(names.length), fit(g, next, W * 0.7, H * 0.075), '#1B1B1E');
+      g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H - W * 0.012);
+    }, { res: 512 });
+    const y = h * (0.5 - rowY(names.length)), fr = grp(at(box(w * 0.84, 0.012, 0.012, '#C8202A'), 0, h * 0.05, 0), at(box(w * 0.84, 0.012, 0.012, '#C8202A'), 0, -h * 0.05, 0), at(box(0.012, h * 0.1, 0.012, '#C8202A'), -w * 0.42, 0, 0), at(box(0.012, h * 0.1, 0.012, '#C8202A'), w * 0.42, 0, 0)); fr.position.set(0, y, 0.02);
+    const g = grp(at(box(w, h, 0.02, '#FBF8EE', { outline: 0.006 }), 0, 0, -0.014), face, fr), at_ = o.at ?? 0.4;
+    g.userData.update = t => { const u = t - at_; fr.visible = u >= 0; const k = u < 0 ? 0 : ease.outBack(clamp01(u / 0.16)); fr.scale.set(1.5 - 0.5 * k, 1.5 - 0.5 * k, 1); };
+    g.userData.update(0); return g;
+  },
+
+  // a name badge slapped on a chest: « TEMPÊTE » over a first name (front +Z, origin at its centre)
+  nameBadge(o) {
+    const w = o.w ?? 0.3, h = o.h ?? 0.2, name = o.name || 'JOSIANE';
+    const face = canvasPlane(w, h, (g, W, H) => { g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H); g.fillStyle = '#C8202A'; g.fillRect(0, 0, W, H * 0.36); txt(g, 'TEMPÊTE', W / 2, H * 0.19, fit(g, 'TEMPÊTE', W * 0.86, H * 0.26), '#FFFFFF'); txt(g, name, W / 2, H * 0.68, fit(g, name, W * 0.88, H * 0.42), '#1B1B1E'); g.strokeStyle = '#1B1B1E'; g.lineWidth = W * 0.02; g.strokeRect(W * 0.01, W * 0.01, W * 0.98, H - W * 0.02); }, { res: 384 });
+    return grp(at(box(w, h, 0.008, '#FFFFFF'), 0, 0, -0.005), face);
+  },
+
+  // the weather map on a screen: a blue country shape, a red spiral that turns over it with the storm's name, a red triangle « VIGILANCE ROUGE ». Front +Z
+  stormMap(o) {
+    const w = o.w ?? 1.5, h = o.h ?? 1.9, name = o.name || 'JOSIANE';
+    const face = canvasPlane(w, h, (g, W, H) => {
+      g.fillStyle = '#2E6FB5'; g.fillRect(0, 0, W, H); g.fillStyle = '#7FBF7A'; g.beginPath(); [[0.5, 0.16], [0.78, 0.25], [0.86, 0.45], [0.74, 0.72], [0.5, 0.8], [0.28, 0.72], [0.12, 0.5], [0.24, 0.3]].forEach(([x, y], i) => i ? g.lineTo(W * x, H * (0.1 + y * 0.72)) : g.moveTo(W * x, H * (0.1 + y * 0.72))); g.closePath(); g.fill(); g.strokeStyle = '#F7F4EA'; g.lineWidth = W * 0.012; g.stroke();
+      g.fillStyle = '#C8202A'; g.fillRect(0, H * 0.86, W, H * 0.14); txt(g, 'VIGILANCE ROUGE', W / 2, H * 0.93, fit(g, 'VIGILANCE ROUGE', W * 0.9, H * 0.085), '#FFFFFF');
+      g.fillStyle = '#1B2A4A'; g.fillRect(0, 0, W, H * 0.1); txt(g, 'MÉTÉO', W / 2, H * 0.052, H * 0.065, '#F7F4EA');
+    }, { res: 512 });
+    const sp = canvasPlane(0.62 * w, 0.62 * w, (g, W) => { g.clearRect(0, 0, W, W); g.strokeStyle = '#C8202A'; g.lineCap = 'round'; for (let k = 0; k < 2; k++) { g.lineWidth = W * 0.06; g.beginPath(); for (let a = 0; a < 7.2; a += 0.1) { const r = W * (0.05 + a * 0.058), x = W / 2 + Math.cos(a + k * PI) * r, y = W / 2 + Math.sin(a + k * PI) * r; a ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); } g.fillStyle = '#FFFFFF'; g.beginPath(); g.arc(W / 2, W / 2, W * 0.09, 0, TAU); g.fill(); }, { res: 384, transparent: true });
+    sp.position.set(0.02 * w, 0.03 * h, 0.012);
+    const tag = canvasPlane(0.62 * w, 0.14 * w, (g, W, H) => { g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.12; g.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H * 0.88); txt(g, name, W / 2, H * 0.52, fit(g, name, W * 0.86, H * 0.66), '#C8202A'); }, { res: 384 }); tag.position.set(0.02 * w, -0.2 * h, 0.03);
+    const g = grp(at(box(w * 1.04, h * 1.03, 0.05, '#23262C', { outline: 0.008 }), 0, 0, -0.03), face, sp, tag);
+    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); };
+    return g;
+  },
+
+  // a triangular road sign carried on a pole: « VIGILANCE ROUGE » (o.text), the triangle red. Origin at the foot of the pole
+  alertSign(o) {
+    const h = o.h ?? 2.3, s = o.s ?? 0.7, text = o.text || '!';
+    const tri = canvasPlane(s, s * 0.9, (g, W, H) => { g.clearRect(0, 0, W, H); g.fillStyle = '#C8202A'; g.beginPath(); g.moveTo(W / 2, H * 0.04); g.lineTo(W * 0.98, H * 0.96); g.lineTo(W * 0.02, H * 0.96); g.closePath(); g.fill(); g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(W / 2, H * 0.26); g.lineTo(W * 0.8, H * 0.85); g.lineTo(W * 0.2, H * 0.85); g.closePath(); g.fill(); txt(g, text, W / 2, H * 0.66, H * 0.42, '#1B1B1E'); }, { res: 384, transparent: true });
+    tri.position.set(0, h - s * 0.45, 0.02);
+    const g = grp(at(cyl(0.025, 0.025, h, '#8A9097', 6), 0, h / 2, 0), tri); g.userData.grip = [0, h * 0.42, 0]; return g;
+  },
+
+  // a rotating red beacon (on a hat, a pole, a roof): the dome turns and pulses. Origin at its base
+  beacon(o) {
+    const r = o.r ?? 0.09, dome = sphere(r, '#E8322A', 1); dome.material = dome.material.clone(); dome.material.emissive = new THREE.Color('#FF3B2A'); dome.position.y = r * 0.9;
+    const g = grp(at(cyl(r * 1.1, r * 1.25, r * 0.5, '#2A2E35', 10), 0, r * 0.25, 0), dome, at(box(r * 2.6, r * 0.5, r * 0.3, '#FFD9A0'), 0, r * 0.9, 0));
+    const bar = g.children[2]; bar.material = bar.material.clone(); bar.material.transparent = true; bar.material.opacity = 0.55;
+    g.userData.update = t => { bar.rotation.y = t * 9; dome.material.emissiveIntensity = 0.55 + 0.45 * Math.sin(t * 9); };
+    return g;
+  },
+
+  // a low wall of sandbags (o.n bags per row, o.rows), along X, origin at the middle of its foot
+  sandbags(o) {
+    const n = o.n ?? 5, rows = o.rows ?? 3, r = rng(o.seed ?? 4), g = new THREE.Group();
+    for (let j = 0; j < rows; j++) for (let i = 0; i < n - (j % 2); i++) g.add(at(box(0.5, 0.2, 0.3, ['#C9B48A', '#BFA97C', '#D2BE96'][Math.floor(r() * 3)], { outline: 0.008, taper: { x: 0.9, z: 0.86 } }), (i - (n - 1 - (j % 2)) / 2) * 0.52, 0.1 + j * 0.19, (r() - 0.5) * 0.05, 0, (r() - 0.5) * 0.15, 0));
+    return g;
+  },
+
+  // a very big rubber stamp held by its knob (origin at the knob, the face 0.42 m below); o.color
+  bigStamp(o) {
+    const g = grp(at(sphere(0.07, '#5A3A28', 1), 0, 0, 0), at(cyl(0.035, 0.05, 0.2, '#6B4A32', 8), 0, -0.13, 0), at(box(0.34, 0.1, 0.24, '#3A2A20', { outline: 0.008 }), 0, -0.3, 0), at(box(0.32, 0.03, 0.22, o.color || '#C8202A'), 0, -0.365, 0));
+    g.userData.grip = [0, 0, 0]; return g;
+  },
+  // what the stamp leaves: a red mark « CAT. NAT. » (o.text) on a transparent plane (stick it on a forehead, a sheet). Front +Z
+  stampMark(o) {
+    const w = o.w ?? 0.2, h = o.h ?? 0.11, text = o.text || 'CAT. NAT.';
+    return canvasPlane(w, h, (g, W, H) => { g.clearRect(0, 0, W, H); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.1; g.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H * 0.84); txt(g, text, W / 2, H * 0.53, fit(g, text, W * 0.84, H * 0.56), '#C8202A'); }, { res: 384, transparent: true });
+  },
+  // the certificate on the insurer's wall: « CATASTROPHE NATURELLE » with a seal and a photo frame. Front +Z
+  catNatDiploma(o) {
+    const w = o.w ?? 1.0, h = o.h ?? 0.72;
+    const face = canvasPlane(w, h, (g, W, H) => { g.fillStyle = '#FBF8EE'; g.fillRect(0, 0, W, H); g.strokeStyle = '#B08A3C'; g.lineWidth = W * 0.02; g.strokeRect(W * 0.03, W * 0.03, W * 0.94, H - W * 0.06); txt(g, 'CATASTROPHE', W / 2, H * 0.3, fit(g, 'CATASTROPHE', W * 0.8, H * 0.2), '#C8202A'); txt(g, 'NATURELLE', W / 2, H * 0.52, fit(g, 'NATURELLE', W * 0.8, H * 0.2), '#C8202A'); g.fillStyle = '#6A6A70'; for (let i = 0; i < 2; i++) g.fillRect(W * 0.22, H * (0.68 + i * 0.07), W * 0.4, H * 0.02); g.fillStyle = '#C8202A'; g.beginPath(); g.arc(W * 0.8, H * 0.75, H * 0.1, 0, TAU); g.fill(); }, { res: 512 });
+    return grp(at(box(w * 1.06, h * 1.08, 0.04, '#5A3A28', { outline: 0.006 }), 0, 0, -0.025), face);
+  },
+
+  // a fishing rod with a pepper pot on its line (origin at the grip; the rod points along +Z and up); o.swing: the pot swings
+  pepperRod(o) {
+    const L = o.len ?? 1.9, tip = [0, L * 0.5, L * 0.86], g = grp(at(cyl(0.02, 0.012, L, '#6B4A32', 6), 0, tip[1] / 2, tip[2] / 2, Math.atan2(tip[2], tip[1]), 0, 0)), line = new THREE.Group(); line.position.set(...tip); g.add(line);
+    const drop = o.drop ?? 0.7; line.add(at(cyl(0.004, 0.004, drop, '#EDEDED', 4), 0, -drop / 2, 0), at(cyl(0.05, 0.06, 0.13, '#F4F1E8', 10, { outline: 0.008 }), 0, -drop - 0.06, 0), at(cyl(0.052, 0.04, 0.035, '#8A9097', 10), 0, -drop + 0.02, 0), at(box(0.07, 0.035, 0.005, '#1B1B1E'), 0, -drop - 0.06, 0.058));
+    g.userData.update = t => { line.rotation.x = (o.swing ?? 0.25) * Math.sin(t * 3.1); line.rotation.z = 0.5 * (o.swing ?? 0.25) * Math.sin(t * 2.3 + 1); };
+    g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // a wall of mattresses to stop a recoil (o.n side by side, standing), along X, origin at the middle of its foot; it bulges at o.hitAt
+  mattressWall(o) {
+    const n = o.n ?? 3, g = new THREE.Group(), ms = [];
+    for (let i = 0; i < n; i++) { const m = at(box(0.95, 1.95, 0.24, ['#F2EDE4', '#E4EEF2', '#F2E4EA'][i % 3], { outline: 0.008, pivot: 'bottom' }), (i - (n - 1) / 2) * 0.98, 0, 0); for (let k = 0; k < 4; k++) m.add(at(box(0.9, 0.012, 0.25, '#B9C3CC'), 0, 0.3 + k * 0.45, 0)); g.add(m); ms.push(m); }
+    g.userData.update = t => { const u = t - (o.hitAt ?? 1e9), w = wob(u, 26, 5); ms.forEach((m, i) => { m.scale.z = 1 + 0.8 * w * (i === Math.floor(n / 2) ? 1 : 0.5); m.rotation.x = -0.12 * w; }); };
+    return g;
+  },
+
+  // three towns on a far ridge at dusk: clusters of dark houses whose windows light up one town after the other (o.at [t1, t2, t3]); along X, origin at the foot
+  townLights(o) {
+    const g = new THREE.Group(), r = rng(o.seed ?? 6), ats = o.at || [0.4, 0.6, 0.8], spread = o.spread ?? 9, wins = [[], [], []];
+    for (let k = 0; k < 3; k++) { const cx = (k - 1) * spread;
+      for (let i = 0; i < 9; i++) { const w = 0.9 + r() * 1.3, h = 1.0 + r() * 2.6, x = cx + (i - 4) * 0.95 + (r() - 0.5) * 0.3, b = at(box(w, h, 0.9, ['#2B3248', '#353C55', '#3E3A52'][i % 3], { pivot: 'bottom' }), x, 0, (r() - 0.5) * 0.8); b.castShadow = false; g.add(b);
+        if (i % 3 === 1) g.add(at(box(w * 1.05, 0.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.2, z: 1 } }), x, h, b.position.z));
+        for (let a = 0; a < Math.floor(h / 0.5); a++) for (let c = 0; c < 2; c++) { if (r() < 0.25) continue; const wn = at(box(0.2, 0.24, 0.02, '#FFD76A'), x + (c - 0.5) * w * 0.45, 0.4 + a * 0.5, b.position.z + 0.46); wn.material = wn.material.clone(); wn.material.emissive = new THREE.Color('#FFC94A'); wn.castShadow = false; g.add(wn); wins[k].push([wn, r()]); } } }
+    g.userData.update = t => wins.forEach((ws, k) => ws.forEach(([m, ph]) => { const u = t - ats[k] - ph * 0.22, on = u > 0; m.material.emissiveIntensity = on ? 1.4 + 0.5 * Math.exp(-u * 8) : 0; m.material.color.set(on ? '#FFD76A' : '#1E2233'); }));
+    g.userData.update(0); return g;
+  },
+
+  // a grain of pollen seen very close: a yellow spiky ball that drifts and turns (origin at its centre); o.r
+  pollenGrain(o) {
+    const r = o.r ?? 0.05, core = sphere(r, '#F2C230', 1, { outline: r * 0.2 }), g = grp(core), q = rng(3);
+    for (let i = 0; i < 14; i++) { const a = q() * TAU, b = Math.acos(2 * q() - 1), s = at(cyl(r * 0.05, r * 0.16, r * 0.7, '#E8A33C', 5), Math.sin(b) * Math.cos(a) * r * 1.2, Math.cos(b) * r * 1.2, Math.sin(b) * Math.sin(a) * r * 1.2); s.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.position.clone().normalize()); g.add(s); }
+    g.userData.update = t => { g.rotation.set(t * 1.7, t * 1.1, 0); };
+    return g;
+  },
+  // a cloud of pollen that drifts with the wind: o.n grains in a box o.size [x, y, z], moving along o.dir (m/s), each bobbing; origin at the centre of the box at t = 0
+  pollenCloud(o) {
+    const n = o.n ?? 60, [sx, sy, sz] = o.size || [4, 2, 2], dir = o.dir || [-0.8, -0.1, 0], r = rng(o.seed ?? 9), g = new THREE.Group(), gs = [];
+    for (let i = 0; i < n; i++) { const m = sphere(0.03 + r() * 0.035, i % 3 ? '#F2C230' : '#F6DD7A', 1); m.castShadow = false; const p = [(r() - 0.5) * sx, (r() - 0.5) * sy, (r() - 0.5) * sz]; g.add(m); gs.push([m, p, r() * TAU, 0.6 + r() * 0.8]); }
+    g.userData.update = t => gs.forEach(([m, p, ph, k]) => m.position.set(p[0] + dir[0] * t * k + 0.12 * Math.sin(t * 1.9 + ph), p[1] + dir[1] * t * k + 0.1 * Math.sin(t * 2.6 + ph * 1.7), p[2] + dir[2] * t * k));
+    g.userData.update(0); return g;
+  },
+
+  // the blast of a sneeze: white streaks and puffs that shoot along +Z from the origin between o.at and o.at + o.dur (o.len m long, o.spread wide)
+  sneezeBlast(o) {
+    const n = o.n ?? 26, len = o.len ?? 9, spread = o.spread ?? 1.4, at_ = o.at ?? 0, dur = o.dur ?? 0.4, r = rng(o.seed ?? 12), g = new THREE.Group(), ss = [];
+    for (let i = 0; i < n; i++) { const puff = i % 4 === 0, m = puff ? sphere(0.16 + r() * 0.2, '#FFFFFF', 1) : box(0.03 + r() * 0.03, 0.03 + r() * 0.03, 0.7 + r() * 1.3, '#FFFFFF'); m.material = m.material.clone(); m.material.transparent = true; m.castShadow = false; g.add(m); ss.push([m, (r() - 0.5) * spread, 1.55 + (r() - 0.5) * spread * 0.8, r() * 0.35, 0.7 + r() * 0.6, puff]); }
+    g.userData.update = t => ss.forEach(([m, x, y, d, k, puff]) => { const u = (t - at_ - d * dur) / (dur * 0.75), on = u > 0 && u < 1; m.visible = on; if (!on) return; const z = 0.4 + len * k * ease.out(u), w = 1 + 1.4 * u; m.position.set(x * w, y + (y - 1.55) * 0.8 * u, z); m.material.opacity = (puff ? 0.55 : 0.9) * (1 - u * u); if (puff) m.scale.setScalar(1 + 1.6 * u); });
+    g.userData.update(-1); return g;
+  },
+
+  // a wig that has left its head (a curly mop; origin at its base): it tumbles when moved by the story
+  wig(o) { const c = o.color || '#5A3A28', g = grp(at(box(0.3, 0.14, 0.24, c, { pivot: 'bottom', taper: { x: 0.9, z: 0.9 } }), 0, 0, 0)); const r = rng(5); for (let i = 0; i < 9; i++) g.add(at(sphere(0.05 + r() * 0.03, c, 1), (r() - 0.5) * 0.28, 0.08 + r() * 0.1, (r() - 0.5) * 0.22)); return g; },
+  // a sheet of newspaper carried by the wind: it flaps (two halves hinged), origin at the fold
+  flyingPaper(o) {
+    const half = s => { const m = canvasPlane(0.28, 0.4, (g, W, H) => { g.fillStyle = '#F4F1E8'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B1B1E'; g.fillRect(W * 0.08, H * 0.06, W * 0.84, H * 0.1); g.fillStyle = '#8A8A90'; for (let i = 0; i < 9; i++) g.fillRect(W * 0.08, H * (0.22 + i * 0.08), W * (0.84 - (i % 3) * 0.2), H * 0.03); }, { res: 256 }); m.position.x = s * 0.14; const k = new THREE.Group(); k.add(m); return k; };
+    const a = half(-1), b = half(1), g = grp(a, b); g.userData.update = t => { const f = 0.7 * Math.sin(t * 16); a.rotation.y = 0.5 + f; b.rotation.y = -0.5 - f; }; return g;
+  },
+};

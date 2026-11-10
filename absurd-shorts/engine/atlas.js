@@ -173,6 +173,20 @@ export function atlasTexture() {
   _tex = new THREE.Texture(atlasImage); _tex.colorSpace = THREE.SRGBColorSpace; _tex.anisotropy = 8; _tex.needsUpdate = true;
   return _tex;
 }
+// average colour of an atlas region as the lit material shows it (x 1.18): for parts built beside the painted ones (fingers)
+export function atlasRegionColor(r) {
+  if (!atlasImage) return null; const c = document.createElement('canvas'); c.width = c.height = 8; const g = c.getContext('2d'); g.drawImage(atlasImage, r[0], r[1], r[2] - r[0], r[3] - r[1], 0, 0, 8, 8);
+  const d = g.getImageData(0, 0, 8, 8).data; let R0 = 0, G0 = 0, B0 = 0; for (let i = 0; i < d.length; i += 4) { R0 += d[i]; G0 += d[i + 1]; B0 += d[i + 2]; }
+  const k = 1.18 / (d.length / 4), h = v => Math.max(0, Math.min(255, Math.round(v * k))).toString(16).padStart(2, '0'); return '#' + h(R0) + h(G0) + h(B0);
+}
+// the same atlas with the tie painted out: the jacket of an actor that wears a tie in volume (engine/cloth.js)
+export const atlasNoTieImage = atlasImage ? await new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = '/assets/lemec_atlas_notie.webp'; }) : null;
+let _matNT = null;
+export function atlasMaterialNoTie() {
+  if (!atlasNoTieImage) return null;
+  if (!_matNT) { const t = new THREE.Texture(atlasNoTieImage); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; t.needsUpdate = true; _matNT = new THREE.MeshLambertMaterial({ map: t, flatShading: true, color: new THREE.Color(1.18, 1.18, 1.18) }); }
+  return _matNT;
+}
 export function atlasMaterial() {
   if (!_mat) _mat = new THREE.MeshLambertMaterial({ map: atlasTexture(), flatShading: true, color: new THREE.Color(1.18, 1.18, 1.18) }); // painted navy is dark: lift it a bit under Lambert
   return _mat;

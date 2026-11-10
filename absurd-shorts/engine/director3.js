@@ -18,6 +18,8 @@ import { createLook } from './look.js';
 import { buildHuman } from './human.js';
 import { CLIPS, samplePose, actingBlend, blendPoses } from './animations.js';
 import { toonUpgrade, blendToon, addToon } from './toon.js';
+import { fingersUpgrade } from './fingers.js';
+import { clothUpgrade } from './cloth.js';
 import { hasFaceRig, faceState, blendFace, cloneFace } from './facerig.js';
 import { ease, clamp01, lerp, PALETTE as P } from './style.js';
 
@@ -72,6 +74,8 @@ function buildActor(c, id) {
   obj.name = id; obj.userData.castId = id;
   if (obj.userData.kind === 'human' && (c.toon ?? (S.script?.rig === 'toon'))) { toonUpgrade(obj); obj.userData.toonCfg = typeof c.toon === 'object' ? c.toon : {}; }   // cartoon rig (engine/toon.js): opt-in, old stories never take this path
   if (obj.userData.kind === 'human' && obj.userData.setFaceState && (c.faceRig ?? c.toon ?? (S.script?.rig === 'toon' || !!S.script?.faceRig))) obj.userData.faceRig = true;   // animated face layers
+  if (obj.userData.toon && (c.fingers ?? S.script?.fingers)) fingersUpgrade(obj);   // hands with fingers (engine/fingers.js): script `fingers: true` or per character
+  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj);         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
   // measured rig facts (rest pose, unit scale): leg length + hip height drive gait cadence and pivots
   obj.position.set(0, 0, 0); obj.rotation.set(0, 0, 0); obj.scale.setScalar(1); obj.updateMatrixWorld(true);
   const J = obj.userData.joints || {};
@@ -265,6 +269,7 @@ function prepActor(cfg, obj, sc, place) {
   // lint: walking on the spot / gliding
   A.clipKeys.forEach((k, i) => {
     if (LOCO[k.clip] && !k.move) warn(`[${sc.id}] ${A.id}: gait "${k.clip}" at ${k.at.toFixed(2)}s without a move (walking on the spot)`);
+    if (k.at < -1e5 && ONE_SHOT.has(k.clip)) warn(`[${sc.id}] ${A.id}: one-shot clip "${k.clip}" as the base clip: it is over before the shot starts; key it (k(0.0, clip=...))`);
   });
   for (const mv of A.moves) if (!mv.clip && !mv.glide && A.kind !== 'prop') warn(`[${sc.id}] ${A.id}: move at ${mv.t.toFixed(2)}s without gait (gliding)`);
   return A;
@@ -464,6 +469,7 @@ function writeSnap(A, a, b, w) {
   const mv = A.obj.userData.mover; if (mv && a.__mover && b.__mover) { const x = a.__mover, y = b.__mover; mv.rotation.set(lerp(x[0], y[0], w), lerp(x[1], y[1], w), lerp(x[2], y[2], w)); mv.position.set(lerp(x[3], y[3], w), lerp(x[4], y[4], w), lerp(x[5], y[5], w)); }
 }
 const BLEND = 0.24;
+const ONE_SHOT = new Set(['take', 'doubleTakeToon', 'scramble', 'hangAir', 'hangPhone', 'pancake', 'splat', 'paperThin', 'inflate', 'stretchGrab', 'periscope', 'hoseNeck', 'melt', 'meltDown', 'windUp', 'skidStop', 'teeter', 'stampPhone', 'stampDesk', 'cannonball', 'headStuck', 'sneezeUp', 'sneeze', 'spinTop', 'headHammer']);   // clips that play once from their start: never as an actor's base clip
 function effTime(id, t) {
   if (S.freezeAt == null || t <= S.freezeAt || S.freezeExcept.has(id)) return t;
   return t < S.freezeUntil ? S.freezeAt : t - (S.freezeUntil - S.freezeAt);
@@ -496,6 +502,7 @@ function evalActor(A, tIn) {
     if (pp) pose = kb != null ? blendPoses(pp, pose, ease.out(clamp01(dt / kb))) : actingBlend(pp, pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
     if (pp && ud.toon && (pc.root?.pivot || pp.root?.pivot)) pose.root.pivot = pc.root?.pivot || pp.root?.pivot;   // lying down / getting up turns about the hips all the way through the blend
     if (ud.toon) pose = toonOverlap(A, t, pose, BL);
+    if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
     if (ud.faceRig) ud.setFaceState(rigFace(A, t, env, tp, pos, ry, sc)); else ud.setExpression?.(expr, blink);
@@ -533,6 +540,19 @@ function evalActor(A, tIn) {
   }
   if (env != null && ud.joints?.head) ud.joints.head.rotation.x += 0.05 * env;
   return { pos, ry, sc };
+}
+// standing still, a cartoon actor shifts his weight from one leg to the other, by steps (not a slow sway: a shot lasts a second or two): the pelvis goes over the
+// supporting leg, the other knee gives, the shoulders tilt back the other way. Each actor has his own rhythm. Opt-in: script `idleShift: 1` or cast toon {shift: 1}
+function idleShift(A, t, pose, amt) {
+  const rt = pose.root || {}, k0 = amt === true ? 1 : +amt || 0; if (!k0 || Math.abs(rt.rx || 0) > 0.3 || Math.abs(rt.rz || 0) > 0.3 || Math.abs(rt.y || 0) > 0.15) return pose;   // lying, sitting, in the air: no
+  if (posAt(A, t - 0.25).distanceTo(posAt(A, t + 0.25)) > 0.02) return pose;   // on the move
+  const h = hash01((A.id ? [...A.id].reduce((a, c) => a + c.charCodeAt(0), 0) : 7) * 0.37 + A.phase), P = 1.4 + 1.2 * h, x = (t + 5 + h * 9) / P, i = Math.floor(x), u = (x - i) * P;
+  const val = j => (j % 2 ? 1 : -1) * (0.55 + 0.45 * hash01(j * 1.3 + h * 17)), s = (val(i - 1) + (val(i) - val(i - 1)) * ease.inOut(clamp01(u / 0.42))) * k0, a = Math.abs(s);
+  const out = { ...pose, root: { ...rt, x: (rt.x || 0) + 0.07 * s, rz: (rt.rz || 0) - 0.02 * s } }, add = (j, v) => { const r = pose[j] || ZERO; out[j] = [r[0] + v[0], r[1] + v[1], r[2] + v[2]]; };
+  add('hipL', [s < 0 ? -0.16 * a : 0, 0, -0.085 * s]); add('hipR', [s > 0 ? -0.16 * a : 0, 0, -0.085 * s]);   // both legs stay planted under the shifted pelvis; the free thigh comes forward
+  add(s > 0 ? 'kneeR' : 'kneeL', [0.3 * a, 0, 0]); add(s > 0 ? 'footR' : 'footL', [-0.14 * a, 0, 0]);          // its knee gives, the heel lifts
+  add('torso', [0, 0, 0.05 * s]); add('head', [0, 0, -0.03 * s]);
+  return out;
 }
 // ---- cartoon rig layers (engine/toon.js): only for actors built with `toon`
 // overlapping action: the far joints replay the pose a few frames late (forearms, hands, head), so gestures trail and settle
@@ -592,12 +612,25 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   extra.bend = bend;
   let all = addToon(tp, extra);
   if (keyed) all = addToon(all, keyed);
-  ud.toon.apply(all, t, sc); return all;
+  ud.toon.apply(all, t, sc);
+  if (ud.fingers) ud.fingers.set(all.hands);
+  if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
+    const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
+    A.obj.updateMatrixWorld(true); ud.cloth.apply([w.x - (b.x - a.x) / (2 * dd), w.y - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1);
+  }
+  return all;
+}
+// scene wind: fx {type: 'wind', at, dur, v: [x, y, z] (m/s, world), attack (0.06 s), release (0.25 s)}; gusts add up
+function windAt(t) {
+  const w = V(0, 0, 0);
+  for (const f of S.sc?.fx || []) if (f.type === 'wind') { const a = T(f.at ?? 0, S.sc), dur = f.dur ?? 0.4, at_ = f.attack ?? 0.06, rl = f.release ?? 0.25, u = t - a; if (u < 0 || u > dur + rl) continue;
+    const e = u < at_ ? u / at_ : u < dur ? 1 : 1 - (u - dur) / rl; w.x += f.v[0] * e; w.y += f.v[1] * e; w.z += f.v[2] * e; }
+  return w;
 }
 // ---- face rig: the expression as numbers, blended from the previous one (the brows lead, the mouth trails, a little overshoot), then
 // the life on top: a blink that closes and opens over a few frames, the eyes that move before the head, small darts of the pupils,
 // lip flaps that keep the expression, and whatever the clip asks for (toon.face.expr)
-const LOOK_LEAD = 0.07, FACE_DUR = 0.15;
+const LOOK_LEAD = 0.07, FACE_DUR = 0.15, CROSS_SIGN = 1;
 const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_FLAP = new Set(['shocked', 'surprised', 'scared', 'sleepy', 'dead', 'happy', 'laugh', 'cry', 'yawn', 'awe', 'take', 'takeSmall']);
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -636,6 +669,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     const jw = cf.jaw || 0;
     if (jw > 0.45) st.mouth = { ...st.mouth, spr: 'scream', w: 1, h: 0.5 + 0.5 * Math.min(1, jw), tilt: 0, dx: 0, dy: 0 }; else if (jw > 0.12 && !/scream|yawn|laugh|O/.test(st.mouth.spr)) st.mouth = { ...st.mouth, spr: 'O', w: 1, h: 0.8 + jw, tilt: 0, dx: 0, dy: 0 };
     if ((cf.pop || 0) > 0.08) for (const s of 'LR') { E[s] = { ...E[s], kind: 'dot', s: 2.2, open: 1 }; st.brows[s].dy -= 26 * cf.pop; }
+    if (cf.cross) { E.L.px = clamp(E.L.px + CROSS_SIGN * 0.95 * cf.cross, -1, 1); E.R.px = clamp(E.R.px - CROSS_SIGN * 0.95 * cf.cross, -1, 1); }   // cross-eyed (painted eyes)
   }
   return st;
 }

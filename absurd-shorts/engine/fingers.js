@@ -36,7 +36,7 @@ export function fingersUpgrade(obj) {
   for (const s of ['L', 'R']) {
     const h = J['hand' + s]; if (!h) continue; const sx = s === 'L' ? 1 : -1;
     const old = h.children.filter(c => c.isMesh && !c.userData.isAttachment); if (!old.length) continue;
-    const mat0 = [].concat(old[0].material)[0], skin = mat0?.color ? '#' + mat0.color.getHexString() : (ud.spec?.skin || '#E2B48A');
+    const skin = ud.spec?.gloves || ud.dims?.skinColor || ud.spec?.skin || '#E2B48A';   // the painted hero: the tone of his atlas skin
     for (const m of old) m.visible = false;
     const g = new THREE.Group(); g.name = 'fingers'; h.add(g);
     g.add(box(0.085, 0.072, 0.04, skin, { pivot: 'top' }));   // the palm

@@ -14,6 +14,7 @@
 //           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js) }
 import * as THREE from 'three';
+import { blendHands } from './fingers.js';
 
 export const sqv = s => { const k = 1 / Math.sqrt(Math.max(0.05, s)); return [k, s, k]; };   // volume-preserving squash (s < 1) / stretch (s > 1) along Y
 
@@ -137,6 +138,7 @@ function headOverlays(head, hm, dim, skin) {
       const out = 0.02 + pop * (f.popLen ?? 0.2), s = (f.eyeScale ?? 1) * (1 + 0.9 * Math.min(1, pop * 1.5)) * (1 + 0.04 * Math.sin(t * 31 + E.ph) * pop);
       const th = 1 + Math.min(2.2, Math.max(0, out - 0.3) * 1.3); E.stalk.scale.set(th, th, Math.max(0.001, out)); E.ball.position.z = out; E.ball.scale.setScalar(s); E.pupil.scale.setScalar(f.pupil ?? (1 - 0.45 * pop));   // th: a long stalk is a thick rubber hose (it must read from far)
       const eu = (f.euro || 0) > 0.5; E.sign.visible = eu; E.pupil.visible = !eu;
+      const cx = -Math.sign(E.e.position.x) * E.r * 0.5 * (f.cross || 0); E.pupil.position.x = cx; E.sign.position.x = cx;   // face.cross 0..1: the pupils go to the nose
       E.ball.rotation.set(0.05 * Math.sin(t * 23 + E.ph) * pop, 0.07 * Math.sin(t * 19 + E.ph) * pop, 0);
     }
     deform?.(Math.round(drop * 500) / 500);
@@ -187,6 +189,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   const ks = new Set([...Object.keys(a.bend || {}), ...Object.keys(b.bend || {})]);
   if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
+  if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
   const fa = a.face || {}, fb = b.face || {}, fk = new Set([...Object.keys(fa), ...Object.keys(fb)]);
   if (fk.size) { out.face = {}; for (const k of fk) { const dflt = (k === 'pupil' || k === 'eyeScale') ? 1 : 0; const keep = k === 'popLen' || k === 'jawLen' || k === 'tongueLen' || k === 'expr', x = fa[k] ?? (keep ? fb[k] : dflt), y = fb[k] ?? (keep ? fa[k] : dflt); out.face[k] = typeof x === 'number' && typeof y === 'number' ? L(x, y) : (w < 0.5 ? x : y); } }
@@ -200,6 +203,7 @@ export function addToon(a = {}, b = {}) {
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
+  if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.hat) { const x = a.hat || [0, 0, 0]; out.hat = [x[0] + b.hat[0], x[1] + b.hat[1], x[2] + b.hat[2]]; }
   return out;
 }

@@ -532,6 +532,56 @@ Object.assign(CLIPS, {
     return { ...CLIPS.squeezed(t, p), head: [-fw * 0.9, 0, -sw * 0.95], toon: { bend: { neck: [fw, sw, 0, len, p.fat ?? 0.5] }, sq: sqv(1 + (u > 0 ? 0.08 * wob(u - 0.12, 30, 7) : 0) - 0.07 * Math.exp(-t * 14)) } }; },
 });
 
+// ---- cycle 2 (story 38): a sneeze and what it does to people. Hand poses under toon.hands need the finger hands (script `fingers: true`)
+Object.assign(CLIPS, {
+  // the build-up of a sneeze: breaths in, each one bigger (the chest fills, the head goes back, he rises on his toes and off the ground), the index finger
+  // comes up under the nose. p.dur (0.9 s) for p.breaths (3), p.float (0.25 m)
+  sneezeUp: (t, p = {}) => {
+    const d = p.dur ?? 0.9, n = p.breaths ?? 3, st = d / n; let L = 0;
+    for (let i = 0; i < n; i++) { const u = t - i * st; if (u > 0) L += (eo(u / (st * 0.42)) - (i < n - 1 ? 0.22 * S(c01((u - st * 0.5) / (st * 0.5)) * PI) : 0)) / n; }
+    L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22);
+    return { ...arms(m([0.25 * L, 0, 0.3 + 0.75 * L], [-1.05 * up, 0, 0.28 * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-2.25 * up, 0, 0])), handR: [0, 0, -1.2 * up], head: [-0.6 * L + tr, 0, tr], torso: [-0.32 * L, 0, 0], neck: [-0.15 * L, 0, 0],
+      footL: [0.55 * L, 0, 0], footR: [0.55 * L, 0, 0], root: { y: (p.float ?? 0.25) * L * L + 0.03 * L },
+      toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.3 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
+        face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.5 * L } } };
+  },
+  // the sneeze itself: the body whips forward in two frames, holds bent and shaking (p.hold 0.3 s), then comes back up dazed. The recoil is a move of the story
+  sneeze: (t, p = {}) => { const w = eo(t / 0.06), hold = p.hold ?? 0.3, out = eio((t - 0.06 - hold) / 0.3), k = w * (1 - out), sh = k * S(t * 57) * 0.02;
+    return { ...arms(m([0.9 * k, 0, 0.55 * k + 0.2], [0.9 * k, 0, 0.55 * k + 0.2]), m([-0.3 * k - 0.08, 0, -0.3 * (1 - k)], [-0.3 * k - 0.08, 0, -0.3 * (1 - k)])), torso: [0.75 * k, 0, sh], head: [0.55 * k + sh, 0, 0], neck: [0.2 * k, 0, 0],
+      hipL: [-0.5 * k, 0, 0.08], hipR: [-0.5 * k, 0, -0.08], kneeL: [0.6 * k, 0, 0], kneeR: [0.6 * k, 0, 0], root: { y: 0.1 * k * (1 - c01(t / 0.25)), x: sh },
+      toon: { sq: [1 + 0.1 * k, 1 - 0.14 * k, 1 + 0.3 * k], bend: { spine: [0.75 * k, 0, 0, 1, null] }, hands: { L: 'spread', R: 'spread' }, ears: 0.8 * k, face: { expr: out > 0.5 ? (p.after ?? 'dizzy') : 'strain', exprW: 1, jaw: k, tongue: 0.5 * k } } }; },
+  // a small sniff (or two: p.n): the nose goes up, the chest takes a little air, the finger comes to the nose. Everybody around should react
+  sniff: (t, p = {}) => { const n = p.n ?? 2, st = 0.2, i = Math.min(n - 1, Math.floor(t / st)), u = c01((t - i * st) / st), k = t < n * st ? S(u * PI) : 0, up = eo(t / 0.15);
+    return { ...CLIPS.stand(), shoulderR: [-1.0 * up, 0, -0.26 * up - 0.2 * (1 - up)], elbowR: [-2.2 * up - 0.08 * (1 - up), 0, 0.3 * (1 - up)], handR: [0, 0, -1.2 * up], head: [-0.22 * k - 0.05 * up, 0, 0.04 * k], torso: [-0.08 * k, 0, 0],
+      toon: { sq: sqv(1 + 0.03 * k), bend: { spine: [-0.08 * k, 0, 0, 1, 1 + 0.22 * k] }, hands: { R: 'point' }, face: { expr: p.expr ?? 'strain', exprW: 0.5 + 0.5 * k, jaw: 0.15 * k } } }; },
+  // blown flat against a wall behind him like a poster (key it with blend=0.02 at the end of a fast glide to the wall): arms and legs spread, as thin as paper;
+  // from p.slideAt he peels off from the top and slides down, swaying. The actor's back is to the wall; p.high: how far off the ground he is stuck
+  poster: (t, p = {}) => { const hit = Math.exp(-t * 22) * Math.cos(t * 40), sl = Math.max(0, t - (p.slideAt ?? 0.5)), peel = eo(sl / 0.5);
+    return { ...arms(m([0, 0, 1.3 + 0.15 * hit], [0, 0, 1.3 - 0.15 * hit]), m([0, 0, 0.35], [0, 0, 0.35])), hipL: [0, 0, 0.42], hipR: [0, 0, -0.42], head: [0.35 * peel, 0, 0.12 * S(t * 2.3)], torso: [0.25 * peel, 0, 0],
+      root: { y: (p.high ?? 0.35) - (p.slide ?? 0.5) * sl, rz: 0.06 * S(t * 2.1) * (0.3 + peel) },
+      toon: { sq: [1.22 * (1 + 0.1 * hit), 1.06, (p.flat ?? 0.07) * (1 + 0.6 * hit)], bend: { spine: [0.3 * peel, 0, 0, 1, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'dizzy', exprW: 1, stars: p.stars ?? 0 } } }; },
+  // spun like a top by something held up at arm's length (an anemometer): the right arm up, the body turning faster and faster (p.turns [[t, turns/s], ...]),
+  // the spine and a leg twisted behind the turn; when the speed has fallen he staggers
+  spinTop: (t, p = {}) => { const keys = p.turns || [[0, 0], [0.3, 4], [0.9, 4], [1.2, 0]]; let a = 0, v = keys[0][1];
+    for (let i = 0; i < keys.length; i++) { const [t0, v0] = keys[i], nx = keys[i + 1]; if (t <= t0) break; const t1 = nx ? Math.min(t, nx[0]) : t, v1 = nx ? v0 + (nx[1] - v0) * (t1 - t0) / Math.max(1e-6, nx[0] - t0) : v0; a += (v0 + v1) / 2 * (t1 - t0); v = v1; }
+    const k = Math.min(1, Math.abs(v) / 3), end = keys[keys.length - 1][0], dz = t > end ? wob(t - end, 9, 1.6) : 0;
+    return { ...arms(m([0.2, 0, 0.9 * k + 0.2], [-0.1, 0, 2.5]), m([0, 0, 0.2 * k], [0, 0, 0.15])), head: [0.1 * dz, 0.5 * dz, 0.25 * dz - 0.15 * k], torso: [0, 0, 0.2 * dz], hipL: [0, 0, 0.1 + 0.25 * k], hipR: [0.3 * k, 0, -0.1], kneeR: [0.5 * k, 0, 0],
+      root: { ry: a * 2 * PI, x: 0.12 * dz, y: 0.06 * k },
+      toon: { sq: sqv(1 + 0.1 * k), bend: { spine: [0, 0.2 * dz, -0.9 * k, 1 + 0.06 * k, null], legL: [0, 0, -0.6 * k, 1, null], armL: [0, 0.4 * k, 0, 1 + 0.3 * k, null] }, hands: { R: 'grip', L: 'spread' },
+        face: { expr: k > 0.3 || t > end ? 'dizzy' : (p.expr ?? 'determined'), exprW: 1, jaw: 0.4 * k } } }; },
+  // hit on the top of the head by something heavy at p.at (a big stamp): the head is driven into the shoulders (no neck left, the head squashed, shoulders up),
+  // held four frames, then it springs out too far and wobbles; the eyes cross while it is in
+  headHammer: (t, p = {}) => { const u = t - (p.at ?? 0.3), inn = u < 0 ? 0 : u < 0.03 ? u / 0.03 : u < 0.17 ? 1 : 1 - back((u - 0.17) / 0.16, 3.2), w = u > 0.33 ? wob(u - 0.33, 28, 6) : 0, pos = Math.max(0, inn);
+    return { ...arms(m([0, 0, 0.2 + 0.35 * pos], [0, 0, 0.2 + 0.35 * pos]), m([-0.08, 0, -0.3], [-0.08, 0, -0.3])), head: [0.05 * w, 0, 0.1 * w],
+      toon: { sq: sqv(1 - 0.1 * pos + 0.05 * w), bend: { neck: [0, 0, 0, Math.max(0.12, 1 - 0.85 * inn + 0.4 * w), 1 + 0.6 * pos], spine: [0, 0, 0, 1 - 0.12 * pos, null] }, scl: { head: [1 + 0.3 * pos, 1 - 0.3 * pos, 1 + 0.2 * pos] },
+        hands: { L: 'spread', R: 'spread' }, face: { expr: inn > 0.3 ? 'dizzy' : (p.expr ?? 'unimpressed'), exprW: 1, cross: pos } } }; },
+  // leaning away from somebody who passes (p.side +1: away toward his own left, -1: toward his right): the body a C, one foot off the ground, hands up
+  leanAway: (t, p = {}) => { const sd = p.side ?? 1, k = p.k ?? back(t / 0.22, 2), br = 0.03 * S(t * 3 + (p.ph ?? 0)), L = sd > 0;
+    return { ...arms(m([-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 1 : 0.3)], [-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 0.3 : 1)]), m([-1.5 * k, 0, 0], [-1.5 * k, 0, 0])), head: [0, -0.55 * sd * k, 0.2 * sd * k], torso: [0, -0.2 * sd * k, 0],
+      hipL: [0, 0, L ? 0.5 * k : 0.05], hipR: [0, 0, L ? -0.05 : -0.5 * k], [L ? 'kneeL' : 'kneeR']: [0.7 * k, 0, 0], root: { x: 0.12 * sd * k, y: br * 0.2 },
+      toon: { bend: { spine: [0, -0.55 * sd * k + br, 0, 1.05, null], neck: [0, -0.2 * sd * k, 0, 1 + 0.5 * k, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: Math.min(1, k) } } }; },
+});
+
 export const CLIP_NAMES = Object.keys(CLIPS);
 
 const JOINTS = ['hips', 'torso', 'neck', 'head', 'shoulderL', 'elbowL', 'handL', 'shoulderR', 'elbowR', 'handR', 'hipL', 'kneeL', 'footL', 'hipR', 'kneeR', 'footR'];

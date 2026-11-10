@@ -1,8 +1,8 @@
 // What trails on a cartoon actor (cycle 2). Opt-in: script `cloth: true` or cast `{cloth: true}`; without it nothing here is built.
 //   - a tie in three segments: it hangs, swings forward on a stop, flies up in a fall, goes over the shoulder in a run or a head wind, flutters;
 //   - a shock of hair on the crown: flat at rest, it stands up and leans with the wind (a fall, a sprint, a sneeze in the face).
-// Both are driven by one vector, the apparent wind in the actor's own frame (x: to his left, y: up, z: forward), in m/s: the scene wind minus his own
-// velocity. The director computes it without state (finite differences of the actor's track, a few frames late), so any frame can be rendered alone.
+// Both are driven by one vector, the apparent wind in world space, in m/s: the scene wind (fx {type: 'wind'}) minus the actor's own velocity. The director
+// computes it without state (finite differences of the actor's track, a few frames late), so any frame can be rendered alone.
 import * as THREE from 'three';
 import { box } from './style.js';
 
@@ -30,15 +30,17 @@ export function clothUpgrade(obj) {
     const m = box(d.hw * 0.98, 0.05, d.hd * 0.98, d.hairColor, { pivot: 'bottom', taper: { x: 0.82, z: 0.7 } }); g.add(m); g.scale.y = 0.02;
     hair = { g };
   }
+  const F = new THREE.Vector3(), q = new THREE.Quaternion();
   ud.cloth = {
-    // w: apparent wind in the actor's frame (m/s); t: time (flutter); k: dose 0..1
-    apply(w = [0, 0, 0], t = 0, k = 1) {
-      const [wx, wy, wz] = w, sp = Math.hypot(wx, wy, wz), fl = Math.min(1, sp / 7);
+    // aw: apparent wind in world space, m/s (the scene wind minus the actor's own velocity); t: time (flutter); k: dose 0..1.
+    // Gravity and wind are brought into the frame of the chest (the tie) and of the head (the hair), so lying down or upside down works too
+    apply(aw = [0, 0, 0], t = 0, k = 1) {
+      const sp = Math.hypot(aw[0], aw[1], aw[2]), fl = Math.min(1, sp / 7);
       if (tie) {
-        const Fy = -G0 + wy, Fz = wz, Fx = wx;
-        let rx = Math.atan2(Fz, -Fy), rz = Math.atan2(Fx, Math.hypot(Fy, Fz)) * 0.8, over = 0;   // rx > 0: the tie swings forward (away from the chest), pi: straight up
-        if (rx < 0) {   // blown against the chest: it lies flat, then climbs over a shoulder
-          const a = -rx; over = sm(a, 0.3, 1.2); rx = -0.06 * Math.min(1, a / 0.3) * (1 - over) + 3.5 * over; rz += tie.side * 0.75 * over;   // up in front, then back over the shoulder (never through the chest)
+        J.torso.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - G0, aw[2]).applyQuaternion(q);
+        let rx = Math.atan2(F.z, -F.y), rz = Math.atan2(F.x, Math.hypot(F.y, F.z)) * 0.8, over = 0;   // rx > 0: the tie swings forward (away from the chest), pi: straight up
+        if (rx < 0) {   // blown against the chest: it lies flat, then goes up in front and back over a shoulder (never through the chest)
+          const a = -rx; over = sm(a, 0.3, 1.2); rx = -0.06 * Math.min(1, a / 0.3) * (1 - over) + 3.5 * over; rz += tie.side * 0.75 * over;
         }
         const f1 = 0.1 * fl * Math.sin(t * 17 + 1), f2 = 0.3 * fl * Math.sin(t * 23 + 2.2), f3 = 0.5 * fl * Math.sin(t * 29 + 0.7);
         tie.segs[0].rotation.set(-(rx * 0.72 + f1) * k, 0, (rz * 0.6 + 0.3 * f1) * k);
@@ -46,9 +48,10 @@ export function clothUpgrade(obj) {
         tie.segs[2].rotation.set(-(rx * 0.08 + f3) * k, 0, (rz * 0.1 + 0.5 * f3) * k);
       }
       if (hair) {
-        const up = Math.max(0, wy), lift = Math.min(1, (Math.hypot(wx, wz) * 0.6 + up) / 9) * k;
-        hair.g.scale.y = 0.02 + 5.2 * lift * (1 + 0.12 * Math.sin(t * 31)); const h = Math.hypot(wx, wz) || 1e-6, lean = Math.min(1.1, Math.hypot(wx, wz) / (4 + up)) * k;
-        hair.g.rotation.set(lean * wz / h * 1.0 + 0.1 * lift * Math.sin(t * 27), 0, -lean * wx / h * 1.0);
+        J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs
+        const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.min(1, (h * 0.55 + up * 1.1) / 8) * k, lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
+        hair.g.scale.y = 0.02 + 5.2 * lift * (1 + 0.12 * Math.sin(t * 31));
+        hair.g.rotation.set(lean * F.z / hh + 0.1 * lift * Math.sin(t * 27), 0, -lean * F.x / hh);
       }
     },
   };

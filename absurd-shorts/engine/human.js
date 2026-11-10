@@ -9,7 +9,7 @@
 import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, addOutline, rng } from './style.js';
 import { faceTexture, sideTexture } from './face.js';
-import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces, variantFaceTexture, hasFaceSet } from './atlas.js';
+import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasMaterialNoTie, atlasRegionColor, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces, variantFaceTexture, hasFaceSet } from './atlas.js';
 import { hasFaceRig, makeFaceRig } from './facerig.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
@@ -183,7 +183,8 @@ export function buildHuman(spec = {}) {
   } else {
     const chest = box(0.2, 0.2, 0.01, C.shirt); chest.position.set(0, torsoH * 0.82, front); torso.add(chest);
   }
-  if (C.tie && !ATLB && !o.naked) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); }
+  let flatTie = null;
+  if (C.tie && !ATLB && !o.naked) { const tie = box(0.042, torsoH * 0.62, 0.012, C.tie, { taper: { x: 1.45, z: 1 }, taperAxis: 'y' }); tie.rotation.z = Math.PI; tie.position.set(0, torsoH * 0.66, front + 0.014); torso.add(tie); flatTie = tie; }
   if (o.bib && !o.naked) for (const sd of [1, -1]) { const c = document.createElement('canvas'); c.width = 128; c.height = 96; const x = c.getContext('2d'); x.fillStyle = '#FFFFFF'; x.fillRect(0, 0, 128, 96);   // race number, front and back
     x.fillStyle = '#1C1C20'; x.font = '900 64px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(o.bib), 64, 52); const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
     const b = new THREE.Mesh(new THREE.PlaneGeometry(0.17, 0.13), new THREE.MeshLambertMaterial({ map: tx })); b.position.set(0, torsoH * 0.5, sd * (front + 0.016)); if (sd < 0) b.rotation.y = Math.PI; torso.add(b); }
@@ -289,6 +290,10 @@ for (let i = 0; i < pp.count; i++) {
   }
 
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.1 + hh };
+  // for the cloth layer of the cartoon rig (engine/cloth.js): where a tie hangs and what it replaces, the crown of the head
+  const hasTie = !!C.tie && !o.naked && ['suit', 'waiter', 'cop'].includes(o.outfit) && (ATLB || !!flatTie);
+  root.userData.dims = { torsoH, front, hw, hh, hd, skinColor: ATL ? (atlasRegionColor(AR.skinCap) || o.skin) : o.skin, tieColor: hasTie ? C.tie : null, tieX: ATLB ? -0.014 : 0, hairColor: o.hair === 'bald' || o.hat && o.hat !== 'none' ? null : (ATL ? '#17161A' : o.hairColor) };
+  root.userData.hideFlatTie = () => { if (ATLB) { const m = atlasMaterialNoTie(); if (m) jacket.material = m; return !!m; } if (flatTie) flatTie.visible = false; return true; };
   root.userData.setExpression = (expr, blink = false) => {
     const m = headMesh.material[4];
     const tex = ATL ? atlasFaceTexture(expr, blink) : HEROFACE ? variantFaceTexture(expr, faceOpts, blink) : faceTexture({ ...faceOpts, expression: blink ? 'blink' : expr });
