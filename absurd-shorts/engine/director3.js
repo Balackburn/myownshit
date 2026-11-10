@@ -598,11 +598,15 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     bend.spine[0] = clamp(-af * 0.022, -0.5, 0.5) * auto; bend.spine[1] = clamp(as * 0.022, -0.4, 0.4) * auto;
     // limbs drag behind a fast swing (the upper part arcs against the joint's turn, the lower part a little more): rubber-hose arcs
     const dk = 0.026 * auto * (cfg.drag ?? 1);
-    if (dk) { const pa = toonPoseAt(A, t - d, BL), pb = toonPoseAt(A, t + d, BL), w = (j, i) => ((pb[j]?.[i] || 0) - (pa[j]?.[i] || 0)) / (2 * d);
+    if (dk) { const pa = toonPoseAt(A, t - d, BL), pb = toonPoseAt(A, t + d, BL), ls = (cfg.limbSmear ?? S.script?.limbSmear ?? 0) * auto, w = (j, i) => ((pb[j]?.[i] || 0) - (pa[j]?.[i] || 0)) / (2 * d);
       for (const sd of ['L', 'R']) {
         const sx = w('shoulder' + sd, 0), sz = w('shoulder' + sd, 2), ex = w('elbow' + sd, 0), hx = w('hip' + sd, 0), kx = w('knee' + sd, 0);
         bend['arm' + sd] = [clamp(-sx * dk, -0.45, 0.45), clamp(-sz * dk, -0.45, 0.45), 0, 1, null]; bend['fore' + sd] = [clamp(-(sx + ex) * dk * 1.3, -0.6, 0.6), clamp(-sz * dk * 1.3, -0.6, 0.6), 0, 1, null];
         bend['leg' + sd] = [clamp(-hx * dk * 0.7, -0.3, 0.3), 0, 0, 1, null]; bend['shin' + sd] = [clamp(-(hx + kx) * dk * 0.8, -0.4, 0.4), 0, 0, 1, null];
+        // a limb that swings very fast is drawn as a smear: its far half stretches and thins along the swing (opt-in: script `limbSmear: 1` or cast toon {limbSmear: 1})
+        if (ls) { const ka = clamp((Math.hypot(sx + ex, sz) - 9) * 0.035, 0, 0.6) * ls, kl = clamp((Math.abs(hx + kx) - 9) * 0.03, 0, 0.5) * ls;
+          if (ka > 0.02) { bend['fore' + sd][3] = 1 + ka; bend['arm' + sd][3] = 1 + 0.35 * ka; }
+          if (kl > 0.02) { bend['shin' + sd][3] = 1 + kl; bend['leg' + sd][3] = 1 + 0.3 * kl; } }
       } }
     // a very fast travel smears the body along its path (a blur drawn as a stretch)
     const vx = (p2.x - p0.x) / (6 * d), vz = (p2.z - p0.z) / (6 * d), sp = Math.hypot(vx, vz), sm = clamp((sp - 5.5) * 0.07, 0, 0.7) * auto * (cfg.smear ?? 1);

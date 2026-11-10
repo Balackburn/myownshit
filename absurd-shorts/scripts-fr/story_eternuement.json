@@ -6062,5 +6062,6 @@
  "rig": "toon",
  "fingers": true,
  "cloth": true,
- "idleShift": 1
+ "idleShift": 1,
+ "limbSmear": 1
 }

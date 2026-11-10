@@ -109,6 +109,9 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
   `sneezeUp` (`ik`, `back`, the inhale's `wind`); `sniff` (`ik`).
 - A part of the rig must be applied once per frame (it turns its child joints each time): with a guided hand the spine and the neck are bent first, then
   the solver runs, then the limbs.
+- **Limb smears** (opt-in: `st.write(..., limbSmear=1)` or cast toon `{limbSmear: 1}`): an arm or a leg whose joints turn faster than about 9 rad/s is drawn
+  as a smear: its far half stretches (up to x1.6 for an arm, x1.5 for a leg) and thins, on top of the drag arcs. Legs that spin on the spot (`scramble`),
+  arms that windmill (`teeter`), a top that spins become rubber for the frames where they move fastest. It does nothing to a guided hand.
 
 ## Clips
 

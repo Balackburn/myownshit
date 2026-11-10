@@ -314,7 +314,7 @@ for i in range(4): st.cue('sfx:stretch', 'S19', 0.35 + 0.55 * i, 0.3 + 0.04 * i)
 
 st.card('S09', 'JOSIANE')
 CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {'width': 0.86, 'headWidth': 1.3, **kw.pop('build', {})}, **kw}
-st.write("L'éternuement", rig='toon', fingers=True, cloth=True, idleShift=1, extra_cast={
+st.write("L'éternuement", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, extra_cast={
     'p1': CITIZEN('femme', 31, glasses=False, hair='long', hairColor='#5A3A28'), 'p2': CITIZEN('serveur', 33, glasses=False), 'p3': CITIZEN('mamie', 35, suit='#D98A3C'),
     'meteo': CITIZEN('journaliste', 37, suit='#3E6E8C'), 'chef': CITIZEN('prefet', 39, build={'belly': 0.1}),
     'assureur': CITIZEN('boss', 41, suit='#6A5A4A', glasses=True), 'inge': CITIZEN('worker', 43, glasses=False, skin='#8A5A3C', faceRim=True)})

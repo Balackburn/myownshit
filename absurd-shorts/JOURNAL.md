@@ -385,6 +385,8 @@ Outils du moteur ajoutés pour cette passe : canaux `reach` / `touch` (main guid
   (`['face', travers, hauteur, mètres devant]`) : le doigt reste sous le nez quand la tête part en arrière et que le torse gonfle.
 - Canal `wind` : un vent propre au personnage sur la cravate et les cheveux (l'inspiration les aspire).
 - Cheveux dressés en cinq mèches.
+- **Traînée des membres rapides** (`limbSmear`, au choix) : au-delà de 9 rad/s environ aux articulations, la moitié éloignée du membre s'étire (bras
+  jusqu'à ×1,6, jambe ×1,5) et s'affine, en plus des arcs de retard : jambes en moulinet, bras en hélice, toupie. Sans effet sur une main guidée.
 - Corrections : une pièce du rig appliquée deux fois doublait la rotation des articulations filles ; l'échelle de la tête est posée avant le calcul
   des mains ; la solution à deux os est exacte (plus d'itérations).
 - Vérification des anciennes histoires après chaque lot : 0,50 %, 0,50 % puis 0,55 % de pixels changés au pire (bruit habituel : 0,54 %).
