@@ -149,6 +149,73 @@ st.shot('S09', 'livingRoom', setOpts=LIV, actors=[act('mec', H7, RH, 'stand', 'u
         fx=[{'type': 'shake', 'at': SL9, 'dur': 0.14, 'amount': 0.02}],
         cams=[cam(0.0, [0.05, 1.98, 2.4], [0.08, 1.98, 2.25], [0.05, 1.95, -0.35], [0.05, 1.95, -0.35], lens=44)])
 
+# ---- every evening at ten: his balcony above Paris
+B10 = [0.2, 0, -0.15]                                # where he stands on the balcony, facing us, the city behind him
+NIGHT = {'stars': 300}
+BALC = lambda: P('balc', 'balcony', pos=[0, 0, 0], opts={'w': 3.4, 'd': 1.3})
+CAPN = lambda: P('cap', 'nightCap', pos=[0, 0, 0], on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.5, 0.0]})
+CITY10 = lambda keys, **kw: P('city', 'cityNight', pos=[0, 0, -0.7], opts={'keys': keys, 'drop': 5, 'towerX': 3.6, 'towerH': 44, 'eyes': 0, **kw})
+CLOCK = lambda at_=None: P('clock', 'ledClock', pos=[-2.3, 2.9, -16.5], opts={'w': 4.4, 'from': '21:59', 'to': '22:00', 'at': at_} if at_ is not None else {'w': 4.4, 'from': '22:00'})
+
+# 10: 21:59 on the big clock across the street; it turns to 22:00: he yawns, arms up as far as they go
+F10 = 0.3                                           # the clock turns
+YAWN = lambda kk, **kw: {'bend': {'armL': [0, 0, 0, 1 + 0.5 * kk, None], 'foreL': [0, 0, 0, 1 + 0.5 * kk, None], 'armR': [0, 0, 0, 1 + 0.5 * kk, None], 'foreR': [0, 0, 0, 1 + 0.5 * kk, None], 'spine': [-0.12 * kk, 0, 0, 1 + 0.12 * kk, None]},
+                         'sq': [1 - 0.05 * kk, 1 + 0.1 * kk, 1 - 0.05 * kk], 'face': {'jaw': 0.55 * kk, 'mouth': 'yawn', 'lid': kk, 'brow': 0.6 * kk}, **kw}
+st.shot('S10', 'spaceDark', setOpts=NIGHT, lighting='night', actors=[act('mec', B10, 4, 'stand', 'sleepy', keys=[k(0.0, look=None), k(0.06, toon={'face': {'gx': -0.9, 'gy': -0.5}}, toonDur=0.08),   # his eyes on the clock
+            k(F10 + 0.08, clip='yawnStretch', blend=0.22), k(F10 + 0.08, toon=YAWN(0.3), toonDur=0.1), k(F10 + 0.3, toon=YAWN(1.0, wave={**RIP('L', 0.05, 0.4, 1), **RIP('R', 0.05, 0.9, 1)}), toonDur=0.22, toonEase='out'),
+            k(F10 + 0.55, toon=YAWN(1.0, wave={**RIP('L', 0.04, 1.2, 1), **RIP('R', 0.04, 1.7, 1)}), toonDur=0.25), k(F10 + 0.72, clip='stand', blend=0.14), k(F10 + 0.72, toon={'sq': [1.04, 0.95, 1.04]}, toonDur=0.12, toonEase='outBack')])],
+        props=[BALC(), CAPN(), CITY10([], sparkle=[F10, 99]), CLOCK(F10)],
+        cams=[cam(0.0, [0.3, 1.9, 2.9], [0.3, 1.9, 2.75], [0.0, 1.85, -0.3], [0.0, 1.85, -0.3], lens=44)])
+
+# 11: he takes the end of his own tie and pulls: click; the black runs out over Paris behind him; the tower stands alone, then pops; his eyes shut
+P11 = 0.6
+TIE11 = lambda L: tie_tip(B10, 4, L, 0.15)
+SELF = lambda L, **kw: {'hands': {'R': 'grip'}, 'reach': {'R': [*TIE11(L), 1, 0.05, [-0.7, -0.4, 0.4]]}, 'tie': [L, 0.15, 0], **kw}
+st.shot('S11', 'spaceDark', setOpts=NIGHT, lighting='night', actors=[act('mec', B10, 4, 'stand', 'sleepy', keys=[k(0.0, look=None), k(0.12, toon=SELF(1.0), toonDur=0.16, toonEase='out'),   # the hand finds the tie without a look
+            k(P11 - 0.06, toon=SELF(1.7, bend={'spine': [0.25, 0, 0, 1, None], 'neck': [0.25, 0, 0, 0.8, None]}, sq=[1.05, 0.93, 1.05]), toonDur=0.06, toonEase='in'),
+            k(P11 + 0.07, toon=SELF(0.85, bend={'neck': [-0.1, 0, 0, 1.25, None]}, sq=[0.96, 1.07, 0.96]), toonDur=0.07, toonEase='out'), k(P11 + 0.17, toon=SELF(1.05), toonDur=0.1), k(P11 + 0.26, toon=SELF(1.0), toonDur=0.08),
+            k(P11 + 0.4, toon={'face': {'gx': 0.8}}, toonDur=0.1), k(P11 + 0.62, expr='happy'), k(P11 + 0.62, toon={}, toonDur=0.1),   # in the black: a look over his shoulder; content
+            k(P11 + 0.88, toon={'face': {'lid': 1}}, toonDur=0.1)])],   # the tower has gone out: good night
+        props=[BALC(), CAPN(), P('city', 'cityNight', pos=[0, 0, -0.7], inDark=True, opts={'keys': [[P11 + 0.02, 0, 0.5]], 'drop': 5, 'towerX': 3.6, 'towerH': 44, 'eyes': 0, 'towerLag': 0.26, 'sparkle': [0, 99]}), CLOCK()],
+        dark=[[P11 + 0.02, 1]], darkFloor=0.03,
+        cams=[cam(0.0, [0.95, 1.95, 4.7], [0.9, 1.95, 4.5], [0.2, 1.6, -3.0], [0.2, 1.6, -3.0], lens=44)])
+
+# ---- in the dark street
+FAC = {'clear': [-30, 30], 'eiffel': False}          # the pavement in front of a shop front: the camera looks at the wall, no sky in the frame
+CAMB = [6.3, 1.6, -0.5]
+MASK = lambda a: P('mask_' + a, 'bandMask', pos=[0, 0, 0], on={'actor': a, 'joint': 'head', 'offset': [0.0, 0.25, 0.092]})
+# 12: the burglars: two pairs of eyes tiptoe across the black; a match: two men in stripes and masks with a television, caught; they grin at us, a thumb up;
+#     the match is blown out: two grins stay
+M12, O12 = 0.55, 1.2                                # the match takes; it is blown out
+B1a, B1b, B2a, B2b = [8.9, 0, -1.35], [8.9, 0, -0.2], [9.35, 0, -2.0], [9.35, 0, -0.85]
+st.shot('S12', 'parisStreet', setOpts=FAC, lighting='night', actors=[
+        act('b1', B1a, -45, 'tiptoe', 'sneaky', keys=[k(0.0, look=None), k(0.0, to=B1b, dur=M12 - 0.05, clip='tiptoe', ease='linear', face=-45),
+            k(M12 - 0.1, toon={'hands': {'R': 'pinch'}, 'reach': {'R': [8.62, 2.0, -0.05, 1, 0.06]}}, toonDur=0.1), k(M12, clip='stand', blend=0.03, look=CAMB, expr='takeSmall'), k(M12, toon={'hands': {'R': 'pinch'}, 'reach': {'R': [8.62, 2.0, -0.05, 1, 0.06]}, 'sq': [0.94, 1.08, 0.94], 'face': {'eye': 0.3}}, toonDur=0.05),   # caught
+            k(M12 + 0.2, expr='happy'), k(M12 + 0.2, toon={'hands': {'R': 'pinch', 'L': 'thumbUp'}, 'reach': {'R': [8.62, 2.0, -0.05, 1, 0.06], 'L': [8.55, 1.5, 0.25, 1, 0.08]}, 'face': {'mouth': 'teeth', 'mouthW': 0.25, 'browL': 0.6}}, toonDur=0.1, toonEase='outBack'),   # he loves him: a grin, a thumb up
+            k(O12 - 0.1, toon={'hands': {'R': 'pinch', 'L': 'thumbUp'}, 'reach': {'R': [8.66, 1.95, -0.02, 1, 0.06], 'L': [8.55, 1.5, 0.25, 1, 0.08]}, 'face': {'puff': 1, 'mouth': 'o'}}, toonDur=0.08), k(O12 + 0.04, toon={'face': {'mouth': 'teeth', 'mouthW': 0.25}}, toonDur=0.05)]),   # he blows it out; the grin stays
+        act('b2', B2a, -45, 'tiptoe', 'sneaky', keys=[k(0.0, look=None), k(0.0, to=B2b, dur=M12 - 0.02, clip='tiptoe', ease='linear', face=-45), k(M12 + 0.03, clip='carry', blend=0.03, look=CAMB, expr='takeSmall'),
+            k(M12 + 0.03, toon={'sq': [0.95, 1.07, 0.95], 'bend': {'neck': [0, 0, 0, 1.3, None]}, 'face': {'eye': 0.3}}, toonDur=0.05), k(M12 + 0.26, expr='happy'), k(M12 + 0.26, toon={'face': {'mouth': 'teeth', 'mouthW': 0.25, 'lidR': 1}}, toonDur=0.1, toonEase='outBack')])],   # a grin and a wink
+        props=[MASK('b1'), MASK('b2'), P('tv', 'tv', pos=[0, 0, 0], scale=1.15, on={'actor': 'b2', 'joint': 'torso', 'offset': [0.0, 0.2, 0.42]}),
+               P('sack', 'moneySack', pos=[0, 0, 0], scale=0.9, on={'actor': 'b1', 'joint': 'torso', 'offset': [0.0, 0.18, -0.34]}),
+               P('match', 'matchStick', pos=[0, 0, 0], inDark=True, on={'actor': 'b1', 'hand': 'R', 'offset': [0.0, -0.1, 0.02], 'rot': [3.1416, 0, 0]}, opts={'litAt': M12, 'outAt': O12}, keys=[k(0.0, visible=False), k(M12 - 0.08, visible=True)])],
+        dark=[[0, 1, 0.001], [M12, 0.3, 0.06], [O12, 1, 0.04]], darkFloor=0.035, darkEyes=1.4,
+        cams=[cam(0.0, CAMB, [6.4, 1.6, -0.45], [9.1, 1.6, -0.5], [9.1, 1.6, -0.5], lens=44)])
+
+# 13: the lovers: two pairs of eyes on a bench turn to each other, turn to hearts, come together, shut; a third pair opens between them, looks left,
+#     looks right, and goes down slowly
+LA, LB, TH13 = [9.2, 0, -0.34], [9.2, 0, 0.34], [9.72, 0, 0.0]
+KISS = 0.62
+LEAN = lambda sd, kk, **kw: {'bend': {'spine': [0, 0, sd * 0.22 * kk, 1, None], 'neck': [0, 0, sd * 0.25 * kk, 1 + 0.5 * kk, None]}, **kw}
+st.shot('S13', 'parisStreet', setOpts=FAC, lighting='night', actors=[
+        act('la', LA, -70, 'sit', 'happy', keys=[k(0.0, look='lb'), k(0.2, expr='love'), k(0.3, toon=LEAN(-1, 1.0), toonDur=0.3, toonEase='inOut'), k(KISS, toon=LEAN(-1, 1.0, face={'lid': 1}), toonDur=0.04), k(KISS + 0.2, toon=LEAN(-1, 0.8, face={'lid': 1}), toonDur=0.2)]),
+        act('lb', LB, -110, 'sit', 'happy', keys=[k(0.0, look='la'), k(0.24, expr='love'), k(0.3, toon=LEAN(1, 1.0), toonDur=0.3, toonEase='inOut'), k(KISS, toon=LEAN(1, 1.0, face={'lid': 1}), toonDur=0.04), k(KISS + 0.2, toon=LEAN(1, 0.8, face={'lid': 1}), toonDur=0.2)]),
+        act('b1', TH13, -90, 'stand', 'scared', keys=[k(0.0, look=None), k(0.0, toon={'face': {'lid': 1}}, toonDur=0.0), k(KISS + 0.1, toon={'face': {'eye': 0.5}, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.05, toonEase='outBack'),   # the third pair opens, between them
+            k(KISS + 0.22, toon={'face': {'eye': 0.5, 'gx': -1}}, toonDur=0.06), k(KISS + 0.34, toon={'face': {'eye': 0.5, 'gx': 1}}, toonDur=0.07), k(KISS + 0.42, toon={'face': {'eye': 0.5}}, toonDur=0.05),
+            k(KISS + 0.42, to=[TH13[0], -0.9, TH13[2]], dur=0.3, ease='in', face='keep')])],   # and goes down
+        props=[P('bench', 'bench', pos=[9.35, 0, 0.0], ry=-90, opts={'w': 1.5}), P('pop', 'heartPop', pos=[8.95, 2.05, 0.0], ry=-90, inDark=True, opts={'at': KISS, 'size': 0.2})],
+        dark=[[0, 1, 0.001]], darkFloor=0.035, darkEyes=1.4,
+        cams=[cam(0.0, [6.5, 1.55, 0.0], [6.6, 1.55, 0.0], [9.2, 1.6, 0.0], [9.2, 1.6, 0.0], lens=44)])
+
 st.cue('sfx:stretch', 'S01', B1, 0.35); st.cue('sfx:click', 'S01', K1, 0.6); st.cue('sfx:slideDown', 'S01', K1 + 0.03, 0.3)
 st.cue('sfx:stepSoft', 'S02', 0.08, 0.3); st.cue('sfx:stepSoft', 'S02', 0.3, 0.3); st.cue('sfx:bonk', 'S02', G2, 0.6); st.cue('sfx:squeak', 'S02', G2 + 0.16, 0.35)
 st.cue('sfx:slideDown', 'S03', 0.15, 0.4); st.cue('pop', 'S03', 0.15 + 0.45 + 0.22, 0.5)
@@ -158,8 +225,15 @@ st.cue('sfx:stepRun', 'S06', 0.0, 0.4); st.cue('sfx:brake', 'S06', 0.3, 0.3)
 st.cue('sfx:clink', 'S07', CL7, 0.5); st.cue('sfx:static', 'S07', ND7, 0.45); st.cue('sfx:boing', 'S07', ND7 + 0.06, 0.3); st.cue('sfx:poof', 'S07', ND7 + 0.28, 0.3)
 st.cue('sfx:twang', 'S08', P8a - 0.05, 0.4); st.cue('sfx:click', 'S08', P8a, 0.6); st.cue('sfx:twang', 'S08', P8b - 0.05, 0.4); st.cue('sfx:click', 'S08', P8b, 0.6)
 st.cue('whoosh', 'S09', SL9 - 0.08, 0.3, 0.1, 700, 2600); st.cue('clack', 'S09', SL9, 0.6); st.cue('sfx:boing', 'S09', SL9 + 0.1, 0.3)
+st.cue('sfx:ding', 'S10', F10, 0.45); st.cue('sfx:stretch', 'S10', F10 + 0.1, 0.3)
+st.cue('sfx:twang', 'S11', P11 - 0.05, 0.4); st.cue('sfx:click', 'S11', P11, 0.6); st.cue('sfx:slideDown', 'S11', P11 + 0.03, 0.4); st.cue('pop', 'S11', P11 + 0.02 + 0.5 + 0.26, 0.5)
+st.cue('sfx:stepSoft', 'S12', 0.05, 0.25); st.cue('sfx:stepSoft', 'S12', 0.3, 0.25); st.cue('sfx:tick', 'S12', M12 - 0.04, 0.5); st.cue('sfx:gasp', 'S12', M12 + 0.03, 0.3); st.cue('sfx:ding', 'S12', M12 + 0.24, 0.3); st.cue('sfx:poof', 'S12', O12 - 0.02, 0.3)
+st.cue('pop', 'S13', KISS, 0.45); st.cue('sfx:gulp', 'S13', KISS + 0.12, 0.4); st.cue('sfx:slideDownSlow', 'S13', KISS + 0.42, 0.3)
 
 CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {'width': 0.86, 'headWidth': 1.3, **kw.pop('build', {})}, **kw}
 st.write("L'interrupteur", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, extra_cast={
     'maire': {'preset': 'politique', 'sash': ['#2A4B9B', '#F4F1E8', '#C8202A'], 'sashW': 0.12, 'hair': 'combover', 'hairColor': '#B8B4AA', 'facial': 'mustache', 'beardColor': '#B8B4AA', 'glasses': False, 'seed': 13, 'skin': '#E6BE98', 'build': {'width': 0.96, 'headWidth': 1.3}},
-    'elec': CITIZEN('worker', 83, glasses=False, suit='#3A6EA5', facial='mustache')})
+    'elec': CITIZEN('worker', 83, glasses=False, suit='#3A6EA5', facial='mustache'),
+    'b1': CITIZEN('pyjama', 85, suit='#1D1D22', pants='#1D1D22', hat='beanie', facial='stubble', build={'height': 0.88, 'width': 1.0}),
+    'b2': CITIZEN('pyjama', 87, suit='#1D1D22', pants='#1D1D22', hat='beanie', facial='mustache', build={'height': 1.08, 'width': 0.8}),
+    'la': CITIZEN('femme', 89, suit='#B5486A'), 'lb': CITIZEN('lyceen', 91, suit='#3F7A5A', build={'height': 1.0})})

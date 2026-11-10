@@ -126,6 +126,36 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
   with a small overshoot (a plate slammed on a wall `[1.1, 0.82, 1]`, a cap that lands on a head `[1.35, 0.5, 1.35]`). It works on free and attached props
   and multiplies the `scale` keys.
 
+## Added in cycle 4 (a face keyed feature by feature, ripples, the tie, shots in the dark)
+
+- **`face`, one feature at a time, one side at a time.** Every value is an offset from the expression in place (0 = unchanged), so a key bends a named
+  expression instead of replacing it: `brow` / `browL` / `browR` (1 = up to the hairline, -1 = down on the eye), `browTilt` / `browTiltL` / `browTiltR`
+  (degrees, > 0 lifts the inner end), `lidL` / `lidR` (0..1: a wink, a heavy eye), `low` / `lowL` / `lowR` (0..0.5: the lower lid, a squint),
+  `eye` / `eyeL` / `eyeR` (0.4 = 40 % bigger: one eye bigger than the other is a look of suspicion), `mouth: 'name'` (a mouth of the face set: O, o, open,
+  scream, teeth, grimace, clench, kiss, pout, whistle, smirk, wavy, zigzag, tongueout, evil, sob, yawn...), `mouthW` / `mouthH` (0.5 = half as wide / tall
+  again), `mouthTilt`, `mouthDx` / `mouthDy` (px on the 400 px face: a mouth pulled to one side), `cheeks`, `puff`, `sweat`, `blush`, `tears`, `tear`,
+  `vein`, `shadow` (0..1). **L is the left of the picture when he faces us** (his own right eye, the high one).
+  Typical uses: `{'browL': 0.9, 'browR': -0.3}` (he knows), `{'lidR': 1, 'mouth': 'smirk'}` (a wink at us), `{'eye': 0.3, 'cross': 1, 'brow': 0.8}` (a clip
+  on the nose), `{'puff': 1, 'mouth': 'o'}` (he blows).
+- **`wave: { armL | foreL | ... | neck | spine: [amp (m), waves, phase (turns), free, axis (rad)] }`**: a ripple along a part, on top of its bend. The two ends
+  stay where they are (a guided hand keeps its point); `free: 1` lets the far end whip (a head on a noodle neck). Key the phase from 0 to 2 and the ripple
+  travels twice along the limb; rising phase goes toward the hand. On an arm stretched level by a guided hand, `axis: 1.5708` is the vertical ripple, the
+  one that reads from any side. For a whole arm give both halves, the second with `phase - waves` (the story helper `RIP`). Amplitudes: 0.06 m for a taut
+  arm that hums, 0.16 m for an arm thrown across a room.
+- **`tie: [length, forward, aside]`** (needs `cloth`): the tie taken in a hand. It stretches (1 = its own length, 1.7 = pulled like the cord of a lamp)
+  and swings toward the hand (radians). Key it back through 0.85 and 1.05 so that it snaps. The tip of a tie at rest hangs 1.18 m up, 0.135 m in front of
+  the chest (knot at 1.61 m, 0.41 m long): the story helper `tie_tip(pos, ry, length, fwd)` gives the point for the hand that pulls it.
+- **A shot in the dark**: `st.shot(..., dark=[[t, k, ramp], ...], darkFloor=0.035, darkEyes=1.3)`. `k` 1 = the lights are off, 0 = on; each step is reached in
+  `ramp` seconds (default one frame: a switch). The picture falls to cold silhouettes one can barely see (`darkFloor` 0 = black). **The eyes of every
+  character with the face rig stay**: the open eyes with their pupils (bigger, heavy lids lifted), a blink makes them vanish, drawn eyes (crosses, spirals,
+  happy arcs) show in pale ink, hearts and stars keep their colours, a mouth that shows teeth or a tongue shows too (`face.mouth: 'teeth'`: a grin alone in
+  the black); eyes popped out on stalks, stars round a head and a lump show as well. They are hidden by whatever stands in front of the head. A prop with
+  `inDark=True` stays visible, lit as in the light (a flame, a torch beam, a white envelope, a city with its own lights); a cast member with
+  `darkEyes: False` has no eyes in the dark. Needs `look='natural'` or `'shaders'`.
+  The eyes are on the face: **a head seen from the side or from behind shows nothing**, so stage dark shots facing the camera (three quarters at most).
+- Head dimensions for placing things on a face (build of the series: head 0.24 wide, 0.5 high, 0.17 deep, its base 1.77 m up): eyes at 0.74 (picture left)
+  and 0.54 (picture right) of the head's height, nose 0.31, mouth 0.23; the forehead for a label: offset `[0, 0.4, 0.094]` on the head joint.
+
 ## Clips
 
 `take` (hold, pop 0 = huge painted eyes / 1 = eyes on stalks, jaw, tongue), `doubleTakeToon` (side, beat), `scramble`, `dashOff`,
@@ -164,3 +194,6 @@ Check sheets: `node tools/face/rig_sheet.mjs out.jpg [names] [--blend a:b:n] [--
 - Regression of the old stories after any engine change: stills at fixed times before and after, compared pixel by pixel (the natural
   look has a noise floor of about 0.5 % of pixels). A change is accepted when the old stories stay under it.
 - One clip or one gag: a 2.5 s test scene per clip with stills at chosen times; a motion strip (every frame over 1 s) for timing.
+- The cartoon stories against their own delivered films: render stills at frame-exact times (`f / 30`) and compare them with frame `f` of
+  `out/story_<name>_3d.mp4`; a time between two frames differs wherever something moves fast and proves nothing. Characters must match; shadows of turning
+  blades and the exposure of a shot metered at another frame may differ by a little.
