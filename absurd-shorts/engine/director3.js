@@ -1074,7 +1074,7 @@ function darkAt(sc, t) {
   return k;
 }
 function lightCycle(t) {
-  if (S.look && (S.sc.dark || S.look.dark)) S.look.setDark(S.dark || 0, S.sc.darkFloor ?? 0.05, S.sc.darkTint);
+  if (S.look && (S.sc.dark || S.look.dark)) { S.look.setDark(S.dark || 0, S.sc.darkFloor ?? 0.05, S.sc.darkTint); S.look.keepOverlay = !!S.sc.dark && S.props.some(p => p.cfg.inDark); }
   const dn = S.sc.daynight; if (!dn) return;
   // k: 0 = day, 1 = night. Default: day/night cycles from `from`; once: falls to night and stays; rise: night until `from`, then day
   const t0 = T(dn.from, S.sc), P0 = dn.period || 1.2, u = (t - t0) / P0; let k;

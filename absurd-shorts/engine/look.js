@@ -128,8 +128,8 @@ export function createLook(stage, W, H, o = {}) {
     const mask = camera.layers.mask, au = renderer.shadowMap.autoUpdate, ac = renderer.autoClear, bg = scene.background;
     renderer.setRenderTarget(null); renderer.autoClear = false; renderer.shadowMap.autoUpdate = false; scene.background = null; renderer.clearDepth();
     // the solid world only: no ink hulls (an outline is the same shape a little bigger: drawn on both sides it would stand in front of its own mesh), nothing see-through
-    scene.traverse(n => { if (!n.visible) return; const m = n.material; if (n.name === 'outline' || n.isPoints || n.isLine || n.isSprite || isSky(n) || (m && !Array.isArray(m) && (m.transparent || m.alphaTest > 0))) { n.visible = false; hid.push(n); } });
-    scene.overrideMaterial = depthOnly; renderer.render(scene, camera); scene.overrideMaterial = null; for (const n of hid) n.visible = true; hid.length = 0;
+    scene.traverse(n => { if (n.visible === false) return; const m = n.material; if (n.name === 'outline' || n.isPoints || n.isLine || n.isSprite || isSky(n) || (m && !Array.isArray(m) && (m.transparent || m.alphaTest > 0))) { hid.push([n, n.visible]); n.visible = false; } });   // (three draws whatever is not exactly false: an `undefined` counts as visible)
+    scene.overrideMaterial = depthOnly; renderer.render(scene, camera); scene.overrideMaterial = null; for (const [n, v] of hid) n.visible = v; hid.length = 0;
     camera.layers.set(1); renderer.render(scene, camera); camera.layers.mask = mask;
     scene.background = bg; renderer.autoClear = ac; renderer.shadowMap.autoUpdate = au;
   };
@@ -193,7 +193,7 @@ export function createLook(stage, W, H, o = {}) {
         if (o.debugProbe) console.warn(`[look] probe at ${at.toArray().map(x => x.toFixed(2))} d ${d.toFixed(2)} avg ${P.avg.toFixed(3)} bad ${P.bad} -> ${probe.intensity.toFixed(2)} | meter mean ${M.mean.toFixed(3)} p50 ${M.p50.toFixed(3)} p75 ${M.p75.toFixed(3)} exposure ${renderer.toneMappingExposure.toFixed(2)}`);
       }
       composer.render();
-      if (look.dark > 0.02) inTheDark();
+      if (look.dark > 0.02 || look.keepOverlay) inTheDark();   // keepOverlay: a shot with dark keys and props that stay lit draws them this way from its first frame, so that they do not change when the light goes
     },
   };
   return look;

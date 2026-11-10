@@ -17,68 +17,76 @@ const solid = (w, h, d, m) => { const q = new THREE.Mesh(new THREE.BoxGeometry(w
 const litAt = (keys, lit0, d, t, lag = 0) => { let s = lit0; for (const [t0, v, sp = 0.5] of keys) { if (t >= t0 + sp * d + (v ? 0 : lag)) s = v; else break; } return s; };
 
 export const INTERRUPTEUR_PROPS = {
-  // Paris at night from a height, as a painted depth of unlit shapes: a deep blue sky with stars and a moon, four rows of roofs with lit windows, the tower
-  // with its lights and its beam. Origin: where the viewer stands (a balcony); the city runs toward -Z, its roofs about o.drop (12 m) below.
+  // Paris at night from a height, as a painted depth of unlit shapes: a deep blue sky with stars and a moon, five rows of roofs that step back to a
+  // skyline, lit windows, the tower above it all with its lights and its beam. Origin: the viewer's feet (a balcony); the city runs toward -Z. The nearest
+  // roofs are o.drop (8 m) under his eyes and each row behind stands a little higher, so the skyline crosses the frame at about 40 % of its height for a
+  // camera that looks level.
   // o.keys [[t, lit (0|1), spread], ...]: the city goes out (0) or comes back (1) as a wave that leaves the viewer and takes `spread` seconds to reach the far
   // rows; the tower follows the last row, o.towerLag (0.3 s) late when it goes out: it stands alone in the black, then pops. o.lit (1): the state at the start.
   // o.sparkle [t0, t1]: the tower glitters between these times (it does on the hour). o.eyes (40): pairs of eyes that open in the dark windows o.eyesLag
-  // (0.45 s) after the black. o.moon false: no moon. Give it `inDark: true` in a shot that goes dark: it keeps its own lights
+  // (0.45 s) after the black. o.moon false: no moon. o.towerX (16), o.towerH (52). Give it `inDark: true` in a shot that goes dark: it keeps its own lights
   cityNight(o) {
-    const r = rng(o.seed || 23), drop = o.drop ?? 12, keys = (o.keys || []).slice().sort((a, b) => a[0] - b[0]), lit0 = o.lit ?? 1, g = grp();
-    const sky = canvasPlane(420, 150, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#0B1230'); gr.addColorStop(0.55, '#1B2A5C'); gr.addColorStop(1, '#3A4C86'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
-      const q = rng(5); for (let i = 0; i < 260; i++) { const x = q() * W, y = q() * H * 0.8, s = 0.6 + q() * 1.6; c.fillStyle = `rgba(255, 250, 235, ${0.35 + 0.6 * q()})`; c.fillRect(x, y, s, s); } }, { res: 1024 });
-    sky.material = flat('#FFFFFF', { map: sky.material.map }); sky.position.set(0, 40 - drop, -150); sky.renderOrder = -5; g.add(sky);
-    if (o.moon !== false) { const m = quad(11, 11, flat('#F4EFD8', { map: null })); m.geometry = new THREE.CircleGeometry(5.5, 28); m.position.set(-34, 46 - drop, -148); g.add(m, at(new THREE.Mesh(new THREE.CircleGeometry(1.2, 14), flat('#DDD6B8')), -35.6, 47.4 - drop, -147.9), at(new THREE.Mesh(new THREE.CircleGeometry(0.8, 12), flat('#DDD6B8')), -32.4, 44.6 - drop, -147.9)); }
-    g.add(at(solid(420, 0.5, 190, flat('#0C1122')), 0, -drop - 6.2, -70));
-    // the rows of buildings: each a dark block with a paler zinc roof and chimneys; the windows of all rows are one instanced mesh
-    const WALL = ['#1A2238', '#202A44', '#161D31', '#232E4A'], ROOF = ['#2C3856', '#333F60', '#28334E'], wins = [], eyes = [], dMax = 128;
-    const rows = [[-16, 9, 1.0], [-34, 13, 1.25], [-58, 17, 1.6], [-90, 22, 2.1]];
-    rows.forEach(([z, hBase, k], ri) => {
-      let x = -62 * k * 0.6 - r() * 4;
-      while (x < 62 * k * 0.6) {
-        const w = (5.5 + r() * 4.5) * k, h = (hBase + r() * 7) * (0.8 + 0.25 * k), y0 = -drop - 6, cx = x + w / 2, top = y0 + h;
-        g.add(at(solid(w, h, 6, flat(WALL[Math.floor(r() * WALL.length)])), cx, y0 + h / 2, z - 3), at(solid(w + 0.3, 1.1 * k, 6.3, flat(ROOF[Math.floor(r() * ROOF.length)])), cx, top + 0.55 * k, z - 3));
-        for (let i = 0; i < 2; i++) if (r() < 0.7) g.add(at(solid(0.6 * k, 1.2 * k, 0.6 * k, flat('#3A2A2A')), cx + (r() - 0.5) * w * 0.7, top + 1.6 * k, z - 3));
-        const cols = Math.max(2, Math.round(w / (1.5 * k))), floors = Math.max(2, Math.floor((h - 1.5) / (2.1 * k))), ww = 0.62 * k, wh = 1.05 * k;
-        for (let f = 0; f < floors; f++) for (let cI = 0; cI < cols; cI++) {
-          const wx = cx - w / 2 + (cI + 0.5) * w / cols, wy = top - 1.4 * k - f * 2.1 * k; if (wy < y0 + 1) continue;
-          const d = clamp01(Math.hypot(wx, z) / dMax);
-          if (r() < 0.62) wins.push({ x: wx, y: wy, z: z + 0.02, w: ww, h: wh, d, c: r() });
-          else if (ri < 3 && r() < 0.5) eyes.push({ x: wx, y: wy, z: z + 0.05, s: 0.17 * k, d, ph: r() * 7, gz: (r() - 0.5) * 0.5 });
+    const r = rng(o.seed || 23), drop = o.drop ?? 8, keys = (o.keys || []).slice().sort((a, b) => a[0] - b[0]), lit0 = o.lit ?? 1, g = grp(), eye = 2, y0 = -60;
+    const sky = canvasPlane(420, 130, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#040818'); gr.addColorStop(0.3, '#0A1438'); gr.addColorStop(0.52, '#1A2A66'); gr.addColorStop(1, '#1A2A66'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      const q = rng(5); for (let i = 0; i < 300; i++) { const x = q() * W, y = q() * H * 0.48, sz = 0.7 + q() * 1.5; c.fillStyle = `rgba(255, 250, 235, ${0.35 + 0.6 * q()})`; c.fillRect(x, y, sz, sz); } }, { res: 1024 });
+    sky.material = flat('#FFFFFF', { map: sky.material.map }); sky.position.set(0, eye - 3, -165); sky.renderOrder = -5; g.add(sky);   // inside the sky dome of the set (radius 180)
+    // the glow of the city on the horizon: it goes out with the windows
+    const glow = canvasPlane(420, 44, (c, W, H) => { c.clearRect(0, 0, W, H); const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, 'rgba(255, 180, 110, 0)'); gr.addColorStop(1, 'rgba(255, 180, 110, 0.42)'); c.fillStyle = gr; c.fillRect(0, 0, W, H); }, { res: 64, transparent: true });
+    glow.material = flat('#FFFFFF', { map: glow.material.map, transparent: true, depthWrite: false, opacity: 0.8 }); glow.position.set(0, eye + 12, -164); g.add(glow);
+    if (o.moon !== false) { const mx = o.moonX ?? -22, my = eye + (o.moonY ?? 36); g.add(at(new THREE.Mesh(new THREE.CircleGeometry(4.6, 28), flat('#F4EFD8')), mx, my, -163), at(new THREE.Mesh(new THREE.CircleGeometry(1.05, 14), flat('#DDD6B8')), mx - 1.4, my + 1.1, -162.8), at(new THREE.Mesh(new THREE.CircleGeometry(0.7, 12), flat('#DDD6B8')), mx + 1.3, my - 1.3, -162.8), at(new THREE.Mesh(new THREE.CircleGeometry(0.5, 10), flat('#DDD6B8')), mx - 0.4, my - 2.2, -162.8)); }
+    g.add(at(solid(420, 0.5, 170, flat('#060914')), 0, y0, -80));
+    // the rows: [z of the fronts, lowest and highest roof above the eye line minus drop, building widths, half the row's length, wall colours, floor height]
+    const ROWS = [[-13, -3, 2, 5, 9, 14, ['#0A1124', '#0D152B'], 0], [-30, -1.5, 4, 6, 10, 20, ['#0F1934', '#121D3B'], 1], [-52, 1, 7, 7, 11, 28, ['#152244', '#18274C'], 2], [-80, 3.5, 10, 8, 12, 38, ['#1B2C58', '#1F3160'], 3], [-116, 6, 13, 8, 13, 50, ['#22376C', '#263C74'], 4]];
+    const wins = [], eyes = [], dMax = 122, dim = [];   // dim: the walls and roofs, darker when the city is out (the glow of the windows is gone)
+    for (const [z, lo, hi, w0, w1, half, cols, ri] of ROWS) {
+      let x = -half - r() * 4;
+      while (x < half) {
+        const w = w0 + r() * (w1 - w0), top = eye - drop + lo + r() * (hi - lo), cx = x + w / 2, wall = cols[Math.floor(r() * cols.length)], dep = 10;
+        const mw = flat(wall), mr = flat(new THREE.Color(wall).multiplyScalar(1.45).getStyle()); dim.push([mw, mw.color.clone()], [mr, mr.color.clone()]);
+        g.add(at(solid(w, top - y0, dep, mw), cx, (top + y0) / 2, z - dep / 2), at(solid(w + 0.3, 1.2, dep + 0.3, mr), cx, top + 0.6, z - dep / 2));
+        for (let i = 0; i < 2; i++) if (r() < 0.75) g.add(at(solid(0.7, 1.5, 0.7, flat('#3A2A2A')), cx + (r() - 0.5) * w * 0.7, top + 1.9, z - 1 - r() * 3));
+        const cN = Math.max(2, Math.round(w / 2.3)), fN = ri === 0 ? 3 : 5;
+        for (let f = 0; f < fN; f++) for (let cI = 0; cI < cN; cI++) {
+          const wx = cx - w / 2 + (cI + 0.5) * w / cN, wy = top - 2.0 - f * 2.9, d = clamp01(Math.hypot(wx, z) / dMax), q = r();
+          if (q < 0.56) wins.push({ x: wx, y: wy, z: z + 0.03, w: 0.95, h: 1.5, d, c: r() });
+          else if (q < 0.8 && (ri === 1 || ri === 2) && f < 3) eyes.push({ x: wx, y: wy, z: z + 0.06, s: ri === 1 ? 0.26 : 0.38, d, ph: r() * 7, gz: (r() - 0.5) * 0.5 });
         }
-        x += w + 0.25 * k;
+        x += w + 0.2;
       }
-    });
+    }
     const wm = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), flat('#FFFFFF'), wins.length), M = new THREE.Matrix4(), Z = new THREE.Matrix4().makeScale(0, 0, 0), col = new THREE.Color();
     wins.forEach((w, i) => { w.m = new THREE.Matrix4().makeScale(w.w, w.h, 1).setPosition(w.x, w.y, w.z); wm.setMatrixAt(i, w.m); wm.setColorAt(i, col.set(w.c < 0.6 ? '#FFD27A' : w.c < 0.85 ? '#FFB85A' : '#DCE9FF')); w.on = true; });
     wm.frustumCulled = false; wm.castShadow = false; g.add(wm);
-    // the eyes in the dark windows: two white dots a little apart, a blink now and then
-    const nE = Math.min(o.eyes ?? 40, eyes.length), em = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 10), flat('#F6F1E2'), nE * 2), pm = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 8), flat('#0A0C14'), nE * 2);
+    // the eyes in the dark windows: two pale dots a little apart, a blink now and then (the nearest eyes first)
+    eyes.sort((a, b) => a.d - b.d);
+    const nE = Math.min(o.eyes ?? 40, eyes.length), em = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 10), flat('#F6F1E2'), Math.max(1, nE * 2)), pm = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 8), flat('#0A0C14'), Math.max(1, nE * 2));
     em.frustumCulled = pm.frustumCulled = false; em.castShadow = pm.castShadow = false; em.count = pm.count = 0; g.add(em, pm);
     // the tower: a painted silhouette and two sets of light dots that take turns when it glitters; its beam turns
-    const TH = o.towerH ?? 46, TW = TH * 0.42, tx = o.towerX ?? 20, tz = -112, ty = -drop - 6;
-    const prof = v => 0.04 + 0.46 * Math.pow(1 - v, 2.1);   // half width (as a part of TW) at height v (0 = foot .. 1 = tip)
-    const tower = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#2A3350'; c.beginPath(); for (let i = 0; i <= 40; i++) { const v = i / 40; c.lineTo(W / 2 - prof(v) * W, H * (1 - v)); } for (let i = 40; i >= 0; i--) { const v = i / 40; c.lineTo(W / 2 + prof(v) * W, H * (1 - v)); } c.fill();
-      c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.ellipse(W / 2, H, W * 0.26, H * 0.2, 0, PI, TAU); c.fill(); c.globalCompositeOperation = 'source-over';   // the arch between the feet
-      c.fillStyle = '#343E60'; [0.2, 0.42].forEach(v => c.fillRect(W / 2 - prof(v) * W - W * 0.02, H * (1 - v) - H * 0.012, 2 * prof(v) * W + W * 0.04, H * 0.024)); }, { res: 512, transparent: true });
+    const TH = o.towerH ?? 52, TW = TH * 0.42, tx = o.towerX ?? 16, tz = -150, ty = eye - drop - 4;
+    const prof = v => 0.035 + 0.465 * Math.pow(1 - v, 2.1);   // half width (as a part of TW) at height v (0 = foot .. 1 = tip)
+    const tower = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#31448A'; c.beginPath(); for (let i = 0; i <= 40; i++) { const v = i / 40; c.lineTo(W / 2 - prof(v) * W, H * (1 - v)); } for (let i = 40; i >= 0; i--) { const v = i / 40; c.lineTo(W / 2 + prof(v) * W, H * (1 - v)); } c.fill();
+      c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.ellipse(W / 2, H, W * 0.27, H * 0.19, 0, PI, TAU); c.fill();   // the arch between the feet
+      c.lineWidth = W * 0.012; c.strokeStyle = 'rgba(0,0,0,0.5)'; for (let i = 2; i < 38; i += 2) { const v = i / 40, hw = prof(v) * W, y = H * (1 - v), y2 = H * (1 - v - 0.05); c.beginPath(); c.moveTo(W / 2 - hw, y); c.lineTo(W / 2 + prof(v + 0.05) * W, y2); c.moveTo(W / 2 + hw, y); c.lineTo(W / 2 - prof(v + 0.05) * W, y2); c.stroke(); }   // the lattice
+      c.globalCompositeOperation = 'source-over'; c.fillStyle = '#3C509A'; [0.19, 0.4, 0.86].forEach(v => c.fillRect(W / 2 - prof(v) * W - W * 0.02, H * (1 - v) - H * 0.011, 2 * prof(v) * W + W * 0.04, H * 0.022)); }, { res: 512, transparent: true });
     tower.material = flat('#FFFFFF', { map: tower.material.map, transparent: true, alphaTest: 0.3 }); tower.position.set(tx, ty + TH / 2, tz); g.add(tower);
-    const dots = k => { const pl = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); const q = rng(40 + k); for (let i = 0; i <= 46; i++) { const v = i / 46; for (const sd of [-1, 1]) { if (q() < 0.25) continue; c.fillStyle = q() < 0.5 ? '#FFE9A8' : '#FFD27A'; c.beginPath(); c.arc(W / 2 + sd * prof(v) * W, H * (1 - v), W * 0.011, 0, TAU); c.fill(); } }
-      [0.2, 0.42].forEach(v => { for (let x = -1; x <= 1; x += 0.2) { if (q() < 0.2) continue; c.fillStyle = '#FFE9A8'; c.beginPath(); c.arc(W / 2 + x * prof(v) * W, H * (1 - v), W * 0.011, 0, TAU); c.fill(); } }); }, { res: 512, transparent: true });
-      pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, depthWrite: false }); pl.position.set(tx, ty + TH / 2, tz + 0.1); g.add(pl); return pl; };
-    const dA = dots(0), dB = dots(1), beam = quad(70, 1.6, flat('#FFF2C0', { transparent: true, opacity: 0.2, depthWrite: false, side: THREE.DoubleSide })), bp = grp(at(beam, 35, 0, 0)), tip = at(new THREE.Mesh(new THREE.CircleGeometry(0.9, 12), flat('#FFF6D8')), tx, ty + TH + 0.4, tz + 0.2);
-    bp.position.set(tx, ty + TH, tz + 0.15); g.add(bp, tip);
-    const eLag = o.eyesLag ?? 0.45, tLag = o.towerLag ?? 0.3; let darkSince = -1;
+    const dots = kk => { const pl = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); const q = rng(40 + kk); for (let i = 0; i <= 50; i++) { const v = i / 50; for (const sd of [-1, 1]) { if (q() < 0.22) continue; c.fillStyle = q() < 0.5 ? '#FFF0BE' : '#FFD27A'; c.beginPath(); c.arc(W / 2 + sd * prof(v) * W, H * (1 - v), W * 0.013, 0, TAU); c.fill(); } }
+      [0.19, 0.4, 0.86].forEach(v => { for (let x = -1; x <= 1.01; x += 0.2) { if (q() < 0.2) continue; c.fillStyle = '#FFF0BE'; c.beginPath(); c.arc(W / 2 + x * prof(v) * W, H * (1 - v), W * 0.013, 0, TAU); c.fill(); } }); }, { res: 512, transparent: true });
+      pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, depthWrite: false }); pl.position.set(tx, ty + TH / 2, tz + 0.2); g.add(pl); return pl; };
+    const dA = dots(0), dB = dots(1), beam = quad(90, 1.8, flat('#FFF2C0', { transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide })), bp = grp(at(beam, 45, 0, 0)), tip = at(new THREE.Mesh(new THREE.CircleGeometry(1.0, 12), flat('#FFF6D8')), tx, ty + TH + 0.5, tz + 0.3);
+    bp.position.set(tx, ty + TH, tz + 0.25); g.add(bp, tip);
+    const eLag = o.eyesLag ?? 0.45, tLag = o.towerLag ?? 0.3;
     g.userData.update = t => {
-      let any = false, allOff = true;
-      wins.forEach((w, i) => { const on = !!litAt(keys, lit0, w.d, t); if (on) allOff = false; if (on !== w.on) { w.on = on; wm.setMatrixAt(i, on ? w.m : Z); any = true; } });
+      let any = false, nOn = 0;
+      wins.forEach((w, i) => { const on = !!litAt(keys, lit0, w.d, t); if (on) nOn++; if (on !== w.on) { w.on = on; wm.setMatrixAt(i, on ? w.m : Z); any = true; } });
       if (any) wm.instanceMatrix.needsUpdate = true;
-      const tw = !!litAt(keys, lit0, 1, t, tLag), sp = o.sparkle && t >= o.sparkle[0] && t < o.sparkle[1], fl = Math.floor(t * 14) % 2;
-      dA.visible = tw && (!sp || fl === 0); dB.visible = tw && sp && fl === 1; beam.visible = tip.visible = tw; bp.rotation.y = t * 1.3;
+      const fr = nOn / Math.max(1, wins.length), dk = (o.offDim ?? 0.42) + (1 - (o.offDim ?? 0.42)) * fr; glow.material.opacity = 0.8 * fr; glow.visible = nOn > 0; for (const [m, c0] of dim) m.color.copy(c0).multiplyScalar(dk);
+      const tw = !!litAt(keys, lit0, 1, t, tLag), sp = !!(o.sparkle && t >= o.sparkle[0] && t < o.sparkle[1]), fl = Math.floor(t * 14) % 2;
+      dA.visible = tw && (!sp || fl === 0); dB.visible = tw && sp && fl === 1; beam.visible = tip.visible = tw; bp.rotation.y = t * 1.3; tower.material.color.setScalar(tw ? 1 : 0.5);
       // the eyes: once every window is out, they open one after the other, look about, blink
       let n = 0;
-      if (allOff && nE) {
+      if (nOn === 0 && nE) {
         let t0 = 0; for (const [tk, v, sp2 = 0.5] of keys) if (!v && t >= tk) t0 = tk + sp2;
-        for (let i = 0; i < nE; i++) { const e = eyes[i], u = t - t0 - eLag - (i % 9) * 0.035; if (u < 0) continue;
+        for (let i = 0; i < nE; i++) { const e = eyes[i], u = t - t0 - eLag - i * 0.014; if (u < 0) continue;
           const open = Math.min(1, u / 0.06), cyc = (t * 0.9 + e.ph) % 2.6, bl = cyc < 0.1 ? Math.abs(1 - cyc / 0.05) : 1, sy = Math.max(0.05, open * bl), lookX = e.gz + 0.35 * Math.sin(t * 1.1 + e.ph * 2);
           for (const sd of [-1, 1]) { M.makeScale(e.s, e.s * 1.25 * sy, 1).setPosition(e.x + sd * e.s * 1.25, e.y, e.z); em.setMatrixAt(n, M); M.makeScale(e.s * 0.42, e.s * 0.5 * sy, 1).setPosition(e.x + sd * e.s * 1.25 + lookX * e.s * 0.5, e.y, e.z + 0.02); pm.setMatrixAt(n, M); n++; } }
       }
@@ -249,8 +257,8 @@ export const INTERRUPTEUR_PROPS = {
   // a pair of eyes of its own, for what has no face rig (a pigeon, a cat, a statue) in a dark shot: two pale ovals, two pupils. o.s (0.05 m: the half
   // width of an eye), o.look [[t, -1..1], ...] (the pupils go aside), o.blinks [t, ...], o.openAt / o.shutAt. Unlit: give it `inDark`. Front +Z
   eyesPair(o) {
-    const s = o.s ?? 0.05, g = grp(), E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(s, 14), flat('#F6F1E2', { side: THREE.DoubleSide })), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(s * 0.42, 10), flat('#0A0C14', { side: THREE.DoubleSide })), 0, 0, 0.002)); e.position.x = sx * s * (o.gap ?? 1.25); e.children[0].scale.y = o.tall ?? 1.25; g.add(e); return e; });
-    g.userData.update = t => { const on = (o.openAt == null || t >= o.openAt) && (o.shutAt == null || t < o.shutAt); g.visible = on; if (!on) return;
+    const s = o.s ?? 0.05, in_ = grp(), g = grp(in_), E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(s, 14), flat('#F6F1E2', { side: THREE.DoubleSide })), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(s * 0.42, 10), flat('#0A0C14', { side: THREE.DoubleSide })), 0, 0, 0.002)); e.position.x = sx * s * (o.gap ?? 1.25); e.children[0].scale.y = o.tall ?? 1.25; in_.add(e); return e; });
+    g.userData.update = t => { const on = (o.openAt == null || t >= o.openAt) && (o.shutAt == null || t < o.shutAt); in_.visible = on; if (!on) return;   // (the prop's own visibility belongs to the story's keys)
       let bl = 1; for (const b of o.blinks || []) { const u = t - b; if (u >= 0 && u < 0.12) bl = Math.abs(1 - u / 0.06); } const op = o.openAt == null ? 1 : Math.min(1, (t - o.openAt) / 0.06), lx = keyed(o.look, t, ease.inOut);
       E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = lx * s * 0.5; }); };
     g.userData.update(0); return g;
