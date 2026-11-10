@@ -540,10 +540,10 @@ Object.assign(CLIPS, {
     const d = p.dur ?? 0.9, n = p.breaths ?? 3, st = d / n; let L = 0;
     for (let i = 0; i < n; i++) { const u = t - i * st; if (u > 0) L += (eo(u / (st * 0.42)) - (i < n - 1 ? 0.22 * S(c01((u - st * 0.5) / (st * 0.5)) * PI) : 0)) / n; }
     L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22);
-    return { ...arms(m([0.25 * L, 0, 0.3 + 0.75 * L], [-1.05 * up, 0, 0.28 * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-2.25 * up, 0, 0])), handR: [0, 0, -1.2 * up], head: [-0.6 * L + tr, 0, tr], torso: [-0.32 * L, 0, 0], neck: [-0.15 * L, 0, 0],
+    return { ...arms(m([0.25 * L, 0, 0.3 + 0.75 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.6) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? 1.3) * up, 0],   // the arm reaches round the swollen chest: its numbers grow with L head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],
       footL: [0.55 * L, 0, 0], footR: [0.55 * L, 0, 0], root: { y: (p.float ?? 0.25) * L * L + 0.03 * L },
-      toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.3 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
-        face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.5 * L } } };
+      toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.18 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 1.1) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
+        face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.42 * L } } };   // jaw under 0.45: a round « aah », not a laugh
   },
   // the sneeze itself: the body whips forward in two frames, holds bent and shaking (p.hold 0.3 s), then comes back up dazed. The recoil is a move of the story
   sneeze: (t, p = {}) => { const w = eo(t / 0.06), hold = p.hold ?? 0.3, out = eio((t - 0.06 - hold) / 0.3), k = w * (1 - out), sh = k * S(t * 57) * 0.02;
@@ -575,6 +575,12 @@ Object.assign(CLIPS, {
     return { ...arms(m([0, 0, 0.2 + 0.35 * pos], [0, 0, 0.2 + 0.35 * pos]), m([-0.08, 0, -0.3], [-0.08, 0, -0.3])), head: [0.05 * w, 0, 0.1 * w],
       toon: { sq: sqv(1 - 0.1 * pos + 0.05 * w), bend: { neck: [0, 0, 0, Math.max(0.12, 1 - 0.85 * inn + 0.4 * w), 1 + 0.6 * pos], spine: [0, 0, 0, 1 - 0.12 * pos, null] }, scl: { head: [1 + 0.3 * pos, 1 - 0.3 * pos, 1 + 0.2 * pos] },
         hands: { L: 'spread', R: 'spread' }, face: { expr: inn > 0.3 ? 'dizzy' : (p.expr ?? 'unimpressed'), exprW: 1, cross: pos } } }; },
+  // swept off his feet by a blast from in front (use it on a fast glide backward): folded like a hairpin, arms and legs trailing toward where the wind comes
+  // from, the head forward, the whole body tipped back
+  blownBack: (t, p = {}) => { const f = t * 31, k = eo(t / 0.07);
+    return { root: { rx: -0.55 * k, y: 0.25 * k, pivot: 'hips' }, ...arms(m([-1.5 * k + 0.1 * S(f), 0, 0.25], [-1.5 * k + 0.1 * S(f + 2), 0, 0.25]), m([-0.2, 0, 0], [-0.2, 0, 0])), hipL: [-1.15 * k + 0.1 * S(f * 0.8), 0, 0.12], hipR: [-0.95 * k + 0.1 * S(f * 0.8 + 2), 0, -0.12], kneeL: [0.25, 0, 0], kneeR: [0.4, 0, 0],
+      head: [0.5 * k, 0, 0], torso: [0.35 * k, 0, 0],
+      toon: { sq: [1, 1, 1 + 0.25 * k], bend: { spine: [0.5 * k, 0, 0, 1, null], armL: [0, 0, 0, 1.25, null], armR: [0, 0, 0, 1.25, null], legL: [0, 0, 0, 1.15, null], legR: [0, 0, 0, 1.15, null] }, hands: { L: 'spread', R: 'spread' }, ears: 0.7 * k, face: { expr: p.expr ?? 'take', exprW: k, jaw: 0.8 * k } } }; },
   // leaning away from somebody who passes (p.side +1: away toward his own left, -1: toward his right): the body a C, one foot off the ground, hands up
   leanAway: (t, p = {}) => { const sd = p.side ?? 1, k = p.k ?? back(t / 0.22, 2), br = 0.03 * S(t * 3 + (p.ph ?? 0)), L = sd > 0;
     return { ...arms(m([-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 1 : 0.3)], [-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 0.3 : 1)]), m([-1.5 * k, 0, 0], [-1.5 * k, 0, 0])), head: [0, -0.55 * sd * k, 0.2 * sd * k], torso: [0, -0.2 * sd * k, 0],

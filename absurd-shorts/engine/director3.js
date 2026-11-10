@@ -469,7 +469,7 @@ function writeSnap(A, a, b, w) {
   const mv = A.obj.userData.mover; if (mv && a.__mover && b.__mover) { const x = a.__mover, y = b.__mover; mv.rotation.set(lerp(x[0], y[0], w), lerp(x[1], y[1], w), lerp(x[2], y[2], w)); mv.position.set(lerp(x[3], y[3], w), lerp(x[4], y[4], w), lerp(x[5], y[5], w)); }
 }
 const BLEND = 0.24;
-const ONE_SHOT = new Set(['take', 'doubleTakeToon', 'scramble', 'hangAir', 'hangPhone', 'pancake', 'splat', 'paperThin', 'inflate', 'stretchGrab', 'periscope', 'hoseNeck', 'melt', 'meltDown', 'windUp', 'skidStop', 'teeter', 'stampPhone', 'stampDesk', 'cannonball', 'headStuck', 'sneezeUp', 'sneeze', 'spinTop', 'headHammer']);   // clips that play once from their start: never as an actor's base clip
+const ONE_SHOT = new Set(['take', 'doubleTakeToon', 'scramble', 'hangAir', 'hangPhone', 'pancake', 'splat', 'paperThin', 'inflate', 'stretchGrab', 'periscope', 'hoseNeck', 'melt', 'meltDown', 'windUp', 'skidStop', 'teeter', 'stampPhone', 'stampDesk', 'cannonball', 'headStuck', 'sneeze', 'spinTop', 'headHammer']);   // clips that play once from their start: never as an actor's base clip
 function effTime(id, t) {
   if (S.freezeAt == null || t <= S.freezeAt || S.freezeExcept.has(id)) return t;
   return t < S.freezeUntil ? S.freezeAt : t - (S.freezeUntil - S.freezeAt);
@@ -616,7 +616,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   if (ud.fingers) ud.fingers.set(all.hands);
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
     const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
-    A.obj.updateMatrixWorld(true); ud.cloth.apply([w.x - (b.x - a.x) / (2 * dd), w.y - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1);
+    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x - (b.x - a.x) / (2 * dd), w.y - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0);
   }
   return all;
 }

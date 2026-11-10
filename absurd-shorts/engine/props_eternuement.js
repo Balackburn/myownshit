@@ -176,11 +176,26 @@ export const ETERNUEMENT_PROPS = {
   // the blast of a sneeze: white streaks and puffs that shoot along +Z from the origin between o.at and o.at + o.dur (o.len m long, o.spread wide)
   sneezeBlast(o) {
     const n = o.n ?? 26, len = o.len ?? 9, spread = o.spread ?? 1.4, at_ = o.at ?? 0, dur = o.dur ?? 0.4, r = rng(o.seed ?? 12), g = new THREE.Group(), ss = [];
-    for (let i = 0; i < n; i++) { const puff = i % 4 === 0, m = puff ? sphere(0.16 + r() * 0.2, '#FFFFFF', 1) : box(0.03 + r() * 0.03, 0.03 + r() * 0.03, 0.7 + r() * 1.3, '#FFFFFF'); m.material = m.material.clone(); m.material.transparent = true; m.castShadow = false; g.add(m); ss.push([m, (r() - 0.5) * spread, 1.55 + (r() - 0.5) * spread * 0.8, r() * 0.35, 0.7 + r() * 0.6, puff]); }
+    for (let i = 0; i < n; i++) { const puff = i % 4 === 0, m = puff ? sphere((0.16 + r() * 0.2) * (o.puff ?? 1), '#FFFFFF', 1) : box(0.03 + r() * 0.03, 0.03 + r() * 0.03, 0.7 + r() * 1.3, '#FFFFFF'); m.material = m.material.clone(); m.material.transparent = true; m.castShadow = false; g.add(m); ss.push([m, (r() - 0.5) * spread, 1.55 + (r() - 0.5) * spread * 0.8, r() * 0.35, 0.7 + r() * 0.6, puff]); }
     g.userData.update = t => ss.forEach(([m, x, y, d, k, puff]) => { const u = (t - at_ - d * dur) / (dur * 0.75), on = u > 0 && u < 1; m.visible = on; if (!on) return; const z = 0.4 + len * k * ease.out(u), w = 1 + 1.4 * u; m.position.set(x * w, y + (y - 1.55) * 0.8 * u, z); m.material.opacity = (puff ? 0.55 : 0.9) * (1 - u * u); if (puff) m.scale.setScalar(1 + 1.6 * u); });
     g.userData.update(-1); return g;
   },
 
+  // a street advertising panel on two legs, a hairdresser's poster on it (o.title / o.sub / o.price); front +Z, origin at the foot, the board from o.y0 (0.5) up
+  adPanel(o) {
+    const w = o.w ?? 2.8, h = o.h ?? 2.3, y0 = o.y0 ?? 0.5;
+    const face = canvasPlane(w, h, (g, W, H) => { g.fillStyle = o.bg || '#F6D7E0'; g.fillRect(0, 0, W, H); g.fillStyle = o.band || '#C8457A'; g.fillRect(0, 0, W, H * 0.24); txt(g, o.title || 'COIFFURE', W / 2, H * 0.125, fit(g, o.title || 'COIFFURE', W * 0.9, H * 0.17), '#FFFFFF');
+      txt(g, o.sub || 'BRUSHING', W / 2, H * 0.47, fit(g, o.sub || 'BRUSHING', W * 0.86, H * 0.2), '#1B2A4A'); txt(g, o.price || 'TENUE GARANTIE', W / 2, H * 0.72, fit(g, o.price || 'TENUE GARANTIE', W * 0.8, H * 0.11), '#C8457A', 'bold');
+      g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H - W * 0.012); }, { res: 768 });
+    face.position.set(0, y0 + h / 2, 0.045);
+    return grp(at(box(w * 1.04, h * 1.04, 0.08, '#2A2E35', { outline: 0.008 }), 0, y0 + h / 2, 0), face, at(box(0.1, y0 + 0.1, 0.1, '#2A2E35'), -w * 0.36, (y0 + 0.1) / 2, 0), at(box(0.1, y0 + 0.1, 0.1, '#2A2E35'), w * 0.36, (y0 + 0.1) / 2, 0));
+  },
+  // a hand that points, seen close (a cuff, a fist, the index out): the finger along -X... it points to its left; origin at the fingertip. o.skin, o.sleeve
+  pointerHand(o) {
+    const skin = o.skin || '#E0B48A', g = grp(at(box(0.11, 0.022, 0.03, skin), 0.055, 0, 0), at(box(0.1, 0.1, 0.05, skin), 0.16, -0.035, 0), at(box(0.035, 0.07, 0.035, skin), 0.14, 0.03, 0.01, 0, 0, 0.5),
+      at(box(0.07, 0.115, 0.06, '#F4F1E8'), 0.245, -0.035, 0), at(box(0.3, 0.13, 0.07, o.sleeve || '#1E2E44'), 0.43, -0.035, 0));
+    return g;
+  },
   // a wig that has left its head (a curly mop; origin at its base): it tumbles when moved by the story
   wig(o) { const c = o.color || '#5A3A28', g = grp(at(box(0.3, 0.14, 0.24, c, { pivot: 'bottom', taper: { x: 0.9, z: 0.9 } }), 0, 0, 0)); const r = rng(5); for (let i = 0; i < 9; i++) g.add(at(sphere(0.05 + r() * 0.03, c, 1), (r() - 0.5) * 0.28, 0.08 + r() * 0.1, (r() - 0.5) * 0.22)); return g; },
   // a sheet of newspaper carried by the wind: it flaps (two halves hinged), origin at the fold

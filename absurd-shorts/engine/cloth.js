@@ -30,17 +30,19 @@ export function clothUpgrade(obj) {
     const m = box(d.hw * 0.98, 0.05, d.hd * 0.98, d.hairColor, { pivot: 'bottom', taper: { x: 0.82, z: 0.7 } }); g.add(m); g.scale.y = 0.02;
     hair = { g };
   }
-  const F = new THREE.Vector3(), q = new THREE.Quaternion();
+  const F = new THREE.Vector3(), q = new THREE.Quaternion(), tie_side = (ud.spec?.seed ?? 3) % 2 ? 1 : -1;
   ud.cloth = {
     // aw: apparent wind in world space, m/s (the scene wind minus the actor's own velocity); t: time (flutter); k: dose 0..1.
     // Gravity and wind are brought into the frame of the chest (the tie) and of the head (the hair), so lying down or upside down works too
-    apply(aw = [0, 0, 0], t = 0, k = 1) {
+    apply(aw = [0, 0, 0], t = 0, k = 1, fat = 1, hairUp = 0) {   // hairUp 0..1: hair left standing whatever the wind (toon channel `hairUp`)   // fat: how much the chest is inflated (the spine band's thickness): the knot stays on its surface
       const sp = Math.hypot(aw[0], aw[1], aw[2]), fl = Math.min(1, sp / 7);
       if (tie) {
-        J.torso.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - G0, aw[2]).applyQuaternion(q);
+        tie.root.position.z = (d.front + 0.014) * Math.max(0.6, fat);
+        J.torso.getWorldQuaternion(q).invert(); const head = -F.set(aw[0], aw[1], aw[2]).applyQuaternion(q).z;   // the wind that blows onto the chest (m/s)
+        F.set(aw[0], aw[1] - G0, aw[2]).applyQuaternion(q);
         let rx = Math.atan2(F.z, -F.y), rz = Math.atan2(F.x, Math.hypot(F.y, F.z)) * 0.8, over = 0;   // rx > 0: the tie swings forward (away from the chest), pi: straight up
-        if (rx < 0) {   // blown against the chest: it lies flat, then goes up in front and back over a shoulder (never through the chest)
-          const a = -rx; over = sm(a, 0.3, 1.2); rx = -0.06 * Math.min(1, a / 0.3) * (1 - over) + 3.5 * over; rz += tie.side * 0.75 * over;
+        if (rx < 0) {   // pressed against the chest: it lies flat (a man leaning back, lying down); a strong head wind sends it up in front and back over a shoulder
+          over = sm(head, 5, 11); rx = 3.5 * over; rz = rz * (1 - over) + tie.side * 0.75 * over;
         }
         const f1 = 0.1 * fl * Math.sin(t * 17 + 1), f2 = 0.3 * fl * Math.sin(t * 23 + 2.2), f3 = 0.5 * fl * Math.sin(t * 29 + 0.7);
         tie.segs[0].rotation.set(-(rx * 0.72 + f1) * k, 0, (rz * 0.6 + 0.3 * f1) * k);
@@ -49,9 +51,9 @@ export function clothUpgrade(obj) {
       }
       if (hair) {
         J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs
-        const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.min(1, (h * 0.55 + up * 1.1) / 8) * k, lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
+        const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.min(1, (h * 0.55 + up * 1.1) / 8 + hairUp) * k, lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
         hair.g.scale.y = 0.02 + 5.2 * lift * (1 + 0.12 * Math.sin(t * 31));
-        hair.g.rotation.set(lean * F.z / hh + 0.1 * lift * Math.sin(t * 27), 0, -lean * F.x / hh);
+        hair.g.rotation.set(lean * F.z / hh + 0.1 * lift * Math.sin(t * 27) - 0.25 * hairUp, 0, -lean * F.x / hh + 0.2 * hairUp * tie_side);
       }
     },
   };

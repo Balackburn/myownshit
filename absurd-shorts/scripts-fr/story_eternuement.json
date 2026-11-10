@@ -1,0 +1,2188 @@
+{
+ "version": 3,
+ "title": "L'éternuement",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "p1": {
+   "preset": "femme",
+   "seed": 31,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   },
+   "glasses": false,
+   "hair": "long",
+   "hairColor": "#5A3A28"
+  },
+  "p2": {
+   "preset": "serveur",
+   "seed": 33,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   },
+   "glasses": false
+  },
+  "p3": {
+   "preset": "mamie",
+   "seed": 35,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   },
+   "suit": "#D98A3C"
+  },
+  "meteo": {
+   "preset": "journaliste",
+   "seed": 37,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   },
+   "suit": "#3E6E8C"
+  },
+  "chef": {
+   "preset": "prefet",
+   "seed": 39,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.1
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "clip": "sneezeUp",
+       "params": {
+        "dur": 1.0,
+        "float": 0.3
+       },
+       "blend": 0.08
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.85,
+      2.3,
+      3.7
+     ],
+     "to": [
+      5.95,
+      2.5,
+      3.4
+     ],
+     "lookAt": [
+      7.0,
+      1.85,
+      0.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      2.2,
+      0.0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.3,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0.3,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "sneezeUp",
+     "keys": [
+      {
+       "at": 0.03,
+       "clip": "sneeze",
+       "params": {
+        "hold": 0.5
+       },
+       "blend": 0.03
+      },
+      {
+       "at": 0.06,
+       "to": [
+        5.7,
+        0.6,
+        -6.0
+       ],
+       "dur": 0.22,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      }
+     ],
+     "params": {
+      "dur": 1.0,
+      "float": 0.0
+     },
+     "expr": "worried"
+    },
+    {
+     "id": "p1",
+     "pos": [
+      7.65,
+      0,
+      2.1999999999999997
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        7.65,
+        0,
+        1.9
+       ],
+       "dur": 0.06,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.06,
+       "clip": "blownBack",
+       "blend": 0.04
+      },
+      {
+       "at": 0.08,
+       "to": [
+        7.65,
+        0.0,
+        4.4399999999999995
+       ],
+       "dur": 0.22,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.3,
+       "clip": "poster",
+       "params": {
+        "high": 0.4,
+        "slideAt": 9.0,
+        "stars": 1
+       },
+       "blend": 0.02,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "p2",
+     "pos": [
+      8.35,
+      0,
+      3.0
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        8.35,
+        0,
+        2.7
+       ],
+       "dur": 0.1,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.1,
+       "clip": "blownBack",
+       "blend": 0.04
+      },
+      {
+       "at": 0.12000000000000001,
+       "to": [
+        8.35,
+        0.0,
+        4.4399999999999995
+       ],
+       "dur": 0.24000000000000002,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.36,
+       "clip": "poster",
+       "params": {
+        "high": 0.62,
+        "slideAt": 9.0,
+        "stars": 1
+       },
+       "blend": 0.02,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "p3",
+     "pos": [
+      9.0,
+      0,
+      3.8
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        9.0,
+        0,
+        3.5
+       ],
+       "dur": 0.14,
+       "clip": "walk",
+       "ease": "linear"
+      },
+      {
+       "at": 0.14,
+       "clip": "blownBack",
+       "blend": 0.04
+      },
+      {
+       "at": 0.16,
+       "to": [
+        9.0,
+        0.0,
+        4.4399999999999995
+       ],
+       "dur": 0.25999999999999995,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.42,
+       "clip": "poster",
+       "params": {
+        "high": 0.48,
+        "slideAt": 9.0,
+        "stars": 1
+       },
+       "blend": 0.02,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "panel",
+     "name": "adPanel",
+     "pos": [
+      8.3,
+      0,
+      4.6
+     ],
+     "ry": 180,
+     "opts": {
+      "w": 2.9,
+      "h": 2.4,
+      "y0": 0.45
+     }
+    },
+    {
+     "id": "blast",
+     "name": "sneezeBlast",
+     "pos": [
+      7.0,
+      0.2,
+      0.4
+     ],
+     "opts": {
+      "at": 0.03,
+      "dur": 0.42,
+      "len": 4.6,
+      "spread": 1.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.7,
+      2.0,
+      -3.2
+     ],
+     "to": [
+      7.75,
+      1.95,
+      -2.9
+     ],
+     "lookAt": [
+      8.0,
+      1.3,
+      3.0
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      8.05,
+      1.35,
+      3.4
+     ]
+    },
+    {
+     "at": 0.4,
+     "from": [
+      8.15,
+      1.75,
+      -0.9
+     ],
+     "to": [
+      8.2,
+      1.75,
+      -1.1
+     ],
+     "lookAt": [
+      8.3,
+      1.7,
+      4.6
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      1.7,
+      4.6
+     ],
+     "cut": false,
+     "glide": 0.3
+    }
+   ],
+   "start": 1.3,
+   "duration": 0.8333,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "fx": [
+    {
+     "type": "wind",
+     "at": 0.03,
+     "dur": 0.42,
+     "v": [
+      0,
+      0,
+      30
+     ],
+     "attack": 0.03,
+     "release": 0.3
+    },
+    {
+     "type": "shake",
+     "at": 0.03,
+     "dur": 0.3,
+     "amount": 0.05
+    },
+    {
+     "type": "shake",
+     "at": 0.3,
+     "dur": 0.1,
+     "amount": 0.02
+    },
+    {
+     "type": "shake",
+     "at": 0.36,
+     "dur": 0.1,
+     "amount": 0.02
+    },
+    {
+     "type": "shake",
+     "at": 0.42,
+     "dur": 0.1,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "p1",
+     "pos": [
+      7.65,
+      0,
+      4.4399999999999995
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "clip": "poster",
+       "params": {
+        "high": 0.4,
+        "slideAt": 0.55,
+        "slide": 1.2,
+        "stars": 1
+       },
+       "blend": 0.001,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0
+      }
+     ],
+     "expr": "dizzy"
+    },
+    {
+     "id": "p2",
+     "pos": [
+      8.35,
+      0,
+      4.4399999999999995
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "clip": "poster",
+       "params": {
+        "high": 0.62,
+        "slideAt": 0.27,
+        "slide": 1.2,
+        "stars": 1
+       },
+       "blend": 0.001,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0
+      }
+     ],
+     "expr": "dizzy"
+    },
+    {
+     "id": "p3",
+     "pos": [
+      9.0,
+      0,
+      4.4399999999999995
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "clip": "poster",
+       "params": {
+        "high": 0.48,
+        "slideAt": 9.05,
+        "slide": 1.2,
+        "stars": 1
+       },
+       "blend": 0.001,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0
+      }
+     ],
+     "expr": "dizzy"
+    }
+   ],
+   "props": [
+    {
+     "id": "panel",
+     "name": "adPanel",
+     "pos": [
+      8.3,
+      0,
+      4.6
+     ],
+     "ry": 180,
+     "opts": {
+      "w": 2.9,
+      "h": 2.4,
+      "y0": 0.45
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.5,
+      1.6,
+      -1.3000000000000007
+     ],
+     "to": [
+      8.450000000000001,
+      1.6,
+      -0.9000000000000004
+     ],
+     "lookAt": [
+      8.3,
+      1.85,
+      4.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      1.75,
+      4.6
+     ]
+    }
+   ],
+   "start": 2.1333,
+   "duration": 0.9334,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "meteo",
+     "pos": [
+      -1.7,
+      0,
+      0.1
+     ],
+     "ry": 0,
+     "clip": "raiseOverhead",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -2.1,
+        2.9,
+        0.6
+       ]
+      },
+      {
+       "at": 0.22,
+       "look": null,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.28,
+       "clip": "spinTop",
+       "params": {
+        "turns": [
+         [
+          0,
+          0
+         ],
+         [
+          0.2,
+          5
+         ],
+         [
+          0.575,
+          5
+         ],
+         [
+          0.825,
+          0
+         ]
+        ]
+       },
+       "blend": 0.06,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.17,
+       "expr": "dizzy"
+      }
+     ],
+     "expr": "proud"
+    }
+   ],
+   "props": [
+    {
+     "id": "anemo",
+     "name": "anemometer",
+     "on": {
+      "actor": "meteo",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.1,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "opts": {
+      "spin": [
+       [
+        0,
+        0.7
+       ],
+       [
+        0.22,
+        0.9
+       ],
+       [
+        0.3,
+        15
+       ],
+       [
+        0.9199999999999999,
+        15
+       ],
+       [
+        1.22,
+        2
+       ]
+      ]
+     }
+    },
+    {
+     "id": "gust",
+     "name": "sneezeBlast",
+     "pos": [
+      -5.3,
+      0.35,
+      -0.4
+     ],
+     "ry": 90,
+     "opts": {
+      "at": 0.16999999999999998,
+      "dur": 0.75,
+      "len": 7.5,
+      "spread": 1.7,
+      "n": 30,
+      "puff": 0.45
+     }
+    },
+    {
+     "id": "pp1",
+     "name": "flyingPaper",
+     "pos": [
+      -4.5,
+      1.2,
+      0.7999999999999999
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.22,
+       "visible": true
+      },
+      {
+       "at": 0.22,
+       "to": [
+        1.0999999999999999,
+        2.3,
+        1.0
+       ],
+       "dur": 0.5,
+       "arc": 0.5,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "pp2",
+     "name": "flyingPaper",
+     "pos": [
+      -4.5,
+      2.2,
+      -0.8
+     ],
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.37,
+       "visible": true
+      },
+      {
+       "at": 0.37,
+       "to": [
+        1.0999999999999999,
+        1.5,
+        -0.6
+       ],
+       "dur": 0.55,
+       "arc": 0.4,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.35,
+      1.75,
+      4.7
+     ],
+     "to": [
+      -1.4,
+      1.75,
+      4.4
+     ],
+     "lookAt": [
+      -1.7,
+      1.6,
+      0.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.7,
+      1.6,
+      0.1
+     ]
+    }
+   ],
+   "start": 3.0667,
+   "duration": 1.4666,
+   "setOpts": {
+    "title": "MÉTÉO",
+    "map": false,
+    "plate": false,
+    "bannerX": -1.7,
+    "bannerY": 2.95,
+    "flagX": 4.3,
+    "clockX": 4.6
+   },
+   "fx": [
+    {
+     "type": "wind",
+     "at": 0.22,
+     "dur": 0.7,
+     "v": [
+      16,
+      0,
+      0
+     ],
+     "attack": 0.05,
+     "release": 0.3
+    },
+    {
+     "type": "shake",
+     "at": 0.22,
+     "dur": 0.25,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "meteo",
+     "pos": [
+      -1.7,
+      0,
+      0.1
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0
+      },
+      {
+       "at": -0.05,
+       "clip": "jelly",
+       "params": {
+        "amp": 0.12,
+        "freq": 9,
+        "decay": 1.5
+       },
+       "blend": 0.001
+      },
+      {
+       "at": 0.034,
+       "expr": "talk"
+      },
+      {
+       "at": 0.156,
+       "expr": "dizzy"
+      },
+      {
+       "at": 0.262,
+       "expr": "talk"
+      },
+      {
+       "at": 0.308,
+       "expr": "dizzy"
+      },
+      {
+       "at": 0.491,
+       "expr": "talk"
+      },
+      {
+       "at": 1.299,
+       "expr": "dizzy"
+      }
+     ],
+     "expr": "dizzy"
+    }
+   ],
+   "props": [
+    {
+     "id": "anemo",
+     "name": "anemometer",
+     "on": {
+      "actor": "meteo",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.1,
+       0
+      ],
+      "rot": [
+       3.1416,
+       0,
+       0
+      ]
+     },
+     "opts": {
+      "spin": [
+       [
+        0,
+        2.5
+       ],
+       [
+        1.2,
+        0.3
+       ]
+      ]
+     }
+    },
+    {
+     "id": "gauge",
+     "name": "windGauge",
+     "pos": [
+      -1.04,
+      2.3,
+      0.35
+     ],
+     "rot": [
+      0.03,
+      -0.1,
+      0.04
+     ],
+     "scale": 0.01,
+     "opts": {
+      "at": 0.14,
+      "value": 200,
+      "r": 0.31
+     },
+     "keys": [
+      {
+       "at": 0.02,
+       "scale": 1.0,
+       "dur": 0.16,
+       "ease": "outBack"
+      }
+     ],
+     "ry": -5.73
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.2,
+      1.95,
+      3.5
+     ],
+     "to": [
+      -1.23,
+      1.97,
+      3.3
+     ],
+     "lookAt": [
+      -1.38,
+      2.0,
+      0.1
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -1.38,
+      2.0,
+      0.1
+     ]
+    }
+   ],
+   "start": 4.5333,
+   "duration": 1.4,
+   "setOpts": {
+    "title": "MÉTÉO",
+    "map": false,
+    "plate": false,
+    "bannerX": -1.7,
+    "bannerY": 2.95,
+    "flagX": 4.3,
+    "clockX": 4.6
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.14,
+     "dur": 0.2,
+     "amount": 0.018
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef",
+     "pos": [
+      0.5,
+      0,
+      -1.7
+     ],
+     "ry": -50,
+     "clip": "point",
+     "keys": [
+      {
+       "at": 0.0,
+       "toon": {
+        "hairUp": 0.85,
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 1.238,
+       "clip": "raiseOverhead",
+       "expr": "proud",
+       "blend": 0.18
+      },
+      {
+       "at": 1.738,
+       "clip": "handsOnHips",
+       "face": 15,
+       "blend": 0.2,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "scale",
+     "name": "windScale",
+     "pos": [
+      -0.5,
+      1.95,
+      -2.52
+     ],
+     "opts": {
+      "at": 1.318,
+      "w": 1.15,
+      "h": 1.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.85,
+      2.5
+     ],
+     "to": [
+      0.2,
+      1.9,
+      2.0
+     ],
+     "lookAt": [
+      0.05,
+      1.85,
+      -2.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.9,
+      -2.2
+     ]
+    }
+   ],
+   "start": 5.9333,
+   "duration": 2.0667,
+   "setOpts": {
+    "title": "MÉTÉO",
+    "map": false,
+    "plate": false,
+    "bannerX": 4.6,
+    "bannerY": 2.95,
+    "flagX": 4.3,
+    "clockX": 4.6
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chef",
+     "pos": [
+      0.5,
+      0,
+      -1.5999999999999999
+     ],
+     "ry": 10,
+     "clip": "oneHandHip",
+     "keys": [
+      {
+       "at": 0.0,
+       "toon": {
+        "hairUp": 0.85,
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.732,
+       "clip": "reachUpL",
+       "expr": "determined",
+       "blend": 0.14
+      },
+      {
+       "at": 1.032,
+       "clip": "windUp",
+       "blend": 0.08
+      },
+      {
+       "at": 1.332,
+       "clip": "point",
+       "expr": "proud",
+       "face": -55,
+       "blend": 0.15,
+       "toon": {
+        "hairUp": 0.85,
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "proud"
+    }
+   ],
+   "props": [
+    {
+     "id": "list",
+     "name": "nameList",
+     "opts": {
+      "at": 9.0,
+      "w": 1.0,
+      "h": 1.7
+     },
+     "pos": [
+      -0.5,
+      4.7,
+      -2.52
+     ],
+     "keys": [
+      {
+       "at": 1.052,
+       "to": [
+        -0.5,
+        2.0,
+        -2.52
+       ],
+       "dur": 0.26,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.25,
+      1.85,
+      2.4
+     ],
+     "to": [
+      0.18,
+      1.9,
+      1.9
+     ],
+     "lookAt": [
+      0.05,
+      1.9,
+      -2.2
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.05,
+      1.95,
+      -2.2
+     ]
+    }
+   ],
+   "start": 8.0,
+   "duration": 2.1,
+   "setOpts": {
+    "title": "MÉTÉO",
+    "map": false,
+    "plate": false,
+    "bannerX": 4.6,
+    "bannerY": 2.95,
+    "flagX": 4.3,
+    "clockX": 4.6
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 1.292,
+     "dur": 0.12,
+     "amount": 0.014
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "mairie",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "list",
+     "name": "nameList",
+     "opts": {
+      "at": 1.0130000000000001,
+      "w": 1.0,
+      "h": 1.7
+     },
+     "pos": [
+      -0.5,
+      2.0,
+      -2.52
+     ]
+    },
+    {
+     "id": "hand",
+     "name": "pointerHand",
+     "pos": [
+      -0.22999999999999998,
+      2.5,
+      -2.42
+     ],
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -0.22999999999999998,
+        1.5,
+        -2.42
+       ],
+       "dur": 0.8330000000000001,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.933,
+       "to": [
+        -0.2,
+        1.36,
+        -2.42
+       ],
+       "dur": 0.12,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.35,
+      2.0,
+      -0.3
+     ],
+     "to": [
+      -0.37,
+      1.7,
+      -0.5
+     ],
+     "lookAt": [
+      -0.42,
+      2.1,
+      -2.5
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      -0.42,
+      1.6,
+      -2.5
+     ]
+    }
+   ],
+   "start": 10.1,
+   "duration": 1.2333,
+   "setOpts": {
+    "title": "MÉTÉO",
+    "map": false,
+    "plate": false,
+    "bannerX": 4.6,
+    "bannerY": 2.95,
+    "flagX": 4.3,
+    "clockX": 4.6
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.2,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.3,
+       "clip": "jelly",
+       "params": {
+        "amp": 0.3
+       },
+       "expr": "surprised",
+       "blend": 0.03
+      },
+      {
+       "at": 0.55,
+       "look": [
+        0.2,
+        1.3,
+        0.8
+       ],
+       "expr": "lookDown"
+      },
+      {
+       "at": 0.8500000000000001,
+       "look": null,
+       "expr": "deadpan"
+      }
+     ],
+     "expr": "worried"
+    },
+    {
+     "id": "chef",
+     "pos": [
+      1.05,
+      0,
+      0.55
+     ],
+     "ry": -75,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "toon": {
+        "hairUp": 0.85
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.05,
+       "clip": "point",
+       "blend": 0.12
+      },
+      {
+       "at": 0.4,
+       "clip": "handsOnHips",
+       "blend": 0.2
+      }
+     ],
+     "expr": "proud"
+    }
+   ],
+   "props": [
+    {
+     "id": "badge",
+     "name": "nameBadge",
+     "pos": [
+      0.95,
+      1.45,
+      0.75
+     ],
+     "rot": [
+      0,
+      -1.2,
+      0
+     ],
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.18,
+       "to": [
+        0.14,
+        1.52,
+        0.46
+       ],
+       "dur": 0.12,
+       "ease": "in"
+      },
+      {
+       "at": 0.18,
+       "rotTo": [
+        0,
+        0,
+        -0.06
+       ],
+       "dur": 0.12
+      },
+      {
+       "at": 0.3,
+       "attach": "mec",
+       "joint": "torso",
+       "offset": [
+        -0.06,
+        0.47,
+        0.19
+       ],
+       "rot": [
+        0,
+        0,
+        -0.06
+       ]
+      }
+     ],
+     "ry": -68.755
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.6,
+      3.3
+     ],
+     "to": [
+      0.45,
+      1.62,
+      2.9
+     ],
+     "lookAt": [
+      0.3,
+      1.55,
+      0.3
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.28,
+      1.6,
+      0.3
+     ]
+    }
+   ],
+   "start": 11.3333,
+   "duration": 1.0667,
+   "setOpts": {
+    "title": "MÉTÉO",
+    "map": false,
+    "plate": false,
+    "bannerX": 0.2,
+    "bannerY": 2.95,
+    "flagX": 4.3,
+    "clockX": 4.6
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.3,
+     "dur": 0.15,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 12.4,
+   "duration": 1.1,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 13.5,
+   "duration": 1.3,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 14.8,
+   "duration": 1.2333,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 16.0333,
+   "duration": 1.1667,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 17.2,
+   "duration": 2.5333,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 19.7333,
+   "duration": 1.8667,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 21.6,
+   "duration": 1.0667,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 22.6667,
+   "duration": 1.2333,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 23.9,
+   "duration": 1.5667,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.0,
+      0,
+      0.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [],
+     "expr": "neutral"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.4,
+      1.5,
+      4.5
+     ],
+     "to": [
+      7.35,
+      1.5,
+      4.2
+     ],
+     "lookAt": [
+      7.0,
+      1.3,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.0,
+      1.3,
+      0
+     ]
+    }
+   ],
+   "start": 25.4667,
+   "duration": 2.7033,
+   "setOpts": {
+    "clear": [
+     -45,
+     30
+    ],
+    "eiffelX": -30
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 28.17,
+ "look": "natural",
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1
+}
