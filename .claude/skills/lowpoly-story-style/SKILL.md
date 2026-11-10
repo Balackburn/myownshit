@@ -236,3 +236,23 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperTh
 - (cycle 3) Orientation d'une main guidée (pouce levé) : balayer la torsion sur quatre images (−2,4 ; 0 ; 1,2 ; 2,4) au lieu de la deviner.
 - (cycle 3) Correction après lecture des bandes : ne re-rendre que la plage du plan dans le brouillon (`--range a:b`) et la recoller
   (`tools/splice_range.sh`) : les preuves montrées aux relecteurs contiennent la correction.
+- (cycle 3) Un étirement dans l'axe de la caméra ne se voit pas (le bras élastique partait derrière le corps du personnage qui venait vers nous ; le bras
+  télescopique tendu vers le fond ne faisait que 1,6 fois sa longueur à l'écran) : étirer EN TRAVERS du cadre (corde à linge), le personnage à un bord,
+  la cible à l'autre ; viser 2,5 fois la longueur du bras au repos mesurée sur l'image. Tenir d'abord le geste ordinaire 8 images, trop court.
+- (cycle 3) « Les yeux seuls » demandent une expression aux yeux ouverts (`surprised`, puis `shocked`) : `gulp` les ferme, et le personnage a l'air de ne
+  rien voir. Deux paliers des pupilles avec l'objet qui monte, la tête qui s'enfonce dès le début.
+- (cycle 3) Un accessoire levé d'une main cache le visage de celui qui le lève : le tenir à deux mains (les deux `reach` sur le pommeau), le visage
+  entre les bras.
+- (cycle 3) Oscillation après un choc : 22 rad/s avec un amortissement de 4,3 (trois balancements, 100, 55, 25 %) se lit ; 44 rad/s est un flou, et
+  disparaît dans des bandes à une image sur deux. Une carte tapée : pendule depuis son bord haut (`pivotTop`, 13 rad/s), elle reste de travers.
+- (cycle 3) Une crêpe à l'atterrissage a les bras en croix : 1,6 m de large de trois quarts. Atterrir avec 30 % de marge de chaque côté.
+- (cycle 3) Enseigne au-dessus d'une porte : à peine plus large que la porte ; sinon tout plan serré la coupe. Pour un gros plan sous une enseigne,
+  caméra plus haute que le sujet et plongeante : l'enseigne passe au-dessus du cadre.
+- (cycle 3) Costume noir uni : silhouette découpée sans modelé à côté des costumes peints (revers, coutures) ; prendre un anthracite avec revers.
+- (cycle 3) Regarder ce qu'il y a DERRIÈRE le point où se joue le gag (un arbre du décor exactement derrière la poignée de main : ils semblaient tenir
+  un objet vert). Changer le tirage du décor (`seed`) pour ce plan.
+- (cycle 3) Trois fois le même modèle ne font pas trois villes : un monument par ville (beffroi, dôme, château d'eau) et de l'horizon sombre entre elles.
+- (cycle 3) **Commentaire au milieu d'une ligne, quatrième et cinquième fois**, cette fois en remplaçant du texte par script : le texte de remplacement
+  finissait par un commentaire alors que la ligne continuait. Règle : dans un remplacement, jamais de commentaire en fin de chaîne sauf si la chaîne
+  remplacée finissait la ligne ; mettre le commentaire sur sa propre ligne au-dessus. `node --check` et l'exécution du script Python l'ont attrapé.
+- (cycle 3) Lancer le rendu final pendant la dernière relecture ne sert à rien si elle touche plus d'un tiers des plans : attendre les deux rapports.

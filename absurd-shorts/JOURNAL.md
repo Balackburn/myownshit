@@ -393,6 +393,28 @@ Décisions prises sans question (règle du mode autonome) :
 
 Régression après les modifications du moteur : 0,5 % au pire (le bruit de fond habituel est de 0,54 %).
 
+### 4 quinquies. Troisième et dernière revue (animation 8,2 ; direction artistique 8,4), dernière passe, rendu
+
+Troisième tour (le dernier permis par le protocole) sur le brouillon de la troisième passe : **8,2** en animation (6,8 puis 7,6 aux tours
+précédents) et **8,4** en direction artistique (6,8 puis 8,0). Aucun des deux n'atteint 8,5 ; leurs dernières remarques ont été appliquées
+sans nouvelle relecture, puis le film a été rendu.
+
+| Remarque du troisième tour | Correction |
+| --- | --- |
+| Le passant en costume noir est une silhouette découpée (DA) | anthracite avec revers peints ; une bande de trottoir entre lui et le héros en S11 |
+| Un arbre du décor exactement derrière la poignée de main (DA, anim) | autre tirage des arbres pour ce plan |
+| Les coupelles rouges de l'anémomètre disparaissent sur le rouge du bandeau (DA) | coupelles jaunes, moyeu sombre |
+| Poses au bord du cadre ou dans la bande des sous-titres : index « attendez », pieds pendus, atterrissage, enseigne (DA, anim) | index près du visage sur du mur libre ; caméra de S07 visée plus bas (le vide sous ses pieds au-dessus des sous-titres) ; atterrissage remonté ; marge à droite de l'enseigne |
+| Quatre accessoires qui ne se lisent pas : sacs de sable, villes, perruque, grain de pollen (DA) | sacs de jute affaissés en quinconce ; un monument par ville (beffroi, dôme, château d'eau) ; perruque avec raie et frange roulée ; grain citron pâle cerné, plus gros |
+| Mèches à plat vues par la tranche : un trait noir flottant (DA) | les mèches à plat ne sont plus dessinées et ne penchent qu'une fois dressées |
+| Sortie du matelas illisible (anim) | deux images de moins dans le matelas ; la boule part sur une seule cloche dans le ciel libre ; crêpe tenue six images ; plus de relevé (décision prise seul : on finit le gag sur la crêpe) |
+| Le bras télescopique se lit comme un bras tendu (anim) | elle au pied du mur, bras ordinaire tenu huit images un bon mètre trop court, coup d'œil à la carte, puis le bras part en deux images, dépasse : la carte se balance comme un pendule ; chaque tape plus forte, la carte reste de travers |
+| La peur « par les yeux seuls » ne se lit pas ; le visage de l'assureur est caché par son bras (anim) | yeux grands ouverts, deux paliers des pupilles et des sourcils, il s'enfonce dès 0,2 s ; l'assureur tient le tampon à deux mains, le visage entre les bras |
+| Les deux « chutes » de gag ont le moins d'images (anim) | la liste descend plus tôt (sur « ça porte un ») : seize images pendu, deux balancements des jambes, un regard et un clignement vers nous ; après la poignée de main, trois balancements plus lents (22 rad/s), la cravate et les cheveux après la tête |
+| Divers (anim) | la main descend la liste nom par nom ; premier regard des passants les yeux ouverts, un écrasement avant les yeux sortis ; la présentatrice se grandit avant la rafale ; la première inspiration garde son gain (cheveux et cravate suivent la racine du niveau) ; il recule devant le nuage au début du dernier plan ; gonflement final plus fort |
+
+Régression après ces modifications du moteur : 0,52 % au pire (bruit habituel).
+
 ## Cycle 3 — rig : la main guidée (commencé pendant la revue de l'histoire 38)
 
 ### 1. Analyse (ce que les histoires 37 et 38 ont montré)
