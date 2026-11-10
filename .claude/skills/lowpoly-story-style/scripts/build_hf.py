@@ -8,7 +8,14 @@ TL = json.load(open(A.timeline)); D = TL["total"]
 groups = []
 FN = {'un', 'une', 'le', 'la', 'les', 'de', 'du', 'des', 'à', 'a', 'dans', 'en', 'pour', 'sa', 'ses', 'tes', 'cet', 'ce', 'il', 'ils', 'on', 'et', 'avant', 'tout', 'pas', 'qu\'il', 'est'}
 for l in TL['lines']:
-    words = l['words']; disp = re.sub(r'[«»]', '', l['text']).split(); assert len(disp) == len(words), l['id']
+    words = l['words']; disp = re.sub(r'[«»]', '', l['text']).split()
+    if len(disp) != len(words):   # French spacing in the text (« répondu : ») where the aligner timed one word (« répondu: »): the lone sign joins the word before it
+        m = []
+        for d in disp:
+            if m and d in ('!', '?', ':', ';'): m[-1] += '\u00a0' + d
+            else: m.append(d)
+        disp = m
+    assert len(disp) == len(words), l['id']
     toks = []   # (first word timing, display text): a lone "!" / "?" joins the word before it (French spacing, kept non-breaking)
     for w, d in zip(words, disp):
         if toks and d in ('!', '?', ':', ';'): toks[-1] = (toks[-1][0], toks[-1][1] + '\u00a0' + d)

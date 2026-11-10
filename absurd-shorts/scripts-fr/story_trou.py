@@ -9,7 +9,7 @@ falls trail, every payoff sits above the caption band."""
 from story_kit import *
 
 st = Story('trou', look='natural')
-st.plan([('S01', 'L01', 0), ('S02', 1.1333, 0), ('S03', 'L02', 0), ('S04', 'L03', 0), ('S05', 'L04', 0), ('S06', 'L05', 0), ('S07', 'L06', 0), ('S08', 'L07', 0), ('S09', 'L07', 3),
+st.plan([('S01', 'L01', 0), ('S02', 0.8833, 0), ('S03', 'L02', 0), ('S04', 'L03', 0), ('S05', 'L04', 0), ('S06', 'L05', 0), ('S07', 8.3833, 0), ('S08', 'L07', 0), ('S09', 'L07', 3),
          ('S10', 'L08', 0), ('S11', 'L09', 0), ('S12', 'L09', 1), ('S13', 15.7333, 0), ('S14', 'L10', 2), ('S15', 'L11', 0), ('S16', 'L11', 5), ('S17', 'L12', 0), ('S18', 'L12', 3)])
 
 def glide(c, g=0.2): return {**c[0], 'cut': False, 'glide': g}   # a camera key that glides from the previous one instead of cutting
@@ -21,14 +21,15 @@ BLUE, WHITE, RED = '#2A4B9B', '#F4F1E8', '#C8202A'
 LEGS = lambda s, f=0.75: {'legL': [0, 0, 0, s, f], 'legR': [0, 0, 0, s, f], 'shinL': [0, 0, 0, s, f], 'shinR': [0, 0, 0, s, f]}
 
 # 1: he walks to work, eyes on his phone, straight onto the hole, and keeps walking on the air (quick small steps: four of them over the void)
-st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', [HX, 0, -1.6], 0, 'walkRead', 'lookDown', keys=[k(0.0, to=[HX, 0, 0.15], dur=1.02, clip='walkRead', cadence=2.1, ease='linear', blend=0.001, then='walkRead')])],
-        props=[PHONE()], cams=[cam(0.0, [8.35, 2.75, 5.5], [8.15, 2.55, 5.0], [HX, 0.95, -0.55], [HX, 0.9, 0.0], lens=44)])
+#    (third pass: he starts two steps from the edge: the pavement gets 0.2 s, the air 0.55 s, and the look at us in the next shot a quarter of a second more)
+st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', [HX, 0, -1.31], 0, 'walkRead', 'lookDown', keys=[k(0.0, to=[HX, 0, 0.15], dur=0.77, clip='walkRead', cadence=2.3, ease='linear', blend=0.001, then='walkRead')])],
+        props=[PHONE()], cams=[cam(0.0, [8.35, 2.75, 5.5], [8.15, 2.55, 5.0], [HX, 0.95, -0.45], [HX, 0.9, 0.0], lens=44)])
 # 2: hang time: he stops; his eyes leave the phone, then his head goes down past it; he looks at us and gulps (held); the legs leave first, the head
 #    stays behind on its neck, then snaps down; the phone waits where the hand left it, over the hole, then follows
-D2 = 0.78                                          # the drop
+D2 = 1.03                                          # the drop (the cut is 0.25 s earlier than in the second pass: the time goes to the look at us)
 LEG2, NECK2 = 2.7, 9.0                             # legs x2.7: the feet go 1.6 m down below the body (a stretched leg grows downward from the hip: no move needed);
                                                    # then the body drops 1.22 m while the spine (x1.7) and the neck (x9) grow upward by as much: the head stays
-st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', [HX, 0, 0.15], 0, 'walkRead', 'lookDown', keys=[k(0.0, clip='hangPhone', params={'downAt': 0.12, 'usAt': 0.36, 'expr': 'uhoh'}, blend=0.06), k(0.36, expr='uhoh'),
+st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', [HX, 0, 0.15], 0, 'walkRead', 'lookDown', keys=[k(0.0, clip='hangPhone', params={'downAt': 0.12, 'usAt': 0.38, 'expr': 'uhoh'}, blend=0.06), k(0.38, expr='uhoh'), k(D2 - 0.19, toon={'face': {'lid': 1}}, toonDur=0.05), k(D2 - 0.11, toon={}, toonDur=0.07),
         k(D2, clip='fallDrag', params={'expr': 'take', 'jaw': 0.9, 'stretch': 1.0}, blend=0.1), k(D2 - 0.03, toon={'auto': 0}, toonDur=0.03), k(D2, toon={'auto': 0, 'bend': LEGS(LEG2)}, toonDur=0.12, toonEase='in'),
         k(D2 + 0.12, to=[HX, -1.22, 0.15], dur=0.1, glide=True, ease='linear', face='keep'), k(D2 + 0.12, toon={'auto': 0, 'bend': {**LEGS(LEG2), 'spine': [0, 0, 0, 1.7, 0.8], 'neck': [0, 0, 0, NECK2, 0.45]}}, toonDur=0.1, toonEase='linear'),
         k(D2 + 0.22, to=[HX, -8.0, 0.15], dur=0.12, glide=True, ease='in', face='keep'), k(D2 + 0.22, toon={}, toonDur=0.05)])],
@@ -60,21 +61,26 @@ st.shot('S05', 'holeSection', actors=[act('mec', [0, 0, 0], 0, 'phoneEar', 'hmm'
         k(T5 - 0.12, clip='take', params={'hold': 0.5, 'pop': 0.55, 'jaw': 0.9}, expr='take')])],
         props=[PHONE()], cams=[cam(0.0, [0.22, 1.85, 3.5], [0.2, 1.85, 3.35], [0, 1.82, 0], [0, 1.82, 0], lens=44), glide([cam(T5 - 0.12, [0.25, 1.95, 5.4], [0.22, 2.0, 5.2], [0, 2.0, 0], [0, 2.05, 0], lens=44)], 0.2)])
 # 6: the officer comes to check, ticking his form, and walks out onto the hole without looking
-st.shot('S06', 'parisStreet', setOpts=STREET, actors=[act('agent', [HX, 0, -4.9], 0, 'walkWrite', 'determined', keys=[k(0.0, to=[HX, 0, 0.05], dur=1.5, clip='walkWrite', then='clipboard'), k(1.62, expr='proud')])],
+st.shot('S06', 'parisStreet', setOpts=STREET, actors=[act('agent', [HX, 0, -4.9], 0, 'walkWrite', 'determined', keys=[k(0.0, to=[HX, 0, 0.05], dur=1.5, clip='walkWrite', then='clipboard'), k(1.54, expr='proud')])],
         props=[P('cb', 'clipboardProp', on={'actor': 'agent', 'hand': 'L', 'offset': [0, -0.1, 0.06], 'rot': [1.2, 0, 0]})],
         cams=[cam(0.0, [4.3, 2.0, 4.4], [4.5, 2.0, 4.0], [HX, 0.95, -0.7], [HX, 0.9, -0.1], lens=44)])
-# 7: seen from the side: he looks down without bending: his head tips over, his eyes go down to the hole on their stalks, have a look round, come back;
-#    he turns to us, and drops like a stone; the cap and the clipboard stay behind, then follow
-E7, B7, D7 = 0.2, 0.52, 0.67                       # the eyes leave, come back, the drop
-NECK7 = lambda w=0: {'neck': [1.48 + w, w, 0, 1.6, 0.8]}   # the head tips right over (the neck bends, the body stays a post): the stalks go down along his front
-EYES7 = lambda L, w=0: {'face': {'pop': 1, 'popLen': L, 'eyeScale': 1.6, 'expr': 'lookDown', 'exprW': 1}, 'bend': NECK7(w)}
-CAM7 = [2.0, 1.0, 0.9]
-st.shot('S07', 'parisStreet', setOpts=STREET, actors=[act('agent', [HX, 0, 0.05], 0, 'clipboard', 'proud', keys=[k(0.08, clip='stiff', expr='lookDown', blend=0.1), k(0.08, toon={'bend': NECK7()}, toonDur=0.12),
-        k(E7, toon=EYES7(1.3), toonDur=0.11, toonEase='outBack'), k(E7 + 0.14, toon=EYES7(1.25, 0.14), toonDur=0.08, toonEase='inOut'), k(E7 + 0.23, toon=EYES7(1.3, -0.12), toonDur=0.08, toonEase='inOut'),
-        k(B7, toon={'hat': [0.3, 0, 0], 'face': {'expr': 'take', 'exprW': 1}}, toonDur=0.06, toonEase='in'), k(B7 + 0.03, expr='take', look=[CAM7[0], 1.7, CAM7[2]]), k(D7, toon={'hat': [60, 0, 0]}, toonDur=0), k(D7, clip='fallDrag', blend=0.05), k(D7, to=[HX, -7.0, 0.05], dur=0.13, glide=True, ease='in', face='keep')])],
-        props=[P('cb', 'clipboardProp', on={'actor': 'agent', 'hand': 'L', 'offset': [0, -0.1, 0.06], 'rot': [1.2, 0, 0]}, keys=[k(D7, detach=True, wobble=[0.4, 22, 5]), k(D7 + 0.2, to=[None, -6.5, None], dur=0.16, ease='in')]),
-               P('cap', 'copCap', pos=[HX, 2.62, 0.05], spin=7, scale=1.25, keys=[k(0.0, visible=False), k(D7, visible=True), k(D7 + 0.3, to=[HX, -1.2, 0.05], dur=0.2, ease='in')]), DUST('d7', [HX, -0.35, 0.2], D7 + 0.26)],
-        cams=[cam(0.0, CAM7, [CAM7[0] + 0.15, CAM7[1], CAM7[2]], [HX, 1.0, 0.35], [HX, 1.0, 0.35], lens=44)])
+# 7: seen from the side and a little from above (the hole is a dark disc under him): he looks down without bending: his head tips over, his eyes go down
+#    to the hole on their stalks, look round it (pupils turned to us), blink, come back and snap his head upright; he is gone in two frames, like a stone;
+#    the cap stays where his head was, spinning, then follows. (third pass: one idea at a time: no turn to us, no stretched fall, one prop left behind)
+E7, B7, D7 = 0.2, 0.9, 1.08                        # the eyes leave, come back, the drop
+NECK7 = lambda w=0: {'neck': [1.62 + w, w, 0, 1.6, 0.8]}   # the head tips right over, a little past the horizontal (the neck bends, the body stays a post): the stalks go down and a little back, to the middle of the hole
+EYES7 = lambda L, w=0, roll=0, **f: {'face': {'pop': 1, 'popLen': L, 'eyeScale': 1.6, 'pupil': 0.95, 'eyeYaw': -1.3, 'eyeRoll': roll, 'stalkRed': 1, 'stalkBow': 0.05, 'expr': 'lookDown', 'exprW': 1, **f}, 'bend': NECK7(w)}
+TAKE7 = {'pop': 0.6, 'popLen': 0.12, 'eyeScale': 1.25, 'eyeYaw': -0.9, 'pupil': 0.9, 'jaw': 0.3, 'expr': 'take', 'exprW': 1}
+CAM7 = [2.4, 2.3, -0.7]                           # from the road, a little behind his profile: his head (and the cap he leaves) on the plain wall, not on the dark window
+CAPY7 = 2.2                                        # where the cap hangs once he is gone (his hat, lifted by the take)
+st.shot('S07', 'parisStreet', setOpts=STREET, actors=[act('agent', [HX, 0, 0.05], 0, 'clipboard', 'proud', keys=[k(0.06, clip='stiff', expr='lookDown', blend=0.1), k(0.06, toon={'bend': NECK7()}, toonDur=0.12),
+        k(E7, toon=EYES7(1.62), toonDur=0.11, toonEase='outBack'), k(0.38, toon=EYES7(1.56, 0.13, 0.7), toonDur=0.1, toonEase='inOut'), k(0.56, toon=EYES7(1.62, -0.12, -0.7), toonDur=0.12, toonEase='inOut'),
+        k(0.72, toon=EYES7(1.62, -0.12, -0.7, popBlink=1), toonDur=0.001), k(0.79, toon=EYES7(1.62, -0.12, -0.7), toonDur=0.001), k(0.82, toon=EYES7(1.62, 0, 0), toonDur=0.07, toonEase='inOut'),
+        k(B7, toon={'auto': 0, 'hat': [0.3, 0.25, 0], 'face': TAKE7, 'bend': {'neck': [-0.22, 0, 0, 1.15, None]}}, toonDur=0.07, toonEase='out'), k(B7 + 0.02, expr='take'), k(B7 + 0.08, toon={'auto': 0, 'hat': [0.14, 0, 0], 'face': TAKE7}, toonDur=0.07),
+        k(D7 - 0.01, toon={'auto': 0, 'hat': [60, 0, 0], 'face': TAKE7}, toonDur=0.001), k(D7, to=[HX, -7.0, 0.05], dur=0.066, glide=True, ease='linear', face='keep')])],
+        props=[P('cb', 'clipboardProp', on={'actor': 'agent', 'hand': 'L', 'offset': [0, -0.1, 0.06], 'rot': [1.2, 0, 0]}),
+               P('cap', 'copCap', pos=[HX, CAPY7, 0.05], spin=7, scale=1.25, keys=[k(0.0, visible=False), k(D7 - 0.01, visible=True), k(D7 + 0.22, to=[HX, -1.2, 0.05], dur=0.2, ease='in')]), DUST('d7', [HX, -0.35, 0.2], D7 + 0.2)],
+        cams=[cam(0.0, CAM7, [CAM7[0] + 0.15, CAM7[1], CAM7[2]], [HX, 0.85, 0.2], [HX, 0.85, 0.2], lens=44)])
 # 8: a fireman at a sprint: he brakes on the very edge and windmills
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('pompier', [HX, 0, -8.5], 0, 'dashOff', 'determined', keys=[k(0.0, to=[HX, 0, -1.1], dur=0.36, clip='dashOff', ease='out', then='skidStop', thenParams={'dur': 0.24}),
         k(0.58, clip='teeter', params={'grow': 1.6, 'spin': 37, 'pop': 0.8, 'jaw': 0.55, 'fallAt': st.dur('S08') - 0.58 - 0.17})])],
@@ -86,14 +92,19 @@ st.shot('S09', 'holeSection', actors=[act('mec', [-0.6, 0, 0.1], 0, 'lookUp', 'w
         act('pompier', [0.02, 6.2, 0.25], 0, 'fallDrag', 'scared', keys=[k(0.0, to=[0.02, 0, 0.25], dur=0.14, glide=True, ease='linear', face='keep'), k(0.14, clip='accordion', params={'hit': True, 'expr': 'dizzy', 'stars': 1}, blend=0.02)])],
         props=[DUST('d9', [0, 0.02, 0.5], 0.14, 0.5)], fx=[{'type': 'shake', 'at': 0.14, 'dur': 0.2, 'amount': 0.04}],
         cams=[cam(0.0, [0.2, 1.55, 6.3], [0.15, 1.5, 6.0], [0, 1.4, 0], [0, 1.4, 0], lens=44)])
-# 10: the mayor, chest out: he steps onto nothing, smiles at us, waves from the wrist and goes down slowly, like a lift; the hand stays last
-W10, G10, V10 = 0.92, 1.05, 3.33                   # the wave, the descent starts, its speed (m/s)
-END10 = st.dur('S10')
-FORE10 = lambda t: max(1.0, (V10 * (t - G10) - 1.42) / 0.33)   # the forearm stretches so that the hand stays 0.5 m above the rim while the body goes on down
-st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('maire', [HX, 0, -2.8], 0, 'marchPomp', 'proud', keys=[k(0.0, to=[HX, 0, 0.05], dur=0.85, clip='marchPomp', then='stand'),
-        k(W10, clip='royalWave', params={'flickAt': END10 - 0.2 - W10}, expr='teeth', blend=0.14), k(G10, to=[HX, -V10 * (END10 - G10), 0.05], dur=END10 - G10, glide=True, ease='linear', face='keep'),
-        k(G10 - 0.04, toon={'auto': 0}, toonDur=0.04), k(1.575, toon={'auto': 0, 'bend': {'foreR': [0, 0, 0, FORE10(END10 - 0.09), 0.6]}}, toonDur=END10 - 0.09 - 1.575, toonEase='linear'), k(END10 - 0.08, toon={'auto': 0}, toonDur=0.05, toonEase='in')])],
-        cams=[cam(0.0, [5.3, 1.9, 4.6], [5.5, 1.9, 4.3], [HX, 1.05, 0.0], [HX, 0.3, 0.05], lens=46, ease='in')])   # the camera tilts down with him: the hole climbs clear of the captions
+# 10: the mayor, chest out: he steps onto nothing, smiles at us, waves from the wrist and goes down slowly, like a lift; the hand stays where it waved, at
+#     the end of a forearm that grows as fast as he sinks, alone for half a second (it swells a little: nobody else left to look at), one last flick,
+#     and it is sucked down. (third pass: the march starts two strides from the hole; the time goes to the hand)
+W10, G10, V10 = 0.5, 0.88, 3.33                    # the wave, the descent starts, its speed (m/s)
+END10 = st.dur('S10'); Z10 = round(END10 - 0.1, 3)  # the hand goes
+L10 = round(G10 + 0.165, 3)                        # the hand has come down 0.55 m with him: from here it stays (1.4 m above the hole)
+FORE10 = lambda t: 1 + V10 * (t - L10) / 0.33      # the forearm (0.33 m, upright in the wave) grows as fast as the body goes down
+CAM10 = [5.62, 1.05, 2.95]
+st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('maire', [HX, 0, -1.45], 0, 'marchPomp', 'proud', keys=[k(0.0, to=[HX, 0, 0.05], dur=0.45, clip='marchPomp', then='stand'),
+        k(W10, clip='royalWave', params={'flickAt': Z10 - 0.22 - W10, 'fore': 1.84, 'foreAmp': 0.3}, expr='teeth', look=CAM10, blend=0.14), k(G10, to=[HX, -V10 * (END10 - G10), 0.05], dur=END10 - G10, glide=True, ease='linear', face='keep'),
+        k(G10 - 0.04, toon={'auto': 0}, toonDur=0.04), k(L10, toon={'auto': 0, 'bend': {'foreR': [0, 0, 0, FORE10(Z10), 0.9]}, 'scl': {'handR': [2.2, 2.2, 2.2]}}, toonDur=Z10 - L10, toonEase='linear'),
+        k(Z10, toon={'auto': 0}, toonDur=0.06, toonEase='in')])],
+        cams=[cam(0.0, [5.2, 1.2, 4.5], CAM10, [HX - 0.15, 1.2, 0.0], [HX - 0.4, 0.78, 0.05], lens=46, ease='inOut')])   # the camera closes in on the hand as he sinks
 # 11: officially: the board at the town hall
 st.shot('S11', 'mairie', setOpts={'map': False, 'plate': False, 'board': {'at': [0.05, 0.2, 0.35, 0.5]}, 'boardX': 0.05, 'bannerX': 4.0, 'flagX': 3.5}, actors=[act('employee', [-0.92, 0, -1.75], 55, 'point', 'smug', keys=[k(0.58, clip='handsOnHips', face=15, expr='proud')])],
         cams=[cam(0.0, [-0.26, 1.85, 2.85], [-0.28, 1.87, 2.6], [-0.3, 1.85, -2.5], [-0.3, 1.85, -2.5], lens=44)])
@@ -109,12 +120,12 @@ st.shot('S12', 'holeSection', actors=[act(w, [x, 0, z], 0, 'squeezed', e, params
         cams=[cam(0.0, [0.1, 1.5, 5.6], [0.08, 1.52, 5.25], [0, 1.45, 0], [0, 1.45, 0], lens=44)])
 # 13: a letter comes down the hole: their heads follow it; his arm goes all the way up the shaft to fetch it, fumbles, snaps back: the row rocks
 A13, G13, B13 = 0.2, 0.3, 0.5                      # the arm leaves, the grab, the snap back
-ARM13 = lambda s, f=0.6: {**SQ, 'bend': {'armL': [0, 0, 0, s, f], 'foreL': [0, 0, 0, s, f]}}
+ARM13 = lambda s, f=0.95: {**SQ, 'bend': {'armL': [0, 0, 0, s, f], 'foreL': [0, 0, 0, s, f]}}
 ROCK = lambda i, a: {**SQ, 'sq': [0.78, 1.0, 0.9], 'bend': {'spine': [0, a, 0, 1, None]}}
 st.shot('S13', 'holeSection', actors=[act('mec', [-0.66, 0, 0.05], 0, 'squeezed', 'lookUp', params={'look': 0.2}, keys=[k(0.0, toon=SQ, toonDur=0), k(0.0, look='bill'), k(A13 - 0.1, toon={**SQ, 'sq': [0.84, 0.92, 0.95]}, toonDur=0.09),
         k(A13, clip='reachHigh', expr='determined', blend=0.07), k(A13, toon=ARM13(3.7), toonDur=0.1, toonEase='outBack'), k(B13, toon=ARM13(1.0, None), toonDur=0.06, toonEase='in'), k(B13 + 0.05, clip='holdOut', expr='surprised', blend=0.1),
         k(B13 + 0.07, toon={**SQ, 'sq': [0.9, 0.8, 0.95]}, toonDur=0.04), k(B13 + 0.12, toon=SQ, toonDur=0.14)])] +
-        [act(w, [x, 0, z], 0, 'squeezed', 'lookUp', params={'look': lk, 'ph': ph}, keys=[k(0.0, toon=SQ, toonDur=0), k(0.0, look='bill'), k(B13 + 0.06 + 0.03 * i, toon=ROCK(i, -0.22), toonDur=0.05), k(B13 + 0.12 + 0.03 * i, toon=ROCK(i, 0.13), toonDur=0.07), k(B13 + 0.2 + 0.03 * i, toon=SQ, toonDur=0.12), k(B13 + 0.1, expr='surprised')])
+        [act(w, [x, 0, z], 0, 'squeezed', 'lookUp', params={'look': lk, 'ph': ph}, keys=[k(0.0, toon=SQ, toonDur=0), k(0.02 + 0.066 * (i - 1), look='bill'), k(0.02 + 0.066 * (i - 1), toon={**SQ, 'bend': {'neck': [-0.5, 0, 0, 1.3, None]}}, toonDur=0.12, toonEase='out'), k(B13 + 0.06 + 0.03 * i, toon=ROCK(i, -0.22), toonDur=0.05), k(B13 + 0.12 + 0.03 * i, toon=ROCK(i, 0.13), toonDur=0.07), k(B13 + 0.2 + 0.03 * i, toon=SQ, toonDur=0.12), k(B13 + 0.1, expr='surprised')])
          for i, (w, x, z, lk, e, ph) in enumerate(ROW[1:], 1)],
         props=[P('bill', 'taxBill', pos=[-0.3, 5.5, 0.3], rot=[0.5, 0.2, 0.3], scale=0.6, keys=[k(0.0, to=[-0.45, 4.32, 0.3], dur=G13, ease='out'), k(0.0, rotTo=[-0.4, -0.3, -0.35], dur=G13), k(G13, attach='mec', hand='L', offset=[0, -0.2, 0.02], rot=[0, 0, 0])])],
         cams=[cam(0.0, [0.1, 2.5, 7.5], [0.1, 2.45, 7.2], [0, 2.4, 0], [0, 2.35, 0], lens=44)])
@@ -122,7 +133,7 @@ st.shot('S13', 'holeSection', actors=[act('mec', [-0.66, 0, 0.05], 0, 'squeezed'
 T14 = st.at('S14', 'L10', 4)
 EUR = {'pop': 1, 'popLen': 0.07, 'euro': 1, 'eyeScale': 1.05}   # money eyes: out on stalks, a euro sign on each
 GRIN14 = ['teeth', 'bigGrin', 'laugh', 'smug']   # four ways to be pleased
-st.shot('S14', 'holeSection', actors=[act(w, [x, 0, z], 0, 'squeezed', 'surprised', params={'look': -x * 0.5, 'ph': ph}, keys=[k(0.0, toon=SQ, toonDur=0), k(T14 + i * 0.05, expr=GRIN14[i], toon={**SQ, 'sq': [0.74, 1.2 + 0.05 * (i % 2), 0.9], 'face': EUR}, toonDur=0.1), k(T14 + i * 0.05 + 0.14, toon={**SQ, 'face': EUR}, toonDur=0.2)])
+st.shot('S14', 'holeSection', actors=[act(w, [x, 0, z], 0, 'squeezed', 'surprised', params={'look': -x * 0.5, 'ph': ph}, keys=[k(0.0, toon=SQ, toonDur=0), k(0.0, look=[-0.3, 1.5, 0.75]), k(0.1 + 0.035 * i, look=[0.3, 1.5, 0.75]), k(0.25 + 0.035 * i, look=[-0.22, 1.36, 0.75]), k(T14 + i * 0.05 - 0.02, look=None), k(T14 + i * 0.05, expr=GRIN14[i], toon={**SQ, 'sq': [0.74, 1.2 + 0.05 * (i % 2), 0.9], 'face': EUR}, toonDur=0.1), k(T14 + i * 0.05 + 0.14, toon={**SQ, 'face': EUR}, toonDur=0.2)])
         for i, (w, x, z, lk, e, ph) in enumerate(ROW)],
         props=[P('bill', 'taxBill', pos=[0.0, 1.42, 0.75], rot=[-0.08, 0, 0.03], scale=1.0)],
         cams=[cam(0.0, [0.05, 1.78, 3.75], [0.04, 1.78, 3.55], [0, 1.74, 0.1], [0, 1.74, 0.1], lens=44)])
@@ -142,7 +153,7 @@ st.shot('S15', 'parisStreet', setOpts=STREET, actors=[jumper(i, *j) for i, j in 
         cams=[cam(0.0, [2.1, 1.4, 2.7], [2.3, 1.4, 2.5], [HX + 0.3, 1.2, -0.8], [HX + 0.3, 1.15, -0.7], lens=46)])
 # 16: seen from below: it rains citizens. Each one arrives in the pose he left with (feet first holding his nose, in a ball, head first: that one sticks),
 #     everybody underneath is pressed a little flatter each time, the column climbs out of the shaft
-T16 = [0.14, 0.32, 0.5, 0.7]                      # the landings (c1, c2, c3, then c4 and c5 together)
+T16 = [0.14, 0.3, 0.46, 0.63]                      # the landings (c1, c2, c3, then c4 and c5 together)
 SY0 = [1.08, 1.0, 0.92, 0.84, 0.74]                # the bottom row, flatter after each landing
 SQN = lambda sy, w0=0.74: {'sq': [round(w0 * (1.08 / sy) ** 0.5, 3), round(sy, 3), 0.9]}
 Y2 = lambda sy: round(2.0 * sy, 3)                 # where the second storey stands (on the shoulders of the first)
@@ -172,46 +183,57 @@ st.shot('S16', 'holeSection', actors=[act(w, [x, 0, z], 0, 'squeezed', 'scared',
         act('c5', [C2X + 0.1, 9.5, 0.35], 0, 'fallDrag', 'scared', keys=[k(0.0, visible=False), k(T16[3] - 0.11, visible=True), k(T16[3] - 0.11, to=[C2X + 0.1, Y2(SY0[4]) + 1.32 * SY2[4], 0.35], dur=0.14, glide=True, ease='linear', face='keep'),
             k(T16[3] + 0.03, clip='squeezed', expr='pain', blend=0.05), k(T16[3] + 0.03, toon={'sq': [0.95, 0.7, 0.95]}, toonDur=0.03), k(T16[3] + 0.08, toon=SQ, toonDur=0.12)])],
         fx=[{'type': 'shake', 'at': t, 'dur': 0.12, 'amount': 0.022} for t in T16],
-        cams=[cam(0.0, [0.1, 2.6, 9.3], [0.1, 2.9, 9.5], [0, 2.6, 0], [0, 3.0, 0], lens=44)])
-# 17: today: a hole full to the brim, a sign, a latecomer with his suitcase
-FULL = [('mec', [HX - 0.3, -1.5, 0.4], 15, 'squeezed', 'unimpressed'), ('agent', [HX + 0.5, -1.4, -0.1], -25, 'squeezed', 'worried'), ('pompier', [HX - 0.65, -1.3, -0.15], 30, 'squeezed', 'sad'), ('maire', [HX + 0.55, -1.25, -0.6], -15, 'royalWave', 'teeth'),
-        ('c1', [HX + 0.45, -1.75, 0.45], -30, 'squeezed', 'bigGrin'), ('c3', [HX + 0.08, -1.9, 0.6], -5, 'squeezed', 'happy')]
-SIGN = lambda at_: P('sign', 'completSign', pos=[7.0, 0, -1.55], ry=-22, opts={'onAt': at_, 'h': 1.85, 'w': 1.1})
-LATE = [8.15, 0, -0.35]
-CAM18 = [5.0, 1.85, 4.45]
+        cams=[cam(0.0, [0.1, 2.6, 9.3], [0.1, 2.9, 9.5], [0, 2.35, 0], [0, 2.72, 0], lens=44)])
+# 17: today: a hole full to the brim, a sign that says LIBRE, a latecomer who runs up with his suitcase. Seen down the pavement: he comes to us, the sign
+#     on the left third, his place on the right (55-80 % of the width), the pile between them and under them
+FULL = [('mec', [HX + 0.5, -1.3, -0.4], -12, 'squeezed', 'unimpressed'), ('agent', [HX - 0.32, -1.6, 0.3], 15, 'squeezed', 'worried'), ('pompier', [HX - 0.42, -1.25, -0.42], 22, 'squeezed', 'sad'),
+        ('maire', [HX + 0.0, -1.2, -0.68], 0, 'royalWave', 'teeth'), ('c1', [HX + 0.5, -1.72, 0.42], -22, 'squeezed', 'bigGrin'), ('c3', [HX + 0.06, -1.88, 0.58], -5, 'squeezed', 'happy')]
+SIGN = lambda at_: P('sign', 'completSign', pos=[6.7, 0, -1.0], ry=8, opts={'onAt': at_, 'h': 1.7, 'w': 1.1})
+LATE = [8.05, 0, -0.5]
+CAM17, CAM18, LOOK18 = [7.52, 2.0, 6.6], [7.55, 1.9, 6.2], [7.55, 1.0, 0.0]
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act(w, p, ry, c, e, params={'ph': i * 1.3}, keys=[k(0.3 + 0.06 * i, look='late')]) for i, (w, p, ry, c, e) in enumerate(FULL)] +
-        [act('late', [9.5, 0, -8.5], 0, 'run', 'bigGrin', keys=[k(0.1, to=LATE, dur=0.75, clip='run', then='skidStop', thenParams={'dur': 0.25, 'expr': 'surprised'})])],
-        props=[SIGN(99), P('case', 'briefcase', on={'actor': 'late', 'hand': 'L'})],
-        cams=[cam(0.0, [4.75, 2.0, 5.0], [4.85, 1.95, 4.8], [HX + 0.25, 1.1, -0.6], [HX + 0.25, 1.1, -0.6], lens=40)])
-# 18: COMPLET. The latecomer melts from the top down, his hat left in the air for a moment; the pile looks at him; a neck comes up like a hose to have a
-#     look at the puddle, then at us; so does everybody
+        [act('late', [8.5, 0, -9.0], 0, 'run', 'bigGrin', keys=[k(0.1, to=LATE, dur=0.75, clip='run', then='skidStop', thenParams={'dur': 0.25, 'expr': 'happy'}), k(0.98, look='sign', expr='happy')])],
+        props=[SIGN(99), P('case', 'briefcase', on={'actor': 'late', 'hand': 'L'}), DUST('d17', [LATE[0], 0.05, LATE[2] - 0.5], 0.82, 0.6, 0.7)],
+        cams=[cam(0.0, CAM17, [7.54, 1.95, 6.4], [7.55, 1.05, -0.3], LOOK18, lens=41)])
+# 18: COMPLET. A double take: he was looking at LIBRE, turns to the hole, winds up to jump; the sign changes; his head snaps back to it (hat off, eyes out,
+#     jaw down). Four frames after the last flicker he melts from the top down into a round puddle in the colours of his shirt, his eyes and his moustache
+#     still on it; the hat waits in the air, then lands on it. A neck comes up out of the pile like a swan's (three-quarter face), looks at the puddle,
+#     then at us; so does everybody, the puddle too; one slow blink
 T18 = st.at('S18', 'L12', 4)
-M18, MD = round(T18 + 0.15, 3), 0.45               # the melt and its length
-HAT18 = M18 + MD + 0.1                             # the hat lets go
-N18 = round(HAT18 + 0.26, 3)                       # the neck comes up
-US18 = round(N18 + 0.62, 3)                        # everybody looks at us
+M18, MD = round(T18 + 0.43, 3), 0.5               # the melt (the sign flickers until T18 + 0.3) and its length
+HAT18 = round(M18 + MD + 0.2, 3)                   # the hat lets go
+N18 = round(HAT18 + 0.2, 3)                        # the neck comes up
+PUD18 = round(N18 + 0.36, 3)                       # it looks at the puddle
+US18 = round(PUD18 + 0.3, 3)                       # everybody looks at us
+HATY18 = 2.31 + 0.22                               # the hat hangs where the take threw it
+TAKE18 = {'sq': [0.92, 1.14, 0.92], 'hat': [0.22, 0, 0], 'face': {'pop': 0.9, 'popLen': 0.2, 'eyeScale': 1.3, 'eyeYaw': 0.8, 'pupil': 0.9, 'jaw': 0.85, 'expr': 'take', 'exprW': 1}}
 def pile(i, w):
-    if w == 'mec': return [k(0.0, look='late'), k(M18 + 0.2, look=[LATE[0], 0.3, LATE[2]]), k(N18, clip='hoseNeck', params={'len': 8.5, 'sway': 0.5}, expr='deadpan', blend=0.05), k(US18, look=CAM18)]
+    if w == 'mec': return [k(0.0, look='late'), k(M18 + 0.2, look=[LATE[0], 0.3, LATE[2]]), k(N18 - 0.04, look=None), k(N18, clip='hoseNeck', params={'len': 8.5, 'sway': 0.4, 'curve': -0.5, 'lean': 0.2}, expr='deadpan', blend=0.05),
+                           k(PUD18, look=[LATE[0] + 0.5, 0.7, 1.4], expr='side'), k(US18, look=CAM18, expr='deadpan'), k(US18 + 0.24, toon={'face': {'lid': 1}}, toonDur=0.1, toonEase='inOut'), k(US18 + 0.37, toon={}, toonDur=0.13, toonEase='inOut')]
     return [k(0.0, look='late'), k(M18 + 0.16 + 0.05 * i, look=[LATE[0], 0.3, LATE[2]]), k(US18 + 0.06 + 0.05 * i, look=CAM18)]
 st.shot('S18', 'parisStreet', setOpts=STREET, actors=[act(w, p, ry, c, e, params={'ph': i * 1.3}, keys=pile(i, w)) for i, (w, p, ry, c, e) in enumerate(FULL)] +
-        [act('late', LATE, -25, 'stand', 'surprised', keys=[k(0.0, look='sign'), k(T18 + 0.05, expr='shocked'), k(M18, look=None, clip='meltDown', params={'dur': MD, 'spread': 0.7, 'landAt': HAT18 + 0.14 - M18}, expr='cry', blend=0.05), k(M18, toon={'hat': [60, 0, 0]}, toonDur=0)])],
+        [act('late', LATE, -30, 'stand', 'happy', keys=[k(0.0, look='sign'), k(0.12, look=[HX, 0.2, 0.3], expr='bigGrin'), k(0.2, toon={'sq': [1.14, 0.8, 1.14]}, toonDur=0.16, toonEase='inOut'),
+            k(T18 + 0.08, look='sign'), k(T18 + 0.13, toon=TAKE18, toonDur=0.08, toonEase='outBack'), k(T18 + 0.13, expr='take'),
+            k(M18 - 0.01, toon={'hat': [60, 0, 0]}, toonDur=0.001), k(M18, look=None, clip='meltDown', params={'dur': MD, 'spread': 0.6, 'flat': 0.97}, expr='cry', blend=0.05), k(M18 + MD + 0.03, visible=False)])],
         props=[SIGN(T18), P('case', 'briefcase', on={'actor': 'late', 'hand': 'L'}, keys=[k(M18 + 0.12, detach=True, fall=True, floor=0.02)]),
-               P('hat', 'fedoraHat', pos=[LATE[0], 2.31, LATE[2]], ry=-25, keys=[k(0.0, visible=False), k(M18, visible=True), k(HAT18 - 0.1, rotTo=[0, -0.44, 0.2], dur=0.1), k(HAT18, to=[LATE[0] + 0.02, 0.5, LATE[2] + 0.1], dur=0.14, ease='in')])],
-        cams=[cam(0.0, [4.85, 1.95, 4.8], CAM18, [HX + 0.25, 1.1, -0.6], [HX + 0.25, 1.25, -0.6], lens=40)])
+               P('puddle', 'meltPuddle', pos=[LATE[0], 0.012, LATE[2]], opts={'r': 0.6, 'eye': 0.075, 'at': round(M18 + 0.45 * MD, 3), 'dur': round(0.55 * MD + 0.06, 3), 'eyesAt': round(M18 + MD + 0.03, 3), 'landAt': round(HAT18 + 0.14, 3),
+                 'gaze': [[0, 0, 0.5, 0.86], [HAT18 - 0.05, 0, 1, -0.2], [HAT18 + 0.3, -0.75, 0.6, 0.3], [PUD18 + 0.05, -0.6, 0.75, 0.25], [US18 + 0.12, 0, 0.5, 0.86]], 'blinks': [round(HAT18 + 0.16, 3), round(US18 + 0.4, 3)]}),
+               P('hat', 'fedoraHat', pos=[LATE[0], HATY18, LATE[2]], ry=-30, keys=[k(0.0, visible=False), k(M18 - 0.01, visible=True), k(HAT18 - 0.1, rotTo=[0, -0.52, 0.2], dur=0.1), k(HAT18, to=[LATE[0] - 0.02, 0.05, LATE[2] - 0.14], dur=0.14, ease='in')])],
+        cams=[cam(0.0, [7.54, 1.95, 6.4], CAM18, LOOK18, [7.55, 1.03, 0.0], lens=41)])
 
 # sound on the actions: steps that stop when the ground does, a slide whistle for every fall, wood and rubber for the gags
-for t in (0.08, 0.3): st.cue('sfx:stepSoft', 'S01', t, 0.5)   # two steps on the pavement, then none: he is on the air
-st.cue('sfx:gulp', 'S02', 0.52, 0.45); st.cue('sfx:stretch', 'S02', D2, 0.45); st.cue('sfx:slideDown', 'S02', D2 + 0.2, 0.55); st.cue('sfx:slideDown', 'S02', D2 + 0.5, 0.25)
+for t in (0.03, 0.25): st.cue('sfx:stepSoft', 'S01', t, 0.5)   # two steps on the pavement, then none: he is on the air
+st.cue('sfx:gulp', 'S02', 0.57, 0.45); st.cue('sfx:stretch', 'S02', D2, 0.45); st.cue('sfx:slideDown', 'S02', D2 + 0.2, 0.55); st.cue('sfx:slideDown', 'S02', D2 + 0.5, 0.25)
 st.cue('sfx:splat', 'S03', 0.12, 0.5); st.cue('sfx:spring', 'S03', POP3, 0.4); st.cue('sfx:bonk', 'S03', 0.74, 0.42); st.cue('sfx:beep', 'S03', 1.06, 0.2)
 st.cue('sfx:ring', 'S04', 0.0, 0.16); st.cue('sfx:stretch', 'S04', HIT4 - 0.4, 0.3); st.cue('thud', 'S04', HIT4, 0.55); st.cue('pop', 'S04', HIT4 + 0.06, 0.3)
 st.cue('sfx:tick', 'S05', st.at('S05', 'L04', 2), 0.3); st.cue('sfx:tick', 'S05', st.at('S05', 'L04', 2) + 0.22, 0.3); st.cue('sfx:slideUp', 'S05', T5 - 0.1, 0.3); st.cue('sfx:gasp', 'S05', T5 + 0.03, 0.4)
 for t in (0.2, 0.55, 0.9, 1.25): st.cue('sfx:step', 'S06', t, 0.4)
-st.cue('sfx:tick', 'S06', 1.6, 0.35)
-st.cue('sfx:stretch', 'S07', E7, 0.4); st.cue('sfx:twang', 'S07', B7, 0.32); st.cue('sfx:slideDown', 'S07', D7, 0.55); st.cue('sfx:slideDown', 'S07', D7 + 0.3, 0.22)
+st.cue('sfx:tick', 'S06', 1.52, 0.35)
+st.cue('sfx:stretch', 'S07', E7, 0.4); st.cue('sfx:tick', 'S07', 0.38, 0.25); st.cue('sfx:tick', 'S07', 0.56, 0.25); st.cue('sfx:twang', 'S07', B7, 0.32); st.cue('sfx:zip', 'S07', D7, 0.5); st.cue('sfx:slideDown', 'S07', D7 + 0.22, 0.25)
 st.cue('sfx:zip', 'S08', 0.0, 0.45); st.cue('sfx:brake', 'S08', 0.32, 0.4); st.cue('whoosh', 'S08', 0.58, 0.24, 0.5, 500, 2500)
 st.cue('sfx:slideDown', 'S09', -0.28, 0.5); st.cue('sfx:splat', 'S09', 0.14, 0.42); st.cue('sfx:twang', 'S09', 0.17, 0.38)
-for t in (0.14, 0.42, 0.7): st.cue('sfx:stepHeavy', 'S10', t, 0.4)
-st.cue('sfx:slideDownSlow', 'S10', G10 + 0.05, 0.42); st.cue('sfx:zip', 'S10', END10 - 0.08, 0.25)
+for t in (0.1, 0.34): st.cue('sfx:stepHeavy', 'S10', t, 0.4)
+st.cue('sfx:slideDownSlow', 'S10', G10 + 0.05, 0.42); st.cue('sfx:zip', 'S10', Z10, 0.3)
 for t in (0.05, 0.2, 0.35, 0.5): st.cue('pop', 'S11', t, 0.3)
 for i in range(4): st.cue('sfx:stretch', 'S12', 0.1 + 0.08 * i, 0.3)
 st.cue('sfx:poof', 'S12', 0.68, 0.4)
@@ -222,7 +244,7 @@ st.cue('whoosh', 'S15', 0.0, 0.2, 0.9, 300, 1500)
 for t in T16: st.cue('thud', 'S16', t, 0.42); st.cue('sfx:squeak', 'S16', t + 0.02, 0.4)
 st.cue('sfx:twang', 'S16', T16[2] + 0.03, 0.3)
 st.cue('sfx:stepRun', 'S17', 0.3, 0.4); st.cue('sfx:stepRun', 'S17', 0.5, 0.4); st.cue('sfx:stepRun', 'S17', 0.7, 0.4); st.cue('sfx:brake', 'S17', 0.82, 0.35)
-st.cue('clack', 'S18', T18, 0.5); st.cue('sfx:beep', 'S18', T18 + 0.02, 0.25); st.cue('sfx:slideDownSlow', 'S18', M18, 0.26); st.cue('sfx:poof', 'S18', HAT18 + 0.14, 0.3); st.cue('sfx:stretch', 'S18', N18, 0.4)
+st.cue('clack', 'S18', T18, 0.5); st.cue('sfx:beep', 'S18', T18 + 0.02, 0.25); st.cue('sfx:gasp', 'S18', T18 + 0.13, 0.35); st.cue('sfx:slideDownSlow', 'S18', M18, 0.3); st.cue('sfx:poof', 'S18', HAT18 + 0.14, 0.3); st.cue('sfx:stretch', 'S18', N18, 0.4); st.cue('pop', 'S18', US18 + 0.1, 0.25)
 
 st.card('S17', "AUJOURD'HUI")
 FACES = {   # the story's own expressions (recipes as in tools/face/gen_expressions.py)
@@ -233,7 +255,7 @@ CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {
 st.write('Le trou', rig='toon', faces=FACES, extra_cast={
     'employee': {'preset': 'madame', 'suit': '#5B6F8C', 'glasses': True, 'build': {'width': 0.84, 'headWidth': 1.3}},
     'agent': {'preset': 'worker', 'hat': 'copcap', 'facial': 'mustache', 'hair': 'receding', 'glasses': False, 'seed': 7, 'build': {'width': 0.86, 'headWidth': 1.3, 'belly': 0.06}},
-    'pompier': {'preset': 'pompier', 'glasses': False, 'seed': 11, 'skin': '#C98E62', 'build': {'width': 0.9, 'headWidth': 1.3}},
+    'pompier': {'preset': 'pompier', 'hat': 'firecrest', 'glasses': False, 'seed': 11, 'skin': '#C98E62', 'build': {'width': 0.9, 'headWidth': 1.3}},
     'maire': {'preset': 'politique', 'sash': [BLUE, WHITE, RED], 'sashW': 0.12, 'hair': 'combover', 'hairColor': '#B8B4AA', 'facial': 'mustache', 'beardColor': '#B8B4AA', 'glasses': False, 'seed': 13, 'skin': '#E6BE98', 'build': {'width': 0.96, 'headWidth': 1.3, 'belly': 0.14}},
     'c1': CITIZEN('mamie', 17), 'c2': CITIZEN('gamin', 19, build={'height': 0.66}, suit='#D9482B', pants='#D9482B'), 'c3': CITIZEN('chef', 22), 'c4': CITIZEN('sportif', 23, skin='#8A5A3C', suit='#7A3FA0', pants='#7A3FA0'), 'c5': CITIZEN('serveur', 26),
     'late': CITIZEN('tourist', 29)})

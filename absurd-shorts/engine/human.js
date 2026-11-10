@@ -14,7 +14,7 @@ import { hasFaceRig, makeFaceRig } from './facerig.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
-export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'party', 'crown', 'maocap', 'beekeeper'];
+export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'firecrest', 'party', 'crown', 'maocap', 'beekeeper'];
 export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
 
 // Named presets — the cast. `lemec` is the protagonist archetype.
@@ -344,6 +344,12 @@ function addHat(head, hat, hw, hh, hd, C) {
     case 'fedora': { g.add(box(hw * 1.7, 0.02, hd * 1.9, P.woodDark)); g.add(box(hw * 1.1, 0.12, hd * 1.2, P.woodDark, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); break; }
     case 'cowboy': { const b = box(hw * 2.2, 0.02, hd * 2.2, P.wood); g.add(b); g.add(box(hw * 1.1, 0.16, hd * 1.2, P.wood, { pivot: 'bottom', taper: 0.85 })); break; }
     case 'firehelmet': { const hc = C.hat || P.red; g.add(box(hw * 1.25, 0.13, hd * 1.4, hc, { pivot: 'bottom', taper: 0.75 })); const br = box(hw * 1.3, 0.02, hd * 2, hc); br.position.z = -0.04; g.add(br); break; }   // hatColor: e.g. the silver French F1 helmet
+    case 'firecrest': {   // a fireman's helmet that reads from far: a dome, a brim that runs long at the back, a gold crest from front to back, a gold shield on the front
+      const hc = C.hat || P.red, gold = '#E8B62E'; g.add(box(hw * 1.25, 0.15, hd * 1.35, hc, { pivot: 'bottom', taper: 0.7 }));
+      const br = box(hw * 1.42, 0.022, hd * 1.75, hc); br.position.set(0, 0.011, hd * 0.02); g.add(br);
+      const tail = box(hw * 1.2, 0.022, hd * 0.75, hc); tail.position.set(0, -0.03, -hd * 1.12); tail.rotation.x = -0.32; g.add(tail);
+      const crest = box(hw * 0.2, 0.06, hd * 1.2, gold, { outline: 0.012 }); crest.position.set(0, 0.165, -hd * 0.02); g.add(crest);
+      const sh = box(hw * 0.5, 0.11, 0.016, gold, { taper: { x: 0.55, z: 1 }, outline: 0.012 }); sh.position.set(0, 0.085, hd * 0.58); sh.rotation.x = -0.3; g.add(sh); break; }
     case 'party': { const c = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.26, 6), mat(P.pink)); c.position.y = 0.13; g.add(c); break; }
     case 'maocap': { const c = C.hat || '#4A5C70'; g.add(box(hw * 1.18, 0.1, hd * 1.25, c, { pivot: 'bottom', taper: { x: 1.12, z: 1.12 } }));
       const vz = box(hw * 0.95, 0.018, 0.09, c); vz.position.set(0, 0.012, hd * 0.66); vz.rotation.x = 0.18; g.add(vz);

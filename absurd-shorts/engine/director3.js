@@ -646,6 +646,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
   let lid = 0;
   if (!strong && (cfg.blink ?? 1)) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3)); }
   if (RIG_STRONG.has(ek.expr) && pk && since < 0.1) lid = Math.max(lid, Math.sin(Math.PI * clamp01(since / 0.1)));
+  if (cf?.lid) lid = Math.max(lid, cf.lid);   // toon face.lid 0..1: a keyed blink (a slow one: key it up and down over a few frames) or heavy lids
   // gaze: toward the look target before the head gets there, into a turn of the body before it starts, and idle darts
   let gx = 0, gy = 0; const lk = lastKey(A.lookKeys, t), plk = lk ? prevKey(A.lookKeys, lk) : null;
   if (lk) {

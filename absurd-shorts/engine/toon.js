@@ -4,7 +4,7 @@
 //
 // Pose channels (a clip returns them under `toon`; all optional, all blend numerically between clips):
 //   sq:   [sx, sy, sz]                 whole-body squash & stretch about the feet (use sqv(s) to keep the volume)
-//   scl:  { head: [sx, sy, sz] }       local squash & stretch of the head (its hat, hair and face follow)
+//   scl:  { head: [sx, sy, sz], handL / handR: [sx, sy, sz] }   local squash & stretch of the head (its hat, hair and face follow), of a hand
 //   bend: { spine|neck|armL|foreL|armR|foreR|legL|shinL|legR|shinR: [bx, bz, twist, stretch, fat] }
 //         bx and bz are the rotation of the far end (radians), with the signs of a joint's rotation.x / rotation.z: on the spine bx > 0
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
@@ -12,7 +12,9 @@
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
 //           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
-//           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js) }
+//           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
+//           eyeYaw / eyeRoll (rad: the popped eyeballs turn on their stalks), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
+//           lid: 0..1 (the painted eyes close: a keyed blink), cross: 0..1 (cross-eyed) }
 import * as THREE from 'three';
 import { blendHands } from './fingers.js';
 
@@ -107,6 +109,7 @@ function headDeform(hm, dim) {
     p.needsUpdate = true;
   };
 }
+const STALK_RED = new THREE.Color('#E0566E');
 let _euro = null;
 function euroTex() { if (_euro) return _euro; const c = document.createElement('canvas'); c.width = c.height = 128; const q = c.getContext('2d'); q.fillStyle = '#12662A'; q.font = '900 118px Arial'; q.textAlign = 'center'; q.textBaseline = 'middle'; q.fillText('€', 64, 72); _euro = new THREE.CanvasTexture(c); _euro.colorSpace = THREE.SRGBColorSpace; return _euro; }
 function starGeo(r = 0.06) { const sh = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5, q = i % 2 ? r * 0.45 : r; sh[i ? 'lineTo' : 'moveTo'](Math.sin(a) * q, Math.cos(a) * q); } sh.closePath(); return new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }).translate(0, 0, -0.006); }
@@ -117,12 +120,15 @@ function headOverlays(head, hm, dim, skin) {
   const outlined = (m, k = 1.1) => { const o = new THREE.Mesh(m.geometry, ink); o.scale.setScalar(k); o.name = 'outline'; m.add(o); return m; };
   const eyes = [[84.5, 281.5, 0.036], [301, 493.5, 0.03]].map(([cx, cy, r], i) => {
     const [x, y] = P2(cx, cy), e = new THREE.Group(); e.position.set(x, y, zf(y)); g.add(e);
-    const stalk = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.014, 1, 6).rotateX(Math.PI / 2).translate(0, 0, 0.5), new THREE.MeshLambertMaterial({ color: skin })); e.add(stalk);
-    const ball = new THREE.Group(); e.add(ball);
+    const stalk = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.014, 1, 6, 8).rotateX(Math.PI / 2).translate(0, 0, 0.5), new THREE.MeshLambertMaterial({ color: skin })); e.add(stalk);
+    const sp = stalk.geometry.attributes.position, srest = new Float32Array(sp.array), skin0 = stalk.material.color.clone(); let bow0 = 0;
+    const bow = b => { if (b === bow0) return; bow0 = b; for (let j = 0; j < sp.count; j++) sp.setX(j, srest[j * 3] + b * Math.sin(Math.PI * srest[j * 3 + 2])); sp.needsUpdate = true; };   // face.stalkBow: the stalks bow outward (a rubber hose, not a rod)
+    const ball = new THREE.Group(); ball.rotation.order = 'ZYX'; e.add(ball);
     ball.add(outlined(new THREE.Mesh(new THREE.IcosahedronGeometry(r, 1), white), 1.12));
+    const lid = new THREE.Mesh(new THREE.IcosahedronGeometry(r * 1.1, 1), new THREE.MeshLambertMaterial({ color: skin })); lid.visible = false; ball.add(lid);   // face.popBlink: the lids close over the popped eyes
     const pupil = new THREE.Mesh(new THREE.CircleGeometry(r * 0.42, 12), black); pupil.position.z = r * 0.98; ball.add(pupil);
     const sign = new THREE.Mesh(new THREE.CircleGeometry(r * 0.92, 16), new THREE.MeshBasicMaterial({ map: euroTex(), transparent: true, depthWrite: false })); sign.position.z = r * 1.02; sign.visible = false; ball.add(sign);   // money eyes: a euro sign in place of the pupil (face.euro)
-    e.visible = false; return { e, stalk, ball, pupil, sign, r, ph: i * 1.7 };
+    e.visible = false; return { e, stalk, ball, pupil, sign, lid, bow, skin0, r, ph: i * 1.7 };
   });
   const deform = hm ? headDeform(hm, dim) : null;
   // the tongue hangs out of the mouth (the mouth moves down with the jaw)
@@ -139,7 +145,11 @@ function headOverlays(head, hm, dim, skin) {
       const th = 1 + Math.min(2.2, Math.max(0, out - 0.3) * 1.3); E.stalk.scale.set(th, th, Math.max(0.001, out)); E.ball.position.z = out; E.ball.scale.setScalar(s); E.pupil.scale.setScalar(f.pupil ?? (1 - 0.45 * pop));   // th: a long stalk is a thick rubber hose (it must read from far)
       const eu = (f.euro || 0) > 0.5; E.sign.visible = eu; E.pupil.visible = !eu;
       const cx = -Math.sign(E.e.position.x) * E.r * 0.5 * (f.cross || 0); E.pupil.position.x = cx; E.sign.position.x = cx;   // face.cross 0..1: the pupils go to the nose
-      E.ball.rotation.set(0.05 * Math.sin(t * 23 + E.ph) * pop, 0.07 * Math.sin(t * 19 + E.ph) * pop, 0);
+      // face.eyeYaw / eyeRoll (rad): the eyeballs turn at the end of their stalks (yaw: the pupils go to one side, e.g. to a camera that films the stalks
+      // from the side; roll: round the stalk, a look round). face.stalkRed 0..1: the stalks go from skin to pink (they read on a pale ground)
+      E.ball.rotation.set(0.05 * Math.sin(t * 23 + E.ph) * pop, (f.eyeYaw || 0) + 0.07 * Math.sin(t * 19 + E.ph) * pop, f.eyeRoll || 0);
+      E.lid.visible = (f.popBlink || 0) > 0.5; E.bow(Math.sign(E.e.position.x) * (f.stalkBow || 0) / th);
+      E.stalk.material.color.copy(E.skin0).lerp(STALK_RED, f.stalkRed || 0);
     }
     deform?.(Math.round(drop * 500) / 500);
     const tg = f.tongue || 0; tongue.visible = tg > 0.01;
@@ -171,6 +181,7 @@ export function toonUpgrade(obj) {
       const b = tp.bend || {};
       for (const k of ORDER) parts[k]?.apply(b[k] || null);
       const hs = tp.scl?.head; if (J.head) { const k0 = J.head.scale.x; J.head.scale.set(k0 * (hs?.[0] ?? 1), k0 * (hs?.[1] ?? 1), k0 * (hs?.[2] ?? 1)); }
+      for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
       const er = tp.ears || 0; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); }
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
@@ -181,11 +192,11 @@ export function toonUpgrade(obj) {
 }
 
 // ---- numeric blend of two toon channel sets (missing = neutral)
-const NEUTRAL_B = [0, 0, 0, 1, null];
+const NEUTRAL_B = [0, 0, 0, 1, null], SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1];
 export function blendToon(a = {}, b = {}, w = 1) {
   if (w >= 1 && !a) return b; const L = (x, y) => x + (y - x) * w, out = {};
   const sa = a.sq || [1, 1, 1], sb = b.sq || [1, 1, 1]; if (a.sq || b.sq) out.sq = [L(sa[0], sb[0]), L(sa[1], sb[1]), L(sa[2], sb[2])];
-  const ha = a.scl?.head, hb = b.scl?.head; if (ha || hb) { const x = ha || [1, 1, 1], y = hb || [1, 1, 1]; out.scl = { head: [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])] }; }
+  for (const n of SCL_KEYS) { const ha = a.scl?.[n], hb = b.scl?.[n]; if (ha || hb) { const x = ha || ONE3, y = hb || ONE3; (out.scl ||= {})[n] = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; } }
   const ks = new Set([...Object.keys(a.bend || {}), ...Object.keys(b.bend || {})]);
   if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
@@ -200,7 +211,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
 export function addToon(a = {}, b = {}) {
   const out = { ...a };
   if (b.sq) { const s = a.sq || [1, 1, 1]; out.sq = [s[0] * b.sq[0], s[1] * b.sq[1], s[2] * b.sq[2]]; }
-  if (b.scl?.head) { const s = a.scl?.head || [1, 1, 1], h = b.scl.head; out.scl = { head: [s[0] * h[0], s[1] * h[1], s[2] * h[2]] }; }
+  if (b.scl) { out.scl = { ...(a.scl || {}) }; for (const n of SCL_KEYS) { const h = b.scl[n]; if (!h) continue; const s = a.scl?.[n] || ONE3; out.scl[n] = [s[0] * h[0], s[1] * h[1], s[2] * h[2]]; } }
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.ears) out.ears = (a.ears || 0) + b.ears;

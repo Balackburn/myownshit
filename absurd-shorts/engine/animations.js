@@ -492,8 +492,9 @@ Object.assign(CLIPS, {
       toon: { sq: [sx, sy, sx], face: { expr: 'dizzy', exprW: 1 - eo(u / 0.5), stars: (p.stars ?? 0) * (1 - eo(u / 0.8)) } } };
   },
   // the wave of an official: the upper arm level, the forearm upright, the hand turning at the wrist (never a straight raised arm: a freeze frame of it
-  // reads as a salute). p.side 'R' / 'L'; p.flickAt: one last quick flick of the hand
-  royalWave: (t, p = {}) => { const w = S(t * (p.freq ?? 7.5)), fl = p.flickAt != null ? wob(t - p.flickAt, 36, 9) : 0, L = (p.side ?? 'R') === 'L', up = [0, 0, 1.36 + 0.03 * w], fore = [0, 0, 1.5 + 0.1 * w + 0.45 * fl], rest = [0, 0, 0.08], restE = [-0.1, 0, 0], hand = [0, 0.6 * w, 0.3 * w + 0.9 * fl];
+  // reads as a salute). p.side 'R' / 'L'; p.flickAt: one last quick flick of the hand; p.fore (1.5): the elbow (1.78 puts the forearm upright: a forearm
+  // stretched from the story then grows straight up); p.foreAmp (1): how much the forearm sways with the wave (0.3 when it is stretched: its end swings far)
+  royalWave: (t, p = {}) => { const w = S(t * (p.freq ?? 7.5)), fl = p.flickAt != null ? wob(t - p.flickAt, 36, 9) : 0, L = (p.side ?? 'R') === 'L', up = [0, 0, 1.36 + 0.03 * w], fore = [0, 0, (p.fore ?? 1.5) + (p.foreAmp ?? 1) * (0.1 * w + 0.45 * fl)], rest = [0, 0, 0.08], restE = [-0.1, 0, 0], hand = [0, 0.6 * w, 0.3 * w + 0.9 * fl];
     return { ...arms(m(L ? up : rest, L ? rest : up), m(L ? fore : restE, L ? restE : fore)), [L ? 'handL' : 'handR']: L ? hand : [hand[0], -hand[1], -hand[2]], head: [-0.06, 0, 0.04 * w], torso: [-0.05, 0, 0] }; },
   // seated, a phone at the right ear; the left hand holds a rubber stamp: wind-up with the arm stretched above the head (held, trembling), a two-frame slam on
   // the desk at p.hit, the whole body squashing on the hit, then a satisfied look at the result and back to the call (she keeps moving)
@@ -522,13 +523,14 @@ Object.assign(CLIPS, {
       toon: { sq: sqv(1 - 0.18 * Math.exp(-t * 9) * Math.cos(t * 30)), bend: { spine: [0.25 * w, 0.2 * w2, 0, 1, null], legL: [0, 0.3 * w2, 0, 1.1, null], legR: [0, 0.3 * w2, 0, 1.1, null] } } }; },
   // melting from the top down (p.dur 0.45 s): the head sinks into the shoulders and droops, the arms run down to the ground, then the whole body spreads into a
   // puddle; p.landAt: something lands on the puddle (the hat he left in the air: a prop), it jiggles
-  meltDown: (t, p = {}) => { const d = p.dur ?? 0.45, k1 = eio(t / (d * 0.55)), k2 = eio((t - d * 0.3) / (d * 0.7)), sy = 1 - 0.8 * k2, land = p.landAt != null ? wob(t - p.landAt, 30, 8) : 0;
+  meltDown: (t, p = {}) => { const d = p.dur ?? 0.45, k1 = eio(t / (d * 0.55)), k2 = eio((t - d * 0.3) / (d * 0.7)), sy = 1 - (p.flat ?? 0.8) * k2,   // p.flat 0.97: down to a film (then hide him and show a puddle prop: props_trou.js meltPuddle)
+    land = p.landAt != null ? wob(t - p.landAt, 30, 8) : 0;
     return { ...arms(m([0, 0, 0.1 + 0.25 * k2], [0, 0, 0.1 + 0.25 * k2]), m([0, 0, 0], [0, 0, 0])), head: [0.55 * k1, 0, 0.12 * k1], neck: [0.3 * k1, 0, 0], torso: [0.25 * k1, 0, 0], hipL: [0, 0, 0.35 * k2], hipR: [0, 0, -0.35 * k2], kneeL: [0.4 * k1 * (1 - k2), 0, 0], kneeR: [0.4 * k1 * (1 - k2), 0, 0],
       toon: { sq: [(1 + (p.spread ?? 0.95) * k2) * (1 + 0.08 * land), sy * (1 - 0.3 * land), (1 + (p.spread ?? 0.95) * k2) * (1 + 0.08 * land)], bend: { spine: [0.45 * k1, 0, 0, 1 - 0.25 * k1 * (1 - k2), 1 + 0.25 * k1], neck: [0.3 * k1, 0, 0, 1 - 0.5 * k1, null], armL: [0, 0, 0, 1 + 0.75 * k1, null], armR: [0, 0, 0, 1 + 0.75 * k1, null], foreL: [0, 0, 0, 1 + 0.5 * k1, null], foreR: [0, 0, 0, 1 + 0.5 * k1, null] },
         scl: { head: [1 + 0.25 * k2, 1 - 0.3 * k2, 1] }, face: { expr: p.expr ?? 'cry', exprW: Math.min(1, k1 * 1.5) } } }; },
   // the neck as a rubber hose (the periscope again, but alive): it shoots up with an overshoot (p.len x), sways in an arc, the head staying level on top like
   // the elbow of a periscope; the head yaw is left to the look keys. p.backAt drops it
-  hoseNeck: (t, p = {}) => { const at = p.backAt ?? 1e9, u = t - at, k = u < 0 ? back(t / 0.26, 2.6) : 1 - back(u / 0.18, 2.5), len = 1 + ((p.len ?? 10) - 1) * Math.max(0, k), sw = (p.sway ?? 0.5) * (S(t * 4.2) * 0.6 + 0.9 * wob(t - 0.2, 15, 3.5)), fw = 0.22 * S(t * 3.1 + 1) + 0.5 * wob(t - 0.18, 19, 4);
+  hoseNeck: (t, p = {}) => { const at = p.backAt ?? 1e9, u = t - at, k = u < 0 ? back(t / 0.26, 2.6) : 1 - back(u / 0.18, 2.5), len = 1 + ((p.len ?? 10) - 1) * Math.max(0, k), sw = (p.curve ?? 0) * Math.max(0, k) + (p.sway ?? 0.5) * (S(t * 4.2) * 0.6 + 0.9 * wob(t - 0.2, 15, 3.5)), fw = (p.lean ?? 0) * Math.max(0, k) + 0.22 * S(t * 3.1 + 1) + 0.5 * wob(t - 0.18, 19, 4);   // p.curve / p.lean (rad): a standing arc to the side / forward (a swan's neck, not a stick)
     return { ...CLIPS.squeezed(t, p), head: [-fw * 0.9, 0, -sw * 0.95], toon: { bend: { neck: [fw, sw, 0, len, p.fat ?? 0.5] }, sq: sqv(1 + (u > 0 ? 0.08 * wob(u - 0.12, 30, 7) : 0) - 0.07 * Math.exp(-t * 14)) } }; },
 });
 
@@ -540,7 +542,7 @@ Object.assign(CLIPS, {
     const d = p.dur ?? 0.9, n = p.breaths ?? 3, st = d / n; let L = 0;
     for (let i = 0; i < n; i++) { const u = t - i * st; if (u > 0) L += (eo(u / (st * 0.42)) - (i < n - 1 ? 0.22 * S(c01((u - st * 0.5) / (st * 0.5)) * PI) : 0)) / n; }
     L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22);
-    return { ...arms(m([0.25 * L, 0, 0.3 + 0.75 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.6) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? 1.3) * up, 0],   // the arm reaches round the swollen chest: its numbers grow with L head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],
+    return { ...arms(m([0.25 * L, 0, 0.3 + 0.75 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.6) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? 1.3) * up, 0], head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
       footL: [0.55 * L, 0, 0], footR: [0.55 * L, 0, 0], root: { y: (p.float ?? 0.25) * L * L + 0.03 * L },
       toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.18 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 1.1) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
         face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.42 * L } } };   // jaw under 0.45: a round « aah », not a laugh

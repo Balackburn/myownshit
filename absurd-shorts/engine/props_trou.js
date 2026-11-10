@@ -17,6 +17,36 @@ export function holeOutline(r = 0.9, seed = 5, n = 16) {
 export const TROU_PROPS = {
   // a fedora on its own (the rig's hat, for when it leaves the head: hide the rig's with a toon key hat [60, 0, 0] and show this one in its place)
   fedoraHat(o) { const hw = o.hw ?? 0.24, hd = o.hd ?? 0.17, c = o.color || P.woodDark, g = grp(box(hw * 1.7, 0.02, hd * 1.9, c), box(hw * 1.1, 0.12, hd * 1.2, c, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); return g; },
+  // what is left of somebody who melted: a round puddle in his colours (o.color, o.dots: the pattern of his shirt), his eyes and his moustache still on it.
+  // It spreads from o.at over o.dur and jiggles when something lands on it (o.landAt); the eyes come up at o.eyesAt, follow o.gaze [[t, x, y, z], ...]
+  // (directions: y up, z to the front) and blink at o.blinks [t, ...]
+  meltPuddle(o) {
+    const r = o.r ?? 0.45, g = grp(), rr = rng(o.seed ?? 4), col = new THREE.Color(o.color || '#E8A33C');
+    const blob = (k, y, c, h = 0.02) => { const sh = new THREE.Shape(), n = 44; for (let i = 0; i < n; i++) { const a = i / n * TAU, q = r * k * (0.86 + 0.1 * Math.sin(a * 3 + 1) + 0.06 * Math.sin(a * 5 + 2.3)); sh[i ? 'lineTo' : 'moveTo'](Math.cos(a) * q, Math.sin(a) * q); } sh.closePath();
+      const m = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: h, bevelEnabled: false }).rotateX(-PI / 2), new THREE.MeshLambertMaterial({ color: c })); m.position.y = y; m.receiveShadow = true; m.castShadow = false; return m; };
+    const body = grp(blob(1.06, 0, col.clone().multiplyScalar(0.55), 0.012), blob(1, 0.004, col, 0.026), at(blob(0.34, 0.03, col.clone().lerp(new THREE.Color('#FFFFFF'), 0.35), 0.004), -r * 0.3, 0, -r * 0.28)); g.add(body);
+    const dots = o.dots || [P.pink, P.green, P.white];
+    for (let i = 0; i < 13; i++) { const a = rr() * TAU, q = r * (0.2 + 0.52 * Math.sqrt(rr())), f = box(0.075, 0.008, 0.075, dots[i % dots.length]); f.position.set(Math.cos(a) * q, 0.034, Math.sin(a) * q - 0.05); f.rotation.y = rr() * 3; body.add(f); }
+    const ink = new THREE.MeshBasicMaterial({ color: '#16130F', side: THREE.BackSide }), white = new THREE.MeshBasicMaterial({ color: '#F4F0E6' }), black = new THREE.MeshBasicMaterial({ color: '#16130F' });
+    const er = o.eye ?? 0.06, face = new THREE.Group(); face.position.set(0, 0.03, r * 0.36); g.add(face);
+    const eyes = [-1, 1].map(sx => { const e = new THREE.Group(); e.position.set(sx * er * 1.15, er * 0.55, 0); const b = new THREE.Mesh(new THREE.IcosahedronGeometry(er, 1), white), ol = new THREE.Mesh(b.geometry, ink); ol.scale.setScalar(1.12); b.add(ol);
+      const pu = new THREE.Mesh(new THREE.CircleGeometry(er * 0.5, 12), black); e.add(b, pu); face.add(e); return { e, pu }; });
+    const mo = box(er * 2.6, 0.018, er * 0.6, o.hair || '#3A2A1E'); mo.position.set(0, 0.012, er * 1.5); face.add(mo);   // the moustache
+    const gz = (o.gaze || [[0, 0, 0.5, 0.86]]).map(q => ({ t: q[0], v: new THREE.Vector3(q[1], q[2], q[3]).normalize() })), Z = new THREE.Vector3(0, 0, 1), v = new THREE.Vector3();
+    const back = u => { const c = 1.70158 * 1.4; u = clamp01(u) - 1; return 1 + (c + 1) * u * u * u + c * u * u; }, sm = u => { u = clamp01(u); return u * u * (3 - 2 * u); };
+    const at0 = o.at ?? 0, dur = o.dur ?? 0.3, eyesAt = o.eyesAt ?? at0 + dur, landAt = o.landAt ?? 1e9, blinks = o.blinks || [];
+    g.userData.update = t => {
+      g.visible = t >= at0; if (!g.visible) return;
+      const k = 0.12 + 0.88 * back((t - at0) / dur), u = t - landAt, w = u > 0 ? Math.exp(-7 * u) * Math.sin(30 * u) : 0;
+      body.scale.set(k * (1 + 0.09 * w), 1 - 0.5 * w, k * (1 + 0.09 * w)); face.position.z = r * 0.36 * k;
+      const es = back((t - eyesAt) / 0.14) * (t >= eyesAt ? 1 : 0); face.visible = es > 0.01; face.scale.setScalar(Math.max(0.001, es)); face.position.y = 0.03 - 0.03 * w;
+      let i = 0; while (i < gz.length - 1 && gz[i + 1].t <= t) i++;
+      v.copy(gz[i].v); if (i > 0) v.copy(gz[i - 1].v).lerp(gz[i].v, sm((t - gz[i].t) / 0.1)).normalize();
+      const bl = blinks.some(b => t >= b && t < b + 0.085);
+      for (const E of eyes) { E.pu.position.copy(v).multiplyScalar(er * 1.0); E.pu.quaternion.setFromUnitVectors(Z, v); E.e.scale.set(1, bl ? 0.14 : 1, 1); }
+    };
+    g.userData.update(0); return g;
+  },
   // the shaft under a hole in the ground: earth walls that darken with depth, a slab section at the top, broken paving round the edge, cracks
   streetHole(o) {
     const r = o.r ?? 0.9, depth = o.depth ?? 6, pts = holeOutline(r, o.seed ?? 5), n = pts.length, g = grp(), rows = [0, -0.16, -0.17, -0.7, -1.6, -3.0, -depth];
