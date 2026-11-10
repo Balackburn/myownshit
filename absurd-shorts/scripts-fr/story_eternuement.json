@@ -143,7 +143,8 @@
        "clip": "sneezeUp",
        "params": {
         "dur": 1.0,
-        "float": 0.3
+        "float": 0.3,
+        "ik": 1
        },
        "blend": 0.08
       }
@@ -230,7 +231,8 @@
      ],
      "params": {
       "dur": 1.0,
-      "float": 0.0
+      "float": 0.0,
+      "ik": 1
      },
      "expr": "worried"
     },
@@ -3199,7 +3201,8 @@
        "clip": "sneezeUp",
        "params": {
         "dur": 1.0,
-        "float": 0.25
+        "float": 0.25,
+        "ik": 1
        },
        "blend": 0.001
       }
@@ -3388,7 +3391,8 @@
      ],
      "params": {
       "dur": 1.0,
-      "float": 0.0
+      "float": 0.0,
+      "ik": 1
      },
      "expr": "worried"
     }
@@ -3776,7 +3780,8 @@
        "params": {
         "dur": 2.2,
         "breaths": 4,
-        "float": 1.3
+        "float": 1.3,
+        "ik": 1
        },
        "blend": 0.08,
        "look": null

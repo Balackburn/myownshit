@@ -10,6 +10,12 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
+//   reach: { L | R: [x, y, z, w, tip] }   a hand guided to a point of the world (two-bone IK; the arm stretches when the point is too far; tip (m): the
+//                                          fingertips reach it, that far beyond the wrist)
+//   touch: { L | R: [joint, x, y, z, w, tip] }   the same, to a point given in the frame of one of his own joints ('torso', 'head'...: the joint's own units, a
+//         scaled head counts in unscaled metres), or on his face: ['face', across (-0.5..0.5, + = his left), up (0 = chin .. 1 = top of the skull; under the
+//         nose: 0.31, the mouth: 0.23, an eye: 0.62), metres in front of the face, w, tip]. The hand follows the head wherever the spine and the neck take it
+//         both take one more value, [px, py, pz]: where the elbow goes, a direction in the frame of the chest (default: low, a little out and back)
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
 //           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
@@ -167,21 +173,59 @@ export function toonUpgrade(obj) {
   const jointSet = new Set(Object.values(J)), rest = {};
   const len = (a, b) => Math.abs(J[b].position.y) || 0.3;
   const parts = {};
-  const add = (name, joint, child, dir) => { if (J[joint] && J[child]) parts[name] = makePart(J[joint], jointSet, len(joint, child), dir); };
+  const add = (name, joint, child, dir) => { if (J[joint] && J[child]) { const L0 = len(joint, child); parts[name] = makePart(J[joint], jointSet, L0, dir); parts[name].L = L0; } };   // .L: the rest length (the child joint's position moves with a stretch)
   add('spine', 'torso', 'neck', 1); add('neck', 'neck', 'head', 1);
   for (const s of ['L', 'R']) { add('arm' + s, 'shoulder' + s, 'elbow' + s, -1); add('fore' + s, 'elbow' + s, 'hand' + s, -1); add('leg' + s, 'hip' + s, 'knee' + s, -1); add('shin' + s, 'knee' + s, 'foot' + s, -1); }
   const hm = ud.headMesh; let dim = null;
-  if (hm) { hm.geometry.computeBoundingBox(); const bb = hm.geometry.boundingBox; dim = { hw: bb.max.x - bb.min.x, hh: bb.max.y - bb.min.y, hd: bb.max.z - bb.min.z, y0: bb.min.y }; }
+  if (hm) { hm.geometry.computeBoundingBox(); const bb = hm.geometry.boundingBox; dim = { hw: bb.max.x - bb.min.x, hh: bb.max.y - bb.min.y, hd: bb.max.z - bb.min.z, y0: bb.min.y, cx: (bb.max.x + bb.min.x) / 2, z1: bb.max.z }; }
   const skin = ud.spec?.skin || '#E2B48A', face = dim ? headOverlays(J.head, hm, dim, skin) : null;
   const ORDER = ['spine', 'neck', 'armL', 'foreL', 'armR', 'foreR', 'legL', 'shinL', 'legR', 'shinR'], ZERO3 = [0, 0, 0];
   const ears = J.head ? J.head.children.filter(c => c.name === 'ear').map(m => ({ m, r: m.rotation.clone() })) : [], hm0 = J.head?.children.find(c => c.name === 'hat'), hat = hm0 ? { m: hm0, y: hm0.position.y } : null;
+  // reach: { L | R: [x, y, z, w] }: a hand brought to a point of the world (w 0..1 blends from the clip's pose). Two-bone IK on the shoulder and the elbow, the
+  // elbow kept low and a little out; a point further than the arm is long stretches both parts of the arm equally (the cartoon reach). The hand keeps the
+  // rotation the clip gives it. Call order: the spine and the neck are bent first (the shoulder rides on them)
+  const _S = new THREE.Vector3(), _T = new THREE.Vector3(), _u = new THREE.Vector3(), _p = new THREE.Vector3(), _n = new THREE.Vector3(), _qv = new THREE.Vector3(), _ad = new THREE.Vector3(), _fd = new THREE.Vector3(),
+    _X = new THREE.Vector3(), _Yv = new THREE.Vector3(), _Z = new THREE.Vector3(), _M = new THREE.Matrix4(), _Q = new THREE.Quaternion();
+  function solveReach(reach, b) {
+    const out = { ...b };
+    for (const s of ['L', 'R']) {
+      const r = reach[s], Sj = J['shoulder' + s], Ej = J['elbow' + s], pa = parts['arm' + s], pf = parts['fore' + s]; if (!r || !Sj || !Ej || !pa || !pf) continue;
+      const w = Math.max(0, Math.min(1, r[3] ?? 1)); if (w < 0.001) continue;
+      const L1 = pa.L, L2 = pf.L, ba = b['arm' + s] || NEUTRAL_B, bf = b['fore' + s] || NEUTRAL_B;
+      Sj.parent.updateWorldMatrix(true, false); _T.set(r[0], r[1], r[2]); Sj.parent.worldToLocal(_T); _S.copy(Sj.position);
+      // r[4] (tip, m): the point is reached by the fingertips, not by the wrist: the forearm and the hand are one straight bone, that much longer
+      const tip = r[4] || 0; let s1 = ba[3] ?? 1, s2 = bf[3] ?? 1;
+      const d = Math.max(1e-4, _T.distanceTo(_S)), e = (d - tip) / (L1 * s1 + L2 * s2);
+      if (e > 1) { s1 *= e * 1.001; s2 *= e * 1.001; }
+      const a = L1 * s1, c = L2 * s2 + tip, cosA = Math.max(-1, Math.min(1, (a * a + d * d - c * c) / (2 * a * d))), sinA = Math.sqrt(1 - cosA * cosA);
+      _u.copy(_T).sub(_S).divideScalar(d); if (r[5]) _p.set(r[5][0], r[5][1], r[5][2]).normalize(); else _p.set((s === 'L' ? 1 : -1) * 0.45, -1, -0.55).normalize();   // r[5]: where the elbow goes (a direction in the frame of the chest); default: low, a little out and back
+      _n.crossVectors(_u, _p); if (_n.lengthSq() < 1e-6) _n.set(1, 0, 0); _n.normalize(); _qv.crossVectors(_n, _u).normalize();
+      _ad.copy(_u).multiplyScalar(cosA).addScaledVector(_qv, sinA);                                  // the upper arm
+      _fd.copy(_T).sub(_S).addScaledVector(_ad, -a).normalize();                                      // the forearm (from the elbow to the point)
+      _Yv.copy(_ad).negate(); _Z.copy(_fd).addScaledVector(_Yv, -_fd.dot(_Yv)); if (_Z.lengthSq() < 1e-6) _Z.copy(_qv).negate(); _Z.normalize(); _X.crossVectors(_Yv, _Z).normalize();
+      _Q.setFromRotationMatrix(_M.makeBasis(_X, _Yv, _Z)); const bend = Math.acos(Math.max(-1, Math.min(1, _ad.dot(_fd))));
+      Sj.quaternion.slerp(_Q, w); Ej.rotation.set(Ej.rotation.x + (-bend - Ej.rotation.x) * w, Ej.rotation.y * (1 - w), Ej.rotation.z * (1 - w));
+      out['arm' + s] = [ba[0] * (1 - w), ba[1] * (1 - w), ba[2] || 0, (ba[3] ?? 1) + (s1 - (ba[3] ?? 1)) * w, ba[4] ?? null];
+      out['fore' + s] = [bf[0] * (1 - w), bf[1] * (1 - w), bf[2] || 0, (bf[3] ?? 1) + (s2 - (bf[3] ?? 1)) * w, bf[4] ?? null];
+    }
+    return out;
+  }
   ud.toon = {
     parts,
     // call after the joint rotations of the frame are set (applyHuman): bends, local scales, whole-body squash, head overlays
     apply(tp = {}, t = 0, baseScale = 1) {
-      const b = tp.bend || {};
-      for (const k of ORDER) parts[k]?.apply(b[k] || null);
-      const hs = tp.scl?.head; if (J.head) { const k0 = J.head.scale.x; J.head.scale.set(k0 * (hs?.[0] ?? 1), k0 * (hs?.[1] ?? 1), k0 * (hs?.[2] ?? 1)); }
+      let b = tp.bend || {}, first = 0;
+      const hs = tp.scl?.head; if (J.head) { const k0 = J.head.scale.x; J.head.scale.set(k0 * (hs?.[0] ?? 1), k0 * (hs?.[1] ?? 1), k0 * (hs?.[2] ?? 1)); }   // before the guided hands: a touch on a swollen head must land on its surface
+      if (tp.reach || tp.touch) {   // the spine and the neck are bent first (the shoulders and the head ride on them), once: a part turns its child joints each time it is applied
+        const sq0 = tp.sq; if (sq0) obj.scale.set(baseScale * sq0[0], baseScale * sq0[1], baseScale * sq0[2]); parts.spine?.apply(b.spine || null); parts.neck?.apply(b.neck || null);
+        let rc = tp.reach;
+        if (tp.touch) { rc = { ...(rc || {}) }; for (const sd of ['L', 'R']) { const q = tp.touch[sd]; if (!q) continue;
+          if (q[0] === 'face') { if (!hm || !dim) continue; hm.updateWorldMatrix(true, false); _T.set(dim.cx + q[1] * dim.hw, dim.y0 + q[2] * dim.hh, dim.z1 + q[3] / (hm.getWorldScale(_X).z || 1)); hm.localToWorld(_T); }   // on the face: across (-0.5..0.5), up from the chin (0..1), metres in front
+          else { const j = J[q[0]]; if (!j) continue; j.updateWorldMatrix(true, false); _T.set(q[1], q[2], q[3]); j.localToWorld(_T); }
+          rc[sd] = [_T.x, _T.y, _T.z, q[4] ?? 1, q[5] || 0, q[6] || null]; } }
+        b = solveReach(rc, b); first = 2;
+      }
+      for (let i = first; i < ORDER.length; i++) parts[ORDER[i]]?.apply(b[ORDER[i]] || null);
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
       const er = tp.ears || 0; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); }
@@ -196,6 +240,7 @@ export function toonUpgrade(obj) {
 const NEUTRAL_B = [0, 0, 0, 1, null], SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1];
 export function blendToon(a = {}, b = {}, w = 1) {
   if (w >= 1 && !a) return b; const L = (x, y) => x + (y - x) * w, out = {};
+  const POLE = (x, y) => (x && y) ? [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])] : (x || y || null);   // the elbow hint of a guided hand
   const sa = a.sq || [1, 1, 1], sb = b.sq || [1, 1, 1]; if (a.sq || b.sq) out.sq = [L(sa[0], sb[0]), L(sa[1], sb[1]), L(sa[2], sb[2])];
   for (const n of SCL_KEYS) { const ha = a.scl?.[n], hb = b.scl?.[n]; if (ha || hb) { const x = ha || ONE3, y = hb || ONE3; (out.scl ||= {})[n] = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; } }
   const ks = new Set([...Object.keys(a.bend || {}), ...Object.keys(b.bend || {})]);
@@ -204,6 +249,10 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);   // hair left on end (engine/cloth.js)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
+  if (a.touch || b.touch) { out.touch = {}; for (const sd of ['L', 'R']) { const x = a.touch?.[sd], y = b.touch?.[sd]; if (!x && !y) continue;
+    if (x && y && x[0] === y[0]) out.touch[sd] = [x[0], L(x[1], y[1]), L(x[2], y[2]), L(x[3], y[3]), L(x[4] ?? 1, y[4] ?? 1), L(x[5] || 0, y[5] || 0), POLE(x[6], y[6])];
+    else { const q = !x ? y : !y ? x : (w < 0.5 ? x : y), k = !x ? w : !y ? 1 - w : Math.abs(2 * w - 1); out.touch[sd] = [q[0], q[1], q[2], q[3], (q[4] ?? 1) * k, q[5] || 0, q[6] || null]; } } }   // fades in and out; between two joints it lets go and takes again
+  if (a.reach || b.reach) { out.reach = {}; for (const sd of ['L', 'R']) { const x = a.reach?.[sd], y = b.reach?.[sd]; if (!x && !y) continue; const p0 = x || y, p1 = y || x; out.reach[sd] = [L(p0[0], p1[0]), L(p0[1], p1[1]), L(p0[2], p1[2]), L(x ? (x[3] ?? 1) : 0, y ? (y[3] ?? 1) : 0), L(p0[4] || 0, p1[4] || 0), POLE(x?.[5], y?.[5])]; } }   // a hand guided to a point: fades in and out through its weight
   const fa = a.face || {}, fb = b.face || {}, fk = new Set([...Object.keys(fa), ...Object.keys(fb)]);
   if (fk.size) { out.face = {}; for (const k of fk) { const dflt = (k === 'pupil' || k === 'eyeScale') ? 1 : 0; const keep = k === 'popLen' || k === 'jawLen' || k === 'tongueLen' || k === 'expr', x = fa[k] ?? (keep ? fb[k] : dflt), y = fb[k] ?? (keep ? fa[k] : dflt); out.face[k] = typeof x === 'number' && typeof y === 'number' ? L(x, y) : (w < 0.5 ? x : y); } }
   return out;
@@ -217,6 +266,8 @@ export function addToon(a = {}, b = {}) {
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
+  if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
+  if (b.touch) out.touch = { ...(a.touch || {}), ...b.touch };
   if (b.hairUp) out.hairUp = (a.hairUp || 0) + b.hairUp;
   if (b.hat) { const x = a.hat || [0, 0, 0]; out.hat = [x[0] + b.hat[0], x[1] + b.hat[1], x[2] + b.hat[2]]; }
   return out;

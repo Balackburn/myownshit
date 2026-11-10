@@ -551,9 +551,10 @@ Object.assign(CLIPS, {
     const d = p.dur ?? 0.9, n = p.breaths ?? 3, st = d / n; let L = 0;
     for (let i = 0; i < n; i++) { const u = t - i * st; if (u > 0) L += (eo(u / (st * 0.42)) - (i < n - 1 ? 0.22 * S(c01((u - st * 0.5) / (st * 0.5)) * PI) : 0)) / n; }
     L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22);
-    return { ...arms(m([0.25 * L, 0, 0.3 + 0.45 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.85) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? 1.3) * up, 0], head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
+    return { ...arms(m([0.25 * L, 0, 0.3 + 0.45 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.85) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? (p.ik ? 0 : 1.3)) * up, 0], head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
       footL: [0.55 * L, 0, 0], footR: [0.55 * L, 0, 0], root: { y: (p.float ?? 0.25) * L * L + 0.03 * L },
       toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.18 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 0.45) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
+        ...(p.ik ? { touch: { R: ['face', p.nx ?? 0.06, p.ny ?? 0.3, p.nz ?? 0.025, up * p.ik, p.tip ?? 0.16, [-1, p.elbUp ?? 0.2, p.elbFwd ?? 0.3]] } } : null),   // p.ik 1: the index is held under the nose by the guided hand (toon channel `touch`), whatever the head and the chest do; the elbow out to the side
         face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.42 * L } } };   // jaw under 0.45: a round « aah », not a laugh
   },
   // the sneeze itself: the body whips forward in two frames, holds bent and shaking (p.hold 0.3 s), then comes back up dazed. The recoil is a move of the story

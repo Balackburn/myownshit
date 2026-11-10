@@ -24,7 +24,7 @@ MESSY = {'hairUp': 0.85}                            # hair left on end
 DUST = lambda pid, pos, at_, per=0.7, s=0.7, **kw: P(pid, 'dustPuff', pos=pos, scale=s, opts={'once': True, 'startAt': at_, 'period': per, 'color': '#F6F3EC', **kw}, keys=[k(0.0, visible=False), k(at_, visible=True)])
 
 # 1: he stops in the street: three breaths in, each one bigger; he swells, rises on his toes, off the ground; one finger under his nose
-st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, MZ], 0, 'stand', 'worried', keys=[k(0.0, clip='sneezeUp', params={'dur': 1.0, 'float': 0.3}, blend=0.08)])],
+st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, MZ], 0, 'stand', 'worried', keys=[k(0.0, clip='sneezeUp', params={'dur': 1.0, 'float': 0.3, 'ik': 1}, blend=0.08)])],
         cams=[cam(0.0, [MX - 1.15, 2.3, 3.7], [MX - 1.05, 2.5, 3.4], [MX, 1.85, MZ], [MX, 2.2, MZ], lens=44)])
 # 2: the sneeze, from behind him: the blast takes the passers-by off their feet and pins them on the hairdresser's poster; he is shot backward past us
 B2 = 0.03
@@ -32,7 +32,7 @@ def walker(w, x, z, d, hit):
     return act(w, [x, 0, z + 0.3], 180, 'walk', 'neutral', keys=[k(0.0, to=[x, 0, z], dur=d, clip='walk', ease='linear'), k(d, clip='blownBack', blend=0.04),
         k(d + 0.02, to=[x, 0.0, PZ - 0.16], dur=hit - d - 0.02, glide=True, ease='in', face='keep'), k(hit, clip='poster', params={'high': HIGH[w], 'slideAt': 9.0, 'stars': 1}, blend=0.02, toon=MESSY, toonDur=0.05)])
 HITS = {'p1': 0.3, 'p2': 0.36, 'p3': 0.42}
-st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0.3, MZ], 0, 'sneezeUp', 'worried', params={'dur': 1.0, 'float': 0.0}, keys=[k(B2, clip='sneeze', params={'hold': 0.5}, blend=0.03),
+st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0.3, MZ], 0, 'sneezeUp', 'worried', params={'dur': 1.0, 'float': 0.0, 'ik': 1}, keys=[k(B2, clip='sneeze', params={'hold': 0.5}, blend=0.03),
         k(B2 + 0.03, to=[MX - 1.3, 0.6, MZ - 6.0], dur=0.22, glide=True, ease='out', face='keep')])] + [walker(w, x, z, d, HITS[w]) for w, x, z, d in WALKERS],
         props=[PANEL, P('blast', 'sneezeBlast', pos=[MX, 0.2, MZ + 0.4], opts={'at': B2, 'dur': 0.42, 'len': 4.6, 'spread': 1.6})],
         fx=[{'type': 'wind', 'at': B2, 'dur': 0.42, 'v': [0, 0, 30], 'attack': 0.03, 'release': 0.3}, {'type': 'shake', 'at': B2, 'dur': 0.3, 'amount': 0.05}] + [{'type': 'shake', 'at': t, 'dur': 0.1, 'amount': 0.02} for t in HITS.values()],
@@ -154,14 +154,14 @@ st.shot('S15', 'grassland', setOpts=FIELD(), actors=[act('mec', [-0.42, 0, 0], 9
         cams=[cam(0.0, [0.5, 1.35, 5.2], [0.4, 1.35, 4.8], [0.1, 1.75, 0], [0.05, 1.78, 0], lens=44)])
 # 16: at dusk, today: the engineer dangles a pepper pot in front of his nose at the end of a fishing rod: the three breaths again, facing the turbines
 DUSK = {'sky': ['#33437A', '#F2A368'], 'grass': '#5E8A4E'}
-st.shot('S16', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0, 0], 135, 'stand', 'worried', keys=[k(-0.05, clip='sneezeUp', params={'dur': 1.0, 'float': 0.25}, blend=0.001)]),
+st.shot('S16', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0, 0], 135, 'stand', 'worried', keys=[k(-0.05, clip='sneezeUp', params={'dur': 1.0, 'float': 0.25, 'ik': 1}, blend=0.001)]),
         act('inge', [-0.46, 0, -1.13], 22, 'dangleItem', 'bigGrin')],
         props=TURB() + [P('rod', 'pepperRod', pos=[-0.4, 1.95, -0.95], ry=37, opts={'swing': 0.3, 'len': 1.3, 'drop': 0.45}), MAT()],
         cams=[cam(0.0, [3.6, 1.85, 1.7], [3.3, 1.9, 1.6], [-0.09, 1.85, -0.41], [-0.12, 1.95, -0.41], lens=44)])
 # 17: the sneeze, from behind his left shoulder: he is shot back into the mattresses; the blast runs up to the turbines, they spin up one after the other;
 #     on the ridge three towns light up
 SN17 = 0.08
-st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0.3, 0], 135, 'sneezeUp', 'worried', params={'dur': 1.0, 'float': 0.0}, keys=[k(SN17, clip='sneeze', params={'hold': 0.3}, blend=0.03),
+st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0.3, 0], 135, 'sneezeUp', 'worried', params={'dur': 1.0, 'float': 0.0, 'ik': 1}, keys=[k(SN17, clip='sneeze', params={'hold': 0.3}, blend=0.03),
             k(SN17 + 0.04, to=[-0.58, 0.2, 0.58], dur=0.07, glide=True, ease='out', face='keep'), k(SN17 + 0.11, clip='poster', params={'high': 0.2, 'slideAt': 0.75, 'slide': 0.2, 'stars': 1}, blend=0.02, face=135)])],
         props=TURB(lambda i: [[0, 0], [SN17 + 0.1 + 0.1 * i, 0], [SN17 + 0.35 + 0.1 * i, 95], [9, 95]], blur=0.8) +
               [MAT(hitAt=SN17 + 0.11), P('blast', 'sneezeBlast', pos=[0.3, 1.7, -0.3], ry=135, opts={'at': SN17, 'dur': 0.5, 'len': 14, 'spread': 2.4, 'n': 36}),
@@ -176,7 +176,7 @@ st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 's
         cams=[cam(0.0, [0.12, 2.02, 1.75], [0.1, 2.02, 1.5], [0, 2.02, 0], [0, 2.02, 0], lens=40)])
 # 19: spring is coming: a hill in flower, a yellow cloud that drifts to him; the breaths again, bigger, bigger: he rises like a balloon, everything loose
 #     flies to him; we leave before the sneeze
-st.shot('S19', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 60, 'stand', 'scared', keys=[k(0.0, look=[6, 2, 1]), k(0.35, clip='sneezeUp', params={'dur': 2.2, 'breaths': 4, 'float': 1.3}, blend=0.08, look=None),
+st.shot('S19', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 60, 'stand', 'scared', keys=[k(0.0, look=[6, 2, 1]), k(0.35, clip='sneezeUp', params={'dur': 2.2, 'breaths': 4, 'float': 1.3, 'ik': 1}, blend=0.08, look=None),
             ] + [k(round(0.35 + 0.55 * i + 0.08, 3), toon={'sq': [v, round(0.82 * v + 0.18, 3), v]}, toonDur=0.2, toonEase='outBack') for i, v in enumerate([1.18, 1.42, 1.7, 2.05])])],
         props=[P(f'turb{i}', 'windTurbine', pos=[x, 0, z], opts={'h': 9, 'rpm': -9, 'phase': i}) for i, (x, z) in enumerate([(-3.4, -24.0), (3.0, -32.0)])] + [P('cloud', 'pollenCloud', pos=[7.5, 2.0, 0.5], opts={'n': 150, 'size': [7, 3.4, 3.5], 'dir': [-2.3, -0.05, -0.1], 'seed': 12}),
                P('fl1', 'flowers', pos=[-1.3, 0, 1.2]), P('fl2', 'flowers', pos=[1.5, 0, 1.6]), P('fl3', 'flowers', pos=[0.4, 0, 2.3]), P('fl4', 'flowers', pos=[-2.4, 0, -0.8]), P('fl5', 'flowers', pos=[2.8, 0, -0.6]),
