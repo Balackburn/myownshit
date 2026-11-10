@@ -37,5 +37,29 @@ st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', [9.05, 0, 0.55]
         props=[DOOR(swing=[[0, 0], [O1, 0], [O1 + 0.24, OPEN]])],
         cams=[cam(0.0, [3.7, 1.7, 0.6], [3.9, 1.7, 0.5], [9.9, 1.5, -0.35], [9.9, 1.5, -0.35], lens=44)])
 
+# 2: he is still holding it: people shoot through the doorway one after the other; at each one his beard grows a notch; a cobweb between his arm and the leaf
+HOLDK = lambda **kw: k(-0.05, toon=GRIP(OPEN, **kw), toonDur=0)
+def rusher(i, t0, z0=0.25, x0=5.2):                    # somebody who dashes into the bakery
+    return act(f'r{i}', [x0, 0, z0], 90, 'stand', 'neutral', keys=[k(0.0, visible=False), k(t0, visible=True), k(t0, to=[DX + 0.6, 0, 0.0], dur=0.2, clip='dashOff', ease='linear', blend=0.01), k(t0 + 0.19, visible=False)])
+B2 = [0.12, 0.42, 0.72]
+st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'neutral', keys=[HOLDK(), k(0.0, look=[5.5, 1.6, 0.3]), k(B2[0] + 0.1, look=[9.9, 1.6, 0.0]), k(B2[1], look=[5.5, 1.6, 0.3], expr='unimpressed'), k(B2[1] + 0.1, look=[9.9, 1.6, 0.0]),
+            k(B2[2], look=[5.5, 1.6, 0.3]), k(B2[2] + 0.1, look=[9.9, 1.6, 0.0]), k(0.9, look=None, expr='deadpan')])] + [rusher(i, t) for i, t in enumerate(B2)],
+        props=[DOOR(swing=[[0, OPEN]]),
+               P('beard', 'beard', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.03, 0.09], 'rot': [0, 0, 0]}, scale=0.01, opts={'color': '#17161A'},
+                 keys=[k(B2[0] + 0.12, scale=0.5, dur=0.1, ease='outBack'), k(B2[1] + 0.12, scale=0.85, dur=0.1, ease='outBack'), k(B2[2] + 0.12, scale=1.25, dur=0.1, ease='outBack')]),
+               P('web', 'spiderWeb', pos=[9.02, 1.42, -0.7], ry=-90, scale=0.01, opts={'r': 0.3}, keys=[k(B2[2] + 0.05, scale=1.0, dur=0.14, ease='outBack')])],
+        cams=[cam(0.0, [5.7, 1.85, -0.2], [5.9, 1.85, -0.3], [9.3, 1.7, -0.75], [9.3, 1.7, -0.75], lens=44)])
+# 3: behind her there was... he turns his head to the pavement: a queue to the horizon; his face whips back to us, eyes out
+QUEUE = lambda **kw: P('queue', 'queueFigures', pos=[0, 0, 0], opts={'path': [[7.7, 1.6], [7.5, 190.0]], 'gap': 0.8, 'people': True, 'seed': 9, **kw})
+T3 = 0.55                                           # the take
+st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'neutral', keys=[HOLDK(), k(-0.3, look=[7.6, 1.6, 12.0]), k(T3, look=None, expr='take'),
+            k(T3, toon=GRIP(OPEN, face={'pop': 0.75, 'jaw': 0.8, 'popLen': 0.14}, sq=[0.92, 1.14, 0.92], hat=[0.2, 0, 0]), toonDur=0.07, toonEase='outBack'), k(T3 + 0.4, toon=GRIP(OPEN, face={'pop': 0.75, 'jaw': 0.8, 'popLen': 0.14}), toonDur=0.1)])],
+        props=[DOOR(swing=[[0, OPEN]]), QUEUE()],
+        cams=[cam(0.0, [10.4, 1.95, -3.6], [10.2, 1.95, -3.3], [8.3, 1.75, 2.0], [8.3, 1.75, 2.0], lens=44)])
+# 4: ...the town: from above, the queue runs down the street out of sight
+st.shot('S04', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'neutral', keys=[HOLDK()])],
+        props=[DOOR(swing=[[0, OPEN]]), QUEUE()],
+        cams=[cam(0.0, [5.5, 9.0, -9.0], [5.6, 10.5, -11.0], [7.6, 1.0, 14.0], [7.6, 1.0, 18.0], lens=44)])
+
 st.write("La porte", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, extra_cast={
     'dame': {'preset': 'mamie', 'seed': 51, 'build': {'width': 0.86, 'headWidth': 1.3}, 'suit': '#8A3A5A', 'glasses': False}})

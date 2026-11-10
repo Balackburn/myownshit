@@ -350,6 +350,678 @@
    },
    "grade": "none",
    "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": 0.0,
+       "look": [
+        5.5,
+        1.6,
+        0.3
+       ]
+      },
+      {
+       "at": 0.22,
+       "look": [
+        9.9,
+        1.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.42,
+       "look": [
+        5.5,
+        1.6,
+        0.3
+       ],
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.52,
+       "look": [
+        9.9,
+        1.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.72,
+       "look": [
+        5.5,
+        1.6,
+        0.3
+       ]
+      },
+      {
+       "at": 0.82,
+       "look": [
+        9.9,
+        1.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.9,
+       "look": null,
+       "expr": "deadpan"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "r0",
+     "pos": [
+      5.2,
+      0,
+      0.25
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.12,
+       "visible": true
+      },
+      {
+       "at": 0.12,
+       "to": [
+        10.53,
+        0,
+        0.0
+       ],
+       "dur": 0.2,
+       "clip": "dashOff",
+       "ease": "linear",
+       "blend": 0.01
+      },
+      {
+       "at": 0.31,
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "r1",
+     "pos": [
+      5.2,
+      0,
+      0.25
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.42,
+       "visible": true
+      },
+      {
+       "at": 0.42,
+       "to": [
+        10.53,
+        0,
+        0.0
+       ],
+       "dur": 0.2,
+       "clip": "dashOff",
+       "ease": "linear",
+       "blend": 0.01
+      },
+      {
+       "at": 0.61,
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "r2",
+     "pos": [
+      5.2,
+      0,
+      0.25
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.72,
+       "visible": true
+      },
+      {
+       "at": 0.72,
+       "to": [
+        10.53,
+        0,
+        0.0
+       ],
+       "dur": 0.2,
+       "clip": "dashOff",
+       "ease": "linear",
+       "blend": 0.01
+      },
+      {
+       "at": 0.9099999999999999,
+       "visible": false
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.9,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ]
+     }
+    },
+    {
+     "id": "beard",
+     "name": "beard",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.03,
+       0.09
+      ],
+      "rot": [
+       0,
+       0,
+       0
+      ]
+     },
+     "scale": 0.01,
+     "opts": {
+      "color": "#17161A"
+     },
+     "keys": [
+      {
+       "at": 0.24,
+       "scale": 0.5,
+       "dur": 0.1,
+       "ease": "outBack"
+      },
+      {
+       "at": 0.54,
+       "scale": 0.85,
+       "dur": 0.1,
+       "ease": "outBack"
+      },
+      {
+       "at": 0.84,
+       "scale": 1.25,
+       "dur": 0.1,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "web",
+     "name": "spiderWeb",
+     "pos": [
+      9.02,
+      1.42,
+      -0.7
+     ],
+     "ry": -90,
+     "scale": 0.01,
+     "opts": {
+      "r": 0.3
+     },
+     "keys": [
+      {
+       "at": 0.77,
+       "scale": 1.0,
+       "dur": 0.14,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.7,
+      1.85,
+      -0.2
+     ],
+     "to": [
+      5.9,
+      1.85,
+      -0.3
+     ],
+     "lookAt": [
+      9.3,
+      1.7,
+      -0.75
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.3,
+      1.7,
+      -0.75
+     ]
+    }
+   ],
+   "start": 1.9333,
+   "duration": 1.0334,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      },
+      {
+       "at": -0.3,
+       "look": [
+        7.6,
+        1.6,
+        12.0
+       ]
+      },
+      {
+       "at": 0.55,
+       "look": null,
+       "expr": "take"
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "pop": 0.75,
+         "jaw": 0.8,
+         "popLen": 0.14
+        },
+        "sq": [
+         0.92,
+         1.14,
+         0.92
+        ],
+        "hat": [
+         0.2,
+         0,
+         0
+        ]
+       },
+       "toonDur": 0.07,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.9500000000000001,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        },
+        "face": {
+         "pop": 0.75,
+         "jaw": 0.8,
+         "popLen": 0.14
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.9,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ]
+     }
+    },
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        7.7,
+        1.6
+       ],
+       [
+        7.5,
+        190.0
+       ]
+      ],
+      "gap": 0.8,
+      "people": true,
+      "seed": 9
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      10.4,
+      1.95,
+      -3.6
+     ],
+     "to": [
+      10.2,
+      1.95,
+      -3.3
+     ],
+     "lookAt": [
+      8.3,
+      1.75,
+      2.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      8.3,
+      1.75,
+      2.0
+     ]
+    }
+   ],
+   "start": 2.9667,
+   "duration": 1.2333,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.12,
+      0,
+      -1.02
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": -0.05,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        },
+        "reach": {
+         "L": [
+          9.021,
+          1.1,
+          -0.416,
+          1,
+          0.05,
+          [
+           0.2,
+           -1,
+           0.5
+          ]
+         ]
+        }
+       },
+       "toonDur": 0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door",
+     "name": "shopDoor",
+     "pos": [
+      9.93,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.0,
+      "h": 2.5,
+      "signW": 1.9,
+      "swing": [
+       [
+        0,
+        80
+       ]
+      ]
+     }
+    },
+    {
+     "id": "queue",
+     "name": "queueFigures",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        7.7,
+        1.6
+       ],
+       [
+        7.5,
+        190.0
+       ]
+      ],
+      "gap": 0.8,
+      "people": true,
+      "seed": 9
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.5,
+      9.0,
+      -9.0
+     ],
+     "to": [
+      5.6,
+      10.5,
+      -11.0
+     ],
+     "lookAt": [
+      7.6,
+      1.0,
+      14.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      7.6,
+      1.0,
+      18.0
+     ]
+    }
+   ],
+   "start": 4.2,
+   "duration": 0.7333,
+   "setOpts": {
+    "clear": [
+     -30,
+     30
+    ],
+    "eiffel": false
+   },
+   "grade": "none",
+   "soften": 0.3
   }
  ],
  "total": 25.36,
