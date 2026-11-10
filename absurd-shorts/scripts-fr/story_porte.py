@@ -55,7 +55,7 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
 QUEUE = lambda **kw: P('queue', 'queueFigures', pos=[0, 0, 0], opts={'path': [[7.7, 1.6], [7.5, 190.0]], 'gap': 0.8, 'people': True, 'seed': 9, **kw})
 T3 = 0.56                                           # the cut to his face
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'neutral', keys=[HOLDK(), k(-0.3, look=[7.6, 1.6, 12.0]), k(T3 + 0.06, look=None, expr='take'),
-            k(T3 + 0.06, toon=GRIP(OPEN, face={'pop': 0.75, 'jaw': 0.9, 'popLen': 0.14}, sq=[0.92, 1.14, 0.92]), toonDur=0.07, toonEase='outBack'), k(T3 + 0.4, toon=GRIP(OPEN, face={'pop': 0.75, 'jaw': 0.9, 'popLen': 0.14}), toonDur=0.1)])],
+            k(T3 + 0.06, toon=GRIP(OPEN, face={'pop': 0.75, 'jaw': 0.9, 'popLen': 0.14}, sq=[1.04, 0.95, 1.04]), toonDur=0.07, toonEase='outBack'), k(T3 + 0.4, toon=GRIP(OPEN, face={'pop': 0.75, 'jaw': 0.9, 'popLen': 0.14}), toonDur=0.1)])],   # the jaw drops, the eyes come out at us; he does not stretch up (his eyes left the frame)
         props=[DOOR(swing=[[0, OPEN]]), QUEUE(), BEARD(), WEB()],
         cams=[cam(0.0, [8.7, 1.6, -1.6], [8.65, 1.62, -1.2], [7.5, 1.5, 14.0], [7.5, 1.5, 14.0], lens=44),
               cam(T3, [6.55, 1.55, -1.3], [6.7, 1.55, -1.28], [9.12, 1.53, -1.17], [9.12, 1.53, -1.17], lens=44)])   # the frame stops under the sign and left of it
@@ -74,7 +74,7 @@ st.shot('S05', 'parisStreet', setOpts=STREET, actors=[act('agent', CLERK, -90, '
             [k(0.7, expr='worried'), k(0.7, toon={'hands': {'R': 'grip'}, 'reach': {'R': [8.95, 1.55, 1.0, 1, 0.05]}, 'scl': {'handR': [1.7, 1.7, 1.7]}}, toonDur=0.5, toonEase='in'), k(1.1, expr='scared')])] +
         [rusher(i, t, z0=0.3 + 0.1 * (i % 3)) for i, t in enumerate(R5)],
         props=[DOOR(swing=[[0, OPEN]]), CLICK(opts={'at': 0.05, 'rate': 9})],
-        cams=[cam(0.0, [6.5, 1.65, 1.5], [6.65, 1.67, 1.45], [9.4, 1.55, 0.8], [9.4, 1.55, 0.8], lens=44)])
+        cams=[cam(0.0, [6.4, 1.65, 1.7], [6.55, 1.67, 1.65], [9.4, 1.55, 0.98], [9.4, 1.55, 0.98], lens=44)])
 # 6: « four thousand passages a day »: he has stepped aside to the counter on the wall, which rolls up to it; he reads it out, his thumb still swollen,
 #    the clicker smoking
 CLERK6 = [9.25, 0, 1.75]
@@ -88,7 +88,7 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
         act('maire', [9.0, 0, 4.2], 180, 'marchPomp', 'proud', keys=[k(0.0, to=MAYOR, dur=0.6, clip='marchPomp', ease='linear', face=-150), k(0.6, clip='point', expr='determined', blend=0.08, look='mec'),
             k(0.6, toon={'sq': [1.06, 0.92, 1.06]}, toonDur=0.05), k(0.66, toon={'sq': [0.96, 1.06, 0.96], 'hands': {'R': 'point'}}, toonDur=0.1, toonEase='outBack'), k(0.8, toon={'hands': {'R': 'point'}}, toonDur=0.1)])],
         props=[DOOR(swing=[[0, OPEN]]), BEARD(), WEB()],
-        cams=[cam(0.0, [3.5, 1.7, -0.2], [3.7, 1.7, -0.25], [9.6, 1.65, -0.38], [9.6, 1.65, -0.38], lens=44)])
+        cams=[cam(0.0, [3.4, 1.7, -0.05], [3.6, 1.7, -0.1], [9.6, 1.65, -0.18], [9.6, 1.65, -0.18], lens=44)])
 # 8: ...public service: a blue enamel plate slams over the bakery's sign; then close on him: a doorman's cap drops onto his head: he sinks under it, only
 #    his eyes go up to it
 P8 = 0.1                                            # the plate
@@ -153,7 +153,7 @@ WIN = [-4.7, 1.75, -0.6]                            # through the window
 BED12 = [-2.6, 0.62, -1.7]                          # on the set's bed (2 m long along Z, the pillow toward -Z)
 TUG = 0.5
 ARM12 = lambda **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*WIN, 1, 0.05]}, **kw}
-st.shot('S12', 'chambre', setOpts={'poster': 'SERVICE\nPUBLIC', 'posterBg': '#2A4B9B', 'posterFg': '#F4F1E8'}, actors=[act('mec', BED12, 0, 'lieBack', 'sleepy', keys=[k(-0.05, toon=ARM12(), toonDur=0),
+st.shot('S12', 'chambre', setOpts={'poster': 'SERVICE\nPUBLIC', 'posterBg': '#2A4B9B', 'posterFg': '#F4F1E8'}, actors=[act('mec', BED12, 0, 'lieBack', 'sleepy', keys=[k(-0.05, toon=ARM12(), toonDur=0), k(0.02, toon=ARM12(sq=[1.0, 1.0, 1.1], face={'jaw': 0.3}), toonDur=0.16, toonEase='inOut'), k(0.2, toon=ARM12(), toonDur=0.16, toonEase='inOut'),   # a snore: the chest comes up, goes down
             k(TUG - 0.12, toon=ARM12(sq=[1.03, 0.97, 1.03]), toonDur=0.1), k(TUG, to=[-4.05, 0.75, -1.1], dur=0.1, glide=True, ease='in', face='keep'), k(TUG, toon=ARM12(sq=[0.9, 1.2, 0.9]), toonDur=0.08),
             k(TUG + 0.1, clip='poster', params={'high': 0.0, 'slideAt': 9, 'stars': 0}, expr='sleepy', blend=0.02, face=90), k(TUG + 0.1, toon=ARM12(sq=[1.2, 1.0, 0.3]), toonDur=0.03), k(TUG + 0.16, toon=ARM12(sq=[1.0, 1.0, 0.6]), toonDur=0.15, toonEase='outBack')])],
         props=[BEARD(), CAP()],
@@ -162,7 +162,7 @@ st.shot('S12', 'chambre', setOpts={'poster': 'SERVICE\nPUBLIC', 'posterBg': '#2A
 # 13: the door is listed as a historic monument: a bronze plaque over him; a tourist comes for a selfie with him, as with the guards, and pokes his cheek:
 #     his head rocks, his eyes go to the finger; nothing else moves
 PLQ = round(st.at('S13', 'L09', 4) - 0.05, 3)       # the plaque, on « monument »
-BRONZE = lambda **kw: P('bronze', 'bronzePlaque', pos=[9.84, 2.62, -2.75], ry=-90, opts={'text': 'MONUMENT/HISTORIQUE', 'w': 1.3, 'h': 0.72}, **kw)   # over the heads
+BRONZE = lambda **kw: P('bronze', 'bronzePlaque', pos=[9.84, 2.62, -2.3], ry=-90, opts={'text': 'MONUMENT/HISTORIQUE', 'w': 1.3, 'h': 0.72}, **kw)   # over the heads
 TOUR = [9.0, 0, -2.1]                               # beside him along the wall, on the camera's side of him but clear of him on the screen
 POKE = 1.55
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stiffStand', 'deadpan', keys=[HOLDK(), k(0.0, look=None), k(POKE - 0.1, toon=GRIP(OPEN, face={'gx': -0.9}), toonDur=0.06),
@@ -222,6 +222,24 @@ st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
                P('bread', 'baguette', on={'actor': 'dame', 'hand': 'R', 'offset': [0, 0.1, 0], 'rot': [0, 0, 1.3]}, keys=[k(0.0, visible=False), k(OUT17, visible=True)])],
         cams=[cam(0.0, [4.6, 1.7, -2.0], [4.8, 1.7, -1.9], [9.5, 1.55, -0.6], [9.5, 1.55, -0.6], lens=44)])
 
+# sound on the actions
+st.cue('sfx:squeak', 'S01', O1, 0.3)
+for t_ in B2: st.cue('whoosh', 'S02', t_, 0.35, 0.2, 500, 3500); st.cue('pop', 'S02', t_ + 0.12, 0.25)
+st.cue('sfx:gasp', 'S03', T3 + 0.06, 0.35)
+for i_, t_ in enumerate(R5): st.cue('whoosh', 'S05', t_, 0.25, 0.18, 500, 3500); st.cue('sfx:tick', 'S05', t_ + 0.06, 0.22 + 0.02 * i_)
+st.cue('pop', 'S06', 0.02, 0.3); st.cue('sfx:slideUp', 'S06', 0.12, 0.3)
+st.cue('pop', 'S07', 0.62, 0.3)
+st.cue('clack', 'S08', P8 + 0.08, 0.45); st.cue('thud', 'S08', C8, 0.4)
+st.cue('sfx:stretch', 'S09', GO9, 0.35); st.cue('sfx:zip', 'S09', SNAP9, 0.4); st.cue('sfx:splat', 'S09', SNAP9 + 0.09, 0.5); st.cue('sfx:squeak', 'S09', SNAP9 + 0.5, 0.3)
+st.cue('whoosh', 'S10', Z10, 0.3, 0.22, 400, 3000); st.cue('pop', 'S10', Z10 + 0.22, 0.3)
+st.cue('sfx:stretch', 'S12', TUG - 0.1, 0.3); st.cue('sfx:zip', 'S12', TUG, 0.35); st.cue('thud', 'S12', TUG + 0.1, 0.5)
+st.cue('clack', 'S13', PLQ + 0.1, 0.4); st.cue('pop', 'S13', POKE, 0.3)
+st.cue('clack', 'S14', 0.2, 0.35)
+st.cue('sfx:tick', 'S15', T15, 0.45)
+st.cue('sfx:slideUp', 'S16', 0.42, 0.3); st.cue('sfx:slideUp', 'S16', 0.74, 0.25); st.cue('sfx:slideUp', 'S16', 0.96, 0.25)
+st.cue('sfx:slideUp', 'S17', 0.05, 0.3); st.cue('sfx:stretch', 'S17', PUSH, 0.3); st.cue('sfx:spring', 'S17', PUSH + 0.36, 0.45)
+
+st.card('S12', 'LE BRAS RESTE')
 CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {'width': 0.86, 'headWidth': 1.3, **kw.pop('build', {})}, **kw}
 st.write("La porte", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, extra_cast={
     'dame': CITIZEN('mamie', 51, suit='#8A3A5A', glasses=False), 'agent': CITIZEN('officiel', 53, suit='#6E7A86', tie='#2F6E5C'),
