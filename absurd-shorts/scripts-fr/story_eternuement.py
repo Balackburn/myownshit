@@ -146,9 +146,9 @@ st.shot('S09', 'mairie', setOpts=OFFICE(4.6), actors=[act('mec', [0.2, 0, 0.3], 
         fx=[{'type': 'shake', 'at': B9, 'dur': 0.15, 'amount': 0.02}],
         cams=[cam(0.0, [0.5, 1.7, 3.3], [0.45, 1.72, 2.9], [0.3, 1.7, 0.3], [0.28, 1.75, 0.3], lens=44)])
 # 10: the weather report: the storm on the map has his name; the forecaster, hair on end, reaches up: her arm goes out like a telescopic pointer to tap it
-MAPX, MAPY, MAPW, MAPH = 0.62, 3.05, 1.2, 1.75
+MAPX, MAPY, MAPW, MAPH = 0.4, 3.05, 1.2, 1.75
 TAG = [MAPX + 0.02 * MAPW - 0.31 * MAPW - 0.06, MAPY - 0.3 * MAPH, -2.44]   # just left of the storm's name tag (stormMap with bandTop: 0.3 h under the middle): her finger lands beside the name
-F10 = [-1.15, 0, -2.0]                               # the forecaster: at the foot of the wall, in the corner of the frame opposite the map: the arm crosses the frame, not the depth
+F10 = [-1.05, 0, -2.0]                               # the forecaster: at the foot of the wall, in the corner of the frame opposite the map: the arm crosses the frame, not the depth
 ARM10 = lambda pt, **kw: {**MESSY, 'hands': {'L': 'point'}, 'reach': {'L': [pt[0], pt[1], pt[2], 1, 0.16, [0.5, -1, 0.2]]}, 'scl': {'handL': [1.5, 1.5, 1.5]}, **kw}
 BACK10 = lambda d: [round(TAG[0] - 0.85 * d, 3), round(TAG[1] - 0.5 * d, 3), round(TAG[2] + 0.15 * d, 3)]   # the fingertip pulled back d metres along the arm (negative: past the tag)
 SHORT10 = [-0.55, 2.2, -2.2]                         # where an ordinary arm gets to: a good metre short of the name
@@ -167,9 +167,9 @@ st.shot('S10', 'mairie', setOpts=OFFICE(4.6), actors=[act('meteo', F10, 15, 'sta
         k(TAPS10[1] - 0.1, toon=ARM10(BACK10(0.35), bend=LEAN10(0.1)), toonDur=0.07), k(TAPS10[1] - 0.03, toon=ARM10(BACK10(-0.08), bend=LEAN10(-0.14)), toonDur=0.03), k(TAPS10[1] + 0.04, toon=ARM10(TAG, bend=W10(0.25)), toonDur=0.05), k(TAPS10[1] + 0.1, toon=ARM10(TAG), toonDur=0.06),
         k(TAPS10[2] - 0.12, toon=ARM10(BACK10(0.5), bend=LEAN10(0.16), sq=[1.04, 0.95, 1.04]), toonDur=0.08), k(TAPS10[2] - 0.03, toon=ARM10(BACK10(-0.12), bend=LEAN10(-0.2)), toonDur=0.03), k(TAPS10[2] + 0.04, toon=ARM10(TAG, bend=W10(0.3), face={'lid': 1}), toonDur=0.05),
         k(TAPS10[2] + 0.1, toon=ARM10(TAG), toonDur=0.06)])],   # two more taps, each harder: the last leaves the map askew
-        props=[P('map', 'stormMap', pos=[MAPX, MAPY, -2.5], opts={'w': MAPW, 'h': MAPH, 'bandTop': True, 'tapAt': TAPS10, 'tapAmps': [0.3, 0.22, 0.34], 'tapFreq': 13, 'tapDecay': 3.4, 'pivotTop': True, 'crooked': 0.16})],
+        props=[P('map', 'stormMap', pos=[MAPX, MAPY, -2.5], opts={'w': MAPW, 'h': MAPH, 'bandTop': True, 'tapAt': TAPS10, 'tapAmps': [0.28, 0.2, 0.3], 'tapFreq': 13, 'tapDecay': 3.4, 'pivotTop': True, 'crooked': 0.14})],
         fx=[{'type': 'shake', 'at': TAP10, 'dur': 0.12, 'amount': 0.018}, {'type': 'shake', 'at': TAPS10[2], 'dur': 0.1, 'amount': 0.014}],
-        cams=[cam(0.0, [-0.4, 1.7, 4.7], [-0.38, 1.75, 4.4], [-0.04, 2.3, -2.0], [-0.02, 2.33, -2.0], lens=44)])   # the map keeps the frame when it swings
+        cams=[cam(0.0, [-0.5, 1.7, 4.7], [-0.48, 1.75, 4.4], [-0.16, 2.3, -2.0], [-0.14, 2.33, -2.0], lens=44)])   # she and the swinging map both keep the frame
 # 11: red alert: he walks down the street, a beacon turning on his head; the passers-by bend away from him one after the other, like wheat
 SIDE11 = [('p1', MX - 0.56, 1.2, 1), ('p2', MX + 0.8, 0.2, -1), ('p3', MX - 0.56, -0.8, 1)]   # who, x, z, which way he bends (away from the middle)
 V11 = 2.3                                           # his speed (m/s)
