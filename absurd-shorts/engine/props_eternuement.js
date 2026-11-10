@@ -141,8 +141,8 @@ export const ETERNUEMENT_PROPS = {
 
   // a wall of mattresses to stop a recoil (o.n side by side, standing), along X, origin at the middle of its foot; it bulges at o.hitAt
   mattressWall(o) {
-    const n = o.n ?? 3, g = new THREE.Group(), ms = [];
-    for (let i = 0; i < n; i++) { const m = at(box(0.95, 1.95, 0.24, ['#F2EDE4', '#E4EEF2', '#F2E4EA'][i % 3], { outline: 0.008, pivot: 'bottom' }), (i - (n - 1) / 2) * 0.98, 0, 0); for (let k = 0; k < 4; k++) m.add(at(box(0.9, 0.012, 0.25, '#B9C3CC'), 0, 0.3 + k * 0.45, 0)); g.add(m); ms.push(m); }
+    const n = o.n ?? 3, H = o.h ?? 1.95, g = new THREE.Group(), ms = [];   // o.h: their height (1.95 standing; 1.2 lets a camera behind the wall see who stands in front of it)
+    for (let i = 0; i < n; i++) { const m = at(box(0.95, H, 0.24, ['#F2EDE4', '#E4EEF2', '#F2E4EA'][i % 3], { outline: 0.008, pivot: 'bottom' }), (i - (n - 1) / 2) * 0.98, 0, 0); for (let k = 0; k < 4; k++) m.add(at(box(0.9, 0.012, 0.25, '#B9C3CC'), 0, H * (0.15 + k * 0.23), 0)); g.add(m); ms.push(m); }
     g.userData.update = t => { const u = t - (o.hitAt ?? 1e9), w = wob(u, 26, 5); ms.forEach((m, i) => { m.scale.z = 1 + 0.8 * w * (i === Math.floor(n / 2) ? 1 : 0.5); m.rotation.x = -0.12 * w; }); };
     return g;
   },

@@ -583,6 +583,25 @@ Object.assign(CLIPS, {
     return { root: { rx: -0.55 * k, y: 0.25 * k, pivot: 'hips' }, ...arms(m([-1.5 * k + 0.1 * S(f), 0, 0.25], [-1.5 * k + 0.1 * S(f + 2), 0, 0.25]), m([-0.2, 0, 0], [-0.2, 0, 0])), hipL: [-1.15 * k + 0.1 * S(f * 0.8), 0, 0.12], hipR: [-0.95 * k + 0.1 * S(f * 0.8 + 2), 0, -0.12], kneeL: [0.25, 0, 0], kneeR: [0.4, 0, 0],
       head: [0.5 * k, 0, 0], torso: [0.35 * k, 0, 0],
       toon: { sq: [1, 1, 1 + 0.25 * k], bend: { spine: [0.5 * k, 0, 0, 1, null], armL: [0, 0, 0, 1.25, null], armR: [0, 0, 0, 1.25, null], legL: [0, 0, 0, 1.15, null], legR: [0, 0, 0, 1.15, null] }, hands: { L: 'spread', R: 'spread' }, ears: 0.7 * k, face: { expr: p.expr ?? 'take', exprW: k, jaw: 0.8 * k } } }; },
+  // a big stamp brought down on something as high as a head, an arm's length in front (p.hit): the right arm goes up and back, he rises on his toes and leans
+  // back (held, trembling), then the arm comes over in two frames to point up and forward, the body lunging after it; a small rebound. The story stretches
+  // the arm (toon armR / foreR x1.7 at the hit) so that the hand ends 0.8 m above his shoulder, 0.85 m in front
+  stampDown: (t, p = {}) => { const hit = p.hit ?? 0.5, u = t - hit, a = back(t / Math.max(0.12, hit - 0.16), 1.5), d = c01((t - (hit - 0.066)) / 0.066), reb = wob(u, 26, 7), sh = a > 0.95 && d === 0 ? 0.02 * S(t * 55) : 0;
+    return { shoulderR: [-0.3 - 2.95 * a + 0.4 * d + 0.08 * reb + sh, 0, 0.05], elbowR: [-0.1 - 0.9 * a * (1 - d), 0, 0], shoulderL: [0.5 * a - 0.9 * d, 0, 0.2], elbowL: [-0.4, 0, -0.2],
+      torso: [-0.22 * a + 0.52 * d + 0.05 * reb, 0, 0], head: [-0.2 * a + 0.32 * d, 0, 0], footL: [0.5 * a * (1 - d), 0, 0], footR: [0.5 * a * (1 - d), 0, 0], root: { y: 0.07 * a * (1 - d) },
+      toon: { hands: { R: 'grip' }, sq: sqv(1 + 0.08 * a * (1 - d) - 0.1 * d * Math.max(0, 1 - u * 6)) } }; },
+  // a handshake that is too hearty. p.role 'pump': the one who shakes (right arm out, the forearm pumping, the body firm, a grin); 'wave': the one who is
+  // shaken: the pumping travels up his arm as a wave (arm, forearm), into the spine and the head, his feet leave the ground on each stroke.
+  // p.freq (6 strokes/s), p.stopAt: the shaking stops (the wave dies out); p.thumbAt (pump): the left thumb comes up
+  shakeHands: (t, p = {}) => { const f = (p.freq ?? 6) * 2 * PI, st = p.stopAt ?? 1e9, live = t < st ? Math.min(1, t / 0.12) : Math.exp(-(t - st) * 7), a = S(t * f) * live;
+    if ((p.role ?? 'pump') === 'pump') { const th = p.thumbAt != null ? eo((t - p.thumbAt) / 0.14) : 0;
+      return { shoulderR: [-1.15 + 0.12 * a, 0, 0.1], elbowR: [-0.5 - 0.45 * a, 0, 0], shoulderL: [-1.5 * th, 0, 0.15 + 0.35 * th], elbowL: [-0.25 - 1.3 * th, 0, 0], torso: [0.1 + 0.04 * a, 0, 0], head: [-0.05, 0, 0.04 * a], root: { y: 0.012 * Math.abs(a) },
+        toon: { hands: { R: 'grip', L: th > 0.3 ? 'thumbUp' : 'rest' }, bend: { spine: [0.05 * a, 0, 0, 1, null] } } }; }
+    const w1 = S(t * f - 0.9) * live, w2 = S(t * f - 1.8) * live, w3 = S(t * f - 2.7) * live;   // the wave arrives later the further from the hand
+    return { shoulderR: [-1.2, 0, 0.1], elbowR: [-0.35, 0, 0], shoulderL: [0.3 * w2, 0, 0.25 + 0.2 * Math.abs(w2)], elbowL: [-0.3, 0, -0.3], head: [0.25 * w3, 0, 0.12 * w3], torso: [0.06 * w2, 0, 0], hipL: [0, 0, 0.06 * Math.abs(w2)], hipR: [0, 0, -0.06 * Math.abs(w2)],
+      footL: [0.3 * Math.abs(w2), 0, 0], footR: [0.3 * Math.abs(w2), 0, 0], root: { y: 0.07 * Math.abs(w2) },
+      toon: { hands: { R: 'grip' }, bend: { foreR: [0.55 * a, 0, 0, 1.08, null], armR: [-0.5 * w1, 0, 0, 1.05, null], spine: [0.22 * w2, 0, 0.06 * w2, 1 + 0.05 * w2, null], neck: [0.3 * w3, 0, 0, 1 + 0.5 * Math.abs(w3), null] }, sq: sqv(1 + 0.05 * w2),
+        face: { expr: p.expr ?? 'dizzy', exprW: Math.min(1, live) } } }; },
   // leaning away from somebody who passes (p.side +1: away toward his own left, -1: toward his right): the body a C, one foot off the ground, hands up
   leanAway: (t, p = {}) => { const sd = p.side ?? 1, k = p.k ?? back(t / 0.22, 2), br = 0.03 * S(t * 3 + (p.ph ?? 0)), L = sd > 0;
     return { ...arms(m([-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 1 : 0.3)], [-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 0.3 : 1)]), m([-1.5 * k, 0, 0], [-1.5 * k, 0, 0])), head: [0, -0.55 * sd * k, 0.2 * sd * k], torso: [0, -0.2 * sd * k, 0],

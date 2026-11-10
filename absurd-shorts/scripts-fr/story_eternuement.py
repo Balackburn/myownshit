@@ -21,6 +21,7 @@ PANEL = P('panel', 'adPanel', pos=[PX, 0, PZ], ry=180, opts={'w': 2.9, 'h': 2.4,
 WALKERS = [('p1', 7.65, 1.9, 0.06), ('p2', 8.35, 2.7, 0.1), ('p3', 9.0, 3.5, 0.14)]   # who, x, z, when the blast reaches him
 HIGH = {'p1': 0.4, 'p2': 0.62, 'p3': 0.48}         # how high each one is pinned on the panel
 MESSY = {'hairUp': 0.85}                            # hair left on end
+DUST = lambda pid, pos, at_, per=0.7, s=0.7, **kw: P(pid, 'dustPuff', pos=pos, scale=s, opts={'once': True, 'startAt': at_, 'period': per, 'color': '#F6F3EC', **kw}, keys=[k(0.0, visible=False), k(at_, visible=True)])
 
 # 1: he stops in the street: three breaths in, each one bigger; he swells, rises on his toes, off the ground; one finger under his nose
 st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, MZ], 0, 'stand', 'worried', keys=[k(0.0, clip='sneezeUp', params={'dur': 1.0, 'float': 0.3}, blend=0.08)])],
@@ -89,11 +90,120 @@ st.shot('S09', 'mairie', setOpts=OFFICE(0.2), actors=[act('mec', [0.2, 0, 0.3], 
         props=[P('badge', 'nameBadge', pos=[0.95, 1.45, 0.75], rot=[0, -1.2, 0], scale=1.0, keys=[k(B9 - 0.12, to=[0.14, 1.52, 0.46], dur=0.12, ease='in'), k(B9 - 0.12, rotTo=[0, 0, -0.06], dur=0.12), k(B9, attach='mec', joint='torso', offset=[-0.06, 0.47, 0.19], rot=[0, 0, -0.06])])],
         fx=[{'type': 'shake', 'at': B9, 'dur': 0.15, 'amount': 0.02}],
         cams=[cam(0.0, [0.5, 1.6, 3.3], [0.45, 1.62, 2.9], [0.3, 1.55, 0.3], [0.28, 1.6, 0.3], lens=44)])
-# (the following shots are staged one block at a time; until then each holds a simple view so the film renders end to end)
-for sid in ('S10', 'S11', 'S12', 'S13', 'S14', 'S15', 'S16', 'S17', 'S18', 'S19'):
-    st.shot(sid, 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, MZ], 0, 'stand', 'neutral')], cams=[cam(0.0, [MX + 0.4, 1.5, 4.5], [MX + 0.35, 1.5, 4.2], [MX, 1.3, 0], [MX, 1.3, 0], lens=44)])
+# 10: the weather report: the storm on the map has his name; the forecaster, hair on end, reaches up: her arm goes out like a telescopic pointer to tap it
+st.shot('S10', 'mairie', setOpts=OFFICE(4.6), actors=[act('meteo', [-0.85, 0, -1.5], 15, 'stand', 'happy', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.12, clip='reachUpL', expr='proud', blend=0.12, look=[0.1, 2.5, -2.4]),
+        k(0.28, toon={**MESSY, 'hands': {'L': 'point'}, 'bend': {'armL': [0, -0.5, 0, 1.5, 0.9], 'foreL': [0, -0.35, 0, 2.0, 0.9], 'spine': [0, -0.12, 0, 1, None]}}, toonDur=0.1, toonEase='outBack')])],
+        props=[P('map', 'stormMap', pos=[0.1, 2.45, -2.5], opts={'w': 1.5, 'h': 1.9})],
+        cams=[cam(0.0, [-0.3, 1.5, 3.4], [-0.28, 1.55, 3.0], [-0.3, 2.0, -2.0], [-0.28, 2.02, -2.0], lens=44)])
+# 11: red alert: he walks down the street, a beacon turning on his head; the passers-by bend away from him one after the other, like wheat
+SIDE11 = [('p1', MX - 0.72, 1.0, 1), ('p2', MX + 0.72, 0.0, -1), ('p3', MX - 0.72, -1.0, 1)]   # who, x, z, which way he bends (away from the middle)
+V11 = 2.3                                           # his speed (m/s): he starts at z = -2.6
+st.shot('S11', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, -2.6], 0, 'walk', 'worried', keys=[k(0.0, to=[MX, 0, -2.6 + V11 * st.dur('S11')], dur=st.dur('S11'), clip='walk', ease='linear')])] +
+        [act(w, [x, 0, z], 90 * sd, 'stand', 'neutral', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.0, look='mec'), k(round((z + 2.6 - 0.9) / V11, 3), clip='leanAway', params={'side': -sd, 'ph': i}, expr='scared', toon=MESSY, toonDur=0.05)]) for i, (w, x, z, sd) in enumerate(SIDE11)],
+        props=[P('beacon', 'beacon', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.3, 0], 'rot': [0, 0, 0]}, opts={'r': 0.1}), P('badge', 'nameBadge', on={'actor': 'mec', 'joint': 'torso', 'offset': [-0.06, 0.47, 0.19], 'rot': [0, 0, -0.06]}),
+               ],
+        cams=[cam(0.0, [MX + 0.2, 1.7, 6.4], [MX + 0.15, 1.7, 6.0], [MX, 1.25, 0.0], [MX, 1.25, 0.3], lens=44)])
+# 12: when Josiane sniffs: close on him: the nose goes up, twice; behind him three faces freeze, eyes wide
+st.shot('S12', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, 0.6], 0, 'stand', 'worried', keys=[k(0.25, clip='sniff', params={'n': 2}, blend=0.06)])] +
+        [act(w, [MX + dx, 0, -0.9 + dz], 0, 'stand', 'neutral', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.0, look='mec'), k(0.3 + 0.05 * i, clip='startle', expr='scared', blend=0.05),
+            k(0.3 + 0.05 * i, toon={**MESSY, 'face': {'pop': 0.5, 'popLen': 0.08, 'eyeScale': 1.2}}, toonDur=0.08, toonEase='outBack')]) for i, (w, dx, dz) in enumerate([('p1', -0.85, 0.0), ('p2', 0.8, -0.3), ('p3', -0.1, -0.9)])],
+        props=[P('beacon', 'beacon', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.3, 0], 'rot': [0, 0, 0]}, opts={'r': 0.1}), P('badge', 'nameBadge', on={'actor': 'mec', 'joint': 'torso', 'offset': [-0.06, 0.47, 0.19], 'rot': [0, 0, -0.06]})],
+        cams=[cam(0.0, [MX + 0.3, 1.75, 3.4], [MX + 0.25, 1.75, 3.0], [MX, 1.68, 0.3], [MX, 1.7, 0.3], lens=44)])
+# 13: the street is evacuated: their legs spin on the spot, then they are gone, one after the other (a wig stays in the air, then follows); sandbags pop up
+#     round him; he is alone, his finger under his nose
+RUN13 = [('p1', MX - 0.85, -0.3, [MX - 9, 0, -3.0], 0.0), ('p2', MX + 0.8, -0.6, [MX + 6, 0, -9.0], 0.07), ('p3', MX - 0.1, -1.2, [MX - 2, 0, -14.0], 0.14)]
+st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', [MX, 0, 0.6], 0, 'sniff', 'worried', params={'n': 2}, keys=[k(0.75, expr='deadpan', look=[MX + 0.4, 1.6, 6.0])])] +
+        [act(w, [x, 0, z], 0, 'startle', 'scared', keys=[k(0.0, toon=MESSY, toonDur=0), k(d, clip='scramble', params={'dur': 0.3, 'expr': 'scared'}, blend=0.04, face=(-110 if to[0] < x else 110)),
+            k(d + 0.3, to=to, dur=0.16, clip='dashOff', ease='in', blend=0.03), k(d + 0.47, visible=False)]) for w, x, z, to, d in RUN13],
+        props=[P('beacon', 'beacon', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.3, 0], 'rot': [0, 0, 0]}, opts={'r': 0.1}), P('badge', 'nameBadge', on={'actor': 'mec', 'joint': 'torso', 'offset': [-0.06, 0.47, 0.19], 'rot': [0, 0, -0.06]}),
+               P('wig', 'wig', pos=[MX - 0.85, 1.95, -0.3], keys=[k(0.0, visible=False), k(0.3, visible=True), k(0.62, to=[MX - 0.85, 0.02, -0.3], dur=0.2, ease='in')]),
+               DUST('d13a', [MX - 1.6, 0.05, -0.5], 0.32, 0.6, 0.8), DUST('d13b', [MX + 1.4, 0.05, -1.2], 0.39, 0.6, 0.8), DUST('d13c', [MX - 0.3, 0.05, -2.2], 0.46, 0.6, 0.8),
+               P('bags1', 'sandbags', pos=[MX - 0.05, 0, 1.45], scale=0.01, opts={'n': 4, 'rows': 2}, keys=[k(0.7, scale=1.0, dur=0.14, ease='outBack')]),
+               P('bags2', 'sandbags', pos=[MX - 1.05, 0, 0.75], ry=70, scale=0.01, opts={'n': 3, 'rows': 2, 'seed': 7}, keys=[k(0.78, scale=1.0, dur=0.14, ease='outBack')]),
+               P('bags3', 'sandbags', pos=[MX + 0.95, 0, 0.75], ry=-70, scale=0.01, opts={'n': 3, 'rows': 2, 'seed': 9}, keys=[k(0.86, scale=1.0, dur=0.14, ease='outBack')])],
+        cams=[cam(0.0, [MX + 0.5, 2.3, 6.4], [MX + 0.45, 2.35, 6.0], [MX, 1.1, -0.3], [MX, 1.1, -0.3], lens=44)])
+# 14: his insurer: a very big stamp, raised with both feet off the floor, comes down on his head: the head is driven into his shoulders; CAT. NAT. on his
+#     forehead; the certificate drops onto the wall
+HIT14 = round(st.at('S14', 'L09', 3) + 0.1, 3)     # on « classé »
+T14 = st.at('S14', 'L09', 4)                        # « catastrophe »
+st.shot('S14', 'mairie', setOpts=OFFICE(4.6, title='ASSURANCE'), actors=[act('mec', [0.3, 0, 0.4], -8, 'stand', 'worried', keys=[k(0.0, look='assureur'), k(HIT14 - 0.3, expr='scared', look=[-0.3, 2.9, 0.5]),
+            k(HIT14 - 0.02, clip='headHammer', params={'at': 0.02}, blend=0.02, look=None), k(HIT14 + 0.5, expr='dizzy'), k(HIT14 + 0.5, toon={'face': {'cross': 1}}, toonDur=0.1), k(T14 + 0.5, toon={}, toonDur=0.15), k(T14 + 0.55, expr='deadpan', look=[0.3, 1.6, 6.0])]),
+        act('assureur', [-0.55, 0, 0.5], 82, 'stand', 'smug', keys=[k(HIT14 - 0.55, clip='stampDown', params={'hit': 0.55}, expr='determined', blend=0.08),
+            k(HIT14 - 0.07, toon={'bend': {'armR': [0, 0, 0, 1.3, None], 'foreR': [0, 0, 0, 1.3, None]}}, toonDur=0.066, toonEase='in'), k(HIT14 + 0.25, toon={}, toonDur=0.15), k(HIT14 + 0.3, clip='handsOnHips', expr='proud', blend=0.2)])],
+        props=[P('stamp', 'bigStamp', on={'actor': 'assureur', 'hand': 'R', 'offset': [0, -0.1, 0.0], 'rot': [2.33, 0, 0]}, keys=[k(HIT14 + 0.3, visible=False)]),
+               P('mark', 'stampMark', pos=[0, 0, 0], opts={'w': 0.2, 'h': 0.11}, keys=[k(0.0, visible=False), k(HIT14 + 0.02, visible=True), k(HIT14 + 0.02, attach='mec', joint='head', offset=[0.0, 0.245, 0.128], rot=[0, 0, -0.12])]),
+               P('diploma', 'catNatDiploma', pos=[-0.12, 4.6, -2.52], opts={'w': 1.15, 'h': 0.83}, keys=[k(T14 - 0.05, to=[-0.12, 2.25, -2.52], dur=0.2, ease='outBack')])],
+        fx=[{'type': 'shake', 'at': HIT14, 'dur': 0.2, 'amount': 0.035}, {'type': 'shake', 'at': T14 + 0.15, 'dur': 0.1, 'amount': 0.012}],
+        cams=[cam(0.0, [-0.05, 1.8, 3.9], [-0.08, 1.82, 3.5], [-0.12, 1.75, 0.4], [-0.12, 1.8, 0.4], lens=44)])
+# ---- the wind farm: three turbines in a field. For the sneeze he faces the far right corner (ry 135): the turbines up there, three towns on the ridge beyond
+FIELD = lambda **kw: {'clouds': 14, 'seed': 31, **kw}
+TPOS = [(5.6, -7.2), (10.6, -9.2), (13.2, -15.2)]
+TURB = lambda keys=None, **kw: [P(f'turb{i}', 'windTurbine', pos=[x, 0, z], ry=-45, opts={'h': 9, 'rpm': 0, 'phase': i * 0.7, **({'rpmKeys': keys(i)} if keys else {}), **kw}) for i, (x, z) in enumerate(TPOS)]
+MAT = lambda **kw: P('mat', 'mattressWall', pos=[-1.4, 0, 1.4], ry=-45, opts={'n': 3, 'h': 1.15, **kw})
+# 15: hired: the engineer shakes his hand so hard that the shake runs up his arm and through him like a wave; a thumb up
+S15E = 1.15                                         # the shaking stops
+st.shot('S15', 'grassland', setOpts=FIELD(), actors=[act('mec', [-0.42, 0, 0], 90, 'stand', 'worried', keys=[k(0.0, clip='shakeHands', params={'role': 'wave', 'stopAt': S15E}, blend=0.05), k(S15E + 0.3, clip='stand', expr='dizzy', blend=0.2)]),
+        act('inge', [0.42, 0, 0], -90, 'stand', 'bigGrin', keys=[k(0.0, clip='shakeHands', params={'role': 'pump', 'stopAt': S15E, 'thumbAt': S15E + 0.1}, blend=0.05)])],
+        props=[P(f'turb{i}', 'windTurbine', pos=[x, 0, z], opts={'h': 9, 'rpm': 0, 'phase': i * 0.7}) for i, (x, z) in enumerate([(-3.0, -13.0), (2.6, -19.0), (5.2, -27.0)])] +
+              [P('badge', 'nameBadge', on={'actor': 'mec', 'joint': 'torso', 'offset': [-0.06, 0.47, 0.19], 'rot': [0, 0, -0.06]}), P('fl1', 'flowers', pos=[-1.4, 0, 1.0]), P('fl2', 'flowers', pos=[1.3, 0, 1.4])],
+        cams=[cam(0.0, [0.5, 1.35, 5.2], [0.4, 1.35, 4.8], [0.1, 1.75, 0], [0.05, 1.78, 0], lens=44)])
+# 16: at dusk, today: the engineer dangles a pepper pot in front of his nose at the end of a fishing rod: the three breaths again, facing the turbines
+DUSK = {'sky': ['#33437A', '#F2A368'], 'grass': '#5E8A4E'}
+st.shot('S16', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0, 0], 135, 'stand', 'worried', keys=[k(-0.05, clip='sneezeUp', params={'dur': 1.0, 'float': 0.25}, blend=0.001)]),
+        act('inge', [-0.46, 0, -1.13], 22, 'dangleItem', 'bigGrin')],
+        props=TURB() + [P('rod', 'pepperRod', pos=[-0.4, 1.95, -0.95], ry=37, opts={'swing': 0.3, 'len': 1.12, 'drop': 0.45}), MAT()],
+        cams=[cam(0.0, [3.6, 1.85, 1.7], [3.3, 1.9, 1.6], [-0.09, 1.85, -0.41], [-0.12, 1.95, -0.41], lens=44)])
+# 17: the sneeze, from behind his left shoulder: he is shot back into the mattresses; the blast runs up to the turbines, they spin up one after the other;
+#     on the ridge three towns light up
+SN17 = 0.08
+st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0.3, 0], 135, 'sneezeUp', 'worried', params={'dur': 1.0, 'float': 0.0}, keys=[k(SN17, clip='sneeze', params={'hold': 0.3}, blend=0.03),
+            k(SN17 + 0.04, to=[-1.25, 0.25, 1.25], dur=0.1, glide=True, ease='out', face='keep'), k(SN17 + 0.14, clip='poster', params={'high': 0.25, 'slideAt': 0.7, 'slide': 0.25, 'stars': 1}, blend=0.02, face=135)])],
+        props=TURB(lambda i: [[0, 0], [SN17 + 0.1 + 0.1 * i, 0], [SN17 + 0.35 + 0.1 * i, 95], [9, 95]], blur=0.8) +
+              [MAT(hitAt=SN17 + 0.14), P('blast', 'sneezeBlast', pos=[0.3, 1.7, -0.3], ry=135, opts={'at': SN17, 'dur': 0.5, 'len': 14, 'spread': 2.4, 'n': 36}),
+               P('towns', 'townLights', pos=[26, 0, -28], ry=-38, opts={'at': [SN17 + 0.5, SN17 + 0.68, SN17 + 0.86], 'spread': 9})],
+        fx=[{'type': 'wind', 'at': SN17, 'dur': 0.5, 'v': [20, 0, -20], 'attack': 0.03, 'release': 0.3}, {'type': 'shake', 'at': SN17, 'dur': 0.3, 'amount': 0.04}],
+        cams=[cam(0.0, [-4.2, 1.5, 7.6], [-4.0, 1.55, 7.3], [8.0, 4.3, -8.0], [8.0, 4.4, -8.0], lens=50)])
+# 18: he is allergic to pollen: very close: one grain drifts down to the tip of his nose; his eyes follow it until they cross
+G18 = 1.0                                           # the grain lands
+st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 'stand', 'worried', keys=[k(0.0, look='grain'), k(G18 - 0.35, toon={'face': {'cross': 1}}, toonDur=0.3, toonEase='inOut'), k(G18 + 0.1, expr='scared'),
+            k(G18 + 0.12, toon={'face': {'cross': 1}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.1)])],
+        props=[P('grain', 'pollenGrain', pos=[0.55, 2.5, 0.9], opts={'r': 0.035}, keys=[k(0.0, to=[0.16, 2.18, 0.45], dur=0.55, arc=0.06, ease='inOut'), k(0.55, to=[0.0, 2.0, 0.2], dur=G18 - 0.55, arc=-0.04, ease='inOut')])],
+        cams=[cam(0.0, [0.12, 2.02, 1.75], [0.1, 2.02, 1.5], [0, 2.02, 0], [0, 2.02, 0], lens=40)])
+# 19: spring is coming: a hill in flower, a yellow cloud that drifts to him; the breaths again, bigger, bigger: he rises like a balloon, everything loose
+#     flies to him; we leave before the sneeze
+st.shot('S19', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 60, 'stand', 'scared', keys=[k(0.0, look=[6, 2, 1]), k(0.35, clip='sneezeUp', params={'dur': 2.2, 'breaths': 4, 'float': 1.3}, blend=0.08, look=None),
+            k(0.6, toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.01), k(0.6, toon={'sq': [2.0, 1.75, 2.0]}, toonDur=1.95, toonEase='in')])],
+        props=[P(f'turb{i}', 'windTurbine', pos=[x, 0, z], opts={'h': 9, 'rpm': -9, 'phase': i}) for i, (x, z) in enumerate([(-3.4, -24.0), (3.0, -32.0)])] + [P('cloud', 'pollenCloud', pos=[7.5, 2.0, 0.5], opts={'n': 150, 'size': [7, 3.4, 3.5], 'dir': [-2.3, -0.05, -0.1], 'seed': 12}),
+               P('fl1', 'flowers', pos=[-1.3, 0, 1.2]), P('fl2', 'flowers', pos=[1.5, 0, 1.6]), P('fl3', 'flowers', pos=[0.4, 0, 2.3]), P('fl4', 'flowers', pos=[-2.4, 0, -0.8]), P('fl5', 'flowers', pos=[2.8, 0, -0.6]),
+               P('alert', 'alertSign', pos=[-1.7, 0, 0.9], ry=15, opts={'text': 'VIGILANCE ROUGE', 'h': 2.0, 's': 0.8}, keys=[k(1.5, wobble=[0.25, 14, 0.5])]),
+               P('pp1', 'flyingPaper', pos=[6.5, 0.6, 2.0], keys=[k(0.9, to=[0.6, 2.2, 0.3], dur=1.2, arc=0.8, ease='in')]), P('wig', 'wig', pos=[-6.0, 0.3, 1.5], keys=[k(1.3, to=[-0.5, 2.4, 0.2], dur=1.1, arc=1.0, ease='in')])],
+        fx=[{'type': 'wind', 'at': 0.6, 'dur': 2.2, 'v': [-6, 0, 0], 'attack': 1.2, 'release': 0.1}],
+        cams=[cam(0.0, [1.0, 1.5, 5.4], [1.4, 2.4, 8.4], [0.5, 1.5, 0], [0.2, 3.0, 0], lens=44, ease='inOut')])
 
+# sound on the actions
+st.cue('sfx:stretch', 'S01', 0.0, 0.3); st.cue('sfx:stretch', 'S01', 0.33, 0.35); st.cue('sfx:stretch', 'S01', 0.66, 0.4)
+st.cue('thunder', 'S02', B2, 0.5); st.cue('whoosh', 'S02', B2, 0.5, 0.5, 300, 3000)
+for w_, t_ in HITS.items(): st.cue('sfx:splat', 'S02', t_, 0.35)
+for t_ in SLIDE.values(): st.cue('sfx:squeak', 'S03', t_, 0.35)
+st.cue('whoosh', 'S04', G4, 0.4, 0.7, 400, 2500); st.cue('sfx:zip', 'S04', G4 + 0.08, 0.3)
+st.cue('sfx:twang', 'S05', 0.14, 0.4); st.cue('pop', 'S05', 0.02, 0.3)
+st.cue('sfx:slideUp', 'S06', T6 - 0.12, 0.35); st.cue('clack', 'S07', P7 + 0.26, 0.4); st.cue('sfx:tick', 'S08', T8 - 0.22, 0.4)
+st.cue('sfx:splat', 'S09', B9, 0.4); st.cue('pop', 'S10', 0.3, 0.3)
+for i, (_, _, z, _) in enumerate(SIDE11): st.cue('sfx:squeak', 'S11', round((z + 2.6 - 0.9) / V11, 3), 0.3)
+st.cue('sfx:gasp', 'S12', 0.32, 0.35)
+for _, _, _, _, d in RUN13: st.cue('sfx:zip', 'S13', d + 0.3, 0.35)
+st.cue('sfx:poof', 'S13', 0.82, 0.3); st.cue('sfx:poof', 'S13', 0.7, 0.3)
+st.cue('sfx:stretch', 'S14', HIT14 - 0.3, 0.35); st.cue('thud', 'S14', HIT14, 0.55); st.cue('sfx:spring', 'S14', HIT14 + 0.17, 0.4); st.cue('clack', 'S14', T14 + 0.15, 0.35)
+st.cue('sfx:squeak', 'S15', 0.1, 0.3); st.cue('sfx:squeak', 'S15', 0.45, 0.3); st.cue('sfx:squeak', 'S15', 0.8, 0.3); st.cue('pop', 'S15', S15E + 0.2, 0.3)
+st.cue('sfx:stretch', 'S16', 0.0, 0.3); st.cue('sfx:stretch', 'S16', 0.33, 0.35); st.cue('sfx:stretch', 'S16', 0.66, 0.4)
+st.cue('thunder', 'S17', SN17, 0.5); st.cue('whoosh', 'S17', SN17, 0.45, 0.6, 300, 3000); st.cue('sfx:splat', 'S17', SN17 + 0.14, 0.35)
+for i in range(3): st.cue('pop', 'S17', SN17 + 0.5 + 0.18 * i, 0.35)
+st.cue('sfx:tick', 'S18', G18, 0.3)
+for i in range(4): st.cue('sfx:stretch', 'S19', 0.35 + 0.55 * i, 0.3 + 0.04 * i)
+
+st.card('S09', 'JOSIANE')
 CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {'width': 0.86, 'headWidth': 1.3, **kw.pop('build', {})}, **kw}
 st.write("L'éternuement", rig='toon', fingers=True, cloth=True, idleShift=1, extra_cast={
     'p1': CITIZEN('femme', 31, glasses=False, hair='long', hairColor='#5A3A28'), 'p2': CITIZEN('serveur', 33, glasses=False), 'p3': CITIZEN('mamie', 35, suit='#D98A3C'),
-    'meteo': CITIZEN('journaliste', 37, suit='#3E6E8C'), 'chef': CITIZEN('prefet', 39, build={'belly': 0.1})})
+    'meteo': CITIZEN('journaliste', 37, suit='#3E6E8C'), 'chef': CITIZEN('prefet', 39, build={'belly': 0.1}),
+    'assureur': CITIZEN('boss', 41, suit='#6A5A4A', glasses=True), 'inge': CITIZEN('worker', 43, glasses=False)})

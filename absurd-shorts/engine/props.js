@@ -1993,8 +1993,10 @@ const B = {
     for (let i = 0; i < 3; i++) rotor.add(blade(i * TAU / 3, 1));
     const ghosts = [], NG = o.ghosts || 16; if (o.blur) for (let k = 1; k <= NG; k++) { const gg = grp(); for (let i = 0; i < 3; i++) gg.add(blade(i * TAU / 3, 0.3 * o.blur * (1 - k / (NG + 1)))); rotor.add(gg); ghosts.push({ gg, k }); }
     rotor.position.set(0, H + H * 0.02, H * 0.045); g.add(rotor);
-    const w = (o.rpm ?? 14) / 60 * TAU;
-    g.userData.update = t => { rotor.rotation.z = -(t * w + (o.phase || 0)); ghosts.forEach(({ gg, k }) => { gg.rotation.z = k * 0.045 * (o.blurSpread || 1); }); };
+    const w = (o.rpm ?? 14) / 60 * TAU, rk = o.rpmKeys;   // o.rpmKeys [[t, rpm], ...]: the rotor speeds up or slows down (linear between keys) in place of the constant o.rpm
+    const angle = t => { if (!rk) return t * w; let a = 0, t0 = 0, v0 = rk[0][1]; for (const [t1, v1] of rk) { if (t <= t1) { const u = t1 > t0 ? (t - t0) / (t1 - t0) : 0, v = v0 + (v1 - v0) * u; return a + (v0 + v) / 2 * (t - t0) / 60 * TAU; } a += (v0 + v1) / 2 * (t1 - t0) / 60 * TAU; t0 = t1; v0 = v1; } return a + v0 * (t - t0) / 60 * TAU; };
+    const speed = t => { if (!rk) return o.rpm ?? 14; let t0 = 0, v0 = rk[0][1]; for (const [t1, v1] of rk) { if (t <= t1) return t1 > t0 ? v0 + (v1 - v0) * (t - t0) / (t1 - t0) : v1; t0 = t1; v0 = v1; } return v0; };
+    g.userData.update = t => { rotor.rotation.z = -(angle(t) + (o.phase || 0)); const fast = !rk || Math.abs(speed(t)) > 25; ghosts.forEach(({ gg, k }) => { gg.visible = fast; gg.rotation.z = k * 0.045 * (o.blurSpread || 1); }); };   // with rpmKeys the ghost blades only show once the rotor is fast
     g.userData.update(0); return g;
   },
   whip(o) { // bullwhip held at the grip: dark leather handle and a long cord whose shape is a travelling wave (o.period s per crack)
