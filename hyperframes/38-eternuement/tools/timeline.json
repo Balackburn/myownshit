@@ -1,0 +1,556 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a éternué et il a décoiffé toute la ville.",
+   "hl": [
+    "éternué",
+    "décoiffé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.995,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.329,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "éternué",
+     "s": 0.633,
+     "e": 1.167
+    },
+    {
+     "w": "et",
+     "s": 1.319,
+     "e": 1.395
+    },
+    {
+     "w": "il",
+     "s": 1.433,
+     "e": 1.471
+    },
+    {
+     "w": "a",
+     "s": 1.51,
+     "e": 1.548
+    },
+    {
+     "w": "décoiffé",
+     "s": 1.624,
+     "e": 2.081
+    },
+    {
+     "w": "toute",
+     "s": 2.157,
+     "e": 2.31
+    },
+    {
+     "w": "la",
+     "s": 2.386,
+     "e": 2.462
+    },
+    {
+     "w": "ville.",
+     "s": 2.614,
+     "e": 2.995
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "La météo a mesuré :",
+   "hl": [
+    "météo"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L02.k.wav",
+   "file_start": 3.095,
+   "speech_start": 3.095,
+   "speech_end": 4.467,
+   "words": [
+    {
+     "w": "La",
+     "s": 3.095,
+     "e": 3.248
+    },
+    {
+     "w": "météo",
+     "s": 3.286,
+     "e": 3.629
+    },
+    {
+     "w": "a",
+     "s": 3.667,
+     "e": 3.705
+    },
+    {
+     "w": "mesuré:",
+     "s": 3.819,
+     "e": 4.467
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "C",
+   "text": "« Deux cents kilomètres-heure. »",
+   "hl": [
+    "Deux",
+    "cents"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L03.k.wav",
+   "file_start": 4.567,
+   "speech_start": 4.567,
+   "speech_end": 5.862,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 4.567,
+     "e": 4.719
+    },
+    {
+     "w": "cents",
+     "s": 4.795,
+     "e": 4.871
+    },
+    {
+     "w": "kilomètres-heure.",
+     "s": 5.024,
+     "e": 5.862
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Au-dessus de cent, c'est une tempête.",
+   "hl": [
+    "tempête."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L04.k.wav",
+   "file_start": 5.962,
+   "speech_start": 5.962,
+   "speech_end": 7.943,
+   "words": [
+    {
+     "w": "Au-dessus",
+     "s": 5.962,
+     "e": 6.305
+    },
+    {
+     "w": "de",
+     "s": 6.343,
+     "e": 6.419
+    },
+    {
+     "w": "cent,",
+     "s": 6.495,
+     "e": 6.952
+    },
+    {
+     "w": "c'est",
+     "s": 7.003,
+     "e": 7.105
+    },
+    {
+     "w": "une",
+     "s": 7.181,
+     "e": 7.257
+    },
+    {
+     "w": "tempête.",
+     "s": 7.371,
+     "e": 7.943
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Et une tempête, ça porte un prénom.",
+   "hl": [
+    "prénom."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L05.k.wav",
+   "file_start": 8.043,
+   "speech_start": 8.043,
+   "speech_end": 10.024,
+   "words": [
+    {
+     "w": "Et",
+     "s": 8.043,
+     "e": 8.119
+    },
+    {
+     "w": "une",
+     "s": 8.195,
+     "e": 8.271
+    },
+    {
+     "w": "tempête,",
+     "s": 8.386,
+     "e": 8.957
+    },
+    {
+     "w": "ça",
+     "s": 9.033,
+     "e": 9.11
+    },
+    {
+     "w": "porte",
+     "s": 9.224,
+     "e": 9.338
+    },
+    {
+     "w": "un",
+     "s": 9.376,
+     "e": 9.414
+    },
+    {
+     "w": "prénom.",
+     "s": 9.452,
+     "e": 10.024
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le suivant sur la liste, c'était Josiane.",
+   "hl": [
+    "Josiane."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L06.k.wav",
+   "file_start": 10.124,
+   "speech_start": 10.124,
+   "speech_end": 12.337,
+   "words": [
+    {
+     "w": "Le",
+     "s": 10.124,
+     "e": 10.2
+    },
+    {
+     "w": "suivant",
+     "s": 10.276,
+     "e": 10.581
+    },
+    {
+     "w": "sur",
+     "s": 10.657,
+     "e": 10.733
+    },
+    {
+     "w": "la",
+     "s": 10.771,
+     "e": 10.81
+    },
+    {
+     "w": "liste,",
+     "s": 10.962,
+     "e": 11.267
+    },
+    {
+     "w": "c'était",
+     "s": 11.369,
+     "e": 11.571
+    },
+    {
+     "w": "Josiane.",
+     "s": 11.686,
+     "e": 12.333
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Depuis, Josiane est en vigilance rouge.",
+   "hl": [
+    "vigilance",
+    "rouge."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L07.k.wav",
+   "file_start": 12.437,
+   "speech_start": 12.437,
+   "speech_end": 14.734,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 12.437,
+     "e": 13.046
+    },
+    {
+     "w": "Josiane",
+     "s": 13.122,
+     "e": 13.503
+    },
+    {
+     "w": "est",
+     "s": 13.542,
+     "e": 13.58
+    },
+    {
+     "w": "en",
+     "s": 13.656,
+     "e": 13.732
+    },
+    {
+     "w": "vigilance",
+     "s": 13.808,
+     "e": 14.189
+    },
+    {
+     "w": "rouge.",
+     "s": 14.265,
+     "e": 14.722
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Quand Josiane renifle, on évacue sa rue.",
+   "hl": [
+    "renifle,",
+    "évacue"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L08.k.wav",
+   "file_start": 14.834,
+   "speech_start": 14.834,
+   "speech_end": 17.119,
+   "words": [
+    {
+     "w": "Quand",
+     "s": 14.834,
+     "e": 14.986
+    },
+    {
+     "w": "Josiane",
+     "s": 15.1,
+     "e": 15.367
+    },
+    {
+     "w": "renifle,",
+     "s": 15.443,
+     "e": 15.977
+    },
+    {
+     "w": "on",
+     "s": 16.053,
+     "e": 16.129
+    },
+    {
+     "w": "évacue",
+     "s": 16.205,
+     "e": 16.51
+    },
+    {
+     "w": "sa",
+     "s": 16.586,
+     "e": 16.662
+    },
+    {
+     "w": "rue.",
+     "s": 16.7,
+     "e": 17.119
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Son assurance l'a classé catastrophe naturelle.",
+   "hl": [
+    "catastrophe",
+    "naturelle."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L09.k.wav",
+   "file_start": 17.219,
+   "speech_start": 17.219,
+   "speech_end": 19.658,
+   "words": [
+    {
+     "w": "Son",
+     "s": 17.219,
+     "e": 17.372
+    },
+    {
+     "w": "assurance",
+     "s": 17.448,
+     "e": 17.905
+    },
+    {
+     "w": "l'a",
+     "s": 17.931,
+     "e": 17.981
+    },
+    {
+     "w": "classé",
+     "s": 18.058,
+     "e": 18.438
+    },
+    {
+     "w": "catastrophe",
+     "s": 18.515,
+     "e": 18.896
+    },
+    {
+     "w": "naturelle.",
+     "s": 18.972,
+     "e": 19.658
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Puis les éoliennes l'ont embauché.",
+   "hl": [
+    "éoliennes",
+    "embauché."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L10.k.wav",
+   "file_start": 19.758,
+   "speech_start": 19.758,
+   "speech_end": 21.52,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 19.758,
+     "e": 19.91
+    },
+    {
+     "w": "les",
+     "s": 19.986,
+     "e": 20.138
+    },
+    {
+     "w": "éoliennes",
+     "s": 20.215,
+     "e": 20.596
+    },
+    {
+     "w": "l'ont",
+     "s": 20.634,
+     "e": 20.748
+    },
+    {
+     "w": "embauché.",
+     "s": 20.824,
+     "e": 21.51
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Aujourd'hui, Josiane éclaire trois villes.",
+   "hl": [
+    "trois",
+    "villes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L11.k.wav",
+   "file_start": 21.62,
+   "speech_start": 21.62,
+   "speech_end": 23.83,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 21.62,
+     "e": 22.268
+    },
+    {
+     "w": "Josiane",
+     "s": 22.306,
+     "e": 22.611
+    },
+    {
+     "w": "éclaire",
+     "s": 22.687,
+     "e": 22.991
+    },
+    {
+     "w": "trois",
+     "s": 23.068,
+     "e": 23.22
+    },
+    {
+     "w": "villes.",
+     "s": 23.258,
+     "e": 23.83
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il est allergique au pollen. Le printemps arrive.",
+   "hl": [
+    "pollen.",
+    "printemps"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/eternuement/tts/L12.k.wav",
+   "file_start": 23.93,
+   "speech_start": 23.93,
+   "speech_end": 26.672,
+   "words": [
+    {
+     "w": "Il",
+     "s": 23.93,
+     "e": 24.006
+    },
+    {
+     "w": "est",
+     "s": 24.082,
+     "e": 24.158
+    },
+    {
+     "w": "allergique",
+     "s": 24.234,
+     "e": 24.539
+    },
+    {
+     "w": "au",
+     "s": 24.615,
+     "e": 24.691
+    },
+    {
+     "w": "pollen.",
+     "s": 24.768,
+     "e": 25.453
+    },
+    {
+     "w": "Le",
+     "s": 25.491,
+     "e": 25.53
+    },
+    {
+     "w": "printemps",
+     "s": 25.606,
+     "e": 25.911
+    },
+    {
+     "w": "arrive.",
+     "s": 26.025,
+     "e": 26.672
+    }
+   ]
+  }
+ ],
+ "total": 28.17
+}

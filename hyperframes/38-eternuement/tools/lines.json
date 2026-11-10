@@ -1,0 +1,106 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a éternué et il a décoiffé toute la ville.",
+  "hl": [
+   "éternué",
+   "décoiffé"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "La météo a mesuré :",
+  "hl": [
+   "météo"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "C",
+  "text": "« Deux cents kilomètres-heure. »",
+  "hl": [
+   "Deux",
+   "cents"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Au-dessus de cent, c'est une tempête.",
+  "hl": [
+   "tempête."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Et une tempête, ça porte un prénom.",
+  "hl": [
+   "prénom."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le suivant sur la liste, c'était Josiane.",
+  "hl": [
+   "Josiane."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Depuis, Josiane est en vigilance rouge.",
+  "hl": [
+   "vigilance",
+   "rouge."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Quand Josiane renifle, on évacue sa rue.",
+  "hl": [
+   "renifle,",
+   "évacue"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Son assurance l'a classé catastrophe naturelle.",
+  "hl": [
+   "catastrophe",
+   "naturelle."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Puis les éoliennes l'ont embauché.",
+  "hl": [
+   "éoliennes",
+   "embauché."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Aujourd'hui, Josiane éclaire trois villes.",
+  "hl": [
+   "trois",
+   "villes."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il est allergique au pollen. Le printemps arrive.",
+  "hl": [
+   "pollen.",
+   "printemps"
+  ]
+ }
+]
