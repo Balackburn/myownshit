@@ -112,6 +112,16 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 - **Limb smears** (opt-in: `st.write(..., limbSmear=1)` or cast toon `{limbSmear: 1}`): an arm or a leg whose joints turn faster than about 9 rad/s is drawn
   as a smear: its far half stretches (up to x1.6 for an arm, x1.5 for a leg) and thins, on top of the drag arcs. Legs that spin on the spot (`scramble`),
   arms that windmill (`teeter`), a top that spins become rubber for the frames where they move fastest. It does nothing to a guided hand.
+- **`face.gx` / `face.gy`** (-1..1, painted faces of the face rig): the pupils alone look aside (- = toward his right: screen left when he faces us) or
+  down (+) / up (-); the head stays where it is. Use it when a character must watch something beside or above him while his face stays on the camera
+  (a head turned further than 45 degrees shows its blank side). Give him a wide-eyed expression, or the pupils hide under the lids.
+- Clips, second batch: `sneezeUp` as a ratchet (`times` [start of each breath], `last`, `tremble`: what a breath gains stays; the top of the last one is
+  held, shaking); `shakeHands2` pump: `thumb` [x, y, z] (the thumb's hand is guided to a point of the world, in clear sky between two heads),
+  `thumbTwist` (rad; 0 set the thumb upright for an arm that goes across the body: sweep it on stills), two pumps along the way; wave: a ring-down after
+  `stopAt` (three wobbles in twelve frames, feet planted, the head two frames behind the chest, stars from the release); `sniff` `held`;
+  `poster` `peelK` (3: he comes off head first, folded over like wallpaper).
+- A flight out of something (a mattress, a cannon): `cannonball` with `spin: 1 / flight time` (one turn), a `to` key with `arc`, then `land` with a
+  squash key `sq [1.5, 0.58, 1.0]` (x, not z: seen from the side, z makes him longer on screen).
 
 ## Clips
 

@@ -366,6 +366,33 @@ Outils du moteur ajoutés pour cette passe : canaux `reach` / `touch` (main guid
 `beacon beams / beamTilt`, `pepperRod` étiqueté, `mattressWall` en tranches, `townLights sites`, perruque redessinée ; clips : `shakeHands2`,
 `plankFall hang / feet`, `sneeze fold / chin`, `sneezeUp ik / back`, `sniff ik`.
 
+### 4 quater. Deuxième revue (animation 7,6 ; direction artistique 8,0), puis troisième passe
+
+Les deux relectures indépendantes du second brouillon ont donné 7,6 (animation) et 8,0 (direction artistique), contre 6,8 et 6,8 au premier
+tour. Leurs comptes rendus sont dans le dossier de travail de la revue (non versionné). Troisième passe, reproche par reproche :
+
+| Reproche (relecteur) | Correction |
+| --- | --- |
+| L'inspiration, qui ouvre, revient et ferme le film, « pulse » au lieu de monter ; le film finit une demi-seconde après son image la plus forte (anim) | `sneezeUp` devient un cliquet (`times`, `last`, `tremble`) : chaque inspiration garde ce qu'elle a gagné. Trois rythmes : S01 trois qui se resserrent, S16 une longue puis une courte, S19 cinq qui se resserrent ; le film finit sur le sommet tenu 6 images, en tremblant. Toute la prairie se penche vers lui (`flowerMeadow`) |
+| Le matelas : six images, ni entrée ni sortie lisibles ; la troisième ville s'allume à la coupe (anim) | S17 passe à 1,63 s (S16 raccourci à deux inspirations) : entrée assis, matelas tenu creusé 4 images, recraché en boule sur une cloche, atterrissage écrasé ; villes allumées d'un coup, une par éolienne, à côté des mâts, plus grandes, sous un halo, la dernière 13 images avant la coupe |
+| Le bras télescopique se lit comme un bras ordinaire, puis le plan se fige (anim) | la carte en haut du mur, la présentatrice au coin opposé : le bras monte la diagonale, dépasse, la carte bascule à chaque tape, une ondulation redescend le bras |
+| Le double regard se lit comme un seul (anim) | premier reniflement à la 2e image ; premier regard des trois ensemble, cou tendu, tenu 6 images ; retour ; second reniflement ; yeux sortis décalés |
+| Après la poignée de main il est au repos en deux images ; le pouce ne se lit pas ; les tenues sont sans vie (anim, DA) | il sonne 12 images après le lâcher (pieds plantés, tête en dernier, étoiles dès le lâcher) ; pouce guidé dans le ciel libre entre les têtes, droit, pompé deux fois ; l'ingénieur sourit à la caméra comme pour une photo |
+| S06-S08 : 5 s de petits gestes sans chute (anim) ; le chef montre le côté sans visage de sa tête (DA) | le tableau passe à droite du bureau et plus haut : S06 en plan moyen de trois quarts, le chef présente à la caméra ; S07 plus large : la boule est hors de portée, il saute, redescend avec la liste, qui remonte comme un store et l'emporte : il pend, pieds décollés, jambes qui balancent |
+| La chute se joue petite et la tête disparaît contre le bureau (DA) | caméra basse et proche, de trois quarts : il tient la hauteur du cadre, la caméra descend avec lui, jambes en V sur 39 % de la hauteur ; bureau déplacé et repeint en gris-vert ; à la fin il relève la tête : le visage tamponné revient vers nous sous le certificat |
+| Le héros tourne la tête sur son côté sans visage pendant que le tampon monte (DA) | nouveau canal du visage `face.gx / gy` : la tête reste vers nous, seules les pupilles suivent le tampon ; il déglutit et se tasse |
+| La prairie de printemps n'a pas d'identité ; la perruque se lit comme une boîte sur le mât (DA) | prairie fleurie (560 fleurs, touffes), deux arbres en fleurs, éoliennes repoussées aux bords ; perruque et journal arrivent lentement avec le vent, dans le ciel libre |
+| Finitions (DA) | fin du fouetté de S16 au-dessus des sous-titres ; une seule étiquette sur la poivrière ; bandeau MÉTÉO remonté ; flou de rotor en trois fantômes ; S01 décollé du sol plus tôt ; mur de la météo gris-bleu (mesuré : 215°, 10 %) ; costume gris et cravate verte pour le chef |
+
+Décisions prises sans question (règle du mode autonome) :
+- **Costume du chef** : le relecteur signalait un quasi-double du héros et renvoyait la décision à l'utilisateur si les costumes secondaires
+  étaient des modèles fixes. Ils ne le sont pas (chaque histoire règle ses seconds rôles) : gris et cravate verte.
+- **Désaccord entre relecteurs sur S15** (l'un demandait de couper la fin, l'autre un pouce lisible) : on garde la fin, corrigée.
+- **Troisième et dernier tour de relecture** lancé sur le brouillon corrigé, en parallèle du rendu final : les corrections éventuelles seront
+  rendues par plages et recollées (`tools/splice_range.sh`).
+
+Régression après les modifications du moteur : 0,5 % au pire (le bruit de fond habituel est de 0,54 %).
+
 ## Cycle 3 — rig : la main guidée (commencé pendant la revue de l'histoire 38)
 
 ### 1. Analyse (ce que les histoires 37 et 38 ont montré)
