@@ -120,7 +120,7 @@ B9 = 0.3
 st.shot('S09', 'mairie', setOpts=OFFICE(4.6), actors=[act('mec', [0.2, 0, 0.3], 0, 'stand', 'worried', keys=[k(B9, clip='jelly', params={'amp': 0.2}, expr='surprised', blend=0.03), k(B9 + 0.25, look=[0.2, 1.3, 0.8], expr='lookDown'), k(B9 + 0.55, look=None, expr='deadpan')]),
         act('chef', [1.6, 0, 0.55], -75, 'stand', 'proud', keys=[k(0.0, toon=MESSY, toonDur=0), k(B9 - 0.14, toon={**MESSY, 'hands': {'L': 'open'}, 'reach': {'L': [0.3, 1.52, 0.52, 1, 0.1]}}, toonDur=0.13, toonEase='in'),
             k(B9 + 0.06, toon=MESSY, toonDur=0.12)])],   # only the chief's arm comes into the frame, long, for the slap, and goes: the frame is the hero's
-        props=[P('badge', 'nameBadge', pos=[0.95, 1.45, 0.75], rot=[0, -1.2, 0], scale=1.0, keys=[k(B9 - 0.12, to=[0.14, 1.52, 0.46], dur=0.12, ease='in'), k(B9 - 0.12, rotTo=[0, 0, -0.06], dur=0.12), k(B9, attach='mec', joint='torso', offset=[-0.06, 0.47, 0.19], rot=[0, 0, -0.06])])],
+        props=[P('badge', 'nameBadge', pos=[1.7, 1.5, 0.75], rot=[0, -1.2, 0], scale=1.0, keys=[k(B9 - 0.12, to=[0.14, 1.52, 0.46], dur=0.12, ease='in'), k(B9 - 0.12, rotTo=[0, 0, -0.06], dur=0.12), k(B9, attach='mec', joint='torso', offset=[-0.06, 0.47, 0.19], rot=[0, 0, -0.06])])],
         fx=[{'type': 'shake', 'at': B9, 'dur': 0.15, 'amount': 0.02}],
         cams=[cam(0.0, [0.5, 1.7, 3.3], [0.45, 1.72, 2.9], [0.3, 1.7, 0.3], [0.28, 1.75, 0.3], lens=44)])
 # 10: the weather report: the storm on the map has his name; the forecaster, hair on end, reaches up: her arm goes out like a telescopic pointer to tap it
@@ -273,9 +273,11 @@ st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act(
 # 18: he is allergic to pollen: very close: one grain drifts down to the tip of his nose; his eyes follow it until they cross
 G18 = 1.0                                           # the grain lands
 NOSE = [-0.005, 1.975, 0.15]                        # on the nostrils (measured on a still: 0.13 m under the bridge, where it sat on an eye)
-st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 'stand', 'worried', keys=[k(0.0, look='grain', expr='surprised'), k(G18 - 0.35, toon={'face': {'cross': 1}}, toonDur=0.3, toonEase='inOut'),
+st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 'stand', 'worried', keys=[k(0.0, look='grain', expr='surprised'), k(0.42, look=[0.04, 1.8, 1.6]),   # the head comes back to us before the grain is close (a look at a thing 5 cm from the face twists the head away)
+            k(G18 - 0.35, toon={'face': {'cross': 1}}, toonDur=0.3, toonEase='inOut'),
             k(G18 + 0.12, toon={'face': {'cross': 1}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.1), k(G18 + 0.3, toon={'face': {'cross': 1, 'lid': 0.45}}, toonDur=0.12)])],
-        props=[P('grain', 'pollenGrain', pos=[0.55, 2.5, 0.9], opts={'r': 0.024}, keys=[k(0.0, to=[0.16, 2.14, 0.45], dur=0.55, arc=0.06, ease='inOut'), k(0.55, to=NOSE, dur=G18 - 0.55, arc=-0.04, ease='inOut')])],
+        props=[P('grain', 'pollenGrain', pos=[0.55, 2.5, 0.9], opts={'r': 0.019}, scale=1.3, keys=[k(0.0, to=[0.16, 2.14, 0.45], dur=0.55, arc=0.06, ease='inOut'), k(0.55, to=NOSE, dur=G18 - 0.55, arc=-0.04, ease='inOut'),
+                   k(G18, scale=1.0, dur=0.0), k(G18, attach='mec', joint='head', offset=[0.0, 0.17, 0.108], rot=[0, 0, 0])])],   # once landed it rides on the head: it stays on the nostrils whatever the head does
         cams=[cam(0.0, [0.12, 2.02, 1.75], [0.1, 2.02, 1.5], [0, 2.02, 0], [0, 2.02, 0], lens=40)])
 # 19: spring is coming: a field in flower, a yellow cloud that drifts to him; the breaths again, bigger, bigger: he rises like a balloon, everything loose
 #     flies to him; we leave before the sneeze. He faces us (a quarter turn toward the cloud): the last image keeps his face
