@@ -50,12 +50,12 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act(w, [x, 0, PZ - 0.16], 
         keys=[k(-0.05, clip='poster', params={'high': HIGH[w], 'slideAt': SLIDE.get(w, 9.0) + 0.05, 'slide': 0.5, 'peelK': 3.0, 'stars': 1}, blend=0.001, toon=MESSY, toonDur=0)]) for w, x, z, d in WALKERS],
         props=[PANEL], cams=[cam(0.0, [PX + 0.2, 1.8, PZ - 6.5], [PX + 0.15, 1.8, PZ - 6.1], [PX, 2.2, PZ], [PX, 2.15, PZ], lens=44)])
 # ---- the weather office (the town-hall set with its own banner): everybody's hair stays on end from now on
-WALL, BAND = '#BFD2E4', '#A98B6B'                    # a cooler wall than the town hall's: under the warm light of the room the cream wall came out the colour of the skins
+WALL, BAND = '#9DBBE0', '#A98B6B'                    # a blue wall: under the warm light of the room it comes out a pale blue-grey (measured: hue 215, 10 % saturated); a cream one came out the colour of the skins, and a pale blue one a warm grey
 OFFICE = lambda bx, **kw: {'title': 'MÉTÉO', 'map': False, 'plate': False, 'bannerX': bx, 'bannerY': 2.95, 'flagX': 4.3, 'clockX': 4.6, 'wall': WALL, 'band': BAND, **kw}
 FX, FZ = -1.7, 0.1                                  # the forecaster, left of the desk
 # 4: the forecaster holds up her anemometer: the gust arrives, the cups blur, and it is she who turns: three turns, like a top
 G4 = 0.22
-st.shot('S04', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.42), actors=[act('meteo', [FX, 0, FZ], 0, 'raiseOverhead', 'proud', keys=[k(0.0, look=[FX - 0.4, 2.9, 0.6]), k(G4, look=None, expr='surprised'),
+st.shot('S04', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.58), actors=[act('meteo', [FX, 0, FZ], 0, 'raiseOverhead', 'proud', keys=[k(0.0, look=[FX - 0.4, 2.9, 0.6]), k(G4, look=None, expr='surprised'),
         k(G4 + 0.06, clip='spinTop', params={'turns': [[0, 0], [0.2, 5], [0.575, 5], [0.825, 0]]}, blend=0.06, toon=MESSY, toonDur=0.15), k(G4 + 0.95, expr='dizzy')])],
         props=[P('anemo', 'anemometer', on={'actor': 'meteo', 'hand': 'R', 'offset': [0, -0.1, 0], 'rot': [3.1416, 0, 0]}, opts={'spin': [[0, 0.7], [G4, 0.9], [G4 + 0.08, 15], [G4 + 0.7, 15], [G4 + 1.0, 2]]}),
                P('gust', 'sneezeBlast', pos=[FX - 3.6, 0.35, FZ - 0.5], ry=90, opts={'at': G4 - 0.05, 'dur': 0.75, 'len': 7.5, 'spread': 1.7, 'n': 30, 'puff': 0.45}),
@@ -64,7 +64,7 @@ st.shot('S04', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.42), actors=[act('me
         fx=[{'type': 'wind', 'at': G4, 'dur': 0.7, 'v': [16, 0, 0], 'attack': 0.05, 'release': 0.3}, {'type': 'shake', 'at': G4, 'dur': 0.25, 'amount': 0.02}],
         cams=[cam(0.0, [FX - 0.4, 1.75, 4.7], [FX - 0.35, 1.75, 4.4], [FX, 1.6, FZ], [FX, 1.6, FZ], lens=44)])
 # 5: the gauge: the needle slams against the stop; dizzy, hair on end, she reads it out
-st.shot('S05', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.42), actors=[act('meteo', [FX, 0, FZ], 0, 'stand', 'dizzy', keys=[k(0.0, toon=MESSY, toonDur=0), k(-0.05, clip='jelly', params={'amp': 0.12, 'freq': 9, 'decay': 1.5}, blend=0.001)] + st.talk('L03', 'S05', 'dizzy'))],
+st.shot('S05', 'mairie', setOpts=OFFICE(FX - 0.3, bannerY=3.58), actors=[act('meteo', [FX, 0, FZ], 0, 'stand', 'dizzy', keys=[k(0.0, toon=MESSY, toonDur=0), k(-0.05, clip='jelly', params={'amp': 0.12, 'freq': 9, 'decay': 1.5}, blend=0.001)] + st.talk('L03', 'S05', 'dizzy'))],
         props=[P('anemo', 'anemometer', on={'actor': 'meteo', 'hand': 'R', 'offset': [0, -0.1, 0], 'rot': [3.1416, 0, 0]}, opts={'spin': [[0, 2.5], [1.2, 0.3]]}),
                P('gauge', 'windGauge', pos=[FX + 0.66, 2.3, FZ + 0.25], rot=[0.03, -0.1, 0.04], scale=0.01, opts={'at': 0.14, 'value': 200, 'r': 0.31}, keys=[k(0.02, scale=1.0, dur=0.16, ease='outBack')])],
         fx=[{'type': 'shake', 'at': 0.14, 'dur': 0.2, 'amount': 0.018}],
@@ -117,8 +117,8 @@ st.shot('S07', 'mairie', setOpts=OFF6, actors=[act('chef', [CX, 0, CZ + 0.1], 10
         k(P7 - 0.02, toon=GRAB(KY(0.015)), toonDur=0.02), k(P7 - 0.02, look=None, expr='proud'),   # got it: his face to us, like a showman
         k(P7, to=UP(0), dur=0.15, glide=True, ease='in', face='keep'), k(P7, toon=GRAB(KY(1.0)), toonDur=PULL, toonEase='inOut'),   # he comes down and the list with him
         k(P7 + 0.13, toon=GRAB(KY(1.0), sq=[1.1, 0.85, 1.1]), toonDur=PULL - 0.13, toonEase='inOut'), k(P7 + PULL, toon=GRAB(KY(1.0)), toonDur=0.08, toonEase='outBack'),   # he lands and pulls it to the bottom
-        k(UP7, toon=GRAB(KY(K7), sq=[0.9, 1.22, 0.9]), toonDur=SNAP7, toonEase='inOut'), k(UP7, expr='take'),   # the arm goes first, as long as it takes (one frame with his feet still on the floor)
-        k(UP7 + 0.03, to=UP(H7 + 0.28), dur=0.1, glide=True, ease='out', face='keep'),   # the body flies up after it, too high
+        k(UP7, toon=GRAB(KY(K7), sq=[0.92, 1.15, 0.92]), toonDur=SNAP7, toonEase='inOut'), k(UP7, expr='take'),   # the arm goes first, as long as it takes (one frame with his feet still on the floor)
+        k(UP7 + 0.03, to=UP(H7 + 0.14), dur=0.1, glide=True, ease='out', face='keep'),   # the body flies up after it, a little too high (his head stays in the frame)
         k(UP7 + 0.08, toon=GRAB(KY(K7), sq=[1.12, 0.84, 1.12], bend=SW7(-0.5)), toonDur=0.05),   # squashed at the top, knees up
         k(UP7 + 0.14, to=UP(H7), dur=0.08, glide=True, ease='in', face='keep'), k(UP7 + 0.2, toon=GRAB(KY(K7), sq=[0.93, 1.13, 0.93], bend=SW7(0.5)), toonDur=0.05),   # he drops: the arm takes his weight, the legs swing out
         k(UP7 + 0.24, expr='deadpan'), k(UP7 + 0.26, toon=GRAB(KY(K7), bend=SW7(-0.3)), toonDur=0.08),   # he hangs, a look at us; the legs swing back
@@ -231,7 +231,7 @@ st.shot('S14', 'mairie', setOpts=INSUR, actors=[act('mec', [HX14, 0, HZ14], -8, 
             k(HIT14 + 0.3, clip='stand', expr='proud', blend=0.2, look=[HX14, 2.45, HZ14]),   # he reads his stamp on the forehead: the head tips to it, a nod, a second one
             k(HIT14 + 0.44, toon=GR(K_END, bend={'neck': [0.3, 0, 0, 1.12, None]}, sq=[1.03, 0.96, 1.03]), toonDur=0.07), k(HIT14 + 0.52, toon=GR(K_END), toonDur=0.07),
             k(HIT14 + 0.6, toon=GR(K_END, bend={'neck': [0.3, 0, 0, 1.12, None]}, sq=[1.03, 0.96, 1.03]), toonDur=0.07), k(HIT14 + 0.68, toon=GR(K_END), toonDur=0.07),
-            k(FALL14 - 0.2, to=BACK14, dur=0.34, clip='walk', ease='in', face=-80), k(FALL14 - 0.2, toon={'hands': {'R': 'grip'}}, toonDur=0.1, look=None, expr='smug')])],
+            k(FALL14 - 0.2, to=BACK14, dur=0.34, clip='walk', ease='in', face=-80), k(FALL14 - 0.2, toon={'hands': {'R': 'grip'}}, toonDur=0.1, look=None, expr='smug'), k(FALL14 - 0.03, visible=False)])],   # gone when the camera changes (a sliver of him stayed at the edge of the fall's frame)
         props=[P('stamp', 'bigStamp', pos=K_LOW, ry=ARY14, rot=[0, 0, 0], rotOrder='YXZ', scale=SK, keys=[k(0.04, to=K_TOP, dur=UP14, ease='outBack'), k(0.04, rotTo=[2.69, ARY14 * 0.01745, 0], dur=UP14, ease='outBack'), k(0.04 + UP14, to=K_TOP2, dur=HIT14 - W14 - 0.04 - UP14, ease='linear'), *[k(round(0.04 + UP14 + 0.06 * j, 3), rotTo=[2.69 + (0.05 + 0.025 * j) * (1 if j % 2 else -1), ARY14 * 0.01745, 0], dur=0.06, ease='inOut') for j in range(int((HIT14 - W14 - 0.04 - UP14) / 0.06))],   # it trembles at the top, more and more
                    k(HIT14 - W14, to=K_HIT, dur=W14, ease='in', arc=0.06), k(HIT14 - W14, rotTo=[6.283, ARY14 * 0.01745, 0], dur=W14, ease='in'), k(HIT14, to=K_IN, dur=0.03),
                    k(HIT14 + 0.1, to=K_REB, dur=RB14, ease='out'), k(HIT14 + 0.1, rotTo=[5.6, ARY14 * 0.01745, 0], dur=RB14, ease='out'),
@@ -263,7 +263,7 @@ st.shot('S15', 'grassland', setOpts=FIELD(), actors=[act('mec', [-0.5, 0, 0.1], 
             k(S15E + 0.1, toon={'scl': {'handL': [1.7, 1.7, 1.7]}}, toonDur=0.15, toonEase='outBack')])],   # the thumb, big; the clip pumps it twice
         props=[P(f'turb{i}', 'windTurbine', pos=[x, 0, z], opts={'h': 9, 'rpm': 0, 'phase': i * 0.7}) for i, (x, z) in enumerate([(-4.05, -12.7), (3.3, -18.7)])] +   # one tower at each edge: the sky between the heads is clear
               [BADGE, P('fl1', 'flowers', pos=[-1.5, 0, 1.0]), P('fl2', 'flowers', pos=[1.4, 0, 1.3])],
-        cams=[cam(0.0, [0.3, 1.3, 5.3], [0.25, 1.3, 5.0], [0.05, 1.72, 0.2], [0.03, 1.75, 0.2], lens=44)])
+        cams=[cam(0.0, [0.3, 1.3, 5.7], [0.25, 1.3, 5.4], [0.05, 1.86, 0.2], [0.03, 1.89, 0.2], lens=44)])   # room above the heads: the last stroke throws him a head higher
 # 16: at dusk, today: the engineer, behind the hero's shoulder (behind the gun), holds a pepper pot over his head at the end of a fishing rod, in front of his
 #     nose: a rhythm of its own this time: one long breath while the pot comes down, the engineer leaning away, then a short one: he ducks; the release
 DUSK = {'sky': ['#33437A', '#F2A368'], 'grass': '#5E8A4E'}
@@ -290,14 +290,14 @@ HIT17, BOW17, HOLD17, FLY17 = 0.1, 0.08, 0.12, 0.2  # he hits the mattress; it b
 OUT17 = round(HIT17 + BOW17 + HOLD17, 3)            # the mattress springs back: it throws him out
 B17 = 0.7                                           # the cut to the turbines
 IN17 = lambda d, y=-0.32: [round(-0.707 * d, 3), y, round(0.707 * d, 3)]   # d metres behind where he stood
-LAND17 = [0.05, 0, -0.05]                           # where he comes down: where he stood (further on, the frame cut him in two)
+LAND17 = [-0.25, 0, 0.25]                           # where he comes down: short of where he stood (further on, the frame cut him, squashed, in two)
 E17 = [-1.41, 0, 0.73]                              # the engineer, behind the far end of the mattress: his head shows over it
 UPT = lambda i: round(B17 + 0.2 + 0.15 * i, 3)      # turbine i has reached its speed: its town comes on
 st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0.3, 0], 135, 'stand', 'worried', keys=[k(-SNAP, clip='sneeze', params=SNZ, blend=0.001),
             k(SN17 + 0.03, to=IN17(0.72), dur=HIT17 - 0.03, glide=True, ease='out', face='keep'), k(SN17 + 0.03, clip='blownBack', blend=0.04),
             k(HIT17, to=IN17(1.0), dur=BOW17, glide=True, ease='out', face='keep'), k(HIT17 + 0.02, toon={'sq': [1.15, 1.0, 0.72]}, toonDur=BOW17, toonEase='out'),   # he sinks into it, pressed
             k(OUT17, to=LAND17, dur=FLY17, glide=True, ease='linear', arc=0.6, face='keep'), k(OUT17, clip='cannonball', params={'spin': 1 / FLY17, 'expr': 'dizzy'}, blend=0.03), k(OUT17, toon={'sq': [0.92, 1.12, 0.92]}, toonDur=0.05),   # thrown out, rolled in a ball: one turn
-            k(OUT17 + FLY17, clip='land', expr='dizzy', blend=0.02), k(OUT17 + FLY17, toon={'sq': [1.3, 0.58, 1.3], 'face': {'stars': 1, 'cross': 1}}, toonDur=0.04),   # he lands flat-footed, squashed to half his height
+            k(OUT17 + FLY17, clip='land', expr='dizzy', blend=0.02), k(OUT17 + FLY17, toon={'sq': [1.5, 0.58, 1.0], 'face': {'stars': 1, 'cross': 1}}, toonDur=0.04),   # he lands flat-footed, squashed to half his height (wider across the shoulders, not longer: seen from the side he stays in the frame)
             k(OUT17 + FLY17 + 0.05, toon={'sq': [0.92, 1.1, 0.92], 'face': {'stars': 1, 'cross': 1}}, toonDur=0.1, toonEase='outBack'), k(OUT17 + FLY17 + 0.16, toon={'face': {'stars': 1, 'cross': 1}}, toonDur=0.1)]),
         act('inge', E17, 135, 'stand', 'scared', keys=[k(0.0, look=[0, 1.6, 0]), k(0.0, toon={'sq': [1.08, 0.86, 1.08]}, toonDur=0),
             k(HIT17 + 0.02, toon={'sq': [0.9, 1.14, 0.9], 'hat': [0.3, 0.3, 0]}, toonDur=0.06, toonEase='out'), k(HIT17 + 0.02, clip='startle', expr='surprised', blend=0.04), k(HIT17 + 0.12, toon={'sq': [1.05, 0.92, 1.05]}, toonDur=0.12, toonEase='outBack'),   # the mattress bumps him: his helmet jumps
