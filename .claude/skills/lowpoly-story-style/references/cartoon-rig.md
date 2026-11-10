@@ -122,6 +122,9 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
   `poster` `peelK` (3: he comes off head first, folded over like wallpaper).
 - A flight out of something (a mattress, a cannon): `cannonball` with `spin: 1 / flight time` (one turn), a `to` key with `arc`, then `land` with a
   squash key `sq [1.5, 0.58, 1.0]` (x, not z: seen from the side, z makes him longer on screen).
+- **Prop key `squash: [sx, sy, sz]`** (with `dur`, 0.3 s): an impact on a prop: at the key it is squashed to that many times its size and springs back
+  with a small overshoot (a plate slammed on a wall `[1.1, 0.82, 1]`, a cap that lands on a head `[1.35, 0.5, 1.35]`). It works on free and attached props
+  and multiplies the `scale` keys.
 
 ## Clips
 

@@ -342,7 +342,7 @@ function scaleAt(A, t) {
 // ------------------------------------------------------------------------------------- props
 function prepProp(cfg, obj, sc, place) {
   const Pp = { id: cfg.id || cfg.name, cfg, obj, kind: 'prop', pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), ry0: (cfg.ry || 0) * D2R, rx0: cfg.rot?.[0] || 0, rz0: cfg.rot?.[2] || 0,
-    scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [], rotKeys: [] };
+    scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [], rotKeys: [], sqKeys: [] };
   if (cfg.rotOrder) obj.rotation.order = cfg.rotOrder;   // 'YXZ': rot[0] pitches the prop in the vertical plane it faces after ry (a stamp swung over by somebody who does not face down an axis)
   if (cfg.on) Pp.own.push({ at: -1e6, attach: cfg.on.actor || cfg.on, ...(typeof cfg.on === 'object' ? cfg.on : {}) });
   const keys = (cfg.keys || []).map(k => ({ ...k, t: frozenRemap(cfg.id || cfg.name, T(k.at ?? 0, sc)) })).sort((a, b) => a.t - b.t);
@@ -354,6 +354,7 @@ function prepProp(cfg, obj, sc, place) {
     if (k.scale != null && k.to == null) Pp.scaleKeys.push({ at: k.t, scale: k.scale, dur: k.dur ?? 0.4, ease: k.ease || 'inOut' });
     if (k.sfx) Pp.sfx.push({ t: k.t, name: k.sfx, vol: k.vol ?? 0.6 });
     if (k.rotTo) Pp.rotKeys.push({ t: k.t, rot: k.rotTo, dur: k.dur ?? 0.4, ease: k.ease || 'inOut' });   // radians [x, y, z], Euler XYZ
+    if (k.squash) Pp.sqKeys.push({ t: k.t, sq: k.squash, dur: k.dur ?? 0.3 });   // an impact: the prop is squashed to [sx, sy, sz] times its size at that instant and springs back over dur (a damped wobble)
   }
   for (const mv of Pp.moves) {
     const start = propBasePos(Pp, mv.t);
@@ -389,9 +390,12 @@ function placeAttached(Pp, k, t) {
   Pp.obj.position.set(off[0], off[1], off[2]);
   Pp.obj.rotation.set(...(k.rot || ZERO));
   const sc = (k.scale ?? scaleOf(Pp, t)) / Math.max(0.01, (A.obj.scale.x || 1));
-  Pp.obj.scale.setScalar(sc);
+  Pp.obj.scale.setScalar(sc); squashProp(Pp, t);
   return true;
 }
+// a keyed impact on a prop (key `squash`): squashed at the key, it springs back, overshooting a little
+function squashProp(Pp, t) { let q = null; for (const k of Pp.sqKeys) { if (k.t > t) break; q = k; } if (!q) return; const u = (t - q.t) / q.dur; if (u >= 1) return;
+  const a = Math.exp(-4.5 * u) * Math.cos(u * 11) * (1 - u), sc = Pp.obj.scale; sc.set(sc.x * (1 + (q.sq[0] - 1) * a), sc.y * (1 + (q.sq[1] - 1) * a), sc.z * (1 + (q.sq[2] - 1) * a)); }
 function scaleOf(Pp, t) { let s = Pp.scale0; for (const k of Pp.scaleKeys) { if (k.at > t) break; s = k.dur ? lerp(s, k.scale, (ease[k.ease] || ease.inOut)(clamp01((t - k.at) / k.dur))) : k.scale; } return s; }
 
 function precomputeReleases(sc) {
@@ -436,7 +440,7 @@ function evalProp(Pp, t) {
     if (mv) Pp.obj.rotation.y = headingAt(mv, t) + (mv.yawOffset || 0) * D2R;
     else { const last = [...Pp.moves].reverse().find(m => t > m.t1 && m.faceMove); if (last) Pp.obj.rotation.y = last.segs[last.segs.length - 1].head + (last.yawOffset || 0) * D2R; }
   }
-  Pp.obj.scale.setScalar(scaleOf(Pp, t));
+  Pp.obj.scale.setScalar(scaleOf(Pp, t)); squashProp(Pp, t);
   Pp.obj.userData.update?.(t);
   if (Pp.alts) { // alternate looks after given times (the last one reached is shown in place of the prop)
     let cur = null; for (const a of Pp.alts) { a.obj.visible = false; if (t >= a.at) cur = a; }

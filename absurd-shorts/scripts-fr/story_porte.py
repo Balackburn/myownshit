@@ -102,8 +102,8 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
             k(C8 + 0.24, expr='deadpan'), k(C8 + 0.24, toon=GRIP(OPEN), toonDur=0.08)])],
         props=[DOOR(swing=[[0, OPEN]]), BEARD(), WEB(),
                P('plate', 'signBoard', pos=[DX - 0.13, 0, DZ], ry=-90, scale=0.01, opts={'text': 'SERVICE PUBLIC', 'w': SIGNW + 0.06, 'h': 0.64, 'height': 2.64, 'posts': False, 'frame': '#F4F1E8', 'bg': '#2A4B9B', 'fg': '#F4F1E8'},
-                 keys=[k(P8, scale=1.0, dur=0.1, ease='outBack')]),
-               P('cap', 'doormanCap', pos=[9.12, 4.2, -1.02], ry=-90, keys=[k(C8 - 0.14, to=[9.12, 2.42, -1.02], dur=0.14, ease='in'), k(C8, attach='mec', joint='head', offset=CAPOFF, rot=[0, 0, 0])])],
+                 keys=[k(P8, scale=1.0, dur=0.1, ease='outBack'), k(P8 + 0.1, squash=[1.1, 0.82, 1.0], dur=0.3)]),
+               P('cap', 'doormanCap', pos=[9.12, 4.2, -1.02], ry=-90, keys=[k(C8 - 0.14, to=[9.12, 2.42, -1.02], dur=0.14, ease='in'), k(C8, attach='mec', joint='head', offset=CAPOFF, rot=[0, 0, 0]), k(C8, squash=[1.35, 0.5, 1.35], dur=0.35)])],   # the plate and the cap squash where they land (prop key `squash`)
         fx=[{'type': 'shake', 'at': P8 + 0.08, 'dur': 0.12, 'amount': 0.016}, {'type': 'shake', 'at': C8, 'dur': 0.1, 'amount': 0.014}],
         cams=[cam(0.0, [5.9, 1.9, 0.25], [6.0, 1.95, 0.25], [9.9, 2.7, 0.2], [9.9, 2.72, 0.2], lens=44),   # the sign and the door (he is just out of the frame)
               cam(T8, [7.0, 2.35, -1.2], [7.1, 2.35, -1.2], [9.12, 1.7, -1.12], [9.12, 1.7, -1.12], lens=44)])   # close on him, from a little above: the sign stays over the top of the frame
@@ -173,7 +173,7 @@ st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sti
             k(POKE - 0.22, toon={'hands': {'R': 'point'}, 'reach': {'R': [8.9, 2.02, -1.5, 1, 0.16]}, 'bend': {'spine': [0, 0, -0.18, 1, None]}}, toonDur=0.14, toonEase='out'),
             k(POKE - 0.03, toon={'hands': {'R': 'point'}, 'reach': {'R': [8.98, 2.02, -1.22, 1, 0.16]}, 'bend': {'spine': [0, 0, -0.18, 1, None]}}, toonDur=0.04),
             k(POKE + 0.1, toon={'hands': {'R': 'point'}, 'reach': {'R': [8.9, 2.02, -1.5, 1, 0.16]}, 'bend': {'spine': [0, 0, -0.18, 1, None]}}, toonDur=0.1), k(POKE + 0.1, expr='laugh')])],
-        props=[DOOR(swing=[[0, OPEN]], **PUBLIC), BEARD(1.6), CAP(), WEB(), BRONZE(scale=0.01, keys=[k(PLQ, scale=1.0, dur=0.12, ease='outBack')]),
+        props=[DOOR(swing=[[0, OPEN]], **PUBLIC), BEARD(1.6), CAP(), WEB(), BRONZE(scale=0.01, keys=[k(PLQ, scale=1.0, dur=0.12, ease='outBack'), k(PLQ + 0.12, squash=[1.1, 0.85, 1.0], dur=0.3)]),
                P('phone', 'smartPhone', on={'actor': 't1', 'hand': 'L', 'offset': [0, 0.02, 0.02], 'rot': [0, 0, 0]}, scale=1.6, opts={'call': False}, keys=[k(0.0, visible=False), k(0.8, visible=True)]),
                P('pg', 'pigeon', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.6, 0.0], 'rot': [0, 0, 0]}, opts={'ph': 0.5})],
         fx=[{'type': 'shake', 'at': PLQ + 0.1, 'dur': 0.1, 'amount': 0.012}],
