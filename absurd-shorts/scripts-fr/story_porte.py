@@ -107,7 +107,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
                P('cap', 'doormanCap', pos=[9.12, 4.2, -1.02], ry=-90, keys=[k(C8 - 0.14, to=[9.12, 2.42, -1.02], dur=0.14, ease='in'), k(C8, attach='mec', joint='head', offset=CAPOFF, rot=[0, 0, 0]), k(C8, squash=[1.35, 0.5, 1.35], dur=0.35)])],   # the plate and the cap squash where they land (prop key `squash`)
         fx=[{'type': 'shake', 'at': P8 + 0.08, 'dur': 0.12, 'amount': 0.016}, {'type': 'shake', 'at': C8, 'dur': 0.1, 'amount': 0.014}],
         cams=[cam(0.0, [5.9, 1.9, 0.25], [6.0, 1.95, 0.25], [9.9, 2.7, 0.2], [9.9, 2.72, 0.2], lens=44),   # the sign and the door (he is just out of the frame)
-              cam(T8, [7.0, 2.35, -1.2], [7.1, 2.35, -1.2], [9.12, 1.7, -1.12], [9.12, 1.7, -1.12], lens=44)])   # close on him, from a little above: the sign stays over the top of the frame
+              cam(T8, [6.9, 2.4, -1.2], [7.0, 2.4, -1.2], [9.12, 1.8, -1.12], [9.12, 1.8, -1.12], lens=44)])   # close on him, from a little above: the sign stays over the top of the frame, the cap's top inside it
 # 9: and a public service does not close: he tries to slip away: he tiptoes toward us, his hand still on the handle, the arm paid out behind him like
 #    elastic; at the end of it his feet spin on the spot; it takes him back: he is shot against the wall and the leaf swings round on him: pressed in the
 #    door like a flower in a book, seen through the glass; the leaf comes back, he peels off the wall
@@ -157,7 +157,7 @@ TUG = 0.5
 ARM12 = lambda **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*WIN, 1, 0.05]}, **kw}
 st.shot('S12', 'chambre', setOpts={'poster': 'SERVICE\nPUBLIC', 'posterBg': '#2A4B9B', 'posterFg': '#F4F1E8'}, actors=[act('mec', BED12, 0, 'lieBack', 'sleepy', keys=[k(-0.05, toon=ARM12(), toonDur=0), k(0.02, toon=ARM12(sq=[1.0, 1.0, 1.1], face={'jaw': 0.3}), toonDur=0.16, toonEase='inOut'), k(0.2, toon=ARM12(), toonDur=0.16, toonEase='inOut'),   # a snore: the chest comes up, goes down
             k(TUG - 0.3, toon=ARM12(wave=RIP(0.07, 1.5, 1.5)), toonDur=0.05), k(TUG - 0.25, toon=ARM12(wave=RIP(0.1, 0.2, 1.5)), toonDur=0.13),   # somebody uses the door: a ripple comes in through the window, along the arm, to him
-            k(TUG - 0.12, toon=ARM12(sq=[1.03, 0.97, 1.03], wave=RIP(0.05, -0.4, 1.5)), toonDur=0.1), k(TUG, to=[-4.05, 0.75, -1.1], dur=0.1, glide=True, ease='in', face='keep'), k(TUG, toon=ARM12(sq=[0.9, 1.2, 0.9]), toonDur=0.08),
+            k(TUG - 0.12, toon=ARM12(sq=[1.03, 0.97, 1.03], wave=RIP(0.05, -0.4, 1.5)), toonDur=0.1), k(TUG, to=[-4.05, 0.55, -1.1], dur=0.1, glide=True, ease='in', face='keep'), k(TUG, toon=ARM12(sq=[0.9, 1.2, 0.9]), toonDur=0.08),
             k(TUG + 0.1, clip='poster', params={'high': 0.0, 'slideAt': 9, 'stars': 0}, expr='sleepy', blend=0.02, face=90), k(TUG + 0.1, toon=ARM12(sq=[1.2, 1.0, 0.3]), toonDur=0.03), k(TUG + 0.16, toon=ARM12(sq=[1.0, 1.0, 0.6]), toonDur=0.15, toonEase='outBack')])],
         props=[BEARD(), CAP()],
         fx=[{'type': 'shake', 'at': TUG + 0.1, 'dur': 0.15, 'amount': 0.025}],
@@ -192,9 +192,11 @@ st.shot('S14', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sti
 T15 = round(st.dur('S15') - 0.3, 3)                 # he presses
 TECH = [9.2, 0, 1.6]
 SW = [9.88, 1.4, 2.15]                              # the box on the wall, right of the door
-st.shot('S15', 'parisStreet', setOpts=STREET, actors=[act('tech', [9.0, 0, 4.4], 180, 'walk', 'neutral', keys=[k(0.0, to=TECH, dur=0.7, clip='walk', ease='out', face=-60), k(0.7, clip='stand', blend=0.1, look=[9.9, 2.4, 0.0], expr='hmm'),
-            k(1.0, look=SW, expr='surprised'), k(T15 - 0.3, toon={'hands': {'L': 'point'}, 'reach': {'L': [SW[0] - 0.3, SW[1], SW[2] - 0.05, 1, 0.16]}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.2, toonEase='out'),
-            k(T15 - 0.04, toon={'hands': {'L': 'point'}, 'reach': {'L': [SW[0] - 0.07, SW[1] - 0.05, SW[2], 1, 0.16]}}, toonDur=0.04), k(T15 + 0.08, expr='happy', look=[9.9, 1.6, 0.0])])],
+PRESS = lambda dx, **kw: {'hands': {'L': 'point'}, 'reach': {'L': [SW[0] - dx, SW[1] - 0.05, SW[2], 1, 0.16, [0.3, -1, -0.2]]}, **kw}   # his left index on the button, the arm out behind him (his face stays on us: a look at the box showed the back of his head)
+st.shot('S15', 'parisStreet', setOpts=STREET, actors=[act('tech', [9.0, 0, 4.4], 180, 'walk', 'neutral', keys=[k(0.0, to=TECH, dur=0.7, clip='walk', ease='out', face=-78), k(0.7, clip='stand', blend=0.1, look=None, expr='hmm'),
+            k(0.72, toon={'face': {'gx': -0.8, 'gy': -0.5}}, toonDur=0.1), k(1.02, toon={'face': {'gx': 0.95, 'eye': 0.25}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.07, toonEase='outBack'), k(1.02, expr='surprised'),   # the door, then the box that pops up behind him: with his eyes alone
+            k(T15 - 0.34, expr='smug'), k(T15 - 0.34, toon=PRESS(0.32, face={'browL': 0.9, 'browR': -0.3}), toonDur=0.22, toonEase='out'),   # the arm goes back to it, one brow up: he knows
+            k(T15 - 0.04, toon=PRESS(0.07, face={'browL': 0.9, 'browR': -0.3}), toonDur=0.04), k(T15 + 0.06, toon=PRESS(0.09, face={'browL': 0.9, 'lidR': 1, 'mouth': 'smirk'}), toonDur=0.06)])],   # pressed, without a look; a wink at us
         props=[DOOR(swing=[[0, OPEN]], **PUBLIC), P('box', 'toolbox', pos=[8.8, 0, 2.5], ry=-70), P('switch', 'wallSwitch', pos=SW, ry=-90, scale=0.01, opts={'at': T15, 'label': 'AUTO'}, keys=[k(0.95, scale=1.7, dur=0.12, ease='outBack')])],
         cams=[cam(0.0, [6.3, 1.45, 2.6], [6.45, 1.45, 2.55], [9.8, 1.4, 2.0], [9.8, 1.4, 2.0], lens=44)])   # right of the door: its sign stays out of the frame
 # 16: it was automatic: the leaf leaves his hand: it shuts by itself, slides open, shuts, opens; his hand stays in the air, holding nothing: he looks at it,
@@ -203,10 +205,13 @@ SHUT16 = 0.3                                         # the leaf has swung shut
 SLIDE16 = [[0, 0], [0.42, 0], [0.6, 0.95], [0.74, 0.95], [0.88, 0], [0.96, 0], [1.1, 0.95]]
 AIR = handle(OPEN)                                  # where the handle was: his hand stays there
 FREE = lambda **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*AIR, 1, 0.05, [0.2, -1, 0.5]]}, **kw}
-st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'deadpan', keys=[k(-0.05, toon=FREE(), toonDur=0), k(0.1, look=[9.9, 1.3, 0.0], expr='surprised'), k(0.36, toon=FREE(face={'gx': 0.9, 'gy': 0.4}), toonDur=0.06),
-            k(0.5, look=[9.9, 1.3, 0.2]), k(0.62, clip='doubleTakeToon', blend=0.04, look=None), k(0.62, toon=FREE(), toonDur=0.05), k(1.0, clip='stand', expr='deadpan', blend=0.1)])],
+CU16 = 0.46                                         # the cut to his face
+st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'deadpan', keys=[k(-0.05, toon=FREE(), toonDur=0), k(0.0, look=None), k(0.08, toon=FREE(face={'gx': 0.9, 'gy': 0.3}), toonDur=0.06), k(0.12, expr='surprised'),   # his eyes alone go after the leaf
+            k(CU16, clip='doubleTakeToon', params={'side': 1, 'beat': 0.14, 'pop': 0.8, 'jaw': 0.45}, blend=0.04), k(CU16, toon=FREE(), toonDur=0.05),   # a look at the door that works by itself; back to his hand: the take
+            k(CU16 + 0.56, toon=FREE(face={'gx': 0.5, 'gy': 0.8}), toonDur=0.06)])],   # eyes down on the hand that holds nothing
         props=[DOOR(swing=[[0, OPEN], [0.05, OPEN], [SHUT16, 0]], slide=SLIDE16, led=0.4, **PUBLIC), BEARD(1.6), CAP(), BRONZE()],
-        cams=[cam(0.0, [5.2, 1.7, -2.6], [5.3, 1.7, -2.5], [9.6, 1.55, -0.5], [9.6, 1.55, -0.5], lens=44)])
+        cams=[cam(0.0, [5.2, 1.7, -2.6], [5.3, 1.7, -2.5], [9.6, 1.55, -0.5], [9.6, 1.55, -0.5], lens=44),
+              cam(CU16, [6.4, 1.8, 0.95], [6.5, 1.8, 0.9], [9.1, 1.65, -0.7], [9.1, 1.65, -0.7], lens=44)])   # from his left: the look at the door turns his face through us, the door slides behind him
 # 17: the lady never said thank you: the door slides open for her; she comes out with her bread, goes by under his nose and away; he raises a finger, his
 #     mouth opens; nothing; then his arm: he pushes it down with the other hand; it comes back up by itself, where the handle was
 OUT17 = 0.25                                        # she comes out

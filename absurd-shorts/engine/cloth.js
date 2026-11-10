@@ -40,7 +40,7 @@ export function clothUpgrade(obj) {
   ud.cloth = {
     // aw: apparent wind in world space, m/s (the scene wind minus the actor's own velocity); t: time (flutter); k: dose 0..1.
     // Gravity and wind are brought into the frame of the chest (the tie) and of the head (the hair), so lying down or upside down works too
-    apply(aw = [0, 0, 0], t = 0, k = 1, fat = 1, hairUp = 0) {   // hairUp 0..1: hair left standing whatever the wind (toon channel `hairUp`)   // fat: how much the chest is inflated (the spine band's thickness): the knot stays on its surface
+    apply(aw = [0, 0, 0], t = 0, k = 1, fat = 1, hairUp = 0, pull = null) {   // pull [length, forward, aside]: the tie taken in a hand (toon channel `tie`): it stretches (1 = its own length) and swings toward the hand (radians)   // hairUp 0..1: hair left standing whatever the wind (toon channel `hairUp`)   // fat: how much the chest is inflated (the spine band's thickness): the knot stays on its surface
       const sp = Math.hypot(aw[0], aw[1], aw[2]), fl = Math.min(1, sp / 7);
       if (tie) {
         tie.root.position.z = (d.front + 0.014) * Math.max(0.6, fat);
@@ -54,6 +54,7 @@ export function clothUpgrade(obj) {
         tie.segs[0].rotation.set(-(rx * 0.72 + f1) * k, 0, (rz * 0.6 + 0.3 * f1) * k);
         tie.segs[1].rotation.set(-(rx * 0.2 + f2) * k, 0, (rz * 0.3 + 0.4 * f2) * k);
         tie.segs[2].rotation.set(-(rx * 0.08 + f3) * k, 0, (rz * 0.1 + 0.5 * f3) * k);
+        tie.segs[0].scale.y = pull ? Math.max(0.2, pull[0] ?? 1) : 1; if (pull) { tie.segs[0].rotation.x -= pull[1] || 0; tie.segs[0].rotation.z += pull[2] || 0; }
       }
       if (hair) {
         J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs

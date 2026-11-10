@@ -10,6 +10,8 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
+//   tie: [length, forward, aside]   the tie taken in a hand (engine/cloth.js, needs `cloth`): it stretches (1 = its own length, 1.7 = pulled like the cord of a
+//         lamp) and swings toward the hand (radians: forward away from the chest, aside toward his left). Key it back through 0.85 and 1.05: it snaps
 //   wave: { spine|neck|armL|foreL|...: [amp (m), waves, phase (turns), free, axis (rad)] }   a ripple along a part, on top of its bend: `waves` periods
 //         over its length, moved along by `phase` (key it from 0 to 2 and the ripple travels twice down the limb). The two ends stay where they are (a guided
 //         hand keeps its point); free: 1 lets the far end whip (a head on a noodle neck). axis: 0 = across (x), PI / 2 = front to back (z)
@@ -255,7 +257,7 @@ export function toonUpgrade(obj) {
 }
 
 // ---- numeric blend of two toon channel sets (missing = neutral)
-const NEUTRAL_B = [0, 0, 0, 1, null], NOWAVE = {}, SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1], ZERO = [0, 0, 0];
+const NEUTRAL_B = [0, 0, 0, 1, null], NOWAVE = {}, TIE0 = [1, 0, 0], SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1], ZERO = [0, 0, 0];
 export function blendToon(a = {}, b = {}, w = 1) {
   if (w >= 1 && !a) return b; const L = (x, y) => x + (y - x) * w, out = {};
   const POLE = (x, y) => (x && y) ? [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])] : (x || y || null);   // the elbow hint of a guided hand
@@ -267,6 +269,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
     out.wave[k] = [L(x ? x[0] || 0 : 0, y ? y[0] || 0 : 0), L(p[1] ?? 1, q[1] ?? 1), L(p[2] || 0, q[2] || 0), (w < 0.5 ? p : q)[3] || 0, L(p[4] || 0, q[4] || 0)]; } }
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);   // hair left on end (engine/cloth.js)
+  if (a.tie || b.tie) { const x = a.tie || TIE0, y = b.tie || TIE0; out.tie = [L(x[0] ?? 1, y[0] ?? 1), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0)]; }   // the tie taken in a hand: [length, forward, aside] (engine/cloth.js)
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
@@ -286,6 +289,7 @@ export function addToon(a = {}, b = {}) {
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
+  if (b.tie) out.tie = b.tie;
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
