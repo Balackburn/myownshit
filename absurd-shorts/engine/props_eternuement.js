@@ -119,7 +119,7 @@ export const ETERNUEMENT_PROPS = {
     if (o.beams) {   // o.beams (m): two red beams that turn with it, like a lighthouse: the red alert sweeps the street and whoever stands in it
       const L = o.beams; hub = new THREE.Group(); hub.position.y = r * 0.9; g.add(hub);
       for (const sd of [1, -1]) { const c = cyl(r * 0.35, L * (o.beamWidth ?? 0.15), L, '#FF4A36', 12); c.material = c.material.clone(); c.material.transparent = true; c.material.opacity = o.beamOpacity ?? 0.3; c.material.depthWrite = false; c.material.emissive = new THREE.Color('#FF3B2A'); c.material.emissiveIntensity = 0.9;
-        c.castShadow = false; c.receiveShadow = false; c.rotation.z = sd * PI / 2; c.position.x = sd * L / 2; hub.add(c); }
+        c.castShadow = false; c.receiveShadow = false; c.rotation.z = sd * PI / 2; c.position.x = sd * L / 2; const pv = new THREE.Group(); pv.rotation.z = sd * (o.beamTilt ?? 0); pv.add(c); hub.add(pv); }   // o.beamTilt (rad): the beams point up a little: when one sweeps toward the camera it passes over the head, not over the face
     }
     g.userData.update = t => { bar.rotation.y = t * 9; if (hub) hub.rotation.y = t * (o.turn ?? 9); dome.material.emissiveIntensity = 0.55 + 0.45 * Math.sin(t * 9); };
     return g;

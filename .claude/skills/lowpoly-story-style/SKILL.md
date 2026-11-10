@@ -70,7 +70,22 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Cou de cygne et regard en coin | `hoseNeck` (`len: 8.5, curve: -0.5, lean: 0.2`) : il monte avec dépassement, garde un arc (plus un bâton), penché du côté de ce qu'il vient voir ; visage de trois quarts ; il ne tourne PAS la tête vers la flaque (on verrait ses cheveux) : expression `side` et regard vers un point en avant, 0,3 s ; puis regard caméra, clignement lent posé par clé (`face.lid` 0 → 1 → 0 sur 7 images) ; la pile regarde la caméra à son tour, décalée de 0,05 s | 37 S18 |
 | Double regard sur un panneau qui change | il lit LIBRE (ravi), se tourne vers le trou et prend son élan (`sq [1.14, 0.8, 1.14]`) ; le panneau passe à COMPLET (clac, deux clignotements) ; 3 images plus tard la tête revient au panneau : chapeau en l'air (`hat: [0.22, 0, 0]`), yeux sortis de profil avec pupilles vers nous (`eyeYaw: 0.8`), mâchoire, corps étiré ; tenu 9 images | 37 S18 |
 
-Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperThin`, `inflate`, `noodle`, `scramble` avant un départ, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `strain`, `dotEyes`. Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
+| Trois inspirations qui le gonflent (gag à répétition : rue, crépuscule, printemps) | `sneezeUp` avec `ik: 1` : l'index est tenu sous le nez par la main guidée quoi que fassent la tête et le torse ; chaque inspiration plus grande (torse en trapèze, il décolle), la cravate et les cheveux aspirés vers le nez à chaque fois (canal `wind` du clip). À la troisième la caméra recule (`glide`) pour montrer les pieds décollés et l'ombre dessous. Les 3 dernières images sont la détente, face à nous (`sneeze` avec `fold: 0.6, chin: 1.3` : le visage reste vers la caméra, bouche grande ouverte), puis on coupe derrière lui. Reprises : `back: 0.6` (tête moins renversée) et caméra de face un peu haute, 4 inspirations et `sq` par paliers pour le ballon final | 38 S01, S16, S19 |
+| Soufflés, épinglés comme des affiches | les passants : `blownBack` sur un `glide` rapide, puis `poster` avec `blend=0.02` contre le panneau, cheveux en mèches dressées (`hairUp`), étoiles ; tout le texte du panneau dans une bande au-dessus des têtes (`adPanel textH: 0.25`, panneau de 3,6 m) ; deux se décollent et glissent (`slideAt`) | 38 S02, S03 |
+| La présentatrice en toupie | `spinTop` (`turns` : montée, palier, arrêt), l'anémomètre tenu en l'air, papiers qui volent, lunettes de travers ensuite | 38 S04 |
+| Le doigt qui pousse le curseur | main guidée (`reach`, bout du doigt 7 cm sous le curseur) avec les mêmes instants, durées et courbes que l'accessoire (`toonEase='out'` des deux côtés) ; deux petits coups d'abord, un creux puis la pointe des pieds pour la dernière bande | 38 S06 |
+| La liste qu'on déroule par sa corde | `nameList` avec `unroll: [t, 0.27]` (store à enrouleur : le texte s'étire depuis le tube, rebond en bas) ; il fait un pas, lève la main ouverte vers la boule (regard d'abord), la ferme, tire en 8 images (`reach` sur la hauteur de la boule, `inOut` comme l'accessoire), écrasé en bas ; puis deux tapes sur la liste et regard caméra | 38 S07 |
+| Le bras télescopique | un bras ordinaire d'abord (2 images, trop court), puis `reach` jusqu'au bout de la carte avec `outBack` (il dépasse, revient), main ×1,5 ; elle garde le visage et le sourire vers la caméra ; la carte tremble à la tape (`tapAt`) ; le doigt se pose à côté du nom, pas dessus | 38 S10 |
+| Gyrophare et foule couchée comme du blé | accessoire `beacon` posé sur le crâne (`offset [0, 0.565, 0]` dans le repère de la tête : au-dessus des cheveux, les yeux restent libres), deux faisceaux qui tournent ; les passants se plient l'un après l'autre (`leanAway`, 0,9 m avant son passage) ; travelling arrière partiel pour garder son visage à 15 % de la largeur | 38 S11 |
+| Triple double regard | caméra de trois quarts : lui à gauche, trois têtes en rang derrière son épaule (une seule profondeur de 1,2 m, 0,6 m d'écart latéral) ; au premier reniflement un coup d'œil, puis ils regardent ailleurs 4 images, au second la tête revient d'un coup, yeux sortis (`pop: 0.5`), décalés de 0,05 s | 38 S12 |
+| Jambes en moulinet et perruque qui reste | `scramble` commencé 4 images avant la coupe (clé avant 0 dans le plan suivant), `dashOff` chacun dans sa direction ; la perruque reste 8 images où était la tête puis tombe ; des sacs de sable surgissent en U derrière lui ; ses yeux suivent chaque départ, il cligne vers nous, renifle encore | 38 S13 |
+| Le tampon géant, la tête dans les épaules | le tampon suit sa propre trajectoire (clés `to` / `rotTo`, `rotOrder='YXZ'`) et la main de l'assureur est guidée sur son pommeau (`reach` aux mêmes clés) : contact exact ; levée tenue, frappe en 2 images, la tête rentre (`headHammer`), le tampon rebondit vers l'assureur, la tête ressort avec la marque (8 images dans le vide), la caméra s'approche ; puis un plan à part, de trois quarts : il penche 5 images (`plankFall hang`), tombe raide en 8, rebond, les jambes se relèvent 10 images (`feet`) | 38 S14 |
+| La poignée de main qui le traverse | `shakeHands2` : les mains tiennent un même point (`grip`) qui pompe de plus en plus fort ; lui est secoué avec 2 images de retard à chaque articulation, il décolle sur les derniers coups, puis sonne (trois oscillations) ; l'autre secoue à deux mains et lève un gros pouce ; les deux hommes à 55° de la caméra | 38 S15 |
+| La poivrière au bout d'une canne | tenue PAR-DESSUS son épaule par l'ingénieur caché derrière lui (derrière le canon) : la poivrière étiquetée pend au-dessus du nez, contre le ciel, le poivre tombe ; à chaque inspiration elle descend, l'ingénieur se penche en arrière puis se baisse, une main sur le casque | 38 S16 |
+| Le recul dans le matelas | vu de trois quarts de côté : il part en arrière assis le premier (`blownBack`), le matelas rayé se creuse en banane (`mattressWall` en tranches, `hitAt`), revient et le renvoie ; l'ingénieur à l'abri derrière, son casque saute. Puis l'autre bout du champ : trois éoliennes qui démarrent l'une après l'autre (`rpmKeys`), une ville derrière chacune s'allume (`townLights sites`) | 38 S17 |
+| Le grain de pollen | très gros plan ; le grain descend en deux arcs et se pose sur les narines (position mesurée sur une image) ; les deux pupilles le suivent et convergent (`cross`), paupières à demi | 38 S18 |
+
+Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperThin`, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes`. Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
 
@@ -153,4 +168,45 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperTh
   (LIBRE / COMPLET) à la même hauteur de lettres, le dernier affiché le plus contrasté ; 5 % de marge avec les bords de l'image, y compris en fin de travelling.
 - (4e passe) Un accessoire laissé en l'air doit montrer sa face lisible : incliné vers la caméra (dessus éclairé), pas en rotation (une plaque noire une image sur deux).
 - (4e passe) Visages à peau foncée : à petite taille les traits noirs se perdent. Ne pas éclaircir la peau : donner `faceRim: True` au personnage (contour clair autour des sourcils, des yeux et de la bouche ; cycle 2).
+- (cycle 2, 1re relecture : 6,8 / 6,8) **Un accessoire posé sur la tête ne doit jamais toucher la ligne des yeux** : le décalage d'un accessoire attaché se
+  compte dans le repère de l'articulation (la tête fait 0,5 de haut, cheveux jusqu'à 0,565), pas en mètres du monde : `offset [0, 0.3, 0]` posait le
+  gyrophare sur le front et cachait le regard du héros pendant trois plans. Contrôler un gros plan de face après toute attache sur la tête.
+- (cycle 2) Le visage est peint sur la face avant de la tête : **un profil est une planche vide**. Tourner chaque personnage d'au moins 30° vers la caméra
+  (une poignée de main : les deux à 55° de l'axe, le point serré vers nous ; un coup de tampon : celui qui frappe derrière l'épaule de l'autre, de trois
+  quarts). Un seul plan de profil est permis : une chute raide, parce que c'est la silhouette qui joue.
+- (cycle 2) Trois réactions ensemble : une caméra de face les cache derrière la tête du premier plan. Caméra de trois quarts, les têtes en rang d'un seul
+  côté (du côté opposé au bras levé du héros), vérifiées avec `proj.py` : 16 % d'écart entre centres, chaque visage au moins 11 % de la largeur.
+- (cycle 2) Texte d'accessoire et personnages : tout ce qu'on épingle, pose ou tend devant un panneau le couvre. Mettre le texte dans une bande que
+  rien n'atteint (en haut du panneau, au-dessus des têtes) et faire passer les bras sous les bandeaux (`stormMap bandTop`). Une aiguille de la couleur
+  du chiffre qu'elle désigne l'efface : chiffres hors de sa course, celui qu'on lit plus gros et d'une autre couleur.
+- (cycle 2) Un texte ou un objet coupé par le bord du cadre se lit comme une faute : entièrement dedans (5 % de marge) ou entièrement dehors, dans CHAQUE
+  cadre du plan (un rapprochement en cours de plan recoupe ce que le plan large contenait). Un objet lointain dont un seul bord dépasse des toits (la tour
+  dans la brume) se lit comme une rayure : l'ôter du décor pour ces plans (`eiffel: False`).
+- (cycle 2) Sous la lumière chaude d'un intérieur, un mur crème prend la teinte des peaux (31°, 42 % de saturation contre 30° pour un visage) : mesurer
+  sur une image (`colorsys.rgb_to_hsv` d'un carré de mur et d'une joue) et refroidir la couleur de base jusqu'à 25 % de saturation ou moins (`mairie`
+  accepte `wall`, `band`, `trim`, `floor`). **Un même décor servi pour deux institutions se lit comme le même lieu** : une enseigne (`signBoard`) et une
+  couleur propres à chacune (assurance : mur vert-gris), jamais le bandeau tricolore.
+- (cycle 2) **La détente d'une anticipation doit se voir sur le personnage** : trois inspirations suivies d'une coupe derrière lui ne paient rien. Garder
+  3 images de la détente dans le plan de l'anticipation (la tête fouette vers nous), puis couper ; dans le plan suivant le clip continue (clé avant 0).
+- (cycle 2) Une tenue sans action se voit à l'aperçu comme une image arrêtée (0 % de pixels qui changent) : chaque tenue reçoit un geste qui raconte
+  (deux tapes du doigt, un hochement, une canne qui s'approche, un pouce pompé deux fois, un dernier reniflement). La respiration automatique ne suffit pas à 124 px.
+- (cycle 2) Une chute raide qui s'éloigne de la caméra rétrécit et s'enfonce : la filmer en travers du cadre, dans un plan à part de trois quarts
+  (4 à 6 images penché, 8 pour tomber, un rebond, les jambes en l'air 8 images ou plus), et faire sortir le second personnage avant.
+- (cycle 2) **Un accessoire tenu qui doit toucher juste** (tampon sur un crâne, canne, curseur) : ne pas régler les angles du bras. Donner à
+  l'accessoire sa propre trajectoire (clés `to`, `rotTo`, `rotOrder='YXZ'` s'il bascule dans le plan où il regarde) et guider la main sur sa poignée
+  (canal `reach`, mêmes instants, mêmes durées, mêmes courbes). Pour un point du corps : `touch` (`['face', travers, hauteur, mètres devant]`).
+- (cycle 2) Deux mains qui se serrent : un seul point du monde tenu par les deux (`shakeHands2 grip`), devant eux et vers la caméra ; sinon les deux bras
+  se croisent sur toute leur longueur.
+- (cycle 2) Un objet qu'on tend devant un visage le cache à toute caméra : le suspendre au-dessus, contre le ciel, et faire tomber quelque chose de
+  lisible vers le visage (du poivre) ; celui qui le tend se tient derrière le héros, pas entre lui et nous.
+- (cycle 2) Un corps plat dans un objet qui se creuse passe derrière ses bords (le héros en « affiche » semblait debout sur le matelas) : le faire entrer
+  assis le premier (`blownBack`), les hanches au fond du creux, et régler sa hauteur sur le milieu de l'objet (`y` négatif si le clip le soulève).
+- (cycle 2) Cheveux dressés : un bloc qui se lève se lit comme un fez ; cinq mèches en éventail (`cloth.js`). Matelas : dix tranches sans contour (dix
+  contours font une pile de boîtes), rayures et boutons sur les deux faces, les bouts amincis.
+- (cycle 2) **Commentaire au milieu d'une ligne, troisième fois** (les tranches du matelas n'étaient plus ajoutées : accessoire invisible, aucune erreur).
+  Second contrôle avant chaque commit : `git diff | grep '^+' | grep -nE "//.*;\s*[a-zA-Z_.]+\(.*\);\s*$"` ; et quand un accessoire disparaît après
+  une retouche, relire d'abord la ligne retouchée.
+- (cycle 2) Une pièce du rig appliquée deux fois dans la même image double la rotation de ses articulations filles (la tête penchait deux fois, la main
+  guidée arrivait trop haut) : `apply` ne plie la colonne et le cou qu'une fois quand une main est guidée. Toute mesure d'une cible se fait après.
+- (cycle 2) Clip à déroulement unique donné comme clip de départ avec une clé avant 0 : le moteur avertit ; mettre `stand` en clip de départ.
 

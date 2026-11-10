@@ -88,6 +88,28 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 - Facts: `lens` in `cam()` is the vertical field of view in degrees (44 gives a horizontal half-angle of 12.8 deg; a bigger number is wider). A key at
   exactly t = 0 shows the previous clip on the first frame: key a one-shot clip at -0.05.
 
+## Added in cycle 3 (guided hands, a wind of his own, what the first review of story 38 asked for)
+
+- **`reach: { L | R: [x, y, z, w, tip, [px, py, pz]] }`**: a hand guided to a point of the world by a two-bone solver (shoulder and elbow). `w` 0..1
+  blends from the clip's pose (keys fade it in and out), `tip` (m) makes the fingertips arrive instead of the wrist (0.16 for a pointing index, 0.05 for a
+  fist round a knob), the last value says where the elbow goes (a direction in the frame of the chest; default low, a little out and back). A point further
+  than the arm is long stretches both parts of the arm: the cartoon reach comes for free. Key it with the same times, durations and eases as the prop it
+  follows (`toonEase` and the prop's `ease`).
+- **`touch: { L | R: [joint, x, y, z, w, tip, pole] }`**: the same to a point of his own body, which follows the head wherever the spine and the neck take
+  it: `['torso', x, y, z]` or `['head', ...]` in the joint's own units (a head is 0.5 high), or on the face in face units:
+  `['face', across (-0.5..0.5, + his left), up (0 chin .. 1 skull; under the nose 0.31, mouth 0.23, an eye 0.62), metres in front]`.
+  `sneezeUp` and `sniff` hold the index under the nose with it (`ik: 1`, elbow out to the side: `[-1, 0.2, 0.3]`).
+- The puppeteer's trick: when a held prop must land exactly (a stamp on a skull, a knob pulled down, a rider pushed up), give the PROP its own keys and
+  guide the hand to its handle. `rotOrder='YXZ'` on a prop lets `rot[0]` pitch it in the plane it faces after `ry`.
+- **`wind: [x, y, z]`** (m/s, in his own frame, +Z in front): a wind of his own on the tie and the hair, added to the scene wind: an inhale pulls them up
+  to the nose (`[0, 11, 3]` in pulses), a sniff a little.
+- Hair on end is five tufts (three in front, two behind), each with its own height and flutter; flat on the crown at rest.
+- Clips: `shakeHands2` (role `pump` | `wave`, `grip` point, `amp [first, last]`, `freq`, `stopAt`, `two`, `thumbAt`): one held point, the stroke two frames
+  later at each joint, a ring-down; `plankFall` (`hang`, `lean`, `feet`); `sneeze` (`fold`, `chin`: the face stays on a camera in front);
+  `sneezeUp` (`ik`, `back`, the inhale's `wind`); `sniff` (`ik`).
+- A part of the rig must be applied once per frame (it turns its child joints each time): with a guided hand the spine and the neck are bent first, then
+  the solver runs, then the limbs.
+
 ## Clips
 
 `take` (hold, pop 0 = huge painted eyes / 1 = eyes on stalks, jaw, tongue), `doubleTakeToon` (side, beat), `scramble`, `dashOff`,

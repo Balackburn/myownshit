@@ -335,3 +335,57 @@ Gags visuels (chacun s'appuie sur le rig ; aucun n'est repris tel quel de « Le 
 Décisions de mise en scène : la fin ne montre pas l'éternuement (temps suspendu, coupe au sommet) ; les passants gardent les cheveux dressés
 jusqu'au bout (gag à répétition : la ville reste décoiffée) ; le héros tourné en diagonale vers le fond pour le plan des éoliennes (lui en
 bas à gauche, éoliennes et villes dans la hauteur du cadre) ; carton « JOSIANE » sur le plan du badge.
+
+### 4 ter. Première revue par les deux critiques (6,8 et 6,8 sur le brouillon), puis passe de mise en scène
+
+Les deux lecteurs (direction artistique, animation) ont noté le même brouillon 6,8. Leurs reproches se recoupent : **le visage, surface de jeu
+principale du rig, était caché ou de profil dans 9 plans sur 19** ; le gag du tampon perdait sa chute ; la poignée de main ne se serrait pas ;
+plusieurs tenues étaient des images arrêtées ; des textes d'accessoires étaient couverts ou coupés. Tout a été repris avant un second brouillon.
+
+| Reproche | Ce qui a été fait |
+| --- | --- |
+| Le gyrophare posé sur le front cache les yeux pendant trois plans (S11 à S13) | Le décalage d'un accessoire attaché se compte dans le repère de la tête (0,5 de haut) : `offset [0, 0.565, 0]`, au-dessus des cheveux ; plus gros, deux faisceaux qui tournent, relevés (`beamTilt`) pour passer au-dessus des visages |
+| S12 : deux visages sur trois, coupés par les bords ; sa main cache un œil | Caméra de trois quarts, trois têtes en rang derrière son épaule gauche (positions calculées avec `proj.py`), vrai double regard (coup d'œil, ailleurs, retour brusque les yeux sortis) |
+| S13 : quatre idées en 1,17 s, sacs de sable sous les sous-titres, fin figée | Les jambes moulinent dès la fin de S12 ; sacs en U derrière lui (entre 53 et 74 % de la hauteur) ; ses yeux suivent chaque départ, clignement, dernier reniflement ; la perruque reste, au centre, à la place de la tête |
+| S11 : visage trop petit, passants de dos | Travelling arrière partiel (visage de 12 à 17 % de la largeur) ; les passants font face à la caméra et se plient vers l'extérieur sans le regarder |
+| S14 : le tampon redescend devant le visage quand la tête ressort ; chute de 0,2 s qui s'éloigne ; assureur de profil et immobile ; diplôme à moitié visible dès le début ; même bureau que la météo | Le tampon suit sa propre trajectoire et la main est guidée sur son pommeau : frappe exacte, rebond vers l'assureur, tête qui ressort dans le vide avec la marque pendant que la caméra s'approche ; diplôme hors champ puis sur le mur libre ; assureur derrière l'épaule du héros, de trois quarts, qui continue à lever le tampon en tremblant, lit sa marque, hoche la tête deux fois, sort ; chute dans un plan à part, de trois quarts : 5 images penché, 8 pour tomber, rebond, jambes en l'air 10 images ; bureau vert-gris avec son enseigne ASSURANCES ; tampon ×1,6 |
+| S15 : les mains ne se serrent pas, deux profils, pas de retard d'une articulation à l'autre | `shakeHands2` : un seul point tenu, amplitude croissante, 2 images de retard par articulation, il décolle sur les derniers coups, trois oscillations après le lâcher ; les deux hommes à 55° de l'axe ; gros pouce pompé deux fois ; l'éolienne entre eux, plus derrière son dos |
+| S16, S19 : tête renversée vue de côté et d'en bas : pas de visage ; poivrière illisible devant un nuage | Caméra de face, un peu haute ; `back: 0.6` ; l'ingénieur tient la canne par-dessus l'épaule du héros (derrière le canon), la poivrière étiquetée POIVRE pend au-dessus du nez, contre le ciel, le poivre tombe ; il se baisse à la troisième inspiration ; une éolienne dans le fond ; S19 de face (ry 25), panneau coupé retiré, éoliennes écartées de sa tête |
+| S17 : le recul est caché, le matelas est une caisse crème, les trois villes font une seule ligne | Deux temps : de trois quarts de côté, il part assis le premier dans un matelas rayé à boutons qui se creuse et le renvoie (l'ingénieur à l'abri derrière : son casque saute) ; puis l'autre bout du champ : trois éoliennes, une ville avec son clocher derrière chacune, qui s'allume quand elle tourne |
+| S18 : le grain se pose sur un œil | Position mesurée sur une image : 0,13 m plus bas, sur les narines ; grain d'un tiers plus petit |
+| La détente n'est jamais payée sur le personnage (deux éternuements vus de dos en moins de 0,15 s) | Les 3 dernières images de S01 et de S16 sont la détente, face à nous (`sneeze` avec `fold` et `chin`) ; le plan suivant continue le clip |
+| Textes : aiguille sur le « 200 », bandeau MÉTÉO sous le carton, VIGILANCE cachée par la manche, slogan couvert | Chiffres hors de la course de l'aiguille, « 200 » en marine et plus gros ; pas de bandeau derrière le carton de S09 ; bandeau rouge en haut de la carte ; tout le texte du panneau dans une bande au-dessus des têtes |
+| Mur de la météo de la teinte des peaux ; cheveux dressés = un fez ; cravate et cheveux inertes à l'inspiration ; tenues mortes | Mur refroidi (34°, 23 % de saturation mesurés, contre 31°, 42 %) ; cinq mèches ; canal `wind` du clip ; une action par tenue (tapes du doigt, « attendez », hochement, pouce) |
+
+Décisions prises sans demander (consignées ici) : le visage reste peint sur la face avant seulement (modèle de la série) : on règle par la mise en
+scène ; la saturation du rendu « naturel » reste celle des histoires 34 à 37 ; la narration enregistrée ne bouge pas (aucune pause ajoutée) ; la
+trace hachurée dans le ciel de la rue était un bord de la tour dans la brume : tour retirée pour les plans S11 à S13.
+
+Outils du moteur ajoutés pour cette passe : canaux `reach` / `touch` (main guidée, voir cycle 3), `wind` ; option `rotOrder` des accessoires ;
+`mairie` avec couleurs et sans bandeau ; accessoires : `nameList unroll` (store à corde), `windScale side`, `adPanel textH`, `stormMap bandTop / tapAt`,
+`beacon beams / beamTilt`, `pepperRod` étiqueté, `mattressWall` en tranches, `townLights sites`, perruque redessinée ; clips : `shakeHands2`,
+`plankFall hang / feet`, `sneeze fold / chin`, `sneezeUp ik / back`, `sniff ik`.
+
+## Cycle 3 — rig : la main guidée (commencé pendant la revue de l'histoire 38)
+
+### 1. Analyse (ce que les histoires 37 et 38 ont montré)
+
+1. **Les contacts de mains se règlent à la main** : chaque geste qui doit toucher (doigt sous le nez, tampon sur un crâne, curseur, corde) demandait
+   des angles d'épaule et de coude ajustés image par image, et cassait dès que la tête ou le torse bougeaient. Choisi pour ce cycle.
+2. Les accessoires tenus n'arrivent jamais exactement où il faut (tampon à côté du crâne, redescendu devant le visage). Choisi (même solution).
+3. Les membres rapides n'ont pas de traînée propre (seul le corps entier s'étire à la vitesse). À faire.
+4. Les accessoires sont rigides à l'impact (seul le matelas se creuse depuis cette passe). À faire au cas par cas.
+5. Les bouches ne suivent pas les sons (ouverture seule). À étudier.
+
+### 2. Rig
+
+- **Canal `reach`** : une main amenée à un point du monde par un calcul à deux os (épaule, coude), avec étirement automatique des deux segments quand le
+  point est trop loin, une longueur de bout de doigts (`tip`), une direction de coude, un poids pour entrer et sortir du geste.
+- **Canal `touch`** : la même chose vers un point de son propre corps, donné dans le repère d'une articulation ou en unités du visage
+  (`['face', travers, hauteur, mètres devant]`) : le doigt reste sous le nez quand la tête part en arrière et que le torse gonfle.
+- Canal `wind` : un vent propre au personnage sur la cravate et les cheveux (l'inspiration les aspire).
+- Cheveux dressés en cinq mèches.
+- Corrections : une pièce du rig appliquée deux fois doublait la rotation des articulations filles ; l'échelle de la tête est posée avant le calcul
+  des mains ; la solution à deux os est exacte (plus d'itérations).
+- Vérification des anciennes histoires après chaque lot : 0,50 %, 0,50 % puis 0,55 % de pixels changés au pire (bruit habituel : 0,54 %).
+
