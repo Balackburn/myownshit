@@ -78,7 +78,7 @@ P7 = round(T7 - 0.42, 3)                            # he pulls the cord
 st.shot('S07', 'mairie', setOpts=OFFICE(4.6), actors=[act('chef', [CX, 0, CZ + 0.1], 10, 'handsOnHips', 'proud', keys=[k(0.0, toon=MESSY, toonDur=0), k(0.12, clip='thinkChin', expr='hmm', blend=0.16, look=[CX + 0.6, 2.6, 0.5]),
         k(P7 - 0.5, clip='pokeUp', expr='surprised', blend=0.1, look=None), k(P7 - 0.5, toon={**MESSY, 'sq': [0.94, 1.1, 0.94], 'hands': {'R': 'point'}}, toonDur=0.08, toonEase='outBack'), k(P7 - 0.36, toon={**MESSY, 'hands': {'R': 'point'}}, toonDur=0.1),
         k(P7 - 0.24, clip='reachUpL', expr='determined', blend=0.12), k(P7, clip='windUp', blend=0.08), k(P7 + 0.3, clip='point', expr='proud', face=-55, blend=0.15, toon={**MESSY, 'hands': {'R': 'point'}}, toonDur=0.1)])],
-        props=[P('scale', 'windScale', pos=[BX, 1.95, -2.54], opts={'at': -1, 'w': 1.15, 'h': 1.6}), LIST(9.0, pos=[BX, 4.7, -2.5], keys=[k(P7 + 0.02, to=[BX, 2.0, -2.5], dur=0.26, ease='outBack')])],
+        props=[P('scale', 'windScale', pos=[BX, 1.95, -2.54], opts={'at': -1, 'w': 1.15, 'h': 1.6}, keys=[k(P7 + 0.2, visible=False)]), LIST(9.0, pos=[BX, 4.7, -2.5], keys=[k(P7 + 0.02, to=[BX, 2.0, -2.5], dur=0.26, ease='outBack')])],
         fx=[{'type': 'shake', 'at': P7 + 0.26, 'dur': 0.12, 'amount': 0.014}],
         cams=[cam(0.0, [0.25, 1.85, 2.4], [0.18, 1.9, 1.9], [0.05, 1.9, -2.2], [-0.05, 1.95, -2.2], lens=44)])
 # 8: the next one on the list: his finger goes down the struck names
@@ -139,7 +139,7 @@ st.shot('S14', 'mairie', setOpts=OFFICE(4.6, title='ASSURANCE'), actors=[act('me
                P('mark', 'stampMark', pos=[0, 0, 0], opts={'w': 0.2, 'h': 0.11}, keys=[k(0.0, visible=False), k(HIT14 + 0.02, visible=True), k(HIT14 + 0.02, attach='mec', joint='head', offset=[0.0, 0.245, 0.128], rot=[0, 0, -0.12])]),
                P('diploma', 'catNatDiploma', pos=[0.42, 4.9, -2.52], opts={'w': 1.15, 'h': 0.83}, keys=[k(T14 - 0.05, to=[0.42, 2.72, -2.52], dur=0.2, ease='outBack')])],
         fx=[{'type': 'shake', 'at': HIT14, 'dur': 0.2, 'amount': 0.035}, {'type': 'shake', 'at': T14 + 0.15, 'dur': 0.1, 'amount': 0.012}],
-        cams=[cam(0.0, [-0.3, 1.85, 4.3], [-0.32, 1.87, 3.9], [-0.32, 1.85, 0.4], [-0.32, 1.9, 0.4], lens=44)])
+        cams=[cam(0.0, [-0.3, 1.9, 5.0], [-0.32, 1.92, 4.7], [-0.32, 1.9, 0.4], [-0.32, 1.95, 0.4], lens=44)])
 # ---- the wind farm: three turbines in a field. For the sneeze he faces the far right corner (ry 135): the turbines up there, three towns on the ridge beyond
 FIELD = lambda **kw: {'clouds': 14, 'seed': 31, **kw}
 TPOS = [(5.6, -7.2), (10.6, -9.2), (13.2, -15.2)]
