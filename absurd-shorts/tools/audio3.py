@@ -215,6 +215,23 @@ def sfx(name, seed=0):
     if name == 'heartbeat':  # two low thumps (lub-dub)
         t = np.arange(int(0.16 * SR)) / SR; th = (np.sin(2 * np.pi * (55 - 15 * t / 0.16) * t) * np.exp(-t * 22)).astype(np.float32)
         out = np.zeros(int(0.6 * SR), np.float32); out[:len(th)] += th; i0 = int(0.22 * SR); out[i0:i0 + len(th)] += th * 0.7; return out
+    # ---- cartoon effects (cycle 1): a slide whistle for falls and rises, a wood-block bonk, a splat, a zip, a twang
+    if name in ('slideDown', 'slideDownLong', 'slideDownSlow', 'slideUp'):
+        d = {'slideDown': 0.42, 'slideDownLong': 0.75, 'slideDownSlow': 1.15, 'slideUp': 0.28}[name]; t = np.arange(int(d * SR)) / SR; u = t / d
+        f = (1500 * (1 - u) ** 1.6 + 280) if name != 'slideUp' else (420 + 1500 * u ** 1.4); f = f * (1 + 0.018 * np.sin(2 * np.pi * 9 * t))
+        ph = np.cumsum(2 * np.pi * f / SR); x = np.sin(ph) * 0.5 + np.sin(2 * ph) * 0.12 + bp(noise(d, seed), 2500, 7000) * 0.05
+        return (x * np.minimum(1, t * 60) * np.clip((d - t) * 18, 0, 1) * 0.6).astype(np.float32)
+    if name == 'bonk':   # a hollow wood block
+        t = np.arange(int(0.2 * SR)) / SR; return ((np.sin(2 * np.pi * 620 * t) * np.exp(-t * 34) + 0.5 * np.sin(2 * np.pi * 1270 * t) * np.exp(-t * 46)) * 0.8 + bp(noise(0.2, seed), 900, 5000) * np.exp(-t * 90) * 0.4).astype(np.float32)
+    if name == 'splat':   # a body flattened on the ground: a low thump with a wet slap on top
+        t = np.arange(int(0.34 * SR)) / SR; return (np.sin(2 * np.pi * (85 - 45 * t / 0.34) * t) * np.exp(-t * 15) * 0.95 + bp(noise(0.34, seed), 700, 5200) * np.exp(-t * 26) * 0.6 + bp(noise(0.34, seed + 1), 150, 600) * np.exp(-t * 12) * 0.35).astype(np.float32)
+    if name == 'zip':   # a very fast start: a short rising sweep with air
+        d = 0.22; t = np.arange(int(d * SR)) / SR; f = 300 + 3400 * (t / d) ** 2; return ((np.sin(np.cumsum(2 * np.pi * f / SR)) * 0.3 + bp(noise(d, seed), 1500, 8000) * 0.5) * np.sin(np.pi * t / d) ** 1.5 * 0.7).astype(np.float32)
+    if name == 'twang':   # a rubber band let go: a pitch that wobbles down
+        d = 0.5; t = np.arange(int(d * SR)) / SR; f = 190 + 150 * np.exp(-t * 7) + 26 * np.sin(2 * np.pi * 15 * t) * np.exp(-t * 4); ph = np.cumsum(2 * np.pi * f / SR)
+        return ((np.sin(ph) + 0.4 * np.sin(2 * ph) + 0.2 * np.sin(3 * ph)) * np.exp(-t * 6) * np.minimum(1, t * 200) * 0.6).astype(np.float32)
+    if name == 'stretch':   # a rubber stretch: a slow rising creak
+        d = 0.3; t = np.arange(int(d * SR)) / SR; f = 240 + 520 * (t / d); ph = np.cumsum(2 * np.pi * f / SR); return ((np.sign(np.sin(ph)) * 0.12 + np.sin(ph) * 0.3) * (0.6 + 0.4 * np.sin(2 * np.pi * 34 * t)) * np.sin(np.pi * t / d) * 0.55).astype(np.float32)
     return A1.sfx(name, seed)
 
 def ambience(kind, dur, seed=0):

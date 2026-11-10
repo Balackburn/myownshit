@@ -34,6 +34,7 @@ const LOCO = {
   walk: [1.35, 1.63], strut: [1.05, 1.9], sneak: [0.7, 1.3], tiptoe: [0.6, 1.8], run: [3.3, 2.6], flee: [3.6, 2.6], flail: [3.4, 2.6],
   knuckleWalk: [1.3, 1.4], boxSneak: [0.55, 0.9], pushCartWalk: [1.15, 1.5], pushCart: [1.1, 1.5], carryBox: [1.1, 1.5], crawl: [0.7, 1.0],
   walkEat: [1.0, 1.4], carryBags: [1.1, 1.5],
+  walkRead: [1.35, 1.63], walkWrite: [1.2, 1.6], marchPomp: [1.15, 1.8],
 };
 const SIZE = { // fraction of subject height framed from the top, fill of frame height, default elevation, lens
   ecu: { part: 'head', pad: 1.25, fill: 0.8, elev: 0, lens: 34 }, cu: { part: 'headShoulders', fill: 0.82, elev: 2, lens: 36 },
@@ -229,6 +230,7 @@ function prepActor(cfg, obj, sc, place) {
     if (k.look !== undefined) A.lookKeys.push({ at: k.t, look: k.look });
     if (k.expr) A.exprKeys.push({ at: k.t, expr: k.expr });
     if (k.fx) A.fxKeys.push({ at: k.t, fx: { ...k.fx } });   // face FX: {wet, tears, sweat, blush, shiver}
+    if (k.toon) (A.toonKeys = A.toonKeys || [{ at: -1e6, toon: {}, dur: 0 }]).push({ at: k.t, toon: k.toon, dur: k.toonDur ?? 0.12, ease: k.toonEase || 'out' });   // cartoon channels keyed from the story (added to the clip's): {sq, scl, bend, face, ears, hat}; {} clears
     if (k.scale != null && k.to == null) A.scaleKeys.push({ at: k.t, scale: k.scale, dur: k.dur ?? 0.6, ease: k.ease || 'inOut' });
     if (k.visible != null) A.visKeys.push({ at: k.t, visible: k.visible });
     if (k.sfx) A.sfx.push({ t: k.t + (k.sfxAt || 0), name: k.sfx, vol: k.vol ?? 0.6 });
@@ -567,7 +569,9 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     if (sm > 0.01) { const f = (vx * Math.sin(ry) + vz * Math.cos(ry)) / sp, sd = (vx * Math.cos(ry) - vz * Math.sin(ry)) / sp, q = extra.sq || [1, 1, 1]; extra.sq = [q[0] * (1 + sm * sd * sd - 0.2 * sm * f * f), q[1] * (1 - 0.15 * sm), q[2] * (1 + sm * f * f - 0.2 * sm * sd * sd)]; }
   }
   extra.bend = bend;
-  const all = addToon(tp, extra); ud.toon.apply(all, t, sc); return all;
+  let all = addToon(tp, extra);
+  if (A.toonKeys) { const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1; all = addToon(all, pk && w < 1 ? blendToon(pk.toon, kk.toon, w) : kk.toon); }
+  ud.toon.apply(all, t, sc); return all;
 }
 // ---- face rig: the expression as numbers, blended from the previous one (the brows lead, the mouth trails, a little overshoot), then
 // the life on top: a blink that closes and opens over a few frames, the eyes that move before the head, small darts of the pupils,

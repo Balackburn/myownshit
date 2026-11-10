@@ -9,6 +9,7 @@ import { imageTexture, TEXTURES } from './models.js';
 import { PALETTE as P, mat, box, cyl, sphere, rng } from './style.js';
 import { buildProp, grp, at, rod, label, canvasPlane, glow, glassMat, inst, mesh, torus } from './props.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { holeOutline } from './props_trou.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const SKY_DAY = ['#8CAFBD', '#D6E1DA'], SKY_NIGHT = ['#111A2A', '#2C3B57'];
@@ -24,6 +25,13 @@ function flat(w, d, color, x = 0, y = 0, z = 0, opts) {
 }
 // Round ground disc (edge hides inside the sky dome).
 function ground(color, r = 170) { const m = mesh(tileUV(new THREE.CircleGeometry(r, 32).rotateX(-PI / 2), r / 4), mat(color)); m.castShadow = false; return m; }
+// The same pieces with a hole cut in them (hole: world [x, z] points): real geometry, so a character can fall through the ground.
+function holedGeo(outer, holePts, x, z, uvS) {
+  const sh = new THREE.Shape(); outer(sh); const h = new THREE.Path(); holePts.forEach(([px, pz], i) => h[i ? 'lineTo' : 'moveTo'](px - x, -(pz - z))); h.closePath(); sh.holes.push(h);
+  const geo = new THREE.ShapeGeometry(sh, 24).rotateX(-PI / 2), uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * uvS, uv.getY(i) * uvS); return geo;
+}
+function flatHoled(w, d, color, x, y, z, holePts) { const m = mesh(holedGeo(sh => { sh.moveTo(-w / 2, -d / 2); sh.lineTo(w / 2, -d / 2); sh.lineTo(w / 2, d / 2); sh.lineTo(-w / 2, d / 2); sh.closePath(); }, holePts, x, z, 1 / 3), mat(color)); m.castShadow = false; m.position.set(x, y, z); return m; }
+function groundHoled(color, holePts, r = 170) { const m = mesh(holedGeo(sh => sh.absarc(0, 0, r, 0, TAU, false), holePts, 0, 0, 1 / 4), mat(color)); m.castShadow = false; return m; }
 // Wall slab: receives shadows but never casts them (so rooms aren't darkened by their own walls).
 function wall(w, h, d, color, x, y, z) { const m = box(w, h, d, color); tileUV(m.geometry, Math.max(w, h) / 2.5); m.castShadow = false; m.position.set(x, y, z); return m; }
 // Inward-facing low-poly sky dome with a vertical gradient.
@@ -1206,8 +1214,10 @@ Object.assign(S, {
     // round trees, lamps, the Eiffel tower at the far end, the replica's blue sky and white clouds
     const g = grp(), r = rng(o.seed || 12), night = !!o.night, snow = !!o.snow;   // o.snow: snowed-in street, flakes falling round the origin
     if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || (snow ? ['#C3CCD5', '#EEF1F3'] : ['#62AEE2', '#A7D4EC'])); clouds(g, 6, 8); }
-    g.add(ground(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3'));
-    g.add(flat(10, 400, snow ? '#C9CED4' : '#6E6E72', 0, 0.004, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', -7.5, 0.006, 0));
+    const hole = o.hole ? holeOutline(o.hole[2] ?? 0.9, o.hole[3] ?? 5).map(([x, z]) => [x + o.hole[0], z + o.hole[1]]) : null;   // o.hole [x, z, r, seed]: a real hole in the right-hand pavement (prop streetHole underneath)
+    g.add(hole ? groundHoled(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3', hole) : ground(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3'));
+    g.add(flat(10, 400, snow ? '#C9CED4' : '#6E6E72', 0, 0.004, 0), hole ? flatHoled(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0, hole) : flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', -7.5, 0.006, 0));
+    if (hole) g.add(prop('streetHole', { r: o.hole[2] ?? 0.9, seed: o.hole[3] ?? 5, depth: o.holeDepth ?? 6 }, o.hole[0], 0.006, o.hole[1]));
     if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); g.add(prop('snowfall', { w: 30, h: 12, d: 40, n: o.snowN || 3200, size: o.snowSize || 0.13 }, o.snowX || 0, 0, 0), prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2)); }
     g.add(at(box(0.2, 0.16, 400, '#D9CDB4'), 5, 0, 0), at(box(0.2, 0.16, 400, '#D9CDB4'), -5, 0, 0));
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([0, 0.008, z]);
@@ -1221,10 +1231,64 @@ Object.assign(S, {
       if (i % 2 === 0) { g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
     }
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70 }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));
-    g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0] };
-    g.userData.sun = [-0.35, 0.78, 0.52];   // shader look: down the street, the pavements lit
+    g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0], ...(o.hole ? { hole: [o.hole[0], 0, o.hole[1]] } : {}) };
+    g.userData.sun = o.sun || [-0.35, 0.78, 0.52];   // shader look: down the street, the pavements lit
     if (snow) g.userData.snow = true;
     g.userData.lighting = night ? 'night' : 'day'; return g;
+  },
+  holeSection(o = {}) { // the hole seen in cross-section, like a cartoon cutaway: the earth cut flat in front of the camera (strata, stones, a pipe, a bone, roots),
+    // the shaft a slot 2*R wide down to its floor at y = 0, the street surface at y = o.depth (4.6) with the sky above. Characters stand at the bottom.
+    const g = grp(), R = o.r ?? 1.0, D = o.depth ?? 4.6, X = 12, Y0 = -3, zc = R + 0.02;
+    sky(g, o.sky || ['#62AEE2', '#A7D4EC']); clouds(g, 6, 8);
+    const earth = (() => { const c = document.createElement('canvas'); c.width = 2048; c.height = Math.round(2048 * (D - Y0) / (2 * X)); const q = c.getContext('2d'), W = c.width, H = c.height, r = rng(o.seed || 21), yy = y => (D - y) / (D - Y0) * H, xx = x => (x + X) / (2 * X) * W;
+      const bands = [[D, '#B9AE9C'], [D - 0.2, '#9A7B58'], [D - 1.1, '#8A6A4A'], [D - 2.2, '#7A5B40'], [D - 3.3, '#6A4D37'], [0.4, '#5A4030'], [-1.2, '#4A3528'], [Y0, '#3E2C22']];
+      for (let i = 0; i < bands.length - 1; i++) { q.fillStyle = bands[i][1]; q.beginPath(); q.moveTo(0, yy(bands[i][0])); for (let x = 0; x <= W; x += 32) q.lineTo(x, yy(bands[i][0]) + (i ? 14 * Math.sin(x * 0.006 + i * 1.7) + 8 * Math.sin(x * 0.021 + i) : 0)); q.lineTo(W, H); q.lineTo(0, H); q.closePath(); q.fill(); }
+      for (let i = 0; i < 520; i++) { const x = r() * W, y = yy(D - 0.25) + r() * (H - yy(D - 0.25)), s = 3 + r() * 12; q.fillStyle = ['#A08A70', '#5C4636', '#B9A88E', '#3E2E24'][i % 4]; q.globalAlpha = 0.55; q.beginPath(); q.ellipse(x, y, s, s * (0.5 + 0.4 * r()), r() * 3, 0, TAU); q.fill(); } q.globalAlpha = 1;
+      for (let i = 0; i < 46; i++) { const x = r() * W, y = yy(D - 0.6) + r() * (H - yy(D - 0.6)) * 0.9, s = 16 + r() * 30; q.fillStyle = ['#9C968C', '#B5AFA4', '#7E786F'][i % 3]; q.strokeStyle = '#3A2E26'; q.lineWidth = 3; q.beginPath(); q.ellipse(x, y, s, s * (0.55 + 0.3 * r()), r() * 3, 0, TAU); q.fill(); q.stroke(); }
+      q.strokeStyle = '#4E3A2A'; q.lineCap = 'round'; for (let i = 0; i < 16; i++) { let x = r() * W, y = yy(D - 0.2); q.lineWidth = 6; q.beginPath(); q.moveTo(x, y); for (let k = 0; k < 6; k++) { x += (r() - 0.5) * 70; y += 16 + r() * 34; q.lineTo(x, y); q.lineWidth = Math.max(1.5, 6 - k); } q.stroke(); }   // roots
+      const pipeY = yy(D - 1.55); q.fillStyle = '#7F8A93'; q.fillRect(0, pipeY - 20, W, 40); q.fillStyle = '#A5B0B8'; q.fillRect(0, pipeY - 20, W, 9); q.fillStyle = '#5E6870'; for (let x = 60; x < W; x += 230) q.fillRect(x, pipeY - 25, 16, 50);   // a water pipe (cut by the shaft)
+      const bone = (x, y, a) => { q.save(); q.translate(xx(x), yy(y)); q.rotate(a); q.fillStyle = '#EFE9D8'; q.strokeStyle = '#3A2E26'; q.lineWidth = 3; q.beginPath(); q.rect(-34, -7, 68, 14); q.fill(); q.stroke(); for (const sx of [-1, 1]) for (const sy of [-1, 1]) { q.beginPath(); q.arc(sx * 36, sy * 8, 11, 0, TAU); q.fill(); q.stroke(); } q.fillRect(-33, -6, 66, 12); q.restore(); };
+      bone(-3.1, 1.2, 0.4); bone(3.6, 2.5, -0.5);
+      const amm = (x, y, s) => { q.save(); q.translate(xx(x), yy(y)); q.strokeStyle = '#D9CFB8'; q.lineWidth = 5; q.beginPath(); for (let a = 0; a < 15; a += 0.2) { const rr = 2 + a * s; q.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); } q.stroke(); q.restore(); }; amm(2.4, 0.7, 2.6); amm(-4.4, 3.0, 2.0);
+      const sock = (x, y) => { q.save(); q.translate(xx(x), yy(y)); q.rotate(0.5); q.fillStyle = '#E8E2D2'; q.strokeStyle = '#3A2E26'; q.lineWidth = 3; q.beginPath(); q.moveTo(-12, -40); q.lineTo(12, -40); q.lineTo(12, 6); q.lineTo(44, 14); q.lineTo(44, 34); q.lineTo(-12, 34); q.closePath(); q.fill(); q.stroke(); q.fillStyle = '#C8202A'; q.fillRect(-12, -34, 24, 7); q.fillRect(-12, -21, 24, 7); q.restore(); }; sock(-2.3, 2.1);   // a lost sock (story 36)
+      const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; })();
+    const face = (x0, x1, y0, y1) => { const geo = new THREE.PlaneGeometry(x1 - x0, y1 - y0), uv = geo.attributes.uv, p = geo.attributes.position; for (let i = 0; i < uv.count; i++) uv.setXY(i, (p.getX(i) + (x0 + x1) / 2 + X) / (2 * X), (p.getY(i) + (y0 + y1) / 2 - Y0) / (D - Y0));
+      const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: earth })); m.position.set((x0 + x1) / 2, (y0 + y1) / 2, zc); m.receiveShadow = true; return m; };
+    g.add(face(-X, -R, Y0, D), face(R, X, Y0, D), face(-R, R, Y0, 0));
+    // the shaft: back wall, side walls, floor (lighter near the top where the daylight comes in)
+    const wallTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 1024; const q = c.getContext('2d'), gr = q.createLinearGradient(0, 0, 0, 1024); gr.addColorStop(0, '#B79C7C'); gr.addColorStop(0.35, '#9A7E60'); gr.addColorStop(1, '#6E5642'); q.fillStyle = gr; q.fillRect(0, 0, 256, 1024);
+      const r = rng(5); for (let i = 0; i < 260; i++) { q.fillStyle = i % 2 ? 'rgba(60,44,32,0.35)' : 'rgba(200,180,150,0.3)'; const s = 3 + r() * 10; q.beginPath(); q.ellipse(r() * 256, r() * 1024, s, s * 0.6, r() * 3, 0, TAU); q.fill(); }
+      for (let y = 60; y < 1024; y += 120) { q.strokeStyle = 'rgba(50,36,26,0.4)'; q.lineWidth = 4; q.beginPath(); q.moveTo(0, y); for (let x = 0; x <= 256; x += 32) q.lineTo(x, y + 8 * Math.sin(x * 0.05 + y)); q.stroke(); }
+      const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+    const wm = new THREE.MeshLambertMaterial({ map: wallTex }), wm2 = new THREE.MeshLambertMaterial({ map: wallTex, color: '#C9C2B8' });
+    const bw = new THREE.Mesh(new THREE.PlaneGeometry(2 * R, D), wm); bw.position.set(0, D / 2, -R); bw.receiveShadow = true; g.add(bw);
+    for (const sd of [-1, 1]) { const sw = new THREE.Mesh(new THREE.PlaneGeometry(2 * R + 0.04, D), wm2); sw.position.set(sd * R, D / 2, 0.01); sw.rotation.y = -sd * PI / 2; sw.receiveShadow = true; g.add(sw); }
+    const fl = mesh(new THREE.PlaneGeometry(2 * R, 2 * R + 0.04).rotateX(-PI / 2), mat('#6A513C')); fl.position.set(0, 0.002, 0.01); fl.castShadow = false; g.add(fl);
+    const rr = rng(8); for (let i = 0; i < 9; i++) g.add(at(box(0.06 + 0.08 * rr(), 0.04 + 0.04 * rr(), 0.06 + 0.07 * rr(), ['#9C968C', '#7E786F', '#B5AFA4'][i % 3], { outline: 0.03 }), (rr() - 0.5) * 1.7 * R, 0.02, (rr() - 0.5) * 1.5 * R, 0, rr() * 3, 0));
+    // the surface: pavement slabs either side of the hole, the street behind, a facade, a lamp, a tree
+    for (const sd of [-1, 1]) { g.add(at(box(X - R, 0.2, 2 * R + 6, '#E4D6BE'), sd * (R + (X - R) / 2), D - 0.1, -3 + zc - R - 0.02 + R)); }
+    g.add(at(box(2 * R, 0.2, 6, '#E4D6BE'), 0, D - 0.1, -R - 3));
+    g.add(prop('haussmann', { color: '#EFE6D2', awning: '#B5302A', h: 15, floors: 6, cols: 5, w: 12.6, seed: 4 }, 0.5, D, -7.5, 0), prop('haussmann', { color: '#F2DCCB', awning: '#2F7F5C', h: 17, floors: 6, cols: 5, w: 12.6, seed: 9 }, -12.2, D, -7.5, 0), prop('haussmann', { color: '#E8E1EE', awning: '#2F5E8C', h: 16, floors: 6, cols: 5, w: 12.6, seed: 12 }, 13.2, D, -7.5, 0));
+    g.add(prop('streetLamp', {}, 2.9, D, -2.2), prop('tree', { seed: 11 }, -3.4, D, -2.6, 0, 1.0));
+    if (o.light !== false) { const hl = prop('holeLight', { w: 2 * R * 0.9, h: D }, 0, 0, -R * 0.4); g.add(hl); g.userData.update = t => hl.userData.update(t); }
+    g.userData.anchors = { center: [0, 0, 0], bottom: [0, 0, 0], surface: [0, D, 0], edgeL: [-R - 0.5, D, 0], edgeR: [R + 0.5, D, 0] };
+    g.userData.sun = o.sun || [0.15, 0.62, 0.77]; g.userData.lighting = 'day'; return g;
+  },
+  mairie(o = {}) { // a town-hall office: cream walls with a wooden band, parquet, a tricolour "MAIRIE" banner, the official map on the back wall (x = o.mapX), a flag, filing cabinets, a big desk
+    const g = grp(), { back } = room(g, { wall: '#EFE7D6', band: '#B98A5A', bandH: 1.0, trim: '#7A5A3C', floor: '#C7A77C', back: o.back ?? -2.6, half: 5 });
+    for (let i = -6; i <= 6; i++) g.add(flat(0.03, 12, '#A88A62', i * 0.8, 0.004, 1));   // parquet joints
+    const bx = o.bannerX ?? 0, by = o.bannerY ?? 3.25; g.add(at(box(3.3, 0.5, 0.03, '#F4F1E8', { outline: 0.004 }), bx, by, back + 0.03), at(box(1.1, 0.5, 0.032, '#2A4B9B'), bx - 1.1, by, back + 0.032), at(box(1.1, 0.5, 0.032, '#C8202A'), bx + 1.1, by, back + 0.032));
+    g.add(at(label(o.title || 'MAIRIE', 1.05, 0.36, { bg: '#F4F1E8', fg: '#1B2A4A', wrap: false }), bx, by, back + 0.05));
+    if (o.map !== false) g.add(at(buildProp('officialMap', { stamp: o.stamp }), o.mapX ?? -1.35, o.mapY ?? 2.05, back + 0.04));
+    if (o.board) { const b = at(buildProp('nowhereBoard', o.board), o.boardX ?? 1.3, o.boardY ?? 2.05, back + 0.04); g.add(b); const up = g.userData.update; g.userData.update = t => { up?.(t); b.userData.update?.(t); }; }
+    g.add(prop('flag', { colors: ['#2A4B9B', '#F4F1E8', '#C8202A'] }, o.flagX ?? 2.9, 0, back + 0.45, 0, 1.5));
+    for (const x of [-3.6, -4.3]) { g.add(at(box(0.62, 1.5, 0.5, '#9AA3A8', { pivot: 'bottom', outline: 0.006 }), x, 0, back + 0.3)); for (let k = 0; k < 4; k++) g.add(at(box(0.52, 0.3, 0.02, '#B4BCC1', { outline: 0.01 }), x, 0.2 + k * 0.36, back + 0.56), at(box(0.14, 0.03, 0.03, '#5A6268'), x, 0.24 + k * 0.36, back + 0.58)); }
+    g.add(prop('plant', { seed: 5 }, 4.2, 0, back + 0.6), prop('wallClock', { rate: 1 / 60 }, o.clockX ?? 3.6, 2.9, back + 0.03));
+    const dz = o.deskZ ?? -0.9; g.add(at(box(1.9, 0.07, 0.85, '#8A6A45', { outline: 0.005 }), 0, 0.78, dz), at(box(1.8, 0.74, 0.04, '#7A5A3C'), 0, 0.37, dz + 0.38), at(box(0.06, 0.76, 0.75, '#7A5A3C'), -0.88, 0.38, dz), at(box(0.06, 0.76, 0.75, '#7A5A3C'), 0.88, 0.38, dz));
+    g.add(at(box(0.34, 0.012, 0.24, '#F4F1E8'), -0.5, 0.822, dz + 0.05, 0, 0.2, 0), at(box(0.3, 0.05, 0.22, '#5A3A28', { outline: 0.01 }), 0.62, 0.84, dz - 0.1), at(box(0.16, 0.03, 0.1, '#2A2A2E'), 0.62, 0.875, dz - 0.1));   // papers, an in-tray, an ink pad
+    g.add(at(label('ÉTAT CIVIL', 0.5, 0.11, { bg: '#1B2A4A', fg: '#F4F1E8', wrap: false }), 0, 0.55, dz + 0.405));
+    g.userData.anchors = { center: [0, 0, 0], desk: [0, 0.82, dz], clerk: [0, 0, dz - 0.75], visitor: [0, 0, dz + 1.3] };
+    g.userData.sun = o.sun || [0.3, 0.75, 0.6]; g.userData.lighting = 'day'; return g;
   },
   stationInside(o = {}) { // inside a space module: pale panelled walls with handrails and lockers, grey consoles, a round window on the Earth (back wall, x = o.winX), soft white light
     const g = grp(), back = -2.4, half = 3.2;

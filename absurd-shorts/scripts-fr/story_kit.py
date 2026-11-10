@@ -72,7 +72,7 @@ class Story:
         self.cues.append([name, round(self.SH[sid][0] + t, 3), gain, *args])
     def card(self, sid, word): self.cards.append(f'{sid}:{word}')
 
-    def write(self, title, extra_cast=None):
+    def write(self, title, extra_cast=None, **doc_extra):   # doc_extra: extra top-level keys of the script (rig='toon': the cartoon rig for every human, faces={...}: the story's own expressions)
         d = os.path.join(ROOT, 'stories7', self.name)
         json.dump(self.cues, open(os.path.join(d, 'cues.json'), 'w')); open(os.path.join(d, 'cards.txt'), 'w').write(','.join(self.cards))
         json.dump({sid: [round(a, 4), round(b, 4)] for sid, (a, b) in self.SH.items()}, open(os.path.join(d, 'shots.json'), 'w'))
@@ -90,7 +90,7 @@ class Story:
                 'juge': {'preset': 'judge', 'facial': 'stubble', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
                 **(extra_cast or {})}
         doc = {'version': 3, 'title': title, 'grade': 'contrast(0.9) saturate(1.05) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
-               'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total, **({'look': self.look} if self.look else {})}
+               'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total, **({'look': self.look} if self.look else {}), **doc_extra}
         out = os.path.join(HERE, f'story_{self.name}.json')
         json.dump(doc, open(out, 'w'), indent=1, ensure_ascii=False)
         print(out, len(self.scenes), 'shots', self.total, 's')

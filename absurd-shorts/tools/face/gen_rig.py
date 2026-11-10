@@ -19,6 +19,7 @@ import gen_expressions as G
 OUT = os.path.join(G.D, 'rig'); os.makedirs(OUT, exist_ok=True)
 W, H, SS, STROKE, INK, WHITE = G.W, G.H, G.SS, G.STROKE, G.INK, G.WHITE
 GREEN = (62, 138, 74)
+BIGWHITE = (236, 229, 212)
 sprites = {}   # name -> (RGBA image cropped, x, y)
 
 def crop(im, pad=4):
@@ -61,7 +62,9 @@ def scaled_eye(side, s, seed):
     inner = cv2.erode(big.astype(np.uint8), k) > 0; ring = big & ~inner
     def rgba(mask, col):
         im = np.zeros((H * SS, W * SS, 4), np.uint8); im[..., :3] = col; im[..., 3] = mask * 255; return Image.fromarray(im, 'RGBA')
-    return G.paint(rgba(big, WHITE), seed), G.paint(rgba(ring, INK), seed)
+    u = G.paint(rgba(big, WHITE), seed)
+    if s >= 1.4: a = np.array(u); a[..., :3] = BIGWHITE; u = Image.fromarray(a, 'RGBA')   # wide-open eyes: a lighter white, so a take reads at phone size
+    return u, G.paint(rgba(ring, INK), seed)
 
 SIZES = [1.0, 1.25, 1.5, 1.9]
 KINDS = ['closed', 'happy', 'flat', 'squeeze', 'x', 'spiral', 'heart', 'star']   # drawn by gen_expressions.eye
