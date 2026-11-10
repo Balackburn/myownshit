@@ -143,3 +143,40 @@ for staging » et clips de la seconde passe dans `references/cartoon-rig.md`.
   les démarches sans déplacement.
 - (après la seconde passe) Faire la revue des critiques sur un brouillon complet AVANT de lancer un rendu d'une heure : c'est le brouillon à
   360 px (5 minutes) qui doit passer la revue, pas le film fini.
+
+---
+
+## Cycle 2 — « L'éternuement » (histoire 38)
+
+### 1. Analyse (dernière histoire : « Le trou », seconde passe ; rigs et clips du cycle 1)
+
+Faiblesses relevées (sur les images finales de « Le trou » et sur le retour des deux critiques) :
+
+1. **Des moufles** : aucune pose de doigts. Le salut du maire, la main qui tâtonne en haut du puits, le nez pincé : la même palette plate.
+   → corrigé ce cycle (mains à doigts : pointer, poing, pincer, pouce levé, éventail).
+2. **Rien ne traîne sur le personnage lui-même** : la cravate est peinte, les cheveux sont un bloc. Dans une chute ou un sprint, seuls les bras
+   bougent. → corrigé ce cycle (cravate en trois segments, mèche sur le crâne, pilotées par le vent apparent).
+3. **Les groupes au repos sont des piquets** (« aucun transfert de poids visible dans les alignements »). → corrigé ce cycle (changement
+   d'appui par à-coups, à des instants différents pour chacun).
+4. **Les yeux sortis ne regardent rien** : la pupille reste au centre du globe. → corrigé ce cycle (pupilles qui visent, yeux qui louchent).
+5. **Le moteur laisse passer en silence un clip à déroulement unique donné comme clip de départ** (deux gags perdus au cycle 1).
+   → corrigé ce cycle (avertissement).
+
+Reporté : phonèmes pour les répliques citées, sourcils courbes, rig des créatures, tiges des yeux en deux segments.
+
+Leçon de méthode appliquée dès ce cycle : la revue des critiques se fait sur le brouillon complet (360 px, 5 minutes), avant le rendu d'une heure.
+
+### 4 (commencé en avance, pendant le rendu final de « Le trou »). Histoire : texte et voix
+
+Type du skill : histoire nouvelle dans le style. Structure respectée : accroche (le mec + l'événement absurde), institution au pied de la
+lettre (la météo : au-dessus de cent kilomètres-heure c'est une tempête, une tempête porte un prénom, le suivant sur la liste est Josiane),
+escalade (vigilance rouge, évacuation, catastrophe naturelle), retournement (les éoliennes l'embauchent), aparté sec (le pollen, le printemps).
+
+Texte (12 lignes, 26,7 s de voix) : Ce mec a éternué et il a décoiffé toute la ville. / La météo a mesuré : / « Deux cents
+kilomètres-heure. » / Au-dessus de cent, c'est une tempête. / Et une tempête, ça porte un prénom. / Le suivant sur la liste, c'était
+Josiane. / Depuis, Josiane est en vigilance rouge. / Quand Josiane renifle, on évacue sa rue. / Son assurance l'a classé catastrophe
+naturelle. / Puis les éoliennes l'ont embauché. / Aujourd'hui, Josiane éclaire trois villes. / Il est allergique au pollen. Le printemps
+arrive.
+
+Décisions : « la météo » plutôt qu'un nom d'organisme réel ; « parc éolien » était entendu « parquet au lien » à la vérification de la
+voix, remplacé par « les éoliennes » ; « officiellement » retiré de la ligne 4 pour tenir le rythme.
