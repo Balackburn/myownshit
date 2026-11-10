@@ -107,7 +107,7 @@ export const TROU_PROPS = {
       for (const [x0, y0, x1, y1, lw] of [[0, 0.3, 1, 0.36, 0.05], [0, 0.72, 1, 0.66, 0.045], [0.25, 0.14, 0.3, 1, 0.045], [0.6, 0.14, 0.56, 1, 0.05], [0.84, 0.14, 0.88, 1, 0.03], [0, 0.52, 0.6, 0.5, 0.025]]) { g.lineWidth = W * lw; g.beginPath(); g.moveTo(W * x0, H * y0); g.lineTo(W * x1, H * y1); g.stroke(); }
       g.fillStyle = '#D8C9A6'; const r = rng(31); for (let i = 0; i < 26; i++) { const x = r() * 0.9 + 0.03, y = 0.17 + r() * 0.78; g.fillRect(W * x, H * y, W * (0.04 + 0.05 * r()), H * (0.03 + 0.04 * r())); }
       g.fillStyle = '#2A4B9B'; g.fillRect(0, 0, W, H * 0.13); g.fillStyle = '#F4F1E8'; g.font = `bold ${H * 0.085}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(o.title || 'PLAN OFFICIEL', W / 2, H * 0.07);
-      if (o.stamp !== false) { g.save(); g.translate(W * 0.5, H * 0.58); g.rotate(-0.16); g.strokeStyle = '#2E8B4A'; g.lineWidth = H * 0.022; g.strokeRect(-W * 0.34, -H * 0.11, W * 0.68, H * 0.22); g.fillStyle = '#2E8B4A'; g.font = `900 ${H * 0.15}px Arial`; g.fillText(o.stamp || 'AUCUN TROU', 0, H * 0.012); g.restore(); }
+      if (o.stamp !== false) { g.save(); g.translate(W * 0.5, H * 0.58); g.rotate(-0.16); g.strokeStyle = '#2E8B4A'; g.lineWidth = H * 0.022; g.strokeRect(-W * 0.34, -H * 0.11, W * 0.68, H * 0.22); g.fillStyle = '#2E8B4A'; { const tx = o.stamp || 'AUCUN TROU'; let fs = H * 0.15; g.font = `900 ${fs}px Arial`; const tw = g.measureText(tx).width; if (tw > W * 0.58) { fs *= W * 0.58 / tw; g.font = `900 ${fs}px Arial`; } g.fillText(tx, 0, H * 0.012); } g.restore(); }   // the text stays inside its frame (it ran into the border: « AUCUN TROL »)
     }, { res: 1024 });
     return grp(at(box(w + 0.08, h + 0.08, 0.04, '#8A6A45', { outline: 0.006 }), 0, 0, 0), at(c, 0, 0, 0.024));
   },
@@ -140,7 +140,7 @@ export const TROU_PROPS = {
     g.add(at(cyl(0.045, 0.055, ph, '#3A3F47', 8, { pivot: 'bottom' }), 0, 0, 0), at(box(0.3, 0.05, 0.3, '#2B2F36'), 0, 0.025, 0), at(box(w + 0.1, h + 0.1, 0.12, '#22262C', { outline: 0.012 }), 0, ph + h / 2, 0));
     const face = (text, col, glow) => { const c = canvasPlane(w, h, (c2, W, H) => { c2.fillStyle = '#0D0F12'; c2.fillRect(0, 0, W, H); c2.fillStyle = col; let fs = H * 0.66; c2.font = `900 ${fs}px Arial`; const tw = c2.measureText(text).width; if (tw > W * 0.86) fs *= W * 0.86 / tw; c2.font = `900 ${fs}px Arial`; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(text, W / 2, H * 0.55);
       c2.fillStyle = '#0D0F12'; for (let y = 0; y < H; y += H / 9) c2.fillRect(0, y, W, H / 40); for (let x = 0; x < W; x += W / 34) c2.fillRect(x, 0, W / 160, H); }, { res: 512, emissive: glow }); c.position.set(0, ph + h / 2, 0.062); c.userData.noAO = true; return c; };
-    const off = face(o.textOff || 'LIBRE', '#45F07A', 0.9), on = face(o.text || 'COMPLET', '#FF4A36', 1.0); g.add(off, on);
+    const off = face(o.textOff || 'LIBRE', '#45F07A', 0.9), on = face(o.text || 'COMPLET', o.onColor || '#FF4A36', o.onGlow ?? 1.0); g.add(off, on);   // o.onColor / o.onGlow: a brighter red when the lit word is the last image of a film
     const onAt = o.onAt ?? 0;
     g.userData.update = t => { const u = t - onAt, lit = u >= 0 && !(u > 0.08 && u < 0.16) && !(u > 0.24 && u < 0.3); on.visible = lit; off.visible = u < 0; };   // the lamps stutter on: dark between two flashes, never LIBRE again
     g.userData.update(o.onAt == null ? 1 : 0); return g;

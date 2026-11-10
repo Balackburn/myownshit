@@ -151,7 +151,7 @@ st.shot('S15', 'grassland', setOpts=FIELD(), actors=[act('mec', [-0.42, 0, 0], 9
 DUSK = {'sky': ['#33437A', '#F2A368'], 'grass': '#5E8A4E'}
 st.shot('S16', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act('mec', [0, 0, 0], 135, 'stand', 'worried', keys=[k(-0.05, clip='sneezeUp', params={'dur': 1.0, 'float': 0.25}, blend=0.001)]),
         act('inge', [-0.46, 0, -1.13], 22, 'dangleItem', 'bigGrin')],
-        props=TURB() + [P('rod', 'pepperRod', pos=[-0.4, 1.95, -0.95], ry=37, opts={'swing': 0.3, 'len': 1.12, 'drop': 0.45}), MAT()],
+        props=TURB() + [P('rod', 'pepperRod', pos=[-0.4, 1.95, -0.95], ry=37, opts={'swing': 0.3, 'len': 1.3, 'drop': 0.45}), MAT()],
         cams=[cam(0.0, [3.6, 1.85, 1.7], [3.3, 1.9, 1.6], [-0.09, 1.85, -0.41], [-0.12, 1.95, -0.41], lens=44)])
 # 17: the sneeze, from behind his left shoulder: he is shot back into the mattresses; the blast runs up to the turbines, they spin up one after the other;
 #     on the ridge three towns light up
@@ -165,9 +165,9 @@ st.shot('S17', 'grassland', setOpts=FIELD(**DUSK), lighting='dusk', actors=[act(
         cams=[cam(0.0, [-4.2, 1.5, 7.6], [-4.0, 1.55, 7.3], [8.0, 4.3, -8.0], [8.0, 4.4, -8.0], lens=50)])
 # 18: he is allergic to pollen: very close: one grain drifts down to the tip of his nose; his eyes follow it until they cross
 G18 = 1.0                                           # the grain lands
-st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 'stand', 'worried', keys=[k(0.0, look='grain'), k(G18 - 0.35, toon={'face': {'cross': 1}}, toonDur=0.3, toonEase='inOut'), k(G18 + 0.1, expr='scared'),
-            k(G18 + 0.12, toon={'face': {'cross': 1}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.1)])],
-        props=[P('grain', 'pollenGrain', pos=[0.55, 2.5, 0.9], opts={'r': 0.035}, keys=[k(0.0, to=[0.16, 2.18, 0.45], dur=0.55, arc=0.06, ease='inOut'), k(0.55, to=[0.0, 2.0, 0.2], dur=G18 - 0.55, arc=-0.04, ease='inOut')])],
+st.shot('S18', 'grassland', setOpts=FIELD(), actors=[act('mec', [0, 0, 0], 0, 'stand', 'worried', keys=[k(0.0, look='grain', expr='surprised'), k(G18 - 0.35, toon={'face': {'cross': 1}}, toonDur=0.3, toonEase='inOut'), k(G18 - 0.05, look=None),
+            k(G18 + 0.12, toon={'face': {'cross': 1}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.1), k(G18 + 0.3, toon={'face': {'cross': 1, 'lid': 0.45}}, toonDur=0.12)])],
+        props=[P('grain', 'pollenGrain', pos=[0.55, 2.5, 0.9], opts={'r': 0.035}, keys=[k(0.0, to=[0.16, 2.18, 0.45], dur=0.55, arc=0.06, ease='inOut'), k(0.55, to=[0.0, 2.09, 0.2], dur=G18 - 0.55, arc=-0.04, ease='inOut')])],
         cams=[cam(0.0, [0.12, 2.02, 1.75], [0.1, 2.02, 1.5], [0, 2.02, 0], [0, 2.02, 0], lens=40)])
 # 19: spring is coming: a hill in flower, a yellow cloud that drifts to him; the breaths again, bigger, bigger: he rises like a balloon, everything loose
 #     flies to him; we leave before the sneeze

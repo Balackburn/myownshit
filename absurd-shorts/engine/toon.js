@@ -79,7 +79,8 @@ function makePart(joint, jointSet, L, dir, seg = 6) {
           const p = it.m.geometry.attributes.position, n = it.m.geometry.attributes.normal, r = it.rest;
           for (let i = 0; i < p.count; i++) {
             const x = r[i * 3], y = r[i * 3 + 1], z = r[i * 3 + 2];
-            if (idle) _v.set(x, y, z); else { const u = (y * dir) / L; frame(u < 0 ? 0 : u, x, z, prm, P0, Q0); _v.copy(P0); if (u < 0) _v.y += y; }   // below the joint (a coat tail): rigid
+            if (idle) _v.set(x, y, z); else { const u = (y * dir) / L; frame(u < 0 ? 0 : u > 1 ? 1 : u, x, z, prm, P0, Q0); _v.copy(P0); if (u < 0) _v.y += y;   // below the joint (a coat tail): rigid
+              else if (u > 1) _v.addScaledVector(_d.set(0, dir, 0).applyQuaternion(Q0), (u - 1) * L); }   // past the far joint (the part of a neck that sits inside the head): rigid too, not stretched (a neck x8 bent 30 degrees came out through the face)
             _v.applyMatrix4(it.Mi); p.setXYZ(i, _v.x, _v.y, _v.z);
             if (n && it.restN) { _c.set(it.restN[i * 3], it.restN[i * 3 + 1], it.restN[i * 3 + 2]); if (!idle) { _c.applyQuaternion(it.rot).applyQuaternion(Q0).applyQuaternion(_q.copy(it.rot).invert()); } n.setXYZ(i, _c.x, _c.y, _c.z); }
           }

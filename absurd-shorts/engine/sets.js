@@ -1215,7 +1215,7 @@ Object.assign(S, {
     const g = grp(), r = rng(o.seed || 12), night = !!o.night, snow = !!o.snow;   // o.snow: snowed-in street, flakes falling round the origin
     if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || (snow ? ['#C3CCD5', '#EEF1F3'] : ['#62AEE2', '#A7D4EC'])); clouds(g, 6, 8); }
     const hole = o.hole ? holeOutline(o.hole[2] ?? 0.9, o.hole[3] ?? 5).map(([x, z]) => [x + o.hole[0], z + o.hole[1]]) : null;   // o.hole [x, z, r, seed]: a real hole in the right-hand pavement (prop streetHole underneath)
-    g.add(hole ? groundHoled(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3', hole) : ground(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3'));
+    const base = hole ? groundHoled(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3', hole) : ground(night ? '#8E8A80' : snow ? '#F3F5F7' : '#C9C2B3'); base.position.y = -0.12; g.add(base);   // well under the road and the pavements (4 and 6 mm above it, they flickered against it in long views down the street)
     g.add(flat(10, 400, snow ? '#C9CED4' : '#6E6E72', 0, 0.004, 0), hole ? flatHoled(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0, hole) : flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', 7.5, 0.006, 0), flat(5, 400, snow ? '#F7F8FA' : '#E4D6BE', -7.5, 0.006, 0));
     if (hole) g.add(prop('streetHole', { r: o.hole[2] ?? 0.9, seed: o.hole[3] ?? 5, depth: o.holeDepth ?? 6 }, o.hole[0], 0.006, o.hole[1]));
     if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); g.add(prop('snowfall', { w: 30, h: 12, d: 40, n: o.snowN || 3200, size: o.snowSize || 0.13 }, o.snowX || 0, 0, 0), prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2)); }

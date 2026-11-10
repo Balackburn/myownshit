@@ -523,8 +523,17 @@ Object.assign(CLIPS, {
       toon: { sq: sqv(1 - 0.18 * Math.exp(-t * 9) * Math.cos(t * 30)), bend: { spine: [0.25 * w, 0.2 * w2, 0, 1, null], legL: [0, 0.3 * w2, 0, 1.1, null], legR: [0, 0.3 * w2, 0, 1.1, null] } } }; },
   // melting from the top down (p.dur 0.45 s): the head sinks into the shoulders and droops, the arms run down to the ground, then the whole body spreads into a
   // puddle; p.landAt: something lands on the puddle (the hat he left in the air: a prop), it jiggles
-  meltDown: (t, p = {}) => { const d = p.dur ?? 0.45, k1 = eio(t / (d * 0.55)), k2 = eio((t - d * 0.3) / (d * 0.7)), sy = 1 - (p.flat ?? 0.8) * k2,   // p.flat 0.97: down to a film (then hide him and show a puddle prop: props_trou.js meltPuddle)
-    land = p.landAt != null ? wob(t - p.landAt, 30, 8) : 0;
+  meltDown: (t, p = {}) => { const d = p.dur ?? 0.45, land = p.landAt != null ? wob(t - p.landAt, 30, 8) : 0;
+    if (p.sink) {   // p.sink: upright, like a candle: the head sags into the shoulders, the shoulders droop and the arms run down, the trunk shortens and widens,
+      // then the legs (he goes down into his shoes), and only at the end the film. Nothing tips forward: a fold at the waist reads as a bow, not as a melt
+      const k1 = eio(t / (d * 0.4)), k2 = eio((t - d * 0.18) / (d * 0.5)), k3 = eio((t - d * 0.4) / (d * 0.5)), k4 = eio((t - d * 0.72) / (d * 0.28)), sL = 1 - 0.78 * k3, wv = 0.05 * S(t * 21) * k2 * (1 - k4);
+      return { ...arms(m([0, 0, 0.06 + 0.06 * k2], [0, 0, 0.06 + 0.06 * k2]), m([0, 0, 0], [0, 0, 0])), head: [0.14 * k1, 0, wv], torso: [0.05 * k2, 0, wv * 0.6], hipL: [0, 0, 0.1 * k3], hipR: [0, 0, -0.1 * k3], root: { y: -0.94 * (1 - sL) },
+        toon: { sq: [(1 + (p.spread ?? 0.6) * (0.1 * k2 + 0.3 * k3 + 0.6 * k4)) * (1 + 0.08 * land), (1 - (p.flat ?? 0.8) * k4) * (1 - 0.3 * land), (1 + (p.spread ?? 0.6) * (0.1 * k2 + 0.3 * k3 + 0.6 * k4)) * (1 + 0.08 * land)],
+          bend: { neck: [0.2 * k1, 0, 0, 1 - 0.75 * k1, 1 + 0.6 * k1], spine: [0.1 * k2, 0, wv, 1 - 0.68 * k2, 1 + 0.75 * k2], armL: [0, 0, 0, 1 + 0.35 * k1 - 0.6 * k3, 1 + 0.5 * k3], armR: [0, 0, 0, 1 + 0.35 * k1 - 0.6 * k3, 1 + 0.5 * k3], foreL: [0, 0, 0, 1 + 0.45 * k2 - 0.7 * k3, 1 + 0.5 * k3], foreR: [0, 0, 0, 1 + 0.45 * k2 - 0.7 * k3, 1 + 0.5 * k3],
+            legL: [0, 0, 0, sL, 1 + 0.7 * k3], legR: [0, 0, 0, sL, 1 + 0.7 * k3], shinL: [0, 0, 0, sL, 1 + 0.7 * k3], shinR: [0, 0, 0, sL, 1 + 0.7 * k3] },
+          scl: { head: [1 + 0.3 * k1 + 0.2 * k2, 1 - 0.5 * k1 - 0.2 * k2, 1 + 0.2 * k1] }, face: { expr: p.expr ?? 'cry', exprW: Math.min(1, k1 * 1.5) } } };
+    }
+    const k1 = eio(t / (d * 0.55)), k2 = eio((t - d * 0.3) / (d * 0.7)), sy = 1 - (p.flat ?? 0.8) * k2;   // p.flat 0.97: down to a film (then hide him and show a puddle prop: props_trou.js meltPuddle)
     return { ...arms(m([0, 0, 0.1 + 0.25 * k2], [0, 0, 0.1 + 0.25 * k2]), m([0, 0, 0], [0, 0, 0])), head: [0.55 * k1, 0, 0.12 * k1], neck: [0.3 * k1, 0, 0], torso: [0.25 * k1, 0, 0], hipL: [0, 0, 0.35 * k2], hipR: [0, 0, -0.35 * k2], kneeL: [0.4 * k1 * (1 - k2), 0, 0], kneeR: [0.4 * k1 * (1 - k2), 0, 0],
       toon: { sq: [(1 + (p.spread ?? 0.95) * k2) * (1 + 0.08 * land), sy * (1 - 0.3 * land), (1 + (p.spread ?? 0.95) * k2) * (1 + 0.08 * land)], bend: { spine: [0.45 * k1, 0, 0, 1 - 0.25 * k1 * (1 - k2), 1 + 0.25 * k1], neck: [0.3 * k1, 0, 0, 1 - 0.5 * k1, null], armL: [0, 0, 0, 1 + 0.75 * k1, null], armR: [0, 0, 0, 1 + 0.75 * k1, null], foreL: [0, 0, 0, 1 + 0.5 * k1, null], foreR: [0, 0, 0, 1 + 0.5 * k1, null] },
         scl: { head: [1 + 0.25 * k2, 1 - 0.3 * k2, 1] }, face: { expr: p.expr ?? 'cry', exprW: Math.min(1, k1 * 1.5) } } }; },
