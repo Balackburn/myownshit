@@ -79,8 +79,8 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('maire', [HX, 0, -4.2]
         k(T10 + 0.55, toon={'bend': {'armR': [0, 0, 0, 1.9, 0.8], 'foreR': [0, 0, 0, 1.9, 0.8]}}, toonDur=0.4)])],
         cams=[cam(0.0, [5.75, 0.5, 3.0], [5.9, 0.55, 2.7], [HX, 1.5, 0.05], [HX, 0.95, 0.05], lens=50)])
 # 11: officially: the board at the town hall
-st.shot('S11', 'mairie', setOpts={'map': False, 'board': {'at': [0.05, 0.2, 0.35, 0.5]}, 'boardX': 0.2, 'bannerX': 4.0, 'flagX': 3.5}, actors=[act('employee', [-0.92, 0, -1.75], 55, 'point', 'smug', keys=[k(0.58, clip='handsOnHips', face=15, expr='proud')])],
-        cams=[cam(0.0, [-0.1, 1.85, 2.75], [-0.12, 1.87, 2.45], [-0.15, 1.85, -2.5], [-0.15, 1.85, -2.5], lens=44)])
+st.shot('S11', 'mairie', setOpts={'map': False, 'board': {'at': [0.05, 0.2, 0.35, 0.5]}, 'boardX': 0.05, 'bannerX': 4.0, 'flagX': 3.5}, actors=[act('employee', [-0.92, 0, -1.75], 55, 'point', 'smug', keys=[k(0.58, clip='handsOnHips', face=15, expr='proud')])],
+        cams=[cam(0.0, [-0.26, 1.85, 2.85], [-0.28, 1.87, 2.6], [-0.3, 1.85, -2.5], [-0.3, 1.85, -2.5], lens=44)])
 # 12: they were nowhere: four men at the bottom of a hole, packed like sardines
 SQ = {'sq': [0.74, 1.08, 0.9]}
 ROW = [('mec', -0.66, 0.05, 0.35, 'unimpressed', 0.0), ('agent', -0.22, -0.08, -0.3, 'worried', 1.1), ('pompier', 0.22, 0.08, 0.4, 'sad', 2.3), ('maire', 0.66, -0.05, -0.35, 'proud', 3.4)]
@@ -132,22 +132,22 @@ st.shot('S18', 'parisStreet', setOpts=STREET, actors=[act(w, p, ry, c, e, params
 
 # sound on the actions: steps that stop when the ground does, a slide whistle for every fall, wood and rubber for the gags
 for t in (0.1, 0.32, 0.54): st.cue('sfx:stepSoft', 'S01', t, 0.5)   # three steps on the pavement, then none: he is on the air
-st.cue('sfx:gulp', 'S02', 0.34, 0.4); st.cue('sfx:stretch', 'S02', D2, 0.45); st.cue('sfx:slideDown', 'S02', D2 + 0.2, 0.42); st.cue('sfx:slideDown', 'S02', D2 + 0.47, 0.22)
+st.cue('sfx:gulp', 'S02', 0.34, 0.4); st.cue('sfx:stretch', 'S02', D2, 0.45); st.cue('sfx:slideDown', 'S02', D2 + 0.2, 0.55); st.cue('sfx:slideDown', 'S02', D2 + 0.47, 0.22)
 st.cue('sfx:splat', 'S03', 0.14, 0.42); st.cue('sfx:spring', 'S03', 0.48, 0.4); st.cue('sfx:bonk', 'S03', 0.8, 0.42); st.cue('sfx:beep', 'S03', 1.08, 0.2)
 st.cue('sfx:ring', 'S04', 0.0, 0.16); st.cue('thud', 'S04', HIT4, 0.5); st.cue('pop', 'S04', HIT4 + 0.05, 0.3)
 st.cue('sfx:tick', 'S05', st.at('S05', 'L04', 2), 0.3); st.cue('sfx:tick', 'S05', st.at('S05', 'L04', 2) + 0.22, 0.3); st.cue('sfx:slideUp', 'S05', T5 - 0.1, 0.3); st.cue('sfx:gasp', 'S05', T5 + 0.03, 0.4)
 for t in (0.2, 0.55, 0.9, 1.25): st.cue('sfx:step', 'S06', t, 0.4)
 st.cue('sfx:tick', 'S06', 1.6, 0.35)
-st.cue('sfx:stretch', 'S07', 0.08, 0.35); st.cue('sfx:slideUp', 'S07', 0.3, 0.3); st.cue('sfx:slideDown', 'S07', D7, 0.45); st.cue('sfx:slideDown', 'S07', D7 + 0.38, 0.2)
+st.cue('sfx:stretch', 'S07', 0.08, 0.35); st.cue('sfx:slideUp', 'S07', 0.3, 0.3); st.cue('sfx:slideDown', 'S07', D7, 0.55); st.cue('sfx:slideDown', 'S07', D7 + 0.38, 0.2)
 st.cue('sfx:zip', 'S08', 0.0, 0.45); st.cue('sfx:brake', 'S08', 0.34, 0.4); st.cue('whoosh', 'S08', 0.7, 0.22, 0.4, 500, 2500)
-st.cue('sfx:slideDown', 'S09', -0.28, 0.4); st.cue('sfx:splat', 'S09', 0.16, 0.4); st.cue('sfx:twang', 'S09', 0.2, 0.35)
+st.cue('sfx:slideDown', 'S09', -0.28, 0.5); st.cue('sfx:splat', 'S09', 0.16, 0.4); st.cue('sfx:twang', 'S09', 0.2, 0.35)
 for t in (0.15, 0.45, 0.75): st.cue('sfx:stepHeavy', 'S10', t, 0.4)
-st.cue('sfx:slideDownSlow', 'S10', T10 + 0.12, 0.3)
+st.cue('sfx:slideDownSlow', 'S10', T10 + 0.12, 0.42)
 for t in (0.05, 0.2, 0.35, 0.5): st.cue('pop', 'S11', t, 0.3)
 for i in range(4): st.cue('sfx:stretch', 'S12', 0.16 + 0.09 * i, 0.3)
 st.cue('sfx:poof', 'S12', 0.82, 0.4)
 st.cue('sfx:paper', 'S13', 0.0, 0.3); st.cue('sfx:stretch', 'S13', 0.1, 0.45); st.cue('sfx:twang', 'S13', G13 + 0.06, 0.3)
-st.cue('sfx:cash', 'S14', T14, 0.5)
+st.cue('sfx:cash', 'S14', T14, 0.6)
 for i, (_, _, _, t0, _) in enumerate(JUMP): st.cue('sfx:slideDown', 'S15', t0 + 0.34, 0.26); st.cue('sfx:poof', 'S15', t0 + 0.72, 0.3)
 st.cue('whoosh', 'S15', 0.0, 0.2, 0.9, 300, 1500)
 for _, _, _, t0, _ in L2: st.cue('thud', 'S16', t0 + 0.14, 0.42); st.cue('sfx:squeak', 'S16', t0 + 0.16, 0.4)

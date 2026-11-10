@@ -60,6 +60,13 @@ Check sheets: `node tools/face/rig_sheet.mjs out.jpg [names] [--blend a:b:n] [--
 
 ## Testing
 
+- Motion of a gag, in about a minute: `bash absurd-shorts/tools/motion_check.sh STORY S02 S05 OUTDIR` renders that run of shots in
+  draft (cheaper shadows, `render3.mjs --draft --range a:b`) and writes one filmstrip per shot (every second frame). Read the strips
+  before any full render: a natural-look film takes about an hour at 1080p, a draft of the whole film at 360p about five minutes
+  (`node render/render3.mjs scripts-fr/story_x.json --timed --w 360 --h 640 --draft --out out/x_draft.mp4`, then
+  `python3 tools/shot_strips.py out/x_draft.mp4 scripts-fr/story_x.json OUTDIR`).
+- One shot changed after the full render: `render3.mjs ... --range a:b --out seg.mp4`, then `bash tools/splice_range.sh FILM seg.mp4 a NEW`.
+
 - Regression of the old stories after any engine change: stills at fixed times before and after, compared pixel by pixel (the natural
   look has a noise floor of about 0.5 % of pixels). A change is accepted when the old stories stay under it.
 - One clip or one gag: a 2.5 s test scene per clip with stills at chosen times; a motion strip (every frame over 1 s) for timing.

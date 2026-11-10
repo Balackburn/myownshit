@@ -108,7 +108,7 @@ export const TROU_PROPS = {
       c2.fillStyle = '#0D0F12'; for (let y = 0; y < H; y += H / 9) c2.fillRect(0, y, W, H / 40); for (let x = 0; x < W; x += W / 34) c2.fillRect(x, 0, W / 160, H); }, { res: 512, emissive: glow }); c.position.set(0, ph + h / 2, 0.062); c.userData.noAO = true; return c; };
     const off = face(o.textOff || 'LIBRE', '#2C5A3A', 0.25), on = face(o.text || 'COMPLET', '#FF4A36', 1.0); g.add(off, on);
     const onAt = o.onAt ?? 0;
-    g.userData.update = t => { const u = t - onAt, lit = u >= 0 && !(u > 0.08 && u < 0.16) && !(u > 0.24 && u < 0.3); on.visible = lit; off.visible = !lit; };
+    g.userData.update = t => { const u = t - onAt, lit = u >= 0 && !(u > 0.08 && u < 0.16) && !(u > 0.24 && u < 0.3); on.visible = lit; off.visible = u < 0; };   // the lamps stutter on: dark between two flashes, never LIBRE again
     g.userData.update(o.onAt == null ? 1 : 0); return g;
   },
 

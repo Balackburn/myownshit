@@ -553,6 +553,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     const h1 = h(t), vy = (h(t + d) - h(t - d)) / (2 * d), a1 = (h(t + d) - 2 * h1 + h(t - d)) / (d * d), a2 = (h(t + 2 * d) - 2 * h1 + h(t - 2 * d)) / (4 * d * d), a3 = (h(t + 3 * d) - 2 * h1 + h(t - 3 * d)) / (9 * d * d);
     const stretch = clamp(Math.abs(vy) * 0.05, 0, 0.32), squash = clamp(Math.max(a1 * 0.6, a2, a3) * 0.004, 0, 0.38);
     const sy = 1 + (stretch - squash) * auto; if (Math.abs(sy - 1) > 0.004) { const kx = 1 / Math.sqrt(sy); extra.sq = [kx, sy, kx]; }
+    const hl = clamp(-a1 * 0.0016, -0.03, 0.22) * auto * (cfg.hatLag ?? 1); if (Math.abs(hl) > 0.004) extra.hat = [hl, 0, 0];   // the hat is not nailed on: it lifts when the body drops away, presses down on a landing
     const p0 = posAt(A, t - 3 * d), p1 = posAt(A, t), p2 = posAt(A, t + 3 * d), ax = (p2.x - 2 * p1.x + p0.x) / (9 * d * d), az = (p2.z - 2 * p1.z + p0.z) / (9 * d * d);
     const af = ax * Math.sin(ry) + az * Math.cos(ry), as = ax * Math.cos(ry) - az * Math.sin(ry);   // forward / sideways (the actor faces +Z turned by ry)
     bend.spine[0] = clamp(-af * 0.022, -0.5, 0.5) * auto; bend.spine[1] = clamp(as * 0.022, -0.4, 0.4) * auto;
