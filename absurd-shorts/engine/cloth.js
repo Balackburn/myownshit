@@ -27,8 +27,14 @@ export function clothUpgrade(obj) {
   }
   if (J.head && d.hairColor && d.hw) {   // a shock of hair: the footprint of the crown, almost flat at rest
     const g = new THREE.Group(); g.name = 'hairShock'; g.position.set(0, d.hh, 0); J.head.add(g);
-    const m = box(d.hw * 0.98, 0.05, d.hd * 0.98, d.hairColor, { pivot: 'bottom', taper: { x: 0.82, z: 0.7 } }); g.add(m); g.scale.y = 0.02;
-    hair = { g };
+    // five tufts (three in front, two behind), flat on the crown at rest; when the hair stands each one is a spike of its own height, fanned out (one block
+    // standing up read as a fez)
+    const tufts = [[-0.32, 0.2, 0.36, 0.9], [0, 0.22, 0.36, 1.25], [0.32, 0.2, 0.36, 1.0], [-0.17, -0.24, 0.42, 1.1], [0.2, -0.24, 0.42, 0.8]].map(([x, z, w, hk], i) => {
+      const pv = new THREE.Group(); pv.position.set(x * d.hw, 0, z * d.hd); g.add(pv);
+      const m = box(d.hw * w, 0.05, d.hd * 0.5, d.hairColor, { pivot: 'bottom', taper: { x: 0.14, z: 0.22 } }); m.scale.y = 0.02; pv.add(m);
+      return { pv, m, hk, fx: -x * 1.5, fz: z * 0.9, ph: i * 1.7 };
+    });
+    hair = { g, tufts };
   }
   const F = new THREE.Vector3(), q = new THREE.Quaternion(), tie_side = (ud.spec?.seed ?? 3) % 2 ? 1 : -1;
   ud.cloth = {
@@ -52,8 +58,9 @@ export function clothUpgrade(obj) {
       if (hair) {
         J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs
         const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.min(1, (h * 0.55 + up * 1.1) / 8 + hairUp) * k, lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
-        hair.g.scale.y = 0.02 + 5.2 * lift * (1 + 0.12 * Math.sin(t * 31));
         hair.g.rotation.set(lean * F.z / hh + 0.1 * lift * Math.sin(t * 27) - 0.25 * hairUp, 0, -lean * F.x / hh + 0.2 * hairUp * tie_side);
+        const fan = Math.min(1, lift * 2.5);
+        for (const q of hair.tufts) { q.m.scale.y = 0.02 + 5.2 * lift * q.hk * (1 + 0.12 * Math.sin(t * 31 + q.ph)); q.pv.rotation.set(q.fz * 0.5 * fan + 0.08 * lift * Math.sin(t * 23 + q.ph), 0, q.fx * 0.34 * fan + 0.1 * lift * Math.sin(t * 27 + q.ph * 1.3)); }
       }
     },
   };

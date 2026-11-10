@@ -550,22 +550,25 @@ Object.assign(CLIPS, {
   sneezeUp: (t, p = {}) => {
     const d = p.dur ?? 0.9, n = p.breaths ?? 3, st = d / n; let L = 0;
     for (let i = 0; i < n; i++) { const u = t - i * st; if (u > 0) L += (eo(u / (st * 0.42)) - (i < n - 1 ? 0.22 * S(c01((u - st * 0.5) / (st * 0.5)) * PI) : 0)) / n; }
-    L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22);
-    return { ...arms(m([0.25 * L, 0, 0.3 + 0.45 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.85) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? (p.ik ? 0 : 1.3)) * up, 0], head: [-0.28 * L + tr, 0, tr], torso: [-0.2 * L, 0, 0], neck: [-0.1 * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
+    L = Math.max(0, L); const tr = 0.012 * S(t * 49) * L, up = eo(t / 0.22), bk = p.back ?? 1;   // p.back (1): how far the head and the chest go back (0.6 when the camera must keep the face)
+    let inh = 0; for (let i = 0; i < n; i++) { const u = (t - i * st) / (st * 0.42); if (u > 0 && u < 1) inh = Math.max(inh, S(u * PI)); }   // each inhale pulls the tie and the hair toward his nose
+    return { ...arms(m([0.25 * L, 0, 0.3 + 0.45 * L], [-(p.shx ?? 1.0) * up - (p.shxL ?? 0.85) * L, ((p.armIn ?? -0.75) + (p.armInL ?? -0.6) * L) * up, (0.05 - 0.25 * L) * up + 0.2 * (1 - up)]), m([-0.2 * L, 0, 0.1], [-(p.elb ?? 2.3) * up + (p.elbL ?? 0.6) * L, 0, 0])), handR: [0, (p.wrist ?? (p.ik ? 0 : 1.3)) * up, 0], head: [-0.28 * bk * L + tr, 0, tr], torso: [-0.2 * bk * L, 0, 0], neck: [-0.1 * bk * L, 0, 0],   // the arm reaches round the swollen chest: its numbers grow with L
       footL: [0.55 * L, 0, 0], footR: [0.55 * L, 0, 0], root: { y: (p.float ?? 0.25) * L * L + 0.03 * L },
-      toon: { sq: sqv(1 + 0.07 * L), bend: { spine: [-0.18 * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 0.45) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
+      toon: { sq: sqv(1 + 0.07 * L), wind: [0, 11 * inh, 3 * inh], bend: { spine: [-0.18 * bk * L, 0, 0, 1 + 0.08 * L, 1 + 0.75 * L], armR: [0, 0, 0, 1 + (p.armS ?? 0.15) * L, null], foreR: [0, 0, 0, 1 + (p.foreS ?? 0.45) * L, null] }, scl: { head: [1 + 0.1 * L, 1, 1 + 0.1 * L] }, hands: { R: 'point', L: 'spread' },
         ...(p.ik ? { touch: { R: ['face', p.nx ?? 0.06, p.ny ?? 0.3, p.nz ?? 0.025, up * p.ik, p.tip ?? 0.16, [-1, p.elbUp ?? 0.2, p.elbFwd ?? 0.3]] } } : null),   // p.ik 1: the index is held under the nose by the guided hand (toon channel `touch`), whatever the head and the chest do; the elbow out to the side
         face: { expr: p.expr ?? 'strain', exprW: Math.min(1, 0.4 + L), jaw: 0.42 * L } } };   // jaw under 0.45: a round « aah », not a laugh
   },
   // the sneeze itself: the body whips forward in two frames, holds bent and shaking (p.hold 0.3 s), then comes back up dazed. The recoil is a move of the story
-  sneeze: (t, p = {}) => { const w = eo(t / 0.06), hold = p.hold ?? 0.3, out = eio((t - 0.06 - hold) / 0.3), k = w * (1 - out), sh = k * S(t * 57) * 0.02;
-    return { ...arms(m([0.9 * k, 0, 0.55 * k + 0.2], [0.9 * k, 0, 0.55 * k + 0.2]), m([-0.3 * k - 0.08, 0, -0.3 * (1 - k)], [-0.3 * k - 0.08, 0, -0.3 * (1 - k)])), torso: [0.75 * k, 0, sh], head: [0.55 * k + sh, 0, 0], neck: [0.2 * k, 0, 0],
+  // p.fold (1): how far the body folds; p.chin (0): the head held up by that much (rad) while the body folds: seen from the front the face stays on us, mouth wide
+  sneeze: (t, p = {}) => { const w = eo(t / 0.06), hold = p.hold ?? 0.3, out = eio((t - 0.06 - hold) / 0.3), k = w * (1 - out), sh = k * S(t * 57) * 0.02, fo = p.fold ?? 1, ch = p.chin ?? 0;
+    return { ...arms(m([0.9 * k, 0, 0.55 * k + 0.2], [0.9 * k, 0, 0.55 * k + 0.2]), m([-0.3 * k - 0.08, 0, -0.3 * (1 - k)], [-0.3 * k - 0.08, 0, -0.3 * (1 - k)])), torso: [0.75 * fo * k, 0, sh], head: [(0.55 - ch) * k + sh, 0, 0], neck: [(0.2 - 0.3 * ch) * k, 0, 0],
       hipL: [-0.5 * k, 0, 0.08], hipR: [-0.5 * k, 0, -0.08], kneeL: [0.6 * k, 0, 0], kneeR: [0.6 * k, 0, 0], root: { y: 0.1 * k * (1 - c01(t / 0.25)), x: sh },
-      toon: { sq: [1 + 0.1 * k, 1 - 0.14 * k, 1 + 0.3 * k], bend: { spine: [0.75 * k, 0, 0, 1, null] }, hands: { L: 'spread', R: 'spread' }, ears: 0.8 * k, face: { expr: out > 0.5 ? (p.after ?? 'dizzy') : 'strain', exprW: 1, jaw: k, tongue: 0.5 * k } } }; },
+      toon: { sq: [1 + 0.1 * k, 1 - 0.14 * k, 1 + 0.3 * k], bend: { spine: [0.75 * fo * k, 0, 0, 1, null] }, hands: { L: 'spread', R: 'spread' }, ears: 0.8 * k, face: { expr: out > 0.5 ? (p.after ?? 'dizzy') : 'strain', exprW: 1, jaw: k, tongue: 0.5 * k } } }; },
   // a small sniff (or two: p.n): the nose goes up, the chest takes a little air, the finger comes to the nose. Everybody around should react
   sniff: (t, p = {}) => { const n = p.n ?? 2, st = 0.2, i = Math.min(n - 1, Math.floor(t / st)), u = c01((t - i * st) / st), k = t < n * st ? S(u * PI) : 0, up = eo(t / 0.15);
-    return { ...CLIPS.stand(), shoulderR: [-1.0 * up, 0, -0.26 * up - 0.2 * (1 - up)], elbowR: [-2.2 * up - 0.08 * (1 - up), 0, 0.3 * (1 - up)], handR: [0, 0, -1.2 * up], head: [-0.22 * k - 0.05 * up, 0, 0.04 * k], torso: [-0.08 * k, 0, 0],
-      toon: { sq: sqv(1 + 0.03 * k), bend: { spine: [-0.08 * k, 0, 0, 1, 1 + 0.22 * k] }, hands: { R: 'point' }, face: { expr: p.expr ?? 'strain', exprW: 0.5 + 0.5 * k, jaw: 0.15 * k } } }; },
+    return { ...CLIPS.stand(), shoulderR: [-1.0 * up, 0, -0.26 * up - 0.2 * (1 - up)], elbowR: [-2.2 * up - 0.08 * (1 - up), 0, 0.3 * (1 - up)], handR: p.ik ? [0, 0, 0] : [0, 0, -1.2 * up], head: [-0.22 * k - 0.05 * up, 0, 0.04 * k], torso: [-0.08 * k, 0, 0],
+      toon: { sq: sqv(1 + 0.03 * k), wind: [0, 8 * k, 2 * k], bend: { spine: [-0.08 * k, 0, 0, 1, 1 + 0.22 * k] }, hands: { R: 'point' }, face: { expr: p.expr ?? 'strain', exprW: 0.5 + 0.5 * k, jaw: 0.15 * k },
+        ...(p.ik ? { touch: { R: ['face', 0.06, 0.3, 0.025, up * p.ik, 0.16, [-1, 0.2, 0.3]] } } : null) } }; },   // p.ik 1: the index held under the nose by the guided hand (as in sneezeUp); each sniff lifts the tie
   // blown flat against a wall behind him like a poster (key it with blend=0.02 at the end of a fast glide to the wall): arms and legs spread, as thin as paper;
   // from p.slideAt he peels off from the top and slides down, swaying. The actor's back is to the wall; p.high: how far off the ground he is stuck
   poster: (t, p = {}) => { const hit = Math.exp(-t * 22) * Math.cos(t * 40), sl = Math.max(0, t - (p.slideAt ?? 0.5)), peel = eo(sl / 0.5);
@@ -602,9 +605,12 @@ Object.assign(CLIPS, {
       torso: [mix(-0.22 * a + 0.52 * d + 0.05 * reb, -0.04, r), 0, 0], head: [mix(-0.2 * a + 0.32 * d, -0.08, r), 0, 0], footL: [0.5 * a * (1 - d), 0, 0], footR: [0.5 * a * (1 - d), 0, 0], root: { y: 0.07 * a * (1 - d) },
       toon: { hands: { R: 'grip' }, sq: sqv(1 + 0.08 * a * (1 - d) - 0.1 * d * Math.max(0, 1 - u * 6)) } }; },
   // stiff as a plank, he tips over backward (p.dir -1) or forward (+1) about his heels in p.dur (0.4 s) and lands flat with one small bounce: the delayed
-  // fall of somebody who has just been hit on the head
-  plankFall: (t, p = {}) => { const d = p.dur ?? 0.4, dir = p.dir ?? -1, k = c01(t / d), b = t > d ? 0.07 * Math.exp(-(t - d) * 9) * Math.abs(S((t - d) * 24)) : 0;
-    return { ...CLIPS.stiff(), head: [0, 0, 0], root: { rx: dir * (1.5 * k * k - b) }, toon: { face: { expr: p.expr ?? 'dizzy', exprW: 1 } } }; },
+  // fall of somebody who has just been hit on the head. p.hang (0 s): first he hangs that long, leaning p.lean (0.17 rad) and trembling: the time suspended
+  // before the fall. p.feet (0 rad): once flat his legs flip up by that much, stay up a third of a second, then drop
+  plankFall: (t, p = {}) => { const d = p.dur ?? 0.4, dir = p.dir ?? -1, hang = p.hang ?? 0, ln = hang ? (p.lean ?? 0.17) : 0, u = t - hang, k = c01(u / d), land = u - d,
+      b = land > 0 ? 0.07 * Math.exp(-land * 9) * Math.abs(S(land * 24)) : 0, ang = u < 0 ? ln * eo(t / (hang * 0.7)) * (1 + 0.1 * S(t * 26)) : ln + (1.5 - ln) * k * k - b,
+      fu = land > 0 && p.feet ? p.feet * Math.min(1, land / 0.07) * (land < 0.34 ? 1 : Math.exp(-(land - 0.34) * 9)) : 0, tw = fu ? 0.12 * S(land * 38) * fu : 0;
+    return { ...CLIPS.stiff(), head: [0, 0, 0], hipL: [dir * (fu + tw), 0, 0.05], hipR: [dir * (0.8 * fu - tw), 0, -0.05], root: { rx: dir * ang }, toon: { face: { expr: p.expr ?? 'dizzy', exprW: 1 } } }; },
   // a handshake that is too hearty. p.role 'pump': the one who shakes (right arm out, the forearm pumping, the body firm, a grin); 'wave': the one who is
   // shaken: the pumping travels up his arm as a wave (arm, forearm), into the spine and the head, his feet leave the ground on each stroke.
   // p.freq (6 strokes/s), p.stopAt: the shaking stops (the wave dies out); p.thumbAt (pump): the left thumb comes up
@@ -617,6 +623,24 @@ Object.assign(CLIPS, {
       footL: [0.3 * Math.abs(w2), 0, 0], footR: [0.3 * Math.abs(w2), 0, 0], root: { y: 0.07 * Math.abs(w2) },
       toon: { hands: { R: 'grip' }, bend: { foreR: [0.55 * a, 0, 0, 1.08, null], armR: [-0.5 * w1, 0, 0, 1.05, null], spine: [0.22 * w2, 0, 0.06 * w2, 1 + 0.05 * w2, null], neck: [0.3 * w3, 0, 0, 1 + 0.5 * Math.abs(w3), null] }, sq: sqv(1 + 0.05 * w2),
         face: { expr: p.expr ?? 'dizzy', exprW: Math.min(1, live) } } }; },
+  // the same handshake with guided hands (toon channel `reach`): both hold one point, p.grip [x, y, z] (in the world), which pumps up and down, a little more
+  // at every stroke (p.amp [first, last] m, p.freq strokes/s) until p.stopAt. role 'pump': he shakes with both hands (p.two 1: the left hand on top), leaning
+  // in, bobbing with it; after the release his left thumb goes up high (p.thumbAt). role 'wave': the one who is shaken: his hand is held, and the stroke
+  // travels through him two frames later at every joint: shoulder, chest, neck, head; he leaves the ground on the last strokes; after the release he rings
+  // down (three wobbles that die out)
+  shakeHands2: (t, p = {}) => { const f = (p.freq ?? 3.6) * 2 * PI, st = p.stopAt ?? 1e9, [a0, a1] = p.amp || [0.08, 0.3], g = p.grip || [0, 1.4, 0.4],
+      pump = tt => { const u = c01(tt / st); return tt < 0 ? 0 : tt < st ? (a0 + (a1 - a0) * u) * S(tt * f) : 0; },   // metres, at time tt
+      rel = c01((t - st) / 0.1), w = (1 - rel) * c01(t / 0.1), ring = t > st ? Math.exp(-(t - st) * 6.5) * S((t - st) * 21) : 0;
+    if ((p.role ?? 'pump') === 'pump') { const th = p.thumbAt != null && t > p.thumbAt ? back((t - p.thumbAt) / 0.22, 2.2) : 0, y = pump(t), k = y / a1;
+      return { ...CLIPS.stand(), shoulderL: [-2.75 * th, 0, 0.3 * th + 0.1], elbowL: [-0.35 * th - 0.2, 0, 0], handL: [0, -1.2 * th, 0], torso: [0.14 * (1 - rel) + 0.1 * k, 0, 0], head: [-0.1 * (1 - rel) - 0.12 * k, 0, 0.05 * k], root: { y: 0.03 * Math.max(0, k) + 0.05 * th * Math.abs(S((t - (p.thumbAt ?? 0)) * 9)) * Math.exp(-Math.max(0, t - (p.thumbAt ?? 0)) * 2.5) },
+        toon: { hands: { R: 'grip', L: th > 0.25 ? 'thumbUp' : 'grip' }, reach: { R: [g[0], g[1] + y, g[2], w, 0.05], ...(p.two ? { L: [g[0], g[1] + y + 0.07, g[2] + 0.02, w * (1 - th), 0.05] } : null) },
+          bend: { spine: [0.12 * k, 0, 0, 1, null] }, sq: sqv(1 + 0.04 * k) } }; }
+    const D = 0.066, y0 = pump(t), k1 = pump(t - D) / a1, k2 = pump(t - 2 * D) / a1, k3 = pump(t - 3 * D) / a1, up = Math.max(0, k2), lift = Math.max(0, k2 - 0.45) * 0.45;   // the stroke, later at each joint
+    return { ...CLIPS.stand(), shoulderL: [0.5 * k2 + 0.4 * ring, 0, 0.25 + 0.3 * Math.abs(k2)], elbowL: [-0.3 - 0.5 * up, 0, 0], head: [-0.4 * k3 - 0.3 * ring, 0, 0.14 * k3 + 0.12 * ring], torso: [-0.1 * k2, 0, 0.06 * ring],
+      hipL: [0.25 * up, 0, 0.08 * up], hipR: [0.25 * up, 0, -0.08 * up], kneeL: [0.5 * up, 0, 0], kneeR: [0.5 * up, 0, 0], footL: [0.5 * up, 0, 0], footR: [0.5 * up, 0, 0], root: { y: 0.1 * up + lift + 0.03 * Math.abs(ring), rz: 0.05 * ring },
+      toon: { hands: { R: 'grip', L: 'spread' }, reach: { R: [g[0], g[1] + y0, g[2], w, 0.05] }, sq: sqv(1 + 0.16 * k1 + 0.1 * ring),
+        bend: { spine: [-0.3 * k2 + 0.2 * ring, 0, 0.1 * ring, 1 + 0.1 * k2, null], neck: [-0.35 * k3, 0, 0.15 * ring, 1 + 0.55 * Math.max(0, k3) + 0.25 * Math.abs(ring), null] },
+        face: { expr: p.expr ?? 'dizzy', exprW: Math.min(1, t / 0.3), jaw: 0.3 * Math.max(0, k3) } } }; },
   // leaning away from somebody who passes (p.side +1: away toward his own left, -1: toward his right): the body a C, one foot off the ground, hands up
   leanAway: (t, p = {}) => { const sd = p.side ?? 1, k = p.k ?? back(t / 0.22, 2), br = 0.03 * S(t * 3 + (p.ph ?? 0)), L = sd > 0;
     return { ...arms(m([-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 1 : 0.3)], [-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 0.3 : 1)]), m([-1.5 * k, 0, 0], [-1.5 * k, 0, 0])), head: [0, -0.55 * sd * k, 0.2 * sd * k], torso: [0, -0.2 * sd * k, 0],

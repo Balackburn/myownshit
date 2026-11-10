@@ -28,11 +28,11 @@ export const ETERNUEMENT_PROPS = {
     const r = o.r ?? 0.5, max = o.max ?? 200, val = o.value ?? 200, a0 = 2.3, a1 = -2.3;   // needle angle at 0 and at max (radians from the top, + = left)
     const face = canvasPlane(2 * r, 2 * r, (g, W, H) => {
       g.clearRect(0, 0, W, H); g.fillStyle = '#F7F4EA'; g.beginPath(); g.arc(W / 2, H / 2, W * 0.48, 0, TAU); g.fill(); g.lineWidth = W * 0.035; g.strokeStyle = '#1B2A4A'; g.stroke();
-      for (let i = 0; i <= 10; i++) { const a = a0 + (a1 - a0) * i / 10, c = Math.sin(a), s = Math.cos(a); g.strokeStyle = i >= 5 ? '#C8202A' : '#1B1B1E'; g.lineWidth = W * (i % 5 ? 0.012 : 0.022); g.beginPath(); g.moveTo(W / 2 - c * W * 0.4, H / 2 - s * W * 0.4); g.lineTo(W / 2 - c * W * 0.33, H / 2 - s * W * 0.33); g.stroke();
-        if (i % 5 === 0) txt(g, String(max * i / 10), W / 2 - c * W * 0.25, H / 2 - s * W * 0.25, W * 0.085, i >= 5 ? '#C8202A' : '#1B1B1E'); }
-      txt(g, 'km/h', W / 2, H * 0.72, W * 0.1, '#1B2A4A');
+      for (let i = 0; i <= 10; i++) { const a = a0 + (a1 - a0) * i / 10, c = Math.sin(a), s = Math.cos(a); g.strokeStyle = i >= 5 ? '#C8202A' : '#1B1B1E'; g.lineWidth = W * (i % 5 ? 0.012 : 0.022); g.beginPath(); g.moveTo(W / 2 - c * W * 0.445, H / 2 - s * W * 0.445); g.lineTo(W / 2 - c * W * 0.39, H / 2 - s * W * 0.39); g.stroke();
+        if (i % 5 === 0) txt(g, String(max * i / 10), W / 2 - c * W * (i === 10 ? 0.3 : 0.31), H / 2 - s * W * (i === 10 ? 0.3 : 0.31), W * (i === 10 ? 0.125 : 0.085), i === 10 ? '#1B2A4A' : i >= 5 ? '#C8202A' : '#1B1B1E'); }   // the numbers sit outside the needle's reach; the last one, the one that is read out, bigger and in navy
+      txt(g, 'km/h', W / 2, H * 0.74, W * 0.09, '#1B2A4A');
     }, { res: 512, transparent: true });
-    const needle = new THREE.Group(); needle.add(at(box(0.035 * r * 2, r * 0.8, 0.012, '#C8202A'), 0, r * 0.34, 0), at(cyl(0.06 * r * 2, 0.06 * r * 2, 0.03, '#1B2A4A', 12), 0, 0, 0, PI / 2, 0, 0)); needle.position.z = 0.02;
+    const needle = new THREE.Group(); needle.add(at(box(0.04 * r * 2, r * 0.46, 0.012, '#C8202A'), 0, r * 0.2, 0), at(cyl(0.06 * r * 2, 0.06 * r * 2, 0.03, '#1B2A4A', 12), 0, 0, 0, PI / 2, 0, 0)); needle.position.z = 0.02;
     const g = grp(at(cyl(r * 1.02, r * 1.02, 0.03, '#1B2A4A', 28), 0, 0, -0.02, PI / 2, 0, 0), face, needle), at_ = o.at ?? 0.2, k = val / max;
     g.userData.update = t => { const u = t - at_, w = u < 0 ? 0 : ease.out(clamp01(u / 0.14)); needle.rotation.z = a0 + (a1 * k * 1.0 - a0) * w + (u > 0.14 ? 0.07 * Math.sin(t * 60) * Math.exp(-(u - 0.14) * 1.2) + 0.03 * Math.sin(t * 47) : 0); };
     g.userData.update(0); return g;
@@ -40,13 +40,13 @@ export const ETERNUEMENT_PROPS = {
 
   // the wind scale on the wall: three bands (BRISE, VENT, TEMPÊTE), a rider that climbs to the top band at o.at. Front +Z, origin at its centre
   windScale(o) {
-    const w = o.w ?? 1.1, h = o.h ?? 1.5, rows = [['TEMPÊTE', '#C8202A', '> 100'], ['VENT', '#E8A33C', '50 - 100'], ['BRISE', '#5E9C6A', '0 - 50']];
+    const w = o.w ?? 1.1, h = o.h ?? 1.5, rows = [['TEMPÊTE', '#C8202A', '> 100'], ['VENT', '#E8A33C', '50 - 100'], ['BRISE', '#5E9C6A', '0 - 50']], side = o.side ?? -1, x0 = side > 0 ? 0.06 : 0.2;   // o.side 1: the rider runs up the right-hand edge (under the finger of somebody who stands on that side)
     const face = canvasPlane(w, h, (g, W, H) => {
       g.fillStyle = '#F7F4EA'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B2A4A'; g.fillRect(0, 0, W, H * 0.14); txt(g, 'ÉCHELLE DU VENT', W / 2, H * 0.072, fit(g, 'ÉCHELLE DU VENT', W * 0.9, H * 0.075), '#F7F4EA');
-      rows.forEach(([nm, c, rg], i) => { const y = H * (0.17 + i * 0.275); g.fillStyle = c; g.fillRect(W * 0.2, y, W * 0.74, H * 0.25); txt(g, nm, W * 0.57, y + H * 0.105, fit(g, nm, W * 0.66, H * 0.1), '#FFFFFF'); txt(g, rg + ' km/h', W * 0.57, y + H * 0.195, H * 0.045, '#FFFFFF', 'bold'); });
+      rows.forEach(([nm, c, rg], i) => { const y = H * (0.17 + i * 0.275); g.fillStyle = c; g.fillRect(W * x0, y, W * 0.74, H * 0.25); txt(g, nm, W * (x0 + 0.37), y + H * 0.105, fit(g, nm, W * 0.66, H * 0.1), '#FFFFFF'); txt(g, rg + ' km/h', W * (x0 + 0.37), y + H * 0.195, H * 0.045, '#FFFFFF', 'bold'); });
       g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H - W * 0.012);
     }, { res: 512 });
-    const rider = grp(at(box(0.16 * w, 0.09 * h, 0.03, '#1B1B1E'), 0, 0, 0), at(box(0.09 * w, 0.09 * h, 0.03, '#1B1B1E'), 0.09 * w, 0, 0, 0, 0, PI / 4)); rider.position.set(-0.4 * w, 0, 0.03);
+    const rider = grp(at(box(0.16 * w, 0.09 * h, 0.03, '#1B1B1E'), 0, 0, 0), at(box(0.09 * w, 0.09 * h, 0.03, '#1B1B1E'), 0.09 * w, 0, 0, 0, 0, PI / 4)); rider.position.set(side * 0.4 * w, 0, 0.03); rider.scale.x = -side;
     const g = grp(at(box(w, h, 0.03, '#F7F4EA', { outline: 0.006 }), 0, 0, -0.02), face, rider), yAt = i => h * (0.5 - (0.17 + i * 0.275 + 0.125)), at_ = o.at ?? 0.3;
     const mid = o.midAt;   // o.midAt: the rider first climbs to the middle band (VENT) at that time, then to the top at o.at
     g.userData.update = t => { const u = t - at_, k = u < 0 ? 0 : ease.out(clamp01(u / 0.22)), um = mid != null ? t - mid : -1, km = um < 0 ? 0 : ease.out(clamp01(um / 0.2)), y0 = yAt(2) + (yAt(1) - yAt(2)) * km;
@@ -64,8 +64,17 @@ export const ETERNUEMENT_PROPS = {
       g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H - W * 0.012);
     }, { res: 512 });
     const y = h * (0.5 - rowY(names.length)), fr = grp(at(box(w * 0.84, 0.012, 0.012, '#C8202A'), 0, h * 0.05, 0), at(box(w * 0.84, 0.012, 0.012, '#C8202A'), 0, -h * 0.05, 0), at(box(0.012, h * 0.1, 0.012, '#C8202A'), -w * 0.42, 0, 0), at(box(0.012, h * 0.1, 0.012, '#C8202A'), w * 0.42, 0, 0)); fr.position.set(0, y, 0.02);
-    const g = grp(at(box(w, h, 0.02, '#FBF8EE', { outline: 0.006 }), 0, 0, -0.014), face, fr), at_ = o.at ?? 0.4;
-    g.userData.update = t => { const u = t - at_; fr.visible = u >= 0; const k = u < 0 ? 0 : ease.outBack(clamp01(u / 0.16)); fr.scale.set(1.5 - 0.5 * k, 1.5 - 0.5 * k, 1); };
+    const sheet = grp(at(box(w, h, 0.02, '#FBF8EE', { outline: 0.006 }), 0, 0, -0.014), face, fr), g = grp(sheet), at_ = o.at ?? 0.4;
+    // o.unroll [t0, dur]: a roller list: rolled up under its tube at the top until t0, then pulled down by its cord in dur seconds (it bounces at the bottom).
+    // o.cordX: where the cord hangs (m from the middle); the knob's height above the origin is userData.handleY(t) (to guide a hand to it)
+    let un = null;
+    if (o.unroll) { const [t0, dur] = o.unroll, cx = o.cordX ?? w * 0.36, top = new THREE.Group(); top.position.y = h / 2; g.remove(sheet); sheet.position.y = -h / 2; top.add(sheet); g.add(top);
+      const bar = at(box(w * 1.04, 0.05, 0.05, '#6B4A32', { outline: 0.006 }), 0, 0, 0.01), cord = at(cyl(0.006, 0.006, 0.14, '#3A3A40', 5), cx, -0.07, 0.03), knob = at(sphere(0.045, '#C8202A', 1, { outline: 0.008 }), cx, -0.16, 0.03), low = grp(bar, cord, knob); g.add(low);
+      g.add(at(cyl(0.05, 0.05, w * 1.08, '#6B4A32', 10, { outline: 0.006 }), 0, h / 2 + 0.03, 0.02, 0, 0, PI / 2));   // the tube
+      const kAt = t => { const u = (t - t0) / dur; return u <= 0 ? 0.015 : u >= 1 ? 1 + 0.035 * wob(t - t0 - dur, 30, 9) : 0.015 + 0.985 * ease.inOut(u); };
+      un = t => { const k = kAt(t); top.scale.y = k; low.position.y = h / 2 - h * k; };
+      g.userData.handleY = t => h / 2 - h * kAt(t) - 0.16; }
+    g.userData.update = t => { const u = t - at_; fr.visible = u >= 0; const k = u < 0 ? 0 : ease.outBack(clamp01(u / 0.16)); fr.scale.set(1.5 - 0.5 * k, 1.5 - 0.5 * k, 1); un?.(t); };
     g.userData.update(0); return g;
   },
 
@@ -78,17 +87,18 @@ export const ETERNUEMENT_PROPS = {
 
   // the weather map on a screen: a blue country shape, a red spiral that turns over it with the storm's name, a red triangle « VIGILANCE ROUGE ». Front +Z
   stormMap(o) {
-    const w = o.w ?? 1.5, h = o.h ?? 1.9, name = o.name || 'JOSIANE';
+    const w = o.w ?? 1.5, h = o.h ?? 1.9, name = o.name || 'JOSIANE', bt = !!o.bandTop, dy = bt ? -0.1 : 0;
     const face = canvasPlane(w, h, (g, W, H) => {
-      g.fillStyle = '#2E6FB5'; g.fillRect(0, 0, W, H); g.fillStyle = '#7FBF7A'; g.beginPath(); [[0.5, 0.16], [0.78, 0.25], [0.86, 0.45], [0.74, 0.72], [0.5, 0.8], [0.28, 0.72], [0.12, 0.5], [0.24, 0.3]].forEach(([x, y], i) => i ? g.lineTo(W * x, H * (0.1 + y * 0.72)) : g.moveTo(W * x, H * (0.1 + y * 0.72))); g.closePath(); g.fill(); g.strokeStyle = '#F7F4EA'; g.lineWidth = W * 0.012; g.stroke();
-      g.fillStyle = '#C8202A'; g.fillRect(0, H * 0.86, W, H * 0.14); txt(g, 'VIGILANCE ROUGE', W / 2, H * 0.93, fit(g, 'VIGILANCE ROUGE', W * 0.9, H * 0.085), '#FFFFFF');
+      const y0 = bt ? 0.2 : 0.1, by = bt ? 0.1 : 0.86;   // o.bandTop: the red band under the title instead of at the foot (an arm that reaches the storm from below does not cross it)
+      g.fillStyle = '#2E6FB5'; g.fillRect(0, 0, W, H); g.fillStyle = '#7FBF7A'; g.beginPath(); [[0.5, 0.16], [0.78, 0.25], [0.86, 0.45], [0.74, 0.72], [0.5, 0.8], [0.28, 0.72], [0.12, 0.5], [0.24, 0.3]].forEach(([x, y], i) => i ? g.lineTo(W * x, H * (y0 + y * 0.72)) : g.moveTo(W * x, H * (y0 + y * 0.72))); g.closePath(); g.fill(); g.strokeStyle = '#F7F4EA'; g.lineWidth = W * 0.012; g.stroke();
+      g.fillStyle = '#C8202A'; g.fillRect(0, H * by, W, H * 0.14); txt(g, 'VIGILANCE ROUGE', W / 2, H * (by + 0.07), fit(g, 'VIGILANCE ROUGE', W * 0.9, H * 0.085), '#FFFFFF');
       g.fillStyle = '#1B2A4A'; g.fillRect(0, 0, W, H * 0.1); txt(g, 'MÉTÉO', W / 2, H * 0.052, H * 0.065, '#F7F4EA');
     }, { res: 512 });
     const sp = canvasPlane(0.62 * w, 0.62 * w, (g, W) => { g.clearRect(0, 0, W, W); g.strokeStyle = '#C8202A'; g.lineCap = 'round'; for (let k = 0; k < 2; k++) { g.lineWidth = W * 0.06; g.beginPath(); for (let a = 0; a < 7.2; a += 0.1) { const r = W * (0.05 + a * 0.058), x = W / 2 + Math.cos(a + k * PI) * r, y = W / 2 + Math.sin(a + k * PI) * r; a ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); } g.fillStyle = '#FFFFFF'; g.beginPath(); g.arc(W / 2, W / 2, W * 0.09, 0, TAU); g.fill(); }, { res: 384, transparent: true });
-    sp.position.set(0.02 * w, 0.03 * h, 0.012);
-    const tag = canvasPlane(0.62 * w, 0.14 * w, (g, W, H) => { g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.12; g.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H * 0.88); txt(g, name, W / 2, H * 0.52, fit(g, name, W * 0.86, H * 0.66), '#C8202A'); }, { res: 384 }); tag.position.set(0.02 * w, -0.2 * h, 0.03);
+    sp.position.set(0.02 * w, (0.03 + dy) * h, 0.012);
+    const tag = canvasPlane(0.62 * w, 0.14 * w, (g, W, H) => { g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.12; g.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H * 0.88); txt(g, name, W / 2, H * 0.52, fit(g, name, W * 0.86, H * 0.66), '#C8202A'); }, { res: 384 }); tag.position.set(0.02 * w, (-0.2 + dy) * h, 0.03);
     const g = grp(at(box(w * 1.04, h * 1.03, 0.05, '#23262C', { outline: 0.008 }), 0, 0, -0.03), face, sp, tag);
-    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); };
+    g.userData.update = t => { sp.rotation.z = -t * 3.2; tag.scale.setScalar(1 + 0.04 * Math.sin(t * 9)); if (o.tapAt != null) { const sh = wob(t - o.tapAt, 46, 9); g.rotation.z = 0.035 * sh; tag.scale.multiplyScalar(1 + 0.25 * Math.abs(sh)); } };   // o.tapAt: it shakes when it is tapped
     return g;
   },
 
@@ -105,7 +115,13 @@ export const ETERNUEMENT_PROPS = {
     const r = o.r ?? 0.09, dome = sphere(r, '#E8322A', 1); dome.material = dome.material.clone(); dome.material.emissive = new THREE.Color('#FF3B2A'); dome.position.y = r * 0.9;
     const g = grp(at(cyl(r * 1.1, r * 1.25, r * 0.5, '#2A2E35', 10), 0, r * 0.25, 0), dome, at(box(r * 2.6, r * 0.5, r * 0.3, '#FFD9A0'), 0, r * 0.9, 0));
     const bar = g.children[2]; bar.material = bar.material.clone(); bar.material.transparent = true; bar.material.opacity = 0.55;
-    g.userData.update = t => { bar.rotation.y = t * 9; dome.material.emissiveIntensity = 0.55 + 0.45 * Math.sin(t * 9); };
+    let hub = null;
+    if (o.beams) {   // o.beams (m): two red beams that turn with it, like a lighthouse: the red alert sweeps the street and whoever stands in it
+      const L = o.beams; hub = new THREE.Group(); hub.position.y = r * 0.9; g.add(hub);
+      for (const sd of [1, -1]) { const c = cyl(r * 0.35, L * (o.beamWidth ?? 0.15), L, '#FF4A36', 12); c.material = c.material.clone(); c.material.transparent = true; c.material.opacity = o.beamOpacity ?? 0.3; c.material.depthWrite = false; c.material.emissive = new THREE.Color('#FF3B2A'); c.material.emissiveIntensity = 0.9;
+        c.castShadow = false; c.receiveShadow = false; c.rotation.z = sd * PI / 2; c.position.x = sd * L / 2; hub.add(c); }
+    }
+    g.userData.update = t => { bar.rotation.y = t * 9; if (hub) hub.rotation.y = t * (o.turn ?? 9); dome.material.emissiveIntensity = 0.55 + 0.45 * Math.sin(t * 9); };
     return g;
   },
 
@@ -136,25 +152,37 @@ export const ETERNUEMENT_PROPS = {
   // a fishing rod with a pepper pot on its line (origin at the grip; the rod points along +Z and up); o.swing: the pot swings
   pepperRod(o) {
     const L = o.len ?? 1.9, tip = [0, L * 0.5, L * 0.86], g = grp(at(cyl(0.02, 0.012, L, '#6B4A32', 6), 0, tip[1] / 2, tip[2] / 2, Math.atan2(tip[2], tip[1]), 0, 0)), line = new THREE.Group(); line.position.set(...tip); g.add(line);
-    const drop = o.drop ?? 0.7; line.add(at(cyl(0.004, 0.004, drop, '#EDEDED', 4), 0, -drop / 2, 0), at(cyl(0.05, 0.06, 0.13, '#F4F1E8', 10, { outline: 0.008 }), 0, -drop - 0.06, 0), at(cyl(0.052, 0.04, 0.035, '#8A9097', 10), 0, -drop + 0.02, 0), at(box(0.07, 0.035, 0.005, '#1B1B1E'), 0, -drop - 0.06, 0.058));
-    g.userData.update = t => { line.rotation.x = (o.swing ?? 0.25) * Math.sin(t * 3.1); line.rotation.z = 0.5 * (o.swing ?? 0.25) * Math.sin(t * 2.3 + 1); };
+    const drop = o.drop ?? 0.7, k = o.pot ?? 1, pot = new THREE.Group(); pot.position.y = -drop; pot.rotation.y = o.potRy ?? 0; line.add(at(cyl(0.004, 0.004, drop, '#EDEDED', 4), 0, -drop / 2, 0), pot);   // o.pot: its size (1.6 reads at phone size); o.potRy: turns its label to the camera
+    pot.add(at(cyl(0.05 * k, 0.06 * k, 0.13 * k, '#F4F1E8', 12, { outline: 0.008 }), 0, -0.06 * k, 0), at(cyl(0.052 * k, 0.04 * k, 0.035 * k, '#8A9097', 12), 0, 0.02 * k, 0));
+    for (const sd of [1, -1]) { const lb = canvasPlane(0.105 * k, 0.07 * k, (c, W, H) => { c.fillStyle = '#1B1B1E'; c.fillRect(0, 0, W, H); txt(c, 'POIVRE', W / 2, H * 0.54, fit(c, 'POIVRE', W * 0.88, H * 0.62), '#F4F1E8'); }, { res: 256 }); lb.position.set(0, -0.06 * k, sd * 0.0585 * k); if (sd < 0) lb.rotation.y = PI; pot.add(lb); }
+    const sp = []; if (o.specks !== false) { const q = rng(8); for (let i = 0; i < 14; i++) { const m = box(0.012 * k, 0.012 * k, 0.012 * k, '#2A2420'); m.castShadow = false; pot.add(m); sp.push([m, q(), (q() - 0.5) * 0.16 * k, (q() - 0.5) * 0.16 * k]); } }   // pepper falls out of it
+    g.userData.update = t => { line.rotation.x = (o.swing ?? 0.25) * Math.sin(t * 3.1); line.rotation.z = 0.5 * (o.swing ?? 0.25) * Math.sin(t * 2.3 + 1);
+      for (const [m, ph, x, z] of sp) { const u = (t * 1.3 + ph) % 1; m.position.set(x * (0.3 + u), -0.13 * k - 0.45 * u * u, z * (0.3 + u)); m.visible = u < 0.9; } };
     g.userData.grip = [0, 0, 0]; return g;
   },
 
   // a wall of mattresses to stop a recoil (o.n side by side, standing), along X, origin at the middle of its foot; it bulges at o.hitAt
   mattressWall(o) {
-    const n = o.n ?? 3, H = o.h ?? 1.95, g = new THREE.Group(), ms = [];   // o.h: their height (1.95 standing; 1.2 lets a camera behind the wall see who stands in front of it)
-    for (let i = 0; i < n; i++) { const m = at(box(0.95, H, 0.24, ['#F2EDE4', '#E4EEF2', '#F2E4EA'][i % 3], { outline: 0.008, pivot: 'bottom' }), (i - (n - 1) / 2) * 0.98, 0, 0); for (let k = 0; k < 4; k++) m.add(at(box(0.9, 0.012, 0.25, '#B9C3CC'), 0, H * (0.15 + k * 0.23), 0)); g.add(m); ms.push(m); }
-    g.userData.update = t => { const u = t - (o.hitAt ?? 1e9), w = wob(u, 26, 5); ms.forEach((m, i) => { m.scale.z = 1 + 0.8 * w * (i === Math.floor(n / 2) ? 1 : 0.5); m.rotation.x = -0.12 * w; }); };
-    return g;
+    const n = o.n ?? 3, H = o.h ?? 1.95, g = new THREE.Group(), ms = [], NS = 10, hs = H / NS;   // o.h: their height (1.95 standing; 1.2 lets a camera behind the wall see who stands in front of it)
+    // each mattress is a stack of slices so that it can bow: white ticking with blue stripes on both faces, quilt buttons, the top and the foot rounded off
+    for (let i = 0; i < n; i++) { const m = new THREE.Group(); m.position.x = (i - (n - 1) / 2) * 0.98; const sl = [];
+      for (let k = 0; k < NS; k++) { const end = k === 0 || k === NS - 1, b = box(0.95, hs * 1.1, 0.24, '#F4F1EA', { taper: end ? { x: 0.93, z: 0.78 } : undefined }); if (k === 0) b.rotation.x = PI; b.position.y = (k + 0.5) * hs; m.add(b); sl.push(b);   // no outline on a slice: ten outlined slices read as a pile of boxes
+        for (const sd of [1, -1]) { for (let q = 0; q < 6; q++) b.add(at(box(0.035, hs * (end ? 0.8 : 1.1), 0.006, '#5F86C4'), (q - 2.5) * 0.15, 0, sd * (end ? 0.105 : 0.122) * (k === 0 ? -1 : 1)));
+          if (k % 3 === 1) for (const x of [-0.24, 0.24]) b.add(at(cyl(0.028, 0.028, 0.012, '#3C5F9E', 8), x, 0, sd * 0.126, PI / 2, 0, 0)); } }
+      g.add(m); ms.push([m, sl]); }
+    // o.hitAt: somebody is thrown into it from the -Z side (o.hitDir -1: from +Z): it bows deep in two frames, springs back past straight, settles
+    g.userData.update = t => { const u = t - (o.hitAt ?? 1e9), d = u < 0 ? 0 : (o.dent ?? 0.34) * Math.min(1, u / 0.05) * Math.exp(-u * 4.5) * Math.cos(u * 15) * (o.hitDir ?? 1);
+      ms.forEach(([m, sl], i) => { const kk = i === Math.floor(n / 2) ? 1 : 0.45; sl.forEach((b, k) => { const v = (k + 0.5) / NS, bow = Math.sin(v * PI); b.position.z = d * kk * bow; b.rotation.x = (k === 0 ? PI : 0) + Math.atan(d * kk * PI * Math.cos(v * PI) / H); }); }); };   // each slice follows the slope of the bow
+    g.userData.update(0); return g;
   },
 
   // three towns on a far ridge at dusk: clusters of dark houses whose windows light up one town after the other (o.at [t1, t2, t3]); along X, origin at the foot
   townLights(o) {
-    const g = new THREE.Group(), r = rng(o.seed ?? 6), ats = o.at || [0.4, 0.6, 0.8], spread = o.spread ?? 9, wins = [[], [], []];
-    for (let k = 0; k < 3; k++) { const cx = (k - 1) * spread;
-      for (let i = 0; i < 9; i++) { const w = 0.9 + r() * 1.3, h = 1.0 + r() * 2.6, x = cx + (i - 4) * 0.95 + (r() - 0.5) * 0.3, b = at(box(w, h, 0.9, ['#2B3248', '#353C55', '#3E3A52'][i % 3], { pivot: 'bottom' }), x, 0, (r() - 0.5) * 0.8); b.castShadow = false; g.add(b);
-        if (i % 3 === 1) g.add(at(box(w * 1.05, 0.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.2, z: 1 } }), x, h, b.position.z));
+    const g = new THREE.Group(), r = rng(o.seed ?? 6), ats = o.at || [0.4, 0.6, 0.8], spread = o.spread ?? 9, depth = o.depth ?? [0, 0, 0], nh = o.houses ?? 9, wins = [[], [], []];   // o.depth [z1, z2, z3]: how far back each town sits; o.houses: per town (6 with o.spread 11 leaves a gap of dark hill between them)
+    for (let k = 0; k < 3; k++) { const cx = o.sites ? o.sites[k][0] : (k - 1) * spread, cz = o.sites ? o.sites[k][1] : -depth[k];   // o.sites [[x, z] x 3]: where each town stands (in the prop's frame), instead of o.spread / o.depth
+      for (let i = 0; i < nh; i++) { const mid = i === Math.floor(nh / 2), w = mid ? 0.8 : 0.9 + r() * 1.3, h = mid ? 4.4 + k * 0.4 : 1.0 + r() * 2.6, x = cx + (i - (nh - 1) / 2) * 0.95 + (r() - 0.5) * 0.3, b = at(box(w, h, 0.9, ['#2B3248', '#353C55', '#3E3A52'][i % 3], { pivot: 'bottom' }), x, 0, cz + (r() - 0.5) * 0.8); b.castShadow = false; g.add(b);
+        if (mid) g.add(at(box(0.95, 1.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.05, z: 0.05 } }), x, h, b.position.z));   // a steeple: one town, one steeple
+        else if (i % 3 === 1) g.add(at(box(w * 1.05, 0.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.2, z: 1 } }), x, h, b.position.z));
         for (let a = 0; a < Math.floor(h / 0.5); a++) for (let c = 0; c < 2; c++) { if (r() < 0.25) continue; const wn = at(box(0.2, 0.24, 0.02, '#FFD76A'), x + (c - 0.5) * w * 0.45, 0.4 + a * 0.5, b.position.z + 0.46); wn.material = wn.material.clone(); wn.material.emissive = new THREE.Color('#FFC94A'); wn.castShadow = false; g.add(wn); wins[k].push([wn, r()]); } } }
     g.userData.update = t => wins.forEach((ws, k) => ws.forEach(([m, ph]) => { const u = t - ats[k] - ph * 0.22, on = u > 0; m.material.emissiveIntensity = on ? 1.4 + 0.5 * Math.exp(-u * 8) : 0; m.material.color.set(on ? '#FFD76A' : '#1E2233'); }));
     g.userData.update(0); return g;
@@ -186,9 +214,11 @@ export const ETERNUEMENT_PROPS = {
   // a street advertising panel on two legs, a hairdresser's poster on it (o.title / o.sub / o.price); front +Z, origin at the foot, the board from o.y0 (0.5) up
   adPanel(o) {
     const w = o.w ?? 2.8, h = o.h ?? 2.3, y0 = o.y0 ?? 0.5;
-    const face = canvasPlane(w, h, (g, W, H) => { g.fillStyle = o.bg || '#F6D7E0'; g.fillRect(0, 0, W, H); g.fillStyle = o.band || '#C8457A'; g.fillRect(0, 0, W, H * 0.24); txt(g, o.title || 'COIFFURE', W / 2, H * 0.125, fit(g, o.title || 'COIFFURE', W * 0.9, H * 0.17), '#FFFFFF');
-      txt(g, o.sub || 'BRUSHING', W / 2, H * 0.47, fit(g, o.sub || 'BRUSHING', W * 0.86, H * 0.2), '#1B2A4A'); txt(g, o.price || 'TENUE GARANTIE', W / 2, H * 0.72, fit(g, o.price || 'TENUE GARANTIE', W * 0.8, H * 0.11), '#C8457A', 'bold');
-      g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H - W * 0.012); }, { res: 768 });
+    const th = o.textH ?? 1;   // o.textH (0..1): all the text in that share of the board, at the top (what is pinned on the board below leaves it readable)
+    const face = canvasPlane(w, h, (g, W, H0) => { const H = H0 * th; g.fillStyle = o.bg || '#F6D7E0'; g.fillRect(0, 0, W, H0); g.fillStyle = o.band || '#C8457A'; g.fillRect(0, 0, W, H * (th < 1 ? 0.4 : 0.24)); txt(g, o.title || 'COIFFURE', W / 2, H * (th < 1 ? 0.21 : 0.125), fit(g, o.title || 'COIFFURE', W * 0.9, H * (th < 1 ? 0.3 : 0.17)), '#FFFFFF');
+      if (th < 1) { txt(g, o.sub || 'BRUSHING', W / 2, H * 0.57, fit(g, o.sub || 'BRUSHING', W * 0.8, H * 0.24), '#1B2A4A'); txt(g, o.price || 'TENUE GARANTIE', W / 2, H * 0.84, fit(g, o.price || 'TENUE GARANTIE', W * 0.8, H * 0.2), '#C8457A', 'bold'); }
+      else { txt(g, o.sub || 'BRUSHING', W / 2, H * 0.47, fit(g, o.sub || 'BRUSHING', W * 0.86, H * 0.2), '#1B2A4A'); txt(g, o.price || 'TENUE GARANTIE', W / 2, H * 0.72, fit(g, o.price || 'TENUE GARANTIE', W * 0.8, H * 0.11), '#C8457A', 'bold'); }
+      g.strokeStyle = '#1B2A4A'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.006, W * 0.006, W * 0.988, H0 - W * 0.012); }, { res: 768 });
     face.position.set(0, y0 + h / 2, 0.045);
     return grp(at(box(w * 1.04, h * 1.04, 0.08, '#2A2E35', { outline: 0.008 }), 0, y0 + h / 2, 0), face, at(box(0.1, y0 + 0.1, 0.1, '#2A2E35'), -w * 0.36, (y0 + 0.1) / 2, 0), at(box(0.1, y0 + 0.1, 0.1, '#2A2E35'), w * 0.36, (y0 + 0.1) / 2, 0));
   },
@@ -199,7 +229,8 @@ export const ETERNUEMENT_PROPS = {
     return g;
   },
   // a wig that has left its head (a curly mop; origin at its base): it tumbles when moved by the story
-  wig(o) { const c = o.color || '#5A3A28', g = grp(at(box(0.3, 0.14, 0.24, c, { pivot: 'bottom', taper: { x: 0.9, z: 0.9 } }), 0, 0, 0)); const r = rng(5); for (let i = 0; i < 9; i++) g.add(at(sphere(0.05 + r() * 0.03, c, 1), (r() - 0.5) * 0.28, 0.08 + r() * 0.1, (r() - 0.5) * 0.22)); return g; },
+  wig(o) { const c = o.color || '#5A3A28', w = o.w ?? 0.34, g = grp(at(box(w, 0.1, 0.25, c, { pivot: 'bottom', outline: 0.008, taper: { x: 0.9, z: 0.86 } }), 0, 0.0, 0), at(box(w * 1.04, 0.5, 0.06, c, { pivot: 'top', outline: 0.008, taper: { x: 0.86, z: 1 } }), 0, 0.06, -0.12),
+      at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), -w / 2 - 0.005, 0.06, -0.02), at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), w / 2 + 0.005, 0.06, -0.02), at(box(w * 0.9, 0.06, 0.05, c, { pivot: 'top' }), 0, 0.07, 0.115)); return g; },   // o.w: as wide as the head it left (origin: the top of that head)
   // a sheet of newspaper carried by the wind: it flaps (two halves hinged), origin at the fold
   flyingPaper(o) {
     const half = s => { const m = canvasPlane(0.28, 0.4, (g, W, H) => { g.fillStyle = '#F4F1E8'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B1B1E'; g.fillRect(W * 0.08, H * 0.06, W * 0.84, H * 0.1); g.fillStyle = '#8A8A90'; for (let i = 0; i < 9; i++) g.fillRect(W * 0.08, H * (0.22 + i * 0.08), W * (0.84 - (i % 3) * 0.2), H * 0.03); }, { res: 256 }); m.position.x = s * 0.14; const k = new THREE.Group(); k.add(m); return k; };

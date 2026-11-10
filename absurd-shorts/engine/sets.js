@@ -1276,10 +1276,12 @@ Object.assign(S, {
     g.userData.sun = o.sun || [0.15, 0.62, 0.77]; g.userData.lighting = 'day'; return g;
   },
   mairie(o = {}) { // a town-hall office: cream walls with a wooden band, parquet, a tricolour "MAIRIE" banner, the official map on the back wall (x = o.mapX), a flag, filing cabinets, a big desk
-    const g = grp(), { back } = room(g, { wall: '#EFE7D6', band: '#B98A5A', bandH: 1.0, trim: '#7A5A3C', floor: '#C7A77C', back: o.back ?? -2.6, half: 5 });
-    for (let i = -6; i <= 6; i++) g.add(flat(0.03, 12, '#A88A62', i * 0.8, 0.004, 1));   // parquet joints
-    const bx = o.bannerX ?? 0, by = o.bannerY ?? 3.25; g.add(at(box(3.3, 0.5, 0.03, '#F4F1E8', { outline: 0.004 }), bx, by, back + 0.03), at(box(1.1, 0.5, 0.032, '#2A4B9B'), bx - 1.1, by, back + 0.032), at(box(1.1, 0.5, 0.032, '#C8202A'), bx + 1.1, by, back + 0.032));
-    g.add(at(label(o.title || 'MAIRIE', 1.05, 0.36, { bg: '#F4F1E8', fg: '#1B2A4A', wrap: false }), bx, by, back + 0.05));
+    // o.wall / o.band / o.trim / o.floor / o.joint: its colours (another office in the same building: an insurer's in grey-green); o.banner false: no tricolour banner
+    const g = grp(), { back } = room(g, { wall: o.wall || '#EFE7D6', band: o.band || '#B98A5A', bandH: 1.0, trim: o.trim || '#7A5A3C', floor: o.floor || '#C7A77C', back: o.back ?? -2.6, half: 5 });
+    for (let i = -6; i <= 6; i++) g.add(flat(0.03, 12, o.joint || '#A88A62', i * 0.8, 0.004, 1));   // parquet joints
+    const bx = o.bannerX ?? 0, by = o.bannerY ?? 3.25;
+    if (o.banner !== false) { g.add(at(box(3.3, 0.5, 0.03, '#F4F1E8', { outline: 0.004 }), bx, by, back + 0.03), at(box(1.1, 0.5, 0.032, '#2A4B9B'), bx - 1.1, by, back + 0.032), at(box(1.1, 0.5, 0.032, '#C8202A'), bx + 1.1, by, back + 0.032));
+      g.add(at(label(o.title || 'MAIRIE', 1.05, 0.36, { bg: '#F4F1E8', fg: '#1B2A4A', wrap: false }), bx, by, back + 0.05)); }
     if (o.map !== false) g.add(at(buildProp('officialMap', { stamp: o.stamp }), o.mapX ?? -1.35, o.mapY ?? 2.05, back + 0.04));
     if (o.board) { const b = at(buildProp('nowhereBoard', o.board), o.boardX ?? 1.3, o.boardY ?? 2.05, back + 0.04); g.add(b); const up = g.userData.update; g.userData.update = t => { up?.(t); b.userData.update?.(t); }; }
     g.add(prop('flag', { colors: ['#2A4B9B', '#F4F1E8', '#C8202A'] }, o.flagX ?? 2.9, 0, back + 0.45, 0, 1.5));

@@ -343,6 +343,7 @@ function scaleAt(A, t) {
 function prepProp(cfg, obj, sc, place) {
   const Pp = { id: cfg.id || cfg.name, cfg, obj, kind: 'prop', pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), ry0: (cfg.ry || 0) * D2R, rx0: cfg.rot?.[0] || 0, rz0: cfg.rot?.[2] || 0,
     scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [], rotKeys: [] };
+  if (cfg.rotOrder) obj.rotation.order = cfg.rotOrder;   // 'YXZ': rot[0] pitches the prop in the vertical plane it faces after ry (a stamp swung over by somebody who does not face down an axis)
   if (cfg.on) Pp.own.push({ at: -1e6, attach: cfg.on.actor || cfg.on, ...(typeof cfg.on === 'object' ? cfg.on : {}) });
   const keys = (cfg.keys || []).map(k => ({ ...k, t: frozenRemap(cfg.id || cfg.name, T(k.at ?? 0, sc)) })).sort((a, b) => a.t - b.t);
   for (const k of keys) {
@@ -616,7 +617,8 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   if (ud.fingers) ud.fingers.set(all.hands);
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
     const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
-    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x - (b.x - a.x) / (2 * dd), w.y - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0);
+    const lw = all.wind, wx = lw ? lw[0] * Math.cos(ry) + lw[2] * Math.sin(ry) : 0, wz = lw ? -lw[0] * Math.sin(ry) + lw[2] * Math.cos(ry) : 0;   // toon channel `wind`: his own wind, given in his frame
+    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0);
   }
   return all;
 }

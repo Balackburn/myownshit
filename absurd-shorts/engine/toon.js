@@ -10,6 +10,8 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
+//   wind: [x, y, z] (m/s, in his own frame: +Z in front of him, +X to his left)   a wind of his own on the tie and the hair (engine/cloth.js): an inhale pulls
+//         them up toward the nose ([0, 9, 2]), a spin flings them out. It adds to the scene wind
 //   reach: { L | R: [x, y, z, w, tip] }   a hand guided to a point of the world (two-bone IK; the arm stretches when the point is too far; tip (m): the
 //                                          fingertips reach it, that far beyond the wrist)
 //   touch: { L | R: [joint, x, y, z, w, tip] }   the same, to a point given in the frame of one of his own joints ('torso', 'head'...: the joint's own units, a
@@ -237,7 +239,7 @@ export function toonUpgrade(obj) {
 }
 
 // ---- numeric blend of two toon channel sets (missing = neutral)
-const NEUTRAL_B = [0, 0, 0, 1, null], SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1];
+const NEUTRAL_B = [0, 0, 0, 1, null], SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1], ZERO = [0, 0, 0];
 export function blendToon(a = {}, b = {}, w = 1) {
   if (w >= 1 && !a) return b; const L = (x, y) => x + (y - x) * w, out = {};
   const POLE = (x, y) => (x && y) ? [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])] : (x || y || null);   // the elbow hint of a guided hand
@@ -247,6 +249,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);   // hair left on end (engine/cloth.js)
+  if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
   if (a.touch || b.touch) { out.touch = {}; for (const sd of ['L', 'R']) { const x = a.touch?.[sd], y = b.touch?.[sd]; if (!x && !y) continue;
@@ -269,6 +272,7 @@ export function addToon(a = {}, b = {}) {
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
   if (b.touch) out.touch = { ...(a.touch || {}), ...b.touch };
   if (b.hairUp) out.hairUp = (a.hairUp || 0) + b.hairUp;
+  if (b.wind) { const x = a.wind || ZERO; out.wind = [x[0] + b.wind[0], x[1] + b.wind[1], x[2] + b.wind[2]]; }
   if (b.hat) { const x = a.hat || [0, 0, 0]; out.hat = [x[0] + b.hat[0], x[1] + b.hat[1], x[2] + b.hat[2]]; }
   return out;
 }
