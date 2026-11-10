@@ -415,6 +415,13 @@ sans nouvelle relecture, puis le film a été rendu.
 
 Régression après ces modifications du moteur : 0,52 % au pire (bruit habituel).
 
+### 4 sexies. Rendu final et envoi de l'histoire 38
+
+- Rendu 1080 × 1920 en 44 min (seul sur la machine : un brouillon lancé en même temps l'avait fait tomber à 0,05 image par seconde ; règle
+  ajoutée au skill au cycle 3), habillage HyperFrames, mixage à −16,1 LUFS (crête −4,0 dBFS), contrôle : aucune erreur, aucune saute d'image.
+- Envoyé avec les notes réelles des relecteurs sur les brouillons : 6,8 / 6,8, puis 7,6 / 8,0, puis 8,2 / 8,4 ; leurs dernières remarques ont été
+  appliquées après le troisième tour, sans nouvelle relecture (trois tours au plus).
+
 ## Cycle 3 — rig : la main guidée (commencé pendant la revue de l'histoire 38)
 
 ### 1. Analyse (ce que les histoires 37 et 38 ont montré)
