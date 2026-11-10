@@ -58,8 +58,9 @@ export function clothUpgrade(obj) {
       if (hair) {
         J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs
         const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.min(1, (h * 0.55 + up * 1.1) / 8 + hairUp) * k, lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
-        hair.g.rotation.set(lean * F.z / hh + 0.1 * lift * Math.sin(t * 27) - 0.25 * hairUp, 0, -lean * F.x / hh + 0.2 * hairUp * tie_side);
         const fan = Math.min(1, lift * 2.5);
+        hair.g.visible = lift > 0.012;   // flat on the scalp it is not drawn (seen edge-on, the flat tufts were a black line floating over a tilted head)
+        hair.g.rotation.set(lean * fan * F.z / hh + 0.1 * lift * Math.sin(t * 27) - 0.25 * hairUp, 0, -lean * fan * F.x / hh + 0.2 * hairUp * tie_side);   // it leans only once it stands
         for (const q of hair.tufts) { q.m.scale.y = 0.02 + 5.2 * lift * q.hk * (1 + 0.12 * Math.sin(t * 31 + q.ph)); q.pv.rotation.set(q.fz * 0.5 * fan + 0.08 * lift * Math.sin(t * 23 + q.ph), 0, q.fx * 0.34 * fan + 0.1 * lift * Math.sin(t * 27 + q.ph * 1.3)); }
       }
     },

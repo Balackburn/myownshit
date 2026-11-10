@@ -15,8 +15,9 @@ export const ETERNUEMENT_PROPS = {
   // a hand anemometer: grip, mast, three cups on arms (origin at the grip, the rotor 0.34 m above). o.spin [[t, turns/s], ...]; the cups blur into a disc when fast
   anemometer(o) {
     const g = grp(at(cyl(0.022, 0.026, 0.16, '#2A2E35', 8), 0, 0, 0), at(cyl(0.012, 0.012, 0.26, '#C9CED3', 6), 0, 0.2, 0)), rotor = new THREE.Group(); rotor.position.y = 0.34; g.add(rotor);
-    for (let i = 0; i < 3; i++) { const a = new THREE.Group(); a.rotation.y = i * TAU / 3; rotor.add(a); a.add(at(box(0.16, 0.012, 0.012, '#C9CED3'), 0.08, 0, 0), at(sphere(0.045, '#C8202A', 1, { outline: 0.012 }), 0.17, 0, 0)); }
-    const disc = at(cyl(0.2, 0.2, 0.012, '#E06A5A', 20), 0, 0, 0); disc.material = disc.material.clone(); disc.material.transparent = true; disc.material.opacity = 0; rotor.add(disc);
+    for (let i = 0; i < 3; i++) { const a = new THREE.Group(); a.rotation.y = i * TAU / 3; rotor.add(a); a.add(at(box(0.16, 0.012, 0.012, '#C9CED3'), 0.08, 0, 0), at(sphere(0.045, o.cups || '#C8202A', 1, { outline: 0.012 }), 0.17, 0, 0)); }   // o.cups: their colour (red ones vanish in front of a red sign)
+    rotor.add(at(sphere(0.03, '#2A2E35', 1), 0, 0, 0));
+    const disc = at(cyl(0.2, 0.2, 0.012, o.blur || '#E06A5A', 20), 0, 0, 0); disc.material = disc.material.clone(); disc.material.transparent = true; disc.material.opacity = 0; rotor.add(disc);
     const keys = o.spin || [[0, 0.6]];
     g.userData.update = t => { const k = keys.length; let v = keys[k - 1][1]; for (let i = 0; i < k - 1; i++) if (t < keys[i + 1][0]) { v = keys[i][1] + (keys[i + 1][1] - keys[i][1]) * clamp01((t - keys[i][0]) / (keys[i + 1][0] - keys[i][0])); break; }
       rotor.rotation.y = turnsAt(keys, t) * TAU; disc.material.opacity = clamp01((Math.abs(v) - 4) / 8) * 0.75; };
@@ -128,9 +129,11 @@ export const ETERNUEMENT_PROPS = {
   },
 
   // a low wall of sandbags (o.n bags per row, o.rows), along X, origin at the middle of its foot
-  sandbags(o) {
-    const n = o.n ?? 5, rows = o.rows ?? 3, r = rng(o.seed ?? 4), g = new THREE.Group();
-    for (let j = 0; j < rows; j++) for (let i = 0; i < n - (j % 2); i++) g.add(at(box(0.5, 0.2, 0.3, ['#C9B48A', '#BFA97C', '#D2BE96'][Math.floor(r() * 3)], { outline: 0.008, taper: { x: 0.9, z: 0.86 } }), (i - (n - 1 - (j % 2)) / 2) * 0.52, 0.1 + j * 0.19, (r() - 0.5) * 0.05, 0, (r() - 0.5) * 0.15, 0));
+  sandbags(o) {   // a low wall of sandbags: sagging jute sacks in staggered courses, each with its seam and its tied ear (o.n per course, o.rows courses); along X, origin at the foot
+    const n = o.n ?? 5, rows = o.rows ?? 3, r = rng(o.seed ?? 4), g = new THREE.Group(), cols = ['#B89A66', '#C4A774', '#AD8F5C'];
+    for (let j = 0; j < rows; j++) for (let i = 0; i < n - (j % 2); i++) { const c = cols[Math.floor(r() * 3)], k = new THREE.Group(), body = sphere(1, c, 1, { outline: 0.02 }); body.scale.set(0.275, 0.115 - 0.012 * (rows - 1 - j), 0.17);   // the lower ones are squashed by those above
+      k.add(body, at(box(0.5, 0.008, 0.012, '#7A6238'), 0, 0.085, 0), at(box(0.07, 0.07, 0.12, c, { outline: 0.006, taper: { x: 0.5, z: 0.7 } }), 0.29, 0.015, 0, 0, 0, -0.5), at(box(0.014, 0.075, 0.125, '#5A4628'), 0.262, 0.012, 0, 0, 0, -0.5));
+      k.position.set((i - (n - 1 - (j % 2)) / 2) * 0.52 + (r() - 0.5) * 0.04, 0.105 + j * 0.175, (r() - 0.5) * 0.06); k.rotation.set((r() - 0.5) * 0.12, (r() - 0.5) * 0.3 + (r() < 0.5 ? PI : 0), (r() - 0.5) * 0.1); g.add(k); }
     return g;
   },
 
@@ -182,10 +185,13 @@ export const ETERNUEMENT_PROPS = {
   townLights(o) {
     const g = new THREE.Group(), r = rng(o.seed ?? 6), ats = o.at || [0.4, 0.6, 0.8], spread = o.spread ?? 9, depth = o.depth ?? [0, 0, 0], nh = o.houses ?? 9, wins = [[], [], []];   // o.depth [z1, z2, z3]: how far back each town sits; o.houses: per town (6 with o.spread 11 leaves a gap of dark hill between them)
     for (let k = 0; k < 3; k++) { const cx = o.sites ? o.sites[k][0] : (k - 1) * spread, cz = o.sites ? o.sites[k][1] : -depth[k];   // o.sites [[x, z] x 3]: where each town stands (in the prop's frame), instead of o.spread / o.depth
-      for (let i = 0; i < nh; i++) { const mid = i === Math.floor(nh / 2), w = mid ? 0.8 : 0.9 + r() * 1.3, h = mid ? 4.4 + k * 0.4 : 1.0 + r() * 2.6, x = cx + (i - (nh - 1) / 2) * 0.95 + (r() - 0.5) * 0.3, b = at(box(w, h, 0.9, ['#2B3248', '#353C55', '#3E3A52'][i % 3], { pivot: 'bottom' }), x, 0, cz + (r() - 0.5) * 0.8); b.castShadow = false; g.add(b);
-        if (mid) g.add(at(box(0.95, 1.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.05, z: 0.05 } }), x, h, b.position.z));   // a steeple: one town, one steeple
+      for (let i = 0; i < nh; i++) { const mid = i === Math.floor(nh / 2), lm = o.landmarks ? k : 0, w = mid ? [0.8, 1.9, 0.34][lm] : 0.9 + r() * 1.3, h = mid ? [4.4 + k * 0.4, 2.5, 3.5][lm] : 1.0 + r() * 2.6, x = cx + (i - (nh - 1) / 2) * 0.95 + (r() - 0.5) * 0.3, b = at(box(w, h, 0.9, ['#2B3248', '#353C55', '#3E3A52'][i % 3], { pivot: 'bottom' }), x, 0, cz + (r() - 0.5) * 0.8); b.castShadow = false; g.add(b);
+        if (mid && lm === 0) g.add(at(box(0.95, 1.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.05, z: 0.05 } }), x, h, b.position.z));   // a steeple: one town, one steeple
+        else if (mid && lm === 1) { const dm = sphere(0.86, '#4A3A44', 1); dm.scale.y = 0.95; dm.castShadow = false; g.add(at(dm, x, h, b.position.z), at(box(0.22, 0.5, 0.22, '#4A3A44', { pivot: 'bottom', taper: { x: 0.4, z: 0.4 } }), x, h + 0.78, b.position.z)); }   // a dome and its lantern
+        else if (mid && lm === 2) g.add(at(cyl(0.85, 0.7, 1.05, '#3E3A52', 10), x, h + 0.5, b.position.z), at(cyl(0.1, 0.9, 0.4, '#4A3A44', 10), x, h + 1.22, b.position.z));   // a water tower: a tank on a stem
         else if (i % 3 === 1) g.add(at(box(w * 1.05, 0.5, 0.95, '#4A3A44', { pivot: 'bottom', taper: { x: 0.2, z: 1 } }), x, h, b.position.z));
         for (let a = 0; a < Math.floor(h / 0.5); a++) for (let c = 0; c < 2; c++) { if (r() < 0.25) continue; const wn = at(box(0.2, 0.24, 0.02, '#FFD76A'), x + (c - 0.5) * w * 0.45, 0.4 + a * 0.5, b.position.z + 0.46); wn.material = wn.material.clone(); wn.material.emissive = new THREE.Color('#FFC94A'); wn.castShadow = false; g.add(wn); wins[k].push([wn, r()]); } } }
+    // o.landmarks: the tall building of each town is its own (a belfry, a dome, a water tower): three towns, not one town three times
     // o.pop: a town comes on all at once (its windows within a frame) under a warm glow (o.glow: its size in metres, o.glowK: its strength, 0.5), instead of window by window
     const glows = o.pop ? [0, 1, 2].map(k => { const cx = o.sites ? o.sites[k][0] : (k - 1) * spread, cz = o.sites ? o.sites[k][1] : -depth[k], sp = glowSprite('#FFC24A', (o.glow ?? 9), 0.0); sp.position.set(cx, 2.2, cz + 0.6); g.add(sp); return sp; }) : null;
     g.userData.update = t => { wins.forEach((ws, k) => ws.forEach(([m, ph]) => { const u = t - ats[k] - ph * (o.pop ? 0.035 : 0.22), on = u > 0; m.material.emissiveIntensity = on ? 1.4 + 0.5 * Math.exp(-u * 8) : 0; m.material.color.set(on ? '#FFD76A' : '#1E2233'); }));
@@ -220,8 +226,8 @@ export const ETERNUEMENT_PROPS = {
 
   // a grain of pollen seen very close: a yellow spiky ball that drifts and turns (origin at its centre); o.r
   pollenGrain(o) {
-    const r = o.r ?? 0.05, core = sphere(r, '#F2C230', 1, { outline: r * 0.2 }), g = grp(core), q = rng(3);
-    for (let i = 0; i < 14; i++) { const a = q() * TAU, b = Math.acos(2 * q() - 1), s = at(cyl(r * 0.05, r * 0.16, r * 0.7, '#E8A33C', 5), Math.sin(b) * Math.cos(a) * r * 1.2, Math.cos(b) * r * 1.2, Math.sin(b) * Math.sin(a) * r * 1.2); s.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.position.clone().normalize()); g.add(s); }
+    const r = o.r ?? 0.05, core = sphere(r, o.color || '#FFF06A', 1, { outline: r * 0.34 }), g = grp(core), q = rng(3);   // pale lemon in a dark outline: on a skin its own hue it did not show
+    for (let i = 0; i < 14; i++) { const a = q() * TAU, b = Math.acos(2 * q() - 1), s = at(cyl(r * 0.05, r * 0.16, r * 0.7, '#C98A1E', 5), Math.sin(b) * Math.cos(a) * r * 1.2, Math.cos(b) * r * 1.2, Math.sin(b) * Math.sin(a) * r * 1.2); s.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.position.clone().normalize()); g.add(s); }
     g.userData.update = t => { g.rotation.set(t * 1.7, t * 1.1, 0); };
     return g;
   },
@@ -259,8 +265,15 @@ export const ETERNUEMENT_PROPS = {
     return g;
   },
   // a wig that has left its head (a curly mop; origin at its base): it tumbles when moved by the story
-  wig(o) { const c = o.color || '#5A3A28', w = o.w ?? 0.34, g = grp(at(box(w, 0.1, 0.25, c, { pivot: 'bottom', outline: 0.008, taper: { x: 0.9, z: 0.86 } }), 0, 0.0, 0), at(box(w * 1.04, 0.5, 0.06, c, { pivot: 'top', outline: 0.008, taper: { x: 0.86, z: 1 } }), 0, 0.06, -0.12),
-      at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), -w / 2 - 0.005, 0.06, -0.02), at(box(0.06, 0.34, 0.2, c, { pivot: 'top' }), w / 2 + 0.005, 0.06, -0.02), at(box(w * 0.9, 0.06, 0.05, c, { pivot: 'top' }), 0, 0.07, 0.115), at(box(0.03, 0.3, 0.03, c, { pivot: 'top' }), -w * 0.3, -0.42, -0.13, -0.5, 0, 0.2), at(box(0.03, 0.36, 0.03, c, { pivot: 'top' }), 0, -0.42, -0.13, -0.6, 0, 0), at(box(0.03, 0.28, 0.03, c, { pivot: 'top' }), w * 0.3, -0.42, -0.13, -0.45, 0, -0.2)); return g; },   // o.w: as wide as the head it left (origin: the top of that head)
+  wig(o) { const c = o.color || '#6A4024', hi = o.light || '#8A5A34', w = o.w ?? 0.34, curl = (x, y, z, len, ax) => at(cyl(0.035, 0.035, len, c, 8, { outline: 0.006 }), x, y, z, ax === 'x' ? 0 : PI / 2, 0, ax === 'x' ? PI / 2 : 0);
+    // a bob wig that has lost its head: a rounded cap with a parting, a curled fringe on the brow, sides and back down to the jaw with tips that flip
+    // outward, three loose strands trailing (origin: the top of the head it left; o.w: as wide as that head)
+    const cap = sphere(1, c, 1, { outline: 0.03 }); cap.scale.set(w * 0.56, 0.11, 0.16); cap.position.set(0, 0.035, 0);
+    const g = grp(cap, at(box(0.014, 0.012, 0.26, hi), w * 0.12, 0.138, 0, 0, 0.12, 0),   // the parting
+      at(box(w * 1.04, 0.44, 0.06, c, { pivot: 'top', outline: 0.008, taper: { x: 0.9, z: 1 } }), 0, 0.06, -0.125), at(box(0.06, 0.36, 0.2, c, { pivot: 'top', outline: 0.006 }), -w / 2 - 0.005, 0.06, -0.02), at(box(0.06, 0.36, 0.2, c, { pivot: 'top', outline: 0.006 }), w / 2 + 0.005, 0.06, -0.02),
+      curl(0, 0.02, 0.135, w * 0.92, 'x'), curl(-w * 0.2, 0.05, 0.15, w * 0.3, 'x'),   // the fringe: a roll on the brow and a curl over it
+      curl(-w / 2 - 0.03, -0.31, -0.02, 0.2, 'z'), curl(w / 2 + 0.03, -0.31, -0.02, 0.2, 'z'), curl(0, -0.39, -0.16, w * 1.0, 'x'),   // the tips flip outward
+      at(box(0.03, 0.3, 0.03, c, { pivot: 'top' }), -w * 0.3, -0.42, -0.15, -0.5, 0, 0.2), at(box(0.03, 0.36, 0.03, c, { pivot: 'top' }), 0, -0.42, -0.15, -0.6, 0, 0), at(box(0.03, 0.28, 0.03, c, { pivot: 'top' }), w * 0.3, -0.42, -0.15, -0.45, 0, -0.2)); return g; },
   // a sheet of newspaper carried by the wind: it flaps (two halves hinged), origin at the fold
   flyingPaper(o) {
     const half = s => { const m = canvasPlane(0.28, 0.4, (g, W, H) => { g.fillStyle = '#F4F1E8'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B1B1E'; g.fillRect(W * 0.08, H * 0.06, W * 0.84, H * 0.1); g.fillStyle = '#8A8A90'; for (let i = 0; i < 9; i++) g.fillRect(W * 0.08, H * (0.22 + i * 0.08), W * (0.84 - (i % 3) * 0.2), H * 0.03); }, { res: 256 }); m.position.x = s * 0.14; const k = new THREE.Group(); k.add(m); return k; };
