@@ -10,3 +10,6 @@ scripts-fr/vospapiers_render.json
 scripts-fr/potespoissons_render.json
 scripts-fr/story_*_render.json
 stories7/*/READY
+scripts-fr/story_*_d[0-9]*.json
+scripts-fr/story_*_mc_*.json
+scripts-fr/story_*_reg.json

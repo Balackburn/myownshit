@@ -129,6 +129,52 @@ Plans repris (tous, sauf S06 et S11) :
 Skill : catalogue de gags refait pour la version livrée (19 lignes), 13 entrées ajoutées aux « Erreurs à éviter », section « Keys added
 for staging » et clips de la seconde passe dans `references/cartoon-rig.md`.
 
+### 5 ter. Seconde revue (7,8 et 7,7), troisième passe avant l'envoi
+
+Les deux critiques ont revu le film fini (1080 px) : direction artistique **7,8/10** (7,2 au premier tour), direction d'animation **7,7/10**
+(6,8). Verdict de l'animation : « treize des seize gags se lisent à la taille d'un téléphone, avec de vraies anticipations ; trois gags nommés
+(les yeux sur tiges de S07, la dernière main du maire en S10, la fonte et le cou de S18) sont trop brefs, trop petits ou trop près du bord ».
+Décision (sans poser de question) : troisième passe sur ces trois plans et sur les entrées trop longues, puis un seul rendu.
+
+Deux points que les critiques renvoyaient vers l'utilisateur, tranchés ici :
+
+- **Le carton « AUJOURD'HUI » reste sur S17** (c'est le mot de ce plan et le saut dans le temps) ; c'est le panneau qui s'écarte : le plan est
+  refait dans l'axe du trottoir, panneau à 27-35 % de la hauteur, carton à 7-18 %.
+- **Le pompier était lu comme un ouvrier** : casque à cimier et écusson dorés, nuquière longue (chapeau `firecrest`, au choix : le casque
+  d'origine des anciennes histoires ne change pas). La veste sable est gardée (c'est elle qui fait la palette de la rangée).
+- **Fin allongée de 0,4 s** (24,07 s) : le dernier regard caméra tient 17 images avec un clignement lent. La narration ne bouge pas.
+
+Plans repris :
+
+| Plan | Deuxième passe | Troisième passe |
+| --- | --- | --- |
+| S01-S02 | 0,8 s sur le trottoir, regard caméra 9 images | il part à deux pas du bord (0,2 s de trottoir, 0,55 s sur le vide) ; coupe 0,25 s plus tôt : regard caméra tenu 17 images, un clignement, puis la chute au même mot (« travail ») |
+| S06-S07 | cinq idées en 1,17 s ; caméra à hauteur d'homme : le trou est un trait, les globes sans pupille sur le trottoir clair, tiges couleur peau, képi sous la barre du haut | coupe 0,25 s plus tôt ; caméra à 2,3 m, 17° en plongée : le trou est un disque sombre ; tiges roses, globes qui plongent DANS le trou, pupilles tournées vers nous, regard à gauche, à droite, un clignement (16 images) ; les yeux reviennent et redressent la tête ; il disparaît en 2 images, raide ; un seul objet reste (le képi, sur le mur clair) |
+| S10 | la main restait 6 images au ras du bord, 7 % du cadre, sur des gravats de même valeur | marche raccourcie de deux enjambées ; l'avant-bras s'allonge à la verticale aussi vite que le maire descend : la main reste où elle saluait, grossit, seule 13 images devant la vitrine bleue, un coup de poignet, aspirée ; la caméra se resserre sur elle |
+| S13 | personne ne regardait la lettre ; bras de 17 px | trois cous qui se tendent vers la lettre, à 2 images d'écart, et redescendent avec elle ; bras deux fois plus épais |
+| S14 | dix images figées avant les yeux en euros | ils lisent l'avis : deux lignes, de gauche à droite, l'un après l'autre (le regard entraîne un clignement) |
+| S16 | pile finie 5 images, sous-titre sur les torses | atterrissages resserrés, pile finie 8 images, caméra abaissée : le sous-titre passe sur les jambes |
+| S17-S18 | retardataire coupé par le bord droit, flaque en rectangles sur un visage, cou en bâton de dos | dans l'axe du trottoir : il court vers nous ; **double regard** : LIBRE (ravi), il se tourne vers le trou et prend son élan, COMPLET, la tête revient au panneau (chapeau en l'air, yeux sortis, mâchoire) ; 4 images après le dernier clignotement il fond en 15 images en une **flaque ronde aux couleurs de sa chemise, qui garde ses yeux et sa moustache** ; le chapeau attend, puis se pose dessus ; un cou de cygne sort de la pile (visage de trois quarts), regard en coin vers la flaque, puis vers nous ; tout le monde aussi, la flaque comprise |
+
+Moteur et accessoires (anciennes histoires inchangées : 0,00 % sur « La file d'attente », 0,52 % au plus ailleurs, bruit de mesure 0,54 %) :
+
+- visage : `eyeYaw` / `eyeRoll` (les globes tournent au bout de leurs tiges : pupilles vers une caméra de profil, regard circulaire),
+  `popBlink` (paupières sur les yeux sortis), `stalkRed`, `stalkBow`, `lid` (clignement posé par clé : le clignement lent de la fin) ;
+- `scl.handL` / `handR` (une main qui grossit) ; `royalWave` : `fore` (avant-bras vertical) et `foreAmp` ; `meltDown` : `flat` ;
+  `hoseNeck` : `curve` et `lean` (un arc permanent : un cou de cygne, plus un bâton) ;
+- accessoire `meltPuddle` (flaque qui s'étale, tremble quand le chapeau s'y pose, yeux qui suivent une liste de regards et clignent) ;
+- décor de la coupe du trou : cailloux assombris, sans contour (ils étaient les formes les plus claires du plan, sur la ligne du sous-titre) ;
+- sous-titres : l'espace française avant les deux-points (« répondu : ») est acceptée par le constructeur de sous-titres.
+
+Erreurs trouvées pendant la passe (consignées dans le skill) :
+
+- **Encore un commentaire inséré au milieu d'une ligne** (clip `sneezeUp` : la tête, le torse et le cou n'étaient plus animés). Deuxième
+  fois : la règle devient un contrôle (chercher `//` suivi de code dans le diff avant chaque commit).
+- **Une clé dont l'instant devient négatif ne joue pas** : en avançant les atterrissages de S16, la première tombée commençait à −0,04 s ;
+  la mamie n'apparaissait plus. Vu sur la bande, corrigé.
+- **Un avant-bras étiré de 3,5 m balaie un mètre** pour un balancement de 0,1 radian : la main sortait du cadre. Le balancement se dose
+  (`foreAmp`), et le membre est mis à la verticale avant d'être étiré.
+
 ### 6. Pistes pour le cycle 2
 
 - Cravate, pans de veste et cheveux en mouvement secondaire (la cravate est peinte : il faut une cravate en volume).

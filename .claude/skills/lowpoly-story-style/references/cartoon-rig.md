@@ -50,6 +50,36 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 - Props: after `detach=True` (no `fall`), later `to` keys move the prop from where it was released (`None` keeps a coordinate); `worldRot=[x, y, z]`
   turns it to the camera; `wobble=[amp, freq, decay]` rocks it in place.
 
+## Added in the third pass of cycle 1 (after the second review)
+
+- `face.eyeYaw` / `face.eyeRoll` (radians): the popped eyeballs turn at the end of their stalks. Yaw brings the pupils round to a camera that films the
+  stalks from the side (sign: toward the actor's +X, his left); roll turns them about the stalk (a look round). `face.popBlink: 1` closes lids over
+  them, `face.stalkRed: 0..1` takes the stalks from skin to pink (they read on a pale ground), `face.stalkBow` (m) bows them outward.
+- `face.lid: 0..1`: the painted eyes close by key (a slow blink: 0 -> 1 -> 0 over seven frames; the automatic blinks stay).
+- `scl: {handL | handR: [sx, sy, sz]}`: a hand that swells (the big glove of a last wave).
+- `royalWave`: `fore` (1.84 puts the forearm upright, so a stretched forearm grows straight up) and `foreAmp` (0.3 when it is stretched: the far end
+  of a 3.5 m forearm swings a metre for 0.1 rad). `meltDown`: `flat` (0.97: down to a film; then hide the actor and show the prop `meltPuddle`).
+  `hoseNeck`: `curve` and `lean` (a standing arc to the side / forward: a swan's neck).
+- Prop `meltPuddle` (props_trou.js): `color`, `dots` (the pattern of the shirt), `r`, `at` + `dur` (it spreads), `landAt` (it jiggles), `eyesAt`,
+  `gaze: [[t, x, y, z], ...]` (directions), `blinks: [t, ...]`. Hat `firecrest` (a fireman's helmet that reads from far).
+
+## Added in cycle 2 (opt-in: `st.write(..., fingers=True, cloth=True, idleShift=1)` or per cast member)
+
+- **Finger hands** (`engine/fingers.js`): a palm, four two-part fingers, a two-part thumb in place of the mitten. Toon channel
+  `hands: {L: 'point', R: [index, middle, ring, little, thumb, splay]}`; poses `rest`, `open`, `spread`, `fist`, `point`, `two`, `pinch`, `thumbUp`,
+  `grip`, `claw`. Curls 0..1, thumb -1 (up) .. 1 (folded), splay -1..1. The palm faces +Z of the hand joint; turn the wrist with `handL` / `handR`.
+- **What trails** (`engine/cloth.js`): a tie in three segments (the painted one is removed from the hero's jacket) and a shock of hair on the crown,
+  both driven by the apparent wind (scene wind minus the actor's own velocity, in the frame of the chest and of the head): the tie swings on a stop,
+  flies up in a fall, goes over the shoulder only in a head wind above 5-11 m/s; the hair stands in a wind. Toon channel `hairUp: 0..1` leaves the hair
+  standing whatever the wind (somebody who has just been blown at).
+- **Scene wind**: `fx=[{'type': 'wind', 'at': t, 'dur': d, 'v': [x, y, z], 'attack': 0.06, 'release': 0.25}]` (m/s, world; gusts add up).
+- **Idle weight shift** (`idleShift=1`): standing actors change their supporting leg in short moves, each at his own time.
+- `face.cross: 0..1`: cross-eyed (painted eyes and popped eyes). The engine warns when a one-shot clip is given as an actor's base clip.
+- Clips: `sneezeUp` (dur, breaths, float), `sneeze`, `sniff`, `poster` (pinned flat on a wall, then sliding down: high, slideAt, slide), `spinTop`
+  (turns), `headHammer` (at), `blownBack`, `leanAway` (side).
+- Facts: `lens` in `cam()` is the vertical field of view in degrees (44 gives a horizontal half-angle of 12.8 deg; a bigger number is wider). A key at
+  exactly t = 0 shows the previous clip on the first frame: key a one-shot clip at -0.05.
+
 ## Clips
 
 `take` (hold, pop 0 = huge painted eyes / 1 = eyes on stalks, jaw, tongue), `doubleTakeToon` (side, beat), `scramble`, `dashOff`,
