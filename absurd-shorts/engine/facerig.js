@@ -128,17 +128,26 @@ export function makeFaceRig(v = null) {
     if (cutT) spr(g, 'lid' + s, cx, cy, 0, top - cy, 0, e.s, 1);
     if (cutB) spr(g, 'lidlow' + s, cx, cy, 0, bot - cy, 0, e.s, 1);
   }
+  // a pale rim round the brows, the eyes and the mouth (variant `rim`: true = from the skin's luminance, or 0..1): on a dark skin the black line work has
+  // no contrast and the face reads as a plain box at phone size. Off by default: nothing changes for the stories made before
+  const lumOf = hex => { const n = parseInt(String(hex || '#E2B48A').slice(1), 16); return (0.3 * (n >> 16 & 255) + 0.59 * (n >> 8 & 255) + 0.11 * (n & 255)) / 255; };
+  const rim = v?.rim ? (v.rim === true ? c01((0.6 - lumOf(v.skin)) / 0.22) * 0.95 : +v.rim) : 0;
+  const RIM = [[3, 0], [-3, 0], [0, 3], [0, -3], [2.2, 2.2], [-2.2, 2.2], [2.2, -2.2], [-2.2, -2.2]];   // the features are drawn once per offset with a crisp pale shadow: a light outline round every stroke
+  const rimOff = () => { g.shadowColor = 'rgba(0, 0, 0, 0)'; g.shadowBlur = 0; g.shadowOffsetX = 0; g.shadowOffsetY = 0; };
   function draw(st) {
-    g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.drawImage(L.base, 0, 0);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; rimOff(); g.drawImage(L.base, 0, 0);
     const X = st.extras || {};
     for (const k of ['shadow', 'blush']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
     for (const s of 'LR') {
       if (st.cheeks > 0.02) { const [x, y] = centre('cheek' + s); spr(g, 'cheek' + s, x, y, 0, 8 - 14 * st.cheeks, 0, 1, 1, c01(st.cheeks * 1.6)); }
       if (st.puff > 0.02) { const [x, y] = centre('puff' + s); spr(g, 'puff' + s, x + (s === 'L' ? 30 : -30), y, (s === 'L' ? -1 : 1) * 10 * (st.puff - 1), 0, 0, 0.5 + 0.5 * st.puff, 0.7 + 0.3 * st.puff, c01(st.puff * 1.6)); }
     }
-    for (const s of 'LR') { const b = st.brows[s], [ax, ay] = A['brow' + s]; spr(g, `brow${s}_${b.shape}`, ax, ay, b.dx, b.dy, -b.rot * Math.PI / 180); }
-    for (const s of 'LR') eye(s, st.eyes[s]);
-    const m = st.mouth, ma = A.mouth; spr(g, 'mouth_' + m.spr, ma.cx, ma.cy, m.dx, m.dy, -Math.atan2(m.tilt, ma.hw), m.w * (m.flip ? -1 : 1), m.h);
+    const m = st.mouth, ma = A.mouth, features = () => {
+      for (const s of 'LR') { const b = st.brows[s], [ax, ay] = A['brow' + s]; spr(g, `brow${s}_${b.shape}`, ax, ay, b.dx, b.dy, -b.rot * Math.PI / 180); }
+      for (const s of 'LR') eye(s, st.eyes[s]);
+      spr(g, 'mouth_' + m.spr, ma.cx, ma.cy, m.dx, m.dy, -Math.atan2(m.tilt, ma.hw), m.w * (m.flip ? -1 : 1), m.h); };
+    if (rim > 0.02) { g.shadowColor = `rgba(255, 236, 205, ${rim})`; g.shadowBlur = 0; for (const [ox, oy] of RIM) { g.shadowOffsetX = ox; g.shadowOffsetY = oy; features(); } rimOff(); }
+    features();
     for (const k of ['tears', 'tear', 'sweat', 'vein']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
     if (L.lens) g.drawImage(L.lens, 0, 0);
     if (L.ov) g.drawImage(L.ov, 0, 0);

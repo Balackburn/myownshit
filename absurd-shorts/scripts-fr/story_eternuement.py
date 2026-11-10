@@ -211,4 +211,4 @@ CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {
 st.write("L'éternuement", rig='toon', fingers=True, cloth=True, idleShift=1, extra_cast={
     'p1': CITIZEN('femme', 31, glasses=False, hair='long', hairColor='#5A3A28'), 'p2': CITIZEN('serveur', 33, glasses=False), 'p3': CITIZEN('mamie', 35, suit='#D98A3C'),
     'meteo': CITIZEN('journaliste', 37, suit='#3E6E8C'), 'chef': CITIZEN('prefet', 39, build={'belly': 0.1}),
-    'assureur': CITIZEN('boss', 41, suit='#6A5A4A', glasses=True), 'inge': CITIZEN('worker', 43, glasses=False)})
+    'assureur': CITIZEN('boss', 41, suit='#6A5A4A', glasses=True), 'inge': CITIZEN('worker', 43, glasses=False, skin='#8A5A3C', faceRim=True)})

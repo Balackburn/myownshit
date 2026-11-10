@@ -308,3 +308,27 @@ arrive.
 
 Décisions : « la météo » plutôt qu'un nom d'organisme réel ; « parc éolien » était entendu « parquet au lien » à la vérification de la
 voix, remplacé par « les éoliennes » ; « officiellement » retiré de la ligne 4 pour tenir le rythme.
+
+### 4 bis. Histoire : mise en scène de « L'éternuement » (19 plans, 28,2 s)
+
+Gags visuels (chacun s'appuie sur le rig ; aucun n'est repris tel quel de « Le trou ») :
+
+| Plan | Gag | Ce que le rig apporte |
+| --- | --- | --- |
+| S01 | Trois inspirations, chacune plus grande : il gonfle, décolle, un doigt sous le nez | torse qui s'épaissit (colonne `fat`), index pointé (mains à doigts), cravate et mèche qui suivent |
+| S02-S03 | Le souffle plaque trois passants sur l'affiche d'un coiffeur ; ils y restent comme des affiches, décoiffés, puis se décollent | `blownBack`, `poster` (plat comme du papier), `hairUp`, vent de scène |
+| S04 | La présentatrice lève son anémomètre : c'est elle qui tourne, comme une toupie | `spinTop` (colonne et jambe vrillées derrière la rotation) |
+| S06-S08 | Le curseur de l'échelle monte en deux fois sous le doigt du chef ; il réfléchit, trouve, tire la liste des prénoms ; le doigt descend les prénoms barrés | index pointé, bras étiré, accessoires qui répondent au geste |
+| S09 | Le badge TEMPÊTE JOSIANE claqué sur la poitrine : tout le corps tremble | `jelly`, regard vers le badge puis vers nous |
+| S10 | Le bras de la présentatrice part comme une baguette télescopique jusqu'à la carte | bras et avant-bras ×1,5 et ×2 |
+| S11 | Gyrophare sur la tête : les passants s'écartent l'un après l'autre, courbés en C | `leanAway`, décalés selon sa marche |
+| S12-S13 | Il renifle : trois paires d'yeux sortent ; les jambes moulinent sur place, ils disparaissent un à un, une perruque reste en l'air ; des sacs de sable surgissent autour de lui | `sniff`, yeux sortis, `scramble`, `dashOff`, accessoire laissé en l'air |
+| S14 | Le très gros tampon de l'assureur, levé lentement sur la pointe des pieds : la tête rentre dans les épaules, ressort marquée CAT. NAT., étoiles ; il bascule en arrière, raide | `stampDown`, bras étiré à l'impact, `headHammer`, yeux qui louchent, `plankFall` |
+| S15 | Une poignée de main trop franche : la secousse remonte son bras et le traverse comme une vague ; pouce levé | `shakeHands` (onde bras, colonne, cou), pose de main `thumbUp` |
+| S16-S17 | Au crépuscule, une poivrière au bout d'une canne à pêche ; l'éternuement lance les éoliennes l'une après l'autre et allume trois villes | les trois inspirations en rappel, souffle, éoliennes à vitesse variable, fenêtres qui s'allument ville par ville |
+| S18 | Un grain de pollen descend jusqu'au bout de son nez : ses yeux le suivent jusqu'à loucher | regard qui suit un accessoire, `cross`, paupière posée |
+| S19 | Le printemps : il gonfle d'un cran à chaque inspiration jusqu'à deux fois sa taille et s'élève ; on coupe avant l'éternuement | écrasement-étirement par paliers, tout ce qui traîne vole vers lui |
+
+Décisions de mise en scène : la fin ne montre pas l'éternuement (temps suspendu, coupe au sommet) ; les passants gardent les cheveux dressés
+jusqu'au bout (gag à répétition : la ville reste décoiffée) ; le héros tourné en diagonale vers le fond pour le plan des éoliennes (lui en
+bas à gauche, éoliennes et villes dans la hauteur du cadre) ; carton « JOSIANE » sur le plan du badge.
