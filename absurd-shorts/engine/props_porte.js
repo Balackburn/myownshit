@@ -30,7 +30,7 @@ export const PORTE_PROPS = {
       c.fillStyle = '#8A5A2E'; c.fillRect(0, H * 0.74, W, H * 0.26); c.fillStyle = '#A9703A'; c.fillRect(0, H * 0.74, W, H * 0.03); }, { res: 384, emissive: 0.5 }), 0, h / 2, -0.07));
     const sensor = at(box(0.2, 0.08, 0.08, '#23262C'), 0, h + 0.02, 0.13), led = at(sphere(0.022, '#E8322A', 1), 0.06, h + 0.02, 0.175); led.material = led.material.clone(); led.material.emissive = new THREE.Color('#FF3B2A'); led.material.emissiveIntensity = 0.9; g.add(sensor, led);
     const track = new THREE.Group(), piv = new THREE.Group(); piv.position.set(-w / 2, 0, 0.03); track.add(piv); g.add(track);
-    const glass = at(box(w - 0.06, h - 0.08, 0.02, '#BFE3EE'), w / 2, h / 2, 0); glass.material = glassMat(0.34, '#BFE3EE'); glass.castShadow = false;
+    const glass = at(box(w - 0.06, h - 0.08, 0.02, '#BFE3EE'), w / 2, h / 2, 0); glass.material = glassMat(o.glass ?? 0.34, '#BFE3EE'); glass.castShadow = false;   // o.glass: how much the pane veils what is behind it (0.34; 0.14 for somebody pressed behind it who must stay readable)
     piv.add(glass, at(box(w, 0.07, 0.05, '#8A9097'), w / 2, 0.035, 0), at(box(w, 0.07, 0.05, '#8A9097'), w / 2, h - 0.035, 0), at(box(0.07, h, 0.05, '#8A9097'), 0.035, h / 2, 0), at(box(0.07, h, 0.05, '#8A9097'), w - 0.035, h / 2, 0),
       at(cyl(0.022, 0.022, 0.62, '#D9B45A', 8, { outline: 0.006 }), w - 0.12, 1.1, 0.07), at(box(0.03, 0.03, 0.07, '#D9B45A'), w - 0.12, 1.36, 0.035), at(box(0.03, 0.03, 0.07, '#D9B45A'), w - 0.12, 0.84, 0.035),
       at(cyl(0.022, 0.022, 0.62, '#D9B45A', 8), w - 0.12, 1.1, -0.07));
@@ -97,13 +97,26 @@ export const PORTE_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // a pigeon standing on something (a wire, a sleeve): it bobs its head; o.flyAt: it takes off and is gone. Origin at its feet, facing +Z
+  // a pigeon standing on something (a wire, a sleeve): a round grey breast, a small head with a beak and an eye, a green and violet patch on the neck, folded
+  // wings, a tail wedge, pink legs; it bobs its head. Seen from the side it reads as a pigeon (front on it was a grey cube). o.flyAt: it takes off and is
+  // gone; o.flap [t0, t1]: its wings beat between these times (it is landing); o.sleep: head tucked into its shoulders, puffed up. Origin at its feet, facing +Z
   pigeon(o) {
-    const body = at(box(0.11, 0.1, 0.2, '#8E98A6', { outline: 0.008, taper: { x: 0.8, z: 0.7 } }), 0, 0.09, 0), head = grp(at(box(0.07, 0.07, 0.07, '#6E7A8A', { outline: 0.006 }), 0, 0, 0), at(box(0.02, 0.02, 0.04, '#E8A33C'), 0, -0.005, 0.05)); head.position.set(0, 0.17, 0.09);
-    const wl = at(box(0.02, 0.07, 0.16, '#6E7A8A'), -0.065, 0.1, -0.01), wr = at(box(0.02, 0.07, 0.16, '#6E7A8A'), 0.065, 0.1, -0.01), g = grp(body, head, wl, wr, at(box(0.012, 0.05, 0.012, '#E8A33C'), -0.03, 0.025, 0), at(box(0.012, 0.05, 0.012, '#E8A33C'), 0.03, 0.025, 0));
+    const G = '#8E98A6', D = '#6E7A8A', body = at(box(0.13, 0.12, 0.22, G, { outline: 0.008, taper: { x: 0.8, z: 0.7 } }), 0, 0.1, 0), breast = at(sphere(0.075, '#9AA4B2', 1), 0, 0.105, 0.07), tail = at(box(0.09, 0.02, 0.13, D, { outline: 0.006, taper: { x: 1.5, z: 1 }, taperAxis: 'z' }), 0, 0.09, -0.16, 0.25, 0, 0);
+    const head = grp(at(box(0.07, 0.07, 0.075, D, { outline: 0.006 }), 0, 0, 0), at(box(0.02, 0.018, 0.045, '#E8A33C'), 0, -0.008, 0.055), at(box(0.074, 0.03, 0.06, '#5E8F6E'), 0, -0.045, -0.002), at(box(0.072, 0.02, 0.058, '#8A6AA8'), 0, -0.068, -0.002),
+      at(sphere(0.012, '#17161A', 0), 0.036, 0.008, 0.014), at(sphere(0.012, '#17161A', 0), -0.036, 0.008, 0.014)); head.position.set(0, 0.2, 0.1);
+    const wl = at(box(0.02, 0.08, 0.17, D), -0.072, 0.11, -0.02), wr = at(box(0.02, 0.08, 0.17, D), 0.072, 0.11, -0.02), g = grp(body, breast, tail, head, wl, wr, at(box(0.012, 0.05, 0.012, '#D98A8A'), -0.03, 0.025, 0.01), at(box(0.012, 0.05, 0.012, '#D98A8A'), 0.03, 0.025, 0.01));
     const ph = o.ph ?? 0;
-    g.userData.update = t => { const fly = o.flyAt != null ? Math.max(0, t - o.flyAt) : 0; head.position.z = 0.09 + 0.02 * Math.max(0, Math.sin(t * 7 + ph)); head.position.y = 0.17 - 0.03 * Math.max(0, Math.sin(t * 2.3 + ph * 2));
-      wl.rotation.z = fly ? 1.2 * Math.sin(fly * 40) + 0.6 : 0; wr.rotation.z = fly ? -1.2 * Math.sin(fly * 40) - 0.6 : 0; g.position.y = (g.userData.y0 ??= g.position.y) + fly * 6 * fly + (fly ? 0.3 : 0) * Math.min(1, fly * 10); g.position.x = (g.userData.x0 ??= g.position.x) + fly * 3; g.visible = fly < 0.8; };
+    g.userData.update = t => { const fly = o.flyAt != null ? Math.max(0, t - o.flyAt) : 0, fl = !!(o.flap && t >= o.flap[0] && t < o.flap[1]);
+      if (o.sleep) { head.position.set(0, 0.15, 0.05); head.rotation.x = 0.5; body.scale.set(1.12, 1.12 + 0.04 * Math.sin(t * 2 + ph), 1); }
+      else { head.position.z = 0.1 + 0.02 * Math.max(0, Math.sin(t * 7 + ph)); head.position.y = 0.2 - 0.03 * Math.max(0, Math.sin(t * 2.3 + ph * 2)); }
+      wl.rotation.z = fly || fl ? 1.2 * Math.sin((fly || t) * 40) + 0.6 : 0; wr.rotation.z = fly || fl ? -1.2 * Math.sin((fly || t) * 40) - 0.6 : 0;
+      if (o.flyAt != null) { g.position.y = (g.userData.y0 ??= g.position.y) + fly * 6 * fly + (fly ? 0.3 : 0) * Math.min(1, fly * 10); g.position.x = (g.userData.x0 ??= g.position.x) + fly * 3; g.visible = fly < 0.8; } };
     return g;
+  },
+
+  // a pillow: a soft white cushion with a darker seam (o.w 0.5 x o.h 0.32, o.d 0.12 thick). Origin: its middle
+  pillow(o) {
+    const w = o.w ?? 0.5, h = o.h ?? 0.32, d = o.d ?? 0.12;
+    return grp(at(box(w, h, d, o.color || '#F4F1E8', { outline: 0.012, taper: { x: 0.9, z: 0.8 } }), 0, 0, 0), at(box(w * 0.86, 0.012, d * 1.02, '#D9D4C4'), 0, 0, 0));
   },
 };

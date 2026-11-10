@@ -1101,7 +1101,7 @@ const S = {
     g.add(at(box(1.0, 2.1, 0.55, '#C9A06A', { pivot: 'bottom', outline: 0.008 }), 4.0, 0, back + 0.3), at(box(0.01, 2.0, 0.02, '#8A6A44'), 4.0, 1.05, back + 0.58), at(box(0.04, 0.12, 0.03, '#8A6A44'), 3.94, 1.1, back + 0.6), at(box(0.04, 0.12, 0.03, '#8A6A44'), 4.06, 1.1, back + 0.6));
     g.add(prop('mirrorFull', {}, 0.9, 0, back + 0.05));
     g.add(at(buildProp('fitPoster', { text: o.poster || 'CLAVICULE\nLARGE', bg: o.posterBg, fg: o.posterFg }), -0.6, 1.75, back + 0.02));
-    g.add(at(box(0.05, 1.2, 1.4, '#F2F2EC', { outline: 0.006 }), -4.48, 1.75, -0.6), at(box(0.03, 1.1, 1.3, '#9CC8E8', { emissive: '#2A4A5A' }), -4.45, 1.75, -0.6),
+    g.add(at(box(0.05, 1.2, 1.4, '#F2F2EC', { outline: 0.006 }), -4.48, 1.75, -0.6), at(box(0.03, 1.1, 1.3, o.pane || '#9CC8E8', { emissive: o.paneGlow || '#2A4A5A' }), -4.45, 1.75, -0.6),   // o.pane / o.paneGlow: the window by night
       at(box(0.06, 1.6, 0.35, o.curtain || '#B5302A'), -4.42, 1.65, -1.45), at(box(0.06, 1.6, 0.35, o.curtain || '#B5302A'), -4.42, 1.65, 0.25));
     [[-0.9, 0.02, 0.4, 0.4, '#2C4A8A'], [-0.6, 0.05, 0.6, -0.3, '#E8742E'], [1.9, 0.02, -1.5, 0.9, '#5E9A4A']].forEach(([x, y, z, ry, c]) => g.add(at(box(0.45, 0.05, 0.32, c, { outline: 0.004 }), x, y, z, 0, ry, 0)));
     g.add(prop('plant', { pot: '#C9A06A', seed: 9 }, 3.3, 0, back + 0.35, 0, 0.8));
