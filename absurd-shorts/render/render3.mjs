@@ -4,6 +4,8 @@
 //        [--stills cams]       one still per camera setup + contact sheet (framing QA), no video
 //        [--stills 1.2,3.4]    stills at absolute times
 //        [--strip 12.3:8]      8 consecutive frames at 12 fps from 12.3 s (motion QA) -> contact strip
+//        [--range 12.3:14.1]   only that part of the film, in seconds (re-render one shot, then splice)
+//        [--draft]             cheaper shadows (natural / shaders look) for motion previews
 //        [--out out/x.mp4]
 // Steps: tts3 (ElevenLabs timestamps) -> analysis (warnings, events, camera list) -> frames (parallel) -> mix3 -> mux -> SRT.
 import { spawnSync, spawn } from 'node:child_process';
@@ -19,7 +21,8 @@ if (!scriptPath) { console.error('usage: node render/render3.mjs <script.json> [
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const name = path.basename(scriptPath, '.json');
 const preview = !!flag('preview', false);
-const W = +flag('w', preview ? 360 : 1080), H = +flag('h', preview ? 640 : 1920), FPS = +flag('fps', preview ? 15 : 30);
+const even = v => 2 * Math.round(v / 2);   // the encoder refuses odd sizes (and the pipe then stalls)
+const W = even(+flag('w', preview ? 360 : 1080)), H = even(+flag('h', preview ? 640 : 1920)), FPS = +flag('fps', preview ? 15 : 30);
 const workers = +flag('workers', 4);
 const work = path.join(ROOT, 'out', 'work', name); fs.mkdirSync(work, { recursive: true });
 const outFile = path.resolve(flag('out', path.join(ROOT, 'out', name + (preview ? '_preview' : '') + '.mp4')));
@@ -31,6 +34,7 @@ if (!timedMode) py(path.join(ROOT, 'tools/audio3.py'), 'tts', path.resolve(scrip
 const timedPath = timedMode ? path.resolve(scriptPath) : path.join(work, 'script.timed.json');
 const timed = JSON.parse(fs.readFileSync(timedPath, 'utf8'));
 
+if (flag('draft', false)) timed.lookOpts = { ...(timed.lookOpts || {}), draft: true };   // --draft: cheaper shadows for motion previews (engine/look.js), never for a delivery
 const srv = await startServer();
 const url = `http://127.0.0.1:${srv.address().port}/render/stage.html?mode=film3`;
 async function openPage(w = W, h = H) {
@@ -73,10 +77,12 @@ if (stills || strip) {
 await A.browser.close();
 
 // 3) frames, in parallel workers (each renders a contiguous range into its own segment)
-const N = Math.ceil(A.tl.duration * FPS), per = Math.ceil(N / workers), t0 = Date.now();
+// --range a:b (seconds): only that part of the film (to re-render one shot and splice it in)
+const range = flag('range', null), [R0, R1] = range ? String(range).split(':').map(Number) : [0, A.tl.duration];
+const F0 = Math.max(0, Math.round(R0 * FPS)), N = Math.min(Math.ceil(A.tl.duration * FPS), Math.round(R1 * FPS)), per = Math.ceil((N - F0) / workers), t0 = Date.now();
 let done = 0;
 const segs = await Promise.all(Array.from({ length: workers }, async (_, wi) => {
-  const a = wi * per, b = Math.min(N, a + per); if (a >= b) return null;
+  const a = F0 + wi * per, b = Math.min(N, a + per); if (a >= b) return null;
   const seg = path.join(work, `seg_${wi}.mp4`);
   const P = await openPage();
   const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'medium', '-crf', preview ? '26' : '18', seg], { stdio: ['pipe', 'inherit', 'inherit'] });

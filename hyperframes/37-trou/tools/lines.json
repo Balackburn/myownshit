@@ -1,0 +1,108 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec est tombé dans un trou en allant au travail.",
+  "hl": [
+   "tombé",
+   "trou"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a appelé la mairie.",
+  "hl": [
+   "mairie."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La mairie a répondu:",
+  "hl": [
+   "mairie"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "C",
+  "text": "« Ce trou n'existe pas. »",
+  "hl": [
+   "n'existe",
+   "pas."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Elle a envoyé un agent pour vérifier.",
+  "hl": [
+   "agent",
+   "vérifier."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il est tombé dedans.",
+  "hl": [
+   "tombé",
+   "dedans."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Puis un pompier. Pareil.",
+  "hl": [
+   "pompier.",
+   "Pareil."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Puis le maire. Avec dignité.",
+  "hl": [
+   "maire.",
+   "dignité."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Officiellement, ils n'étaient nulle part.",
+  "hl": [
+   "nulle",
+   "part."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Donc ils ne payaient plus d'impôts.",
+  "hl": [
+   "plus",
+   "d'impôts."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Alors toute la ville a sauté dans le trou.",
+  "hl": [
+   "toute",
+   "ville",
+   "sauté"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Aujourd'hui, le trou affiche complet.",
+  "hl": [
+   "complet."
+  ]
+ }
+]

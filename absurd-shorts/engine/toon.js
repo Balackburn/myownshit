@@ -106,7 +106,7 @@ function headDeform(hm, dim) {
     p.needsUpdate = true;
   };
 }
-function starGeo(r = 0.035) { const sh = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5, q = i % 2 ? r * 0.45 : r; sh[i ? 'lineTo' : 'moveTo'](Math.sin(a) * q, Math.cos(a) * q); } sh.closePath(); return new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }).translate(0, 0, -0.006); }
+function starGeo(r = 0.06) { const sh = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5, q = i % 2 ? r * 0.45 : r; sh[i ? 'lineTo' : 'moveTo'](Math.sin(a) * q, Math.cos(a) * q); } sh.closePath(); return new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }).translate(0, 0, -0.006); }
 function headOverlays(head, hm, dim, skin) {
   const { hw, hh, hd } = dim, g = new THREE.Group(); g.name = 'toonHead'; head.add(g);
   const P2 = (cx, cy) => [(cx / 400 - 0.5) * hw, (1 - cy / 1080) * hh], zf = y => hd / 2 - 0.015 * (y / hh) + 0.004;
@@ -140,7 +140,7 @@ function headOverlays(head, hm, dim, skin) {
     if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9); }
     puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1, q = (t * 1.6 + i * 0.37) % 1; p.visible = steam > 0.01; if (!p.visible) return; p.position.set(side * (hw / 2 + 0.03 + q * 0.16), hh * 0.5 + q * 0.2, -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam); p.material.opacity = 0.85 * Math.sin(Math.PI * q) * Math.min(1, steam); });
     const bk = f.bump || 0; bump.visible = bk > 0.01; if (bump.visible) { bump.position.set(hw * 0.08, hh - 0.05 + 0.07 * bk, -hd * 0.05); bump.scale.setScalar(bk * (1 + 0.07 * Math.sin(t * 13))); }
-    const sk = f.stars || 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * 0.2, hh + 0.1 + 0.03 * Math.sin(t * 7 + i), Math.cos(a) * 0.2); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
+    const sk = f.stars || 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * 0.27, hh + 0.13 + 0.04 * Math.sin(t * 7 + i), Math.cos(a) * 0.27); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
   };
 }
 

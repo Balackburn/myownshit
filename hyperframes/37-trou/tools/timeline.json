@@ -1,0 +1,528 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec est tombé dans un trou en allant au travail.",
+   "hl": [
+    "tombé",
+    "trou"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.462,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "est",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "tombé",
+     "s": 0.595,
+     "e": 0.786
+    },
+    {
+     "w": "dans",
+     "s": 0.824,
+     "e": 0.938
+    },
+    {
+     "w": "un",
+     "s": 1.014,
+     "e": 1.09
+    },
+    {
+     "w": "trou",
+     "s": 1.167,
+     "e": 1.395
+    },
+    {
+     "w": "en",
+     "s": 1.433,
+     "e": 1.471
+    },
+    {
+     "w": "allant",
+     "s": 1.548,
+     "e": 1.7
+    },
+    {
+     "w": "au",
+     "s": 1.738,
+     "e": 1.776
+    },
+    {
+     "w": "travail.",
+     "s": 1.852,
+     "e": 2.462
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a appelé la mairie.",
+   "hl": [
+    "mairie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L02.k.wav",
+   "file_start": 2.562,
+   "speech_start": 2.562,
+   "speech_end": 3.781,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.562,
+     "e": 2.638
+    },
+    {
+     "w": "a",
+     "s": 2.714,
+     "e": 2.765
+    },
+    {
+     "w": "appelé",
+     "s": 2.816,
+     "e": 3.019
+    },
+    {
+     "w": "la",
+     "s": 3.057,
+     "e": 3.095
+    },
+    {
+     "w": "mairie.",
+     "s": 3.133,
+     "e": 3.781
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La mairie a répondu:",
+   "hl": [
+    "mairie"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L03.k.wav",
+   "file_start": 3.881,
+   "speech_start": 3.881,
+   "speech_end": 5.176,
+   "words": [
+    {
+     "w": "La",
+     "s": 3.881,
+     "e": 3.957
+    },
+    {
+     "w": "mairie",
+     "s": 4.033,
+     "e": 4.262
+    },
+    {
+     "w": "a",
+     "s": 4.3,
+     "e": 4.338
+    },
+    {
+     "w": "répondu:",
+     "s": 4.414,
+     "e": 5.176
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "C",
+   "text": "« Ce trou n'existe pas. »",
+   "hl": [
+    "n'existe",
+    "pas."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L04.k.wav",
+   "file_start": 5.276,
+   "speech_start": 5.276,
+   "speech_end": 6.648,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 5.276,
+     "e": 5.429
+    },
+    {
+     "w": "trou",
+     "s": 5.505,
+     "e": 5.657
+    },
+    {
+     "w": "n'existe",
+     "s": 5.695,
+     "e": 6.114
+    },
+    {
+     "w": "pas.",
+     "s": 6.229,
+     "e": 6.648
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Elle a envoyé un agent pour vérifier.",
+   "hl": [
+    "agent",
+    "vérifier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L05.k.wav",
+   "file_start": 6.748,
+   "speech_start": 6.748,
+   "speech_end": 8.582,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 6.748,
+     "e": 6.862
+    },
+    {
+     "w": "a",
+     "s": 6.9,
+     "e": 6.938
+    },
+    {
+     "w": "envoyé",
+     "s": 6.976,
+     "e": 7.281
+    },
+    {
+     "w": "un",
+     "s": 7.319,
+     "e": 7.357
+    },
+    {
+     "w": "agent",
+     "s": 7.433,
+     "e": 7.662
+    },
+    {
+     "w": "pour",
+     "s": 7.738,
+     "e": 7.814
+    },
+    {
+     "w": "vérifier.",
+     "s": 7.852,
+     "e": 8.576
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il est tombé dedans.",
+   "hl": [
+    "tombé",
+    "dedans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L06.k.wav",
+   "file_start": 8.682,
+   "speech_start": 8.682,
+   "speech_end": 9.748,
+   "words": [
+    {
+     "w": "Il",
+     "s": 8.682,
+     "e": 8.758
+    },
+    {
+     "w": "est",
+     "s": 8.834,
+     "e": 8.91
+    },
+    {
+     "w": "tombé",
+     "s": 8.961,
+     "e": 9.139
+    },
+    {
+     "w": "dedans.",
+     "s": 9.215,
+     "e": 9.748
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Puis un pompier. Pareil.",
+   "hl": [
+    "pompier.",
+    "Pareil."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L07.k.wav",
+   "file_start": 9.848,
+   "speech_start": 9.848,
+   "speech_end": 11.601,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 9.848,
+     "e": 10.001
+    },
+    {
+     "w": "un",
+     "s": 10.077,
+     "e": 10.153
+    },
+    {
+     "w": "pompier.",
+     "s": 10.191,
+     "e": 10.915
+    },
+    {
+     "w": "Pareil.",
+     "s": 10.991,
+     "e": 11.601
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Puis le maire. Avec dignité.",
+   "hl": [
+    "maire.",
+    "dignité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L08.k.wav",
+   "file_start": 11.701,
+   "speech_start": 11.701,
+   "speech_end": 13.758,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 11.701,
+     "e": 11.853
+    },
+    {
+     "w": "le",
+     "s": 11.929,
+     "e": 12.006
+    },
+    {
+     "w": "maire.",
+     "s": 12.082,
+     "e": 12.691
+    },
+    {
+     "w": "Avec",
+     "s": 12.729,
+     "e": 12.92
+    },
+    {
+     "w": "dignité.",
+     "s": 12.958,
+     "e": 13.758
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Officiellement, ils n'étaient nulle part.",
+   "hl": [
+    "nulle",
+    "part."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L09.k.wav",
+   "file_start": 13.858,
+   "speech_start": 13.858,
+   "speech_end": 15.915,
+   "words": [
+    {
+     "w": "Officiellement,",
+     "s": 13.858,
+     "e": 14.696
+    },
+    {
+     "w": "ils",
+     "s": 14.772,
+     "e": 14.848
+    },
+    {
+     "w": "n'étaient",
+     "s": 14.899,
+     "e": 15.077
+    },
+    {
+     "w": "nulle",
+     "s": 15.115,
+     "e": 15.306
+    },
+    {
+     "w": "part.",
+     "s": 15.458,
+     "e": 15.915
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Donc ils ne payaient plus d'impôts.",
+   "hl": [
+    "plus",
+    "d'impôts."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L10.k.wav",
+   "file_start": 16.015,
+   "speech_start": 16.015,
+   "speech_end": 17.844,
+   "words": [
+    {
+     "w": "Donc",
+     "s": 16.015,
+     "e": 16.472
+    },
+    {
+     "w": "ils",
+     "s": 16.548,
+     "e": 16.625
+    },
+    {
+     "w": "ne",
+     "s": 16.701,
+     "e": 16.777
+    },
+    {
+     "w": "payaient",
+     "s": 16.828,
+     "e": 17.006
+    },
+    {
+     "w": "plus",
+     "s": 17.082,
+     "e": 17.158
+    },
+    {
+     "w": "d'impôts.",
+     "s": 17.184,
+     "e": 17.844
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Alors toute la ville a sauté dans le trou.",
+   "hl": [
+    "toute",
+    "ville",
+    "sauté"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L11.k.wav",
+   "file_start": 17.944,
+   "speech_start": 17.944,
+   "speech_end": 19.925,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 17.944,
+     "e": 18.248
+    },
+    {
+     "w": "toute",
+     "s": 18.325,
+     "e": 18.477
+    },
+    {
+     "w": "la",
+     "s": 18.553,
+     "e": 18.629
+    },
+    {
+     "w": "ville",
+     "s": 18.744,
+     "e": 18.858
+    },
+    {
+     "w": "a",
+     "s": 18.896,
+     "e": 18.934
+    },
+    {
+     "w": "sauté",
+     "s": 19.01,
+     "e": 19.239
+    },
+    {
+     "w": "dans",
+     "s": 19.265,
+     "e": 19.315
+    },
+    {
+     "w": "le",
+     "s": 19.353,
+     "e": 19.391
+    },
+    {
+     "w": "trou.",
+     "s": 19.468,
+     "e": 19.925
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Aujourd'hui, le trou affiche complet.",
+   "hl": [
+    "complet."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/trou/tts/L12.k.wav",
+   "file_start": 20.025,
+   "speech_start": 20.025,
+   "speech_end": 22.158,
+   "words": [
+    {
+     "w": "Aujourd'hui,",
+     "s": 20.025,
+     "e": 20.748
+    },
+    {
+     "w": "le",
+     "s": 20.787,
+     "e": 20.863
+    },
+    {
+     "w": "trou",
+     "s": 20.939,
+     "e": 21.091
+    },
+    {
+     "w": "affiche",
+     "s": 21.168,
+     "e": 21.472
+    },
+    {
+     "w": "complet.",
+     "s": 21.548,
+     "e": 22.158
+    }
+   ]
+  }
+ ],
+ "total": 23.66
+}

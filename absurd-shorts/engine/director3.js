@@ -567,6 +567,8 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     // a very fast travel smears the body along its path (a blur drawn as a stretch)
     const vx = (p2.x - p0.x) / (6 * d), vz = (p2.z - p0.z) / (6 * d), sp = Math.hypot(vx, vz), sm = clamp((sp - 5.5) * 0.07, 0, 0.7) * auto * (cfg.smear ?? 1);
     if (sm > 0.01) { const f = (vx * Math.sin(ry) + vz * Math.cos(ry)) / sp, sd = (vx * Math.cos(ry) - vz * Math.sin(ry)) / sp, q = extra.sq || [1, 1, 1]; extra.sq = [q[0] * (1 + sm * sd * sd - 0.2 * sm * f * f), q[1] * (1 - 0.15 * sm), q[2] * (1 + sm * f * f - 0.2 * sm * sd * sd)]; }
+    // standing still: the weight drifts from one leg to the other (the spine leans a little, the neck rights the head)
+    if (sp < 0.3) { const ws = 0.032 * Math.sin(t * 0.85 + ph * 1.3) * auto * (cfg.sway ?? 1); bend.spine[1] += ws; bend.neck = [0, -ws * 0.8, 0, 1, null]; }
   }
   extra.bend = bend;
   let all = addToon(tp, extra);

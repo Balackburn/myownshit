@@ -104,7 +104,7 @@ export const TROU_PROPS = {
   completSign(o) {
     const g = grp(), ph = o.h ?? 2.5, w = o.w ?? 1.25, h = o.ph ?? 0.44;
     g.add(at(cyl(0.045, 0.055, ph, '#3A3F47', 8, { pivot: 'bottom' }), 0, 0, 0), at(box(0.3, 0.05, 0.3, '#2B2F36'), 0, 0.025, 0), at(box(w + 0.1, h + 0.1, 0.12, '#22262C', { outline: 0.012 }), 0, ph + h / 2, 0));
-    const face = (text, col, glow) => { const c = canvasPlane(w, h, (c2, W, H) => { c2.fillStyle = '#0D0F12'; c2.fillRect(0, 0, W, H); c2.fillStyle = col; c2.font = `900 ${H * 0.66}px Arial`; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(text, W / 2, H * 0.55);
+    const face = (text, col, glow) => { const c = canvasPlane(w, h, (c2, W, H) => { c2.fillStyle = '#0D0F12'; c2.fillRect(0, 0, W, H); c2.fillStyle = col; let fs = H * 0.66; c2.font = `900 ${fs}px Arial`; const tw = c2.measureText(text).width; if (tw > W * 0.86) fs *= W * 0.86 / tw; c2.font = `900 ${fs}px Arial`; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(text, W / 2, H * 0.55);
       c2.fillStyle = '#0D0F12'; for (let y = 0; y < H; y += H / 9) c2.fillRect(0, y, W, H / 40); for (let x = 0; x < W; x += W / 34) c2.fillRect(x, 0, W / 160, H); }, { res: 512, emissive: glow }); c.position.set(0, ph + h / 2, 0.062); c.userData.noAO = true; return c; };
     const off = face(o.textOff || 'LIBRE', '#2C5A3A', 0.25), on = face(o.text || 'COMPLET', '#FF4A36', 1.0); g.add(off, on);
     const onAt = o.onAt ?? 0;

@@ -59,7 +59,7 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Bosse sur le crâne | `face.bump`, tête écrasée `scl.head [1.3, 0.62, 1.3]` pendant 0,05 s, expression `pain` | 37 S03 |
 | Regard à gauche, regard à droite, take | expressions `sideL` puis `side` (0,22 s chacune), puis `take` (`pop: 0` : yeux peints géants, mâchoire étirée) | 37 S05 |
 | Atterrissage en accordéon, les voisins tremblent | `accordion` (`decay`, `stars`), `jelly` sur les voisins au même instant | 37 S09 |
-| Serrés comme des sardines | `squeezed` + `sq [0.74, 1.08, 0.9]`, regards croisés | 37 S12 |
+| Serrés comme des sardines, respiration en tuyaux d'orgue | `squeezed` + `sq [0.74, 1.08, 0.9]` ; ils inspirent l'un après l'autre (0,09 s d'écart) : plus fins et plus hauts `sq [0.6, 1.26, 0.9]`, joues gonflées (`puffed`), puis relâchent ensemble | 37 S12 |
 | Bras élastique | `reachUpL` + bras et avant-bras ×3 (0,24 s), retour sec | 37 S13 |
 | Yeux en euros en cascade | expression `greed` décalée de 0,05 s par personnage, petit bond (`sq` y 1,2) | 37 S14 |
 | Plongeons variés | `noseJump`, `cannonball`, `swanDive` sur un déplacement avec `arc` | 37 S15 |
@@ -85,6 +85,11 @@ Gags du rig pas encore servis : yeux sur tiges prolongés (`pop`), langue dérou
   retardataire, pancarte) est dans le cadre sur une image de contrôle avant le rendu.
 - Les accessoires animés placés dans un décor ne bougent que si le décor relaie leur `userData.update`.
 - Personnages serrés : les clips à bras écartés (`accordion`, `take`) traversent les voisins ; préférer `squeezed` et les canaux `toon`.
+- Un pop-in à l'échelle (`k(0.0, scale=0.01)` puis `k(t, scale=1)`) rétrécit l'objet pendant 0,4 s au début du plan : donner `scale=0.01` à l'accessoire lui-même et ne poser que la clé d'apparition.
+- Un regard vers un mur à 90° montre la tête de profil et cache le visage peint : viser une cible à 40° environ (trois quarts) et laisser les yeux faire le reste.
+- Une largeur de rendu impaire bloque l'encodeur (le rendu reste figé sans erreur visible) ; `render3.mjs` arrondit maintenant au pair.
+- Un plan où personne ne bouge pendant plus d'une seconde se voit : donner une action au groupe (respiration en cascade, regards qui se suivent).
+- Aperçus de mouvement : `--draft` (ombres allégées, 3 fois plus rapide) et `--range a:b` pour ne rendre qu'un plan ; jamais `--draft` pour une livraison.
 - `then=<le clip du déplacement>` rejouait le clip depuis le début (corrigé au cycle 1) ; « La canicule » en garde une double chute au
   plan S10 dans la version livrée.
 
