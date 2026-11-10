@@ -439,4 +439,38 @@ Régression après ces modifications du moteur : 0,52 % au pire (bruit habituel)
 - Corrections : une pièce du rig appliquée deux fois doublait la rotation des articulations filles ; l'échelle de la tête est posée avant le calcul
   des mains ; la solution à deux os est exacte (plus d'itérations).
 - Vérification des anciennes histoires après chaque lot : 0,50 %, 0,50 % puis 0,55 % de pixels changés au pire (bruit habituel : 0,54 %).
+- Ajouts faits pendant la troisième passe de l'histoire 38 : **regard par les pupilles seules** (`face.gx / gy` : la tête reste vers la caméra) ;
+  `sneezeUp` en cliquet ; oscillation lente après un lâcher ; pouce guidé ; matelas qui garde son creux ; liste qui remonte comme un store ; carte
+  qui se balance comme un pendule ; prairie dont les fleurs se penchent vers un point ; bureau déplaçable dans le décor de mairie.
+
+### 3. Animations (cycle 3)
+
+- Principe retenu : **l'accessoire a sa trajectoire, la main est guidée dessus** (mêmes instants, mêmes courbes). Tous les contacts de l'histoire 39
+  sont faits ainsi : la main ne quitte pas la poignée, quoi que fasse le corps ; c'est le bras qui s'étire.
+- Clips réutilisés avec de nouveaux paramètres plutôt que de nouveaux clips : `poster` (décollé comme du papier peint), `cannonball` (un tour sur
+  le vol), `pancake`, `pressGlass` (pressé derrière une vitre), `scramble`, `doubleTakeToon`, `stiffStand` (le garde impassible).
+
+### 4. Histoire 39 — « La porte » (type : un geste banal qu'une institution prend au pied de la lettre, escalade, retournement, aparté sec)
+
+Texte (11 lignes, 25,4 s) : « Ce mec a tenu la porte à une dame. Il la tient encore. / Derrière elle, il y avait la ville. / La mairie a compté : /
+« Quatre mille passages par jour. » / À ce niveau-là, c'est un service public. / Et un service public, ça ne ferme pas. / Son remplaçant est dans la
+file. / Le soir, il rentre. Le bras reste. / La porte est classée monument historique. Le bras aussi. / Hier, un technicien est passé : elle était
+automatique. / La dame n'a jamais dit merci. »
+
+Mise en scène (17 plans), gags appuyés sur le rig :
+1. la barbe qui pousse d'un cran à chaque passant, une toile d'araignée entre le bras et la porte (S02) ;
+2. la file jusqu'à l'horizon, puis son visage : yeux sortis, mâchoire tombée (S03, S04) ;
+3. l'agent de la mairie au compteur : la tête comme à un match de tennis, le pouce qui enfle, le compteur qui fume (S05, S06) ;
+4. la plaque « SERVICE PUBLIC » vissée par-dessus l'enseigne ; la casquette qui lui tombe sur la tête : il s'enfonce, seuls ses yeux montent (S08) ;
+5. **le bras corde à linge** : il s'éclipse en crabe, la main toujours sur la poignée ; au bout du bras ses pieds moulinent ; le bras le ramène, la
+   porte se rabat sur lui : **pressé entre le mur et la vitre comme une fleur dans un livre** ; la porte revient, il reste collé au mur (S09) ;
+6. le remplaçant, même casquette, le cou étiré au-dessus des têtes, ticket à la main (S10) ;
+7. le soir il rentre : le bras se dévide derrière lui, des pigeons dessus ; dans son lit, le bras sort par la fenêtre ; quelqu'un pousse la porte :
+   le bras le tire du lit et le plaque au mur ; il ne se réveille pas (S11, S12) ;
+8. le touriste et son autoportrait avec le garde impassible, le doigt dans la joue ; la plaque « BRAS CLASSÉ » (S13, S14) ;
+9. le technicien et le bouton AUTO ; la porte s'en va toute seule, sa main reste en l'air, double regard (S15, S16) ;
+10. la dame ressort sans un regard ; il rabaisse son bras de l'autre main : il remonte tout seul (S17).
+
+Décisions prises sans question : la boulangerie est « nationalisée » à l'image (la plaque bleue recouvre l'enseigne à partir de S08) ; une seule
+carte de titre, « LE BRAS RESTE », sur le plan de la chambre ; l'enseigne réduite à la largeur de la porte (elle coupait tous les plans serrés).
 

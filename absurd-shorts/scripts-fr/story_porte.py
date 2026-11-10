@@ -46,8 +46,8 @@ def rusher(i, t0, z0=0.25, x0=5.2):                    # somebody who dashes int
 BEARD = lambda sc=1.25, **kw: P('beard', 'beard', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.03, 0.09], 'rot': [0, 0, 0]}, scale=sc, opts={'color': '#17161A'}, **kw)   # it stays from now on
 WEB = lambda **kw: P('web', 'spiderWeb', pos=[9.02, 1.42, -0.7], ry=-90, opts={'r': 0.3}, **kw)
 B2 = [0.12, 0.42, 0.72]
-st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'neutral', keys=[HOLDK(), k(0.0, look=[5.5, 1.6, 0.3]), k(B2[0] + 0.1, look=[9.9, 1.6, 0.0]), k(B2[1], look=[5.5, 1.6, 0.3], expr='unimpressed'), k(B2[1] + 0.1, look=[9.9, 1.6, 0.0]),
-            k(B2[2], look=[5.5, 1.6, 0.3]), k(B2[2] + 0.1, look=[9.9, 1.6, 0.0]), k(0.9, look=None, expr='deadpan')])] + [rusher(i, t) for i, t in enumerate(B2)],
+st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'neutral', keys=[HOLDK(), k(0.0, look=None)] + [x for t in B2 for x in (k(t, toon=GRIP(OPEN, face={'gx': -0.4}), toonDur=0.03), k(t + 0.06, toon=GRIP(OPEN, face={'gx': 1.0}), toonDur=0.08), k(t + 0.2, toon=GRIP(OPEN), toonDur=0.08))] +   # his eyes alone follow each one in
+            [k(B2[1], expr='unimpressed'), k(0.9, expr='deadpan')])] + [rusher(i, t) for i, t in enumerate(B2)],
         props=[DOOR(swing=[[0, OPEN]]), BEARD(0.01, keys=[k(B2[0] + 0.12, scale=0.5, dur=0.1, ease='outBack'), k(B2[1] + 0.12, scale=0.85, dur=0.1, ease='outBack'), k(B2[2] + 0.12, scale=1.25, dur=0.1, ease='outBack')]),
                WEB(scale=0.01, keys=[k(B2[2] + 0.05, scale=1.0, dur=0.14, ease='outBack')])],
         cams=[cam(0.0, [6.5, 1.5, -0.45], [6.65, 1.5, -0.5], [9.3, 1.38, -0.8], [9.3, 1.38, -0.8], lens=44)])   # close: the sign above the door stays out of the frame (it was cut in two)
@@ -70,7 +70,7 @@ CLERK = [9.25, 0, 1.05]
 R5 = [0.08, 0.34, 0.56, 0.74, 0.88, 0.99, 1.08, 1.16]   # they go in, closer and closer together
 CLICK = lambda **kw: P('clicker', 'tallyClicker', on={'actor': 'agent', 'hand': 'R', 'offset': [0, -0.02, 0.03], 'rot': [0, 0, 0]}, **kw)
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[act('agent', CLERK, -90, 'stand', 'determined', keys=[k(0.0, toon={'hands': {'R': 'grip'}, 'reach': {'R': [8.95, 1.55, 1.0, 1, 0.05]}}, toonDur=0)] +
-            [x for i, t in enumerate(R5) for x in (k(max(0.0, t - 0.05), look=[6.0, 1.6, 0.5]), k(t + 0.06, look=[9.9, 1.6, 0.3]))] +
+            [x for i, t in enumerate(R5) for x in (k(max(0.0, t - 0.05), look=[6.2, 1.6, 1.9]), k(t + 0.06, look=[7.4, 1.6, -0.6]))] +   # like a tennis match, between two points in front of him: his face stays on us
             [k(0.7, expr='worried'), k(0.7, toon={'hands': {'R': 'grip'}, 'reach': {'R': [8.95, 1.55, 1.0, 1, 0.05]}, 'scl': {'handR': [1.7, 1.7, 1.7]}}, toonDur=0.5, toonEase='in'), k(1.1, expr='scared')])] +
         [rusher(i, t, z0=0.3 + 0.1 * (i % 3)) for i, t in enumerate(R5)],
         props=[DOOR(swing=[[0, OPEN]]), CLICK(opts={'at': 0.05, 'rate': 9})],
