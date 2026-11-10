@@ -26,6 +26,7 @@ DOOR = lambda **kw: P('door', 'shopDoor', pos=[DX, 0, DZ], ry=-90, opts={'w': DW
 PUBLIC = {'sign': 'SERVICE PUBLIC', 'signBg': '#2A4B9B', 'signFg': '#F4F1E8'}   # the bakery's sign once it is a public service
 HOLD = [9.12, 0, -1.02]                             # where he stands to hold it: beside the open leaf, facing the road
 GRIP = lambda deg, w=1, **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*handle(deg), w, 0.05, [0.2, -1, 0.5]]}, **kw}
+RIP = lambda a, ph, n=2: {'armL': [a, n, ph, 0, 1.5708], 'foreL': [a, n, ph - n, 0, 1.5708]}   # a ripple along the stretched arm (toon channel `wave`): a metres high, n waves on each half, moved along by ph (rising: toward the hand)
 
 # 1: he reaches the bakery door, sees a lady coming, pulls it open with a bow; she walks in without a look
 O1 = 0.42                                           # the door starts to open
@@ -118,6 +119,7 @@ FLAT9 = [1.25, 1.0, 0.14]
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'deadpan', keys=[HOLDK(), k(0.0, toon=GRIP(OPEN, face={'gx': -0.9}), toonDur=0.08), k(0.12, toon=GRIP(OPEN, face={'gx': 0.9}), toonDur=0.08),   # a look each way, with the eyes only
             k(GO9, to=FAR9, dur=0.75, clip='sneak', ease='out', face='keep'), k(GO9, toon=GRIP(OPEN), toonDur=0.05), k(GO9, expr='determined'),
             k(GO9 + 0.75, clip='scramble', params={'dur': 0.5, 'expr': 'scared'}, blend=0.05), k(GO9 + 0.75, toon=GRIP(OPEN, bend={'spine': [0.35, 0, 0, 1, None]}), toonDur=0.1),   # at the end of the arm: his feet spin
+            k(GO9 + 0.8, toon=GRIP(OPEN, bend={'spine': [0.35, 0, 0, 1, None]}, wave=RIP(0.06, 0)), toonDur=0.08), k(GO9 + 0.88, toon=GRIP(OPEN, bend={'spine': [0.4, 0, 0, 1, None]}, wave=RIP(0.08, 2.2)), toonDur=round(SNAP9 - GO9 - 0.9, 3)),   # and the arm, taut, hums like a string before it takes him back
             k(SNAP9, to=SAND, dur=0.09, glide=True, ease='in', face='keep'), k(SNAP9, clip='blownBack', expr='take', blend=0.02), k(SNAP9 + 0.02, toon=GRIP(166), toonDur=0.08),
             k(SNAP9 + 0.09, clip='pressGlass', expr='dizzy', blend=0.02), k(SNAP9 + 0.09, toon=GRIP(166, sq=FLAT9, face={'stars': 1}), toonDur=0.02),   # flat between the wall and the glass
             k(SNAP9 + 0.48, toon=GRIP(OPEN, sq=FLAT9, face={'stars': 1}), toonDur=0.2, toonEase='inOut'),   # the leaf comes back, his arm goes with it; he stays on the wall, as thin as a poster,
@@ -154,7 +156,8 @@ BED12 = [-2.6, 0.62, -1.7]                          # on the set's bed (2 m long
 TUG = 0.5
 ARM12 = lambda **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*WIN, 1, 0.05]}, **kw}
 st.shot('S12', 'chambre', setOpts={'poster': 'SERVICE\nPUBLIC', 'posterBg': '#2A4B9B', 'posterFg': '#F4F1E8'}, actors=[act('mec', BED12, 0, 'lieBack', 'sleepy', keys=[k(-0.05, toon=ARM12(), toonDur=0), k(0.02, toon=ARM12(sq=[1.0, 1.0, 1.1], face={'jaw': 0.3}), toonDur=0.16, toonEase='inOut'), k(0.2, toon=ARM12(), toonDur=0.16, toonEase='inOut'),   # a snore: the chest comes up, goes down
-            k(TUG - 0.12, toon=ARM12(sq=[1.03, 0.97, 1.03]), toonDur=0.1), k(TUG, to=[-4.05, 0.75, -1.1], dur=0.1, glide=True, ease='in', face='keep'), k(TUG, toon=ARM12(sq=[0.9, 1.2, 0.9]), toonDur=0.08),
+            k(TUG - 0.3, toon=ARM12(wave=RIP(0.07, 1.5, 1.5)), toonDur=0.05), k(TUG - 0.25, toon=ARM12(wave=RIP(0.1, 0.2, 1.5)), toonDur=0.13),   # somebody uses the door: a ripple comes in through the window, along the arm, to him
+            k(TUG - 0.12, toon=ARM12(sq=[1.03, 0.97, 1.03], wave=RIP(0.05, -0.4, 1.5)), toonDur=0.1), k(TUG, to=[-4.05, 0.75, -1.1], dur=0.1, glide=True, ease='in', face='keep'), k(TUG, toon=ARM12(sq=[0.9, 1.2, 0.9]), toonDur=0.08),
             k(TUG + 0.1, clip='poster', params={'high': 0.0, 'slideAt': 9, 'stars': 0}, expr='sleepy', blend=0.02, face=90), k(TUG + 0.1, toon=ARM12(sq=[1.2, 1.0, 0.3]), toonDur=0.03), k(TUG + 0.16, toon=ARM12(sq=[1.0, 1.0, 0.6]), toonDur=0.15, toonEase='outBack')])],
         props=[BEARD(), CAP()],
         fx=[{'type': 'shake', 'at': TUG + 0.1, 'dur': 0.15, 'amount': 0.025}],

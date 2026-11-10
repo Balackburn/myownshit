@@ -10,6 +10,9 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
+//   wave: { spine|neck|armL|foreL|...: [amp (m), waves, phase (turns), free, axis (rad)] }   a ripple along a part, on top of its bend: `waves` periods
+//         over its length, moved along by `phase` (key it from 0 to 2 and the ripple travels twice down the limb). The two ends stay where they are (a guided
+//         hand keeps its point); free: 1 lets the far end whip (a head on a noodle neck). axis: 0 = across (x), PI / 2 = front to back (z)
 //   wind: [x, y, z] (m/s, in his own frame: +Z in front of him, +X to his left)   a wind of his own on the tie and the hair (engine/cloth.js): an inhale pulls
 //         them up toward the nose ([0, 9, 2]), a spin flings them out. It adds to the scene wind
 //   reach: { L | R: [x, y, z, w, tip] }   a hand guided to a point of the world (two-bone IK; the arm stretches when the point is too far; tip (m): the
@@ -23,7 +26,13 @@
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
 //           eyeYaw / eyeRoll (rad: the popped eyeballs turn on their stalks), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
-//           lid: 0..1 (the painted eyes close: a keyed blink), cross: 0..1 (cross-eyed) }
+//           lid: 0..1 (the painted eyes close: a keyed blink), cross: 0..1 (cross-eyed),
+//           one feature at a time, one side at a time, as offsets from the expression in place (0 = unchanged; L = the left of the picture when he faces us,
+//           his own right eye: the high one): brow / browL / browR (1 = up to the hairline, -1 = down on the eye), browTilt / browTiltL / browTiltR (deg, > 0 lifts the inner end),
+//           lidL / lidR (0..1: a wink, a heavy eye), low / lowL / lowR (0..0.5: the lower lid, a squint), eye / eyeL / eyeR (0.4 = 40 % bigger),
+//           mouth: 'name' (a mouth of the face set: O, o, open, scream, teeth, grimace, clench, kiss, pout, whistle, smirk, wavy, zigzag, tongueout, evil, sob...),
+//           mouthW / mouthH (0.5 = half as wide / tall again), mouthTilt, mouthDx / mouthDy (px on the 400 px face: a mouth pulled to one side),
+//           cheeks, puff, sweat, blush, tears, tear, vein, shadow: 0..1 }
 import * as THREE from 'three';
 import { blendHands } from './fingers.js';
 
@@ -68,27 +77,32 @@ function makePart(joint, jointSet, L, dir, seg = 6) {
   }
   let last = '';
   // frame at u (0 = at the joint, 1 = far end): out position of the point (x, ., z) of the cross-section, and the section's rotation
-  const frame = (u, x, z, prm, outP, outQ) => {
+  const frame = (u, x, z, prm, outP, outQ, wv) => {
     const [bx = 0, bz = 0, tw = 0, st = 1, fatIn] = prm, fat = fatIn ?? 1 / Math.sqrt(Math.max(0.05, st)), th = Math.hypot(bx, bz), Ls = L * st;
     _d.set(0, dir, 0);
     if (th > 1e-4) { _a.set(bx / th, 0, bz / th); const s = Math.sin(th * u), c = Math.cos(th * u); _c.crossVectors(_a, _d); outP.copy(_d).multiplyScalar(s * Ls / th).addScaledVector(_c, (1 - c) * Ls / th); outQ.setFromAxisAngle(_a, th * u); }
     else { outP.copy(_d).multiplyScalar(u * Ls); outQ.identity(); }
     if (tw) outQ.multiply(_q2.setFromAxisAngle(Y, tw * u));
     _v.set(x * fat, 0, z * fat).applyQuaternion(outQ); outP.add(_v);
+    if (wv && wv[0]) {   // the ripple: across the part, nil at the joint (and at the far end unless it is free)
+      const uu = Math.min(1, u), env = wv[3] ? Math.min(1, uu * 2.5) : Math.sin(Math.PI * uu), ax = wv[4] || 0;
+      _v.set(Math.cos(ax), 0, Math.sin(ax)).applyQuaternion(outQ); outP.addScaledVector(_v, wv[0] * env * Math.sin(2 * Math.PI * ((wv[1] ?? 1) * uu - (wv[2] || 0))));
+    }
   };
   const P0 = new THREE.Vector3(), Q0 = new THREE.Quaternion();
   return {
     joint, kids,
-    apply(prm) {
-      const key = prm ? prm.map(v => (v ?? 1).toFixed(4)).join() : '';
-      const idle = !prm || (!prm[0] && !prm[1] && !prm[2] && (prm[3] ?? 1) === 1 && (prm[4] ?? 1) === 1);
+    apply(prm, wv) {
+      if (wv && !wv[0]) wv = null; if (wv && !prm) prm = NEUTRAL_B;
+      const key = (prm ? prm.map(v => (v ?? 1).toFixed(4)).join() : '') + (wv ? '|' + wv.map(v => (v || 0).toFixed(4)).join() : '');
+      const idle = !wv && (!prm || (!prm[0] && !prm[1] && !prm[2] && (prm[3] ?? 1) === 1 && (prm[4] ?? 1) === 1));
       if (key !== last) {
         last = key;
         for (const it of items) {
           const p = it.m.geometry.attributes.position, n = it.m.geometry.attributes.normal, r = it.rest;
           for (let i = 0; i < p.count; i++) {
             const x = r[i * 3], y = r[i * 3 + 1], z = r[i * 3 + 2];
-            if (idle) _v.set(x, y, z); else { const u = (y * dir) / L; frame(u < 0 ? 0 : u > 1 ? 1 : u, x, z, prm, P0, Q0); _v.copy(P0); if (u < 0) _v.y += y;   // below the joint (a coat tail): rigid
+            if (idle) _v.set(x, y, z); else { const u = (y * dir) / L; frame(u < 0 ? 0 : u > 1 ? 1 : u, x, z, prm, P0, Q0, wv); _v.copy(P0); if (u < 0) _v.y += y;   // below the joint (a coat tail): rigid
               else if (u > 1) _v.addScaledVector(_d.set(0, dir, 0).applyQuaternion(Q0), (u - 1) * L); }   // past the far joint (the part of a neck that sits inside the head): rigid too, not stretched (a neck x8 bent 30 degrees came out through the face)
             _v.applyMatrix4(it.Mi); p.setXYZ(i, _v.x, _v.y, _v.z);
             if (n && it.restN) { _c.set(it.restN[i * 3], it.restN[i * 3 + 1], it.restN[i * 3 + 2]); if (!idle) { _c.applyQuaternion(it.rot).applyQuaternion(Q0).applyQuaternion(_q.copy(it.rot).invert()); } n.setXYZ(i, _c.x, _c.y, _c.z); }
@@ -99,7 +113,7 @@ function makePart(joint, jointSet, L, dir, seg = 6) {
       // child joints ride on the deformed part: position and an extra rotation in front of their pose rotation
       for (const k of kids) {
         if (idle) { k.j.position.copy(k.rest); continue; }
-        const u = Math.max(0, (k.rest.y * dir) / L); frame(u, k.rest.x, k.rest.z, prm, P0, Q0); k.j.position.copy(P0); k.j.quaternion.premultiply(Q0);
+        const u = Math.max(0, (k.rest.y * dir) / L); frame(u, k.rest.x, k.rest.z, prm, P0, Q0, wv); k.j.position.copy(P0); k.j.quaternion.premultiply(Q0);
       }
     },
   };
@@ -138,6 +152,7 @@ function headOverlays(head, hm, dim, skin) {
     const lid = new THREE.Mesh(new THREE.IcosahedronGeometry(r * 1.1, 1), new THREE.MeshLambertMaterial({ color: skin })); lid.visible = false; ball.add(lid);   // face.popBlink: the lids close over the popped eyes
     const pupil = new THREE.Mesh(new THREE.CircleGeometry(r * 0.42, 12), black); pupil.position.z = r * 0.98; ball.add(pupil);
     const sign = new THREE.Mesh(new THREE.CircleGeometry(r * 0.92, 16), new THREE.MeshBasicMaterial({ map: euroTex(), transparent: true, depthWrite: false })); sign.position.z = r * 1.02; sign.visible = false; ball.add(sign);   // money eyes: a euro sign in place of the pupil (face.euro)
+    e.traverse(o => o.layers.enable(1));   // popped eyes show in a shot in the dark too (layer 1: engine/look.js)
     e.visible = false; return { e, stalk, ball, pupil, sign, lid, bow, skin0, r, ph: i * 1.7 };
   });
   const deform = hm ? headDeform(hm, dim) : null;
@@ -217,10 +232,10 @@ export function toonUpgrade(obj) {
     parts,
     // call after the joint rotations of the frame are set (applyHuman): bends, local scales, whole-body squash, head overlays
     apply(tp = {}, t = 0, baseScale = 1) {
-      let b = tp.bend || {}, first = 0;
+      let b = tp.bend || {}, first = 0; const wv = tp.wave || NOWAVE;
       const hs = tp.scl?.head; if (J.head) { const k0 = J.head.scale.x; J.head.scale.set(k0 * (hs?.[0] ?? 1), k0 * (hs?.[1] ?? 1), k0 * (hs?.[2] ?? 1)); }   // before the guided hands: a touch on a swollen head must land on its surface
       if (tp.reach || tp.touch) {   // the spine and the neck are bent first (the shoulders and the head ride on them), once: a part turns its child joints each time it is applied
-        const sq0 = tp.sq; if (sq0) obj.scale.set(baseScale * sq0[0], baseScale * sq0[1], baseScale * sq0[2]); parts.spine?.apply(b.spine || null); parts.neck?.apply(b.neck || null);
+        const sq0 = tp.sq; if (sq0) obj.scale.set(baseScale * sq0[0], baseScale * sq0[1], baseScale * sq0[2]); parts.spine?.apply(b.spine || null, wv.spine); parts.neck?.apply(b.neck || null, wv.neck);
         let rc = tp.reach;
         if (tp.touch) { rc = { ...(rc || {}) }; for (const sd of ['L', 'R']) { const q = tp.touch[sd]; if (!q) continue;
           if (q[0] === 'face') { if (!hm || !dim) continue; hm.updateWorldMatrix(true, false); _T.set(dim.cx + q[1] * dim.hw, dim.y0 + q[2] * dim.hh, dim.z1 + q[3] / (hm.getWorldScale(_X).z || 1)); hm.localToWorld(_T); }   // on the face: across (-0.5..0.5), up from the chin (0..1), metres in front
@@ -228,7 +243,7 @@ export function toonUpgrade(obj) {
           rc[sd] = [_T.x, _T.y, _T.z, q[4] ?? 1, q[5] || 0, q[6] || null]; } }
         b = solveReach(rc, b); first = 2;
       }
-      for (let i = first; i < ORDER.length; i++) parts[ORDER[i]]?.apply(b[ORDER[i]] || null);
+      for (let i = first; i < ORDER.length; i++) parts[ORDER[i]]?.apply(b[ORDER[i]] || null, wv[ORDER[i]]);
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
       const er = tp.ears || 0; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); }
@@ -240,7 +255,7 @@ export function toonUpgrade(obj) {
 }
 
 // ---- numeric blend of two toon channel sets (missing = neutral)
-const NEUTRAL_B = [0, 0, 0, 1, null], SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1], ZERO = [0, 0, 0];
+const NEUTRAL_B = [0, 0, 0, 1, null], NOWAVE = {}, SCL_KEYS = ['head', 'handL', 'handR'], HANDS = ['handL', 'handR'], ONE3 = [1, 1, 1], ZERO = [0, 0, 0];
 export function blendToon(a = {}, b = {}, w = 1) {
   if (w >= 1 && !a) return b; const L = (x, y) => x + (y - x) * w, out = {};
   const POLE = (x, y) => (x && y) ? [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])] : (x || y || null);   // the elbow hint of a guided hand
@@ -249,6 +264,8 @@ export function blendToon(a = {}, b = {}, w = 1) {
   const ks = new Set([...Object.keys(a.bend || {}), ...Object.keys(b.bend || {})]);
   if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
+  if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
+    out.wave[k] = [L(x ? x[0] || 0 : 0, y ? y[0] || 0 : 0), L(p[1] ?? 1, q[1] ?? 1), L(p[2] || 0, q[2] || 0), (w < 0.5 ? p : q)[3] || 0, L(p[4] || 0, q[4] || 0)]; } }
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);   // hair left on end (engine/cloth.js)
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
@@ -268,6 +285,7 @@ export function addToon(a = {}, b = {}) {
   if (b.scl) { out.scl = { ...(a.scl || {}) }; for (const n of SCL_KEYS) { const h = b.scl[n]; if (!h) continue; const s = a.scl?.[n] || ONE3; out.scl[n] = [s[0] * h[0], s[1] * h[1], s[2] * h[2]]; } }
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
+  if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };

@@ -125,6 +125,7 @@ function setupScene(si, analyzing = false) {
   try { set = Sets.buildSet(sc.set || 'whiteVoid', sc.setOpts || {}); } catch (e) { warn(`set ${sc.set} failed: ${e.message}`); set = Sets.buildSet('whiteVoid', {}); }
   S.root.add(set); S.set = set; S.staticBoxes = null;
   S.lights = setLighting(scene, sc.lighting || set.userData.lighting || 'day');
+  S.lights.hemi.layers.enable(1); S.lights.key.layers.enable(1);   // layer 1: what stays visible in a shot in the dark (sc.dark) is lit as in the light
   atmosphere(sc, set);
   if (S.look) S.look.setupLights(S.lights, set, sc);
   S.lightBase = { hemi: S.lights.hemi.intensity, key: S.lights.key.intensity, bg: scene.background.clone() };
@@ -155,6 +156,7 @@ function setupScene(si, analyzing = false) {
   const resolveOpts = o => Object.fromEntries(Object.entries(o || {}).map(([k, v]) => [k, /At$/.test(k) ? optT(v) : v]));
   S.props = (sc.props || []).map(cfg => {
     const obj = Props.buildProp(cfg.name, resolveOpts(cfg.opts)); obj.name = 'prop:' + (cfg.id || cfg.name); obj.userData.isSceneProp = true;
+    if (cfg.inDark) obj.traverse(o => o.layers.enable(1));   // inDark: it stays visible, lit as in the light, when the shot goes dark (sc.dark): a torch, a screen, the moon
     S.root.add(obj);
     const Pp = prepProp(cfg, obj, sc, place);
     if (cfg.alt) { // one alternate look, or a list of them in time order (e.g. watch -> broken -> taped)
@@ -510,7 +512,7 @@ function evalActor(A, tIn) {
     if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
-    if (ud.faceRig) ud.setFaceState(rigFace(A, t, env, tp, pos, ry, sc)); else ud.setExpression?.(expr, blink);
+    if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn) { ud.glowOn = S.dark > 0.02 && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? S.dark : 0, A.cfg?.darkEyes ?? sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
     const fx = lastKey(A.fxKeys, t).fx; ud.setFx?.(fx, t);
     if (fx.shiver && ud.joints?.head) { ud.joints.head.rotation.z += 0.045 * Math.sin(t * 47); ud.joints.head.rotation.x += 0.02 * Math.sin(t * 61 + 1); }
   } else if (ud.kind === 'creature') {
@@ -645,6 +647,7 @@ const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
+const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow'];
 function rigFace(A, t, env, tp, pos, ry, sc) {
   const custom = S.script?.faces, ek = lastKey(A.exprKeys, t), pk = prevKey(A.exprKeys, ek), since = t - ek.at, ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0), cfg = A.obj.userData.faceCfg || {};
   let st;
@@ -682,6 +685,19 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     if ((cf.pop || 0) > 0.08) for (const s of 'LR') { E[s] = { ...E[s], kind: 'dot', s: 2.2, open: 1 }; st.brows[s].dy -= 26 * cf.pop; }
     if (cf.cross) { E.L.px = clamp(E.L.px + CROSS_SIGN * 0.95 * cf.cross, -1, 1); E.R.px = clamp(E.R.px - CROSS_SIGN * 0.95 * cf.cross, -1, 1); }   // cross-eyed (painted eyes)
     if (cf.gx || cf.gy) for (const s of 'LR') { E[s].px = clamp(E[s].px + (cf.gx || 0), -1, 1); E[s].py = clamp(E[s].py + (cf.gy || 0), -1, 1); }   // face.gx / face.gy (-1..1): the pupils alone look aside (- = toward his right: screen left when he faces us) / down (+) or up (-), the head stays where it is (eyes that follow a thing while the face stays on us)
+    // one feature, one side (cycle 4): every value is an offset from the expression in place (0 = unchanged), so a key bends a preset instead of replacing it
+    for (const s of 'LR') {
+      const b = st.brows[s], e = E[s], up = (cf.brow || 0) + (cf['brow' + s] || 0), tl = (cf.browTilt || 0) + (cf['browTilt' + s] || 0);
+      if (up) b.dy -= 26 * up; if (tl) b.rot += tl;                                   // face.brow / browL / browR (1 = up to the hairline, -1 = down on the eye), face.browTilt / browTiltL / browTiltR (deg, > 0 lifts the inner end)
+      const ld = cf['lid' + s] || 0, lw = (cf.low || 0) + (cf['low' + s] || 0), sz = (cf.eye || 0) + (cf['eye' + s] || 0);
+      if (ld && e.kind === 'open') e.lid = clamp(Math.max(e.lid, ld), 0, 1);           // face.lidL / lidR: one lid alone (a wink, a heavy eye)
+      if (lw) e.low = clamp(e.low + lw, 0, 0.5);                                      // face.low / lowL / lowR: the lower lid comes up (a squint)
+      if (sz) e.s = clamp(e.s * (1 + sz), 0.5, 1.9);                                  // face.eye / eyeL / eyeR: an eye that grows (0.4 = 40 % bigger), one bigger than the other
+    }
+    if (typeof cf.mouth === 'string' && cf.mouth) st.mouth = { ...st.mouth, spr: cf.mouth, w: 1, h: 1, tilt: 0, dx: 0, dy: 0 };   // face.mouth: a mouth shape by name (the mouths of the face set: O, o, open, scream, teeth, grimace, clench, kiss, pout, whistle, smirk, wavy, zigzag, tongueout...)
+    if (cf.mouthW || cf.mouthH || cf.mouthTilt || cf.mouthDx || cf.mouthDy) st.mouth = { ...st.mouth, w: st.mouth.w * (1 + (cf.mouthW || 0)), h: st.mouth.h * (1 + (cf.mouthH || 0)), tilt: st.mouth.tilt + (cf.mouthTilt || 0), dx: st.mouth.dx + (cf.mouthDx || 0), dy: st.mouth.dy + (cf.mouthDy || 0) };   // wider, taller, tilted (px over the half width), pushed aside (px of the 400 px face)
+    if (cf.cheeks) st.cheeks = clamp01(Math.max(st.cheeks, cf.cheeks)); if (cf.puff) st.puff = clamp01(Math.max(st.puff, cf.puff));
+    for (const x of FACE_EXTRAS) if (cf[x]) st.extras[x] = clamp01(Math.max(st.extras[x] || 0, cf[x]));   // face.sweat / blush / tears / tear / vein / shadow: 0..1
   }
   return st;
 }
@@ -1022,6 +1038,7 @@ export function renderFrame(tAbs) {
   const K = shutter > 0 ? (sc.blurSamples || 5) : 1;
   for (let k = 0; k < K; k++) {
     const tk = K > 1 ? Math.max(0, lt - shutter * (K - 1 - k) / (K - 1)) : lt;
+    S.dark = darkAt(sc, tk);
     evalAll(tk);
     lightCycle(tk);
     placeCamera(tk);
@@ -1047,7 +1064,17 @@ function camLocked(camera) {
   for (const Pp of S.props) { if (!Pp.cfg.camLock) continue; if (!any) { camera.updateMatrixWorld(true); any = true; }
     const o = Pp.obj; _q.setFromEuler(o.rotation); o.position.applyMatrix4(camera.matrixWorld); o.quaternion.copy(camera.quaternion).multiply(_q); o.updateMatrixWorld(true); }
 }
+// sc.dark: [[t, k, ramp?], ...]: the lights go off and on. Steps of darkness (0 = lit, 1 = dark), each reached in `ramp` seconds (default one frame: a switch).
+// What is left of the picture: sc.darkFloor (0.05: faint cold silhouettes; 0: black), sc.darkTint. The eyes of the face rig stay visible, and any prop with
+// `inDark: true` (a torch, a screen, the moon). sc.darkEyes (or the actor's `darkEyes`): how much the eyes grow in the dark (1.3; false on an actor: no eyes).
+// Needs a look ('natural' or 'shaders')
+function darkAt(sc, t) {
+  const D = sc.dark; if (!D) return 0; let k = 0;
+  for (const [at, v, ramp = 0.035] of D) { const a = T(at, sc); if (t < a) break; k = lerp(k, v, clamp01((t - a) / Math.max(1e-3, ramp))); }
+  return k;
+}
 function lightCycle(t) {
+  if (S.look && (S.sc.dark || S.look.dark)) S.look.setDark(S.dark || 0, S.sc.darkFloor ?? 0.05, S.sc.darkTint);
   const dn = S.sc.daynight; if (!dn) return;
   // k: 0 = day, 1 = night. Default: day/night cycles from `from`; once: falls to night and stays; rise: night until `from`, then day
   const t0 = T(dn.from, S.sc), P0 = dn.period || 1.2, u = (t - t0) / P0; let k;
@@ -1182,7 +1209,7 @@ function poseAt(tAbs) {
   const t = Math.min(tAbs, S.total - 1e-4);
   let si = S.script.scenes.findIndex(sc => t >= sc.start && t < sc.start + sc.duration); if (si < 0) si = S.script.scenes.length - 1;
   if (si !== S.scene) setupScene(si);
-  const lt = t - S.sc.start; evalAll(lt); lightCycle(lt); placeCamera(lt);
+  const lt = t - S.sc.start; S.dark = darkAt(S.sc, lt); evalAll(lt); lightCycle(lt); placeCamera(lt);
   for (const o of S.follow || []) o.position.copy(S.stage.camera.position);
   camLocked(S.stage.camera); S.root.updateMatrixWorld(true); S.stage.camera.updateMatrixWorld(true);
 }

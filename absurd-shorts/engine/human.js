@@ -300,7 +300,16 @@ for (let i = 0; i < pp.count; i++) {
     if (tex && m.map !== tex) { m.map = tex; m.needsUpdate = true; }
   };
   // face rig (engine/facerig.js): the same painted face as animated layers; built on first use (cast `toon` / `faceRig`)
-  if (hasFaceRig && (ATL || HEROFACE)) { let fr = null; root.userData.setFaceState = st => { if (!fr) { fr = makeFaceRig(ATL ? null : faceOpts); const m = headMesh.material[4]; m.map = fr.texture; m.needsUpdate = true; } fr.set(st); }; }
+  if (hasFaceRig && (ATL || HEROFACE)) { let fr = null, glowMesh = null; root.userData.setFaceState = st => { if (!fr) { fr = makeFaceRig(ATL ? null : faceOpts); const m = headMesh.material[4]; m.map = fr.texture; m.needsUpdate = true; } fr.set(st); };
+    // a shot in the dark (scene `dark`): the eyes stay visible. A second skin on the face, the eyes alone, unlit, on layer 1: the look draws that layer over the
+    // darkened picture (engine/look.js), hidden by whatever stands in front of the head
+    root.userData.setEyeGlow = (st, k, big) => {
+      if (!fr || k < 0.02) { if (glowMesh) glowMesh.visible = false; return; }
+      if (!glowMesh) { const none = new THREE.MeshBasicMaterial({ visible: false }), gm = new THREE.MeshBasicMaterial({ map: fr.glow(st, big), transparent: true, depthWrite: false, toneMapped: false, fog: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+        glowMesh = new THREE.Mesh(headMesh.geometry, [none, none, none, none, gm, none]); glowMesh.name = 'eyeGlow'; glowMesh.layers.set(1); glowMesh.userData.noAO = true; glowMesh.userData.noBend = true; headMesh.add(glowMesh); }
+      if (glowMesh.geometry !== headMesh.geometry) glowMesh.geometry = headMesh.geometry;
+      fr.glow(st, big); glowMesh.material[4].opacity = Math.min(1, k * 1.15); glowMesh.visible = true;
+    }; }
   root.userData.setFx = buildFaceFx(head, hw, hh, hd, o);
   // rest pose snapshot for the animator
   root.userData.rest = Object.fromEntries(Object.entries(J).map(([k, v]) => [k, v.position.clone()]));

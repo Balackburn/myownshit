@@ -31,10 +31,11 @@ const ShaftShader = {
     }`,
 };
 const GradeShader = {
-  uniforms: { tDiffuse: { value: null }, sat: { value: 1.12 }, contrast: { value: 1.05 }, vignette: { value: 0.18 }, warm: { value: 1.0 }, lift: { value: 0.035 }, tint: { value: new THREE.Vector3(1, 1, 1) } },
+  uniforms: { tDiffuse: { value: null }, sat: { value: 1.12 }, contrast: { value: 1.05 }, vignette: { value: 0.18 }, warm: { value: 1.0 }, lift: { value: 0.035 }, tint: { value: new THREE.Vector3(1, 1, 1) },
+    dark: { value: 0 }, darkFloor: { value: 0.05 }, darkTint: { value: new THREE.Vector3(0.55, 0.72, 1.0) } },
   vertexShader: vertex,
   fragmentShader: `
-    uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm, lift; uniform vec3 tint; varying vec2 vUv;
+    uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm, lift, dark, darkFloor; uniform vec3 tint, darkTint; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb; float l = dot(c, vec3(0.299, 0.587, 0.114));
       c = c * (1.0 - lift * 1.43) + lift;   // lift the shade: navy suits and black robes keep their detail
@@ -43,7 +44,9 @@ const GradeShader = {
       c *= mix(vec3(1.0), mix(shadowTint, hiTint, smoothstep(0.12, 0.85, l)), warm);
       c *= tint;   // a per-shot colour cast (a cold September morning, a warm memory)
       float v = smoothstep(1.05, 0.38, length((vUv - 0.5) * vec2(1.0, 1.15))); c *= mix(1.0 - vignette, 1.0, v);
-      gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+      c = clamp(c, 0.0, 1.0);
+      if (dark > 0.001) c = mix(c, darkTint * (darkFloor * dot(c, vec3(0.299, 0.587, 0.114))), dark);   // the lights are off (scene dark keys): the picture falls to a faint cold silhouette, or to black (darkFloor 0)
+      gl_FragColor = vec4(c, 1.0);
     }`,
 };
 
@@ -118,8 +121,22 @@ export function createLook(stage, W, H, o = {}) {
   const sun = new THREE.Sprite(new THREE.SpriteMaterial({ map: sunTexture(), transparent: true, depthWrite: false, fog: false, toneMapped: false, blending: THREE.AdditiveBlending }));
   sun.renderOrder = -9; sun.userData.noAO = true; scene.add(sun);
   const v = new THREE.Vector3(), dir = new THREE.Vector3(), ray = new THREE.Raycaster();
+  // what stays visible when the lights are off (layer 1: the eyes of the face rig, a prop with `inDark`): drawn over the darkened picture, behind whatever
+  // stands in front of it (a depth pass of the solid world first)
+  const depthOnly = new THREE.MeshBasicMaterial({ colorWrite: false, side: THREE.DoubleSide }), hid = [];
+  const inTheDark = () => {
+    const mask = camera.layers.mask, au = renderer.shadowMap.autoUpdate, ac = renderer.autoClear, bg = scene.background;
+    renderer.setRenderTarget(null); renderer.autoClear = false; renderer.shadowMap.autoUpdate = false; scene.background = null; renderer.clearDepth();
+    // the solid world only: no ink hulls (an outline is the same shape a little bigger: drawn on both sides it would stand in front of its own mesh), nothing see-through
+    scene.traverse(n => { if (!n.visible) return; const m = n.material; if (n.name === 'outline' || n.isPoints || n.isLine || n.isSprite || isSky(n) || (m && !Array.isArray(m) && (m.transparent || m.alphaTest > 0))) { n.visible = false; hid.push(n); } });
+    scene.overrideMaterial = depthOnly; renderer.render(scene, camera); scene.overrideMaterial = null; for (const n of hid) n.visible = true; hid.length = 0;
+    camera.layers.set(1); renderer.render(scene, camera); camera.layers.mask = mask;
+    scene.background = bg; renderer.autoClear = ac; renderer.shadowMap.autoUpdate = au;
+  };
   const look = {
-    outdoor: true, shaftsK: 1, probeDirty: false,
+    outdoor: true, shaftsK: 1, probeDirty: false, dark: 0,
+    // scene `dark` (engine/director3.js): k 0..1, floor: what is left of the picture (0.05: faint silhouettes; 0: black), tint: the colour of that rest
+    setDark(k, floor = 0.05, tint = null) { look.dark = k; grade.uniforms.dark.value = k; grade.uniforms.darkFloor.value = floor; if (tint) { const c = new THREE.Color(tint); grade.uniforms.darkTint.value.set(c.r, c.g, c.b); } else grade.uniforms.darkTint.value.set(0.55, 0.72, 1.0); },
     // per scene: retune the rig set by setLighting / atmosphere (called from setupScene)
     setupLights(L, set, sc = {}) {
       const indoor = (set.userData.lighting || 'day') === 'interior' || (set.userData.lighting === 'dark') || sc.indoor === true;
@@ -170,12 +187,13 @@ export function createLook(stage, W, H, o = {}) {
         const sv = sun.visible; sun.visible = false; cubeCam.position.copy(at); cubeCam.update(renderer, scene); sun.visible = sv;
         const P = probeFromCube(renderer, cubeRT); probe = P.probe;
         probe.intensity = look.probeK * Math.min(1, look.probeTarget / Math.max(1e-3, P.avg));   // a bright set (white kitchen, snow) bounces less, so it does not wash out
-        scene.add(probe);
+        probe.layers.enable(1); scene.add(probe);
         let M = null; if (look.autoExposure || o.debugProbe) M = meter();
         if (look.autoExposure) renderer.toneMappingExposure = look.baseExposure * Math.min(1.08, Math.max(0.7, Math.pow(look.meterRef / Math.max(1e-3, M.mean), 0.7)));   // a bright set is metered down, a dim one up a little
         if (o.debugProbe) console.warn(`[look] probe at ${at.toArray().map(x => x.toFixed(2))} d ${d.toFixed(2)} avg ${P.avg.toFixed(3)} bad ${P.bad} -> ${probe.intensity.toFixed(2)} | meter mean ${M.mean.toFixed(3)} p50 ${M.p50.toFixed(3)} p75 ${M.p75.toFixed(3)} exposure ${renderer.toneMappingExposure.toFixed(2)}`);
       }
       composer.render();
+      if (look.dark > 0.02) inTheDark();
     },
   };
   return look;

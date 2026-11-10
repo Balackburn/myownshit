@@ -94,6 +94,8 @@ function layersFor(v) {
 const nearest = (list, v) => { let b = list[0]; for (const x of list) if (Math.abs(Math.log(v / x)) < Math.abs(Math.log(v / b))) b = x; return b; };
 const q = (x, s) => Math.round(x / s) * s;
 let scratch = null;
+const GLOW_INK = '#F1E9D6', GLOW_OWN = new Set(['heart', 'star', 'euro']);   // in the dark: drawn eyes in the pale of an eye white; these keep their colours
+const GLOW_MOUTHS = new Set(['teeth', 'grimace', 'clench', 'bigsmile', 'laugh', 'open', 'scream', 'evil', 'tongueout', 'tongue']);   // mouths with teeth or a tongue: they show in the dark
 export function makeFaceRig(v = null) {
   const [W, H] = RIG.size, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'), L = layersFor(v), S = RIG.sprites, A = RIG.anchors;
   if (!scratch) { scratch = document.createElement('canvas'); scratch.width = W; scratch.height = H; }
@@ -106,13 +108,20 @@ export function makeFaceRig(v = null) {
     ctx.drawImage(L.sprites, r[0], r[1], r[2], r[3], r[4] - ax, r[5] - ay, r[2], r[3]); ctx.restore(); return true;
   };
   const centre = name => { const r = S[name]; return r ? [r[4] + r[2] / 2, r[5] + r[3] / 2] : [0, 0]; };
+  let tg = g;   // where the eyes are drawn: the face, or the glow layer (the eyes alone, for a shot in the dark)
   function eye(s, e) {
-    const a = A['eye' + s], cx = a.cx, cy = a.cy;
-    if (e.kind !== 'open') { if (!spr(g, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s, e.s * (e.open ?? 1))) spr(g, `eye${s}_closed`, cx, cy); return; }
-    if (e.lid >= 0.9) { spr(g, `eye${s}_closed`, cx, cy, 0, 0.24 * a.h * e.s, 0, e.s, 1); return; }   // shut: the lid line has reached the lower lid
+    const a = A['eye' + s], cx = a.cx, cy = a.cy, dark = tg !== g;
+    if (e.kind !== 'open') {
+      if (dark) { if (e.kind === 'closed') return;   // in the dark a shut eye is gone; a drawn eye (a cross, a spiral, a happy arc) shows in pale ink, a coloured one (heart, star, euro) as it is
+        const x0 = Math.floor(cx - a.w * e.s) - 20, y0 = Math.floor(cy - a.h * e.s) - 20, w = Math.ceil(2 * a.w * e.s) + 40, h = Math.ceil(2 * a.h * e.s) + 40;
+        sg.clearRect(x0, y0, w, h); if (!spr(sg, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s, e.s * (e.open ?? 1))) return;
+        if (!GLOW_OWN.has(e.kind)) { sg.globalCompositeOperation = 'source-in'; sg.fillStyle = GLOW_INK; sg.fillRect(x0, y0, w, h); sg.globalCompositeOperation = 'source-over'; }
+        tg.drawImage(scratch, x0, y0, w, h, x0, y0, w, h); return; }
+      if (!spr(g, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s, e.s * (e.open ?? 1))) spr(g, `eye${s}_closed`, cx, cy); return; }
+    if (e.lid >= 0.9) { if (!dark) spr(g, `eye${s}_closed`, cx, cy, 0, 0.24 * a.h * e.s, 0, e.s, 1); return; }   // shut: the lid line has reached the lower lid
     const P = nearest(RIG.sizes, e.s), k = e.s / P, hh = a.h / 2 * e.s, hw = a.w / 2 * e.s, tag = Math.round(P * 100);
     const ox = Math.max(0, 14 - (cx - hw)) + Math.min(0, (W - 14) - (cx + hw));   // a big eye slides inward rather than off the panel
-    g.save(); g.translate(Math.round(ox), 0); eyeOpen(s, e, a, cx, cy, P, k, hh, hw, tag); g.restore();
+    tg.save(); tg.translate(Math.round(ox), 0); eyeOpen(s, e, a, cx, cy, P, k, hh, hw, tag); tg.restore();
   }
   function eyeOpen(s, e, a, cx, cy, P, k, hh, hw, tag) {
     const x0 = Math.floor(cx - hw - 14), y0 = Math.floor(cy - hh - 14), w = Math.ceil(2 * hw + 28), h = Math.ceil(2 * hh + 28);
@@ -124,7 +133,8 @@ export function makeFaceRig(v = null) {
     sg.globalCompositeOperation = 'source-atop'; spr(sg, `pupil${s}_${Math.round(PS * 100)}${e.shine && PS >= 1.4 ? 's' : ''}`, cx, cy, px, py, 0, kp, kp); sg.globalCompositeOperation = 'source-over';
     spr(sg, `eye${s}_o_${tag}`, cx, cy, 0, 0, 0, k, k);
     const top = cy - hh + 2 * hh * e.lid, bot = cy + hh - 2 * hh * e.low, cutT = e.lid > 0.03, cutB = e.low > 0.03;
-    g.save(); g.beginPath(); g.rect(x0, cutT ? top : y0, w, Math.max(0, (cutB ? bot : y0 + h) - (cutT ? top : y0))); g.clip(); g.drawImage(scratch, x0, y0, w, h, x0, y0, w, h); g.restore();
+    tg.save(); tg.beginPath(); tg.rect(x0, cutT ? top : y0, w, Math.max(0, (cutB ? bot : y0 + h) - (cutT ? top : y0))); tg.clip(); tg.drawImage(scratch, x0, y0, w, h, x0, y0, w, h); tg.restore();
+    if (tg !== g) return;   // the lid lines are ink: nothing of them in the dark
     if (cutT) spr(g, 'lid' + s, cx, cy, 0, top - cy, 0, e.s, 1);
     if (cutB) spr(g, 'lidlow' + s, cx, cy, 0, bot - cy, 0, e.s, 1);
   }
@@ -162,5 +172,16 @@ export function makeFaceRig(v = null) {
     return k;
   };
   let last = null;
-  return { texture: tex, canvas: c, set(st) { const k = keyOf(st); if (k === last) return false; last = k; draw(st); tex.needsUpdate = true; return true; } };
+  // the glow layer (a shot in the dark, scene `dark`): the eyes alone, and a mouth that shows teeth, on a clear canvas of the same size. The head carries it
+  // on a second skin that stays lit when the picture goes black (engine/human.js setEyeGlow, engine/look.js)
+  let gc = null, gg = null, gtex = null, glast = null;
+  function glow(st, big = 1.3) {   // big: the eyes grow in the dark (two white ovals must read on a phone), and a heavy lid lifts; a blink still shuts them
+    if (!gc) { gc = document.createElement('canvas'); gc.width = W; gc.height = H; gg = gc.getContext('2d'); gtex = new THREE.CanvasTexture(gc); gtex.colorSpace = THREE.SRGBColorSpace; gtex.anisotropy = 8; }
+    const k = keyOf(st) + '|' + big; if (k === glast) return gtex; glast = k;
+    gg.setTransform(1, 0, 0, 1, 0, 0); gg.globalAlpha = 1; gg.globalCompositeOperation = 'source-over'; gg.clearRect(0, 0, W, H);
+    tg = gg; for (const s of 'LR') { const e = st.eyes[s]; eye(s, big === 1 ? e : { ...e, s: Math.min(1.9, e.s * big), lid: e.lid < 0.6 ? e.lid * 0.3 : 0.18 + 0.82 * (e.lid - 0.6) / 0.4, low: e.low * 0.5 }); } tg = g;
+    const m = st.mouth, ma = A.mouth; if (GLOW_MOUTHS.has(m.spr)) spr(gg, 'mouth_' + m.spr, ma.cx, ma.cy, m.dx, m.dy, -Math.atan2(m.tilt, ma.hw), m.w * (m.flip ? -1 : 1), m.h);
+    gtex.needsUpdate = true; return gtex;
+  }
+  return { texture: tex, canvas: c, glow, set(st) { const k = keyOf(st); if (k === last) return false; last = k; draw(st); tex.needsUpdate = true; return true; } };
 }
