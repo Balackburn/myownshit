@@ -1,0 +1,557 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a perdu une chaussette dans la machine à laver.",
+   "hl": [
+    "chaussette",
+    "machine"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.462,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "a",
+     "s": 0.519,
+     "e": 0.557
+    },
+    {
+     "w": "perdu",
+     "s": 0.633,
+     "e": 0.786
+    },
+    {
+     "w": "une",
+     "s": 0.862,
+     "e": 0.938
+    },
+    {
+     "w": "chaussette",
+     "s": 0.976,
+     "e": 1.319
+    },
+    {
+     "w": "dans",
+     "s": 1.357,
+     "e": 1.471
+    },
+    {
+     "w": "la",
+     "s": 1.51,
+     "e": 1.548
+    },
+    {
+     "w": "machine",
+     "s": 1.7,
+     "e": 1.852
+    },
+    {
+     "w": "à",
+     "s": 1.878,
+     "e": 1.903
+    },
+    {
+     "w": "laver.",
+     "s": 1.929,
+     "e": 2.462
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Alors il est entré dedans pour la chercher.",
+   "hl": [
+    "entré",
+    "dedans"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L02.k.wav",
+   "file_start": 2.562,
+   "speech_start": 2.562,
+   "speech_end": 4.543,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 2.562,
+     "e": 2.79
+    },
+    {
+     "w": "il",
+     "s": 2.867,
+     "e": 2.905
+    },
+    {
+     "w": "est",
+     "s": 2.943,
+     "e": 3.019
+    },
+    {
+     "w": "entré",
+     "s": 3.095,
+     "e": 3.248
+    },
+    {
+     "w": "dedans",
+     "s": 3.362,
+     "e": 3.552
+    },
+    {
+     "w": "pour",
+     "s": 3.629,
+     "e": 3.705
+    },
+    {
+     "w": "la",
+     "s": 3.743,
+     "e": 3.781
+    },
+    {
+     "w": "chercher.",
+     "s": 3.857,
+     "e": 4.543
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Au fond du tambour, il y avait toutes les chaussettes perdues du monde.",
+   "hl": [
+    "toutes",
+    "chaussettes",
+    "perdues"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L03.k.wav",
+   "file_start": 4.643,
+   "speech_start": 4.643,
+   "speech_end": 7.995,
+   "words": [
+    {
+     "w": "Au",
+     "s": 4.643,
+     "e": 4.795
+    },
+    {
+     "w": "fond",
+     "s": 4.846,
+     "e": 4.948
+    },
+    {
+     "w": "du",
+     "s": 4.986,
+     "e": 5.024
+    },
+    {
+     "w": "tambour,",
+     "s": 5.1,
+     "e": 5.633
+    },
+    {
+     "w": "il",
+     "s": 5.71,
+     "e": 5.786
+    },
+    {
+     "w": "y",
+     "s": 5.811,
+     "e": 5.836
+    },
+    {
+     "w": "avait",
+     "s": 5.862,
+     "e": 6.167
+    },
+    {
+     "w": "toutes",
+     "s": 6.205,
+     "e": 6.395
+    },
+    {
+     "w": "les",
+     "s": 6.433,
+     "e": 6.471
+    },
+    {
+     "w": "chaussettes",
+     "s": 6.548,
+     "e": 6.929
+    },
+    {
+     "w": "perdues",
+     "s": 7.005,
+     "e": 7.233
+    },
+    {
+     "w": "du",
+     "s": 7.271,
+     "e": 7.31
+    },
+    {
+     "w": "monde.",
+     "s": 7.386,
+     "e": 7.995
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Elles avaient fondé un royaume.",
+   "hl": [
+    "royaume."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L04.k.wav",
+   "file_start": 8.095,
+   "speech_start": 8.095,
+   "speech_end": 9.848,
+   "words": [
+    {
+     "w": "Elles",
+     "s": 8.095,
+     "e": 8.248
+    },
+    {
+     "w": "avaient",
+     "s": 8.324,
+     "e": 8.476
+    },
+    {
+     "w": "fondé",
+     "s": 8.552,
+     "e": 8.857
+    },
+    {
+     "w": "un",
+     "s": 8.933,
+     "e": 9.01
+    },
+    {
+     "w": "royaume.",
+     "s": 9.124,
+     "e": 9.848
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Et la reine, c'était sa chaussette.",
+   "hl": [
+    "reine,",
+    "chaussette."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L05.k.wav",
+   "file_start": 9.948,
+   "speech_start": 9.948,
+   "speech_end": 11.852,
+   "words": [
+    {
+     "w": "Et",
+     "s": 9.948,
+     "e": 10.024
+    },
+    {
+     "w": "la",
+     "s": 10.1,
+     "e": 10.176
+    },
+    {
+     "w": "reine,",
+     "s": 10.214,
+     "e": 10.71
+    },
+    {
+     "w": "c'était",
+     "s": 10.811,
+     "e": 11.014
+    },
+    {
+     "w": "sa",
+     "s": 11.052,
+     "e": 11.09
+    },
+    {
+     "w": "chaussette.",
+     "s": 11.129,
+     "e": 11.852
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il lui a demandé de rentrer.",
+   "hl": [
+    "rentrer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L06.k.wav",
+   "file_start": 11.952,
+   "speech_start": 11.952,
+   "speech_end": 13.476,
+   "words": [
+    {
+     "w": "Il",
+     "s": 11.952,
+     "e": 12.029
+    },
+    {
+     "w": "lui",
+     "s": 12.105,
+     "e": 12.181
+    },
+    {
+     "w": "a",
+     "s": 12.219,
+     "e": 12.257
+    },
+    {
+     "w": "demandé",
+     "s": 12.41,
+     "e": 12.6
+    },
+    {
+     "w": "de",
+     "s": 12.638,
+     "e": 12.714
+    },
+    {
+     "w": "rentrer.",
+     "s": 12.79,
+     "e": 13.476
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Elle a refusé.",
+   "hl": [
+    "refusé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L07.k.wav",
+   "file_start": 13.576,
+   "speech_start": 13.576,
+   "speech_end": 14.567,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 13.576,
+     "e": 13.69
+    },
+    {
+     "w": "a",
+     "s": 13.729,
+     "e": 13.767
+    },
+    {
+     "w": "refusé.",
+     "s": 13.805,
+     "e": 14.567
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Chez lui, elle était à ses pieds.",
+   "hl": [
+    "pieds."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L08.k.wav",
+   "file_start": 14.667,
+   "speech_start": 14.667,
+   "speech_end": 16.419,
+   "words": [
+    {
+     "w": "Chez",
+     "s": 14.667,
+     "e": 14.819
+    },
+    {
+     "w": "lui,",
+     "s": 14.857,
+     "e": 15.276
+    },
+    {
+     "w": "elle",
+     "s": 15.352,
+     "e": 15.429
+    },
+    {
+     "w": "était",
+     "s": 15.543,
+     "e": 15.657
+    },
+    {
+     "w": "à",
+     "s": 15.695,
+     "e": 15.733
+    },
+    {
+     "w": "ses",
+     "s": 15.81,
+     "e": 15.886
+    },
+    {
+     "w": "pieds.",
+     "s": 15.924,
+     "e": 16.419
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le lendemain, l'autre chaussette est partie aussi.",
+   "hl": [
+    "l'autre",
+    "partie"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L09.k.wav",
+   "file_start": 16.519,
+   "speech_start": 16.519,
+   "speech_end": 18.881,
+   "words": [
+    {
+     "w": "Le",
+     "s": 16.519,
+     "e": 16.595
+    },
+    {
+     "w": "lendemain,",
+     "s": 16.671,
+     "e": 17.281
+    },
+    {
+     "w": "l'autre",
+     "s": 17.357,
+     "e": 17.586
+    },
+    {
+     "w": "chaussette",
+     "s": 17.662,
+     "e": 17.967
+    },
+    {
+     "w": "est",
+     "s": 18.005,
+     "e": 18.043
+    },
+    {
+     "w": "partie",
+     "s": 18.157,
+     "e": 18.348
+    },
+    {
+     "w": "aussi.",
+     "s": 18.462,
+     "e": 18.881
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Elle a laissé un petit mot.",
+   "hl": [
+    "petit",
+    "mot."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L10.k.wav",
+   "file_start": 18.981,
+   "speech_start": 18.981,
+   "speech_end": 20.282,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 18.981,
+     "e": 19.057
+    },
+    {
+     "w": "a",
+     "s": 19.095,
+     "e": 19.133
+    },
+    {
+     "w": "laissé",
+     "s": 19.171,
+     "e": 19.4
+    },
+    {
+     "w": "un",
+     "s": 19.438,
+     "e": 19.514
+    },
+    {
+     "w": "petit",
+     "s": 19.59,
+     "e": 19.743
+    },
+    {
+     "w": "mot.",
+     "s": 19.857,
+     "e": 20.276
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Depuis, ce mec vit pieds nus.",
+   "hl": [
+    "pieds",
+    "nus."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/chaussettes/tts/L11.k.wav",
+   "file_start": 20.382,
+   "speech_start": 20.382,
+   "speech_end": 22.286,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 20.382,
+     "e": 21.067
+    },
+    {
+     "w": "ce",
+     "s": 21.144,
+     "e": 21.22
+    },
+    {
+     "w": "mec",
+     "s": 21.258,
+     "e": 21.448
+    },
+    {
+     "w": "vit",
+     "s": 21.524,
+     "e": 21.601
+    },
+    {
+     "w": "pieds",
+     "s": 21.639,
+     "e": 21.855
+    },
+    {
+     "w": "nus.",
+     "s": 21.88,
+     "e": 22.286
+    }
+   ]
+  }
+ ],
+ "total": 23.79
+}

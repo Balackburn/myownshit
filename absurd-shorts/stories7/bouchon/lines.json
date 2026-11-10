@@ -1,0 +1,92 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec était coincé dans les bouchons.",
+  "hl": [
+   "coincé",
+   "bouchons."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Au bout d'une heure, il a coupé le moteur.",
+  "hl": [
+   "heure,",
+   "moteur."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Au bout d'un mois, il a planté des tomates sur le capot.",
+  "hl": [
+   "mois,",
+   "tomates"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Au bout d'un an, il a épousé sa voisine de bouchon.",
+  "hl": [
+   "an,",
+   "épousé",
+   "voisine"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Ils ont eu trois enfants.",
+  "hl": [
+   "trois",
+   "enfants."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les enfants ont grandi dans la voiture.",
+  "hl": [
+   "grandi"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Puis ils sont partis faire leurs études. À pied.",
+  "hl": [
+   "études.",
+   "pied."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Quarante ans plus tard, le bouchon a enfin avancé.",
+  "hl": [
+   "Quarante",
+   "avancé."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "De dix mètres.",
+  "hl": [
+   "dix",
+   "mètres."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Et le GPS a dit: vous êtes arrivé.",
+  "hl": [
+   "GPS",
+   "arrivé."
+  ]
+ }
+]

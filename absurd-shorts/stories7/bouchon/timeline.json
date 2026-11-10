@@ -1,0 +1,555 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec était coincé dans les bouchons.",
+   "hl": [
+    "coincé",
+    "bouchons."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.852,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.252
+    },
+    {
+     "w": "mec",
+     "s": 0.29,
+     "e": 0.481
+    },
+    {
+     "w": "était",
+     "s": 0.595,
+     "e": 0.71
+    },
+    {
+     "w": "coincé",
+     "s": 0.748,
+     "e": 1.014
+    },
+    {
+     "w": "dans",
+     "s": 1.04,
+     "e": 1.09
+    },
+    {
+     "w": "les",
+     "s": 1.167,
+     "e": 1.243
+    },
+    {
+     "w": "bouchons.",
+     "s": 1.293,
+     "e": 1.852
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Au bout d'une heure, il a coupé le moteur.",
+   "hl": [
+    "heure,",
+    "moteur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L02.k.wav",
+   "file_start": 1.952,
+   "speech_start": 1.952,
+   "speech_end": 4.01,
+   "words": [
+    {
+     "w": "Au",
+     "s": 1.952,
+     "e": 2.029
+    },
+    {
+     "w": "bout",
+     "s": 2.105,
+     "e": 2.181
+    },
+    {
+     "w": "d'une",
+     "s": 2.231,
+     "e": 2.333
+    },
+    {
+     "w": "heure,",
+     "s": 2.486,
+     "e": 2.79
+    },
+    {
+     "w": "il",
+     "s": 2.829,
+     "e": 2.867
+    },
+    {
+     "w": "a",
+     "s": 2.943,
+     "e": 3.019
+    },
+    {
+     "w": "coupé",
+     "s": 3.07,
+     "e": 3.21
+    },
+    {
+     "w": "le",
+     "s": 3.248,
+     "e": 3.286
+    },
+    {
+     "w": "moteur.",
+     "s": 3.324,
+     "e": 4.01
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Au bout d'un mois, il a planté des tomates sur le capot.",
+   "hl": [
+    "mois,",
+    "tomates"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L03.k.wav",
+   "file_start": 4.11,
+   "speech_start": 4.11,
+   "speech_end": 6.776,
+   "words": [
+    {
+     "w": "Au",
+     "s": 4.11,
+     "e": 4.186
+    },
+    {
+     "w": "bout",
+     "s": 4.262,
+     "e": 4.338
+    },
+    {
+     "w": "d'un",
+     "s": 4.376,
+     "e": 4.49
+    },
+    {
+     "w": "mois,",
+     "s": 4.567,
+     "e": 4.948
+    },
+    {
+     "w": "il",
+     "s": 5.024,
+     "e": 5.062
+    },
+    {
+     "w": "a",
+     "s": 5.1,
+     "e": 5.176
+    },
+    {
+     "w": "planté",
+     "s": 5.29,
+     "e": 5.443
+    },
+    {
+     "w": "des",
+     "s": 5.481,
+     "e": 5.557
+    },
+    {
+     "w": "tomates",
+     "s": 5.633,
+     "e": 5.862
+    },
+    {
+     "w": "sur",
+     "s": 5.938,
+     "e": 6.014
+    },
+    {
+     "w": "le",
+     "s": 6.052,
+     "e": 6.09
+    },
+    {
+     "w": "capot.",
+     "s": 6.167,
+     "e": 6.776
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Au bout d'un an, il a épousé sa voisine de bouchon.",
+   "hl": [
+    "an,",
+    "épousé",
+    "voisine"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L04.k.wav",
+   "file_start": 6.876,
+   "speech_start": 6.876,
+   "speech_end": 9.543,
+   "words": [
+    {
+     "w": "Au",
+     "s": 6.876,
+     "e": 7.029
+    },
+    {
+     "w": "bout",
+     "s": 7.067,
+     "e": 7.105
+    },
+    {
+     "w": "d'un",
+     "s": 7.181,
+     "e": 7.333
+    },
+    {
+     "w": "an,",
+     "s": 7.41,
+     "e": 7.714
+    },
+    {
+     "w": "il",
+     "s": 7.79,
+     "e": 7.829
+    },
+    {
+     "w": "a",
+     "s": 7.867,
+     "e": 7.943
+    },
+    {
+     "w": "épousé",
+     "s": 7.981,
+     "e": 8.248
+    },
+    {
+     "w": "sa",
+     "s": 8.324,
+     "e": 8.4
+    },
+    {
+     "w": "voisine",
+     "s": 8.438,
+     "e": 8.705
+    },
+    {
+     "w": "de",
+     "s": 8.781,
+     "e": 8.857
+    },
+    {
+     "w": "bouchon.",
+     "s": 8.933,
+     "e": 9.543
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ils ont eu trois enfants.",
+   "hl": [
+    "trois",
+    "enfants."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L05.k.wav",
+   "file_start": 9.643,
+   "speech_start": 9.643,
+   "speech_end": 10.938,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 9.643,
+     "e": 9.795
+    },
+    {
+     "w": "ont",
+     "s": 9.833,
+     "e": 9.871
+    },
+    {
+     "w": "eu",
+     "s": 9.948,
+     "e": 10.024
+    },
+    {
+     "w": "trois",
+     "s": 10.1,
+     "e": 10.252
+    },
+    {
+     "w": "enfants.",
+     "s": 10.329,
+     "e": 10.938
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les enfants ont grandi dans la voiture.",
+   "hl": [
+    "grandi"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L06.k.wav",
+   "file_start": 11.038,
+   "speech_start": 11.038,
+   "speech_end": 12.867,
+   "words": [
+    {
+     "w": "Les",
+     "s": 11.038,
+     "e": 11.19
+    },
+    {
+     "w": "enfants",
+     "s": 11.267,
+     "e": 11.495
+    },
+    {
+     "w": "ont",
+     "s": 11.571,
+     "e": 11.648
+    },
+    {
+     "w": "grandi",
+     "s": 11.762,
+     "e": 11.952
+    },
+    {
+     "w": "dans",
+     "s": 11.978,
+     "e": 12.029
+    },
+    {
+     "w": "la",
+     "s": 12.067,
+     "e": 12.105
+    },
+    {
+     "w": "voiture.",
+     "s": 12.181,
+     "e": 12.867
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Puis ils sont partis faire leurs études. À pied.",
+   "hl": [
+    "études.",
+    "pied."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L07.k.wav",
+   "file_start": 12.967,
+   "speech_start": 12.967,
+   "speech_end": 15.633,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 12.967,
+     "e": 13.271
+    },
+    {
+     "w": "ils",
+     "s": 13.348,
+     "e": 13.424
+    },
+    {
+     "w": "sont",
+     "s": 13.474,
+     "e": 13.576
+    },
+    {
+     "w": "partis",
+     "s": 13.652,
+     "e": 13.805
+    },
+    {
+     "w": "faire",
+     "s": 13.843,
+     "e": 13.957
+    },
+    {
+     "w": "leurs",
+     "s": 14.071,
+     "e": 14.186
+    },
+    {
+     "w": "études.",
+     "s": 14.262,
+     "e": 14.871
+    },
+    {
+     "w": "À",
+     "s": 14.91,
+     "e": 14.948
+    },
+    {
+     "w": "pied.",
+     "s": 15.024,
+     "e": 15.633
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Quarante ans plus tard, le bouchon a enfin avancé.",
+   "hl": [
+    "Quarante",
+    "avancé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L08.k.wav",
+   "file_start": 15.733,
+   "speech_start": 15.733,
+   "speech_end": 18.705,
+   "words": [
+    {
+     "w": "Quarante",
+     "s": 15.733,
+     "e": 16.038
+    },
+    {
+     "w": "ans",
+     "s": 16.076,
+     "e": 16.114
+    },
+    {
+     "w": "plus",
+     "s": 16.19,
+     "e": 16.267
+    },
+    {
+     "w": "tard,",
+     "s": 16.343,
+     "e": 16.838
+    },
+    {
+     "w": "le",
+     "s": 16.876,
+     "e": 16.952
+    },
+    {
+     "w": "bouchon",
+     "s": 16.99,
+     "e": 17.333
+    },
+    {
+     "w": "a",
+     "s": 17.41,
+     "e": 17.486
+    },
+    {
+     "w": "enfin",
+     "s": 17.562,
+     "e": 17.867
+    },
+    {
+     "w": "avancé.",
+     "s": 17.943,
+     "e": 18.705
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "De dix mètres.",
+   "hl": [
+    "dix",
+    "mètres."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L09.k.wav",
+   "file_start": 18.805,
+   "speech_start": 18.805,
+   "speech_end": 19.795,
+   "words": [
+    {
+     "w": "De",
+     "s": 18.805,
+     "e": 18.881
+    },
+    {
+     "w": "dix",
+     "s": 19.033,
+     "e": 19.11
+    },
+    {
+     "w": "mètres.",
+     "s": 19.186,
+     "e": 19.795
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Et le GPS a dit: vous êtes arrivé.",
+   "hl": [
+    "GPS",
+    "arrivé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bouchon/tts/L10.k.wav",
+   "file_start": 19.895,
+   "speech_start": 19.895,
+   "speech_end": 22.257,
+   "words": [
+    {
+     "w": "Et",
+     "s": 19.895,
+     "e": 19.971
+    },
+    {
+     "w": "le",
+     "s": 20.048,
+     "e": 20.124
+    },
+    {
+     "w": "GPS",
+     "s": 20.2,
+     "e": 20.581
+    },
+    {
+     "w": "a",
+     "s": 20.619,
+     "e": 20.657
+    },
+    {
+     "w": "dit:",
+     "s": 20.733,
+     "e": 21.19
+    },
+    {
+     "w": "vous",
+     "s": 21.267,
+     "e": 21.343
+    },
+    {
+     "w": "êtes",
+     "s": 21.419,
+     "e": 21.495
+    },
+    {
+     "w": "arrivé.",
+     "s": 21.648,
+     "e": 22.257
+    }
+   ]
+  }
+ ],
+ "total": 23.86
+}
