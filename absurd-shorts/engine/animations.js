@@ -357,6 +357,92 @@ export const CLIPS = {
   lieRelax: (t) => ({ root: { rx: -PI / 2, y: -0.88, pivot: 'hips' }, ...arms(m([0, 0, 2.75], [0, 0, 2.75]), m([0, 0, 2.0], [0, 0, 2.0])), hipL: [-0.75, 0, 0.05], kneeL: [1.4, 0, 0], hipR: [0, 0, -0.05], head: [0.35 + 0.03 * S(t * 1.5), 0, 0] }),
 };
 
+// ---- cartoon clips (toon rig: engine/toon.js). They return extra channels under `toon` (sq, scl, bend, face); on an actor without the
+// cartoon rig those channels are ignored and the joints still play. Times are seconds from the key.
+const sqv = s => { const k = 1 / Math.sqrt(Math.max(0.05, s)); return [k, s, k]; };   // volume-preserving squash (< 1) / stretch (> 1) along Y
+const c01 = x => Math.max(0, Math.min(1, x));
+const eo = x => 1 - Math.pow(1 - c01(x), 3), ei = x => c01(x) ** 3, eio = x => { x = c01(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const back = (x, c1 = 2.4) => { x = c01(x); const c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };   // overshoot, then settle
+const wob = (t, f = 30, decay = 6) => (t <= 0 ? 0 : Math.sin(t * f) * Math.exp(-t * decay));   // decaying wobble (a jelly settling)
+const mix = (a, b, k) => a + (b - a) * k;
+Object.assign(CLIPS, {
+  // the Tex Avery take: sink (anticipation), shoot up with the eyes out and the jaw down, vibrate, settle. p.hold (0.7 s), p.pop / p.jaw (0..1)
+  take: (t, p = {}) => {
+    const hold = p.hold ?? 0.7, a = c01(t / 0.14), b = t < 0.14 ? 0 : back((t - 0.14) / 0.13), end = 0.27 + hold, out = t < end ? 0 : eio((t - end) / 0.25), live = b * (1 - out);
+    const sy = mix(mix(1, 0.7, eo(a)), 1.16, b) * (1 - out) + out + 0.05 * wob(t - end, 34, 7), sh = t > 0.27 && t < end ? 1 : 0, arm = mix(0.15, 2.05, b) * (1 - out) + 0.2 * out;
+    return { ...arms(m([mix(-0.5 * a, -0.3, b), 0, arm], [mix(-0.5 * a, -0.3, b), 0, arm]), m([mix(-1.3 * a, -0.25, b) * (1 - out), 0, 0], [mix(-1.3 * a, -0.25, b) * (1 - out), 0, 0])),
+      hipL: [-0.25 * a * (1 - b), 0, 0.08 * live], hipR: [-0.25 * a * (1 - b), 0, -0.08 * live], kneeL: [0.5 * a * (1 - b), 0, 0], kneeR: [0.5 * a * (1 - b), 0, 0],
+      head: [mix(0.3 * a, -0.05, b) * (1 - out), 0.012 * sh * S(t * 53), 0], root: { x: 0.004 * sh * S(t * 61), y: mix(-0.1 * a, 0.03, b) * (1 - out) },
+      toon: { sq: sqv(sy), bend: { spine: [mix(0.35 * a, -0.14, b) * (1 - out), 0, 0, 1, null], neck: [0, 0, 0, 1 + 1.1 * live, null] }, scl: { head: [1 + 0.14 * live, 1 + 0.26 * live, 1 + 0.14 * live] },
+        ears: 0.7 * live + 0.15 * sh * S(t * 47), hat: [0.32 * live + 0.02 * sh * S(t * 31), 0.25 * live, 6.3 * eo((t - 0.14) / 0.5)],
+        face: { pop: (p.pop ?? 1) * live, popLen: 0.13, jaw: (p.jaw ?? 1) * live, tongue: (p.tongue ?? 0) * live, expr: p.expr ?? 'take', exprW: Math.max(live, 0.6 * eo(a) * (1 - out)) } } };
+  },
+  // double take: a casual look away (p.side ±1), a beat, a dip, then the head whips back smeared wide, eyes out. p.beat (0.3 s)
+  doubleTakeToon: (t, p = {}) => {
+    const sd = p.side ?? 1, beat = p.beat ?? 0.3, t1 = 0.22, t2 = t1 + beat, t3 = t2 + 0.08, t4 = t3 + 0.1;
+    const away = t < t2 ? eo(t / t1) : 1 - back((t - t3) / (t4 - t3), 3.2), dip = t < t2 ? 0 : t < t3 ? eo((t - t2) / 0.08) : 1 - eo((t - t3) / 0.1), whip = t > t3 && t < t4 ? S((t - t3) / (t4 - t3) * PI) : 0, pop = t > t3 ? eo((t - t3) / 0.1) : 0;
+    return { ...CLIPS.stand(), head: [0.1 * away + 0.3 * dip - 0.12 * pop, 0.95 * sd * Math.max(-0.2, away), 0], neck: [0, 0.25 * sd * Math.max(0, away), 0], torso: [0.1 * dip, 0.18 * sd * Math.max(0, away), 0], root: { y: -0.05 * dip + 0.05 * pop * Math.max(0, 1 - (t - t4) * 3) },
+      toon: { sq: sqv(1 - 0.12 * dip + 0.1 * pop * Math.max(0, 1 - (t - t4) * 4)), scl: { head: [1 + 0.55 * whip, 1 - 0.18 * whip, 1] }, bend: { spine: [0.2 * dip - 0.15 * pop, 0, 0, 1, null], neck: [0, 0, 0, 1 + 0.5 * pop * Math.max(0, 1 - (t - t4) * 2.5), null] },
+        face: { pop: (p.pop ?? 0.75) * pop, jaw: (p.jaw ?? 0.3) * pop, expr: t < t2 ? (p.calm ?? 'unimpressed') : (p.expr ?? 'takeSmall'), exprW: t < t2 ? 0.8 * eo(t / t1) : Math.max(dip, pop) } } };
+  },
+  // running on the spot before a dash: legs a blur (stretched, 9 cycles/s), the body leans back then tips forward. p.dur (0.6 s)
+  scramble: (t, p = {}) => {
+    const d = p.dur ?? 0.6, k = c01(t / d), ph = t * 2 * PI * (p.freq ?? 9), lean = mix(-0.45, 0.5, eio(k));
+    return { hipL: [-0.4 + 1.3 * S(ph), 0, 0.05], hipR: [-0.4 + 1.3 * S(ph + PI), 0, -0.05], kneeL: [1.2 + 0.9 * S(ph + 1.2), 0, 0], kneeR: [1.2 + 0.9 * S(ph + PI + 1.2), 0, 0],
+      ...arms(m([-0.6 + 1.1 * S(ph + PI), 0, 0.25], [-0.6 + 1.1 * S(ph), 0, 0.25]), m([-1.5, 0, 0], [-1.5, 0, 0])), torso: [0, 0.1 * S(ph), 0], head: [-lean * 0.5, 0, 0], root: { y: 0.03 + 0.02 * Math.abs(S(ph)), z: -0.12 * (1 - k) },
+      toon: { bend: { spine: [lean, 0, 0, 1, null], legL: [0, 0, 0, 1.18, null], legR: [0, 0, 0, 1.18, null] }, face: { steam: p.steam ?? 0, expr: p.expr ?? 'determined', exprW: 1 } } };
+  },
+  // the dash itself (use it on a fast move): the body a long horizontal smear, arms and one leg trailing
+  dashOff: (t, p = {}) => { const k = p.k ?? 1, ph = t * 2 * PI * 7; return { ...arms(m([0.9, 0, 0.5], [0.9, 0, 0.5]), m([0, 0, 0], [0, 0, 0])), hipL: [-1.3 + 0.3 * S(ph), 0, 0], hipR: [1.0 + 0.3 * S(ph + PI), 0, 0], kneeL: [0.3, 0, 0], kneeR: [0.9, 0, 0], head: [-0.75, 0, 0],
+      toon: { sq: [1 - 0.22 * k, 1 - 0.18 * k, 1 + 0.75 * k], bend: { spine: [0.85, 0, 0, 1.15, null], armL: [0, 0, 0, 1.3, null], armR: [0, 0, 0, 1.3, null], legR: [0, 0, 0, 1.35, null] } } }; },
+  // hanging in mid-air past the edge: legs still walking, he stops, looks down (p.downAt), looks at us (p.usAt), gulps. Then let him fall with a move
+  hangAir: (t, p = {}) => {
+    const dn = eo((t - (p.downAt ?? 0.25)) / 0.12), us = eo((t - (p.usAt ?? 0.75)) / 0.1), walk = Math.max(0, 1 - t / 0.2), ph = t * 2 * PI * 2.2;
+    return { ...arms(m([0, 0, 0.35 + 0.5 * dn], [0, 0, 0.35 + 0.5 * dn]), m([-0.2, 0, -0.2], [-0.2, 0, -0.2])), hipL: [-0.5 * walk * S(ph), 0, 0.06], hipR: [0.5 * walk * S(ph), 0, -0.06], kneeL: [0.3 * walk, 0, 0], kneeR: [0.3 * walk, 0, 0], footL: [0.5 * dn, 0, 0], footR: [0.5 * dn, 0, 0],
+      head: [0.75 * dn * (1 - us), 0, 0], root: { y: 0.012 * S(t * 3) },
+      toon: { bend: { spine: [0.3 * dn * (1 - us), 0, 0, 1, null], neck: [0, 0, 0, 1 + 0.35 * dn * (1 - us), null], legL: [0, 0, 0, 1 + 0.12 * us, null], legR: [0, 0, 0, 1 + 0.12 * us, null] }, face: { expr: us > 0.5 ? (p.expr ?? 'gulp') : 'lookDown', exprW: Math.max(dn * (1 - us), us) } } };
+  },
+  // flattened like a pancake (a disc at ankle height), then at p.popAt he springs back, overshoots tall and jiggles. p.flat (0.08)
+  pancake: (t, p = {}) => {
+    const flat = p.flat ?? 0.08, at = p.popAt ?? 1e9, u = t - at, sy = u < 0 ? flat * (1 + 0.08 * S(t * 3)) : mix(flat, 1, back(u / 0.3, 3.4)) + 0.07 * wob(u - 0.3, 30, 6), sx = u < 0 ? 1.7 : mix(1.7, 1, eo(u / 0.25)) / Math.sqrt(Math.max(0.3, Math.min(1.4, sy)));
+    const k = u < 0 ? 1 : 1 - eo(u / 0.3);
+    return { ...arms(m([0, 0, 1.45 * k + 0.2 * (1 - k)], [0, 0, 1.45 * k + 0.2 * (1 - k)]), m([0, 0, 0.1 * k - 0.3 * (1 - k)], [0, 0, 0.1 * k - 0.3 * (1 - k)])), hipL: [0, 0, 0.5 * k], hipR: [0, 0, -0.5 * k], head: [0, 0, 0],
+      toon: { sq: [sx, sy, sx], face: { expr: p.expr ?? 'dizzy', exprW: u < 0 ? 1 : 1 - eo(u / 0.5), stars: (p.stars ?? 0) * (u < 0 ? 1 : 1 - eo(u / 0.8)) } } };
+  },
+  // rolled thin as a sheet of paper (front to back), swaying like a falling leaf; p.popAt puffs him back
+  paperThin: (t, p = {}) => { const at = p.popAt ?? 1e9, u = t - at, k = u < 0 ? 1 : 1 - eo(u / 0.25), sz = mix(1, p.thin ?? 0.05, k) + (u > 0 ? 0.12 * wob(u - 0.2, 26, 6) : 0);
+    return { ...CLIPS.stand(), head: [0, 0, 0.05 * k * S(t * 2.2)], root: { rz: 0.12 * k * S(t * 2.2), x: 0.05 * k * S(t * 2.2 + 1) }, toon: { sq: [1 + 0.25 * k, 1 + 0.2 * k, sz], bend: { spine: [0, 0.22 * k * S(t * 2.2 + 0.6), 0, 1, null] } } }; },
+  // blown up like a balloon (p.k 0..1 or grows over p.dur), limbs pushed out, then p.popAt lets the air out
+  inflate: (t, p = {}) => { const at = p.popAt ?? 1e9, u = t - at, k = (p.k ?? eo(t / (p.dur ?? 0.8))) * (u < 0 ? 1 : 1 - eo(u / 0.18)), w = 1 + 0.95 * k + 0.03 * k * S(t * 9);
+    return { ...arms(m([0, 0, 0.2 + 1.2 * k], [0, 0, 0.2 + 1.2 * k]), m([0, 0, -0.3 * (1 - k)], [0, 0, -0.3 * (1 - k)])), hipL: [0, 0, 0.35 * k], hipR: [0, 0, -0.35 * k], head: [-0.2 * k, 0, 0], root: { y: 0.25 * k * (p.float ?? 0) + (u > 0 ? 0 : 0.01 * k * S(t * 5)) },
+      toon: { bend: { spine: [0, 0, 0, 1 + 0.12 * k, w] }, scl: { head: [1 + 0.25 * k, 1 + 0.12 * k, 1 + 0.25 * k] }, face: { expr: p.expr ?? 'puffed', exprW: Math.min(1, k * 1.6) } } }; },
+  // an arm that stretches out to grab something far away (p.reach x length, p.side 'R'/'L'), the body leaning back; p.backAt snaps it home with a recoil
+  stretchGrab: (t, p = {}) => {
+    const R = (p.side ?? 'R') === 'R', reach = p.reach ?? 3, go = eo(t / (p.dur ?? 0.35)), at = p.backAt ?? 1e9, u = t - at, st = u < 0 ? mix(1, reach, go) : mix(reach, 1, back(u / 0.16, 2.2)), rec = u > 0 ? wob(u - 0.1, 30, 7) : 0;
+    const arm = [-1.5 + 0.05 * S(t * 12) * (u < 0 ? 1 : 0), 0, 0.08], other = [0.25 * go, 0, 0.3];
+    return { ...CLIPS.stand(), shoulderR: R ? [arm[0], 0, -arm[2]] : [other[0], 0, -other[2]], shoulderL: R ? other : arm, elbowR: [0, 0, 0], elbowL: [0, 0, 0], head: [0, 0, 0], torso: [0, (R ? 0.25 : -0.25) * go * (u < 0 ? 1 : 0), 0],
+      toon: { sq: sqv(1 - 0.12 * rec), bend: { spine: [-0.3 * go * (u < 0 ? 1 : 0) + 0.25 * rec, 0, 0, 1, null], [R ? 'armR' : 'armL']: [0, 0, 0, st, null], [R ? 'foreR' : 'foreL']: [0, 0, 0, st, null] } } };
+  },
+  // the neck goes up like a periscope (p.len x), the head looks round; p.backAt drops it with a boing
+  periscope: (t, p = {}) => { const at = p.backAt ?? 1e9, u = t - at, k = u < 0 ? back(t / 0.3, 2) : 1 - back(u / 0.18, 2.5), len = 1 + ((p.len ?? 4) - 1) * k;
+    return { ...CLIPS.stand(), head: [0, 0.7 * S(t * 2.6) * Math.max(0, k), 0], toon: { bend: { neck: [0.05 * S(t * 2.6), 0.1 * S(t * 3.1) * k, 0, len, 0.75 + 0.25 / Math.sqrt(Math.max(1, len))] }, sq: sqv(1 + (u > 0 ? 0.08 * wob(u - 0.12, 30, 7) : 0)) } }; },
+  // squeezed like an accordion after a crash: the torso pumps short and tall, short legs. p.amp (0.45)
+  accordion: (t, p = {}) => { const a = p.amp ?? 0.45, s = 1 - a * (0.55 + 0.45 * S(t * (p.freq ?? 7))) * Math.exp(-t * (p.decay ?? 0)), w = 1 / Math.sqrt(s) * 1.1;
+    return { ...arms(m([0, 0, 0.5], [0, 0, 0.5]), m([0, 0, -0.5], [0, 0, -0.5])), head: [0.12 * S(t * 7 + 1), 0, 0.08 * S(t * 3.5)], toon: { bend: { spine: [0, 0, 0, s, w], legL: [0, 0, 0, 0.6, 1.25], legR: [0, 0, 0, 0.6, 1.25], shinL: [0, 0, 0, 0.6, 1.25], shinR: [0, 0, 0, 0.6, 1.25] }, face: { expr: p.expr ?? 'dizzy', exprW: 1, stars: p.stars ?? 0 } }, root: { y: -0.39 } }; },
+  // jelly settle after any impact: the whole body wobbles tall/short and sways, dying out. p.amp (0.3)
+  jelly: (t, p = {}) => { const a = p.amp ?? 0.3, w = wob(t + 0.05, p.freq ?? 26, p.decay ?? 5); return { ...CLIPS.stand(), head: [0.1 * a * w, 0, 0.1 * a * wob(t, 19, 5)], toon: { sq: sqv(1 + a * w), bend: { spine: [0, 0.5 * a * wob(t, 19, 5), 0, 1, null] } } }; },
+  // rubber-hose arms: both arms ripple like noodles (terror, or showing off). p.amp (1)
+  noodle: (t, p = {}) => { const a = p.amp ?? 1, w = (ph) => 0.9 * a * S(t * 9 + ph);
+    return { ...arms(m([0, 0, 1.6], [0, 0, 1.6]), m([0, 0, 0], [0, 0, 0])), head: [-0.1, 0.15 * S(t * 4.5), 0], hipL: [0, 0, 0.05], hipR: [0, 0, -0.05], root: { y: 0.02 * Math.abs(S(t * 9)) },
+      toon: { bend: { armL: [0, w(0), 0, 1.25, null], foreL: [0, w(1.6), 0, 1.25, null], armR: [0, -w(0.8), 0, 1.25, null], foreR: [0, -w(2.4), 0, 1.25, null], spine: [0, 0.12 * S(t * 4.5), 0, 1, null] } } }; },
+  // melting with despair: he sinks into a puddle, shoulders and arms drooping. p.dur (0.9 s), p.k
+  melt: (t, p = {}) => { const k = p.k ?? eio(t / (p.dur ?? 0.9)); return { ...arms(m([0, 0, 0.1], [0, 0, 0.1]), m([0, 0, 0], [0, 0, 0])), head: [0.5 * k, 0, 0.1 * k], hipL: [0, 0, 0.3 * k], hipR: [0, 0, -0.3 * k],
+      toon: { sq: [1 + 0.9 * k, 1 - 0.78 * k, 1 + 0.9 * k], bend: { spine: [0.5 * k, 0, 0, 1, null], armL: [0, 0, 0, 1 + 0.5 * k, null], armR: [0, 0, 0, 1 + 0.5 * k, null] }, scl: { head: [1 + 0.2 * k, 1 - 0.3 * k, 1] }, face: { expr: p.expr ?? 'cry', exprW: Math.min(1, k * 1.5) } } }; },
+  // wind-up before a dash or a punch: coil back on one leg, the spine a C, arms cocked; p.dur (0.3 s)
+  windUp: (t, p = {}) => { const k = back(t / (p.dur ?? 0.3), 1.6); return { ...arms(m([0.9 * k, 0, 0.4], [-1.4 * k, 0, 0.3]), m([-1.2 * k, 0, 0], [-1.6 * k, 0, 0])), hipL: [-1.1 * k, 0, 0], kneeL: [1.5 * k, 0, 0], hipR: [0.25 * k, 0, 0], kneeR: [0.2 * k, 0, 0], head: [0.2 * k, 0, 0], root: { y: -0.03 * k, z: -0.15 * k },
+      toon: { sq: sqv(1 - 0.1 * k), bend: { spine: [-0.55 * k, 0, 0.3 * k, 1, null] }, face: { expr: p.expr ?? 'determined', exprW: Math.min(1, k) } } }; },
+});
+
 export const CLIP_NAMES = Object.keys(CLIPS);
 
 const JOINTS = ['hips', 'torso', 'neck', 'head', 'shoulderL', 'elbowL', 'handL', 'shoulderR', 'elbowR', 'handR', 'hipL', 'kneeL', 'footL', 'hipR', 'kneeR', 'footR'];

@@ -10,6 +10,7 @@ import * as THREE from 'three';
 import { PALETTE as P, mat, box, cyl, addOutline, rng } from './style.js';
 import { faceTexture, sideTexture } from './face.js';
 import { atlasImage, atlasBox, atlasUV, atlasMaterial, atlasFaceTexture, atlasSideTexture, atlasBackTexture, R as AR, allFaces, variantFaceTexture, hasFaceSet } from './atlas.js';
+import { hasFaceRig, makeFaceRig } from './facerig.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
@@ -240,7 +241,7 @@ for (let i = 0; i < pp.count; i++) {
     else if (ATL) { ear = part('skin', 0.022, 0.095, 0.062, o.skin); const notch = box(0.006, 0.055, 0.024, '#7E5434'); notch.position.set(s * 0.011, 0, 0.004); ear.add(notch); }
     else { ear = box(0.028, 0.085, 0.055, o.skin); const notch = box(0.006, 0.05, 0.022, '#9A6A45'); notch.position.set(s * 0.013, 0, 0.004); ear.add(notch); }
     if (ATL) ear.position.set(s * (hw / 2 + 0.01), hh * 0.225, hd * 0.1); // sits on the ear painted on the atlas side panel
-    else ear.position.set(s * (hw / 2 + 0.012), hh * 0.52, -hd * 0.22); if (o.ears === 'pointy') ear.rotation.z = -s * 0.5; head.add(ear);
+    else ear.position.set(s * (hw / 2 + 0.012), hh * 0.52, -hd * 0.22); if (o.ears === 'pointy') ear.rotation.z = -s * 0.5; head.add(ear); ear.name = 'ear'; ear.userData.side = s;
   }
   // hair volume on top for big styles
   if (['afro', 'curly', 'mohawk', 'bun', 'long', 'spiky'].includes(o.hair)) {
@@ -293,6 +294,8 @@ for (let i = 0; i < pp.count; i++) {
     const tex = ATL ? atlasFaceTexture(expr, blink) : HEROFACE ? variantFaceTexture(expr, faceOpts, blink) : faceTexture({ ...faceOpts, expression: blink ? 'blink' : expr });
     if (tex && m.map !== tex) { m.map = tex; m.needsUpdate = true; }
   };
+  // face rig (engine/facerig.js): the same painted face as animated layers; built on first use (cast `toon` / `faceRig`)
+  if (hasFaceRig && (ATL || HEROFACE)) { let fr = null; root.userData.setFaceState = st => { if (!fr) { fr = makeFaceRig(ATL ? null : faceOpts); const m = headMesh.material[4]; m.map = fr.texture; m.needsUpdate = true; } fr.set(st); }; }
   root.userData.setFx = buildFaceFx(head, hw, hh, hd, o);
   // rest pose snapshot for the animator
   root.userData.rest = Object.fromEntries(Object.entries(J).map(([k, v]) => [k, v.position.clone()]));
@@ -314,7 +317,7 @@ function textLabel(t, w, h) {
 
 function addHat(head, hat, hw, hh, hd, C) {
   if (!hat || hat === 'none') return;
-  const g = new THREE.Group(); g.position.y = hh; head.add(g);
+  const g = new THREE.Group(); g.position.y = hh; g.name = 'hat'; head.add(g);
   switch (hat) {
     case 'copcap': {
       const crown = box(hw * 1.25, 0.1, hd * 1.35, C.hat || P.copBlueDark, { pivot: 'bottom', taper: { x: 1.15, z: 1.15 } }); g.add(crown);

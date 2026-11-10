@@ -45,7 +45,7 @@ export const atlasImage = await new Promise((res) => {
 // When present it REPLACES the painted-over atlas face: these textures are reconstructed 1:1 from the footage.
 // Engine expression names → face-set names (measured or "designed" variants, see face_landmarks.json).
 const FACE_SET_DIR = '/characters/lemec/face';
-const EXPR_MAP = { neutral: 'neutral', talk: 'talk', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'smug',
+export const EXPR_MAP = { neutral: 'neutral', talk: 'talk', blink: 'blink', sleepy: 'sleepy', suspicious: 'skeptical', smug: 'smug',
   unimpressed: 'unimpressed', sideLook: 'lookSide', surprised: 'surprised', shocked: 'shocked', scared: 'scared', angry: 'angry',
   disgusted: 'disgusted', grimace: 'pain', sad: 'sad', worried: 'worried', happy: 'happy', dead: 'dead', grin: 'grin' };   // other names (laugh, cry, wink, rage, love…) map to themselves
 export const faceSet = await (async () => {
@@ -102,15 +102,8 @@ function paintLayer(cv, seed = 7) {
   }
   c.putImageData(out, 0, 0); return cv;
 }
-const variantCache = new Map();
-export function variantFaceTexture(expression = 'neutral', v = {}, blink = false) {
-  if (!faceSet) return null;
-  const clean = !['stubble', 'beard'].includes(v.facial ?? 'stubble'), n0 = EXPR_MAP[expression] || expression, has = n => !!faceSet.imgs[n];
-  const name = [`${n0}${clean ? '_clean' : ''}${blink ? '_blink' : ''}`, `${n0}${blink ? '_blink' : ''}`, blink ? (clean ? 'neutral_clean_blink' : 'blink') : null, clean ? `${n0}_clean` : null, n0, 'neutral'].find(n => n && has(n));
-  const key = name + '|' + [v.skin, v.hair, v.hairColor, v.facial, v.glasses, v.glassesColor, v.lipstick, v.redNose, v.beardColor].join('|');
-  if (variantCache.has(key)) return variantCache.get(key);
-  const c = document.createElement('canvas'); c.width = FW; c.height = FH; const g = c.getContext('2d');
-  g.filter = 'brightness(0.935) contrast(1.163) saturate(1.282)'; g.drawImage(faceSet.imgs[name], 0, 0, FW, FH); g.filter = 'none';
+// skin tone, hair line and lipstick of a variant, on a face already drawn in g (used by variantFaceTexture and by the face rig's base)
+export function toneFace(g, v) {
   // skin tone: scale skin-like pixels (warm, mid-bright) by target/hero; hair line (top band): recolour the dark curls
   const id = g.getImageData(0, 0, FW, FH), d = id.data, hs = rgbOf(HERO_SKIN), ts = rgbOf(v.skin || HERO_SKIN), k = ts.map((x, i) => x / hs[i]);
   const bald = v.hair === 'bald', hc = rgbOf(v.hairColor || '#17181B').map(x => x * 255), tint = Math.abs(k[0] - 1) + Math.abs(k[1] - 1) + Math.abs(k[2] - 1) > 0.02;
@@ -122,8 +115,9 @@ export function variantFaceTexture(expression = 'neutral', v = {}, blink = false
   // lipstick: the mouth's ink turns red (open mouths keep their dark inside)
   if (v.lipstick) { const [mx, my, mw, mh] = FEAT.mouth; for (let y = my - 40; y < my + mh + 90; y++) for (let x = mx - 40; x < mx + mw + 40; x++) { const i = (y * FW + x) * 4; if (d[i] + d[i + 1] + d[i + 2] < 210 && d[i] < 90) { d[i] = 168; d[i + 1] = 38; d[i + 2] = 42; } } }
   g.putImageData(id, 0, 0);
-  const G = g, ovc = document.createElement('canvas'); ovc.width = FW; ovc.height = FH;
-  { const g = ovc.getContext('2d');   // features go on an overlay that is painted like the measured strokes, then laid on the face
+}
+// the features a variant wears on the face (lashes, moustache, beard, red nose, glasses), drawn on the overlay g; G takes the lens tint
+export function drawVariantFeatures(g, G, v, blink) {   // features go on an overlay that is painted like the measured strokes, then laid on the face
   const ink = '#2D251F'; g.lineCap = 'round'; g.lineJoin = 'round';
   if (v.lipstick && !blink) {   // lashes at the outer corners
     g.strokeStyle = ink; g.lineWidth = 7; for (const [ex, ey, ew, eh, sd] of [[...FEAT.eyeL, -1], [...FEAT.eyeR, 1]]) { const ox = sd < 0 ? ex + 6 : ex + ew - 6, oy = ey + 10; for (let j = 0; j < 3; j++) { g.beginPath(); g.moveTo(ox, oy + j * 9); g.lineTo(ox + sd * 20, oy - 10 + j * 9); g.stroke(); } }
@@ -144,7 +138,29 @@ export function variantFaceTexture(expression = 'neutral', v = {}, blink = false
     const A = fr(FEAT.eyeL), B = fr(FEAT.eyeR); g.beginPath(); g.moveTo(A[2], (A[1] + A[3]) / 2 + 20); g.quadraticCurveTo((A[2] + B[0]) / 2, (A[3] + B[1]) / 2 - 10, B[0], (B[1] + B[3]) / 2 - 10); g.stroke();
     g.beginPath(); g.moveTo(A[0], (A[1] + A[3]) / 2); g.lineTo(0, (A[1] + A[3]) / 2 - 12); g.stroke(); g.beginPath(); g.moveTo(B[2], (B[1] + B[3]) / 2); g.lineTo(FW, (B[1] + B[3]) / 2 - 16); g.stroke();
   }
-  }
+}
+// the same features as layers for the face rig (engine/facerig.js): painted once per variant, laid over the animated face
+export function variantRigLayers(v) {
+  const mk = () => { const c = document.createElement('canvas'); c.width = FW; c.height = FH; return c; };
+  const ov = mk(), lens = mk(), lash = v.lipstick ? mk() : null;
+  drawVariantFeatures(ov.getContext('2d'), lens.getContext('2d'), { ...v, lipstick: false }, false);
+  if (lash) { drawVariantFeatures(lash.getContext('2d'), lens.getContext('2d'), { lipstick: true }, false); paintLayer(lash, (v.seed || 3) * 31 + 8); }
+  paintLayer(ov, (v.seed || 3) * 31 + 7);
+  return { ov, lens, lash };
+}
+export const FACE_FILTER = 'brightness(0.935) contrast(1.163) saturate(1.282)';
+const variantCache = new Map();
+export function variantFaceTexture(expression = 'neutral', v = {}, blink = false) {
+  if (!faceSet) return null;
+  const clean = !['stubble', 'beard'].includes(v.facial ?? 'stubble'), n0 = EXPR_MAP[expression] || expression, has = n => !!faceSet.imgs[n];
+  const name = [`${n0}${clean ? '_clean' : ''}${blink ? '_blink' : ''}`, `${n0}${blink ? '_blink' : ''}`, blink ? (clean ? 'neutral_clean_blink' : 'blink') : null, clean ? `${n0}_clean` : null, n0, 'neutral'].find(n => n && has(n));
+  const key = name + '|' + [v.skin, v.hair, v.hairColor, v.facial, v.glasses, v.glassesColor, v.lipstick, v.redNose, v.beardColor].join('|');
+  if (variantCache.has(key)) return variantCache.get(key);
+  const c = document.createElement('canvas'); c.width = FW; c.height = FH; const g = c.getContext('2d');
+  g.filter = 'brightness(0.935) contrast(1.163) saturate(1.282)'; g.drawImage(faceSet.imgs[name], 0, 0, FW, FH); g.filter = 'none';
+  toneFace(g, v);
+  const G = g, ovc = document.createElement('canvas'); ovc.width = FW; ovc.height = FH;
+  drawVariantFeatures(ovc.getContext('2d'), G, v, blink);
   G.drawImage(paintLayer(ovc, (v.seed || 3) * 31 + name.length), 0, 0);
   g.strokeStyle = '#151313'; g.lineWidth = Math.round(FW * 0.03); g.strokeRect(g.lineWidth / 2, g.lineWidth / 2, FW - g.lineWidth, FH - g.lineWidth);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; variantCache.set(key, t); return t;

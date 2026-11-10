@@ -17,6 +17,8 @@ import { createStage, setLighting, LIGHTING } from './scene.js';
 import { createLook } from './look.js';
 import { buildHuman } from './human.js';
 import { CLIPS, samplePose, actingBlend } from './animations.js';
+import { toonUpgrade, blendToon, addToon } from './toon.js';
+import { hasFaceRig, faceState, blendFace, cloneFace } from './facerig.js';
 import { ease, clamp01, lerp, PALETTE as P } from './style.js';
 
 const Props = await import('/engine/props.js');
@@ -67,6 +69,8 @@ function buildActor(c, id) {
   else if (c.type === 'prop') obj = Props.buildProp(c.name, c.opts || {});
   else obj = buildHuman(c.preset ? c : { preset: 'lemec', ...c });
   obj.name = id; obj.userData.castId = id;
+  if (obj.userData.kind === 'human' && (c.toon ?? (S.script?.rig === 'toon'))) { toonUpgrade(obj); obj.userData.toonCfg = typeof c.toon === 'object' ? c.toon : {}; }   // cartoon rig (engine/toon.js): opt-in, old stories never take this path
+  if (obj.userData.kind === 'human' && obj.userData.setFaceState && (c.faceRig ?? c.toon ?? (S.script?.rig === 'toon' || !!S.script?.faceRig))) obj.userData.faceRig = true;   // animated face layers
   // measured rig facts (rest pose, unit scale): leg length + hip height drive gait cadence and pivots
   obj.position.set(0, 0, 0); obj.rotation.set(0, 0, 0); obj.scale.setScalar(1); obj.updateMatrixWorld(true);
   const J = obj.userData.joints || {};
@@ -245,7 +249,7 @@ function prepActor(cfg, obj, sc, place) {
     if (loco) { const sc_ = scaleAt(A, mv.t); mv.freq = clamp((L / dur) / (loco[1] * legLen * sc_), 0.6, 4.2); }
     if (clip) {
       A.clipKeys.push({ at: mv.t, clip, params: { ...(mv.params || {}), freq: mv.freq }, speed: 1, move: mv });
-      A.clipKeys.push({ at: mv.t1, clip: mv.then ?? '__prev__', params: mv.thenParams || {}, speed: A.speed, afterMove: mv });
+      A.clipKeys.push({ at: mv.t1, clip: mv.then ?? '__prev__', params: mv.thenParams || (mv.then === clip ? { ...(mv.params || {}), freq: mv.freq } : {}), speed: mv.then === clip ? 1 : A.speed, afterMove: mv, t0: mv.then === clip ? mv.t : undefined });   // then = the move's own clip: its time continues (a one-shot clip must not replay)
     }
     if (mv.sfx) A.sfx.push({ t: mv.t, name: mv.sfx, vol: mv.vol ?? 0.6 });
     if (mv.land) A.sfx.push({ t: mv.t1, name: mv.land, vol: mv.vol ?? 0.6 });
@@ -436,7 +440,7 @@ function speakingEnv(A, t) {
   return null;
 }
 function clipPoseFn(A, key, t) {
-  const lt = Math.max(0, (t - key.at) * (key.speed ?? 1) * (key.move ? 1 : S.tempo) + A.phase); // gaits keep their speed-derived cadence
+  const lt = Math.max(0, (t - (key.t0 ?? key.at)) * (key.speed ?? 1) * (key.move || key.t0 != null ? 1 : S.tempo) + A.phase); // gaits keep their speed-derived cadence
   return samplePose(key.clip, lt, key.params || {});
 }
 function snapshot(A) {
@@ -478,16 +482,18 @@ function evalActor(A, tIn) {
     if (expr === 'neutral' && env == null) { const g = (t + ph * 1.7) % 4.1; if (g > 2.2 && g < 2.65) expr = Math.floor((t + ph) / 4.1) % 2 ? 'lookSide' : 'lookLeft'; }
   }
   if (ud.kind === 'human') {
-    let pose = clipPoseFn(A, cur, t);
-    const BL = BLEND / S.tempo;
-    if (prev && dt < BL + 0.12) pose = actingBlend(clipPoseFn(A, prev, t), pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
+    const pc = clipPoseFn(A, cur, t); let pose = pc;
+    const BL = BLEND / S.tempo, pp = prev && dt < BL + 0.12 ? clipPoseFn(A, prev, t) : null;
+    if (pp) pose = actingBlend(pp, pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
+    if (ud.toon) pose = toonOverlap(A, t, pose, BL);
     applyHuman(A, pose, pos, ry, sc);
-    ud.setExpression?.(expr, blink);
+    const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
+    if (ud.faceRig) ud.setFaceState(rigFace(A, t, env, tp, pos, ry, sc)); else ud.setExpression?.(expr, blink);
     const fx = lastKey(A.fxKeys, t).fx; ud.setFx?.(fx, t);
     if (fx.shiver && ud.joints?.head) { ud.joints.head.rotation.z += 0.045 * Math.sin(t * 47); ud.joints.head.rotation.x += 0.02 * Math.sin(t * 61 + 1); }
   } else if (ud.kind === 'creature') {
     ud.setExpression?.(expr === 'talkWide' ? 'talk' : (expr === 'lookSide' || expr === 'lookLeft') ? ek.expr : expr);
-    const lt = (k) => Math.max(0, (t - k.at) * (k.speed ?? 1) * (k.move ? 1 : S.tempo) + A.phase);
+    const lt = (k) => Math.max(0, (t - (k.t0 ?? k.at)) * (k.speed ?? 1) * (k.move || k.t0 != null ? 1 : S.tempo) + A.phase);
     if (prev && dt < BLEND / S.tempo) {
       ud.animate(prev.clip, lt(prev), prev.params || {}); const a = snapshot(A);
       ud.animate(cur.clip, lt(cur), cur.params || {}); const b = snapshot(A);
@@ -504,7 +510,7 @@ function evalActor(A, tIn) {
   // head look-at (on top of the clip), blended
   const lk = lastKey(A.lookKeys, t);
   if (lk && lk.look != null) {
-    const w = ease.out(clamp01((t - lk.at) / 0.25));
+    const w = ease.out(clamp01((t - lk.at - (ud.faceRig ? LOOK_LEAD : 0)) / 0.25));
     const off = lookOffsets(A, lk.look, t, pos, ry, sc);
     const plk = prevKey(A.lookKeys, lk); const off0 = plk && plk.look != null ? lookOffsets(A, plk.look, t, pos, ry, sc) : [0, 0];
     const J = ud.joints || {};
@@ -513,10 +519,100 @@ function evalActor(A, tIn) {
     if (J.neck) { J.neck.rotation.y += yaw * 0.3; }
   } else if (lk && lk.look == null) {
     const plk = prevKey(A.lookKeys, lk);
-    if (plk && plk.look != null && t - lk.at < 0.25) { const off = lookOffsets(A, plk.look, t, pos, ry, sc), w = 1 - ease.out(clamp01((t - lk.at) / 0.25)); const J = ud.joints || {}; if (J.head) { J.head.rotation.y += off[0] * 0.7 * w; J.head.rotation.x += off[1] * 0.8 * w; } }
+    if (plk && plk.look != null && t - lk.at < 0.25 + LOOK_LEAD) { const off = lookOffsets(A, plk.look, t, pos, ry, sc), w = 1 - ease.out(clamp01((t - lk.at - (ud.faceRig ? LOOK_LEAD : 0)) / 0.25)); const J = ud.joints || {}; if (J.head) { J.head.rotation.y += off[0] * 0.7 * w; J.head.rotation.x += off[1] * 0.8 * w; } }
   }
   if (env != null && ud.joints?.head) ud.joints.head.rotation.x += 0.05 * env;
   return { pos, ry, sc };
+}
+// ---- cartoon rig layers (engine/toon.js): only for actors built with `toon`
+// overlapping action: the far joints replay the pose a few frames late (forearms, hands, head), so gestures trail and settle
+function toonPoseAt(A, tt, BL) {
+  const c = lastKey(A.clipKeys, tt), p = prevKey(A.clipKeys, c), d = tt - c.at; let q = clipPoseFn(A, c, tt);
+  if (p && d < BL + 0.12) q = actingBlend(clipPoseFn(A, p, tt), q, d, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
+  return q;
+}
+const TOON_LAG = { elbowL: 0.035, elbowR: 0.035, handL: 0.07, handR: 0.07, head: 0.045, neck: 0.02 };
+function toonOverlap(A, t, pose, BL) {
+  const k = A.obj.userData.toonCfg?.overlap ?? 1; if (!k) return pose;
+  const out = { ...pose }, cache = {};
+  for (const [j, lag] of Object.entries(TOON_LAG)) { const tt = Math.max(0, t - lag * k), key = tt.toFixed(4); const q = cache[key] || (cache[key] = toonPoseAt(A, tt, BL)); if (q[j]) out[j] = q[j]; }
+  return out;
+}
+// the clip's own channels (blended across a clip change) + automatic layers: breathing, squash and stretch from the vertical motion,
+// drag of the spine against horizontal acceleration (lean back on a start, carry on forward on a stop)
+function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
+  const ud = A.obj.userData, cfg = ud.toonCfg || {}, auto = cfg.auto ?? 1, d = 1 / FPS;
+  let tp = pp ? blendToon(pp.toon || {}, pc.toon || {}, ease.out(clamp01(dt / BL))) : (pc.toon || {});
+  const extra = {}, ph = A.phase * 9 + (A.id ? A.id.length * 0.77 : 0);
+  const br = (cfg.breathe ?? 1) * 0.012 * Math.sin(t * 1.75 + ph);   // breathing: the chest rises and falls
+  const bend = { spine: [0, 0, 0, 1 + br, null] };
+  if (auto) {
+    const h = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0);
+    const h1 = h(t), vy = (h(t + d) - h(t - d)) / (2 * d), a1 = (h(t + d) - 2 * h1 + h(t - d)) / (d * d), a2 = (h(t + 2 * d) - 2 * h1 + h(t - 2 * d)) / (4 * d * d), a3 = (h(t + 3 * d) - 2 * h1 + h(t - 3 * d)) / (9 * d * d);
+    const stretch = clamp(Math.abs(vy) * 0.05, 0, 0.32), squash = clamp(Math.max(a1 * 0.6, a2, a3) * 0.004, 0, 0.38);
+    const sy = 1 + (stretch - squash) * auto; if (Math.abs(sy - 1) > 0.004) { const kx = 1 / Math.sqrt(sy); extra.sq = [kx, sy, kx]; }
+    const p0 = posAt(A, t - 3 * d), p1 = posAt(A, t), p2 = posAt(A, t + 3 * d), ax = (p2.x - 2 * p1.x + p0.x) / (9 * d * d), az = (p2.z - 2 * p1.z + p0.z) / (9 * d * d);
+    const af = ax * Math.sin(ry) + az * Math.cos(ry), as = ax * Math.cos(ry) - az * Math.sin(ry);   // forward / sideways (the actor faces +Z turned by ry)
+    bend.spine[0] = clamp(-af * 0.022, -0.5, 0.5) * auto; bend.spine[1] = clamp(as * 0.022, -0.4, 0.4) * auto;
+    // limbs drag behind a fast swing (the upper part arcs against the joint's turn, the lower part a little more): rubber-hose arcs
+    const dk = 0.026 * auto * (cfg.drag ?? 1);
+    if (dk) { const pa = toonPoseAt(A, t - d, BL), pb = toonPoseAt(A, t + d, BL), w = (j, i) => ((pb[j]?.[i] || 0) - (pa[j]?.[i] || 0)) / (2 * d);
+      for (const sd of ['L', 'R']) {
+        const sx = w('shoulder' + sd, 0), sz = w('shoulder' + sd, 2), ex = w('elbow' + sd, 0), hx = w('hip' + sd, 0), kx = w('knee' + sd, 0);
+        bend['arm' + sd] = [clamp(-sx * dk, -0.45, 0.45), clamp(-sz * dk, -0.45, 0.45), 0, 1, null]; bend['fore' + sd] = [clamp(-(sx + ex) * dk * 1.3, -0.6, 0.6), clamp(-sz * dk * 1.3, -0.6, 0.6), 0, 1, null];
+        bend['leg' + sd] = [clamp(-hx * dk * 0.7, -0.3, 0.3), 0, 0, 1, null]; bend['shin' + sd] = [clamp(-(hx + kx) * dk * 0.8, -0.4, 0.4), 0, 0, 1, null];
+      } }
+    // a very fast travel smears the body along its path (a blur drawn as a stretch)
+    const vx = (p2.x - p0.x) / (6 * d), vz = (p2.z - p0.z) / (6 * d), sp = Math.hypot(vx, vz), sm = clamp((sp - 5.5) * 0.07, 0, 0.7) * auto * (cfg.smear ?? 1);
+    if (sm > 0.01) { const f = (vx * Math.sin(ry) + vz * Math.cos(ry)) / sp, sd = (vx * Math.cos(ry) - vz * Math.sin(ry)) / sp, q = extra.sq || [1, 1, 1]; extra.sq = [q[0] * (1 + sm * sd * sd - 0.2 * sm * f * f), q[1] * (1 - 0.15 * sm), q[2] * (1 + sm * f * f - 0.2 * sm * sd * sd)]; }
+  }
+  extra.bend = bend;
+  const all = addToon(tp, extra); ud.toon.apply(all, t, sc); return all;
+}
+// ---- face rig: the expression as numbers, blended from the previous one (the brows lead, the mouth trails, a little overshoot), then
+// the life on top: a blink that closes and opens over a few frames, the eyes that move before the head, small darts of the pupils,
+// lip flaps that keep the expression, and whatever the clip asks for (toon.face.expr)
+const LOOK_LEAD = 0.07, FACE_DUR = 0.15;
+const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_FLAP = new Set(['shocked', 'surprised', 'scared', 'sleepy', 'dead', 'happy', 'laugh', 'cry', 'yawn', 'awe', 'take', 'takeSmall']);
+const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
+const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
+function rigFace(A, t, env, tp, pos, ry, sc) {
+  const custom = S.script?.faces, ek = lastKey(A.exprKeys, t), pk = prevKey(A.exprKeys, ek), since = t - ek.at, ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0), cfg = A.obj.userData.faceCfg || {};
+  let st;
+  if (pk && since < FACE_DUR + 0.12) { const u = x => clamp01((since - x) / FACE_DUR); st = blendFace(faceState(pk.expr, custom), faceState(ek.expr, custom), backOut(u(0), 2.2), backOut(u(0.03), 1.3), ease.out(u(0.05))); }
+  else st = cloneFace(faceState(ek.expr, custom));
+  const cf = tp?.face; if (cf?.expr && cf.exprW > 0.01) st = blendFace(st, faceState(cf.expr, custom), Math.min(1.15, cf.exprW));   // the clip pulls the face (a take, a strain)
+  const strong = RIG_STRONG.has(ek.expr) && since < 0.9 || (cf?.exprW || 0) > 0.3, E = st.eyes;
+  // blink: every 3.3 s (sometimes twice), and a quick one that winds up a strong reaction
+  let lid = 0;
+  if (!strong && (cfg.blink ?? 1)) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3)); }
+  if (RIG_STRONG.has(ek.expr) && pk && since < 0.1) lid = Math.max(lid, Math.sin(Math.PI * clamp01(since / 0.1)));
+  // gaze: toward the look target before the head gets there, into a turn of the body before it starts, and idle darts
+  let gx = 0, gy = 0; const lk = lastKey(A.lookKeys, t), plk = lk ? prevKey(A.lookKeys, lk) : null;
+  if (lk) {
+    const to = lk.look != null ? lookOffsets(A, lk.look, t, pos, ry, sc) : [0, 0], from = plk && plk.look != null ? lookOffsets(A, plk.look, t, pos, ry, sc) : [0, 0];
+    const wh = ease.out(clamp01((t - lk.at - LOOK_LEAD) / 0.25)), wg = ease.out(clamp01((t - lk.at) / 0.06));
+    gx += (to[0] - from[0]) * (1 - wh) * wg * 1.5; gy += (to[1] - from[1]) * (1 - wh) * wg * 1.5;
+    if (Math.abs(to[0] - from[0]) > 0.5 && t - lk.at > 0.02 && t - lk.at < 0.3) lid = Math.max(lid, blinkLid(t - lk.at - 0.05) * 0.85);   // a big shift of the gaze takes a blink with it
+  }
+  gx += clamp(wrapA(facingAt(A, t + 0.2) - ry) * 1.1, -0.7, 0.7);
+  if (!strong && (cfg.darts ?? 1)) {
+    const T = 1.9, x = (t + ph * 1.3) / T, i = Math.floor(x), tt = (x - i) * T;
+    if (hash01(i + ph * 3.1) > 0.42) { const a = hash01(i * 2.7 + 1.3) * Math.PI * 2, m = (0.2 + 0.3 * hash01(i * 5.1 + 0.7)) * (lk && lk.look != null ? 0.5 : 1), t0 = 0.2 + 0.6 * hash01(i * 7.7), d = 0.25 + 0.35 * hash01(i * 3.3 + 2), u = tt - t0;
+      const k = u < 0 ? 0 : u < 0.05 ? u / 0.05 : u < d ? 1 : u < d + 0.07 ? 1 - (u - d) / 0.07 : 0; gx += Math.cos(a) * m * k; gy += Math.sin(a) * m * 0.45 * k; }
+  }
+  const br = 1.1 * Math.sin(t * 1.75 + ph);   // the brows breathe with the chest
+  for (const s of 'LR') { const e = E[s]; e.px = clamp(e.px + gx, -1, 1); e.py = clamp(e.py + gy, -1, 1); if (e.kind === 'open') e.lid = Math.max(e.lid, lid); st.brows[s].dy += br + 4 * lid; }
+  // lip flaps: the mouth alone speaks, the brows punch the loud syllables
+  if (env != null && env > 0.16 && !NO_FLAP.has(ek.expr)) { st.mouth = { ...st.mouth, spr: env > 0.6 ? 'open' : 'o', w: 1, h: 0.8 + 0.5 * env, tilt: 0 }; for (const s of 'LR') st.brows[s].dy -= 6 * env; }
+  // the jaw drops: the mouth of a scream on the stretched lower face; eyes out on stalks leave dark sockets
+  if (cf) {
+    const jw = cf.jaw || 0;
+    if (jw > 0.45) st.mouth = { ...st.mouth, spr: 'scream', w: 1, h: 0.5 + 0.5 * Math.min(1, jw), tilt: 0, dx: 0, dy: 0 }; else if (jw > 0.12 && !/scream|yawn|laugh|O/.test(st.mouth.spr)) st.mouth = { ...st.mouth, spr: 'O', w: 1, h: 0.8 + jw, tilt: 0, dx: 0, dy: 0 };
+    if ((cf.pop || 0) > 0.08) for (const s of 'LR') { E[s] = { ...E[s], kind: 'dot', s: 2.2, open: 1 }; st.brows[s].dy -= 26 * cf.pop; }
+  }
+  return st;
 }
 function lookOffsets(A, target, t, pos, ry, sc) {
   let p;
