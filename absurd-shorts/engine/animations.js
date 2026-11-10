@@ -427,7 +427,7 @@ Object.assign(CLIPS, {
   periscope: (t, p = {}) => { const at = p.backAt ?? 1e9, u = t - at, k = u < 0 ? back(t / 0.3, 2) : 1 - back(u / 0.18, 2.5), len = 1 + ((p.len ?? 4) - 1) * k;
     return { ...CLIPS.stand(), head: [0, 0.7 * S(t * 2.6) * Math.max(0, k), 0], toon: { bend: { neck: [0.05 * S(t * 2.6), 0.1 * S(t * 3.1) * k, 0, len, 0.75 + 0.25 / Math.sqrt(Math.max(1, len))] }, sq: sqv(1 + (u > 0 ? 0.08 * wob(u - 0.12, 30, 7) : 0)) } }; },
   // squeezed like an accordion after a crash: the torso pumps short and tall, short legs. p.amp (0.45)
-  accordion: (t, p = {}) => { const a = p.amp ?? 0.45, s = 1 - a * (0.55 + 0.45 * S(t * (p.freq ?? 7))) * Math.exp(-t * (p.decay ?? 0)), w = 1 / Math.sqrt(s) * 1.1;
+  accordion: (t, p = {}) => { const a = p.amp ?? 0.45, s = p.hit ? (p.rest ?? 0.78) - (p.amp ?? 0.55) * Math.exp(-t * (p.decay ?? 7)) * Math.cos(t * (p.freq ?? 55)) : 1 - a * (0.55 + 0.45 * S(t * (p.freq ?? 7))) * Math.exp(-t * (p.decay ?? 0)), w = 1 / Math.sqrt(s) * 1.1;   // p.hit: a hard landing (flat on the first frame, then bellows bounces that die out; key it with blend=0.02)
     return { ...arms(m([0, 0, 0.5], [0, 0, 0.5]), m([0, 0, -0.5], [0, 0, -0.5])), head: [0.12 * S(t * 7 + 1), 0, 0.08 * S(t * 3.5)], toon: { bend: { spine: [0, 0, 0, s, w], legL: [0, 0, 0, 0.6, 1.25], legR: [0, 0, 0, 0.6, 1.25], shinL: [0, 0, 0, 0.6, 1.25], shinR: [0, 0, 0, 0.6, 1.25] }, face: { expr: p.expr ?? 'dizzy', exprW: 1, stars: p.stars ?? 0 } }, root: { y: -0.39 } }; },
   // jelly settle after any impact: the whole body wobbles tall/short and sways, dying out. p.amp (0.3)
   jelly: (t, p = {}) => { const a = p.amp ?? 0.3, w = wob(t + 0.05, p.freq ?? 26, p.decay ?? 5); return { ...CLIPS.stand(), head: [0.1 * a * w, 0, 0.1 * a * wob(t, 19, 5)], toon: { sq: sqv(1 + a * w), bend: { spine: [0, 0.5 * a * wob(t, 19, 5), 0, 1, null] } } }; },
@@ -443,7 +443,7 @@ Object.assign(CLIPS, {
       toon: { sq: sqv(1 - 0.1 * k), bend: { spine: [-0.55 * k, 0, 0.3 * k, 1, null] }, face: { expr: p.expr ?? 'determined', exprW: Math.min(1, k) } } }; },
   // ---- cycle 1 additions (story 37): gaits with busy hands, a braking skid, the edge of the void, dives
   // walking with the eyes on a phone held at chest height (right hand): the free arm swings, the head stays down
-  walkRead: (t, p = {}) => { const w = CLIPS.walk(t, p); return { ...w, shoulderR: [-0.75, 0.35, 0.05], elbowR: [-1.45 + 0.04 * S(t * (p.freq ?? 1.9) * 4 * PI), 0, 0], handR: [0.3, 0, 0], head: [0.38, 0, 0], torso: [0.06, w.torso[1], 0] }; },
+  walkRead: (t, p = {}) => { const w = CLIPS.walk(t, p); return { ...w, shoulderR: [-1.0, 0.3, 0.05], elbowR: [-1.8 + 0.04 * S(t * (p.freq ?? 1.9) * 4 * PI), 0, 0], handR: [0.3, 0, 0], head: [0.36, 0, 0], torso: [0.06, w.torso[1], 0] }; },   // the phone at chin height, clear of the chest
   // walking while ticking boxes on a clipboard (left hand holds it, the right hand writes)
   walkWrite: (t, p = {}) => { const w = CLIPS.walk(t, p); return { ...w, shoulderL: [-0.75, -0.45, 0.1], elbowL: [-1.6, 0, 0], shoulderR: [-0.85, 0.4, -0.05], elbowR: [-1.5 - 0.07 * S(t * 18), 0, 0], head: [0.38, 0, 0], torso: [0.05, w.torso[1], 0] }; },
   // a pompous march: chest out, chin up, arms swinging wide and stiff (an official arriving)
@@ -455,9 +455,9 @@ Object.assign(CLIPS, {
       ...arms(m([-0.9 * (1 - k) - 0.2, 0, 0.9 * (1 - k) + 0.2], [-0.9 * (1 - k) - 0.2, 0, 0.9 * (1 - k) + 0.2]), m([-0.5, 0, 0], [-0.5, 0, 0])), head: [0.35 * (1 - k) + 0.3 * wob(t - d, 22, 6), 0, 0], root: { rx: lean * 0.45 },
       toon: { sq: sqv(sq), bend: { spine: [lean * 0.7, 0, 0, 1, null] }, face: { expr: p.expr ?? 'scared', exprW: 1 } } }; },
   // teetering on the edge of the void: the body rocks forward and back, more each time, the arms windmill like rubber hoses (p.grow)
-  teeter: (t, p = {}) => { const g = 1 + (p.grow ?? 1.2) * t, fa = p.fallAt ?? 1e9, f = ei((t - fa) / 0.2), a = (0.26 * g * S(t * (p.freq ?? 7))) * (1 - f) + 1.25 * f, wm = t * 13;   // p.fallAt: he finally tips over, forward and down
+  teeter: (t, p = {}) => { const g = 1 + (p.grow ?? 1.2) * t, fa = p.fallAt ?? 1e9, f = ei((t - fa) / 0.2), a = (0.26 * g * S(t * (p.freq ?? 7))) * (1 - f) + 1.25 * f, wm = t * (p.spin ?? 13);   // p.fallAt: he finally tips over, forward and down
     return { ...arms(m([-PI * 2 * ((wm / (2 * PI)) % 1), 0, 0.5], [-PI * 2 * (((wm + PI) / (2 * PI)) % 1), 0, 0.5]), m([-0.2, 0, 0], [-0.2, 0, 0])), hipL: [-0.5 * a * (1 - f), 0, 0.06], hipR: [-0.5 * a * (1 - f), 0, -0.06], footL: [-0.4 * a * (1 - f), 0, 0], footR: [-0.4 * a * (1 - f), 0, 0], head: [-0.5 * a * (1 - f), 0, 0],
-      root: { rx: a * 0.9, y: 0.03 * Math.max(0, S(t * 14)) * (1 - f) - 2.2 * f * f, z: 0.75 * f }, toon: { bend: { spine: [a * 1.2 * (1 - f), 0, 0, 1, null], armL: [0, 0, 0, 1.25, null], foreL: [0.4 * S(wm), 0, 0, 1.25, null], armR: [0, 0, 0, 1.25, null], foreR: [0.4 * S(wm + PI), 0, 0, 1.25, null] }, face: { expr: p.expr ?? 'scared', exprW: 1, jaw: 0.25 + 0.6 * f } } }; },
+      root: { rx: a * 0.9, y: 0.03 * Math.max(0, S(t * 14)) * (1 - f) - 2.2 * f * f, z: 0.75 * f }, toon: { bend: { spine: [a * 1.2 * (1 - f), 0, 0, 1, null], armL: [0, 0, 0, 1.25, null], foreL: [0.4 * S(wm), 0, 0, 1.25, null], armR: [0, 0, 0, 1.25, null], foreR: [0.4 * S(wm + PI), 0, 0, 1.25, null] }, face: { expr: p.expr ?? 'scared', exprW: 1, jaw: (p.jaw ?? 0.25) + 0.6 * f, pop: p.pop ?? 0, popLen: 0.1 } } }; },
   // a swan dive: arms spread, the back arched, legs together and stretched (use it on a move with an arc; the body pitches with p.k 0..1)
   swanDive: (t, p = {}) => { const k = p.k ?? c01(t / (p.dur ?? 0.6)); return { root: { rx: mix(0.2, 2.9, eio(k)), pivot: 'hips' }, ...arms(m([-0.3, 0, 1.75 - 1.6 * ei(k)], [-0.3, 0, 1.75 - 1.6 * ei(k)]), m([0, 0, 0], [0, 0, 0])), hipL: [0.25, 0, 0.02], hipR: [0.25, 0, -0.02], head: [-0.5 + 0.4 * k, 0, 0],
       toon: { bend: { spine: [-0.45 * (1 - k), 0, 0, 1.08, null], legL: [0, 0, 0, 1.2, null], legR: [0, 0, 0, 1.2, null], shinL: [0, 0, 0, 1.15, null], shinR: [0, 0, 0, 1.15, null] }, face: { expr: p.expr ?? 'bigGrin', exprW: 1 } } }; },
@@ -473,6 +473,63 @@ Object.assign(CLIPS, {
       toon: { sq: sqv(1 - 0.07 * reb + 0.05 * a), bend: { spine: [0.2 * after * Math.max(0, 1 - (t - hit) * 2.5) - 0.15 * a, 0, 0, 1, null] } } }; },
   // squeezed in a crowd: shoulders in, arms pinned to the body, the head free to look round (p.look yaw). Scale the actor's toon.sq for the squeeze
   squeezed: (t, p = {}) => ({ ...arms(m([0.1, 0, -0.05], [0.1, 0, -0.05]), m([-0.5, 0.6, 0], [-0.5, 0.6, 0])), head: [-0.25 + 0.03 * S(t * 2 + (p.ph ?? 0)), (p.look ?? 0) + 0.12 * S(t * 1.3 + (p.ph ?? 0)), 0], hipL: [0, 0, -0.03], hipR: [0, 0, 0.03], root: { y: 0.008 * S(t * 2.2 + (p.ph ?? 0)) } }),
+  // ---- cycle 1, second pass (after the animation review): falls that trail, a real rug, a wave from the wrist, a stamp with a wind-up
+  // falling feet first: everything that can trail does (arms up and rippling like ribbons, legs dangling, the body long, hat and ears lifted). Use it on a fast drop
+  fallDrag: (t, p = {}) => { const f = t * 33; return { ...arms(m([0.12 * S(f), 0, 2.9 + 0.1 * S(f * 0.7)], [0.12 * S(f + 2), 0, 2.9 + 0.1 * S(f * 0.7 + 1.3)]), m([0, 0, 0.2 * S(f + 1)], [0, 0, 0.2 * S(f + 2.5)])),
+      hipL: [-0.35 + 0.15 * S(f * 0.8), 0, 0.14], hipR: [-0.12 + 0.15 * S(f * 0.8 + 2), 0, -0.14], kneeL: [0.75, 0, 0], kneeR: [0.45, 0, 0], footL: [0.5, 0, 0], footR: [0.5, 0, 0], head: [0.12, 0, 0],
+      toon: { sq: sqv(p.stretch ?? 1.14), bend: { armL: [0, 0.3 * S(f), 0, 1.35, null], foreL: [0, -0.45 * S(f + 1), 0, 1.35, null], armR: [0, -0.3 * S(f + 2), 0, 1.35, null], foreR: [0, 0.45 * S(f + 3), 0, 1.35, null], spine: [-0.1, 0, 0, 1.06, null] },
+        hat: [0.3, 0.2 * S(f), 0], ears: 0.6, face: { expr: p.expr ?? 'scared', exprW: 1, jaw: p.jaw ?? 0.7 } } }; },
+  // flat on the ground like a rug (for a camera that looks down on the floor at 25-35 deg): lying on his back, as thin as paper, the suit and the face turned to the sky,
+  // hands up and legs apart, wall to wall; spiral eyes, then a blink or two; at p.popAt he springs back upright (overshoot, jiggle). Key it with blend=0.02:
+  // a hard hit has no ease in. The head points away from the camera (−Z for an actor facing +Z)
+  splat: (t, p = {}) => {
+    const flat = p.flat ?? 0.09, W = p.wide ?? 1.1, at = p.popAt ?? 1e9, u = t - at, bA = p.blinkAt ?? 0.14;
+    if (u < 0) { const hit = Math.exp(-t * 24) * Math.cos(t * 44), bl = (t > bA && t < bA + 0.08) || (t > bA + 0.17 && t < bA + 0.24);
+      return { root: { rx: -PI / 2, y: -0.92, pivot: 'hips' }, ...arms(m([0, 0, 1.1], [0, 0, 1.1]), m([0, 0, 1.3 + 0.25 * hit], [0, 0, 1.3 - 0.25 * hit])), hipL: [0, 0, 0.5], hipR: [0, 0, -0.5], footL: [0, 0, 0.5], footR: [0, 0, -0.5], head: [0, 0, 0.1 * hit],
+        toon: { sq: [W * (1 + 0.12 * hit), (p.long ?? 0.82) * (1 + 0.08 * hit), flat * (1 + 0.8 * hit)], scl: { head: [1.8, 1.6, 2.6] }, face: { expr: t < bA - 0.04 ? 'dizzy' : bl ? 'blink' : (p.expr ?? 'deadpan'), exprW: 1, stars: p.stars ?? 0 } } }; }
+    const sy = mix(0.12, 1, back(u / 0.3, 3.4)) + 0.07 * wob(u - 0.3, 30, 6), sx = mix(1.6, 1, eo(u / 0.25)) / Math.sqrt(Math.max(0.3, Math.min(1.4, sy))), k = 1 - eo(u / 0.3);
+    return { ...arms(m([0, 0, 1.45 * k + 0.2 * (1 - k)], [0, 0, 1.45 * k + 0.2 * (1 - k)]), m([-0.08 * (1 - k), 0, 0.1 * k - 0.3 * (1 - k)], [-0.08 * (1 - k), 0, 0.1 * k - 0.3 * (1 - k)])), hipL: [0, 0, 0.5 * k], hipR: [0, 0, -0.5 * k], head: [0, 0, 0],
+      toon: { sq: [sx, sy, sx], face: { expr: 'dizzy', exprW: 1 - eo(u / 0.5), stars: (p.stars ?? 0) * (1 - eo(u / 0.8)) } } };
+  },
+  // the wave of an official: the upper arm level, the forearm upright, the hand turning at the wrist (never a straight raised arm: a freeze frame of it
+  // reads as a salute). p.side 'R' / 'L'; p.flickAt: one last quick flick of the hand
+  royalWave: (t, p = {}) => { const w = S(t * (p.freq ?? 7.5)), fl = p.flickAt != null ? wob(t - p.flickAt, 36, 9) : 0, L = (p.side ?? 'R') === 'L', up = [0, 0, 1.36 + 0.03 * w], fore = [0, 0, 1.5 + 0.1 * w + 0.45 * fl], rest = [0, 0, 0.08], restE = [-0.1, 0, 0], hand = [0, 0.6 * w, 0.3 * w + 0.9 * fl];
+    return { ...arms(m(L ? up : rest, L ? rest : up), m(L ? fore : restE, L ? restE : fore)), [L ? 'handL' : 'handR']: L ? hand : [hand[0], -hand[1], -hand[2]], head: [-0.06, 0, 0.04 * w], torso: [-0.05, 0, 0] }; },
+  // seated, a phone at the right ear; the left hand holds a rubber stamp: wind-up with the arm stretched above the head (held, trembling), a two-frame slam on
+  // the desk at p.hit, the whole body squashing on the hit, then a satisfied look at the result and back to the call (she keeps moving)
+  stampDesk: (t, p = {}) => { const hit = p.hit ?? 0.8, u = t - hit, up = back((t - (hit - 0.42)) / 0.2, 1.8), dn = ei((t - (hit - 0.07)) / 0.07), a = up * (1 - dn), sh = u < -0.07 && u > -0.24 ? 1 : 0, reb = wob(u, 30, 8), nod = u > 0 ? Math.max(0, 1 - u * 2.4) : 0, life = eo((u - 0.3) / 0.3);
+    return { ...CLIPS.sit(t), shoulderR: [-0.3, 0, -0.42 - 0.06 * a], elbowR: [-2.55, 0, 0], handR: [0, 0.4, 0],
+      shoulderL: [-0.6 - 2.3 * a + 0.14 * reb - 0.3 * life, 0, 0.12 + 0.15 * a], elbowL: [-0.7 + 0.6 * a - 0.35 * life, 0, 0],
+      head: [0.08 - 0.3 * a + 0.4 * nod + 0.04 * life * S(t * 4.4), -0.1 + 0.3 * life * (0.6 + 0.4 * S(t * 2.2)), -0.08 + 0.12 * life], torso: [0.04 - 0.22 * a + 0.3 * nod, 0.12 * a - 0.08 * life, 0],
+      toon: { sq: sqv(1 + 0.08 * a - (u > 0 && u < 0.35 ? 0.16 * reb : 0)), bend: { spine: [-0.3 * a + 0.3 * nod, 0, 0.15 * a, 1 + 0.06 * a, null], armL: [0, 0, 0, 1 + 0.75 * a, null], foreL: [0.3 * sh * S(t * 60), 0, 0, 1 + 0.75 * a, null] }, ears: 0.5 * reb,
+        face: { expr: u < 0 ? (p.wind ?? 'determined') : (p.expr ?? 'smug'), exprW: Math.max(Math.min(1, a * 2), u > 0 ? 1 : 0) } } }; },
+  // hang time with a phone in the right hand (it follows walkRead: the same arm): the feet stop, the phone moves aside, the head goes down past it (p.downAt),
+  // then up to us (p.usAt), a gulp that runs down the neck. Then let him fall with a move
+  hangPhone: (t, p = {}) => { const dA = p.downAt ?? 0.15, uA = p.usAt ?? 0.5, dn = eo((t - dA) / 0.14), us = eo((t - uA) / 0.09), look = dn * (1 - us), walk = Math.max(0, 1 - t / 0.16), ph = t * 2 * PI * 2.2, g = t - uA - 0.16, gulp = g > 0 && g < 0.2 ? S(g / 0.2 * PI) : 0, tr = us * 0.012 * S(t * 55);
+    return { shoulderR: [-1.0 + 0.2 * look + 0.3 * us, 0.3 - 0.5 * look, 0.05 - 0.25 * look], elbowR: [-1.8 + 0.25 * look + 0.45 * us, 0, 0], handR: [0.3, 0, 0], shoulderL: [0, 0, 0.2 + 0.45 * us], elbowL: [-0.08 - 0.3 * us, 0, -0.3],
+      hipL: [-0.4 * walk * S(ph), 0, 0.05 + 0.05 * us], hipR: [0.4 * walk * S(ph), 0, -0.05 - 0.05 * us], kneeL: [0.3 * walk, 0, 0], kneeR: [0.3 * walk, 0, 0], footL: [0.45 * us, 0, 0], footR: [0.45 * us, 0, 0],
+      head: [0.36 + 0.3 * look - 0.36 * us, tr, 0], torso: [0.06 + 0.06 * look - 0.06 * us, 0, 0], root: { y: 0.01 * S(t * 3), x: tr * 0.3 },
+      toon: { sq: sqv(1 - 0.06 * gulp + 0.05 * us), bend: { spine: [0.18 * look, 0, 0, 1, null], neck: [0.25 * look, 0, 0, 1 + 2.2 * look + 0.25 * gulp, 1 + 0.5 * gulp] }, ears: 0.4 * us, face: { expr: us > 0.5 ? (p.expr ?? 'gulp') : 'lookDown', exprW: Math.max(look, us) } } }; },
+  // one arm straight up as far as it goes (the other pinned as in `squeezed`), the hand fumbling at the top, the head thrown back to watch it. p.side 'L' / 'R'.
+  // Stretch the arm from the story: toon bend armL / foreL [0, 0, 0, 3.6, 0.6]
+  reachHigh: (t, p = {}) => { const L = (p.side ?? 'L') === 'L', w = S(t * 34), up = [0, 0, 3.02 + 0.03 * S(t * 23)], hand = [0.5 * w, 0, 0.5 * S(t * 34 + 1.2)], sq = CLIPS.squeezed(t, p);
+    return { ...sq, ...(L ? { shoulderL: up, elbowL: [0, 0, 0.06], handL: hand } : { shoulderR: [0, 0, -up[2]], elbowR: [0, 0, -0.06], handR: hand }), head: [-0.5, (L ? 1 : -1) * 0.12, 0],
+      toon: { bend: { [L ? 'armL' : 'armR']: [0, 0.1 * S(t * 23), 0, 1, null], [L ? 'foreL' : 'foreR']: [0, -0.16 * S(t * 23 + 1), 0, 1, null] } } }; },
+  // head first into something soft and stuck there (a diver's arrival): upside down, the legs up in the air and wobbling (dying out), the arms pushing in vain.
+  // The actor's position is where the head goes in; p.sink (0.2 m)
+  headStuck: (t, p = {}) => { const w = wob(t + 0.02, p.freq ?? 21, p.decay ?? 3.2), w2 = wob(t + 0.05, 17, 3); return { root: { rx: PI + 0.1 * w, rz: 0.12 * w2, y: 0.42 - (p.sink ?? 0.2), pivot: 'hips' },
+      ...arms(m([0.4 * S(t * 16), 0, 0.5], [0.4 * S(t * 16 + 2), 0, 0.5]), m([-0.9, 0, 0], [-0.9, 0, 0])), hipL: [0.5 * w + 0.25 * S(t * 11), 0, 0.3], hipR: [-0.5 * w + 0.25 * S(t * 11 + PI), 0, -0.3], kneeL: [0.5 + 0.4 * S(t * 11), 0, 0], kneeR: [0.5 + 0.4 * S(t * 11 + PI), 0, 0], head: [0, 0, 0],
+      toon: { sq: sqv(1 - 0.18 * Math.exp(-t * 9) * Math.cos(t * 30)), bend: { spine: [0.25 * w, 0.2 * w2, 0, 1, null], legL: [0, 0.3 * w2, 0, 1.1, null], legR: [0, 0.3 * w2, 0, 1.1, null] } } }; },
+  // melting from the top down (p.dur 0.45 s): the head sinks into the shoulders and droops, the arms run down to the ground, then the whole body spreads into a
+  // puddle; p.landAt: something lands on the puddle (the hat he left in the air: a prop), it jiggles
+  meltDown: (t, p = {}) => { const d = p.dur ?? 0.45, k1 = eio(t / (d * 0.55)), k2 = eio((t - d * 0.3) / (d * 0.7)), sy = 1 - 0.8 * k2, land = p.landAt != null ? wob(t - p.landAt, 30, 8) : 0;
+    return { ...arms(m([0, 0, 0.1 + 0.25 * k2], [0, 0, 0.1 + 0.25 * k2]), m([0, 0, 0], [0, 0, 0])), head: [0.55 * k1, 0, 0.12 * k1], neck: [0.3 * k1, 0, 0], torso: [0.25 * k1, 0, 0], hipL: [0, 0, 0.35 * k2], hipR: [0, 0, -0.35 * k2], kneeL: [0.4 * k1 * (1 - k2), 0, 0], kneeR: [0.4 * k1 * (1 - k2), 0, 0],
+      toon: { sq: [(1 + (p.spread ?? 0.95) * k2) * (1 + 0.08 * land), sy * (1 - 0.3 * land), (1 + (p.spread ?? 0.95) * k2) * (1 + 0.08 * land)], bend: { spine: [0.45 * k1, 0, 0, 1 - 0.25 * k1 * (1 - k2), 1 + 0.25 * k1], neck: [0.3 * k1, 0, 0, 1 - 0.5 * k1, null], armL: [0, 0, 0, 1 + 0.75 * k1, null], armR: [0, 0, 0, 1 + 0.75 * k1, null], foreL: [0, 0, 0, 1 + 0.5 * k1, null], foreR: [0, 0, 0, 1 + 0.5 * k1, null] },
+        scl: { head: [1 + 0.25 * k2, 1 - 0.3 * k2, 1] }, face: { expr: p.expr ?? 'cry', exprW: Math.min(1, k1 * 1.5) } } }; },
+  // the neck as a rubber hose (the periscope again, but alive): it shoots up with an overshoot (p.len x), sways in an arc, the head staying level on top like
+  // the elbow of a periscope; the head yaw is left to the look keys. p.backAt drops it
+  hoseNeck: (t, p = {}) => { const at = p.backAt ?? 1e9, u = t - at, k = u < 0 ? back(t / 0.26, 2.6) : 1 - back(u / 0.18, 2.5), len = 1 + ((p.len ?? 10) - 1) * Math.max(0, k), sw = (p.sway ?? 0.5) * (S(t * 4.2) * 0.6 + 0.9 * wob(t - 0.2, 15, 3.5)), fw = 0.22 * S(t * 3.1 + 1) + 0.5 * wob(t - 0.18, 19, 4);
+    return { ...CLIPS.squeezed(t, p), head: [-fw * 0.9, 0, -sw * 0.95], toon: { bend: { neck: [fw, sw, 0, len, p.fat ?? 0.5] }, sq: sqv(1 + (u > 0 ? 0.08 * wob(u - 0.12, 30, 7) : 0) - 0.07 * Math.exp(-t * 14)) } }; },
 });
 
 export const CLIP_NAMES = Object.keys(CLIPS);

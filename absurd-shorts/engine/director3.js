@@ -16,7 +16,7 @@ import * as THREE from 'three';
 import { createStage, setLighting, LIGHTING } from './scene.js';
 import { createLook } from './look.js';
 import { buildHuman } from './human.js';
-import { CLIPS, samplePose, actingBlend } from './animations.js';
+import { CLIPS, samplePose, actingBlend, blendPoses } from './animations.js';
 import { toonUpgrade, blendToon, addToon } from './toon.js';
 import { hasFaceRig, faceState, blendFace, cloneFace } from './facerig.js';
 import { ease, clamp01, lerp, PALETTE as P } from './style.js';
@@ -248,7 +248,7 @@ function prepActor(cfg, obj, sc, place) {
     const spd = mv.speed ?? (loco ? loco[0] : 1.5);
     const dur = mv.until != null ? Math.max(0.2, frozenRemap(cfg.id, T(mv.until, sc)) - mv.t) : mv.dur ?? Math.max(0.2, L / spd);
     Object.assign(mv, { pts, segs, L, clip, dur, t1: mv.t + dur, end: pts[pts.length - 1] });
-    if (loco) { const sc_ = scaleAt(A, mv.t); mv.freq = clamp((L / dur) / (loco[1] * legLen * sc_), 0.6, 4.2); }
+    if (loco) { const sc_ = scaleAt(A, mv.t); mv.freq = mv.cadence ?? clamp((L / dur) / (loco[1] * legLen * sc_), 0.6, 4.2); }   // mv.cadence: gait cycles per second set by the story (small quick steps on the air)
     if (clip) {
       A.clipKeys.push({ at: mv.t, clip, params: { ...(mv.params || {}), freq: mv.freq }, speed: 1, move: mv });
       A.clipKeys.push({ at: mv.t1, clip: mv.then ?? '__prev__', params: mv.thenParams || (mv.then === clip ? { ...(mv.params || {}), freq: mv.freq } : {}), speed: mv.then === clip ? 1 : A.speed, afterMove: mv, t0: mv.then === clip ? mv.t : undefined });   // then = the move's own clip: its time continues (a one-shot clip must not replay)
@@ -397,6 +397,11 @@ function precomputeReleases(sc) {
     A.obj.updateMatrixWorld(true);
     const pos = Pp.obj.getWorldPosition(V()), quat = Pp.obj.getWorldQuaternion(new THREE.Quaternion());
     k.rel = { pos, quat, floor: k.floor ?? 0.02 };
+    // a released prop that does not fall by gravity can be moved afterwards (`to` keys after the detach start where it was released): the object that hangs
+    // in the air where the hand left it, then drops fast. k.wobble [amp, freq, decay]: it rocks in place meanwhile
+    const later = k.fall ? [] : Pp.moves.filter(m => m.t >= k.at - 1e-6 && m.to != null);
+    if (later.length) { let start = pos.clone(); for (const mv of later) { const end = V(mv.to[0] ?? start.x, mv.to[1] ?? start.y, mv.to[2] ?? start.z), d = end.clone().sub(start), l = d.length();   // a null coordinate keeps the release position
+        Object.assign(mv, { pts: [start, end], segs: [{ a: start, b: end, l, L0: 0, head: Math.atan2(d.x, d.z) }], L: l, end }); start = end.clone(); } k.moves = later; }
     if (k.fall) { const h = Math.max(0, pos.y - k.rel.floor), vy = k.toss?.[1] || 0; k.landT = k.at + (vy + Math.sqrt(vy * vy + 2 * 9.8 * h)) / 9.8; if (k.impact) Pp.sfx.push({ t: k.landT, name: k.impact, vol: k.vol ?? 0.7 }); }
   }
 }
@@ -409,7 +414,9 @@ function evalProp(Pp, t) {
   if (o && o.detach && o.rel) {
     const dt = Math.max(0, t - o.at), p = o.rel.pos.clone();
     if (o.fall) { const vy = o.toss?.[1] || 0; p.y = Math.max(o.rel.floor, o.rel.pos.y + vy * dt - 0.5 * 9.8 * dt * dt); if (o.toss) { const k = Math.min(dt, o.landT - o.at); p.x += o.toss[0] * k; p.z += o.toss[2] * k; } }
-    Pp.obj.position.copy(p); Pp.obj.quaternion.copy(o.rel.quat);
+    if (o.moves) for (const mv of o.moves) { if (t < mv.t) break; if (t >= mv.t1) { p.copy(mv.end); continue; } const k = (ease[mv.ease || 'inOut'] || ease.inOut)(clamp01((t - mv.t) / mv.dur)); p.copy(mv.pts[0]).lerp(mv.end, k); if (mv.arc) p.y += mv.arc * 4 * k * (1 - k); }
+    Pp.obj.position.copy(p); Pp.obj.quaternion.copy(o.rel.quat); if (o.worldRot) Pp.obj.rotation.set(...o.worldRot);   // worldRot [x, y, z]: how it hangs once released (turned to the camera)
+    if (o.wobble) Pp.obj.rotateZ(o.wobble[0] * Math.sin(dt * (o.wobble[1] ?? 20)) * Math.exp(-dt * (o.wobble[2] ?? 4)));
     if (o.fall && o.spinFall) Pp.obj.rotateX(o.spinFall * Math.min(dt, (o.landT ?? o.at) - o.at));
     if (o.restRot && t >= (o.landT ?? 0)) Pp.obj.rotation.set(...o.restRot);
   } else {
@@ -485,8 +492,9 @@ function evalActor(A, tIn) {
   }
   if (ud.kind === 'human') {
     const pc = clipPoseFn(A, cur, t); let pose = pc;
-    const BL = BLEND / S.tempo, pp = prev && dt < BL + 0.12 ? clipPoseFn(A, prev, t) : null;
-    if (pp) pose = actingBlend(pp, pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
+    const kb = keyBlend(cur), BL = kb ?? BLEND / S.tempo, pp = prev && dt < (kb ?? BL + 0.12) ? clipPoseFn(A, prev, t) : null;
+    if (pp) pose = kb != null ? blendPoses(pp, pose, ease.out(clamp01(dt / kb))) : actingBlend(pp, pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
+    if (pp && ud.toon && (pc.root?.pivot || pp.root?.pivot)) pose.root.pivot = pc.root?.pivot || pp.root?.pivot;   // lying down / getting up turns about the hips all the way through the blend
     if (ud.toon) pose = toonOverlap(A, t, pose, BL);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
@@ -528,9 +536,13 @@ function evalActor(A, tIn) {
 }
 // ---- cartoon rig layers (engine/toon.js): only for actors built with `toon`
 // overlapping action: the far joints replay the pose a few frames late (forearms, hands, head), so gestures trail and settle
-function toonPoseAt(A, tt, BL) {
-  const c = lastKey(A.clipKeys, tt), p = prevKey(A.clipKeys, c), d = tt - c.at; let q = clipPoseFn(A, c, tt);
-  if (p && d < BL + 0.12) q = actingBlend(clipPoseFn(A, p, tt), q, d, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
+// a clip key can set its own blend from the previous clip (seconds): k(t, clip=..., blend=0.02) is a hard hit (plain fast blend, no anticipation, nothing trails);
+// on a move: blend (into the gait) and thenBlend (into the clip that follows it)
+const keyBlend = c => c.key?.blend ?? (c.move ? c.move.blend : c.afterMove?.thenBlend);
+function toonPoseAt(A, tt, BL0) {
+  const c = lastKey(A.clipKeys, tt), p = prevKey(A.clipKeys, c), d = tt - c.at, kb = keyBlend(c), BL = BLEND / S.tempo; let q = clipPoseFn(A, c, tt);
+  if (p && kb != null) { if (d < kb) q = blendPoses(clipPoseFn(A, p, tt), q, ease.out(clamp01(d / kb))); }
+  else if (p && d < BL + 0.12) q = actingBlend(clipPoseFn(A, p, tt), q, d, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
   return q;
 }
 const TOON_LAG = { elbowL: 0.035, elbowR: 0.035, handL: 0.07, handR: 0.07, head: 0.045, neck: 0.02 };
@@ -543,7 +555,13 @@ function toonOverlap(A, t, pose, BL) {
 // the clip's own channels (blended across a clip change) + automatic layers: breathing, squash and stretch from the vertical motion,
 // drag of the spine against horizontal acceleration (lean back on a start, carry on forward on a stop)
 function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
-  const ud = A.obj.userData, cfg = ud.toonCfg || {}, auto = cfg.auto ?? 1, d = 1 / FPS;
+  const ud = A.obj.userData, cfg = ud.toonCfg || {}, d = 1 / FPS;
+  // the story's own keys (k(t, toon={...})); `auto` in a key (0..1) doses the automatic layers while the key holds: a choreographed fall (the feet leave,
+  // the head stays) must not be stretched and squashed again by its own speed
+  let keyed = null, ka = 1;
+  if (A.toonKeys) { const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1, bl = pk && w < 1;
+    keyed = bl ? blendToon(pk.toon, kk.toon, w) : kk.toon; ka = bl ? lerp(pk.toon.auto ?? 1, kk.toon.auto ?? 1, clamp01(w)) : (kk.toon.auto ?? 1); }
+  const auto = (cfg.auto ?? 1) * ka;
   let tp = pp ? blendToon(pp.toon || {}, pc.toon || {}, ease.out(clamp01(dt / BL))) : (pc.toon || {});
   const extra = {}, ph = A.phase * 9 + (A.id ? A.id.length * 0.77 : 0);
   const br = (cfg.breathe ?? 1) * 0.012 * Math.sin(t * 1.75 + ph);   // breathing: the chest rises and falls
@@ -573,7 +591,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   }
   extra.bend = bend;
   let all = addToon(tp, extra);
-  if (A.toonKeys) { const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1; all = addToon(all, pk && w < 1 ? blendToon(pk.toon, kk.toon, w) : kk.toon); }
+  if (keyed) all = addToon(all, keyed);
   ud.toon.apply(all, t, sc); return all;
 }
 // ---- face rig: the expression as numbers, blended from the previous one (the brows lead, the mouth trails, a little overshoot), then

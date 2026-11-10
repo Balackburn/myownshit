@@ -1185,7 +1185,7 @@ export const NEWS_PROPS = {
   },
   // ---- Le serrurier (story 29)
   smartPhone(o) { // a plain smartphone (screen +Z), held to the ear (phoneEar) or shown; o.call: a green call screen
-    const g = grp(at(box(0.072, 0.148, 0.01, '#1C1F24', { outline: 0.004 }), 0, 0, 0));
+    const g = grp(at(box(0.072, 0.148, 0.01, o.case || '#1C1F24', { outline: 0.004 }), 0, 0, 0));   // o.case: the colour of the back (a bright case reads against a dark suit)
     g.add(at(canvasPlane(0.064, 0.13, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#2E8B57'); gr.addColorStop(1, '#1E5E3C'); c.fillStyle = o.call === false ? '#1E2A44' : gr; c.fillRect(0, 0, W, H);
       c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(W / 2, H * 0.78, W * 0.14, 0, Math.PI * 2); c.fill(); c.fillStyle = '#2E8B57'; c.font = `900 ${W * 0.16}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('☎', W / 2, H * 0.785);
       c.fillStyle = '#FFFFFF'; c.font = `bold ${W * 0.11}px Arial`; c.fillText(o.label || 'APPEL…', W / 2, H * 0.3); }, { res: 128, emissive: 0.6 }), 0, 0, 0.0055));

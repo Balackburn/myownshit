@@ -10,7 +10,7 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
-//   face: { pop: 0..1 (eyes out on stalks), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
+//   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
 //           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js) }
 import * as THREE from 'three';
@@ -106,6 +106,8 @@ function headDeform(hm, dim) {
     p.needsUpdate = true;
   };
 }
+let _euro = null;
+function euroTex() { if (_euro) return _euro; const c = document.createElement('canvas'); c.width = c.height = 128; const q = c.getContext('2d'); q.fillStyle = '#12662A'; q.font = '900 118px Arial'; q.textAlign = 'center'; q.textBaseline = 'middle'; q.fillText('€', 64, 72); _euro = new THREE.CanvasTexture(c); _euro.colorSpace = THREE.SRGBColorSpace; return _euro; }
 function starGeo(r = 0.06) { const sh = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5, q = i % 2 ? r * 0.45 : r; sh[i ? 'lineTo' : 'moveTo'](Math.sin(a) * q, Math.cos(a) * q); } sh.closePath(); return new THREE.ExtrudeGeometry(sh, { depth: 0.012, bevelEnabled: false }).translate(0, 0, -0.006); }
 function headOverlays(head, hm, dim, skin) {
   const { hw, hh, hd } = dim, g = new THREE.Group(); g.name = 'toonHead'; head.add(g);
@@ -118,7 +120,8 @@ function headOverlays(head, hm, dim, skin) {
     const ball = new THREE.Group(); e.add(ball);
     ball.add(outlined(new THREE.Mesh(new THREE.IcosahedronGeometry(r, 1), white), 1.12));
     const pupil = new THREE.Mesh(new THREE.CircleGeometry(r * 0.42, 12), black); pupil.position.z = r * 0.98; ball.add(pupil);
-    e.visible = false; return { e, stalk, ball, pupil, r, ph: i * 1.7 };
+    const sign = new THREE.Mesh(new THREE.CircleGeometry(r * 0.92, 16), new THREE.MeshBasicMaterial({ map: euroTex(), transparent: true, depthWrite: false })); sign.position.z = r * 1.02; sign.visible = false; ball.add(sign);   // money eyes: a euro sign in place of the pupil (face.euro)
+    e.visible = false; return { e, stalk, ball, pupil, sign, r, ph: i * 1.7 };
   });
   const deform = hm ? headDeform(hm, dim) : null;
   // the tongue hangs out of the mouth (the mouth moves down with the jaw)
@@ -132,7 +135,8 @@ function headOverlays(head, hm, dim, skin) {
     for (const E of eyes) {
       E.e.visible = pop > 0.01; if (!E.e.visible) continue;
       const out = 0.02 + pop * (f.popLen ?? 0.2), s = (f.eyeScale ?? 1) * (1 + 0.9 * Math.min(1, pop * 1.5)) * (1 + 0.04 * Math.sin(t * 31 + E.ph) * pop);
-      E.stalk.scale.set(1, 1, Math.max(0.001, out)); E.ball.position.z = out; E.ball.scale.setScalar(s); E.pupil.scale.setScalar(f.pupil ?? (1 - 0.45 * pop));
+      const th = 1 + Math.min(2.2, Math.max(0, out - 0.3) * 1.3); E.stalk.scale.set(th, th, Math.max(0.001, out)); E.ball.position.z = out; E.ball.scale.setScalar(s); E.pupil.scale.setScalar(f.pupil ?? (1 - 0.45 * pop));   // th: a long stalk is a thick rubber hose (it must read from far)
+      const eu = (f.euro || 0) > 0.5; E.sign.visible = eu; E.pupil.visible = !eu;
       E.ball.rotation.set(0.05 * Math.sin(t * 23 + E.ph) * pop, 0.07 * Math.sin(t * 19 + E.ph) * pop, 0);
     }
     deform?.(Math.round(drop * 500) / 500);

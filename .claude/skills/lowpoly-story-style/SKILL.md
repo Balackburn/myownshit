@@ -49,27 +49,27 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 
 | Gag | Technique (moteur) | Servi dans |
 | --- | --- | --- |
-| Temps suspendu avant la chute | il marche sur le vide (`then=<la même marche>` : la marche continue), s'arrête ; les yeux descendent, puis la tête (`hangAir` : `downAt`, `usAt`), regard caméra (`gulp`), chute | 37 (quatre chutes, quatre façons, ci-dessous) |
-| Chute « caramel » : les jambes partent, la tête reste | clés `toon` : jambes et tibias ×2,7 en 0,17 s, puis cou ×9 pendant 0,08 s pendant que le corps descend, puis tout claque | 37 S02 |
-| L'objet qui reste en l'air | l'accessoire se détache (`detach`), attend 0,4 s, puis tombe (`fall`) : le téléphone, le képi (prop à part ; le chapeau du rig sort du champ avec `hat: [60, 0, 0]`) | 37 S02, S07 |
-| Chute « pierre » après un take | `lookDown` + cou ×2,2, `take` court (0,12 s), chute en 0,13 s | 37 S07 |
-| Freinage au bord et moulinets | `dashOff` (traînée), `skidStop`, `teeter` (bras en tuyaux, amplitude qui grandit) | 37 S08 |
-| Descente d'ascenseur, digne | chute linéaire lente, sourire `teeth`, `wave`, bras ×1,9 pour que la main reste la dernière | 37 S10 |
-| Crêpe puis regonflage | chute glissée puis `pancake` (`popAt`, `stars`), secousse caméra, poussière | 37 S03 |
-| Bosse sur le crâne | `face.bump`, tête écrasée `scl.head [1.3, 0.62, 1.3]` pendant 0,05 s, expression `pain` | 37 S03 |
-| Regard à gauche, regard à droite, take | expressions `sideL` puis `side` (0,22 s chacune), puis `take` (`pop: 0` : yeux peints géants, mâchoire étirée) | 37 S05 |
-| Atterrissage en accordéon, les voisins tremblent | `accordion` (`decay`, `stars`), `jelly` sur les voisins au même instant | 37 S09 |
-| Serrés comme des sardines, respiration en tuyaux d'orgue | `squeezed` + `sq [0.74, 1.08, 0.9]` ; ils inspirent l'un après l'autre (0,09 s d'écart) : plus fins et plus hauts `sq [0.6, 1.26, 0.9]`, joues gonflées (`puffed`), puis relâchent ensemble | 37 S12 |
-| Bras élastique | `reachUpL` + bras et avant-bras ×3 (0,24 s), retour sec | 37 S13 |
-| Yeux en euros en cascade | expression `greed` décalée de 0,05 s par personnage, petit bond (`sq` y 1,2) | 37 S14 |
-| Plongeons variés | `noseJump`, `cannonball`, `swanDive` sur un déplacement avec `arc` | 37 S15 |
-| Colonne humaine | les arrivants s'empilent en étages, la rangée du dessous s'écrase à chaque arrivée | 37 S16 |
-| Cou périscope | `periscope` (`len: 10`), regard vers un personnage puis caméra, `deadpan` | 37 S18 |
-| Fonte de dépit | `melt`, la valise tombe (`detach`, `fall`) | 37 S18 |
+| Marcher sur le vide sans le savoir | un seul déplacement `walkRead` qui continue au-dessus du trou, petits pas rapides (`cadence=2.1`), caméra à 2,7 m qui plonge : les pieds sur le noir du trou pendant 0,7 s | 37 S01 |
+| Temps suspendu avant la chute | plan serré, caméra basse : `hangPhone` posé par clé (les yeux quittent l'écran, la tête descend, le téléphone s'écarte), regard caméra `uhoh` tenu 12 images avec la déglutition ; puis la caméra recule et monte | 37 S02 |
+| Chute « caramel » : les jambes partent, la tête reste | jambes ×2,7 en 0,12 s sans déplacement (les pieds descendent de 1,6 m, le corps ne bouge pas) ; puis l'acteur descend de 1,22 m pendant que colonne ×1,7 et cou ×9 poussent d'autant vers le haut (la tête reste 3 images) ; puis `toon={}` en 0,05 s : tout claque. `auto: 0` dans ces clés | 37 S02 |
+| L'objet qui reste en l'air | `detach` avec `worldRot` (tourné vers la caméra), `wobble`, grossi par une clé `scale` ; il attend 6 images seul, puis `to=[None, y, None]` en 0,1 s (pas la gravité) : téléphone, képi, bloc-notes | 37 S02, S07 |
+| Aplati comme un tapis, puis regonflage | chute `fallDrag`, puis `splat` avec `blend=0.02` (allongé sur le dos, mince comme du papier, mains en l'air, d'un mur à l'autre), caméra à 2,9 m qui plonge de 30° ; yeux en spirale, deux clignements, étoiles ; `popAt` : ressort debout | 37 S03 |
+| Bosse sur le crâne et téléphone rattrapé | l'accessoire tombe sur le crâne (`face.bump`, tête écrasée 0,05 s), rebondit en arc vers l'oreille ; `phoneEar` démarre avant qu'il arrive : la main est là quand il retombe (`attach`) | 37 S03 |
+| Coup de tampon | `stampDesk` : bras étiré au-dessus de la tête tenu 5 images (il tremble), descente en 2 images, tout le corps s'écrase ; les objets du bureau sautent (clés `to` de 0,07 s), la feuille posée à plat bondit vers la caméra (`to` + `rotTo` + `scale`) | 37 S04 |
+| Regard à gauche, regard à droite, take | expressions `sideL` puis `side` (0,22 s chacune), puis `take` (`pop: 0.55` : globes à peine sortis, mâchoire étirée), bras en Y qui touchent les deux murs | 37 S05 |
+| Les yeux descendent dans le trou | de profil : le corps reste un poteau, le cou se plie (`neck [1.48, 0, 0, 1.6]`), les yeux descendent sur leurs tiges (`pop: 1, popLen: 1.1, eyeScale: 1.6`), se balancent, remontent d'un coup ; regard caméra, puis chute « pierre » en 0,13 s | 37 S07 |
+| Freinage au bord et moulinets | `dashOff` (traînée), `skidStop`, `teeter` (`spin: 37` : deux tours et demi, yeux sortis `pop: 0.8`, amplitude qui grandit, bascule vers l'objectif) | 37 S08 |
+| Atterrissage en accordéon, les voisins tremblent | `fallDrag` puis `accordion` avec `hit: True` et `blend=0.02` : à plat à la première image, trois rebonds de soufflet qui s'éteignent ; `jelly` sur les voisins au même instant | 37 S09 |
+| Descente d'ascenseur, digne, la main reste | `royalWave` (coude plié, main qui tourne), descente linéaire avec `auto: 0` ; l'avant-bras s'allonge exactement de ce que le corps descend (clé linéaire calculée, jusqu'à ×6) : la main reste 9 images seule au-dessus du bord, un dernier coup de poignet, puis elle est aspirée | 37 S10 |
+| Serrés comme des sardines, respiration en tuyaux d'orgue | `squeezed` + `sq [0.74, 1.08, 0.9]` ; ils inspirent l'un après l'autre (0,08 s d'écart) : plus fins et plus hauts, joues gonflées (`puffed`), les yeux sur le voisin, les deux du bout poussés contre les murs ; puis relâchent ensemble | 37 S12 |
+| Bras élastique jusqu'en haut du puits | élan (écrasement 3 images), `reachHigh` + bras et avant-bras ×3,7 (`outBack`), tenu 6 images la main qui tâtonne, retour en 0,06 s ; le recul fait tanguer la rangée (penchés l'un après l'autre) ; les têtes suivent la lettre (`look='bill'`) | 37 S13 |
+| Yeux en euros en cascade | globes sortis avec le signe euro (`face: {pop, euro}`), décalés de 0,05 s par personnage, petit bond, quatre sourires différents | 37 S14 |
+| Plongeons variés, un par un | course, bond au-dessus du trou dans la pose (`noseJump`, `cannonball`, `swanDive`), 2 images suspendu, puis chute ; la file avance d'une place à chaque saut (les suivants par `walk`, la file-accessoire par `to` avec un petit `arc`) | 37 S15 |
+| Colonne humaine | chacun arrive dans la pose de son plongeon ; celui qui plonge tête la première reste planté (`headStuck`, jambes qui tremblent) ; à chaque arrivée la rangée du dessous est plus plate et ceux qui sont dessus descendent avec elle (fonctions `press` / `ride` de l'histoire) ; trois étages | 37 S16 |
+| Fonte de dépit, le chapeau reste | `meltDown` sur 13 images (la tête s'enfonce, les bras coulent, puis la flaque) ; le chapeau du rig est caché (`hat: [60, 0, 0]`) et remplacé par un accessoire qui reste en l'air 3 images puis tombe sur la flaque (`landAt` : elle tremble) | 37 S18 |
+| Cou en tuyau | `hoseNeck` (`len: 8.5`) : il monte avec dépassement, se balance en arc, la tête reste d'aplomb ; regard vers la flaque, puis caméra ; toute la pile regarde la caméra à son tour | 37 S18 |
 
-Gags du rig pas encore servis : yeux sur tiges prolongés (`pop`), langue déroulée, vapeur aux oreilles, étoiles longues, `paperThin`,
-`inflate`, `noodle`, `scramble` avant un départ, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `strain`, `puffed`,
-`dotEyes`.
+Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperThin`, `inflate`, `noodle`, `scramble` avant un départ, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `strain`, `dotEyes`. Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
 
@@ -92,4 +92,23 @@ Gags du rig pas encore servis : yeux sur tiges prolongés (`pop`), langue dérou
 - Aperçus de mouvement : `--draft` (ombres allégées, 3 fois plus rapide) et `--range a:b` pour ne rendre qu'un plan ; jamais `--draft` pour une livraison.
 - `then=<le clip du déplacement>` rejouait le clip depuis le début (corrigé au cycle 1) ; « La canicule » en garde une double chute au
   plan S10 dans la version livrée.
+- Un clip à déroulement unique (tampon, temps suspendu, plongeon qui tourne) donné comme clip de départ de l'acteur est déjà fini à la première image :
+  le clip de départ commence « il y a un million de secondes ». Le poser par clé : `k(0.0, clip=...)`. Deux gags de la première passe ne jouaient jamais.
+- Un impact : `blend=0.02` sur la clé du clip d'arrivée. Avec le fondu par défaut (0,24 s, anticipation, mains en retard) l'écrasement arrive en douceur.
+- Étirer les jambes fait descendre les pieds sous l'acteur (le bassin ne bouge pas) ; la colonne et le cou poussent vers le haut. « Les jambes partent,
+  la tête reste » : jambes d'abord, sans déplacement ; ensuite un déplacement vers le bas égal à l'allongement de la colonne et du cou.
+- Les couches automatiques (étirement à la vitesse, écrasement à la décélération) s'ajoutent à une chute chorégraphiée : la tête monte de plus d'un mètre
+  puis retombe. Mettre `auto: 0` dans les clés `toon` du passage (et pour une descente « digne »).
+- Deux déplacements enchaînés avec la même démarche repassent par `idle` entre les deux (le bras qui tient le téléphone retombe) : un seul déplacement,
+  ou `blend=0.001` sur le second.
+- Bande des sous-titres (77 à 83 % de la hauteur) : aucune chute de gag dedans ni dessous. Pour un trou dans le sol : caméra à 2,4 m qui plonge de 16°
+  (le bord proche à 75 %) ; pour un sol de puits : caméra à 2,9 m qui plonge de 30°. Tracer la bande sur une image de contrôle.
+- Bras levé tendu : jamais (une image arrêtée se lit comme un salut, surtout avec une écharpe officielle). Coude plié, main qui tourne : `royalWave`.
+- Chutes : pas de pose en T (`airborne`). `fallDrag` (bras en rubans, chapeau soulevé), ou la pose du plongeon qui précède.
+- Une tête basculée à 80° montre le dessus du crâne (ou le képi) à toute caméra de face : filmer de profil. Des yeux sur tiges qui passent sous le bord
+  du trou disparaissent pour une caméra basse : les arrêter 0,3 m au-dessus.
+- Un accessoire lâché (`detach`) garde l'orientation de la main, souvent de profil pour la caméra : `worldRot`, et une clé `scale` pour qu'il se voie.
+- Un panneau ou une feuille qui surgit près de la caméra sort vite du cadre : placer le personnage d'un côté (décaler caméra et cible), le panneau de l'autre.
+- Pellicules d'aperçu : une image sur deux. Un geste de 2 images peut tomber entre deux vignettes : pour un doute, rendre les images une à une
+  (`shots_at` ou `--stills`) avant de conclure à un bogue.
 

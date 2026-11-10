@@ -1228,7 +1228,8 @@ Object.assign(S, {
       const z = z0 + i * 13, h = 15 + r() * 5;
       g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: 12.6, night, seed: i }, 10.2, 0, z, -PI / 2));
       g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: 12.6, night, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
-      if (i % 2 === 0) { g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
+      const clr = (zz) => o.clear && zz > o.clear[0] && zz < o.clear[1];   // o.clear [zmin, zmax]: no tree and no lamp on the right-hand pavement there (nothing growing out of a head)
+      if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
     }
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70 }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0], ...(o.hole ? { hole: [o.hole[0], 0, o.hole[1]] } : {}) };
@@ -1256,19 +1257,19 @@ Object.assign(S, {
       const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: earth })); m.position.set((x0 + x1) / 2, (y0 + y1) / 2, zc); m.receiveShadow = true; return m; };
     g.add(face(-X, -R, Y0, D), face(R, X, Y0, D), face(-R, R, Y0, 0));
     // the shaft: back wall, side walls, floor (lighter near the top where the daylight comes in)
-    const wallTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 1024; const q = c.getContext('2d'), gr = q.createLinearGradient(0, 0, 0, 1024); gr.addColorStop(0, '#B79C7C'); gr.addColorStop(0.35, '#9A7E60'); gr.addColorStop(1, '#6E5642'); q.fillStyle = gr; q.fillRect(0, 0, 256, 1024);
+    const wallTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 1024; const q = c.getContext('2d'), gr = q.createLinearGradient(0, 0, 0, 1024); gr.addColorStop(0, '#D2B48E'); gr.addColorStop(0.35, '#BE9E78'); gr.addColorStop(1, '#9C7C5A'); q.fillStyle = gr; q.fillRect(0, 0, 256, 1024);
       const r = rng(5); for (let i = 0; i < 260; i++) { q.fillStyle = i % 2 ? 'rgba(60,44,32,0.35)' : 'rgba(200,180,150,0.3)'; const s = 3 + r() * 10; q.beginPath(); q.ellipse(r() * 256, r() * 1024, s, s * 0.6, r() * 3, 0, TAU); q.fill(); }
       for (let y = 60; y < 1024; y += 120) { q.strokeStyle = 'rgba(50,36,26,0.4)'; q.lineWidth = 4; q.beginPath(); q.moveTo(0, y); for (let x = 0; x <= 256; x += 32) q.lineTo(x, y + 8 * Math.sin(x * 0.05 + y)); q.stroke(); }
       const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
-    const wm = new THREE.MeshLambertMaterial({ map: wallTex }), wm2 = new THREE.MeshLambertMaterial({ map: wallTex, color: '#C9C2B8' });
+    const wm = new THREE.MeshLambertMaterial({ map: wallTex, color: '#FFF6E6' }), wm2 = new THREE.MeshLambertMaterial({ map: wallTex, color: '#E6D8C2' });
     const bw = new THREE.Mesh(new THREE.PlaneGeometry(2 * R, D), wm); bw.position.set(0, D / 2, -R); bw.receiveShadow = true; g.add(bw);
     for (const sd of [-1, 1]) { const sw = new THREE.Mesh(new THREE.PlaneGeometry(2 * R + 0.04, D), wm2); sw.position.set(sd * R, D / 2, 0.01); sw.rotation.y = -sd * PI / 2; sw.receiveShadow = true; g.add(sw); }
-    const fl = mesh(new THREE.PlaneGeometry(2 * R, 2 * R + 0.04).rotateX(-PI / 2), mat('#6A513C')); fl.position.set(0, 0.002, 0.01); fl.castShadow = false; g.add(fl);
+    const fl = mesh(new THREE.PlaneGeometry(2 * R, 2 * R + 0.04).rotateX(-PI / 2), mat('#A58260')); fl.position.set(0, 0.002, 0.01); fl.castShadow = false; g.add(fl);
     const rr = rng(8); for (let i = 0; i < 9; i++) g.add(at(box(0.06 + 0.08 * rr(), 0.04 + 0.04 * rr(), 0.06 + 0.07 * rr(), ['#9C968C', '#7E786F', '#B5AFA4'][i % 3], { outline: 0.03 }), (rr() - 0.5) * 1.7 * R, 0.02, (rr() - 0.5) * 1.5 * R, 0, rr() * 3, 0));
     // the surface: pavement slabs either side of the hole, the street behind, a facade, a lamp, a tree
     for (const sd of [-1, 1]) { g.add(at(box(X - R, 0.2, 2 * R + 6, '#E4D6BE'), sd * (R + (X - R) / 2), D - 0.1, -3 + zc - R - 0.02 + R)); }
     g.add(at(box(2 * R, 0.2, 6, '#E4D6BE'), 0, D - 0.1, -R - 3));
-    g.add(prop('haussmann', { color: '#EFE6D2', awning: '#B5302A', h: 15, floors: 6, cols: 5, w: 12.6, seed: 4 }, 0.5, D, -7.5, 0), prop('haussmann', { color: '#F2DCCB', awning: '#2F7F5C', h: 17, floors: 6, cols: 5, w: 12.6, seed: 9 }, -12.2, D, -7.5, 0), prop('haussmann', { color: '#E8E1EE', awning: '#2F5E8C', h: 16, floors: 6, cols: 5, w: 12.6, seed: 12 }, 13.2, D, -7.5, 0));
+    g.add(prop('haussmann', { color: '#EFE6D2', awning: '#B5302A', h: 15, floors: 6, cols: 5, w: 12.6, seed: o.facade ?? 9 }, 0.5, D, -7.5, 0), prop('haussmann', { color: '#F2DCCB', awning: '#2F7F5C', h: 17, floors: 6, cols: 5, w: 12.6, seed: (o.facade ?? 9) - 1 }, -12.2, D, -7.5, 0), prop('haussmann', { color: '#E8E1EE', awning: '#2F5E8C', h: 16, floors: 6, cols: 5, w: 12.6, seed: (o.facade ?? 9) + 1 }, 13.2, D, -7.5, 0));   // o.facade: the seed of the building behind the hole in the street set (parisStreet: seed = its index along the street)
     g.add(prop('streetLamp', {}, 2.9, D, -2.2), prop('tree', { seed: 11 }, -3.4, D, -2.6, 0, 1.0));
     if (o.light !== false) { const hl = prop('holeLight', { w: 2 * R * 0.9, h: D }, 0, 0, -R * 0.4); g.add(hl); g.userData.update = t => hl.userData.update(t); }
     g.userData.anchors = { center: [0, 0, 0], bottom: [0, 0, 0], surface: [0, D, 0], edgeL: [-R - 0.5, D, 0], edgeR: [R + 0.5, D, 0] };
@@ -1286,7 +1287,7 @@ Object.assign(S, {
     g.add(prop('plant', { seed: 5 }, 4.2, 0, back + 0.6), prop('wallClock', { rate: 1 / 60 }, o.clockX ?? 3.6, 2.9, back + 0.03));
     const dz = o.deskZ ?? -0.9; g.add(at(box(1.9, 0.07, 0.85, '#8A6A45', { outline: 0.005 }), 0, 0.78, dz), at(box(1.8, 0.74, 0.04, '#7A5A3C'), 0, 0.37, dz + 0.38), at(box(0.06, 0.76, 0.75, '#7A5A3C'), -0.88, 0.38, dz), at(box(0.06, 0.76, 0.75, '#7A5A3C'), 0.88, 0.38, dz));
     g.add(at(box(0.34, 0.012, 0.24, '#F4F1E8'), -0.5, 0.822, dz + 0.05, 0, 0.2, 0), at(box(0.3, 0.05, 0.22, '#5A3A28', { outline: 0.01 }), 0.62, 0.84, dz - 0.1), at(box(0.16, 0.03, 0.1, '#2A2A2E'), 0.62, 0.875, dz - 0.1));   // papers, an in-tray, an ink pad
-    g.add(at(label('ÉTAT CIVIL', 0.5, 0.11, { bg: '#1B2A4A', fg: '#F4F1E8', wrap: false }), 0, 0.55, dz + 0.405));
+    if (o.plate !== false) g.add(at(label(o.plate || 'ÉTAT CIVIL', 0.5, 0.11, { bg: '#1B2A4A', fg: '#F4F1E8', wrap: false }), 0, 0.55, dz + 0.405));
     g.userData.anchors = { center: [0, 0, 0], desk: [0, 0.82, dz], clerk: [0, 0, dz - 0.75], visitor: [0, 0, dz + 1.3] };
     g.userData.sun = o.sun || [0.3, 0.75, 0.6]; g.userData.lighting = 'day'; return g;
   },

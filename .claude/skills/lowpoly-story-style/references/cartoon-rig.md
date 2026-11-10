@@ -37,12 +37,30 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 - `ears: radians`, `hat: [lift, tilt, spin]`.
 - Lengths to remember: the neck is 0.1 m (a periscope needs ×8-10), a thigh or a shin about 0.47 m, an upper arm 0.34 m.
 
+## Keys added for staging (second pass of cycle 1)
+
+- `auto: 0..1` inside a toon key doses the automatic layers while the key holds (`k(t, toon={'auto': 0, ...})`): use it for a choreographed fall or a
+  lift-like descent, where the stretch from speed and the squash from deceleration would move the head.
+- `blend=<seconds>` on a clip key: its own blend from the previous clip (plain and fast: no anticipation, nothing trails). `blend=0.02` is a hard hit.
+  On a move: `blend` (into the gait) and `thenBlend` (into the clip that follows).
+- `cadence=<cycles per second>` on a move: the gait frequency set by the story (quick small steps on the air).
+- A stretched leg grows downward from the hip (the feet go down, the body stays); the spine and the neck grow upward.
+- A base clip (the actor's `clip`) started long before the shot: one-shot clips (`stampDesk`, `hangPhone`, `splat`, `cannonball`...) must be keyed:
+  `k(0.0, clip=...)`.
+- Props: after `detach=True` (no `fall`), later `to` keys move the prop from where it was released (`None` keeps a coordinate); `worldRot=[x, y, z]`
+  turns it to the camera; `wobble=[amp, freq, decay]` rocks it in place.
+
 ## Clips
 
 `take` (hold, pop 0 = huge painted eyes / 1 = eyes on stalks, jaw, tongue), `doubleTakeToon` (side, beat), `scramble`, `dashOff`,
 `hangAir` (downAt, usAt), `pancake` (popAt, stars), `paperThin`, `inflate`, `stretchGrab`, `periscope` (len), `accordion` (amp, freq,
 decay, stars), `jelly`, `noodle`, `melt`, `windUp`, `walkRead`, `walkWrite`, `marchPomp`, `skidStop`, `teeter`, `swanDive`,
 `cannonball`, `noseJump`, `squeezed`, `stampPhone`. Clips written for the old rig still play; they gain the automatic layers.
+
+Second pass: `fallDrag` (falling feet first, everything trails), `splat` (flat on his back like a rug for a camera looking down 30 deg; popAt, stars,
+blinkAt), `royalWave` (bent elbow, wrist; side, flickAt), `stampDesk` (hit), `hangPhone` (downAt, usAt, expr), `reachHigh` (side), `headStuck`
+(upside down, legs wobbling; sink), `meltDown` (dur, spread, landAt), `hoseNeck` (len, sway, backAt); `accordion` takes `hit: True` (hard landing, bellows
+bounces), `teeter` takes `spin`, `pop`, `jaw`.
 
 ## Face rig
 

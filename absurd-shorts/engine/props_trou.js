@@ -15,6 +15,8 @@ export function holeOutline(r = 0.9, seed = 5, n = 16) {
 }
 
 export const TROU_PROPS = {
+  // a fedora on its own (the rig's hat, for when it leaves the head: hide the rig's with a toon key hat [60, 0, 0] and show this one in its place)
+  fedoraHat(o) { const hw = o.hw ?? 0.24, hd = o.hd ?? 0.17, c = o.color || P.woodDark, g = grp(box(hw * 1.7, 0.02, hd * 1.9, c), box(hw * 1.1, 0.12, hd * 1.2, c, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); return g; },
   // the shaft under a hole in the ground: earth walls that darken with depth, a slab section at the top, broken paving round the edge, cracks
   streetHole(o) {
     const r = o.r ?? 0.9, depth = o.depth ?? 6, pts = holeOutline(r, o.seed ?? 5), n = pts.length, g = grp(), rows = [0, -0.16, -0.17, -0.7, -1.6, -3.0, -depth];
@@ -56,9 +58,11 @@ export const TROU_PROPS = {
   stampedForm(o) {
     const w = o.w ?? 0.46, h = o.h ?? 0.58;
     const c = canvasPlane(w, h, (g, W, H) => {
-      g.fillStyle = '#FBF8EE'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B2A4A'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = `900 ${H * 0.085}px Arial`; g.fillText(o.title || 'DOSSIER : LE TROU', W / 2, H * 0.1);
+      const fit = (text, weight, size, maxW) => { let fs = size; g.font = `${weight} ${fs}px Arial`; const tw = g.measureText(text).width; if (tw > maxW) fs *= maxW / tw; g.font = `${weight} ${fs}px Arial`; return fs; };
+      g.fillStyle = '#FBF8EE'; g.fillRect(0, 0, W, H); g.fillStyle = '#1B2A4A'; g.textAlign = 'center'; g.textBaseline = 'middle'; fit(o.title || 'DOSSIER : LE TROU', 900, H * 0.085, W * 0.8); g.fillText(o.title || 'DOSSIER : LE TROU', W / 2, H * 0.1);
       g.fillRect(W * 0.1, H * 0.165, W * 0.8, H * 0.012); g.fillStyle = '#8A8A90'; for (let i = 0; i < 7; i++) g.fillRect(W * 0.12, H * (0.25 + i * 0.085), W * (i % 3 === 2 ? 0.5 : 0.76), H * 0.02);
-      g.save(); g.translate(W * 0.5, H * 0.56); g.rotate(-0.22); g.strokeStyle = '#C8202A'; g.lineWidth = H * 0.022; g.strokeRect(-W * 0.44, -H * 0.1, W * 0.88, H * 0.2); g.fillStyle = '#C8202A'; g.font = `900 ${H * 0.125}px Arial`; g.fillText(o.text || 'INEXISTANT', 0, H * 0.008); g.restore();
+      g.save(); g.translate(W * 0.5, H * 0.58); g.rotate(-0.2); const txt = o.text || 'INEXISTANT', fs = fit(txt, 900, H * 0.17, W * 0.74), tw = g.measureText(txt).width, bw = tw + fs * 0.9, bh = fs * 1.75;
+      g.fillStyle = 'rgba(251,248,238,0.82)'; g.fillRect(-bw / 2, -bh / 2, bw, bh); g.strokeStyle = '#C8202A'; g.lineWidth = fs * 0.16; g.strokeRect(-bw / 2, -bh / 2, bw, bh); g.fillStyle = '#C8202A'; g.fillText(txt, 0, fs * 0.05); g.restore();
       g.strokeStyle = '#1B1B1E'; g.lineWidth = W * 0.012; g.strokeRect(W * 0.02, H * 0.016, W * 0.96, H * 0.968);
     }, { res: 512 });
     return grp(at(box(w, h, 0.006, '#FBF8EE'), 0, 0, -0.004), c);
@@ -82,7 +86,7 @@ export const TROU_PROPS = {
   nowhereBoard(o) {
     const w = o.w ?? 1.5, h = o.h ?? 1.0, g = grp(at(box(w + 0.08, h + 0.08, 0.04, '#8A6A45', { outline: 0.006 }), 0, 0, 0), at(box(w, h, 0.01, '#C9A06A'), 0, 0, 0.022));
     g.add(at(canvasPlane(w * 0.9, h * 0.24, (c, W, H) => { c.fillStyle = '#F4F1E8'; c.fillRect(0, 0, W, H); c.fillStyle = '#1B1B1E'; c.font = `900 ${H * 0.7}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.title || 'NULLE PART', W / 2, H * 0.54); }, { res: 512 }), 0, h * 0.33, 0.03));
-    const who = [{ skin: '#D9A877', suit: '#1F2E47', tie: '#C8202A' }, { skin: '#E2B48A', suit: '#E8C23A', hat: '#2A4B9B' }, { skin: '#C98E62', suit: '#B5302A', hat: '#E8B93A' }, { skin: '#E6BE98', suit: '#2B2B30', sash: true }], ph = [];
+    const who = o.who || [{ skin: '#D9A877', suit: '#1F2E47', tie: '#C8202A' }, { skin: '#E2B48A', suit: '#E07A2E', hat: '#24406E' }, { skin: '#C98E62', suit: '#D9A23A', hat: '#C8202A' }, { skin: '#E6BE98', suit: '#2B3A55', sash: true }], ph = [];   // the man, the officer (orange, blue cap), the fireman (yellow, red helmet), the mayor (sash)
     who.forEach((p, i) => {
       const c = canvasPlane(0.26, 0.33, (c2, W, H) => {
         c2.fillStyle = '#FFFFFF'; c2.fillRect(0, 0, W, H); c2.fillStyle = '#DCE8F2'; c2.fillRect(W * 0.07, H * 0.06, W * 0.86, H * 0.88);
@@ -106,7 +110,7 @@ export const TROU_PROPS = {
     g.add(at(cyl(0.045, 0.055, ph, '#3A3F47', 8, { pivot: 'bottom' }), 0, 0, 0), at(box(0.3, 0.05, 0.3, '#2B2F36'), 0, 0.025, 0), at(box(w + 0.1, h + 0.1, 0.12, '#22262C', { outline: 0.012 }), 0, ph + h / 2, 0));
     const face = (text, col, glow) => { const c = canvasPlane(w, h, (c2, W, H) => { c2.fillStyle = '#0D0F12'; c2.fillRect(0, 0, W, H); c2.fillStyle = col; let fs = H * 0.66; c2.font = `900 ${fs}px Arial`; const tw = c2.measureText(text).width; if (tw > W * 0.86) fs *= W * 0.86 / tw; c2.font = `900 ${fs}px Arial`; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(text, W / 2, H * 0.55);
       c2.fillStyle = '#0D0F12'; for (let y = 0; y < H; y += H / 9) c2.fillRect(0, y, W, H / 40); for (let x = 0; x < W; x += W / 34) c2.fillRect(x, 0, W / 160, H); }, { res: 512, emissive: glow }); c.position.set(0, ph + h / 2, 0.062); c.userData.noAO = true; return c; };
-    const off = face(o.textOff || 'LIBRE', '#2C5A3A', 0.25), on = face(o.text || 'COMPLET', '#FF4A36', 1.0); g.add(off, on);
+    const off = face(o.textOff || 'LIBRE', '#45F07A', 0.9), on = face(o.text || 'COMPLET', '#FF4A36', 1.0); g.add(off, on);
     const onAt = o.onAt ?? 0;
     g.userData.update = t => { const u = t - onAt, lit = u >= 0 && !(u > 0.08 && u < 0.16) && !(u > 0.24 && u < 0.3); on.visible = lit; off.visible = u < 0; };   // the lamps stutter on: dark between two flashes, never LIBRE again
     g.userData.update(o.onAt == null ? 1 : 0); return g;
