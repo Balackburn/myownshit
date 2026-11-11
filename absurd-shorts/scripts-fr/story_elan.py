@@ -300,7 +300,7 @@ hand18 = lambda a, s_: pole_pt(TL, PH18, a, s_, ry=90)
 X18 = 5.02; IN18 = [LANE + 0.5, 0, round(TL[2] + 0.35 + V * G18, 3)]; AT18 = [X18, 0, TL[2] + 0.35]; OUT18 = [X18 + 0.03, 0.8, TL[2] - 1.55]
 HOLD18 = lambda a, **kw: {'hands': {'L': 'grip', 'R': 'grip'}, 'reach': {'L': [*hand18(a, 1.62), 1, 0.05], 'R': [*hand18(a, 1.42), 1, 0.05]}, **kw}
 LEAN18 = {'hands': {'L': 'grip'}, 'reach': {'L': [*hand18(0.0, 1.5), 1, 0.05]}}   # a hand left on the pole
-SIDE18 = lambda t=0.0: cam(t, [10.0, 1.6, TL[2] - 0.7], [9.95, 1.6, TL[2] - 0.7], [5.5, 1.7, TL[2] - 0.7], [5.5, 1.7, TL[2] - 0.7], lens=60)   # across the pavement: the pole at the left, the road to swing over
+SIDE18 = lambda t=0.0: cam(t, [10.0, 1.6, TL[2] - 0.55], [9.95, 1.6, TL[2] - 0.55], [5.5, 1.7, TL[2] - 0.55], [5.5, 1.7, TL[2] - 0.55], lens=60)   # across the pavement: the pole at the left, the road to swing over
 st.shot('S18', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', IN18, 180, 'run', 'scared', params=RUN, keys=[k(0.0, look=None), k(0.0, to=AT18, dur=G18, clip='run', params=RUN, ease='linear', face=180, cruise=True),
             k(0.0, toon=JOG(face={'gy': -0.8, 'brow': 0.9, 'eye': 0.3}), toonDur=0.0),                                             # his eyes on the red light
             k(0.06, toon=JOG(**HOLD18(0.0, face={'gy': -0.6, 'brow': 0.9, 'mouth': 'clench'})), toonDur=0.12, toonEase='in'),         # his arms go out ahead of him to the pole
