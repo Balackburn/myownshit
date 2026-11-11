@@ -50,8 +50,8 @@ def knock1(t, on, face=SHOUT):                       # his left hand on the glas
     tgt = [3.84, 1.55, z1(t) + 0.9] if on else [4.35, 1.62, z1(t) + 0.6]
     return SPRINT(hands={'L': 'open'}, reach={'L': [*tgt, 1, 0.06]}, face=face)
 KN1 = [(0.0, 0), (0.3, 0), (0.42, 1), (0.5, 1), (0.66, 0), (0.78, 1), (0.86, 1), (1.02, 0), (1.14, 1), (1.22, 1), (1.42, 0), (BR1 + 0.08, 0)]   # three knocks
-inbus1 = lambda loc: [k(0.0, to=bus_at(ZC1(BR1), *loc), dur=BR1, glide=True, ease='linear'), k(BR1, to=bus_at(ZC2, *loc), dur=1.2, glide=True, ease='out')]
-st.shot('S01', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[act('mec', [X1, 0, Z1], 180, 'run', 'scared', params=RUN, keys=[*[k(t, look=[X1 + 1.5, 1.6, z1(t) - 2.6]) for t in (0.0, 0.35, 0.7, 1.05, 1.4, 1.75)], k(0.0, to=[X1, 0, z1(D1)], dur=D1, clip='run', params=RUN, ease='linear', face=180),   # his head three quarters to us (looking where he runs, the face was a sliver)
+inbus1 = lambda loc: [k(0.0, to=bus_at(ZC1(BR1), *loc), dur=BR1, glide=True, ease='linear', cruise=True), k(BR1, to=bus_at(ZC2, *loc), dur=1.2, glide=True, ease='out')]
+st.shot('S01', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[act('mec', [X1, 0, Z1], 180, 'run', 'scared', params=RUN, keys=[*[k(t, look=[X1 + 1.5, 1.6, z1(t) - 2.6]) for t in (0.0, 0.35, 0.7, 1.05, 1.4, 1.75)], k(0.0, to=[X1, 0, z1(D1)], dur=D1, clip='run', params=RUN, ease='linear', face=180, cruise=True),   # his head three quarters to us (looking where he runs, the face was a sliver)
             k(0.0, toon=knock1(0.0, 0), toonDur=0.0), *[k(KN1[i][0], toon=knock1(KN1[i + 1][0], KN1[i + 1][1]), toonDur=round(KN1[i + 1][0] - KN1[i][0], 3), toonEase='linear') for i in range(len(KN1) - 1)],
             k(BR1 + 0.08, toon=SPRINT(hands={'L': 'spread', 'R': 'spread'}, face={'gx': 0.9, 'brow': 1, 'eye': 0.35, 'jaw': 0.3}, sq=[0.97, 1.05, 0.97]), toonDur=0.1, toonEase='outBack'),   # the door is gone from under his hand: a look after it
             k(BR1 + 0.3, toon=SPRINT(hands={'L': 'spread', 'R': 'spread'}, face={'gx': 0.0, 'brow': 1, 'eye': 0.4, 'mouth': 'wavy'}), toonDur=0.08)]),   # then ahead: and me?
@@ -59,12 +59,12 @@ st.shot('S01', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[act('m
         act('p1', bus_at(ZC1(0), *RIDERL[0][1]), 90, 'wave', 'happy', keys=[k(0.0, look='mec'), *inbus1(RIDERL[0][1])])],
         props=[BUS(ZC1(0), k(0.0, to=[BX, 0, ZC1(BR1)], dur=BR1, ease='linear'), k(BR1, to=[BX, 0, ZC2], dur=1.2, ease='out'), rock=[[BR1, 0.02]])],
         cams=[cam(0.0, [X1 + 1.8, 1.5, Z1 - 2.2], [X1 + 1.7, 1.5, z1(D1) - 2.1], [X1, 1.55, Z1 - 0.4], [X1, 1.55, z1(D1) - 0.4], lens=44)])   # he leans across the frame, his head up at the right, the door behind his shoulders
-st.cue('whoosh', 'S01', 0.0, 0.25, 0.5, 500, 1800); [st.cue('thud', 'S01', t, 0.45) for t in (0.42, 0.78, 1.14)]; st.cue('sfx:squeak', 'S01', BR1, 0.5)
+st.cue('engine', 'S01', 0.0, 0.22, BR1 + 0.25); st.cue('whoosh', 'S01', 0.0, 0.25, 0.5, 500, 1800); [st.cue('thud', 'S01', t, 0.45) for t in (0.42, 0.78, 1.14)]; st.cue('sfx:squeak', 'S01', BR1, 0.5)
 
 # 2: he brakes with his heels and does not stop: the camera runs backward in front of him; behind him the bus, stopped, gets smaller
 D2 = st.dur('S02'); V2 = 7.5
 A2, B2 = [5.3, 0, z1(D1)], [5.2, 0, round(z1(D1) - V2 * D2, 3)]
-st.shot('S02', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[act('mec', A2, 180, 'heelBrake', 'scared', keys=[k(0.0, look=None), k(0.0, to=B2, dur=D2, clip='heelBrake', glide=True, ease='linear', face=180),
+st.shot('S02', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[act('mec', A2, 180, 'heelBrake', 'scared', keys=[k(0.0, look=None), k(0.0, to=B2, dur=D2, clip='heelBrake', glide=True, ease='linear', face=180, cruise=True),
             k(0.0, toon={'face': {'gy': 0.4, 'brow': 0.8, 'mouth': 'clench'}}, toonDur=0.0),                                 # his eyes on his heels
             k(0.5, toon={'face': {'gy': 0.4, 'brow': 0.9, 'mouth': 'clench', 'sweat': 1}}, toonDur=0.1),
             k(0.9, toon={'face': {'brow': 1, 'eye': 0.3, 'mouth': 'wavy', 'sweat': 1}}, toonDur=0.08), k(1.12, toon={'face': {'brow': 1, 'eye': 0.3, 'mouth': 'wavy', 'sweat': 1, 'lid': 1}}, toonDur=0.04), k(1.2, toon={'face': {'brow': 1, 'eye': 0.3, 'mouth': 'wavy', 'sweat': 1}}, toonDur=0.04)]),   # then on us; a blink
@@ -91,7 +91,7 @@ st.cue('whoosh', 'S03', 0.0, 0.4, 0.3, 600, 2000); st.cue('sfx:boing', 'S03', W3
 # 4: the sign at the edge of town: he goes by it, still braking; it spins on its post
 D4 = st.dur('S04'); V4 = 14.0; P4 = 0.55              # he passes the sign
 A4 = [1.1, 0, round(V4 * P4, 3)]; B4 = [1.1, 0, round(V4 * (P4 - D4), 3)]
-st.shot('S04', 'grassland', actors=[act('mec', A4, 180, 'heelBrake', 'worried', keys=[k(0.0, look=None), k(0.0, to=B4, dur=D4, clip='heelBrake', glide=True, ease='linear', face=180),
+st.shot('S04', 'grassland', actors=[act('mec', A4, 180, 'heelBrake', 'worried', keys=[k(0.0, look=None), k(0.0, to=B4, dur=D4, clip='heelBrake', glide=True, ease='linear', face=180, cruise=True),
             k(0.0, toon={'face': {'gx': -0.8, 'gy': -0.4, 'brow': 0.8}}, toonDur=0.0), k(P4 + 0.1, toon={'face': {'brow': 1, 'mouth': 'wavy'}}, toonDur=0.08)])],
         props=[P('road', 'roadStrip', pos=[-1.3, 0, 0], opts={'len': 500, 'w': 6.5}), P('sign', 'townSign', pos=[2.45, 0, 0], opts={'name': 'PARIS', 'spinAt': P4 + 0.03, 'turns': 3.5, 'spinDur': 1.6}),
                P('tower', 'eiffelTower', pos=[-32, 0, 190], opts={'h': 60}),
@@ -127,9 +127,9 @@ zh6 = lambda t: zrun(V6 * H6, V6, t)                  # he is at z = 0 at H6
 fly6 = lambda who, pos0, lag, gap, ph: act(who, pos0, 0, 'stand', 'scared', keys=[k(0.0, look=[LANE, 1.5, 6.0]),
             k(H6 + lag, to=[LANE + 0.12, 0.3, zh6(H6 + lag + 0.1) + gap], dur=0.1, glide=True, clip='flag', params={'phase': ph, 'swing': 0.2}, ease='in', face=180, blend=0.03),
             k(H6 + lag, toon={'sq': [0.8, 0.8, 1.7]}, toonDur=0.04), k(H6 + lag + 0.08, toon={}, toonDur=0.08),            # a smear as she leaves
-            k(H6 + lag + 0.1, to=[LANE + 0.12, 0.3, zh6(D6) + gap], dur=D6 - H6 - lag - 0.1, glide=True, ease='linear', face=180)])
+            k(H6 + lag + 0.1, to=[LANE + 0.12, 0.3, zh6(D6) + gap], dur=D6 - H6 - lag - 0.1, glide=True, ease='linear', face=180, cruise=True)])
 st.shot('S06', 'parisStreet', setOpts={**STREET, 'eiffelX': 12}, actors=[
-        act('mec', [LANE, 0, zh6(0)], 180, 'run', 'worried', params=RUN, keys=[k(0.0, look=None), k(0.0, to=[LANE, 0, zh6(D6)], dur=D6, clip='run', params=RUN, ease='linear', face=180), k(0.0, toon=SPRINT(face={'gx': -0.7, 'brow': 0.6}), toonDur=0.0),
+        act('mec', [LANE, 0, zh6(0)], 180, 'run', 'worried', params=RUN, keys=[k(0.0, look=None), k(0.0, to=[LANE, 0, zh6(D6)], dur=D6, clip='run', params=RUN, ease='linear', face=180, cruise=True), k(0.0, toon=SPRINT(face={'gx': -0.7, 'brow': 0.6}), toonDur=0.0),
             k(H6, toon=SPRINT(sq=[0.94, 1.0, 1.12], face={'pop': 0.5, 'jaw': 0.4}, bend={'spine': [0.1, 0, 0, 1.04, None], 'neck': [-0.5, 0, 0, 1.3, None]}), toonDur=0.05, toonEase='out'),   # caught by the collar: his neck stays behind a frame
             k(H6 + 0.12, toon=SPRINT(face={'brow': 0.9, 'mouth': 'wavy'}), toonDur=0.1)]),
         fly6('dame', LADY5, 0.0, 1.95, 0.0), fly6('t3', T35, 0.07, 3.3, 2.0), fly6('tour', TOUR5, 0.14, 4.65, 4.0)],
@@ -181,10 +181,10 @@ COLLAR = {'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.58, -0.13], 'rot': [
 HEADFWD, HEADDROP = 0.45, 0.3                        # running, his head is that far ahead of his feet and that much lower than standing: aim close cameras there
 def rider(who, z0, v, dur, expr='scared', keys=(), **par):        # one passenger of the tail: z0 is the hero's z at 0
     a = [LANE + OFFX[who], FLY[who], round(z0 + GAP[who], 3)]; b = [a[0], a[1], round(a[2] - v * dur, 3)]; pr = {'phase': PH[who], 'swing': 0.16, **par}
-    return act(who, a, 180, 'flag', expr, params=pr, keys=[k(0.0, look=None), k(0.0, to=b, dur=dur, clip='flag', params=pr, glide=True, ease='linear', face=180), *keys])
+    return act(who, a, 180, 'flag', expr, params=pr, keys=[k(0.0, look=None), k(0.0, to=b, dur=dur, clip='flag', params=pr, glide=True, ease='linear', face=180, cruise=True), *keys])
 def runner(z0, v, dur, expr='unimpressed', keys=(), x=None):       # the hero
     x = LANE if x is None else x
-    return act('mec', [x, 0, z0], 180, 'run', expr, params=RUN, keys=[k(0.0, look=None), k(0.0, to=[x, 0, round(z0 - v * dur, 3)], dur=dur, clip='run', params=RUN, ease='linear', face=180), *keys])
+    return act('mec', [x, 0, z0], 180, 'run', expr, params=RUN, keys=[k(0.0, look=None), k(0.0, to=[x, 0, round(z0 - v * dur, 3)], dur=dur, clip='run', params=RUN, ease='linear', face=180, cruise=True), *keys])
 TAIL = lambda z0, v, dur, **kw: [rider(w, z0, v, dur, **kw) for w in ('dame', 't3', 'tour')]
 UMBT = lambda: P('umb', 'umbrella', on=COLLAR, opts={'open': 0.0, 'colors': ['#2F7F5C', '#F2EDE4'], 'height': 0.95})
 JOG = SPRINT   # his toon base while running
@@ -196,7 +196,8 @@ z10 = round(1.5 + V10 * P10, 3)
 POLE10 = [5.45, 0, -0.15]
 st.shot('S10', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[runner(z10, V10, D10), *TAIL(z10, V10, D10)],
         props=[DISPLAY([[0, '0 MIN'], [P10 + 0.22, '8 MIN']]), STOPPOLE(pos=POLE10, bend=[[P10 - 0.02, 0], [P10 + 0.12, 0.55]], spring=[[P10 + 0.12, 0.55, 14, 3.4]]), HEADSIGN(), UMBT(),
-               P('pig', 'pigeon', pos=PIG, ry=110, keys=[k(P10 + 0.02, to=[PIG[0] - 0.3, PIG[1] + 0.9, PIG[2] - 2.6], dur=0.3, ease='out'), k(P10 + 0.02, rotTo=[0.8, 3.0, 2.2], dur=0.3), k(P10 + 0.32, to=[PIG[0] - 0.6, PIG[1] + 1.6, PIG[2] - 7.0], dur=0.5, ease='linear')])],
+               P('pig', 'pigeon', pos=PIG, ry=110, keys=[k(P10 + 0.02, to=[PIG[0] - 0.3, PIG[1] + 0.9, PIG[2] - 2.6], dur=0.3, ease='out'), k(P10 + 0.02, rotTo=[0.8, 3.0, 2.2], dur=0.3), k(P10 + 0.32, to=[PIG[0] - 0.6, PIG[1] + 1.6, PIG[2] - 7.0], dur=0.5, ease='linear')]),
+               P('feather', 'feather', pos=[PIG[0], PIG[1] + 0.25, PIG[2] - 0.15], ry=90, opts={'at': P10 + 0.12, 'dur': D10 - P10 - 0.12, 'fall': 1.3, 'sway': 0.3, 'swings': 2.2, 's': 2.6})],   # what is left of the pigeon: a feather comes down through the empty end of the shot
         fx=[{'type': 'wind', 'at': P10 - 0.08, 'dur': 0.7, 'v': [0, 0, -12], 'attack': 0.05, 'release': 0.3}],
         cams=[cam(0.0, [8.6, 1.55, -1.9], [8.5, 1.55, -1.8], [5.5, 1.8, 0.5], [5.5, 1.8, 0.5], lens=44)])
 st.cue('whoosh', 'S10', P10 - 0.25, 0.5, 0.8, 400, 2400); st.cue('sfx:tick', 'S10', P10 + 0.22, 0.5); st.cue('sfx:spring', 'S10', P10 + 0.12, 0.4)
@@ -222,7 +223,7 @@ SURF = [LANE + OFFX['dame'], FLY['dame'] + 1.05 + 0.1, round(Z12 + GAP['dame'] -
 punch12 = lambda t: lerp3([LANE + OFFX['t3'] + 0.1, FLY['t3'] + 1.05 + 0.82, Z12 + GAP['t3'] - 0.7], [LANE + OFFX['t3'] + 0.1, FLY['t3'] + 1.05 + 0.82, Z12 + GAP['t3'] - 0.7 - V * D12], t / D12)
 st.shot('S12', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner(Z12, V, D12, keys=[k(0.0, toon=JOG(face={'gy': -0.2}), toonDur=0.0)]),
             rider('dame', Z12, V, D12, expr='worried', swing=0.05, flutter=0.5), rider('t3', Z12, V, D12, expr='worried', keys=TK12[0][1]), rider('tour', Z12, V, D12, expr='worried', keys=TK12[1][1]),
-            act('ctrl', SURF, 95, 'surfRide', 'unimpressed', keys=[k(0.0, look=[SURF[0] + 0.6, 2.0, SURF[2] + 2.0]), k(0.0, to=[SURF[0], SURF[1], round(SURF[2] - V * D12, 3)], dur=D12, clip='surfRide', glide=True, ease='linear', face=95),
+            act('ctrl', SURF, 95, 'surfRide', 'unimpressed', keys=[k(0.0, look=[SURF[0] + 0.6, 2.0, SURF[2] + 2.0]), k(0.0, to=[SURF[0], SURF[1], round(SURF[2] - V * D12, 3)], dur=D12, clip='surfRide', glide=True, ease='linear', face=95, cruise=True),
                  k(0.0, toon={'hands': {'L': 'open'}, 'reach': {'L': [*punch12(0.0), 0.0, 0.05]}}, toonDur=0.0),
                  k(0.1, toon={'hands': {'L': 'open'}, 'reach': {'L': [punch12(0.22)[0], punch12(0.22)[1] - 0.25, punch12(0.22)[2] - 0.5, 1, 0.05]}, 'face': {'browL': 0.6}}, toonDur=0.12, toonEase='outBack'),   # a hand held out: tickets
                  k(0.22, toon={'hands': {'L': 'open'}, 'reach': {'L': [punch12(PU12 - 0.1)[0], punch12(PU12 - 0.1)[1] - 0.25, punch12(PU12 - 0.1)[2] - 0.5, 1, 0.05]}, 'face': {'browL': 0.6}}, toonDur=round(PU12 - 0.32, 3), toonEase='linear'),
@@ -251,13 +252,13 @@ D14 = st.dur('S14'); Z14 = -6.0; F14 = 0.26
 BATX, BATY = LANE - 0.58, 1.62 - HEADDROP + 0.48     # where he hangs: his head level with the hero's, at his left (our right) (+0.36: measured on stills once the run no longer squashed him)
 def bat(z0, dur, y0=None, keys=(), expr='unimpressed'):
     a = [BATX, BATY if y0 is None else y0, round(z0 - HEADFWD, 3)]
-    return act('ctrl', a, 180, 'batHang', expr, keys=[k(0.0, look=None), k(0.0, to=[a[0], a[1], round(a[2] - V * dur, 3)], dur=dur, clip='batHang', glide=True, ease='linear', face=180), *keys])
+    return act('ctrl', a, 180, 'batHang', expr, keys=[k(0.0, look=None), k(0.0, to=[a[0], a[1], round(a[2] - V * dur, 3)], dur=dur, clip='batHang', glide=True, ease='linear', face=180, cruise=True), *keys])
 st.shot('S14', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner(Z14, V, D14, expr='tired', keys=[k(0.0, toon=JOG(face={**TIRED, 'brow': 0.9, 'eye': 0.2}), toonDur=0.0),
                  k(F14 + 0.1, toon=JOG(face={'gx': 0.9, 'brow': 0.9, 'eye': 0.3}), toonDur=0.08), k(F14 + 0.5, toon=JOG(face={'gx': 0.9, 'brow': 0.9, 'eye': 0.3, 'lid': 1}), toonDur=0.04), k(F14 + 0.58, toon=JOG(face={'gx': 0.9, 'brow': 0.9, 'eye': 0.3}), toonDur=0.04)]),   # his eyes go to it; a blink
             act('ctrl', [BATX, BATY + 1.3, round(Z14 - HEADFWD, 3)], 180, 'batHang', 'unimpressed', keys=[k(0.0, look=None),
-                 k(0.0, to=[BATX, BATY + 1.3, round(Z14 - V * F14 + 0.4 - HEADFWD, 3)], dur=round(F14 - 0.05, 3), clip='batHang', glide=True, ease='linear', face=180),
+                 k(0.0, to=[BATX, BATY + 1.3, round(Z14 - V * F14 + 0.4 - HEADFWD, 3)], dur=round(F14 - 0.05, 3), clip='batHang', glide=True, ease='linear', face=180, cruise=True),
                  k(round(F14 - 0.05, 3), to=[BATX, BATY - 0.08, round(Z14 - V * (F14 + 0.07) - HEADFWD, 3)], dur=0.12, glide=True, ease='out', face=180),       # he drops into the frame
-                 k(round(F14 + 0.07, 3), to=[BATX, BATY, round(Z14 - V * D14 - HEADFWD, 3)], dur=round(D14 - F14 - 0.07, 3), glide=True, ease='linear', face=180),
+                 k(round(F14 + 0.07, 3), to=[BATX, BATY, round(Z14 - V * D14 - HEADFWD, 3)], dur=round(D14 - F14 - 0.07, 3), glide=True, ease='linear', face=180, cruise=True),
                  k(F14 + 0.07, toon={'sq': [1.08, 0.9, 1.08]}, toonDur=0.04), k(F14 + 0.14, toon={'settle': 0.5}, toonDur=0.1, toonEase='outBack'), k(F14 + 0.6, toon={'face': {'gx': -0.8}}, toonDur=0.08)])],
         props=[HEADSIGN([[0, 'ARRÊT DEMANDÉ']]), BUTTON(-1), UMBT()],
         cams=[cam(0.0, [LANE + 0.6, 1.55, Z14 - 2.85], [LANE + 0.55, 1.55, Z14 - V * D14 - 2.75], [LANE - 0.27, 1.69, Z14 - HEADFWD], [LANE - 0.27, 1.69, Z14 - V * D14 - HEADFWD], lens=44)])
@@ -277,7 +278,7 @@ st.shot('S16', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner
                  k(R16 + 0.45, toon=JOG(face={'pupilSize': -0.62, 'eye': 0.5, 'browL': 1, 'browR': 0.3, 'mouth': 'wavy', 'tear': 1}), toonDur=0.2),
                  k(R16 + 0.8, toon=JOG(face={'pupilSize': -0.62, 'eye': 0.5, 'browL': 1, 'browR': 0.3, 'mouth': 'wavy', 'tear': 1, 'lid': 1}), toonDur=0.04), k(R16 + 0.88, toon=JOG(face={'pupilSize': -0.62, 'eye': 0.5, 'browL': 1, 'browR': 0.3, 'mouth': 'wavy', 'tear': 1}), toonDur=0.04)]),
             act('ctrl', [BATX, BATY, round(Z16 - HEADFWD, 3)], 180, 'batHang', 'smug', keys=[k(0.0, look=None), k(0.0, to=[BATX, BATY + 1.4, round(Z16 - V * 0.16 - HEADFWD, 3)], dur=0.16, clip='batHang', glide=True, ease='in', face=180),
-                 k(0.16, to=[BATX, BATY + 1.4, round(Z16 - V * D16 - HEADFWD, 3)], dur=round(D16 - 0.16, 3), glide=True, ease='linear', face=180)])],
+                 k(0.16, to=[BATX, BATY + 1.4, round(Z16 - V * D16 - HEADFWD, 3)], dur=round(D16 - 0.16, 3), glide=True, ease='linear', face=180, cruise=True)])],
         props=[HEADSIGN([[0, 'ARRÊT DEMANDÉ'], [R16, '12 BIS']]), BUTTON(-1), UMBT()],
         cams=closeup(Z16, V, D16, side=1.1, back=2.5, h=1.62, dy=0.1, push=0.35))
 st.cue('sfx:slideUp', 'S16', 0.0, 0.3); st.cue('sfx:tick', 'S16', R16, 0.35); st.cue('sfx:slideDownSlow', 'S16', R16, 0.3)
@@ -300,7 +301,7 @@ X18 = 5.02; IN18 = [LANE + 0.5, 0, round(TL[2] + 0.35 + V * G18, 3)]; AT18 = [X1
 HOLD18 = lambda a, **kw: {'hands': {'L': 'grip', 'R': 'grip'}, 'reach': {'L': [*hand18(a, 1.62), 1, 0.05], 'R': [*hand18(a, 1.42), 1, 0.05]}, **kw}
 LEAN18 = {'hands': {'L': 'grip'}, 'reach': {'L': [*hand18(0.0, 1.5), 1, 0.05]}}   # a hand left on the pole
 SIDE18 = lambda t=0.0: cam(t, [10.0, 1.6, TL[2] - 0.7], [9.95, 1.6, TL[2] - 0.7], [5.5, 1.7, TL[2] - 0.7], [5.5, 1.7, TL[2] - 0.7], lens=60)   # across the pavement: the pole at the left, the road to swing over
-st.shot('S18', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', IN18, 180, 'run', 'scared', params=RUN, keys=[k(0.0, look=None), k(0.0, to=AT18, dur=G18, clip='run', params=RUN, ease='linear', face=180),
+st.shot('S18', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', IN18, 180, 'run', 'scared', params=RUN, keys=[k(0.0, look=None), k(0.0, to=AT18, dur=G18, clip='run', params=RUN, ease='linear', face=180, cruise=True),
             k(0.0, toon=JOG(face={'gy': -0.8, 'brow': 0.9, 'eye': 0.3}), toonDur=0.0),                                             # his eyes on the red light
             k(0.06, toon=JOG(**HOLD18(0.0, face={'gy': -0.6, 'brow': 0.9, 'mouth': 'clench'})), toonDur=0.12, toonEase='in'),         # his arms go out ahead of him to the pole
             k(G18, to=OUT18, dur=SW18 - G18, clip='flag', params={'dir': -1, 'droop': 0.05, 'swing': 0.0, 'flutter': 0.4, 'expr': 'scared'}, glide=True, ease='out', face=180, blend=0.04),
@@ -313,8 +314,8 @@ st.shot('S18', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('
             k(BK18 + 0.08, look=[8.2, 1.65, TL[2] + 0.2]),
             k(CU18 + 0.36, toon={**LEAN18, 'face': {'steam': 0.9, 'gy': -0.9, 'gx': -0.5, 'brow': 0.6}}, toonDur=0.12),                    # his eyes go up to the red light
             k(CU18 + 0.66, toon={**LEAN18, 'sq': [1.04, 0.95, 1.04], 'settle': 0.4, 'face': {'steam': 0.4, 'lid': 1, 'mouth': 'smirk'}}, toonDur=0.2, toonEase='out'), k(CU18 + 0.66, expr='relieved')]),   # and he breathes out
-        act('ctrl', [IN18[0] - 0.44, BATY + 1.5, IN18[2] - HEADFWD], 180, 'batHang', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[AT18[0] - 0.44, BATY + 1.5, AT18[2] - HEADFWD], dur=G18, clip='batHang', glide=True, ease='linear', face=180),
-            k(G18, to=[LANE + 0.3, 1.3, TL[2] - 7.0], dur=0.55, clip='superman', glide=True, ease='linear', face=180, blend=0.04), k(G18, expr='surprised')])],   # the inspector, who hung over him, goes on, straight ahead
+        act('ctrl', [IN18[0] - 0.44, BATY + 1.5, IN18[2] - HEADFWD], 180, 'batHang', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[AT18[0] - 0.44, BATY + 1.5, AT18[2] - HEADFWD], dur=G18, clip='batHang', glide=True, ease='linear', face=180, cruise=True),
+            k(G18, to=[LANE + 0.3, 1.3, TL[2] - 7.0], dur=0.55, clip='superman', glide=True, ease='linear', face=180, blend=0.04, cruise=True), k(G18, expr='surprised')])],   # the inspector, who hung over him, goes on, straight ahead
         props=[LIGHT([[0, 'r']], bend=[[G18, 0], [SW18, A18], [SW18 + 0.1, A18], [BK18, 0]], spring=[[BK18, 0.12, 15, 5]]), HEADSIGN(), BUTTON(-1)],
         fx=[{'type': 'shake', 'at': BK18, 'dur': 0.15, 'amount': 0.02}],
         cams=[SIDE18(), cam(CU18, [8.2, 1.65, TL[2] + 0.25], [8.05, 1.65, TL[2] + 0.26], [5.05, 1.8, TL[2] + 0.3], [5.05, 1.8, TL[2] + 0.3], lens=44)])
@@ -324,7 +325,7 @@ st.cue('sfx:stretch', 'S18', G18, 0.4); st.cue('whoosh', 'S18', G18, 0.4, 0.3, 5
 D19 = st.dur('S19'); V19 = 9.0
 def pass19(who, t0, y, dx, ph):                       # one passenger: level with him at t0
     z0 = round(AT18[2] + V19 * t0, 3)
-    return act(who, [LANE + dx, y, z0], 180, 'flag', 'scared', params={'phase': ph, 'swing': 0.12}, keys=[k(0.0, look=None), k(0.0, to=[LANE + dx, y, round(z0 - V19 * D19, 3)], dur=D19, clip='flag', params={'phase': ph, 'swing': 0.12}, glide=True, ease='linear', face=180)])
+    return act(who, [LANE + dx, y, z0], 180, 'flag', 'scared', params={'phase': ph, 'swing': 0.12}, keys=[k(0.0, look=None), k(0.0, to=[LANE + dx, y, round(z0 - V19 * D19, 3)], dur=D19, clip='flag', params={'phase': ph, 'swing': 0.12}, glide=True, ease='linear', face=180, cruise=True)])
 st.shot('S19', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', AT18, 90, 'stand', 'relieved', keys=[k(0.0, look=[8.2, 1.65, TL[2] + 0.2]), k(0.0, toon={**LEAN18, 'face': {'lid': 1, 'mouth': 'smirk'}}, toonDur=0.0),
             k(0.12, toon={**LEAN18, 'sq': [0.97, 1.05, 0.97], 'face': {'brow': 0.9, 'eye': 0.3}}, toonDur=0.06, toonEase='outBack'), k(0.12, look=[LANE, 1.5, AT18[2] + 2.5], expr='surprised'),   # his head turns up the street: something is coming
             k(0.3, look=[LANE, 1.5, AT18[2] - 1.0]), k(0.55, look=[LANE, 1.5, AT18[2] - 6.0]),                                              # and goes with them, down the street
@@ -366,20 +367,21 @@ st.cue('clack', 'S21', HS21, 0.4); st.cue('sfx:slideDownSlow', 'S21', HS21 + 0.6
 #     opens them; his head goes after him, past us, and comes back; a slow blink; the light goes green: a look up at it, back at us: he stays
 D22 = st.dur('S22'); P22 = 0.5; V22 = 11.0; G22 = 1.25
 X22 = 4.45                                            # his path: half a metre from the hero's shoulder
-A22 = [X22, 0, round(AT18[2] - V22 * P22, 3)]; M22 = [X22, 0, AT18[2]]; C22 = [X22 - 0.45, 0, round(AT18[2] + V22 * 0.55, 3)]   # from down the street, level with him at P22, then past the camera at its left
+A22 = [X22, 0, round(AT18[2] - V22 * P22, 3)]; M22 = [X22, 0, AT18[2]]; C22 = [X22 - 1.3, 0, round(AT18[2] + V22 * 0.55, 3)]   # from down the street, level with him at P22, then past the camera at its left
 BR22 = {'expr': 'scared'}
 st.shot('S22', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', AT18, 0, 'stand', 'relieved', keys=[k(0.0, look=None), k(0.0, toon={**HELD21, 'face': {'lid': 1, 'mouth': 'smirk'}}, toonDur=0.0),
             k(P22 - 0.02, toon={**HELD21, 'sq': [0.97, 1.05, 0.97], 'face': {'eye': 0.3, 'brow': 0.8, 'gx': -0.8}}, toonDur=0.06, toonEase='outBack'), k(P22 - 0.02, expr='surprised'),   # the wind of him: his eyes open
-            k(P22 + 0.08, look=[X22 - 0.6, 1.4, AT18[2] + 6.0]), k(P22 + 0.5, look=None),                                                    # his head goes after him, past us, and comes back
+            k(P22 + 0.08, look=[X22 - 1.2, 1.4, AT18[2] + 5.0]), k(P22 + 0.5, look=None),                                                    # his head goes after him, past us, and comes back
             k(P22 + 0.5, toon={**HELD21, 'face': {'brow': 0.3}}, toonDur=0.1), k(P22 + 0.5, expr='neutral'),
             k(P22 + 0.58, toon={**HELD21, 'face': {'lid': 1}}, toonDur=0.05), k(P22 + 0.69, toon={**HELD21, 'face': {}}, toonDur=0.05),         # to us; a slow blink
             k(G22 + 0.08, toon={**HELD21, 'face': {'gy': -0.9, 'gx': 0.6}}, toonDur=0.08), k(G22 + 0.3, toon={**HELD21, 'face': {'mouth': 'smirk', 'browL': 0.4}}, toonDur=0.1)]),   # the green light: a look up at it, back to us: no
-        act('mec2', A22, 0, 'heelBrake', 'scared', params=BR22, keys=[k(0.0, look=None), k(0.0, to=M22, dur=P22, clip='heelBrake', params=BR22, glide=True, ease='linear', face=0),
-            k(P22, to=C22, dur=0.55, clip='heelBrake', params=BR22, glide=True, ease='linear', face=0), k(0.0, toon={'face': {'mouth': 'clench', 'brow': 0.9, 'sweat': 1}}, toonDur=0.0)])],
+        act('mec2', A22, 0, 'heelBrake', 'scared', params=BR22, keys=[k(0.0, look=None), k(0.0, path=[M22, C22], dur=P22 + 0.55, clip='heelBrake', params=BR22, glide=True, ease='linear', face=0, cruise=True),   # one move, two legs: his arms do not start again as he passes
+            k(0.0, toon={'face': {'mouth': 'clench', 'brow': 0.9, 'sweat': 1}}, toonDur=0.0)])],
         props=[LIGHT([[0, 'r'], [G22, 'g']]), HEADSIGN([[0, 'HORS SERVICE']]), BUTTON(-1),
                P('smoke', 'heelSmoke', pos=[0, 0, 0], opts={'path': [[0, A22[0], A22[2] + 0.55], [P22, M22[0], M22[2] + 0.55], [P22 + 0.55, C22[0], C22[2] + 0.55]], 'from': 0.0, 'to': P22 + 0.55, 'every': 0.03, 'marks': True})],
         fx=[{'type': 'wind', 'at': P22 - 0.05, 'dur': 0.4, 'v': [0, 0, 10], 'attack': 0.05, 'release': 0.25}],
-        cams=[cam(0.0, [4.6, 1.6, TL[2] + 4.6], [4.75, 1.62, TL[2] + 3.3], [5.0, 1.8, TL[2] + 0.2], [5.2, 1.85, TL[2] + 0.2], lens=44, ease='inOut')])   # wide enough to see him come and pass; then in on the one who stays
+        cams=[cam(0.0, [4.6, 1.6, TL[2] + 4.6], [4.6, 1.6, TL[2] + 4.55], [5.0, 1.8, TL[2] + 0.2], [5.0, 1.8, TL[2] + 0.2], lens=44),
+              glide([cam(P22 + 0.42, [4.75, 1.62, TL[2] + 3.3], [4.76, 1.62, TL[2] + 3.25], [5.2, 1.85, TL[2] + 0.2], [5.2, 1.85, TL[2] + 0.2], lens=44)], 0.6)])   # wide enough to see him come and pass; then in on the one who stays
 st.cue('sfx:squeak', 'S22', 0.05, 0.4); st.cue('whoosh', 'S22', P22 - 0.3, 0.45, 0.6, 400, 2200); st.cue('clack', 'S22', G22, 0.35)
 
 st.card('S08', "C'EST UNE LIGNE")

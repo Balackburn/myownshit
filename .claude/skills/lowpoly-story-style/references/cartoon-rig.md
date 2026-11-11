@@ -211,6 +211,10 @@ All opt-in: without them a character is exactly the cycle-4 one.
 - **`autoSq: k`** in a toon key (0..1, default 1; also `toon: {autoSq: k}` in a cast entry): the dose of the automatic squash and stretch alone
   (the other automatic layers stay). For a run seen close: each footfall of the `run` clip squashes the body for one frame, on a beat that never
   matches the frame rate; `autoSq: 0.3` in every key of the run leaves a bounce and keeps the head (and anything on it) readable.
+- **`cruise: true`** on a move key: the move was already under way before its key and goes on after its end (a man who runs through the whole
+  shot). Outside the key's time span the position continues along the first / last leg at the same speed, the gait keeps the same clock and does
+  not blend in. Nothing that reads speed or acceleration (spine drag, smear, follow-through, footfall squash, limb drag) then sees a start on the
+  first frame or a stop on the last. For the first and the last move of an actor, linear ease.
 - **`face.pupilSize` / `pupilSizeL` / `pupilSizeR`**: the painted pupils grow (1 = twice the size: a look that reads from far) or shrink
   (-0.5: pinpricks of fear).
 - **`face.tongueYaw`** (rad, + = toward his left) with `tongue` and `tongueLen`: the tongue blown aside by the wind of a run (1.5: flat across
@@ -222,4 +226,4 @@ All opt-in: without them a character is exactly the cycle-4 one.
 - Props of story 41 (`engine/props_elan.js`): `cityBus` (see-through, doors, displays, a driver's seat), `busStopPole` and `trafficLight`
   (poles that bend as an arc: `bend` keys, `spring`; `pole_pt` in `story_elan.py` gives the same point for a guided hand), `busDisplay`,
   `headSign`, `townSign` (spins like a weathercock), `lapBoard`, `splitDesk`, `lineMap`, `bigTicket`, `stopButton`, `heelSmoke`, `roadStrip`,
-  `stationSign`.
+  `stationSign`, `feather` (comes down rocking where a bird was).

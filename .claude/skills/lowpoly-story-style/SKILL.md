@@ -437,3 +437,19 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
   fermés), le faire passer à 50 cm de son épaule puis sortir à côté de la caméra ; cadre assez large au passage, puis avancée sur celui qui reste.
 - (cycle 5) **Une file dans la profondeur** (un contrôleur et deux voyageurs derrière un coureur) : la caméra à hauteur du premier, sur le côté, le
   héros hors champ : le sujet du plan en grand au bord, les autres en diagonale vers le fond ; des tickets de 50 cm, pas de 34.
+- (cycle 5) **Un personnage qui traverse tout le plan en courant ne démarre pas à la première image et ne s'arrête pas à la dernière** : sinon le
+  moteur lui penche la colonne (traînée), lance les bras en pendule et change de cycle sur les deux ou trois images qui bordent chaque coupe : un
+  « plongeon » à chaque raccord (vu sur les planches image par image : dernière vignette de chaque plan). Mettre `cruise=True` sur la clé de
+  déplacement (`k(0.0, to=…, dur=D, clip='run', ease='linear', cruise=True)`) : avant la clé et après la fin, la position continue sur la même
+  droite et le cycle garde la même horloge. Pour un trajet en deux tronçons, une seule clé `path=[…]` (deux clés relancent le cycle).
+- (cycle 5) **Personne ne passe à moins d'un mètre de l'objectif** : un corps qui remplit le cadre pendant une image est un flash. Calculer le bord
+  du champ (à la distance d, la demi-largeur vaut 0,227·d à la focale 44) et faire sortir le passant par le côté au moins 2 m avant la caméra ;
+  caméra fixe pendant le passage, l'avancée ensuite (`glide`).
+- (cycle 5) Une fin de plan vide (le héros est passé, il reste une demi-seconde) : y laisser une trace qui bouge (une plume du pigeon parti :
+  accessoire `feather`, 40 cm pour être lue), pas un décor figé.
+- (cycle 5, méthode) **Une tâche de fond est coupée à sa limite de durée** (30 min par défaut, 2 h au plus, l'attente dans une file comprise) : un
+  rendu complet a été tué à 740 images sur 904. Lancer les rendus longs détachés (`nohup bash -c "…" > /dev/null 2>&1 &`) et les suivre par leur
+  journal. Si un rendu est coupé : ses segments `out/work/story_<S>_render/seg_N.mp4` sans index se récupèrent avec
+  `python3 tools/recover_mp4.py seg_N.mp4 <un segment terminé ou un ancien rendu de même format> seg_N.h264` (les images sont dans l'ordre : le
+  segment N commence à l'image N × ceil(total / workers)) ; écarter les huit dernières images de chaque segment récupéré, rendre les plages
+  manquantes avec `--range`, tout réunir en un seul encodage (filtre `concat`), vérifier le nombre d'images.

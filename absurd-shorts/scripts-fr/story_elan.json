@@ -237,7 +237,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -843,7 +844,8 @@
        ],
        "dur": 1.55,
        "glide": true,
-       "ease": "linear"
+       "ease": "linear",
+       "cruise": true
       },
       {
        "at": 1.55,
@@ -882,7 +884,8 @@
        ],
        "dur": 1.55,
        "glide": true,
-       "ease": "linear"
+       "ease": "linear",
+       "cruise": true
       },
       {
        "at": 1.55,
@@ -1015,7 +1018,8 @@
        "clip": "heelBrake",
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -1507,7 +1511,8 @@
        "clip": "heelBrake",
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -2129,7 +2134,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -2286,7 +2292,8 @@
        "dur": 0.74,
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "expr": "scared"
@@ -2353,7 +2360,8 @@
        "dur": 0.67,
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "expr": "scared"
@@ -2420,7 +2428,8 @@
        "dur": 0.6,
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "expr": "scared"
@@ -3306,7 +3315,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -3343,7 +3353,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -3381,7 +3392,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -3419,7 +3431,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -3574,6 +3587,24 @@
        "ease": "linear"
       }
      ]
+    },
+    {
+     "id": "feather",
+     "name": "feather",
+     "pos": [
+      5.6,
+      3.09,
+      1.05
+     ],
+     "ry": 90,
+     "opts": {
+      "at": 0.42,
+      "dur": 1.013,
+      "fall": 1.3,
+      "sway": 0.3,
+      "swings": 2.2,
+      "s": 2.6
+     }
     }
    ],
    "sfx": [],
@@ -3662,7 +3693,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -3804,7 +3836,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -3842,7 +3875,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -3880,7 +3914,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -4015,7 +4050,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -4079,7 +4115,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -4118,7 +4155,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.18000000000000002,
@@ -4196,7 +4234,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.30000000000000004,
@@ -4274,7 +4313,8 @@
        "clip": "surfRide",
        "glide": true,
        "ease": "linear",
-       "face": 95
+       "face": 95,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -4574,7 +4614,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -4834,7 +4875,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -4872,7 +4914,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -4910,7 +4953,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -5066,7 +5110,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -5215,7 +5260,8 @@
        "clip": "batHang",
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.21,
@@ -5239,7 +5285,8 @@
        "dur": 0.77,
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.33,
@@ -5415,7 +5462,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -5504,7 +5552,8 @@
        "clip": "batHang",
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.037,
@@ -5695,7 +5744,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -5896,7 +5946,8 @@
        "dur": 1.373,
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "expr": "smug"
@@ -6118,7 +6169,8 @@
         "freq": 4.4
        },
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -6484,7 +6536,8 @@
        "clip": "batHang",
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       },
       {
        "at": 0.24,
@@ -6498,7 +6551,8 @@
        "glide": true,
        "ease": "linear",
        "face": 180,
-       "blend": 0.04
+       "blend": 0.04,
+       "cruise": true
       },
       {
        "at": 0.24,
@@ -6829,7 +6883,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -6867,7 +6922,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -6905,7 +6961,8 @@
        },
        "glide": true,
        "ease": "linear",
-       "face": 180
+       "face": 180,
+       "cruise": true
       }
      ],
      "params": {
@@ -7867,9 +7924,9 @@
       {
        "at": 0.58,
        "look": [
-        3.85,
+        3.25,
         1.4,
-        -53.65
+        -54.65
        ]
       },
       {
@@ -8004,35 +8061,27 @@
       },
       {
        "at": 0.0,
-       "to": [
-        4.45,
-        0,
-        -59.65
+       "path": [
+        [
+         4.45,
+         0,
+         -59.65
+        ],
+        [
+         3.1500000000000004,
+         0,
+         -53.6
+        ]
        ],
-       "dur": 0.5,
+       "dur": 1.05,
        "clip": "heelBrake",
        "params": {
         "expr": "scared"
        },
        "glide": true,
        "ease": "linear",
-       "face": 0
-      },
-      {
-       "at": 0.5,
-       "to": [
-        4.0,
-        0,
-        -53.6
-       ],
-       "dur": 0.55,
-       "clip": "heelBrake",
-       "params": {
-        "expr": "scared"
-       },
-       "glide": true,
-       "ease": "linear",
-       "face": 0
+       "face": 0,
+       "cruise": true
       },
       {
        "at": 0.0,
@@ -8139,7 +8188,7 @@
        ],
        [
         1.05,
-        4.0,
+        3.1500000000000004,
         -53.050000000000004
        ]
       ],
@@ -8160,9 +8209,9 @@
       -55.4
      ],
      "to": [
-      4.75,
-      1.62,
-      -56.7
+      4.6,
+      1.6,
+      -55.45
      ],
      "lookAt": [
       5.0,
@@ -8170,12 +8219,39 @@
       -59.8
      ],
      "lens": 44,
-     "ease": "inOut",
+     "ease": "linear",
+     "lookAt2": [
+      5.0,
+      1.8,
+      -59.8
+     ]
+    },
+    {
+     "at": 0.9199999999999999,
+     "from": [
+      4.75,
+      1.62,
+      -56.7
+     ],
+     "to": [
+      4.76,
+      1.62,
+      -56.75
+     ],
+     "lookAt": [
+      5.2,
+      1.85,
+      -59.8
+     ],
+     "lens": 44,
+     "ease": "linear",
      "lookAt2": [
       5.2,
       1.85,
       -59.8
-     ]
+     ],
+     "cut": false,
+     "glide": 0.6
     }
    ],
    "start": 26.2,

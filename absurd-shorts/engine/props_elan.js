@@ -213,6 +213,17 @@ export const ELAN_PROPS = {
     f.position.z = 0.022; g.add(f); return g;
   },
 
+  // a feather left in the air by a bird that has gone: from o.at it comes down o.fall metres (1.2) in o.dur seconds (1.2), rocking from side to side
+  // (o.sway metres, o.swings times), tilting as it goes; o.s: its size (1 = 16 cm). Put the prop where the bird was.
+  feather(o) {
+    const s = o.s ?? 1, g = grp(), f = new THREE.Group(), side = { side: THREE.DoubleSide }, vane = quad(0.16 * s, 0.055 * s, flat(o.color || '#DDE1E7', side)), quill = quad(0.19 * s, 0.01 * s, flat('#8F959E', side));
+    vane.geometry = new THREE.ShapeGeometry(new THREE.Shape().moveTo(-0.08 * s, 0).quadraticCurveTo(-0.02 * s, 0.04 * s, 0.08 * s, 0).quadraticCurveTo(-0.02 * s, -0.035 * s, -0.08 * s, 0), 6);
+    quill.position.set(-0.012 * s, 0, 0.001); f.add(vane, quill); g.add(f);
+    g.userData.update = t => { const u = (t - (o.at ?? 0)) / (o.dur ?? 1.2); f.visible = u >= 0 && u <= 1; if (!f.visible) return; const ph = u * (o.swings ?? 2.5) * TAU;
+      f.position.set((o.sway ?? 0.22) * Math.sin(ph), -(o.fall ?? 1.2) * (u + 0.04 * Math.sin(2 * ph)), 0.05 * Math.cos(ph)); f.rotation.set(0.5 * Math.sin(ph * 0.5), 0.6 * Math.cos(ph * 0.7), -0.75 * Math.cos(ph)); };
+    g.userData.update(-1); return g;
+  },
+
   // a straight strip of country road along Z (o.len 120 m, o.w 7 m) with a dashed middle line and pale verges: lay it on a field
   roadStrip(o) {
     const len = o.len ?? 120, w = o.w ?? 7, g = grp(), q = (ww, c, x, y) => { const m = quad(ww, len, new THREE.MeshLambertMaterial({ color: c })); m.receiveShadow = true; m.rotation.x = -PI / 2; m.position.set(x, y, 0); return m; };

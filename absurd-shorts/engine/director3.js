@@ -256,21 +256,25 @@ function prepActor(cfg, obj, sc, place) {
     Object.assign(mv, { pts, segs, L, clip, dur, t1: mv.t + dur, end: pts[pts.length - 1] });
     if (loco) { const sc_ = scaleAt(A, mv.t); mv.freq = mv.cadence ?? clamp((L / dur) / (loco[1] * legLen * sc_), 0.6, 4.2); }   // mv.cadence: gait cycles per second set by the story (small quick steps on the air)
     if (clip) {
-      A.clipKeys.push({ at: mv.t, clip, params: { ...(mv.params || {}), freq: mv.freq }, speed: 1, move: mv });
-      A.clipKeys.push({ at: mv.t1, clip: mv.then ?? '__prev__', params: mv.thenParams || (mv.then === clip ? { ...(mv.params || {}), freq: mv.freq } : {}), speed: mv.then === clip ? 1 : A.speed, afterMove: mv, t0: mv.then === clip ? mv.t : undefined });   // then = the move's own clip: its time continues (a one-shot clip must not replay)
+      // (cycle 5) a cruise move: the same gait on the same clock before its key (first move) and after its end (last move): no pose jump for what
+      // reads the frame before the first one and the frame after the last one (the drag of the limbs, the squash of a footfall)
+      const cr = !!mv.cruise, then = mv.then ?? (cr && mv === A.moves[A.moves.length - 1] ? clip : '__prev__'), own = { ...(mv.params || {}), freq: mv.freq };
+      A.clipKeys.push({ at: mv.t, clip, params: own, speed: 1, move: mv, cruise: cr });
+      A.clipKeys.push({ at: mv.t1, clip: then, params: mv.thenParams || (then === clip ? own : {}), speed: then === clip ? 1 : A.speed, afterMove: mv, t0: then === clip ? mv.t : undefined, cruise: cr && then === clip });   // then = the move's own clip: its time continues (a one-shot clip must not replay)
+      if (cr && mv === A.moves[0]) Object.assign(A.clipKeys[0], { clip, params: own, speed: 1, move: mv, t0: mv.t, cruise: true });
     }
     if (mv.sfx) A.sfx.push({ t: mv.t, name: mv.sfx, vol: mv.vol ?? 0.6 });
     if (mv.land) A.sfx.push({ t: mv.t1, name: mv.land, vol: mv.vol ?? 0.6 });
   }
   A.clipKeys.sort((a, b) => a.at - b.at);
   for (let i = 0; i < A.clipKeys.length; i++) if (A.clipKeys[i].clip === '__prev__') {
-    let j = i - 1; while (j >= 0 && (A.clipKeys[j].move || A.clipKeys[j].clip === '__prev__')) j--;
+    let j = i - 1; while (j >= 0 && ((A.clipKeys[j].move && A.clipKeys[j].at > -1e5) || A.clipKeys[j].clip === '__prev__')) j--;   // the base key stays a source even when a cruise move lent it its gait
     const src = j >= 0 ? A.clipKeys[j] : { clip: 'idle', params: {} };
     A.clipKeys[i].clip = LOCO[src.clip] ? 'idle' : src.clip; A.clipKeys[i].params = src.params;
   }
   // lint: walking on the spot / gliding
   A.clipKeys.forEach((k, i) => {
-    if (LOCO[k.clip] && !k.move) warn(`[${sc.id}] ${A.id}: gait "${k.clip}" at ${k.at.toFixed(2)}s without a move (walking on the spot)`);
+    if (LOCO[k.clip] && !k.move && !k.cruise) warn(`[${sc.id}] ${A.id}: gait "${k.clip}" at ${k.at.toFixed(2)}s without a move (walking on the spot)`);
     if (k.at < -1e5 && ONE_SHOT.has(k.clip)) warn(`[${sc.id}] ${A.id}: one-shot clip "${k.clip}" as the base clip: it is over before the shot starts; key it (k(0.0, clip=...))`);
   });
   for (const mv of A.moves) if (!mv.clip && !mv.glide && A.kind !== 'prop') warn(`[${sc.id}] ${A.id}: move at ${mv.t.toFixed(2)}s without gait (gliding)`);
@@ -278,12 +282,18 @@ function prepActor(cfg, obj, sc, place) {
 }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
+// (cycle 5) `cruise: true` on a move key: the move was already under way before its key and goes on after its end (a man who runs through the
+// whole shot). Outside [t, t1] the position goes on along the same straight line at the same speed, so that nothing that reads his speed or his
+// acceleration (the drag of the spine, the smear, the follow-through of what hangs from him) sees a start at the first frame or a stop at the
+// last one, and its gait does not blend in from the clip before. For the first move (before it) and the last one (after it) of an actor; a linear ease.
+const cruiseAt = (mv, t) => { const before = t < mv.t, sg = before ? mv.segs[0] : mv.segs[mv.segs.length - 1], d = sg.b.clone().sub(sg.a).normalize();   // along its first leg before the key, its last leg after the end, at the speed of the move
+  return (before ? sg.a : sg.b).clone().addScaledVector(d, (t - (before ? mv.t : mv.t1)) * mv.L / mv.dur); };
 function posAt(A, t) {
   let p = V(...A.pos0);
   for (const mv of A.moves) {
     if (!mv.segs) break;            // not resolved yet (during prep)
-    if (t < mv.t) break;
-    if (t >= mv.t1) { p = mv.end.clone(); continue; }
+    if (t < mv.t) { if (mv.cruise && mv === A.moves[0]) p = cruiseAt(mv, t); break; }
+    if (t >= mv.t1) { p = mv.cruise && mv === A.moves[A.moves.length - 1] ? cruiseAt(mv, t) : mv.end.clone(); continue; }
     let k = clamp01((t - mv.t) / mv.dur); k = (ease[mv.ease || 'linear'] || ease.linear)(k);
     p = alongPath(mv, k * mv.L);
     if (mv.arc) p.y += mv.arc * 4 * k * (1 - k);
@@ -464,7 +474,7 @@ function speakingEnv(A, t) {
   return null;
 }
 function clipPoseFn(A, key, t) {
-  const lt = Math.max(0, (t - (key.t0 ?? key.at)) * (key.speed ?? 1) * (key.move || key.t0 != null ? 1 : S.tempo) + A.phase); // gaits keep their speed-derived cadence
+  const x = (t - (key.t0 ?? key.at)) * (key.speed ?? 1) * (key.move || key.t0 != null ? 1 : S.tempo) + A.phase, lt = key.cruise ? x : Math.max(0, x); // gaits keep their speed-derived cadence; a cruise gait also runs before its key
   return samplePose(key.clip, lt, key.params || {});
 }
 function snapshot(A) {
@@ -570,7 +580,7 @@ function idleShift(A, t, pose, amt) {
 // overlapping action: the far joints replay the pose a few frames late (forearms, hands, head), so gestures trail and settle
 // a clip key can set its own blend from the previous clip (seconds): k(t, clip=..., blend=0.02) is a hard hit (plain fast blend, no anticipation, nothing trails);
 // on a move: blend (into the gait) and thenBlend (into the clip that follows it)
-const keyBlend = c => c.key?.blend ?? (c.move ? c.move.blend : c.afterMove?.thenBlend);
+const keyBlend = c => c.key?.blend ?? (c.move ? (c.move.blend ?? (c.move.cruise ? 0 : undefined)) : c.afterMove?.thenBlend);   // a cruise move does not blend in: he was already in that gait
 function toonPoseAt(A, tt, BL0) {
   const c = lastKey(A.clipKeys, tt), p = prevKey(A.clipKeys, c), d = tt - c.at, kb = keyBlend(c), BL = BLEND / S.tempo; let q = clipPoseFn(A, c, tt);
   if (p && kb != null) { if (d < kb) q = blendPoses(clipPoseFn(A, p, tt), q, ease.out(clamp01(d / kb))); }
