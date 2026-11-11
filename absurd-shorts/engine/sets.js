@@ -1093,7 +1093,7 @@ const S = {
   chambre(o = {}) { // small bedroom: single bed, desk with a computer, wardrobe, full-length mirror, gym-guru poster, clothes on the floor,
                     // window with curtains; o.wall / o.poster / o.blanket restyle it (Glucksmann's room at the end)
     const g = grp(), { back } = room(g, { wall: o.wall || '#C9D3D6', band: o.band || '#AEB9BC', bandH: 0.9, trim: '#8A969A', floor: o.floor || '#B08A64', back: -3.0, half: 4.5 });
-    g.add(prop('bed', { w: 0.95, blanket: o.blanket || '#5A6E8C' }, -2.6, 0, back + 1.1));
+    g.add(prop('bed', { w: 0.95, blanket: o.blanket || '#5A6E8C' }, -2.6, 0, back + 1.1, o.bedFlip ? PI : 0));   // o.bedFlip: the pillow at the other end (toward +Z)
     g.add(at(box(1.3, 0.05, 0.6, '#E6E2D8', { outline: 0.006 }), 2.5, 0.74, back + 0.35));
     [[-0.6, -0.25], [0.6, -0.25], [-0.6, 0.25], [0.6, 0.25]].forEach(([x, z]) => g.add(at(box(0.04, 0.74, 0.04, '#8A969A', { pivot: 'bottom' }), 2.5 + x, 0, back + 0.35 + z)));
     g.add(at(box(0.6, 0.38, 0.04, P.ink, { outline: 0.006 }), 2.5, 1.0, back + 0.2), at(box(0.54, 0.32, 0.01, '#3E6FB5', { emissive: '#1A3A6A' }), 2.5, 1.0, back + 0.225), at(box(0.06, 0.2, 0.06, P.ink, { pivot: 'bottom' }), 2.5, 0.765, back + 0.18));

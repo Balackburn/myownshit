@@ -241,7 +241,8 @@ export const INTERRUPTEUR_PROPS = {
     for (let i = 0; i < 3; i++) { const sg = box(0.26 - i * 0.05, 0.1, 0.26 - i * 0.05, i % 2 ? c1 : c2, { pivot: 'bottom', taper: 0.8 }); sg.position.y = 0.07 + i * 0.1; g.add(sg); }
     a.position.set(0, 0.36, 0); g.add(a); for (let i = 0; i < 3; i++) { const sg = box(0.11 - i * 0.02, 0.12, 0.11 - i * 0.02, i % 2 ? c2 : c1, { pivot: 'bottom', taper: 0.8 }); sg.position.y = i * 0.12; (i < 2 ? a : b).add(sg); }
     b.position.y = 0.24; a.add(b); pom.position.y = 0.26; b.add(pom); b.children[0].position.y = 0;
-    g.userData.update = t => { const s = Math.sin(t * 2.6 + (o.ph || 0)); a.rotation.z = -0.75 + 0.07 * s; b.rotation.z = -0.9 + 0.16 * Math.sin(t * 2.6 + (o.ph || 0) - 0.6); };
+    const sd = o.side ?? 1;   // o.side -1: it falls to the other side (his right)
+    g.userData.update = t => { const s = Math.sin(t * 2.6 + (o.ph || 0)); a.rotation.z = sd * (-0.75 + 0.07 * s); b.rotation.z = sd * (-0.9 + 0.16 * Math.sin(t * 2.6 + (o.ph || 0) - 0.6)); };
     g.userData.update(0); return g;
   },
 
@@ -301,13 +302,14 @@ export const INTERRUPTEUR_PROPS = {
   },
 
   // stars that fly out of a knock, for a shot in the dark (the face's own stars are lit like the face: they go black with it): o.n (5) five-pointed stars
-  // leave the origin at o.at, spread to o.r (0.4 m) in o.dur (0.45 s), spinning, and shrink away. Unlit: give it `inDark`. Front +Z
+  // leave the origin at o.at, spread to o.r (0.4 m) in o.dur (0.45 s), spinning, and shrink away. o.r0 (0..1): they start on a ring that far out (round a
+  // face that must stay in sight). Unlit: give it `inDark`. Front +Z
   impactStars(o) {
     const n = o.n ?? 5, R = o.r ?? 0.4, D = o.dur ?? 0.45, sz = o.size ?? 0.07, sh = new THREE.Shape();
     for (let i = 0; i < 10; i++) { const a = i * PI / 5 + PI / 2, r = i % 2 ? 0.45 : 1; sh[i ? 'lineTo' : 'moveTo'](Math.cos(a) * r, Math.sin(a) * r); } sh.closePath();
     const geo = new THREE.ShapeGeometry(sh), g = grp(), S = Array.from({ length: n }, (_, i) => { const m = new THREE.Mesh(geo, flat(i % 2 ? '#FFE27A' : '#FFF6C8', { side: THREE.DoubleSide })); m.castShadow = false; g.add(m); return m; });
     g.userData.update = t => { const u = (t - (o.at ?? 0)) / D; S.forEach((m, i) => { m.visible = u >= 0 && u < 1; if (!m.visible) return; const a = (o.a0 ?? 0.3) + i * TAU / n, k = ease.out(u), q = sz * (u < 0.15 ? u / 0.15 : 1 - 0.7 * (u - 0.15) / 0.85);
-      m.position.set(Math.cos(a) * R * k, Math.sin(a) * R * k * (o.flatten ?? 1), 0); m.rotation.z = u * 5 * (i % 2 ? 1 : -1); m.scale.setScalar(Math.max(0.001, q)); }); };
+      const rr = R * ((o.r0 ?? 0) + (1 - (o.r0 ?? 0)) * k); m.position.set(Math.cos(a) * rr, Math.sin(a) * rr * (o.flatten ?? 1), 0); m.rotation.z = u * 5 * (i % 2 ? 1 : -1); m.scale.setScalar(Math.max(0.001, q)); }); };
     g.userData.update(0); return g;
   },
 

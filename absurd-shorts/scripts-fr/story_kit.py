@@ -70,7 +70,7 @@ class Story:
     def cue(self, name, sid, t=0.0, gain=0.5, *args):
         """an effect at time t inside shot sid (names: see mix.py: thud, clack, clang, pop, thunder, rain dur, whoosh dur lo hi, gust dur, engine dur, sfx:<name>)"""
         self.cues.append([name, round(self.SH[sid][0] + t, 3), gain, *args])
-    def card(self, sid, word): self.cards.append(f'{sid}:{word}')
+    def card(self, sid, word, at=None): self.cards.append(f'{sid}:{word}' if at is None else f'{sid}@{at}:{word}')   # at: seconds into the shot (default: at its cut)
 
     def write(self, title, extra_cast=None, **doc_extra):   # doc_extra: extra top-level keys of the script (rig='toon': the cartoon rig for every human, faces={...}: the story's own expressions)
         d = os.path.join(ROOT, 'stories7', self.name)

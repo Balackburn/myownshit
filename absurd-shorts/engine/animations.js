@@ -325,6 +325,11 @@ export const CLIPS = {
   sitFloorClap: (t) => { const k = Math.abs(S(t * PI * 4)); return { ...CLIPS.sitFloor(t), ...arms(m([-1.25, 0, 0.1 + 0.3 * k], [-1.25, 0, 0.1 + 0.3 * k]), m([-0.95, 0, 0], [-0.95, 0, 0])), head: [-0.12, 0.12 * S(t * 3), 0] }; },
   sitFloorBlow: (t) => ({ ...CLIPS.sitFloor(t), torso: [0.32, 0, 0], head: [0.25, 0, 0], ...arms(m([-0.3, 0, 0.35], [-0.3, 0, 0.35]), m([-0.5, 0, 0], [-0.5, 0, 0])) }),
   stiffStand: (t) => ({ ...arms(m([0, 0, 0.05], [0, 0, 0.05]), m([0, 0, 0], [0, 0, 0])), head: [0.01 * S(t * 40), 0, 0] }),   // frozen stiff, arms glued to the body
+  // a statue that somebody pokes: the whole man rocks, rigid, about his feet and settles like a skittle (nothing bends: a head knocked over on its neck is
+  // another gag). p.hits [t, ...] (clip time), p.amp (0.22 rad at the first hit, a quarter more at each one after), p.dir (-1: his head goes to his left),
+  // p.freq (15 rad/s), p.damp (5.5 /s)
+  statueRock: (t, p = {}) => { let a = 0; (p.hits || []).forEach((h, i) => { const u = t - h; if (u >= 0) a += (p.amp ?? 0.22) * (1 + 0.25 * i) * Math.sin(u * (p.freq ?? 15)) * Math.exp(-u * (p.damp ?? 5.5)); });
+    return { ...CLIPS.stiffStand(t), root: { rz: (p.dir ?? -1) * a } }; },
   // asleep, plastered on a wall as he lay in bed: horizontal, his back to the wall (he faces the room), his head toward his right, his left side up; the
   // lower arm and the lower leg hang; p.y lifts him. Key it at the end of a fast glide to the wall; guide the upper hand to whatever holds him there
   wallBunk: (t, p = {}) => ({ root: { rz: PI / 2, y: p.y ?? 0, pivot: 'hips' }, ...arms(m([0, 0, 0.2], [0, 0, 1.45 + 0.04 * S(t * 2)]), m([0, 0, 0], [0, 0, 0.2])), hipR: [0, 0, -0.24], kneeR: [0.3, 0, 0], hipL: [0, 0, 0.06], head: [0.05, 0, -0.2 + 0.03 * S(t * 1.7)] }),

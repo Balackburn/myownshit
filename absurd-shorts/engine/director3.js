@@ -1076,7 +1076,7 @@ function darkAt(sc, t) {
   for (const [at, v, ramp = 0.035] of D) { const a = T(at, sc); if (t < a) break; k = ramp <= 0.002 ? v : lerp(k, v, clamp01((t - a) / ramp)); }   // a key with no ramp holds from its own frame on (with a ramp of 0.001 the first frame of a shot that starts dark was still lit: one bright frame at the cut)
   return k;
 }
-// sc.darkPool: a pool of light in a dark shot (a match, a candle): { prop: 'id' (it follows that prop) | at: [x, y, z], lift: [dx, dy, dz], r: its radius in
+// sc.darkPool: a pool of light in a dark shot (a match, a candle, the moon on a sleeper): { prop: 'id' (it follows that prop) | actor: 'id' | at: [x, y, z], lift: [dx, dy, dz], r: its radius in
 // metres (0.6), k: how much of the picture comes back at its centre: a number or keys [[t, k, ramp], ...] like `dark`, tint: '#FFD9A0' }. Round that point the
 // picture is lit again; it falls off to the black of the shot. Called once the camera is placed (the point is projected to the screen)
 const _pool = new THREE.Vector3();
@@ -1086,8 +1086,8 @@ function darkPool(t) {
   let k = typeof P.k === 'number' ? P.k : 0;
   if (Array.isArray(P.k)) for (const [at, v, ramp = 0.05] of P.k) { const a = T(at, S.sc); if (t < a) break; k = ramp <= 0.002 ? v : lerp(k, v, clamp01((t - a) / ramp)); }
   if (k <= 0.001) { L.setPool(0); return; }
-  const cam = S.stage.camera, pr = P.prop ? S.props.find(q => q.id === P.prop) : null;
-  if (pr) { pr.obj.updateWorldMatrix(true, false); pr.obj.getWorldPosition(_pool); } else _pool.set(...(P.at || [0, 1.5, 0]));
+  const cam = S.stage.camera, pr = P.prop ? S.props.find(q => q.id === P.prop) : null, ac = P.actor ? S.actorById?.[P.actor] : null;   // actor: 'id' (+ joint: 'torso' by default): the pool follows somebody (moonlight on a sleeper)
+  if (pr) { pr.obj.updateWorldMatrix(true, false); pr.obj.getWorldPosition(_pool); } else if (ac) { const j = ac.obj.userData.joints?.[P.joint || 'torso'] || ac.obj; j.updateWorldMatrix(true, false); j.getWorldPosition(_pool); } else _pool.set(...(P.at || [0, 1.5, 0]));
   if (P.lift) { _pool.x += P.lift[0]; _pool.y += P.lift[1]; _pool.z += P.lift[2]; }
   cam.updateMatrixWorld(true); const d = _pool.distanceTo(cam.getWorldPosition(new THREE.Vector3())), r = (P.r ?? 0.6) / (2 * Math.max(0.1, d) * Math.tan(cam.fov * Math.PI / 360));
   _pool.project(cam); L.setPool(k, _pool.x * 0.5 + 0.5, _pool.y * 0.5 + 0.5, r, P.tint, cam.aspect);

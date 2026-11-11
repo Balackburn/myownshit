@@ -1,0 +1,567 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a tenu la porte à une dame. Il la tient encore.",
+   "hl": [
+    "porte",
+    "encore."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.915,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "tenu",
+     "s": 0.581,
+     "e": 0.767
+    },
+    {
+     "w": "la",
+     "s": 0.841,
+     "e": 0.915
+    },
+    {
+     "w": "porte",
+     "s": 1.026,
+     "e": 1.137
+    },
+    {
+     "w": "à",
+     "s": 1.174,
+     "e": 1.211
+    },
+    {
+     "w": "une",
+     "s": 1.285,
+     "e": 1.359
+    },
+    {
+     "w": "dame.",
+     "s": 1.458,
+     "e": 1.804
+    },
+    {
+     "w": "Il",
+     "s": 1.952,
+     "e": 2.026
+    },
+    {
+     "w": "la",
+     "s": 2.1,
+     "e": 2.174
+    },
+    {
+     "w": "tient",
+     "s": 2.211,
+     "e": 2.322
+    },
+    {
+     "w": "encore.",
+     "s": 2.433,
+     "e": 2.915
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Derrière elle, il y avait la ville.",
+   "hl": [
+    "ville."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L02.k.wav",
+   "file_start": 3.015,
+   "speech_start": 3.015,
+   "speech_end": 4.867,
+   "words": [
+    {
+     "w": "Derrière",
+     "s": 3.015,
+     "e": 3.385
+    },
+    {
+     "w": "elle,",
+     "s": 3.496,
+     "e": 3.83
+    },
+    {
+     "w": "il",
+     "s": 3.867,
+     "e": 3.904
+    },
+    {
+     "w": "y",
+     "s": 3.978,
+     "e": 4.027
+    },
+    {
+     "w": "avait",
+     "s": 4.077,
+     "e": 4.2
+    },
+    {
+     "w": "la",
+     "s": 4.237,
+     "e": 4.274
+    },
+    {
+     "w": "ville.",
+     "s": 4.348,
+     "e": 4.867
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La mairie a compté :",
+   "hl": [
+    "mairie"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L03.k.wav",
+   "file_start": 4.967,
+   "speech_start": 4.967,
+   "speech_end": 6.152,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.967,
+     "e": 5.041
+    },
+    {
+     "w": "mairie",
+     "s": 5.115,
+     "e": 5.337
+    },
+    {
+     "w": "a",
+     "s": 5.374,
+     "e": 5.411
+    },
+    {
+     "w": "compté:",
+     "s": 5.485,
+     "e": 6.152
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "C",
+   "text": "« Quatre mille passages par jour. »",
+   "hl": [
+    "Quatre",
+    "mille"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L04.k.wav",
+   "file_start": 6.252,
+   "speech_start": 6.252,
+   "speech_end": 7.807,
+   "words": [
+    {
+     "w": "Quatre",
+     "s": 6.252,
+     "e": 6.4
+    },
+    {
+     "w": "mille",
+     "s": 6.548,
+     "e": 6.696
+    },
+    {
+     "w": "passages",
+     "s": 6.807,
+     "e": 7.067
+    },
+    {
+     "w": "par",
+     "s": 7.141,
+     "e": 7.215
+    },
+    {
+     "w": "jour.",
+     "s": 7.289,
+     "e": 7.807
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "À ce niveau-là, c'est un service public.",
+   "hl": [
+    "service",
+    "public."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L05.k.wav",
+   "file_start": 7.907,
+   "speech_start": 7.907,
+   "speech_end": 9.981,
+   "words": [
+    {
+     "w": "À",
+     "s": 7.907,
+     "e": 7.944
+    },
+    {
+     "w": "ce",
+     "s": 7.981,
+     "e": 8.056
+    },
+    {
+     "w": "niveau-là,",
+     "s": 8.093,
+     "e": 8.685
+    },
+    {
+     "w": "c'est",
+     "s": 8.722,
+     "e": 8.796
+    },
+    {
+     "w": "un",
+     "s": 8.87,
+     "e": 8.944
+    },
+    {
+     "w": "service",
+     "s": 9.093,
+     "e": 9.241
+    },
+    {
+     "w": "public.",
+     "s": 9.574,
+     "e": 9.981
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Et un service public, ça ne ferme pas.",
+   "hl": [
+    "ferme",
+    "pas."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L06.k.wav",
+   "file_start": 10.081,
+   "speech_start": 10.081,
+   "speech_end": 12.156,
+   "words": [
+    {
+     "w": "Et",
+     "s": 10.081,
+     "e": 10.156
+    },
+    {
+     "w": "un",
+     "s": 10.23,
+     "e": 10.304
+    },
+    {
+     "w": "service",
+     "s": 10.452,
+     "e": 10.6
+    },
+    {
+     "w": "public,",
+     "s": 10.785,
+     "e": 11.119
+    },
+    {
+     "w": "ça",
+     "s": 11.193,
+     "e": 11.267
+    },
+    {
+     "w": "ne",
+     "s": 11.304,
+     "e": 11.341
+    },
+    {
+     "w": "ferme",
+     "s": 11.415,
+     "e": 11.637
+    },
+    {
+     "w": "pas.",
+     "s": 11.859,
+     "e": 12.156
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Son remplaçant est dans la file.",
+   "hl": [
+    "remplaçant",
+    "file."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L07.k.wav",
+   "file_start": 12.256,
+   "speech_start": 12.256,
+   "speech_end": 13.737,
+   "words": [
+    {
+     "w": "Son",
+     "s": 12.256,
+     "e": 12.404
+    },
+    {
+     "w": "remplaçant",
+     "s": 12.478,
+     "e": 12.848
+    },
+    {
+     "w": "est",
+     "s": 12.885,
+     "e": 12.922
+    },
+    {
+     "w": "dans",
+     "s": 12.959,
+     "e": 13.07
+    },
+    {
+     "w": "la",
+     "s": 13.144,
+     "e": 13.219
+    },
+    {
+     "w": "file.",
+     "s": 13.367,
+     "e": 13.737
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le soir, il rentre. Le bras reste.",
+   "hl": [
+    "bras",
+    "reste."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L08.k.wav",
+   "file_start": 13.837,
+   "speech_start": 13.837,
+   "speech_end": 16.281,
+   "words": [
+    {
+     "w": "Le",
+     "s": 13.837,
+     "e": 13.911
+    },
+    {
+     "w": "soir,",
+     "s": 13.985,
+     "e": 14.504
+    },
+    {
+     "w": "il",
+     "s": 14.578,
+     "e": 14.652
+    },
+    {
+     "w": "rentre.",
+     "s": 14.763,
+     "e": 15.244
+    },
+    {
+     "w": "Le",
+     "s": 15.281,
+     "e": 15.319
+    },
+    {
+     "w": "bras",
+     "s": 15.393,
+     "e": 15.615
+    },
+    {
+     "w": "reste.",
+     "s": 15.689,
+     "e": 16.281
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La porte est classée monument historique. Le bras aussi.",
+   "hl": [
+    "monument",
+    "historique.",
+    "aussi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L09.k.wav",
+   "file_start": 16.381,
+   "speech_start": 16.381,
+   "speech_end": 19.27,
+   "words": [
+    {
+     "w": "La",
+     "s": 16.381,
+     "e": 16.53
+    },
+    {
+     "w": "porte",
+     "s": 16.641,
+     "e": 16.752
+    },
+    {
+     "w": "est",
+     "s": 16.789,
+     "e": 16.826
+    },
+    {
+     "w": "classée",
+     "s": 16.974,
+     "e": 17.196
+    },
+    {
+     "w": "monument",
+     "s": 17.27,
+     "e": 17.567
+    },
+    {
+     "w": "historique.",
+     "s": 17.715,
+     "e": 18.381
+    },
+    {
+     "w": "Le",
+     "s": 18.419,
+     "e": 18.456
+    },
+    {
+     "w": "bras",
+     "s": 18.53,
+     "e": 18.678
+    },
+    {
+     "w": "aussi.",
+     "s": 18.789,
+     "e": 19.27
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Hier, un technicien est passé : elle était automatique.",
+   "hl": [
+    "automatique."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L10.k.wav",
+   "file_start": 19.37,
+   "speech_start": 19.37,
+   "speech_end": 22.333,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 19.37,
+     "e": 19.889
+    },
+    {
+     "w": "un",
+     "s": 19.963,
+     "e": 20.037
+    },
+    {
+     "w": "technicien",
+     "s": 20.148,
+     "e": 20.481
+    },
+    {
+     "w": "est",
+     "s": 20.519,
+     "e": 20.556
+    },
+    {
+     "w": "passé:",
+     "s": 20.667,
+     "e": 21.197
+    },
+    {
+     "w": "elle",
+     "s": 21.247,
+     "e": 21.296
+    },
+    {
+     "w": "était",
+     "s": 21.407,
+     "e": 21.519
+    },
+    {
+     "w": "automatique.",
+     "s": 21.63,
+     "e": 22.333
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "La dame n'a jamais dit merci.",
+   "hl": [
+    "merci."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/porte/tts/L11.k.wav",
+   "file_start": 22.433,
+   "speech_start": 22.433,
+   "speech_end": 24.063,
+   "words": [
+    {
+     "w": "La",
+     "s": 22.433,
+     "e": 22.507
+    },
+    {
+     "w": "dame",
+     "s": 22.581,
+     "e": 22.804
+    },
+    {
+     "w": "n'a",
+     "s": 22.841,
+     "e": 23.026
+    },
+    {
+     "w": "jamais",
+     "s": 23.1,
+     "e": 23.322
+    },
+    {
+     "w": "dit",
+     "s": 23.359,
+     "e": 23.396
+    },
+    {
+     "w": "merci.",
+     "s": 23.47,
+     "e": 24.063
+    }
+   ]
+  }
+ ],
+ "total": 26.46
+}

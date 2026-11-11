@@ -98,7 +98,8 @@ export const PORTE_PROPS = {
   wallSwitch(o) {
     const lamp = at(sphere(0.03, '#E8322A', 1), 0, 0.1, 0.05); lamp.material = lamp.material.clone(); lamp.material.emissive = new THREE.Color('#FF3B2A'); lamp.material.emissiveIntensity = 0.9;
     const btn = at(cyl(0.055, 0.055, 0.04, '#3CC46E', 12, { outline: 0.006 }), 0, -0.04, 0.05, PI / 2, 0, 0), g = grp(at(box(0.2, 0.34, 0.07, '#C9CED3', { outline: 0.008 }), 0, 0, 0), lamp, btn);
-    if (o.label !== false) g.add(at(canvasPlane(0.18, 0.06, (c, W, H) => { c.fillStyle = '#1B1B1E'; c.fillRect(0, 0, W, H); txt(c, o.label || 'AUTO', W / 2, H * 0.55, fit(c, o.label || 'AUTO', W * 0.8, H * 0.7), '#F7F4EA'); }, { res: 256 }), 0, -0.135, 0.037));
+    if (o.label !== false) { const lw = o.labelW ?? 0.18, lh = o.labelH ?? 0.06; g.add(at(canvasPlane(lw, lh, (c, W, H) => { c.fillStyle = '#1B1B1E'; c.fillRect(0, 0, W, H); txt(c, o.label || 'AUTO', W / 2, H * 0.55, fit(c, o.label || 'AUTO', W * 0.8, H * 0.7), '#F7F4EA'); }, { res: 256 }), 0, o.labelY ?? -0.135, 0.037));
+      if (o.labelY > 0.17) g.add(at(box(lw + 0.02, lh + 0.02, 0.03, '#C9CED3', { outline: 0.006 }), 0, o.labelY, 0.018)); }   // o.labelW / o.labelH / o.labelY: a bigger word, above the box on a plate of its own (under the button, 6 cm tall, it was the smallest word of the film)
     g.userData.update = t => { const on = o.at != null && t >= o.at; lamp.material.color.set(on ? '#3CC46E' : '#E8322A'); lamp.material.emissive.set(on ? '#3CE07A' : '#FF3B2A'); btn.position.z = 0.05 - (on ? 0.02 * Math.min(1, (t - o.at) / 0.05) : 0); };
     g.userData.update(0); return g;
   },
@@ -132,6 +133,20 @@ export const PORTE_PROPS = {
     const L = o.len ?? 0.3;
     return grp(cyl(0.022, 0.026, L * 0.42, o.color || '#D8402A', 8, { outline: 0.006 }), at(cyl(0.008, 0.008, L * 0.6, '#B9C0C8', 6), 0, L * 0.5, 0), at(box(0.02, 0.012, 0.004, '#B9C0C8'), 0, L * 0.8, 0));
   },
+  // a window by night, to lay over the pane of a set: a sky that pales toward the sill, a few stars, the moon and its halo, a cross of dark bars and a
+  // pale frame: the room's own light, and a ground on which a dark arm reads (a flat pane was a periwinkle rectangle). o.w x o.h (1.3 x 1.1 m), o.moon
+  // [u, v, r] (where it sits in the pane, 0..1 from the top left, its radius as a part of the width), o.bars false. Unlit: give it `inDark`. Its middle, +Z
+  nightWindow(o) {
+    const w = o.w ?? 1.3, h = o.h ?? 1.1, [mu, mv, mr] = o.moon || [0.28, 0.32, 0.11];
+    const pl = canvasPlane(w, h, (c, W, H) => { const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, o.top || '#3A52A6'); g.addColorStop(1, o.bottom || '#8FAEF0'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+      const q = rng(o.seed || 7); c.fillStyle = 'rgba(255, 250, 235, 0.85)'; for (let i = 0; i < 14; i++) { const x = q() * W, y = q() * H * 0.6, s = W * (0.006 + 0.006 * q()); c.fillRect(x, y, s, s); }
+      const hg = c.createRadialGradient(mu * W, mv * H, mr * W * 0.6, mu * W, mv * H, mr * W * 2.6); hg.addColorStop(0, 'rgba(244, 239, 216, 0.5)'); hg.addColorStop(1, 'rgba(244, 239, 216, 0)'); c.fillStyle = hg; c.fillRect(0, 0, W, H);
+      c.fillStyle = '#F4EFD8'; c.beginPath(); c.arc(mu * W, mv * H, mr * W, 0, Math.PI * 2); c.fill(); c.fillStyle = '#DDD6B8'; for (const [dx, dy, r] of [[-0.3, -0.2, 0.22], [0.3, 0.25, 0.16], [-0.1, 0.45, 0.12]]) { c.beginPath(); c.arc((mu + dx * mr) * W, mv * H + dy * mr * W, r * mr * W, 0, Math.PI * 2); c.fill(); }
+      if (o.bars !== false) { c.fillStyle = o.bar || '#1E2440'; c.fillRect(W / 2 - W * 0.014, 0, W * 0.028, H); c.fillRect(0, H * 0.46 - W * 0.012, W, W * 0.024); }
+      c.strokeStyle = o.frame || '#DDE2EC'; c.lineWidth = W * 0.05; c.strokeRect(W * 0.025, W * 0.025, W - W * 0.05, H - W * 0.05); }, { res: 384 });
+    pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, toneMapped: false, fog: false }); return grp(pl);
+  },
+
   // moonlight thrown on a wall or a floor by a window: a pale slanted quad (o.w x o.h, leaning by o.skew metres at the top), unlit, half transparent. Flag it
   // inDark in a shot graded as night: it keeps its light. Origin: the middle of its lower edge; it lies in the XY plane and faces +Z
   moonPatch(o) {
