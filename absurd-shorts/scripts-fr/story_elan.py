@@ -215,7 +215,8 @@ st.shot('S06', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[
                     k(R6 + 0.84, to=[BOARD5[0] - 0.08, 0.2, BOARD5[2] - 0.12], dur=0.07, ease='out'), k(R6 + 0.91, to=[BOARD5[0] - 0.1, 0.03, BOARD5[2] - 0.13], dur=0.08, ease='in')])],                             # one bounce
         fx=[{'type': 'wind', 'at': R6 - 0.04, 'dur': 0.5, 'v': [0, 0, -12], 'attack': 0.05, 'release': 0.3}, {'type': 'shake', 'at': H6, 'dur': 0.12, 'amount': 0.015}],
         cams=[cam(0.0, [5.1, 1.0, -6.3], [5.08, 1.0, -6.2], [4.8, 1.45, -2.0], [4.8, 1.45, -2.0], lens=50),   # from the kerb, down the street: she at the left third (the line behind her), he at the right third, hanging; the umbrella across the empty middle
-              cam(B6, [3.25, 1.25, 0.75], [3.4, 1.25, 0.83], [5.82, 1.3, 2.06], [5.82, 1.3, 2.06], lens=50)])     # the board left in the air: a third of the width
+              cam(B6, [3.25, 1.25, 0.75], [3.4, 1.25, 0.83], [5.82, 1.3, 2.06], [5.82, 1.3, 2.06], lens=50),      # the board left in the air: a third of the width
+              glide([cam(R6 + 0.7, [3.4, 1.25, 0.83], [3.4, 1.25, 0.83], [5.76, 0.3, 2.0], [5.76, 0.3, 2.0], lens=50)], 0.2)])   # the camera goes down with it: it lands whole, over the caption band
 st.cue('whoosh', 'S06', 0.0, 0.45, 0.3, 400, 2400); st.cue('whoosh', 'S06', H6 - 0.12, 0.35, 0.12, 900, 3000); st.cue('sfx:twang', 'S06', H6, 0.45); st.cue('sfx:stretch', 'S06', H6 + 0.02, 0.4)
 st.cue('sfx:boing', 'S06', R6, 0.4); [st.cue('whoosh', 'S06', R6 + d, 0.3, 0.2, 600, 2200) for d in (0.0, 0.1, 0.2)]; st.cue('clack', 'S06', R6 + 0.84, 0.45); st.cue('clack', 'S06', R6 + 0.99, 0.25)
 
@@ -453,7 +454,7 @@ LEAN18 = {}   # (first staging: a hand left on the pole; he now stands a step fr
 BEND18 = [[G18, 0.0], [FB18, A18], [FB18 + 0.07, A18 - 0.05], [FB18 + 0.14, A18 + 0.02], [FB18 + 0.2, A18 - 0.03], [HE18, A18], [HE18 + 0.08, -0.16], [HE18 + 0.2, 0.0]]   # the pole: after him, trembling while it holds, back past upright
 CAMW18 = [2.7, 0.75, round(TL[2] - 6.2, 3)]; LOOKW18A = [5.4, 1.3, round(TL[2] - 1.2, 3)]; LOOKW18 = [5.7, 1.3, round(TL[2] - 2.0, 3)]   # on the road, low, down the street: he comes toward us from the pole (the aim goes with him): his head at the left third, the pole at the right, the pavement and the house fronts behind
 CAMB18 = [round(AT18[0] - 2.52, 3), 1.0, round(AT18[2] - 0.95, 3)]; LOOKB18 = [AT18[0], 0.3, AT18[2]]   # where he lands: the flat pose three quarters of the width, seen from a little above
-CAMR18 = [round(AT18[0] - 3.1, 3), 1.0, round(AT18[2] - 1.2, 3)]; LOOKR18 = [round(AT18[0] - 0.1, 3), 1.25, round(AT18[2] - 0.15, 3)]   # and back as he comes up: the whole of him, display and feet
+CAMR18 = [round(AT18[0] - 3.4, 3), 1.0, round(AT18[2] - 1.32, 3)]; LOOKR18 = [round(AT18[0] - 0.1, 3), 1.25, round(AT18[2] - 0.15, 3)]   # and back as he comes up: the whole of him, display and feet
 CAMC18 = [round(AT18[0] - 0.15, 3), 1.5, round(AT18[2] + 2.6, 3)]; LOOKC18 = [round(AT18[0] - 0.3, 3), 1.95, round(AT18[2] - 0.6, 3)]   # close, from up the street: his face at the right, the red lamp at the left, a gap of house front between it and his display
 LAMP18 = [round(AT18[0] - 1.23, 3), 2.57, round(AT18[2] + 1.58, 3)]   # where his head turns in the close shot: up and to the lamp's side of the picture (the lamp itself is behind his shoulder: he would show us the back of his head)
 SCRAB = {'freq': 7.0, 'bounce': 0.25}                 # the run of a man held back by his own arms
@@ -472,7 +473,7 @@ st.shot('S18', 'parisStreet', setOpts=STREETL, look={'fill': 1.35}, actors=[act(
             k(HE18 + 0.06, toon={'sq': [0.75, 0.75, 1.9], 'auto': 0, 'face': {'pop': 0.6, 'jaw': 0.6}}, toonDur=0.02),                                        # his hands let go
             k(BK18 - 0.01, toon={'sq': [1.8, 0.2, 1.8], 'auto': 0, 'face': {'eye': 0.3, 'brow': 0.6, 'mouth': 'clench'}}, toonDur=0.03, toonEase='in'),         # flat on the pavement: nine frames
             k(BK18 + 0.12, toon={'sq': [1.84, 0.19, 1.84], 'auto': 0, 'face': {'lid': 1, 'mouth': 'clench'}}, toonDur=0.04), k(BK18 + 0.2, toon={'sq': [1.8, 0.2, 1.8], 'auto': 0, 'face': {'eye': 0.3, 'brow': 0.6, 'mouth': 'wavy'}}, toonDur=0.04),   # a blink on the flat face
-            k(FE18, toon={'sq': [0.86, 1.22, 0.86], 'auto': 0, 'face': {'eye': 0.45, 'brow': 1, 'pupilSize': -0.4}}, toonDur=0.06, toonEase='out'), k(FE18, expr='dizzy'),   # up like an accordion
+            k(FE18, toon={'sq': [0.88, 1.18, 0.88], 'auto': 0, 'face': {'eye': 0.45, 'brow': 1, 'pupilSize': -0.4}}, toonDur=0.06, toonEase='out'), k(FE18, expr='dizzy'),   # up like an accordion (1.18: at 1.22 the display on his head left the top of the frame)
             k(FE18 + 0.06, toon={'sq': [1.12, 0.82, 1.12], 'auto': 0, 'face': {'stars': 0.9, 'cross': 0.5}}, toonDur=0.05),
             k(FE18 + 0.11, toon={'sq': [0.95, 1.08, 0.95], 'auto': 0, 'face': {'stars': 0.9, 'cross': 0.5}}, toonDur=0.05),
             k(FE18 + 0.16, toon={'settle': 0.6, 'bend': {'neck': [0, 0.14, 0, 1, None]}, 'face': {'stars': 0.9, 'cross': 0.5}}, toonDur=0.06, toonEase='outBack'),   # and he sees stars
@@ -487,7 +488,7 @@ st.shot('S18', 'parisStreet', setOpts=STREETL, look={'fill': 1.35}, actors=[act(
         fx=[{'type': 'shake', 'at': BK18, 'dur': 0.18, 'amount': 0.025}],
         cams=[cam(0.0, CAMW18, [CAMW18[0] + 0.03, CAMW18[1], CAMW18[2] + 0.06], LOOKW18A, LOOKW18, lens=54, ease='out'),
               cam(round(BK18 - 0.02, 3), CAMB18, lerp3(CAMB18, LOOKB18, 0.06), LOOKB18, LOOKB18, lens=50),   # a cut two frames before he lands: he comes into the frame and goes flat; the camera leans in
-              glide([cam(round(BK18 + 0.2, 3), CAMR18, CAMR18, LOOKR18, LOOKR18, lens=50)], 0.16),         # and back with him as he comes up
+              glide([cam(round(BK18 + 0.18, 3), CAMR18, CAMR18, LOOKR18, LOOKR18, lens=50)], 0.14),         # and back with him as he comes up
               cam(CU18, CAMC18, lerp3(CAMC18, [AT18[0], 1.8, AT18[2]], 0.12), LOOKC18, LOOKC18, lens=50)])   # it comes in on him, slowly
 st.cue('sfx:stretch', 'S18', G18, 0.45); st.cue('whoosh', 'S18', G18, 0.4, 0.2, 500, 2200); st.cue('sfx:twang', 'S18', HE18, 0.45); st.cue('whoosh', 'S18', HE18, 0.4, 0.1, 900, 3000); st.cue('thud', 'S18', BK18, 0.6)
 st.cue('sfx:boing', 'S18', FE18, 0.35); st.cue('sfx:whistle', 'S18', CU18, 0.4)
