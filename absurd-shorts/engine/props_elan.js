@@ -59,7 +59,7 @@ export const ELAN_PROPS = {
     for (const z of [-hz - 0.16, hz + 0.16]) body.add(at(box(0.05, 0.34, 0.2, DK), hx - 0.05, 2.05, z), at(box(0.04, 0.04, 0.2, DK), hx - 0.05, 2.2, z * 0.94));   // the mirrors, like two ears
     const sx = hx - 0.95, sz = -0.55;                                                                                       // the driver: front left
     body.add(at(box(0.5, 0.1, 0.5, '#3A3D44'), sx - 0.1, y0 + 0.5, sz), at(box(0.1, 0.7, 0.5, '#3A3D44'), sx - 0.36, y0 + 0.85, sz, 0, 0, 0.12), at(box(0.3, 0.5, 1.9, '#2A2A2E'), hx - 0.2, y0 + 0.36, 0),
-      at(torus(0.2, 0.03, P.ink, 6, 16), sx + 0.42, y0 + 0.86, sz, 0, PI / 2, 0.5), at(cyl(0.025, 0.025, 0.3, P.ink, 6), sx + 0.5, y0 + 0.7, sz, 0, 0, -0.5));
+      at(torus(0.23, 0.03, P.ink, 6, 16), sx + 0.44, y0 + 0.9, sz, 0, PI / 2, 0.5), at(cyl(0.025, 0.025, 0.34, P.ink, 6), sx + 0.53, y0 + 0.72, sz, 0, 0, -0.5));
     for (const x of [doorsX[0] - 0.75, doorsX[1] + 0.75, doorsX[1] - 0.85]) body.add(at(cyl(0.025, 0.025, yW - y0 - 0.1, '#F2C230', 6, { pivot: 'bottom' }), x, y0 + 0.1, 0.35));   // yellow poles to hold on to
     for (let x = -hx + 0.55; x < doorsX[1] - 0.8; x += 0.8) body.add(at(box(0.42, 0.08, 0.5, '#3D6FA8'), x, y0 + 0.5, -hz + 0.34), at(box(0.07, 0.5, 0.5, '#3D6FA8'), x - 0.2, y0 + 0.78, -hz + 0.34));   // seats along the far side
     g.add(body);
@@ -87,12 +87,13 @@ export const ELAN_PROPS = {
 
   // a traffic light on a pole (o.h 3.0 m): a black head with three lenses facing +Z. o.state [[t, 'r' | 'a' | 'g'], ...]: the lens lit from t (unlit
   // materials: it shows its colour in any light), with a small pop of the lens. It bends like the stop pole: o.bend / o.spring (toward its +X).
+  // o.headRy (degrees): the head turned on the pole (the lenses face another way than the prop's +Z: a pole that bends along the street under a head that faces it).
   trafficLight(o) {
     const h = o.h ?? 3.0, pole = arcPole(h - 0.9, 0.05, '#3A3F47'), g = grp(pole.root), head = grp(at(box(0.34, 0.92, 0.26, '#1F2228', { outline: 0.012 }), 0, 0.46, 0), at(box(0.42, 0.04, 0.3, '#1F2228'), 0, 0.94, 0));
     const COL = { r: '#FF3B2F', a: '#FFB02E', g: '#3EE06A' }, OFF = { r: '#4A1512', a: '#4A3610', g: '#12401F' }, lens = {};
     ['r', 'a', 'g'].forEach((k, i) => { const m = quad(0.2, 0.2, flat(OFF[k])); m.geometry = new THREE.CircleGeometry(0.1, 16); m.position.set(0, 0.74 - i * 0.28, 0.135); const halo = quad(0.5, 0.5, flat(COL[k], { transparent: true, opacity: 0.0, depthWrite: false })); halo.geometry = new THREE.CircleGeometry(0.19, 16); halo.position.set(0, 0.74 - i * 0.28, 0.132);
       head.add(halo, m, at(box(0.26, 0.03, 0.1, '#1F2228'), 0, 0.74 - i * 0.28 + 0.115, 0.17)); lens[k] = { m, halo }; });
-    pole.tip.add(head);
+    head.rotation.y = (o.headRy ?? 0) * PI / 180; pole.tip.add(head);
     const st = o.state || [[0, 'r']];
     g.userData.update = t => { pole.bend(leanAt(o, t)); const i = stepAt(st, t), on = st[i][1], u = t - st[i][0];
       for (const k of 'rag') { const lit = k === on; lens[k].m.material.color.set(lit ? COL[k] : OFF[k]); lens[k].halo.material.opacity = lit ? 0.28 : 0; const s = lit ? 1 + 0.35 * Math.max(0, 1 - u / 0.08) : 1; lens[k].m.scale.setScalar(s); } };
@@ -197,12 +198,19 @@ export const ELAN_PROPS = {
   heelSmoke(o) {
     const g = grp(), r = rng(o.seed || 7), path = o.path || [[0, 0, 0]], t0 = o.from ?? path[0][0], t1 = o.to ?? path[path.length - 1][0], ev = o.every ?? 0.035, life = o.life ?? 0.45, puffs = [];
     const pos = t => [keyed(path.map(p => [p[0], p[1]]), t), keyed(path.map(p => [p[0], p[2]]), t)];
-    for (let tb = t0; tb <= t1 + 1e-6; tb += ev) { const m = sphere(0.1 + r() * 0.05, o.color || '#EDE7DA', 0, { unique: true, opacity: 0.99 }); m.castShadow = false; m.visible = false; g.add(m); const [x, z] = pos(tb); puffs.push({ m, tb, x, z, dy: 0.5 + r() * 0.5, dz: (r() - 0.5) * 0.3, k: 0.8 + r() * 0.6 }); }
+    for (let tb = t0; tb <= t1 + 1e-6; tb += ev) { const m = sphere(0.085 + r() * 0.045, o.color || '#F3EFE8', 1, { unique: true, opacity: 0.99 }); m.castShadow = false; m.visible = false; g.add(m); const [x, z] = pos(tb); puffs.push({ m, tb, x, z, dy: 0.5 + r() * 0.5, dz: (r() - 0.5) * 0.3, k: 0.8 + r() * 0.6 }); }
     const marks = []; if (o.marks) for (const s of [-1, 1]) { const m = quad(1, 0.06, flat('#3A3A3E', { transparent: true, opacity: 0.75, depthWrite: false })); m.rotation.x = -PI / 2; g.add(m); marks.push({ m, s }); }
-    g.userData.update = t => { for (const p of puffs) { const u = (t - p.tb) / life; p.m.visible = u >= 0 && u < 1; if (!p.m.visible) continue; p.m.position.set(p.x, 0.08 + p.dy * 0.5 * u, p.z + p.dz * u); p.m.scale.setScalar(p.k * (0.5 + 1.6 * ease.out(u))); p.m.material.opacity = 0.9 * (1 - u * u); }
+    g.userData.update = t => { for (const p of puffs) { const u = (t - p.tb) / life; p.m.visible = u >= 0 && u < 1; if (!p.m.visible) continue; p.m.position.set(p.x, 0.07 + p.dy * 0.7 * u, p.z + p.dz * u); p.m.scale.setScalar(p.k * (0.45 + 1.5 * ease.out(u))); p.m.material.opacity = 0.8 * (1 - u * u); }
       if (marks.length) { const [xa, za] = pos(t0), [xb, zb] = pos(Math.min(Math.max(t, t0), t1)), len = Math.hypot(xb - xa, zb - za), a = Math.atan2(zb - za, xb - xa);
         for (const { m, s } of marks) { m.visible = t > t0 && len > 0.02; m.scale.x = Math.max(0.02, len); m.position.set((xa + xb) / 2 + s * (o.gap ?? 0.22) / 2 * Math.sin(a), 0.012, (za + zb) / 2 - s * (o.gap ?? 0.22) / 2 * Math.cos(a)); m.rotation.z = -a; } } };
     g.userData.update(0); return g;
+  },
+
+  // the enamel plate of a station: navy, a white border, white letters (o.text 'GARE'), o.w (1.7 m) wide; origin: its middle; front +Z
+  stationSign(o) {
+    const w = o.w ?? 1.7, hh = w * 0.3, g = grp(at(box(w, hh, 0.04, '#1B2F6B', { outline: 0.012 }), 0, 0, 0));
+    const f = canvasPlane(w * 0.97, hh * 0.92, (c, W, H) => { c.fillStyle = '#1B2F6B'; c.fillRect(0, 0, W, H); c.strokeStyle = '#F4F1E8'; c.lineWidth = H * 0.06; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H * 0.84); txt(c, o.text || 'GARE', W / 2, H * 0.55, fit(c, o.text || 'GARE', W * 0.78, H * 0.66), '#F4F1E8'); }, { res: 512 });
+    f.position.z = 0.022; g.add(f); return g;
   },
 
   // a straight strip of country road along Z (o.len 120 m, o.w 7 m) with a dashed middle line and pale verges: lay it on a field

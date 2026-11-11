@@ -197,3 +197,26 @@ Check sheets: `node tools/face/rig_sheet.mjs out.jpg [names] [--blend a:b:n] [--
 - The cartoon stories against their own delivered films: render stills at frame-exact times (`f / 30`) and compare them with frame `f` of
   `out/story_<name>_3d.mp4`; a time between two frames differs wherever something moves fast and proves nothing. Characters must match; shadows of turning
   blades and the exposure of a shot metered at another frame may differ by a little.
+
+## Added in cycle 5 (follow-through, settling, props that are not nailed on, pupils; clips for a man who cannot stop)
+
+All opt-in: without them a character is exactly the cycle-4 one.
+- **Follow-through** (`st.write(..., follow=1)`, or `toon: {follow: 1}` in a cast entry): free arms behave as damped pendulums driven by the
+  acceleration of the root (he starts: they stay behind; he stops dead: they go on, come back, settle in two or three swings; the forearm follows
+  the arm 0.05 s late; the head lags on the neck; tie and hair get the same push through `wind`). Stateless like the rest of the engine: the
+  root's acceleration over the last 0.75 s weighted by a pendulum's response (12.5 rad/s, damping 0.2). A guided hand or an arm raised by the
+  clip does not swing.
+- **`settle: a`** in a toon key: once the key is reached the spine wobbles and dies in 0.5 s: a pose that lands instead of a pose that stops.
+- **`sway`** on an attached prop (`on={..., 'sway': 1}`): a bird on a cap, a sign on a head, a bag: it rocks about its foot with its carrier.
+- **`face.pupilSize` / `pupilSizeL` / `pupilSizeR`**: the painted pupils grow (1 = twice the size: a look that reads from far) or shrink
+  (-0.5: pinpricks of fear).
+- **`face.tongueYaw`** (rad, + = toward his left) with `tongue` and `tongueLen`: the tongue blown aside by the wind of a run (1.5: flat across
+  the cheek and out past the head), fluttering; `tongueDip`: its pitch.
+- Clips: `heelBrake` (braking with the heels and not stopping: on a fast `glide` move; lean, mill, chatter), `flag` (carried along behind a
+  runner, the body flat in the air, legs fluttering, swinging like a pendulum; `phase` to offset several passengers; `dir: -1`: on his back,
+  feet first; the hips fly about 1 m above the actor's position), `shoulderRide` (sitting on another's shoulders: put the actor 1.25 m above
+  the runner's position, same move keys).
+- Props of story 41 (`engine/props_elan.js`): `cityBus` (see-through, doors, displays, a driver's seat), `busStopPole` and `trafficLight`
+  (poles that bend as an arc: `bend` keys, `spring`; `pole_pt` in `story_elan.py` gives the same point for a guided hand), `busDisplay`,
+  `headSign`, `townSign` (spins like a weathercock), `lapBoard`, `splitDesk`, `lineMap`, `bigTicket`, `stopButton`, `heelSmoke`, `roadStrip`,
+  `stationSign`.

@@ -125,6 +125,7 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | L'astronome | un œil à l'oculaire (l'autre fermé), un télescope de laiton dont le tube le plus large, côté ciel, monte en travers du cadre (`telescope` : `extend`, `tilt`, `len`, `h` : régler le pivot pour que l'oculaire soit à l'œil) ; rien ; un clignement ; il recule, deux yeux ; une torche tenue au-dessus de sa tête, faisceau peint à bords doux (`torchBeam flat`), qui balaie le ciel vide entre lui et le tube | 40 S23 |
 | Le bras qui traverse le cadre pour l'arrêter | la dame À CÔTÉ de lui, presque à sa hauteur (derrière lui, le bras partait dans l'axe) ; coup d'œil, take (yeux sur tiges), puis la main guidée jusqu'à son poignet, avec une onde ; des notes sifflées (`whistleNotes`) pour celui qui n'a rien vu | 40 S20 |
 | La statue qu'on tapote | clip `statueRock` (`hits`, `amp`, `dir`) : rien ne plie, l'homme entier oscille autour de ses pieds et se stabilise, le pigeon tient bon (remplace la tête qui bascule sur son cou, déjà servie par le doigt du maire) | 39 S13 (dernière passe) |
+| L'étiquette claquée, avec élan et gros plan (troisième passe) | l'objet montré dans la main à hauteur de poitrine, armé au-dessus de la tête de celui qui frappe (il se penche en arrière), puis la main guidée va au front ; **à l'impact la tête s'écrase de 28 cm : une seconde clé `reach` descend la paume avec elle** (sinon la main reste en l'air au-dessus du crâne) ; coupe sur un gros plan à focale longue (`lens=28`, même place : ni main au bord ni décor collé à l'oreille), le mot occupe la moitié de la largeur, les yeux ouverts louchent vers lui (`cross`, `gy -0.9`, `pupilSize`) jusqu'à la coupe : un seul battement | 40 S09 |
 
 Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
@@ -391,3 +392,26 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
   rapport : recopier leur message dans le dossier de revue. S'ils sont coupés par la limite d'usage, les relancer plus tard sur les mêmes pièces.
 - (méthode) Un plan peut commencer avant ses mots : `st.plan([... ('S12', 15.0333, 0) ...])` (un temps absolu, multiple de 1/30 s) pour prendre des images
   au plan précédent ; le carton suit alors avec `st.card('S12', 'MOT', at=0.42)` (secondes dans le plan), sinon il tombe à la coupe, avant le mot.
+- (cycle 5) **Un canal du visage ne peut que fermer une paupière** (`lid`, `lidL`, `lidR` prennent le maximum avec l'expression en place) : sur une
+  expression aux yeux mi-clos (`unimpressed`, `smug`, `suspicious`), des yeux « qui louchent » ou « qui regardent en haut » restent deux fentes vides.
+  Changer d'expression à la clé (une expression qui n'est pas forte, `worried` par exemple : pas de clignement automatique), puis régler les canaux.
+- (cycle 5) **Une main guidée qui frappe une tête doit suivre l'écrasement de cette tête** : la cible calculée sur la tête au repos se retrouve 20 à 30 cm
+  au-dessus du crâne à l'image de l'impact. Poser une seconde clé `reach` (même instant et même durée que l'écrasement) sur la position écrasée.
+- (cycle 5) **Nettoyer un gros plan par la focale, pas par le décor** : même place de caméra, `lens=28` au lieu de 44 : le cadre ne garde que les 62 %
+  du centre ; ce qui traînait aux bords (une main coupée, un rideau, un cadre) sort, le mot ou le visage grossit de 1,6 fois.
+- (cycle 5) Une image fixe peut tomber sur un clignement ou sur une image de passage : avant de « corriger » des yeux fermés ou une pose molle, relire les
+  clés autour de cet instant (ici : des « fentes » dans le noir qui étaient un clignement voulu).
+- (cycle 5, méthode) **Un battement par plan de moins de 1,2 s** ; un accent tenu vaut six images au moins ; avant la mise en scène, écrire la **liste des
+  mécaniques du film, une fois chacune** (deux takes à yeux sur tiges, deux sourires dans le noir, deux coups de doigt : relevés par les revues) ; **un mur nu
+  derrière les têtes d'un plan à deux**, et un mot qui porte la chute occupe 30 % de la largeur ou a son gros plan.
+- (cycle 5, méthode) **Une passe écrite pendant un rendu final est un correctif de texte** (`rep(ancien, nouveau)` avec `assert count == 1`) appliqué à
+  une COPIE du script pour les images fixes, puis au vrai script seulement après la construction du projet HyperFrames de la version en cours :
+  régénérer le script entre le rendu 3D et le projet désynchronise repères sonores, cartons et plans. Ne pas valider la copie dans le dépôt.
+- (cycle 5, méthode) **Une seule génération complète à la fois** : deux rendus 1080p en parallèle doublent la durée de chacun ; les mettre en file
+  (`queue2.sh A B`), et réserver le parallèle aux images fixes et aux brouillons.
+- (cycle 5) **Cadre vertical et véhicules** : un bus de 7,6 m et un coureur côte à côte ne tiennent pas dans 25° de champ horizontal, et une vue rasante
+  le long du flanc ne se lit pas comme un bus. Ce qui marche : le véhicule en fond d'un travelling de trois quarts face (la caméra recule devant le
+  personnage, le flanc et la porte derrière lui), ou le véhicule qui rapetisse derrière lui (trois quarts avant : girouette et chauffeur visibles).
+  Un trajet rapide se filme dans l'axe ou en travelling à sa vitesse ; en travers d'un cadre fixe il dure quatre images.
+- (cycle 5) Un personnage assis au volant (`drive`) : régler la hauteur de l'acteur pour que sa tête reste sous le plafond (siège du bus : 0,3 m),
+  et filmer à sa hauteur : vu d'en dessous, le bandeau du pare-brise coupe le haut du crâne dès qu'il s'étire.

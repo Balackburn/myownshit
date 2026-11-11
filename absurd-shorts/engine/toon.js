@@ -24,7 +24,7 @@
 //         nose: 0.31, the mouth: 0.23, an eye: 0.62), metres in front of the face, w, tip]. The hand follows the head wherever the spine and the neck take it
 //         both take one more value, [px, py, pz]: where the elbow goes, a direction in the frame of the chest (default: low, a little out and back)
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
-//           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
+//           heights), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
 //           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
@@ -180,7 +180,8 @@ function headOverlays(head, hm, dim, skin) {
     }
     deform?.(Math.round(drop * 500) / 500);
     const tg = f.tongue || 0; tongue.visible = tg > 0.01;
-    if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9); }
+    if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
+      if (f.tongueYaw) { tongue.rotation.set((f.tongueDip ?? -0.1) + 0.05 * Math.sin(t * 19), f.tongueYaw + 0.14 * Math.sin(t * 23), 0); tongue.position.z += 0.012; } }   // (cycle 5) face.tongueYaw (rad, + = toward his left): the tongue blown aside by the wind of a run (1.5: flat across the cheek and out past the head), fluttering; face.tongueDip: its pitch
     puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1, q = (t * 1.6 + i * 0.37) % 1; p.visible = steam > 0.01; if (!p.visible) return; p.position.set(side * (hw / 2 + 0.03 + q * 0.16), hh * 0.5 + q * 0.2, -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam); p.material.opacity = 0.85 * Math.sin(Math.PI * q) * Math.min(1, steam); });
     const bk = f.bump || 0; bump.visible = bk > 0.01; if (bump.visible) { bump.position.set(hw * 0.08, hh - 0.05 + 0.07 * bk, -hd * 0.05); bump.scale.setScalar(bk * (1 + 0.07 * Math.sin(t * 13))); }
     const sk = f.stars || 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * 0.27, hh + 0.13 + 0.04 * Math.sin(t * 7 + i), Math.cos(a) * 0.27); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
