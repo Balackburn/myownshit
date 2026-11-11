@@ -518,3 +518,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   30 cm plutôt que de laisser « RRÊT DEMANDÉ ».
 - (cycle 5, méthode) `flash_check.py` signale à tort un plan à deux caméras (large puis serré), et son « image 0 » d'un plan est la dernière du
   plan précédent (arrondi) : confirmer par `cut_flash_check.py` et par les images avant de corriger.
+- (cycle 5, histoire 41) **Un personnage porté par un véhicule** (déplacement `glide` sans `face=`) se tourne dans le sens de la marche pendant les
+  trois premières images : sur la première image du film la passagère pivotait devant le héros. Lui donner dès le départ l'orientation du trajet
+  (`ry` = sens de la marche) ou `face=` sur le déplacement.
+- (cycle 5, histoire 41) **Première image du film** (c'est aussi la vignette) : un regard (`look`) met quelques images à s'installer : le poser avant
+  le début par une clé à temps négatif (`k(-0.4, look=…)`) pour que le visage soit tourné vers nous dès l'image 0. Rendre l'image 0 et la regarder
+  avant le brouillon.
+- (cycle 5, méthode) Tracer une valeur du moteur : la page ne remonte que `console.warn` et `console.error` (`[page] …` dans le journal du rendu) ;
+  ajouter un `console.warn` temporaire sur une copie de sauvegarde du fichier, rendre trois images, restaurer le fichier aussitôt.
+- (cycle 5, méthode) Deux rendus d'images fixes du même script se marchent dessus (chaque rendu vide `out/work/story_<nom>/stills`) : pendant qu'un
+  lot tourne, tester sur une copie du JSON sous un autre nom, et la supprimer ensuite.
