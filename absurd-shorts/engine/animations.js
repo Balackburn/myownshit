@@ -675,6 +675,12 @@ Object.assign(CLIPS, {
       toon: { sq: sqv(1 + 0.035 * ch), bend: { spine: [-0.5 * ln, 0, 0, 1, null], legL: [0, 0, 0, 1.12, null], legR: [0, 0, 0, 1.12, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: 1 } } }; },
   // (cycle 6) he lifts a foot and looks under his shoe (something is missing down there): on the left leg, the right knee up, the shin folded back,
   // the body bent over it, the arms out for balance; he wobbles
+  // halt: the right arm straight out in front at shoulder height, the hand bent up, palm to whoever comes (it reads in profile and as a shadow); the
+  // other fist on the hip (cycle 7). Guide the hand with a toon `reach` to put it where it must be: it keeps this bend of the wrist
+  halt: (t) => ({ ...CLIPS.stand(), shoulderR: [-1.5, 0, 0.04], elbowR: [-0.06, 0, 0], handR: [-1.35, 0, 0], shoulderL: [0.1, 0, 0.5], elbowL: [-1.5, 0, 0], torso: [0.06, 0, 0], head: [-0.06 + 0.01 * S(t * 2), 0, 0] }),
+  // on one leg, the other raised straight out in front, its sole to whoever stands there; arms out, a wobble; the head down to it (cycle 7)
+  showSole: (t) => { const w = 0.06 * S(t * 8); return { ...CLIPS.stand(), hipR: [-1.75, 0, -0.06], kneeR: [0.3, 0, 0], footR: [0.1, 0, 0], hipL: [0.05, 0, 0.05 + w * 0.5], torso: [-0.2, 0, -0.05 + w],
+      head: [0.5, 0, 0], ...arms(m([-0.2, 0, 1.0 + w], [-0.2, 0, 0.85 - w]), m([-0.4, 0, 0], [-0.4, 0, 0])) }; },
   lookSole: (t) => { const w = 0.05 * S(t * 9); return { ...CLIPS.stand(), hipR: [-1.15, 0, -0.3], kneeR: [1.75, 0, 0], footR: [0.5, 0, 0], hipL: [0.06, 0, 0.04 + w],
       torso: [0.42, 0.1, -0.06 + w], head: [0.5, -0.25, 0], ...arms(m([-0.3, 0, 0.9 + w], [-0.5, 0, 0.75 - w]), m([-0.3, 0, 0], [-0.4, 0, 0])) }; },
   // carried along behind a runner, holding on with both hands: the body lies in the air like a flag (face down, head first), the legs flutter, the whole

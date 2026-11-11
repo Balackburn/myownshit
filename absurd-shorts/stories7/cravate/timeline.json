@@ -1,0 +1,656 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a coincé sa cravate dans la porte de l'ascenseur. L'ascenseur est monté.",
+   "hl": [
+    "cravate",
+    "ascenseur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.952,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "coincé",
+     "s": 0.581,
+     "e": 0.841
+    },
+    {
+     "w": "sa",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "cravate",
+     "s": 1.026,
+     "e": 1.359
+    },
+    {
+     "w": "dans",
+     "s": 1.384,
+     "e": 1.433
+    },
+    {
+     "w": "la",
+     "s": 1.507,
+     "e": 1.581
+    },
+    {
+     "w": "porte",
+     "s": 1.656,
+     "e": 1.804
+    },
+    {
+     "w": "de",
+     "s": 1.841,
+     "e": 1.878
+    },
+    {
+     "w": "l'ascenseur.",
+     "s": 1.903,
+     "e": 2.767
+    },
+    {
+     "w": "L'ascenseur",
+     "s": 2.804,
+     "e": 3.285
+    },
+    {
+     "w": "est",
+     "s": 3.322,
+     "e": 3.359
+    },
+    {
+     "w": "monté.",
+     "s": 3.47,
+     "e": 3.952
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Pas lui. La cravate, si. Jusqu'au sixième.",
+   "hl": [
+    "sixième."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L02.k.wav",
+   "file_start": 4.052,
+   "speech_start": 4.052,
+   "speech_end": 6.941,
+   "words": [
+    {
+     "w": "Pas",
+     "s": 4.052,
+     "e": 4.2
+    },
+    {
+     "w": "lui.",
+     "s": 4.237,
+     "e": 4.719
+    },
+    {
+     "w": "La",
+     "s": 4.793,
+     "e": 4.867
+    },
+    {
+     "w": "cravate,",
+     "s": 4.904,
+     "e": 5.459
+    },
+    {
+     "w": "si.",
+     "s": 5.57,
+     "e": 5.978
+    },
+    {
+     "w": "Jusqu'au",
+     "s": 6.015,
+     "e": 6.274
+    },
+    {
+     "w": "sixième.",
+     "s": 6.385,
+     "e": 6.941
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a appelé le syndic.",
+   "hl": [
+    "syndic."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L03.k.wav",
+   "file_start": 7.041,
+   "speech_start": 7.041,
+   "speech_end": 8.226,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.041,
+     "e": 7.115
+    },
+    {
+     "w": "a",
+     "s": 7.152,
+     "e": 7.189
+    },
+    {
+     "w": "appelé",
+     "s": 7.263,
+     "e": 7.436
+    },
+    {
+     "w": "le",
+     "s": 7.46,
+     "e": 7.485
+    },
+    {
+     "w": "syndic.",
+     "s": 7.559,
+     "e": 8.226
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le syndic a répondu :",
+   "hl": [],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L04.k.wav",
+   "file_start": 8.326,
+   "speech_start": 8.326,
+   "speech_end": 9.659,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.326,
+     "e": 8.4
+    },
+    {
+     "w": "syndic",
+     "s": 8.474,
+     "e": 8.77
+    },
+    {
+     "w": "a",
+     "s": 8.795,
+     "e": 8.819
+    },
+    {
+     "w": "répondu:",
+     "s": 8.844,
+     "e": 9.659
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "C",
+   "text": "« Dans la cage d'ascenseur, c'est une partie commune. »",
+   "hl": [
+    "commune."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L05.k.wav",
+   "file_start": 9.759,
+   "speech_start": 9.759,
+   "speech_end": 12.13,
+   "words": [
+    {
+     "w": "Dans",
+     "s": 9.759,
+     "e": 9.907
+    },
+    {
+     "w": "la",
+     "s": 9.944,
+     "e": 9.981
+    },
+    {
+     "w": "cage",
+     "s": 10.019,
+     "e": 10.204
+    },
+    {
+     "w": "d'ascenseur,",
+     "s": 10.241,
+     "e": 10.944
+    },
+    {
+     "w": "c'est",
+     "s": 10.994,
+     "e": 11.093
+    },
+    {
+     "w": "une",
+     "s": 11.167,
+     "e": 11.241
+    },
+    {
+     "w": "partie",
+     "s": 11.315,
+     "e": 11.463
+    },
+    {
+     "w": "commune.",
+     "s": 11.537,
+     "e": 12.13
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Depuis, la dame du troisième y étend son linge.",
+   "hl": [
+    "linge."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L06.k.wav",
+   "file_start": 12.23,
+   "speech_start": 12.23,
+   "speech_end": 14.896,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 12.23,
+     "e": 12.822
+    },
+    {
+     "w": "la",
+     "s": 12.896,
+     "e": 12.97
+    },
+    {
+     "w": "dame",
+     "s": 13.007,
+     "e": 13.119
+    },
+    {
+     "w": "du",
+     "s": 13.193,
+     "e": 13.267
+    },
+    {
+     "w": "troisième",
+     "s": 13.341,
+     "e": 13.711
+    },
+    {
+     "w": "y",
+     "s": 13.785,
+     "e": 13.859
+    },
+    {
+     "w": "étend",
+     "s": 13.933,
+     "e": 14.081
+    },
+    {
+     "w": "son",
+     "s": 14.156,
+     "e": 14.304
+    },
+    {
+     "w": "linge.",
+     "s": 14.452,
+     "e": 14.896
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le petit du cinquième en joue. Il progresse.",
+   "hl": [
+    "progresse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L07.k.wav",
+   "file_start": 14.996,
+   "speech_start": 14.996,
+   "speech_end": 17.441,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.996,
+     "e": 15.144
+    },
+    {
+     "w": "petit",
+     "s": 15.219,
+     "e": 15.367
+    },
+    {
+     "w": "du",
+     "s": 15.441,
+     "e": 15.515
+    },
+    {
+     "w": "cinquième",
+     "s": 15.589,
+     "e": 15.885
+    },
+    {
+     "w": "en",
+     "s": 15.959,
+     "e": 16.033
+    },
+    {
+     "w": "joue.",
+     "s": 16.07,
+     "e": 16.515
+    },
+    {
+     "w": "Il",
+     "s": 16.552,
+     "e": 16.626
+    },
+    {
+     "w": "progresse.",
+     "s": 16.7,
+     "e": 17.441
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Pour la décrocher, il faut un vote en assemblée générale.",
+   "hl": [
+    "générale."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L08.k.wav",
+   "file_start": 17.541,
+   "speech_start": 17.541,
+   "speech_end": 20.207,
+   "words": [
+    {
+     "w": "Pour",
+     "s": 17.541,
+     "e": 17.615
+    },
+    {
+     "w": "la",
+     "s": 17.689,
+     "e": 17.763
+    },
+    {
+     "w": "décrocher,",
+     "s": 17.8,
+     "e": 18.43
+    },
+    {
+     "w": "il",
+     "s": 18.504,
+     "e": 18.578
+    },
+    {
+     "w": "faut",
+     "s": 18.627,
+     "e": 18.726
+    },
+    {
+     "w": "un",
+     "s": 18.8,
+     "e": 18.874
+    },
+    {
+     "w": "vote",
+     "s": 18.948,
+     "e": 19.022
+    },
+    {
+     "w": "en",
+     "s": 19.059,
+     "e": 19.096
+    },
+    {
+     "w": "assemblée",
+     "s": 19.17,
+     "e": 19.467
+    },
+    {
+     "w": "générale.",
+     "s": 19.504,
+     "e": 20.207
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Hier, ils ont voté. Il manquait une voix.",
+   "hl": [
+    "voix."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L09.k.wav",
+   "file_start": 20.307,
+   "speech_start": 20.307,
+   "speech_end": 22.763,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 20.307,
+     "e": 20.752
+    },
+    {
+     "w": "ils",
+     "s": 20.826,
+     "e": 20.9
+    },
+    {
+     "w": "ont",
+     "s": 20.974,
+     "e": 21.048
+    },
+    {
+     "w": "voté.",
+     "s": 21.085,
+     "e": 21.641
+    },
+    {
+     "w": "Il",
+     "s": 21.715,
+     "e": 21.789
+    },
+    {
+     "w": "manquait",
+     "s": 21.863,
+     "e": 22.085
+    },
+    {
+     "w": "une",
+     "s": 22.159,
+     "e": 22.233
+    },
+    {
+     "w": "voix.",
+     "s": 22.27,
+     "e": 22.752
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "La sienne. Il était en bas.",
+   "hl": [
+    "bas."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L10.k.wav",
+   "file_start": 22.863,
+   "speech_start": 22.863,
+   "speech_end": 24.64,
+   "words": [
+    {
+     "w": "La",
+     "s": 22.863,
+     "e": 23.011
+    },
+    {
+     "w": "sienne.",
+     "s": 23.085,
+     "e": 23.751
+    },
+    {
+     "w": "Il",
+     "s": 23.789,
+     "e": 23.826
+    },
+    {
+     "w": "était",
+     "s": 23.9,
+     "e": 24.048
+    },
+    {
+     "w": "en",
+     "s": 24.122,
+     "e": 24.196
+    },
+    {
+     "w": "bas.",
+     "s": 24.307,
+     "e": 24.64
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Ils ont quand même voté le ravalement.",
+   "hl": [
+    "ravalement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L11.k.wav",
+   "file_start": 24.74,
+   "speech_start": 24.74,
+   "speech_end": 26.37,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 24.74,
+     "e": 24.889
+    },
+    {
+     "w": "ont",
+     "s": 24.963,
+     "e": 25.037
+    },
+    {
+     "w": "quand",
+     "s": 25.086,
+     "e": 25.185
+    },
+    {
+     "w": "même",
+     "s": 25.259,
+     "e": 25.333
+    },
+    {
+     "w": "voté",
+     "s": 25.37,
+     "e": 25.555
+    },
+    {
+     "w": "le",
+     "s": 25.592,
+     "e": 25.629
+    },
+    {
+     "w": "ravalement.",
+     "s": 25.703,
+     "e": 26.37
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Sa cravate est beige.",
+   "hl": [
+    "beige."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L12.k.wav",
+   "file_start": 26.47,
+   "speech_start": 26.47,
+   "speech_end": 27.655,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 26.47,
+     "e": 26.618
+    },
+    {
+     "w": "cravate",
+     "s": 26.655,
+     "e": 26.989
+    },
+    {
+     "w": "est",
+     "s": 27.026,
+     "e": 27.063
+    },
+    {
+     "w": "beige.",
+     "s": 27.137,
+     "e": 27.655
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il paie les charges.",
+   "hl": [
+    "charges."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cravate/tts/L13.k.wav",
+   "file_start": 27.755,
+   "speech_start": 27.755,
+   "speech_end": 28.792,
+   "words": [
+    {
+     "w": "Il",
+     "s": 27.755,
+     "e": 27.829
+    },
+    {
+     "w": "paie",
+     "s": 27.977,
+     "e": 28.051
+    },
+    {
+     "w": "les",
+     "s": 28.126,
+     "e": 28.2
+    },
+    {
+     "w": "charges.",
+     "s": 28.422,
+     "e": 28.792
+    }
+   ]
+  }
+ ],
+ "total": 30.59
+}

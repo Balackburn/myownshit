@@ -79,9 +79,18 @@ function buildActor(c, id) {
   // (cycle 6) cast `silhouette: '#262833'`: a shadow with a life of its own: every part in one flat unlit colour, no cast shadow, and the eyes of the
   // face rig left white on it (the glow layer of the dark shots). Flatten it with the toon channel sq [1, 1, 0.03] and lay it down with `lay`.
   // cast `castShadow: false`: a man who has lost his shadow.
+  // (cycle 7) cast `silhouetteRim: '#3D4152'`: the ink outline of each part is kept, in a tone a little lighter than the shade: a limb in front of
+  // the body is drawn by its rim (a forearm across the chest, a hand on a hip: without it they are black on black), and the whole figure gets a
+  // thin soft edge
   if (c.silhouette) { const sm = new THREE.MeshBasicMaterial({ color: c.silhouette === true ? '#262833' : c.silhouette, toneMapped: false });
-    obj.traverse(o => { if (o.isMesh) { o.material = Array.isArray(o.material) ? o.material.map(() => sm) : sm; o.castShadow = false; o.receiveShadow = false; o.userData.noAO = true; } else if (o.isLine || o.isLineSegments) o.visible = false; });
-    obj.userData.silhouette = sm; obj.userData.glowLayer0 = true; }
+    const rm = c.silhouetteRim ? new THREE.MeshBasicMaterial({ color: c.silhouetteRim, toneMapped: false, side: THREE.BackSide }) : null;
+    obj.traverse(o => { if (o.isMesh) { const m = rm && o.name === 'outline' ? rm : sm; o.material = Array.isArray(o.material) ? o.material.map(() => m) : m; o.castShadow = false; o.receiveShadow = false; o.userData.noAO = true; if (!rm && o.name === 'outline') o.visible = false; } else if (o.isLine || o.isLineSegments) o.visible = false; });   // (without a rim the ink hull of the head is hidden: in the flat shade, seen from outside, it stood 12 mm in front of the face and hid the white eyes as soon as the shadow was not flattened)
+    if (rm) {   // only the head has an outline of its own: every other part gets one here: a shell of the same geometry, `silhouetteRimW` (0.012 m) larger on each side, seen from inside
+      const parts = [], tw = c.silhouetteRimW ?? 0.012; obj.traverse(o => { if (o.isMesh && o.name !== 'outline' && o.name !== 'eyeGlow' && o.geometry && !o.children.some(ch => ch.name === 'outline')) parts.push(o); });
+      for (const m of parts) { if (!m.geometry.boundingBox) m.geometry.computeBoundingBox(); const bb = m.geometry.boundingBox, sz = bb.getSize(new THREE.Vector3()), ce = bb.getCenter(new THREE.Vector3()), h = new THREE.Mesh(m.geometry, rm);
+        h.name = 'outline'; h.scale.set(sz.x > 1e-4 ? (sz.x + 2 * tw) / sz.x : 1, sz.y > 1e-4 ? (sz.y + 2 * tw) / sz.y : 1, sz.z > 1e-4 ? (sz.z + 2 * tw) / sz.z : 1); h.position.set(-ce.x * (h.scale.x - 1), -ce.y * (h.scale.y - 1), -ce.z * (h.scale.z - 1));
+        h.castShadow = h.receiveShadow = false; h.userData.noAO = true; m.add(h); } }
+    obj.userData.silhouette = sm; obj.userData.glowLayer0 = true; obj.userData.glowEyesOnly = !c.silhouetteMouth; obj.userData.glowGain = c.silhouetteEyes ?? 1; }   // cast `silhouetteMouth: true`: a mouth that shows teeth stays drawn (white); `silhouetteEyes` (1): the gain of the white of the eyes (2: white after the look's tone curve)
   if (c.castShadow === false) obj.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });   // (with the soft shadow maps of the natural look, what receives a shadow casts one too)
   // measured rig facts (rest pose, unit scale): leg length + hip height drive gait cadence and pivots
   obj.position.set(0, 0, 0); obj.rotation.set(0, 0, 0); obj.scale.setScalar(1); obj.updateMatrixWorld(true);
@@ -362,6 +371,12 @@ function scaleAt(A, t) {
 function prepProp(cfg, obj, sc, place) {
   const Pp = { id: cfg.id || cfg.name, cfg, obj, kind: 'prop', pos0: place(cfg.anchor ? { anchor: cfg.anchor, offset: cfg.offset } : cfg.pos), ry0: (cfg.ry || 0) * D2R, rx0: cfg.rot?.[0] || 0, rz0: cfg.rot?.[2] || 0,
     scale0: cfg.scale ?? 1, moves: [], own: [], visKeys: [{ at: -1e6, visible: cfg.visible !== false }], scaleKeys: [{ at: -1e6, scale: cfg.scale ?? 1, dur: 0 }], spin: cfg.spin || null, sfx: [], rotKeys: [], sqKeys: [] };
+  // (cycle 7) prop `silhouette: '#6A5878'`: the shadow of a thing: every part in that one flat unlit colour (the shade of the shadow actors), no ink, no
+  // cast shadow. With `flat: [x, y, z]` (a factor on each axis of the prop, on top of its scale: [1, 1, 0.03]) it lies on a wall or on the ground.
+  // prop `castShadow: false`: a thing whose shadow is drawn by such a copy
+  if (cfg.silhouette) { const sm = new THREE.MeshBasicMaterial({ color: cfg.silhouette, toneMapped: false });
+    obj.traverse(o => { if (o.isMesh) { if (o.name === 'outline') { o.visible = false; return; } o.material = Array.isArray(o.material) ? o.material.map(() => sm) : sm; o.castShadow = false; o.receiveShadow = false; o.userData.noAO = true; } else if (o.isLine || o.isLineSegments || o.isSprite) o.visible = false; }); }
+  else if (cfg.castShadow === false) obj.traverse(o => { if (o.isMesh) o.castShadow = false; });
   if (cfg.rotOrder) obj.rotation.order = cfg.rotOrder;   // 'YXZ': rot[0] pitches the prop in the vertical plane it faces after ry (a stamp swung over by somebody who does not face down an axis)
   if (cfg.on) Pp.own.push({ at: -1e6, attach: cfg.on.actor || cfg.on, ...(typeof cfg.on === 'object' ? cfg.on : {}) });
   const keys = (cfg.keys || []).map(k => ({ ...k, t: frozenRemap(cfg.id || cfg.name, T(k.at ?? 0, sc)) })).sort((a, b) => a.t - b.t);
@@ -411,7 +426,9 @@ function placeAttached(Pp, k, t) {
   // (cycle 5) `sway: a` on an attach (`on={..., 'sway': 1}`): the thing is not nailed on: it rocks about its foot with the follow-through of whoever carries it
   // (a bird on a cap, a sign on a head, a bag on a shoulder), `sway` times the swing of a free arm
   if (k.sway && !A.isProp && A.moves) { const r = followResp(A, t, k.swayLag ?? 0.03); Pp.obj.rotation.x += -0.6 * k.sway * r.f; Pp.obj.rotation.z += -0.6 * k.sway * r.s; }
-  const sc = (k.scale ?? scaleOf(Pp, t)) / Math.max(0.01, (A.obj.scale.x || 1));
+  const os = A.obj.scale, mn = Math.min(os.x, os.y, os.z), mx = Math.max(os.x, os.y, os.z);
+  const as = mn < 0.2 * mx ? [os.x, os.y, os.z].sort((a, b) => a - b)[1] : (os.x || 1);   // a flattened carrier (a shadow on its wall, flat across its shoulders): what it carries is flattened with it (divided by the 0.03 of its x, a watch on its wrist was two metres wide)
+  const sc = (k.scale ?? scaleOf(Pp, t)) / Math.max(0.01, as);
   Pp.obj.scale.setScalar(sc); squashProp(Pp, t);
   return true;
 }
@@ -462,7 +479,7 @@ function evalProp(Pp, t) {
     if (mv) Pp.obj.rotation.y = headingAt(mv, t) + (mv.yawOffset || 0) * D2R;
     else { const last = [...Pp.moves].reverse().find(m => t > m.t1 && m.faceMove); if (last) Pp.obj.rotation.y = last.segs[last.segs.length - 1].head + (last.yawOffset || 0) * D2R; }
   }
-  Pp.obj.scale.setScalar(scaleOf(Pp, t)); squashProp(Pp, t);
+  Pp.obj.scale.setScalar(scaleOf(Pp, t)); squashProp(Pp, t); if (Pp.cfg.flat) { const f = Pp.cfg.flat, q = Pp.obj.scale; q.set(q.x * f[0], q.y * f[1], q.z * f[2]); }
   Pp.obj.userData.update?.(t);
   if (Pp.alts) { // alternate looks after given times (the last one reached is shown in place of the prop)
     let cur = null; for (const a of Pp.alts) { a.obj.visible = false; if (t >= a.at) cur = a; }
@@ -530,7 +547,9 @@ function evalActor(A, tIn) {
     if (pp && ud.toon && (pc.root?.pivot || pp.root?.pivot)) pose.root.pivot = pc.root?.pivot || pp.root?.pivot;   // lying down / getting up turns about the hips all the way through the blend
     if (ud.toon) pose = toonOverlap(A, t, pose, BL);
     const hipK = ud.toon ? keyedHip(A, t) : null;   // toon channel `hip`: a weight shift keyed by hand replaces the automatic one for the whole shot
-    if (hipK != null) pose = shiftPose(pose, hipK, Math.max(1, Math.abs(hipK)));
+    const kq = ud.toon && A.toonKeys && A.toonKeys.length ? lastKey(A.toonKeys, t) : null, flatX = !!(kq?.toon?.sq && kq.toon.sq[0] < 0.2);   // flat across its shoulders (a shadow on the wall it walks along): no shift of the weight: it is sideways, 7 cm: into the wall (the shadow vanished whenever it stood still facing +Z) or off it
+    if (flatX) ;
+    else if (hipK != null) pose = shiftPose(pose, hipK, Math.max(1, Math.abs(hipK)));
     else if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;

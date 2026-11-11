@@ -1104,7 +1104,7 @@ const S = {
     g.add(at(buildProp('fitPoster', { text: o.poster || 'CLAVICULE\nLARGE', bg: o.posterBg, fg: o.posterFg }), -0.6, 1.75, back + 0.02));
     g.add(at(box(0.05, 1.2, 1.4, '#F2F2EC', { outline: 0.006 }), -4.48, 1.75, -0.6), at(box(0.03, 1.1, 1.3, o.pane || '#9CC8E8', { emissive: o.paneGlow || '#2A4A5A' }), -4.45, 1.75, -0.6),   // o.pane / o.paneGlow: the window by night
       at(box(0.06, 1.6, 0.35, o.curtain || '#B5302A'), -4.42, 1.65, -1.45), at(box(0.06, 1.6, 0.35, o.curtain || '#B5302A'), -4.42, 1.65, 0.25));
-    [[-0.9, 0.02, 0.4, 0.4, '#2C4A8A'], [-0.6, 0.05, 0.6, -0.3, '#E8742E'], [1.9, 0.02, -1.5, 0.9, '#5E9A4A']].forEach(([x, y, z, ry, c]) => g.add(at(box(0.45, 0.05, 0.32, c, { outline: 0.004 }), x, y, z, 0, ry, 0)));
+    if (o.clutter !== false) [[-0.9, 0.02, 0.4, 0.4, '#2C4A8A'], [-0.6, 0.05, 0.6, -0.3, '#E8742E'], [1.9, 0.02, -1.5, 0.9, '#5E9A4A']].forEach(([x, y, z, ry, c]) => g.add(at(box(0.45, 0.05, 0.32, c, { outline: 0.004 }), x, y, z, 0, ry, 0)));   // o.clutter false: no clothes on the floor (a shot where somebody lies or lands there)
     g.add(prop('plant', { pot: '#C9A06A', seed: 9 }, 3.3, 0, back + 0.35, 0, 0.8));
     g.userData.anchors = { center: [0, 0, 0], bed: [-2.6, 0, back + 1.1], bedSit: [-2.6, 0.45, back + 1.6], desk: [2.5, 0, back + 0.35], chair: [2.5, 0, back + 1.0], mirror: [0.9, 0, back + 0.05], poster: [-0.6, 1.75, back] };
     g.userData.lighting = 'interior'; return g;
@@ -1239,6 +1239,64 @@ Object.assign(S, {
     if (snow) g.userData.snow = true;
     g.userData.lighting = night ? 'night' : 'day'; return g;
   },
+  // (cycle 7) the ground-floor hall of a block of flats, seen from the street door: in the back wall a lift door (o.doors [[t, 0..1], ...]: its two
+  // leaves slide apart, eased; 0 = shut), over it the floor display (o.floor [[t, 'RC' | '1' | ...], ...]: amber on black) and beside it the call
+  // button; letter boxes at the left (o.names: the name tags), a notice board at the right (o.notice: its heading, 'SYNDIC'), a tiled floor.
+  // userData.anchors: lift (the foot of the door), seam (the top of the seam between the two leaves: where a tie goes up), boxes, board
+  immeubleHall(o = {}) {
+    const g = grp(), { back } = room(g, { wall: o.wall || '#EAE3D2', band: o.band || '#B9AA8C', bandH: 1.1, trim: o.trim || '#8C7B5E', floor: o.floor || '#DAD1C2', back: o.back ?? -3.0, half: 3.4, height: 3.6 });
+    for (let i = -5; i <= 5; i++) g.add(flat(0.02, 16, '#C2B8A6', i * 0.6, 0.004, 4)); for (let k_ = 0; k_ < 24; k_++) g.add(flat(6.8, 0.02, '#C2B8A6', 0, 0.004, back + 0.3 + k_ * 0.6));
+    const LX = o.liftX ?? 0, DW = 1.1, DH = 2.1, FR = '#6F7680', LC = o.leaf || '#AEB6BF', zf = back + 0.06;
+    g.add(at(box(DW, DH, 0.02, '#14161B'), LX, DH / 2, back + 0.012));                                                                       // the dark of the shaft behind the leaves
+    for (const sd of [-1, 1]) g.add(at(box(0.09, DH + 0.1, 0.12, FR, { outline: 0.006 }), LX + sd * (DW / 2 + 0.045), (DH + 0.1) / 2, zf));     // the frame
+    g.add(at(box(DW + 0.18, 0.12, 0.12, FR, { outline: 0.006 }), LX, DH + 0.06, zf));
+    const leaves = [-1, 1].map(sd => { const l = grp(at(box(DW / 2, DH, 0.035, LC, { outline: 0.004 }), 0, DH / 2, 0), at(box(0.012, DH * 0.86, 0.04, '#8E97A1'), sd * (DW / 4 - 0.05), DH / 2, 0.002)); l.userData.sd = sd; g.add(l); return l; });
+    const texts = [...new Set((o.floor || [[0, 'RC']]).map(e => String(e[1])))], disp = {};
+    g.add(at(box(0.5, 0.26, 0.05, '#0E0F13', { outline: 0.006 }), LX, DH + 0.3, zf));
+    for (const tx of texts) { const pl = canvasPlane(0.44, 0.2, (c, W, H) => { c.fillStyle = '#0E0F13'; c.fillRect(0, 0, W, H); c.fillStyle = '#FFB02E'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.78}px Arial`; c.fillText(tx, W / 2, H * 0.54); }, { res: 256, emissive: 0.9 }); pl.position.set(LX, DH + 0.3, zf + 0.03); g.add(pl); disp[tx] = pl; }
+    const btn = at(box(0.1, 0.16, 0.03, '#8E97A1', { outline: 0.004 }), LX + DW / 2 + 0.28, 1.12, back + 0.03), lamp = at(cyl(0.022, 0.022, 0.012, '#FFD27A', 10), LX + DW / 2 + 0.28, 1.14, back + 0.052); lamp.rotation.x = PI / 2; g.add(btn, lamp);
+    const names = o.names || ['DUPONT', 'MARTIN', 'PETIT', 'ROUX', 'MOREL', 'GIRARD', 'LEROY', 'FAURE'], BX = o.boxesX ?? -2.25;   // letter boxes: two rows of four
+    names.forEach((nm, i) => { const x = BX + (i % 4 - 1.5) * 0.34, y = 1.52 - Math.floor(i / 4) * 0.3; g.add(at(box(0.31, 0.27, 0.1, i % 2 ? '#7E8C6E' : '#8A977A', { outline: 0.005 }), x, y, back + 0.06), at(box(0.2, 0.02, 0.012, '#1F2228'), x, y + 0.07, back + 0.115), at(label(nm, 0.2, 0.05, { bg: '#F4F1E8', fg: '#1B1B1E', wrap: false }), x, y - 0.03, back + 0.113)); });
+    const NX = o.boardX ?? 2.3; g.add(at(box(0.9, 0.7, 0.03, '#B98A5A', { outline: 0.006 }), NX, 1.55, back + 0.03), at(label(o.notice || 'SYNDIC', 0.6, 0.14, { bg: '#1B2F6B', fg: '#FFFFFF', wrap: false }), NX, 1.8, back + 0.05));
+    for (const [dx, dy, ry_, c_] of [[-0.2, -0.02, 0.05, '#F4F1E8'], [0.2, 0.0, -0.06, '#F3E9C9'], [0.0, -0.22, 0.03, '#E2EAF0']]) g.add(at(box(0.26, 0.2, 0.006, c_, { outline: 0.003 }), NX + dx, 1.53 + dy, back + 0.05, 0, 0, ry_));
+    g.add(at(box(1.0, 0.02, 0.6, '#6B4F3A', { outline: 0.004 }), LX, 0.012, back + 0.55));                                                      // the doormat
+    if (o.plant !== false) g.add(prop('plant', { pot: '#C9A06A', seed: 5 }, o.plantX ?? 3.0, 0, back + 0.4, 0, 0.9));
+    const DOORS = o.doors || [[0, 0]], FLOOR = o.floor || [[0, 'RC']];
+    const ease = x => x * x * (3 - 2 * x), doorAt = t => { let a = DOORS[0][1]; for (let i = 0; i < DOORS.length; i++) { const [t0, v0] = DOORS[i], nx = DOORS[i + 1]; if (t >= t0) a = nx && t < nx[0] ? v0 + (nx[1] - v0) * ease((t - t0) / (nx[0] - t0)) : v0; } return a; };
+    g.userData.update = t => { const a = doorAt(t); for (const l of leaves) l.position.set(LX + l.userData.sd * (DW / 4 + a * (DW / 2 - 0.03)), 0, zf); let cur = String(FLOOR[0][1]); for (const [tt, v] of FLOOR) if (t >= tt) cur = String(v); for (const k_ in disp) disp[k_].visible = k_ === cur; };
+    g.userData.update(0);
+    g.userData.anchors = { center: [0, 0, 0], lift: [LX, 0, back], seam: [LX, DH - 0.03, zf + 0.03], boxes: [BX, 0, back], board: [NX, 0, back] };
+    g.userData.lighting = 'interior'; return g;
+  },
+  // (cycle 7) a block of flats cut open, seen from the front (the camera looks toward -Z): o.floors (6) levels over the ground floor, each o.fh
+  // (2.8 m) high. At the left the landings (a coloured wall, a flat door, the number of the floor); at the right the lift shaft, dark, with its cabin
+  // (o.cabin [[t, level], ...], eased between keys) hanging from two cables. Actors stand on a landing at y = level * fh (userData.fh), x between -2.9
+  // and 1.1; the shaft is centred on userData.shaftX. o.walls: the colours of the landings; o.sky. The street: a pavement in front, the sky behind.
+  immeubleCoupe(o = {}) {
+    const g = grp(), N = o.floors ?? 6, FH = o.fh ?? 2.8, W = 6.4, D = 2.2, SW = 1.7, SX = W / 2 - SW / 2 - 0.12, LW = W - SW - 0.24, LXc = -W / 2 + 0.12 + LW / 2, H = (N + 1) * FH;
+    sky(g, o.sky || ['#62AEE2', '#A7D4EC']); if ((o.clouds ?? 6) >= 2) clouds(g, o.cloudSeed ?? 4, o.clouds ?? 6);
+    const base = ground('#C9C2B3'); base.position.y = -0.12; g.add(base, flat(40, 9, '#E4D6BE', 0, 0.006, 4.5), flat(40, 30, '#6E6E72', 0, 0.004, 24));
+    const WC = o.walls || ['#EFE6D2', '#F2DCCB', '#E2EAF0', '#F3E9C9', '#E8E1EE', '#F0D9D9', '#DDE8D8'], DC = ['#7A5A3C', '#2F5E8C', '#8A3B32', '#2F7F5C', '#6B4F8A', '#B5762E', '#3F4A5A'];
+    g.add(wall(SW, H, 0.1, '#2E323C', SX, H / 2, -D / 2), wall(0.12, H, D, '#B9AE9A', SX - SW / 2 - 0.06, H / 2, 0));                              // the shaft: its back, the partition
+    for (const sd of [-1, 1]) g.add(wall(0.24, H + 0.3, D + 0.1, '#CFC6B4', sd * (W / 2), (H + 0.3) / 2, 0));                                        // the outer walls
+    for (let lv = 0; lv <= N; lv++) { const y0 = lv * FH;
+      if (lv) g.add(at(box(LW + 0.02, 0.2, D, '#B9AE9A'), LXc, y0 - 0.1, 0));                                                                       // the slab of the landing
+      g.add(wall(LW, FH - 0.2, 0.1, WC[lv % WC.length], LXc, y0 + (FH - 0.2) / 2, -D / 2), at(box(LW, 0.12, 0.03, '#8C7B5E'), LXc, y0 + 0.06, -D / 2 + 0.07));
+      g.add(at(box(0.92, 2.05, 0.06, DC[lv % DC.length], { outline: 0.006 }), LXc - 0.9, y0 + 1.025, -D / 2 + 0.08), at(box(0.05, 0.05, 0.05, '#E3C56A'), LXc - 0.56, y0 + 1.0, -D / 2 + 0.13), at(box(0.8, 0.015, 0.45, '#6B4F3A'), LXc - 0.9, y0 + 0.01, -D / 2 + 0.36));
+      g.add(at(label(lv ? String(lv) : 'RC', 0.5, 0.5, { bg: WC[lv % WC.length], fg: '#8C7B5E', wrap: false }), LXc + 0.95, y0 + 1.75, -D / 2 + 0.06));
+      g.add(at(box(0.16, 0.1, 0.1, '#F4E3A8', { emissive: '#C9A24A' }), LXc + 0.1, y0 + 2.3, -D / 2 + 0.1));                                          // a wall lamp
+    }
+    g.add(at(box(W + 0.9, 0.3, D + 0.5, '#8E8A84', { outline: 0.006 }), 0, H + 0.15, 0), at(box(SW + 0.3, 0.9, D * 0.8, '#A39C90', { outline: 0.006 }), SX, H + 0.75, 0));   // the roof, the machine room
+    const cab = grp(at(box(SW - 0.24, 2.3, D - 0.5, '#AEB6BF', { outline: 0.006 }), 0, 1.15, -0.1), at(box(SW - 0.36, 2.1, 0.02, '#F4EBD0', { emissive: '#8A7A4A' }), 0, 1.15, D / 2 - 0.36)); g.add(cab);
+    const cables = [-0.3, 0.3].map(dx => { const c_ = cyl(0.012, 0.012, 1, '#1F2228', 5, { pivot: 'bottom' }); c_.position.set(SX + dx, 0, -0.1); g.add(c_); return c_; });
+    const CAB = o.cabin || [[0, 0]], ease = x => x * x * (3 - 2 * x), lvAt = t => { let a = CAB[0][1]; for (let i = 0; i < CAB.length; i++) { const [t0, v0] = CAB[i], nx = CAB[i + 1]; if (t >= t0) a = nx && t < nx[0] ? v0 + (nx[1] - v0) * ease((t - t0) / (nx[0] - t0)) : v0; } return a; };
+    g.userData.update = t => { const y = lvAt(t) * FH + 0.02; cab.position.set(SX, y, 0); for (const c_ of cables) { c_.position.y = y + 2.3; c_.scale.y = Math.max(0.01, H + 0.3 - y - 2.3); } };
+    g.userData.update(0);
+    g.userData.fh = FH; g.userData.shaftX = SX;
+    g.userData.anchors = { center: [0, 0, 0], shaft: [SX, 0, 0], landing: [LXc, 0, 0], roof: [0, H, 0] };
+    g.userData.sun = o.sun || [0.35, 0.7, 0.62];   // from the front, a little from the right: the open landings are lit
+    g.userData.lighting = 'day'; return g;
+  },
   holeSection(o = {}) { // the hole seen in cross-section, like a cartoon cutaway: the earth cut flat in front of the camera (strata, stones, a pipe, a bone, roots),
     // the shaft a slot 2*R wide down to its floor at y = 0, the street surface at y = o.depth (4.6) with the sky above. Characters stand at the bottom.
     const g = grp(), R = o.r ?? 1.0, D = o.depth ?? 4.6, X = 12, Y0 = -3, zc = R + 0.02;
@@ -1279,7 +1337,11 @@ Object.assign(S, {
   },
   mairie(o = {}) { // a town-hall office: cream walls with a wooden band, parquet, a tricolour "MAIRIE" banner, the official map on the back wall (x = o.mapX), a flag, filing cabinets, a big desk
     // o.wall / o.band / o.trim / o.floor / o.joint: its colours (another office in the same building: an insurer's in grey-green); o.banner false: no tricolour banner
-    const g = grp(), { back } = room(g, { wall: o.wall || '#EFE7D6', band: o.band || '#B98A5A', bandH: 1.0, trim: o.trim || '#7A5A3C', floor: o.floor || '#C7A77C', back: o.back ?? -2.6, half: 5 });
+    // (cycle 7) o.front (14): where the wall behind the visitor stands; o.frontSign { text, x, y, w, h }: a board on that wall, read from the clerk's side (a reverse shot must say where we are)
+    const g = grp(), { back } = room(g, { wall: o.wall || '#EFE7D6', band: o.band || '#B98A5A', bandH: 1.0, trim: o.trim || '#7A5A3C', floor: o.floor || '#C7A77C', back: o.back ?? -2.6, half: 5, front: o.front });
+    if (o.front != null) g.add(wall(10, 1.0, 0.04, o.band || '#B98A5A', 0, 0.5, o.front - 0.02), wall(10, 0.08, 0.08, o.trim || '#7A5A3C', 0, 1.04, o.front - 0.04));
+    if (o.frontSign) { const q = o.frontSign, sw = q.w ?? 1.3, sh = q.h ?? sw * 0.26, z = (o.front ?? 14) - 0.03, lb = label(q.text || 'ÉTAT CIVIL', sw, sh, { bg: q.bg || '#1B2A4A', fg: q.fg || '#F4F1E8', wrap: false });
+      lb.position.set(q.x ?? 0, q.y ?? 2.6, z - 0.03); lb.rotation.y = PI; g.add(lb, at(box(sw + 0.08, sh + 0.08, 0.04, '#C9A24B'), q.x ?? 0, q.y ?? 2.6, z)); }
     for (let i = -6; i <= 6; i++) g.add(flat(0.03, 12, o.joint || '#A88A62', i * 0.8, 0.004, 1));   // parquet joints
     const bx = o.bannerX ?? 0, by = o.bannerY ?? 3.25;
     if (o.banner !== false) { g.add(at(box(3.3, 0.5, 0.03, '#F4F1E8', { outline: 0.004 }), bx, by, back + 0.03), at(box(1.1, 0.5, 0.032, '#2A4B9B'), bx - 1.1, by, back + 0.032), at(box(1.1, 0.5, 0.032, '#C8202A'), bx + 1.1, by, back + 0.032));

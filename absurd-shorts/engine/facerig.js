@@ -129,7 +129,15 @@ export function makeFaceRig(v = null) {
     if (e.lid >= 0.9) { if (!dark) spr(g, `eye${s}_closed`, cx, cy, 0, 0.24 * a.h * e.s, 0, e.s, 1); return; }   // shut: the lid line has reached the lower lid
     const P = nearest(RIG.sizes, e.s), k = e.s / P, hh = a.h / 2 * e.s, hw = a.w / 2 * e.s, tag = Math.round(P * 100);
     const ox = Math.max(0, 14 - (cx - hw)) + Math.min(0, (W - 14) - (cx + hw));   // a big eye slides inward rather than off the panel
-    tg.save(); tg.translate(Math.round(ox), 0); eyeOpen(s, e, a, cx, cy, P, k, hh, hw, tag); tg.restore();
+    tg.save(); tg.translate(Math.round(ox), 0); if (dark && flatGlow) eyeFlat(e, cx, cy, hh, hw); else eyeOpen(s, e, a, cx, cy, P, k, hh, hw, tag); tg.restore();
+  }
+  // the eye of a shadow (cast `silhouette`): a flat white oval, no ink; its pupil is a hole in it (the shade shows through); a lid cuts it straight
+  let flatGlow = false;
+  function eyeFlat(e, cx, cy, hh, hw) {
+    const top = cy - hh + 2 * hh * e.lid, bot = cy + hh - 2 * hh * e.low, pr = Math.min(hw, hh) * Math.min(0.62, 0.36 * (e.ps || 1)), n = Math.hypot(e.px, e.py), f = n > 1 ? 1 / n : 1;
+    tg.save(); tg.beginPath(); tg.rect(cx - hw - 2, top, 2 * hw + 4, Math.max(0, bot - top)); tg.clip();
+    tg.fillStyle = '#FFFFFF'; tg.beginPath(); tg.ellipse(cx, cy, hw, hh, 0, 0, 2 * Math.PI); tg.fill();
+    tg.globalCompositeOperation = 'destination-out'; tg.beginPath(); tg.arc(cx + e.px * f * Math.max(0, hw - pr - 3), cy + e.py * f * Math.max(0, hh - pr - 3), pr, 0, 2 * Math.PI); tg.fill(); tg.restore();
   }
   function eyeOpen(s, e, a, cx, cy, P, k, hh, hw, tag) {
     const x0 = Math.floor(cx - hw - 14), y0 = Math.floor(cy - hh - 14), w = Math.ceil(2 * hw + 28), h = Math.ceil(2 * hh + 28);
@@ -193,12 +201,12 @@ export function makeFaceRig(v = null) {
   // the glow layer (a shot in the dark, scene `dark`): the eyes alone, and a mouth that shows teeth, on a clear canvas of the same size. The head carries it
   // on a second skin that stays lit when the picture goes black (engine/human.js setEyeGlow, engine/look.js)
   let gc = null, gg = null, gtex = null, glast = null;
-  function glow(st, big = 1.3) {   // big: the eyes grow in the dark (two white ovals must read on a phone), and a heavy lid lifts; a blink still shuts them
+  function glow(st, big = 1.3, eyesOnly = false, flat = false) {   // eyesOnly: no mouth; flat: the eyes of a shadow (white ovals with a hole for a pupil)   // big: the eyes grow in the dark (two white ovals must read on a phone), and a heavy lid lifts; a blink still shuts them
     if (!gc) { gc = document.createElement('canvas'); gc.width = W; gc.height = H; gg = gc.getContext('2d'); gtex = new THREE.CanvasTexture(gc); gtex.colorSpace = THREE.SRGBColorSpace; gtex.anisotropy = 8; }
-    const k = keyOf(st) + '|' + big; if (k === glast) return gtex; glast = k;
+    const k = keyOf(st) + '|' + big + (eyesOnly ? '|e' : '') + (flat ? '|f' : ''); if (k === glast) return gtex; glast = k;
     gg.setTransform(1, 0, 0, 1, 0, 0); gg.globalAlpha = 1; gg.globalCompositeOperation = 'source-over'; gg.clearRect(0, 0, W, H);
-    tg = gg; for (const s of 'LR') { const e = st.eyes[s]; eye(s, big === 1 ? e : { ...e, s: Math.min(1.9, e.s * big), ps: big > 1.9 ? Math.max(e.ps, 1) * 3.2 : e.ps, lid: e.lid < 0.6 ? e.lid * 0.3 : 0.18 + 0.82 * (e.lid - 0.6) / 0.4, low: e.low * 0.5 }); } tg = g;   // above 1.9 the skin itself is scaled (engine/human.js): the pupils are drawn three times their size (about a third of the eye) so that a look still reads
-    const m = st.mouth, ma = A.mouth; if (GLOW_MOUTHS.has(m.spr)) spr(gg, 'mouth_' + m.spr, ma.cx, ma.cy, m.dx, m.dy, -Math.atan2(m.tilt, ma.hw), m.w * (m.flip ? -1 : 1), m.h);
+    tg = gg; flatGlow = flat; for (const s of 'LR') { const e = st.eyes[s]; eye(s, flat ? { ...e, s: Math.min(1.9, e.s * big), lid: e.lid >= 0.9 ? 1 : e.lid * 0.3, low: e.low * 0.3 } : big === 1 ? e : { ...e, s: Math.min(1.9, e.s * big), ps: big > 1.9 ? Math.max(e.ps, 1) * 3.2 : e.ps, lid: e.lid < 0.6 ? e.lid * 0.3 : 0.18 + 0.82 * (e.lid - 0.6) / 0.4, low: e.low * 0.5 }); } tg = g; flatGlow = false;   // (a shadow's lid: a heavy lid takes the top third of the oval at most, or it reads as a smile; shut, the eye is gone)   // above 1.9 the skin itself is scaled (engine/human.js): the pupils are drawn three times their size (about a third of the eye) so that a look still reads
+    const m = st.mouth, ma = A.mouth; if (!eyesOnly && GLOW_MOUTHS.has(m.spr)) spr(gg, 'mouth_' + m.spr, ma.cx, ma.cy, m.dx, m.dy, -Math.atan2(m.tilt, ma.hw), m.w * (m.flip ? -1 : 1), m.h);
     gtex.needsUpdate = true; return gtex;
   }
   return { texture: tex, canvas: c, glow, set(st) { const k = keyOf(st); if (k === last) return false; last = k; draw(st); tex.needsUpdate = true; return true; } };

@@ -19,6 +19,7 @@ import { PORTE_PROPS } from './props_porte.js';
 import { INTERRUPTEUR_PROPS } from './props_interrupteur.js';
 import { ELAN_PROPS } from './props_elan.js';
 import { OMBRE_PROPS } from './props_ombre.js';
+import { CRAVATE_PROPS } from './props_cravate.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -2054,7 +2055,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.

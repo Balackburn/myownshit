@@ -157,6 +157,20 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | L'ombre qui se lève | elle est à plat au sol (`lieBack`, `sq [1, 1, 0.05]`), un bras plat éteint le réveil ; elle s'assoit (`sitFloor`, `sq` z → 0,45), se lève à l'endroit de ses pieds (`stand`, `then='stand'`) : la figure plate devient un corps ; lui, sur le lit, devient plat comme un drap (`sq` z 0,07) et glisse au sol derrière elle, ses pieds aux pieds de l'ombre | 42 S20-S21 |
 | Traîné par les pieds, vu du dessus | caméra presque à la verticale (4,6 m au-dessus, 0,3 m de côté) : elle est une forme sombre vue du dessus en bas du cadre, lui est à plat derrière ses talons, en diagonale, le visage à l'endroit ; pouce levé sur le goudron ; sur les pavés il tressaute (`sq`, `bend`, `pupilShake`, `tremble`) et la caméra descend vers lui | 42 S23-S25 |
 | Le retard retourné | au feu rouge elle s'arrête, lui continue entre ses pieds (sa tête s'arrête sous elle), revient comme un élastique ; elle regarde sa montre (cadran blanc au poignet de la silhouette) | 42 S26 |
+| L'ombre en aplat violet (cycle 7, remplace l'ombre teintée) | une seule teinte pour toutes les ombres du film (acteurs `silhouette: '#6A5878'`, accessoires `silhouette=`, pictogrammes, cases ELLE du calendrier) : un violet à mi-chemin, en valeur, entre le costume marine et le mur ; yeux = ovales blancs plats avec un trou pour pupille (`silhouetteEyes: 2`, `darkEyes: 1.8`), paupière lourde = un tiers de l'ovale au plus, fermés = disparus ; de profil, un seul œil blanc sur le côté de la tête (automatique) ; liseré plus clair (`silhouetteRim`) seulement quand elle devient un corps | 42 |
+| La règle posée par un objet | au premier plan, un potelet et son ombre violette sur le mur, à l'heure (`P(..., silhouette=SHADE, flat=[0.03, 1, 1])`) : on sait à quoi ressemble une ombre normale ; plus tard le corps d'ombre passe devant ce potelet : lui a une ombre, elle non | 42 S01, S04-S05, S22 |
+| Le cadran face caméra | une montre au poignet montre sa tranche ou son bracelet : poser un cadran blanc (`watchFace`) là où est le poignet pendant qu'on le regarde, face à la caméra, avec un `scale` qui apparaît et disparaît avec le bras ; sur une ombre : liseré et aiguilles dans la teinte de l'ombre | 42 S02, S10-S11, S26 |
+| L'ombre sur échasses | jambes étirées 1,9 fois (`bend` legL/shinL/legR/shinR), dos 1,25, cou 1,3, et hanches relevées d'autant (y = 0,86 m) : la silhouette du héros (mèche, cravate) à la taille d'un autre ; l'autre homme a une autre silhouette (chapeau, 1,5 fois la taille du héros) | 42 S10-S11 |
+| Le demi-tour d'une chose plate | une ombre de profil se tourne face à nous en une image (`face=-90, turn=0.0` et `sq` permuté le même instant) : haussement d'épaules à deux mains, mains 1,5 fois, puis retour de profil en une image | 42 S11 |
+| Le double regard devant l'ombre | coup d'œil ennuyé, retour vers nous, puis la tête revient d'un coup : `pop` 0,8, tête écrasée en largeur, cou 1,22, deux images ; il se penche en arrière pour la voir en entier | 42 S10 |
+| Le portant vu de face, le client devant | le héros 1,3 m devant le portant et à son bout (moitié de la hauteur du cadre), le bras passe au-dessus des têtes sur le mur nu, s'allonge jusqu'au dernier cintre ; chaque ombre refusée sursaute (`pick`), la choisie est décrochée (`gone`) et revient pendue au bout du bras (`hangBar`) | 42 S12 |
+| Le sifflet dans le dos | l'agent arrive par derrière : arrêt net, deux images en l'air, retombée aplatie, demi-tour en deux temps ; la place de l'ombre manquante est alors entre les deux hommes : tout se joue là sans que personne ne pointe à travers personne | 42 S14 |
+| Le bras de la loi | plan plus serré sur le mur : l'agent est hors champ, son bras entre dans l'image le long du mur : un doigt tape le mur nu, la main à plat descend deux fois sur la petite (« haut comme ça »), ressort, revient avec l'amende et la colle au-dessus d'elle, juste sous le pochoir DÉFENSE D'AFFICHER | 42 S15 |
+| Le décollage | à plat au sol, elle se décolle fine comme du papier (déplacement vers l'endroit de ses pieds avec `clip='stand'`, `blend` de la durée du geste, `sq` z 0,05), se tient debout comme un carton, puis se remplit d'un coup (`sq [1.2, 0.9, 1.3]` puis rebond) ; huit images de regard vers nous | 42 S21 |
+| L'homme-feuille | sur le lit il devient plat (`sq` z 0,06), quitte le lit et se met debout en l'air au bord du lit, son plat vers nous (`clip='stand'`, `face` vers la caméra), reste suspendu quatre images, les yeux vers le sol, puis glisse et se couche aux pieds de l'ombre | 42 S21 |
+| Les talons seuls | vue du dessus avec une inclinaison plus faible que la moitié du champ vertical (8° pour 22°) et le bas du cadre passant par les talons de celle qui marche : d'elle on ne voit que deux talons ; lui est couché vers le haut du cadre, visage à l'endroit (`topcam`) ; les joints du trottoir, les tirets de la chaussée défilent | 42 S23-S25 |
+| La vague du cahot | une dalle dépasse : talons, hanches, tête se soulèvent l'un après l'autre (0,12 s d'écart), la tête reste deux images en l'air, retombe à plat | 42 S23 |
+| Sortir entre ses pieds | elle s'arrête au bord du trottoir, lui continue entre ses pieds sur les bandes blanches du passage piéton, s'allonge (`sq` y 1,36), s'arrête la tête entre ses pieds ; elle se penche ; retour élastique, il se tasse, se pose ; caméra derrière elle et sur son côté ; puis gros plan vu du dessus sur son visage plat : regard, clignement lent | 42 S26 |
 
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
@@ -609,3 +623,32 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   sur la diagonale du cadre (caméra en avant et au-dessus, le trajet part vers le fond), ou le raccourcir ; l'extrême doit rester dans le cadre.
 - (cycle 6) Lancer un geste depuis la moitié libre du cadre : il s'élançait vers la vitre derrière la passagère du premier plan. Il prend d'abord
   0,3 m d'avance (moitié gauche), se ramasse trois images, puis saute vers le milieu ; elle ne se penche que trois images après le freinage.
+- (cycle 7) Un personnage-ombre fait d'un modèle teinté n'est pas un aplat : le rig du visage écrivait sa texture dans le matériau partagé
+  (visage, cravate, barbe imprimés sur les bras et les jambes). Corrigé dans le moteur : un acteur `silhouette` garde un matériau uni et son
+  visage n'est que la couche des yeux. Vérifier un aplat sur un agrandissement, pas sur une vignette.
+- (cycle 7) Une ombre de la même valeur que le costume du héros se confond avec lui dès qu'ils se touchent : choisir sa teinte à l'écran (rendre
+  quatre candidates sur la même image et mesurer) pour qu'elle soit à mi-chemin entre le costume et le mur.
+- (cycle 7) La coque d'encre de la tête, passée dans le matériau de l'ombre, cachait les yeux dès que l'ombre n'était plus aplatie (elle est
+  12 mm devant le visage) : elle est masquée sans liseré, vue de l'intérieur avec.
+- (cycle 7) Le transfert de poids automatique (`idleShift`) décale le bassin de 7 cm de côté : un personnage aplati en travers des épaules
+  entrait dans son mur et disparaissait dès qu'il s'arrêtait face à +Z. Le moteur ne l'applique plus aux acteurs aplatis en x.
+- (cycle 7) Un accessoire attaché à un porteur aplati était divisé par son échelle x (0,03) : une montre de deux mètres. Le moteur prend
+  l'échelle médiane du porteur.
+- (cycle 7) Étirer les jambes ne relève pas les hanches (l'étirement part de la hanche vers le bas) : sans décalage de y les pieds sont sous
+  le trottoir. Jambes 1,9 fois : y = +0,86 m.
+- (cycle 7) Vu de la chaussée, un geste vers le mur part vers le fond de l'image : un doigt pointé sur le mur se lit comme un poing près du
+  menton. Jouer le geste le long du mur, ou faire entrer le bras depuis le hors-champ.
+- (cycle 7) De dos et de haut, un corps debout cache le sol devant ses pieds jusqu'à l'endroit où la ligne de visée qui passe au-dessus de
+  sa tête touche le sol (cinq mètres pour une caméra à 4,4 m) : ce qui sort devant lui est invisible. Décaler la caméra sur le côté.
+- (cycle 7) Une vue du dessus pas assez verticale montre celui qui est debout comme une masse posée sur celui qui est couché : faire passer
+  le bas du cadre par ses talons et garder l'inclinaison sous la moitié du champ vertical.
+- (cycle 7) Un homme de la série mesure 2,2 m au sommet de la mèche (2,45 m vu de la chaussée, à hauteur du mur) : une inscription sur le
+  mur à 2 m est cachée par qui passe. La mettre entre 2,45 m et le bandeau, ou relever la caméra.
+- (cycle 7) Un cadran blanc sur un mur clair ou sur une bande blanche ne se voit pas : lui donner un liseré dans la teinte de l'ombre.
+- (cycle 7) `fit()` visait le milieu du cadre : avec une bande de sous-titres à dégager, le quart haut de l'image restait vide et la focale
+  s'ouvrait trop. Il vise maintenant le milieu de la fenêtre autorisée ; donner les points extrêmes (bras levés, objet tenu) et non le corps
+  entier quand le sujet est un visage.
+- (cycle 7) Une chose plate couchée en l'air est vue par la tranche depuis une caméra à sa hauteur : la mettre debout, son plat vers la
+  caméra, pour le temps suspendu.
+- (cycle 7) Le clip du marteau du juge lève le bras derrière la tête : de face rien ne monte. Guider le poing (`reach`) à côté de la
+  perruque, du côté du bloc, pendant l'élan ; poing sur le manche après le coup.

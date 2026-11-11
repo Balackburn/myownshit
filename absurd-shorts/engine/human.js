@@ -295,20 +295,51 @@ for (let i = 0; i < pp.count; i++) {
   root.userData.dims = { jacketColor: !o.naked && ['suit', 'waiter', 'skirtsuit'].includes(o.outfit) ? C.jacket : null, tailW: 0.4 * Wd, torsoH, front, hw, hh, hd, skinColor: ATL ? (atlasRegionColor(AR.skinCap) || o.skin) : o.skin, tieColor: hasTie ? C.tie : null, tieX: ATLB ? -0.014 : 0, hairColor: o.hair === 'bald' || o.hat && o.hat !== 'none' ? null : (ATL ? '#17161A' : o.hairColor) };
   root.userData.hideFlatTie = () => { if (ATLB) { const m = atlasMaterialNoTie(); if (m) jacket.material = m; return !!m; } if (flatTie) flatTie.visible = false; return true; };
   root.userData.setExpression = (expr, blink = false) => {
+    if (root.userData.silhouette) return;   // a shadow (cast `silhouette`) has one material for every part: a face written into it would be painted on its arms and legs too
     const m = headMesh.material[4];
     const tex = ATL ? atlasFaceTexture(expr, blink) : HEROFACE ? variantFaceTexture(expr, faceOpts, blink) : faceTexture({ ...faceOpts, expression: blink ? 'blink' : expr });
     if (tex && m.map !== tex) { m.map = tex; m.needsUpdate = true; }
   };
   // face rig (engine/facerig.js): the same painted face as animated layers; built on first use (cast `toon` / `faceRig`)
-  if (hasFaceRig && (ATL || HEROFACE)) { let fr = null, glowMesh = null; root.userData.setFaceState = st => { if (!fr) { fr = makeFaceRig(ATL ? null : faceOpts); const m = headMesh.material[4]; m.map = fr.texture; m.needsUpdate = true; } fr.set(st); };
+  if (hasFaceRig && (ATL || HEROFACE)) { let fr = null, glowMesh = null; root.userData.setFaceState = st => { if (!fr) { fr = makeFaceRig(ATL ? null : faceOpts); if (!root.userData.silhouette) { const m = headMesh.material[4]; m.map = fr.texture; m.needsUpdate = true; } } if (!root.userData.silhouette) fr.set(st); };   // (a shadow keeps its flat shade: its face is the glow layer alone)
     // a shot in the dark (scene `dark`): the eyes stay visible. A second skin on the face, the eyes alone, unlit, on layer 1: the look draws that layer over the
     // darkened picture (engine/look.js), hidden by whatever stands in front of the head
+    // a shadow in profile (cast `silhouette`): one white eye on the side of its head, the one toward the camera; from the front, its two eyes: never
+    // the three. Which one is seen is decided when the head is drawn, from the camera of that picture and the turn of the head in the frame of the
+    // body (the flattening of the body left out: a shadow flat on its wall and seen square is in profile until its head turns to us)
+    let sides = null; const _m4 = new THREE.Matrix4(), _f = new THREE.Vector3(), _x = new THREE.Vector3(), _c = new THREE.Vector3(), _q = new THREE.Quaternion();
+    const sideEyes = (st, big) => {
+      if (!sides) { const mk = () => { const c = document.createElement('canvas'); c.width = 96; c.height = 224; const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 8;
+          return { c, g: c.getContext('2d'), tx, key: null, mat: new THREE.MeshBasicMaterial({ map: tx, transparent: true, depthWrite: false, toneMapped: false, fog: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }) }; };
+        sides = { L: mk(), R: mk() }; glowMesh.material[0] = sides.L.mat; glowMesh.material[1] = sides.R.mat;   // the box's +X face: his left side; -X: his right
+        glowMesh.onBeforeRender = (r, sc, cam, geo, mat) => {
+          if (mat !== glowMesh.material[4] && mat !== sides.L.mat && mat !== sides.R.mat) return;
+          _m4.copy(root.matrixWorld).invert().multiply(headMesh.matrixWorld); _f.set(0, 0, 1).transformDirection(_m4); _x.set(1, 0, 0).transformDirection(_m4);
+          _c.setFromMatrixPosition(headMesh.matrixWorld).sub(cam.position).negate().applyQuaternion(root.getWorldQuaternion(_q).invert()).normalize();
+          const d = _f.dot(_c), sd = _x.dot(_c), prof = Math.abs(d) < 0.42, op = glowMesh.userData.op ?? 1;
+          mat.opacity = mat === glowMesh.material[4] ? (prof ? 0 : op) : mat === sides.L.mat ? (prof && sd > 0 ? op : 0) : (prof && sd < 0 ? op : 0); }; }
+      const g1 = root.userData.glowGain || 1;
+      for (const sn of 'LR') { const S = sides[sn], e0 = st.eyes[sn], k = Math.min(1.9, (e0.s || 1) * (big || 1.3)), l0 = e0.lid || 0, e = { ...e0, lid: l0 * 0.3, low: (e0.low || 0) * 0.3 }, key = [e.kind, k.toFixed(2), e.lid.toFixed(2), e.low.toFixed(2), (e.py || 0).toFixed(1)].join('|');   // (the lids as on its two eyes seen from the front: a heavy lid takes the top third of the oval at most; shut, the eye is gone)
+        S.mat.color.setScalar(g1); if (key === S.key) continue; S.key = key;
+        const W = 96, H = 224, g = S.g; g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, W, H);
+        if (e.kind !== 'closed' && !(e.kind === 'open' && l0 >= 0.9)) {
+          const front = sn === 'L' ? 1 : -1, rx = 0.17 * W * k, ry = 0.06 * H * k, cx = sn === 'L' ? 0.07 * W + rx : W - 0.07 * W - rx, cy = H * 0.36;   // (on the +X face the front of the head is at the left of the picture; on the -X face, at the right)
+          g.fillStyle = '#FFFFFF'; g.strokeStyle = '#FFFFFF'; g.lineCap = 'round';
+          if (/happy|smile|arc/.test(e.kind)) { g.lineWidth = Math.max(3, ry * 0.42); g.beginPath(); g.ellipse(cx, cy + ry * 0.35, rx * 0.9, ry * 0.9, 0, Math.PI, 2 * Math.PI); g.stroke(); }
+          else { const top = cy - ry + 2 * ry * (e.kind === 'open' ? (e.lid || 0) : 0), bot = cy + ry - 2 * ry * (e.kind === 'open' ? (e.low || 0) : 0);
+            g.save(); g.beginPath(); g.rect(0, top, W, Math.max(0, bot - top)); g.clip(); g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, 2 * Math.PI); g.fill();
+            g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(cx - front * rx * 0.42, cy + (e.py || 0) * ry * 0.45, Math.min(rx, ry) * 0.46, 0, 2 * Math.PI); g.fill(); g.restore(); }   // its pupil: a hole in the white, toward the front of the head
+        }
+        S.tx.needsUpdate = true; }
+    };
     root.userData.setEyeGlow = (st, k, big) => {
       if (!fr || k < 0.02) { if (glowMesh) glowMesh.visible = false; return; }
-      if (!glowMesh) { const none = new THREE.MeshBasicMaterial({ visible: false }), gm = new THREE.MeshBasicMaterial({ map: fr.glow(st, big), transparent: true, depthWrite: false, toneMapped: false, fog: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      if (!glowMesh) { const none = new THREE.MeshBasicMaterial({ visible: false }), gm = new THREE.MeshBasicMaterial({ map: fr.glow(st, big, !!root.userData.glowEyesOnly, !!root.userData.silhouette), transparent: true, depthWrite: false, toneMapped: false, fog: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
         glowMesh = new THREE.Mesh(headMesh.geometry, [none, none, none, none, gm, none]); glowMesh.name = 'eyeGlow'; glowMesh.layers.set(1); if (root.userData.glowLayer0) glowMesh.layers.enable(0); glowMesh.userData.noAO = true; glowMesh.userData.noBend = true; headMesh.add(glowMesh); }   // glowLayer0: a silhouette (cast `silhouette`) keeps its white eyes in the lit pass
       if (glowMesh.geometry !== headMesh.geometry) glowMesh.geometry = headMesh.geometry;
-      fr.glow(st, big); glowMesh.material[4].opacity = Math.min(1, k * 1.15); glowMesh.visible = true;
+      if (root.userData.silhouette && root.userData.profileEye !== false) sideEyes(st, big);
+      fr.glow(st, big, !!root.userData.glowEyesOnly, !!root.userData.silhouette); glowMesh.material[4].opacity = glowMesh.userData.op = Math.min(1, k * 1.15); glowMesh.visible = true;
+      if (root.userData.glowGain) glowMesh.material[4].color.setScalar(root.userData.glowGain);   // a shadow's eyes: brighter than white before the look's tone curve, so that they come out white
       // dark-room eyes (darkEyes above 1.9): the lit skin is scaled about the point between the eyes, so that they spill over the head: two eyes as wide as
       // the man. The face panel keeps its plane (the scaling point is on it)
       const K = Math.max(1, (big || 1.3) / 1.9), ey = hh * 0.64, ez = hd / 2 - 0.015 * 0.64; glowMesh.scale.setScalar(K); glowMesh.position.set(0, ey * (1 - K), ez * (1 - K) + (K > 1 ? 0.045 : 0));   // (the face leans back 15 mm from chin to crown: the scaling point is on it at eye height, or the scaled skin sinks behind the face); 45 mm in front of the face: at 12 mm the hair and the ears at the sides of the head stood in front of the scaled skin and drew a thin vertical line through each big eye

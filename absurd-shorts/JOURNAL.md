@@ -1145,3 +1145,44 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - **Pistes** : un contrôle à la génération « rien d'essentiel dans les bandes » (carton 7-18 %, sous-titres 77-83 %) à partir des positions
   projetées des accessoires marqués ; un cadrage automatique `fit` (points + marges → visée et focale) dans le kit, que j'ai écrit trois fois
   à la main dans ce cycle ; une marche lente sans glissement pour les personnages agrandis.
+
+## Cycle 7 — l'ombre refaite après une double revue à 6,4 ; histoire 41 version 4 livrée (en cours)
+
+- **Histoire 41 « L'élan », version 4** : génération complète de la dernière passe (28,4 s, −16,0 LUFS, contrôle HyperFrames sans erreur,
+  aucune image isolée aux coupes), contrôlée sur bandes de mouvement (coups à la vitre, contrôleur surfeur, arrêt au poteau, demi-tour, feu
+  vert) et envoyée. C'est la version à publier ; les trois revues prévues sont faites (8,4 / 8,3 à la troisième).
+- **Histoire 42 « L'ombre », première revue : 6,4 (direction artistique) et 6,4 (animation).** Les deux disent la même chose : l'idée est
+  bonne, les deux premiers tiers se lisent, mais (1) l'ombre n'était pas un dessin fini, (2) une douzaine de gags étaient au bord du cadre,
+  cachés ou joués en deux images, (3) le dernier tiers (le retournement et la fin) ne se lisait pas sur téléphone, (4) les tenues étaient
+  mortes. Une passe complète a suivi, plan par plan (26 plans).
+- **Analyse du cycle (faiblesses retenues)** : (a) un personnage défini par « modèle + teinte » n'est pas un dessin : il faut le regarder
+  agrandi ; (b) je trouvais les cadres par essais : douze cadres faux au premier brouillon ; (c) les gestes d'une silhouette devant son
+  propre corps ne se lisent pas ; (d) des temps de deux à quatre images pour des poses qui doivent se lire ; (e) des tenues sans vie.
+- **Rig et moteur (tout optionnel ; non-régression : voir plus bas)** :
+  - *l'ombre* : la cause de « l'ombre pas en aplat » était un défaut du moteur : le rig du visage écrivait sa texture dans le matériau partagé
+    de la silhouette (visage, cravate, barbe sur chaque membre). Corrigé. Yeux de l'ombre redessinés : ovales blancs plats, pupille = un trou,
+    gain 2 (`silhouetteEyes`), paupières allégées, fermés = disparus ; **œil de profil** : un seul œil blanc sur le côté de la tête quand elle
+    est vue de profil (décidé à l'image, d'après la caméra et l'orientation de la tête hors aplatissement) ; coque d'encre masquée (elle cachait
+    les yeux dès que l'ombre se levait) ; liseré `silhouetteRim` gardé pour l'ombre devenue corps ; `silhouetteMouth` en option ;
+  - *accessoires* : `silhouette` et `flat` sur n'importe quel accessoire (l'ombre d'un potelet, une serviette d'avocat en aplat),
+    `castShadow: false` ; accessoire porté par un acteur aplati (échelle médiane du porteur) ;
+  - *corrections* : le transfert de poids automatique poussait un acteur aplati dans son mur (elle disparaissait à l'arrêt) ;
+  - *clips* : `showSole` (la semelle montrée à la caméra), `halt` (la main levée, poignet cassé) ;
+  - *décors et accessoires* : `plainWall` devient le pied d'un immeuble parisien (bandeau, balcon, volets, plaque de rue, pochoir, coin
+    d'ombre d'un toit) ; `potelet`, `watchFace`, `shoeSole`, `zebra`, `pavingJoints`, `roadDashes` ; `shadowRack` (ombres séparées avec
+    yeux, `pick`, `gone`, chien pendu par le collier) ; `custodyCalendar` (une rangée, cadre calé, jour unique) ; `lostPoster` (papier blanc,
+    verso où l'impression transparaît, tampon sur fond blanc) ; `mairie` (`front`, `frontSign`), `chambre` (`clutter`).
+- **Kit** : `fit()` vise le milieu de la fenêtre autorisée (et non du cadre) ; `bands()` ; utilisés pour S08, S20, S21, S26.
+- **Mise en scène refaite (histoire 42)** : teinte unique violette pour toutes les ombres et règle posée par un potelet ; S02 (deux cadrans),
+  S03 (temps suspendu, essoufflement), S05 (semelle), S06-S09 (mairie verte, ÉTAT CIVIL, verso de l'affiche, élan du tampon, mâchoire sur
+  chaque syllabe), S10-S11 (le grand type : 1,5 fois le héros et un chapeau ; l'ombre sur échasses ; double regard aux yeux exorbités ;
+  haussement d'épaules de face), S12 (portant de face, bras au-dessus des têtes, la petite rapportée au bout du bras), S13-S15 (sifflet dans
+  le dos, bras de la loi qui entre dans le cadre, amende collée sous « DÉFENSE D'AFFICHER »), S16-S17 (vrai affaissement, tapotement du pied,
+  avocate écartée, carton), S18-S19 (élan et coup du marteau dans le cadre, calendrier sur une rangée), S20-S21 (réveil plus court et plus
+  serré ; lever en trois phases lisibles ; l'homme-feuille debout en l'air avant de glisser), S22 (elle passe devant le potelet), S23-S25
+  (ses talons seuls, sol qui défile, vague du cahot, gros pouce, descente sur le visage), S26 (passage piéton, sortie entre ses pieds, montre,
+  gros plan final).
+- **Décisions prises sans question** : (1) le carton unique passe de S09 (« ELLE EST MAJEURE » : le mot était trois fois dans l'image) à S17
+  (« AVEC UN AVOCAT ») ; (2) le film finit 0,7 s plus tard (31,2 s ; la narration n'est pas touchée) : le dernier plan a cinq temps ;
+  (3) l'écriture du procès-verbal est coupée (S15 : quatre actions en 1,5 s) ; (4) l'agent arrive par derrière (S14) ; (5) la teinte de
+  l'ombre est un violet et non un noir : choisie à l'écran parmi quatre.

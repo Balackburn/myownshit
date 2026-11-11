@@ -48,6 +48,43 @@ def frame_size(lens, d, aspect=9 / 16):
     h = 2 * d * math.tan(math.radians(lens) / 2); return (round(h * aspect, 3), round(h, 3))
 
 
+def fit(frm, points, margin=0.07, top=0.08, bottom=0.92, lenses=range(26, 81), aspect=9 / 16):
+    """(cycle 7) The aim and the lens of a camera at `frm` that holds every point of `points` ([x, y, z], or a dict name -> point): at least `margin`
+    of the width from the sides, between `top` and `bottom` of the height. Returns (look, lens, where): `look` aims at the middle of the points'
+    bearings and elevations, `lens` is the narrowest of `lenses` (vertical field, degrees) that fits, `where` is {name or index: (x, y)}; lens None
+    when none fits. Measure the points first (script `debugJoints`), and give the extreme pose as well as the held one: a display on a head, a hand
+    at full stretch, the top of a pole that bends. The frame is three times narrower than it is tall in angle: with a lens of 44 degrees, 26 degrees
+    across: when nothing fits, move the camera (further, or more along the action), do not widen past 65."""
+    P = points if isinstance(points, dict) else {i: q for i, q in enumerate(points)}
+    yaw, el = [], []
+    for q in P.values():
+        dx, dy, dz = q[0] - frm[0], q[1] - frm[1], q[2] - frm[2]; yaw.append(math.atan2(dx, dz)); el.append(math.atan2(dy, math.hypot(dx, dz)))
+    yc, ec0 = (max(yaw) + min(yaw)) / 2, (max(el) + min(el)) / 2
+    look = None
+    for lens in lenses:
+        # the middle of the points goes to the middle of the window they may fill, not to the middle of the frame (with a caption band to keep clear,
+        # the window is the upper three quarters: aimed at the middle of the frame, the lens had to open until the lowest point cleared the band, and
+        # the top quarter of the picture stayed empty)
+        ec = ec0 - math.atan((0.5 - (top + bottom) / 2) * 2 * math.tan(math.radians(lens) / 2))
+        look = [round(frm[0] + 10 * math.sin(yc) * math.cos(ec), 3), round(frm[1] + 10 * math.sin(ec), 3), round(frm[2] + 10 * math.cos(yc) * math.cos(ec), 3)]
+        w = {k_: project(frm, look, lens, q, aspect) for k_, q in P.items()}
+        if all(v and margin <= v[0] <= 1 - margin and top <= v[1] <= bottom for v in w.values()): return look, lens, {k_: v[:2] for k_, v in w.items()}
+    return look, None, {}
+
+
+def bands(frm, look, lens, points, card=False, aspect=9 / 16):
+    """(cycle 7) Which of `points` (dict name -> [x, y, z]) fall outside the frame, in the caption band (0.77-0.83 of the height) or, with card=True,
+    in the band of a one-line title card (0.07-0.18): a list of (name, 'out' | 'captions' | 'card', (x, y)). Call it on what must be read: a face, a
+    stamp, the lettering of a prop, the hand that makes the gag."""
+    bad = []
+    for k_, q in points.items():
+        v = project(frm, look, lens, q, aspect)
+        if not v or not (0 <= v[0] <= 1 and 0 <= v[1] <= 1): bad.append((k_, 'out', v and v[:2]))
+        elif 0.77 <= v[1] <= 0.83: bad.append((k_, 'captions', v[:2]))
+        elif card and 0.07 <= v[1] <= 0.18: bad.append((k_, 'card', v[:2]))
+    return bad
+
+
 # standard framings: (x, z) is the subject's feet, the subject faces +Z; dx shifts the camera sideways
 def CU(x=0, z=0, h=1.75, dx=0.25, d=1.7, shake=0.008, lens=44):       # face close-up
     return [cam(0.0, [x + dx, h, z + d], [x + dx * 0.9, h, z + d - 0.18], [x, h - 0.03, z], [x, h - 0.02, z], lens=lens, shake=shake)]
