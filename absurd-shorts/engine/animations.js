@@ -684,6 +684,11 @@ Object.assign(CLIPS, {
   shoulderRide: (t, p = {}) => { const b = Math.abs(S(t * PI * (p.freq ?? 3.1)));
     return { hipL: [-1.45, 0, 0.24], hipR: [-1.45, 0, -0.24], kneeL: [1.5, 0, 0], kneeR: [1.5, 0, 0], torso: [0.1 + 0.05 * b, 0, 0], head: [0.05 - 0.08 * b, 0, 0],
       ...arms(m([-0.55, 0, 0.3], [-0.55, 0, 0.3]), m([-0.8, 0, 0], [-0.8, 0, 0])), root: { y: -0.5 + 0.03 * b } }; },
+  // hanging head down like a bat, arms folded: the body turned over about the hips (they stay 1.05 m above the actor's position: put him 1.9 m up for
+  // a head beside a standing man's); he still faces the same way; a slow sway. p.phase
+  batHang: (t, p = {}) => ({ root: { rz: PI + 0.05 * S(t * 2.4 + (p.phase ?? 0)), pivot: 'hips' }, ...arms(m([-0.35, 0, 0.5], [-0.35, 0, 0.5]), m([-1.9, 0, 0], [-1.9, 0, 0])), hipL: [0, 0, 0.04], hipR: [0, 0, -0.04], head: [-0.08, 0, 0] }),
+  // sitting, the left wrist brought up in front of the chest, the head down at the watch (the seated `checkWatch`)
+  sitWatch: (t) => ({ ...CLIPS.sit(t), shoulderL: [-0.42, 0, 0.12], elbowL: [-1.55, 0.75, 0], handL: [0, 0, 0.45], head: [0.42 + 0.02 * S(t * 2), 0.22, 0], torso: [0.05, 0, 0] }),
 });
 
 export const CLIP_NAMES = Object.keys(CLIPS);
