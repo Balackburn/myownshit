@@ -605,9 +605,10 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   const ud = A.obj.userData, cfg = ud.toonCfg || {}, d = 1 / FPS;
   // the story's own keys (k(t, toon={...})); `auto` in a key (0..1) doses the automatic layers while the key holds: a choreographed fall (the feet leave,
   // the head stays) must not be stretched and squashed again by its own speed
-  let keyed = null, ka = 1;
+  let keyed = null, ka = 1, ks = 1;   // ks (cycle 5): `autoSq` in a key (0..1) doses the automatic squash & stretch alone (a run seen close: the head must stay readable)
   if (A.toonKeys) { const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1, bl = pk && w < 1;
-    keyed = bl ? blendToon(pk.toon, kk.toon, w) : kk.toon; ka = bl ? lerp(pk.toon.auto ?? 1, kk.toon.auto ?? 1, clamp01(w)) : (kk.toon.auto ?? 1); }
+    keyed = bl ? blendToon(pk.toon, kk.toon, w) : kk.toon; ka = bl ? lerp(pk.toon.auto ?? 1, kk.toon.auto ?? 1, clamp01(w)) : (kk.toon.auto ?? 1);
+    ks = bl ? lerp(pk.toon.autoSq ?? 1, kk.toon.autoSq ?? 1, clamp01(w)) : (kk.toon.autoSq ?? 1); }
   const auto = (cfg.auto ?? 1) * ka;
   let tp = pp ? blendToon(pp.toon || {}, pc.toon || {}, ease.out(clamp01(dt / BL))) : (pc.toon || {});
   const extra = {}, ph = A.phase * 9 + (A.id ? A.id.length * 0.77 : 0);
@@ -617,7 +618,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     const h = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0);
     const h1 = h(t), vy = (h(t + d) - h(t - d)) / (2 * d), a1 = (h(t + d) - 2 * h1 + h(t - d)) / (d * d), a2 = (h(t + 2 * d) - 2 * h1 + h(t - 2 * d)) / (4 * d * d), a3 = (h(t + 3 * d) - 2 * h1 + h(t - 3 * d)) / (9 * d * d);
     const stretch = clamp(Math.abs(vy) * 0.05, 0, 0.32), squash = clamp(Math.max(a1 * 0.6, a2, a3) * 0.004, 0, 0.38);
-    const sy = 1 + (stretch - squash) * auto; if (Math.abs(sy - 1) > 0.004) { const kx = 1 / Math.sqrt(sy); extra.sq = [kx, sy, kx]; }
+    const sy = 1 + (stretch - squash) * auto * ks * (cfg.autoSq ?? 1); if (Math.abs(sy - 1) > 0.004) { const kx = 1 / Math.sqrt(sy); extra.sq = [kx, sy, kx]; }
     const hl = clamp(-a1 * 0.0016, -0.03, 0.22) * auto * (cfg.hatLag ?? 1); if (Math.abs(hl) > 0.004) extra.hat = [hl, 0, 0];   // the hat is not nailed on: it lifts when the body drops away, presses down on a landing
     const p0 = posAt(A, t - 3 * d), p1 = posAt(A, t), p2 = posAt(A, t + 3 * d), ax = (p2.x - 2 * p1.x + p0.x) / (9 * d * d), az = (p2.z - 2 * p1.z + p0.z) / (9 * d * d);
     const af = ax * Math.sin(ry) + az * Math.cos(ry), as = ax * Math.cos(ry) - az * Math.sin(ry);   // forward / sideways (the actor faces +Z turned by ry)

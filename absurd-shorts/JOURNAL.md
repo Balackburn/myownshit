@@ -907,3 +907,30 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - Pièges notés : après un déplacement `glide`, le clip redevient `idle` (quatre passagers « assis » sur un banc étaient debout) : clé de clip explicite à
   l'arrivée ; `checkWatch` est debout : clip `sitWatch` ajouté ; le siège d'un chauffeur trop haut lui met la tête au plafond ; en gros plan, viser la tête
   réelle d'un coureur (0,45 m devant ses pieds, 0,3 m plus bas que debout), pas ses pieds.
+
+### Histoire 41 — troisième passe sur images fixes ; cycle 5 : contrôle de non-régression
+
+- **Trouvaille (moteur)** : en course, l'écrasement automatique de chaque appui tombe sur une seule image, jamais la même (4,4 foulées par seconde :
+  un appui toutes les 3,4 images) ; mesuré : hauteur du corps 0,76 · 1,05 · 1,02 · 0,91 · 0,98 · 1,01 · 1,04 · 0,82… La tête du héros descendait de 40 cm
+  pendant une image, sortait des gros plans, et l'afficheur sur sa tête devenait illisible (un tiers du film est en gros plan sur un coureur).
+  Ajout au moteur, optionnel (sans lui rien ne change) : `autoSq` dans une clé « toon » dose l'écrasement et l'étirement automatiques seuls ;
+  0,3 dans la base de course du héros : il reste un rebond, la tête tient en place (vérifié sur 14 images de gros plans).
+- **Contrôleurs (S12)** : les tickets faisaient 8 % de la largeur et le héros était coupé au bord. Décision : caméra à hauteur du héros, sur le côté ;
+  le héros hors champ (seul le parapluie va vers lui), le contrôleur en pied sur le dos de la passagère, les deux voyageurs et leurs tickets (50 cm) en
+  diagonale vers le fond.
+- **Tête en bas (S14–S16)** : le contrôleur pendait une demi-tête trop bas et son bras cachait la moitié de l'afficheur : remonté de 48 cm, écarté de
+  14 cm, caméra plus de face ; l'afficheur reste dans le cadre pendant le resserrement de S16.
+- **Au feu (S18, S19)** : poteau un peu plus dans le cadre, balancement raccourci (les pieds sortaient à droite) ; « Pas ses passagers » a son propre
+  cadre, plus serré : lui en pied au quart gauche, ils passent derrière lui.
+- **Gare (S20)** : les quatre resserrés sur le banc et caméra reculée : plus personne dans les 8 % du bord.
+- **Fin (S22)** : le second coureur n'était qu'un bras au bord du cadre, puis un dos, et le héros nous tournait le dos pour le suivre. Décision : il
+  arrive **du fond de la rue, de face**, derrière le héros qui a les yeux fermés (on le voit venir, pas lui), passe à 50 cm de son épaule et sort à
+  gauche de la caméra ; le vent de son passage ouvre les yeux du héros, sa tête le suit vers nous et revient ; cadre large au passage, puis la caméra
+  avance sur celui qui reste ; feu vert, regard au feu, regard vers nous : il reste. (Le coureur va en sens inverse de la ligne : assumé, c'est un
+  autre départ.)
+- **Non-régression du cycle 5** (anciennes histoires rendues avec le moteur actuel, comparées à leurs images de référence) : au pire 0,49 % de pixels
+  changés ; « Le trou » 0,16 % ; « L'éternuement » : mêmes écarts qu'au cycle 4, au centième près (écarts connus entre le script actuel et la couche 3D
+  livrée) : les ajouts du cycle (suite du mouvement, amorti, oscillation des accessoires, pupilles, langue au vent, dosage de l'écrasement) sont tous
+  optionnels et ne modifient aucune ancienne animation.
+- Skill : trois règles ajoutées aux « Erreurs à éviter » (course vue de près, passant filmé de face, file dans la profondeur) ; `autoSq` documenté dans
+  la référence du rig.

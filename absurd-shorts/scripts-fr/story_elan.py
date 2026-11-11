@@ -44,7 +44,7 @@ D1 = st.dur('S01'); BR1 = 1.55                       # the bus brakes
 ZC1 = lambda t: round(z1(min(t, BR1)) + 3.15, 3)     # the bus keeps its front door 0.9 m behind him; then it falls back
 ZC2 = round(ZC1(BR1) - 4.8, 3)                       # where it stops
 RUN = {'freq': 4.4}
-SPRINT = lambda **kw: {'bend': {'spine': [0.42, 0, 0, 1.04, None], 'neck': [-0.3, 0, 0, 1.1, None]}, **kw}
+SPRINT = lambda **kw: {'bend': {'spine': [0.42, 0, 0, 1.04, None], 'neck': [-0.3, 0, 0, 1.1, None]}, 'autoSq': 0.3, **kw}   # autoSq: at 4.4 strides a second the automatic squash of each footfall lands on one frame in three or four, never the same: seen close, his head drops 40 cm for a frame; a third of it is a bounce
 SHOUT = {'gx': 0.9, 'jaw': 0.6, 'brow': 0.7, 'eye': 0.25}
 def knock1(t, on, face=SHOUT):                       # his left hand on the glass of the door (on), or drawn back, at t (the door runs with him)
     tgt = [3.84, 1.55, z1(t) + 0.9] if on else [4.35, 1.62, z1(t) + 0.6]
@@ -210,11 +210,11 @@ st.shot('S11', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner
 st.cue('sfx:tick', 'S11', 0.0, 0.3)
 
 # 12: his inspectors: one surfs on the back of the lady, sideways, a hand held out to the two behind; their tickets come up one after the other; he
-#     punches the first. Seen from the pavement side, in front: he runs at the right of the frame, the tail goes away to the left
+#     punches the first. Seen from the pavement side, level with the hero (who is out of the frame): the inspector large at the right, the tail goes away to the left
 D12 = st.dur('S12'); Z12 = 12.0; T12 = [0.28, 0.4]; PU12 = 0.8
 def tick12(i, who):                                   # a ticket held up over a passenger: (the prop, his toon keys)
     a = [LANE + OFFX[who] + 0.1, FLY[who] + 1.05 + 0.8, round(Z12 + GAP[who] - 0.65, 3)]; b = [a[0], a[1], round(a[2] - V * D12, 3)]; at_ = lambda t: lerp3(a, b, t / D12)
-    prop = P(f'tk{i}', 'bigTicket', pos=a, ry=160, scale=0.01, opts={'w': 0.34, 'punchAt': PU12 if i == 0 else None}, keys=[k(0.0, to=b, dur=D12, ease='linear'), k(T12[i], scale=1.0, dur=0.08, ease='outBack')])
+    prop = P(f'tk{i}', 'bigTicket', pos=a, ry=160, scale=0.01, opts={'w': 0.5, 'punchAt': PU12 if i == 0 else None}, keys=[k(0.0, to=b, dur=D12, ease='linear'), k(T12[i], scale=1.0, dur=0.08, ease='outBack')])
     hold = lambda t: {'hands': {'L': 'pinch', 'R': 'grip'}, 'reach': {'L': [at_(t)[0] - 0.02, at_(t)[1] - 0.14, at_(t)[2], 1, 0.05]}}
     return prop, [k(T12[i] - 0.1, toon=hold(T12[i]), toonDur=0.1, toonEase='out'), k(T12[i], toon=hold(D12), toonDur=round(D12 - T12[i], 3), toonEase='linear')]
 TK12 = [tick12(0, 't3'), tick12(1, 'tour')]
@@ -229,7 +229,7 @@ st.shot('S12', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner
                  k(PU12 - 0.1, toon={'hands': {'L': 'pinch'}, 'reach': {'L': [punch12(PU12)[0], punch12(PU12)[1] - 0.05, punch12(PU12)[2] - 0.08, 1, 0.05]}}, toonDur=0.1, toonEase='in'),   # he punches the first one
                  k(PU12, toon={'hands': {'L': 'pinch'}, 'reach': {'L': [punch12(D12)[0], punch12(D12)[1] - 0.05, punch12(D12)[2] - 0.08, 1, 0.05]}, 'face': {'lid': 0.4}}, toonDur=round(D12 - PU12, 3), toonEase='linear')])],
         props=[HEADSIGN(), UMBT(), TK12[0][0], TK12[1][0]],
-        cams=[cam(0.0, [LANE + 2.2, 1.9, Z12 - 3.0], [LANE + 2.1, 1.9, Z12 - V * D12 - 2.9], [LANE, 1.7, Z12 + 0.9], [LANE, 1.7, Z12 - V * D12 + 0.9], lens=55)])
+        cams=[cam(0.0, [LANE + 1.9, 2.2, Z12 - 1.0], [LANE + 1.83, 2.2, Z12 - V * D12 - 0.95], [LANE - 0.1, 2.5, Z12 + 3.0], [LANE - 0.1, 2.5, Z12 - V * D12 + 3.0], lens=50)])   # from beside him (he is out of the frame, at our right: only the umbrella goes to him): the inspector at the right, the two tickets going away to the left
 [st.cue('pop', 'S12', t, 0.3) for t in T12]; st.cue('clack', 'S12', PU12, 0.5)
 
 # 13: he asks to get off: his tongue flies beside his head; his eyes go down to the red button on the knot of his tie, he presses it: ARRÊT DEMANDÉ
@@ -248,7 +248,7 @@ st.cue('sfx:tick', 'S13', PR13, 0.4); st.cue('sfx:ding', 'S13', PR13 + 0.03, 0.5
 
 # 14: the answer: the inspector comes down into the frame beside his head, hanging head down like a bat: two faces, one the wrong way up
 D14 = st.dur('S14'); Z14 = -6.0; F14 = 0.26
-BATX, BATY = LANE - 0.44, 1.62 - HEADDROP            # where he hangs: his head level with the hero's, at his left (our right)
+BATX, BATY = LANE - 0.58, 1.62 - HEADDROP + 0.48     # where he hangs: his head level with the hero's, at his left (our right) (+0.36: measured on stills once the run no longer squashed him)
 def bat(z0, dur, y0=None, keys=(), expr='unimpressed'):
     a = [BATX, BATY if y0 is None else y0, round(z0 - HEADFWD, 3)]
     return act('ctrl', a, 180, 'batHang', expr, keys=[k(0.0, look=None), k(0.0, to=[a[0], a[1], round(a[2] - V * dur, 3)], dur=dur, clip='batHang', glide=True, ease='linear', face=180), *keys])
@@ -260,7 +260,7 @@ st.shot('S14', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner
                  k(round(F14 + 0.07, 3), to=[BATX, BATY, round(Z14 - V * D14 - HEADFWD, 3)], dur=round(D14 - F14 - 0.07, 3), glide=True, ease='linear', face=180),
                  k(F14 + 0.07, toon={'sq': [1.08, 0.9, 1.08]}, toonDur=0.04), k(F14 + 0.14, toon={'settle': 0.5}, toonDur=0.1, toonEase='outBack'), k(F14 + 0.6, toon={'face': {'gx': -0.8}}, toonDur=0.08)])],
         props=[HEADSIGN([[0, 'ARRÊT DEMANDÉ']]), BUTTON(-1), UMBT()],
-        cams=[cam(0.0, [LANE + 1.0, 1.55, Z14 - 2.85], [LANE + 0.95, 1.55, Z14 - V * D14 - 2.75], [LANE - 0.2, 1.62, Z14 - HEADFWD], [LANE - 0.2, 1.62, Z14 - V * D14 - HEADFWD], lens=44)])
+        cams=[cam(0.0, [LANE + 0.6, 1.55, Z14 - 2.85], [LANE + 0.55, 1.55, Z14 - V * D14 - 2.75], [LANE - 0.27, 1.69, Z14 - HEADFWD], [LANE - 0.27, 1.69, Z14 - V * D14 - HEADFWD], lens=44)])
 st.cue('sfx:slideDown', 'S14', F14 - 0.05, 0.35); st.cue('sfx:boing', 'S14', F14 + 0.07, 0.3)
 
 # 15: « Au terminus. »: he says it head down, to us; the hero's eyes on him, then ahead
@@ -268,7 +268,7 @@ D15 = st.dur('S15'); Z15 = round(Z14 - V * D14, 3)
 st.shot('S15', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner(Z15, V, D15, expr='tired', keys=[k(0.0, toon=JOG(face={'gx': 0.9, 'brow': 0.9, 'eye': 0.3}), toonDur=0.0), k(0.62, toon=JOG(face={'brow': 0.9, 'eye': 0.3, 'gy': 0.1}), toonDur=0.1)]),
             bat(Z15, D15, expr='smug', keys=st.talk('L09', 'S15', 'smug') + [k(0.0, toon={'face': {'browL': 0.5}}, toonDur=0.0), k(0.7, toon={'face': {'lid': 1}}, toonDur=0.04), k(0.78, toon={'face': {'browL': 0.5}}, toonDur=0.04)])],
         props=[HEADSIGN([[0, 'ARRÊT DEMANDÉ']]), BUTTON(-1), UMBT()],
-        cams=[cam(0.0, [LANE + 0.95, 1.55, Z15 - 2.75], [LANE + 0.9, 1.55, Z15 - V * D15 - 2.65], [LANE - 0.2, 1.62, Z15 - HEADFWD], [LANE - 0.2, 1.62, Z15 - V * D15 - HEADFWD], lens=44)])
+        cams=[cam(0.0, [LANE + 0.55, 1.55, Z15 - 2.75], [LANE + 0.5, 1.55, Z15 - V * D15 - 2.65], [LANE - 0.27, 1.69, Z15 - HEADFWD], [LANE - 0.27, 1.69, Z15 - V * D15 - HEADFWD], lens=44)])
 
 # 16: there is no terminus: the inspector goes back up out of the frame; his pupils go down to pinpricks, a brow gives, his lip shakes; the display goes back to 12 BIS
 D16 = st.dur('S16'); Z16 = round(Z15 - V * D15, 3); R16 = 0.5
@@ -279,7 +279,7 @@ st.shot('S16', 'parisStreet', setOpts={**STREET, 'eiffelX': -25}, actors=[runner
             act('ctrl', [BATX, BATY, round(Z16 - HEADFWD, 3)], 180, 'batHang', 'smug', keys=[k(0.0, look=None), k(0.0, to=[BATX, BATY + 1.4, round(Z16 - V * 0.16 - HEADFWD, 3)], dur=0.16, clip='batHang', glide=True, ease='in', face=180),
                  k(0.16, to=[BATX, BATY + 1.4, round(Z16 - V * D16 - HEADFWD, 3)], dur=round(D16 - 0.16, 3), glide=True, ease='linear', face=180)])],
         props=[HEADSIGN([[0, 'ARRÊT DEMANDÉ'], [R16, '12 BIS']]), BUTTON(-1), UMBT()],
-        cams=closeup(Z16, V, D16, side=1.1, back=2.5, h=1.62, push=0.5))
+        cams=closeup(Z16, V, D16, side=1.1, back=2.5, h=1.62, dy=0.1, push=0.35))
 st.cue('sfx:slideUp', 'S16', 0.0, 0.3); st.cue('sfx:tick', 'S16', R16, 0.35); st.cue('sfx:slideDownSlow', 'S16', R16, 0.3)
 
 # 17: yesterday: a traffic light goes to red
@@ -296,10 +296,10 @@ CU18 = BK18 + 0.1                                     # the close shot
 PH18 = 2.1                                            # the height of the bending part of the pole
 A18 = 0.75                                            # how far it bends
 hand18 = lambda a, s_: pole_pt(TL, PH18, a, s_, ry=90)
-X18 = 5.02; IN18 = [LANE + 0.5, 0, round(TL[2] + 0.35 + V * G18, 3)]; AT18 = [X18, 0, TL[2] + 0.35]; OUT18 = [X18 + 0.03, 0.8, TL[2] - 1.75]
+X18 = 5.02; IN18 = [LANE + 0.5, 0, round(TL[2] + 0.35 + V * G18, 3)]; AT18 = [X18, 0, TL[2] + 0.35]; OUT18 = [X18 + 0.03, 0.8, TL[2] - 1.55]
 HOLD18 = lambda a, **kw: {'hands': {'L': 'grip', 'R': 'grip'}, 'reach': {'L': [*hand18(a, 1.62), 1, 0.05], 'R': [*hand18(a, 1.42), 1, 0.05]}, **kw}
 LEAN18 = {'hands': {'L': 'grip'}, 'reach': {'L': [*hand18(0.0, 1.5), 1, 0.05]}}   # a hand left on the pole
-SIDE18 = lambda t=0.0: cam(t, [10.0, 1.6, TL[2] - 0.9], [9.95, 1.6, TL[2] - 0.9], [5.5, 1.7, TL[2] - 0.9], [5.5, 1.7, TL[2] - 0.9], lens=60)   # across the pavement: the pole at the left, the road to swing over
+SIDE18 = lambda t=0.0: cam(t, [10.0, 1.6, TL[2] - 0.7], [9.95, 1.6, TL[2] - 0.7], [5.5, 1.7, TL[2] - 0.7], [5.5, 1.7, TL[2] - 0.7], lens=60)   # across the pavement: the pole at the left, the road to swing over
 st.shot('S18', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', IN18, 180, 'run', 'scared', params=RUN, keys=[k(0.0, look=None), k(0.0, to=AT18, dur=G18, clip='run', params=RUN, ease='linear', face=180),
             k(0.0, toon=JOG(face={'gy': -0.8, 'brow': 0.9, 'eye': 0.3}), toonDur=0.0),                                             # his eyes on the red light
             k(0.06, toon=JOG(**HOLD18(0.0, face={'gy': -0.6, 'brow': 0.9, 'mouth': 'clench'})), toonDur=0.12, toonEase='in'),         # his arms go out ahead of him to the pole
@@ -328,16 +328,16 @@ def pass19(who, t0, y, dx, ph):                       # one passenger: level wit
 st.shot('S19', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', AT18, 90, 'stand', 'relieved', keys=[k(0.0, look=[8.2, 1.65, TL[2] + 0.2]), k(0.0, toon={**LEAN18, 'face': {'lid': 1, 'mouth': 'smirk'}}, toonDur=0.0),
             k(0.12, toon={**LEAN18, 'sq': [0.97, 1.05, 0.97], 'face': {'brow': 0.9, 'eye': 0.3}}, toonDur=0.06, toonEase='outBack'), k(0.12, look=[LANE, 1.5, AT18[2] + 2.5], expr='surprised'),   # his head turns up the street: something is coming
             k(0.3, look=[LANE, 1.5, AT18[2] - 1.0]), k(0.55, look=[LANE, 1.5, AT18[2] - 6.0]),                                              # and goes with them, down the street
-            k(0.84, toon={**LEAN18, 'face': {'brow': 0.6, 'mouth': 'wavy'}}, toonDur=0.08), k(0.84, look=[9.95, 1.6, TL[2] - 0.9])]),       # then to us
+            k(0.84, toon={**LEAN18, 'face': {'brow': 0.6, 'mouth': 'wavy'}}, toonDur=0.08), k(0.84, look=[9.95, 1.6, TL[2] - 0.3])]),       # then to us
         pass19('dame', 0.2, 0.45, 0.0, 0.0), pass19('t3', 0.36, 0.7, -0.25, 2.0), pass19('tour', 0.52, 0.3, 0.15, 4.0)],
         props=[LIGHT([[0, 'r']]), HEADSIGN(), BUTTON(-1), P('umb', 'umbrella', on={'actor': 'dame', 'hand': 'R', 'offset': [0, 0.0, 0.0], 'rot': [3.1416, 0, 0]}, opts={'open': 0.0, 'colors': ['#2F7F5C', '#F2EDE4'], 'height': 0.95})],
         fx=[{'type': 'wind', 'at': 0.15, 'dur': 0.6, 'v': [0, 0, -11], 'attack': 0.05, 'release': 0.3}],
-        cams=[SIDE18()])
+        cams=[cam(0.0, [10.0, 1.6, TL[2] - 0.3], [9.95, 1.6, TL[2] - 0.3], [5.5, 1.7, TL[2] - 0.3], [5.5, 1.7, TL[2] - 0.3], lens=50)])   # him at the left quarter, whole; they cross behind him
 [st.cue('whoosh', 'S19', t, 0.4, 0.25, 500, 2400) for t in (0.2, 0.36, 0.52)]
 
 # 20: they arrive early: at the station, the four of them come down on the bench one after the other; four wrists come up, four pairs of eyes go wide
 D20 = st.dur('S20'); ZB = -100.0; BENCH = [9.45, 0, ZB]; W20 = 0.86; E20 = 1.12
-SEATS = {'dame': 0.86, 't3': 0.29, 'tour': -0.29, 'ctrl': -0.86}; LAND = {'dame': 0.1, 't3': 0.22, 'tour': 0.34, 'ctrl': 0.46}
+SEATS = {'dame': 0.78, 't3': 0.26, 'tour': -0.26, 'ctrl': -0.78}; LAND = {'dame': 0.1, 't3': 0.22, 'tour': 0.34, 'ctrl': 0.46}
 def lands20(who):
     zs = round(ZB + SEATS[who], 3); t0 = LAND[who]; seat = [BENCH[0] + 0.05, 0.02, zs]
     return act(who, [seat[0] - 0.3, 3.6, round(zs + 2.8, 3)], -90, 'sit', 'scared', keys=[k(0.0, look=None), k(0.0, clip='sit'), k(t0, to=seat, dur=0.16, clip='sit', glide=True, ease='in', face=-90), k(t0 + 0.16, clip='sit', blend=0.02),
@@ -346,7 +346,7 @@ def lands20(who):
 st.shot('S20', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[lands20(w) for w in ('dame', 't3', 'tour', 'ctrl')],
         props=[P('bench', 'bench', pos=BENCH, ry=-90, opts={'w': 2.4}), P('gare', 'stationSign', pos=[10.12, 2.95, ZB + 0.25], ry=-90, opts={'text': 'GARE', 'w': 1.5}), P('clock', 'wallClock', pos=[10.12, 2.95, ZB - 0.95], ry=-90, opts={'rate': 0})],
         fx=[{'type': 'shake', 'at': LAND['dame'] + 0.16, 'dur': 0.5, 'amount': 0.012}],
-        cams=[cam(0.0, [4.2, 1.45, ZB], [4.4, 1.45, ZB], [9.45, 1.5, ZB], [9.45, 1.5, ZB], lens=44)])
+        cams=[cam(0.0, [3.9, 1.45, ZB], [4.1, 1.45, ZB], [9.45, 1.5, ZB], [9.45, 1.5, ZB], lens=44)])
 [st.cue('thud', 'S20', LAND[w] + 0.16, 0.4) for w in LAND]; st.cue('sfx:tick', 'S20', W20, 0.3); st.cue('sfx:gasp', 'S20', E20, 0.3)
 
 # 21: a first: at the red light, seen from up the street (the light above him, red): he has turned round, a hand on the pole; the display on his head turns
@@ -362,20 +362,25 @@ st.shot('S21', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('
         cams=[CAM21(0.0, 0.0)])
 st.cue('clack', 'S21', HS21, 0.4); st.cue('sfx:slideDownSlow', 'S21', HS21 + 0.62, 0.3)
 
-# 22: and past him another man goes by, heels smoking, who cannot stop; one of his eyes opens and goes after him; the light goes green; he stays
-D22 = st.dur('S22'); P22 = 0.5; V22 = 11.0; G22 = 1.2
-A22 = [LANE - 0.15, 0, round(AT18[2] + V22 * P22, 3)]; B22 = [LANE - 0.15, 0, round(AT18[2] + V22 * (P22 - D22), 3)]
+# 22: and behind him another man comes up the street, heels smoking, who cannot stop: we see him come, he does not (his eyes are shut); the wind of him
+#     opens them; his head goes after him, past us, and comes back; a slow blink; the light goes green: a look up at it, back at us: he stays
+D22 = st.dur('S22'); P22 = 0.5; V22 = 11.0; G22 = 1.25
+X22 = 4.45                                            # his path: half a metre from the hero's shoulder
+A22 = [X22, 0, round(AT18[2] - V22 * P22, 3)]; M22 = [X22, 0, AT18[2]]; C22 = [X22 - 0.45, 0, round(AT18[2] + V22 * 0.55, 3)]   # from down the street, level with him at P22, then past the camera at its left
+BR22 = {'expr': 'scared'}
 st.shot('S22', 'parisStreet', setOpts={**STREET, 'eiffel': False}, actors=[act('mec', AT18, 0, 'stand', 'relieved', keys=[k(0.0, look=None), k(0.0, toon={**HELD21, 'face': {'lid': 1, 'mouth': 'smirk'}}, toonDur=0.0),
-            k(P22 - 0.14, toon={**HELD21, 'face': {'gx': -0.9, 'eye': 0.25, 'brow': 0.6}}, toonDur=0.06), k(P22 - 0.14, expr='neutral'),      # his eyes open on what is coming
-            k(P22 + 0.1, look=[LANE - 0.15, 1.4, AT18[2] - 5.0]), k(P22 + 0.55, look=None),                                                   # his head goes after it, down the street, and comes back
-            k(P22 + 0.55, toon={**HELD21, 'face': {'brow': 0.3}}, toonDur=0.1), k(P22 + 0.72, toon={**HELD21, 'face': {'lid': 1}}, toonDur=0.05), k(P22 + 0.84, toon={**HELD21, 'face': {}}, toonDur=0.05),   # to us; a slow blink
-            k(G22 + 0.1, toon={**HELD21, 'face': {'gy': -0.9, 'gx': 0.6}}, toonDur=0.08), k(G22 + 0.36, toon={**HELD21, 'face': {'mouth': 'smirk', 'browL': 0.4}}, toonDur=0.1)]),   # the green light: a look up at it, back to us: no
-        act('mec2', A22, 180, 'heelBrake', 'scared', keys=[k(0.0, look=None), k(0.0, to=B22, dur=D22, clip='heelBrake', glide=True, ease='linear', face=180), k(0.0, toon={'face': {'mouth': 'clench', 'brow': 0.9, 'sweat': 1}}, toonDur=0.0)])],
+            k(P22 - 0.02, toon={**HELD21, 'sq': [0.97, 1.05, 0.97], 'face': {'eye': 0.3, 'brow': 0.8, 'gx': -0.8}}, toonDur=0.06, toonEase='outBack'), k(P22 - 0.02, expr='surprised'),   # the wind of him: his eyes open
+            k(P22 + 0.08, look=[X22 - 0.6, 1.4, AT18[2] + 6.0]), k(P22 + 0.5, look=None),                                                    # his head goes after him, past us, and comes back
+            k(P22 + 0.5, toon={**HELD21, 'face': {'brow': 0.3}}, toonDur=0.1), k(P22 + 0.5, expr='neutral'),
+            k(P22 + 0.58, toon={**HELD21, 'face': {'lid': 1}}, toonDur=0.05), k(P22 + 0.69, toon={**HELD21, 'face': {}}, toonDur=0.05),         # to us; a slow blink
+            k(G22 + 0.08, toon={**HELD21, 'face': {'gy': -0.9, 'gx': 0.6}}, toonDur=0.08), k(G22 + 0.3, toon={**HELD21, 'face': {'mouth': 'smirk', 'browL': 0.4}}, toonDur=0.1)]),   # the green light: a look up at it, back to us: no
+        act('mec2', A22, 0, 'heelBrake', 'scared', params=BR22, keys=[k(0.0, look=None), k(0.0, to=M22, dur=P22, clip='heelBrake', params=BR22, glide=True, ease='linear', face=0),
+            k(P22, to=C22, dur=0.55, clip='heelBrake', params=BR22, glide=True, ease='linear', face=0), k(0.0, toon={'face': {'mouth': 'clench', 'brow': 0.9, 'sweat': 1}}, toonDur=0.0)])],
         props=[LIGHT([[0, 'r'], [G22, 'g']]), HEADSIGN([[0, 'HORS SERVICE']]), BUTTON(-1),
-               P('smoke', 'heelSmoke', pos=[0, 0, 0], opts={'path': [[0, A22[0], A22[2] - 0.55], [D22, B22[0], B22[2] - 0.55]], 'from': 0.0, 'to': D22, 'every': 0.03, 'marks': True})],
-        fx=[{'type': 'wind', 'at': P22 - 0.05, 'dur': 0.4, 'v': [0, 0, -10], 'attack': 0.05, 'release': 0.25}],
-        cams=[CAM21(0.0, 0.2)])
-st.cue('sfx:squeak', 'S22', P22 - 0.4, 0.4); st.cue('whoosh', 'S22', P22 - 0.3, 0.45, 0.6, 400, 2200); st.cue('clack', 'S22', G22, 0.35)
+               P('smoke', 'heelSmoke', pos=[0, 0, 0], opts={'path': [[0, A22[0], A22[2] + 0.55], [P22, M22[0], M22[2] + 0.55], [P22 + 0.55, C22[0], C22[2] + 0.55]], 'from': 0.0, 'to': P22 + 0.55, 'every': 0.03, 'marks': True})],
+        fx=[{'type': 'wind', 'at': P22 - 0.05, 'dur': 0.4, 'v': [0, 0, 10], 'attack': 0.05, 'release': 0.25}],
+        cams=[cam(0.0, [4.6, 1.6, TL[2] + 4.6], [4.75, 1.62, TL[2] + 3.3], [5.0, 1.8, TL[2] + 0.2], [5.2, 1.85, TL[2] + 0.2], lens=44, ease='inOut')])   # wide enough to see him come and pass; then in on the one who stays
+st.cue('sfx:squeak', 'S22', 0.05, 0.4); st.cue('whoosh', 'S22', P22 - 0.3, 0.45, 0.6, 400, 2200); st.cue('clack', 'S22', G22, 0.35)
 
 st.card('S08', "C'EST UNE LIGNE")
 CITIZEN = lambda preset, seed, **kw: {'preset': preset, 'seed': seed, 'build': {'width': 0.86, 'headWidth': 1.3, **kw.pop('build', {})}, **kw}

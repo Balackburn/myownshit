@@ -208,6 +208,9 @@ All opt-in: without them a character is exactly the cycle-4 one.
   clip does not swing.
 - **`settle: a`** in a toon key: once the key is reached the spine wobbles and dies in 0.5 s: a pose that lands instead of a pose that stops.
 - **`sway`** on an attached prop (`on={..., 'sway': 1}`): a bird on a cap, a sign on a head, a bag: it rocks about its foot with its carrier.
+- **`autoSq: k`** in a toon key (0..1, default 1; also `toon: {autoSq: k}` in a cast entry): the dose of the automatic squash and stretch alone
+  (the other automatic layers stay). For a run seen close: each footfall of the `run` clip squashes the body for one frame, on a beat that never
+  matches the frame rate; `autoSq: 0.3` in every key of the run leaves a bounce and keeps the head (and anything on it) readable.
 - **`face.pupilSize` / `pupilSizeL` / `pupilSizeR`**: the painted pupils grow (1 = twice the size: a look that reads from far) or shrink
   (-0.5: pinpricks of fear).
 - **`face.tongueYaw`** (rad, + = toward his left) with `tongue` and `tongueLen`: the tongue blown aside by the wind of a run (1.5: flat across

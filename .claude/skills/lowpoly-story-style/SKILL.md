@@ -428,3 +428,12 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
 - (cycle 5, méthode) Quand la génération complète est en file derrière un autre rendu et que les rapports arrivent avant son départ, la retenir le temps
   d'intégrer la dernière passe (un fichier témoin surveillé par la boucle d'attente), vingt minutes au plus : c'est plus court que de rendre une version
   dépassée puis de recoller des plages.
+- (cycle 5) **Course vue de près** : l'écrasement automatique à chaque appui (clip `run`, rebond en |sinus|) tombe sur une image isolée, jamais la
+  même (à 4,4 foulées par seconde : un appui toutes les 3,4 images) : le corps perd jusqu'à 24 % de sa hauteur pendant une image, la tête descend de
+  40 cm et sort du cadre d'un gros plan, un panneau porté devient illisible. Mettre `'autoSq': 0.3` dans la base « toon » de la course (toutes ses
+  clés) : il reste un rebond, plus de saccade. Une image fixe de contrôle peut tomber sur l'image écrasée : avant de recadrer, vérifier la pose.
+- (cycle 5) **Un passant qui croise le héros se filme de face** : venu de derrière la caméra, il n'est qu'un bras au bord du cadre puis un dos qui
+  s'éloigne, et le héros lui tourne le dos pour le suivre. Le faire arriver du fond, derrière le héros (on le voit venir, pas lui : ses yeux sont
+  fermés), le faire passer à 50 cm de son épaule puis sortir à côté de la caméra ; cadre assez large au passage, puis avancée sur celui qui reste.
+- (cycle 5) **Une file dans la profondeur** (un contrôleur et deux voyageurs derrière un coureur) : la caméra à hauteur du premier, sur le côté, le
+  héros hors champ : le sujet du plan en grand au bord, les autres en diagonale vers le fond ; des tickets de 50 cm, pas de 34.
