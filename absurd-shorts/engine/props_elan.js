@@ -22,7 +22,10 @@ function arcPole(h, r, color, n = 14) {
   const root = grp(), segs = []; let parent = root;
   for (let i = 0; i < n; i++) { const j = grp(); j.position.y = i ? h / n : 0; parent.add(j); j.add(cyl(r, r, h / n * 1.06, color, 6, { pivot: 'bottom' })); segs.push(j); parent = j; }
   const tip = grp(); tip.position.y = h / n; parent.add(tip);
-  return { root, tip, segs, bend: a => segs.forEach((j, i) => { j.rotation.z = i ? -a / (n - 1) : 0; }) };
+  // bend(a): an arc, the same curve all the way up. bend(a, grip): a pole pulled by a hand `grip` metres up: it bows from its foot (most at the foot, as a
+  // rod held at one end does), and is straight above the hand, leaning by a
+  const lean = (a, grip, i) => grip ? a * (1 - (1 - Math.min(1, (i * h / n) / grip)) ** 2) : a * i / (n - 1);
+  return { root, tip, segs, bend: (a, grip = 0) => segs.forEach((j, i) => { j.rotation.z = i ? -(lean(a, grip, i) - lean(a, grip, i - 1)) : 0; }) };
 }
 // the lean of a pole at t: o.bend keys [[t, a], ...] (eased in and out) plus o.spring [[t0, a0, freq (16), damp (4.5)], ...]: let go at t0 from a0, it
 // rings (a0 * cos * exp); a spring replaces the keyed value from its t0 on
@@ -89,6 +92,7 @@ export const ELAN_PROPS = {
   // a traffic light on a pole (o.h 3.0 m): a black head with three lenses facing +Z. o.state [[t, 'r' | 'a' | 'g'], ...]: the lens lit from t (unlit
   // materials: it shows its colour in any light), with a small pop of the lens. It bends like the stop pole: o.bend / o.spring (toward its +X).
   // o.headRy (degrees): the head turned on the pole (the lenses face another way than the prop's +Z: a pole that bends along the street under a head that faces it).
+  // o.bendGrip (m): the pole is pulled by a hand at that height: it bows from its foot, straight above the hand (default: one arc all the way up).
   trafficLight(o) {
     const h = o.h ?? 3.0, HC = o.housing || '#1F2228', pole = arcPole(h - 0.9, 0.05, o.poleColor || '#3A3F47'), g = grp(pole.root), head = grp(at(box(0.34, 0.92, 0.26, HC, { outline: 0.012 }), 0, 0.46, 0), at(box(0.42, 0.04, 0.3, HC), 0, 0.94, 0));   // o.poleColor, o.housing: a galvanised pole, a dark green housing (a black display next to it must not read as part of the signal)
     const COL = { r: '#FF3B2F', a: '#FFB02E', g: '#3EE06A' }, OFF = { r: '#4A1512', a: '#4A3610', g: '#12401F' }, lens = {};
@@ -100,7 +104,7 @@ export const ELAN_PROPS = {
       const pb = grp(at(box(0.3, 0.56, 0.2, HC, { outline: 0.01 }), 0, 0, 0), man(o.ped === 'g' ? '#4A1512' : '#FF3B2F', 0.135, false), man(o.ped === 'g' ? '#3EE06A' : '#12401F', -0.135, true)); pb.position.set(0, -0.42, -0.16); pole.tip.add(pb);
     }
     const st = o.state || [[0, 'r']];
-    g.userData.update = t => { pole.bend(leanAt(o, t)); const i = stepAt(st, t), on = st[i][1], u = t - st[i][0];
+    g.userData.update = t => { pole.bend(leanAt(o, t), o.bendGrip || 0); const i = stepAt(st, t), on = st[i][1], u = t - st[i][0];   // o.bendGrip (m): the height of the hand that pulls it: it bows from its foot and is straight above
       for (const k of 'rag') { const lit = k === on; lens[k].m.material.color.set(lit ? COL[k] : OFF[k]); lens[k].halo.material.opacity = lit ? 0.28 : 0; const s = lit ? 1 + 0.35 * Math.max(0, 1 - u / 0.08) : 1; lens[k].m.scale.setScalar(s); } };
     g.userData.update(0); return g;
   },
@@ -143,10 +147,10 @@ export const ELAN_PROPS = {
   // the board of a lap counter, on a stick held in the fist: a small word on top (o.word 'TOUR') and a big number that flips: o.flips [[t, 'n'], ...]
   // (the first one is the number at the start). Origin: the bottom of the stick (in the fist); front +Z.
   lapBoard(o) {
-    const w = o.w ?? 0.36, hh = w * 1.15, keys = o.flips || [[0, '2']], g = grp(at(cyl(0.014, 0.014, 0.34, P.woodDark, 6, { pivot: 'bottom' }), 0, 0, 0)), board = grp(at(box(w, hh, 0.03, '#F4F1E8', { outline: 0.012 }), 0, 0, 0));
+    const w = o.w ?? 0.36, hh = w * 1.15, keys = o.flips || [[0, '2']], g = grp(at(cyl(0.014, 0.014, 0.34, P.woodDark, 6, { pivot: 'bottom' }), 0, 0, 0)), board = grp(at(box(w, hh, 0.03, '#F4F1E8', { outline: 0.012, ...(o.bright ? { emissive: '#8E8B84' } : {}) }), 0, 0, 0));   // o.bright: its face lit from inside a little: the lightest thing in a frame where it hangs alone, in the shade of a house front
     const word = canvasPlane(w * 0.9, hh * 0.2, (c, W, H) => { c.fillStyle = '#2C4A8A'; c.fillRect(0, 0, W, H); txt(c, o.word || 'TOUR', W / 2, H * 0.56, H * 0.74, '#FFFFFF'); }, { res: 192 }); word.position.set(0, hh * 0.36, 0.017); board.add(word);
     const flap = grp(); flap.position.set(0, -hh * 0.1, 0.018); board.add(flap);
-    const faces = keys.map(([, s]) => { const f = canvasPlane(w * 0.86, hh * 0.66, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); txt(c, s, W / 2, H * 0.54, H * 0.92, '#1B1B1E'); }, { res: 192 }); flap.add(f); return f; });
+    const faces = keys.map(([, s]) => { const f = canvasPlane(w * 0.86, hh * 0.66, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); txt(c, s, W / 2, H * 0.54, H * 0.92, '#1B1B1E'); }, { res: 192, emissive: o.bright ? 0.5 : 0 }); flap.add(f); return f; });
     board.position.y = 0.34 + hh / 2; g.add(board);
     g.userData.update = t => { const i = stepAt(keys, t), u = t - keys[i][0], d = 0.1, k = i > 0 && u < d ? u / d : 1; faces.forEach((f, n) => { f.visible = n === (k < 0.5 && i > 0 ? i - 1 : i); }); flap.scale.y = Math.max(0.04, Math.abs(Math.cos(k * PI))) * (i > 0 ? 1 + 0.2 * Math.max(0, 1 - (u - d) / 0.08) * (u >= d ? 1 : 0) : 1); };
     g.userData.update(0); return g;
@@ -183,8 +187,8 @@ export const ELAN_PROPS = {
   // Origin: its middle; front +Z; hold it by a corner.
   bigTicket(o) {
     const w = o.w ?? 0.2, hh = w * 0.48, g = grp(at(box(w, hh, 0.006, '#FBFAF4', { outline: 0.006 }), 0, 0, 0));
-    for (const s of [-1, 1]) { const f = canvasPlane(w * 0.96, hh * 0.92, (c, W, H) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, W, H); c.fillStyle = o.color || '#C2378C'; c.fillRect(0, H * 0.62, W, H * 0.2); txt(c, o.line || '12 BIS', W / 2, H * 0.34, fit(c, o.line || '12 BIS', W * 0.8, H * 0.46)); }, { res: 192 }); f.position.z = s * 0.004; if (s < 0) f.rotation.y = PI; g.add(f); }
-    const hole = quad(0.03, 0.03, flat(o.hole || '#1B1B1E')); /* o.hole: its colour (the sky seen through it) */ hole.geometry = new THREE.CircleGeometry(hh * 0.13, 10); hole.position.set(w * 0.3, hh * 0.1, 0.006); const hole2 = hole.clone(); hole2.position.z = -0.006; hole2.rotation.y = PI; g.add(hole, hole2);
+    for (const s of [-1, 1]) { const f = canvasPlane(w * 0.96, hh * 0.92, (c, W, H) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, W, H); c.fillStyle = o.color || '#C2378C'; c.fillRect(0, H * 0.62, W, H * 0.2); txt(c, o.line || '12 BIS', W * (o.textX ?? 0.5), H * 0.34, fit(c, o.line || '12 BIS', W * (o.textW ?? 0.8), H * 0.46));   /* o.textX / o.textW: the line set to one side, a blank margin for the punch */ }, { res: 192 }); f.position.z = s * 0.004; if (s < 0) f.rotation.y = PI; g.add(f); }
+    const hole = quad(0.03, 0.03, flat(o.hole || '#1B1B1E')); /* o.hole: its colour (the sky seen through it) */ hole.geometry = new THREE.CircleGeometry(hh * 0.13, 10); hole.position.set(w * (o.holeAt?.[0] ?? 0.3), hh * (o.holeAt?.[1] ?? 0.1), 0.006);   /* o.holeAt [fx, fy]: where it is punched, in fractions of the width and of the height from the middle */ const hole2 = hole.clone(); hole2.position.z = -0.006; hole2.rotation.y = PI; g.add(hole, hole2);
     g.userData.update = t => { const u = o.punchAt == null ? -1 : t - o.punchAt; hole.visible = hole2.visible = u >= 0; const s = u >= 0 ? 1 + 0.3 * Math.max(0, 1 - u / 0.08) : 1; g.scale.setScalar(s); };
     g.userData.update(0); return g;
   },
@@ -192,8 +196,8 @@ export const ELAN_PROPS = {
   // the stop button of a bus, on its yellow box (o.s 1 = 9 cm): a red button that goes in at o.pressAt, a red ring that flashes round it. Origin: the
   // back of the box; front +Z. Hang it on the knot of his tie.
   stopButton(o) {
-    const s = o.s ?? 1, g = grp(at(box(0.09, 0.09, 0.035, '#F2C230', { outline: 0.008 }), 0, 0, 0.018)), btn = at(cyl(0.028, 0.028, 0.02, '#D8281F', 12), 0, 0, 0.045, PI / 2), ring = quad(0.2, 0.2, flat('#FF3B2F', { transparent: true, opacity: 0, depthWrite: false }));
-    ring.geometry = new THREE.RingGeometry(0.05, 0.065, 20); ring.position.z = 0.05; g.add(btn, ring); g.scale.setScalar(s);
+    const s = o.s ?? 1, g = grp(at(box(0.09, 0.09, 0.035, '#F2C230', { outline: 0.008 }), 0, 0, 0.018)), btn = at(cyl(0.028, 0.028, 0.02, '#D8281F', 12), 0, 0, 0.045, PI / 2), ring = quad(0.2, 0.2, flat('#FF3B2F', { transparent: true, opacity: 0, depthWrite: false, depthTest: false }));   // drawn over everything: as it grows it went into his chest and his collar
+    ring.geometry = new THREE.RingGeometry(0.05, 0.065, 20); ring.position.z = 0.05; ring.renderOrder = 20; g.add(btn, ring); g.scale.setScalar(s);
     g.userData.update = t => { const u = o.pressAt == null ? -1 : t - o.pressAt; btn.position.z = u >= 0 ? 0.045 - 0.012 * Math.max(0, 1 - Math.max(0, u - 0.1) / 0.08) : 0.045; ring.material.opacity = u >= 0 && u < 0.3 ? 0.9 * (1 - u / 0.3) : 0; ring.scale.setScalar(u >= 0 ? 1 + 2.2 * Math.min(1, u / 0.3) : 1); };
     g.userData.update(0); return g;
   },
@@ -234,7 +238,7 @@ export const ELAN_PROPS = {
 
   // an oversized ticket punch (pliers): two handles, two jaws; o.snapAt: the jaws snap shut (and bounce open a little). Origin: the pivot; the jaws point +Y.
   ticketPunch(o) {
-    const s = o.s ?? 1, g = grp(), A = new THREE.Group(), B = new THREE.Group(), steel = '#C9CED6', grip = o.grip || '#D8281F';   // o.grip: the colour of its handles
+    const s = o.s ?? 1, g = grp(), A = new THREE.Group(), B = new THREE.Group(), steel = o.jaw || '#C9CED6', grip = o.grip || '#D8281F';   // o.grip: the colour of its handles; o.jaw: of its jaws (dark steel reads on a pale ticket)
     for (const [G, sg] of [[A, 1], [B, -1]]) { G.add(at(box(0.03, 0.2, 0.03, steel, { outline: 0.008 }), sg * 0.012, 0.1, 0), at(box(0.036, 0.2, 0.036, grip, { outline: 0.008 }), sg * 0.02, -0.11, 0), at(box(0.05, 0.03, 0.04, steel), sg * 0.005, 0.2, 0)); g.add(G); }
     g.scale.setScalar(s);
     g.userData.update = t => { const u = o.snapAt == null ? -1 : t - o.snapAt, open = u < 0 ? 0.3 : u < 0.05 ? 0.3 * (1 - u / 0.05) : 0.12 * Math.min(1, (u - 0.05) / 0.12); A.rotation.z = -open; B.rotation.z = open; };

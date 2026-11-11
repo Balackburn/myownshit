@@ -148,6 +148,15 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | La larme qui roule | canal de visage `drop` (sous l'œil gauche) ou `dropR` : 0..1 = le chemin parcouru sur la joue, `dropSize` 1,25 = un peu plus haute que l'œil ; elle perle, grossit, roule pendant un clignement en laissant une trace | 41 S16 |
 | La vapeur encrée | `face.steam` avec `steamInk: 1` : bouffées opaques cernées d'un trait, lisibles sur un mur clair comme sur le ciel | 41 S18 |
 | Quatre têtes vers l'horloge | les quatre regardent leur montre (cadrans blancs, `wristWatch bright`), puis leurs têtes se lèvent vers l'horloge de la gare à 0,03 s d'écart, puis un clignement chacun, en cascade | 41 S20 |
+| Le poids sur une hanche, à la main | canal toon `hip` (-1,8..1,8 ; au-delà de 1 : un vrai contrapposto) : le bassin passe sur une jambe, l'autre genou cède, les épaules repartent à l'opposé. À répéter dans chaque clé du plan qui doit le tenir ; dès qu'une clé le porte, l'appui automatique est coupé pour ce personnage. Pour « il reste » : le regard revient, puis le poids change de jambe en 0,24 s (`inOut`), les épaules tombent (`sq [1.03, 0.96, 1.03]`, `settle`) | 41 S19, S21, S22 |
+| Le demi-tour en trois temps | les yeux partent (`gx`), puis la tête (`look` vers un point derrière lui, du côté où ils sont partis), puis les épaules : deux clés `face` enchaînées avec leur durée (`k(t, face=180, turn=0.14)`, `k(t + 0.12, face=70, turn=0.16)`) : il tourne du côté où il regardait, en neuf images | 41 S19 |
+| Le poteau tiré par une main | `trafficLight bendGrip: 1.3` (et `pole_pt(..., grip=1.3)` côté script pour les mains) : le poteau plie depuis le pied jusqu'à la main, droit au-dessus ; le déplacement de la lampe double. Tenue de onze images, le tremblement grandit (`TR18`) | 41 S18 |
+| Le cadre qui s'élargit avec l'étirement | la caméra part plus près, sur le poteau, et recule pendant qu'il s'éloigne (`ease='out'`) ; une seconde caméra sans coupe (`glide(..., 0.0)`) la fige à l'instant de l'étirement complet : la tenue se joue dans un cadre immobile. Caméra à 46° de sa ligne, côté visage, calculée sur les articulations mesurées : les bras couvrent 55 % de la largeur | 41 S18 |
+| Le surfeur contre le ciel | caméra basse sur le trottoir (0,45 m), à 2,7 m, levée de 33°, focale 65 : la dame à l'horizontale en bas du cadre, le contrôleur debout sur son dos, genoux pliés, bras écartés (clip `surfRide` sans main guidée), quatre images ; puis un bras entre par la gauche avec le ticket, la pince lui saute dans la main (`scale` 0,01 → 1) | 41 S12 |
+| L'ombre est un personnage | acteur `silhouette` (une seule couleur d'ombre, deux yeux blancs), aplati contre le mur (`sq [0.03, 1, 1]`) et animé à la main : en retard de 0,6 s sur son propriétaire (les mêmes clés décalées), qui regarde sa montre après lui, qui tourne la tête vers nous, qui hausse les épaules, qui pend à un cintre, qui revient avec un avocat (rabat blanc, serviette). Le héros ne projette pas d'ombre (`castShadow: False`) | 42 |
+| L'ombre qui se lève | elle est à plat au sol (`lieBack`, `sq [1, 1, 0.05]`), un bras plat éteint le réveil ; elle s'assoit (`sitFloor`, `sq` z → 0,45), se lève à l'endroit de ses pieds (`stand`, `then='stand'`) : la figure plate devient un corps ; lui, sur le lit, devient plat comme un drap (`sq` z 0,07) et glisse au sol derrière elle, ses pieds aux pieds de l'ombre | 42 S20-S21 |
+| Traîné par les pieds, vu du dessus | caméra presque à la verticale (4,6 m au-dessus, 0,3 m de côté) : elle est une forme sombre vue du dessus en bas du cadre, lui est à plat derrière ses talons, en diagonale, le visage à l'endroit ; pouce levé sur le goudron ; sur les pavés il tressaute (`sq`, `bend`, `pupilShake`, `tremble`) et la caméra descend vers lui | 42 S23-S25 |
+| Le retard retourné | au feu rouge elle s'arrête, lui continue entre ses pieds (sa tête s'arrête sous elle), revient comme un élastique ; elle regarde sa montre (cadran blanc au poignet de la silhouette) | 42 S26 |
 
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
@@ -580,3 +589,23 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   l'espace à partir de ses trois axes (un manche pointé d'une main vers un cou, sa crosse à plat).
 - (cycle 6) Une larme peinte (`tear`) fait 2 % de la largeur : en très gros plan, prendre `drop` (dessinée, de la taille de l'œil, elle roule). De la
   vapeur blanche sur un mur clair mesure 1,1:1 : `steamInk`. Des arbres derrière une tête ou un feu : étendre `clear` du décor à la zone du plan.
+- (cycle 6) **Un déplacement sans `then=` rend le clip d'avant** à la fin du déplacement : l'ombre qui se levait (`to=..., clip='stand'`) se recouchait
+  (`lieBack`) à l'arrivée. Toute clé `to=` qui change d'attitude porte `then=` (assis, debout).
+- (cycle 6) **Un demi-tour par une seule clé `face`** prend le chemin le plus court avec une sortie rapide : dos puis face en deux images, et du mauvais
+  côté si le regard venait de partir de l'autre. Deux clés `face` avec `turn`, en passant par la direction du regard.
+- (cycle 6) **Silhouette : un bras devant le corps est noir sur noir.** Le geste se joue en contour (bras écartés, mains sur les hanches) ou avec un
+  accessoire blanc (le cadran de la montre). De même une ombre debout devant un personnage à plat le cache : la poser à ses pieds, lui en diagonale.
+- (cycle 6) **Ne pas changer un signal pendant un mouvement de caméra** (le feu passait au vert pendant l'avancée : la dernière idée du film tenait en
+  quinze images sur un cadre qui bougeait). Finir le mouvement, trois images, puis le changement ; huit images pour le regard, douze pour le retour.
+- (cycle 6) L'expression `relieved` a les yeux fermés : pour un regard final vers nous, `neutral` avec `mouth: 'smirk'`.
+- (cycle 6) Signe de `gx` : négatif = vers SA droite. Un feu à sa droite (à gauche de l'image quand il nous fait face) demande `gx` négatif ; l'inverse
+  le faisait regarder à l'opposé du feu pendant trois versions. Vérifier sur une image avec le feu dans le cadre.
+- (cycle 6) La vapeur en ronds blancs de taille croissante se lit comme une bulle de pensée : bouffées à lobes, en jet depuis l'oreille, qui
+  s'amincissent en montant. Un panneau tenu en l'air à côté d'un poteau se lit comme un panneau fixé au poteau : le poteau hors du cadre, le
+  panneau plus clair que le mur (`lapBoard bright`), et il retombe dans le cadre, à plat, lisible.
+- (cycle 6) Les mains au sommet d'un geste (les deux poings levés du maire) montent dans le bandeau : vérifier l'image du sommet contre toute
+  inscription placée au-dessus ; écarter les coudes pour que le visage reste visible entre les bras.
+- (cycle 6) Le champ horizontal d'un cadre vertical est étroit (26° à la focale 44) : un trajet de 3,5 m en travers ne tient pas à 5 m. Le mettre
+  sur la diagonale du cadre (caméra en avant et au-dessus, le trajet part vers le fond), ou le raccourcir ; l'extrême doit rester dans le cadre.
+- (cycle 6) Lancer un geste depuis la moitié libre du cadre : il s'élançait vers la vitre derrière la passagère du premier plan. Il prend d'abord
+  0,3 m d'avance (moitié gauche), se ramasse trois images, puis saute vers le milieu ; elle ne se penche que trois images après le freinage.

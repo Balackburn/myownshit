@@ -1088,3 +1088,60 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   section « cycle 6 » dans la référence du rig.
 - **Pistes** : attacher un accessoire à une main avec une orientation donnée dans le repère du monde (éviter le calcul) ; une option « sommet »
   qui vérifie à la génération qu'un sujet occupe au moins 40 % de la hauteur dans le plan marqué ; saccades des yeux ; retard de la caméra de suivi.
+
+## Histoire 41 — troisième revue (animation 8,4 ; direction artistique 8,3), version 3 livrée, dernière passe ; histoire 42 « L'ombre » : premier brouillon
+
+- **Version 3 livrée** (28,0 s, −16,0 LUFS, pic −3,0 dBFS, contrôles HyperFrames à zéro erreur, aucune image isolée aux coupes ; les alertes de
+  luminosité tombent sur les plans à plusieurs caméras, comme aux versions précédentes). Troisième et dernière revue sur le brouillon n° 3 :
+  **animation 8,4, direction artistique 8,3** (7,2 / 7,0 puis 7,7 / 7,6 aux deux premières). La cible de 8,5 n'est pas atteinte ; trois revues
+  ont été faites : la suite est une dernière passe sans nouvelle revue, contrôlée sur images.
+- **Ce que la troisième revue garde** : le crochet vu du trottoir (« la meilleure image du film »), la double prise du chauffeur, le freinage
+  sur les talons, l'escalade par la taille contre la vitre, le système d'inscriptions (toutes en français, lisibles), les trois images du bouton
+  d'arrêt, les deux visages dont un à l'envers, les pupilles en tête d'épingle et la larme, la tenue au poteau et la crêpe, le banc de la gare, le
+  dernier cadre. Micro-mouvements : clignements presque partout, les yeux précèdent la tête, aucun gel.
+- **Ce qu'elle renvoie, et ce que la dernière passe en fait** :
+  - *la fin est écourtée* (le feu passait au vert pendant l'avancée de la caméra, le regard final tenait quatre images) : la caméra s'arrête,
+    trois images, le feu passe au vert, les yeux puis la tête vont vers lui (huit images), reviennent, puis le poids change de jambe et les épaules
+    tombent : « il reste », douze images. **Décision sans question** : la revue laissait à l'utilisateur le choix d'allonger la fin de 0,4 s ; je
+    l'allonge (28,37 s) : la narration n'est pas touchée, seul le dernier plan muet dure plus longtemps sous la musique ;
+  - *le demi-tour du plan 19 en deux images* : yeux, tête, puis épaules, par deux clés `face` dans le sens où il regardait : neuf images ;
+  - *l'étirement au poteau sous-vendu* (les bras partaient vers le fond : 30 % de la largeur) : caméra à 46° de sa ligne, calculée sur les
+    articulations mesurées : 55 % ; le poteau plie depuis le pied (`bendGrip`) ; la tenue passe de huit à onze images, le tremblement grandit ;
+    le cadre s'élargit pendant qu'il s'éloigne puis se fige ; le boîtier piéton qui passait derrière sa tête est retiré de ce plan ;
+  - *la larme ne roulait que trois images* : la suite des yeux avance de trois images (afficheur à 0,20 s, coupe à 0,40 s), le sourire meurt
+    dans le gros plan quand les pupilles sont en tête d'épingle, la larme roule treize images ;
+  - *le troisième coup contre la vitre partait derrière la passagère* : il prend 0,3 m d'avance, se ramasse trois images, saute vers le milieu
+    de la porte (le joint de la porte ne passe plus dans son œil) ; le deuxième poing est vraiment gros comme sa tête ; elle ne se penche que
+    trois images après le freinage : son visage traîné sur la vitre se voit ;
+  - *le plan des contrôleurs restait à déchiffrer* (les deux revues) : refait depuis le trottoir, caméra basse levée vers eux : la dame à
+    l'horizontale en bas du cadre, le contrôleur debout sur son dos bras écartés quatre images, le ticket et la pince contre le ciel, le bras du
+    voyageur entre par la gauche (lui hors cadre), le trou dans la marge après le numéro, mâchoires sombres ;
+  - *finitions* : panneau de tours plus clair que le mur, sans poteau à côté, qui retombe à plat dans le cadre ; bandeau MAIRIE remonté, coudes
+    écartés ; vapeur en bouffées à lobes (les ronds se lisaient comme une bulle de pensée), contrôleur retiré du gros plan ; anneau rouge du
+    bouton dessiné devant la poitrine ; contrôleur écarté de 9 cm : sa main ne cache plus le É de « ARRÊT DEMANDÉ ».
+- **Décisions maintenues sans question** (signalées « à l'utilisateur » par la direction artistique) : la luminosité du costume, l'aspect plus
+  contrasté que la référence pastel, le sens de course (droite-gauche puis gauche-droite) : inchangés, comme aux revues précédentes ; elles
+  touchent le personnage et l'aspect de la série.
+- **La frange pointillée au pied des murs** (revue artistique, point 5) : ce n'était ni l'occlusion ambiante ni le flou des ombres (six
+  variantes testées en 1080 × 1920 : identiques). Les trottoirs s'arrêtent 0,2 m avant les façades : on voyait le sol de base, 12 cm plus bas,
+  dans l'ombre. Option de décor `paveW` (5,6 m) pour le fermer ; options `lookOpts.aoSamples`, `aoDenoise`, `shadowSamples` laissées en place.
+- **Moteur (tout optionnel, non-régression vérifiée : 0,64 % de pixels changés au pire sur les anciennes histoires, 0,61 % avant)** : canal toon
+  `hip` (poids sur une jambe, à la main ; coupe l'appui automatique du plan) ; `bendGrip` (poteau tiré par une main) ; `stopButton` (anneau
+  devant la poitrine) ; `ticketPunch jaw`, `bigTicket holeAt / textX / textW` ; `lapBoard bright` ; vapeur à lobes ; `lookSole` ;
+  `ghostOutline` ; `alarmClock button` ; `paveW`.
+- **Histoire 42 « L'ombre »** (le skill, type « logique absurde poussée par une institution » : mairie, police, tribunal) : narration de
+  30,5 s, 26 plans, tous écrits ; premier brouillon rendu et regardé en entier. Sept plans recadrés avant la première revue : le contour en
+  pointillés coupé par le bord (5), le tampon MAJEURE dans la bande des sous-titres et la tête de l'employée sous le carton (9), le grand type
+  qui finissait derrière le héros (10 : il s'arrête à découvert et elle s'arrête avec lui, à l'image près, là où elle arrivait en retard pour le
+  nôtre), le grand type coupé par le bord (11), le portant vu du dos du héros (12 : vu de face, le bras traverse le cadre), l'avocat coupé en
+  deux par le bord puis hors cadre (16-17), sa main « stop » noire sur l'épaule noire de l'ombre (levée entre les deux têtes, sur le mur nu).
+  La chambre : l'ombre se lève à l'endroit de ses pieds, il glisse du lit derrière elle, ses pieds aux siens ; « par terre » : vu du dessus ;
+  la fin : le retard retourné (elle s'arrête au feu, il continue entre ses pieds, revient ; elle regarde sa montre).
+- **Skill** : 9 lignes au catalogue (poids sur une hanche, demi-tour en trois temps, poteau tiré par une main, cadre qui s'élargit avec
+  l'étirement, surfeur contre le ciel, l'ombre est un personnage, l'ombre qui se lève, traîné vu du dessus, le retard retourné) ; 10 entrées
+  dans « Erreurs à éviter » (déplacement sans `then`, demi-tour par une seule clé, bras noir sur corps noir, signal changé pendant un mouvement
+  de caméra, `relieved` a les yeux fermés, signe de `gx`, vapeur en bulle de pensée, mains dans le bandeau, champ horizontal étroit, geste
+  lancé derrière un premier plan).
+- **Pistes** : un contrôle à la génération « rien d'essentiel dans les bandes » (carton 7-18 %, sous-titres 77-83 %) à partir des positions
+  projetées des accessoires marqués ; un cadrage automatique `fit` (points + marges → visée et focale) dans le kit, que j'ai écrit trois fois
+  à la main dans ce cycle ; une marche lente sans glissement pour les personnages agrandis.

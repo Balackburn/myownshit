@@ -673,6 +673,10 @@ Object.assign(CLIPS, {
       ...arms(m([-1.3 + 1.3 * S(a), 0, 0.55 + 0.4 * C(a)], [-1.3 + 1.3 * S(a + PI), 0, 0.55 + 0.4 * C(a + PI)]), m([-0.35, 0, 0], [-0.35, 0, 0])), head: [0.42 * ln, 0, 0.05 * ch], torso: [0.06 * ch, 0, 0],
       root: { rx: -0.36 * ln, y: 0.012 * ch - (p.drop ?? 0) },   // (cycle 6) p.drop (m): seen from the side his heels hang 0.4 m over the road: drop: 0.4 sits him down on them
       toon: { sq: sqv(1 + 0.035 * ch), bend: { spine: [-0.5 * ln, 0, 0, 1, null], legL: [0, 0, 0, 1.12, null], legR: [0, 0, 0, 1.12, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: 1 } } }; },
+  // (cycle 6) he lifts a foot and looks under his shoe (something is missing down there): on the left leg, the right knee up, the shin folded back,
+  // the body bent over it, the arms out for balance; he wobbles
+  lookSole: (t) => { const w = 0.05 * S(t * 9); return { ...CLIPS.stand(), hipR: [-1.15, 0, -0.3], kneeR: [1.75, 0, 0], footR: [0.5, 0, 0], hipL: [0.06, 0, 0.04 + w],
+      torso: [0.42, 0.1, -0.06 + w], head: [0.5, -0.25, 0], ...arms(m([-0.3, 0, 0.9 + w], [-0.5, 0, 0.75 - w]), m([-0.3, 0, 0], [-0.4, 0, 0])) }; },
   // carried along behind a runner, holding on with both hands: the body lies in the air like a flag (face down, head first), the legs flutter, the whole
   // of it swings up and down like a pendulum. Put the actor where the hips fly (a move with a height: the hips are about 1 m above his position) and
   // face him along the travel. p.dir (-1: on his back, feet first: flung past a pole he holds), p.droop (rad under the horizontal, 0.2), p.flutter (1),

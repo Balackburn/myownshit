@@ -529,7 +529,9 @@ function evalActor(A, tIn) {
     if (pp) pose = kb != null ? blendPoses(pp, pose, ease.out(clamp01(dt / kb))) : actingBlend(pp, pose, dt, { dur: BL, anticipation: 0.06, antDur: 0.08 / S.tempo, overshoot: 0.5 });
     if (pp && ud.toon && (pc.root?.pivot || pp.root?.pivot)) pose.root.pivot = pc.root?.pivot || pp.root?.pivot;   // lying down / getting up turns about the hips all the way through the blend
     if (ud.toon) pose = toonOverlap(A, t, pose, BL);
-    if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
+    const hipK = ud.toon ? keyedHip(A, t) : null;   // toon channel `hip`: a weight shift keyed by hand replaces the automatic one for the whole shot
+    if (hipK != null) pose = shiftPose(pose, hipK, Math.max(1, Math.abs(hipK)));
+    else if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
     if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn || ud.silhouette) { ud.glowOn = (S.dark > 0.02 || !!ud.silhouette) && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? (ud.silhouette ? 1 : S.dark) : 0, A.cfg?.darkEyes ?? S.sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
@@ -574,7 +576,19 @@ function idleShift(A, t, pose, amt) {
   const rt = pose.root || {}, k0 = amt === true ? 1 : +amt || 0; if (!k0 || Math.abs(rt.rx || 0) > 0.3 || Math.abs(rt.rz || 0) > 0.3 || Math.abs(rt.y || 0) > 0.15) return pose;   // lying, sitting, in the air: no
   if (posAt(A, t - 0.25).distanceTo(posAt(A, t + 0.25)) > 0.02) return pose;   // on the move
   const h = hash01((A.id ? [...A.id].reduce((a, c) => a + c.charCodeAt(0), 0) : 7) * 0.37 + A.phase), P = 1.4 + 1.2 * h, x = (t + 5 + h * 9) / P, i = Math.floor(x), u = (x - i) * P;
-  const val = j => (j % 2 ? 1 : -1) * (0.55 + 0.45 * hash01(j * 1.3 + h * 17)), s = (val(i - 1) + (val(i) - val(i - 1)) * ease.inOut(clamp01(u / 0.42))) * k0, a = Math.abs(s);
+  const val = j => (j % 2 ? 1 : -1) * (0.55 + 0.45 * hash01(j * 1.3 + h * 17)), s = (val(i - 1) + (val(i) - val(i - 1)) * ease.inOut(clamp01(u / 0.42))) * k0;
+  return shiftPose(pose, s, k0);
+}
+// the pose with the weight on one leg: s -1..1 (times k0): + = the pelvis goes toward his +X (his left), the right knee gives
+// Keyed by hand: toon channel `hip` (-1.8..1.8; above 1 in size: a real contrapposto), in each toon key of the shot that should hold it (a key
+// without it brings the weight back to both feet); when one key of the shot has it, the automatic idle shift is off for that actor
+function keyedHip(A, t) {
+  if (!A.toonKeys || !A.toonKeys.some(k => k.toon && k.toon.hip != null)) return null;
+  const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1, b = kk.toon.hip ?? 0;
+  return pk && w < 1 ? lerp(pk.toon.hip ?? 0, b, w) : b;
+}
+function shiftPose(pose, s, k0) {
+  const rt = pose.root || {}, a = Math.abs(s);
   const out = { ...pose, root: { ...rt, x: (rt.x || 0) + 0.07 * s, rz: (rt.rz || 0) - 0.02 * s } }, add = (j, v) => { const r = pose[j] || ZERO; out[j] = [r[0] + v[0], r[1] + v[1], r[2] + v[2]]; };
   add('hipL', [s < 0 ? -0.16 * a : 0, 0, -0.085 * s]); add('hipR', [s > 0 ? -0.16 * a : 0, 0, -0.085 * s]);   // both legs stay planted under the shifted pelvis; the free thigh comes forward
   add(s > 0 ? 'kneeR' : 'kneeL', [0.3 * a, 0, 0]); add(s > 0 ? 'footR' : 'footL', [-0.14 * a, 0, 0]);          // its knee gives, the heel lifts

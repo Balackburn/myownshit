@@ -30,6 +30,25 @@ export const OMBRE_PROPS = {
     return grp(at(box(w, h, 0.3, o.color || '#F3E8D0', { pivot: 'bottom' }), 0, 0, -0.15), at(box(w + 0.06, o.footH ?? 0.42, 0.33, o.foot || '#DCCDB0', { pivot: 'bottom' }), 0, 0, -0.15), at(box(w + 0.16, 0.14, 0.42, o.cap || '#CDBE9F', { pivot: 'bottom' }), 0, h, -0.15));
   },
 
+  // The place of a shadow that has not come: the outline of a man in dashes on a wall (o.h 1.75 m tall), faintly filled, a question mark on its chest.
+  // o.at: it pops in at that time (absent before). Origin: its feet; front +Z (lay it 1 cm off the wall).
+  ghostOutline(o) {
+    const h = o.h ?? 1.75, w = h * 0.66, col = o.color || INK;
+    const pl = canvasPlane(w, h * 1.1, (c, W, H) => {
+      const mk = () => { const t = document.createElement('canvas'); t.width = W; t.height = H; return t; }, m = mk(), ring = mk(), mg = m.getContext('2d'), rg = ring.getContext('2d'), r = Math.round(W * 0.022);
+      drawFigure(mg, W / 2, H * 0.975, H * 0.88, '#000000');
+      for (let a = 0; a < 16; a++) rg.drawImage(m, Math.cos(a * TAU / 16) * r, Math.sin(a * TAU / 16) * r);            // the figure, grown by r
+      rg.globalCompositeOperation = 'destination-out'; rg.drawImage(m, 0, 0);                                           // minus itself: its edge
+      rg.lineWidth = W * 0.035; rg.strokeStyle = '#000'; for (let k = -H; k < W + H; k += W * 0.105) { rg.beginPath(); rg.moveTo(k, 0); rg.lineTo(k + H, H); rg.stroke(); }   // cut into dashes
+      rg.globalCompositeOperation = 'source-in'; rg.fillStyle = col; rg.fillRect(0, 0, W, H);
+      c.clearRect(0, 0, W, H); c.globalAlpha = 0.09; c.drawImage(m, 0, 0); c.globalAlpha = 1; c.drawImage(ring, 0, 0);
+      txt(c, '?', W / 2, H * 0.47, H * 0.2, col);
+    }, { res: 512, transparent: true });
+    pl.material.transparent = true; pl.material.depthWrite = false; pl.position.y = h * 0.55; const g = grp(pl);
+    g.userData.update = t => { const u = o.at == null ? 1 : t - o.at; pl.visible = u >= 0; if (pl.visible) { const k = 1 + 0.35 * Math.max(0, 1 - u / 0.08) - 0.06 * Math.sin(Math.min(u, 0.35) * 30) * Math.exp(-u * 10); pl.scale.set(k, 2 - k, 1); } };
+    g.userData.update(0); return g;
+  },
+
   // The notice of a lost shadow: a cream sheet (o.w 0.46 m), a red band « PERDUE », the black outline of a man, lines of small print.
   // o.stampAt: a red stamp (o.stamp 'MAJEURE') lands across it at that time (it pops and settles). Origin: its middle; front +Z.
   lostPoster(o) {

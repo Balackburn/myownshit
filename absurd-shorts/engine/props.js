@@ -1338,7 +1338,7 @@ const B = {
     const f1 = face(o.time || '06:00'), f2 = face(o.time2 || '03:09'); f1.position.set(0, 0.2, 0.096); f2.position.copy(f1.position); f2.visible = false;
     const body = grp(at(box(0.42, 0.34, 0.18, C, { outline: 0.01 }), 0, 0.2, 0), at(box(0.34, 0.18, 0.02, '#1E1E22'), 0, 0.2, 0.082), f1, f2,
       at(box(0.06, 0.05, 0.06, '#2A2A2E'), -0.15, 0.02, 0), at(box(0.06, 0.05, 0.06, '#2A2A2E'), 0.15, 0.02, 0), at(box(0.2, 0.05, 0.12, '#F2C230', { outline: 0.006 }), 0, 0.39, 0),
-      at(label('SNOOZE', 0.16, 0.035, { bg: '#F2C230', fg: '#1E1E22', wrap: false }), 0, 0.4, 0.061));
+      at(label(o.button ?? 'SNOOZE', 0.16, 0.035, { bg: '#F2C230', fg: '#1E1E22', wrap: false }), 0, 0.4, 0.061));   // o.button: the word on the button (a French film: 'ARRÊT')
     const bells = [-1, 1].map(s => { const b = grp(at(sphere(0.1, '#C9CCD1', 1), 0, 0, 0), rod([0, -0.05, 0], [0, -0.12, 0], 0.012, '#8C949A')); b.children[0].scale.y = 0.7; b.position.set(s * 0.17, 0.48, 0); body.add(b); return b; });
     const g = grp(body);
     g.userData.update = t => { const ring = o.ringAt != null && t >= o.ringAt && (o.stopAt == null || t < o.stopAt); body.rotation.z = ring ? 0.05 * Math.sin(t * 70) : 0; body.position.y = ring ? 0.01 * Math.abs(Math.sin(t * 55)) : 0;

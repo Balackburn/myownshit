@@ -128,8 +128,10 @@ function makePart(joint, jointSet, L, dir, seg = 6) {
 // on stalks, a tongue, steam from the ears, a bump growing on the skull, stars circling above
 function puffTex() { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,0.95)'); gr.addColorStop(0.6, 'rgba(255,255,255,0.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
 // (cycle 6) an inked puff (face.steamInk): an opaque white disc with a slate rim and a pale blue shade: steam that reads on a pale wall as on a dark one
-function puffInkTex() { const c = document.createElement('canvas'); c.width = c.height = 96; const g = c.getContext('2d'), disc = (x, y, r, col) => { g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); };
-  disc(48, 48, 46, 'rgba(58,74,104,0.95)'); disc(48, 48, 39, '#FFFFFF'); disc(54, 57, 27, '#CFDCF0'); disc(45, 45, 29, '#FFFFFF'); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+function puffInkTex() { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'), disc = (x, y, r, col) => { g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); };
+  const L = [[46, 70, 30], [78, 64, 34], [62, 44, 26], [92, 82, 20]];   // four lobes: a cloud, not a bubble (a string of clean white discs growing away from the head is the sign of a thought)
+  for (const [x, y, r] of L) disc(x, y, r + 6, 'rgba(58,74,104,0.95)'); for (const [x, y, r] of L) disc(x, y, r, '#FFFFFF'); disc(74, 78, 22, '#D4E0F2'); disc(66, 66, 26, '#FFFFFF'); disc(48, 76, 18, '#FFFFFF');
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
 const JAW_TOP = 0.31, MOUTH_Y = 0.227;   // as fractions of the head height from the chin: the stretch starts under the nose; the mouth's centre
 function headDeform(hm, dim) {
   const sub = subdivideY(hm.geometry, 13); if (!sub) return null;
@@ -200,10 +202,13 @@ function headOverlays(head, hm, dim, skin) {
       tfGeo.attributes.position.needsUpdate = true; }
     if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
       if (f.tongueYaw) { tongue.rotation.set((f.tongueDip ?? -0.1) + 0.05 * Math.sin(t * 19), f.tongueYaw + 0.14 * Math.sin(t * 23), 0); tongue.position.z += 0.012; } }   // (cycle 5) face.tongueYaw (rad, + = toward his left): the tongue blown aside by the wind of a run (1.5: flat across the cheek and out past the head), fluttering; face.tongueDip: its pitch
-    const ink = f.steamInk || 0; if (ink && !ptInk) ptInk = puffInkTex();   // (cycle 6) steamInk 0..1: inked puffs, bigger, opaque, thrown further
-    puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1, q = (t * 1.6 + i * 0.37) % 1; p.visible = steam > 0.01; if (!p.visible) return; const m = ink ? ptInk : pt; if (p.material.map !== m) { p.material.map = m; p.material.needsUpdate = true; }
-      p.position.set(side * (hw / 2 + 0.03 + q * (0.16 + 0.12 * ink)), hh * 0.5 + q * (0.2 + 0.14 * ink), -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam * (1 + 0.5 * ink));
-      p.material.opacity = (ink ? Math.min(1, 3.2 * Math.sin(Math.PI * q)) : 0.85 * Math.sin(Math.PI * q)) * Math.min(1, steam); });
+    const ink = f.steamInk || 0; if (ink && !ptInk) ptInk = puffInkTex();   // (cycle 6) steamInk 0..1: inked steam: a jet that leaves the ear thin and fast, swells into lobed clouds and thins as it rises
+    puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1; p.visible = steam > 0.01; if (!p.visible) return; const m = ink ? ptInk : pt; if (p.material.map !== m) { p.material.map = m; p.material.needsUpdate = true; }
+      if (ink) { const q = (t * 2.3 + Math.floor(i / 2) / 3 + (side > 0 ? 0.17 : 0)) % 1, s0 = (0.07 + 0.2 * q) * steam;
+        p.position.set(side * (hw / 2 + 0.02 + 0.3 * Math.pow(q, 0.8)), hh * 0.5 + 0.04 * q + 0.34 * q * q, -hd * 0.1); p.scale.set(s0 * (1.5 - 0.5 * q), s0 * (0.7 + 0.3 * q), 1);
+        p.material.rotation = side * (0.25 - 0.9 * q) + i * 1.9; p.material.opacity = Math.min(1, 5 * q) * Math.pow(1 - q, 0.55) * Math.min(1, steam); return; }
+      const q = (t * 1.6 + i * 0.37) % 1; p.material.rotation = 0;
+      p.position.set(side * (hw / 2 + 0.03 + q * 0.16), hh * 0.5 + q * 0.2, -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam); p.material.opacity = 0.85 * Math.sin(Math.PI * q) * Math.min(1, steam); });
     const bk = f.bump || 0; bump.visible = bk > 0.01; if (bump.visible) { bump.position.set(hw * 0.08, hh - 0.05 + 0.07 * bk, -hd * 0.05); bump.scale.setScalar(bk * (1 + 0.07 * Math.sin(t * 13))); }
     const sk = f.stars || 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * 0.27, hh + 0.13 + 0.04 * Math.sin(t * 7 + i), Math.cos(a) * 0.27); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
   };

@@ -114,8 +114,10 @@ export function createLook(stage, W, H, o = {}) {
       if (n.isPoints || n.isLine || n.isSprite || isSky(n) || (m && !Array.isArray(m) && (m.transparent || m.alphaTest > 0)) || n.userData.noAO) n.visible = false; });
   };
   ao.blendIntensity = o.ao ?? 1.0;
-  ao.updateGtaoMaterial({ radius: 0.35, distanceExponent: 1.6, thickness: 1.0, scale: 1.0, samples: 16, distanceFallOff: 1.0, screenSpaceRadius: false });
-  ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 10, rings: 3, samples: 16 });
+  // lookOpts.aoSamples (16) / lookOpts.aoDenoise ({ normalPhi, depthPhi, radius, rings, samples }): a cleaner contact shadow where two faces meet (a kerb, the foot
+  // of a wall: at 16 samples the denoiser leaves a stippled fringe there), for the price of a slower AO pass
+  ao.updateGtaoMaterial({ radius: 0.35, distanceExponent: 1.6, thickness: 1.0, scale: 1.0, samples: o.aoSamples ?? 16, distanceFallOff: 1.0, screenSpaceRadius: false });
+  ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 10, rings: 3, samples: 16, ...(o.aoDenoise || {}) });
   composer.addPass(ao);
   const shafts = new ShaderPass(ShaftShader); shafts.uniforms.tDepth.value = ao.depthTexture; shafts.uniforms.aspect.value = W / H; composer.addPass(shafts);
   const bloom = new UnrealBloomPass(new THREE.Vector2(W / 2, H / 2), o.bloom ?? 0.28, 0.55, 0.92); composer.addPass(bloom);
@@ -160,7 +162,7 @@ export function createLook(stage, W, H, o = {}) {
       if (el > maxEl) { const hz = Math.hypot(dir.x, dir.z) || 1; dir.x *= Math.cos(maxEl) / hz; dir.z *= Math.cos(maxEl) / hz; dir.y = Math.sin(maxEl); L.key.position.copy(L.key.target.position).addScaledVector(dir, len); }
       L.key.shadow.radius = natural ? (k.softness ?? (indoor ? 9 : 6)) : 4; L.key.shadow.normalBias = 0.02; L.key.shadow.bias = Math.min(L.key.shadow.bias, -0.0004);
       if (o.draft && L.key.shadow.mapSize.x !== 1024) { L.key.shadow.mapSize.set(1024, 1024); if (L.key.shadow.map) { L.key.shadow.map.dispose(); L.key.shadow.map = null; } }   // lookOpts.draft: a quarter of the shadow texels and fewer blur samples (motion previews; never for a delivery)
-      if (natural) { L.key.shadow.blurSamples = o.draft ? 6 : 16; L.hemi.intensity *= k.hemi ?? 0.45; L.key.intensity *= k.sunN ?? 0.95; look.probeK = k.probe ?? (indoor ? 1.7 : 1.2); look.probeTarget = k.probeTarget ?? o.probeTarget ?? 0.3; look.meterRef = k.meterRef ?? o.meterRef ?? (indoor ? 0.42 : 0.32); look.probeDirty = true; look.probeAt = k.probeAt || null; }
+      if (natural) { L.key.shadow.blurSamples = o.draft ? 6 : (o.shadowSamples ?? 16);   /* lookOpts.shadowSamples: more samples in the blur of the shadow map: the edge of a contact shadow (the foot of a wall, under a bench) is stippled at 16 */ L.hemi.intensity *= k.hemi ?? 0.45; L.key.intensity *= k.sunN ?? 0.95; look.probeK = k.probe ?? (indoor ? 1.7 : 1.2); look.probeTarget = k.probeTarget ?? o.probeTarget ?? 0.3; look.meterRef = k.meterRef ?? o.meterRef ?? (indoor ? 0.42 : 0.32); look.probeDirty = true; look.probeAt = k.probeAt || null; }
       ao.blendIntensity = k.ao ?? o.ao ?? 1.0; bloom.strength = k.bloom ?? o.bloom ?? 0.28; shafts.uniforms.intensity.value = k.shafts ?? 0.55;
       grade.uniforms.lift.value = k.lift ?? (natural ? 0.014 : 0.035); grade.uniforms.tint.value.set(...(k.tint || [1, 1, 1])); bloom.threshold = k.bloomThreshold ?? (natural ? 1.35 : 0.92);
       look.baseExposure = k.exposure ?? o.exposure ?? (natural ? (indoor ? 1.32 : 1.14) : (indoor ? 1.2 : 1.12)); look.autoExposure = natural && k.exposure == null && k.autoExposure !== false;
