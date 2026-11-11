@@ -410,8 +410,12 @@ Object.assign(CLIPS, {
       toon: { sq: [sx, sy, sx], face: { expr: p.expr ?? 'dizzy', exprW: u < 0 ? 1 : 1 - eo(u / 0.5), stars: (p.stars ?? 0) * (u < 0 ? 1 : 1 - eo(u / 0.8)) } } };
   },
   // rolled thin as a sheet of paper (front to back), swaying like a falling leaf; p.popAt puffs him back
-  paperThin: (t, p = {}) => { const at = p.popAt ?? 1e9, u = t - at, k = u < 0 ? 1 : 1 - eo(u / 0.25), sz = mix(1, p.thin ?? 0.05, k) + (u > 0 ? 0.12 * wob(u - 0.2, 26, 6) : 0);
-    return { ...CLIPS.stand(), head: [0, 0, 0.05 * k * S(t * 2.2)], root: { rz: 0.12 * k * S(t * 2.2), x: 0.05 * k * S(t * 2.2 + 1) }, toon: { sq: [1 + 0.25 * k, 1 + 0.2 * k, sz], bend: { spine: [0, 0.22 * k * S(t * 2.2 + 0.6), 0, 1, null] } } }; },
+  // p.puffs [[t, thickness], ...]: he is blown back up in steps instead (each puff takes him to that share of his thickness, with a bounce; the last
+  // one may pass 1 before a final [t, 1])
+  paperThin: (t, p = {}) => { const at = p.popAt ?? 1e9, u = t - at, th = p.thin ?? 0.05; let k = u < 0 ? 1 : 1 - eo(u / 0.25), sz = mix(1, th, k) + (u > 0 ? 0.12 * wob(u - 0.2, 26, 6) : 0), bump = 0;
+    if (p.puffs) { sz = th; for (const [a, v] of p.puffs) { if (t < a) break; const w = t - a, d = v - sz; sz += d * eo(w / 0.07) + 0.35 * d * wob(w, 34, 11); bump += 0.06 * Math.sign(d) * wob(w, 34, 11); } k = c01((1 - sz) / (1 - th)); }
+    const fl = 2.2 * (p.flutter ?? 1);   // p.flutter: how many times faster than a falling leaf he sways (6: a sheet in a draught)
+    return { ...CLIPS.stand(), head: [0, 0, 0.05 * k * S(t * fl)], root: { rz: 0.12 * k * S(t * fl), x: 0.05 * k * S(t * fl + 1) }, toon: { sq: [1 + 0.25 * k + bump, 1 + 0.2 * k - bump, Math.max(0.02, sz)], bend: { spine: [0, 0.22 * k * S(t * fl + 0.6), 0.18 * k * (p.flutter ? 1 : 0) * S(t * fl * 1.3), 1, null] } } }; },
   // blown up like a balloon (p.k 0..1 or grows over p.dur), limbs pushed out, then p.popAt lets the air out
   inflate: (t, p = {}) => { const at = p.popAt ?? 1e9, u = t - at, k = (p.k ?? eo(t / (p.dur ?? 0.8))) * (u < 0 ? 1 : 1 - eo(u / 0.18)), w = 1 + 0.95 * k + 0.03 * k * S(t * 9);
     return { ...arms(m([0, 0, 0.2 + 1.2 * k], [0, 0, 0.2 + 1.2 * k]), m([0, 0, -0.3 * (1 - k)], [0, 0, -0.3 * (1 - k)])), hipL: [0, 0, 0.35 * k], hipR: [0, 0, -0.35 * k], head: [-0.2 * k, 0, 0], root: { y: 0.25 * k * (p.float ?? 0) + (u > 0 ? 0 : 0.01 * k * S(t * 5)) },

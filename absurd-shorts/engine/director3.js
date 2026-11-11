@@ -1070,7 +1070,7 @@ function camLocked(camera) {
 // Needs a look ('natural' or 'shaders')
 function darkAt(sc, t) {
   const D = sc.dark; if (!D) return 0; let k = 0;
-  for (const [at, v, ramp = 0.035] of D) { const a = T(at, sc); if (t < a) break; k = lerp(k, v, clamp01((t - a) / Math.max(1e-3, ramp))); }
+  for (const [at, v, ramp = 0.035] of D) { const a = T(at, sc); if (t < a) break; k = ramp <= 0.002 ? v : lerp(k, v, clamp01((t - a) / ramp)); }   // a key with no ramp holds from its own frame on (with a ramp of 0.001 the first frame of a shot that starts dark was still lit: one bright frame at the cut)
   return k;
 }
 function lightCycle(t) {

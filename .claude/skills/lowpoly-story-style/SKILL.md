@@ -109,7 +109,7 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | La cravate tirée comme le cordon d'une lampe (gag à répétition, trois variations) | canal `tie [longueur, avant, côté]` : l'électricien la tire (deux paires d'yeux dans le noir) ; il la tire lui-même au balcon, Paris s'éteint derrière lui ; à la bougie : la flamme et les yeux restent | 40 S08, S11, S17 |
 | L'étiquette claquée sur le front | accessoire attaché à la tête (`[0, 0.4, 0.094]`), `squash` à l'impact, la tête part en arrière | 40 S09 |
 | Ce qui reste dans le noir | deux cambrioleurs éclairés par une allumette ; elle s'éteint : leurs sourires restent ; les amoureux : des yeux en cœur, puis une troisième paire | 40 S12, S13 |
-| Entrer fin comme du papier | `paperThin` posé à 0 avec un déplacement `glide=True` : il passe de profil par l'entrebâillement, puis reprend son épaisseur d'un coup | 40 S16 |
+| Entrer fin comme du papier, se regonfler en trois souffles | `paperThin` posé à 0 avec un déplacement `glide=True`, tourné VERS l'autre personnage : de face caméra un corps plat a l'air normal, de profil c'est un trait. Il s'arrête, pivote à 64° de nous (une carte étroite qui bat : `flutter: 6`), le pouce dans la bouche (`touch`), trois souffles (`puffs [[t, 0.32], [t, 0.64], [t, 1.14], [t, 1.0]]`, un rebond à chacun) pendant qu'il revient à 32° ; l'autre recule un peu plus à chaque souffle ; puis la paume tendue | 40 S16 |
 | Le soleil a un visage, et s'éteint comme une ampoule | `sunLamp` (disque avec visage, `scareAt`, `offAt`) ; la main qui monte à la cravate, la foule qui tend le bras ; noir : les yeux de tous | 40 S18 à S22 |
 
 Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
@@ -315,3 +315,13 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
   pendante 0,95 m ; une casquette : `offset [0, 0.5, 0]` sur la tête.
 - (cycle 4) Planches de contrôle : compter les colonnes avant de conclure. Trois fois une « anomalie au bord gauche » était le bord droit de la vignette
   voisine (la main du maire qui entrait, un personnage au bord du cadre).
+- (cycle 4) **Une image seule à la coupe** : une clé `dark=[[0, 1, 0.001]]` laissait la PREMIÈRE image du plan éclairée (la rampe partait de zéro à
+  l'instant même de la clé) : un éclair d'une image à chaque coupe vers le noir, dans deux films, invisible sur les images fixes et pris pour « la
+  dernière image du plan précédent » sur les bandes. Corrigé dans le moteur (une clé sans rampe vaut dès son image). **Contrôle à lancer sur chaque
+  brouillon et sur le film final** : `python3 absurd-shorts/tools/cut_flash_check.py FILM.mp4 scripts-fr/story_x.json` (il compare la première image de
+  chaque plan aux deux suivantes ; il signale aussi parfois un geste très rapide juste avant une coupe : regarder les images avant de conclure). Sur
+  les bandes d'aperçu, la vignette 0.00 d'un plan doit montrer SON décor dans SON état.
+- (cycle 4) Une réaction qui porte le gag (la dame qui voit la main monter à la cravate) doit avoir son VISAGE dans le cadre : au bord, il n'entrait
+  que ses yeux sortis. `proj.py` sur la tête du personnage qui réagit, dans chaque cadre du plan, avant de rendre.
+- (cycle 4) Un corps aplati d'avant en arrière ne se voit plat que de profil ou de trois quarts serré (64° et plus) : de face, c'est un personnage
+  normal. Mettre en scène la minceur de côté, le regonflage en revenant vers la caméra.
