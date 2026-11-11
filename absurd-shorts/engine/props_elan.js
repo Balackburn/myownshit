@@ -199,10 +199,10 @@ export const ELAN_PROPS = {
     const g = grp(), r = rng(o.seed || 7), path = o.path || [[0, 0, 0]], t0 = o.from ?? path[0][0], t1 = o.to ?? path[path.length - 1][0], ev = o.every ?? 0.035, life = o.life ?? 0.45, puffs = [];
     const pos = t => [keyed(path.map(p => [p[0], p[1]]), t), keyed(path.map(p => [p[0], p[2]]), t)];
     for (let tb = t0; tb <= t1 + 1e-6; tb += ev) { const m = sphere(0.085 + r() * 0.045, o.color || '#F3EFE8', 1, { unique: true, opacity: 0.99 }); m.castShadow = false; m.visible = false; g.add(m); const [x, z] = pos(tb); puffs.push({ m, tb, x, z, dy: 0.5 + r() * 0.5, dz: (r() - 0.5) * 0.3, k: 0.8 + r() * 0.6 }); }
-    const marks = []; if (o.marks) for (const s of [-1, 1]) { const m = quad(1, 0.06, flat('#3A3A3E', { transparent: true, opacity: 0.75, depthWrite: false })); m.rotation.x = -PI / 2; g.add(m); marks.push({ m, s }); }
+    const marks = []; if (o.marks) for (const s of [-1, 1]) { const m = quad(1, 0.06, flat('#3A3A3E', { transparent: true, opacity: 0.75, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -8, polygonOffsetUnits: -32 })); m.rotation.x = -PI / 2; m.renderOrder = 4; g.add(m); marks.push({ m, s }); }   // o.marksY: their height (0.012; over a roadStrip: 0.08)
     g.userData.update = t => { for (const p of puffs) { const u = (t - p.tb) / life; p.m.visible = u >= 0 && u < 1; if (!p.m.visible) continue; p.m.position.set(p.x, 0.07 + p.dy * 0.7 * u, p.z + p.dz * u); p.m.scale.setScalar(p.k * (0.45 + 1.5 * ease.out(u))); p.m.material.opacity = 0.8 * (1 - u * u); }
       if (marks.length) { const [xa, za] = pos(t0), [xb, zb] = pos(Math.min(Math.max(t, t0), t1)), len = Math.hypot(xb - xa, zb - za), a = Math.atan2(zb - za, xb - xa);
-        for (const { m, s } of marks) { m.visible = t > t0 && len > 0.02; m.scale.x = Math.max(0.02, len); m.position.set((xa + xb) / 2 + s * (o.gap ?? 0.22) / 2 * Math.sin(a), 0.012, (za + zb) / 2 - s * (o.gap ?? 0.22) / 2 * Math.cos(a)); m.rotation.z = -a; } } };
+        for (const { m, s } of marks) { m.visible = t > t0 && len > 0.02; m.scale.x = Math.max(0.02, len); m.position.set((xa + xb) / 2 + s * (o.gap ?? 0.22) / 2 * Math.sin(a), o.marksY ?? 0.012, (za + zb) / 2 - s * (o.gap ?? 0.22) / 2 * Math.cos(a)); m.rotation.z = -a; } } };
     g.userData.update(0); return g;
   },
 
@@ -226,9 +226,13 @@ export const ELAN_PROPS = {
 
   // a straight strip of country road along Z (o.len 120 m, o.w 7 m) with a dashed middle line and pale verges: lay it on a field
   roadStrip(o) {
-    const len = o.len ?? 120, w = o.w ?? 7, g = grp(), q = (ww, c, x, y) => { const m = quad(ww, len, new THREE.MeshLambertMaterial({ color: c })); m.receiveShadow = true; m.rotation.x = -PI / 2; m.position.set(x, y, 0); return m; };
-    g.add(q(w + 1.2, '#D8CFB6', 0, 0.008), q(w, '#77777B', 0, 0.012));
-    for (let z = -len / 2 + 1; z < len / 2; z += 4) { const m = quad(0.16, 1.8, new THREE.MeshLambertMaterial({ color: '#F4F1E8' })); m.rotation.x = -PI / 2; m.position.set(0, 0.016, z); g.add(m); }
+    // Three layers painted over the field in a fixed order, without a depth test (the field is flat): a strip 500 m long a few centimetres over a
+    // ground plane 9 km wide fought with it for depth (the road flickered in the draft, was gone in the final look, then showed only in part).
+    // The ground under it must be drawn first: its renderOrder is -2 (the grassland set); whatever stands on the road is drawn after, as usual.
+    const len = o.len ?? 120, w = o.w ?? 7, g = grp(), lay = c => new THREE.MeshLambertMaterial({ color: c, depthTest: false, depthWrite: false });
+    const q = (ww, c, x, y, k) => { const m = quad(ww, len, lay(c)); m.receiveShadow = true; m.rotation.x = -PI / 2; m.position.set(x, y, 0); m.renderOrder = -1.5 + 0.1 * k; return m; };
+    g.add(q(w + 1.2, '#D8CFB6', 0, 0.01, 1), q(w, '#77777B', 0, 0.015, 2));
+    for (let z = -len / 2 + 1; z < len / 2; z += 4) { const m = quad(0.16, 1.8, lay('#F4F1E8')); m.rotation.x = -PI / 2; m.position.set(0, 0.02, z); m.renderOrder = -1.2; g.add(m); }
     return g;
   },
 };

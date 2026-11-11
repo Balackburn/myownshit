@@ -959,3 +959,14 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   d'abord sur la première image du plan), puis re-rendre les trois plages et refaire la jonction. Le défaut existait en puissance dans tout rendu
   découpé entre plusieurs processus ; les images fixes de contrôle ont désormais la lumière du film. (3) Une boucle d'attente qui cherchait son
   propre nom ne se terminait pas : la génération complète de l'histoire 41 attendait pour rien ; remplacée par l'attente d'une ligne de journal.
+- **Non-régression après ces changements du moteur** (déplacements « déjà lancés », lumière mesurée sur la première image du plan) : contre les
+  couches 3D livrées, écarts identiques ou plus faibles (« Le trou » : moyenne 3,2 → 1,7 sur la première image testée ; dernière image de
+  « L'éternuement » : 6,5 → 2,1) ; contre les images de référence, 0,65 % de pixels changés au pire (la lumière des images fixes suit maintenant
+  celle du film). Aucune animation ancienne modifiée.
+- **Première revue de l'histoire 41, direction artistique : 7,0** (rapport : `critic/elan1/report_art_r1.md` dans le dossier de travail). Défaut
+  corrigé tout de suite parce qu'il touchait la version en cours de rendu : la route du plan du panneau se battait avec l'herbe pour la profondeur
+  (clignotement dans le brouillon, route absente en aspect final) ; elle est maintenant peinte sur le champ dans un ordre fixe, sans test de
+  profondeur ; ciel du même plan ramené à la couleur des plans de rue. Génération complète de la version 1 relancée (12 minutes perdues).
+  Décision de série consignée sans question (remarque « pour l'utilisateur » du relecteur) : on garde le rendu naturel et les façades détaillées,
+  mais le costume sera éclairci dans les plans larges où il se confond avec le décor (lumière d'appoint), et l'action passera devant de la pierre
+  claire plutôt que devant les stores et les vitrines.

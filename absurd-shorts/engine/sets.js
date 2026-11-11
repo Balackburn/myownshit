@@ -465,7 +465,7 @@ const S = {
   grassland(o = {}) { // S17-S22: open green field, a bank of cumulus all round the horizon, scattered low-poly trees, blue sky
     const g = grp(), r = rng(o.seed || 29);
     skyFollow(g, o.sky || ['#86C3E6', '#CFE7F1'], 3000, '#D8E8E8');
-    g.add(flat(9000, 9000, o.grass || '#86BE5C', 0, 0, 0));
+    const field = flat(9000, 9000, o.grass || '#86BE5C', 0, 0, 0); field.renderOrder = -2; g.add(field);   // drawn first: a road strip is painted over it (props_elan.js: roadStrip)
     for (let i = 0; i < (o.clouds ?? 40); i++) { const a = i / (o.clouds ?? 40) * TAU + r() * 0.12, d = (o.cloudR || 650) * (0.85 + r() * 0.35);
       g.add(prop('cumulus', { w: 150 + r() * 120, h: 55 + r() * 35, n: 22, seed: i + 3 }, Math.cos(a) * d, -8, Math.sin(a) * d)); }
     for (let i = 0; i < 26; i++) { const a = r() * TAU, d = 60 + r() * 240; g.add(prop('tree', { seed: i + 9, color: '#4E8A4A' }, Math.cos(a) * d, 0, Math.sin(a) * d, 0, 2.2 + r() * 1.6)); }

@@ -91,11 +91,11 @@ st.cue('whoosh', 'S03', 0.0, 0.4, 0.3, 600, 2000); st.cue('sfx:boing', 'S03', W3
 # 4: the sign at the edge of town: he goes by it, still braking; it spins on its post
 D4 = st.dur('S04'); V4 = 14.0; P4 = 0.55              # he passes the sign
 A4 = [1.1, 0, round(V4 * P4, 3)]; B4 = [1.1, 0, round(V4 * (P4 - D4), 3)]
-st.shot('S04', 'grassland', actors=[act('mec', A4, 180, 'heelBrake', 'worried', keys=[k(0.0, look=None), k(0.0, to=B4, dur=D4, clip='heelBrake', glide=True, ease='linear', face=180, cruise=True),
+st.shot('S04', 'grassland', setOpts={'sky': ['#01ABF1', '#CFE7F1']}, look={'deepSky': False}, actors=[act('mec', A4, 180, 'heelBrake', 'worried', keys=[k(0.0, look=None), k(0.0, to=B4, dur=D4, clip='heelBrake', glide=True, ease='linear', face=180, cruise=True),
             k(0.0, toon={'face': {'gx': -0.8, 'gy': -0.4, 'brow': 0.8}}, toonDur=0.0), k(P4 + 0.1, toon={'face': {'brow': 1, 'mouth': 'wavy'}}, toonDur=0.08)])],
         props=[P('road', 'roadStrip', pos=[-1.3, 0, 0], opts={'len': 500, 'w': 6.5}), P('sign', 'townSign', pos=[2.45, 0, 0], opts={'name': 'PARIS', 'spinAt': P4 + 0.03, 'turns': 3.5, 'spinDur': 1.6}),
                P('tower', 'eiffelTower', pos=[-32, 0, 190], opts={'h': 60}),
-               P('smoke', 'heelSmoke', pos=[0, 0, 0], opts={'path': [[0, A4[0], A4[2] - 0.55], [D4, B4[0], B4[2] - 0.55]], 'from': 0.0, 'to': D4, 'every': 0.025, 'marks': True})],
+               P('smoke', 'heelSmoke', pos=[0, 0, 0], opts={'path': [[0, A4[0], A4[2] - 0.55], [D4, B4[0], B4[2] - 0.55]], 'from': 0.0, 'to': D4, 'every': 0.025, 'marks': True, 'marksY': 0.08})],
         cams=[cam(0.0, [1.7, 0.8, -7.0], [1.7, 0.84, -6.8], [1.75, 1.75, 0.5], [1.75, 1.75, 0.5], lens=44)])
 st.cue('whoosh', 'S04', P4 - 0.3, 0.5, 0.5, 500, 2200); st.cue('sfx:spring', 'S04', P4 + 0.03, 0.35)
 

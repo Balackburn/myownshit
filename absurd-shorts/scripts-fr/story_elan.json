@@ -1604,7 +1604,8 @@
       "from": 0.0,
       "to": 1.133,
       "every": 0.025,
-      "marks": true
+      "marks": true,
+      "marksY": 0.08
      }
     }
    ],
@@ -1638,6 +1639,15 @@
    ],
    "start": 4.8333,
    "duration": 1.1334,
+   "setOpts": {
+    "sky": [
+     "#01ABF1",
+     "#CFE7F1"
+    ]
+   },
+   "look": {
+    "deepSky": false
+   },
    "grade": "none",
    "soften": 0.3
   },
