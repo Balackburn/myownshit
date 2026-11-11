@@ -9,9 +9,14 @@ import { box } from './style.js';
 const G0 = 6.5;                                   // how much wind (m/s) it takes to lift the tie to the horizontal
 const sm = (x, a, b) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
-export function clothUpgrade(obj) {
+export function clothUpgrade(obj, opts = {}) {
   const ud = obj.userData, J = ud.joints, d = ud.dims; if (!J?.torso || !d || ud.cloth) return ud.cloth;
-  let tie = null, hair = null;
+  let tie = null, hair = null, tails = null;
+  if (opts.tails && d.jacketColor && d.tailW) {   // (cycle 6) the two tails of a suit jacket (script / cast `tails: true`): they hang behind the hips, fly back in a run, up in a fall
+    const g = new THREE.Group(); g.name = 'tails3d'; g.position.set(0, 0.03, -d.front - 0.006); J.torso.add(g);
+    const w = d.tailW / 2 - 0.008, L = 0.27;
+    tails = [-1, 1].map(s => { const pv = new THREE.Group(); pv.position.set(s * (w / 2 + 0.008), 0, 0); g.add(pv); pv.add(box(w, L, 0.014, d.jacketColor, { pivot: 'top', taper: { x: 1.1, z: 1 } })); return { pv, s }; });
+  }
   if (d.tieColor) {   // the flat tie (a box, or paint on the hero's jacket) gives way to a real one
     ud.hideFlatTie?.();
     const root = new THREE.Group(); root.name = 'tie3d'; root.position.set(d.tieX || 0, d.torsoH * 0.9, d.front + 0.014); J.torso.add(root);
@@ -40,7 +45,7 @@ export function clothUpgrade(obj) {
   ud.cloth = {
     // aw: apparent wind in world space, m/s (the scene wind minus the actor's own velocity); t: time (flutter); k: dose 0..1.
     // Gravity and wind are brought into the frame of the chest (the tie) and of the head (the hair), so lying down or upside down works too
-    apply(aw = [0, 0, 0], t = 0, k = 1, fat = 1, hairUp = 0, pull = null) {   // pull [length, forward, aside]: the tie taken in a hand (toon channel `tie`): it stretches (1 = its own length) and swings toward the hand (radians)   // hairUp 0..1: hair left standing whatever the wind (toon channel `hairUp`)   // fat: how much the chest is inflated (the spine band's thickness): the knot stays on its surface
+    apply(aw = [0, 0, 0], t = 0, k = 1, fat = 1, hairUp = 0, pull = null, opt = null) {   // pull [length, forward, aside]: the tie taken in a hand (toon channel `tie`): it stretches (1 = its own length) and swings toward the hand (radians)   // hairUp 0..1: hair left standing whatever the wind (toon channel `hairUp`)   // fat: how much the chest is inflated (the spine band's thickness): the knot stays on its surface
       const sp = Math.hypot(aw[0], aw[1], aw[2]), fl = Math.min(1, sp / 7);
       if (tie) {
         tie.root.position.z = (d.front + 0.014) * Math.max(0.6, fat);
@@ -49,12 +54,18 @@ export function clothUpgrade(obj) {
         let rx = Math.atan2(F.z, -F.y), rz = Math.atan2(F.x, Math.hypot(F.y, F.z)) * 0.8, over = 0;   // rx > 0: the tie swings forward (away from the chest), pi: straight up
         if (rx < 0) {   // pressed against the chest: it lies flat (a man leaning back, lying down); a strong head wind sends it up in front and back over a shoulder
           over = sm(head, 5, 11); rx = 3.5 * over; rz = rz * (1 - over) + tie.side * 0.75 * over;
+          if (opt?.gravity) { const inv = sm(F.y, 0.5, 4.5); if (inv > 0) { rx += (Math.PI - 0.2 - rx) * inv; rz *= 1 - inv; } }   // (cycle 6, `clothGravity`) the chest upside down: gravity takes the tie toward the head, the wind lays it on the chin and the face
         }
         const f1 = 0.1 * fl * Math.sin(t * 17 + 1), f2 = 0.3 * fl * Math.sin(t * 23 + 2.2), f3 = 0.5 * fl * Math.sin(t * 29 + 0.7);
         tie.segs[0].rotation.set(-(rx * 0.72 + f1) * k, 0, (rz * 0.6 + 0.3 * f1) * k);
         tie.segs[1].rotation.set(-(rx * 0.2 + f2) * k, 0, (rz * 0.3 + 0.4 * f2) * k);
         tie.segs[2].rotation.set(-(rx * 0.08 + f3) * k, 0, (rz * 0.1 + 0.5 * f3) * k);
         tie.segs[0].scale.y = pull ? Math.max(0.2, pull[0] ?? 1) : 1; if (pull) { tie.segs[0].rotation.x -= pull[1] || 0; tie.segs[0].rotation.z += pull[2] || 0; }
+      }
+      if (tails) {
+        J.torso.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - G0, aw[2]).applyQuaternion(q);
+        const lift = Math.max(0, Math.atan2(-F.z, -F.y));   // blown back by a head wind, up over the back in a fall; against the legs otherwise
+        for (const tl of tails) tl.pv.rotation.set(Math.min(2.7, lift * 0.9 + fl * (0.22 * Math.sin(t * 21 + tl.s * 1.3) + 0.1 * Math.sin(t * 33 + tl.s))) * k, 0, tl.s * 0.18 * Math.min(1, lift) * k);
       }
       if (hair) {
         J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs

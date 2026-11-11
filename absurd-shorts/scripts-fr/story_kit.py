@@ -15,6 +15,13 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 FPS = 30
 
 
+def axes_euler(X, Y, Z):
+    """The rotation of a prop from its three local axes given in the world (unit, orthogonal, right-handed): (rot x in rad, ry in degrees, rot z in rad),
+    for P(..., ry=ry, rot=[rx, 0, rz]) (Euler XYZ, as the engine applies it). Use it for a thing held in space whose direction is set by two points
+    (an umbrella from a hand to a collar, a tool that must bite a ticket): aim its long axis, choose where its side faces, take the cross product."""
+    return (round(math.atan2(-Z[1], Z[2]), 4), round(math.degrees(math.asin(max(-1.0, min(1.0, Z[0])))), 2), round(math.atan2(-Y[0], X[0]), 4))
+def cross3(a, b): return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
+def unit3(a): n = math.sqrt(sum(x * x for x in a)) or 1.0; return [x / n for x in a]
 def cam(at, frm, to, look, look2=None, lens=44, ease='linear', shake=None, roll=None):
     c = {'at': at, 'from': frm, 'to': to, 'lookAt': look, 'lens': lens, 'ease': ease}
     if look2: c['lookAt2'] = look2

@@ -36,7 +36,7 @@ export const ELAN_PROPS = {
   // Open, the leaves stand o.doorOut (0.2 m) out of the flank (plug doors: they show from behind), then slide apart.
   cityBus(o) {
     const L = o.len ?? 7.6, W = 2.3, C = o.color || '#2F8F6B', C2 = o.roof || '#F1EEE3', DK = '#22252B', g = grp(), body = grp(), gl = glassMat(o.glass ?? 0.12, '#DCEFF2');
-    const y0 = 0.34, yS = 1.2, yW = 2.3, yR = 2.78, hx = L / 2, hz = W / 2;
+    const y0 = 0.34, yS = 1.2, yW = o.top ?? 2.3, yR = yW + 0.48, hx = L / 2, hz = W / 2;   // o.top: the top of the windows = the ceiling (2.3; a cap that jumps or a passenger who hops goes through it: 2.65 leaves them room)
     body.add(at(box(L, 0.1, W, DK), 0, y0 + 0.05, 0));                                                                  // the floor
     body.add(at(box(L, yS - y0, 0.05, C, { outline: 0.012 }), 0, (y0 + yS) / 2, -hz), at(box(0.05, yS - y0, W, C, { outline: 0.012 }), -hx, (y0 + yS) / 2, 0), at(box(0.05, yS - y0 - 0.1, W, C, { outline: 0.012 }), hx, (y0 + yS) / 2 - 0.05, 0));
     const doorsX = [hx - 1.55, -0.7], dw = 1.1;                                                                         // the centres of the two doors
@@ -80,9 +80,9 @@ export const ELAN_PROPS = {
     for (const s of [-1, 1]) { const top = canvasPlane(0.5, 0.26, (c, W, H) => { c.fillStyle = '#2C6FB5'; c.fillRect(0, 0, W, H); txt(c, 'BUS', W / 2, H * 0.55, H * 0.8, '#FFFFFF'); }, { res: 256 }); top.position.set(0, 0.18, s * 0.022); if (s < 0) top.rotation.y = PI;
       const bot = canvasPlane(0.5, 0.3, (c, W, H) => { c.fillStyle = '#F4F1E8'; c.fillRect(0, 0, W, H); c.fillStyle = o.badge || '#E0572E'; c.beginPath(); c.roundRect(W * 0.06, H * 0.1, W * 0.88, H * 0.8, H * 0.18); c.fill(); txt(c, o.line || '12 BIS', W / 2, H * 0.54, fit(c, o.line || '12 BIS', W * 0.78, H * 0.62), '#FFFFFF'); }, { res: 256 }); bot.position.set(0, -0.17, s * 0.022); if (s < 0) bot.rotation.y = PI;
       plate.add(top, bot); }
-    plate.position.set(0, -0.32, 0); pole.tip.add(plate);
+    plate.position.set(0, -0.32, o.plateOff ?? 0); pole.tip.add(plate);   // o.plateOff (0.06): the plate in front of its pole, not pierced by it
     const frame = grp(at(box(0.34, 0.46, 0.03, '#E9E4D6', { outline: 0.01 }), 0, 0, 0)); for (let i = 0; i < 6; i++) frame.add(at(box(0.26, 0.018, 0.005, '#8E949C'), 0, 0.16 - i * 0.06, 0.018));
-    frame.position.set(0, h / 14 * 0.5, 0.05); pole.segs[7].add(frame);
+    frame.position.set(0, h / 14 * 0.5 + (o.boardDy ?? 0), 0.05); pole.segs[7].add(frame);   // o.boardDy: the timetable lower on the pole
     g.userData.update = t => pole.bend(leanAt(o, t)); g.userData.update(0); return g;
   },
 
@@ -90,11 +90,15 @@ export const ELAN_PROPS = {
   // materials: it shows its colour in any light), with a small pop of the lens. It bends like the stop pole: o.bend / o.spring (toward its +X).
   // o.headRy (degrees): the head turned on the pole (the lenses face another way than the prop's +Z: a pole that bends along the street under a head that faces it).
   trafficLight(o) {
-    const h = o.h ?? 3.0, pole = arcPole(h - 0.9, 0.05, '#3A3F47'), g = grp(pole.root), head = grp(at(box(0.34, 0.92, 0.26, '#1F2228', { outline: 0.012 }), 0, 0.46, 0), at(box(0.42, 0.04, 0.3, '#1F2228'), 0, 0.94, 0));
+    const h = o.h ?? 3.0, HC = o.housing || '#1F2228', pole = arcPole(h - 0.9, 0.05, o.poleColor || '#3A3F47'), g = grp(pole.root), head = grp(at(box(0.34, 0.92, 0.26, HC, { outline: 0.012 }), 0, 0.46, 0), at(box(0.42, 0.04, 0.3, HC), 0, 0.94, 0));   // o.poleColor, o.housing: a galvanised pole, a dark green housing (a black display next to it must not read as part of the signal)
     const COL = { r: '#FF3B2F', a: '#FFB02E', g: '#3EE06A' }, OFF = { r: '#4A1512', a: '#4A3610', g: '#12401F' }, lens = {};
     ['r', 'a', 'g'].forEach((k, i) => { const m = quad(0.2, 0.2, flat(OFF[k])); m.geometry = new THREE.CircleGeometry(0.1, 16); m.position.set(0, 0.74 - i * 0.28, 0.135); const halo = quad(0.5, 0.5, flat(COL[k], { transparent: true, opacity: 0.0, depthWrite: false })); halo.geometry = new THREE.CircleGeometry(0.15, 16); halo.position.set(0, 0.74 - i * 0.28, 0.132);
-      head.add(halo, m, at(box(0.26, 0.03, 0.1, '#1F2228'), 0, 0.74 - i * 0.28 + 0.115, 0.17)); lens[k] = { m, halo }; });
+      head.add(halo, m, at(box(0.26, 0.03, 0.1, HC), 0, 0.74 - i * 0.28 + 0.115, 0.17)); lens[k] = { m, halo }; });
     head.rotation.y = (o.headRy ?? 0) * PI / 180; pole.tip.add(head);
+    if (o.ped) {   // o.ped 'r' | 'g': a pedestrian signal under the main one, on the side of the prop's -Z (the road, when the lenses face up the street): a red standing man, or a green walking one
+      const man = (col, y, walk) => { const c = canvasPlane(0.22, 0.24, (g2, W, H) => { g2.fillStyle = '#0D0E12'; g2.fillRect(0, 0, W, H); g2.fillStyle = col; g2.beginPath(); g2.arc(W / 2, H * 0.2, H * 0.11, 0, TAU); g2.fill(); g2.fillRect(W * 0.4, H * 0.33, W * 0.2, H * 0.34); g2.fillRect(W * (walk ? 0.3 : 0.4), H * 0.66, W * 0.09, H * 0.28); g2.fillRect(W * (walk ? 0.61 : 0.51), H * 0.66, W * 0.09, H * 0.28); }, { res: 128 }); c.material = flat('#FFFFFF', { map: c.material.map }); c.position.set(0, y, -0.102); c.rotation.y = PI; return c; };
+      const pb = grp(at(box(0.3, 0.56, 0.2, HC, { outline: 0.01 }), 0, 0, 0), man(o.ped === 'g' ? '#4A1512' : '#FF3B2F', 0.135, false), man(o.ped === 'g' ? '#3EE06A' : '#12401F', -0.135, true)); pb.position.set(0, -0.42, -0.16); pole.tip.add(pb);
+    }
     const st = o.state || [[0, 'r']];
     g.userData.update = t => { pole.bend(leanAt(o, t)); const i = stepAt(st, t), on = st[i][1], u = t - st[i][0];
       for (const k of 'rag') { const lit = k === on; lens[k].m.material.color.set(lit ? COL[k] : OFF[k]); lens[k].halo.material.opacity = lit ? 0.28 : 0; const s = lit ? 1 + 0.35 * Math.max(0, 1 - u / 0.08) : 1; lens[k].m.scale.setScalar(s); } };
@@ -116,8 +120,9 @@ export const ELAN_PROPS = {
   // the line display he wears on his head: a black bar (o.w 0.4 m) on two short stalks; o.texts [[t, 'text'], ...] (or o.text). Origin: the foot of the
   // stalks, on the top of the skull; front +Z. Attach it to the head with `sway` so that it rocks with his steps.
   headSign(o) {
-    const w = o.w ?? 0.4, hh = o.hh ?? 0.13, keys = o.texts || [[0, o.text || '12 BIS']], g = grp(at(box(w, hh, 0.05, '#1A1C22', { outline: 0.008 }), 0, 0.07 + hh / 2, 0));
-    for (const s of [-1, 1]) g.add(at(cyl(0.008, 0.008, 0.08, '#5B626B', 5, { pivot: 'bottom' }), s * w * 0.3, 0, 0));
+    const w = o.w ?? 0.4, hh = o.hh ?? 0.13, keys = o.texts || [[0, o.text || '12 BIS']], g = grp(at(box(w, hh, 0.05, '#1A1C22', { outline: 0.008 }), 0, 0.07 + hh / 2, 0)), pr = o.posts ?? 0.008;
+    if (o.frame) g.add(at(box(w + 0.03, hh + 0.03, 0.04, o.frame), 0, 0.07 + hh / 2, -0.002));   // o.frame: a thin lighter frame round the panel (it stays his, next to a dark traffic light); o.posts: the radius of its two posts
+    for (const s of [-1, 1]) g.add(at(cyl(pr, pr, 0.08, o.frame || '#5B626B', 5, { pivot: 'bottom' }), s * w * 0.3, 0, 0));
     const faces = keys.map(([, s]) => { const f = ledText(s, w * 0.92, hh * 0.78, 256); f.position.set(0, 0.07 + hh / 2, 0.027); g.add(f); return f; });
     g.userData.update = t => { const i = stepAt(keys, t), u = t - keys[i][0]; faces.forEach((f, k) => { f.visible = k === i; }); const s = i > 0 ? 1 + 0.25 * Math.max(0, 1 - u / 0.07) : 1; faces[i].scale.set(s, s, 1); };
     g.userData.update(0); return g;
@@ -179,7 +184,7 @@ export const ELAN_PROPS = {
   bigTicket(o) {
     const w = o.w ?? 0.2, hh = w * 0.48, g = grp(at(box(w, hh, 0.006, '#FBFAF4', { outline: 0.006 }), 0, 0, 0));
     for (const s of [-1, 1]) { const f = canvasPlane(w * 0.96, hh * 0.92, (c, W, H) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, W, H); c.fillStyle = o.color || '#C2378C'; c.fillRect(0, H * 0.62, W, H * 0.2); txt(c, o.line || '12 BIS', W / 2, H * 0.34, fit(c, o.line || '12 BIS', W * 0.8, H * 0.46)); }, { res: 192 }); f.position.z = s * 0.004; if (s < 0) f.rotation.y = PI; g.add(f); }
-    const hole = quad(0.03, 0.03, flat('#1B1B1E')); hole.geometry = new THREE.CircleGeometry(hh * 0.13, 10); hole.position.set(w * 0.3, hh * 0.1, 0.006); const hole2 = hole.clone(); hole2.position.z = -0.006; hole2.rotation.y = PI; g.add(hole, hole2);
+    const hole = quad(0.03, 0.03, flat(o.hole || '#1B1B1E')); /* o.hole: its colour (the sky seen through it) */ hole.geometry = new THREE.CircleGeometry(hh * 0.13, 10); hole.position.set(w * 0.3, hh * 0.1, 0.006); const hole2 = hole.clone(); hole2.position.z = -0.006; hole2.rotation.y = PI; g.add(hole, hole2);
     g.userData.update = t => { const u = o.punchAt == null ? -1 : t - o.punchAt; hole.visible = hole2.visible = u >= 0; const s = u >= 0 ? 1 + 0.3 * Math.max(0, 1 - u / 0.08) : 1; g.scale.setScalar(s); };
     g.userData.update(0); return g;
   },
@@ -229,7 +234,7 @@ export const ELAN_PROPS = {
 
   // an oversized ticket punch (pliers): two handles, two jaws; o.snapAt: the jaws snap shut (and bounce open a little). Origin: the pivot; the jaws point +Y.
   ticketPunch(o) {
-    const s = o.s ?? 1, g = grp(), A = new THREE.Group(), B = new THREE.Group(), steel = '#C9CED6', grip = '#D8281F';
+    const s = o.s ?? 1, g = grp(), A = new THREE.Group(), B = new THREE.Group(), steel = '#C9CED6', grip = o.grip || '#D8281F';   // o.grip: the colour of its handles
     for (const [G, sg] of [[A, 1], [B, -1]]) { G.add(at(box(0.03, 0.2, 0.03, steel, { outline: 0.008 }), sg * 0.012, 0.1, 0), at(box(0.036, 0.2, 0.036, grip, { outline: 0.008 }), sg * 0.02, -0.11, 0), at(box(0.05, 0.03, 0.04, steel), sg * 0.005, 0.2, 0)); g.add(G); }
     g.scale.setScalar(s);
     g.userData.update = t => { const u = o.snapAt == null ? -1 : t - o.snapAt, open = u < 0 ? 0.3 : u < 0.05 ? 0.3 * (1 - u / 0.05) : 0.12 * Math.min(1, (u - 0.05) / 0.12); A.rotation.z = -open; B.rotation.z = open; };
@@ -247,7 +252,8 @@ export const ELAN_PROPS = {
 
   // a wristwatch for a puppet's wrist: a dark strap and a pale dial (o.s 1 = 4.5 cm). Attach it to a hand: on={'actor': id, 'hand': 'L', 'offset': [0, 0.06, 0]}
   wristWatch(o) {
-    const s = o.s ?? 1, g = grp(at(box(0.075, 0.03, 0.075, o.strap || '#2B2F36', { outline: 0.006 }), 0, 0, 0), at(cyl(0.026, 0.026, 0.012, o.dial || '#F4F1E8', 12), 0, 0, 0.04, PI / 2), at(cyl(0.03, 0.03, 0.008, '#C9A24B', 12), 0, 0, 0.036, PI / 2));
+    const s = o.s ?? 1, R = o.dialR ?? 0.026, g = grp(at(box(0.075, 0.03, 0.075, o.strap || '#2B2F36', { outline: 0.006 }), 0, 0, 0));   // o.dialR: a bigger dial; o.both: a dial on each side of the wrist (whichever way the forearm turns, one faces the camera); o.bright: an unlit white dial
+    for (const sg of (o.both ? [1, -1] : [1])) { const d = cyl(R, R, 0.012, o.dial || '#F4F1E8', 14); if (o.bright) d.material = flat(o.dial || '#FFFFFF'); g.add(at(d, 0, 0, sg * 0.04, PI / 2), at(cyl(R * 1.15, R * 1.15, 0.008, '#C9A24B', 14), 0, 0, sg * 0.036, PI / 2)); }
     g.scale.setScalar(s); return g;
   },
 

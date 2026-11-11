@@ -18,6 +18,7 @@ import { ETERNUEMENT_PROPS } from './props_eternuement.js';
 import { PORTE_PROPS } from './props_porte.js';
 import { INTERRUPTEUR_PROPS } from './props_interrupteur.js';
 import { ELAN_PROPS } from './props_elan.js';
+import { OMBRE_PROPS } from './props_ombre.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -1119,7 +1120,7 @@ const B = {
     for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; g.add(at(box(0.015, 0.05, 0.01, P.ink), Math.sin(a) * 0.23, Math.cos(a) * 0.23, 0.03, 0, 0, -a)); }
     const hh = grp(at(box(0.02, 0.15, 0.01, P.ink, { pivot: 'bottom' }), 0, 0, 0)), mh = grp(at(box(0.012, 0.22, 0.01, P.red, { pivot: 'bottom' }), 0, 0, 0));
     hh.position.z = 0.035; mh.position.z = 0.04; g.add(hh, mh);
-    const rate = o.rate ?? 1 / 60, H0 = o.hours ?? 0; g.userData.update = t => { const turns = H0 + t * rate; mh.rotation.z = -turns * Math.PI * 2; hh.rotation.z = -turns * Math.PI * 2 / 12; };   // o.hours: the time shown at t = 0 (8 = eight o'clock)
+    const rate = o.rate ?? 1 / 60, H0 = o.hours ?? 0; g.userData.update = t => { const turns = H0 + Math.min(t, o.until ?? 1e9) * rate; mh.rotation.z = -turns * Math.PI * 2; hh.rotation.z = -turns * Math.PI * 2 / 12; };   // o.hours: the time shown at t = 0 (8 = eight o'clock); o.until: the hands stop at that time (an hour that goes by in half a second)
     return g; },
   calendar(o) { // page number flips with time: opts.rate pages/s from opts.start
     const g = grp(at(box(0.42, 0.5, 0.02, P.paper, { outline: 0.004 }), 0, 0, 0), at(box(0.42, 0.1, 0.025, P.red), 0, 0.2, 0.002));
@@ -2053,7 +2054,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.

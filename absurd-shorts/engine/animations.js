@@ -667,11 +667,11 @@ Object.assign(CLIPS, {
       toon: { bend: { spine: [0, -0.55 * sd * k + br, 0, 1.05, null], neck: [0, -0.2 * sd * k, 0, 1 + 0.5 * k, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: Math.min(1, k) } } }; },
   // ---- cycle 5 (« L'élan »): a man who cannot stop, and those he carries
   // braking with the heels and not stopping: he leans back on straight legs, toes up, the arms mill backward one after the other, the whole body chatters
-  // on the ground. Use it on a fast move (`glide=True`). p.lean (1 = the full lean), p.mill (turns of the arms per second, 2.6), p.chatter (1)
+  // on the ground. Use it on a fast move (`glide=True`). p.lean (1 = the full lean), p.mill (turns of the arms per second, 2.6), p.chatter (1), p.drop (0; 0.4 puts the heels on the ground in a side view)
   heelBrake: (t, p = {}) => { const ln = p.lean ?? 1, a = t * 2 * PI * (p.mill ?? 2.6), ch = (p.chatter ?? 1) * S(t * 2 * PI * 15);
     return { hipL: [-0.95 * ln, 0, 0.06], hipR: [-0.72 * ln, 0, -0.06], kneeL: [0.1, 0, 0], kneeR: [0.18, 0, 0], footL: [-0.75, 0, 0], footR: [-0.75, 0, 0],
       ...arms(m([-1.3 + 1.3 * S(a), 0, 0.55 + 0.4 * C(a)], [-1.3 + 1.3 * S(a + PI), 0, 0.55 + 0.4 * C(a + PI)]), m([-0.35, 0, 0], [-0.35, 0, 0])), head: [0.42 * ln, 0, 0.05 * ch], torso: [0.06 * ch, 0, 0],
-      root: { rx: -0.36 * ln, y: 0.012 * ch },
+      root: { rx: -0.36 * ln, y: 0.012 * ch - (p.drop ?? 0) },   // (cycle 6) p.drop (m): seen from the side his heels hang 0.4 m over the road: drop: 0.4 sits him down on them
       toon: { sq: sqv(1 + 0.035 * ch), bend: { spine: [-0.5 * ln, 0, 0, 1, null], legL: [0, 0, 0, 1.12, null], legR: [0, 0, 0, 1.12, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: 1 } } }; },
   // carried along behind a runner, holding on with both hands: the body lies in the air like a flag (face down, head first), the legs flutter, the whole
   // of it swings up and down like a pendulum. Put the actor where the hips fly (a move with a height: the hips are about 1 m above his position) and

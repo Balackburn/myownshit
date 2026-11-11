@@ -292,7 +292,7 @@ for (let i = 0; i < pp.count; i++) {
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.1 + hh };
   // for the cloth layer of the cartoon rig (engine/cloth.js): where a tie hangs and what it replaces, the crown of the head
   const hasTie = !!C.tie && !o.naked && (['suit', 'waiter', 'cop'].includes(o.outfit) || !!o.clothTie) && (ATLB || !!flatTie);   // o.clothTie: a tie in volume on another outfit too (a uniform with a tie)
-  root.userData.dims = { torsoH, front, hw, hh, hd, skinColor: ATL ? (atlasRegionColor(AR.skinCap) || o.skin) : o.skin, tieColor: hasTie ? C.tie : null, tieX: ATLB ? -0.014 : 0, hairColor: o.hair === 'bald' || o.hat && o.hat !== 'none' ? null : (ATL ? '#17161A' : o.hairColor) };
+  root.userData.dims = { jacketColor: !o.naked && ['suit', 'waiter', 'skirtsuit'].includes(o.outfit) ? C.jacket : null, tailW: 0.4 * Wd, torsoH, front, hw, hh, hd, skinColor: ATL ? (atlasRegionColor(AR.skinCap) || o.skin) : o.skin, tieColor: hasTie ? C.tie : null, tieX: ATLB ? -0.014 : 0, hairColor: o.hair === 'bald' || o.hat && o.hat !== 'none' ? null : (ATL ? '#17161A' : o.hairColor) };
   root.userData.hideFlatTie = () => { if (ATLB) { const m = atlasMaterialNoTie(); if (m) jacket.material = m; return !!m; } if (flatTie) flatTie.visible = false; return true; };
   root.userData.setExpression = (expr, blink = false) => {
     const m = headMesh.material[4];
@@ -306,7 +306,7 @@ for (let i = 0; i < pp.count; i++) {
     root.userData.setEyeGlow = (st, k, big) => {
       if (!fr || k < 0.02) { if (glowMesh) glowMesh.visible = false; return; }
       if (!glowMesh) { const none = new THREE.MeshBasicMaterial({ visible: false }), gm = new THREE.MeshBasicMaterial({ map: fr.glow(st, big), transparent: true, depthWrite: false, toneMapped: false, fog: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
-        glowMesh = new THREE.Mesh(headMesh.geometry, [none, none, none, none, gm, none]); glowMesh.name = 'eyeGlow'; glowMesh.layers.set(1); glowMesh.userData.noAO = true; glowMesh.userData.noBend = true; headMesh.add(glowMesh); }
+        glowMesh = new THREE.Mesh(headMesh.geometry, [none, none, none, none, gm, none]); glowMesh.name = 'eyeGlow'; glowMesh.layers.set(1); if (root.userData.glowLayer0) glowMesh.layers.enable(0); glowMesh.userData.noAO = true; glowMesh.userData.noBend = true; headMesh.add(glowMesh); }   // glowLayer0: a silhouette (cast `silhouette`) keeps its white eyes in the lit pass
       if (glowMesh.geometry !== headMesh.geometry) glowMesh.geometry = headMesh.geometry;
       fr.glow(st, big); glowMesh.material[4].opacity = Math.min(1, k * 1.15); glowMesh.visible = true;
       // dark-room eyes (darkEyes above 1.9): the lit skin is scaled about the point between the eyes, so that they spill over the head: two eyes as wide as

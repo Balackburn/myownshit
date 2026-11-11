@@ -10,6 +10,8 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
+//   lay: [rx, rz] (rad)   (cycle 6) the whole body tipped about his feet, in his own frame: -PI / 2 lays him on his back, his head behind him (with
+//         sq [1, 1, 0.03]: a shadow on the ground, a man flat as paper); key it back to 0 and he stands up like a board
 //   tie: [length, forward, aside]   the tie taken in a hand (engine/cloth.js, needs `cloth`): it stretches (1 = its own length, 1.7 = pulled like the cord of a
 //         lamp) and swings toward the hand (radians: forward away from the chest, aside toward his left). Key it back through 0.85 and 1.05: it snaps
 //   wave: { spine|neck|armL|foreL|...: [amp (m), waves, phase (turns), free, axis (rad)] }   a ripple along a part, on top of its bend: `waves` periods
@@ -24,7 +26,7 @@
 //         nose: 0.31, the mouth: 0.23, an eye: 0.62), metres in front of the face, w, tip]. The hand follows the head wherever the spine and the neck take it
 //         both take one more value, [px, py, pz]: where the elbow goes, a direction in the frame of the chest (default: low, a little out and back)
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
-//           heights), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
+//           heights), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears; steamInk: 1: inked, opaque puffs), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
 //           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
@@ -34,7 +36,8 @@
 //           lidL / lidR (0..1: a wink, a heavy eye), low / lowL / lowR (0..0.5: the lower lid, a squint), eye / eyeL / eyeR (0.4 = 40 % bigger),
 //           mouth: 'name' (a mouth of the face set: O, o, open, scream, teeth, grimace, clench, kiss, pout, whistle, smirk, wavy, zigzag, tongueout, evil, sob...),
 //           mouthW / mouthH (0.5 = half as wide / tall again), mouthTilt, mouthDx / mouthDy (px on the 400 px face: a mouth pulled to one side),
-//           cheeks, puff, sweat, blush, tears, tear, vein, shadow: 0..1 }
+//           cheeks, puff, sweat, blush, tears, tear, vein, shadow: 0..1,
+//           (cycle 6) tremble: 0..1 (the lip trembles), pupilShake: 0..1 (the pupils shiver), gulp: 0..1 (a lump goes down the neck: key it from 0 to 1 in 0.25 s) }
 import * as THREE from 'three';
 import { blendHands } from './fingers.js';
 
@@ -124,6 +127,9 @@ function makePart(joint, jointSet, L, dir, seg = 6) {
 // ---- the head: the lower face stretches down when the jaw drops (the painted mouth stretches with it), and overlays: pop-out eyes
 // on stalks, a tongue, steam from the ears, a bump growing on the skull, stars circling above
 function puffTex() { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,0.95)'); gr.addColorStop(0.6, 'rgba(255,255,255,0.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+// (cycle 6) an inked puff (face.steamInk): an opaque white disc with a slate rim and a pale blue shade: steam that reads on a pale wall as on a dark one
+function puffInkTex() { const c = document.createElement('canvas'); c.width = c.height = 96; const g = c.getContext('2d'), disc = (x, y, r, col) => { g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); };
+  disc(48, 48, 46, 'rgba(58,74,104,0.95)'); disc(48, 48, 39, '#FFFFFF'); disc(54, 57, 27, '#CFDCF0'); disc(45, 45, 29, '#FFFFFF'); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
 const JAW_TOP = 0.31, MOUTH_Y = 0.227;   // as fractions of the head height from the chin: the stretch starts under the nose; the mouth's centre
 function headDeform(hm, dim) {
   const sub = subdivideY(hm.geometry, 13); if (!sub) return null;
@@ -167,7 +173,7 @@ function headOverlays(head, hm, dim, skin) {
   for (let i = 0; i < TFN; i++) for (let j = 0; j < 3; j++) { const a = i * 4 + j; tfIdx.push(a, a + 1, a + 4, a + 1, a + 5, a + 4); }
   tfGeo.setAttribute('position', new THREE.BufferAttribute(tfPos, 3)); tfGeo.setAttribute('color', new THREE.BufferAttribute(tfCol, 3)); tfGeo.setIndex(tfIdx);
   const tongueFly = new THREE.Mesh(tfGeo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide, toneMapped: false, fog: false })); tongueFly.visible = false; tongueFly.frustumCulled = false; tongueFly.castShadow = false; tongueFly.userData.noAO = true; g.add(tongueFly);
-  const pt = puffTex(), puffs = [0, 1, 2, 3, 4, 5].map(() => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: pt, transparent: true, depthWrite: false, opacity: 0 })); s.userData.noAO = true; g.add(s); return s; });
+  let ptInk = null; const pt = puffTex(), puffs = [0, 1, 2, 3, 4, 5].map(() => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: pt, transparent: true, depthWrite: false, opacity: 0 })); s.userData.noAO = true; g.add(s); return s; });
   // a bump that grows on the skull after a blow, and stars that circle the head
   const bump = outlined(new THREE.Mesh(new THREE.IcosahedronGeometry(0.075, 1).scale(1, 1.25, 0.9), new THREE.MeshLambertMaterial({ color: new THREE.Color(skin).multiply(new THREE.Color(1.0, 0.72, 0.68)) })), 1.07); bump.visible = false; g.add(bump);
   const sg = starGeo(), sm = new THREE.MeshBasicMaterial({ color: '#F6C93C' }), stars = [0, 1, 2, 3].map(i => { const m = outlined(new THREE.Mesh(sg, sm), 1.25); m.visible = false; g.add(m); return m; });
@@ -194,7 +200,10 @@ function headOverlays(head, hm, dim, skin) {
       tfGeo.attributes.position.needsUpdate = true; }
     if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
       if (f.tongueYaw) { tongue.rotation.set((f.tongueDip ?? -0.1) + 0.05 * Math.sin(t * 19), f.tongueYaw + 0.14 * Math.sin(t * 23), 0); tongue.position.z += 0.012; } }   // (cycle 5) face.tongueYaw (rad, + = toward his left): the tongue blown aside by the wind of a run (1.5: flat across the cheek and out past the head), fluttering; face.tongueDip: its pitch
-    puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1, q = (t * 1.6 + i * 0.37) % 1; p.visible = steam > 0.01; if (!p.visible) return; p.position.set(side * (hw / 2 + 0.03 + q * 0.16), hh * 0.5 + q * 0.2, -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam); p.material.opacity = 0.85 * Math.sin(Math.PI * q) * Math.min(1, steam); });
+    const ink = f.steamInk || 0; if (ink && !ptInk) ptInk = puffInkTex();   // (cycle 6) steamInk 0..1: inked puffs, bigger, opaque, thrown further
+    puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1, q = (t * 1.6 + i * 0.37) % 1; p.visible = steam > 0.01; if (!p.visible) return; const m = ink ? ptInk : pt; if (p.material.map !== m) { p.material.map = m; p.material.needsUpdate = true; }
+      p.position.set(side * (hw / 2 + 0.03 + q * (0.16 + 0.12 * ink)), hh * 0.5 + q * (0.2 + 0.14 * ink), -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam * (1 + 0.5 * ink));
+      p.material.opacity = (ink ? Math.min(1, 3.2 * Math.sin(Math.PI * q)) : 0.85 * Math.sin(Math.PI * q)) * Math.min(1, steam); });
     const bk = f.bump || 0; bump.visible = bk > 0.01; if (bump.visible) { bump.position.set(hw * 0.08, hh - 0.05 + 0.07 * bk, -hd * 0.05); bump.scale.setScalar(bk * (1 + 0.07 * Math.sin(t * 13))); }
     const sk = f.stars || 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * 0.27, hh + 0.13 + 0.04 * Math.sin(t * 7 + i), Math.cos(a) * 0.27); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
   };
@@ -213,6 +222,8 @@ export function toonUpgrade(obj) {
   if (hm) { hm.geometry.computeBoundingBox(); const bb = hm.geometry.boundingBox; dim = { hw: bb.max.x - bb.min.x, hh: bb.max.y - bb.min.y, hd: bb.max.z - bb.min.z, y0: bb.min.y, cx: (bb.max.x + bb.min.x) / 2, z1: bb.max.z }; }
   const skin = ud.spec?.skin || '#E2B48A', face = dim ? headOverlays(J.head, hm, dim, skin) : null;
   const ORDER = ['spine', 'neck', 'armL', 'foreL', 'armR', 'foreR', 'legL', 'shinL', 'legR', 'shinR'], ZERO3 = [0, 0, 0];
+  // (cycle 6) a gulp: a lump that goes down the front of the neck (face.gulp 0..1: from under the chin to the collar, swelling in the middle of its way)
+  let gulp = null; if (J.neck) { gulp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshLambertMaterial({ color: new THREE.Color(skin) })); gulp.visible = false; gulp.castShadow = false; J.neck.add(gulp); }
   const ears = J.head ? J.head.children.filter(c => c.name === 'ear').map(m => ({ m, r: m.rotation.clone() })) : [], hm0 = J.head?.children.find(c => c.name === 'hat'), hat = hm0 ? { m: hm0, y: hm0.position.y } : null;
   // reach: { L | R: [x, y, z, w] }: a hand brought to a point of the world (w 0..1 blends from the clip's pose). Two-bone IK on the shoulder and the elbow, the
   // elbow kept low and a little out; a point further than the arm is long stretches both parts of the arm equally (the cartoon reach). The hand keeps the
@@ -264,6 +275,7 @@ export function toonUpgrade(obj) {
       const er = tp.ears || 0; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); }
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
       face?.(tp.face || {}, t);
+      if (gulp) { const gp = tp.face?.gulp || 0; gulp.visible = gp > 0.02 && gp < 0.98; if (gulp.visible) { const sw = Math.pow(Math.sin(Math.PI * gp), 0.6); gulp.position.set(0, 0.135 - 0.115 * gp, 0.034); gulp.scale.set(0.95 * sw, 0.75 * sw, 0.62 * sw); } }
     },
   };
   return ud.toon;
@@ -286,6 +298,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
+  if (a.lay || b.lay) { const x = a.lay || [0, 0], y = b.lay || [0, 0]; out.lay = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0)]; }   // (cycle 6) the whole body tipped about his feet
   if (a.touch || b.touch) { out.touch = {}; for (const sd of ['L', 'R']) { const x = a.touch?.[sd], y = b.touch?.[sd]; if (!x && !y) continue;
     if (x && y && x[0] === y[0]) out.touch[sd] = [x[0], L(x[1], y[1]), L(x[2], y[2]), L(x[3], y[3]), L(x[4] ?? 1, y[4] ?? 1), L(x[5] || 0, y[5] || 0), POLE(x[6], y[6])];
     else { const q = !x ? y : !y ? x : (w < 0.5 ? x : y), k = !x ? w : !y ? 1 - w : Math.abs(2 * w - 1); out.touch[sd] = [q[0], q[1], q[2], q[3], (q[4] ?? 1) * k, q[5] || 0, q[6] || null]; } } }   // fades in and out; between two joints it lets go and takes again
@@ -302,7 +315,7 @@ export function addToon(a = {}, b = {}) {
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
-  if (b.tie) out.tie = b.tie;
+  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay;
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };

@@ -1033,3 +1033,58 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   en amorce, gag horizontal en cadre vertical, sens de `lens`, texte coupé par le bord, faux positifs du contrôle des flashs).
 - **Pistes** (cycle 6) : gravité des vêtements et des cheveux d'un personnage à l'envers, sans clé ; saccades des yeux ; retard de la caméra de
   suivi ; orientation d'un accessoire tenu en main donnée dans le repère du monde (option d'attache), pour éviter le calcul à la main.
+
+### Histoire 41 — deuxième revue (animation 7,7 ; direction artistique 7,6), version 2 livrée, passe de corrections n° 2 ; cycle 6 : analyse et rig
+
+- **Deuxième revue** (sur le brouillon n° 2, cible 8,5) : animation 7,7 (7,2 à la première), direction artistique 7,6 (7,0). Gardé par les deux :
+  le freinage des talons, la hache du maire, le bouton d'arrêt, les deux visages dont un à l'envers, le très gros plan, le dernier plan. Renvoyé :
+  1. l'arrêt au poteau, sommet de l'histoire, « le plan le plus petit et le plus sombre » (corps de 8 % de la hauteur sur le bitume, visage caché par
+     le poteau, pieds hors cadre, pose déjà vue deux fois) ;
+  2. l'afficheur sur sa tête collé au boîtier du feu, du même noir (« le feu est hors service ») ;
+  3. poses clés enterrées : le crochet dans la file, le poinçon, le poteau de l'arrêt devant son panneau ;
+  4. petits éléments illisibles au téléphone : les yeux de la passagère, les pupilles en tête d'épingle, la larme (2 % de la largeur), la vapeur
+     (1,1:1 sur le mur), les montres ;
+  5. l'accroche : trois coups qui ne diffèrent que par le nombre d'étoiles ;
+  6. le rebond de la course dans les plans serrés (10 % de la hauteur par foulée ; 25 % dans l'insert du bouton) ;
+  7. le double take du chauffeur (première moitié les yeux fermés, casquette hors cadre) ;
+  8. finition : talons au-dessus de la route, cravate détachée, bandeau MAIRIE trop haut.
+- **Version 2** (mise en scène de la passe n° 1) : rendu complet en 62 min, HyperFrames, −16,0 LUFS, crête −3,2 dBFS, aucune image isolée aux
+  coupes ; envoyée ; projet validé.
+- **Décisions prises sans question** (rubrique « demande l'utilisateur » des revues) : pas de pause ajoutée dans la narration avant « Pas ses
+  passagers » (la narration sans pause est un choix fixe de la série : l'arrêt est rechronométré à l'intérieur de ses plans) ; la clarté du costume
+  n'est pas modifiée (l'allure du personnage est fixe) ; le sens de la course (droite → gauche puis gauche → droite) reste : priorité basse des deux
+  revues, et l'inverser referait six plans gardés.
+- **Passe n° 2** (onze lots d'images de contrôle dans une copie du moteur, pendant que la version 2 se calculait) :
+  - arrêt au poteau refait : de trois quarts, bas, côté route ; il prend le poteau et continue : ses mains restent, ses bras s'étirent sur trois
+    mètres, le poteau plie ; il court sur place au bout de ses bras huit images, les yeux sur nous ; ça claque ; coupe sur le trottoir : crêpe neuf
+    images avec un clignement (la caméra s'avance), remontée en accordéon (elle recule), étoiles ; gros plan depuis l'amont : lampe rouge à gauche,
+    lui à droite, vapeur encrée ; cadrages calculés (`project`) sur les positions mesurées (`debugJoints`) ;
+  - afficheur et feu : il atterrit et reste sur le trottoir, à un pas du poteau ; poteau gris galvanisé, boîtier vert sombre, cadre clair et montants
+    plus épais ; plus d'arbres derrière le feu ; le plan des passagers est vu du trottoir, derrière lui ;
+  - crochet refait : vu du bord du trottoir, de face ; la dame un pas hors de la file (la file derrière elle), la crosse à plat autour de son cou,
+    le manche rayé en travers du milieu vide ; le panneau de tours pend seul douze images, tombe, rebondit une fois ;
+  - accroche : phalanges, poing gros comme la tête, puis tout le corps écrasé sur la vitre onze images ; la passagère reste au bord pendant
+    l'écrasement (penchée vers nous, elle couvrait son visage) et se retourne vers nous après le freinage, dix images les yeux ouverts ;
+  - chauffeur : yeux ouverts sur le premier regard, retour blasé de huit images, casquette qui saute, pend, retombe en toupie dans le cadre ;
+  - rebond de la course : 3 à 4 % dans les plans serrés (mesuré), insert verrouillé sur la poitrine ;
+  - larme dessinée qui roule ; pupilles en tête d'épingle plus grosses ; montres à cadran blanc, quatre têtes vers l'horloge de la gare ;
+  - talons sur la route et cravate sur le torse à la sortie de ville ; bandeau MAIRIE abaissé ; mâchoire du maire sur sa réplique, tape plus sèche ;
+    plaque de l'arrêt entière devant son poteau.
+- **Deux causes trouvées en cherchant** : (a) un geste parasite trois images avant le gros plan de l'arrêt : la suite du mouvement gardait en
+  mémoire le retour en arrière et le rejouait quand les couches automatiques se rallumaient ; (b) « pas d'yeux » pour la passagère et « la casquette
+  sort du cadre » : toutes deux passaient à travers le plafond du bus (2,3 m).
+- **Cycle 6 — analyse** (faiblesses retenues après la 41) : 1. un accessoire tenu en main s'oriente mal dès que l'angle compte (poinçon, crosse) ;
+  2. vêtements et cheveux d'un personnage à l'envers ignoraient la gravité ; 3. aucun outil de géométrie de mise en scène : on cadrait à l'œil, quatre
+  rendus par plan ; 4. les sommets des gags étaient trop petits dans le cadre vertical ; 5. les petits éléments d'un visage (larme, vapeur, lèvre)
+  ne passaient pas au téléphone. Corrigées : 2, 3, 5 dans le moteur et le kit ; 1 par calcul (`axes_euler`) ; 4 par la règle « le sommet est le plan
+  le plus grand » et les cadrages calculés.
+- **Cycle 6 — rig et outils** (tous optionnels ; non-régression vérifiée sur six anciennes histoires avant validation) : personnage-ombre
+  (`silhouette`, `castShadow: False`, canal `lay`) ; canaux de visage `tremble`, `pupilShake`, `gulp`, `steamInk`, `drop` / `dropR` ; gravité de la
+  cravate à l'envers (`clothGravity`), pans de veste (`tails`) ; `cruise: 'in' | 'out'` ; mémoire de la suite du mouvement pesée par `auto` ;
+  `heelBrake drop` ; `debugJoints` ; kit : `project`, `frame_size`, `where`, `axes_euler` ; accessoires : feu piéton, cadre d'afficheur, plaque
+  d'arrêt décalée, cadrans de montre, plafond de bus réglable, horloge qui s'arrête, accessoires de l'histoire 42.
+- **Skill** : 9 lignes au catalogue (bras qui s'étirent, crêpe puis accordéon, corps écrasé sur la vitre, crochet par le cou vu de face, panneau
+  laissé en l'air, casquette qui saute, larme qui roule, vapeur encrée, quatre têtes vers l'horloge) ; 13 entrées dans « Erreurs à éviter » ; une
+  section « cycle 6 » dans la référence du rig.
+- **Pistes** : attacher un accessoire à une main avec une orientation donnée dans le repère du monde (éviter le calcul) ; une option « sommet »
+  qui vérifie à la génération qu'un sujet occupe au moins 40 % de la hauteur dans le plan marqué ; saccades des yeux ; retard de la caméra de suivi.

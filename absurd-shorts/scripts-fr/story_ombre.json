@@ -1,0 +1,710 @@
+{
+ "version": 3,
+ "title": "L'ombre",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "castShadow": false
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "ombre": {
+   "preset": "lemec",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   },
+   "silhouette": "#262833",
+   "darkEyes": 1.5
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.85,
+      0,
+      1.63
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        8.85,
+        0,
+        0.55
+       ],
+       "dur": 0.72,
+       "clip": "walk",
+       "ease": "linear",
+       "face": 180,
+       "cruise": "in"
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "face": {
+         "gx": 0.9,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.24,
+       "toon": {
+        "face": {
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.22,
+       "look": [
+        4.3,
+        1.5,
+        0.8500000000000001
+       ]
+      },
+      {
+       "at": 1.22,
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "ombre",
+     "pos": [
+      9.57,
+      0.0,
+      2.9299999999999997
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        9.57,
+        0,
+        1.1
+       ],
+       "dur": 1.22,
+       "clip": "walk",
+       "ease": "linear",
+       "face": 180,
+       "cruise": "in"
+      },
+      {
+       "at": 1.26,
+       "look": [
+        4.3,
+        1.5,
+        0.9500000000000001
+       ]
+      },
+      {
+       "at": 1.26,
+       "expr": "worried"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "wall",
+     "name": "plainWall",
+     "pos": [
+      9.6,
+      0,
+      2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 16.0,
+      "h": 3.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.3,
+      1.45,
+      2.08
+     ],
+     "to": [
+      4.3,
+      1.45,
+      1.0
+     ],
+     "lookAt": [
+      9.6,
+      1.3,
+      2.08
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.6,
+      1.3,
+      1.0
+     ]
+    },
+    {
+     "at": 0.72,
+     "from": [
+      4.3,
+      1.45,
+      1.0
+     ],
+     "to": [
+      4.3,
+      1.45,
+      0.9500000000000001
+     ],
+     "lookAt": [
+      9.6,
+      1.3,
+      1.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.6,
+      1.3,
+      0.9500000000000001
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.7667,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false
+   },
+   "look": {
+    "sunDir": [
+     -0.8,
+     0.5,
+     -0.3
+    ],
+    "fill": 1.25
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      8.85,
+      0,
+      0.55
+     ],
+     "ry": 180,
+     "clip": "checkWatch",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.46,
+       "clip": "stand",
+       "blend": 0.12
+      },
+      {
+       "at": 0.56,
+       "look": [
+        9.57,
+        1.7,
+        1.1
+       ]
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "face": {
+         "browL": 0.7,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "ombre",
+     "pos": [
+      9.57,
+      0,
+      1.1
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.5,
+       "clip": "checkWatch",
+       "blend": 0.1
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "sq": [
+         0.03,
+         1,
+         1
+        ],
+        "face": {
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "wall",
+     "name": "plainWall",
+     "pos": [
+      9.6,
+      0,
+      2.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 16.0,
+      "h": 3.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.2,
+      1.5,
+      0.8500000000000001
+     ],
+     "to": [
+      6.2,
+      1.5,
+      0.8200000000000001
+     ],
+     "lookAt": [
+      9.6,
+      1.5,
+      0.8500000000000001
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.6,
+      1.5,
+      0.8200000000000001
+     ]
+    }
+   ],
+   "start": 1.7667,
+   "duration": 0.9666,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false
+   },
+   "look": {
+    "sunDir": [
+     -0.8,
+     0.5,
+     -0.3
+    ],
+    "fill": 1.25
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      9.18,
+      0.02,
+      -6.25
+     ],
+     "ry": -90,
+     "clip": "sitWatch",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.48000000000000004,
+       "toon": {
+        "face": {
+         "gy": -0.7,
+         "gx": -0.5,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.72,
+       "clip": "sit",
+       "blend": 0.12
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.76,
+       "look": [
+        5.0,
+        1.3,
+        -6.0
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "ombre",
+     "pos": [
+      9.57,
+      3.3,
+      -5.8
+     ],
+     "ry": -90,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         1,
+         1,
+         0.03
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.52,
+       "to": [
+        9.57,
+        0.02,
+        -5.8
+       ],
+       "dur": 0.12,
+       "clip": "sit",
+       "glide": true,
+       "ease": "in",
+       "face": -90,
+       "blend": 0.0
+      },
+      {
+       "at": 0.64,
+       "clip": "sit",
+       "blend": 0.02
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "sq": [
+         1.22,
+         0.74,
+         0.03
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "sq": [
+         0.95,
+         1.06,
+         0.03
+        ],
+        "settle": 0.5
+       },
+       "toonDur": 0.08,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "sq": [
+         1.03,
+         0.97,
+         0.03
+        ]
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.8500000000000001,
+       "toon": {
+        "sq": [
+         0.98,
+         1.03,
+         0.03
+        ]
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.92,
+       "toon": {
+        "sq": [
+         1.03,
+         0.97,
+         0.03
+        ]
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.99,
+       "toon": {
+        "sq": [
+         1,
+         1,
+         0.03
+        ]
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "wall",
+     "name": "plainWall",
+     "pos": [
+      9.6,
+      0,
+      -4.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 16.0,
+      "h": 3.4
+     }
+    },
+    {
+     "id": "bench",
+     "name": "bench",
+     "pos": [
+      9.13,
+      0,
+      -6.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 2.0
+     }
+    },
+    {
+     "id": "clock",
+     "name": "wallClock",
+     "pos": [
+      9.55,
+      2.72,
+      -5.15
+     ],
+     "ry": -90,
+     "opts": {
+      "rate": 2.174,
+      "until": 0.46,
+      "hours": 0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.0,
+      1.3,
+      -5.75
+     ],
+     "to": [
+      5.0,
+      1.3,
+      -5.78
+     ],
+     "lookAt": [
+      9.6,
+      1.55,
+      -5.75
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      9.6,
+      1.55,
+      -5.78
+     ]
+    }
+   ],
+   "start": 2.7333,
+   "duration": 1.0667,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false
+   },
+   "look": {
+    "sunDir": [
+     -0.8,
+     0.5,
+     -0.3
+    ],
+    "fill": 1.25
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 30.52,
+ "look": "natural",
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "clothGravity": true
+}

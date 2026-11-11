@@ -7,7 +7,7 @@
 //   brows: { L|R: { dx, dy, rot (deg, >0 lifts the inner end), shape: 'flat' | 'arch' | 'bold' | 'straight' } }
 //   eyes:  { L|R: { kind: 'open' | 'closed' | 'happy' | 'flat' | 'squeeze' | 'x' | 'spiral' | 'heart' | 'star' | 'dot' | 'euro',
 //                   s (size), lid 0..1 (upper lid), low 0..0.5 (lower lid), px, py (pupil, -1..1), ps (pupil size), shine, open (0..1, y scale of a drawn eye) } }
-//   mouth: { spr (sprite name), dx, dy, w, h, tilt, flip }      cheeks 0..1      puff 0..1      extras: { tears|tear|sweat|blush|vein|shadow: 0..1 }
+//   mouth: { spr (sprite name), dx, dy, w, h, tilt, flip }      cheeks 0..1      puff 0..1      extras: { tears|tear|sweat|blush|vein|shadow: 0..1, drop|dropR: 0..1 (a drawn tear that rolls), dropSize }
 // Expressions are the recipes of the face set (rig.json "presets", same format as tools/face/gen_expressions.py), plus the rig's own
 // (take, takeSmall, deadpan, dotEyes, greed, zap, gulp, puffed, strain, teeth, hmm, side, sideL); a script can add its own under "faces".
 import * as THREE from 'three';
@@ -167,6 +167,16 @@ export function makeFaceRig(v = null) {
     if (rim > 0.02) { g.shadowColor = `rgba(255, 236, 205, ${rim})`; g.shadowBlur = 0; for (const [ox, oy] of RIM) { g.shadowOffsetX = ox; g.shadowOffsetY = oy; features(); } rimOff(); }
     features();
     for (const k of ['tears', 'tear', 'sweat', 'vein']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
+    // (cycle 6) a tear that rolls (extras.drop under the left eye, dropR under the right: 0..1 = how far down the cheek it has run; dropSize: 1 = as tall
+    // as the eye): it wells under the lid, grows, and runs to the jaw, leaving a wet track. Drawn, not a sprite: it reads on a phone where the painted
+    // tear of `tear` was a speck
+    for (const [kd, s] of [['drop', 'L'], ['dropR', 'R']]) { const d = c01(X[kd] || 0); if (d < 0.02) continue;
+      const a = A['eye' + s], es = st.eyes[s]?.s || 1, sz = a.h * 0.4 * (X.dropSize || 1) * Math.min(1, 0.4 + d * 2.4), x = a.cx + (s === 'L' ? 1 : -1) * a.w * 0.1, y0 = a.cy + a.h * 0.56 * es + sz, y1 = Math.min(H - sz * 1.2, ma.cy + a.h * 0.9), y = y0 + (y1 - y0) * d * d;
+      g.save(); g.translate(x, y);
+      if (d > 0.1) { g.strokeStyle = 'rgba(168, 220, 246, 0.8)'; g.lineWidth = sz * 0.34; g.lineCap = 'round'; g.beginPath(); g.moveTo(0, -sz * 1.2); g.lineTo(0, y0 - y - sz * 0.6); g.stroke(); }
+      g.beginPath(); g.moveTo(0, -sz * 1.5); g.bezierCurveTo(sz * 0.95, -sz * 0.15, sz, sz * 0.55, 0, sz); g.bezierCurveTo(-sz, sz * 0.55, -sz * 0.95, -sz * 0.15, 0, -sz * 1.5); g.closePath();
+      g.fillStyle = '#C4E8FB'; g.fill(); g.lineWidth = Math.max(2, sz * 0.17); g.strokeStyle = '#2C6C9C'; g.lineJoin = 'round'; g.stroke();
+      g.fillStyle = '#FFFFFF'; g.beginPath(); g.ellipse(-sz * 0.32, sz * 0.12, sz * 0.2, sz * 0.34, 0.3, 0, 2 * Math.PI); g.fill(); g.restore(); }
     if (L.lens) g.drawImage(L.lens, 0, 0);
     if (L.ov) g.drawImage(L.ov, 0, 0);
     if (L.lash && st.eyes.L.kind === 'open' && st.eyes.L.lid < 0.6) g.drawImage(L.lash, 0, 0);

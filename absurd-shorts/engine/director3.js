@@ -75,7 +75,14 @@ function buildActor(c, id) {
   if (obj.userData.kind === 'human' && (c.toon ?? (S.script?.rig === 'toon'))) { toonUpgrade(obj); obj.userData.toonCfg = typeof c.toon === 'object' ? c.toon : {}; }   // cartoon rig (engine/toon.js): opt-in, old stories never take this path
   if (obj.userData.kind === 'human' && obj.userData.setFaceState && (c.faceRig ?? c.toon ?? (S.script?.rig === 'toon' || !!S.script?.faceRig))) obj.userData.faceRig = true;   // animated face layers
   if (obj.userData.toon && (c.fingers ?? S.script?.fingers)) fingersUpgrade(obj);   // hands with fingers (engine/fingers.js): script `fingers: true` or per character
-  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj);         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
+  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj, { tails: c.tails ?? S.script?.tails });         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
+  // (cycle 6) cast `silhouette: '#262833'`: a shadow with a life of its own: every part in one flat unlit colour, no cast shadow, and the eyes of the
+  // face rig left white on it (the glow layer of the dark shots). Flatten it with the toon channel sq [1, 1, 0.03] and lay it down with `lay`.
+  // cast `castShadow: false`: a man who has lost his shadow.
+  if (c.silhouette) { const sm = new THREE.MeshBasicMaterial({ color: c.silhouette === true ? '#262833' : c.silhouette, toneMapped: false });
+    obj.traverse(o => { if (o.isMesh) { o.material = Array.isArray(o.material) ? o.material.map(() => sm) : sm; o.castShadow = false; o.receiveShadow = false; o.userData.noAO = true; } else if (o.isLine || o.isLineSegments) o.visible = false; });
+    obj.userData.silhouette = sm; obj.userData.glowLayer0 = true; }
+  if (c.castShadow === false) obj.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });   // (with the soft shadow maps of the natural look, what receives a shadow casts one too)
   // measured rig facts (rest pose, unit scale): leg length + hip height drive gait cadence and pivots
   obj.position.set(0, 0, 0); obj.rotation.set(0, 0, 0); obj.scale.setScalar(1); obj.updateMatrixWorld(true);
   const J = obj.userData.joints || {};
@@ -258,10 +265,10 @@ function prepActor(cfg, obj, sc, place) {
     if (clip) {
       // (cycle 5) a cruise move: the same gait on the same clock before its key (first move) and after its end (last move): no pose jump for what
       // reads the frame before the first one and the frame after the last one (the drag of the limbs, the squash of a footfall)
-      const cr = !!mv.cruise, then = mv.then ?? (cr && mv === A.moves[A.moves.length - 1] ? clip : '__prev__'), own = { ...(mv.params || {}), freq: mv.freq };
-      A.clipKeys.push({ at: mv.t, clip, params: own, speed: 1, move: mv, cruise: cr });
-      A.clipKeys.push({ at: mv.t1, clip: then, params: mv.thenParams || (then === clip ? own : {}), speed: then === clip ? 1 : A.speed, afterMove: mv, t0: then === clip ? mv.t : undefined, cruise: cr && then === clip });   // then = the move's own clip: its time continues (a one-shot clip must not replay)
-      if (cr && mv === A.moves[0]) Object.assign(A.clipKeys[0], { clip, params: own, speed: 1, move: mv, t0: mv.t, cruise: true });
+      const cr = !!mv.cruise, crIn = mv.cruise === true || mv.cruise === 'in', crOut = mv.cruise === true || mv.cruise === 'out', then = mv.then ?? (crOut && mv === A.moves[A.moves.length - 1] ? clip : '__prev__'), own = { ...(mv.params || {}), freq: mv.freq };   // (cycle 6) cruise: 'in' (already under way, but it stops at its end) | 'out' (it starts, and goes on after its end) | true (both)
+      A.clipKeys.push({ at: mv.t, clip, params: own, speed: 1, move: mv, cruise: crIn });
+      A.clipKeys.push({ at: mv.t1, clip: then, params: mv.thenParams || (then === clip ? own : {}), speed: then === clip ? 1 : A.speed, afterMove: mv, t0: then === clip ? mv.t : undefined, cruise: crOut && then === clip });   // then = the move's own clip: its time continues (a one-shot clip must not replay)
+      if (crIn && mv === A.moves[0]) Object.assign(A.clipKeys[0], { clip, params: own, speed: 1, move: mv, t0: mv.t, cruise: true });
     }
     if (mv.sfx) A.sfx.push({ t: mv.t, name: mv.sfx, vol: mv.vol ?? 0.6 });
     if (mv.land) A.sfx.push({ t: mv.t1, name: mv.land, vol: mv.vol ?? 0.6 });
@@ -292,8 +299,8 @@ function posAt(A, t) {
   let p = V(...A.pos0);
   for (const mv of A.moves) {
     if (!mv.segs) break;            // not resolved yet (during prep)
-    if (t < mv.t) { if (mv.cruise && mv === A.moves[0]) p = cruiseAt(mv, t); break; }
-    if (t >= mv.t1) { p = mv.cruise && mv === A.moves[A.moves.length - 1] ? cruiseAt(mv, t) : mv.end.clone(); continue; }
+    if (t < mv.t) { if ((mv.cruise === true || mv.cruise === 'in') && mv === A.moves[0]) p = cruiseAt(mv, t); break; }
+    if (t >= mv.t1) { p = (mv.cruise === true || mv.cruise === 'out') && mv === A.moves[A.moves.length - 1] ? cruiseAt(mv, t) : mv.end.clone(); continue; }
     let k = clamp01((t - mv.t) / mv.dur); k = (ease[mv.ease || 'linear'] || ease.linear)(k);
     p = alongPath(mv, k * mv.L);
     if (mv.arc) p.y += mv.arc * 4 * k * (1 - k);
@@ -525,7 +532,7 @@ function evalActor(A, tIn) {
     if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
-    if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn) { ud.glowOn = S.dark > 0.02 && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? S.dark : 0, A.cfg?.darkEyes ?? S.sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
+    if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn || ud.silhouette) { ud.glowOn = (S.dark > 0.02 || !!ud.silhouette) && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? (ud.silhouette ? 1 : S.dark) : 0, A.cfg?.darkEyes ?? S.sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
     const fx = lastKey(A.fxKeys, t).fx; ud.setFx?.(fx, t);
     if (fx.shiver && ud.joints?.head) { ud.joints.head.rotation.z += 0.045 * Math.sin(t * 47); ud.joints.head.rotation.x += 0.02 * Math.sin(t * 61 + 1); }
   } else if (ud.kind === 'creature') {
@@ -580,7 +587,7 @@ function idleShift(A, t, pose, amt) {
 // overlapping action: the far joints replay the pose a few frames late (forearms, hands, head), so gestures trail and settle
 // a clip key can set its own blend from the previous clip (seconds): k(t, clip=..., blend=0.02) is a hard hit (plain fast blend, no anticipation, nothing trails);
 // on a move: blend (into the gait) and thenBlend (into the clip that follows it)
-const keyBlend = c => c.key?.blend ?? (c.move ? (c.move.blend ?? (c.move.cruise ? 0 : undefined)) : c.afterMove?.thenBlend);   // a cruise move does not blend in: he was already in that gait
+const keyBlend = c => c.key?.blend ?? (c.move ? (c.move.blend ?? ((c.move.cruise === true || c.move.cruise === 'in') ? 0 : undefined)) : c.afterMove?.thenBlend);   // a cruise move does not blend in: he was already in that gait
 function toonPoseAt(A, tt, BL0) {
   const c = lastKey(A.clipKeys, tt), p = prevKey(A.clipKeys, c), d = tt - c.at, kb = keyBlend(c), BL = BLEND / S.tempo; let q = clipPoseFn(A, c, tt);
   if (p && kb != null) { if (d < kb) q = blendPoses(clipPoseFn(A, p, tt), q, ease.out(clamp01(d / kb))); }
@@ -599,12 +606,19 @@ function toonOverlap(A, t, pose, BL) {
 // response of a damped pendulum (W rad/s: a swing of half a second; Z: it dies in two or three swings). Returns radians in his own frame:
 // f > 0: it has swung forward (in front of him), s > 0: toward his left, y > 0: it has been thrown up. `lag` (s): the same, a moment earlier (the far end
 // of a chain: a forearm after its arm)
+// (cycle 6) what a key choreographs by hand is not remembered: each acceleration is weighed by the `auto` its toon key gave at that moment, so a
+// snap-back keyed with auto: 0 does not come out of the arms and the tie half a second later, when the automatic layers come back on
+function keyedAuto(A, t) {
+  if (!A.toonKeys || !A.toonKeys.length) return 1;
+  const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1;
+  return pk && w < 1 ? lerp(pk.toon.auto ?? 1, kk.toon.auto ?? 1, clamp01(w)) : (kk.toon.auto ?? 1);
+}
 function followResp(A, t, lag = 0) {
   const key = t - lag; if (A._fr && A._fr.t === key) return A._fr.v;
   const W = 12.5, Z = 0.2, WD = W * Math.sqrt(1 - Z * Z), h = 1 / FPS, N = 22, L = 0.75, ry = facingAt(A, key);
   const hgt = tt => posAt(A, tt).y + ((clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y) || 0);
   let ax = 0, ay = 0, az = 0;
-  for (let i = 0; i < N; i++) { const u = (i + 0.5) * h, tt = key - u, p0 = posAt(A, tt - h), p1 = posAt(A, tt), p2 = posAt(A, tt + h), g = Math.exp(-Z * W * u) * Math.sin(WD * u) * h / (L * WD);
+  for (let i = 0; i < N; i++) { const u = (i + 0.5) * h, tt = key - u, p0 = posAt(A, tt - h), p1 = posAt(A, tt), p2 = posAt(A, tt + h), g = Math.exp(-Z * W * u) * Math.sin(WD * u) * h / (L * WD) * keyedAuto(A, tt);
     ax += (p2.x - 2 * p1.x + p0.x) / (h * h) * g; az += (p2.z - 2 * p1.z + p0.z) / (h * h) * g; ay += (hgt(tt + h) - 2 * hgt(tt) + hgt(tt - h)) / (h * h) * g; }
   const v = { f: clamp(-(ax * Math.sin(ry) + az * Math.cos(ry)), -1.2, 1.2), s: clamp(-(ax * Math.cos(ry) - az * Math.sin(ry)), -1.2, 1.2), y: clamp(-ay, -1.2, 1.2) };
   if (!lag) A._fr = { t: key, v }; return v;
@@ -673,11 +687,12 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   let all = addToon(tp, extra);
   if (keyed) all = addToon(all, keyed);
   ud.toon.apply(all, t, sc);
+  if (all.lay) { A.obj.rotation.order = 'YXZ'; A.obj.rotation.x = all.lay[0] || 0; A.obj.rotation.z = all.lay[1] || 0; }   // (cycle 6) toon channel lay [rx, rz] (rad): the whole body tipped about his feet, in his own frame (-PI / 2: on his back, his head behind him): a shadow on the ground, a man laid flat
   if (ud.fingers) ud.fingers.set(all.hands);
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
     const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
     const lw = all.wind, wx = lw ? lw[0] * Math.cos(ry) + lw[2] * Math.sin(ry) : 0, wz = lw ? -lw[0] * Math.sin(ry) + lw[2] * Math.cos(ry) : 0;   // toon channel `wind`: his own wind, given in his frame
-    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null);
+    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null, { gravity: A.cfg?.clothGravity ?? S.script?.clothGravity });   // (cycle 6) script / cast `clothGravity`: upside down, the tie hangs toward the head
   }
   return all;
 }
@@ -696,7 +711,7 @@ const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
-const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow'];
+const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR'];   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
 function rigFace(A, t, env, tp, pos, ry, sc) {
   const custom = S.script?.faces, ek = lastKey(A.exprKeys, t), pk = prevKey(A.exprKeys, ek), since = t - ek.at, ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0), cfg = A.obj.userData.faceCfg || {};
   let st;
@@ -747,7 +762,9 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     if (typeof cf.mouth === 'string' && cf.mouth) st.mouth = { ...st.mouth, spr: cf.mouth, w: 1, h: 1, tilt: 0, dx: 0, dy: 0 };   // face.mouth: a mouth shape by name (the mouths of the face set: O, o, open, scream, teeth, grimace, clench, kiss, pout, whistle, smirk, wavy, zigzag, tongueout...)
     if (cf.mouthW || cf.mouthH || cf.mouthTilt || cf.mouthDx || cf.mouthDy) st.mouth = { ...st.mouth, w: st.mouth.w * (1 + (cf.mouthW || 0)), h: st.mouth.h * (1 + (cf.mouthH || 0)), tilt: st.mouth.tilt + (cf.mouthTilt || 0), dx: st.mouth.dx + (cf.mouthDx || 0), dy: st.mouth.dy + (cf.mouthDy || 0) };   // wider, taller, tilted (px over the half width), pushed aside (px of the 400 px face)
     if (cf.cheeks) st.cheeks = clamp01(Math.max(st.cheeks, cf.cheeks)); if (cf.puff) st.puff = clamp01(Math.max(st.puff, cf.puff));
-    for (const x of FACE_EXTRAS) if (cf[x]) st.extras[x] = clamp01(Math.max(st.extras[x] || 0, cf[x]));   // face.sweat / blush / tears / tear / vein / shadow: 0..1
+    if (cf.tremble) { const a = cf.tremble; st.mouth = { ...st.mouth, dy: st.mouth.dy + 1.6 * a * Math.sin(t * 54), tilt: st.mouth.tilt + 2.5 * a * Math.sin(t * 47 + 1.3), w: st.mouth.w * (1 + 0.05 * a * Math.sin(t * 61 + 0.4)) }; for (const s of 'LR') st.brows[s].dy += 0.9 * a * Math.sin(t * 43 + (s === 'L' ? 0 : 2)); }   // (cycle 6) face.tremble 0..1: the lip trembles (and the brows, a little): a man about to cry, a man who is cold
+    if (cf.pupilShake) for (const s of 'LR') { E[s].px = clamp(E[s].px + 0.08 * cf.pupilShake * Math.sin(t * 58 + (s === 'L' ? 0 : 0.7)), -1, 1); E[s].py = clamp(E[s].py + 0.06 * cf.pupilShake * Math.sin(t * 49 + 1.1), -1, 1); }   // (cycle 6) face.pupilShake 0..1: the pupils shiver in the eyes (fear held in)
+    for (const x of FACE_EXTRAS) if (cf[x]) st.extras[x] = clamp01(Math.max(st.extras[x] || 0, cf[x])); if (cf.dropSize) st.extras.dropSize = cf.dropSize;   // face.sweat / blush / tears / tear / vein / shadow: 0..1
   }
   return st;
 }
@@ -1075,6 +1092,16 @@ function placeCamera(t) {
 }
 
 // ------------------------------------------------------------------------------------- frame
+// (cycle 6) staging tool: script `debugJoints: 'id' | ['id', ...]`: at each frame rendered, where that actor's head, neck (the collar), hands and feet are, in the world
+// and in the frame (fractions of the width and of the height, from the top left corner): to aim a camera by calculation, not by eye (with --stills:
+// one line per still, relayed as `[page] [joints] ...`)
+function debugJoints(sc, tk) {
+  const ids = [].concat(S.script.debugJoints || []), cam = S.stage.camera; cam.updateMatrixWorld(true);
+  for (const id of ids) { const A = S.actorById?.[id]; if (!A || !A.obj.visible) continue; A.obj.updateMatrixWorld(true); const J = A.obj.userData.joints || {}, out = [];
+    for (const n of ['head', 'neck', 'handL', 'handR', 'footL', 'footR']) { const j = J[n]; if (!j) continue; const v = new THREE.Vector3(); j.getWorldPosition(v); const w = [v.x, v.y, v.z].map(x => +x.toFixed(2)); v.project(cam);
+      out.push(`${n} ${JSON.stringify(w)} @ ${(0.5 + v.x / 2).toFixed(2)},${(0.5 - v.y / 2).toFixed(2)}`); }
+    console.warn(`[joints] ${sc.id} t=${tk.toFixed(3)} ${id}: ${out.join(' | ')}`); }
+}
 export function renderFrame(tAbs) {
   if (!S) throw new Error('load() first');
   const t = Math.min(tAbs, S.total - 1e-4);
@@ -1095,7 +1122,7 @@ export function renderFrame(tAbs) {
     S.dark = darkAt(sc, tk);
     evalAll(tk);
     lightCycle(tk);
-    placeCamera(tk); darkPool(tk);
+    placeCamera(tk); darkPool(tk); if (S.script.debugJoints && k === K - 1) debugJoints(sc, tk);
     if (sc.fogTo && scene.fog && sc.fog) { const u = Math.min(1, Math.max(0, tk / sc.duration)); scene.fog.near = sc.fog.near + (sc.fogTo.near - sc.fog.near) * u; scene.fog.far = sc.fog.far + (sc.fogTo.far - sc.fog.far) * u; }   // sc.fogTo: the veil follows a descending camera
     for (const o of S.follow || []) o.position.copy(camera.position);
     camLocked(camera);

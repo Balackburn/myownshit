@@ -139,6 +139,15 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Les pupilles qui tombent | très gros plan : pupilles larges tenues six images (`pupilSize 1.5`), puis têtes d'épingle (`-1.15`) en six images ; un sourcil cède, les paupières du bas montent, une larme | 41 S16 |
 | L'arrêt au poteau | prise basse à deux mains, le corps continue à l'horizontale, pieds devant (`flag`, `then='flag'`), le poteau se plie en arc (`bend`, tenue de huit images qui tremble), retour en trois images, à plat cinq images au pied du poteau (`sq [1.55, 0.26, 1.55]`) pendant que la caméra se rapproche, regonflage avec dépassement (1,15), étoiles | 41 S18 |
 | Les passagers qui continuent | lui debout au poteau, eux traversent le cadre à plat dans l'air ; puis le banc de la gare : quatre chutes en 0,3 s, quatre poignets (montres), quatre regards tenus dix-sept images | 41 S19-S20 |
+| Les bras qui s'étirent (l'arrêt au poteau, troisième mise en scène) | il prend le poteau à deux mains et continue : `reach` sur deux points du poteau plié (`pole_pt`), le corps repart (`to=` à 3 m, `ease='out'`), les bras suivent (l'IK étire) ; il court sur place au bout de ses bras huit images (`clip='run'` sans déplacement, `freq 7`), penché, les yeux sur nous ; ça claque : retour en trois images (`path`, `arc`), `auto: 0` sur toutes les clés du vol ; caméra de trois quarts, basse, côté route : lui gros au tiers gauche, le poteau au tiers droit | 41 S18 |
+| La crêpe puis l'accordéon | coupe deux images avant l'atterrissage ; à plat neuf images (`sq [1.8, 0.2, 1.8]`) avec un clignement sur le visage plat, la caméra s'avance de 6 % ; il remonte en accordéon (`sq [0.86, 1.22, 0.86]` → `[1.12, 0.82, 1.12]` → `[0.95, 1.08, 0.95]`, `settle`), la caméra recule en 0,16 s (`glide`) pour le garder entier ; étoiles | 41 S18 |
+| Le corps écrasé sur la vitre | escalade par la taille : phalanges, poing gros comme la tête (`scl handL 1.7`), puis tout le corps : clip `pressGlass` en `glide` contre la vitre, `sq [1.22, 1.02, 0.5]`, tête `[1.3, 1, 0.5]`, mains écartées, onze images ; huit étoiles ; ses yeux glissent vers la passagère ; au freinage il glisse le long de la vitre (`sq [1.5, 1, 0.5]`) et se décolle | 41 S01 |
+| Le crochet par le cou, vu de face | caméra au bord du trottoir, en aval : il court vers nous, la dame un pas hors de la file (la file reste derrière elle), le parapluie d'abord vertical au-dessus de sa tête ; elle le fauche en travers : la crosse à plat autour du cou (rotation calculée avec `axes_euler`, bout du manche à un rayon de crosse du cou mesuré par `debugJoints`) ; tenu quatre images : lui pendu au tiers droit, bras en l'air, langue dehors, elle arc-boutée au tiers gauche, le manche rayé traverse le milieu vide ; puis ils partent vers nous l'un après l'autre | 41 S06 |
+| Le panneau laissé en l'air | après le départ de celui qui le tenait : seul dans le cadre contre la façade, il pend douze images en se balançant (`rotTo` alternés qui s'amortissent), tombe en cinq images, rebondit une fois | 41 S06 |
+| La casquette qui saute, pend et retombe en toupie | canal `hat [lift, tilt, spin]` : 0,2 m en deux images, elle pend en tournant quatre images, retombe, tourne encore et s'arrête à l'envers ; il faut de la hauteur libre (`cityBus top: 2.65`) | 41 S03 |
+| La larme qui roule | canal de visage `drop` (sous l'œil gauche) ou `dropR` : 0..1 = le chemin parcouru sur la joue, `dropSize` 1,25 = un peu plus haute que l'œil ; elle perle, grossit, roule pendant un clignement en laissant une trace | 41 S16 |
+| La vapeur encrée | `face.steam` avec `steamInk: 1` : bouffées opaques cernées d'un trait, lisibles sur un mur clair comme sur le ciel | 41 S18 |
+| Quatre têtes vers l'horloge | les quatre regardent leur montre (cadrans blancs, `wristWatch bright`), puis leurs têtes se lèvent vers l'horloge de la gare à 0,03 s d'écart, puis un clignement chacun, en cascade | 41 S20 |
 
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
@@ -534,3 +543,40 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   de x 0,92 entre y 0,45 et 0,65 ; une tête debout monte à 2,2 – 2,4 m (cheveux compris), un afficheur posé dessus à 2,6 m. Vérifier ainsi les
   pieds, le haut d'une tête, les deux bords d'un texte, puis seulement rendre l'image de contrôle. Ne pas relancer le script d'une histoire pour
   « tester le kit » pendant que sa génération complète tourne (il réécrit les repères lus au montage du projet).
+- (cycle 6, 2e relecture de la 41 : 7,7 / 7,6) **Le sommet de l'histoire doit être le plan le plus grand et le plus clair, pas le plus petit** : l'arrêt
+  au poteau était filmé de côté depuis l'autre trottoir (corps sombre de 8 % de la hauteur sur le bitume, visage caché par le poteau, pieds hors cadre)
+  et répétait une pose déjà vue deux fois (à plat dans l'air, pieds devant). Refaire le sommet de près, bas, de trois quarts, le visage vers nous, les
+  pieds dans le cadre, sur le fond le plus clair disponible (trottoir crème : 13,8:1 contre 3,4:1 sur la route), avec une pose que le film n'a pas servie.
+- (cycle 6) **Un accessoire long pointé vers la caméra est un moignon** : le parapluie allait de la main de la dame au col du héros dans l'axe de vue
+  (1,25 m devenu 30 px). Placer la caméra pour que la ligne main → cible soit en travers du cadre, et pour que le fond derrière cette ligne soit vide
+  (la file d'attente derrière celle qui frappe, pas dans l'intervalle). Mesurer le cou ou le col avec `debugJoints` avant de poser la crosse : un cou
+  étiré × 2 monte la tête à 2,05 m, la crosse réglée « au col » à 1,3 m finissait sous la taille.
+- (cycle 6) **Un visage à la fois** : la passagère qui se penchait vers nous pendant qu'il était collé à la vitre couvrait la moitié de son visage
+  (sa tête, plus près de la caméra, fait la moitié de la largeur). Lui pendant l'écrasement ; elle après son départ, dix images, les yeux grands ouverts.
+- (cycle 6) **La hauteur libre d'un intérieur** : le plafond du bus est à 2,3 m, une tête debout sur son plancher à 2,22 m : une casquette qui saute, une
+  passagère qui se redresse passent à travers et disparaissent (« pas d'yeux », « la casquette sort du cadre » étaient cela). `cityBus top: 2.65`. Avant
+  un gag vertical dans un véhicule ou une pièce, comparer la hauteur du gag à celle du plafond.
+- (cycle 6) Un grand changement de regard (`look`) emporte déjà un clignement automatique entre 0,05 et 0,3 s après la clé : un clignement dessiné
+  dans cette fenêtre donne huit images d'yeux fermés. Pour « des yeux ouverts sur nous dix images » : la clé `look` dès le début, rien d'autre avant 0,35 s.
+- (cycle 6) **L'élan gardé en mémoire** : la suite du mouvement (`follow`) se souvient 0,75 s des accélérations ; après un retour en arrière violent
+  dessiné à la main, les bras et la cravate ressortaient une demi-seconde plus tard, quand une clé sans `auto: 0` rallumait les couches automatiques
+  (un bras tendu et le buste renversé sans raison, trois images avant la coupe). Le moteur pèse désormais chaque accélération par l'`auto` de sa clé :
+  mettre `auto: 0` sur TOUTES les clés d'un mouvement chorégraphié (le vol compris), et la mémoire reste vide.
+- (cycle 6) Le rebond de la course vu de près : `bounce`, `sq` (écrasement à chaque appui) et `autoSq` s'additionnent ; mesurer le trajet de la tête sur
+  huit images consécutives avec `debugJoints` (colonne y). Cible 3 à 4 % de la hauteur du cadre : `bounce 0.9`, pas de `sq`, `autoSq 0` (8 à 9 %
+  avec les trois ; 1 % avec `bounce 0.3` seul : figé). Un insert sur la poitrine : `bounce 0.06`.
+- (cycle 6) `heelBrake` vu de côté : les talons pendent à 0,4 m de la route (jambes à l'horizontale) alors que la fumée et les traces sont au sol :
+  `params={'drop': 0.4}`. À 14 m/s la cravate passe par-dessus la tête et se lit comme détachée du col : un vent arrière partiel dans le plan
+  (`fx wind` de 9 m/s dans le sens de la course) la laisse décollée du torse sans la perdre.
+- (cycle 6) L'écart entre deux objets dans le cadre (l'afficheur sur sa tête et le boîtier du feu) dépend de la POSITION de la caméra, pas de sa
+  visée : tourner la caméra déplace les deux ensemble. Pour l'ouvrir : décaler la caméra de côté, ou éloigner le personnage du poteau (0,2 m de plus
+  suffit dans tous les plans). Deux objets de même teinte qui se touchent se lisent comme un seul : changer la teinte de l'un (poteau gris galvanisé,
+  boîtier vert sombre, cadre clair autour de l'afficheur) ET garder un intervalle d'au moins 7 % de la largeur.
+- (cycle 6, méthode) Sens de la visée : pour une caméra qui regarde vers +Z, +X est à GAUCHE de l'image. Avant d'itérer sur une cible de caméra,
+  projeter un point avec `project()` pour deux cibles et lire de quel côté il part (deux corrections sont parties dans le mauvais sens).
+- (cycle 6, méthode) **`debugJoints`** : clé du script (`debugJoints: 'mec'` ou une liste, à mettre dans une copie du JSON) : à chaque image rendue
+  le journal donne la position dans le monde et dans le cadre (fractions) de la tête, du cou, des mains et des pieds. Avec `project()`, on règle un
+  cadrage ou l'emplacement d'un accessoire en un rendu au lieu de quatre. `axes_euler(X, Y, Z)` (kit) donne la rotation d'un accessoire tenu dans
+  l'espace à partir de ses trois axes (un manche pointé d'une main vers un cou, sa crosse à plat).
+- (cycle 6) Une larme peinte (`tear`) fait 2 % de la largeur : en très gros plan, prendre `drop` (dessinée, de la taille de l'œil, elle roule). De la
+  vapeur blanche sur un mur clair mesure 1,1:1 : `steamInk`. Des arbres derrière une tête ou un feu : étendre `clear` du décor à la zone du plan.

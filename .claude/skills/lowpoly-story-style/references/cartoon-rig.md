@@ -242,3 +242,31 @@ All opt-in: without them a character is exactly the cycle-4 one.
     `confetti`, `wristWatch` (on a hand), `legWheel` (the legs of a sprint as a wheel: profile views only), `cityBus` `doorGlass` (0.08: clear
     glass for a view from inside) and a pale ceiling, `feather`.
   - move key `then='clip'`: the clip kept once a `glide` move has ended (a body held flat in the air, a man left standing).
+
+## Added in cycle 6 (a shadow as an actor, small features that read, a staging tool; what the second review of story 41 asked for)
+
+Engine: `engine/director3.js`, `toon.js`, `cloth.js`, `human.js`, `facerig.js`, `animations.js`, `props_elan.js`, `props_ombre.js`. All opt-in.
+
+- **A shadow as an actor** (story 42): cast `silhouette: '#262833'` (every mesh one flat unlit colour, no shading, no shadow of its own; its eyes show
+  as two white shapes when the head turns to us: `darkEyes: 1.5`), flattened with `sq [0.03, 1, 1]` against a wall (or `[1, 1, 0.03]` facing out of
+  it) and laid on the ground with the toon channel `lay: [rx, rz]`. The one whose shadow it is casts none: cast `castShadow: False` (it also stops
+  receiving: with the soft shadow maps of the natural look, what receives a shadow casts one).
+- Face channels: `tremble` (0..1, the lip trembles), `pupilShake` (0..1), `gulp` (0..1: a lump goes down the neck; key it from 0 to 1 in 0.25 s),
+  `steamInk` (1: the steam puffs of `steam` are opaque with an ink outline: they read on a pale wall), `drop` / `dropR` (0..1: a drawn tear under the
+  left / right eye that wells, grows and rolls down the cheek, leaving a track; `dropSize` 1 = as tall as the eye).
+- Cloth: script `clothGravity: True` (the tie of a man upside down hangs toward his head), cast `tails: True` (two jacket flaps that trail).
+- Moves: `cruise: 'in'` (the gait is already running before the move starts; it does not go on after its end, unlike `cruise: True`: a man who
+  stops), `cruise: 'out'` (it goes on after the end only).
+- **Follow-through and hand-keyed moves**: every acceleration is weighed by the `auto` of the toon key in force at that moment. A snap-back, a
+  throw or a fall keyed with `auto: 0` leaves nothing in the memory of the arms, the neck and the tie (0.75 s): put `auto: 0` on every key of a
+  move that is drawn by hand, the flight included.
+- Clip `heelBrake`: `drop` (m): the body sits down on its heels (0.4 for a side view).
+- **Staging tool**: script key `debugJoints: 'mec'` (or a list; put it in a copy of the JSON): each rendered frame logs, for that actor, the world
+  position of head, neck, hands and feet and where they fall in the frame (fractions from the top left). In the kit: `project(frm, look, lens, p)`,
+  `frame_size(lens, d)`, `st.where(sid, t, p)`, and `axes_euler(X, Y, Z)` (+ `unit3`, `cross3`): the rotation of a prop held in space from its
+  three axes (`P(..., ry=ry, rot=[rx, 0, rz])`).
+- Props: `trafficLight` `poleColor`, `housing`, `ped: 'r' | 'g'` (a pedestrian signal under the main one, on the road side); `headSign` `frame`
+  (a pale frame), `posts`; `busStopPole` `plateOff` (the plate in front of its pole), `boardDy`; `ticketPunch` `grip`; `bigTicket` `hole` (the colour
+  seen through the hole: the sky); `wristWatch` `dialR`, `both`, `bright` (a white dial that reads from four metres); `cityBus` `top` (2.3: the
+  ceiling; 2.65 leaves room for a cap that jumps and a passenger who hops); `wallClock` `until` (it runs fast, then stops); `props_ombre.js`:
+  `plainWall`, `lostPoster`, `shadowRack`, `fineSlip`, `custodyCalendar`, `cobbles`, `rabat`.
