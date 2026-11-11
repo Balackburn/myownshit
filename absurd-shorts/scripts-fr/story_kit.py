@@ -23,6 +23,24 @@ def cam(at, frm, to, look, look2=None, lens=44, ease='linear', shake=None, roll=
     return c
 
 
+def project(frm, look, lens, p, aspect=9 / 16):
+    """Where a point of the world falls in the frame of a camera at `frm` that looks at `look` (`lens`: its vertical field in degrees): (x, y, d) with
+    x and y as fractions of the width and of the height from the top-left corner (0.5, 0.5: the centre; captions sit at y 0.77-0.83, a one-line
+    title card at 0.07-0.18) and d the distance along the axis (m). None when the point is behind the camera. No roll, no shake."""
+    f = [look[i] - frm[i] for i in range(3)]; n = math.sqrt(sum(v * v for v in f)) or 1e-9; f = [v / n for v in f]
+    r = [-f[2], 0.0, f[0]]; n = math.hypot(r[0], r[2]) or 1e-9; r = [v / n for v in r]                      # right = forward x up
+    u = [r[1] * f[2] - r[2] * f[1], r[2] * f[0] - r[0] * f[2], r[0] * f[1] - r[1] * f[0]]               # up = right x forward
+    v = [p[i] - frm[i] for i in range(3)]; d = sum(v[i] * f[i] for i in range(3))
+    if d <= 1e-6: return None
+    th = math.tan(math.radians(lens) / 2)
+    return (round(0.5 + sum(v[i] * r[i] for i in range(3)) / (2 * d * th * aspect), 3), round(0.5 - sum(v[i] * u[i] for i in range(3)) / (2 * d * th), 3), round(d, 3))
+
+
+def frame_size(lens, d, aspect=9 / 16):
+    """(width, height) in metres of what the frame holds at d metres from a camera of vertical field `lens` degrees"""
+    h = 2 * d * math.tan(math.radians(lens) / 2); return (round(h * aspect, 3), round(h, 3))
+
+
 # standard framings: (x, z) is the subject's feet, the subject faces +Z; dx shifts the camera sideways
 def CU(x=0, z=0, h=1.75, dx=0.25, d=1.7, shake=0.008, lens=44):       # face close-up
     return [cam(0.0, [x + dx, h, z + d], [x + dx * 0.9, h, z + d - 0.18], [x, h - 0.03, z], [x, h - 0.02, z], lens=lens, shake=shake)]
@@ -66,6 +84,19 @@ class Story:
         a, b = self.SH[sid]
         self.scenes.append({'id': sid, 'set': set_, 'lines': [], 'actors': list(actors), 'props': list(props), 'sfx': [], 'cams': list(cams),
                             'start': round(a, 4), 'duration': round(b - a, 4), **kw})
+
+    def where(self, sid, t, p):
+        """Where the point p of the world falls in the frame at t seconds into shot sid (explicit `cam(...)` keys of that shot, already declared):
+        (x, y, d) as in project(). A key runs from its own time to the next key's; a glide key is taken as arrived. Use it before rendering a
+        still: a head cut by the top, a text out of the frame, feet in the caption band."""
+        sc = next(x for x in self.scenes if x['id'] == sid); cs = sorted([c for c in sc['cams'] if 'from' in c], key=lambda c: c['at'])
+        i = max([j for j, c in enumerate(cs) if c['at'] <= t + 1e-9] or [0]); c = cs[i]; t1 = cs[i + 1]['at'] if i + 1 < len(cs) else sc['duration']
+        w = 0.0 if t1 <= c['at'] else min(1.0, max(0.0, (t - c['at']) / (t1 - c['at'])))
+        if c.get('ease') == 'out': w = 1 - (1 - w) ** 3
+        elif c.get('ease') == 'in': w = w ** 3
+        elif c.get('ease') == 'inOut': w = w * w * (3 - 2 * w)
+        mix = lambda a, b_: [a[j] + (b_[j] - a[j]) * w for j in range(3)]
+        return project(mix(c['from'], c.get('to') or c['from']), mix(c['lookAt'], c.get('lookAt2') or c['lookAt']), c.get('lens', 40), p)
 
     def cue(self, name, sid, t=0.0, gain=0.5, *args):
         """an effect at time t inside shot sid (names: see mix.py: thud, clack, clang, pop, thunder, rain dur, whoosh dur lo hi, gust dur, engine dur, sfx:<name>)"""

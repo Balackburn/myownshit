@@ -528,3 +528,9 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   ajouter un `console.warn` temporaire sur une copie de sauvegarde du fichier, rendre trois images, restaurer le fichier aussitôt.
 - (cycle 5, méthode) Deux rendus d'images fixes du même script se marchent dessus (chaque rendu vide `out/work/story_<nom>/stills`) : pendant qu'un
   lot tourne, tester sur une copie du JSON sous un autre nom, et la supprimer ensuite.
+- (cycle 6, méthode) **Calculer le cadre avant de rendre** : `project(frm, look, lens, p)` et `st.where(sid, t, p)` (`scripts-fr/story_kit.py`) donnent
+  où un point du monde tombe dans le cadre (x, y en fractions depuis le coin haut gauche, et la distance) ; `frame_size(lens, d)` la largeur et la
+  hauteur du cadre à d mètres. Repères : sous-titres entre y 0,77 et 0,83 ; carte de titre d'une ligne entre 0,07 et 0,18 ; rien d'essentiel au-delà
+  de x 0,92 entre y 0,45 et 0,65 ; une tête debout monte à 2,2 – 2,4 m (cheveux compris), un afficheur posé dessus à 2,6 m. Vérifier ainsi les
+  pieds, le haut d'une tête, les deux bords d'un texte, puis seulement rendre l'image de contrôle. Ne pas relancer le script d'une histoire pour
+  « tester le kit » pendant que sa génération complète tourne (il réécrit les repères lus au montage du projet).
