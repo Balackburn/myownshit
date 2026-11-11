@@ -12,6 +12,8 @@ const wob = (t, f = 30, d = 6) => (t <= 0 ? 0 : Math.sin(t * f) * Math.exp(-t * 
 const keyed = (keys, t, e) => { if (!keys || !keys.length) return 0; if (t <= keys[0][0]) return keys[0][1]; for (let i = 0; i < keys.length - 1; i++) { const [t0, v0] = keys[i], [t1, v1] = keys[i + 1]; if (t < t1) { const u = clamp01((t - t0) / Math.max(1e-6, t1 - t0)); return v0 + (v1 - v0) * (e ? e(u) : u); } } return keys[keys.length - 1][1]; };
 const flat = (color, o = {}) => new THREE.MeshBasicMaterial({ color, toneMapped: false, fog: false, ...o });   // a colour that owes nothing to the light of the set
 const quad = (w, h, m) => { const q = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); q.castShadow = false; q.receiveShadow = false; return q; };
+// a soft round glow (radius r): a disc that fades to nothing at its rim (a flat translucent disc showed its hard edge on whatever was behind it)
+const softDisc = (r, color, opacity = 0.5) => { const pl = canvasPlane(2 * r, 2 * r, (c, W, H) => { c.clearRect(0, 0, W, H); const g = c.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W / 2); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.35, 'rgba(255,255,255,0.55)'); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fillRect(0, 0, W, H); }, { res: 128, transparent: true }); pl.material = flat(color, { map: pl.material.map, transparent: true, opacity, depthWrite: false, side: THREE.DoubleSide }); return pl; };
 const solid = (w, h, d, m) => { const q = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); q.castShadow = false; q.receiveShadow = false; return q; };
 // the state of a thing that switches with the city: keys [[t, lit (0|1), spread (s)], ...]; a thing at distance d (0..1) follows each key `spread * d` later
 const litAt = (keys, lit0, d, t, lag = 0) => { let s = lit0; for (const [t0, v, sp = 0.5] of keys) { if (t >= t0 + sp * d + (v ? 0 : lag)) s = v; else break; } return s; };
@@ -72,7 +74,8 @@ export const INTERRUPTEUR_PROPS = {
     const dots = kk => { const pl = canvasPlane(TW, TH, (c, W, H) => { c.clearRect(0, 0, W, H); const q = rng(40 + kk); for (let i = 0; i <= 50; i++) { const v = i / 50; for (const sd of [-1, 1]) { if (q() < 0.22) continue; c.fillStyle = q() < 0.5 ? '#FFF0BE' : '#FFD27A'; c.beginPath(); c.arc(W / 2 + sd * prof(v) * W, H * (1 - v), W * 0.013, 0, TAU); c.fill(); } }
       [0.19, 0.4, 0.86].forEach(v => { for (let x = -1; x <= 1.01; x += 0.2) { if (q() < 0.2) continue; c.fillStyle = '#FFF0BE'; c.beginPath(); c.arc(W / 2 + x * prof(v) * W, H * (1 - v), W * 0.013, 0, TAU); c.fill(); } }); }, { res: 512, transparent: true });
       pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, depthWrite: false }); pl.position.set(tx, ty + TH / 2, tz + 0.2); g.add(pl); return pl; };
-    const dA = dots(0), dB = dots(1), beam = quad(90, 1.8, flat('#FFF2C0', { transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide })), bp = grp(at(beam, 45, 0, 0)), tip = at(new THREE.Mesh(new THREE.CircleGeometry(1.0, 12), flat('#FFF6D8')), tx, ty + TH + 0.5, tz + 0.3);
+    const dA = dots(0), dB = dots(1), beam = canvasPlane(90, 7, (c, W, H) => { c.clearRect(0, 0, W, H); const img = c.createImageData(W, H); for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const u = x / W, hw = 0.06 + 0.94 * u, d = Math.abs(y / H - 0.5) * 2 / hw, a = d >= 1 ? 0 : Math.pow(1 - d * d, 1.5) * Math.pow(1 - u, 1.2), i = (y * W + x) * 4; img.data[i] = 255; img.data[i + 1] = 240; img.data[i + 2] = 190; img.data[i + 3] = 255 * a; } c.putImageData(img, 0, 0); }, { res: 512, transparent: true }), bp = grp(at(beam, 45, 0, 0)), tip = at(new THREE.Mesh(new THREE.CircleGeometry(1.0, 12), flat('#FFF6D8')), tx, ty + TH + 0.5, tz + 0.3);
+    beam.material = flat('#FFFFFF', { map: beam.material.map, transparent: true, opacity: 0.5, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });   // a wedge of pale light that widens and fades: it adds to the sky
     bp.position.set(tx, ty + TH, tz + 0.25); g.add(bp, tip);
     const eLag = o.eyesLag ?? 0.45, tLag = o.towerLag ?? 0.3;
     g.userData.update = t => {
@@ -166,7 +169,7 @@ export const INTERRUPTEUR_PROPS = {
   // The flame and its halo are unlit (give the prop `inDark` in a dark shot). Origin: under the dish; held by the ring: on={..., offset}
   candle(o) {
     const fl = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.085, 7), flat('#FFB23A')), 0, 0.045, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.012, 0.05, 6), flat('#FFF0B0')), 0, 0.032, 0)); fl.position.y = 0.2;
-    const halo = at(new THREE.Mesh(new THREE.CircleGeometry(0.16, 20), flat('#FFC860', { transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide })), 0, 0.245, 0);
+    const halo = at(softDisc(0.1, '#FFC860', 0.5), 0, 0.245, 0);
     const smoke = [0, 1, 2].map(() => { const p = sphere(0.014, '#C9C9CF', 1, { opacity: 0.7, unique: true }); p.castShadow = false; return p; });
     const g = grp(at(cyl(0.085, 0.07, 0.02, '#C9A24A', 12, { outline: 0.006 }), 0, 0.01, 0), at(cyl(0.024, 0.026, 0.17, '#F6F1E2', 8, { outline: 0.004 }), 0, 0.105, 0), at(box(0.004, 0.02, 0.004, '#1B1B1E'), 0, 0.2, 0), fl, halo, ...smoke);
     const ring = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.007, 5, 12), mat('#C9A24A')); ring.position.set(0.1, 0.02, 0); ring.rotation.x = PI / 2; g.add(ring);
@@ -237,10 +240,10 @@ export const INTERRUPTEUR_PROPS = {
 
   // a nightcap: a long striped cone that falls to one side, a pompon at its tip that swings. Origin: the top of the head (attach it to the head)
   nightCap(o) {
-    const c1 = o.color || '#F4F1E8', c2 = o.stripe || '#3F6FB5', g = grp(at(box(0.3, 0.07, 0.3, c1, { outline: 0.006 }), 0, 0.035, 0)), a = grp(), b = grp(), pom = sphere(0.06, c1, 1);
+    const c1 = o.color || '#F4F1E8', c2 = o.stripe || '#3F6FB5', g = grp(at(box(0.3, 0.07, 0.3, c1, { outline: 0.006 }), 0, 0.035, 0)), a = grp(), b = grp(), pom = sphere(0.06, o.pom || c2, 1);
     for (let i = 0; i < 3; i++) { const sg = box(0.26 - i * 0.05, 0.1, 0.26 - i * 0.05, i % 2 ? c1 : c2, { pivot: 'bottom', taper: 0.8 }); sg.position.y = 0.07 + i * 0.1; g.add(sg); }
     a.position.set(0, 0.36, 0); g.add(a); for (let i = 0; i < 3; i++) { const sg = box(0.11 - i * 0.02, 0.12, 0.11 - i * 0.02, i % 2 ? c2 : c1, { pivot: 'bottom', taper: 0.8 }); sg.position.y = i * 0.12; (i < 2 ? a : b).add(sg); }
-    b.position.y = 0.24; a.add(b); pom.position.y = 0.26; b.add(pom); b.children[0].position.y = 0;
+    b.position.y = 0.24; a.add(b); pom.position.y = 0.15; b.add(pom); b.children[0].position.y = 0;
     const sd = o.side ?? 1;   // o.side -1: it falls to the other side (his right)
     g.userData.update = t => { const s = Math.sin(t * 2.6 + (o.ph || 0)); a.rotation.z = sd * (-0.75 + 0.07 * s); b.rotation.z = sd * (-0.9 + 0.16 * Math.sin(t * 2.6 + (o.ph || 0) - 0.6)); };
     g.userData.update(0); return g;
@@ -262,14 +265,15 @@ export const INTERRUPTEUR_PROPS = {
     const E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(h * 0.1, 14), flat('#FFFFFF')), 0, 0, 0.001), at(new THREE.Mesh(new THREE.CircleGeometry(h * 0.045, 10), flat('#17171A')), 0, 0, 0.002)); e.position.x = sx * h * 0.15; e.children[0].scale.y = 1.2; eyes.add(e); return e; });
     g.userData.update = t => { const on = !!o.eyes && t >= o.eyes[0] && t < o.eyes[1]; eyes.visible = on; if (!on) return; const u = t - o.eyes[0], cyc = u % 1.3; let bl = !o.blinks && cyc > 0.5 && cyc < 0.62 ? Math.abs(1 - (cyc - 0.5) / 0.06) : 1; const op = Math.min(1, u / (o.eyesOpen ?? 0.08));
       for (const b of o.blinks || []) { const q = t - b; if (q >= 0 && q < 0.12) bl = Math.abs(1 - q / 0.06); }   // o.blinks [t, ...]: they blink then (default: one blink 0.5 s after they open, every 1.3 s)
-      E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = h * 0.03 * Math.sin(u * 2.2); }); };
+      const lk = o.eyeLook ? keyed(o.eyeLook, t, ease.inOut) : null;   // o.eyeLook [[t, -1..1], ...]: the pupils go to one end of the eyes, to the other (default: a slow drift, a sixth of the eye)
+      E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = lk != null ? lk * h * 0.052 : h * 0.03 * Math.sin(u * 2.2); }); };
     g.userData.update(0); return g;
   },
 
   // a match: a little stick with a red head. o.litAt: its flame takes; o.outAt: blown out. The flame is unlit (inDark). Origin: its foot, upright
   matchStick(o) {
     const fl = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.11, 7), flat('#FFB23A')), 0, 0.055, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.016, 0.065, 6), flat('#FFF0B0')), 0, 0.04, 0)); fl.position.y = 0.2;
-    const halo = at(new THREE.Mesh(new THREE.CircleGeometry(0.2, 20), flat('#FFC860', { transparent: true, opacity: 0.2, depthWrite: false, side: THREE.DoubleSide })), 0, 0.25, 0);
+    const halo = at(softDisc(0.11, '#FFC860', 0.5), 0, 0.25, 0);
     const g = grp(at(box(0.014, 0.2, 0.014, '#D9B98A', { pivot: 'bottom' }), 0, 0, 0), at(box(0.024, 0.03, 0.024, '#B5302A'), 0, 0.2, 0), fl, halo);
     g.userData.update = t => { const on = o.litAt != null && t >= o.litAt && (o.outAt == null || t < o.outAt), u = t - (o.litAt || 0); fl.visible = halo.visible = on;
       if (on) { const k = (u < 0.1 ? 1 + 1.6 * (1 - u / 0.1) : 1) * (1 + 0.14 * Math.sin(t * 21) + 0.08 * Math.sin(t * 39)); fl.scale.set(k > 1.6 ? 1.5 : 1, k, k > 1.6 ? 1.5 : 1); halo.scale.setScalar((u < 0.1 ? 1.6 : 1) * (1 + 0.06 * Math.sin(t * 25))); } };

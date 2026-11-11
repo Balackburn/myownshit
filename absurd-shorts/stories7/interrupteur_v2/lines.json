@@ -1,0 +1,106 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a éteint la lumière en sortant. Toute la ville s'est éteinte.",
+  "hl": [
+   "éteint",
+   "ville"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a rallumé. Elle s'est rallumée.",
+  "hl": [
+   "rallumée."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La mairie a fait venir un électricien :",
+  "hl": [
+   "électricien"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "C",
+  "text": "« L'interrupteur général, c'est lui. »",
+  "hl": [
+   "L'interrupteur",
+   "général,"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Depuis, il éteint Paris tous les soirs à vingt-deux heures.",
+  "hl": [
+   "Paris",
+   "vingt-deux",
+   "heures."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les cambrioleurs l'adorent. Les amoureux aussi.",
+  "hl": [
+   "cambrioleurs",
+   "amoureux"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "La facture arrive à son nom. Toute la facture.",
+  "hl": [
+   "facture",
+   "Toute"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il a demandé une augmentation. Il a eu une prime de nuit.",
+  "hl": [
+   "prime",
+   "nuit."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Hier à midi, il est sorti de chez lui.",
+  "hl": [
+   "midi,"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Par réflexe, il a éteint.",
+  "hl": [
+   "éteint."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il fait nuit depuis.",
+  "hl": [
+   "nuit"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Les astronomes cherchent. La facture, elle, est déjà arrivée.",
+  "hl": [
+   "astronomes",
+   "facture,"
+  ]
+ }
+]

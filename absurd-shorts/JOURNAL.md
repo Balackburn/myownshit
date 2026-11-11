@@ -721,3 +721,72 @@ yeux sont agrandis d'autant (`darkEyes` 5,2).
 - Brouillon 3 (30,13 s) : aucune image isolée aux coupes. Deuxième revue demandée aux deux relecteurs sur 73 pièces.
 - **Conformément à la consigne « toujours lancer la génération complète », le rendu final de l'histoire 40 est parti en même temps que la revue** ;
   les corrections de la revue seront faites par plages, ou par une version 2.
+
+### Histoire 40 : deuxième revue (animation 7,8 ; direction artistique 7,5) et troisième passe
+
+Gardé par les deux relecteurs : le noir comme procédé graphique, avec des yeux à la bonne taille (12 à 15 % de la largeur dans S01, S02 et pour la
+troisième paire de S13 ; 5 à 6 % par œil pour les dix paires de S22, où ses yeux crème et de travers le distinguent de tous) ; la cravate tirée comme le
+cordon d'une lampe, quatre fois et jamais pareil ; le take de l'électricien ; S11 (« la meilleure image du film ») ; la flaque de l'allumette et celle
+de la bougie ; le double regard de S14 ; l'enveloppe ; le soleil-ampoule ; le télescope et le faisceau ; l'enveloppe aux deux yeux comme dernière image.
+
+Demandé, et réponse (troisième passe, écrite pendant le rendu de la version 1) :
+1. **S22 : six battements en 1,13 s.** → la vague, puis les regards plissés tenus huit images pendant que ses pupilles glissent UNE fois, lentement, sur
+   toute la rue ; deux grands pas au lieu de trois ; les yeux de la foule un peu moins blancs que les siens.
+2. **S16 joué au bord du cadre et trop vite.** → lui à 60 % de la largeur, sous le blanc de la bande MAIRIE ; le trait tenu neuf images ; trois souffles
+   espacés de 0,14 s ; la paume ne fait signe qu'une fois.
+3. **Tenues mortes.** → la dame tremble et son chapeau sautille ; les deux passants s'éloignent en marchant puis sortent du film ; les cœurs battent
+   (la tête grossit de 16 % trois fois) ; l'électricien tend la main vers la cravate dès la première image ; les yeux de la dernière enveloppe vont à
+   chaque bout de la fenêtre, huit images, reviennent, clignent tard.
+4. **Accents de quatre images ou moins.** → S01 : le doigt retenu huit images (le lancer part 0,12 s plus tôt) ; S02 : yeux écrasés six images, les
+   spirales s'arrêtent au-dessus des sous-titres ; S09 : un élan avec l'étiquette visible dans la main ; S12 : le pouce disparaît, reste le clin
+   d'œil ; S15 : un regard vers nous avant que les genoux cèdent.
+5. **Silhouettes et répétitions.** → S10 : clair de lune de face sur les manches (bleu marine sur ciel bleu marine : aucune silhouette), bouche aussi
+   large que le bas du visage ; S17 : son visage reste de trois quarts, le maire se penche dans la lumière de la bougie (le sourire dans le noir était
+   celui des cambrioleurs) ; **le take de la dame était celui de l'électricien** (yeux sur tiges) : elle se tasse sous son chapeau, qui reste en
+   l'air et retombe en retard ; télescope qui sort du cadre ; notes crème dans le ciel.
+6. **Décor sur les têtes** : plus de tableau derrière les deux têtes de S06 à S09, tableau déplacé dans l'accroche ; S09 coupe à un gros plan du
+   front : GÉNÉRAL occupe un tiers du cadre.
+7. **S13** : deux paires d'yeux ronds cinq images, puis des cœurs posés sur le blanc de l'œil (moteur : un cœur dans le noir garde son blanc) ; un
+   cœur plat et clair entre elles, qui éclate avant que la troisième paire descende. S04 : gros plan sur ses yeux dans le noir, puis coupe au large.
+8. **Finitions** : faisceau de la tour en coin de lumière additif (c'était une barre grise), halos doux, pompon du bonnet attaché et coloré (il
+   flottait : une seconde lune), lune dans le cadre, soleil plus haut (un rayon finissait sur le chapeau de la dame), plus rien du facteur dans le noir.
+
+Erreur de moteur trouvée grâce à la revue : **un trait sombre dans les yeux agrandis**. Une pupille dessinée trois fois sa taille prenait le bord du
+sprite voisin dans la planche ; les sprites agrandis sont maintenant tirés d'une copie isolée (marge de 2 px).
+
+Note des relecteurs transmise sans décision de ma part (elle touche au texte enregistré, qui est fixe) : 39 % du film est noir, les 6,5 dernières
+secondes sans interruption ; le relecteur ne demande pas de changement.
+
+## Cycle 5 — ce qui pend suit, ce qui se pose s'amortit (commencé pendant les rendus des histoires 39 et 40)
+
+### 1. Analyse (troisième revue de l'histoire 39, deux revues de l'histoire 40, rigs des cycles 1 à 4)
+
+Faiblesses relevées, par ordre de fréquence dans les rapports :
+1. **Les poses s'arrêtent net et rien ne suit.** « Characters stop dead between poses » (39), « holds that die » (40) : après un coup, un rappel, une
+   pose atteinte, le bras libre, les jambes, la cravate, les cheveux, un oiseau sur une casquette restent inertes. Le rig a une traînée des membres
+   sur la vitesse de leurs propres articulations, mais rien ne répond aux accélérations du corps, et rien ne continue après l'arrivée. **Corrigé dans ce cycle.**
+2. **Trop de battements par plan.** La narration sans pause laisse 1,1 à 1,5 s par plan ; trois battements y sont illisibles. **Corrigé par la méthode** :
+   un battement par plan de moins de 1,2 s ; un plan qui en porte deux commence avant ses mots (coupe à un temps absolu) ; un accent tenu vaut six
+   images au moins.
+3. **La même mécanique deux fois dans un film** (deux coups de doigt, deux takes à yeux sur tiges, deux sourires dans le noir) : la règle de
+   l'utilisateur. **Corrigé par la méthode** : avant la mise en scène, la liste des mécaniques du film, une seule fois chacune.
+4. **Pupilles trop petites, regards qui ne se lisent pas de loin.** **Corrigé dans ce cycle** (canal `pupilSize`).
+5. **Décor et figurants sur les têtes, texte trop petit** : relevé à chaque revue. **Méthode** : un mur nu derrière les têtes d'un plan à deux ; un mot qui
+   porte la chute occupe 30 % de la largeur ou a son gros plan.
+Choix : 1 et 4 par le rig, 2, 3 et 5 par des règles ajoutées au skill.
+
+### 2. Rigs (ajouts en option ; sans eux un personnage est exactement celui du cycle 4)
+
+- **Suite du mouvement** (`st.write(..., follow=1)` ou `toon: {follow: 1}` sur un personnage) : les bras libres se comportent en pendules amortis.
+  Il démarre, ils restent en arrière ; il s'arrête net, ils continuent, reviennent, s'arrêtent en deux ou trois oscillations ; l'avant-bras suit le
+  bras avec 0,05 s de retard ; la tête retarde sur le cou ; la cravate et les cheveux reçoivent le même élan (`wind`). Sans état, comme tout le
+  moteur : l'accélération de sa position sur les 0,75 dernières secondes, pondérée par la réponse d'un pendule (12,5 rad/s, amortissement 0,2).
+  Une main guidée (`reach`, `touch`) ou un bras levé par le clip ne balance pas.
+- **Amorti d'une pose** (`'settle': 0.6` dans une clé `toon`) : une fois la clé atteinte, la colonne oscille encore et meurt en 0,5 s, le corps cède
+  un peu : une pose qui se pose n'est pas une pose qui s'arrête.
+- **Accessoires qui ne sont pas cloués** (`on={..., 'sway': 1}`) : un oiseau sur une casquette, une enseigne sur une tête, un sac : ils basculent
+  autour de leur pied avec l'élan de celui qui les porte.
+- **Taille des pupilles peintes** (`face.pupilSize`, `pupilSizeL`, `pupilSizeR`) : 1 = deux fois plus grosses (un regard qui se lit de loin),
+  −0,5 = des têtes d'épingle (la peur).
+- Compléments du cycle 4 faits pendant les revues : flaque de lumière (`darkPool`), yeux de pièce noire, `eyesPair` (paupières, regard, fenêtre),
+  `statueRock`, `nightWindow`, `bedFlip`, cœurs sur le blanc de l'œil dans le noir, sprites agrandis sans bavure.

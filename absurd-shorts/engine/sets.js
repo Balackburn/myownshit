@@ -201,7 +201,8 @@ const S = {
     if (o.lamp !== false) g.add(floorLamp(1.85, back + 0.45));
     if (o.plant !== false) g.add(prop('plant', {}, -1.85, 0, back + 0.4));
     if (o.tv !== false) g.add(prop('tv', { text: '' }, 3.7, 0, -1.2, -0.6));
-    g.add(at(picture(1.4, 0.9, P.navy), 0, 2.35, back + 0.03), prop('carpet', { w: 3.6, d: 2.4, color: P.red }, 0, 0, -0.6), prop('window', { w: 1.2, h: 1.3, color: P.teal, curtains: P.red }, 3.6, 0.95, back),
+    if (o.picture !== false) g.add(at(picture(o.pictureW ?? 1.4, (o.pictureW ?? 1.4) * 0.643, P.navy), o.pictureX ?? 0, o.pictureY ?? 2.35, back + 0.03));   // o.picture false / o.pictureX / o.pictureY / o.pictureW: no painting, or elsewhere (behind two heads it filled the gap between them, its border on their chins)
+    g.add(prop('carpet', { w: 3.6, d: 2.4, color: P.red }, 0, 0, -0.6), prop('window', { w: 1.2, h: 1.3, color: P.teal, curtains: P.red }, 3.6, 0.95, back),
       prop('table', { w: 0.5, d: 0.5, h: 0.55, color: P.teal }, -3.4, 0, back + 0.5), tableLamp(-3.4, 0.55, back + 0.5, P.salmon));
     g.userData.anchors = { center: [0, 0, 0], sofa: [0, 0, back + 0.55], sofaSeat: [0, 0.5, back + 0.75], lamp: [1.85, 0, back + 0.45], plant: [-1.85, 0, back + 0.4], picture: [0, 2.35, back], tv: [3.7, 0, -1.2], window: [3.6, 0, back + 0.7] };
     g.userData.lighting = 'interior'; return g;

@@ -242,8 +242,10 @@ export const CHAUSSETTES_PROPS = {
   heartPop(o) { // a red heart that pops in at o.at and floats up a little, wobbling (faces +Z)
     const s = o.size || 0.25, sh = new THREE.Shape(); sh.moveTo(0, -0.5); sh.bezierCurveTo(-0.9, 0.1, -0.5, 0.75, 0, 0.35); sh.bezierCurveTo(0.5, 0.75, 0.9, 0.1, 0, -0.5);
     const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.2, bevelEnabled: true, bevelSize: 0.05, bevelThickness: 0.05, bevelSegments: 2, curveSegments: 10 }); geo.center();
-    const m = mesh(geo, mat('#E0413A', { outline: 0.01 })), g = grp(m); m.scale.setScalar(s);
-    g.userData.update = t => { const u = t - (o.at || 0); const k = u < 0 ? 0 : u < 0.25 ? ease.out(u / 0.25) * 1.15 : 1 + 0.05 * Math.sin(u * 6); g.scale.setScalar(Math.max(0.001, k)); m.position.y = u > 0 ? Math.min(0.15, u * 0.12) : 0; m.rotation.y = 0.25 * Math.sin(u * 2.4); };
+    // o.flat: a flat, unlit heart (a shot in the dark: the lit one was a dim red lump), o.color; o.until: it bursts then (a quick swell, and gone)
+    const m = o.flat ? new THREE.Mesh(new THREE.ShapeGeometry(sh, 10), new THREE.MeshBasicMaterial({ color: o.color || '#FF5A6E', toneMapped: false, fog: false, side: THREE.DoubleSide })) : mesh(geo, mat(o.color || '#E0413A', { outline: 0.01 })), g = grp(m); m.scale.setScalar(s);
+    g.userData.update = t => { const u = t - (o.at || 0), v = o.until != null ? t - o.until : -1; let k = u < 0 ? 0 : u < 0.25 ? ease.out(u / 0.25) * 1.15 : 1 + 0.05 * Math.sin(u * 6); if (v >= 0) k = v < 0.07 ? k * (1 + 0.5 * v / 0.07) : 0;
+      g.scale.setScalar(Math.max(0.001, k)); g.visible = k > 0.001; m.position.y = u > 0 ? Math.min(0.15, u * 0.12) : 0; m.rotation.y = o.flat ? 0 : 0.25 * Math.sin(u * 2.4); if (o.flat) m.rotation.z = 0.12 * Math.sin(u * 5); };
     g.userData.update(0); return g;
   },
 };

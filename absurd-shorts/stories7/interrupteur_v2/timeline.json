@@ -1,0 +1,651 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a éteint la lumière en sortant. Toute la ville s'est éteinte.",
+   "hl": [
+    "éteint",
+    "ville"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.359,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "éteint",
+     "s": 0.581,
+     "e": 0.767
+    },
+    {
+     "w": "la",
+     "s": 0.804,
+     "e": 0.841
+    },
+    {
+     "w": "lumière",
+     "s": 0.878,
+     "e": 1.137
+    },
+    {
+     "w": "en",
+     "s": 1.211,
+     "e": 1.285
+    },
+    {
+     "w": "sortant.",
+     "s": 1.396,
+     "e": 1.952
+    },
+    {
+     "w": "Toute",
+     "s": 2.026,
+     "e": 2.174
+    },
+    {
+     "w": "la",
+     "s": 2.211,
+     "e": 2.248
+    },
+    {
+     "w": "ville",
+     "s": 2.322,
+     "e": 2.544
+    },
+    {
+     "w": "s'est",
+     "s": 2.581,
+     "e": 2.767
+    },
+    {
+     "w": "éteinte.",
+     "s": 2.804,
+     "e": 3.359
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a rallumé. Elle s'est rallumée.",
+   "hl": [
+    "rallumée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L02.k.wav",
+   "file_start": 3.459,
+   "speech_start": 3.459,
+   "speech_end": 5.385,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.459,
+     "e": 3.533
+    },
+    {
+     "w": "a",
+     "s": 3.57,
+     "e": 3.607
+    },
+    {
+     "w": "rallumé.",
+     "s": 3.681,
+     "e": 4.348
+    },
+    {
+     "w": "Elle",
+     "s": 4.385,
+     "e": 4.496
+    },
+    {
+     "w": "s'est",
+     "s": 4.533,
+     "e": 4.644
+    },
+    {
+     "w": "rallumée.",
+     "s": 4.681,
+     "e": 5.385
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La mairie a fait venir un électricien :",
+   "hl": [
+    "électricien"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L03.k.wav",
+   "file_start": 5.485,
+   "speech_start": 5.485,
+   "speech_end": 7.337,
+   "words": [
+    {
+     "w": "La",
+     "s": 5.485,
+     "e": 5.559
+    },
+    {
+     "w": "mairie",
+     "s": 5.633,
+     "e": 5.856
+    },
+    {
+     "w": "a",
+     "s": 5.893,
+     "e": 5.93
+    },
+    {
+     "w": "fait",
+     "s": 6.004,
+     "e": 6.078
+    },
+    {
+     "w": "venir",
+     "s": 6.189,
+     "e": 6.3
+    },
+    {
+     "w": "un",
+     "s": 6.337,
+     "e": 6.374
+    },
+    {
+     "w": "électricien:",
+     "s": 6.448,
+     "e": 7.337
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "C",
+   "text": "« L'interrupteur général, c'est lui. »",
+   "hl": [
+    "L'interrupteur",
+    "général,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L04.k.wav",
+   "file_start": 7.437,
+   "speech_start": 7.437,
+   "speech_end": 9.365,
+   "words": [
+    {
+     "w": "L'interrupteur",
+     "s": 7.437,
+     "e": 7.956
+    },
+    {
+     "w": "général,",
+     "s": 8.03,
+     "e": 8.622
+    },
+    {
+     "w": "c'est",
+     "s": 8.696,
+     "e": 8.77
+    },
+    {
+     "w": "lui.",
+     "s": 8.844,
+     "e": 9.363
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Depuis, il éteint Paris tous les soirs à vingt-deux heures.",
+   "hl": [
+    "Paris",
+    "vingt-deux",
+    "heures."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L05.k.wav",
+   "file_start": 9.465,
+   "speech_start": 9.465,
+   "speech_end": 12.132,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 9.465,
+     "e": 10.058
+    },
+    {
+     "w": "il",
+     "s": 10.132,
+     "e": 10.206
+    },
+    {
+     "w": "éteint",
+     "s": 10.243,
+     "e": 10.428
+    },
+    {
+     "w": "Paris",
+     "s": 10.576,
+     "e": 10.725
+    },
+    {
+     "w": "tous",
+     "s": 10.762,
+     "e": 10.873
+    },
+    {
+     "w": "les",
+     "s": 10.947,
+     "e": 11.021
+    },
+    {
+     "w": "soirs",
+     "s": 11.058,
+     "e": 11.243
+    },
+    {
+     "w": "à",
+     "s": 11.28,
+     "e": 11.317
+    },
+    {
+     "w": "vingt-deux",
+     "s": 11.354,
+     "e": 11.613
+    },
+    {
+     "w": "heures.",
+     "s": 11.688,
+     "e": 12.132
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les cambrioleurs l'adorent. Les amoureux aussi.",
+   "hl": [
+    "cambrioleurs",
+    "amoureux"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L06.k.wav",
+   "file_start": 12.232,
+   "speech_start": 12.232,
+   "speech_end": 14.751,
+   "words": [
+    {
+     "w": "Les",
+     "s": 12.232,
+     "e": 12.306
+    },
+    {
+     "w": "cambrioleurs",
+     "s": 12.38,
+     "e": 12.899
+    },
+    {
+     "w": "l'adorent.",
+     "s": 12.973,
+     "e": 13.688
+    },
+    {
+     "w": "Les",
+     "s": 13.738,
+     "e": 13.788
+    },
+    {
+     "w": "amoureux",
+     "s": 13.862,
+     "e": 14.158
+    },
+    {
+     "w": "aussi.",
+     "s": 14.269,
+     "e": 14.751
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "La facture arrive à son nom. Toute la facture.",
+   "hl": [
+    "facture",
+    "Toute"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L07.k.wav",
+   "file_start": 14.851,
+   "speech_start": 14.851,
+   "speech_end": 17.443,
+   "words": [
+    {
+     "w": "La",
+     "s": 14.851,
+     "e": 14.925
+    },
+    {
+     "w": "facture",
+     "s": 14.999,
+     "e": 15.295
+    },
+    {
+     "w": "arrive",
+     "s": 15.369,
+     "e": 15.591
+    },
+    {
+     "w": "à",
+     "s": 15.628,
+     "e": 15.665
+    },
+    {
+     "w": "son",
+     "s": 15.739,
+     "e": 15.813
+    },
+    {
+     "w": "nom.",
+     "s": 15.888,
+     "e": 16.313
+    },
+    {
+     "w": "Toute",
+     "s": 16.369,
+     "e": 16.48
+    },
+    {
+     "w": "la",
+     "s": 16.554,
+     "e": 16.628
+    },
+    {
+     "w": "facture.",
+     "s": 16.702,
+     "e": 17.443
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il a demandé une augmentation. Il a eu une prime de nuit.",
+   "hl": [
+    "prime",
+    "nuit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L08.k.wav",
+   "file_start": 17.543,
+   "speech_start": 17.543,
+   "speech_end": 20.358,
+   "words": [
+    {
+     "w": "Il",
+     "s": 17.543,
+     "e": 17.617
+    },
+    {
+     "w": "a",
+     "s": 17.691,
+     "e": 17.728
+    },
+    {
+     "w": "demandé",
+     "s": 17.765,
+     "e": 18.062
+    },
+    {
+     "w": "une",
+     "s": 18.099,
+     "e": 18.136
+    },
+    {
+     "w": "augmentation.",
+     "s": 18.21,
+     "e": 19.05
+    },
+    {
+     "w": "Il",
+     "s": 19.074,
+     "e": 19.099
+    },
+    {
+     "w": "a",
+     "s": 19.173,
+     "e": 19.21
+    },
+    {
+     "w": "eu",
+     "s": 19.247,
+     "e": 19.321
+    },
+    {
+     "w": "une",
+     "s": 19.395,
+     "e": 19.469
+    },
+    {
+     "w": "prime",
+     "s": 19.58,
+     "e": 19.691
+    },
+    {
+     "w": "de",
+     "s": 19.728,
+     "e": 19.765
+    },
+    {
+     "w": "nuit.",
+     "s": 19.802,
+     "e": 20.358
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Hier à midi, il est sorti de chez lui.",
+   "hl": [
+    "midi,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L09.k.wav",
+   "file_start": 20.458,
+   "speech_start": 20.458,
+   "speech_end": 22.384,
+   "words": [
+    {
+     "w": "Hier",
+     "s": 20.458,
+     "e": 20.68
+    },
+    {
+     "w": "à",
+     "s": 20.717,
+     "e": 20.754
+    },
+    {
+     "w": "midi,",
+     "s": 20.828,
+     "e": 21.347
+    },
+    {
+     "w": "il",
+     "s": 21.384,
+     "e": 21.421
+    },
+    {
+     "w": "est",
+     "s": 21.495,
+     "e": 21.569
+    },
+    {
+     "w": "sorti",
+     "s": 21.643,
+     "e": 21.791
+    },
+    {
+     "w": "de",
+     "s": 21.828,
+     "e": 21.865
+    },
+    {
+     "w": "chez",
+     "s": 21.902,
+     "e": 21.939
+    },
+    {
+     "w": "lui.",
+     "s": 22.013,
+     "e": 22.384
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Par réflexe, il a éteint.",
+   "hl": [
+    "éteint."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L10.k.wav",
+   "file_start": 22.484,
+   "speech_start": 22.484,
+   "speech_end": 24.039,
+   "words": [
+    {
+     "w": "Par",
+     "s": 22.484,
+     "e": 22.632
+    },
+    {
+     "w": "réflexe,",
+     "s": 22.706,
+     "e": 23.299
+    },
+    {
+     "w": "il",
+     "s": 23.336,
+     "e": 23.373
+    },
+    {
+     "w": "a",
+     "s": 23.447,
+     "e": 23.484
+    },
+    {
+     "w": "éteint.",
+     "s": 23.521,
+     "e": 24.039
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il fait nuit depuis.",
+   "hl": [
+    "nuit"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L11.k.wav",
+   "file_start": 24.139,
+   "speech_start": 24.139,
+   "speech_end": 25.176,
+   "words": [
+    {
+     "w": "Il",
+     "s": 24.139,
+     "e": 24.213
+    },
+    {
+     "w": "fait",
+     "s": 24.288,
+     "e": 24.436
+    },
+    {
+     "w": "nuit",
+     "s": 24.485,
+     "e": 24.584
+    },
+    {
+     "w": "depuis.",
+     "s": 24.658,
+     "e": 25.176
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Les astronomes cherchent. La facture, elle, est déjà arrivée.",
+   "hl": [
+    "astronomes",
+    "facture,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/interrupteur/tts/L12.k.wav",
+   "file_start": 25.276,
+   "speech_start": 25.276,
+   "speech_end": 28.832,
+   "words": [
+    {
+     "w": "Les",
+     "s": 25.276,
+     "e": 25.425
+    },
+    {
+     "w": "astronomes",
+     "s": 25.536,
+     "e": 25.943
+    },
+    {
+     "w": "cherchent.",
+     "s": 26.054,
+     "e": 26.684
+    },
+    {
+     "w": "La",
+     "s": 26.721,
+     "e": 26.758
+    },
+    {
+     "w": "facture,",
+     "s": 26.832,
+     "e": 27.425
+    },
+    {
+     "w": "elle,",
+     "s": 27.536,
+     "e": 27.869
+    },
+    {
+     "w": "est",
+     "s": 27.943,
+     "e": 28.017
+    },
+    {
+     "w": "déjà",
+     "s": 28.091,
+     "e": 28.239
+    },
+    {
+     "w": "arrivée.",
+     "s": 28.425,
+     "e": 28.832
+    }
+   ]
+  }
+ ],
+ "total": 30.13
+}

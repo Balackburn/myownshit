@@ -102,10 +102,15 @@ export function makeFaceRig(v = null) {
   const sg = scratch.getContext('2d');
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
   // a sprite drawn where it was painted, moved by (dx, dy), turned and scaled about (ax, ay)
+  // a sprite drawn enlarged is taken from a copy of its own (2 px of clear margin): straight from the sheet, the filter picked up the edge of the
+  // sprite next to it: a thin dark line beside a pupil drawn three times its size (dark-room eyes)
+  const isoCache = new Map();
+  const iso = name => { let c = isoCache.get(name); if (!c) { const r = S[name]; c = document.createElement('canvas'); c.width = r[2] + 4; c.height = r[3] + 4; c.getContext('2d').drawImage(L.sprites, r[0], r[1], r[2], r[3], 2, 2, r[2], r[3]); isoCache.set(name, c); } return c; };
   const spr = (ctx, name, ax, ay, dx = 0, dy = 0, rot = 0, sx = 1, sy = 1, alpha = 1) => {
     const r = S[name]; if (!r) return false;
     ctx.save(); ctx.translate(ax + dx, ay + dy); if (rot) ctx.rotate(rot); if (sx !== 1 || sy !== 1) ctx.scale(sx, sy); if (alpha < 1) ctx.globalAlpha = alpha;
-    ctx.drawImage(L.sprites, r[0], r[1], r[2], r[3], r[4] - ax, r[5] - ay, r[2], r[3]); ctx.restore(); return true;
+    if (Math.abs(sx) > 1.15 || Math.abs(sy) > 1.15) ctx.drawImage(iso(name), r[4] - ax - 2, r[5] - ay - 2); else ctx.drawImage(L.sprites, r[0], r[1], r[2], r[3], r[4] - ax, r[5] - ay, r[2], r[3]);
+    ctx.restore(); return true;
   };
   const centre = name => { const r = S[name]; return r ? [r[4] + r[2] / 2, r[5] + r[3] / 2] : [0, 0]; };
   let tg = g;   // where the eyes are drawn: the face, or the glow layer (the eyes alone, for a shot in the dark)
@@ -114,7 +119,9 @@ export function makeFaceRig(v = null) {
     if (e.kind !== 'open') {
       if (dark) { if (e.kind === 'closed') return;   // in the dark a shut eye is gone; a drawn eye (a cross, a spiral, a happy arc) shows in pale ink, a coloured one (heart, star, euro) as it is
         const x0 = Math.floor(cx - a.w * e.s) - 20, y0 = Math.floor(cy - a.h * e.s) - 20, w = Math.ceil(2 * a.w * e.s) + 40, h = Math.ceil(2 * a.h * e.s) + 40;
-        sg.clearRect(x0, y0, w, h); if (!spr(sg, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s, e.s * (e.open ?? 1))) return;
+        if (e.kind === 'heart') { tg.fillStyle = GLOW_INK; tg.beginPath(); tg.ellipse(cx, cy, a.w * 0.56 * e.s, a.h * 0.56 * e.s * (e.open ?? 1), 0, 0, 2 * Math.PI); tg.fill(); }   // a heart in the dark sits on the white of its eye
+        const hk = e.kind === 'heart' ? 0.74 : 1;
+        sg.clearRect(x0, y0, w, h); if (!spr(sg, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s * hk, e.s * hk * (e.open ?? 1))) return;
         if (!GLOW_OWN.has(e.kind)) { sg.globalCompositeOperation = 'source-in'; sg.fillStyle = GLOW_INK; sg.fillRect(x0, y0, w, h); sg.globalCompositeOperation = 'source-over'; }
         tg.drawImage(scratch, x0, y0, w, h, x0, y0, w, h); return; }
       if (!spr(g, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s, e.s * (e.open ?? 1))) spr(g, `eye${s}_closed`, cx, cy); return; }

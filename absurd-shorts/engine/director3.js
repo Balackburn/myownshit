@@ -391,6 +391,9 @@ function placeAttached(Pp, k, t) {
   const off = k.offset || (isHand ? [-g[0], -0.1 - g[1], -g[2]] : ZERO);
   Pp.obj.position.set(off[0], off[1], off[2]);
   Pp.obj.rotation.set(...(k.rot || ZERO));
+  // (cycle 5) `sway: a` on an attach (`on={..., 'sway': 1}`): the thing is not nailed on: it rocks about its foot with the follow-through of whoever carries it
+  // (a bird on a cap, a sign on a head, a bag on a shoulder), `sway` times the swing of a free arm
+  if (k.sway && !A.isProp && A.moves) { const r = followResp(A, t, k.swayLag ?? 0.03); Pp.obj.rotation.x += -0.6 * k.sway * r.f; Pp.obj.rotation.z += -0.6 * k.sway * r.s; }
   const sc = (k.scale ?? scaleOf(Pp, t)) / Math.max(0.01, (A.obj.scale.x || 1));
   Pp.obj.scale.setScalar(sc); squashProp(Pp, t);
   return true;
@@ -581,6 +584,21 @@ function toonOverlap(A, t, pose, BL) {
   for (const [j, lag] of Object.entries(TOON_LAG)) { const tt = Math.max(0, t - lag * k), key = tt.toFixed(4); const q = cache[key] || (cache[key] = toonPoseAt(A, tt, BL)); if (q[j]) out[j] = q[j]; }
   return out;
 }
+// (cycle 5) follow-through: how far something that hangs from him has swung, at time t, in answer to the accelerations of his body: he starts, it lags;
+// he stops dead, it swings on, comes back and dies. Stateless like the rest: the acceleration of his root over the last 0.75 s, weighed by the impulse
+// response of a damped pendulum (W rad/s: a swing of half a second; Z: it dies in two or three swings). Returns radians in his own frame:
+// f > 0: it has swung forward (in front of him), s > 0: toward his left, y > 0: it has been thrown up. `lag` (s): the same, a moment earlier (the far end
+// of a chain: a forearm after its arm)
+function followResp(A, t, lag = 0) {
+  const key = t - lag; if (A._fr && A._fr.t === key) return A._fr.v;
+  const W = 12.5, Z = 0.2, WD = W * Math.sqrt(1 - Z * Z), h = 1 / FPS, N = 22, L = 0.75, ry = facingAt(A, key);
+  const hgt = tt => posAt(A, tt).y + ((clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y) || 0);
+  let ax = 0, ay = 0, az = 0;
+  for (let i = 0; i < N; i++) { const u = (i + 0.5) * h, tt = key - u, p0 = posAt(A, tt - h), p1 = posAt(A, tt), p2 = posAt(A, tt + h), g = Math.exp(-Z * W * u) * Math.sin(WD * u) * h / (L * WD);
+    ax += (p2.x - 2 * p1.x + p0.x) / (h * h) * g; az += (p2.z - 2 * p1.z + p0.z) / (h * h) * g; ay += (hgt(tt + h) - 2 * hgt(tt) + hgt(tt - h)) / (h * h) * g; }
+  const v = { f: clamp(-(ax * Math.sin(ry) + az * Math.cos(ry)), -1.2, 1.2), s: clamp(-(ax * Math.cos(ry) - az * Math.sin(ry)), -1.2, 1.2), y: clamp(-ay, -1.2, 1.2) };
+  if (!lag) A._fr = { t: key, v }; return v;
+}
 // the clip's own channels (blended across a clip change) + automatic layers: breathing, squash and stretch from the vertical motion,
 // drag of the spine against horizontal acceleration (lean back on a start, carry on forward on a stop)
 function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
@@ -621,7 +639,25 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     if (sm > 0.01) { const f = (vx * Math.sin(ry) + vz * Math.cos(ry)) / sp, sd = (vx * Math.cos(ry) - vz * Math.sin(ry)) / sp, q = extra.sq || [1, 1, 1]; extra.sq = [q[0] * (1 + sm * sd * sd - 0.2 * sm * f * f), q[1] * (1 - 0.15 * sm), q[2] * (1 + sm * f * f - 0.2 * sm * sd * sd)]; }
     // standing still: the weight drifts from one leg to the other (the spine leans a little, the neck rights the head)
     if (sp < 0.3) { const ws = 0.032 * Math.sin(t * 0.85 + ph * 1.3) * auto * (cfg.sway ?? 1); bend.spine[1] += ws; bend.neck = [0, -ws * 0.8, 0, 1, null]; }
+    // (cycle 5, opt-in: script `follow: 1` or a cast's toon { follow: 1 }) what hangs from him follows through: free arms swing like pendulums behind a
+    // start and on past a stop, the forearm a moment after the arm; the head lags on its neck; the tie and the hair are thrown the same way (`wind`)
+    const fk = (cfg.follow ?? S.script?.follow ?? 0) * auto;
+    if (fk) {
+      const r0 = followResp(A, t), r1 = followResp(A, t, 0.05), guided = keyed ? { ...(keyed.reach || {}), ...(keyed.touch || {}) } : {}, cp = clipPoseFn(A, lastKey(A.clipKeys, t), t);
+      for (const sd of ['L', 'R']) {
+        const sh = cp['shoulder' + sd] || [0, 0, 0]; if (guided[sd] || Math.abs(sh[0]) > 0.7 || Math.abs(sh[2]) > 0.7) continue;   // a guided hand, a raised arm: not a pendulum
+        const a = bend['arm' + sd] || [0, 0, 0, 1, null], f = bend['fore' + sd] || [0, 0, 0, 1, null];
+        bend['arm' + sd] = [clamp(a[0] - 0.55 * fk * r0.f, -0.9, 0.9), clamp(a[1] + 0.55 * fk * r0.s, -0.9, 0.9), a[2], a[3] * (1 + 0.12 * fk * Math.max(0, -r0.y)), a[4]];
+        bend['fore' + sd] = [clamp(f[0] - 0.8 * fk * r1.f, -1.1, 1.1), clamp(f[1] + 0.8 * fk * r1.s, -1.1, 1.1), f[2], f[3] * (1 + 0.16 * fk * Math.max(0, -r1.y)), f[4]];
+      }
+      const nk = bend.neck || [0, 0, 0, 1, null]; bend.neck = [nk[0] + 0.3 * fk * r0.f, nk[1] - 0.25 * fk * r0.s, nk[2], nk[3], nk[4]];
+      const w0 = extra.wind || [0, 0, 0]; extra.wind = [w0[0] + 9 * fk * r0.s, w0[1] + 6 * fk * r0.y, w0[2] + 9 * fk * r0.f];
+    }
   }
+  // (cycle 5) a key that asks for it settles: `settle: a` in a toon key: once the key is reached, the spine rocks on and dies (a pose that lands is not a
+  // pose that stops), and the body gives a little: a (0..1) doses it
+  if (A.toonKeys) { const kk = lastKey(A.toonKeys, t), a = kk.toon?.settle; if (a) { const u = t - kk.at - (kk.dur || 0); if (u > 0 && u < 0.6) { const w = a * Math.exp(-7 * u), sw = Math.sin(19 * u);
+      bend.spine[0] += 0.09 * w * sw; bend.neck = bend.neck || [0, 0, 0, 1, null]; bend.neck[0] -= 0.07 * w * Math.sin(19 * u - 0.9); const q = extra.sq || [1, 1, 1], sy = 1 - 0.035 * w * Math.cos(19 * u), kx = 1 / Math.sqrt(sy); extra.sq = [q[0] * kx, q[1] * sy, q[2] * kx]; } } }
   extra.bend = bend;
   let all = addToon(tp, extra);
   if (keyed) all = addToon(all, keyed);
@@ -695,6 +731,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
       if (ld && e.kind === 'open') e.lid = clamp(Math.max(e.lid, ld), 0, 1);           // face.lidL / lidR: one lid alone (a wink, a heavy eye)
       if (lw) e.low = clamp(e.low + lw, 0, 0.5);                                      // face.low / lowL / lowR: the lower lid comes up (a squint)
       if (sz) e.s = clamp(e.s * (1 + sz), 0.5, 1.9);                                  // face.eye / eyeL / eyeR: an eye that grows (0.4 = 40 % bigger), one bigger than the other
+      const pz = (cf.pupilSize || 0) + (cf['pupilSize' + s] || 0); if (pz) e.ps = clamp(e.ps * (1 + pz), 0.3, 3.4);   // (cycle 5) face.pupilSize / pupilSizeL / pupilSizeR: the painted pupils grow (1 = twice the size: a look that reads from far) or shrink (-0.5: pinpricks of fear)
     }
     if (typeof cf.mouth === 'string' && cf.mouth) st.mouth = { ...st.mouth, spr: cf.mouth, w: 1, h: 1, tilt: 0, dx: 0, dy: 0 };   // face.mouth: a mouth shape by name (the mouths of the face set: O, o, open, scream, teeth, grimace, clench, kiss, pout, whistle, smirk, wavy, zigzag, tongueout...)
     if (cf.mouthW || cf.mouthH || cf.mouthTilt || cf.mouthDx || cf.mouthDy) st.mouth = { ...st.mouth, w: st.mouth.w * (1 + (cf.mouthW || 0)), h: st.mouth.h * (1 + (cf.mouthH || 0)), tilt: st.mouth.tilt + (cf.mouthTilt || 0), dx: st.mouth.dx + (cf.mouthDx || 0), dy: st.mouth.dy + (cf.mouthDy || 0) };   // wider, taller, tilted (px over the half width), pushed aside (px of the 400 px face)
