@@ -126,8 +126,21 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Le bras qui traverse le cadre pour l'arrêter | la dame À CÔTÉ de lui, presque à sa hauteur (derrière lui, le bras partait dans l'axe) ; coup d'œil, take (yeux sur tiges), puis la main guidée jusqu'à son poignet, avec une onde ; des notes sifflées (`whistleNotes`) pour celui qui n'a rien vu | 40 S20 |
 | La statue qu'on tapote | clip `statueRock` (`hits`, `amp`, `dir`) : rien ne plie, l'homme entier oscille autour de ses pieds et se stabilise, le pigeon tient bon (remplace la tête qui bascule sur son cou, déjà servie par le doigt du maire) | 39 S13 (dernière passe) |
 | L'étiquette claquée, avec élan et gros plan (troisième passe) | l'objet montré dans la main à hauteur de poitrine, armé au-dessus de la tête de celui qui frappe (il se penche en arrière), puis la main guidée va au front ; **à l'impact la tête s'écrase de 28 cm : une seconde clé `reach` descend la paume avec elle** (sinon la main reste en l'air au-dessus du crâne) ; coupe sur un gros plan à focale longue (`lens=28`, même place : ni main au bord ni décor collé à l'oreille), le mot occupe la moitié de la largeur, les yeux ouverts louchent vers lui (`cross`, `gy -0.9`, `pupilSize`) jusqu'à la coupe : un seul battement | 40 S09 |
+| Le coup sur la vitre, vu de l'intérieur | caméra dans le bus, contre la paroi opposée, par-dessus l'épaule d'un passager coupé par le bord latéral ; il court à côté, le poing guidé sur la vitre (`reach` : une image de contact, deux de recul, la main grossit à chaque coup : 1,3 – 1,45 – 1,75), étoiles SUR la vitre (`impactStars` qui avance avec le bus), le bus tangue (`rock`), le passager sursaute ; au freinage (bus et caméra en `ease='out'`) il glisse hors de la porte, le passager est projeté dans le cadre et se retourne vers nous | 41 S01 |
+| Il freine des talons sans ralentir | clip `heelBrake` en `glide` linéaire (`cruise`), fumée née sous les semelles (`heelSmoke`, `marks`), la caméra recule devant lui ; à la fin, le même freinage sur un autre homme qui le croise (variation) | 41 S02, S22 |
+| La casquette toupie | double take du chauffeur (yeux sur tiges), canal `hat [lift, tilt, spin]` : quatre tours et demi, elle finit à l'envers | 41 S03 |
+| Le panneau girouette | le panneau seul, lui six images devant, puis 0,7 s de rotation (`townSign` : `spinAt`, `turns` 2,07, `spinDur`) qui s'arrête de travers | 41 S04 |
+| Le crochet du parapluie | `crookUmbrella` (manche épais, grosse crosse jaune : sa cravate est rouge) levé au-dessus des têtes puis abattu ; accrochage tenu quatre images (clip `flag`, `dir: -1` : à plat, pieds devant), les bras de la dame sortent des manches (`bend` : `stretch 1.35`) ; départs à trois images d'écart, un bras qui s'étire avant que les pieds quittent le trottoir ; le panneau de tours reste en l'air huit images, tourné vers nous, puis tombe | 41 S05-S06 |
+| Le bureau tranché | deux mains jointes en hache (`reach` avec direction du coude), une tenue qui continue de monter, deux images de descente, `splitDesk`, les objets sautent, il s'époussette les mains | 41 S07 |
+| L'afficheur sur la tête (gag à répétition) | `headSign` posé sur la tête (`sway`) : 12 BIS, ARRÊT DEMANDÉ, 12 BIS, HORS SERVICE ; à l'arrêt de bus : 1 MIN, 0 MIN, 8 MIN | 41 |
+| Le contrôleur surfeur et le gros poinçon | contre-plongée sur le ciel ; un seul ticket au bout d'un bras qui s'allonge ; le poinçon est un accessoire à part (orienté par calcul, mâchoires le long du ticket), la main proche guidée sur son manche ; il monte ouvert, mord (tenu trois images : le ticket saute, un trou), recule ; un confetti part au vent | 41 S12 |
+| Le bouton d'arrêt sur le nœud de cravate | trois images : visage (langue au vent en ruban, les yeux descendent), insert (le bout du doigt attend à côté du bouton, tremble, recule, saute dessus : anneau rouge), visage (l'afficheur change ; espoir : sourire, pupilles × 3) | 41 S13 |
+| Deux visages dont un à l'envers | clip `batHang` : le contrôleur descend dans le cadre, pendu par les pieds ; sa cravate lui retombe sur le visage (canal `tie`), il la chasse d'un revers ; il parle la tête en bas | 41 S14-S15 |
+| Les pupilles qui tombent | très gros plan : pupilles larges tenues six images (`pupilSize 1.5`), puis têtes d'épingle (`-1.15`) en six images ; un sourcil cède, les paupières du bas montent, une larme | 41 S16 |
+| L'arrêt au poteau | prise basse à deux mains, le corps continue à l'horizontale, pieds devant (`flag`, `then='flag'`), le poteau se plie en arc (`bend`, tenue de huit images qui tremble), retour en trois images, à plat cinq images au pied du poteau (`sq [1.55, 0.26, 1.55]`) pendant que la caméra se rapproche, regonflage avec dépassement (1,15), étoiles | 41 S18 |
+| Les passagers qui continuent | lui debout au poteau, eux traversent le cadre à plat dans l'air ; puis le banc de la gare : quatre chutes en 0,3 s, quatre poignets (montres), quatre regards tenus dix-sept images | 41 S19-S20 |
 
-Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
+Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
 
@@ -469,3 +482,39 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
 - (cycle 5, méthode) Dans une boucle d'attente, `pgrep -f nom` lancé depuis `bash -c "… nom …"` se trouve lui-même (attente sans fin), et
   `pgrep -f "a\|b"` ne fait pas d'alternative (il n'a rien trouvé alors que le rendu tournait) : attendre une ligne dans un journal, ou deux
   appels séparés.
+- (cycle 5, histoire 41) **Un geste de main pendant une course** (frapper une vitre, appuyer sur un bouton, poinçonner) ne se lit pas dans le cycle de
+  course vu de profil ou de trois quarts : le corps cache le poing. Trois sorties : filmer de l'autre côté de la surface frappée (de l'intérieur du
+  bus : le poing vient vers nous) ; un insert d'une demi-seconde sur l'objet ; un seul objet au bout d'un bras allongé, sur le ciel.
+- (cycle 5, histoire 41) **Index pointé** : `tip` 0,15 dans `touch` / `reach` (0,1 est le bout d'une main ouverte : le poing recouvrait le bouton).
+  Sur un insert de face, le bout du doigt attend à côté de la cible, du côté d'où vient l'avant-bras (6 à 8 cm), puis saute dessus ; une cible
+  placée derrière la surface de l'objet fait disparaître la main dans le torse.
+- (cycle 5, histoire 41) **Un outil dont l'orientation compte** (poinçon, pince), attaché à la main, suit l'avant-bras : tenu à l'envers, mâchoires le
+  long de la manche, il mordait derrière le ticket. Le poser comme accessoire du monde : position et rotation calculées (une base : X = la
+  normale du ticket tournée de 50° autour de l'outil pour que les deux mâchoires se voient, Y = le sens des mâchoires ; angles d'Euler XYZ →
+  `rot[0]`, `ry` en degrés, `rot[2]`), et la main guidée sur son manche. Sur un groupe qui avance : clés en `ease='linear'` seulement (un amorti
+  déforme aussi le déplacement commun), aux mêmes instants pour l'outil et pour la main.
+- (cycle 5, histoire 41) **Pupilles** : à 576 px de large une pupille peinte fait 2 à 3 pixels. Option du film `pupil=0.5` ; un regard qui porte un
+  temps fort : `pupilSize` de 1 à 1,5 ; une chute de pupilles : de 1,5 à -1,15, les grandes pupilles tenues six images avant la chute, dans un
+  plan à elles (`lens 46`, les yeux au tiers haut, la bouche au-dessus de 75 % : sous les sous-titres la lèvre qui tremble est perdue).
+- (cycle 5, histoire 41) **Une expression forte** (`surprisedHappy`, `surprised`, `scared`…) passe par un clignement d'environ trois images : la poser
+  trois images avant le moment où elle doit se lire, et la donner comme expression de base du plan suivant si l'émotion continue (l'espoir tient
+  la fin d'un plan et le début du suivant, puis meurt quand l'autre entre).
+- (cycle 5, histoire 41) **Cravate d'un uniforme** : la tenue `mao` (préréglage `officiel`) n'a qu'une cravate rigide : ni vent ni canal `tie`.
+  `clothTie=True` dans le cast pour une cravate en volume. Pendu la tête en bas : `tie [1.15, 1.3, 0.1]` la fait retomber sur le visage,
+  `[1, 0, 0]` la rend au vent.
+- (cycle 5, histoire 41) **Roue de jambes** (`legWheel`, les jambes rétrécies par `bend`) : de profil seulement. De trois quarts face c'est un disque
+  gris et deux boîtes noires : garder les vraies jambes.
+- (cycle 5, histoire 41) **Après un `glide`, le clip de base revient** (encore) : projeté au pied du poteau, il « courait sur place » à mi-hauteur.
+  `then='stand'` sur le déplacement ; même piège pour une pose tenue (`then='flag'`).
+- (cycle 5, histoire 41) **Passager en amorce** (par-dessus l'épaule) : coupé par le bord latéral, jamais par le haut du cadre (une tête sans front) ;
+  à moins de 30 cm de la vitre, la caméra contre la paroi opposée ; il peut entrer dans le cadre à la fin (le freinage le projette) pour se
+  retourner vers nous. Placé en entier dans le cadre, il cache le héros.
+- (cycle 5, histoire 41) **Gag horizontal en cadre vertical** (un corps à l'horizontale et un poteau plié : 3,3 m de large) : le personnage ne dépasse
+  pas 30 % de la hauteur. Se rapprocher dès que l'action redevient verticale : un `glide` de 0,22 s sur la pose tenue ; vérifier les pieds
+  au-dessus de 76 % de la hauteur et la tête sous le bord au dépassement (étirement 1,15 et non 1,32).
+- (cycle 5, histoire 41) `lens` est l'angle de champ vertical en degrés (44 = 44°) : hauteur du cadre à d mètres = 2 d tan(lens / 2), largeur = 9/16
+  de la hauteur. Calculer où tombent une tête, des pieds, un texte avant de rendre l'image de contrôle.
+- (cycle 5, histoire 41) **Texte dans le cadre** (carte tenue en main, afficheur sur une tête) : aucun mot coupé par le bord ; reculer la caméra de
+  30 cm plutôt que de laisser « RRÊT DEMANDÉ ».
+- (cycle 5, méthode) `flash_check.py` signale à tort un plan à deux caméras (large puis serré), et son « image 0 » d'un plan est la dernière du
+  plan précédent (arrondi) : confirmer par `cut_flash_check.py` et par les images avant de corriger.

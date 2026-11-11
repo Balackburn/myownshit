@@ -291,7 +291,7 @@ for (let i = 0; i < pp.count; i++) {
 
   root.userData = { kind: 'human', spec: o, joints: J, headMesh, faceOpts, hipY, height: hipY + torsoH + 0.1 + hh };
   // for the cloth layer of the cartoon rig (engine/cloth.js): where a tie hangs and what it replaces, the crown of the head
-  const hasTie = !!C.tie && !o.naked && ['suit', 'waiter', 'cop'].includes(o.outfit) && (ATLB || !!flatTie);
+  const hasTie = !!C.tie && !o.naked && (['suit', 'waiter', 'cop'].includes(o.outfit) || !!o.clothTie) && (ATLB || !!flatTie);   // o.clothTie: a tie in volume on another outfit too (a uniform with a tie)
   root.userData.dims = { torsoH, front, hw, hh, hd, skinColor: ATL ? (atlasRegionColor(AR.skinCap) || o.skin) : o.skin, tieColor: hasTie ? C.tie : null, tieX: ATLB ? -0.014 : 0, hairColor: o.hair === 'bald' || o.hat && o.hat !== 'none' ? null : (ATL ? '#17161A' : o.hairColor) };
   root.userData.hideFlatTie = () => { if (ATLB) { const m = atlasMaterialNoTie(); if (m) jacket.material = m; return !!m; } if (flatTie) flatTie.visible = false; return true; };
   root.userData.setExpression = (expr, blink = false) => {

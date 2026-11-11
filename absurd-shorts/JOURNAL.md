@@ -1004,3 +1004,32 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - **Moteur, options ajoutées pour cette passe** (sans effet sur les anciens épisodes) : course vue de près (cadence lente imposée par la clé, rebond
   dosé, écrasement à chaque appui : un appui toutes les six images, le visage tient entre deux), taille de base des pupilles, langue au vent en ruban
   rose qui ondule, du côté où vole la cravate.
+
+### Histoire 41 — version 1 livrée ; passe n° 1 vérifiée image par image ; brouillon n° 2
+
+- **Version 1** : rendu complet en 70 min (1080 × 1920, 839 images), HyperFrames, contrôles : −16,0 LUFS, crête −3,7 dBFS, aucune erreur. Les
+  signalements de flash ont été vérifiés à la main : faux positifs (un plan à deux caméras ; « image 0 » d'un plan = dernière image du plan
+  précédent). Envoyée ; projet `hyperframes/41-elan` validé.
+- **Vérification de la passe n° 1** : quatre lots d'images de contrôle (48, 46, 17, 7). Trouvé et corrigé :
+  - accroche : la passagère, d'abord coupée par le haut du cadre, puis entière mais devant le héros, est placée en amorce au bord latéral ; le
+    freinage la projette dans le cadre et elle se retourne vers nous ;
+  - crochet : la roue de jambes retirée (illisible de trois quarts face ; gardée de profil, au passage de l'arrêt) ;
+  - maire : carte de la ligne coupée par le bord droit, boucle sous les sous-titres : caméra reculée de 25 cm, carte remontée ;
+  - contrôleur : le poinçon, attaché à la main, était tenu à l'envers et mordait derrière le ticket : accessoire à part, orienté par calcul, la
+    main proche sur son manche, morsure tenue trois images ;
+  - bouton d'arrêt : le poing recouvrait le bouton puis disparaissait dans le torse : le bout du doigt attend à côté du bouton, puis saute dessus ;
+  - espoir : l'expression arrivait trois images avant la coupe (le changement passe par un clignement) : posée plus tôt, gardée au début du plan
+    suivant, pupilles trois fois plus grandes ;
+  - cravate du contrôleur : la tenue de l'uniforme n'avait qu'une cravate rigide (aucun effet du canal `tie`) : option de cast `clothTie`
+    (moteur, sans effet ailleurs) ;
+  - « Au terminus » : l'afficheur coupé par le bord : caméra reculée ;
+  - très gros plan : la bouche tombait sous les sous-titres : champ un peu plus large ; grandes pupilles tenues six images avant la chute ;
+  - arrêt au feu : après le retour du poteau il « courait sur place » (clip de base revenu) : `then='stand'` ; la caméra se rapproche pendant
+    la pose à plat ; dépassement ramené à 1,15 pour que la tête reste dans le cadre.
+- **Décisions** (sans question) : la passagère reste (aparté muet qui donne le ton dès l'accroche) ; la roue de jambes ne sert qu'au passage de
+  l'arrêt ; le plan large de l'arrêt au feu garde tout le geste horizontal, la caméra ne se rapproche qu'à l'aplatissement.
+- **Skill** : 13 lignes au catalogue (les gags de l'histoire 41) et 13 entrées dans « Erreurs à éviter » (geste de main pendant une course, index
+  pointé, outil dont l'orientation compte, pupilles, expression forte, cravate d'uniforme, roue de jambes, clip de base après un `glide`, passager
+  en amorce, gag horizontal en cadre vertical, sens de `lens`, texte coupé par le bord, faux positifs du contrôle des flashs).
+- **Pistes** (cycle 6) : gravité des vêtements et des cheveux d'un personnage à l'envers, sans clé ; saccades des yeux ; retard de la caméra de
+  suivi ; orientation d'un accessoire tenu en main donnée dans le repère du monde (option d'attache), pour éviter le calcul à la main.

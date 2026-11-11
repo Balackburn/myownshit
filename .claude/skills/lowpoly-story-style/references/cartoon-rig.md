@@ -227,3 +227,18 @@ All opt-in: without them a character is exactly the cycle-4 one.
   (poles that bend as an arc: `bend` keys, `spring`; `pole_pt` in `story_elan.py` gives the same point for a guided hand), `busDisplay`,
   `headSign`, `townSign` (spins like a weathercock), `lapBoard`, `splitDesk`, `lineMap`, `bigTicket`, `stopButton`, `heelSmoke`, `roadStrip`,
   `stationSign`, `feather` (comes down rocking where a bird was).
+- (cycle 5, story 41, second pass) Options added while fixing the first review, all opt-in:
+  - script `pupil` (st.write `pupil=0.5`) or cast toon `{pupil}`: the size every pupil of the film starts from; `face.pupilSize` adds to it
+    (the total is clamped between 0.3 and 3.4 times the painted pupil). Hope: 1.5; pinpricks: -1.15.
+  - move key `cadence` (strides per second of the `run` clip on that move, 2.5 for a close shot: a footfall every six frames), `run` params
+    `bounce` (share of the vertical bounce) and `sq` (squash at each footfall): the face holds between two strides.
+  - cast `clothTie: true`: a tie in volume (wind, gravity, the `tie` channel) on an outfit that only has a rigid one (`mao`: the `officiel`
+    preset). `tie: [1.15, 1.3, 0.1]` lays it over the face of a man who hangs head down; `[1, 0, 0]` gives it back to the wind.
+  - `face.tongueW`: the width of the tongue ribbon (`tongueYaw` set: a pink ribbon that ripples, on the side the tie flies).
+  - `touch` / `reach` `tip`: 0.1 for the fingertips of an open hand, 0.15 for a pointing finger. The hand keeps the rotation the clip gives
+    it: check the insert on a still.
+  - props (`engine/props_elan.js`): `crookUmbrella` (thick shaft, big bright crook; origin: the grip), `ticketPunch` (jaws toward +Y,
+    `snapAt`; lay it in the world with a computed rotation and guide the hand to its handles: attached to a hand it follows the forearm),
+    `confetti`, `wristWatch` (on a hand), `legWheel` (the legs of a sprint as a wheel: profile views only), `cityBus` `doorGlass` (0.08: clear
+    glass for a view from inside) and a pale ceiling, `feather`.
+  - move key `then='clip'`: the clip kept once a `glide` move has ended (a body held flat in the air, a man left standing).
