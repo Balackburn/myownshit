@@ -233,7 +233,7 @@ st.shot('S12', 'parisStreet', setOpts=FAC, lighting='night', actors=[
 #     heart pops where they meet; a third pair opens behind, between them, big: a look left, a look right, and it sinks slowly behind their heads.
 #     (v1: turned three quarters to each other: small eyes, both pairs aslant the same way; the lean was keyed on the twist of the spine; the heart came
 #     up over the third one's head)
-LA, LB, TH13 = [9.2, 0, -0.36], [9.2, 0, 0.2], [9.74, 0.14, 0.02]
+LA, LB, TH13 = [9.2, 0, -0.09], [9.2, 0, 0.61], [9.74, 0.14, 0.02]   # (the head tipped 30 degrees carries the eyes 0.26 m toward our left: they sit that much to the right of where their eyes must be)
 KISS, T13 = 0.3, 0.4                                 # the heart; the third pair opens
 LVL = lambda **kw: {'bend': {'neck': [0, 0.52, 0, 1, None]}, 'auto': 0, **kw}   # the painted eyes sit aslant on the face (one 10 cm above the other): the head tipped 30 degrees, each pair is level: in the black, two pairs side by side (leaning the two heads toward each other gave one level pair and one upright: a heap of hearts)
 st.shot('S13', 'parisStreet', setOpts=FAC, lighting='night', actors=[
@@ -244,9 +244,9 @@ st.shot('S13', 'parisStreet', setOpts=FAC, lighting='night', actors=[
         act('b1', TH13, -90, 'stand', 'scared', darkEyes=2.9, keys=[k(0.0, look=None), k(0.0, toon={'face': {'lid': 1}}, toonDur=0.0), k(T13, toon={'face': {'eye': 0.5}, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.04, toonEase='outBack'),   # the third pair snaps open, between them
             k(T13 + 0.08, toon={'face': {'eye': 0.5, 'gx': -1}}, toonDur=0.04), k(T13 + 0.21, toon={'face': {'eye': 0.5, 'gx': 1}}, toonDur=0.04), k(T13 + 0.33, toon={'face': {'eye': 0.4}, 'auto': 0}, toonDur=0.05),   # a look left, four frames; a look right, four frames; to us
             k(T13 + 0.33, to=[TH13[0], -0.62, TH13[2]], dur=round(st.dur('S13') - T13 - 0.33, 3), ease='inOut', face='keep')])],   # and it goes down slowly, behind their heads
-        props=[P('bench', 'bench', pos=[9.35, 0, 0.0], ry=-90, opts={'w': 1.5}), P('pop', 'heartPop', pos=[8.98, 1.66, -0.08], ry=-90, inDark=True, opts={'at': KISS, 'size': 0.07})],
+        props=[P('bench', 'bench', pos=[9.35, 0, 0.0], ry=-90, opts={'w': 1.5}), P('pop', 'heartPop', pos=[8.98, 1.64, 0.0], ry=-90, inDark=True, opts={'at': KISS, 'size': 0.07})],
         dark=[[0, 1, 0.001]], darkFloor=0.0, darkEyes=2.2,
-        cams=[cam(0.0, [7.2, 1.62, 0.0], [7.3, 1.64, 0.0], [9.2, 1.72, 0.0], [9.2, 1.72, 0.0], lens=44)])
+        cams=[cam(0.0, [6.8, 1.62, 0.0], [6.9, 1.64, 0.0], [9.2, 1.72, 0.0], [9.2, 1.72, 0.0], lens=44)])   # a little further back than v1: a gap between the two pairs wider than between two eyes of one
 
 # ---- the bill: by day, at his door (the right-hand pavement of the Paris street; his door is in the front at x = 9.93)
 DAY = {'clear': [-30, 30], 'eiffel': False}

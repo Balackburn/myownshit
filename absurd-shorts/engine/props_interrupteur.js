@@ -138,7 +138,7 @@ export const INTERRUPTEUR_PROPS = {
   jumperCable(o) {
     const to = new THREE.Vector3(...(o.to || [1, 0, 0])), mid = to.clone().multiplyScalar(0.5); mid.y -= o.sag ?? 0.25;
     const tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(), mid, to), 14, o.r ?? 0.012, 5), mat(o.color || '#D8322A')); tube.castShadow = true;
-    const clip = grp(at(box(0.035, 0.03, 0.1, o.color || '#D8322A', { outline: 0.006, taper: { x: 0.6 } }), 0, 0.016, 0.03), at(box(0.035, 0.03, 0.1, o.color || '#D8322A', { outline: 0.006, taper: { x: 0.6 } }), 0, -0.016, 0.03)); clip.position.copy(to); clip.lookAt(to.clone().add(to.clone().sub(mid)));
+    const clip = grp(at(box(0.035, 0.03, 0.1, o.color || '#D8322A', { outline: 0.006, taper: { x: 0.6, z: 1 } }), 0, 0.016, 0.03), at(box(0.035, 0.03, 0.1, o.color || '#D8322A', { outline: 0.006, taper: { x: 0.6, z: 1 } }), 0, -0.016, 0.03)); clip.position.copy(to); clip.lookAt(to.clone().add(to.clone().sub(mid)));
     return grp(tube, clip);
   },
 
