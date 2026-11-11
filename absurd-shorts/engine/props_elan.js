@@ -43,6 +43,7 @@ export const ELAN_PROPS = {
     let x0 = -hx; for (const dx of [...doorsX].sort((a, b) => a - b)) { const x1 = dx - dw / 2; body.add(at(box(x1 - x0, yS - y0, 0.05, C, { outline: 0.012 }), (x0 + x1) / 2, (y0 + yS) / 2, hz)); x0 = dx + dw / 2; }
     body.add(at(box(hx - x0, yS - y0, 0.05, C, { outline: 0.012 }), (x0 + hx) / 2, (y0 + yS) / 2, hz));
     body.add(at(box(L + 0.04, yR - yW, W + 0.04, C2, { outline: 0.012 }), 0, (yW + yR) / 2, 0), at(box(L - 0.5, 0.08, W - 0.5, C2), 0, yR + 0.04, 0));   // the roof
+    { const ce = quad(L - 0.12, W - 0.12, flat(o.ceiling || '#DDD8CB')); ce.rotation.x = PI / 2; ce.position.set(0, yW - 0.004, 0); body.add(ce); }   // a pale ceiling under it (unlit: the inside of the roof was a dark slab behind the driver's cap)
     const pil = []; for (let x = -hx + 0.02; x < hx - 0.6; x += 1.26) pil.push(x); pil.push(hx - 0.03);
     for (const x of pil) for (const z of [-hz, hz]) if (!doorsX.some(dx => z > 0 && Math.abs(x - dx) < dw / 2 - 0.02)) body.add(at(box(0.09, yW - yS, 0.06, C2), x, (yS + yW) / 2, z));
     body.add(at(mesh(new THREE.BoxGeometry(L - 0.1, yW - yS, 0.02), gl), 0, (yS + yW) / 2, -hz), at(mesh(new THREE.BoxGeometry(0.02, yW - yS, W - 0.1), gl), -hx, (yS + yW) / 2, 0));
@@ -52,7 +53,7 @@ export const ELAN_PROPS = {
     const disp = ledText(`${o.line || '12'}  ${o.dest || 'GARE'}`, W * 0.8, 0.34); disp.rotation.y = PI / 2; disp.position.set(hx + 0.03, (yW + yR) / 2, 0); body.add(disp);
     const side = ledText(o.line || '12', 0.5, 0.3, 192); side.position.set(doorsX[0], (yW + yR) / 2, hz + 0.03); body.add(side);
     const rear = ledText(o.line || '12', 0.6, 0.34, 192); rear.rotation.y = -PI / 2; rear.position.set(-hx - 0.03, (yW + yR) / 2, 0.5); body.add(rear);
-    const leaves = []; for (const dx of doorsX) for (const s of [-1, 1]) { const lf = grp(at(mesh(new THREE.BoxGeometry(dw / 2 - 0.02, yW - y0 - 0.1, 0.03), glassMat(0.3, '#CFE6EA')), 0, 0, 0), at(box(dw / 2, 0.06, 0.05, DK), 0, -(yW - y0) / 2 + 0.06, 0), at(box(0.04, yW - y0 - 0.1, 0.05, DK), s * (dw / 4 - 0.02), 0, 0));
+    const leaves = []; for (const dx of doorsX) for (const s of [-1, 1]) { const lf = grp(at(mesh(new THREE.BoxGeometry(dw / 2 - 0.02, yW - y0 - 0.1, 0.03), glassMat(o.doorGlass ?? 0.3, '#CFE6EA')), 0, 0, 0), at(box(dw / 2, 0.06, 0.05, DK), 0, -(yW - y0) / 2 + 0.06, 0), at(box(0.04, yW - y0 - 0.1, 0.05, DK), s * (dw / 4 - 0.02), 0, 0));
       lf.position.set(dx + s * dw / 4, (y0 + yW) / 2, hz); body.add(lf); leaves.push({ lf, x: dx + s * dw / 4, s }); }
     body.add(at(box(0.08, 0.32, W + 0.06, DK), hx + 0.02, 0.5, 0), at(box(0.08, 0.3, W + 0.06, DK), -hx - 0.02, 0.5, 0));                        // the bumpers
     for (const z of [-0.75, 0.75]) body.add(at(box(0.04, 0.14, 0.3, '#FFF6C8', { noGrain: true }), hx + 0.05, 0.82, z), at(box(0.04, 0.16, 0.26, P.red), -hx - 0.05, 0.86, z));
@@ -248,6 +249,20 @@ export const ELAN_PROPS = {
   wristWatch(o) {
     const s = o.s ?? 1, g = grp(at(box(0.075, 0.03, 0.075, o.strap || '#2B2F36', { outline: 0.006 }), 0, 0, 0), at(cyl(0.026, 0.026, 0.012, o.dial || '#F4F1E8', 12), 0, 0, 0.04, PI / 2), at(cyl(0.03, 0.03, 0.008, '#C9A24B', 12), 0, 0, 0.036, PI / 2));
     g.scale.setScalar(s); return g;
+  },
+
+  // The legs of a sprint as a wheel: a blurred disc the colour of the trousers, four streaks and four shoes going round. Attach it at the waist of a runner
+  // (on: {actor, joint: 'torso'}) whose own legs are shrunk away (toon bend legL / legR / shinL / shinR: stretch 0.05). o.r (0.62 m): its radius; o.rate
+  // (2.5 turns a second: a shoe moves a third of the way to the next one each frame); o.color, o.shoe; o.from / o.to: when it shows.
+  legWheel(o) {
+    const R = o.r ?? 0.62, g = grp(), w = new THREE.Group(), col = o.color || '#1E2A44', tr = (c, op) => flat(c, { transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
+    const disc = quad(1, 1, tr(col, 0.34)); disc.geometry = new THREE.RingGeometry(R * 0.2, R * 0.97, 28); w.add(disc);
+    for (let i = 0; i < 4; i++) { const a = i * PI / 2, leg = quad(R * 0.85, 0.12, tr(col, 0.85)); leg.position.set(Math.cos(a) * R * 0.5, Math.sin(a) * R * 0.5, 0.003); leg.rotation.z = a; w.add(leg);
+      const tail = quad(1, 1, tr(col, 0.5)); tail.geometry = new THREE.RingGeometry(R * 0.82, R * 0.99, 10, 1, a - 0.5, 0.5); tail.position.z = 0.002; w.add(tail);   // the blur behind each shoe
+      const shoe = box(0.25, 0.1, 0.12, o.shoe || '#15171C', { outline: 0.01 }); shoe.position.set(Math.cos(a) * R, Math.sin(a) * R, 0); shoe.rotation.z = a - PI / 2; w.add(shoe); }
+    w.position.y = -R * 0.74; g.add(w);
+    g.userData.update = t => { g.visible = t >= (o.from ?? -1e9) && t <= (o.to ?? 1e9); w.rotation.set(0, PI / 2, 0); w.rotateZ((o.rate ?? 2.5) * TAU * t); };
+    g.userData.update(0); return g;
   },
 
   // a feather left in the air by a bird that has gone: from o.at it comes down o.fall metres (1.2) in o.dur seconds (1.2), rocking from side to side

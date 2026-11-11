@@ -162,12 +162,11 @@ function headOverlays(head, hm, dim, skin) {
   const tongue = outlined(new THREE.Mesh(new THREE.BoxGeometry(hw * 0.3, 0.016, 1).translate(0, 0, 0.5), new THREE.MeshLambertMaterial({ color: '#D9606A' })), 1.06); tongue.visible = false; g.add(tongue);
   // (cycle 5) the tongue blown aside by a run (face.tongueYaw): a pink ribbon on edge, wide at the mouth, narrow and round at the tip, a wave running along
   // it (the flat tongue, seen from the front, was a thin red rod, the colour of the tie)
-  const TFN = 7, tfGeo = new THREE.BufferGeometry(), tfPos = new Float32Array((TFN + 1) * 6), tfIdx = [];
-  for (let i = 0; i < TFN; i++) { const a = i * 2; tfIdx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
-  tfGeo.setAttribute('position', new THREE.BufferAttribute(tfPos, 3)); tfGeo.setIndex(tfIdx);
-  const tfGeo2 = new THREE.BufferGeometry(), tfPos2 = new Float32Array((TFN + 1) * 6); tfGeo2.setAttribute('position', new THREE.BufferAttribute(tfPos2, 3)); tfGeo2.setIndex(tfIdx);   // its dark edge: the same ribbon, 7 mm wider, just behind
-  const tongueFly = new THREE.Mesh(tfGeo, new THREE.MeshBasicMaterial({ color: '#F58FA9', side: THREE.DoubleSide })), tongueFlyEdge = new THREE.Mesh(tfGeo2, new THREE.MeshBasicMaterial({ color: '#A8425E', side: THREE.DoubleSide }));
-  tongueFly.add(tongueFlyEdge); tongueFly.visible = false; tongueFly.frustumCulled = tongueFlyEdge.frustumCulled = false; g.add(tongueFly);
+  const TFN = 7, tfGeo = new THREE.BufferGeometry(), tfPos = new Float32Array((TFN + 1) * 12), tfCol = new Float32Array((TFN + 1) * 12), tfIdx = [], TC = [new THREE.Color('#A03E5C'), new THREE.Color('#F58FA9')];
+  for (let i = 0; i <= TFN; i++) [0, 1, 1, 0].forEach((c, j) => tfCol.set([TC[c].r, TC[c].g, TC[c].b], (i * 4 + j) * 3));   // across the ribbon: a dark rim, pink, pink, a dark rim (one mesh: nothing to fight for depth)
+  for (let i = 0; i < TFN; i++) for (let j = 0; j < 3; j++) { const a = i * 4 + j; tfIdx.push(a, a + 1, a + 4, a + 1, a + 5, a + 4); }
+  tfGeo.setAttribute('position', new THREE.BufferAttribute(tfPos, 3)); tfGeo.setAttribute('color', new THREE.BufferAttribute(tfCol, 3)); tfGeo.setIndex(tfIdx);
+  const tongueFly = new THREE.Mesh(tfGeo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide, toneMapped: false, fog: false })); tongueFly.visible = false; tongueFly.frustumCulled = false; tongueFly.castShadow = false; tongueFly.userData.noAO = true; g.add(tongueFly);
   const pt = puffTex(), puffs = [0, 1, 2, 3, 4, 5].map(() => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: pt, transparent: true, depthWrite: false, opacity: 0 })); s.userData.noAO = true; g.add(s); return s; });
   // a bump that grows on the skull after a blow, and stars that circle the head
   const bump = outlined(new THREE.Mesh(new THREE.IcosahedronGeometry(0.075, 1).scale(1, 1.25, 0.9), new THREE.MeshLambertMaterial({ color: new THREE.Color(skin).multiply(new THREE.Color(1.0, 0.72, 0.68)) })), 1.07); bump.visible = false; g.add(bump);
@@ -190,9 +189,9 @@ function headOverlays(head, hm, dim, skin) {
     const tg = f.tongue || 0, fly = !!f.tongueYaw && tg > 0.01; tongue.visible = tg > 0.01 && !fly; tongueFly.visible = fly;
     if (fly) { const k = 1 - MOUTH_Y / JAW_TOP, L = tg * (f.tongueLen ?? 0.3), w0 = hw * 0.11 * (f.tongueW ?? 1);
       tongueFly.position.set(0, MOUTH_Y * hh - drop * k - 0.004, hd / 2 + 0.006); tongueFly.rotation.set(0, f.tongueYaw, 0);
-      for (let i = 0; i <= TFN; i++) { const u = i / TFN, z = u * L, y = (f.tongueDip ?? -0.1) * z * 0.5 + 0.03 * u * Math.sin(t * 26 - u * 7), hwd = w0 * (1 - 0.5 * u) * (i === TFN ? 0.3 : 1), sg = Math.sign(f.tongueYaw);
-        tfPos.set([0, y + hwd, z, 0, y - hwd, z], i * 6); tfPos2.set([0.003 * sg, y + hwd + 0.007, z + (i === TFN ? 0.008 : 0), 0.003 * sg, y - hwd - 0.007, z + (i === TFN ? 0.008 : 0)], i * 6); }   // behind the ribbon as the camera in front sees it
-      tfGeo.attributes.position.needsUpdate = tfGeo2.attributes.position.needsUpdate = true; }
+      for (let i = 0; i <= TFN; i++) { const u = i / TFN, z = u * L, y = (f.tongueDip ?? -0.1) * z * 0.5 + 0.03 * u * Math.sin(t * 26 - u * 7), hwd = w0 * (1 - 0.5 * u) * (i === TFN ? 0.3 : 1), e = 0.008;
+        tfPos.set([0, y + hwd + e, z, 0, y + hwd, z, 0, y - hwd, z, 0, y - hwd - e, z], i * 12); }
+      tfGeo.attributes.position.needsUpdate = true; }
     if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
       if (f.tongueYaw) { tongue.rotation.set((f.tongueDip ?? -0.1) + 0.05 * Math.sin(t * 19), f.tongueYaw + 0.14 * Math.sin(t * 23), 0); tongue.position.z += 0.012; } }   // (cycle 5) face.tongueYaw (rad, + = toward his left): the tongue blown aside by the wind of a run (1.5: flat across the cheek and out past the head), fluttering; face.tongueDip: its pitch
     puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1, q = (t * 1.6 + i * 0.37) % 1; p.visible = steam > 0.01; if (!p.visible) return; p.position.set(side * (hw / 2 + 0.03 + q * 0.16), hh * 0.5 + q * 0.2, -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam); p.material.opacity = 0.85 * Math.sin(Math.PI * q) * Math.min(1, steam); });

@@ -970,3 +970,37 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   Décision de série consignée sans question (remarque « pour l'utilisateur » du relecteur) : on garde le rendu naturel et les façades détaillées,
   mais le costume sera éclairci dans les plans larges où il se confond avec le décor (lumière d'appoint), et l'action passera devant de la pierre
   claire plutôt que devant les stores et les vitrines.
+
+### Histoire 41 — première revue : animation 7,2, direction artistique 7,0 ; passe de corrections n° 1
+
+- **Ce que les deux relecteurs gardent** : l'afficheur ambre comme fil conducteur et gag à répétition (12 GARE, 1 MIN / 0 MIN / 8 MIN, 12 BIS, ARRÊT
+  DEMANDÉ, HORS SERVICE), le freinage aux talons (meilleure silhouette du film) et son retour sur un autre homme à la fin, le double take du
+  chauffeur, le bureau fendu qui raconte le jeu de mots sans texte, le passage à l'arrêt (meilleur gag pour le rythme), les deux têtes dont une à
+  l'envers, le banc de la gare, la fin au feu vert.
+- **Ce qu'ils renvoient** (convergent) : (1) l'arrêt au feu, sommet de l'histoire, trop comprimé : retour, aplatissement et regonflage en moins de
+  0,4 s, pose à plat au bord du cadre, tête confondue avec le boîtier du feu ; (2) le crochet du parapluie illisible (un trait d'un pixel, la crosse
+  cachée, pas de cou qui reste) ; (3) les yeux du héros sous la résolution d'un téléphone (pupille de 2 à 3 pixels à 576), donc regards et
+  rétrécissement des pupilles perdus ; visage qui saute de 8 à 9 % du cadre six fois par seconde dans les gros plans de course ; (4) les gestes des
+  mains noyés dans le cycle de course (coups sur la vitre, bouton d'arrêt, poinçon, panneau de tours) ; (5) des fins de gag coupées trop tôt
+  (panneau de ville, regards du banc) et des tenues mortes (maire, début des deux derniers plans, contrôleur) ; finitions : cabine du chauffeur
+  sombre, bureau du maire sous les sous-titres, carte de titre sur ses cheveux, route du plan du panneau, dalles de nuages.
+- **Remarques « pour l'utilisateur », décidées sans question** : (a) la narration reste telle quelle ; pour donner leur durée aux temps forts, un
+  temps est retiré dans deux plans (le vent du plan des tours, l'expiration après l'arrêt : elle existe déjà deux plans plus loin) et deux coupes
+  sont déplacées (plan des tours 0,7 s, crochet 1,46 s ; feu rouge 0,5 s, arrêt 1,97 s) ; (b) pupilles : une taille de base plus grande pour tout
+  le film (option du rig, + 50 %), encore agrandie sur l'espoir pour que le rétrécissement soit une chute visible ; les anciens épisodes ne changent
+  pas ; (c) série : rendu naturel et façades gardés, action devant des fonds clairs, lumière d'appoint sur les plans larges.
+- **Passe n° 1 (sur une copie, pendant le rendu de la version 1)** : accroche rejouée **de l'intérieur du bus** (le poing cogne la vitre face à
+  nous, trois coups de plus en plus gros, étoiles, le bus tangue, la passagère sursaute puis nous regarde ; au freinage il glisse hors de la porte) ;
+  panneau de ville vu **en travers de la route** (le panneau seul, lui en six images devant, puis 0,7 s de rotation qui s'arrête de travers) ;
+  crochet en **trois accents** (crosse jaune levée au-dessus des têtes puis abattue ; accrochage tenu quatre images : ses pieds partent sans lui, son
+  cou reste, les bras de la dame s'allongent ; départs à trois images d'écart, un bras qui s'étire avant que les pieds quittent le trottoir ; le
+  panneau de tours reste en l'air huit images, tourné vers nous, et tombe) ; maire : mains en un seul bloc, tenue qui bouge, remontée avec
+  dépassement, mains époussetées, bureau remonté dans le cadre ; contrôleur en contre-plongée, tête sur le ciel, un seul ticket au bout d'un bras
+  qui s'allonge, gros poinçon, un confetti ; bouton d'arrêt en trois images (visage, insert sur le nœud de cravate avec le doigt qui attend en
+  tremblant, visage : espoir, pupilles larges) ; cravate du contrôleur qui lui tombe sur le visage quand il pend, chassée d'un revers ; très gros
+  plan sur les yeux pour « il n'y a pas de terminus » ; arrêt au feu re-rythmé (prise basse, corps à l'horizontale, tenue de huit images, retour
+  en trois, à plat cinq images au tiers du cadre, regonflage avec dépassement, étoiles, puis gros plan avec la lampe rouge visible) ; banc : chutes
+  resserrées, regard tenu dix-sept images, montres aux poignets ; halètement au début des deux derniers plans.
+- **Moteur, options ajoutées pour cette passe** (sans effet sur les anciens épisodes) : course vue de près (cadence lente imposée par la clé, rebond
+  dosé, écrasement à chaque appui : un appui toutes les six images, le visage tient entre deux), taille de base des pupilles, langue au vent en ruban
+  rose qui ondule, du côté où vole la cravate.

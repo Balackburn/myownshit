@@ -1,0 +1,110 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a couru pour attraper son bus. Il n'a pas réussi à s'arrêter.",
+  "hl": [
+   "bus.",
+   "s'arrêter."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a dépassé le bus. Puis la ville.",
+  "hl": [
+   "ville."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Au troisième tour, des gens sont montés.",
+  "hl": [
+   "montés."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "La mairie a tranché :",
+  "hl": [
+   "mairie"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "C",
+  "text": "« C'est une ligne. »",
+  "hl": [
+   "ligne."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Depuis, il passe toutes les huit minutes.",
+  "hl": [
+   "huit",
+   "minutes."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il a un numéro. Il a des contrôleurs.",
+  "hl": [
+   "numéro.",
+   "contrôleurs."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il a demandé à descendre. On lui a répondu :",
+  "hl": [
+   "descendre."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "C",
+  "text": "« Au terminus. »",
+  "hl": [
+   "terminus."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il n'y a pas de terminus.",
+  "hl": [
+   "pas"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Hier, il a enfin réussi à s'arrêter.",
+  "hl": [
+   "s'arrêter."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Pas ses passagers.",
+  "hl": [
+   "passagers."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Ils sont arrivés en avance. C'est une première.",
+  "hl": [
+   "avance.",
+   "première."
+  ]
+ }
+]
