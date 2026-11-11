@@ -886,3 +886,24 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   Reels : retenu comme règle de cadrage (rien d'essentiel à moins de 8 % du bord droit) ; (2) le casque de l'électricien lu comme un chapeau jaune à
   bord : à reprendre si le personnage revient ; (3) plus d'un tiers du film est noir : choix assumé de l'épisode, à ne pas répéter sans un liseré sur
   les silhouettes.
+
+### Histoire 41 — mise en scène : ce que les images fixes ont changé (deux passes avant le premier brouillon)
+
+- **Accroche** : la première version (lui de face, puis le bus vu de derrière) ne montrait pas un bus lisible et cachait le héros derrière le poteau
+  d'arrêt. Version retenue : un seul cadrage de trois quarts face, la caméra recule devant lui ; **le bus roule à côté de lui** (porte, girouette « 12 »,
+  une passagère qui lui fait signe derrière la vitre) pendant qu'il frappe trois fois à la porte ; puis le bus freine et sort du cadre : sa main reste
+  en l'air. Le plan suivant (freinage aux talons) regarde en arrière : le bus arrêté rapetisse derrière lui, girouette et chauffeur visibles.
+- **Le maire « tranche »** : un bras levé tendu sous une écharpe tricolore se lit comme un salut (règle du skill) : les deux mains jointes au-dessus de la
+  tête, comme une hache ; le bureau se fend en V.
+- **Le contrôleur** : assis sur les épaules du héros, il remplissait tous les gros plans d'une masse bleue et cachait l'afficheur ; plié en avant « tête en
+  bas devant son visage », il ne montrait que son dos. Version retenue : il **surfe sur le dos de la passagère** pour contrôler les tickets (S12), puis
+  **descend dans le cadre pendu tête en bas comme une chauve-souris**, à côté de la tête du héros, les deux visages vers nous (S14, S15) ; il remonte
+  hors cadre au début de S16 ; au feu rouge il continue tout droit.
+- **L'arrêt au feu** se joue de profil avec une focale large (le trottoir n'a que 5 m de recul) : le poteau à gauche, la route pour s'étirer ; puis un
+  gros plan pour la vapeur aux oreilles. « Pas ses passagers » reprend le même profil : il est planté au poteau, ils traversent le cadre à l'horizontale.
+  Vus de face, des corps qui volent vers la caméra ne se lisaient pas.
+- **Fin** : vue d'en amont, le feu au-dessus de lui (ses lentilles vers nous : on le voit passer au vert), l'afficheur « HORS SERVICE » ; le second
+  coureur qui ne peut pas s'arrêter passe et s'éloigne.
+- Pièges notés : après un déplacement `glide`, le clip redevient `idle` (quatre passagers « assis » sur un banc étaient debout) : clé de clip explicite à
+  l'arrivée ; `checkWatch` est debout : clip `sitWatch` ajouté ; le siège d'un chauffeur trop haut lui met la tête au plafond ; en gros plan, viser la tête
+  réelle d'un coureur (0,45 m devant ses pieds, 0,3 m plus bas que debout), pas ses pieds.
