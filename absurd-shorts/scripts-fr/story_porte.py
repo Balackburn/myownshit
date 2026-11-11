@@ -23,7 +23,7 @@ def handle(deg, slide=0.0):                          # the handle in the world (
     return [round(DX - lz, 3), 1.1, round(DZ + lx, 3)]
 SIGNW = 1.5                                         # a sign hardly wider than the door: close shots of him clear it (a wider one was cut in two by every tight frame)
 DOOR = lambda **kw: P('door', 'shopDoor', pos=[DX, 0, DZ], ry=-90, opts={'w': DW, 'h': 2.5, 'signW': SIGNW, **kw})
-PUBLIC = {'sign': 'SERVICE PUBLIC', 'signBg': '#2A4B9B', 'signFg': '#F4F1E8'}   # the bakery's sign once it is a public service
+PUBLIC = {'sign': 'SERVICE\nPUBLIC', 'signBg': '#2A4B9B', 'signFg': '#F4F1E8', 'signEdge': '#F4F1E8'}   # the bakery's sign once it is a public service: the same object as the plate that slams over it in S08 (two lines, a cream border)
 HOLD = [9.12, 0, -1.02]                             # where he stands to hold it: beside the open leaf, facing the road
 GRIP = lambda deg, w=1, **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*handle(deg), w, 0.05, [0.2, -1, 0.5]]}, **kw}
 RIP = lambda a, ph, n=2: {'armL': [a, n, ph, 0, 1.5708], 'foreL': [a, n, ph - n, 0, 1.5708]}   # a ripple along the stretched arm (toon channel `wave`): a metres high, n waves on each half, moved along by ph (rising: toward the hand)
@@ -122,7 +122,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
                  keys=[k(P8, scale=1.0, dur=0.1, ease='outBack'), k(P8 + 0.1, squash=[1.1, 0.82, 1.0], dur=0.3), k(T8, visible=False)]),   # (put away in the close shot: a corner of it stuck into the frame)
                P('cap', 'doormanCap', pos=[9.12, 3.0, -1.02], ry=-90, keys=[k(0.0, visible=False), k(C8 - 0.17, visible=True), k(C8 - 0.17, to=[9.12, 2.3, -1.02], dur=0.17, ease='in'), k(C8, attach='mec', joint='head', offset=CAPOFF, rot=[0, 0, 0]), k(C8, squash=[1.35, 0.5, 1.35], dur=0.35)])],   # it comes down through the top of the frame: four frames of it; the plate and the cap squash where they land (prop key `squash`)
         fx=[{'type': 'shake', 'at': P8 + 0.08, 'dur': 0.12, 'amount': 0.016}, {'type': 'shake', 'at': C8, 'dur': 0.1, 'amount': 0.014}],
-        cams=[cam(0.0, [5.9, 1.9, 0.25], [6.0, 1.95, 0.25], [9.9, 2.7, 0.2], [9.9, 2.72, 0.2], lens=44),   # the sign and the door (he is just out of the frame)
+        cams=[cam(0.0, [5.0, 1.95, 1.0], [5.1, 1.98, 0.98], [9.9, 2.62, 0.05], [9.9, 2.64, 0.05], lens=44),   # the sign and the door, a little from the right: the whole plate inside the frame (its left end was cut), he is just out of it, his arm comes in at the bottom
               cam(T8, [6.1, 2.2, -1.2], [6.12, 2.2, -1.2], [9.12, 1.75, -1.1], [9.12, 1.75, -1.1], lens=44),   # on him, with room over his head for the cap to come down
               glide([cam(C8, [6.15, 1.9, -1.2], [6.15, 1.9, -1.2], [9.12, 1.1, -1.1], [9.12, 1.1, -1.1], lens=44)], 0.1),   # the camera goes down with him: sunk, his cap and his eyes at mid-height (they sat in the caption band)
               glide([cam(UP8 - 0.02, [6.2, 2.2, -1.2], [6.22, 2.2, -1.2], [9.12, 1.6, -1.1], [9.12, 1.6, -1.1], lens=44)], 0.14)])   # and back up with him
@@ -282,8 +282,8 @@ ONARM = lambda y: [9.03, round(y + 0.13, 3), -0.52, 1, 0.08, [-0.3, -0.5, 0.7]] 
 EYE17 = {'gx': 0.9, 'gy': 0.5}                       # his eyes on the arm
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'surprised', keys=[k(-0.05, toon=FREE(bend={'neck': [0.25, 0, 0, 1.3, None]}, face={'pop': 0.9, 'popLen': 0.2, 'jaw': 0.8}), toonDur=0),   # still in the take:
             k(0.03, toon=FREE(sq=[1.03, 0.96, 1.03]), toonDur=0.22, toonEase='outBack'), k(0.3, look='dame'),   # it settles while the door opens
-            k(F17, toon=FREE(hands={'L': 'grip', 'R': 'point'}, reach={'L': [*AIR, 1, 0.05, POLE], 'R': [8.75, 2.3, -1.5, 1, 0.16]}, sq=[0.96, 1.07, 0.96], face={'jaw': 0.6, 'brow': 0.7}), toonDur=0.12, toonEase='outBack'), k(F17, look=[8.0, 1.6, -5.0]),   # she is past: a finger, his mouth open
-            k(F17 + 0.4, toon=FREE(hands={'L': 'grip', 'R': 'point'}, reach={'L': [*AIR, 1, 0.05, POLE], 'R': [8.75, 2.26, -1.5, 1, 0.16]}, face={'brow': 0.3}), toonDur=0.05),   # nothing: it shuts
+            k(F17, toon=FREE(hands={'L': 'grip', 'R': 'point'}, reach={'L': [*AIR, 1, 0.05, POLE], 'R': [8.75, 2.3, -1.3, 1, 0.16]}, sq=[0.96, 1.07, 0.96], face={'jaw': 0.6, 'brow': 0.7}), toonDur=0.12, toonEase='outBack'), k(F17, look=[8.0, 1.6, -5.0]),   # she is past: a finger, his mouth open
+            k(F17 + 0.4, toon=FREE(hands={'L': 'grip', 'R': 'point'}, reach={'L': [*AIR, 1, 0.05, POLE], 'R': [8.75, 2.26, -1.3, 1, 0.16]}, face={'brow': 0.3}), toonDur=0.05),   # nothing: it shuts
             k(F17 + 0.5, toon=FREE(sq=[1.03, 0.96, 1.03]), toonDur=0.12, toonEase='inOut'), k(F17 + 0.5, expr='sad', look=None),   # the finger comes down
             k(PUSH - 0.1, toon=FREE(face=EYE17), toonDur=0.06), k(PUSH - 0.1, expr='hmm'),   # his eyes on his arm
             k(PUSH, toon={'hands': {'L': 'grip', 'R': 'open'}, 'reach': {'L': [*AIR, 1, 0.05, POLE], 'R': ONARM(AIR[1])}, 'face': EYE17}, toonDur=0.1, toonEase='out'),   # the other hand, across, onto the forearm

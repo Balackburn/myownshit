@@ -3574,26 +3574,26 @@
     {
      "at": 0.0,
      "from": [
-      5.9,
-      1.9,
-      0.25
+      5.0,
+      1.95,
+      1.0
      ],
      "to": [
-      6.0,
-      1.95,
-      0.25
+      5.1,
+      1.98,
+      0.98
      ],
      "lookAt": [
       9.9,
-      2.7,
-      0.2
+      2.62,
+      0.05
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
       9.9,
-      2.72,
-      0.2
+      2.64,
+      0.05
      ]
     },
     {
@@ -4119,9 +4119,10 @@
        ]
       ],
       "glass": 0.14,
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -4484,9 +4485,10 @@
         80
        ]
       ],
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -4941,9 +4943,10 @@
       ],
       "glass": 0.03,
       "inner": false,
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -6497,9 +6500,10 @@
         9
        ]
       ],
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -6903,9 +6907,10 @@
         80
        ]
       ],
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -7271,9 +7276,10 @@
         80
        ]
       ],
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -7708,9 +7714,10 @@
         9
        ]
       ],
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {
@@ -7965,7 +7972,7 @@
          "R": [
           8.75,
           2.3,
-          -1.5,
+          -1.3,
           1,
           0.16
          ]
@@ -8014,7 +8021,7 @@
          "R": [
           8.75,
           2.26,
-          -1.5,
+          -1.3,
           1,
           0.16
          ]
@@ -8635,9 +8642,10 @@
        ]
       ],
       "led": 0.0,
-      "sign": "SERVICE PUBLIC",
+      "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
-      "signFg": "#F4F1E8"
+      "signFg": "#F4F1E8",
+      "signEdge": "#F4F1E8"
      }
     },
     {

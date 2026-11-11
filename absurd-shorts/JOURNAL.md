@@ -514,3 +514,90 @@ Faiblesses relevées, et ce qui est corrigé dans ce cycle :
   yeux dessinés (croix, spirales, arcs) passent en clair, les cœurs et les étoiles gardent leur couleur ; les yeux sortis sur tiges se voient
   aussi. Un accessoire marqué `inDark` reste visible (une flamme, une torche, une enveloppe blanche).
 - Essais : trois planches d'images (visage, onde, noir) avant d'écrire l'histoire 40 ; non-régression lancée dès que le processeur est libre.
+
+### 2 bis. Rigs : compléments ajoutés pendant la mise en scène des histoires 39 et 40
+
+- **La cravate se tire** (`engine/toon.js`, `engine/cloth.js`, canal `tie [longueur, avant, côté]`) : le nœud reste à 1,61 m, la pointe (1,18 m au repos)
+  descend, s'avance ou part de côté ; une main guidée vient la prendre. Sert à un gag à répétition de l'histoire 40 (la cravate tirée comme le cordon
+  d'une lampe, trois fois, trois variations).
+- **Les yeux sortis regardent quelque part** : `face.eyeYaw` (déjà là) et **`face.eyePitch`** (ajout, > 0 = vers le bas) font tourner les globes au
+  bout de leurs tiges : un take peut garder la tête vers la caméra et envoyer les pupilles sur la cause.
+- **Le noir sert aussi de nuit** : `dark=[[0, 0.62 à 0.72, 0.001]]`, `darkFloor=0.5`, `darkTint='#7A98F0'` donne une nuit graduée (la moitié de la
+  lumière du jour, froide) ; les accessoires `inDark` (lampadaires, flaques, fenêtres) gardent leur couleur. Pour qu'ils gardent le même aspect dans un
+  plan éclairé du même lieu : `dark=[[0, 0, 0.001]]`.
+- Accessoires : `shopDoor` (`glass` : opacité de la vitre ; `signHide` : enseigne rangée pendant un cadre serré ; `signEdge` et enseigne sur deux
+  lignes ; `inner: False` : sans barre intérieure), `streetLamp pool` (flaque de lumière au sol), `pigeon` redessiné (`flap`, `sleep`), `pillow`,
+  fenêtre de la chambre de nuit (`pane`, `paneGlow`), et tout le module `props_interrupteur.js` (ville de nuit, balcon, interrupteur, compteur, pince,
+  horloge, bougie, soleil à visage, télescope, torche, enveloppe, allumette, paires d'yeux, bandeau).
+- **Non-régression** : anciennes histoires 0,49 % d'écart moyen (plancher de bruit 0,54 %) ; histoires 37 et 38 (rig cartoon) comparées aux films
+  livrés : 0 à 0,33 % (1,15 % sur une image aux ombres de pales en mouvement). La comparaison se fait à des instants exacts d'image (f / 30) : entre
+  deux images elle donnait 3 à 11 % et faisait croire à une casse.
+
+### 3. Animations (cycle 4)
+
+- **Le regard précède le geste**, partout où un geste porte un gag : les pupilles vont au bras deux images avant qu'il remonte (39 S17), à la boîte
+  avant le bras du technicien (39 S15), au poing avant le take (39 S16), à l'interrupteur avant la main (40 S01).
+- **Prise d'élan avant chaque take** : deux images tassées, paupières fermées, puis la détente avec dépassement ; le take retombe sur les premières
+  images du plan suivant au lieu d'être coupé.
+- **Tenues qui jouent** : hochements de tête sur les mots (39 S06), recul de la tête à chaque coup de doigt (39 S07), tête qui bascule comme un
+  punching-ball (39 S13), ronflement qui soulève la poitrine (39 S12), pigeons qui respirent, salut de la main en deux allers-retours (39 S11).
+- **Temps suspendu** : après le geste, une tenue de soulagement de 10 à 14 images, puis le retour en 2 images (39 S17) ; une pose tassée tenue 7 images
+  pendant que la caméra descend avec elle (39 S08).
+
+### 4. Histoire 40 — « L'interrupteur » (type : un geste banal qu'une institution prend au pied de la lettre, escalade, retournement, aparté sec)
+
+Texte (12 phrases, 30,1 s, voix de la série) : « Ce mec a éteint la lumière en sortant. Toute la ville s'est éteinte. Il a rallumé. Elle s'est rallumée.
+La mairie a fait venir un électricien : « L'interrupteur général, c'est lui. » Depuis, il éteint Paris tous les soirs à vingt-deux heures. Les
+cambrioleurs l'adorent. Les amoureux aussi. La facture arrive à son nom. Toute la facture. Il a demandé une augmentation. Il a eu une prime de nuit.
+Hier à midi, il est sorti de chez lui. Par réflexe, il a éteint. Il fait nuit depuis. Les astronomes cherchent. La facture, elle, est déjà arrivée. »
+
+Mise en scène (25 plans), gags visuels prévus, chacun sur une capacité du rig :
+1. l'interrupteur au bout d'un bras élastique, le noir, ses yeux seuls, la caméra qui glisse vers eux (S01) ;
+2. des yeux qui marchent dans le noir et se cognent à une porte vitrée ; la ville qui s'éteint par vagues, la tour en dernier, des yeux aux fenêtres (S02, S03) ;
+3. la pince de l'électricien sur son nez, l'aiguille du compteur, le take (S07) ;
+4. gag à répétition, trois variations : la cravate tirée comme le cordon d'une lampe (par l'électricien, deux paires d'yeux ; par lui-même au balcon,
+   Paris s'éteint derrière lui ; à la bougie, la flamme et ses yeux restent) (S08, S11, S17) ;
+5. l'étiquette « GÉNÉRAL » claquée sur le front (S09) ;
+6. ce qui reste dans le noir : les sourires des cambrioleurs après l'allumette, les yeux en cœur des amoureux et une troisième paire (S12, S13) ;
+7. l'enveloppe de la facture qui grandit et lui tombe dessus, des yeux dans sa fenêtre (S14, S15) ;
+8. l'entrée fine comme une feuille dans le bureau du maire, puis le regonflage (S16) ;
+9. le soleil a un visage : la main monte à la cravate, la dame tend le bras (« NOOON »), le soleil s'éteint comme une ampoule ; dans le noir, les yeux de
+   toute la rue ; il s'en va sur la pointe des pieds (S18 à S22) ;
+10. l'astronome, son télescope, sa torche ; l'enveloppe « LE SOLEIL / CHEZ CE MEC » qui arrive, des yeux dans sa fenêtre (S23 à S25).
+
+Décisions prises sans question : pas de carte de titre arrêtée pour l'instant (elle sera choisie sur le brouillon) ; les cambrioleurs portent un bonnet
+noir et un bandeau (le premier bonnet rouge se lisait comme un fez) ; la ville de nuit est un accessoire à part (rangées de toits en gradins sous une
+ligne d'horizon), placé à l'intérieur du dôme du décor.
+
+
+## Cycle 3, suite — histoire 39 « La porte » : revues et passes de mise en scène
+
+### Première revue (animation 6,6 ; direction artistique 6,6, sur le brouillon)
+
+Les deux relecteurs s'accordent : une mise en scène dense, un vrai gag à répétition (le bras), six gags qui se lisent du premier coup, mais les deux
+moments qui portent la fin sont ratés. Dans l'ordre :
+1. le take de S16 regarde à l'opposé de sa cause, plus petit que le premier take du film, coupé après 8 images ;
+2. la chute (S17) n'a ni temps suspendu ni silhouette : les deux mains devant le torse, le bras remonte entre deux images, dernière tenue de 0,2 s ;
+3. les aplatissements passent trop vite ou ne sont pas plats (casquette de S08, pressé de S09) ; S12 reprend la pose de S09 ; yeux en spirale quatre fois ;
+4. la déformation sous la bande des sous-titres (le cou de S10, les pieds de S09) ;
+5. S11 et S12 se lisent comme le jour ; S13 et S14 (tape, autoportrait, pigeon) ne se lisent pas ;
+6. des tenues gelées (S06, S07, S13, S01) ; des enseignes coupées par les cadres serrés.
+
+### Deux passes de mise en scène avant la deuxième revue
+
+- **S16** : coupe au gros plan plus tôt, caméra presque de face (24° de son axe), le poing vide levé devant la poitrine, regard sur le poing, la porte,
+  le poing ; élan ; le take vers nous, yeux ×1,3, pupilles baissées sur le poing ; il retombe au début de S17.
+- **S17** : le doigt se lève une fois la dame passée ; il pousse son bras de côté, devant la porte claire (l'avant-bras plie et tremble) ; il lâche,
+  soupir de 14 images ; ses yeux vont au bras, qui remonte en 2 images et dépasse, avec une onde ; la porte s'ouvre pour personne ; regard tenu.
+  **Décision : le film gagne 0,7 s d'image après la voix (26,06 s, queue de 2,0 s)** ; le relecteur d'animation l'avait signalé comme nécessaire.
+- **S08** : la casquette traverse le haut du cadre (4 images), la pose tassée est tenue 7 images, la caméra descend avec lui et remonte.
+- **S09** : il part dès la coupe ; pressé à presque deux fois sa largeur derrière une vitre éclaircie ; l'affiche est tenue puis se décolle par le haut.
+- **S10** : la course de caméra commence à la coupe ; le cou monte quand elle arrive, la tête contre le ciel.
+- **S11** : remis en scène trois fois. De dos à hauteur d'homme, le bras partait dans l'axe et les pigeons étaient des boîtes ; version retenue : à travers
+  la vitre du battant, caméra à 2,3 m, la main sur la poignée en bas, la manche qui monte jusqu'à lui ; nuit graduée, flaques de lumière, pigeons redessinés.
+- **S12** : chambre de nuit ; il garde sa pose de sommeil sur le mur, avec son oreiller ; bulle « Zzz ».
+- **S13, S14** : coupe à un plan à deux, trois tapes et la tête qui bascule, téléphone et flash ; plaque sur l'avant-bras ; pigeon de profil qui bat des ailes.
+- **S05, S06, S07, S01, S02, S15** : passants entiers dans le cadre ou en traînées au premier plan ; hochements et compteur brandi ; le maire dans le cadre
+  dès la coupe, de trois quarts, deux coups de doigt et la tête du héros qui recule ; regard vers la rue en fin de S01 ; technicien en bleu, casque blanc.
+- **Enseignes** : la plaque qui claque en S08 et l'enseigne des plans suivants sont maintenant le même objet (deux lignes, liseré crème) ; l'insert
+  contient la plaque entière. **Décision : une enseigne dont un cadre serré ne montrerait qu'un coin est rangée pour ce cadre** (`signHide`), plutôt que coupée.

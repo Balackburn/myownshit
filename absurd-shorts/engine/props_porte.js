@@ -24,8 +24,11 @@ export const PORTE_PROPS = {
     const w = o.w ?? 1.0, h = o.h ?? 2.5, fr = o.frame || '#2E4A3F', sign = o.sign || 'BOULANGERIE', sw = o.signW ?? w + 1.5;
     const g = grp(at(box(0.14, h + 0.14, 0.2, fr, { outline: 0.008 }), -w / 2 - 0.07, (h + 0.14) / 2, 0), at(box(0.14, h + 0.14, 0.2, fr, { outline: 0.008 }), w / 2 + 0.07, (h + 0.14) / 2, 0), at(box(w + 0.28, 0.14, 0.2, fr, { outline: 0.008 }), 0, h + 0.07, 0));
     let signG = null;
-    if (o.sign !== false) { const band = canvasPlane(sw, 0.6, (c, W, H) => { c.fillStyle = o.signBg || '#F6E7C8'; c.fillRect(0, 0, W, H); c.strokeStyle = fr; c.lineWidth = H * 0.06; c.strokeRect(H * 0.05, H * 0.05, W - H * 0.1, H * 0.9); txt(c, sign, W / 2, H * 0.54, fit(c, sign, W * 0.86, H * 0.6), o.signFg || '#7A3B1E'); }, { res: 768 });
-      signG = grp(at(box(sw + 0.08, 0.68, 0.1, fr, { outline: 0.008 }), 0, h + 0.14 + 0.36, 0.02), at(band, 0, h + 0.14 + 0.36, 0.075)); g.add(signG); }
+    if (o.sign !== false) { const edge = o.signEdge || fr, lines = sign.split('\n');   // o.signEdge: the colour of the sign's border and box (the door frame's by default); a sign with a line break is set on two lines
+      const band = canvasPlane(sw, 0.6, (c, W, H) => { c.fillStyle = o.signBg || '#F6E7C8'; c.fillRect(0, 0, W, H); c.strokeStyle = edge; c.lineWidth = H * 0.06; c.strokeRect(H * 0.05, H * 0.05, W - H * 0.1, H * 0.9);
+        if (lines.length > 1) { const px = Math.min(...lines.map(l => fit(c, l, W * 0.8, H * 0.36))); lines.forEach((l, i) => txt(c, l, W / 2, H * (0.33 + 0.4 * i), px, o.signFg || '#7A3B1E')); }
+        else txt(c, sign, W / 2, H * 0.54, fit(c, sign, W * 0.86, H * 0.6), o.signFg || '#7A3B1E'); }, { res: 768 });
+      signG = grp(at(box(sw + 0.08, 0.68, 0.1, edge, { outline: 0.008 }), 0, h + 0.14 + 0.36, 0.02), at(band, 0, h + 0.14 + 0.36, 0.075)); g.add(signG); }
     // what is seen through the doorway: a warm bakery (shelves, loaves, a counter), painted on a plane just behind the leaf (o.inside false: a dark hall)
     g.add(at(o.inside === false ? box(w, h, 0.02, '#2A2420') : canvasPlane(w, h, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#F6D38A'); gr.addColorStop(1, '#C98A3E'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
       for (let i = 0; i < 4; i++) { const y = H * (0.16 + i * 0.15); c.fillStyle = '#7A4A22'; c.fillRect(W * 0.06, y, W * 0.88, H * 0.018); for (let k = 0; k < 5; k++) { c.fillStyle = k % 2 ? '#D99A45' : '#C27A2E'; c.beginPath(); c.ellipse(W * (0.16 + k * 0.17), y - H * 0.03, W * 0.07, H * 0.026, -0.3, 0, TAU); c.fill(); } }
