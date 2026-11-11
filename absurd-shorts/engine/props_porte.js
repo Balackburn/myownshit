@@ -113,12 +113,42 @@ export const PORTE_PROPS = {
     const eyes = head.children.slice(-2);
     const wl = at(box(0.02, 0.08, 0.17, D), -0.072, 0.11, -0.02), wr = at(box(0.02, 0.08, 0.17, D), 0.072, 0.11, -0.02), g = grp(body, breast, tail, head, wl, wr, at(box(0.012, 0.05, 0.012, '#D98A8A'), -0.03, 0.025, 0.01), at(box(0.012, 0.05, 0.012, '#D98A8A'), 0.03, 0.025, 0.01));
     const ph = o.ph ?? 0;
-    g.userData.update = t => { const fly = o.flyAt != null ? Math.max(0, t - o.flyAt) : 0, fl = !!(o.flap && t >= o.flap[0] && t < o.flap[1]);
+    g.userData.update = t => { const fly = o.flyAt != null ? Math.max(0, t - o.flyAt) : 0, fl = !!(o.flap && t >= o.flap[0] && t < o.flap[1]) || !!(o.flaps && o.flaps.some(([a, b]) => t >= a && t < b));   // o.flaps [[t0, t1], ...]: it beats its wings in each of those windows (to keep its balance)
       if (o.sleep) { const br = Math.sin(t * 2.6 + ph); head.position.set(0, 0.198 + 0.008 * br, 0.07); head.rotation.set(0.25, 0, 0.35); body.scale.set(1.18, 1.14 + 0.07 * br, 1.05); breast.scale.setScalar(1.12 + 0.06 * br);   // asleep: fluffed up, its head on its shoulders and on one side (the bird's outline stays), the beak down,
         for (const e of eyes) e.scale.set(1, 0.22, 1.5); }                                                                                                                                                              // its eyes two shut lines; it breathes
       else { head.position.z = 0.1 + 0.02 * Math.max(0, Math.sin(t * 7 + ph)); head.position.y = 0.2 - 0.03 * Math.max(0, Math.sin(t * 2.3 + ph * 2)); }
       wl.rotation.z = fly || fl ? 1.2 * Math.sin((fly || t) * 40) + 0.6 : 0; wr.rotation.z = fly || fl ? -1.2 * Math.sin((fly || t) * 40) - 0.6 : 0;
       if (o.flyAt != null) { g.position.y = (g.userData.y0 ??= g.position.y) + fly * 6 * fly + (fly ? 0.3 : 0) * Math.min(1, fly * 10); g.position.x = (g.userData.x0 ??= g.position.x) + fly * 3; g.visible = fly < 0.8; } };
+    return g;
+  },
+
+  // a sewn-on patch with a word on it (o.text, o.w 0.2 x o.h 0.07, o.bg, o.fg): a maintenance man's chest. Origin: its middle; it faces +Z
+  chestPatch(o) {
+    const w = o.w ?? 0.2, h = o.h ?? 0.07, t = o.text || 'MAINTENANCE';
+    return grp(box(w + 0.012, h + 0.012, 0.008, o.edge || '#1E2E44'), at(canvasPlane(w, h, (c, W, H) => { c.fillStyle = o.bg || '#F4F1E8'; c.fillRect(0, 0, W, H); txt(c, t, W / 2, H * 0.54, fit(c, t, W * 0.9, H * 0.66), o.fg || '#1E2E44'); }, { res: 512 }), 0, 0, 0.006));
+  },
+  // a screwdriver: a fat handle (o.color) and a steel shaft, o.len long in all. Origin: the middle of the handle; it points up (+Y)
+  screwdriver(o) {
+    const L = o.len ?? 0.3;
+    return grp(cyl(0.022, 0.026, L * 0.42, o.color || '#D8402A', 8, { outline: 0.006 }), at(cyl(0.008, 0.008, L * 0.6, '#B9C0C8', 6), 0, L * 0.5, 0), at(box(0.02, 0.012, 0.004, '#B9C0C8'), 0, L * 0.8, 0));
+  },
+  // moonlight thrown on a wall or a floor by a window: a pale slanted quad (o.w x o.h, leaning by o.skew metres at the top), unlit, half transparent. Flag it
+  // inDark in a shot graded as night: it keeps its light. Origin: the middle of its lower edge; it lies in the XY plane and faces +Z
+  moonPatch(o) {
+    const w = o.w ?? 1.2, h = o.h ?? 1.4, sk = o.skew ?? 0.4, g = new THREE.Group(), geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute([-w / 2, 0, 0, w / 2, 0, 0, w / 2 + sk, h, 0, -w / 2 + sk, h, 0], 3)); geo.setIndex([0, 1, 2, 0, 2, 3]);
+    const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: o.color || '#BFD0F4', transparent: true, opacity: o.opacity ?? 0.42, depthWrite: false, side: THREE.DoubleSide })); m.castShadow = false; m.receiveShadow = false; g.add(m);
+    if (o.bars !== false) for (const u of [0.5]) { const b = at(box(0.04, h, 0.002, o.shade || '#4A5F96'), sk * 0.5 + (u - 0.5) * w, h / 2, 0.002, 0, 0, -Math.atan2(sk, h)); b.material = b.material.clone(); b.material.transparent = true; b.material.opacity = 0.35; g.add(b); }   // the shadow of the window's upright
+    return g;
+  },
+
+  // a blanket that hangs from somebody (or from a line): a quilted panel o.w long that drops o.h, a turned-down band along the top, a wavy lower edge
+  // that sways a little. Origin: the middle of its top edge; it hangs in the XY plane
+  blanketDrape(o) {
+    const w = o.w ?? 1.3, h = o.h ?? 0.7, col = o.color || '#5A6E8C', g = new THREE.Group(), n = 6, flaps = [];
+    g.add(at(box(w, 0.12, 0.06, o.band || '#E9E4D6', { outline: 0.008 }), 0, -0.06, 0));
+    for (let i = 0; i < n; i++) { const hh = h * (0.86 + 0.14 * ((i * 7) % 3) / 2), f = at(box(w / n * 1.02, hh, 0.035, i % 2 ? col : new THREE.Color(col).multiplyScalar(0.9).getStyle(), { outline: 0.006 }), -w / 2 + (i + 0.5) * w / n, -0.1 - hh / 2, 0); g.add(f); flaps.push(f); }
+    g.userData.update = t => flaps.forEach((f, i) => { f.rotation.x = 0.05 * Math.sin(t * 2.4 + i * 0.9); });
     return g;
   },
 

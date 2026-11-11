@@ -559,6 +559,8 @@ function idleShift(A, t, pose, amt) {
   add('hipL', [s < 0 ? -0.16 * a : 0, 0, -0.085 * s]); add('hipR', [s > 0 ? -0.16 * a : 0, 0, -0.085 * s]);   // both legs stay planted under the shifted pelvis; the free thigh comes forward
   add(s > 0 ? 'kneeR' : 'kneeL', [0.3 * a, 0, 0]); add(s > 0 ? 'footR' : 'footL', [-0.14 * a, 0, 0]);          // its knee gives, the heel lifts
   add('torso', [0, 0, 0.05 * s]); add('head', [0, 0, -0.03 * s]);
+  const more = Math.max(0, k0 - 1) * Math.sign(s) * Math.min(1, a / Math.max(1e-6, k0));   // above 1 (script idleShift 1.8): a real contrapposto: the chest turns away from the free leg, the head back the other way, the arm of the free side hangs away from the body
+  if (more) { add('torso', [0, 0.1 * more, 0]); add('head', [0, -0.08 * more, 0.03 * more]); add(s > 0 ? 'shoulderR' : 'shoulderL', [0, 0, (s > 0 ? -1 : 1) * 0.1 * Math.abs(more)]); }
   return out;
 }
 // ---- cartoon rig layers (engine/toon.js): only for actors built with `toon`

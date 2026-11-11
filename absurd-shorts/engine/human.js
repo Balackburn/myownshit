@@ -14,7 +14,7 @@ import { hasFaceRig, makeFaceRig } from './facerig.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
-export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'firecrest', 'party', 'crown', 'maocap', 'beekeeper'];
+export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'hardhat2', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'firecrest', 'party', 'crown', 'maocap', 'beekeeper'];
 export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
 
 // Named presets — the cast. `lemec` is the protagonist archetype.
@@ -198,7 +198,7 @@ export function buildHuman(spec = {}) {
   if (o.outfit === 'mao') { for (const [x, y] of [[-0.1, 0.72], [0.1, 0.72], [-0.1, 0.32], [0.1, 0.32]]) { const pk = box(0.1, 0.08, 0.01, o.outfit === 'mao' && o.suit ? new THREE.Color(C.jacket).multiplyScalar(0.86).getStyle() : '#6A6C58'); pk.position.set(x, torsoH * y, front + 0.006); torso.add(pk); } for (let i = 0; i < 5; i++) { const bt = box(0.018, 0.018, 0.01, '#3A3B32'); bt.position.set(0, torsoH * (0.2 + i * 0.16), front + 0.008); torso.add(bt); } const col = box(0.16, 0.05, 0.12, C.jacket); col.position.set(0, torsoH + 0.02, 0.0); torso.add(col);
     if (o.collarTabs) for (const sx of [-1, 1]) { const tab = box(0.035, 0.03, 0.012, '#B5302A'); tab.position.set(sx * 0.055, torsoH + 0.02, 0.062); torso.add(tab); } }
   if (o.outfit === 'tourist') { const r = rng(9); for (let i = 0; i < 16; i++) { const f = box(0.05, 0.05, 0.01, [P.pink, P.green, P.white][i % 3]); f.position.set((r() - 0.5) * 0.36, r() * torsoH, front + 0.006); torso.add(f); } }
-  if (o.outfit === 'worker' || o.outfit === 'firefighter') for (const y of [0.35, 0.6]) { const st = box(0.43 * Wd + 0.01, 0.035, 0.235, P.grey); st.position.y = torsoH * y; torso.add(st); }
+  if (o.outfit === 'worker' || o.outfit === 'firefighter') for (const y of [0.35, 0.6]) { const st = box(0.43 * Wd + 0.01, o.bandH || 0.035, 0.235, o.bandColor || P.grey); st.position.y = torsoH * y; torso.add(st); }   // o.bandColor / o.bandH: the two bands across the chest (grey; a site jacket: '#D8F03C', 0.05)
 
   // neck + head
   const neck = joint('neck', torso, 0, torsoH, 0);
@@ -340,6 +340,10 @@ function addHat(head, hat, hw, hh, hd, C) {
       const badge = box(0.05, 0.04, 0.01, P.yellow); badge.position.set(0, 0.06, hd * 0.72); g.add(badge); break; }
     case 'swatcap': { g.add(box(hw * 1.15, 0.08, hd * 1.2, P.swat, { pivot: 'bottom' })); const v = box(hw, 0.02, 0.1, P.swat); v.position.set(0, 0.01, hd * 0.65); g.add(v); break; }
     case 'hardhat': { const hc = C.hat || P.yellow; g.add(box(hw * 1.3, 0.12, hd * 1.4, hc, { pivot: 'bottom', taper: 0.8 })); const b = box(hw * 1.6, 0.02, hd * 1.7, hc); g.add(b); break; }   // hatColor: e.g. a UN blue helmet
+    case 'hardhat2': { const hc = C.hat || P.yellow, dk = new THREE.Color(hc).multiplyScalar(0.86).getStyle();   // a site helmet that cannot be taken for a hat: a dome in two steps, a ridge along the top, a lip at the front only
+      g.add(box(hw * 1.28, 0.1, hd * 1.42, hc, { pivot: 'bottom', taper: 0.86 })); const top = box(hw * 1.04, 0.07, hd * 1.14, hc, { pivot: 'bottom', taper: 0.72 }); top.position.y = 0.1; g.add(top);
+      const ridge = box(hw * 0.2, 0.03, hd * 1.2, dk); ridge.position.y = 0.165; g.add(ridge); const lip = box(hw * 1.2, 0.022, hd * 0.62, hc); lip.position.set(0, 0.012, hd * 0.86); g.add(lip);
+      const band = box(hw * 1.3, 0.02, hd * 1.44, dk); band.position.y = 0.03; g.add(band); break; }
     case 'toque': { const t = box(hw * 1.05, 0.28, hd * 1.1, P.white, { pivot: 'bottom', taper: 1.35 }); g.add(t); break; }
     case 'bikehelmet': { const hc = C.hat || '#F2F2EE', sh = box(hw * 1.24, 0.12, hd * 1.42, hc, { pivot: 'bottom', taper: 0.72 }); sh.position.z = -hd * 0.06; g.add(sh);   // aero cycling helmet: dark vents, a short tail
       for (const x of [-0.3, 0, 0.3]) { const v = box(hw * 0.13, 0.016, hd * 1.0, '#1C1C20'); v.position.set(x * hw, 0.118, -hd * 0.06); g.add(v); }
