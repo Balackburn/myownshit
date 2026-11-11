@@ -415,3 +415,16 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
   Un trajet rapide se filme dans l'axe ou en travelling à sa vitesse ; en travers d'un cadre fixe il dure quatre images.
 - (cycle 5) Un personnage assis au volant (`drive`) : régler la hauteur de l'acteur pour que sa tête reste sous le plafond (siège du bus : 0,3 m),
   et filmer à sa hauteur : vu d'en dessous, le bandeau du pare-brise coupe le haut du crâne dès qu'il s'étire.
+- (cycle 5) **Un trait fin et vertical dans de grands yeux du noir** n'est pas une bavure de sprite : les cheveux et les oreilles, sur les côtés de la tête,
+  passaient devant la peau des yeux agrandie (posée 12 mm devant le visage). Corrigé dans le moteur (45 mm). Pour chercher ce genre de défaut : sortir le
+  canevas 2D seul (`node tools/glow_dump.mjs sortie.png 5.2`, dans `absurd-shorts`) ; s'il est propre, la cause est dans la scène 3D (quelque chose devant, un bord).
+- (cycle 5) **Raccords aux coupes** : une marque portée par un personnage (bosse, étiquette, chapeau de travers) et la lumière d'un même lieu doivent être
+  les mêmes des deux côtés d'une coupe ; relire les `face`, `look` et accessoires du plan d'avant en écrivant le suivant. Deux relevés de la troisième
+  revue de l'histoire 40 : la bosse disparue une image avant la claque, le balcon qui change de couleur entre deux plans.
+- (cycle 5) **Bord droit** : sur TikTok et Reels la colonne des boutons couvre la droite entre 45 et 65 % de la hauteur : rien d'essentiel à moins de 8 % du
+  bord droit (un œil d'amoureux y était collé).
+- (cycle 5) « Le doigt s'arrête à une main de l'interrupteur » : à l'écran l'écart doit faire 5 à 6 % de la largeur du cadre, sinon il semble déjà
+  toucher ; grossir la main (`scl handL 1.7`) pendant la tenue.
+- (cycle 5, méthode) Quand la génération complète est en file derrière un autre rendu et que les rapports arrivent avant son départ, la retenir le temps
+  d'intégrer la dernière passe (un fichier témoin surveillé par la boucle d'attente), vingt minutes au plus : c'est plus court que de rendre une version
+  dépassée puis de recoller des plages.

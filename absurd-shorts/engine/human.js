@@ -311,7 +311,7 @@ for (let i = 0; i < pp.count; i++) {
       fr.glow(st, big); glowMesh.material[4].opacity = Math.min(1, k * 1.15); glowMesh.visible = true;
       // dark-room eyes (darkEyes above 1.9): the lit skin is scaled about the point between the eyes, so that they spill over the head: two eyes as wide as
       // the man. The face panel keeps its plane (the scaling point is on it)
-      const K = Math.max(1, (big || 1.3) / 1.9), ey = hh * 0.64, ez = hd / 2 - 0.015 * 0.64; glowMesh.scale.setScalar(K); glowMesh.position.set(0, ey * (1 - K), ez * (1 - K) + (K > 1 ? 0.012 : 0));   // (the face leans back 15 mm from chin to crown: the scaling point is on it at eye height, or the scaled skin sinks behind the face)
+      const K = Math.max(1, (big || 1.3) / 1.9), ey = hh * 0.64, ez = hd / 2 - 0.015 * 0.64; glowMesh.scale.setScalar(K); glowMesh.position.set(0, ey * (1 - K), ez * (1 - K) + (K > 1 ? 0.045 : 0));   // (the face leans back 15 mm from chin to crown: the scaling point is on it at eye height, or the scaled skin sinks behind the face); 45 mm in front of the face: at 12 mm the hair and the ears at the sides of the head stood in front of the scaled skin and drew a thin vertical line through each big eye
     }; }
   root.userData.setFx = buildFaceFx(head, hw, hh, hd, o);
   // rest pose snapshot for the animator

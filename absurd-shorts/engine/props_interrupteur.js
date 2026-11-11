@@ -167,6 +167,7 @@ export const INTERRUPTEUR_PROPS = {
 
   // a candle in its holder (a dish with a ring to hold it by): the flame flickers; o.litAt: it lights then; o.outAt: it goes out, a thread of smoke goes up.
   // The flame and its halo are unlit (give the prop `inDark` in a dark shot). Origin: under the dish; held by the ring: on={..., offset}
+  // o.haloFrom: the halo round the flame shows from then only (in a lit room it was a pale disc on the chest of the man who held it: give it the time of the black)
   candle(o) {
     const fl = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.085, 7), flat('#FFB23A')), 0, 0.045, 0), at(new THREE.Mesh(new THREE.ConeGeometry(0.012, 0.05, 6), flat('#FFF0B0')), 0, 0.032, 0)); fl.position.y = 0.2;
     const halo = at(softDisc(0.1, '#FFC860', 0.5), 0, 0.245, 0);
@@ -174,7 +175,7 @@ export const INTERRUPTEUR_PROPS = {
     const g = grp(at(cyl(0.085, 0.07, 0.02, '#C9A24A', 12, { outline: 0.006 }), 0, 0.01, 0), at(cyl(0.024, 0.026, 0.17, '#F6F1E2', 8, { outline: 0.004 }), 0, 0.105, 0), at(box(0.004, 0.02, 0.004, '#1B1B1E'), 0, 0.2, 0), fl, halo, ...smoke);
     const ring = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.007, 5, 12), mat('#C9A24A')); ring.position.set(0.1, 0.02, 0); ring.rotation.x = PI / 2; g.add(ring);
     g.userData.update = t => { const on = (o.litAt == null || t >= o.litAt) && (o.outAt == null || t < o.outAt), u = o.outAt != null ? t - o.outAt : -1;
-      fl.visible = halo.visible = on; if (on) { const k = 1 + 0.16 * Math.sin(t * 19) + 0.09 * Math.sin(t * 37 + 1); fl.scale.set(1, k, 1); fl.rotation.z = 0.1 * Math.sin(t * 11); halo.scale.setScalar(1 + 0.07 * Math.sin(t * 23)); }
+      fl.visible = on; halo.visible = on && (o.haloFrom == null || t >= o.haloFrom); if (on) { const k = 1 + 0.16 * Math.sin(t * 19) + 0.09 * Math.sin(t * 37 + 1); fl.scale.set(1, k, 1); fl.rotation.z = 0.1 * Math.sin(t * 11); halo.scale.setScalar(1 + 0.07 * Math.sin(t * 23)); }
       smoke.forEach((p, i) => { const q = u - i * 0.07; p.visible = u >= 0 && q > 0 && q < 0.7; if (p.visible) { p.position.set(0.02 * Math.sin(q * 9 + i), 0.22 + q * 0.5, 0); p.scale.setScalar(1 + q * 3); p.material.opacity = 0.7 * (1 - q / 0.7); } }); };
     g.userData.update(0); return g;
   },

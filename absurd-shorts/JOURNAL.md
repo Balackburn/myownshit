@@ -844,3 +844,45 @@ s'arrêter. Pas ses passagers. Ils sont arrivés en avance. C'est une première.
   dans son sillage ; enseigne de ligne sur la tête ; contrôleur sur ses épaules et tickets levés ; langue au vent et bouton d'arrêt sur le nœud
   de cravate ; le contrôleur à l'envers ; pupilles en têtes d'épingle ; arrêt au feu rouge en s'accrochant au poteau (étirement horizontal) ;
   passagers qui continuent sans lui ; rangée de montres ; « hors service » et un second coureur qui ne peut pas s'arrêter.
+
+### Histoire 39 : version 2 livrée
+
+Rendu complet de la dernière passe (1080×1920, 26,47 s, −16,0 LUFS, aucune image isolée aux coupes), envoyé ; `hyperframes/39-porte` mis à jour.
+Pas de quatrième revue (trois au plus) : les notes restent 7,7 (animation) et 8,0 (direction artistique) sur le brouillon de la troisième revue.
+
+### Histoire 40 : troisième et dernière revue (animation 8,1 ; direction artistique 7,7) et dernière passe
+
+Progression : 7,0 / 6,8 → 7,8 / 7,5 → **8,1 / 7,7**. Seuil visé (8,5) non atteint ; trois revues au plus : la dernière passe ci-dessous est faite sans
+nouvelle revue, vérifiée sur images fixes, puis la version 2 est rendue en entier.
+
+**Décision d'ordonnancement.** La génération complète de la version 2 a été mise en file dès la demande de la revue, derrière celle de « La porte »
+(un seul rendu complet à la fois). Les deux rapports sont arrivés pendant que le processeur était encore pris : la file a été retenue vingt minutes
+(un fichier témoin que la boucle d'attente surveille) pour que le rendu parte avec les corrections, plutôt que de rendre 55 minutes une version déjà
+dépassée puis de recoller des plages sur plus de la moitié du film.
+
+**Ce que les relecteurs ont relevé, et ce qui a été fait :**
+- *Traits fins dans les yeux agrandis du noir* (relevé deux revues de suite) : ce n'était ni la feuille de sprites ni le dessin 2D (vérifié en
+  sortant le canevas des yeux seul : propre). **Cause : les cheveux et les oreilles, sur les côtés de la tête, passaient 12 mm devant la peau des
+  yeux agrandie et y découpaient un trait vertical.** Corrigé dans le moteur : la peau agrandie est posée 45 mm devant le visage. Le trait de
+  l'enveloppe finale disparaît du même coup. Les ovales des yeux en cœur, coupés à plat par le bord du canevas du visage, glissent maintenant vers
+  l'intérieur comme les yeux ouverts.
+- *Amoureux (S13)* : un œil touchait le bord droit du cadre ; la troisième paire traversait leur ligne. → cadre décalé de 7 cm, paires 14 % plus
+  petites, la troisième paire rétrécit en descendant, s'arrête au-dessus d'eux et ferme les paupières.
+- *Raccords* : la bosse disparaissait à la coupe S08/S09 → il l'a encore à l'ouverture de S09 et la claque l'écrase ; l'homme du balcon changeait de
+  couleur entre S10 et S11 → même lumière de lune sur les deux plans.
+- *Détails trop petits* : le doigt s'arrêtait à 1 % de la largeur de l'interrupteur (il semblait le toucher) → 6 %, main grossie ; étoiles de la bosse
+  doublées ; œil de l'astronome trop petit → le plan s'ouvre plus près et recule quand il recule ; paume de S16 grossie.
+- *Poses* : doigt du maire redescendu au-dessus du front ; pouce de l'électricien sorti à gauche du cadre ; yeux de la dame avec des pupilles.
+- *Rythme* : S08 (un petit essai de traction avant la vraie, et dans le noir un seul regard échangé, sans clignement) ; S09 (étiquette montrée quatre
+  images, armée au-dessus du casque) ; S14 (double regard plus dur : pupilles en têtes d'épingle, tête étirée) ; S16 (ligne tenue cinq images de
+  moins, souffles de quatre à cinq images, le maire recule à chacun) ; S22 (la foule s'ouvre en deux groupes, le regard noir se pose à 0,3 s et tient) ;
+  S24-S25 (l'enveloppe arrive en deux pas marqués, une seule arrivée ; les yeux de la fenêtre : un regard vif d'un côté tenu dix images, de l'autre
+  cinq, un retour lent, un clignement tardif, une petite déglutition de l'enveloppe).
+- *Finitions* : halo de la bougie éteint tant que la pièce est éclairée ; soleil décalé (rayons coupés par les façades) ; mains dans le cadre en vue
+  de dessus (S15).
+- **Laissé de côté, noté pour mémoire** : le coussin rouge derrière sa hanche (élément du décor), deux fenêtres allumées derrière ses mains (S10),
+  la fin du faisceau de la tour, l'arbre entre deux têtes (S20).
+- **Remarques « pour l'utilisateur » des relecteurs, consignées sans question** : (1) garder libre la colonne des boutons à droite sur TikTok et
+  Reels : retenu comme règle de cadrage (rien d'essentiel à moins de 8 % du bord droit) ; (2) le casque de l'électricien lu comme un chapeau jaune à
+  bord : à reprendre si le personnage revient ; (3) plus d'un tiers du film est noir : choix assumé de l'épisode, à ne pas répéter sans un liseré sur
+  les silhouettes.

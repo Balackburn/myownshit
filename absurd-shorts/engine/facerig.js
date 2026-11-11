@@ -119,11 +119,12 @@ export function makeFaceRig(v = null) {
     if (e.kind !== 'open') {
       if (dark) { if (e.kind === 'closed') return;   // in the dark a shut eye is gone; a drawn eye (a cross, a spiral, a happy arc) shows in pale ink, a coloured one (heart, star, euro) as it is
         const x0 = Math.floor(cx - a.w * e.s) - 20, y0 = Math.floor(cy - a.h * e.s) - 20, w = Math.ceil(2 * a.w * e.s) + 40, h = Math.ceil(2 * a.h * e.s) + 40;
-        if (e.kind === 'heart') { tg.fillStyle = GLOW_INK; tg.beginPath(); tg.ellipse(cx, cy, a.w * 0.56 * e.s, a.h * 0.56 * e.s * (e.open ?? 1), 0, 0, 2 * Math.PI); tg.fill(); }   // a heart in the dark sits on the white of its eye
+        const hrx = a.w * 0.56 * e.s, hox = e.kind === 'heart' ? Math.round(Math.max(0, 6 - (cx - hrx)) + Math.min(0, (W - 6) - (cx + hrx))) : 0;   // a heart eye slides inward rather than off the panel (its white was cut flat by the edge of the canvas)
+        if (e.kind === 'heart') { tg.fillStyle = GLOW_INK; tg.beginPath(); tg.ellipse(cx + hox, cy, hrx, a.h * 0.56 * e.s * (e.open ?? 1), 0, 0, 2 * Math.PI); tg.fill(); }   // a heart in the dark sits on the white of its eye
         const hk = e.kind === 'heart' ? 0.74 : 1;
         sg.clearRect(x0, y0, w, h); if (!spr(sg, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s * hk, e.s * hk * (e.open ?? 1))) return;
         if (!GLOW_OWN.has(e.kind)) { sg.globalCompositeOperation = 'source-in'; sg.fillStyle = GLOW_INK; sg.fillRect(x0, y0, w, h); sg.globalCompositeOperation = 'source-over'; }
-        tg.drawImage(scratch, x0, y0, w, h, x0, y0, w, h); return; }
+        tg.drawImage(scratch, x0, y0, w, h, x0 + hox, y0, w, h); return; }
       if (!spr(g, `eye${s}_${e.kind}`, cx, cy, 0, 0, 0, e.s, e.s * (e.open ?? 1))) spr(g, `eye${s}_closed`, cx, cy); return; }
     if (e.lid >= 0.9) { if (!dark) spr(g, `eye${s}_closed`, cx, cy, 0, 0.24 * a.h * e.s, 0, e.s, 1); return; }   // shut: the lid line has reached the lower lid
     const P = nearest(RIG.sizes, e.s), k = e.s / P, hh = a.h / 2 * e.s, hw = a.w / 2 * e.s, tag = Math.round(P * 100);
