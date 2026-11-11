@@ -1043,7 +1043,7 @@ export function renderFrame(tAbs) {
     S.dark = darkAt(sc, tk);
     evalAll(tk);
     lightCycle(tk);
-    placeCamera(tk);
+    placeCamera(tk); darkPool(tk);
     if (sc.fogTo && scene.fog && sc.fog) { const u = Math.min(1, Math.max(0, tk / sc.duration)); scene.fog.near = sc.fog.near + (sc.fogTo.near - sc.fog.near) * u; scene.fog.far = sc.fog.far + (sc.fogTo.far - sc.fog.far) * u; }   // sc.fogTo: the veil follows a descending camera
     for (const o of S.follow || []) o.position.copy(camera.position);
     camLocked(camera);
@@ -1075,6 +1075,22 @@ function darkAt(sc, t) {
   const D = sc.dark; if (!D) return 0; let k = 0;
   for (const [at, v, ramp = 0.035] of D) { const a = T(at, sc); if (t < a) break; k = ramp <= 0.002 ? v : lerp(k, v, clamp01((t - a) / ramp)); }   // a key with no ramp holds from its own frame on (with a ramp of 0.001 the first frame of a shot that starts dark was still lit: one bright frame at the cut)
   return k;
+}
+// sc.darkPool: a pool of light in a dark shot (a match, a candle): { prop: 'id' (it follows that prop) | at: [x, y, z], lift: [dx, dy, dz], r: its radius in
+// metres (0.6), k: how much of the picture comes back at its centre: a number or keys [[t, k, ramp], ...] like `dark`, tint: '#FFD9A0' }. Round that point the
+// picture is lit again; it falls off to the black of the shot. Called once the camera is placed (the point is projected to the screen)
+const _pool = new THREE.Vector3();
+function darkPool(t) {
+  const L = S.look; if (!L?.setPool) return; const P = S.sc.darkPool;
+  if (!P || !(S.dark > 0.001)) { L.setPool(0); return; }
+  let k = typeof P.k === 'number' ? P.k : 0;
+  if (Array.isArray(P.k)) for (const [at, v, ramp = 0.05] of P.k) { const a = T(at, S.sc); if (t < a) break; k = ramp <= 0.002 ? v : lerp(k, v, clamp01((t - a) / ramp)); }
+  if (k <= 0.001) { L.setPool(0); return; }
+  const cam = S.stage.camera, pr = P.prop ? S.props.find(q => q.id === P.prop) : null;
+  if (pr) { pr.obj.updateWorldMatrix(true, false); pr.obj.getWorldPosition(_pool); } else _pool.set(...(P.at || [0, 1.5, 0]));
+  if (P.lift) { _pool.x += P.lift[0]; _pool.y += P.lift[1]; _pool.z += P.lift[2]; }
+  cam.updateMatrixWorld(true); const d = _pool.distanceTo(cam.getWorldPosition(new THREE.Vector3())), r = (P.r ?? 0.6) / (2 * Math.max(0.1, d) * Math.tan(cam.fov * Math.PI / 360));
+  _pool.project(cam); L.setPool(k, _pool.x * 0.5 + 0.5, _pool.y * 0.5 + 0.5, r, P.tint, cam.aspect);
 }
 function lightCycle(t) {
   if (S.look && (S.sc.dark || S.look.dark)) { S.look.setDark(S.dark || 0, S.sc.darkFloor ?? 0.05, S.sc.darkTint); S.look.keepOverlay = !!S.sc.dark && S.props.some(p => p.cfg.inDark); }
@@ -1212,7 +1228,7 @@ function poseAt(tAbs) {
   const t = Math.min(tAbs, S.total - 1e-4);
   let si = S.script.scenes.findIndex(sc => t >= sc.start && t < sc.start + sc.duration); if (si < 0) si = S.script.scenes.length - 1;
   if (si !== S.scene) setupScene(si);
-  const lt = t - S.sc.start; S.dark = darkAt(S.sc, lt); evalAll(lt); lightCycle(lt); placeCamera(lt);
+  const lt = t - S.sc.start; S.dark = darkAt(S.sc, lt); evalAll(lt); lightCycle(lt); placeCamera(lt); darkPool(lt);
   for (const o of S.follow || []) o.position.copy(S.stage.camera.position);
   camLocked(S.stage.camera); S.root.updateMatrixWorld(true); S.stage.camera.updateMatrixWorld(true);
 }

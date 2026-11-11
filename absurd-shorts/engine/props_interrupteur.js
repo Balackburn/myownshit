@@ -179,7 +179,7 @@ export const INTERRUPTEUR_PROPS = {
   // the sun as a lamp: a disc with rays and a face. o.offAt: it goes out like a bulb: the disc turns to cold grey, the rays fold back, a red thread of
   // filament dies in the middle, its eyes go wide then shut. Unlit: with `inDark` it stays in the black sky. Origin: its centre, front +Z; o.r (1.2 m)
   sunLamp(o) {
-    const R = o.r ?? 1.2, disc = new THREE.Mesh(new THREE.CircleGeometry(R, 28), flat('#FFD23A')), rays = grp(), fil = at(new THREE.Mesh(new THREE.RingGeometry(R * 0.18, R * 0.24, 20), flat('#FF5A2A', { transparent: true, side: THREE.DoubleSide })), 0, -R * 0.1, 0.03);
+    const R = o.r ?? 1.2, disc = new THREE.Mesh(new THREE.CircleGeometry(R, 28), flat('#FFD23A')), rays = grp(), filM = flat('#FF5A2A', { transparent: true, side: THREE.DoubleSide }), fil = grp(...[-1.5, -0.5, 0.5, 1.5].map((x, i) => { const q = quad(R * 0.035, R * 0.2, filM); q.position.x = x * R * 0.085; q.rotation.z = (i % 2 ? 1 : -1) * 0.46; return q; })); fil.position.set(0, R * 0.52, 0.03);   // the filament: a little zigzag high in the bulb (v1: a ring round the mouth, which stayed as a red-brown rim on the dead sun)
     for (let i = 0; i < 12; i++) { const a = i * PI / 6, q = quad(0.14 * R, 0.5 * R, flat('#FFE07A')); q.geometry = new THREE.PlaneGeometry(0.14 * R, 0.5 * R).translate(0, 0.25 * R, 0); const p = grp(q); p.position.set(Math.sin(a) * R * 1.1, Math.cos(a) * R * 1.1, -0.01); p.rotation.z = -a; rays.add(p); }
     const eye = sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.15, 16), flat('#FFFDF2')), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(R * 0.07, 12), flat('#2A1E12')), 0, 0, 0.01)); e.position.set(sx * R * 0.34, R * 0.2, 0.02); return e; };
     const eL = eye(-1), eR = eye(1), lids = [-1, 1].map(sx => at(quad(R * 0.34, R * 0.04, flat('#2A1E12')), sx * R * 0.34, R * 0.2, 0.03));
@@ -190,27 +190,46 @@ export const INTERRUPTEUR_PROPS = {
       const scared = o.scareAt != null && t >= o.scareAt && !off, shut = off && u > 0.45;
       for (const e of [eL, eR]) { e.visible = !shut; e.scale.setScalar(scared || (off && !shut) ? 1.45 : 1); e.children[1].scale.setScalar(scared || off ? 0.6 : 1); }
       lids.forEach(l => l.visible = shut); mouth.visible = !scared && !off; oh.visible = scared || off; oh.scale.setScalar(shut ? 0.5 : 1);
-      fil.visible = off && u < 0.9; if (fil.visible) fil.material.opacity = Math.max(0, 1 - u / 0.9) * (0.7 + 0.3 * Math.sin(t * 40)); inner.scale.setScalar(off ? 1 - 0.06 * Math.max(0, 1 - u / 0.2) : 1); };
+      fil.visible = off && u < (o.filament ?? 0.4); if (fil.visible) filM.opacity = Math.max(0, 1 - u / (o.filament ?? 0.4)) * (0.7 + 0.3 * Math.sin(t * 40)); inner.scale.setScalar(off ? 1 - 0.06 * Math.max(0, 1 - u / 0.2) : 1); };
     g.userData.update(0); return g;
   },
 
-  // a telescope on its tripod: a white tube in three draws that slide out one from the other. o.extend [[t, 0..1], ...]; o.tilt (deg above the horizon,
-  // default 40). Origin: under the tripod; it points toward +Z and up
+  // a telescope on its tripod: a brass spyglass in three draws. The widest draw, with the lens, is at the sky end: it goes up and the thinner draws come out
+  // of it behind (v1 was a white tube, thickest at the eye end, with no lens: a bat). o.extend [[t, 0..1], ...]; o.tilt (deg above the horizon, default 40);
+  // o.h (1.15 m: the height of its pivot: raise it until the eyepiece meets an eye, userData.eyepiece gives its place); o.len (0.9: the length of a draw);
+  // o.color / o.ring. The lens and its glint are unlit. Origin: under the tripod; it points toward +Z and up
   telescope(o) {
-    const tilt = (o.tilt ?? 40) * PI / 180, L = o.len ?? 0.9, piv = grp(); piv.position.y = 1.15; piv.rotation.x = -tilt;
-    const d1 = at(cyl(0.085, 0.085, L, '#F4F1E8', 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0), d2 = at(cyl(0.068, 0.068, L, '#E3DFD2', 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0), d3 = at(cyl(0.052, 0.052, L, '#CFCABB', 12, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0);
-    const rim = at(cyl(0.062, 0.062, 0.05, '#1B1B1E', 12), 0, 0, L / 2, PI / 2, 0, 0); d3.add(rim); rim.rotation.set(0, 0, 0); rim.position.set(0, L / 2, 0);
-    piv.add(d1, d2, d3, at(cyl(0.03, 0.03, 0.14, '#1B1B1E', 8), 0, 0.06, -L / 2 + 0.05), at(cyl(0.022, 0.03, 0.08, '#1B1B1E', 8), 0, 0, -L / 2 - 0.04, PI / 2, 0, 0));
-    const g = grp(piv, at(sphere(0.06, '#2B2B30', 1), 0, 1.15, 0));
-    for (let i = 0; i < 3; i++) { const a = i * TAU / 3 + 0.5, leg = box(0.03, 1.2, 0.03, '#2B2B30', { pivot: 'top' }); leg.position.set(0, 1.13, 0); leg.rotation.set(0.3 * Math.cos(a), 0, -0.3 * Math.sin(a)); g.add(leg); }
+    const tilt = (o.tilt ?? 40) * PI / 180, L = o.len ?? 0.9, H0 = o.h ?? 1.15, piv = grp(), brass = o.color || '#C99A3C', ring = o.ring || '#7A5A22'; piv.position.y = H0; piv.rotation.x = -tilt;
+    const tube = (r, band) => { const t = grp(at(cyl(r, r, L, brass, 14, { outline: 0.006 }), 0, 0, 0, PI / 2, 0, 0), at(cyl(r + 0.008, r + 0.008, band, ring, 14), 0, 0, L / 2 - band / 2, PI / 2, 0, 0), at(cyl(r + 0.006, r + 0.006, 0.03, ring, 14), 0, 0, -L / 2 + 0.02, PI / 2, 0, 0));
+      t.add(at(quad(r * 0.5, L * 0.9, flat('#F3D58A', { transparent: true, opacity: 0.55, side: THREE.DoubleSide })), 0, r + 0.002, 0, -PI / 2, 0, 0)); return t; };   // a pale line along the top: polished metal
+    const d1 = tube(0.045, 0.04), d2 = tube(0.062, 0.05), d3 = tube(0.082, 0.07);
+    const lens = at(new THREE.Mesh(new THREE.CircleGeometry(0.074, 18), flat('#9FD3F2', { side: THREE.DoubleSide })), 0, 0, L / 2 + 0.002), glint = at(new THREE.Mesh(new THREE.CircleGeometry(0.022, 10), flat('#FFFFFF', { side: THREE.DoubleSide })), -0.028, 0.03, L / 2 + 0.004), glint2 = at(new THREE.Mesh(new THREE.CircleGeometry(0.01, 8), flat('#FFFFFF', { side: THREE.DoubleSide })), 0.02, -0.03, L / 2 + 0.004);
+    d3.add(lens, glint, glint2);
+    piv.add(d1, d2, d3, at(cyl(0.03, 0.03, 0.09, '#1B1B1E', 10), 0, 0, -L / 2 - 0.04, PI / 2, 0, 0), at(cyl(0.04, 0.03, 0.03, '#1B1B1E', 10), 0, 0, -L / 2 - 0.085, PI / 2, 0, 0));
+    const g = grp(piv, at(sphere(0.06, '#2B2B30', 1), 0, H0, 0));
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3 + 0.5, leg = box(0.035, (H0 + 0.05) / Math.cos(0.3), 0.035, '#3A2E22', { pivot: 'top' }); leg.position.set(0, H0 - 0.02, 0); leg.rotation.set(0.3 * Math.cos(a), 0, -0.3 * Math.sin(a)); g.add(leg); }
     g.userData.update = t => { const k = keyed(o.extend, t, ease.outBack); d2.position.z = 0.012 + k * L * 0.82; d3.position.z = 0.024 + k * L * 1.64; };
-    g.userData.update(0); g.userData.eyepiece = [0, 1.15 + Math.sin(tilt) * (-L / 2 - 0.08), Math.cos(tilt) * (-L / 2 - 0.08)]; return g;
+    g.userData.update(0); g.userData.eyepiece = [0, H0 + Math.sin(tilt) * (-L / 2 - 0.1), Math.cos(tilt) * (-L / 2 - 0.1)]; return g;
   },
 
   // the beam of a torch: a pale cone that widens from the origin along +Z, o.len long (6 m), o.r wide at its end (0.9 m). o.sweep [[t, deg], ...]: it turns
-  // about the vertical; o.pitch [[t, deg], ...]: it lifts. Unlit and see-through: give it `inDark` in a dark shot
+  // about the vertical; o.pitch [[t, deg], ...]: it lifts. Unlit and see-through: give it `inDark` in a dark shot.
+  // o.flat: a painted beam instead (v1's cone was a hard-edged triangle laid over the man who held it): a wedge in the prop's own XY plane (turn the prop to
+  // the camera), soft at its edges and fading with the distance, that leaves the origin upward and leans by o.sweep degrees (+ = toward +X); the torch itself
+  // is drawn at its foot (o.torch false: no torch)
   torchBeam(o) {
-    const L = o.len ?? 6, R = o.r ?? 0.9, cone = new THREE.Mesh(new THREE.ConeGeometry(R, L, 18, 1, true).rotateX(-PI / 2).translate(0, 0, L / 2), flat(o.color || '#FFF1B8', { transparent: true, opacity: o.opacity ?? 0.3, depthWrite: false, side: THREE.DoubleSide }));
+    const L = o.len ?? 6, R = o.r ?? 0.9;
+    if (o.flat) {
+      const pl = canvasPlane(2 * R, L, (c, W, H) => { c.clearRect(0, 0, W, H); const img = c.createImageData(W, H), col = new THREE.Color(o.color || '#FFF1B8');
+        for (let y = 0; y < H; y++) { const v = 1 - y / H, hw = 0.035 + 0.965 * v; for (let x = 0; x < W; x++) { const u = Math.abs(x / W - 0.5) * 2 / hw, a = u >= 1 ? 0 : Math.pow(1 - u * u, 1.3) * Math.pow(1 - v, 1.5) * (0.35 + 0.65 * Math.min(1, v * 8)), i = (y * W + x) * 4;
+          img.data[i] = col.r * 255; img.data[i + 1] = col.g * 255; img.data[i + 2] = col.b * 255; img.data[i + 3] = 255 * a; } } c.putImageData(img, 0, 0); }, { res: 256, transparent: true });
+      pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, opacity: o.opacity ?? 0.85, depthWrite: false, side: THREE.DoubleSide }); pl.position.set(0, L / 2, 0);
+      const piv = grp(pl), g = grp(piv);
+      if (o.torch !== false) piv.add(at(cyl(0.035, 0.03, 0.2, '#2B2B30', 10, { outline: 0.005 }), 0, -0.12, 0), at(cyl(0.05, 0.038, 0.06, '#F2C230', 10, { outline: 0.005 }), 0, -0.01, 0), at(new THREE.Mesh(new THREE.CircleGeometry(0.045, 12), flat('#FFFBE6', { side: THREE.DoubleSide })), 0, 0.022, 0, -PI / 2, 0, 0));
+      g.userData.update = t => { piv.rotation.z = -keyed(o.sweep, t, ease.inOut) * PI / 180; };
+      g.userData.update(0); return g;
+    }
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(R, L, 18, 1, true).rotateX(-PI / 2).translate(0, 0, L / 2), flat(o.color || '#FFF1B8', { transparent: true, opacity: o.opacity ?? 0.3, depthWrite: false, side: THREE.DoubleSide }));
     const piv = grp(cone, at(new THREE.Mesh(new THREE.CircleGeometry(0.035, 10), flat('#FFFBE6', { side: THREE.DoubleSide })), 0, 0, 0.01)), g = grp(piv);
     g.userData.update = t => { piv.rotation.set(-keyed(o.pitch, t, ease.inOut) * PI / 180, keyed(o.sweep, t, ease.inOut) * PI / 180, 0, 'YXZ'); };
     g.userData.update(0); return g;
@@ -240,7 +259,8 @@ export const INTERRUPTEUR_PROPS = {
     const g = grp(at(solid(w, h, w * 0.012, flat('#E9E4D4')), 0, 0, -w * 0.008), pl), eyes = grp(); eyes.position.set(-w * 0.09, h * (0.5 - 0.68), w * 0.004); g.add(eyes);
     const cover = at(quad(w * 0.6, h * 0.34, flat('#DCE6EC')), 0, 0, 0); eyes.add(cover);
     const E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(h * 0.1, 14), flat('#FFFFFF')), 0, 0, 0.001), at(new THREE.Mesh(new THREE.CircleGeometry(h * 0.045, 10), flat('#17171A')), 0, 0, 0.002)); e.position.x = sx * h * 0.15; e.children[0].scale.y = 1.2; eyes.add(e); return e; });
-    g.userData.update = t => { const on = !!o.eyes && t >= o.eyes[0] && t < o.eyes[1]; eyes.visible = on; if (!on) return; const u = t - o.eyes[0], cyc = u % 1.3, bl = cyc > 0.5 && cyc < 0.62 ? Math.abs(1 - (cyc - 0.5) / 0.06) : 1, op = Math.min(1, u / 0.08);
+    g.userData.update = t => { const on = !!o.eyes && t >= o.eyes[0] && t < o.eyes[1]; eyes.visible = on; if (!on) return; const u = t - o.eyes[0], cyc = u % 1.3; let bl = !o.blinks && cyc > 0.5 && cyc < 0.62 ? Math.abs(1 - (cyc - 0.5) / 0.06) : 1; const op = Math.min(1, u / (o.eyesOpen ?? 0.08));
+      for (const b of o.blinks || []) { const q = t - b; if (q >= 0 && q < 0.12) bl = Math.abs(1 - q / 0.06); }   // o.blinks [t, ...]: they blink then (default: one blink 0.5 s after they open, every 1.3 s)
       E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = h * 0.03 * Math.sin(u * 2.2); }); };
     g.userData.update(0); return g;
   },
@@ -255,13 +275,81 @@ export const INTERRUPTEUR_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // a pair of eyes of its own, for what has no face rig (a pigeon, a cat, a statue) in a dark shot: two pale ovals, two pupils. o.s (0.05 m: the half
-  // width of an eye), o.look [[t, -1..1], ...] (the pupils go aside), o.blinks [t, ...], o.openAt / o.shutAt. Unlit: give it `inDark`. Front +Z
+  // a pair of eyes of its own, for what has no face rig (a pigeon, a cat, a statue, somebody at a window) in a dark shot: two pale ovals, two pupils.
+  // o.s (0.05 m: the half width of an eye), o.gap (1.25: half the distance between the eyes, in s), o.tall (1.25), o.pupil (0.42: its radius, in s),
+  // o.slit (a cat: the pupil is an upright slit), o.color / o.pupilColor. o.look [[t, -1..1], ...] and o.lookY [[t, -1..1], ...]: the pupils go aside, up (+)
+  // or down; o.blinks [t, ...], o.openAt / o.shutAt; o.narrow [[t, 0..1], ...]: the upper lids come down aslant, the inner end lower: a glare (0.45: half
+  // the eye; 1: shut); o.frame [w, h]: a dim window round them (somebody at a window). Unlit: give it `inDark`. Front +Z
   eyesPair(o) {
-    const s = o.s ?? 0.05, in_ = grp(), g = grp(in_), E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(s, 14), flat('#F6F1E2', { side: THREE.DoubleSide })), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(s * 0.42, 10), flat('#0A0C14', { side: THREE.DoubleSide })), 0, 0, 0.002)); e.position.x = sx * s * (o.gap ?? 1.25); e.children[0].scale.y = o.tall ?? 1.25; in_.add(e); return e; });
+    const s = o.s ?? 0.05, tall = o.tall ?? 1.25, pr = o.pupil ?? 0.42, N = 14, in_ = grp(), g = grp(in_);
+    // an ellipse (centre cx, cy; radii rx, ry) cut by a lid line y <= c + m x: columns from its left end to its right end, a top and a bottom point each
+    const strip = () => { const ge = new THREE.BufferGeometry(); ge.setAttribute('position', new THREE.BufferAttribute(new Float32Array((N + 1) * 6), 3)); const ix = []; for (let i = 0; i < N; i++) ix.push(2 * i, 2 * i + 1, 2 * i + 2, 2 * i + 2, 2 * i + 1, 2 * i + 3); ge.setIndex(ix); return ge; };
+    const shape = (ge, cx, cy, rx, ry, c, m) => { const p = ge.attributes.position;
+      for (let i = 0; i <= N; i++) { const x = cx - rx * Math.cos(PI * i / N), h = ry * Math.sin(PI * i / N), yb = cy - h, yt = Math.min(cy + h, Math.max(c + m * x, yb)); p.setXYZ(2 * i, x, yt, 0); p.setXYZ(2 * i + 1, x, yb, 0); }
+      p.needsUpdate = true; ge.computeBoundingSphere(); };
+    const E = [-1, 1].map(sx => { const w = new THREE.Mesh(strip(), flat(o.color || '#F6F1E2', { side: THREE.DoubleSide })), pu = new THREE.Mesh(strip(), flat(o.pupilColor || '#0A0C14', { side: THREE.DoubleSide })); pu.position.z = 0.002; w.frustumCulled = pu.frustumCulled = false;
+      const e = grp(w, pu); e.position.x = sx * s * (o.gap ?? 1.25); e.userData = { w, pu, sx }; in_.add(e); return e; });
+    if (o.frame) { const [fw, fh] = o.frame, c0 = o.frameColor || '#101B30', c1 = o.barColor || '#22324F', b = Math.min(fw, fh) * 0.06, back = grp(at(quad(fw, fh, flat(c0)), 0, 0, 0));
+      for (const [x, y, w2, h2] of [[0, fh / 2, fw + b, b], [0, -fh / 2, fw + b, b], [-fw / 2, 0, b, fh], [fw / 2, 0, b, fh]]) back.add(at(quad(w2, h2, flat(c1)), x, y, 0.001));
+      back.position.set(0, o.frameY ?? 0, -0.01); g.add(back); }
     g.userData.update = t => { const on = (o.openAt == null || t >= o.openAt) && (o.shutAt == null || t < o.shutAt); in_.visible = on; if (!on) return;   // (the prop's own visibility belongs to the story's keys)
-      let bl = 1; for (const b of o.blinks || []) { const u = t - b; if (u >= 0 && u < 0.12) bl = Math.abs(1 - u / 0.06); } const op = o.openAt == null ? 1 : Math.min(1, (t - o.openAt) / 0.06), lx = keyed(o.look, t, ease.inOut);
-      E.forEach(e => { e.scale.y = Math.max(0.05, bl * op); e.children[1].position.x = lx * s * 0.5; }); };
+      let bl = 1; for (const b of o.blinks || []) { const u = t - b; if (u >= 0 && u < 0.12) bl = Math.abs(1 - u / 0.06); } const op = o.openAt == null ? 1 : Math.min(1, (t - o.openAt) / 0.06), lx = keyed(o.look, t, ease.inOut), ly = keyed(o.lookY, t, ease.inOut), n = clamp01(keyed(o.narrow, t, ease.inOut));
+      const ry = s * tall, c = n > 0.001 ? ry * (1 - 2 * n) : ry * 2, m0 = 0.55 * Math.min(1, n * 2.2), pop = o.openAt == null ? 1 : 1 + 0.25 * Math.max(0, 1 - Math.abs((t - o.openAt) / 0.1 - 1)) * (t - o.openAt < 0.2 ? 1 : 0);   // a little overshoot as they open
+      E.forEach(e => { const { w, pu, sx } = e.userData, m = m0 * sx, px = lx * s * (o.slit ? 0.62 : 0.5), py = ly * ry * 0.38; shape(w.geometry, 0, 0, s, ry, c, m); shape(pu.geometry, px, py, o.slit ? s * 0.16 : s * pr, o.slit ? ry * 0.82 : s * pr * Math.min(1.25, tall), c, m);
+        e.scale.set(pop, Math.max(0.05, bl * op) * pop, 1); }); };
+    g.userData.update(0); return g;
+  },
+
+  // stars that fly out of a knock, for a shot in the dark (the face's own stars are lit like the face: they go black with it): o.n (5) five-pointed stars
+  // leave the origin at o.at, spread to o.r (0.4 m) in o.dur (0.45 s), spinning, and shrink away. Unlit: give it `inDark`. Front +Z
+  impactStars(o) {
+    const n = o.n ?? 5, R = o.r ?? 0.4, D = o.dur ?? 0.45, sz = o.size ?? 0.07, sh = new THREE.Shape();
+    for (let i = 0; i < 10; i++) { const a = i * PI / 5 + PI / 2, r = i % 2 ? 0.45 : 1; sh[i ? 'lineTo' : 'moveTo'](Math.cos(a) * r, Math.sin(a) * r); } sh.closePath();
+    const geo = new THREE.ShapeGeometry(sh), g = grp(), S = Array.from({ length: n }, (_, i) => { const m = new THREE.Mesh(geo, flat(i % 2 ? '#FFE27A' : '#FFF6C8', { side: THREE.DoubleSide })); m.castShadow = false; g.add(m); return m; });
+    g.userData.update = t => { const u = (t - (o.at ?? 0)) / D; S.forEach((m, i) => { m.visible = u >= 0 && u < 1; if (!m.visible) return; const a = (o.a0 ?? 0.3) + i * TAU / n, k = ease.out(u), q = sz * (u < 0.15 ? u / 0.15 : 1 - 0.7 * (u - 0.15) / 0.85);
+      m.position.set(Math.cos(a) * R * k, Math.sin(a) * R * k * (o.flatten ?? 1), 0); m.rotation.z = u * 5 * (i % 2 ? 1 : -1); m.scale.setScalar(Math.max(0.001, q)); }); };
+    g.userData.update(0); return g;
+  },
+
+  // a glint on a pane of glass in the dark: two slanted pale bars that flash at o.at and slide away as they fade (o.dur 0.3 s). o.w (0.5 m). Unlit: `inDark`
+  glassGlint(o) {
+    const w = o.w ?? 0.5, D = o.dur ?? 0.3, mk = (bw, x) => { const q = quad(bw, w * 1.5, flat('#DFF1FF', { transparent: true, opacity: 0.8, depthWrite: false, side: THREE.DoubleSide })); q.position.x = x; return q; }, bars = [mk(w * 0.16, -w * 0.12), mk(w * 0.06, w * 0.1)], g = grp(...bars);
+    g.rotation.z = -0.6;
+    g.userData.update = t => { const u = (t - (o.at ?? 0)) / D; bars.forEach((b, i) => { b.visible = u >= 0 && u < 1; if (b.visible) { b.material.opacity = 0.8 * (u < 0.15 ? u / 0.15 : 1 - (u - 0.15) / 0.85); b.position.y = (u - 0.3) * w * 0.5 * (i ? 1.3 : 1); } }); };
+    g.userData.update(0); return g;
+  },
+
+  // the house across the street, seen from a balcony: the top of its front (a dark wall, a roof line, two chimneys) with a row of big windows that switch
+  // with the city: o.keys [[t, lit (0|1)], ...] (o.lit 1: their state at the start), each window o.lag (0.1 s) after the one on its left. In the dark, from
+  // o.eyesAt on, a pair of round eyes opens in each window, one after the other (o.eyesLag 0.09 s), looks left and right and blinks: whole, big, clear of
+  // the caption band (the eyes of the far city, cityNight, were specks cut by the roofs). Unlit. Origin: the middle of the roof line, front +Z; o.w (7 m),
+  // o.h (6 m: how far down the wall goes), o.n (3 windows), o.win [w, h] (1.1 x 1.3 m), o.winY (-0.85: their middle under the roof line), o.gap (1.55 m)
+  nearHouse(o) {
+    const w = o.w ?? 7, h = o.h ?? 6, n = o.n ?? 3, [ww, wh] = o.win || [1.1, 1.3], wy = o.winY ?? -0.85, gap = o.gap ?? 1.55, keys = (o.keys || []).slice().sort((a, b) => a[0] - b[0]), lit0 = o.lit ?? 1, lag = o.lag ?? 0.1, es = o.eyeS ?? ww * 0.13;
+    const g = grp(at(solid(w, h, 0.4, flat(o.wall || '#0A1124')), 0, -h / 2, -0.2), at(solid(w + 0.4, 0.26, 0.7, flat(o.roof || '#16203E')), 0, 0.13, -0.15), at(solid(w, 0.07, 0.42, flat(o.roof || '#16203E')), 0, wy - wh / 2 - 0.45, -0.19));
+    for (const x of [-w * 0.3, w * 0.2]) g.add(at(solid(0.5, 0.85, 0.5, flat('#1A1626')), x, 0.68, -0.3), at(solid(0.6, 0.1, 0.6, flat('#262034')), x, 1.12, -0.3));
+    const on = new THREE.Color(o.lightColor || '#FFD27A'), off = new THREE.Color(o.dark || '#0D1730'), W = [];
+    for (let i = 0; i < n; i++) { const x = (i - (n - 1) / 2) * gap, pane = quad(ww, wh, flat('#FFD27A')), ep = grp(); pane.position.set(x, wy, 0.01); g.add(pane);
+      for (const [dx, dy, a, b] of [[0, wh / 2, ww + 0.12, 0.08], [0, -wh / 2 - 0.02, ww + 0.22, 0.12], [-ww / 2, 0, 0.08, wh], [ww / 2, 0, 0.08, wh], [0, 0, 0.045, wh], [0, wh * 0.18, ww, 0.045]]) g.add(at(quad(a, b, flat('#222C4A')), x + dx, wy + dy, 0.02));
+      const E = [-1, 1].map(sx => { const e = grp(at(new THREE.Mesh(new THREE.CircleGeometry(es, 18), flat('#F6F1E2')), 0, 0, 0), at(new THREE.Mesh(new THREE.CircleGeometry(es * 0.45, 12), flat('#0A0C14')), 0, 0, 0.002)); e.position.x = sx * es * 1.3; ep.add(e); return e; });
+      ep.position.set(x, wy - wh * 0.14, 0.03); g.add(ep); W.push({ pane, ep, E, i }); }
+    g.userData.update = t => { for (const q of W) { let st = lit0; for (const [tk, v] of keys) { if (t >= tk + lag * q.i) st = v; else break; }
+      q.pane.material.color.copy(st ? on : off);
+      const u = o.eyesAt == null || st ? -1 : t - (o.eyesAt + q.i * (o.eyesLag ?? 0.09)); q.ep.visible = u >= 0; if (u < 0) continue;
+      const pop = Math.min(1, u / 0.05) * (1 + 0.3 * (u < 0.2 ? Math.max(0, 1 - Math.abs(u / 0.1 - 1)) : 0)), cyc = (u + q.i * 0.37) % 1.2, bl = cyc > 0.62 && cyc < 0.74 ? Math.abs(1 - (cyc - 0.62) / 0.06) : 1, lx = u < 0.14 ? 0 : (Math.sin((u - 0.14) * 7 + q.i * 2.1) > 0 ? 1 : -1);
+      q.E.forEach(e => { e.scale.set(pop, Math.max(0.05, pop * bl), 1); e.children[1].position.x += (lx * es * 0.45 - e.children[1].position.x) * 0.5; }); } };
+    g.userData.update(0); return g;
+  },
+
+  // somebody whistles: notes leave the origin one after the other, drift up and aside, rock and fade. o.n (3), o.from (0 s), o.every (0.16 s), o.size
+  // (0.11 m), o.dx / o.dy: where they drift (m per second). Unlit. Front +Z
+  whistleNotes(o) {
+    const n = o.n ?? 3, sz = o.size ?? 0.11, g = grp(), N = Array.from({ length: n }, (_, i) => { const pl = canvasPlane(sz, sz * 1.3, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = c.strokeStyle = o.color || '#1B1B1E'; c.lineWidth = W * 0.09;
+      c.beginPath(); c.ellipse(W * 0.34, H * 0.78, W * 0.2, H * 0.11, -0.4, 0, TAU); c.fill(); c.beginPath(); c.moveTo(W * 0.51, H * 0.76); c.lineTo(W * 0.51, H * 0.14); c.stroke();
+      if (i % 2) { c.beginPath(); c.moveTo(W * 0.51, H * 0.14); c.quadraticCurveTo(W * 0.9, H * 0.22, W * 0.82, H * 0.5); c.stroke(); } else { c.beginPath(); c.ellipse(W * 0.72, H * 0.66, W * 0.2, H * 0.11, -0.4, 0, TAU); c.fill(); c.beginPath(); c.moveTo(W * 0.89, H * 0.64); c.lineTo(W * 0.89, H * 0.06); c.lineTo(W * 0.51, H * 0.14); c.stroke(); } }, { res: 96, transparent: true });
+      pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, depthWrite: false, side: THREE.DoubleSide }); g.add(pl); return pl; });
+    g.userData.update = t => N.forEach((m, i) => { const u = t - (o.from ?? 0) - i * (o.every ?? 0.16); m.visible = u >= 0 && u < (o.life ?? 0.7); if (!m.visible) return; const q = u / (o.life ?? 0.7);
+      m.position.set((o.dx ?? 0.35) * u + 0.04 * Math.sin(u * 9 + i), (o.dy ?? 0.5) * u, 0.01 * i); m.rotation.z = 0.3 * Math.sin(u * 7 + i * 2); m.scale.setScalar(u < 0.08 ? u / 0.08 : 1); m.material.opacity = q < 0.7 ? 1 : 1 - (q - 0.7) / 0.3; });
     g.userData.update(0); return g;
   },
 

@@ -601,3 +601,92 @@ moments qui portent la fin sont ratés. Dans l'ordre :
   dès la coupe, de trois quarts, deux coups de doigt et la tête du héros qui recule ; regard vers la rue en fin de S01 ; technicien en bleu, casque blanc.
 - **Enseignes** : la plaque qui claque en S08 et l'enseigne des plans suivants sont maintenant le même objet (deux lignes, liseré crème) ; l'insert
   contient la plaque entière. **Décision : une enseigne dont un cadre serré ne montrerait qu'un coin est rangée pour ce cadre** (`signHide`), plutôt que coupée.
+
+### Deuxième revue (animation 7,4 ; direction artistique 7,5), puis troisième passe
+
+Ce que les deux relecteurs demandaient encore, et ce qui a été fait :
+- **S12 (sous le carton « LE BRAS RESTE »)** : il semblait debout près de la fenêtre, le bras ne se voyait pas. → il arrive à l'horizontale sur le mur
+  (clip `wallBunk`), paupières fermées, oreiller collé, tache de lune ; la couverture, qui faisait un bloc sombre sous lui, est retirée.
+- **S16** : le take de la chute reprenait celui de S03. → un autre take : il décolle des talons, la casquette reste en l'air quatre images, la mâchoire
+  descend dans la paume, la casquette retombe et l'écrase ; regards poing, porte, poing de quatre à cinq images ; barbe sous le menton.
+- **S13, S14** : les deux plaques illisibles. → la plaque du mur arrive avec le touriste, plan à deux ; « BRAS CLASSÉ » à plat côté caméra, seule une
+  demi-seconde, puis le pigeon se pose plus haut.
+- **S07, S13** : des coups reçus mollement. → le doigt du maire atteint le nez, la tête bascule sur un cou étiré ; même bascule en S13, plus loin.
+  (Erreur trouvée ici : la flexion latérale était écrite dans la case de la torsion ; l'ordre est `[avant, côté, torsion, étirement, épaisseur]`,
+  et un côté positif envoie le haut de la tête vers la DROITE du personnage.)
+- **S11** : le réverbère derrière le bras, la manche sur le ciel. → réverbères déplacés, flaques de lumière au sol, lune basse derrière la main.
+- **S15** : le technicien ressemblait au touriste. → casque de chantier jaune à visière, bleu de travail, tournevis, écusson MAINTENANCE.
+- **S17** : la main qui pousse le bras ne se voyait pas. → caméra plus près, de côté, les deux mains devant le battant clair ; contact tenu quatre images.
+- **Décision : la queue après la voix passe à 2,4 s (film de 26,46 s)** pour que le dernier gag ait le temps de respirer. La narration reste
+  enregistrée sans pauses (règle de la série) : les battements secondaires qui ne tenaient pas dans les mots ont été retirés plutôt que les mots espacés.
+
+### Deux erreurs du moteur trouvées pendant cette passe (corrigées, sans effet sur les histoires déjà rendues)
+
+- **Une image éclairée à chaque coupe vers un plan sombre.** Une clé `dark` sans rampe (0,001 s) n'était atteinte qu'à l'image suivante : la première
+  image du plan restait éclairée. Les deux relecteurs l'ont vue dans les planches. Une clé sans rampe tient maintenant dès sa propre image
+  (`darkAt`) ; nouvel outil `tools/cut_flash_check.py FILM.mp4 scripts-fr/story_x.json` (une image isolée, différente de ses deux voisines, à une coupe).
+  Les histoires 37 et 38 passent ce contrôle.
+- **Le `darkEyes` d'un plan n'était jamais lu** (dans la boucle des acteurs, `sc` est l'échelle de l'acteur, pas la scène) : tous les yeux dans le noir
+  étaient à 1,3. Lu maintenant par `S.sc.darkEyes`. Au-dessus de 1,9, la peau éclairée des yeux est agrandie autour du point entre les yeux : des « yeux
+  de pièce noire », plus larges que la tête, pupilles trois fois plus grandes.
+
+### Troisième et dernière revue (animation 7,7 ; direction artistique 8,0)
+
+Blocage noté : les deux relecteurs du troisième tour ont d'abord été coupés par la limite d'usage du compte ; ils ont été relancés plus tard, sur les
+mêmes pièces, et ont rendu leur rapport. (Ils n'écrivent pas leur fichier eux-mêmes : les deux rapports sont recopiés dans le dossier de revue.)
+
+**Instruction de l'utilisateur, reçue pendant cette revue : toujours lancer la génération complète de la vidéo.** Décision de méthode, valable pour toutes
+les histoires à venir : dès que la dernière revue est demandée, le rendu final complet (3D en 1080 × 1920, puis HyperFrames avec sous-titres, carton et
+musique) part sans attendre les rapports ; la dernière passe se fait ensuite par plages re-rendues et recollées (`tools/splice_range.sh`), et chaque
+version terminée est envoyée.
+
+Ce que les deux rapports gardent : la casquette qui l'écrase (S08), le bras en corde à linge et l'affiche (S09), le premier take (S03), le cou en périscope
+(S10), le plan à deux du touriste (S13), la plaque seule puis le pigeon (S14), le coup d'œil et l'appui à l'aveugle (S15), toutes les plaques sauf AUTO,
+les décors de jour, les gags à répétition (le bras sous cinq formes, la barbe, la toile d'araignée, le pigeon).
+
+Ce qu'ils demandent encore (dernière passe, par plages) :
+1. **S16** : la porte ne travaille seule que huit images, le double regard est trop court, le haut du take dure quatre images, la paume est devant la
+   bouche et non sous la mâchoire ; la casquette en l'air tombe sur les rayures de la banne (rouge sur rouge).
+2. **S12** : le trajet du lit au mur ne se voit pas, pas d'amorti à l'arrivée, le bras qui le tient est un moignon dans la fenêtre ; il manque une flaque
+   de lune sur lui, un cadre à la fenêtre, une tache de lumière au sol.
+3. **S15** : le mot AUTO, sur lequel repose le retournement, n'est jamais net (derrière le coude du technicien).
+4. **S17** : le doigt levé monte le long de la tête et retombe à la visière : un salut de portier, pas une protestation qui s'éteint ; le soulagement et
+   le tressaillement des doigts sont trop courts.
+5. **S13 contre S07** : le même coup deux fois (un doigt, la tête qui bascule). La règle « jamais deux fois le même gag » s'applique : S13 doit changer
+   de mécanique (l'homme entier qui oscille, raide, comme une statue).
+6. Tenues gelées (S15 après l'appui, les deux takes dont le bras libre ne bouge pas, S02 où cravate et cheveux ne réagissent pas aux passants).
+
+## Cycle 4, suite — histoire 40 « L'interrupteur » : première revue (animation 7,0 ; direction artistique 6,8) et deuxième passe
+
+Les deux relecteurs gardent : la cravate tirée comme le cordon d'une lampe, quatre fois et jamais pareil ; le take de l'électricien contre le flegme du
+héros ; l'homme plat qui se regonfle en trois souffles (S16) ; l'enveloppe qui grandit à chaque mot (S15) ; S11 (la silhouette devant la ville qui
+s'éteint, la tour dernière allumée : « la meilleure image du film ») ; le soleil qui s'éteint comme une ampoule ; les yeux ronds dans une fenêtre comme
+règle à part (S03, S15, S25).
+
+Ce qui ne passait pas, et la réponse :
+1. **Les yeux dans le noir sont trop petits et trop immobiles** (2 à 4 % de la largeur du cadre, pupilles de 3 px ; S22 surtout : trois paires au lieu de
+   « tous les yeux de la rue »). → un plancher de 5 % de la largeur pour tout œil qui porte un battement ; `darkEyes` de 2,2 à 3 dans tous les plans
+   sombres ; S22 refait : le héros seul à gauche, dix paires qui s'ouvrent en vague (deux fenêtres, des passants, un chat), toutes se plissent sur lui,
+   regard à gauche, à droite, trois pas sur la pointe des pieds avec un plongeon des yeux à chaque pas, toutes les pupilles le suivent.
+2. **L'accroche (S01, S04)** : le bras étiré partait dans l'axe de l'objectif, l'interrupteur crème sur mur crème. → mise en scène en travers du cadre,
+   interrupteur orange sur plaque claire et panneau gris, doigt retenu quatre images avant la tape.
+3. **S15** : les yeux dans la fenêtre de l'enveloppe n'avaient que cinq images. → l'enveloppe tombe 0,1 s plus tôt, les yeux s'ouvrent deux images après,
+   clignent avant la coupe.
+4. **S13** : les amoureux brouillés. → de face, cœurs dès la troisième image, ils se penchent (flexion latérale, cette fois dans la bonne case) et
+   glissent l'un vers l'autre, le cœur éclate où ils se touchent, la troisième paire s'ouvre entre eux, regard à gauche, à droite, descente lente.
+5. **Contenu dans ou sous la bande des sous-titres** (fenêtres de S03 et S05, cadran de S07, tube de S23). → une maison en face avec trois grandes
+   fenêtres entre 58 et 72 % de la hauteur (`nearHouse`) ; compteur tenu à hauteur de poitrine ; télescope refait (laiton, le plus large côté ciel,
+   bagues, reflet sur la lentille), oculaire à hauteur d'œil, faisceau de torche peint à bords doux, vers le ciel vide.
+6. **Recouvrements** : l'électricien devant le maire (S06) → il arrive en glissant sur les genoux, le doigt du maire passe au-dessus de lui ; têtes de
+   profil trois plans de suite → l'électricien reste de trois quarts, seuls ses yeux vont au héros ; l'homme au chapeau derrière la tête du héros
+   (S20, S21) → la foule est replacée, la dame à côté de lui, son bras traverse le cadre jusqu'à son poignet ; étiquette GÉNÉRAL sur un œil → plus
+   petite, sur la ligne des cheveux ; bâillement grandeur nature (S10) → bras qui sortent du cadre en Y étroit, mâchoire au nœud de cravate.
+7. **Les rares lumières dans le noir** : l'allumette éclairait toute la rue, la bougie n'éclairait rien. → nouveau réglage de plan `darkPool` : une
+   flaque de lumière autour d'un accessoire (rayon en mètres, teinte), qui retombe au noir vers les bords.
+8. **Tenues gelées** → la paume qui fait signe (S16), le hochement de tête de celui qui s'endort (S11), le gros plan de la facture devient le double
+   regard du film (S14).
+
+Erreur trouvée dans cette passe : des pas rapides écrits par `to` (0,24 m en 0,07 s) nourrissent les couches automatiques du rig (traînée de la colonne,
+écrasement vertical) au point de coucher le personnage sur le côté. Réponse : un glissé par pas et les plongeons écrits à la main, avec `auto: 0`.
+Autre erreur : à trois mètres de la caméra, le corps noir du héros cachait les paires d'yeux placées « à ses pieds » ; il est reculé derrière elles et ses
+yeux sont agrandis d'autant (`darkEyes` 5,2).

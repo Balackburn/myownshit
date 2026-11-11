@@ -32,10 +32,11 @@ const ShaftShader = {
 };
 const GradeShader = {
   uniforms: { tDiffuse: { value: null }, sat: { value: 1.12 }, contrast: { value: 1.05 }, vignette: { value: 0.18 }, warm: { value: 1.0 }, lift: { value: 0.035 }, tint: { value: new THREE.Vector3(1, 1, 1) },
-    dark: { value: 0 }, darkFloor: { value: 0.05 }, darkTint: { value: new THREE.Vector3(0.55, 0.72, 1.0) } },
+    dark: { value: 0 }, darkFloor: { value: 0.05 }, darkTint: { value: new THREE.Vector3(0.55, 0.72, 1.0) },
+    pool: { value: new THREE.Vector4(0.5, 0.5, 0.2, 0) }, poolTint: { value: new THREE.Vector3(1, 1, 1) }, aspect: { value: 0.5625 } },
   vertexShader: vertex,
   fragmentShader: `
-    uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm, lift, dark, darkFloor; uniform vec3 tint, darkTint; varying vec2 vUv;
+    uniform sampler2D tDiffuse; uniform float sat, contrast, vignette, warm, lift, dark, darkFloor, aspect; uniform vec3 tint, darkTint, poolTint; uniform vec4 pool; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb; float l = dot(c, vec3(0.299, 0.587, 0.114));
       c = c * (1.0 - lift * 1.43) + lift;   // lift the shade: navy suits and black robes keep their detail
@@ -45,7 +46,11 @@ const GradeShader = {
       c *= tint;   // a per-shot colour cast (a cold September morning, a warm memory)
       float v = smoothstep(1.05, 0.38, length((vUv - 0.5) * vec2(1.0, 1.15))); c *= mix(1.0 - vignette, 1.0, v);
       c = clamp(c, 0.0, 1.0);
-      if (dark > 0.001) c = mix(c, darkTint * (darkFloor * dot(c, vec3(0.299, 0.587, 0.114))), dark);   // the lights are off (scene dark keys): the picture falls to a faint cold silhouette, or to black (darkFloor 0)
+      if (dark > 0.001) {   // the lights are off (scene dark keys): the picture falls to a faint cold silhouette, or to black (darkFloor 0)
+        float pk = 0.0;   // a pool of light in the black (scene darkPool: a match, a candle): the picture comes back round one point and falls off to the black
+        if (pool.w > 0.001) { float d = length((vUv - pool.xy) * vec2(aspect, 1.0)) / max(pool.z, 0.0001); pk = pool.w * (1.0 - smoothstep(0.15, 1.0, d)); }
+        c = mix(c * mix(vec3(1.0), poolTint, min(1.0, pk * 1.5)), darkTint * (darkFloor * dot(c, vec3(0.299, 0.587, 0.114))), dark * (1.0 - pk));
+      }
       gl_FragColor = vec4(c, 1.0);
     }`,
 };
@@ -137,6 +142,9 @@ export function createLook(stage, W, H, o = {}) {
     outdoor: true, shaftsK: 1, probeDirty: false, dark: 0,
     // scene `dark` (engine/director3.js): k 0..1, floor: what is left of the picture (0.05: faint silhouettes; 0: black), tint: the colour of that rest
     setDark(k, floor = 0.05, tint = null) { look.dark = k; grade.uniforms.dark.value = k; grade.uniforms.darkFloor.value = floor; if (tint) { const c = new THREE.Color(tint); grade.uniforms.darkTint.value.set(c.r, c.g, c.b); } else grade.uniforms.darkTint.value.set(0.55, 0.72, 1.0); },
+    // scene `darkPool`: a pool of light in a dark shot: k (0..1: how much of the picture comes back at its centre), at the screen point (u, v) (0..1, v up),
+    // r (its radius, as a part of the frame height), tint, aspect (width / height of the frame)
+    setPool(k = 0, u = 0.5, v = 0.5, r = 0.2, tint = null, aspect = 0.5625) { grade.uniforms.pool.value.set(u, v, r, k); grade.uniforms.aspect.value = aspect; if (tint) { const c = new THREE.Color(tint); grade.uniforms.poolTint.value.set(c.r, c.g, c.b); } else grade.uniforms.poolTint.value.set(1, 1, 1); },
     // per scene: retune the rig set by setLighting / atmosphere (called from setupScene)
     setupLights(L, set, sc = {}) {
       const indoor = (set.userData.lighting || 'day') === 'interior' || (set.userData.lighting === 'dark') || sc.indoor === true;
