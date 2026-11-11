@@ -4119,6 +4119,12 @@
        ]
       ],
       "glass": 0.14,
+      "signHide": [
+       [
+        1.08,
+        9
+       ]
+      ],
       "sign": "SERVICE\nPUBLIC",
       "signBg": "#2A4B9B",
       "signFg": "#F4F1E8",

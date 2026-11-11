@@ -142,7 +142,7 @@ st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
             k(SNAP9 + 0.09, clip='pressGlass', expr='dizzy', blend=0.02), k(SNAP9 + 0.09, toon=GRIP(166, sq=FLAT9, scl={'handR': [1.6, 1.6, 1]}, hands={'L': 'grip', 'R': 'spread'}, face={'stars': 1, 'mouth': 'o', 'mouthW': 0.6}), toonDur=0.02),   # flat between the wall and the glass, a palm spread on it
             k(SNAP9 + 0.44, toon=GRIP(OPEN, sq=FLAT9, face={'stars': 1}), toonDur=0.18, toonEase='inOut'),   # the leaf comes back, his arm goes with it; he stays on the wall, as thin as a poster,
             k(SNAP9 + 0.54, clip='poster', params={'high': 0.1, 'slideAt': 0.24, 'slide': 0.3, 'peelK': 1.5, 'stars': 1}, expr='dizzy', blend=0.05)])],   # and comes off it head first, like wallpaper, sliding down: half a second of it
-        props=[DOOR(swing=SWING9, glass=0.14, **PUBLIC), BEARD(), WEB(keys=[k(GO9, visible=False)]), CAP()],
+        props=[DOOR(swing=SWING9, glass=0.14, signHide=[[SNAP9 - 0.02, 9]], **PUBLIC), BEARD(), WEB(keys=[k(GO9, visible=False)]), CAP()],   # (the sign put away for the close frame at the wall: its lower line stuck into the top corner)
         fx=[{'type': 'shake', 'at': SNAP9 + 0.09, 'dur': 0.18, 'amount': 0.03}],
         cams=[cam(0.0, [4.6, 1.6, -7.0], [4.65, 1.6, -6.9], [9.2, 0.95, -2.0], [9.2, 0.95, -2.0], lens=44),   # three quarters along the shop front, tilted down: his feet spin above the caption band
               glide([cam(SNAP9 - 0.02, [6.6, 1.5, -2.2], [6.65, 1.5, -2.18], [9.9, 1.42, -1.0], [9.9, 1.42, -1.0], lens=44)], 0.1)])   # back with him to the wall: his cap and the stars inside the frame   # the camera goes back with him to the wall, under the sign
