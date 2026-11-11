@@ -92,8 +92,27 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Avalé puis recraché par le matelas | une vingtaine d'images : entrée assis (3), le matelas se creuse et le garde (`hold`, 4 images), il le recrache roulé en boule (`cannonball`, un tour sur le vol, `arc`), atterrissage écrasé (`land` + `sq [1.5, 0.58, 1.0]`), il se relève sonné | 38 S17 |
 | Les villes qui s'allument d'un coup | `townLights pop` (toutes les fenêtres en une image) sous un halo (`glow`, `glowK`), une ville à côté de chaque mât, à l'instant où son rotor atteint sa vitesse, la dernière 13 images avant la coupe ; flou du rotor en trois fantômes (`ghosts: 3, blurSpread: 4`) | 38 S17 |
 | Décollé tête la première comme du papier peint | `poster` avec `peelK: 3` | 38 S03 |
+| Le bras « corde à linge » (gag à répétition du film : le bras reste) | main guidée sur la poignée (`reach` vers `handle(deg)`, mêmes nombres que l'accessoire) ; il s'éloigne de CÔTÉ sur la pointe des pieds (`sneak`), le bras se paie comme un élastique ; au bout, ses pieds patinent (`scramble`, 0,35 s) et le bras tendu vibre (`wave` : `RIP(0.08, phase)`), puis il le ramène en 3 images | 39 S09 |
+| Pressé derrière la vitre, puis affiche | le battant se rabat sur lui (`swing` à 166°) : `pressGlass` + `sq [1.9, 1.0, 0.09]` (presque deux fois sa largeur, pas plus épais que la vitre), une paume étalée (`scl handR`), vitre éclaircie (`shopDoor glass: 0.14`) ; le battant revient, il reste sur le mur (`poster`, tenu 0,24 s avant de se décoller) | 39 S09 |
+| La casquette qui l'enfonce | elle traverse le haut du cadre (4 images visibles, `ease in`), s'écrase (`squash`), lui aussi : `sq [1.45, 0.55, 1.45]` tenu 7 images pendant que seules les pupilles montent (`gy −1`) ; la caméra descend avec lui (`glide` 0,1 s) puis remonte ; ressort avec dépassement `[0.9, 1.14, 0.9]` | 39 S08 |
+| Le cou par-dessus la file | `bend neck [0, bz, 0, 15, 0.55]` (quinze fois sa longueur, aminci) + `wave neck` à bout libre : il monte en 0,3 s (`outBack`) quand la caméra arrive, puis oscille ; la tête contre le ciel, entre 20 et 35 % de la hauteur | 39 S10 |
+| Le temps qui passe sur lui | une barbe (accessoire attaché à la tête) qui grandit d'un cran à chaque passant (`scale` par clés `outBack`), une toile d'araignée entre son bras et la porte, une casquette, un pigeon : chaque couche reste dans les plans suivants | 39 S02 à S17 |
+| La tête de match de tennis | `look` alterné entre deux points DEVANT lui (le visage reste vers nous), de plus en plus vite (écarts de 0,26 à 0,08 s) ; son poing gonfle (`scl handR` ×1,7 sur 0,8 s) | 39 S05 |
+| Le bras resté à la porte, de nuit | à travers la vitre du battant (`glass: 0.03`, `inner: False`), caméra à 2,3 m : la main sur la poignée en bas, la manche qui monte dans l'image jusqu'à lui, qui s'éloigne voûté et salue sans se retourner ; deux pigeons endormis dessus (`pigeon sleep`, ils suivent le bras qui se paie) ; flaques chaudes (`streetLamp pool`) | 39 S11 |
+| L'onde qui vient le chercher dans son lit | `wave` sur le bras qui sort par la fenêtre, phase décroissante (elle arrive vers lui), puis il part en 3 images et finit à plat sur le mur DANS SA POSE DE SOMMEIL (`stiffStand`, yeux fermés, tête penchée, l'oreiller attaché à sa tête à l'instant du départ, une bulle « Zzz » qui revient) | 39 S12 |
+| Le garde qu'on tapote | plan à deux depuis les hanches ; trois tapes de l'index (`reach` aller-retour) : à chacune sa tête bascule sur son cou comme un punching-ball (`bend neck [0, 0, a, 1.12]`, retour au-delà de la verticale), ses pupilles sur le doigt, rien d'autre ne bouge ; le téléphone à bout de bras, un `flash` | 39 S13 |
+| Appuyer sans regarder | un coup d'œil des pupilles seules vers la boîte (0,25 s), puis le bras part en arrière vers le bouton, un sourcil levé ; pressé, clin d'œil (`lidR: 1`, `mouth: 'smirk'`) ; le visage ne quitte pas la caméra | 39 S15 |
+| Le poing qui ne tient plus rien | gros plan presque de face : le poing levé devant la poitrine ; regard sur le poing, sur la porte (pupilles), sur le poing ; écrasement d'élan (2 images), puis le take vers NOUS, les pupilles des yeux sortis baissées sur le poing (`eyeYaw`, `eyePitch`) ; il retombe sur les premières images du plan suivant | 39 S16 |
+| Le bras qu'on rabat et qui remonte | il le regarde, pose l'autre main dessus et pousse, de côté, devant la porte claire : l'avant-bras plie comme un plongeoir et tremble ; il lâche : il reste en bas ; soupir, yeux fermés (14 images) ; ses yeux y vont AVANT qu'il bouge ; il remonte en 2 images, dépasse la poignée, onde ; la porte s'ouvre pour personne ; regard tenu | 39 S17 |
+| L'interrupteur au bout du bras, puis le noir | la main guidée va chercher l'interrupteur à l'autre bout de la pièce ; au clic : plan `dark` (grade en post), seuls ses yeux restent (`darkEyes`), la caméra glisse vers eux | 40 S01 |
+| Des yeux qui marchent dans le noir | deux yeux traversent le cadre, se cognent à une porte vitrée (spirales), glissent ; une ville qui s'éteint par vagues, puis la tour (`cityNight keys`, `towerLag`), des yeux dans les fenêtres | 40 S02, S03 |
+| La cravate tirée comme le cordon d'une lampe (gag à répétition, trois variations) | canal `tie [longueur, avant, côté]` : l'électricien la tire (deux paires d'yeux dans le noir) ; il la tire lui-même au balcon, Paris s'éteint derrière lui ; à la bougie : la flamme et les yeux restent | 40 S08, S11, S17 |
+| L'étiquette claquée sur le front | accessoire attaché à la tête (`[0, 0.4, 0.094]`), `squash` à l'impact, la tête part en arrière | 40 S09 |
+| Ce qui reste dans le noir | deux cambrioleurs éclairés par une allumette ; elle s'éteint : leurs sourires restent ; les amoureux : des yeux en cœur, puis une troisième paire | 40 S12, S13 |
+| Entrer fin comme du papier | `paperThin` posé à 0 avec un déplacement `glide=True` : il passe de profil par l'entrebâillement, puis reprend son épaisseur d'un coup | 40 S16 |
+| Le soleil a un visage, et s'éteint comme une ampoule | `sunLamp` (disque avec visage, `scareAt`, `offAt`) ; la main qui monte à la cravate, la foule qui tend le bras ; noir : les yeux de tous | 40 S18 à S22 |
 
-Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperThin`, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes`. Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
+Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
 
@@ -256,3 +275,43 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `paperTh
   finissait par un commentaire alors que la ligne continuait. Règle : dans un remplacement, jamais de commentaire en fin de chaîne sauf si la chaîne
   remplacée finissait la ligne ; mettre le commentaire sur sa propre ligne au-dessus. `node --check` et l'exécution du script Python l'ont attrapé.
 - (cycle 3) Lancer le rendu final pendant la dernière relecture ne sert à rien si elle touche plus d'un tiers des plans : attendre les deux rapports.
+- (cycle 4, 1re relecture de « La porte » : 6,6 / 6,6) **Un take doit regarder sa cause.** Le sursaut partait à l'opposé de la main vide : caméra à moins
+  de 30° de l'axe du personnage (au-delà, `look` vers la caméra est borné et le visage reste de trois quarts arrière), tête vers nous, pupilles des yeux
+  sortis tournées vers la cause (`eyeYaw`, `eyePitch` > 0 = vers le bas), la cause remontée près du visage (le poing devant la poitrine : à hauteur de
+  poignée, 1,1 m, une main tombe dans la bande des sous-titres en plan moyen). Yeux au moins aussi gros que dans le premier take du film.
+- (cycle 4) **Une chute muette demande du temps d'image après la voix** : geste, tenue du soulagement (10 à 14 images), les yeux qui y vont d'abord, le
+  retour en 2 images avec dépassement, dernière tenue de plus d'une demi-seconde. Compter 2 s après la dernière phrase (`place_narration.py --tail 2.0`),
+  pas 1,3 s : les deux relecteurs ont noté la chute « sans temps suspendu » à 1,3 s.
+- (cycle 4) Une pose aplatie ou tassée se tient 7 images au moins, et la caméra la suit (`glide` vers le bas en 0,1 s, retour avec lui) : tassé à 55 %,
+  son visage tombait dans la bande des sous-titres. Deux aplatissements du même film ne prennent jamais la même pose (affiche sur le mur, puis endormi
+  sur le mur avec son oreiller) ; les yeux en spirale une seule fois par film.
+- (cycle 4) Un membre étiré vu dans son axe ne se lit pas non plus de nuit : le bras partait droit devant la caméra, caché derrière deux pigeons. Monter
+  la caméra (2,3 m) pour que la ligne MONTE dans l'image (main à 73 %, épaule à 37 %) ; `proj.py` sur la main, l'épaule, la tête avant de rendre.
+- (cycle 4) La poignée d'une porte ouverte à 80° est sur la face tournée vers le personnage : toute caméra placée de l'autre côté voit la main derrière
+  le montant. Filmer à travers la vitre (`glass: 0.03`) depuis le côté du mur, et ôter la barre intérieure (`inner: False`).
+- (cycle 4) Nuit : un cône de lumière translucide dessiné dans la passe des objets `inDark` voile le personnage (il n'est pas dans cette passe). Pas de
+  cône (`glow: False`) : des flaques plates au sol (`streetLamp pool`), le personnage en silhouette entre deux flaques, grade un peu plus clair (0,62).
+  Une fenêtre éclairée vue en enfilade se lit comme une planche jaune : l'ôter.
+- (cycle 4) Un oiseau endormi garde sa silhouette : tête sur les épaules, penchée, yeux fermés ; la tête rentrée dans le corps en fait une boîte grise.
+- (cycle 4) `at(objet, x, y, z)` REMET LA ROTATION À ZÉRO : passer la rotation en arguments (`at(d, x, y, z, -PI / 2)`), sinon un disque posé au sol
+  reste debout (deux dômes pâles devant le personnage).
+- (cycle 4) `look='personnage'` tourne la tête vers lui : de face caméra elle passe de profil (le maire sans visage pendant qu'il pointe). Garder la tête
+  de trois quarts (`look=None`, `face=` vers la caméra) et envoyer les pupilles (`face.gx`).
+- (cycle 4) Un personnage qui doit arriver dans le plan : dans le cadre dès la coupe (calculer le bord du cadre à sa profondeur), sinon 0,4 s d'image
+  arrêtée. Même règle pour un départ : l'action commence à l'image 2, pas après deux regards.
+- (cycle 4) Enseigne dont un plan serré ne montre qu'un coin : la ranger pour ce cadre (`shopDoor signHide [[t0, t1]]`, ou `visible=False` à la coupe
+  pour une plaque), plutôt que de la laisser coupée. Vérifier avec `proj.py` le coin de l'enseigne dans CHAQUE cadre serré.
+- (cycle 4) Veste, casque et peau de la même famille de couleur (orange, jaune, peau) : le personnage se fond. Changer la tenue par les options du
+  personnage (`suit`, `cuff`, `pants`, `lapel`, `hatColor`) : bleu de travail et casque blanc.
+- (cycle 4) Ceux qui traversent un plan en courant : soit en travers du premier plan, entre la caméra et le sujet (trois traînées), soit entiers dans le
+  cadre ; un passant dont le cadre ne garde qu'une tranche se lit comme un défaut.
+- (cycle 4) Yeux dans le noir : le rig facial est sur la face avant de la tête : tourner le visage vers la caméra, sinon rien ne reste. `visible` d'un
+  objet three.js doit être un booléen (`!!(…)`) : `undefined` se dessine. L'échelle et la visibilité propres à un accessoire se posent sur un groupe
+  intérieur (le moteur pilote la racine). Pour que les accessoires `inDark` gardent le même aspect dans un plan éclairé du même lieu : `dark=[[0, 0, 0.001]]`.
+- (cycle 4) Une couleur sombre non éclairée (`MeshBasicMaterial`) ressort plus saturée après le mappeur de tons (son pied retire le canal minimum) :
+  régler les couleurs d'un ciel de nuit sur une image rendue.
+- (cycle 4) Un déplacement sans clip (`k(t, to=…)`) passe à une marche et écrase le clip en cours : `glide=True` pour glisser dans la pose tenue.
+- (cycle 4) Repères du personnage de la série : base de la tête 1,77 m, sommet 2,27 m, yeux entre 2,05 et 2,14 m, bouche 1,885 m, épaules 1,63 m, main
+  pendante 0,95 m ; une casquette : `offset [0, 0.5, 0]` sur la tête.
+- (cycle 4) Planches de contrôle : compter les colonnes avant de conclure. Trois fois une « anomalie au bord gauche » était le bord droit de la vignette
+  voisine (la main du maire qui entrait, un personnage au bord du cadre).

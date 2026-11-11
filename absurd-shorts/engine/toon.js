@@ -27,7 +27,7 @@
 //           heights), tongue: 0..1 (tongueLen in m), steam: 0..1 (ears), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
-//           eyeYaw / eyeRoll (rad: the popped eyeballs turn on their stalks), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
+//           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
 //           lid: 0..1 (the painted eyes close: a keyed blink), cross: 0..1 (cross-eyed),
 //           one feature at a time, one side at a time, as offsets from the expression in place (0 = unchanged; L = the left of the picture when he faces us,
 //           his own right eye: the high one): brow / browL / browR (1 = up to the hairline, -1 = down on the eye), browTilt / browTiltL / browTiltR (deg, > 0 lifts the inner end),
@@ -174,7 +174,7 @@ function headOverlays(head, hm, dim, skin) {
       const cx = -Math.sign(E.e.position.x) * E.r * 0.5 * (f.cross || 0); E.pupil.position.x = cx; E.sign.position.x = cx;   // face.cross 0..1: the pupils go to the nose
       // face.eyeYaw / eyeRoll (rad): the eyeballs turn at the end of their stalks (yaw: the pupils go to one side, e.g. to a camera that films the stalks
       // from the side; roll: round the stalk, a look round). face.stalkRed 0..1: the stalks go from skin to pink (they read on a pale ground)
-      E.ball.rotation.set(0.05 * Math.sin(t * 23 + E.ph) * pop, (f.eyeYaw || 0) + 0.07 * Math.sin(t * 19 + E.ph) * pop, f.eyeRoll || 0);
+      E.ball.rotation.set((f.eyePitch || 0) + 0.05 * Math.sin(t * 23 + E.ph) * pop, (f.eyeYaw || 0) + 0.07 * Math.sin(t * 19 + E.ph) * pop, f.eyeRoll || 0);
       E.lid.visible = (f.popBlink || 0) > 0.5; E.bow(Math.sign(E.e.position.x) * (f.stalkBow || 0) / th);
       E.stalk.material.color.copy(E.skin0).lerp(STALK_RED, f.stalkRed || 0);
     }

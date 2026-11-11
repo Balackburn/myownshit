@@ -18,12 +18,14 @@ export const doorHandle = (w = 1.0, deg = 0, slide = 0) => { const a = deg * PI 
 export const PORTE_PROPS = {
   // a shop entrance: two jambs and a lintel, a sign band above (o.sign), a glass door leaf hinged on the left jamb with a long bar handle on its outer face.
   // o.swing [[t, degrees], ...]: how far the leaf is open (0 closed, 80 held open toward +Z); o.slide [[t, metres], ...]: the leaf slides sideways into the wall
-  // (it was automatic all along); o.led [t]: the sensor above the door turns from red to green at that time. Origin: the middle of the threshold
+  // (it was automatic all along); o.led [t]: the sensor above the door turns from red to green at that time; o.signHide [[t0, t1], ...]: the sign is put
+  // away between those times (a close shot that would show a corner of it). Origin: the middle of the threshold
   shopDoor(o) {
     const w = o.w ?? 1.0, h = o.h ?? 2.5, fr = o.frame || '#2E4A3F', sign = o.sign || 'BOULANGERIE', sw = o.signW ?? w + 1.5;
     const g = grp(at(box(0.14, h + 0.14, 0.2, fr, { outline: 0.008 }), -w / 2 - 0.07, (h + 0.14) / 2, 0), at(box(0.14, h + 0.14, 0.2, fr, { outline: 0.008 }), w / 2 + 0.07, (h + 0.14) / 2, 0), at(box(w + 0.28, 0.14, 0.2, fr, { outline: 0.008 }), 0, h + 0.07, 0));
+    let signG = null;
     if (o.sign !== false) { const band = canvasPlane(sw, 0.6, (c, W, H) => { c.fillStyle = o.signBg || '#F6E7C8'; c.fillRect(0, 0, W, H); c.strokeStyle = fr; c.lineWidth = H * 0.06; c.strokeRect(H * 0.05, H * 0.05, W - H * 0.1, H * 0.9); txt(c, sign, W / 2, H * 0.54, fit(c, sign, W * 0.86, H * 0.6), o.signFg || '#7A3B1E'); }, { res: 768 });
-      g.add(at(box(sw + 0.08, 0.68, 0.1, fr, { outline: 0.008 }), 0, h + 0.14 + 0.36, 0.02), at(band, 0, h + 0.14 + 0.36, 0.075)); }
+      signG = grp(at(box(sw + 0.08, 0.68, 0.1, fr, { outline: 0.008 }), 0, h + 0.14 + 0.36, 0.02), at(band, 0, h + 0.14 + 0.36, 0.075)); g.add(signG); }
     // what is seen through the doorway: a warm bakery (shelves, loaves, a counter), painted on a plane just behind the leaf (o.inside false: a dark hall)
     g.add(at(o.inside === false ? box(w, h, 0.02, '#2A2420') : canvasPlane(w, h, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#F6D38A'); gr.addColorStop(1, '#C98A3E'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
       for (let i = 0; i < 4; i++) { const y = H * (0.16 + i * 0.15); c.fillStyle = '#7A4A22'; c.fillRect(W * 0.06, y, W * 0.88, H * 0.018); for (let k = 0; k < 5; k++) { c.fillStyle = k % 2 ? '#D99A45' : '#C27A2E'; c.beginPath(); c.ellipse(W * (0.16 + k * 0.17), y - H * 0.03, W * 0.07, H * 0.026, -0.3, 0, TAU); c.fill(); } }
@@ -33,8 +35,9 @@ export const PORTE_PROPS = {
     const glass = at(box(w - 0.06, h - 0.08, 0.02, '#BFE3EE'), w / 2, h / 2, 0); glass.material = glassMat(o.glass ?? 0.34, '#BFE3EE'); glass.castShadow = false;   // o.glass: how much the pane veils what is behind it (0.34; 0.14 for somebody pressed behind it who must stay readable)
     piv.add(glass, at(box(w, 0.07, 0.05, '#8A9097'), w / 2, 0.035, 0), at(box(w, 0.07, 0.05, '#8A9097'), w / 2, h - 0.035, 0), at(box(0.07, h, 0.05, '#8A9097'), 0.035, h / 2, 0), at(box(0.07, h, 0.05, '#8A9097'), w - 0.035, h / 2, 0),
       at(cyl(0.022, 0.022, 0.62, '#D9B45A', 8, { outline: 0.006 }), w - 0.12, 1.1, 0.07), at(box(0.03, 0.03, 0.07, '#D9B45A'), w - 0.12, 1.36, 0.035), at(box(0.03, 0.03, 0.07, '#D9B45A'), w - 0.12, 0.84, 0.035),
-      at(cyl(0.022, 0.022, 0.62, '#D9B45A', 8), w - 0.12, 1.1, -0.07));
+      ...(o.inner === false ? [] : [at(cyl(0.022, 0.022, 0.62, '#D9B45A', 8), w - 0.12, 1.1, -0.07)]));   // o.inner false: no bar on the inner face (a shot through the pane at the hand that holds the outer one)
     g.userData.update = t => { piv.rotation.y = -keyed(o.swing, t, ease.inOut) * PI / 180; track.position.x = keyed(o.slide, t, ease.inOut);
+      if (signG) signG.visible = !(o.signHide || []).some(([a, b]) => t >= a && t < b);   // o.signHide [[t0, t1], ...]: the sign is put away for a close shot whose frame would cut it in two
       const on = o.led != null && t >= o.led; led.material.color.set(on ? '#3CC46E' : '#E8322A'); led.material.emissive.set(on ? '#3CE07A' : '#FF3B2A'); };
     g.userData.update(0); return g;
   },
@@ -104,10 +107,12 @@ export const PORTE_PROPS = {
     const G = '#8E98A6', D = '#6E7A8A', body = at(box(0.13, 0.12, 0.22, G, { outline: 0.008, taper: { x: 0.8, z: 0.7 } }), 0, 0.1, 0), breast = at(sphere(0.075, '#9AA4B2', 1), 0, 0.105, 0.07), tail = at(box(0.09, 0.02, 0.13, D, { outline: 0.006, taper: { x: 1.5, z: 1 }, taperAxis: 'z' }), 0, 0.09, -0.16, 0.25, 0, 0);
     const head = grp(at(box(0.07, 0.07, 0.075, D, { outline: 0.006 }), 0, 0, 0), at(box(0.02, 0.018, 0.045, '#E8A33C'), 0, -0.008, 0.055), at(box(0.074, 0.03, 0.06, '#5E8F6E'), 0, -0.045, -0.002), at(box(0.072, 0.02, 0.058, '#8A6AA8'), 0, -0.068, -0.002),
       at(sphere(0.012, '#17161A', 0), 0.036, 0.008, 0.014), at(sphere(0.012, '#17161A', 0), -0.036, 0.008, 0.014)); head.position.set(0, 0.2, 0.1);
+    const eyes = head.children.slice(-2);
     const wl = at(box(0.02, 0.08, 0.17, D), -0.072, 0.11, -0.02), wr = at(box(0.02, 0.08, 0.17, D), 0.072, 0.11, -0.02), g = grp(body, breast, tail, head, wl, wr, at(box(0.012, 0.05, 0.012, '#D98A8A'), -0.03, 0.025, 0.01), at(box(0.012, 0.05, 0.012, '#D98A8A'), 0.03, 0.025, 0.01));
     const ph = o.ph ?? 0;
     g.userData.update = t => { const fly = o.flyAt != null ? Math.max(0, t - o.flyAt) : 0, fl = !!(o.flap && t >= o.flap[0] && t < o.flap[1]);
-      if (o.sleep) { head.position.set(0, 0.15, 0.05); head.rotation.x = 0.5; body.scale.set(1.12, 1.12 + 0.04 * Math.sin(t * 2 + ph), 1); }
+      if (o.sleep) { const br = Math.sin(t * 2.6 + ph); head.position.set(0, 0.198 + 0.008 * br, 0.07); head.rotation.set(0.25, 0, 0.35); body.scale.set(1.18, 1.14 + 0.07 * br, 1.05); breast.scale.setScalar(1.12 + 0.06 * br);   // asleep: fluffed up, its head on its shoulders and on one side (the bird's outline stays), the beak down,
+        for (const e of eyes) e.scale.set(1, 0.22, 1.5); }                                                                                                                                                              // its eyes two shut lines; it breathes
       else { head.position.z = 0.1 + 0.02 * Math.max(0, Math.sin(t * 7 + ph)); head.position.y = 0.2 - 0.03 * Math.max(0, Math.sin(t * 2.3 + ph * 2)); }
       wl.rotation.z = fly || fl ? 1.2 * Math.sin((fly || t) * 40) + 0.6 : 0; wr.rotation.z = fly || fl ? -1.2 * Math.sin((fly || t) * 40) - 0.6 : 0;
       if (o.flyAt != null) { g.position.y = (g.userData.y0 ??= g.position.y) + fly * 6 * fly + (fly ? 0.3 : 0) * Math.min(1, fly * 10); g.position.x = (g.userData.x0 ??= g.position.x) + fly * 3; g.visible = fly < 0.8; } };

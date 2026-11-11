@@ -776,6 +776,8 @@ const B = {
     if (on && o.glow !== false) { const c = noShadow(new THREE.Mesh(new THREE.ConeGeometry(1.5, H - 0.2, 12, 1, true), new THREE.MeshBasicMaterial({ color: '#FFE2A0', transparent: true, opacity: 0.09, depthWrite: false, side: THREE.DoubleSide })));
       g.add(at(c, 0.85, (H - 0.2) / 2, 0)); }
     if (on && o.light) { const l = new THREE.PointLight('#FFD9A0', o.light === true ? 6 : o.light, 9, 1.4); l.position.set(0.85, H - 0.35, 0); g.add(l); }
+    if (on && o.pool) { const r = o.pool === true ? 1.7 : o.pool;   // o.pool (radius): the lamp's pool of light on the ground, two flat warm discs (a night shot graded in post dims the real light: this stays)
+      for (const [k, a] of [[1, 0.2], [0.62, 0.22]]) { const d = noShadow(new THREE.Mesh(new THREE.CircleGeometry(r * k, 20), new THREE.MeshBasicMaterial({ color: '#FFDFA6', transparent: true, opacity: a, depthWrite: false }))); g.add(at(d, 0.85, 0.02 + 0.004 * (1 - k), 0, -PI / 2)); } }
     g.userData.lamp = [0.85, H - 0.15, 0]; return g;
   },
   trafficCone() {
