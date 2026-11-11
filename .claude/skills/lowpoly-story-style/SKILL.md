@@ -451,5 +451,14 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
   rendu complet a été tué à 740 images sur 904. Lancer les rendus longs détachés (`nohup bash -c "…" > /dev/null 2>&1 &`) et les suivre par leur
   journal. Si un rendu est coupé : ses segments `out/work/story_<S>_render/seg_N.mp4` sans index se récupèrent avec
   `python3 tools/recover_mp4.py seg_N.mp4 <un segment terminé ou un ancien rendu de même format> seg_N.h264` (les images sont dans l'ordre : le
-  segment N commence à l'image N × ceil(total / workers)) ; écarter les huit dernières images de chaque segment récupéré, rendre les plages
-  manquantes avec `--range`, tout réunir en un seul encodage (filtre `concat`), vérifier le nombre d'images.
+  segment N commence à l'image N × ceil(total / workers)) ; ré-encoder chaque flux récupéré (`ffmpeg -r 30 -i seg_N.h264 -c:v libx264 -crf 12
+  -r 30 rec_N.mp4` : donné brut au filtre `concat`, il ressort avec 40 000 images), écarter les huit dernières images de chaque segment récupéré,
+  rendre les plages manquantes avec `--range`, tout réunir en un seul encodage (filtre `concat`), vérifier le nombre d'images, puis la continuité
+  de la luminance moyenne de part et d'autre de chaque raccord.
+- (cycle 5) **La lumière d'un plan** (sonde de lumière rebondie, exposition automatique) est mesurée sur la première image rendue dans ce plan :
+  une plage `--range` commencée au milieu d'un plan sortait plus sombre d'un diaphragme pendant deux images (l'enveloppe blanche emplissait le
+  cadre au moment de la mesure). Corrigé dans le moteur : en entrant dans un plan par son milieu (plage, part d'un processus de rendu, image
+  fixe), il mesure d'abord sur la première image du plan. Les images fixes de contrôle ont donc maintenant la lumière du film.
+- (cycle 5, méthode) Dans une boucle d'attente, `pgrep -f nom` lancé depuis `bash -c "… nom …"` se trouve lui-même (attente sans fin), et
+  `pgrep -f "a\|b"` ne fait pas d'alternative (il n'a rien trouvé alors que le rendu tournait) : attendre une ligne dans un journal, ou deux
+  appels séparés.

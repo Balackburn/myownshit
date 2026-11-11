@@ -1079,7 +1079,11 @@ export function renderFrame(tAbs) {
   if (!S) throw new Error('load() first');
   const t = Math.min(tAbs, S.total - 1e-4);
   let si = S.script.scenes.findIndex(sc => t >= sc.start && t < sc.start + sc.duration); if (si < 0) si = S.script.scenes.length - 1;
-  if (si !== S.scene) setupScene(si);
+  if (si !== S.scene) { setupScene(si);
+    // The light probe and the exposure of a shot are measured on the first frame rendered in it (engine/look.js). When a render enters a shot in
+    // its middle (a worker's share of the film, --range, a still), measure them on the shot's own first frame first: every frame of a shot then
+    // gets the same light whatever the way the film was cut up for rendering (two frames of a range started mid-shot came out a stop darker).
+    if (S.look && t - S.sc.start > 0.02) { const cam0 = S.stage.camera; S.dark = darkAt(S.sc, 0); evalAll(0); lightCycle(0); placeCamera(0); darkPool(0); for (const o of S.follow || []) o.position.copy(cam0.position); camLocked(cam0); S.look.render(); } }
   const sc = S.sc, lt = t - sc.start;
   const { renderer, scene, camera } = S.stage;
   const g = S.ctx;

@@ -934,3 +934,28 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   optionnels et ne modifient aucune ancienne animation.
 - Skill : trois règles ajoutées aux « Erreurs à éviter » (course vue de près, passant filmé de face, file dans la profondeur) ; `autoSq` documenté dans
   la référence du rig.
+
+### Premier brouillon de l'histoire 41 : ce que les planches image par image ont montré ; rendu de l'histoire 40 coupé puis récupéré
+
+- **Sursaut à chaque coupe (moteur)** : sur les planches, la dernière vignette de chaque plan de course montrait le héros qui « plonge », la première
+  un corps penché en arrière. Cause : le moteur lit la vitesse et l'accélération par différences sur deux ou trois images ; un déplacement qui
+  commence à la première image du plan et finit à la dernière est vu comme un départ arrêté et un arrêt net (colonne qui traîne, bras en pendule,
+  changement de cycle avec anticipation). Ajout optionnel `cruise` sur une clé de déplacement : avant la clé et après la fin, la position continue
+  sur la même droite, le cycle garde la même horloge, pas de fondu d'entrée. Appliqué aux 19 déplacements de l'histoire qui traversent leur plan
+  (41 clés) ; vérifié sur 28 images de début et de fin de plan. Les anciennes histoires n'utilisent pas l'option (contrôle de non-régression relancé).
+- **Dernier plan** : le second coureur recouvrait tout le cadre pendant une image en passant devant l'objectif : sa trajectoire s'écarte de 1,3 m
+  (une seule clé à deux tronçons, pour que ses bras ne repartent pas de zéro), caméra fixe pendant le passage, avancée ensuite.
+- **S10** : la demi-seconde vide après son passage reçoit une plume du pigeon qui redescend (accessoire `feather`). **S01** : le bus a un bruit de
+  moteur.
+- **Incident** : la génération complète de la version 2 de « L'interrupteur » a été tuée à 740 images sur 904 par la limite de durée des tâches de
+  fond (la tâche comptait aussi l'attente dans la file). Décision : ne pas tout relancer (une heure) ; les images déjà encodées ont été récupérées
+  dans les segments sans index (outil `tools/recover_mp4.py` : 239 + 229 + 272 images, alignement vérifié contre l'ancien rendu), trois plages
+  manquantes rendues (dont le plan S08 avec son correctif, qui n'a donc plus besoin d'un recollage), un seul encodage pour réunir les six morceaux.
+  Règle ajoutée au skill : lancer les rendus longs détachés de la tâche de fond et les suivre par leur journal.
+- **Suite de l'incident** : (1) la première jonction a donné 40 302 images (les flux récupérés, donnés bruts, étaient mal horodatés) : le
+  garde-fou sur le nombre d'images l'a arrêtée ; refaite à partir des flux ré-encodés. (2) Au contrôle des raccords, deux images (523-524) étaient
+  plus sombres d'un diaphragme : la sonde de lumière et l'exposition d'un plan sont mesurées sur la première image rendue dans ce plan, et la plage
+  commençait au milieu du plan de l'enveloppe. Décision : corriger le moteur plutôt que la plage (en entrant dans un plan par son milieu, il mesure
+  d'abord sur la première image du plan), puis re-rendre les trois plages et refaire la jonction. Le défaut existait en puissance dans tout rendu
+  découpé entre plusieurs processus ; les images fixes de contrôle ont désormais la lumière du film. (3) Une boucle d'attente qui cherchait son
+  propre nom ne se terminait pas : la génération complète de l'histoire 41 attendait pour rien ; remplacée par l'attente d'une ligne de journal.
