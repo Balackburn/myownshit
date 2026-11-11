@@ -91,7 +91,7 @@ export const ELAN_PROPS = {
   trafficLight(o) {
     const h = o.h ?? 3.0, pole = arcPole(h - 0.9, 0.05, '#3A3F47'), g = grp(pole.root), head = grp(at(box(0.34, 0.92, 0.26, '#1F2228', { outline: 0.012 }), 0, 0.46, 0), at(box(0.42, 0.04, 0.3, '#1F2228'), 0, 0.94, 0));
     const COL = { r: '#FF3B2F', a: '#FFB02E', g: '#3EE06A' }, OFF = { r: '#4A1512', a: '#4A3610', g: '#12401F' }, lens = {};
-    ['r', 'a', 'g'].forEach((k, i) => { const m = quad(0.2, 0.2, flat(OFF[k])); m.geometry = new THREE.CircleGeometry(0.1, 16); m.position.set(0, 0.74 - i * 0.28, 0.135); const halo = quad(0.5, 0.5, flat(COL[k], { transparent: true, opacity: 0.0, depthWrite: false })); halo.geometry = new THREE.CircleGeometry(0.19, 16); halo.position.set(0, 0.74 - i * 0.28, 0.132);
+    ['r', 'a', 'g'].forEach((k, i) => { const m = quad(0.2, 0.2, flat(OFF[k])); m.geometry = new THREE.CircleGeometry(0.1, 16); m.position.set(0, 0.74 - i * 0.28, 0.135); const halo = quad(0.5, 0.5, flat(COL[k], { transparent: true, opacity: 0.0, depthWrite: false })); halo.geometry = new THREE.CircleGeometry(0.15, 16); halo.position.set(0, 0.74 - i * 0.28, 0.132);
       head.add(halo, m, at(box(0.26, 0.03, 0.1, '#1F2228'), 0, 0.74 - i * 0.28 + 0.115, 0.17)); lens[k] = { m, halo }; });
     head.rotation.y = (o.headRy ?? 0) * PI / 180; pole.tip.add(head);
     const st = o.state || [[0, 'r']];
@@ -211,6 +211,43 @@ export const ELAN_PROPS = {
     const w = o.w ?? 1.7, hh = w * 0.3, g = grp(at(box(w, hh, 0.04, '#1B2F6B', { outline: 0.012 }), 0, 0, 0));
     const f = canvasPlane(w * 0.97, hh * 0.92, (c, W, H) => { c.fillStyle = '#1B2F6B'; c.fillRect(0, 0, W, H); c.strokeStyle = '#F4F1E8'; c.lineWidth = H * 0.06; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H * 0.84); txt(c, o.text || 'GARE', W / 2, H * 0.55, fit(c, o.text || 'GARE', W * 0.78, H * 0.66), '#F4F1E8'); }, { res: 512 });
     f.position.z = 0.022; g.add(f); return g;
+  },
+
+  // A furled umbrella held like a shepherd's crook: a thick shaft (o.len 1.25 m) with a big bright crook at its far end (o.crook 0.14 m radius,
+  // o.crookColor), the cloth furled round the shaft. Origin: the grip, 0.12 m from the ferrule; the shaft goes up +Y; the crook curls toward -X and
+  // comes back down (held flat pointing -X after a turn of +90 degrees about Z, it hangs down over what it catches). o.shake [[t0, amp]]: it quivers.
+  crookUmbrella(o) {
+    const L = o.len ?? 1.25, R = o.crook ?? 0.14, tube = o.tube ?? 0.036, g = grp(), b = new THREE.Group(), cc = o.crookColor || '#E63B2E', cols = o.colors || ['#2F7F5C', '#F2EDE4'];
+    b.add(at(cyl(0.022, 0.022, L + 0.12, '#2B2F36', 8, { pivot: 'bottom' }), 0, -0.12, 0));
+    for (let i = 0; i < 6; i++) b.add(at(cyl(0.05 - i * 0.003, 0.056 - i * 0.003, (L - 0.42) / 6, cols[i % 2], 8, { pivot: 'bottom' }), 0, 0.2 + i * (L - 0.42) / 6, 0));
+    const crook = torus(R, tube, cc, 8, 14, PI * 1.25); crook.position.set(-R, L, 0); b.add(crook, at(sphere(tube * 1.15, cc, 1), -R + R * Math.cos(PI * 1.25), L + R * Math.sin(PI * 1.25), 0));
+    g.add(b);
+    g.userData.update = t => { let a = 0; for (const [t0, amp] of o.shake || []) if (t >= t0) a += amp * wob(t - t0, 46, 7); b.rotation.z = a; };
+    g.userData.update(0); return g;
+  },
+
+  // an oversized ticket punch (pliers): two handles, two jaws; o.snapAt: the jaws snap shut (and bounce open a little). Origin: the pivot; the jaws point +Y.
+  ticketPunch(o) {
+    const s = o.s ?? 1, g = grp(), A = new THREE.Group(), B = new THREE.Group(), steel = '#C9CED6', grip = '#D8281F';
+    for (const [G, sg] of [[A, 1], [B, -1]]) { G.add(at(box(0.03, 0.2, 0.03, steel, { outline: 0.008 }), sg * 0.012, 0.1, 0), at(box(0.036, 0.2, 0.036, grip, { outline: 0.008 }), sg * 0.02, -0.11, 0), at(box(0.05, 0.03, 0.04, steel), sg * 0.005, 0.2, 0)); g.add(G); }
+    g.scale.setScalar(s);
+    g.userData.update = t => { const u = o.snapAt == null ? -1 : t - o.snapAt, open = u < 0 ? 0.3 : u < 0.05 ? 0.3 * (1 - u / 0.05) : 0.12 * Math.min(1, (u - 0.05) / 0.12); A.rotation.z = -open; B.rotation.z = open; };
+    g.userData.update(0); return g;
+  },
+
+  // confetti punched out of a ticket: o.n dots (1) that leave from o.at, fall o.fall metres in o.dur seconds, spinning, drifting o.drift [x, z] (the wind)
+  confetti(o) {
+    const g = grp(), r = rng(o.seed || 5), n = o.n ?? 1, ds = [];
+    for (let i = 0; i < n; i++) { const m = quad(0.05 * (o.s ?? 1), 0.05 * (o.s ?? 1), flat(o.color || '#FBFAF4', { side: THREE.DoubleSide })); m.geometry = new THREE.CircleGeometry(0.025 * (o.s ?? 1), 10); m.visible = false; g.add(m); ds.push({ m, vx: (r() - 0.5) * 0.5, vy: 0.6 + r() * 0.5, ph: r() * 6 }); }
+    g.userData.update = t => { const u = (t - (o.at ?? 0)); for (const d of ds) { d.m.visible = u >= 0 && u <= (o.dur ?? 0.8); if (!d.m.visible) continue; const k = u / (o.dur ?? 0.8);
+      d.m.position.set(d.vx * u + (o.drift?.[0] ?? 0) * u, d.vy * u - (o.fall ?? 0.6) * k * k - 0.6 * u * u * 0, (o.drift?.[1] ?? 0) * u); d.m.rotation.set(u * 14 + d.ph, u * 9, 0); } };
+    g.userData.update(-1); return g;
+  },
+
+  // a wristwatch for a puppet's wrist: a dark strap and a pale dial (o.s 1 = 4.5 cm). Attach it to a hand: on={'actor': id, 'hand': 'L', 'offset': [0, 0.06, 0]}
+  wristWatch(o) {
+    const s = o.s ?? 1, g = grp(at(box(0.075, 0.03, 0.075, o.strap || '#2B2F36', { outline: 0.006 }), 0, 0, 0), at(cyl(0.026, 0.026, 0.012, o.dial || '#F4F1E8', 12), 0, 0, 0.04, PI / 2), at(cyl(0.03, 0.03, 0.008, '#C9A24B', 12), 0, 0, 0.036, PI / 2));
+    g.scale.setScalar(s); return g;
   },
 
   // a feather left in the air by a bird that has gone: from o.at it comes down o.fall metres (1.2) in o.dur seconds (1.2), rocking from side to side

@@ -459,6 +459,13 @@ Gags du rig pas encore servis : langue déroulée, vapeur aux oreilles, `inflate
   une plage `--range` commencée au milieu d'un plan sortait plus sombre d'un diaphragme pendant deux images (l'enveloppe blanche emplissait le
   cadre au moment de la mesure). Corrigé dans le moteur : en entrant dans un plan par son milieu (plage, part d'un processus de rendu, image
   fixe), il mesure d'abord sur la première image du plan. Les images fixes de contrôle ont donc maintenant la lumière du film.
+- (cycle 5) **Une route posée sur un champ** (un ruban de 500 m quelques millimètres au-dessus d'un sol de 9 km) se bat avec lui pour la profondeur :
+  elle clignote dans le brouillon, disparaît en aspect final, ou n'apparaît qu'en partie même relevée de 5 cm avec un décalage de polygone. Ne pas
+  compter sur le tampon de profondeur : dessiner le sol en premier (`renderOrder = -2`), puis peindre le ruban sans test de profondeur
+  (`depthTest: false, depthWrite: false`, `renderOrder` entre -2 et 0), couche par couche ; ce qui est posé dessus se dessine ensuite normalement
+  (accessoire `roadStrip`, décor `grassland`). Regarder le sol d'un plan large sur trois images espacées avant le brouillon.
+- (cycle 5) Un déplacement en deux clés (`glide`) dont seule la première porte le clip : à la fin de la première, le personnage reprend la pose du clip
+  de base (trois passagers « volants » redevenaient debout en plein vol). Répéter `clip=` et `params=` sur chaque clé du trajet.
 - (cycle 5, méthode) Dans une boucle d'attente, `pgrep -f nom` lancé depuis `bash -c "… nom …"` se trouve lui-même (attente sans fin), et
   `pgrep -f "a\|b"` ne fait pas d'alternative (il n'a rien trouvé alors que le rendu tournait) : attendre une ligne dans un journal, ou deux
   appels séparés.

@@ -102,15 +102,18 @@ export const CLIPS = {
       root: { y: 0.025 * Math.abs(S(ph)) },
     };
   },
-  run: (t, p = {}) => { // cartoon sprint, high knees + pumping bent arms (v4)
-    const f = p.freq ?? 3.1, ph = t * f * 2 * PI;
-    return {
+  run: (t, p = {}) => { // cartoon sprint, high knees + pumping bent arms (v4). (cycle 5) p.bounce (1): the share of the vertical bounce kept; p.sq (0): a
+    // squash at each contact and a stretch in the air, in time with the stride (0.05). Both are for a run seen close at a slow cadence (a contact
+    // every 6 frames or more: the move key's `cadence`: 2.5): at 4 strides a second a frame catches the bounce anywhere and the face jitters.
+    const f = p.freq ?? 3.1, ph = t * f * 2 * PI, out = {
       hipL: [-0.95 * S(ph) - 0.25, 0, 0], hipR: [0.95 * S(ph) - 0.25, 0, 0],
       kneeL: [0.9 + 0.8 * S(ph + 1.2), 0, 0], kneeR: [0.9 + 0.8 * S(ph + 1.2 + PI), 0, 0],
       ...arms(m([1.0 * S(ph), 0, 0.12], [-1.0 * S(ph), 0, 0.12]), m([-1.5, 0, 0], [-1.5, 0, 0])),
       torso: [0.28, 0.12 * S(ph), 0], head: [-0.15, -0.1 * S(ph), 0],
-      root: { y: 0.07 * Math.abs(S(ph)) - 0.03 },
+      root: { y: (0.07 * Math.abs(S(ph)) - 0.03) * (p.bounce ?? 1) },
     };
+    if (p.sq) { const c = Math.cos(2 * ph); out.toon = { sq: [1 + 0.5 * p.sq * c, 1 - p.sq * c, 1 + 0.5 * p.sq * c] }; }
+    return out;
   },
   flee: (t, p = {}) => { const r = CLIPS.run(t, { freq: p.freq ?? 3.6 }); return { ...r, ...arms(m([-0.3, 0, 2.6 + 0.2 * S(t * 20)], [-0.3, 0, 2.6 + 0.2 * S(t * 20 + 1)]), m([0, 0, 0.4], [0, 0, 0.4])) }; }, // panic, arms in the air
   climbDown: (t) => { const ph = t * 2 * PI * 1.2; return { ...arms(m([-2.6 + 0.3 * S(ph), 0, 0.2], [-2.6 - 0.3 * S(ph), 0, 0.2]), m([-0.4, 0, 0], [-0.4, 0, 0])), hipL: [-0.6 - 0.4 * S(ph), 0, 0], hipR: [-0.6 + 0.4 * S(ph), 0, 0], kneeL: [0.9, 0, 0], kneeR: [0.9, 0, 0] }; },
