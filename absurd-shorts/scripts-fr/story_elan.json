@@ -1,0 +1,1142 @@
+{
+ "version": 3,
+ "title": "L'élan",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "chauf": {
+   "preset": "officiel",
+   "seed": 111,
+   "suit": "#31557F",
+   "tie": "#1F2A3D",
+   "hat": "copcap",
+   "hatColor": "#31557F",
+   "glasses": false,
+   "facial": "mustache",
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.3
+   }
+  },
+  "p1": {
+   "preset": "femme",
+   "seed": 113,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   }
+  },
+  "p2": {
+   "preset": "lyceen",
+   "seed": 115,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   }
+  },
+  "p3": {
+   "preset": "mamie",
+   "seed": 117,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      5.7,
+      0,
+      19.0
+     ],
+     "ry": 180,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        5.7,
+        0,
+        10.6
+       ],
+       "dur": 1.05,
+       "clip": "run",
+       "params": {
+        "freq": 4.4
+       },
+       "ease": "linear",
+       "face": 180
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.42,
+          0,
+          0,
+          1.04,
+          null
+         ],
+         "neck": [
+          -0.3,
+          0,
+          0,
+          1.1,
+          null
+         ]
+        },
+        "face": {
+         "jaw": 0.5,
+         "brow": 0.6,
+         "eye": 0.25
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.42,
+          0,
+          0,
+          1.04,
+          null
+         ],
+         "neck": [
+          -0.3,
+          0,
+          0,
+          1.1,
+          null
+         ]
+        },
+        "face": {
+         "jaw": 0.75,
+         "brow": 0.8,
+         "eye": 0.4,
+         "gy": -0.2
+        },
+        "hands": {
+         "L": "spread"
+        },
+        "reach": {
+         "L": [
+          4.95,
+          1.75,
+          15.100000000000001,
+          1,
+          0.1
+         ]
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.42,
+          0,
+          0,
+          1.04,
+          null
+         ],
+         "neck": [
+          -0.3,
+          0,
+          0,
+          1.1,
+          null
+         ]
+        },
+        "face": {
+         "jaw": 0.75,
+         "brow": 0.8,
+         "eye": 0.4,
+         "gy": -0.2
+        },
+        "hands": {
+         "L": "spread"
+        },
+        "reach": {
+         "L": [
+          4.95,
+          1.75,
+          9.1,
+          1,
+          0.1
+         ]
+        }
+       },
+       "toonDur": 0.6300000000000001,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.05,
+       "to": [
+        4.75,
+        0,
+        3.05
+       ],
+       "dur": 1.05,
+       "clip": "run",
+       "params": {
+        "freq": 4.4
+       },
+       "ease": "linear",
+       "face": 180
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.42,
+          0,
+          0,
+          1.04,
+          null
+         ],
+         "neck": [
+          -0.3,
+          0,
+          0,
+          1.1,
+          null
+         ]
+        },
+        "face": {
+         "jaw": 0.75,
+         "brow": 0.8
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          4.95,
+          2.1,
+          9.4,
+          1,
+          0.1
+         ],
+         "R": [
+          6.2,
+          2.1,
+          9.4,
+          1,
+          0.1
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.42,
+          0,
+          0,
+          1.04,
+          null
+         ],
+         "neck": [
+          -0.3,
+          0,
+          0,
+          1.1,
+          null
+         ]
+        },
+        "face": {
+         "jaw": 0.75,
+         "brow": 0.8
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          4.15,
+          2.1,
+          1.8499999999999999,
+          1,
+          0.1
+         ],
+         "R": [
+          5.35,
+          2.1,
+          1.8499999999999999,
+          1,
+          0.1
+         ]
+        }
+       },
+       "toonDur": 1.05,
+       "toonEase": "linear"
+      }
+     ],
+     "params": {
+      "freq": 4.4
+     },
+     "expr": "scared"
+    },
+    {
+     "id": "chauf",
+     "pos": [
+      2.05,
+      0.45,
+      1.05
+     ],
+     "ry": 180,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bus",
+     "name": "cityBus",
+     "pos": [
+      2.6,
+      0,
+      3.8
+     ],
+     "ry": 90,
+     "opts": {
+      "len": 7.6,
+      "line": "12",
+      "dest": "GARE",
+      "doors": [
+       [
+        0,
+        1
+       ],
+       [
+        1.47,
+        1
+       ],
+       [
+        1.77,
+        0
+       ]
+      ],
+      "rock": [
+       [
+        1.77,
+        0.012
+       ]
+      ]
+     }
+    },
+    {
+     "id": "pole",
+     "name": "busStopPole",
+     "pos": [
+      5.75,
+      0,
+      7.4
+     ],
+     "ry": 90,
+     "opts": {
+      "line": "12"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.75,
+      1.5,
+      15.9
+     ],
+     "to": [
+      4.75,
+      1.5,
+      7.5
+     ],
+     "lookAt": [
+      5.7,
+      1.52,
+      19.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      5.7,
+      1.52,
+      10.6
+     ]
+    },
+    {
+     "at": 1.05,
+     "from": [
+      7.4,
+      2.3,
+      13.5
+     ],
+     "to": [
+      7.25,
+      2.25,
+      12.9
+     ],
+     "lookAt": [
+      4.2,
+      1.3,
+      3.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      4.2,
+      1.3,
+      3.0
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.1,
+   "setOpts": {
+    "clear": [
+     -40,
+     40
+    ],
+    "eiffel": true,
+    "eiffelX": -25
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.75,
+      0,
+      3.0
+     ],
+     "ry": 180,
+     "clip": "heelBrake",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        4.6,
+        0,
+        -8.003
+       ],
+       "dur": 1.467,
+       "clip": "heelBrake",
+       "glide": true,
+       "ease": "linear",
+       "face": 180
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "gx": 0.9,
+         "brow": 0.7,
+         "mouth": "clench"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "face": {
+         "gx": 0.0,
+         "gy": 0.3,
+         "brow": 0.9,
+         "mouth": "clench",
+         "sweat": 1
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "face": {
+         "brow": 1,
+         "eye": 0.25,
+         "mouth": "wavy",
+         "sweat": 1
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.95,
+       "look": [
+        6.1,
+        1.3,
+        -11.403
+       ]
+      }
+     ],
+     "expr": "scared"
+    },
+    {
+     "id": "chauf",
+     "pos": [
+      2.05,
+      0.45,
+      1.05
+     ],
+     "ry": 180,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "p1",
+     "pos": [
+      3.15,
+      0.44,
+      2.5
+     ],
+     "ry": 80,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "p2",
+     "pos": [
+      3.2,
+      0.44,
+      3.9
+     ],
+     "ry": 100,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      }
+     ],
+     "expr": "surprised"
+    },
+    {
+     "id": "p3",
+     "pos": [
+      3.15,
+      0.44,
+      5.7
+     ],
+     "ry": 85,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "bus",
+     "name": "cityBus",
+     "pos": [
+      2.6,
+      0,
+      3.8
+     ],
+     "ry": 90,
+     "opts": {
+      "len": 7.6,
+      "line": "12",
+      "dest": "GARE"
+     }
+    },
+    {
+     "id": "pole",
+     "name": "busStopPole",
+     "pos": [
+      5.75,
+      0,
+      7.4
+     ],
+     "ry": 90,
+     "opts": {
+      "line": "12"
+     }
+    },
+    {
+     "id": "smoke",
+     "name": "heelSmoke",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0,
+        4.75,
+        2.45
+       ],
+       [
+        1.467,
+        4.6,
+        -8.553
+       ]
+      ],
+      "from": 0.0,
+      "to": 1.467,
+      "every": 0.03,
+      "marks": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.2,
+      1.15,
+      -0.3999999999999999
+     ],
+     "to": [
+      6.1,
+      1.15,
+      -11.403
+     ],
+     "lookAt": [
+      4.75,
+      1.25,
+      3.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      4.6,
+      1.25,
+      -8.003
+     ]
+    }
+   ],
+   "start": 2.1,
+   "duration": 1.4667,
+   "setOpts": {
+    "clear": [
+     -40,
+     40
+    ],
+    "eiffel": true,
+    "eiffelX": -25
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "chauf",
+     "pos": [
+      2.05,
+      0.45,
+      1.05
+     ],
+     "ry": 180,
+     "clip": "drive",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "gx": -0.9
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.08,
+       "look": [
+        6.5,
+        1.5,
+        0.2
+       ]
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "face": {
+         "gx": -0.9,
+         "lid": 1
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "face": {}
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.4,
+       "look": null
+      },
+      {
+       "at": 0.56,
+       "toon": {
+        "sq": [
+         1.06,
+         0.9,
+         1.06
+        ],
+        "face": {
+         "lid": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.66,
+       "look": [
+        4.7,
+        1.3,
+        -9.0
+       ],
+       "expr": "surprised"
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "scl": {
+         "head": [
+          1.5,
+          0.84,
+          1
+         ]
+        },
+        "sq": [
+         0.95,
+         1.1,
+         0.95
+        ],
+        "hat": [
+         0.04,
+         0,
+         3.1
+        ],
+        "face": {
+         "pop": 0.7,
+         "jaw": 0.45
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.74,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0,
+          1.35,
+          null
+         ]
+        },
+        "hat": [
+         0.1,
+         0,
+         9.4
+        ],
+        "face": {
+         "pop": 0.7,
+         "jaw": 0.45
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.96,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0,
+          1.2,
+          null
+         ]
+        },
+        "hat": [
+         0,
+         0,
+         15.707600000000001
+        ],
+        "face": {
+         "pop": 0.6,
+         "jaw": 0.4
+        }
+       },
+       "toonDur": 0.22,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "p1",
+     "pos": [
+      3.15,
+      0.44,
+      2.5
+     ],
+     "ry": 80,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.7,
+        1.3,
+        -9.0
+       ]
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "bus",
+     "name": "cityBus",
+     "pos": [
+      2.6,
+      0,
+      3.8
+     ],
+     "ry": 90,
+     "opts": {
+      "len": 7.6,
+      "line": "12",
+      "dest": "GARE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.1,
+      1.72,
+      -2.4
+     ],
+     "to": [
+      3.02,
+      1.72,
+      -2.2
+     ],
+     "lookAt": [
+      2.05,
+      1.6,
+      1.05
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      2.05,
+      1.6,
+      1.05
+     ]
+    }
+   ],
+   "start": 3.5667,
+   "duration": 1.2666,
+   "setOpts": {
+    "clear": [
+     -40,
+     40
+    ],
+    "eiffel": true,
+    "eiffelX": -25
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.9,
+      0,
+      8.68
+     ],
+     "ry": 180,
+     "clip": "heelBrake",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        0.9,
+        0,
+        -7.182
+       ],
+       "dur": 1.133,
+       "clip": "heelBrake",
+       "glide": true,
+       "ease": "linear",
+       "face": 180
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "gx": -0.8,
+         "gy": -0.4,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "face": {
+         "brow": 1,
+         "mouth": "wavy"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "road",
+     "name": "roadStrip",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "len": 400,
+      "w": 6.5
+     }
+    },
+    {
+     "id": "sign",
+     "name": "townSign",
+     "pos": [
+      3.0,
+      0,
+      0
+     ],
+     "opts": {
+      "name": "PARIS",
+      "spinAt": 0.65,
+      "turns": 3.5,
+      "spinDur": 1.6
+     }
+    },
+    {
+     "id": "tower",
+     "name": "eiffelTower",
+     "pos": [
+      -14,
+      0,
+      190
+     ],
+     "opts": {
+      "h": 60
+     }
+    },
+    {
+     "id": "smoke",
+     "name": "heelSmoke",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0,
+        0.9,
+        8.129999999999999
+       ],
+       [
+        1.133,
+        0.9,
+        -7.732
+       ]
+      ],
+      "from": 0.0,
+      "to": 1.133,
+      "every": 0.025,
+      "marks": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.6,
+      0.85,
+      -5.2
+     ],
+     "to": [
+      -0.55,
+      0.9,
+      -5.0
+     ],
+     "lookAt": [
+      1.9,
+      1.9,
+      0.6
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.9,
+      1.9,
+      0.6
+     ]
+    }
+   ],
+   "start": 4.8333,
+   "duration": 1.1334,
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 27.97,
+ "look": "natural",
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1,
+ "limbSmear": 1,
+ "follow": 1
+}

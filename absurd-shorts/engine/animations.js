@@ -662,6 +662,28 @@ Object.assign(CLIPS, {
     return { ...arms(m([-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 1 : 0.3)], [-0.5 * k, 0, 0.5 + 0.3 * k * (L ? 0.3 : 1)]), m([-1.5 * k, 0, 0], [-1.5 * k, 0, 0])), head: [0, -0.55 * sd * k, 0.2 * sd * k], torso: [0, -0.2 * sd * k, 0],
       hipL: [0, 0, L ? 0.5 * k : 0.05], hipR: [0, 0, L ? -0.05 : -0.5 * k], [L ? 'kneeL' : 'kneeR']: [0.7 * k, 0, 0], root: { x: 0.12 * sd * k, y: br * 0.2 },
       toon: { bend: { spine: [0, -0.55 * sd * k + br, 0, 1.05, null], neck: [0, -0.2 * sd * k, 0, 1 + 0.5 * k, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: Math.min(1, k) } } }; },
+  // ---- cycle 5 (« L'élan »): a man who cannot stop, and those he carries
+  // braking with the heels and not stopping: he leans back on straight legs, toes up, the arms mill backward one after the other, the whole body chatters
+  // on the ground. Use it on a fast move (`glide=True`). p.lean (1 = the full lean), p.mill (turns of the arms per second, 2.6), p.chatter (1)
+  heelBrake: (t, p = {}) => { const ln = p.lean ?? 1, a = t * 2 * PI * (p.mill ?? 2.6), ch = (p.chatter ?? 1) * S(t * 2 * PI * 15);
+    return { hipL: [-0.95 * ln, 0, 0.06], hipR: [-0.72 * ln, 0, -0.06], kneeL: [0.1, 0, 0], kneeR: [0.18, 0, 0], footL: [-0.75, 0, 0], footR: [-0.75, 0, 0],
+      ...arms(m([-1.3 + 1.3 * S(a), 0, 0.55 + 0.4 * C(a)], [-1.3 + 1.3 * S(a + PI), 0, 0.55 + 0.4 * C(a + PI)]), m([-0.35, 0, 0], [-0.35, 0, 0])), head: [0.42 * ln, 0, 0.05 * ch], torso: [0.06 * ch, 0, 0],
+      root: { rx: -0.36 * ln, y: 0.012 * ch },
+      toon: { sq: sqv(1 + 0.035 * ch), bend: { spine: [-0.5 * ln, 0, 0, 1, null], legL: [0, 0, 0, 1.12, null], legR: [0, 0, 0, 1.12, null] }, hands: { L: 'spread', R: 'spread' }, face: { expr: p.expr ?? 'scared', exprW: 1 } } }; },
+  // carried along behind a runner, holding on with both hands: the body lies in the air like a flag (face down, head first), the legs flutter, the whole
+  // of it swings up and down like a pendulum. Put the actor where the hips fly (a move with a height: the hips are about 1 m above his position) and
+  // face him along the travel. p.dir (-1: on his back, feet first: flung past a pole he holds), p.droop (rad under the horizontal, 0.2), p.flutter (1),
+  // p.swing (0.14 rad), p.freq (2.3 swings per second), p.phase, p.arms (their stretch, 1.15), p.expr
+  flag: (t, p = {}) => { const d = p.dir ?? 1, ph = p.phase ?? 0, sw = (p.swing ?? 0.14) * S(t * 2 * PI * (p.freq ?? 2.3) + ph), f = t * 2 * PI * 5.5 + ph, fl = p.flutter ?? 1;
+    return { root: { rx: d * (PI / 2 - (p.droop ?? 0.2) + sw), pivot: 'hips' }, ...arms(m([-2.95, 0, 0.1], [-2.95, 0, 0.1]), m([-0.08, 0, 0], [-0.08, 0, 0])),
+      hipL: [0.1 * d + 0.28 * fl * S(f), 0, 0.06], hipR: [0.1 * d + 0.28 * fl * S(f + PI), 0, -0.06], kneeL: [0.25 + 0.3 * fl * S(f + 1.1), 0, 0], kneeR: [0.25 + 0.3 * fl * S(f + PI + 1.1), 0, 0], footL: [0.6, 0, 0], footR: [0.6, 0, 0],
+      head: [d > 0 ? -0.95 : 0.55, 0, 0.06 * S(f * 0.5)], torso: [0.08 * S(f * 0.5), 0, 0],
+      toon: { bend: { spine: [-0.12 * d + 0.1 * S(f * 0.5 + 1), 0, 0, 1.06, null], armL: [0, 0, 0, p.arms ?? 1.15, null], armR: [0, 0, 0, p.arms ?? 1.15, null] }, hands: { L: 'grip', R: 'grip' }, face: { expr: p.expr ?? 'scared', exprW: 1 } } }; },
+  // riding on another man's shoulders: sitting, thighs forward over his shoulders, shins down his chest, bouncing with his steps (p.freq, the runner's
+  // 3.1); the arms are free (hands on the knees). Put the actor so that his seat is on the shoulders: about 1.25 m above the runner's position.
+  shoulderRide: (t, p = {}) => { const b = Math.abs(S(t * PI * (p.freq ?? 3.1)));
+    return { hipL: [-1.45, 0, 0.24], hipR: [-1.45, 0, -0.24], kneeL: [1.5, 0, 0], kneeR: [1.5, 0, 0], torso: [0.1 + 0.05 * b, 0, 0], head: [0.05 - 0.08 * b, 0, 0],
+      ...arms(m([-0.55, 0, 0.3], [-0.55, 0, 0.3]), m([-0.8, 0, 0], [-0.8, 0, 0])), root: { y: -0.5 + 0.03 * b } }; },
 });
 
 export const CLIP_NAMES = Object.keys(CLIPS);

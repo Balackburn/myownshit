@@ -790,3 +790,57 @@ Choix : 1 et 4 par le rig, 2, 3 et 5 par des règles ajoutées au skill.
   −0,5 = des têtes d'épingle (la peur).
 - Compléments du cycle 4 faits pendant les revues : flaque de lumière (`darkPool`), yeux de pièce noire, `eyesPair` (paupières, regard, fenêtre),
   `statueRock`, `nightWindow`, `bedFlip`, cœurs sur le blanc de l'œil dans le noir, sprites agrandis sans bavure.
+
+### Histoire 40 : version 1 livrée ; troisième passe contrôlée sur images fixes, appliquée, brouillon 4
+
+- **Version 1 livrée** (rendu complet 1080×1920, 30,13 s, −16,0 LUFS, aucune image isolée aux coupes ; `hyperframes/40-interrupteur`). Revues sur
+  brouillon : 7,0 / 6,8 puis 7,8 (animation) / 7,5 (direction artistique).
+- **Troisième passe** écrite comme un correctif de texte du script (appliqué seulement après la construction du projet de la version 1 : on ne
+  régénère jamais un script entre le début de son rendu final et son projet), vérifiée sur deux planches d'images fixes rendues depuis une copie.
+  Ce que les images fixes ont encore montré, corrigé avant le brouillon :
+  - S09 : au moment de la claque la tête s'enfonçait de 28 cm sous une main restée en l'air → la main guidée descend avec le front ; l'étiquette
+    montrée à hauteur de poitrine (elle cachait le menton) ; l'élan au-dessus de sa tête, dans le cadre.
+  - S09, gros plan : les yeux « qui louchent vers l'étiquette » étaient deux fentes grises : l'expression `unimpressed` a les paupières à mi-course
+    et **un canal de visage ne peut que fermer une paupière, jamais l'ouvrir** → changement d'expression (`worried`, qui n'est pas une expression
+    forte : pas de clignement automatique), pupilles agrandies (`pupilSize`). Focale plus longue (28 au lieu de 44, même place) : plus de main coupée
+    au bord, plus de rideau rouge collé à l'oreille, le mot occupe la moitié de la largeur.
+  - S01 : le héros était coupé par le bord gauche (main droite hors cadre), l'interrupteur à 3 % du bord droit → lui 18 cm plus à droite,
+    l'interrupteur 10 cm plus à gauche, le tableau recentré dans l'intervalle.
+  - S10 : le pied de la tour touchait son oreille → tour plus petite, au bord droit.
+  - S08 : ce qui ressemblait à des yeux « en fentes » de l'électricien était son clignement (l'image fixe tombait dessus) : rien à corriger, mais
+    son texte se dit maintenant avec l'expression neutre (yeux ouverts dans le noir).
+- **Décision** : pas de quatrième revue (trois au plus). La troisième revue se fait sur le brouillon 4 ; la génération complète de la version 2 est
+  mise en file derrière celle de « La porte » version 2 (une seule génération complète à la fois : deux en parallèle doublent la durée de chacune).
+
+### 3. Animations (cycle 5)
+
+Trois clips nouveaux pour un homme qui ne peut pas s'arrêter et ceux qu'il transporte (dans `engine/animations.js`) :
+- `heelBrake` : freinage aux talons qui ne freine pas (penché en arrière sur des jambes tendues, pointes levées, bras en moulinets l'un après
+  l'autre, tout le corps qui broute sur le sol à 15 Hz) ; se pose sur un déplacement rapide en `glide`. Ce n'est pas le `skidStop` de l'histoire 37
+  (un arrêt en 0,4 s) : celui-ci dure, c'est le gag.
+- `flag` : accroché des deux mains derrière un coureur, le corps à l'horizontale comme un drapeau, jambes qui flottent, tout le corps en pendule
+  (`swing`, `freq`, `phase` pour décaler plusieurs passagers) ; `dir: -1` : sur le dos, les pieds devant (emporté au-delà d'un poteau qu'on tient).
+- `shoulderRide` : assis sur les épaules d'un autre, rebond calé sur sa foulée.
+La suite du mouvement (cycle 5, rig) sert sur ces clips : bras libres en pendules, cravate et cheveux au vent du déplacement.
+
+### 4. Histoire 41 — « L'élan » (type : un geste banal qu'une institution prend au pied de la lettre, escalade, retournement, aparté sec)
+
+**Texte** (13 phrases, 27,97 s, narration faite) : « Ce mec a couru pour attraper son bus. Il n'a pas réussi à s'arrêter. Il a dépassé le bus. Puis la
+ville. Au troisième tour, des gens sont montés. La mairie a tranché : « C'est une ligne. » Depuis, il passe toutes les huit minutes. Il a un
+numéro. Il a des contrôleurs. Il a demandé à descendre. On lui a répondu : « Au terminus. » Il n'y a pas de terminus. Hier, il a enfin réussi à
+s'arrêter. Pas ses passagers. Ils sont arrivés en avance. C'est une première. »
+
+**Décisions de mise en scène** (consignées ici, sans question à l'utilisateur) :
+- **Le bus est modélisé à la main** (`cityBus`). La banque sand3d a été consultée d'abord, comme le veut le skill : 56 bus trouvés (planche vue),
+  aucun n'a de cabine transparente où asseoir un chauffeur et des passagers, ni de girouette à texte, ni de portes qui s'ouvrent : le rôle demande
+  les trois. Aucun feu tricolore dans l'index : modélisé aussi (il doit changer d'état et plier).
+- **Cadre vertical et bus** : un bus de 7,6 m et un coureur côte à côte ne tiennent pas dans 25° de champ horizontal. L'accroche est donc en deux
+  cadrages dans le même plan : d'abord lui, gros, de trois quarts face, la caméra reculant devant lui (première image forte) ; puis, de derrière, le
+  bus à son arrêt et les portes qui se ferment devant lui (« son bus »). Les trajets rapides sont filmés dans l'axe (vers la caméra ou en s'en
+  éloignant) ou en travelling à sa vitesse, jamais en travers d'un cadre fixe (il le traverserait en quatre images).
+- **Liste des mécaniques, une fois chacune** (règle du cycle 5) : course en roue et bras levé ; freinage aux talons qui ne freine pas (il garde la
+  pose jusqu'à la sortie de la ville) ; double regard du chauffeur avec la casquette qui tourne comme une toupie ; panneau de sortie de ville en
+  girouette ; compteur de tours et embarquement à la volée ; le maire qui « tranche » son bureau ; l'afficheur à 0 minute et le poteau qui plie
+  dans son sillage ; enseigne de ligne sur la tête ; contrôleur sur ses épaules et tickets levés ; langue au vent et bouton d'arrêt sur le nœud
+  de cravate ; le contrôleur à l'envers ; pupilles en têtes d'épingle ; arrêt au feu rouge en s'accrochant au poteau (étirement horizontal) ;
+  passagers qui continuent sans lui ; rangée de montres ; « hors service » et un second coureur qui ne peut pas s'arrêter.

@@ -33,6 +33,7 @@ export const ELAN_PROPS = {
   // y = userData.floor), a pale roof, a wide windscreen, the line display above it (o.line '12', o.dest 'GARE') and a second one above the front door.
   // o.len (7.6 m). o.doors [[t, 0..1], ...]: the two leaves of each door slide apart (1 = open). The driver sits at userData.seat (front left).
   // o.rock [[t0, amp], ...]: the body rocks on its springs from t0 (a start, a stop).
+  // Open, the leaves stand o.doorOut (0.2 m) out of the flank (plug doors: they show from behind), then slide apart.
   cityBus(o) {
     const L = o.len ?? 7.6, W = 2.3, C = o.color || '#2F8F6B', C2 = o.roof || '#F1EEE3', DK = '#22252B', g = grp(), body = grp(), gl = glassMat(o.glass ?? 0.12, '#DCEFF2');
     const y0 = 0.34, yS = 1.2, yW = 2.3, yR = 2.78, hx = L / 2, hz = W / 2;
@@ -50,6 +51,7 @@ export const ELAN_PROPS = {
     body.add(at(mesh(new THREE.BoxGeometry(0.02, yW - 1.0, W - 0.16), gl), hx, (1.0 + yW) / 2, 0), at(box(0.06, 0.05, W - 0.1, DK), hx + 0.01, 1.0, 0));   // the windscreen and its sill
     const disp = ledText(`${o.line || '12'}  ${o.dest || 'GARE'}`, W * 0.8, 0.34); disp.rotation.y = PI / 2; disp.position.set(hx + 0.03, (yW + yR) / 2, 0); body.add(disp);
     const side = ledText(o.line || '12', 0.5, 0.3, 192); side.position.set(doorsX[0], (yW + yR) / 2, hz + 0.03); body.add(side);
+    const rear = ledText(o.line || '12', 0.6, 0.34, 192); rear.rotation.y = -PI / 2; rear.position.set(-hx - 0.03, (yW + yR) / 2, 0.5); body.add(rear);
     const leaves = []; for (const dx of doorsX) for (const s of [-1, 1]) { const lf = grp(at(mesh(new THREE.BoxGeometry(dw / 2 - 0.02, yW - y0 - 0.1, 0.03), glassMat(0.3, '#CFE6EA')), 0, 0, 0), at(box(dw / 2, 0.06, 0.05, DK), 0, -(yW - y0) / 2 + 0.06, 0), at(box(0.04, yW - y0 - 0.1, 0.05, DK), s * (dw / 4 - 0.02), 0, 0));
       lf.position.set(dx + s * dw / 4, (y0 + yW) / 2, hz); body.add(lf); leaves.push({ lf, x: dx + s * dw / 4, s }); }
     body.add(at(box(0.08, 0.32, W + 0.06, DK), hx + 0.02, 0.5, 0), at(box(0.08, 0.3, W + 0.06, DK), -hx - 0.02, 0.5, 0));                        // the bumpers
@@ -63,7 +65,7 @@ export const ELAN_PROPS = {
     g.add(body);
     for (const x of [hx - 1.55 - 0.95, -hx + 1.5]) for (const z of [-hz + 0.02, hz - 0.02]) g.add(at(cyl(0.46, 0.46, 0.3, P.ink, 14), x, 0.46, z, PI / 2), at(cyl(0.2, 0.2, 0.02, P.grey, 8), x, 0.46, z + Math.sign(z) * 0.16, PI / 2));
     g.userData.update = t => { const k = ease.inOut(clamp01(keyed(o.doors, t)));
-      for (const { lf, x, s } of leaves) { lf.position.x = x + s * k * (dw / 2 - 0.06); lf.position.z = hz + 0.05 * k; }
+      for (const { lf, x, s } of leaves) { lf.position.x = x + s * k * (dw / 2 - 0.06); lf.position.z = hz + (o.doorOut ?? 0.2) * Math.min(1, k * 3); }
       let rz = 0; for (const [t0, a = 0.02] of o.rock || []) rz += a * wob(t - t0, 9, 3.2); body.rotation.z = rz; body.position.y = 0.6 * Math.abs(rz); };
     g.userData.update(0); g.userData.seat = [sx - 0.1, y0 + 0.02, sz]; g.userData.floor = y0 + 0.1; g.userData.doors = doorsX.map(x => [x, y0 + 0.1, hz]); return g;
   },
