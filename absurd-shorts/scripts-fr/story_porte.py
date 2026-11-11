@@ -95,12 +95,12 @@ st.shot('S06', 'parisStreet', setOpts=STREET, actors=[act('agent', CLERK6, -90, 
 MAYOR = [9.15, 0, 0.72]                             # the mayor, by the other jamb, three quarters to us
 M7 = 0.42                                           # the mayor has arrived: his finger comes out
 JAB7 = [M7 + 0.24, M7 + 0.48]                        # jabbed twice more
-RECOIL = lambda a, L=1.0, **f: GRIP(OPEN, bend={'neck': [0, 0, -a, L, None]}, face={'gx': 0.8, **f})   # the hero's head, knocked aside on its neck by the finger
+RECOIL = lambda a, L=1.0, **f: GRIP(OPEN, bend={'neck': [0, a, 0, L, None]}, face={'gx': 0.8, **f})   # the hero's head, knocked aside on its neck by the finger (a bend is [forward, sideways, twist, stretch, fat]: the third number, used before, only twisted it)
 NOSE7 = [9.0, 1.96, -0.86]                          # the corner of his face on the mayor's side
 SHORT7 = [8.98, 1.94, -0.56]                        # the fingertip, stopped a hand short of it
 FINGER = lambda pt, **kw: {'hands': {'R': 'point'}, 'reach': {'R': [*pt, 1, 0.08]}, **kw}   # the mayor's index, guided: his arm crosses the doorway
 st.shot('S07', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'unimpressed', keys=[HOLDK(face={'gx': 0.9}), k(0.0, look=None), k(0.16, toon=GRIP(OPEN, face={'gx': 0.9, 'lid': 1}), toonDur=0.04), k(0.24, toon=GRIP(OPEN, face={'gx': 0.9}), toonDur=0.05),   # his eyes on the mayor who marches up; a blink
-            k(M7 + 0.05, expr='surprised'), k(M7 + 0.05, toon=GRIP(OPEN, sq=[0.95, 1.07, 0.95], bend={'neck': [0, 0, -0.14, 1, None]}, face={'gx': 0.8, 'eye': 0.25}), toonDur=0.08, toonEase='outBack')] +   # the finger: he draws himself up, his head back from it
+            k(M7 + 0.05, expr='surprised'), k(M7 + 0.05, toon=GRIP(OPEN, sq=[0.95, 1.07, 0.95], bend={'neck': [0, 0.14, 0, 1, None]}, face={'gx': 0.8, 'eye': 0.25}), toonDur=0.08, toonEase='outBack')] +   # the finger: he draws himself up, his head back from it
             [x for i, t_ in enumerate(JAB7) for x in (k(t_, toon=RECOIL(0.42 + 0.2 * i, 1.2 + 0.15 * i, lid=1), toonDur=0.04), k(t_ + 0.07, toon=RECOIL(-0.2 - 0.08 * i, 1.08, eye=0.3), toonDur=0.07),   # each jab lands: his head goes over on a neck that stretches, further the second time,
                                                                k(t_ + 0.15, toon=RECOIL(0.1, browL=0.7, browR=-0.3), toonDur=0.07))]),   # comes back past upright, and settles (his beard goes with it)
         act('maire', [9.05, 0, 1.6], 180, 'marchPomp', 'proud', keys=[k(0.0, to=MAYOR, dur=M7, clip='marchPomp', ease='linear', face=-125), k(M7, clip='point', expr='determined', blend=0.08, look=None),   # he is in the frame at the cut, marching; his face stays three quarters to us (a look at the man turned it away)
@@ -226,8 +226,8 @@ CHEEK = face_pt13 = [8.98, 2.0, -1.2]                # his cheek, on the tourist
 PHONE13 = [8.5, 2.5, -2.1]                         # the phone, at arm's length: up and out on his far side (toward the camera, his arm filled the frame)
 def rock(t_, i):   # his head under one poke: knocked over on its neck like a punch-bag (35 to 45 degrees), back past upright, a wobble that dies over eight frames; his eyes on the finger
     a = 0.62 + 0.16 * i; F = {'gx': -0.9, 'gy': 0.2}
-    return [k(t_, toon=GRIP(OPEN, face=F, bend={'neck': [0, 0, a, 1.2, None]}), toonDur=0.04), k(t_ + 0.08, toon=GRIP(OPEN, face=F, bend={'neck': [0, 0, -0.55 * a, 1.08, None]}), toonDur=0.08),
-            k(t_ + 0.16, toon=GRIP(OPEN, face=F, bend={'neck': [0, 0, 0.3 * a, 1.03, None]}), toonDur=0.07), k(t_ + 0.23, toon=GRIP(OPEN, face=F, bend={'neck': [0, 0, -0.12 * a, 1, None]}), toonDur=0.06), k(t_ + 0.29, toon=GRIP(OPEN, face=F), toonDur=0.05)]
+    return [k(t_, toon=GRIP(OPEN, face=F, bend={'neck': [0, -a, 0, 1.2, None]}), toonDur=0.04), k(t_ + 0.08, toon=GRIP(OPEN, face=F, bend={'neck': [0, 0.55 * a, 0, 1.08, None]}), toonDur=0.08),   # (sideways bend: negative = the top of his head to his left, away from the tourist)
+            k(t_ + 0.16, toon=GRIP(OPEN, face=F, bend={'neck': [0, -0.3 * a, 0, 1.03, None]}), toonDur=0.07), k(t_ + 0.23, toon=GRIP(OPEN, face=F, bend={'neck': [0, 0.12 * a, 0, 1, None]}), toonDur=0.06), k(t_ + 0.29, toon=GRIP(OPEN, face=F), toonDur=0.05)]
 TPOSE = lambda finger, **kw: {'hands': {'R': 'grip', 'L': 'point'}, 'reach': {'R': [PHONE13[0], PHONE13[1] - 0.08, PHONE13[2] - 0.03, 1, 0.05], 'L': finger}, 'bend': {'spine': [0, 0, -0.16, 1, None]}, **kw}
 BACK13, IN13 = [8.9, 1.95, -1.52, 1, 0.16], [CHEEK[0], CHEEK[1], CHEEK[2] - 0.02, 1, 0.16]
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stiffStand', 'deadpan', keys=[HOLDK(), k(0.0, look=None), k(0.5, toon=GRIP(OPEN, face={'lid': 1}), toonDur=0.04), k(0.58, toon=GRIP(OPEN), toonDur=0.05), k(CU13 + 0.04, toon=GRIP(OPEN, face={'gx': -0.9}), toonDur=0.06)] +   # a blink; then his eyes on the man beside him
@@ -254,17 +254,17 @@ st.shot('S14', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sti
 T15 = round(st.dur('S15') - 0.3, 3)                 # he presses
 TECH = [9.2, 0, 1.6]
 SW = [9.88, 1.4, 2.15]                              # the box on the wall, right of the door
-TOOL15 = [8.92, 1.42, 1.3, 1, 0.1, [0.2, -1, -0.4]]   # his right hand, with the screwdriver, held up at his side
+TOOL15 = [8.9, 1.5, 1.48, 1, 0.1, [0.2, -1, -0.4]]   # his right hand, with the screwdriver, held up in front of his shoulder (at his side it was out of the frame)
 HOLD15 = lambda **kw: {'hands': {'R': 'grip'}, 'reach': {'R': TOOL15}, **kw}
 PRESS = lambda dx, **kw: {'hands': {'L': 'point', 'R': 'grip'}, 'reach': {'L': [SW[0] - dx, SW[1] - 0.05, SW[2], 1, 0.16, [0.3, -1, -0.2]], 'R': TOOL15}, **kw}   # his left index on the button, the arm out behind him (his face stays on us: a look at the box showed the back of his head)
-st.shot('S15', 'parisStreet', setOpts=STREET, actors=[act('tech', [9.0, 0, 2.95], 180, 'walk', 'neutral', keys=[k(0.0, to=TECH, dur=0.66, clip='walk', ease='out', face=-78), k(0.7, clip='stand', blend=0.1, look=None, expr='hmm'), k(0.0, toon=HOLD15(), toonDur=0.0),
+st.shot('S15', 'parisStreet', setOpts=STREET, actors=[act('tech', [9.0, 0, 2.95], 180, 'walk', 'neutral', keys=[k(0.0, to=TECH, dur=0.66, clip='walk', ease='out', face=-78), k(0.7, clip='stand', blend=0.1, look=None, expr='hmm'), k(0.56, toon=HOLD15(), toonDur=0.1, toonEase='outBack'),   # he stops: a screwdriver comes out
             k(0.72, toon=HOLD15(face={'gx': -0.8, 'gy': -0.5}), toonDur=0.1), k(1.02, toon=HOLD15(face={'gx': 0.95, 'eye': 0.25}, sq=[0.97, 1.05, 0.97]), toonDur=0.07, toonEase='outBack'), k(1.02, expr='surprised'),   # the door, then the box that pops up behind him: with his eyes alone
             k(T15 - 0.34, expr='smug'), k(T15 - 0.34, toon=PRESS(0.32, face={'browL': 0.9, 'browR': -0.3}), toonDur=0.22, toonEase='out'),   # the arm goes back to it, one brow up: he knows
             k(T15 - 0.04, toon=PRESS(0.07, face={'browL': 0.9, 'browR': -0.3}), toonDur=0.04), k(T15 + 0.06, toon=PRESS(0.09, face={'browL': 0.9, 'lidR': 1, 'mouth': 'smirk'}), toonDur=0.06)])],   # pressed, without a look; a wink at us
         props=[DOOR(swing=[[0, OPEN]], **PUBLIC), P('box', 'toolbox', pos=[8.8, 0, 2.5], ry=-70), P('switch', 'wallSwitch', pos=SW, ry=-90, scale=0.01, opts={'at': T15, 'label': 'AUTO'}, keys=[k(0.95, scale=1.7, dur=0.12, ease='outBack')]),
-               P('tool', 'screwdriver', on={'actor': 'tech', 'hand': 'R', 'offset': [0, 0.02, 0.03], 'rot': [0, 0, 0]}, scale=1.5),   # a screwdriver in his free hand,
+               P('tool', 'screwdriver', pos=TOOL15[:3], scale=0.01, keys=[k(0.6, scale=2.2, dur=0.1, ease='outBack')]),   # a screwdriver in his free hand, upright (set in the world where his fist goes: attached to the hand it lay along the forearm, out of sight),
                P('patch', 'chestPatch', on={'actor': 'tech', 'joint': 'torso', 'offset': [0.085, 0.46, 0.125], 'rot': [0, 0, 0]}, opts={'text': 'MAINTENANCE', 'w': 0.2, 'h': 0.062})],   # his trade on his chest
-        cams=[cam(0.0, [6.1, 1.6, 2.55], [6.22, 1.6, 2.5], [9.8, 1.62, 1.95], [9.8, 1.62, 1.95], lens=44)])   # right of the door: its sign stays out of the frame; his helmet a fifth of the way down (it touched the top edge)
+        cams=[cam(0.0, [6.0, 1.6, 2.35], [6.12, 1.6, 2.3], [9.8, 1.62, 1.78], [9.8, 1.62, 1.78], lens=44)])   # right of the door: its sign stays out of the frame; his helmet a fifth of the way down (it touched the top edge)
 # 16: it was automatic: the leaf leaves his hand: it shuts by itself, slides open; his hand stays in the air, holding nothing; he lifts the fist. Close on
 #     him, the fist already up under his eyes: he looks at it, at the door (a small turn of the head), at the fist: a squash, and the take, not the one of
 #     S03: he shoots up off his heels, his cap stays in the air; his hand opens and his jaw runs down into the palm; the cap comes back down on his head
@@ -285,21 +285,22 @@ JAWB16 = [0.0, -0.24, 0.14]                         # the beard, under the chin 
 CAM16 = [6.8, 1.8, 0.0]                             # the close camera, nearly in front of him: his face is three quarters to it before the take, full at it
 st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'deadpan', keys=[k(-0.05, toon=FREE(), toonDur=0), k(0.0, look=None), k(0.06, toon=FREE(face={'gx': 0.9, 'gy': 0.3}), toonDur=0.06), k(0.1, expr='surprised'),   # his eyes alone go after the leaf
             k(CU16 - 0.1, toon=LIFT(face={'gx': 0.3, 'gy': 0.9}), toonDur=0.1, toonEase='outBack'),   # the fist comes up before the cut: he looks at what it holds: five frames
-            k(CU16 + 0.17, toon=LIFT(bend={'neck': [0, 0.3, 0, 1, None]}, face={'gx': 1.0, 'gy': -0.1, 'browL': 0.7}), toonDur=0.06),   # the door, beside him: his eyes, and his head a little: five frames
+            k(CU16 + 0.17, toon=LIFT(bend={'neck': [0, 0, 0.32, 1, None]}, face={'gx': 1.0, 'gy': -0.1, 'browL': 0.7}), toonDur=0.06),   # the door, beside him: his eyes, and his head a little (a twist of the neck): five frames
             k(CU16 + 0.34, toon=LIFT(face={'gx': 0.3, 'gy': 0.9, 'brow': 0.4}), toonDur=0.06),   # the fist again: four frames
             k(TAKE16 - 0.07, toon=LIFT(sq=[1.12, 0.82, 1.12], scl={'head': [1.14, 0.84, 1]}, face={'lid': 1}), toonDur=0.05),   # a squash: he winds up
             k(TAKE16 - 0.02, expr='shocked', look=CAM16), k(TAKE16, toon=CATCH(sq=[0.86, 1.2, 0.86], bend={'neck': [0, 0, 0, 1.25, None]}, face={**WIDE16, 'jaw': 0.35}), toonDur=0.05, toonEase='outBack'),   # the take: up off his heels, his head to us, the hand opens
             k(JAW16, toon=CATCH(sq=[1.05, 0.95, 1.05], face={**WIDE16, 'jaw': 1.0, 'jawLen': 0.5, 'tongue': 0.6}), toonDur=0.07, toonEase='in'),   # back down: the jaw runs down into the palm
             k(LAND16, toon=CATCH(sq=[1.1, 0.9, 1.1], scl={'head': [1.08, 0.9, 1]}, face={**WIDE16, 'jaw': 1.0, 'jawLen': 0.5, 'tongue': 0.6, 'lid': 0.5}), toonDur=0.03),   # the cap lands: his head gives under it
             k(LAND16 + 0.08, toon=CATCH(face={**WIDE16, 'jaw': 1.0, 'jawLen': 0.5, 'tongue': 0.6}), toonDur=0.08, toonEase='outBack')])],
-        props=[DOOR(swing=[[0, OPEN], [0.03, OPEN], [SHUT16, 0]], slide=SLIDE16, led=0.2, signHide=[[CU16, 9]], **PUBLIC), BEARD(1.25, keys=[k(JAW16, attach='mec', joint='head', offset=JAWB16, rot=[0, 0, 0])]),
+        props=[DOOR(swing=[[0, OPEN], [0.03, OPEN], [SHUT16, 0]], slide=SLIDE16, led=0.2, signHide=[[CU16, 9]], **PUBLIC), BEARD(1.25, keys=[k(JAW16 + 0.05, attach='mec', joint='head', offset=JAWB16, rot=[0, 0, 0])]),   # (it goes down with the jaw, not before it)
                CAP(keys=[k(TAKE16 + 0.04, visible=False), k(LAND16, visible=True), k(LAND16, squash=[1.35, 0.5, 1.35], dur=0.3)]),   # his cap: it stays up there when he comes back down,
                P('capfly', 'doormanCap', pos=[9.1, 2.98, -1.0], ry=-66, keys=[k(0.0, visible=False), k(TAKE16 + 0.04, visible=True), k(LAND16 - 0.07, to=[9.1, 2.32, -1.0], dur=0.07, ease='in'), k(LAND16, visible=False)]),   # four frames in the air, then down
                BRONZE(keys=[k(CU16, visible=False)])],   # the bronze plaque would sit behind his cap in the close shot: put away
         fx=[{'type': 'shake', 'at': LAND16, 'dur': 0.1, 'amount': 0.012}],
         cams=[cam(0.0, [5.2, 1.7, -2.6], [5.3, 1.7, -2.5], [9.6, 1.55, -0.5], [9.6, 1.55, -0.5], lens=44),
               cam(CU16, CAM16, [6.9, 1.8, -0.03], [9.02, 1.66, -0.9], [9.02, 1.66, -0.9], lens=44),   # nearly in front of him: the dark window behind his head, no sign in the frame, the fist under his chin
-              glide([cam(TAKE16 - 0.03, [6.2, 1.9, 0.15], [6.15, 1.9, 0.17], [9.02, 2.0, -0.9], [9.02, 2.0, -0.9], lens=44)], 0.07)])   # back and up with him at the take: the cap in the air stays inside the frame
+              glide([cam(TAKE16 - 0.03, [6.2, 1.9, 0.15], [6.15, 1.9, 0.17], [9.02, 2.0, -0.9], [9.02, 2.0, -0.9], lens=44)], 0.07),   # back and up with him at the take: the cap in the air stays inside the frame
+              glide([cam(LAND16 - 0.05, [6.85, 1.8, -0.02], [6.9, 1.8, -0.03], [9.02, 1.64, -0.9], [9.02, 1.64, -0.9], lens=44)], 0.1)])   # and down again with the cap: his face and the jaw in his palm fill the frame
 # 17: the lady never said thank you: he shuts his jaw with the palm that caught it, his hand goes back to where the handle was; the door slides open for
 #     her: she comes out with her bread, goes by under his nose and away; once she is past he raises a finger, his mouth opens; nothing; it shuts, the
 #     finger wilts. Then, closer, his arm: he turns to it, lays his other hand on the forearm (held), pushes it down, out at his side over the pale door:
@@ -314,11 +315,11 @@ REL = PUSH + 0.54                                   # he lets go
 TW17 = REL + 0.32                                   # the fingers twitch
 RISE = TW17 + 0.16                                  # it comes back up
 US17 = RISE + 0.26                                  # the look at us
-LOW17 = [9.02, 0.72, -0.45]                         # the hand, pushed straight down: still out at his side, over the pale door
+LOW17 = [9.02, 0.86, -0.45]                         # the hand, pushed straight down: still out at his side, over the pale door, above the caption band in the closer frame
 POLE = [0.2, -1, 0.5]
 ONARM = lambda y: [9.0, round(y + 0.13, 3), -0.5, 1, 0.08, [-1, 0.3, -0.6]]   # his other hand, flat on the forearm, its elbow out toward us: a gap between that arm and his chest
 EYE17 = {'gx': 0.9, 'gy': 0.5}                       # his eyes on the arm
-CAMB17 = [6.4, 1.5, -1.6]                           # the closer camera, on his right: the forearm and the hand on it stand against the pale leaf
+CAMB17 = [6.2, 1.55, -1.65]                         # the closer camera, on his right: the forearm and the hand on it stand against the pale leaf
 FING = lambda y, z, hand='point', **kw: FREE(hands={'L': 'grip', 'R': hand}, reach={'L': [*AIR, 1, 0.05, POLE], 'R': [8.75, y, z, 1, 0.16]}, **kw)
 DOWNARM = lambda **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [*LOW17, 1, 0.05, POLE]}, **kw}
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'stand', 'surprised', keys=[k(-0.05, toon=CATCH(face={**WIDE16, 'jaw': 1.0, 'jawLen': 0.5, 'tongue': 0.6}), toonDur=0), k(-0.05, look=CAM16),   # still in the take: his jaw in his palm
@@ -339,7 +340,7 @@ st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
             k(TW17 + 0.08, toon={'hands': {'L': 'spread'}, 'reach': {'L': [LOW17[0], LOW17[1] + 0.08, LOW17[2], 1, 0.05, POLE]}, 'wave': RIP(0.03, 0.4, 1), 'face': {'lidR': 1, **EYE17, 'browL': 0.8}}, toonDur=0.03), k(TW17 + 0.12, toon=DOWNARM(face={**EYE17, 'eye': 0.25, 'brow': 0.6}), toonDur=0.03), k(TW17 + 0.12, expr='surprised'),   # again: both eyes
             k(RISE, toon=FREE(reach={'L': [AIR[0], AIR[1] + 0.2, AIR[2], 1, 0.05, POLE]}, wave=RIP(0.1, 0.6, 1.5), sq=[0.96, 1.06, 0.96], face={**EYE17, 'eye': 0.25}), toonDur=0.07, toonEase='out'),   # it comes back up, past where the handle was
             k(RISE + 0.09, toon=FREE(wave=RIP(0.05, 1.5, 1.5), face={'gx': 0.9, 'gy': 0.3}), toonDur=0.08), k(RISE + 0.2, toon=FREE(face={'gx': 0.9, 'gy': 0.3}), toonDur=0.06),
-            k(US17, expr='deadpan', look=[7.0, 1.6, -1.45]), k(US17, toon=FREE(), toonDur=0.08)]),   # and at us: held to the end
+            k(US17, expr='deadpan', look=[6.5, 1.58, -1.6]), k(US17, toon=FREE(), toonDur=0.08)]),   # and at us: held to the end
         act('dame', [LADY17[0][0], 0, LADY17[0][1]], -90, 'walk', 'smug', keys=[k(0.0, visible=False), k(OUT17, visible=True), k(OUT17, to=[LADY17[1][0], 0, LADY17[1][1]], dur=0.55, clip='walk', ease='linear'),
             k(OUT17 + 0.55, to=[LADY17[2][0], 0, LADY17[2][1]], dur=0.5, clip='walk', ease='linear'), k(OUT17 + 1.05, to=[LADY17[3][0], 0, LADY17[3][1]], dur=1.5, clip='walk', ease='linear')])],
         props=[DOOR(swing=[[0, 0]], slide=[[0, 0], [0.05, 0], [0.22, 0.95], [1.0, 0.95], [1.2, 0], [RISE + 0.04, 0], [RISE + 0.2, 0.95]], led=0.0, signHide=[[PUSH - 0.14, 9]], **PUBLIC),
@@ -347,8 +348,8 @@ st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act('mec', HOLD, -90, 'sta
                CAP(), BRONZE(keys=[k(PUSH - 0.14, visible=False)]),
                P('bread', 'baguette', on={'actor': 'dame', 'hand': 'R', 'offset': [0, 0.1, 0], 'rot': [0, 0, 1.3]}, keys=[k(0.0, visible=False), k(OUT17, visible=True)])],
         cams=[cam(0.0, [4.75, 1.65, -1.85], [4.95, 1.65, -1.75], [9.5, 1.45, -0.45], [9.5, 1.45, -0.45], lens=44),   # a little to the right: the bronze plaque stays out of the left edge
-              cam(PUSH - 0.14, CAMB17, [6.5, 1.5, -1.55], [9.05, 1.25, -0.7], [9.05, 1.25, -0.7], lens=44),   # closer for his arm: from his right, the forearm over the pale leaf (the shot was one wide of 3.7 s)
-              glide([cam(US17 - 0.08, [6.9, 1.6, -1.45], [7.0, 1.6, -1.42], [9.05, 1.5, -0.78], [9.05, 1.5, -0.78], lens=44)], 0.3)])   # and in for the last look
+              cam(PUSH - 0.14, CAMB17, [6.25, 1.55, -1.64], [9.05, 1.42, -0.74], [9.05, 1.42, -0.74], lens=44),   # closer for his arm: from his right, the forearm over the pale leaf (the shot was one wide of 3.7 s)
+              glide([cam(US17 - 0.08, [6.5, 1.58, -1.6], [6.55, 1.58, -1.59], [9.06, 1.46, -0.76], [9.06, 1.46, -0.76], lens=44)], 0.4)])   # and a slow push in for the last look
 
 # sound on the actions
 st.cue('sfx:squeak', 'S01', O1, 0.3)
