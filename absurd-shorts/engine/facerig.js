@@ -179,7 +179,7 @@ export function makeFaceRig(v = null) {
     if (!gc) { gc = document.createElement('canvas'); gc.width = W; gc.height = H; gg = gc.getContext('2d'); gtex = new THREE.CanvasTexture(gc); gtex.colorSpace = THREE.SRGBColorSpace; gtex.anisotropy = 8; }
     const k = keyOf(st) + '|' + big; if (k === glast) return gtex; glast = k;
     gg.setTransform(1, 0, 0, 1, 0, 0); gg.globalAlpha = 1; gg.globalCompositeOperation = 'source-over'; gg.clearRect(0, 0, W, H);
-    tg = gg; for (const s of 'LR') { const e = st.eyes[s]; eye(s, big === 1 ? e : { ...e, s: Math.min(1.9, e.s * big), lid: e.lid < 0.6 ? e.lid * 0.3 : 0.18 + 0.82 * (e.lid - 0.6) / 0.4, low: e.low * 0.5 }); } tg = g;
+    tg = gg; for (const s of 'LR') { const e = st.eyes[s]; eye(s, big === 1 ? e : { ...e, s: Math.min(1.9, e.s * big), ps: e.ps * (big > 1.9 ? 2.1 : 1), lid: e.lid < 0.6 ? e.lid * 0.3 : 0.18 + 0.82 * (e.lid - 0.6) / 0.4, low: e.low * 0.5 }); } tg = g;   // above 1.9 the skin itself is scaled (engine/human.js): the pupils are drawn twice their size so that a look still reads
     const m = st.mouth, ma = A.mouth; if (GLOW_MOUTHS.has(m.spr)) spr(gg, 'mouth_' + m.spr, ma.cx, ma.cy, m.dx, m.dy, -Math.atan2(m.tilt, ma.hw), m.w * (m.flip ? -1 : 1), m.h);
     gtex.needsUpdate = true; return gtex;
   }

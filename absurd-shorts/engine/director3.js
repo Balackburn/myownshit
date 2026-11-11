@@ -512,7 +512,7 @@ function evalActor(A, tIn) {
     if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
-    if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn) { ud.glowOn = S.dark > 0.02 && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? S.dark : 0, A.cfg?.darkEyes ?? sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
+    if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn) { ud.glowOn = S.dark > 0.02 && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? S.dark : 0, A.cfg?.darkEyes ?? S.sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
     const fx = lastKey(A.fxKeys, t).fx; ud.setFx?.(fx, t);
     if (fx.shiver && ud.joints?.head) { ud.joints.head.rotation.z += 0.045 * Math.sin(t * 47); ud.joints.head.rotation.x += 0.02 * Math.sin(t * 61 + 1); }
   } else if (ud.kind === 'creature') {
@@ -1070,6 +1070,7 @@ function camLocked(camera) {
 // What is left of the picture: sc.darkFloor (0.05: faint cold silhouettes; 0: black), sc.darkTint. The eyes of the face rig stay visible, and any prop with
 // `inDark: true` (a torch, a screen, the moon). sc.darkEyes (or the actor's `darkEyes`): how much the eyes grow in the dark (1.3; false on an actor: no eyes).
 // Needs a look ('natural' or 'shaders')
+// (the scene's darkEyes is read as S.sc.darkEyes: in the actor loop `sc` is the actor's scale, and for a whole story the scene value was never read)
 function darkAt(sc, t) {
   const D = sc.dark; if (!D) return 0; let k = 0;
   for (const [at, v, ramp = 0.035] of D) { const a = T(at, sc); if (t < a) break; k = ramp <= 0.002 ? v : lerp(k, v, clamp01((t - a) / ramp)); }   // a key with no ramp holds from its own frame on (with a ramp of 0.001 the first frame of a shot that starts dark was still lit: one bright frame at the cut)

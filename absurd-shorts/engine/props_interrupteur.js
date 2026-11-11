@@ -109,8 +109,9 @@ export const INTERRUPTEUR_PROPS = {
   // a rocker switch on its plate, three times its size so that it reads: o.flips [t, ...]: the rocker tips at each of these times (it starts on: o.on false
   // starts it off), and a little star of sparks marks the click. Origin: the middle of the plate, against the wall, front +Z
   rockerSwitch(o) {
-    const s = o.s ?? 1, fl = (o.flips || []).slice().sort((a, b) => a - b), piv = grp(at(box(0.09 * s, 0.15 * s, 0.035 * s, '#FBFAF4', { outline: 0.012 }), 0, 0, 0.012 * s)); piv.position.z = 0.02 * s;
-    const g = grp(at(box(0.2 * s, 0.28 * s, 0.02 * s, '#EDEAE0', { outline: 0.012 }), 0, 0, 0.01 * s), piv), sparks = grp(); sparks.position.z = 0.06 * s; g.add(sparks);
+    const s = o.s ?? 1, fl = (o.flips || []).slice().sort((a, b) => a - b), piv = grp(at(box(0.09 * s, 0.15 * s, 0.035 * s, o.rocker || '#FBFAF4', { outline: 0.012 }), 0, 0, 0.012 * s)); piv.position.z = 0.02 * s;
+    const g = grp(at(box(0.2 * s, 0.28 * s, 0.02 * s, o.plate || '#EDEAE0', { outline: 0.014 }), 0, 0, 0.01 * s), piv), sparks = grp(); sparks.position.z = 0.06 * s; g.add(sparks);
+    if (o.back) g.add(at(box(0.3 * s, 0.38 * s, 0.012 * s, o.back, { outline: 0.008 }), 0, 0, 0.002 * s));   // o.back: a darker panel behind the plate (a cream plate on a cream wall did not read); o.rocker / o.plate: their colours
     for (let i = 0; i < 6; i++) { const a = i * TAU / 6 + 0.3, q = quad(0.016 * s, 0.07 * s, flat('#FFE27A')); q.position.set(Math.sin(a) * 0.16 * s, Math.cos(a) * 0.16 * s, 0); q.rotation.z = -a; sparks.add(q); }
     g.userData.update = t => { let n = 0, last = -9; for (const f of fl) if (t >= f) { n++; last = f; }
       const on = ((o.on ?? true) ? 1 : 0) ^ (n % 2), u = t - last, k = u < 0.05 ? u / 0.05 : 1, a0 = on ? 0.3 : -0.3;

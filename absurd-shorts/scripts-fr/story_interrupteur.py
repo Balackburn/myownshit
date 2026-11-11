@@ -23,28 +23,31 @@ def tie_tip(pos, ry, length=1.0, fwd=0.0):
     a = math.radians(ry); L = 0.02 + 0.41 * length; f = 0.135 + L * math.sin(fwd); y = 1.61 - L * math.cos(fwd)
     return r3([pos[0] + f * math.sin(a), pos[1] + y, pos[2] + f * math.cos(a)])
 
-# ---- his living room (back wall at z = -3.6): the camera stands in the doorway, he is on his way out; the switch is far behind him, on the back wall
+# ---- his living room (back wall at z = -3.6), seen from the door: he is at the left of the frame, on his way out; the switch is on the back wall at the
+#      right of the frame: his arm goes to it ACROSS the picture (seen from in front of him it ran into depth: a short crumpled sleeve)
 LIV = {'lamp': False, 'tv': False, 'plant': False}
-H1 = [-0.2, 0, 1.3]                                  # where he stands, on his way out
-SW1 = [1.4, 1.55, -3.56]                             # the switch (three times its size: it must read from the door)
-C1 = lambda t=0.0: cam(t, [0.0, 1.55, 4.6], [0.0, 1.55, 4.5], [0.3, 1.5, -1.0], [0.3, 1.5, -1.0], lens=44)
-SWITCH = lambda flips, on=True: P('switch', 'rockerSwitch', pos=SW1, opts={'s': 2.4, 'flips': flips, 'on': on})
-TO_SW = lambda d, **kw: {'hands': {'L': 'point'}, 'reach': {'L': [SW1[0] - 0.02, SW1[1] + 0.02, SW1[2] + d, 1, 0.16, [0.5, -1, 0.3]]}, **kw}   # his left index d metres short of the rocker, the arm across the room
+H1 = [-0.8, 0, -2.0]                                 # where he stops, on his way out
+SW1 = [1.25, 1.5, -3.52]                             # the switch, on the back wall
+SHO1 = [H1[0] + 0.2, 1.6, H1[2]]                     # his left shoulder (on our right: he faces us)
+_d1 = [SW1[i] - SHO1[i] for i in range(3)]; _n1 = math.sqrt(sum(v * v for v in _d1)); U1 = [v / _n1 for v in _d1]   # the way from his shoulder to the switch
+C1 = lambda t=0.0: cam(t, [0.0, 1.55, 3.3], [0.0, 1.55, 3.2], [0.1, 1.47, -3.0], [0.1, 1.47, -3.0], lens=44)
+SWITCH = lambda flips, on=True: P('switch', 'rockerSwitch', pos=SW1, opts={'s': 2.0, 'flips': flips, 'on': on, 'rocker': '#E8502A', 'plate': '#F7F2E6', 'back': '#5E6B7A'})   # an orange rocker on a pale plate on a grey panel
+TO_SW = lambda d, **kw: {'hands': {'L': 'point'}, 'reach': {'L': [round(SW1[0] - d * U1[0], 3), round(SW1[1] - d * U1[1] + 0.02, 3), round(SW1[2] - d * U1[2] + 0.06, 3), 1, 0.16, [0.2, -1, 0.3]]}, **kw}   # his left index d metres short of the rocker, along the arm
 
-# 1: on his way out: a glance back with his eyes alone; the arm goes back across the whole room, a ripple along it; the finger stops short of the
-#    switch, then taps it: black. Two eyes
-A1, B1, K1 = 0.2, 0.32, 0.62                         # the wind-up, the throw, the tap
-st.shot('S01', 'livingRoom', setOpts=LIV, actors=[act('mec', H1, 6, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.08, toon={'face': {'gx': 0.9, 'gy': -0.1}}, toonDur=0.06),   # the light: his eyes go back to it, not his head
-            k(A1, toon={'hands': {'L': 'point'}, 'reach': {'L': [0.25, 1.35, 2.0, 1, 0.16]}, 'bend': {'spine': [0.1, 0.14, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04], 'face': {'gx': 0.9}}, toonDur=0.1, toonEase='out'),   # the index comes forward: the wind-up
-            k(B1, toon=TO_SW(0.5, wave=RIP('L', 0.16, 0.6), bend={'spine': [-0.08, -0.16, 0, 1, None]}, sq=[0.97, 1.05, 0.97], face={'gx': 0.9, 'browL': 0.6}), toonDur=0.12, toonEase='out'),   # thrown back across the room
-            k(B1 + 0.14, toon=TO_SW(0.16, wave=RIP('L', 0.07, 1.6), bend={'spine': [0, -0.1, 0, 1, None]}, face={'gx': 0.9, 'browL': 0.6}), toonDur=0.12),   # it stops short, still ringing
-            k(K1 - 0.03, toon=TO_SW(0.045, face={'gx': 0.9, 'browL': 0.6}), toonDur=0.04),   # the tap
+# 1: on his way out: a step toward us, a glance back with his eyes alone; he leans away, then his arm is thrown across the whole room, a ripple along it;
+#    the finger stops a hand short of the switch, four frames; then taps it: black. Two eyes
+A1, B1, K1 = 0.2, 0.32, 0.64                         # the wind-up, the throw, the tap
+st.shot('S01', 'livingRoom', setOpts=LIV, actors=[act('mec', [H1[0], 0, H1[2] - 0.35], 6, 'walk', 'neutral', keys=[k(0.0, look=None), k(0.0, to=H1, dur=0.2, clip='walk', ease='out', face=6), k(0.06, toon={'face': {'gx': 0.9, 'gy': -0.1}}, toonDur=0.06),   # a step; the light: his eyes go back to it, not his head
+            k(A1, clip='stand', blend=0.06), k(A1, toon={'hands': {'L': 'point'}, 'reach': {'L': [H1[0] - 0.25, 1.45, H1[2] + 0.3, 1, 0.16]}, 'bend': {'spine': [0.0, 0.2, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04], 'face': {'gx': 0.9}}, toonDur=0.1, toonEase='out'),   # he leans away from it, the index cocked across his chest: the wind-up
+            k(B1, toon=TO_SW(0.55, wave=RIP('L', 0.07, 0.5, 1), bend={'spine': [0, -0.16, 0, 1, None]}, sq=[0.97, 1.05, 0.97], face={'gx': 0.9, 'browL': 0.6}), toonDur=0.1, toonEase='out'),   # thrown across the room
+            k(B1 + 0.12, toon=TO_SW(0.2, wave=RIP('L', 0.035, 1.3, 1), bend={'spine': [0, -0.1, 0, 1, None]}, face={'gx': 0.9, 'browL': 0.6}), toonDur=0.08),   # it stops a hand short, still ringing: held four frames
+            k(K1 - 0.04, toon=TO_SW(0.03, face={'gx': 0.9, 'browL': 0.6}), toonDur=0.04, toonEase='in'),   # the tap
             k(K1 + 0.1, toon=TO_SW(0.05), toonDur=0.06), k(K1 + 0.1, expr='surprised'),   # in the black: two eyes, to us
-            k(K1 + 0.32, toon=TO_SW(0.05, face={'lid': 1}), toonDur=0.04), k(K1 + 0.4, toon=TO_SW(0.05), toonDur=0.04),   # a blink
-            k(K1 + 0.46, toon={'face': {'gx': -0.8}}, toonDur=0.12, toonEase='inOut')])],   # the arm comes home; his eyes go to the door
+            k(K1 + 0.3, toon=TO_SW(0.05, face={'lid': 1}), toonDur=0.04), k(K1 + 0.38, toon=TO_SW(0.05), toonDur=0.04),   # a blink
+            k(K1 + 0.44, toon={'face': {'gx': -0.8}}, toonDur=0.1, toonEase='inOut')])],   # the arm comes home; his eyes go to the door
         props=[SWITCH([K1])],
         dark=[[K1 + 0.02, 1]], darkFloor=0.035, darkEyes=1.5,
-        cams=[C1(), glide([cam(K1 + 0.05, [-0.15, 2.06, 3.0], [-0.15, 2.06, 2.95], [-0.2, 2.04, 1.3], [-0.2, 2.04, 1.3], lens=44)], 0.22)])   # in the black the camera goes to his eyes
+        cams=[C1(), glide([cam(K1 + 0.05, [H1[0] + 0.05, 2.06, H1[2] + 1.7], [H1[0] + 0.05, 2.06, H1[2] + 1.65], [H1[0], 2.04, H1[2]], [H1[0], 2.04, H1[2]], lens=44)], 0.22)])   # in the black the camera goes to his eyes
 
 # 2: on his way out, in the black: two eyes come toward us, bobbing with his steps; he walks into the glass door: flat on it, the eyes two spirals, stars
 G2 = 0.5                                            # he meets the glass
@@ -68,12 +71,13 @@ st.shot('S03', 'spaceDark', setOpts={'stars': 300}, lighting='night',
 # 4: he turned it back on: the black, his eyes; the tap: the light: he stands where he stood, the arm across the room again, a lump on his head, a
 #    star still going round it; the arm comes home
 K4 = 0.28
-st.shot('S04', 'livingRoom', setOpts=LIV, actors=[act('mec', H1, 6, 'stand', 'dizzy', keys=[k(-0.05, toon=TO_SW(0.16, face={'bump': 1, 'stars': 1}), toonDur=0), k(0.0, look=None),
-            k(K4 - 0.03, toon=TO_SW(0.045, face={'bump': 1, 'stars': 1}), toonDur=0.04), k(K4 + 0.08, expr='unimpressed'),
-            k(K4 + 0.1, toon=TO_SW(0.3, wave=RIP('L', 0.1, 0.5), face={'bump': 1, 'stars': 0.6, 'browR': -0.6, 'browL': 0.5}), toonDur=0.1),
+st.shot('S04', 'livingRoom', setOpts=LIV, actors=[act('mec', H1, 6, 'stand', 'unimpressed', keys=[k(-0.05, toon=TO_SW(0.2, face={'bump': 1, 'stars': 1, 'lid': 0.5}), toonDur=0), k(0.0, look=None),   # in the black: his eyes, heavy
+            k(0.07, toon=TO_SW(0.2, face={'bump': 1, 'stars': 1, 'lid': 1}), toonDur=0.04), k(0.14, toon=TO_SW(0.2, face={'bump': 1, 'stars': 1, 'gx': 0.95, 'eye': 0.2}), toonDur=0.05),   # a blink; they dart to the switch
+            k(K4 - 0.04, toon=TO_SW(0.03, face={'bump': 1, 'stars': 1, 'gx': 0.95}), toonDur=0.04, toonEase='in'), k(K4 + 0.08, expr='unimpressed'),   # the tap: the light
+            k(K4 + 0.1, toon=TO_SW(0.3, wave=RIP('L', 0.06, 0.5, 1), face={'bump': 1, 'stars': 0.6, 'browR': -0.6, 'browL': 0.5}), toonDur=0.1),
             k(K4 + 0.26, toon={'face': {'bump': 1, 'stars': 0.3, 'browR': -0.6, 'browL': 0.5}, 'touch': {'R': ['face', 0.1, 1.02, 0.04, 1, 0.1]}, 'bend': {'spine': [0, 0.06, 0, 1, None]}}, toonDur=0.2, toonEase='outBack')])],   # the arm snaps home; the other hand goes to the lump
         props=[SWITCH([K4], on=False)],
-        dark=[[0, 1, 0.001], [K4 + 0.02, 0]], darkFloor=0.035,
+        dark=[[0, 1, 0.001], [K4 + 0.02, 0]], darkFloor=0.035, darkEyes=3.0,   # dark-room eyes: they spill over his head (the room is seen from the door: at their own size they were specks)
         cams=[C1()])
 
 # 5: the city came back on: the light runs out again from his street; the tower glitters; then off, on: he is trying the switch

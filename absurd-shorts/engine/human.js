@@ -309,6 +309,9 @@ for (let i = 0; i < pp.count; i++) {
         glowMesh = new THREE.Mesh(headMesh.geometry, [none, none, none, none, gm, none]); glowMesh.name = 'eyeGlow'; glowMesh.layers.set(1); glowMesh.userData.noAO = true; glowMesh.userData.noBend = true; headMesh.add(glowMesh); }
       if (glowMesh.geometry !== headMesh.geometry) glowMesh.geometry = headMesh.geometry;
       fr.glow(st, big); glowMesh.material[4].opacity = Math.min(1, k * 1.15); glowMesh.visible = true;
+      // dark-room eyes (darkEyes above 1.9): the lit skin is scaled about the point between the eyes, so that they spill over the head: two eyes as wide as
+      // the man. The face panel keeps its plane (the scaling point is on it)
+      const K = Math.max(1, (big || 1.3) / 1.9), ey = hh * 0.64, ez = hd / 2 - 0.015 * 0.64; glowMesh.scale.setScalar(K); glowMesh.position.set(0, ey * (1 - K), ez * (1 - K) + (K > 1 ? 0.012 : 0));   // (the face leans back 15 mm from chin to crown: the scaling point is on it at eye height, or the scaled skin sinks behind the face)
     }; }
   root.userData.setFx = buildFaceFx(head, hw, hh, hd, o);
   // rest pose snapshot for the animator
