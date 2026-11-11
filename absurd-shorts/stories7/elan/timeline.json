@@ -1,0 +1,621 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a couru pour attraper son bus. Il n'a pas réussi à s'arrêter.",
+   "hl": [
+    "bus.",
+    "s'arrêter."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.507,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "couru",
+     "s": 0.619,
+     "e": 0.841
+    },
+    {
+     "w": "pour",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "attraper",
+     "s": 1.063,
+     "e": 1.359
+    },
+    {
+     "w": "son",
+     "s": 1.433,
+     "e": 1.507
+    },
+    {
+     "w": "bus.",
+     "s": 1.656,
+     "e": 2.1
+    },
+    {
+     "w": "Il",
+     "s": 2.137,
+     "e": 2.174
+    },
+    {
+     "w": "n'a",
+     "s": 2.223,
+     "e": 2.322
+    },
+    {
+     "w": "pas",
+     "s": 2.359,
+     "e": 2.396
+    },
+    {
+     "w": "réussi",
+     "s": 2.47,
+     "e": 2.767
+    },
+    {
+     "w": "à",
+     "s": 2.792,
+     "e": 2.816
+    },
+    {
+     "w": "s'arrêter.",
+     "s": 2.841,
+     "e": 3.507
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a dépassé le bus. Puis la ville.",
+   "hl": [
+    "ville."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L02.k.wav",
+   "file_start": 3.607,
+   "speech_start": 3.607,
+   "speech_end": 5.904,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.607,
+     "e": 3.681
+    },
+    {
+     "w": "a",
+     "s": 3.719,
+     "e": 3.756
+    },
+    {
+     "w": "dépassé",
+     "s": 3.83,
+     "e": 4.163
+    },
+    {
+     "w": "le",
+     "s": 4.2,
+     "e": 4.237
+    },
+    {
+     "w": "bus.",
+     "s": 4.274,
+     "e": 4.83
+    },
+    {
+     "w": "Puis",
+     "s": 4.867,
+     "e": 5.163
+    },
+    {
+     "w": "la",
+     "s": 5.237,
+     "e": 5.311
+    },
+    {
+     "w": "ville.",
+     "s": 5.385,
+     "e": 5.904
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Au troisième tour, des gens sont montés.",
+   "hl": [
+    "montés."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L03.k.wav",
+   "file_start": 6.004,
+   "speech_start": 6.004,
+   "speech_end": 8.078,
+   "words": [
+    {
+     "w": "Au",
+     "s": 6.004,
+     "e": 6.078
+    },
+    {
+     "w": "troisième",
+     "s": 6.115,
+     "e": 6.448
+    },
+    {
+     "w": "tour,",
+     "s": 6.67,
+     "e": 6.93
+    },
+    {
+     "w": "des",
+     "s": 6.967,
+     "e": 7.041
+    },
+    {
+     "w": "gens",
+     "s": 7.115,
+     "e": 7.189
+    },
+    {
+     "w": "sont",
+     "s": 7.263,
+     "e": 7.337
+    },
+    {
+     "w": "montés.",
+     "s": 7.448,
+     "e": 8.078
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La mairie a tranché :",
+   "hl": [
+    "mairie"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L04.k.wav",
+   "file_start": 8.178,
+   "speech_start": 8.178,
+   "speech_end": 9.511,
+   "words": [
+    {
+     "w": "La",
+     "s": 8.178,
+     "e": 8.326
+    },
+    {
+     "w": "mairie",
+     "s": 8.363,
+     "e": 8.622
+    },
+    {
+     "w": "a",
+     "s": 8.659,
+     "e": 8.696
+    },
+    {
+     "w": "tranché:",
+     "s": 8.733,
+     "e": 9.511
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "C",
+   "text": "« C'est une ligne. »",
+   "hl": [
+    "ligne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L05.k.wav",
+   "file_start": 9.611,
+   "speech_start": 9.611,
+   "speech_end": 10.574,
+   "words": [
+    {
+     "w": "C'est",
+     "s": 9.611,
+     "e": 9.759
+    },
+    {
+     "w": "une",
+     "s": 9.833,
+     "e": 9.907
+    },
+    {
+     "w": "ligne.",
+     "s": 9.981,
+     "e": 10.574
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Depuis, il passe toutes les huit minutes.",
+   "hl": [
+    "huit",
+    "minutes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L06.k.wav",
+   "file_start": 10.674,
+   "speech_start": 10.674,
+   "speech_end": 12.674,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 10.674,
+     "e": 11.267
+    },
+    {
+     "w": "il",
+     "s": 11.341,
+     "e": 11.415
+    },
+    {
+     "w": "passe",
+     "s": 11.452,
+     "e": 11.637
+    },
+    {
+     "w": "toutes",
+     "s": 11.674,
+     "e": 11.859
+    },
+    {
+     "w": "les",
+     "s": 11.896,
+     "e": 11.933
+    },
+    {
+     "w": "huit",
+     "s": 11.97,
+     "e": 12.081
+    },
+    {
+     "w": "minutes.",
+     "s": 12.267,
+     "e": 12.674
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Il a un numéro. Il a des contrôleurs.",
+   "hl": [
+    "numéro.",
+    "contrôleurs."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L07.k.wav",
+   "file_start": 12.774,
+   "speech_start": 12.774,
+   "speech_end": 14.774,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.774,
+     "e": 12.848
+    },
+    {
+     "w": "a",
+     "s": 12.922,
+     "e": 12.959
+    },
+    {
+     "w": "un",
+     "s": 12.996,
+     "e": 13.07
+    },
+    {
+     "w": "numéro.",
+     "s": 13.144,
+     "e": 13.7
+    },
+    {
+     "w": "Il",
+     "s": 13.737,
+     "e": 13.774
+    },
+    {
+     "w": "a",
+     "s": 13.811,
+     "e": 13.885
+    },
+    {
+     "w": "des",
+     "s": 13.922,
+     "e": 13.959
+    },
+    {
+     "w": "contrôleurs.",
+     "s": 14.07,
+     "e": 14.774
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il a demandé à descendre. On lui a répondu :",
+   "hl": [
+    "descendre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L08.k.wav",
+   "file_start": 14.874,
+   "speech_start": 14.874,
+   "speech_end": 17.17,
+   "words": [
+    {
+     "w": "Il",
+     "s": 14.874,
+     "e": 14.948
+    },
+    {
+     "w": "a",
+     "s": 14.985,
+     "e": 15.022
+    },
+    {
+     "w": "demandé",
+     "s": 15.17,
+     "e": 15.356
+    },
+    {
+     "w": "à",
+     "s": 15.393,
+     "e": 15.43
+    },
+    {
+     "w": "descendre.",
+     "s": 15.467,
+     "e": 16.158
+    },
+    {
+     "w": "On",
+     "s": 16.182,
+     "e": 16.207
+    },
+    {
+     "w": "lui",
+     "s": 16.244,
+     "e": 16.319
+    },
+    {
+     "w": "a",
+     "s": 16.356,
+     "e": 16.393
+    },
+    {
+     "w": "répondu:",
+     "s": 16.43,
+     "e": 17.17
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "C",
+   "text": "« Au terminus. »",
+   "hl": [
+    "terminus."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L09.k.wav",
+   "file_start": 17.27,
+   "speech_start": 17.27,
+   "speech_end": 18.244,
+   "words": [
+    {
+     "w": "Au",
+     "s": 17.27,
+     "e": 17.344
+    },
+    {
+     "w": "terminus.",
+     "s": 17.53,
+     "e": 18.233
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il n'y a pas de terminus.",
+   "hl": [
+    "pas"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L10.k.wav",
+   "file_start": 18.344,
+   "speech_start": 18.344,
+   "speech_end": 19.751,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.344,
+     "e": 18.418
+    },
+    {
+     "w": "n'y",
+     "s": 18.455,
+     "e": 18.529
+    },
+    {
+     "w": "a",
+     "s": 18.566,
+     "e": 18.64
+    },
+    {
+     "w": "pas",
+     "s": 18.677,
+     "e": 18.714
+    },
+    {
+     "w": "de",
+     "s": 18.789,
+     "e": 18.863
+    },
+    {
+     "w": "terminus.",
+     "s": 18.937,
+     "e": 19.751
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Hier, il a enfin réussi à s'arrêter.",
+   "hl": [
+    "s'arrêter."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L11.k.wav",
+   "file_start": 19.851,
+   "speech_start": 19.851,
+   "speech_end": 22.222,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 19.851,
+     "e": 20.444
+    },
+    {
+     "w": "il",
+     "s": 20.518,
+     "e": 20.592
+    },
+    {
+     "w": "a",
+     "s": 20.629,
+     "e": 20.666
+    },
+    {
+     "w": "enfin",
+     "s": 20.777,
+     "e": 20.963
+    },
+    {
+     "w": "réussi",
+     "s": 21.037,
+     "e": 21.333
+    },
+    {
+     "w": "à",
+     "s": 21.407,
+     "e": 21.444
+    },
+    {
+     "w": "s'arrêter.",
+     "s": 21.481,
+     "e": 22.222
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Pas ses passagers.",
+   "hl": [
+    "passagers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L12.k.wav",
+   "file_start": 22.322,
+   "speech_start": 22.322,
+   "speech_end": 23.297,
+   "words": [
+    {
+     "w": "Pas",
+     "s": 22.322,
+     "e": 22.396
+    },
+    {
+     "w": "ses",
+     "s": 22.47,
+     "e": 22.544
+    },
+    {
+     "w": "passagers.",
+     "s": 22.618,
+     "e": 23.285
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Ils sont arrivés en avance. C'est une première.",
+   "hl": [
+    "avance.",
+    "première."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/elan/tts/L13.k.wav",
+   "file_start": 23.397,
+   "speech_start": 23.397,
+   "speech_end": 25.767,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 23.397,
+     "e": 23.545
+    },
+    {
+     "w": "sont",
+     "s": 23.582,
+     "e": 23.693
+    },
+    {
+     "w": "arrivés",
+     "s": 23.804,
+     "e": 23.989
+    },
+    {
+     "w": "en",
+     "s": 24.026,
+     "e": 24.063
+    },
+    {
+     "w": "avance.",
+     "s": 24.137,
+     "e": 24.804
+    },
+    {
+     "w": "C'est",
+     "s": 24.853,
+     "e": 24.952
+    },
+    {
+     "w": "une",
+     "s": 25.026,
+     "e": 25.1
+    },
+    {
+     "w": "première.",
+     "s": 25.174,
+     "e": 25.767
+    }
+   ]
+  }
+ ],
+ "total": 27.97
+}

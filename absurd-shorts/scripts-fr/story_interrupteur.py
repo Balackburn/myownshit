@@ -25,9 +25,10 @@ def tie_tip(pos, ry, length=1.0, fwd=0.0):
 
 # ---- his living room (back wall at z = -3.6), seen from the door: he is at the left of the frame, on his way out; the switch is on the back wall at the
 #      right of the frame: his arm goes to it ACROSS the picture (seen from in front of him it ran into depth: a short crumpled sleeve)
-LIV = {'lamp': False, 'tv': False, 'plant': False}
-H1 = [-0.8, 0, -2.0]                                 # where he stops, on his way out
-SW1 = [1.25, 1.5, -3.52]                             # the switch, on the back wall
+LIV = {'lamp': False, 'tv': False, 'plant': False, 'pictureX': 0.12, 'pictureW': 1.0}   # the painting between his head and the switch, touching neither (its border met his head in the key pose of the hook)
+LIV7 = {'lamp': False, 'tv': False, 'plant': False, 'picture': False}   # S06-S09: a plain wall behind the heads (the painting filled the gap between them, its border on their chins, and the label landed on its corner)
+H1 = [-0.62, 0, -2.0]                                 # where he stops, on his way out
+SW1 = [1.15, 1.5, -3.52]                             # the switch, on the back wall
 SHO1 = [H1[0] + 0.2, 1.6, H1[2]]                     # his left shoulder (on our right: he faces us)
 _d1 = [SW1[i] - SHO1[i] for i in range(3)]; _n1 = math.sqrt(sum(v * v for v in _d1)); U1 = [v / _n1 for v in _d1]   # the way from his shoulder to the switch
 C1 = lambda t=0.0: cam(t, [0.0, 1.55, 3.3], [0.0, 1.55, 3.2], [0.1, 1.47, -3.0], [0.1, 1.47, -3.0], lens=44)
@@ -36,11 +37,12 @@ TO_SW = lambda d, **kw: {'hands': {'L': 'point'}, 'reach': {'L': [round(SW1[0] -
 
 # 1: on his way out: a step toward us, a glance back with his eyes alone; he leans away, then his arm is thrown across the whole room, a ripple along it;
 #    the finger stops a hand short of the switch, four frames; then taps it: black. Two eyes
-A1, B1, K1 = 0.2, 0.32, 0.64                         # the wind-up, the throw, the tap
-st.shot('S01', 'livingRoom', setOpts=LIV, actors=[act('mec', [H1[0], 0, H1[2] - 0.35], 6, 'walk', 'neutral', keys=[k(0.0, look=None), k(0.0, to=H1, dur=0.2, clip='walk', ease='out', face=6), k(0.06, toon={'face': {'gx': 0.9, 'gy': -0.1}}, toonDur=0.06),   # a step; the light: his eyes go back to it, not his head
+A1, B1, K1 = 0.1, 0.2, 0.64                          # the wind-up, the throw, the tap (the throw 0.12 s sooner: the finger held a hand short of the switch has eight frames)
+st.shot('S01', 'livingRoom', setOpts=LIV, actors=[act('mec', [H1[0], 0, H1[2] - 0.35], 6, 'walk', 'neutral', keys=[k(0.0, look=None), k(0.0, to=H1, dur=0.1, clip='walk', ease='out', face=6), k(0.03, toon={'face': {'gx': 0.9, 'gy': -0.1}}, toonDur=0.05),   # a step; the light: his eyes go back to it, not his head
             k(A1, clip='stand', blend=0.06), k(A1, toon={'hands': {'L': 'point'}, 'reach': {'L': [H1[0] - 0.25, 1.45, H1[2] + 0.3, 1, 0.16]}, 'bend': {'spine': [0.0, 0.2, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04], 'face': {'gx': 0.9}}, toonDur=0.1, toonEase='out'),   # he leans away from it, the index cocked across his chest: the wind-up
             k(B1, toon=TO_SW(0.55, wave=RIP('L', 0.07, 0.5, 1), bend={'spine': [0, -0.16, 0, 1, None]}, sq=[0.97, 1.05, 0.97], face={'gx': 0.9, 'browL': 0.6}), toonDur=0.1, toonEase='out'),   # thrown across the room
             k(B1 + 0.12, toon=TO_SW(0.2, wave=RIP('L', 0.035, 1.3, 1), bend={'spine': [0, -0.1, 0, 1, None]}, face={'gx': 0.9, 'browL': 0.6}), toonDur=0.08),   # it stops a hand short, still ringing: held four frames
+            k(B1 + 0.26, toon=TO_SW(0.2, wave=RIP('L', 0.012, 2.4, 1), bend={'spine': [0, -0.08, 0, 1, None]}, face={'gx': 0.9, 'browL': 0.8, 'eye': 0.15}), toonDur=0.1),   # the ringing dies; a brow goes up: will it
             k(K1 - 0.04, toon=TO_SW(0.03, face={'gx': 0.9, 'browL': 0.6}), toonDur=0.04, toonEase='in'),   # the tap
             k(K1 + 0.1, toon=TO_SW(0.05), toonDur=0.06), k(K1 + 0.1, expr='surprised'),   # in the black: two eyes, to us
             k(K1 + 0.3, toon=TO_SW(0.05, face={'lid': 1}), toonDur=0.04), k(K1 + 0.38, toon=TO_SW(0.05), toonDur=0.04),   # a blink
@@ -51,14 +53,14 @@ st.shot('S01', 'livingRoom', setOpts=LIV, actors=[act('mec', [H1[0], 0, H1[2] - 
 
 # 2: on his way out, in the black: two eyes come toward us, a dip at each of his two steps; he walks into the glass door: flat on it, his eyes wide
 #    and flat for four frames, a glint on the pane, stars; then two spirals that slide down
-G2 = 0.42                                           # he meets the glass
+G2 = 0.34                                           # he meets the glass
 ST2 = {'clear': [-30, 30], 'eiffel': False, 'night': True}
 STEP2 = lambda sy: {'sq': [1.0, sy, 1.0], 'auto': 0}
 st.shot('S02', 'parisStreet', setOpts=ST2, lighting='night', actors=[act('mec', [8.6, 0, -3.2], 0, 'walk', 'neutral', keys=[k(0.0, look=None), k(0.0, to=[8.6, 0, -1.25], dur=G2, clip='walk', ease='linear'),
-            k(0.06, toon=STEP2(0.9), toonDur=0.05), k(0.13, toon=STEP2(1.0), toonDur=0.07), k(0.27, toon=STEP2(0.9), toonDur=0.05), k(0.34, toon=STEP2(1.0), toonDur=0.07),   # two steps: his eyes dip and come back up
+            k(0.04, toon=STEP2(0.9), toonDur=0.05), k(0.1, toon=STEP2(1.0), toonDur=0.06), k(0.2, toon=STEP2(0.9), toonDur=0.05), k(0.26, toon=STEP2(1.0), toonDur=0.06),   # two steps: his eyes dip and come back up
             k(G2, clip='pressGlass', blend=0.02), k(G2, toon={'sq': [1.5, 1.0, 0.22], 'scl': {'head': [1.5, 0.74, 1]}, 'auto': 0, 'face': {'eye': 0.5}}, toonDur=0.03),   # flat on the glass: his eyes wide and flat: four frames (no new expression here: a strong one starts with a blink, and the four frames were black)
-            k(G2 + 0.13, expr='dizzy'), k(G2 + 0.13, toon={'sq': [1.4, 1.0, 0.25], 'scl': {'head': [1.25, 0.9, 1]}, 'auto': 0}, toonDur=0.05),   # then the spirals
-            k(G2 + 0.18, to=[8.6, -0.7, -1.25], dur=round(st.dur('S02') - G2 - 0.18, 3), ease='linear', face='keep')])],   # and he slides down it
+            k(G2 + 0.2, expr='dizzy'), k(G2 + 0.2, toon={'sq': [1.4, 1.0, 0.25], 'scl': {'head': [1.25, 0.9, 1]}, 'auto': 0}, toonDur=0.05),   # six frames; then the spirals
+            k(G2 + 0.25, to=[8.6, -0.3, -1.25], dur=round(st.dur('S02') - G2 - 0.25, 3), ease='out', face='keep')])],   # and he slides down it: not as far as the caption line
         props=[P('stars', 'impactStars', pos=[8.6, 2.1, -1.0], inDark=True, opts={'at': G2, 'n': 6, 'r': 0.5, 'r0': 0.62, 'dur': 0.4, 'size': 0.06}),   # round his eyes, not over them
                P('glint', 'glassGlint', pos=[8.9, 2.38, -1.04], inDark=True, opts={'at': G2 + 0.01, 'w': 0.2, 'dur': 0.3})],
         dark=[[0, 1, 0.001]], darkFloor=0.03, darkEyes=2.2,
@@ -67,7 +69,7 @@ st.shot('S02', 'parisStreet', setOpts=ST2, lighting='night', actors=[act('mec', 
 
 # 3: the whole city: Paris at night from a height; the black runs out from his street, row after row; the tower stands alone, lit, then pops; eyes open
 #    in the dark windows
-CITY = lambda keys, **kw: P('city', 'cityNight', pos=[0, 0, 0], inDark=True, opts={'keys': keys, **kw})   # inDark: drawn with its own colours in every shot (the shots give a `dark` key even when the light stays on)
+CITY = lambda keys, **kw: P('city', 'cityNight', pos=[0, 0, 0], inDark=True, opts={'keys': keys, 'moonX': -8, **kw})   # inDark: drawn with its own colours in every shot (the shots give a `dark` key even when the light stays on)
 LIT = [[0, 0, 0.001]]                                 # a shot that stays lit but draws what is `inDark` the same way as the dark shots
 VIEW = lambda t, a, b: cam(t, a, b, [4.0, 1.5, -60.0], [4.0, 1.5, -60.0], lens=44)
 NEAR = lambda **kw: P('house', 'nearHouse', pos=[0.75, 1.57, -9.0], inDark=True, opts=kw)   # the house across the street: its roof line a little under the middle of the frame, three big windows above the caption band (the windows and the eyes of the far city were specks, cut by roofs or behind the caption)
@@ -84,8 +86,8 @@ st.shot('S04', 'livingRoom', setOpts=LIV, actors=[act('mec', H1, 6, 'stand', 'un
             k(K4 + 0.1, toon=TO_SW(0.3, wave=RIP('L', 0.06, 0.5, 1), face={'bump': 1, 'stars': 0.6, 'browR': -0.6, 'browL': 0.5}), toonDur=0.1),
             k(K4 + 0.26, toon={'face': {'bump': 1, 'stars': 0.3, 'browR': -0.6, 'browL': 0.5}, 'touch': {'R': ['face', 0.1, 1.02, 0.04, 1, 0.1]}, 'bend': {'spine': [0, 0.06, 0, 1, None]}}, toonDur=0.2, toonEase='outBack')])],   # the arm snaps home; the other hand goes to the lump
         props=[SWITCH([K4], on=False)],
-        dark=[[0, 1, 0.001], [K4 + 0.02, 0]], darkFloor=0.035, darkEyes=3.0,   # dark-room eyes: they spill over his head (the room is seen from the door: at their own size they were specks)
-        cams=[C1()])
+        dark=[[0, 1, 0.001], [K4 + 0.02, 0]], darkFloor=0.035, darkEyes=1.5,
+        cams=[cam(0.0, [H1[0] + 0.05, 2.06, H1[2] + 1.65], [H1[0] + 0.05, 2.06, H1[2] + 1.6], [H1[0], 2.04, H1[2]], [H1[0], 2.04, H1[2]], lens=44), C1(K4 + 0.02)])   # in the black: where S01 left us, close on his eyes (seen from the door they were small, at the edge of the frame); at the tap: the room
 
 # 5: the city came back on: the light runs out again from his street; the tower glitters; then off, on: he is trying the switch
 st.shot('S05', 'spaceDark', setOpts={'stars': 300}, lighting='night',
@@ -104,7 +106,7 @@ LUMP = {'bump': 0.8}
 #    his nose; his eyes go from the finger to the meter. (v1: he skidded to a stop standing, in front of the mayor: the finger and half the face were gone)
 M6, E6, H6 = [-0.72, 0, -1.25], [0.0, 0, -0.05], [0.66, 0, -0.5]
 MET6 = [0.5, 1.02, 0.34]                             # the meter, at the end of his arms, in front of the hero's waist (higher, it hid the electrician's face)
-st.shot('S06', 'livingRoom', setOpts=LIV, actors=[act('mec', H6, -18, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {**LUMP, 'gx': -0.9, 'browL': 0.7, 'browR': -0.4}}, toonDur=0.0),
+st.shot('S06', 'livingRoom', setOpts=LIV7, actors=[act('mec', H6, -18, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {**LUMP, 'gx': -0.9, 'browL': 0.7, 'browR': -0.4}}, toonDur=0.0),
             k(0.4, toon={'face': {**LUMP, 'gx': -0.5, 'gy': 0.8, 'browL': 0.9, 'browR': 0.9, 'eye': 0.2}, 'bend': {'neck': [0.14, 0, 0, 1, None]}}, toonDur=0.08, toonEase='outBack')]),   # the finger, then the meter under his nose
         act('maire', M6, 24, 'stand', 'angry', keys=[k(0.0, look=None), k(0.0, toon={'hands': {'L': 'point'}, 'reach': {'L': [-0.45, 2.75, -1.1, 1, 0.16, [0, 1, 0.2]]}, 'sq': [0.94, 1.1, 0.94], 'face': {'gx': 0.9}}, toonDur=0.0),   # up on his toes, the arm high
             k(0.1, toon={'hands': {'L': 'point'}, 'reach': {'L': [0.3, 2.58, -0.75, 1, 0.16, [0, 1, 0.2]]}, 'sq': [0.94, 1.1, 0.94], 'bend': {'spine': [0.1, -0.16, 0, 1.04, None]}, 'face': {'jaw': 0.35, 'gx': 0.9}}, toonDur=0.08, toonEase='outBack'),   # the finger comes down on him from above, over the electrician's helmet
@@ -121,7 +123,7 @@ CL7, ND7 = 0.26, 0.38
 MET7 = [0.0, 1.3, 0.14]
 M7 = lambda **kw: {**kw, 'hands': {'L': 'grip', **kw.get('hands', {})}, 'reach': {'L': [MET7[0] - 0.25, MET7[1] + 0.14, MET7[2] + 0.02, 1, 0.06], **kw.get('reach', {})}}   # his left hand holds the meter up
 CLIP7 = lambda w, **kw: M7(hands={'R': 'pinch'}, reach={'R': [NOSE7[0] - 0.03, NOSE7[1], NOSE7[2] + 0.02, w, 0.06]}, **kw)
-st.shot('S07', 'livingRoom', setOpts=LIV, actors=[act('mec', H7, RH, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {**LUMP, 'gx': -0.6}}, toonDur=0.0),
+st.shot('S07', 'livingRoom', setOpts=LIV7, actors=[act('mec', H7, RH, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {**LUMP, 'gx': -0.6}}, toonDur=0.0),
             k(CL7, toon={'scl': {'head': [1.16, 0.88, 1]}, 'face': {**LUMP, 'cross': 1, 'eye': 0.35, 'brow': 0.8}}, toonDur=0.04), k(CL7 + 0.08, toon={'scl': {'head': [0.96, 1.04, 1]}, 'face': {**LUMP, 'cross': 1, 'eye': 0.35, 'brow': 0.8}}, toonDur=0.08, toonEase='outBack'),
             k(CL7 + 0.2, toon={'face': {**LUMP, 'cross': 1, 'eye': 0.35, 'brow': 0.8}}, toonDur=0.08), k(ND7 + 0.3, toon={'face': {**LUMP, 'cross': 0.6, 'eye': 0.2, 'browL': 0.8, 'browR': -0.3, 'gy': 0.5}}, toonDur=0.15)]),   # then down to the needle
         act('elec', E7, RE, 'stand', 'hmm', keys=[k(0.0, look=None), k(0.0, toon=CLIP7(0, face={'gx': 0.9}), toonDur=0.0), k(0.08, toon=M7(hands={'R': 'pinch'}, reach={'R': [-0.15, 1.95, 0.15, 1, 0.06]}, sq=[1.03, 0.96, 1.03], face={'gx': 0.9, 'gy': -0.3}), toonDur=0.08),   # the clip, held up
@@ -146,26 +148,33 @@ def pull8(t):   # (his keys, the electrician's keys) for one pull at t: the tie 
     ek = [k(t - 0.06, toon=HOLD8(1.75, bend={'spine': [0.12, 0, 0, 1, None]}), toonDur=0.06, toonEase='in'), k(t + 0.07, toon=HOLD8(0.9), toonDur=0.07, toonEase='out'), k(t + 0.17, toon=HOLD8(1.04, face={'lid': 1}), toonDur=0.05), k(t + 0.26, toon=HOLD8(1.0, face={'gx': 0.9}), toonDur=0.06)]   # (a blink, then a look at him: in the black, eyes that move)
     return hk, ek
 (h8a, e8a), (h8b, e8b) = pull8(P8a), pull8(P8b)
-st.shot('S08', 'livingRoom', setOpts=LIV, actors=[act('mec', H7, RH, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=PULLED(1.0, face={**LUMP, 'gx': -0.5}), toonDur=0.0), k(0.3, toon=PULLED(1.0, face={**LUMP, 'gy': 0.8}), toonDur=0.1)] + h8a + h8b +   # his eyes go down to the hand on his tie
+st.shot('S08', 'livingRoom', setOpts=LIV7, actors=[act('mec', H7, RH, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=PULLED(1.0, face={**LUMP, 'gx': -0.5}), toonDur=0.0), k(0.3, toon=PULLED(1.0, face={**LUMP, 'gy': 0.8}), toonDur=0.1)] + h8a + h8b +   # his eyes go down to the hand on his tie
             [k(P8b + 0.3, toon=PULLED(1.0, face={**LUMP, 'browL': 0.8, 'browR': -0.5}), toonDur=0.1)]),
-        act('elec', E7, RE, 'stand', 'neutral', keys=st.talk('L04', 'S08', 'smug') + [k(0.0, look=None), k(0.22, toon=HOLD8(1.0), toonDur=0.16, toonEase='out')] + e8a + e8b +   # (his face stays three quarters to us from the start: turned to the hero, his eyes in the black were two slivers)
+        act('elec', E7, RE, 'stand', 'neutral', keys=st.talk('L04', 'S08', 'neutral') + [k(0.0, look=None), k(0.02, toon=HOLD8(1.0), toonDur=0.22, toonEase='out')] + e8a + e8b +   # (his face stays three quarters to us from the start: turned to the hero, his eyes in the black were two slivers)
             [k(P8b + 0.3, toon={'hands': {'L': 'thumbUp'}, 'reach': {'L': [0.0, 1.75, 0.0, 1, 0.1]}, 'face': {'browL': 0.8}}, toonDur=0.12, toonEase='outBack')])],   # then a thumb at him
         dark=[[P8a + 0.02, 1], [P8b + 0.02, 0]], darkFloor=0.035, darkEyes=2.6,
         cams=[cam(0.0, [0.1, 1.6, 3.1], [0.08, 1.6, 2.95], [0.0, 1.5, -0.35], [0.0, 1.5, -0.35], lens=44)])
 
 # 9: « c'est lui. » : he slaps the label of a fuse box on his forehead: GÉNÉRAL; his head goes into his shoulders and comes back, his eyes cross up to it
-SL9 = 0.18
+SL9 = 0.26
 FORE9 = face_pt(H7, RH, 0.0, 0.92, 0.1)
-st.shot('S09', 'livingRoom', setOpts=LIV, actors=[act('mec', H7, RH, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {'gx': -0.7, 'gy': -0.4}}, toonDur=0.0),
-            k(SL9, toon={'scl': {'head': [1.3, 0.72, 1]}, 'bend': {'neck': [0, 0, 0, 0.5, None], 'spine': [0, 0, 0, 0.94, None]}, 'sq': [1.05, 0.94, 1.05], 'face': {'cross': 1, 'gy': -0.9, 'brow': 1, 'eye': 0.3}}, toonDur=0.03),
-            k(SL9 + 0.1, toon={'scl': {'head': [0.93, 1.1, 1]}, 'bend': {'neck': [0, 0, 0, 1.3, None]}, 'face': {'cross': 1, 'gy': -0.9, 'brow': 1, 'eye': 0.3}}, toonDur=0.07, toonEase='out'),
-            k(SL9 + 0.22, toon={'face': {'cross': 1, 'gy': -0.9, 'brow': 1, 'eye': 0.3}}, toonDur=0.12, toonEase='outBack'), k(SL9 + 0.42, toon={'face': {'browL': 0.7, 'browR': -0.6}}, toonDur=0.1), k(SL9 + 0.42, expr='deadpan')]),
-        act('elec', E7, RE, 'stand', 'smug', keys=st.talk('L04', 'S09', 'smug') + [k(0.0, look=None), k(0.0, toon={'hands': {'R': 'open'}, 'reach': {'R': [-0.5, 2.35, 0.2, 1, 0.1]}, 'bend': {'spine': [-0.15, 0, 0, 1, None]}}, toonDur=0.0),   # the hand up behind him: the wind-up
+X9 = {'cross': 1, 'gy': -0.9, 'brow': 0.5, 'eye': 0.3, 'pupilSize': 0.35}   # his eyes crossed up at the label: open (expr worried, not a STRONG one: no automatic blink), a little bigger, the pupils too
+HAND9a, HAND9b = [-0.2, 1.5, 0.3], [-0.4, 2.5, 0.1]   # the label in his hand: shown, then wound up behind his head
+_f9 = [math.sin(math.radians(RH)), math.cos(math.radians(RH))]   # where the hero's face looks
+CAM9 = r3([H7[0] + 1.62 * _f9[0], 2.08, H7[2] + 1.62 * _f9[1]])   # the close camera: square to his forehead
+st.shot('S09', 'livingRoom', setOpts=LIV7, actors=[act('mec', H7, RH, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {'gx': -0.7, 'gy': -0.4}}, toonDur=0.0),
+            k(SL9, expr='worried'), k(SL9, toon={'scl': {'head': [1.3, 0.72, 1]}, 'bend': {'neck': [0, 0, 0, 0.5, None], 'spine': [0, 0, 0, 0.94, None]}, 'sq': [1.05, 0.94, 1.05], 'face': {**X9}}, toonDur=0.03),
+            k(SL9 + 0.1, toon={'scl': {'head': [0.93, 1.1, 1]}, 'bend': {'neck': [0, 0, 0, 1.3, None]}, 'face': {**X9}}, toonDur=0.07, toonEase='out'),
+            k(SL9 + 0.22, toon={'face': {**X9}}, toonDur=0.12, toonEase='outBack'), k(SL9 + 0.36, toon={'face': {**X9, 'browL': 0.5, 'browR': -0.3}}, toonDur=0.08)]),   # one beat in the close shot: the word and his eyes crossed up at it, to the cut
+        act('elec', E7, RE, 'stand', 'smug', keys=st.talk('L04', 'S09', 'smug') + [k(0.0, look=None), k(0.0, toon={'hands': {'R': 'open'}, 'reach': {'R': [HAND9a[0], HAND9a[1] - 0.02, HAND9a[2] - 0.04, 1, 0.1]}}, toonDur=0.0),   # the label, shown in his hand
+            k(0.05, toon={'hands': {'R': 'open'}, 'reach': {'R': [HAND9b[0], HAND9b[1] - 0.02, HAND9b[2] - 0.04, 1, 0.1]}, 'bend': {'spine': [-0.18, 0, 0, 1.03, None]}, 'sq': [0.97, 1.05, 0.97]}, toonDur=0.12, toonEase='outBack'),   # the wind-up: up behind his head, he leans back
             k(SL9 - 0.05, toon={'hands': {'R': 'open'}, 'reach': {'R': [FORE9[0] - 0.02, FORE9[1], FORE9[2] + 0.03, 1, 0.1]}, 'bend': {'spine': [0.2, 0, 0, 1, None]}}, toonDur=0.05, toonEase='in'),
-            k(SL9 + 0.14, toon={'hands': {'R': 'thumbUp'}, 'reach': {'R': [-0.05, 1.95, 0.05, 1, 0.1]}}, toonDur=0.14, toonEase='outBack'), k(SL9 + 0.2, look=None)])],   # and a thumb at him, for us
-        props=[P('plate', 'fusePlate', pos=[-1.1, 2.7, 0.3], ry=RH, opts={'w': 0.25}, keys=[k(SL9 - 0.05, to=[FORE9[0], FORE9[1], FORE9[2] + 0.01], dur=0.05, ease='in'), k(SL9, attach='mec', joint='head', offset=[0.0, 0.462, 0.094], rot=[0, 0, 0.06]), k(SL9, squash=[1.3, 0.72, 1.0], dur=0.3)])],   # on the hairline, a little over the top of the head: both eyes show under it (0.3 m wide, lower, it hid one)
+            k(SL9, toon={'hands': {'R': 'open'}, 'reach': {'R': [FORE9[0] - 0.02, FORE9[1] - 0.25, FORE9[2] + 0.05, 1, 0.1]}, 'bend': {'spine': [0.26, 0, 0, 1, None]}}, toonDur=0.03),   # the palm stays on the label while the head sinks under it
+            k(SL9 + 0.1, toon={'hands': {'R': 'thumbUp'}, 'reach': {'R': [-0.3, 1.72, 0.1, 1, 0.1]}}, toonDur=0.14, toonEase='outBack')])],   # then home, a thumb up at his own chest: out of the close shot
+        props=[P('plate', 'fusePlate', pos=HAND9a, ry=0, opts={'w': 0.25}, keys=[k(0.05, to=HAND9b, dur=0.12, ease='outBack'), k(SL9 - 0.05, to=[FORE9[0], FORE9[1], FORE9[2] + 0.01], dur=0.05, ease='in'), k(SL9, attach='mec', joint='head', offset=[0.0, 0.462, 0.094], rot=[0, 0, 0.06]), k(SL9, squash=[1.3, 0.72, 1.0], dur=0.3)])],   # on the hairline: both eyes show under it
         fx=[{'type': 'shake', 'at': SL9, 'dur': 0.14, 'amount': 0.02}],
-        cams=[cam(0.0, [0.05, 1.98, 2.4], [0.08, 1.98, 2.25], [0.05, 1.95, -0.35], [0.05, 1.95, -0.35], lens=44)])
+        cams=[cam(0.0, [0.0, 1.98, 2.75], [0.02, 1.98, 2.62], [0.0, 1.95, -0.35], [0.0, 1.95, -0.35], lens=44),
+              cam(SL9 + 0.1, CAM9, [CAM9[0] + 0.04 * _f9[0], CAM9[1], CAM9[2] - 0.04 * _f9[1]], [FORE9[0], 2.05, FORE9[2]], [FORE9[0], 2.05, FORE9[2]], lens=28)])   # close on his forehead: GÉNÉRAL fills a third of the frame, his eyes crossed up at it (in the two-shot the word was 12 % of the width)
 
 # ---- every evening at ten: his balcony above Paris
 B10 = [0.2, 0, -0.15]                                # where he stands on the balcony, facing us, the city behind him
@@ -179,13 +188,14 @@ CLOCK = lambda at_=None: P('clock', 'ledClock', pos=[-7.35, 4.2, -29.6], opts={'
 F10 = 0.3                                           # the clock turns
 HANDS10 = lambda kk: {'L': [B10[0] + 0.3 + 0.1 * kk, 2.3 + 1.2 * kk, B10[2] + 0.05, 1, 0.1], 'R': [B10[0] - 0.3 - 0.1 * kk, 2.3 + 1.2 * kk, B10[2] + 0.05, 1, 0.1]}   # his hands, straight up over his shoulders: a narrow Y that leaves the frame
 YAWN = lambda kk, **kw: {'hands': {'L': 'spread', 'R': 'spread'}, 'reach': HANDS10(kk), 'bend': {'spine': [-0.14 * kk, 0, 0, 1 + 0.14 * kk, None], 'neck': [-0.2 * kk, 0, 0, 1, None]},
-                         'sq': [1 - 0.05 * kk, 1 + 0.1 * kk, 1 - 0.05 * kk], 'face': {'jaw': 0.95 * kk, 'jawLen': 0.5 * kk, 'mouth': 'yawn', 'lid': kk, 'brow': 0.7 * kk}, **kw}   # the jaw down to the knot of his tie
+                         'sq': [1 - 0.05 * kk, 1 + 0.1 * kk, 1 - 0.05 * kk], 'face': {'jaw': 0.95 * kk, 'jawLen': 0.5 * kk, 'mouth': 'yawn', 'mouthW': 0.7 * kk, 'mouthH': 0.5 * kk, 'lid': kk, 'brow': 0.7 * kk}, **kw}   # the jaw down to the knot of his tie, the mouth as wide as what is left of his face
 st.shot('S10', 'spaceDark', setOpts=NIGHT, lighting='night', actors=[act('mec', B10, 4, 'stand', 'sleepy', keys=[k(0.0, look=None), k(0.06, toon={'face': {'gx': -0.9, 'gy': -0.5}}, toonDur=0.08),   # his eyes on the clock
             k(F10 + 0.06, toon={'sq': [1.04, 0.94, 1.04], 'face': {'lid': 0.6}}, toonDur=0.06), k(F10 + 0.14, toon=YAWN(0.35), toonDur=0.1, toonEase='out'),   # ten o'clock: he sinks a little, then it comes
             k(F10 + 0.3, toon=YAWN(1.0, wave={**RIP('L', 0.05, 0.4, 1), **RIP('R', 0.05, 0.9, 1)}), toonDur=0.2, toonEase='out'),   # arms out of the frame, the jaw on his tie
             k(F10 + 0.52, toon=YAWN(1.06, wave={**RIP('L', 0.04, 1.2, 1), **RIP('R', 0.04, 1.7, 1)}), toonDur=0.22),   # it still grows a little: a moving hold
             k(F10 + 0.66, toon={'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.7}}, toonDur=0.16, toonEase='inOut')])],   # the arms come down, without a bump before the cut
-        props=[BALC(), CAPN(), CITY10([], sparkle=[F10, 99]), CLOCK(F10)], dark=LIT,
+        props=[BALC(), CAPN(), CITY10([], sparkle=[F10, 99], towerX=16.5, towerH=44), CLOCK(F10)], dark=LIT,
+        look={'sun': 2.6, 'sunColor': '#C4D6FF', 'sunDir': [-0.55, 0.45, 0.9], 'fill': 1.5},   # moonlight from in front of him, on our left: his sleeves are pale against the sky (navy on navy, the biggest stretch of the film had no silhouette)
         cams=[cam(0.0, [0.3, 1.9, 3.5], [0.3, 1.9, 3.35], [0.0, 1.85, -0.3], [0.0, 1.85, -0.3], lens=44)])   # a little further back than v1: the clock whole at his left, his arms up between it and the tower
 
 # 11: he takes the end of his own tie and pulls: click; the black runs out over Paris behind him; the tower stands alone, then pops; his eyes shut
@@ -217,8 +227,8 @@ st.shot('S12', 'parisStreet', setOpts=FAC, lighting='night', actors=[
         act('b1', back(B1b), -72, 'tiptoe', 'sneaky', keys=[k(0.0, look=None), k(0.0, to=B1b, dur=M12 - 0.08, clip='tiptoe', ease='linear', face=-72),
             k(M12 - 0.08, clip='stand', blend=0.05), k(M12 - 0.08, toon=LIT12(), toonDur=0.08, toonEase='out'),   # the match, struck between them
             k(M12 + 0.02, look=CAMB, expr='takeSmall'), k(M12 + 0.02, toon=LIT12(sq=[0.94, 1.08, 0.94], face={'eye': 0.3}), toonDur=0.05),   # caught
-            k(M12 + 0.22, expr='happy'), k(M12 + 0.22, toon={'hands': {'R': 'pinch', 'L': 'thumbUp'}, 'reach': {'R': [*MATCH12, 1, 0.06, [0.2, -1, 0.3]], 'L': [8.62, 1.45, 0.33, 1, 0.08]}, 'face': {'mouth': 'teeth', 'mouthW': 0.3, 'browL': 0.6}}, toonDur=0.1, toonEase='outBack'),   # a grin, a thumb up
-            k(O12 - 0.12, toon={'hands': {'R': 'pinch', 'L': 'thumbUp'}, 'reach': {'R': [MATCH12[0], MATCH12[1] - 0.03, MATCH12[2] + 0.22, 1, 0.06, [0.2, -1, 0.3]], 'L': [8.62, 1.45, 0.33, 1, 0.08]}, 'face': {'puff': 1, 'mouth': 'o'}}, toonDur=0.1),   # to his mouth: he blows
+            k(M12 + 0.22, expr='happy'), k(M12 + 0.22, toon=LIT12(face={'mouth': 'teeth', 'mouthW': 0.3, 'browL': 0.6}), toonDur=0.1, toonEase='outBack'),   # a grin
+            k(O12 - 0.12, toon={'hands': {'R': 'pinch'}, 'reach': {'R': [MATCH12[0], MATCH12[1] - 0.03, MATCH12[2] + 0.22, 1, 0.06, [0.2, -1, 0.3]]}, 'face': {'puff': 1, 'mouth': 'o'}}, toonDur=0.1),   # to his mouth: he blows
             k(O12 + 0.04, toon={'face': {'mouth': 'teeth', 'mouthW': 0.3}}, toonDur=0.06)]),   # the grin stays in the black
         act('b2', back(B2b), -104, 'carry', 'sneaky', keys=[k(0.0, look=None), k(0.0, to=B2b, dur=M12 - 0.08, clip='carryBox', ease='linear', face=-104), k(M12 - 0.08, clip='carry', blend=0.05),
             k(M12 + 0.05, look=CAMB, expr='takeSmall'), k(M12 + 0.05, toon={'sq': [0.95, 1.07, 0.95], 'bend': {'neck': [0, 0, 0, 1.3, None]}, 'face': {'eye': 0.3}}, toonDur=0.05),
@@ -234,17 +244,18 @@ st.shot('S12', 'parisStreet', setOpts=FAC, lighting='night', actors=[
 #     (v1: turned three quarters to each other: small eyes, both pairs aslant the same way; the lean was keyed on the twist of the spine; the heart came
 #     up over the third one's head)
 LA, LB, TH13 = [9.2, 0, -0.09], [9.2, 0, 0.61], [9.74, 0.14, 0.02]   # (the head tipped 30 degrees carries the eyes 0.26 m toward our left: they sit that much to the right of where their eyes must be)
-KISS, T13 = 0.3, 0.4                                 # the heart; the third pair opens
-LVL = lambda **kw: {'bend': {'neck': [0, 0.52, 0, 1, None]}, 'auto': 0, **kw}   # the painted eyes sit aslant on the face (one 10 cm above the other): the head tipped 30 degrees, each pair is level: in the black, two pairs side by side (leaning the two heads toward each other gave one level pair and one upright: a heap of hearts)
+LOVE, KISS, T13 = 0.16, 0.34, 0.44                   # their eyes turn to hearts; the heart; the third pair opens
+LVL = lambda **kw: {'bend': {'neck': [0, 0.52, 0, 1, None]}, 'auto': 0, **kw}   # the painted eyes sit aslant on the face (one 10 cm above the other): the head tipped 30 degrees, each pair is level: in the black, two pairs side by side
+BEAT13 = lambda t_, **f: [k(t_, toon=LVL(scl={'head': [1.16, 1.16, 1]}, **f), toonDur=0.04, toonEase='out'), k(round(t_ + 0.07, 3), toon=LVL(**f), toonDur=0.1, toonEase='inOut')]   # a heartbeat: the eyes swell and come back
 st.shot('S13', 'parisStreet', setOpts=FAC, lighting='night', actors=[
-        act('la', LA, -90, 'sit', 'happy', keys=[k(0.0, look=None), k(-0.05, toon=LVL(face={'gx': 0.9}), toonDur=0.0), k(0.05, expr='love'), k(0.06, to=[LA[0], 0, LA[2] + 0.09], dur=0.22, glide=True, ease='inOut', face='keep'),
-            k(KISS + 0.02, toon=LVL(sq=[1.04, 0.96, 1.04]), toonDur=0.05, toonEase='outBack'), k(KISS + 0.14, toon=LVL(), toonDur=0.1), k(KISS + 0.5, toon=LVL(sq=[1.0, 1.02, 1.0]), toonDur=0.3, toonEase='inOut')]),   # she slides to him; a start at the heart; a sigh
-        act('lb', LB, -90, 'sit', 'happy', keys=[k(0.0, look=None), k(-0.05, toon=LVL(face={'gx': -0.9}), toonDur=0.0), k(0.07, expr='love'), k(0.06, to=[LB[0], 0, LB[2] - 0.09], dur=0.22, glide=True, ease='inOut', face='keep'),
-            k(KISS + 0.02, toon=LVL(sq=[1.04, 0.96, 1.04]), toonDur=0.05, toonEase='outBack'), k(KISS + 0.14, toon=LVL(), toonDur=0.1), k(KISS + 0.5, toon=LVL(sq=[1.0, 1.02, 1.0]), toonDur=0.3, toonEase='inOut')]),
+        act('la', LA, -90, 'sit', 'neutral', keys=[k(0.0, look=None), k(-0.05, toon=LVL(face={'gx': 0.9, 'eye': 0.3}), toonDur=0.0), k(LOVE, expr='love'), k(0.06, to=[LA[0], 0, LA[2] + 0.09], dur=0.24, glide=True, ease='inOut', face='keep')] +   # round eyes, on him: five frames; then hearts; she slides to him
+            BEAT13(KISS + 0.02) + BEAT13(KISS + 0.3) + BEAT13(KISS + 0.56)),   # and her heart beats: three times to the cut
+        act('lb', LB, -90, 'sit', 'neutral', keys=[k(0.0, look=None), k(-0.05, toon=LVL(face={'gx': -0.9, 'eye': 0.3}), toonDur=0.0), k(LOVE + 0.02, expr='love'), k(0.06, to=[LB[0], 0, LB[2] - 0.09], dur=0.24, glide=True, ease='inOut', face='keep')] +
+            BEAT13(KISS + 0.06) + BEAT13(KISS + 0.34) + BEAT13(KISS + 0.6)),
         act('b1', TH13, -90, 'stand', 'scared', darkEyes=2.9, keys=[k(0.0, look=None), k(0.0, toon={'face': {'lid': 1}}, toonDur=0.0), k(T13, toon={'face': {'eye': 0.5}, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.04, toonEase='outBack'),   # the third pair snaps open, between them
-            k(T13 + 0.08, toon={'face': {'eye': 0.5, 'gx': -1}}, toonDur=0.04), k(T13 + 0.21, toon={'face': {'eye': 0.5, 'gx': 1}}, toonDur=0.04), k(T13 + 0.33, toon={'face': {'eye': 0.4}, 'auto': 0}, toonDur=0.05),   # a look left, four frames; a look right, four frames; to us
-            k(T13 + 0.33, to=[TH13[0], -0.62, TH13[2]], dur=round(st.dur('S13') - T13 - 0.33, 3), ease='inOut', face='keep')])],   # and it goes down slowly, behind their heads
-        props=[P('bench', 'bench', pos=[9.35, 0, 0.0], ry=-90, opts={'w': 1.5}), P('pop', 'heartPop', pos=[8.98, 1.64, 0.0], ry=-90, inDark=True, opts={'at': KISS, 'size': 0.07})],
+            k(T13 + 0.08, toon={'face': {'eye': 0.5, 'gx': -1}}, toonDur=0.04), k(T13 + 0.2, toon={'face': {'eye': 0.5, 'gx': 1}}, toonDur=0.04), k(T13 + 0.32, toon={'face': {'eye': 0.4}, 'auto': 0}, toonDur=0.05),   # a look left, four frames; a look right, four frames; to us
+            k(T13 + 0.32, to=[TH13[0], -0.62, TH13[2]], dur=round(st.dur('S13') - T13 - 0.32, 3), ease='inOut', face='keep')])],   # and it goes down slowly, behind their heads
+        props=[P('bench', 'bench', pos=[9.35, 0, 0.0], ry=-90, opts={'w': 1.5}), P('pop', 'heartPop', pos=[8.98, 1.76, 0.0], ry=-90, inDark=True, opts={'at': KISS, 'size': 0.085, 'flat': True, 'color': '#FF7486', 'until': T13 + 0.3})],   # a flat, pale heart over the line of their eyes; it bursts before the third pair goes down
         dark=[[0, 1, 0.001]], darkFloor=0.0, darkEyes=2.2,
         cams=[cam(0.0, [6.8, 1.62, 0.0], [6.9, 1.64, 0.0], [9.2, 1.72, 0.0], [9.2, 1.72, 0.0], lens=44)])   # a little further back than v1: a gap between the two pairs wider than between two eyes of one
 
@@ -274,48 +285,49 @@ st.shot('S14', 'parisStreet', setOpts=DAY, actors=[act('mec', H14, RY14, 'stand'
 #     on the pavement, and in its window, where his name was, two eyes
 W15 = [0.04, 0.22, 0.37]                             # « Toute », « la », « facture »
 SC15, Y15 = [2.2, 4.4, 7.5], [1.95, 2.55, 3.3]        # its size and the height of its middle after each word (its lower edge stays in his hands)
-F15, L15 = 0.5, 0.62                                 # it tips; it lands (0.1 s sooner than v1, taken from the hold under it: the eyes in the window had five frames)
+F15, L15 = 0.56, 0.66                                # it tips; it lands
 UP15 = lambda i, **kw: BOTH([E14c[0], Y15[i] - 0.105 * SC15[i], E14c[2]], 0.34 * min(SC15[i], 2.4), **kw)
 PRESS15 = lambda i: {'sq': [1 + 0.07 * (i + 1), 1 - 0.1 * (i + 1), 1 + 0.07 * (i + 1)], 'face': {'gy': -1, 'eye': 0.15 * (i + 1), 'sweat': 1 if i else 0, 'mouth': 'wavy' if i else 'o'}}
 st.shot('S15', 'parisStreet', setOpts=DAY, actors=[act('mec', H14, RY14, 'stand', 'surprised', keys=[k(-0.05, toon=BOTH(E14c), toonDur=0.0), k(0.0, look=None)] +
             [x for i in range(3) for x in (k(W15[i], toon=UP15(i, **PRESS15(i)), toonDur=0.07, toonEase='outBack'),)] +
-            [k(F15, toon=UP15(2, sq=[1.3, 0.6, 1.3], face={'gy': -1, 'eye': 0.5, 'mouth': 'scream', 'jaw': 0.6}), toonDur=0.1), k(L15 - 0.03, clip='pancake', params={'flat': 0.05}, blend=0.03), k(L15 - 0.03, toon={}, toonDur=0.03)])],
+            [k(W15[2] + 0.1, toon=UP15(2, sq=PRESS15(2)['sq'], face={'gy': 0.1, 'eye': 0.45, 'sweat': 1, 'mouth': 'wavy', 'brow': 0.8}), toonDur=0.03),   # a look at us, under it: three frames
+             k(F15, toon=UP15(2, sq=[1.3, 0.6, 1.3], face={'gy': -1, 'eye': 0.5, 'mouth': 'scream', 'jaw': 0.6}), toonDur=0.08), k(L15 - 0.03, clip='pancake', params={'flat': 0.05}, blend=0.03), k(L15 - 0.03, toon={}, toonDur=0.03)])],
         props=[HOME(), ENV(E14c, eyes=[L15 + 0.07, 99], eyesOpen=0.05, blinks=[L15 + 0.36], keys=[x for i in range(3) for x in (k(W15[i], to=[E14c[0], Y15[i], E14c[2]], dur=0.07, ease='outBack'), k(W15[i], scale=SC15[i], dur=0.07, ease='outBack'), k(W15[i] + 0.07, squash=[1.12, 0.9, 1.0], dur=0.14))] +
                    [k(F15, to=[8.75, 0.16, E14c[2]], dur=round(L15 - F15, 3), ease='in'), k(F15, rotTo=[-1.5708, -1.5708, 0], dur=round(L15 - F15, 3), ease='in'), k(L15, squash=[1.06, 1.0, 1.06], dur=0.3)])],
         fx=[{'type': 'shake', 'at': L15, 'dur': 0.2, 'amount': 0.035}],
         cams=[cam(0.0, [5.6, 1.8, -0.4], [5.55, 1.8, -0.4], [9.0, 1.8, -0.4], [9.0, 1.8, -0.4], lens=44),
               glide([cam(W15[0], [3.6, 2.35, -0.4], [3.5, 2.35, -0.4], [9.0, 2.35, -0.4], [9.0, 2.35, -0.4], lens=44)], round(W15[2] - W15[0] + 0.07, 3)),   # it backs off as the envelope grows: the whole of it stays in the frame
-              glide([cam(F15 - 0.02, [5.85, 5.3, -0.4], [5.9, 5.25, -0.4], [8.6, 0.2, -0.4], [8.6, 0.2, -0.4], lens=44)], round(L15 - F15 + 0.06, 3))])   # the camera goes up as it comes down: the envelope from above
+              glide([cam(F15 - 0.02, [5.35, 6.1, -0.4], [5.4, 6.05, -0.4], [8.6, 0.2, -0.4], [8.6, 0.2, -0.4], lens=44)], round(L15 - F15 + 0.06, 3))])   # the camera goes up as it comes down: the envelope from above
 
 # ---- the town hall
 MAI = {'map': False, 'plate': False, 'deskX': -2.7, 'flagX': 3.6, 'clockX': 9}
-MA16, H16 = [-0.72, 0, -0.5], [0.5, 0, -0.1]
+MA16, H16 = [-0.62, 0, -0.5], [0.26, 0, -0.1]          # the mayor; him: at 60 % of the width, his head under the white of the sign (at the right edge his arm was cut by the frame and his head sat on the red of the band)
 # 16: he asked for a raise: he comes in flat as a sheet, edge-on: a line that sways; he turns three quarters to us: a cardboard cut-out; a thumb in his
 #     mouth, he blows: three puffs, each gives him back a third of his thickness, the last a little too much; then a palm held out to the mayor
-T16, B16 = 0.34, 0.58                                # he turns; the thumb is in his mouth
-PUFF16 = [[B16 + 0.06, 0.32], [B16 + 0.18, 0.64], [B16 + 0.3, 1.14], [B16 + 0.42, 1.0]]   # three puffs, then he settles at his size
+T16, B16 = 0.56, 0.8                                 # he turns; the thumb is in his mouth (the line is held nine frames first)
+PUFF16 = [[B16 + 0.06, 0.34], [B16 + 0.2, 0.7], [B16 + 0.34, 1.18], [B16 + 0.44, 1.0]]   # three puffs, a pop each, then he settles at his size
 P16 = PUFF16[2][0]                                   # the last puff: the pop
 BLOW = lambda **f: {'hands': {'R': 'thumbUp'}, 'touch': {'R': ['face', 0.0, 0.23, 0.03, 1, 0.08]}, 'face': {'puff': 1, 'mouth': 'o', 'brow': -0.4, **f}}
-st.shot('S16', 'mairie', setOpts=MAI, actors=[act('mec', [2.6, 0, -0.1], -90, 'paperThin', 'unimpressed', keys=[k(0.0, look=None), k(0.0, clip='paperThin', params={'puffs': PUFF16, 'thin': 0.04, 'flutter': 6}, blend=0.0),
-            k(0.0, to=H16, dur=T16 - 0.04, glide=True, ease='out', face=-88), k(T16, to=H16, dur=0.16, glide=True, ease='inOut', face=-64), k(B16 + 0.02, to=H16, dur=0.4, glide=True, ease='inOut', face=-32),   # in on a draught, edge-on, toward the mayor; then he turns a little to us: a tall card that flutters; as he fills he comes round to us
+st.shot('S16', 'mairie', setOpts=MAI, actors=[act('mec', [1.55, 0, -0.1], -90, 'paperThin', 'unimpressed', keys=[k(0.0, look=None), k(0.0, clip='paperThin', params={'puffs': PUFF16, 'thin': 0.04, 'flutter': 3.4}, blend=0.0),
+            k(0.0, to=H16, dur=0.26, glide=True, ease='out', face=-88), k(T16, to=H16, dur=0.16, glide=True, ease='inOut', face=-64), k(B16 + 0.02, to=H16, dur=0.4, glide=True, ease='inOut', face=-32),   # in on a draught, edge-on, toward the mayor; then he turns a little to us: a tall card that flutters; as he fills he comes round to us
             k(B16 - 0.08, toon={'hands': {'R': 'thumbUp'}, 'touch': {'R': ['face', 0.0, 0.23, 0.03, 1, 0.08]}}, toonDur=0.08)] +   # the thumb in his mouth
             [x for i, (t_, v) in enumerate(PUFF16[:3]) for x in (k(t_ - 0.03, toon=BLOW(lid=1), toonDur=0.03), k(t_ + 0.03, toon=BLOW(eye=0.2 + 0.1 * i), toonDur=0.05))] +   # he blows: his cheeks, his eyes shut at each puff
-            [k(PUFF16[3][0], clip='stand', blend=0.1, expr='smug'), k(PUFF16[3][0] + 0.04, toon={'hands': {'L': 'open'}, 'reach': {'L': [-0.05, 1.32, 0.22, 1, 0.1]}, 'face': {'browL': 0.8, 'browR': 0.8, 'mouth': 'smile', 'gx': -0.9}}, toonDur=0.14, toonEase='outBack')] +
-            [k(round(PUFF16[3][0] + 0.2 + 0.07 * i, 3), toon={'hands': {'L': 'rest' if i % 2 == 0 else 'open'}, 'reach': {'L': [-0.05, 1.32 + (0.03 if i % 2 == 0 else 0), 0.22, 1, 0.1]}, 'face': {'browL': 0.8, 'browR': 0.8, 'mouth': 'smile', 'gx': -0.9}}, toonDur=0.05) for i in range(4)]),   # the fingers curl and open, twice: come on (the palm held out stopped dead for a third of a second)   # the palm out: a raise (his face stays three quarters to us: a look at the mayor showed the side of his head)
+            [k(PUFF16[3][0], clip='stand', blend=0.1, expr='smug'), k(PUFF16[3][0] + 0.03, toon={'hands': {'L': 'open'}, 'reach': {'L': [H16[0] - 0.5, 1.32, 0.22, 1, 0.1]}, 'face': {'browL': 0.8, 'browR': 0.8, 'mouth': 'smile', 'gx': -0.9}}, toonDur=0.12, toonEase='outBack')] +
+            [k(round(PUFF16[3][0] + 0.16 + 0.06 * i, 3), toon={'hands': {'L': 'rest' if i % 2 == 0 else 'open'}, 'reach': {'L': [H16[0] - 0.5, 1.32 + (0.03 if i % 2 == 0 else 0), 0.22, 1, 0.1]}, 'face': {'browL': 0.8, 'browR': 0.8, 'mouth': 'smile', 'gx': -0.9}}, toonDur=0.05) for i in range(2)]),   # the fingers curl and open, twice: come on (the palm held out stopped dead for a third of a second)   # the palm out: a raise (his face stays three quarters to us: a look at the mayor showed the side of his head)
         act('maire', MA16, 26, 'stand', 'neutral', keys=[k(0.0, look='mec'), k(T16 + 0.1, toon={'face': {'browL': 0.9, 'browR': -0.3}}, toonDur=0.1)] +
             [k(t_ + 0.02, toon={'sq': [1 - 0.02 * (i + 1), 1 + 0.03 * (i + 1), 1 - 0.02 * (i + 1)], 'bend': {'spine': [-0.05 * (i + 1), 0, 0, 1, None]}, 'face': {'eye': 0.12 * (i + 1), 'brow': 0.3 * (i + 1)}}, toonDur=0.06, toonEase='outBack') for i, (t_, v) in enumerate(PUFF16[:3])] +   # he leans back a little more at each puff
             [k(PUFF16[3][0] + 0.2, toon={'face': {'browTilt': -14, 'mouth': 'frown'}}, toonDur=0.12), k(PUFF16[3][0] + 0.2, clip='thinkChin', blend=0.2)])],
-        cams=[cam(0.0, [0.1, 1.62, 4.0], [0.05, 1.62, 3.85], [-0.1, 1.55, -0.3], [-0.1, 1.55, -0.3], lens=44)])
+        cams=[cam(0.0, [-0.08, 1.62, 4.0], [-0.12, 1.62, 3.85], [-0.2, 1.55, -0.3], [-0.2, 1.55, -0.3], lens=44)])
 
 # 17: he got a night bonus: the mayor brings a candle out from behind his back and puts it in his hand; then he takes the end of his tie, and pulls: the
 #     night. A flame, his eyes over it; the mayor's eyes and his teeth
 G17, P17 = 0.44, 0.76
-H17 = [0.42, 0, -0.1]
-C17a, C17b, C17c = [-0.98, 1.0, -0.72], [-0.3, 1.42, 0.1], [0.1, 1.3, 0.22]   # the candle: behind the mayor's back, presented, in the hero's hand
+H17 = [0.3, 0, -0.1]
+C17a, C17b, C17c = [-0.88, 1.0, -0.72], [-0.24, 1.42, 0.1], [-0.02, 1.3, 0.22]   # the candle: behind the mayor's back, presented, in the hero's hand
 CAND = lambda p_, **kw: {'hands': {'R': 'grip'}, 'reach': {'R': [p_[0] + 0.1, p_[1] + 0.02, p_[2], 1, 0.05]}, **kw}   # the mayor's right hand on the ring of the holder
 TAKE17 = lambda w=1, **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [C17c[0] + 0.1, C17c[1] + 0.02, C17c[2], w, 0.05]}, **kw}
 TIE17 = lambda L: tie_tip(H17, -14, L, 0.2)
-st.shot('S17', 'mairie', setOpts=MAI, actors=[act('mec', H17, -14, 'stand', 'smug', keys=[k(0.0, look='maire'), k(0.0, toon={'hands': {'L': 'open'}, 'reach': {'L': [-0.05, 1.32, 0.22, 1, 0.1]}}, toonDur=0.0),
+st.shot('S17', 'mairie', setOpts=MAI, actors=[act('mec', H17, -14, 'stand', 'smug', keys=[k(0.0, look=None), k(0.0, toon={'hands': {'L': 'open'}, 'reach': {'L': [H16[0] - 0.5, 1.32, 0.22, 1, 0.1]}, 'face': {'gx': -0.9, 'browL': 0.6}}, toonDur=0.0),   # (his face stays three quarters to us, his eyes on the mayor: turned to him, we saw his hair)
             k(G17 - 0.06, toon=TAKE17(), toonDur=0.1), k(G17 + 0.1, expr='unimpressed', look=None), k(G17 + 0.12, toon=TAKE17(face={'gy': 0.8}), toonDur=0.08),   # he has it; he looks at it
             k(P17 - 0.06, toon=TAKE17(tie=[1.7, 0.2, 0], bend={'spine': [0.25, 0, 0, 1, None], 'neck': [0.25, 0, 0, 0.8, None]}, sq=[1.05, 0.93, 1.05]), toonDur=0.06, toonEase='in'),
             k(P17 + 0.07, toon=TAKE17(tie=[0.85, 0.2, 0], bend={'neck': [-0.1, 0, 0, 1.25, None]}, sq=[0.96, 1.07, 0.96]), toonDur=0.07, toonEase='out'), k(P17 + 0.17, toon=TAKE17(tie=[1.05, 0.2, 0]), toonDur=0.1),
@@ -323,27 +335,28 @@ st.shot('S17', 'mairie', setOpts=MAI, actors=[act('mec', H17, -14, 'stand', 'smu
         act('maire', MA16, 26, 'stand', 'happy', keys=[k(0.0, look='mec'), k(0.0, toon=CAND(C17a), toonDur=0.0), k(0.1, toon=CAND(C17b, sq=[0.97, 1.05, 0.97]), toonDur=0.16, toonEase='outBack'),   # from behind his back: there
             k(G17 - 0.08, toon=CAND(C17c), toonDur=0.1), k(G17 + 0.08, toon={'hands': {'R': 'grip'}, 'reach': {'R': [*TIE17(1.0), 1, 0.05, [0.6, -0.6, 0.5]]}}, toonDur=0.2, toonEase='out'),   # into his hand; then the tie
             k(P17 - 0.06, toon={'hands': {'R': 'grip'}, 'reach': {'R': [*TIE17(1.7), 1, 0.05, [0.6, -0.6, 0.5]]}, 'bend': {'spine': [0.12, 0, 0, 1, None]}}, toonDur=0.06, toonEase='in'),
-            k(P17 + 0.07, toon={'hands': {'R': 'grip'}, 'reach': {'R': [*TIE17(0.9), 1, 0.05, [0.6, -0.6, 0.5]]}, 'face': {'mouth': 'teeth', 'mouthW': 0.3}}, toonDur=0.07), k(P17 + 0.3, toon={'face': {'mouth': 'teeth', 'mouthW': 0.3}}, toonDur=0.2), k(P17 + 0.1, look=None)])],
+            k(P17 + 0.07, toon={'hands': {'R': 'grip'}, 'reach': {'R': [*TIE17(0.9), 1, 0.05, [0.6, -0.6, 0.5]]}, 'face': {'mouth': 'teeth', 'mouthW': 0.3}}, toonDur=0.07), k(P17 + 0.26, toon={'bend': {'spine': [0.34, -0.3, 0, 1.04, None], 'neck': [-0.2, 0, 0, 1, None]}, 'face': {'mouth': 'teeth', 'mouthW': 0.4, 'browL': 0.7, 'browR': 0.7}}, toonDur=0.22, toonEase='inOut'), k(P17 + 0.1, look=None)])],   # in the black he leans in over the flame: his grin, lit from below
         props=[P('candle', 'candle', pos=C17a, inDark=True, keys=[k(0.1, to=C17b, dur=0.16, ease='outBack'), k(G17 - 0.08, to=C17c, dur=0.1, ease='inOut')])],
-        dark=[[0, 0, 0.001], [P17 + 0.02, 1]], darkFloor=0.035, darkEyes=2.4,
-        darkPool={'prop': 'candle', 'lift': [0, 0.2, 0], 'r': 0.5, 'k': [[P17 + 0.02, 0.6, 0.04]], 'tint': '#FFC98A'},   # the flame lights a little round itself: the hand that holds it, his chin
-        cams=[cam(0.0, [-0.05, 1.62, 3.3], [-0.05, 1.62, 3.15], [-0.1, 1.6, -0.2], [-0.1, 1.6, -0.2], lens=44)])
+        dark=[[0, 0, 0.001], [P17 + 0.02, 1]], darkFloor=0.035, darkEyes=1.6,
+        darkPool={'prop': 'candle', 'lift': [0, 0.3, 0], 'r': 0.95, 'k': [[P17 + 0.02, 0.9, 0.04]], 'tint': '#FFC98A'},   # the flame lights a little round itself: the hand that holds it, his chin
+        cams=[cam(0.0, [-0.15, 1.62, 3.3], [-0.15, 1.62, 3.15], [-0.2, 1.6, -0.2], [-0.2, 1.6, -0.2], lens=44)])
 
 # ---- yesterday at noon: the pavement in front of his door, seen along the street: the sun stands over the far end of it
-SUNP = [5.2, 18.8, -34.0]                            # left of the right-hand fronts: whole in the sky
+SUNP = [7.0, 24.0, -34.0]                            # high over the street, between the two heads: no ray ends on a hat
 SUN = lambda **kw: P('sun', 'sunLamp', pos=SUNP, inDark=True, opts={'r': 3.4, **kw})
 C18 = [8.7, 0.45, 6.0]                               # low on the pavement, looking up the street
 T18 = [8.6, 3.3, -4.0]
 H19, DOOR19 = [9.0, 0, 0.8], [9.7, 0, 0.8]           # where he stops, in the sun; where he comes out of
 DA, E1, E2 = [7.95, 0, 0.45], [8.5, 0, -4.6], [7.7, 0, -6.0]   # passers-by, all facing up the street toward us: the lady beside him on the open side of the pavement, nearly level with him (her arm will cross the frame to him: from 1.2 m behind him it ran into depth, behind his back); the two others far down the street, in the gaps between heads (the man in the straw hat stood right behind his head: a head with a brim)
-CROWD = lambda keys=None, dame=None: [act('dame', dame or DA, 14, 'stand', 'happy', keys=(keys or {}).get('dame', [k(0.0, look=None)])), act('e1', E1, -8, 'stand', 'neutral', keys=(keys or {}).get('e1', [k(0.0, look=None)])),
-                           act('e2', E2, 4, 'stand', 'happy', keys=(keys or {}).get('e2', [k(0.0, look=None)]))]
+CROWD = lambda keys=None, dame=None: [act('dame', dame or DA, 14, 'stand', 'happy', keys=(keys or {}).get('dame', [k(0.0, look=None), k(0.3, toon={'face': {'gx': 0.8}}, toonDur=0.1), k(0.6, toon={'bend': {'spine': [0, -0.06, 0, 1, None]}, 'face': {'gx': 0.8, 'lid': 1}}, toonDur=0.05), k(0.68, toon={'bend': {'spine': [0, -0.06, 0, 1, None]}, 'face': {'gx': 0.8}}, toonDur=0.05)])),   # she shifts her weight, looks at his door, blinks
+                           act('e1', [8.5, 0, -2.6], 180, 'walk', 'neutral', keys=[k(0.0, look=None), k(0.0, to=[8.4, 0, -4.4], dur=1.2, clip='walk', ease='linear')]),   # the two others walk away down the street (they stood stock-still through four shots)
+                           act('e2', [7.7, 0, -4.2], 180, 'walk', 'happy', keys=[k(0.0, look=None), k(0.0, to=[7.6, 0, -6.4], dur=1.2, clip='walk', ease='linear')])]
 DAY19 = {**DAY, 'clouds': 0}                          # the street of these shots: a clean sky round the sun (a cloud sat on a ray of the sun, and behind a head it read as a hat)
 HOME19 = lambda **kw: P('home', 'door', pos=[9.93, 0, 0.8], ry=-90, opts={'w': 1.0, 'h': 2.3, 'color': '#2F6E5C', 'frame': '#EDE6D4', **kw})
 
 # 18: yesterday at noon: the sun, with a face, over the end of the street; the camera comes down from it to the pavement: people, his door
 st.shot('S18', 'parisStreet', setOpts=DAY19, actors=CROWD(), props=[SUN(), HOME19()], dark=LIT,
-        cams=[cam(0.0, C18, C18, [6.2, 14.5, -30.0], T18, lens=44, ease='inOut')])
+        cams=[cam(0.0, C18, C18, [7.6, 19.5, -30.0], T18, lens=44, ease='inOut')])
 
 # 19: he stepped out of his house: the door opens, he comes out into the sun, stops, hands on his hips, one eye shut against the light, a big breath
 O19 = 0.3
@@ -351,41 +364,44 @@ st.shot('S19', 'parisStreet', setOpts=DAY19, actors=[act('mec', DOOR19, -90, 'wa
             k(O19 + 0.04, clip='handsOnHips', blend=0.14), k(O19 + 0.1, toon={'bend': {'spine': [-0.14, 0, 0, 1.08, None]}, 'sq': [0.97, 1.05, 0.97], 'face': {'lidR': 1, 'lowL': 0.3, 'browR': -0.5, 'browL': 0.5, 'mouth': 'bigsmile', 'cheeks': 1, 'gy': -0.5}}, toonDur=0.16, toonEase='outBack'),   # the sun in his face
             k(O19 + 0.32, toon={'bend': {'spine': [-0.22, 0, 0, 1.1, None]}, 'sq': [1.1, 1.03, 1.14], 'face': {'lid': 1, 'brow': 0.5, 'mouth': 'o', 'cheeks': 1}}, toonDur=0.22, toonEase='inOut'),   # a big breath in: his chest out, his eyes shut
             k(O19 + 0.6, toon={'bend': {'spine': [0.08, 0, 0, 0.98, None]}, 'sq': [0.97, 0.98, 0.96], 'face': {'lidR': 1, 'lowL': 0.3, 'browR': -0.5, 'browL': 0.5, 'mouth': 'bigsmile', 'cheeks': 1}}, toonDur=0.14, toonEase='out'),   # and out: his shoulders come down
-            k(O19 + 0.76, toon={'face': {'lidR': 1, 'lowL': 0.3, 'browR': -0.5, 'browL': 0.5, 'mouth': 'smile', 'cheeks': 1}}, toonDur=0.1)])] + CROWD(dame=[7.2, 0, 0.45]),   # (the lady: out of this close frame, whose left edge would cut her in two)
+            k(O19 + 0.76, toon={'face': {'lidR': 1, 'lowL': 0.3, 'browR': -0.5, 'browL': 0.5, 'mouth': 'smile', 'cheeks': 1}}, toonDur=0.1)])],   # (he is alone in this close frame: a passer-by showed behind his elbow)
         props=[SUN(), HOME19(openAt=0.0)], dark=LIT,
         cams=[cam(0.0, [8.45, 1.7, 4.3], [8.5, 1.7, 4.1], [9.0, 1.72, 0.8], [9.0, 1.72, 0.8], lens=44)])
 
-# 20: by reflex: he looks up at the birds, whistling (notes); his right hand walks up his chest to the tie, finger by finger, and closes on it; beside him
-#     the lady sees it: her eyes come out, her arm shoots out across the frame and lands on his wrist; everything holds
+# 20: by reflex: he looks up at the birds, whistling (notes in the sky); his right hand walks up his chest to the tie, finger by finger, and closes on it;
+#     beside him the lady sees it: she shrinks under her hat, which jumps off her head; her arm shoots out across the frame and lands on his wrist; the
+#     hat comes back down, late; she trembles
 STEP20 = [0.08, 0.2, 0.32]                           # his hand climbs
 GR20, NO20 = 0.44, 0.5                               # it closes on the tie; the lady's arm
 TT20 = tie_tip(H19, 2, 1.0, 0.15)
-CLIMB = lambda i: {'hands': {'R': 'two'}, 'reach': {'R': [TT20[0] + 0.02, round(0.98 + 0.07 * i, 3), TT20[2] + 0.04, 1, 0.08, [-0.7, -0.4, 0.4]]}, 'face': {'gx': 0.7, 'gy': -0.8, 'mouth': 'whistle', 'brow': 0.3}}
+WH20 = {'gx': 0.7, 'gy': -0.8, 'mouth': 'whistle', 'mouthW': 0.7, 'mouthH': 0.7, 'brow': 0.3}   # whistling at the sky
+CLIMB = lambda i: {'hands': {'R': 'two'}, 'reach': {'R': [TT20[0] + 0.02, round(0.98 + 0.07 * i, 3), TT20[2] + 0.04, 1, 0.08, [-0.7, -0.4, 0.4]]}, 'face': WH20}
 ONTIE = lambda L=1.0, **kw: {'hands': {'R': 'grip'}, 'reach': {'R': [*tie_tip(H19, 2, L, 0.15), 1, 0.05, [-0.7, -0.4, 0.4]]}, 'tie': [L, 0.15, 0], **kw}
 WRIST20 = [round(TT20[0] - 0.13, 3), round(TT20[1] + 0.03, 3), round(TT20[2] + 0.05, 3)]   # his wrist, on the tie: where her hand lands
-STOP20 = lambda d=0.0, **kw: {'hands': {'L': 'spread'}, 'reach': {'L': [WRIST20[0] - d, WRIST20[1] + 0.3 * d, WRIST20[2], 1, 0.1, [0, 1, 0.3]]}, 'bend': {'spine': [0.06, -0.22, 0, 1, None]}, 'face': {'pop': 0.8, 'jaw': 0.9, 'popLen': 0.14}, **kw}   # her arm across the frame, she leans after it
-C20 = lambda t=0.0: cam(t, [8.58, 1.6, 5.2], [8.6, 1.6, 5.0], [8.6, 1.62, 0.6], [8.6, 1.62, 0.6], lens=44)   # the two of them side by side: her arm crosses the picture (the close frame held him alone, and her arm came from behind his back)
-st.shot('S20', 'parisStreet', setOpts=DAY19, actors=[act('mec', H19, 2, 'stand', 'happy', keys=[k(0.0, look=None), k(0.0, toon={'face': {'gx': 0.7, 'gy': -0.8, 'mouth': 'whistle', 'brow': 0.3}}, toonDur=0.0)] +
+FACE20 = {'eye': 0.5, 'brow': 1.0, 'mouth': 'O', 'mouthH': 0.5, 'gx': 0.9}   # her face: eyes as big as they go, on her face (no stalks: that was the electrician's take)
+STOP20 = lambda hat=0.0, nod=0.0, **kw: {'hands': {'L': 'spread'}, 'reach': {'L': [WRIST20[0], WRIST20[1], WRIST20[2], 1, 0.1, [0, 1, 0.3]]}, 'bend': {'spine': [0.06, -0.22, 0, 1, None], 'neck': [0, nod, 0, 1, None]}, 'hat': [hat, 0, 0], 'face': {**FACE20, 'gy': 0.4}, **kw}   # her arm across the frame, she leans after it
+C20 = lambda t=0.0: cam(t, [8.58, 1.6, 5.2], [8.6, 1.6, 5.0], [8.6, 1.62, 0.6], [8.6, 1.62, 0.6], lens=44)   # the two of them side by side: her arm crosses the picture
+st.shot('S20', 'parisStreet', setOpts=DAY19, actors=[act('mec', H19, 2, 'stand', 'happy', keys=[k(0.0, look=None), k(0.0, toon={'face': WH20}, toonDur=0.0)] +
             [k(t_, toon=CLIMB(i), toonDur=0.07, toonEase='outBack') for i, t_ in enumerate(STEP20)] +
-            [k(GR20, toon=ONTIE(1.0, face={'gx': 0.7, 'gy': -0.8, 'mouth': 'whistle', 'brow': 0.3}), toonDur=0.07, toonEase='out')]),   # on the tie; he has not even looked
-        act('dame', DA, 14, 'stand', 'happy', keys=[k(0.0, look=None), k(0.0, toon={'face': {'gx': 0.9}}, toonDur=0.0), k(GR20 - 0.1, toon={'face': {'gx': 0.9, 'gy': 0.5, 'eye': 0.2}}, toonDur=0.05), k(GR20 - 0.05, expr='take'),   # her eyes go to his hand
-            k(GR20 - 0.05, toon={'sq': [0.92, 1.12, 0.92], 'bend': {'spine': [-0.08, 0.1, 0, 1.05, None]}, 'face': {'pop': 0.8, 'jaw': 0.8, 'popLen': 0.14, 'eyeYaw': 0.6}}, toonDur=0.06, toonEase='outBack'),   # the take: up, back, eyes out toward him
-            k(NO20, toon=STOP20(0.0, wave=RIP('L', 0.1, 0.8, 1.5)), toonDur=0.07, toonEase='out'),   # NON: an arm across the picture, onto his wrist
-            k(NO20 + 0.1, toon=STOP20(0.0, wave=RIP('L', 0.035, 1.6, 1.5)), toonDur=0.1), k(NO20 + 0.22, toon=STOP20(0.0), toonDur=0.1)]),   # it rings, and holds
-        act('e1', E1, -8, 'stand', 'neutral', keys=[k(0.0, look=None), k(NO20, look='mec', expr='surprised')]), act('e2', E2, 4, 'stand', 'happy', keys=[k(0.0, look=None), k(NO20 + 0.04, look='mec', expr='surprised')])],
-        props=[SUN(), HOME19(), P('notes', 'whistleNotes', pos=[H19[0] + 0.12, 2.0, H19[2] + 0.25], opts={'n': 3, 'from': 0.0, 'every': 0.13, 'size': 0.14, 'dx': 0.3, 'dy': 0.55, 'life': 0.5})], dark=LIT,
+            [k(GR20, toon=ONTIE(1.0, face=WH20), toonDur=0.07, toonEase='out')]),   # on the tie; he has not even looked
+        act('dame', DA, 14, 'stand', 'happy', keys=[k(0.0, look=None), k(0.0, toon={'face': {'gx': 0.9}}, toonDur=0.0), k(GR20 - 0.1, toon={'face': {'gx': 0.9, 'gy': 0.5, 'eye': 0.2}}, toonDur=0.05), k(GR20 - 0.05, expr='shocked'),   # her eyes go to his hand
+            k(GR20 - 0.05, toon={'sq': [1.24, 0.66, 1.24], 'hat': [0.5, 0.25, 0], 'face': {**FACE20, 'gy': 0.5}}, toonDur=0.05, toonEase='outBack'),   # the take: she shrinks under her hat, which stays up there
+            k(NO20, toon=STOP20(0.42, sq=[0.95, 1.07, 0.95], wave=RIP('L', 0.1, 0.8, 1.5)), toonDur=0.07, toonEase='out'),   # NON: an arm across the picture, onto his wrist
+            k(NO20 + 0.12, toon=STOP20(0.0, sq=[1.06, 0.93, 1.06], wave=RIP('L', 0.035, 1.6, 1.5)), toonDur=0.08, toonEase='in'),   # the hat lands, late: she gives under it
+            k(NO20 + 0.19, toon=STOP20(0.03, 0.06), toonDur=0.05), k(NO20 + 0.25, toon=STOP20(0.0, -0.06), toonDur=0.05), k(NO20 + 0.31, toon=STOP20(0.03, 0.05, face={**FACE20, 'gy': 0.0}), toonDur=0.05)])],   # she trembles, her hat hops; her eyes come up from his hand to his face
+        props=[SUN(), HOME19(), P('notes', 'whistleNotes', pos=[H19[0] - 0.02, 2.28, H19[2] + 0.25], opts={'n': 3, 'from': 0.0, 'every': 0.13, 'size': 0.27, 'dx': -0.5, 'dy': 0.8, 'life': 0.6, 'color': '#FFF6DC'})], dark=LIT,   # cream notes, up into the sky between the two heads (dark ones on the shop front did not show)
         cams=[C20()])
 
 # 21: he turned off: the street, the sun over it, frightened; the tie: click: black; the sun goes out like a bulb, its filament dies, its eyes shut;
 #     in the black: his eyes go up to where it was; hers go to him
 P21 = 0.24
-st.shot('S21', 'parisStreet', setOpts=DAY19, actors=[act('mec', H19, 2, 'stand', 'happy', keys=[k(-0.05, toon=ONTIE(1.0, face={'gx': 0.7, 'gy': -0.8, 'mouth': 'whistle'}), toonDur=0.0), k(0.0, look=None),
+st.shot('S21', 'parisStreet', setOpts=DAY19, actors=[act('mec', H19, 2, 'stand', 'happy', keys=[k(-0.05, toon=ONTIE(1.0, face=WH20), toonDur=0.0), k(0.0, look=None),
             k(P21 - 0.06, toon=ONTIE(1.7, bend={'spine': [0.25, 0, 0, 1, None], 'neck': [0.25, 0, 0, 0.8, None]}, sq=[1.05, 0.93, 1.05]), toonDur=0.06, toonEase='in'),
             k(P21 + 0.07, toon=ONTIE(0.85, bend={'neck': [-0.1, 0, 0, 1.25, None]}, sq=[0.96, 1.07, 0.96]), toonDur=0.07, toonEase='out'), k(P21 + 0.17, toon=ONTIE(1.05), toonDur=0.1), k(P21 + 0.26, toon=ONTIE(1.0), toonDur=0.08),
             k(P21 + 0.2, expr='surprised'), k(P21 + 0.36, toon=ONTIE(1.0, face={'gy': -1, 'eye': 0.3}), toonDur=0.08)]),   # in the black his eyes go up, to where the sun was
-        act('dame', DA, 14, 'stand', 'take', keys=[k(0.0, look=None), k(-0.05, toon=STOP20(0.0), toonDur=0.0), k(P21 + 0.14, expr='scared'), k(P21 + 0.14, toon={'face': {'gx': 0.9, 'gy': -0.6, 'eye': 0.3}}, toonDur=0.12),   # in the black: her eyes, up at where the sun was,
-            k(P21 + 0.4, toon={'face': {'gx': 1.0, 'lid': 0.85}}, toonDur=0.08)]),   # then on him, narrowed
-        act('e1', E1, -8, 'stand', 'surprised', darkEyes=False, keys=[k(0.0, look='mec')]), act('e2', E2, 4, 'stand', 'surprised', darkEyes=False, keys=[k(0.0, look='mec')])],   # (too far for their eyes to read in the black: none)
+        act('dame', DA, 14, 'stand', 'shocked', keys=[k(0.0, look=None), k(-0.05, toon=STOP20(0.0, 0.05, face={**FACE20, 'gy': 0.0}), toonDur=0.0), k(0.04, toon=STOP20(0.03, -0.06, face={**FACE20, 'gy': 0.0}), toonDur=0.05), k(0.1, toon=STOP20(0.0, 0.06, face={**FACE20, 'gy': 0.0}), toonDur=0.05), k(0.16, toon=STOP20(0.03, -0.05, face={**FACE20, 'gy': 0.0}), toonDur=0.05),   # she still trembles
+            k(P21 + 0.14, expr='scared'), k(P21 + 0.14, toon={'face': {'gx': 0.9, 'gy': -0.6, 'eye': 0.3}}, toonDur=0.12),   # in the black: her eyes, up at where the sun was,
+            k(P21 + 0.4, toon={'face': {'gx': 1.0, 'lid': 0.85}}, toonDur=0.08)])],   # then on him, narrowed
         props=[SUN(scareAt=0.0, offAt=P21 + 0.03), HOME19()],
         dark=[[0, 0, 0.001], [P21 + 0.02, 1]], darkFloor=0.03, darkEyes=4.6,   # (the camera is low and far: at 3 their eyes were 3 % of the frame)
         cams=[cam(0.0, C18, [8.7, 0.45, 5.8], T18, T18, lens=44)])
@@ -395,25 +411,25 @@ st.shot('S21', 'parisStreet', setOpts=DAY19, actors=[act('mec', H19, 2, 'stand',
 #     eyes, and every pupil goes with him. (v1: three pairs under reading size, one of them a hand from his own: a face with four eyes)
 H22, C22 = [8.0, 0, -2.2], [8.6, 1.95, 3.8]          # him, six metres from the camera, BEHIND the other pairs (at three metres his black body hid the pairs at his feet); the camera of this shot (its own: in the black nobody knows where anybody stood)
 HIM22 = (0.28, 0.43)                                 # where his eyes are in the frame (u, v: 0..1, v down)
-L22, G22 = 0.45, 0.65                                # his look left; he goes
+L22, G22 = 0.42, 0.72                                # his pupils start across the crowd; he goes
 def at22(u, v, d=5.0):                               # the place in the world of the point (u, v) of the frame, d metres in front of the camera
     return r3([C22[0] + (u - 0.5) * 0.4545 * d, C22[1] - 0.0132 * d - (v - 0.5) * 0.808 * d, C22[2] - d])
 def EYES22(i, u, v, sz, open_, **kw):                # a pair of eyes at (u, v): it opens, looks ahead; at 0.36 s its pupils snap to him and its lids come down; then they follow him out
     lk = lambda hu, hv: (round(max(-1, min(1, (hu - u) / 0.3)), 2), round(max(-1, min(1, (v - hv) / 0.22)), 2))
-    a, b, c = lk(*HIM22), lk(0.1, 0.5), lk(-0.3, 0.5)
+    a, b, c = lk(*HIM22), lk(0.08, 0.52), lk(-0.3, 0.52)
     return P(f'eyes{i}', 'eyesPair', pos=at22(u, v), inDark=True, opts={'s': sz, 'openAt': open_, 'narrow': [[0.36, 0], [0.44, 0.42]],
-             'look': [[0.36, 0], [0.42, a[0]], [G22, a[0]], [G22 + 0.24, b[0]], [G22 + 0.48, c[0]]], 'lookY': [[0.36, 0], [0.42, a[1]], [G22, a[1]], [G22 + 0.24, b[1]], [G22 + 0.48, c[1]]], **kw})
+             'look': [[0.36, 0], [0.42, a[0]], [G22, a[0]], [G22 + 0.2, b[0]], [G22 + 0.4, c[0]]], 'lookY': [[0.36, 0], [0.42, a[1]], [G22, a[1]], [G22 + 0.2, b[1]], [G22 + 0.4, c[1]]], 'color': '#CBD5E6', **kw})   # (a cool, slightly dimmer white: his cream pair stays the brightest thing in the frame)
 WIN22 = {'tall': 1.0, 'gap': 1.2, 'frame': [0.46, 0.38]}   # somebody at a window: round eyes (the rule of S03, S15, S25)
 PAIRS22 = [EYES22(1, 0.58, 0.48, 0.062, 0.05, tall=1.3), EYES22(2, 0.16, 0.69, 0.07, 0.07, tall=1.3, blinks=[0.57]), EYES22(3, 0.60, 0.335, 0.055, 0.10, **WIN22), EYES22(4, 0.56, 0.71, 0.066, 0.12),
-           EYES22(5, 0.71, 0.60, 0.06, 0.15, tall=0.85, slit=True, color='#D9E86B'), EYES22(6, 0.37, 0.725, 0.056, 0.17, tall=1.1), EYES22(7, 0.84, 0.49, 0.058, 0.20, tall=1.15, blinks=[0.52]),
+           EYES22(5, 0.71, 0.60, 0.06, 0.15, **{'tall': 0.85, 'slit': True, 'color': '#D9E86B'}), EYES22(6, 0.37, 0.725, 0.056, 0.17, tall=1.1), EYES22(7, 0.84, 0.49, 0.058, 0.20, tall=1.15, blinks=[0.52]),
            EYES22(8, 0.86, 0.335, 0.055, 0.24, **WIN22), EYES22(9, 0.85, 0.705, 0.058, 0.28, tall=1.2)]
-STEPS22 = [(round(H22[0] - 0.3 * (i + 1), 3), round(G22 + 0.16 * i, 3)) for i in range(3)]   # three steps on tiptoe: (where, when)
+STEPS22 = [(round(H22[0] - 0.5 * (i + 1), 3), round(G22 + 0.2 * i, 3)) for i in range(2)]   # two long steps on tiptoe: (where, when) (three were a scurry)
 SNEAK22 = lambda sy, **f: {'sq': [1.0, sy, 1.0], 'auto': 0, 'face': {'gx': -0.9, 'lid': 0.68, **f}}   # (auto 0: the rig's own drag and squash, fed by these quick steps, laid him on his side)
 st.shot('S22', 'parisStreet', setOpts=DAY, actors=[act('mec', H22, 2, 'stand', 'surprised', keys=[k(0.0, look=None), k(-0.05, toon={'face': {'gy': -1, 'eye': 0.3}}, toonDur=0.0), k(0.04, toon={'face': {'eye': 0.3}}, toonDur=0.06),   # his eyes come down from where the sun was
             k(0.12, toon={'face': {'gx': 0.9, 'eye': 0.35}}, toonDur=0.04), k(0.24, toon={'face': {'gx': 0.5, 'gy': 0.8, 'eye': 0.4}}, toonDur=0.04), k(0.36, toon={'face': {'eye': 0.5}}, toonDur=0.05),   # a pair on his right; one at his feet; all of them: his eyes as big as they go
-            k(L22, toon={'face': {'gx': -1, 'eye': 0.3}}, toonDur=0.04), k(L22 + 0.1, toon={'face': {'gx': 1, 'eye': 0.3}}, toonDur=0.04),   # a look left: the way out; a look right: them. Three frames each
+            k(L22 - 0.04, toon={'face': {'gx': -0.9, 'eye': 0.4}}, toonDur=0.04), k(L22, toon={'face': {'gx': 1.0, 'eye': 0.4}}, toonDur=0.26, toonEase='inOut'),   # one slow slide of his pupils, from the way out across all of them: eight frames (two looks of three frames each were a flicker)
             k(G22 - 0.03, toon=SNEAK22(0.94), toonDur=0.04), k(G22, expr='sneaky')] +   # and he goes: eyes half shut, to the left, a little lower
-            [x for (x_, t_) in STEPS22 for x in (k(t_, to=[x_, 0, H22[2]], dur=0.1, glide=True, ease='inOut', face='keep'), k(t_, toon=SNEAK22(0.82), toonDur=0.06, toonEase='out'), k(round(t_ + 0.07, 3), toon=SNEAK22(0.93), toonDur=0.08, toonEase='inOut'))])],   # each step: he slides a pace, his eyes dip and come back up
+            [x for (x_, t_) in STEPS22 for x in (k(t_, to=[x_, 0, H22[2]], dur=0.14, glide=True, ease='inOut', face='keep'), k(t_, toon=SNEAK22(0.76), toonDur=0.07, toonEase='out'), k(round(t_ + 0.09, 3), toon=SNEAK22(0.93), toonDur=0.1, toonEase='inOut'))])],   # each step: he slides a pace, his eyes dip and come back up
         props=PAIRS22,
         dark=[[0, 1, 0.001]], darkFloor=0.0, darkEyes=5.2,   # (he is far: his eyes at this size are a tenth of the frame each, like the others' twice over)
         cams=[cam(0.0, [C22[0], C22[1], C22[2] + 0.1], [C22[0], C22[1], C22[2] - 0.1], [C22[0], 1.9, 0.0], [C22[0], 1.9, 0.0], lens=44)])
@@ -423,7 +439,7 @@ st.shot('S22', 'parisStreet', setOpts=DAY, actors=[act('mec', H22, 2, 'stand', '
 #     (v1: the eyepiece hung a third of the frame under his eye, the tube crossed the caption band, the beam lay over his own face)
 AS, RA = [-0.45, 0, 0.0], 45                         # the astronomer, three quarters to us, turned to the tube
 EYE23 = face_pt(AS, RA, 0.079, 0.54, 0.1)            # his left eye (the low one, at the right of the picture: `R` in the face channels): the one at the eyepiece
-TL, TT, TR = 0.5, 40, 78                             # the telescope: the length of one draw, its tilt, its heading (across the frame, a little toward us: the lens shows)
+TL, TT, TR = 0.75, 40, 78                            # the telescope: the length of one draw (drawn out, its far end leaves the frame), its tilt, its heading (across the frame, a little toward us: the lens shows)
 ax23 = lambda d_: [d_ * math.cos(math.radians(TT)) * math.sin(math.radians(TR)), d_ * math.sin(math.radians(TT)), d_ * math.cos(math.radians(TT)) * math.cos(math.radians(TR))]
 PIV23 = r3([EYE23[i] + ax23(0.06 + TL / 2 + 0.1)[i] for i in range(3)])   # its pivot: the end of the eyepiece is 6 cm in front of his eye
 X23, S23, B23 = [[0.1, 0], [0.26, 0.5], [0.32, 0.5], [0.48, 1.0]], 0.64, 0.84   # the draws; he steps back; the torch
@@ -446,7 +462,7 @@ H24 = [8.9, 0, 0.0]
 EV24 = lambda keys, **kw: P('env', 'bigEnvelope', pos=[11.2, 2.3, 0.4], ry=0, inDark=True, scale=1.0, opts={'w': 1.25, 'title': 'ÉLECTRICITÉ', 'to': 'LE SOLEIL', 'line2': 'CHEZ CE MEC', **kw}, keys=keys)
 WALK24 = [k(0.0, to=[10.55, 2.36, 0.4], dur=0.22, ease='linear'), k(0.22, to=[10.0, 2.28, 0.4], dur=0.22, ease='linear'), k(0.44, to=[9.5, 2.36, 0.4], dur=0.22, ease='linear'), k(0.66, to=[9.1, 2.3, 0.4], dur=0.22, ease='out')]
 st.shot('S24', 'parisStreet', setOpts=DAY, actors=[act('mec', H24, 2, 'stand', 'surprised', keys=[k(0.0, look=None), k(0.1, toon={'face': {'gx': 0.9}}, toonDur=0.08), k(0.5, toon={'face': {'gx': 0.7, 'eye': 0.4}}, toonDur=0.1), k(0.85, toon={'face': {'eye': 0.5, 'gy': -0.3}}, toonDur=0.08)]),
-        act('fact', [11.2, 0, -0.1], 0, 'holdUp', 'strain', keys=[k(0.0, look=None), k(0.0, to=[9.1, 0, -0.1], dur=0.88, clip='holdUp', ease='linear', face=0)])],
+        act('fact', [11.2, 0, -0.1], 0, 'holdUp', 'strain', darkEyes=False, keys=[k(0.0, look=None), k(0.0, to=[9.1, 0, -0.1], dur=0.88, clip='holdUp', ease='linear', face=0)])],
         props=[EV24(WALK24)],
         dark=[[0, 1, 0.001]], darkFloor=0.03, darkEyes=2.6,
         cams=[cam(0.0, [9.3, 2.05, 3.7], [8.95, 2.05, 3.6], [9.4, 2.1, 0.0], [8.95, 2.1, 0.0], lens=44, ease='inOut')])   # the camera comes left with the envelope and ends where the next shot starts
@@ -455,25 +471,25 @@ st.shot('S24', 'parisStreet', setOpts=DAY, actors=[act('mec', H24, 2, 'stand', '
 #     a look left, a look right; they stay
 A25 = 0.3
 st.shot('S25', 'parisStreet', setOpts=DAY, actors=[act('mec', H24, 2, 'stand', 'surprised', keys=[k(0.0, look=None), k(0.0, toon={'face': {'eye': 0.5, 'gy': -0.3}}, toonDur=0.0)]),
-        act('fact', [9.1, 0, -0.1], 0, 'holdUp', 'strain', keys=[k(0.0, look=None), k(0.0, to=[8.9, 0, -0.35], dur=A25, clip='holdUp', ease='out', face=0), k(A25 + 0.3, expr='happy')])],
-        props=[P('env', 'bigEnvelope', pos=[9.1, 2.3, 0.4], ry=0, inDark=True, opts={'w': 1.25, 'title': 'ÉLECTRICITÉ', 'to': 'LE SOLEIL', 'line2': 'CHEZ CE MEC', 'eyes': [A25 + 0.36, 99]},
+        act('fact', [9.1, 0, -0.1], 0, 'holdUp', 'strain', darkEyes=False, keys=[k(0.0, look=None), k(0.0, to=[8.9, 0, -0.35], dur=A25, clip='holdUp', ease='out', face=0), k(A25 + 0.3, expr='happy')])],
+        props=[P('env', 'bigEnvelope', pos=[9.1, 2.3, 0.4], ry=0, inDark=True, opts={'w': 1.25, 'title': 'ÉLECTRICITÉ', 'to': 'LE SOLEIL', 'line2': 'CHEZ CE MEC', 'eyes': [A25 + 0.36, 99], 'blinks': [A25 + 0.52, A25 + 1.72], 'eyeLook': [[A25 + 0.7, 0], [A25 + 0.78, -1], [A25 + 1.04, -1], [A25 + 1.14, 1], [A25 + 1.4, 1], [A25 + 1.5, 0]]},   # a blink; to the left end of the window, eight frames; to the right end, eight frames; back to us; a late blink
                  keys=[k(0.0, to=[8.84, 2.3, 0.4], dur=A25, ease='out'), k(A25, squash=[1.06, 0.92, 1.0], dur=0.3)])],
         dark=[[0, 1, 0.001]], darkFloor=0.0, darkEyes=2.6,
         cams=[cam(0.0, [8.95, 2.05, 3.6], [8.84, 2.1, 3.45], [8.95, 2.1, 0.0], [8.84, 2.12, 0.0], lens=44, ease='out')])   # the envelope whole in the frame from the first image (the camera lagged behind it and cut its left end)
 
 st.cue('sfx:stretch', 'S01', B1, 0.35); st.cue('sfx:click', 'S01', K1, 0.6); st.cue('sfx:slideDown', 'S01', K1 + 0.03, 0.3)
-st.cue('sfx:stepSoft', 'S02', 0.06, 0.3); st.cue('sfx:stepSoft', 'S02', 0.27, 0.3); st.cue('sfx:bonk', 'S02', G2, 0.6); st.cue('sfx:squeak', 'S02', G2 + 0.18, 0.35)
+st.cue('sfx:stepSoft', 'S02', 0.04, 0.3); st.cue('sfx:stepSoft', 'S02', 0.2, 0.3); st.cue('sfx:bonk', 'S02', G2, 0.6); st.cue('sfx:squeak', 'S02', G2 + 0.25, 0.35)
 st.cue('sfx:slideDown', 'S03', 0.15, 0.4); st.cue('pop', 'S03', 0.15 + 0.45 + 0.22, 0.5)
 st.cue('sfx:click', 'S04', K4, 0.6); st.cue('sfx:zip', 'S04', K4 + 0.1, 0.3)
 st.cue('sfx:slideUp', 'S05', 0.1, 0.4); st.cue('sfx:click', 'S05', 0.68, 0.45); st.cue('sfx:click', 'S05', 0.86, 0.45)
 st.cue('sfx:stepRun', 'S06', 0.0, 0.4); st.cue('sfx:brake', 'S06', 0.24, 0.35)
 st.cue('sfx:clink', 'S07', CL7, 0.5); st.cue('sfx:static', 'S07', ND7, 0.45); st.cue('sfx:boing', 'S07', ND7 + 0.06, 0.3); st.cue('sfx:poof', 'S07', ND7 + 0.28, 0.3)
 st.cue('sfx:twang', 'S08', P8a - 0.05, 0.4); st.cue('sfx:click', 'S08', P8a, 0.6); st.cue('sfx:twang', 'S08', P8b - 0.05, 0.4); st.cue('sfx:click', 'S08', P8b, 0.6)
-st.cue('whoosh', 'S09', SL9 - 0.08, 0.3, 0.1, 700, 2600); st.cue('clack', 'S09', SL9, 0.6); st.cue('sfx:boing', 'S09', SL9 + 0.1, 0.3)
+st.cue('sfx:stretch', 'S09', 0.05, 0.25); st.cue('whoosh', 'S09', SL9 - 0.08, 0.3, 0.1, 700, 2600); st.cue('clack', 'S09', SL9, 0.6); st.cue('sfx:boing', 'S09', SL9 + 0.1, 0.3)
 st.cue('sfx:ding', 'S10', F10, 0.45); st.cue('sfx:stretch', 'S10', F10 + 0.1, 0.3)
 st.cue('sfx:twang', 'S11', P11 - 0.05, 0.4); st.cue('sfx:click', 'S11', P11, 0.6); st.cue('sfx:slideDown', 'S11', P11 + 0.03, 0.4); st.cue('pop', 'S11', P11 + 0.02 + 0.5 + 0.26, 0.5)
 st.cue('sfx:stepSoft', 'S12', 0.05, 0.25); st.cue('sfx:stepSoft', 'S12', 0.3, 0.25); st.cue('sfx:tick', 'S12', M12 - 0.04, 0.5); st.cue('sfx:gasp', 'S12', M12 + 0.03, 0.3); st.cue('sfx:ding', 'S12', M12 + 0.24, 0.3); st.cue('sfx:poof', 'S12', O12 - 0.02, 0.3)
-st.cue('pop', 'S13', KISS, 0.45); st.cue('sfx:gulp', 'S13', T13, 0.4); st.cue('sfx:slideDownSlow', 'S13', T13 + 0.36, 0.3)
+st.cue('pop', 'S13', KISS, 0.45); st.cue('sfx:gulp', 'S13', T13, 0.4); st.cue('pop', 'S13', T13 + 0.3, 0.2); st.cue('sfx:slideDownSlow', 'S13', T13 + 0.32, 0.3)
 st.cue('sfx:step', 'S14', 0.05, 0.3); st.cue('sfx:step', 'S14', 0.28, 0.3); st.cue('sfx:paper', 'S14', G14, 0.45)
 for i_ in range(3): st.cue('sfx:boing', 'S15', W15[i_], 0.3 + 0.08 * i_)
 st.cue('whoosh', 'S15', F15, 0.35, 0.12, 300, 1500); st.cue('thud', 'S15', L15, 0.7); st.cue('sfx:paper', 'S15', L15 + 0.02, 0.5)
