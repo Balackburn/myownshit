@@ -690,3 +690,34 @@ Erreur trouvée dans cette passe : des pas rapides écrits par `to` (0,24 m en 0
 écrasement vertical) au point de coucher le personnage sur le côté. Réponse : un glissé par pas et les plongeons écrits à la main, avec `auto: 0`.
 Autre erreur : à trois mètres de la caméra, le corps noir du héros cachait les paires d'yeux placées « à ses pieds » ; il est reculé derrière elles et ses
 yeux sont agrandis d'autant (`darkEyes` 5,2).
+
+### Histoire 39 : version 1 livrée, dernière passe écrite
+
+- **Version 1 envoyée** : génération complète (1080 × 1920, 26,47 s, −16,1 LUFS, sous-titres, carton « LE BRAS RESTE »), contrôles passés (aucune image
+  isolée aux coupes ; les alertes de `flash_check.py` sont le flash de l'autoportrait et trois changements de cadre à l'intérieur d'un plan).
+- **Dernière passe (version 2), écrite d'après la troisième revue** ; le rendu complet suivra celui de l'histoire 40 :
+  S12 : le lit est retourné (`bedFlip`) pour que sa tête reste du même côté du lit au mur (elle changeait de côté en une image), le bras sort par le coin
+  haut d'une fenêtre de nuit (`nightWindow` : ciel, lune, croisillons) et traverse la vitre en diagonale, trajet en quatre images, écrasement, puis le
+  bras libre, les jambes et la cravate oscillent et s'arrêtent, l'oreiller arrive en retard, clair de lune sur lui (`darkPool` qui suit un acteur) et
+  au sol ; le plan prend six images à S11 et le carton tombe au moment où il est emporté (`st.card(..., at=0.42)`).
+  S13 : le touriste ne fait plus basculer sa tête (c'était le coup du maire) : l'homme entier oscille, raide, comme une statue (`statueRock`).
+  S15 : boîte à hauteur de tête à côté du casque, AUTO deux fois plus grand sur sa propre plaque, coupe six images après le voyant vert.
+  S16 : sept images de plus prises à S15 : la poignée lui échappe des doigts, la porte travaille seule seize images ; vrai regard vers la porte puis
+  retour au poing ; le haut du take tenu six images ; la mâchoire tombe sur une paume placée dessous, qui plie ; casquette en l'air devant la vitre sombre.
+  S17 : la mâchoire reste dans la paume jusqu'à ce que la dame paraisse ; le doigt se lève à l'écart de la tête, vers elle ; la main retombe jusqu'à la
+  hanche avant la coupe (elle s'arrêtait à la visière : un salut) ; soupir de quinze images, tressaillement de sept ; le bras remonte, dépasse, rebondit.
+  S01 (révérence de trois quarts), S02 (cravate, cheveux et épaules réagissent à chaque passant), S03 (cou en avant : la mâchoire passait derrière le
+  col ; la main libre sursaute), S05 (la tête de l'agent balaie vraiment), S09 (onze images au bout du bras avant le rappel).
+- **Décision** : pas de quatrième revue pour l'histoire 39 (trois au plus) ; la version 2 sera envoyée après contrôle sur images fixes.
+
+### Histoire 40 : deuxième et troisième séries de corrections, deuxième revue demandée, génération complète lancée
+
+- Sur images fixes : S02 (les quatre images d'yeux écrasés étaient noires : une expression forte commence par un clignement automatique), S06 (le
+  compteur cachait le visage de l'électricien ; le bras du maire passe maintenant par-dessus son casque), S10 et S11 (bonnet de nuit de l'autre côté,
+  lune au-dessus de l'horloge), S13 (les deux paires étaient un tas de cœurs : chaque tête penchée de 30° pour une paire horizontale, corps décalés
+  d'autant), S20 et S21 (foule replacée, ciel sans nuage, yeux à 4,6 vus de loin), S23 (torche dans l'autre main, au-dessus de sa tête).
+- Erreur ancienne trouvée par l'avertissement « NaN » du rendu : les mâchoires de la pince du compteur n'avaient jamais été visibles (option `taper`
+  donnée sans `z`). Leçon : un avertissement de géométrie dans le journal de rendu se traite avant le rendu final.
+- Brouillon 3 (30,13 s) : aucune image isolée aux coupes. Deuxième revue demandée aux deux relecteurs sur 73 pièces.
+- **Conformément à la consigne « toujours lancer la génération complète », le rendu final de l'histoire 40 est parti en même temps que la revue** ;
+  les corrections de la revue seront faites par plages, ou par une version 2.
