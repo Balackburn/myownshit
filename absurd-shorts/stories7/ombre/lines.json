@@ -1,0 +1,107 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec avait une ombre en retard. D'une seconde, puis d'une heure.",
+  "hl": [
+   "ombre",
+   "retard."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Un matin, elle n'est pas venue.",
+  "hl": [
+   "venue."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a déclaré sa disparition à la mairie.",
+  "hl": [
+   "mairie."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "On lui a répondu :",
+  "hl": []
+ },
+ {
+  "id": "L05",
+  "who": "C",
+  "text": "« Elle est majeure. »",
+  "hl": [
+   "majeure."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Elle travaillait déjà ailleurs. Pour un type plus grand.",
+  "hl": [
+   "ailleurs.",
+   "grand."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il en a loué une. Trop petite.",
+  "hl": [
+   "petite."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il a pris une amende pour circulation sans ombre.",
+  "hl": [
+   "amende",
+   "ombre."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Hier, elle est revenue. Avec un avocat.",
+  "hl": [
+   "avocat."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le juge a ordonné une garde alternée.",
+  "hl": [
+   "alternée."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les jours pairs, c'est elle qui se lève.",
+  "hl": [
+   "lève."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Lui, il suit. Par terre.",
+  "hl": [
+   "terre."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il dit que le goudron, ça va. Les pavés, moins.",
+  "hl": [
+   "pavés,"
+  ]
+ }
+]
