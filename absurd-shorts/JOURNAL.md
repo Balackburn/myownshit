@@ -1432,3 +1432,38 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   repartait en arrière) ; (2) la caméra du pont du plan 9 reste fixe et le laisse sortir par le haut, comme le proposait le relecteur ;
   (3) l'histoire 48 garde le schéma de la série (un homme, une institution qui prend l'étiquette au pied de la lettre, l'escalade, la
   chute chez sa mère, la réplique sèche) ; la satire vise la logique du magasin, personne d'autre.
+
+### 12 novembre 2026, fin de soirée (cycles 8 à 10, suite)
+
+- **46 « Le radar », revue 3 (dernière)** : animation 6,5, direction artistique 7,0 (après 6,0 / 6,0). Passe finale : l'accroche
+  s'ouvre sur lui qui court vers nous dès « Ce mec », puis les portes du bus se ferment devant lui ; double prise tenue (9 images
+  impassible, un écrasement, les yeux sur tiges tenus) et « moi ? » en haussement d'épaules, mains hors de la silhouette ; vis serrées
+  sur la plaque (le foret reste dessus), sursauts plus étirés, regard en arrière vers la plaque ; le climax filmé dans l'axe du vol :
+  écrasé à plat quatre images, un frisson, une regonfle, puis le trou au centre du cadre, bleu ciel saturé dans un bord de briques
+  épais, des débris couleur brique ; le mécanicien se retourne vers nous, la feuille REFUSÉ à hauteur de poitrine, sous le bandeau, le
+  trou derrière lui ; le gobelet debout, manchon vers nous, plus grand ; il n'est plus collé au bord au plan 15. Génération complète
+  (n° 46) en cours.
+- **47 « L'aimant », revue 1** : animation 5,5, direction artistique 6,0. Passes 2 et 2b : aimant en U face à nous ; couverts à manche
+  noir qui volent en arc, étirés, avec un sursaut et la tête qui claque à chaque coup ; nouvel angle au plan 3 ; la poêle à plat sur
+  son visage ; les lampadaires saluent au-dessus du trottoir ; boussoles vues d'en haut, un trou dans la rangée sur « lui » ; les
+  randonneurs lèvent leurs boussoles puis grue jusqu'à sa fenêtre, où il est accoudé ; bateau à proue ; cartographes chauves aux
+  tempes blanches (le bloc gris se lisait comme une toque) ; carte entière qui tourne jusqu'à le mettre en haut ; palier vu de haut dans
+  la cage d'escalier, explorateurs en parka, fanion jaune enfoncé dans le paillasson PÔLE NORD d'un bras élastique ; contrapposto pour
+  tous. Brouillon 2 en rendu.
+- **48 « Le code-barres », revue 1** : animation 6,0, direction artistique 6,0. Passe 2 : la caisse vue du côté de la caissière (sa tête
+  et l'étiquette arrivent vers nous sous la douchette balayée sur son front) ; la colère de trois quarts, bras en moulinet, visage qui
+  rougit, vapeur encrée ; le laser vu par-dessus l'épaule du gérant, le point rouge sur l'étiquette, les yeux qui louchent ; la tablette
+  levée à côté du visage du gérant ; le gérant se penche bouche bée au lieu de refaire la double prise du héros ; un vrai film sous vide
+  qui colle à ses jambes, son buste et sa tête, visage écrasé dessus, sur un présentoir rouge ; la dame tient le paquet par les côtés ;
+  le tampon l'écrase en accordéon puis le sachet regonfle (le défaut) ; la dame croise les bras, double prise devant l'écran ; il jaillit
+  du carton comme un diable en boîte, rabats ouverts d'un coup ; la porte reste ouverte d'un plan à l'autre ; ticket plus grand avec
+  REMBOURSEMENT en gros ; cliente en manteau vert (elle ressemblait à la caissière) ; employé sans barbe en damier.
+- **Outils** : rayons d'épicerie (`grocerShelf` : bouteilles, canettes, céréales, bandes de prix, étiquettes promo) ; tapis de caisse
+  avec cadre et séparateur ; portique dont les montants s'allument en entier avec un reflet rouge au sol ; `vacuumBag parts` ; rabats de
+  carton qui s'ouvrent (`flapsAt`) ; rouge du visage plus franc ; mât de drapeau épais ; cuillère colorable ; bord et débris de mur
+  réglables ; `lint_comments.py` repère les arguments de caméra avalés par un commentaire. Skill : 12 lignes de catalogue et
+  9 erreurs à éviter ajoutées.
+- **Décisions prises sans question** : (1) au plan 11 de 48, c'est le tampon qui fait regonfler le sachet (le défaut de fabrication)
+  plutôt que la prise en main par la dame : le paquet reste plat au plan 10, comme le demandait la direction artistique ; (2) au plan 9
+  de 47, deux temps (randonneurs puis grue) plutôt qu'un plan qui les tenait tous en miettes ; (3) au plan 13 de 46, le mécanicien se
+  retourne vers nous pour montrer la feuille, le trou restant visible derrière lui.

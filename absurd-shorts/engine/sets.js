@@ -137,6 +137,32 @@ function shelf(len, seed, levels = 4) {
   g.add(inst(new THREE.BoxGeometry(1, 1, 1), mat(P.white), list, cols), at(box(len, 0.15, 0.04, P.red), 0, 2.05, 0.25));
   return g;
 }
+// (cycle 10, story 48) A grocery shelf: rows of identical products in facings (water bottles, cans stacked two high, cereal boxes with a white
+// front panel, oil and soda bottles), price strips along the shelf edges and a few yellow promo tags (the old shelf's random blocks read as books)
+function grocerShelf(len, seed, levels = 4) {
+  const r = rng(seed), g = grp(), cyl = [], cylC = [], bx = [], bxC = [], pan = [], cap = [], capC = [];
+  for (let i = 0; i <= Math.round(len / 1.2); i++) g.add(at(box(0.06, 2.1, 0.5, P.navyLight, { pivot: 'bottom' }), -len / 2 + i * len / Math.round(len / 1.2), 0, 0));
+  const kinds = ['water', 'cans', 'cereal', 'bottles'];
+  for (let l = 0; l < levels; l++) { const y = 0.12 + l * 0.5; g.add(at(box(len, 0.04, 0.5, P.white), 0, y, 0), at(box(len, 0.045, 0.012, '#F7F5EE'), 0, y - 0.005, 0.256));
+    const kind = kinds[(l + seed) % kinds.length], y0 = y + 0.02;
+    for (let x = -len / 2 + 0.1; x < len / 2 - 0.2;) {
+      const n = 3 + Math.floor(r() * 4), c = [P.red, P.teal, P.yellow, P.navy, P.green, '#E8742A', '#7A3E9C', P.salmon][Math.floor(r() * 8)];
+      for (let k = 0; k < n && x < len / 2 - 0.15; k++) {
+        if (kind === 'water') { cyl.push([x + 0.05, y0 + 0.15, 0.05, 0, 0, 0, 0.09, 0.3, 0.09]); cylC.push('#A8D8EE'); cap.push([x + 0.05, y0 + 0.315, 0.05, 0, 0, 0, 0.035, 0.03, 0.035]); capC.push(c); x += 0.105; }
+        else if (kind === 'cans') { for (const hy of [0, 0.125]) cyl.push([x + 0.04, y0 + 0.06 + hy, 0.06, 0, 0, 0, 0.07, 0.12, 0.07]), cylC.push(c); x += 0.085; }
+        else if (kind === 'cereal') { bx.push([x + 0.1, y0 + 0.16, 0.02, 0, 0, 0, 0.19, 0.32, 0.08]); bxC.push(c); pan.push([x + 0.1, y0 + 0.19, 0.062, 0, 0, 0, 0.12, 0.1, 0.005]); x += 0.21; }
+        else { cyl.push([x + 0.045, y0 + 0.13, 0.05, 0, 0, 0, 0.08, 0.26, 0.08]); cylC.push(['#C98A2E', '#3E8A4A', '#D9EEF2', c][k % 4]); cap.push([x + 0.045, y0 + 0.285, 0.05, 0, 0, 0, 0.03, 0.05, 0.03]); capC.push(P.ink); x += 0.1; }
+      }
+      x += 0.04 + r() * 0.06;
+    }
+    for (let x = -len / 2 + 0.6 + r() * 0.5; x < len / 2 - 0.3; x += 1.2 + r() * 0.8) g.add(at(box(0.13, 0.08, 0.008, P.yellow), x, y - 0.015, 0.265));
+  }
+  const cg = new THREE.CylinderGeometry(0.5, 0.5, 1, 10), bg = new THREE.BoxGeometry(1, 1, 1);
+  if (cyl.length) g.add(inst(cg, mat(P.white), cyl, cylC)); if (cap.length) g.add(inst(cg, mat(P.white), cap, capC));
+  if (bx.length) g.add(inst(bg, mat(P.white), bx, bxC)); if (pan.length) g.add(inst(bg, mat('#F7F5EE'), pan));
+  g.add(at(box(len, 0.15, 0.04, P.red), 0, 2.05, 0.25));
+  return g;
+}
 function windowsGrid(g, list, lit, dark) { if (list.lit.length) g.add(inst(new THREE.BoxGeometry(0.7, 0.9, 0.06), lit, list.lit)); if (list.dark.length) g.add(inst(new THREE.BoxGeometry(0.7, 0.9, 0.06), dark, list.dark)); }
 
 // Sky dome centred on the camera every frame (userData.followCam): the horizon stays at eye level at any altitude, and it writes no
@@ -532,9 +558,11 @@ const S = {
     const g = grp(), { back } = room(g, { wall: P.paper, band: P.red, bandH: 0.35, trim: P.navy, floor: '#E9E4D6', back: -4 });
     const lines = []; for (let i = -20; i <= 20; i++) lines.push([i * 0.8, 0.003, 4], [0, 0.003, back + i * 0.8 + 16, 0, PI / 2]);
     g.add(inst(new THREE.BoxGeometry(0.02, 0.002, 40), mat('#CFC8B4'), lines.map(l => l.length > 3 ? [l[0], l[1], l[2], 0, PI / 2, 0, 1, 1, 1] : l)));
-    g.add(at(shelf(9, 3), 0, 0, back + 0.35), at(shelf(6, 4), -4.2, 0, 0.5, 0, PI / 2), at(shelf(6, 5), -6.0, 0, 0.5, 0, -PI / 2));
+    const SH = o.fr ? grocerShelf : shelf;   // (cycle 10) French: grocery stock
+    g.add(at(SH(9, 3), 0, 0, back + 0.35), at(SH(6, 4), -4.2, 0, 0.5, 0, PI / 2), at(SH(6, 5), -6.0, 0, 0.5, 0, -PI / 2));
     // checkout counter with register + conveyor
     g.add(at(box(0.8, 0.9, 2.4, P.teal, { pivot: 'bottom', outline: 0.006 }), 3.6, 0, -0.6), at(box(0.62, 0.03, 2.2, P.ink), 3.6, 0.915, -0.6), prop('cashRegister', o.fr ? { text: '0,00 €' } : {}, 3.6, 0.93, 0.3, -PI / 2));
+    if (o.fr) g.add(at(box(0.05, 0.06, 2.2, '#9AA1A8'), 3.29, 0.93, -0.6), at(box(0.05, 0.06, 2.2, '#9AA1A8'), 3.91, 0.93, -0.6), at(box(0.6, 0.05, 0.05, '#C9CDD3', { outline: 0.004 }), 3.6, 0.955, -1.55));   // (cycle 10) the belt's steel frame and a divider bar
     g.add(prop('shoppingCart', {}, -2.6, 0, -2.4, 0.5));
     (o.signs || (o.fr ? [['PROMOTIONS', P.red, P.white, -1.3, -3.0], ['RAYON 3', P.navy, P.white, 1.3, -2.6]] : [['PROMO -50%', P.red, P.white, -1.3, -3.0], ['AISLE 3', P.navy, P.white, 1.3, -2.6]])).forEach(([t, bg, fg, x, z]) => { g.add(prop('signBoard', { text: t, bg, fg, w: 1.3, h: 0.42, posts: false, height: 0, frame: bg }, x, 2.75, z), rod([x - 0.5, 3.2, z], [x - 0.5, 7, z], 0.01, P.ink), rod([x + 0.5, 3.2, z], [x + 0.5, 7, z], 0.01, P.ink)); });
     g.userData.anchors = { center: [0, 0, 0], shelf: [0, 0, back + 1.1], aisle: [-5.1, 0, 0.5], checkout: [3.0, 0, -0.6], register: [3.6, 0.93, 0.3], cart: [-2.6, 0, -2.4] };

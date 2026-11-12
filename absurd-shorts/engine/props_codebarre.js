@@ -56,9 +56,11 @@ export const CODEBARRE_PROPS = {
       g.add(at(box(0.104, 0.5, 0.3, '#D7D4CC'), x, 0.85, 0));
       const on = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.12, 0.41), red); on.position.set(x, 1.6, 0); on.userData.noAO = true; const of = at(box(0.11, 0.12, 0.41, '', { material: off }), x, 1.6, 0);
       g.add(on, of); lamps.push([on, of]);
+      if (o.glowPosts) { const pg = new THREE.Mesh(new THREE.BoxGeometry(0.112, 1.5, 0.412), new THREE.MeshBasicMaterial({ color: '#FF3A2A', transparent: true, opacity: 0.75, toneMapped: false })); pg.position.set(x, 0.8, 0); pg.userData.noAO = true; pg.visible = false; g.add(pg); lamps.push([pg, null]); }   // (pass 2 of 48) o.glowPosts: the whole post flashes red
     }
+    let floor = null; if (o.glowPosts) { floor = new THREE.Mesh(new THREE.PlaneGeometry(gap + 0.8, 1.2), new THREE.MeshBasicMaterial({ color: '#FF3A2A', transparent: true, opacity: 0.35, depthWrite: false, toneMapped: false })); floor.rotation.x = -PI / 2; floor.position.y = 0.008; floor.userData.noAO = true; floor.visible = false; g.add(floor); }   // and a red glow on the floor between them
     g.userData.update = t => { const fl = (o.flash ?? 0.5), act = list(o.beepAt).find(a => t >= a && t < a + fl), blink = act != null && Math.floor((t - act) * 12) % 2 === 0;
-      for (const [on, of] of lamps) { on.visible = blink; of.visible = !blink; } };
+      for (const [on, of] of lamps) { on.visible = blink; if (of) of.visible = !blink; } if (floor) floor.visible = blink; };
     g.userData.update(0); return g;
   },
   // A small screen on a short stand (a checkout's customer display, a manager's tablet), front +Z, origin at its foot: o.w (0.5) × o.h (0.32), o.stand
@@ -102,6 +104,33 @@ export const CODEBARRE_PROPS = {
     if (o.label !== false) { const lb = canvasPlane(0.34, 0.16, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.fillStyle = '#1E5BB8'; c.fillRect(0, 0, W, H * 0.3); c.fillStyle = '#FFFFFF'; c.font = `900 ${Math.round(H * 0.22)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.brand || 'FRAÎCHEUR', W / 2, H * 0.16);
         c.fillStyle = '#14161A'; c.font = `900 ${Math.round(H * 0.3)}px Arial`; c.fillText(o.label || 'SOUS VIDE', W / 2, H * 0.62); }, { res: 256 }); lb.position.set(0, o.labelY ?? 0.42, 0.502); lb.scale.set(1 / w, 1 / h, 1); lb.userData.noAO = true; skin.add(lb); }
     const keysT = o.tight || [[0, 1]];
+    // (pass 2 of 48) o.parts [[cy, w, h, d], ...] (centre height and size of each body part, from the feet up: legs, torso with the arms pinned, head):
+    // the film clings to each part when tight and swells into one bag when loose (the single box read as a glass display case). o.tray: a tray under him
+    if (o.parts) {
+      skin.visible = false; const film2 = film.clone(); film2.opacity = o.opacity ?? 0.32;
+      const shine = new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.6, depthWrite: false });
+      const Wm = Math.max(...o.parts.map(q => q[1])), Dm = Math.max(...o.parts.map(q => q[3]));
+      const P2 = o.parts.map(([cy, pw, ph, pd], i) => { const m = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), film2), hl = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine), hl2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine);
+        const cr = Array.from({ length: 4 }, (_, j) => { const c = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine); c.rotation.z = 0.9 * (((i * 5 + j * 3) % 7) / 6 - 0.5); g.add(c); return c; });
+        g.add(m, hl, hl2); return { cy, pw, ph, pd, m, hl, hl2, cr }; });
+      const seamT = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), edge), seamB = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), edge); g.add(seamT, seamB);
+      if (o.tray) g.add(at(box(Wm * 1.5, 0.04, Dm * 1.6, o.tray === true ? '#2A2C31' : o.tray, { outline: 0.004 }), 0, 0.02, 0));
+      const lab = skin.children.find(c => c.geometry && c.geometry.type === 'PlaneGeometry'); if (lab) { skin.remove(lab); g.add(lab); lab.scale.set(1, 1, 1); }
+      const tops = P2.map(q => q.cy + q.ph / 2), top = Math.max(...tops);
+      g.userData.update = t => { let k = keysT[0][1]; for (let i = 1; i < keysT.length; i++) { const [t0, v0] = keysT[i - 1], [t1, v1] = keysT[i]; if (t >= t1) k = v1; else if (t > t0) { k = v0 + (v1 - v0) * ease.inOut(clamp01((t - t0) / (t1 - t0))); break; } else break; }
+        const u = clamp01((1.35 - k) / 0.49), over = k > 1.35 ? (k - 1.35) * 1.5 : 0;   // u 0 loose .. 1 tight; above 1.35 the bag puffs up
+        let yb = 0;
+        P2.forEach((q, i) => { const W = (Wm * (1.18 + over) + (q.pw * 1.04 - Wm * (1.18 + over)) * u), D = (Dm * (1.18 + over) + (q.pd * 1.04 - Dm * (1.18 + over)) * u);
+          const y0 = i === 0 ? 0.0 : Math.min(yb, q.cy - q.ph / 2 * (1 + 0.06 * (1 - u))), y1 = i === P2.length - 1 ? q.cy + q.ph / 2 + (top * 1.08 - q.cy - q.ph / 2) * (1 - u) + 0.02 : q.cy + q.ph / 2 * (1 + 0.06 * (1 - u));
+          yb = y1; const H = Math.max(0.01, y1 - y0), cy = (y0 + y1) / 2;
+          q.m.scale.set(W, H, D); q.m.position.set(0, cy, 0);
+          q.hl.scale.set(0.014, H * 0.78, 0.004); q.hl.position.set(W * 0.3, cy, D / 2 + 0.004); q.hl2.scale.set(0.008, H * 0.5, 0.004); q.hl2.position.set(-W * 0.32, cy + H * 0.12, D / 2 + 0.004);
+          q.cr.forEach((c, j) => { c.visible = u > 0.6; c.scale.set(0.004, Math.min(0.07, H * 0.25), 0.003); c.position.set(W * (((j * 37 + i * 11) % 9) / 9 - 0.45) * 0.8, cy + H * (((j * 23 + i * 7) % 7) / 7 - 0.45) * 0.7, D / 2 + 0.005); });
+          if (i === 1 && lab) lab.position.set(0, o.labelY ?? cy, D / 2 + 0.006);
+          if (i === P2.length - 1) { seamT.scale.set(W * 1.02, 0.022, D * 1.02); seamT.position.set(0, y1, 0); }
+          if (i === 0) { seamB.scale.set(W * 1.02, 0.022, D * 1.02); seamB.position.set(0, 0.011, 0); } }); };
+      g.userData.update(0); return g;
+    }
     g.userData.update = t => { let k = keysT[0][1]; for (let i = 1; i < keysT.length; i++) { const [t0, v0] = keysT[i - 1], [t1, v1] = keysT[i]; if (t >= t1) k = v1; else if (t > t0) { k = v0 + (v1 - v0) * ease.inOut(clamp01((t - t0) / (t1 - t0))); break; } else break; }
       skin.scale.set(w * k, h * (0.97 + 0.03 * k), d * k); crink.forEach(m => { m.visible = k < 0.85; }); };
     g.userData.update(0); return g;

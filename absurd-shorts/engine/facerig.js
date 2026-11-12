@@ -163,7 +163,7 @@ export function makeFaceRig(v = null) {
   function draw(st) {
     g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; rimOff(); g.drawImage(L.base, 0, 0);
     const X = st.extras || {};
-    if (X.red > 0.02) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.6 * c01(X.red); g.fillStyle = '#FF4A2E'; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }   // (cycle 9) extras.red: the face warms toward red (multiplied over the skin, under the line work)
+    if (X.red > 0.02) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.88 * c01(X.red); g.fillStyle = '#FF3A22'; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }   // (cycle 9) extras.red: the face warms toward red (multiplied over the skin, under the line work)
     for (const k of ['shadow', 'blush']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
     for (const s of 'LR') {
       if (st.cheeks > 0.02) { const [x, y] = centre('cheek' + s); spr(g, 'cheek' + s, x, y, 0, 8 - 14 * st.cheeks, 0, 1, 1, c01(st.cheeks * 1.6)); }

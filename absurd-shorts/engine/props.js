@@ -771,8 +771,9 @@ const B = {
   cardboardBox(o) {
     const w = 0.6, h = 0.45, d = 0.5, t = 0.02, C = '#C49A66', g = grp(at(box(w, t, d, C), 0, t / 2, 0), at(box(w - 0.04, 0.004, d - 0.04, P.woodDark), 0, t + 0.002, 0),
       at(box(w, h, t, C, { outline: 0.02 }), 0, h / 2, d / 2), at(box(w, h, t, C), 0, h / 2, -d / 2), at(box(t, h, d, C), w / 2, h / 2, 0), at(box(t, h, d, C), -w / 2, h / 2, 0));
-    const flap = (px, pz, cx, cz, rx, rz, fw, fd) => { const p = grp(at(box(fw, t, fd, C), cx, 0, cz)); p.position.set(px, h, pz); p.rotation.set(rx, 0, rz); g.add(p); };
-    flap(0, d / 2, 0, 0.11, 0.55, 0, w, 0.22); flap(0, -d / 2, 0, -0.11, -0.4, 0, w, 0.22); flap(w / 2, 0, 0.1, 0, 0, -0.5, 0.2, d); flap(-w / 2, 0, -0.1, 0, 0, 0.6, 0.2, d);
+    const flaps = [], flap = (px, pz, cx, cz, rx, rz, fw, fd, crx, crz) => { const p = grp(at(box(fw, t, fd, C), cx, 0, cz)); p.position.set(px, h, pz); p.rotation.set(rx, 0, rz); g.add(p); flaps.push([p, rx, rz, crx, crz]); };
+    flap(0, d / 2, 0, 0.11, 0.55, 0, w, 0.22, 2.9, 0); flap(0, -d / 2, 0, -0.11, -0.4, 0, w, 0.22, -2.9, 0); flap(w / 2, 0, 0.1, 0, 0, -0.5, 0.2, d, 0, 2.9); flap(-w / 2, 0, -0.1, 0, 0, 0.6, 0.2, d, 0, -2.9);
+    if (o.flapsAt !== undefined) g.userData.update = tt => { const u = clamp01((tt - o.flapsAt) / 0.14), e = u <= 0 ? 0 : 1 + 2.2 * Math.pow(u - 1, 3) + 1.2 * Math.pow(u - 1, 2); for (const [p, rx, rz, crx, crz] of flaps) p.rotation.set(crx + (rx - crx) * e, 0, crz + (rz - crz) * e); };   // (pass 2 of 48) o.flapsAt: the flaps shut over the top until then, then kicked open with an overshoot
     const txt = o.text ?? 'UNE PIÈCE ?';   // the beggar's sign; text '' for a plain box (French only on screen)
     if (txt) { const s = grp(at(box(0.6, 0.42, 0.015, C, { pivot: 'bottom' }), 0, 0, 0), at(label(txt, 0.54, 0.36, { bg: '#D8B582', fg: P.ink }), 0, 0.21, 0.009));
       s.position.set(0, 0, d / 2 + 0.25); s.rotation.x = -0.36; g.add(s); }
