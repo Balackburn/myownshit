@@ -135,6 +135,7 @@ export const AIMANT_PROPS = {
     const sail = new THREE.Shape(); sail.moveTo(0, 0); sail.lineTo(-1.3, 0); sail.lineTo(-0.05, 2.6); sail.closePath();
     g.add(at(new THREE.Mesh(new THREE.ShapeGeometry(sail), new THREE.MeshLambertMaterial({ color: '#FBFAF4', side: THREE.DoubleSide })), 0.18, 1.2, 0.02));
     g.add(at(box(0.32, 0.18, 0.01, o.pennant || '#D3202A'), 0.36, 3.95, 0));
+    if (o.bow !== false) g.add(at(box(0.62, 0.5, 0.62, '#F4F2EA', { outline: 0.01 }), L / 2 - 0.12, 0.85, 0, 0, PI / 4, 0), at(box(0.64, 0.1, 0.64, '#2F5E8C'), L / 2 - 0.12, 0.98, 0, 0, PI / 4, 0));   // (pass 2) a pointed bow (the tapered box read as a crate)
     return g;
   },
 

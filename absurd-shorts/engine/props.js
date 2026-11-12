@@ -1248,7 +1248,7 @@ const B = {
     if (o.name2) name(o.name2, 0.034, { writeAt: o.writeAt2, writeDur: o.writeDur2, color: o.inkColor2 || '#B3261E', seed: 21 });
     if (ups.length) { g.userData.update = t => ups.forEach(f => f(t)); g.userData.update(-1e9); }
     g.userData.grip = [0, 0.06, 0]; return g; },
-  spoon(o) { const g = grp(at(box(0.012, 0.13, 0.005, '#C9CCD1'), 0, 0.065, 0), at(sphere(0.02, '#C9CCD1', 1), 0, 0.14, 0)); g.children[1].scale.set(0.9, 1.25, 0.35); g.userData.grip = [0, 0.03, 0]; return g; },
+  spoon(o) { const c = o.color || '#C9CCD1', ol = o.outline ? { outline: o.outline } : {}; const g = grp(at(box(0.012, 0.13, 0.005, o.handle || c, o.handle ? { outline: 0.004 } : ol), 0, 0.065, 0), at(sphere(0.02, c, 1, ol), 0, 0.14, 0)); g.children[1].scale.set(0.9, 1.25, 0.35); g.userData.grip = [0, 0.03, 0]; return g; },   // (cycle 9) o.color / o.handle / o.outline: a darker spoon (pale silver on a peach wall vanished in flight)
   moneySack(o) { // tied burlap sack with a big euro sign
     const c = o.color || '#B89462', body = sphere(0.26, c, 1); body.scale.set(1, 0.95, 0.85); body.position.y = 0.24; addOutline(body, 0.03);
     const g = grp(body, at(cyl(0.06, 0.1, 0.12, c, 8), 0, 0.5, 0), at(torus(0.065, 0.015, '#8C6239', 4, 10), 0, 0.5, 0, PI / 2), at(cyl(0.1, 0.05, 0.08, c, 8), 0, 0.59, 0),
