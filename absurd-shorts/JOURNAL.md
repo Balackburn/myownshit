@@ -1228,3 +1228,40 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   le nœud reste rouge sur la poitrine et la cravate part de la nuque ; (5) histoire 44 : le carton unique sera « MONUMENT HISTORIQUE ».
 - **Pistes** : un outil qui avance une caméra le long de son axe jusqu'à ce que `fit()` trouve une focale ; un « tremblement de statue »
   propre au rig (raideur + micro-vibration) ; recolorer d'autres éléments par canal toon (cheveux, cravate entière).
+
+### Cycle 7 (suite) — revue 3 de l'histoire 42 (animation 7,8 / direction artistique 7,6), passe 4 et génération finale ; revue 1 de l'histoire 43 lancée ; histoire 44 corrigée ; histoire 45 « La fourrière » écrite, accessoires et script
+
+- **Revue 3 de l'histoire 42** (dernier tour permis) : animation 7,8, direction artistique 7,6 (contre 7,4 / 7,4). Résolu d'après eux : S10-S11
+  (tête de l'ombre sur mur nu, double regard), S17, S14 (saut et demi-tour), l'ombre debout opaque, S21 (sol au-dessus des sous-titres, claque
+  vue d'en haut), S26 (regard final tenu). Restait : la tête du héros coupée par les bords (S21 à S26), le temps suspendu de S03 caché par
+  la corniche, le pouce « ça va » qui se lisait comme un auto-stop, le maillet vu par le bout, la semelle illisible.
+- **Passe 4** (vérifiée sur images) : murs nus derrière les têtes en S03 et S10-S11, cadres de S21 à S26 recalculés avec `fit()` (visage à
+  65-75 % de la largeur, au-dessus de la bande des sous-titres), pouce : accessoire libre `thumbsUp` (poing, pouce vers le haut, phalanges
+  vers nous) et main cachée, maillet libre de profil pendant la tenue, avocat et serviette dans le cadre.
+- **Décision prise sans question** : la génération complète de la passe 3 (lancée avant la revue 3) a été arrêtée à mi-chemin : elle aurait
+  livré une version que la revue venait de dépasser ; la génération finale de la passe 4 l'a remplacée (07 h 36).
+- **Histoire 43 « La cravate »** : images finales de la revue 1 (56 instants) faites ; deux relecteurs lancés (animation, direction
+  artistique), mêmes consignes que pour la 42.
+- **Histoire 44 « La statue »** (images de contrôle) : les bus traversaient la rue en travers (`cityBus` est construit le long de X : `ry=-90`
+  pour rouler vers +Z) et n'apparaissaient sur aucune image ; la loupe tenue en main se présentait par la tranche et l'expert avait la tête
+  renversée : loupe libre calculée face à la caméra (roulis pour que le manche descende vers sa main), bras de l'expert étiré jusqu'à elle,
+  caméra reculée. Brouillon complet lancé.
+- **Histoire 45 « La fourrière »** : narration écrite dans la structure du skill (accroche : garé en double file « une minute », la fourrière
+  l'embarque, lui, pas la voiture ; logique de l'institution : sabot, le propriétaire doit payer, le propriétaire c'est la voiture ;
+  escalade : elle n'a pas de mains, elle klaxonne trois semaines, les voisins portent plainte contre lui ; retournement : la fourrière revient
+  chercher la voiture et la gare à sa place, sur lui ; aparté : il paie la place) et enregistrée (25,9 s, 12 lignes).
+  - *accessoires* (`props_fourriere`) : `carToon` (petite voiture-personnage : phares-yeux avec pupilles et paupières, warnings, klaxon qui
+    l'écrase et la fait sauter avec des anneaux, essuie-glaces qui moulinent et s'allongent comme de petits bras, contraventions qui
+    s'empilent sous l'essuie-glace, feuilles mortes, suspension qui rebondit, affaissement), `towTruck` (dépanneuse FOURRIÈRE, gyrophares,
+    flèche de grue réglable), `wheelClamp` (sabot qui claque et tremble), `parkingMeter` (horodateur, ticket qui sort), `parkingBay`,
+    `cashBooth` (caisse à guichet), `flatsWall` (façade à fenêtres avec de vraies pièces derrière, qui s'allument la nuit), `poundSign`.
+  - *script* (22 plans) : gags appuyés sur le rig, dont quatre jamais servis : le crochet qui le prend par le col (corps étiré, pieds restés
+    au sol, puis il pend comme une nouille : `noodle`), la marche en compas autour du pied pris dans le sabot, le double regard `doubleTakeToon`
+    sur la carte grise à la photo de la voiture, l'homme-ballon (`inflate`) retenu au sol par sa jambe étirée et le sabot, la tête aplatie
+    qui dépasse sous le pare-chocs langue déroulée, le bras qui s'étire jusqu'à l'horodateur ; gag à répétition chez les voisins (le klaxon les
+    fait sauter, puis à peine, puis plus du tout, la feuille PLAINTE levée).
+- **Kit** : `fitBack()` (la piste du cycle précédent) recule la caméra le long de son axe jusqu'à ce qu'une focale tienne tout le plan ;
+  dix caméras de l'histoire 45 en ont eu besoin (de 0,25 à 3,25 m).
+- **Sons** : il n'y avait pas de klaxon : `honk`, `honkLong`, `honkTiny` ajoutés à `tools/audio3.py`.
+- **Pistes** : vérifier les nouveaux accessoires à l'image avant de les installer dans le moteur principal (installés seulement dans le bac à
+  sable pendant la génération finale de la 42) ; écouter le klaxon avec earshot ; donner aux phares-yeux un clin d'œil séparé.
