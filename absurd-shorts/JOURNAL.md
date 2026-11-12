@@ -1375,3 +1375,31 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   immeubles et planté d'arbres là où l'action se passe), le bus garde sa voie et prend ses portes à gauche : vu du trottoir, il s'arrête
   portes vers l'abri ; (2) le gel du radar est filmé depuis le radar (la photo du flash) et le poteau se voit au plan 3 ; (3) le gel est
   pris 0,1 s après l'éclair pour que le halo du flash ne reste pas figé en disque blanc.
+
+### 12 novembre (soir) — cycle 9, suite : 44 livrée, 45 passe finale et génération, 46 deuxième revue, 47 premier regard
+
+- **44 « La statue » livrée** (version finale 1080×1920, 29,3 s, −16 LUFS, contrôle sans erreur, aucune image isolée à une coupe).
+  Revues : 6,0/6,8 → 7,0/7,4 → 7,6/7,8, puis la passe finale.
+- **45 « La fourrière », revue 3 (dernière)** : animation 7,6, direction artistique 7,5 (après 6,8/6,5 et 7,3/7,0). Passe finale :
+  au plan 13 (PAS DE MAINS) un commentaire inséré au milieu de l'appel avait avalé le regard et les paupières de la voiture (les deux
+  relecteurs voyaient des yeux « ronds et calmes ») : rétablis ; un seul axe tenu (la voiture qui bascule, les bras, le vide, le clavier,
+  la retombée) au lieu de trois en 1,1 s ; bras d'essuie-glace 2,6 fois plus épais, menthe, lames claires, en arche au-dessus du toit de
+  la camionnette contre la façade (nouvelles options `armW`, `armColor`, `bladeColor`, `elbowUp`, `shakeR`) ; ballon : l'agent gifle de
+  côté et s'écarte avant que le corps gonfle, les trois feuilles PLAINTE avancent par paliers avec la surface du ballon, et le visage
+  rougit (nouveau canal `face.red`, multiplié sur la peau) ; premier plan de la fourrière pris depuis l'allée, en hauteur : le portail
+  FOURRIÈRE au fond, la cabine réduite à un bord ; numéros des places lisibles depuis l'allée (`numFlip`) ; avis en gras avec de
+  l'interligne (l'accent de VÉHICULE se perdait) ; FOURRIÈRE en grand sur la dépanneuse ; anneaux du klaxon épais avec un trait sombre ;
+  poussière de la chute sur les côtés et finie avant le gros plan du visage ; gifle de la caissière animée (armé, claque, appui,
+  sourcil, clignement) ; petit klaxon final qui atterrit avant la fin ; ciel sans nuage-brique. Génération complète lancée.
+- **46 « Le radar », revue 2** lancée sur le brouillon 2. Défaut vu entre-temps : un escalier de rayures sur le sol du garage (le sol
+  du garage était au niveau exact du sol du décor, et 2 mm sous le capteur d'ombres) : relevé de 8 mm.
+- **47 « L'aimant », premier regard** (26 images) puis corrections : l'aimant tenu devant la poitrine puis porté à la bouche dans le
+  même repère (une portée suivie d'un toucher faisait retomber la main) ; couverts à taille cartoon (×2,2) et épaules dans les points
+  de cadrage (le héros était coupé au bord) ; lampadaires inclinés vers lui et filmés dans l'axe de la rue (de côté, l'inclinaison
+  partait dans la profondeur) ; plan des boussoles refait : la rangée de passants face à nous, lui qui passe derrière eux, chaque
+  aiguille qui le suit (nouvelle option `path` de la boussole) ; caméra par-dessus l'épaule du randonneur relevée (elle cadrait son
+  crâne) ; avion réduit et second axe sur lui à sa fenêtre ; explorateurs de côté au palier. Brouillon 1 en rendu.
+- **Décisions prises sans question** : (1) au plan 13 de 45, l'insert sur les lames est supprimé (les deux relecteurs le jugeaient
+  illisible sans la voiture) ; (2) les numéros de place sont retournés seulement dans les plans filmés depuis l'allée (7, 9, 17),
+  ceux des plans 20 à 22 se lisaient déjà ; (3) je n'efface pas les 2,8 Go de sorties de l'ancienne réplique de la tornade
+  (hyperframes/01-tornado-reverse) : c'est le travail d'une tâche plus ancienne ; il reste 4,9 Go libres.

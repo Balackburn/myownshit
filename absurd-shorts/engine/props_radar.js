@@ -143,8 +143,9 @@ export const RADAR_PROPS = {
   // lines, a back wall (z = -o.d / 2) and two side walls o.h (4.2) high, a blue band, a big sign o.sign ('CONTRÔLE TECHNIQUE') on the back wall at o.signY
   // (3.3), a tool board, a strip light; the back wall may be left out (o.back false: a burstWall stands there instead).
   garageBay(o) {
-    const w = o.w ?? 8, d = o.d ?? 7, h = o.h ?? 4.2, g = grp(at(box(w, 0.06, d, '#8C8E8A'), 0, -0.03, 0)), wall = o.wall || '#E3E1DA', band = o.band || '#2F5E9E';
-    for (const x of [-1.6, 1.6]) g.add(at(box(0.08, 0.005, d - 0.4, '#E8C531', { noGrain: true }), x, 0.003, 0));
+    const w = o.w ?? 8, d = o.d ?? 7, h = o.h ?? 4.2, g = grp(at(box(w, 0.06, d, '#8C8E8A'), 0, -0.022, 0)),   // (pass 3 of 46) the floor 8 mm up: level with the void's floor and under its shadow catcher it z-fought in stairs
+      wall = o.wall || '#E3E1DA', band = o.band || '#2F5E9E';
+    for (const x of [-1.6, 1.6]) g.add(at(box(0.08, 0.005, d - 0.4, '#E8C531', { noGrain: true }), x, 0.011, 0));
     if (o.back !== false) g.add(at(box(w, h, 0.2, wall, { pivot: 'bottom', outline: 0.008 }), 0, 0, -d / 2 - 0.1), at(box(w, 0.5, 0.21, band), 0, 1.0, -d / 2 - 0.1));
     for (const sx of [-1, 1]) g.add(at(box(0.2, h, d, wall, { pivot: 'bottom', outline: 0.008 }), sx * (w / 2 + 0.1), 0, 0), at(box(0.21, 0.5, d, band), sx * (w / 2 + 0.1), 1.0, 0));
     g.add(at(box(w + 0.4, 0.2, d, '#C9C7C0'), 0, h + 0.1, 0));
