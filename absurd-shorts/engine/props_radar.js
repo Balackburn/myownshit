@@ -12,6 +12,14 @@ const keyed = (l, t, d) => { if (!l || !l.length) return d; let v = d, prev = d,
   const u = clamp01((t - t0) / 0.25); return prev + (v - prev) * ease.out(u); };   // [[t, value]]: eased (0.25 s) from the previous value
 
 export const RADAR_PROPS = {
+  // (pass 3) A takeaway coffee cup, held by its middle (userData.grip): a white tapered cup o.h (0.16 m), a brown card sleeve, a dark domed lid with a
+  // sip hole, a wisp of steam (o.steam). Front +Z, pivot at its foot.
+  takeawayCup(o) {
+    const h = o.h ?? 0.16, g = grp(at(cyl(0.048, 0.036, h, '#F7F5EF', 14, { pivot: 'bottom', outline: 0.004 }), 0, 0, 0));
+    g.add(at(cyl(0.05, 0.043, h * 0.38, o.sleeve || '#9C6B3E', 14, { pivot: 'bottom' }), 0, h * 0.3, 0), at(cyl(0.053, 0.053, 0.018, '#1E2024', 14, { pivot: 'bottom' }), 0, h, 0), at(cyl(0.04, 0.05, 0.02, '#2A2C31', 14, { pivot: 'bottom' }), 0, h + 0.018, 0));
+    g.add(at(box(0.016, 0.006, 0.008, '#0E0F12'), 0.0, h + 0.039, 0.025));
+    g.userData.grip = [0, h * 0.5, 0]; return g;
+  },
   // A French speed camera on its pole, front +Z: a grey cabinet, a dark window with the lens, a flash panel that fires at o.flashAt (or a list) for 0.08 s
   // (white, emissive, with a halo); o.h (2.1: the foot of the cabinet).
   speedCamera(o) {

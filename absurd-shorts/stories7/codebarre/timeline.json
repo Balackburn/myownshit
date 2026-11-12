@@ -1,0 +1,595 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est endormi au supermarché.",
+   "hl": [
+    "endormi",
+    "supermarché."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.1,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.693
+    },
+    {
+     "w": "endormi",
+     "s": 0.767,
+     "e": 1.063
+    },
+    {
+     "w": "au",
+     "s": 1.137,
+     "e": 1.211
+    },
+    {
+     "w": "supermarché.",
+     "s": 1.359,
+     "e": 2.1
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Un employé lui a collé une étiquette.",
+   "hl": [
+    "collé",
+    "étiquette."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L02.k.wav",
+   "file_start": 2.2,
+   "speech_start": 2.2,
+   "speech_end": 4.126,
+   "words": [
+    {
+     "w": "Un",
+     "s": 2.2,
+     "e": 2.348
+    },
+    {
+     "w": "employé",
+     "s": 2.496,
+     "e": 2.719
+    },
+    {
+     "w": "lui",
+     "s": 2.756,
+     "e": 2.867
+    },
+    {
+     "w": "a",
+     "s": 2.904,
+     "e": 2.941
+    },
+    {
+     "w": "collé",
+     "s": 3.015,
+     "e": 3.163
+    },
+    {
+     "w": "une",
+     "s": 3.237,
+     "e": 3.311
+    },
+    {
+     "w": "étiquette.",
+     "s": 3.385,
+     "e": 4.126
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "À la caisse, il a bipé.",
+   "hl": [
+    "bipé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L03.k.wav",
+   "file_start": 4.226,
+   "speech_start": 4.226,
+   "speech_end": 5.707,
+   "words": [
+    {
+     "w": "À",
+     "s": 4.226,
+     "e": 4.263
+    },
+    {
+     "w": "la",
+     "s": 4.3,
+     "e": 4.374
+    },
+    {
+     "w": "caisse,",
+     "s": 4.448,
+     "e": 4.893
+    },
+    {
+     "w": "il",
+     "s": 4.93,
+     "e": 4.967
+    },
+    {
+     "w": "a",
+     "s": 5.041,
+     "e": 5.078
+    },
+    {
+     "w": "bipé.",
+     "s": 5.115,
+     "e": 5.707
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Un homme : deux euros quarante-neuf.",
+   "hl": [
+    "homme",
+    "quarante-neuf."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L04.k.wav",
+   "file_start": 5.807,
+   "speech_start": 5.807,
+   "speech_end": 7.733,
+   "words": [
+    {
+     "w": "Un",
+     "s": 5.807,
+     "e": 5.956
+    },
+    {
+     "w": "homme:",
+     "s": 6.067,
+     "e": 6.499
+    },
+    {
+     "w": "deux",
+     "s": 6.523,
+     "e": 6.622
+    },
+    {
+     "w": "euros",
+     "s": 6.696,
+     "e": 6.844
+    },
+    {
+     "w": "quarante-neuf.",
+     "s": 6.919,
+     "e": 7.733
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il a protesté. Le gérant a scanné son code-barres.",
+   "hl": [
+    "protesté.",
+    "code-barres."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L05.k.wav",
+   "file_start": 7.833,
+   "speech_start": 7.833,
+   "speech_end": 10.574,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.833,
+     "e": 7.907
+    },
+    {
+     "w": "a",
+     "s": 7.944,
+     "e": 7.981
+    },
+    {
+     "w": "protesté.",
+     "s": 8.056,
+     "e": 8.833
+    },
+    {
+     "w": "Le",
+     "s": 8.87,
+     "e": 8.944
+    },
+    {
+     "w": "gérant",
+     "s": 9.019,
+     "e": 9.241
+    },
+    {
+     "w": "a",
+     "s": 9.278,
+     "e": 9.315
+    },
+    {
+     "w": "scanné",
+     "s": 9.389,
+     "e": 9.648
+    },
+    {
+     "w": "son",
+     "s": 9.685,
+     "e": 9.759
+    },
+    {
+     "w": "code-barres.",
+     "s": 9.833,
+     "e": 10.574
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il était bien en stock.",
+   "hl": [
+    "stock."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L06.k.wav",
+   "file_start": 10.674,
+   "speech_start": 10.674,
+   "speech_end": 11.859,
+   "words": [
+    {
+     "w": "Il",
+     "s": 10.674,
+     "e": 10.748
+    },
+    {
+     "w": "était",
+     "s": 10.822,
+     "e": 10.97
+    },
+    {
+     "w": "bien",
+     "s": 11.019,
+     "e": 11.119
+    },
+    {
+     "w": "en",
+     "s": 11.156,
+     "e": 11.193
+    },
+    {
+     "w": "stock.",
+     "s": 11.267,
+     "e": 11.859
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "On l'a mis en promotion : moins cinquante pour cent.",
+   "hl": [
+    "promotion",
+    "cinquante"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L07.k.wav",
+   "file_start": 11.959,
+   "speech_start": 11.959,
+   "speech_end": 14.33,
+   "words": [
+    {
+     "w": "On",
+     "s": 11.959,
+     "e": 12.033
+    },
+    {
+     "w": "l'a",
+     "s": 12.07,
+     "e": 12.144
+    },
+    {
+     "w": "mis",
+     "s": 12.181,
+     "e": 12.256
+    },
+    {
+     "w": "en",
+     "s": 12.293,
+     "e": 12.33
+    },
+    {
+     "w": "promotion:",
+     "s": 12.404,
+     "e": 13.095
+    },
+    {
+     "w": "moins",
+     "s": 13.119,
+     "e": 13.293
+    },
+    {
+     "w": "cinquante",
+     "s": 13.367,
+     "e": 13.663
+    },
+    {
+     "w": "pour",
+     "s": 13.737,
+     "e": 13.811
+    },
+    {
+     "w": "cent.",
+     "s": 13.885,
+     "e": 14.33
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Puis sous vide, pour la fraîcheur.",
+   "hl": [
+    "vide,",
+    "fraîcheur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L08.k.wav",
+   "file_start": 14.43,
+   "speech_start": 14.43,
+   "speech_end": 16.133,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 14.43,
+     "e": 14.578
+    },
+    {
+     "w": "sous",
+     "s": 14.652,
+     "e": 14.726
+    },
+    {
+     "w": "vide,",
+     "s": 14.8,
+     "e": 15.244
+    },
+    {
+     "w": "pour",
+     "s": 15.281,
+     "e": 15.319
+    },
+    {
+     "w": "la",
+     "s": 15.393,
+     "e": 15.43
+    },
+    {
+     "w": "fraîcheur.",
+     "s": 15.467,
+     "e": 16.133
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Une dame l'a acheté.",
+   "hl": [
+    "acheté."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L09.k.wav",
+   "file_start": 16.233,
+   "speech_start": 16.233,
+   "speech_end": 17.344,
+   "words": [
+    {
+     "w": "Une",
+     "s": 16.233,
+     "e": 16.381
+    },
+    {
+     "w": "dame",
+     "s": 16.419,
+     "e": 16.604
+    },
+    {
+     "w": "l'a",
+     "s": 16.629,
+     "e": 16.678
+    },
+    {
+     "w": "acheté.",
+     "s": 16.752,
+     "e": 17.344
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Elle l'a rapporté le lendemain : défaut de fabrication.",
+   "hl": [
+    "rapporté",
+    "défaut"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L10.k.wav",
+   "file_start": 17.444,
+   "speech_start": 17.444,
+   "speech_end": 20.185,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 17.444,
+     "e": 17.519
+    },
+    {
+     "w": "l'a",
+     "s": 17.593,
+     "e": 17.667
+    },
+    {
+     "w": "rapporté",
+     "s": 17.741,
+     "e": 18.037
+    },
+    {
+     "w": "le",
+     "s": 18.074,
+     "e": 18.111
+    },
+    {
+     "w": "lendemain:",
+     "s": 18.185,
+     "e": 18.889
+    },
+    {
+     "w": "défaut",
+     "s": 18.926,
+     "e": 19.148
+    },
+    {
+     "w": "de",
+     "s": 19.222,
+     "e": 19.259
+    },
+    {
+     "w": "fabrication.",
+     "s": 19.296,
+     "e": 20.185
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le fabricant l'a rappelé.",
+   "hl": [
+    "fabricant",
+    "rappelé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L11.k.wav",
+   "file_start": 20.285,
+   "speech_start": 20.285,
+   "speech_end": 21.544,
+   "words": [
+    {
+     "w": "Le",
+     "s": 20.285,
+     "e": 20.359
+    },
+    {
+     "w": "fabricant",
+     "s": 20.433,
+     "e": 20.804
+    },
+    {
+     "w": "l'a",
+     "s": 20.841,
+     "e": 20.915
+    },
+    {
+     "w": "rappelé.",
+     "s": 20.952,
+     "e": 21.544
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il est retourné chez sa mère.",
+   "hl": [
+    "mère."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L12.k.wav",
+   "file_start": 21.644,
+   "speech_start": 21.644,
+   "speech_end": 23.052,
+   "words": [
+    {
+     "w": "Il",
+     "s": 21.644,
+     "e": 21.719
+    },
+    {
+     "w": "est",
+     "s": 21.756,
+     "e": 21.793
+    },
+    {
+     "w": "retourné",
+     "s": 21.867,
+     "e": 22.2
+    },
+    {
+     "w": "chez",
+     "s": 22.237,
+     "e": 22.311
+    },
+    {
+     "w": "sa",
+     "s": 22.385,
+     "e": 22.459
+    },
+    {
+     "w": "mère.",
+     "s": 22.496,
+     "e": 23.052
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Elle a demandé un remboursement.",
+   "hl": [
+    "remboursement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/codebarre/tts/L13.k.wav",
+   "file_start": 23.152,
+   "speech_start": 23.152,
+   "speech_end": 24.707,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 23.152,
+     "e": 23.263
+    },
+    {
+     "w": "a",
+     "s": 23.3,
+     "e": 23.337
+    },
+    {
+     "w": "demandé",
+     "s": 23.374,
+     "e": 23.707
+    },
+    {
+     "w": "un",
+     "s": 23.744,
+     "e": 23.819
+    },
+    {
+     "w": "remboursement.",
+     "s": 23.893,
+     "e": 24.707
+    }
+   ]
+  }
+ ],
+ "total": 25.55
+}

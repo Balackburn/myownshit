@@ -1,0 +1,3412 @@
+{
+ "version": 3,
+ "title": "Le code-barres",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "employe": {
+   "preset": "worker",
+   "seed": 481,
+   "hat": null,
+   "suit": "#C8322A",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   }
+  },
+  "caissiere": {
+   "preset": "madame",
+   "seed": 482,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  },
+  "gerant": {
+   "preset": "fringant",
+   "seed": 483,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.25
+   }
+  },
+  "dame": {
+   "preset": "madame",
+   "seed": 484,
+   "build": {
+    "width": 0.92,
+    "headWidth": 1.25
+   }
+  },
+  "clerc": {
+   "preset": "worker",
+   "seed": 485,
+   "hat": null,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   }
+  },
+  "mere": {
+   "preset": "mamie",
+   "seed": 486,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.25
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -3.05
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        },
+        "sq": [
+         1.03,
+         0.98,
+         1.03
+        ]
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        },
+        "sq": [
+         0.99,
+         1.01,
+         0.99
+        ]
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        },
+        "sq": [
+         1.03,
+         0.98,
+         1.03
+        ]
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "zz",
+     "name": "zzz",
+     "pos": [
+      0.85,
+      1.75,
+      -2.9499999999999997
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.367,
+      0.75,
+      -0.459
+     ],
+     "to": [
+      1.317,
+      0.75,
+      -0.559
+     ],
+     "lookAt": [
+      -0.652,
+      -0.203,
+      -10.207
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      -0.702,
+      -0.203,
+      -10.307
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.1667,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
+      0,
+      -3.05
+     ],
+     "ry": 0,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.808,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        },
+        "scl": {
+         "head": [
+          1.18,
+          0.78,
+          1.18
+         ]
+        },
+        "sq": [
+         1.04,
+         0.95,
+         1.04
+        ]
+       },
+       "toonDur": 0.02,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.878,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.25
+        },
+        "scl": {
+         "head": [
+          0.94,
+          1.08,
+          0.94
+         ]
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.968,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.25,
+          0,
+          0.38,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1,
+         "jaw": 0.3,
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "employe",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "ry": -120,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.6,
+        1.38,
+        -2.83
+       ]
+      },
+      {
+       "at": 0.508,
+       "toon": {
+        "reach": {
+         "R": [
+          0.85,
+          1.45,
+          -2.63,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.768,
+       "toon": {
+        "reach": {
+         "R": [
+          0.72,
+          1.4,
+          -2.71,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.928,
+       "toon": {
+        "reach": {
+         "R": [
+          0.92,
+          1.42,
+          -2.53,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.108,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "zz",
+     "name": "zzz",
+     "pos": [
+      0.85,
+      1.75,
+      -2.9499999999999997
+     ]
+    },
+    {
+     "id": "gun",
+     "name": "priceGun",
+     "on": {
+      "actor": "employe",
+      "hand": "R",
+      "offset": [
+       0,
+       0,
+       0.04
+      ],
+      "rot": [
+       3.141592653589793,
+       0,
+       0
+      ]
+     },
+     "scale": 1.4,
+     "opts": {
+      "clackAt": [
+       0.808
+      ]
+     }
+    },
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.808,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.134,
+      1.1,
+      -0.458
+     ],
+     "to": [
+      2.134,
+      1.1,
+      -0.458
+     ],
+     "lookAt": [
+      -2.836,
+      -0.715,
+      -8.944
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      -2.836,
+      -0.715,
+      -8.944
+     ]
+    },
+    {
+     "at": 1.108,
+     "from": [
+      0.75,
+      1.45,
+      -1.45
+     ],
+     "to": [
+      0.75,
+      1.45,
+      -1.45
+     ],
+     "lookAt": [
+      -0.137,
+      0.413,
+      -11.356
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -0.137,
+      0.413,
+      -11.356
+     ]
+    }
+   ],
+   "start": 2.1667,
+   "duration": 2.0333,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.2,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        2.2,
+        0,
+        2.1
+       ],
+       "dur": 0.885,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "linear",
+       "face": 0
+      },
+      {
+       "at": 0.885,
+       "toon": {
+        "sq": [
+         0.92,
+         1.1,
+         0.92
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.75,
+         "popLen": 0.32,
+         "brow": 1,
+         "jaw": 0.3
+        },
+        "bend": {
+         "legR": [
+          -0.7,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.185,
+       "toon": {
+        "sq": [
+         0.94,
+         1.07,
+         0.94
+        ],
+        "hairUp": 0.8,
+        "face": {
+         "pop": 0.7,
+         "popLen": 0.3,
+         "brow": 1
+        },
+        "bend": {
+         "legR": [
+          -0.7,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "caissiere",
+     "pos": [
+      4.45,
+      0,
+      -0.2
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.2,
+        1.8,
+        2.0
+       ]
+      },
+      {
+       "at": 0.885,
+       "toon": {
+        "sq": [
+         1.064,
+         0.9359999999999999,
+         1.064
+        ],
+        "face": {}
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.925,
+       "look": [
+        2.2,
+        1.8,
+        2.0
+       ]
+      },
+      {
+       "at": 0.952,
+       "toon": {
+        "sq": [
+         0.944,
+         1.08,
+         0.944
+        ],
+        "hairUp": 0.8,
+        "face": {
+         "pop": 0.27999999999999997,
+         "brow": 1,
+         "jaw": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.085,
+       "toon": {
+        "sq": [
+         0.96,
+         1.056,
+         0.96
+        ],
+        "hairUp": 0.6400000000000001,
+        "face": {
+         "pop": 0.24,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.245,
+       "toon": {
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.385,
+       "toon": {
+        "face": {
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "gate",
+     "name": "securityGate",
+     "pos": [
+      2.2,
+      0,
+      2.0
+     ],
+     "opts": {
+      "gap": 1.15,
+      "beepAt": [
+       0.885
+      ],
+      "flash": 0.6
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.7,
+      1.2,
+      6.4
+     ],
+     "to": [
+      2.7,
+      1.2,
+      6.2
+     ],
+     "lookAt": [
+      1.6,
+      0.609,
+      -3.522
+     ],
+     "lens": 51,
+     "ease": "linear",
+     "lookAt2": [
+      1.6,
+      0.609,
+      -3.722
+     ]
+    }
+   ],
+   "start": 4.2,
+   "duration": 1.5667,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.6,
+      0.95,
+      -1.15
+     ],
+     "ry": 180,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        3.6,
+        0.95,
+        -0.7
+       ],
+       "dur": 0.23,
+       "glide": true,
+       "ease": "linear",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.26,
+       "toon": {
+        "face": {
+         "lid": 0.2,
+         "gx": 0.6,
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "caissiere",
+     "pos": [
+      4.45,
+      0,
+      -0.1
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        3.6,
+        1.2,
+        -0.65
+       ]
+      },
+      {
+       "at": 0.03,
+       "toon": {
+        "reach": {
+         "R": [
+          4.05,
+          1.32,
+          0.2,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "reach": {
+         "R": [
+          4.05,
+          1.32,
+          0.2,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "scanner",
+     "name": "priceGun",
+     "on": {
+      "actor": "caissiere",
+      "hand": "R",
+      "offset": [
+       0,
+       0,
+       0.04
+      ],
+      "rot": [
+       3.141592653589793,
+       0,
+       0
+      ]
+     },
+     "scale": 1.3,
+     "opts": {
+      "color": "#3A3D44",
+      "clackAt": [
+       0.18
+      ]
+     }
+    },
+    {
+     "id": "disp",
+     "name": "lcdScreen",
+     "pos": [
+      3.15,
+      0.93,
+      0.55
+     ],
+     "ry": -60,
+     "opts": {
+      "w": 0.62,
+      "h": 0.4,
+      "stand": 0.32,
+      "pages": [
+       [
+        0.0,
+        [
+         "0,00 €"
+        ]
+       ],
+       [
+        0.24,
+        [
+         "UN HOMME",
+         "2,49 €"
+        ],
+        {
+         "big": 0.9
+        }
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.728,
+      1.75,
+      1.233
+     ],
+     "to": [
+      0.728,
+      1.75,
+      1.233
+     ],
+     "lookAt": [
+      9.042,
+      0.33,
+      -4.139
+     ],
+     "lens": 67,
+     "ease": "linear",
+     "lookAt2": [
+      9.042,
+      0.33,
+      -4.139
+     ]
+    }
+   ],
+   "start": 5.7667,
+   "duration": 2.0333,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.75,
+      0,
+      -0.5
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "clip": "tantrum",
+       "params": {
+        "expr": "angry"
+       }
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "red": 1,
+         "steam": 1,
+         "brow": -0.8,
+         "jaw": 0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "face": {
+         "red": 1,
+         "steam": 1,
+         "brow": -0.8,
+         "jaw": 0.6
+        },
+        "sq": [
+         1.04,
+         0.97,
+         1.04
+        ]
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "caissiere",
+     "pos": [
+      4.45,
+      0,
+      -0.1
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.75,
+        1.9,
+        -0.5
+       ]
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "sq": [
+         1.04,
+         0.95,
+         1.04
+        ],
+        "face": {
+         "lid": 1,
+         "brow": 0.8,
+         "jaw": 0.2
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "face": {
+         "lid": 0.3,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.5,
+      2.2
+     ],
+     "to": [
+      1.06,
+      1.5,
+      2.12
+     ],
+     "lookAt": [
+      6.148,
+      0.012,
+      -6.243
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      6.208,
+      0.012,
+      -6.323
+     ]
+    }
+   ],
+   "start": 7.8,
+   "duration": 1.0333,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.75,
+      0,
+      -0.5
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.0,
+        0,
+        0.45
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "red": 1,
+         "steam": 1,
+         "brow": -0.8,
+         "jaw": 0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.516,
+       "toon": {
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "face": {
+         "red": 0.6,
+         "cross": 1,
+         "brow": 0.9
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.516,
+       "look": null
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "gerant",
+     "pos": [
+      4.0,
+      0,
+      0.45
+     ],
+     "ry": -125,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.75,
+        2.08,
+        -0.3
+       ]
+      },
+      {
+       "at": 0.266,
+       "toon": {
+        "reach": {
+         "R": [
+          3.55,
+          1.7,
+          0.13,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "scan6",
+     "name": "priceGun",
+     "on": {
+      "actor": "gerant",
+      "hand": "R",
+      "offset": [
+       0,
+       0,
+       0.04
+      ],
+      "rot": [
+       3.141592653589793,
+       0,
+       0
+      ]
+     },
+     "scale": 1.3,
+     "opts": {
+      "color": "#3A3D44",
+      "clackAt": [
+       0.516
+      ]
+     }
+    },
+    {
+     "id": "beam",
+     "name": "laserBeam",
+     "pos": [
+      3.38,
+      1.78,
+      0.0
+     ],
+     "opts": {
+      "vec": [
+       -0.63,
+       0.3,
+       -0.3
+      ],
+      "r": 0.012
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.516,
+       "visible": true
+      },
+      {
+       "at": 0.816,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.55,
+      2.6
+     ],
+     "to": [
+      1.04,
+      1.55,
+      2.54
+     ],
+     "lookAt": [
+      7.651,
+      0.631,
+      -4.811
+     ],
+     "lens": 55,
+     "ease": "linear",
+     "lookAt2": [
+      7.691,
+      0.631,
+      -4.871
+     ]
+    }
+   ],
+   "start": 8.8333,
+   "duration": 1.8,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gerant",
+     "pos": [
+      4.0,
+      0,
+      0.45
+     ],
+     "ry": -125,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          3.58,
+          1.45,
+          0.57,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          3.58,
+          1.45,
+          0.57,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "neck": [
+          0.22,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.48,
+       "toon": {
+        "reach": {
+         "R": [
+          3.58,
+          1.45,
+          0.57,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "neck": [
+          -0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "reach": {
+         "R": [
+          3.58,
+          1.45,
+          0.57,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "neck": [
+          0.22,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "reach": {
+         "R": [
+          3.58,
+          1.45,
+          0.57,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "neck": [
+          -0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      2.75,
+      0,
+      -0.5
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.0,
+        0,
+        0.45
+       ]
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "tab",
+     "name": "lcdScreen",
+     "on": {
+      "actor": "gerant",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.06
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "w": 0.46,
+      "h": 0.32,
+      "stand": 0,
+      "dark": false,
+      "pages": [
+       [
+        0.0,
+        [
+         "EN STOCK : 1",
+         "1 homme",
+         "rayon 3"
+        ],
+        {
+         "face": true,
+         "big": 0.8
+        }
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.8,
+      1.75,
+      2.45
+     ],
+     "to": [
+      2.8,
+      1.75,
+      2.45
+     ],
+     "lookAt": [
+      7.287,
+      0.972,
+      -6.453
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      7.287,
+      0.972,
+      -6.453
+     ]
+    }
+   ],
+   "start": 10.6333,
+   "duration": 1.3,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.75,
+      0,
+      -0.5
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.0,
+        0,
+        0.45
+       ]
+      },
+      {
+       "at": 0.411,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.511,
+       "toon": {},
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.611,
+       "look": [
+        2.75,
+        1.0,
+        0.0
+       ]
+      },
+      {
+       "at": 1.314,
+       "toon": {
+        "sq": [
+         1.06,
+         0.94,
+         1.06
+        ],
+        "face": {
+         "pop": 0.4,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.394,
+       "toon": {
+        "sq": [
+         0.43,
+         0.57,
+         0.43
+        ],
+        "face": {
+         "pop": 0.5,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.464,
+       "toon": {
+        "sq": [
+         0.56,
+         0.44,
+         0.56
+        ],
+        "face": {
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.534,
+       "toon": {
+        "sq": [
+         0.485,
+         0.515,
+         0.485
+        ],
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.634,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ],
+        "face": {
+         "brow": 0.5,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.694,
+       "look": "camera"
+      }
+     ],
+     "expr": "worried"
+    },
+    {
+     "id": "gerant",
+     "pos": [
+      4.0,
+      0,
+      0.45
+     ],
+     "ry": -125,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.87,
+        1.55,
+        -0.3
+       ]
+      },
+      {
+       "at": 0.191,
+       "toon": {
+        "reach": {
+         "R": [
+          3.37,
+          1.95,
+          0.0,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.361,
+       "toon": {
+        "reach": {
+         "R": [
+          2.97,
+          1.55,
+          -0.2,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.561,
+       "toon": {},
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.394,
+       "toon": {
+        "sq": [
+         1.048,
+         0.952,
+         1.048
+        ],
+        "face": {}
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 1.434,
+       "look": [
+        2.75,
+        0.9,
+        -0.5
+       ]
+      },
+      {
+       "at": 1.461,
+       "toon": {
+        "sq": [
+         0.958,
+         1.06,
+         0.958
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "pop": 0.21,
+         "brow": 1,
+         "jaw": 0.2
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.594,
+       "toon": {
+        "sq": [
+         0.97,
+         1.042,
+         0.97
+        ],
+        "hairUp": 0.48,
+        "face": {
+         "pop": 0.18,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.754,
+       "toon": {
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ],
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.894,
+       "toon": {
+        "face": {
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "promo",
+     "name": "starSticker",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.02,
+       0.12,
+       0.2
+      ]
+     },
+     "opts": {
+      "r": 0.15,
+      "text": "-50 %",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.411,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.5,
+      2.4
+     ],
+     "to": [
+      1.03,
+      1.45,
+      2.35
+     ],
+     "lookAt": [
+      7.875,
+      0.017,
+      -4.709
+     ],
+     "lens": 66,
+     "ease": "linear",
+     "lookAt2": [
+      7.905,
+      -0.033,
+      -4.759
+     ]
+    }
+   ],
+   "start": 11.9333,
+   "duration": 2.4667,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.4,
+      0,
+      -2.6
+     ],
+     "ry": 0,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ],
+        "face": {
+         "brow": 0.6,
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "sq": [
+         0.45,
+         0.51,
+         0.41
+        ],
+        "scl": {
+         "head": [
+          1.25,
+          0.95,
+          0.55
+         ]
+        },
+        "face": {
+         "puff": 1,
+         "cheeks": 1,
+         "lid": 0.7,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.77,
+       "toon": {
+        "sq": [
+         0.45,
+         0.51,
+         0.41
+        ],
+        "scl": {
+         "head": [
+          1.25,
+          0.95,
+          0.55
+         ]
+        },
+        "face": {
+         "puff": 1,
+         "cheeks": 1,
+         "lid": 0.8,
+         "brow": 0.9,
+         "gx": 0.5
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "promo",
+     "name": "starSticker",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.02,
+       0.12,
+       0.2
+      ]
+     },
+     "opts": {
+      "r": 0.15,
+      "text": "-50 %",
+      "bright": true
+     }
+    },
+    {
+     "id": "pack",
+     "name": "vacuumBag",
+     "pos": [
+      0.4,
+      0,
+      -2.6
+     ],
+     "opts": {
+      "w": 0.62,
+      "h": 1.26,
+      "d": 0.42,
+      "labelY": 0.3,
+      "tight": [
+       [
+        0.0,
+        1.35
+       ],
+       [
+        0.32,
+        1.35
+       ],
+       [
+        0.46,
+        0.86
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.85,
+      0.95,
+      -0.4
+     ],
+     "to": [
+      0.82,
+      0.95,
+      -0.46
+     ],
+     "lookAt": [
+      -1.061,
+      -0.736,
+      -10.07
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -1.091,
+      -0.736,
+      -10.13
+     ]
+    }
+   ],
+   "start": 14.4,
+   "duration": 1.8,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.6,
+      0.9,
+      -3.3
+     ],
+     "ry": 0,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ],
+        "scl": {
+         "head": [
+          1.25,
+          0.95,
+          0.55
+         ]
+        },
+        "face": {
+         "puff": 1,
+         "cheeks": 1,
+         "lid": 0.7,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "to": [
+        -1.03,
+        0.95,
+        -2.57
+       ],
+       "dur": 0.3,
+       "glide": true,
+       "ease": "inOut",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      -1.35,
+      0,
+      -2.45
+     ],
+     "ry": 145,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.6,
+        1.4,
+        -3.3
+       ]
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.9,
+          1.35,
+          -3.1,
+          1,
+          0.06
+         ],
+         "R": [
+          -0.3,
+          1.35,
+          -3.1,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.2
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "reach": {
+         "L": [
+          -1.3,
+          1.5,
+          -2.65,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.75,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "pack",
+     "name": "vacuumBag",
+     "pos": [
+      -0.6,
+      0.9,
+      -3.3
+     ],
+     "opts": {
+      "w": 0.62,
+      "h": 1.26,
+      "d": 0.42,
+      "labelY": 0.3,
+      "tight": [
+       [
+        0.0,
+        0.86
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.35,
+       "to": [
+        -1.03,
+        0.95,
+        -2.57
+       ],
+       "dur": 0.3,
+       "ease": "inOut"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      1.45,
+      0.6
+     ],
+     "to": [
+      0.9,
+      1.45,
+      0.6
+     ],
+     "lookAt": [
+      -3.342,
+      -0.028,
+      -8.334
+     ],
+     "lens": 53,
+     "ease": "linear",
+     "lookAt2": [
+      -3.342,
+      -0.028,
+      -8.334
+     ]
+    }
+   ],
+   "start": 16.2,
+   "duration": 1.2,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.6,
+      1.07,
+      1.1
+     ],
+     "ry": 0,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ],
+        "scl": {
+         "head": [
+          1.25,
+          0.95,
+          0.55
+         ]
+        },
+        "face": {
+         "puff": 1,
+         "cheeks": 1,
+         "lid": 0.7,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.476,
+       "toon": {
+        "sq": [
+         0.475,
+         0.45,
+         0.425
+        ],
+        "scl": {
+         "head": [
+          1.25,
+          0.95,
+          0.55
+         ]
+        },
+        "face": {
+         "puff": 1,
+         "cheeks": 1,
+         "lid": 0.7,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 1.576,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ],
+        "scl": {
+         "head": [
+          1.25,
+          0.95,
+          0.55
+         ]
+        },
+        "face": {
+         "puff": 1,
+         "cheeks": 1,
+         "lid": 0.7,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      -0.35,
+      0,
+      1.55
+     ],
+     "ry": -110,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.6,
+        1.6,
+        1.4
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -1.15,
+          1.45,
+          1.2,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "flat"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "clerc",
+     "pos": [
+      -1.6,
+      0,
+      0.45
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.6,
+        1.4,
+        1.1
+       ]
+      },
+      {
+       "at": 1.226,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.55,
+          1.9,
+          1.15,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.446,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.55,
+          1.45,
+          1.35,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.726,
+       "toon": {},
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "desk",
+     "name": "serviceDesk",
+     "pos": [
+      -1.6,
+      0,
+      1.4
+     ],
+     "opts": {
+      "text": "RETOURS",
+      "sub": "SERVICE CLIENTS",
+      "w": 1.8
+     }
+    },
+    {
+     "id": "pack",
+     "name": "vacuumBag",
+     "pos": [
+      -1.6,
+      1.07,
+      1.1
+     ],
+     "opts": {
+      "w": 0.62,
+      "h": 1.26,
+      "d": 0.42,
+      "labelY": 0.3,
+      "tight": [
+       [
+        0.0,
+        0.86
+       ]
+      ]
+     }
+    },
+    {
+     "id": "stamp11",
+     "name": "paperSheet",
+     "pos": [
+      -1.6,
+      1.55,
+      1.3
+     ],
+     "opts": {
+      "w": 0.5,
+      "h": 0.3,
+      "paper": "#FFFFFF",
+      "bright": true,
+      "stamp": {
+       "text": "DÉFAUT DE FABRICATION",
+       "at": 1.476,
+       "rot": -0.18,
+       "y": 0.0,
+       "w": 0.95
+      }
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.476,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.788,
+      1.6,
+      4.463
+     ],
+     "to": [
+      -2.788,
+      1.6,
+      4.463
+     ],
+     "lookAt": [
+      1.031,
+      0.316,
+      -4.689
+     ],
+     "lens": 66,
+     "ease": "linear",
+     "lookAt2": [
+      1.031,
+      0.316,
+      -4.689
+     ]
+    }
+   ],
+   "start": 17.4,
+   "duration": 2.8667,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "supermarket",
+   "lines": [],
+   "actors": [
+    {
+     "id": "dame",
+     "pos": [
+      1.75,
+      0,
+      -1.9
+     ],
+     "ry": -150,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        2.65,
+        -3.85
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "recall",
+     "name": "lcdScreen",
+     "pos": [
+      0.0,
+      1.8,
+      -3.85
+     ],
+     "opts": {
+      "w": 1.9,
+      "h": 1.15,
+      "stand": 0,
+      "dark": false,
+      "pages": [
+       [
+        0.0,
+        [
+         "RAPPEL PRODUIT",
+         "homme, lot unique",
+         "retour au fabricant"
+        ],
+        {
+         "face": true,
+         "big": 0.9,
+         "accent": "#C8202A"
+        }
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.12,
+      1.2,
+      1.755
+     ],
+     "to": [
+      -0.15,
+      1.23,
+      1.695
+     ],
+     "lookAt": [
+      1.502,
+      1.245,
+      -8.112
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      1.472,
+      1.275,
+      -8.172
+     ]
+    }
+   ],
+   "start": 20.2667,
+   "duration": 1.3333,
+   "setOpts": {
+    "fr": true
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mere",
+     "pos": [
+      0.0,
+      0,
+      -3.3
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.05,
+        0.4,
+        -1.95
+       ]
+      },
+      {
+       "at": 0.35,
+       "to": [
+        0.0,
+        0,
+        -2.65
+       ],
+       "dur": 0.3,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "out",
+       "face": 0
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      -0.4,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.75,
+       "to": [
+        0.05,
+        0.0,
+        -1.95
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "sq": [
+         0.54,
+         0.46,
+         0.54
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ]
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.6
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "wall13",
+     "name": "plainWall",
+     "pos": [
+      0.0,
+      0,
+      -2.95
+     ],
+     "opts": {
+      "w": 8.0,
+      "h": 3.2,
+      "color": "#E9DCCB"
+     }
+    },
+    {
+     "id": "door13",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -2.88
+     ],
+     "opts": {
+      "w": 0.95,
+      "h": 2.15,
+      "openAt": 0.35
+     }
+    },
+    {
+     "id": "mat13",
+     "name": "doormat",
+     "pos": [
+      0.0,
+      0.01,
+      -2.28
+     ],
+     "opts": {
+      "text": "BIENVENUE",
+      "w": 0.85,
+      "d": 0.5
+     }
+    },
+    {
+     "id": "box13",
+     "name": "cardboardBox",
+     "pos": [
+      0.05,
+      0,
+      -1.95
+     ],
+     "scale": 1.6,
+     "opts": {
+      "text": "RETOUR FABRICANT"
+     }
+    },
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.1,
+      1.0,
+      1.4
+     ],
+     "to": [
+      1.06,
+      1.0,
+      1.34
+     ],
+     "lookAt": [
+      -1.298,
+      0.195,
+      -8.275
+     ],
+     "lens": 53,
+     "ease": "linear",
+     "lookAt2": [
+      -1.338,
+      0.195,
+      -8.335
+     ]
+    }
+   ],
+   "start": 21.6,
+   "duration": 1.5333,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mere",
+     "pos": [
+      0.0,
+      0,
+      -2.65
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.46,
+       "toon": {
+        "reach": {
+         "R": [
+          0.25,
+          1.6,
+          -2.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.26,
+       "toon": {
+        "reach": {
+         "R": [
+          0.25,
+          1.6,
+          -2.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "browL": 0.7,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "sq": [
+         0.5,
+         0.5,
+         0.5
+        ],
+        "face": {
+         "lid": 0.4
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "wall14",
+     "name": "plainWall",
+     "pos": [
+      0.0,
+      0,
+      -2.95
+     ],
+     "opts": {
+      "w": 8.0,
+      "h": 3.2,
+      "color": "#E9DCCB"
+     }
+    },
+    {
+     "id": "door14",
+     "name": "door",
+     "pos": [
+      0.0,
+      0,
+      -2.88
+     ],
+     "opts": {
+      "w": 0.95,
+      "h": 2.15,
+      "openAt": 0.0
+     }
+    },
+    {
+     "id": "mat14",
+     "name": "doormat",
+     "pos": [
+      0.0,
+      0.01,
+      -2.28
+     ],
+     "opts": {
+      "text": "BIENVENUE",
+      "w": 0.85,
+      "d": 0.5
+     }
+    },
+    {
+     "id": "box14",
+     "name": "cardboardBox",
+     "pos": [
+      0.05,
+      0,
+      -1.95
+     ],
+     "scale": 1.6,
+     "opts": {
+      "text": "RETOUR FABRICANT"
+     }
+    },
+    {
+     "id": "label",
+     "name": "barcodeLabel",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.36,
+       0.2
+      ]
+     },
+     "opts": {
+      "w": 0.2,
+      "h": 0.12,
+      "price": "2,49 €",
+      "bright": true
+     }
+    },
+    {
+     "id": "ticket",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mere",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ],
+      "face": "camera"
+     },
+     "opts": {
+      "w": 0.42,
+      "h": 0.55,
+      "head": "TICKET",
+      "lines": [
+       "1 homme",
+       "2,49 €",
+       "REMBOURSEMENT"
+      ],
+      "lineSize": 0.1,
+      "lineGap": 0.12,
+      "lineBold": true,
+      "paper": "#FFFFFF",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.56,
+       "scale": 1.0,
+       "dur": 0.1,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      1.3,
+      1.2
+     ],
+     "to": [
+      0.87,
+      1.3,
+      1.15
+     ],
+     "lookAt": [
+      -1.552,
+      -0.337,
+      -8.355
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      -1.582,
+      -0.337,
+      -8.405
+     ]
+    }
+   ],
+   "start": 23.1333,
+   "duration": 2.4167,
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 25.55,
+ "look": "natural",
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5
+}

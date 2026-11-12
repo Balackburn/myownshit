@@ -528,15 +528,15 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], wire: [0, 3.2, -1.5], wireLeft: [-6.2, 3.55, -1.5], wireRight: [6.2, 3.55, -1.5], edge: [0, 0, -6.6], wall: [0, 0, -7.7], window: [1.5, 1.2, -7.7] };
     g.userData.lighting = night ? 'night' : 'day'; return g;
   },
-  supermarket() {
+  supermarket(o = {}) {   // (cycle 10) o.fr: French signs and a euro till (the defaults are the old English ones); o.signs [[text, bg, fg, x, z], ...] to choose them
     const g = grp(), { back } = room(g, { wall: P.paper, band: P.red, bandH: 0.35, trim: P.navy, floor: '#E9E4D6', back: -4 });
     const lines = []; for (let i = -20; i <= 20; i++) lines.push([i * 0.8, 0.003, 4], [0, 0.003, back + i * 0.8 + 16, 0, PI / 2]);
     g.add(inst(new THREE.BoxGeometry(0.02, 0.002, 40), mat('#CFC8B4'), lines.map(l => l.length > 3 ? [l[0], l[1], l[2], 0, PI / 2, 0, 1, 1, 1] : l)));
     g.add(at(shelf(9, 3), 0, 0, back + 0.35), at(shelf(6, 4), -4.2, 0, 0.5, 0, PI / 2), at(shelf(6, 5), -6.0, 0, 0.5, 0, -PI / 2));
     // checkout counter with register + conveyor
-    g.add(at(box(0.8, 0.9, 2.4, P.teal, { pivot: 'bottom', outline: 0.006 }), 3.6, 0, -0.6), at(box(0.62, 0.03, 2.2, P.ink), 3.6, 0.915, -0.6), prop('cashRegister', {}, 3.6, 0.93, 0.3, -PI / 2));
+    g.add(at(box(0.8, 0.9, 2.4, P.teal, { pivot: 'bottom', outline: 0.006 }), 3.6, 0, -0.6), at(box(0.62, 0.03, 2.2, P.ink), 3.6, 0.915, -0.6), prop('cashRegister', o.fr ? { text: '0,00 €' } : {}, 3.6, 0.93, 0.3, -PI / 2));
     g.add(prop('shoppingCart', {}, -2.6, 0, -2.4, 0.5));
-    [['PROMO -50%', P.red, P.white, -1.3, -3.0], ['AISLE 3', P.navy, P.white, 1.3, -2.6]].forEach(([t, bg, fg, x, z]) => { g.add(prop('signBoard', { text: t, bg, fg, w: 1.3, h: 0.42, posts: false, height: 0, frame: bg }, x, 2.75, z), rod([x - 0.5, 3.2, z], [x - 0.5, 7, z], 0.01, P.ink), rod([x + 0.5, 3.2, z], [x + 0.5, 7, z], 0.01, P.ink)); });
+    (o.signs || (o.fr ? [['PROMOTIONS', P.red, P.white, -1.3, -3.0], ['RAYON 3', P.navy, P.white, 1.3, -2.6]] : [['PROMO -50%', P.red, P.white, -1.3, -3.0], ['AISLE 3', P.navy, P.white, 1.3, -2.6]])).forEach(([t, bg, fg, x, z]) => { g.add(prop('signBoard', { text: t, bg, fg, w: 1.3, h: 0.42, posts: false, height: 0, frame: bg }, x, 2.75, z), rod([x - 0.5, 3.2, z], [x - 0.5, 7, z], 0.01, P.ink), rod([x + 0.5, 3.2, z], [x + 0.5, 7, z], 0.01, P.ink)); });
     g.userData.anchors = { center: [0, 0, 0], shelf: [0, 0, back + 1.1], aisle: [-5.1, 0, 0.5], checkout: [3.0, 0, -0.6], register: [3.6, 0.93, 0.3], cart: [-2.6, 0, -2.4] };
     g.userData.lighting = 'interior'; return g;
   },

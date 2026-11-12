@@ -25,6 +25,7 @@ import { FOURRIERE_PROPS } from './props_fourriere.js';
 import { RADAR_PROPS } from './props_radar.js';
 import { HOQUET_PROPS } from './props_hoquet.js';
 import { AIMANT_PROPS } from './props_aimant.js';
+import { CODEBARRE_PROPS } from './props_codebarre.js';
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -456,12 +457,12 @@ const B = {
       at(box(0.03, 0.22, 0.04, P.grey), 0.135, 0.165, 0.21), at(label('12:00', 0.1, 0.04, { bg: P.ink, fg: LCD }), 0.21, 0.26, 0.202),
       ...[0, 1, 2].flatMap(i => [at(box(0.03, 0.02, 0.01, P.greyDark), 0.19, 0.19 - i * 0.04, 0.204), at(box(0.03, 0.02, 0.01, P.greyDark), 0.235, 0.19 - i * 0.04, 0.204)]));
   },
-  cashRegister() {
+  cashRegister(o = {}) {   // (cycle 10) o.text: the display ('$0.00' by default; '0,00 €' in French stories)
     const keys = grp(); keys.position.set(0, 0.25, 0.08); keys.rotation.x = 0.45;
     for (let i = 0; i < 12; i++) keys.add(at(box(0.05, 0.02, 0.04, i === 11 ? P.red : P.navy), -0.1 + (i % 4) * 0.065, 0.012, -0.06 + Math.floor(i / 4) * 0.055));
     return grp(box(0.5, 0.12, 0.45, P.greyDark, { pivot: 'bottom' }), at(box(0.46, 0.16, 0.42, P.cream, { pivot: 'bottom', outline: 0.01 }), 0, 0.12, -0.01),
       at(box(0.44, 0.02, 0.26, P.cream), 0, 0.25, 0.08, 0.45), keys,
-      at(box(0.04, 0.12, 0.04, P.greyDark, { pivot: 'bottom' }), 0, 0.28, -0.15), at(box(0.3, 0.12, 0.06, P.ink), 0, 0.44, -0.15), at(label('$0.00', 0.26, 0.08, { bg: P.ink, fg: LCD }), 0, 0.44, -0.118),
+      at(box(0.04, 0.12, 0.04, P.greyDark, { pivot: 'bottom' }), 0, 0.28, -0.15), at(box(0.3, 0.12, 0.06, P.ink), 0, 0.44, -0.15), at(label(o.text || '$0.00', 0.26, 0.08, { bg: P.ink, fg: LCD }), 0, 0.44, -0.118),
       at(box(0.04, 0.012, 0.01, P.cream), 0, 0.06, 0.226));
   },
   ATM() {
@@ -2060,7 +2061,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS, STATUE_PROPS, FOURRIERE_PROPS, RADAR_PROPS, HOQUET_PROPS, AIMANT_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS, STATUE_PROPS, FOURRIERE_PROPS, RADAR_PROPS, HOQUET_PROPS, AIMANT_PROPS, CODEBARRE_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.
