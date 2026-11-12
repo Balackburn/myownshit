@@ -1186,3 +1186,45 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   (« AVEC UN AVOCAT ») ; (2) le film finit 0,7 s plus tard (31,2 s ; la narration n'est pas touchée) : le dernier plan a cinq temps ;
   (3) l'écriture du procès-verbal est coupée (S15 : quatre actions en 1,5 s) ; (4) l'agent arrive par derrière (S14) ; (5) la teinte de
   l'ombre est un violet et non un noir : choisie à l'écran parmi quatre.
+
+### Cycle 7 (suite) — revue 2 de l'histoire 42 (7,4 / 7,4), version 1 livrée, passe 3 ; histoire 43 « La cravate » mise en scène ; histoire 44 « La statue » écrite
+
+- **Blocages contournés** : (1) les deux relecteurs de la revue 2 se sont arrêtés sur une limite d'usage du modèle : relancés sur un autre
+  modèle, même dossier, mêmes consignes ; (2) le conteneur a redémarré pendant le rendu final de la version 1 (image 120/937) : disque presque
+  plein (1,1 Go libres) : images de travail des relecteurs des revues finies et cache d'extraction de HyperFrames supprimés (3,3 Go libres),
+  génération complète relancée ; (3) le rendu était mort sans bruit : vérifier le journal du rendu au retour d'une pause, pas seulement la file.
+- **Revue 2 de l'histoire 42** : animation 7,4, direction artistique 7,4 (contre 6,4 / 6,4). Résolu d'après eux : l'ombre comme personnage
+  (aplat violet, yeux blancs, liseré), lettrage en français partout, la plupart des plans refaits. Restait : tête de l'ombre derrière la
+  corniche (S10-S11), carton sur les yeux (S17), cadre de S21, temps suspendus trop courts, S22-S23 illisibles, chevauchements violets, poses
+  (semelle, vague, pouce, maillet), ombre « transparente » à partir de S20.
+- **Version 1 (deuxième mise en scène)** livrée : 31,2 s, −16,0 LUFS, aucun flash isolé aux coupes.
+- **Moteur** : (a) *l'ombre transparente* n'était pas de la transparence : une ombre est retirée du tampon d'occlusion ambiante, et
+  l'occlusion de ce qui se tient derrière elle (le potelet, le lit) s'imprimait sur son corps ; nouvelle option `silhouetteAO` pour une ombre
+  debout (sur un mur, l'ombre reste hors du tampon : sinon un halo) ; (b) cravate réduite au nœud (`tieKnot`) et canal toon `knot` qui change
+  la couleur du nœud ; (c) `paperSheet` (feuille avec titre, gros mot, lignes, tampon qui claque), `nameCard`, `paintRoller`, `paintCradle`,
+  feuilles et facture sur la corde ; (d) semelle crantée (`shoeSole` `tread`), vrai saut des ombres du portant (`shadowRack` `hop`) ;
+  (e) histoire 44 : `waterJet`, `craneHook`, `roundabout` (bac à sable, à installer). Non-régression : 0,64 % au pire (comme la référence),
+  rigs cartoon identiques (0,13 et 11,37).
+- **Kit** : `glide`/`r3` partagés ; `fit()` corrigé : les relèvements autour de ±180° étaient mal moyennés et une caméra tournée vers −Z visait
+  derrière elle.
+- **Passe 3 de l'histoire 42** (vérifiée sur 49 images) : mur nu pour S10-S11, temps suspendus (S03 dix images en l'air au-dessus du dossier
+  du banc ; S14 saut d'un demi-mètre et demi-tour en l'air ; S21 onze images en l'air ; S26 regard final tenu, clignement coupé), S21 recadré
+  (son regard caméra coupé, la claque sur le dessus du réveil, décollage tête la première, montée par la tranche, retournement à plat), S22 plus
+  haut et plus large, S23 vu de trois quarts d'en haut, liserés des ombres secondaires, plus d'ombres grises, pouce vers le haut du cadre,
+  maillet de profil, semelle crantée, guichetière sans lunettes, effets sonores qui n'existaient pas (« ding ») remplacés.
+- **Histoire 43 « La cravate »** : première mise en scène (sept plans) jetée après les premières images : vue de face, la ligne qui part de
+  la nuque est cachée par la tête, et une caméra était hors du hall (images unies). Deuxième mise en scène : 25 plans, la laisse traverse le
+  cadre à côté de sa tête ; vérifiée sur 76 puis 41 images (index levé du syndic, tampon qui tombe sur sa marque, feuille du vote lisible,
+  virevoltant, rouleau libre sur la corde, nœud qui devient beige, facture face caméra).
+- **Histoire 44 « La statue »** : narration écrite dans la structure du skill (accroche : un pigeon se pose sur sa tête ; la mairie le classe
+  monument historique ; escalade : plaque, grille, touristes, nettoyage au jet, amende pour un clignement ; retournement : le pigeon part,
+  l'œuvre est incomplète, on le déplace sur un rond-point ; aparté : le bus passe tous les matins, il ne s'arrête pas) et enregistrée
+  (29,2 s) ; script de 17 plans écrit (gags : tête écrasée par le pigeon, main qui rampe vers le nez, socle glissé sous lui, grilles qui
+  tombent du ciel, flash d'un selfie, jet au visage et pigeon sous un parapluie, clignement lent, amende sur le front, tête qui rebondit quand
+  le pigeon part, grue qui l'emporte raide comme un poteau, vent du bus, dernier pigeon).
+- **Décisions prises sans question** : (1) passe 3 de l'histoire 42 : la tête de l'ombre est dégagée en enlevant le bandeau et le balcon de
+  ce tronçon de mur plutôt qu'en raccourcissant ses jambes (les échasses sont le gag) ; (2) la guichetière perd ses lunettes (un accessoire
+  posé à la place se plaçait sur son front) ; (3) la peau du grand type est éclaircie pour que son visage peint se lise ; (4) histoire 43 :
+  le nœud reste rouge sur la poitrine et la cravate part de la nuque ; (5) histoire 44 : le carton unique sera « MONUMENT HISTORIQUE ».
+- **Pistes** : un outil qui avance une caméra le long de son axe jusqu'à ce que `fit()` trouve une focale ; un « tremblement de statue »
+  propre au rig (raideur + micro-vibration) ; recolorer d'autres éléments par canal toon (cheveux, cravate entière).

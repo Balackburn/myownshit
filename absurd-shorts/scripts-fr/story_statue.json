@@ -1,0 +1,6475 @@
+{
+ "version": 3,
+ "title": "La statue",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "seed": 193,
+   "build": {
+    "width": 0.92,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "officiel": {
+   "preset": "prefet",
+   "seed": 171,
+   "sash": [
+    "#2A4B9B",
+    "#F4F1E8",
+    "#C8202A"
+   ],
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.25
+   }
+  },
+  "ouvrier1": {
+   "preset": "worker",
+   "seed": 173,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   }
+  },
+  "ouvrier2": {
+   "preset": "worker",
+   "seed": 179,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.2
+   }
+  },
+  "touriste1": {
+   "preset": "tourist",
+   "seed": 181,
+   "build": {
+    "headWidth": 1.2
+   }
+  },
+  "touriste2": {
+   "preset": "femme",
+   "seed": 183
+  },
+  "touriste3": {
+   "preset": "tourist",
+   "seed": 187,
+   "build": {
+    "headWidth": 1.15,
+    "height": 0.95
+   }
+  },
+  "nettoyeur": {
+   "preset": "worker",
+   "seed": 191,
+   "build": {
+    "width": 0.92,
+    "headWidth": 1.2
+   }
+  },
+  "expert": {
+   "preset": "savant",
+   "seed": 197,
+   "build": {
+    "headWidth": 1.25
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "checkWatch",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.2,
+       "toon": {},
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.5,
+       "toon": {},
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.8,
+       "toon": {},
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.1,
+       "toon": {},
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.95,
+       "clip": "stand",
+       "blend": 0.15
+      },
+      {
+       "at": 1.0,
+       "look": [
+        3.3499999999999996,
+        1.6,
+        -12.0
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pig1",
+     "name": "pigeon",
+     "pos": [
+      6.6499999999999995,
+      5.5,
+      3.2
+     ],
+     "ry": -140,
+     "opts": {
+      "flap": [
+       0,
+       9
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.35,
+        2.85,
+        0.4
+       ],
+       "dur": 1.467,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.4,
+      1.6,
+      3.4
+     ],
+     "to": [
+      1.55,
+      1.6,
+      3.3
+     ],
+     "lookAt": [
+      10.25,
+      1.33,
+      -1.248
+     ],
+     "lens": 37,
+     "ease": "linear",
+     "lookAt2": [
+      10.4,
+      1.33,
+      -1.348
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.4667,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        3.3499999999999996,
+        1.6,
+        -12.0
+       ]
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "scl": {
+         "head": [
+          1.22,
+          0.78,
+          1.22
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.45
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.42,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.4
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.54,
+       "look": null
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gy": -0.95,
+         "brow": 0.9,
+         "eye": 0.35
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.72,
+       "expr": "worried"
+      },
+      {
+       "at": 0.9199999999999999,
+       "clip": "stiffStand",
+       "blend": 0.2
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pig1",
+     "name": "pigeon",
+     "pos": [
+      6.35,
+      2.85,
+      0.4
+     ],
+     "ry": -140,
+     "opts": {
+      "flap": [
+       0,
+       0.42
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.35,
+        2.24,
+        0.02
+       ],
+       "dur": 0.42,
+       "ease": "out"
+      },
+      {
+       "at": 0.42,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.42,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.9,
+      1.95,
+      0.9
+     ],
+     "to": [
+      2.98,
+      1.95,
+      0.87
+     ],
+     "lookAt": [
+      12.696,
+      1.604,
+      -1.081
+     ],
+     "lens": 49,
+     "ease": "linear",
+     "lookAt2": [
+      12.776,
+      1.604,
+      -1.111
+     ]
+    }
+   ],
+   "start": 1.4667,
+   "duration": 1.7333,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "tremble": 1,
+        "face": {
+         "sweat": 1,
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "tremble": 1,
+        "face": {
+         "sweat": 1,
+         "brow": 0.6,
+         "gx": -0.85
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "tremble": 1,
+        "face": {
+         "sweat": 1,
+         "brow": 0.6,
+         "gx": 0.85
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "tremble": 1,
+        "face": {
+         "sweat": 1,
+         "brow": 0.6,
+         "gy": -0.9
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.75,
+      2.0,
+      0.42
+     ],
+     "to": [
+      4.81,
+      2.0,
+      0.4
+     ],
+     "lookAt": [
+      14.4,
+      1.319,
+      -2.113
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      14.46,
+      1.319,
+      -2.133
+     ]
+    }
+   ],
+   "start": 3.2,
+   "duration": 1.3667,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "bus1",
+     "name": "cityBus",
+     "pos": [
+      3.1,
+      0,
+      -34.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        3.1,
+        0,
+        34.0
+       ],
+       "dur": 0.38,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "bus2",
+     "name": "cityBus",
+     "pos": [
+      2.6,
+      0,
+      -34.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.55,
+       "to": [
+        2.6,
+        0,
+        34.0
+       ],
+       "dur": 0.38,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.6,
+      1.5,
+      2.6
+     ],
+     "to": [
+      -0.6,
+      1.5,
+      2.6
+     ],
+     "lookAt": [
+      8.967,
+      1.304,
+      -0.304
+     ],
+     "lens": 36,
+     "ease": "linear",
+     "lookAt2": [
+      8.967,
+      1.304,
+      -0.304
+     ]
+    }
+   ],
+   "start": 4.5667,
+   "duration": 1.0666,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "eye": 0.4,
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.1500000000000001,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gy": 0.6
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "officiel",
+     "pos": [
+      6.05,
+      0,
+      3.4
+     ],
+     "ry": 180,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      },
+      {
+       "at": 0.0,
+       "to": [
+        6.0,
+        0,
+        0.95
+       ],
+       "dur": 0.55,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "out",
+       "face": 200
+      },
+      {
+       "at": 0.6000000000000001,
+       "look": [
+        6.35,
+        0.3,
+        0.0
+       ]
+      },
+      {
+       "at": 0.8500000000000001,
+       "look": [
+        6.35,
+        2.5,
+        0.0
+       ]
+      },
+      {
+       "at": 0.93,
+       "toon": {
+        "reach": {
+         "R": [
+          6.15,
+          1.62,
+          0.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.3,
+       "toon": {},
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 1.05,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "clip",
+     "name": "clipboardProp",
+     "on": {
+      "actor": "officiel",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.05
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.3,
+      1.7,
+      2.6
+     ],
+     "to": [
+      3.4,
+      1.7,
+      2.52
+     ],
+     "lookAt": [
+      11.607,
+      0.832,
+      -2.899
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      11.707,
+      0.832,
+      -2.979
+     ]
+    }
+   ],
+   "start": 5.6333,
+   "duration": 2.0667,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "brow": 0.5,
+         "gy": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "reach": {
+         "R": [
+          6.03,
+          1.3,
+          0.18,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "brow": 0.6,
+         "gx": 0.4,
+         "gy": 0.5
+        }
+       },
+       "toonDur": 0.4,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "reach": {
+         "R": [
+          6.01,
+          1.7,
+          0.12,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "brow": 0.7,
+         "gx": 0.6,
+         "gy": 0.6
+        }
+       },
+       "toonDur": 0.4,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "reach": {
+         "R": [
+          6.01,
+          1.72,
+          0.12,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "gx": -0.8
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.05,
+       "expr": "scared"
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "reach": {
+         "R": [
+          6.03,
+          1.2,
+          0.18,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "brow": 0.8,
+         "eye": 0.4,
+         "gx": -0.6
+        }
+       },
+       "toonDur": 0.35,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.8,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "brow": 0.6,
+         "gx": -0.5
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "officiel",
+     "pos": [
+      6.0,
+      0,
+      0.95
+     ],
+     "ry": 120,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        3.8499999999999996,
+        1.6,
+        6.0
+       ]
+      },
+      {
+       "at": 0.93,
+       "look": "mec"
+      },
+      {
+       "at": 0.93,
+       "face": 200,
+       "turn": 0.1
+      },
+      {
+       "at": 1.05,
+       "clip": "whistleBlow",
+       "blend": 0.06
+      },
+      {
+       "at": 1.35,
+       "clip": "stand",
+       "blend": 0.1
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          5.94,
+          1.9,
+          0.65,
+          1,
+          0.06
+         ]
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          6.06,
+          1.9,
+          0.65,
+          1,
+          0.06
+         ]
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          5.94,
+          1.9,
+          0.65,
+          1,
+          0.06
+         ]
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          6.06,
+          1.9,
+          0.65,
+          1,
+          0.06
+         ]
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "whistle",
+     "name": "whistle",
+     "on": {
+      "actor": "officiel",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.04
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.05,
+       "visible": true
+      },
+      {
+       "at": 1.35,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "notes",
+     "name": "whistleNotes",
+     "pos": [
+      5.9,
+      2.1,
+      0.75
+     ],
+     "opts": {
+      "n": 2,
+      "from": 1.05,
+      "every": 0.1,
+      "size": 0.14,
+      "dx": -0.3,
+      "dy": 0.5,
+      "life": 0.4,
+      "color": "#1B1B1E"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.6,
+      1.75,
+      2.1
+     ],
+     "to": [
+      3.72,
+      1.75,
+      2.04
+     ],
+     "lookAt": [
+      12.011,
+      1.419,
+      -3.298
+     ],
+     "lens": 53,
+     "ease": "linear",
+     "lookAt2": [
+      12.131,
+      1.419,
+      -3.358
+     ]
+    }
+   ],
+   "start": 7.7,
+   "duration": 2.1,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.12,
+       "to": [
+        6.35,
+        1.02,
+        0.0
+       ],
+       "dur": 0.3,
+       "clip": "stiffStand",
+       "then": "stiffStand",
+       "glide": true,
+       "ease": "out",
+       "face": -90
+      },
+      {
+       "at": 0.54,
+       "to": [
+        6.35,
+        0.9,
+        0.0
+       ],
+       "dur": 0.08,
+       "clip": "stiffStand",
+       "then": "stiffStand",
+       "glide": true,
+       "ease": "in",
+       "face": -90
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "sq": [
+         1.08,
+         0.92,
+         1.08
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.6799999999999999,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "settle": 0.6
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "ouvrier1",
+     "pos": [
+      6.4,
+      0,
+      0.62
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          6.35,
+          0.95,
+          0.18,
+          1,
+          0.06
+         ],
+         "R": [
+          6.35,
+          1.05,
+          0.18,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.4,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "reach": {
+         "L": [
+          6.35,
+          1.08,
+          0.18,
+          1,
+          0.06
+         ],
+         "R": [
+          6.35,
+          1.18,
+          0.18,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "cheeks": 1
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 0.72,
+       "toon": {},
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "determined"
+    },
+    {
+     "id": "ouvrier2",
+     "pos": [
+      6.4,
+      0,
+      -0.62
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          6.35,
+          1.05,
+          -0.18,
+          1,
+          0.06
+         ],
+         "R": [
+          6.35,
+          0.95,
+          -0.18,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.4,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "reach": {
+         "L": [
+          6.35,
+          1.18,
+          -0.18,
+          1,
+          0.06
+         ],
+         "R": [
+          6.35,
+          1.08,
+          -0.18,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "cheeks": 1
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 0.72,
+       "toon": {},
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      7.949999999999999,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     },
+     "keys": [
+      {
+       "at": 0.2,
+       "to": [
+        6.35,
+        0,
+        0.0
+       ],
+       "dur": 0.3,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.9,
+      1.6,
+      2.2
+     ],
+     "to": [
+      3.0,
+      1.6,
+      2.14
+     ],
+     "lookAt": [
+      11.843,
+      1.651,
+      -2.275
+     ],
+     "lens": 64,
+     "ease": "linear",
+     "lookAt2": [
+      11.943,
+      1.651,
+      -2.335
+     ]
+    }
+   ],
+   "start": 9.8,
+   "duration": 1.4,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.16,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gx": 0.8,
+         "brow": 0.7,
+         "eye": 0.35
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gx": -0.8,
+         "brow": 0.7,
+         "eye": 0.35
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.44,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gx": 0.8,
+         "brow": 0.7,
+         "eye": 0.35
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gx": -0.8,
+         "brow": 0.7,
+         "eye": 0.35
+        }
+       },
+       "toonDur": 0.04
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0.06,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.16,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0.2,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.30000000000000004,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0.34,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.44000000000000006,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0.48,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.58,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      2.1,
+      3.1
+     ],
+     "to": [
+      0.9,
+      2.1,
+      3.1
+     ],
+     "lookAt": [
+      9.155,
+      1.132,
+      -2.46
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      9.155,
+      1.132,
+      -2.46
+     ]
+    }
+   ],
+   "start": 11.2,
+   "duration": 0.9333,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.16,
+     "dur": 0.08,
+     "amount": 0.008
+    },
+    {
+     "type": "shake",
+     "at": 0.30000000000000004,
+     "dur": 0.08,
+     "amount": 0.008
+    },
+    {
+     "type": "shake",
+     "at": 0.44000000000000006,
+     "dur": 0.08,
+     "amount": 0.008
+    },
+    {
+     "type": "shake",
+     "at": 0.58,
+     "dur": 0.08,
+     "amount": 0.008
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "pupil": 0.35,
+         "brow": 1,
+         "eye": 0.5
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "pupil": 0.5,
+         "brow": 0.8,
+         "eye": 0.4,
+         "tears": 1
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "touriste1",
+     "pos": [
+      4.95,
+      0,
+      0.6
+     ],
+     "ry": -20,
+     "clip": "showPhone",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        5.35,
+        1.9,
+        2.5
+       ]
+      },
+      {
+       "at": 0.3,
+       "face": 160,
+       "turn": 0.15
+      },
+      {
+       "at": 0.45,
+       "clip": "showPhone",
+       "blend": 0.1
+      },
+      {
+       "at": 0.85,
+       "expr": "bigGrin"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "touriste2",
+     "pos": [
+      4.85,
+      0,
+      1.5
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "mec"
+      },
+      {
+       "at": 0.6,
+       "look": "touriste1"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "touriste3",
+     "pos": [
+      4.9,
+      0,
+      2.4
+     ],
+     "ry": 180,
+     "clip": "readPhone",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "tphone",
+     "name": "smartPhone",
+     "on": {
+      "actor": "touriste1",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "flash",
+     "name": "impactStars",
+     "pos": [
+      4.75,
+      2.1,
+      0.35
+     ],
+     "opts": {
+      "at": 0.95,
+      "n": 8,
+      "r": 0.35,
+      "r0": 0.05,
+      "dur": 0.18,
+      "size": 0.09,
+      "color": "#FFFFFF"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.4,
+      1.7,
+      3.6
+     ],
+     "to": [
+      2.5,
+      1.7,
+      3.5
+     ],
+     "lookAt": [
+      10.31,
+      1.215,
+      -2.5
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      10.41,
+      1.215,
+      -2.6
+     ]
+    }
+   ],
+   "start": 12.1333,
+   "duration": 1.9334,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.46,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.54,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.86,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.18,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.26,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.34,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.42,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.58,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 0.2,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         0.98,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.66,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "hairUp": 1,
+        "wind": [
+         0.9,
+         0.0,
+         0.0
+        ],
+        "face": {
+         "cheeks": 1,
+         "lid": 0.85,
+         "brow": -0.4,
+         "mouth": "wavy"
+        },
+        "sq": [
+         1.03,
+         1,
+         1
+        ]
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "nettoyeur",
+     "pos": [
+      4.6,
+      0,
+      0.35
+     ],
+     "ry": 75,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.35,
+        2.85,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          5.05,
+          1.35,
+          0.3,
+          1,
+          0.06
+         ],
+         "L": [
+          4.85,
+          1.2,
+          0.4,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "lance",
+     "name": "waterJet",
+     "pos": [
+      4.9,
+      1.32,
+      0.33
+     ],
+     "ry": 73,
+     "rot": [
+      -0.32,
+      0,
+      0
+     ],
+     "opts": {
+      "lance": 0.75,
+      "len": 1.05,
+      "on": [
+       0.3,
+       9.0
+      ]
+     }
+    },
+    {
+     "id": "brolly",
+     "name": "umbrella",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.06
+      ]
+     },
+     "scale": 0.22,
+     "opts": {
+      "radius": 0.75,
+      "height": 1.0,
+      "colors": [
+       "#E8504A",
+       "#F4F1E8"
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      2.2,
+      2.7
+     ],
+     "to": [
+      2.08,
+      2.2,
+      2.66
+     ],
+     "lookAt": [
+      9.957,
+      1.296,
+      -3.289
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      10.037,
+      1.296,
+      -3.329
+     ]
+    }
+   ],
+   "start": 14.0667,
+   "duration": 1.9666,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "lid": 1
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.61,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "lid": 0.0
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.3,
+      2.87,
+      0.12
+     ],
+     "to": [
+      5.37,
+      2.87,
+      0.11
+     ],
+     "lookAt": [
+      6.35,
+      2.85,
+      0.0
+     ],
+     "lens": 36,
+     "ease": "linear",
+     "lookAt2": [
+      6.35,
+      2.85,
+      0.0
+     ]
+    }
+   ],
+   "start": 16.0333,
+   "duration": 1.1667,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "bend": {
+         "neck": [
+          -0.22,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.45
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.5700000000000001,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gy": -0.9,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "flic",
+     "pos": [
+      5.1,
+      0,
+      -0.35
+     ],
+     "ry": 70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.35,
+        2.9000000000000004,
+        0.0
+       ]
+      },
+      {
+       "at": 0.31,
+       "toon": {
+        "reach": {
+         "R": [
+          5.97,
+          2.9,
+          0.02,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.14,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.75,
+       "toon": {},
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "pigeon",
+     "name": "pigeon",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.34,
+       0.0
+      ]
+     },
+     "ry": 90,
+     "opts": {
+      "ph": 0.4,
+      "sleep": true
+     }
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "fine",
+     "name": "paperSheet",
+     "pos": [
+      6.02,
+      2.9299999999999997,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.26,
+      "h": 0.2,
+      "head": "AMENDE",
+      "headSize": 0.16,
+      "lines": [
+       "VANDALISME"
+      ],
+      "lineSize": 0.13,
+      "top": 0.24,
+      "paper": "#F7E9B5",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.45,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.4,
+      2.3,
+      1.1
+     ],
+     "to": [
+      3.48,
+      2.3,
+      1.06
+     ],
+     "lookAt": [
+      12.001,
+      2.973,
+      -3.957
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      12.081,
+      2.973,
+      -3.997
+     ]
+    }
+   ],
+   "start": 17.2,
+   "duration": 1.4333,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35000000000000003,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gy": -0.9,
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.42000000000000004,
+       "toon": {
+        "scl": {
+         "head": [
+          0.9,
+          1.16,
+          0.9
+         ]
+        },
+        "face": {
+         "gy": -1,
+         "brow": 1,
+         "eye": 0.4
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "scl": {
+         "head": [
+          1.03,
+          0.97,
+          1.03
+         ]
+        },
+        "face": {
+         "gy": -1,
+         "brow": 0.9
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.5800000000000001,
+       "toon": {
+        "face": {
+         "gy": -0.8,
+         "brow": 0.7
+        },
+        "settle": 0.6
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "face": {
+         "gy": -0.6,
+         "lid": 0.4,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "fine",
+     "name": "paperSheet",
+     "pos": [
+      6.02,
+      2.9299999999999997,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.26,
+      "h": 0.2,
+      "head": "AMENDE",
+      "headSize": 0.16,
+      "lines": [
+       "VANDALISME"
+      ],
+      "lineSize": 0.13,
+      "top": 0.24,
+      "paper": "#F7E9B5",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pig2",
+     "name": "pigeon",
+     "pos": [
+      6.35,
+      3.12,
+      0.0
+     ],
+     "ry": -180,
+     "opts": {
+      "flyAt": 0.4,
+      "flap": [
+       0.25,
+       9
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.93,
+      2.15,
+      1.45
+     ],
+     "to": [
+      1.93,
+      2.15,
+      1.45
+     ],
+     "lookAt": [
+      11.602,
+      3.644,
+      -0.604
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      11.602,
+      3.644,
+      -0.604
+     ]
+    }
+   ],
+   "start": 18.6333,
+   "duration": 1.9,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "brow": 0.4,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "face": {
+         "gy": 0.8,
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "expert",
+     "pos": [
+      5.15,
+      0,
+      0.25
+     ],
+     "ry": 70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.35,
+        3.2,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          5.6,
+          2.45,
+          0.12,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "clip": "shakeHead",
+       "blend": 0.1
+      },
+      {
+       "at": 1.3,
+       "clip": "stand",
+       "blend": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "officiel",
+     "pos": [
+      5.2,
+      0,
+      -0.65
+     ],
+     "ry": 110,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        5.989999999999999,
+        0.5,
+        0.0
+       ]
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          5.93,
+          0.52,
+          -0.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.55,
+       "toon": {},
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "fine",
+     "name": "paperSheet",
+     "pos": [
+      6.02,
+      2.9299999999999997,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.26,
+      "h": 0.2,
+      "head": "AMENDE",
+      "headSize": 0.16,
+      "lines": [
+       "VANDALISME"
+      ],
+      "lineSize": 0.13,
+      "top": 0.24,
+      "paper": "#F7E9B5",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "loupe",
+     "name": "magnifyingGlass",
+     "on": {
+      "actor": "expert",
+      "hand": "R",
+      "offset": [
+       0,
+       0.06,
+       0.05
+      ]
+     },
+     "scale": 1.6
+    },
+    {
+     "id": "incomp",
+     "name": "paperSheet",
+     "pos": [
+      5.96,
+      0.52,
+      0.0
+     ],
+     "ry": -90,
+     "rot": [
+      0,
+      0,
+      0.22
+     ],
+     "opts": {
+      "w": 0.62,
+      "h": 0.15,
+      "big": "INCOMPLÈTE",
+      "bigSize": 0.7,
+      "top": 0.05,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 1.25,
+       "scale": 1.0,
+       "dur": 0.07,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.55,
+      1.75,
+      2.5
+     ],
+     "to": [
+      2.65,
+      1.75,
+      2.42
+     ],
+     "lookAt": [
+      10.023,
+      1.555,
+      -4.142
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      10.123,
+      1.555,
+      -4.222
+     ]
+    }
+   ],
+   "start": 20.5333,
+   "duration": 2.1,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      6.35,
+      0.9,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "to": [
+        6.35,
+        4.1000000000000005,
+        0.0
+       ],
+       "dur": 1.033,
+       "clip": "stiffStand",
+       "then": "stiffStand",
+       "glide": true,
+       "ease": "in",
+       "face": -60
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "face": {
+         "gy": -0.9,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "shelter",
+     "name": "busStop",
+     "pos": [
+      7.75,
+      0,
+      0.0
+     ],
+     "ry": -90
+    },
+    {
+     "id": "sticker",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.06,
+       0.38,
+       0.17
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.16,
+      "big": "MONUMENT",
+      "bigSize": 0.34,
+      "lines": [
+       "HISTORIQUE"
+      ],
+      "lineSize": 0.2,
+      "top": 0.12,
+      "paper": "#F4F1E8",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      6.35,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "rail0",
+     "name": "fence",
+     "pos": [
+      5.3999999999999995,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        5.3999999999999995,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail1",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail2",
+     "name": "fence",
+     "pos": [
+      7.3,
+      4.5,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        7.3,
+        0,
+        0.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "rail3",
+     "name": "fence",
+     "pos": [
+      6.35,
+      4.5,
+      -0.95
+     ],
+     "ry": 0,
+     "opts": {
+      "length": 1.9,
+      "height": 1.0,
+      "color": "#1E2228"
+     },
+     "keys": [
+      {
+       "at": 0,
+       "to": [
+        6.35,
+        0,
+        -0.95
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.0,
+        0.8,
+        1.0
+       ],
+       "dur": 0.2
+      }
+     ]
+    },
+    {
+     "id": "fine",
+     "name": "paperSheet",
+     "pos": [
+      6.02,
+      2.9299999999999997,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.26,
+      "h": 0.2,
+      "head": "AMENDE",
+      "headSize": 0.16,
+      "lines": [
+       "VANDALISME"
+      ],
+      "lineSize": 0.13,
+      "top": 0.24,
+      "paper": "#F7E9B5",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      6.35,
+      7.4,
+      0.0
+     ],
+     "opts": {
+      "top": 30.0,
+      "sling": true,
+      "slingLen": 0.9,
+      "slingW": 0.55
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        6.35,
+        3.65,
+        0.0
+       ],
+       "dur": 0.35,
+       "ease": "out"
+      },
+      {
+       "at": 0.7,
+       "to": [
+        6.35,
+        6.8500000000000005,
+        0.0
+       ],
+       "dur": 1.033,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.35,
+      1.2,
+      2.32
+     ],
+     "to": [
+      1.35,
+      1.2,
+      2.32
+     ],
+     "lookAt": [
+      10.459,
+      2.286,
+      -1.661
+     ],
+     "lens": 62,
+     "ease": "linear",
+     "lookAt2": [
+      10.459,
+      2.286,
+      -1.661
+     ]
+    }
+   ],
+   "start": 22.6333,
+   "duration": 1.7334,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      1.06,
+      -30.0
+     ],
+     "ry": 90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        8.0,
+        1.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "island",
+     "name": "roundabout",
+     "pos": [
+      0.0,
+      0,
+      -30.0
+     ],
+     "opts": {
+      "r": 3.2
+     }
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      0.0,
+      0.16,
+      -30.0
+     ],
+     "ry": 90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "bus16",
+     "name": "cityBus",
+     "pos": [
+      -3.0,
+      0,
+      -60.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -3.0,
+        0,
+        -42.0
+       ],
+       "dur": 1.8,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "car1",
+     "name": "car",
+     "pos": [
+      4.2,
+      0,
+      -26.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#3A6EA5"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        4.2,
+        0,
+        -36.0
+       ],
+       "dur": 1.8,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "car2",
+     "name": "car",
+     "pos": [
+      -4.0,
+      0,
+      -35.0
+     ],
+     "ry": 0,
+     "opts": {
+      "color": "#E8A33A"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -4.0,
+        0,
+        -24.0
+       ],
+       "dur": 1.8,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.5,
+      3.4,
+      -19.0
+     ],
+     "to": [
+      7.3,
+      3.4,
+      -19.3
+     ],
+     "lookAt": [
+      1.874,
+      2.161,
+      -27.174
+     ],
+     "lens": 65,
+     "ease": "linear",
+     "lookAt2": [
+      1.674,
+      2.161,
+      -27.474
+     ]
+    }
+   ],
+   "start": 24.3667,
+   "duration": 1.8,
+   "setOpts": {
+    "clear": [
+     -90,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      1.06,
+      -30.0
+     ],
+     "ry": 90,
+     "clip": "stiffStand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        8.0,
+        1.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.25,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         0.98
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.31,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.02
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.37,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         0.98
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.43,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.02
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.49,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         0.98
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.02
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.61,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         0.98
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.67,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.02
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "hairUp": 1,
+        "wind": [
+         0.0,
+         0.2,
+         1.0
+        ],
+        "face": {
+         "lid": 0.7,
+         "brow": -0.3
+        },
+        "sq": [
+         1.0,
+         1.0,
+         0.98
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "brow": 0.3
+        },
+        "settle": 0.5
+       },
+       "toonDur": 0.2
+      },
+      {
+       "at": 2.2,
+       "toon": {
+        "scl": {
+         "head": [
+          1.18,
+          0.82,
+          1.18
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 2.3000000000000003,
+       "toon": {
+        "scl": {
+         "head": [
+          1.07,
+          0.92,
+          1.07
+         ]
+        },
+        "face": {
+         "gy": -0.95,
+         "brow": 0.5,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "island",
+     "name": "roundabout",
+     "pos": [
+      0.0,
+      0,
+      -30.0
+     ],
+     "opts": {
+      "r": 3.2
+     }
+    },
+    {
+     "id": "plinth",
+     "name": "pedestal",
+     "pos": [
+      0.0,
+      0.16,
+      -30.0
+     ],
+     "ry": 90,
+     "opts": {
+      "h": 0.9,
+      "w": 0.7,
+      "text": "MONUMENT HISTORIQUE"
+     }
+    },
+    {
+     "id": "bus17",
+     "name": "cityBus",
+     "pos": [
+      -3.0,
+      0,
+      -44.0
+     ],
+     "ry": 0,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -3.0,
+        0,
+        -14.0
+       ],
+       "dur": 1.1,
+       "ease": "linear"
+      }
+     ],
+     "opts": {
+      "rock": [
+       [
+        0.0,
+        0.3
+       ]
+      ]
+     }
+    },
+    {
+     "id": "pig3",
+     "name": "pigeon",
+     "pos": [
+      1.6,
+      4.6,
+      -27.8
+     ],
+     "ry": -60,
+     "opts": {
+      "flap": [
+       1.55,
+       2.25
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.55,
+       "visible": true
+      },
+      {
+       "at": 1.55,
+       "to": [
+        0.0,
+        3.3000000000000003,
+        -30.0
+       ],
+       "dur": 0.65,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.2,
+      2.0,
+      -26.8
+     ],
+     "to": [
+      4.1,
+      2.0,
+      -26.9
+     ],
+     "lookAt": [
+      -4.51,
+      2.707,
+      -31.662
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      -4.61,
+      2.707,
+      -31.762
+     ]
+    }
+   ],
+   "start": 26.1667,
+   "duration": 3.0733,
+   "setOpts": {
+    "clear": [
+     -90,
+     80
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 29.24,
+ "look": "natural",
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5
+}

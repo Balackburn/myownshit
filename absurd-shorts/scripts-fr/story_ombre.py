@@ -492,7 +492,7 @@ st.cue('sfx:ring', 'S20', R20, 0.5); st.cue('sfx:ring', 'S20', R20 + 0.26, 0.45)
 D21 = st.dur('S21'); H21, P21, U21, I21, E21, X21, F21, HG21, FL21, LD21 = 0.07, 0.14, 0.36, 0.4, 0.5, 0.58, 0.64, 0.84, 1.18, 1.36   # (pass 3: her look to us cut; his hang eleven frames, with his look to us)
 DN21 = [round(UP21[0] - 0.02, 3), 0.0, round(UP21[2] - 0.12 - 1.03, 3)]   # where he ends: on the floor, his feet at her heels
 CAM21P = [2.6, 1.9, 1.6]
-HANG21 = [round(BEDX + 0.9, 3), 0.72, round(BEDZ + 0.6, 3)]   # where he hangs in the air: off the edge of the bed, between it and her, his feet clear of the clock (at 0.42 he seemed to stand on it)
+HANG21 = [round(BEDX + 0.9, 3), 1.12, round(BEDZ + 0.6, 3)]   # where he hangs in the air: off the edge of the bed, between it and her, his feet clear of the clock (at 0.42 he seemed to stand on it)
 LOOK21, LENS21, _w21 = fit(CAM21P, {'his': [BEDX, 0.95, round(BEDZ - 0.85, 3)], 'foot': [BEDX - 0.3, 0.6, round(BEDZ + 1.0, 3)], 'top': [UP21[0], 2.8, UP21[2]], 'hang': [HANG21[0], 2.95, HANG21[2]], 'fl': [UP21[0] + 0.45, 0.0, UP21[2] + 0.2], 'dn': [DN21[0], 0.05, round(DN21[2] - 0.95, 3)],
                                     'padL': [UP21[0] - 0.35, 1.4, UP21[2] + 0.55]}, margin=0.06, top=0.1, bottom=0.72)   # (pass 3) the floor above the caption band, a body's width of room at her left (she was on the frame line)
 UPARMS = lambda dy=0.0, **kw: {'hands': {'L': 'spread', 'R': 'spread'}, 'reach': {'L': [UP21[0] + 0.3, 2.55 + dy, UP21[2], 1, 0.08], 'R': [UP21[0] - 0.3, 2.55 + dy, UP21[2], 1, 0.08]}, **kw}
@@ -577,7 +577,7 @@ st.shot('S23', 'parisStreet', setOpts=STREET, look=SUN, actors=[
             k(B23 + 0.44, toon={'sq': FLAT23, 'settle': 0.5, 'face': {'lid': 0.4, 'gx': 0.0, 'gy': 0.0}}, toonDur=0.08), k(B23 + 0.44, expr='unimpressed')])],                               # his eyes come to us
         props=[WALL1(), JNT(ZJ22, [8]), P('bump1', 'impactStars', pos=[HX, 0.06, round(zs23(B23) + 0.17, 3)], ry=-90, opts={'at': B23, 'n': 4, 'r': 0.18, 'r0': 0.06, 'dur': 0.22, 'size': 0.05}),
                P('bump2', 'impactStars', pos=[HX, 0.06, round(zs23(B23 + 0.36) + 1.6, 3)], ry=-90, opts={'at': B23 + 0.36, 'n': 4, 'r': 0.2, 'r0': 0.06, 'dur': 0.22, 'size': 0.05})],
-        cams=[cam(0.0, [round(HX - 4.0, 3), 0.55, round(zs23(0.0) + 1.0, 3)], [round(HX - 4.0, 3), 0.55, round(zs23(D23) + 1.0, 3)], [HX, 0.22, round(zs23(0.0) + 1.0, 3)], [HX, 0.22, round(zs23(D23) + 1.0, 3)], lens=58)])   # (pass 3) low, from the road side: her heels at the left, he along the ground, the hump running up him (from above it read as a man against a tiled wall)
+        cams=[cam(0.0, [round(HX - 2.7, 3), 1.35, round(zs23(0.0) + 1.0, 3)], [round(HX - 2.7, 3), 1.35, round(zs23(D23) + 1.0, 3)], [HX, 0.12, round(zs23(0.0) + 1.0, 3)], [HX, 0.12, round(zs23(D23) + 1.0, 3)], lens=54)])   # (pass 3) three quarters from above, on the road side: he is a body on the ground (from ground level he was a line), the hump rises out of it toward us   # (pass 3) low, from the road side: her heels at the left, he along the ground, the hump running up him (from above it read as a man against a tiled wall)
 st.cue('sfx:slideDownSlow', 'S23', 0.0, 0.25); st.cue('thud', 'S23', B23, 0.25); st.cue('thud', 'S23', B23 + 0.12, 0.25); st.cue('clack', 'S23', B23 + 0.36, 0.3)
 
 # 24: he says tarmac is fine. She has taken to the road: the dashes of its line go by; he slides after her on the smooth tarmac, his hands behind
