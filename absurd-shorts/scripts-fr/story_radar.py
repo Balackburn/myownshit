@@ -23,7 +23,7 @@ BUSX = 3.1
 BUS = lambda z, keys=None, **o: P('bus', 'cityBus', pos=[BUSX, 0, z], ry=-90, opts={'len': 7.6, 'line': '12', 'dest': 'GARE', 'top': 2.65, **o}, **({'keys': keys} if keys else {}))
 SHELTER = lambda z=6.0: P('shelter', 'busStop', pos=[7.9, 0, z], ry=-90)
 CUP = lambda: P('cup', 'mug', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.02, 0.04]})
-PLATE = lambda: P('plateB', 'licensePlate', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.42, -0.2]}, opts={'text': 'PI-031-ON', 'w': 0.48})   # on his back
+PLATE = lambda: P('plateB', 'licensePlate', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0.42, -0.2], 'rot': [0, math.pi, 0]}, opts={'text': 'PI-031-ON', 'w': 0.48})   # on his back, (pass 2) turned to face backward (its dark back showed)
 
 # 1: the hook. The street: his bus is at the stop down there, its doors closing; he comes running along the pavement, legs a blur, tie flying
 D1 = st.dur('S01')
@@ -129,7 +129,7 @@ st.shot('S09', 'whiteVoid', actors=[
             k(UP9 + 0.1, toon={'face': {'gy': 0.8, 'brow': 0.6}}, toonDur=0.1)]),
         MECA([0.9, 0, 1.6], -120, keys=[k(0.0, look=[-1.2, 2.2, GZ])])],
         props=[P('garage', 'garageBay', noCamCheck=True, opts={'w': 8, 'd': 7}), LIFT(lift=[[UP9, 1.25]], h0=1.37), ROLL(), P('clip', 'clipboardProp', on={'actor': 'meca', 'hand': 'L', 'offset': [0, 0, 0.05]})],
-        cams=[FC(0.0, [1.6, 1.7, 5.4], [[-2.4, 3.6, GZ], [0.2, 0.0, GZ], [0.0, 3.6, -3.5], [0.9, 0.0, 1.6]], top=0.1, bottom=0.82, inside=(-3.9, 3.9, 0.2, 4.1, -3.4, 9.0))])
+        cams=[FC(0.0, [1.9, 1.5, 3.25], [[-2.4, 3.3, GZ], [0.2, 0.0, GZ], [-0.6, 3.3, -3.5], [0.9, 0.0, 1.6]], top=0.1, bottom=0.8, lenses=range(22, 84), inside=(-3.9, 3.9, 0.2, 4.1, -3.4, 3.3))])   # (pass 2) inside the garage (outside it a jagged shadow lay on the floor)
 st.cue('engine', 'S09', UP9, 0.2, 1.4); st.cue('sfx:squeak', 'S09', UP9, 0.2)
 
 # 10: the tyres, fine. Low, at his dangling shoes: the mechanic kicks one: the leg wobbles like rubber; a thumbs-up

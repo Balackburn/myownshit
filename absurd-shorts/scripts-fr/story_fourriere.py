@@ -129,7 +129,7 @@ st.cue('sfx:stepSoft', 'S04', 0.05, 0.2); st.cue('sfx:stepSoft', 'S04', 0.13, 0.
 # 5: him. The truck drives off down the street; he dangles from the hook behind it, swinging, arms rippling
 D5 = st.dur('S05'); ZT5 = -15.0
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', [HX4, LIFT4 + 0.07, HZ4], -90, 'noodle', 'dizzy', keys=[k(0.0, look=None), k(0.0, to=[1.95, LIFT4 + 0.07, round(HOOKZ(ZT5) + 0.55, 3)], dur=D5, glide=True, ease='in', clip='noodle', then='noodle')])],
+        act('mec', [HX4, LIFT4 + 0.07, HZ4], -90, 'noodle', 'dizzy', keys=[k(0.0, look=None), k(0.0, to=[1.95, LIFT4 + 0.07, round(HOOKZ(ZT5) + 0.55, 3)], dur=D5, glide=True, ease='in', clip='noodle', then='noodle', face=-25)])],   # (pass 3) towed off backward, facing us (the glide turned his back to the camera)
         props=[*PARKED(), METER(), CAR(), TRUCK(ZT4, keys=[k(0.0, to=[1.9, 0, ZT5], dur=D5, ease='in')]), BAG(),
                P('hook', 'craneHook', pos=[HKX4, 2.12 + LIFT4, HZ4], opts={'top': TIPY}, keys=[k(0.0, to=[1.98, 2.12 + LIFT4, HOOKZ(ZT5)], dur=D5, ease='in')])],
         cams=[FC(0.0, [-1.3, 2.7, 4.6], [[1.9, TIPY + 0.2, HZ4], [1.9, 0.0, ZT4 - 3.3], [1.9, 0.6, HZ4], [0.9, 0.0, HZ4]], top=0.1, bottom=0.78)])   # higher and to the left: he hangs clear of the car's roof

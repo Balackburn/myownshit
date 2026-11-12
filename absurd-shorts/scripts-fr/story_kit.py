@@ -174,6 +174,65 @@ class Story:
         mix = lambda a, b_: [a[j] + (b_[j] - a[j]) * w for j in range(3)]
         return project(mix(c['from'], c.get('to') or c['from']), mix(c['lookAt'], c.get('lookAt2') or c['lookAt']), c.get('lens', 40), p)
 
+    def audit(self, hero=('mec',), height=2.25, quiet=False):
+        """(cycle 9) A staging check on the declared cameras (explicit cam(...) keys), run by write(): for each camera key, at its start, middle and
+        end, where each actor's feet and head fall in the frame and which way his body faces. Warns (prints) when a whole figure has its head cut by
+        the top, when the feet stand in the caption band (0.77-0.86) under a visible head, and when a hero turns his back to the camera (more than
+        120 degrees: a move without face= turns the body to its heading; face='keep' keeps it). Root positions follow the 'to' keys linearly; poses,
+        stretches and looks are not known here: a warning is a question to check on a still, not a verdict. Returns the list of warnings."""
+        out = []
+        for sc in self.scenes:
+            cs = sorted([c for c in sc['cams'] if 'from' in c], key=lambda c: c['at'])
+            if not cs: continue
+            for a in sc['actors']:
+                if not isinstance(a, dict) or 'pos' not in a: continue
+                keys = sorted([x for x in a.get('keys', []) if isinstance(x, dict)], key=lambda x: x.get('at', 0)); seen = set()
+                pp, ff = list(a['pos']), math.radians(a.get('ry', 0) or 0)   # a glide (carried, floating, sliding) that turns the body: rarely meant
+                for x in keys:
+                    if 'to' in x and isinstance(x['to'], (list, tuple)):
+                        q = x['to']; dh = math.hypot(q[0] - pp[0], q[2] - pp[2])
+                        if x.get('glide') and 'face' not in x and dh > 0.05:
+                            hd_ = math.atan2(q[0] - pp[0], q[2] - pp[2]); turn = abs((hd_ - ff + math.pi) % (2 * math.pi) - math.pi)
+                            if math.degrees(turn) > 45: out.append(f'{sc["id"]} t={x.get("at", 0):.2f}: {a["id"]} turned {math.degrees(turn):.0f} deg by a glide without face= (face=\'keep\' or a yaw keeps him)')
+                            ff = hd_
+                        elif isinstance(x.get('face'), (int, float)): ff = math.radians(x['face'])
+                        elif x.get('face', 'move') == 'move' and dh > 0.05: ff = math.atan2(q[0] - pp[0], q[2] - pp[2])
+                        pp = list(q)
+                    elif isinstance(x.get('face'), (int, float)): ff = math.radians(x['face'])
+                def state(t):
+                    p = list(a['pos']); f = math.radians(a.get('ry', 0) or 0)
+                    for x in keys:
+                        t0 = x.get('at', 0)
+                        if t0 > t: break
+                        if 'to' in x and isinstance(x['to'], (list, tuple)):
+                            q = list(x['to']); d = x.get('dur', 0) or 0; w = 1.0 if d <= 0 else min(1.0, max(0.0, (t - t0) / d))
+                            mode = x.get('face', 'move')
+                            if mode == 'move' and math.hypot(q[0] - p[0], q[2] - p[2]) > 0.05: f = math.atan2(q[0] - p[0], q[2] - p[2]) + (math.pi if x.get('back') else 0)
+                            elif isinstance(mode, (int, float)): f = math.radians(mode)
+                            p = [p[i] + (q[i] - p[i]) * w for i in range(3)] if w < 1 else q
+                        elif isinstance(x.get('face'), (int, float)): f = math.radians(x['face'])
+                    return p, f
+                for i, c in enumerate(cs):
+                    t1 = cs[i + 1]['at'] if i + 1 < len(cs) else sc['duration']
+                    for t in sorted({round(c['at'] + 0.05, 3), round((c['at'] + t1) / 2, 3), round(max(c['at'], t1 - 0.05), 3)}):
+                        p, f = state(t); sc_ = (a.get('scale') or 1.0)
+                        ft = self.where(sc['id'], t, p); hd = self.where(sc['id'], t, [p[0], p[1] + height * sc_, p[2]])
+                        if not ft or not hd: continue
+                        inx = -0.1 <= ft[0] <= 1.1 and -0.1 <= hd[0] <= 1.1
+                        if not inx: continue
+                        msg = None
+                        if hd[1] < 0.0 and 0.0 <= ft[1] <= 1.0: msg = f'{a["id"]} head cut by the top (head y {hd[1]:.2f}, feet y {ft[1]:.2f})'
+                        elif 0.77 <= ft[1] <= 0.86 and 0.0 <= hd[1] < 0.77: msg = f'{a["id"]} feet in the caption band (y {ft[1]:.2f})'
+                        if msg and (msg.split(' (')[0]) not in seen: seen.add(msg.split(' (')[0]); out.append(f'{sc["id"]} t={t:.2f}: {msg}')
+                        lying = any('lie' in str(x.get('clip', '')) for x in keys if x.get('at', 0) <= t) or 'lie' in str(a.get('clip', ''))
+                        if a['id'] in hero and 0.0 <= hd[1] <= 1.0 and not lying:
+                            pos = c['from'] if not c.get('to') else [c['from'][j] + (c['to'][j] - c['from'][j]) * min(1, max(0, (t - c['at']) / max(1e-6, t1 - c['at']))) for j in range(3)]
+                            tc = math.atan2(pos[0] - p[0], pos[2] - p[2]); ang = abs((f - tc + math.pi) % (2 * math.pi) - math.pi)
+                            if math.degrees(ang) > 120 and 'back' not in seen: seen.add('back'); out.append(f'{sc["id"]} t={t:.2f}: {a["id"]} turned {math.degrees(ang):.0f} deg away from the camera (a move without face=? face=\'keep\' keeps the facing)')
+        if not quiet:
+            for w in out: print('  audit', w)
+        return out
+
     def cue(self, name, sid, t=0.0, gain=0.5, *args):
         """an effect at time t inside shot sid (names: see mix.py: thud, clack, clang, pop, thunder, rain dur, whoosh dur lo hi, gust dur, engine dur, sfx:<name>)"""
         self.cues.append([name, round(self.SH[sid][0] + t, 3), gain, *args])
@@ -200,6 +259,8 @@ class Story:
                'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total, **({'look': self.look} if self.look else {}), **doc_extra}
         out = os.path.join(HERE, f'story_{self.name}.json')
         json.dump(doc, open(out, 'w'), indent=1, ensure_ascii=False)
+        try: self.audit()   # (cycle 9) staging warnings: heads cut, feet in the caption band, the hero's back to the camera
+        except Exception as e: print('  audit failed:', e)
         print(out, len(self.scenes), 'shots', self.total, 's')
         return out
 

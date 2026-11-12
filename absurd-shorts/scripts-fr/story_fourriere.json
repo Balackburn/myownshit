@@ -1373,7 +1373,8 @@
        "glide": true,
        "ease": "in",
        "clip": "noodle",
-       "then": "noodle"
+       "then": "noodle",
+       "face": -25
       }
      ],
      "expr": "dizzy"
