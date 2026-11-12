@@ -77,12 +77,15 @@ def fit(frm, points, margin=0.07, top=0.08, bottom=0.92, lenses=range(26, 81), a
     return look, None, {}
 
 
-def fitBack(frm, points, step=0.25, most=14.0, **kw):
+def fitBack(frm, points, step=0.25, most=14.0, level=True, **kw):
     """(cycle 7, story 45) fit() that backs the camera away from the points until a lens fits: it moves along the line from the points' centre to
-    `frm` (so the angle on the action is kept), `step` metres at a time, at most `most` metres. Returns (frm, look, lens); lens None if nothing fits.
+    `frm` (so the angle on the action is kept), `step` metres at a time, at most `most` metres; level=True keeps the camera's height (along the 3D
+    line a low camera that looks up sank under the floor). Returns (frm, look, lens); lens None if nothing fits.
     Prints how far it went when it had to move: put that distance back in the script when it is more than a step or two."""
     P = list(points.values()) if isinstance(points, dict) else list(points)
-    c = [sum(q[i] for q in P) / len(P) for i in range(3)]; d = [frm[i] - c[i] for i in range(3)]; n = math.sqrt(sum(v * v for v in d)) or 1.0; u = [v / n for v in d]
+    c = [sum(q[i] for q in P) / len(P) for i in range(3)]; d = [frm[i] - c[i] for i in range(3)]
+    if level: d[1] = 0.0
+    n = math.sqrt(sum(v * v for v in d)) or 1.0; u = [v / n for v in d]
     back = 0.0
     while back <= most:
         f = [round(frm[i] + u[i] * back, 3) for i in range(3)]
