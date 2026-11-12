@@ -201,6 +201,16 @@ function setupScene(si, analyzing = false) {
   S.cams.sort((a, b) => a.t0 - b.t0);
   S.cams.forEach((c, i) => { c.t1 = i + 1 < S.cams.length ? S.cams[i + 1].t0 : sc.duration; });
   S.cams.forEach(c => { c.sol = solveCam(c, sc); });
+  // (cycle 8) a camera inside a prop films its inside or its back (story 45: a low camera stood in a parked car, a black frame; another behind a
+  // fence, the pickets filling the frame): warn when a camera's start or end point is inside a prop's box as the shot starts (props that move or
+  // that are attached are skipped; o.noCamCheck on a prop's config skips it too)
+  { const box = new THREE.Box3(), q = new THREE.Vector3();
+    for (const Pp of S.props) { if (Pp.cfg.on || Pp.cfg.noCamCheck || Pp.moves?.length || Pp.cfg.camLock) continue;
+      Pp.obj.position.set(...Pp.pos0); Pp.obj.rotation.set(Pp.rx0, Pp.ry0, Pp.rz0); Pp.obj.scale.setScalar(Pp.scale0 || 1); Pp.obj.updateMatrixWorld(true);   // where it stands as the shot starts
+      box.setFromObject(Pp.obj); if (box.isEmpty()) continue;
+      const sz = box.getSize(q.set(0, 0, 0)); if (Math.max(sz.x, sz.y, sz.z) < 0.3) continue;
+      for (const c of S.cams) for (const pt of [c.from, c.to]) { if (!Array.isArray(pt)) continue; q.set(pt[0], pt[1], pt[2]);
+        if (box.containsPoint(q)) { warn(`[${sc.id}] camera at ${pt.map(v => +v.toFixed(2)).join(', ')} is inside prop ${Pp.id} (${Pp.cfg.name})`); break; } } } }
   if (analyzing) collectEvents(sc);
 }
 
@@ -422,6 +432,7 @@ function placeAttached(Pp, k, t) {
   const A = S.actorById[k.attach] || (S.propById[k.attach] ? { obj: S.propById[k.attach].obj, isProp: true } : null); if (!A) return false;
   const j = A.isProp ? A.obj : jointFor(A.obj, k);
   if (Pp.obj.parent !== j) j.add(Pp.obj);
+  Pp.faceKey = k.face === 'camera' ? k : null;   // (cycle 8) turned to the camera after the camera is placed (facePropsToCamera)
   const g = Pp.obj.userData.grip || ZERO, isHand = !k.joint && !A.isProp;
   const off = k.offset || (isHand ? [-g[0], -0.1 - g[1], -g[2]] : ZERO);
   Pp.obj.position.set(off[0], off[1], off[2]);
@@ -462,6 +473,7 @@ function evalProp(Pp, t) {
   const o = propOwnerAt(Pp, t);
   const vis = lastKey(Pp.visKeys, t).visible; Pp.obj.visible = vis;
   if (o && o.attach && placeAttached(Pp, o, t)) { Pp.obj.userData.update?.(t); return; }
+  Pp.faceKey = Pp.cfg.face === 'camera' ? Pp.cfg : null;
   if (Pp.obj.parent !== S.root) S.root.add(Pp.obj);
   if (o && o.detach && o.rel) {
     const dt = Math.max(0, t - o.at), p = o.rel.pos.clone();
@@ -1161,7 +1173,7 @@ export function renderFrame(tAbs) {
     placeCamera(tk); darkPool(tk); if (S.script.debugJoints && k === K - 1) debugJoints(sc, tk);
     if (sc.fogTo && scene.fog && sc.fog) { const u = Math.min(1, Math.max(0, tk / sc.duration)); scene.fog.near = sc.fog.near + (sc.fogTo.near - sc.fog.near) * u; scene.fog.far = sc.fog.far + (sc.fogTo.far - sc.fog.far) * u; }   // sc.fogTo: the veil follows a descending camera
     for (const o of S.follow || []) o.position.copy(camera.position);
-    camLocked(camera);
+    camLocked(camera); facePropsToCamera(camera);
     if (S.look) S.look.render(); else renderer.render(scene, camera);
     const frozen = frozenNow(tk);
     g.globalAlpha = 1 / (k + 1);
@@ -1180,6 +1192,25 @@ function camLocked(camera) {
   let any = false;
   for (const Pp of S.props) { if (!Pp.cfg.camLock) continue; if (!any) { camera.updateMatrixWorld(true); any = true; }
     const o = Pp.obj; _q.setFromEuler(o.rotation); o.position.applyMatrix4(camera.matrixWorld); o.quaternion.copy(camera.quaternion).multiply(_q); o.updateMatrixWorld(true); }
+}
+// (cycle 8) a prop with `face: 'camera'` (on its attach: on={actor, hand|joint, offset, face: 'camera'}, or on a free prop's config) is turned, once the
+// camera is placed, so that its +Z points at the camera and its +Y stays as near world up as it can: a sheet, a phone, a magnifying glass held up to us
+// reads face-on whatever the arm does (an attached prop took the rotation of the hand: sheets were seen edge-on, a thumb pointed sideways, a phone hid
+// behind the head). `faceRoll` (rad) tilts it in its own plane, `faceFlat: true` keeps it upright (turned about the vertical only), `faceAmt` (0..1)
+// blends from the carried rotation to the facing one.
+const _fz = new THREE.Vector3(), _fx = new THREE.Vector3(), _fy = new THREE.Vector3(), _fp = new THREE.Vector3(), _fm = new THREE.Matrix4(), _fq = new THREE.Quaternion(), _pq = new THREE.Quaternion(), _rq = new THREE.Quaternion(), _zA = new THREE.Vector3(0, 0, 1);
+function facePropsToCamera(camera) {
+  let any = false;
+  for (const Pp of S.props) { const k = Pp.faceKey; if (!k || !Pp.obj.visible) continue;
+    if (!any) { camera.updateMatrixWorld(true); any = true; }
+    const o = Pp.obj; o.updateWorldMatrix(true, false); o.getWorldPosition(_fp);
+    _fz.copy(camera.position).sub(_fp); if (k.faceFlat) _fz.y = 0; if (_fz.lengthSq() < 1e-8) continue; _fz.normalize();
+    _fx.set(0, 1, 0).cross(_fz); if (_fx.lengthSq() < 1e-6) _fx.set(1, 0, 0); _fx.normalize(); _fy.copy(_fz).cross(_fx);
+    _fm.makeBasis(_fx, _fy, _fz); _fq.setFromRotationMatrix(_fm);
+    if (k.faceRoll) _fq.multiply(_rq.setFromAxisAngle(_zA, k.faceRoll));
+    if (o.parent) { o.parent.getWorldQuaternion(_pq); _fq.premultiply(_pq.invert()); }
+    const a = k.faceAmt ?? 1; if (a >= 1) o.quaternion.copy(_fq); else o.quaternion.slerp(_fq, a);
+    o.updateMatrixWorld(true); }
 }
 // sc.dark: [[t, k, ramp?], ...]: the lights go off and on. Steps of darkness (0 = lit, 1 = dark), each reached in `ramp` seconds (default one frame: a switch).
 // What is left of the picture: sc.darkFloor (0.05: faint cold silhouettes; 0: black), sc.darkTint. The eyes of the face rig stay visible, and any prop with
