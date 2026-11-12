@@ -60,16 +60,16 @@ st.cue('sfx:beep', 'S02', SC2 - 0.1, 0.3); st.cue('sfx:zip', 'S02', SC2, 0.35); 
 # 3: the copy came out of the tray. Low at the tray: the copy slides out flat on its back, head first, black and white, drops to the floor and springs up
 #    as thin as paper, fluttering; behind, on the glass, his jaw drops
 D3 = st.dur('S03'); OUT3 = round(st.at('S03', 'L03', 1) - 0.1, 3); UP3 = round(st.at('S03', 'L03', 3) - 0.05, 3)
-COPY3 = [round(TRAY[0] + 0.05, 3), 0, round(CP[2] + 0.4, 3)]
+COPY3 = [round(TRAY[0] + 0.12, 3), 0, round(CP[2] + 0.9, 3)]   # (pass 2) to the side: in front of him it hid his head
 st.shot('S03', 'office', setOpts=OF, actors=[
         act('copie', [round(CP[0] + 0.25, 3), 0.62, CP[2]], -90, 'stiffStand', 'neutral', keys=[k(0.0, look=None), k(0.0, toon={**FLAT, 'lay': [-1.57, 0]}, toonDur=0.0), k(0.0, visible=False),
             k(OUT3, visible=True), k(OUT3, to=[TRAY[0], 0.62, CP[2]], dur=round(UP3 - OUT3 - 0.12, 3), glide=True, ease='out', face=-90),   # out of the tray, head first
-            k(round(UP3 - 0.1, 3), to=COPY3, dur=0.12, glide=True, ease='in', face=0),   # onto the floor...
+            k(round(UP3 - 0.1, 3), to=COPY3, dur=0.12, glide=True, ease='in', face=90),   # onto the floor...   # (pass 2) it springs up facing the camera at the end of the tray
             k(round(UP3 + 0.02, 3), toon={**FLAT, 'lay': [0.2, 0]}, toonDur=0.08, toonEase='out'), k(round(UP3 + 0.12, 3), toon={**FLUT(1.5), 'lay': [-0.08, 0]}, toonDur=0.08),   # ...and it springs up past upright
             k(round(UP3 + 0.24, 3), toon=FLUT(1.0), toonDur=0.1), k(round(UP3 + 0.3, 3), look='camera')]),
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[TRAY[0], 0.7, TRAY[2]]), k(0.0, toon={'face': {'lid': 0.3}}, toonDur=0.0), *take(round(UP3 + 0.05, 3), 'jaw', hold=0.4)])],
         props=[COPIER(sheetsAt=[round(OUT3 - 0.05, 3)])],
-        cams=[FC(0.0, [round(TRAY[0] + 1.75, 3), 1.5, round(CP[2] + 1.2, 3)], [[CP[0], 2.45, CP[2]], [round(CP[0] - 0.35, 3), 0.0, CP[2]], [COPY3[0], 2.35, COPY3[2]], [COPY3[0], 0.0, round(COPY3[2] + 0.3, 3)], [round(TRAY[0] + 0.3, 3), 0.6, TRAY[2]]], top=0.12, bottom=0.76, drift=(-0.04, 0, -0.05))])   # (pass 2) at the end of the tray, a little above it: the copy slides out toward us, him whole on the glass behind (from above the floor filled the frame)   # (first look) from above: the copy flat as a sheet reads face up (from low it was a line)
+        cams=[FC(0.0, [round(TRAY[0] + 1.55, 3), 1.85, round(CP[2] + 1.1, 3)], [[CP[0], 2.45, CP[2]], [round(CP[0] - 0.35, 3), 0.0, CP[2]], [COPY3[0], 2.35, COPY3[2]], [COPY3[0], 0.0, round(COPY3[2] + 0.3, 3)], [round(TRAY[0] + 0.3, 3), 0.6, TRAY[2]]], top=0.12, bottom=0.76, drift=(-0.04, 0, -0.05))])   # (pass 2) at the end of the tray, a little above it: the copy slides out toward us, him whole on the glass behind (from above the floor filled the frame)   # (first look) from above: the copy flat as a sheet reads face up (from low it was a line)
 st.cue('sfx:paper', 'S03', OUT3, 0.35); st.cue('sfx:spring', 'S03', UP3 + 0.02, 0.35)
 
 # 4: human resources hired it. (pass 2) Seen side-on: the copy faces us, flat as a sheet, and reaches across to her over the desk with its paper arm, a wave
@@ -96,7 +96,7 @@ st.cue('sfx:cuff', 'S04', EMB4, 0.4)
 # 5: a copy costs only paper. The price board on the wall: LUI : 2 400 € / COPIE : 0,02 €; she taps the copy's price; he sweats, the copy smiles flat.
 #    (pass 2) Tighter: both of them whole, her shoulder at the left edge, the board text twice the size, the copy's price the bigger line
 D5 = st.dur('S05'); CO5 = round(st.at('S05', 'L05', 4) - 0.1, 3)
-BOARD = [-2.3, 1.5, -3.5]; ME5 = [-1.65, 0, -2.3]; CPY5 = [-2.95, 0, -2.3]; DRH5 = [-3.7, 0, -2.85]
+BOARD = [-2.3, 1.5, -3.5]; ME5 = [-1.3, 0, -2.3]; CPY5 = [-3.3, 0, -2.3]; DRH5 = [-4.05, 0, -2.85]   # (pass 2) both outside the board (his head hid its euro sign)
 st.shot('S05', 'office', setOpts=OF, actors=[
         act('mec', ME5, -10, 'stand', 'worried', keys=[k(0.0, look=[BOARD[0], 2.1, BOARD[2]]), k(round(CO5 + 0.1, 3), look='camera'), k(round(CO5 + 0.1, 3), toon={'face': {'sweat': 1, 'brow': 0.7}}, toonDur=0.1)]),
         act('copie', CPY5, 10, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon=FLUT(0.6), toonDur=0.0)]),
@@ -116,7 +116,7 @@ st.shot('S06', 'office', setOpts=OF, actors=[
             k(GO6, toon={'reach': {'R': [*BTN, 1, 0.06]}, 'hands': {'R': 'point'}}, toonDur=0.04, toonEase='in'), k(round(GO6 + 0.25, 3), toon={}, toonDur=0.15), k(round(GO6 + 0.3, 3), look=[-0.5, 1.2, -1.0])])],
         props=[COPIER(lid=0.0), P('copies6', 'copyFountain', pos=[0, 0, 0], opts={'n': 35, 'from': TRAY, 'grid': GRID, 't0': round(GO6 + 0.1, 3), 't1': round(D6 - 0.25, 3), 'flight': 0.5, 'recto': True, 'cool': '#E4ECFF'})],
         cams=[cam(0.0, [round(CP[0] + 0.9, 3), 1.42, round(CP[2] + 1.0, 3)], [round(CP[0] + 0.86, 3), 1.38, round(CP[2] + 0.94, 3)], [BTN[0], 1.0, BTN[2]], [BTN[0], 1.0, BTN[2]], lens=34),   # (pass 2) her finger on the button (unseen in the wide)
-              FC(round(GO6 + 0.12, 3), [-0.4, 1.05, 4.7], [[CP[0], 1.9, CP[2]], [GRID['x0'], 2.3, GRID['z0']], [GRID['x0'], 0.0, round(GRID['z0'] + 4 * GRID['dz'], 3)], [round(GRID['x0'] + 6 * GRID['dx'], 3), 0.0, round(GRID['z0'] + 4 * GRID['dz'], 3)]], top=0.1, bottom=0.82, drift=(0.1, 0, -0.1))])   # (pass 2) low in front: the rows fill the floor toward us
+              FC(round(GO6 + 0.12, 3), [-0.3, 1.0, 3.7], [[round(GRID['x0'] + 2 * GRID['dx'], 3), 2.3, round(GRID['z0'] + 2 * GRID['dz'], 3)], [round(GRID['x0'] + 4 * GRID['dx'], 3), 2.3, round(GRID['z0'] + 2 * GRID['dz'], 3)], [round(GRID['x0'] + 2 * GRID['dx'], 3), 0.0, round(GRID['z0'] + 4 * GRID['dz'], 3)], [round(GRID['x0'] + 4 * GRID['dx'], 3), 0.0, round(GRID['z0'] + 4 * GRID['dz'], 3)]], top=0.1, bottom=0.84, drift=(0.1, 0, -0.1))])   # (pass 2) three columns framed, the rows running out past the edges (the whole grid made them small)   # (pass 2) low in front: the rows fill the floor toward us
 st.cue('sfx:beep', 'S06', GO6, 0.3); [st.cue('sfx:paper', 'S06', round(GO6 + 0.15 + 0.22 * i, 3), 0.2) for i in range(6)]
 
 # 7: double-sided, to save. (pass 2) Close on one copy: its front held, a little squash, it turns to edge-on (a line, held three frames) and on round to
@@ -136,7 +136,7 @@ st.cue('whoosh', 'S07', VE7, 0.3, 0.2, 600, 2400); st.cue('sfx:paper', 'S07', VE
 
 # 8: him, they fired him. She shoves a cardboard box into his arms (his plant, his mug); behind him the copies stand in their rows
 D8 = st.dur('S08'); LIC8 = round(st.at('S08', 'L08', 3) - 0.12, 3)
-ME8 = [0.9, 0, 1.75]; HOLD8 = {'reach': {'L': [*OFF(ME8, 0, 0.35, -0.22, 1.15), 1, 0.05], 'R': [*OFF(ME8, 0, 0.35, 0.22, 1.15), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}
+ME8 = [0.9, 0, 1.75]; HOLD8 = {'reach': {'L': [*OFF(ME8, 0, 0.35, -0.22, 1.02), 1, 0.05], 'R': [*OFF(ME8, 0, 0.35, 0.22, 1.02), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}
 st.shot('S08', 'office', setOpts=OF, actors=[
         act('mec', ME8, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(LIC8, toon={**HOLD8, 'sq': [1.12, 0.86, 1.12], 'lay': [-0.14, 0], 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.04), k(LIC8, to=[ME8[0], 0, round(ME8[2] - 0.2, 3)], dur=0.12, glide=True, ease='out', face='keep'),   # (pass 2) shoved back a step, squashed
             k(round(LIC8 + 0.14, 3), toon={**HOLD8, 'sq': [0.96, 1.05, 0.96], 'lay': [0.05, 0]}, toonDur=0.1),
@@ -144,9 +144,9 @@ st.shot('S08', 'office', setOpts=OF, actors=[
         act('drh', [1.75, 0, 2.2], -110, 'stand', 'neutral', keys=[k(0.0, look=[ME8[0], 1.4, ME8[2]]), k(round(LIC8 - 0.2, 3), toon={'reach': {'R': [*OFF(ME8, 0, 0.55, 0.25, 1.2), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.12),
             k(LIC8, toon={'reach': {'R': [*OFF(ME8, 0, 0.38, 0.25, 1.15), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05, toonEase='in'), k(round(LIC8 + 0.15, 3), toon={}, toonDur=0.15), k(round(LIC8 + 0.2, 3), look='camera')])],
         props=[P('copies8', 'copyFountain', pos=[0, 0, 0], opts={'n': 35, 'start': 35, 'recto': True, 'grid': GRID, 'cool': '#E4ECFF'}),
-               P('box8', 'cardboardBox', pos=[round(ME8[0] + 0.65, 3), 1.0, round(ME8[2] + 0.55, 3)], scale=0.7, opts={'text': ''}, keys=[k(round(LIC8 - 0.15, 3), to=[ME8[0], 0.95, round(ME8[2] + 0.4, 3)], dur=0.15, ease='in')]),
-               P('plant8', 'plant', pos=[round(ME8[0] + 0.6, 3), 1.32, round(ME8[2] + 0.55, 3)], scale=0.45, keys=[k(round(LIC8 - 0.15, 3), to=[round(ME8[0] - 0.08, 3), 1.27, round(ME8[2] + 0.4, 3)], dur=0.15, ease='in')]),
-               P('mug8', 'mug', pos=[round(ME8[0] + 0.75, 3), 1.32, round(ME8[2] + 0.55, 3)], keys=[k(round(LIC8 - 0.15, 3), to=[round(ME8[0] + 0.1, 3), 1.27, round(ME8[2] + 0.42, 3)], dur=0.15, ease='in')])],
+               P('box8', 'cardboardBox', pos=[round(ME8[0] + 0.65, 3), 0.9, round(ME8[2] + 0.55, 3)], scale=0.7, opts={'text': ''}, keys=[k(round(LIC8 - 0.15, 3), to=[ME8[0], 0.82, round(ME8[2] + 0.4, 3)], dur=0.15, ease='in')]),
+               P('plant8', 'plant', pos=[round(ME8[0] + 0.6, 3), 1.2, round(ME8[2] + 0.55, 3)], scale=0.32, keys=[k(round(LIC8 - 0.15, 3), to=[round(ME8[0] - 0.12, 3), 1.12, round(ME8[2] + 0.4, 3)], dur=0.15, ease='in')]),   # (pass 2) lower and smaller: it hid his face
+               P('mug8', 'mug', pos=[round(ME8[0] + 0.75, 3), 1.2, round(ME8[2] + 0.55, 3)], keys=[k(round(LIC8 - 0.15, 3), to=[round(ME8[0] + 0.1, 3), 1.14, round(ME8[2] + 0.42, 3)], dur=0.15, ease='in')])],
         cams=[FC(0.0, [0.6, 1.5, 4.2], [[ME8[0], 2.45, ME8[2]], [ME8[0], 0.55, ME8[2]], [1.75, 2.3, 2.2], [round(ME8[0] - 0.55, 3), 1.5, ME8[2]]], top=0.12, bottom=0.76, drift=(0.0, 0.0, -0.1))])   # (pass 2) a medium two-shot on the box, the rows behind (wide, the floor filled the bottom third)
 st.cue('thud', 'S08', LIC8, 0.35)
 
@@ -162,7 +162,7 @@ st.shot('S09', 'office', setOpts=OF, actors=[
             k(round(NC9 + 0.48, 3), toon={**HOLD8, 'face': {'cross': 0.4, 'lid': 0.3}}, toonDur=0.12), k(round(NC9 + 0.9, 3), toon={**HOLD8, 'face': {'lid': 0.55, 'brow': -0.2}}, toonDur=0.2)]),
         act('drh', [1.7, 0, 2.15], -115, 'stand', 'neutral', keys=[k(0.0, look=[ME9[0], 2.1, ME9[2]]), k(round(NC9 - 0.25, 3), toon={'reach': {'R': [round(ME9[0] + 0.15, 3), 2.45, round(ME9[2] + 0.35, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.12),
             k(round(NC9 - 0.03, 3), toon={'reach': {'R': [round(ME9[0] + 0.05, 3), 2.15, round(ME9[2] + 0.24, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.03, toonEase='in'), k(round(NC9 + 0.15, 3), toon={}, toonDur=0.15)])],
-        props=[P('box9', 'cardboardBox', pos=[ME9[0], 0.95, round(ME9[2] + 0.4, 3)], scale=0.7, opts={'text': ''}), P('plant9', 'plant', pos=[round(ME9[0] - 0.08, 3), 1.27, round(ME9[2] + 0.4, 3)], scale=0.45),
+        props=[P('box9', 'cardboardBox', pos=[ME9[0], 0.82, round(ME9[2] + 0.4, 3)], scale=0.7, opts={'text': ''}), P('plant9', 'plant', pos=[round(ME9[0] - 0.12, 3), 1.12, round(ME9[2] + 0.4, 3)], scale=0.32),
                P('nc9', 'stampPop', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.42, 0.22]}, opts={'text': 'NON CONFORME', 'w': 0.2, 'rot': -0.1, 'at': NC9})],   # (pass 2) on the forehead (it hung past his head)
         cams=[FC(0.0, [round(ME9[0] - 0.3, 3), 2.0, round(ME9[2] + 1.9, 3)], [[ME9[0], 2.55, ME9[2]], [ME9[0], 1.45, ME9[2]], [round(ME9[0] - 0.4, 3), 2.0, ME9[2]], [round(ME9[0] + 0.4, 3), 2.0, ME9[2]]], top=0.14, bottom=0.7)])
 st.cue('sfx:cuff', 'S09', NC9, 0.45)
@@ -171,7 +171,7 @@ st.cue('sfx:cuff', 'S09', NC9, 0.45)
 #     squashes, then swells back against the jaws); the big readout: 30 cm; she stands beside him; next to him the copy, edge-on to us: a line
 D10 = st.dur('S10'); EP10 = round(st.at('S10', 'L09b', 1) - 0.15, 3)
 ME10 = [0.6, 0, 0.0]; CAM10 = [2.15, 1.55, 2.6]
-CPY10 = [round(ME10[0] - 0.75, 3), 0, round(ME10[2] - 0.15, 3)]; RY10C = round(math.degrees(math.atan2(CAM10[0] - CPY10[0], CAM10[2] - CPY10[2])) + 90, 1)   # edge-on to the lens
+CPY10 = [round(ME10[0] - 0.62, 3), 0, round(ME10[2] + 0.12, 3)]; RY10C = round(math.degrees(math.atan2(CAM10[0] - CPY10[0], CAM10[2] - CPY10[2])) + 90, 1)   # edge-on to the lens
 CAL10 = [round(ME10[0] - 0.22, 3), 1.52, round(ME10[2] + 0.02, 3)]
 st.shot('S10', 'office', setOpts=OF, actors=[
         act('mec', ME10, 90, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.5}}, toonDur=0.0),
@@ -180,7 +180,7 @@ st.shot('S10', 'office', setOpts=OF, actors=[
         act('copie', CPY10, RY10C, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=FLAT, toonDur=0.0)]),
         act('drh', [round(ME10[0] + 0.95, 3), 0, round(ME10[2] - 0.35, 3)], -110, 'stand', 'neutral', keys=[k(0.0, look=[ME10[0], 1.5, ME10[2]]), k(0.0, toon={'reach': {'R': [round(CAL10[0] + 0.36, 3), 1.5, round(CAL10[2] + 0.02, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.0)])],
         props=[P('cal10', 'caliper', pos=CAL10, opts={'len': 1.0, 'jaw': 0.32, 'dispW': 0.42, 'gapEase': 0.05, 'gapKeys': [[0.0, 0.8], [0.04, 0.3], [0.16, 0.36]], 'text': [[0.0, ''], [0.1, '30 cm']]})],
-        cams=[FC(0.0, CAM10, [[ME10[0], 2.45, ME10[2]], [ME10[0], 0.4, ME10[2]], [CPY10[0], 2.45, CPY10[2]], [round(ME10[0] + 0.95, 3), 2.3, round(ME10[2] - 0.35, 3)], [CAL10[0], 1.6, CAL10[2]]], top=0.2, bottom=0.74)])   # (pass 2) the heads below the title band
+        cams=[FC(0.0, CAM10, [[ME10[0], 2.45, ME10[2]], [ME10[0], 0.9, ME10[2]], [CPY10[0], 2.45, CPY10[2]], [round(ME10[0] + 0.95, 3), 2.3, round(ME10[2] - 0.35, 3)], [CAL10[0], 1.6, CAL10[2]]], top=0.2, bottom=0.74)])   # (pass 2) the heads below the title band, framed to the knees   # (pass 2) the heads below the title band
 st.cue('sfx:clink', 'S10', 0.06, 0.35)
 st.card('S10', '30 cm', at=round(EP10 + 0.18, 3))
 
@@ -189,15 +189,15 @@ st.card('S10', '30 cm', at=round(EP10 + 0.18, 3))
 D11 = st.dur('S11'); SL11 = round(st.at('S11', 'L10', 4) - 0.08, 3)
 ME11 = [round(DESK[0] + 0.05, 3), 0, round(DESK[2] + 0.75, 3)]
 st.shot('S11', 'office', setOpts=OF, actors=[
-        act('mec', ME11, 180, 'stand', 'angry', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [round(ME11[0] + 0.32, 3), 2.0, round(ME11[2] - 0.12, 3), 1, 0.06]}, 'hands': {'R': 'grip'}, 'face': {'red': 0.5, 'brow': -0.8}}, toonDur=0.0),   # (pass 2) the form held up to us
+        act('mec', ME11, 180, 'stand', 'angry', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [round(ME11[0] + 0.62, 3), 1.75, round(ME11[2] + 0.05, 3), 1, 0.06]}, 'hands': {'R': 'grip'}, 'face': {'red': 0.5, 'brow': -0.8}}, toonDur=0.0),   # (pass 2) the form held up to us, beside his head
             k(round(SL11 - 0.16, 3), toon={'reach': {'R': [round(ME11[0] + 0.15, 3), 2.25, round(ME11[2] - 0.2, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'red': 0.7, 'brow': -0.9}}, toonDur=0.08), k(round(SL11 - 0.1, 3), look=[DESK[0], 0.8, DESK[2]]),
             k(SL11, toon={'reach': {'R': [round(DESK[0] + 0.05, 3), 0.8, round(DESK[2] + 0.2, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'red': 1, 'brow': -0.9, 'jaw': 0.4}, 'sq': [1.05, 0.94, 1.05]}, toonDur=0.04, toonEase='in'),   # slap
             k(round(SL11 + 0.3, 3), toon={'reach': {'R': [round(DESK[0] + 0.05, 3), 0.8, round(DESK[2] + 0.2, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'red': 1, 'brow': -0.9, 'steam': 1, 'steamInk': 1}}, toonDur=0.1)]),
-        act('drh', DRH, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[round(DESK[0] - 0.25, 3), 0.78, round(DESK[2] - 0.1, 3)]), k(0.0, toon={'face': {'gy': 0.8, 'lid': 0.45}}, toonDur=0.0), k(round(SL11 + 0.05, 3), toon={'face': {'gy': 0.8, 'lid': 0.55}}, toonDur=0.05)])],   # (pass 2) eyes down on her papers
+        act('drh', DRH, 40, 'stand', 'unimpressed', keys=[k(0.0, look=[round(DESK[0] - 0.25, 3), 0.78, round(DESK[2] - 0.1, 3)]), k(0.0, toon={'face': {'gy': 0.8, 'lid': 0.45}}, toonDur=0.0), k(round(SL11 + 0.05, 3), toon={'face': {'gy': 0.8, 'lid': 0.55}}, toonDur=0.05)])],   # (pass 2) eyes down on her papers
         props=[P('desk11', 'desk', pos=DESK), P('papers11', 'paperReam', pos=[round(DESK[0] - 0.25, 3), 0.77, round(DESK[2] - 0.1, 3)]),
                P('form11h', 'paperSheet', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.0, 0.05], 'face': 'camera'}, opts={'w': 0.42, 'h': 0.56, 'head': 'RÉCLAMATION', 'lines': ['Je suis', "l'original."], 'lineSize': 0.08, 'paper': '#FFFFFF', 'bright': True}, keys=[k(round(SL11 - 0.04, 3), visible=False)]),   # (pass 2) brandished to us (flat on the desk it was 8 px)
                P('form11', 'paperSheet', pos=[round(DESK[0] + 0.05, 3), 0.775, round(DESK[2] + 0.2, 3)], rot=[-PI / 2, 0, 0], opts={'w': 0.34, 'h': 0.46, 'head': 'RÉCLAMATION', 'lines': ['Je suis', "l'original."], 'lineSize': 0.08, 'paper': '#FFFFFF', 'bright': True}, keys=[k(0.0, visible=False), k(round(SL11 - 0.04, 3), visible=True)])],
-        cams=[FC(0.0, [round(DESK[0] + 1.75, 3), 1.7, round(DESK[2] + 0.45, 3)], [[ME11[0], 2.45, ME11[2]], [DRH[0], 2.3, DRH[2]], [round(ME11[0] + 0.35, 3), 2.45, round(ME11[2] - 0.15, 3)], [ME11[0], 0.75, ME11[2]], [DRH[0], 0.9, DRH[2]]], top=0.12, bottom=0.74)])   # (pass 2) side-on: both faces
+        cams=[FC(0.0, [round(DESK[0] + 1.35, 3), 1.7, round(DESK[2] - 0.15, 3)], [[ME11[0], 2.45, ME11[2]], [DRH[0], 2.3, DRH[2]], [round(ME11[0] + 0.62, 3), 2.1, round(ME11[2] + 0.05, 3)], [round(ME11[0] + 0.7, 3), 1.45, round(ME11[2] + 0.05, 3)], [round(ME11[0] + 0.35, 3), 2.45, round(ME11[2] - 0.15, 3)], [ME11[0], 0.75, ME11[2]], [DRH[0], 0.9, DRH[2]]], top=0.12, bottom=0.74)])   # (pass 2) side-on: both faces
 st.cue('thud', 'S11', SL11, 0.45)
 
 # 12: it was photocopied in five hundred copies. (pass 2) Close at the copier: she slaps the form on the glass and hits the button; cut to him: copies of the
@@ -209,17 +209,17 @@ st.shot('S12', 'office', setOpts=OF, actors=[
         act('mec', ME12, 30, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0), *take(round(D12 - 0.85, 3), 'stalks', hold=0.3)]),   # (pass 2) the pile at his neck: his eyes shoot out
         act('drh', [round(CP[0] + 0.35, 3), 0, round(CP[2] + 0.85, 3)], -160, 'stand', 'neutral', keys=[k(0.0, look=[CP[0], 1.0, CP[2]]), k(0.0, toon={'reach': {'R': [GLASS[0], 1.02, GLASS[2], 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.0),   # the form slapped on the glass...
             k(round(GO12 - 0.1, 3), toon={'reach': {'R': [BTN[0], 1.1, round(BTN[2] + 0.05, 3), 1, 0.06]}, 'hands': {'R': 'point'}}, toonDur=0.06), k(GO12, toon={'reach': {'R': [*BTN, 1, 0.06]}, 'hands': {'R': 'point'}}, toonDur=0.04, toonEase='in'), k(round(GO12 + 0.2, 3), toon={}, toonDur=0.15)])],   # ...the button
-        props=[COPIER(lid=0.0, scanAt=GO12, scanDur=0.35), P('form12', 'paperSheet', pos=GLASS, rot=[-PI / 2, 0, 0], opts={'w': 0.34, 'h': 0.46, 'head': 'RÉCLAMATION', 'lines': ['Je suis', "l'original."], 'lineSize': 0.08, 'paper': '#FFFFFF', 'bright': True}),
+        props=[COPIER(lid=1.25, lidKeys=[[0.0, 1.25], [round(GO12 - 0.12, 3), 0.0]], scanAt=GO12, scanDur=0.35), P('form12', 'paperSheet', pos=GLASS, rot=[-PI / 2, 0, 0], opts={'w': 0.34, 'h': 0.46, 'head': 'RÉCLAMATION', 'lines': ['Je suis', "l'original."], 'lineSize': 0.08, 'paper': '#FFFFFF', 'bright': True}),
                P('rain12', 'paperFountain', pos=[0, 0, 0], opts={'n': 80, 'from': [TRAY[0], 0.7, TRAY[2]], 'pile': [ME12[0], ME12[2]], 'r': 0.62, 'pileH': 1.82, 't0': round(CUT12 + 0.05, 3), 't1': round(D12 - 0.5, 3), 'text': 'RÉCLAMATION', 'stack': True, 'rain': True, 'rainH': 3.3}),   # (pass 2) raining from above, stacked sheets (a smooth cone read as a ball gown)
                P('top12', 'paperSheet', pos=[round(ME12[0] + 0.05, 3), 3.3, ME12[2]], rot=[-PI / 2, 0, 0.4], opts={'w': 0.3, 'h': 0.42, 'head': 'RÉCLAMATION', 'paper': '#FFFFFF', 'bright': True}, keys=[k(0.0, visible=False), k(round(D12 - 0.42, 3), visible=True), k(round(D12 - 0.42, 3), to=[round(ME12[0] + 0.05, 3), 2.56, ME12[2]], dur=0.3, ease='in')])],   # the last one lands on his head
-        cams=[cam(0.0, [round(CP[0] + 0.6, 3), 1.75, round(CP[2] + 0.95, 3)], [round(CP[0] + 0.56, 3), 1.72, round(CP[2] + 0.9, 3)], [round(CP[0] + 0.12, 3), 0.98, round(CP[2] + 0.15, 3)], [round(CP[0] + 0.15, 3), 0.98, round(CP[2] + 0.17, 3)], lens=30),   # (pass 2) the form on the glass, her finger on the button
+        cams=[cam(0.0, [round(CP[0] - 0.62, 3), 1.78, round(CP[2] + 0.88, 3)], [round(CP[0] - 0.58, 3), 1.75, round(CP[2] + 0.84, 3)], [round(CP[0] + 0.12, 3), 0.98, round(CP[2] + 0.18, 3)], [round(CP[0] + 0.15, 3), 0.98, round(CP[2] + 0.2, 3)], lens=30),   # (pass 2) the form on the glass, her finger on the button
               FC(CUT12, [round(ME12[0] + 0.35, 3), 1.65, round(ME12[2] + 2.7, 3)], [[ME12[0], 3.0, ME12[2]], [ME12[0], 0.0, ME12[2]], [round(ME12[0] - 0.75, 3), 0.3, ME12[2]], [round(ME12[0] + 0.75, 3), 0.3, ME12[2]]], top=0.08, bottom=0.76, drift=(0.0, 0.0, -0.1))])   # then on him, the sheets falling from the top of the frame
 st.cue('sfx:beep', 'S12', GO12, 0.3); [st.cue('sfx:paper', 'S12', round(CUT12 + 0.1 + 0.25 * i, 3), 0.2) for i in range(6)]; st.cue('pop', 'S12', D12 - 0.85, 0.25)
 
 # 13: since then he puts paper in the machine. (pass 2) One pose: on his knees beside the open drawer, three-quarter to us, he slides an oversized ream in;
 #     behind him the copies in their rows; he looks at us; a slow blink before the end (no more turning round and jumping up)
 D13 = st.dur('S13'); RM13 = round(st.at('S13', 'L12', 2) - 0.1, 3)
-ME13 = [round(CP[0] - 0.72, 3), 0, round(CP[2] + 0.78, 3)]; RY13 = 55
+ME13 = [round(CP[0] - 0.72, 3), 0, round(CP[2] + 0.78, 3)]; RY13 = 35   # (pass 2) three-quarter to us, the drawer at his right
 DRW = [round(CP[0] - 0.08, 3), 0.3, round(CP[2] + 0.48, 3)]           # the mouth of the paper drawer
 IN13 = [round(ME13[0] + 0.42, 3), 0.62, round(ME13[2] + 0.12, 3)]     # the ream in his hands
 REAMK = lambda c: {'reach': {'L': [round(c[0] - 0.05, 3), c[1], round(c[2] + 0.17, 3), 1, 0.05], 'R': [round(c[0] + 0.05, 3), c[1], round(c[2] - 0.17, 3), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}
@@ -229,8 +229,8 @@ st.shot('S13', 'office', setOpts=OF, actors=[
             k(round(RM13 + 0.55, 3), look='camera'), k(round(RM13 + 0.55, 3), toon={**REAMK([DRW[0] - 0.06, DRW[1] + 0.04, DRW[2] + 0.06]), 'face': {'lid': 0.45}}, toonDur=0.15),   # ...his hands still on it, to us
             k(round(D13 - 0.62, 3), toon={**REAMK([DRW[0] - 0.06, DRW[1] + 0.04, DRW[2] + 0.06]), 'face': {'lid': 1}}, toonDur=0.14), k(round(D13 - 0.4, 3), toon={**REAMK([DRW[0] - 0.06, DRW[1] + 0.04, DRW[2] + 0.06]), 'face': {'lid': 0.45}}, toonDur=0.16)])],   # a slow blink
         props=[COPIER(lid=0.0, drawerAt=0.0), P('ream13', 'paperReam', pos=IN13, scale=1.7, keys=[k(RM13, to=DRW, dur=0.35, ease='inOut')]),   # (pass 2) oversized (it was 25 px)
-               P('copies13', 'copyFountain', pos=[0, 0, 0], opts={'n': 10, 'start': 10, 'recto': True, 'cool': '#E4ECFF', 'grid': {'x0': round(CP[0] - 3.4, 3), 'z0': -2.75, 'dx': 0.62, 'dz': 0.62, 'cols': 5}})],   # behind him along the wall
-        cams=[FC(0.0, [round(CP[0] - 2.1, 3), 1.25, round(CP[2] + 3.0, 3)], [[ME13[0], 1.85, ME13[2]], [ME13[0], 0.0, ME13[2]], [CP[0], 1.1, CP[2]], [round(CP[0] - 3.0, 3), 2.2, -2.75], [round(CP[0] + 0.5, 3), 0.2, round(CP[2] + 0.5, 3)]], top=0.14, bottom=0.76, drift=(0.04, 0, -0.06))])
+               P('copies13', 'copyFountain', pos=[0, 0, 0], opts={'n': 6, 'start': 6, 'recto': True, 'cool': '#E4ECFF', 'grid': {'x0': round(CP[0] - 2.75, 3), 'z0': -3.1, 'dx': 0.62, 'dz': 0.55, 'cols': 3}})],   # behind him along the wall, to his left, in the frame
+        cams=[FC(0.0, [round(CP[0] - 1.05, 3), 0.95, round(CP[2] + 3.1, 3)], [[ME13[0], 1.9, ME13[2]], [ME13[0], 0.1, round(ME13[2] + 0.3, 3)], [round(CP[0] + 0.55, 3), 1.05, CP[2]], [round(ME13[0] - 0.9, 3), 1.9, round(ME13[2] - 0.4, 3)]], top=0.14, bottom=0.78, drift=(0.04, 0, -0.06))])   # (pass 2) low in front of him, three-quarter
 st.cue('sfx:paper', 'S13', RM13, 0.3)
 
 st.write("La photocopieuse", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, extra_cast={
