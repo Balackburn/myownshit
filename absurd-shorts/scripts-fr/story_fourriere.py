@@ -381,7 +381,7 @@ st.shot('S21', 'parisStreet', setOpts=STREET, actors=[
         fx=[{'type': 'shake', 'at': HIT21, 'dur': 0.15, 'amount': 0.014}],
         cams=[FC(0.0, [0.6, 0.85, round(ZP - 3.9, 3)], [[2.75, 0.0, round(CARZ - 1.85, 3)], [4.45, 1.75, round(CARZ - 1.85, 3)], [LIE[0], 0.05, round(HEADZ - 0.3, 3)], [CARX, HANG + 1.0, round(CARZ - 0.6, 3)]], top=0.1, bottom=0.8),   # (pass 2) the drop, from the front-left
               cam(0.38, FLATCAM[0], r3([FLATCAM[0][0], FLATCAM[0][1] - 0.06, FLATCAM[0][2] - 0.04]), FLATCAM[1], FLATCAM[1], lens=FLATCAM[2])])   # then from above the bonnet: his flat face right side up
-st.cue('splat', 'S21', HIT21, 0.55); st.cue('thud', 'S21', HIT21, 0.5); st.cue('sfx:spring', 'S21', HIT21 + 0.08, 0.25)
+st.cue('sfx:splat', 'S21', HIT21, 0.55); st.cue('thud', 'S21', HIT21, 0.5); st.cue('sfx:spring', 'S21', HIT21 + 0.08, 0.25)
 
 # 22: he pays for the space. His arm comes out from under the car and stretches all the way to the pay machine; a card at the slot: beep; the ticket
 #     comes out; the hand brings it back and holds it up beside his flat face. The car looks down at him, blinks, and gives a tiny honk

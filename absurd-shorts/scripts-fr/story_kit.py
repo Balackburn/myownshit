@@ -291,6 +291,15 @@ class Story:
 
     def write(self, title, extra_cast=None, **doc_extra):   # doc_extra: extra top-level keys of the script (rig='toon': the cartoon rig for every human, faces={...}: the story's own expressions)
         d = os.path.join(ROOT, 'stories7', self.name)
+        try:   # (cycle 10) a cue the final mix cannot play fails only after the 1080p render (45: 'splat' without 'sfx:'): say it now
+            import re as _re
+            _a3 = open(os.path.join(ROOT, 'tools', 'audio3.py')).read() + open(os.path.join(ROOT, 'tools', 'audio.py')).read()
+            _sfx = set(_re.findall(r"name == '([a-zA-Z]+)'", _a3)) | set(_re.findall(r"['\"]([a-zA-Z]+)['\"]\s*:", _a3))
+            _mix = {'thunder', 'thud', 'clack', 'clang', 'pop', 'rain', 'whoosh', 'gust', 'engine'}
+            for _c in self.cues:
+                _n = _c[0]
+                if (_n.startswith('sfx:') and _n[4:] not in _sfx) or (not _n.startswith('sfx:') and _n not in _mix): print(f'  audit cue {_n!r} at {_c[1]:.2f} s: the mix has no such sound (built-ins: {sorted(_mix)}; others as sfx:<name>)')
+        except OSError: pass
         json.dump(self.cues, open(os.path.join(d, 'cues.json'), 'w')); open(os.path.join(d, 'cards.txt'), 'w').write(','.join(self.cards))
         json.dump({sid: [round(a, 4), round(b, 4)] for sid, (a, b) in self.SH.items()}, open(os.path.join(d, 'shots.json'), 'w'))
         for sc in self.scenes:
