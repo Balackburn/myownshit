@@ -169,10 +169,10 @@ st.shot('S11', 'supermarket', setOpts=SM, actors=[
 st.cue('thud', 'S11', 0.05, 0.3); st.cue('sfx:cuff', 'S11', ST11, 0.45)
 
 # 12: the manufacturer recalled him. The big screen over the aisle: RAPPEL PRODUIT, his pictogram, « retour au fabricant »; the lady looks up, arms folded
-D12 = st.dur('S12'); SCR12 = [0.0, 2.35, -3.85]
+D12 = st.dur('S12'); SCR12 = [0.0, 2.95, -3.85]   # (first look) over the shelf, not behind its top
 st.shot('S12', 'supermarket', setOpts=SM, actors=[act('dame', [1.75, 0, -1.9], -150, 'stand', 'unimpressed', keys=[k(0.0, look=[SCR12[0], SCR12[1] + 0.3, SCR12[2]])])],
-        props=[P('recall', 'lcdScreen', pos=[SCR12[0], 1.8, SCR12[2]], opts={'w': 1.9, 'h': 1.15, 'stand': 0, 'dark': False, 'pages': [[0.0, ['RAPPEL PRODUIT', 'homme, lot unique', 'retour au fabricant'], {'face': True, 'big': 0.9, 'accent': '#C8202A'}]]})],
-        cams=[FC(0.0, [0.3, 1.2, -0.2], [[SCR12[0] - 0.95, 3.05, SCR12[2]], [SCR12[0] + 0.95, 1.8, SCR12[2]], [1.75, 2.2, -1.9], [1.75, 0.6, -1.9]], top=0.14, bottom=0.74, drift=(-0.03, 0.03, -0.06))])   # (first look) the screen whole, the lady at the edge looking up
+        props=[P('recall', 'lcdScreen', pos=[SCR12[0], 2.3, SCR12[2]], opts={'w': 2.3, 'h': 1.35, 'stand': 0, 'dark': False, 'pages': [[0.0, ['RAPPEL PRODUIT', 'homme, lot unique', 'retour au fabricant'], {'face': True, 'big': 0.9, 'accent': '#C8202A'}]]})],
+        cams=[FC(0.0, [0.3, 1.5, -0.9], [[SCR12[0] - 1.15, 3.7, SCR12[2]], [SCR12[0] + 1.15, 2.3, SCR12[2]], [1.75, 2.2, -1.9], [1.75, 1.0, -1.9]], top=0.12, bottom=0.74, drift=(-0.03, 0.03, -0.06))])   # (first look) the screen whole, the lady at the edge looking up
 st.cue('sfx:ding', 'S12', 0.05, 0.3)
 
 # 13: he went back to his mother's. Her landing: a cardboard box on the mat (RETOUR FABRICANT); the door opens; his mother looks down; he pops up out of it
@@ -192,14 +192,14 @@ st.cue('sfx:carDoor', 'S13', OP13, 0.25); st.cue('pop', 'S13', UP13 + 0.1, 0.35)
 D14 = st.dur('S14'); RF14 = round(st.at('S14', 'L13', 4) - 0.1, 3)
 MERE = [DOOR[0], 0, round(DOOR[2] + 0.25, 3)]
 st.shot('S14', 'whiteVoid', actors=[
-        act('mere', MERE, 15, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(round(RF14 - 0.2, 3), toon={'reach': {'R': [round(MERE[0] + 0.25, 3), 1.6, round(MERE[2] + 0.6, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.6}}, toonDur=0.15, toonEase='outBack'),
-            k(round(RF14 + 0.6, 3), toon={'reach': {'R': [round(MERE[0] + 0.25, 3), 1.6, round(MERE[2] + 0.6, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.7, 'lid': 0.3}}, toonDur=0.1)]),
+        act('mere', MERE, 15, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(round(RF14 - 0.2, 3), toon={'reach': {'R': [round(MERE[0] + 0.5, 3), 1.35, round(MERE[2] + 0.55, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.6}}, toonDur=0.15, toonEase='outBack'),
+            k(round(RF14 + 0.6, 3), toon={'reach': {'R': [round(MERE[0] + 0.5, 3), 1.35, round(MERE[2] + 0.55, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.7, 'lid': 0.3}}, toonDur=0.1)]),
         act('mec', BOX, 0, 'stand', 'unimpressed', keys=[k(0.0, toon=SMALL, toonDur=0.0), k(0.0, look='camera'), k(1.3, toon={**SMALL, 'face': {'lid': 0.4}}, toonDur=0.1)])],
         props=[P('wall14', 'plainWall', pos=[0.0, 0, round(DOOR[2] - 0.05, 3)], opts={'w': 8.0, 'h': 3.2, 'color': '#E9DCCB'}), P('door14', 'door', pos=[DOOR[0], 0, round(DOOR[2] + 0.02, 3)], opts={'w': 0.95, 'h': 2.15, 'openAt': 0.0}),
                P('mat14', 'doormat', pos=[DOOR[0], 0.01, round(DOOR[2] + 0.62, 3)], opts={'text': 'BIENVENUE', 'w': 0.85, 'd': 0.5}), P('box14', 'cardboardBox', pos=BOX, scale=1.6, opts={'text': 'RETOUR FABRICANT'}), LABEL(),
                P('ticket', 'paperSheet', on={'actor': 'mere', 'hand': 'R', 'offset': [0, 0.02, 0.05], 'face': 'camera'}, opts={'w': 0.42, 'h': 0.55, 'head': 'TICKET', 'lines': ['1 homme', '2,49 €', 'REMBOURSEMENT'], 'lineSize': 0.1, 'lineGap': 0.12, 'lineBold': True, 'paper': '#FFFFFF', 'bright': True},
                  keys=[k(0.0, scale=0.01, dur=0.0), k(round(RF14 - 0.1, 3), scale=1.0, dur=0.1, ease='outBack')])],
-        cams=[FC(0.0, [0.9, 1.3, 1.2], [[MERE[0], 2.2, MERE[2]], [BOX[0], 0.1, round(BOX[2] + 0.45, 3)], [round(MERE[0] + 0.25, 3), 1.9, round(MERE[2] + 0.6, 3)], [BOX[0], 1.25, BOX[2]]], top=0.12, bottom=0.74, drift=(-0.03, 0, -0.05))])
+        cams=[FC(0.0, [0.9, 1.3, 1.2], [[MERE[0], 2.2, MERE[2]], [BOX[0], 0.1, round(BOX[2] + 0.45, 3)], [round(MERE[0] + 0.5, 3), 1.7, round(MERE[2] + 0.55, 3)], [BOX[0], 1.25, BOX[2]]], top=0.12, bottom=0.74, drift=(-0.03, 0, -0.05))])
 st.cue('sfx:paper', 'S14', RF14 - 0.1, 0.3)
 st.card('S08', '-50 %', at=round(SH8, 3))
 
