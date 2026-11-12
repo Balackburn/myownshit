@@ -57,7 +57,7 @@ st.cue('sfx:stepRun', 'S02', 0.05, 0.3); st.cue('sfx:stepRun', 'S02', 0.25, 0.3)
 # 3: thirty-one kilometres an hour. The speed display on its pole: 31 in big red digits, a smile... that turns down and blinks
 D3 = st.dur('S03'); SAD3 = 0.55
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[],
-        props=[P('display', 'speedDisplay', pos=[5.3, 0, 3.0], ry=180, opts={'speed': '31', 'showAt': 0.0, 'sadAt': SAD3}), P('radar', 'speedCamera', pos=RAD, ry=180)],
+        props=[P('display', 'radarSpeedDisplay', pos=[5.3, 0, 3.0], ry=180, opts={'speed': '31', 'showAt': 0.0, 'sadAt': SAD3}), P('radar', 'speedCamera', pos=RAD, ry=180)],
         cams=[cam(0.0, [3.75, 2.15, 1.25], [3.8, 2.17, 1.4], [5.3, 2.38, 3.0], [5.3, 2.38, 3.0], lens=30)])   # (first look) off the speed camera's box (inside it the frame was black)
 st.cue('sfx:beep', 'S03', 0.05, 0.3); st.cue('sfx:beep', 'S03', SAD3, 0.3); st.cue('sfx:beep', 'S03', SAD3 + 0.25, 0.3)
 

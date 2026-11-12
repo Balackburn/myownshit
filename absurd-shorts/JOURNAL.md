@@ -1467,3 +1467,39 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   plutôt que la prise en main par la dame : le paquet reste plat au plan 10, comme le demandait la direction artistique ; (2) au plan 9
   de 47, deux temps (randonneurs puis grue) plutôt qu'un plan qui les tenait tous en miettes ; (3) au plan 13 de 46, le mécanicien se
   retourne vers nous pour montrer la feuille, le trou restant visible derrière lui.
+
+## 12 novembre 2026, nuit (cycles 9 à 11, suite)
+
+- **47 « L'aimant », passe 3** (revue 2 : 6,5 / 6,8) : chaque coup traverse le corps (tiré vers le métal, enfoncé, bras rejetés,
+  recul) ; prise du plan 1 avec un saut tenu quatre images ; couverts qui tremblent dans le cadre puis volent étirés dans l'axe de leur vol ;
+  trousseau sur la joue ; poêle carrée sur tout le visage, qui se décolle et pend sous le menton en laissant son anneau rouge ; nouveaux
+  lampadaires en tiges qui s'inclinent jusqu'à son visage ; cadran à 58 % ; arrêt dans le trou de la rangée ; aiguilles recalculées après
+  l'orientation caméra (elles pointaient vers le bas) ; bateau qui pique du nez au freinage, mât qui fouette ; accoudé à la rambarde ;
+  cartographes de part et d'autre de la carte ; NORD au-delà du repère ; maison qui glisse au pôle ; salon froid où il grelotte ; escalier
+  sans rampe ni nez de marche. Brouillon 3 rendu, revue 3 (la dernière) lancée.
+- **48 « Le code-barres », revue 2** : animation 6,5, direction artistique 6,5 (contre 6,0 / 6,0). Passe 3 : endormi affaissé (tête sur
+  l'épaule, mains sur les cuisses, bouche ouverte) ; prise du portique après le premier éclair, avec de la marge au-dessus ; caisse filmée
+  d'au-dessus de sa poitrine en le suivant, visage droit, écran client à côté, vraie douchette à poignée pistolet ; colère en accents tenus
+  qui passe la coupe, figée par le laser (tremblement, rouge qui se vide, yeux sur tiges croisés) ; rétrécissement en quatre temps avec
+  l'étiquette qui rétrécit au même instant, puis il se regarde et nous fixe ; sachet aux plis visibles, visage écrasé, air qui sort ; la
+  dame tient le paquet des deux mains ; vrai tampon, accordéon tenu, DÉFAUT DE FABRICATION imprimé sur le film ; diable en boîte à gauche
+  de sa mère, pic tenu cinq images, ressort, il reste en haut ; mère en chignon gris et gilet prune, porte plus haute. Brouillon 3 en rendu.
+- **49 « La photocopieuse », revue 1** : animation 6,3, direction artistique 6,4. Passe 2 : balayage plus lent ; la copie sort vers
+  nous, filmée au bout du bac ; poignée de main de profil (la copie face à nous, le bras dans son plan avec une onde), insert du tampon
+  EMBAUCHÉ ; tableau en gros caractères, cadrage serré ; insert du doigt sur le bouton vert, puis caméra basse devant les rangées ;
+  recto verso en trois temps (tranche tenue, dos qui cligne), plan rapproché ; il recule sous le carton ; tampon qui écrase la tête en
+  accordéon, yeux croisés tenus ; pied à coulisse qui se referme d'un coup et le serre, 30 cm en grand, copie vue par la tranche ;
+  réclamation brandie vers nous ; pluie de feuilles d'en haut, pile empilée jusqu'au menton, dernière feuille sur sa tête ; final à
+  genoux de trois quarts avec une ramette énorme. Copies plus froides et plus contrastées.
+- **Outils** : `afterFace` (accessoire recalculé après l'orientation caméra) ; voilier `brake` ; `panPrint` ; globe `houseLat` ;
+  carte `wordBeyond` ; souffle `fx.breath` réglable ; façade sans z-fighting ; escalier `rail` / `nosing` ; `handScanner` ; bandeau de
+  comptoir `bandText` ; sachet `creaseN/W/L`, `shineW`, `stamp` ; `mono` avec `monoTint` / `monoContrast` ; `backFace blinkAt` ;
+  `paperFountain stack/rain` ; `copyFountain cool/sheet` ; pied à coulisse `gapEase` ; écran `sizes/y0` ; `queue7.sh` (48, 49) ;
+  `prop_collisions.py` ; `lint_comments.py` repère les virgules avalées.
+- **Non-régression** : trois collisions de noms d'accessoires corrigées (`stampMark` de la 49 renommé `stampPop`, `ringMark` de la 47
+  renommé `panPrint`, `speedDisplay` de la 46 renommé `radarSpeedDisplay`) : les anciennes histoires retrouvent leurs versions.
+- **Décisions prises sans question** : (1) au plan 4 de 49, la copie se tourne face à nous et tend le bras de côté (aplatie, elle ne
+  pouvait pas le tendre vers l'avant) ; (2) au plan 7 de 49, un plan rapproché plutôt que retourner toute la foule ; (3) au plan 11 de
+  48, le tampon s'abat sur le haut du paquet mais son empreinte apparaît sur le film devant sa poitrine, sous son visage ; (4) au plan 13
+  de 48, le carton passe à gauche de la mère et avance devant le battant ouvert.
+

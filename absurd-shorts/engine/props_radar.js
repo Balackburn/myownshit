@@ -37,7 +37,8 @@ export const RADAR_PROPS = {
 
   // A speed display (radar pédagogique) on a pole, front +Z: black panel, the speed in big red LED digits (o.speed '31', from o.showAt) and under it a
   // face that turns sad (o.sadAt); o.h (2.0).
-  speedDisplay(o) {
+  // (named radarSpeedDisplay: as speedDisplay it replaced the older stories' speed display)
+  radarSpeedDisplay(o) {
     const h = o.h ?? 2.0, g = grp(at(cyl(0.05, 0.06, h, '#7A8088', 8, { pivot: 'bottom' }), 0, 0, 0), at(box(0.8, 0.75, 0.1, '#1B1D22', { outline: 0.008 }), 0, h + 0.38, 0));
     const draw = (txt, color, face) => (c, W, H) => { c.fillStyle = '#0D0E10'; c.fillRect(0, 0, W, H);
       c.fillStyle = '#F4F1E8'; c.fillRect(0, 0, W, H * 0.13); c.fillStyle = '#1B1D22'; c.font = `900 ${Math.round(H * 0.085)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.header || 'VOTRE VITESSE', W / 2, H * 0.07);   // (pass 2) a lit header: the housing never goes black

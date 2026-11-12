@@ -5512,7 +5512,7 @@
     },
     {
      "id": "print5",
-     "name": "ringMark",
+     "name": "panPrint",
      "on": {
       "actor": "mec",
       "joint": "head",

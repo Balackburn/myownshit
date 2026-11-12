@@ -11,8 +11,9 @@ const list = v => [].concat(v ?? []);
 const grey = v => `rgb(${v},${v},${v})`;
 
 // the man as a black-and-white photocopy, drawn flat (his box head and stubble, the suit, the tie): the cutouts of the copy fountain
-function drawCopyMan(c, W, H, back = false) {
+function drawCopyMan(c, W, H, back = false, sheet = false) {
   c.clearRect(0, 0, W, H);
+  if (sheet) { c.fillStyle = '#F7F6F1'; c.fillRect(W * 0.03, H * 0.005, W * 0.94, H * 0.99); c.strokeStyle = grey(170); c.lineWidth = Math.max(1, W * 0.008); c.strokeRect(W * 0.03, H * 0.005, W * 0.94, H * 0.99); }   // (pass 2 of 49) o.sheet: printed on a white sheet with its margin (one design for every copy)
   if (back && back !== 'face') { c.fillStyle = grey(232); c.fillRect(W * 0.1, H * 0.03, W * 0.8, H * 0.95); return; }   // the blank back of a single-sided copy
   const R = (x, y, w, h, v) => { c.fillStyle = grey(v); c.fillRect(W * x, H * y, W * w, H * h); };
   R(0.36, 0.62, 0.11, 0.35, 58); R(0.53, 0.62, 0.11, 0.35, 58); R(0.32, 0.955, 0.16, 0.035, 25); R(0.52, 0.955, 0.16, 0.035, 25);   // legs, shoes
@@ -72,8 +73,9 @@ export const PHOTOCOPIE_PROPS = {
   // with a little paper flutter. o.n cutouts; o.recto: the man on both faces (double-sided), else a blank back. o.start: the ones already standing.
   copyFountain(o) {
     const n = o.n ?? 30, w = o.w ?? 0.85, h = o.h ?? 2.1, g = grp(), r = rng(o.seed ?? 49);
-    const mk = back => canvasPlane(w, h, (c, W, H) => drawCopyMan(c, W, H, back), { res: 256, transparent: true });
+    const mk = back => canvasPlane(w, h, (c, W, H) => drawCopyMan(c, W, H, back, !!o.sheet), { res: 256, transparent: true });
     const front = mk(false), backM = o.recto ? mk('face') : mk(true);
+    if (o.cool) { front.material.color.set(o.cool); backM.material.color.set(o.cool); }   // (pass 2 of 49) o.cool: a cool cast on the grey prints (under the warm grade they read sepia)
     const G = o.grid || { x0: 0, z0: 0, dx: 0.7, dz: 0.6, cols: 6 }, F = o.from || [0, 0.6, 0], fl = o.flight ?? 0.55, st = o.start ?? 0;
     const cuts = Array.from({ length: n }, (_, i) => { const c = grp(front.clone(), at(backM.clone(), 0, 0, -0.002, 0, PI, 0)); c.children.forEach(m => m.position.y = h / 2); g.add(c);
       const col = i % G.cols, row = Math.floor(i / G.cols); return { c, tx: G.x0 + col * G.dx + (r() - 0.5) * 0.08, tz: G.z0 + row * G.dz + (r() - 0.5) * 0.06, ta: i < st ? -10 : (o.t0 ?? 0) + ((o.t1 ?? 1) - (o.t0 ?? 0)) * (i - st) / Math.max(1, n - st - 1), spin: (r() < 0.5 ? -1 : 1) * (1 + Math.floor(r() * 2)), ph: r() * TAU }; });
@@ -92,12 +94,18 @@ export const PHOTOCOPIE_PROPS = {
     const tex = canvasPlane(0.21, 0.3, (c, W, H) => { c.fillStyle = '#FAFAF7'; c.fillRect(0, 0, W, H); c.fillStyle = '#C8202A'; c.font = `900 ${Math.round(H * 0.07)}px Arial`; c.textAlign = 'center'; c.fillText(o.text ?? 'RÉCLAMATION', W / 2, H * 0.16);
       c.fillStyle = '#9A9A9A'; for (let i = 0; i < 9; i++) c.fillRect(W * 0.12, H * (0.28 + i * 0.07), W * (0.76 - (i % 3) * 0.12), Math.max(1, H * 0.012)); }, { res: 128 });
     const mound = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 14, 1, true), mat('#F4F3EE')); mound.position.set(PL[0], 0, PL[1]); g.add(mound);
+    // (pass 2 of 49) o.stack: the pile built of sheets stacked with jagged edges (o.stackN, 110) instead of a smooth cone (it read as a ball gown); o.rain: the
+    // sheets fall from above the pile (o.rainH, 3.4 m) fluttering, instead of arcing out of the tray
+    const stackS = []; if (o.stack) { const sm = mat('#F6F5F0'), sm2 = mat('#E6E4DC'), NS = o.stackN ?? 110;
+      for (let i = 0; i < NS; i++) { const y = (i + 0.5) / NS * PH, rr = R * (1 - 0.7 * y / PH) * (0.3 + 0.7 * r()), a = r() * TAU, b = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.022, 0.3), i % 3 ? sm : sm2);
+        b.position.set(PL[0] + Math.cos(a) * rr, y, PL[1] + Math.sin(a) * rr); b.rotation.set((r() - 0.5) * 0.3, r() * TAU, (r() - 0.5) * 0.3); b.castShadow = true; g.add(b); stackS.push({ b, y }); } }
     const S = Array.from({ length: n }, (_, i) => { const m = tex.clone(); g.add(m); const a = r() * TAU, rr = Math.sqrt(r()) * R; return { m, ta: (o.t0 ?? 0) + ((o.t1 ?? 1) - (o.t0 ?? 0)) * i / n, x: PL[0] + Math.cos(a) * rr, z: PL[1] + Math.sin(a) * rr, rr, sp: (r() - 0.5) * 12, ph: r() * TAU }; });
     g.userData.update = t => { const k = clamp01((t - (o.t0 ?? 0)) / (((o.t1 ?? 1) + 0.3) - (o.t0 ?? 0))), mh = PH * ease.out(k);
-      mound.visible = mh > 0.02; mound.scale.set(R * (0.6 + 0.4 * k), mh, R * (0.6 + 0.4 * k)); mound.position.y = mh / 2;
+      mound.visible = !o.stack && mh > 0.02; mound.scale.set(R * (0.6 + 0.4 * k), mh, R * (0.6 + 0.4 * k)); mound.position.y = mh / 2; for (const q of stackS) q.b.visible = q.y <= mh;
       for (const s of S) { const u = (t - s.ta) / 0.6; if (u < 0) { s.m.visible = false; continue; } s.m.visible = true;
         const top = Math.max(0, mh * (1 - s.rr / (R * (0.6 + 0.4 * k) + 1e-3))) + 0.01;
         if (u >= 1) { s.m.position.set(s.x, top, s.z); s.m.rotation.set(-PI / 2 + 0.3 * Math.sin(s.ph), 0, s.ph); continue; }
+        if (o.rain) { const H0 = o.rainH ?? 3.4, e = u * u, fl = 0.18 * Math.sin(u * TAU * 1.5 + s.ph) * (1 - u); s.m.position.set(s.x + fl, H0 + (top - H0) * e, s.z + 0.6 * fl); s.m.rotation.set(-PI / 2 + 0.7 * Math.sin(u * TAU * 1.5 + s.ph) * (1 - u), s.ph, 0.4 * Math.cos(u * TAU + s.ph) * (1 - u)); continue; }   // falling from above, fluttering
         s.m.position.set(F[0] + (s.x - F[0]) * u, F[1] + (top - F[1]) * u + 1.2 * Math.sin(PI * u), F[2] + (s.z - F[2]) * u); s.m.rotation.set(u * s.sp, u * s.sp * 0.7, s.ph); } };
     g.userData.update(0); return g;
   },
@@ -112,7 +120,7 @@ export const PHOTOCOPIE_PROPS = {
     let cur = null; const DW = o.dispW ?? 0.09, disp = canvasPlane(DW, DW * 0.55, () => {}, { res: 256 }); disp.position.set(0, 0.012 + (DW > 0.1 ? DW * 0.3 : 0), 0.019); slide.add(disp);   // o.dispW: a bigger readout
     const draw = txt => { const c = disp.material.map.image, x = c.getContext('2d'); x.fillStyle = '#C9E3C6'; x.fillRect(0, 0, c.width, c.height); x.fillStyle = '#14161A'; x.font = `900 ${Math.round(c.height * 0.62)}px Arial`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt, c.width / 2, c.height * 0.55); disp.material.map.needsUpdate = true; };
     const gk = o.gapKeys || [[0, o.gap ?? 0.3]];
-    const gapAt = t => { let v = gk[0][1]; for (let i = 1; i < gk.length; i++) { const [t1, v1] = gk[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / 0.2)); } return v; };
+    const gapAt = t => { let v = gk[0][1]; for (let i = 1; i < gk.length; i++) { const [t1, v1] = gk[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / (o.gapEase ?? 0.2))); } return v; };   // (pass 2 of 49) o.gapEase: a snap (0.05) instead of 0.2 s
     g.userData.update = t => { const gp = gapAt(t); slide.position.x = 0.07 + gp; const txt = o.text ? (typeof o.text === 'string' ? o.text : (o.text.find(([a]) => t >= a) || o.text[0])[1]) : `${Math.round(gp * 100)} cm`; if (txt !== cur) { cur = txt; draw(txt); } };
     g.userData.update(0); g.userData.grip = [L * 0.75, 0, 0]; return g;
   },
@@ -125,7 +133,8 @@ export const PHOTOCOPIE_PROPS = {
   },
 
   // A red rubber-stamp mark (o.text, e.g. NON CONFORME) on a transparent plane o.w wide, tilted o.rot; from o.at it lands with a little pop
-  stampMark(o) {
+  // (named stampPop: as stampMark it replaced the older stories' stampMark, of other options, in the merged prop table)
+  stampPop(o) {
     const w = o.w ?? 0.3, h = w * 0.36, g = grp(), pl = canvasPlane(w, h, (c, W, H) => { c.strokeStyle = '#D21E1E'; c.lineWidth = H * 0.08; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);
       c.fillStyle = '#D21E1E'; c.font = `900 ${Math.round(H * 0.46)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text ?? 'NON CONFORME', W / 2, H * 0.54, W * 0.9); }, { res: 512, transparent: true });
     pl.rotation.z = o.rot ?? -0.15; pl.userData.noAO = true; g.add(pl);
@@ -140,6 +149,11 @@ export const PHOTOCOPIE_PROPS = {
       c.fillStyle = grey(12); c.fillRect(W * 0.14, H * 0.36, W * 0.28, H * 0.06); c.fillRect(W * 0.58, H * 0.36, W * 0.28, H * 0.06); c.fillRect(W * 0.22, H * 0.47, W * 0.14, H * 0.11); c.fillRect(W * 0.64, H * 0.47, W * 0.14, H * 0.11); c.fillRect(W * 0.3, H * 0.79, W * 0.4, H * 0.05);   // (first look) bolder: at phone size the thin features vanished
       c.strokeStyle = grey(15); c.lineWidth = W * 0.04; c.strokeRect(W * 0.02, H * 0.02, W * 0.96, H * 0.96);
       c.fillStyle = grey(120); for (let i = 0; i < 40; i++) c.fillRect(W * (0.15 + ((i * 37) % 70) / 100), H * (0.66 + ((i * 13) % 12) / 100), Math.max(1, W * 0.02), Math.max(1, W * 0.02)); }, { res: 256 });
-    pl.userData.noAO = true; return grp(pl);
+    pl.userData.noAO = true; const g = grp(pl);
+    if (o.blinkAt) { const lid = grp(at(new THREE.Mesh(new THREE.PlaneGeometry(w * 0.3, h * 0.13), new THREE.MeshBasicMaterial({ color: '#C8C8C8' })), -w * 0.21, h * 0.04, 0.002), at(new THREE.Mesh(new THREE.PlaneGeometry(w * 0.3, h * 0.13), new THREE.MeshBasicMaterial({ color: '#C8C8C8' })), w * 0.21, h * 0.04, 0.002),
+        at(new THREE.Mesh(new THREE.PlaneGeometry(w * 0.26, h * 0.025), new THREE.MeshBasicMaterial({ color: '#141414' })), -w * 0.21, h * 0.0, 0.003), at(new THREE.Mesh(new THREE.PlaneGeometry(w * 0.26, h * 0.025), new THREE.MeshBasicMaterial({ color: '#141414' })), w * 0.21, h * 0.0, 0.003));
+      lid.traverse(m => { m.userData.noAO = true; }); g.add(lid); const B = [].concat(o.blinkAt);   // (pass 2 of 49) o.blinkAt [t...]: the printed back face blinks (closed eyes drawn over its eyes for 0.14 s)
+      g.userData.update = t => { lid.visible = B.some(b => t >= b && t < b + 0.14); }; g.userData.update(0); }
+    return g;
   },
 };

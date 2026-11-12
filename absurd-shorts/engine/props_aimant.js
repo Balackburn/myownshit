@@ -35,7 +35,8 @@ export const AIMANT_PROPS = {
   },
   // (pass 3 of 47) the print a frying pan leaves on a flattened face: a flat ring (front +Z), o.r (0.2) across its outer edge, o.w (0.035) wide, a faint
   // disc inside; o.color, o.opacity; o.fade [t0, t1]: it fades out
-  ringMark(o) {
+  // (named panPrint: as ringMark it replaced the news set's highlight ring)
+  panPrint(o) {
     const r = o.r ?? 0.2, w = o.w ?? 0.035, op = o.opacity ?? 0.8, m = new THREE.MeshBasicMaterial({ color: o.color || '#B8473E', transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
     const m2 = m.clone(); m2.opacity = op * 0.22; const ring = new THREE.Mesh(new THREE.RingGeometry(r - w, r, 40), m), disc = new THREE.Mesh(new THREE.CircleGeometry(r - w, 40), m2);
     ring.userData.noAO = true; disc.userData.noAO = true; const g = grp(ring, disc);

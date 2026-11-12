@@ -353,10 +353,10 @@ for (let i = 0; i < pp.count; i++) {
     root.traverse(n => { if (n.isMesh && (n.userData.skinPart || n === headMesh)) n.material = Array.isArray(n.material) ? n.material.map(tintMat) : tintMat(n.material); }); }
   // (cycle 11, story 49) o.mono: a black-and-white photocopy of him: every material desaturated after its texture and its vertex colours (the painted face included: the face rig
   // draws into the map of the cloned material); o.mono a number: the grey multiplied by it (0.9: the toner a little light)
-  if (o.mono) { const k = typeof o.mono === 'number' ? o.mono : 1.0;
+  if (o.mono) { const k = typeof o.mono === 'number' ? o.mono : 1.0, mt = o.monoTint || [1, 1, 1], mc = o.monoContrast ?? 1;   // (pass 2 of 49) o.monoTint [r, g, b]: a cool cast against the warm grade (the copies read sepia); o.monoContrast: the greys pushed apart (the painted face washed out)
     const monoMat = m => { const c = m.clone(), prev = m.onBeforeCompile, pk = m.customProgramCacheKey ? m.customProgramCacheKey.bind(m) : null;
-      c.onBeforeCompile = (sh, r) => { if (prev) prev.call(c, sh, r); sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n  diffuseColor.rgb = vec3(dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114))) * ' + k.toFixed(3) + ';'); };
-      c.customProgramCacheKey = () => (pk ? pk() : '') + '|mono' + k; return c; };
+      c.onBeforeCompile = (sh, r) => { if (prev) prev.call(c, sh, r); sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n  diffuseColor.rgb = vec3(clamp((dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114)) - 0.5) * ' + mc.toFixed(3) + ' + 0.5, 0.0, 1.0)) * ' + k.toFixed(3) + ' * vec3(' + mt.map(v => v.toFixed(3)).join(', ') + ');'); };
+      c.customProgramCacheKey = () => (pk ? pk() : '') + '|mono' + k + '|' + mc + '|' + mt.join(','); return c; };
     root.traverse(n => { if (n.isMesh && n.material) n.material = Array.isArray(n.material) ? n.material.map(monoMat) : monoMat(n.material); }); }
   return root;
 }

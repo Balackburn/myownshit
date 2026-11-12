@@ -36,6 +36,18 @@ export const CODEBARRE_PROPS = {
     g.userData.update = t => { const on = pulse(t, o.clackAt, 0.08); trig.rotation.x = on ? -0.5 : 0; body.rotation.x = on ? -0.12 : 0; body.position.z = on ? 0.012 : 0; };
     g.userData.update(0); g.userData.grip = [0, -0.02, -0.06]; return g;
   },
+  // (pass 3 of 48) A checkout hand scanner, front +Z (its window), held by its pistol grip (userData.grip): a dark grey head with a red window at the
+  // front, the grip slanting down and back, a trigger; no label roll (the price-gun model in black still read as a price gun). o.beamAt [t...]: the
+  // window flares and the head jolts; o.color.
+  handScanner(o) {
+    const g = grp(), body = grp(); g.add(body); const c = o.color || '#2E3238';
+    body.add(at(box(0.08, 0.09, 0.2, c, { outline: 0.006 }), 0, 0.08, 0.03), at(box(0.1, 0.11, 0.05, c, { outline: 0.006 }), 0, 0.085, 0.14));   // the barrel and its wider head
+    const win = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.075), new THREE.MeshBasicMaterial({ color: '#FF2A1E', toneMapped: false })); win.position.set(0, 0.085, 0.166); win.userData.noAO = true; body.add(win);
+    body.add(at(box(0.05, 0.16, 0.06, '#1E2024', { outline: 0.005 }), 0, -0.03, -0.04, 0.35, 0, 0));   // the pistol grip
+    const trig = grp(at(box(0.018, 0.05, 0.022, '#C8322A'), 0, -0.02, 0)); trig.position.set(0, 0.04, 0.03); body.add(trig);
+    g.userData.update = t => { const on = pulse(t, o.beamAt, 0.25); trig.rotation.x = on ? -0.45 : 0; body.rotation.x = on ? -0.06 : 0; win.material.color.set(on ? '#FFD0C8' : '#FF2A1E'); win.scale.setScalar(on ? 1.15 : 1); };
+    g.userData.update(0); g.userData.grip = [0, -0.04, -0.05]; return g;
+  },
   // A price label: a white sticker o.w (0.16) × o.h (0.1) with a barcode and the price in red (o.price '2,49 €'), front +Z, origin at its centre.
   // o.bright: unlit (a sticker that must read on a face in the shade).
   barcodeLabel(o) {
@@ -77,9 +89,9 @@ export const CODEBARRE_PROPS = {
         c.fillStyle = dark ? '#0E1A14' : '#F7F7F4'; c.fillRect(0, 0, W, H); const ink = dark ? '#8CFFC0' : '#14161A', x0 = opt.face ? W * 0.36 : W * 0.06;
         if (opt.face) { const fx = W * 0.05, fy = H * 0.2, fw = W * 0.24, fh = H * 0.62; c.fillStyle = '#1E2A44'; c.fillRect(fx, fy + fh * 0.62, fw, fh * 0.38); c.fillStyle = '#D9A066'; c.fillRect(fx + fw * 0.18, fy, fw * 0.64, fh * 0.62);
           c.fillStyle = '#111214'; c.fillRect(fx + fw * 0.18, fy, fw * 0.64, fh * 0.1); c.fillRect(fx + fw * 0.3, fy + fh * 0.26, fw * 0.1, fh * 0.08); c.fillRect(fx + fw * 0.6, fy + fh * 0.26, fw * 0.1, fh * 0.08); c.fillStyle = '#C8202A'; c.fillRect(fx + fw * 0.46, fy + fh * 0.62, fw * 0.08, fh * 0.3); }
-        c.textAlign = 'left'; c.textBaseline = 'middle'; let y = H * 0.3;
-        lines.forEach((ln, k) => { const big = k === 0 ? (opt.big ?? 1) : 0.62, fs = Math.round(H * 0.2 * big); c.font = `900 ${fs}px Arial`; c.fillStyle = k === 0 || !opt.accent ? ink : opt.accent;
-          let s = fs; while (c.measureText(ln).width > W - x0 - W * 0.04 && s > 8) { s -= 2; c.font = `900 ${s}px Arial`; } c.fillText(ln, x0, y); y += H * (k === 0 ? 0.3 : 0.24); }); }); };
+        c.textAlign = 'left'; c.textBaseline = 'middle'; let y = H * (opt.y0 ?? 0.3);   // (pass 2 of 49) opt.sizes [s...]: each line's size (opt.big for the first, 0.62 for the others by default); opt.y0: the first line's height
+        lines.forEach((ln, k) => { const big = opt.sizes ? (opt.sizes[k] ?? 0.62) : (k === 0 ? (opt.big ?? 1) : 0.62), fs = Math.round(H * 0.2 * big); c.font = `900 ${fs}px Arial`; c.fillStyle = k === 0 || !opt.accent ? ink : opt.accent;
+          let s = fs; while (c.measureText(ln).width > W - x0 - W * 0.04 && s > 8) { s -= 2; c.font = `900 ${s}px Arial`; } c.fillText(ln, x0, y); y += opt.sizes ? H * (0.15 * big + 0.15 * (opt.sizes[k + 1] ?? 0.62) + 0.03) : H * (k === 0 ? 0.3 : 0.24); }); }); };
     g.userData.update(0); return g;
   },
   // A promotion sticker: a yellow starburst o.r (0.22 m) with red type (o.text '-50 %'), front +Z, origin at its centre; o.bright unlit.
@@ -111,12 +123,19 @@ export const CODEBARRE_PROPS = {
       const shine = new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.6, depthWrite: false });
       const Wm = Math.max(...o.parts.map(q => q[1])), Dm = Math.max(...o.parts.map(q => q[3]));
       const P2 = o.parts.map(([cy, pw, ph, pd], i) => { const m = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), film2), hl = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine), hl2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine);
-        const cr = Array.from({ length: 4 }, (_, j) => { const c = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine); c.rotation.z = 0.9 * (((i * 5 + j * 3) % 7) / 6 - 0.5); g.add(c); return c; });
+        const cr = Array.from({ length: o.creaseN ?? 4 }, (_, j) => { const c = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), shine); c.rotation.z = 0.9 * (((i * 5 + j * 3) % 7) / 6 - 0.5); g.add(c); return c; });
         g.add(m, hl, hl2); return { cy, pw, ph, pd, m, hl, hl2, cr }; });
       const seamT = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), edge), seamB = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), edge); g.add(seamT, seamB);
       if (o.tray) g.add(at(box(Wm * 1.5, 0.04, Dm * 1.6, o.tray === true ? '#2A2C31' : o.tray, { outline: 0.004 }), 0, 0.02, 0));
       const lab = skin.children.find(c => c.geometry && c.geometry.type === 'PlaneGeometry'); if (lab) { skin.remove(lab); g.add(lab); lab.scale.set(1, 1, 1); }
       const tops = P2.map(q => q.cy + q.ph / 2), top = Math.max(...tops);
+      // (pass 3 of 48) o.creaseN / o.creaseW / o.creaseL: more, wider, longer crease lines when tight (4 mm lines did not show: the film read as a box);
+      // o.shineW: wider highlights; o.stamp {text, at, y, w, rot}: a red stamp mark printed on the film over his chest, moving with it, landing with a pop
+      let stampPl = null;
+      if (o.stamp) { const S = o.stamp, sw = S.w ?? 0.36; stampPl = canvasPlane(sw, sw * 0.42, (c, W, H) => { c.strokeStyle = '#D21E1E'; c.lineWidth = H * 0.07; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);
+          c.fillStyle = '#D21E1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; const L = String(S.text || 'DÉFAUT').split('\n'); const fs = Math.round(H * (L.length > 1 ? 0.3 : 0.46)); c.font = `900 ${fs}px Arial`;
+          L.forEach((ln, j) => c.fillText(ln, W / 2, H * (L.length > 1 ? 0.33 + 0.36 * j : 0.54), W * 0.88)); }, { res: 512, transparent: true });
+        stampPl.material = new THREE.MeshBasicMaterial({ map: stampPl.material.map, transparent: true, alphaTest: 0.05, depthWrite: false, side: THREE.DoubleSide }); stampPl.rotation.z = S.rot ?? -0.12; stampPl.userData.noAO = true; g.add(stampPl); }
       g.userData.update = t => { let k = keysT[0][1]; for (let i = 1; i < keysT.length; i++) { const [t0, v0] = keysT[i - 1], [t1, v1] = keysT[i]; if (t >= t1) k = v1; else if (t > t0) { k = v0 + (v1 - v0) * ease.inOut(clamp01((t - t0) / (t1 - t0))); break; } else break; }
         const u = clamp01((1.35 - k) / 0.49), over = k > 1.35 ? (k - 1.35) * 1.5 : 0;   // u 0 loose .. 1 tight; above 1.35 the bag puffs up
         let yb = 0;
@@ -124,9 +143,10 @@ export const CODEBARRE_PROPS = {
           const y0 = i === 0 ? 0.0 : Math.min(yb, q.cy - q.ph / 2 * (1 + 0.06 * (1 - u))), y1 = i === P2.length - 1 ? q.cy + q.ph / 2 + (top * 1.08 - q.cy - q.ph / 2) * (1 - u) + 0.02 : q.cy + q.ph / 2 * (1 + 0.06 * (1 - u));
           yb = y1; const H = Math.max(0.01, y1 - y0), cy = (y0 + y1) / 2;
           q.m.scale.set(W, H, D); q.m.position.set(0, cy, 0);
-          q.hl.scale.set(0.014, H * 0.78, 0.004); q.hl.position.set(W * 0.3, cy, D / 2 + 0.004); q.hl2.scale.set(0.008, H * 0.5, 0.004); q.hl2.position.set(-W * 0.32, cy + H * 0.12, D / 2 + 0.004);
-          q.cr.forEach((c, j) => { c.visible = u > 0.6; c.scale.set(0.004, Math.min(0.07, H * 0.25), 0.003); c.position.set(W * (((j * 37 + i * 11) % 9) / 9 - 0.45) * 0.8, cy + H * (((j * 23 + i * 7) % 7) / 7 - 0.45) * 0.7, D / 2 + 0.005); });
+          q.hl.scale.set(0.014 * (o.shineW ?? 1), H * 0.78, 0.004); q.hl.position.set(W * 0.3, cy, D / 2 + 0.004); q.hl2.scale.set(0.008 * (o.shineW ?? 1), H * 0.5, 0.004); q.hl2.position.set(-W * 0.32, cy + H * 0.12, D / 2 + 0.004);
+          q.cr.forEach((c, j) => { c.visible = u > 0.6; c.scale.set(o.creaseW ?? 0.004, Math.min(o.creaseL ?? 0.07, H * (o.creaseL ? 0.6 : 0.25)), 0.003); c.position.set(W * (((j * 37 + i * 11) % 9) / 9 - 0.45) * 0.8, cy + H * (((j * 23 + i * 7) % 7) / 7 - 0.45) * 0.7, D / 2 + 0.005); });
           if (i === 1 && lab) lab.position.set(0, o.labelY ?? cy, D / 2 + 0.006);
+          if (i === 1 && stampPl) { const S = o.stamp, uu = (t - (S.at ?? 0)) / 0.12; stampPl.visible = uu >= 0; stampPl.position.set(0, S.y ?? cy, D / 2 + 0.01); stampPl.scale.setScalar(uu < 1 ? 1.45 - 0.45 * ease.out(clamp01(uu)) : 1); }
           if (i === P2.length - 1) { seamT.scale.set(W * 1.02, 0.022, D * 1.02); seamT.position.set(0, y1, 0); }
           if (i === 0) { seamB.scale.set(W * 1.02, 0.022, D * 1.02); seamB.position.set(0, 0.011, 0); } }); };
       g.userData.update(0); return g;
@@ -149,6 +169,7 @@ export const CODEBARRE_PROPS = {
   serviceDesk(o) {
     const w = o.w ?? 1.8, g = grp(at(box(w, 1.0, 0.6, o.color || '#D9D3C4', { pivot: 'bottom', outline: 0.006 }), 0, 0, -0.3), at(box(w + 0.08, 0.05, 0.7, '#8C6A4A'), 0, 1.02, -0.3));
     g.add(at(box(w * 0.9, 0.3, 0.02, o.band || '#1E5BB8'), 0, 0.62, 0.005));
+    if (o.bandText) g.add(at(label(o.bandText, w * 0.84, 0.2, { bg: o.band || '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, 0.62, 0.017));   // (pass 3 of 48) the words on the front band (it was blank)
     const sw = Math.min(1.6, w * 0.9); g.add(at(box(sw + 0.1, 0.5, 0.05, '#1E5BB8', { outline: 0.006 }), 0, 2.45, -0.45), at(label(o.text || 'RETOURS', sw, 0.3, { bg: '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, 2.5, -0.42));
     if (o.sub !== false) g.add(at(label(o.sub || 'SERVICE CLIENTS', sw * 0.8, 0.12, { bg: '#1E5BB8', fg: '#DCE8FF', wrap: false }), 0, 2.29, -0.42));
     for (const sx of [-1, 1]) g.add(at(cyl(0.012, 0.012, 0.8, '#7A8088', 6, { pivot: 'bottom' }), sx * sw * 0.42, 2.7, -0.45));
