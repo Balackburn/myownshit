@@ -37,7 +37,7 @@ def hcam(t, frm, pts, top=0.2, bottom=0.8, drift=(0.0, 0.0, -0.12), lenses=range
 BACK = -3.0
 SEAM = [0.0, 1.56, -2.93]                            # where the tie goes into the door: at the height of his collar
 ME = [1.3, 0, -2.05]; MERY = -8                      # where he stands for the rest of the film: on his leash, a pace from the wall, well right of the door
-HALL = lambda doors=None, floor=None: {'doors': doors or [[0, 0]], 'floor': floor or [[0, '6']]}
+HALL = lambda doors=None, floor=None: {'doors': doors or [[0, 0]], 'floor': floor or [[0, '6']], 'trim': '#4E3A2C'}   # (pass 4) the rail dark walnut: the beige leash melted into the tan one
 ROPE = lambda pid='rope', on=None, **o: P(pid, 'tieRope', on=on or NAPE, opts={'color': RED, 'w': 0.085, 'to': SEAM, **o})
 HEADME = [ME[0], HEAD, ME[2]]; FEETME = [ME[0], 0.0, ME[2]]; CHEST = [ME[0], 1.2, ME[2]]
 DISP = [0.0, 2.55, -2.92]                            # the floor display
@@ -98,7 +98,7 @@ st.shot('S02', 'immeubleHall', setOpts=HALL([[0, 0]], [[0, 'RC']]), actors=[
                P('splat', 'impactStars', pos=[WALL2[0], 1.8, -2.8], opts={'at': H2, 'n': 7, 'r': 0.6, 'r0': 0.3, 'dur': 0.3, 'size': 0.08}),
                P('dust', 'heelSmoke', pos=[0, 0, 0], opts={'path': [[SC2, DIG2[0] - 0.15, DIG2[2] - 0.05], [D2, DIG2[0] - 0.15, DIG2[2] - 0.05]], 'from': SC2, 'to': D2, 'every': 0.04})],
         fx=[{'type': 'shake', 'at': H2, 'dur': 0.16, 'amount': 0.02}],
-        cams=[hcam(0.0, [2.05, 1.45, -0.55], [[WALL2[0] + 0.72, 2.3, -2.8], [WALL2[0] - 0.72, 2.3, -2.8], [WALL2[0], HEAD + 0.2, -2.86], [WALL2[0], 0.0, -2.86], [E1[0], 1.0, E1[2]]], top=0.14, bottom=0.8, drift=(0.0, 0.0, 0.06)),   # (pass 3) square to the wall: the splayed card reads
+        cams=[hcam(0.0, [2.05, 1.45, -0.55], [[WALL2[0] + 0.72, 2.3, -2.8], [WALL2[0] - 0.72, 2.3, -2.8], [WALL2[0], HEAD + 0.2, -2.86], [WALL2[0], 0.0, -2.86]], top=0.14, bottom=0.8, drift=(0.0, 0.0, 0.06)),   # (pass 4) he flies in from outside the frame   # (pass 3) square to the wall: the splayed card reads
               hcam(round(SC2 - 0.04, 3), [1.05, 1.45, 0.65], [[2.6, 2.05, -1.8], [DIG2[0] - 0.2, 0.0, DIG2[2]], [DIG2[0] + 0.5, 0.0, DIG2[2]], SEAM, [0.0, 2.62, -2.92]], top=0.14, bottom=0.84)])   # (pass 3) medium-wide from his right: the taut line beside his head
 st.cue('sfx:spring', 'S02', round(N2 - 0.04, 3), 0.4); st.cue('sfx:splat', 'S02', H2, 0.6); st.cue('sfx:slideDown', 'S02', SL2, 0.3); st.cue('pop', 'S02', round(PL2 - 0.02, 3), 0.35); [st.cue('sfx:squeak', 'S02', round(SC2 + 0.1 * i, 3), 0.18) for i in range(6)]
 
@@ -154,8 +154,8 @@ def ROPEC(cab=None, **o):   # the tie in the cut-away: from his collar, through 
 def coupecam(t, y0, y1, d=13.0, lens=44, x=0.7, **kw):  # square to the cut, travelling up or down
     return cam(t, [x, y0, d], [x, y1, d], [x, y0, 0], [x, y1, 0], lens=lens, **kw)
 HIM = lambda **kw: act('mec', MEC, -35, 'stand', 'unimpressed', keys=[STAND()], **kw)
-WASH = lambda t1, t2, t3: [{'at': AT(10.0), 'kind': 'shirt', 'color': '#F4F1E8', 'from': t1}, {'at': AT(9.55), 'kind': 'sock', 'color': '#E8A33A', 'from': t2},
-                           {'at': AT(9.35), 'kind': 'sock', 'color': '#3A6EA5', 'from': round(t2 + 0.1, 3)}, {'at': AT(9.05), 'kind': 'towel', 'color': '#E77A9A', 'from': t3}]
+WASH = lambda t1, t2, t3: [{'at': AT(10.45), 'kind': 'shirt', 'color': '#F4F1E8', 'from': t1}, {'at': AT(10.0), 'kind': 'sock', 'color': '#E8A33A', 'from': t2},   # (pass 4) 0.45 m higher: the towel hung under the caption band
+                           {'at': AT(9.8), 'kind': 'sock', 'color': '#3A6EA5', 'from': round(t2 + 0.1, 3)}, {'at': AT(9.5), 'kind': 'towel', 'color': '#E77A9A', 'from': t3}]
 COUPE = lambda cab=None: {'cabin': cab or [[0.0, 6.0]], 'doorZ': [-0.15, 0.75]}   # (pass 3) a landing door on every floor (through a solid partition the lady's bun came out in the shaft)
 
 # 5: the tie did. The block cut open: the cabin goes up the dark shaft, floor after floor, and under it the tie: a red line that gets longer; the
@@ -172,7 +172,7 @@ D6 = st.dur('S06'); A6 = 0.2
 st.shot('S06', 'immeubleCoupe', setOpts=COUPE([[0.0, 5.2], [A6, 6.0]]), actors=[HIM(),
         act('voisin', [round(PART - 0.5, 3), 6 * FH, 0.35], -90, 'stand', 'neutral', keys=[k(0.0, visible=False), k(A6 + 0.12, visible=True), k(A6 + 0.14, to=[-1.6, 6 * FH, 0.35], dur=0.7, clip='walk', ease='linear', face=-90)])],
         props=[ROPEC([[0.0, 5.2], [A6, 6.0]], pluck=[[A6, 0.12, 5, 30, 3]])],
-        cams=[coupecam(0.0, 16.6, 17.2, d=9.0), glide([coupecam(A6 + 0.36, 9.5, 9.0, d=22.5, lens=50)], 0.45)])
+        cams=[coupecam(0.0, 16.6, 17.2, d=9.0), glide([coupecam(A6 + 0.36, 9.5, 8.75, d=22.5, lens=50)], 0.45)])   # (pass 4) it stops a little lower: his feet above the caption band
 st.cue('sfx:bell', 'S06', A6, 0.5)
 
 # 7: he called the managing agent. The hall, closer: his phone at his ear, a foot that taps, his eyes to the ceiling; the leash runs from behind his
@@ -214,10 +214,10 @@ st.shot('S08', 'office', setOpts=OFF, actors=[
 D9 = st.dur('S09')
 st.shot('S09', 'office', setOpts=OFF, actors=[
         act('syndic', SYN, 0, 'stand', 'neutral', keys=[STAND(), k(0.0, look=[0.4, 1.95, 1.0]), *st.talk('L05', 'S09', 'neutral'),
-            k(0.0, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.3, 3), 2.42, round(SYN[2] + 0.3, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 0.3}}, toonDur=0.0),   # one finger up: the rule
-            *[k(t, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.3 + dx, 3), 2.42 + dy, round(SYN[2] + 0.3, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 0.3}, 'bend': {'neck': [nod, 0, 0, 1, None]}}, toonDur=0.07)
+            k(0.0, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.36, 3), 1.62, round(SYN[2] + 0.34, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 0.3}}, toonDur=0.0),   # one finger up: the rule
+            *[k(t, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.3 + dx, 3), 1.62 + dy, round(SYN[2] + 0.3, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 0.3}, 'bend': {'neck': [nod, 0, 0, 1, None]}}, toonDur=0.07)
               for t, dy, dx, nod in ((0.18, 0.04, 0.05, -0.1), (0.3, -0.07, -0.05, 0.18), (0.46, 0.03, 0.05, -0.05), (0.62, -0.06, -0.05, 0.16), (0.8, 0.03, 0.04, -0.05), (0.95, -0.07, -0.05, 0.2), (1.1, 0.0, 0.0, 0.0))],   # (pass 2) the finger wags and the head bobs on the stressed words
-            k(0.72, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.3, 3), 2.45, round(SYN[2] + 0.3, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 1}}, toonDur=0.03), k(0.78, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.3, 3), 2.45, round(SYN[2] + 0.3, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 0.3}}, toonDur=0.04)])],   # a blink
+            k(0.72, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.36, 3), 1.65, round(SYN[2] + 0.34, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 1}}, toonDur=0.03), k(0.78, toon={'hands': {'R': 'spread'}, 'reach': {'R': [round(SYN[0] - 0.36, 3), 1.65, round(SYN[2] + 0.34, 3), 1, 0.06]}, 'face': {'brow': 0.8, 'lid': 0.3}}, toonDur=0.04)])],   # a blink
         props=[*DESK()],
         cams=[hcam(0.0, [0.4, 1.95, -0.1], [[0.0, 2.35, SYN[2]], [0.0, 1.45, SYN[2]], [-0.3, 2.55, SYN[2] + 0.3], [-0.6, 2.97, -3.45], [0.6, 2.97, -3.45]], top=0.18, bottom=0.66, drift=(-0.02, 0, -0.1))])   # (pass 2) the whole SYNDIC sign
 
@@ -241,10 +241,10 @@ DAME = [round(PART - 0.42, 3), 3 * FH, 0.42]
 PEG = lambda y: [round(LINEX - 0.06, 3), round(y - 0.02, 3), 0.28]
 st.shot('S11', 'immeubleCoupe', setOpts=COUPE(), actors=[
         act('mamie', DAME, 52, 'stand', 'happy', keys=[STAND(), k(0.0, look=[LINEX, 3 * FH + 1.4, 0.2]),   # (pass 3) three-quarter to us, her near hand in the shaft through the door
-            *[x for t, y in zip(W11, (10.0, 9.55, 9.05)) for x in (k(round(t - 0.18, 3), toon={'reach': {'L': [*PEG(y), 1, 0.08]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.12, 0, 0, 1, None]}}, toonDur=0.14, toonEase='out'),
+            *[x for t, y in zip(W11, (10.45, 10.0, 9.5)) for x in (k(round(t - 0.18, 3), toon={'reach': {'L': [*PEG(y), 1, 0.08]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.12, 0, 0, 1, None]}}, toonDur=0.14, toonEase='out'),
                                                                  k(round(t + 0.12, 3), toon={'reach': {'L': [round(PART - 0.1, 3), 3 * FH + 1.15, 0.5, 0, 0.1]}, 'bend': {'spine': [0.05, 0, 0, 1, None]}}, toonDur=0.16))],
             k(0.5, look=[1.0, 3 * FH + 1.6, 6.0]), k(0.5, expr='happy')])],                                                                 # pleased: to us, while she pegs
-        props=[ROPEC(items=WASH(*W11), pluck=[[t, 0.03, 6, 14, 4] for t in W11], pluckAt=AT(9.6))],
+        props=[ROPEC(items=WASH(*W11), pluck=[[t, 0.03, 6, 14, 4] for t in W11], pluckAt=AT(10.05))],
         cams=[coupecam(0.0, 9.25, 9.21, d=4.6, x=1.2)])   # (pass 2) lower and further: the towel clears the caption band, her head stays in
 [st.cue('pop', 'S11', t, 0.3) for t in W11]
 
@@ -294,15 +294,15 @@ st.shot('S14', 'immeubleHall', setOpts=HALL(), actors=[
         cams=[hcam(0.0, [2.1, 1.7, 0.6], [[ME[0] + 0.25, HEAD + 0.6, ME[2]], [ME[0], 0.35, ME[2]], SEAM, [ME[0] - 0.45, 2.6, ME[2]], [ME[0] + 0.45, 2.6, ME[2]]], top=0.12, bottom=0.8)])   # (pass 2) the stretch of the jelly stays inside the frame
 
 # ---- the notice board of the hall (x 2.3): the agent's notice of the general meeting, pinned on it
-CONVOC = lambda: P('convoc', 'paperSheet', pos=[2.3, 1.42, -2.925], opts={'w': 0.5, 'h': 0.64, 'head': 'CONVOCATION', 'big': 'ASSEMBLÉE GÉNÉRALE', 'bigSize': 0.075,
-                                                                        'lines': ['Ordre du jour :', '1. Décrocher la cravate', 'du rez-de-chaussée', '2. Ravalement de la façade'], 'lineSize': 0.055})
+# (final pass) the notice pinned right of centre: his eyes come down the board beside it
+CONVOC = lambda: P('convoc', 'paperSheet', pos=[2.42, 1.42, -2.925], opts={'w': 0.46, 'h': 0.64, 'head': 'CONVOCATION', 'big': 'ASSEMBLÉE GÉNÉRALE', 'bigSize': 0.075,
+                                                                        'lines': ['', 'Ordre du jour :', '1. Décrocher la cravate', 'du rez-de-chaussée', '2. Ravalement de la façade'], 'lineSize': 0.055})   # (pass 4) a line of leading under the heading
 READ = [1.62, 0, -2.42]; READRY = 128                 # as near the board as the leash lets him, turned to it
 
 # 15: to unhook it — he turns to the notice board as far as the leash lets him, and his neck stretches the rest of the way, his eyes on stalks
 D15 = st.dur('S15'); TU15, NK15 = 0.08, 0.3
 st.shot('S15', 'immeubleHall', setOpts=HALL(), actors=[
-        act('mec', ME, MERY, 'stand', 'unimpressed', keys=[STAND(), k(0.04, look=[2.3, 1.5, -2.95]),
-            k(TU15, to=READ, dur=0.2, clip='walk', then='stand', ease='inOut', face=READRY),
+        act('mec', READ, READRY, 'stand', 'unimpressed', keys=[STAND(), k(0.04, look=[2.3, 1.5, -2.95]),   # (pass 4) at the board from the first frame
             k(NK15, toon={'bend': {'neck': [0.35, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': {'pop': 0.6, 'brow': 0.8}}, toonDur=0.16, toonEase='outBack')])],
         props=[ROPE(), CONVOC()],
         cams=[hcam(0.0, [3.25, 1.6, 1.2], [[2.05, 1.85, -2.95], [2.75, 1.1, -2.95], [ME[0], HEAD, ME[2]], [READ[0], 0.0, READ[2]], [ME[0] - 0.3, 1.56, ME[2] - 0.3]], top=0.14, bottom=0.86)])   # from the right-hand wall: his neck stretches across the frame to the board
@@ -310,19 +310,19 @@ st.cue('sfx:stretch', 'S15', NK15, 0.35)
 
 # 16: you need a vote of the general meeting. The notice, close: his stretched head comes into the frame at the left, his eyes go down the lines
 D16 = st.dur('S16')
-EYES16 = lambda r, L=0.42: {'pop': 0.75, 'popLen': L, 'eyeYaw': -1.05, 'eyeRoll': r, 'stalkRed': 0.6, 'brow': 0.8}   # eyes on stalks, pupils turned round to us; (pass 3) shorter: the eyeballs stop in front of the paper, at its left edge
+EYES16 = lambda r, L=0.42: {'pop': 0.75, 'popLen': L, 'eyeYaw': -2.4, 'eyePitch': r, 'pupil': 1.1, 'stalkRed': 0.6, 'brow': 0.8}   # (final pass) yaw -2.4: the pupils turned right round to the camera (+1.05 left them on the far rim), big; pitch steps them down the lines   # eyes on stalks, pupils turned round to us; (pass 3) shorter: the eyeballs stop in front of the paper, at its left edge
 st.shot('S16', 'immeubleHall', setOpts=HALL(), actors=[
-        act('mec', READ, READRY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[2.02, 1.62, -2.95]),
-            *[k(t, toon={'bend': {'neck': [0.12, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': EYES16(r, 0.36)}, toonDur=(0.0 if t == 0.0 else 0.08)) for t, r in ((0.0, -0.55), (0.3, -0.15), (0.6, 0.2), (0.9, 0.55))],   # the pupils turned to us step down the four lines (pass 3: the head level, the stalks from the left)
-            k(0.3, look=[2.02, 1.5, -2.95]), k(0.6, look=[2.02, 1.4, -2.95]), k(0.9, look=[2.02, 1.3, -2.95]),   # (pass 3) aimed at the notice's left margin
+        act('mec', READ, READRY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[1.98, 1.38, -2.95]),
+            *[k(t, toon={'bend': {'neck': [0.4, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': EYES16(r, L)}, toonDur=(0.0 if t == 0.0 else 0.08)) for t, r, L in ((0.0, 0.0, 0.36), (0.3, 0.15, 0.42), (0.6, 0.3, 0.48), (0.9, 0.45, 0.54))],   # (final pass) the head tipped over the board (out of frame), the stalks hang down beside the notice and get longer line by line: the eyes go down the margin, pupils to us   # the pupils turned to us step down the four lines (pass 3: the head level, the stalks from the left)
+               # (final pass) one look: the head holds still, the stalks do the reading   # (pass 3) aimed at the notice's left margin
             k(1.22, toon={'bend': {'neck': [0.35, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': {'pop': 0.0, 'lid': 0.45}}, toonDur=0.12)])],   # (pass 3) back in by 1.34 s: the sheet sits clean for the last half second
         props=[ROPE(), CONVOC()],
-        cams=[cam(0.0, [2.05, 1.55, -1.2], [2.08, 1.53, -1.32], [2.28, 1.5, -2.95], [2.28, 1.49, -2.95], lens=40)])   # the whole notice, its heading under the SYNDIC label; his stretched head comes in at the left
+        cams=[cam(0.0, [2.24, 1.58, -1.2], [2.27, 1.56, -1.32], [2.28, 1.5, -2.95], [2.28, 1.49, -2.95], lens=48)])   # (final pass) a little wider: the eyes at the left, the notice at the right, its last line above the caption band   # (final pass) a little wider and to the left: room for the eyes beside the notice   # the whole notice, its heading under the SYNDIC label; his stretched head comes in at the left
 st.cue('sfx:paper', 'S16', 0.1, 0.3)
 
 # ---- the general meeting: a common room (a town-hall office repainted grey-green), the agent's table at the back, the neighbours on chairs facing it.
 #      The camera stands behind the agent's table and looks at them; the chair of the ground floor, in the front row, is empty
-AG = {'wall': '#F0E4CC', 'band': '#C29A6A', 'trim': '#8A6440', 'floor': '#CDB592', 'joint': '#B49A72',   # (pass 3) lighter floor   # (pass 2) warm cream and wood: the grey-green room was gloomy next to the hall
+AG = {'wall': '#F6F0E4', 'band': '#CDB290', 'trim': '#8A6440', 'floor': '#DCCBAE', 'joint': '#C3AD88',   # (pass 4) lighter, less brown   # (pass 3) lighter floor   # (pass 2) warm cream and wood: the grey-green room was gloomy next to the hall
       'banner': False, 'map': False, 'deskZ': -1.25, 'plate': 'SYNDIC',
       'front': 3.6, 'frontSign': {'text': 'SALLE COMMUNE', 'x': 0.0, 'y': 2.45, 'w': 1.7}}
 ROW1, ROW2 = 1.0, 1.95                                # the two rows of chairs (the neighbours face -Z, toward the agent)
@@ -341,15 +341,15 @@ D17 = st.dur('S17')
 st.shot('S17', 'mairie', setOpts=AG, actors=[VOTER('mamie', 0.2, expr='happy'), VOTER('voisin', 0.32), VOTER('femme', 0.42), VOTER('madame', 0.5, expr='happy'), VOTER('retraite', 0.58),
         act('gamin', [SEATS['gamin'][0], 0, SEATS['gamin'][1]], 180, 'sit', 'happy', keys=[STAND(), k(0.0, look=[0.0, 1.6, -2.0]),
             k(0.66, toon={'reach': {'R': [0.5, 2.3, ROW1 - 0.05, 1, 0.06]}, 'hands': {'R': 'spread'}}, toonDur=0.1, toonEase='outBack'),
-            k(0.95, toon={'reach': {'R': [0.5, 3.05, ROW1 - 0.05, 1, 0.06]}, 'hands': {'R': 'spread'}, 'face': {'tongue': 1}}, toonDur=0.14, toonEase='outBack')])],   # higher than everybody
-        props=[*CHAIRS(), NAMECARD()], look={'fill': 1.35},
+            k(0.95, toon={'reach': {'R': [0.5, 3.05, ROW1 - 0.05, 1, 0.06]}, 'hands': {'R': 'spread'}}, toonDur=0.14, toonEase='outBack')])],   # higher than everybody (pass 4: no tongue: a red strip down his shirt read as a tie)
+        props=[*CHAIRS(), NAMECARD()], look={'fill': 1.75, 'sunColor': '#FFF6EA'},
         cams=[AGCAM()])
 [st.cue('whoosh', 'S17', t, 0.12, 0.12, 700, 2200) for t in (0.2, 0.32, 0.42, 0.5, 0.58, 0.66)]; st.cue('sfx:stretch', 'S17', 0.95, 0.3)
 
 # 18: one vote was missing. The agent at his table, the count pinned on the wall behind him: POUR : 5, MAJORITÉ : 6; he taps the 5 with his pen, then
 #     his eyes go to the front row
 D18 = st.dur('S18')
-COUNT = P('count', 'paperSheet', pos=[-0.62, 1.72, -2.56], opts={'w': 0.86, 'h': 0.78, 'head': 'DÉCROCHAGE', 'big': 'POUR : 5', 'bigSize': 0.2, 'lines': ['MAJORITÉ : 6'], 'lineSize': 0.1, 'bright': True})
+COUNT = P('count', 'paperSheet', pos=[-0.62, 1.72, -2.56], opts={'w': 0.86, 'h': 0.78, 'head': 'DÉCROCHAGE', 'big': 'POUR : 5', 'bigSize': 0.16, 'lines': ['MAJORITÉ : 6'], 'lineSize': 0.15, 'lineBold': True, 'ink': '#14161A', 'bright': True})   # (final pass) both lines bold black, the second at ~85 % of the first
 st.shot('S18', 'mairie', setOpts=AG, actors=[
         act('syndic', [0.25, 0, -1.95], 0, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[-0.62, 1.8, -2.56]),
             k(0.05, toon={'reach': {'R': [-0.13, 1.86, -2.45, 1, 0.06]}, 'hands': {'R': 'point'}}, toonDur=0.12), k(0.3, toon={'reach': {'R': [-0.15, 1.8, -2.5, 1, 0.04]}, 'hands': {'R': 'point'}}, toonDur=0.05),   # (pass 3) beside the 5, not on the 6
@@ -362,7 +362,7 @@ st.cue('sfx:tick', 'S18', 0.3, 0.3); st.cue('sfx:tick', 'S18', 0.5, 0.3)
 # 19: his. The empty chair, low and close: the name card REZ-DE-CHAUSSÉE; a tumbleweed rolls across the meeting room
 D19 = st.dur('S19')
 st.shot('S19', 'mairie', setOpts=AG, actors=[VOTER('mamie', 0.0, expr='neutral'), VOTER('gamin', 0.0, expr='neutral')],
-        props=[*CHAIRS(), NAMECARD(), P('weed', 'tumbleweed', pos=[-1.2, 0.17, ROW1 - 0.5], scale=0.62, keys=[k(0.0, visible=False), k(0.3, visible=True), k(0.3, to=[-0.05, 0.27, ROW1 - 0.5], dur=0.32, ease='out'), k(0.62, to=[1.2, 0.17, ROW1 - 0.5], dur=0.32, ease='in')])], look={'fill': 1.35},   # (pass 3) on the floor in front of the chair legs, after the card has read
+        props=[*CHAIRS(), NAMECARD(), P('weed', 'tumbleweed', pos=[-1.2, 0.17, ROW1 - 0.5], scale=0.62, keys=[k(0.0, visible=False), k(0.3, visible=True), k(0.3, to=[-0.05, 0.27, ROW1 - 0.5], dur=0.32, ease='out'), k(0.62, to=[1.2, 0.17, ROW1 - 0.5], dur=0.32, ease='in')])], look={'fill': 1.75, 'sunColor': '#FFF6EA'},   # (pass 3) on the floor in front of the chair legs, after the card has read
         cams=[cam(0.0, [0.05, 0.9, -0.55], [0.05, 0.88, -0.48], [0.0, 0.22, ROW1], [0.0, 0.22, ROW1], lens=56)])
 st.cue('gust', 'S19', 0.25, 0.25, 0.65)
 
@@ -385,8 +385,8 @@ def CEILVOTER(n, t0, expr='happy', extra=None):   # (pass 2) every arm shoots up
     return act(n, [x, 0, z], 180, 'sit', expr, keys=[STAND(), k(0.0, look=[0.0, 3.0, -1.0]), k(t0 - 0.06, toon={'reach': {'R': [hx, 1.0, hz, 1, 0.06]}, 'bend': {'spine': [0.15, 0, 0, 1, None]}, **f}, toonDur=0.06),   # a dip first
         k(t0, toon=up(CEIL21 - 0.02, [1.4, 0.5, 1.4]), toonDur=0.08, toonEase='out'), k(t0 + 0.08, toon=up(CEIL21 - 0.12, [1.15, 0.85, 1.15]), toonDur=0.06), k(t0 + 0.14, toon=up(CEIL21 - 0.03, [1.35, 0.55, 1.35]), toonDur=0.06)])
 st.shot('S21', 'mairie', setOpts=AG, actors=[CEILVOTER('mamie', 0.1), CEILVOTER('voisin', 0.12, 'neutral'), CEILVOTER('femme', 0.11), CEILVOTER('madame', 0.13), CEILVOTER('retraite', 0.12, 'neutral'),
-        CEILVOTER('gamin', 0.1, extra={'face': {'tongue': 1}})],
-        props=[*CHAIRS(), NAMECARD(), P('ceil21', 'paperSheet', pos=[0.0, CEIL21, 1.2], rot=[math.pi / 2, 0, 0], opts={'w': 4.6, 'h': 3.6, 'paper': '#EDE3D0', 'top': 0.0})], look={'fill': 1.35},
+        CEILVOTER('gamin', 0.1)],
+        props=[*CHAIRS(), NAMECARD(), P('ceil21', 'paperSheet', pos=[0.0, CEIL21, 1.2], rot=[math.pi / 2, 0, 0], opts={'w': 4.6, 'h': 3.6, 'paper': '#F4F1EA', 'top': 0.0})], look={'fill': 1.75, 'sunColor': '#FFF6EA'},
         cams=[hcam(0.0, [-1.55, 0.5, -0.95], [[-1.15, 2.0, ROW2], [1.15, 2.0, ROW2], [-0.8, 0.3, ROW1], [0.8, 0.3, ROW1], [0.5, CEIL21, ROW1], [-0.9, CEIL21, ROW2]], top=0.06, bottom=0.74)])   # low in the corner, the ceiling in the frame
 st.cue('whoosh', 'S21', 0.08, 0.35, 0.15, 500, 2000)
 
@@ -397,7 +397,7 @@ PAINTER = [round(PART - 0.45, 3), 4 * FH, 0.5]
 PFRONT = lambda t_hit, y_hit, v=8.0: [round(t_hit - (CABTOP(6) - y_hit) / v, 3), round(t_hit - (CABTOP(6) - y_hit) / v + LEN / v, 3)]   # paint [t0, t1] whose front passes y_hit at t_hit
 GRIP22 = lambda y: [round(LINEX - 0.45, 3), round(y, 3), 0.34]   # the grip of his roller; its head rests on the line 0.55 m higher (the roller tilted 39 degrees)
 ROLL22 = [(0.0, 4 * FH + 1.2), (RL22, 4 * FH + 0.62), (0.5, 4 * FH + 1.12), (0.78, 4 * FH + 0.66)]   # (t, y of the grip): up and down the line
-STOP22 = 11.75                                        # (pass 3) where the beige front is at the end of the shot: above the caption band (frame 10.7..14.1)
+STOP22 = 11.95                                        # (pass 3) where the beige front is at the end of the shot: above the caption band (frame 10.7..14.1)
 st.shot('S22', 'immeubleCoupe', setOpts=COUPE(), actors=[
         act('peintre', PAINTER, 50, 'stand', 'happy', keys=[STAND(), k(0.0, look=[1.0, 4 * FH + 1.7, 6.0]),   # (pass 3) three-quarter, whistling at us, not looking at what he paints
             *[k(t, toon={'reach': {'L': [*GRIP22(y), 1, 0.06]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.1, 0, 0, 1, None]}}, toonDur=(0.0 if t == 0.0 else 0.2), toonEase='inOut') for t, y in ROLL22]])],
@@ -428,7 +428,7 @@ D24 = st.dur('S24'); OUT24, HIT24, GRAB24 = 0.06, 0.5, 0.76   # (the envelope fa
 NAPEW = [round(ME[0] - 0.08, 3), 1.66, round(ME[2] - 0.2, 3)]
 st.shot('S24', 'immeubleHall', setOpts=HALL(), actors=[
         act('mec', ME, MERY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[1.8, 1.7, 1.0]), k(0.0, toon={**KB, 'face': {'lid': 0.45, 'browL': 0.6}}, toonDur=0.0),
-            k(0.1, look=SEAM), k(0.36, look=[1.8, 1.7, 1.0]),                                                                                     # (pass 3) a glance up the leash; back to us: thwack
+            k(0.06, look=SEAM), k(0.26, look=[1.8, 1.7, 1.0]),                                                                                     # (pass 3) a glance up the leash; back to us: thwack
             k(HIT24, toon={**KB, 'bend': {'neck': [0.75, 0, 0, 1.15, None], 'spine': [0.2, 0, 0, 1, None]}, 'scl': {'head': [1.22, 0.78, 1.22]}, 'face': {'pop': 0.7, 'brow': 1, 'eye': 0.5, 'stars': 1}}, toonDur=0.03, toonEase='out'),   # thwack: (pass 2) the head snaps forward, squashed, stars
             k(HIT24 + 0.12, toon={**KB, 'face': {'pop': 0.0, 'lid': 0.45, 'browL': 0.7}}, toonDur=0.1),
             k(GRAB24 - 0.12, toon={**KB, 'reach': {'L': [NAPEW[0] - 0.05, 1.75, NAPEW[2] - 0.05, 1, 0.08]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.45}}, toonDur=0.12),
@@ -443,16 +443,16 @@ st.cue('sfx:zip', 'S24', OUT24, 0.4); st.cue('sfx:bonk', 'S24', HIT24, 0.5); st.
 # 25: close: he reads it: CHARGES DU RDC, 1 240 €: le ravalement, le séchage du linge; his eye twitches; down the leash, the boy's last note shakes
 #     him one more time
 D25 = st.dur('S25'); TW25, WB25 = 0.55, 1.05
-BILLC25 = lambda sx: [round(ME[0] - 0.02 + sx * 0.25, 3), 1.42, round(ME[2] + 0.48 - sx * 0.048, 3)]   # (pass 3) the bill's sides at mid-height: below its title (at the corners his cuffs covered CHARGES DU RDC)
+BILLC25 = lambda sx: [round(ME[0] - 0.02 + sx * 0.25, 3), 1.42, round(ME[2] + 0.58 - sx * 0.048, 3)]   # (pass 3) the bill's sides at mid-height: below its title (at the corners his cuffs covered CHARGES DU RDC)
 GRIP25 = lambda **f: {**KB, 'reach': {'L': [*BILLC25(-1), 1, 0.08], 'R': [*BILLC25(1), 1, 0.08]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': {'lid': 0.4, **f}}
 st.shot('S25', 'immeubleHall', setOpts=HALL(), actors=[
         act('mec', ME, MERY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[ME[0] - 0.05, 1.4, ME[2] + 0.5]),
             k(0.0, toon=GRIP25(), toonDur=0.0),
-            *[k(round(TW25 + 0.055 * i, 3), toon=GRIP25(**({'lidL': 0.95, 'browL': 1.0} if i % 2 == 0 else {'lidL': 0.3, 'browL': 0.85})), toonDur=0.025) for i in range(6)],   # (pass 2) the eye flutters four times, the brow jumps
+            *[k(round(TW25 + 0.055 * i, 3), toon=GRIP25(**({'lidL': 0.95, 'browL': 1.0, 'eyeL': 0.0} if i % 2 == 0 else {'lidL': 0.0, 'browL': 1.0, 'eyeL': 0.5})), toonDur=0.025) for i in range(6)],   # (pass 4) shut, then bulging: a twitch you can see   # (pass 2) the eye flutters four times, the brow jumps
             k(round(TW25 + 0.36, 3), toon=GRIP25(), toonDur=0.08),
             k(WB25, clip='jelly', params={'amp': 0.32, 'freq': 12, 'decay': 4.5}), k(1.4, look=[1.8, 1.72, 1.0])])],   # (pass 2) a real last shake
         props=[ROPE(color=BEIGE, pluck=[[WB25 - 0.15, 0.05, 7, 14, 4]]),
-               P('billopen', 'paperSheet', pos=[round(ME[0] - 0.02, 3), 1.42, round(ME[2] + 0.48, 3)], ry=11, rot=[-0.12, 0, 0], opts={'w': 0.48, 'h': 0.46, 'head': 'CHARGES DU RDC', 'big': '1 240 €', 'bigSize': 0.15,   # (pass 3) wider: the text clear of his hands
+               P('billopen', 'paperSheet', pos=[round(ME[0] - 0.02, 3), 1.42, round(ME[2] + 0.58, 3)], ry=11, rot=[-0.12, 0, 0], opts={'w': 0.48, 'h': 0.46, 'head': 'CHARGES DU RDC', 'big': '1 240 €', 'bigSize': 0.15,   # (pass 3) wider: the text clear of his hands
                                                                                                                  'lines': ['Ravalement', 'Séchage du linge'], 'lineSize': 0.07, 'bright': True})],   # free, facing us, his hands at its edges (held in a hand it was seen edge-on)
         cams=[hcam(0.0, [1.8, 1.72, 0.3], [[ME[0] + 0.15, HEAD + 0.05, ME[2]], [ME[0], 1.18, ME[2] + 0.4], [ME[0] - 0.45, 1.58, ME[2] - 0.3]], top=0.16, bottom=0.74, drift=(-0.02, 0, -0.08))])
 st.cue('sfx:cash', 'S25', 0.1, 0.35); st.cue('sfx:twang', 'S25', WB25 - 0.15, 0.3)
