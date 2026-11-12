@@ -104,6 +104,26 @@ def fitBack(frm, points, step=0.25, most=14.0, level=True, inside=None, **kw):
     return frm, None, None
 
 
+def react(t0, s=1.0, keep=None, look=None, kind='startle'):
+    """(cycle 10) A bystander's reaction to a loud beat at t0 (the reviews: "the pound man keeps the same pose through the clack and the jump"),
+    as keys to add to a secondary actor. kind 'startle': a two-frame squash, then a jump of the shoulders with the eyes popping and the hair up,
+    a shiver, a settle; 'wince': eyes shut, shoulders up, head turned a little away. keep: a toon state to carry under it (toon keys are whole
+    states: an actor with a working hand passes its reach here, or the hand drops); look: where his eyes go on it."""
+    base = dict(keep or {}); f0 = dict(base.get('face', {}))
+    def st_(**k):
+        d = dict(base); d.update({x: v for x, v in k.items() if x != 'face'}); d['face'] = {**f0, **k.get('face', {})}; return d
+    if kind == 'wince':
+        ks = [k(round(t0, 3), toon=st_(sq=[1.04, 0.95, 1.04], face={'lid': 1, 'brow': 0.8, 'jaw': 0.2}), toonDur=0.04, toonEase='out'),
+              k(round(t0 + 0.3, 3), toon=st_(face={'lid': 0.3, 'brow': 0.4}), toonDur=0.15)]
+    else:
+        ks = [k(round(t0, 3), toon=st_(sq=[1.0 + 0.08 * s, 1.0 - 0.08 * s, 1.0 + 0.08 * s]), toonDur=0.03),
+              k(round(t0 + 0.067, 3), toon=st_(sq=[1.0 - 0.07 * s, 1.0 + 0.1 * s, 1.0 - 0.07 * s], hairUp=min(1.0, s), face={'pop': 0.35 * s, 'brow': 1, 'jaw': 0.2}), toonDur=0.03, toonEase='out'),
+              k(round(t0 + 0.2, 3), toon=st_(sq=[1.0 - 0.05 * s, 1.0 + 0.07 * s, 1.0 - 0.05 * s], hairUp=min(1.0, s) * 0.8, face={'pop': 0.3 * s, 'brow': 1}), toonDur=0.04),
+              k(round(t0 + 0.36, 3), toon=st_(sq=[1.02, 0.98, 1.02], face={'brow': 0.6}), toonDur=0.08, toonEase='in'),
+              k(round(t0 + 0.5, 3), toon=st_(face={'brow': 0.3}), toonDur=0.12)]
+    if look is not None: ks.insert(1, k(round(t0 + 0.04, 3), look=look))
+    return ks
+
 def beat(t0, extreme, antic=None, hold=0.3, over=None, settle=None, shiver=0.04, fps=FPS):
     """(cycle 9) The timing of a cartoon key pose in one call, as a list of keys for an actor (the reviews kept finding extremes that came and went
     in two frames: no anticipation, no hold, no settle). t0: when the extreme hits (the contact, the sound); extreme: the toon state, snapped to in one
@@ -202,6 +222,7 @@ class Story:
         for sc in self.scenes:
             cs = sorted([c for c in sc['cams'] if 'from' in c], key=lambda c: c['at'])
             if not cs: continue
+            boxes = {}   # (cycle 10) t -> [(id, x0, x1, y0, y1, depth)]: who stands in front of the hero
             for a in sc['actors']:
                 if not isinstance(a, dict) or 'pos' not in a: continue
                 keys = sorted([x for x in a.get('keys', []) if isinstance(x, dict)], key=lambda x: x.get('at', 0)); seen = set()
@@ -238,6 +259,10 @@ class Story:
                         if not ft or not hd: continue
                         inx = -0.1 <= ft[0] <= 1.1 and -0.1 <= hd[0] <= 1.1
                         if not inx: continue
+                        cpos = c['from'] if not c.get('to') else [c['from'][j] + (c['to'][j] - c['from'][j]) * min(1, max(0, (t - c['at']) / max(1e-6, t1 - c['at']))) for j in range(3)]
+                        vx, vz = p[0] - cpos[0], p[2] - cpos[2]; vn = math.hypot(vx, vz) or 1.0; lx, lz = -vz / vn * 0.32 * sc_, vx / vn * 0.32 * sc_
+                        mid = p[1] + 0.55 * height * sc_; pl = self.where(sc['id'], t, [p[0] - lx, mid, p[2] - lz]); pr = self.where(sc['id'], t, [p[0] + lx, mid, p[2] + lz])
+                        if pl and pr: boxes.setdefault(t, []).append((a['id'], min(pl[0], pr[0]), max(pl[0], pr[0]), min(hd[1], ft[1]), max(hd[1], ft[1]), ft[2] if len(ft) > 2 else 0.0))
                         msg = None
                         if hd[1] < 0.0 and 0.0 <= ft[1] <= 1.0: msg = f'{a["id"]} head cut by the top (head y {hd[1]:.2f}, feet y {ft[1]:.2f})'
                         elif 0.77 <= ft[1] <= 0.86 and 0.0 <= hd[1] < 0.77: msg = f'{a["id"]} feet in the caption band (y {ft[1]:.2f})'
@@ -247,6 +272,14 @@ class Story:
                             pos = c['from'] if not c.get('to') else [c['from'][j] + (c['to'][j] - c['from'][j]) * min(1, max(0, (t - c['at']) / max(1e-6, t1 - c['at']))) for j in range(3)]
                             tc = math.atan2(pos[0] - p[0], pos[2] - p[2]); ang = abs((f - tc + math.pi) % (2 * math.pi) - math.pi)
                             if math.degrees(ang) > 120 and 'back' not in seen: seen.add('back'); out.append(f'{sc["id"]} t={t:.2f}: {a["id"]} turned {math.degrees(ang):.0f} deg away from the camera (a move without face=? face=\'keep\' keeps the facing)')
+            said = set()   # (cycle 10) an actor between the camera and the hero, covering a good part of him (45 S17: the pound man's back hid the swell)
+            for t, bs in sorted(boxes.items()):
+                for h in [b for b in bs if b[0] in hero]:
+                    ha = max(1e-6, (h[2] - h[1]) * (h[4] - h[3]))
+                    for o in bs:
+                        if o[0] == h[0] or o[5] >= h[5] or (sc['id'], o[0]) in said: continue
+                        ov = max(0.0, min(h[2], o[2]) - max(h[1], o[1])) * max(0.0, min(h[4], o[4]) - max(h[3], o[3]))
+                        if ov / ha > 0.4: said.add((sc['id'], o[0])); out.append(f'{sc["id"]} t={t:.2f}: {o[0]} stands in front of {h[0]} and covers {100 * ov / ha:.0f} % of him (move one of them or the camera)')
         if not quiet:
             for w in out: print('  audit', w)
         return out
