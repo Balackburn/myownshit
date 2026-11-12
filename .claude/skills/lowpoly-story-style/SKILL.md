@@ -682,3 +682,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   de l'épaule + `hands` `point`.
 - (cycle 7) Un pas de course sur place (`scramble`) ou un clip « one-shot » donné comme clip de base est fini avant le début du plan :
   le poser par une clé `k(0.0, clip=..., params=...)`.
+- (cycle 7) Un corps aplati couché (`sq` 0,1 dans sa profondeur, qui est verticale quand il est couché) aplatit aussi ses propres plis : une
+  bosse qui soulève talons, hanches et tête reste invisible. Gonfler son épaisseur au passage de la bosse (`sq` z jusqu'à 0,7) ; et la
+  filmer de trois quarts d'en haut : vu au ras du sol il n'est qu'un trait, vu d'aplomb il semble debout contre un mur.

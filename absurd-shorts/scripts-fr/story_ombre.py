@@ -565,7 +565,7 @@ def topcam(t0, t1, zf, x0, H=3.6, tilt=8.0, zoff=0.02, lens=44, **kw):
 #     the joints of the pavement go by; one slab stands proud: his heels hit it and the bump runs up him: hips, head: his head hangs two frames
 D23 = st.dur('S23')                                    # (B23: above)
 zs23 = lambda t: round(zs22(D22) - V23 * t, 3)
-BUMP = lambda a, b, c, **kw: {'sq': [1.06, 1.0, 0.1 + 0.09 * b], 'bend': {'shinL': [-0.95 * a, 0, 0, 1, None], 'shinR': [-0.95 * a, 0, 0, 1, None], 'spine': [-0.8 * b, 0, 0, 1, None], 'neck': [1.0 * c, 0, 0, 1, None]}, **kw}   # heels up; hips up; head up (pass 3: twice as high: seen from the side)
+BUMP = lambda a, b, c, **kw: {'sq': [1.06, 1.0, round(0.1 + 0.6 * max(a, b, c), 3)], 'bend': {'shinL': [-0.95 * a, 0, 0, 1, None], 'shinR': [-0.95 * a, 0, 0, 1, None], 'spine': [-0.8 * b, 0, 0, 1, None], 'neck': [1.0 * c, 0, 0, 1, None]}, **kw}   # heels up; hips up; head up (pass 3: twice as high, and his thickness swells as the bump passes: flattened to a tenth, the lift was flattened with him)
 st.shot('S23', 'parisStreet', setOpts=STREET, look=SUN, actors=[
         act('ombre3', [HX, 0, zs23(0.0)], 180, 'marchPomp', 'neutral', params=MP, keys=[k(0.0, look=None), k(0.0, to=[HX, 0, zs23(D23)], dur=D23, clip='marchPomp', params=MP, ease='linear', face=180, cruise=True)]),
         act('mec', [HX, 0, round(zs23(0.0) + DRAG, 3)], 180, 'lieBack', 'unimpressed', blink=0, keys=[k(0.0, look=None), k(0.0, toon={'sq': FLAT23, 'face': {'lid': 0.4}}, toonDur=0.0),
