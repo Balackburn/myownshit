@@ -1,0 +1,585 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a couru pour attraper son bus.",
+   "hl": [
+    "couru",
+    "bus."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.026,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "couru",
+     "s": 0.619,
+     "e": 0.841
+    },
+    {
+     "w": "pour",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "attraper",
+     "s": 1.063,
+     "e": 1.359
+    },
+    {
+     "w": "son",
+     "s": 1.433,
+     "e": 1.507
+    },
+    {
+     "w": "bus.",
+     "s": 1.656,
+     "e": 2.026
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Un radar l'a flashé. Trente et un kilomètres-heure.",
+   "hl": [
+    "radar",
+    "trente",
+    "un"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L02.k.wav",
+   "file_start": 2.126,
+   "speech_start": 2.126,
+   "speech_end": 4.719,
+   "words": [
+    {
+     "w": "Un",
+     "s": 2.126,
+     "e": 2.274
+    },
+    {
+     "w": "radar",
+     "s": 2.385,
+     "e": 2.57
+    },
+    {
+     "w": "l'a",
+     "s": 2.607,
+     "e": 2.719
+    },
+    {
+     "w": "flashé.",
+     "s": 2.867,
+     "e": 3.385
+    },
+    {
+     "w": "Trente",
+     "s": 3.422,
+     "e": 3.681
+    },
+    {
+     "w": "et",
+     "s": 3.719,
+     "e": 3.756
+    },
+    {
+     "w": "un",
+     "s": 3.793,
+     "e": 3.83
+    },
+    {
+     "w": "kilomètres-heure.",
+     "s": 3.904,
+     "e": 4.719
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "En zone trente.",
+   "hl": [
+    "trente."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L03.k.wav",
+   "file_start": 4.819,
+   "speech_start": 4.819,
+   "speech_end": 5.856,
+   "words": [
+    {
+     "w": "En",
+     "s": 4.819,
+     "e": 4.893
+    },
+    {
+     "w": "zone",
+     "s": 4.967,
+     "e": 5.115
+    },
+    {
+     "w": "trente.",
+     "s": 5.189,
+     "e": 5.856
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il a contesté : il est à pied.",
+   "hl": [
+    "pied."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L04.k.wav",
+   "file_start": 5.956,
+   "speech_start": 5.956,
+   "speech_end": 7.807,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.956,
+     "e": 6.03
+    },
+    {
+     "w": "a",
+     "s": 6.067,
+     "e": 6.104
+    },
+    {
+     "w": "contesté:",
+     "s": 6.178,
+     "e": 6.944
+    },
+    {
+     "w": "il",
+     "s": 6.968,
+     "e": 6.993
+    },
+    {
+     "w": "est",
+     "s": 7.067,
+     "e": 7.141
+    },
+    {
+     "w": "à",
+     "s": 7.215,
+     "e": 7.252
+    },
+    {
+     "w": "pied.",
+     "s": 7.289,
+     "e": 7.807
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La préfecture a tranché : au-dessus de trente, un piéton est un véhicule.",
+   "hl": [
+    "piéton",
+    "véhicule."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L05.k.wav",
+   "file_start": 7.907,
+   "speech_start": 7.907,
+   "speech_end": 11.759,
+   "words": [
+    {
+     "w": "La",
+     "s": 7.907,
+     "e": 7.981
+    },
+    {
+     "w": "préfecture",
+     "s": 8.056,
+     "e": 8.426
+    },
+    {
+     "w": "a",
+     "s": 8.5,
+     "e": 8.537
+    },
+    {
+     "w": "tranché:",
+     "s": 8.574,
+     "e": 9.204
+    },
+    {
+     "w": "au-dessus",
+     "s": 9.222,
+     "e": 9.5
+    },
+    {
+     "w": "de",
+     "s": 9.537,
+     "e": 9.611
+    },
+    {
+     "w": "trente,",
+     "s": 9.685,
+     "e": 10.167
+    },
+    {
+     "w": "un",
+     "s": 10.204,
+     "e": 10.278
+    },
+    {
+     "w": "piéton",
+     "s": 10.315,
+     "e": 10.648
+    },
+    {
+     "w": "est",
+     "s": 10.722,
+     "e": 10.796
+    },
+    {
+     "w": "un",
+     "s": 10.87,
+     "e": 10.944
+    },
+    {
+     "w": "véhicule.",
+     "s": 10.981,
+     "e": 11.759
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il a reçu une plaque d'immatriculation.",
+   "hl": [
+    "plaque"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L06.k.wav",
+   "file_start": 11.859,
+   "speech_start": 11.859,
+   "speech_end": 13.785,
+   "words": [
+    {
+     "w": "Il",
+     "s": 11.859,
+     "e": 11.933
+    },
+    {
+     "w": "a",
+     "s": 11.97,
+     "e": 12.007
+    },
+    {
+     "w": "reçu",
+     "s": 12.081,
+     "e": 12.23
+    },
+    {
+     "w": "une",
+     "s": 12.304,
+     "e": 12.452
+    },
+    {
+     "w": "plaque",
+     "s": 12.489,
+     "e": 12.6
+    },
+    {
+     "w": "d'immatriculation.",
+     "s": 12.674,
+     "e": 13.785
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Puis une convocation au contrôle technique.",
+   "hl": [
+    "contrôle",
+    "technique."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L07.k.wav",
+   "file_start": 13.885,
+   "speech_start": 13.885,
+   "speech_end": 15.959,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 13.885,
+     "e": 14.033
+    },
+    {
+     "w": "une",
+     "s": 14.181,
+     "e": 14.33
+    },
+    {
+     "w": "convocation",
+     "s": 14.404,
+     "e": 14.848
+    },
+    {
+     "w": "au",
+     "s": 14.885,
+     "e": 14.922
+    },
+    {
+     "w": "contrôle",
+     "s": 14.996,
+     "e": 15.293
+    },
+    {
+     "w": "technique.",
+     "s": 15.404,
+     "e": 15.959
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les pneus, ça va. Le klaxon, ça va.",
+   "hl": [
+    "pneus,",
+    "klaxon,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L08.k.wav",
+   "file_start": 16.059,
+   "speech_start": 16.059,
+   "speech_end": 18.8,
+   "words": [
+    {
+     "w": "Les",
+     "s": 16.059,
+     "e": 16.207
+    },
+    {
+     "w": "pneus,",
+     "s": 16.244,
+     "e": 16.652
+    },
+    {
+     "w": "ça",
+     "s": 16.726,
+     "e": 16.8
+    },
+    {
+     "w": "va.",
+     "s": 16.911,
+     "e": 17.319
+    },
+    {
+     "w": "Le",
+     "s": 17.356,
+     "e": 17.393
+    },
+    {
+     "w": "klaxon,",
+     "s": 17.43,
+     "e": 18.133
+    },
+    {
+     "w": "ça",
+     "s": 18.207,
+     "e": 18.281
+    },
+    {
+     "w": "va.",
+     "s": 18.393,
+     "e": 18.8
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les freins : refusé.",
+   "hl": [
+    "freins",
+    "refusé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L09.k.wav",
+   "file_start": 18.9,
+   "speech_start": 18.9,
+   "speech_end": 20.53,
+   "words": [
+    {
+     "w": "Les",
+     "s": 18.9,
+     "e": 19.048
+    },
+    {
+     "w": "freins:",
+     "s": 19.122,
+     "e": 19.752
+    },
+    {
+     "w": "refusé.",
+     "s": 19.789,
+     "e": 20.53
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Depuis, il n'a plus le droit de marcher.",
+   "hl": [
+    "marcher."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L10.k.wav",
+   "file_start": 20.63,
+   "speech_start": 20.63,
+   "speech_end": 22.556,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 20.63,
+     "e": 21.222
+    },
+    {
+     "w": "il",
+     "s": 21.296,
+     "e": 21.37
+    },
+    {
+     "w": "n'a",
+     "s": 21.419,
+     "e": 21.519
+    },
+    {
+     "w": "plus",
+     "s": 21.593,
+     "e": 21.667
+    },
+    {
+     "w": "le",
+     "s": 21.704,
+     "e": 21.741
+    },
+    {
+     "w": "droit",
+     "s": 21.778,
+     "e": 21.889
+    },
+    {
+     "w": "de",
+     "s": 21.926,
+     "e": 21.963
+    },
+    {
+     "w": "marcher.",
+     "s": 22.037,
+     "e": 22.556
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le bus le pousse tous les matins.",
+   "hl": [
+    "pousse"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L11.k.wav",
+   "file_start": 22.656,
+   "speech_start": 22.656,
+   "speech_end": 24.359,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.656,
+     "e": 22.73
+    },
+    {
+     "w": "bus",
+     "s": 22.804,
+     "e": 23.026
+    },
+    {
+     "w": "le",
+     "s": 23.1,
+     "e": 23.174
+    },
+    {
+     "w": "pousse",
+     "s": 23.248,
+     "e": 23.47
+    },
+    {
+     "w": "tous",
+     "s": 23.495,
+     "e": 23.544
+    },
+    {
+     "w": "les",
+     "s": 23.619,
+     "e": 23.693
+    },
+    {
+     "w": "matins.",
+     "s": 23.804,
+     "e": 24.359
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il ne le rate plus.",
+   "hl": [
+    "rate"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/radar/tts/L12.k.wav",
+   "file_start": 24.459,
+   "speech_start": 24.459,
+   "speech_end": 25.496,
+   "words": [
+    {
+     "w": "Il",
+     "s": 24.459,
+     "e": 24.533
+    },
+    {
+     "w": "ne",
+     "s": 24.607,
+     "e": 24.681
+    },
+    {
+     "w": "le",
+     "s": 24.719,
+     "e": 24.756
+    },
+    {
+     "w": "rate",
+     "s": 24.867,
+     "e": 24.978
+    },
+    {
+     "w": "plus.",
+     "s": 25.126,
+     "e": 25.496
+    }
+   ]
+  }
+ ],
+ "total": 27.5
+}
