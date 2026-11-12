@@ -38,24 +38,26 @@ export const AIMANT_PROPS = {
     g.userData.grip = [r + 0.18, 0.04, 0]; return g;
   },
 
-  // A hiker's compass, dial up (+Y; hold it with rot to show it to a camera), o.r (0.06 m): brass rim, white dial with N E S O, a needle red at its north
+  // A hiker's compass, dial up (+Y), o.r (0.06 m): brass rim, white dial with N E S O, a needle red at its north
   // end. Its needle points at o.target [x, y, z] (world) — a man with a magnet in his stomach — from o.at (default 0); before that, at o.north (the world
   // direction of the true north, default -Z); between o.spin [t0, t1] it whirls, then swings to the target with a decaying wobble. o.n: the N letter in red.
   compass(o) {
-    const r = o.r ?? 0.06, g = grp(at(cyl(r * 1.08, r * 1.12, r * 0.28, '#C9A24A', 20, { outline: 0.004 }), 0, r * 0.14, 0));
+    // o.upright: the dial faces +Z instead of up (give it face: 'camera' to show it to us); o.target2 [x, y, z] from o.at2: it swings to a second target
+    const r = o.r ?? 0.06, g = grp(), inner = grp(); g.add(inner); if (o.upright) inner.rotation.x = PI / 2;
+    inner.add(at(cyl(r * 1.08, r * 1.12, r * 0.28, '#C9A24A', 20, { outline: 0.004 }), 0, r * 0.14, 0));
     const dial = canvasPlane(r * 1.9, r * 1.9, (c, W, H) => { c.fillStyle = '#F7F4EA'; c.beginPath(); c.arc(W / 2, H / 2, W / 2, 0, TAU); c.fill(); c.strokeStyle = '#1B1B1E'; c.lineWidth = W * 0.012;
       for (let i = 0; i < 36; i++) { const a = i * TAU / 36, L = i % 9 === 0 ? 0.12 : 0.06; c.beginPath(); c.moveTo(W / 2 + Math.sin(a) * W * 0.46, H / 2 - Math.cos(a) * H * 0.46); c.lineTo(W / 2 + Math.sin(a) * W * (0.46 - L), H / 2 - Math.cos(a) * H * (0.46 - L)); c.stroke(); }
       c.font = `900 ${H * 0.15}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; [['N', 0], ['E', 1], ['S', 2], ['O', 3]].forEach(([l, i]) => { c.fillStyle = l === 'N' ? '#C8202A' : '#1B1B1E'; const a = i * PI / 2; c.fillText(l, W / 2 + Math.sin(a) * W * 0.27, H / 2 - Math.cos(a) * H * 0.27); }); }, { res: 256 });
-    dial.material = new THREE.MeshBasicMaterial({ map: dial.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide }); dial.rotation.x = -PI / 2; dial.position.y = r * 0.29; dial.userData.noAO = true; g.add(dial);
+    dial.material = new THREE.MeshBasicMaterial({ map: dial.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide }); dial.rotation.x = -PI / 2; dial.position.y = r * 0.29; dial.userData.noAO = true; inner.add(dial);
     const needle = grp(at(box(r * 0.16, r * 0.04, r * 0.8, '#D3202A', { noGrain: true }), 0, 0, -r * 0.4), at(box(r * 0.16, r * 0.04, r * 0.8, '#F4F2EA', { noGrain: true }), 0, 0, r * 0.4), at(cyl(r * 0.08, r * 0.08, r * 0.06, '#1B1B1E', 8), 0, 0, 0));
-    needle.position.y = r * 0.33; g.add(needle);
-    const T = o.target ? new THREE.Vector3(...o.target) : null, N = new THREE.Vector3(...(o.north || [0, 0, -1])), sp = o.spin, t0 = o.at ?? 0;
-    const angTo = (wp) => { _v.copy(wp); g.worldToLocal(_v); return Math.atan2(-_v.x, -_v.z); };   // the needle's red end lies along local -Z
-    g.userData.update = t => { g.updateWorldMatrix(true, false); let a;
-      const north = (() => { const p = new THREE.Vector3(); g.getWorldPosition(p); return angTo(p.add(N.clone().multiplyScalar(10))); })();
-      const tgt = T ? angTo(T) : north;
+    needle.position.y = r * 0.33; inner.add(needle);
+    const T = o.target ? new THREE.Vector3(...o.target) : null, T2 = o.target2 ? new THREE.Vector3(...o.target2) : null, N = new THREE.Vector3(...(o.north || [0, 0, -1])), sp = o.spin, t0 = o.at ?? 0, a2 = o.at2 ?? 1e9;
+    const angTo = (wp) => { _v.copy(wp); inner.worldToLocal(_v); return Math.atan2(-_v.x, -_v.z); };   // the needle's red end lies along the dial's -Z
+    g.userData.update = t => { g.updateWorldMatrix(true, true); let a;
+      const p = new THREE.Vector3(); inner.getWorldPosition(p); const north = angTo(p.add(N.clone().multiplyScalar(10)));
       if (sp && t >= sp[0] && t < sp[1]) a = north + (t - sp[0]) * 26 + 0.3 * Math.sin(t * 40);
-      else if (T && t >= (sp ? sp[1] : t0)) { const u = t - (sp ? sp[1] : t0); a = tgt + 0.6 * wob(u, 18, 4.5); }
+      else if (T2 && t >= a2) { const prev = angTo(T), tgt = angTo(T2), u = t - a2; a = prev + (tgt - prev) * ease.out(clamp01(u / 0.18)) + 0.5 * wob(u, 18, 4.5); }
+      else if (T && t >= (sp ? sp[1] : t0)) { const u = t - (sp ? sp[1] : t0); a = angTo(T) + 0.6 * wob(u, 18, 4.5); }
       else a = north + 0.05 * Math.sin(t * 2.3);
       needle.rotation.y = a; };
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;

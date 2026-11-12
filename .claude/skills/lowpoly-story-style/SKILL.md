@@ -780,3 +780,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 8) Une grosse goutte de sueur doit faire trois fois sa taille pour se lire sur un téléphone : clé `fx={'sweat': 1, 'sweatSize': 3}`.
 - (cycle 8) Trois rendus sur quatre processeurs : le rendu final 1080p tombe à 0,1 image/s (2 h 30 pour 30 s). Le final avec au plus un
   brouillon à côté ; les images de contrôle attendent.
+- (cycle 9) Une géométrie faite à la main sans normales sous un matériau éclairé donne des NaN, et le bloom les étale sur toute l'image :
+  images noires (les paupières de la voiture de 45, à chaque clignement). Toujours `setAttribute('normal', ...)`.
+- (cycle 9) Un étirement de jambe (`bend` stretch sur legL/shinL) pousse le pied sous le sol : relever la racine de 0,956 m par unité
+  d'étirement des deux segments (jambes × 1,8 : + 0,76 m), sinon le corps garde sa taille (45 S04, 45 S08).
+- (cycle 9) En look naturel le grade vaut `none`, et `none saturate(...)` n'est pas un filtre valide : le gel « photo du radar » de 46
+  restait en couleurs. Corrigé dans director3 ; `freeze: {at, filter}` choisit l'aspect du gel.
+- (cycle 9) `face='keep'` sur un déplacement (`to`) garde l'orientation du corps ; l'audit de `st.write()` signale les glissés sans `face=`
+  qui le tournent de plus de 45°, les têtes coupées, les pieds dans la bande des sous-titres et le héros de dos.
+- (cycle 9) `beat(t, EXTRÊME, hold=0.3)` (story_kit) écrit l'anticipation, l'extrême, la tenue frissonnante, le dépassement et le retour ;
+  le canal toon `hose` (0,1 à 0,3) garde un coude aux bras guidés qui vont loin (cinq bras tendus en tige raide : « le même bâton »).

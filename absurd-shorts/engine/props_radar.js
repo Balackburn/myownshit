@@ -32,15 +32,16 @@ export const RADAR_PROPS = {
   speedDisplay(o) {
     const h = o.h ?? 2.0, g = grp(at(cyl(0.05, 0.06, h, '#7A8088', 8, { pivot: 'bottom' }), 0, 0, 0), at(box(0.8, 0.75, 0.1, '#1B1D22', { outline: 0.008 }), 0, h + 0.38, 0));
     const draw = (txt, color, face) => (c, W, H) => { c.fillStyle = '#0D0E10'; c.fillRect(0, 0, W, H);
-      if (txt) { c.fillStyle = color; c.font = `900 ${Math.round(H * 0.5)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, W / 2, H * 0.34); }
+      c.fillStyle = '#F4F1E8'; c.fillRect(0, 0, W, H * 0.13); c.fillStyle = '#1B1D22'; c.font = `900 ${Math.round(H * 0.085)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.header || 'VOTRE VITESSE', W / 2, H * 0.07);   // (pass 2) a lit header: the housing never goes black
+      if (txt) { c.fillStyle = color; c.font = `900 ${Math.round(H * 0.44)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, W / 2, H * 0.4); }
       if (face) { c.strokeStyle = color; c.lineWidth = H * 0.035; c.beginPath(); c.arc(W / 2, H * 0.8, H * 0.13, 0, TAU); c.stroke();
         c.fillStyle = color; c.beginPath(); c.arc(W / 2 - H * 0.045, H * 0.77, H * 0.018, 0, TAU); c.arc(W / 2 + H * 0.045, H * 0.77, H * 0.018, 0, TAU); c.fill();
         c.beginPath(); if (face === 'sad') c.arc(W / 2, H * 0.89, H * 0.06, PI * 1.15, PI * 1.85); else c.arc(W / 2, H * 0.79, H * 0.06, PI * 0.15, PI * 0.85); c.stroke(); } };
-    const off = at(canvasPlane(0.7, 0.65, draw('', '#E8302A', null), { res: 256 }), 0, h + 0.38, 0.052);
+    const off = at(canvasPlane(0.7, 0.65, draw('', '#E8302A', o.sadAt != null ? 'sad' : null), { res: 256, emissive: 0.6 }), 0, h + 0.38, 0.052);   // (pass 2) the blink: the digits off, the face and the header still lit
     const on = at(canvasPlane(0.7, 0.65, draw(o.speed || '31', '#FF3B30', 'happy'), { res: 256, emissive: 1 }), 0, h + 0.38, 0.053);
     const sad = at(canvasPlane(0.7, 0.65, draw(o.speed || '31', '#FF3B30', 'sad'), { res: 256, emissive: 1 }), 0, h + 0.38, 0.054);
     g.add(off, on, sad);
-    g.userData.update = t => { const s = o.showAt == null || t >= o.showAt, d = o.sadAt != null && t >= o.sadAt, blinkOff = d && Math.floor((t - o.sadAt) * 4) % 2 === 1;
+    g.userData.update = t => { const s = o.showAt == null || t >= o.showAt, d = o.sadAt != null && t >= o.sadAt, blinkOff = d && t - o.sadAt < (o.blinkFor ?? 0.5) && Math.floor((t - o.sadAt) * 6) % 2 === 1;   // (pass 2) blinks for o.blinkFor (0.5 s), then the frown holds
       on.visible = s && !d; sad.visible = d && !blinkOff; off.visible = !s || blinkOff; };
     g.userData.update(0); return g;
   },
@@ -76,8 +77,15 @@ export const RADAR_PROPS = {
     const lamp = (txt, c0, c1, x) => { const off = at(label(txt, 0.46, 0.16, { bg: c0, fg: '#EDEDED', wrap: false }), x, 0.56, 0.005), on = at(canvasPlane(0.46, 0.16, (c, W, H) => { c.fillStyle = c1; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF';
       c.font = `900 ${Math.round(H * 0.6)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, W / 2, H * 0.55); }, { res: 256, emissive: 1 }), x, 0.56, 0.006); g.add(off, on); return [on, off]; };
     const ped = lamp('PIÉTON', '#2F4A3A', '#2EB872', -0.26), veh = lamp('VÉHICULE', '#4A2F2F', '#E8302A', 0.26);
+    // (pass 2 of 46) o.crank [[t0, t1, turns], ...]: a crank on the right side of the box (axis at local x 0.62, y -0.35, the knob 0.12 m out) that turns
+    // that many times between t0 and t1; userData.crankAngle(t) gives its angle (0 = the knob straight right), for the hand that turns it
+    let crank = null; const cks = o.crank || [];
+    const crankAngle = t => { let a = 0; for (const [a0, a1, n] of cks) { if (t <= a0) break; a += TAU * n * clamp01((t - a0) / Math.max(0.01, a1 - a0)); } return a; };
+    if (cks.length) { crank = grp(at(box(0.12, 0.03, 0.03, '#8A9198'), 0.06, 0, 0), at(cyl(0.02, 0.02, 0.09, '#C8202A', 8), 0.12, 0, 0.05, PI / 2, 0, 0)); crank.position.set(0.62, -0.35, 0.06);
+      g.add(crank, at(cyl(0.03, 0.03, 0.08, '#5A5F69', 8), 0.62, -0.35, 0.02, PI / 2, 0, 0), at(box(0.1, 0.12, 0.04, '#2A2C31'), 0.6, -0.35, -0.01)); }
+    g.userData.crankAngle = crankAngle;
     g.userData.update = t => { const v = keyed(o.needle, t, 0); nd.rotation.z = (PI * 1.25 - (v / max) * PI * 1.5) - PI / 2; const over = v > lim;   // (the needle is drawn pointing up: +Y)
-      ped[0].visible = !over; ped[1].visible = over; veh[0].visible = over; veh[1].visible = !over; };
+      ped[0].visible = !over; ped[1].visible = over; veh[0].visible = over; veh[1].visible = !over; if (crank) crank.rotation.z = crankAngle(t); };
     g.userData.update(0); return g;
   },
 
@@ -103,8 +111,13 @@ export const RADAR_PROPS = {
     g.add(at(box(0.36, 1.1, 0.3, '#9AA1A9', { outline: 0.008, pivot: 'bottom' }), w / 2 + 0.6, 0, -0.2), at(cyl(0.12, 0.12, 0.02, '#F4F1E8', 16), w / 2 + 0.6, 0.85, -0.04, PI / 2, 0, 0));
     const [lOn, lOff] = [mat('#FF3B30', { emissive: '#FF3B30', noGrain: true }), mat('#6A2A2A')]; const lampOn = at(box(0.08, 0.08, 0.04, '', { material: lOn }), w / 2 + 0.6, 1.0, -0.04), lampOff = at(box(0.08, 0.08, 0.04, '', { material: lOff }), w / 2 + 0.6, 1.0, -0.04); g.add(lampOn, lampOff);
     const spins = o.spin || [];
+    // (pass 2 of 46) a big lever on the console (o.leverAt: pulled down in 0.08 s) and white streaks over the rollers while they spin (gone when they stop)
+    const lever = grp(at(box(0.04, 0.55, 0.04, '#3A3D44'), 0, 0.27, 0), at(cyl(0.06, 0.06, 0.06, '#D3202A', 10), 0, 0.56, 0)); lever.position.set(w / 2 + 0.6, 1.1, 0.02); lever.rotation.x = -0.5; g.add(lever);
+    const sm = new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.75, depthWrite: false }), streaks = [-0.2, 0.2].flatMap(z => [0, 1, 2].map(i => { const q = new THREE.Mesh(new THREE.PlaneGeometry(w * (0.5 + 0.2 * i), 0.012), sm); q.rotation.x = -PI / 2; q.position.set((i - 1) * 0.15, 0.19, z + (i - 1) * 0.05); q.userData.noAO = true; g.add(q); return q; }));
     g.userData.update = t => { let a = 0, v = 0; for (let i = 0; i < spins.length; i++) { const [t0, r] = spins[i], t1 = spins[i + 1]?.[0] ?? Infinity; if (t <= t0) break; a += (Math.min(t, t1) - t0) * r; v = r; }
-      for (const r of rollers) r.rotation.x = -a * TAU; const lit = o.lampAt != null && t >= o.lampAt && Math.floor((t - o.lampAt) * 6) % 2 === 0; lampOn.visible = lit; lampOff.visible = !lit; };
+      for (const r of rollers) r.rotation.x = -a * TAU; const lit = o.lampAt != null && t >= o.lampAt && Math.floor((t - o.lampAt) * 6) % 2 === 0; lampOn.visible = lit; lampOff.visible = !lit;
+      lever.rotation.x = o.leverAt != null && t >= o.leverAt ? -0.5 + 1.3 * clamp01((t - o.leverAt) / 0.08) : -0.5;
+      streaks.forEach((q, i) => { q.visible = v > 2 && Math.floor(t * 20 + i) % 2 === 0; }); };
     g.userData.update(0); return g;
   },
 

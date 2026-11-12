@@ -1177,7 +1177,9 @@ export function renderFrame(tAbs) {
     if (S.look) S.look.render(); else renderer.render(scene, camera);
     const frozen = frozenNow(tk);
     g.globalAlpha = 1 / (k + 1);
-    g.filter = (S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? (S.look ? 'none' : GRADE)) + (frozen ? ' saturate(0.4) hue-rotate(-10deg) brightness(1.03)' : '') + (S.sc.soften ? ` blur(${S.sc.soften}px)` : '');   // sc.soften: match the reference's softness (px)
+    const gradeF = S.curCam?.grade ?? S.sc.grade ?? S.script.grade ?? (S.look ? 'none' : GRADE);
+    g.filter = (gradeF === 'none' && frozen) ? (S.sc.freeze?.filter || 'saturate(0.25) hue-rotate(-10deg) brightness(1.04)')   // (cycle 9) 'none saturate(...)' is not a valid filter: the freeze-frame of a natural-look story kept its colours
+      : gradeF + (frozen ? ' ' + (S.sc.freeze?.filter || 'saturate(0.4) hue-rotate(-10deg) brightness(1.03)') : '') + (S.sc.soften ? ` blur(${S.sc.soften}px)` : '');   // sc.soften: match the reference's softness (px); sc.freeze.filter: the drained look of a freeze
     g.drawImage(renderer.domElement, 0, 0, S.W, S.H);
   }
   g.globalAlpha = 1; g.filter = 'none';
