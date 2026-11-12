@@ -23,11 +23,11 @@ st.plan([('S01', 'L01', 0), ('S02', 'L01', 7), ('S03', 'L02', 0), ('S04', 'L02',
          ('S13', 'L06', 0), ('S14', 'L07', 0), ('S15', 'L07', 4), ('S16', 'L08', 0), ('S17', 'L08', 5), ('S18', 'L09', 0),
          ('S19', 'L09', 4), ('S20', 'L10', 0), ('S21', 'L11', 0), ('S22', 'L12', 0)])
 
-STREET = {'clear': [-110, 110], 'eiffel': False, 'paveW': 6.5}
+STREET = {'clouds': 0, 'clear': [-110, 110], 'eiffel': False, 'paveW': 6.5}
 MINT = '#6CC4A4'
 CAR0 = [1.9, 0, 0.0]; CRY = 90                                     # his car, double-parked beside the blue one, nose to -Z (its right side faces the pavement)
 def CAR(pos=None, keys=None, pid='car', **o):                      # the car: hazards on from its arrival
-    return P(pid, 'carToon', pos=pos or CAR0, ry=CRY, rotOrder='YXZ', opts={'color': MINT, 'eyes': True, 'hazard': [0.0, 99], **o}, **({'keys': keys} if keys else {}))
+    return P(pid, 'carToon', pos=pos or CAR0, ry=CRY, rotOrder='YXZ', opts={'color': MINT, 'eyes': True, 'hazard': [0.0, 99], 'ringTube': 0.1, 'ringInk': True, **o}, **({'keys': keys} if keys else {}))
 GL = 0.82                                                          # (pass 3) the parked cars' glass nearly opaque: a closed car, not an open frame
 PARKED = lambda: [P('pk1', 'car', pos=[4.0, 0, 0.2], ry=90, opts={'color': '#3A6EA5', 'glass': GL}), P('pk2', 'car', pos=[4.0, 0, -8.6], ry=90, opts={'color': '#C9473A', 'glass': GL}),
                   P('pk3', 'car', pos=[4.0, 0, 6.0], ry=90, opts={'color': '#E8A33A', 'glass': GL})]
@@ -35,7 +35,7 @@ METER = lambda **o: P('meter', 'parkingMeter', pos=[5.35, 0, -3.4], ry=-115, opt
 FX = 8.6                                                           # the front of the flats (the street's house fronts stand at about x = 10.2: rooms behind 10.1 were inside them)
 FLATS = lambda lit=None: P('flats', 'flatsWall', pos=[FX, 0, 0.0], ry=-90, opts={'w': 5.4, 'h': 9.4, 'cols': 3, 'rows': 2, 'depth': 1.25, 'y0': 3.0, 'lit': lit or []})
 TIP = [-5.5, 6.2]; TIPY = round(TIP[1] - 0.15, 3)                  # the tow truck's long boom: its tip 2.4 m behind the bed, high enough to lift a car
-TRUCK = lambda z, keys=None, **o: P('truck', 'towTruck', pos=[1.9, 0, z], ry=90, opts={'tip': TIP, **o}, **({'keys': keys} if keys else {}))
+TRUCK = lambda z, keys=None, **o: P('truck', 'towTruck', pos=[1.9, 0, z], ry=90, opts={'tip': TIP, 'signX': 0.3, 'signY': 1.32, 'signW': 2.5, 'signH': 0.5, **o}, **({'keys': keys} if keys else {}))
 HOOKZ = lambda zt: round(zt - TIP[0], 3)                           # the world z under the tip of a truck at zt (its local -X points to +Z)
 def FC(t, frm, pts, top=0.14, bottom=0.82, drift=(0.0, 0.0, 0.0), lenses=range(22, 70), **kw):   # (pass 2) kw: margin=...
     frm, look, lens = fitBack(list(frm), pts, top=top, bottom=bottom, lenses=lenses, **kw)
@@ -61,7 +61,7 @@ POUND = lambda: [P('bay11', 'parkingBay', pos=[3.6, 0, ZP + 5.2], ry=90, opts={'
                  P('psign', 'poundSign', pos=[0.0, 0, ZP - 9.3], opts={'text': 'FOURRIÈRE', 'sub': 'PRÉFECTURE', 'w': 3.6, 'h': 1.2, 'y': 2.1}),
                  P('booth', 'cashBooth', pos=[6.15, 0, ZP], ry=-90, opts={'notice': True})]
 NOTICE = lambda: P('notice', 'paperSheet', pos=[5.27, 1.66, round(ZP - 0.36, 3)], ry=-90, opts={'w': 0.42, 'h': 0.52, 'head': 'FOURRIÈRE', 'big': 'PROPRIÉTAIRE', 'bigSize': 0.19,
-                   'lines': ['DU VÉHICULE', 'UNIQUEMENT'], 'lineSize': 0.14, 'paper': '#FFFFFF', 'ink': '#14161A', 'bigInk': '#B0101A', 'bright': True})   # (pass 2) bigger, darker ink
+                   'lines': ['DU VÉHICULE', 'UNIQUEMENT'], 'lineSize': 0.115, 'lineGap': 0.15, 'lineBold': True, 'top': 0.11, 'paper': '#FFFFFF', 'ink': '#101114', 'bigInk': '#8E0C14', 'bright': True})   # (pass 2) bigger, darker ink; (final pass) bold lines with room between them, a darker red
 CLAMP = lambda **o: P('clamp', 'wheelClamp', on={'actor': 'mec', 'joint': 'footL', 'offset': [0.0, -0.05, 0.06]}, opts={'s': 1.35, **o})
 CLERK = lambda keys=(): act('caissiere', [5.78, 0, ZP], -90, 'stand', 'unimpressed', keys=[k(0.0, look=[4.3, 1.9, ZP + 0.2]), *keys])
 PMETER = lambda **o: P('pmeter', 'parkingMeter', pos=[5.4, 0, round(ZP - 2.0, 3)], ry=-90, opts={'sticker': 'FRAIS DE GARDE', **o})
@@ -153,14 +153,14 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
             k(LD7 + 0.1, expr='unimpressed'), k(LD7 + 0.2, look='camera')])],
         props=[*POUND(), BAG(), P('hook', 'craneHook', pos=[CL7[0], 3.55, CL7[2]], opts={'top': 30.0}, keys=[k(0.05, to=[CL7[0], 2.05, CL7[2]], dur=LD7 - 0.05, ease='in'),
                k(LD7 + 0.15, to=[CL7[0], 4.5, CL7[2]], dur=0.4, ease='in')])],
-        cams=[FC(0.0, [6.7, 0.95, round(ZP + 4.1, 3)], [[HB[0], 2.45, HB[2]], [HB[0], 0.0, HB[2]], [HB[0], 3.9, HB[2]], [0.0, 3.4, ZP - 9.3], [-1.8, 2.1, ZP - 9.3]], top=0.1, bottom=0.74, drift=(-0.08, 0, -0.1))])   # (pass 3) low from the cash-booth side: he lands big in the middle, the FOURRIÈRE sign and the rows of cars behind him
+        cams=[FC(0.0, [0.9, 3.2, round(ZP + 9.2, 3)], [[HB[0], 2.45, HB[2]], [HB[0], 0.0, HB[2]], [HB[0], 3.9, HB[2]], [1.6, 3.4, ZP - 9.3], [-1.8, 2.1, ZP - 9.3]], top=0.1, bottom=0.74, drift=(-0.05, -0.05, -0.15))])   # (final pass) from the lane, high over the parked car: the FOURRIÈRE gate beyond, bay 12 read from its entrance, the booth only an edge (its blank wall filled half the frame)   # (pass 3) low from the cash-booth side: he lands big in the middle, the FOURRIÈRE sign and the rows of cars behind him
 st.cue('sfx:slideDown', 'S07', 0.05, 0.25); st.cue('thud', 'S07', LD7, 0.4)
 
 # 8: they put a clamp on him. Low, at his feet: the pound's man kneels and closes a big yellow clamp on his shoe: clack; he jumps out of his skin,
 #    then looks down at it
 D8 = st.dur('S08'); SN8 = round(st.at('S08', 'L03', 8), 3)
 AG8 = [round(F12[0] + 1.12, 3), 0, round(F12[2] + 0.5, 3)]    # (pass 3) further out on the right, kneeling in profile, clear of his legs and the baguette
-JUMP8 = {'sq': [0.86, 1.16, 0.86], 'hairUp': 1, 'bend': {'legL': [0, 0, 0, 1.45, 0.8], 'shinL': [0, 0, 0, 1.45, 0.8], 'legR': [0, 0, 0, 1.45, 0.8], 'shinR': [0, 0, 0, 1.45, 0.8]},
+JUMP8 = {'sq': [0.86, 1.16, 0.86], 'hairUp': 1, 'bend': {'legL': [0, 0, 0, 1.45, 0.8], 'shinL': [0, 0, 0, 1.45, 0.8], 'legR': [-1.5, 0, 0.15, 1, None], 'shinR': [1.9, 0, 0, 1, None], 'spine': [-0.25, 0, 0, 1.08, None]},   # (final pass) the free knee tucked up, the back arched (two stilts repeated S04)
          'reach': {'L': [round(HB[0] - 0.42, 3), 3.35, round(HB[2] + 0.12, 3), 1, 0.06], 'R': [round(HB[0] + 0.3, 3), 3.35, round(HB[2] - 0.25, 3), 1, 0.06]}, 'hands': {'L': 'grip', 'R': 'spread'},
          'face': {'pop': 0.6, 'brow': 1, 'jaw': 0.35}}                # out of his skin: legs stretched up off the clamped foot, arms up (the baguette with them)
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
@@ -219,7 +219,10 @@ D11 = st.dur('S11'); SL11 = 0.18
 SHEET11 = [5.29, 1.56, round(ZP + 0.14, 3)]
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
         act('mec', HB10, 90, 'stand', 'unimpressed', keys=[k(0.0, look=SHEET11)]),
-        CLERK(keys=[k(0.0, look=SHEET11), k(SL11 - 0.08, toon={'reach': {'R': [5.33, 1.48, round(ZP + 0.4, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.08, toonEase='in')])],
+        CLERK(keys=[k(0.0, look=SHEET11), k(round(SL11 - 0.3, 3), toon={'reach': {'R': [5.45, 1.95, round(ZP + 0.3, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.5}}, toonDur=0.18, toonEase='out'),   # (final pass) wound up high
+            k(round(SL11 - 0.06, 3), toon={'reach': {'R': [5.33, 1.48, round(ZP + 0.4, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.06, toonEase='in'),   # smack
+            k(round(SL11 + 0.08, 3), toon={'reach': {'R': [5.36, 1.5, round(ZP + 0.4, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'browL': 0.7}}, toonDur=0.1),   # settles, one smug eyebrow
+            k(round(SL11 + 0.5, 3), toon={'reach': {'R': [5.36, 1.5, round(ZP + 0.4, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'browL': 0.7, 'lid': 1}}, toonDur=0.05), k(round(SL11 + 0.6, 3), toon={'reach': {'R': [5.36, 1.5, round(ZP + 0.4, 3), 1, 0.06]}, 'hands': {'R': 'flat'}, 'face': {'browL': 0.7}}, toonDur=0.06)])],   # a slow blink
         props=[*POUND(), BAG(), CLAMP(), NOTICE(),
                P('grise', 'paperSheet', pos=SHEET11, ry=-90, opts={'w': 0.62, 'h': 0.44, 'head': 'CARTE GRISE', 'headSize': 0.075, 'lines': ['PROPRIÉTAIRE :'], 'lineSize': 0.12, 'lineBold': True, 'ink': '#14161A', 'top': 0.03,
                  'paper': '#E7E2EE', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(SL11, scale=1.0, dur=0.06, ease='outBack')]),
@@ -241,13 +244,12 @@ D13 = st.dur('S13'); LN13 = 0.36; TP13, FL13 = 0.06, round(D13 - 0.2, 3)   # (pa
 KEYPAD = [5.2, 1.0, -3.47]                                          # the pay machine's keypad (turned toward the street)
 RX = lambda a: [a, math.radians(CRY), 0]
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[],
-        props=[*PARKED(), METER(screen='PAYEZ ICI'), CAR(pv=[[0.0, 2]], reach=[[0.3, FL13]], reachTo=KEYPAD, reachShort=0.32,   # (pass 3) a hand's width of bright wall short gaze=[[0.0, 0.85, -0.15], [0.5, 0.95, -0.25]], lids=[[0.0, 0.2, 0.5], [0.5, 0.35, 0.9]],
+        props=[*PARKED(), METER(screen='PAYEZ ICI'), CAR(pv=[[0.0, 2]], reach=[[0.2, round(FL13 + 0.1, 3)]], reachTo=KEYPAD, reachShort=0.45, gaze=[[0.0, 0.85, -0.15], [0.5, 0.95, -0.25]], lids=[[0.0, 0.2, 0.5], [0.5, 0.35, 0.9]],   # (final pass) a wider gap; the eyes back (a comment had swallowed gaze and lids)
+               armW=2.6, armColor='#3F9E80', bladeColor='#EFEADC', elbowUp=0.62, shakeR=0.12, shakeL=0.07,   # thick mint arms with pale blades, arching above the van's roof against the façade
                keys=[k(TP13, rotTo=RX(LN13), dur=0.22, ease='outBack'), k(TP13, to=[2.0, 0.3, 0.0], dur=0.22, ease='outBack'),                                  # up on its two right wheels
                      k(0.42, rotTo=RX(LN13 + 0.05), dur=0.1), k(0.56, rotTo=RX(LN13 - 0.03), dur=0.1), k(0.7, rotTo=RX(LN13 + 0.06), dur=0.1), k(0.84, rotTo=RX(LN13), dur=0.08),   # straining, wobbling
                      k(FL13, rotTo=RX(0.0), dur=0.1, ease='in'), k(FL13, to=CAR0, dur=0.1, ease='in')], bounce=[[round(FL13 + 0.1, 3), 0.1]])],                   # it flops back: boing
-        cams=[FC(0.0, [0.75, 0.85, -4.6], [[1.05, 0.15, -1.8], [2.75, 1.25, -1.8], [2.8, 0.9, -1.0]], top=0.2, bottom=0.78, drift=(0.04, 0.03, 0.04)),   # (pass 2) close: its face as it tips over, straining
-              FC(0.42, [4.0, 1.25, -4.2], [[5.2, 1.32, -3.47], [5.2, 0.72, -3.47], [4.9, 1.12, -3.18], [4.95, 0.88, -3.28]], top=0.26, bottom=0.7, drift=(0.0, 0.0, 0.0)),   # (pass 3) insert: the trembling blades a hand short of the keys
-              FC(0.72, [0.6, 0.75, -7.4], [[1.0, 0.0, -1.8], [2.85, 1.7, -1.8], [KEYPAD[0], 1.35, -3.4], [KEYPAD[0], 0.55, -3.4]], top=0.2, bottom=0.74, drift=(0.04, 0, 0.06))])   # then wide and low: the car, the gap, the keypad, under the title band; the flop
+        cams=[FC(0.0, [0.6, 0.75, -7.4], [[1.0, 0.0, -1.8], [2.85, 1.7, -1.8], [KEYPAD[0], 1.35, -3.4], [KEYPAD[0], 0.55, -3.4], [3.7, 1.9, -2.6]], top=0.2, bottom=0.74, drift=(0.06, 0, 0.1))])   # (final pass) one held angle: its face, the tip, the arms over the gap, the keypad, the flop (three angles in 1.1 s never held the image)   # then wide and low: the car, the gap, the keypad, under the title band; the flop
 [st.cue('sfx:squeak', 'S13', round(0.15 + 0.22 * i, 3), 0.18) for i in range(4)]
 st.card('S13', 'PAS DE MAINS', at=st.at('S13', 'L06', 4))
 
@@ -293,26 +295,26 @@ st.shot('S16', 'parisStreet', setOpts=STREET, actors=[NEIGH(n, c, r) for n, c, r
 # 17: against him. At the pound, the pound's man slaps the complaints on his chest, one, two, three; he swells with outrage like a balloon and floats
 #     up, his clamped leg stretched down to the ground like the balloon's string
 D17 = st.dur('S17'); SL17 = (0.06, 0.14, 0.22); IN17 = 0.27; UP17 = round(IN17 + 0.27, 3)   # (pass 3) swell over nine frames facing us, then lift off
-AG17 = [round(HB[0] - 0.85, 3), 0, round(HB[2] + 0.55, 3)]
+AG17 = [round(HB[0] - 0.8, 3), 0, round(HB[2] - 0.24, 3)]   # (final pass) at his side, square to the camera (in front of him he hid the slap and the swell)
 SIDE17 = r3([-0.62 * math.cos(math.radians(-30)), 0.0, 0.62 * math.sin(math.radians(-30))])   # 0.62 m to his right (the inflate clip swings the left leg out)
 FLOAT17 = r3([HB[0] + SIDE17[0], 0.95, HB[2] + SIDE17[2]])
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[
         act('mec', HB, -30, 'stand', 'unimpressed', keys=[k(0.0, look=[AG17[0], 1.7, AG17[2]]), *[k(t, toon={'sq': [1.04, 0.96, 1.04]}, toonDur=0.03) for t in SL17],
             k(round(IN17 - 0.04, 3), look='camera'), k(round(IN17 - 0.04, 3), toon={'scl': {'head': [1.12, 1.06, 1.12]}, 'face': {'puff': 1, 'cheeks': 1, 'brow': -0.5}}, toonDur=0.1),   # cheeks first
             k(IN17, clip='inflate', params={'dur': 0.3, 'expr': 'angry'}, blend=0.0),
-            k(round(IN17 + 0.06, 3), toon={'scl': {'head': [1.25, 1.12, 1.25]}, 'face': {'puff': 1, 'cheeks': 1, 'vein': 1, 'brow': -0.6}}, toonDur=0.2, toonEase='inOut'),   # then the head, red
+            k(round(IN17 + 0.06, 3), toon={'scl': {'head': [1.25, 1.12, 1.25]}, 'face': {'puff': 1, 'cheeks': 1, 'vein': 1, 'brow': -0.6, 'red': 1}}, toonDur=0.2, toonEase='inOut'),   # then the head, red (final pass: face.red)
             k(UP17, to=FLOAT17, dur=0.3, glide=True, ease='inOut', clip='inflate', then='inflate', params={'dur': 0.01, 'expr': 'angry'}, face=-30),   # lift-off, still facing us (the move turned him away)
-            k(UP17, toon={'bend': {'legL': [0, 0, 0, 1.9, 0.62], 'shinL': [0, 0, 0, 1.9, 0.62]}, 'scl': {'head': [1.25, 1.12, 1.25]}, 'face': {'puff': 1, 'cheeks': 1, 'vein': 1, 'brow': -0.6}}, toonDur=0.3, toonEase='inOut')]),   # the clamped leg a string
-        act('agent', AG17, 125, 'stand', 'unimpressed', keys=[k(0.0, look=[HB[0], 1.6, HB[2]]),
-            *[x for t in SL17 for x in (k(round(t - 0.06, 3), toon={'reach': {'R': [round(HB[0] - 0.12, 3), 1.45, round(HB[2] + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.06, toonEase='in'),
-                                        k(round(t + 0.03, 3), toon={'reach': {'R': [round(HB[0] - 0.4, 3), 1.3, round(HB[2] + 0.35, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05))],
-            k(SL17[-1] + 0.1, toon={}, toonDur=0.15), k(SL17[-1] + 0.06, to=[5.0, 0, round(ZP + 1.1, 3)], dur=0.4, clip='walk', then='stand', ease='out', face=100), k(IN17 + 0.1, look=[FLOAT17[0], 2.0, FLOAT17[2]])])],   # he backs off: the stretched leg must be seen
-        props=[*POUND(), CLAMP(), *[P(f'cpl{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(0.05 * (i - 1), 3), round(0.36 - 0.05 * i, 3), 0.18 + 0.004 * i]},
-                 opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(t, scale=1.0, dur=0.05, ease='outBack'), k(IN17 + 0.1, visible=False)])
-                 for i, t in enumerate(SL17)],
+            k(UP17, toon={'bend': {'legL': [0, 0, 0, 1.9, 0.62], 'shinL': [0, 0, 0, 1.9, 0.62]}, 'scl': {'head': [1.25, 1.12, 1.25]}, 'face': {'puff': 1, 'cheeks': 1, 'vein': 1, 'brow': -0.6, 'red': 1}}, toonDur=0.3, toonEase='inOut')]),   # the clamped leg a string
+        act('agent', AG17, 73, 'stand', 'unimpressed', keys=[k(0.0, look=[HB[0], 1.6, HB[2]]),
+            *[x for t in SL17 for x in (k(round(t - 0.06, 3), toon={'reach': {'R': [round(HB[0] - 0.25, 3), 1.45, round(HB[2] + 0.08, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.06, toonEase='in'),
+                                        k(round(t + 0.03, 3), toon={'reach': {'R': [round(HB[0] - 0.55, 3), 1.3, round(HB[2] + 0.05, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05))],
+            k(SL17[-1] + 0.05, toon={}, toonDur=0.1), k(SL17[-1] + 0.03, to=[round(HB[0] - 1.75, 3), 0, round(HB[2] - 0.75, 3)], dur=0.22, clip='walk', then='stand', ease='out', face=60), k(IN17 + 0.1, look=[FLOAT17[0], 2.0, FLOAT17[2]])])],   # (final pass) he steps off to the side at once: the swell in clear view
+        props=[*POUND(), CLAMP(), *[P(f'cp{st_}{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round((0.05 + 0.07 * st_) * (i - 1), 3), round(0.36 - (0.05 + 0.02 * st_) * i, 3), round(zz + 0.004 * i, 3)], 'rot': [0, round(0.07 * st_ * (i - 1), 2), round(0.05 * st_ * (1 - i), 2)]},
+                 opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True},
+                 keys=([k(0.0, scale=0.01, dur=0.0), k(SL17[i], scale=1.0, dur=0.05, ease='outBack')] if st_ == 0 else [k(0.0, visible=False), k(round(IN17 + t0, 3), visible=True)]) + ([k(round(IN17 + t1, 3), visible=False)] if t1 else []))
+                 for st_, (zz, t0, t1) in enumerate(((0.18, 0.0, 0.05), (0.3, 0.05, 0.085), (0.4, 0.085, 0.13), (0.66, 0.13, None))) for i in range(3)],   # (final pass) the three sheets step out with the swelling ball: always on its front
                P('ball17', 'balloonSuit', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.34, 0.04]}, opts={'r': 0.55}, keys=[k(0.0, scale=0.01, dur=0.0), k(IN17, scale=0.55, dur=0.12, ease='inOut'), k(round(IN17 + 0.12, 3), scale=1.0, dur=0.18, ease='outBack')]),   # (pass 3) swells over nine frames
-               *[P(f'cpb{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(0.12 * (i - 1), 3), round(0.3 - 0.07 * i, 3), 0.6 + 0.005 * i], 'rot': [0, round(0.2 * (i - 1), 2), round(0.15 * (1 - i), 2)]},
-                   opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(round(IN17 + 0.24, 3), scale=1.0, dur=0.1, ease='outBack')]) for i in range(3)]],
+               ],
         cams=[FC(0.0, [1.4, 1.6, round(ZP + 4.4, 3)], [[F12[0], 0.0, F12[2]], [FLOAT17[0], 3.4, FLOAT17[2]], [AG17[0], 0.0, AG17[2]], [HB[0], 2.3, HB[2]]], top=0.1, bottom=0.72, drift=(0.06, 0.08, 0))])   # (pass 3) the clamp above the caption band
 [st.cue('thud', 'S17', t, 0.3) for t in SL17]; st.cue('sfx:slideUp', 'S17', IN17, 0.35)
 
@@ -333,7 +335,7 @@ st.shot('S18', 'parisStreet', setOpts=STREET, actors=[],
 D19 = st.dur('S19'); UP19 = 0.12; HI19 = 2.55
 st.shot('S19', 'parisStreet', setOpts=STREET, actors=[],
         props=[*PARKED(), METER(), CAR(pv=[[0.0, 44]], leaves=[[0.0, 32], [0.35, 24], [0.5, 16], [0.65, 9], [0.8, 4]], wipe=[[0.2, D19]], wipeLen=1.8, honk=[[0.42, 0.62]],
-                   gaze=[[0.0, 0.0, -0.8]], lids=[[0.0, 0.0, -0.4]],
+                   gaze=[[0.0, 0.0, -0.8]], lids=[[0.0, 0.0, -0.4], [0.4, 0.4, -0.7]],   # (final pass) heavy, sad lids on the long honk
                    keys=[k(UP19, to=[1.9, HI19, 0.0], dur=D19 - UP19, ease='inOut'), k(0.3, rotTo=[0.07, math.radians(CRY), 0.05], dur=0.3), k(0.6, rotTo=[-0.06, math.radians(CRY), -0.04], dur=0.3),
                          k(0.9, rotTo=[0.05, math.radians(CRY), 0.03], dur=0.3)]),
                TRUCK(ZT18), P('hook', 'craneHook', pos=[1.9, HK18, 0.0], opts={'top': TIPY, 'sling': True, 'slingLen': 1.12, 'slingW': 1.1, 'slingD': 1.3}, keys=[k(UP19, to=[1.9, HK18 + HI19, 0.0], dur=D19 - UP19, ease='inOut')])],
@@ -374,7 +376,7 @@ st.shot('S21', 'parisStreet', setOpts=STREET, actors=[
                CAR(pos=[CARX, HANG, CARZ], pv=[[0.0, 44]], leaves=[[0.0, 4]], bounce=[[HIT21, 0.12]], sag=0.4, gaze=[[0.0, 0.0, -1.0], [0.4, 0.3, -0.6]], lids=[[0.0, 0.0, 0.0], [0.45, 0.1, -0.2]],
                    keys=[k(0.0, to=[CARX, 0.0, CARZ], dur=HIT21, ease='in')]),
                P('flatbag', 'baguette', pos=[round(LIE[0] + 0.55, 3), 0.02, round(HEADZ + 0.05, 3)], ry=20, scale=1.0, keys=[k(0.0, visible=False), k(HIT21, visible=True), k(HIT21, squash=[1.25, 0.25, 1.25], dur=0.0)]),
-               P('dust21', 'dustPuff', pos=[CARX, 0.05, round(CARZ - 1.6, 3)], opts={'period': 0.7}, keys=[k(0.0, visible=False), k(HIT21, visible=True), k(HIT21 + 0.65, visible=False)]),
+               *[P(f'dust21{j}', 'dustPuff', pos=[round(CARX + dx, 3), 0.05, round(CARZ - 0.4, 3)], opts={'period': 0.26, 'once': True, 'startAt': HIT21, 'color': '#EDE6D6'}, keys=[k(0.0, visible=False), k(HIT21, visible=True), k(0.37, visible=False)]) for j, dx in enumerate((-1.25, 1.25))],   # (final pass) at its sides, gone before the close-up (in front, the shards veiled the flat face)
                P('stars21', 'impactStars', pos=[LIE[0], 0.25, HEADZ], opts={'n': 6, 'r': 0.35, 'at': HIT21, 'dur': 0.6, 'size': 0.08})],
         fx=[{'type': 'shake', 'at': HIT21, 'dur': 0.15, 'amount': 0.014}],
         cams=[FC(0.0, [0.6, 0.85, round(ZP - 3.9, 3)], [[2.75, 0.0, round(CARZ - 1.85, 3)], [4.45, 1.75, round(CARZ - 1.85, 3)], [LIE[0], 0.05, round(HEADZ - 0.3, 3)], [CARX, HANG + 1.0, round(CARZ - 0.6, 3)]], top=0.1, bottom=0.8),   # (pass 2) the drop, from the front-left
@@ -395,15 +397,15 @@ st.shot('S22', 'parisStreet', setOpts=STREET, actors=[
             k(1.15, toon={**FLAT, 'face': {**FLAT['face'], 'stars': 0.0, 'tongue': 0.6}, 'reach': {'L': [*SHOW22, 1, 0.07]}, 'hands': {'L': 'grip'}}, toonDur=0.32, toonEase='inOut'),
             k(1.6, expr='deadpan'), k(1.6, toon={**FLAT, 'face': {**FLAT['face'], 'stars': 0.0, 'tongue': 0.6, 'lid': 0.45}, 'reach': {'L': [*SHOW22, 1, 0.07]}, 'hands': {'L': 'grip'}}, toonDur=0.15)])],
         props=[*POUND(), PMETER(ticketAt=0.75, ticketGone=1.05, stickerW=0.4, stickerH=0.16, stickerY=0.32, stickerBg='#B0101A', stickerWrap=True), CLAMP(),
-               CAR(pos=[CARX, 0.0, CARZ], pv=[[0.0, 44]], leaves=[[0.0, 4]], sag=0.4, gaze=[[0.0, 0.3, -0.6], [0.3, 0.85, -0.5], [0.9, 0.9, -0.55], [1.25, 0.1, -0.85], [2.3, 0.0, -0.9]], blink=[2.5], honk=[[2.8, 0.08]]),   # (pass 2) its pupils follow the arm out and back
+               CAR(pos=[CARX, 0.0, CARZ], pv=[[0.0, 44]], leaves=[[0.0, 4]], sag=0.4, gaze=[[0.0, 0.3, -0.6], [0.3, 0.85, -0.5], [0.9, 0.9, -0.55], [1.25, 0.1, -0.85], [2.3, 0.0, -0.9]], blink=[2.32], honk=[[2.55, 0.08]], honkHop=0.07, ringTube=0.08, ringInk=True),   # (final pass) a small honk that lands and holds before the end   # (pass 2) its pupils follow the arm out and back
                P('flatbag', 'baguette', pos=[round(LIE[0] + 0.55, 3), 0.02, round(HEADZ + 0.05, 3)], ry=20, keys=[k(0.0, squash=[1.25, 0.25, 1.25], dur=0.0)]),
-               P('tick22', 'paperSheet', pos=TRAY22, face='camera', opts={'w': 0.36, 'h': 0.26, 'head': 'FRAIS DE GARDE', 'headSize': 0.14, 'big': '45 €', 'bigSize': 0.36, 'top': 0.06,
+               P('tick22', 'paperSheet', pos=TRAY22, face='camera', opts={'w': 0.36, 'h': 0.26, 'head': 'FRAIS DE GARDE', 'headSize': 0.14, 'big': '45 €', 'bigSize': 0.36, 'top': 0.15,
                  'paper': '#FFFFFF', 'ink': '#14161A', 'bigInk': '#B0101A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(1.05, scale=1.0, dur=0.06, ease='out'),
                  k(1.15, to=[SHOW22[0], round(SHOW22[1] + 0.06, 3), round(SHOW22[2] - 0.19, 3)], dur=0.32, ease='inOut')])],   # (pass 2) a ticket that reads
         cams=[cam(0.0, [4.62, 3.3, round(HEADZ + 1.35, 3)], [4.62, 3.22, round(HEADZ + 1.3, 3)], [4.62, 0.0, round(HEADZ - 0.12, 3)], [4.62, 0.0, round(HEADZ - 0.12, 3)], lens=50),   # (lens = the vertical field of view in degrees)   # (pass 2) from above the bonnet: his face right side up, the arm to the machine
               cam(1.22, [round(LIE[0] + 0.36, 3), 1.42, round(HEADZ + 0.26, 3)], [round(LIE[0] + 0.36, 3), 1.37, round(HEADZ + 0.24, 3)], [round(LIE[0] + 0.38, 3), 0.1, round(HEADZ - 0.27, 3)], [round(LIE[0] + 0.38, 3), 0.1, round(HEADZ - 0.27, 3)], lens=60),   # close: the ticket beside his flat face; (pass 3) wider, the ticket lower
               FC(2.3, [2.2, 0.55, round(ZP - 4.4, 3)], [[2.75, 0.0, round(CARZ - 1.8, 3)], [4.45, 1.7, round(CARZ - 1.8, 3)], [LIE[0], 0.05, round(HEADZ - 0.3, 3)]], top=0.16, bottom=0.8)])   # the car's face: a blink, a tiny honk
-st.cue('sfx:stretch', 'S22', 0.18, 0.35); st.cue('sfx:beep', 'S22', 0.6, 0.35); st.cue('sfx:paper', 'S22', 0.75, 0.25); st.cue('sfx:honkTiny', 'S22', 2.8, 0.35)
+st.cue('sfx:stretch', 'S22', 0.18, 0.35); st.cue('sfx:beep', 'S22', 0.6, 0.35); st.cue('sfx:paper', 'S22', 0.75, 0.25); st.cue('sfx:honkTiny', 'S22', 2.55, 0.35)
 
 st.write("La fourrière", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, follow=1, pupil=0.5, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},

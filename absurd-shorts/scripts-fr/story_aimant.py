@@ -25,24 +25,28 @@ FWD = (math.sin(math.radians(MRY)), math.cos(math.radians(MRY))); RGT = (-FWD[1]
 def ON_BODY(lat, y, out=0.21):                                      # a point on the front of his chest: lat (m, + = his right), y (height)
     return r3([ME[0] + out * FWD[0] + lat * RGT[0], y, ME[2] + out * FWD[1] + lat * RGT[1]])
 KIT = {'fridge': True}
+BODY = lambda: [ON_BODY(-0.5, 1.45, 0.0), ON_BODY(0.5, 1.45, 0.0)]                    # (first look) his shoulders: framing points (his centre alone left half of him out of the frame)
+CS = 2.2                                                            # (first look) cutlery at cartoon size (life size it did not show)
 HEADY = 2.05
-def FLY(pid, name, frm, to, t, dur=0.12, fan=0.0, opts=None, scale=1.0):   # a piece of metal leaves its place and flies to him, flat against his chest
+def FLY(pid, name, frm, to, t, dur=0.12, fan=0.0, opts=None, scale=CS):   # a piece of metal leaves its place and flies to him, flat against his chest
     return P(pid, name, pos=frm, rot=[0, math.radians(MRY), fan], scale=scale, opts=opts or {}, keys=[k(round(t - 0.2, 3), to=[frm[0], frm[1] + 0.02, frm[2]], dur=0.2),   # it shivers first
              k(t, to=to, dur=dur, ease='in'), k(round(t + dur, 3), squash=[1.2, 0.8, 1.2], dur=0.0), k(round(t + dur + 0.05, 3), squash=[1.0, 1.0, 1.0], dur=0.06)])
 JOLT = lambda t, s=1.0: [k(round(t, 3), toon={'sq': [1 + 0.06 * s, 1 - 0.07 * s, 1 + 0.06 * s], 'face': {'eye': 0.35 * s, 'brow': 0.6}}, toonDur=0.025), k(round(t + 0.07, 3), toon={'face': {'brow': 0.3}}, toonDur=0.06)]
 
 # 1: this man swallowed a magnet. Close: he looks at the red horseshoe magnet in his fingers like a sweet, pops it in: a gulp goes down; his eyes cross
 D1 = st.dur('S01'); IN1 = 0.62
-MAG1 = [round(ME[0] + 0.35 * FWD[0] + 0.12 * RGT[0], 3), 1.98, round(ME[2] + 0.35 * FWD[1] + 0.12 * RGT[1], 3)]
+MAG1 = [round(ME[0] + 0.36 * FWD[0] + 0.06 * RGT[0], 3), 1.55, round(ME[2] + 0.36 * FWD[1] + 0.06 * RGT[1], 3)]   # (first look) at his chest, where he looks down at it
+HOLD1 = ['face', 0.06, -0.55, 0.36, 1, 0.05]; MOUTH1 = ['face', 0.02, 0.24, 0.06, 1, 0.04]
 st.shot('S01', 'kitchenDay', setOpts=KIT, actors=[
-        act('mec', ME, MRY, 'stand', 'neutral', keys=[k(0.0, look=MAG1), k(0.0, toon={'reach': {'R': [*MAG1, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'brow': 0.5, 'gx': 0.3}}, toonDur=0.0),
-            k(round(IN1 - 0.16, 3), toon={'touch': {'R': ['face', 0.02, 0.24, 0.06, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'jaw': 0.5}}, toonDur=0.14, toonEase='in'),   # in it goes
-            k(IN1, toon={'face': {'jaw': 0.0, 'puff': 0.6}}, toonDur=0.05), k(round(IN1 + 0.08, 3), toon={'face': {'gulp': 0.0, 'eye': 0.3}}, toonDur=0.02),
+        act('mec', ME, MRY, 'stand', 'neutral', keys=[k(0.0, look=MAG1), k(0.0, toon={'touch': {'R': HOLD1}, 'hands': {'R': 'pinch'}, 'face': {'brow': 0.5, 'gy': 0.6}}, toonDur=0.0),
+            k(0.25, toon={'touch': {'R': HOLD1}, 'hands': {'R': 'pinch'}, 'face': {'brow': 0.8, 'gy': 0.6, 'jaw': 0.15}}, toonDur=0.1),   # mm, a sweet
+            k(round(IN1 - 0.16, 3), toon={'touch': {'R': MOUTH1}, 'hands': {'R': 'pinch'}, 'face': {'jaw': 0.5}}, toonDur=0.14, toonEase='in'),   # in it goes
+            k(IN1, toon={'touch': {'R': ['face', 0.02, 0.2, 0.14, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'jaw': 0.0, 'puff': 0.6}}, toonDur=0.05), k(round(IN1 + 0.08, 3), toon={'face': {'gulp': 0.0, 'eye': 0.3}}, toonDur=0.02),
             k(round(IN1 + 0.1, 3), toon={'face': {'gulp': 1.0, 'eye': 0.4}}, toonDur=0.28), k(round(IN1 + 0.1, 3), look='camera'),   # the gulp goes down
             k(round(IN1 + 0.42, 3), toon={'face': {'cross': 1.0, 'brow': 0.8, 'pop': 0.25}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.06, toonEase='outBack'),   # clink: his eyes cross
             k(round(IN1 + 1.0, 3), toon={'face': {'cross': 0.6, 'brow': 0.5, 'lid': 0.3}}, toonDur=0.2)])],
-        props=[P('mag1', 'magnet', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.04]}, opts={'s': 0.13, 'glow': [0.0, IN1]}, keys=[k(round(IN1 - 0.02, 3), scale=0.01, dur=0.04)])],
-        cams=[FC(0.0, [0.55, 1.9, -0.6], [[ME[0], 2.4, ME[2]], [ME[0], 1.2, ME[2]], MAG1], top=0.16, bottom=0.66, drift=(-0.05, 0, -0.08))])
+        props=[P('mag1', 'magnet', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.04]}, opts={'s': 0.22, 'glow': [0.0, IN1]}, keys=[k(round(IN1 - 0.02, 3), scale=0.01, dur=0.04)])],
+        cams=[FC(0.0, [0.55, 1.9, -0.6], [[ME[0], 2.4, ME[2]], [ME[0], 1.2, ME[2]], MAG1, *BODY()], top=0.16, bottom=0.7, drift=(-0.05, 0, -0.08))])
 st.cue('sfx:gulp', 'S01', IN1 + 0.1, 0.45); st.cue('clang', 'S01', IN1 + 0.42, 0.15)
 
 # 2: since then all metal jumps on him. Wider: the cutlery on the counter shivers, then flies across and sticks flat on his chest, clink, clink, clink
@@ -53,7 +57,7 @@ st.shot('S02', 'kitchenDay', setOpts=KIT, actors=[
         act('mec', ME, MRY, 'stand', 'unimpressed', keys=[k(0.0, look=[1.0, 1.0, -3.1]), k(round(JMP2 - 0.3, 3), toon={'face': {'brow': 0.7, 'eye': 0.3}}, toonDur=0.08),
             *[x for i in range(len(CUT2)) for x in JOLT(JMP2 + 0.12 + 0.05 * i, 0.8)], k(round(JMP2 + 0.5, 3), look='camera'), k(round(JMP2 + 0.5, 3), expr='unimpressed')])],
         props=[FLY(f'c{i}', kind, frm, ON_BODY(lat, y), round(JMP2 + 0.05 * i, 3), fan=fan) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)],
-        cams=[FC(0.0, [2.3, 1.55, 0.9], [[ME[0], 2.4, ME[2]], [ME[0], 0.0, ME[2]], [1.5, 1.0, -3.2], [0.4, 1.0, -3.2]], top=0.14, bottom=0.74, drift=(-0.06, 0, -0.08))])
+        cams=[FC(0.0, [2.3, 1.55, 0.9], [[ME[0], 2.4, ME[2]], [ME[0], 0.0, ME[2]], [1.5, 1.0, -3.2], [0.4, 1.0, -3.2], *BODY()], top=0.14, bottom=0.74, drift=(-0.06, 0, -0.08))])
 st.cue('sfx:ticks', 'S02', JMP2 - 0.25, 0.25); [st.cue('clang', 'S02', round(JMP2 + 0.12 + 0.05 * i, 3), 0.2) for i in range(len(CUT2))]
 
 # 3: the forks. Close on him: a volley of forks zips in from the drawer at the right and thunks into a fan on his chest, one jolt each
@@ -62,24 +66,24 @@ FAN3 = [(-0.15, 1.48, -0.5), (0.0, 1.58, -0.15), (0.15, 1.5, 0.3), (-0.08, 1.32,
 DRAWER = [1.3, 0.85, -2.95]
 st.shot('S03', 'kitchenDay', setOpts=KIT, actors=[
         act('mec', ME, MRY, 'stand', 'unimpressed', keys=[k(0.0, look=DRAWER), *[x for t in V3 for x in JOLT(t + 0.1, 1.0)], k(0.85, look='camera'), k(0.85, toon={'face': {'lid': 0.35, 'brow': 0.2}}, toonDur=0.1)])],
-        props=[*[P(f'v{i}', 'fork', pos=DRAWER, rot=[0, math.radians(MRY), fan], keys=[k(0.0, visible=False), k(round(t - 0.01, 3), visible=True), k(t, to=ON_BODY(lat, y, 0.22), dur=0.1, ease='in'),
+        props=[*[P(f'v{i}', 'fork', pos=DRAWER, rot=[0, math.radians(MRY), fan], scale=CS, keys=[k(0.0, visible=False), k(round(t - 0.01, 3), visible=True), k(t, to=ON_BODY(lat, y, 0.22), dur=0.1, ease='in'),
                  k(round(t + 0.1, 3), squash=[1.25, 0.75, 1.25], dur=0.0), k(round(t + 0.15, 3), squash=[1, 1, 1], dur=0.05)]) for i, ((lat, y, fan), t) in enumerate(zip(FAN3, V3))],
-               *[P(f'old{i}', kind, pos=ON_BODY(lat, y), rot=[0, math.radians(MRY), fan]) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)]],
-        cams=[FC(0.0, [0.4, 1.75, -0.95], [[ME[0], 2.35, ME[2]], [ME[0], 1.1, ME[2]], [DRAWER[0] - 0.4, 1.2, DRAWER[2]]], top=0.14, bottom=0.72, drift=(-0.04, 0, -0.05))])
+               *[P(f'old{i}', kind, pos=ON_BODY(lat, y), rot=[0, math.radians(MRY), fan], scale=CS) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)]],
+        cams=[FC(0.0, [0.4, 1.75, -0.95], [[ME[0], 2.35, ME[2]], [ME[0], 1.1, ME[2]], [DRAWER[0] - 0.4, 1.2, DRAWER[2]], *BODY()], top=0.14, bottom=0.72, drift=(-0.04, 0, -0.05))])
 [st.cue('thud', 'S03', round(t + 0.1, 3), 0.2) for t in V3]
 
 # 4: the keys. The key ring flies off its hook by the door and smacks his cheek; it stays there, swinging
 D4 = st.dur('S04'); K4 = 0.22
 HOOK4 = [-2.4, 1.55, -1.6]
 CHEEK4 = [round(ME[0] + 0.24 * FWD[0] + 0.2 * RGT[0], 3), 2.02, round(ME[2] + 0.24 * FWD[1] + 0.2 * RGT[1], 3)]
-FORKS_ON = lambda: [*[P(f'cf{i}', kind, on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.0, 3), 0.2], 'rot': [0, 0, fan]}) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)],
-                    *[P(f'cv{i}', 'fork', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.0, 3), 0.21], 'rot': [0, 0, fan]}) for i, (lat, y, fan) in enumerate(FAN3)]]   # everything stuck on his chest from now on
+FORKS_ON = lambda: [*[P(f'cf{i}', kind, on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.0, 3), 0.2], 'rot': [0, 0, fan]}, scale=CS) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)],
+                    *[P(f'cv{i}', 'fork', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.0, 3), 0.21], 'rot': [0, 0, fan]}, scale=CS) for i, (lat, y, fan) in enumerate(FAN3)]]   # everything stuck on his chest from now on
 st.shot('S04', 'kitchenDay', setOpts=KIT, actors=[
         act('mec', ME, MRY, 'stand', 'unimpressed', keys=[k(0.0, look=HOOK4), k(K4, toon={'bend': {'neck': [0, -0.35, 0, 1, None]}, 'face': {'lidR': 0.8, 'brow': 0.7, 'eye': 0.3}, 'sq': [1.04, 0.96, 1.04]}, toonDur=0.03, toonEase='out'),   # smack: the head knocked aside, an eye shut
             k(round(K4 + 0.2, 3), toon={'bend': {'neck': [0, -0.08, 0, 1, None]}, 'face': {'lidR': 0.3, 'brow': 0.4}}, toonDur=0.15), k(round(K4 + 0.2, 3), look='camera')])],
         props=[*FORKS_ON(), P('keys4', 'keyRing', pos=HOOK4, scale=2.4, keys=[k(K4 - 0.12, to=CHEEK4, dur=0.12, ease='in'), k(K4, visible=False)]),
                P('keys4b', 'keyRing', on={'actor': 'mec', 'joint': 'head', 'offset': [-0.2, 0.3, 0.08]}, scale=2.4, keys=[k(0.0, visible=False), k(K4, visible=True)])],
-        cams=[FC(0.0, [0.1, 1.95, -0.55], [[ME[0], 2.4, ME[2]], [ME[0], 1.35, ME[2]], CHEEK4], top=0.16, bottom=0.7)])
+        cams=[FC(0.0, [0.1, 1.95, -0.55], [[ME[0], 2.4, ME[2]], [ME[0], 1.35, ME[2]], CHEEK4, *BODY()], top=0.16, bottom=0.7)])
 st.cue('clang', 'S04', K4, 0.3)
 
 # 5: the frying pan. It leaves the stove and flattens his face: BONG; it stays stuck on, stars round his head
@@ -95,7 +99,7 @@ st.shot('S05', 'kitchenDay', setOpts=KIT, actors=[
                P('pan5', 'pan', pos=STOVE5, rot=[PI / 2, math.radians(MRY) + PI, 0], rotOrder='YXZ', opts={'r': 0.17}, keys=[k(round(P5 - 0.14, 3), to=FACE5, dur=0.14, ease='in'), k(P5, visible=False)]),
                P('pan5b', 'pan', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.25, 0.2], 'rot': [-PI / 2, 0, 0.4]}, opts={'r': 0.17}, keys=[k(0.0, visible=False), k(P5, visible=True)])],
         fx=[{'type': 'shake', 'at': P5, 'dur': 0.12, 'amount': 0.012}],
-        cams=[FC(0.0, [1.0, 1.85, -0.45], [[ME[0], 2.45, ME[2]], [ME[0], 1.3, ME[2]], [STOVE5[0] - 0.3, 1.2, STOVE5[2]]], top=0.14, bottom=0.72)])
+        cams=[FC(0.0, [1.0, 1.85, -0.45], [[ME[0], 2.45, ME[2]], [ME[0], 1.3, ME[2]], [STOVE5[0] - 0.3, 1.2, STOVE5[2]], *BODY()], top=0.14, bottom=0.72)])
 st.cue('clang', 'S05', P5, 0.55); st.cue('sfx:boing', 'S05', P5 + 0.03, 0.3)
 
 # ---- the street (parisStreet): he walks along the right-hand pavement toward +Z, covered in cutlery, the pan stuck on his chest now
@@ -107,12 +111,12 @@ STUCK = lambda: [*FORKS_ON(), P('keysS', 'keyRing', on={'actor': 'mec', 'joint':
 D6 = st.dur('S06'); Z6 = (-3.6, 3.4); LAMPZ = (-2.0, 0.6, 3.0); LAMPX = 5.55
 def lean6(zl):
     tl = (zl - Z6[0]) / (Z6[1] - Z6[0]) * D6                         # when he is level with it
-    return [k(round(max(0.0, tl - 0.45), 3), rotTo=[0, 0, -0.42], dur=0.32, ease='out'), k(round(tl + 0.12, 3), rotTo=[0, 0, 0.12], dur=0.22, ease='inOut'),
-            k(round(tl + 0.34, 3), rotTo=[0, 0, -0.05], dur=0.16, ease='inOut'), k(round(tl + 0.5, 3), rotTo=[0, 0, 0.0], dur=0.14, ease='inOut')]   # toward him (+X), then back past upright, settling
+    return [k(round(max(0.0, tl - 0.45), 3), rotTo=[0, 0, 0.42], dur=0.32, ease='out'), k(round(tl + 0.12, 3), rotTo=[0, 0, -0.12], dur=0.22, ease='inOut'),
+            k(round(tl + 0.34, 3), rotTo=[0, 0, 0.05], dur=0.16, ease='inOut'), k(round(tl + 0.5, 3), rotTo=[0, 0, 0.0], dur=0.14, ease='inOut')]   # toward him (+X: ry 180 turns +Z rotation that way), then back past upright, settling
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [PX, 0, Z6[0]], 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[PX, 0, Z6[1]], dur=D6, clip='walk', then='walk', ease='linear', face=0)])],
         props=[*STUCK(), *[P(f'lamp{i}', 'streetLamp', pos=[LAMPX, 0, z], ry=180, keys=lean6(z)) for i, z in enumerate(LAMPZ)]],
-        cams=[FC(0.0, [2.1, 0.7, -2.6], [[PX, 2.5, Z6[0] + 1.0], [PX, 0.0, Z6[0] + 1.0], [LAMPX, 4.4, LAMPZ[0]], [LAMPX, 4.4, LAMPZ[1]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, round(Z6[1] - Z6[0] - 1.8, 3)))])   # it travels with him
+        cams=[FC(0.0, [4.3, 0.65, 8.6], [[PX, 2.5, Z6[0]], [PX, 0.0, 0.6], [LAMPX, 4.6, LAMPZ[0]], [LAMPX, 4.6, LAMPZ[2]], [LAMPX - 0.6, 0.0, LAMPZ[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, -0.6))])   # (first look) low in front of him, down the pavement: the lamps lean sideways toward him as he walks at us (from the side they leaned into the depth)
 [st.cue('sfx:squeak', 'S06', round((z - Z6[0]) / (Z6[1] - Z6[0]) * D6 - 0.3, 3), 0.2) for z in LAMPZ]
 
 # 5 (line): and the compasses no longer show the north. Over a hiker's shoulder, looking down at his compass: the needle leaves N, whirls, and points
@@ -123,22 +127,23 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
             k(0.85, toon={'reach': {'R': [round(H7[0] + 0.12, 3), 1.15, round(H7[2] + 0.45, 3), 1, 0.05]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.8, 'eye': 0.3}}, toonDur=0.1)]),
         act('mec', ME7, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[PX - 1.2, 0, 9.6], dur=D7, clip='walk', then='walk', ease='linear', face=-90)])],
         props=[*STUCK(), P('backpack7', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}),
-               P('comp7', 'compass', on={'actor': 'rando', 'hand': 'R', 'offset': [0, 0.03, 0.06]}, scale=2.2, opts={'target': [PX - 0.4, 1.4, 9.5], 'spin': [0.35, 0.95], 'north': [0, 0, -1]})],
-        cams=[FC(0.0, [round(H7[0] - 0.25, 3), 2.25, round(H7[2] - 0.6, 3)], [[round(H7[0] + 0.12, 3), 1.1, round(H7[2] + 0.45, 3)], [PX - 0.4, 2.3, 9.5], [PX - 0.4, 0.4, 9.5]], top=0.12, bottom=0.74)])
+               P('comp7', 'compass', on={'actor': 'rando', 'hand': 'R', 'offset': [0, 0.03, 0.06]}, scale=3.4, opts={'path': [[0.0, ME7[0], 1.4, ME7[2]], [D7, PX - 1.2, 1.4, 9.6]], 'spin': [0.35, 0.95], 'north': [0, 0, -1]})],
+        cams=[FC(0.0, [round(H7[0] - 0.7, 3), 3.05, round(H7[2] - 0.45, 3)], [[round(H7[0] + 0.12, 3), 1.05, round(H7[2] + 0.45, 3)], [round(H7[0] + 0.12, 3), 1.3, round(H7[2] + 0.6, 3)], [PX - 0.4, 2.3, 9.5], [PX - 0.4, 0.4, 9.5]], top=0.1, bottom=0.8)])   # (first look) high over his right shoulder, looking down: the dial big in the middle, our man walking past beyond it   # (first look) over his right shoulder and above it (behind his head the frame was his skull and his backpack)
 st.cue('sfx:zip', 'S07', 0.35, 0.25)
 
 # 6 (line): they show him. Three passers-by on the pavement, each with a compass turned to us: every needle points at him in the middle; he steps
 #    aside: every needle swings after him; « lui »: all three heads turn to him
-D8 = st.dur('S08'); ME8 = [PX, 0, 12.0]; ST8 = 0.45; LUI8 = round(st.at('S08', 'L06', 3) - 0.08, 3)
-ROW8 = [('rando', [PX - 1.25, 0, 13.3], 145), ('touriste', [PX + 1.25, 0, 13.4], -150), ('mamie', [PX, 0, 14.0], 180)]
+D8 = st.dur('S08'); Z8 = (9.4, 14.6); X8 = round(PX + 0.95, 3); LUI8 = round(st.at('S08', 'L06', 3) - 0.08, 3)
+ROW8 = [('rando', [round(PX - 0.45, 3), 0, 11.0], -95), ('mamie', [round(PX - 0.45, 3), 0, 12.3], -90), ('touriste', [round(PX - 0.45, 3), 0, 13.6], -85)]   # (first look) a row facing the road and us (from behind them their compasses were hidden)
+ZAT8 = lambda t: round(Z8[0] + (Z8[1] - Z8[0]) * t / D8, 3)
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', ME8, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(ST8, to=[PX + 0.55, 0, 12.0], dur=0.25, clip='walk', then='stand', ease='inOut', face='keep')]),
-        *[act(n, p, ry, 'stand', 'neutral', keys=[k(0.0, look=[p[0], 1.0, p[2] - 0.4]), k(0.0, toon={'reach': {'R': [round(p[0] + 0.25 * math.sin(math.radians(ry)), 3), 1.3, round(p[2] + 0.25 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}}, toonDur=0.0),
-                                                 k(LUI8, look=[ME8[0] + 0.55, 2.0, ME8[2]]), k(LUI8, toon={'reach': {'R': [round(p[0] + 0.25 * math.sin(math.radians(ry)), 3), 1.3, round(p[2] + 0.25 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.6}}, toonDur=0.08)]) for n, p, ry in ROW8]],
+        act('mec', [X8, 0, Z8[0]], 0, 'walk', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[X8, 0, Z8[1]], dur=D8, clip='walk', then='walk', ease='linear', face=0)]),   # he walks along behind them, taller than them
+        *[act(n, p, ry, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [round(p[0] + 0.3 * math.sin(math.radians(ry)), 3), 1.4, round(p[2] + 0.3 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}}, toonDur=0.0),
+                                                 k(LUI8, look=[X8, 2.0, ZAT8(LUI8 + 0.1)]), k(LUI8, toon={'reach': {'R': [round(p[0] + 0.3 * math.sin(math.radians(ry)), 3), 1.4, round(p[2] + 0.3 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.08)]) for n, p, ry in ROW8]],   # « lui »: the heads turn back to him
         props=[*STUCK(), P('backpack8', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}),
-               *[P(f'comp8{i}', 'compass', on={'actor': n, 'hand': 'R', 'offset': [0, 0.03, 0.07], 'face': 'camera'}, scale=2.6, opts={'upright': True, 'target': [PX, 1.5, 12.0], 'target2': [PX + 0.55, 1.5, 12.0], 'at2': ST8 + 0.05, 'spin': [0.0, 0.18]}) for i, (n, p, ry) in enumerate(ROW8)]],
-        cams=[FC(0.0, [PX + 0.3, 1.55, 17.2], [[PX - 1.25, 2.3, 13.3], [PX + 1.25, 2.3, 13.4], [PX, 2.45, 12.0], [PX, 0.4, 12.0]], top=0.14, bottom=0.74)])
-st.cue('sfx:zip', 'S08', ST8, 0.2)
+               *[P(f'comp8{i}', 'compass', on={'actor': n, 'hand': 'R', 'offset': [0, 0.03, 0.07], 'face': 'camera'}, scale=3.0, opts={'upright': True, 'path': [[0.0, X8, 1.6, Z8[0]], [D8, X8, 1.6, Z8[1]]]}) for i, (n, p, ry) in enumerate(ROW8)]],   # every needle follows him along
+        cams=[FC(0.0, [1.4, 1.55, 12.3], [[ROW8[0][1][0], 2.3, 10.6], [ROW8[2][1][0], 2.3, 14.0], [X8, 2.55, 12.3], [ROW8[1][1][0], 0.3, 12.3]], top=0.14, bottom=0.74)])   # from the road: the row and their compasses, him walking behind
+st.cue('sfx:zip', 'S08', 0.1, 0.2)
 
 # ---- his building: a block on the right-hand side of the street (flatsWall, three floors over the shops); his window, the middle of the third floor
 FX = 8.6; FLATS = lambda: P('flats', 'flatsWall', pos=[FX, 0, 30.0], ry=-90, opts={'w': 6.0, 'h': 12.6, 'cols': 3, 'rows': 3, 'depth': 1.25, 'y0': 3.0})
@@ -171,9 +176,10 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[HIM_WIN(), *[LOOKUP(n, p, 
 D11 = st.dur('S11'); PLANE = [1.2, 0, 26.0]
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[HIM_WIN(keys=[k(0.9, look='camera'), k(0.9, toon={'face': {'lid': 0.4}}, toonDur=0.15)]), *[LOOKUP(n, p, ry) for n, p, ry in CROWD],
         act('skipper', [4.4, 1.0, 33.4], 0, 'stand', 'neutral', keys=[k(0.0, look=[WIN[0], WIN[1] + 1.6, WIN[2]])])],
-        props=[FLATS(), *CROWD_PROPS(), P('boat', 'sailboat', pos=BOAT, ry=-90), P('plane', 'propPlane', pos=[PLANE[0], 0, PLANE[2] - 9.0], ry=-90, opts={'prop': 6},
+        props=[FLATS(), *CROWD_PROPS(), P('boat', 'sailboat', pos=BOAT, ry=-90), P('plane', 'propPlane', pos=[PLANE[0], 0, PLANE[2] - 9.0], ry=-90, scale=0.75, opts={'prop': 6},
                keys=[k(0.0, to=PLANE, dur=0.85, ease='out'), k(0.85, squash=[1.0, 0.95, 1.0], dur=0.0), k(0.92, squash=[1, 1, 1], dur=0.1)])],
-        cams=[FC(0.0, [-2.2, 1.6, 21.0], [[FX, 11.4, 30.0], [PLANE[0] - 1.0, 0.0, PLANE[2]], [PLANE[0], 2.6, PLANE[2] + 4.0], [BOAT[0], 4.4, BOAT[2]], [PX - 0.6, 0.0, 31.2]], top=0.08, bottom=0.74, drift=(0.08, 0.04, 0.12))])
+        cams=[FC(0.0, [-1.2, 2.0, 15.0], [[FX, 11.4, 30.0], [PLANE[0], 0.0, PLANE[2] + 2.0], [PLANE[0], 2.2, PLANE[2] + 2.0], [round(PLANE[0] + 3.1, 3), 1.5, round(PLANE[2] + 0.4, 3)], [BOAT[0], 4.4, BOAT[2]], [PX - 0.6, 0.0, 31.2]], top=0.08, bottom=0.74, drift=(0.08, 0.04, 0.12)),   # (first look) wider: the window, the crowd, the boat, the plane's nose and its right wing
+              FC(1.0, [round(WIN[0] - 3.4, 3), 9.9, round(WIN[2] + 1.4, 3)], [[WIN[0], 11.3, WIN[2]], [WIN[0], 9.2, WIN[2]], [round(WIN[0] - 0.2, 3), 10.2, round(WIN[2] - 0.6, 3)], [round(WIN[0] - 0.2, 3), 10.2, round(WIN[2] + 0.6, 3)]], top=0.14, bottom=0.66, drift=(0.05, 0.0, -0.05))])   # then up at his window: he leans on the sill, deadpan, and looks at us
 st.cue('engine', 'S11', 0.0, 0.35, 1.0)
 
 # ---- the cartographers' office: a wall map of France, two cartographers in lab coats and glasses
@@ -232,7 +238,7 @@ st.shot('S16', 'whiteVoid', actors=[
                P('flag16b', 'flag', pos=[round(DOOR[0] + 0.45, 3), 0.0, round(DOOR[2] + 0.75, 3)], ry=-20, opts={'colors': ['#D3202A', '#F4F2EA', '#D3202A'], 'vertical': False}, keys=[k(0.0, visible=False), k(round(FLAG16 + 0.06, 3), visible=True),
                  k(round(FLAG16 + 0.06, 3), squash=[1.0, 0.92, 1.0], dur=0.0), k(round(FLAG16 + 0.12, 3), squash=[1, 1, 1], dur=0.1)]),
                *[P(f'cl{i}', kind, on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.0, 3), 0.2], 'rot': [0, 0, fan]}) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)]],
-        cams=[FC(0.0, [2.2, 1.45, 2.6], [[DOOR[0] - 0.6, 2.5, DOOR[2]], [DOOR[0] + 0.5, 0.0, DOOR[2] + 0.8], [EXP[0][1][0], 2.3, EXP[0][1][2]], [EXP[1][1][0], 0.0, EXP[1][1][2]], [round(DOOR[0] + 1.05, 3), 1.6, DOOR[2]]], top=0.12, bottom=0.74, drift=(-0.06, 0, -0.08))])
+        cams=[FC(0.0, [-1.5, 1.5, 3.0], [[DOOR[0] - 0.6, 2.5, DOOR[2]], [DOOR[0] + 0.5, 0.0, DOOR[2] + 0.8], [EXP[0][1][0], 2.3, EXP[0][1][2]], [EXP[1][1][0], 0.0, EXP[1][1][2]], [round(DOOR[0] + 1.05, 3), 1.6, DOOR[2]]], top=0.12, bottom=0.74, drift=(0.06, 0, -0.08))])   # (first look) from the left: the door, the mat and him in the middle, the explorers at the side
 st.cue('sfx:gasp', 'S16', 0.1, 0.3); st.cue('thud', 'S16', FLAG16, 0.3); st.cue('sfx:carDoor', 'S16', OPEN16, 0.25)
 
 st.write("L'aimant", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, follow=1, pupil=0.5, extra_cast={

@@ -42,7 +42,7 @@ export const AIMANT_PROPS = {
   // end. Its needle points at o.target [x, y, z] (world) — a man with a magnet in his stomach — from o.at (default 0); before that, at o.north (the world
   // direction of the true north, default -Z); between o.spin [t0, t1] it whirls, then swings to the target with a decaying wobble. o.n: the N letter in red.
   compass(o) {
-    // o.upright: the dial faces +Z instead of up (give it face: 'camera' to show it to us); o.target2 [x, y, z] from o.at2: it swings to a second target
+    // o.upright: the dial faces +Z instead of up (give it face: 'camera' to show it to us); o.target2 [x, y, z] from o.at2: it swings to a second target; o.path: a moving target
     const r = o.r ?? 0.06, g = grp(), inner = grp(); g.add(inner); if (o.upright) inner.rotation.x = PI / 2;
     inner.add(at(cyl(r * 1.08, r * 1.12, r * 0.28, '#C9A24A', 20, { outline: 0.004 }), 0, r * 0.14, 0));
     const dial = canvasPlane(r * 1.9, r * 1.9, (c, W, H) => { c.fillStyle = '#F7F4EA'; c.beginPath(); c.arc(W / 2, H / 2, W / 2, 0, TAU); c.fill(); c.strokeStyle = '#1B1B1E'; c.lineWidth = W * 0.012;
@@ -53,9 +53,12 @@ export const AIMANT_PROPS = {
     needle.position.y = r * 0.33; inner.add(needle);
     const T = o.target ? new THREE.Vector3(...o.target) : null, T2 = o.target2 ? new THREE.Vector3(...o.target2) : null, N = new THREE.Vector3(...(o.north || [0, 0, -1])), sp = o.spin, t0 = o.at ?? 0, a2 = o.at2 ?? 1e9;
     const angTo = (wp) => { _v.copy(wp); inner.worldToLocal(_v); return Math.atan2(-_v.x, -_v.z); };   // the needle's red end lies along the dial's -Z
+    const PT = o.path || null, _pt = new THREE.Vector3();                                                                    // (cycle 9) o.path [[t, x, y, z], ...]: a target that moves (a man walking past): the needle follows it, a beat late
+    const pathAt = t => { let i = 0; while (i < PT.length - 2 && t > PT[i + 1][0]) i++; const [ta, ...A] = PT[i], [tb, ...B] = PT[i + 1], u = clamp01((t - ta) / Math.max(1e-3, tb - ta)); return _pt.set(A[0] + (B[0] - A[0]) * u, A[1] + (B[1] - A[1]) * u, A[2] + (B[2] - A[2]) * u); };
     g.userData.update = t => { g.updateWorldMatrix(true, true); let a;
       const p = new THREE.Vector3(); inner.getWorldPosition(p); const north = angTo(p.add(N.clone().multiplyScalar(10)));
       if (sp && t >= sp[0] && t < sp[1]) a = north + (t - sp[0]) * 26 + 0.3 * Math.sin(t * 40);
+      else if (PT && t >= (sp ? sp[1] : PT[0][0])) { const u = t - (sp ? sp[1] : PT[0][0]); a = angTo(pathAt(t - 0.06)) + 0.35 * wob(u, 18, 4.5); }
       else if (T2 && t >= a2) { const prev = angTo(T), tgt = angTo(T2), u = t - a2; a = prev + (tgt - prev) * ease.out(clamp01(u / 0.18)) + 0.5 * wob(u, 18, 4.5); }
       else if (T && t >= (sp ? sp[1] : t0)) { const u = t - (sp ? sp[1] : t0); a = angTo(T) + 0.6 * wob(u, 18, 4.5); }
       else a = north + 0.05 * Math.sin(t * 2.3);

@@ -82,15 +82,16 @@ export const FOURRIERE_PROPS = {
     body.add(at(box(0.03, 0.2, 0.86, '#2A2C31'), L / 2 + 0.012, 0.52, 0));                                                              // grille
     for (const sx of [-1, 1]) body.add(at(label(o.plate || 'FG-412-HJ', 0.52, 0.12, { bg: P.white, fg: P.ink, wrap: false }), sx * (L / 2 + 0.03), 0.43, 0, 0, sx * PI / 2, 0));
     // wipers: pivots at the foot of the windscreen; local X = the glass normal, local Y = up the glass; the arm lies along local -Z
-    const wsFootX = cx + 1.95 / 2 - 0.02, wipers = [], armMat = new THREE.MeshLambertMaterial({ color: '#1E2024' }), _M = new THREE.Vector3(), _E = new THREE.Vector3(), _D = new THREE.Vector3();
+    const AW = o.armW ?? 1, wsFootX = cx + 1.95 / 2 - 0.02, wipers = [], armMat = new THREE.MeshLambertMaterial({ color: o.armColor || '#1E2024' }),   // (final pass) o.armW: the reaching arms that many times thicker, o.armColor, o.bladeColor, o.elbowUp (0.16 m), o.shakeR / o.shakeL (the tremble ticks round the tip)
+      _M = new THREE.Vector3(), _E = new THREE.Vector3(), _D = new THREE.Vector3();
     for (const z0 of [0.5, -0.06]) {
       const pv = grp(); pv.position.set(wsFootX + 0.03, cy0 + 0.05, z0); pv.rotation.z = slope; body.add(pv);
       const arm = grp(); pv.add(arm); arm.add(at(box(0.03, 0.03, 0.56, '#1E2024'), 0.02, 0, -0.28), at(box(0.025, 0.06, 0.46, '#2A2C31'), 0.035, 0, -0.32), at(cyl(0.03, 0.03, 0.04, '#1E2024', 8), 0.02, 0, 0, 0, 0, PI / 2));
       // (pass 3) the arm that moves: two segments (unit boxes along -Z, scaled), an elbow, a rubber blade across the tip, shake strokes
       const seg1 = grp(), m1 = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.045, 1).translate(0, 0, -0.5), armMat), elbow = grp(), seg2 = grp(), m2 = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 1).translate(0, 0, -0.5), armMat);
-      const tip = grp(), blade = grp(at(box(0.035, 0.3, 0.06, '#1E2024', { outline: 0.006 }), 0, 0, 0), at(box(0.02, 0.3, 0.025, '#3A3D44'), 0.02, 0, 0.0)), knob = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 6), armMat);
+      const tip = grp(), blade = grp(at(box(0.035 * Math.min(AW, 1.8), 0.3, 0.06 * Math.min(AW, 1.8), o.bladeColor || '#1E2024', { outline: 0.006 }), 0, 0, 0), at(box(0.02, 0.3, 0.025, o.bladeColor ? '#8A8F96' : '#3A3D44'), 0.02, 0, 0.0)), knob = new THREE.Mesh(new THREE.SphereGeometry(0.035 * AW, 8, 6), armMat);
       seg1.add(m1, elbow); elbow.add(knob, seg2); seg2.add(m2, tip); tip.add(blade); pv.add(seg1); seg1.visible = false;
-      const shakes = [0, 1, 2, 3].map(j => { const sm = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.012, 0.12), new THREE.MeshBasicMaterial({ color: '#1B1B1E' })); const a = j * PI / 2 + 0.6; sm.position.set(0, 0.2 * Math.cos(a), -0.08 + 0.2 * Math.sin(a)); sm.rotation.x = a; tip.add(sm); return sm; });
+      const SR = o.shakeR ?? 0.2, SL = o.shakeL ?? 0.12, shakes = [0, 1, 2, 3].map(j => { const sm = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.012, SL), new THREE.MeshBasicMaterial({ color: '#1B1B1E' })); const a = j * PI / 2 + 0.6; sm.position.set(0, SR * Math.cos(a), 0.05 + SR * 0.6 * Math.sin(a)); sm.rotation.x = a; tip.add(sm); return sm; });   // (final pass) behind the tip, never toward what it reaches for
       wipers.push({ pv, arm, z0, seg1, m1, elbow, seg2, m2, tip, blade, shakes });
     }
     // parking fines: a pile in the driver's wiper frame (the wiper on the +Z side)
@@ -102,7 +103,8 @@ export const FOURRIERE_PROPS = {
     for (let i = 0; i < 40; i++) { const onRoof = i % 3 !== 0, x = onRoof ? cx + (rnd(i) - 0.5) * 1.3 : 0.75 + rnd(i) * 0.9, y = onRoof ? cy0 + ch + 0.012 : 0.96, z = (rnd(i + 3) - 0.5) * (onRoof ? 0.95 : 1.3);
       const lf = at(box(0.13, 0.012, 0.08, LC[i % 4], { noGrain: true }), x, y, z, 0, rnd(i + 7) * TAU, 0); lf.visible = false; body.add(lf); leaves.push(lf); }
     // honk rings: expanding hoops in front of the grille
-    const rm = basic('#FFF6C8', 0.85), rings = Array.from({ length: 6 }, () => { const r = new THREE.Mesh(new THREE.TorusGeometry(1, 0.05, 6, 28), rm.clone()); r.rotation.y = PI / 2; r.visible = false; r.userData.noAO = true; g.add(r); return r; });
+    const rm = basic('#FFF6C8', 0.85), RT_ = o.ringTube ?? 0.05, rings = Array.from({ length: 6 }, () => { const r = new THREE.Mesh(new THREE.TorusGeometry(1, RT_, 6, 28), rm.clone()); r.rotation.y = PI / 2; r.visible = false; r.userData.noAO = true; g.add(r);
+      if (o.ringInk) { const kl = new THREE.Mesh(new THREE.TorusGeometry(1, RT_ * 1.6, 6, 28), basic('#1B1B1E', 0.9)); kl.position.z = -0.01; kl.userData.noAO = true; r.add(kl); } return r; });   // (final pass) o.ringTube (0.05): thicker hoops; o.ringInk: a dark keyline behind each
     const honks = o.honk || [], wipes = spans(o.wipe), WL = o.wipeLen ?? 2.2, reaches = spans(o.reach), RT = o.reachTo ? new THREE.Vector3(...o.reachTo) : null, wpA = new THREE.Vector3(), wpB = new THREE.Vector3();
     g.userData.update = t => {
       // body: honk squash and hop, landing bounce, sag
@@ -132,18 +134,18 @@ export const FOURRIERE_PROPS = {
           w.arm.visible = false; w.seg1.visible = true; w.pv.getWorldPosition(wpA); wpB.copy(RT); wpB.y += (i ? -0.08 : 0.08) + tr;
           const d = wpA.distanceTo(wpB), reach = Math.max(0.3, (d - (o.reachShort ?? 0.15)) * grow + 0.5 * (1 - grow));
           _D.subVectors(wpB, wpA).normalize(); _E.copy(wpA).addScaledVector(_D, reach);                                   // the tip: short of the point
-          _M.addVectors(wpA, _E).multiplyScalar(0.5); _M.y += (0.16 + 0.025 * Math.sin(t * 41 + i)) * grow;                  // the elbow, up: a bent little arm
+          _M.addVectors(wpA, _E).multiplyScalar(0.5); _M.y += ((o.elbowUp ?? 0.16) + 0.025 * Math.sin(t * 41 + i)) * grow;                  // the elbow, up: a bent little arm
           w.seg1.rotation.set(0, 0, 0); w.seg1.updateWorldMatrix(true, false); w.seg1.lookAt(_M); w.seg1.rotateY(PI); const l1 = wpA.distanceTo(_M);
-          w.m1.scale.set(1, 1, l1); w.elbow.position.set(0, 0, -l1); w.seg1.updateWorldMatrix(true, true);
+          w.m1.scale.set(AW, AW, l1); w.elbow.position.set(0, 0, -l1); w.seg1.updateWorldMatrix(true, true);
           w.seg2.rotation.set(0, 0, 0); w.seg2.updateWorldMatrix(true, false); w.seg2.lookAt(_E); w.seg2.rotateY(PI); const l2 = _M.distanceTo(_E);
-          w.m2.scale.set(1, 1, l2); w.tip.position.set(0, 0, -l2); w.blade.rotation.set(0.45 * Math.sin(t * 47 + i * 1.7), 0, 0);   // the blade flaps
+          w.m2.scale.set(AW, AW, l2); w.tip.position.set(0, 0, -l2); w.blade.rotation.set(0.45 * Math.sin(t * 47 + i * 1.7), 0, 0);   // the blade flaps
           const fl = Math.floor(t * 15 + i) % 2 === 0 && u > 0.2; w.shakes.forEach((sm, j) => { sm.visible = fl && (j + i) % 2 === Math.floor(t * 15) % 2; }); });
       } else
       wipers.forEach((w, i) => { if (!wk) { w.arm.visible = true; w.seg1.visible = false; w.arm.rotation.x = 0.05; w.arm.scale.set(1, 1, 1); return; }
         const u = t - wk[0], grow = clamp01(u / 0.18), ph = t * TAU * 4.6 + i * 1.9, Lt = 0.56 * (1 + (WL - 1) * grow * (0.85 + 0.15 * Math.sin(ph * 1.7)));
         w.arm.visible = false; w.seg1.visible = true; w.shakes.forEach(sm => { sm.visible = false; });
-        w.seg1.rotation.set(0.9 + 0.75 * Math.sin(ph), 0, 0); w.m1.scale.set(1, 1, Lt * 0.5); w.elbow.position.set(0, 0, -Lt * 0.5);     // (pass 3) a flail with an elbow:
-        w.seg2.rotation.set(0.7 * Math.sin(ph - 1.3), 0, 0); w.m2.scale.set(1, 1, Lt * 0.5); w.tip.position.set(0, 0, -Lt * 0.5);      // the forearm lags (a whip, not a rod)
+        w.seg1.rotation.set(0.9 + 0.75 * Math.sin(ph), 0, 0); w.m1.scale.set(AW, AW, Lt * 0.5); w.elbow.position.set(0, 0, -Lt * 0.5);     // (pass 3) a flail with an elbow:
+        w.seg2.rotation.set(0.7 * Math.sin(ph - 1.3), 0, 0); w.m2.scale.set(AW, AW, Lt * 0.5); w.tip.position.set(0, 0, -Lt * 0.5);      // the forearm lags (a whip, not a rod)
         w.blade.rotation.set(0.5 * Math.sin(ph - 2.2), 0, 0); });
       // fines and leaves
       const nPv = Math.round(stepKey(o.pv, t, [0])[0]), nLf = Math.round(stepKey(o.leaves, t, [0])[0]);
@@ -151,7 +153,7 @@ export const FOURRIERE_PROPS = {
       // honk rings
       let ri = 0; for (const r of rings) r.visible = false;
       for (const [h0, hd] of honks) for (let e = h0; e < h0 + Math.max(0.12, hd); e += 0.12) { const u = (t - e) / 0.42; if (u < 0 || u >= 1 || ri >= rings.length) continue;
-        const r = rings[ri++]; r.visible = true; r.position.set(L / 2 + 0.15 + 1.4 * u, 0.45 + hop + (o.ringUp ?? 0.0) * u, 0); r.scale.setScalar(0.1 + 0.55 * u * u); r.material.opacity = 0.85 * (1 - u); }   // (pass 3) from the grille, under the eyes: small near the face, growing as they leave
+        const r = rings[ri++]; r.visible = true; r.position.set(L / 2 + 0.15 + 1.4 * u, 0.45 + hop + (o.ringUp ?? 0.0) * u, 0); r.scale.setScalar(0.1 + 0.55 * u * u); r.material.opacity = 0.85 * (1 - u); if (r.children[0]) r.children[0].material.opacity = 0.9 * (1 - u); }   // (pass 3) from the grille, under the eyes: small near the face, growing as they leave
     };
     g.userData.update(0);
     g.userData.front = [L / 2, 0.76, 0]; g.userData.roof = [cx, cy0 + ch, 0]; g.userData.wiper = [wsFootX, cy0 + 0.1, 0.25];
@@ -172,7 +174,7 @@ export const FOURRIERE_PROPS = {
     g.add(at(box(1.72, 0.2, W + 0.02, band), 2.15, 1.3, 0), at(box(0.22, 0.2, W - 0.08, band), 3.09, 1.12, 0));
     g.add(at(box(0.04, 0.3, 1.4, '#2A2C31'), 3.19, 0.98, 0));
     for (const sz of [-1, 1]) g.add(at(box(0.04, 0.16, 0.32, '#FFF6C8', { emissive: '#FFF0B0', noGrain: true }), 3.19, 1.0, sz * 0.72));
-    for (const sz of [-1, 1]) g.add(at(label('FOURRIÈRE', 1.3, 0.3, { bg: wc, fg: navy, wrap: false }), 2.0, 1.62, sz * (W / 2 + 0.012), 0, sz > 0 ? 0 : PI, 0));
+    for (const sz of [-1, 1]) g.add(at(label('FOURRIÈRE', o.signW ?? 1.3, o.signH ?? 0.3, { bg: wc, fg: navy, wrap: false }), o.signX ?? 2.0, o.signY ?? 1.62, sz * (W / 2 + 0.012), 0, sz > 0 ? 0 : PI, 0));   // (final pass) o.signX / signY / signW / signH: the word bigger and clear of the wheels
     // light bar
     g.add(at(box(0.36, 0.1, 1.5, '#2A2C31'), 2.2, 2.4, 0)); const [bOn, bOff] = lamp('#FF9A1F', '#B8691C'), beac = [];
     for (const sz of [-1, 1]) { const on = at(box(0.3, 0.2, 0.36, '', { material: bOn }), 2.2, 2.55, sz * 0.5), off = at(box(0.3, 0.2, 0.36, '', { material: bOff }), 2.2, 2.55, sz * 0.5); g.add(on, off); beac.push([on, off, sz]); }

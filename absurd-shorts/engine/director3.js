@@ -759,7 +759,7 @@ const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
-const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR'];   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
+const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR', 'red'];   // (cycle 9) red: the whole face warms toward red   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
 function rigFace(A, t, env, tp, pos, ry, sc) {
   const custom = S.script?.faces, ek = lastKey(A.exprKeys, t), pk = prevKey(A.exprKeys, ek), since = t - ek.at, ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0), cfg = A.obj.userData.faceCfg || {};
   let st;

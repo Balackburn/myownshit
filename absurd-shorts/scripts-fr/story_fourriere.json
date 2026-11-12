@@ -188,6 +188,8 @@
        0.92,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "bounce": [
        [
         0.8,
@@ -260,6 +262,7 @@
    "start": 0.0,
    "duration": 1.9333,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -443,6 +446,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "gaze": [
        [
         0.0,
@@ -489,6 +494,7 @@
    "start": 1.9333,
    "duration": 0.6667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -575,6 +581,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "gaze": [
        [
         0.0,
@@ -627,7 +635,11 @@
       "tip": [
        -5.5,
        6.2
-      ]
+      ],
+      "signX": 0.3,
+      "signY": 1.32,
+      "signW": 2.5,
+      "signH": 0.5
      },
      "keys": [
       {
@@ -733,6 +745,7 @@
    "start": 2.6,
    "duration": 1.2667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -1220,6 +1233,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "gaze": [
        [
         0.0,
@@ -1259,7 +1274,11 @@
       "tip": [
        -5.5,
        6.2
-      ]
+      ],
+      "signX": 0.3,
+      "signY": 1.32,
+      "signW": 2.5,
+      "signH": 0.5
      }
     },
     {
@@ -1378,6 +1397,7 @@
    "start": 3.8667,
    "duration": 0.8333,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -1495,7 +1515,9 @@
       "hazard": [
        0.0,
        99
-      ]
+      ],
+      "ringTube": 0.1,
+      "ringInk": true
      }
     },
     {
@@ -1511,7 +1533,11 @@
       "tip": [
        -5.5,
        6.2
-      ]
+      ],
+      "signX": 0.3,
+      "signY": 1.32,
+      "signW": 2.5,
+      "signH": 0.5
      },
      "keys": [
       {
@@ -1595,6 +1621,7 @@
    "start": 4.7,
    "duration": 0.4667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -1681,6 +1708,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "gaze": [
        [
         0.0,
@@ -1742,6 +1771,7 @@
    "start": 5.1667,
    "duration": 0.9666,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -2073,32 +2103,33 @@
     {
      "at": 0.0,
      "from": [
-      6.7,
-      0.95,
-      74.1
+      0.9,
+      3.2,
+      79.2
      ],
      "to": [
-      6.62,
-      0.95,
-      74.0
+      0.85,
+      3.15,
+      79.05
      ],
      "lookAt": [
-      1.793,
-      1.691,
-      65.418
+      1.874,
+      1.124,
+      69.466
      ],
-     "lens": 66,
+     "lens": 57,
      "ease": "linear",
      "lookAt2": [
-      1.713,
-      1.691,
-      65.318
+      1.824,
+      1.074,
+      69.316
      ]
     }
    ],
    "start": 6.1333,
    "duration": 0.8334,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -2200,18 +2231,25 @@
           0.8
          ],
          "legR": [
+          -1.5,
           0,
-          0,
-          0,
-          1.45,
-          0.8
+          0.15,
+          1,
+          null
          ],
          "shinR": [
+          1.9,
           0,
           0,
+          1,
+          null
+         ],
+         "spine": [
+          -0.25,
           0,
-          1.45,
-          0.8
+          0,
+          1.08,
+          null
          ]
         },
         "reach": {
@@ -2279,18 +2317,25 @@
           0.8
          ],
          "legR": [
+          -1.5,
           0,
-          0,
-          0,
-          1.45,
-          0.8
+          0.15,
+          1,
+          null
          ],
          "shinR": [
+          1.9,
           0,
           0,
+          1,
+          null
+         ],
+         "spine": [
+          -0.25,
           0,
-          1.45,
-          0.8
+          0,
+          1.08,
+          null
          ]
         },
         "reach": {
@@ -2346,18 +2391,25 @@
           0.8
          ],
          "legR": [
+          -1.5,
           0,
-          0,
-          0,
-          1.45,
-          0.8
+          0.15,
+          1,
+          null
          ],
          "shinR": [
+          1.9,
           0,
           0,
+          1,
+          null
+         ],
+         "spine": [
+          -0.25,
           0,
-          1.45,
-          0.8
+          0,
+          1.08,
+          null
          ]
         },
         "reach": {
@@ -2829,6 +2881,7 @@
    "start": 6.9667,
    "duration": 1.1666,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -3484,6 +3537,7 @@
    "start": 8.1333,
    "duration": 0.8667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -3958,10 +4012,13 @@
        "DU VÉHICULE",
        "UNIQUEMENT"
       ],
-      "lineSize": 0.14,
+      "lineSize": 0.115,
+      "lineGap": 0.15,
+      "lineBold": true,
+      "top": 0.11,
       "paper": "#FFFFFF",
-      "ink": "#14161A",
-      "bigInk": "#B0101A",
+      "ink": "#101114",
+      "bigInk": "#8E0C14",
       "bright": true
      }
     },
@@ -4020,6 +4077,7 @@
    "start": 9.0,
    "duration": 1.4,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -4083,7 +4141,29 @@
        ]
       },
       {
-       "at": 0.09999999999999999,
+       "at": -0.12,
+       "toon": {
+        "reach": {
+         "R": [
+          5.45,
+          1.95,
+          70.3,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        },
+        "face": {
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.12,
        "toon": {
         "reach": {
          "R": [
@@ -4098,8 +4178,72 @@
          "R": "flat"
         }
        },
-       "toonDur": 0.08,
+       "toonDur": 0.06,
        "toonEase": "in"
+      },
+      {
+       "at": 0.26,
+       "toon": {
+        "reach": {
+         "R": [
+          5.36,
+          1.5,
+          70.4,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        },
+        "face": {
+         "browL": 0.7
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "reach": {
+         "R": [
+          5.36,
+          1.5,
+          70.4,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        },
+        "face": {
+         "browL": 0.7,
+         "lid": 1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "reach": {
+         "R": [
+          5.36,
+          1.5,
+          70.4,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        },
+        "face": {
+         "browL": 0.7
+        }
+       },
+       "toonDur": 0.06
       }
      ],
      "expr": "unimpressed"
@@ -4347,10 +4491,13 @@
        "DU VÉHICULE",
        "UNIQUEMENT"
       ],
-      "lineSize": 0.14,
+      "lineSize": 0.115,
+      "lineGap": 0.15,
+      "lineBold": true,
+      "top": 0.11,
       "paper": "#FFFFFF",
-      "ink": "#14161A",
-      "bigInk": "#B0101A",
+      "ink": "#101114",
+      "bigInk": "#8E0C14",
       "bright": true
      }
     },
@@ -4459,6 +4606,7 @@
    "start": 10.4,
    "duration": 1.0667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -4758,6 +4906,7 @@
    "start": 11.4667,
    "duration": 0.9666,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -4846,6 +4995,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -4854,8 +5005,8 @@
       ],
       "reach": [
        [
-        0.3,
-        0.933
+        0.2,
+        1.033
        ]
       ],
       "reachTo": [
@@ -4863,7 +5014,37 @@
        1.0,
        -3.47
       ],
-      "reachShort": 0.32,
+      "reachShort": 0.45,
+      "gaze": [
+       [
+        0.0,
+        0.85,
+        -0.15
+       ],
+       [
+        0.5,
+        0.95,
+        -0.25
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.2,
+        0.5
+       ],
+       [
+        0.5,
+        0.35,
+        0.9
+       ]
+      ],
+      "armW": 2.6,
+      "armColor": "#3F9E80",
+      "bladeColor": "#EFEADC",
+      "elbowUp": 0.62,
+      "shakeR": 0.12,
+      "shakeL": 0.07,
       "bounce": [
        [
         1.033,
@@ -4956,82 +5137,33 @@
     {
      "at": 0.0,
      "from": [
+      -0.193,
       0.75,
-      0.85,
-      -4.6
+      -8.673
      ],
      "to": [
-      0.79,
-      0.88,
-      -4.56
-     ],
-     "lookAt": [
-      4.295,
-      0.1,
-      4.72
-     ],
-     "lens": 58,
-     "ease": "linear",
-     "lookAt2": [
-      4.335,
-      0.13,
-      4.76
-     ]
-    },
-    {
-     "at": 0.42,
-     "from": [
-      4.0,
-      1.25,
-      -4.2
-     ],
-     "to": [
-      4.0,
-      1.25,
-      -4.2
-     ],
-     "lookAt": [
-      11.55,
-      -0.491,
-      2.122
-     ],
-     "lens": 52,
-     "ease": "linear",
-     "lookAt2": [
-      11.55,
-      -0.491,
-      2.122
-     ]
-    },
-    {
-     "at": 0.72,
-     "from": [
-      -0.188,
+      -0.133,
       0.75,
-      -8.676
-     ],
-     "to": [
-      -0.148,
-      0.75,
-      -8.616
+      -8.573
      ],
      "lookAt": [
-      4.458,
-      0.439,
-      0.173
+      4.462,
+      0.6,
+      0.176
      ],
      "lens": 68,
      "ease": "linear",
      "lookAt2": [
-      4.498,
-      0.439,
-      0.233
+      4.522,
+      0.6,
+      0.276
      ]
     }
    ],
    "start": 12.4333,
    "duration": 1.1334,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -5118,6 +5250,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -5187,6 +5321,7 @@
    "start": 13.5667,
    "duration": 1.0333,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -5317,6 +5452,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -5506,6 +5643,7 @@
    "start": 14.6,
    "duration": 0.9,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -6413,6 +6551,7 @@
    "start": 15.5,
    "duration": 1.5667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -6441,9 +6580,9 @@
       {
        "at": 0.0,
        "look": [
-        3.351,
+        3.401,
         1.7,
-        70.547
+        69.757
        ]
       },
       {
@@ -6524,7 +6663,8 @@
          "puff": 1,
          "cheeks": 1,
          "vein": 1,
-         "brow": -0.6
+         "brow": -0.6,
+         "red": 1
         }
        },
        "toonDur": 0.2,
@@ -6578,7 +6718,8 @@
          "puff": 1,
          "cheeks": 1,
          "vein": 1,
-         "brow": -0.6
+         "brow": -0.6,
+         "red": 1
         }
        },
        "toonDur": 0.3,
@@ -6590,11 +6731,11 @@
     {
      "id": "agent",
      "pos": [
-      3.351,
+      3.401,
       0,
-      70.547
+      69.757
      ],
-     "ry": 125,
+     "ry": 73,
      "clip": "stand",
      "keys": [
       {
@@ -6610,9 +6751,9 @@
        "toon": {
         "reach": {
          "R": [
-          4.081,
+          3.951,
           1.45,
-          70.117,
+          70.077,
           1,
           0.06
          ]
@@ -6629,9 +6770,9 @@
        "toon": {
         "reach": {
          "R": [
-          3.801,
+          3.651,
           1.3,
-          70.347,
+          70.047,
           1,
           0.06
          ]
@@ -6647,9 +6788,9 @@
        "toon": {
         "reach": {
          "R": [
-          4.081,
+          3.951,
           1.45,
-          70.117,
+          70.077,
           1,
           0.06
          ]
@@ -6666,9 +6807,9 @@
        "toon": {
         "reach": {
          "R": [
-          3.801,
+          3.651,
           1.3,
-          70.347,
+          70.047,
           1,
           0.06
          ]
@@ -6684,9 +6825,9 @@
        "toon": {
         "reach": {
          "R": [
-          4.081,
+          3.951,
           1.45,
-          70.117,
+          70.077,
           1,
           0.06
          ]
@@ -6703,9 +6844,9 @@
        "toon": {
         "reach": {
          "R": [
-          3.801,
+          3.651,
           1.3,
-          70.347,
+          70.047,
           1,
           0.06
          ]
@@ -6717,22 +6858,22 @@
        "toonDur": 0.05
       },
       {
-       "at": 0.32,
+       "at": 0.27,
        "toon": {},
-       "toonDur": 0.15
+       "toonDur": 0.1
       },
       {
-       "at": 0.28,
+       "at": 0.25,
        "to": [
-        5.0,
+        2.451,
         0,
-        71.1
+        69.247
        ],
-       "dur": 0.4,
+       "dur": 0.22,
        "clip": "walk",
        "then": "stand",
        "ease": "out",
-       "face": 100
+       "face": 60
       },
       {
        "at": 0.37,
@@ -6957,7 +7098,7 @@
      }
     },
     {
-     "id": "cpl0",
+     "id": "cp00",
      "name": "paperSheet",
      "on": {
       "actor": "mec",
@@ -6966,6 +7107,11 @@
        -0.05,
        0.36,
        0.18
+      ],
+      "rot": [
+       0,
+       -0.0,
+       0.0
       ]
      },
      "opts": {
@@ -6991,13 +7137,13 @@
        "ease": "outBack"
       },
       {
-       "at": 0.37,
+       "at": 0.32,
        "visible": false
       }
      ]
     },
     {
-     "id": "cpl1",
+     "id": "cp01",
      "name": "paperSheet",
      "on": {
       "actor": "mec",
@@ -7006,6 +7152,11 @@
        0.0,
        0.31,
        0.184
+      ],
+      "rot": [
+       0,
+       0.0,
+       0.0
       ]
      },
      "opts": {
@@ -7031,13 +7182,13 @@
        "ease": "outBack"
       },
       {
-       "at": 0.37,
+       "at": 0.32,
        "visible": false
       }
      ]
     },
     {
-     "id": "cpl2",
+     "id": "cp02",
      "name": "paperSheet",
      "on": {
       "actor": "mec",
@@ -7046,6 +7197,11 @@
        0.05,
        0.26,
        0.188
+      ],
+      "rot": [
+       0,
+       0.0,
+       -0.0
       ]
      },
      "opts": {
@@ -7071,8 +7227,374 @@
        "ease": "outBack"
       },
       {
-       "at": 0.37,
+       "at": 0.32,
        "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp10",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       -0.12,
+       0.36,
+       0.3
+      ],
+      "rot": [
+       0,
+       -0.07,
+       0.05
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.32,
+       "visible": true
+      },
+      {
+       "at": 0.355,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp11",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.29,
+       0.304
+      ],
+      "rot": [
+       0,
+       0.0,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.32,
+       "visible": true
+      },
+      {
+       "at": 0.355,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp12",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.12,
+       0.22,
+       0.308
+      ],
+      "rot": [
+       0,
+       0.07,
+       -0.05
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.32,
+       "visible": true
+      },
+      {
+       "at": 0.355,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp20",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       -0.19,
+       0.36,
+       0.4
+      ],
+      "rot": [
+       0,
+       -0.14,
+       0.1
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.355,
+       "visible": true
+      },
+      {
+       "at": 0.4,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp21",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.27,
+       0.404
+      ],
+      "rot": [
+       0,
+       0.0,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.355,
+       "visible": true
+      },
+      {
+       "at": 0.4,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp22",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.19,
+       0.18,
+       0.408
+      ],
+      "rot": [
+       0,
+       0.14,
+       -0.1
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.355,
+       "visible": true
+      },
+      {
+       "at": 0.4,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "cp30",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       -0.26,
+       0.36,
+       0.66
+      ],
+      "rot": [
+       0,
+       -0.21,
+       0.15
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.4,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "cp31",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.25,
+       0.664
+      ],
+      "rot": [
+       0,
+       0.0,
+       0.0
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.4,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "cp32",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.26,
+       0.14,
+       0.668
+      ],
+      "rot": [
+       0,
+       0.21,
+       -0.15
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.4,
+       "visible": true
       }
      ]
     },
@@ -7110,129 +7632,6 @@
        "ease": "outBack"
       }
      ]
-    },
-    {
-     "id": "cpb0",
-     "name": "paperSheet",
-     "on": {
-      "actor": "mec",
-      "joint": "torso",
-      "offset": [
-       -0.12,
-       0.3,
-       0.6
-      ],
-      "rot": [
-       0,
-       -0.2,
-       0.15
-      ]
-     },
-     "opts": {
-      "w": 0.26,
-      "h": 0.18,
-      "big": "PLAINTE",
-      "bigSize": 0.42,
-      "top": 0.02,
-      "paper": "#F4F1E8",
-      "bigInk": "#C8202A",
-      "bright": true
-     },
-     "keys": [
-      {
-       "at": 0.0,
-       "scale": 0.01,
-       "dur": 0.0
-      },
-      {
-       "at": 0.51,
-       "scale": 1.0,
-       "dur": 0.1,
-       "ease": "outBack"
-      }
-     ]
-    },
-    {
-     "id": "cpb1",
-     "name": "paperSheet",
-     "on": {
-      "actor": "mec",
-      "joint": "torso",
-      "offset": [
-       0.0,
-       0.23,
-       0.605
-      ],
-      "rot": [
-       0,
-       0.0,
-       0.0
-      ]
-     },
-     "opts": {
-      "w": 0.26,
-      "h": 0.18,
-      "big": "PLAINTE",
-      "bigSize": 0.42,
-      "top": 0.02,
-      "paper": "#F4F1E8",
-      "bigInk": "#C8202A",
-      "bright": true
-     },
-     "keys": [
-      {
-       "at": 0.0,
-       "scale": 0.01,
-       "dur": 0.0
-      },
-      {
-       "at": 0.51,
-       "scale": 1.0,
-       "dur": 0.1,
-       "ease": "outBack"
-      }
-     ]
-    },
-    {
-     "id": "cpb2",
-     "name": "paperSheet",
-     "on": {
-      "actor": "mec",
-      "joint": "torso",
-      "offset": [
-       0.12,
-       0.16,
-       0.61
-      ],
-      "rot": [
-       0,
-       0.2,
-       -0.15
-      ]
-     },
-     "opts": {
-      "w": 0.26,
-      "h": 0.18,
-      "big": "PLAINTE",
-      "bigSize": 0.42,
-      "top": 0.02,
-      "paper": "#F4F1E8",
-      "bigInk": "#C8202A",
-      "bright": true
-     },
-     "keys": [
-      {
-       "at": 0.0,
-       "scale": 0.01,
-       "dur": 0.0
-      },
-      {
-       "at": 0.51,
-       "scale": 1.0,
-       "dur": 0.1,
-       "ease": "outBack"
-      }
-     ]
     }
    ],
    "sfx": [],
@@ -7250,22 +7649,23 @@
       74.4
      ],
      "lookAt": [
-      6.323,
-      0.388,
-      65.781
+      6.162,
+      0.712,
+      65.652
      ],
-     "lens": 63,
+     "lens": 59,
      "ease": "linear",
      "lookAt2": [
-      6.383,
-      0.468,
-      65.781
+      6.222,
+      0.792,
+      65.652
      ]
     }
    ],
    "start": 17.0667,
    "duration": 0.8333,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -7352,6 +7752,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -7407,7 +7809,11 @@
       "tip": [
        -5.5,
        6.2
-      ]
+      ],
+      "signX": 0.3,
+      "signY": 1.32,
+      "signW": 2.5,
+      "signH": 0.5
      },
      "keys": [
       {
@@ -7492,6 +7898,7 @@
    "start": 17.9,
    "duration": 1.1,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -7578,6 +7985,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -7631,6 +8040,11 @@
         0.0,
         0.0,
         -0.4
+       ],
+       [
+        0.4,
+        0.4,
+        -0.7
        ]
       ]
      },
@@ -7687,7 +8101,11 @@
       "tip": [
        -5.5,
        6.2
-      ]
+      ],
+      "signX": 0.3,
+      "signY": 1.32,
+      "signW": 2.5,
+      "signH": 0.5
      }
     },
     {
@@ -7750,6 +8168,7 @@
    "start": 19.0,
    "duration": 1.3667,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -8239,6 +8658,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -8358,6 +8779,7 @@
    "start": 20.3667,
    "duration": 1.6,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -8682,6 +9104,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.1,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -8770,15 +9194,18 @@
      ]
     },
     {
-     "id": "dust21",
+     "id": "dust210",
      "name": "dustPuff",
      "pos": [
-      3.6,
+      2.35,
       0.05,
-      68.4
+      69.6
      ],
      "opts": {
-      "period": 0.7
+      "period": 0.26,
+      "once": true,
+      "startAt": 0.1,
+      "color": "#EDE6D6"
      },
      "keys": [
       {
@@ -8790,7 +9217,36 @@
        "visible": true
       },
       {
-       "at": 0.75,
+       "at": 0.37,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "dust211",
+     "name": "dustPuff",
+     "pos": [
+      4.85,
+      0.05,
+      69.6
+     ],
+     "opts": {
+      "period": 0.26,
+      "once": true,
+      "startAt": 0.1,
+      "color": "#EDE6D6"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.1,
+       "visible": true
+      },
+      {
+       "at": 0.37,
        "visible": false
       }
      ]
@@ -8868,6 +9324,7 @@
    "start": 21.9667,
    "duration": 0.8333,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
@@ -9512,6 +9969,8 @@
        0.0,
        99
       ],
+      "ringTube": 0.08,
+      "ringInk": true,
       "pv": [
        [
         0.0,
@@ -9553,14 +10012,15 @@
        ]
       ],
       "blink": [
-       2.5
+       2.32
       ],
       "honk": [
        [
-        2.8,
+        2.55,
         0.08
        ]
-      ]
+      ],
+      "honkHop": 0.07
      }
     },
     {
@@ -9600,7 +10060,7 @@
       "headSize": 0.14,
       "big": "45 €",
       "bigSize": 0.36,
-      "top": 0.06,
+      "top": 0.15,
       "paper": "#FFFFFF",
       "ink": "#14161A",
       "bigInk": "#B0101A",
@@ -9712,6 +10172,7 @@
    "start": 22.8,
    "duration": 3.07,
    "setOpts": {
+    "clouds": 0,
     "clear": [
      -110,
      110
