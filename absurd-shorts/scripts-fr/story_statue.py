@@ -66,16 +66,16 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
 
 # 4: after three hours. Wide, from across the road: buses go by between us and him, fast, one after the other; he has not moved; nor has the bird
 D4 = st.dur('S04')
-BUS = lambda pid, t0, dur=0.38, x=3.1: P(pid, 'cityBus', pos=[x, 0, -34.0], ry=0, keys=[k(t0, to=[x, 0, 34.0], dur=dur, ease='linear')])
+BUS = lambda pid, t0, dur=0.5, x=3.1: P(pid, 'cityBus', pos=[x, 0, -14.0], ry=-90, keys=[k(t0, to=[x, 0, 14.0], dur=dur, ease='linear')])   # (seen: 28 m in half a second; at 68 m in 0.38 s it was in no frame)
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[HIM()],
-        props=[SHELTER(), PIGEON(sleep=True), BUS('bus1', 0.05), BUS('bus2', 0.55, x=2.6)],
+        props=[SHELTER(), PIGEON(sleep=True), BUS('bus1', 0.0), BUS('bus2', 0.52, x=2.6)],
         cams=[UPCAM(0.0, [-0.6, 1.5, 2.6], [[HX, TOP + 0.5, HZ], [HX, 0.0, HZ], [7.75, 2.6, -1.4], [7.75, 2.6, 1.4]], top=0.16, bottom=0.84)])
 st.cue('whoosh', 'S04', 0.05, 0.4, 0.4, 150, 900); st.cue('whoosh', 'S04', 0.55, 0.4, 0.4, 150, 900)
 
 # 5: the town hall listed him as a historic monument. An official in a tricolour sash comes along the pavement, looks him up and down, and slaps a
 #    sticker on his chest: MONUMENT HISTORIQUE (the title card)
 D5 = st.dur('S05'); AR5, SL5 = 0.55, 1.05
-OFF5 = [round(HX - 0.35, 3), 0, round(HZ + 0.95, 3)]
+OFF5 = [round(HX + 0.1, 3), 0, round(HZ + 1.05, 3)]   # beside him, at his left (in front of him, between him and us, he hid him)
 STICK = lambda t0: P('sticker', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.06, 0.38, 0.17]}, opts={'w': 0.26, 'h': 0.16, 'big': 'MONUMENT', 'bigSize': 0.34, 'lines': ['HISTORIQUE'], 'lineSize': 0.2, 'top': 0.12, 'paper': '#F4F1E8', 'bright': True},
                      keys=[k(0.0, scale=0.01, dur=0.0), k(t0, scale=1.0, dur=0.08, ease='outBack')])
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[HIM(extra=[k(SL5, toon=FROZEN(sq=[1.04, 0.96, 1.04], face={'eye': 0.4, 'brow': 0.7}), toonDur=0.04), k(SL5 + 0.1, toon=FROZEN(face={'gy': 0.6}), toonDur=0.1)]),
@@ -157,9 +157,9 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[
         HIM(y0=PED, extra=[*[k(round(JT10 + 0.08 * i, 3), toon=FROZEN(hairUp=1, wind=[0.9, 0.0, 0.0], face={'cheeks': (1 if i % 2 else 0.2), 'lid': 0.85, 'brow': -0.4, 'mouth': 'wavy'}, sq=[1.0 + (0.03 if i % 2 else -0.02), 1, 1]), toonDur=0.05) for i in range(18)]]),
         act('nettoyeur', CLN, 75, 'stand', 'neutral', keys=[k(0.0, look=HEADP(PED - 0.25)), k(0.0, toon={'reach': {'R': [round(CLN[0] + 0.45, 3), 1.35, round(CLN[2] - 0.05, 3), 1, 0.06], 'L': [round(CLN[0] + 0.25, 3), 1.2, round(CLN[2] + 0.05, 3), 1, 0.06]}, 'hands': {'L': 'grip', 'R': 'grip'}}, toonDur=0.0)])],
         props=[SHELTER(), PIGEON(sleep=True), STICK(0.0), P('plinth', 'pedestal', pos=[HX, 0, HZ], ry=-90, opts={'h': PED, 'w': 0.7, 'text': 'MONUMENT HISTORIQUE'}), *RAILS(),
-               P('lance', 'waterJet', pos=[round(CLN[0] + 0.3, 3), 1.32, round(CLN[2] - 0.02, 3)], ry=73, rot=[-0.32, 0, 0], opts={'lance': 0.75, 'len': 1.05, 'on': [JT10, 9.0]}),
+               P('lance', 'waterJet', pos=[round(CLN[0] + 0.3, 3), 1.32, round(CLN[2] - 0.02, 3)], ry=104, rot=[-0.85, 0, 0], rotOrder='YXZ', opts={'lance': 0.75, 'len': 1.2, 'on': [JT10, 9.0]}),   # aimed at his face (yaw toward him, pitched up 49 degrees)
                P('brolly', 'umbrella', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.34, 0.06]}, scale=0.22, opts={'radius': 0.75, 'height': 1.0, 'colors': ['#E8504A', '#F4F1E8']})],
-        cams=[UPCAM(0.0, [2.0, 2.2, 2.7], [[HX, TOP + PED + 0.6, HZ], [HX, PED + 0.9, HZ], [CLN[0], 2.2, CLN[2]], [CLN[0], 0.9, CLN[2]]], top=0.14, bottom=0.76, drift=(0.08, 0, -0.04))])
+        cams=[UPCAM(0.0, [3.4, 2.7, 1.6], [[HX, TOP + PED + 0.62, HZ], [HX, PED + 1.35, HZ], [round(HX - 0.65, 3), PED + 1.85, round(HZ + 0.1, 3)]], top=0.12, bottom=0.62, drift=(0.06, 0, -0.03))])   # closer: his face in the jet, the pigeon dry under its umbrella
 st.cue('rain', 'S10', JT10, 0.35, round(D10 - JT10, 3))
 
 # 11: he blinked. Very close on his eyes: a slow blink, with a clack
@@ -199,17 +199,25 @@ st.cue('sfx:spring', 'S13', FLY13 + 0.02, 0.4); st.cue('whoosh', 'S13', FLY13, 0
 # 14: without the pigeon the work is incomplete. Two experts round the plinth: one looks at the empty top of his head through a magnifying glass; the
 #     other slaps a sticker across the plaque: INCOMPLÈTE
 D14 = st.dur('S14'); ST14 = 1.25
-EX1 = [round(HX - 1.2, 3), 0, round(HZ + 0.25, 3)]; EX2 = [round(HX - 1.15, 3), 0, round(HZ - 0.65, 3)]
-st.shot('S14', 'parisStreet', setOpts=STREET, actors=[HIM(y0=PED, extra=[k(0.0, toon={'face': {'brow': 0.4, 'lid': 0.3}}, toonDur=0.0), k(ST14 + 0.05, toon={'face': {'gy': 0.8, 'brow': 0.7}}, toonDur=0.1)]),
-        act('expert', EX1, 70, 'stand', 'neutral', keys=[k(0.0, look=HEADP(PED + 0.1)), k(0.0, toon={'reach': {'R': [round(HX - 0.75, 3), 2.45, round(HZ + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [-0.25, 0, 0, 1, None]}}, toonDur=0.0),
-            k(0.7, clip='shakeHead', blend=0.1), k(1.3, clip='stand', blend=0.1)]),
-        act('officiel', EX2, 110, 'stand', 'unimpressed', keys=[k(0.0, look=[HX - 0.36, 0.5, HZ]), k(ST14 - 0.15, toon={'reach': {'R': [round(HX - 0.42, 3), 0.52, round(HZ - 0.05, 3), 1, 0.06]}, 'hands': {'R': 'spread'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}}, toonDur=0.15, toonEase='in'),
+EX1 = [round(HX - 0.8, 3), 0, round(HZ - 0.75, 3)]; EX2 = [round(HX - 1.0, 3), 0, round(HZ + 0.72, 3)]   # the expert at his right (screen left), the official at his left
+CAM14 = [round(HX - 4.4, 3), PED + 1.35, round(HZ + 0.35, 3)]
+RING14 = [round(HX - 0.3, 3), round(PED + TOP + 0.08, 3), round(HZ - 0.06, 3)]                              # the lens just in front of the empty crown
+LS14, PHI14 = 0.95, -0.5                                                                                    # loupe scale; roll (the handle goes down toward the expert)
+RY14 = math.degrees(math.atan2(CAM14[0] - RING14[0], CAM14[2] - RING14[2]))                                # the lens faces the camera
+def _v14(h):   # the vector from the handle's foot to the ring's centre, h along the handle (Euler XYZ: roll, then ry)
+    th = math.radians(RY14); return [-h * math.sin(PHI14) * math.cos(th), h * math.cos(PHI14), h * math.sin(PHI14) * math.sin(th)]
+FOOT14 = r3([RING14[i] - _v14(0.72 * LS14)[i] for i in range(3)]); GRIP14 = r3([FOOT14[i] + _v14(0.14 * LS14)[i] for i in range(3)])
+st.shot('S14', 'parisStreet', setOpts=STREET, actors=[HIM(y0=PED, extra=[k(0.0, toon={'face': {'brow': 0.6, 'gy': -0.85, 'gx': -0.3}}, toonDur=0.0),   # his eyes up at the glass
+            k(0.75, toon={'face': {'brow': 0.8, 'gy': -0.9, 'gx': -0.5, 'eye': 0.4}}, toonDur=0.08), k(ST14 + 0.05, toon={'face': {'gy': 0.8, 'brow': 0.7}}, toonDur=0.1)]),
+        act('expert', EX1, 47, 'stand', 'neutral', keys=[k(0.0, look=RING14), k(0.0, toon={'reach': {'R': [*GRIP14, 1, 0.06]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [-0.22, 0, 0, 1, None]}, 'face': {'brow': 0.7, 'lidL': 0.6}}, toonDur=0.0),   # one eye shut, the other at the glass
+            k(0.75, clip='shakeHead', blend=0.1), k(1.35, clip='stand', blend=0.1)]),
+        act('officiel', EX2, 125, 'stand', 'unimpressed', keys=[k(0.0, look=[HX - 0.36, 0.5, HZ]), k(ST14 - 0.15, toon={'reach': {'R': [round(HX - 0.42, 3), 0.52, round(HZ + 0.05, 3), 1, 0.06]}, 'hands': {'R': 'spread'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}}, toonDur=0.15, toonEase='in'),
             k(ST14 + 0.3, toon={}, toonDur=0.2)])],
         props=[SHELTER(), STICK(0.0), P('plinth', 'pedestal', pos=[HX, 0, HZ], ry=-90, opts={'h': PED, 'w': 0.7, 'text': 'MONUMENT HISTORIQUE'}), *RAILS(), FINE(0.0),
-               P('loupe', 'magnifyingGlass', on={'actor': 'expert', 'hand': 'R', 'offset': [0, 0.06, 0.05]}, scale=1.6),
+               P('loupe', 'magnifyingGlass', pos=FOOT14, ry=round(RY14, 2), rot=[0, 0, PHI14], scale=LS14),
                P('incomp', 'paperSheet', pos=[round(HX - 0.39, 3), 0.52, round(HZ, 3)], ry=-90, rot=[0, 0, 0.22], opts={'w': 0.62, 'h': 0.15, 'big': 'INCOMPLÈTE', 'bigSize': 0.7, 'top': 0.05, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True},
                  keys=[k(0.0, scale=0.01, dur=0.0), k(ST14, scale=1.0, dur=0.07, ease='outBack')])],
-        cams=[UPCAM(0.0, [2.55, 1.75, 2.5], [[HX, TOP + PED + 0.4, HZ], [HX, 0.3, HZ], [EX1[0], 2.3, EX1[2]], [EX2[0], 0.2, EX2[2]]], top=0.14, bottom=0.82, drift=(0.1, 0, -0.08))])
+        cams=[UPCAM(0.0, CAM14, [[HX, TOP + PED + 0.42, HZ], [HX, 0.35, HZ], [EX1[0], 2.25, EX1[2]], [EX2[0], 0.2, EX2[2]], RING14], top=0.12, bottom=0.82, drift=(0.08, 0, -0.04))])
 st.cue('sfx:paper', 'S14', ST14, 0.4); st.cue('thud', 'S14', ST14, 0.25)
 
 # 15: they moved him to a roundabout. A crane's hook comes down with a sling; it goes round him and he rises out of the railings stiff as a post, his
@@ -232,9 +240,9 @@ CAR = lambda pid, t0, x0, z0, x1, z1, dur, ry, col: P(pid, 'car', pos=[x0, 0, z0
 # 16: the bus goes past every morning. The roundabout: he stands on his plinth in the flowers, alone, stiff; cars go round; down the street, a bus comes
 D16 = st.dur('S16')
 st.shot('S16', 'parisStreet', setOpts={**STREET, 'clear': [-90, 80]}, actors=[act('mec', ON, 90, 'stiffStand', 'unimpressed', keys=[k(0.0, look=[8.0, 1.6, RZ + 30.0]), k(0.0, toon={'face': {'lid': 0.35, 'brow': 0.3}}, toonDur=0.0)])],
-        props=[*ISLAND(), P('bus16', 'cityBus', pos=[-3.0, 0, RZ - 30.0], ry=0, keys=[k(0.0, to=[-3.0, 0, RZ - 12.0], dur=D16, ease='linear')]),
+        props=[*ISLAND(), P('bus16', 'cityBus', pos=[-3.0, 0, RZ - 30.0], ry=-90, keys=[k(0.0, to=[-3.0, 0, RZ - 12.0], dur=D16, ease='linear')]),
                CAR('car1', 0.0, 4.2, RZ + 4.0, 4.2, RZ - 6.0, D16, 180, '#3A6EA5'), CAR('car2', 0.0, -4.0, RZ - 5.0, -4.0, RZ + 6.0, D16, 0, '#E8A33A')],
-        cams=[UPCAM(0.0, [7.5, 3.4, RZ + 11.0], [[0.0, PED + TOP + 0.9, RZ], [-3.3, 0.0, RZ + 2.5], [3.3, 0.0, RZ - 2.5], [-3.0, 3.2, RZ - 9.0]], top=0.12, bottom=0.84, drift=(-0.2, 0, -0.3))])
+        cams=[UPCAM(0.0, [6.2, 2.8, RZ + 9.0], [[0.0, PED + TOP + 0.9, RZ], [-2.2, 0.0, RZ + 1.4], [2.2, 0.0, RZ - 1.4], [-3.0, 3.2, RZ - 6.0]], top=0.12, bottom=0.84, drift=(-0.2, 0, -0.3))])   # closer: he reads on his plinth
 st.cue('engine', 'S16', 0.0, 0.2, D16)
 
 # 17: it does not stop. The bus sweeps past him close, without slowing: the wind of it: his tie flies, his hair stands, the flowers lie down; he does
@@ -244,7 +252,7 @@ st.shot('S17', 'parisStreet', setOpts={**STREET, 'clear': [-90, 80]}, actors=[ac
             *[k(round(BP17 + 0.06 * i, 3), toon={'hairUp': 1, 'wind': [0.0, 0.2, 1.0], 'face': {'lid': 0.7, 'brow': -0.3}, 'sq': [1.0, 1.0, 1.0 + (0.02 if i % 2 else -0.02)]}, toonDur=0.04) for i in range(9)],
             k(BP17 + 0.6, toon={'face': {'lid': 0.4, 'brow': 0.3}, 'settle': 0.5}, toonDur=0.2),
             k(PG17 + 0.35, toon={'scl': {'head': [1.18, 0.82, 1.18]}, 'face': {'brow': 0.6}}, toonDur=0.04, toonEase='out'), k(PG17 + 0.45, toon={**SQ, 'face': {'gy': -0.95, 'brow': 0.5, 'lid': 0.3}}, toonDur=0.12, toonEase='outBack')])],
-        props=[*ISLAND(), P('bus17', 'cityBus', pos=[-3.0, 0, RZ - 14.0], ry=0, keys=[k(0.0, to=[-3.0, 0, RZ + 16.0], dur=1.1, ease='linear')], opts={'rock': [[0.0, 0.3]]}),
+        props=[*ISLAND(), P('bus17', 'cityBus', pos=[-3.0, 0, RZ - 14.0], ry=-90, keys=[k(0.0, to=[-3.0, 0, RZ + 16.0], dur=1.1, ease='linear')], opts={'rock': [[0.0, 0.3]]}),
                P('pig3', 'pigeon', pos=[1.6, 4.6, RZ + 2.2], ry=-60, opts={'flap': [PG17 - 0.3, PG17 + 0.4]}, keys=[k(0.0, visible=False), k(PG17 - 0.3, visible=True), k(PG17 - 0.3, to=[0.0, ON[1] + TOP + 0.04, RZ], dur=0.65, ease='out')])],
         cams=[UPCAM(0.0, [4.2, 2.0, RZ + 3.2], [[0.0, ON[1] + TOP + 0.5, RZ], [0.0, ON[1], RZ], [-3.0, 3.3, RZ - 1.0], [1.6, 3.2, RZ + 2.2]], top=0.1, bottom=0.8, drift=(-0.1, 0, -0.1))])
 st.cue('whoosh', 'S17', BP17, 0.5, 0.6, 120, 900); st.cue('engine', 'S17', 0.0, 0.3, 1.2); st.cue('sfx:bonk', 'S17', PG17 + 0.35, 0.3)

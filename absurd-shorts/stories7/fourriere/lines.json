@@ -1,0 +1,106 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est garé en double file. Une minute.",
+  "hl": [
+   "double",
+   "file."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "La fourrière est passée. Elle l'a embarqué, lui. Pas la voiture.",
+  "hl": [
+   "fourrière",
+   "lui.",
+   "voiture."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "À la fourrière, on lui a mis un sabot.",
+  "hl": [
+   "sabot."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Pour sortir, le propriétaire doit payer.",
+  "hl": [
+   "propriétaire",
+   "payer."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Son propriétaire, c'est la voiture.",
+  "hl": [
+   "voiture."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Elle n'a pas de mains.",
+  "hl": [
+   "mains."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Elle a klaxonné pendant trois semaines.",
+  "hl": [
+   "klaxonné",
+   "semaines."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les voisins ont porté plainte. Contre lui.",
+  "hl": [
+   "plainte.",
+   "lui."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Hier, la fourrière est revenue chercher la voiture.",
+  "hl": [
+   "revenue",
+   "voiture."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Elle l'a garée à sa place.",
+  "hl": [
+   "place."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Sur lui.",
+  "hl": [
+   "lui."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il paie la place.",
+  "hl": [
+   "paie",
+   "place."
+  ]
+ }
+]

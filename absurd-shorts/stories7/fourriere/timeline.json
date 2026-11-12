@@ -1,0 +1,571 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est garé en double file. Une minute.",
+   "hl": [
+    "double",
+    "file."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.544,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.619
+    },
+    {
+     "w": "garé",
+     "s": 0.693,
+     "e": 0.841
+    },
+    {
+     "w": "en",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "double",
+     "s": 1.1,
+     "e": 1.211
+    },
+    {
+     "w": "file.",
+     "s": 1.285,
+     "e": 1.767
+    },
+    {
+     "w": "Une",
+     "s": 1.952,
+     "e": 2.026
+    },
+    {
+     "w": "minute.",
+     "s": 2.1,
+     "e": 2.544
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "La fourrière est passée. Elle l'a embarqué, lui. Pas la voiture.",
+   "hl": [
+    "fourrière",
+    "lui.",
+    "voiture."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L02.k.wav",
+   "file_start": 2.644,
+   "speech_start": 2.644,
+   "speech_end": 6.052,
+   "words": [
+    {
+     "w": "La",
+     "s": 2.644,
+     "e": 2.793
+    },
+    {
+     "w": "fourrière",
+     "s": 2.867,
+     "e": 3.163
+    },
+    {
+     "w": "est",
+     "s": 3.2,
+     "e": 3.237
+    },
+    {
+     "w": "passée.",
+     "s": 3.348,
+     "e": 3.867
+    },
+    {
+     "w": "Elle",
+     "s": 3.904,
+     "e": 3.978
+    },
+    {
+     "w": "l'a",
+     "s": 4.003,
+     "e": 4.052
+    },
+    {
+     "w": "embarqué,",
+     "s": 4.126,
+     "e": 4.681
+    },
+    {
+     "w": "lui.",
+     "s": 4.719,
+     "e": 5.188
+    },
+    {
+     "w": "Pas",
+     "s": 5.212,
+     "e": 5.237
+    },
+    {
+     "w": "la",
+     "s": 5.274,
+     "e": 5.311
+    },
+    {
+     "w": "voiture.",
+     "s": 5.348,
+     "e": 6.052
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "À la fourrière, on lui a mis un sabot.",
+   "hl": [
+    "sabot."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L03.k.wav",
+   "file_start": 6.152,
+   "speech_start": 6.152,
+   "speech_end": 8.078,
+   "words": [
+    {
+     "w": "À",
+     "s": 6.152,
+     "e": 6.189
+    },
+    {
+     "w": "la",
+     "s": 6.226,
+     "e": 6.3
+    },
+    {
+     "w": "fourrière,",
+     "s": 6.374,
+     "e": 6.967
+    },
+    {
+     "w": "on",
+     "s": 7.004,
+     "e": 7.041
+    },
+    {
+     "w": "lui",
+     "s": 7.115,
+     "e": 7.189
+    },
+    {
+     "w": "a",
+     "s": 7.226,
+     "e": 7.263
+    },
+    {
+     "w": "mis",
+     "s": 7.337,
+     "e": 7.411
+    },
+    {
+     "w": "un",
+     "s": 7.448,
+     "e": 7.485
+    },
+    {
+     "w": "sabot.",
+     "s": 7.559,
+     "e": 8.078
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Pour sortir, le propriétaire doit payer.",
+   "hl": [
+    "propriétaire",
+    "payer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L04.k.wav",
+   "file_start": 8.178,
+   "speech_start": 8.178,
+   "speech_end": 10.326,
+   "words": [
+    {
+     "w": "Pour",
+     "s": 8.178,
+     "e": 8.326
+    },
+    {
+     "w": "sortir,",
+     "s": 8.474,
+     "e": 8.993
+    },
+    {
+     "w": "le",
+     "s": 9.03,
+     "e": 9.067
+    },
+    {
+     "w": "propriétaire",
+     "s": 9.141,
+     "e": 9.585
+    },
+    {
+     "w": "doit",
+     "s": 9.622,
+     "e": 9.733
+    },
+    {
+     "w": "payer.",
+     "s": 9.807,
+     "e": 10.326
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Son propriétaire, c'est la voiture.",
+   "hl": [
+    "voiture."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L05.k.wav",
+   "file_start": 10.426,
+   "speech_start": 10.426,
+   "speech_end": 12.352,
+   "words": [
+    {
+     "w": "Son",
+     "s": 10.426,
+     "e": 10.574
+    },
+    {
+     "w": "propriétaire,",
+     "s": 10.722,
+     "e": 11.463
+    },
+    {
+     "w": "c'est",
+     "s": 11.488,
+     "e": 11.537
+    },
+    {
+     "w": "la",
+     "s": 11.611,
+     "e": 11.648
+    },
+    {
+     "w": "voiture.",
+     "s": 11.685,
+     "e": 12.352
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Elle n'a pas de mains.",
+   "hl": [
+    "mains."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L06.k.wav",
+   "file_start": 12.452,
+   "speech_start": 12.452,
+   "speech_end": 13.489,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 12.452,
+     "e": 12.563
+    },
+    {
+     "w": "n'a",
+     "s": 12.6,
+     "e": 12.748
+    },
+    {
+     "w": "pas",
+     "s": 12.785,
+     "e": 12.822
+    },
+    {
+     "w": "de",
+     "s": 12.896,
+     "e": 12.97
+    },
+    {
+     "w": "mains.",
+     "s": 13.007,
+     "e": 13.489
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Elle a klaxonné pendant trois semaines.",
+   "hl": [
+    "klaxonné",
+    "semaines."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L07.k.wav",
+   "file_start": 13.589,
+   "speech_start": 13.589,
+   "speech_end": 15.441,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 13.589,
+     "e": 13.7
+    },
+    {
+     "w": "a",
+     "s": 13.737,
+     "e": 13.774
+    },
+    {
+     "w": "klaxonné",
+     "s": 13.811,
+     "e": 14.256
+    },
+    {
+     "w": "pendant",
+     "s": 14.33,
+     "e": 14.552
+    },
+    {
+     "w": "trois",
+     "s": 14.626,
+     "e": 14.774
+    },
+    {
+     "w": "semaines.",
+     "s": 14.848,
+     "e": 15.441
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les voisins ont porté plainte. Contre lui.",
+   "hl": [
+    "plainte.",
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L08.k.wav",
+   "file_start": 15.541,
+   "speech_start": 15.541,
+   "speech_end": 17.837,
+   "words": [
+    {
+     "w": "Les",
+     "s": 15.541,
+     "e": 15.689
+    },
+    {
+     "w": "voisins",
+     "s": 15.726,
+     "e": 15.985
+    },
+    {
+     "w": "ont",
+     "s": 16.022,
+     "e": 16.059
+    },
+    {
+     "w": "porté",
+     "s": 16.17,
+     "e": 16.356
+    },
+    {
+     "w": "plainte.",
+     "s": 16.504,
+     "e": 17.022
+    },
+    {
+     "w": "Contre",
+     "s": 17.096,
+     "e": 17.244
+    },
+    {
+     "w": "lui.",
+     "s": 17.281,
+     "e": 17.837
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Hier, la fourrière est revenue chercher la voiture.",
+   "hl": [
+    "revenue",
+    "voiture."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L09.k.wav",
+   "file_start": 17.937,
+   "speech_start": 17.937,
+   "speech_end": 20.307,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 17.937,
+     "e": 18.456
+    },
+    {
+     "w": "la",
+     "s": 18.53,
+     "e": 18.604
+    },
+    {
+     "w": "fourrière",
+     "s": 18.678,
+     "e": 18.9
+    },
+    {
+     "w": "est",
+     "s": 18.937,
+     "e": 18.974
+    },
+    {
+     "w": "revenue",
+     "s": 19.048,
+     "e": 19.27
+    },
+    {
+     "w": "chercher",
+     "s": 19.344,
+     "e": 19.567
+    },
+    {
+     "w": "la",
+     "s": 19.604,
+     "e": 19.641
+    },
+    {
+     "w": "voiture.",
+     "s": 19.678,
+     "e": 20.307
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Elle l'a garée à sa place.",
+   "hl": [
+    "place."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L10.k.wav",
+   "file_start": 20.407,
+   "speech_start": 20.407,
+   "speech_end": 21.896,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 20.407,
+     "e": 20.519
+    },
+    {
+     "w": "l'a",
+     "s": 20.556,
+     "e": 20.704
+    },
+    {
+     "w": "garée",
+     "s": 20.778,
+     "e": 20.926
+    },
+    {
+     "w": "à",
+     "s": 21.0,
+     "e": 21.037
+    },
+    {
+     "w": "sa",
+     "s": 21.074,
+     "e": 21.148
+    },
+    {
+     "w": "place.",
+     "s": 21.222,
+     "e": 21.889
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Sur lui.",
+   "hl": [
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L11.k.wav",
+   "file_start": 21.996,
+   "speech_start": 21.996,
+   "speech_end": 22.737,
+   "words": [
+    {
+     "w": "Sur",
+     "s": 21.996,
+     "e": 22.218
+    },
+    {
+     "w": "lui.",
+     "s": 22.255,
+     "e": 22.737
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Il paie la place.",
+   "hl": [
+    "paie",
+    "place."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/fourriere/tts/L12.k.wav",
+   "file_start": 22.837,
+   "speech_start": 22.837,
+   "speech_end": 23.874,
+   "words": [
+    {
+     "w": "Il",
+     "s": 22.837,
+     "e": 22.911
+    },
+    {
+     "w": "paie",
+     "s": 23.059,
+     "e": 23.133
+    },
+    {
+     "w": "la",
+     "s": 23.207,
+     "e": 23.281
+    },
+    {
+     "w": "place.",
+     "s": 23.503,
+     "e": 23.874
+    }
+   ]
+  }
+ ],
+ "total": 25.87
+}
