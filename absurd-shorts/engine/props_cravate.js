@@ -14,7 +14,7 @@ function textSheet(w, h, head, lines, o = {}) {   // a white sheet with a bold h
     c.fillStyle = o.ink || '#1B1B1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let y = H * (o.top ?? 0.13);
     if (head) { const fs = fitFont(c, head, W * 0.86, H * (o.headSize ?? 0.085), 'bold'); c.font = `bold ${fs}px Arial`; c.fillText(head, W / 2, y); y += fs * 0.85; c.fillRect(W * 0.1, y, W * 0.8, Math.max(2, H * 0.008)); y += fs * 0.9; }
     if (o.big) { const fs = fitFont(c, o.big, W * 0.88, H * (o.bigSize ?? 0.17), 'bold'); c.font = `bold ${fs}px Arial`; c.fillStyle = o.bigInk || c.fillStyle; c.fillText(o.big, W / 2, y + fs * 0.45); c.fillStyle = o.ink || '#1B1B1E'; y += fs * 1.25; }
-    for (const ln of lines || []) { const lw = o.lineBold ? 'bold' : '', fs = fitFont(c, ln, W * 0.86, H * (o.lineSize ?? 0.06), lw); c.font = `${lw} ${fs}px Arial`; c.fillText(ln, W / 2, y); y += H * (o.lineGap ?? 0.085); }   // o.lineBold: the lines in bold too
+    for (const ln of lines || []) { const lw = o.lineBold ? 'bold' : '', fs = fitFont(c, ln, W * 0.86, H * (o.lineSize ?? 0.06), lw); c.font = `${lw} ${fs}px Arial`; if (o.lineInk) c.fillStyle = o.lineInk; c.fillText(ln, W / 2, y); y += H * (o.lineGap ?? 0.085); }   // o.lineInk: the lines in their own colour   // o.lineBold: the lines in bold too
     if (o.rules) { c.fillStyle = 'rgba(27,27,30,0.32)'; let i = 0; while (y < H * 0.9) { c.fillRect(W * 0.12, y, W * (0.52 + 0.24 * ((i * 0.37) % 1)), Math.max(2, H * 0.008)); y += H * 0.05; i++; } }
   }, { res: 512 });
   if (o.bright) pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, side: THREE.DoubleSide });

@@ -31,7 +31,7 @@
 //           heights), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears; steamInk: 1: inked, opaque puffs), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
-//           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
+//           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), stalkYaw / stalkPitch (rad: the stalks themselves swing), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
 //           lid: 0..1 (the painted eyes close: a keyed blink), cross: 0..1 (cross-eyed),
 //           one feature at a time, one side at a time, as offsets from the expression in place (0 = unchanged; L = the left of the picture when he faces us,
 //           his own right eye: the high one): brow / browL / browR (1 = up to the hairline, -1 = down on the eye), browTilt / browTiltL / browTiltR (deg, > 0 lifts the inner end),
@@ -193,6 +193,7 @@ function headOverlays(head, hm, dim, skin) {
       // from the side; roll: round the stalk, a look round). face.stalkRed 0..1: the stalks go from skin to pink (they read on a pale ground)
       E.ball.rotation.set((f.eyePitch || 0) + 0.05 * Math.sin(t * 23 + E.ph) * pop, (f.eyeYaw || 0) + 0.07 * Math.sin(t * 19 + E.ph) * pop, f.eyeRoll || 0);
       E.lid.visible = (f.popBlink || 0) > 0.5; E.bow(Math.sign(E.e.position.x) * (f.stalkBow || 0) / th);
+      E.e.rotation.set(-(f.stalkPitch || 0), f.stalkYaw || 0, 0);   // (cycle 9) face.stalkYaw / stalkPitch (rad): both stalks swing together (+ yaw toward his left, + pitch down): they follow a bus that goes by
       E.stalk.material.color.copy(E.skin0).lerp(STALK_RED, f.stalkRed || 0);
     }
     deform?.(Math.round(drop * 500) / 500);

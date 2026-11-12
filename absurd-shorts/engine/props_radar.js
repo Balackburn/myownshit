@@ -148,8 +148,8 @@ export const RADAR_PROPS = {
     if (o.back !== false) g.add(at(box(w, h, 0.2, wall, { pivot: 'bottom', outline: 0.008 }), 0, 0, -d / 2 - 0.1), at(box(w, 0.5, 0.21, band), 0, 1.0, -d / 2 - 0.1));
     for (const sx of [-1, 1]) g.add(at(box(0.2, h, d, wall, { pivot: 'bottom', outline: 0.008 }), sx * (w / 2 + 0.1), 0, 0), at(box(0.21, 0.5, d, band), sx * (w / 2 + 0.1), 1.0, 0));
     g.add(at(box(w + 0.4, 0.2, d, '#C9C7C0'), 0, h + 0.1, 0));
-    const sy = o.signY ?? 3.3, sw = o.signW ?? 4.4;
-    g.add(at(box(sw + 0.12, 0.62, 0.06, '#1E5BB8', { outline: 0.008 }), 0, sy, -d / 2 + 0.04), at(label(o.sign || 'CONTRÔLE TECHNIQUE', sw, 0.5, { bg: '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, sy, -d / 2 + 0.075));
+    const sy = o.signY ?? 3.3, sw = o.signW ?? 4.4, sx = o.signX ?? 0;   // (pass 2 of 46) o.signX: the sign moved along the wall (over the lift, clear of its posts)
+    g.add(at(box(sw + 0.12, 0.62, 0.06, '#1E5BB8', { outline: 0.008 }), sx, sy, -d / 2 + 0.04), at(label(o.sign || 'CONTRÔLE TECHNIQUE', sw, 0.5, { bg: '#1E5BB8', fg: '#FFFFFF', wrap: false }), sx, sy, -d / 2 + 0.075));
     g.add(at(box(1.4, 0.9, 0.04, '#5A5F69', { outline: 0.006 }), -w / 2 + 1.1, 1.9, -d / 2 + 0.03));
     for (let i = 0; i < 9; i++) g.add(at(box(0.04, 0.22 + 0.1 * (i % 3), 0.03, ['#C8322A', '#F2C230', '#9AA1A9'][i % 3]), -w / 2 + 0.55 + i * 0.14, 1.9, -d / 2 + 0.06));
     g.add(at(box(2.4, 0.06, 0.18, '#F4F1E8', { emissive: '#FFF6DA', noGrain: true }), 0, h - 0.05, 0));

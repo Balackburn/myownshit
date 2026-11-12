@@ -117,9 +117,12 @@ export const PORTE_PROPS = {
     const wl = at(box(0.02, 0.08, 0.17, D), -0.072, 0.11, -0.02), wr = at(box(0.02, 0.08, 0.17, D), 0.072, 0.11, -0.02), g = grp(body, breast, tail, head, wl, wr, at(box(0.012, 0.05, 0.012, '#D98A8A'), -0.03, 0.025, 0.01), at(box(0.012, 0.05, 0.012, '#D98A8A'), 0.03, 0.025, 0.01));
     const ph = o.ph ?? 0;
     g.userData.update = t => { const fly = o.flyAt != null ? Math.max(0, t - o.flyAt) : 0, fl = !!(o.flap && t >= o.flap[0] && t < o.flap[1]) || !!(o.flaps && o.flaps.some(([a, b]) => t >= a && t < b));   // o.flaps [[t0, t1], ...]: it beats its wings in each of those windows (to keep its balance)
-      if (o.sleep) { const br = Math.sin(t * 2.6 + ph); head.position.set(0, 0.198 + 0.008 * br, 0.07); head.rotation.set(0.25, o.headYaw ?? 0, 0.35); body.scale.set(1.18, 1.14 + 0.07 * br, 1.05); breast.scale.setScalar(1.12 + 0.06 * br);   // asleep: fluffed up, its head on its shoulders and on one side (the bird's outline stays), the beak down,
-        for (const e of eyes) e.scale.set(1, 0.22, 1.5); }                                                                                                                                                              // its eyes two shut lines; it breathes
-      else { head.position.z = 0.1 + 0.02 * Math.max(0, Math.sin(t * 7 + ph)); head.position.y = 0.2 - 0.03 * Math.max(0, Math.sin(t * 2.3 + ph * 2)); }
+      if (o.sleep) { const br = Math.sin(t * 2.6 + ph), nod = Math.pow(Math.max(0, Math.sin(t * 4.4 + ph)), 6);   // (cycle 9) asleep: it breathes, nods off and jerks back up
+        head.position.set(0, 0.198 + 0.008 * br - 0.02 * nod, 0.07 + 0.015 * nod); head.rotation.set(0.25 + 0.45 * nod, o.headYaw ?? 0, 0.35); body.scale.set(1.18, 1.14 + 0.07 * br, 1.05); breast.scale.setScalar(1.12 + 0.06 * br);   // fluffed
+        for (const e of [...eyes, ...eyeW]) e.scale.set(1, 0.22, 1.5); }   // its eyes shut lines, the white rings too (open rings read as awake)
+      else { head.position.z = 0.1 + 0.02 * Math.max(0, Math.sin(t * 7 + ph)); head.position.y = 0.2 - 0.03 * Math.max(0, Math.sin(t * 2.3 + ph * 2));
+        for (const p of o.peck || []) { const u = (t - p) / 0.16; if (u >= 0 && u < 1) { const d = Math.sin(PI * u); head.position.z += 0.05 * d; head.position.y -= 0.08 * d; head.rotation.x = 0.9 * d; } } }   // (cycle 9) o.peck [t, ...]: a peck down
+      if (o.ruffle) { let k = 0; for (const r of o.ruffle) { const u = (t - r) / 0.24; if (u >= 0 && u < 1) k = Math.max(k, Math.sin(PI * u)); } if (k) { body.scale.multiplyScalar(1 + 0.22 * k); breast.scale.multiplyScalar(1 + 0.18 * k); } }   // o.ruffle [t, ...]: it fluffs up
       wl.rotation.z = fly || fl ? 1.2 * Math.sin((fly || t) * 40) + 0.6 : 0; wr.rotation.z = fly || fl ? -1.2 * Math.sin((fly || t) * 40) - 0.6 : 0;
       if (o.flyAt != null) { g.position.y = (g.userData.y0 ??= g.position.y) + fly * 6 * fly + (fly ? 0.3 : 0) * Math.min(1, fly * 10); g.position.x = (g.userData.x0 ??= g.position.x) + fly * 3; g.visible = fly < 0.8; } };
     return g;
