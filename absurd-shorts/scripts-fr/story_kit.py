@@ -77,11 +77,12 @@ def fit(frm, points, margin=0.07, top=0.08, bottom=0.92, lenses=range(26, 81), a
     return look, None, {}
 
 
-def fitBack(frm, points, step=0.25, most=14.0, level=True, **kw):
+def fitBack(frm, points, step=0.25, most=14.0, level=True, inside=None, **kw):
     """(cycle 7, story 45) fit() that backs the camera away from the points until a lens fits: it moves along the line from the points' centre to
     `frm` (so the angle on the action is kept), `step` metres at a time, at most `most` metres; level=True keeps the camera's height (along the 3D
     line a low camera that looks up sank under the floor). Returns (frm, look, lens); lens None if nothing fits.
-    Prints how far it went when it had to move: put that distance back in the script when it is more than a step or two."""
+    Prints how far it went when it had to move: put that distance back in the script when it is more than a step or two. inside=(x0, x1, y0, y1, z0,
+    z1): the room the camera must stay in (backed out of the hall it filmed the back of a wall): at its edge the lens opens instead (up to 85)."""
     P = list(points.values()) if isinstance(points, dict) else list(points)
     c = [sum(q[i] for q in P) / len(P) for i in range(3)]; d = [frm[i] - c[i] for i in range(3)]
     if level: d[1] = 0.0
@@ -89,6 +90,12 @@ def fitBack(frm, points, step=0.25, most=14.0, level=True, **kw):
     back = 0.0
     while back <= most:
         f = [round(frm[i] + u[i] * back, 3) for i in range(3)]
+        if inside and not all(inside[2 * i] <= f[i] <= inside[2 * i + 1] for i in range(3)):
+            f = [round(frm[i] + u[i] * max(0.0, back - step), 3) for i in range(3)]
+            wide = dict(kw); lo = min(kw.get('lenses', range(26, 81))); wide['lenses'] = range(lo, 86)
+            look, lens, _ = fit(f, points, **wide)
+            print(f'  fitBack: {frm} stopped at the wall, {back - step:.2f} m back, lens {lens}')
+            return f, look, lens
         look, lens, _ = fit(f, points, **kw)
         if lens is not None:
             if back > 0: print(f'  fitBack: {frm} moved back {back:.2f} m to {f}')

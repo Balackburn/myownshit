@@ -20,7 +20,7 @@ MINT = '#6CC4A4'
 CAR0 = [1.9, 0, 0.0]; CRY = 90                                     # his car, double-parked beside the blue one, nose to -Z (its right side faces the pavement)
 def CAR(pos=None, keys=None, pid='car', **o):                      # the car: hazards on from its arrival
     return P(pid, 'carToon', pos=pos or CAR0, ry=CRY, rotOrder='YXZ', opts={'color': MINT, 'eyes': True, 'hazard': [0.0, 99], **o}, **({'keys': keys} if keys else {}))
-PARKED = lambda: [P('pk1', 'car', pos=[4.0, 0, 0.2], ry=90, opts={'color': '#3A6EA5'}), P('pk2', 'car', pos=[4.0, 0, -5.6], ry=90, opts={'color': '#C9473A'}),
+PARKED = lambda: [P('pk1', 'car', pos=[4.0, 0, 0.2], ry=90, opts={'color': '#3A6EA5'}), P('pk2', 'car', pos=[4.0, 0, -8.6], ry=90, opts={'color': '#C9473A'}),
                   P('pk3', 'car', pos=[4.0, 0, 6.0], ry=90, opts={'color': '#E8A33A'})]
 METER = lambda **o: P('meter', 'parkingMeter', pos=[5.35, 0, -2.75], ry=-90, opts=o)
 FX = 8.6                                                           # the front of the flats (the street's house fronts stand at about x = 10.2: rooms behind 10.1 were inside them)
@@ -203,7 +203,7 @@ st.cue('thud', 'S11', SL11, 0.35); st.cue('sfx:paper', 'S11', SL11, 0.3)
 D12 = st.dur('S12')
 st.shot('S12', 'parisStreet', setOpts=STREET, actors=[
         act('mec', HB10, 90, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, clip='doubleTakeToon', params={'side': 1, 'beat': 0.24, 'pop': 0.85, 'jaw': 0.45}, blend=0.0)])],
-        props=[*POUND(), BAG(), CLAMP(), NOTICE(), P('grise', 'paperSheet', pos=[5.29, 1.32, round(ZP - 0.36, 3)], ry=-90, opts={'w': 0.62, 'h': 0.44, 'head': 'CARTE GRISE', 'paper': '#E7E2EE'})],   # lower and to one side: from inside, it hid his face
+        props=[*POUND(), BAG(), CLAMP()],   # (from inside the cash desk the notice and the registration showed their backs, the print mirrored: left out)
         cams=[FC(0.0, [6.25, 1.85, round(ZP + 0.45, 3)], [[HB10[0], 2.35, HB10[2]], [HB10[0], 1.05, HB10[2]], [HB10[0], 1.9, round(HB10[2] - 0.6, 3)], [5.29, 1.55, round(ZP - 0.5, 3)]], top=0.16, bottom=0.7)])
 st.cue('sfx:zip', 'S12', 0.48, 0.3)
 
@@ -214,7 +214,7 @@ st.shot('S13', 'parisStreet', setOpts=STREET, actors=[],
         props=[*PARKED(), METER(screen='PAYEZ ICI'), CAR(pv=[[0.0, 2]], wipe=[[0.12, D13]], wipeLen=2.5, gaze=[[0.0, 0.8, -0.1]], lids=[[0.0, 0.2, 0.5], [0.6, 0.3, 0.8]],
                keys=[k(0.05, rotTo=[LN13, math.radians(CRY), 0], dur=0.22, ease='outBack'), k(0.55, rotTo=[LN13 + 0.06, math.radians(CRY), 0], dur=0.12), k(0.75, rotTo=[LN13 - 0.03, math.radians(CRY), 0], dur=0.12),
                      k(0.92, rotTo=[LN13 + 0.07, math.radians(CRY), 0], dur=0.12)])],
-        cams=[FC(0.0, [6.6, 1.15, -5.0], [[1.0, 0.0, -1.85], [2.85, 1.8, -1.85], [5.35, 1.95, -2.75], [5.35, 0.0, -2.75], [2.7, 1.7, 0.6]], top=0.16, bottom=0.8, drift=(-0.06, 0, 0.08))])   # from behind the pay machine: the car leans to it and reaches with its wipers
+        cams=[FC(0.0, [6.4, 1.3, -4.6], [[1.0, 0.0, -1.85], [2.85, 1.8, -1.85], [5.35, 1.95, -2.75], [5.35, 0.0, -2.75], [2.7, 1.7, 0.6]], top=0.16, bottom=0.8, drift=(-0.06, 0, 0.08))])   # (the red car moved down the street: it stood between us and the car)   # from behind the pay machine: the car leans to it and reaches with its wipers
 [st.cue('sfx:squeak', 'S13', round(0.15 + 0.22 * i, 3), 0.18) for i in range(4)]
 st.card('S13', 'PAS DE MAINS', at=st.at('S13', 'L06', 4))
 
@@ -254,7 +254,7 @@ PLAINTE = lambda i, c, r, t0: P(f'pl{i}', 'paperSheet', pos=[round(FX - 0.04, 3)
                                  'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(t0, scale=1.0, dur=0.07, ease='outBack')])
 st.shot('S16', 'parisStreet', setOpts=STREET, actors=[NEIGH(n, c, r) for n, c, r, _ in NB],
         props=[FLATS(lit=[[0.0, 0.6]]), *[PLAINTE(i, c, r, round(PL16 + 0.03 * c + 0.02 * r, 3)) for i, (n, c, r, _) in enumerate(NB)]],
-        cams=[FC(0.0, [1.4, 3.1, 0.25], [[FX, 3.75, -2.7], [FX, 8.75, 2.7], [FX, 3.75, 2.7]], top=0.12, bottom=0.8, drift=(0.1, 0.05, 0))])
+        cams=[FC(0.0, [4.4, 3.6, -3.4], [[FX, 3.9, -2.45], [FX, 8.6, 2.45], [FX, 3.9, 2.45], [FX, 8.6, -2.45]], top=0.1, bottom=0.76, drift=(0.08, 0.04, 0.04))])   # at three quarters: the facade is narrower, the neighbours bigger
 [st.cue('sfx:honk', 'S16', t, 0.3) for t in H16]; st.cue('sfx:paper', 'S16', PL16, 0.35)
 
 # 17: against him. At the pound, the pound's man slaps the complaints on his chest, one, two, three; he swells with outrage like a balloon and floats
@@ -270,7 +270,7 @@ st.shot('S17', 'parisStreet', setOpts=STREET, actors=[
         act('agent', AG17, 125, 'stand', 'unimpressed', keys=[k(0.0, look=[HB[0], 1.6, HB[2]]),
             *[x for t in SL17 for x in (k(round(t - 0.06, 3), toon={'reach': {'R': [round(HB[0] - 0.12, 3), 1.45, round(HB[2] + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.06, toonEase='in'),
                                         k(round(t + 0.03, 3), toon={'reach': {'R': [round(HB[0] - 0.4, 3), 1.3, round(HB[2] + 0.35, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05))],
-            k(SL17[-1] + 0.1, toon={}, toonDur=0.15), k(SL17[-1] + 0.06, to=[2.55, 0, round(ZP + 1.55, 3)], dur=0.36, clip='walk', then='stand', ease='out', face=125), k(IN17 + 0.1, look=[FLOAT17[0], 2.0, FLOAT17[2]])])],   # he backs off: the stretched leg must be seen
+            k(SL17[-1] + 0.1, toon={}, toonDur=0.15), k(SL17[-1] + 0.06, to=[5.0, 0, round(ZP + 1.1, 3)], dur=0.4, clip='walk', then='stand', ease='out', face=100), k(IN17 + 0.1, look=[FLOAT17[0], 2.0, FLOAT17[2]])])],   # he backs off: the stretched leg must be seen
         props=[*POUND(), CLAMP(), *[P(f'cpl{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(0.05 * (i - 1), 3), round(0.36 - 0.05 * i, 3), 0.18 + 0.004 * i]},
                  opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(t, scale=1.0, dur=0.05, ease='outBack')])
                  for i, t in enumerate(SL17)]],
@@ -334,7 +334,7 @@ st.shot('S21', 'parisStreet', setOpts=STREET, actors=[
                P('dust21', 'dustPuff', pos=[CARX, 0.05, round(CARZ - 1.6, 3)], opts={'period': 0.7}, keys=[k(0.0, visible=False), k(HIT21, visible=True), k(HIT21 + 0.65, visible=False)]),
                P('stars21', 'impactStars', pos=[LIE[0], 0.25, HEADZ], opts={'n': 6, 'r': 0.35, 'at': HIT21, 'dur': 0.6, 'size': 0.08})],
         fx=[{'type': 'shake', 'at': HIT21, 'dur': 0.15, 'amount': 0.014}],
-        cams=[FC(0.0, [2.8, 0.55, round(ZP - 4.7, 3)], [[2.75, 0.0, round(CARZ - 1.85, 3)], [4.45, 1.7, round(CARZ - 1.85, 3)], [LIE[0], 0.2, round(HEADZ - 0.3, 3)], [CARX, 1.8, round(CARZ + 1.5, 3)]], top=0.16, bottom=0.82)])
+        cams=[FC(0.0, [3.85, 1.85, round(ZP - 3.55, 3)], [[2.75, 0.0, round(CARZ - 1.85, 3)], [4.45, 1.7, round(CARZ - 1.85, 3)], [LIE[0], 0.05, round(HEADZ - 0.35, 3)], [CARX, 1.75, round(CARZ - 0.6, 3)]], top=0.12, bottom=0.8)])   # (from above the bumper: his flat face looks up at us; at road level it was a sliver)
 st.cue('splat', 'S21', HIT21, 0.55); st.cue('thud', 'S21', HIT21, 0.5); st.cue('sfx:spring', 'S21', HIT21 + 0.08, 0.25)
 
 # 22: he pays for the space. His arm comes out from under the car and stretches all the way to the pay machine; a card at the slot: beep; the ticket
@@ -353,7 +353,7 @@ st.shot('S22', 'parisStreet', setOpts=STREET, actors=[
                P('flatbag', 'baguette', pos=[round(LIE[0] + 0.55, 3), 0.02, round(HEADZ + 0.05, 3)], ry=20, keys=[k(0.0, squash=[1.25, 0.25, 1.25], dur=0.0)]),
                P('tick22', 'paperSheet', on={'actor': 'mec', 'hand': 'L', 'offset': [0, 0.02, 0.05]}, opts={'w': 0.1, 'h': 0.15, 'big': '12', 'bigSize': 0.5, 'top': 0.02, 'paper': '#FFFFFF', 'bright': True},
                  keys=[k(0.0, scale=0.01, dur=0.0), k(1.05, scale=1.0, dur=0.05)])],
-        cams=[FC(0.0, [2.25, 0.8, round(ZP - 4.6, 3)], [[LIE[0], 0.1, round(HEADZ - 0.3, 3)], [5.4, 1.95, round(ZP - 2.0, 3)], [2.75, 1.7, round(CARZ - 1.75, 3)], [5.4, 0.0, round(ZP - 2.2, 3)]], top=0.16, bottom=0.8, drift=(0.04, 0, 0.06))])
+        cams=[FC(0.0, [4.15, 2.05, round(ZP - 3.75, 3)], [[LIE[0], 0.05, round(HEADZ - 0.35, 3)], [5.4, 1.95, round(ZP - 2.0, 3)], [2.75, 1.7, round(CARZ - 1.75, 3)], [5.4, 0.0, round(ZP - 2.2, 3)]], top=0.12, bottom=0.8, drift=(0.03, -0.03, 0.04))])   # from above: his flat face, the arm to the pay machine, the car's eyes
 st.cue('sfx:stretch', 'S22', 0.18, 0.35); st.cue('sfx:beep', 'S22', 0.6, 0.35); st.cue('sfx:paper', 'S22', 0.75, 0.25); st.cue('sfx:honkTiny', 'S22', 2.45, 0.35)
 
 st.write("La fourrière", rig='toon', fingers=True, cloth=True, idleShift=1, limbSmear=1, follow=1, pupil=0.5, extra_cast={
