@@ -1,0 +1,548 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est assis sur la photocopieuse.",
+   "hl": [
+    "assis",
+    "photocopieuse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.174,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.693
+    },
+    {
+     "w": "assis",
+     "s": 0.841,
+     "e": 0.989
+    },
+    {
+     "w": "sur",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "la",
+     "s": 1.174,
+     "e": 1.211
+    },
+    {
+     "w": "photocopieuse.",
+     "s": 1.285,
+     "e": 2.174
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Elle l'a photocopié en entier.",
+   "hl": [
+    "photocopié",
+    "entier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L02.k.wav",
+   "file_start": 2.274,
+   "speech_start": 2.274,
+   "speech_end": 4.052,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 2.274,
+     "e": 2.422
+    },
+    {
+     "w": "l'a",
+     "s": 2.471,
+     "e": 2.57
+    },
+    {
+     "w": "photocopié",
+     "s": 2.644,
+     "e": 3.163
+    },
+    {
+     "w": "en",
+     "s": 3.237,
+     "e": 3.311
+    },
+    {
+     "w": "entier.",
+     "s": 3.422,
+     "e": 4.052
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La copie est sortie du bac.",
+   "hl": [
+    "copie",
+    "bac."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L03.k.wav",
+   "file_start": 4.152,
+   "speech_start": 4.152,
+   "speech_end": 5.707,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.152,
+     "e": 4.226
+    },
+    {
+     "w": "copie",
+     "s": 4.3,
+     "e": 4.596
+    },
+    {
+     "w": "est",
+     "s": 4.67,
+     "e": 4.744
+    },
+    {
+     "w": "sortie",
+     "s": 4.856,
+     "e": 5.041
+    },
+    {
+     "w": "du",
+     "s": 5.115,
+     "e": 5.189
+    },
+    {
+     "w": "bac.",
+     "s": 5.337,
+     "e": 5.707
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Les ressources humaines l'ont embauchée.",
+   "hl": [
+    "ressources",
+    "embauchée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L04.k.wav",
+   "file_start": 5.807,
+   "speech_start": 5.807,
+   "speech_end": 7.585,
+   "words": [
+    {
+     "w": "Les",
+     "s": 5.807,
+     "e": 5.956
+    },
+    {
+     "w": "ressources",
+     "s": 6.067,
+     "e": 6.4
+    },
+    {
+     "w": "humaines",
+     "s": 6.474,
+     "e": 6.696
+    },
+    {
+     "w": "l'ont",
+     "s": 6.721,
+     "e": 6.844
+    },
+    {
+     "w": "embauchée.",
+     "s": 6.919,
+     "e": 7.585
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Une copie, ça ne coûte que du papier.",
+   "hl": [
+    "copie,",
+    "papier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L05.k.wav",
+   "file_start": 7.685,
+   "speech_start": 7.685,
+   "speech_end": 9.611,
+   "words": [
+    {
+     "w": "Une",
+     "s": 7.685,
+     "e": 7.833
+    },
+    {
+     "w": "copie,",
+     "s": 7.907,
+     "e": 8.426
+    },
+    {
+     "w": "ça",
+     "s": 8.463,
+     "e": 8.5
+    },
+    {
+     "w": "ne",
+     "s": 8.574,
+     "e": 8.648
+    },
+    {
+     "w": "coûte",
+     "s": 8.685,
+     "e": 8.796
+    },
+    {
+     "w": "que",
+     "s": 8.833,
+     "e": 8.87
+    },
+    {
+     "w": "du",
+     "s": 8.944,
+     "e": 9.019
+    },
+    {
+     "w": "papier.",
+     "s": 9.068,
+     "e": 9.611
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Alors ils en ont tiré cinq cents.",
+   "hl": [
+    "cinq",
+    "cents."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L06.k.wav",
+   "file_start": 9.711,
+   "speech_start": 9.711,
+   "speech_end": 11.415,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 9.711,
+     "e": 10.007
+    },
+    {
+     "w": "ils",
+     "s": 10.156,
+     "e": 10.304
+    },
+    {
+     "w": "en",
+     "s": 10.341,
+     "e": 10.378
+    },
+    {
+     "w": "ont",
+     "s": 10.452,
+     "e": 10.526
+    },
+    {
+     "w": "tiré",
+     "s": 10.575,
+     "e": 10.748
+    },
+    {
+     "w": "cinq",
+     "s": 10.822,
+     "e": 10.97
+    },
+    {
+     "w": "cents.",
+     "s": 11.044,
+     "e": 11.415
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Recto verso, pour économiser.",
+   "hl": [
+    "Recto",
+    "verso,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L07.k.wav",
+   "file_start": 11.515,
+   "speech_start": 11.515,
+   "speech_end": 13.367,
+   "words": [
+    {
+     "w": "Recto",
+     "s": 11.515,
+     "e": 11.811
+    },
+    {
+     "w": "verso,",
+     "s": 11.959,
+     "e": 12.404
+    },
+    {
+     "w": "pour",
+     "s": 12.478,
+     "e": 12.552
+    },
+    {
+     "w": "économiser.",
+     "s": 12.7,
+     "e": 13.367
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Lui, on l'a licencié.",
+   "hl": [
+    "licencié."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L08.k.wav",
+   "file_start": 13.467,
+   "speech_start": 13.467,
+   "speech_end": 14.874,
+   "words": [
+    {
+     "w": "Lui,",
+     "s": 13.467,
+     "e": 13.911
+    },
+    {
+     "w": "on",
+     "s": 13.985,
+     "e": 14.022
+    },
+    {
+     "w": "l'a",
+     "s": 14.059,
+     "e": 14.133
+    },
+    {
+     "w": "licencié.",
+     "s": 14.207,
+     "e": 14.874
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Motif : non conforme à l'original.",
+   "hl": [
+    "non",
+    "conforme",
+    "l'original."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L09.k.wav",
+   "file_start": 14.974,
+   "speech_start": 14.974,
+   "speech_end": 17.122,
+   "words": [
+    {
+     "w": "Motif:",
+     "s": 14.974,
+     "e": 15.764
+    },
+    {
+     "w": "non",
+     "s": 15.814,
+     "e": 15.863
+    },
+    {
+     "w": "conforme",
+     "s": 15.974,
+     "e": 16.233
+    },
+    {
+     "w": "à",
+     "s": 16.307,
+     "e": 16.326
+    },
+    {
+     "w": "l'original.",
+     "s": 16.344,
+     "e": 17.122
+    }
+   ]
+  },
+  {
+   "id": "L09b",
+   "who": "N",
+   "text": "Trop épais.",
+   "hl": [
+    "épais."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L09b.k.wav",
+   "file_start": 17.222,
+   "speech_start": 17.222,
+   "speech_end": 17.963,
+   "words": [
+    {
+     "w": "Trop",
+     "s": 17.222,
+     "e": 17.444
+    },
+    {
+     "w": "épais.",
+     "s": 17.519,
+     "e": 17.963
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il a fait une réclamation.",
+   "hl": [
+    "réclamation."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L10.k.wav",
+   "file_start": 18.063,
+   "speech_start": 18.063,
+   "speech_end": 19.396,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.063,
+     "e": 18.137
+    },
+    {
+     "w": "a",
+     "s": 18.174,
+     "e": 18.211
+    },
+    {
+     "w": "fait",
+     "s": 18.285,
+     "e": 18.359
+    },
+    {
+     "w": "une",
+     "s": 18.396,
+     "e": 18.433
+    },
+    {
+     "w": "réclamation.",
+     "s": 18.507,
+     "e": 19.396
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "On l'a photocopiée en cinq cents exemplaires.",
+   "hl": [
+    "photocopiée",
+    "exemplaires."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L11.k.wav",
+   "file_start": 19.496,
+   "speech_start": 19.496,
+   "speech_end": 21.644,
+   "words": [
+    {
+     "w": "On",
+     "s": 19.496,
+     "e": 19.57
+    },
+    {
+     "w": "l'a",
+     "s": 19.619,
+     "e": 19.719
+    },
+    {
+     "w": "photocopiée",
+     "s": 19.793,
+     "e": 20.237
+    },
+    {
+     "w": "en",
+     "s": 20.311,
+     "e": 20.385
+    },
+    {
+     "w": "cinq",
+     "s": 20.459,
+     "e": 20.533
+    },
+    {
+     "w": "cents",
+     "s": 20.607,
+     "e": 20.756
+    },
+    {
+     "w": "exemplaires.",
+     "s": 20.83,
+     "e": 21.644
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Depuis, il remet du papier.",
+   "hl": [
+    "remet",
+    "papier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/photocopie/tts/L12.k.wav",
+   "file_start": 21.744,
+   "speech_start": 21.744,
+   "speech_end": 23.448,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 21.744,
+     "e": 22.337
+    },
+    {
+     "w": "il",
+     "s": 22.411,
+     "e": 22.485
+    },
+    {
+     "w": "remet",
+     "s": 22.559,
+     "e": 22.707
+    },
+    {
+     "w": "du",
+     "s": 22.744,
+     "e": 22.781
+    },
+    {
+     "w": "papier.",
+     "s": 22.856,
+     "e": 23.448
+    }
+   ]
+  }
+ ],
+ "total": 24.29
+}

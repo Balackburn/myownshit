@@ -1,0 +1,117 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est assis sur la photocopieuse.",
+  "hl": [
+   "assis",
+   "photocopieuse."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Elle l'a photocopié en entier.",
+  "hl": [
+   "photocopié",
+   "entier."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La copie est sortie du bac.",
+  "hl": [
+   "copie",
+   "bac."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les ressources humaines l'ont embauchée.",
+  "hl": [
+   "ressources",
+   "embauchée."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Une copie, ça ne coûte que du papier.",
+  "hl": [
+   "copie,",
+   "papier."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Alors ils en ont tiré cinq cents.",
+  "hl": [
+   "cinq",
+   "cents."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Recto verso, pour économiser.",
+  "hl": [
+   "Recto",
+   "verso,"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Lui, on l'a licencié.",
+  "hl": [
+   "licencié."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Motif : non conforme à l'original.",
+  "hl": [
+   "non",
+   "conforme",
+   "l'original."
+  ]
+ },
+ {
+  "id": "L09b",
+  "who": "N",
+  "text": "Trop épais.",
+  "hl": [
+   "épais."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il a fait une réclamation.",
+  "hl": [
+   "réclamation."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "On l'a photocopiée en cinq cents exemplaires.",
+  "hl": [
+   "photocopiée",
+   "exemplaires."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Depuis, il remet du papier.",
+  "hl": [
+   "remet",
+   "papier."
+  ]
+ }
+]

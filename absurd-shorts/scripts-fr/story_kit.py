@@ -142,6 +142,28 @@ def beat(t0, extreme, antic=None, hold=0.3, over=None, settle=None, shiver=0.04,
     return ks
 
 
+# (cycle 11) the hero's takes, to vary a running gag (the reviews of 48: "the eye-pop take three times in the same shape")
+TAKES = {
+    'stalks':    {'sq': [0.9, 1.14, 0.9], 'hairUp': 1, 'face': {'pop': 0.75, 'popLen': 0.32, 'brow': 1, 'jaw': 0.3}},          # eyes out on stalks, hair up
+    'jaw':       {'sq': [0.97, 1.06, 0.97], 'face': {'jaw': 1.0, 'jawLen': 0.9, 'eye': 0.5, 'brow': 1}},                         # the jaw drops to the chest
+    'accordion': {'sq': [1.28, 0.62, 1.28], 'face': {'pop': 0.35, 'brow': 1, 'eye': 0.3}},                                       # squashed down like a concertina
+    'hair':      {'sq': [0.94, 1.08, 0.94], 'hairUp': 1.3, 'face': {'eye': 0.55, 'brow': 1, 'jaw': 0.15}},                       # the hair stands straight up, eyes wide
+    'tongue':    {'sq': [0.96, 1.05, 0.96], 'face': {'tongue': 1, 'tongueLen': 0.55, 'jaw': 0.85, 'pop': 0.35, 'brow': 1}},      # the tongue rolls out
+    'cross':     {'sq': [0.97, 1.04, 0.97], 'face': {'cross': 1, 'tremble': 1, 'brow': 0.9, 'jaw': 0.2}},                        # cross-eyed, trembling
+}
+
+
+def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0):
+    """(cycle 11) The hero's cartoon take at t0, built on beat(): two frames of anticipation, the extreme held `hold` s with a shiver (the hang time),
+    the overshoot, the settle. kind: one of TAKES ('stalks', 'jaw', 'accordion', 'hair', 'tongue', 'cross'): change it from one gag to the next.
+    keep: a toon state carried under the take and returned to after it (toon keys are whole states: a guided hand is kept); s doses the squash."""
+    ex = dict(keep or {}); tk = TAKES[kind]; f0 = dict(ex.get('face', {}))
+    ex.update({x: v for x, v in tk.items() if x != 'face'}); ex['face'] = {**f0, **tk.get('face', {})}
+    if s != 1.0 and 'sq' in ex: ex['sq'] = [round(1 + (v - 1) * s, 3) for v in ex['sq']]
+    an = dict(keep or {}); an['sq'] = [round(1 + (1 - v) * 0.8, 3) for v in ex.get('sq', [1, 1, 1])]   # the anticipation keeps the carried state too
+    return beat(t0, ex, antic=an, hold=hold, settle=dict(keep) if keep else None)
+
+
 def bands(frm, look, lens, points, card=False, aspect=9 / 16):
     """(cycle 7) Which of `points` (dict name -> [x, y, z]) fall outside the frame, in the caption band (0.77-0.83 of the height) or, with card=True,
     in the band of a one-line title card (0.07-0.18): a list of (name, 'out' | 'captions' | 'card', (x, y)). Call it on what must be read: a face, a

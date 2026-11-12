@@ -351,6 +351,13 @@ for (let i = 0; i < pp.count; i++) {
   if (o.tint) { const tc = new THREE.Color(o.tint); // fake tan / sunburn: multiply the skin parts and the painted head (cloned materials)
     const tintMat = m => { const c = m.clone(); c.color = (m.color ? m.color.clone() : new THREE.Color(1, 1, 1)).multiply(tc); return c; };
     root.traverse(n => { if (n.isMesh && (n.userData.skinPart || n === headMesh)) n.material = Array.isArray(n.material) ? n.material.map(tintMat) : tintMat(n.material); }); }
+  // (cycle 11, story 49) o.mono: a black-and-white photocopy of him: every material desaturated after its texture and its vertex colours (the painted face included: the face rig
+  // draws into the map of the cloned material); o.mono a number: the grey multiplied by it (0.9: the toner a little light)
+  if (o.mono) { const k = typeof o.mono === 'number' ? o.mono : 1.0;
+    const monoMat = m => { const c = m.clone(), prev = m.onBeforeCompile, pk = m.customProgramCacheKey ? m.customProgramCacheKey.bind(m) : null;
+      c.onBeforeCompile = (sh, r) => { if (prev) prev.call(c, sh, r); sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n  diffuseColor.rgb = vec3(dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114))) * ' + k.toFixed(3) + ';'); };
+      c.customProgramCacheKey = () => (pk ? pk() : '') + '|mono' + k; return c; };
+    root.traverse(n => { if (n.isMesh && n.material) n.material = Array.isArray(n.material) ? n.material.map(monoMat) : monoMat(n.material); }); }
   return root;
 }
 
