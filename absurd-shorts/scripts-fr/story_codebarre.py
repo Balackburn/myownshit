@@ -117,7 +117,7 @@ st.shot('S07', 'supermarket', setOpts=SM, actors=[
 D8 = st.dur('S08'); SL8 = round(st.at('S08', 'L07', 4) - 0.06, 3); SH8 = round(st.at('S08', 'L07', 6) - 0.04, 3)
 CHEST8 = [round(ME5[0] + 0.12, 3), 1.55, round(ME5[2] + 0.2, 3)]
 st.shot('S08', 'supermarket', setOpts=SM, actors=[
-        act('mec', ME5, 60, 'stand', 'worried', keys=[k(0.0, look=GER), k(SL8, toon={'sq': [1.04, 0.96, 1.04]}, toonDur=0.03), k(round(SL8 + 0.1, 3), toon={}, toonDur=0.08), k(round(SL8 + 0.2, 3), look=[ME5[0], 1.0, ME5[2] + 0.5]),
+        act('mec', ME5, 60, 'stand', 'worried', keys=[k(0.0, look=GER), k(SL8, toon={'sq': [1.04, 0.96, 1.04]}, toonDur=0.03), k(round(SL8 + 0.1, 3), toon={}, toonDur=0.08), k(round(SL8 + 0.2, 3), look=[ME5[0], 1.0, ME5[2] + 0.5]), k(round(SL8 + 0.45, 3), to=[ME5[0], 0, round(ME5[2] + 0.01, 3)], dur=0.15, clip='stand', then='stand', face=-28), k(round(SL8 + 0.62, 3), look='camera'),   # (pass 1b) he turns to us: the sticker to the camera
             k(round(SH8 - 0.08, 3), toon={'sq': [1.06, 0.94, 1.06], 'face': {'pop': 0.4, 'brow': 1}}, toonDur=0.06),   # it takes him: a gather
             k(SH8, toon={'sq': [HALF * 0.86, HALF * 1.14, HALF * 0.86], 'face': {'pop': 0.5, 'brow': 1}}, toonDur=0.07, toonEase='in'),   # down to half, stretched by the speed
             k(round(SH8 + 0.07, 3), toon={'sq': [HALF * 1.12, HALF * 0.88, HALF * 1.12], 'face': {'brow': 0.8}}, toonDur=0.05), k(round(SH8 + 0.14, 3), toon={'sq': [HALF * 0.97, HALF * 1.03, HALF * 0.97], 'face': {'brow': 0.6}}, toonDur=0.06),
@@ -125,8 +125,9 @@ st.shot('S08', 'supermarket', setOpts=SM, actors=[
         act('gerant', GER, -125, 'stand', 'determined', keys=[k(0.0, look=CHEST8), k(round(SL8 - 0.22, 3), toon={'reach': {'R': [round(CHEST8[0] + 0.5, 3), 1.95, round(CHEST8[2] + 0.3, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.15),
             k(round(SL8 - 0.05, 3), toon={'reach': {'R': [round(CHEST8[0] + 0.1, 3), CHEST8[1], round(CHEST8[2] + 0.1, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05, toonEase='in'),   # slap
             k(round(SL8 + 0.15, 3), toon={}, toonDur=0.15), *react(SH8, 0.6, look=[ME5[0], 0.9, ME5[2]])])],
-        props=[LABEL(), P('promo', 'starSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.02, 0.12, 0.2]}, opts={'r': 0.15, 'text': '-50 %', 'bright': True}, keys=[k(0.0, visible=False), k(SL8, visible=True)])],
-        cams=[FC(0.0, [1.0, 1.5, 2.4], [[ME5[0], 2.55, ME5[2]], [ME5[0], 0.0, ME5[2]], [GER[0], 2.35, GER[2]], [GER[0], 0.3, GER[2]]], top=0.12, bottom=0.74, drift=(0.03, -0.05, -0.05))])
+        props=[LABEL(), P('promo', 'starSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.02, 0.12, 0.2]}, opts={'r': 0.2, 'text': '-50 %', 'bright': True}, keys=[k(0.0, visible=False), k(SL8, visible=True)])],
+        cams=[FC(0.0, [1.3, 1.45, 2.3], [[ME5[0], 2.55, ME5[2]], [ME5[0], 0.0, ME5[2]], [round(GER[0] + 0.15, 3), 2.35, GER[2]], [round(ME5[0] - 0.4, 3), 1.5, ME5[2]]], top=0.12, bottom=0.74, drift=(0.03, -0.06, -0.05)),
+              FC(round(SH8 + 0.3, 3), [round(ME5[0] - 0.7, 3), 0.75, round(ME5[2] + 1.8, 3)], [[ME5[0], 1.35, ME5[2]], [ME5[0], 0.0, ME5[2]], [round(ME5[0] - 0.35, 3), 0.7, ME5[2]], [round(ME5[0] + 0.35, 3), 0.7, ME5[2]]], top=0.18, bottom=0.74)])   # (pass 1b) then low and close on the half-size man and his -50 %   # (pass 1b) on him, the manager at the edge: he drops from the top of the frame to the bottom half (the two-shot made him a speck)
 st.cue('thud', 'S08', SL8, 0.35); st.cue('sfx:slideDown', 'S08', SH8 - 0.05, 0.4); st.cue('sfx:boing', 'S08', SH8 + 0.07, 0.3)
 
 # 9: then vacuum-packed, for freshness. Half his size in a clear pack: on « vide » the air goes: the plastic sucks in round him, his face squashed flat on it
@@ -135,7 +136,7 @@ FLAT9 = {**SMALL, 'scl': {'head': [1.25, 0.95, 0.55]}, 'face': {'puff': 1, 'chee
 st.shot('S09', 'supermarket', setOpts=SM, actors=[
         act('mec', ME9, 0, 'stiffStand', 'worried', keys=[k(0.0, look='camera'), k(0.0, toon={**SMALL, 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.0),
             k(VAC9, toon={**FLAT9, 'sq': [HALF * 0.9, HALF * 1.02, HALF * 0.82]}, toonDur=0.12, toonEase='in'), k(round(VAC9 + 0.45, 3), toon={**FLAT9, 'sq': [HALF * 0.9, HALF * 1.02, HALF * 0.82], 'face': {'puff': 1, 'cheeks': 1, 'lid': 0.8, 'brow': 0.9, 'gx': 0.5}}, toonDur=0.1)])],
-        props=[LABEL(), P('promo', 'starSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.02, 0.12, 0.2]}, opts={'r': 0.15, 'text': '-50 %', 'bright': True}),
+        props=[LABEL(), P('promo', 'starSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.02, 0.12, 0.2]}, opts={'r': 0.2, 'text': '-50 %', 'bright': True}),
                P('pack', 'vacuumBag', pos=ME9, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'tight': [[0.0, 1.35], [VAC9, 1.35], [round(VAC9 + 0.14, 3), 0.86]]})],
         cams=[FC(0.0, [0.85, 0.95, -0.4], [[ME9[0], 1.32, ME9[2]], [ME9[0], 0.0, ME9[2]], [ME9[0] - 0.42, 0.7, ME9[2]], [ME9[0] + 0.42, 0.7, ME9[2]]], top=0.16, bottom=0.74, drift=(-0.03, 0, -0.06))])
 st.cue('whoosh', 'S09', VAC9, 0.4, 0.15, 3000, 800); st.cue('sfx:squeak', 'S09', VAC9 + 0.12, 0.3)
@@ -170,9 +171,9 @@ st.cue('thud', 'S11', 0.05, 0.3); st.cue('sfx:cuff', 'S11', ST11, 0.45)
 
 # 12: the manufacturer recalled him. The big screen over the aisle: RAPPEL PRODUIT, his pictogram, « retour au fabricant »; the lady looks up, arms folded
 D12 = st.dur('S12'); SCR12 = [0.0, 2.95, -3.85]   # (first look) over the shelf, not behind its top
-st.shot('S12', 'supermarket', setOpts=SM, actors=[act('dame', [1.75, 0, -1.9], -150, 'stand', 'unimpressed', keys=[k(0.0, look=[SCR12[0], SCR12[1] + 0.3, SCR12[2]])])],
+st.shot('S12', 'supermarket', setOpts={**SM, 'signs': []}, actors=[act('dame', [0.9, 0, -2.2], -165, 'stand', 'unimpressed', keys=[k(0.0, look=[SCR12[0], SCR12[1] + 0.3, SCR12[2]])])],
         props=[P('recall', 'lcdScreen', pos=[SCR12[0], 2.3, SCR12[2]], opts={'w': 2.3, 'h': 1.35, 'stand': 0, 'dark': False, 'pages': [[0.0, ['RAPPEL PRODUIT', 'homme, lot unique', 'retour au fabricant'], {'face': True, 'big': 0.9, 'accent': '#C8202A'}]]})],
-        cams=[FC(0.0, [0.3, 1.5, -0.9], [[SCR12[0] - 1.15, 3.7, SCR12[2]], [SCR12[0] + 1.15, 2.3, SCR12[2]], [1.75, 2.2, -1.9], [1.75, 1.0, -1.9]], top=0.12, bottom=0.74, drift=(-0.03, 0.03, -0.06))])   # (first look) the screen whole, the lady at the edge looking up
+        cams=[FC(0.0, [0.15, 1.7, 1.2], [[SCR12[0] - 1.2, 3.7, SCR12[2]], [SCR12[0] + 1.2, 3.7, SCR12[2]], [SCR12[0] - 1.2, 2.25, SCR12[2]], [SCR12[0] + 1.2, 2.25, SCR12[2]], [0.9, 0.4, -2.2]], top=0.1, bottom=0.74, drift=(0.0, 0.02, -0.06))])   # (pass 1b) centred on the screen, the lady below it looking up (at the edge the screen was cut and overlapped the PROMOTIONS sign)
 st.cue('sfx:ding', 'S12', 0.05, 0.3)
 
 # 13: he went back to his mother's. Her landing: a cardboard box on the mat (RETOUR FABRICANT); the door opens; his mother looks down; he pops up out of it

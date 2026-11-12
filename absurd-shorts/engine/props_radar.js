@@ -137,12 +137,13 @@ export const RADAR_PROPS = {
     const hole = at(canvasPlane(1.6 * S, 2.6 * S, (c, W, H) => { const k = W / 1.6; let e = 0; const r = (x, y, ww, hh) => c.fillRect((x + 0.8) * k - (ww + e) * k / 2, H - (y + 1.3) * k - (hh + e) * k / 2, (ww + e) * k, (hh + e) * k);
       const man = () => { r(0, 1.0, 0.42, 0.52); r(0, 1.36, 0.16, 0.16); r(0, 0.45, 0.46, 0.62); r(-0.45, 0.7, 0.62, 0.12); r(0.45, 0.7, 0.62, 0.12); r(-0.78, 0.98, 0.12, 0.5); r(0.78, 0.98, 0.12, 0.5);
         r(-0.18, -0.25, 0.14, 0.82); r(0.18, -0.25, 0.14, 0.82); r(-0.26, -0.62, 0.3, 0.12); r(0.26, -0.62, 0.3, 0.12); };
-      if (o.holeColor) { c.fillStyle = o.holeEdge || '#5A4636'; e = 0.09; man(); e = 0.0; c.fillStyle = o.holeColor; man(); } else { c.fillStyle = '#1B1A18'; man(); }   // (pass 3 of 46) o.holeColor: daylight through the hole, inside a ragged brick edge (a black cut-out read as a painted shadow)
+      if (o.holeColor) { c.fillStyle = o.holeEdge || '#5A4636'; e = o.edgeW ?? 0.09; man(); e = 0.0; c.fillStyle = o.holeColor; man(); } else { c.fillStyle = '#1B1A18'; man(); }   // (pass 3 of 46) o.holeColor: daylight through the hole, inside a ragged brick edge (a black cut-out read as a painted shadow)
       c.fillStyle = o.holeColor ? (o.holeEdge || '#5A4636') : '#1B1A18';
       for (let i = 0; i < 120; i++) { const a = rnd(i) * TAU, x = rnd(i + 3) * 1.4 - 0.7, y = rnd(i + 5) * 2.2 - 0.9; c.fillRect((x + 0.8) * k + Math.cos(a) * 4, H - (y + 1.3) * k + Math.sin(a) * 4, 5, 5); } },
       { res: 512, transparent: true }), hx, hy, 0.005);
     hole.visible = false; g.add(hole);
-    const bricks = Array.from({ length: 14 }, (_, i) => { const b = box(0.16, 0.08, 0.1, i % 3 ? (o.color || '#D9D3C7') : '#B8B0A2', { outline: 0.004 }); b.visible = false; g.add(b); return b; });
+    // (final pass of 46) o.edgeW: a thicker rim; o.debrisColor / o.debrisN: brick-red chunks (cream ones vanished on the cream wall)
+    const bricks = Array.from({ length: o.debrisN ?? 14 }, (_, i) => { const b = box(0.16, 0.08, 0.1, o.debrisColor ? (i % 3 ? o.debrisColor : '#8E3B28') : (i % 3 ? (o.color || '#D9D3C7') : '#B8B0A2'), { outline: 0.004 }); b.visible = false; g.add(b); return b; });
     g.userData.update = t => { const u = o.burstAt == null ? -1 : t - o.burstAt; hole.visible = u >= 0;
       bricks.forEach((b, i) => { const life = u / 0.6; b.visible = u >= 0 && life < 1; if (!b.visible) return; const a = rnd(i) * TAU, sp = 1.2 + rnd(i + 2) * 1.6;
         b.position.set(hx + Math.cos(a) * 0.5 * S * life * sp, hy + Math.sin(a) * 0.6 * S * life * sp + 1.5 * life - 3.5 * life * life, (o.debrisFront && i % 2 ? 0.25 + 1.2 * life * sp * 0.5 : -0.1 - 1.8 * life * sp * 0.5)); b.rotation.set(life * 9 * rnd(i + 4), life * 7, life * 5 * rnd(i + 6)); }); };
