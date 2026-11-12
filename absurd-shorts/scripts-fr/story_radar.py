@@ -64,7 +64,7 @@ st.cue('sfx:beep', 'S03', 0.05, 0.3); st.cue('sfx:beep', 'S03', SAD3, 0.3); st.c
 D4 = st.dur('S04'); ME4 = [PX - 0.4, 0, 6.0]
 SIGN4 = [5.35, 0, 6.6]
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', ME4, -20, 'stand', 'unimpressed', keys=[k(0.0, look=[SIGN4[0], 2.6, SIGN4[2]]), k(0.22, look='camera'), k(0.22, toon={'face': {'brow': 0.3, 'lid': 0.3}}, toonDur=0.06),   # (pass 3) up at the sign, at us, deadpan...
+        act('mec', ME4, -112, 'stand', 'unimpressed', keys=[k(0.0, look=[SIGN4[0], 2.6, SIGN4[2]]), k(0.22, look='camera'), k(0.22, toon={'face': {'brow': 0.3, 'lid': 0.3}}, toonDur=0.06),   # (pass 3) up at the sign, at us, deadpan...
             k(0.42, look=[SIGN4[0], 2.6, SIGN4[2]]), k(0.42, toon={'sq': [0.94, 1.08, 0.94], 'face': {'pop': 0.6, 'popLen': 0.25, 'brow': 1, 'jaw': 0.25}, 'hairUp': 0.7}, toonDur=0.03, toonEase='out'),   # ...and the head snaps back, eyes out
             k(0.66, look='camera'), k(0.66, toon={'reach': {'R': [round(ME4[0] + 0.05, 3), 1.5, round(ME4[2] + 0.42, 3), 1, 0.06]}, 'hands': {'R': 'thumbUp'}, 'face': {'brow': 1, 'eye': 0.45}}, toonDur=0.1, toonEase='outBack'),   # me? the thumb out in front of his chest
             k(0.66, expr='surprised')])],
@@ -216,7 +216,7 @@ st.cue('sfx:engine', 'S12', 0.0, 0.0); st.cue('engine', 'S12', 0.0, 0.25, D12); 
 # 13: refused. (pass 3) He shoots off the rollers forward, the way he ran, stiff, arms up, feet off the floor; splat: flattened on the back wall for
 #     three frames; then through it: a hole in his shape with daylight in it, bricks; close: the mechanic slams REFUSÉ on his sheet and holds it up to us
 D13 = st.dur('S13'); HIT13 = 0.18; BURST13 = round(HIT13 + 0.1, 3); WZ = -3.5
-FLY13 = {'lay': [0.3, 0], 'sq': [0.9, 1.08, 1.0], 'reach': {'L': [round(RX - 0.55, 3), 2.75, 0.0, 1, 0.06], 'R': [round(RX + 0.55, 3), 2.75, 0.0, 1, 0.06]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'face': {'pop': 0.6, 'brow': 1, 'jaw': 0.4}, 'hairUp': 1}
+FLY13 = {'lay': [0.3, 0], 'sq': [0.9, 1.08, 1.0], 'touch': {'L': ['torso', 0.45, 1.25, 0.12, 1, 0.06], 'R': ['torso', -0.45, 1.25, 0.12, 1, 0.06]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'face': {'pop': 0.6, 'brow': 1, 'jaw': 0.4}, 'hairUp': 1}
 st.shot('S13', 'whiteVoid', actors=[
         act('mec', [RX, 0.1, 0.6], 180, 'stiffStand', 'surprised', keys=[k(0.0, look=None), k(0.0, toon=FLY13, toonDur=0.0),
             k(0.0, to=[RX, 0.35, round(WZ + 0.32, 3)], dur=HIT13, glide=True, ease='in', face=180),   # forward into the wall, the way he ran
@@ -225,9 +225,9 @@ st.shot('S13', 'whiteVoid', actors=[
         MECA([round(RX + 1.6, 3), 0, 1.75], -150, keys=[k(0.0, look=[RX, 1.3, WZ]), k(0.3, look='camera'),
             k(0.38, toon={'reach': {'L': [round(RX + 1.25, 3), 1.95, 2.05, 1, 0.06], 'R': [round(RX + 1.25, 3), 2.25, 2.1, 1, 0.06]}, 'hands': {'L': 'pinch', 'R': 'grip'}}, toonDur=0.08),
             k(0.56, toon={'reach': {'L': [round(RX + 1.25, 3), 1.95, 2.05, 1, 0.06], 'R': [round(RX + 1.22, 3), 1.62, 2.12, 1, 0.06]}, 'hands': {'L': 'pinch', 'R': 'grip'}}, toonDur=0.03, toonEase='in'),   # the stamp slammed on the sheet
-            k(0.66, toon={'reach': {'L': [round(RX + 1.25, 3), 2.0, 2.05, 1, 0.06]}, 'hands': {'L': 'pinch'}}, toonDur=0.08)])],
+            k(0.62, toon={'reach': {'L': [round(RX + 1.25, 3), 2.0, 2.05, 1, 0.06], 'R': [round(RX + 1.75, 3), 1.2, 2.0, 1, 0.06]}, 'hands': {'L': 'pinch', 'R': 'grip'}}, toonDur=0.06)])],   # the stamping hand away: REFUSÉ in full
         props=[GAR10(back=False), P('wall13', 'burstWall', pos=[0.0, 0, WZ], opts={'w': 10.0, 'h': 4.2, 'burstAt': BURST13, 'holeX': RX, 'holeY': 1.45, 'holeScale': 1.1, 'color': '#E3E1DA', 'holeColor': '#CFE6F5', 'holeEdge': '#6A4A36', 'debrisFront': True}),
-               ROLL(lampAt=0.0), P('sheet13', 'paperSheet', on={'actor': 'meca', 'hand': 'L', 'offset': [0, -0.24, 0.06], 'face': 'camera'}, opts={'w': 0.46, 'h': 0.6, 'head': 'CONTRÔLE', 'lines': ['Pneus : OK', 'Klaxon : OK', 'Freins :'], 'lineSize': 0.08, 'bright': True,
+               ROLL(lampAt=0.0), P('sheet13', 'paperSheet', on={'actor': 'meca', 'hand': 'L', 'offset': [0, -0.44, 0.06], 'face': 'camera'}, opts={'w': 0.46, 'h': 0.6, 'head': 'CONTRÔLE', 'lines': ['Pneus : OK', 'Klaxon : OK', 'Freins :'], 'lineSize': 0.08, 'bright': True,
                  'stamp': {'text': 'REFUSÉ', 'at': 0.58, 'rot': -0.2, 'y': -0.14, 'w': 0.95}}), P('stampTool', 'stamp', on={'actor': 'meca', 'hand': 'R', 'offset': [0, 0.0, 0.05]}) if False else P('dust13', 'dustPuff', pos=[RX, 1.2, round(WZ + 0.3, 3)], opts={'period': 0.3, 'once': True, 'startAt': BURST13, 'color': '#E3E1DA'}, keys=[k(0.0, visible=False), k(BURST13, visible=True), k(round(BURST13 + 0.32, 3), visible=False)])],
         fx=[{'type': 'shake', 'at': HIT13, 'dur': 0.2, 'amount': 0.025}],
         cams=[FC(0.0, [round(RX - 3.0, 3), 1.5, 2.6], [[RX, 2.9, WZ], [RX, 0.0, WZ], [RX, 2.4, 0.6], [RX, 0.1, 0.6]], top=0.16, bottom=0.74, inside=(-4.9, 4.9, 0.2, 4.1, -3.4, 9.0)),   # (pass 3) from behind his left: he flies away from us into the wall
