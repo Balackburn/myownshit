@@ -77,7 +77,7 @@ export const AIMANT_PROPS = {
   // drawn over the rose (0.25 s); o.arrow [t0, t1]: a fat red arrow drawn from the rose to the pin o.pin [u, v] (fractions of the map; his building, a
   // little head with black hair) with the word o.word ('NORD') at its tip; o.rotate [[t, deg]]: the map turns on the wall (0.5 s ease-in-out from the
   // previous angle) so that the pin comes to the top.
-  mapFrance(o) {
+  mapFrance(o) {   // (pass 2 of 47) o.wordRot (deg): the word turned in the map so it reads upright once the map has turned (and set above the pin)
     const w = o.w ?? 1.5, h = o.h ?? 1.2, g = grp(), spin = grp(); g.add(spin);
     spin.add(at(box(w + 0.08, h + 0.08, 0.04, '#5A3A28', { outline: 0.008 }), 0, 0, -0.025));
     const scr = liveCanvas(w, h, 512, false); scr.pl.position.z = 0.001; spin.add(scr.pl);
@@ -98,7 +98,7 @@ export const AIMANT_PROPS = {
         const PX = W * (0.12 + 0.82 * pin[0]), PY = H * (0.04 + 0.9 * pin[1]);
         if (ka > 0) { const x0 = rx + rr * 0.6, y0 = ry + rr * 0.6, x1 = x0 + (PX - x0) * ka, y1 = y0 + (PY - y0) * ka; c.strokeStyle = '#D3202A'; c.lineWidth = W * 0.02; c.lineCap = 'round'; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
           if (ka >= 1) { const a = Math.atan2(PY - y0, PX - x0), L = W * 0.06; c.fillStyle = '#D3202A'; c.beginPath(); c.moveTo(PX, PY); c.lineTo(PX - L * Math.cos(a - 0.45), PY - L * Math.sin(a - 0.45)); c.lineTo(PX - L * Math.cos(a + 0.45), PY - L * Math.sin(a + 0.45)); c.closePath(); c.fill();
-            c.font = `900 ${H * 0.09}px Arial`; c.fillStyle = '#D3202A'; c.textAlign = 'center'; c.fillText(o.word || 'NORD', PX, PY + H * 0.1); } }
+            c.font = `900 ${H * 0.09}px Arial`; c.fillStyle = '#D3202A'; c.textAlign = 'center'; if (o.wordRot) { c.save(); c.translate(PX, PY - H * 0.1); c.rotate(o.wordRot * PI / 180); c.fillText(o.word || 'NORD', 0, 0); c.restore(); } else c.fillText(o.word || 'NORD', PX, PY + H * 0.1); } }
         c.fillStyle = '#E3B98C'; c.fillRect(PX - W * 0.025, PY - H * 0.045, W * 0.05, H * 0.06); c.fillStyle = '#17181B'; c.fillRect(PX - W * 0.027, PY - H * 0.058, W * 0.054, H * 0.02); c.strokeStyle = '#1B1B1E'; c.lineWidth = 2; c.strokeRect(PX - W * 0.025, PY - H * 0.045, W * 0.05, H * 0.06);
         c.fillStyle = '#1B1B1E'; c.fillRect(PX - W * 0.012, PY - H * 0.025, W * 0.005, H * 0.008); c.fillRect(PX + W * 0.007, PY - H * 0.025, W * 0.005, H * 0.008);
       });
@@ -118,7 +118,7 @@ export const AIMANT_PROPS = {
     c.fillStyle = '#F8FAFC'; c.fillRect(0, 0, 512, 26);
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
     ball.add(new THREE.Mesh(new THREE.SphereGeometry(r, 28, 18), new THREE.MeshLambertMaterial({ map: tex })));
-    if (o.house !== false) { const hs = r * 0.16, hg = grp(at(box(hs, hs * 1.4, hs * 0.8, '#F1E6CF', { outline: 0.003 }), 0, hs * 0.7, 0), at(box(hs * 1.1, hs * 0.12, hs * 0.9, '#B5302A'), 0, hs * 1.45, 0));
+    if (o.house !== false) { const hs = r * 0.16 * (o.houseScale ?? 1), hg = grp(at(box(hs, hs * 1.4, hs * 0.8, '#F1E6CF', { outline: 0.003 }), 0, hs * 0.7, 0), at(box(hs * 1.1, hs * 0.12, hs * 0.9, '#B5302A'), 0, hs * 1.45, 0));
       for (const yy of [0.35, 0.75, 1.1]) hg.add(at(box(hs * 0.7, hs * 0.14, 0.004, '#5C8FA8'), 0, hs * yy, hs * 0.41));
       hg.add(at(cyl(0.003, 0.003, hs * 1.4, '#3A3D44', 4, { pivot: 'bottom' }), hs * 0.4, hs * 1.5, 0), at(box(hs * 0.5, hs * 0.3, 0.003, '#D3202A'), hs * 0.65, hs * 2.7, 0));
       hg.position.y = r * 0.985; ball.add(hg); }
