@@ -498,6 +498,6 @@ function buildFaceFx(head, hw, hh, hd, o) {
     if (fx.blush) blush.forEach(m => { m.visible = true; });
     if (fx.frozen) { const thaw = fx.frozen === 'thaw'; frost.visible = !thaw; cap.visible = !thaw; icicles.forEach((m, i) => { m.visible = !thaw || i % 2 === 0; }); noseIce.visible = true;
       if (thaw) runs.slice(0, 3).forEach(r => { const q = (t * r.v / 1400 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, 1000 + q * 120, 0.6); }); }
-    if (fx.breath) { const [mx, my] = P2(212, 840); puffs.forEach((p, i) => { const q = (t * 0.7 + i / 3) % 1; p.visible = true; p.position.set(mx + 0.02 * Math.sin(i * 2 + t), my + q * 0.08, hd / 2 + 0.04 + q * 0.32); p.scale.setScalar(0.1 + q * 0.32); p.material.opacity = 0.9 * Math.sin(Math.PI * Math.min(1, q * 1.2)) * (q < 0.6 || i % 3 === 0 ? 1 : 0.6); }); }
+    if (fx.breath) { const [mx, my] = P2(212, 840); puffs.forEach((p, i) => { const q = (t * 0.7 + i / 3) % 1; p.visible = true; p.position.set(mx + 0.02 * Math.sin(i * 2 + t) + q * (fx.breath.side ?? 0), my + q * (fx.breath.up ?? 0.08), hd / 2 + 0.04 + q * (fx.breath.fwd ?? 0.32)); p.scale.setScalar((0.1 + q * 0.32) * (fx.breath.size ?? 1));   /* (pass 3 of 47) fx.breath {side, up, fwd, size}: the cloud drifts off his face (straight out it covered his mouth) */ p.material.opacity = 0.9 * Math.sin(Math.PI * Math.min(1, q * 1.2)) * (q < 0.6 || i % 3 === 0 ? 1 : 0.6); }); }
   };
 }

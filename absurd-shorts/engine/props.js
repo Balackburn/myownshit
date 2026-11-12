@@ -390,9 +390,9 @@ const B = {
   },
   stairs(o) {
     const n = o.steps || 8, w = o.w || 1.2, rise = 0.2, run = 0.28, g = grp();
-    for (let i = 0; i < n; i++) g.add(at(box(w, rise * (i + 1), run, i % 2 ? P.cream : P.creamDark, { pivot: 'bottom' }), 0, 0, -i * run - run / 2), at(box(w + 0.01, 0.03, 0.04, P.navy), 0, rise * (i + 1) - 0.015, -i * run - 0.02));
+    for (let i = 0; i < n; i++) { g.add(at(box(w, rise * (i + 1), run, i % 2 ? P.cream : P.creamDark, { pivot: 'bottom' }), 0, 0, -i * run - run / 2)); if (o.nosing !== false) g.add(at(box(w + 0.01, 0.03, 0.04, P.navy), 0, rise * (i + 1) - 0.015, -i * run - 0.02)); }   // (pass 3 of 47) o.nosing false: no navy nosing (seen from far it broke into dashes)
     const x = w / 2 + 0.04, top = [x, rise * n + 0.9, -(n - 1) * run - run / 2], bot = [x, rise + 0.9, -run / 2];
-    g.add(rod(bot, top, 0.025, P.woodDark), rod([x, rise, -run / 2], bot, 0.02, P.navy), rod([x, rise * n, top[2]], top, 0.02, P.navy));
+    if (o.rail !== false) g.add(rod(bot, top, 0.025, P.woodDark), rod([x, rise, -run / 2], bot, 0.02, P.navy), rod([x, rise * n, top[2]], top, 0.02, P.navy));   // o.rail false: no handrail (from above it read as a pole held by a climber)
     g.userData.top = [0, rise * n, -(n - 0.5) * run]; return g;
   },
   carpet(o) {

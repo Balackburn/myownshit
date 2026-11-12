@@ -285,8 +285,8 @@ export const FOURRIERE_PROPS = {
     for (const y of ys) for (const x of xs) {
       const fl = y - sill, rm = mat(o.room || '#E3C9A0', { unique: true }); litMats.push(rm);
       g.add(at(box(ww + 0.4, sto - 0.1, 0.06, '', { material: rm }), x, fl + (sto - 0.1) / 2, -D));                 // the back wall of the room
-      for (const sx of [-1, 1]) g.add(at(box(0.06, sto - 0.1, D, '#D8BE95'), x + sx * (ww / 2 + 0.2), fl + (sto - 0.1) / 2, -D / 2));
-      g.add(at(box(ww + 0.4, 0.06, D, '#9C7A55'), x, fl - 0.03, -D / 2), at(box(ww + 0.4, 0.06, D, '#EFE4D0'), x, fl + sto - 0.1, -D / 2));
+      for (const sx of [-1, 1]) g.add(at(box(0.06, sto - 0.1, D - 0.02, '#D8BE95'), x + sx * (ww / 2 + 0.2), fl + (sto - 0.1) / 2, -D / 2 - 0.01));   // (pass 3 of 47) 2 cm behind the facade: front faces in its plane z-fought
+      g.add(at(box(ww + 0.4, 0.06, D - 0.02, '#9C7A55'), x, fl - 0.03, -D / 2 - 0.01), at(box(ww + 0.4, 0.06, D - 0.02, '#EFE4D0'), x, fl + sto - 0.1, -D / 2 - 0.01));
       g.add(at(box(ww + 0.16, 0.07, 0.36, '#DCCDB0', { outline: 0.005 }), x, y - 0.035, 0.02));                            // sill
       for (const sx of [-1, 1]) g.add(at(box(0.52, wh, 0.05, sh, { outline: 0.005 }), x + sx * (ww / 2 + 0.28), y + wh / 2, 0.04));   // shutters, open
       const rail = grp(); for (let i = 0; i <= 8; i++) rail.add(at(box(0.02, 0.42, 0.02, '#2B2D33'), -ww / 2 + i * ww / 8, 0.21, 0));

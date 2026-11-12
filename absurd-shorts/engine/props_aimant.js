@@ -3,7 +3,7 @@
 // him; all the maps are redrawn; he lives at the North Pole, third floor, no lift.
 // Conventions as in props.js (metres, front +Z, pivot at the floor); every animated prop is a pure function of the shot time.
 import * as THREE from 'three';
-import { PALETTE as P, mat, box, cyl, ease, clamp01 } from './style.js';
+import { PALETTE as P, mat, box, cyl, sphere, ease, clamp01 } from './style.js';
 import { grp, at, label, canvasPlane, torus } from './props.js';
 
 const PI = Math.PI, TAU = 2 * PI;
@@ -20,6 +20,28 @@ function liveCanvas(w, h, res, basic = true) {
 }
 
 export const AIMANT_PROPS = {
+  // (pass 3 of 47) A street lamp that bows like a stem: the pole in o.n (8) segments chained one on the other, each turned a share of the bend, so the
+  // pole curves and the head (at the end of its arm, along +X) dips; o.bend [[t, rad], ...] (eased in and out over o.ease s, 0.16): negative bends toward +X.
+  // o.height (4.2). The rigid streetLamp with rotTo tilted from its foot and read as falling.
+  stemLamp(o) {
+    const H = o.height || 4.2, N = o.n || 8, seg = H / N, g = grp(cyl(0.16, 0.2, 0.4, P.navy, 6, { pivot: 'bottom' })), segs = [];
+    let parent = g;
+    for (let i = 0; i < N; i++) { const s = grp(cyl(0.07 + 0.03 * (1 - i / N) * 0.6, 0.07 + 0.03 * (1 - (i - 1) / N) * 0.6, seg + 0.01, P.navy, 6, { pivot: 'bottom' })); s.position.y = i === 0 ? 0 : seg; parent.add(s); segs.push(s); parent = s; }
+    parent.add(at(box(0.9, 0.07, 0.07, P.navy), 0.42, seg - 0.05, 0), at(box(0.5, 0.14, 0.3, P.navy, { taper: 0.8 }), 0.85, seg - 0.06, 0), at(box(0.4, 0.03, 0.22, P.creamDark), 0.85, seg - 0.145, 0));
+    const K = o.bend || [[0, 0]], E = o.ease ?? 0.16;
+    const bendAt = t => { let v = K[0][1]; for (let i = 1; i < K.length; i++) { const [t1, v1] = K[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / E)); } return v; };
+    g.userData.update = t => { const b = bendAt(t); segs.forEach((s, i) => { s.rotation.z = b / N * (0.4 + 1.2 * i / (N - 1)); }); };   // more of the bend toward the top: a stem, not a hinge
+    g.userData.update(0); return g;
+  },
+  // (pass 3 of 47) the print a frying pan leaves on a flattened face: a flat ring (front +Z), o.r (0.2) across its outer edge, o.w (0.035) wide, a faint
+  // disc inside; o.color, o.opacity; o.fade [t0, t1]: it fades out
+  ringMark(o) {
+    const r = o.r ?? 0.2, w = o.w ?? 0.035, op = o.opacity ?? 0.8, m = new THREE.MeshBasicMaterial({ color: o.color || '#B8473E', transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
+    const m2 = m.clone(); m2.opacity = op * 0.22; const ring = new THREE.Mesh(new THREE.RingGeometry(r - w, r, 40), m), disc = new THREE.Mesh(new THREE.CircleGeometry(r - w, 40), m2);
+    ring.userData.noAO = true; disc.userData.noAO = true; const g = grp(ring, disc);
+    if (o.fade) { const [f0, f1] = o.fade; g.userData.update = t => { const k = 1 - clamp01((t - f0) / Math.max(0.01, f1 - f0)); m.opacity = op * k; m2.opacity = op * 0.22 * k; }; g.userData.update(0); }
+    return g;
+  },
   // A red horseshoe magnet, the opening up (+Y), front +Z, about o.s (0.12 m) tall, pivot at its centre: two red arms joined by a half ring, silver poles.
   // o.glow [t0, t1]: three white arcs of "force" flicker round it.
   magnet(o) {
@@ -62,7 +84,8 @@ export const AIMANT_PROPS = {
       else if (T2 && t >= a2) { const prev = angTo(T), tgt = angTo(T2), u = t - a2; a = prev + (tgt - prev) * ease.out(clamp01(u / 0.18)) + 0.5 * wob(u, 18, 4.5); }
       else if (T && t >= (sp ? sp[1] : t0)) { const u = t - (sp ? sp[1] : t0); a = angTo(T) + 0.6 * wob(u, 18, 4.5); }
       else a = north + 0.05 * Math.sin(t * 2.3);
-      needle.rotation.y = a; };
+      needle.rotation.y = a; g.userData.lastT = t; };
+    g.userData.afterFace = true;   // (pass 3 of 47) aimed again once face: 'camera' has turned it (engine/director3.js)
     g.userData.update(0); g.userData.grip = [0, 0, 0]; return g;
   },
 
@@ -98,7 +121,7 @@ export const AIMANT_PROPS = {
         const PX = W * (0.12 + 0.82 * pin[0]), PY = H * (0.04 + 0.9 * pin[1]);
         if (ka > 0) { const x0 = rx + rr * 0.6, y0 = ry + rr * 0.6, x1 = x0 + (PX - x0) * ka, y1 = y0 + (PY - y0) * ka; c.strokeStyle = '#D3202A'; c.lineWidth = W * 0.02; c.lineCap = 'round'; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
           if (ka >= 1) { const a = Math.atan2(PY - y0, PX - x0), L = W * 0.06; c.fillStyle = '#D3202A'; c.beginPath(); c.moveTo(PX, PY); c.lineTo(PX - L * Math.cos(a - 0.45), PY - L * Math.sin(a - 0.45)); c.lineTo(PX - L * Math.cos(a + 0.45), PY - L * Math.sin(a + 0.45)); c.closePath(); c.fill();
-            c.font = `900 ${H * 0.09}px Arial`; c.fillStyle = '#D3202A'; c.textAlign = 'center'; if (o.wordRot) { c.save(); c.translate(PX, PY - H * 0.1); c.rotate(o.wordRot * PI / 180); c.fillText(o.word || 'NORD', 0, 0); c.restore(); } else c.fillText(o.word || 'NORD', PX, PY + H * 0.1); } }
+            c.font = `900 ${H * 0.09}px Arial`; c.fillStyle = '#D3202A'; c.textAlign = 'center'; if (o.wordRot) { c.save(); if (o.wordBeyond) c.translate(PX + H * 0.17 * Math.cos(a), PY + H * 0.17 * Math.sin(a)); else c.translate(PX, PY - H * 0.1); c.rotate(o.wordRot * PI / 180); if (o.wordBeyond) { c.textBaseline = 'middle'; c.lineWidth = H * 0.016; c.lineJoin = 'round'; c.strokeStyle = '#FFFFFF'; c.strokeText(o.word || 'NORD', 0, 0); } c.fillText(o.word || 'NORD', 0, 0); c.restore(); }   /* (pass 3 of 47) o.wordBeyond: beyond the pin along the arrow, white outline (above the pin the arrow ran through the D) */ else c.fillText(o.word || 'NORD', PX, PY + H * 0.1); } }
         c.fillStyle = '#E3B98C'; c.fillRect(PX - W * 0.025, PY - H * 0.045, W * 0.05, H * 0.06); c.fillStyle = '#17181B'; c.fillRect(PX - W * 0.027, PY - H * 0.058, W * 0.054, H * 0.02); c.strokeStyle = '#1B1B1E'; c.lineWidth = 2; c.strokeRect(PX - W * 0.025, PY - H * 0.045, W * 0.05, H * 0.06);
         c.fillStyle = '#1B1B1E'; c.fillRect(PX - W * 0.012, PY - H * 0.025, W * 0.005, H * 0.008); c.fillRect(PX + W * 0.007, PY - H * 0.025, W * 0.005, H * 0.008);
       });
@@ -118,24 +141,49 @@ export const AIMANT_PROPS = {
     c.fillStyle = '#F8FAFC'; c.fillRect(0, 0, 512, 26);
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
     ball.add(new THREE.Mesh(new THREE.SphereGeometry(r, 28, 18), new THREE.MeshLambertMaterial({ map: tex })));
+    let houseUpd = null;
     if (o.house !== false) { const hs = r * 0.16 * (o.houseScale ?? 1), hg = grp(at(box(hs, hs * 1.4, hs * 0.8, '#F1E6CF', { outline: 0.003 }), 0, hs * 0.7, 0), at(box(hs * 1.1, hs * 0.12, hs * 0.9, '#B5302A'), 0, hs * 1.45, 0));
       for (const yy of [0.35, 0.75, 1.1]) hg.add(at(box(hs * 0.7, hs * 0.14, 0.004, '#5C8FA8'), 0, hs * yy, hs * 0.41));
       hg.add(at(cyl(0.003, 0.003, hs * 1.4, '#3A3D44', 4, { pivot: 'bottom' }), hs * 0.4, hs * 1.5, 0), at(box(hs * 0.5, hs * 0.3, 0.003, '#D3202A'), hs * 0.65, hs * 2.7, 0));
-      hg.position.y = r * 0.985; ball.add(hg); }
+      hg.position.y = r * 0.985; ball.add(hg);
+      if (o.houseLat) { const HL = o.houseLat; houseUpd = t => { let v = HL[0][1]; for (let i = 1; i < HL.length; i++) { const [t1, v1] = HL[i]; if (t < t1) break; v = v + (v1 - v) * ease.outBack(clamp01((t - t1) / 0.24)); }   // (pass 3 of 47) his block rides round at a latitude, then slides up onto the pole once the globe has stopped (on the pole from the first frame, the spin showed nothing)
+        const f = v * PI / 180; hg.position.set(0, r * 0.985 * Math.sin(f), r * 0.985 * Math.cos(f)); hg.rotation.x = PI / 2 - f; }; } }
     const sp = o.spin || [], f0 = o.face0 ?? 2.4;
     g.userData.update = t => { let a = f0; for (const [t0, t1, turns] of sp) { if (t < t0) break; const u = clamp01((t - t0) / Math.max(0.05, t1 - t0)); a = f0 + (TAU * (turns ?? 2) - f0) * ease.out(u) + (u >= 1 ? 0.06 * wob(t - t1, 14, 5) : 0); } ball.rotation.y = a; };
+    if (houseUpd) { const u0 = g.userData.update; g.userData.update = t => { u0(t); houseUpd(t); }; }
     g.userData.update(0); return g;
   },
 
   // A small sailboat on a road trailer (front +X, o.len 3.2 m): white hull with a blue band, a mast, a white sail, a little pennant, two wheels.
-  sailboat(o) {
-    const L = o.len ?? 3.2, g = grp(at(box(L, 0.5, 1.1, '#F4F2EA', { outline: 0.01, taper: { x: 0.7, z: 0.55 }, taperAxis: 'x' }), 0, 0.85, 0), at(box(L * 0.9, 0.1, 1.12, '#2F5E8C'), 0, 0.98, 0));
-    for (const z of [-0.5, 0.5]) g.add(at(cyl(0.22, 0.22, 0.12, P.ink, 12), -0.2, 0.22, z, PI / 2), at(box(0.06, 0.32, 0.06, '#7A8088'), -0.2, 0.45, z * 0.9));
-    g.add(at(box(L * 0.8, 0.06, 0.08, '#7A8088'), 0, 0.6, 0), at(cyl(0.03, 0.035, 3.0, '#C9CDD3', 6, { pivot: 'bottom' }), 0.2, 1.05, 0));
+  sailboat(o) {   // (pass 3 of 47) a hull with a pointed bow (a plan-view outline extruded upward, white with a blue stripe and a dark keel) sitting on its own
+    // trailer (a dark frame on two wheels with a hitch); the mast and the sail on top; front +X, o.len (3.2) long; o.bow false: the old tapered box.
+    // o.brake t: the boat stops dead at t: the hull pitches onto its bow and rocks back on the trailer (damped), the mast whips a beat later
+    const L = o.len ?? 3.2, g = grp(), hullY = 0.62, Hh = 0.5, B = 1.1;
+    for (const z of [-0.5, 0.5]) g.add(at(cyl(0.22, 0.22, 0.12, P.ink, 12), -0.2, 0.22, z, PI / 2), at(box(0.06, 0.24, 0.06, '#7A8088'), -0.2, 0.33, z * 0.9));
+    if (o.bow === false) {
+      g.add(at(box(L, 0.5, 1.1, '#F4F2EA', { outline: 0.01, taper: { x: 0.7, z: 0.55 }, taperAxis: 'x' }), 0, 0.85, 0), at(box(L * 0.9, 0.1, 1.12, '#2F5E8C'), 0, 0.98, 0));
+      g.add(at(cyl(0.03, 0.035, 3.0, '#C9CDD3', 6, { pivot: 'bottom' }), 0.2, 1.05, 0));
+      const sail = new THREE.Shape(); sail.moveTo(0, 0); sail.lineTo(-1.3, 0); sail.lineTo(-0.05, 2.6); sail.closePath();
+      g.add(at(new THREE.Mesh(new THREE.ShapeGeometry(sail), new THREE.MeshLambertMaterial({ color: '#FBFAF4', side: THREE.DoubleSide })), 0.18, 1.2, 0.02), at(box(0.32, 0.18, 0.01, o.pennant || '#D3202A'), 0.36, 3.95, 0));
+      return g;
+    }
+    const rock = grp(), inner = grp(); rock.position.y = 0.45; inner.position.y = -0.45; rock.add(inner); g.add(rock);   // the hull rocks about the top of the trailer
+    const sh = new THREE.Shape(); sh.moveTo(-L / 2, -B * 0.42); sh.lineTo(L * 0.18, -B / 2); sh.quadraticCurveTo(L * 0.44, -B * 0.42, L / 2 + 0.25, 0); sh.quadraticCurveTo(L * 0.44, B * 0.42, L * 0.18, B / 2); sh.lineTo(-L / 2, B * 0.42); sh.closePath();
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: Hh, bevelEnabled: false }); geo.rotateX(-Math.PI / 2); geo.computeVertexNormals();
+    const hull = new THREE.Mesh(geo, mat('#F4F2EA')); hull.position.y = hullY; hull.castShadow = true; inner.add(hull);
+    const stripe = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.08, bevelEnabled: false }).rotateX(-Math.PI / 2), mat('#2F5E8C')); stripe.scale.set(1.01, 1, 1.01); stripe.position.y = hullY + Hh - 0.12; inner.add(stripe);
+    const deck = new THREE.Mesh(new THREE.ShapeGeometry(sh).rotateX(-Math.PI / 2), mat('#D9C9A8')); deck.position.y = hullY + Hh + 0.005; inner.add(deck);
+    inner.add(at(box(L * 0.55, 0.32, 0.08, '#2A2C31', { outline: 0.006 }), -0.1, hullY - 0.15, 0));   // the keel
+    g.add(at(box(L * 0.9, 0.06, 0.08, '#3A3D44'), -0.1, 0.42, -0.42), at(box(L * 0.9, 0.06, 0.08, '#3A3D44'), -0.1, 0.42, 0.42), at(box(0.08, 0.06, 0.92, '#3A3D44'), L * 0.38, 0.42, 0), at(box(0.08, 0.06, 0.92, '#3A3D44'), -L * 0.4, 0.42, 0));   // the trailer frame
+    g.add(at(box(0.9, 0.05, 0.06, '#3A3D44'), L / 2 + 0.3, 0.42, 0), at(sphere(0.05, '#3A3D44'), L / 2 + 0.75, 0.42, 0));   // its drawbar and hitch
+    const mast = grp(); mast.position.set(0.2, hullY + Hh, 0); inner.add(mast);
+    mast.add(at(cyl(0.03, 0.035, 3.0, '#C9CDD3', 6, { pivot: 'bottom' }), 0, 0, 0));
     const sail = new THREE.Shape(); sail.moveTo(0, 0); sail.lineTo(-1.3, 0); sail.lineTo(-0.05, 2.6); sail.closePath();
-    g.add(at(new THREE.Mesh(new THREE.ShapeGeometry(sail), new THREE.MeshLambertMaterial({ color: '#FBFAF4', side: THREE.DoubleSide })), 0.18, 1.2, 0.02));
-    g.add(at(box(0.32, 0.18, 0.01, o.pennant || '#D3202A'), 0.36, 3.95, 0));
-    if (o.bow !== false) g.add(at(box(0.62, 0.5, 0.62, '#F4F2EA', { outline: 0.01 }), L / 2 - 0.12, 0.85, 0, 0, PI / 4, 0), at(box(0.64, 0.1, 0.64, '#2F5E8C'), L / 2 - 0.12, 0.98, 0, 0, PI / 4, 0));   // (pass 2) a pointed bow (the tapered box read as a crate)
+    mast.add(at(new THREE.Mesh(new THREE.ShapeGeometry(sail), new THREE.MeshLambertMaterial({ color: '#FBFAF4', side: THREE.DoubleSide })), -0.02, 0.15, 0.02), at(box(0.32, 0.18, 0.01, o.pennant || '#D3202A'), 0.16, 2.9, 0));
+    if (o.brake != null) { const tb = o.brake, A = o.rockAmp ?? 0.11;
+      g.userData.update = t => { const u = t - tb; if (u < 0) { rock.rotation.z = 0; mast.rotation.z = 0; return; }
+        rock.rotation.z = -A * Math.exp(-5 * u) * Math.sin(13 * u); const u2 = Math.max(0, u - 0.05); mast.rotation.z = -A * 1.6 * Math.exp(-4.5 * u2) * Math.sin(13 * u2); };   // the bow dips first
+      g.userData.update(0); }
     return g;
   },
 
