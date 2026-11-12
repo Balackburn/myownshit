@@ -1403,3 +1403,32 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   illisible sans la voiture) ; (2) les numéros de place sont retournés seulement dans les plans filmés depuis l'allée (7, 9, 17),
   ceux des plans 20 à 22 se lisaient déjà ; (3) je n'efface pas les 2,8 Go de sorties de l'ancienne réplique de la tornade
   (hyperframes/01-tornado-reverse) : c'est le travail d'une tâche plus ancienne ; il reste 4,9 Go libres.
+
+### 12 novembre (nuit) — cycle 10 : outils, histoire 48 ; 46 passe 3 ; 47 en première revue
+
+- **Analyse du cycle 10** (revues de 44 à 47) : (1) poses raides et symétriques entre les gags ; (2) personnages secondaires figés
+  pendant le gag ; (3) gags masqués par un autre personnage ou une caméra mal placée ; (4) mouvements rapides sans traînée (les bras
+  guidés n'en ont jamais) ; (5) textes et traits trop fins au format téléphone.
+- **Outils** : l'audit de `st.write()` signale un personnage debout devant le héros (boîtes projetées ; il retrouve l'agent qui couvrait
+  81 % du ballon de 45) ; `react()` donne les clés de réaction d'un passant (sursaut, grimace) ; `idleShift` 1,6 pour un vrai
+  contrapposto ; `lint_comments.py` repère aussi les arguments nommés avalés par un commentaire.
+- **46 « Le radar », revue 2** : animation 6,0, direction artistique 6,0 (après 5,5 / 5,5). Passe 3 : le climax filmé de profil (il
+  court penché vers le mur du fond, les rouleaux s'arrêtent net, il reste suspendu en pleine foulée, les yeux sortis vers nous, puis
+  part tout droit dans le sens de sa course, raide, bras levés, s'écrase à plat contre le mur trois images, passe au travers : un trou à
+  sa forme avec du jour dedans et un bord de briques, des briques qui tombent vers nous ; gros plan du mécanicien qui tamponne REFUSÉ et
+  tient la feuille sous sa main) ; double prise de face au plan 4 ; semelle de profil contre le mur clair au plan 5 ; volant à largeur
+  d'épaules, le corps qui penche ; secousses calées sur la mèche ; pont sous les aisselles et caméra fixe (il sort par le haut, les
+  jambes qui se balancent) ; pouce à bout de bras ; abandon qui se dégonfle ; gobelet à emporter levé vers l'objectif ; les voyageurs
+  montent par la porte arrière ; une respiration et un clignement à la fin ; bleu de travail pour le mécanicien ; plus de nuages.
+  Brouillon 3 en rendu.
+- **47 « L'aimant »** : brouillon 1 rendu (aucune image noire), revue 1 en cours.
+- **48 « Le code-barres »** (cycle 10) : il s'endort au supermarché, un employé lui colle une étiquette, il bipe au portique, « un
+  homme : deux euros quarante-neuf », le gérant le scanne : en stock ; promotion moins cinquante pour cent (il rétrécit de moitié),
+  sous vide, acheté, rapporté (défaut de fabrication), rappelé par le fabricant : il retourne chez sa mère, qui demande le
+  remboursement. Narration (13 répliques, 25,6 s), accessoires (pistolet à étiquettes, étiquette code-barres, portique antivol, écran
+  client, pastille, sac sous vide, comptoir des retours, rayon laser), supermarché en français (option `fr` : l'ancien décor avait des
+  panneaux en anglais), 14 plans ; premier regard corrigé (pastille qui cachait son visage, la dame qui masquait tout aux plans 10 à 12).
+- **Décisions prises sans question** : (1) au plan 13 de 46, il part vers le mur dans le sens de sa course (il courait vers nous et
+  repartait en arrière) ; (2) la caméra du pont du plan 9 reste fixe et le laisse sortir par le haut, comme le proposait le relecteur ;
+  (3) l'histoire 48 garde le schéma de la série (un homme, une institution qui prend l'étiquette au pied de la lettre, l'escalade, la
+  chute chez sa mère, la réplique sèche) ; la satire vise la logique du magasin, personne d'autre.

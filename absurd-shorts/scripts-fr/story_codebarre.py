@@ -57,7 +57,7 @@ st.cue('clack', 'S02', CL2, 0.45)
 D3 = st.dur('S03'); BIP3 = round(st.at('S03', 'L03', 5) - 0.03, 3)
 GATE = [2.2, 0, 2.0]
 st.shot('S03', 'supermarket', setOpts=SM, actors=[
-        act('mec', [GATE[0], 0, 0.3], 0, 'walk', 'neutral', keys=[k(0.0, look=None), k(0.0, to=[GATE[0], 0, round(GATE[2] + 0.1, 3)], dur=BIP3, clip='walk', then='stand', ease='linear', face=0),
+        act('mec', [GATE[0], 0, 0.3], 0, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.0, to=[GATE[0], 0, round(GATE[2] + 0.1, 3)], dur=BIP3, clip='walk', then='stand', ease='linear', face=0),
             k(BIP3, toon={'sq': [0.92, 1.1, 0.92], 'hairUp': 1, 'face': {'pop': 0.75, 'popLen': 0.32, 'brow': 1, 'jaw': 0.3}, 'bend': {'legR': [-0.7, 0, 0, 1, None], 'shinR': [0.9, 0, 0, 1, None]}}, toonDur=0.03, toonEase='out'),   # frozen in mid-stride
             k(round(BIP3 + 0.3, 3), toon={'sq': [0.94, 1.07, 0.94], 'hairUp': 0.8, 'face': {'pop': 0.7, 'popLen': 0.3, 'brow': 1}, 'bend': {'legR': [-0.7, 0, 0, 1, None], 'shinR': [0.9, 0, 0, 1, None]}}, toonDur=0.05)]),
         act('caissiere', [4.45, 0, -0.2], -90, 'stand', 'neutral', keys=[k(0.0, look=[GATE[0], 1.8, GATE[2]]), *react(BIP3, 0.8, look=[GATE[0], 1.8, GATE[2]])])],

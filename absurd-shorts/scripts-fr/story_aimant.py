@@ -137,7 +137,7 @@ D8 = st.dur('S08'); Z8 = (9.4, 14.6); X8 = round(PX + 0.95, 3); LUI8 = round(st.
 ROW8 = [('rando', [round(PX - 0.45, 3), 0, 11.0], -95), ('mamie', [round(PX - 0.45, 3), 0, 12.3], -90), ('touriste', [round(PX - 0.45, 3), 0, 13.6], -85)]   # (first look) a row facing the road and us (from behind them their compasses were hidden)
 ZAT8 = lambda t: round(Z8[0] + (Z8[1] - Z8[0]) * t / D8, 3)
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', [X8, 0, Z8[0]], 0, 'walk', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[X8, 0, Z8[1]], dur=D8, clip='walk', then='walk', ease='linear', face=0)]),   # he walks along behind them, taller than them
+        act('mec', [X8, 0, Z8[0]], 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[X8, 0, Z8[1]], dur=D8, clip='walk', then='walk', ease='linear', face=0)]),   # he walks along behind them, taller than them
         *[act(n, p, ry, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [round(p[0] + 0.3 * math.sin(math.radians(ry)), 3), 1.4, round(p[2] + 0.3 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}}, toonDur=0.0),
                                                  k(LUI8, look=[X8, 2.0, ZAT8(LUI8 + 0.1)]), k(LUI8, toon={'reach': {'R': [round(p[0] + 0.3 * math.sin(math.radians(ry)), 3), 1.4, round(p[2] + 0.3 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.08)]) for n, p, ry in ROW8]],   # « lui »: the heads turn back to him
         props=[*STUCK(), P('backpack8', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}),
