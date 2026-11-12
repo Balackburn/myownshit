@@ -21,6 +21,8 @@
 //         them up toward the nose ([0, 9, 2]), a spin flings them out. It adds to the scene wind
 //   reach: { L | R: [x, y, z, w, tip] }   a hand guided to a point of the world (two-bone IK; the arm stretches when the point is too far; tip (m): the
 //                                          fingertips reach it, that far beyond the wrist)
+//   hose: 0..0.35   (cycle 9) a guided arm keeps a bend at the elbow however far it reaches: it grows that much longer than the distance (0.15: a rubber
+//                   hose with an elbow; at 0 a far reach is a straight rod, the reviewers' "five reaches, the same rod")
 //   touch: { L | R: [joint, x, y, z, w, tip] }   the same, to a point given in the frame of one of his own joints ('torso', 'head'...: the joint's own units, a
 //         scaled head counts in unscaled metres), or on his face: ['face', across (-0.5..0.5, + = his left), up (0 = chin .. 1 = top of the skull; under the
 //         nose: 0.31, the mouth: 0.23, an eye: 0.62), metres in front of the face, w, tip]. The hand follows the head wherever the spine and the neck take it
@@ -235,7 +237,7 @@ export function toonUpgrade(obj) {
   // rotation the clip gives it. Call order: the spine and the neck are bent first (the shoulder rides on them)
   const _S = new THREE.Vector3(), _T = new THREE.Vector3(), _u = new THREE.Vector3(), _p = new THREE.Vector3(), _n = new THREE.Vector3(), _qv = new THREE.Vector3(), _ad = new THREE.Vector3(), _fd = new THREE.Vector3(),
     _X = new THREE.Vector3(), _Yv = new THREE.Vector3(), _Z = new THREE.Vector3(), _M = new THREE.Matrix4(), _Q = new THREE.Quaternion();
-  function solveReach(reach, b) {
+  function solveReach(reach, b, hose = 0) {
     const out = { ...b };
     for (const s of ['L', 'R']) {
       const r = reach[s], Sj = J['shoulder' + s], Ej = J['elbow' + s], pa = parts['arm' + s], pf = parts['fore' + s]; if (!r || !Sj || !Ej || !pa || !pf) continue;
@@ -245,7 +247,7 @@ export function toonUpgrade(obj) {
       // r[4] (tip, m): the point is reached by the fingertips, not by the wrist: the forearm and the hand are one straight bone, that much longer
       const tip = r[4] || 0; let s1 = ba[3] ?? 1, s2 = bf[3] ?? 1;
       const d = Math.max(1e-4, _T.distanceTo(_S)), e = (d - tip) / (L1 * s1 + L2 * s2);
-      if (e > 1) { s1 *= e * 1.001; s2 *= e * 1.001; }
+      const need = e * (1 + hose); if (need > 1) { s1 *= need * 1.001; s2 *= need * 1.001; }   // (cycle 9) hose: longer than needed, so the elbow stays bent
       const a = L1 * s1, c = L2 * s2 + tip, cosA = Math.max(-1, Math.min(1, (a * a + d * d - c * c) / (2 * a * d))), sinA = Math.sqrt(1 - cosA * cosA);
       _u.copy(_T).sub(_S).divideScalar(d); if (r[5]) _p.set(r[5][0], r[5][1], r[5][2]).normalize(); else _p.set((s === 'L' ? 1 : -1) * 0.45, -1, -0.55).normalize();   // r[5]: where the elbow goes (a direction in the frame of the chest); default: low, a little out and back
       _n.crossVectors(_u, _p); if (_n.lengthSq() < 1e-6) _n.set(1, 0, 0); _n.normalize(); _qv.crossVectors(_n, _u).normalize();
@@ -272,7 +274,7 @@ export function toonUpgrade(obj) {
           if (q[0] === 'face') { if (!hm || !dim) continue; hm.updateWorldMatrix(true, false); _T.set(dim.cx + q[1] * dim.hw, dim.y0 + q[2] * dim.hh, dim.z1 + q[3] / (hm.getWorldScale(_X).z || 1)); hm.localToWorld(_T); }   // on the face: across (-0.5..0.5), up from the chin (0..1), metres in front
           else { const j = J[q[0]]; if (!j) continue; j.updateWorldMatrix(true, false); _T.set(q[1], q[2], q[3]); j.localToWorld(_T); }
           rc[sd] = [_T.x, _T.y, _T.z, q[4] ?? 1, q[5] || 0, q[6] || null]; } }
-        b = solveReach(rc, b); first = 2;
+        b = solveReach(rc, b, tp.hose || 0); first = 2;
       }
       for (let i = first; i < ORDER.length; i++) parts[ORDER[i]]?.apply(b[ORDER[i]] || null, wv[ORDER[i]]);
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
@@ -299,6 +301,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
     out.wave[k] = [L(x ? x[0] || 0 : 0, y ? y[0] || 0 : 0), L(p[1] ?? 1, q[1] ?? 1), L(p[2] || 0, q[2] || 0), (w < 0.5 ? p : q)[3] || 0, L(p[4] || 0, q[4] || 0)]; } }
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);
+  if (a.hose || b.hose) out.hose = L(a.hose || 0, b.hose || 0);   // (cycle 9) the bend kept in a far reach
   if (a.knot || b.knot) out.knot = w < 0.5 ? (a.knot || b.knot) : (b.knot || a.knot);   // (cycle 7) the colour of his tie knot (a colour switches half-way between two keys)   // hair left on end (engine/cloth.js)
   if (a.tie || b.tie) { const x = a.tie || TIE0, y = b.tie || TIE0; out.tie = [L(x[0] ?? 1, y[0] ?? 1), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0)]; }   // the tie taken in a hand: [length, forward, aside] (engine/cloth.js)
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
@@ -327,6 +330,7 @@ export function addToon(a = {}, b = {}) {
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
   if (b.touch) out.touch = { ...(a.touch || {}), ...b.touch };
   if (b.hairUp) out.hairUp = (a.hairUp || 0) + b.hairUp;
+  if (b.hose) out.hose = (a.hose || 0) + b.hose;
   if (b.wind) { const x = a.wind || ZERO; out.wind = [x[0] + b.wind[0], x[1] + b.wind[1], x[2] + b.wind[2]]; }
   if (b.hat) { const x = a.hat || [0, 0, 0]; out.hat = [x[0] + b.hat[0], x[1] + b.hat[1], x[2] + b.hat[2]]; }
   return out;

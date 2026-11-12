@@ -35,8 +35,8 @@ export const FOURRIERE_PROPS = {
   // (cycle 8, pass 3 of story 45) the lids are curved caps seated inside the rims, closing on a dark curved lash line (shut: a lash arc along the bottom of
   // the rim; flat boards over the eyes read as tape); the wipers flail and reach as two-segment arms with an elbow and a rubber blade at the tip that
   // flaps (a straight rod read as a cable), with shake strokes at the tips while they strain; a honk gathers first (a 20 % squash, eyes squeezed, from
-  // 0.1 s before its time), then stretches and hops clear (o.honkHop, 0.3 m), lands with a bounce; the rings leave the grille below the eyes, rise and
-  // grow as they go (o.ringUp, 0.45 m)
+  // 0.1 s before its time), then stretches and hops clear (o.honkHop, 0.3 m), lands with a bounce; the rings leave the grille below the eyes, small near
+  // the face and growing as they go (o.ringUp: a rise, default 0)
   carToon(o) {
     const C = o.color || '#6CC4A4', L = 3.5, Wd = 1.62, g = grp(), body = grp(); g.add(body);
     const DARK = '#3E434C', GLASS = o.glassColor || '#BFE3EE';
@@ -61,15 +61,16 @@ export const FOURRIERE_PROPS = {
       for (let j = 0; j <= LIDN; j++) { const u = -LR + 2 * LR * j / LIDN, top = Math.sqrt(Math.max(0, LR * LR - u * u)), edge = v0 - b * (1 - (u / LR) ** 2);
         const lo = Math.min(top, Math.max(edge, -top)); P1.setXYZ(2 * j, u, lo, 0); P1.setXYZ(2 * j + 1, u, top, 0);
         const lt = Math.min(top, Math.max(edge, -top + w)), on = k > 0.02 && edge < top; P2.setXYZ(2 * j, u, on ? Math.max(-top, lt - w) : top, 0); P2.setXYZ(2 * j + 1, u, on ? lt : top, 0); }
-      P1.needsUpdate = P2.needsUpdate = true; E.lid.geometry.computeBoundingSphere(); };
+      P1.needsUpdate = P2.needsUpdate = true; E.lid.geometry.computeBoundingSphere(); E.lash.geometry.computeBoundingSphere(); };
     for (const sz of [-1, 1]) {
       const e = grp(); e.position.set(L / 2 + 0.005, 0.76, sz * 0.48); body.add(e);
       e.add(at(cyl(0.15, 0.15, 0.04, '#FFFBEA', 16, { emissive: '#FFF3C4', noGrain: true }), 0.02, 0, 0, 0, 0, PI / 2));
       e.add(at(torus(0.15, 0.018, DARK, 6, 20), 0.035, 0, 0, 0, PI / 2, 0));
       const pup = at(cyl(0.062, 0.062, 0.02, '#1B1B1E', 12), 0.05, 0, 0, 0, 0, PI / 2); pup.visible = o.eyes !== false; e.add(pup);
       const lid = new THREE.Mesh(new THREE.BufferGeometry(), lidMat), lash = new THREE.Mesh(new THREE.BufferGeometry(), lashMat);
-      lid.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array((LIDN + 1) * 6), 3)); lid.geometry.setIndex(lidIdx);
-      lash.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array((LIDN + 1) * 6), 3)); lash.geometry.setIndex(lidIdx);
+      const nrm = () => { const a = new Float32Array((LIDN + 1) * 6); for (let i = 2; i < a.length; i += 3) a[i] = 1; return new THREE.BufferAttribute(a, 3); };   // (normals: a lit material without them gave NaN, and the bloom spread it over the whole frame: black)
+      lid.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array((LIDN + 1) * 6), 3)); lid.geometry.setAttribute('normal', nrm()); lid.geometry.setIndex(lidIdx);
+      lash.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array((LIDN + 1) * 6), 3)); lash.geometry.setAttribute('normal', nrm()); lash.geometry.setIndex(lidIdx);
       lid.frustumCulled = lash.frustumCulled = false; lash.position.z = 0.002;
       const lidG = grp(); lidG.add(lid, lash); lidG.position.set(0.066, 0, 0); lidG.rotation.set(0, PI / 2, 0); e.add(lidG);   // (pass 3) a cap inside the rim, in front of the pupil
       eyes.push({ sz, pup, lid, lash, lidG });
@@ -150,7 +151,7 @@ export const FOURRIERE_PROPS = {
       // honk rings
       let ri = 0; for (const r of rings) r.visible = false;
       for (const [h0, hd] of honks) for (let e = h0; e < h0 + Math.max(0.12, hd); e += 0.12) { const u = (t - e) / 0.42; if (u < 0 || u >= 1 || ri >= rings.length) continue;
-        const r = rings[ri++]; r.visible = true; r.position.set(L / 2 + 0.15 + 1.3 * u, 0.48 + hop + (o.ringUp ?? 0.45) * u, 0); r.scale.setScalar(0.16 + 0.6 * u); r.material.opacity = 0.85 * (1 - u); }   // (pass 3) from the grille, under the eyes, rising
+        const r = rings[ri++]; r.visible = true; r.position.set(L / 2 + 0.15 + 1.4 * u, 0.45 + hop + (o.ringUp ?? 0.0) * u, 0); r.scale.setScalar(0.1 + 0.55 * u * u); r.material.opacity = 0.85 * (1 - u); }   // (pass 3) from the grille, under the eyes: small near the face, growing as they leave
     };
     g.userData.update(0);
     g.userData.front = [L / 2, 0.76, 0]; g.userData.roof = [cx, cy0 + ch, 0]; g.userData.wiper = [wsFootX, cy0 + 0.1, 0.25];

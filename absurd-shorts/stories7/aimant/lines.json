@@ -1,0 +1,109 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a avalé un aimant.",
+  "hl": [
+   "avalé",
+   "aimant."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Depuis, tout le métal lui saute dessus.",
+  "hl": [
+   "métal",
+   "saute"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Les fourchettes. Les clés. La poêle.",
+  "hl": [
+   "fourchettes.",
+   "clés.",
+   "poêle."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Même les lampadaires se penchent quand il passe.",
+  "hl": [
+   "lampadaires",
+   "penchent"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Et les boussoles ne montrent plus le nord.",
+  "hl": [
+   "boussoles",
+   "nord."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Elles le montrent, lui.",
+  "hl": [
+   "lui."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Randonneurs, bateaux, avions : tout le monde arrive chez lui.",
+  "hl": [
+   "randonneurs,",
+   "avions",
+   "chez",
+   "lui."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les cartographes ont tranché.",
+  "hl": [
+   "cartographes"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le nord, désormais, c'est lui.",
+  "hl": [
+   "nord,",
+   "lui."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "On a redessiné toutes les cartes.",
+  "hl": [
+   "cartes."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Il habite au pôle Nord.",
+  "hl": [
+   "pôle",
+   "Nord."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Troisième étage, sans ascenseur.",
+  "hl": [
+   "ascenseur."
+  ]
+ }
+]

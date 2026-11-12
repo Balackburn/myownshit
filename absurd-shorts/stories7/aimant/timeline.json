@@ -1,0 +1,544 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a avalé un aimant.",
+   "hl": [
+    "avalé",
+    "aimant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.878,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.322
+    },
+    {
+     "w": "mec",
+     "s": 0.359,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.619,
+     "e": 0.767
+    },
+    {
+     "w": "avalé",
+     "s": 0.915,
+     "e": 1.137
+    },
+    {
+     "w": "un",
+     "s": 1.211,
+     "e": 1.285
+    },
+    {
+     "w": "aimant.",
+     "s": 1.396,
+     "e": 1.878
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Depuis, tout le métal lui saute dessus.",
+   "hl": [
+    "métal",
+    "saute"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L02.k.wav",
+   "file_start": 1.978,
+   "speech_start": 1.978,
+   "speech_end": 4.126,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 1.978,
+     "e": 2.57
+    },
+    {
+     "w": "tout",
+     "s": 2.644,
+     "e": 2.719
+    },
+    {
+     "w": "le",
+     "s": 2.756,
+     "e": 2.793
+    },
+    {
+     "w": "métal",
+     "s": 2.83,
+     "e": 3.089
+    },
+    {
+     "w": "lui",
+     "s": 3.126,
+     "e": 3.311
+    },
+    {
+     "w": "saute",
+     "s": 3.348,
+     "e": 3.533
+    },
+    {
+     "w": "dessus.",
+     "s": 3.644,
+     "e": 4.126
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les fourchettes. Les clés. La poêle.",
+   "hl": [
+    "fourchettes.",
+    "clés.",
+    "poêle."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L03.k.wav",
+   "file_start": 4.226,
+   "speech_start": 4.226,
+   "speech_end": 6.819,
+   "words": [
+    {
+     "w": "Les",
+     "s": 4.226,
+     "e": 4.374
+    },
+    {
+     "w": "fourchettes.",
+     "s": 4.485,
+     "e": 5.238
+    },
+    {
+     "w": "Les",
+     "s": 5.288,
+     "e": 5.337
+    },
+    {
+     "w": "clés.",
+     "s": 5.411,
+     "e": 5.979
+    },
+    {
+     "w": "La",
+     "s": 6.029,
+     "e": 6.078
+    },
+    {
+     "w": "poêle.",
+     "s": 6.152,
+     "e": 6.819
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Même les lampadaires se penchent quand il passe.",
+   "hl": [
+    "lampadaires",
+    "penchent"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L04.k.wav",
+   "file_start": 6.919,
+   "speech_start": 6.919,
+   "speech_end": 9.067,
+   "words": [
+    {
+     "w": "Même",
+     "s": 6.919,
+     "e": 7.067
+    },
+    {
+     "w": "les",
+     "s": 7.141,
+     "e": 7.215
+    },
+    {
+     "w": "lampadaires",
+     "s": 7.326,
+     "e": 7.733
+    },
+    {
+     "w": "se",
+     "s": 7.807,
+     "e": 7.881
+    },
+    {
+     "w": "penchent",
+     "s": 7.956,
+     "e": 8.129
+    },
+    {
+     "w": "quand",
+     "s": 8.153,
+     "e": 8.252
+    },
+    {
+     "w": "il",
+     "s": 8.326,
+     "e": 8.4
+    },
+    {
+     "w": "passe.",
+     "s": 8.474,
+     "e": 9.067
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Et les boussoles ne montrent plus le nord.",
+   "hl": [
+    "boussoles",
+    "nord."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L05.k.wav",
+   "file_start": 9.167,
+   "speech_start": 9.167,
+   "speech_end": 11.093,
+   "words": [
+    {
+     "w": "Et",
+     "s": 9.167,
+     "e": 9.204
+    },
+    {
+     "w": "les",
+     "s": 9.241,
+     "e": 9.389
+    },
+    {
+     "w": "boussoles",
+     "s": 9.438,
+     "e": 9.759
+    },
+    {
+     "w": "ne",
+     "s": 9.796,
+     "e": 9.833
+    },
+    {
+     "w": "montrent",
+     "s": 9.907,
+     "e": 10.204
+    },
+    {
+     "w": "plus",
+     "s": 10.278,
+     "e": 10.352
+    },
+    {
+     "w": "le",
+     "s": 10.389,
+     "e": 10.426
+    },
+    {
+     "w": "nord.",
+     "s": 10.5,
+     "e": 11.093
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Elles le montrent, lui.",
+   "hl": [
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L06.k.wav",
+   "file_start": 11.193,
+   "speech_start": 11.193,
+   "speech_end": 12.674,
+   "words": [
+    {
+     "w": "Elles",
+     "s": 11.193,
+     "e": 11.341
+    },
+    {
+     "w": "le",
+     "s": 11.378,
+     "e": 11.415
+    },
+    {
+     "w": "montrent,",
+     "s": 11.489,
+     "e": 12.044
+    },
+    {
+     "w": "lui.",
+     "s": 12.081,
+     "e": 12.674
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Randonneurs, bateaux, avions : tout le monde arrive chez lui.",
+   "hl": [
+    "randonneurs,",
+    "avions",
+    "chez",
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L07.k.wav",
+   "file_start": 12.774,
+   "speech_start": 12.774,
+   "speech_end": 16.107,
+   "words": [
+    {
+     "w": "Randonneurs,",
+     "s": 12.774,
+     "e": 13.589
+    },
+    {
+     "w": "bateaux,",
+     "s": 13.737,
+     "e": 14.256
+    },
+    {
+     "w": "avions:",
+     "s": 14.367,
+     "e": 14.947
+    },
+    {
+     "w": "tout",
+     "s": 14.971,
+     "e": 14.996
+    },
+    {
+     "w": "le",
+     "s": 15.033,
+     "e": 15.07
+    },
+    {
+     "w": "monde",
+     "s": 15.144,
+     "e": 15.293
+    },
+    {
+     "w": "arrive",
+     "s": 15.367,
+     "e": 15.515
+    },
+    {
+     "w": "chez",
+     "s": 15.589,
+     "e": 15.663
+    },
+    {
+     "w": "lui.",
+     "s": 15.737,
+     "e": 16.107
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les cartographes ont tranché.",
+   "hl": [
+    "cartographes"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L08.k.wav",
+   "file_start": 16.207,
+   "speech_start": 16.207,
+   "speech_end": 17.615,
+   "words": [
+    {
+     "w": "Les",
+     "s": 16.207,
+     "e": 16.356
+    },
+    {
+     "w": "cartographes",
+     "s": 16.467,
+     "e": 16.874
+    },
+    {
+     "w": "ont",
+     "s": 16.911,
+     "e": 16.948
+    },
+    {
+     "w": "tranché.",
+     "s": 16.985,
+     "e": 17.615
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le nord, désormais, c'est lui.",
+   "hl": [
+    "nord,",
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L09.k.wav",
+   "file_start": 17.715,
+   "speech_start": 17.715,
+   "speech_end": 19.715,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.715,
+     "e": 17.789
+    },
+    {
+     "w": "nord,",
+     "s": 17.863,
+     "e": 18.307
+    },
+    {
+     "w": "désormais,",
+     "s": 18.344,
+     "e": 19.048
+    },
+    {
+     "w": "c'est",
+     "s": 19.097,
+     "e": 19.196
+    },
+    {
+     "w": "lui.",
+     "s": 19.233,
+     "e": 19.715
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "On a redessiné toutes les cartes.",
+   "hl": [
+    "cartes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L10.k.wav",
+   "file_start": 19.815,
+   "speech_start": 19.815,
+   "speech_end": 21.519,
+   "words": [
+    {
+     "w": "On",
+     "s": 19.815,
+     "e": 19.889
+    },
+    {
+     "w": "a",
+     "s": 19.926,
+     "e": 19.963
+    },
+    {
+     "w": "redessiné",
+     "s": 20.037,
+     "e": 20.556
+    },
+    {
+     "w": "toutes",
+     "s": 20.605,
+     "e": 20.704
+    },
+    {
+     "w": "les",
+     "s": 20.778,
+     "e": 20.852
+    },
+    {
+     "w": "cartes.",
+     "s": 21.0,
+     "e": 21.519
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il habite au pôle Nord.",
+   "hl": [
+    "pôle",
+    "Nord."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L11.k.wav",
+   "file_start": 21.619,
+   "speech_start": 21.619,
+   "speech_end": 22.804,
+   "words": [
+    {
+     "w": "Il",
+     "s": 21.619,
+     "e": 21.693
+    },
+    {
+     "w": "habite",
+     "s": 21.767,
+     "e": 21.989
+    },
+    {
+     "w": "au",
+     "s": 22.026,
+     "e": 22.063
+    },
+    {
+     "w": "pôle",
+     "s": 22.112,
+     "e": 22.211
+    },
+    {
+     "w": "Nord.",
+     "s": 22.248,
+     "e": 22.804
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Troisième étage, sans ascenseur.",
+   "hl": [
+    "ascenseur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/aimant/tts/L12.k.wav",
+   "file_start": 22.904,
+   "speech_start": 22.904,
+   "speech_end": 24.83,
+   "words": [
+    {
+     "w": "Troisième",
+     "s": 22.904,
+     "e": 23.237
+    },
+    {
+     "w": "étage,",
+     "s": 23.274,
+     "e": 23.867
+    },
+    {
+     "w": "sans",
+     "s": 23.978,
+     "e": 24.089
+    },
+    {
+     "w": "ascenseur.",
+     "s": 24.163,
+     "e": 24.83
+    }
+   ]
+  }
+ ],
+ "total": 25.67
+}

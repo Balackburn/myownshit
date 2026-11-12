@@ -104,6 +104,24 @@ def fitBack(frm, points, step=0.25, most=14.0, level=True, inside=None, **kw):
     return frm, None, None
 
 
+def beat(t0, extreme, antic=None, hold=0.3, over=None, settle=None, shiver=0.04, fps=FPS):
+    """(cycle 9) The timing of a cartoon key pose in one call, as a list of keys for an actor (the reviews kept finding extremes that came and went
+    in two frames: no anticipation, no hold, no settle). t0: when the extreme hits (the contact, the sound); extreme: the toon state, snapped to in one
+    frame; antic: the state two frames before (default: the extreme's squash turned the other way, 12 %); hold (s, >= 0.2 = six frames): held,
+    shivering every two frames by `shiver` on the squash; over: the overshoot past rest (default: a small opposite squash), three frames; settle: the
+    rest state (default: no toon), three frames after. Merge the result into the actor's keys: keys=[..., *beat(SN8, JUMP)]."""
+    sq = extreme.get('sq', [1, 1, 1]); inv = [round(1 + (1 - v) * 0.6, 3) for v in sq]
+    antic = antic if antic is not None else {'sq': [round(1 + (1 - v) * 1.0, 3) if v != 1 else 1 for v in sq] if 'sq' in extreme else [1.08, 0.88, 1.08]}
+    over = over if over is not None else {'sq': inv if 'sq' in extreme else [1.06, 0.94, 1.06]}
+    f = 1.0 / fps; ks = [k(round(t0 - 2 * f, 3), toon=antic, toonDur=round(1.5 * f, 3)), k(round(t0, 3), toon=extreme, toonDur=round(f, 3), toonEase='out')]
+    n = max(0, int(hold / (2 * f)) - 1)
+    for i in range(n):
+        q = dict(extreme); s_ = 1 + (shiver if i % 2 == 0 else -shiver) * 0.5; q['sq'] = [round(sq[0] / math.sqrt(s_), 3), round(sq[1] * s_, 3), round(sq[2] / math.sqrt(s_), 3)]
+        ks.append(k(round(t0 + 2 * f * (i + 1), 3), toon=q, toonDur=round(f, 3)))
+    ks += [k(round(t0 + hold, 3), toon=over, toonDur=round(3 * f, 3), toonEase='in'), k(round(t0 + hold + 4 * f, 3), toon=settle or {}, toonDur=round(3 * f, 3))]
+    return ks
+
+
 def bands(frm, look, lens, points, card=False, aspect=9 / 16):
     """(cycle 7) Which of `points` (dict name -> [x, y, z]) fall outside the frame, in the caption band (0.77-0.83 of the height) or, with card=True,
     in the band of a one-line title card (0.07-0.18): a list of (name, 'out' | 'captions' | 'card', (x, y)). Call it on what must be read: a face, a

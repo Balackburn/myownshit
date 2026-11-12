@@ -103,6 +103,8 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[],
 #    stretches, his feet stay on the road; then they let go and he goes up, limp as a noodle
 D4 = st.dur('S04'); AR4, CT4 = 0.18, 0.18; SS4 = round(CT4 + 0.04, 3); PK4, PP4 = 0.47, 0.64   # (pass 3) stretch over 7-8 frames, hold 5 with a tremble, pop
 HX4 = 2.0; HKX4 = round(HX4 + 0.12, 3)                              # the hook behind his neck (he walks to -X)
+LEGM = 0.956                                                        # metres of leg (thigh + shin) per unit of stretch: a leg stretch grows down from the hip, so the root must go up by this much (else the feet sink under the road)
+UP4 = lambda s_=1.0: round(LEGM * 0.8 * s_, 3)                      # the root's height while the legs are stretched 1 + 0.8 s
 RISE4 = 1.11                                                        # how far his collar goes up at the full stretch (legs x1.8, spine x1.5)
 LIFT4 = RISE4                                                       # after the pop he hangs at rest length from the hook: his feet that high
 STR4 = lambda s_=1.0: {'bend': {'legL': [0, 0, 0, 1 + 0.8 * s_, 1 - 0.3 * s_], 'legR': [0, 0, 0, 1 + 0.8 * s_, 1 - 0.3 * s_], 'shinL': [0, 0, 0, 1 + 0.8 * s_, 1 - 0.3 * s_], 'shinR': [0, 0, 0, 1 + 0.8 * s_, 1 - 0.3 * s_],
@@ -112,8 +114,8 @@ HOOKY4 = lambda s_: round(2.05 + RISE4 * s_, 3)                      # the hook 
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [2.85, 0, HZ4], -90, 'stand', 'neutral', keys=[k(0.0, look=[0.6, 1.4, 0.3]), k(0.0, to=[HX4, 0, HZ4], dur=AR4, clip='walk', then='stand', ease='out'),
             k(CT4, toon={'sq': [1.08, 0.92, 1.08], 'face': {'brow': 1, 'eye': 0.5}}, toonDur=0.03), k(CT4, expr='surprised'),
-            k(SS4, toon=STR4(), toonDur=round(PK4 - SS4, 3), toonEase='out'),                                                          # his feet stay on the road: he stretches
-            *[k(t, toon=STR4(1.05 if i % 2 == 0 else 1.0), toonDur=0.03) for i, t in enumerate(TRM4)],                                 # held, shivering
+            k(SS4, toon=STR4(), toonDur=round(PK4 - SS4, 3), toonEase='out'), k(SS4, to=[HX4, UP4(), HZ4], dur=round(PK4 - SS4, 3), glide=True, ease='out', face=-90),   # his feet stay on the road: he stretches (the root rises with the legs)
+            *[x for i, t in enumerate(TRM4) for x in (k(t, toon=STR4(1.05 if i % 2 == 0 else 1.0), toonDur=0.03), k(t, to=[HX4, UP4(1.05 if i % 2 == 0 else 1.0), HZ4], dur=0.03, glide=True, face=-90))],   # held, shivering
             k(PP4, to=[HX4, LIFT4, HZ4], dur=0.05, clip='noodle', then='noodle', glide=True, ease='out', face=-90),                     # the feet let go: he snaps up
             k(PP4, toon={'sq': [0.7, 1.45, 0.7], 'face': {'pop': 0.4}}, toonDur=0.0), k(round(PP4 + 0.067, 3), toon={'sq': [1.1, 0.92, 1.1], 'face': {'brow': 0.5}}, toonDur=0.05),
             k(round(PP4 + 0.13, 3), toon={'wave': {'armL': [0.06, 1.0, 0.0, 1], 'armR': [0.06, 1.0, 0.5, 1], 'legL': [0.05, 1.0, 0.25, 1], 'legR': [0.05, 1.0, 0.75, 1]}}, toonDur=0.06),   # limp, rippling
@@ -123,7 +125,7 @@ st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
                  k(SS4, to=[HKX4, HOOKY4(1.0), HZ4], dur=round(PK4 - SS4, 3), ease='out'),
                  *[k(t, to=[HKX4, HOOKY4(1.05 if i % 2 == 0 else 1.0), HZ4], dur=0.03) for i, t in enumerate(TRM4)],
                  k(PP4, to=[HKX4, round(HOOKY4(1.0) + 0.07, 3), HZ4], dur=0.15, ease='out')])],
-        cams=[FC(0.0, [-2.4, 0.55, -4.6], [[2.85, 0.0, HZ4], [HKX4, round(HOOKY4(1.05) + 0.5, 3), HZ4], [HX4, 0.0, HZ4], [1.1, 0.3, -1.75], [HX4, 0.0, round(HZ4 - 0.4, 3)]], top=0.12, bottom=0.74, drift=(0.05, 0.03, 0))])   # (pass 3) low on the road: the whole stretch from the shoes (above the caption band) to the hook
+        cams=[FC(0.0, [-2.4, 0.55, -4.6], [[2.85, 0.0, HZ4], [HKX4, round(HOOKY4(1.05) + 0.5, 3), HZ4], [HX4, round(HOOKY4(1.0) + 0.75, 3), HZ4], [HX4, 0.0, HZ4], [1.1, 0.3, -1.75], [HX4, 0.0, round(HZ4 - 0.4, 3)]], top=0.1, bottom=0.74, drift=(0.05, 0.03, 0))])   # (pass 3) low on the road: the whole stretch from the shoes (above the caption band) to the hook
 st.cue('sfx:stepSoft', 'S04', 0.05, 0.2); st.cue('sfx:stepSoft', 'S04', 0.13, 0.2); st.cue('clang', 'S04', CT4, 0.3); st.cue('sfx:stretch', 'S04', SS4, 0.4); st.cue('pop', 'S04', PP4, 0.35)
 
 # 5: him. The truck drives off down the street; he dangles from the hook behind it, swinging, arms rippling
@@ -165,9 +167,9 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
         act('mec', HB, -30, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
             k(0.16, toon={'face': {'lid': 1}}, toonDur=0.04), k(0.22, toon={}, toonDur=0.05), k(0.34, toon={'face': {'gx': 0.6}}, toonDur=0.05), k(0.5, toon={}, toonDur=0.06),   # (pass 3) earlier: clear of the clack   # (pass 2) a blink, a glance: alive in the wait
             k(SN8, toon={'sq': [1.16, 0.84, 1.16], 'face': {'eye': 0.3, 'brow': 0.6}}, toonDur=0.02), k(SN8, expr='surprised'),             # (pass 3) clack: a 2-frame squash
-            k(round(SN8 + 0.067, 3), toon=JUMP8, toonDur=0.033, toonEase='out'),                                                              # snap to the extreme
+            k(round(SN8 + 0.067, 3), toon=JUMP8, toonDur=0.033, toonEase='out'), k(round(SN8 + 0.067, 3), to=[HB[0], round(LEGM * 0.45, 3), HB[2]], dur=0.033, glide=True, face=-30),   # snap to the extreme (the root up by the leg stretch: the clamped foot stays down)
             k(round(SN8 + 0.2, 3), toon={**JUMP8, 'sq': [0.88, 1.14, 0.88]}, toonDur=0.03), k(round(SN8 + 0.27, 3), toon=JUMP8, toonDur=0.03),   # held 9 frames, shivering
-            k(round(SN8 + 0.37, 3), toon={'sq': [1.12, 0.88, 1.12], 'face': {'brow': 0.8}}, toonDur=0.06, toonEase='in'),                     # down: an overshoot squash
+            k(round(SN8 + 0.37, 3), toon={'sq': [1.12, 0.88, 1.12], 'face': {'brow': 0.8}}, toonDur=0.06, toonEase='in'), k(round(SN8 + 0.37, 3), to=HB, dur=0.06, glide=True, ease='in', face=-30),   # down: an overshoot squash
             k(round(SN8 + 0.46, 3), toon={'sq': [0.98, 1.02, 0.98], 'face': {'brow': 0.7}}, toonDur=0.06), k(round(SN8 + 0.46, 3), look=[F12[0], 0.0, F12[2]]),
             k(round(SN8 + 0.55, 3), toon={'face': {'gy': 0.9, 'brow': 0.6}, 'settle': 0.5}, toonDur=0.1), k(round(SN8 + 0.55, 3), expr='worried')]),
         act('agent', AG8, -135, 'kneel', 'determined', keys=[k(0.0, look=[F12[0], 0.1, F12[2]]),
@@ -344,7 +346,7 @@ D20 = st.dur('S20'); DN20 = 0.45; CARZ = round(ZP, 3); CARX = 3.6; HANG = 2.42
 UR20 = -150                                                         # (pass 2) turned to us (from behind the gulp did not read)
 UNDER = ROOT(UR20, foot=[4.1, 0, round(ZP - 1.05, 3)])              # where he stands now: under the front half of the car-to-be
 _r20 = (math.cos(math.radians(UR20)), -math.sin(math.radians(UR20)))   # his left
-WAVE20 = lambda dx=0.0: [round(UNDER[0] - 0.4 * _r20[0] + dx, 3), 1.92, round(UNDER[2] - 0.4 * _r20[1], 3)]   # his right hand up beside his head
+WAVE20 = lambda dx=0.0: [round(UNDER[0] - 0.62 * _r20[0] + dx, 3), 1.68, round(UNDER[2] - 0.62 * _r20[1] + 0.12, 3)]   # his right hand out at his side, a little in front (pass 3: beside his head it read as a salute)
 st.shot('S20', 'parisStreet', setOpts=STREET, actors=[
         act('mec', UNDER, UR20, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.18, toon={'face': {'gy': -1, 'brow': 0.7}}, toonDur=0.08),
             k(0.42, look=[UNDER[0], 4.0, UNDER[2] - 0.4]), k(0.42, toon={'face': {'brow': 0.9, 'eye': 0.4, 'sweat': 1}}, toonDur=0.1), k(0.42, expr='worried'), k(0.42, fx={'sweat': 1, 'sweatSize': 3.0}),   # (pass 3) a big drop
