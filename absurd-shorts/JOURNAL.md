@@ -1294,3 +1294,39 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   devient un beige caramel (#B48650) : le narrateur dit « beige », le beige pâle disparaissait ; (3) histoire 45 : la place 13 de la
   fourrière reste vide (une voiture y masquait les plans bas de la fin).
 - **Pistes** : garder trois rendus au plus en même temps ; un outil qui signale une caméra à l'intérieur d'un accessoire.
+
+### Cycle 8 — outils (accessoires face caméra, alerte caméra dans un accessoire, jet qui jaillit, traits de choc, essuie-glaces qui visent, élingue à quatre brins, portes palières) ; revues : 44 = 6,0 / 6,8 ; 43 revue 2 = 7,2 / 7,4 ; 45 = 6,8 / 6,5
+
+- **Analyse (faiblesses relevées par les revues des trois histoires)** : (1) des accessoires qui ne suivent pas le corps (l'amende de 44 en l'air,
+  le pigeon à moitié dans le crâne et de face) ; (2) des personnages secondaires de profil ou de dos (on ne voit jamais leur visage) ; (3) des
+  gags qui durent deux ou trois images puis des poses figées ; (4) des chutes illisibles sur téléphone (la tête aplatie de 45 à l'envers, le
+  ticket minuscule) ; (5) des écarts techniques qui cassent un plan (la chute des grilles rejouée à chaque coupe, la salle de 43 brune
+  parce que l'exposition automatique était coupée, une frontière de couleur qui avance par bonds).
+- **Moteur** : `face: 'camera'` (un accessoire, attaché ou non, se tourne vers la caméra), alerte quand une caméra est à l'intérieur d'un
+  accessoire, `statueRock` sur l'axe x, `waterJet ramp` (le jet sort de la lance) et `splash`, `burstLines` (traits de choc autour d'un son ou
+  d'un flash), `carToon reach/reachTo/reachShort` (les essuie-glaces quittent la vitre et visent un point du monde, s'arrêtent avant),
+  paupières de la voiture logées dans les phares, `parkingMeter stickerW/H/Y/Bg/Wrap`, `craneHook slingD` (quatre brins vers les coins
+  d'un toit), `immeubleCoupe doorZ` (une porte palière par étage), `paintRoller` à manchon blanc (`sleeve`, `rollerR`, `rollerW`), accessoires
+  du radar (`speedCamera`, `speedDisplay`, `licensePlate`, `zoneSign`, `speedGauge`, `carLift`, `brakeRollers`, `burstWall`, `garageBay`,
+  `wheelChock`) enregistrés. Installés dans le moteur principal et le bac à sable ; les rendus en cours n'en dépendent pas.
+- **Histoire 44 « La statue », passe 2** (vérifiée sur 56 images) : grilles posées après S08, amende collée au front (elle suit le boing et la
+  grue), autocollant, amende et bande INCOMPLÈTE gardés jusqu'au rond-point, écharpe du préfet lisible, pigeon de profil sur le haut du
+  crâne, tête aplatie à moitié à l'atterrissage, ouvriers de trois quarts qui portent vraiment (mains sur les points du corps soulevé),
+  file de touristes dans l'axe et selfie de face, flash blanc et plan de coupe sur les pupilles, jet qui jaillit et gros plan aux yeux
+  ouverts, clignement qui lutte, policier de trois quarts au bras étiré par-dessus la grille, boing à 140 %, expert et préfet cadrés,
+  élingue longue sous les bras, bus entre la caméra et lui, yeux sur tiges qui le suivent, dernier pigeon en plan serré. Brouillon 2 lancé.
+- **Histoire 43 « La cravate », passe 3** (d'après la revue 2) : affiche construite dans le rig (carte de 15 %, X, glissade, décollement,
+  regonflement), course sur place penchée à 35° filmée de son côté droit (la laisse à côté de la tête), écrasement d'étage visible de face
+  (plus large, plus court, genoux en dehors, à-coups), regonflement avec dépassement et rebonds, paume ouverte du syndic et panneau SYNDIC
+  plus haut, voisins de trois quarts passant par des portes palières, langue de côté et notes blanches, trois secousses puis trois poses de
+  danse, yeux sur tiges plus courts devant la feuille et rentrés à 1,34 s, salle de réunion éclairée (exposition automatique rétablie,
+  plancher et chaises plus clairs), tapotement à côté des chiffres, virevoltant au sol après la carte, regard caméra tenu, enveloppe blanche
+  plus grande face caméra, mains de la facture sous le titre, beige mastic (#968B70) distinct de la peau.
+- **Histoire 45 « La fourrière », passe 2** (d'après la revue 1) : chute vue du capot (visage à l'endroit), ticket FRAIS DE GARDE tenu face
+  caméra, voiture sur deux roues et essuie-glaces qui visent le clavier, étirement du crochet allongé et tenu, plans recentrés, agent de la
+  fourrière en profil du côté ouvert, homme-ballon rond, élingue à quatre brins, panneau FOURRIÈRE dans le premier plan de la fourrière,
+  sabot au-dessus des sous-titres, six jours en accéléré.
+- **Décisions prises sans question** : (1) l'INCOMPLÈTE de 44 va sur sa poitrine plutôt que sur la grille (il part avec lui au rond-point) ;
+  (2) le selfie de 44 est vu depuis l'avant de la file plutôt que de côté ; (3) la chute de 45 change d'axe (au-dessus du capot) plutôt que de
+  retourner le personnage ; (4) l'horodateur de 45 recule de 0,65 m et pivote vers la rue dans tous les plans de rue (il était derrière la
+  voiture bleue).

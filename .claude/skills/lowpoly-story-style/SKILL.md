@@ -203,6 +203,19 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Garée sur lui | temps suspendu sous la voiture qui pend au-dessus de sa tête (il déglutit, petit salut) ; elle tombe en 0,1 s, rebondit sur ses ressorts, poussière, étoiles ; sa tête aplatie dépasse devant le pare-chocs, langue déroulée, filmée d'au-dessus (au ras du sol ce n'était qu'un trait) ; la baguette aplatie à côté | 45 S20-S21 |
 | Le bras jusqu'à l'horodateur | couché sous la voiture, son bras s'étire jusqu'à la fente de la borne, prend le ticket et le tient près de son visage plat ; la voiture le regarde, cligne et donne un tout petit coup de klaxon | 45 S22 |
 
+| La tête aplatie à moitié | le pigeon se pose : `scl head [1.55, 0.5, 1.55]` en 0,03 s, yeux exorbités (`eye 0.7`), tenu deux images, regonflé au-delà du rond (`[0.9, 1.16, 0.9]`), posé un peu plus plat ; la tête ne tourne pas, seuls les yeux montent (il ne doit pas bouger) | 44 S02 (passe 2) |
+| Soulevé comme une planche | deux ouvriers de trois quarts, accroupis, une main sous l'aisselle et une à la hanche (`reach` sur les points du corps soulevé, aux mêmes temps que son `to`) ; il monte raide en penchant (`lay [0, 0.26]`), tenu en tremblant pendant que le socle glisse dessous ; lâché : écrasement 1,16 / 0,82 ; le pigeon s'écrase et bat des ailes | 44 S07 (passe 2) |
+| La file pour le selfie | caméra dans l'axe de la file (elle s'enfonce dans le cadre, chacun de trois quarts) ; le premier tourne le dos à la statue, téléphone à bout de bras levé ; flash : `fx flash` + `burstLines` blancs au téléphone ; coupe immédiate sur ses pupilles en têtes d'épingle et ses larmes | 44 S09 (passe 2) |
+| Le jet aux yeux grands ouverts | le jet jaillit (`waterJet ramp 0.15`) ; gros plan : yeux écarquillés qui pleurent (`tears`, `pupilShake`), joues qui ondulent, cheveux et cravate soufflés dans l'axe du jet ; il ne cligne pas : c'est le plan suivant | 44 S10 (passe 2) |
+| Le clignement qui lutte | les paupières tremblent et résistent (cinq clés de `lid` entre 0,12 et 0,55 en 0,3 s), tombent lourdement (0,22 s, `in`) sur un clac, se rouvrent sur « oh non » | 44 S11 (passe 2) |
+| Le bras par-dessus la grille | l'agent, hors de la grille et de trois quarts, tend un bras étiré trois fois jusqu'au front et y colle l'amende, attachée à la tête : elle suit le boing et la grue | 44 S12 (passe 2) |
+| Le boing à 140 % | l'oiseau s'envole : tête `[0.8, 1.42, 0.8]` sur un cou étiré ×1,5, puis trois rebonds qui décroissent (0,8 / 1,18 / 0,93 / 1,04), l'amende battant sur le front | 44 S13 (passe 2) |
+| L'écharpe INCOMPLÈTE | un expert regarde le crâne vide à travers une loupe géante (×1,5) en secouant la tête ; l'autre colle en travers de la poitrine une bande INCOMPLÈTE (attachée au torse, `rot z -0.5`) comme une écharpe d'élu ; elle reste jusqu'au rond-point avec l'autocollant et l'amende : la pile de paperasse paie à la fin | 44 S14-S17 (passe 2) |
+| Les yeux sur tiges qui suivent le bus | caméra du trottoir : le bus passe entre nous et lui (on le devine à travers les vitres) ; avant, les yeux sortent vers lui (`pop`, `eyeYaw`), après, ils sont tournés vers où il file, cheveux et cravate couchés dans le sens du vent ; ils rentrent d'un coup ; plan serré : le dernier pigeon l'aplatit à 42 %, regard résigné vers le haut | 44 S17 (passe 2) |
+| L'affiche qui se décolle | une carte sur le mur (`sq z 0.15`) en X, tenue quatre images ; elle glisse (`to` vers le bas, `sq y 0.86`) ; le haut se décolle d'abord (`lay [0.22, 0]`), puis il se détache en se regonflant au-delà du rond (1,3 / 0,84) avec deux rebonds | 43 S02 (passe 3) |
+| L'écrasement étage par étage, vu de face | à chaque étage : 20 % plus large, plus court (il s'enfonce le long de la porte), genoux qui partent en dehors (`legL`/`legR` en `bz`, `shinL`/`shinR` en sens inverse) ; un à-coup dépassé de 0,03 s à chaque tic | 43 S03 (passe 3) |
+| La voiture sur deux roues | `carToon` basculée de 20° (roulis en `rotTo` et 0,3 m de remontée sur ses roues droites), essuie-glaces qui quittent la vitre et s'étirent vers le clavier de l'horodateur (`reach`, `reachTo`) et s'arrêtent à une main (`reachShort`), tremblants ; tenue neuf images, retombée avec rebond | 45 S13 (passe 2) |
+| La chute vue du capot | le visage aplati filmé depuis l'arrière du capot, caméra qui regarde vers l'avant : le haut du crâne monte dans le cadre, le visage se lit à l'endroit ; gros plan sur le ticket FRAIS DE GARDE tenu face caméra (`face: 'camera'` dans l'attache) ; puis la voiture : clignement, petit klaxon | 45 S21-S22 (passe 2) |
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
@@ -725,3 +738,21 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   z0, z1))` ; une caméra basse peut aussi se retrouver dans une voiture garée : vérifier les emprises des accessoires devant elle.
 - (cycle 7) `cd dossier && A; nohup B &` : B part de l'ancien dossier (rendu en échec immédiat) ; mettre le `cd` dans chaque commande.
 - (cycle 7) Quatre rendus à la fois : un navigateur s'est fermé à 540/877 images ; trois au plus.
+- (cycle 8) Un accessoire attaché (`on={...}`) ignore son `ry` : l'orientation se donne dans l'attache (`'rot': [...]`). Le pigeon de 44,
+  attaché sans `rot`, regardait la caméra (une boule grise) ; posé à 0,34 au lieu de 0,5 (la hauteur de la tête), il était à moitié dans le crâne.
+- (cycle 8) Un accessoire qui tombe (clés `to` à t0) rejoue sa chute à chaque plan qui le reprend avec les mêmes temps : un état « posé » sans
+  clés (`None`) pour les plans suivants (les grilles de 44 retombaient à chaque coupe).
+- (cycle 8) `look={'exposure': 1.0}` coupe l'exposition automatique (base 1,32 en intérieur) : la salle de réunion de 43 était brune. Pour
+  éclaircir, `fill`, et laisser l'exposition automatique.
+- (cycle 8) Une corde `tieRope` en 48 segments fait avancer une frontière de couleur par bonds de 11 % du cadre : `n: 280`.
+- (cycle 8) La cloison pleine d'`immeubleCoupe` : la tête d'une voisine qui se penche dans la cage la traversait ; `doorZ: [z0, z1]` ouvre une
+  porte palière à chaque étage.
+- (cycle 8) L'écharpe tricolore par défaut (`sashW` 0,055) fait 2 cm par bande : invisible ; `sashW: 0.15`.
+- (cycle 8) Pour qu'un personnage qui en regarde un autre montre son visage, la caméra et celui qu'il regarde doivent être du même côté de lui
+  (angle caméra-lui-cible sous 70°) ; sinon, finir sur un regard caméra (le préfet de 44 S05).
+- (cycle 8) Un visage couché, filmé du côté du sommet de sa tête, est à l'envers (45 S21 : « une tuile ») : filmer du côté des pieds ou d'au-dessus.
+- (cycle 8) Une main `point` vue de dos, un doigt levé, peut passer pour un doigt d'honneur (43 S09) : main ouverte (`spread`).
+- (cycle 8) Deux sangles dans un même plan, vues de profil, font une seule tige : il « pend par la tête » (44 S15) ou ce sont des antennes
+  (45 S18) ; crochet bien au-dessus de la tête, sangles sous les bras, ou quatre brins (`craneHook slingD`).
+- (cycle 8) Les accessoires de 46 : `speedCamera`, `speedDisplay`, `licensePlate`, `zoneSign`, `speedGauge`, `carLift`, `brakeRollers`,
+  `burstWall`, `garageBay`, `wheelChock` (props_radar.js) ; et `burstLines` (traits de choc autour d'un son, props_statue.js).

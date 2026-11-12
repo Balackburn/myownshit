@@ -99,7 +99,10 @@ export const CRAVATE_PROPS = {
   // (cycle 7) a paint roller on a long handle: origin at the grip, the roller o.len (0.8) m up along +Y; o.color: the paint on it
   paintRoller(o) {
     const L = o.len ?? 0.8, g = grp(at(cyl(0.016, 0.016, L, '#8C7B5E', 6, { pivot: 'bottom' }), 0, -0.1, 0), at(box(0.22, 0.025, 0.025, '#6F7680'), 0, L - 0.1, 0));
-    const r = cyl(0.05, 0.05, 0.26, o.color || '#D9C7A3', 10); r.rotation.z = PI / 2; r.position.set(0, L - 0.04, 0.02); g.add(r);
+    // (cycle 8) o.rollerR / o.rollerW: a bigger roller (0.05 / 0.26); o.sleeve: the sleeve's own colour, o.color then the band of paint on half of it
+    // (a tan roller laying tan paint was a block the colour of what it laid)
+    const R = o.rollerR ?? 0.05, RW = o.rollerW ?? 0.26, r = cyl(R, R, RW, o.sleeve || o.color || '#D9C7A3', 10); r.rotation.z = PI / 2; r.position.set(0, L - 0.04, 0.02); g.add(r);
+    if (o.sleeve) { const pb = cyl(R * 1.04, R * 1.04, RW * 0.5, o.color || '#D9C7A3', 10); pb.rotation.z = PI / 2; pb.position.set(RW * 0.25, L - 0.04, 0.02); g.add(pb); }
     g.userData.grip = [0, 0, 0]; return g;
   },
 

@@ -30,6 +30,8 @@ export const FOURRIERE_PROPS = {
   // arms that cannot reach. o.pv [[t, n]]: n parking fines under the driver's wiper (the pile grows out of the glass). o.leaves [[t, n]]: dead leaves on
   // the roof and the bonnet (up to 40). o.bounce [[t, amp]]: the body bounces on its springs (a landing; amp 0.1 = 10 cm). o.sag (0): the body rests lower
   // and wider (it sits on something soft). userData.front / roof / wiper: local points for the script.
+  // (cycle 8) o.reach [[t0, t1], ...] with o.reachTo [x, y, z] (world): the two wipers leave the glass and stretch toward that point, trembling, and stop
+  // o.reachShort (0.15 m) short of it: little arms that cannot reach (flailing on its own windscreen they never reached for anything)
   carToon(o) {
     const C = o.color || '#6CC4A4', L = 3.5, Wd = 1.62, g = grp(), body = grp(); g.add(body);
     const DARK = '#3E434C', GLASS = o.glassColor || '#BFE3EE';
@@ -53,7 +55,7 @@ export const FOURRIERE_PROPS = {
       e.add(at(cyl(0.15, 0.15, 0.04, '#FFFBEA', 16, { emissive: '#FFF3C4', noGrain: true }), 0.02, 0, 0, 0, 0, PI / 2));
       e.add(at(torus(0.15, 0.018, DARK, 6, 20), 0.035, 0, 0, 0, PI / 2, 0));
       const pup = at(cyl(0.062, 0.062, 0.02, '#1B1B1E', 12), 0.05, 0, 0, 0, 0, PI / 2); pup.visible = o.eyes !== false; e.add(pup);
-      const lid = box(0.03, 0.34, 0.36, C, { pivot: 'top', outline: 0.006 }); lid.position.set(0.075, 0.16, 0); e.add(lid);
+      const lid = box(0.02, 0.32, 0.32, C, { pivot: 'top', outline: 0.004 }); lid.position.set(0.055, 0.155, 0); e.add(lid);   // (cycle 8) seated in the rim
       eyes.push({ sz, pup, lid });
     }
     // corner lights (hazards): on and off copies swapped
@@ -79,7 +81,7 @@ export const FOURRIERE_PROPS = {
       const lf = at(box(0.13, 0.012, 0.08, LC[i % 4], { noGrain: true }), x, y, z, 0, rnd(i + 7) * TAU, 0); lf.visible = false; body.add(lf); leaves.push(lf); }
     // honk rings: expanding hoops in front of the grille
     const rm = basic('#FFF6C8', 0.85), rings = Array.from({ length: 6 }, () => { const r = new THREE.Mesh(new THREE.TorusGeometry(1, 0.05, 6, 28), rm.clone()); r.rotation.y = PI / 2; r.visible = false; r.userData.noAO = true; g.add(r); return r; });
-    const honks = o.honk || [], wipes = spans(o.wipe), WL = o.wipeLen ?? 2.2;
+    const honks = o.honk || [], wipes = spans(o.wipe), WL = o.wipeLen ?? 2.2, reaches = spans(o.reach), RT = o.reachTo ? new THREE.Vector3(...o.reachTo) : null, wpA = new THREE.Vector3(), wpB = new THREE.Vector3();
     g.userData.update = t => {
       // body: honk squash and hop, landing bounce, sag
       let sy = 1, hop = 0, trem = 0;
@@ -99,7 +101,13 @@ export const FOURRIERE_PROPS = {
       const hz = inSpan(o.hazard, t) && Math.floor((t - (spans(o.hazard).find(([a, b]) => t >= a && t < b)?.[0] ?? 0)) * 3.4) % 2 === 0;
       for (const [on, off] of corners) { on.visible = hz; off.visible = !hz; }
       // wipers
-      const wk = wipes.find(([a, b]) => t >= a && t < b);
+      const wk = wipes.find(([a, b]) => t >= a && t < b), rk = RT && reaches.find(([a, b]) => t >= a && t < b);
+      if (rk) { g.updateWorldMatrix(true, true);
+        wipers.forEach((w, i) => { const u = t - rk[0], grow = 1 - Math.pow(1 - clamp01(u / 0.28), 3), tr = 0.012 * Math.sin(t * 63 + i * 2.1);
+          w.pv.getWorldPosition(wpA); wpB.copy(RT); wpB.y += (i ? -0.07 : 0.07) + tr; const d = wpA.distanceTo(wpB);
+          w.arm.rotation.set(0, 0, 0); w.arm.updateWorldMatrix(true, false); w.arm.lookAt(wpB); w.arm.rotateY(PI);   // its -Z (the arm) at the point
+          w.arm.scale.set(1, 1, Math.max(1, (d - (o.reachShort ?? 0.15)) * grow / 0.56 + (1 - grow))); });
+      } else
       wipers.forEach((w, i) => { if (!wk) { w.arm.rotation.x = 0.05; w.arm.scale.set(1, 1, 1); return; }
         const u = t - wk[0], grow = clamp01(u / 0.18), ph = t * TAU * 4.6 + i * 1.9;
         w.arm.rotation.x = 0.9 + 0.75 * Math.sin(ph); w.arm.scale.set(1, 1, 1 + (WL - 1) * grow * (0.85 + 0.15 * Math.sin(ph * 1.7))); });
@@ -177,7 +185,7 @@ export const FOURRIERE_PROPS = {
     g.add(at(label(o.screen || 'PAYEZ ICI', 0.3, 0.13, { bg: '#BFE6B0', fg: '#1E2A1E', wrap: false }), 0, 1.2, 0.152));
     for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) g.add(at(box(0.06, 0.04, 0.02, '#C9CDD3'), -0.08 + 0.08 * c, 1.02 - 0.055 * r, 0.155));
     g.add(at(box(0.14, 0.02, 0.02, '#111215'), 0, 0.74, 0.155), at(box(0.22, 0.07, 0.07, '#1B1C20'), 0, 0.56, 0.16));
-    g.add(at(label(o.sticker || 'STATIONNEMENT PAYANT', 0.36, 0.08, { bg: '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, 0.36, 0.152));
+    g.add(at(label(o.sticker || 'STATIONNEMENT PAYANT', o.stickerW ?? 0.36, o.stickerH ?? 0.08, { bg: o.stickerBg || '#1E5BB8', fg: '#FFFFFF', wrap: !!o.stickerWrap }), 0, o.stickerY ?? 0.36, 0.152));   // (cycle 8) o.stickerW / H / Y / Bg / Wrap: a sticker that reads
     const tk = grp(at(box(0.09, 0.004, 0.14, '#FFFFFF', { noGrain: true }), 0, 0, 0), at(box(0.09, 0.005, 0.025, '#1E5BB8', { noGrain: true }), 0, 0.001, 0.05)); tk.position.set(0, 0.575, 0.12); g.add(tk);
     g.userData.update = t => { const u = o.ticketAt == null ? -1 : clamp01((t - o.ticketAt) / 0.3); tk.visible = u > 0 && !(o.ticketGone != null && t >= o.ticketGone); tk.position.z = 0.12 + 0.12 * u; };
     g.userData.update(0); return g;

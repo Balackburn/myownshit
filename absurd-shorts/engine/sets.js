@@ -1277,7 +1277,15 @@ Object.assign(S, {
     sky(g, o.sky || ['#62AEE2', '#A7D4EC']); if ((o.clouds ?? 6) >= 2) clouds(g, o.cloudSeed ?? 4, o.clouds ?? 6);
     const base = ground('#C9C2B3'); base.position.y = -0.12; g.add(base, flat(40, 9, '#E4D6BE', 0, 0.006, 4.5), flat(40, 30, '#6E6E72', 0, 0.004, 24));
     const WC = o.walls || ['#EFE6D2', '#F2DCCB', '#E2EAF0', '#F3E9C9', '#E8E1EE', '#F0D9D9', '#DDE8D8'], DC = ['#7A5A3C', '#2F5E8C', '#8A3B32', '#2F7F5C', '#6B4F8A', '#B5762E', '#3F4A5A'];
-    g.add(wall(SW, H, 0.1, '#2E323C', SX, H / 2, -D / 2), wall(0.12, H, D, '#B9AE9A', SX - SW / 2 - 0.06, H / 2, 0));                              // the shaft: its back, the partition
+    g.add(wall(SW, H, 0.1, '#2E323C', SX, H / 2, -D / 2));                                                                                    // the shaft: its back
+    // (cycle 8) o.doorZ [z0, z1]: the partition has a landing door on every floor (2.1 m high, from z0 to z1): a neighbour leans into the shaft through
+    // it (through a solid partition her head came out on the shaft side)
+    const PX = SX - SW / 2 - 0.06;
+    if (o.doorZ) { const [z0, z1] = o.doorZ, DH = 2.1;
+      for (let lv = 0; lv <= N; lv++) { const y0 = lv * FH;
+        g.add(wall(0.12, FH - DH, D, '#B9AE9A', PX, y0 + DH + (FH - DH) / 2, 0), wall(0.12, DH, z0 + D / 2, '#B9AE9A', PX, y0 + DH / 2, (z0 - D / 2) / 2), wall(0.12, DH, D / 2 - z1, '#B9AE9A', PX, y0 + DH / 2, (z1 + D / 2) / 2));
+        g.add(at(box(0.16, 0.06, z1 - z0 + 0.08, '#8C8478'), PX, y0 + DH + 0.03, (z0 + z1) / 2)); } }   // the door's lintel
+    else g.add(wall(0.12, H, D, '#B9AE9A', PX, H / 2, 0));                                                                                       // the partition
     for (const sd of [-1, 1]) g.add(wall(0.24, H + 0.3, D + 0.1, '#CFC6B4', sd * (W / 2), (H + 0.3) / 2, 0));                                        // the outer walls
     for (let lv = 0; lv <= N; lv++) { const y0 = lv * FH;
       if (lv) g.add(at(box(LW + 0.02, 0.2, D, '#B9AE9A'), LXc, y0 - 0.1, 0));                                                                       // the slab of the landing
