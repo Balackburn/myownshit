@@ -35,7 +35,7 @@ export const ELAN_PROPS = {
   // a city bus facing +X, its doors on its right side (+Z): green skirt, a band of windows you can see through (actors stand inside on the floor,
   // y = userData.floor), a pale roof, a wide windscreen, the line display above it (o.line '12', o.dest 'GARE') and a second one above the front door.
   // o.len (7.6 m). o.doors [[t, 0..1], ...]: the two leaves of each door slide apart (1 = open). The driver sits at userData.seat (front left).
-  // o.rock [[t0, amp], ...]: the body rocks on its springs from t0 (a start, a stop).
+  // o.rock [[t0, amp], ...]: the body rocks on its springs from t0 (a start, a stop). o.doorSide 'left': the doors on its left flank (-Z).
   // Open, the leaves stand o.doorOut (0.2 m) out of the flank (plug doors: they show from behind), then slide apart.
   cityBus(o) {
     const L = o.len ?? 7.6, W = 2.3, C = o.color || '#2F8F6B', C2 = o.roof || '#F1EEE3', DK = '#22252B', g = grp(), body = grp(), gl = glassMat(o.glass ?? 0.12, '#DCEFF2');
@@ -71,7 +71,9 @@ export const ELAN_PROPS = {
     g.userData.update = t => { const k = ease.inOut(clamp01(keyed(o.doors, t)));
       for (const { lf, x, s } of leaves) { lf.position.x = x + s * k * (dw / 2 - 0.06); lf.position.z = hz + (o.doorOut ?? 0.2) * Math.min(1, k * 3); }
       let rz = 0; for (const [t0, a = 0.02] of o.rock || []) rz += a * wob(t - t0, 9, 3.2); body.rotation.z = rz; body.position.y = 0.6 * Math.abs(rz); };
-    g.userData.update(0); g.userData.seat = [sx - 0.1, y0 + 0.02, sz]; g.userData.floor = y0 + 0.1; g.userData.doors = doorsX.map(x => [x, y0 + 0.1, hz]); return g;
+    const ds = o.doorSide === 'left' ? -1 : 1;                                                                             // (cycle 9) o.doorSide 'left': the doors on the bus's left flank (a bus that drives on the left, its doors toward the pavement on its left): the body mirrored, its displays turned back so they read
+    if (ds < 0) { body.scale.z = -1; for (const tx of [disp, side, rear]) tx.scale.x *= -1; }
+    g.userData.update(0); g.userData.seat = [sx - 0.1, y0 + 0.02, ds * sz]; g.userData.floor = y0 + 0.1; g.userData.doors = doorsX.map(x => [x, y0 + 0.1, ds * hz]); return g;
   },
 
   // the pole of a bus stop: a grey pole (o.h 2.75 m) with the plate of the line at its top (BUS, then o.line '12 BIS' on a coloured badge) and a framed

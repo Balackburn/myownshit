@@ -1354,3 +1354,24 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   lame de caoutchouc en travers fait la « main » sans la contredire ; (2) la relectrice demandait l'agent « du côté gauche ouvert » ; la pince
   est sur le pied gauche, côté droit de l'image : l'agent reste à droite mais loin de lui, de profil, et la baguette monte avec les bras ;
   (3) les voitures garées passent en vitres presque opaques (`glass` 0,82) plutôt qu'en nouveaux modèles.
+
+### 12 novembre (fin d'après-midi) — cycle 9 : 43 livrée, 44 en génération finale, 45 en troisième revue, 46 passe 2b
+
+- **43 « La cravate » livrée** (version finale 1080×1920, 30,6 s, −16 LUFS, contrôle HyperFrames sans erreur, aucune image isolée à
+  une coupe). Revues : 6,5/6,8 → 7,2/7,4 → 7,5/7,7, puis la passe finale.
+- **44 « La statue »** : passe finale d'après la revue 3 (7,6 / 7,8) vérifiée sur 19 images (combat des paupières, yeux sur tiges qui
+  suivent le bus, pigeon endormi, INCOMPLÈTE lisible) ; génération complète lancée dès la fin de celle de 43.
+- **45 « La fourrière »** : brouillon 3 rendu (aucune image noire : les normales des paupières tiennent) ; dossier de la troisième et
+  dernière revue construit avec les nouveaux temps forts (insert des lames, sursaut tenu, ballon qui gonfle face caméra).
+- **46 « Le radar », passe 2b** (vue sur les images de contrôle avant le brouillon 2) : les portes du bus donnaient côté chaussée,
+  invisibles depuis le trottoir : les gags « les portes se ferment devant lui » et « elles s'ouvrent pour les autres » ne se voyaient
+  pas. Nouvelle option `doorSide: 'left'` du bus (le corps miroir, les afficheurs retournés pour rester lisibles). Plan 1 en deux axes
+  (le bus entier à l'arrêt, portes qui se ferment, puis lui qui court vers nous) ; gel du plan 2 vu par le radar lui-même (saut figé de
+  face à quatre mètres, couleurs lavées ; de côté il était petit et de dos) ; tournevis jaune dont la mèche touche la plaque (le
+  feutre agrandi restait couché le long de l'avant-bras et la main visait la nuque) ; plan 9 en un seul axe qui monte avec lui (le
+  second coupait le mécanicien en deux) ; plan 10 filmé depuis sa gauche (le mécanicien cachait la jambe en caoutchouc) et pouce levé
+  de la main éloignée ; abri et poteau BUS près des portes au plan 16 ; gobelet blanc (sarcelle, il se confondait avec une manchette).
+- **Décisions prises sans question** : (1) plutôt que de passer toute la rue en miroir (le trottoir de gauche est à l'ombre des
+  immeubles et planté d'arbres là où l'action se passe), le bus garde sa voie et prend ses portes à gauche : vu du trottoir, il s'arrête
+  portes vers l'abri ; (2) le gel du radar est filmé depuis le radar (la photo du flash) et le poteau se voit au plan 3 ; (3) le gel est
+  pris 0,1 s après l'éclair pour que le halo du flash ne reste pas figé en disque blanc.
