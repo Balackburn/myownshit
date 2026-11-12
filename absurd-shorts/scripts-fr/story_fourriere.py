@@ -161,7 +161,8 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
                 'bend': {'spine': [0.45, 0, 0, 1, None]}}, toonDur=0.1, toonEase='in'),
             k(SN8 + 0.2, toon={'bend': {'spine': [0.2, 0, 0, 1, None]}, 'hands': {'L': 'flat', 'R': 'flat'}}, toonDur=0.2)])],
         props=[*POUND(), BAG(), CLAMP(snapAt=SN8, rattle=[[SN8, 0.25]])],
-        cams=[FC(0.0, [3.4, 0.38, round(ZP + 2.9, 3)], [[F12[0], 0.0, F12[2]], [HB[0], 3.15, HB[2]], [AG8[0], 1.35, AG8[2]], [AG8[0] + 0.35, 0.0, AG8[2]], [F12[0] - 0.4, 0.0, F12[2]]], top=0.06, bottom=0.72, drift=(0.05, 0, -0.04))])   # (pass 2) low at his feet, room for the jump, the clamp above the caption band
+        cams=[FC(0.0, [2.3, 0.4, round(ZP + 2.2, 3)], [[F12[0], 0.0, F12[2]], [HB[0], 3.15, HB[2]], [AG8[0], 1.35, AG8[2]], [AG8[0] + 0.35, 0.0, AG8[2]], [F12[0] - 0.4, 0.0, F12[2]]], top=0.06, bottom=0.72, drift=(0.05, 0, -0.04),
+                 inside=(-0.3, 9.0, 0.1, 6.0, 60.0, round(ZP + 3.2, 3)))])   # (pass 2) low at his feet, room for the jump, the clamp above the caption band (the camera stays out of the parked cars)   # (pass 2) low at his feet, room for the jump, the clamp above the caption band
 st.cue('clang', 'S08', SN8, 0.45); st.cue('sfx:twang', 'S08', SN8 + 0.02, 0.3)
 
 # 9: to get out. He sets off for the exit: the clamped foot does not move, so he walks right round it like a compass, one full turn, and stops where he
@@ -226,7 +227,8 @@ st.shot('S13', 'parisStreet', setOpts=STREET, actors=[],
                keys=[k(TP13, rotTo=RX(LN13), dur=0.22, ease='outBack'), k(TP13, to=[2.0, 0.3, 0.0], dur=0.22, ease='outBack'),                                  # up on its two right wheels
                      k(0.42, rotTo=RX(LN13 + 0.05), dur=0.1), k(0.56, rotTo=RX(LN13 - 0.03), dur=0.1), k(0.7, rotTo=RX(LN13 + 0.06), dur=0.1), k(0.84, rotTo=RX(LN13), dur=0.08),   # straining, wobbling
                      k(FL13, rotTo=RX(0.0), dur=0.1, ease='in'), k(FL13, to=CAR0, dur=0.1, ease='in')], bounce=[[round(FL13 + 0.1, 3), 0.1]])],                   # it flops back: boing
-        cams=[FC(0.0, [0.35, 1.25, -6.6], [[1.0, 0.0, -1.8], [2.85, 1.85, -1.8], [KEYPAD[0], 1.95, -3.4], [KEYPAD[0], 0.0, -3.4], [2.4, 2.2, 0.0]], top=0.12, bottom=0.8, drift=(0.05, 0, 0.08))])   # (pass 2) in front: its face, the gap, the keypad
+        cams=[FC(0.0, [0.75, 0.85, -4.6], [[1.05, 0.15, -1.8], [2.75, 1.25, -1.8], [2.8, 0.9, -1.0]], top=0.2, bottom=0.78, drift=(0.04, 0.03, 0.04)),   # (pass 2) close: its face as it tips over, straining
+              FC(0.5, [0.35, 1.25, -6.6], [[1.0, 0.0, -1.8], [2.85, 1.85, -1.8], [KEYPAD[0], 1.95, -3.4], [KEYPAD[0], 0.0, -3.4]], top=0.14, bottom=0.8, drift=(0.05, 0, 0.08))])   # then wide: the wipers across the gap, a hand short of the keypad
 [st.cue('sfx:squeak', 'S13', round(0.15 + 0.22 * i, 3), 0.18) for i in range(4)]
 st.card('S13', 'PAS DE MAINS', at=st.at('S13', 'L06', 4))
 
@@ -278,14 +280,17 @@ FLOAT17 = r3([HB[0] + SIDE17[0], 0.95, HB[2] + SIDE17[2]])
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[
         act('mec', HB, -30, 'stand', 'unimpressed', keys=[k(0.0, look=[AG17[0], 1.7, AG17[2]]), *[k(t, toon={'sq': [1.04, 0.96, 1.04]}, toonDur=0.03) for t in SL17],
             k(IN17, look='camera'), k(IN17, to=FLOAT17, dur=0.4, glide=True, ease='out', clip='inflate', then='inflate', params={'dur': 0.3, 'expr': 'angry'}),
-            k(IN17 + 0.02, toon={'bend': {'legL': [0, 0, 0, 1.9, 0.62], 'shinL': [0, 0, 0, 1.9, 0.62], 'spine': [0, 0, 0, 1.05, 2.4]}, 'scl': {'head': [1.25, 1.12, 1.25]}, 'face': {'puff': 1, 'cheeks': 1, 'vein': 1, 'brow': -0.6}}, toonDur=0.28, toonEase='outBack')]),   # (pass 2) round as a balloon, red in the face
+            k(IN17 + 0.02, toon={'bend': {'legL': [0, 0, 0, 1.9, 0.62], 'shinL': [0, 0, 0, 1.9, 0.62]}, 'scl': {'head': [1.25, 1.12, 1.25]}, 'face': {'puff': 1, 'cheeks': 1, 'vein': 1, 'brow': -0.6}}, toonDur=0.28, toonEase='outBack')]),   # (pass 2) round as a balloon, red in the face
         act('agent', AG17, 125, 'stand', 'unimpressed', keys=[k(0.0, look=[HB[0], 1.6, HB[2]]),
             *[x for t in SL17 for x in (k(round(t - 0.06, 3), toon={'reach': {'R': [round(HB[0] - 0.12, 3), 1.45, round(HB[2] + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.06, toonEase='in'),
                                         k(round(t + 0.03, 3), toon={'reach': {'R': [round(HB[0] - 0.4, 3), 1.3, round(HB[2] + 0.35, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05))],
             k(SL17[-1] + 0.1, toon={}, toonDur=0.15), k(SL17[-1] + 0.06, to=[5.0, 0, round(ZP + 1.1, 3)], dur=0.4, clip='walk', then='stand', ease='out', face=100), k(IN17 + 0.1, look=[FLOAT17[0], 2.0, FLOAT17[2]])])],   # he backs off: the stretched leg must be seen
         props=[*POUND(), CLAMP(), *[P(f'cpl{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(0.05 * (i - 1), 3), round(0.36 - 0.05 * i, 3), 0.18 + 0.004 * i]},
-                 opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(t, scale=1.0, dur=0.05, ease='outBack')])
-                 for i, t in enumerate(SL17)]],
+                 opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(t, scale=1.0, dur=0.05, ease='outBack'), k(IN17 + 0.1, visible=False)])
+                 for i, t in enumerate(SL17)],
+               P('ball17', 'balloonSuit', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.34, 0.04]}, opts={'r': 0.55}, keys=[k(0.0, scale=0.01, dur=0.0), k(IN17, scale=1.0, dur=0.28, ease='outBack')]),   # (pass 2) round as a balloon
+               *[P(f'cpb{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round(0.12 * (i - 1), 3), round(0.3 - 0.07 * i, 3), 0.6 + 0.005 * i], 'rot': [0, round(0.2 * (i - 1), 2), round(0.15 * (1 - i), 2)]},
+                   opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(IN17 + 0.1, scale=1.0, dur=0.12, ease='outBack')]) for i in range(3)]],
         cams=[FC(0.0, [1.4, 1.6, round(ZP + 4.4, 3)], [[F12[0], 0.0, F12[2]], [FLOAT17[0], 3.4, FLOAT17[2]], [AG17[0], 0.0, AG17[2]], [HB[0], 2.3, HB[2]]], top=0.1, bottom=0.86, drift=(0.06, 0.08, 0))])
 [st.cue('thud', 'S17', t, 0.3) for t in SL17]; st.cue('sfx:slideUp', 'S17', IN17, 0.35)
 
@@ -337,7 +342,7 @@ st.cue('sfx:slideDownSlow', 'S20', 0.0, 0.3); st.cue('sfx:gulp', 'S20', 0.8, 0.4
 #     stars; the baguette, flat as a ruler, beside him
 D21 = st.dur('S21'); HIT21 = 0.1
 HEADZ = round(CARZ - 1.75 - 0.32, 3); LIE = [3.92, 0.0, round(HEADZ + 0.88, 3)]
-FLATCAM = ([LIE[0], 2.25, round(HEADZ + 1.15, 3)], [LIE[0], 0.08, round(HEADZ - 0.12, 3)], 40)   # (pass 2) from above the bonnet, looking down and forward: the top of his head points up the frame
+FLATCAM = ([LIE[0], 1.6, round(HEADZ + 0.25, 3)], [LIE[0], 0.06, round(HEADZ - 0.2, 3)], 42)   # (pass 2) just in front of the bumper, looking down and forward: the top of his head points up the frame (from above the bonnet the bonnet hid him)
 FLAT = {'sq': [1.3, 1.0, 0.1], 'scl': {'head': [1.45, 1.12, 0.34]}, 'face': {'tongue': 1, 'tongueLen': 1.5, 'stars': 1, 'brow': -0.2}}
 st.shot('S21', 'parisStreet', setOpts=STREET, actors=[
         act('mec', UNDER, UR20, 'stand', 'worried', keys=[k(0.0, look=[UNDER[0], 4.0, UNDER[2] - 0.4]), k(0.0, toon={'face': {'pop': 0.5, 'brow': 1}}, toonDur=0.0),
@@ -368,10 +373,11 @@ st.shot('S22', 'parisStreet', setOpts=STREET, actors=[
         props=[*POUND(), PMETER(ticketAt=0.75, ticketGone=1.05, stickerW=0.4, stickerH=0.16, stickerY=0.32, stickerBg='#B0101A', stickerWrap=True), CLAMP(),
                CAR(pos=[CARX, 0.0, CARZ], pv=[[0.0, 44]], leaves=[[0.0, 4]], sag=0.4, gaze=[[0.0, 0.3, -0.6], [0.3, 0.85, -0.5], [0.9, 0.9, -0.55], [1.25, 0.1, -0.85], [2.3, 0.0, -0.9]], blink=[2.5], honk=[[2.8, 0.08]]),   # (pass 2) its pupils follow the arm out and back
                P('flatbag', 'baguette', pos=[round(LIE[0] + 0.55, 3), 0.02, round(HEADZ + 0.05, 3)], ry=20, keys=[k(0.0, squash=[1.25, 0.25, 1.25], dur=0.0)]),
-               P('tick22', 'paperSheet', on={'actor': 'mec', 'hand': 'L', 'offset': [0, 0.03, 0.06], 'face': 'camera'}, opts={'w': 0.34, 'h': 0.24, 'head': 'FRAIS DE GARDE', 'headSize': 0.14, 'big': '45 €', 'bigSize': 0.36, 'top': 0.06,
-                 'paper': '#FFFFFF', 'ink': '#14161A', 'bigInk': '#B0101A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(1.05, scale=1.15, dur=0.06, ease='out'), k(1.11, scale=1.0, dur=0.08)])],   # (pass 2) a ticket that reads
-        cams=[FC(0.0, [LIE[0] + 0.2, 2.45, round(HEADZ + 1.35, 3)], [[LIE[0], 0.05, round(HEADZ - 0.3, 3)], [5.45, 1.95, round(ZP - 2.0, 3)], [5.45, 0.0, round(ZP - 2.15, 3)], [3.3, 0.05, round(HEADZ - 0.3, 3)]], top=0.1, bottom=0.78),   # (pass 2) from above the bonnet: his face right side up, the arm to the machine
-              cam(1.22, [round(LIE[0] + 0.15, 3), 1.25, round(HEADZ + 0.75, 3)], [round(LIE[0] + 0.15, 3), 1.2, round(HEADZ + 0.7, 3)], [round(LIE[0] + 0.2, 3), 0.25, round(HEADZ - 0.2, 3)], [round(LIE[0] + 0.2, 3), 0.25, round(HEADZ - 0.2, 3)], lens=36),   # close: the ticket beside his flat face
+               P('tick22', 'paperSheet', pos=TRAY22, face='camera', opts={'w': 0.36, 'h': 0.26, 'head': 'FRAIS DE GARDE', 'headSize': 0.14, 'big': '45 €', 'bigSize': 0.36, 'top': 0.06,
+                 'paper': '#FFFFFF', 'ink': '#14161A', 'bigInk': '#B0101A', 'bright': True}, keys=[k(0.0, scale=0.01, dur=0.0), k(1.05, scale=1.0, dur=0.06, ease='out'),
+                 k(1.15, to=[SHOW22[0], round(SHOW22[1] + 0.06, 3), round(SHOW22[2] - 0.19, 3)], dur=0.32, ease='inOut')])],   # (pass 2) a ticket that reads
+        cams=[cam(0.0, [4.62, 3.3, round(HEADZ + 1.35, 3)], [4.62, 3.22, round(HEADZ + 1.3, 3)], [4.62, 0.0, round(HEADZ - 0.12, 3)], [4.62, 0.0, round(HEADZ - 0.12, 3)], lens=50),   # (lens = the vertical field of view in degrees)   # (pass 2) from above the bonnet: his face right side up, the arm to the machine
+              cam(1.22, [round(LIE[0] + 0.36, 3), 1.36, round(HEADZ + 0.24, 3)], [round(LIE[0] + 0.36, 3), 1.31, round(HEADZ + 0.22, 3)], [round(LIE[0] + 0.38, 3), 0.1, round(HEADZ - 0.2, 3)], [round(LIE[0] + 0.38, 3), 0.1, round(HEADZ - 0.2, 3)], lens=52),   # close: the ticket beside his flat face
               FC(2.3, [2.2, 0.55, round(ZP - 4.4, 3)], [[2.75, 0.0, round(CARZ - 1.8, 3)], [4.45, 1.7, round(CARZ - 1.8, 3)], [LIE[0], 0.05, round(HEADZ - 0.3, 3)]], top=0.16, bottom=0.8)])   # the car's face: a blink, a tiny honk
 st.cue('sfx:stretch', 'S22', 0.18, 0.35); st.cue('sfx:beep', 'S22', 0.6, 0.35); st.cue('sfx:paper', 'S22', 0.75, 0.25); st.cue('sfx:honkTiny', 'S22', 2.8, 0.35)
 

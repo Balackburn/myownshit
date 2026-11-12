@@ -175,6 +175,16 @@ export const FOURRIERE_PROPS = {
     g.userData.update(0); return g;
   },
 
+  // (cycle 8) A man swollen round like a balloon: a navy sphere o.r (0.5 m) with his shirt's white V, his red tie and teal lapels on its front (+Z),
+  // to attach to his torso and grow with scale keys (the rig's boxes only made a bigger box: a sign on a pole). o.suit, o.tie, o.lapel
+  balloonSuit(o) {
+    const R = o.r ?? 0.5, g = grp(), ball = new THREE.Mesh(new THREE.SphereGeometry(R, 20, 14), mat(o.suit || '#1E2E44')); ball.castShadow = true; g.add(ball);
+    const f = R * 0.97, sh = at(box(R * 0.42, R * 0.62, 0.02, '#F2EEE6'), 0, R * 0.42, f - 0.02, -0.5, 0, 0); g.add(sh);
+    for (const sx of [-1, 1]) g.add(at(box(R * 0.2, R * 0.66, 0.02, o.lapel || '#2E8C8A'), sx * R * 0.22, R * 0.4, f - 0.01, -0.5, 0, sx * 0.35));
+    g.add(at(box(R * 0.1, R * 0.7, 0.025, o.tie || '#C8202A'), 0, R * 0.12, f + 0.005, -0.15, 0, 0));
+    return g;
+  },
+
   // A Paris pay-and-display machine (horodateur), front +Z: a dark grey column, a blue P on a stalk, a pale green screen (o.screen 'PAYEZ ICI'), a keypad,
   // a card slot, a ticket tray, a blue sticker (o.sticker 'STATIONNEMENT PAYANT'). o.ticketAt: a ticket slides out of the tray (and stays out); o.ticketGone: it disappears (taken).
   parkingMeter(o) {

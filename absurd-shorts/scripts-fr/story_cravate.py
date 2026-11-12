@@ -312,9 +312,9 @@ st.cue('sfx:stretch', 'S15', NK15, 0.35)
 D16 = st.dur('S16')
 EYES16 = lambda r, L=0.42: {'pop': 0.75, 'popLen': L, 'eyeYaw': -1.05, 'eyeRoll': r, 'stalkRed': 0.6, 'brow': 0.8}   # eyes on stalks, pupils turned round to us; (pass 3) shorter: the eyeballs stop in front of the paper, at its left edge
 st.shot('S16', 'immeubleHall', setOpts=HALL(), actors=[
-        act('mec', READ, READRY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[2.3, 1.62, -2.95]),
-            *[k(t, toon={'bend': {'neck': [0.35, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': EYES16(r)}, toonDur=(0.0 if t == 0.0 else 0.08)) for t, r in ((0.0, -0.55), (0.3, -0.15), (0.6, 0.2), (0.9, 0.55))],   # the pupils turned to us step down the four lines
-            k(0.3, look=[2.3, 1.45, -2.95]), k(0.6, look=[2.3, 1.36, -2.95]), k(0.9, look=[2.3, 1.27, -2.95]),
+        act('mec', READ, READRY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[2.02, 1.62, -2.95]),
+            *[k(t, toon={'bend': {'neck': [0.12, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': EYES16(r, 0.36)}, toonDur=(0.0 if t == 0.0 else 0.08)) for t, r in ((0.0, -0.55), (0.3, -0.15), (0.6, 0.2), (0.9, 0.55))],   # the pupils turned to us step down the four lines (pass 3: the head level, the stalks from the left)
+            k(0.3, look=[2.02, 1.5, -2.95]), k(0.6, look=[2.02, 1.4, -2.95]), k(0.9, look=[2.02, 1.3, -2.95]),   # (pass 3) aimed at the notice's left margin
             k(1.22, toon={'bend': {'neck': [0.35, 0, 0, 2.4, None], 'spine': [0.3, 0, 0, 1, None]}, 'face': {'pop': 0.0, 'lid': 0.45}}, toonDur=0.12)])],   # (pass 3) back in by 1.34 s: the sheet sits clean for the last half second
         props=[ROPE(), CONVOC()],
         cams=[cam(0.0, [2.05, 1.55, -1.2], [2.08, 1.53, -1.32], [2.28, 1.5, -2.95], [2.28, 1.49, -2.95], lens=40)])   # the whole notice, its heading under the SYNDIC label; his stretched head comes in at the left
@@ -432,7 +432,7 @@ st.shot('S24', 'immeubleHall', setOpts=HALL(), actors=[
             k(HIT24, toon={**KB, 'bend': {'neck': [0.75, 0, 0, 1.15, None], 'spine': [0.2, 0, 0, 1, None]}, 'scl': {'head': [1.22, 0.78, 1.22]}, 'face': {'pop': 0.7, 'brow': 1, 'eye': 0.5, 'stars': 1}}, toonDur=0.03, toonEase='out'),   # thwack: (pass 2) the head snaps forward, squashed, stars
             k(HIT24 + 0.12, toon={**KB, 'face': {'pop': 0.0, 'lid': 0.45, 'browL': 0.7}}, toonDur=0.1),
             k(GRAB24 - 0.12, toon={**KB, 'reach': {'L': [NAPEW[0] - 0.05, 1.75, NAPEW[2] - 0.05, 1, 0.08]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.45}}, toonDur=0.12),
-            k(GRAB24 + 0.18, toon={**KB, 'reach': {'L': [ME[0] - 0.1, 1.45, ME[2] + 0.35, 1, 0.08]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.45}}, toonDur=0.16), k(GRAB24 + 0.2, look=[ME[0] - 0.1, 1.45, ME[2] + 0.45])])],
+            k(GRAB24 + 0.18, toon={**KB, 'reach': {'L': [round(ME[0] + 0.38, 3), 1.45, round(ME[2] + 0.58, 3), 1, 0.08]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.45}}, toonDur=0.16), k(GRAB24 + 0.2, look=[ME[0] + 0.38, 1.45, ME[2] + 0.65])])],   # (pass 3) out in front at his side
         props=[ROPE(color=BEIGE, pluck=[[HIT24, 0.03, 10, 14, 6]]), P('smack', 'impactStars', pos=[round(NAPEW[0], 3), 1.95, round(NAPEW[2], 3)], opts={'at': HIT24, 'n': 6, 'r': 0.35, 'r0': 0.15, 'dur': 0.3, 'size': 0.07}),
                P('bill', 'paperSheet', pos=[0.05, 1.6, -2.86], ry=30, scale=0.01, opts={'w': 0.3, 'h': 0.19, 'head': 'CHARGES', 'headSize': 0.32, 'top': 0.42, 'paper': '#FFFFFF', 'ink': '#C8202A', 'bright': True},
                  keys=[k(OUT24 - 0.04, scale=1.7, dur=0.06, ease='out'), k(OUT24, to=[NAPEW[0] - 0.02, NAPEW[1] + 0.04, NAPEW[2] - 0.06], dur=round(HIT24 - OUT24, 3), ease='in'), k(HIT24, squash=[1.3, 0.7, 1.0], dur=0.2),
@@ -443,7 +443,7 @@ st.cue('sfx:zip', 'S24', OUT24, 0.4); st.cue('sfx:bonk', 'S24', HIT24, 0.5); st.
 # 25: close: he reads it: CHARGES DU RDC, 1 240 €: le ravalement, le séchage du linge; his eye twitches; down the leash, the boy's last note shakes
 #     him one more time
 D25 = st.dur('S25'); TW25, WB25 = 0.55, 1.05
-BILLC25 = lambda sx: [round(ME[0] - 0.02 + sx * 0.2, 3), 1.42, round(ME[2] + 0.4 - sx * 0.038, 3)]   # (pass 3) the bill's sides at mid-height: below its title (at the corners his cuffs covered CHARGES DU RDC)
+BILLC25 = lambda sx: [round(ME[0] - 0.02 + sx * 0.25, 3), 1.42, round(ME[2] + 0.48 - sx * 0.048, 3)]   # (pass 3) the bill's sides at mid-height: below its title (at the corners his cuffs covered CHARGES DU RDC)
 GRIP25 = lambda **f: {**KB, 'reach': {'L': [*BILLC25(-1), 1, 0.08], 'R': [*BILLC25(1), 1, 0.08]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': {'lid': 0.4, **f}}
 st.shot('S25', 'immeubleHall', setOpts=HALL(), actors=[
         act('mec', ME, MERY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[ME[0] - 0.05, 1.4, ME[2] + 0.5]),
@@ -452,7 +452,7 @@ st.shot('S25', 'immeubleHall', setOpts=HALL(), actors=[
             k(round(TW25 + 0.36, 3), toon=GRIP25(), toonDur=0.08),
             k(WB25, clip='jelly', params={'amp': 0.32, 'freq': 12, 'decay': 4.5}), k(1.4, look=[1.8, 1.72, 1.0])])],   # (pass 2) a real last shake
         props=[ROPE(color=BEIGE, pluck=[[WB25 - 0.15, 0.05, 7, 14, 4]]),
-               P('billopen', 'paperSheet', pos=[round(ME[0] - 0.02, 3), 1.42, round(ME[2] + 0.4, 3)], ry=11, rot=[-0.12, 0, 0], opts={'w': 0.36, 'h': 0.46, 'head': 'CHARGES DU RDC', 'big': '1 240 €', 'bigSize': 0.15,
+               P('billopen', 'paperSheet', pos=[round(ME[0] - 0.02, 3), 1.42, round(ME[2] + 0.48, 3)], ry=11, rot=[-0.12, 0, 0], opts={'w': 0.48, 'h': 0.46, 'head': 'CHARGES DU RDC', 'big': '1 240 €', 'bigSize': 0.15,   # (pass 3) wider: the text clear of his hands
                                                                                                                  'lines': ['Ravalement', 'Séchage du linge'], 'lineSize': 0.07, 'bright': True})],   # free, facing us, his hands at its edges (held in a hand it was seen edge-on)
         cams=[hcam(0.0, [1.8, 1.72, 0.3], [[ME[0] + 0.15, HEAD + 0.05, ME[2]], [ME[0], 1.18, ME[2] + 0.4], [ME[0] - 0.45, 1.58, ME[2] - 0.3]], top=0.16, bottom=0.74, drift=(-0.02, 0, -0.08))])
 st.cue('sfx:cash', 'S25', 0.1, 0.35); st.cue('sfx:twang', 'S25', WB25 - 0.15, 0.3)
