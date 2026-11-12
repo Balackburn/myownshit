@@ -200,6 +200,15 @@ export const OMBRE_PROPS = {
     return grp(at(box(w, 0.008, L, o.color || '#C9A070', { outline: 0.004 }), 0, 0, 0), at(box(w * 0.96, 0.014, L * 0.26, o.heel || '#7A5A3A'), 0, -0.006, -L * 0.36));
   },
 
+  // (cycle 7) a big fist with its thumb up, to hold beside a face seen from above (a hand's own thumb points wherever its forearm lets it: out at his
+  // side it read as a hitchhiker's): origin at the middle of the fist, the thumb along +Y, the knuckles toward +Z; o.skin, o.cuff (the sleeve)
+  thumbsUp(o) {
+    const sk = o.skin || '#D9A877', g = grp(at(box(0.12, 0.1, 0.11, sk, { outline: 0.005 }), 0, 0, 0), at(box(0.042, 0.11, 0.046, sk, { outline: 0.004 }), -0.036, 0.1, 0.008),
+      at(box(0.13, 0.07, 0.12, o.cuff || '#1F2A44', { outline: 0.004 }), 0, -0.085, 0), at(box(0.135, 0.02, 0.125, '#F4F1E8'), 0, -0.045, 0));
+    for (let i = 0; i < 3; i++) g.add(at(box(0.004, 0.06, 0.004, '#9A6A45'), 0.03 - i * 0.03, -0.005, 0.056));   // the folds between the fingers
+    return g;
+  },
+
   // A Paris bollard (« potelet »): a slim dark post (o.h 1.0 m) with a ball on top and a white band under it. Origin: its foot.
   potelet(o) {
     const h = o.h ?? 1.0, c = o.color || '#4A3B2E';

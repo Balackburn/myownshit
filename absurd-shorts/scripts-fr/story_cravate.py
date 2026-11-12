@@ -253,9 +253,9 @@ st.shot('S13', 'immeubleCoupe', setOpts=COUPE(), actors=[
 # 14: he is making progress. The hall: the waves arrive down the leash: he shakes like a jelly; then the tune takes him: he dances, deadpan
 D14 = st.dur('S14'); JE14, DA14 = 0.02, 0.5
 st.shot('S14', 'immeubleHall', setOpts=HALL(), actors=[
-        act('mec', ME, MERY, 'jelly', 'unimpressed', params={'amp': 0.35, 'freq': 22, 'decay': 1.2}, keys=[STAND(), k(0.0, look=[1.8, 1.7, 1.0]),
+        act('mec', ME, MERY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[1.8, 1.7, 1.0]), k(0.0, clip='jelly', params={'amp': 0.5, 'freq': 9, 'decay': 0.8}),   # (slower and bigger: at 22 Hz the shake did not show)
             k(DA14, clip='dance'), k(DA14, toon={'face': {'lid': 0.5, 'browL': 0.6}}, toonDur=0.08)])],
-        props=[ROPE(pluck=[[t, 0.06, 7, 14, 3] for t in (-0.3, -0.02, 0.26, 0.54, 0.82)]),
+        props=[ROPE(pluck=[[t, 0.12, 4.5, 10, 2.5] for t in (-0.3, -0.02, 0.26, 0.54, 0.82)]),   # waves you can see run down the leash
                P('notes', 'whistleNotes', pos=[ME[0] + 0.25, 2.25, ME[2] + 0.3], opts={'n': 4, 'from': 0.1, 'every': 0.22, 'size': 0.16, 'dx': 0.3, 'dy': 0.5, 'life': 0.6, 'color': '#1B1B1E'})],
         cams=[hcam(0.0, [2.1, 1.7, 0.6], [[ME[0] + 0.25, HEAD + 0.1, ME[2]], [ME[0], 0.35, ME[2]], SEAM], top=0.16, bottom=0.8)])
 
@@ -380,7 +380,7 @@ st.shot('S23', 'immeubleHall', setOpts=HALL(), actors=[
 st.cue('sfx:pour', 'S23', 0.0, 0.25); st.cue('pop', 'S23', AR23, 0.3); st.cue('sfx:spring', 'S23', 0.78, 0.3)
 
 # 24: he pays the service charges. An envelope comes out of the seam and zips down the leash; it smacks the back of his head; he reaches back for it
-D24 = st.dur('S24'); OUT24, HIT24, GRAB24 = 0.1, 0.42, 0.7
+D24 = st.dur('S24'); OUT24, HIT24, GRAB24 = 0.06, 0.5, 0.76   # (the envelope faces us and flies longer: edge-on and in 0.3 s it did not show)
 NAPEW = [round(ME[0] - 0.08, 3), 1.66, round(ME[2] - 0.2, 3)]
 st.shot('S24', 'immeubleHall', setOpts=HALL(), actors=[
         act('mec', ME, MERY, 'stand', 'unimpressed', keys=[STAND(), k(0.0, look=[1.8, 1.7, 1.0]), k(0.0, toon={**KB, 'face': {'lid': 0.45, 'browL': 0.6}}, toonDur=0.0),
@@ -389,8 +389,8 @@ st.shot('S24', 'immeubleHall', setOpts=HALL(), actors=[
             k(GRAB24 - 0.12, toon={**KB, 'reach': {'L': [NAPEW[0] - 0.05, 1.75, NAPEW[2] - 0.05, 1, 0.08]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.45}}, toonDur=0.12),
             k(GRAB24 + 0.18, toon={**KB, 'reach': {'L': [ME[0] - 0.1, 1.45, ME[2] + 0.35, 1, 0.08]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.45}}, toonDur=0.16), k(GRAB24 + 0.2, look=[ME[0] - 0.1, 1.45, ME[2] + 0.45])])],
         props=[ROPE(color=BEIGE, pluck=[[HIT24, 0.03, 10, 14, 6]]),
-               P('bill', 'paperSheet', pos=[0.05, 1.6, -2.86], ry=-60, scale=0.01, opts={'w': 0.3, 'h': 0.19, 'head': 'CHARGES', 'headSize': 0.32, 'top': 0.42, 'paper': '#F1E6CC'},
-                 keys=[k(OUT24, scale=1.0, dur=0.06, ease='out'), k(OUT24 + 0.02, to=[NAPEW[0] - 0.02, NAPEW[1] + 0.04, NAPEW[2] - 0.06], dur=round(HIT24 - OUT24 - 0.02, 3), ease='in'), k(HIT24, squash=[1.3, 0.7, 1.0], dur=0.2),
+               P('bill', 'paperSheet', pos=[0.05, 1.6, -2.86], ry=30, scale=0.01, opts={'w': 0.3, 'h': 0.19, 'head': 'CHARGES', 'headSize': 0.32, 'top': 0.42, 'paper': '#F1E6CC'},
+                 keys=[k(OUT24 - 0.04, scale=1.25, dur=0.06, ease='out'), k(OUT24, to=[NAPEW[0] - 0.02, NAPEW[1] + 0.04, NAPEW[2] - 0.06], dur=round(HIT24 - OUT24, 3), ease='in'), k(HIT24, squash=[1.3, 0.7, 1.0], dur=0.2),
                        k(GRAB24, attach='mec', hand='L', offset=[0, 0, 0.05])])],
         cams=[hcam(0.0, [2.05, 1.7, 0.5], [[ME[0] + 0.25, HEAD + 0.06, ME[2]], [ME[0], 0.95, ME[2]], SEAM, DISP], top=0.18, bottom=0.74)])
 st.cue('sfx:zip', 'S24', OUT24, 0.4); st.cue('sfx:bonk', 'S24', HIT24, 0.5); st.cue('sfx:paper', 'S24', GRAB24, 0.3)

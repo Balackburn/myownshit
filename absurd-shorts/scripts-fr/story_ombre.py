@@ -96,7 +96,7 @@ st.shot('S03', 'parisStreet', setOpts=STREET, look=SUN, actors=[
             k(DROP3, to=[SX, 0.02, Z3 + 0.2], dur=0.06, clip='sit', glide=True, ease='in', face=-90, blend=0.0),
             k(DROP3 + 0.06, toon={'sq': [1.16, 0.84, 0.03]}, toonDur=0.03), k(DROP3 + 0.11, toon={'sq': [0.93, 1.08, 0.03], 'settle': 0.5}, toonDur=0.07, toonEase='outBack'),   # she lands, and springs back
             *[x for i in range(2) for x in (k(round(DROP3 + 0.2 + 0.1 * i, 3), toon={'sq': [1.07, 0.93, 0.03], 'bend': {'spine': [0.16, 0, 0, 1, None]}}, toonDur=0.05), k(round(DROP3 + 0.25 + 0.1 * i, 3), toon={'sq': [0.96, 1.06, 0.03], 'bend': {'spine': [-0.06, 0, 0, 1, None]}}, toonDur=0.05))]])],   # out of breath
-        props=[WALL(Z3 + 2.0), P('bench', 'bench', pos=BEN3, ry=-90, opts={'w': 2.0}, castShadow=False),
+        props=[WALL(Z3 + 2.0, strip=False), P('bench', 'bench', pos=BEN3, ry=-90, opts={'w': 2.0}, castShadow=False),   # (pass 4) no string course: her head and eyes on bare wall during the hang
                P('clock', 'wallClock', pos=[round(WX - 0.05, 3), 2.72, Z3 + 0.85], ry=-90, opts={'rate': round(1 / H3, 3), 'until': H3, 'hours': 0})],
         cams=[wallcam(0.0, Z3 + 0.25, Z3 + 0.22, d=4.6, h=1.3, lh=1.55)])
 st.cue('sfx:tick', 'S03', H3, 0.4); st.cue('whoosh', 'S03', A3 - 0.06, 0.25, 0.1, 500, 1500); st.cue('sfx:spring', 'S03', A3 + 0.02, 0.25); st.cue('thud', 'S03', DROP3 + 0.06, 0.4)
@@ -249,7 +249,8 @@ st.cue('whoosh', 'S10', 0.0, 0.2, 0.4, 300, 1200); st.cue('sfx:tick', 'S10', ST1
 D11 = st.dur('S11'); E11, G11, B11 = 0.2, 0.48, 0.92   # her eyes on us (held eight frames); she faces us: the shrug; back to work
 Z11 = ZS10; OM11 = [SX, LEGUP, round(Z11 + LAG10, 3)]
 st.shot('S11', 'parisStreet', setOpts=STREET, look=SUN, actors=[
-        act('grand', [HX, 0, Z11], 0, 'stand', 'smug', keys=[k(0.0, look=WRT10), k(0.0, toon=UPT(face={'gy': 0.5}), toonDur=0.0), k(0.5, toon=UPT(face={'gy': 0.5, 'lid': 1}), toonDur=0.04), k(0.58, toon=UPT(face={'gy': 0.5}), toonDur=0.04)]),   # he has seen nothing: a blink
+        act('grand', [HX, 0, Z11], 0, 'stand', 'smug', keys=[k(0.0, look=WRT10), k(0.0, toon=UPT(face={'gy': 0.5}), toonDur=0.0), k(0.18, toon=UPT(face={'gy': 0.5}, sq=[1.02, 0.98, 1.02]), toonDur=0.22), k(0.42, toon=UPT(face={'gy': 0.5}), toonDur=0.06),
+            k(0.5, toon=UPT(face={'gy': 0.5, 'lid': 1}), toonDur=0.04), k(0.58, toon=UPT(face={'gy': 0.5}), toonDur=0.04), k(0.8, toon=UPT(face={'gy': 0.4, 'browL': 0.4}, sq=[1.02, 0.98, 1.02]), toonDur=0.25)]),   # (pass 4) a breath, a blink, a breath: he froze   # he has seen nothing: a blink
         act('ombre', OM11, 0, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.0, toon=UPS(), toonDur=0.0),                                                                          # with him, to the frame
             k(E11, look=[WX - 4.0, 2.0, Z11 + 0.4]), k(E11, toon=UPS(face={'eye': 0.5}), toonDur=0.06), k(E11, expr='surprised'),                                               # her eyes on us, wide
             k(G11, face=-90, turn=0.0), k(G11, look=None), k(G11, clip='shrug', blend=0.0), k(G11, toon=TALLF(sq=[1.0, 0.94, 0.03], scl={'handL': [1.5, 1.5, 1.5], 'handR': [1.5, 1.5, 1.5]}, face={'eye': 0.4, 'brow': 0.8}), toonDur=0.0),   # she turns to face us, in one frame (a flat thing has no three quarters): shoulders up, palms out
@@ -276,9 +277,9 @@ st.shot('S12', 'parisStreet', setOpts=STREET, look=SUN, actors=[
             k(P12C - 0.04, toon=PT12(2, sq=[1.04, 0.96, 1.04], face={'brow': -0.2}), toonDur=0.04), k(P12C, toon=PT12(0, sq=[0.97, 1.03, 0.97], face={'brow': 0.9, 'eye': 0.3}), toonDur=0.1, toonEase='outBack'), k(P12C, look=HK12(0, 1.5)),   # and all the way: the small one
             k(T12, look=CAM12), k(T12 + 0.02, expr='happy'), k(T12 + 0.02, toon=PT12(0, face={'brow': 1}), toonDur=0.06),                                         # this one (to us)
             k(G12, toon={'hands': {'L': 'grip', 'R': 'open'}, 'scl': {'handL': [1.5, 1.5, 1.5]}, 'reach': {'L': [*HK12(0, 1.98), 1, 0.05]}, 'face': {'brow': 0.9}}, toonDur=0.06), k(G12, look=HK12(0, 1.6)),   # his hand on her hanger
-            k(U12, toon={'hands': {'L': 'grip', 'R': 'open'}, 'scl': {'handL': [1.5, 1.5, 1.5]}, 'reach': {'L': [ME12[0] + 0.5, 1.9, round(ME12[2] - 0.75, 3), 1, 0.05]}, 'sq': [0.97, 1.04, 0.97], 'face': {'brow': 0.9}}, toonDur=round(R12 - U12, 3), toonEase='in')]),   # and the arm comes back, with her
+            k(U12, toon={'hands': {'L': 'grip', 'R': 'open'}, 'scl': {'handL': [1.5, 1.5, 1.5]}, 'reach': {'L': [ME12[0] + 0.55, 1.85, round(ME12[2] + 0.22, 3), 1, 0.05]}, 'sq': [0.97, 1.04, 0.97], 'face': {'brow': 0.9}}, toonDur=round(R12 - U12, 3), toonEase='in')]),   # and the arm comes back, with her
         act('petite', [SX, 0.7, hz12(0)], -90, 'hangBar', 'happy', keys=[k(0.0, visible=False), k(0.0, look=None), k(0.0, toon={'sq': FLATZ}, toonDur=0.0), k(U12, visible=True),
-            k(U12, to=[SX, 0.62, round(ME12[2] - 0.75, 3)], dur=round(R12 - U12, 3), clip='hangBar', then='hangBar', glide=True, ease='in', face=-90),
+            k(U12, to=[SX, 0.62, round(ME12[2] + 0.22, 3)], dur=round(R12 - U12, 3), clip='hangBar', then='hangBar', glide=True, ease='in', face=-90),   # (pass 4) brought past the end of the rail, onto bare wall (over the rail she merged with the dog)
             k(R12 - 0.02, toon={'sq': [1.0, 1.0, 0.03], 'bend': {'spine': [0, 0, 0.3, 1, None]}}, toonDur=0.06)])],                                                # she swings at the end of his arm
         props=[WALL(Z12 + 2.0), P('rack', 'shadowRack', pos=RK, ry=-90, opts={'w': RW12, 'h': 2.0, 'hop': 0.25, 'kinds': ['kid', 'dogv', 'man', 'tall'], 'slim': True, 'manH': 1.36, 'signH': 0.5, 'pick': [[P12A, 3], [P12B, 2], [P12C + 0.03, 1], [P12C + 0.07, 0]], 'gone': [U12, 0]})],   # four, apart (five on two metres hung as one mass): the small one, a dog hung by its collar, a plain one, the tall one
         cams=[cam(0.0, CAM12, [CAM12[0] + 0.2, CAM12[1], CAM12[2]], [RK[0], 1.45, CAM12[2]], [RK[0], 1.45, CAM12[2]], lens=44)])
@@ -331,7 +332,7 @@ st.shot('S14', 'parisStreet', setOpts=STREET, look=SUN, actors=[
         act('ombreflic', [SX, 0, round(ZC14 + 1.1 + LAG, 3)], 180, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.0, toon={'sq': FLATX}, toonDur=0.0), k(0.0, to=[SX, 0, round(ZC14 + LAG, 3)], dur=0.2, clip='walk', then='halt', ease='out', face=180),
             k(0.1, clip='halt', blend=0.1), k(0.1, toon=HALT(SX, ZC14 + LAG, sq=[0.03, 1.05, 0.97]), toonDur=0.1, toonEase='outBack'), k(0.3, toon=HALT(SX, ZC14 + LAG, sq=FLATX, settle=0.5), toonDur=0.1)])],
         props=[WALL(Z13 + 0.5, stencil=STEN)],
-        cams=[cam14(0.0, round(ZS14 + 0.78, 3), round(ZS14 + 0.72, 3))])   # (pass 3) a little left: his jump and his turn whole in the frame (he was on its edge)
+        cams=[cam14(0.0, round(ZS14 + 0.78, 3), round(ZS14 + 0.72, 3), d=7.0)])   # (pass 3) a little left: his jump and his turn whole in the frame; (pass 4) wider: his hair touched the top
 st.cue('sfx:whistle', 'S14', T14 - 0.04, 0.45); st.cue('sfx:squeak', 'S14', T14, 0.35); st.cue('thud', 'S14', T14 + 0.2, 0.25)
 
 # 15: for walking without a shadow. The policeman points at the wall between them, where our man's shadow should be: nothing; our man's eyes follow
@@ -379,7 +380,7 @@ D16 = st.dur('S16'); Z16 = -34.0; A16, E16, G16, UP16 = 0.42, 0.62, 0.9, 1.06
 BEN16 = [round(WX - 0.47, 3), 0, Z16]; SEAT16 = [round(BEN16[0] + 0.05, 3), 0.02, round(Z16 - 0.2, 3)]
 OM16 = [SX, 0, round(Z16 + 0.62, 3)]                 # where she stops on the wall: beside the bench, in clear view
 PT16 = [SX, 0.5, round(Z16 - 0.84, 3)]               # the small one: on the wall at the other end of the bench (beside his head she was one mass with it)
-SLUMP = {'bend': {'spine': [0.42, 0, 0, 1, None], 'neck': [0.3, 0, 0, 1, None]}}
+SLUMP = {'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [-0.65, 0.4, 0, 1, None]}}   # (pass 4) folded at the waist, his face turned to us (with the neck bent down too only the top of his head showed)
 st.shot('S16', 'parisStreet', setOpts=STREET, look=SUN, actors=[
         act('mec', SEAT16, -90, 'sitSlump', 'sad', keys=[k(0.0, look=None), k(0.0, toon={**SLUMP, 'face': {'gy': 0.6, 'lid': 0.4}}, toonDur=0.0),                          # bent double: a real slump
             k(0.2, toon={**SLUMP, 'sq': [1.02, 0.97, 1.02], 'face': {'gy': 0.6, 'lid': 0.4, 'cheeks': 0.5}}, toonDur=0.14), k(0.36, toon={**SLUMP, 'face': {'gy': 0.6, 'lid': 0.4}}, toonDur=0.2),   # a sigh
@@ -413,8 +414,8 @@ st.shot('S17', 'parisStreet', setOpts=STREET, look=SUN, actors=[
             k(H17 + 0.16, to=[SX, 0, round(PT16[2] - 2.6, 3)], dur=0.5, clip='sneak', ease='in', face=180)]),                                                                # she slips off the wall and tiptoes out
         act('ombre', OM16, -90, 'handsOnHips', 'neutral', keys=[k(0.0, look=[SX, 1.2, Z16 - 0.2]), k(0.0, toon={'sq': FLATZ, 'bend': {'neck': [0, 0, 0.25, 1, None]}}, toonDur=0.0), k(A17 + 0.06, look=None), k(A17 + 0.06, toon={'sq': FLATZ}, toonDur=0.08), k(A17 + 0.06, clip='nod', blend=0.1)]),   # she nods to her counsel
         act('avocat', [SX, 0, round(AV17[2] + 1.6, 3)], -90, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.0, toon={'sq': [1.0, 1.0, 0.03], 'bend': {'spine': [0, 0, -0.16, 1, None]}}, toonDur=0.0),
-            k(0.0, to=AV17, dur=A17, clip='stand', glide=True, ease='out', face=-90), k(A17 - 0.04, toon={'sq': [1.06, 0.96, 0.03], 'bend': {'spine': [0, 0, 0.12, 1, None]}}, toonDur=0.06), k(A17 + 0.04, toon={'sq': FLATZ, 'settle': 0.5, 'hands': {'L': 'grip'}, 'reach': {'L': [SX, 0.92, round(AV17[2] + 0.5, 3), 1, 0.1]}}, toonDur=0.08),   # she slides in the same way; (pass 3) her briefcase held out, clear of her gown
-            k(H17, toon={'sq': [1.0, 1.04, 0.03], 'hands': {'R': 'spread', 'L': 'grip'}, 'scl': {'handR': [1.8, 1.8, 1.8]}, 'reach': {'R': [SX, 2.0, round(AV17[2] - 0.47, 3), 1, 0.1], 'L': [SX, 0.92, round(AV17[2] + 0.5, 3), 1, 0.1]}}, toonDur=0.08, toonEase='outBack'),   # a flat hand: stop: up between their two heads, on bare wall
+            k(0.0, to=AV17, dur=A17, clip='stand', glide=True, ease='out', face=-90), k(A17 - 0.04, toon={'sq': [1.06, 0.96, 0.03], 'bend': {'spine': [0, 0, 0.12, 1, None]}}, toonDur=0.06), k(A17 + 0.04, toon={'sq': FLATZ, 'settle': 0.5, 'hands': {'L': 'grip'}, 'reach': {'L': [SX, 0.86, round(AV17[2] + 0.3, 3), 1, 0.1]}}, toonDur=0.08),   # she slides in the same way; her briefcase held out, clear of her gown (pass 4: inside the frame)
+            k(H17, toon={'sq': [1.0, 1.04, 0.03], 'hands': {'R': 'spread', 'L': 'grip'}, 'scl': {'handR': [1.45, 1.45, 1.45]}, 'reach': {'R': [SX, 2.42, round(AV17[2] - 0.47, 3), 1, 0.1], 'L': [SX, 0.86, round(AV17[2] + 0.3, 3), 1, 0.1]}}, toonDur=0.08, toonEase='outBack'),   # a flat hand: stop: up between their two heads, on bare wall
             k(H17 + 0.06, look=[SX, 1.2, Z16 - 0.2])])],
         props=[WALL(Z16 + 2.0), P('bench', 'bench', pos=BEN16, ry=-90, opts={'w': 2.0}, castShadow=False),
                P('rabat', 'rabat', on={'actor': 'avocat', 'joint': 'neck', 'offset': [0, 0.03, 0.6]}, opts={'s': 2.0}),   # (she is flattened thirty times: half a metre in front of her neck is 2 cm)
@@ -430,7 +431,7 @@ COURT = {'handle': 'TRIBUNAL', 'windowX': -1.5, 'chairW': 1.2, 'chairH': 2.75, '
 JG = [-0.35, -0.3, -14.0]; BLK = [0.12, 1.18, -13.3]  # the judge; the block on his bench
 GAV = [round(BLK[0] - 0.47, 3), 1.33, BLK[2]]         # the gavel after the blow: its head on the block, its handle toward his hand
 GAVL = [BLK[0], 1.33, round(BLK[2] + 0.47, 3)]        # (pass 3) lying with its handle toward us: its head on the block, side-on
-GRIP18 = {'hands': {'L': 'grip'}, 'reach': {'L': [GAV[0] + 0.04, GAV[1], GAV[2] - 0.02, 1, 0.05]}}
+GRIP18 = {'hands': {'L': 'grip'}, 'reach': {'L': [round(BLK[0] + 0.0, 3), 1.35, round(BLK[2] + 0.42, 3), 1, 0.05]}}   # (pass 4) on the end of the handle of the gavel lying on the block (it was where the gavel used to lie)
 UP18 = lambda y=2.25, **kw: {'hands': {'L': 'grip'}, 'reach': {'L': [0.1, y, -13.6, 1, 0.05]}, **kw}   # his fist, high beside his wig, on the side of the block: the gavel over it (the clip raises it behind his head: from the front nothing went up)   # his fist on the handle (it lay across the picture with no hand on it)
 CAM18 = lambda t, **kw: cam(t, [0.3, 1.72, -10.7], [0.27, 1.72, -10.95], [-0.02, 1.68, -14.0], [-0.02, 1.68, -14.0], lens=45, **kw)   # further back and higher than the series' judge shot: the raised gavel, his face and the block on the bench in one frame (the mallet's head and the plate were cut by its edge)
 st.shot('S18', 'replicaCourt', setOpts=COURT, actors=[
@@ -442,7 +443,8 @@ st.shot('S18', 'replicaCourt', setOpts=COURT, actors=[
             k(HIT18 + 0.16, toon={**GRIP18, 'settle': 0.6, 'face': {'browL': 0.8, 'lid': 0.35, 'mouth': 'smirk'}}, toonDur=0.1)])],
         props=[P('specs', 'glasses', on={'actor': 'juge', 'joint': 'head', 'offset': [0.02, 0.17, 0.15]}, opts={'r': 0.042, 'dx': 0.07},
                  keys=[k(HIT18, attach='juge', joint='head', offset=[0.02, 0.1, 0.17], dur=0.08, ease='outBack')]),                                                   # they slide down his nose at the blow
-               P('gavelUp', 'gavel', on={'actor': 'juge', 'hand': 'L'}, rot=[0, 1.5708, 0], keys=[k(0.0, visible=True), k(round(HIT18 - 0.02, 3), visible=False)]),   # (pass 3) turned a quarter round its handle: its head side-on at the top of the swing (end-on it was an octagon on his forearm)
+               P('gavelUp', 'gavel', on={'actor': 'juge', 'hand': 'L'}, keys=[k(0.0, visible=True), k(W18, visible=False), k(round(HIT18 - 0.06, 3), visible=True), k(round(HIT18 - 0.02, 3), visible=False)]),
+               P('gavelTop', 'gavel', pos=[0.1, 2.19, -13.6], keys=[k(0.0, visible=False), k(W18, visible=True), k(round(HIT18 - 0.06, 3), visible=False)]),   # (pass 4) the hold at the top: a gavel of its own, its handle down into his fist, its head side-on over it (held in his hand its head was end-on: an octagon on his forearm)
                P('gavel', 'gavel', pos=GAVL, rot=[-1.5708, 0, 0], keys=[k(0.0, visible=False), k(round(HIT18 - 0.02, 3), visible=True), k(HIT18, squash=[1.25, 0.7, 1.25], dur=0.2)]),   # (pass 3) lying with its head across the frame, side-on (its head upright was a pestle)
                P('block', 'soundBlock', pos=BLK), P('hit', 'impactStars', pos=[BLK[0], BLK[1] + 0.16, BLK[2] + 0.12], opts={'at': HIT18, 'n': 6, 'r': 0.34, 'r0': 0.14, 'dur': 0.26, 'size': 0.06})],
         fx=[{'type': 'shake', 'at': HIT18, 'dur': 0.18, 'amount': 0.02}],
@@ -493,8 +495,8 @@ D21 = st.dur('S21'); H21, P21, U21, I21, E21, X21, F21, HG21, FL21, LD21 = 0.07,
 DN21 = [round(UP21[0] - 0.02, 3), 0.0, round(UP21[2] - 0.12 - 1.03, 3)]   # where he ends: on the floor, his feet at her heels
 CAM21P = [2.6, 1.9, 1.6]
 HANG21 = [round(BEDX + 0.9, 3), 1.12, round(BEDZ + 0.6, 3)]   # where he hangs in the air: off the edge of the bed, between it and her, his feet clear of the clock (at 0.42 he seemed to stand on it)
-LOOK21, LENS21, _w21 = fit(CAM21P, {'his': [BEDX, 0.95, round(BEDZ - 0.85, 3)], 'foot': [BEDX - 0.3, 0.6, round(BEDZ + 1.0, 3)], 'top': [UP21[0], 2.8, UP21[2]], 'hang': [HANG21[0], 2.95, HANG21[2]], 'fl': [UP21[0] + 0.45, 0.0, UP21[2] + 0.2], 'dn': [DN21[0], 0.05, round(DN21[2] - 0.95, 3)],
-                                    'padL': [UP21[0] - 0.35, 1.4, UP21[2] + 0.55]}, margin=0.06, top=0.1, bottom=0.72)   # (pass 3) the floor above the caption band, a body's width of room at her left (she was on the frame line)
+LOOK21, LENS21, _w21 = fit(CAM21P, {'his': [BEDX, 0.95, round(BEDZ - 0.85, 3)], 'foot': [BEDX - 0.3, 0.6, round(BEDZ + 1.0, 3)], 'top': [UP21[0], 2.8, UP21[2]], 'hang': [HANG21[0], 3.45, HANG21[2]], 'fl': [UP21[0] + 0.45, 0.0, UP21[2] + 0.2], 'dn': [DN21[0], 0.05, round(DN21[2] - 0.95, 3)],
+                                    'padL': [UP21[0] - 0.35, 1.4, UP21[2] + 0.55]}, margin=0.06, top=0.12, bottom=0.74)   # (pass 4) the top of his head in the hang 12 % from the top (his eyes were at 3-6 %)   # (pass 3) the floor above the caption band, a body's width of room at her left (she was on the frame line)
 UPARMS = lambda dy=0.0, **kw: {'hands': {'L': 'spread', 'R': 'spread'}, 'reach': {'L': [UP21[0] + 0.3, 2.55 + dy, UP21[2], 1, 0.08], 'R': [UP21[0] - 0.3, 2.55 + dy, UP21[2], 1, 0.08]}, **kw}
 st.shot('S21', 'chambre', setOpts=ROOM, actors=[
         act('ombre3', ONFLOOR, 0, 'lieBack', 'surprised', blink=0, keys=[k(0.0, look=None), k(0.0, toon={'sq': FLOORFLAT, 'face': {'eye': 0.55}}, toonDur=0.0),
@@ -549,7 +551,7 @@ st.shot('S22', 'parisStreet', setOpts=STREET, look=SUN, actors=[
         act('mec', [HX, 0, round(zs22(0.0) + DRAG, 3)], 180, 'lieBack', 'unimpressed', blink=0, keys=[k(0.0, look=None), k(0.0, toon={'sq': FLAT23, 'face': {'lid': 0.4}}, toonDur=0.0),
             k(0.0, to=[HX, 0, round(zs22(D22) + DRAG, 3)], dur=D22, clip='lieBack', then='lieBack', glide=True, ease='linear', face=180, cruise=True)])],
         props=[WALL1(), *POTELET(ZP1), JNT(ZJ22, [8])],
-        cams=[wallcam(0.0, round(zs22(0.0) + 0.65, 3), round(zs22(D22) + 0.65, 3), d=6.4, h=2.7, lh=1.0)])   # (pass 3) higher and wider: she, and he whole on the ground at her heels, his face up (he was two navy bars at the edge)
+        cams=[wallcam(0.0, round(zs22(0.0) + 0.95, 3), round(zs22(D22) + 0.95, 3), d=7.2, h=2.8, lh=0.95)])   # (pass 4) his head whole and in from the right edge   # (pass 3) higher and wider: she, and he whole on the ground at her heels, his face up (he was two navy bars at the edge)
 st.cue('whoosh', 'S22', 0.0, 0.2, 0.4, 300, 1200)
 
 def topcam(t0, t1, zf, x0, H=3.6, tilt=8.0, zoff=0.02, lens=44, **kw):
@@ -577,7 +579,7 @@ st.shot('S23', 'parisStreet', setOpts=STREET, look=SUN, actors=[
             k(B23 + 0.44, toon={'sq': FLAT23, 'settle': 0.5, 'face': {'lid': 0.4, 'gx': 0.0, 'gy': 0.0}}, toonDur=0.08), k(B23 + 0.44, expr='unimpressed')])],                               # his eyes come to us
         props=[WALL1(), JNT(ZJ22, [8]), P('bump1', 'impactStars', pos=[HX, 0.06, round(zs23(B23) + 0.17, 3)], ry=-90, opts={'at': B23, 'n': 4, 'r': 0.18, 'r0': 0.06, 'dur': 0.22, 'size': 0.05}),
                P('bump2', 'impactStars', pos=[HX, 0.06, round(zs23(B23 + 0.36) + 1.6, 3)], ry=-90, opts={'at': B23 + 0.36, 'n': 4, 'r': 0.2, 'r0': 0.06, 'dur': 0.22, 'size': 0.05})],
-        cams=[cam(0.0, [round(HX - 2.7, 3), 1.35, round(zs23(0.0) + 1.0, 3)], [round(HX - 2.7, 3), 1.35, round(zs23(D23) + 1.0, 3)], [HX, 0.12, round(zs23(0.0) + 1.0, 3)], [HX, 0.12, round(zs23(D23) + 1.0, 3)], lens=54)])   # (pass 3) three quarters from above, on the road side: he is a body on the ground (from ground level he was a line), the hump rises out of it toward us   # (pass 3) low, from the road side: her heels at the left, he along the ground, the hump running up him (from above it read as a man against a tiled wall)
+        cams=[cam(0.0, [round(HX - 4.4, 3), 2.2, round(zs23(0.0) + 2.05, 3)], [round(HX - 4.4, 3), 2.2, round(zs23(D23) + 2.05, 3)], [HX, 0.1, round(zs23(0.0) + 2.05, 3)], [HX, 0.1, round(zs23(D23) + 2.05, 3)], lens=58)])   # (pass 4) wider and further along him: her heels at the left, his head at about 70 % of the width (it was off the right edge)   # (pass 3) three quarters from above, on the road side: he is a body on the ground (from ground level he was a line), the hump rises out of it toward us   # (pass 3) low, from the road side: her heels at the left, he along the ground, the hump running up him (from above it read as a man against a tiled wall)
 st.cue('sfx:slideDownSlow', 'S23', 0.0, 0.25); st.cue('thud', 'S23', B23, 0.25); st.cue('thud', 'S23', B23 + 0.12, 0.25); st.cue('clack', 'S23', B23 + 0.36, 0.3)
 
 # 24: he says tarmac is fine. She has taken to the road: the dashes of its line go by; he slides after her on the smooth tarmac, his hands behind
@@ -585,15 +587,19 @@ st.cue('sfx:slideDownSlow', 'S23', 0.0, 0.25); st.cue('thud', 'S23', B23, 0.25);
 D24 = st.dur('S24'); RX = 3.4; Z24 = -8.0; TH24 = round(26.79 - st.SH['S24'][0], 3)
 zs24 = lambda t: round(Z24 - V23 * t, 3)
 TH = lambda zf, t, dy=0.0, dx=0.0: [round(RX - 0.2 + dx, 3), 0.36 + dy, round(zf(t) + 0.02 + 2.5, 3), 1, 0.06]   # his thumb: (pass 3) his arm out over his head, toward the top of the picture: the thumb points up the frame (out at his side it was a hitchhiker's)
+TH2 = lambda zf, t, dx=0.0: [round(RX - 0.36 + dx, 3), 0.2, round(zf(t) + 2.0, 3), 1, 0.06]   # (pass 4) his hand, hidden, under the big thumb
+def THUMB(zf, t0, t1, up=None):   # (pass 4) the thumb is a prop (a fist with its thumb up the frame, knuckles to the sky): his own pointed where his forearm let it: sideways
+    ks = ([k(0.0, scale=0.01, dur=0.0), k(up, scale=2.0, dur=0.12, ease='outBack')] if up is not None else []) + [k(t0, to=[round(RX - 0.42, 3), 0.24, round(zf(t1) + 2.12, 3)], dur=round(t1 - t0, 3), ease='linear')]
+    return P('thumbP', 'thumbsUp', pos=[round(RX - 0.42, 3), 0.24, round(zf(t0) + 2.12, 3)], rot=[1.5708, 3.1416, 0], scale=(2.0 if up is None else 0.01), keys=ks, castShadow=False)
 BEAT = lambda t0, t1: [k(round(t0 + 0.15 * i, 3), toon={'sq': FLAT23, 'bend': {'shinL': [0.35 if i % 2 else -0.1, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.12) for i in range(int((t1 - t0) / 0.15))]
 st.shot('S24', 'parisStreet', setOpts=STREET, look=SUN, actors=[
         act('ombre3', [RX, 0, zs24(0.0)], 180, 'marchPomp', 'neutral', params=MP, keys=[k(0.0, look=None), k(0.0, to=[RX, 0, zs24(D24)], dur=D24, clip='marchPomp', params=MP, ease='linear', face=180, cruise=True)]),
         act('mec', [RX, 0, round(zs24(0.0) + DRAG, 3)], 180, 'lieRelax', 'unimpressed', blink=0, keys=[k(0.0, look=None), k(0.0, toon={'sq': FLAT23, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.0),
             k(0.0, to=[RX, 0, round(zs24(D24) + DRAG, 3)], dur=D24, clip='lieRelax', then='lieRelax', glide=True, ease='linear', face=180, cruise=True),
             *BEAT(0.1, 0.52), k(0.56, toon={'sq': FLAT23, 'face': {'lid': 1, 'mouth': 'smirk'}}, toonDur=0.06), k(0.72, toon={'sq': FLAT23, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.06), *BEAT(0.78, TH24 - 0.14),   # his foot beats time; a slow blink
-            k(TH24 - 0.12, toon={'sq': FLAT23, 'hands': {'L': 'thumbUp'}, 'scl': {'handL': [2.1, 2.1, 2.1]}, 'reach': {'L': TH(zs24, TH24, 0.1)}, 'face': {'lid': 0.3, 'brow': 0.5, 'mouth': 'smirk'}}, toonDur=0.12, toonEase='outBack'),   # a thumb: it is fine
-            *[k(round(TH24 + 0.12 * i, 3), toon={'sq': FLAT23, 'hands': {'L': 'thumbUp'}, 'scl': {'handL': [2.1, 2.1, 2.1]}, 'reach': {'L': TH(zs24, TH24 + 0.12 * i, 0.06 if i % 2 else 0.0)}, 'face': {'lid': 0.3, 'brow': 0.5, 'mouth': 'smirk'}}, toonDur=0.11) for i in range(1, int((D24 - TH24) / 0.12) + 1)]])],
-        props=[P('dash', 'roadDashes', pos=[round(RX + 0.62, 3), 0, round(Z24 + 4.0, 3)], opts={'len': 16, 'period': 1.5, 'dash': 0.8})],
+            k(TH24 - 0.12, toon={'sq': FLAT23, 'hands': {'L': 'fist'}, 'scl': {'handL': [0.01, 0.01, 0.01]}, 'reach': {'L': TH2(zs24, TH24)}, 'face': {'lid': 0.3, 'brow': 0.5, 'mouth': 'smirk'}}, toonDur=0.12, toonEase='outBack'),   # a thumb: it is fine
+            *[k(round(TH24 + 0.12 * i, 3), toon={'sq': FLAT23, 'hands': {'L': 'fist'}, 'scl': {'handL': [0.01, 0.01, 0.01]}, 'reach': {'L': TH2(zs24, TH24 + 0.12 * i)}, 'face': {'lid': 0.3, 'brow': 0.5, 'mouth': 'smirk'}}, toonDur=0.11) for i in range(1, int((D24 - TH24) / 0.12) + 1)]])],
+        props=[THUMB(zs24, round(TH24 - 0.12, 3), D24, up=round(TH24 - 0.12, 3)), P('dash', 'roadDashes', pos=[round(RX + 0.62, 3), 0, round(Z24 + 4.0, 3)], opts={'len': 16, 'period': 1.5, 'dash': 0.8})],
         cams=[topcam(0.0, D24, zs24, RX)])
 st.cue('whoosh', 'S24', 0.0, 0.15, D24, 200, 700); st.cue('sfx:bell', 'S24', TH24, 0.3)
 
@@ -607,18 +613,18 @@ def rattle(t0, t1, zf):
     ks = []; n = int((t1 - t0) / 0.066)
     for i in range(n):
         t = round(t0 + 0.066 * i, 3); a = 1 if i % 2 else -1; w = min(1.0, (i + 1) / 4)   # it climbs from his heels to his head in four hits
-        ks.append(k(t, toon={'sq': [1.06, 1.0 - 0.03 * a * w, 0.1 + 0.05 * (a > 0) * w], 'hands': {'L': 'thumbUp'}, 'scl': {'handL': [1.7, 1.7, 1.7]}, 'reach': {'L': [round(RX - 0.18 + 0.03 * a, 3), 0.3 + 0.06 * a * w, round(zf(t) + 0.02 + 2.4, 3), 1, 0.06]},
+        ks.append(k(t, toon={'sq': [1.06, 1.0 - 0.03 * a * w, 0.1 + 0.05 * (a > 0) * w], 'hands': {'L': 'fist'}, 'scl': {'handL': [0.01, 0.01, 0.01]}, 'reach': {'L': [round(RX - 0.36 + 0.03 * a, 3), 0.2 + 0.04 * a * w, round(zf(t) + 2.0, 3), 1, 0.06]},
                          'bend': {'spine': [0.14 * a * w, 0, 0, 1, None], 'neck': [-0.3 * a * w, 0, 0.1 * a * w, 1, None]}, 'face': {'eye': 0.35, 'brow': 0.9, 'pupilShake': w, 'tremble': w, 'jaw': 0.25 + 0.2 * (a > 0), 'cheeks': 0.6 * w}}, toonDur=0.05))
     return ks
 st.shot('S25', 'parisStreet', setOpts=STREET, look=SUN, actors=[
         act('ombre3', [RX, 0, zs25(0.0)], 180, 'marchPomp', 'neutral', params=MP, keys=[k(0.0, look=None), k(0.0, to=[RX, 0, zs25(D25)], dur=D25, clip='marchPomp', params=MP, ease='linear', face=180, cruise=True)]),
         act('mec', [RX, 0, round(zs25(0.0) + DRAG, 3)], 180, 'lieRelax', 'unimpressed', blink=0, keys=[k(0.0, look=None),
-            k(0.0, toon={'sq': FLAT23, 'hands': {'L': 'thumbUp'}, 'scl': {'handL': [2.1, 2.1, 2.1]}, 'reach': {'L': TH(zs25, 0.0)}, 'face': {'eye': 0.3, 'brow': 0.7, 'gy': 0.9}}, toonDur=0.0), k(0.0, expr='worried'),   # his eyes are on what is coming
+            k(0.0, toon={'sq': FLAT23, 'hands': {'L': 'fist'}, 'scl': {'handL': [0.01, 0.01, 0.01]}, 'reach': {'L': TH2(zs25, 0.0)}, 'face': {'eye': 0.3, 'brow': 0.7, 'gy': 0.9}}, toonDur=0.0), k(0.0, expr='worried'),   # his eyes are on what is coming
             k(0.0, to=[RX, 0, round(zs25(D25) + DRAG, 3)], dur=D25, clip='lieRelax', then='lieRelax', glide=True, ease='linear', face=180, cruise=True),
             *rattle(C25, D25, zs25)])],
-        props=[P('cob', 'cobbles', pos=[RX, 0, round(ZC25 - 4.5, 3)], opts={'len': 9.0, 'w': 2.6, 'h': 0.05}), P('dash', 'roadDashes', pos=[round(RX + 0.62, 3), 0, round(Z24 + 4.0, 3)], opts={'len': round(Z24 + 4.0 - ZC25 - 0.3, 2), 'period': 1.5, 'dash': 0.8})],
+        props=[THUMB(zs25, 0.0, D25), P('cob', 'cobbles', pos=[RX, 0, round(ZC25 - 4.5, 3)], opts={'len': 9.0, 'w': 2.6, 'h': 0.05}), P('dash', 'roadDashes', pos=[round(RX + 0.62, 3), 0, round(Z24 + 4.0, 3)], opts={'len': round(Z24 + 4.0 - ZC25 - 0.3, 2), 'period': 1.5, 'dash': 0.8})],
         fx=[{'type': 'shake', 'at': C25, 'dur': round(D25 - C25, 3), 'amount': 0.008}],
-        cams=[topcam(0.0, 0.32, zs25, RX), glide([cam(0.32, [RX, 1.8, round(HD25(0.32) - 0.42, 3)], [RX, 1.8, round(HD25(D25) - 0.42, 3)], [round(RX - 0.1, 3), 0.0, round(HD25(0.32) - 0.1, 3)], [round(RX - 0.1, 3), 0.0, round(HD25(D25) - 0.1, 3)], lens=44, ease='linear')], 0.7)])   # it comes down on his head as he rattles: his face, and the thumb beside it
+        cams=[topcam(0.0, 0.32, zs25, RX), glide([cam(0.32, [RX, 1.8, round(HD25(0.32) - 0.42, 3)], [RX, 1.8, round(HD25(D25) - 0.42, 3)], [round(RX - 0.24, 3), 0.0, round(HD25(0.32) - 0.1, 3)], [round(RX - 0.24, 3), 0.0, round(HD25(D25) - 0.1, 3)], lens=46, ease='linear')], 0.7)])   # it comes down on his head as he rattles: his face, and the thumb beside it
 [st.cue('clack', 'S25', round(C25 + 0.066 * i, 3), 0.28 if i % 2 else 0.2) for i in range(int((D25 - C25) / 0.066))]
 
 # 26: the end. A crossing, the red man. Seen from behind them, from high: she walks to the kerb and stops; he does not: he slides on between her
@@ -632,6 +638,7 @@ XB26 = round(XK + DRAG, 3); XO26 = round(XK - 2.35, 3)   # his hips: behind her;
 CAM26 = [10.2, 4.4, round(Z26 + 3.4, 3)]; LOOK26 = [4.75, 0.3, round(Z26 - 0.25, 3)]   # (pass 3: tighter, on the middle of the slide: the bottom 40 % was empty pavement)   # behind her and on her left (from straight behind, her own body hid the road in front of her feet as far as the other kerb: he slid out of sight)
 WR26 = [round(XK - 0.2, 3), 1.52, round(Z26 + 0.4, 3)]   # her wrist, up at her left: toward the camera
 HEAD26 = round(XB26 + 0.93, 3)                         # the middle of his head when he is back
+LOOK26, LENS26, _w26 = fit(CAM26, {'feetOut': [round(XO26 - 1.05, 3), 0.0, Z26], 'headBack': [round(HEAD26 + 0.65, 3), 0.05, Z26], 'her': [XK, 2.35, Z26], 'light': [5.22, 3.3, round(Z26 - 1.55, 3)]}, margin=0.08, top=0.1, bottom=0.7)   # (pass 4) his head when he is back in from the right edge and above the caption band (it was at the edge, in the band)
 st.shot('S26', 'parisStreet', setOpts={**STREET, 'clear': [-90, 80]}, look=SUN, actors=[
         act('ombre3', [xs26(0.0), 0, Z26], -90, 'marchPomp', 'neutral', params=MP, keys=[k(0.0, look=None), k(0.0, to=[XK, 0, Z26], dur=ST26, clip='marchPomp', params=MP, ease='linear', face=-90, cruise='in'),
             k(ST26, clip='stand', blend=0.08), k(ST26, toon={'sq': [1.05, 0.95, 1.05], 'settle': 0.5}, toonDur=0.06),
@@ -654,7 +661,7 @@ st.shot('S26', 'parisStreet', setOpts={**STREET, 'clear': [-90, 80]}, look=SUN, 
                P('light', 'trafficLight', pos=[5.22, 0, round(Z26 - 1.55, 3)], ry=-112, opts={'state': [[0, 'g']], 'headRy': 112, 'poleColor': '#98A0A8', 'housing': '#2E4A3B', 'ped': 'r'}),   # the red man faces us; on her right (on her left its pole stood in front of the crossing, where he slides out)
                P('joints', 'pavingJoints', pos=[round(XK + 2.45, 3), 0, round(Z26 + 3.25, 3)], opts={'w': 5.2, 'step': 0.5, 'len': 6.5}),   # (pass 3: half a slab over: a joint ran into his crown)
                DIAL('dial26', [round(WR26[0] + 0.06, 3), WR26[1] + 0.03, round(WR26[2] + 0.05, 3)], W26 + 0.06, CI26, shade=True, r=0.14, ry=56, rot=[-0.45, 0, 0])],
-        cams=[cam(0.0, CAM26, [CAM26[0] - 0.15, CAM26[1], CAM26[2]], LOOK26, LOOK26, lens=46),
+        cams=[cam(0.0, CAM26, [CAM26[0] - 0.15, CAM26[1], CAM26[2]], LOOK26, LOOK26, lens=LENS26 or 50),
               cam(CI26, [round(HEAD26 - 0.34, 3), 1.85, Z26], [round(HEAD26 - 0.3, 3), 1.75, Z26], [round(HEAD26 + 0.02, 3), 0.0, Z26], [round(HEAD26 + 0.02, 3), 0.0, Z26], lens=44)])   # then from above, close: his flat face, the right way up, 40 % of the width
 st.cue('sfx:squeak', 'S26', ST26, 0.3); st.cue('sfx:stretch', 'S26', ST26 + 0.04, 0.35); st.cue('sfx:twang', 'S26', HD26, 0.4); st.cue('thud', 'S26', BK26, 0.3); st.cue('sfx:tick', 'S26', W26 + 0.1, 0.3); [st.cue('sfx:tick', 'S26', round(W26 + 0.19 + 0.14 * i, 3), 0.2) for i in range(3)]
 

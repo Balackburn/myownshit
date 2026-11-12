@@ -79,7 +79,7 @@ OFF5 = [round(HX - 0.35, 3), 0, round(HZ + 0.95, 3)]
 STICK = lambda t0: P('sticker', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.06, 0.38, 0.17]}, opts={'w': 0.26, 'h': 0.16, 'big': 'MONUMENT', 'bigSize': 0.34, 'lines': ['HISTORIQUE'], 'lineSize': 0.2, 'top': 0.12, 'paper': '#F4F1E8', 'bright': True},
                      keys=[k(0.0, scale=0.01, dur=0.0), k(t0, scale=1.0, dur=0.08, ease='outBack')])
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[HIM(extra=[k(SL5, toon=FROZEN(sq=[1.04, 0.96, 1.04], face={'eye': 0.4, 'brow': 0.7}), toonDur=0.04), k(SL5 + 0.1, toon=FROZEN(face={'gy': 0.6}), toonDur=0.1)]),
-        act('officiel', [round(HX - 0.3, 3), 0, round(HZ + 3.4, 3)], 180, 'walk', 'unimpressed', keys=[k(0.0, look='mec'), k(0.0, to=OFF5, dur=AR5, clip='walk', then='stand', ease='out', face=200),
+        act('officiel', [round(HX - 0.3, 3), 0, round(HZ + 3.4, 3)], 180, 'stand', 'unimpressed', keys=[k(0.0, look='mec'), k(0.0, to=OFF5, dur=AR5, clip='walk', then='stand', ease='out', face=200),
             k(AR5 + 0.05, look=[HX, 0.3, HZ]), k(AR5 + 0.3, look=[HX, TOP + 0.3, HZ]),                                                                  # he looks him up and down
             k(SL5 - 0.12, toon={'reach': {'R': [round(HX - 0.2, 3), 1.62, round(HZ + 0.05, 3), 1, 0.06]}, 'hands': {'R': 'spread'}}, toonDur=0.12, toonEase='in'),   # the sticker: slap
             k(SL5 + 0.25, toon={}, toonDur=0.2)])],
