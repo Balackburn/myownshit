@@ -216,6 +216,12 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | L'écrasement étage par étage, vu de face | à chaque étage : 20 % plus large, plus court (il s'enfonce le long de la porte), genoux qui partent en dehors (`legL`/`legR` en `bz`, `shinL`/`shinR` en sens inverse) ; un à-coup dépassé de 0,03 s à chaque tic | 43 S03 (passe 3) |
 | La voiture sur deux roues | `carToon` basculée de 20° (roulis en `rotTo` et 0,3 m de remontée sur ses roues droites), essuie-glaces qui quittent la vitre et s'étirent vers le clavier de l'horodateur (`reach`, `reachTo`) et s'arrêtent à une main (`reachShort`), tremblants ; tenue neuf images, retombée avec rebond | 45 S13 (passe 2) |
 | La chute vue du capot | le visage aplati filmé depuis l'arrière du capot, caméra qui regarde vers l'avant : le haut du crâne monte dans le cadre, le visage se lit à l'endroit ; gros plan sur le ticket FRAIS DE GARDE tenu face caméra (`face: 'camera'` dans l'attache) ; puis la voiture : clignement, petit klaxon | 45 S21-S22 (passe 2) |
+| Les yeux qui descendent la marge | la tête basculée par-dessus le panneau (hors cadre, en haut à gauche), les tiges pendent à côté de l'avis et s'allongent ligne par ligne (`popLen` 0,36 → 0,54 en quatre crans) : les yeux descendent la marge, pupilles vers nous (`eyeYaw` ≈ -2,4 quand on filme les tiges de dos) et qui baissent (`eyePitch`) ; l'avis épinglé à droite pour leur laisser la place | 43 S16 (passe finale) |
+| Le crochet verrouillé sur le col | le corps s'étire ×1,8 (jambes ×1,8, colonne ×1,5, cou ×2,3) en sept images avec la même durée et la même courbe que le crochet (hauteur = repos + montée × étirement) ; tenu cinq images en frissonnant entre 100 et 104 % (jamais au repos) ; les pieds lâchent : traînée de deux images (`sq [0.7, 1.45, 0.7]`), il pend mou, bras et jambes en ondulation | 45 S04 (passe 3) |
+| Le sursaut sur un pied pris | clac : écrasé deux images, puis claqué à l'extrême (jambes ×1,45 vers le haut, le pied pris reste, bras en l'air avec la baguette, cheveux dressés), tenu neuf images en frissonnant, retombé en écrasement dépassé, posé ; l'agent à genoux de profil, bien à l'écart, caméra qui pousse vers la pince | 45 S08 (passe 3) |
+| Les petits bras qui n'atteignent pas | essuie-glaces en deux segments avec un coude levé et une lame en travers au bout qui bat ; ils s'arrêtent à une main du clavier (`reachShort` 0,32 : du mur clair entre les deux), traits de tremblement aux bouts ; un insert serré sur les lames tremblantes devant le clavier, puis le plan large pour la retombée | 45 S13 (passe 3) |
+| Le klaxon qui ramasse | 0,1 s avant : écrasée de 20 %, yeux plissés ; puis étirée, elle décolle (0,3 m, `honkHop`) et retombe avec un rebond ; les anneaux partent de la calandre sous les yeux et montent en grandissant (pour une rafale en accéléré : `honkHop: 0.12`) | 45 S14-S15 (passe 3) |
+| Le ballon qui gonfle face à nous | les joues d'abord (0,1 s), puis la tête rouge, le corps rond en neuf images (`balloonSuit` 0,55 puis 1 en `outBack`), les plaintes collées sur le devant une fois rond ; il ne décolle qu'après, toujours face caméra (`face=` sur le déplacement), la jambe pincée tirée en ficelle | 45 S17 (passe 3) |
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
@@ -756,3 +762,21 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   (45 S18) ; crochet bien au-dessus de la tête, sangles sous les bras, ou quatre brins (`craneHook slingD`).
 - (cycle 8) Les accessoires de 46 : `speedCamera`, `speedDisplay`, `licensePlate`, `zoneSign`, `speedGauge`, `carLift`, `brakeRollers`,
   `burstWall`, `garageBay`, `wheelChock` (props_radar.js) ; et `burstLines` (traits de choc autour d'un son, props_statue.js).
+- (cycle 8) Un commentaire `#` au milieu d'un dictionnaire sur plusieurs lignes avale la suite de la ligne sans erreur : l'avis de 43 a perdu
+  CONVOCATION et ASSEMBLÉE GÉNÉRALE, la jauge de 46 sa variable. Commentaire sur sa propre ligne ; contrôle : chercher dans les commentaires
+  (module `tokenize`) des motifs `'clé':`, `k(` ou `P('`.
+- (cycle 8) Sur des yeux sortis (`pop`), la pupille est au bout de la tige, tournée vers où il regarde : filmés de dos, ce sont des boules
+  blanches (43 S16) ; `eyeYaw` ≈ ±(π − l'angle tige-caméra) les retourne vers nous, `eyePitch` les fait descendre.
+- (cycle 8) Un déplacement (`to`) sans `face=` tourne le personnage dans le sens de la marche, même en `glide` : le ballon de 45 montrait
+  sa nuque. Donner `face=` pour qu'il reste face caméra.
+- (cycle 8) Une clé de toon de premier niveau inconnue (`'tremble'` hors de `face`) : le corps étiré de 45 S04 est revenu au repos au milieu
+  de la tenue (cause probable). `tremble` va dans `face` ; le frisson du corps, en clés alternées.
+- (cycle 8) Des paupières en planche plus grandes que le phare font du ruban adhésif sur les yeux : calotte dans le cercle, bord courbe avec
+  un trait de cils (`carToon`, passe 3 de 45) ; fermée, il reste un arc de cils en bas.
+- (cycle 8) Un essuie-glace tendu en ligne droite jusqu'au clavier se lit comme un câble de recharge : coude, lame au bout, un vide clair
+  avant la cible, et un insert.
+- (cycle 8) Les voitures de la bibliothèque (`car`) ont une cabine presque transparente (`glass` 0,07) : de loin, des cages ouvertes ;
+  `'glass': 0.82` pour des voitures garées fermées.
+- (cycle 8) Une grosse goutte de sueur doit faire trois fois sa taille pour se lire sur un téléphone : clé `fx={'sweat': 1, 'sweatSize': 3}`.
+- (cycle 8) Trois rendus sur quatre processeurs : le rendu final 1080p tombe à 0,1 image/s (2 h 30 pour 30 s). Le final avec au plus un
+  brouillon à côté ; les images de contrôle attendent.

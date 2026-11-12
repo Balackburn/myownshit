@@ -1330,3 +1330,27 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   (2) le selfie de 44 est vu depuis l'avant de la file plutôt que de côté ; (3) la chute de 45 change d'axe (au-dessus du capot) plutôt que de
   retourner le personnage ; (4) l'horodateur de 45 recule de 0,65 m et pivote vers la rue dans tous les plans de rue (il était derrière la
   voiture bleue).
+
+### 12 novembre (après-midi) — cycle 8, suite : 43 en génération finale, 45 passe 3, 46 en première revue
+
+- **43 « La cravate », passe finale** (revue 3 : animation 7,5, direction artistique 7,7) : au plan 16 les pupilles des yeux sur tiges
+  regardaient le mur (`eyeYaw` +1,05 les laissait sur l'arrière de la boule) ; elles sont retournées vers la caméra (-2,4), plus grosses, et
+  les yeux descendent la marge à côté de l'avis (tête basculée hors cadre, tiges qui s'allongent ligne par ligne, avis épinglé à droite) ;
+  au plan 18 POUR : 5 et MAJORITÉ : 6 tous deux en gras noir (nouvelle option `lineBold` des feuilles). Un commentaire glissé au milieu du
+  dictionnaire de l'avis avait effacé son titre : vu sur les images de contrôle, corrigé, et un contrôle automatique ajouté au skill.
+  Génération complète lancée (1080p puis HyperFrames).
+- **46 « Le radar », brouillon 1** rendu (49 min) ; revue 1 en préparation (32 images au rendu final, deux relecteurs). Deux défauts vus avant
+  la revue et signalés dans le brief : la plaque vissée à l'envers (son dos sombre en bande sur la veste), une ombre en escalier devant le
+  garage (caméra hors du garage).
+- **45 « La fourrière », passe 3** (revue 2 : 7,3 / 7,0) : moteur de la voiture repris (paupières en calotte avec trait de cils,
+  essuie-glaces en deux segments avec coude, lame au bout et traits de tremblement, klaxon qui ramasse puis décolle de 0,3 m, anneaux sous
+  les yeux) ; crochet verrouillé sur le col pendant un étirement ×1,8 tenu en frissonnant, puis traînée et corps mou ; sursaut sur le pied
+  pris (écrasement, extrême bras en l'air, tenue de neuf images, retombée) ; agent de profil à l'écart ; ballon qui gonfle en neuf images
+  face caméra puis décolle ; insert sur les lames à une main du clavier ; voisins des deux étages ; carte bancaire ×2, carte grise lisible ;
+  grosse goutte de sueur (`fx sweatSize`, nouveau dans human.js) et petit signe du poignet ; tapotements et tic à l'œil pendant l'attente ;
+  voitures garées aux vitres fermées.
+- **Disque** : 2,6 Go de segments vidéo de rendus d'histoires déjà livrées effacés (out/work, régénérables) ; 6 Go libres.
+- **Décisions prises sans question** : (1) pas de gants blancs au bout des essuie-glaces : la narration dit « il n'a pas de mains » ; une
+  lame de caoutchouc en travers fait la « main » sans la contredire ; (2) la relectrice demandait l'agent « du côté gauche ouvert » ; la pince
+  est sur le pied gauche, côté droit de l'image : l'agent reste à droite mais loin de lui, de profil, et la baguette monte avec les bras ;
+  (3) les voitures garées passent en vitres presque opaques (`glass` 0,82) plutôt qu'en nouveaux modèles.

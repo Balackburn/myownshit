@@ -487,7 +487,7 @@ function buildFaceFx(head, hw, hh, hd, o) {
     }
     if (fx.zeroG) strands.forEach((s, i) => { s.g.visible = true; s.g.rotation.z = Math.PI - s.rot * 1.6 + 0.18 * Math.sin(t * 1.7 + i); const [x, y] = P2(s.cx, 18); s.g.position.set(x, y + 0.012, Z(y) + 0.002); });   // floating hair sticks up
     if (fx.tears) tears.forEach(r => { const q = (t * 0.9 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx - 14 * q, r.cy + q * 330, 0.9); });
-    if (fx.sweat) { sweat.forEach(r => { const q = (t * 0.25 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, r.cy + q * 260, 0.8); }); bigSweat.visible = true; at2(bigSweat, 352, 175 + 6 * Math.sin(t * 3), 1.9); }
+    if (fx.sweat) { sweat.forEach(r => { const q = (t * 0.25 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, r.cy + q * 260, 0.8); }); bigSweat.visible = true; const sz = fx.sweatSize || 1; at2(bigSweat, 352 - 30 * (sz - 1), 175 + 6 * Math.sin(t * 3) + 40 * (sz - 1), 1.9 * sz); }   // (cycle 8) fx.sweatSize: the big drop bigger (3: it reads on a phone)
     if (fx.blush) blush.forEach(m => { m.visible = true; });
     if (fx.frozen) { const thaw = fx.frozen === 'thaw'; frost.visible = !thaw; cap.visible = !thaw; icicles.forEach((m, i) => { m.visible = !thaw || i % 2 === 0; }); noseIce.visible = true;
       if (thaw) runs.slice(0, 3).forEach(r => { const q = (t * r.v / 1400 + r.ph) % 1; r.m.visible = true; at2(r.m, r.cx, 1000 + q * 120, 0.6); }); }

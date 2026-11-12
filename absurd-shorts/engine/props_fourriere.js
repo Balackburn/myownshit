@@ -32,6 +32,11 @@ export const FOURRIERE_PROPS = {
   // and wider (it sits on something soft). userData.front / roof / wiper: local points for the script.
   // (cycle 8) o.reach [[t0, t1], ...] with o.reachTo [x, y, z] (world): the two wipers leave the glass and stretch toward that point, trembling, and stop
   // o.reachShort (0.15 m) short of it: little arms that cannot reach (flailing on its own windscreen they never reached for anything)
+  // (cycle 8, pass 3 of story 45) the lids are curved caps seated inside the rims, closing on a dark curved lash line (shut: a lash arc along the bottom of
+  // the rim; flat boards over the eyes read as tape); the wipers flail and reach as two-segment arms with an elbow and a rubber blade at the tip that
+  // flaps (a straight rod read as a cable), with shake strokes at the tips while they strain; a honk gathers first (a 20 % squash, eyes squeezed, from
+  // 0.1 s before its time), then stretches and hops clear (o.honkHop, 0.3 m), lands with a bounce; the rings leave the grille below the eyes, rise and
+  // grow as they go (o.ringUp, 0.45 m)
   carToon(o) {
     const C = o.color || '#6CC4A4', L = 3.5, Wd = 1.62, g = grp(), body = grp(); g.add(body);
     const DARK = '#3E434C', GLASS = o.glassColor || '#BFE3EE';
@@ -49,14 +54,25 @@ export const FOURRIERE_PROPS = {
     // wheels (in the body: the whole car hops and squashes as one)
     for (const x of [-1.15, 1.15]) for (const z of [-0.74, 0.74]) body.add(at(cyl(0.31, 0.31, 0.24, P.ink, 12), x, 0.31, z, PI / 2), at(cyl(0.14, 0.14, 0.02, '#C9CDD3', 8), x, 0.31, z * 1.17, PI / 2));
     // headlight eyes: white discs, dark pupils, lids in the body colour that grow down from the top edge
-    const eyes = [];
+    const eyes = [], LR = 0.136, LIDN = 24, lidMat = new THREE.MeshLambertMaterial({ color: C, side: THREE.DoubleSide }), lashMat = new THREE.MeshBasicMaterial({ color: '#1B1B1E', side: THREE.DoubleSide });
+    const lidIdx = []; for (let j = 0; j < LIDN; j++) { const a = 2 * j; lidIdx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
+    // a column strip across the disc: for u in -LR..LR the lid covers from its edge line up to the top of the disc; the lash is a band under that edge
+    const setLid = (E, k) => { const b = 0.35 * LR, v0 = (LR + b + 0.004) * (1 - k) + (-0.66 * LR - 0.01) * k, w = 0.022, P1 = E.lid.geometry.attributes.position, P2 = E.lash.geometry.attributes.position;
+      for (let j = 0; j <= LIDN; j++) { const u = -LR + 2 * LR * j / LIDN, top = Math.sqrt(Math.max(0, LR * LR - u * u)), edge = v0 - b * (1 - (u / LR) ** 2);
+        const lo = Math.min(top, Math.max(edge, -top)); P1.setXYZ(2 * j, u, lo, 0); P1.setXYZ(2 * j + 1, u, top, 0);
+        const lt = Math.min(top, Math.max(edge, -top + w)), on = k > 0.02 && edge < top; P2.setXYZ(2 * j, u, on ? Math.max(-top, lt - w) : top, 0); P2.setXYZ(2 * j + 1, u, on ? lt : top, 0); }
+      P1.needsUpdate = P2.needsUpdate = true; E.lid.geometry.computeBoundingSphere(); };
     for (const sz of [-1, 1]) {
       const e = grp(); e.position.set(L / 2 + 0.005, 0.76, sz * 0.48); body.add(e);
       e.add(at(cyl(0.15, 0.15, 0.04, '#FFFBEA', 16, { emissive: '#FFF3C4', noGrain: true }), 0.02, 0, 0, 0, 0, PI / 2));
       e.add(at(torus(0.15, 0.018, DARK, 6, 20), 0.035, 0, 0, 0, PI / 2, 0));
       const pup = at(cyl(0.062, 0.062, 0.02, '#1B1B1E', 12), 0.05, 0, 0, 0, 0, PI / 2); pup.visible = o.eyes !== false; e.add(pup);
-      const lid = box(0.02, 0.32, 0.32, C, { pivot: 'top', outline: 0.004 }); lid.position.set(0.055, 0.155, 0); e.add(lid);   // (cycle 8) seated in the rim
-      eyes.push({ sz, pup, lid });
+      const lid = new THREE.Mesh(new THREE.BufferGeometry(), lidMat), lash = new THREE.Mesh(new THREE.BufferGeometry(), lashMat);
+      lid.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array((LIDN + 1) * 6), 3)); lid.geometry.setIndex(lidIdx);
+      lash.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array((LIDN + 1) * 6), 3)); lash.geometry.setIndex(lidIdx);
+      lid.frustumCulled = lash.frustumCulled = false; lash.position.z = 0.002;
+      const lidG = grp(); lidG.add(lid, lash); lidG.position.set(0.066, 0, 0); lidG.rotation.set(0, PI / 2, 0); e.add(lidG);   // (pass 3) a cap inside the rim, in front of the pupil
+      eyes.push({ sz, pup, lid, lash, lidG });
     }
     // corner lights (hazards): on and off copies swapped
     const [hOn, hOff] = lamp('#FFB020', '#B8691C'), corners = [];
@@ -65,11 +81,16 @@ export const FOURRIERE_PROPS = {
     body.add(at(box(0.03, 0.2, 0.86, '#2A2C31'), L / 2 + 0.012, 0.52, 0));                                                              // grille
     for (const sx of [-1, 1]) body.add(at(label(o.plate || 'FG-412-HJ', 0.52, 0.12, { bg: P.white, fg: P.ink, wrap: false }), sx * (L / 2 + 0.03), 0.43, 0, 0, sx * PI / 2, 0));
     // wipers: pivots at the foot of the windscreen; local X = the glass normal, local Y = up the glass; the arm lies along local -Z
-    const wsFootX = cx + 1.95 / 2 - 0.02, wipers = [];
+    const wsFootX = cx + 1.95 / 2 - 0.02, wipers = [], armMat = new THREE.MeshLambertMaterial({ color: '#1E2024' }), _M = new THREE.Vector3(), _E = new THREE.Vector3(), _D = new THREE.Vector3();
     for (const z0 of [0.5, -0.06]) {
       const pv = grp(); pv.position.set(wsFootX + 0.03, cy0 + 0.05, z0); pv.rotation.z = slope; body.add(pv);
       const arm = grp(); pv.add(arm); arm.add(at(box(0.03, 0.03, 0.56, '#1E2024'), 0.02, 0, -0.28), at(box(0.025, 0.06, 0.46, '#2A2C31'), 0.035, 0, -0.32), at(cyl(0.03, 0.03, 0.04, '#1E2024', 8), 0.02, 0, 0, 0, 0, PI / 2));
-      wipers.push({ pv, arm, z0 });
+      // (pass 3) the arm that moves: two segments (unit boxes along -Z, scaled), an elbow, a rubber blade across the tip, shake strokes
+      const seg1 = grp(), m1 = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.045, 1).translate(0, 0, -0.5), armMat), elbow = grp(), seg2 = grp(), m2 = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 1).translate(0, 0, -0.5), armMat);
+      const tip = grp(), blade = grp(at(box(0.035, 0.3, 0.06, '#1E2024', { outline: 0.006 }), 0, 0, 0), at(box(0.02, 0.3, 0.025, '#3A3D44'), 0.02, 0, 0.0)), knob = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 6), armMat);
+      seg1.add(m1, elbow); elbow.add(knob, seg2); seg2.add(m2, tip); tip.add(blade); pv.add(seg1); seg1.visible = false;
+      const shakes = [0, 1, 2, 3].map(j => { const sm = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.012, 0.12), new THREE.MeshBasicMaterial({ color: '#1B1B1E' })); const a = j * PI / 2 + 0.6; sm.position.set(0, 0.2 * Math.cos(a), -0.08 + 0.2 * Math.sin(a)); sm.rotation.x = a; tip.add(sm); return sm; });
+      wipers.push({ pv, arm, z0, seg1, m1, elbow, seg2, m2, tip, blade, shakes });
     }
     // parking fines: a pile in the driver's wiper frame (the wiper on the +Z side)
     const fines = [], PV = wipers[0].pv;
@@ -84,11 +105,13 @@ export const FOURRIERE_PROPS = {
     const honks = o.honk || [], wipes = spans(o.wipe), WL = o.wipeLen ?? 2.2, reaches = spans(o.reach), RT = o.reachTo ? new THREE.Vector3(...o.reachTo) : null, wpA = new THREE.Vector3(), wpB = new THREE.Vector3();
     g.userData.update = t => {
       // body: honk squash and hop, landing bounce, sag
-      let sy = 1, hop = 0, trem = 0;
-      for (const [h0, hd] of honks) { const u = t - h0; if (u < 0 || u > hd + 0.6) continue;
-        sy *= 1 - 0.2 * (u < 0.05 ? u / 0.05 : Math.max(0, 1 - (u - 0.05) / 0.05)) + 0.22 * wob(u - 0.05, 26, 5.5);
-        hop += 0.16 * Math.max(0, Math.sin(PI * clamp01((u - 0.05) / 0.26)));
-        if (u < hd) trem = Math.max(trem, clamp01((hd - 0.3) / 0.6)); }
+      let sy = 1, hop = 0, trem = 0, squint = 0; const HH = o.honkHop ?? 0.3;
+      for (const [h0, hd] of honks) { const u = t - h0; if (u < -0.1 || u > hd + 0.8) continue;
+        if (u < 0) { const a = ease.inOut((u + 0.1) / 0.1); sy *= 1 - 0.2 * a; squint = Math.max(squint, 0.6 * a); }                          // it gathers itself: squashed, eyes squeezed
+        else { const air = clamp01(u / 0.3); hop += HH * Math.sin(PI * air);                                                                 // up and clear of the road
+          sy *= u < 0.3 ? 1 + 0.16 * Math.sin(PI * Math.min(1, air * 1.6)) : 1 - 0.16 * wob(u - 0.3, 24, 6);                                // stretched in the air, a bounce on landing
+          if (u < 0.08) squint = Math.max(squint, 0.6 * (1 - u / 0.08)); }
+        if (u >= 0 && u < hd) trem = Math.max(trem, clamp01((hd - 0.3) / 0.6)); }
       for (const [b0, amp] of o.bounce || []) { const u = t - b0; if (u < 0 || u > 1.2) continue; sy *= 1 - 2.2 * amp * wob(u, 20, 4.5); hop -= amp * Math.max(0, 1 - u / 0.08) * (u < 0.08 ? 1 : 0); }
       const sag = o.sag ?? 0; sy *= 1 - 0.18 * sag;
       const sxz = 1 / Math.sqrt(Math.max(0.4, sy));
@@ -96,28 +119,38 @@ export const FOURRIERE_PROPS = {
       // eyes
       const [gx, gy] = lerpKeys(o.gaze, t, [0, 0]); let [lk, tilt] = lerpKeys(o.lids, t, [0, 0]);
       for (const b of o.blink || []) { const u = (t - b) / (5 / 30); if (u >= 0 && u < 1) lk = Math.max(lk, Math.sin(u * PI)); }
-      for (const e of eyes) { e.pup.position.set(0.05, 0.065 * gy, 0.065 * gx); e.lid.scale.y = Math.max(0.001, lk + 0.25 * Math.abs(tilt)); e.lid.rotation.x = -e.sz * 0.45 * tilt; e.lid.visible = lk + Math.abs(tilt) > 0.01; }
+      lk = Math.max(lk, squint);
+      for (const e of eyes) { e.pup.position.set(0.05, 0.065 * gy, 0.065 * gx); const kk = clamp01(lk + 0.22 * Math.abs(tilt)); e.lidG.visible = kk > 0.01; if (e.lidG.visible) setLid(e, kk); e.lidG.rotation.set(0, PI / 2, e.sz * 0.45 * tilt); }
       // hazards
       const hz = inSpan(o.hazard, t) && Math.floor((t - (spans(o.hazard).find(([a, b]) => t >= a && t < b)?.[0] ?? 0)) * 3.4) % 2 === 0;
       for (const [on, off] of corners) { on.visible = hz; off.visible = !hz; }
       // wipers
       const wk = wipes.find(([a, b]) => t >= a && t < b), rk = RT && reaches.find(([a, b]) => t >= a && t < b);
       if (rk) { g.updateWorldMatrix(true, true);
-        wipers.forEach((w, i) => { const u = t - rk[0], grow = 1 - Math.pow(1 - clamp01(u / 0.28), 3), tr = 0.012 * Math.sin(t * 63 + i * 2.1);
-          w.pv.getWorldPosition(wpA); wpB.copy(RT); wpB.y += (i ? -0.07 : 0.07) + tr; const d = wpA.distanceTo(wpB);
-          w.arm.rotation.set(0, 0, 0); w.arm.updateWorldMatrix(true, false); w.arm.lookAt(wpB); w.arm.rotateY(PI);   // its -Z (the arm) at the point
-          w.arm.scale.set(1, 1, Math.max(1, (d - (o.reachShort ?? 0.15)) * grow / 0.56 + (1 - grow))); });
+        wipers.forEach((w, i) => { const u = t - rk[0], grow = 1 - Math.pow(1 - clamp01(u / 0.28), 3), tr = 0.014 * Math.sin(t * 63 + i * 2.1);
+          w.arm.visible = false; w.seg1.visible = true; w.pv.getWorldPosition(wpA); wpB.copy(RT); wpB.y += (i ? -0.08 : 0.08) + tr;
+          const d = wpA.distanceTo(wpB), reach = Math.max(0.3, (d - (o.reachShort ?? 0.15)) * grow + 0.5 * (1 - grow));
+          _D.subVectors(wpB, wpA).normalize(); _E.copy(wpA).addScaledVector(_D, reach);                                   // the tip: short of the point
+          _M.addVectors(wpA, _E).multiplyScalar(0.5); _M.y += (0.16 + 0.025 * Math.sin(t * 41 + i)) * grow;                  // the elbow, up: a bent little arm
+          w.seg1.rotation.set(0, 0, 0); w.seg1.updateWorldMatrix(true, false); w.seg1.lookAt(_M); w.seg1.rotateY(PI); const l1 = wpA.distanceTo(_M);
+          w.m1.scale.set(1, 1, l1); w.elbow.position.set(0, 0, -l1); w.seg1.updateWorldMatrix(true, true);
+          w.seg2.rotation.set(0, 0, 0); w.seg2.updateWorldMatrix(true, false); w.seg2.lookAt(_E); w.seg2.rotateY(PI); const l2 = _M.distanceTo(_E);
+          w.m2.scale.set(1, 1, l2); w.tip.position.set(0, 0, -l2); w.blade.rotation.set(0.45 * Math.sin(t * 47 + i * 1.7), 0, 0);   // the blade flaps
+          const fl = Math.floor(t * 15 + i) % 2 === 0 && u > 0.2; w.shakes.forEach((sm, j) => { sm.visible = fl && (j + i) % 2 === Math.floor(t * 15) % 2; }); });
       } else
-      wipers.forEach((w, i) => { if (!wk) { w.arm.rotation.x = 0.05; w.arm.scale.set(1, 1, 1); return; }
-        const u = t - wk[0], grow = clamp01(u / 0.18), ph = t * TAU * 4.6 + i * 1.9;
-        w.arm.rotation.x = 0.9 + 0.75 * Math.sin(ph); w.arm.scale.set(1, 1, 1 + (WL - 1) * grow * (0.85 + 0.15 * Math.sin(ph * 1.7))); });
+      wipers.forEach((w, i) => { if (!wk) { w.arm.visible = true; w.seg1.visible = false; w.arm.rotation.x = 0.05; w.arm.scale.set(1, 1, 1); return; }
+        const u = t - wk[0], grow = clamp01(u / 0.18), ph = t * TAU * 4.6 + i * 1.9, Lt = 0.56 * (1 + (WL - 1) * grow * (0.85 + 0.15 * Math.sin(ph * 1.7)));
+        w.arm.visible = false; w.seg1.visible = true; w.shakes.forEach(sm => { sm.visible = false; });
+        w.seg1.rotation.set(0.9 + 0.75 * Math.sin(ph), 0, 0); w.m1.scale.set(1, 1, Lt * 0.5); w.elbow.position.set(0, 0, -Lt * 0.5);     // (pass 3) a flail with an elbow:
+        w.seg2.rotation.set(0.7 * Math.sin(ph - 1.3), 0, 0); w.m2.scale.set(1, 1, Lt * 0.5); w.tip.position.set(0, 0, -Lt * 0.5);      // the forearm lags (a whip, not a rod)
+        w.blade.rotation.set(0.5 * Math.sin(ph - 2.2), 0, 0); });
       // fines and leaves
       const nPv = Math.round(stepKey(o.pv, t, [0])[0]), nLf = Math.round(stepKey(o.leaves, t, [0])[0]);
       fines.forEach((f, i) => { f.visible = i < nPv; }); leaves.forEach((l, i) => { l.visible = i < nLf; });
       // honk rings
       let ri = 0; for (const r of rings) r.visible = false;
       for (const [h0, hd] of honks) for (let e = h0; e < h0 + Math.max(0.12, hd); e += 0.12) { const u = (t - e) / 0.42; if (u < 0 || u >= 1 || ri >= rings.length) continue;
-        const r = rings[ri++]; r.visible = true; r.position.set(L / 2 + 0.25 + 1.2 * u, 0.7 + hop, 0); r.scale.setScalar(0.25 + 0.75 * u); r.material.opacity = 0.85 * (1 - u); }
+        const r = rings[ri++]; r.visible = true; r.position.set(L / 2 + 0.15 + 1.3 * u, 0.48 + hop + (o.ringUp ?? 0.45) * u, 0); r.scale.setScalar(0.16 + 0.6 * u); r.material.opacity = 0.85 * (1 - u); }   // (pass 3) from the grille, under the eyes, rising
     };
     g.userData.update(0);
     g.userData.front = [L / 2, 0.76, 0]; g.userData.roof = [cx, cy0 + ch, 0]; g.userData.wiper = [wsFootX, cy0 + 0.1, 0.25];
