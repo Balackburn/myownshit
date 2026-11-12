@@ -1,0 +1,116 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec attendait le bus. Un pigeon s'est posé sur sa tête.",
+  "hl": [
+   "pigeon",
+   "tête."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il n'a pas osé bouger.",
+  "hl": [
+   "bouger."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Au bout de trois heures, la mairie l'a classé monument historique.",
+  "hl": [
+   "mairie",
+   "monument",
+   "historique."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Bouger, c'est abîmer le patrimoine.",
+  "hl": [
+   "patrimoine."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Ils lui ont posé une plaque. Et une grille.",
+  "hl": [
+   "plaque.",
+   "grille."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les touristes font la queue pour la photo.",
+  "hl": [
+   "touristes",
+   "photo."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le dimanche, on le nettoie au jet.",
+  "hl": [
+   "dimanche,",
+   "jet."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Il a cligné des yeux. Amende pour vandalisme.",
+  "hl": [
+   "cligné",
+   "vandalisme."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Hier, le pigeon est parti.",
+  "hl": [
+   "pigeon",
+   "parti."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Sans pigeon, l'œuvre est incomplète.",
+  "hl": [
+   "œuvre",
+   "incomplète."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Ils l'ont déplacé sur un rond-point.",
+  "hl": [
+   "rond-point."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le bus passe devant tous les matins.",
+  "hl": [
+   "bus",
+   "matins."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il ne s'arrête pas.",
+  "hl": [
+   "arrête"
+  ]
+ }
+]
