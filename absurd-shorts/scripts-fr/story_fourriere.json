@@ -1,0 +1,8493 @@
+{
+ "version": 3,
+ "title": "La fourrière",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "agent": {
+   "preset": "worker",
+   "seed": 451,
+   "hat": null,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   }
+  },
+  "caissiere": {
+   "preset": "madame",
+   "seed": 452,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  },
+  "voisin1": {
+   "preset": "mamie",
+   "seed": 453,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.25
+   }
+  },
+  "voisin2": {
+   "preset": "gamin",
+   "seed": 454,
+   "build": {
+    "height": 0.68,
+    "headWidth": 1.2
+   }
+  },
+  "voisin3": {
+   "preset": "femme",
+   "seed": 455,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  },
+  "voisin4": {
+   "preset": "boss",
+   "seed": 456,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.25
+   }
+  },
+  "voisin5": {
+   "preset": "fringant",
+   "seed": 457,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      12.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.92,
+       99
+      ],
+      "bounce": [
+       [
+        0.8,
+        0.07
+       ]
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        1.15,
+        0.7,
+        0.1
+       ],
+       [
+        1.55,
+        -0.3,
+        0.0
+       ]
+      ],
+      "blink": [
+       1.35
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        0,
+        0.0
+       ],
+       "dur": 0.8,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.444,
+      0.867,
+      -8.44
+     ],
+     "to": [
+      -2.294,
+      0.867,
+      -8.24
+     ],
+     "lookAt": [
+      3.43,
+      1.631,
+      -0.383
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      3.58,
+      1.631,
+      -0.183
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.9333,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.55,
+      0,
+      0.35
+     ],
+     "ry": -128,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.461,
+          1.78,
+          -0.024,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lidR": 1,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          0.461,
+          1.78,
+          -0.024,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.42,
+       "toon": {},
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.42,
+       "look": null
+      },
+      {
+       "at": 0.42,
+       "to": [
+        0.9,
+        0,
+        -2.6
+       ],
+       "dur": 0.3,
+       "clip": "run",
+       "face": 165,
+       "ease": "in"
+      }
+     ],
+     "expr": "wink"
+    }
+   ],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "gaze": [
+       [
+        0.0,
+        -0.5,
+        0.2
+       ],
+       [
+        0.45,
+        -0.2,
+        -0.1
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.9,
+      1.75,
+      -1.6
+     ],
+     "to": [
+      -1.84,
+      1.75,
+      -1.56
+     ],
+     "lookAt": [
+      6.198,
+      -0.233,
+      3.922
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      6.258,
+      -0.233,
+      3.962
+     ]
+    }
+   ],
+   "start": 1.9333,
+   "duration": 0.6667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.5,
+        0.2,
+        0.3
+       ],
+       [
+        1.0,
+        0.0,
+        0.9
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        1.0,
+        0.0,
+        -0.3
+       ]
+      ],
+      "blink": [
+       0.3
+      ]
+     }
+    },
+    {
+     "id": "truck",
+     "name": "towTruck",
+     "pos": [
+      1.9,
+      0,
+      -24.0
+     ],
+     "ry": 90,
+     "opts": {
+      "tip": [
+       -5.5,
+       6.2
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        0,
+        -7.8
+       ],
+       "dur": 0.9,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      1.9,
+      3.6,
+      -18.5
+     ],
+     "opts": {
+      "top": 6.05
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        3.6,
+        -2.3
+       ],
+       "dur": 0.9,
+       "ease": "out"
+      },
+      {
+       "at": 0.9,
+       "to": [
+        1.9,
+        3.2,
+        -2.3
+       ],
+       "dur": 0.3,
+       "ease": "inOut"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.711,
+      1.169,
+      0.228
+     ],
+     "to": [
+      6.611,
+      1.169,
+      0.128
+     ],
+     "lookAt": [
+      -1.415,
+      3.659,
+      -5.041
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      -1.515,
+      3.659,
+      -5.141
+     ]
+    }
+   ],
+   "start": 2.6,
+   "duration": 1.2667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.5,
+      0,
+      -2.3
+     ],
+     "ry": -90,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.6,
+        1.4,
+        0.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "to": [
+        2.0,
+        0,
+        -2.3
+       ],
+       "dur": 0.3,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "out"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "sq": [
+         1.06,
+         0.94,
+         1.06
+        ],
+        "face": {
+         "brow": 1,
+         "eye": 0.5
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.3,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.33999999999999997,
+       "toon": {
+        "bend": {
+         "legL": [
+          0,
+          0,
+          0,
+          1.45,
+          0.8
+         ],
+         "legR": [
+          0,
+          0,
+          0,
+          1.45,
+          0.8
+         ],
+         "shinL": [
+          0,
+          0,
+          0,
+          1.45,
+          0.8
+         ],
+         "shinR": [
+          0,
+          0,
+          0,
+          1.45,
+          0.8
+         ],
+         "spine": [
+          0,
+          0,
+          0,
+          1.2,
+          0.85
+         ],
+         "neck": [
+          0,
+          0,
+          0,
+          1.5,
+          0.8
+         ]
+        },
+        "face": {
+         "pop": 0.6,
+         "jaw": 0.3
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.5,
+       "to": [
+        2.0,
+        0.68,
+        -2.3
+       ],
+       "dur": 0.06,
+       "clip": "noodle",
+       "then": "noodle",
+       "glide": true,
+       "ease": "out"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "sq": [
+         0.9,
+         1.15,
+         0.9
+        ],
+        "face": {
+         "pop": 0.3
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.56,
+       "toon": {
+        "face": {
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.56,
+       "expr": "dizzy"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.3,
+        0.6
+       ],
+       [
+        0.3,
+        0.5,
+        0.4
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ]
+      ],
+      "blink": [
+       0.6
+      ]
+     }
+    },
+    {
+     "id": "truck",
+     "name": "towTruck",
+     "pos": [
+      1.9,
+      0,
+      -7.8
+     ],
+     "ry": 90,
+     "opts": {
+      "tip": [
+       -5.5,
+       6.2
+      ]
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      2.12,
+      3.2,
+      -2.3
+     ],
+     "opts": {
+      "top": 6.05
+     },
+     "keys": [
+      {
+       "at": 0.17,
+       "to": [
+        2.12,
+        2.05,
+        -2.3
+       ],
+       "dur": 0.12999999999999998,
+       "ease": "in"
+      },
+      {
+       "at": 0.33999999999999997,
+       "to": [
+        2.12,
+        2.73,
+        -2.3
+       ],
+       "dur": 0.16,
+       "ease": "out"
+      },
+      {
+       "at": 0.56,
+       "to": [
+        2.12,
+        2.8000000000000003,
+        -2.3
+       ],
+       "dur": 0.2,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.6,
+      1.5,
+      -0.2
+     ],
+     "to": [
+      -1.52,
+      1.56,
+      -0.2
+     ],
+     "lookAt": [
+      7.363,
+      1.437,
+      -4.633
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      7.443,
+      1.497,
+      -4.633
+     ]
+    }
+   ],
+   "start": 3.8667,
+   "duration": 0.8333,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.0,
+      0.75,
+      -2.3
+     ],
+     "ry": -90,
+     "clip": "noodle",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        1.95,
+        0.75,
+        -8.95
+       ],
+       "dur": 0.467,
+       "glide": true,
+       "ease": "in",
+       "clip": "noodle",
+       "then": "noodle"
+      }
+     ],
+     "expr": "dizzy"
+    }
+   ],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ]
+     }
+    },
+    {
+     "id": "truck",
+     "name": "towTruck",
+     "pos": [
+      1.9,
+      0,
+      -7.8
+     ],
+     "ry": 90,
+     "opts": {
+      "tip": [
+       -5.5,
+       6.2
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        0,
+        -15.0
+       ],
+       "dur": 0.467,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      2.12,
+      2.8000000000000003,
+      -2.3
+     ],
+     "opts": {
+      "top": 6.05
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.98,
+        2.8000000000000003,
+        -9.5
+       ],
+       "dur": 0.467,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      2.0,
+      4.2
+     ],
+     "to": [
+      0.4,
+      2.0,
+      4.2
+     ],
+     "lookAt": [
+      3.579,
+      3.649,
+      -5.137
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      3.579,
+      3.649,
+      -5.137
+     ]
+    }
+   ],
+   "start": 4.7,
+   "duration": 0.4667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        0.1
+       ],
+       [
+        0.45,
+        -0.55,
+        0.0
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.45,
+        0.25,
+        -0.35
+       ]
+      ],
+      "blink": [
+       0.62
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      0.95,
+      -4.7
+     ],
+     "to": [
+      0.05,
+      0.95,
+      -4.58
+     ],
+     "lookAt": [
+      5.071,
+      0.426,
+      3.903
+     ],
+     "lens": 61,
+     "ease": "linear",
+     "lookAt2": [
+      5.121,
+      0.426,
+      4.023
+     ]
+    }
+   ],
+   "start": 5.1667,
+   "duration": 0.9666,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.201,
+      1.5,
+      69.997
+     ],
+     "ry": -30,
+     "clip": "noodle",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.05,
+       "to": [
+        4.201,
+        0.0,
+        69.997
+       ],
+       "dur": 0.33,
+       "glide": true,
+       "ease": "in",
+       "clip": "noodle",
+       "then": "stand"
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "sq": [
+         1.3,
+         0.72,
+         1.3
+        ]
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.43,
+       "toon": {
+        "sq": [
+         0.93,
+         1.08,
+         0.93
+        ]
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "settle": 0.5
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.48,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.5800000000000001,
+       "look": "camera"
+      }
+     ],
+     "expr": "dizzy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      4.251,
+      3.55,
+      69.91
+     ],
+     "opts": {
+      "top": 30.0
+     },
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        4.251,
+        2.05,
+        69.91
+       ],
+       "dur": 0.33,
+       "ease": "in"
+      },
+      {
+       "at": 0.53,
+       "to": [
+        4.251,
+        4.5,
+        69.91
+       ],
+       "dur": 0.4,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -3.256,
+      2.026,
+      80.297
+     ],
+     "to": [
+      -3.156,
+      2.026,
+      80.147
+     ],
+     "lookAt": [
+      1.334,
+      0.848,
+      71.491
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      1.434,
+      0.848,
+      71.341
+     ]
+    }
+   ],
+   "start": 6.1333,
+   "duration": 0.8334,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.201,
+      0.0,
+      69.997
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.592,
+       "toon": {
+        "sq": [
+         0.84,
+         1.24,
+         0.84
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.55,
+         "brow": 1,
+         "jaw": 0.3
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.592,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.712,
+       "toon": {
+        "sq": [
+         1.04,
+         0.97,
+         1.04
+        ],
+        "face": {
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.8119999999999999,
+       "look": [
+        4.28,
+        0.0,
+        70.1
+       ]
+      },
+      {
+       "at": 0.8919999999999999,
+       "toon": {
+        "face": {
+         "gy": 0.9,
+         "brow": 0.6
+        },
+        "settle": 0.5
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.8919999999999999,
+       "expr": "worried"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "agent",
+     "pos": [
+      3.5,
+      0,
+      70.6
+     ],
+     "ry": 118,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.28,
+        0.1,
+        70.1
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          4.23,
+          0.28,
+          70.24,
+          1,
+          0.06
+         ],
+         "R": [
+          4.38,
+          0.28,
+          70.04,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.492,
+       "toon": {
+        "reach": {
+         "L": [
+          4.23,
+          0.18,
+          70.24,
+          1,
+          0.06
+         ],
+         "R": [
+          4.38,
+          0.18,
+          70.04,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.792,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.2,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.2
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35,
+      "snapAt": 0.592,
+      "rattle": [
+       [
+        0.592,
+        0.25
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.75,
+      0.6,
+      72.3
+     ],
+     "to": [
+      2.81,
+      0.6,
+      72.25
+     ],
+     "lookAt": [
+      7.174,
+      1.25,
+      63.355
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      7.234,
+      1.25,
+      63.305
+     ]
+    }
+   ],
+   "start": 6.9667,
+   "duration": 1.1666,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.201,
+      0.0,
+      69.997
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.04,
+       "to": [
+        4.201,
+        0.0,
+        69.997
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": -30,
+       "turn": 0.072
+      },
+      {
+       "at": 0.04,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.112,
+       "to": [
+        4.151,
+        0.0,
+        70.083
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 15,
+       "turn": 0.072
+      },
+      {
+       "at": 0.112,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.184,
+       "to": [
+        4.177,
+        0.0,
+        70.179
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 60,
+       "turn": 0.072
+      },
+      {
+       "at": 0.184,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.256,
+       "to": [
+        4.263,
+        0.0,
+        70.229
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 105,
+       "turn": 0.072
+      },
+      {
+       "at": 0.256,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.328,
+       "to": [
+        4.359,
+        0.0,
+        70.203
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 150,
+       "turn": 0.072
+      },
+      {
+       "at": 0.328,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.4,
+       "to": [
+        4.409,
+        0.0,
+        70.117
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 195,
+       "turn": 0.072
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.472,
+       "to": [
+        4.383,
+        0.0,
+        70.021
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 240,
+       "turn": 0.072
+      },
+      {
+       "at": 0.472,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.544,
+       "to": [
+        4.297,
+        0.0,
+        69.971
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 285,
+       "turn": 0.072
+      },
+      {
+       "at": 0.544,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.036
+      },
+      {
+       "at": 0.616,
+       "to": [
+        4.201,
+        0.0,
+        69.997
+       ],
+       "dur": 0.072,
+       "glide": true,
+       "ease": "linear",
+       "face": 330,
+       "turn": 0.072
+      },
+      {
+       "at": 0.616,
+       "toon": {
+        "face": {
+         "stars": 1
+        },
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ]
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.616,
+       "expr": "dizzy"
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      3.5,
+      72.7
+     ],
+     "to": [
+      2.0,
+      3.5,
+      72.7
+     ],
+     "lookAt": [
+      7.066,
+      -1.846,
+      65.935
+     ],
+     "lens": 55,
+     "ease": "linear",
+     "lookAt2": [
+      7.066,
+      -1.846,
+      65.935
+     ]
+    }
+   ],
+   "start": 8.1333,
+   "duration": 0.8667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.23,
+      0.0,
+      70.22
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        5.3,
+        1.8,
+        70.0
+       ]
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "reach": {
+         "R": [
+          5.13,
+          1.12,
+          70.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "reach": {
+         "R": [
+          4.91,
+          1.1,
+          70.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.95,
+       "look": [
+        5.27,
+        1.7,
+        69.64
+       ]
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "face": {
+         "brow": 0.8,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.1,
+       "expr": "unimpressed"
+      }
+     ],
+     "expr": "puppy"
+    },
+    {
+     "id": "caissiere",
+     "pos": [
+      6.55,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.3,
+        1.9,
+        70.2
+       ]
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          5.33,
+          1.14,
+          70.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "reach": {
+         "R": [
+          5.32,
+          1.62,
+          69.64,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          5.38,
+          1.62,
+          69.64,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.98,
+       "toon": {
+        "reach": {
+         "R": [
+          5.31,
+          1.62,
+          69.64,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.06,
+       "toon": {
+        "reach": {
+         "R": [
+          5.38,
+          1.62,
+          69.64,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.14,
+       "toon": {
+        "reach": {
+         "R": [
+          5.31,
+          1.62,
+          69.64,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "notice",
+     "name": "paperSheet",
+     "pos": [
+      5.27,
+      1.62,
+      69.64
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.34,
+      "h": 0.42,
+      "head": "FOURRIÈRE",
+      "big": "PROPRIÉTAIRE",
+      "bigSize": 0.17,
+      "lines": [
+       "DU VÉHICULE",
+       "UNIQUEMENT"
+      ],
+      "lineSize": 0.11,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     }
+    },
+    {
+     "id": "cbcard",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.06
+      ]
+     },
+     "opts": {
+      "w": 0.14,
+      "h": 0.09,
+      "paper": "#2F6FB5",
+      "top": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.15,
+      1.95,
+      72.0
+     ],
+     "to": [
+      3.23,
+      1.95,
+      71.95
+     ],
+     "lookAt": [
+      10.108,
+      1.18,
+      64.859
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      10.188,
+      1.18,
+      64.809
+     ]
+    }
+   ],
+   "start": 9.0,
+   "duration": 1.4,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.23,
+      0.0,
+      70.22
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        5.29,
+        1.56,
+        70.14
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "caissiere",
+     "pos": [
+      6.55,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.3,
+        1.9,
+        70.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "look": [
+        5.29,
+        1.56,
+        70.14
+       ]
+      },
+      {
+       "at": 0.09999999999999999,
+       "toon": {
+        "reach": {
+         "R": [
+          5.33,
+          1.48,
+          70.4,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "in"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "notice",
+     "name": "paperSheet",
+     "pos": [
+      5.27,
+      1.62,
+      69.64
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.34,
+      "h": 0.42,
+      "head": "FOURRIÈRE",
+      "big": "PROPRIÉTAIRE",
+      "bigSize": 0.17,
+      "lines": [
+       "DU VÉHICULE",
+       "UNIQUEMENT"
+      ],
+      "lineSize": 0.11,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     }
+    },
+    {
+     "id": "grise",
+     "name": "paperSheet",
+     "pos": [
+      5.29,
+      1.56,
+      70.14
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.62,
+      "h": 0.44,
+      "head": "CARTE GRISE",
+      "headSize": 0.075,
+      "lines": [
+       "PROPRIÉTAIRE :"
+      ],
+      "lineSize": 0.06,
+      "top": 0.03,
+      "paper": "#E7E2EE",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.18,
+       "scale": 1.0,
+       "dur": 0.06,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "photo",
+     "name": "carToon",
+     "pos": [
+      5.27,
+      1.43,
+      70.14
+     ],
+     "ry": -90,
+     "scale": 0.085,
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "gaze": [
+       [
+        0,
+        0.0,
+        0.0
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.001,
+       "dur": 0.0
+      },
+      {
+       "at": 0.18,
+       "scale": 0.085,
+       "dur": 0.06,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.566,
+      1.977,
+      71.418
+     ],
+     "to": [
+      3.616,
+      1.977,
+      71.388
+     ],
+     "lookAt": [
+      10.601,
+      0.645,
+      64.437
+     ],
+     "lens": 64,
+     "ease": "linear",
+     "lookAt2": [
+      10.651,
+      0.645,
+      64.407
+     ]
+    }
+   ],
+   "start": 10.4,
+   "duration": 1.0667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.23,
+      0.0,
+      70.22
+     ],
+     "ry": 90,
+     "clip": "doubleTakeToon",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "clip": "doubleTakeToon",
+       "params": {
+        "side": 1,
+        "beat": 0.24,
+        "pop": 0.85,
+        "jaw": 0.45
+       },
+       "blend": 0.0
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "notice",
+     "name": "paperSheet",
+     "pos": [
+      5.27,
+      1.62,
+      69.64
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.34,
+      "h": 0.42,
+      "head": "FOURRIÈRE",
+      "big": "PROPRIÉTAIRE",
+      "bigSize": 0.17,
+      "lines": [
+       "DU VÉHICULE",
+       "UNIQUEMENT"
+      ],
+      "lineSize": 0.11,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     }
+    },
+    {
+     "id": "grise",
+     "name": "paperSheet",
+     "pos": [
+      5.29,
+      1.56,
+      70.14
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.62,
+      "h": 0.44,
+      "head": "CARTE GRISE",
+      "paper": "#E7E2EE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.3,
+      1.78,
+      70.55
+     ],
+     "to": [
+      6.3,
+      1.78,
+      70.55
+     ],
+     "lookAt": [
+      -3.214,
+      0.595,
+      67.709
+     ],
+     "lens": 62,
+     "ease": "linear",
+     "lookAt2": [
+      -3.214,
+      0.595,
+      67.709
+     ]
+    }
+   ],
+   "start": 11.4667,
+   "duration": 0.9666,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {
+      "screen": "PAYEZ ICI"
+     }
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        2
+       ]
+      ],
+      "wipe": [
+       [
+        0.12,
+        1.133
+       ]
+      ],
+      "wipeLen": 2.5,
+      "gaze": [
+       [
+        0.0,
+        0.8,
+        -0.1
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.2,
+        0.5
+       ],
+       [
+        0.6,
+        0.3,
+        0.8
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.05,
+       "rotTo": [
+        0.18,
+        1.5707963267948966,
+        0
+       ],
+       "dur": 0.22,
+       "ease": "outBack"
+      },
+      {
+       "at": 0.55,
+       "rotTo": [
+        0.24,
+        1.5707963267948966,
+        0
+       ],
+       "dur": 0.12
+      },
+      {
+       "at": 0.75,
+       "rotTo": [
+        0.15,
+        1.5707963267948966,
+        0
+       ],
+       "dur": 0.12
+      },
+      {
+       "at": 0.92,
+       "rotTo": [
+        0.25,
+        1.5707963267948966,
+        0
+       ],
+       "dur": 0.12
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.897,
+      1.318,
+      -7.201
+     ],
+     "to": [
+      -0.817,
+      1.318,
+      -7.101
+     ],
+     "lookAt": [
+      5.032,
+      0.589,
+      0.819
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      5.112,
+      0.589,
+      0.919
+     ]
+    }
+   ],
+   "start": 12.4333,
+   "duration": 1.1334,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        3
+       ]
+      ],
+      "honk": [
+       [
+        0.2,
+        0.22
+       ],
+       [
+        0.62,
+        0.38
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.1,
+        0.3
+       ],
+       [
+        0.15,
+        0.15,
+        0.9
+       ]
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        0.2
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.326,
+      0.704,
+      -4.745
+     ],
+     "to": [
+      0.366,
+      0.734,
+      -4.685
+     ],
+     "lookAt": [
+      5.52,
+      0.82,
+      3.799
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      5.56,
+      0.85,
+      3.859
+     ]
+    }
+   ],
+   "start": 13.5667,
+   "duration": 1.0333,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "flats",
+     "name": "flatsWall",
+     "pos": [
+      10.1,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 5.4,
+      "h": 9.4,
+      "cols": 3,
+      "rows": 2,
+      "depth": 1.25,
+      "y0": 3.0,
+      "lit": [
+       [
+        0.08,
+        1
+       ],
+       [
+        0.3,
+        0
+       ],
+       [
+        0.5,
+        1
+       ],
+       [
+        0.72,
+        0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        4
+       ],
+       [
+        0.05,
+        7
+       ],
+       [
+        0.1,
+        10
+       ],
+       [
+        0.15,
+        13
+       ],
+       [
+        0.2,
+        16
+       ],
+       [
+        0.25,
+        19
+       ],
+       [
+        0.3,
+        22
+       ],
+       [
+        0.35,
+        25
+       ],
+       [
+        0.4,
+        28
+       ],
+       [
+        0.45,
+        31
+       ],
+       [
+        0.5,
+        34
+       ],
+       [
+        0.55,
+        37
+       ],
+       [
+        0.6,
+        40
+       ],
+       [
+        0.65,
+        43
+       ],
+       [
+        0.7,
+        46
+       ]
+      ],
+      "leaves": [
+       [
+        0.0,
+        0
+       ],
+       [
+        0.06,
+        2
+       ],
+       [
+        0.12,
+        4
+       ],
+       [
+        0.18,
+        6
+       ],
+       [
+        0.24,
+        8
+       ],
+       [
+        0.3,
+        10
+       ],
+       [
+        0.36,
+        12
+       ],
+       [
+        0.42,
+        14
+       ],
+       [
+        0.48,
+        16
+       ],
+       [
+        0.54,
+        18
+       ],
+       [
+        0.6,
+        20
+       ],
+       [
+        0.66,
+        22
+       ],
+       [
+        0.72,
+        24
+       ],
+       [
+        0.78,
+        26
+       ],
+       [
+        0.84,
+        28
+       ],
+       [
+        0.9,
+        30
+       ]
+      ],
+      "honk": [
+       [
+        0.06,
+        0.08
+       ],
+       [
+        0.2,
+        0.08
+       ],
+       [
+        0.34,
+        0.08
+       ],
+       [
+        0.48,
+        0.08
+       ],
+       [
+        0.62,
+        0.08
+       ],
+       [
+        0.76,
+        0.08
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -3.6,
+      1.9,
+      -6.8
+     ],
+     "to": [
+      -3.5,
+      1.9,
+      -6.7
+     ],
+     "lookAt": [
+      4.592,
+      2.308,
+      -1.08
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      4.692,
+      2.308,
+      -0.98
+     ]
+    }
+   ],
+   "start": 14.6,
+   "duration": 0.9,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "daynight": {
+    "from": 0.0,
+    "period": 0.42
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "voisin1",
+     "pos": [
+      10.7,
+      3.0,
+      -1.8
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.0,
+        1.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "sq": [
+         0.84,
+         1.26,
+         0.84
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.55,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.12,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.26,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.65,
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.7,
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.55,
+       "expr": "sleepy"
+      },
+      {
+       "at": 0.944,
+       "toon": {
+        "hairUp": 0.7,
+        "reach": {
+         "L": [
+          10.12,
+          4.33,
+          -1.53,
+          1,
+          0.05
+         ],
+         "R": [
+          10.12,
+          4.33,
+          -2.07,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.944,
+       "expr": "dotEyes"
+      },
+      {
+       "at": 0.994,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin2",
+     "pos": [
+      10.7,
+      3.0,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.0,
+        1.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "sq": [
+         0.84,
+         1.26,
+         0.84
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.55,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.15,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.29000000000000004,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.5800000000000001,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.65,
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.7,
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.5800000000000001,
+       "expr": "sleepy"
+      },
+      {
+       "at": 0.974,
+       "toon": {
+        "hairUp": 0.7,
+        "reach": {
+         "L": [
+          10.12,
+          4.33,
+          0.27,
+          1,
+          0.05
+         ],
+         "R": [
+          10.12,
+          4.33,
+          -0.27,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.974,
+       "expr": "dotEyes"
+      },
+      {
+       "at": 1.024,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin3",
+     "pos": [
+      10.7,
+      3.0,
+      1.8
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.0,
+        1.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "sq": [
+         0.84,
+         1.26,
+         0.84
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.55,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.18,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.6100000000000001,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.65,
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.7100000000000001,
+       "toon": {
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.7,
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.6100000000000001,
+       "expr": "sleepy"
+      },
+      {
+       "at": 1.004,
+       "toon": {
+        "hairUp": 0.7,
+        "reach": {
+         "L": [
+          10.12,
+          4.33,
+          2.07,
+          1,
+          0.05
+         ],
+         "R": [
+          10.12,
+          4.33,
+          1.53,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.004,
+       "expr": "dotEyes"
+      },
+      {
+       "at": 1.054,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin4",
+     "pos": [
+      10.7,
+      6.0,
+      -1.8
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.0,
+        1.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.13999999999999999,
+       "toon": {
+        "sq": [
+         0.84,
+         1.26,
+         0.84
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.55,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.13999999999999999,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.28,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.5700000000000001,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.65,
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.67,
+       "toon": {
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.7,
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.5700000000000001,
+       "expr": "sleepy"
+      },
+      {
+       "at": 0.964,
+       "toon": {
+        "hairUp": 0.7,
+        "reach": {
+         "L": [
+          10.12,
+          7.33,
+          -1.53,
+          1,
+          0.05
+         ],
+         "R": [
+          10.12,
+          7.33,
+          -2.07,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.964,
+       "expr": "dotEyes"
+      },
+      {
+       "at": 1.014,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin5",
+     "pos": [
+      10.7,
+      6.0,
+      1.8
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        2.0,
+        1.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "sq": [
+         0.84,
+         1.26,
+         0.84
+        ],
+        "hairUp": 1,
+        "face": {
+         "pop": 0.55,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.2,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.34,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "hairUp": 0.6,
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.63,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.65,
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "hairUp": 0.7,
+        "face": {
+         "lid": 0.7,
+         "brow": -0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.63,
+       "expr": "sleepy"
+      },
+      {
+       "at": 1.024,
+       "toon": {
+        "hairUp": 0.7,
+        "reach": {
+         "L": [
+          10.12,
+          7.33,
+          2.07,
+          1,
+          0.05
+         ],
+         "R": [
+          10.12,
+          7.33,
+          1.53,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.024,
+       "expr": "dotEyes"
+      },
+      {
+       "at": 1.074,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "flats",
+     "name": "flatsWall",
+     "pos": [
+      10.1,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 5.4,
+      "h": 9.4,
+      "cols": 3,
+      "rows": 2,
+      "depth": 1.25,
+      "y0": 3.0,
+      "lit": [
+       [
+        0.0,
+        0.6
+       ]
+      ]
+     }
+    },
+    {
+     "id": "pl0",
+     "name": "paperSheet",
+     "pos": [
+      10.06,
+      4.33,
+      -1.8
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.58,
+      "h": 0.4,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.06,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.944,
+       "scale": 1.0,
+       "dur": 0.07,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pl1",
+     "name": "paperSheet",
+     "pos": [
+      10.06,
+      4.33,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.58,
+      "h": 0.4,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.06,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.974,
+       "scale": 1.0,
+       "dur": 0.07,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pl2",
+     "name": "paperSheet",
+     "pos": [
+      10.06,
+      4.33,
+      1.8
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.58,
+      "h": 0.4,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.06,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 1.004,
+       "scale": 1.0,
+       "dur": 0.07,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pl3",
+     "name": "paperSheet",
+     "pos": [
+      10.06,
+      7.33,
+      -1.8
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.58,
+      "h": 0.4,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.06,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.964,
+       "scale": 1.0,
+       "dur": 0.07,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "pl4",
+     "name": "paperSheet",
+     "pos": [
+      10.06,
+      7.33,
+      1.8
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 0.58,
+      "h": 0.4,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.06,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 1.024,
+       "scale": 1.0,
+       "dur": 0.07,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.722,
+      2.96,
+      0.211
+     ],
+     "to": [
+      1.822,
+      3.01,
+      0.211
+     ],
+     "lookAt": [
+      11.324,
+      5.743,
+      -0.008
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      11.424,
+      5.793,
+      -0.008
+     ]
+    }
+   ],
+   "start": 15.5,
+   "duration": 1.5667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.201,
+      0.0,
+      69.997
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        3.351,
+        1.7,
+        70.547
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.28,
+       "toon": {
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.34,
+       "look": "camera"
+      },
+      {
+       "at": 0.34,
+       "to": [
+        3.664,
+        0.95,
+        69.687
+       ],
+       "dur": 0.4,
+       "glide": true,
+       "ease": "out",
+       "clip": "inflate",
+       "then": "inflate",
+       "params": {
+        "dur": 0.3,
+        "expr": "angry"
+       }
+      },
+      {
+       "at": 0.36000000000000004,
+       "toon": {
+        "bend": {
+         "legL": [
+          0,
+          0,
+          0,
+          1.9,
+          0.62
+         ],
+         "shinL": [
+          0,
+          0,
+          0,
+          1.9,
+          0.62
+         ]
+        },
+        "face": {
+         "steam": 1,
+         "steamInk": 1
+        }
+       },
+       "toonDur": 0.4,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "agent",
+     "pos": [
+      3.351,
+      0,
+      70.547
+     ],
+     "ry": 125,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.201,
+        1.6,
+        69.997
+       ]
+      },
+      {
+       "at": 0.02,
+       "toon": {
+        "reach": {
+         "R": [
+          4.081,
+          1.45,
+          70.117,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.11,
+       "toon": {
+        "reach": {
+         "R": [
+          3.801,
+          1.3,
+          70.347,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "reach": {
+         "R": [
+          4.081,
+          1.45,
+          70.117,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.21,
+       "toon": {
+        "reach": {
+         "R": [
+          3.801,
+          1.3,
+          70.347,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.22,
+       "toon": {
+        "reach": {
+         "R": [
+          4.081,
+          1.45,
+          70.117,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.31,
+       "toon": {
+        "reach": {
+         "R": [
+          3.801,
+          1.3,
+          70.347,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.38,
+       "toon": {},
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.44000000000000006,
+       "look": [
+        3.664,
+        2.0,
+        69.687
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "cpl0",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       -0.05,
+       0.36,
+       0.18
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.08,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "cpl1",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.31,
+       0.184
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.18,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "cpl2",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "joint": "torso",
+      "offset": [
+       0.05,
+       0.26,
+       0.188
+      ]
+     },
+     "opts": {
+      "w": 0.26,
+      "h": 0.18,
+      "big": "PLAINTE",
+      "bigSize": 0.42,
+      "top": 0.02,
+      "paper": "#F4F1E8",
+      "bigInk": "#C8202A",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.28,
+       "scale": 1.0,
+       "dur": 0.05,
+       "ease": "outBack"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.4,
+      1.6,
+      74.4
+     ],
+     "to": [
+      1.46,
+      1.68,
+      74.4
+     ],
+     "lookAt": [
+      6.358,
+      1.293,
+      65.721
+     ],
+     "lens": 51,
+     "ease": "linear",
+     "lookAt2": [
+      6.418,
+      1.373,
+      65.721
+     ]
+    }
+   ],
+   "start": 17.0667,
+   "duration": 0.8333,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        44
+       ]
+      ],
+      "leaves": [
+       [
+        0.0,
+        32
+       ]
+      ],
+      "gaze": [
+       [
+        0.0,
+        -0.3,
+        0.2
+       ],
+       [
+        0.55,
+        0.0,
+        1.0
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ]
+      ],
+      "honk": [
+       [
+        0.92,
+        0.06
+       ]
+      ],
+      "blink": [
+       0.25
+      ]
+     }
+    },
+    {
+     "id": "truck",
+     "name": "towTruck",
+     "pos": [
+      1.9,
+      0,
+      -20.0
+     ],
+     "ry": 90,
+     "opts": {
+      "tip": [
+       -5.5,
+       6.2
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        0,
+        -5.5
+       ],
+       "dur": 0.55,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      1.9,
+      5.4,
+      -14.5
+     ],
+     "opts": {
+      "top": 6.05,
+      "sling": true,
+      "slingLen": 1.1,
+      "slingW": 1.45
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.9,
+        5.4,
+        0.0
+       ],
+       "dur": 0.55,
+       "ease": "out"
+      },
+      {
+       "at": 0.55,
+       "to": [
+        1.9,
+        3.15,
+        0.0
+       ],
+       "dur": 0.35,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.558,
+      1.041,
+      -5.585
+     ],
+     "to": [
+      -1.498,
+      1.041,
+      -5.505
+     ],
+     "lookAt": [
+      4.85,
+      2.762,
+      1.896
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      4.91,
+      2.762,
+      1.976
+     ]
+    }
+   ],
+   "start": 17.9,
+   "duration": 1.1,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pk1",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      0.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "pk2",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      -5.6
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#C9473A"
+     }
+    },
+    {
+     "id": "pk3",
+     "name": "car",
+     "pos": [
+      4.0,
+      0,
+      6.0
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E8A33A"
+     }
+    },
+    {
+     "id": "meter",
+     "name": "parkingMeter",
+     "pos": [
+      5.35,
+      0,
+      -2.75
+     ],
+     "ry": -90,
+     "opts": {}
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      1.9,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        44
+       ]
+      ],
+      "leaves": [
+       [
+        0.0,
+        32
+       ],
+       [
+        0.35,
+        24
+       ],
+       [
+        0.5,
+        16
+       ],
+       [
+        0.65,
+        9
+       ],
+       [
+        0.8,
+        4
+       ]
+      ],
+      "wipe": [
+       [
+        0.2,
+        1.367
+       ]
+      ],
+      "wipeLen": 1.8,
+      "honk": [
+       [
+        0.42,
+        0.62
+       ]
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        -0.8
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.0,
+        -0.4
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.12,
+       "to": [
+        1.9,
+        2.55,
+        0.0
+       ],
+       "dur": 1.2469999999999999,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.3,
+       "rotTo": [
+        0.07,
+        1.5707963267948966,
+        0.05
+       ],
+       "dur": 0.3
+      },
+      {
+       "at": 0.6,
+       "rotTo": [
+        -0.06,
+        1.5707963267948966,
+        -0.04
+       ],
+       "dur": 0.3
+      },
+      {
+       "at": 0.9,
+       "rotTo": [
+        0.05,
+        1.5707963267948966,
+        0.03
+       ],
+       "dur": 0.3
+      }
+     ]
+    },
+    {
+     "id": "truck",
+     "name": "towTruck",
+     "pos": [
+      1.9,
+      0,
+      -5.5
+     ],
+     "ry": 90,
+     "opts": {
+      "tip": [
+       -5.5,
+       6.2
+      ]
+     }
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      1.9,
+      3.15,
+      0.0
+     ],
+     "opts": {
+      "top": 6.05,
+      "sling": true,
+      "slingLen": 1.1,
+      "slingW": 1.45
+     },
+     "keys": [
+      {
+       "at": 0.12,
+       "to": [
+        1.9,
+        5.699999999999999,
+        0.0
+       ],
+       "dur": 1.2469999999999999,
+       "ease": "inOut"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.361,
+      0.348,
+      -4.062
+     ],
+     "to": [
+      -0.361,
+      0.348,
+      -4.062
+     ],
+     "lookAt": [
+      6.11,
+      3.665,
+      2.802
+     ],
+     "lens": 67,
+     "ease": "linear",
+     "lookAt2": [
+      6.11,
+      3.665,
+      2.802
+     ]
+    }
+   ],
+   "start": 19.0,
+   "duration": 1.3667,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S20",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.021,
+      0.0,
+      68.847
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "face": {
+         "gy": -1,
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.42,
+       "look": [
+        4.021,
+        4.0,
+        69.247
+       ]
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "face": {
+         "brow": 0.9,
+         "eye": 0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.42,
+       "expr": "worried"
+      },
+      {
+       "at": 0.78,
+       "expr": "gulp"
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "face": {
+         "brow": 0.9
+        },
+        "sq": [
+         1.03,
+         0.96,
+         1.03
+        ]
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.0,
+       "look": "camera"
+      },
+      {
+       "at": 1.0,
+       "expr": "nervous"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "reach": {
+         "R": [
+          3.601,
+          1.9,
+          69.047,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "reach": {
+         "R": [
+          3.541,
+          1.92,
+          69.047,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.23,
+       "toon": {
+        "reach": {
+         "R": [
+          3.661,
+          1.92,
+          69.047,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.31,
+       "toon": {
+        "reach": {
+         "R": [
+          3.541,
+          1.92,
+          69.047,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.39,
+       "toon": {
+        "reach": {
+         "R": [
+          3.661,
+          1.92,
+          69.047,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "baguette",
+     "name": "baguette",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      3.6,
+      5.6,
+      70.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        44
+       ]
+      ],
+      "leaves": [
+       [
+        0.0,
+        4
+       ]
+      ],
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        -1.0
+       ],
+       [
+        0.9,
+        -0.3,
+        -1.0
+       ]
+      ],
+      "blink": [
+       1.25
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        3.6,
+        2.42,
+        70.0
+       ],
+       "dur": 0.45,
+       "ease": "out"
+      },
+      {
+       "at": 0.45,
+       "rotTo": [
+        0.03,
+        1.5707963267948966,
+        -0.02
+       ],
+       "dur": 0.3
+      },
+      {
+       "at": 0.75,
+       "rotTo": [
+        -0.02,
+        1.5707963267948966,
+        0.015
+       ],
+       "dur": 0.3
+      }
+     ]
+    },
+    {
+     "id": "hook",
+     "name": "craneHook",
+     "pos": [
+      3.6,
+      8.75,
+      70.0
+     ],
+     "opts": {
+      "top": 40.0,
+      "sling": true,
+      "slingLen": 1.1,
+      "slingW": 1.45
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        3.6,
+        5.57,
+        70.0
+       ],
+       "dur": 0.45,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.15,
+      0.65,
+      65.9
+     ],
+     "to": [
+      2.2,
+      0.65,
+      65.95
+     ],
+     "lookAt": [
+      6.78,
+      3.351,
+      74.342
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      6.83,
+      3.351,
+      74.392
+     ]
+    }
+   ],
+   "start": 20.3667,
+   "duration": 1.6,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S21",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.021,
+      0.0,
+      68.847
+     ],
+     "ry": -30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.021,
+        4.0,
+        69.247
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "pop": 0.5,
+         "brow": 1
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "to": [
+        3.92,
+        0.0,
+        68.81
+       ],
+       "dur": 0.02,
+       "glide": true,
+       "clip": "lieBack",
+       "then": "lieBack",
+       "face": 0
+      },
+      {
+       "at": 0.1,
+       "clip": "lieBack",
+       "blend": 0.0
+      },
+      {
+       "at": 0.1,
+       "look": null
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 1,
+         "tongueLen": 1.5,
+         "stars": 1,
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "expr": "dizzy"
+      }
+     ],
+     "expr": "worried"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      3.6,
+      2.42,
+      70.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        44
+       ]
+      ],
+      "leaves": [
+       [
+        0.0,
+        4
+       ]
+      ],
+      "bounce": [
+       [
+        0.1,
+        0.12
+       ]
+      ],
+      "sag": 0.4,
+      "gaze": [
+       [
+        0.0,
+        0.0,
+        -1.0
+       ],
+       [
+        0.4,
+        0.3,
+        -0.6
+       ]
+      ],
+      "lids": [
+       [
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.45,
+        0.1,
+        -0.2
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        3.6,
+        0.0,
+        70.0
+       ],
+       "dur": 0.1,
+       "ease": "in"
+      }
+     ]
+    },
+    {
+     "id": "flatbag",
+     "name": "baguette",
+     "pos": [
+      4.47,
+      0.02,
+      67.98
+     ],
+     "ry": 20,
+     "scale": 1.0,
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.1,
+       "visible": true
+      },
+      {
+       "at": 0.1,
+       "squash": [
+        1.25,
+        0.25,
+        1.25
+       ],
+       "dur": 0.0
+      }
+     ]
+    },
+    {
+     "id": "dust21",
+     "name": "dustPuff",
+     "pos": [
+      3.6,
+      0.05,
+      68.4
+     ],
+     "opts": {
+      "period": 0.7
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.1,
+       "visible": true
+      },
+      {
+       "at": 0.75,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "stars21",
+     "name": "impactStars",
+     "pos": [
+      3.92,
+      0.25,
+      67.93
+     ],
+     "opts": {
+      "n": 6,
+      "r": 0.35,
+      "at": 0.1,
+      "dur": 0.6,
+      "size": 0.08
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.8,
+      0.55,
+      65.3
+     ],
+     "to": [
+      2.8,
+      0.55,
+      65.3
+     ],
+     "lookAt": [
+      5.305,
+      1.159,
+      74.962
+     ],
+     "lens": 61,
+     "ease": "linear",
+     "lookAt2": [
+      5.305,
+      1.159,
+      74.962
+     ]
+    }
+   ],
+   "start": 21.9667,
+   "duration": 0.8333,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.1,
+     "dur": 0.15,
+     "amount": 0.014
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S22",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      3.92,
+      0.0,
+      68.81
+     ],
+     "ry": 0,
+     "clip": "lieBack",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 1,
+         "tongueLen": 1.5,
+         "stars": 1,
+         "brow": -0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 1,
+         "tongueLen": 1.5,
+         "stars": 0.4,
+         "brow": -0.2
+        },
+        "reach": {
+         "L": [
+          5.245,
+          0.74,
+          68.0,
+          1,
+          0.07
+         ]
+        },
+        "hands": {
+         "L": "point"
+        }
+       },
+       "toonDur": 0.32,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 1,
+         "tongueLen": 1.5,
+         "stars": 0.0,
+         "brow": -0.2
+        },
+        "reach": {
+         "L": [
+          5.295,
+          0.74,
+          68.0,
+          1,
+          0.07
+         ]
+        },
+        "hands": {
+         "L": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 1,
+         "tongueLen": 1.5,
+         "stars": 0.0,
+         "brow": -0.2
+        },
+        "reach": {
+         "L": [
+          5.24,
+          0.58,
+          68.0,
+          1,
+          0.07
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 0.6,
+         "tongueLen": 1.5,
+         "stars": 0.0,
+         "brow": -0.2
+        },
+        "reach": {
+         "L": [
+          4.34,
+          0.42,
+          67.71,
+          1,
+          0.07
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.32,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.6,
+       "expr": "deadpan"
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "sq": [
+         1.3,
+         1.0,
+         0.1
+        ],
+        "scl": {
+         "head": [
+          1.45,
+          1.12,
+          0.34
+         ]
+        },
+        "face": {
+         "tongue": 0.6,
+         "tongueLen": 1.5,
+         "stars": 0.0,
+         "brow": -0.2,
+         "lid": 0.45
+        },
+        "reach": {
+         "L": [
+          4.34,
+          0.42,
+          67.71,
+          1,
+          0.07
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "dizzy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bay11",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "11"
+     }
+    },
+    {
+     "id": "bay12",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      70.0
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "12"
+     }
+    },
+    {
+     "id": "bay13",
+     "name": "parkingBay",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "num": "13"
+     }
+    },
+    {
+     "id": "bayL1",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "21"
+     }
+    },
+    {
+     "id": "bayL2",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "22"
+     }
+    },
+    {
+     "id": "bayL3",
+     "name": "parkingBay",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "num": "23"
+     }
+    },
+    {
+     "id": "pc1",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      75.2
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#E6E3DA"
+     }
+    },
+    {
+     "id": "pc2",
+     "name": "car",
+     "pos": [
+      3.6,
+      0,
+      64.8
+     ],
+     "ry": 90,
+     "opts": {
+      "color": "#7B5EA7"
+     }
+    },
+    {
+     "id": "pc3",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      75.2
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#8A8F98"
+     }
+    },
+    {
+     "id": "pc4",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#D9783A"
+     }
+    },
+    {
+     "id": "pc5",
+     "name": "car",
+     "pos": [
+      -1.4,
+      0,
+      64.8
+     ],
+     "ry": -90,
+     "opts": {
+      "color": "#3A6EA5"
+     }
+    },
+    {
+     "id": "fenceN",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      61.0
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "fenceS",
+     "name": "fence",
+     "pos": [
+      0.0,
+      0,
+      79.5
+     ],
+     "opts": {
+      "length": 10.0,
+      "height": 2.0,
+      "color": "#2E5E4A",
+      "rail": "#2E5E4A"
+     }
+    },
+    {
+     "id": "psign",
+     "name": "poundSign",
+     "pos": [
+      0.0,
+      0,
+      60.7
+     ],
+     "opts": {
+      "text": "FOURRIÈRE",
+      "sub": "PRÉFECTURE",
+      "w": 3.6,
+      "h": 1.2,
+      "y": 2.1
+     }
+    },
+    {
+     "id": "booth",
+     "name": "cashBooth",
+     "pos": [
+      6.15,
+      0,
+      70.0
+     ],
+     "ry": -90,
+     "opts": {
+      "notice": true
+     }
+    },
+    {
+     "id": "pmeter",
+     "name": "parkingMeter",
+     "pos": [
+      5.4,
+      0,
+      68.0
+     ],
+     "ry": -90,
+     "opts": {
+      "sticker": "FRAIS DE GARDE",
+      "ticketAt": 0.75,
+      "ticketGone": 1.05
+     }
+    },
+    {
+     "id": "clamp",
+     "name": "wheelClamp",
+     "on": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0.0,
+       -0.05,
+       0.06
+      ]
+     },
+     "opts": {
+      "s": 1.35
+     }
+    },
+    {
+     "id": "car",
+     "name": "carToon",
+     "pos": [
+      3.6,
+      0.0,
+      70.0
+     ],
+     "ry": 90,
+     "rotOrder": "YXZ",
+     "opts": {
+      "color": "#6CC4A4",
+      "eyes": true,
+      "hazard": [
+       0.0,
+       99
+      ],
+      "pv": [
+       [
+        0.0,
+        44
+       ]
+      ],
+      "leaves": [
+       [
+        0.0,
+        4
+       ]
+      ],
+      "sag": 0.4,
+      "gaze": [
+       [
+        0.0,
+        0.3,
+        -0.6
+       ],
+       [
+        1.5,
+        -0.1,
+        -1.0
+       ]
+      ],
+      "blink": [
+       1.95
+      ],
+      "honk": [
+       [
+        2.45,
+        0.08
+       ]
+      ]
+     }
+    },
+    {
+     "id": "flatbag",
+     "name": "baguette",
+     "pos": [
+      4.47,
+      0.02,
+      67.98
+     ],
+     "ry": 20,
+     "keys": [
+      {
+       "at": 0.0,
+       "squash": [
+        1.25,
+        0.25,
+        1.25
+       ],
+       "dur": 0.0
+      }
+     ]
+    },
+    {
+     "id": "tick22",
+     "name": "paperSheet",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       0.02,
+       0.05
+      ]
+     },
+     "opts": {
+      "w": 0.1,
+      "h": 0.15,
+      "big": "12",
+      "bigSize": 0.5,
+      "top": 0.02,
+      "paper": "#FFFFFF",
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 1.05,
+       "scale": 1.0,
+       "dur": 0.05
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.768,
+      0.769,
+      64.826
+     ],
+     "to": [
+      1.808,
+      0.769,
+      64.886
+     ],
+     "lookAt": [
+      7.265,
+      0.852,
+      73.179
+     ],
+     "lens": 66,
+     "ease": "linear",
+     "lookAt2": [
+      7.305,
+      0.852,
+      73.239
+     ]
+    }
+   ],
+   "start": 22.8,
+   "duration": 3.07,
+   "setOpts": {
+    "clear": [
+     -110,
+     110
+    ],
+    "eiffel": false,
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 25.87,
+ "look": "natural",
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5
+}

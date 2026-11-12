@@ -77,6 +77,23 @@ def fit(frm, points, margin=0.07, top=0.08, bottom=0.92, lenses=range(26, 81), a
     return look, None, {}
 
 
+def fitBack(frm, points, step=0.25, most=14.0, **kw):
+    """(cycle 7, story 45) fit() that backs the camera away from the points until a lens fits: it moves along the line from the points' centre to
+    `frm` (so the angle on the action is kept), `step` metres at a time, at most `most` metres. Returns (frm, look, lens); lens None if nothing fits.
+    Prints how far it went when it had to move: put that distance back in the script when it is more than a step or two."""
+    P = list(points.values()) if isinstance(points, dict) else list(points)
+    c = [sum(q[i] for q in P) / len(P) for i in range(3)]; d = [frm[i] - c[i] for i in range(3)]; n = math.sqrt(sum(v * v for v in d)) or 1.0; u = [v / n for v in d]
+    back = 0.0
+    while back <= most:
+        f = [round(frm[i] + u[i] * back, 3) for i in range(3)]
+        look, lens, _ = fit(f, points, **kw)
+        if lens is not None:
+            if back > 0: print(f'  fitBack: {frm} moved back {back:.2f} m to {f}')
+            return f, look, lens
+        back += step
+    return frm, None, None
+
+
 def bands(frm, look, lens, points, card=False, aspect=9 / 16):
     """(cycle 7) Which of `points` (dict name -> [x, y, z]) fall outside the frame, in the caption band (0.77-0.83 of the height) or, with card=True,
     in the band of a one-line title card (0.07-0.18): a list of (name, 'out' | 'captions' | 'card', (x, y)). Call it on what must be read: a face, a

@@ -182,6 +182,13 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | La peinture qui descend | le peintre roule le mur et la ligne : la couleur descend la corde (`tieRope` `paint`, `color2`) ; dans le hall le beige sort de la jointure et arrive à son col ; le nœud change de couleur (canal toon `knot`, à porter dans toutes les clés suivantes) ; double regard | 43 S22-S23 |
 | La facture en tyrolienne | une enveloppe sort de la jointure et file le long de la laisse (clés `to`) jusqu'à l'arrière de sa tête : écrasement de l'enveloppe, sa tête qui part en avant ; il la récupère derrière lui | 43 S24 |
 
+| La tête écrasée par un pigeon | le pigeon se pose (`to` en `ease out`) : la tête s'écrase sous son poids (`scl head [1.22, 0.78, 1.22]` en 0,04 s), revient un peu plus plate (`[1.07, 0.92, 1.07]`) et le reste tout le film ; seuls les yeux montent vers lui | 44 S02 |
+| La main qui rampe, le sifflet | une démangeaison : la main guidée monte vers le nez par paliers lents (`reach` `inOut`, 0,4 s chacun) ; le coup de sifflet la fige en l'air (yeux qui filent de côté), puis elle redescend aussi lentement | 44 S06 |
+| Le socle glissé dessous | deux ouvriers le soulèvent raide comme un poteau (`stiffStand`, déplacement `glide`), le socle glisse sous ses pieds, il se pose avec un petit écrasement ; puis quatre grilles tombent du ciel une à une et claquent autour (clés `to` de 0,1 s, `squash` à l'impact, secousse) | 44 S07-S08 |
+| Le jet au visage, le pigeon au sec | lance `waterJet` (jet qui tremble, gouttes qui éclatent au point d'impact) visée sur le visage (`rotOrder 'YXZ'`), le pigeon sous un minuscule parapluie ; cheveux mouillés dressés | 44 S10 |
+| La loupe sur le crâne vide | l'expert tend le bras jusqu'au-dessus de la tête de la statue (la main guidée étire le bras) ; la loupe est un accessoire LIBRE, calculé pour faire face à la caméra (`ry` vers la caméra, roulis `rot z` pour que le manche descende vers la main), la main guidée sur le manche ; à travers le verre, l'amende collée sur son front | 44 S14 |
+| Raide comme un poteau au bout d'une grue | crochet `craneHook` avec élingue ; il monte d'un bloc en tournant lentement, pieds joints, les yeux vers le haut | 44 S15 |
+
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
@@ -685,3 +692,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 7) Un corps aplati couché (`sq` 0,1 dans sa profondeur, qui est verticale quand il est couché) aplatit aussi ses propres plis : une
   bosse qui soulève talons, hanches et tête reste invisible. Gonfler son épaisseur au passage de la bosse (`sq` z jusqu'à 0,7) ; et la
   filmer de trois quarts d'en haut : vu au ras du sol il n'est qu'un trait, vu d'aplomb il semble debout contre un mur.
+- (cycle 7) Le bus `cityBus` est construit le long de X : pour rouler le long de la rue (Z), `ry=-90` (vers +Z) ou `90` (vers -Z). Avec
+  `ry=0` il traversait la rue en travers, sortait du cadre en quatre images et ne figurait sur aucune image de contrôle.
+- (cycle 7) Un accessoire tenu en main se présente souvent par la tranche (loupe, feuille, carte) : le poser libre, orienté par calcul vers la
+  caméra, et guider la main dessus ; s'il est hors de portée, la main guidée étire le bras (c'est un gag de plus).
+- (cycle 7, histoire 45) « no lens fits » : `fitBack(frm, points, ...)` du kit recule la caméra le long de la ligne centre des points ->
+  caméra jusqu'à ce qu'une focale tienne tout, et imprime la distance ; la reporter dans le script quand elle dépasse un ou deux pas.
+- (cycle 7, histoire 45) Le moteur n'avait pas de klaxon : `sfx:honk`, `sfx:honkLong`, `sfx:honkTiny` (deux notes carrées nasales à une
+  tierce mineure) ont été ajoutés à `tools/audio3.py`.

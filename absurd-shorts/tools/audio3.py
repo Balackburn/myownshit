@@ -230,6 +230,12 @@ def sfx(name, seed=0):
     if name == 'twang':   # a rubber band let go: a pitch that wobbles down
         d = 0.5; t = np.arange(int(d * SR)) / SR; f = 190 + 150 * np.exp(-t * 7) + 26 * np.sin(2 * np.pi * 15 * t) * np.exp(-t * 4); ph = np.cumsum(2 * np.pi * f / SR)
         return ((np.sin(ph) + 0.4 * np.sin(2 * ph) + 0.2 * np.sin(3 * ph)) * np.exp(-t * 6) * np.minimum(1, t * 200) * 0.6).astype(np.float32)
+    if name in ('honk', 'honkLong', 'honkTiny'):   # (story 45) a small car's horn: two nasal square tones a minor third apart, short, held, or a squeak
+        d = {'honk': 0.28, 'honkLong': 0.85, 'honkTiny': 0.12}[name]; t = np.arange(int(d * SR)) / SR; x = np.zeros(len(t))
+        for f in ((415, 494) if name != 'honkTiny' else (622, 740)):
+            ph = np.cumsum(np.full(len(t), float(f)) * (1 + 0.004 * np.sin(2 * np.pi * 6 * t))) / SR; x += np.sign(np.sin(2 * np.pi * ph)) * 0.5 + np.sin(4 * np.pi * ph) * 0.2
+        x = bp(x.astype(np.float32), 300, 3200)
+        return (x * np.minimum(1, t * 120) * np.clip((d - t) * 40, 0, 1) * (0.9 if name == 'honkLong' else 1.0) * (1 - 0.25 * (t / d) * (name == 'honkLong')) * 0.32).astype(np.float32)
     if name == 'stretch':   # a rubber stretch: a slow rising creak
         d = 0.3; t = np.arange(int(d * SR)) / SR; f = 240 + 520 * (t / d); ph = np.cumsum(2 * np.pi * f / SR); return ((np.sign(np.sin(ph)) * 0.12 + np.sin(ph) * 0.3) * (0.6 + 0.4 * np.sin(2 * np.pi * 34 * t)) * np.sin(np.pi * t / d) * 0.55).astype(np.float32)
     return A1.sfx(name, seed)
