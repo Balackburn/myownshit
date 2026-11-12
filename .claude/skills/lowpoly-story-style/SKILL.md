@@ -652,3 +652,23 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   caméra, pour le temps suspendu.
 - (cycle 7) Le clip du marteau du juge lève le bras derrière la tête : de face rien ne monte. Guider le poing (`reach`) à côté de la
   perruque, du côté du bloc, pendant l'élan ; poing sur le manche après le coup.
+- (cycle 7) Une ligne qui part de la nuque d'un personnage et file droit derrière lui est cachée par sa tête depuis une caméra en face :
+  placer le personnage sur le côté de l'endroit où va la ligne, pour qu'elle traverse le cadre à côté de sa tête (la cravate prise dans la
+  porte : le héros un pas devant la porte et 1,3 m à sa droite).
+- (cycle 7) Une caméra au-delà d'un mur du décor voit l'envers du mur : des images entièrement unies. Garder la caméra dans la pièce, ou
+  monter l'objectif (60) au lieu de reculer.
+- (cycle 7) `fit()` moyennait les relèvements sans tenir compte du passage par ±180° : une caméra qui regarde vers −Z visait derrière elle et
+  rien n'entrait dans le cadre. Corrigé dans le kit (relèvements pris autour de celui du centre des points).
+- (cycle 7) Une ombre (cast `silhouette`) est retirée du tampon d'occlusion ambiante : debout devant des objets, leur occlusion s'imprimait
+  sur son corps (le potelet, le lit « à travers » elle : elle semblait transparente). `silhouetteAO: true` pour une ombre qui se tient dans une
+  pièce ou sur un trottoir ; la laisser hors du tampon quand elle est plate sur un mur (sinon un halo sombre entoure sa silhouette).
+- (cycle 7) Il n'y a pas d'effet `sfx:ding` : la cloche (`sfx:bell`) pour un ascenseur, la sonnerie (`sfx:ring`) pour un réveil. Vérifier les
+  noms dans `tools/audio3.py`.
+- (cycle 7) Une feuille accrochée à une main se présente par la tranche : la poser libre devant la poitrine, face caméra (`ry` vers la
+  caméra), les mains guidées sur ses bords.
+- (cycle 7) Les feuilles déjà épinglées d'un panneau d'affichage du décor recouvrent une feuille posée à la même profondeur : décaler la
+  feuille de l'histoire de 2 à 3 cm vers la caméra.
+- (cycle 7) Le clip `pokeUp` lève les deux bras : il se lit comme une acclamation. Pour un index levé : `stand` + `reach` d'une main au-dessus
+  de l'épaule + `hands` `point`.
+- (cycle 7) Un pas de course sur place (`scramble`) ou un clip « one-shot » donné comme clip de base est fini avant le début du plan :
+  le poser par une clé `k(0.0, clip=..., params=...)`.

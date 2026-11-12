@@ -11,6 +11,7 @@
   "mec": {
    "preset": "lemec",
    "tint": "#E6F2FF",
+   "tieKnot": true,
    "build": {
     "width": 0.82,
     "headWidth": 1.3,
@@ -52,6 +53,62 @@
     "headWidth": 1.3,
     "headScale": 1.05
    }
+  },
+  "voisin": {
+   "preset": "fringant",
+   "seed": 161,
+   "build": {
+    "width": 0.85,
+    "headWidth": 1.25
+   }
+  },
+  "syndic": {
+   "preset": "boss",
+   "seed": 37,
+   "glasses": true,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.25
+   }
+  },
+  "mamie": {
+   "preset": "mamie",
+   "seed": 52,
+   "build": {
+    "headWidth": 1.2
+   }
+  },
+  "gamin": {
+   "preset": "gamin",
+   "seed": 18,
+   "build": {
+    "height": 0.68,
+    "headWidth": 1.3
+   }
+  },
+  "peintre": {
+   "preset": "worker",
+   "seed": 77,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.2
+   }
+  },
+  "femme": {
+   "preset": "femme",
+   "seed": 23
+  },
+  "madame": {
+   "preset": "madame",
+   "seed": 31
+  },
+  "retraite": {
+   "preset": "lemec_beige",
+   "seed": 64,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.2
+   }
   }
  },
  "scenes": [
@@ -63,12 +120,12 @@
     {
      "id": "mec",
      "pos": [
-      0.05,
+      0.0,
       0,
-      -2.45
+      -2.5
      ],
-     "ry": 0,
-     "clip": "stand",
+     "ry": 60,
+     "clip": "walk",
      "keys": [
       {
        "at": 0.0,
@@ -76,17 +133,124 @@
       },
       {
        "at": 0.0,
+       "to": [
+        1.2,
+        0,
+        -1.85
+       ],
+       "dur": 0.92,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "linear",
+       "face": 60,
+       "cruise": true
+      },
+      {
+       "at": 0.3,
+       "look": [
+        3.2,
+        1.7,
+        0.4
+       ]
+      },
+      {
+       "at": 0.62,
        "toon": {
-        "tie": [
-         0.02,
-         0,
-         0
-        ]
+        "face": {
+         "lid": 0.35,
+         "browL": 0.5
+        }
        },
-       "toonDur": 0.0
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.89,
+       "look": null
+      },
+      {
+       "at": 0.89,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.7,
+          0,
+          0,
+          2.1,
+          null
+         ],
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "brow": 1,
+         "eye": 0.55,
+         "jaw": 0.5,
+         "pop": 0.5
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.92,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.92,
+       "to": [
+        1.46,
+        0,
+        -1.7
+       ],
+       "dur": 0.12,
+       "clip": "stand",
+       "then": "stand",
+       "glide": true,
+       "ease": "out",
+       "face": 60
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.85,
+          0,
+          0,
+          2.5,
+          null
+         ],
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "tremble": 1,
+        "face": {
+         "brow": 1,
+         "eye": 0.55,
+         "jaw": 0.55,
+         "pop": 0.75,
+         "pupilShake": 1
+        }
+       },
+       "toonDur": 0.1
       }
      ],
-     "expr": "worried"
+     "expr": "smug"
     }
    ],
    "props": [
@@ -98,22 +262,981 @@
       "joint": "neck",
       "offset": [
        0,
-       0.04,
-       -0.09
+       0.05,
+       -0.1
       ]
      },
      "opts": {
-      "to": [
-       0,
-       2.07,
-       -2.91
+      "color": "#D0202A",
+      "w": 0.085,
+      "toKeys": [
+       [
+        0.0,
+        -0.45,
+        1.52,
+        -2.76
+       ],
+       [
+        0.1,
+        -0.382,
+        1.523,
+        -2.725
+       ],
+       [
+        0.2,
+        -0.313,
+        1.514,
+        -2.69
+       ],
+       [
+        0.3,
+        -0.245,
+        1.529,
+        -2.655
+       ],
+       [
+        0.42,
+        0.0,
+        1.56,
+        -2.93
+       ]
       ],
       "pluck": [
        [
-        1.0,
+        0.92,
         0.05,
-        7,
+        9,
+        14,
+        5
+       ]
+      ]
+     }
+    },
+    {
+     "id": "clack",
+     "name": "impactStars",
+     "pos": [
+      0.0,
+      1.56,
+      -2.86
+     ],
+     "opts": {
+      "at": 0.42,
+      "n": 6,
+      "r": 0.3,
+      "r0": 0.1,
+      "dur": 0.26,
+      "size": 0.06
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.2,
+      1.5,
+      3.4
+     ],
+     "to": [
+      -0.2,
+      1.5,
+      3.28
+     ],
+     "lookAt": [
+      1.294,
+      0.93,
+      -6.471
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      1.294,
+      0.93,
+      -6.591
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.3667,
+   "setOpts": {
+    "doors": [
+     [
+      0.0,
+      1
+     ],
+     [
+      0.2,
+      1
+     ],
+     [
+      0.42,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "RC"
+     ]
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.42,
+     "dur": 0.1,
+     "amount": 0.01
+    },
+    {
+     "type": "shake",
+     "at": 0.92,
+     "dur": 0.14,
+     "amount": 0.016
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.46,
+      0,
+      -1.7
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.85,
+          0,
+          0,
+          2.5,
+          null
+         ],
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "tremble": 1,
+        "face": {
+         "brow": 1,
+         "eye": 0.55,
+         "jaw": 0.55,
+         "pop": 0.75
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.009999999999999995,
+       "toon": {
+        "sq": [
+         0.88,
+         1.14,
+         0.88
+        ],
+        "bend": {
+         "neck": [
+          0.3,
+          0,
+          0,
+          0.8,
+          null
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "jaw": 0.6
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.06,
+       "to": [
+        0.98,
+        0,
+        -2.86
+       ],
+       "dur": 0.12,
+       "clip": "stand",
+       "then": "stand",
+       "glide": true,
+       "ease": "in",
+       "face": 0
+      },
+      {
+       "at": 0.18,
+       "clip": "poster",
+       "params": {
+        "slideAt": 0.2,
+        "slide": 0.35,
+        "high": 0.12,
+        "flat": 0.08,
+        "expr": "dizzy",
+        "stars": 1
+       }
+      },
+      {
+       "at": 0.54,
+       "to": [
+        1.25,
+        0,
+        -2.25
+       ],
+       "dur": 0.12,
+       "clip": "stand",
+       "then": "stand",
+       "glide": true,
+       "ease": "out",
+       "face": 70
+      },
+      {
+       "at": 0.54,
+       "toon": {
+        "sq": [
+         1.14,
+         0.88,
+         1.2
+        ]
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "settle": 0.6
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.6599999999999999,
+       "expr": "angry"
+      },
+      {
+       "at": 0.78,
+       "clip": "scramble",
+       "params": {
+        "dur": 0.4,
+        "freq": 9,
+        "expr": "determined"
+       }
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        0.18,
+        0.05,
+        10,
+        14,
+        5
+       ],
+       [
+        0.88,
+        0.03,
         12,
+        14,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "id": "splat",
+     "name": "impactStars",
+     "pos": [
+      0.98,
+      1.8,
+      -2.8
+     ],
+     "opts": {
+      "at": 0.18,
+      "n": 7,
+      "r": 0.55,
+      "r0": 0.25,
+      "dur": 0.3,
+      "size": 0.08
+     }
+    },
+    {
+     "id": "dust",
+     "name": "heelSmoke",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.78,
+        1.1,
+        -2.35
+       ],
+       [
+        1.4,
+        1.1,
+        -2.35
+       ]
+      ],
+      "from": 0.78,
+      "to": 1.4,
+      "every": 0.05
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.1,
+      1.45,
+      0.4
+     ],
+     "to": [
+      3.1,
+      1.45,
+      0.28
+     ],
+     "lookAt": [
+      -3.041,
+      0.502,
+      -7.435
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -3.041,
+      0.502,
+      -7.555
+     ]
+    }
+   ],
+   "start": 1.3667,
+   "duration": 1.4,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "RC"
+     ]
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.18,
+     "dur": 0.16,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.25,
+      0,
+      -2.25
+     ],
+     "ry": 70,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "clip": "scramble",
+       "params": {
+        "dur": 0.05,
+        "freq": 9,
+        "expr": "determined"
+       }
+      },
+      {
+       "at": 0.1,
+       "look": [
+        0.0,
+        2.55,
+        -2.92
+       ]
+      },
+      {
+       "at": 0.12000000000000001,
+       "expr": "surprised"
+      },
+      {
+       "at": 0.16,
+       "clip": "heelBrake",
+       "to": [
+        0.28,
+        0,
+        -2.84
+       ],
+       "dur": 0.26,
+       "glide": true,
+       "ease": "in",
+       "face": 20
+      },
+      {
+       "at": 0.42,
+       "clip": "stand"
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "sq": [
+         1.24,
+         1.02,
+         0.13
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          1.08,
+          1.55,
+          -2.8,
+          1,
+          0.08
+         ],
+         "R": [
+          -0.31999999999999995,
+          1.6,
+          -2.8,
+          1,
+          0.08
+         ]
+        },
+        "scl": {
+         "head": [
+          1.18,
+          0.95,
+          0.7
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "cheeks": 1,
+         "mouth": "wavy",
+         "pupilShake": 0
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.44,
+       "look": [
+        0.6,
+        1.6,
+        1.8
+       ]
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "sq": [
+         1.29,
+         1.02,
+         0.11
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          1.08,
+          1.5,
+          -2.8,
+          1,
+          0.08
+         ],
+         "R": [
+          -0.31999999999999995,
+          1.55,
+          -2.8,
+          1,
+          0.08
+         ]
+        },
+        "scl": {
+         "head": [
+          1.24,
+          0.9199999999999999,
+          0.7
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "cheeks": 1,
+         "mouth": "wavy",
+         "pupilShake": 1
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "sq": [
+         1.34,
+         1.02,
+         0.09
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          1.08,
+          1.45,
+          -2.8,
+          1,
+          0.08
+         ],
+         "R": [
+          -0.31999999999999995,
+          1.5,
+          -2.8,
+          1,
+          0.08
+         ]
+        },
+        "scl": {
+         "head": [
+          1.2999999999999998,
+          0.8899999999999999,
+          0.7
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "cheeks": 1,
+         "mouth": "wavy",
+         "pupilShake": 1
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        0.1,
+        0.04,
+        12,
+        14,
+        4
+       ],
+       [
+        0.42,
+        0.05,
+        10,
+        14,
+        5
+       ]
+      ]
+     }
+    },
+    {
+     "id": "bell",
+     "name": "impactStars",
+     "pos": [
+      0,
+      2.6,
+      -2.86
+     ],
+     "opts": {
+      "at": 0.1,
+      "n": 5,
+      "r": 0.3,
+      "r0": 0.15,
+      "dur": 0.24,
+      "size": 0.05
+     }
+    },
+    {
+     "id": "smoke",
+     "name": "heelSmoke",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "path": [
+       [
+        0.16,
+        1.15,
+        -2.15
+       ],
+       [
+        0.42,
+        0.28,
+        -2.69
+       ]
+      ],
+      "from": 0.16,
+      "to": 0.42,
+      "every": 0.03,
+      "marks": true
+     }
+    },
+    {
+     "id": "slam",
+     "name": "impactStars",
+     "pos": [
+      0.28,
+      1.7,
+      -2.78
+     ],
+     "opts": {
+      "at": 0.42,
+      "n": 7,
+      "r": 0.5,
+      "r0": 0.2,
+      "dur": 0.28,
+      "size": 0.07
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      1.5,
+      1.7
+     ],
+     "to": [
+      0.75,
+      1.5,
+      1.58
+     ],
+     "lookAt": [
+      0.303,
+      0.954,
+      -8.275
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      0.303,
+      0.954,
+      -8.395
+     ]
+    }
+   ],
+   "start": 2.7667,
+   "duration": 1.2666,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "RC"
+     ],
+     [
+      0.1,
+      "1"
+     ],
+     [
+      0.62,
+      "2"
+     ],
+     [
+      1.0,
+      "3"
+     ]
+    ]
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.42,
+     "dur": 0.14,
+     "amount": 0.02
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.28,
+      0,
+      -2.84
+     ],
+     "ry": 20,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         1.34,
+         1.02,
+         0.09
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "reach": {
+         "L": [
+          1.08,
+          1.45,
+          -2.8,
+          1,
+          0.08
+         ],
+         "R": [
+          -0.31999999999999995,
+          1.5,
+          -2.8,
+          1,
+          0.08
+         ]
+        },
+        "scl": {
+         "head": [
+          1.2999999999999998,
+          0.8899999999999999,
+          0.7
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "cheeks": 1,
+         "mouth": "wavy",
+         "pupilShake": 1
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.08,
+       "to": [
+        1.3,
+        0,
+        -2.05
+       ],
+       "dur": 0.16,
+       "clip": "stand",
+       "then": "stand",
+       "glide": true,
+       "ease": "out",
+       "face": -8
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "sq": [
+         1.12,
+         0.9,
+         1.22
+        ]
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "settle": 0.6
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.2,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.28,
+       "look": [
+        0.0,
+        1.56,
+        -2.93
+       ]
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "face": {
+         "gx": -0.8,
+         "browL": 0.7
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.56,
+       "look": [
+        1.8,
+        1.65,
+        1.2
+       ]
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "surprised"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        0.18,
+        0.05,
+        9,
+        14,
         3
        ]
       ]
@@ -125,58 +1248,50 @@
     {
      "at": 0.0,
      "from": [
-      0.9,
-      1.5,
-      2.2
+      2.25,
+      1.6,
+      0.9
      ],
      "to": [
-      0.85,
-      1.5,
-      2.0
+      2.25,
+      1.6,
+      0.78
      ],
      "lookAt": [
-      0,
-      1.45,
-      -3.0
+      -1.733,
+      0.892,
+      -8.245
      ],
-     "lens": 44,
+     "lens": 51,
      "ease": "linear",
      "lookAt2": [
-      0,
-      1.45,
-      -3.0
+      -1.733,
+      0.892,
+      -8.365
      ]
     }
    ],
-   "start": 0.0,
-   "duration": 4.0333,
+   "start": 4.0333,
+   "duration": 0.7334,
    "setOpts": {
     "doors": [
      [
       0,
-      1
-     ],
-     [
-      0.6,
       0
      ]
     ],
     "floor": [
      [
       0,
-      "RC"
-     ],
-     [
-      1.2,
-      "1"
-     ],
-     [
-      1.8,
-      "2"
-     ],
-     [
-      2.4,
       "3"
+     ],
+     [
+      0.2,
+      "4"
+     ],
+     [
+      0.5,
+      "5"
      ]
     ]
    },
@@ -184,37 +1299,26 @@
    "soften": 0.3
   },
   {
-   "id": "S02",
+   "id": "S05",
    "set": "immeubleCoupe",
    "lines": [],
    "actors": [
     {
      "id": "mec",
      "pos": [
-      0.83,
+      0.6,
       0,
-      0.3
+      0.35
      ],
-     "ry": 0,
+     "ry": -35,
      "clip": "stand",
      "keys": [
       {
        "at": 0.0,
        "look": null
-      },
-      {
-       "at": 0.0,
-       "toon": {
-        "tie": [
-         0.02,
-         0,
-         0
-        ]
-       },
-       "toonDur": 0.0
       }
      ],
-     "expr": "worried"
+     "expr": "unimpressed"
     }
    ],
    "props": [
@@ -226,60 +1330,43 @@
       "joint": "neck",
       "offset": [
        0,
-       0.04,
-       -0.09
+       0.05,
+       -0.1
       ]
      },
      "opts": {
+      "color": "#D0202A",
+      "w": 0.16,
       "via": [
        [
-        1.32,
-        2.1,
-        0.2
+        1.26,
+        1.56,
+        0.3
        ],
        [
-        1.68,
-        2.25,
-        0.1
+        1.71,
+        1.56,
+        0.2
        ]
+      ],
+      "face": [
+       0,
+       0,
+       1
       ],
       "toKeys": [
        [
-        0,
-        1.68,
-        0.3,
-        0.1
+        0.0,
+        1.71,
+        8.9,
+        0.2
        ],
        [
-        2.5,
-        1.68,
-        17.099999999999998,
-        0.1
+        1.2,
+        1.71,
+        15.06,
+        0.2
        ]
-      ],
-      "items": [
-       {
-        "at": 0.45,
-        "kind": "shirt",
-        "color": "#F4F1E8",
-        "from": 1.0
-       },
-       {
-        "at": 0.5,
-        "kind": "sock",
-        "color": "#3F7A5A",
-        "from": 1.2
-       },
-       {
-        "at": 0.55,
-        "kind": "towel",
-        "color": "#E8C24A",
-        "from": 1.4
-       }
-      ],
-      "paint": [
-       1.5,
-       2.5
       ]
      }
     }
@@ -289,40 +1376,5586 @@
     {
      "at": 0.0,
      "from": [
-      0,
-      10.0,
-      27.0
+      0.7,
+      3.4,
+      14.0
      ],
      "to": [
-      0,
-      10.0,
-      26.5
+      0.7,
+      11.0,
+      14.0
      ],
      "lookAt": [
+      0.7,
+      3.4,
+      0
+     ],
+     "lens": 44,
+     "ease": "inOut",
+     "lookAt2": [
+      0.7,
+      11.0,
+      0
+     ]
+    }
+   ],
+   "start": 4.7667,
+   "duration": 1.2,
+   "setOpts": {
+    "cabin": [
+     [
+      0.0,
+      3.0
+     ],
+     [
+      1.2,
+      5.2
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "immeubleCoupe",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.6,
       0,
-      10.0,
+      0.35
+     ],
+     "ry": -35,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      0.82,
+      16.799999999999997,
+      0.35
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.32,
+       "visible": true
+      },
+      {
+       "at": 0.34,
+       "to": [
+        -1.6,
+        16.799999999999997,
+        0.35
+       ],
+       "dur": 0.7,
+       "clip": "walk",
+       "ease": "linear",
+       "face": -90
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.16,
+      "via": [
+       [
+        1.26,
+        1.56,
+        0.3
+       ],
+       [
+        1.71,
+        1.56,
+        0.2
+       ]
+      ],
+      "face": [
+       0,
+       0,
+       1
+      ],
+      "toKeys": [
+       [
+        0.0,
+        1.71,
+        15.06,
+        0.2
+       ],
+       [
+        0.2,
+        1.71,
+        17.3,
+        0.2
+       ]
+      ],
+      "pluck": [
+       [
+        0.2,
+        0.12,
+        5,
+        30,
+        3
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.7,
+      16.6,
+      9.0
+     ],
+     "to": [
+      0.7,
+      17.2,
+      9.0
+     ],
+     "lookAt": [
+      0.7,
+      16.6,
       0
      ],
      "lens": 44,
      "ease": "linear",
      "lookAt2": [
+      0.7,
+      17.2,
+      0
+     ]
+    },
+    {
+     "at": 0.56,
+     "from": [
+      0.7,
+      9.5,
+      22.5
+     ],
+     "to": [
+      0.7,
+      9.0,
+      22.5
+     ],
+     "lookAt": [
+      0.7,
+      9.5,
+      0
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.7,
+      9.0,
+      0
+     ],
+     "cut": false,
+     "glide": 0.45
+    }
+   ],
+   "start": 5.9667,
+   "duration": 1.0333,
+   "setOpts": {
+    "cabin": [
+     [
+      0.0,
+      5.2
+     ],
+     [
+      0.2,
+      6.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
       0,
-      10.0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "phoneEar",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.48,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "bend": {
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.04,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.5
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.45,
+       "look": [
+        1.1,
+        3.6,
+        -1.65
+       ]
+      },
+      {
+       "at": 0.95,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ]
+     }
+    },
+    {
+     "id": "phone",
+     "name": "smartPhone",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.03
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      1.75,
+      0.15
+     ],
+     "to": [
+      2.0,
+      1.75,
+      0.03
+     ],
+     "lookAt": [
+      -1.888,
+      1.015,
+      -9.034
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      -1.888,
+      1.015,
+      -9.154
+     ]
+    }
+   ],
+   "start": 7.0,
+   "duration": 1.3,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "syndic",
+     "pos": [
+      0.0,
+      0,
+      -2.25
+     ],
+     "ry": 0,
+     "clip": "phoneEar",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.8,
+        -1.55
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          1.25,
+          -1.55,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          0.86,
+          -1.5,
+          1,
+          0.04
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          1.25,
+          -1.55,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          0.86,
+          -1.5,
+          1,
+          0.04
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          1.25,
+          -1.55,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          0.86,
+          -1.5,
+          1,
+          0.04
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          1.25,
+          -1.55,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          0.86,
+          -1.5,
+          1,
+          0.04
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.18,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          1.25,
+          -1.55,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "bend": {
+         "neck": [
+          0,
+          0,
+          0.35,
+          0.75,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -0.3,
+          0.86,
+          -1.5,
+          1,
+          0.04
+         ]
+        },
+        "face": {
+         "lid": 0.55
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "in"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.55
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 0.75,
+      "color": "#7A5A3C"
+     }
+    },
+    {
+     "id": "pile1",
+     "name": "paperPile",
+     "pos": [
+      0.5,
+      0.76,
+      -1.6
+     ],
+     "opts": {
+      "count": 70,
+      "seed": 4
+     }
+    },
+    {
+     "id": "pile2",
+     "name": "paperPile",
+     "pos": [
+      0.62,
+      0.76,
+      -1.4000000000000001
+     ],
+     "opts": {
+      "count": 45,
+      "seed": 7
+     }
+    },
+    {
+     "id": "pile3",
+     "name": "paperPile",
+     "pos": [
+      -0.55,
+      0.76,
+      -1.5
+     ],
+     "opts": {
+      "count": 55,
+      "seed": 9
+     }
+    },
+    {
+     "id": "sign",
+     "name": "paperSheet",
+     "pos": [
+      0.0,
+      2.45,
+      -3.45
+     ],
+     "opts": {
+      "w": 1.15,
+      "h": 0.32,
+      "big": "SYNDIC",
+      "bigSize": 0.62,
+      "top": 0.18,
+      "paper": "#1B2A4A",
+      "ink": "#F4F1E8",
+      "bigInk": "#F4F1E8"
+     }
+    },
+    {
+     "id": "stamp",
+     "name": "rubberStamp",
+     "on": {
+      "actor": "syndic",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.04,
+       0.02
+      ]
+     }
+    },
+    {
+     "id": "phone",
+     "name": "smartPhone",
+     "on": {
+      "actor": "syndic",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.03
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.5,
+      1.7,
+      2.3
+     ],
+     "to": [
+      0.5,
+      1.7,
+      2.18
+     ],
+     "lookAt": [
+      -0.857,
+      0.652,
+      -7.552
+     ],
+     "lens": 47,
+     "ease": "linear",
+     "lookAt2": [
+      -0.857,
+      0.652,
+      -7.672
+     ]
+    }
+   ],
+   "start": 8.3,
+   "duration": 1.4333,
+   "setOpts": {
+    "door": false,
+    "printer": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "syndic",
+     "pos": [
+      0.0,
+      0,
+      -2.25
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.4,
+        1.95,
+        1.0
+       ]
+      },
+      {
+       "at": 0.026,
+       "expr": "talk"
+      },
+      {
+       "at": 0.144,
+       "expr": "neutral"
+      },
+      {
+       "at": 0.211,
+       "expr": "talk"
+      },
+      {
+       "at": 0.218,
+       "expr": "neutral"
+      },
+      {
+       "at": 0.286,
+       "expr": "talk"
+      },
+      {
+       "at": 0.441,
+       "expr": "neutral"
+      },
+      {
+       "at": 0.508,
+       "expr": "talk"
+      },
+      {
+       "at": 1.181,
+       "expr": "neutral"
+      },
+      {
+       "at": 1.261,
+       "expr": "talk"
+      },
+      {
+       "at": 1.33,
+       "expr": "neutral"
+      },
+      {
+       "at": 1.434,
+       "expr": "talk"
+      },
+      {
+       "at": 1.478,
+       "expr": "neutral"
+      },
+      {
+       "at": 1.582,
+       "expr": "talk"
+      },
+      {
+       "at": 1.7,
+       "expr": "neutral"
+      },
+      {
+       "at": 1.804,
+       "expr": "talk"
+      },
+      {
+       "at": 2.367,
+       "expr": "neutral"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          -0.3,
+          2.42,
+          -1.95,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "brow": 0.8,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          -0.3,
+          2.36,
+          -1.95,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "brow": 0.8,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          -0.3,
+          2.44,
+          -1.95,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "brow": 0.8,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "hands": {
+         "R": "point"
+        },
+        "reach": {
+         "R": [
+          -0.3,
+          2.37,
+          -1.95,
+          1,
+          0.06
+         ]
+        },
+        "face": {
+         "brow": 0.8,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.55
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 0.75,
+      "color": "#7A5A3C"
+     }
+    },
+    {
+     "id": "pile1",
+     "name": "paperPile",
+     "pos": [
+      0.5,
+      0.76,
+      -1.6
+     ],
+     "opts": {
+      "count": 70,
+      "seed": 4
+     }
+    },
+    {
+     "id": "pile2",
+     "name": "paperPile",
+     "pos": [
+      0.62,
+      0.76,
+      -1.4000000000000001
+     ],
+     "opts": {
+      "count": 45,
+      "seed": 7
+     }
+    },
+    {
+     "id": "pile3",
+     "name": "paperPile",
+     "pos": [
+      -0.55,
+      0.76,
+      -1.5
+     ],
+     "opts": {
+      "count": 55,
+      "seed": 9
+     }
+    },
+    {
+     "id": "sign",
+     "name": "paperSheet",
+     "pos": [
+      0.0,
+      2.45,
+      -3.45
+     ],
+     "opts": {
+      "w": 1.15,
+      "h": 0.32,
+      "big": "SYNDIC",
+      "bigSize": 0.62,
+      "top": 0.18,
+      "paper": "#1B2A4A",
+      "ink": "#F4F1E8",
+      "bigInk": "#F4F1E8"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.95,
+      -0.1
+     ],
+     "to": [
+      0.38,
+      1.95,
+      -0.2
+     ],
+     "lookAt": [
+      -2.29,
+      1.378,
+      -9.714
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      -2.31,
+      1.378,
+      -9.814
+     ]
+    }
+   ],
+   "start": 9.7333,
+   "duration": 1.2334,
+   "setOpts": {
+    "door": false,
+    "printer": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "office",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "desk",
+     "name": "desk",
+     "pos": [
+      0.0,
+      0,
+      -1.55
+     ],
+     "opts": {
+      "w": 1.6,
+      "d": 0.75,
+      "color": "#7A5A3C"
+     }
+    },
+    {
+     "id": "pile1",
+     "name": "paperPile",
+     "pos": [
+      0.5,
+      0.76,
+      -1.6
+     ],
+     "opts": {
+      "count": 70,
+      "seed": 4
+     }
+    },
+    {
+     "id": "pile2",
+     "name": "paperPile",
+     "pos": [
+      0.62,
+      0.76,
+      -1.4000000000000001
+     ],
+     "opts": {
+      "count": 45,
+      "seed": 7
+     }
+    },
+    {
+     "id": "pile3",
+     "name": "paperPile",
+     "pos": [
+      -0.55,
+      0.76,
+      -1.5
+     ],
+     "opts": {
+      "count": 55,
+      "seed": 9
+     }
+    },
+    {
+     "id": "sign",
+     "name": "paperSheet",
+     "pos": [
+      0.0,
+      2.45,
+      -3.45
+     ],
+     "opts": {
+      "w": 1.15,
+      "h": 0.32,
+      "big": "SYNDIC",
+      "bigSize": 0.62,
+      "top": 0.18,
+      "paper": "#1B2A4A",
+      "ink": "#F4F1E8",
+      "bigInk": "#F4F1E8"
+     }
+    },
+    {
+     "id": "rules",
+     "name": "paperSheet",
+     "pos": [
+      0.0,
+      0.775,
+      -1.53
+     ],
+     "rot": [
+      -1.5707963267948966,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.46,
+      "h": 0.6,
+      "head": "RÈGLEMENT DE COPROPRIÉTÉ",
+      "lines": [
+       "Article 4",
+       "La cage d'ascenseur",
+       "et ce qu'elle contient"
+      ],
+      "rules": true,
+      "bright": true,
+      "stamp": {
+       "text": "PARTIE COMMUNE",
+       "at": 0.3,
+       "rot": 0.22,
+       "y": -0.12
+      }
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "bigstamp",
+     "name": "bigStamp",
+     "pos": [
+      0.12,
+      1.45,
+      -1.95
+     ],
+     "ry": -13,
+     "keys": [
+      {
+       "at": 0.15999999999999998,
+       "to": [
+        0.0,
+        1.165,
+        -1.4100000000000001
+       ],
+       "dur": 0.14,
+       "ease": "in"
+      },
+      {
+       "at": 0.3,
+       "squash": [
+        1.25,
+        0.7,
+        1.25
+       ],
+       "dur": 0.25
+      },
+      {
+       "at": 0.52,
+       "to": [
+        0.14,
+        1.45,
+        -1.98
+       ],
+       "dur": 0.25,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      2.05,
+      -1.23
+     ],
+     "to": [
+      0.0,
+      1.95,
+      -1.25
+     ],
+     "lookAt": [
+      0.0,
+      0.77,
+      -1.57
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.77,
+      -1.56
+     ]
+    }
+   ],
+   "start": 10.9667,
+   "duration": 1.2333,
+   "setOpts": {
+    "door": false,
+    "printer": false
+   },
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.3,
+     "dur": 0.14,
+     "amount": 0.018
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "immeubleCoupe",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mamie",
+     "pos": [
+      0.9,
+      8.399999999999999,
+      0.45
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.71,
+        9.799999999999999,
+        0.2
+       ]
+      },
+      {
+       "at": 0.04,
+       "toon": {
+        "reach": {
+         "R": [
+          1.65,
+          9.98,
+          0.28,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.14,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.34,
+       "toon": {
+        "reach": {
+         "R": [
+          1.21,
+          9.399999999999999,
+          0.45,
+          0,
+          0.1
+         ]
+        },
+        "bend": {
+         "spine": [
+          0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.16
+      },
+      {
+       "at": 0.44,
+       "toon": {
+        "reach": {
+         "R": [
+          1.65,
+          9.53,
+          0.28,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.14,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.74,
+       "toon": {
+        "reach": {
+         "R": [
+          1.21,
+          9.399999999999999,
+          0.45,
+          0,
+          0.1
+         ]
+        },
+        "bend": {
+         "spine": [
+          0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.16
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "reach": {
+         "R": [
+          1.65,
+          9.03,
+          0.28,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.14,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.17,
+       "toon": {
+        "reach": {
+         "R": [
+          1.21,
+          9.399999999999999,
+          0.45,
+          0,
+          0.1
+         ]
+        },
+        "bend": {
+         "spine": [
+          0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.16
+      },
+      {
+       "at": 1.35,
+       "look": [
+        1.0,
+        9.999999999999998,
+        6.0
+       ]
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.16,
+      "via": [
+       [
+        1.26,
+        1.56,
+        0.3
+       ],
+       [
+        1.71,
+        1.56,
+        0.2
+       ]
+      ],
+      "face": [
+       0,
+       0,
+       1
+      ],
+      "to": [
+       1.71,
+       17.3,
+       0.2
+      ],
+      "items": [
+       {
+        "at": 0.4307,
+        "kind": "shirt",
+        "color": "#F4F1E8",
+        "from": 0.22
+       },
+       {
+        "at": 0.4572,
+        "kind": "sock",
+        "color": "#E8A33A",
+        "from": 0.62
+       },
+       {
+        "at": 0.469,
+        "kind": "sock",
+        "color": "#3A6EA5",
+        "from": 0.72
+       },
+       {
+        "at": 0.4867,
+        "kind": "towel",
+        "color": "#E77A9A",
+        "from": 1.05
+       }
+      ],
+      "pluck": [
+       [
+        0.22,
+        0.03,
+        6,
+        14,
+        4
+       ],
+       [
+        0.62,
+        0.03,
+        6,
+        14,
+        4
+       ],
+       [
+        1.05,
+        0.03,
+        6,
+        14,
+        4
+       ]
+      ],
+      "pluckAt": 0.4543
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.2,
+      9.75,
+      3.9
+     ],
+     "to": [
+      1.2,
+      9.68,
+      3.9
+     ],
+     "lookAt": [
+      1.2,
+      9.75,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.2,
+      9.68,
       0
      ]
     }
    ],
-   "start": 4.0333,
-   "duration": 26.5567,
+   "start": 12.2,
+   "duration": 1.5667,
    "setOpts": {
     "cabin": [
      [
+      0.0,
+      6.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      },
+      {
+       "at": 0.06,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.35,
+          0,
+          0,
+          1.2,
+          null
+         ]
+        },
+        "face": {
+         "brow": 0.6,
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "face": {
+         "lid": 0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.34,
+       "to": [
+        1.18,
+        0,
+        -2.14
+       ],
+       "dur": 0.1,
+       "clip": "stand",
+       "then": "stand",
+       "glide": true,
+       "ease": "out",
+       "face": -8
+      },
+      {
+       "at": 0.34,
+       "toon": {
+        "bend": {
+         "neck": [
+          -0.5,
+          0,
+          0,
+          1.4,
+          null
+         ],
+         "spine": [
+          -0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.45
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.48000000000000004,
+       "toon": {
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.66,
+       "to": [
+        0.88,
+        0,
+        -2.37
+       ],
+       "dur": 0.14,
+       "clip": "teeter",
+       "then": "teeter",
+       "glide": true,
+       "ease": "out",
+       "face": -8
+      },
+      {
+       "at": 0.66,
+       "expr": "worried"
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "bend": {
+         "spine": [
+          -0.6,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          -0.3,
+          0,
+          0,
+          1.3,
+          null
+         ]
+        },
+        "face": {
+         "brow": 1,
+         "eye": 0.5,
+         "pupilShake": 1
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        0.06,
+        0.04,
+        9,
+        14,
+        4
+       ],
+       [
+        0.34,
+        0.06,
+        9,
+        14,
+        4
+       ],
+       [
+        0.66,
+        0.08,
+        9,
+        14,
+        4
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.35,
+      1.5,
+      1.0
+     ],
+     "to": [
+      2.35,
+      1.5,
+      0.88
+     ],
+     "lookAt": [
+      -1.856,
+      0.657,
+      -8.033
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      -1.856,
+      0.657,
+      -8.153
+     ]
+    }
+   ],
+   "start": 13.7667,
+   "duration": 1.2,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "immeubleCoupe",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gamin",
+     "pos": [
+      0.92,
+      14.0,
+      0.45
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.71,
+        15.2,
+        0.2
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          1.69,
+          15.15,
+          0.3,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "reach": {
+         "R": [
+          1.85,
+          15.05,
+          0.3,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.36,
+       "toon": {
+        "reach": {
+         "R": [
+          1.69,
+          15.15,
+          0.3,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.46,
+       "toon": {
+        "reach": {
+         "R": [
+          1.85,
+          15.05,
+          0.3,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "R": [
+          1.69,
+          15.15,
+          0.3,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.74,
+       "toon": {
+        "reach": {
+         "R": [
+          1.85,
+          15.05,
+          0.3,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.92,
+       "toon": {
+        "reach": {
+         "R": [
+          1.69,
+          15.15,
+          0.3,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "reach": {
+         "R": [
+          1.85,
+          15.05,
+          0.3,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.18,
+       "toon": {
+        "reach": {
+         "R": [
+          1.69,
+          15.15,
+          0.3,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.28,
+       "toon": {
+        "reach": {
+         "R": [
+          1.85,
+          15.05,
+          0.3,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.4,
+       "look": [
+        1.0,
+        15.4,
+        6.0
+       ]
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.16,
+      "via": [
+       [
+        1.26,
+        1.56,
+        0.3
+       ],
+       [
+        1.71,
+        1.56,
+        0.2
+       ]
+      ],
+      "face": [
+       0,
+       0,
+       1
+      ],
+      "to": [
+       1.71,
+       17.3,
+       0.2
+      ],
+      "items": [
+       {
+        "at": 0.4307,
+        "kind": "shirt",
+        "color": "#F4F1E8",
+        "from": 0
+       },
+       {
+        "at": 0.4572,
+        "kind": "sock",
+        "color": "#E8A33A",
+        "from": 0
+       },
+       {
+        "at": 0.469,
+        "kind": "sock",
+        "color": "#3A6EA5",
+        "from": 0.1
+       },
+       {
+        "at": 0.4867,
+        "kind": "towel",
+        "color": "#E77A9A",
+        "from": 0
+       }
+      ],
+      "pluck": [
+       [
+        0.18,
+        0.07,
+        7,
+        14,
+        3
+       ],
+       [
+        0.46,
+        0.07,
+        7,
+        14,
+        3
+       ],
+       [
+        0.74,
+        0.07,
+        7,
+        14,
+        3
+       ],
+       [
+        1.02,
+        0.07,
+        7,
+        14,
+        3
+       ],
+       [
+        1.28,
+        0.07,
+        7,
+        14,
+        3
+       ]
+      ],
+      "pluckAt": 0.1298
+     }
+    },
+    {
+     "id": "notes",
+     "name": "whistleNotes",
+     "pos": [
+      1.8599999999999999,
+      15.5,
+      0.45
+     ],
+     "opts": {
+      "n": 5,
+      "from": 0.18,
+      "every": 0.27,
+      "size": 0.2,
+      "dx": -0.25,
+      "dy": 0.7,
+      "life": 0.7,
+      "color": "#1B1B1E"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.2,
+      14.95,
+      3.7
+     ],
+     "to": [
+      1.2,
+      14.88,
+      3.7
+     ],
+     "lookAt": [
+      1.2,
+      14.95,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.2,
+      14.88,
+      0
+     ]
+    }
+   ],
+   "start": 14.9667,
+   "duration": 1.5666,
+   "setOpts": {
+    "cabin": [
+     [
+      0.0,
+      6.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "jelly",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      },
+      {
+       "at": 0.5,
+       "clip": "dance"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "face": {
+         "lid": 0.5,
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "params": {
+      "amp": 0.35,
+      "freq": 22,
+      "decay": 1.2
+     },
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        -0.3,
+        0.06,
+        7,
+        14,
+        3
+       ],
+       [
+        -0.02,
+        0.06,
+        7,
+        14,
+        3
+       ],
+       [
+        0.26,
+        0.06,
+        7,
+        14,
+        3
+       ],
+       [
+        0.54,
+        0.06,
+        7,
+        14,
+        3
+       ],
+       [
+        0.82,
+        0.06,
+        7,
+        14,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "id": "notes",
+     "name": "whistleNotes",
+     "pos": [
+      1.55,
+      2.25,
+      -1.7499999999999998
+     ],
+     "opts": {
+      "n": 4,
+      "from": 0.1,
+      "every": 0.22,
+      "size": 0.16,
+      "dx": 0.3,
+      "dy": 0.5,
+      "life": 0.6,
+      "color": "#1B1B1E"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.1,
+      1.7,
+      0.6
+     ],
+     "to": [
+      2.1,
+      1.7,
+      0.48
+     ],
+     "lookAt": [
+      -1.493,
+      0.43,
+      -8.645
+     ],
+     "lens": 61,
+     "ease": "linear",
+     "lookAt2": [
+      -1.493,
+      0.43,
+      -8.765
+     ]
+    }
+   ],
+   "start": 16.5333,
+   "duration": 0.9667,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.04,
+       "look": [
+        2.3,
+        1.5,
+        -2.95
+       ]
+      },
+      {
+       "at": 0.08,
+       "to": [
+        1.62,
+        0,
+        -2.42
+       ],
+       "dur": 0.2,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "inOut",
+       "face": 128
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.35,
+          0,
+          0,
+          2.4,
+          null
+         ],
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "pop": 0.6,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ]
+     }
+    },
+    {
+     "id": "convoc",
+     "name": "paperSheet",
+     "pos": [
+      2.3,
+      1.42,
+      -2.925
+     ],
+     "opts": {
+      "w": 0.5,
+      "h": 0.64,
+      "head": "CONVOCATION",
+      "big": "ASSEMBLÉE GÉNÉRALE",
+      "bigSize": 0.075,
+      "lines": [
+       "Ordre du jour :",
+       "1. Décrocher la cravate",
+       "du rez-de-chaussée",
+       "2. Ravalement de la façade"
+      ],
+      "lineSize": 0.055
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.25,
+      1.6,
+      1.2
+     ],
+     "to": [
+      3.25,
+      1.6,
+      1.08
+     ],
+     "lookAt": [
+      -0.09,
+      0.574,
+      -8.17
+     ],
+     "lens": 51,
+     "ease": "linear",
+     "lookAt2": [
+      -0.09,
+      0.574,
+      -8.29
+     ]
+    }
+   ],
+   "start": 17.5,
+   "duration": 0.9667,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.62,
+      0,
+      -2.42
+     ],
+     "ry": 128,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        2.3,
+        1.62,
+        -2.95
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.35,
+          0,
+          0,
+          2.4,
+          null
+         ],
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "pop": 0.6,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.45,
+       "look": [
+        2.3,
+        1.42,
+        -2.95
+       ]
+      },
+      {
+       "at": 0.9,
+       "look": [
+        2.3,
+        1.3,
+        -2.95
+       ]
+      },
+      {
+       "at": 1.3,
+       "look": [
+        2.3,
+        1.2,
+        -2.95
+       ]
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "bend": {
+         "neck": [
+          0.35,
+          0,
+          0,
+          2.4,
+          null
+         ],
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "pop": 0.0,
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ]
+     }
+    },
+    {
+     "id": "convoc",
+     "name": "paperSheet",
+     "pos": [
+      2.3,
+      1.42,
+      -2.925
+     ],
+     "opts": {
+      "w": 0.5,
+      "h": 0.64,
+      "head": "CONVOCATION",
+      "big": "ASSEMBLÉE GÉNÉRALE",
+      "bigSize": 0.075,
+      "lines": [
+       "Ordre du jour :",
+       "1. Décrocher la cravate",
+       "du rez-de-chaussée",
+       "2. Ravalement de la façade"
+      ],
+      "lineSize": 0.055
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.05,
+      1.55,
+      -1.2
+     ],
+     "to": [
+      2.08,
+      1.53,
+      -1.32
+     ],
+     "lookAt": [
+      2.28,
+      1.5,
+      -2.95
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      2.28,
+      1.49,
+      -2.95
+     ]
+    }
+   ],
+   "start": 18.4667,
+   "duration": 1.8,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mamie",
+     "pos": [
+      -0.62,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.74,
+          2.25,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      -0.93,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.05,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      -0.31,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.43,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "madame",
+     "pos": [
+      0.31,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          0.19,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "retraite",
+     "pos": [
+      0.93,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "reach": {
+         "R": [
+          0.81,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "gamin",
+     "pos": [
+      0.62,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.3,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          3.05,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.14,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "ch_mamie",
+     "name": "chair",
+     "pos": [
+      -0.62,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_vide",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_gamin",
+     "name": "chair",
+     "pos": [
+      0.62,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_voisin",
+     "name": "chair",
+     "pos": [
+      -0.93,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_femme",
+     "name": "chair",
+     "pos": [
+      -0.31,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_madame",
+     "name": "chair",
+     "pos": [
+      0.31,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_retraite",
+     "name": "chair",
+     "pos": [
+      0.93,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "card",
+     "name": "nameCard",
+     "pos": [
+      0.0,
+      0.47,
+      1.02
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "REZ-DE-CHAUSSÉE",
+      "w": 0.44,
+      "h": 0.17,
+      "bright": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.75,
+      -2.4
+     ],
+     "to": [
+      0.0,
+      1.75,
+      -2.3
+     ],
+     "lookAt": [
+      0.0,
+      1.375,
+      7.593
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.375,
+      7.693
+     ]
+    }
+   ],
+   "start": 20.2667,
+   "duration": 1.4,
+   "setOpts": {
+    "wall": "#E2E6DC",
+    "band": "#8C9A7A",
+    "trim": "#5E6B50",
+    "floor": "#B79B74",
+    "joint": "#A2865F",
+    "banner": false,
+    "map": false,
+    "deskZ": -1.25,
+    "plate": "SYNDIC",
+    "front": 3.6,
+    "frontSign": {
+     "text": "SALLE COMMUNE",
+     "x": 0.0,
+     "y": 2.45,
+     "w": 1.7
+    }
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "syndic",
+     "pos": [
+      0.25,
+      0,
+      -1.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        -0.62,
+        1.8,
+        -2.56
+       ]
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.42,
+          1.8,
+          -2.45,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.42,
+          1.74,
+          -2.48,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.42,
+          1.8,
+          -2.45,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.42,
+          1.74,
+          -2.48,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.72,
+       "look": [
+        0.0,
+        0.6,
+        1.0
+       ]
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "browL": 0.7
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "count",
+     "name": "paperSheet",
+     "pos": [
+      -0.62,
+      1.72,
+      -2.56
+     ],
+     "opts": {
+      "w": 0.86,
+      "h": 0.78,
+      "head": "DÉCROCHAGE",
+      "big": "POUR : 5",
+      "bigSize": 0.2,
+      "lines": [
+       "MAJORITÉ : 6"
+      ],
+      "lineSize": 0.1,
+      "bright": true
+     }
+    },
+    {
+     "id": "pen",
+     "name": "marker",
+     "on": {
+      "actor": "syndic",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.02,
+       0.06
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.15,
+      1.75,
+      1.3
+     ],
+     "to": [
+      -0.15,
+      1.75,
+      1.18
+     ],
+     "lookAt": [
+      -0.089,
+      1.222,
+      -8.686
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -0.089,
+      1.222,
+      -8.806
+     ]
+    }
+   ],
+   "start": 21.6667,
+   "duration": 1.1666,
+   "setOpts": {
+    "wall": "#E2E6DC",
+    "band": "#8C9A7A",
+    "trim": "#5E6B50",
+    "floor": "#B79B74",
+    "joint": "#A2865F",
+    "banner": false,
+    "map": false,
+    "deskZ": -1.25,
+    "plate": "SYNDIC",
+    "front": 3.6,
+    "frontSign": {
+     "text": "SALLE COMMUNE",
+     "x": 0.0,
+     "y": 2.45,
+     "w": 1.7
+    }
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mamie",
+     "pos": [
+      -0.62,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.74,
+          2.25,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "gamin",
+     "pos": [
+      0.62,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.25,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "ch_mamie",
+     "name": "chair",
+     "pos": [
+      -0.62,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_vide",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_gamin",
+     "name": "chair",
+     "pos": [
+      0.62,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_voisin",
+     "name": "chair",
+     "pos": [
+      -0.93,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_femme",
+     "name": "chair",
+     "pos": [
+      -0.31,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_madame",
+     "name": "chair",
+     "pos": [
+      0.31,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_retraite",
+     "name": "chair",
+     "pos": [
+      0.93,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "card",
+     "name": "nameCard",
+     "pos": [
+      0.0,
+      0.47,
+      1.02
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "REZ-DE-CHAUSSÉE",
+      "w": 0.44,
+      "h": 0.17,
+      "bright": true
+     }
+    },
+    {
+     "id": "weed",
+     "name": "tumbleweed",
+     "pos": [
+      -1.6,
+      0,
+      0.38
+     ],
+     "scale": 1.3,
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        1.6,
+        0,
+        0.33999999999999997
+       ],
+       "dur": 0.85,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.05,
+      0.9,
+      -0.55
+     ],
+     "to": [
+      0.05,
+      0.88,
+      -0.48
+     ],
+     "lookAt": [
+      0.0,
+      0.38,
+      1.0
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      0.38,
+      1.0
+     ]
+    }
+   ],
+   "start": 22.8333,
+   "duration": 0.9334,
+   "setOpts": {
+    "wall": "#E2E6DC",
+    "band": "#8C9A7A",
+    "trim": "#5E6B50",
+    "floor": "#B79B74",
+    "joint": "#A2865F",
+    "banner": false,
+    "map": false,
+    "deskZ": -1.25,
+    "plate": "SYNDIC",
+    "front": 3.6,
+    "frontSign": {
+     "text": "SALLE COMMUNE",
+     "x": 0.0,
+     "y": 2.45,
+     "w": 1.7
+    }
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S20",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.0,
+        3.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "reach": {
+         "R": [
+          1.08,
+          3.55,
+          -2.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "scl": {
+         "handR": [
+          1.35,
+          0.55,
+          1.35
+         ]
+        },
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 0.6,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      },
+      {
+       "at": 0.62,
+       "expr": "unimpressed"
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "R": [
+          1.08,
+          3.55,
+          -2.05,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "scl": {
+         "handR": [
+          1.35,
+          0.55,
+          1.35
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.1,
+      1.3,
+      2.7
+     ],
+     "to": [
+      2.1,
+      1.3,
+      2.58
+     ],
+     "lookAt": [
+      -0.185,
+      1.921,
+      -7.016
+     ],
+     "lens": 49,
+     "ease": "linear",
+     "lookAt2": [
+      -0.185,
+      1.921,
+      -7.136
+     ]
+    }
+   ],
+   "start": 23.7667,
+   "duration": 0.9333,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S21",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mamie",
+     "pos": [
+      -0.62,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.74,
+          2.25,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "voisin",
+     "pos": [
+      -0.93,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.05,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "femme",
+     "pos": [
+      -0.31,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.43,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "madame",
+     "pos": [
+      0.31,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          0.19,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "retraite",
+     "pos": [
+      0.93,
+      0,
+      1.95
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          0.81,
+          2.25,
+          1.9,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "gamin",
+     "pos": [
+      0.62,
+      0,
+      1.0
+     ],
+     "ry": 180,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -2.0
+       ]
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          3.05,
+          0.95,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "face": {
+         "tongue": 1
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "outBack"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "ch_mamie",
+     "name": "chair",
+     "pos": [
+      -0.62,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_vide",
+     "name": "chair",
+     "pos": [
+      0.0,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_gamin",
+     "name": "chair",
+     "pos": [
+      0.62,
+      0,
+      1.05
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_voisin",
+     "name": "chair",
+     "pos": [
+      -0.93,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_femme",
+     "name": "chair",
+     "pos": [
+      -0.31,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_madame",
+     "name": "chair",
+     "pos": [
+      0.31,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "ch_retraite",
+     "name": "chair",
+     "pos": [
+      0.93,
+      0,
+      2.0
+     ],
+     "ry": 180,
+     "opts": {
+      "color": "#6B4F3A"
+     }
+    },
+    {
+     "id": "card",
+     "name": "nameCard",
+     "pos": [
+      0.0,
+      0.47,
+      1.02
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "REZ-DE-CHAUSSÉE",
+      "w": 0.44,
+      "h": 0.17,
+      "bright": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      1.75,
+      -2.4
+     ],
+     "to": [
+      0.0,
+      1.75,
+      -2.3
+     ],
+     "lookAt": [
+      0.0,
+      1.375,
+      7.593
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.375,
+      7.693
+     ]
+    }
+   ],
+   "start": 24.7,
+   "duration": 0.8667,
+   "setOpts": {
+    "wall": "#E2E6DC",
+    "band": "#8C9A7A",
+    "trim": "#5E6B50",
+    "floor": "#B79B74",
+    "joint": "#A2865F",
+    "banner": false,
+    "map": false,
+    "deskZ": -1.25,
+    "plate": "SYNDIC",
+    "front": 3.6,
+    "frontSign": {
+     "text": "SALLE COMMUNE",
+     "x": 0.0,
+     "y": 2.45,
+     "w": 1.7
+    }
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S22",
+   "set": "immeubleCoupe",
+   "lines": [],
+   "actors": [
+    {
+     "id": "peintre",
+     "pos": [
+      0.87,
+      11.2,
+      0.5
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.71,
+        12.799999999999999,
+        0.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          12.4,
+          0.34,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.22,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          11.82,
+          0.34,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          12.32,
+          0.34,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "reach": {
+         "R": [
+          1.26,
+          11.86,
+          0.34,
+          1,
+          0.06
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.16,
+      "via": [
+       [
+        1.26,
+        1.56,
+        0.3
+       ],
+       [
+        1.71,
+        1.56,
+        0.2
+       ]
+      ],
+      "face": [
+       0,
+       0,
+       1
+      ],
+      "to": [
+       1.71,
+       17.3,
+       0.2
+      ],
+      "items": [
+       {
+        "at": 0.4307,
+        "kind": "shirt",
+        "color": "#F4F1E8",
+        "from": 0
+       },
+       {
+        "at": 0.4572,
+        "kind": "sock",
+        "color": "#E8A33A",
+        "from": 0
+       },
+       {
+        "at": 0.469,
+        "kind": "sock",
+        "color": "#3A6EA5",
+        "from": 0.1
+       },
+       {
+        "at": 0.4867,
+        "kind": "towel",
+        "color": "#E77A9A",
+        "from": 0
+       }
+      ],
+      "paint": [
+       -0.346,
+       1.772
+      ],
+      "color2": "#D9C7A3"
+     }
+    },
+    {
+     "id": "roller",
+     "name": "paintRoller",
+     "pos": [
+      1.26,
+      12.4,
+      0.34
+     ],
+     "rot": [
+      0,
+      0,
+      -0.68
+     ],
+     "opts": {
+      "color": "#D9C7A3",
+      "len": 0.8
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.26,
+        11.82,
+        0.34
+       ],
+       "dur": 0.22,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.22,
+       "to": [
+        1.26,
+        12.32,
+        0.34
+       ],
+       "dur": 0.28,
+       "ease": "inOut"
+      },
+      {
+       "at": 0.5,
+       "to": [
+        1.26,
+        11.86,
+        0.34
+       ],
+       "dur": 0.28,
+       "ease": "inOut"
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "notes",
+     "name": "whistleNotes",
+     "pos": [
+      0.97,
+      13.45,
+      0.6
+     ],
+     "opts": {
+      "n": 3,
+      "from": 0.0,
+      "every": 0.25,
+      "size": 0.16,
+      "dx": -0.3,
+      "dy": 0.6,
+      "life": 0.6,
+      "color": "#1B1B1E"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.25,
+      12.45,
+      4.4
+     ],
+     "to": [
+      1.25,
+      12.38,
+      4.4
+     ],
+     "lookAt": [
+      1.25,
+      12.45,
+      0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      1.25,
+      12.38,
+      0
+     ]
+    }
+   ],
+   "start": 25.5667,
+   "duration": 0.8666,
+   "setOpts": {
+    "cabin": [
+     [
+      0.0,
+      6.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S23",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      },
+      {
+       "at": 0.39999999999999997,
+       "look": [
+        1.3,
+        1.1,
+        -1.65
+       ]
+      },
+      {
+       "at": 0.36,
+       "toon": {
+        "knot": "#D9C7A3"
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "knot": "#D9C7A3",
+        "face": {
+         "gx": 0.0,
+         "gy": 0.8,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.78,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "knot": "#D9C7A3",
+        "face": {
+         "pop": 0.75,
+         "brow": 1,
+         "eye": 0.5
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "knot": "#D9C7A3",
+        "face": {
+         "pop": 0.0,
+         "lid": 0.45,
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D0202A",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "paint": [
+       0.0,
+       0.36
+      ],
+      "color2": "#D9C7A3"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.0,
+      1.75,
+      0.2
+     ],
+     "to": [
+      2.0,
+      1.75,
+      0.08
+     ],
+     "lookAt": [
+      -1.832,
+      1.029,
+      -9.008
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      -1.832,
+      1.029,
+      -9.128
+     ]
+    }
+   ],
+   "start": 26.4333,
+   "duration": 1.3,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S24",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.8,
+        1.7,
+        1.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "knot": "#D9C7A3",
+        "face": {
+         "lid": 0.45,
+         "browL": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "knot": "#D9C7A3",
+        "bend": {
+         "neck": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "scl": {
+         "head": [
+          1.12,
+          0.86,
+          1.12
+         ]
+        },
+        "face": {
+         "pop": 0.6,
+         "brow": 1,
+         "eye": 0.5
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.54,
+       "toon": {
+        "knot": "#D9C7A3",
+        "face": {
+         "pop": 0.0,
+         "lid": 0.45,
+         "browL": 0.7
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.17,
+          1.75,
+          -2.3,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.8799999999999999,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.2,
+          1.45,
+          -1.6999999999999997,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.16
+      },
+      {
+       "at": 0.8999999999999999,
+       "look": [
+        1.2,
+        1.45,
+        -1.5999999999999999
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D9C7A3",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        0.42,
+        0.03,
+        10,
+        14,
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "id": "bill",
+     "name": "paperSheet",
+     "pos": [
+      0.05,
+      1.6,
+      -2.86
+     ],
+     "ry": -60,
+     "scale": 0.01,
+     "opts": {
+      "w": 0.3,
+      "h": 0.19,
+      "head": "CHARGES",
+      "headSize": 0.32,
+      "top": 0.42,
+      "paper": "#F1E6CC"
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "scale": 1.0,
+       "dur": 0.06,
+       "ease": "out"
+      },
+      {
+       "at": 0.12000000000000001,
+       "to": [
+        1.2,
+        1.7,
+        -2.31
+       ],
+       "dur": 0.3,
+       "ease": "in"
+      },
+      {
+       "at": 0.42,
+       "squash": [
+        1.3,
+        0.7,
+        1.0
+       ],
+       "dur": 0.2
+      },
+      {
+       "at": 0.7,
+       "attach": "mec",
+       "hand": "L",
+       "offset": [
+        0,
+        0,
+        0.05
+       ]
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.05,
+      1.7,
+      0.5
+     ],
+     "to": [
+      2.05,
+      1.7,
+      0.38
+     ],
+     "lookAt": [
+      -1.531,
+      1.143,
+      -8.82
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      -1.531,
+      1.143,
+      -8.94
+     ]
+    }
+   ],
+   "start": 27.7333,
+   "duration": 1.2667,
+   "setOpts": {
+    "doors": [
+     [
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S25",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.05
+     ],
+     "ry": -8,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.25,
+        1.4,
+        -1.5499999999999998
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.1,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ],
+         "R": [
+          1.46,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.1,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ],
+         "R": [
+          1.46,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "face": {
+         "lidL": 0.9,
+         "lidR": 0.4,
+         "browL": 0.8
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.6799999999999999,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.1,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ],
+         "R": [
+          1.46,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.74,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.1,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ],
+         "R": [
+          1.46,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "face": {
+         "lidL": 0.9,
+         "lidR": 0.4,
+         "browL": 0.8
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "knot": "#D9C7A3",
+        "reach": {
+         "L": [
+          1.1,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ],
+         "R": [
+          1.46,
+          1.42,
+          -1.67,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 1.05,
+       "clip": "jelly",
+       "params": {
+        "amp": 0.18,
+        "freq": 20,
+        "decay": 6
+       }
+      },
+      {
+       "at": 1.4,
+       "look": [
+        1.8,
+        1.72,
+        1.0
+       ]
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "rope",
+     "name": "tieRope",
+     "on": {
+      "actor": "mec",
+      "joint": "neck",
+      "offset": [
+       0,
+       0.05,
+       -0.1
+      ]
+     },
+     "opts": {
+      "color": "#D9C7A3",
+      "w": 0.085,
+      "to": [
+       0.0,
+       1.56,
+       -2.93
+      ],
+      "pluck": [
+       [
+        0.9,
+        0.05,
+        7,
+        14,
+        4
+       ]
+      ]
+     }
+    },
+    {
+     "id": "billopen",
+     "name": "paperSheet",
+     "pos": [
+      1.28,
+      1.42,
+      -1.65
+     ],
+     "ry": 11,
+     "rot": [
+      -0.12,
       0,
       0
      ],
+     "opts": {
+      "w": 0.36,
+      "h": 0.46,
+      "head": "CHARGES DU RDC",
+      "big": "1 240 €",
+      "bigSize": 0.15,
+      "lines": [
+       "Ravalement",
+       "Séchage du linge"
+      ],
+      "lineSize": 0.07,
+      "bright": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.8,
+      1.72,
+      0.3
+     ],
+     "to": [
+      1.78,
+      1.72,
+      0.22
+     ],
+     "lookAt": [
+      -0.632,
+      1.2,
+      -9.386
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -0.652,
+      1.2,
+      -9.466
+     ]
+    }
+   ],
+   "start": 29.0,
+   "duration": 1.59,
+   "setOpts": {
+    "doors": [
      [
-      2.5,
-      6
+      0,
+      0
+     ]
+    ],
+    "floor": [
+     [
+      0,
+      "6"
      ]
     ]
    },

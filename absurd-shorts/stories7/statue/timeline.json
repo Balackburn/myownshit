@@ -1,0 +1,657 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec attendait le bus. Un pigeon s'est posé sur sa tête.",
+   "hl": [
+    "pigeon",
+    "tête."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.137,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "attendait",
+     "s": 0.581,
+     "e": 0.767
+    },
+    {
+     "w": "le",
+     "s": 0.804,
+     "e": 0.841
+    },
+    {
+     "w": "bus.",
+     "s": 1.026,
+     "e": 1.359
+    },
+    {
+     "w": "Un",
+     "s": 1.507,
+     "e": 1.581
+    },
+    {
+     "w": "pigeon",
+     "s": 1.656,
+     "e": 1.878
+    },
+    {
+     "w": "s'est",
+     "s": 1.952,
+     "e": 2.1
+    },
+    {
+     "w": "posé",
+     "s": 2.211,
+     "e": 2.322
+    },
+    {
+     "w": "sur",
+     "s": 2.396,
+     "e": 2.47
+    },
+    {
+     "w": "sa",
+     "s": 2.544,
+     "e": 2.619
+    },
+    {
+     "w": "tête.",
+     "s": 2.656,
+     "e": 3.137
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il n'a pas osé bouger.",
+   "hl": [
+    "bouger."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L02.k.wav",
+   "file_start": 3.237,
+   "speech_start": 3.237,
+   "speech_end": 4.496,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.237,
+     "e": 3.311
+    },
+    {
+     "w": "n'a",
+     "s": 3.348,
+     "e": 3.533
+    },
+    {
+     "w": "pas",
+     "s": 3.607,
+     "e": 3.681
+    },
+    {
+     "w": "osé",
+     "s": 3.756,
+     "e": 3.904
+    },
+    {
+     "w": "bouger.",
+     "s": 3.953,
+     "e": 4.496
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Au bout de trois heures, la mairie l'a classé monument historique.",
+   "hl": [
+    "mairie",
+    "monument",
+    "historique."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L03.k.wav",
+   "file_start": 4.596,
+   "speech_start": 4.596,
+   "speech_end": 7.635,
+   "words": [
+    {
+     "w": "Au",
+     "s": 4.596,
+     "e": 4.67
+    },
+    {
+     "w": "bout",
+     "s": 4.707,
+     "e": 4.744
+    },
+    {
+     "w": "de",
+     "s": 4.819,
+     "e": 4.893
+    },
+    {
+     "w": "trois",
+     "s": 4.967,
+     "e": 5.115
+    },
+    {
+     "w": "heures,",
+     "s": 5.189,
+     "e": 5.633
+    },
+    {
+     "w": "la",
+     "s": 5.67,
+     "e": 5.707
+    },
+    {
+     "w": "mairie",
+     "s": 5.781,
+     "e": 6.004
+    },
+    {
+     "w": "l'a",
+     "s": 6.029,
+     "e": 6.078
+    },
+    {
+     "w": "classé",
+     "s": 6.226,
+     "e": 6.448
+    },
+    {
+     "w": "monument",
+     "s": 6.522,
+     "e": 6.819
+    },
+    {
+     "w": "historique.",
+     "s": 6.967,
+     "e": 7.633
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Bouger, c'est abîmer le patrimoine.",
+   "hl": [
+    "patrimoine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L04.k.wav",
+   "file_start": 7.735,
+   "speech_start": 7.735,
+   "speech_end": 9.735,
+   "words": [
+    {
+     "w": "Bouger,",
+     "s": 7.735,
+     "e": 8.328
+    },
+    {
+     "w": "c'est",
+     "s": 8.402,
+     "e": 8.55
+    },
+    {
+     "w": "abîmer",
+     "s": 8.624,
+     "e": 8.846
+    },
+    {
+     "w": "le",
+     "s": 8.883,
+     "e": 8.92
+    },
+    {
+     "w": "patrimoine.",
+     "s": 8.994,
+     "e": 9.735
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ils lui ont posé une plaque. Et une grille.",
+   "hl": [
+    "plaque.",
+    "grille."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L05.k.wav",
+   "file_start": 9.835,
+   "speech_start": 9.835,
+   "speech_end": 12.057,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 9.835,
+     "e": 9.909
+    },
+    {
+     "w": "lui",
+     "s": 9.946,
+     "e": 10.057
+    },
+    {
+     "w": "ont",
+     "s": 10.131,
+     "e": 10.206
+    },
+    {
+     "w": "posé",
+     "s": 10.317,
+     "e": 10.428
+    },
+    {
+     "w": "une",
+     "s": 10.502,
+     "e": 10.576
+    },
+    {
+     "w": "plaque.",
+     "s": 10.613,
+     "e": 11.193
+    },
+    {
+     "w": "Et",
+     "s": 11.218,
+     "e": 11.243
+    },
+    {
+     "w": "une",
+     "s": 11.317,
+     "e": 11.391
+    },
+    {
+     "w": "grille.",
+     "s": 11.465,
+     "e": 12.057
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les touristes font la queue pour la photo.",
+   "hl": [
+    "touristes",
+    "photo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L06.k.wav",
+   "file_start": 12.157,
+   "speech_start": 12.157,
+   "speech_end": 14.009,
+   "words": [
+    {
+     "w": "Les",
+     "s": 12.157,
+     "e": 12.231
+    },
+    {
+     "w": "touristes",
+     "s": 12.306,
+     "e": 12.676
+    },
+    {
+     "w": "font",
+     "s": 12.75,
+     "e": 12.824
+    },
+    {
+     "w": "la",
+     "s": 12.898,
+     "e": 12.972
+    },
+    {
+     "w": "queue",
+     "s": 13.046,
+     "e": 13.12
+    },
+    {
+     "w": "pour",
+     "s": 13.194,
+     "e": 13.268
+    },
+    {
+     "w": "la",
+     "s": 13.306,
+     "e": 13.343
+    },
+    {
+     "w": "photo.",
+     "s": 13.417,
+     "e": 14.009
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le dimanche, on le nettoie au jet.",
+   "hl": [
+    "dimanche,",
+    "jet."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L07.k.wav",
+   "file_start": 14.109,
+   "speech_start": 14.109,
+   "speech_end": 15.961,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.109,
+     "e": 14.183
+    },
+    {
+     "w": "dimanche,",
+     "s": 14.257,
+     "e": 14.776
+    },
+    {
+     "w": "on",
+     "s": 14.813,
+     "e": 14.85
+    },
+    {
+     "w": "le",
+     "s": 14.887,
+     "e": 14.924
+    },
+    {
+     "w": "nettoie",
+     "s": 14.998,
+     "e": 15.257
+    },
+    {
+     "w": "au",
+     "s": 15.294,
+     "e": 15.368
+    },
+    {
+     "w": "jet.",
+     "s": 15.443,
+     "e": 15.961
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il a cligné des yeux. Amende pour vandalisme.",
+   "hl": [
+    "cligné",
+    "vandalisme."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L08.k.wav",
+   "file_start": 16.061,
+   "speech_start": 16.061,
+   "speech_end": 18.58,
+   "words": [
+    {
+     "w": "Il",
+     "s": 16.061,
+     "e": 16.135
+    },
+    {
+     "w": "a",
+     "s": 16.172,
+     "e": 16.209
+    },
+    {
+     "w": "cligné",
+     "s": 16.283,
+     "e": 16.543
+    },
+    {
+     "w": "des",
+     "s": 16.58,
+     "e": 16.728
+    },
+    {
+     "w": "yeux.",
+     "s": 16.765,
+     "e": 17.209
+    },
+    {
+     "w": "Amende",
+     "s": 17.246,
+     "e": 17.543
+    },
+    {
+     "w": "pour",
+     "s": 17.617,
+     "e": 17.691
+    },
+    {
+     "w": "vandalisme.",
+     "s": 17.728,
+     "e": 18.58
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Hier, le pigeon est parti.",
+   "hl": [
+    "pigeon",
+    "parti."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L09.k.wav",
+   "file_start": 18.68,
+   "speech_start": 18.68,
+   "speech_end": 20.467,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 18.68,
+     "e": 19.272
+    },
+    {
+     "w": "le",
+     "s": 19.346,
+     "e": 19.42
+    },
+    {
+     "w": "pigeon",
+     "s": 19.457,
+     "e": 19.717
+    },
+    {
+     "w": "est",
+     "s": 19.754,
+     "e": 19.791
+    },
+    {
+     "w": "parti.",
+     "s": 19.902,
+     "e": 20.457
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Sans pigeon, l'œuvre est incomplète.",
+   "hl": [
+    "œuvre",
+    "incomplète."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L10.k.wav",
+   "file_start": 20.567,
+   "speech_start": 20.567,
+   "speech_end": 22.567,
+   "words": [
+    {
+     "w": "Sans",
+     "s": 20.567,
+     "e": 20.715
+    },
+    {
+     "w": "pigeon,",
+     "s": 20.789,
+     "e": 21.381
+    },
+    {
+     "w": "l'œuvre",
+     "s": 21.418,
+     "e": 21.604
+    },
+    {
+     "w": "est",
+     "s": 21.678,
+     "e": 21.752
+    },
+    {
+     "w": "incomplète.",
+     "s": 21.789,
+     "e": 22.567
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Ils l'ont déplacé sur un rond-point.",
+   "hl": [
+    "rond-point."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L11.k.wav",
+   "file_start": 22.667,
+   "speech_start": 22.667,
+   "speech_end": 24.296,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 22.667,
+     "e": 22.815
+    },
+    {
+     "w": "l'ont",
+     "s": 22.852,
+     "e": 22.963
+    },
+    {
+     "w": "déplacé",
+     "s": 23.0,
+     "e": 23.333
+    },
+    {
+     "w": "sur",
+     "s": 23.407,
+     "e": 23.481
+    },
+    {
+     "w": "un",
+     "s": 23.518,
+     "e": 23.555
+    },
+    {
+     "w": "rond-point.",
+     "s": 23.629,
+     "e": 24.296
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le bus passe devant tous les matins.",
+   "hl": [
+    "bus",
+    "matins."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L12.k.wav",
+   "file_start": 24.396,
+   "speech_start": 24.396,
+   "speech_end": 26.1,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.396,
+     "e": 24.47
+    },
+    {
+     "w": "bus",
+     "s": 24.544,
+     "e": 24.692
+    },
+    {
+     "w": "passe",
+     "s": 24.767,
+     "e": 24.915
+    },
+    {
+     "w": "devant",
+     "s": 24.989,
+     "e": 25.211
+    },
+    {
+     "w": "tous",
+     "s": 25.248,
+     "e": 25.359
+    },
+    {
+     "w": "les",
+     "s": 25.396,
+     "e": 25.433
+    },
+    {
+     "w": "matins.",
+     "s": 25.544,
+     "e": 26.1
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il ne s'arrête pas.",
+   "hl": [
+    "arrête"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/statue/tts/L13.k.wav",
+   "file_start": 26.2,
+   "speech_start": 26.2,
+   "speech_end": 27.237,
+   "words": [
+    {
+     "w": "Il",
+     "s": 26.2,
+     "e": 26.274
+    },
+    {
+     "w": "ne",
+     "s": 26.348,
+     "e": 26.422
+    },
+    {
+     "w": "s'arrête",
+     "s": 26.496,
+     "e": 26.792
+    },
+    {
+     "w": "pas.",
+     "s": 26.904,
+     "e": 27.237
+    }
+   ]
+  }
+ ],
+ "total": 29.24
+}

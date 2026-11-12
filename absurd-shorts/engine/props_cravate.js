@@ -8,8 +8,25 @@ const PI = Math.PI, TAU = 2 * PI;
 const keyed3 = (keys, t) => { if (!keys || !keys.length) return null; let a = keys[0]; for (let i = 0; i < keys.length; i++) { const k = keys[i], n = keys[i + 1]; if (t >= k[0]) { if (n && t < n[0]) { const u = (t - k[0]) / (n[0] - k[0]), e = (ease[k[4]] || (x => x))(u); return [k[1] + (n[1] - k[1]) * e, k[2] + (n[2] - k[2]) * e, k[3] + (n[3] - k[3]) * e]; } a = k; } } return [a[1], a[2], a[3]]; };
 
 // one thing pegged on the rope: its top edge at the origin, hanging down -Y, facing +Z
-function washing(kind, color) {
+const fitFont = (c, text, maxW, size, weight = '') => { c.font = `${weight} ${size}px Arial`; const w = c.measureText(text).width; return w > maxW ? size * maxW / w : size; };
+function textSheet(w, h, head, lines, o = {}) {   // a white sheet with a bold heading and lines of type (unlit when o.bright)
+  const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = o.paper || '#F7F4EC'; c.fillRect(0, 0, W, H); c.strokeStyle = 'rgba(0,0,0,0.3)'; c.lineWidth = W * 0.01; c.strokeRect(W * 0.005, W * 0.005, W * 0.99, H - W * 0.01);
+    c.fillStyle = o.ink || '#1B1B1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let y = H * (o.top ?? 0.13);
+    if (head) { const fs = fitFont(c, head, W * 0.86, H * (o.headSize ?? 0.085), 'bold'); c.font = `bold ${fs}px Arial`; c.fillText(head, W / 2, y); y += fs * 0.85; c.fillRect(W * 0.1, y, W * 0.8, Math.max(2, H * 0.008)); y += fs * 0.9; }
+    if (o.big) { const fs = fitFont(c, o.big, W * 0.88, H * (o.bigSize ?? 0.17), 'bold'); c.font = `bold ${fs}px Arial`; c.fillStyle = o.bigInk || c.fillStyle; c.fillText(o.big, W / 2, y + fs * 0.45); c.fillStyle = o.ink || '#1B1B1E'; y += fs * 1.25; }
+    for (const ln of lines || []) { const fs = fitFont(c, ln, W * 0.86, H * (o.lineSize ?? 0.06)); c.font = `${fs}px Arial`; c.fillText(ln, W / 2, y); y += H * (o.lineGap ?? 0.085); }
+    if (o.rules) { c.fillStyle = 'rgba(27,27,30,0.32)'; let i = 0; while (y < H * 0.9) { c.fillRect(W * 0.12, y, W * (0.52 + 0.24 * ((i * 0.37) % 1)), Math.max(2, H * 0.008)); y += H * 0.05; i++; } }
+  }, { res: 512 });
+  if (o.bright) pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, side: THREE.DoubleSide });
+  return pl;
+}
+function washing(kind, color, it = {}) {
   const g = grp(), peg = dx => at(box(0.02, 0.07, 0.03, '#E3C56A'), dx, 0.0, 0);
+  if (kind === 'notice' || kind === 'bill') {   // (cycle 7) a notice pegged on it (it.head, it.lines), a bill (it.head on an envelope)
+    const w = it.w ?? (kind === 'bill' ? 0.32 : 0.36), h = it.h ?? (kind === 'bill' ? 0.2 : 0.48);
+    const pl = textSheet(w, h, it.head || (kind === 'bill' ? 'CHARGES' : 'AVIS'), it.lines || [], { bright: it.bright, paper: kind === 'bill' ? '#F1E6CC' : undefined, rules: kind === 'notice', headSize: kind === 'bill' ? 0.2 : 0.085, top: kind === 'bill' ? 0.4 : 0.13 });
+    pl.position.set(0, -h / 2 - 0.02, 0.004); g.add(pl, peg(0)); return g;
+  }
   if (kind === 'sock') g.add(at(box(0.09, 0.2, 0.02, color, { outline: 0.004 }), 0, -0.12, 0), at(box(0.15, 0.08, 0.02, color, { outline: 0.004 }), 0.03, -0.24, 0), at(box(0.09, 0.03, 0.022, '#F4F1E8'), 0, -0.04, 0), peg(0));
   else if (kind === 'towel') g.add(at(box(0.42, 0.5, 0.015, color, { outline: 0.004 }), 0, -0.27, 0), at(box(0.42, 0.05, 0.017, '#F4F1E8'), 0, -0.42, 0), peg(-0.14), peg(0.14));
   else if (kind === 'shorts') g.add(at(box(0.34, 0.14, 0.02, color, { outline: 0.004 }), 0, -0.09, 0), at(box(0.15, 0.14, 0.02, color, { outline: 0.004 }), -0.095, -0.21, 0), at(box(0.15, 0.14, 0.02, color, { outline: 0.004 }), 0.095, -0.21, 0), peg(-0.12), peg(0.12));
@@ -33,7 +50,7 @@ export const CRAVATE_PROPS = {
     for (let i = 0; i < N; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
     const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3)); geo.setIndex(idx);
     const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide })); m.frustumCulled = false; m.castShadow = false; m.receiveShadow = false; g.add(m);
-    const items = (o.items || []).map(it => { const q = washing(it.kind || 'shirt', it.color || '#F4F1E8'); q.userData.it = it; g.add(q); return q; });
+    const items = (o.items || []).map(it => { const q = washing(it.kind || 'shirt', it.color || '#F4F1E8', it); q.userData.it = it; g.add(q); return q; });
     const FACE = new THREE.Vector3(...(o.face || [0, 0, 1])).normalize(), SIDE = new THREE.Vector3(...(o.side || [1, 0, 0])).normalize();
     const A = new THREE.Vector3(), B = new THREE.Vector3(), d = new THREE.Vector3(), q = new THREE.Vector3(), wv = new THREE.Vector3(), inv = new THREE.Matrix4(), tmp = new THREE.Vector3();
     const path = t => { g.updateWorldMatrix(true, false); const pts = [new THREE.Vector3().setFromMatrixPosition(g.matrixWorld)]; for (const v of o.via || []) pts.push(new THREE.Vector3(...v)); const e = keyed3(o.toKeys, t) || o.to || [0, 3, 0]; pts.push(new THREE.Vector3(...e)); return pts; };
@@ -55,4 +72,49 @@ export const CRAVATE_PROPS = {
     };
     g.userData.update(0); return g;
   },
+
+  // (cycle 7) a sheet of paper (front +Z, origin at its centre): o.w × o.h (0.42 × 0.56), o.head (bold heading), o.big (one line in large type),
+  // o.lines [...], o.rules (small print under them), o.stamp { text, color, at, rot, y } (a stamp mark that slams on at t: from 1.6 times its size to 1,
+  // with a jolt), o.bright (unlit), o.paper, o.ink, o.bigInk
+  paperSheet(o) {
+    const w = o.w ?? 0.42, h = o.h ?? 0.56, g = grp(textSheet(w, h, o.head, o.lines, o));
+    if (o.stamp) { const s = o.stamp, sw = w * (s.w ?? 0.8), sh = sw * 0.32, col = s.color || '#C8202A';
+      const sm = canvasPlane(sw, sh, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = c.fillStyle = col; c.lineWidth = H * 0.08; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H * 0.88); const fs = fitFont(c, s.text, W * 0.84, H * 0.6, 'bold'); c.font = `bold ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(s.text, W / 2, H * 0.55); }, { res: 512, transparent: true });
+      if (o.bright) sm.material = new THREE.MeshBasicMaterial({ map: sm.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide });
+      sm.position.set(0, s.y ?? -h * 0.14, 0.004); sm.rotation.z = s.rot ?? 0.2; g.add(sm);
+      const t0 = s.at ?? 0; g.userData.update = t => { const u = t - t0; sm.visible = u >= 0; if (u >= 0) sm.scale.setScalar(u < 0.07 ? 1.6 - 0.6 * (u / 0.07) : 1 + 0.06 * Math.sin((u - 0.07) * 45) * Math.exp(-(u - 0.07) * 16)); }; g.userData.update(0); }
+    return g;
+  },
+
+  // (cycle 7) a folded name card (a little tent) on a seat or a table: o.text, o.w (0.36) × o.h (0.13), o.bg, o.fg; front +Z, origin at its foot
+  nameCard(o) {
+    const w = o.w ?? 0.36, h = o.h ?? 0.13, A = 0.3, g = grp(), bg = o.bg || '#F7F4EC', fg = o.fg || '#1B1B1E';
+    const face = canvasPlane(w, h, (c, W, H) => { c.fillStyle = bg; c.fillRect(0, 0, W, H); c.strokeStyle = fg; c.lineWidth = H * 0.05; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H * 0.84); c.fillStyle = fg; const tx = o.text || 'NOM', fs = fitFont(c, tx, W * 0.84, H * 0.48, 'bold'); c.font = `bold ${fs}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(tx, W / 2, H * 0.55); }, { res: 512 });
+    if (o.bright) face.material = new THREE.MeshBasicMaterial({ map: face.material.map, side: THREE.DoubleSide });
+    const f = grp(at(face, 0, h / 2, 0)); f.rotation.x = -A; f.position.z = h * Math.sin(A); g.add(f);
+    const b = grp(at(box(w, h, 0.004, bg), 0, h / 2, 0)); b.rotation.x = A; b.position.z = -h * Math.sin(A); g.add(b);
+    return g;
+  },
+
+  // (cycle 7) a paint roller on a long handle: origin at the grip, the roller o.len (0.8) m up along +Y; o.color: the paint on it
+  paintRoller(o) {
+    const L = o.len ?? 0.8, g = grp(at(cyl(0.016, 0.016, L, '#8C7B5E', 6, { pivot: 'bottom' }), 0, -0.1, 0), at(box(0.22, 0.025, 0.025, '#6F7680'), 0, L - 0.1, 0));
+    const r = cyl(0.05, 0.05, 0.26, o.color || '#D9C7A3', 10); r.rotation.z = PI / 2; r.position.set(0, L - 0.04, 0.02); g.add(r);
+    g.userData.grip = [0, 0, 0]; return g;
+  },
+
+  // (cycle 7) a painters' cradle: a plank o.w (1.6) × o.d (0.5) with a guard rail (o.color), a pot of paint (o.paint), hanging from two ropes that go up
+  // to y = o.roofY (world) wherever the cradle is; origin at the middle of its floor. Move it with keys (to)
+  paintCradle(o) {
+    const w = o.w ?? 1.6, d = o.d ?? 0.5, c = o.color || '#E3A93A', g = grp(at(box(w, 0.07, d, '#9A8B72', { outline: 0.006 }), 0, 0.035, 0)), ropes = [], v = new THREE.Vector3();
+    for (const sd of [-1, 1]) { for (const sz of [-1, 1]) g.add(at(box(0.04, 1.0, 0.04, c, { outline: 0.004 }), sd * (w / 2 - 0.03), 0.5, sz * (d / 2 - 0.03)));
+      g.add(at(box(0.04, 0.04, d, c), sd * (w / 2 - 0.03), 1.0, 0)); const rp = cyl(0.012, 0.012, 1, '#3A3D44', 5, { pivot: 'bottom' }); rp.position.set(sd * (w / 2 - 0.03), 1.0, 0); g.add(rp); ropes.push(rp); }
+    g.add(at(box(w, 0.04, 0.04, c, { outline: 0.004 }), 0, 1.0, d / 2 - 0.03), at(box(w, 0.04, 0.04, c), 0, 1.0, -d / 2 + 0.03), at(box(w, 0.04, 0.04, c), 0, 0.5, d / 2 - 0.03));
+    g.add(at(cyl(0.11, 0.1, 0.2, o.paint || '#D9C7A3', 10), w / 2 - 0.3, 0.17, 0), at(cyl(0.112, 0.112, 0.012, '#B8A684', 10), w / 2 - 0.3, 0.27, 0));
+    g.userData.update = () => { g.getWorldPosition(v); const s = g.getWorldScale(new THREE.Vector3()).y || 1; for (const rp of ropes) rp.scale.y = Math.max(0.01, ((o.roofY ?? 20) - v.y) / s - 1.0); };
+    return g;
+  },
+
+  // (cycle 7) a tie knot to put over his own when the tie changes colour: o.color; attach it at his collar (it pops on with a scale key)
+  tieKnot(o) { return grp(at(box(0.06, 0.056, 0.028, o.color || '#D9C7A3'), 0, 0, 0)); },
 };

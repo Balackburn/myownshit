@@ -28,6 +28,8 @@ def cam(at, frm, to, look, look2=None, lens=44, ease='linear', shake=None, roll=
     if shake: c['shake'] = shake
     if roll: c['roll'] = roll
     return c
+def glide(c, g=0.2): return {**c[0], 'cut': False, 'glide': g}   # a camera key reached by gliding (g s) instead of cutting: glide([cam(...)], 0.3)
+r3 = lambda v: [round(x, 3) for x in v]
 
 
 def project(frm, look, lens, p, aspect=9 / 16):
@@ -57,8 +59,11 @@ def fit(frm, points, margin=0.07, top=0.08, bottom=0.92, lenses=range(26, 81), a
     across: when nothing fits, move the camera (further, or more along the action), do not widen past 65."""
     P = points if isinstance(points, dict) else {i: q for i, q in enumerate(points)}
     yaw, el = [], []
+    # (cycle 7) bearings are taken around the bearing of the points' centre: a camera that looks toward -Z sees bearings on both sides of +-180
+    # degrees, and their plain average pointed it the other way
+    n_ = len(P); y0 = math.atan2(sum(q[0] for q in P.values()) / n_ - frm[0], sum(q[2] for q in P.values()) / n_ - frm[2])
     for q in P.values():
-        dx, dy, dz = q[0] - frm[0], q[1] - frm[1], q[2] - frm[2]; yaw.append(math.atan2(dx, dz)); el.append(math.atan2(dy, math.hypot(dx, dz)))
+        dx, dy, dz = q[0] - frm[0], q[1] - frm[1], q[2] - frm[2]; yaw.append(y0 + (math.atan2(dx, dz) - y0 + math.pi) % (2 * math.pi) - math.pi); el.append(math.atan2(dy, math.hypot(dx, dz)))
     yc, ec0 = (max(yaw) + min(yaw)) / 2, (max(el) + min(el)) / 2
     look = None
     for lens in lenses:

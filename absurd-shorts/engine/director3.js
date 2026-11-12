@@ -75,16 +75,19 @@ function buildActor(c, id) {
   if (obj.userData.kind === 'human' && (c.toon ?? (S.script?.rig === 'toon'))) { toonUpgrade(obj); obj.userData.toonCfg = typeof c.toon === 'object' ? c.toon : {}; }   // cartoon rig (engine/toon.js): opt-in, old stories never take this path
   if (obj.userData.kind === 'human' && obj.userData.setFaceState && (c.faceRig ?? c.toon ?? (S.script?.rig === 'toon' || !!S.script?.faceRig))) obj.userData.faceRig = true;   // animated face layers
   if (obj.userData.toon && (c.fingers ?? S.script?.fingers)) fingersUpgrade(obj);   // hands with fingers (engine/fingers.js): script `fingers: true` or per character
-  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj, { tails: c.tails ?? S.script?.tails });         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
+  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj, { tails: c.tails ?? S.script?.tails, knotOnly: c.tieKnot });         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
   // (cycle 6) cast `silhouette: '#262833'`: a shadow with a life of its own: every part in one flat unlit colour, no cast shadow, and the eyes of the
   // face rig left white on it (the glow layer of the dark shots). Flatten it with the toon channel sq [1, 1, 0.03] and lay it down with `lay`.
   // cast `castShadow: false`: a man who has lost his shadow.
+  // (cycle 7) cast `silhouetteAO: true`: a shadow that stands in a room or on a pavement (not flat on a wall) is drawn into the ambient-occlusion buffer:
+  // left out of it, the occlusion of whatever stands behind it (a bollard, a bed) was printed on its body, and it looked see-through. Flat on a wall
+  // leave it out (in the buffer it put a dark halo on the wall round its outline)
   // (cycle 7) cast `silhouetteRim: '#3D4152'`: the ink outline of each part is kept, in a tone a little lighter than the shade: a limb in front of
   // the body is drawn by its rim (a forearm across the chest, a hand on a hip: without it they are black on black), and the whole figure gets a
   // thin soft edge
   if (c.silhouette) { const sm = new THREE.MeshBasicMaterial({ color: c.silhouette === true ? '#262833' : c.silhouette, toneMapped: false });
     const rm = c.silhouetteRim ? new THREE.MeshBasicMaterial({ color: c.silhouetteRim, toneMapped: false, side: THREE.BackSide }) : null;
-    obj.traverse(o => { if (o.isMesh) { const m = rm && o.name === 'outline' ? rm : sm; o.material = Array.isArray(o.material) ? o.material.map(() => m) : m; o.castShadow = false; o.receiveShadow = false; o.userData.noAO = true; if (!rm && o.name === 'outline') o.visible = false; } else if (o.isLine || o.isLineSegments) o.visible = false; });   // (without a rim the ink hull of the head is hidden: in the flat shade, seen from outside, it stood 12 mm in front of the face and hid the white eyes as soon as the shadow was not flattened)
+    obj.traverse(o => { if (o.isMesh) { const m = rm && o.name === 'outline' ? rm : sm; o.material = Array.isArray(o.material) ? o.material.map(() => m) : m; o.castShadow = false; o.receiveShadow = false; o.userData.noAO = !c.silhouetteAO || o.name === 'outline'; if (!rm && o.name === 'outline') o.visible = false; } else if (o.isLine || o.isLineSegments) o.visible = false; });   // (without a rim the ink hull of the head is hidden: in the flat shade, seen from outside, it stood 12 mm in front of the face and hid the white eyes as soon as the shadow was not flattened)
     if (rm) {   // only the head has an outline of its own: every other part gets one here: a shell of the same geometry, `silhouetteRimW` (0.012 m) larger on each side, seen from inside
       const parts = [], tw = c.silhouetteRimW ?? 0.012; obj.traverse(o => { if (o.isMesh && o.name !== 'outline' && o.name !== 'eyeGlow' && o.geometry && !o.children.some(ch => ch.name === 'outline')) parts.push(o); });
       for (const m of parts) { if (!m.geometry.boundingBox) m.geometry.computeBoundingBox(); const bb = m.geometry.boundingBox, sz = bb.getSize(new THREE.Vector3()), ce = bb.getCenter(new THREE.Vector3()), h = new THREE.Mesh(m.geometry, rm);
@@ -725,7 +728,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
     const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
     const lw = all.wind, wx = lw ? lw[0] * Math.cos(ry) + lw[2] * Math.sin(ry) : 0, wz = lw ? -lw[0] * Math.sin(ry) + lw[2] * Math.cos(ry) : 0;   // toon channel `wind`: his own wind, given in his frame
-    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null, { gravity: A.cfg?.clothGravity ?? S.script?.clothGravity });   // (cycle 6) script / cast `clothGravity`: upside down, the tie hangs toward the head
+    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null, { gravity: A.cfg?.clothGravity ?? S.script?.clothGravity, knot: all.knot });   // (cycle 6) script / cast `clothGravity`: upside down, the tie hangs toward the head
   }
   return all;
 }

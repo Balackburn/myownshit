@@ -91,7 +91,7 @@ export const OMBRE_PROPS = {
   // A rail of shadows for hire: a tube on two posts (o.w 2.4 m, the rail at o.h 2.0 m) and flat dark outlines hung from it by hangers (o.kinds: a list of
   // 'man' | 'tall' | 'wide' | 'kid' | 'dog'; each sways). o.sign: a board above (« LOCATION D'OMBRES »), o.price: a tag. Origin: the middle of its foot; front +Z.
   shadowRack(o) {
-    // o.pick [[t, i], ...]: at that time the hand of the customer is on the hanger i: its shadow perks up (a hop, eyes wide); o.gone [t, i]: from that time
+    // o.pick [[t, i], ...]: at that time the hand of the customer is on the hanger i: its shadow perks up (a hop, eyes wide; (cycle 7) o.hop: a real hop, that fraction of its height); o.gone [t, i]: from that time
     // the hanger i is empty (taken)
     const w = o.w ?? 2.4, H0 = o.h ?? 2.0, kinds = o.kinds || ['tall', 'man', 'kid', 'wide', 'dog', 'man'], g = grp(), sw = [], col = o.shade || INK;
     for (const s of [-1, 1]) g.add(at(cyl(0.03, 0.03, H0, '#8A8F98', 8, { pivot: 'bottom' }), s * w / 2, 0, 0), at(box(0.34, 0.04, 0.34, '#6E737C', { pivot: 'bottom' }), s * w / 2, 0, 0));
@@ -105,11 +105,11 @@ export const OMBRE_PROPS = {
         else for (const sx of [-1, 1]) { c.beginPath(); c.ellipse(W / 2 + sx * 0.042 * kk * fhp, H * 0.985 - 0.9 * fhp, 0.026 * kk * fhp, 0.03 * fhp, 0, 0, TAU); c.fill(); } }, { res: 384, transparent: true });
       pl.material = flat('#FFFFFF', { map: pl.material.map, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide }); pl.position.y = -0.1 - fh / 2; piv.add(pl);
       const hook = new THREE.Mesh(new THREE.TorusGeometry(0.035, 0.007, 5, 10, PI * 1.4), mat('#5B5F67')); hook.position.y = -0.035; piv.add(hook, at(box(Math.min(0.3, fw * 0.8), 0.012, 0.012, '#5B5F67'), 0, -0.1, 0));
-      g.add(piv); sw.push({ piv, pl, i, ph: i * 1.7, amp: 0.035 + 0.02 * (i % 3) });
+      g.add(piv); sw.push({ piv, pl, i, ph: i * 1.7, amp: 0.035 + 0.02 * (i % 3), y0: pl.position.y, fh });
     });
     if (o.sign !== false) { const sh = o.signH ?? 0.36, sg = canvasPlane(w * 0.9, sh, (c, W, H) => { c.fillStyle = '#1B2F6B'; c.fillRect(0, 0, W, H); c.strokeStyle = '#F4F1E8'; c.lineWidth = H * 0.05; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H * 0.84); txt(c, o.sign || "LOCATION D'OMBRES", W / 2, H * 0.54, fit(c, o.sign || "LOCATION D'OMBRES", W * 0.86, H * 0.6), '#F4F1E8'); }, { res: 768 }); sg.position.set(0, H0 + 0.24 + sh / 2, 0.02); g.add(sg, at(box(w * 0.9 + 0.04, sh + 0.04, 0.03, '#14224E'), 0, H0 + 0.24 + sh / 2, 0)); }
-    g.userData.update = t => { for (const s of sw) { s.piv.rotation.z = s.amp * Math.sin(t * 1.9 + s.ph) * (o.sway ?? 1); let k = 1; for (const [tt, i] of o.pick || []) if (i === s.i && t >= tt) { const u = t - tt; k = 1 + 0.16 * Math.exp(-u * 9) * Math.cos(u * 26); }
-        s.pl.scale.set(2 - k, k, 1); s.piv.visible = !(o.gone && o.gone[1] === s.i && t >= o.gone[0]); } };
+    g.userData.update = t => { for (const s of sw) { s.piv.rotation.z = s.amp * Math.sin(t * 1.9 + s.ph) * (o.sway ?? 1); let k = 1, hop = 0; for (const [tt, i] of o.pick || []) if (i === s.i && t >= tt) { const u = t - tt; k = 1 + 0.16 * Math.exp(-u * 9) * Math.cos(u * 26); hop = (o.hop ?? 0) * s.fh * Math.exp(-u * 5) * Math.abs(Math.sin(u * 12)); }
+        s.pl.scale.set(2 - k, k, 1); s.pl.position.y = s.y0 + hop; s.piv.visible = !(o.gone && o.gone[1] === s.i && t >= o.gone[0]); } };
     g.userData.update(0); return g;
   },
 
@@ -192,6 +192,11 @@ export const OMBRE_PROPS = {
   // darker heel (o.len 0.26 m, o.w 0.09). Origin: its middle; it looks down -Y, the toe toward +Z.
   shoeSole(o) {
     const L = o.len ?? 0.26, w = o.w ?? 0.09;
+    if (o.tread) {   // (cycle 7) a dark rubber sole with pale ribs across it: it reads as the underside of a shoe (a plain tan one read as a parcel)
+      const g = grp(at(box(w, 0.012, L, o.color || '#3A3330', { outline: 0.005 }), 0, 0, 0));
+      for (let i = 0; i < 6; i++) g.add(at(box(w * 0.8, 0.004, 0.012, o.rib || '#A89C8A'), 0, -0.008, L * (-0.38 + i * 0.15)));
+      g.add(at(box(w * 0.96, 0.016, L * 0.24, o.heel || '#2A2422', { outline: 0.004 }), 0, -0.007, -L * 0.37)); return g;
+    }
     return grp(at(box(w, 0.008, L, o.color || '#C9A070', { outline: 0.004 }), 0, 0, 0), at(box(w * 0.96, 0.014, L * 0.26, o.heel || '#7A5A3A'), 0, -0.006, -L * 0.36));
   },
 

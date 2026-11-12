@@ -1,0 +1,663 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec avait une ombre en retard. D'une seconde, puis d'une heure.",
+   "hl": [
+    "ombre",
+    "retard."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 3.73,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "avait",
+     "s": 0.507,
+     "e": 0.693
+    },
+    {
+     "w": "une",
+     "s": 0.73,
+     "e": 0.767
+    },
+    {
+     "w": "ombre",
+     "s": 0.841,
+     "e": 0.989
+    },
+    {
+     "w": "en",
+     "s": 1.026,
+     "e": 1.063
+    },
+    {
+     "w": "retard.",
+     "s": 1.174,
+     "e": 1.656
+    },
+    {
+     "w": "D'une",
+     "s": 1.804,
+     "e": 1.952
+    },
+    {
+     "w": "seconde,",
+     "s": 2.026,
+     "e": 2.693
+    },
+    {
+     "w": "puis",
+     "s": 2.767,
+     "e": 2.989
+    },
+    {
+     "w": "d'une",
+     "s": 3.137,
+     "e": 3.285
+    },
+    {
+     "w": "heure.",
+     "s": 3.359,
+     "e": 3.73
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Un matin, elle n'est pas venue.",
+   "hl": [
+    "venue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L02.k.wav",
+   "file_start": 3.83,
+   "speech_start": 3.83,
+   "speech_end": 5.533,
+   "words": [
+    {
+     "w": "Un",
+     "s": 3.83,
+     "e": 3.904
+    },
+    {
+     "w": "matin,",
+     "s": 4.015,
+     "e": 4.533
+    },
+    {
+     "w": "elle",
+     "s": 4.57,
+     "e": 4.644
+    },
+    {
+     "w": "n'est",
+     "s": 4.694,
+     "e": 4.793
+    },
+    {
+     "w": "pas",
+     "s": 4.83,
+     "e": 4.867
+    },
+    {
+     "w": "venue.",
+     "s": 5.163,
+     "e": 5.533
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a déclaré sa disparition à la mairie.",
+   "hl": [
+    "mairie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L03.k.wav",
+   "file_start": 5.633,
+   "speech_start": 5.633,
+   "speech_end": 7.633,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.633,
+     "e": 5.707
+    },
+    {
+     "w": "a",
+     "s": 5.744,
+     "e": 5.781
+    },
+    {
+     "w": "déclaré",
+     "s": 5.856,
+     "e": 6.152
+    },
+    {
+     "w": "sa",
+     "s": 6.226,
+     "e": 6.3
+    },
+    {
+     "w": "disparition",
+     "s": 6.374,
+     "e": 6.819
+    },
+    {
+     "w": "à",
+     "s": 6.893,
+     "e": 6.918
+    },
+    {
+     "w": "la",
+     "s": 6.942,
+     "e": 6.967
+    },
+    {
+     "w": "mairie.",
+     "s": 7.041,
+     "e": 7.633
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "On lui a répondu :",
+   "hl": [],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L04.k.wav",
+   "file_start": 7.733,
+   "speech_start": 7.733,
+   "speech_end": 8.844,
+   "words": [
+    {
+     "w": "On",
+     "s": 7.733,
+     "e": 7.807
+    },
+    {
+     "w": "lui",
+     "s": 7.844,
+     "e": 7.919
+    },
+    {
+     "w": "a",
+     "s": 7.956,
+     "e": 7.993
+    },
+    {
+     "w": "répondu:",
+     "s": 8.03,
+     "e": 8.844
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "C",
+   "text": "« Elle est majeure. »",
+   "hl": [
+    "majeure."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L05.k.wav",
+   "file_start": 8.944,
+   "speech_start": 8.944,
+   "speech_end": 9.833,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 8.944,
+     "e": 9.056
+    },
+    {
+     "w": "est",
+     "s": 9.093,
+     "e": 9.13
+    },
+    {
+     "w": "majeure.",
+     "s": 9.167,
+     "e": 9.833
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Elle travaillait déjà ailleurs. Pour un type plus grand.",
+   "hl": [
+    "ailleurs.",
+    "grand."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L06.k.wav",
+   "file_start": 9.933,
+   "speech_start": 9.933,
+   "speech_end": 12.526,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 9.933,
+     "e": 10.081
+    },
+    {
+     "w": "travaillait",
+     "s": 10.119,
+     "e": 10.452
+    },
+    {
+     "w": "déjà",
+     "s": 10.526,
+     "e": 10.674
+    },
+    {
+     "w": "ailleurs.",
+     "s": 10.748,
+     "e": 11.415
+    },
+    {
+     "w": "Pour",
+     "s": 11.452,
+     "e": 11.489
+    },
+    {
+     "w": "un",
+     "s": 11.563,
+     "e": 11.6
+    },
+    {
+     "w": "type",
+     "s": 11.637,
+     "e": 11.859
+    },
+    {
+     "w": "plus",
+     "s": 11.933,
+     "e": 12.007
+    },
+    {
+     "w": "grand.",
+     "s": 12.119,
+     "e": 12.526
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Il en a loué une. Trop petite.",
+   "hl": [
+    "petite."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L07.k.wav",
+   "file_start": 12.626,
+   "speech_start": 12.626,
+   "speech_end": 14.552,
+   "words": [
+    {
+     "w": "Il",
+     "s": 12.626,
+     "e": 12.7
+    },
+    {
+     "w": "en",
+     "s": 12.774,
+     "e": 12.848
+    },
+    {
+     "w": "a",
+     "s": 12.885,
+     "e": 12.922
+    },
+    {
+     "w": "loué",
+     "s": 12.959,
+     "e": 13.144
+    },
+    {
+     "w": "une.",
+     "s": 13.219,
+     "e": 13.7
+    },
+    {
+     "w": "Trop",
+     "s": 13.737,
+     "e": 13.811
+    },
+    {
+     "w": "petite.",
+     "s": 13.885,
+     "e": 14.552
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il a pris une amende pour circulation sans ombre.",
+   "hl": [
+    "amende",
+    "ombre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L08.k.wav",
+   "file_start": 14.652,
+   "speech_start": 14.652,
+   "speech_end": 16.948,
+   "words": [
+    {
+     "w": "Il",
+     "s": 14.652,
+     "e": 14.726
+    },
+    {
+     "w": "a",
+     "s": 14.763,
+     "e": 14.8
+    },
+    {
+     "w": "pris",
+     "s": 14.837,
+     "e": 14.948
+    },
+    {
+     "w": "une",
+     "s": 15.022,
+     "e": 15.096
+    },
+    {
+     "w": "amende",
+     "s": 15.17,
+     "e": 15.467
+    },
+    {
+     "w": "pour",
+     "s": 15.541,
+     "e": 15.615
+    },
+    {
+     "w": "circulation",
+     "s": 15.726,
+     "e": 16.133
+    },
+    {
+     "w": "sans",
+     "s": 16.207,
+     "e": 16.356
+    },
+    {
+     "w": "ombre.",
+     "s": 16.43,
+     "e": 16.948
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Hier, elle est revenue. Avec un avocat.",
+   "hl": [
+    "avocat."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L09.k.wav",
+   "file_start": 17.048,
+   "speech_start": 17.048,
+   "speech_end": 19.356,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 17.048,
+     "e": 17.567
+    },
+    {
+     "w": "elle",
+     "s": 17.604,
+     "e": 17.641
+    },
+    {
+     "w": "est",
+     "s": 17.678,
+     "e": 17.715
+    },
+    {
+     "w": "revenue.",
+     "s": 17.789,
+     "e": 18.381
+    },
+    {
+     "w": "Avec",
+     "s": 18.419,
+     "e": 18.604
+    },
+    {
+     "w": "un",
+     "s": 18.641,
+     "e": 18.678
+    },
+    {
+     "w": "avocat.",
+     "s": 18.752,
+     "e": 19.344
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le juge a ordonné une garde alternée.",
+   "hl": [
+    "alternée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L10.k.wav",
+   "file_start": 19.456,
+   "speech_start": 19.456,
+   "speech_end": 21.456,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.456,
+     "e": 19.604
+    },
+    {
+     "w": "juge",
+     "s": 19.678,
+     "e": 19.826
+    },
+    {
+     "w": "a",
+     "s": 19.9,
+     "e": 19.937
+    },
+    {
+     "w": "ordonné",
+     "s": 19.974,
+     "e": 20.271
+    },
+    {
+     "w": "une",
+     "s": 20.345,
+     "e": 20.419
+    },
+    {
+     "w": "garde",
+     "s": 20.493,
+     "e": 20.641
+    },
+    {
+     "w": "alternée.",
+     "s": 20.826,
+     "e": 21.456
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les jours pairs, c'est elle qui se lève.",
+   "hl": [
+    "lève."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L11.k.wav",
+   "file_start": 21.556,
+   "speech_start": 21.556,
+   "speech_end": 23.482,
+   "words": [
+    {
+     "w": "Les",
+     "s": 21.556,
+     "e": 21.63
+    },
+    {
+     "w": "jours",
+     "s": 21.704,
+     "e": 21.852
+    },
+    {
+     "w": "pairs,",
+     "s": 21.926,
+     "e": 22.371
+    },
+    {
+     "w": "c'est",
+     "s": 22.445,
+     "e": 22.593
+    },
+    {
+     "w": "elle",
+     "s": 22.667,
+     "e": 22.741
+    },
+    {
+     "w": "qui",
+     "s": 22.778,
+     "e": 22.815
+    },
+    {
+     "w": "se",
+     "s": 22.889,
+     "e": 22.963
+    },
+    {
+     "w": "lève.",
+     "s": 23.111,
+     "e": 23.482
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Lui, il suit. Par terre.",
+   "hl": [
+    "terre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L12.k.wav",
+   "file_start": 23.582,
+   "speech_start": 23.582,
+   "speech_end": 25.582,
+   "words": [
+    {
+     "w": "Lui,",
+     "s": 23.582,
+     "e": 24.1
+    },
+    {
+     "w": "il",
+     "s": 24.174,
+     "e": 24.249
+    },
+    {
+     "w": "suit.",
+     "s": 24.323,
+     "e": 24.841
+    },
+    {
+     "w": "Par",
+     "s": 24.915,
+     "e": 24.989
+    },
+    {
+     "w": "terre.",
+     "s": 25.1,
+     "e": 25.582
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il dit que le goudron, ça va. Les pavés, moins.",
+   "hl": [
+    "pavés,"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ombre/tts/L13.k.wav",
+   "file_start": 25.682,
+   "speech_start": 25.682,
+   "speech_end": 28.719,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.682,
+     "e": 25.756
+    },
+    {
+     "w": "dit",
+     "s": 25.83,
+     "e": 25.978
+    },
+    {
+     "w": "que",
+     "s": 26.015,
+     "e": 26.052
+    },
+    {
+     "w": "le",
+     "s": 26.089,
+     "e": 26.126
+    },
+    {
+     "w": "goudron,",
+     "s": 26.163,
+     "e": 26.719
+    },
+    {
+     "w": "ça",
+     "s": 26.793,
+     "e": 26.867
+    },
+    {
+     "w": "va.",
+     "s": 26.978,
+     "e": 27.386
+    },
+    {
+     "w": "Les",
+     "s": 27.46,
+     "e": 27.534
+    },
+    {
+     "w": "pavés,",
+     "s": 27.583,
+     "e": 28.2
+    },
+    {
+     "w": "moins.",
+     "s": 28.237,
+     "e": 28.719
+    }
+   ]
+  }
+ ],
+ "total": 31.22
+}

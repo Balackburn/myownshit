@@ -298,7 +298,8 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
   if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
     out.wave[k] = [L(x ? x[0] || 0 : 0, y ? y[0] || 0 : 0), L(p[1] ?? 1, q[1] ?? 1), L(p[2] || 0, q[2] || 0), (w < 0.5 ? p : q)[3] || 0, L(p[4] || 0, q[4] || 0)]; } }
-  if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);   // hair left on end (engine/cloth.js)
+  if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);
+  if (a.knot || b.knot) out.knot = w < 0.5 ? (a.knot || b.knot) : (b.knot || a.knot);   // (cycle 7) the colour of his tie knot (a colour switches half-way between two keys)   // hair left on end (engine/cloth.js)
   if (a.tie || b.tie) { const x = a.tie || TIE0, y = b.tie || TIE0; out.tie = [L(x[0] ?? 1, y[0] ?? 1), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0)]; }   // the tie taken in a hand: [length, forward, aside] (engine/cloth.js)
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
@@ -320,7 +321,7 @@ export function addToon(a = {}, b = {}) {
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
-  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay;
+  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot;
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
