@@ -1,0 +1,105 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a couru pour attraper son bus.",
+  "hl": [
+   "couru",
+   "bus."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Un radar l'a flashé. Trente et un kilomètres-heure.",
+  "hl": [
+   "radar",
+   "trente",
+   "un"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "En zone trente.",
+  "hl": [
+   "trente."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Il a contesté : il est à pied.",
+  "hl": [
+   "pied."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La préfecture a tranché : au-dessus de trente, un piéton est un véhicule.",
+  "hl": [
+   "piéton",
+   "véhicule."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il a reçu une plaque d'immatriculation.",
+  "hl": [
+   "plaque"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Puis une convocation au contrôle technique.",
+  "hl": [
+   "contrôle",
+   "technique."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les pneus, ça va. Le klaxon, ça va.",
+  "hl": [
+   "pneus,",
+   "klaxon,"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les freins : refusé.",
+  "hl": [
+   "freins",
+   "refusé."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Depuis, il n'a plus le droit de marcher.",
+  "hl": [
+   "marcher."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le bus le pousse tous les matins.",
+  "hl": [
+   "pousse"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il ne le rate plus.",
+  "hl": [
+   "rate"
+  ]
+ }
+]
