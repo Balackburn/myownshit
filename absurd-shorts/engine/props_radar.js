@@ -76,7 +76,7 @@ export const RADAR_PROPS = {
     const lamp = (txt, c0, c1, x) => { const off = at(label(txt, 0.46, 0.16, { bg: c0, fg: '#EDEDED', wrap: false }), x, 0.56, 0.005), on = at(canvasPlane(0.46, 0.16, (c, W, H) => { c.fillStyle = c1; c.fillRect(0, 0, W, H); c.fillStyle = '#FFFFFF';
       c.font = `900 ${Math.round(H * 0.6)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, W / 2, H * 0.55); }, { res: 256, emissive: 1 }), x, 0.56, 0.006); g.add(off, on); return [on, off]; };
     const ped = lamp('PIÉTON', '#2F4A3A', '#2EB872', -0.26), veh = lamp('VÉHICULE', '#4A2F2F', '#E8302A', 0.26);
-    g.userData.update = t => { const v = keyed(o.needle, t, 0); nd.rotation.z = (PI * 1.25 - (v / max) * PI * 1.5) - PI / 2;   // the needle is drawn pointing up (+Y) const over = v > lim;
+    g.userData.update = t => { const v = keyed(o.needle, t, 0); nd.rotation.z = (PI * 1.25 - (v / max) * PI * 1.5) - PI / 2; const over = v > lim;   // (the needle is drawn pointing up: +Y)
       ped[0].visible = !over; ped[1].visible = over; veh[0].visible = over; veh[1].visible = !over; };
     g.userData.update(0); return g;
   },

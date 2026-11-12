@@ -16,7 +16,7 @@ export const STATUE_PROPS = {
   waterJet(o) {
     const L = o.lance ?? 0.9, J = o.len ?? 1.3, g = grp(at(box(0.05, 0.15, 0.13, '#E3C24A', { outline: 0.005 }), 0, -0.02, -0.02), at(cyl(0.014, 0.014, L, '#5B5F67', 6), 0, 0.03, L / 2, PI / 2, 0, 0),
       at(cyl(0.024, 0.018, 0.08, '#2A2C31', 6), 0, 0.03, L + 0.02, PI / 2, 0, 0));
-    const jm = new THREE.MeshBasicMaterial({ color: '#CFEFFF', transparent: true, opacity: 0.82, depthWrite: false });
+    const jm = new THREE.MeshBasicMaterial({ color: o.color || '#CFEFFF', transparent: true, opacity: o.opacity ?? 0.82, depthWrite: false });   // (cycle 8) o.color / o.opacity: a jet that reads as water
     const jet = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.05, J, 8, 1, true).rotateX(PI / 2), jm); jet.position.set(0, 0.03, L + 0.06 + J / 2); jet.userData.noAO = true; g.add(jet);
     const dm = new THREE.MeshBasicMaterial({ color: '#E8F8FF', transparent: true, opacity: 0.9, depthWrite: false });
     const drops = Array.from({ length: 16 }, (_, i) => { const d = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.025, 0.025), dm); d.userData.noAO = true; d.userData.i = i; g.add(d); return d; });
@@ -40,7 +40,13 @@ export const STATUE_PROPS = {
     const g = grp(), cab = cyl(0.016, 0.016, 1, '#2A2C31', 6, { pivot: 'bottom' }); g.add(cab);
     g.add(at(box(0.24, 0.3, 0.16, '#E3B02A', { outline: 0.006 }), 0, -0.05, 0), at(box(0.07, 0.07, 0.07, '#2A2C31'), 0, -0.24, 0));
     const hook = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.022, 6, 12, PI * 1.5), mat('#3A3D44')); hook.position.set(0, -0.36, 0); hook.rotation.z = PI * 0.25; g.add(hook);
-    if (o.sling && o.slingD) {   // (cycle 8) o.slingD: four straps from the hook to the corners of an o.slingW x o.slingD rectangle o.slingLen below it (a car's roof):
+    if (o.sling && o.spreader) {   // (cycle 8) o.spreader (m): a bar under the hook; two straps hang from its ends, outside a head, o.slingLen down to the armpits
+      const sw = o.spreader, sl = o.slingLen ?? 1.0, bot = o.slingW ?? sw * 0.6, c = o.slingColor || '#E86A2A';
+      g.add(at(cyl(0.012, 0.012, 0.18, '#2A2C31', 6), 0, -0.5, 0), at(box(sw + 0.08, 0.06, 0.08, '#E3B02A', { outline: 0.005 }), 0, -0.6, 0));
+      for (const sd of [-1, 1]) { const top = new THREE.Vector3(sd * sw / 2, -0.63, 0), btm = new THREE.Vector3(sd * bot / 2, -0.63 - sl, 0), dv = btm.clone().sub(top), len = dv.length();
+        const s = box(0.06, len, 0.03, c, { outline: 0.003 }); s.position.copy(top).addScaledVector(dv, 0.5); s.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dv.normalize()); g.add(s);
+        const loop = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.025, 6, 12), mat(c)); loop.position.copy(btm); loop.rotation.y = PI / 2; g.add(loop); } }
+    else if (o.sling && o.slingD) {   // (cycle 8) o.slingD: four straps from the hook to the corners of an o.slingW x o.slingD rectangle o.slingLen below it (a car's roof):
       const sl = o.slingLen ?? 1.0, sw = o.slingW ?? 0.5, sd = o.slingD, top = new THREE.Vector3(0, -0.42, 0), Y = new THREE.Vector3(0, 1, 0);   // two straps in one plane read as a pair of antennae
       for (const [cx, cz] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { const c = new THREE.Vector3(cx * sw / 2, -0.42 - sl, cz * sd / 2), dv = c.clone().sub(top), len = dv.length();
         const s = box(0.05, len, 0.05, o.slingColor || '#E86A2A', { outline: 0.003 }); s.position.copy(top).addScaledVector(dv, 0.5); s.quaternion.setFromUnitVectors(Y, dv.normalize()); g.add(s); } }
