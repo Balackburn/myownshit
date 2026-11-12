@@ -1,0 +1,105 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a coincé sa cravate dans la porte de l'ascenseur. L'ascenseur est monté.",
+  "hl": [
+   "cravate",
+   "ascenseur."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Pas lui. La cravate, si. Jusqu'au sixième.",
+  "hl": [
+   "sixième."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a appelé le syndic.",
+  "hl": [
+   "syndic."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le syndic a répondu :",
+  "hl": []
+ },
+ {
+  "id": "L05",
+  "who": "C",
+  "text": "« Dans la cage d'ascenseur, c'est une partie commune. »",
+  "hl": [
+   "commune."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Depuis, la dame du troisième y étend son linge.",
+  "hl": [
+   "linge."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Le petit du cinquième en joue. Il progresse.",
+  "hl": [
+   "progresse."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Pour la décrocher, il faut un vote en assemblée générale.",
+  "hl": [
+   "générale."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Hier, ils ont voté. Il manquait une voix.",
+  "hl": [
+   "voix."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "La sienne. Il était en bas.",
+  "hl": [
+   "bas."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Ils ont quand même voté le ravalement.",
+  "hl": [
+   "ravalement."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Sa cravate est beige.",
+  "hl": [
+   "beige."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il paie les charges.",
+  "hl": [
+   "charges."
+  ]
+ }
+]
