@@ -49,8 +49,8 @@ F12 = [4.28, 0, round(ZP + 0.1, 3)]                                # his clamped
 def ROOT(th, foot=F12):                                             # where his root is when he faces th (deg) with his left foot on `foot`
     a = math.radians(th); return r3([foot[0] - 0.12 * math.cos(a) - 0.05 * math.sin(a), 0.0, foot[2] + 0.12 * math.sin(a) - 0.05 * math.cos(a)])
 HB = ROOT(-30)                                                      # facing the camera side (-X, +Z)
-POUND = lambda: [P('bay11', 'parkingBay', pos=[3.6, 0, ZP + 5.2], ry=90, opts={'num': '11'}), P('bay12', 'parkingBay', pos=[3.6, 0, ZP], ry=90, opts={'num': '12'}),
-                 P('bay13', 'parkingBay', pos=[3.6, 0, ZP - 5.2], ry=90, opts={'num': '13'}),
+POUND = lambda flip=False: [P('bay11', 'parkingBay', pos=[3.6, 0, ZP + 5.2], ry=90, opts={'num': '11', 'numFlip': flip}), P('bay12', 'parkingBay', pos=[3.6, 0, ZP], ry=90, opts={'num': '12', 'numFlip': flip}),   # flip: the numbers read from the lane (the shots filmed from it)
+                 P('bay13', 'parkingBay', pos=[3.6, 0, ZP - 5.2], ry=90, opts={'num': '13', 'numFlip': flip}),
                  P('bayL1', 'parkingBay', pos=[-1.4, 0, ZP + 5.2], ry=-90, opts={'num': '21'}), P('bayL2', 'parkingBay', pos=[-1.4, 0, ZP], ry=-90, opts={'num': '22'}),
                  P('bayL3', 'parkingBay', pos=[-1.4, 0, ZP - 5.2], ry=-90, opts={'num': '23'}),
                  P('pc1', 'car', pos=[3.6, 0, ZP + 5.2], ry=90, opts={'color': '#E6E3DA', 'glass': GL}),   # (bay 13 stays empty: a car there stood in front of the low cameras of the end, one camera inside it)
@@ -151,7 +151,7 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [HB[0], 1.5, HB[2]], -30, 'noodle', 'dizzy', keys=[k(0.0, look=None), k(0.05, to=HB, dur=LD7 - 0.05, glide=True, ease='in', clip='noodle', then='stand'),
             k(LD7, toon={'sq': [1.3, 0.72, 1.3]}, toonDur=0.03, toonEase='out'), k(LD7 + 0.05, toon={'sq': [0.93, 1.08, 0.93]}, toonDur=0.07), k(LD7 + 0.14, toon={'settle': 0.5}, toonDur=0.12),
             k(LD7 + 0.1, expr='unimpressed'), k(LD7 + 0.2, look='camera')])],
-        props=[*POUND(), BAG(), P('hook', 'craneHook', pos=[CL7[0], 3.55, CL7[2]], opts={'top': 30.0}, keys=[k(0.05, to=[CL7[0], 2.05, CL7[2]], dur=LD7 - 0.05, ease='in'),
+        props=[*POUND(flip=True), BAG(), P('hook', 'craneHook', pos=[CL7[0], 3.55, CL7[2]], opts={'top': 30.0}, keys=[k(0.05, to=[CL7[0], 2.05, CL7[2]], dur=LD7 - 0.05, ease='in'),
                k(LD7 + 0.15, to=[CL7[0], 4.5, CL7[2]], dur=0.4, ease='in')])],
         cams=[FC(0.0, [0.9, 3.2, round(ZP + 9.2, 3)], [[HB[0], 2.45, HB[2]], [HB[0], 0.0, HB[2]], [HB[0], 3.9, HB[2]], [1.6, 3.4, ZP - 9.3], [-1.8, 2.1, ZP - 9.3]], top=0.1, bottom=0.74, drift=(-0.05, -0.05, -0.15))])   # (final pass) from the lane, high over the parked car: the FOURRIÈRE gate beyond, bay 12 read from its entrance, the booth only an edge (its blank wall filled half the frame)   # (pass 3) low from the cash-booth side: he lands big in the middle, the FOURRIÈRE sign and the rows of cars behind him
 st.cue('sfx:slideDown', 'S07', 0.05, 0.25); st.cue('thud', 'S07', LD7, 0.4)
@@ -194,7 +194,7 @@ for i in range(N9 + 1):
 END9 = round(T09 + ST9 * N9, 3)
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[
         act('mec', HB, -30, 'stand', 'determined', keys=[k(0.0, look=None), *RING9, k(END9, toon={'face': {'stars': 1}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.08), k(END9, expr='dizzy')])],
-        props=[*POUND(), BAG(), CLAMP()],
+        props=[*POUND(flip=True), BAG(), CLAMP()],
         cams=[FC(0.0, [2.0, 3.5, round(ZP + 2.7, 3)], [[F12[0] - 0.55, 0.0, F12[2] - 0.55], [F12[0] + 0.55, 0.0, F12[2] + 0.55], [F12[0], 2.35, F12[2]], [3.6, 0.0, ZP - 1.8]], top=0.12, bottom=0.86)])
 [st.cue('sfx:stepSoft', 'S09', round(T09 + ST9 * i, 3), 0.18) for i in range(0, N9, 2)]; st.cue('sfx:bonk', 'S09', END9, 0.2)
 
@@ -309,7 +309,7 @@ st.shot('S17', 'parisStreet', setOpts=STREET, actors=[
             *[x for t in SL17 for x in (k(round(t - 0.06, 3), toon={'reach': {'R': [round(HB[0] - 0.25, 3), 1.45, round(HB[2] + 0.08, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.06, toonEase='in'),
                                         k(round(t + 0.03, 3), toon={'reach': {'R': [round(HB[0] - 0.55, 3), 1.3, round(HB[2] + 0.05, 3), 1, 0.06]}, 'hands': {'R': 'flat'}}, toonDur=0.05))],
             k(SL17[-1] + 0.05, toon={}, toonDur=0.1), k(SL17[-1] + 0.03, to=[round(HB[0] - 1.75, 3), 0, round(HB[2] - 0.75, 3)], dur=0.22, clip='walk', then='stand', ease='out', face=60), k(IN17 + 0.1, look=[FLOAT17[0], 2.0, FLOAT17[2]])])],   # (final pass) he steps off to the side at once: the swell in clear view
-        props=[*POUND(), CLAMP(), *[P(f'cp{st_}{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round((0.05 + 0.07 * st_) * (i - 1), 3), round(0.36 - (0.05 + 0.02 * st_) * i, 3), round(zz + 0.004 * i, 3)], 'rot': [0, round(0.07 * st_ * (i - 1), 2), round(0.05 * st_ * (1 - i), 2)]},
+        props=[*POUND(flip=True), CLAMP(), *[P(f'cp{st_}{i}', 'paperSheet', on={'actor': 'mec', 'joint': 'torso', 'offset': [round((0.05 + 0.07 * st_) * (i - 1), 3), round(0.36 - (0.05 + 0.02 * st_) * i, 3), round(zz + 0.004 * i, 3)], 'rot': [0, round(0.07 * st_ * (i - 1), 2), round(0.05 * st_ * (1 - i), 2)]},
                  opts={'w': 0.26, 'h': 0.18, 'big': 'PLAINTE', 'bigSize': 0.42, 'top': 0.02, 'paper': '#F4F1E8', 'bigInk': '#C8202A', 'bright': True},
                  keys=([k(0.0, scale=0.01, dur=0.0), k(SL17[i], scale=1.0, dur=0.05, ease='outBack')] if st_ == 0 else [k(0.0, visible=False), k(round(IN17 + t0, 3), visible=True)]) + ([k(round(IN17 + t1, 3), visible=False)] if t1 else []))
                  for st_, (zz, t0, t1) in enumerate(((0.18, 0.0, 0.05), (0.3, 0.05, 0.085), (0.4, 0.085, 0.13), (0.66, 0.13, None))) for i in range(3)],   # (final pass) the three sheets step out with the swelling ball: always on its front

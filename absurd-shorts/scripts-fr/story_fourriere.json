@@ -1867,7 +1867,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": true
      }
     },
     {
@@ -1880,7 +1881,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": true
      }
     },
     {
@@ -1893,7 +1895,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": true
      }
     },
     {
@@ -2630,7 +2633,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -2643,7 +2647,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -2656,7 +2661,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {
@@ -3293,7 +3299,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": true
      }
     },
     {
@@ -3306,7 +3313,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": true
      }
     },
     {
@@ -3319,7 +3327,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": true
      }
     },
     {
@@ -3781,7 +3790,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -3794,7 +3804,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -3807,7 +3818,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {
@@ -4260,7 +4272,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -4273,7 +4286,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -4286,7 +4300,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {
@@ -4662,7 +4677,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -4675,7 +4691,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -4688,7 +4705,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {
@@ -6898,7 +6916,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": true
      }
     },
     {
@@ -6911,7 +6930,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": true
      }
     },
     {
@@ -6924,7 +6944,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": true
      }
     },
     {
@@ -8429,7 +8450,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -8442,7 +8464,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -8455,7 +8478,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {
@@ -8888,7 +8912,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -8901,7 +8926,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -8914,7 +8940,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {
@@ -9733,7 +9760,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "11"
+      "num": "11",
+      "numFlip": false
      }
     },
     {
@@ -9746,7 +9774,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "12"
+      "num": "12",
+      "numFlip": false
      }
     },
     {
@@ -9759,7 +9788,8 @@
      ],
      "ry": 90,
      "opts": {
-      "num": "13"
+      "num": "13",
+      "numFlip": false
      }
     },
     {

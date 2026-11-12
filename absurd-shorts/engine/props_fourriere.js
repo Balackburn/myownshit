@@ -244,7 +244,7 @@ export const FOURRIERE_PROPS = {
     for (const sz of [-1, 1]) g.add(at(box(l, 0.008, 0.1, '', { material: wm }), 0, 0.01, sz * w / 2));
     g.add(at(box(0.1, 0.008, w + 0.1, '', { material: wm }), l / 2, 0.01, 0));
     const txt = (s, ww, hh, x, rot) => at(canvasPlane(ww, hh, (c, W, H) => { c.fillStyle = '#F2F1EA'; c.font = `900 ${Math.round(H * 0.8)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(s, W / 2, H * 0.55); }, { res: 512, transparent: true }), x, 0.014, 0, -PI / 2, 0, rot);
-    if (o.num) g.add(txt(String(o.num), 1.0, 0.7, l / 2 - 0.65, PI / 2));
+    if (o.num) g.add(txt(String(o.num), 1.0, 0.7, l / 2 - 0.65, PI / 2 + (o.numFlip ? PI : 0)));   // (final pass) o.numFlip: the number reads from the lane side
     if (o.word) g.add(txt(o.word, l * 0.62, 0.42, -0.2, PI / 2 + (o.wordFlip ? PI : 0)));
     return g;
   },
