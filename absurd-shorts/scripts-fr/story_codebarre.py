@@ -65,29 +65,29 @@ st.shot('S03', 'supermarket', setOpts=SM, actors=[
         act('mec', [GATE[0], 0, 0.3], 0, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.0, to=[GATE[0], 0, round(GATE[2] + 0.1, 3)], dur=BIP3, clip='walk', then='stand', ease='linear', face=0),
             k(round(BIP3 - 0.1, 3), toon={'sq': [1.07, 0.9, 1.07], 'face': {'brow': -0.3, 'lid': 0.4}}, toonDur=0.06, toonEase='in'),   # (pass 2) a squash first...
             k(BIP3, to=[GATE[0], 0.32, round(GATE[2] + 0.16, 3)], dur=0.07, glide=True, ease='out', face=0), k(round(BIP3 + 0.36, 3), to=[GATE[0], 0, round(GATE[2] + 0.2, 3)], dur=0.1, glide=True, ease='in', face=0),   # ...up off the floor, hung there, then down
-            k(BIP3, toon={'sq': [0.9, 1.14, 0.9], 'hairUp': 1, 'wind': [0.0, 0.3, -1.0], 'face': {'pop': 0.75, 'popLen': 0.32, 'brow': 1, 'jaw': 0.3}, 'bend': {'legR': [-0.75, 0, 0, 1, None], 'shinR': [0.95, 0, 0, 1, None], 'legL': [0.55, 0, 0, 1, None]},
+            k(BIP3, toon={'sq': [0.9, 1.14, 0.9], 'hairUp': 1, 'wind': [0.0, 0.3, -1.0], 'face': {'pop': 0.75, 'popLen': 0.32, 'brow': 1, 'jaw': 0.3}, 'bend': {'legR': [-1.15, 0, 0, 1, None], 'shinR': [0.6, 0, 0, 1, None], 'legL': [0.95, 0, 0, 1, None], 'shinL': [0.7, 0, 0, 1, None]},
                           'reach': {'R': [round(GATE[0] - 0.25, 3), 2.2, round(GATE[2] + 0.6, 3), 1, 0.05], 'L': [round(GATE[0] + 0.3, 3), 1.15, round(GATE[2] - 0.25, 3), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.03, toonEase='out'),   # frozen in a full stride, arms mid-swing, the tie flying
-            k(round(BIP3 + 0.3, 3), toon={'sq': [0.94, 1.08, 0.94], 'hairUp': 0.8, 'wind': [0.0, 0.3, -1.0], 'face': {'pop': 0.7, 'popLen': 0.3, 'brow': 1}, 'bend': {'legR': [-0.75, 0, 0, 1, None], 'shinR': [0.95, 0, 0, 1, None], 'legL': [0.55, 0, 0, 1, None]},
+            k(round(BIP3 + 0.3, 3), toon={'sq': [0.94, 1.08, 0.94], 'hairUp': 0.8, 'wind': [0.0, 0.3, -1.0], 'face': {'pop': 0.7, 'popLen': 0.3, 'brow': 1}, 'bend': {'legR': [-1.15, 0, 0, 1, None], 'shinR': [0.6, 0, 0, 1, None], 'legL': [0.95, 0, 0, 1, None], 'shinL': [0.7, 0, 0, 1, None]},
                           'reach': {'R': [round(GATE[0] - 0.25, 3), 2.2, round(GATE[2] + 0.6, 3), 1, 0.05], 'L': [round(GATE[0] + 0.3, 3), 1.15, round(GATE[2] - 0.25, 3), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.05),
             k(round(BIP3 + 0.46, 3), toon={'sq': [1.06, 0.93, 1.06], 'face': {'pop': 0.3, 'brow': 0.8}}, toonDur=0.05)]),   # landed
         act('caissiere', [4.45, 0, -0.2], -90, 'stand', 'neutral', keys=[k(0.0, look=[GATE[0], 1.8, GATE[2]]), *react(BIP3, 0.8, look=[GATE[0], 1.8, GATE[2]])])],
         props=[LABEL(), P('gate', 'securityGate', pos=GATE, opts={'gap': 1.15, 'beepAt': [BIP3], 'flash': 0.6, 'glowPosts': True})],
-        cams=[FC(0.0, [2.7, 1.2, 6.4], [[GATE[0], 2.5, GATE[2]], [GATE[0], 0.0, round(GATE[2] + 0.1, 3)], [GATE[0] - 0.7, 1.75, GATE[2]], [GATE[0] + 0.7, 1.75, GATE[2]]], top=0.12, bottom=0.74, drift=(0.0, 0.0, -0.2))])
+        cams=[FC(0.0, [2.7, 1.2, 6.4], [[GATE[0], 3.05, GATE[2]], [GATE[0], 0.0, round(GATE[2] + 0.1, 3)], [GATE[0] - 0.7, 1.75, GATE[2]], [GATE[0] + 0.7, 1.75, GATE[2]]], top=0.12, bottom=0.74, drift=(0.0, 0.0, -0.2))])
 st.cue('sfx:beep', 'S03', BIP3, 0.45); st.cue('sfx:beep', 'S03', BIP3 + 0.18, 0.4); st.cue('sfx:beep', 'S03', BIP3 + 0.36, 0.35)
 
 # 4: one man: 2,49 €. He lies stiff on the conveyor belt; it carries him to the cashier; she scans his forehead: beep; the customer display: UN HOMME 2,49 €
 D4 = st.dur('S04'); SC4 = round(st.at('S04', 'L04', 1) - 0.12, 3)
 BELT = [3.6, 0.95, -1.15]
 st.shot('S04', 'supermarket', setOpts=SM, actors=[
-        act('mec', BELT, 180, 'lieBack', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[BELT[0], BELT[1], round(BELT[2] + 0.45, 3)], dur=round(SC4 + 0.05, 3), glide=True, ease='linear', face='keep'),
+        act('mec', [BELT[0], BELT[1], round(BELT[2] - 0.4, 3)], 180, 'lieBack', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[BELT[0], BELT[1], round(BELT[2] + 0.05, 3)], dur=round(SC4 + 0.05, 3), glide=True, ease='linear', face='keep'),   # (pass 2) his head stops short of the till
             k(0.0, toon={'face': {'lid': 0.35}}, toonDur=0.0), k(SC4, toon={'face': {'lid': 0.0, 'pop': 0.35, 'brow': 0.8}, 'sq': [0.98, 1.02, 0.98]}, toonDur=0.04), k(round(SC4 + 0.2, 3), toon={'face': {'lid': 0.3, 'gy': -0.6, 'brow': 0.5}}, toonDur=0.1), k(round(SC4 + 0.9, 3), toon={'face': {'lid': 1}}, toonDur=0.06), k(round(SC4 + 1.0, 3), toon={'face': {'lid': 0.35}}, toonDur=0.08)]),   # (pass 2) the beep pops his eyes; he looks up at the display; a blink
         act('caissiere', [4.45, 0, -0.1], -90, 'stand', 'neutral', keys=[k(0.0, look=[BELT[0], 1.2, round(BELT[2] + 0.5, 3)]),
-            k(round(SC4 - 0.2, 3), toon={'reach': {'R': [4.0, 1.34, round(BELT[2] + 1.25, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.12),   # (pass 2) the scanner swept across his forehead
-            k(SC4, toon={'reach': {'R': [3.62, 1.3, round(BELT[2] + 1.38, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08), k(round(SC4 + 0.14, 3), toon={'reach': {'R': [3.3, 1.34, round(BELT[2] + 1.35, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08),
-            k(round(SC4 + 0.45, 3), toon={'reach': {'R': [4.0, 1.25, round(BELT[2] + 1.3, 3), 1, 0.06]}, 'hands': {'R': 'grip'}, 'face': {'browL': 0.6}}, toonDur=0.15)])],
+            k(round(SC4 - 0.2, 3), toon={'reach': {'R': [4.0, 1.34, round(BELT[2] + 0.85, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.12),   # (pass 2) the scanner swept across his forehead
+            k(SC4, toon={'reach': {'R': [3.62, 1.3, round(BELT[2] + 0.98, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08), k(round(SC4 + 0.14, 3), toon={'reach': {'R': [3.3, 1.34, round(BELT[2] + 0.95, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08),
+            k(round(SC4 + 0.45, 3), toon={'reach': {'R': [4.0, 1.25, round(BELT[2] + 0.9, 3), 1, 0.06]}, 'hands': {'R': 'grip'}, 'face': {'browL': 0.6}}, toonDur=0.15)])],
         props=[LABEL(), P('scanner', 'priceGun', on={'actor': 'caissiere', 'hand': 'R', 'offset': [0, 0, 0.04], 'rot': [math.pi, 0, 0]}, scale=1.3, opts={'color': '#3A3D44', 'clackAt': [SC4]}),
-               P('disp', 'lcdScreen', pos=[2.85, 0.93, 0.15], ry=-20, opts={'w': 0.62, 'h': 0.4, 'stand': 0.32, 'pages': [[0.0, ['0,00 €']], [round(SC4 + 0.06, 3), ['UN HOMME', '2,49 €'], {'big': 0.9}]]})],
-        cams=[FC(0.0, [3.2, 1.8, 1.9], [[BELT[0], 1.3, round(BELT[2] - 0.2, 3)], [BELT[0], 1.3, round(BELT[2] + 1.45, 3)], [round(BELT[0] - 0.4, 3), 0.95, round(BELT[2] + 0.9, 3)], [round(BELT[0] + 0.45, 3), 1.7, round(BELT[2] + 1.2, 3)], [2.85, 1.55, 0.15]], top=0.18, bottom=0.74)])   # (pass 2) down the belt from the cashier's end: his head and label toward us under the scanner
+               P('disp', 'lcdScreen', pos=[2.9, 0.93, -0.25], ry=180, opts={'w': 0.62, 'h': 0.4, 'stand': 0.32, 'pages': [[0.0, ['0,00 €']], [round(SC4 + 0.06, 3), ['UN HOMME', '2,49 €'], {'big': 0.9}]]})],
+        cams=[FC(0.0, [3.6, 2.9, -3.0], [[BELT[0], 1.0, round(BELT[2] - 0.95, 3)], [BELT[0], 1.25, round(BELT[2] + 1.0, 3)], [round(BELT[0] + 0.4, 3), 1.45, round(BELT[2] + 0.95, 3)], [2.9, 1.65, -0.25], [round(BELT[0] - 0.4, 3), 0.95, round(BELT[2] + 0.5, 3)]], top=0.14, bottom=0.74)])   # (pass 2) high, from beyond his feet: face up toward us, the scanner over his forehead, the display beside his head (from the cashier's end the till hid his head)
 st.cue('sfx:beep', 'S04', SC4, 0.5)
 
 # 5: he protested. Up beside the till, he rants: arms flailing, red in the face, steam out of his ears
@@ -114,7 +114,7 @@ st.shot('S06', 'supermarket', setOpts=SM, actors=[
             k(round(SC6 - 0.25, 3), toon={'reach': {'R': [round(GER[0] - 0.45, 3), 1.7, round(GER[2] - 0.32, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.15, toonEase='out')])],
         props=[LABEL(), P('scan6', 'priceGun', on={'actor': 'gerant', 'hand': 'R', 'offset': [0, 0, 0.04], 'rot': [math.pi, 0, 0]}, scale=1.3, opts={'color': '#3A3D44', 'clackAt': [SC6]}),
                P('beam', 'laserBeam', pos=BEAM0, opts={'vec': [round(FOREH[i] - BEAM0[i], 3) for i in range(3)], 'r': 0.012}, keys=[k(0.0, visible=False), k(SC6, visible=True), k(round(SC6 + 0.3, 3), visible=False)])],
-        cams=[FC(0.0, [4.75, 1.95, 1.0], [[ME5[0], 2.65, ME5[2]], [ME5[0], 1.35, ME5[2]], [round(GER[0] - 0.2, 3), 1.9, round(GER[2] - 0.1, 3)], [round(ME5[0] - 0.5, 3), 2.0, ME5[2]]], top=0.12, bottom=0.74, drift=(-0.04, 0, -0.04))])   # (pass 2) over the manager's shoulder: his face, the dot on the label
+        cams=[FC(0.0, [4.4, 2.15, 1.9], [[ME5[0], 2.65, ME5[2]], [ME5[0], 1.35, ME5[2]], [round(GER[0] - 0.1, 3), 1.85, GER[2]], [round(ME5[0] - 0.5, 3), 2.0, ME5[2]]], top=0.12, bottom=0.74, drift=(-0.04, 0, -0.04))])   # (pass 2) over the manager's shoulder: his face, the dot on the label
 st.cue('sfx:beep', 'S06', SC6, 0.5)
 
 # 7: he was indeed in stock. The manager shows us his tablet: EN STOCK : 1, the pictogram of a man; he nods, satisfied
@@ -124,7 +124,7 @@ st.shot('S07', 'supermarket', setOpts=SM, actors=[
             *[k(round(0.3 + 0.18 * i, 3), toon={'reach': {'R': [*OFF(GER, -30, 0.32, 0.36, 1.95), 1, 0.06]}, 'hands': {'R': 'grip'}, 'bend': {'neck': [0.22 if i % 2 == 0 else -0.05, 0, 0, 1, None]}}, toonDur=0.08) for i in range(4)]]),   # two nods
         act('mec', ME5, 60, 'stand', 'worried', keys=[k(0.0, look=GER)])],
         props=[LABEL(), P('tab', 'lcdScreen', on={'actor': 'gerant', 'hand': 'R', 'offset': [0, 0.02, 0.06], 'face': 'camera'}, opts={'w': 0.46, 'h': 0.32, 'stand': 0, 'dark': False, 'pages': [[0.0, ['EN STOCK : 1', '1 homme', 'rayon 3'], {'face': True, 'big': 0.8}]]})],
-        cams=[FC(0.0, [round(GER[0] - 1.2, 3), 1.8, round(GER[2] + 2.0, 3)], [[GER[0], 2.45, GER[2]], [GER[0], 1.35, GER[2]], [*OFF(GER, -30, 0.32, 0.62, 2.15)], [*OFF(GER, -30, 0.32, 0.1, 1.75)]], top=0.14, bottom=0.72)])
+        cams=[FC(0.0, [round(GER[0] - 1.2, 3), 1.8, round(GER[2] + 2.0, 3)], [[GER[0], 2.45, GER[2]], [GER[0], 1.35, GER[2]], [*OFF(GER, -30, 0.32, 0.62, 2.15)], [*OFF(GER, -30, 0.32, 0.1, 1.75)], [*OFF(GER, -30, 0.0, -0.38, 2.2)]], top=0.14, bottom=0.72)])
 
 # 8: he was put on promotion: minus fifty per cent. The manager slaps a -50 % sticker on his chest; on « cinquante » he shrinks to half his size, a bounce
 D8 = st.dur('S08'); SL8 = round(st.at('S08', 'L07', 4) - 0.06, 3); SH8 = round(st.at('S08', 'L07', 6) - 0.04, 3)
@@ -153,7 +153,7 @@ st.shot('S09', 'supermarket', setOpts=SM, actors=[
             k(VAC9, toon={**FLAT9, 'sq': [HALF * 0.9, HALF * 1.02, HALF * 0.82]}, toonDur=0.12, toonEase='in'), k(round(VAC9 + 0.45, 3), toon={**FLAT9, 'sq': [HALF * 0.9, HALF * 1.02, HALF * 0.82], 'face': {'puff': 1, 'cheeks': 1, 'lid': 0.8, 'brow': 0.9, 'gx': 0.5}}, toonDur=0.1)])],
         props=[LABEL(True), P('promo', 'starSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.02, 0.12, 0.2]}, opts={'r': 0.11, 'text': '-50 %', 'bright': True}),
                P('podium', 'table', pos=[ME9[0], 0, ME9[2]], opts={'color': '#C8322A', 'legs': '#8E2A22', 'w': 0.8, 'd': 0.6, 'h': 0.45}),
-               P('pack', 'vacuumBag', pos=ME9, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'tray': True, 'parts': PARTS, 'tight': [[0.0, 1.35], [VAC9, 1.35], [round(VAC9 + 0.12, 3), 0.8], [round(VAC9 + 0.2, 3), 0.86]]})],
+               P('pack', 'vacuumBag', pos=ME9, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'tray': True, 'opacity': 0.22, 'parts': PARTS, 'tight': [[0.0, 1.35], [VAC9, 1.35], [round(VAC9 + 0.12, 3), 0.8], [round(VAC9 + 0.2, 3), 0.86]]})],
         cams=[FC(0.0, [round(ME9[0] + 0.45, 3), round(ME9[1] + 0.8, 3), round(ME9[2] + 1.9, 3)], [[ME9[0], round(ME9[1] + 1.32, 3), ME9[2]], [ME9[0], round(ME9[1] - 0.15, 3), ME9[2]], [round(ME9[0] - 0.42, 3), round(ME9[1] + 0.7, 3), ME9[2]], [round(ME9[0] + 0.42, 3), round(ME9[1] + 0.7, 3), ME9[2]]], top=0.14, bottom=0.74, drift=(-0.03, 0, -0.06))])   # (pass 2) closer
 st.cue('whoosh', 'S09', VAC9, 0.4, 0.15, 3000, 800); st.cue('sfx:squeak', 'S09', VAC9 + 0.12, 0.3)
 
@@ -166,11 +166,11 @@ st.shot('S10', 'supermarket', setOpts=SM, actors=[
         act('dame', DAME, 145, 'stand', 'neutral', keys=[k(0.0, look=[ME10[0], 1.4, ME10[2]]),
             k(0.1, toon={'reach': {'L': [round(ME10[0] - 0.3, 3), 1.35, round(ME10[2] + 0.2, 3), 1, 0.06], 'R': [round(ME10[0] + 0.3, 3), 1.35, round(ME10[2] + 0.2, 3), 1, 0.06]}, 'hands': {'L': 'grip', 'R': 'grip'}}, toonDur=0.2),
             k(round(TK10 + 0.3, 3), toon={'reach': {'L': [*OFF(DAME, 145, 0.4, -0.25, 1.1), 1, 0.06], 'R': [*OFF(DAME, 145, 0.4, 0.25, 1.1), 1, 0.06]}, 'hands': {'L': 'flat', 'R': 'flat'}}, toonDur=0.12), k(round(TK10 + 0.4, 3), look='camera')])],
-        props=[LABEL(True), P('pack', 'vacuumBag', pos=ME10, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'parts': PARTS, 'tight': [[0.0, 0.86]]}, keys=[k(TK10, to=PK10, dur=0.3, ease='inOut')])],
+        props=[LABEL(True), P('pack', 'vacuumBag', pos=ME10, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'opacity': 0.22, 'parts': PARTS, 'tight': [[0.0, 0.86]]}, keys=[k(TK10, to=PK10, dur=0.3, ease='inOut')])],
         cams=[FC(0.0, [0.9, 1.45, 0.6], [[DAME[0], 2.25, DAME[2]], [DAME[0], 0.0, DAME[2]], [ME10[0], 2.2, ME10[2]], [ME10[0] + 0.5, 0.9, ME10[2]]], top=0.12, bottom=0.74)])   # (first look) the lady at the side of the pack, not in front of it
 
 # 11: she brought him back the next day: a manufacturing defect. The returns desk: she plants the pack on the counter; the clerk stamps it: DÉFAUT
-D11 = st.dur('S11'); ST11 = round(st.at('S11', 'L10', 5) - 0.05, 3); DESK = [-1.6, 0, 1.4]; DAME11 = [round(-1.6 + 1.25, 3), 0, round(1.4 + 0.15, 3)]; CLERC11 = [-1.0, 0, 0.65]
+D11 = st.dur('S11'); ST11 = round(st.at('S11', 'L10', 5) - 0.05, 3); DESK = [-1.6, 0, 1.4]; DAME11 = [round(-1.6 + 1.25, 3), 0, round(1.4 + 0.15, 3)]; CLERC11 = [-0.55, 0, 0.75]
 TOP11 = [DESK[0], 1.07, round(DESK[2] - 0.3, 3)]
 st.shot('S11', 'supermarket', setOpts=SM, actors=[
         act('mec', TOP11, 0, 'stiffStand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=FLAT9, toonDur=0.0), k(ST11, toon={**FLAT9, 'sq': [HALF * 1.12, HALF * 0.72, HALF * 1.12]}, toonDur=0.03),   # (pass 2) squashed like an accordion...
@@ -183,10 +183,10 @@ st.shot('S11', 'supermarket', setOpts=SM, actors=[
             k(round(ST11 - 0.03, 3), toon={'reach': {'R': [round(TOP11[0] + 0.08, 3), 1.42, round(TOP11[2] + 0.3, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.03, toonEase='in'),   # ...slammed
             k(round(ST11 + 0.12, 3), toon={'reach': {'R': [round(TOP11[0] + 0.35, 3), 1.75, round(TOP11[2] + 0.35, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08), k(round(ST11 + 0.4, 3), toon={}, toonDur=0.2), k(round(ST11 + 0.3, 3), look='camera')])],
         props=[LABEL(True), P('desk', 'serviceDesk', pos=DESK, opts={'text': 'RETOURS', 'sub': 'SERVICE CLIENTS', 'w': 1.8}),
-               P('pack', 'vacuumBag', pos=TOP11, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'parts': PARTS, 'tight': [[0.0, 0.86], [ST11, 0.86], [round(ST11 + 0.03, 3), 0.8], [round(ST11 + 0.12, 3), 1.55], [round(ST11 + 0.24, 3), 1.3], [round(ST11 + 0.36, 3), 1.42]]}),   # (pass 2) the stamp squashes it, then it puffs up loose: the defect
+               P('pack', 'vacuumBag', pos=TOP11, opts={'w': 0.62, 'h': 1.26, 'd': 0.42, 'labelY': 0.3, 'opacity': 0.22, 'parts': PARTS, 'tight': [[0.0, 0.86], [ST11, 0.86], [round(ST11 + 0.03, 3), 0.8], [round(ST11 + 0.12, 3), 1.55], [round(ST11 + 0.24, 3), 1.3], [round(ST11 + 0.36, 3), 1.42]]}),   # (pass 2) the stamp squashes it, then it puffs up loose: the defect
                P('stamp11', 'paperSheet', pos=[TOP11[0], 1.62, round(TOP11[2] + 0.34, 3)], face='camera', opts={'w': 0.66, 'h': 0.36, 'paper': '#FFFFFF', 'bright': True, 'stamp': {'text': 'DÉFAUT DE FABRICATION', 'at': ST11, 'rot': -0.12, 'y': 0.0, 'w': 0.97}},   # (pass 2) a bigger sheet turned to us
                  keys=[k(0.0, visible=False), k(ST11, visible=True)])],
-        cams=[FC(0.0, [-2.6, 1.6, 4.0], [[DESK[0], 2.75, round(DESK[2] - 0.45, 3)], [DESK[0], 0.3, DESK[2]], [round(DESK[0] + 1.25, 3), 0.4, round(DESK[2] + 0.15, 3)], [round(DESK[0] - 0.9, 3), 1.6, DESK[2]], [CLERC11[0], 2.3, CLERC11[2]]], top=0.12, bottom=0.74)])   # (first look) from the other end: the pack on the counter, the stamp, the clerk, the lady beyond
+        cams=[FC(0.0, [-2.6, 1.6, 4.0], [[DESK[0], 2.75, round(DESK[2] - 0.45, 3)], [DESK[0], 0.8, round(DESK[2] + 0.3, 3)], [DAME11[0], 2.2, DAME11[2]], [round(DESK[0] - 0.9, 3), 1.6, DESK[2]], [CLERC11[0], 2.3, CLERC11[2]]], top=0.12, bottom=0.74)])   # (pass 2) tighter: the desk, the clerk, the lady   # (first look) from the other end: the pack on the counter, the stamp, the clerk, the lady beyond
 st.cue('thud', 'S11', 0.05, 0.3); st.cue('sfx:cuff', 'S11', ST11, 0.45)
 
 # 12: the manufacturer recalled him. The big screen over the aisle: RAPPEL PRODUIT, his pictogram, « retour au fabricant »; the lady looks up, arms folded
@@ -220,14 +220,14 @@ st.cue('sfx:carDoor', 'S13', OP13, 0.25); st.cue('pop', 'S13', UP13 + 0.1, 0.35)
 D14 = st.dur('S14'); RF14 = round(st.at('S14', 'L13', 4) - 0.1, 3)
 MERE = [DOOR[0], 0, round(DOOR[2] + 0.25, 3)]
 st.shot('S14', 'whiteVoid', actors=[
-        act('mere', MERE, 15, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(round(RF14 - 0.2, 3), toon={'reach': {'R': [round(MERE[0] + 0.5, 3), 1.35, round(MERE[2] + 0.55, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.6}}, toonDur=0.15, toonEase='outBack'),
-            k(round(RF14 + 0.6, 3), toon={'reach': {'R': [round(MERE[0] + 0.5, 3), 1.35, round(MERE[2] + 0.55, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.7, 'lid': 0.3}}, toonDur=0.1)]),
+        act('mere', MERE, 15, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(round(RF14 - 0.2, 3), toon={'reach': {'R': [round(MERE[0] + 0.3, 3), 1.4, round(MERE[2] + 0.55, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.6}}, toonDur=0.15, toonEase='outBack'),
+            k(round(RF14 + 0.6, 3), toon={'reach': {'R': [round(MERE[0] + 0.3, 3), 1.4, round(MERE[2] + 0.55, 3), 1, 0.06]}, 'hands': {'R': 'pinch'}, 'face': {'browL': 0.7, 'lid': 0.3}}, toonDur=0.1)]),
         act('mec', BOX, 0, 'stand', 'unimpressed', keys=[k(0.0, toon=SMALL, toonDur=0.0), k(0.0, look='camera'), k(1.3, toon={**SMALL, 'face': {'lid': 0.4}}, toonDur=0.1), k(1.75, toon={**SMALL, 'face': {'lid': 1}}, toonDur=0.12), k(1.95, toon={**SMALL, 'face': {'lid': 0.4}}, toonDur=0.14)])],   # (pass 2) a slow blink at us
         props=[P('wall14', 'plainWall', pos=[0.0, 0, round(DOOR[2] - 0.05, 3)], opts={'w': 8.0, 'h': 3.2, 'color': '#E9DCCB'}), P('door14', 'door', pos=[DOOR[0], 0, round(DOOR[2] + 0.02, 3)], opts={'w': 0.95, 'h': 2.15, 'open': 1}),   # (pass 2) open from the first frame (it shut across the cut)
                P('mat14', 'doormat', pos=[DOOR[0], 0.01, round(DOOR[2] + 0.62, 3)], opts={'text': 'BIENVENUE', 'w': 0.85, 'd': 0.5}), P('box14', 'cardboardBox', pos=BOX, scale=1.6, opts={'text': 'RETOUR FABRICANT'}), LABEL(True),
                P('ticket', 'paperSheet', on={'actor': 'mere', 'hand': 'R', 'offset': [0, -0.26, 0.05], 'face': 'camera'}, opts={'w': 0.5, 'h': 0.66, 'head': 'TICKET', 'lines': ['1 homme', '2,49 €'], 'lineSize': 0.08, 'lineGap': 0.1, 'lineBold': True, 'paper': '#FFFFFF', 'bright': True, 'stamp': {'text': 'REMBOURSEMENT', 'at': 0.0, 'rot': -0.06, 'y': -0.2, 'w': 0.98}},   # (pass 2) REMBOURSEMENT the biggest line, below her hand
                  keys=[k(0.0, scale=0.01, dur=0.0), k(round(RF14 - 0.1, 3), scale=1.0, dur=0.1, ease='outBack')])],
-        cams=[FC(0.0, [0.9, 1.45, 0.95], [[MERE[0], 2.25, MERE[2]], [BOX[0], 0.75, BOX[2]], [round(MERE[0] + 0.5, 3), 1.9, round(MERE[2] + 0.55, 3)], [round(MERE[0] + 0.5, 3), 0.95, round(MERE[2] + 0.55, 3)], [BOX[0], 1.25, BOX[2]]], top=0.12, bottom=0.8, drift=(-0.03, 0, -0.05))])   # (pass 2) closer: the receipt and the faces lead, the box rim cropped
+        cams=[FC(0.0, [0.9, 1.45, 0.95], [[MERE[0], 2.25, MERE[2]], [BOX[0], 0.75, BOX[2]], [round(MERE[0] + 0.62, 3), 1.75, round(MERE[2] + 0.55, 3)], [round(MERE[0] + 0.62, 3), 1.0, round(MERE[2] + 0.55, 3)], [BOX[0], 1.25, BOX[2]]], top=0.12, bottom=0.8, drift=(-0.03, 0, -0.05))])   # (pass 2) closer: the receipt and the faces lead, the box rim cropped
 st.cue('sfx:paper', 'S14', RF14 - 0.1, 0.3)
 st.card('S08', '-50 %', at=round(SH8, 3))
 
