@@ -1265,3 +1265,32 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - **Sons** : il n'y avait pas de klaxon : `honk`, `honkLong`, `honkTiny` ajoutés à `tools/audio3.py`.
 - **Pistes** : vérifier les nouveaux accessoires à l'image avant de les installer dans le moteur principal (installés seulement dans le bac à
   sable pendant la génération finale de la 42) ; écouter le klaxon avec earshot ; donner aux phares-yeux un clin d'œil séparé.
+
+### Cycle 7 (suite) — histoire 42 livrée (version 2 finale) ; revue 1 de l'histoire 43 (animation 6,5 / direction artistique 6,8) et passe 2 ; histoire 45 vérifiée sur images
+
+- **Histoire 42 « L'ombre »** : version 2 finale livrée (passe 4 d'après la revue 3) : 31,2 s, −16,0 LUFS, aucune image isolée aux coupes.
+- **Revue 1 de l'histoire 43 « La cravate »** : animation 6,5, direction artistique 6,8. Retenu : la cravate-laisse comme colonne du film, la
+  coupe de l'immeuble, les décors et les écrits en français, le bras jusqu'au plafond (« la plus forte image »), la danse impassible, le cou
+  jusqu'au panneau. À reprendre : le cou étiré du crochet qui ne se lisait pas (la tête basculait seulement), l'affiche vue de face (pas
+  d'aplatissement visible), l'aplatissement qui ne progressait pas, le téléphone invisible (main à l'épaule, coque sombre sur costume
+  marine), le tampon sans poignée, des personnages figés, le second vote identique au premier, les yeux sur tiges sans pupilles, le nœud
+  beige invisible sur la chemise crème (1,13:1), des contenus sous la bande des sous-titres.
+- **Passe 2 de l'histoire 43** (vérifiée sur 35 images) : tête au bout de la laisse (corde attachée à la tête, cou enroulé vers la porte),
+  affiche filmée le long du mur, aplatissement en trois étapes à 35°, mains sous la laisse, regard caméra tenu dix images, téléphones à
+  l'oreille par main guidée et coques vives, tampon à côté du corps et non en travers, doigt et tête du syndic sur les mots, clignement,
+  tampon tenu en l'air puis claqué, linge au-dessus des sous-titres, enfant aux deux tiers d'un adulte et pincement en trois temps (tirer,
+  lâcher, suivre), pupilles des yeux sur tiges qui descendent les lignes, salle de réunion réchauffée, virevoltant dès la première image,
+  second vote refait (caméra basse dans le coin, plafond dans le cadre, bras qui s'y écrasent), peinture plus lente, insert sur le nœud,
+  claque avec la tête écrasée et des étoiles, quatre battements de paupière, la facture tenue par les coins. Brouillon 2 lancé.
+- **Histoire 44 « La statue »** : le brouillon s'est arrêté à 540 images sur 877 (navigateur fermé, quatre rendus en même temps) : relancé.
+  Dossier de revue préparé (brief, texte minuté, planches).
+- **Histoire 45 « La fourrière »** (46 puis 34 images) : corrections de mise en scène : caméras recadrées (dont deux qui étaient derrière une
+  clôture ou dans une voiture garée), façade des voisins avancée devant les maisons de la rue (les pièces étaient dans les maisons), guichet
+  à grande vitre (la caissière se voit), contrechamp sans feuilles en miroir, agent qui s'écarte de la jambe-ficelle, visage aplati filmé
+  d'au-dessus. Accessoires installés dans le moteur principal après la génération de la 42.
+- **Kit** : `fitBack()` garde la hauteur de la caméra (le long de la ligne 3D une caméra basse passait sous le sol) et accepte `inside=` (une
+  pièce dont elle ne sort pas : au bord, la focale s'ouvre).
+- **Décisions prises sans question** : (1) histoire 43 : un insert sur le nœud plutôt qu'un nœud plus gros (le modèle est fixe) ; (2) le beige
+  devient un beige caramel (#B48650) : le narrateur dit « beige », le beige pâle disparaissait ; (3) histoire 45 : la place 13 de la
+  fourrière reste vide (une voiture y masquait les plans bas de la fin).
+- **Pistes** : garder trois rendus au plus en même temps ; un outil qui signale une caméra à l'intérieur d'un accessoire.

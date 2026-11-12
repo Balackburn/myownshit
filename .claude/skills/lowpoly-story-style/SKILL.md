@@ -189,6 +189,20 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | La loupe sur le crâne vide | l'expert tend le bras jusqu'au-dessus de la tête de la statue (la main guidée étire le bras) ; la loupe est un accessoire LIBRE, calculé pour faire face à la caméra (`ry` vers la caméra, roulis `rot z` pour que le manche descende vers la main), la main guidée sur le manche ; à travers le verre, l'amende collée sur son front | 44 S14 |
 | Raide comme un poteau au bout d'une grue | crochet `craneHook` avec élingue ; il monte d'un bloc en tournant lentement, pieds joints, les yeux vers le haut | 44 S15 |
 
+| La tête qui reste au bout de la laisse (passe 2) | la corde attachée à la tête (`on` joint `head`, à l'arrière) et non au col ; le corps repart deux enjambées (`walk` sur 0,78 m) pendant que le cou s'enroule vers la porte (`bend neck [-2.1, 0, 0, 6.0, 0.6]` : plié de 2,1 rad, la tête finit derrière et un peu plus haut ; à -1,3 rad elle montait), dépassement à 6,7 puis retour, tremblement | 43 S01 |
+| Aplati un peu plus à chaque étage | sur la porte, profondeur 62 -> 46 -> 30 %, visage qui s'élargit à chaque sonnerie ; caméra à 35° de la porte (de face, l'épaisseur ne se voit pas) ; les mains sous la laisse | 43 S03 |
+| Les yeux sur tiges qui lisent | `pop` 0,75 avec `eyeYaw` (pupilles ramenées vers la caméra qui filme les tiges de côté) et `eyeRoll` qui descend de -0,55 à +0,55 en quatre clés : les pupilles descendent les quatre lignes de l'affiche | 43 S16 |
+| La forêt de bras au plafond | même vote, nouvelle image : caméra basse dans le coin, le plafond dans le cadre ; chaque bras plonge d'abord (creux), jaillit jusqu'au plafond, la main s'y écrase (`scl hand [1.4, 0.5, 1.4]`), redescend de 10 cm et remonte (dépassement) | 43 S21 |
+| Embarqué par le col | le crochet de la dépanneuse tombe derrière sa nuque ; il remonte : jambes, dos et cou s'étirent (×1,45) pendant que les pieds restent sur la route ; puis ils lâchent : il monte d'un coup et pend comme une nouille (`noodle`) pendant que la dépanneuse l'emporte | 45 S04-S05 |
+| La voiture-personnage | `carToon` : phares-yeux (pupilles `gaze`, paupières `lids` avec inclinaison, clignements), warnings, klaxon qui l'écrase et la fait sauter avec des anneaux, essuie-glaces qui moulinent et s'allongent vers ce qu'elle ne peut pas atteindre (elle penche sur deux roues : `rotOrder 'YXZ'`, roulis `rotTo[0]`) | 45 |
+| Le compas | le pied pris dans le sabot ne bouge pas : il fait un tour complet autour, huit pas de 45° (`face` et `to` en glissé autour du pied, mollet qui s'agite), puis des étoiles | 45 S09 |
+| La carte grise à la photo | la caissière plaque la carte grise contre la vitre : PROPRIÉTAIRE : et une voiture miniature en guise de photo (le même accessoire à l'échelle 0,085) ; contrechamp de l'intérieur du guichet, à travers la vitre : `doubleTakeToon` | 45 S11-S12 |
+| Trois semaines en accéléré | `daynight` (période 0,42 s), le klaxon toutes les 0,14 s, les contraventions qui s'empilent sous l'essuie-glace (`pv`), les feuilles mortes, les fenêtres d'en face qui s'allument la nuit (`flatsWall lit`) | 45 S15 |
+| Les voisins usés (gag à répétition dans un plan) | à la fenêtre : premier klaxon, ils sautent (étirés, cheveux dressés, yeux sortis) ; deuxième, à peine (paupières lourdes) ; puis ensemble la feuille PLAINTE, yeux en points ; le troisième klaxon ne les fait plus bouger | 45 S16 |
+| L'homme-ballon retenu par son sabot | les plaintes collées sur la poitrine, il gonfle d'indignation (`inflate`), monte d'un mètre ; la jambe prise dans le sabot s'étire jusqu'au sol (×1,9) comme la ficelle du ballon ; le corps décalé du côté opposé (le clip écarte la jambe) | 45 S17 |
+| Garée sur lui | temps suspendu sous la voiture qui pend au-dessus de sa tête (il déglutit, petit salut) ; elle tombe en 0,1 s, rebondit sur ses ressorts, poussière, étoiles ; sa tête aplatie dépasse devant le pare-chocs, langue déroulée, filmée d'au-dessus (au ras du sol ce n'était qu'un trait) ; la baguette aplatie à côté | 45 S20-S21 |
+| Le bras jusqu'à l'horodateur | couché sous la voiture, son bras s'étire jusqu'à la fente de la borne, prend le ticket et le tient près de son visage plat ; la voiture le regarde, cligne et donne un tout petit coup de klaxon | 45 S22 |
+
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
 
 ## Erreurs à éviter
@@ -700,3 +714,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   caméra jusqu'à ce qu'une focale tienne tout, et imprime la distance ; la reporter dans le script quand elle dépasse un ou deux pas.
 - (cycle 7, histoire 45) Le moteur n'avait pas de klaxon : `sfx:honk`, `sfx:honkLong`, `sfx:honkTiny` (deux notes carrées nasales à une
   tierce mineure) ont été ajoutés à `tools/audio3.py`.
+- (cycle 7) Le clip `phoneEar` laisse la main du rig cartoon à l'épaule (sur la laisse, elle semblait la tenir) : guider la main jusqu'à
+  l'oreille (`reach`, ajouté à toutes les clés du plan) et donner au téléphone une coque vive (`smartPhone` `case`) : une coque sombre sur un
+  costume marine ne se voit pas.
+- (cycle 7) Une feuille (`paperSheet`) est imprimée des deux côtés : vue de dos (contrechamp derrière une vitre), son texte apparaît en
+  miroir. La retirer du contrechamp.
+- (cycle 7) Les façades de `parisStreet` sont vers x = 10,2 : des pièces derrière un mur placé à 10,1 étaient dans les maisons (on voyait la
+  façade peinte par les fenêtres, et aucun voisin). Mettre le mur de façade à 8,6 au plus.
+- (cycle 7) Une caméra reculée sans limite sort de la pièce et filme le dos d'un mur (image unie) : `fitBack(..., inside=(x0, x1, y0, y1,
+  z0, z1))` ; une caméra basse peut aussi se retrouver dans une voiture garée : vérifier les emprises des accessoires devant elle.
+- (cycle 7) `cd dossier && A; nohup B &` : B part de l'ancien dossier (rendu en échec immédiat) ; mettre le `cd` dans chaque commande.
+- (cycle 7) Quatre rendus à la fois : un navigateur s'est fermé à 540/877 images ; trois au plus.
