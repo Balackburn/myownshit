@@ -100,7 +100,7 @@ if (flag('probe', false)) {
     console.log(`  ${w.length ? '!' : 'ok'} ${g.prop ? 'text' : 'gag '} ${(g.name || '').padEnd(14)} ${g.t.toFixed(2)} s ${g.prop ? 'prop:' + g.prop : g.who}` + (r.box ? `: ${g.prop ? 'height' : 'head'} ${Math.round(r.h * 1000) / 10} %, seen ${Math.round(r.seen * 100)} %` + `, facing ${r.facing} deg` : '') + (w.length ? ' -- ' + w.join('; ') : ''));
   }
   fs.writeFileSync(path.join(work, 'probe.json'), JSON.stringify(res, null, 1));
-  await A.browser.close(); srv.close(); process.exit(0);
+  if (!flag('stills', null) && !flag('strip', null)) { await A.browser.close(); srv.close(); process.exit(0); }   // (pass 3 of 53) with --stills too, go on to the stills (the probe ended the run: no stills were made)
 }
 const stills = flag('stills', null), strip = flag('strip', null);
 if (stills || strip) {

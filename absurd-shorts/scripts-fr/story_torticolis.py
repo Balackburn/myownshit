@@ -308,7 +308,7 @@ st.shot('S12', 'hospital', look=LOOKI, actors=[
             *[k(round(0.02 + SP12 * n_ / 6, 3), toon=NECK(round(0.6 + PI * (n_ + 1), 3), bx=(0.18 if n_ % 2 else -0.18), extra={'wind': [0.0, 0.0, 6.0], 'scl': {'head': [1.15, 1.0, 1.0]}, 'sq': [0.97, 1.03, 0.97], 'face': {'lid': 0.45}}), toonDur=round(SP12 / 6, 3), toonEase='linear') for n_ in range(6)],
             # (pass 2) three turns like a top: the head wobbles as it spins, smeared
             k(round(D12 - 0.17, 3), toon=NECK(round(0.6 + 6 * PI, 3), extra={'face': {'expr': 'dizzy', 'exprW': 1.0}, 'sq': [1.02, 0.98, 1.02]}), toonDur=0.06)]),   # dizzy eyes
-        act('osteo', OST11, -115, 'stand', 'surprised', keys=[k(0.0, look=[0.0, 2.0, ME10[2]]), k(0.1, to=OST12, dur=0.3, glide=True, ease='out', face='keep'),
+        act('osteo', OST11, -115, 'stand', 'surprised', keys=[k(0.0, look=[0.0, 2.0, ME10[2]]), k(0.1, to=OST12, dur=0.3, glide=True, ease='out', face='keep'), k(0.12, face=-55, turn=0.2),   # (pass 3) opened to us as he steps back (the probe: his back, 131 degrees)
             k(0.1, toon={'lay': [-0.12, 0], 'face': {'jaw': 0.6, 'brow': 1.0, 'gx': 0.8}}, toonDur=0.1),
             *[k(round(0.2 + 0.11 * i, 3), toon={'lay': [-0.12, (0.06 if i % 2 else -0.06)], 'face': {'jaw': 0.6, 'brow': 1.0, 'gx': 0.9 if i % 2 else -0.9}}, toonDur=0.08) for i in range(9)],   # his eyes going round...
             *[k(round(0.25 + 0.11 * i, 3), look=[(0.45 if i % 2 else -0.45), 1.9, ME10[2]]) for i in range(8)],   # ...then his head with them
@@ -328,7 +328,8 @@ st.shot('S13', 'hospital', look=LOOKI, actors=[
             k(0.62, toon=NECK(0.0, bx=-1.4, extra={'sq': [1.02, 1.03, 1.02]}), toonDur=0.2, toonEase='inOut'), k(0.86, toon=NECK(0.0, bx=-1.4), toonDur=0.15),   # (pass 2) a breath
             k(1.05, toon=NECK(0.0, bx=-1.4, extra={'face': {'lid': 1.0}}), toonDur=0.06), k(1.18, toon=NECK(0.0, bx=-1.4, extra={'face': {'lid': 0.45}}), toonDur=0.1),   # a blink at the ceiling
             k(1.45, toon=NECK(0.0, bx=-1.4, extra={'sq': [1.02, 1.03, 1.02], 'face': {'lid': 0.45, 'gx': 0.3}}), toonDur=0.2, toonEase='inOut')]),   # (pass 3) another breath, the eyes sliding
-        act('osteo', OST13, -112, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.75, ME10[2]]), k(0.3, look=[0.0, 3.2, -1.9]),   # (pass 3) he looks up where the face looks...
+        act('osteo', OST13, -50, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.75, ME10[2]]), k(0.3, look=[0.0, 3.2, -1.9]),   # (pass 3) he looks up where the face looks...
+            # (pass 3) opened to the lens (the probe: 114 degrees, his back)
             k(0.35, toon=SCR(0), toonDur=0.2, toonEase='out'),
             *[k(round(0.6 + 0.09 * i, 3), toon=SCR(i + 1), toonDur=0.08) for i in range(12)]])],
             # (pass 3) ...and scratches his head, in the frame (half out at the edge, his hand never reached his head)

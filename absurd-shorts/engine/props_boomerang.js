@@ -24,6 +24,15 @@ function turnsAt(ks, t) {
   return acc;
 }
 const rateAt = (ks, t) => { if (!ks || !ks.length) return 0; if (t <= ks[0][0]) return 0; for (let i = 0; i < ks.length - 1; i++) { const [t0, r0] = ks[i], [t1, r1] = ks[i + 1]; if (t < t1) return r0 + (r1 - r0) * (t - t0) / Math.max(1e-6, t1 - t0); } return ks[ks.length - 1][1]; };
+// (pass 3 of 52) a four-point star that twinkles (size: metres): on a far boomerang, on a coin in the air
+function glintSprite(size) {
+  const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); x.translate(64, 64); x.fillStyle = '#FFFFFF';
+  for (const [a, l] of [[0, 62], [PI / 2, 62], [PI / 4, 30], [3 * PI / 4, 30]]) { x.save(); x.rotate(a); x.beginPath(); x.moveTo(-l, 0); x.lineTo(0, -6); x.lineTo(l, 0); x.lineTo(0, 6); x.closePath(); x.fill(); x.restore(); }
+  x.beginPath(); x.arc(0, 0, 11, 0, TAU); x.fill(); const tex = new THREE.CanvasTexture(c);
+  const gl = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: '#FFF6D8', transparent: true, depthWrite: false, toneMapped: false })); gl.scale.setScalar(size);
+  gl.userData.twinkle = t => { const k = 0.65 + 0.35 * Math.abs(Math.sin(t * 9)); gl.scale.setScalar(size * k); gl.material.rotation = t * 2.5; };
+  return gl;
+}
 // a canvas redrawn when its key changes (a radar sweep)
 function liveCanvas(w, h, res, opts = {}) {
   const c = document.createElement('canvas'); c.width = res; c.height = Math.max(8, Math.round(res * h / w));
@@ -59,14 +68,19 @@ export const BOOMERANG_PROPS = {
     const body = build(0), gh = [build(0.32), build(0.16)], spin = grp(body, ...gh), g = grp(spin);
     // (pass 2 of 52) o.glint: a four-point star that twinkles on it (a far boomerang was a 15 x 3 px speck); o.glint is its size in metres
     let gl = null;
-    if (o.glint) { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); x.translate(64, 64); x.fillStyle = '#FFFFFF';
-      for (const [a, l] of [[0, 62], [PI / 2, 62], [PI / 4, 30], [3 * PI / 4, 30]]) { x.save(); x.rotate(a); x.beginPath(); x.moveTo(-l, 0); x.lineTo(0, -6); x.lineTo(l, 0); x.lineTo(0, 6); x.closePath(); x.fill(); x.restore(); }
-      x.beginPath(); x.arc(0, 0, 11, 0, TAU); x.fill(); const tex = new THREE.CanvasTexture(c);
-      gl = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: '#FFF6D8', transparent: true, depthWrite: false, toneMapped: false })); gl.scale.setScalar(o.glint); g.add(gl); }
+    if (o.glint) { gl = glintSprite(o.glint); g.add(gl); }
+    // (pass 3 of 52) o.disc (opacity, 0.4): while it spins faster than 4 turns a second, a blur disc of its own colour with a darker rim shows the whole
+    // sweep of the arms (at a distance a spinning rotor read as black spikes, edge on as a plank)
+    let disc = null;
+    if (o.disc) { const R = L * 1.02, dm = new THREE.MeshBasicMaterial({ color: C, transparent: true, opacity: o.disc, depthWrite: false, side: THREE.DoubleSide });
+      const rim = new THREE.MeshBasicMaterial({ color: bands[0], transparent: true, opacity: Math.min(1, o.disc * 1.4), depthWrite: false, side: THREE.DoubleSide });
+      disc = grp(new THREE.Mesh(new THREE.CircleGeometry(R, 28).rotateX(-PI / 2), dm), new THREE.Mesh(new THREE.RingGeometry(R * 0.86, R, 28).rotateX(-PI / 2), rim));
+      disc.children.forEach(q => { q.position.y = 0.001; q.renderOrder = 2; }); spin.add(disc); }
     g.userData.update = t => { const turns = turnsAt(o.spin, t), r = Math.abs(rateAt(o.spin, t)), a = -TAU * turns;
       body.rotation.y = a; gh.forEach((q, i) => { q.visible = r > 2.5; q.rotation.y = a + (i + 1) * 0.32 * Math.sign(turns || 1); });
       spin.rotation.x = (o.wobble || 0) * Math.sin(a * 0.5); spin.rotation.z = (o.wobble || 0) * 0.6 * Math.cos(a * 0.5);
-      if (gl) { const k = 0.65 + 0.35 * Math.abs(Math.sin(t * 9)); gl.scale.setScalar(o.glint * k); gl.material.rotation = t * 2.5; } };
+      if (disc) disc.visible = r > 4;
+      if (gl) gl.userData.twinkle(t); };
     g.userData.update(0); return g;
   },
 
@@ -161,7 +175,10 @@ export const BOOMERANG_PROPS = {
   // (first look) o.road: a strip of grey asphalt under the bars (white bars on white clouds did not show at all)
   skyCrossing(o) {
     const w = o.w ?? 3, L = o.l ?? 2, n = o.n ?? 6, g = grp(), bw = w / (2 * n - 1);
-    if (o.road) g.add(at(box(w + 2 * bw, 0.02, L + 0.5, o.road === true ? '#4A4F57' : o.road, { outline: 0.004 }), 0, -0.02, 0));
+    // (pass 3 of 52) o.roadLen: the asphalt goes on along the traffic (local Z) that far, so that the plane's wheels stand on it (the strip was only
+    // as long as the stripes: the plane stood on the clouds behind it); o.stopLine (m before the stripes): a white line across the road
+    if (o.road) g.add(at(box(w + 2 * bw, 0.02, o.roadLen ?? L + 0.5, o.road === true ? '#4A4F57' : o.road, { outline: 0.004 }), 0, -0.02, 0));
+    if (o.road && o.stopLine != null) g.add(at(box(w + 2 * bw, 0.032, 0.3, '#FBFBF6'), 0, 0, -(L / 2 + o.stopLine)));
     for (let i = 0; i < n; i++) g.add(at(box(bw, 0.03, L, '#FBFBF6', { outline: 0.004 }), -w / 2 + bw / 2 + i * 2 * bw, 0, 0));
     return g;
   },
@@ -174,11 +191,19 @@ export const BOOMERANG_PROPS = {
     g.add(at(box(0.3, 0.3, 0.12, '#A8713E', { outline: 0.005 }), 0, H + 0.12, -0.12));
     for (let i = 0; i < 4; i++) g.add(at(box(0.27 - i * 0.03, 0.27 - i * 0.03, 0.07, i % 2 ? '#1B1B1E' : '#2A2A2E', { outline: 0.003 }), 0, H + 0.12, -0.02 + i * 0.065));
     g.add(at(box(0.18, 0.18, 0.03, '#A8713E', { outline: 0.004 }), 0, H + 0.12, 0.24), at(cyl(0.055, 0.055, 0.1, '#C9A13A', 12), 0, H + 0.12, 0.3, PI / 2, 0, 0), at(cyl(0.04, 0.04, 0.005, '#7FA6CC', 12), 0, H + 0.12, 0.353, PI / 2, 0, 0));
-    if (o.cloth !== false) g.add(at(box(0.42, 0.62, 0.02, '#141416', { outline: 0.004 }), 0, H - 0.08, -0.2));
+    if (o.cloth !== false) g.add(at(box(0.42, 0.62, 0.02, o.clothColor || '#141416', { outline: 0.004 }), 0, H - 0.08, -0.2));   // (pass 3 of 52) o.clothColor: a lit dark brown (the black read as a hole)
     if (o.flashAt != null) { const rod = grp(at(cyl(0.01, 0.01, 0.5, '#2A2A2E', 6), 0, 0.25, 0), at(box(0.2, 0.02, 0.06, '#5A5F66'), 0, 0.5, 0)); rod.position.set(0.25, H + 0.1, -0.1); g.add(rod);
       const burst = new THREE.Mesh(new THREE.SphereGeometry(0.18, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.95, toneMapped: false, depthWrite: false })); burst.position.set(0.25, H + 0.62, -0.1); g.add(burst);
       g.userData.update = t => { const u = t - o.flashAt; const on = u >= 0 && u < 0.25; burst.visible = on; if (on) { burst.scale.setScalar(0.4 + 3.2 * Math.min(1, u / 0.05)); burst.material.opacity = 0.95 * (1 - u / 0.25); } };
       g.userData.update(0); }
+    return g;
+  },
+
+  // (pass 3 of 52) A gold coin that can be seen (pivot at its centre, its faces along Z): o.r (0.035 m), a darker rim and a stamped centre, o.glint
+  // (metres, 0.12): a twinkling star on it (the plain 5 cm coin was a 20 px dot in the air and in a palm)
+  glintCoin(o) {
+    const R = o.r ?? 0.035, g = grp(at(cyl(R, R, 0.008, '#E8B83A', 16, { outline: 0.003 }), 0, 0, 0, PI / 2, 0, 0), at(cyl(R * 0.62, R * 0.62, 0.0095, '#C9962A', 16), 0, 0, 0, PI / 2, 0, 0));
+    if (o.glint !== 0) { const gl = glintSprite(o.glint ?? 0.12); gl.position.z = 0.012; g.add(gl); g.userData.update = t => gl.userData.twinkle(t); g.userData.update(0); }
     return g;
   },
 
