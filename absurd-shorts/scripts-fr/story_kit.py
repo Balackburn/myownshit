@@ -153,6 +153,16 @@ TAKES = {
 }
 
 
+def doubleTake(t0, look_at, keep=None, back='camera', pop=0.6):
+    """(cycle 12) A double take, as keys for an actor: a glance at something (look_at: a point or 'camera'), back to `back`, then two frames later
+    the head snaps back to it with a dip and a stretch, the eyes out on stalks, held, then a settle. keep: toon channels to carry through the take
+    (a reach, a sit). The reviewers asked for one in several stories (none had it): use it when a character notices something absurd late."""
+    keep = dict(keep or {})
+    return [k(t0, look=look_at), k(round(t0 + 0.16, 3), look=back), k(round(t0 + 0.27, 3), look=look_at),
+            k(round(t0 + 0.23, 3), toon={**keep, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),
+            k(round(t0 + 0.27, 3), toon={**keep, 'sq': [0.95, 1.06, 0.95], 'face': {'pop': pop, 'popLen': 0.25, 'brow': 1, 'jaw': 0.3}}, toonDur=0.04, toonEase='outBack'),
+            k(round(t0 + 0.62, 3), toon={**keep, 'face': {'brow': 0.6}}, toonDur=0.12)]
+
 def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0):
     """(cycle 11) The hero's cartoon take at t0, built on beat(): two frames of anticipation, the extreme held `hold` s with a shiver (the hang time),
     the overshoot, the settle. kind: one of TAKES ('stalks', 'jaw', 'accordion', 'hair', 'tongue', 'cross'): change it from one gag to the next.
@@ -293,6 +303,9 @@ class Story:
                         if a['id'] in hero and 0.0 <= hd[1] <= 1.0 and not lying:
                             pos = c['from'] if not c.get('to') else [c['from'][j] + (c['to'][j] - c['from'][j]) * min(1, max(0, (t - c['at']) / max(1e-6, t1 - c['at']))) for j in range(3)]
                             tc = math.atan2(pos[0] - p[0], pos[2] - p[2]); ang = abs((f - tc + math.pi) % (2 * math.pi) - math.pi)
+                            if 65 <= math.degrees(ang) <= 115 and 'profile' not in seen and 'back' not in seen: seen.add('profile'); out.append(f'{sc["id"]} t={t:.2f}: {a["id"]} in profile ({math.degrees(ang):.0f} deg): the side of a box head has no painted face, it reads as the back of his head (cycle 12)')
+                            fh = abs(ft[1] - hd[1])
+                            if 0.0 <= ft[1] <= 1.0 and fh < 0.28 and 'small' not in seen: seen.add('small'); out.append(f'{sc["id"]} t={t:.2f}: {a["id"]} small at phone size: the whole figure {100 * fh:.0f} % of the frame height, the head about {25 * fh:.0f} % (cycle 12: under about 7 % the reviewers stop reading the face)')
                             if math.degrees(ang) > 120 and 'back' not in seen: seen.add('back'); out.append(f'{sc["id"]} t={t:.2f}: {a["id"]} turned {math.degrees(ang):.0f} deg away from the camera (a move without face=? face=\'keep\' keeps the facing)')
             said = set()   # (cycle 10) an actor between the camera and the hero, covering a good part of him (45 S17: the pound man's back hid the swell)
             for t, bs in sorted(boxes.items()):

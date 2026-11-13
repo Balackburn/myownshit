@@ -1,0 +1,589 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a le hoquet depuis trois jours.",
+   "hl": [
+    "hoquet",
+    "trois"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.026,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "le",
+     "s": 0.581,
+     "e": 0.619
+    },
+    {
+     "w": "hoquet",
+     "s": 0.693,
+     "e": 0.915
+    },
+    {
+     "w": "depuis",
+     "s": 0.989,
+     "e": 1.211
+    },
+    {
+     "w": "trois",
+     "s": 1.285,
+     "e": 1.433
+    },
+    {
+     "w": "jours.",
+     "s": 1.507,
+     "e": 2.026
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "À chaque hoquet, il fait un bond d'un mètre.",
+   "hl": [
+    "bond",
+    "mètre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L02.k.wav",
+   "file_start": 2.126,
+   "speech_start": 2.126,
+   "speech_end": 4.348,
+   "words": [
+    {
+     "w": "À",
+     "s": 2.126,
+     "e": 2.2
+    },
+    {
+     "w": "chaque",
+     "s": 2.274,
+     "e": 2.496
+    },
+    {
+     "w": "hoquet,",
+     "s": 2.533,
+     "e": 2.941
+    },
+    {
+     "w": "il",
+     "s": 3.015,
+     "e": 3.089
+    },
+    {
+     "w": "fait",
+     "s": 3.163,
+     "e": 3.237
+    },
+    {
+     "w": "un",
+     "s": 3.311,
+     "e": 3.385
+    },
+    {
+     "w": "bond",
+     "s": 3.459,
+     "e": 3.533
+    },
+    {
+     "w": "d'un",
+     "s": 3.57,
+     "e": 3.681
+    },
+    {
+     "w": "mètre.",
+     "s": 3.756,
+     "e": 4.348
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les sismographes ont détecté un séisme.",
+   "hl": [
+    "séisme."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L03.k.wav",
+   "file_start": 4.448,
+   "speech_start": 4.448,
+   "speech_end": 6.522,
+   "words": [
+    {
+     "w": "Les",
+     "s": 4.448,
+     "e": 4.522
+    },
+    {
+     "w": "sismographes",
+     "s": 4.596,
+     "e": 5.164
+    },
+    {
+     "w": "ont",
+     "s": 5.214,
+     "e": 5.263
+    },
+    {
+     "w": "détecté",
+     "s": 5.3,
+     "e": 5.633
+    },
+    {
+     "w": "un",
+     "s": 5.707,
+     "e": 5.781
+    },
+    {
+     "w": "séisme.",
+     "s": 5.819,
+     "e": 6.522
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Magnitude quatre. Épicentre : son canapé.",
+   "hl": [
+    "quatre.",
+    "canapé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L04.k.wav",
+   "file_start": 6.622,
+   "speech_start": 6.622,
+   "speech_end": 9.363,
+   "words": [
+    {
+     "w": "Magnitude",
+     "s": 6.622,
+     "e": 7.067
+    },
+    {
+     "w": "quatre.",
+     "s": 7.141,
+     "e": 7.733
+    },
+    {
+     "w": "Épicentre:",
+     "s": 7.77,
+     "e": 8.597
+    },
+    {
+     "w": "son",
+     "s": 8.647,
+     "e": 8.696
+    },
+    {
+     "w": "canapé.",
+     "s": 8.77,
+     "e": 9.363
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La préfecture a évacué tout l'immeuble.",
+   "hl": [
+    "évacué"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L05.k.wav",
+   "file_start": 9.463,
+   "speech_start": 9.463,
+   "speech_end": 11.463,
+   "words": [
+    {
+     "w": "La",
+     "s": 9.463,
+     "e": 9.537
+    },
+    {
+     "w": "préfecture",
+     "s": 9.611,
+     "e": 10.056
+    },
+    {
+     "w": "a",
+     "s": 10.093,
+     "e": 10.13
+    },
+    {
+     "w": "évacué",
+     "s": 10.167,
+     "e": 10.574
+    },
+    {
+     "w": "tout",
+     "s": 10.648,
+     "e": 10.722
+    },
+    {
+     "w": "l'immeuble.",
+     "s": 10.771,
+     "e": 11.463
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Sauf lui : on n'évacue pas un épicentre.",
+   "hl": [
+    "épicentre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L06.k.wav",
+   "file_start": 11.563,
+   "speech_start": 11.563,
+   "speech_end": 13.785,
+   "words": [
+    {
+     "w": "Sauf",
+     "s": 11.563,
+     "e": 11.785
+    },
+    {
+     "w": "lui:",
+     "s": 11.822,
+     "e": 12.329
+    },
+    {
+     "w": "on",
+     "s": 12.353,
+     "e": 12.378
+    },
+    {
+     "w": "n'évacue",
+     "s": 12.427,
+     "e": 12.748
+    },
+    {
+     "w": "pas",
+     "s": 12.822,
+     "e": 12.896
+    },
+    {
+     "w": "un",
+     "s": 12.933,
+     "e": 12.97
+    },
+    {
+     "w": "épicentre.",
+     "s": 13.044,
+     "e": 13.785
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les pompiers ont tenté le verre d'eau à l'envers.",
+   "hl": [
+    "pompiers",
+    "l'envers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L07.k.wav",
+   "file_start": 13.885,
+   "speech_start": 13.885,
+   "speech_end": 16.107,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.885,
+     "e": 14.033
+    },
+    {
+     "w": "pompiers",
+     "s": 14.07,
+     "e": 14.33
+    },
+    {
+     "w": "ont",
+     "s": 14.404,
+     "e": 14.478
+    },
+    {
+     "w": "tenté",
+     "s": 14.552,
+     "e": 14.737
+    },
+    {
+     "w": "le",
+     "s": 14.774,
+     "e": 14.848
+    },
+    {
+     "w": "verre",
+     "s": 14.922,
+     "e": 15.07
+    },
+    {
+     "w": "d'eau",
+     "s": 15.119,
+     "e": 15.219
+    },
+    {
+     "w": "à",
+     "s": 15.256,
+     "e": 15.293
+    },
+    {
+     "w": "l'envers.",
+     "s": 15.367,
+     "e": 16.107
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Puis la grosse peur.",
+   "hl": [
+    "peur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L08.k.wav",
+   "file_start": 16.207,
+   "speech_start": 16.207,
+   "speech_end": 17.763,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 16.207,
+     "e": 16.578
+    },
+    {
+     "w": "la",
+     "s": 16.652,
+     "e": 16.8
+    },
+    {
+     "w": "grosse",
+     "s": 16.837,
+     "e": 17.096
+    },
+    {
+     "w": "peur.",
+     "s": 17.17,
+     "e": 17.763
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il est resté collé au plafond.",
+   "hl": [
+    "plafond."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L09.k.wav",
+   "file_start": 17.863,
+   "speech_start": 17.863,
+   "speech_end": 19.567,
+   "words": [
+    {
+     "w": "Il",
+     "s": 17.863,
+     "e": 17.937
+    },
+    {
+     "w": "est",
+     "s": 17.974,
+     "e": 18.011
+    },
+    {
+     "w": "resté",
+     "s": 18.085,
+     "e": 18.456
+    },
+    {
+     "w": "collé",
+     "s": 18.567,
+     "e": 18.715
+    },
+    {
+     "w": "au",
+     "s": 18.752,
+     "e": 18.826
+    },
+    {
+     "w": "plafond.",
+     "s": 18.863,
+     "e": 19.567
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Hier, l'État l'a déclaré catastrophe naturelle.",
+   "hl": [
+    "catastrophe",
+    "naturelle."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L10.k.wav",
+   "file_start": 19.667,
+   "speech_start": 19.667,
+   "speech_end": 22.185,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 19.667,
+     "e": 20.259
+    },
+    {
+     "w": "l'État",
+     "s": 20.296,
+     "e": 20.556
+    },
+    {
+     "w": "l'a",
+     "s": 20.581,
+     "e": 20.63
+    },
+    {
+     "w": "déclaré",
+     "s": 20.704,
+     "e": 21.0
+    },
+    {
+     "w": "catastrophe",
+     "s": 21.037,
+     "e": 21.444
+    },
+    {
+     "w": "naturelle.",
+     "s": 21.519,
+     "e": 22.185
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Son assurance lui a versé trois mille euros.",
+   "hl": [
+    "trois",
+    "mille"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L11.k.wav",
+   "file_start": 22.285,
+   "speech_start": 22.285,
+   "speech_end": 24.433,
+   "words": [
+    {
+     "w": "Son",
+     "s": 22.285,
+     "e": 22.433
+    },
+    {
+     "w": "assurance",
+     "s": 22.544,
+     "e": 22.952
+    },
+    {
+     "w": "lui",
+     "s": 22.977,
+     "e": 23.026
+    },
+    {
+     "w": "a",
+     "s": 23.063,
+     "e": 23.1
+    },
+    {
+     "w": "versé",
+     "s": 23.211,
+     "e": 23.47
+    },
+    {
+     "w": "trois",
+     "s": 23.544,
+     "e": 23.656
+    },
+    {
+     "w": "mille",
+     "s": 23.693,
+     "e": 23.841
+    },
+    {
+     "w": "euros.",
+     "s": 23.878,
+     "e": 24.433
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Depuis, il ne boit plus que du soda.",
+   "hl": [
+    "soda."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/hoquet/tts/L12.k.wav",
+   "file_start": 24.533,
+   "speech_start": 24.533,
+   "speech_end": 26.459,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 24.533,
+     "e": 25.126
+    },
+    {
+     "w": "il",
+     "s": 25.2,
+     "e": 25.274
+    },
+    {
+     "w": "ne",
+     "s": 25.311,
+     "e": 25.348
+    },
+    {
+     "w": "boit",
+     "s": 25.422,
+     "e": 25.57
+    },
+    {
+     "w": "plus",
+     "s": 25.644,
+     "e": 25.719
+    },
+    {
+     "w": "que",
+     "s": 25.756,
+     "e": 25.793
+    },
+    {
+     "w": "du",
+     "s": 25.867,
+     "e": 25.941
+    },
+    {
+     "w": "soda.",
+     "s": 25.978,
+     "e": 26.459
+    }
+   ]
+  }
+ ],
+ "total": 27.3
+}

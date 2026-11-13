@@ -1,0 +1,104 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a le hoquet depuis trois jours.",
+  "hl": [
+   "hoquet",
+   "trois"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "À chaque hoquet, il fait un bond d'un mètre.",
+  "hl": [
+   "bond",
+   "mètre."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Les sismographes ont détecté un séisme.",
+  "hl": [
+   "séisme."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Magnitude quatre. Épicentre : son canapé.",
+  "hl": [
+   "quatre.",
+   "canapé."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La préfecture a évacué tout l'immeuble.",
+  "hl": [
+   "évacué"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Sauf lui : on n'évacue pas un épicentre.",
+  "hl": [
+   "épicentre."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les pompiers ont tenté le verre d'eau à l'envers.",
+  "hl": [
+   "pompiers",
+   "l'envers."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Puis la grosse peur.",
+  "hl": [
+   "peur."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il est resté collé au plafond.",
+  "hl": [
+   "plafond."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Hier, l'État l'a déclaré catastrophe naturelle.",
+  "hl": [
+   "catastrophe",
+   "naturelle."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Son assurance lui a versé trois mille euros.",
+  "hl": [
+   "trois",
+   "mille"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Depuis, il ne boit plus que du soda.",
+  "hl": [
+   "soda."
+  ]
+ }
+]
