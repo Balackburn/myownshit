@@ -39,7 +39,7 @@ PT = lambda p: {'point': [r(v) for v in p]}
 STREET = {'clear': [-80, 80], 'paveW': 6.5, 'eiffelStyle': 'v2'}   # (pass 2) the connected Eiffel tower (the old one read as a stepladder)
 LR = {'tv': False, 'carpet': False, 'pictureX': -1.7}   # (pass 2) the painting off the axis of his head (its frame sat behind it)
 SEAT = [0.0, 0, -2.75]
-PHONE = lambda pid: P(pid, 'smartPhone', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.05], 'face': 'camera', 'faceBack': True}, scale=2.6, opts={'case': '#F2C94C'})   # (pass 2) its back to us, the screen to him (we saw the screen and his palm)
+PHONE = lambda pid: P(pid, 'smartPhone', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.05], 'face': 'camera', 'faceBack': True}, scale=2.2, opts={'case': '#F2C94C'})   # (pass 2) its back to us, the screen to him (we saw the screen and his palm)
 READ = {'bend': {'neck': [0.42, 0, 0, 1, None]}, 'face': {'gy': 0.75, 'lid': 0.35}}   # (pass 2) head down on his phone: absorbed (the cause of the step)
 def PLANT(p, w=1.0, side='L', base=None):
     """a toon state with the foot held at p (weight w), on top of `base`"""
@@ -72,13 +72,19 @@ st.cue('sfx:splat', 'S01', TS, 0.45)
 D2 = st.dur('S02'); SNAP = 1.0
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [X1, 0, 0.72], 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=PLANT(GUMPT, 1.0, base=RD()), toonDur=0.0),
-            k(0.0, to=[X1, 0, 2.78], dur=round(D2 + 0.03, 3), clip='walkRead', then='stand', ease='linear', face='keep'),
+            k(0.0, to=[X1, 0, 2.36], dur=round(SNAP + 0.5, 3), clip='walkRead', then='readPhone', ease='linear', face='keep'),   # (pass 2b) he stops for the take (it played while he walked on)
             k(round(SNAP - 0.12, 3), toon=PLANT(GUMPT, 1.0, base=RD({'sq': [0.97, 1.03, 0.97]})), toonDur=0.1),                      # the strain, just before
             k(SNAP, toon={'plant': {'L': [GUMPT[0], GUMPT[1], GUMPT[2], 0.0]}, 'wave': {'legL': [0.16, 1.0, 0.0, 1], 'shinL': [0.16, 1.0, -1.0, 1]},
                           'bend': {'legL': [-1.0, 0, 0, 1, None], 'shinL': [0.35, 0, 0, 1, None], 'armL': [0, 0.9, 0, 1, None], 'armR': [0, -0.6, 0, 1, None]}, 'lay': [-0.18, 0], 'face': {'lid': 0.0, 'brow': 0.6, 'eye': 0.3}}, toonDur=0.05, toonEase='out'),   # (pass 2) it lets go: the leg slings forward past the other, he rocks back...
             k(round(SNAP + 0.14, 3), toon={'wave': {'legL': [0.08, 1.0, 1.0, 1], 'shinL': [0.08, 1.0, 0.0, 1]}, 'bend': {'legL': [0.35, 0, 0, 1, None], 'armL': [0, 0.5, 0, 1, None], 'armR': [0, -0.4, 0, 1, None]}, 'lay': [0.16, 0], 'face': {'lid': 0.1, 'brow': 0.5}}, toonDur=0.08),   # ...stumbles forward...
             k(round(SNAP + 0.28, 3), toon=RD({'wave': {'legL': [0.0, 1.0, 2.0, 1], 'shinL': [0.0, 1.0, 1.0, 1]}}), toonDur=0.14),   # ...and back to his phone
-            *doubleTake(round(SNAP + 0.42, 3), [GUMPT[0], 0.1, GUMPT[2]], pop=0.6)])],   # (pass 2) then a glance back at the gum, back to us, and the take (the back of his head was all we saw)
+            k(round(SNAP + 0.34, 3), look=[GUMPT[0], 0.1, GUMPT[2]]), k(round(SNAP + 0.47, 3), look=None),   # (pass 2b) a glance back at the gum, back to his phone...
+            k(round(SNAP + 0.52, 3), toon={'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),   # ...the dip...
+            k(round(SNAP + 0.56, 3), look='camera'),
+            k(round(SNAP + 0.56, 3), toon={'sq': [0.95, 1.06, 0.95], 'bend': {'armL': [0, 0.5, 0, 1, None], 'armR': [0, -0.55, 0, 1, None]}, 'face': {'pop': 0.7, 'popLen': 0.28, 'brow': 1, 'jaw': 0.35}}, toonDur=0.04, toonEase='outBack')])],
+        # (pass 2b) ...and the take at us, eyes out on stalks, the arms open (the phone off his face): with the take aimed at the gum behind him,
+        # all we saw was the back of his head
+
         props=[PHONE('phone2'), P('blob2', 'gumBlob', pos=BLOB, opts={'r': 0.2, 'pull': [[round(SNAP - 0.02, 3), 0.0], [round(SNAP + 0.08, 3), 1.0]]})],
         tethers=[STRAND(PT(GUMPT), FOOT(), frm=SNAP, sag=0.0, rad=0.03, taper=0.5, thin=[0.8], wobble=[[SNAP, 0.06, 30, 6]])],
         cams=[FC(0.0, [4.4, 1.15, 4.7], [[GUMPT[0], 0.0, GUMPT[2]], [X1, 2.3, 2.75], [X1, 2.3, 1.7], [X1, 0.0, 2.75]], top=0.1, bottom=0.74),
@@ -231,7 +237,8 @@ st.shot('S10', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
             k(UP10, toon=HOLD10(), toonDur=0.3, toonEase='outBack'), k(round(UP10 + 0.1, 3), look=[X10, 1.0, r(Z10 - 8)]),
             k(round(UP10 + 0.45, 3), to=[r(X10 + 0.04), 0, r(Z10 + 0.15)], dur=0.2, glide=True, face='keep'),
             k(round(UP10 + 0.45, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None]}, 'sq': [1.0, 0.96, 1.0]}), toonDur=0.15),   # feet wide
-            k(round(UP10 + 0.55, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'face': {'puff': 1.0, 'brow': -0.7, 'lid': 0.15, 'eye': 0.2}}), toonDur=0.2, toonEase='in'),   # (pass 2) the big breath: cheeks puffed, chest up, eyes open, held
+            k(round(UP10 + 0.55, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'scl': {'head': [1.2, 1.06, 1.2]}, 'face': {'puff': 1.0, 'brow': -0.7, 'lid': 0.0, 'eye': 0.2}}), toonDur=0.2, toonEase='in'),   # (pass 2) the big breath: cheeks puffed, chest up, eyes open, held
+            # (pass 2b) the head swells with the breath like a balloon, the eyes wide open (the puff alone was two small brackets at the mouth)
             k(round(UP10 + 0.75, 3), look='camera')])],
         tethers=[STRAND(FOOT(), HAND('mec', 'L'), frm=round(GRAB + 0.02, 3), sag=0.25, rad=0.024, taper=0.3),
                  STRAND(HAND('mec', 'R'), FAR, frm=round(GRAB + 0.02, 3), sag=0.0, rad=0.026, taper=0.0, thin=[2.0], n=14),
@@ -246,15 +253,16 @@ D11 = st.dur('S11'); YANK = 1.12; GONE = round(YANK + 0.18, 3)
 def PULL(lean, fwd, extra=None):
     d = {'lay': [round(-lean, 3), 0], 'reach': {'L': [r(X10 - 0.06), 1.0, r(Z10 - fwd), 1, 0.05], 'R': [r(X10 + 0.06), 0.97, r(Z10 - fwd - 0.14), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'},
          'bend': {'legL': [-0.25, 0.22, 0, 1, None], 'legR': [-0.25, -0.22, 0, 1, None], 'shinL': [0.45, 0, 0, 1, None], 'shinR': [0.45, 0, 0, 1, None]},
-         'plant': {'L': [r(X10 + 0.18), 0.0, r(Z10 - 0.35), 1.0], 'R': [r(X10 - 0.16), 0.0, r(Z10 - 0.3), 1.0]}, 'face': {'puff': 0.9, 'brow': -0.9, 'lid': 0.3, 'mouth': 'flat'}}
+         'plant': {'L': [r(X10 + 0.18), 0.0, r(Z10 - 0.35), 1.0], 'R': [r(X10 - 0.16), 0.0, r(Z10 - 0.3), 1.0]}, 'face': {'puff': 0.9, 'brow': -0.9, 'lid': 0.3, 'mouth': 'flat'},
+         'scl': {'head': [1.12, 1.04, 1.12]}}   # (pass 2b) still swollen with the held breath (it goes out at the pop)
     if extra: d.update(extra)
     return d
 st.shot('S11', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
         act('mec', [X10, 0, r(Z10 + 0.15)], 180, 'stand', 'unimpressed', keys=[k(0.0, look=[X10, 1.0, r(Z10 - 8)]),
             k(0.0, toon=PULL(0.15, 0.45), toonDur=0.0), k(0.35, toon=PULL(0.42, 0.55), toonDur=0.3, toonEase='out'),
             *[k(round(0.65 + 0.05 * i, 3), toon=PULL(0.45 + 0.012 * (i % 2), 0.56, {'sq': [1.0, r(1.0 + 0.012 * (i % 2)), 1.0]}), toonDur=0.04) for i in range(2)],   # held, trembling
-            k(0.76, toon=PULL(0.48, 0.58, {'face': {'puff': 0.0, 'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0}), toonDur=0.033, toonEase='out'),   # (pass 2) it is going to win: eyes out on stalks, hair up...
-            *[k(round(0.8 + 0.066 * i, 3), toon=PULL(0.48, 0.58, {'face': {'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'sq': [1.0, round(1.0 + (0.02 if i % 2 else -0.02), 3), 1.0]}), toonDur=0.033) for i in range(4)],   # ...held ten frames, shaking
+            k(0.76, toon=PULL(0.48, 0.58, {'face': {'puff': 0.0, 'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'scl': {}}), toonDur=0.033, toonEase='out'),   # (pass 2) it is going to win: eyes out on stalks, hair up...
+            *[k(round(0.8 + 0.066 * i, 3), toon=PULL(0.48, 0.58, {'face': {'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'scl': {}, 'sq': [1.0, round(1.0 + (0.02 if i % 2 else -0.02), 3), 1.0]}), toonDur=0.033) for i in range(4)],   # ...held ten frames, shaking
             k(YANK, toon={'lay': [0.9, 0], 'reach': {'L': [r(X10 - 0.05), 1.0, r(Z10 - 2.4), 1, 0.05], 'R': [r(X10 + 0.05), 0.98, r(Z10 - 2.5), 1, 0.05]}, 'hose': 0.12, 'hands': {'L': 'grip', 'R': 'grip'},
                           'face': {'brow': 0.9, 'mouth': 'O', 'jaw': 0.5, 'lid': 0.0}, 'hairUp': 0.8}, toonDur=0.05, toonEase='out'),   # yanked: arms out, tipped forward
             k(YANK, to=[X10, 0.75, r(Z10 - 0.7)], dur=0.1, glide=True, ease='out', face='keep'),   # (pass 2) yanked up into the air...
