@@ -57,9 +57,16 @@ export const BOOMERANG_PROPS = {
       g.traverse(q => { if (q.isMesh) { q.castShadow = !ghost; q.position.y = q.position.y; } }); return g;
     };
     const body = build(0), gh = [build(0.32), build(0.16)], spin = grp(body, ...gh), g = grp(spin);
+    // (pass 2 of 52) o.glint: a four-point star that twinkles on it (a far boomerang was a 15 x 3 px speck); o.glint is its size in metres
+    let gl = null;
+    if (o.glint) { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); x.translate(64, 64); x.fillStyle = '#FFFFFF';
+      for (const [a, l] of [[0, 62], [PI / 2, 62], [PI / 4, 30], [3 * PI / 4, 30]]) { x.save(); x.rotate(a); x.beginPath(); x.moveTo(-l, 0); x.lineTo(0, -6); x.lineTo(l, 0); x.lineTo(0, 6); x.closePath(); x.fill(); x.restore(); }
+      x.beginPath(); x.arc(0, 0, 11, 0, TAU); x.fill(); const tex = new THREE.CanvasTexture(c);
+      gl = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: '#FFF6D8', transparent: true, depthWrite: false, toneMapped: false })); gl.scale.setScalar(o.glint); g.add(gl); }
     g.userData.update = t => { const turns = turnsAt(o.spin, t), r = Math.abs(rateAt(o.spin, t)), a = -TAU * turns;
       body.rotation.y = a; gh.forEach((q, i) => { q.visible = r > 2.5; q.rotation.y = a + (i + 1) * 0.32 * Math.sign(turns || 1); });
-      spin.rotation.x = (o.wobble || 0) * Math.sin(a * 0.5); spin.rotation.z = (o.wobble || 0) * 0.6 * Math.cos(a * 0.5); };
+      spin.rotation.x = (o.wobble || 0) * Math.sin(a * 0.5); spin.rotation.z = (o.wobble || 0) * 0.6 * Math.cos(a * 0.5);
+      if (gl) { const k = 0.65 + 0.35 * Math.abs(Math.sin(t * 9)); gl.scale.setScalar(o.glint * k); gl.material.rotation = t * 2.5; } };
     g.userData.update(0); return g;
   },
 
@@ -70,7 +77,8 @@ export const BOOMERANG_PROPS = {
     const s = o.s ?? 1, w = 0.21 * s, h = 0.297 * s, g = grp();
     const face = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FBFAF4'; c.fillRect(0, 0, W, H); c.fillStyle = '#1B2A6B'; c.textAlign = 'center'; c.font = `900 ${H * 0.055}px Arial`; c.fillText('DÉCLARATION', W / 2, H * 0.09); c.fillText('DE PERTE', W / 2, H * 0.155);
       c.textAlign = 'left'; c.font = `bold ${H * 0.04}px Arial`; c.fillStyle = '#26262A';
-      [['Objet :', 'boomerang'], ['Perdu le :', 'il y a dix ans'], ['Lieu :', 'le parc']].forEach(([a, b], i) => { const y = H * (0.25 + i * 0.075); c.fillText(a, W * 0.08, y); c.fillStyle = '#2F4FA8'; c.font = `italic ${H * 0.042}px Arial`; c.fillText(b, W * 0.4, y); c.fillStyle = '#26262A'; c.font = `bold ${H * 0.04}px Arial`;
+      // (pass 2 of 52) « boomerang » in a dark, bold hand twice the size (the pale hairline was unreadable even at full size)
+      [['Objet :', 'boomerang'], ['Perdu le :', 'il y a dix ans'], ['Lieu :', 'le parc']].forEach(([a, b], i) => { const y = H * (0.255 + i * 0.085 + (i ? 0.02 : 0)); c.fillText(a, W * 0.08, y); c.fillStyle = i ? '#1F3C8C' : '#0F1E5C'; c.font = i ? `bold italic ${H * 0.046}px Georgia, serif` : `900 italic ${H * 0.085}px Georgia, serif`; c.fillText(b, W * (i ? 0.4 : 0.36), y); c.fillStyle = '#26262A'; c.font = `bold ${H * 0.04}px Arial`;
         c.strokeStyle = 'rgba(40,40,60,0.35)'; c.lineWidth = H * 0.003; c.beginPath(); c.moveTo(W * 0.38, y + H * 0.012); c.lineTo(W * 0.92, y + H * 0.012); c.stroke(); });
       // the sketch: a boomerang and a dashed arrow flying off (no return)
       c.save(); c.translate(W * 0.36, H * 0.62); c.rotate(-0.3); c.strokeStyle = '#6A4A2A'; c.fillStyle = '#E2B07A'; c.lineWidth = H * 0.008; c.beginPath(); c.moveTo(-W * 0.16, -H * 0.06); c.quadraticCurveTo(0, H * 0.06, W * 0.16, -H * 0.06); c.lineTo(W * 0.13, -H * 0.085); c.quadraticCurveTo(0, H * 0.02, -W * 0.13, -H * 0.085); c.closePath(); c.fill(); c.stroke(); c.restore();

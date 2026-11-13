@@ -1768,6 +1768,11 @@ const B = {
       at(box(1.2, 0.1, 4.4, P.white, { taper: { x: 0.5, z: 1 }, taperAxis: 'y' }), -6.7, 0.5, 0), at(box(11, 0.32, 1.84, c), 0, -0.2, 0));
     [-3.2, 3.2].forEach(z => g.add(at(cyl(0.38, 0.32, 1.4, '#C9CCD1', 10, { outline: 0.01 }), 0.6, -0.85, z, 0, 0, PI / 2)));
     for (let i = 0; i < 12; i++) [-1, 1].forEach(s => g.add(at(box(0.2, 0.24, 0.02, '#2A3A55'), 3.9 - i * 0.75, 0.3, s * 0.915)));
+    // (pass 2 of 52) o.gear: a nose wheel and two main wheels on struts, the tyres touching y = -1.6 (on the ground with the origin 1.6 m up: it floated
+    // above the zebra crossing); o.cockpit: dark windscreen panels on the nose (a pointed tube with no windscreen read as a missile)
+    if (o.gear) { const wheel = (x, z) => [at(cyl(0.05, 0.05, 0.75, '#5B6068', 6), x, -1.1, z), at(cyl(0.24, 0.24, 0.18, '#1E2024', 12, { outline: 0.01 }), x, -1.36, z, PI / 2, 0, 0)];
+      g.add(...wheel(5.0, 0), ...wheel(-0.6, 1.2), ...wheel(-0.6, -1.2)); }
+    if (o.cockpit) for (const s of [-1, 1]) g.add(at(box(0.55, 0.3, 0.04, '#1F2C44', { outline: 0.006 }), 6.05, 0.38, s * 0.5, 0, s * 0.55, -0.35));
     return g; },
   photo(o) { // small print photo with a white border (the yearly meal: a photo of rice); held like a card
     const pic = canvasPlane(0.1, 0.122, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.fillStyle = '#C9B48A'; c.fillRect(W * 0.07, H * 0.06, W * 0.86, H * 0.7);

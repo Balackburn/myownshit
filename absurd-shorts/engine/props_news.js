@@ -850,6 +850,9 @@ export const NEWS_PROPS = {
     g.add(at(box(W + 0.2, 0.35, D + 0.7, '#E2D8C4'), 0, H * 0.75, 0.15));
     const ped = new THREE.Mesh(new THREE.CylinderGeometry(0.01, W * 0.62, H * 0.32, 3, 1), mat('#E2D8C4')); ped.rotation.y = PI / 2; ped.scale.set(1, 1, 0.12); ped.position.set(0, H * 0.75 + 0.18 + H * 0.16, D / 2 + 0.25);
     if (o.gable === 'v2') { ped.rotation.y = 0; ped.scale.set(1, 1, 0.1); }   // (cycle 14) o.gable 'v2': the pediment in the plane of the facade (turned 90 degrees it stuck out toward the street like a fin)
+    // (pass 2 of 52) the v2 pediment a flat triangle facing the street, lit evenly (one face of the flattened three-sided cone fell in shade: a hard black half)
+    if (o.gable === 'v2') { const sh = new THREE.Shape(), bw = W * 0.54, hh = H * 0.32; sh.moveTo(-bw, 0); sh.lineTo(bw, 0); sh.lineTo(0, hh); sh.closePath();
+      const eg = new THREE.ExtrudeGeometry(sh, { depth: 0.3, bevelEnabled: false }); eg.translate(0, 0, -0.15); ped.geometry = eg; ped.rotation.set(0, 0, 0); ped.scale.set(1, 1, 1); ped.position.set(0, H * 0.75 + 0.18, D / 2 + 0.25); }
     g.add(ped);
     g.add(at(sign(o.text || 'MAIRIE', W * 0.55, 0.55, '#1C2E4A', '#F4F1E8'), 0, H * 0.75, D / 2 + 0.52));
     g.add(at(cyl(0.32, 0.32, 0.05, '#F4F1E8', 18), 0, H * 0.75 + 0.62, D / 2 + 0.3, PI / 2, 0, 0), at(box(0.03, 0.22, 0.01, '#1C252A'), 0, H * 0.75 + 0.69, D / 2 + 0.34), at(box(0.16, 0.03, 0.01, '#1C252A'), 0.06, H * 0.75 + 0.62, D / 2 + 0.34));
@@ -953,7 +956,8 @@ export const NEWS_PROPS = {
     g.userData.update(0); return g;
   },
   brideVeil(o) { // a bride's veil to attach to an actor's head joint (offset to the top of the head): a translucent white drape down the back and a headband of flowers
-    const g = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.95, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthWrite: false })), 0, -0.35, -0.1));
+    // (pass 2 of 52) o.opacity / o.len: a veil that reads (faint and short, she read as a woman in a white suit)
+    const vl = o.len ?? 0.95, g = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.3 * (o.flare ?? 1), vl, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: (o.opacity ?? 0.6) < 0.99, opacity: o.opacity ?? 0.6, side: THREE.DoubleSide, depthWrite: (o.opacity ?? 0.6) >= 0.99 })), 0, -0.35 - (vl - 0.95) / 2, -0.1));
     g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.016, 6, 18), mat('#F4F1E8')), 0, 0, 0, PI / 2, 0, 0));
     for (let i = 0; i < 6; i++) g.add(at(sphere(0.026, i % 2 ? '#F7C6D9' : '#FFFFFF', 0), Math.cos(i * TAU / 6) * 0.14, 0.01, Math.sin(i * TAU / 6) * 0.14));
     return g;
