@@ -148,9 +148,9 @@ function headDeform(hm, dim) {
   const sub = subdivideY(hm.geometry, 13); if (!sub) return null;
   const old = hm.geometry; hm.geometry = sub; hm.traverse(c => { if (c !== hm && c.isMesh && c.geometry === old) c.geometry = sub; }); hm.frustumCulled = false; hm.traverse(c => { c.frustumCulled = false; });
   const p = sub.attributes.position, rest = new Float32Array(p.array), yM = dim.y0 + JAW_TOP * dim.hh; let last = 0;
-  const yB = dim.y0 + JAW_B * dim.hh; let lastB = 0;
-  return (drop, block = 0) => {
-    if (drop === last && block === lastB) return; last = drop; lastB = block; const fwd = Math.min(0.055, drop * 0.5);
+  const yB = dim.y0 + JAW_B * dim.hh; let lastB = 0, lastF = null;
+  return (drop, block = 0, fwdIn = null) => {
+    if (drop === last && block === lastB && fwdIn === lastF) return; last = drop; lastB = block; lastF = fwdIn; const fwd = fwdIn ?? Math.min(0.055, drop * 0.5);
     for (let i = 0; i < p.count; i++) { const y = rest[i * 3 + 1], kL = y < yM ? (yM - y) / (yM - dim.y0) : 0, k = kL + ((y < yB ? 1 : 0) - kL) * block; p.setXYZ(i, rest[i * 3], y - drop * k, rest[i * 3 + 2] + fwd * k); }
     p.needsUpdate = true;
   };
@@ -209,8 +209,11 @@ function headOverlays(head, hm, dim, skin) {
       E.e.rotation.set(-(f.stalkPitch || 0), f.stalkYaw || 0, 0);   // (cycle 9) face.stalkYaw / stalkPitch (rad): both stalks swing together (+ yaw toward his left, + pitch down): they follow a bus that goes by
       E.stalk.material.color.copy(E.skin0).lerp(STALK_RED, f.stalkRed || 0);
     }
-    const blk = Math.max(0, Math.min(1, f.jawBlock || 0)); deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20);
-    cavity.visible = blk > 0.5 && drop > 0.01; if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop; cavity.position.set(0, top, hd / 2 + Math.min(0.055, drop * 0.5) + 0.007); cavity.scale.set(hw * 0.56, Math.max(0.001, top - bot), 1); }
+    // (cycle 20) face.jawFwd (m): how far forward the dropped jaw hangs (default up to 5.5 cm): a jaw dropped to the floor hangs in front of his chest
+    // instead of through it
+    const blk = Math.max(0, Math.min(1, f.jawBlock || 0)), jf = f.jawFwd != null ? Math.round(f.jawFwd * 500) / 500 : null, fw = jf ?? Math.min(0.055, drop * 0.5);
+    deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20, jf);
+    cavity.visible = blk > 0.5 && drop > 0.01; if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop; cavity.position.set(0, top, hd / 2 + fw + 0.007); cavity.scale.set(hw * 0.56, Math.max(0.001, top - bot), 1); }
     const tg = f.tongue || 0, fly = !!f.tongueYaw && tg > 0.01; tongue.visible = tg > 0.01 && !fly; tongueFly.visible = fly;
     const kMo = (1 - MOUTH_Y / JAW_TOP) * (1 - blk) + blk;   // how much of the drop the mouth takes: all of it when the jaw drops as a block
     if (fly) { const k = kMo, L = tg * (f.tongueLen ?? 0.3), w0 = hw * 0.11 * (f.tongueW ?? 1);
@@ -218,7 +221,7 @@ function headOverlays(head, hm, dim, skin) {
       for (let i = 0; i <= TFN; i++) { const u = i / TFN, z = u * L, y = (f.tongueDip ?? -0.1) * z * 0.5 + 0.03 * u * Math.sin(t * 26 - u * 7), hwd = w0 * (1 - 0.5 * u) * (i === TFN ? 0.3 : 1), e = 0.008;
         tfPos.set([0, y + hwd + e, z, 0, y + hwd, z, 0, y - hwd, z, 0, y - hwd - e, z], i * 12); }
       tfGeo.attributes.position.needsUpdate = true; }
-    if (tongue.visible) { const k = kMo; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
+    if (tongue.visible) { const k = kMo; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + fw * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
       if (f.tongueYaw) { tongue.rotation.set((f.tongueDip ?? -0.1) + 0.05 * Math.sin(t * 19), f.tongueYaw + 0.14 * Math.sin(t * 23), 0); tongue.position.z += 0.012; } }   // (cycle 5) face.tongueYaw (rad, + = toward his left): the tongue blown aside by the wind of a run (1.5: flat across the cheek and out past the head), fluttering; face.tongueDip: its pitch
     const ink = f.steamInk || 0; if (ink && !ptInk) ptInk = puffInkTex();   // (cycle 6) steamInk 0..1: inked steam: a jet that leaves the ear thin and fast, swells into lobed clouds and thins as it rises
     puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1; p.visible = steam > 0.01; if (!p.visible) return; const m = ink ? ptInk : pt; if (p.material.map !== m) { p.material.map = m; p.material.needsUpdate = true; }
@@ -372,7 +375,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.reach || b.reach) { out.reach = {}; for (const sd of ['L', 'R']) { const x = a.reach?.[sd], y = b.reach?.[sd]; if (!x && !y) continue; const p0 = x || y, p1 = y || x; out.reach[sd] = [L(p0[0], p1[0]), L(p0[1], p1[1]), L(p0[2], p1[2]), L(x ? (x[3] ?? 1) : 0, y ? (y[3] ?? 1) : 0), L(p0[4] || 0, p1[4] || 0), POLE(x?.[5], y?.[5])]; } }   // a hand guided to a point: fades in and out through its weight
   if (a.plant || b.plant) { out.plant = {}; for (const sd of ['L', 'R']) { const x = a.plant?.[sd], y = b.plant?.[sd]; if (!x && !y) continue; const p0 = x || y, p1 = y || x; out.plant[sd] = [L(p0[0], p1[0]), L(p0[1], p1[1]), L(p0[2], p1[2]), L(x ? (x[3] ?? 1) : 0, y ? (y[3] ?? 1) : 0), POLE(x?.[4], y?.[4]), (w < 0.5 ? p0 : p1)[5]]; } }   // (cycle 13) a foot held at a point: fades in and out through its weight
   const fa = a.face || {}, fb = b.face || {}, fk = new Set([...Object.keys(fa), ...Object.keys(fb)]);
-  if (fk.size) { out.face = {}; for (const k of fk) { const dflt = (k === 'pupil' || k === 'eyeScale') ? 1 : 0; const keep = k === 'popLen' || k === 'jawLen' || k === 'tongueLen' || k === 'expr', x = fa[k] ?? (keep ? fb[k] : dflt), y = fb[k] ?? (keep ? fa[k] : dflt); out.face[k] = typeof x === 'number' && typeof y === 'number' ? L(x, y) : (w < 0.5 ? x : y); } }
+  if (fk.size) { out.face = {}; for (const k of fk) { const dflt = (k === 'pupil' || k === 'eyeScale') ? 1 : 0; const keep = k === 'popLen' || k === 'jawLen' || k === 'jawFwd' || k === 'tongueLen' || k === 'expr', x = fa[k] ?? (keep ? fb[k] : dflt), y = fb[k] ?? (keep ? fa[k] : dflt); out.face[k] = typeof x === 'number' && typeof y === 'number' ? L(x, y) : (w < 0.5 ? x : y); } }
   return out;
 }
 // add b onto a (automatic layers on top of the clip's channels)
