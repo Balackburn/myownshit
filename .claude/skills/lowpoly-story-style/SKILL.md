@@ -1024,3 +1024,19 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 16, passe 3 de 53) Un papier qu'on doit lire (un permis à l'envers) tenu dans la main finit au bord du cadre, à moitié derrière le poing, et
   le travelling avant le perd : en faire un accessoire à part, `face='camera'`, posé à côté du visage, la moitié de la largeur du cadre, la main
   qui le pince par un coin, le travelling avant qui atterrit dessus avant le mot.
+- (cycle 16, passe 3 de 52) L'ordre du canal `bend` est `[bx, bz, torsion, étirement, gras]` : un tour complet de la tête se met dans la torsion
+  (3e valeur). Mis dans `bz` (2e), c'est une flexion de côté : la tête passe sous les épaules et le personnage paraît sans tête neuf images (plan 6
+  du boomerang). Pour qu'elle reste au-dessus du col pendant le demi-tour arrière, étirer le cou (4e valeur, 1,8) puis le rendre en rebondissant.
+- (cycle 16, passe 3 de 52) Un voile en cône rond accroché à la tête balance son ourlet devant le ventre dès qu'elle tourne la tête (« une cloche
+  blanche », lu comme une grossesse) : `brideVeil` `drape: True` l'aplatit dans son dos.
+- (cycle 16, passe 3 de 52) Un « passage piéton » se lit seulement si le piéton coupe la trajectoire à l'écran : vu de trois quarts, le boomerang qui
+  file dans le sens de l'avion « passe devant » au lieu de traverser ; le faire venir vers nous pendant que l'avion va à droite, juste devant son nez,
+  et poser la route sous les roues (`skyCrossing` `roadLen`, `stopLine`).
+- (cycle 16, passe 3 de 52) Un personnage qui doit passer « loin dans le ciel » au-dessus d'un autre : calculer sa trajectoire à partir du cadre
+  (`AT16` dans `story_boomerang.py` : le point d'un plan de profondeur que la caméra met à telle fraction du cadre) au lieu de la poser à la main
+  (posée à la main, elle passait sur le chignon de la mariée).
+- (cycle 16) `render3 --probe` s'arrêtait après la sonde : les images `--stills` du même appel n'étaient jamais faites (le dossier gardait celles d'un
+  rendu précédent). Corrigé : sonde et images dans le même appel ; vérifier tout de même l'heure des fichiers.
+- (cycle 16) En corrigeant un script par remplacement de texte, ne jamais terminer un remplacement par un commentaire quand le texte remplacé
+  s'arrête au milieu d'une ligne : la suite de la ligne passe dans le commentaire sans erreur (trois fois en une passe : des clés de regard, une
+  constante `VEILOFF`, des clés de caméra). `tools/lint_comments.py` attrape maintenant aussi `; NOM = ...` dans un commentaire.
