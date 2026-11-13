@@ -1,0 +1,12 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a marché sur une gomme à mâcher il y a trois semaines.", "hl": ["gomme", "trois"]},
+ {"id": "L02", "who": "N", "text": "Depuis, elle s'étire derrière lui.", "hl": ["s'étire"]},
+ {"id": "L03", "who": "N", "text": "Le fil rose traverse tout Paris.", "hl": ["Paris."]},
+ {"id": "L04", "who": "N", "text": "La mairie l'a classé voirie communale.", "hl": ["voirie", "communale."]},
+ {"id": "L05", "who": "N", "text": "Le dimanche, les enfants font de la corde à sauter avec.", "hl": ["corde", "sauter"]},
+ {"id": "L06", "who": "N", "text": "La ville y a accroché un téléphérique.", "hl": ["téléphérique."]},
+ {"id": "L07", "who": "N", "text": "Hier, il a voulu s'en débarrasser.", "hl": ["débarrasser."]},
+ {"id": "L08", "who": "N", "text": "Il a tiré un grand coup.", "hl": ["tiré"]},
+ {"id": "L09", "who": "N", "text": "Le fil l'a ramené chez lui en une seconde.", "hl": ["seconde."]},
+ {"id": "L10", "who": "N", "text": "Depuis, il fait du télétravail.", "hl": ["télétravail."]}
+]
