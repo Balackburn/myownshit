@@ -1817,3 +1817,36 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - Trouvé après coup par le nouvel audit des poses de main : aux plans 9 et 14, les paumes « flat » contre le miroir et sur les genoux sont restées
   en pose de repos (doigts un peu repliés). Décision : ne pas relancer la génération complète pour ce détail (lisible tel quel) ; l'audit
   l'empêche désormais dès l'écriture.
+
+---
+
+## Cycle 17 — analyse, rig « épingle », histoire 55 « La ventouse »
+
+### Analyse (faiblesses relevées par les revues des histoires 51 à 54)
+1. **Contacts qui n'arrivent pas** : la claque au-dessus du réveil, les mains de l'ostéopathe qui flottent, la cuillère au-dessus de la tête, le bras
+   « sur le dossier » resté dans la rue. Causes trouvées : un nom de pose de main inexistant (`flat`) qui retombe en repos, un `reach` vers un point
+   du monde sur un personnage qui se déplace, un accessoire tenu qui pointe où pointe le poignet.
+2. **Visages de profil ou de dos aux temps forts** (la boîte de la tête n'a pas de visage sur ses côtés) : marche à reculons de profil, clignement de
+   profil au guichet, prise de la dame dos à nous.
+3. **Accessoires et textes illisibles** à la taille d'un téléphone : le permis, la pièce, le rotor, la carte dorée de la valise, FRAGIL.
+4. **Tenues mortes** : des plans figés 0,5 à 0,7 s (aucune image ne change), aucune respiration ni clignement.
+5. **Lecture spatiale** : la caméra qui ruine la géométrie d'un gag (un passage piéton vu de trois quarts, une marche à reculons vue de face).
+
+### Outils faits
+- Audit des poses de main inconnues à l'écriture (`story_kit.write`), sonde et images dans le même appel de `render3`, lint qui attrape
+  `; NOM = ...` dans un commentaire, disque de flou des rotors, pièce qui scintille, voile plaqué dans le dos, route sous un passage piéton.
+- **Rig : canal `pin`** `{joint, off, at, w}` : un point d'une articulation tenu sur un point du monde, tout le corps déplacé pour qu'il y reste
+  (pendu par le front à un lampadaire, collé à la vitre d'un bus qui roule, accroché au plafond du métro) ; `lay` le balance autour de ce point, `w`
+  le lâche (la chute). Testé sur une scène isolée : la tête reste au point, les jambes se balancent.
+
+### Histoire 55 « La ventouse » (structure du skill inchangée)
+- Accroche : il s'est collé une ventouse sur le front ; logique absurde de deux institutions qui se renvoient le cas (la mutuelle : c'est de la
+  plomberie ; le plombier : c'est un front) ; escalade (il colle à tout ; le métro l'embauche comme poignée) ; retournement (la ventouse se décolle,
+  le métro la garde) ; aparté sec (lui est au chômage). Aucun nom d'organisation réelle ; nom de station inventé (RUE DES ARTS).
+- Décision (prise sans demander) : la ventouse est collée au front par le bout du manche, la cupule vers l'extérieur, comme une corne : c'est la
+  cupule qui colle ensuite au lampadaire, à la vitre et au plafond, et qui y reste au retournement (cupule sur le front, rien d'autre ne pouvait
+  coller).
+- Gags du rig : trois pompages avec la cupule qui s'écrase ; la ventouse qui vole et se plante sur son front (tête écrasée, yeux sur tiges) ; la
+  tête tirée au bout d'un cou de chewing-gum qui revient en vibrant ; la pichenette au bout d'un bras qui s'allonge, la tête qui tremble avec le
+  manche ; TOC, TOC, la tête qui s'écrase à chaque coup ; pendu au lampadaire, balancé ; traîné par le bus, à plat comme un drapeau ; poignée de
+  métro, tout le wagon qui bascule au freinage ; POP, la chute et l'anneau rouge.
