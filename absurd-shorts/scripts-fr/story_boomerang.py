@@ -33,7 +33,8 @@ PARK = {'seed': 31}
 P0 = [0.0, 0, 0.0]; RY0 = -35                                         # in the park, three-quarter to us, turned toward the sky on screen left (at -70 the audit read a profile)
 BOOM = lambda pid, **kw: P(pid, 'boomerang', **kw)
 CUPPED = [0.3, 0.32, 0.36, 0.4, 0.25, 0.15]                          # a hand held out to receive
-OUT = lambda who_p, ry: {'reach': {'R': [*OFF(who_p, ry, 0.42, 0.18, 1.12), 1, 0.04]}, 'hands': {'R': CUPPED}}   # the hand held out, palm up, waiting
+OUT = lambda who_p, ry: {'reach': {'R': [*OFF(who_p, ry, 0.55, 0.2, 1.32), 1, 0.04]}, 'hands': {'R': CUPPED}}   # the hand held out, palm up, waiting
+# (first look) further out and at chest height: at 0.42 m and 1.12 m the hand hung at his hip, a hand barely lifted
 
 # 1: the hook. In the park: a rubber-band windup, the boomerang over his shoulder, the arm stretched back twice its length, the spine wound up, the tip of
 #    the tongue out; held; on « lancé » the whip forward, the boomerang gone off the top left, the follow-through pose
@@ -72,7 +73,7 @@ st.cue('whoosh', 'S02', 0.05, 0.3, 0.45, 300, 1000)
 # 3: it never came back. He waits, deadpan, his hand held out, eyes on the sky; a passer-by walks past and drops a coin in his hand; he looks at the coin,
 #    then back up at the sky, the hand still out
 D3 = st.dur('S03'); CN3 = round(st.at('S03', 'L02', 2) - 0.02, 3)
-HAND3 = OFF(P0, RY0, 0.42, 0.18, 1.12)
+HAND3 = OFF(P0, RY0, 0.55, 0.2, 1.32)   # (first look) where OUT puts the hand
 st.shot('S03', 'grassland', setOpts=PARK, actors=[
         act('mec', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-6, 6.5, 3.5]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.0),
             k(0.25, toon={**OUT(P0, RY0), 'face': {'lid': 1.0}}, toonDur=0.05), k(0.36, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.07),
@@ -176,23 +177,24 @@ st.cue('sfx:beep', 'S08', 0.1, 0.25); st.cue('sfx:beep', 'S08', 0.8, 0.25); st.c
 # 9: an air corridor. Above the clouds: two rows of orange cones standing on the cloud tops, a lane into the distance; the boomerang comes down it toward us
 #    and whips past the lens
 D9 = st.dur('S09')
-CONES = [P(f'cone9_{s}{i}', 'skyCone', pos=[r(s * 1.3), 0.1, r(-2.0 - 4.5 * i)], scale=1.3, opts={'puff': True}) for s in (-1, 1) for i in range(7)]
+YS = 60.0   # (first look) everything 60 m up, above the cloud deck (its cumulus stand up to 50 m: at 1.5 m the camera sat inside one, the frame all grey)
+CONES = [P(f'cone9_{s}{i}', 'skyCone', pos=[r(s * 1.3), YS + 0.1, r(-2.0 - 4.5 * i)], scale=1.3, opts={'puff': True}) for s in (-1, 1) for i in range(7)]
 st.shot('S09', 'skyHigh', setOpts={'seed': 9}, actors=[],
-        props=[*CONES, BOOM('boom9', pos=[0.0, 1.4, -34.0], scale=2.2, opts={'spin': [[0.0, 8.0]], 'wobble': 0.2}, keys=[k(0.05, to=[0.25, 1.2, 4.2], dur=round(D9 - 0.2, 3), ease='in')])],
-        cams=[cam(0.0, [0.55, 1.5, 5.2], [0.5, 1.45, 4.9], [0.0, 0.9, -20.0], [0.0, 0.9, -20.0], lens=34)])
+        props=[*CONES, BOOM('boom9', pos=[0.0, YS + 1.4, -34.0], scale=2.2, opts={'spin': [[0.0, 8.0]], 'wobble': 0.2}, keys=[k(0.05, to=[0.25, YS + 1.2, 4.2], dur=round(D9 - 0.2, 3), ease='in')])],
+        cams=[cam(0.0, [0.55, YS + 1.5, 5.2], [0.5, YS + 1.45, 4.9], [0.0, YS - 1.2, -20.0], [0.0, YS - 1.2, -20.0], lens=40)])   # (first look) a little down: the lane of cones, the cloud sea under it
 st.cue('whoosh', 'S09', round(D9 - 0.45, 3), 0.45, 0.35, 400, 2600)
 
 # 10: planes give way to it. A zebra crossing painted on the clouds: an airliner comes in and brakes like a car before it, nose down, squashed; the boomerang
 #     crosses in front of its nose; the plane sets off again
 D10 = st.dur('S10'); BR10 = round(st.at('S10', 'L06', 3) - st.SH['S10'][0] - 0.2, 3); X10 = 1.2
 st.shot('S10', 'skyHigh', setOpts={'seed': 10}, actors=[],
-        props=[P('zebra10', 'skyCrossing', pos=[X10, 0.15, 0.0], ry=90, opts={'w': 9.0, 'l': 3.2, 'n': 7}),
-               P('plane10', 'plane', pos=[-34.0, 3.0, 0.0], opts={'livery': '#2F6FB5'}, keys=[k(0.0, to=[r(X10 - 10.5), 3.0, 0.0], dur=BR10, ease='out'),
+        props=[P('zebra10', 'skyCrossing', pos=[X10, YS + 0.15, 0.0], ry=90, opts={'w': 9.0, 'l': 3.2, 'n': 7}),
+               P('plane10', 'plane', pos=[-34.0, YS + 3.0, 0.0], opts={'livery': '#2F6FB5'}, keys=[k(0.0, to=[r(X10 - 10.5), YS + 3.0, 0.0], dur=BR10, ease='out'),
                    k(round(BR10 - 0.12, 3), rotTo=[0, 0, -0.16], dur=0.12, ease='out'), k(round(BR10 - 0.05, 3), squash=[0.86, 1.1, 1.0], dur=0.0), k(round(BR10 + 0.12, 3), squash=[1.04, 0.97, 1.0], dur=0.0), k(round(BR10 + 0.2, 3), squash=[1, 1, 1], dur=0.1),
                    k(round(BR10 + 0.15, 3), rotTo=[0, 0, 0.03], dur=0.15, ease='inOut'), k(round(BR10 + 0.3, 3), rotTo=[0, 0, 0], dur=0.1),
-                   k(round(D10 - 0.55, 3), to=[18.0, 3.4, 0.0], dur=0.55, ease='in'), k(round(D10 - 0.55, 3), squash=[1.12, 0.94, 1.0], dur=0.0)]),
-               BOOM('boom10', pos=[X10, 3.6, 9.0], scale=4.0, opts={'spin': [[0.0, 7.0]], 'wobble': 0.15}, keys=[k(0.0, visible=False), k(round(BR10 + 0.08, 3), visible=True), k(round(BR10 + 0.08, 3), to=[X10, 3.5, -9.0], dur=0.5, ease='linear')])],
-        cams=[cam(0.0, [9.5, 4.6, 15.5], [9.2, 4.6, 15.0], [-3.5, 2.8, 0.0], [-3.2, 2.8, 0.0], lens=30)])
+                   k(round(D10 - 0.55, 3), to=[18.0, YS + 3.4, 0.0], dur=0.55, ease='in'), k(round(D10 - 0.55, 3), squash=[1.12, 0.94, 1.0], dur=0.0)]),
+               BOOM('boom10', pos=[X10, YS + 3.6, 9.0], scale=4.0, opts={'spin': [[0.0, 7.0]], 'wobble': 0.15}, keys=[k(0.0, visible=False), k(round(BR10 + 0.08, 3), visible=True), k(round(BR10 + 0.08, 3), to=[X10, YS + 3.5, -9.0], dur=0.5, ease='linear')])],
+        cams=[cam(0.0, [9.5, YS + 5.6, 15.5], [9.2, YS + 5.6, 15.0], [-3.5, YS + 1.8, 0.0], [-3.2, YS + 1.8, 0.0], lens=34)])   # (first look) a little higher, looking down at the crossing on the cloud sea
 st.cue('sfx:brake', 'S10', round(BR10 - 0.15, 3), 0.4); st.cue('whoosh', 'S10', round(BR10 + 0.1, 3), 0.4, 0.3, 500, 2500); st.cue('sfx:jet', 'S10', round(D10 - 0.55, 3), 0.3)
 
 # 11: yesterday, it came back. The town-hall square from low down: the steps, the flag, a wedding party posing far below; high in the sky a whistling speck
@@ -204,8 +206,10 @@ st.shot('S11', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, acto
         act('mec', [0.05, 0.25, -27.3], 0, 'stand', 'happy', keys=[k(0.0, look='camera')]),
         act('mamie', [-1.25, 0.25, -27.5], 10, 'stand', 'happy', keys=[k(0.0, look='camera')]), act('voisin', [0.85, 0.25, -27.5], -10, 'stand', 'happy', keys=[k(0.0, look='camera')])],
         props=[P('th11', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}),
-               BOOM('boom11', pos=[3.0, 26.0, -36.0], scale=3.0, opts={'spin': [[0.0, 6.0]], 'wobble': 0.2}, keys=[k(0.0, to=[0.6, 9.0, -29.0], dur=round(D11 - 0.05, 3), ease='in')])],
-        cams=[cam(0.0, [2.2, 0.9, -15.5], [2.0, 0.95, -16.2], [0.3, 6.5, -30.0], [0.3, 6.8, -30.0], lens=30)])
+               BOOM('boom11', pos=[3.2, 19.0, -33.0], scale=4.5, opts={'spin': [[0.0, 6.0]], 'wobble': 0.2}, keys=[k(0.0, to=[0.7, 7.5, -27.6], dur=round(D11 - 0.05, 3), ease='in')])],
+        cams=[cam(0.0, [2.0, 0.7, -13.6], [1.9, 0.75, -14.2], [0.3, 7.6, -29.0], [0.3, 7.9, -29.0], lens=52)])
+        # (first look) wider and lower: the party small at the bottom, the speck in the sky all through the shot (at 30 degrees it stayed above the top edge
+        # until the last frames and the steps fell below the bottom)
 st.cue('whoosh', 'S11', 0.05, 1.4, 0.6, 1200, 3200)
 
 # 12: right during his wedding photo. Behind the photographer under his black cloth: the party on the steps, everyone smiling stiffly for the camera, the groom
@@ -224,16 +228,18 @@ GROOM = [0.05, 0.25, -27.3]
 VEIL = lambda pid: P(pid, 'brideVeil', on={'actor': 'mariee', 'joint': 'head', 'offset': [0, 0.42, -0.05]})
 BOUQ = lambda pid: P(pid, 'bouquet', on={'actor': 'mariee', 'hand': 'R', 'offset': [0, 0.02, 0.04]}, scale=1.6)
 HOLDB = {'reach': {'R': [-0.42, 1.3, -26.95, 1, 0.05]}, 'hands': {'R': 'grip'}}
-PHOTOG = [1.35, 0, -23.6]                                             # (first look) to the side: in the middle he hid the groom (78 %)
+PHOTOG = [1.5, 0, -23.75]                                             # (first look) to the side: in the middle he hid the groom (78 %)
 st.shot('S12', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, actors=[
         *WEDS(lambda nm, p: [k(0.0, toon={**SMILE, **HOLDB}, toonDur=0.0), k(0.55, toon={**HOLDB, 'face': {'mouth': 'bigsmile', 'lid': 1.0}}, toonDur=0.05), k(0.66, toon={**SMILE, **HOLDB}, toonDur=0.06)] if nm == 'mariee' else
                    [k(round(0.3 + 0.1 * len(nm) % 0.4, 3), toon={'face': {'mouth': 'bigsmile', 'lid': 1.0}}, toonDur=0.05), k(round(0.42 + 0.1 * len(nm) % 0.4, 3), toon=SMILE, toonDur=0.06)]),
         act('mec', GROOM, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.0), k(0.6, toon={'face': {'mouth': 'smile', 'lid': 1.0}}, toonDur=0.05), k(0.72, toon={'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.07)]),   # a polite smile, heavy lids
         act('photographe', PHOTOG, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.5, -27.3]), k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.55, -24.0, 1, 0.05]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
             k(0.35, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.95, -24.0, 1, 0.05]}, 'hands': {'R': 'spread'}}, toonDur=0.1), k(0.5, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.55, -24.0, 1, 0.05]}, 'hands': {'R': 'grip'}}, toonDur=0.1)])],   # « souriez » with his free hand
-        props=[P('th12', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}), P('cam12', 'bellowsCamera', pos=[1.35, 0, -24.05], ry=200), VEIL('veil12'), BOUQ('bq12'),
+        props=[P('th12', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}), P('cam12', 'bellowsCamera', pos=[1.48, 0, -24.2], ry=196), VEIL('veil12'), BOUQ('bq12'),
                P('flower12', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45)],
-        cams=[FC(0.0, [0.9, 1.75, -21.6], [[-1.3, 2.3, -27.55], [0.9, 2.3, -27.55], [-1.3, 0.25, -27.3], [0.9, 0.25, -27.3], [PHOTOG[0], 1.2, PHOTOG[2]]], top=0.18, bottom=0.74)])
+        cams=[FC(0.0, [2.75, 1.7, -19.4], [[-1.3, 2.3, -27.55], [0.9, 2.3, -27.55], [-1.3, 0.25, -27.3], [0.9, 0.25, -27.3], [PHOTOG[0], 1.75, PHOTOG[2]], [PHOTOG[0], 0.0, PHOTOG[2]]], top=0.18, bottom=0.74)])
+        # (first look) further back: the photographer whole on the right with his camera and cloth, the party behind (2 m behind him, his back filled the
+        # right edge and hid the camera)
 
 # 13: his wedding. Closer on the couple: the boomerang drops onto his head on « mariage », squashes it flat as a disc and keeps turning on top like a rotor;
 #     the downdraft blows the guests' hair up and the veil out; his smile does not move
