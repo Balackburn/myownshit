@@ -98,7 +98,7 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
 
         props=[PHONE('phone2'), P('blob2', 'gumBlob', pos=BLOB, opts={'r': 0.2, 'pull': [[0.2, 0.0], [0.6, 0.35], [round(SNAP - 0.05, 3), 0.6], [round(SNAP + 0.08, 3), 1.0]]})],   # (final pass) the gum webs up round the sole while it pulls
         tethers=[STRAND(PT(GUMPT), FOOT(), frm=SNAP, sag=0.0, rad=0.03, taper=0.5, thin=[0.8], wobble=[[SNAP, 0.06, 30, 6]])],
-        cams=[FC(0.0, [1.6, 1.1, 1.25], [[GUMPT[0], 0.0, GUMPT[2]], [X1, 2.5, 2.1], [X1, 0.0, 2.1], [X1, 2.5, 1.0], [r(X1 + 0.4), 2.2, 2.1]], top=0.08, bottom=0.74),   # (final pass) his head kept in at the end of the stretch   # (pass 3) side on: the leg stretched to twice its length reads at its length (from the front it measured 1.1x); far enough back for him and the gum
+        cams=[FC(0.0, [1.6, 1.1, 1.25], [[GUMPT[0], 0.0, GUMPT[2]], [X1, 2.5, 2.1], [X1, 0.0, 2.1], [X1, 2.5, 1.0], [r(X1 + 0.4), 2.2, 2.1], [X1, 2.45, 2.75]], top=0.08, bottom=0.74),   # (final pass) his head kept in at the end of the stretch (leaning into the pull it reaches z 2.6)   # (pass 3) side on: the leg stretched to twice its length reads at its length (from the front it measured 1.1x); far enough back for him and the gum
               glide([FC(round(SNAP + 0.12, 3), [6.1, 1.6, 4.3], [[X1, 2.4, 2.0], [X1, 1.15, 2.0], [r(X1 - 0.45), 1.8, 2.0], [r(X1 + 0.45), 1.8, 2.0]], top=0.14, bottom=0.7, drift=(0.0, 0.0, 0.3))], 0.24)])   # (final pass) settled before the take, which now pops on camera   # (pass 2) a push in for the double take
 st.cue('sfx:stretch', 'S02', 0.2, 0.3); st.cue('sfx:boing', 'S02', SNAP, 0.4)
 
