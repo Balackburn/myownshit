@@ -47,6 +47,11 @@ One line per gag: head height in the frame, how much of it the lens sees, and wh
 the caption band, under the title card). Fix every warning before the draft render: the reviews of 47-49 kept finding the peak of a gag where
 nobody could see it. `write()` also prints the frozen actors and the repeated takes (`audit_life`).
 
+After the draft render, before the review: `python3 tools/freeze_check.py DRAFT.mp4 scripts-fr/<story>.json` repeats the animation reviewer's
+freeze measurement (frames two apart at the size of a strip tile, the 99.5th percentile of the local difference under 14 for 0.4 s or more) and
+names each span with its shot. Calibrated on the spans the review of 49 named (it finds all of them). Give each one a blink, a glance, a breath or
+a weight shift, then render the draft again: a review spent on freezes is a review lost.
+
 ## 6. Full render (from a snapshot)
 
 ```bash

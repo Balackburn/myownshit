@@ -43,7 +43,8 @@ st.shot('S01', 'office', setOpts=OF, actors=[
             k(round(UP1 + 0.14, 3), toon={'sq': [0.98, 1.03, 0.98]}, toonDur=0.05),   # (pass 3) ...hangs at the top four frames...
             k(round(UP1 + 0.27, 3), to=SEAT, dur=0.1, glide=True, ease='in', face=0),
             k(round(UP1 + 0.37, 3), toon={'sq': [1.08, 0.9, 1.08], 'face': {'lid': 0.4}}, toonDur=0.04), k(round(UP1 + 0.49, 3), toon={'face': {'lid': 0.45}}, toonDur=0.1),   # ...and lands on the glass, heavy-lidded
-            k(round(UP1 + 0.9, 3), look=[round(CP[0] - 1.0, 3), 1.6, 0.5])])],
+            k(round(UP1 + 0.9, 3), look=[round(CP[0] - 1.0, 3), 1.6, 0.5]), k(round(D1 - 0.5, 3), look=[CP[0], 2.3, round(CP[2] - 0.3, 3)]),   # (pass 3b, freeze check) a look up at the lid...
+            k(round(D1 - 0.36, 3), toon={'sq': [1.02, 0.97, 1.02], 'face': {'lid': 1.0}}, toonDur=0.05), k(round(D1 - 0.24, 3), toon={'sq': [0.99, 1.01, 0.99], 'face': {'lid': 0.45}}, toonDur=0.08)])],   # ...a blink, the shoulders settle
         props=[COPIER()],
         cams=[FC(0.0, [round(CP[0] - 1.6, 3), 1.35, 1.4], [[CP[0], 2.5, CP[2]], [CP[0], 0.0, round(CP[2] + 0.85, 3)], [round(CP[0] + 0.6, 3), 1.0, CP[2]], [round(CP[0] - 0.6, 3), 1.0, CP[2]]], top=0.12, bottom=0.74, drift=(0.04, 0, -0.08))])
 st.cue('sfx:spring', 'S01', UP1 + 0.37, 0.3)
@@ -53,7 +54,7 @@ st.cue('sfx:spring', 'S01', UP1 + 0.37, 0.3)
 D2 = st.dur('S02'); SC2 = round(st.at('S02', 'L02', 2) - 0.1, 3)
 SIT2 = {'face': {'lid': 0.45}}
 st.shot('S02', 'office', setOpts=OF, actors=[
-        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=SIT2, toonDur=0.0),
+        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[CP[0], 0.9, round(CP[2] + 0.3, 3)]), k(0.0, toon=SIT2, toonDur=0.0), k(0.28, look='camera'), k(0.12, toon={'face': {'lid': 0.6}, 'sq': [1.0, 0.985, 1.0]}, toonDur=0.1), k(0.3, toon=SIT2, toonDur=0.1),   # (pass 3b) a glance down at the glass, then at us
             k(round(SC2 + 0.05, 3), toon={'face': {'lid': 0.0, 'eye': 0.3, 'brow': 0.6}}, toonDur=0.05),   # the flash under him
             *take(round(SC2 + 0.82, 3), 'hair', keep={'face': {'lid': 0.0}}, hold=0.35, antic_f=4, settle_f=7)])],   # the light passes his head: his hair stands on end   # (pass 2) the climb slower (0.95 s)
         props=[COPIER(scanAt=SC2, scanDur=0.5), P('scan2', 'scanPlane', pos=[CP[0], 0, round(CP[2] + 0.08, 3)], opts={'w': 1.0, 'd': 0.8, 'y0': 0.97, 'y1': 2.45, 'at': round(SC2 + 0.15, 3), 'dur': 0.95})],
@@ -239,7 +240,8 @@ DRW = [round(CP[0] - 0.08, 3), 0.3, round(CP[2] + 0.48, 3)]           # the mout
 IN13 = [round(ME13[0] + 0.5, 3), 0.62, round(ME13[2] + 0.12, 3)]      # the ream in his hands
 REAMK = lambda c: {'reach': {'L': [round(c[0] - 0.4, 3), round(c[1] + 0.08, 3), c[2], 1, 0.05], 'R': [round(c[0] + 0.4, 3), round(c[1] + 0.08, 3), c[2], 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}   # (pass 3) by its two ends: the label clear
 st.shot('S13', 'office', setOpts=OF, actors=[
-        act('mec', ME13, RY13, 'kneel', 'unimpressed', keys=[k(0.0, look=DRW), k(0.0, toon={**REAMK(IN13), 'face': {'lid': 0.45}}, toonDur=0.0),
+        act('mec', ME13, RY13, 'kneel', 'unimpressed', keys=[k(0.0, look=DRW), k(0.0, toon={**REAMK(IN13), 'face': {'lid': 0.45}}, toonDur=0.0), k(0.3, look='camera'), k(round(RM13 - 0.25, 3), look=DRW),   # (pass 3b) a look at us, back to the drawer...
+            k(round(RM13 - 0.2, 3), toon={**REAMK([round(IN13[0] - 0.06, 3), IN13[1], round(IN13[2] - 0.03, 3)]), 'sq': [1.0, 0.97, 1.0], 'face': {'lid': 0.45}}, toonDur=0.15),   # ...and a lean back before the push
             k(RM13, toon={**REAMK(DRW), 'face': {'lid': 0.45}}, toonDur=0.35, toonEase='inOut'),   # the ream slid in
             k(round(RM13 + 0.55, 3), look='camera'), k(round(RM13 + 0.55, 3), toon={**REAMK([DRW[0] - 0.06, DRW[1] + 0.04, DRW[2] + 0.06]), 'face': {'lid': 0.45}}, toonDur=0.15),   # ...his hands still on it, to us
             *[k(round(RM13 + 0.75 + 0.4 * i, 3), toon={**REAMK([DRW[0] - 0.06, DRW[1] + 0.04, DRW[2] + 0.06]), 'sq': [1.0, round(1.0 + 0.018 * (1 - 2 * (i % 2)), 3), 1.0], 'face': {'lid': 0.45}}, toonDur=0.35, toonEase='inOut') for i in range(2)],   # (pass 3) a breath in the hold
