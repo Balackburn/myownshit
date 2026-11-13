@@ -89,6 +89,8 @@ if (flag('probe', false)) {
         else if (r.facing > 65) w.push(`the face is turned ${r.facing} deg away: a profile, the side of a box head has no face (cheat 30-45 deg toward the lens)`);
       }
       if (r.seen < 0.67) w.push(`only ${Math.round(r.seen * 100)} % of the ${g.prop ? 'prop' : 'head'} seen` + (Object.keys(r.cover).length ? ': covered by ' + Object.entries(r.cover).map(([k, n]) => `${k} (${n}/9)`).join(', ') : ''));
+      // (cycle 16) a near object filling the frame between the lens and the subject (its own body in an insert, a window post, a hung camera, a ceiling)
+      for (const [k, f] of Object.entries(r.near || {})) if (f >= 0.2) w.push(`${k} fills ${Math.round(f * 100)} % of the frame in front of the ${g.prop ? 'prop' : g.joint || 'head'} (move the camera past it, or the subject out from behind it)`);
       const capOv = Math.max(0, Math.min(y1, 0.86) - Math.max(y0, 0.77)) / Math.max(1e-6, r.h);
       if (capOv > 0.3) w.push(`${Math.round(capOv * 100)} % of the head in the caption band (y 0.77-0.86)`);
       const card = cards.find(c => g.t >= c - 0.05 && g.t < c + 1.0), cardOv = card != null ? Math.max(0, Math.min(y1, 0.2) - Math.max(y0, 0.06)) / Math.max(1e-6, r.h) : 0;

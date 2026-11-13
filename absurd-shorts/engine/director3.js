@@ -1382,6 +1382,23 @@ function collectEvents(sc) {
 // `who`: its box on screen (0..1, y down), its height in the frame, and how much of it the lens sees: 9 rays from the camera to a 3x3 grid on the
 // head box, set across the line of sight; a ray that stops on something else before the head names what covers the face (an actor, a prop, his
 // own arm, the set). Returns one record per gag; render3 --probe prints the warnings. Nothing is drawn that a render would not draw.
+// (cycle 16) what fills the frame between the lens and the subject: rays through a 9 x 16 grid of the whole frame, the first opaque hit when it is
+// nearer than 75 % of the subject's distance; floors and table tops (faces turned up) do not count, ceilings do. The reviews of 52-53 found the
+// hero's own back filling two thirds of an insert, a black window post down the middle of a push-in, a studio camera across half a crane shot, a
+// navy ceiling over the top 40 %: each one a near object no head-or-prop test sees. Returns {owner: fraction of the frame}.
+function nearBlockers(cam, camPos, dSub, ownerOf, self) {
+  const ray = new THREE.Raycaster(); ray.camera = cam; const near = {}, nrm = V(); let n = 0;
+  for (let i = 0; i < 9; i++) for (let j = 0; j < 16; j++) {
+    const dir = V((i + 0.5) / 9 * 2 - 1, 1 - (j + 0.5) / 16 * 2, 0.5).unproject(cam).sub(camPos).normalize();
+    ray.set(camPos, dir); ray.near = 0.02; ray.far = Math.max(0.3, dSub * 0.75); n++;
+    const h = ray.intersectObjects(S.root.children, true).find(hh => { const o = hh.object; if (!o.isMesh || o.name === 'outline' || o.renderOrder === -10) return false;
+      for (let p = o; p; p = p.parent) if (!p.visible) return false; const m = Array.isArray(o.material) ? o.material[0] : o.material; return !(m && m.transparent && m.opacity < 0.5); });
+    if (!h) continue;
+    if (h.face) { nrm.copy(h.face.normal).transformDirection(h.object.matrixWorld); if (nrm.y > 0.7) continue; }   // a floor, a table top
+    const who = ownerOf(h.object), key = who === self ? self + ' (own body)' : who; near[key] = (near[key] || 0) + 1;
+  }
+  return Object.fromEntries(Object.entries(near).map(([k, v]) => [k, +(v / n).toFixed(2)]).filter(([, v]) => v >= 0.05));
+}
 export function probe(tAbs, specs = []) {
   if (!S) throw new Error('load() first');
   renderFrame(tAbs);
@@ -1414,7 +1431,7 @@ export function probe(tAbs, specs = []) {
         if (!hit) continue; if (inProp(hit.object)) { seenP++; continue; }
         if (hit.distance < LL - 0.02) { const k2 = ownerOf(hit.object); coverP[k2] = (coverP[k2] || 0) + 1; }
       }
-      out.push({ ...rec, box: [a0, b0, a1, b1].map(v => +v.toFixed(3)), h: +(b1 - b0).toFixed(3), seen: +(seenP / 9).toFixed(2), cover: coverP, facing });
+      out.push({ ...rec, box: [a0, b0, a1, b1].map(v => +v.toFixed(3)), h: +(b1 - b0).toFixed(3), seen: +(seenP / 9).toFixed(2), cover: coverP, facing, near: nearBlockers(cam, camPos, pc.distanceTo(camPos), ownerOf, 'prop:' + sp.prop) });
       continue;
     }
     const A = S.actorById[sp.who]; if (!A) { out.push({ ...rec, err: 'no actor ' + sp.who + ' in this shot' }); continue; }
@@ -1446,7 +1463,8 @@ export function probe(tAbs, specs = []) {
     // count a head as seen whichever side faces us; the reviews of 51 found the back of his head and a profile at two gag peaks
     const fq = (hm || headRoot).getWorldQuaternion(new THREE.Quaternion()), fz = V(0, 0, 1).applyQuaternion(fq), tc = camPos.clone().sub(c).normalize();
     const facing = Math.round(Math.acos(Math.max(-1, Math.min(1, fz.dot(tc)))) * 180 / Math.PI);
-    out.push({ ...rec, box: [x0, y0, x1, y1].map(v => +v.toFixed(3)), h: +(y1 - y0).toFixed(3), seen: +(seen / total).toFixed(2), cover, behind, facing });
+    let subj = c; if (sp.joint) { const jj = A.obj.userData.joints?.[sp.joint]; if (jj) { jj.updateWorldMatrix(true, false); subj = jj.getWorldPosition(V()); } }
+    out.push({ ...rec, box: [x0, y0, x1, y1].map(v => +v.toFixed(3)), h: +(y1 - y0).toFixed(3), seen: +(seen / total).toFixed(2), cover, behind, facing, near: nearBlockers(cam, camPos, subj.distanceTo(camPos), ownerOf, sp.who) });
   }
   return out;
 }

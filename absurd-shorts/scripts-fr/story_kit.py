@@ -408,12 +408,16 @@ class Story:
         self.cues.append([name, round(self.SH[sid][0] + t, 3), gain, *args])
     def card(self, sid, word, at=None): self.cards.append(f'{sid}:{word}' if at is None else f'{sid}@{at}:{word}')   # at: seconds into the shot (default: at its cut)
 
-    def gag(self, sid, t, who='mec', name=None):
+    def gag(self, sid, t, who='mec', name=None, joint=None):
         """(cycle 13) Declare the key pose of a gag: t seconds into shot sid, the actor whose face must read there. write() puts them in the script
         (script.gags, with the title-card times as script.cardTimes) and `node render/render3.mjs scripts-fr/story_X.json --timed --w 288 --h 512 --probe`
         measures each one in the engine, with the real pose, stretch and props: the head cut by the frame, too small to read, covered (and by what: a
         prop, another actor, his own arm), in the caption band or under a title card (the reviews of 47-49 found the peak hidden in each of these ways)."""
-        self.gags.append({'t': round(self.SH[sid][0] + t, 3), 'who': who, 'name': name or f'{sid}+{t:g}', 'sid': sid})
+        # (cycle 16) joint ('handR', 'footL'...): a gag that plays on a hand or a foot (a stamp on his fingers): the near-blocker test measures what
+        # stands between the lens and that joint instead of the head (an insert filmed past his own back read as two thirds navy)
+        g_ = {'t': round(self.SH[sid][0] + t, 3), 'who': who, 'name': name or f'{sid}+{t:g}', 'sid': sid}
+        if joint: g_['joint'] = joint
+        self.gags.append(g_)
 
     def text(self, sid, t, prop, name=None):
         """(cycle 13) Declare a prop whose lettering must read at t seconds into shot sid (a stamp, a form, a plate, a screen): render3 --probe
