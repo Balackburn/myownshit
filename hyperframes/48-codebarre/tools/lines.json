@@ -1,0 +1,114 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est endormi au supermarché.",
+  "hl": [
+   "endormi",
+   "supermarché."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Un employé lui a collé une étiquette.",
+  "hl": [
+   "collé",
+   "étiquette."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "À la caisse, il a bipé.",
+  "hl": [
+   "bipé."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Un homme : deux euros quarante-neuf.",
+  "hl": [
+   "homme",
+   "quarante-neuf."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a protesté. Le gérant a scanné son code-barres.",
+  "hl": [
+   "protesté.",
+   "code-barres."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il était bien en stock.",
+  "hl": [
+   "stock."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "On l'a mis en promotion : moins cinquante pour cent.",
+  "hl": [
+   "promotion",
+   "cinquante"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Puis sous vide, pour la fraîcheur.",
+  "hl": [
+   "vide,",
+   "fraîcheur."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Une dame l'a acheté.",
+  "hl": [
+   "acheté."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Elle l'a rapporté le lendemain : défaut de fabrication.",
+  "hl": [
+   "rapporté",
+   "défaut"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le fabricant l'a rappelé.",
+  "hl": [
+   "fabricant",
+   "rappelé."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Il est retourné chez sa mère.",
+  "hl": [
+   "mère."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Elle a demandé un remboursement.",
+  "hl": [
+   "remboursement."
+  ]
+ }
+]

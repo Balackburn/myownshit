@@ -75,7 +75,7 @@ function buildActor(c, id) {
   if (obj.userData.kind === 'human' && (c.toon ?? (S.script?.rig === 'toon'))) { toonUpgrade(obj); obj.userData.toonCfg = typeof c.toon === 'object' ? c.toon : {}; }   // cartoon rig (engine/toon.js): opt-in, old stories never take this path
   if (obj.userData.kind === 'human' && obj.userData.setFaceState && (c.faceRig ?? c.toon ?? (S.script?.rig === 'toon' || !!S.script?.faceRig))) obj.userData.faceRig = true;   // animated face layers
   if (obj.userData.toon && (c.fingers ?? S.script?.fingers)) fingersUpgrade(obj);   // hands with fingers (engine/fingers.js): script `fingers: true` or per character
-  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj, { tails: c.tails ?? S.script?.tails, knotOnly: c.tieKnot });         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
+  if (obj.userData.toon && (c.cloth ?? S.script?.cloth)) clothUpgrade(obj, { tails: c.tails ?? S.script?.tails, knotOnly: c.tieKnot, hairRest: c.hairRest ?? S.script?.hairRest });         // a tie in volume, a shock of hair (engine/cloth.js): script `cloth: true` or per character
   // (cycle 6) cast `silhouette: '#262833'`: a shadow with a life of its own: every part in one flat unlit colour, no cast shadow, and the eyes of the
   // face rig left white on it (the glow layer of the dark shots). Flatten it with the toon channel sq [1, 1, 0.03] and lay it down with `lay`.
   // cast `castShadow: false`: a man who has lost his shadow.

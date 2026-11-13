@@ -40,7 +40,7 @@ export function clothUpgrade(obj, opts = {}) {
       const m = box(d.hw * w, 0.05, d.hd * 0.5, d.hairColor, { pivot: 'bottom', taper: { x: 0.14, z: 0.22 } }); m.scale.y = 0.02; pv.add(m);
       return { pv, m, hk, fx: -x * 1.5, fz: z * 0.9, ph: i * 1.7 };
     });
-    hair = { g, tufts };
+    hair = { g, tufts, rest: opts.hairRest || 0 };   // (cycle 13) opts.hairRest: the shock never quite flat (0.06-0.08: a crew cut on the crown); at 0 a still head lost its hair (it is not drawn flat)
   }
   const F = new THREE.Vector3(), q = new THREE.Quaternion(), tie_side = (ud.spec?.seed ?? 3) % 2 ? 1 : -1;
   ud.cloth = {
@@ -71,7 +71,7 @@ export function clothUpgrade(obj, opts = {}) {
       }
       if (hair) {
         J.head.getWorldQuaternion(q).invert(); F.set(aw[0], aw[1] - 2.2, aw[2]).applyQuaternion(q);   // a little gravity: upside down, the hair hangs
-        const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.min(1, (h * 0.55 + up * 1.1) / 8 + hairUp) * k, lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
+        const h = Math.hypot(F.x, F.z), up = Math.max(0, F.y), lift = Math.max(hair.rest, Math.min(1, (h * 0.55 + up * 1.1) / 8 + hairUp) * k), lean = Math.min(1.15, h / (3.5 + up)) * k, hh = h || 1e-6;
         const fan = Math.min(1, lift * 2.5);
         hair.g.visible = lift > 0.012;   // flat on the scalp it is not drawn (seen edge-on, the flat tufts were a black line floating over a tilted head)
         hair.g.rotation.set(lean * fan * F.z / hh + 0.1 * lift * Math.sin(t * 27) - 0.25 * hairUp, 0, -lean * fan * F.x / hh + 0.2 * hairUp * tie_side);   // it leans only once it stands
