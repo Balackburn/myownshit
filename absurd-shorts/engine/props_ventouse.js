@@ -80,7 +80,7 @@ export const VENTOUSE_PROPS = {
         for (const sz of [-1, 1]) g.add(at(cyl(0.022, 0.022, H, '#C9CCD1', 8, { pivot: 'bottom' }), x + 0.8 * sz, 0, sz * 0.35));
       }
     }
-    for (const s of [-1, 1]) g.add(at(cyl(0.02, 0.02, L, '#C9CCD1', 8), 0, 2.0, s * 0.42, 0, 0, PI / 2));
+    for (const s of [-1, 1]) g.add(at(cyl(0.02, 0.02, L, '#C9CCD1', 8), 0, H - 0.3, s * 0.42, 0, 0, PI / 2));   // (pass 2 of 55) the grab bars 0.3 m under the roof whatever its height (at 2.0 in a taller car they crossed his face)
     for (let x = -L / 2 + 1; x < L / 2; x += 2) g.add(at(box(1.4, 0.03, 0.22, '#FFFFFF', { emissive: o.light === false ? null : '#FFF8E6', noGrain: true }), x, H - 0.01, 0));
     for (const sx of [-1, 1]) g.add(at(box(0.06, H, W, wallC, { outline: 0.006 }), sx * L / 2, H / 2, 0));
     g.userData.update = t => { if (!o.sway) return; g.rotation.x = o.sway[0] * Math.sin(t * (o.sway[1] ?? 9)); };
