@@ -282,7 +282,7 @@ for (let i = 0; i < pp.count; i++) {
     const kn = joint('knee' + s, hp, 0, -legLen, 0);
     kn.add(C.skirt ? box(0.07, legLen, 0.07, o.skin, { pivot: 'top' }) : part('shin' + s, 0.13 * Wd, legLen, 0.13, C.pants, { pivot: 'top' }));
     const ft = joint('foot' + s, kn, 0, -legLen, 0);
-    const shoe = part('shoe', 0.14, 0.09, 0.29, C.shoes, { pivot: 'top' }); shoe.position.z = 0.06; // big boxy shoes (measured) ft.add(shoe);
+    const shoe = part('shoe', 0.14, 0.09, 0.29, C.shoes, { pivot: 'top' }); shoe.position.z = 0.06; // big boxy shoes (measured), kept out on purpose since the rebuild: the trouser legs cover the feet (o.shoes below adds visible ones)
     if (o.barefoot) { const f = part('skin', 0.13, 0.06, 0.25, o.skin, { pivot: 'bottom' }); f.position.set(0, 0.0, 0.075); ft.add(f);   // o.barefoot: bare feet with toes under the trousers
       [[0.034, 0.036, 0.042], [0.022, 0.03, 0.034], [0.02, 0.028, 0.03], [0.019, 0.026, 0.027], [0.017, 0.024, 0.024]].forEach(([w, h, d], i) => {
         const toe = part('skin', w, h, d, o.skin, { pivot: 'bottom' }); toe.position.set(-sx * (0.046 - i * 0.024), 0.0, 0.2 + d / 2 - 0.004 - i * 0.004); toe.name = 'toe'; ft.add(toe); }); }
