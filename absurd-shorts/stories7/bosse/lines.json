@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec s'est cogné la tête.", "hl": ["cogné"]},
+ {"id": "L02", "who": "N", "text": "Sa bosse n'a jamais arrêté de pousser.", "hl": ["bosse", "pousser."]},
+ {"id": "L03", "who": "N", "text": "Le médecin l'a mesurée : trois mètres.", "hl": ["trois", "mètres."]},
+ {"id": "L04", "who": "N", "text": "Le cadastre l'a classée colline.", "hl": ["cadastre", "colline."]},
+ {"id": "L05", "who": "N", "text": "Le dimanche, il y a des randonneurs.", "hl": ["randonneurs."]},
+ {"id": "L06", "who": "N", "text": "L'hiver, une station de ski.", "hl": ["station", "ski."]},
+ {"id": "L07", "who": "N", "text": "Hier, sa bosse a dégonflé.", "hl": ["dégonflé."]},
+ {"id": "L08", "who": "N", "text": "Les skieurs sont tombés de haut.", "hl": ["tombés", "haut."]},
+ {"id": "L09", "who": "N", "text": "La station lui réclame les forfaits.", "hl": ["forfaits."]}
+]

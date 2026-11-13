@@ -26,6 +26,7 @@
 //                                          knee goes, in the frame of the hips, default forward; flat false: the foot turns with the shin)
 //   pin: { joint ('head'), off [x, y, z] (in the joint's frame), at [x, y, z] (world), w }   (cycle 17) that point of him stays on `at`: the whole body
 //         moves so that it does (stuck by the forehead to a lamp post, a bus window, a carriage ceiling): pose the body to hang, `lay` swings it
+//         (cycle 18) solved in the rig before the guided hands, with `lay` already set: hands held by others stay on their points while he hangs and swings
 //   hose: 0..0.35   (cycle 9) a guided arm keeps a bend at the elbow however far it reaches: it grows that much longer than the distance (0.15: a rubber
 //                   hose with an elbow; at 0 a far reach is a straight rod, the reviewers' "five reaches, the same rod")
 //   touch: { L | R: [joint, x, y, z, w, tip] }   the same, to a point given in the frame of one of his own joints ('torso', 'head'...: the joint's own units, a
@@ -302,9 +303,16 @@ export function toonUpgrade(obj) {
     // call after the joint rotations of the frame are set (applyHuman): bends, local scales, whole-body squash, head overlays
     apply(tp = {}, t = 0, baseScale = 1) {
       let b = tp.bend || {}, first = 0; const wv = tp.wave || NOWAVE;
+      // (cycle 18) pin, moved here from the director: the whole body shifted so that a point of one of his joints sits on its point of the world, once the
+      // spine and the neck are bent and before the guided hands are solved (shifted after them, a body hung by the forehead carried its held hands away)
+      let pinned = false;
+      const doPin = () => { const pn = tp.pin; pinned = true; if (!pn || !pn.at || (pn.w ?? 1) <= 0.001) return; const jn = J[pn.joint || 'head']; if (!jn) return;
+        obj.updateMatrixWorld(true); const o = pn.off || ZERO3; _T.set(o[0], o[1], o[2]); jn.localToWorld(_T);
+        obj.position.x += (pn.at[0] - _T.x) * (pn.w ?? 1); obj.position.y += (pn.at[1] - _T.y) * (pn.w ?? 1); obj.position.z += (pn.at[2] - _T.z) * (pn.w ?? 1); obj.updateMatrixWorld(true); };
       const hs = tp.scl?.head; if (J.head) { const k0 = J.head.scale.x; J.head.scale.set(k0 * (hs?.[0] ?? 1), k0 * (hs?.[1] ?? 1), k0 * (hs?.[2] ?? 1)); }   // before the guided hands: a touch on a swollen head must land on its surface
       if (tp.reach || tp.touch) {   // the spine and the neck are bent first (the shoulders and the head ride on them), once: a part turns its child joints each time it is applied
         const sq0 = tp.sq; if (sq0) obj.scale.set(baseScale * sq0[0], baseScale * sq0[1], baseScale * sq0[2]); parts.spine?.apply(b.spine || null, wv.spine); parts.neck?.apply(b.neck || null, wv.neck);
+        doPin();
         let rc = tp.reach;
         if (tp.touch) { rc = { ...(rc || {}) }; for (const sd of ['L', 'R']) { const q = tp.touch[sd]; if (!q) continue;
           if (q[0] === 'face') { if (!hm || !dim) continue; hm.updateWorldMatrix(true, false); _T.set(dim.cx + q[1] * dim.hw, dim.y0 + q[2] * dim.hh, dim.z1 + q[3] / (hm.getWorldScale(_X).z || 1)); hm.localToWorld(_T); }   // on the face: across (-0.5..0.5), up from the chin (0..1), metres in front
@@ -316,6 +324,7 @@ export function toonUpgrade(obj) {
       for (let i = first; i < ORDER.length; i++) parts[ORDER[i]]?.apply(b[ORDER[i]] || null, wv[ORDER[i]]);
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
+      if (!pinned) doPin();
       const er = tp.ears || 0; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); }
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
       face?.(tp.face || {}, t);

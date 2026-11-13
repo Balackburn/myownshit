@@ -739,11 +739,9 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   extra.bend = bend;
   let all = addToon(tp, extra);
   if (keyed) all = addToon(all, keyed);
-  ud.toon.apply(all, t, sc);
+  // (cycle 18) the tip is set before the rig solves the guided hands: tipped after it, the body carried them off their points of the world
   if (all.lay) { A.obj.rotation.order = 'YXZ'; A.obj.rotation.x = all.lay[0] || 0; A.obj.rotation.z = all.lay[1] || 0; }   // (cycle 6) toon channel lay [rx, rz] (rad): the whole body tipped about his feet, in his own frame (-PI / 2: on his back, his head behind him): a shadow on the ground, a man laid flat
-  if (all.pin && all.pin.at && (all.pin.w ?? 1) > 0.001) {   // (cycle 17) toon channel pin: the whole actor shifted so that a point of a joint sits on a point of the world
-    A.obj.updateMatrixWorld(true); const jn = (A.obj.userData.joints || {})[all.pin.joint || 'head'];
-    if (jn) { const p = jn.localToWorld(V(...(all.pin.off || [0, 0, 0]))); A.obj.position.add(V(...all.pin.at).sub(p).multiplyScalar(all.pin.w ?? 1)); A.obj.updateMatrixWorld(true); } }
+  ud.toon.apply(all, t, sc);
   if (ud.fingers) ud.fingers.set(all.hands);
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
     const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
