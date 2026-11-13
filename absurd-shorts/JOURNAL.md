@@ -1810,3 +1810,10 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   bras qui flottent ; grattage de tête dans le cadre ; respirations et clignements dans les tenues ; intérieurs moins ambrés (`warm` 0,45).
 - Trouvé en route : `'flat'` n'est pas une pose de main (repos à la place) ; le bras « sur le dossier » visait un point de la rue, resté derrière la
   voiture : remplacé par un `touch` dans le repère du buste. Consigné dans le skill (Erreurs à éviter).
+
+### La gomme à mâcher (51) — livrée
+- Génération complète 1080×1920 envoyée (`51-la-gomme-a-macher.mp4`) : −16,1 LUFS, crête −3,9 dBFS, contrôles HyperFrames sans erreur (un
+  avertissement de contraste, un de finition, habituels). Revues : 6,0/6,0 → 6,4/7,4 → 7,0/7,7, puis la passe finale.
+- Trouvé après coup par le nouvel audit des poses de main : aux plans 9 et 14, les paumes « flat » contre le miroir et sur les genoux sont restées
+  en pose de repos (doigts un peu repliés). Décision : ne pas relancer la génération complète pour ce détail (lisible tel quel) ; l'audit
+  l'empêche désormais dès l'écriture.
