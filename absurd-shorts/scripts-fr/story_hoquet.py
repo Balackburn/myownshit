@@ -43,6 +43,8 @@ def HICK(t, base, h=1.0, keep=None, hang=0.13, hs=1.5):
     up = [base[0], round(base[1] + h - dH, 3), base[2]]; up2 = [base[0], round(base[1] + h, 3), base[2]]   # the head reaches its old top on the stretch
     ks = [k(round(t - 0.06, 3), toon={**kp, 'sq': [1.1, 0.86, 1.1], 'face': {'puff': 0.55, 'lid': 0.45, 'brow': 0.1, 'mouth': 'kiss'}}, toonDur=0.05, toonEase='in'),   # the gather
           k(t, to=up, dur=fl, glide=True, ease='out', face='keep'), k(t, toon={**kp, 'sq': [sx, st_, sx], 'face': {'lid': 0.5, 'brow': 0.15, 'mouth': 'O', 'jaw': 0.3}}, toonDur=0.04, toonEase='out'),   # up, stretched
+          *([k(t, toon={**kp, 'sq': [0.76, 1.42, 0.76], 'face': {'lid': 0.5, 'brow': 0.15, 'mouth': 'O', 'jaw': 0.3}}, toonDur=0.033, toonEase='out'),
+             k(round(t + 0.067, 3), toon={**kp, 'sq': [sx, st_, sx], 'face': {'lid': 0.5, 'brow': 0.15, 'mouth': 'O', 'jaw': 0.3}}, toonDur=0.033)] if h >= 0.6 else []),   # (pass 3) a smear frame at the launch of a big jump
           k(round(t + fl, 3), to=up2, dur=0.06, glide=True, ease='out', face='keep'),   # (pass 3) the feet catch up: the head stays where the stretch took it
           k(round(t + fl, 3), toon={**kp, 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.62, 'brow': 0.0, 'shadow': 0.6}}, toonDur=0.06),   # the top, held
           k(round(t + fl + hg, 3), to=list(base), dur=round(fl + 0.02, 3), glide=True, ease='in', face='keep'),
@@ -91,18 +93,22 @@ st.shot('S03', 'office', setOpts={'door': False}, actors=[
             k(round(SP3a + 0.35, 3), toon={**READ(0.45, 0.35, brow=0.6, lid=1.0), 'touch': {'R': ['face', 0.0, 0.62, 0.06, 1, 0.08]}, 'hands': {'R': 'point'}}, toonDur=0.1),   # a finger to the bridge of his nose, a blink...
             k(round(SP3a + 0.5, 3), toon={**READ(0.45, 0.35, brow=0.7), 'touch': {'R': ['face', 0.0, 0.66, 0.06, 1, 0.08]}, 'hands': {'R': 'point'}}, toonDur=0.08),
             k(round(SP3a + 0.68, 3), toon=READ(0.5, 0.4, brow=0.8, eye=0.2), toonDur=0.2),   # ...reading on
-            k(round(SP3b - 0.25, 3), toon=READ(0.7, 0.55, brow=0.9, lid=0.35), toonDur=0.08, toonEase='out'),   # (pass 2) the second spike: his nose down to the paper for eight frames...
+            k(round(SP3b - 0.25, 3), toon=READ(0.55, 0.32, brow=0.9, lid=0.35), toonDur=0.08, toonEase='out'),   # (pass 2) the second spike: his nose down to the paper for eight frames...
+            # (pass 3) bent 50 degrees, not 72: the probe read his face 82 degrees away (a profile from above); from the lower camera it stays toward us
             *take(round(SP3b + 0.06, 3), 'stalks', keep={'bend': {'spine': [0.1, 0, 0, 1, None]}}, hold=0.35),   # ...then the head snaps up, the eyes out on stalks
             k(round(SP3b + 0.45, 3), look=[0.55, 1.15, -1.9])])],   # his eyes after the pen flying off
-        props=[P('bench3', 'desk', pos=BENCH), P('seis3', 'seismograph', pos=SEIS, opts={'spikes': [[SP3a, 1.0], [SP3b, 1.5]], 'ink': 0.03, 'clampV': 1.35, 'postX': 0.33, 'speed': 0.4, 'penOff': round(SP3b + 0.08, 3)})],   # (pass 2) thick dark ink across the paper, the pen post aside (it hid the nib), the pen thrown off in an arc on the second spike
-        cams=[FC(0.0, [0.55, 1.45, -0.5], [[SEIS[0], 1.15, round(SEIS[2] + 0.35, 3)], [SAV[0], 2.7, SAV[2]], [round(SEIS[0] - 0.5, 3), 0.75, round(SEIS[2] + 0.3, 3)], [round(SEIS[0] + 0.5, 3), 0.75, round(SEIS[2] + 0.3, 3)]], top=0.12, bottom=0.74, drift=(-0.03, 0, -0.06))])
+        props=[P('board3', 'tallyBoard', pos=[SAV[0], 2.05, -3.5], opts={'w': 1.7, 'h': 1.05}),   # (pass 3) a dark board behind his head (white coat and hair on the cream wall: 1.11:1)
+               P('bench3', 'desk', pos=BENCH), P('seis3', 'seismograph', pos=SEIS, opts={'spikes': [[SP3a, 1.0], [SP3b, 1.5]], 'ink': 0.03, 'clampV': 1.35, 'postX': 0.33, 'speed': 0.4, 'penOff': round(SP3b + 0.08, 3)})],   # (pass 2) thick dark ink across the paper, the pen post aside (it hid the nib), the pen thrown off in an arc on the second spike
+        # (pass 3) lower: nose down to the paper his face comes toward us (from 1.45 m we saw the top of his hair, a white block with no face)
+        cams=[FC(0.0, [0.55, 1.0, -0.55], [[SEIS[0], 1.15, round(SEIS[2] + 0.35, 3)], [SAV[0], 2.7, SAV[2]], [round(SEIS[0] - 0.5, 3), 0.75, round(SEIS[2] + 0.3, 3)], [round(SEIS[0] + 0.5, 3), 0.75, round(SEIS[2] + 0.3, 3)]], top=0.12, bottom=0.74, drift=(-0.03, 0, -0.06))])
 st.cue('sfx:needle', 'S03', SP3a, 0.3); st.cue('sfx:needle', 'S03', SP3b, 0.4); st.cue('pop', 'S03', round(SP3b + 0.06, 3), 0.25); st.cue('sfx:boing', 'S03', round(SP3b + 0.1, 3), 0.2)
 
 # 4: magnitude four. The wall screen: a city map, MAGNITUDE 4 in red; rings pulse out from a red dot; the seismologist points at it, his arm stretching
 D4 = st.dur('S04'); MAPW = [-0.2, 1.7, -3.5]
 st.shot('S04', 'office', setOpts={'door': False}, actors=[
-        act('savant', [1.05, 0, -2.75], -35, 'stand', 'neutral', keys=[k(0.0, look=[MAPW[0], 1.8, MAPW[2]]), k(0.15, toon={'reach': {'R': [round(MAPW[0] + 0.05, 3), 1.6, round(MAPW[2] + 0.08, 3), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1, 'face': {'brow': 0.8, 'eye': 0.3}}, toonDur=0.12, toonEase='outBack'),
-            k(0.75, look='camera')])],
+        act('savant', [1.05, 0, -2.75], 10, 'stand', 'neutral', keys=[k(0.0, look=[MAPW[0], 1.8, MAPW[2]]), k(0.15, toon={'reach': {'R': [round(MAPW[0] + 0.05, 3), 1.6, round(MAPW[2] + 0.08, 3), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1, 'face': {'brow': 0.8, 'eye': 0.3}}, toonDur=0.08, toonEase='outBack'),
+            k(0.32, look='camera'),   # (pass 3) three-quarters to us, he points without looking: we saw the back of his head pointing
+            ])],
         props=[P('map4', 'quakeMap', pos=MAPW, opts={'w': 1.6, 'h': 1.0, 'head': 'MAGNITUDE 4', 'label': '', 'labelBelow': True, 'dotX': 0.5, 'pulses': [0.15, 0.6, 1.05]})],   # (pass 2) no label yet: CANAPÉ is S05's reveal
         cams=[FC(0.0, [0.4, 1.7, 0.4], [[MAPW[0] - 0.85, 2.25, MAPW[2]], [MAPW[0] + 0.85, 1.15, MAPW[2]], [1.05, 2.4, -2.75], [1.05, 1.0, -2.75], [1.45, 2.2, -2.75], [1.45, 1.5, -2.75]], top=0.12, bottom=0.72)])   # (pass 2) room right of his head (the edge cut it to a 35 px sliver)
 st.cue('sfx:beep', 'S04', 0.15, 0.3)
@@ -147,11 +153,11 @@ D7 = st.dur('S07'); H7 = round(st.at('S07', 'L06', 6) + 0.05, 3)
 st.shot('S07', 'livingRoom', setOpts={**LR, 'carpet': False}, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.8, look=[SEAT[0], 0.9, round(SEAT[2] + 1.0, 3)]), k(1.3, look='camera'),
             k(1.0, toon={**TIRED, 'sq': [0.95, 1.07, 0.95], 'bend': {'armL': [0, 0.35, 0, 1, None], 'armR': [0, -0.35, 0, 1, None]}}, toonDur=0.12), k(1.32, toon=TIRED, toonDur=0.15),   # (pass 2) a shrug
-            *HICK(H7, SEAT, 1.4)])],   # (pass 2) higher than the rule shot: the escalation
+            *HICK(H7, SEAT, 1.75)])],   # (pass 2) higher than the rule shot: the escalation (pass 3: 1.75 m: at 1.4 m he rose by his own height, as in S02)
         props=[P('rings7', 'quakeRings', pos=[SEAT[0], 0, round(SEAT[2] + 0.2, 3)], opts={'r': 2.2, 'n': 4, 'pulses': [0.1, H7]}),
                P('cordon7', 'cordon', pos=[SEAT[0], 0, round(SEAT[2] + 0.15, 3)], opts={'w': 3.0, 'd': 1.7, 'sign': 'ÉPICENTRE', 'signW': 1.0, 'signH': 0.3, 'jumps': [[H7, 1.0]], 'snap': round(H7 + 0.04, 3)})],   # (pass 2) the front tape snaps under the jolt, its plate drops
         cams=[FC(0.0, [1.4, 4.2, 1.0], [[SEAT[0], 3.4, SEAT[2]], [-1.6, 0.0, round(SEAT[2] + 1.0, 3)], [1.6, 0.0, round(SEAT[2] + 1.0, 3)], [-1.6, 0.0, round(SEAT[2] - 0.75, 3)], [1.6, 0.0, round(SEAT[2] - 0.75, 3)]], top=0.1, bottom=0.74, drift=(0.0, -0.05, -0.08))])   # (pass 1b) framed on the cordon, not on the back wall: the man was 23 % of the frame
-st.cue('sfx:boing', 'S07', H7, 0.35); st.cue('clack', 'S07', round(H7 + 0.04, 3), 0.3); st.cue('thud', 'S07', round(H7 + 0.53, 3), 0.3)
+st.cue('sfx:boing', 'S07', H7, 0.35); st.cue('clack', 'S07', round(H7 + 0.04, 3), 0.3); st.cue('thud', 'S07', round(H7 + 2 * (0.1 + 0.05 * 1.75) + 0.13 + 0.02, 3), 0.3)
 
 # 8: the firemen tried the glass of water upside down. Two firemen fold him over at the waist; one holds a big glass of blue water upside down at his lips;
 #    on « envers » a hiccup jackknifes him up out of their hands in an arc, the water spraying out of his cheeks; the firemen wince
@@ -161,7 +167,7 @@ MOUTH8 = OFF(ME8, 0, 0.55, 0.0, 1.32); GLASS8 = [MOUTH8[0], round(MOUTH8[1] + 0.
 HOLD8 = {'reach': {'R': [GLASS8[0], round(GLASS8[1] - 0.17, 3), round(GLASS8[2] + 0.14, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}
 st.shot('S08', 'livingRoom', setOpts=LR, actors=[
         act('mec', ME8, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[MOUTH8[0], 1.1, MOUTH8[2]]), k(0.0, toon={**BENT, **TIRED}, toonDur=0.0),
-            *[x for t_ in (0.4, 0.8, 1.18) for x in (k(t_, toon={**BENT, 'face': {**TIRED['face'], 'puff': 0.55}}, toonDur=0.06), k(round(t_ + 0.16, 3), toon={**BENT, **TIRED}, toonDur=0.08))],   # (pass 1b) gulps, upside down
+            *[x for t_ in (0.4, 0.8, 1.18) for x in (k(t_, toon={**BENT, 'scl': {'head': [1.14, 1.0, 1.14]}, 'face': {**TIRED['face'], 'puff': 1.0}}, toonDur=0.06), k(round(t_ + 0.16, 3), toon={**BENT, **TIRED}, toonDur=0.08))],   # (pass 1b) gulps, upside down (pass 3: the cheeks out, the head swelling: they were flat)
             k(round(H8 - 0.06, 3), toon={**BENT, 'sq': [1.08, 0.88, 1.08], 'face': {'eye': 0.3, 'mouth': 'O', 'puff': 0.8}}, toonDur=0.05, toonEase='in'),
             # (pass 2) the jackknife: he opens out going up and forward out of their hands, folds shut at the top, comes down folded
             k(H8, to=[ME8[0], 0.7, round(ME8[2] + 0.3, 3)], dur=0.14, glide=True, ease='out', face='keep'),
@@ -169,13 +175,20 @@ st.shot('S08', 'livingRoom', setOpts=LR, actors=[
             k(round(H8 + 0.1, 3), toon={'bend': {'spine': [1.25, 0, 0, 1, None], 'neck': [-0.4, 0, 0, 1, None], 'legL': [1.1, 0, 0, 1, None], 'legR': [1.1, 0, 0, 1, None]}, 'face': {'puff': 0.1, 'lid': 0.4, 'brow': 0.3, 'mouth': 'O', 'jaw': 0.35}}, toonDur=0.07, toonEase='inOut'),   # ...then folded shut like a penknife, the legs up to meet him, the water out
             k(round(H8 + 0.27, 3), to=ME8, dur=0.13, glide=True, ease='in', face='keep'),
             k(round(H8 + 0.4, 3), toon={**BENT, 'sq': [1.1, 0.88, 1.1], 'face': {'lid': 0.5}}, toonDur=0.03, toonEase='out'), k(round(H8 + 0.5, 3), toon={**BENT, **TIRED}, toonDur=0.1)]),
-        act('pompier1', [round(ME8[0] - 0.62, 3), 0, round(ME8[2] - 0.1, 3)], 60, 'stand', 'determined', keys=[k(0.0, look=[ME8[0], 1.3, ME8[2]]), k(0.55, look=[round(ME8[0] + 0.7, 3), 1.6, round(ME8[2] + 0.55, 3)]), k(1.0, look=[ME8[0], 1.3, ME8[2]]), k(0.0, toon={'reach': {'L': [round(ME8[0] - 0.12, 3), 1.5, round(ME8[2] - 0.15, 3), 1, 0.05], 'R': [round(ME8[0] - 0.05, 3), 1.25, round(ME8[2] + 0.1, 3), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}, toonDur=0.0),   # holding him folded
-            *react(H8, 0.8, look=[ME8[0], 1.9, round(ME8[2] + 0.3, 3)], kind='wince')]),   # (pass 2) a wince under the spray, not the eye-pop (kept for S03, S09, S11)
-        act('pompier2', [round(ME8[0] + 0.7, 3), 0, round(ME8[2] + 0.55, 3)], -100, 'stand', 'neutral', keys=[k(0.0, look=MOUTH8), k(0.7, look='camera'), k(1.1, look=MOUTH8), k(0.0, toon=HOLD8, toonDur=0.0),   # the glass at his lips, upside down
-            *react(H8, 0.8, keep=HOLD8, look=[ME8[0], 1.9, round(ME8[2] + 0.3, 3)], kind='wince')])],   # (pass 2) he keeps hold of the glass, wincing
-        props=[P('glass8', 'waterGlass', pos=GLASS8, rot=[PI, 0, 0], scale=3.0, opts={'level': 0.7, 'water': '#1F7FD6'}),   # (pass 2) a big glass of blue water, upside down at his lips, free (in the hand it turned sideways at his chest)
-               P('spray8', 'waterDrops', pos=[MOUTH8[0], round(MOUTH8[1] + 0.35, 3), round(MOUTH8[2] + 0.2, 3)], opts={'at': round(H8 + 0.09, 3), 'n': 22, 'dir': [0, 0.35, 1], 'speed': 2.6, 'spread': 0.9, 'r': 0.024, 'life': 0.7})],   # (pass 2) blue drops out of his cheeks (it was a white low-poly cloud)
-        cams=[FC(0.0, [-1.3, 1.5, 1.6], [[ME8[0], 2.3, ME8[2]], [round(ME8[0] - 0.62, 3), 2.4, ME8[2]], [round(ME8[0] + 0.7, 3), 2.4, round(ME8[2] + 0.55, 3)], [ME8[0], 0.3, ME8[2]], [ME8[0], 3.45, ME8[2]]], top=0.08, bottom=0.74)])   # (pass 1b, probe) the top of the jump in the frame
+        # (pass 3) both firemen on the far side of him, facing us (one at his front on our side hid him; seen from the side they were profiles)
+        act('pompier1', [-0.68, 0, -1.92], 65, 'stand', 'determined', keys=[k(0.0, look=[ME8[0], 1.3, ME8[2]]), k(0.55, look='camera'), k(1.0, look=[ME8[0], 1.3, ME8[2]]), k(0.0, toon={'reach': {'L': [-0.14, 1.45, -1.78, 1, 0.05], 'R': [-0.1, 1.3, -1.45, 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}, toonDur=0.0),   # holding him folded
+            k(round(H8 + 0.07, 3), look=[ME8[0], 2.5, round(ME8[2] + 0.3, 3)]),   # (pass 3) the eyes then the head follow him up, two frames after the launch...
+            *react(round(H8 + 0.12, 3), 0.8, look=[ME8[0], 2.3, round(ME8[2] + 0.3, 3)], kind='wince')]),   # ...a wince under the spray
+        act('pompier2', [-0.62, 0, -0.78], 117, 'stand', 'neutral', keys=[k(0.0, look=MOUTH8), k(0.7, look='camera'), k(1.1, look=MOUTH8), k(0.0, toon=HOLD8, toonDur=0.0),   # the glass at his lips, upside down
+            k(round(H8 + 0.08, 3), look=[ME8[0], 2.5, round(ME8[2] + 0.3, 3)]),
+            *react(round(H8 + 0.13, 3), 0.8, keep=HOLD8, look=[ME8[0], 2.3, round(ME8[2] + 0.3, 3)], kind='wince')])],   # he keeps hold of the glass, wincing
+        props=[P('glass8', 'waterGlass', pos=GLASS8, rot=[PI, 0, 0], scale=3.0, opts={'level': 0.7, 'water': '#1565C0', 'tumbler': True}),   # (pass 2) a big glass of blue water, upside down at his lips, free (in the hand it turned sideways at his chest)
+               # (pass 3) a tumbler that reads: a thick rim at his lips, highlights, the water dark blue at the closed end
+               P('spray8', 'waterDrops', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.1, 0.22]}, opts={'at': round(H8 + 0.1, 3), 'n': 26, 'dir': [0, 0.25, 1], 'speed': 3.4, 'spread': 0.8, 'r': 0.026, 'life': 0.38, 'color': '#1E88E5'})],
+               # (pass 3) the spray out of his mouth at the top of the jackknife (it burst round the glass in the fireman's fist)
+        cams=[FC(0.0, [3.2, 1.45, -0.44], [[ME8[0], 2.3, ME8[2]], [-0.68, 2.4, -1.92], [-0.62, 2.4, -0.78], [ME8[0], 0.3, ME8[2]], [ME8[0], 3.45, ME8[2]], [GLASS8[0], round(GLASS8[1] + 0.2, 3), GLASS8[2]]], top=0.08, bottom=0.74)])
+        # (pass 3) from his side, 70 degrees: the fold is an L against the wall and the glass upside down at his lips in profile (head on, his torso
+        # stacked toward the lens into a navy knot)
 st.cue('sfx:pour', 'S08', 0.3, 0.25); st.cue('sfx:splash', 'S08', round(H8 + 0.09, 3), 0.4)
 
 # 9: then the big fright. On the sofa, deadpan: a fireman springs up behind the sofa, arms up in a V, BOUH !; on the same frame his hair stands on end, his
@@ -199,10 +212,10 @@ st.shot('S09', 'livingRoom', setOpts=LR, actors=[
             k(round(UP9 + 0.3, 3), toon={'touch': {'R': ['head', 0.0, 0.32, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'bend': {'neck': [-0.35, 0, 0, 1, None]}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.2),   # then he scratches his head, still looking up
             k(round(UP9 + 0.52, 3), toon={'touch': {'R': ['head', 0.03, 0.34, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'bend': {'neck': [-0.35, 0, 0, 1, None]}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.1),
             k(round(UP9 + 0.64, 3), toon={'touch': {'R': ['head', -0.02, 0.32, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'bend': {'neck': [-0.35, 0, 0, 1, None]}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.1)])],
-        props=[HIC('boo9', [round(FR9[0] - 0.95, 3), 3.2, -3.0], [BOO9], w=0.62, text='BOUH !'),   # (pass 2b) clear of his raised right hand
+        props=[HIC('boo9', [FR9[0], 2.68, -3.0], [BOO9], w=0.66, text='BOUH !', inner=0.8, fit=0.52),   # (pass 3) between his raised hands, its spikes on his hair (it floated 340 px off in the corner), a rounder star (its spikes ate the « ! »)
                P('flakes9', 'waterDrops', pos=[SEAT[0], 3.15, round(SEAT[2] + 0.25, 3)], opts={'at': round(UP9 + 0.22, 3), 'n': 16, 'dir': [0, -1, 0], 'speed': 0.3, 'spread': 1.0, 'color': '#EFE8DA', 'r': 0.03, 'life': 1.0, 'g': 2.5})],   # (pass 2) plaster flakes from the ceiling he hit off the frame
         fx=[{'type': 'shake', 'at': round(UP9 + 0.2, 3), 'dur': 0.15, 'amount': 0.01}],
-        cams=[FC(0.0, [0.3, 1.6, 0.6], [[SEAT[0], 3.0, SEAT[2]], [SEAT[0], 0.6, SEAT[2]], [round(FR9[0] - 1.25, 3), 3.45, -3.0], [round(SEAT[0] + 0.7, 3), 1.6, SEAT[2]]], top=0.1, bottom=0.74)])
+        cams=[FC(0.0, [0.3, 1.6, 0.6], [[SEAT[0], 3.0, SEAT[2]], [SEAT[0], 0.6, SEAT[2]], [round(FR9[0] - 0.7, 3), 3.05, -3.0], [round(SEAT[0] + 0.7, 3), 1.6, SEAT[2]]], top=0.1, bottom=0.74)])
 st.cue('sfx:roar', 'S09', BOO9, 0.4); st.cue('whoosh', 'S09', UP9, 0.35, 0.25, 600, 2600); st.cue('thud', 'S09', round(UP9 + 0.2, 3), 0.35)
 
 # 10: he stayed stuck to the ceiling. From the floor looking up: flat on the ceiling like a starfish, his face to us, deadpan; plaster dust drifting down;
@@ -214,16 +227,20 @@ st.shot('S10', 'livingRoom', setOpts=LR, actors=[
         act('mec', ME10, 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**STAR, 'face': {'lid': 0.5}}, toonDur=0.0),
             k(round(H10 - 0.05, 3), toon={**STAR, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.04),
             k(H10, toon={**STAR, 'sq': [1.32, 1.06, 0.22], 'face': {'lid': 0.3, 'brow': 0.35, 'mouth': 'O', 'jaw': 0.3}}, toonDur=0.03, toonEase='out'),   # (pass 2) the pancake: flattened into the plaster...
-            k(H10, to=[ME10[0], round(ME10[1] + 0.08, 3), ME10[2]], dur=0.03, glide=True, face='keep'), k(round(H10 + 0.12, 3), to=ME10, dur=0.1, glide=True, face='keep'),
-            k(round(H10 + 0.12, 3), toon={**STAR, 'sq': [0.94, 1.0, 0.85], 'face': {'lid': 0.2, 'brow': 0.5}}, toonDur=0.06, toonEase='outBack'),   # ...pops back out, past his shape...
-            k(round(H10 + 0.3, 3), toon={**STAR, 'face': {'lid': 0.5, 'brow': 0.2}}, toonDur=0.12)]),   # ...to the starfish, bored
-        act('pompier1', [-0.75, 0, -1.2], 20, 'stand', 'neutral', keys=[k(0.0, look=[0.0, CEIL, -2.2]), k(0.6, look=[0.8, 1.7, -1.05]), k(1.0, look=[0.0, CEIL, -2.2]), k(0.0, toon={'bend': {'neck': [-0.5, 0, 0, 1, None]}, 'face': {'jaw': 0.7, 'brow': 0.8}}, toonDur=0.0)]),
-        act('pompier2', [0.8, 0, -1.05], -25, 'stand', 'neutral', keys=[k(0.0, look=[0.0, CEIL, -2.2]), k(0.0, toon={'bend': {'neck': [-0.5, 0, 0, 1, None]}, 'face': {'jaw': 0.5, 'brow': 0.9, 'eye': 0.3}}, toonDur=0.0), *react(H10, 0.8, keep={'bend': {'neck': [-0.5, 0, 0, 1, None]}}, look=[0.0, CEIL, -2.2], kind='wince')])],   # (pass 2) a wince under the flakes (no eye-pop)
-        props=[P('ceil10', 'plainWall', pos=[0.0, round(CEIL + 0.02, 3), -3.6], rot=[round(PI / 2, 4), 0, 0], opts={'w': 7.0, 'h': 5.5, 'color': '#F2EBDD'}),
-               P('cracks10', 'ceilingCracks', pos=[0.0, round(CEIL + 0.012, 3), -2.15], rot=[round(PI / 2, 4), 0, 0], opts={'r': 1.25, 'n': 10, 'at': H10}),   # (pass 2) cracks running out round him
-               P('flakes10', 'waterDrops', pos=[0.0, round(CEIL - 0.1, 3), -2.1], opts={'at': round(H10 + 0.02, 3), 'n': 18, 'dir': [0, -1, 0], 'speed': 0.4, 'spread': 1.2, 'color': '#EFE8DA', 'r': 0.03, 'life': 1.0, 'g': 2.5})],   # (pass 2) plaster flakes (the drifting dust read as white lumps)
+            k(H10, to=[ME10[0], round(ME10[1] + 0.08, 3), ME10[2]], dur=0.03, glide=True, face='keep'), k(round(H10 + 0.19, 3), to=ME10, dur=0.1, glide=True, face='keep'),
+            k(round(H10 + 0.19, 3), toon={**STAR, 'sq': [0.9, 1.0, 1.0], 'face': {'lid': 0.2, 'brow': 0.5}}, toonDur=0.06, toonEase='outBack'),   # (pass 3) flat for six frames (four read as a bulge), then he pops back out, past his shape...
+            k(round(H10 + 0.33, 3), toon={**STAR, 'sq': [1.04, 1.0, 0.5], 'face': {'lid': 0.4, 'brow': 0.3}}, toonDur=0.08),
+            k(round(H10 + 0.45, 3), toon={**STAR, 'face': {'lid': 0.5, 'brow': 0.2}}, toonDur=0.12)]),   # ...to the starfish, bored
+        # (pass 3) the firemen at the back, under his feet, looking up and toward us at him: their faces and dropped jaws turned to the lens (under his
+        # chest, looking back up at him, they showed us the backs of their heads, and the right one had no head in the frame)
+        act('pompier1', [-0.8, 0, -2.85], 12, 'stand', 'neutral', keys=[k(0.0, look=[-0.2, CEIL, -1.7]), k(0.6, look=[0.5, 1.9, -2.7]), k(0.95, look=[-0.2, CEIL, -1.7]), k(0.0, toon={'face': {'jaw': 0.8, 'brow': 0.8, 'eye': 0.25}}, toonDur=0.0)]),
+        act('pompier2', [0.85, 0, -2.75], -12, 'stand', 'neutral', keys=[k(0.0, look=[0.2, CEIL, -1.6]), k(0.0, toon={'face': {'jaw': 0.6, 'brow': 0.9, 'eye': 0.3}}, toonDur=0.0), *react(H10, 0.8, look=[0.2, CEIL, -1.6], kind='wince')])],   # (pass 2) a wince under the flakes (no eye-pop)
+        props=[P('ceil10', 'ceilingPlaster', pos=[0.0, round(CEIL + 0.02, 3), -3.1], rot=[round(PI / 2, 4), 0, 0], opts={'w': 7.0, 'h': 6.5, 'color': '#F7F2EA', 'rim': '#E2D8C8', 'cy': 0.62}),   # (pass 3) a pale plaster ceiling, evenly lit (lit by the room it came out brown, the darkest picture of the film)
+               P('cracks10', 'ceilingCracks', pos=[0.0, round(CEIL + 0.012, 3), -2.05], rot=[round(PI / 2, 4), 0, 0], opts={'r': 1.45, 'n': 11, 'at': H10, 'thick': 3.2, 'edge': '#FFFDF8'}),   # (pass 3) thick dark cracks with a light chipped edge (1-2 px hairlines)
+               *[P(f'flakes10{i}', 'waterDrops', pos=[x_, round(CEIL - 0.08, 3), z_], opts={'at': round(H10 + 0.02 + 0.03 * i, 3), 'n': 6, 'dir': [0, -1, 0], 'speed': 0.35, 'spread': 0.5, 'color': '#EDE6D8', 'r': 0.032, 'life': 1.0, 'g': 2.5})
+                 for i, (x_, z_) in enumerate([(0.0, -0.95), (-1.05, -1.65), (1.05, -1.65), (-0.35, -2.95), (0.35, -2.95), (0.0, -2.05)])]],   # (pass 3) flakes from his outline and the cracks (from one point they made a ring of beads round his crotch)
         fx=[{'type': 'shake', 'at': H10, 'dur': 0.12, 'amount': 0.008}],
-        cams=[FC(0.0, [0.25, 0.75, 0.9], [[-1.0, CEIL, -1.4], [1.0, CEIL, -3.4], [-0.75, 2.35, -1.2], [0.8, 2.35, -1.05], [0.0, CEIL, -2.2]], top=0.1, bottom=0.8)])
+        cams=[FC(0.0, [0.25, 0.75, 0.9], [[-1.0, CEIL, -1.0], [1.0, CEIL, -3.2], [-0.8, 2.4, -2.85], [0.85, 2.4, -2.75], [-0.8, 1.55, -2.85], [0.85, 1.55, -2.75], [0.0, CEIL, -2.2]], top=0.1, bottom=0.78)])   # (pass 3) both firemen's heads whole
 st.cue('thud', 'S10', 0.02, 0.4); st.cue('thud', 'S10', H10, 0.4); st.cue('clack', 'S10', round(H10 + 0.02, 3), 0.25)
 
 # 11: yesterday the State declared him a natural disaster. His living room: an official in his tricolour sash pulls the red cloth off a bronze plaque over the
@@ -237,10 +254,11 @@ st.shot('S11', 'livingRoom', setOpts={**LR, 'picture': False}, actors=[   # (pas
         act('mec', BASE11, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.5, look=[PREF[0], 2.0, PREF[2]]), k(1.0, look='camera'),
             *HICK(H11, BASE11, 1.0, hang=HG11)]),   # (pass 3) a metre up, held 0.75 s (at 0.7 m his feet sat on the seat line: he seemed to stand on the sofa)
         act('prefet', PREF, 40, 'stand', 'happy', keys=[k(0.0, look=PLAQ), k(round(UNV11 - 0.2, 3), toon={'reach': {'R': [round(PLAQ[0] - 0.2, 3), 2.0, round(PLAQ[2] + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.12),
-            k(UNV11, toon={'reach': {'R': [round(PLAQ[0] - 0.45, 3), 1.3, round(PLAQ[2] + 0.5, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08, toonEase='out'), k(round(UNV11 + 0.15, 3), look='camera'), k(round(UNV11 + 0.3, 3), toon={'face': {'brow': 0.6}}, toonDur=0.15),
+            # (pass 3) a snap of the arm (a smear)
+            k(UNV11, toon={'reach': {'R': [round(PLAQ[0] - 0.45, 3), 1.3, round(PLAQ[2] + 0.5, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.06, toonEase='out'), k(round(UNV11 + 0.15, 3), look='camera'), k(round(UNV11 + 0.3, 3), toon={'face': {'brow': 0.6}}, toonDur=0.15),
             *doubleTake(round(H11 + 0.2, 3), [BASE11[0], 2.5, BASE11[2]], blank=0.25, hold=0.4)])],   # (pass 3) a real blank beat before the snap (2-4 frames read as one take)
         props=[P('plaque11', 'bronzePlaque', pos=PLAQ, opts={'text': 'CATASTROPHE/NATURELLE', 'w': 1.1, 'h': 0.42}),
-               P('veil11', 'paperSheet', pos=[PLAQ[0], PLAQ[1], round(PLAQ[2] + 0.04, 3)], opts={'w': 1.25, 'h': 0.55, 'paper': '#B5302A'},
+               P('veil11', 'unveilCloth', pos=[PLAQ[0], PLAQ[1], round(PLAQ[2] + 0.06, 3)], opts={'w': 1.3, 'h': 0.62, 'color': '#B5302A', 'at': UNV11, 'dur': 0.3},   # (pass 3) a soft cloth with folds that crumples as it goes (the flat sheet read as a stiff slab)
                  keys=[k(UNV11, to=[round(PLAQ[0] - 0.5, 3), 0.35, round(PLAQ[2] + 0.55, 3)], dur=0.3, ease='in'), k(UNV11, rotTo=[0.35, 0.2, 1.1], dur=0.3, ease='in'), k(round(UNV11 + 0.32, 3), visible=False)]),   # (pass 2) a thin red cloth sliding off (the box read as a stiff cream crate)
                P('sash11', 'sash', on={'actor': 'prefet', 'joint': 'torso', 'offset': [0.0, 0.3, 0.13], 'rot': [0, 0, 0.8]}, opts={'len': 0.78, 'w': 0.11})],   # (pass 2) the tricolour sash: an official, not a second hero
         cams=[FC(0.0, [0.2, 1.6, 1.1], [[PLAQ[0] - 0.6, 2.05, PLAQ[2]], [PLAQ[0] + 0.6, 1.5, PLAQ[2]], [PREF[0], 2.35, PREF[2]], [BASE11[0], 2.8, BASE11[2]], [BASE11[0], 0.4, BASE11[2]], [PREF[0], 0.4, PREF[2]]], top=0.24, bottom=0.74)])   # (pass 2) the top of his jump under the card band
@@ -260,10 +278,13 @@ st.shot('S12', 'livingRoom', setOpts=LR, actors=[
             k(round(GIVE12 - 0.1, 3), toon={**TAKEH, **TIRED}, toonDur=0.12), k(round(GIVE12 - 0.1, 3), look=[CHQB[0], 1.05, CHQB[2]]), k(round(GIVE12 + 0.3, 3), look='camera'),
             k(round(GIVE12 + 0.42, 3), toon={**TAKEH, 'face': {'lid': 1.0, 'shadow': 0.6}}, toonDur=0.05), k(round(GIVE12 + 0.52, 3), toon={**TAKEH, **TIRED}, toonDur=0.07),
             *HICK(H12, SEAT, 1.0, keep={'reach': {'L': [round(CHQB[0] - 0.45, 3), round(CHQB[1] + 0.45, 3), CHQB[2], 0.6, 0.05]}, 'hands': {'L': 'pinch'}})]),
-        act('assureur', ASS, -50, 'stand', 'happy', keys=[k(0.0, look=[SEAT[0], 1.5, SEAT[2]]), k(0.0, toon=GIVEH, toonDur=0.0), k(0.5, look='camera'), k(0.75, look=[SEAT[0], 1.5, SEAT[2]]),   # (pass 2) three-quarters to us (we saw the side of his head)
+        # (pass 3) turned to us (-22 degrees) and his eyes do the looking at the man (his head turned to him showed us only an ear and stubble)
+        act('assureur', ASS, -22, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={**GIVEH, 'face': {'gx': -0.8}}, toonDur=0.0), k(0.75, look=[CHQA[0], 1.2, CHQA[2]]), k(1.05, look='camera'),
             k(0.3, toon={**GIVEH, 'sq': [1.0, 1.03, 1.0], 'face': {'brow': 0.5}}, toonDur=0.15),   # he beams at us, the cheque held out
             k(round(GIVE12 + 0.15, 3), toon=EMPTY, toonDur=0.1),   # lets go, the hand stays out
-            k(round(H12 + 0.04, 3), toon={**EMPTY, 'face': {'jaw': 0.75, 'brow': 0.9}}, toonDur=0.05, toonEase='out'), k(round(H12 + 0.04, 3), look=[SEAT[0], 2.4, SEAT[2]])])],   # (pass 2) his jaw drops (the eye-pop is kept for three takes)
+            k(round(H12 + 0.06, 3), toon={**EMPTY, 'face': {'jaw': 0.85, 'brow': 0.95, 'eye': 0.3, 'gx': -0.9, 'gy': -0.8}}, toonDur=0.05, toonEase='out'), k(round(H12 + 0.06, 3), look='camera'),   # (pass 3) the jaw drops at us, the eyes up after him...
+            k(round(H12 + 0.45, 3), toon={**EMPTY, 'sq': [1.06, 0.92, 1.06], 'lay': [-0.12, 0], 'face': {'jaw': 0.6, 'brow': 0.9, 'lid': 0.8, 'gx': -0.6}}, toonDur=0.04, toonEase='out'),   # ...and he flinches at the crash (the landing at H12 + 0.45)
+            k(round(H12 + 0.54, 3), toon={**EMPTY, 'face': {'jaw': 0.5, 'brow': 0.7, 'gx': -0.7, 'gy': 0.3}}, toonDur=0.1)])],
         props=[P('chq12', 'bigCheque', pos=CHQA, face='camera', opts={'w': 1.0, 'h': 0.46, 'amount': '3 000 €', 'text': 'ASSURANCE', 'flutter': round(H12 + 0.12, 3)},
                  keys=[k(GIVE12, to=CHQB, dur=0.15, ease='inOut'), k(H12, to=[round(CHQB[0] - 0.05, 3), round(CHQB[1] + 0.45, 3), CHQB[2]], dur=0.12, ease='out'),
                        k(round(H12 + 0.2, 3), to=[round(CHQB[0] + 0.2, 3), 0.35, round(CHQB[2] + 0.25, 3)], dur=0.75, ease='inOut')])],   # (pass 2) a giant novelty cheque (3 000 € was 7 px); left in the air, it flutters down after him
@@ -279,13 +300,12 @@ st.shot('S13', 'livingRoom', setOpts=LR, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**CAN, **TIRED}, toonDur=0.0),
             *[x for t_ in (0.25, 0.85) for x in (k(t_, toon={**SIP, 'bend': {'neck': [-0.15, 0, 0, 1, None]}, 'face': {'lid': 0.8, 'shadow': 0.6, 'mouth': 'kiss'}}, toonDur=0.14, toonEase='inOut'),
                                               k(round(t_ + 0.4, 3), toon={**CAN, **TIRED}, toonDur=0.14, toonEase='inOut'))],   # sips: the can up to the straw, the eyes half shut, back down
-            *HICK(H13, SEAT, 0.35, keep=CAN),
+            *HICK(H13, SEAT, 0.12, keep=CAN),   # (pass 3) a small one: a quarter of the S01 jolt (at 0.35 his head went as high as S01's)
             k(round(D13 - 0.72, 3), toon={**CAN, 'face': {'lid': 1, 'shadow': 0.6}, 'bend': {'neck': [0.38, 0, 0, 1, None]}}, toonDur=0.3, toonEase='in'), k(round(D13 - 0.3, 3), toon={**CAN, **TIRED, 'face': {'lid': 0.3, 'shadow': 0.6, 'brow': 0.4}}, toonDur=0.06, toonEase='out')]),   # he nods off again and jerks awake (the bookend of S01)
         ],
         props=[P('can13', 'sodaCan', on={'actor': 'mec', 'hand': 'R', 'offset': [0, -0.1, 0.05], 'face': 'camera', 'faceFlat': True}, scale=1.6, opts={'color': '#C8202A', 'text': 'SODA'}),   # (pass 2b) upright and its straw up, turned to us (the hand laid it on its side)
-               P('stack13', 'sodaStack', pos=[-1.05, 0.0, -2.55], scale=1.2, opts={'rows': 4, 'cols': 6, 'pyramid': True}),
-               P('stack13f', 'sodaStack', pos=[-0.72, 0.0, -1.95], scale=0.8, opts={'rows': 3, 'cols': 4, 'pyramid': True}),   # (pass 2) pyramids in the foreground at the edges
-               P('stack13g', 'sodaStack', pos=[0.74, 0.0, -2.0], scale=0.7, opts={'rows': 3, 'cols': 4, 'pyramid': True}),
+               P('stack13', 'sodaStack', pos=[-0.66, 0.5, -2.9], scale=0.85, opts={'rows': 4, 'cols': 4, 'pyramid': True}),   # (pass 3) two full pyramids on the cushions at his
+               P('stack13g', 'sodaStack', pos=[0.66, 0.5, -2.9], scale=0.85, opts={'rows': 4, 'cols': 4, 'pyramid': True}),   # sides (on the floor they showed as cut slivers in the corners)
                HIC('hic13', [0.42, 2.2, -2.55], [H13], w=0.38)],
         cams=[FC(0.0, [0.15, 1.35, 0.2], [[SEAT[0], 2.45, SEAT[2]], [SEAT[0], 0.5, round(SEAT[2] + 0.45, 3)], [-0.62, 1.4, SEAT[2]], [0.62, 1.4, SEAT[2]]], top=0.1, bottom=0.76, drift=(0.0, -0.03, -0.3))])   # (pass 2b) knees up, room for the hop, pushing in (his head was 7 % of the frame; the first close-up cut it)
 st.cue('sfx:pour', 'S13', 0.2, 0.2); st.cue('sfx:boing', 'S13', H13, 0.3)
@@ -299,14 +319,14 @@ for t_ in [('S02', 0.68, 'ruler2', '1M'), ('S04', 0.6, 'map4', 'magnitude'), ('S
     st.text(t_[0], t_[1], t_[2], t_[3])   # (pass 2) the lettering that must read
 st.write("Le hoquet", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={   # (pass 2) hairRest: still heads keep their hair block
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
-    'savant': {'preset': 'savant', 'seed': 501, 'hair': 'receding', 'hairColor': '#EDEDED', 'build': {'width': 0.92, 'headWidth': 1.25}},
+    'savant': {'preset': 'savant', 'seed': 501, 'hair': 'receding', 'hairColor': '#A9AEB6', 'build': {'width': 0.92, 'headWidth': 1.25}},   # (pass 3) grey hair (white on the cream wall: no edge)
     'flic': {'preset': 'cop', 'seed': 502, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'voisine': {'preset': 'madame', 'seed': 503, 'suit': '#4F7F3A', 'build': {'width': 0.9, 'headWidth': 1.25}},
     'mamie': {'preset': 'mamie', 'seed': 504, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'gamin': {'preset': 'gamin', 'seed': 505},
     'voisin': {'preset': 'worker', 'seed': 506, 'hat': None, 'build': {'width': 0.95, 'headWidth': 1.2}},
-    'pompier1': {'preset': 'pompier', 'seed': 507, 'bandColor': '#EEF1F4', 'bandH': 0.05, 'build': {'width': 1.0, 'headWidth': 1.25}},   # (pass 2) bright reflective bands
-    'pompier2': {'preset': 'pompier', 'seed': 508, 'bandColor': '#EEF1F4', 'bandH': 0.05, 'build': {'width': 0.95, 'headWidth': 1.25}},
+    'pompier1': {'preset': 'pompier', 'seed': 507, 'hat': 'firecrest', 'bandColor': '#EEF1F4', 'bandH': 0.05, 'build': {'width': 1.0, 'headWidth': 1.25}},   # (pass 2) bright reflective bands
+    'pompier2': {'preset': 'pompier', 'seed': 508, 'hat': 'firecrest', 'bandColor': '#EEF1F4', 'bandH': 0.05, 'build': {'width': 0.95, 'headWidth': 1.25}},   # (pass 3) a fireman's helmet (the red box read as a cap)
     'prefet': {'preset': 'politique', 'seed': 509, 'suit': '#6E737A', 'build': {'width': 0.95, 'headWidth': 1.25}},   # (pass 2) a grey suit (in navy he read as a second hero)
     'assureur': {'preset': 'boss', 'seed': 510, 'build': {'width': 0.95, 'headWidth': 1.25}},
 })

@@ -283,6 +283,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le doigt sur le seul bouton vert | l'insert filmé de l'autre côté du panneau, d'en haut : le doigt descend vers nous sur le bouton, appui tenu six images (`pressDur`) ; l'écran du panneau n'est plus vert, le bouton est le seul vert | 49 S06 (cycle 14) |
 | Recto verso d'un seul contour | les deux moitiés raides (`stiffStand`), sans regard ni balancement (`toon: {shift: 0, holdLife: 0}`), séparées de 12 mm : un seul contour, le quart de tour en trait | 49 S07 (cycle 14) |
 | Le pied à coulisse presque de profil | à 53° du profil, son épaisseur devient une largeur à l'écran ; la règle à 1,5 fois son épaisseur, l'affichage déporté au-delà du coulisseau (`dispX`), la copie devant lui tournée par la tranche vers l'objectif | 49 S10 (cycle 14) |
+| Les pieds rattrapent la tête | au départ d'un saut, une image de traînée (`sq` [0,76 ; 1,42 ; 0,76]) ; la tête atteint le sommet sur l'étirement et y reste pendant que le corps monte du reste (les pieds rattrapent) ; à la chute, l'étirement attend que le corps soit lancé : plus d'accroc au sommet | 50 (cycle 14, passe 3) |
+| La tête-ballon | la grande inspiration : la tête enfle (`scl: head` ×1,3) avec le visage `puffed` (yeux ouverts, sourcils froncés) ; elle reste gonflée pendant l'effort (visage `strain` : yeux plissés, dents, veine) et se dégonfle d'un coup quand les yeux sortent | 51 S10-S11 (cycle 14) |
+| Le ruban qui fouette | le ruban du cordon casse en deux moitiés qui reviennent en fouettant vers leurs poteaux, une onde le long de chacune, puis pendent ; la plaque fait un tour complet vers l'objectif en tombant (`cordon` `snap`) | 50 S07 (cycle 14) |
+| Le stylo qui s'envole | l'aiguille du sismographe part en arc vers le haut, grossit du double en route et laisse trois copies qui s'effacent derrière elle : une traînée (`seismograph` `penOff`) | 50 S03 (cycle 14) |
+| Le drap qui se froisse | `unveilCloth` : un drap souple à plis et ourlet festonné qui se balance ; tiré, il se froisse, son bord haut s'enroule et il se ramasse au tiers de sa hauteur pendant que ses clés l'emportent. Accroché à une tête (`on` joint `head`), c'est aussi le drap noir du photographe | 50 S11, 52 S12 (cycle 14) |
+| La prise vers nous | la double prise d'un homme qui marche : coup d'œil à la chose derrière lui, retour au téléphone, il s'arrête, et la prise vers l'objectif, yeux sur tiges, bras ouverts, avant-bras baissé (l'objet quitte le visage) | 51 S02 (cycle 14) |
 
 ## Erreurs à éviter
 
@@ -922,3 +928,24 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 14) Une étiquette à côté d'un point sort du cadre au zoom et sa boîte mord le point : sous le point, sa boîte derrière ; et un texte de
   3 ou 7 px (un post-it, un chèque) se refait en version géante (règle de hauteur, chèque géant).
 - (cycle 14) Le tableau du salon derrière sa tête au sommet de chaque saut : le déplacer hors de l'axe (`pictureX`) ou le retirer du plan.
+- (cycle 14) L'écrasement-étirement se fait autour des pieds : un étirement qui se relâche au sommet d'un saut fait redescendre la tête, et l'étirement
+  de chute posé au début d'une chute en ease-in la fait remonter : haut, bas, haut, choc (la revue de 50 a mesuré les épaules remonter de 4 à 10 %
+  du cadre avant chaque chute). La tête atteint le sommet sur l'étirement et y reste pendant que les pieds rattrapent ; l'étirement de chute attend
+  que la chute soit lancée.
+- (cycle 14) Une double prise dont le regard vide dure 2 à 4 images se lit comme une seule prise : 6 à 8 images de regard vide vers nous, puis les
+  yeux sortent vers la chose, tenus 8 à 12 images (`doubleTake(..., blank=0.25, hold=0.4)`).
+- (cycle 14) Une double prise visée sur ce qui est derrière lui ne montre que l'arrière de sa tête : la prise vers l'objectif (ou la caméra du côté
+  de la chose), et il s'arrête pour la prendre (une prise en marchant se perd).
+- (cycle 14) Les joues gonflées seules (`puff`) font deux parenthèses à la bouche : la tête enfle (`scl: head`) avec le visage `puffed`.
+- (cycle 14) Le décor `skyHigh` a des cumulus jusqu'à 50 m de haut : une caméra à 1,5 m est dans un nuage, le plan est gris uni. Tout le plan à 60 m,
+  au-dessus de la mer de nuages ; et des barres blanches sur des nuages blancs ne se voient pas (un ruban d'asphalte sous le passage piéton).
+- (cycle 14) Ce qui descend du ciel doit traverser le cadre : avec un objectif de 30°, un point à 26 m de haut reste au-dessus du bord haut jusqu'aux
+  dernières images, et les mariés sur les marches sous le bord bas. Calculer l'angle (`lens` est le champ vertical en degrés) ou élargir.
+- (cycle 14) Un plafond vu d'en dessous, éclairé par la pièce, sort brun et boueux (luminance 125 contre 150-173 ailleurs) : `ceilingPlaster`, un plâtre
+  pâle non éclairé ; des fissures épaisses (`thick`) au bord clair ; des éclats qui tombent du contour du héros, pas d'un seul point.
+- (cycle 14) Des spectateurs placés sous le héros qui regardent derrière eux pour le voir nous montrent leur nuque : les placer de façon que regarder le
+  héros les tourne vers l'objectif (au fond, le regard vers le haut et vers nous).
+- (cycle 14) Le préréglage `gamin` seul a la taille d'un homme : `build` height 0,52, headScale 1,5, des habits vifs.
+- (cycle 14) Deux bras droits à l'horizontale pendant une vrille se lisent comme la pose en T d'un modèle : un bras enroulé sur la poitrine, l'autre
+  jeté en arrière, la colonne vrillée.
+- (cycle 14) Une main « tendue » à 0,42 m devant et 1,12 m de haut pend à la hanche : 0,55 m devant, 1,32 m de haut (à la poitrine).
