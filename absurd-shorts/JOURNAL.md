@@ -1569,3 +1569,18 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   administration ; (2) l'affiche contre le mur et le freinage des talons ont déjà servi (38, 40, 44) : traction penchée, vol au-dessus des
   toits et arrivée tête la première dans le canapé à la place ; (3) pas de pigeons cette fois (déjà très présents dans le catalogue) ;
   (4) le préfet de 50 dévoilait déjà une plaque : à la mairie de 51, un cantonnier peint des tirets sur le fil et son rouleau colle.
+- **47 « L'aimant » livré** (génération complète : −16 LUFS, pic −4,2 dB, contrôles HyperFrames sans erreur, aucune image isolée aux coupes).
+- **49 « La photocopieuse », revue 2** : animation 7,0, direction artistique 7,0 (contre 6,3 / 6,4). Passe 3 : le pied à coulisse refait
+  (une fois et demie plus grand, deux mâchoires sur la poitrine et le dos, pincé à moitié de son épaisseur en quatre images puis regonflé,
+  affichage 30 cm tourné vers nous, lui de trois quarts, la copie presque par la tranche à côté) ; les boutons vus d'en haut à gauche, le doigt
+  sur un bouton qui s'enfonce et s'allume (la cible du doigt était 10 cm à côté : la manche appuyait) ; le prix sur sa ligne (le panneau
+  rétrécissait la ligne trop longue : COPIE sortait plus petit que LUI) ; le tampon dans sa main ; recto verso par deux copies dos à dos ;
+  rangées opaques au visage peint ; copies qui flottent en vol ; la réclamation tenue par le bord ; la gifle fait sauter la rame ; la langue
+  au lieu des cheveux dressés (trois fois dans le film) ; la rame deux fois plus grande tenue par les bouts ; élan et amorti des prises.
+- **Outil** : `freeze_check.py` refait la mesure du critique d'animation (images deux à deux à la taille d'une vignette, 99,5e centile de la
+  différence locale sous 14 pendant 0,4 s) ; calé sur le brouillon 2 de 49, il retrouve tous les passages nommés par la revue. Trois derniers
+  passages figés corrigés (passe 3b) et brouillon 3 relancé pour que la dernière revue juge la bonne version.
+- **51 « La gomme à mâcher »** : trois passes d'images fixes. Corrigé : le journal posé à plat se voyait par la tranche (tenu debout devant lui),
+  le rouleau attaché à la main pointait en l'air (accessoire libre qui suit l'ouvrier), le téléphone invisible faisait lire un salut militaire,
+  le tapis rouge mangeait un tiers des plans du salon (retiré), le visage tête en bas caché derrière le bureau (remonté, cadré serré), le corps
+  hors cadre pendant le vol (caméra centrée sur le milieu du corps), la tête qui ressortait sous le canapé (enfoncée dans le coussin).
