@@ -170,9 +170,9 @@ export const CODEBARRE_PROPS = {
     const w = o.w ?? 1.8, g = grp(at(box(w, 1.0, 0.6, o.color || '#D9D3C4', { pivot: 'bottom', outline: 0.006 }), 0, 0, -0.3), at(box(w + 0.08, 0.05, 0.7, '#8C6A4A'), 0, 1.02, -0.3));
     g.add(at(box(w * 0.9, 0.3, 0.02, o.band || '#1E5BB8'), 0, 0.62, 0.005));
     if (o.bandText) g.add(at(label(o.bandText, w * 0.84, 0.2, { bg: o.band || '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, 0.62, 0.017));   // (pass 3 of 48) the words on the front band (it was blank)
-    const sw = Math.min(1.6, w * 0.9); g.add(at(box(sw + 0.1, 0.5, 0.05, '#1E5BB8', { outline: 0.006 }), 0, 2.45, -0.45), at(label(o.text || 'RETOURS', sw, 0.3, { bg: '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, 2.5, -0.42));
-    if (o.sub !== false) g.add(at(label(o.sub || 'SERVICE CLIENTS', sw * 0.8, 0.12, { bg: '#1E5BB8', fg: '#DCE8FF', wrap: false }), 0, 2.29, -0.42));
-    for (const sx of [-1, 1]) g.add(at(cyl(0.012, 0.012, 0.8, '#7A8088', 6, { pivot: 'bottom' }), sx * sw * 0.42, 2.7, -0.45));
+    const sw = Math.min(1.6, w * 0.9), sy = (o.signY ?? 2.45) - 2.45; g.add(at(box(sw + 0.1, 0.5, 0.05, '#1E5BB8', { outline: 0.006 }), 0, 2.45 + sy, -0.45), at(label(o.text || 'RETOURS', sw, 0.3, { bg: '#1E5BB8', fg: '#FFFFFF', wrap: false }), 0, 2.5 + sy, -0.42));   // (final pass of 48) o.signY: the sign higher, clear of what stands on the counter
+    if (o.sub !== false) g.add(at(label(o.sub || 'SERVICE CLIENTS', sw * 0.8, 0.12, { bg: '#1E5BB8', fg: '#DCE8FF', wrap: false }), 0, 2.29 + sy, -0.42));
+    for (const sx of [-1, 1]) g.add(at(cyl(0.012, 0.012, 0.8, '#7A8088', 6, { pivot: 'bottom' }), sx * sw * 0.42, 2.7 + sy, -0.45));
     return g;
   },
 };
