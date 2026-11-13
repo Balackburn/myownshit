@@ -37,6 +37,16 @@ node render/render3.mjs scripts-fr/<story>.json --timed --w 576 --h 1024 --still
 ```
 Tile them into one sheet and fix framing (see `pitfalls.md`) until every shot reads. Re-render only the shots you changed.
 
+## 5b. Key-pose probe (cycle 13, before every draft)
+
+Declare the peak of each gag in the story script: `st.gag('S05', 1.75, 'ouvrier', 'stuck_roller')`, then
+```bash
+node render/render3.mjs scripts-fr/<story>.json --timed --w 288 --h 512 --probe          # or --probe step,yank: only those
+```
+One line per gag: head height in the frame, how much of it the lens sees, and what is wrong (cut by an edge, too small, covered and by what, in
+the caption band, under the title card). Fix every warning before the draft render: the reviews of 47-49 kept finding the peak of a gag where
+nobody could see it. `write()` also prints the frozen actors and the repeated takes (`audit_life`).
+
 ## 6. Full render (from a snapshot)
 
 ```bash

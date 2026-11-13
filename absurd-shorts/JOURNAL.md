@@ -1531,3 +1531,41 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   bandeau des sous-titres) ; (3) l'histoire 50 reprend « Le hoquet », déjà enregistré, plutôt que d'en écrire une autre pendant que trois
   sont en cours.
 
+
+## 13 novembre 2026, fin de nuit (cycle 13)
+
+- **Analyse (cycle 13)** — cinq faiblesses relevées dans les revues de 47, 48 et 49 :
+  1. le sommet d'un gag se passe là où personne ne le voit : la tête aplatie derrière la poêle, les yeux exorbités sous la manche de la
+     caissière, l'étirement sous le carton, le visage écrasé derrière l'impression, une tête coupée par le bord ;
+  2. la même prise partout : les yeux sur tiges dans sept ou huit plans, à la même taille ;
+  3. des personnages figés plus d'une seconde (la mère au ticket, la rangée de randonneurs, l'homme affalé du plan 1) ;
+  4. des visages trop petits pour un téléphone (le contrôle du cycle 12 le signale déjà) ;
+  5. le rig ne savait pas tenir un pied : rien pour une jambe collée au sol, coincée ou tirée.
+- **Outils** :
+  - sonde des poses clés : `st.gag()` déclare le sommet de chaque gag ; `render3 --probe` le mesure dans le moteur (la boîte de la tête à
+    l'écran, sa taille, 9 rayons vers le visage qui nomment ce qui le cache, le bandeau des sous-titres, le carton). Premier essai faux : la
+    boîte de toute la tête englobait des effets cachés rangés à l'écart (59 % de l'image) ; elle se mesure maintenant sur la tête seule, et
+    la grille suit les axes de la tête (une tête penchée restait « vue à 44 % ») ;
+  - `audit_life()` à l'écriture : personnages sans clé 1,3 s ou plus sur une pose immobile, et la prise yeux sur tiges dans plus de trois plans ;
+  - `plant` : un pied tenu à un point du monde (IK hanche-genou, la jambe s'étire au-delà de sa longueur, la semelle reste à plat), le pendant de
+    `reach` ;
+  - fil (tether) : point fixe dans le monde, affaissement par clés, vibration qui s'éteint, effilé au milieu, aminci quand il s'allonge, rotation
+    autour de son axe (corde à sauter) ;
+  - `livingRoom carpet: False`, plaques du cordon imprimées des deux côtés et à la taille voulue.
+- **50 « Le hoquet », passe 1b avant le brouillon** : le contrôle trouvait la prise yeux sur tiges dans 10 plans sur 13 : les hoquets sont
+  désormais impassibles (joues qui gonflent, bouche « hic », paupières lourdes au sommet) et la grande prise est gardée pour le BOUH et la
+  double prise du préfet ; joues pleines d'eau au verre à l'envers ; clignements, regards et gorgées là où il restait figé ; voisins qui
+  sortent en éventail avec leurs sacs (ils marchaient sur place et s'empilaient au même point) ; plan du cordon sans le tapis rouge (un tiers
+  de l'image) et plaques ÉPICENTRE lisibles. La sonde a trouvé la tête coupée de 44 % au sommet du saut du plan 8 : recadré. Brouillon 1 en rendu.
+- **51 « La gomme à mâcher »** (structure du skill inchangée : accroche, logique absurde poussée par la mairie et la ville, escalade,
+  retournement, aparté) : il a marché sur une gomme à mâcher il y a trois semaines ; depuis elle s'étire derrière lui ; le fil rose traverse
+  Paris ; la mairie l'a classé voirie communale ; le dimanche les enfants font de la corde à sauter avec ; la ville y a accroché un
+  téléphérique ; il a tiré un grand coup ; le fil l'a ramené chez lui en une seconde ; depuis il fait du télétravail. Voix faite (23,5 s),
+  14 plans écrits. Gags du rig : la jambe collée qui s'étire au double puis claque avec une onde ; la jambe qui tourne comme une manivelle au
+  rythme de la corde pendant qu'il lit le journal ; pendu la tête en bas par le pied, il tape encore son rapport ; la traction penchée en
+  arrière, fil aminci et vibrant, puis arraché ; le vol à l'horizontale au-dessus des toits, impassible ; planté la tête la première dans son
+  canapé comme une fléchette.
+- **Décisions prises sans question** : (1) « gomme à mâcher » plutôt que l'anglicisme : c'est le terme officiel, et il sonne déjà comme une
+  administration ; (2) l'affiche contre le mur et le freinage des talons ont déjà servi (38, 40, 44) : traction penchée, vol au-dessus des
+  toits et arrivée tête la première dans le canapé à la place ; (3) pas de pigeons cette fois (déjà très présents dans le catalogue) ;
+  (4) le préfet de 50 dévoilait déjà une plaque : à la mairie de 51, un cantonnier peint des tirets sur le fil et son rouleau colle.

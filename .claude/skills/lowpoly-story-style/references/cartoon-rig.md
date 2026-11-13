@@ -270,3 +270,35 @@ Engine: `engine/director3.js`, `toon.js`, `cloth.js`, `human.js`, `facerig.js`, 
   seen through the hole: the sky); `wristWatch` `dialR`, `both`, `bright` (a white dial that reads from four metres); `cityBus` `top` (2.3: the
   ceiling; 2.65 leaves room for a cap that jumps and a passenger who hops); `wallClock` `until` (it runs fast, then stops); `props_ombre.js`:
   `plainWall`, `lostPoster`, `shadowRack`, `fineSlip`, `custodyCalendar`, `cobbles`, `rabat`.
+
+## Added in cycle 13 (feet held at points of the world, a cord with a life of its own, the key-pose probe)
+
+Engine: `engine/toon.js`, `director3.js`, `props_gomme.js`, `render/render3.mjs`; kit: `scripts-fr/story_kit.py`. All opt-in.
+
+- **`plant: { L | R: [x, y, z, w, [px, py, pz], flat] }`** (toon channel): a foot held at a point of the world, the twin of `reach` for the legs.
+  Two-bone IK on the hip and the knee; a point further than the leg is long stretches the thigh and the shin equally (the foot glued to the
+  pavement while the body walks on: twice the leg's length reads at once); `[px, py, pz]`: where the knee points, in the frame of the hips
+  (default forward, a little down); the sole stays flat in the frame of the body unless `flat` is `False`. `w` fades it in and out: key the weight
+  from 1 to 0 in 0.05 s and the leg snaps back into the walk; add `wave` on `legL` + `shinL` (phase 0 to 2 over 0.3 s, `free: 1`) for the ripple
+  of the snap. Keys at 12 per turn on a circle make a foot whirl (a skipping rope tied to the ankle). The sole sits at the ankle joint: the
+  point's `y` is the height of the sole (0.0-0.03 on the ground). Cast `shoes: True` to show the shoes (by default the trousers end at the
+  ankle).
+- **Tethers** (`st.shot(..., tethers=[...])`, a sagging tube rebuilt every frame): anchors `{actor, hand | joint, offset}`, `{prop, offset}`
+  or now `{point: [x, y, z]}` (fixed in the world). `sag`: a number (fraction of the length) or keys `[[t, sag], ...]` (smoothstep: taut when
+  pulled, slack after); `wobble: [[t, amp (m), freq, damping], ...]`: a pluck that vibrates and dies out (60 / 0.8 for a cord that hums under
+  tension, 9 / 1.6 for a slow wave along a long one); `taper` 0..1: thinner in the middle (a strand of gum: 0.55); `thin: [L0]`: the radius
+  thins as the cord grows longer than L0 m (and thickens below it, at most 1.6 times); `spin: [turns/s, phase, from, until]`: the belly turns
+  round the cord's axis (a skipping rope turned by two children: sag 0.24 of the span, 1.5 turns/s); `n` (points, 10) and `segments` (20) for a
+  very long cord; `from` / `until` (shot time). A cord that should lie on the ground: `sag: 0` between two points just above it.
+- Story helper `STRAND(a, b, ...)` and the props `gumBlob` (`squelch`, `pull`), `streetPlaque` (Paris street plate: `lines`, `sub`, `post`,
+  `screw`), `cableCar` (pivot at its grip on the cord: `riders`, `swing`, `tilt`, `text`) in `scripts-fr/story_gomme.py` / `props_gomme.js`.
+- **Key-pose probe**: `st.gag(sid, t, who, name)` declares the peak of a gag; `node render/render3.mjs scripts-fr/story_X.json --timed --w 288
+  --h 512 --probe [name,...]` measures each one in the engine, with the real pose, stretch and props: the head mesh's box on screen, its height
+  (under 6 % the face does not read at phone size), and 9 rays from the lens to a 3x3 grid in the head's own frame; a ray that stops on
+  something else names what covers the face (`prop:pan`, another actor, `mec (his own body)`, `set`). Warns for a head cut by an edge, too
+  small, seen at under 67 %, more than 30 % in the caption band (0.77-0.86) or more than 20 % under a title card (0.06-0.20, for 1 s after the
+  card's time). It writes `out/work/<name>/probe.json`. The audit's own "head cut" warnings assume a man standing up: trust the probe for a
+  man upside down or flying.
+- **`st.audit_life()`** (run by `write()`): an actor in the frame with no key for 1.3 s or more on a static clip (stand, sit, idle) is listed as
+  still (give him a blink, a glance, a breath or a weight shift), and the eyes-on-stalks take (face `pop` >= 0.3) in more than three shots is
+  flagged (keep the big one for the peak; vary the others with `take()` kinds: jaw, accordion, hair, tongue, cross, or `doubleTake()`).
