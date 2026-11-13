@@ -64,7 +64,9 @@ export const VENTOUSE_PROPS = {
   // (story 55, draft 1) o.glass: the colour of the windows (from the platform, dark windows filled the frame like a black wall)
   metroCar(o) {
     const L = o.len ?? 12, W = o.w ?? 2.6, H = o.h ?? 2.3, g = grp(), wallC = o.wall || '#ECE7DA', band = o.band || '#2E8C86', glass = o.glass || '#1E2A33', doorC = o.doorColor || '#2F6FB5';
-    g.add(at(box(L, 0.06, W, o.floor || '#7C8288', { outline: 0.006 }), 0, -0.03, 0), at(box(L, 0.08, W, '#EDECE6'), 0, H + 0.04, 0));
+    // (pass 2 of 55) the floor's top 1 cm above y 0: level with the white void's own floor the two fought for the same pixels and the floor strobed
+    // between navy and grey from one frame to the next
+    g.add(at(box(L, 0.06, W, o.floor || '#7C8288', { outline: 0.006 }), 0, -0.02, 0), at(box(L, 0.08, W, '#EDECE6'), 0, H + 0.04, 0));
     const every = o.doorEvery ?? 4, doors = [];
     for (const s of [-1, 1]) {
       const z = s * W / 2;
@@ -89,16 +91,19 @@ export const VENTOUSE_PROPS = {
   // wall, a blue enamel station sign o.name, a slatted bench, the yellow edge line, the dark track pit below the edge. o.len (14 m).
   metroPlatform(o) {
     const L = o.len ?? 14, D = o.depth ?? 4, g = grp();
-    g.add(at(box(L, 1.0, D, '#B9B2A6', { outline: 0.006 }), 0, -0.5, -D / 2), at(box(L, 0.012, 0.18, '#F2C230'), 0, 0.006, -0.25), at(box(L, 0.4, 3.4, '#2A2C30'), 0, -1.2, 1.7));
+    // (pass 2 of 55) the platform's top 1 cm above y 0 (level with the void's floor it strobed navy and beige); o.bench false: no bench; o.benchZ: the
+    // bench's distance from the back wall (0.8); o.benchFlip: it faces the back wall (an island platform: his back to the track and the train behind
+    // him); o.signX, o.signY: the station sign along the wall and its height (2.2)
+    g.add(at(box(L, 1.0, D, '#B9B2A6', { outline: 0.006 }), 0, -0.49, -D / 2), at(box(L, 0.012, 0.18, '#F2C230'), 0, 0.016, -0.25), at(box(L, 0.4, 3.4, '#2A2C30'), 0, -1.2, 1.7));
     const tiles = canvasPlane(L, 3.6, (c, Wd, Ht) => { c.fillStyle = '#F4F2EC'; c.fillRect(0, 0, Wd, Ht); c.strokeStyle = '#C9C5BC'; c.lineWidth = 2;
       const tw = Wd / (L / 0.15), th = Ht / (3.6 / 0.075); for (let y = 0; y < Ht; y += th) { c.beginPath(); c.moveTo(0, y); c.lineTo(Wd, y); c.stroke(); for (let x = ((y / th) % 2) * tw / 2; x < Wd; x += tw) { c.beginPath(); c.moveTo(x, y); c.lineTo(x, y + th); c.stroke(); } } }, { res: 1024 });
     g.add(at(tiles, 0, 1.8, -D + 0.02));
     const sign = canvasPlane(2.4, 0.5, (c, Wd, Ht) => { c.fillStyle = '#1F3F8F'; c.fillRect(0, 0, Wd, Ht); c.strokeStyle = '#FFFFFF'; c.lineWidth = Ht * 0.06; c.strokeRect(Ht * 0.08, Ht * 0.08, Wd - Ht * 0.16, Ht - Ht * 0.16);
       c.fillStyle = '#FFFFFF'; c.font = `bold ${Ht * 0.5}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.name || 'RUE DES ARTS', Wd / 2, Ht * 0.54); }, { res: 768 });
-    g.add(at(box(2.5, 0.6, 0.04, '#13295E'), 0, 2.2, -D + 0.05), at(sign, 0, 2.2, -D + 0.075));
+    g.add(at(box(2.5, 0.6, 0.04, '#13295E'), o.signX ?? 0, o.signY ?? 2.2, -D + 0.05), at(sign, o.signX ?? 0, o.signY ?? 2.2, -D + 0.075));
     const bench = grp(); for (let i = 0; i < 3; i++) bench.add(at(box(1.6, 0.04, 0.1, '#B5672E'), 0, 0.45, -0.12 + i * 0.12)); bench.add(at(box(1.6, 0.36, 0.05, '#B5672E'), 0, 0.68, -0.22, -0.12, 0, 0));
     for (const sx of [-0.7, 0.7]) bench.add(at(box(0.05, 0.45, 0.32, '#3A3C40', { pivot: 'bottom' }), sx, 0, 0));
-    g.add(at(bench, o.benchX ?? 0, 0, -D + 0.8));
+    if (o.bench !== false) { bench.position.set(o.benchX ?? 0, 0, -D + (o.benchZ ?? 0.8)); if (o.benchFlip) bench.rotation.y = PI; g.add(bench); }
     return g;
   },
 };

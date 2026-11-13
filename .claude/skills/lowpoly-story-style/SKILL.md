@@ -1100,3 +1100,17 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   Orienter à la main (`rotation.set(0, atan2(dx, dz), 0)`), ou n'appeler `lookAt` qu'à la construction, avant tout rattachement.
 - (cycle 18) Un commentaire collé en fin de ligne après une modification automatique avale encore la fin de la ligne (`],` du `props=[...]`
   de S01, histoire 56) : le lint ne voit rien quand le fichier ne s'analyse même plus ; lancer le script tout de suite après chaque modification.
+- (histoires 52, 54, 55) Un sol d'accessoire posé exactement à y = 0 dans le décor `whiteVoid` (quai, plancher de rame) se bat avec le sol du
+  vide pour les mêmes pixels : il clignote d'une image à l'autre entre les deux couleurs (bleu nuit et beige, tout le plan final). Monter le
+  dessus de ces sols d'un centimètre.
+- (histoire 54) Écraser une tête le long de l'axe de la caméra ne se voit pas (écrasée d'avant en arrière, visage tourné vers l'objectif : même
+  taille avant et après la gifle). Écraser le long d'un axe visible dans l'image, ici sa propre hauteur, couchée à l'horizontale.
+- (histoire 54) Un assistant de prise (`doubleTake`) et des clés `toon` du plan aux mêmes instants se battent : la mâchoire tombait à 1,60 s sur
+  1,63. Écrire la prise à la main, ou laisser l'assistant seul.
+- (histoire 54) Un objet héros couché sur un tapis roulant ne se lit pas (un liseré rouge de 40 × 50 px) : le mettre debout, face à l'objectif,
+  et le faire sortir des lamelles dès la coupe.
+- (histoire 52) Un voile en cône dont la pointe dépasse de 12 cm au-dessus de la tête : de face, une corne blanche sur le chignon. Le faire partir
+  d'un anneau au bandeau (`brideVeil` o.ring).
+- (cycle 18) L'espace disque de la session se remplit (segments de rendu, images des critiques, calques 3D en double) et le rendu HyperFrames
+  refuse de partir sous 1 Go libre. Après chaque livraison, supprimer les segments assemblés et les images de travail des critiques ; ne jamais
+  toucher aux sorties de la réplique de la tornade.

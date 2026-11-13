@@ -77,10 +77,15 @@ export const VALISE_PROPS = {
         glint = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), color: '#FFF3C4', transparent: true, depthWrite: false, toneMapped: false })); glint.position.set(0.035, -0.115, 0.02); glint.scale.setScalar(o.tagGlint); tag.add(glint); } }
     // eyewear
     if (o.shades) { const ey = grp(); ey.position.set(0, -H * 0.16, D / 2 + 0.02); lid.add(ey);
-      if (o.shades === 'mask') { for (const x of [-1, 1]) ey.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.07 * W / 0.5, 10, 6), mat('#F5A3C0')), x * W * 0.16, 0, 0)); ey.children.forEach(q => q.scale.set(1.25, 0.75, 0.3)); ey.add(at(box(W * 1.02, 0.02, 0.02, '#F5A3C0'), 0, 0, -0.01)); }
+      // (pass 3 of 54) 'band': a single pink band across with two closed eyes painted on it (the two-lobed mask read as a bra or a bow)
+      if (o.shades === 'band') { const bw2 = W * 0.98, bh = 0.075 * W / 0.5, pl = canvasPlane(bw2, bh, (c, Wc, Hc) => { c.fillStyle = '#F5A3C0'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#B04A72'; c.lineWidth = Hc * 0.08; c.strokeRect(0, Hc * 0.04, Wc, Hc * 0.92);
+          c.strokeStyle = '#3A1E2A'; c.lineWidth = Hc * 0.1; c.lineCap = 'round'; for (const x of [0.33, 0.67]) { c.beginPath(); c.arc(Wc * x, Hc * 0.36, Wc * 0.09, 0.15 * PI, 0.85 * PI); c.stroke();
+            for (const a of [0.3, 0.5, 0.7]) { const ax = Wc * x + Math.cos(a * PI) * Wc * 0.09, ay = Hc * 0.36 + Math.sin(a * PI) * Wc * 0.09; c.beginPath(); c.moveTo(ax, ay); c.lineTo(ax + Math.cos(a * PI) * Hc * 0.16, ay + Math.sin(a * PI) * Hc * 0.16); c.stroke(); } } }, { res: 256 });
+        ey.add(at(box(bw2, bh, 0.016, '#F5A3C0', { outline: 0.004 }), 0, 0, -0.004)); pl.position.z = 0.0045; ey.add(pl); }
+      else if (o.shades === 'mask') { for (const x of [-1, 1]) ey.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.07 * W / 0.5, 10, 6), mat('#F5A3C0')), x * W * 0.16, 0, 0)); ey.children.forEach(q => q.scale.set(1.25, 0.75, 0.3)); ey.add(at(box(W * 1.02, 0.02, 0.02, '#F5A3C0'), 0, 0, -0.01)); }
       else { for (const x of [-1, 1]) { const l = new THREE.Mesh(new THREE.CylinderGeometry(0.06 * W / 0.5, 0.06 * W / 0.5, 0.012, 16), new THREE.MeshStandardMaterial({ color: '#141820', roughness: 0.15, metalness: 0.4 })); l.rotation.x = PI / 2; l.position.x = x * W * 0.16; ey.add(l); }
         ey.add(at(box(W * 0.12, 0.012, 0.01, '#141820'), 0, 0.02, 0), at(box(W * 1.0, 0.012, 0.012, '#141820'), 0, 0.03, -0.01)); } }
-    if (o.pacifier) { const pc = grp(); pc.position.set(W * 0.2, -H * 0.3, D / 2 + 0.03); lid.add(pc);
+    if (o.pacifier) { const pc = grp(); pc.position.set(W * (o.pacScale ? 0.0 : 0.2), -H * (o.pacScale ? 0.42 : 0.3), D / 2 + 0.03); pc.scale.setScalar(o.pacScale ?? 1); lid.add(pc);   // (pass 3 of 54) o.pacScale: an oversized dummy in the middle (a few pixels at phone size)
       pc.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.035, 0.008, 6, 14), mat('#F5A3C0')), 0, 0, 0.012), at(cyl(0.05, 0.05, 0.012, '#F5A3C0', 14), 0, 0, 0, PI / 2, 0, 0), at(new THREE.Mesh(new THREE.SphereGeometry(0.022, 8, 6), mat('#F7E6B5')), 0, 0, -0.012)); }
     if (o.selfie != null && o.selfie !== false) { const a = typeof o.selfie === 'number' ? o.selfie : 0.6, sg = grp(); sg.position.set(W * 0.3, wh + H, 0); sg.rotation.z = -a; body.add(sg);
       sg.add(at(cyl(0.008, 0.008, 0.85, '#2A2D33', 6), 0, 0.425, 0), at(box(0.075, 0.14, 0.012, '#1C1C22', { outline: 0.004 }), 0, 0.88, 0.0), at(box(0.064, 0.125, 0.004, '#7FB8E8'), 0, 0.88, -0.008)); }
@@ -200,9 +205,26 @@ export const VALISE_PROPS = {
     g.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.006, 16), glass), 0, 0.003, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.005, 0.005, 0.09, 8), glass), 0, 0.05, 0));
     const lev = o.level ?? 0.8, hB = 0.13; g.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.012, hB, 16, 1, true), glass), 0, 0.095 + hB / 2, 0));
     const wine = new THREE.Mesh(new THREE.CylinderGeometry(0.012 + 0.018 * lev, 0.012, hB * lev, 14), new THREE.MeshStandardMaterial({ color: '#F3CF5A', transparent: true, opacity: 0.85, roughness: 0.2 })); wine.position.y = 0.095 + hB * lev / 2; g.add(wine);
-    g.add(at(cyl(0.012 + 0.018 * lev, 0.012 + 0.018 * lev, 0.01, '#FFF8E2', 14), 0, 0.095 + hB * lev, 0));
+    const foam = at(cyl(0.012 + 0.018 * lev, 0.012 + 0.018 * lev, 0.01, '#FFF8E2', 14), 0, 0.095 + hB * lev, 0); g.add(foam);
+    // (pass 3 of 54) o.fill [[t, level]]: the level rises as it is poured (the wine scaled from its built level, the foam riding on top)
+    const setLev = l => { const k = Math.max(0.02, l / lev), rk = (0.012 + 0.018 * l) / (0.012 + 0.018 * lev); wine.scale.set(rk, k, rk); wine.position.y = 0.095 + hB * l / 2; foam.scale.set(rk, 1, rk); foam.position.y = 0.095 + hB * l; };
     const bub = []; for (let i = 0; i < 6; i++) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.003, 5, 4), mat('#FFFFFF')); g.add(b); bub.push(b); }
-    g.userData.update = t => bub.forEach((b, i) => { const u = (t * 0.8 + rnd(i)) % 1; b.position.set((rnd(i + 3) - 0.5) * 0.012, 0.1 + u * hB * lev * 0.95, (rnd(i + 5) - 0.5) * 0.012); });
+    g.userData.update = t => { const l = o.fill ? keyAt(o.fill, t, lev) : lev; if (o.fill) setLev(l);
+      bub.forEach((b, i) => { const u = (t * 0.8 + rnd(i)) % 1; b.position.set((rnd(i + 3) - 0.5) * 0.012, 0.1 + u * hB * l * 0.95, (rnd(i + 5) - 0.5) * 0.012); }); };
+    g.userData.update(0); return g;
+  },
+  // (pass 3 of 54) A champagne bottle held to pour (pivot at the grip, the middle of its body; the neck up +Y): dark green glass, gold foil on the
+  // neck, a cream label; o.tilt [[t, rad]] tips it about its own Z (+Y toward -X): set the prop's yaw so that -X points where it pours
+  champagneBottle(o) {
+    const g = grp(), tip = grp(); g.add(tip); const glass = new THREE.MeshStandardMaterial({ color: '#1F4A2C', roughness: 0.25, metalness: 0.1 });
+    tip.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.2, 14), glass), 0, -0.02, 0));
+    tip.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.042, 0.07, 14), glass), 0, 0.115, 0));
+    tip.add(at(cyl(0.017, 0.016, 0.075, '#D9B23A', 10), 0, 0.185, 0), at(cyl(0.019, 0.019, 0.012, '#B8902A', 10), 0, 0.225, 0));
+    const lab = canvasPlane(0.07, 0.07, (c, Wc, Hc) => { c.fillStyle = '#F2E6C4'; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = '#B8902A'; c.lineWidth = Hc * 0.08; c.strokeRect(Hc * 0.06, Hc * 0.06, Wc - Hc * 0.12, Hc - Hc * 0.12);
+      c.fillStyle = '#B8902A'; c.beginPath(); c.arc(Wc / 2, Hc / 2, Wc * 0.16, 0, TAU); c.fill(); }, { res: 128 });
+    lab.position.set(0, -0.02, 0.0425); tip.add(lab);
+    g.userData.mouth = [0, 0.232, 0];
+    g.userData.update = t => { tip.rotation.z = keyAt(o.tilt, t, 0); };
     g.userData.update(0); return g;
   },
 
@@ -226,11 +248,16 @@ export const VALISE_PROPS = {
   // (pass 2 of 54) A sock that reads as one (pivot at the middle of its leg, the leg up +Y, the foot forward +Z): a striped leg o.len (0.24 m), a foot,
   // a darker heel and toe; o.color, o.stripe (the striped brick read as a road barrier)
   sockL(o) {
+    // (pass 3 of 54) o.flop (rad): the top half of the leg bends over on a hinge at its middle and wobbles as it rides (o.wob, rad), a floppy sock
+    // (a straight striped tube read as a block, a barrier); stood up with rot [0, -PI/2, 0] it is a stocking, its toe pointing -X along a belt
     const C = o.color || '#F4F1E8', S = o.stripe || '#D7262E', L = o.len ?? 0.24, w = 0.095, d = 0.055, g = grp();
-    g.add(at(box(w, L, d, C, { outline: 0.005 }), 0, 0, 0));
-    for (let i = 0; i < 3; i++) g.add(at(box(w + 0.004, 0.022, d + 0.004, S), 0, L / 2 - 0.03 - i * 0.05, 0));
+    const top = grp(); top.position.set(0, 0, 0); g.add(top);
+    if (o.flop != null) { g.add(at(box(w, L / 2, d, C, { outline: 0.005 }), 0, -L / 4, 0)); top.add(at(box(w, L / 2, d, C, { outline: 0.005 }), 0, L / 4, 0)); }
+    else g.add(at(box(w, L, d, C, { outline: 0.005 }), 0, 0, 0));
+    for (let i = 0; i < 3; i++) top.add(at(box(w + 0.004, 0.022, d + 0.004, S), 0, L / 2 - 0.03 - i * 0.05, 0));
     g.add(at(box(w, 0.07, 0.19, C, { outline: 0.005 }), 0, -L / 2 - 0.02, 0.07), at(box(w + 0.004, 0.072, 0.05, S), 0, -L / 2 - 0.02, 0.145), at(box(w + 0.004, 0.09, 0.06, S), 0, -L / 2 - 0.01, -0.005));
-    g.add(at(box(w + 0.006, 0.03, d + 0.006, C), 0, L / 2 + 0.005, 0));
+    top.add(at(box(w + 0.006, 0.03, d + 0.006, C), 0, L / 2 + 0.005, 0));
+    if (o.flop != null) { g.userData.update = t => { top.rotation.x = o.flop + (o.wob ?? 0.12) * Math.sin(t * 9.0); }; g.userData.update(0); }
     return g;
   },
 

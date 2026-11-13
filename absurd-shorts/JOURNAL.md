@@ -1912,3 +1912,28 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   assis sur sa tête et y reste ; la facture qui se déroule à l'infini.
 - Décision (prise sans demander) : au stade « trois mètres », la bosse est une boule de peau posée sur le crâne (une calotte de trois mètres de large
   autour d'une tête de 30 cm aurait été illisible) ; le mètre ruban suit sa surface, du sommet au crâne.
+
+### Suite du cycle 18 (livraisons et passes)
+- Histoire 53 « Le torticolis » : génération complète livrée (1080 × 1920, 20,5 s, −16 LUFS, contrôles HyperFrames sans erreur). Le premier
+  rendu HyperFrames avait échoué faute d'espace disque.
+- Blocage noté et contourné : l'allocation de disque de la session était pleine (« Low disk space 0.5 GB »). Décision prise sans demander :
+  supprimer seulement des intermédiaires (segments de rendu déjà assemblés des histoires livrées, images de travail des critiques des histoires
+  livrées, 42 calques 3D identiques octet pour octet à ceux rangés dans chaque projet HyperFrames). Rien des sorties de la réplique de la tornade.
+  2,3 Go libérés ; le rendu HyperFrames seul a ensuite été relancé (`hfonly.sh`).
+- Histoire 52 « Le boomerang » : le rendu final lancé a été arrêté : les images de contrôle montraient encore une pointe blanche au-dessus du
+  chignon de la mariée en S16 (la pointe du cône du voile dépasse de 12 cm). Option `brideVeil` o.ring (le voile part d'un anneau au bandeau,
+  « Le parapluie » inchangé), images revérifiées (S12 à S16), génération complète relancée.
+- Histoire 54 « La valise », revue 2 : animation 6,5, direction artistique 6,5. Passe 3 écrite (voir le script) : chaussette debout qui passe
+  devant lui à 0,6 s, gifle qui écrase la tête sur sa hauteur, flash du selfie, soupir de la valise, sauts à chaque autocollant, carte deux fois
+  plus grande face à l'objectif, bras seul qui s'étire, plan bas sur la carte puis gros plan du clignement, bouteille et verre qui se remplit,
+  crêpe face à nous après le passage du sac, valise debout qui sort des lamelles, la petite valise grande et visible puis coupe sur la prise,
+  vue plongeante du bras élastique et gros plan final. Nouveaux accessoires : chaussette molle, masque en bandeau, tétine agrandie, bouteille,
+  flûte qui se remplit, panneau d'enregistrement lisible des deux côtés.
+- Décision (prise sans demander) : en S09 de la valise, le comptoir est retiré du plan bas (sa façade vide prenait un quart de l'image) ; en S12-S13
+  la grande valise est remise près des lamelles d'un plan à l'autre (raccord triché derrière la coupe).
+- Histoire 55 « La ventouse », revue 1 : animation 6,0, direction artistique 6,0. Passe 2 écrite : sols du quai et de la rame relevés d'un
+  centimètre (ils clignotaient avec le sol du vide), rame plus haute (2,75 m) pour qu'il pende vraiment, accroche du réverbère plus haute,
+  pigeon qui tire sa tête de droite à gauche, POP calé sur « ventouse » avec huit images en l'air avant une chute en crêpe, plan serré du
+  débouchoir entre deux visages, passagère qui tient le manche au-dessus de sa tête avec un journal, quai central : le train part derrière lui
+  et découvre le quai d'en face, lent travelling avant, mains sur les genoux ; anneau rouge plus petit et plus haut ; double prise de la guichetière
+  et plans rapprochés sur les réactions (fin de S02, S04).
