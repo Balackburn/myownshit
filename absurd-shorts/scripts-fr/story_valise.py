@@ -32,7 +32,7 @@ RED = '#C0392B'                                                       # his suit
 VAL = lambda pid, **kw: P(pid, 'suitcase', **kw)
 HALL = lambda pid, **o: P(pid, 'terminalHall', pos=[0, 0, 0], opts={'w': 14, 'back': -4.2, 'front': 6, 'h': 5, **o})
 CAR = [0.0, 0, -1.3]; CR = 1.0; CL = 4.4                              # the carousel: centre, end radius, straight length
-CAROPTS = {'len': CL, 'r': CR, 'speed': 0.55, 'number': 3, 'hatchX': 0.6, 'hatchH': 1.9}
+CAROPTS = {'len': CL, 'r': CR, 'speed': 0.55, 'number': 3, 'hatchX': 0.6, 'hatchH': 1.4}   # (check stills 2) at 1.9 the lifted flaps swept across him
 BELT = r(0.44 + 0.02)                                                 # the top of the belt
 BACKZ = r(CAR[2] - CR)                                                # the back straight: the belt runs -X there, out of the tunnel's flaps
 EXITX = r(CAROPTS['hatchX'] - 1.3 / 2 - 0.16)                         # the flap curtain at the tunnel's exit (its -X face)
@@ -59,7 +59,7 @@ st.cue('sfx:beep', 'S01', 0.05, 0.2); st.cue('engine', 'S01', 0.0, 0.08, round(D
 # 2: his suitcase. He steps to the tunnel's mouth and leans in sideways through the rubber flaps, his neck stretching, to look for it; he pulls out,
 #    turns back to us, and a flap swings out and slaps him across the head (the head squashed, the eyes crossed); deadpan, a blink
 D2 = st.dur('S02'); IN2 = 0.4; OUT2 = 0.76
-ME2 = [r(EXITX - 0.7), 0, r(BACKZ - 0.5)]
+ME2 = [r(EXITX - 0.48), 0, r(BACKZ - 0.45)]   # (check stills 2) closer: at 0.7 m his head stopped short of the flaps
 PEEK = lambda k_, tw=0.0: {'bend': {'spine': [r(0.15 * k_), 0, r(0.55 * k_), 1, None], 'neck': [0, r(tw), r(0.45 * k_), r(1 + 0.45 * k_), None]}, 'hands': {'L': 'rest', 'R': 'rest'}}   # (first look) the side bend toward his left, where the flaps hang
 st.shot('S02', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
         act('mec', ME2, 15, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**PEEK(0.0), 'face': {'lid': 0.45}}, toonDur=0.0),
@@ -108,8 +108,8 @@ def orbit_keys(t0, dur, a0, a1, n=8):
 st.shot('S05', 'spaceDark', actors=[],
         props=[P('earth5', 'earthGlobe', pos=EC, opts={'radius': 1.6, 'spin': 0.5}),
                P('trail5', 'orbitTrail', pos=[EC[0], r(EC[1] + 1.6), EC[2]], opts={'r': ORB, 'tilt': -0.33, 'speed': 0.55}),
-               VAL('val5', pos=[r(EC[0] + ORB * math.cos(-0.6)), r(EC[1] + 1.6 + ORB * 0.35 * math.sin(-0.6)), r(EC[2] + ORB * math.sin(-0.6))], scale=1.15, opts={'color': RED, 'shades': True, 'stickers': 4, 'seed': 0},
-                   keys=[*orbit_keys(0.0, round(D5 + 0.1, 3), -0.6, 1.9), k(0.0, rotTo=[0.4, 2.4, 0.3], dur=round(D5 + 0.1, 3))])],
+               VAL('val5', pos=[r(EC[0] + ORB * math.cos(0.32)), r(EC[1] + 1.6 + ORB * 0.35 * math.sin(0.32)), r(EC[2] + ORB * math.sin(0.32))], scale=1.15, opts={'color': RED, 'shades': True, 'stickers': 4, 'seed': 0},
+                   keys=[*orbit_keys(0.0, round(D5 + 0.1, 3), 0.32, 2.82), k(0.0, rotTo=[0.4, 2.4, 0.3], dur=round(D5 + 0.1, 3))])],   # (check stills 2) across the front of the Earth mid-shot
         cams=[cam(0.0, [0.0, 2.6, 3.5], [0.0, 2.55, 3.2], [0.0, 1.55, -5.0], [0.0, 1.55, -5.0], lens=44)])
 st.cue('whoosh', 'S05', 0.1, 0.3, 0.9, 300, 1400)
 
@@ -172,7 +172,8 @@ st.shot('S09', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
                VAL('val9', pos=VS7, ry=170, scale=1.2, opts={'color': RED, 'stickers': 15, 'seed': 0, 'handle': 1.0}, keys=[k(IN9, visible=False)]),
                VAL('val9g', pos=VS7, ry=170, scale=1.2, opts={'color': RED, 'stickers': 15, 'seed': 0, 'handle': 1.0, 'tag': 'gold', 'tagSwing': 0.5}, keys=[k(0.0, visible=False), k(IN9, visible=True)]),
                P('card9', 'loyaltyCard', on={'actor': 'agent', 'hand': 'R', 'offset': [0, -0.06, 0.04]}, scale=1.0, opts={'s': 1.1, 'bright': True}, keys=[k(IN9, visible=False)])],
-        cams=[FC(0.0, [0.4, 2.1, -3.85], [[VS7[0], 1.5, VS7[2]], [VS7[0], 0.3, VS7[2]], [ME7[0], 2.4, ME7[2]], [ME7[0], 1.1, ME7[2]], [CARD7[0], 1.5, -2.0]], top=0.12, bottom=0.72, inside=(-6.8, 6.8, 0.2, 4.8, -4.0, 5.8))])
+        cams=[FC(0.0, [-1.3, 2.15, -3.85], [[VS7[0], 1.55, VS7[2]], [VS7[0], 0.3, VS7[2]], [ME7[0], 2.4, ME7[2]], [ME7[0], 1.1, ME7[2]]], top=0.12, bottom=0.72, lenses=range(30, 63), inside=(-6.8, 6.8, 0.2, 4.8, -4.0, 5.8))])
+        # (check stills 2) from behind the desk on the left: the suitcase on its scale and him; the agent's head filled two thirds of the frame
 st.cue('sfx:ding', 'S09', IN9, 0.3)
 
 # 10: it flies first class. The cabin: the suitcase lounges in a wide leather seat, a sleep mask pushed up on its brow, the gold tag hanging, a flute of
@@ -205,8 +206,8 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#20242C'}, actors=[
                P('frag11', 'fragileTag', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.07, 0.17]}, scale=0.8, opts={'w': 0.3}),
                VAL('b11a', pos=[-0.95, 0, -0.8], ry=80, scale=1.1, opts={'color': '#2E6FB5', 'stickers': 2, 'seed': 3}), VAL('b11b', pos=[-0.95, 0.75, -0.8], ry=75, scale=1.0, opts={'color': '#3CB371', 'seed': 4}),
                VAL('b11c', pos=[0.8, 0, -1.3], ry=-20, scale=1.15, opts={'color': '#7A7F87', 'seed': 5}), VAL('b11d', pos=[-0.3, 0, -1.6], ry=10, scale=1.25, opts={'color': '#9B59B6', 'seed': 6}),
-               VAL('b11e', pos=[1.6, 0, -0.55], ry=-95, scale=1.3, opts={'color': '#F28C28', 'stickers': 3, 'seed': 7},
-                   keys=[k(0.25, to=[-0.18, 0, -0.55], dur=round(HIT11 - 0.25, 3), ease='in'), k(round(HIT11 + 0.38, 3), to=[1.5, 0, -0.5], dur=0.3, ease='inOut')])],   # the bag that slides in on the bank, up against him
+               VAL('b11e', pos=[1.6, 0, -0.62], ry=5, scale=1.3, opts={'color': '#F28C28', 'stickers': 3, 'seed': 7},
+                   keys=[k(0.25, to=[-0.03, 0, -0.62], dur=round(HIT11 - 0.25, 3), ease='in'), k(round(HIT11 + 0.38, 3), to=[1.5, 0, -0.62], dur=0.3, ease='inOut')])],   # the bag that slides in on the bank, broadside, up against his side
         cams=[FC(0.0, [-0.85, 1.2, 1.6], [[ME11[0], 1.55, ME11[2]], [ME11[0], 0.0, ME11[2]], [-1.2, 1.2, -0.8], [0.9, 0.9, -0.55]], top=0.14, bottom=0.74, drift=(0.0, 0.0, -0.1))])
 st.cue('sfx:splat', 'S11', HIT11, 0.4); st.cue('sfx:boing', 'S11', round(HIT11 + 0.45, 3), 0.25); st.cue('sfx:jet', 'S11', 0.0, 0.1)
 
@@ -224,7 +225,7 @@ st.shot('S12', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
             k(round(JMP + 0.55, 3), toon={'face': {'lid': 0.45}}, toonDur=0.1),
             k(JMP, to=[ME12[0], 0.62, ME12[2]], dur=0.16, glide=True, ease='out', face='keep'), k(round(JMP + 0.16, 3), to=[ME12[0], 0.66, ME12[2]], dur=0.14, glide=True, ease='inOut', face='keep'),   # up, a hang at the top...
             k(round(JMP + 0.3, 3), to=[ME12[0], 0.0, ME12[2]], dur=0.13, glide=True, ease='in', face='keep')])],   # ...and down
-        props=[HALL('hall12'), P('car12', 'carousel', pos=CAR, opts={**CAROPTS, 'flap': [[0.0, 0.0], [round(OUT12 - 0.05, 3), 0.0], [round(OUT12 + 0.1, 3), 0.85], [round(OUT12 + 0.35, 3), 0.7], [round(OUT12 + 0.5, 3), 0.0]]}),
+        props=[HALL('hall12'), P('car12', 'carousel', pos=CAR, opts={**CAROPTS, 'flap': [[0.0, 0.0], [round(OUT12 - 0.05, 3), 0.0], [round(OUT12 + 0.1, 3), 0.45], [round(OUT12 + 0.35, 3), 0.35], [round(OUT12 + 0.5, 3), 0.0]]}),
                VAL('val12', pos=VR12, rot=[r(-PI / 2), 0, r(-PI / 2)], scale=1.05, opts={'color': RED, 'stickers': 15, 'seed': 0, 'tag': 'gold', 'tagSwing': 0.3},
                    keys=[k(OUT12, to=[r(VR12[0] - 0.55 * (D12 - OUT12)), BELT, BACKZ], dur=round(D12 - OUT12, 3), ease='linear')])],   # rides out at the belt's speed
         cams=[FC(0.0, [-1.6, 2.05, 1.6], [[ME12[0], 3.25, ME12[2]], [ME12[0], 0.7, ME12[2]], [r(EXITX + 1.0), 2.5, BACKZ], [r(EXITX - 0.5), BELT, BACKZ]], top=0.08, bottom=0.74)])
@@ -236,14 +237,14 @@ D13 = st.dur('S13'); OUT13 = 0.25
 VB13 = [r(VR12[0] - 0.55 * (D12 - OUT12)), BELT, BACKZ]
 st.shot('S13', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
         act('mec', ME12, 15, 'stand', 'unimpressed', keys=[k(0.0, look={'point': [VB13[0], 0.7, BACKZ], 'cheat': 0.3}), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'smile'}}, toonDur=0.0),
-            *doubleTake(round(OUT13 + 0.25, 3), [r(EXITX - 0.1), 0.55, BACKZ], back=[VB13[0], 0.7, BACKZ], pop=0.0),
+            *doubleTake(round(OUT13 + 0.25, 3), [r(EXITX - 0.1), 0.55, BACKZ], back=[VB13[0], 0.7, BACKZ], pop=0.55),   # (check stills 2) the film's one eyes-on-stalks take
             k(round(OUT13 + 0.82, 3), toon={'face': {'jaw': 1.0, 'lid': 0.0, 'brow': 1.0}, 'sq': [0.95, 1.06, 0.95]}, toonDur=0.05, toonEase='out')])],   # the jaw drops
-        props=[HALL('hall13'), P('car13', 'carousel', pos=CAR, opts={**CAROPTS, 'flap': [[0.0, 0.0], [round(OUT13 - 0.05, 3), 0.0], [round(OUT13 + 0.06, 3), 0.45], [round(OUT13 + 0.25, 3), 0.3], [round(OUT13 + 0.4, 3), 0.0]]}),
+        props=[HALL('hall13'), P('car13', 'carousel', pos=CAR, opts={**CAROPTS, 'flap': [[0.0, 0.0], [round(OUT13 - 0.05, 3), 0.0], [round(OUT13 + 0.06, 3), 0.3], [round(OUT13 + 0.25, 3), 0.2], [round(OUT13 + 0.4, 3), 0.0]]}),
                VAL('val13', pos=VB13, rot=[r(-PI / 2), 0, r(-PI / 2)], scale=1.05, opts={'color': RED, 'stickers': 15, 'seed': 0, 'tag': 'gold', 'tagSwing': 0.2},
                    keys=[k(0.0, to=[r(VB13[0] - 0.55 * D13), BELT, BACKZ], dur=round(D13, 3), ease='linear')]),
-               VAL('val13s', pos=[r(EXITX + 0.2), BELT, BACKZ], rot=[r(-PI / 2), 0, r(-PI / 2)], scale=0.42, opts={'color': '#F5A3C0', 'pacifier': True, 'stickers': 1, 'seed': 9},
+               VAL('val13s', pos=[r(EXITX + 0.2), BELT, BACKZ], rot=[r(-PI / 2), 0, r(-PI / 2)], scale=0.5, opts={'color': '#F5A3C0', 'pacifier': True, 'stickers': 1, 'seed': 9},
                    keys=[k(OUT13, to=[r(VB13[0] - 0.55 * (OUT13 + 0.45) + 0.62), BELT, BACKZ], dur=0.45, ease='out'), k(round(OUT13 + 0.45, 3), to=[r(VB13[0] - 0.55 * D13 + 0.6), BELT, BACKZ], dur=round(D13 - OUT13 - 0.45, 3), ease='linear')])],   # out fast, it bumps into the big one
-        cams=[FC(0.0, [-1.5, 1.95, 1.1], [[ME12[0], 2.45, ME12[2]], [ME12[0], 1.0, ME12[2]], [r(EXITX + 0.2), 1.5, BACKZ], [r(VB13[0] - 0.4), BELT, BACKZ]], top=0.12, bottom=0.74)])
+        cams=[FC(0.0, [0.7, 1.95, 1.1], [[ME12[0], 2.45, ME12[2]], [ME12[0], 1.0, ME12[2]], [r(EXITX + 0.2), 1.5, BACKZ], [r(VB13[0] - 0.4), BELT, BACKZ]], top=0.12, bottom=0.74)])
 st.cue('sfx:squeak', 'S13', OUT13, 0.25); st.cue('clack', 'S13', round(OUT13 + 0.45, 3), 0.2); st.cue('sfx:gasp', 'S13', round(OUT13 + 0.82, 3), 0.2)
 
 # 14: he pays the maintenance. At home on the rug: he kneels before the little suitcase lying open like a mouth and feeds it a banknote; the lid snaps
@@ -259,14 +260,14 @@ st.shot('S14', 'livingRoom', setOpts={'carpet': False, 'picture': False}, actors
             k(0.3, toon={'reach': {'R': [*HANDIN, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.45}}, toonDur=0.25, toonEase='inOut'),   # the banknote into its mouth
             k(SNAP, toon={'reach': {'R': [*HANDIN, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.0, 'brow': 0.6}}, toonDur=0.033, toonEase='out'),   # CHOMP
             k(round(SNAP + 0.18, 3), toon={'reach': {'R': [*HANDIN, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.45}}, toonDur=0.1), k(round(SNAP + 0.2, 3), look='camera'),   # deadpan, at us
-            k(PULL, toon={'reach': {'R': [*TOWARD(0.35)[:1], 0.13, TOWARD(0.35)[2], 1.9, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [-0.35, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'brow': 0.3}}, toonDur=0.4, toonEase='inOut'),   # he pulls back, the arm like elastic
+            k(PULL, toon={'reach': {'R': [*TOWARD(0.12)[:1], 0.15, TOWARD(0.12)[2], 2.2, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [-0.55, 0, 0, 1, None]}, 'lay': [-0.3, 0], 'face': {'lid': 0.3, 'brow': 0.3}}, toonDur=0.4, toonEase='inOut'),   # he pulls back, falling back, the arm like elastic (check stills 2: further)
             k(round(PULL + 0.05, 3), look=[SM14[0], 0.15, SM14[2]]),
             k(LET, toon={'reach': {'R': [r(ME14[0] + 0.1), 1.1, r(ME14[2] + 0.3), 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'sq': [0.96, 1.04, 0.96], 'face': {'lid': 0.2, 'brow': 0.7}}, toonDur=0.05, toonEase='out'),   # it lets go: snap
             k(round(LET + 0.2, 3), toon={'reach': {'R': [r(ME14[0] + 0.25), 0.85, r(ME14[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45}}, toonDur=0.15),   # the hand empty
             k(round(LET + 0.25, 3), look='camera'), k(round(D14 - 0.42, 3), toon={'reach': {'R': [r(ME14[0] + 0.25), 0.85, r(ME14[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 1.0}}, toonDur=0.07),
             k(round(D14 - 0.25, 3), toon={'reach': {'R': [r(ME14[0] + 0.25), 0.85, r(ME14[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45}}, toonDur=0.1)])],
         props=[VAL('val14s', pos=SM14, rot=[r(-PI / 2), 0, YAWM], scale=0.75, opts={'color': '#F5A3C0', 'pacifier': True, 'stickers': 1, 'seed': 9, 'open': LIDO},
-                   keys=[k(PULL, to=TOWARD(0.35), dur=0.4, ease='inOut'), k(LET, to=TOWARD(0.05), dur=0.15, ease='out')]),   # dragged along by the hand it holds
+                   keys=[k(PULL, to=TOWARD(0.12), dur=0.4, ease='inOut'), k(LET, to=TOWARD(0.0), dur=0.15, ease='out')]),   # it hardly gives: the arm stretches instead
                VAL('val14', pos=[1.0, 0, -0.95], ry=-35, scale=1.15, opts={'color': RED, 'stickers': 15, 'seed': 0, 'tag': 'gold', 'tagSwing': 0.12}),
                P('note14', 'banknote', on={'actor': 'mec', 'hand': 'R', 'offset': [0, -0.08, 0.02]}, scale=0.7, keys=[k(SNAP, visible=False)])],
         cams=[FC(0.0, [0.35, 1.4, 2.3], [[ME14[0], 2.05, ME14[2]], [ME14[0], 0.0, ME14[2]], [SM14[0], 0.4, SM14[2]], [1.0, 1.2, -0.95], [1.35, 0.2, -0.95]], top=0.12, bottom=0.74, drift=(-0.08, 0.0, -0.12))])
