@@ -98,14 +98,16 @@ export const HOQUET_PROPS = {
 
   // A police cordon round a rectangle (o.w x o.d, centred on the pivot): four striped posts and red-and-white tape at 0.9 m, with signs hanging from it
   // (o.sign 'ÉPICENTRE') on the sides that face +Z and -X. o.jumps [[t, amp]]: the tape jumps and wobbles (a hiccup inside).
-  cordon(o) {
+  cordon(o) {   // o.signW / o.signH: the ÉPICENTRE plates (0.62 x 0.2 m; from 4.6 m up they were unreadable)
     const w = o.w ?? 2.6, d = o.d ?? 1.8, g = grp(), H = o.h ?? 0.9, C = [[-w / 2, -d / 2], [w / 2, -d / 2], [w / 2, d / 2], [-w / 2, d / 2]];
     for (const [x, z] of C) { g.add(at(cyl(0.035, 0.035, H + 0.1, '#E8E4DA', 8, { pivot: 'bottom' }), x, 0, z), at(box(0.25, 0.04, 0.25, '#3A3D44'), x, 0.02, z)); for (let i = 0; i < 3; i++) g.add(at(cyl(0.037, 0.037, 0.08, '#C8202A', 8), x, 0.2 + i * 0.3, z)); }
     const tapeTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 16; const x = c.getContext('2d'); for (let i = 0; i < 16; i++) { x.fillStyle = i % 2 ? '#F4F2EA' : '#D3202A'; x.beginPath(); x.moveTo(i * 16, 0); x.lineTo(i * 16 + 16, 0); x.lineTo(i * 16 + 8, 16); x.lineTo(i * 16 - 8, 16); x.fill(); } const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = THREE.RepeatWrapping; return t; })();
     const sides = [], signs = [];
     for (let i = 0; i < 4; i++) { const [x0, z0] = C[i], [x1, z1] = C[(i + 1) % 4], L = Math.hypot(x1 - x0, z1 - z0), tx = tapeTex.clone(); tx.needsUpdate = true; tx.repeat.set(L / 0.5, 1);
       const m = new THREE.Mesh(new THREE.PlaneGeometry(L, 0.07, 16, 1), new THREE.MeshLambertMaterial({ map: tx, side: THREE.DoubleSide })); const s = grp(m); s.position.set((x0 + x1) / 2, H, (z0 + z1) / 2); s.rotation.y = -Math.atan2(z1 - z0, x1 - x0); g.add(s); sides.push({ s, m, L, base: m.geometry.attributes.position.array.slice() });
-      if (i === 2 || i === 3) { const sg = grp(at(label(o.sign || 'ÉPICENTRE', 0.62, 0.2, { bg: '#FFE14A', fg: '#1B1B1E', wrap: false }), 0, -0.13, 0.01)); s.add(sg); signs.push(sg); } }
+      if (i === 2 || i === 3) { const mk = () => label(o.sign || 'ÉPICENTRE', o.signW ?? 0.62, o.signH ?? 0.2, { bg: '#FFE14A', fg: '#1B1B1E', wrap: false }), sy = -((o.signH ?? 0.2) / 2 + 0.03);
+        // (50) printed on both faces: seen from outside, the front plate read backwards
+        const sg = grp(at(mk(), 0, sy, 0.01), at(mk(), 0, sy, -0.01, 0, PI, 0)); s.add(sg); signs.push(sg); } }
     const jumps = o.jumps || [];
     g.userData.update = t => { let k = 0; for (const [a, amp] of jumps) { const u = t - a; if (u >= 0 && u < 1) k += amp * wob(u, 26, 5); }
       for (const S of sides) { const pa = S.m.geometry.attributes.position; for (let j = 0; j < pa.count; j++) { const x = S.base[3 * j], y = S.base[3 * j + 1], f = Math.cos(PI * x / S.L); pa.setY(j, y + k * 0.12 * f - 0.03 * f * f); } pa.needsUpdate = true; }

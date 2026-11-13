@@ -205,7 +205,7 @@ class Story:
         self.name = name; self.look = look   # look='natural' (light probe, soft shadows, auto exposure) or 'shaders' (engine/look.js)
         self.TL = json.load(open(os.path.join(ROOT, 'stories7', name, 'timeline.json')))
         self.L = {l['id']: l for l in self.TL['lines']}; self.total = self.TL['total']
-        self.scenes = []; self.SH = {}; self.cues = []; self.cards = []
+        self.scenes = []; self.SH = {}; self.cues = []; self.cards = []; self.gags = []
 
     def ws(self, lid, w=0): return self.L[lid]['words'][w]['s']
     def cut(self, lid, w=0): return round(round((self.ws(lid, w) - 1 / FPS) * FPS) / FPS, 4)
@@ -324,6 +324,57 @@ class Story:
         self.cues.append([name, round(self.SH[sid][0] + t, 3), gain, *args])
     def card(self, sid, word, at=None): self.cards.append(f'{sid}:{word}' if at is None else f'{sid}@{at}:{word}')   # at: seconds into the shot (default: at its cut)
 
+    def gag(self, sid, t, who='mec', name=None):
+        """(cycle 13) Declare the key pose of a gag: t seconds into shot sid, the actor whose face must read there. write() puts them in the script
+        (script.gags, with the title-card times as script.cardTimes) and `node render/render3.mjs scripts-fr/story_X.json --timed --w 288 --h 512 --probe`
+        measures each one in the engine, with the real pose, stretch and props: the head cut by the frame, too small to read, covered (and by what: a
+        prop, another actor, his own arm), in the caption band or under a title card (the reviews of 47-49 found the peak hidden in each of these ways)."""
+        self.gags.append({'t': round(self.SH[sid][0] + t, 3), 'who': who, 'name': name or f'{sid}+{t:g}', 'sid': sid})
+
+    def audit_life(self, still=1.3, quiet=False):
+        """(cycle 13) Two checks the reviews kept asking for, on the keys alone (run by write()):
+        - an actor in the frame who gets no key for `still` seconds or more on a static clip (stand, sit, idle): "frozen" (the mother still for 1.7 s,
+          the row frozen until the word); give him a blink, a glance, a breath or a weight shift;
+        - the eyes-on-stalks take (face pop >= 0.3) in more than three shots: "the take is the default, at the same size"; vary it (a jaw drop, a
+          squash, the hair standing up, a dazed wobble, a ta-da, crossed eyes, doubleTake())."""
+        out, stalks = [], []
+        static = (None, 'stand', 'sit', 'idle')
+        for sc in self.scenes:
+            sid, D = sc['id'], sc['duration']
+            for a in sc['actors']:
+                if not isinstance(a, dict) or 'pos' not in a: continue
+                keys = sorted([x for x in a.get('keys', []) if isinstance(x, dict)], key=lambda x: x.get('at', 0))
+                if any((x.get('toon') or {}).get('face', {}).get('pop', 0) >= 0.3 for x in keys): stalks.append((sid, a['id']))
+                busy, clip, clip_t = [], a.get('clip'), 0.0
+                vis = [(0.0, a.get('visible', True) is not False)] + [(x.get('at', 0), bool(x['visible'])) for x in keys if 'visible' in x]
+                for x in keys:
+                    t0 = x.get('at', 0); busy.append((t0, t0 + 0.05))
+                    if 'to' in x: busy.append((t0, t0 + (x.get('dur', 0) or 0)))
+                    if 'clip' in x:
+                        if clip not in static: busy.append((clip_t, t0))
+                        clip, clip_t = x['clip'], t0
+                        if x.get('then') and x['then'] not in static: busy.append((t0, D))
+                if clip not in static: busy.append((clip_t, D))
+                busy.sort(); edge, gaps = 0.0, []
+                for b0, b1 in busy + [(D, D)]:
+                    if b0 - edge >= still: gaps.append((edge, b0))
+                    edge = max(edge, b1)
+                for g0, g1 in gaps:
+                    tm = (g0 + g1) / 2; shown = [v for tv, v in vis if tv <= tm]
+                    if shown and not shown[-1]: continue
+                    p = a['pos']
+                    for x in keys:
+                        if 'to' in x and x.get('at', 0) <= tm and isinstance(x['to'], (list, tuple)): p = x['to']
+                    try: hd = self.where(sid, tm, [p[0], p[1] + 1.9 * (a.get('scale') or 1.0), p[2]])
+                    except Exception: hd = None
+                    if not hd or not (0.0 <= hd[0] <= 1.0 and 0.0 <= hd[1] <= 1.0): continue
+                    out.append(f'{sid} {a["id"]} still from {g0:.2f} to {g1:.2f} s ({g1 - g0:.1f} s with no key on a static clip): a blink, a glance, a breath or a weight shift (cycle 13)')
+        shots = sorted({s_ for s_, _ in stalks})
+        if len(shots) > 3: out.append(f'eyes-on-stalks take (face pop >= 0.3) in {len(shots)} shots ({", ".join(shots)}): keep the big one for the peak and vary the others (cycle 13)')
+        if not quiet:
+            for w in out: print('  audit', w)
+        return out
+
     def write(self, title, extra_cast=None, **doc_extra):   # doc_extra: extra top-level keys of the script (rig='toon': the cartoon rig for every human, faces={...}: the story's own expressions)
         d = os.path.join(ROOT, 'stories7', self.name)
         try:   # (cycle 10) a cue the final mix cannot play fails only after the 1080p render (45: 'splat' without 'sfx:'): say it now
@@ -336,6 +387,11 @@ class Story:
                 if (_n.startswith('sfx:') and _n[4:] not in _sfx) or (not _n.startswith('sfx:') and _n not in _mix): print(f'  audit cue {_n!r} at {_c[1]:.2f} s: the mix has no such sound (built-ins: {sorted(_mix)}; others as sfx:<name>)')
         except OSError: pass
         json.dump(self.cues, open(os.path.join(d, 'cues.json'), 'w')); open(os.path.join(d, 'cards.txt'), 'w').write(','.join(self.cards))
+        cardT = []   # (cycle 13) the title-card times, for the key-pose probe (a gag's peak under the card)
+        for c_ in self.cards:
+            h_ = c_.split(':', 1)[0]
+            if '@' in h_: s_, a_ = h_.split('@'); cardT.append(round(self.SH[s_][0] + float(a_), 3))
+            elif h_ in self.SH: cardT.append(round(self.SH[h_][0], 3))
         json.dump({sid: [round(a, 4), round(b, 4)] for sid, (a, b) in self.SH.items()}, open(os.path.join(d, 'shots.json'), 'w'))
         for sc in self.scenes:
             for p in sc['props']:
@@ -351,11 +407,14 @@ class Story:
                 'juge': {'preset': 'judge', 'facial': 'stubble', 'atlas': 'lemec', 'atlasBody': False, 'build': {'width': 0.86, 'headWidth': 1.3, 'headScale': 1.05}},
                 **(extra_cast or {})}
         doc = {'version': 3, 'title': title, 'grade': 'contrast(0.9) saturate(1.05) brightness(1.06)', 'captionWords': 0, 'captionY': 0.81, 'tempo': 1.0,
-               'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total, **({'look': self.look} if self.look else {}), **doc_extra}
+               'voice': None, 'music': None, 'cast': cast, 'scenes': self.scenes, 'total': self.total, **({'look': self.look} if self.look else {}),
+               **({'gags': self.gags, 'cardTimes': cardT} if self.gags else {}), **doc_extra}
         out = os.path.join(HERE, f'story_{self.name}.json')
         json.dump(doc, open(out, 'w'), indent=1, ensure_ascii=False)
         try: self.audit()   # (cycle 9) staging warnings: heads cut, feet in the caption band, the hero's back to the camera
         except Exception as e: print('  audit failed:', e)
+        try: self.audit_life()   # (cycle 13) frozen actors, the same take everywhere
+        except Exception as e: print('  audit_life failed:', e)
         print(out, len(self.scenes), 'shots', self.total, 's')
         return out
 

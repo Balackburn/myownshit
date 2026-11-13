@@ -1,0 +1,7481 @@
+{
+ "version": 3,
+ "title": "La gomme à mâcher",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "shoes": true,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "dame": {
+   "preset": "madame",
+   "seed": 511,
+   "suit": "#7A4E8C",
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  },
+  "ouvrier": {
+   "preset": "worker",
+   "seed": 512,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   }
+  },
+  "enfant1": {
+   "preset": "gamin",
+   "seed": 513
+  },
+  "enfant2": {
+   "preset": "gamin",
+   "seed": 514
+  },
+  "enfant3": {
+   "preset": "gamin",
+   "seed": 515
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.08,
+      0,
+      -1.25
+     ],
+     "ry": 0,
+     "clip": "walkRead",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.05,
+       "to": [
+        7.08,
+        0,
+        0.2
+       ],
+       "dur": 1.07,
+       "clip": "walkRead",
+       "then": "walkRead",
+       "ease": "linear",
+       "face": "move"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "plant": {
+         "L": [
+          7.2,
+          0.03,
+          0.0,
+          0.0
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.12,
+       "toon": {
+        "plant": {
+         "L": [
+          7.2,
+          0.03,
+          0.0,
+          1.0
+         ]
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.12,
+       "to": [
+        7.08,
+        0,
+        0.72
+       ],
+       "dur": 0.58,
+       "clip": "walkRead",
+       "then": "walkRead",
+       "ease": "linear",
+       "face": "keep"
+      },
+      {
+       "at": 1.34,
+       "look": [
+        7.2,
+        0.0,
+        0.0
+       ]
+      },
+      {
+       "at": 1.57,
+       "look": null
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone1",
+     "name": "smartPhone",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.03
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "case": "#F2C94C"
+     }
+    },
+    {
+     "id": "blob1",
+     "name": "gumBlob",
+     "pos": [
+      7.2,
+      0,
+      0.0
+     ],
+     "opts": {
+      "r": 0.13,
+      "squelch": [
+       [
+        1.12,
+        1.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      8.031,
+      0.32,
+      3.273
+     ],
+     "to": [
+      8.031,
+      0.32,
+      3.273
+     ],
+     "lookAt": [
+      5.57,
+      1.718,
+      -6.318
+     ],
+     "lens": 65,
+     "ease": "linear",
+     "lookAt2": [
+      5.57,
+      1.718,
+      -6.318
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.7,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.08,
+      0,
+      0.72
+     ],
+     "ry": 0,
+     "clip": "walkRead",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "plant": {
+         "L": [
+          7.2,
+          0.03,
+          0.0,
+          1.0
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        7.08,
+        0,
+        2.75
+       ],
+       "dur": 1.85,
+       "clip": "walkRead",
+       "then": "walkRead",
+       "ease": "linear",
+       "face": "keep"
+      },
+      {
+       "at": 0.88,
+       "toon": {
+        "sq": [
+         0.97,
+         1.03,
+         0.97
+        ],
+        "plant": {
+         "L": [
+          7.2,
+          0.03,
+          0.0,
+          1.0
+         ]
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "plant": {
+         "L": [
+          7.2,
+          0.03,
+          0.0,
+          0.0
+         ]
+        },
+        "wave": {
+         "legL": [
+          0.16,
+          1.0,
+          0.0,
+          1
+         ],
+         "shinL": [
+          0.16,
+          1.0,
+          -1.0,
+          1
+         ]
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.32,
+       "toon": {
+        "wave": {
+         "legL": [
+          0.0,
+          1.0,
+          2.0,
+          1
+         ],
+         "shinL": [
+          0.0,
+          1.0,
+          1.0,
+          1
+         ]
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.12,
+       "look": [
+        7.2,
+        0.0,
+        0.0
+       ]
+      },
+      {
+       "at": 1.42,
+       "look": null
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone2",
+     "name": "smartPhone",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.03
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "case": "#F2C94C"
+     }
+    },
+    {
+     "id": "blob2",
+     "name": "gumBlob",
+     "pos": [
+      7.2,
+      0,
+      0.0
+     ],
+     "opts": {
+      "r": 0.13,
+      "pull": [
+       [
+        0.98,
+        0.0
+       ],
+       [
+        1.08,
+        1.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.4,
+      1.15,
+      4.7
+     ],
+     "to": [
+      4.4,
+      1.15,
+      4.7
+     ],
+     "lookAt": [
+      11.111,
+      0.23,
+      -2.657
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      11.111,
+      0.23,
+      -2.657
+     ]
+    }
+   ],
+   "start": 1.7,
+   "duration": 1.9,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "point": [
+       7.2,
+       0.03,
+       0.0
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.026,
+     "taper": 0.6,
+     "wobble": [
+      [
+       1.0,
+       0.06,
+       30,
+       6
+      ]
+     ],
+     "thin": [
+      0.8
+     ],
+     "from": 1.0
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.08,
+      0,
+      5.3
+     ],
+     "ry": 0,
+     "clip": "walkRead",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "to": [
+        7.08,
+        0,
+        7.2
+       ],
+       "dur": 1.37,
+       "clip": "walkRead",
+       "then": "walkRead",
+       "ease": "linear",
+       "face": "move"
+      },
+      {
+       "at": 0.85,
+       "look": "camera"
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "dame",
+     "pos": [
+      10.6,
+      0,
+      3.4
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        7.2,
+        0.0,
+        3.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "to": [
+        7.63,
+        0,
+        3.32
+       ],
+       "dur": 0.55,
+       "clip": "walk",
+       "then": "walk",
+       "ease": "linear",
+       "face": "move"
+      },
+      {
+       "at": 0.55,
+       "to": [
+        7.08,
+        0.32,
+        3.3
+       ],
+       "dur": 0.13,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.7,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          1.2,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.3,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ]
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.68,
+       "to": [
+        6.58,
+        0,
+        3.28
+       ],
+       "dur": 0.13,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "sq": [
+         1.08,
+         0.92,
+         1.08
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.85,
+       "toon": {},
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.81,
+       "to": [
+        5.7,
+        0,
+        3.2
+       ],
+       "dur": 0.58,
+       "clip": "walk",
+       "then": "walk",
+       "ease": "linear",
+       "face": "move"
+      },
+      {
+       "at": 0.87,
+       "look": [
+        7.08,
+        1.9,
+        6.4
+       ]
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "phone3",
+     "name": "smartPhone",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       0.02,
+       0.03
+      ]
+     },
+     "scale": 1.6,
+     "opts": {
+      "case": "#F2C94C"
+     }
+    },
+    {
+     "id": "blob3",
+     "name": "gumBlob",
+     "pos": [
+      7.2,
+      0,
+      0.0
+     ],
+     "opts": {
+      "r": 0.13,
+      "pull": [
+       [
+        0.0,
+        1.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      6.1,
+      0.95,
+      11.8
+     ],
+     "to": [
+      6.1,
+      0.95,
+      12.05
+     ],
+     "lookAt": [
+      8.21,
+      0.722,
+      2.028
+     ],
+     "lens": 43,
+     "ease": "linear",
+     "lookAt2": [
+      8.21,
+      0.722,
+      2.278
+     ]
+    }
+   ],
+   "start": 3.6,
+   "duration": 1.4,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "point": [
+       7.2,
+       0.03,
+       0.0
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.03,
+     "taper": 0.45,
+     "thin": [
+      0.8
+     ]
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "blob4",
+     "name": "gumBlob",
+     "pos": [
+      7.2,
+      0,
+      26.0
+     ],
+     "scale": 6.0,
+     "opts": {
+      "r": 0.13
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -9.0,
+      26.0,
+      52.0
+     ],
+     "to": [
+      -8.4,
+      25.4,
+      49.0
+     ],
+     "lookAt": [
+      0.5,
+      4.0,
+      -40.0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      0.4,
+      4.2,
+      -42.0
+     ]
+    }
+   ],
+   "start": 5.0,
+   "duration": 2.1,
+   "setOpts": {
+    "clear": [
+     -200,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "point": [
+       7.2,
+       0.4,
+       26.0
+      ]
+     },
+     "b": {
+      "point": [
+       -6.0,
+       0.4,
+       -160.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.32,
+     "taper": 0.0,
+     "n": 24,
+     "segments": 48,
+     "wobble": [
+      [
+       0.3,
+       0.6,
+       9,
+       1.6
+      ]
+     ]
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "ouvrier",
+     "pos": [
+      6.95,
+      0,
+      1.9
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.4,
+        0.0,
+        0.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "to": [
+        6.95,
+        0,
+        -0.35
+       ],
+       "dur": 1.35,
+       "clip": "walk",
+       "then": "stand",
+       "ease": "linear",
+       "face": "keep",
+       "back": true
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          6.720000000000001,
+          0.95,
+          0.9,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "R": [
+          6.65,
+          1.35,
+          -0.25,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ]
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.63,
+       "toon": {
+        "reach": {
+         "R": [
+          6.6000000000000005,
+          1.05,
+          -0.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.75,
+       "toon": {
+        "reach": {
+         "R": [
+          6.62,
+          1.5,
+          -0.2,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ]
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 1.87,
+       "toon": {
+        "reach": {
+         "R": [
+          6.7,
+          1.2,
+          -0.1,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.12,
+       "settle": 0.6
+      },
+      {
+       "at": 1.95,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "roller5",
+     "name": "paintRoller",
+     "on": {
+      "actor": "ouvrier",
+      "hand": "R",
+      "offset": [
+       0,
+       0.0,
+       0.0
+      ],
+      "rot": [
+       2.25,
+       0,
+       0
+      ]
+     },
+     "opts": {
+      "len": 1.25,
+      "rollerW": 0.2,
+      "rollerR": 0.06,
+      "color": "#F4F2EA",
+      "sleeve": "#F4F2EA"
+     }
+    },
+    {
+     "id": "plaque5",
+     "name": "streetPlaque",
+     "pos": [
+      8.6,
+      0,
+      -1.1
+     ],
+     "ry": -25,
+     "opts": {
+      "lines": [
+       "VOIRIE",
+       "COMMUNALE"
+      ],
+      "post": 2.45,
+      "w": 0.95,
+      "h": 0.5,
+      "screw": [
+       [
+        1.81,
+        0.05
+       ]
+      ]
+     }
+    },
+    {
+     "id": "dash50",
+     "name": "plainWall",
+     "pos": [
+      6.4,
+      0.07,
+      1.6
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.075,
+      "h": 0.3,
+      "color": "#F4F2EA"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.273,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "dash51",
+     "name": "plainWall",
+     "pos": [
+      6.4,
+      0.07,
+      1.15
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.075,
+      "h": 0.3,
+      "color": "#F4F2EA"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.533,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "dash52",
+     "name": "plainWall",
+     "pos": [
+      6.4,
+      0.07,
+      0.7
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.075,
+      "h": 0.3,
+      "color": "#F4F2EA"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.793,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "dash53",
+     "name": "plainWall",
+     "pos": [
+      6.4,
+      0.07,
+      0.25
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.075,
+      "h": 0.3,
+      "color": "#F4F2EA"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.053,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "dash54",
+     "name": "plainWall",
+     "pos": [
+      6.4,
+      0.07,
+      -0.2
+     ],
+     "rot": [
+      -1.5708,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 0.075,
+      "h": 0.3,
+      "color": "#F4F2EA"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.313,
+       "visible": true
+      }
+     ],
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.037,
+      1.35,
+      3.789
+     ],
+     "to": [
+      4.037,
+      1.35,
+      3.789
+     ],
+     "lookAt": [
+      10.381,
+      -0.657,
+      -3.676
+     ],
+     "lens": 68,
+     "ease": "linear",
+     "lookAt2": [
+      10.381,
+      -0.657,
+      -3.676
+     ]
+    }
+   ],
+   "start": 7.1,
+   "duration": 2.2333,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "point": [
+       6.4,
+       0.04,
+       -9.0
+      ]
+     },
+     "b": {
+      "point": [
+       6.4,
+       0.04,
+       9.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.045,
+     "taper": 0.0,
+     "n": 12
+    },
+    {
+     "a": {
+      "point": [
+       6.4,
+       0.06,
+       -0.25
+      ]
+     },
+     "b": {
+      "prop": "roller5",
+      "offset": [
+       0,
+       1.2,
+       0.03
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.014,
+     "taper": 0.7,
+     "from": 1.43,
+     "until": 1.78
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "enfant1",
+     "pos": [
+      6.6,
+      0,
+      -22.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.6,
+        0.9,
+        -20.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          6.55,
+          0.72,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.056,
+       "toon": {
+        "reach": {
+         "R": [
+          6.615,
+          0.738,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.111,
+       "toon": {
+        "reach": {
+         "R": [
+          6.663,
+          0.785,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.167,
+       "toon": {
+        "reach": {
+         "R": [
+          6.68,
+          0.85,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.222,
+       "toon": {
+        "reach": {
+         "R": [
+          6.663,
+          0.915,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.278,
+       "toon": {
+        "reach": {
+         "R": [
+          6.615,
+          0.963,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.333,
+       "toon": {
+        "reach": {
+         "R": [
+          6.55,
+          0.98,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.389,
+       "toon": {
+        "reach": {
+         "R": [
+          6.485,
+          0.963,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.444,
+       "toon": {
+        "reach": {
+         "R": [
+          6.438,
+          0.915,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          6.42,
+          0.85,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.556,
+       "toon": {
+        "reach": {
+         "R": [
+          6.438,
+          0.785,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.611,
+       "toon": {
+        "reach": {
+         "R": [
+          6.485,
+          0.737,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.667,
+       "toon": {
+        "reach": {
+         "R": [
+          6.55,
+          0.72,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.722,
+       "toon": {
+        "reach": {
+         "R": [
+          6.615,
+          0.737,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.778,
+       "toon": {
+        "reach": {
+         "R": [
+          6.663,
+          0.785,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.833,
+       "toon": {
+        "reach": {
+         "R": [
+          6.68,
+          0.85,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.889,
+       "toon": {
+        "reach": {
+         "R": [
+          6.663,
+          0.915,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.944,
+       "toon": {
+        "reach": {
+         "R": [
+          6.615,
+          0.962,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          6.55,
+          0.98,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.056,
+       "toon": {
+        "reach": {
+         "R": [
+          6.485,
+          0.962,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.111,
+       "toon": {
+        "reach": {
+         "R": [
+          6.437,
+          0.915,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.167,
+       "toon": {
+        "reach": {
+         "R": [
+          6.42,
+          0.85,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.222,
+       "toon": {
+        "reach": {
+         "R": [
+          6.437,
+          0.785,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.278,
+       "toon": {
+        "reach": {
+         "R": [
+          6.485,
+          0.737,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.333,
+       "toon": {
+        "reach": {
+         "R": [
+          6.55,
+          0.72,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.389,
+       "toon": {
+        "reach": {
+         "R": [
+          6.615,
+          0.737,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.444,
+       "toon": {
+        "reach": {
+         "R": [
+          6.662,
+          0.785,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "reach": {
+         "R": [
+          6.68,
+          0.85,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.556,
+       "toon": {
+        "reach": {
+         "R": [
+          6.662,
+          0.915,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.611,
+       "toon": {
+        "reach": {
+         "R": [
+          6.615,
+          0.963,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.667,
+       "toon": {
+        "reach": {
+         "R": [
+          6.55,
+          0.98,
+          -21.68,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "enfant2",
+     "pos": [
+      6.6,
+      0,
+      -18.4
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.6,
+        0.9,
+        -20.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          6.65,
+          0.72,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.056,
+       "toon": {
+        "reach": {
+         "L": [
+          6.715,
+          0.738,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.111,
+       "toon": {
+        "reach": {
+         "L": [
+          6.763,
+          0.785,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.167,
+       "toon": {
+        "reach": {
+         "L": [
+          6.78,
+          0.85,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.222,
+       "toon": {
+        "reach": {
+         "L": [
+          6.763,
+          0.915,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.278,
+       "toon": {
+        "reach": {
+         "L": [
+          6.715,
+          0.963,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.333,
+       "toon": {
+        "reach": {
+         "L": [
+          6.65,
+          0.98,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.389,
+       "toon": {
+        "reach": {
+         "L": [
+          6.585,
+          0.963,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.444,
+       "toon": {
+        "reach": {
+         "L": [
+          6.538,
+          0.915,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "L": [
+          6.52,
+          0.85,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.556,
+       "toon": {
+        "reach": {
+         "L": [
+          6.538,
+          0.785,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.611,
+       "toon": {
+        "reach": {
+         "L": [
+          6.585,
+          0.737,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.667,
+       "toon": {
+        "reach": {
+         "L": [
+          6.65,
+          0.72,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.722,
+       "toon": {
+        "reach": {
+         "L": [
+          6.715,
+          0.737,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.778,
+       "toon": {
+        "reach": {
+         "L": [
+          6.763,
+          0.785,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.833,
+       "toon": {
+        "reach": {
+         "L": [
+          6.78,
+          0.85,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.889,
+       "toon": {
+        "reach": {
+         "L": [
+          6.763,
+          0.915,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.944,
+       "toon": {
+        "reach": {
+         "L": [
+          6.715,
+          0.962,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "L": [
+          6.65,
+          0.98,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.056,
+       "toon": {
+        "reach": {
+         "L": [
+          6.585,
+          0.962,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.111,
+       "toon": {
+        "reach": {
+         "L": [
+          6.537,
+          0.915,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.167,
+       "toon": {
+        "reach": {
+         "L": [
+          6.52,
+          0.85,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.222,
+       "toon": {
+        "reach": {
+         "L": [
+          6.537,
+          0.785,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.278,
+       "toon": {
+        "reach": {
+         "L": [
+          6.585,
+          0.737,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.333,
+       "toon": {
+        "reach": {
+         "L": [
+          6.65,
+          0.72,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.389,
+       "toon": {
+        "reach": {
+         "L": [
+          6.715,
+          0.737,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.444,
+       "toon": {
+        "reach": {
+         "L": [
+          6.762,
+          0.785,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "reach": {
+         "L": [
+          6.78,
+          0.85,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.556,
+       "toon": {
+        "reach": {
+         "L": [
+          6.762,
+          0.915,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.611,
+       "toon": {
+        "reach": {
+         "L": [
+          6.715,
+          0.963,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.667,
+       "toon": {
+        "reach": {
+         "L": [
+          6.65,
+          0.98,
+          -18.72,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "enfant3",
+     "pos": [
+      6.6,
+      0,
+      -20.2
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "to": [
+        6.6,
+        0.26,
+        -20.2
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.12,
+       "to": [
+        6.6,
+        0,
+        -20.2
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.24,
+       "toon": {
+        "sq": [
+         1.1,
+         0.88,
+         1.1
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.537,
+       "to": [
+        6.6,
+        0.26,
+        -20.2
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.657,
+       "to": [
+        6.6,
+        0,
+        -20.2
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.777,
+       "toon": {
+        "sq": [
+         1.1,
+         0.88,
+         1.1
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.837,
+       "toon": {
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.203,
+       "to": [
+        6.6,
+        0.26,
+        -20.2
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 1.323,
+       "to": [
+        6.6,
+        0,
+        -20.2
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 1.443,
+       "toon": {
+        "sq": [
+         1.1,
+         0.88,
+         1.1
+        ],
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 1.503,
+       "toon": {
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.3,
+      1.15,
+      -16.0
+     ],
+     "to": [
+      3.3,
+      1.15,
+      -16.0
+     ],
+     "lookAt": [
+      9.848,
+      -0.234,
+      -23.43
+     ],
+     "lens": 51,
+     "ease": "linear",
+     "lookAt2": [
+      9.848,
+      -0.234,
+      -23.43
+     ]
+    }
+   ],
+   "start": 9.3333,
+   "duration": 1.7,
+   "setOpts": {
+    "clear": [
+     -80,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "enfant1",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "b": {
+      "actor": "enfant2",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.24,
+     "radius": 0.028,
+     "taper": 0.2,
+     "spin": [
+      1.5,
+      0.0
+     ]
+    },
+    {
+     "a": {
+      "point": [
+       6.6,
+       0.3,
+       -70.0
+      ]
+     },
+     "b": {
+      "actor": "enfant1",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.004,
+     "radius": 0.026,
+     "taper": 0.0
+    },
+    {
+     "a": {
+      "actor": "enfant2",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "b": {
+      "point": [
+       6.6,
+       0.3,
+       40.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.004,
+     "radius": 0.026,
+     "taper": 0.0
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -2.75
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.35,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.78,
+          -1.63,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.056,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.992,
+          -1.687,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.013,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.111,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          1.144,
+          -1.84,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.022,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.167,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          1.2,
+          -2.051,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.025,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.222,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          1.144,
+          -2.259,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.022,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.278,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.989,
+          -2.414,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.333,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.781,
+          -2.47,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.389,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.57,
+          -2.414,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.987,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.444,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.417,
+          -2.262,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.978,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.36,
+          -2.05,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.975,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.556,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.417,
+          -1.838,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.978,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.611,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.57,
+          -1.686,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.987,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.667,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.781,
+          -1.63,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.722,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.989,
+          -1.686,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.778,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          1.144,
+          -1.841,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.022,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.833,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          1.2,
+          -2.049,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.025,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.889,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          1.144,
+          -2.26,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.022,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.944,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.992,
+          -2.413,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.013,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.78,
+          -2.47,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.056,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.568,
+          -2.413,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.987,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.111,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.416,
+          -2.26,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.978,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.167,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.36,
+          -2.049,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.975,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.222,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.416,
+          -1.841,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.978,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.278,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ],
+         "R": [
+          0.2,
+          1.38,
+          -2.33,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "plant": {
+         "L": [
+          0.2,
+          0.571,
+          -1.686,
+          1.0
+         ]
+        },
+        "sq": [
+         1.0,
+         0.988,
+         1.0
+        ]
+       },
+       "toonDur": 0.056,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.8,
+       "look": "camera"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "paper7",
+     "name": "newspaper",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       -0.2,
+       0.02,
+       0.04
+      ],
+      "face": "camera"
+     },
+     "scale": 1.4,
+     "opts": {
+      "headline": "DIMANCHE"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.388,
+      1.25,
+      1.226
+     ],
+     "to": [
+      1.388,
+      1.25,
+      1.226
+     ],
+     "lookAt": [
+      0.14,
+      -0.326,
+      -8.57
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      0.14,
+      -0.326,
+      -8.57
+     ]
+    }
+   ],
+   "start": 11.0333,
+   "duration": 1.3,
+   "setOpts": {
+    "tv": false
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       3.55,
+       1.45,
+       -3.45
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.16,
+     "radius": 0.026,
+     "taper": 0.25,
+     "spin": [
+      1.5,
+      0.25
+     ]
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "cab8",
+     "name": "cableCar",
+     "pos": [
+      -4.6,
+      14.95,
+      -12.0
+     ],
+     "opts": {
+      "riders": 3,
+      "swing": [
+       [
+        0.0,
+        0.07
+       ]
+      ],
+      "tilt": -0.04
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        2.2,
+        14.95,
+        -12.0
+       ],
+       "dur": 1.033,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -3.2,
+      14.2,
+      1.2
+     ],
+     "to": [
+      -2.7,
+      14.25,
+      0.9
+     ],
+     "lookAt": [
+      -0.6,
+      14.4,
+      -12.0
+     ],
+     "lens": 42,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      14.45,
+      -12.0
+     ]
+    }
+   ],
+   "start": 12.3333,
+   "duration": 1.0334,
+   "setOpts": {
+    "clear": [
+     -200,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "point": [
+       -45.0,
+       15.5,
+       -12.0
+      ]
+     },
+     "b": {
+      "prop": "cab8",
+      "offset": [
+       0,
+       0.06,
+       0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.008,
+     "radius": 0.07,
+     "taper": 0.0,
+     "n": 14
+    },
+    {
+     "a": {
+      "prop": "cab8",
+      "offset": [
+       0,
+       0.06,
+       0
+      ]
+     },
+     "b": {
+      "point": [
+       45.0,
+       15.5,
+       -12.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.008,
+     "radius": 0.07,
+     "taper": 0.0,
+     "n": 14
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "office",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.75,
+      2.55,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "lay": [
+         0,
+         3.1416
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.87,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.63,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "lay": [
+         0,
+         3.1855
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.84,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.66,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.24,
+       "toon": {
+        "lay": [
+         0,
+         3.21
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.87,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.63,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.36,
+       "toon": {
+        "lay": [
+         0,
+         3.2042
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.84,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.66,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.48,
+       "toon": {
+        "lay": [
+         0,
+         3.1706
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.87,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.63,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "lay": [
+         0,
+         3.1242
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.84,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.66,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "lay": [
+         0,
+         3.0855
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.87,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.63,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "lay": [
+         0,
+         3.0716
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.84,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.66,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.96,
+       "toon": {
+        "lay": [
+         0,
+         3.0888
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.87,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.63,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "lay": [
+         0,
+         3.1293
+        ],
+        "bend": {
+         "legR": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          -1.5,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          -1.84,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ],
+         "R": [
+          -1.66,
+          0.83,
+          -1.78,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "linear"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "desk9",
+     "name": "desk",
+     "pos": [
+      -1.75,
+      0,
+      -1.55
+     ],
+     "ry": 180,
+     "opts": {
+      "w": 1.2,
+      "d": 0.6
+     }
+    },
+    {
+     "id": "laptop9",
+     "name": "laptop",
+     "pos": [
+      -1.75,
+      0.76,
+      -1.72
+     ],
+     "ry": 180,
+     "opts": {
+      "text": "RAPPORT"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.9,
+      1.45,
+      1.4
+     ],
+     "to": [
+      -0.9,
+      1.45,
+      1.4
+     ],
+     "lookAt": [
+      -3.058,
+      1.191,
+      -8.361
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      -3.058,
+      1.191,
+      -8.361
+     ]
+    }
+   ],
+   "start": 13.3667,
+   "duration": 1.1333,
+   "setOpts": {
+    "door": false
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       -1.75,
+       1.55,
+       -6.5
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.02,
+     "radius": 0.024,
+     "taper": 0.3
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.1,
+      0,
+      40.0
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        7.1,
+        0.0,
+        39.4
+       ]
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          7.05,
+          0.12,
+          39.55,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.12,
+          39.4,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        }
+       },
+       "toonDur": 0.25
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "neck": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "reach": {
+         "L": [
+          7.05,
+          0.1,
+          39.55,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.1,
+          39.4,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "L": [
+          7.02,
+          0.95,
+          39.65,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.91,
+          39.48,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.1,
+       "look": [
+        7.1,
+        1.0,
+        32.0
+       ]
+      },
+      {
+       "at": 1.45,
+       "to": [
+        7.14,
+        0,
+        40.15
+       ],
+       "dur": 0.2,
+       "glide": true,
+       "face": "keep"
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "L": [
+          7.02,
+          0.95,
+          39.65,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.91,
+          39.48,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          0,
+          0.28,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          0,
+          -0.28,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.0,
+         0.96,
+         1.0
+        ]
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "reach": {
+         "L": [
+          7.02,
+          0.95,
+          39.65,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.91,
+          39.48,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          0,
+          0.28,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          0,
+          -0.28,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.08,
+         1.05,
+         1.12
+        ],
+        "face": {
+         "puff": 0.8,
+         "brow": -0.7,
+         "lid": 0.25
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.75,
+       "look": "camera"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.4,
+      1.3,
+      36.6
+     ],
+     "to": [
+      4.4,
+      1.3,
+      36.6
+     ],
+     "lookAt": [
+      10.947,
+      0.356,
+      44.1
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      10.947,
+      0.356,
+      44.1
+     ]
+    }
+   ],
+   "start": 14.5,
+   "duration": 2.1,
+   "setOpts": {
+    "clear": [
+     -80,
+     120
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.25,
+     "radius": 0.024,
+     "taper": 0.3,
+     "from": 0.57
+    },
+    {
+     "a": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "b": {
+      "point": [
+       7.2,
+       0.05,
+       0.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.026,
+     "taper": 0.0,
+     "n": 14,
+     "thin": [
+      2.0
+     ],
+     "from": 0.57
+    },
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       7.2,
+       0.05,
+       0.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.026,
+     "taper": 0.0,
+     "n": 14,
+     "until": 0.57
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      7.1,
+      0,
+      40.15
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        7.1,
+        1.0,
+        32.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "lay": [
+         -0.15,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.55,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.41,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "lay": [
+         -0.42,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.45,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.31,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "lay": [
+         -0.45,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "lay": [
+         -0.462,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "lay": [
+         -0.45,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "lay": [
+         -0.462,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "lay": [
+         -0.45,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "lay": [
+         -0.462,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "lay": [
+         -0.45,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "lay": [
+         -0.462,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "lay": [
+         -0.45,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.44,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.3,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.9,
+         "brow": -0.9,
+         "lid": 0.3,
+         "mouth": "flat"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "lay": [
+         -0.5,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.04,
+          1.0,
+          39.4,
+          1,
+          0.05
+         ],
+         "R": [
+          7.16,
+          0.97,
+          39.26,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "bend": {
+         "legL": [
+          -0.25,
+          0.22,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.25,
+          -0.22,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "plant": {
+         "L": [
+          7.28,
+          0.0,
+          39.65,
+          1.0
+         ],
+         "R": [
+          6.94,
+          0.0,
+          39.7,
+          1.0
+         ]
+        },
+        "face": {
+         "puff": 0.2,
+         "brow": 0.9,
+         "pop": 0.0,
+         "lid": 0.0,
+         "mouth": "O",
+         "jaw": 0.4
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.12,
+       "toon": {
+        "lay": [
+         0.9,
+         0
+        ],
+        "reach": {
+         "L": [
+          7.05,
+          1.0,
+          37.6,
+          1,
+          0.05
+         ],
+         "R": [
+          7.15,
+          0.98,
+          37.5,
+          1,
+          0.05
+         ]
+        },
+        "hose": 0.12,
+        "hands": {
+         "L": "grip",
+         "R": "grip"
+        },
+        "face": {
+         "brow": 0.9,
+         "mouth": "O",
+         "jaw": 0.5,
+         "lid": 0.0
+        },
+        "hairUp": 0.8
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.12,
+       "to": [
+        7.1,
+        0.45,
+        39.4
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 1.24,
+       "to": [
+        7.1,
+        0.9,
+        14.0
+       ],
+       "dur": 0.12,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "dust11",
+     "name": "dustPuff",
+     "pos": [
+      7.1,
+      0.1,
+      40.0
+     ],
+     "scale": 0.7,
+     "opts": {
+      "once": true,
+      "startAt": 1.12,
+      "period": 0.5,
+      "color": "#E8DCC6"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 1.12,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.0,
+      1.2,
+      41.9
+     ],
+     "to": [
+      4.0,
+      1.2,
+      41.9
+     ],
+     "lookAt": [
+      12.541,
+      0.268,
+      36.783
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      12.541,
+      0.268,
+      36.783
+     ]
+    }
+   ],
+   "start": 16.6,
+   "duration": 1.7,
+   "setOpts": {
+    "clear": [
+     -80,
+     120
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.25,
+     "radius": 0.022,
+     "taper": 0.3,
+     "until": 1.12
+    },
+    {
+     "a": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "b": {
+      "point": [
+       7.2,
+       0.05,
+       0.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": [
+      [
+       0.0,
+       0.004
+      ],
+      [
+       0.4,
+       0.0
+      ]
+     ],
+     "radius": 0.03,
+     "taper": 0.0,
+     "n": 14,
+     "wobble": [
+      [
+       0.65,
+       0.025,
+       60,
+       0.8
+      ]
+     ],
+     "thin": [
+      1.2
+     ]
+    },
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       7.2,
+       0.05,
+       0.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.03,
+     "taper": 0.0,
+     "n": 14,
+     "from": 1.12
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      16.0,
+      17.0,
+      -30.0
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "lay": [
+         0,
+         -1.5708
+        ],
+        "hairUp": 1.0,
+        "face": {
+         "lid": 0.35
+        },
+        "bend": {
+         "armL": [
+          0,
+          0.6,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0,
+          -0.6,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        -16.0,
+        17.0,
+        -30.0
+       ],
+       "dur": 0.9,
+       "glide": true,
+       "ease": "linear",
+       "face": "keep"
+      }
+     ],
+     "smear": 1.0,
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      16.0,
+      17.6,
+      -23.8
+     ],
+     "to": [
+      -16.0,
+      17.6,
+      -23.8
+     ],
+     "lookAt": [
+      16.0,
+      16.6,
+      -30.0
+     ],
+     "lens": 40,
+     "ease": "linear",
+     "lookAt2": [
+      -16.0,
+      16.6,
+      -30.0
+     ]
+    }
+   ],
+   "start": 18.3,
+   "duration": 0.9,
+   "setOpts": {
+    "clear": [
+     -200,
+     80
+    ],
+    "paveW": 6.5
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       -80.0,
+       17.0,
+       -30.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.04,
+     "taper": 0.0,
+     "n": 8
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.05,
+      6.2,
+      -2.65
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "lay": [
+         0,
+         3.1416
+        ],
+        "bend": {
+         "armL": [
+          0,
+          1.2,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0,
+          -1.2,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        0.05,
+        2.12,
+        -2.65
+       ],
+       "dur": 0.42,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "lay": [
+         0,
+         3.1416
+        ],
+        "bend": {
+         "armL": [
+          0,
+          1.2,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0,
+          -1.2,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.18,
+         0.78,
+         1.18
+        ]
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "lay": [
+         0,
+         3.1416
+        ],
+        "bend": {
+         "armL": [
+          0,
+          1.2,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0,
+          -1.2,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         0.94,
+         1.08,
+         0.94
+        ],
+        "wave": {
+         "legL": [
+          0.1,
+          1.0,
+          0.0,
+          1
+         ],
+         "legR": [
+          0.1,
+          1.0,
+          0.5,
+          1
+         ]
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "lay": [
+         0,
+         3.1416
+        ],
+        "bend": {
+         "armL": [
+          0,
+          1.2,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0,
+          -1.2,
+          0,
+          1,
+          null
+         ]
+        },
+        "wave": {
+         "legL": [
+          0.0,
+          1.0,
+          2.0,
+          1
+         ],
+         "legR": [
+          0.0,
+          1.0,
+          2.5,
+          1
+         ]
+        }
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.17,
+       "toon": {
+        "lay": [
+         0,
+         3.1416
+        ],
+        "bend": {
+         "armL": [
+          0,
+          1.2,
+          0,
+          1,
+          null
+         ],
+         "armR": [
+          0,
+          -1.2,
+          0,
+          1,
+          null
+         ],
+         "legL": [
+          0.0,
+          0.5,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          0.0,
+          -0.5,
+          0,
+          1,
+          null
+         ],
+         "shinL": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "shinR": [
+          0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "in"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "dust13",
+     "name": "dustPuff",
+     "pos": [
+      0.05,
+      0.55,
+      -2.6
+     ],
+     "scale": 0.8,
+     "opts": {
+      "once": true,
+      "startAt": 0.42,
+      "period": 0.6,
+      "color": "#F2EAD8"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.42,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.45,
+      1.45,
+      1.0
+     ],
+     "to": [
+      0.45,
+      1.45,
+      1.0
+     ],
+     "lookAt": [
+      -0.625,
+      1.324,
+      -8.941
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      -0.625,
+      1.324,
+      -8.941
+     ]
+    }
+   ],
+   "start": 19.2,
+   "duration": 1.4333,
+   "setOpts": {
+    "tv": false
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       0.3,
+       9.0,
+       -2.4
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.026,
+     "taper": 0.2,
+     "until": 0.52
+    }
+   ],
+   "fx": [
+    {
+     "type": "shake",
+     "at": 0.42,
+     "dur": 0.16,
+     "amount": 0.012
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -2.75
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.75,
+        -2.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.31,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.53,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.86,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.97,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.19,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.41,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.52,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.1,
+          0.732,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.837,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        },
+        "plant": {
+         "L": [
+          0.35,
+          0.95,
+          -1.75,
+          1.0
+         ]
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.957,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        },
+        "plant": {
+         "L": [
+          0.35,
+          0.95,
+          -1.75,
+          0.0
+         ]
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 2.167,
+       "look": "camera"
+      },
+      {
+       "at": 2.337,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        },
+        "face": {
+         "lid": 1
+        }
+       },
+       "toonDur": 0.14
+      },
+      {
+       "at": 2.557,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ],
+         "R": [
+          0.12,
+          0.72,
+          -2.25,
+          1,
+          0.08
+         ]
+        },
+        "hands": {
+         "L": "flat",
+         "R": "flat"
+        }
+       },
+       "toonDur": 0.16
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "lap14",
+     "name": "laptop",
+     "pos": [
+      0.0,
+      0.62,
+      -2.32
+     ],
+     "opts": {
+      "text": "VISIO"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.397,
+      1.35,
+      3.377
+     ],
+     "to": [
+      0.397,
+      1.35,
+      3.257
+     ],
+     "lookAt": [
+      1.848,
+      -0.63,
+      -6.317
+     ],
+     "lens": 67,
+     "ease": "linear",
+     "lookAt2": [
+      1.848,
+      -0.63,
+      -6.437
+     ]
+    }
+   ],
+   "start": 20.6333,
+   "duration": 2.8867,
+   "setOpts": {
+    "tv": false
+   },
+   "tethers": [
+    {
+     "a": {
+      "actor": "mec",
+      "joint": "footL",
+      "offset": [
+       0,
+       0.01,
+       0.07
+      ]
+     },
+     "b": {
+      "point": [
+       0.4,
+       0.02,
+       -1.6
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.024,
+     "taper": 0.0
+    },
+    {
+     "a": {
+      "point": [
+       0.4,
+       0.02,
+       -1.6
+      ]
+     },
+     "b": {
+      "point": [
+       -0.35,
+       0.02,
+       -1.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.024,
+     "taper": 0.0
+    },
+    {
+     "a": {
+      "point": [
+       -0.35,
+       0.02,
+       -1.0
+      ]
+     },
+     "b": {
+      "point": [
+       0.6,
+       0.02,
+       -0.7
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.024,
+     "taper": 0.0
+    },
+    {
+     "a": {
+      "point": [
+       0.6,
+       0.02,
+       -0.7
+      ]
+     },
+     "b": {
+      "point": [
+       1.6,
+       0.02,
+       -1.4
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.024,
+     "taper": 0.0
+    },
+    {
+     "a": {
+      "point": [
+       1.6,
+       0.02,
+       -1.4
+      ]
+     },
+     "b": {
+      "point": [
+       2.6,
+       0.02,
+       -1.0
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.024,
+     "taper": 0.0
+    },
+    {
+     "a": {
+      "point": [
+       2.6,
+       0.02,
+       -1.0
+      ]
+     },
+     "b": {
+      "point": [
+       3.4,
+       0.9,
+       -3.3
+      ]
+     },
+     "color": "#F27BAA",
+     "sag": 0.0,
+     "radius": 0.024,
+     "taper": 0.0
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 23.52,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 1.22,
+   "who": "mec",
+   "name": "step",
+   "sid": "S01"
+  },
+  {
+   "t": 2.65,
+   "who": "mec",
+   "name": "leg_stretch",
+   "sid": "S02"
+  },
+  {
+   "t": 4.15,
+   "who": "dame",
+   "name": "hop",
+   "sid": "S03"
+  },
+  {
+   "t": 8.85,
+   "who": "ouvrier",
+   "name": "stuck_roller",
+   "sid": "S05"
+  },
+  {
+   "t": 9.333,
+   "who": "enfant3",
+   "name": "skip",
+   "sid": "S06"
+  },
+  {
+   "t": 11.633,
+   "who": "mec",
+   "name": "leg_whirl",
+   "sid": "S07"
+  },
+  {
+   "t": 13.867,
+   "who": "mec",
+   "name": "hanging",
+   "sid": "S09"
+  },
+  {
+   "t": 16.3,
+   "who": "mec",
+   "name": "breath",
+   "sid": "S10"
+  },
+  {
+   "t": 17.5,
+   "who": "mec",
+   "name": "pull",
+   "sid": "S11"
+  },
+  {
+   "t": 17.75,
+   "who": "mec",
+   "name": "yank",
+   "sid": "S11"
+  },
+  {
+   "t": 18.75,
+   "who": "mec",
+   "name": "flight",
+   "sid": "S12"
+  },
+  {
+   "t": 23.02,
+   "who": "mec",
+   "name": "blink",
+   "sid": "S14"
+  }
+ ],
+ "cardTimes": [
+  8.03
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5
+}

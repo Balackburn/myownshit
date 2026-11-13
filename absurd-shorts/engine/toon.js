@@ -21,6 +21,9 @@
 //         them up toward the nose ([0, 9, 2]), a spin flings them out. It adds to the scene wind
 //   reach: { L | R: [x, y, z, w, tip] }   a hand guided to a point of the world (two-bone IK; the arm stretches when the point is too far; tip (m): the
 //                                          fingertips reach it, that far beyond the wrist)
+//   plant: { L | R: [x, y, z, w, [px, py, pz], flat] }   (cycle 13) a foot held at a point of the world (two-bone IK on the hip and the knee; the leg
+//                                          stretches when the point is too far: the foot glued to the pavement while he walks on; [px, py, pz]: where the
+//                                          knee goes, in the frame of the hips, default forward; flat false: the foot turns with the shin)
 //   hose: 0..0.35   (cycle 9) a guided arm keeps a bend at the elbow however far it reaches: it grows that much longer than the distance (0.15: a rubber
 //                   hose with an elbow; at 0 a far reach is a straight rod, the reviewers' "five reaches, the same rod")
 //   touch: { L | R: [joint, x, y, z, w, tip] }   the same, to a point given in the frame of one of his own joints ('torso', 'head'...: the joint's own units, a
@@ -262,6 +265,36 @@ export function toonUpgrade(obj) {
     }
     return out;
   }
+  // (cycle 13) plant: { L | R: [x, y, z, w, [px, py, pz], flat] }: a foot held at a point of the world (the gum on the pavement, a step, a door it is caught in).
+  // Two-bone IK on the hip and the knee, the knee toward [px, py, pz] in the frame of the hips (default forward, a little down); a point further than the leg
+  // is long stretches the thigh and the shin equally (the cartoon leg left behind while the body walks on). The foot stays flat in the frame of the body
+  // unless flat is false. Called after the clip's joint rotations, before the parts are bent.
+  const _Q2 = new THREE.Quaternion(), _Q3 = new THREE.Quaternion();
+  function solvePlant(plant, b) {
+    const out = { ...b };
+    for (const s of ['L', 'R']) {
+      const r = plant[s], Hj = J['hip' + s], Kj = J['knee' + s], pa = parts['leg' + s], pf = parts['shin' + s]; if (!r || !Hj || !Kj || !pa || !pf) continue;
+      const w = Math.max(0, Math.min(1, r[3] ?? 1)); if (w < 0.001) continue;
+      const L1 = pa.L, L2 = pf.L, ba = b['leg' + s] || NEUTRAL_B, bf = b['shin' + s] || NEUTRAL_B;
+      Hj.parent.updateWorldMatrix(true, false); _T.set(r[0], r[1], r[2]); Hj.parent.worldToLocal(_T); _S.copy(Hj.position);
+      let s1 = ba[3] ?? 1, s2 = bf[3] ?? 1;
+      const d = Math.max(1e-4, _T.distanceTo(_S)), e = d / (L1 * s1 + L2 * s2);
+      if (e > 0.985) { s1 *= e / 0.985; s2 *= e / 0.985; }   // a little longer than needed: the knee keeps a hint of a bend even at full stretch
+      const a = L1 * s1, c = L2 * s2, cosA = Math.max(-1, Math.min(1, (a * a + d * d - c * c) / (2 * a * d))), sinA = Math.sqrt(1 - cosA * cosA);
+      _u.copy(_T).sub(_S).divideScalar(d); if (r[4]) _p.set(r[4][0], r[4][1], r[4][2]).normalize(); else _p.set(0, -0.15, 1).normalize();
+      _n.crossVectors(_u, _p); if (_n.lengthSq() < 1e-6) _n.set(1, 0, 0); _n.normalize(); _qv.crossVectors(_n, _u).normalize();
+      _ad.copy(_u).multiplyScalar(cosA).addScaledVector(_qv, sinA);                                  // the thigh
+      _fd.copy(_T).sub(_S).addScaledVector(_ad, -a).normalize();                                      // the shin (from the knee to the ankle)
+      _Yv.copy(_ad).negate(); _Z.copy(_qv).addScaledVector(_Yv, -_qv.dot(_Yv)); if (_Z.lengthSq() < 1e-6) _Z.set(0, 0, 1); _Z.normalize(); _X.crossVectors(_Yv, _Z).normalize();   // the front of the thigh toward the knee
+      _Q.setFromRotationMatrix(_M.makeBasis(_X, _Yv, _Z)); const bend = Math.acos(Math.max(-1, Math.min(1, _ad.dot(_fd))));
+      Hj.quaternion.slerp(_Q, w); Kj.rotation.set(Kj.rotation.x + (bend - Kj.rotation.x) * w, Kj.rotation.y * (1 - w), Kj.rotation.z * (1 - w));   // the knee bends back (rx > 0)
+      const Fj = J['foot' + s];
+      if (Fj && r[5] !== false) { Kj.updateWorldMatrix(true, false); obj.getWorldQuaternion(_Q2); Kj.getWorldQuaternion(_Q3); _Q3.invert().multiply(_Q2); Fj.quaternion.slerp(_Q3, w); }   // the sole flat in the frame of the body
+      out['leg' + s] = [ba[0] * (1 - w), ba[1] * (1 - w), ba[2] || 0, (ba[3] ?? 1) + (s1 - (ba[3] ?? 1)) * w, ba[4] ?? null];
+      out['shin' + s] = [bf[0] * (1 - w), bf[1] * (1 - w), bf[2] || 0, (bf[3] ?? 1) + (s2 - (bf[3] ?? 1)) * w, bf[4] ?? null];
+    }
+    return out;
+  }
   ud.toon = {
     parts,
     // call after the joint rotations of the frame are set (applyHuman): bends, local scales, whole-body squash, head overlays
@@ -277,6 +310,7 @@ export function toonUpgrade(obj) {
           rc[sd] = [_T.x, _T.y, _T.z, q[4] ?? 1, q[5] || 0, q[6] || null]; } }
         b = solveReach(rc, b, tp.hose || 0); first = 2;
       }
+      if (tp.plant) { const sq1 = tp.sq; if (sq1) obj.scale.set(baseScale * sq1[0], baseScale * sq1[1], baseScale * sq1[2]); obj.updateWorldMatrix(true, false); b = solvePlant(tp.plant, b); }   // (cycle 13) feet held at points of the world
       for (let i = first; i < ORDER.length; i++) parts[ORDER[i]]?.apply(b[ORDER[i]] || null, wv[ORDER[i]]);
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
@@ -313,6 +347,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
     if (x && y && x[0] === y[0]) out.touch[sd] = [x[0], L(x[1], y[1]), L(x[2], y[2]), L(x[3], y[3]), L(x[4] ?? 1, y[4] ?? 1), L(x[5] || 0, y[5] || 0), POLE(x[6], y[6])];
     else { const q = !x ? y : !y ? x : (w < 0.5 ? x : y), k = !x ? w : !y ? 1 - w : Math.abs(2 * w - 1); out.touch[sd] = [q[0], q[1], q[2], q[3], (q[4] ?? 1) * k, q[5] || 0, q[6] || null]; } } }   // fades in and out; between two joints it lets go and takes again
   if (a.reach || b.reach) { out.reach = {}; for (const sd of ['L', 'R']) { const x = a.reach?.[sd], y = b.reach?.[sd]; if (!x && !y) continue; const p0 = x || y, p1 = y || x; out.reach[sd] = [L(p0[0], p1[0]), L(p0[1], p1[1]), L(p0[2], p1[2]), L(x ? (x[3] ?? 1) : 0, y ? (y[3] ?? 1) : 0), L(p0[4] || 0, p1[4] || 0), POLE(x?.[5], y?.[5])]; } }   // a hand guided to a point: fades in and out through its weight
+  if (a.plant || b.plant) { out.plant = {}; for (const sd of ['L', 'R']) { const x = a.plant?.[sd], y = b.plant?.[sd]; if (!x && !y) continue; const p0 = x || y, p1 = y || x; out.plant[sd] = [L(p0[0], p1[0]), L(p0[1], p1[1]), L(p0[2], p1[2]), L(x ? (x[3] ?? 1) : 0, y ? (y[3] ?? 1) : 0), POLE(x?.[4], y?.[4]), (w < 0.5 ? p0 : p1)[5]]; } }   // (cycle 13) a foot held at a point: fades in and out through its weight
   const fa = a.face || {}, fb = b.face || {}, fk = new Set([...Object.keys(fa), ...Object.keys(fb)]);
   if (fk.size) { out.face = {}; for (const k of fk) { const dflt = (k === 'pupil' || k === 'eyeScale') ? 1 : 0; const keep = k === 'popLen' || k === 'jawLen' || k === 'tongueLen' || k === 'expr', x = fa[k] ?? (keep ? fb[k] : dflt), y = fb[k] ?? (keep ? fa[k] : dflt); out.face[k] = typeof x === 'number' && typeof y === 'number' ? L(x, y) : (w < 0.5 ? x : y); } }
   return out;
@@ -330,6 +365,7 @@ export function addToon(a = {}, b = {}) {
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
   if (b.touch) out.touch = { ...(a.touch || {}), ...b.touch };
+  if (b.plant) out.plant = { ...(a.plant || {}), ...b.plant };
   if (b.hairUp) out.hairUp = (a.hairUp || 0) + b.hairUp;
   if (b.hose) out.hose = (a.hose || 0) + b.hose;
   if (b.wind) { const x = a.wind || ZERO; out.wind = [x[0] + b.wind[0], x[1] + b.wind[1], x[2] + b.wind[2]]; }

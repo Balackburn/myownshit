@@ -850,18 +850,34 @@ function applyHuman(A, pose, pos, ry, s) {
 }
 
 function tetherAnchor(a) {
+  if (a.point) return V(...a.point);   // (cycle 13) a fixed point of the world (the gum on the pavement)
   const off = V(...(a.offset || [0, 0, 0]));
   if (a.actor && S.actorById[a.actor]) return jointFor(S.actorById[a.actor].obj, a).localToWorld(off);
   if (a.prop && S.propById[a.prop]) return S.propById[a.prop].obj.localToWorld(off);
   return null;
 }
+const sagAt = (ks, t) => { if (t <= ks[0][0]) return ks[0][1]; for (let i = 1; i < ks.length; i++) if (t < ks[i][0]) { const [t0, v0] = ks[i - 1], [t1, v1] = ks[i], u = (t - t0) / Math.max(1e-6, t1 - t0); return v0 + (v1 - v0) * u * u * (3 - 2 * u); } return ks[ks.length - 1][1]; };   // (cycle 13) sag keys, smoothstep between them
 function evalTethers(t) {
   for (const { td, m } of S.tethers || []) {
     const on = (td.from == null || t >= td.from) && (td.until == null || t < td.until); m.visible = on; if (!on) continue;
     const a = tetherAnchor(td.a), b = tetherAnchor(td.b); if (!a || !b) { m.visible = false; continue; }
-    const n = 10, sag = (td.sag ?? 0.25) * a.distanceTo(b), pts = [];
-    for (let i = 0; i <= n; i++) { const u = i / n, p = a.clone().lerp(b, u); p.y -= sag * 4 * u * (1 - u); pts.push(p); }
-    m.geometry.dispose(); m.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 20, td.radius || 0.012, 5);
+    // (cycle 13) td.sag: a number or keys [[t, sag], ...] (taut when pulled, slack after); td.wobble: [[t, amp (m), freq, damping], ...] a plucked cord
+    // vibrating and dying out; td.taper 0..1: thinner in the middle (a strand of gum); td.thin: [L0] the radius thins as the cord grows longer than L0 m
+    // (and thickens below it, at most 1.6 times)
+    const L = a.distanceTo(b), n = td.n || 10, sk = Array.isArray(td.sag) ? sagAt(td.sag, t) : (td.sag ?? 0.25), sag = sk * L, pts = [];
+    let wob = 0; for (const [t0, amp, f = 24, dmp = 4.5] of td.wobble || []) { const u = t - t0; if (u >= 0 && u < 3) wob += amp * Math.exp(-dmp * u) * Math.sin(f * u); }
+    // td.spin: [turns per second, phase (turns), from, until]: the belly of the cord goes round its axis (a skipping rope turned by two children)
+    const sp = td.spin && t >= (td.spin[2] ?? -1e9) && t < (td.spin[3] ?? 1e9) ? td.spin : null, ax = b.clone().sub(a).normalize(), dn = V(0, -1, 0).addScaledVector(ax, ax.y).normalize(), sd = V().crossVectors(ax, dn).normalize();
+    const th = sp ? 2 * Math.PI * (sp[0] * t + (sp[1] || 0)) : 0, dir = sp ? dn.clone().multiplyScalar(Math.cos(th)).addScaledVector(sd, Math.sin(th)) : V(0, -1, 0);
+    for (let i = 0; i <= n; i++) { const u = i / n, p = a.clone().lerp(b, u); p.addScaledVector(dir, sag * 4 * u * (1 - u)); p.y += wob * Math.sin(Math.PI * u); pts.push(p); }
+    const curve = new THREE.CatmullRomCurve3(pts), T = td.segments || 20, RS = td.radial || 5;
+    const R = (td.radius || 0.012) * (td.thin ? Math.min(1.6, Math.sqrt(td.thin[0] / Math.max(0.05, L))) : 1);
+    const geo = new THREE.TubeGeometry(curve, T, R, RS);
+    if (td.taper) { const pa = geo.attributes.position, P = V(), Q = V();
+      for (let j = 0; j <= T; j++) { const u = j / T, f = 1 - td.taper * Math.pow(Math.sin(Math.PI * u), 0.6); curve.getPointAt(u, P);
+        for (let r = 0; r <= RS; r++) { const ix = j * (RS + 1) + r; Q.fromBufferAttribute(pa, ix).sub(P).multiplyScalar(f).add(P); pa.setXYZ(ix, Q.x, Q.y, Q.z); } }
+      pa.needsUpdate = true; }
+    m.geometry.dispose(); m.geometry = geo;
   }
 }
 function evalAll(t) {
@@ -1322,6 +1338,55 @@ function collectEvents(sc) {
   for (const Pp of S.props) for (const e of Pp.sfx) S.events.push({ t: T0 + e.t, name: e.name, vol: e.vol, src: Pp.id });
   for (const e of sc.sfx || []) { const { at, ...rest } = e; S.events.push({ ...rest, t: T0 + T(at ?? 0, sc), vol: e.vol ?? 0.5, src: 'scene', ...(e.until != null ? { dur: T(e.until, sc) - T(at ?? 0, sc) } : {}) }); }
   for (const c of S.cams) S.camTimes.push({ t: T0 + (c.t0 + c.t1) / 2, scene: sc.id, size: c.size || (c.ots ? 'ots' : c.pov ? 'pov' : 'explicit'), frame: [].concat(c.frame || c.ots || c.pov || []).join(',') });
+}
+// (cycle 13) the key-pose probe. The reviews of 47-49 kept finding the peak of a gag where nobody could see it: the flattened head behind the pan,
+// the popped eyes under the cashier's sleeve, the stretch under the title card, the crushed face behind the print, a face cut by the edge. At each
+// declared gag (script.gags: [{t, who, name}], written by story_kit's st.gag), this places the frame as the render does and measures, for the head of
+// `who`: its box on screen (0..1, y down), its height in the frame, and how much of it the lens sees: 9 rays from the camera to a 3x3 grid on the
+// head box, set across the line of sight; a ray that stops on something else before the head names what covers the face (an actor, a prop, his
+// own arm, the set). Returns one record per gag; render3 --probe prints the warnings. Nothing is drawn that a render would not draw.
+export function probe(tAbs, specs = []) {
+  if (!S) throw new Error('load() first');
+  renderFrame(tAbs);
+  const cam = S.stage.camera; cam.updateMatrixWorld(true);
+  const owner = new Map();
+  for (const A of S.actors) A.obj.traverse(n => owner.set(n, A.id));
+  for (const Pp of S.props) { Pp.obj.traverse(n => owner.set(n, 'prop:' + Pp.id)); if (Pp.alt) Pp.alt.traverse(n => owner.set(n, 'prop:' + Pp.id)); }
+  const ownerOf = o => { for (let p = o; p; p = p.parent) if (owner.has(p)) return owner.get(p); return 'set'; };
+  const ray = new THREE.Raycaster(), camPos = cam.getWorldPosition(V()), fwd = cam.getWorldDirection(V());
+  ray.camera = cam;   // sprites (bursts, glints) need the camera to be hit
+  const right = V().crossVectors(fwd, cam.up).normalize(), up = V().crossVectors(right, fwd).normalize();
+  const out = [];
+  for (const sp of specs) {
+    const rec = { t: tAbs, who: sp.who, name: sp.name || '' };
+    const A = S.actorById[sp.who]; if (!A) { out.push({ ...rec, err: 'no actor ' + sp.who + ' in this shot' }); continue; }
+    if (!A.obj.visible) { out.push({ ...rec, err: 'hidden' }); continue; }
+    // the box of the head mesh alone (the painted face is on it): the whole head subtree also holds hidden FX and overlays parked away from it at
+    // scale 0, which blew the box up to half the frame
+    const hm = A.obj.userData.headMesh; let hb = null;
+    if (hm && hm.visible) { hm.geometry.computeBoundingBox?.(); hm.updateWorldMatrix(true, false); hb = hm.geometry.boundingBox?.clone().applyMatrix4(hm.matrixWorld) || null; }
+    if (!hb || hb.isEmpty()) hb = headBox(A);
+    if (!hb || hb.isEmpty()) { out.push({ ...rec, err: 'no head' }); continue; }
+    let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9, behind = false;
+    for (let i = 0; i < 8; i++) { const p = V(i & 1 ? hb.max.x : hb.min.x, i & 2 ? hb.max.y : hb.min.y, i & 4 ? hb.max.z : hb.min.z).project(cam); if (p.z > 1) behind = true;
+      const sx = (p.x + 1) / 2, sy = (1 - p.y) / 2; x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy); }
+    const ud = A.obj.userData, headRoot = ud.joints?.head || ud.headMesh, inHead = o => { for (let p = o; p; p = p.parent) { if (p === headRoot) return true; if (p === A.obj) return false; } return false; };
+    // the 3x3 grid in the head's own frame (a head that leans or tips keeps its grid on it), through its middle: a ray reaches whichever side faces us
+    const lb = hm?.geometry?.boundingBox, c = hb.getCenter(V()), size = hb.getSize(V()), hw = 0.32 * Math.max(size.x, size.z), hh = 0.32 * size.y;
+    let seen = 0, total = 0; const cover = {};
+    for (const a of [-1, 0, 1]) for (const b of [-1, 0, 1]) {
+      const target = lb ? hm.localToWorld(V((lb.min.x + lb.max.x) / 2 + a * 0.3 * (lb.max.x - lb.min.x), (lb.min.y + lb.max.y) / 2 + b * 0.3 * (lb.max.y - lb.min.y), (lb.min.z + lb.max.z) / 2))
+        : c.clone().addScaledVector(right, a * hw).addScaledVector(up, b * hh), d = target.clone().sub(camPos), L = d.length();
+      ray.set(camPos, d.normalize()); ray.near = 0.02; ray.far = L + 0.6; total++;
+      const hits = ray.intersectObjects(S.root.children, true).filter(h => { const o = h.object; if (!o.isMesh || o.name === 'outline') return false;
+        for (let p = o; p; p = p.parent) if (!p.visible) return false; const m = Array.isArray(o.material) ? o.material[0] : o.material; return !(m && m.transparent && m.opacity < 0.5); });
+      const h = hits[0]; if (!h) continue;
+      if (inHead(h.object)) { seen++; continue; }
+      if (h.distance < L - 0.02) { const who = ownerOf(h.object), key = who === sp.who ? sp.who + ' (his own body)' : who; cover[key] = (cover[key] || 0) + 1; }
+    }
+    out.push({ ...rec, box: [x0, y0, x1, y1].map(v => +v.toFixed(3)), h: +(y1 - y0).toFixed(3), seen: +(seen / total).toFixed(2), cover, behind });
+  }
+  return out;
 }
 export function frameDataURL(type = 'image/jpeg', q = 0.92) { return S.out.toDataURL(type, q); }
 export function warnings() { return S.warnings; }

@@ -3,6 +3,7 @@
 //        [--preview]           360x640 @15 fps quick motion check (with audio)
 //        [--stills cams]       one still per camera setup + contact sheet (framing QA), no video
 //        [--stills 1.2,3.4]    stills at absolute times
+//        [--probe]             (cycle 13) measure the key poses of the declared gags (script.gags), no render
 //        [--strip 12.3:8]      8 consecutive frames at 12 fps from 12.3 s (motion QA) -> contact strip
 //        [--range 12.3:14.1]   only that part of the film, in seconds (re-render one shot, then splice)
 //        [--draft]             cheaper shadows (natural / shaders look) for motion previews
@@ -60,6 +61,37 @@ async function grab(page, t, file, type = 'image/png') {
   await page.evaluate(t => window.__engine.renderFrame(t), t);
   const data = await page.evaluate(ty => window.__engine.frameDataURL(ty, 0.9), type);
   fs.writeFileSync(file, Buffer.from(data.split(',')[1], 'base64'));
+}
+// (cycle 13) --probe: the key poses of the gags declared in the script (st.gag in story_kit -> script.gags [{t, who, name}]), measured by the engine
+// (engine/director3.js probe): head cut by the edge, too small to read, covered (by whom), in the caption band or under a title card. Prints one
+// line per gag, writes out/work/<name>/probe.json, renders nothing else. Cheap at a small size: --w 288 --h 512.
+if (flag('probe', false)) {
+  const only = typeof flag('probe', false) === 'string' ? new Set(String(flag('probe')).split(',')) : null;   // --probe hic1,top2: only those gags
+  const gags = (timed.gags || []).filter(g => !only || only.has(g.name)).sort((a, b) => a.t - b.t), cards = timed.cardTimes || [], res = [];
+  if (!gags.length) console.log('probe: no gags declared (st.gag(...) in the story script)');
+  for (const g of gags) {
+    const [r] = await A.page.evaluate(({ t, sp }) => window.__engine.probe(t, [sp]), { t: g.t, sp: g });
+    const w = [];
+    if (r.err) w.push(r.err);
+    else {
+      const [x0, y0, x1, y1] = r.box;
+      if (r.behind) w.push('behind the camera');
+      if (x0 < 0) w.push(`cut by the left edge (${Math.round(-x0 / Math.max(1e-6, x1 - x0) * 100)} % of the head)`);
+      if (x1 > 1) w.push(`cut by the right edge (${Math.round((x1 - 1) / Math.max(1e-6, x1 - x0) * 100)} % of the head)`);
+      if (y0 < 0) w.push(`cut by the top (${Math.round(-y0 / Math.max(1e-6, r.h) * 100)} % of the head)`);
+      if (y1 > 1) w.push(`cut by the bottom (${Math.round((y1 - 1) / Math.max(1e-6, r.h) * 100)} % of the head)`);
+      if (r.h < 0.06) w.push(`head ${Math.round(r.h * 100)} % of the frame height: too small to read the face at phone size (7 % or more)`);
+      if (r.seen < 0.67) w.push(`only ${Math.round(r.seen * 100)} % of the head seen` + (Object.keys(r.cover).length ? ': covered by ' + Object.entries(r.cover).map(([k, n]) => `${k} (${n}/9)`).join(', ') : ''));
+      const capOv = Math.max(0, Math.min(y1, 0.86) - Math.max(y0, 0.77)) / Math.max(1e-6, r.h);
+      if (capOv > 0.3) w.push(`${Math.round(capOv * 100)} % of the head in the caption band (y 0.77-0.86)`);
+      const card = cards.find(c => g.t >= c - 0.05 && g.t < c + 1.0), cardOv = card != null ? Math.max(0, Math.min(y1, 0.2) - Math.max(y0, 0.06)) / Math.max(1e-6, r.h) : 0;
+      if (cardOv > 0.2) w.push(`${Math.round(cardOv * 100)} % of the head under the title card (y 0.06-0.20, card at ${card.toFixed(2)} s)`);
+    }
+    res.push({ ...g, ...r, warnings: w });
+    console.log(`  ${w.length ? '!' : 'ok'} gag ${(g.name || '').padEnd(14)} ${g.t.toFixed(2)} s ${g.who}` + (r.box ? `: head ${Math.round(r.h * 100)} %, seen ${Math.round(r.seen * 100)} %` : '') + (w.length ? ' -- ' + w.join('; ') : ''));
+  }
+  fs.writeFileSync(path.join(work, 'probe.json'), JSON.stringify(res, null, 1));
+  await A.browser.close(); srv.close(); process.exit(0);
 }
 const stills = flag('stills', null), strip = flag('strip', null);
 if (stills || strip) {
