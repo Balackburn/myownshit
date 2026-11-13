@@ -122,7 +122,7 @@ export const BOSSE_PROPS = {
         const n = lines.length, lh = H * 0.74 / n; for (let i = 0; i < n; i++) { let fs = lh * 0.8; c.font = `700 ${fs}px Poppins, Arial, sans-serif`; while (c.measureText(lines[i]).width > W * 0.8 && fs > 8) { fs -= 2; c.font = `700 ${fs}px Poppins, Arial, sans-serif`; } c.fillText(lines[i], W / 2, H * 0.13 + lh * (i + 0.5)); } }, { res: 512 });
       face.position.z = 0.009;
       plaque = grp(at(cyl(0.008, 0.008, 0.34, '#3A4A40', 6, { pivot: 'bottom' }), 0, 0, -0.012), at(grp(at(box(w + 0.014, h + 0.014, 0.014, '#163370', { outline: 0.02 }), 0, 0, 0), face), 0, 0.34 - h / 2, 0));
-      plaque.position.copy(S(0, 0)); plaque.position.y -= 0.02; plaque.rotation.y = o.plaqueYaw ?? 0; dress.add(plaque);
+      plaque.position.copy(S(0, 0)); plaque.position.y -= 0.02; plaque.rotation.y = o.plaqueYaw ?? 0; plaque.scale.setScalar(o.plaqueScale ?? 1); dress.add(plaque);   // o.plaqueScale: bigger for a far camera
     }
     let chairs = [], LA = null, LB = null;   // the chair lift: pylons, a cable, chairs going up
     if (o.lift) {
@@ -162,9 +162,10 @@ export const BOSSE_PROPS = {
       if (grass && o.grassAt != null) { const u = Math.max(0, Math.min(1, (t - o.grassAt) / 0.35)); grass.visible = u > 0.01; grass.geometry.setDrawRange(0, Math.ceil(grass.geometry.index.count * Math.max(0.02, u) / 3) * 3); }
       if (plaque && o.plaqueAt != null) { const u = t - o.plaqueAt, top = S(0, 0); plaque.visible = u >= -0.12; plaque.position.set(top.x, top.y - 0.02 + (u < 0 ? -u * 6 : 0) - (u >= 0 && u < 0.12 ? 0.05 * Math.sin(u / 0.12 * PI) : 0), top.z); }
       for (const h of hikers) { const u = Math.min(0.985, (h.u0 + h.sp * t) % 1.0), a = pathAt(u), b = pathAt(Math.min(1, u + 0.02)), p = S(a.th, a.ph, 0.02), q = S(b.th, b.ph, 0.02);
-        h.f.g.position.copy(p); h.f.g.lookAt(q.x, p.y, q.z); h.f.pose(t, u > 0.97 ? 'wave' : 'walk'); }
+        h.f.g.position.copy(p); h.f.g.rotation.set(0, Math.atan2(q.x - p.x, q.z - p.z), 0);   // (story 56) the yaw by hand: lookAt takes world points and laid them down once the hill sat on a head
+        h.f.pose(t, u > 0.97 ? 'wave' : 'walk'); }
       for (const s of skiers) { const u = (s.u0 + s.sp * t) % 1.0, th2 = 0.12 + u * 1.3, ph = s.side + 0.35 * Math.sin(u * TAU * 2.2), p = S(th2, ph, 0.02), q = S(Math.min(1.5, th2 + 0.04), s.side + 0.35 * Math.sin((u + 0.02) * TAU * 2.2), 0.02);
-        s.f.g.position.copy(p); s.f.g.lookAt(q.x, p.y, q.z); s.f.pose(t, 'ski'); }
+        s.f.g.position.copy(p); s.f.g.rotation.set(0, Math.atan2(q.x - p.x, q.z - p.z), 0); s.f.pose(t, 'ski'); }
       if (chairs.length) { const n = chairs.length; chairs.forEach((c, i) => { const u = ((i / n) + t * (o.liftSpeed ?? 0.12)) % 1; c.position.lerpVectors(LA, LB, u); c.rotation.z = 0.08 * Math.sin(t * 2 + i); }); }
       if (flag) flag.userData.cloth.rotation.y = 0.25 * Math.sin(t * 7);
       if (tp) {
