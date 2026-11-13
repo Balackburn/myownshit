@@ -148,7 +148,7 @@ st.shot('S05', 'mairie', setOpts=OFC, actors=[
         fx=[{'type': 'shake', 'at': ST5, 'dur': 0.12, 'amount': 0.01}],
         cams=[FC(0.0, [r(FLATH[0] - 0.75), 1.4, r(FLATH[2] + 1.0)], [[r(FLATH[0] - 0.35), 0.82, FLATH[2]], [r(FLATH[0] + 0.25), 0.82, FLATH[2]], [FLATH[0], 1.4, r(FLATH[2] - 0.05)], [r(FORM5[0] - 0.2), 0.82, FORM5[2]]], top=0.18, bottom=0.66),
               # (pass 2b) from the left of his hand: from his side the camera filmed the back of his jacket (two thirds of the frame navy)
-              glide([FC(round(ST5 + 0.5, 3), [r(ME4[0] + 0.25), 1.75, r(ME4[2] + 1.9)], [[ME4[0], 2.62, ME4[2]], [ME4[0], 1.25, ME4[2]], [r(CLK5[0] - 0.1), 2.35, CLK5[2]], [FLATH[0], 0.85, FLATH[2]]], top=0.14, bottom=0.66)], 0.25)])   # (pass 3) his head inside the top
+              (FC(round(ST5 + 0.5, 3), [r(ME4[0] + 0.25), 1.75, r(ME4[2] + 1.9)], [[ME4[0], 2.62, ME4[2]], [ME4[0], 1.25, ME4[2]], [r(CLK5[0] - 0.1), 2.35, CLK5[2]], [FLATH[0], 0.85, FLATH[2]]], top=0.14, bottom=0.66))])   # (pass 3) his head inside the top; a cut, not a glide (half-way the camera went through his body)
         # (pass 2) a close insert on the counter for the stamp (the hand was a sliver at the counter edge, his face turned away), then up to his face for
         # the slow blink while she blows on the stamp; the plate out of the caption band
 st.cue('sfx:cuff', 'S05', ST5, 0.45)
@@ -239,7 +239,7 @@ st.shot('S10', 'skyHigh', setOpts={'seed': 10}, actors=[],
                # (pass 3) just in front of the nose, coming our way while the plane goes the other way across the frame, for three quarters of a second (it
                # went the way the plane faces and read as going first)
                # (pass 2) low along the stripes for half a second (it crossed in the air in front of the plane's nose)
-        cams=[cam(0.0, [r(X10 + 9.3), YS + 1.7, 9.6], [r(X10 + 8.9), YS + 1.7, 9.2], [r(X10 - 6.4), YS + 1.25, -1.2], [r(X10 - 6.2), YS + 1.25, -1.2], lens=40)])   # (pass 3) further back: the whole plane, nose, wings, wheels and fin, at the line (the edge cut it to its front third)
+        cams=[cam(0.0, [15.2, YS + 2.2, 14.0], [14.8, YS + 2.2, 13.6], [-4.8, YS + 1.6, -1.0], [-4.6, YS + 1.6, -1.0], lens=50)])   # (pass 3) further back: the whole plane, nose, wings, wheels and fin, at the line (the edge cut it to its front third)
         # (pass 2) low on the road: the plane's wheels at the stop line, the boomerang across the stripes in front of it
 st.cue('sfx:brake', 'S10', round(BR10 - 0.15, 3), 0.4); st.cue('whoosh', 'S10', round(BR10 + 0.1, 3), 0.4, 0.3, 500, 2500); st.cue('sfx:jet', 'S10', round(D10 - 0.55, 3), 0.3)
 
