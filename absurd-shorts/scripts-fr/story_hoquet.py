@@ -43,7 +43,10 @@ HIC = lambda pid, pos, times, w=0.5, **o: P(pid, 'hicBurst', pos=pos, face='came
 # 1: the hook. Close on him on his sofa, three days without sleep: a small jolt on « hoquet », HIC !, then a bigger one that lifts him off the seat
 D1 = st.dur('S01'); H1a = round(st.at('S01', 'L01', 4) + 0.02, 3); H1b = round(st.at('S01', 'L01', 7) + 0.05, 3)
 st.shot('S01', 'livingRoom', setOpts=LR, actors=[
-        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), *HICK(H1a, SEAT, 0.14), *HICK(H1b, SEAT, 0.42)])],
+        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0),
+            k(0.05, toon={**TIRED, 'face': {'lid': 0.85, 'shadow': 0.6}, 'bend': {'neck': [0.45, 0, 0, 1, None]}}, toonDur=round(H1a - 0.3, 3), toonEase='in'),   # (pass 2, freeze check) he nods off, the head sinking...
+            k(round(H1a - 0.22, 3), toon={**TIRED, 'face': {'lid': 0.3, 'shadow': 0.6, 'brow': 0.4}}, toonDur=0.06, toonEase='out'),   # ...and jerks up
+            *HICK(H1a, SEAT, 0.14), *HICK(H1b, SEAT, 0.42)])],
         props=[HIC('hic1', [0.42, 2.25, -2.6], [H1a, H1b], w=0.42)],
         cams=[FC(0.0, [0.25, 1.55, -0.6], [[SEAT[0], 2.75, SEAT[2]], [SEAT[0], 1.05, SEAT[2]], [round(SEAT[0] - 0.5, 3), 1.9, SEAT[2]], [round(SEAT[0] + 0.62, 3), 2.3, SEAT[2]]], top=0.14, bottom=0.72, drift=(0.0, 0.0, -0.08))])
 st.cue('sfx:gulp', 'S01', H1a, 0.3); st.cue('sfx:boing', 'S01', H1b, 0.3)
@@ -51,7 +54,10 @@ st.cue('sfx:gulp', 'S01', H1a, 0.3); st.cue('sfx:boing', 'S01', H1b, 0.3)
 # 2: at each hiccup he jumps a metre. Wider, room above him: two hiccups, each a metre straight up off the sofa, hang time at the top, squash on landing
 D2 = st.dur('S02'); H2a = round(st.at('S02', 'L02', 2) + 0.02, 3); H2b = round(st.at('S02', 'L02', 8) + 0.02, 3)
 st.shot('S02', 'livingRoom', setOpts=LR, actors=[
-        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), *HICK(H2a, SEAT, 1.0), *HICK(H2b, SEAT, 1.0)])],
+        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), *HICK(H2a, SEAT, 1.0),
+            k(round(H2a + 0.62, 3), look=[1.0, 2.6, -3.4]), k(round(H2a + 0.66, 3), toon={**TIRED, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.7, 'shadow': 0.6, 'puff': 0.4}}, toonDur=0.15),   # (pass 2) a glance up at the mark, a sigh...
+            k(round(H2a + 0.88, 3), toon={**TIRED, 'face': {'lid': 1.0, 'shadow': 0.6}}, toonDur=0.05), k(round(H2a + 0.98, 3), toon=TIRED, toonDur=0.07), k(round(H2a + 0.95, 3), look='camera'),   # ...a blink, back to us
+            *HICK(H2b, SEAT, 1.0)])],
         props=[HIC('hic2', [0.55, 3.15, -2.6], [H2a, H2b], w=0.5), P('mark2', 'paperSheet', pos=[-0.95, 2.62, -3.42], opts={'w': 0.34, 'h': 0.2, 'big': '1 m', 'paper': '#F6E27A', 'bright': True})],   # a mark on the wall at the height of his jump
         cams=[FC(0.0, [0.3, 1.7, 1.2], [[SEAT[0], 3.65, SEAT[2]], [SEAT[0], 0.3, SEAT[2]], [-1.25, 2.0, SEAT[2]], [1.25, 2.0, SEAT[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, -0.1))])
 st.cue('sfx:boing', 'S02', H2a, 0.35); st.cue('thud', 'S02', round(H2a + 0.43, 3), 0.25); st.cue('sfx:boing', 'S02', H2b, 0.35); st.cue('thud', 'S02', round(H2b + 0.43, 3), 0.25)
@@ -63,6 +69,9 @@ BENCH = [0.0, 0, -2.2]; SEIS = [0.0, 0.76, -2.2]; SAV = [0.1, 0, -2.85]
 st.shot('S03', 'office', setOpts={'door': False}, actors=[
         act('savant', SAV, 0, 'stand', 'neutral', keys=[k(0.0, look=[SEIS[0], 0.9, round(SEIS[2] + 0.1, 3)]), k(0.0, toon={'bend': {'spine': [0.25, 0, 0, 1, None]}}, toonDur=0.0),
             k(round(SP3a + 0.05, 3), toon={'bend': {'spine': [0.4, 0, 0, 1, None]}, 'face': {'brow': 0.6}}, toonDur=0.15),   # he leans in to the trace
+            k(round(SP3a + 0.35, 3), toon={'bend': {'spine': [0.4, 0, 0, 1, None]}, 'touch': {'R': ['face', 0.0, 0.62, 0.06, 1, 0.08]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.6, 'lid': 1.0}}, toonDur=0.1),   # (pass 2) a finger to the bridge of his nose, a blink...
+            k(round(SP3a + 0.5, 3), toon={'bend': {'spine': [0.4, 0, 0, 1, None]}, 'touch': {'R': ['face', 0.0, 0.66, 0.06, 1, 0.08]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.7}}, toonDur=0.08),
+            k(round(SP3a + 0.68, 3), toon={'bend': {'spine': [0.62, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': {'brow': 0.8, 'eye': 0.2}}, toonDur=0.2),   # ...and leans closer still
             *take(round(SP3b + 0.06, 3), 'stalks', keep={'bend': {'spine': [0.1, 0, 0, 1, None]}}, hold=0.35)])],
         props=[P('bench3', 'desk', pos=BENCH), P('seis3', 'seismograph', pos=SEIS, opts={'spikes': [[SP3a, 0.7], [SP3b, 1.45]]})],
         cams=[FC(0.0, [0.55, 1.45, -0.5], [[SEIS[0], 1.15, round(SEIS[2] + 0.35, 3)], [SAV[0], 2.4, SAV[2]], [round(SEIS[0] - 0.5, 3), 0.75, round(SEIS[2] + 0.3, 3)], [round(SEIS[0] + 0.5, 3), 0.75, round(SEIS[2] + 0.3, 3)]], top=0.12, bottom=0.74, drift=(-0.03, 0, -0.06))])
@@ -109,7 +118,9 @@ st.cue('sfx:whistle', 'S06', 0.2, 0.35); st.cue('thud', 'S06', H6, 0.4); [st.cue
 #    it; he sits alone, deadpan; a hiccup: up a metre, the tape jumps, the rings flash
 D7 = st.dur('S07'); H7 = round(st.at('S07', 'L06', 6) + 0.05, 3)
 st.shot('S07', 'livingRoom', setOpts={**LR, 'carpet': False}, actors=[
-        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.8, look=[SEAT[0], 0.9, round(SEAT[2] + 1.0, 3)]), k(1.3, look='camera'), *HICK(H7, SEAT, 1.0)])],
+        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.8, look=[SEAT[0], 0.9, round(SEAT[2] + 1.0, 3)]), k(1.3, look='camera'),
+            k(1.0, toon={**TIRED, 'sq': [0.95, 1.07, 0.95], 'bend': {'armL': [0, 0.35, 0, 1, None], 'armR': [0, -0.35, 0, 1, None]}}, toonDur=0.12), k(1.32, toon=TIRED, toonDur=0.15),   # (pass 2) a shrug
+            *HICK(H7, SEAT, 1.0)])],
         props=[P('rings7', 'quakeRings', pos=[SEAT[0], 0, round(SEAT[2] + 0.2, 3)], opts={'r': 2.2, 'n': 4, 'pulses': [0.1, H7]}),
                P('cordon7', 'cordon', pos=[SEAT[0], 0, round(SEAT[2] + 0.15, 3)], opts={'w': 3.0, 'd': 1.7, 'sign': 'ÉPICENTRE', 'signW': 1.0, 'signH': 0.3, 'jumps': [[H7, 1.0]]})],
         cams=[FC(0.0, [1.4, 4.2, 1.0], [[SEAT[0], 3.4, SEAT[2]], [-1.6, 0.0, round(SEAT[2] + 1.0, 3)], [1.6, 0.0, round(SEAT[2] + 1.0, 3)], [-1.6, 0.0, round(SEAT[2] - 0.75, 3)], [1.6, 0.0, round(SEAT[2] - 0.75, 3)]], top=0.1, bottom=0.74, drift=(0.0, -0.05, -0.08))])   # (pass 1b) framed on the cordon, not on the back wall: the man was 23 % of the frame
@@ -144,7 +155,9 @@ st.shot('S09', 'livingRoom', setOpts=LR, actors=[
             k(UP9, to=[SEAT[0], 3.4, SEAT[2]], dur=0.18, glide=True, ease='in', face='keep'), k(UP9, toon={'sq': [0.8, 1.35, 0.8], 'hairUp': 1, 'face': {'pop': 0.6, 'brow': 1, 'jaw': 0.4}}, toonDur=0.04)]),   # up he goes
         act('pompier1', [round(SEAT[0] + 0.55, 3), -0.9, -3.3], 0, 'stand', 'determined', keys=[k(0.0, look=[SEAT[0], 1.9, SEAT[2]]),
             k(round(BOO9 - 0.16, 3), to=[round(SEAT[0] + 0.55, 3), 0, -3.3], dur=0.14, glide=True, ease='out', face='keep'),   # up from behind the sofa...
-            k(BOO9, toon={'reach': {'L': [round(SEAT[0] + 0.2, 3), 2.7, -3.0, 1, 0.05], 'R': [round(SEAT[0] + 0.95, 3), 2.7, -3.0, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'face': {'jaw': 0.8, 'brow': -0.6}}, toonDur=0.05, toonEase='outBack')])],   # ...arms high: BOUH !
+            k(BOO9, toon={'reach': {'L': [round(SEAT[0] + 0.2, 3), 2.7, -3.0, 1, 0.05], 'R': [round(SEAT[0] + 0.95, 3), 2.7, -3.0, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'face': {'jaw': 0.8, 'brow': -0.6}}, toonDur=0.05, toonEase='outBack'),   # ...arms high: BOUH !
+            k(round(UP9 + 0.12, 3), look=[SEAT[0], 3.6, SEAT[2]]), k(round(UP9 + 0.18, 3), toon={'touch': {'R': ['head', 0.0, 0.32, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.2),   # (pass 2) he looks up after him, scratches his head
+            k(round(UP9 + 0.45, 3), toon={'touch': {'R': ['head', 0.03, 0.34, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.1), k(round(UP9 + 0.6, 3), toon={'touch': {'R': ['head', -0.02, 0.32, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.1)])],
         props=[HIC('boo9', [round(SEAT[0] + 0.85, 3), 2.9, -3.0], [BOO9], w=0.62, text='BOUH !')],
         cams=[FC(0.0, [0.3, 1.6, 0.6], [[SEAT[0], 3.0, SEAT[2]], [SEAT[0], 0.6, SEAT[2]], [round(SEAT[0] + 1.0, 3), 3.0, -3.0], [round(SEAT[0] - 0.7, 3), 1.6, SEAT[2]]], top=0.1, bottom=0.74)])
 st.cue('sfx:roar', 'S09', BOO9, 0.4); st.cue('whoosh', 'S09', UP9, 0.35, 0.25, 600, 2600)
@@ -187,9 +200,12 @@ D12 = st.dur('S12'); GIVE12 = round(st.at('S12', 'L11', 4) - 0.05, 3); H12 = rou
 ASS = [1.25, 0, -2.15]; CHQ = [0.62, 1.38, -2.42]
 HOLD12 = {'reach': {'R': [*CHQ, 1, 0.05]}, 'hands': {'R': 'pinch'}}
 st.shot('S12', 'livingRoom', setOpts=LR, actors=[
-        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[ASS[0], 1.8, ASS[2]]), k(0.0, toon=TIRED, toonDur=0.0), k(round(GIVE12 - 0.1, 3), toon={**HOLD12, **TIRED}, toonDur=0.12), k(round(GIVE12 + 0.3, 3), look='camera'),
+        act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[ASS[0], 1.8, ASS[2]]), k(0.0, toon=TIRED, toonDur=0.0), k(0.35, toon={**TIRED, 'face': {'lid': 1.0, 'shadow': 0.6}}, toonDur=0.05), k(0.46, toon=TIRED, toonDur=0.07), k(0.55, look=[CHQ[0], CHQ[1], CHQ[2]]),   # (pass 2) a blink, a look at the cheque
+            k(round(GIVE12 - 0.1, 3), toon={**HOLD12, **TIRED}, toonDur=0.12), k(round(GIVE12 + 0.3, 3), look='camera'), k(round(GIVE12 + 0.15, 3), look=[CHQ[0], round(CHQ[1] + 0.1, 3), CHQ[2]]),
+            k(round(GIVE12 + 0.42, 3), toon={**HOLD12, 'face': {'lid': 1.0, 'shadow': 0.6}}, toonDur=0.05), k(round(GIVE12 + 0.52, 3), toon={**HOLD12, **TIRED}, toonDur=0.07), k(round(GIVE12 + 0.5, 3), look='camera'),
             *HICK(H12, SEAT, 1.0, keep={'reach': {'R': [CHQ[0], round(CHQ[1] + 0.4, 3), CHQ[2], 0.6, 0.05]}, 'hands': {'R': 'pinch'}})]),
-        act('assureur', ASS, -110, 'stand', 'happy', keys=[k(0.0, look=[SEAT[0], 1.6, SEAT[2]]), k(0.0, toon={'reach': {'L': [round(CHQ[0] + 0.25, 3), CHQ[1], round(CHQ[2] + 0.05, 3), 1, 0.05]}, 'hands': {'L': 'pinch'}}, toonDur=0.0),
+        act('assureur', ASS, -110, 'stand', 'happy', keys=[k(0.0, look=[SEAT[0], 1.6, SEAT[2]]), k(0.0, toon={'reach': {'L': [round(CHQ[0] + 0.25, 3), CHQ[1], round(CHQ[2] + 0.05, 3), 1, 0.05]}, 'hands': {'L': 'pinch'}}, toonDur=0.0), k(0.5, look='camera'), k(0.75, look=[SEAT[0], 1.6, SEAT[2]]),
+            k(0.3, toon={'reach': {'L': [round(CHQ[0] + 0.22, 3), round(CHQ[1] + 0.04, 3), round(CHQ[2] + 0.05, 3), 1, 0.05]}, 'hands': {'L': 'pinch'}, 'sq': [1.0, 1.03, 1.0], 'face': {'brow': 0.5}}, toonDur=0.15),   # (pass 2) he beams at us, the cheque bobs
             k(round(GIVE12 + 0.15, 3), toon={'reach': {'L': [round(CHQ[0] + 0.3, 3), CHQ[1], round(CHQ[2] + 0.05, 3), 1, 0.05]}, 'hands': {'L': 'flat'}}, toonDur=0.1), *react(H12, 0.8, look=[SEAT[0], 2.4, SEAT[2]])])],
         props=[P('chq12a', 'cheque', on={'actor': 'assureur', 'hand': 'L', 'offset': [0, 0.0, 0.05], 'face': 'camera'}, scale=2.6, opts={'amount': '3 000 €', 'text': 'ASSURANCE'}, keys=[k(GIVE12, visible=False)]),
                P('chq12b', 'cheque', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.0, 0.05], 'face': 'camera'}, scale=2.6, opts={'amount': '3 000 €', 'text': 'ASSURANCE'}, keys=[k(0.0, visible=False), k(GIVE12, visible=True)])],
@@ -202,9 +218,10 @@ D13 = st.dur('S13'); H13 = round(st.at('S13', 'L12', 7) + 0.05, 3)
 SIP = {'touch': {'R': ['face', 0.02, 0.18, 0.12, 1, 0.04]}, 'hands': {'R': 'grip'}}
 st.shot('S13', 'livingRoom', setOpts=LR, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**SIP, **TIRED}, toonDur=0.0),
-            *[x for t_ in (0.4, 1.0) for x in (k(t_, toon={**SIP, 'face': {**TIRED['face'], 'mouth': 'kiss', 'puff': 0.25}}, toonDur=0.08), k(round(t_ + 0.3, 3), toon={**SIP, **TIRED}, toonDur=0.08))],   # (pass 1b) sips
+            *[x for t_ in (0.25, 0.85) for x in (k(t_, toon={'touch': {'R': ['face', 0.02, 0.24, 0.1, 1, 0.04]}, 'hands': {'R': 'grip'}, 'bend': {'neck': [-0.24, 0, 0, 1, None]}, 'face': {'lid': 0.8, 'shadow': 0.6, 'mouth': 'kiss'}}, toonDur=0.12, toonEase='inOut'),
+                                              k(round(t_ + 0.38, 3), toon={**SIP, **TIRED}, toonDur=0.12, toonEase='inOut'))],   # (pass 2, freeze check) real sips: the head tips back, the eyes half shut, the can up
             *HICK(H13, SEAT, 0.35, keep=SIP),
-            k(round(D13 - 0.7, 3), toon={**SIP, 'face': {'lid': 1}}, toonDur=0.14), k(round(D13 - 0.48, 3), toon={**SIP, **TIRED}, toonDur=0.16)]),   # a slow blink
+            k(round(D13 - 0.72, 3), toon={**SIP, 'face': {'lid': 1, 'shadow': 0.6}, 'bend': {'neck': [0.38, 0, 0, 1, None]}}, toonDur=0.3, toonEase='in'), k(round(D13 - 0.3, 3), toon={**SIP, **TIRED, 'face': {'lid': 0.3, 'shadow': 0.6, 'brow': 0.4}}, toonDur=0.06, toonEase='out')]),   # (pass 2) he nods off again and jerks awake (the bookend of S01)
         ],
         props=[P('can13', 'sodaCan', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.0, 0.03]}, scale=1.6, opts={'color': '#C8202A', 'text': 'SODA'}),
                P('stack13', 'sodaStack', pos=[-1.05, 0.0, -2.55], scale=1.2, opts={'rows': 4, 'cols': 6, 'pyramid': True}),
