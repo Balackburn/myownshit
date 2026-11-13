@@ -1677,3 +1677,20 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
      repos, gestes en V à côté de la tête.
   5. Un gag répétitif qui ne varie que par le décor (50 : chaque saut identique). Réponse : un plan règle, puis une échelle d'escalade dans le corps
      (plus haut, casse, portefeuille, aplati, suspendu).
+- **51 « La gomme à mâcher », passe 2b (images de contrôle)** : la double prise visait le chewing-gum derrière lui : on ne voyait que l'arrière
+  de sa tête. Maintenant : un coup d'œil au chewing-gum, retour au téléphone, puis la prise vers nous, arrêté (une prise en marchant se perd),
+  bras ouverts et avant-bras baissé (le téléphone quitte le visage). La grande inspiration : les joues gonflées seules faisaient deux parenthèses
+  à la bouche sous ses paupières lourdes ; la tête enfle comme un ballon (×1,3) avec le visage « gonflé » (yeux ouverts, sourcils froncés), elle
+  reste gonflée pendant la traction (visage « effort » : yeux plissés, dents, veine) et se dégonfle quand les yeux sortent. Téléphone un peu plus
+  petit (il cachait la moitié du visage). Brouillon 2 en rendu.
+- **52 « Le boomerang », premier regard (images fixes)** : bras en T pendant la vrille (lu comme la pose par défaut d'un modèle) → bras lanceur
+  enroulé sur la poitrine, l'autre jeté en arrière, colonne vrillée ; l'enfant au préréglage seul avait la taille d'un homme en turquoise → petit,
+  grosse tête, habits vifs ; les deux plans au-dessus des nuages étaient gris uni : la couche de nuages du décor monte jusqu'à 50 m et la caméra,
+  à 1,5 m, était dans un cumulus → tout le plan passe à 60 m, au-dessus de la mer de nuages ; le point dans le ciel du plan 11 restait au-dessus
+  du cadre jusqu'aux dernières images (objectif de 30°) et les mariés sous le bord bas → plus large (52°), plus bas, trajectoire dans le cadre ;
+  le photographe, à 2 m de la caméra, remplissait le bord droit et cachait son appareil → caméra reculée ; la main tendue pendait à hauteur de
+  hanche (0,42 m devant, 1,12 m de haut) → 0,55 m devant, 1,32 m de haut.
+- **52, revue 2 de 50 (direction artistique) : 7,4** (6,5 à la revue 1). Restent : le verre d'eau du plan 8 illisible (dalle bleu pâle, pli vu de
+  face, gouttes qui partent du poing du pompier, pompiers en casquettes), le plafond du plan 10 sombre et boueux (fissures trop fines, éclats en
+  anneau, pompiers de dos), les pyramides de canettes coupées aux coins du dernier plan et un dernier hoquet trop haut, du texte couvert (le E de
+  NATURELLE, l'étoile du BOUH), des visages de dos aux plans 3, 4 et 12. La revue d'animation est en cours.
