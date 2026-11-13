@@ -28,9 +28,10 @@ def r(v, n=3): return round(v, n)
 LOOKI = {'warm': 0.5}                                                   # interiors: the whites stay white
 STREETV = {'eiffelStyle': 'v2'}
 FORE = [0.0, 0.36, 0.085]                                               # his forehead in the frame of his head (0.24 wide, 0.5 high, 0.17 deep, the joint at the chin)
-LH = 0.36; PLEN = round(0.0675 + LH + 0.05, 3)                          # the handle, and the plunger from the rim of its cup to the end of its knob
-PLOPTS = {'len': LH}
-HORN = {'actor': 'mec', 'joint': 'head', 'offset': [0.0, FORE[1], r(FORE[2] + PLEN)], 'rot': [round(-PI / 2, 4), 0, 0]}   # the knob on his forehead, the cup out in front
+LH = 0.36; CR = 0.09; PLEN = round(0.9 * CR + LH + 0.05, 3)              # the handle, the cup, and the plunger from the rim of its cup to the end of its knob
+PLOPTS = {'len': LH, 'r': CR}
+HA = 0.7                                                                # (check stills) the horn tilted 40 degrees up from his face: straight out at us it was a red disc
+HORN = {'actor': 'mec', 'joint': 'head', 'offset': [0.0, r(FORE[1] + PLEN * math.sin(HA)), r(FORE[2] + PLEN * math.cos(HA))], 'rot': [round(-(PI / 2 + HA), 4), 0, 0]}   # the knob on his forehead, the cup out and up
 HORNP = lambda pid, opts=None, keys=None: P(pid, 'plunger', on=HORN, opts={**PLOPTS, **(opts or {})}, keys=keys or [])
 RING = lambda pid, at_: P(pid, 'ringMark', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, FORE[1], r(FORE[2] + 0.004)]}, opts={'r': 0.06}, keys=[k(0.0, visible=False), k(at_, visible=True)])
 BURST = lambda pid, pos, at_, text, w=0.5: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.78, 'fit': 0.56})
@@ -51,7 +52,7 @@ st.shot('S01', 'kitchenDay', look=LOOKI, actors=[
         props=[P('isl1', 'islandSink', pos=ISL),
                P('pl1', 'plunger', pos=DRAIN, opts={**PLOPTS, 'squash': [[0.18, 0.5], [0.46, 0.5], [0.74, 0.5]]},
                  keys=[k(0.86, scale=1.0)])],
-        cams=[FC(0.0, [0.9, 1.55, 1.3], [[MEK[0], 2.45, MEK[2]], [MEK[0], 0.75, MEK[2]], [-0.75, 1.0, ISL[2]], [0.75, 1.0, ISL[2]], [DRAIN[0], 1.3, DRAIN[2]]], top=0.12, bottom=0.74, drift=(-0.05, 0.0, -0.12))])
+        cams=[FC(0.0, [0.75, 2.05, 0.9], [[MEK[0], 2.45, MEK[2]], [MEK[0], 1.0, MEK[2]], [-0.55, 0.9, ISL[2]], [0.55, 0.9, ISL[2]], [DRAIN[0], 0.75, DRAIN[2]]], top=0.12, bottom=0.74, drift=(-0.05, 0.0, -0.1))])   # (check stills) higher, into the sink: the cup squashing shows
 st.cue('sfx:squeak', 'S01', 0.18, 0.25); st.cue('sfx:squeak', 'S01', 0.46, 0.25); st.cue('sfx:squeak', 'S01', 0.74, 0.25)
 
 # 2: a plunger on his forehead. Closer: POP, it comes out of the drain, spins up and lands handle first on his forehead with a SCHLOUP: his head knocked
@@ -70,7 +71,7 @@ st.shot('S02', 'kitchenDay', look=LOOKI, actors=[
             k(round(D2 - 0.3, 3), toon={'face': {'lid': 0.45, 'cross': 0.0}}, toonDur=0.1)])],
         props=[P('isl2', 'islandSink', pos=ISL),
                P('pl2f', 'plunger', pos=DRAIN, opts=PLOPTS, keys=[k(POP2, to=[0.05, 2.75, -1.45], dur=0.12, ease='out'), k(POP2, rotTo=[3.6, 0.4, 0.0], dur=0.12),
-                                                                  k(round(POP2 + 0.12, 3), to=[FORE2[0], FORE2[1], r(FORE2[2] + PLEN)], dur=round(HIT2 - POP2 - 0.12, 3), ease='in'), k(round(POP2 + 0.12, 3), rotTo=[round(-PI / 2 + 2 * PI, 4), 0.0, 0.0], dur=round(HIT2 - POP2 - 0.12, 3)),
+                                                                  k(round(POP2 + 0.12, 3), to=[FORE2[0], r(FORE2[1] + PLEN * math.sin(HA)), r(FORE2[2] + PLEN * math.cos(HA))], dur=round(HIT2 - POP2 - 0.12, 3), ease='in'), k(round(POP2 + 0.12, 3), rotTo=[round(-(PI / 2 + HA) + 2 * PI, 4), 0.0, 0.0], dur=round(HIT2 - POP2 - 0.12, 3)),
                                                                   k(HIT2, visible=False)]),   # it flies up out of the drain, spins and comes down handle first...
                HORNP('pl2h', {'wobble': [[HIT2, 0.35, 30, 5]]}, [k(0.0, visible=False), k(HIT2, visible=True)]),   # ...and stays on his forehead, quivering
                BURST('sch2', [r(FORE2[0] + 0.45), 2.35, r(FORE2[2] + 0.3)], HIT2, 'SCHLOUP !', 0.55)],
@@ -92,7 +93,7 @@ st.shot('S03', 'kitchenDay', look=LOOKI, actors=[
             k(round(SL3 + 0.1, 3), toon={'bend': {'neck': [0.12, 0, 0, 1.12, None]}, 'lay': [-0.05, 0.0], 'face': {'brow': 0.3}}, toonDur=0.08), k(round(SL3 + 0.2, 3), toon={'bend': {'neck': [-0.04, 0, 0, 0.96, None]}, 'face': {'lid': 0.45}}, toonDur=0.08),
             k(round(SL3 + 0.3, 3), toon={'bend': {'neck': [0.0, 0, 0, 1.0, None]}, 'face': {'lid': 0.45}}, toonDur=0.1)])],   # ...and wobbles to rest, deadpan
         props=[P('isl3', 'islandSink', pos=ISL), HORNP('pl3', {'wobble': [[SL3, 0.3, 30, 5]]})],
-        cams=[FC(0.0, [1.35, 1.8, -0.55], [[ME3[0], 2.85, ME3[2]], [ME3[0], 1.15, ME3[2]], [-0.45, 2.0, ME3[2]], [0.7, 2.5, r(ME3[2] + 0.75)]], top=0.12, bottom=0.72, drift=(0.0, 0.0, -0.1))])
+        cams=[FC(0.0, [1.75, 1.95, -1.0], [[ME3[0], 2.95, ME3[2]], [ME3[0], 1.15, ME3[2]], [-0.45, 2.0, ME3[2]], [0.6, 2.8, r(ME3[2] + 0.6)]], top=0.12, bottom=0.72, drift=(0.0, 0.0, -0.1))])   # (check stills) further round: his arms covered his head
 st.cue('sfx:stretch', 'S03', 0.12, 0.3); st.cue('sfx:twang', 'S03', SL3, 0.4)
 
 # 4: his mutual insurer will not pay. MUTUELLE: he stands with his back to the counter, the plunger sticking out of his forehead at us; the clerk leans
@@ -107,13 +108,13 @@ st.shot('S04', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
         act('guichet', CLK4, -10, 'stand', 'unimpressed', keys=[k(0.0, look=[ME4[0], 2.0, r(ME4[2] + 0.3)]), k(0.0, toon={**LEAN4, 'face': {'lid': 0.55, 'gy': 0.3}}, toonDur=0.0),
             k(0.45, look=[ME4[0], 2.0, r(ME4[2] + 0.085 + PLEN)]), k(0.5, toon={**LEAN4, 'face': {'lid': 0.4, 'brow': 0.7, 'gy': 0.1}}, toonDur=0.12)])],   # her eyes go along the handle to the cup
         props=[HORNP('pl4')],
-        cams=[FC(0.0, [0.55, 1.7, 1.5], [[ME4[0], 2.45, ME4[2]], [ME4[0], 0.9, ME4[2]], [r(ME4[0] - 0.45), 1.8, ME4[2]], [r(ME4[0] + 0.45), 1.8, ME4[2]], [ME4[0], 2.0, r(ME4[2] + 0.65)], [CLK4[0], 2.15, r(CLK4[2] + 0.4)], [-1.75, 3.42, -3.45], [1.75, 3.0, -3.45]],
-                 top=0.06, bottom=0.74, lenses=range(30, 57), drift=(-0.04, 0.0, -0.08))])
+        cams=[FC(0.0, [0.55, 1.7, 1.5], [[ME4[0], 2.45, ME4[2]], [ME4[0], 0.9, ME4[2]], [r(ME4[0] - 0.45), 1.8, ME4[2]], [r(ME4[0] + 0.45), 1.8, ME4[2]], [ME4[0], 2.0, r(ME4[2] + 0.65)], [CLK4[0], 2.15, r(CLK4[2] + 0.4)], [-0.95, 3.3, -3.45], [0.95, 3.05, -3.45]],
+                 top=0.06, bottom=0.74, lenses=range(30, 57), drift=(-0.04, 0.0, -0.08))])   # (check stills) the word, not the whole plate: he was a tenth of the frame
         # from in front: his face and the cup at us, her face over his shoulder, the whole word MUTUELLE
 
 # 5: it is plumbing. Closer: her arm comes out over his shoulder, stretching to the cup, and flicks it: the handle shivers and his head with it
 D5 = st.dur('S05'); FL5 = 0.24
-TIP5 = [ME4[0], 1.99, r(ME4[2] + 0.085 + PLEN)]
+TIP5 = [ME4[0], r(1.99 + PLEN * math.sin(HA)), r(ME4[2] + 0.085 + PLEN * math.cos(HA))]
 st.shot('S05', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
         act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),
             *[k(round(FL5 + 0.06 * i, 3), toon={'bend': {'neck': [0.0, round(0.16 * (0.72 ** i) * (1 if i % 2 == 0 else -1), 3), 0, 1, None]}, 'face': {'lid': 0.45, 'gx': (0.3 if i % 2 else -0.3)}}, toonDur=0.05) for i in range(8)],
@@ -149,16 +150,16 @@ st.cue('clack', 'S06', KN6[0], 0.45); st.cue('clack', 'S06', KN6[1], 0.45)
 D7 = st.dur('S07')
 st.shot('S07', 'kitchenDay', look=LOOKI, actors=[
         act('mec', ME6, 60, 'stand', 'unimpressed', keys=[k(0.0, look=[PLB[0], 1.9, PLB[2]]), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0), k(0.55, toon={'face': {'lid': 1.0}}, toonDur=0.05), k(0.66, toon={'face': {'lid': 0.45}}, toonDur=0.08)]),
-        act('plombier', PLB, -120, 'stand', 'neutral', keys=[k(0.0, look='camera'),
+        act('plombier', PLB, -8, 'stand', 'neutral', keys=[k(0.0, look='camera'),   # (check stills) turned to us (we saw the back of his head)
             k(0.0, toon={'touch': {'R': ['head', 0.04, 0.38, 0.12, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'lid': 0.4, 'mouth': 'flat'}}, toonDur=0.0),
             *[k(round(0.08 + 0.12 * i, 3), toon={'touch': {'R': ['head', 0.04, 0.38, (0.1 if i % 2 else 0.13), 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'lid': 0.4, 'mouth': 'flat'}}, toonDur=0.06) for i in range(3)],   # tap, tap, tap
             k(0.5, toon={'reach': {'L': [r(PLB[0] + 0.15), 1.25, r(PLB[2] - 0.45), 1, 0.05], 'R': [r(PLB[0] - 0.45), 1.25, r(PLB[2] + 0.15), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [1.04, 0.96, 1.04], 'face': {'brow': 1.0, 'mouth': 'flat'}}, toonDur=0.12, toonEase='outBack')])],   # a shrug
         props=[P('isl7', 'islandSink', pos=ISL), HORNP('pl7')],
-        cams=[FC(0.0, [1.5, 1.8, 0.2], [[PLB[0], 2.45, PLB[2]], [PLB[0], 1.1, PLB[2]], [ME6[0], 2.3, ME6[2]], [r(PLB[0] + 0.5), 1.6, PLB[2]], [r(ME6[0] - 0.2), 1.9, ME6[2]]], top=0.12, bottom=0.72)])
+        cams=[FC(0.0, [0.2, 1.8, 0.6], [[PLB[0], 2.45, PLB[2]], [PLB[0], 1.1, PLB[2]], [ME6[0], 2.3, ME6[2]], [r(PLB[0] + 0.5), 1.6, PLB[2]], [r(ME6[0] - 0.3), 1.9, ME6[2]]], top=0.12, bottom=0.72)])   # (check stills) the two side by side (he stood in front of the man)
 
 # 8: since then he sticks to everything. The street: walking, the cup slaps onto a lamp post: he hangs from it by the forehead, his legs swinging
 D8 = st.dur('S08'); HIT8 = 0.24
-LAMP = [6.0, 0, -0.6]; HANG8 = [r(LAMP[0] - 0.085 - PLEN), 2.25, LAMP[2]]   # his forehead, the plunger level, its cup on the post
+LAMP = [6.0, 0, -0.6]; HANG8 = [r(LAMP[0] - 0.09 - PLEN * math.cos(HA)), 2.1, LAMP[2]]   # his forehead: the horn slants up to the post, its cup on it
 SW8 = lambda a: {'lay': [r(a), 0.0], 'bend': {'legL': [r(0.2 + a * 0.8), 0.05, 0, 1, None], 'legR': [r(0.05 - a * 0.6), -0.05, 0, 1, None], 'shinL': [0.4, 0, 0, 1, None], 'shinR': [0.25, 0, 0, 1, None]}}
 st.shot('S08', 'parisStreet', setOpts=STREETV, actors=[
         act('mec', [r(HANG8[0] - 1.0), 0, LAMP[2]], 90, 'stand', 'unimpressed', keys=[k(0.0, look=None),
@@ -169,24 +170,28 @@ st.shot('S08', 'parisStreet', setOpts=STREETV, actors=[
         cams=[FC(0.0, [8.2, 1.4, 1.9], [[HANG8[0], 2.75, LAMP[2]], [HANG8[0], 0.2, LAMP[2]], [LAMP[0], 2.6, LAMP[2]], [r(HANG8[0] - 0.9), 1.0, LAMP[2]]], top=0.12, bottom=0.74, lenses=range(30, 57))])
 st.cue('sfx:splat', 'S08', HIT8, 0.45)
 
-# 9: everything. A bus going by catches the cup on its window and drags him along, flat out behind it like a flag
-D9 = st.dur('S09'); CA9 = 0.18; BZ = -2.1; BX0 = 3.0; VB = 7.0
-WIN9 = lambda t: [r(BX0 + 1.5 + VB * t), 2.05, r(BZ + 1.27)]               # a point of its right-hand window
-FORE9 = lambda t: [WIN9(t)[0], WIN9(t)[1], r(WIN9(t)[2] + PLEN)]
+# 9: everything. Even what flies by: on the pavement a pigeon flies straight into the cup and sticks there, flapping; his head knocked back; deadpan
+# (check stills) the bus dragging him hid his face and filled the frame; everything sticks to him instead
+D9 = st.dur('S09'); HIT9 = 0.3
+ME9 = [8.0, 0, -0.9]
+CUP9 = [0.0, r(FORE[1] + (PLEN + 0.06) * math.sin(HA)), r(FORE[2] + (PLEN + 0.06) * math.cos(HA))]   # just past the cup's rim, in the frame of his head
 st.shot('S09', 'parisStreet', setOpts=STREETV, actors=[
-        act('mec', [r(BX0 + 1.5 + VB * CA9), 0, r(BZ + 1.27 + PLEN + 0.085)], 180, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),
-            k(CA9, toon={**PIN(FORE9(CA9)), 'lay': [0.0, -1.25], 'bend': {'legL': [0.15, 0.1, 0, 1, None], 'legR': [-0.1, -0.1, 0, 1, None]}, 'face': {'eye': 0.3, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.05, toonEase='out'),
-            k(round(CA9 + 0.05, 3), toon={**PIN(FORE9(D9)), 'lay': [0.0, -1.35], 'bend': {'legL': [0.25, 0.15, 0, 1, None], 'legR': [-0.2, -0.15, 0, 1, None]}, 'wind': [6.0, 0.0, 0.0], 'face': {'lid': 0.45}}, toonDur=round(D9 - CA9 - 0.05, 3), toonEase='linear')])],
-            # caught: the pin follows the window; his body flat out behind it, the legs flapping, deadpan
-        props=[P('bus9', 'cityBus', pos=[BX0, 0, BZ], ry=90, keys=[k(0.0, to=[r(BX0 + VB * D9), 0, BZ], dur=D9, ease='linear')]), HORNP('pl9'), P('lamp9', 'streetLamp', pos=[2.0, 0, -0.6])],
-        cams=[cam(0.0, [r(BX0 + 2.6), 1.5, 3.4], [r(BX0 + 2.6 + VB * D9 * 0.8), 1.5, 3.4], [r(BX0 + 1.0), 1.55, -0.6], [r(BX0 + 1.0 + VB * D9 * 0.8), 1.55, -0.6], lens=44)])
-st.cue('engine', 'S09', 0.0, 0.3, round(D9, 3)); st.cue('sfx:splat', 'S09', CA9, 0.4)
+        act('mec', ME9, 25, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),
+            k(HIT9, toon={'bend': {'neck': [-0.35, 0, 0, 1, None]}, 'scl': {'head': [1.1, 0.88, 1.1]}, 'lay': [-0.05, 0.0], 'face': {'lid': 0.6, 'brow': 0.4}}, toonDur=0.033, toonEase='out'),   # THWOK: his head knocked back...
+            k(round(HIT9 + 0.12, 3), toon={'bend': {'neck': [0.06, 0, 0, 1, None]}, 'face': {'lid': 0.45, 'gy': -0.6, 'cross': 0.5}}, toonDur=0.1),   # ...his eyes up at the pigeon on his horn...
+            k(round(D9 - 0.2, 3), toon={'face': {'lid': 0.45, 'gy': -0.6, 'cross': 0.5}}, toonDur=0.1)])],   # ...deadpan
+        props=[HORNP('pl9', {'squash': [[HIT9, 0.5]], 'wobble': [[HIT9, 0.3, 30, 5]]}),
+               P('pig9', 'pigeon', pos=[r(ME9[0] - 2.6), 3.2, r(ME9[2] - 1.2)], ry=60, scale=1.4, opts={'flap': [0.0, round(D9 + 0.5, 3)]},
+                 keys=[k(0.0, to=[r(ME9[0] + 0.15), 2.45, r(ME9[2] + 0.35)], dur=HIT9, ease='in'),   # it flies straight at him...
+                       k(HIT9, attach='mec', joint='head', offset=CUP9, rot=[0.0, round(PI / 2, 4), 0.0]), k(HIT9, squash=[0.75, 1.2, 1.15], dur=0.3)])],   # ...and stays stuck on the cup, still flapping
+        cams=[FC(0.0, [9.3, 1.55, 1.7], [[ME9[0], 2.95, ME9[2]], [ME9[0], 0.6, ME9[2]], [r(ME9[0] - 0.45), 1.8, ME9[2]], [r(ME9[0] + 0.5), 2.6, r(ME9[2] + 0.3)], [r(ME9[0] - 1.2), 2.9, r(ME9[2] - 0.6)]], top=0.1, bottom=0.74, lenses=range(30, 57))])
+st.cue('sfx:splat', 'S09', HIT9, 0.4); st.cue('sfx:cluck', 'S09', round(HIT9 + 0.05, 3), 0.3)
 
 # 10: the metro hired him as a handle. In the carriage: he hangs from the ceiling by his plunger, his face to the roof; two passengers hold his hands
 #     like straps
 D10 = st.dur('S10'); CEIL = 2.29
 MTR = [0.0, 0.0, 0.0]; HANG10 = [0.0, r(CEIL - PLEN), 0.0]
-UPF = {'bend': {'neck': [-1.35, 0, 0, 1, None]}}                         # the head back: the forehead to the roof
+UPF = {'bend': {'neck': [round(-(PI / 2 - HA), 3), 0, 0, 1, None]}}      # the head back 50 degrees: the horn straight up to the roof, his face half up to us
 ARMS10 = {'reach': {'L': [0.0, 1.72, -0.42, 1, 0.05], 'R': [0.0, 1.72, 0.42, 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}}
 P1 = [0.1, 0, -0.66]; P2 = [-0.1, 0, 0.66]   # close in: the camera looks down the carriage, 2.6 m wide
 HOLD = lambda z: {'reach': {'R': [0.0, 1.72, r(z), 1, 0.05]}, 'hands': {'R': 'grip'}}
@@ -198,7 +203,7 @@ st.shot('S10', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
         act('p1', P1, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={**HOLD(-0.42), 'face': {'lid': 0.5}}, toonDur=0.0), k(0.5, toon={**HOLD(-0.42), 'face': {'lid': 1.0}}, toonDur=0.05), k(0.6, toon={**HOLD(-0.42), 'face': {'lid': 0.5}}, toonDur=0.08)]),
         act('p2', P2, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.9, -1.0]), k(0.0, toon={**HOLD(0.42), 'face': {'lid': 0.5}}, toonDur=0.0)])],
         props=[METRO('S10'), HORNP('pl10'), P('cap10', 'plainWall', pos=[0.0, 0.0, 0.0], opts={'w': 0.01, 'h': 0.01}) if False else P('bag10', 'shoppingBag', pos=[0.9, 0, 0.9])],
-        cams=[FC(0.0, [2.6, 1.15, 0.35], [[0.0, CEIL, 0.0], [0.0, 1.0, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]], [0.0, 0.4, 0.0]], top=0.06, bottom=0.76, lenses=range(30, 57),
+        cams=[FC(0.0, [2.4, 1.95, 0.35], [[0.0, CEIL, 0.0], [0.0, 1.0, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]], [0.0, 0.4, 0.0]], top=0.06, bottom=0.76, lenses=range(30, 57),
                  inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2), drift=(-0.15, 0.0, 0.0))])
         # low, inside the carriage: from his feet to the plunger on the roof, the two passengers holding his hands
 
@@ -216,7 +221,7 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(BR11, toon={**HOLD(0.42), 'lay': [0.0, 0.22], 'face': {'lid': 0.5, 'brow': 0.6}}, toonDur=0.16, toonEase='out'), k(round(BR11 + 0.35, 3), toon={**HOLD(0.42), 'lay': [0.0, -0.08], 'face': {'lid': 0.5}}, toonDur=0.2)])],
         props=[METRO('S11', sway=[0.02, 14]), HORNP('pl11')],
         fx=[{'type': 'shake', 'at': BR11, 'dur': 0.2, 'amount': 0.012}],
-        cams=[FC(0.0, [3.0, 1.6, 0.3], [[0.0, CEIL, 0.0], [0.0, 0.5, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]]], top=0.06, bottom=0.76, lenses=range(30, 57),
+        cams=[FC(0.0, [2.7, 1.9, 0.3], [[0.0, CEIL, 0.0], [0.0, 0.5, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]]], top=0.06, bottom=0.76, lenses=range(30, 57),
                  inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2))])
 st.cue('sfx:brake', 'S11', round(BR11 - 0.05, 3), 0.4)
 
@@ -268,8 +273,8 @@ st.shot('S15', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(2.6, toon={'reach': {'L': [-0.18, 0.6, -2.95, 1, 0.05], 'R': [0.18, 0.6, -2.95, 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.45, 'gx': 0.4}}, toonDur=0.4, toonEase='inOut')])],
         props=[P('plat15', 'metroPlatform', pos=[0.0, 0, 0.0], opts={'len': 16.0, 'depth': 4.0, 'name': 'RUE DES ARTS', 'benchX': 0.0}),
                RING('ring15', 0.0),
-               P('car15', 'metroCar', pos=[-1.0, 0.05, 1.45], opts={'len': 12.0}, keys=[k(0.5, to=[14.0, 0.05, 1.45], dur=2.6, ease='in')])],
-        cams=[FC(0.0, [0.9, 1.25, 2.6], [[SEAT15[0], 1.95, SEAT15[2]], [SEAT15[0], 0.3, SEAT15[2]], [-1.1, 1.0, SEAT15[2]], [1.1, 1.0, SEAT15[2]], [0.0, 2.45, -3.95]], top=0.1, bottom=0.74, lenses=range(30, 57), drift=(-0.05, 0.0, -0.18))])
+               P('car15', 'metroCar', pos=[3.6, 0.05, 1.45], opts={'len': 12.0}, keys=[k(0.0, to=[16.0, 0.05, 1.45], dur=2.2, ease='linear')])],   # (check stills) the train pulls out between us and him: its tail goes by and there he is
+        cams=[FC(0.0, [0.5, 1.3, 3.6], [[SEAT15[0], 1.95, SEAT15[2]], [SEAT15[0], 0.3, SEAT15[2]], [-1.1, 1.0, SEAT15[2]], [1.1, 1.0, SEAT15[2]], [0.0, 2.45, -3.95]], top=0.1, bottom=0.74, lenses=range(30, 57), drift=(-0.05, 0.0, -0.12))])   # (check stills) from across the track
 st.cue('whoosh', 'S15', 0.5, 0.35, 2.4, 200, 900)
 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
