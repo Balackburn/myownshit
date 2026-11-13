@@ -1694,3 +1694,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   face, gouttes qui partent du poing du pompier, pompiers en casquettes), le plafond du plan 10 sombre et boueux (fissures trop fines, éclats en
   anneau, pompiers de dos), les pyramides de canettes coupées aux coins du dernier plan et un dernier hoquet trop haut, du texte couvert (le E de
   NATURELLE, l'étoile du BOUH), des visages de dos aux plans 3, 4 et 12. La revue d'animation est en cours.
+- **49 « La photocopieuse » livrée** : génération complète (1080x1920, 24,3 s, -16,0 LUFS, crête -4,2 dBFS, aucun flash aux coupes, contrôles
+  HyperFrames sans erreur) envoyée. Revues 6,3/6,4 → 7,0/7,0 → 7,1/7,4, puis passe finale.
