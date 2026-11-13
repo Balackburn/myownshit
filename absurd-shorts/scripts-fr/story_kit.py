@@ -477,6 +477,12 @@ class Story:
                 _n = _c[0]
                 if (_n.startswith('sfx:') and _n[4:] not in _sfx) or (not _n.startswith('sfx:') and _n not in _mix): print(f'  audit cue {_n!r} at {_c[1]:.2f} s: the mix has no such sound (built-ins: {sorted(_mix)}; others as sfx:<name>)')
         except OSError: pass
+        # (cycle 15) a key before its shot never plays: st.at() is already the time in the shot, and 52 took the shot start off it a second time in six
+        # places (the boomerang never landed on his head, the plane braked before its shot): say it now
+        for sc_ in self.scenes:
+            for a_ in list(sc_.get('actors', [])) + list(sc_.get('props', [])):
+                bad = sorted({round(k_['at'], 2) for k_ in a_.get('keys', []) if isinstance(k_.get('at'), (int, float)) and k_['at'] < -0.001})
+                if bad: print(f"  audit {sc_['id']}: {a_.get('id', '?')} has keys before the shot starts (t = {bad[:4]}): st.at() already gives the time in the shot")
         json.dump(self.cues, open(os.path.join(d, 'cues.json'), 'w')); open(os.path.join(d, 'cards.txt'), 'w').write(','.join(self.cards))
         cardT = []   # (cycle 13) the title-card times, for the key-pose probe (a gag's peak under the card)
         for c_ in self.cards:

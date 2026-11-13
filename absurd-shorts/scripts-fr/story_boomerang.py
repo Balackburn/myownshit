@@ -67,7 +67,7 @@ st.shot('S02', 'grassland', setOpts=PARK, actors=[
             k(0.8, toon={**BRW, 'face': {'lid': 0.4}}, toonDur=0.15), k(0.8, look=[-30, 14, 10])])],   # then a hand at his brow, watching it go
         props=[BOOM('boom2', pos=[-1.5, 3.0, 1.4], scale=1.4, opts={'spin': [[0.0, 7.0]], 'wobble': 0.25}, keys=[k(0.0, to=[-34.0, 15.0, 12.0], dur=round(D2 - 0.05, 3), ease='out')]),
                P('lamp2', 'streetLamp', pos=[-2.6, 0, -2.4])],
-        cams=[FC(0.0, [2.9, 0.75, -1.4], [[P0[0], 2.5, P0[2]], [P0[0], 0.0, P0[2]], [-4.0, 4.6, 2.0], [r(P0[0] - 0.5), 1.5, P0[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.03, 0.0))])
+        cams=[FC(0.0, [2.9, 0.75, -1.4], [[P0[0], 2.5, P0[2]], [P0[0], 0.0, P0[2]], [-4.0, 4.6, 2.0], [r(P0[0] - 0.5), 1.5, P0[2]]], top=0.1, bottom=0.74, drift=(-0.25, 0.08, 0.2))])   # (draft 1) a slow crane up and round (the end of the shot read as a freeze)
 st.cue('whoosh', 'S02', 0.05, 0.3, 0.45, 300, 1000)
 
 # 3: it never came back. He waits, deadpan, his hand held out, eyes on the sky; a passer-by walks past and drops a coin in his hand; he looks at the coin,
@@ -121,12 +121,12 @@ st.shot('S05', 'mairie', setOpts=OFC, actors=[
                P('stamp5', 'rubberStamp', on={'actor': 'guichet', 'hand': 'R', 'offset': [0, -0.06, 0.02]}, scale=2.2, opts={'color': '#C23A2E'}),
                P('shelf5', 'lostShelf', pos=[-0.4, 0, -2.3], opts={'sign': ''})],
         fx=[{'type': 'shake', 'at': ST5, 'dur': 0.12, 'amount': 0.008}],
-        cams=[FC(0.0, [0.75, 1.75, 1.3], [[CLK[0], 2.3, CLK[2]], [ME4[0], 2.4, ME4[2]], [FORM5[0], 0.86, FORM5[2]], [FLATH[0], 0.86, FLATH[2]]], top=0.12, bottom=0.74)])
+        cams=[FC(0.0, [0.75, 1.75, 1.3], [[CLK[0], 2.3, CLK[2]], [ME4[0], 2.4, ME4[2]], [FORM5[0], 0.86, FORM5[2]], [FLATH[0], 0.86, FLATH[2]]], top=0.12, bottom=0.74, drift=(0.0, -0.05, -0.25))])   # (draft 1) a slow push in (the hold after the stamp read as a freeze)
 st.cue('sfx:cuff', 'S05', ST5, 0.45)
 
 # 6: a boomerang is not lost: it comes back. She takes a little boomerang from her desk and throws it over his head: it loops round the room behind him; his
 #    head follows it all the way round, a full turn on his neck
-D6 = st.dur('S06'); TH6 = 0.3; RV7 = round(st.at('S07', 'L04', 6) - st.SH['S07'][0] + 0.0, 3)
+D6 = st.dur('S06'); TH6 = 0.3; RV7 = round(st.at('S07', 'L04', 6) + 0.0, 3)   # (draft 1) st.at is already the time in the shot: six beats keyed with the shot start taken off twice fell before their shots (the landing on his head never showed)
 LOOP = [[-0.05, 1.5, -1.35], [1.0, 1.95, -1.05], [2.0, 1.95, -0.2], [1.75, 1.85, 0.75], [0.5, 1.8, 0.95], [-0.7, 1.7, 0.35], [-0.75, 1.6, -0.75], [-0.05, 1.5, -1.35]]
 SEG = round((D6 - TH6 + RV7) / (len(LOOP) - 1), 3)
 st.shot('S06', 'mairie', setOpts=OFC, actors=[
@@ -161,7 +161,7 @@ st.cue('clack', 'S07', RV7, 0.35)
 
 # 8: the air-traffic controllers opened it an air corridor. The control room: on his radar the boomerang's blip goes round a dashed loop; he sways round in
 #    circles following it, then draws the corridor: two white lines along the loop
-D8 = st.dur('S08'); CO8 = round(st.at('S08', 'L05', 7) - st.SH['S08'][0] - 0.55, 3)
+D8 = st.dur('S08'); CO8 = round(st.at('S08', 'L05', 7) - 0.55, 3)
 RADW = [0.0, 1.62, -3.38]; CTL = [0.95, 0, -2.6]                    # (first look) the radar on the wall facing us, the controller beside it facing us (on a console the screen faced away from the camera)
 SW = lambda a, d=0.22: {'bend': {'spine': [r(d * math.cos(a)), 0, r(d * math.sin(a)), 1, None]}}
 DRAW = lambda dx, dy: {'reach': {'R': [r(RADW[0] + dx), r(RADW[1] + dy), r(RADW[2] + 0.07), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.3, 'brow': 0.6}}
@@ -181,12 +181,12 @@ YS = 60.0   # (first look) everything 60 m up, above the cloud deck (its cumulus
 CONES = [P(f'cone9_{s}{i}', 'skyCone', pos=[r(s * 1.3), YS + 0.1, r(-2.0 - 4.5 * i)], scale=1.3, opts={'puff': True}) for s in (-1, 1) for i in range(7)]
 st.shot('S09', 'skyHigh', setOpts={'seed': 9}, actors=[],
         props=[*CONES, BOOM('boom9', pos=[0.0, YS + 1.4, -34.0], scale=2.2, opts={'spin': [[0.0, 8.0]], 'wobble': 0.2}, keys=[k(0.05, to=[0.25, YS + 1.2, 4.2], dur=round(D9 - 0.2, 3), ease='in')])],
-        cams=[cam(0.0, [0.55, YS + 1.5, 5.2], [0.5, YS + 1.45, 4.9], [0.0, YS - 1.2, -20.0], [0.0, YS - 1.2, -20.0], lens=40)])   # (first look) a little down: the lane of cones, the cloud sea under it
+        cams=[cam(0.0, [0.55, YS + 1.5, 5.2], [0.3, YS + 1.3, -2.5], [0.0, YS - 1.2, -20.0], [0.0, YS - 1.0, -28.0], lens=40)])   # (draft 1) flying down the lane (static, it read as a freeze)   # (first look) a little down: the lane of cones, the cloud sea under it
 st.cue('whoosh', 'S09', round(D9 - 0.45, 3), 0.45, 0.35, 400, 2600)
 
 # 10: planes give way to it. A zebra crossing painted on the clouds: an airliner comes in and brakes like a car before it, nose down, squashed; the boomerang
 #     crosses in front of its nose; the plane sets off again
-D10 = st.dur('S10'); BR10 = round(st.at('S10', 'L06', 3) - st.SH['S10'][0] - 0.2, 3); X10 = 1.2
+D10 = st.dur('S10'); BR10 = round(st.at('S10', 'L06', 3) - 0.2, 3); X10 = 1.2
 st.shot('S10', 'skyHigh', setOpts={'seed': 10}, actors=[],
         props=[P('zebra10', 'skyCrossing', pos=[X10, YS + 0.15, 0.0], ry=90, opts={'w': 9.0, 'l': 3.2, 'n': 7, 'road': True}),   # (first look) on a strip of asphalt
                P('plane10', 'plane', pos=[-34.0, YS + 3.0, 0.0], opts={'livery': '#2F6FB5'}, keys=[k(0.0, to=[r(X10 - 10.5), YS + 3.0, 0.0], dur=BR10, ease='out'),
@@ -194,7 +194,7 @@ st.shot('S10', 'skyHigh', setOpts={'seed': 10}, actors=[],
                    k(round(BR10 + 0.15, 3), rotTo=[0, 0, 0.03], dur=0.15, ease='inOut'), k(round(BR10 + 0.3, 3), rotTo=[0, 0, 0], dur=0.1),
                    k(round(D10 - 0.55, 3), to=[18.0, YS + 3.4, 0.0], dur=0.55, ease='in'), k(round(D10 - 0.55, 3), squash=[1.12, 0.94, 1.0], dur=0.0)]),
                BOOM('boom10', pos=[X10, YS + 3.6, 9.0], scale=4.0, opts={'spin': [[0.0, 7.0]], 'wobble': 0.15}, keys=[k(0.0, visible=False), k(round(BR10 + 0.08, 3), visible=True), k(round(BR10 + 0.08, 3), to=[X10, YS + 3.5, -9.0], dur=0.5, ease='linear')])],
-        cams=[cam(0.0, [9.5, YS + 5.6, 15.5], [9.2, YS + 5.6, 15.0], [-3.5, YS + 1.8, 0.0], [-3.2, YS + 1.8, 0.0], lens=34)])   # (first look) a little higher, looking down at the crossing on the cloud sea
+        cams=[cam(0.0, [9.5, YS + 5.6, 15.5], [7.6, YS + 5.0, 12.8], [-3.5, YS + 1.8, 0.0], [-2.6, YS + 1.8, 0.0], lens=34)])   # (draft 1) drifting in on the crossing   # (first look) a little higher, looking down at the crossing on the cloud sea
 st.cue('sfx:brake', 'S10', round(BR10 - 0.15, 3), 0.4); st.cue('whoosh', 'S10', round(BR10 + 0.1, 3), 0.4, 0.3, 500, 2500); st.cue('sfx:jet', 'S10', round(D10 - 0.55, 3), 0.3)
 
 # 11: yesterday, it came back. The town-hall square from low down: the steps, the flag, a wedding party posing far below; high in the sky a whistling speck
@@ -244,7 +244,7 @@ st.shot('S12', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, acto
 
 # 13: his wedding. Closer on the couple: the boomerang drops onto his head on « mariage », squashes it flat as a disc and keeps turning on top like a rotor;
 #     the downdraft blows the guests' hair up and the veil out; his smile does not move
-D13 = st.dur('S13'); LD13 = round(st.at('S13', 'L08', 5) - st.SH['S13'][0] + 0.02, 3)
+D13 = st.dur('S13'); LD13 = round(st.at('S13', 'L08', 5) + 0.02, 3)
 DISC = {'scl': {'head': [1.45, 0.42, 1.45]}}
 st.shot('S13', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, actors=[
         *WEDS(lambda nm, p: [k(round(LD13 + 0.04, 3), toon={**({**SMILE, **HOLDB} if nm == 'mariee' else SMILE), 'hairUp': 1.0, 'face': {'mouth': 'bigsmile', 'lid': 0.0, 'brow': 0.6}}, toonDur=0.05),   # the downdraft: hair up, the smiles still on
@@ -262,7 +262,7 @@ st.cue('sfx:bonk', 'S13', LD13, 0.45); st.cue('sfx:rotor', 'S13', round(LD13 + 0
 
 # 14: he left with it. Wider: he lifts off the steps, deadpan, still smiling for the photo, his body turning slowly the other way under the rotor; the bride
 #     looks up holding her bouquet; the photographer's camera tilts up after him; the flash goes off; hats fly
-D14 = st.dur('S14'); FL14 = round(st.at('S14', 'L09', 3) - st.SH['S14'][0], 3)
+D14 = st.dur('S14'); FL14 = round(st.at('S14', 'L09', 3), 3)
 st.shot('S14', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, actors=[
         *WEDS(lambda nm, p: [k(0.0, toon={**({**SMILE, **HOLDB} if nm == 'mariee' else SMILE), 'hairUp': 0.8}, toonDur=0.0), k(0.15, look=[GROOM[0], 3.4, GROOM[2]]), k(0.6, look=[GROOM[0], 5.0, GROOM[2]])]),
         act('mec', GROOM, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**DISC, 'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.0),
@@ -285,10 +285,10 @@ st.shot('S15', 'grassland', setOpts=PARK, actors=[
             k(0.55, toon={**OUT(P0, RY0), 'face': {'lid': 1.0}}, toonDur=0.05), k(0.66, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.07), k(0.9, look=[-4, 7.5, 2.0])])],
         props=[P('veil15', 'brideVeil', on={'actor': 'mariee', 'joint': 'head', 'offset': [0, 0.42, -0.05]}), P('bq15', 'bouquet', on={'actor': 'mariee', 'hand': 'L', 'offset': [0, 0.02, 0.04]}, scale=1.6),
                P('lamp15', 'streetLamp', pos=[-2.6, 0, -2.4])],
-        cams=[FC(0.0, [-1.2, 1.45, 2.9], [[P0[0], 2.45, P0[2]], [P0[0], 0.55, P0[2]], [HAND3[0], 1.0, HAND3[2]], [r(P0[0] + 0.55), 1.6, P0[2]], [r(P0[0] - 0.6), 1.6, P0[2]]], top=0.12, bottom=0.74, drift=(0.04, 0.0, -0.08))])
+        cams=[FC(0.0, [-1.2, 1.45, 2.9], [[P0[0], 2.45, P0[2]], [P0[0], 0.55, P0[2]], [HAND3[0], 1.0, HAND3[2]], [r(P0[0] + 0.55), 1.6, P0[2]], [r(P0[0] - 0.6), 1.6, P0[2]]], top=0.12, bottom=0.74, drift=(0.1, 0.05, -0.35))])   # (draft 1) a slow push in (a held shot read as a freeze)
 
 # 16: in ten years. A child runs past and drops a coin in her hand; she looks at it; far up in the sky, unseen by her, a speck with a rotor goes by
-D16 = st.dur('S16'); CN16 = round(st.at('S16', 'L10', 4) - st.SH['S16'][0] + 0.05, 3)
+D16 = st.dur('S16'); CN16 = round(st.at('S16', 'L10', 4) + 0.05, 3)
 st.shot('S16', 'grassland', setOpts=PARK, actors=[
         act('mariee', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-4, 7.5, 2.0]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.0),
             k(round(CN16 + 0.12, 3), look=[HAND3[0], 1.0, HAND3[2]]), k(round(CN16 + 0.12, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.5}}, toonDur=0.1),
