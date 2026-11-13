@@ -80,9 +80,11 @@ export const TORTICOLIS_PROPS = {
   },
 
   // A studio TV camera on a tripod (front +Z: the lens), pivot at the floor: a dark body, a lens, a viewfinder and a red tally light that is lit
+  // (pass 2b) o.legs false: no tripod and the body at the origin, for a camera hung from the ceiling (rotated half a turn about X its tripod legs
+  // stuck out sideways as three black bars and the body sat 1.5 m away from where it was put)
   tvCamera(o) {
-    const H = o.h ?? 1.35, g = grp();
-    for (let i = 0; i < 3; i++) { const a = i * TAU / 3; g.add(at(cyl(0.018, 0.022, H, '#3A3F48', 6), Math.sin(a) * 0.25, H / 2 - 0.03, Math.cos(a) * 0.25, Math.cos(a) * 0.19, 0, -Math.sin(a) * 0.19)); }
+    const legs = o.legs !== false, H = legs ? (o.h ?? 1.35) : -0.13, g = grp();
+    if (legs) for (let i = 0; i < 3; i++) { const a = i * TAU / 3; g.add(at(cyl(0.018, 0.022, H, '#3A3F48', 6), Math.sin(a) * 0.25, H / 2 - 0.03, Math.cos(a) * 0.25, Math.cos(a) * 0.19, 0, -Math.sin(a) * 0.19)); }
     g.add(at(box(0.32, 0.26, 0.5, '#2A2E36', { outline: 0.008 }), 0, H + 0.13, 0), at(cyl(0.085, 0.1, 0.22, '#15171C', 12), 0, H + 0.13, 0.34, PI / 2, 0, 0), at(cyl(0.07, 0.07, 0.006, '#4A6E9A', 12), 0, H + 0.13, 0.452, PI / 2, 0, 0),
       at(box(0.18, 0.14, 0.12, '#2A2E36'), 0.12, H + 0.33, -0.12));
     const tally = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 6), new THREE.MeshBasicMaterial({ color: '#FF2A2A', toneMapped: false })); tally.position.set(-0.1, H + 0.29, 0.2); g.add(tally);
