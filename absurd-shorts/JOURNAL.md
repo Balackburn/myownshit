@@ -1503,3 +1503,31 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   48, le tampon s'abat sur le haut du paquet mais son empreinte apparaît sur le film devant sa poitrine, sous son visage ; (4) au plan 13
   de 48, le carton passe à gauche de la mère et avance devant le battant ouvert.
 
+## 13 novembre 2026, nuit (cycles 9 à 12)
+
+- **47 « L'aimant », revue 3** : animation 7,3, direction artistique 7,3 (contre 6,5 / 6,8). Les deux critiques voyaient encore les
+  aiguilles pointer à côté : en cherchant, j'ai trouvé que le moteur rangeait l'heure du recalcul dans le `userData` de l'accessoire, que
+  `buildProp` remonte sur son enveloppe ; elle était perdue et les aiguilles visaient comme à t = 0. Corrigé (`Pp.lastT`), vérifié au
+  zoom : les trois aiguilles visent l'homme dans le trou de la rangée. Passe finale aussi : boussole du plan 7 face à nous qui part du N,
+  il se tourne vers nous à « lui », vol de la poêle étiré à l'écran, saut tenu six images, bateau vu de l'avant (proue, voile),
+  cartographes cadrés à la taille, double prise devant l'ours en grelottant les bras serrés, carton PÔLE NORD. Génération complète en cours.
+- **48 « Le code-barres », revue 3** : animation 7,0, direction artistique 6,8 (contre 6,5 / 6,5). Passe finale : caisse vue
+  d'au-dessus avec tout le corps parmi les courses et l'écran UN HOMME 2,49 € entier, douchette qui arrive par le haut ; une seule grande
+  prise en vrai gros plan au plan 8, carton -50 % après l'étirement ; sous-vide qui aspire la tête ; la dame face à nous ; film écrasé avec
+  lui, étoiles au lieu d'une énième prise ; ta-da au diable en boîte ; ticket long qui s'agite. Génération complète enchaînée derrière
+  celle de 47.
+- **49 « La photocopieuse »** : passe 2b (copie qui sort à côté de lui, rangées cadrées sur trois colonnes, insert du bouton avec le
+  couvercle ouvert, final à genoux de trois quarts) ; brouillon 2 en rendu, dossier de revue 2 prêt.
+- **50 « Le hoquet » (cycle 12)** : narration déjà enregistrée et accessoires prêts d'une séance précédente ; les 13 plans sont écrits
+  (sauts d'un mètre avec temps suspendu, sismographe, carte de l'épicentre, évacuation, cordon ÉPICENTRE, verre d'eau à l'envers, BOUH
+  puis collé au plafond en étoile, plaque CATASTROPHE NATURELLE et double prise du préfet, chèque qui saute avec lui, pyramide de sodas).
+  Dossier de revue 1 prêt, brouillon 1 à rendre.
+- **Outils (cycle 12)** : le contrôle signale un héros trop petit à l'écran ou de profil (une tête de boîte vue de côté n'a pas de visage
+  peint) ; `doubleTake()` ; `serviceDesk signY` ; `chain_codebarre.sh`.
+- **Incident** : le conteneur a redémarré pendant les rendus et les deux critiques ; le bloc-notes et le dépôt étaient intacts, tout a été
+  relancé. Avec quatre cœurs, les générations complètes passent désormais l'une après l'autre.
+- **Décisions prises sans question** : (1) pour 48, une seule grande prise (au plan 8) et des réactions différentes ailleurs, comme le
+  demandait l'animation ; (2) au plan 14 de 48, plus de lettrage sur le carton et le paillasson plutôt que de recadrer (il tombait dans le
+  bandeau des sous-titres) ; (3) l'histoire 50 reprend « Le hoquet », déjà enregistré, plutôt que d'en écrire une autre pendant que trois
+  sont en cours.
+
