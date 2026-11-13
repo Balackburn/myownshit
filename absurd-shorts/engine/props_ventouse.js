@@ -61,8 +61,9 @@ export const VENTOUSE_PROPS = {
   // floor, cream walls with a teal band, dark window panes (the tunnel), blue bench seats along the walls, steel poles and two grab bars along the
   // ceiling, white light strips, sliding doors (o.doorColor) every o.doorEvery m; shells seen from inside and outside alike. o.sway [amp, freq]: the
   // whole car rocks (rad); o.light: light strips glow.
+  // (story 55, draft 1) o.glass: the colour of the windows (from the platform, dark windows filled the frame like a black wall)
   metroCar(o) {
-    const L = o.len ?? 12, W = o.w ?? 2.6, H = o.h ?? 2.3, g = grp(), wallC = o.wall || '#ECE7DA', band = o.band || '#2E8C86', glass = '#1E2A33', doorC = o.doorColor || '#2F6FB5';
+    const L = o.len ?? 12, W = o.w ?? 2.6, H = o.h ?? 2.3, g = grp(), wallC = o.wall || '#ECE7DA', band = o.band || '#2E8C86', glass = o.glass || '#1E2A33', doorC = o.doorColor || '#2F6FB5';
     g.add(at(box(L, 0.06, W, o.floor || '#7C8288', { outline: 0.006 }), 0, -0.03, 0), at(box(L, 0.08, W, '#EDECE6'), 0, H + 0.04, 0));
     const every = o.doorEvery ?? 4, doors = [];
     for (const s of [-1, 1]) {

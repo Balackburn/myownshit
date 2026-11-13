@@ -100,7 +100,7 @@ st.cue('sfx:stretch', 'S03', 0.12, 0.3); st.cue('sfx:twang', 'S03', SL3, 0.4)
 #    out over the counter behind him and looks at it over her glasses
 D4 = st.dur('S04')
 POSTEV = {'title': 'MUTUELLE', 'guichets': False}
-ME4 = [-0.4, 0, -1.55]; CLK4 = [-0.1, 0, -2.62]
+ME4 = [-0.4, 0, -1.55]; CLK4 = [0.35, 0, -2.62]   # (stills v2) the clerk off his shoulder, to his left: behind him she was a pale ghost
 LEAN4 = {'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}}
 st.shot('S04', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
         act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),
@@ -203,7 +203,7 @@ st.shot('S10', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
         act('p1', P1, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={**HOLD(-0.42), 'face': {'lid': 0.5}}, toonDur=0.0), k(0.5, toon={**HOLD(-0.42), 'face': {'lid': 1.0}}, toonDur=0.05), k(0.6, toon={**HOLD(-0.42), 'face': {'lid': 0.5}}, toonDur=0.08)]),
         act('p2', P2, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.9, -1.0]), k(0.0, toon={**HOLD(0.42), 'face': {'lid': 0.5}}, toonDur=0.0)])],
         props=[METRO('S10'), HORNP('pl10'), P('cap10', 'plainWall', pos=[0.0, 0.0, 0.0], opts={'w': 0.01, 'h': 0.01}) if False else P('bag10', 'shoppingBag', pos=[0.9, 0, 0.9])],
-        cams=[FC(0.0, [2.4, 1.95, 0.35], [[0.0, CEIL, 0.0], [0.0, 1.0, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]], [0.0, 0.4, 0.0]], top=0.06, bottom=0.76, lenses=range(30, 57),
+        cams=[FC(0.0, [2.4, 1.95, 0.35], [[0.0, CEIL, 0.0], [0.0, 1.0, 0.0], [P1[0], 2.25, P1[2]], [P2[0], 2.25, P2[2]], [0.0, 0.4, 0.0]], top=0.06, bottom=0.76, lenses=range(30, 57),
                  inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2), drift=(-0.15, 0.0, 0.0))])
         # low, inside the carriage: from his feet to the plunger on the roof, the two passengers holding his hands
 
@@ -221,7 +221,7 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(BR11, toon={**HOLD(0.42), 'lay': [0.0, 0.22], 'face': {'lid': 0.5, 'brow': 0.6}}, toonDur=0.16, toonEase='out'), k(round(BR11 + 0.35, 3), toon={**HOLD(0.42), 'lay': [0.0, -0.08], 'face': {'lid': 0.5}}, toonDur=0.2)])],
         props=[METRO('S11', sway=[0.02, 14]), HORNP('pl11')],
         fx=[{'type': 'shake', 'at': BR11, 'dur': 0.2, 'amount': 0.012}],
-        cams=[FC(0.0, [2.7, 1.9, 0.3], [[0.0, CEIL, 0.0], [0.0, 0.5, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]]], top=0.06, bottom=0.76, lenses=range(30, 57),
+        cams=[FC(0.0, [2.7, 1.9, 0.3], [[0.0, CEIL, 0.0], [0.0, 0.5, 0.0], [P1[0], 2.25, P1[2]], [P2[0], 2.25, P2[2]]], top=0.06, bottom=0.76, lenses=range(30, 57),
                  inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2))])
 st.cue('sfx:brake', 'S11', round(BR11 - 0.05, 3), 0.4)
 
@@ -240,7 +240,7 @@ st.shot('S12', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
         props=[METRO('S12'), HORNP('pl12h', keys=[k(POP12, visible=False)]),
                P('pl12c', 'plunger', pos=CEILPL, rot=[round(PI, 4), 0, 0], opts={**PLOPTS, 'wobble': [[POP12, 0.4, 26, 4]]}, keys=[k(0.0, visible=False), k(POP12, visible=True)]),   # the plunger stays on the roof, swinging
                RING('ring12', POP12), BURST('pop12', [0.6, 2.0, 0.3], POP12, 'POP !', 0.45)],
-        cams=[FC(0.0, [2.5, 1.3, 0.3], [[0.0, CEIL, 0.0], [0.0, 0.0, 0.0], [P1[0], 1.9, P1[2]], [P2[0], 1.9, P2[2]]], top=0.06, bottom=0.76, lenses=range(30, 57),
+        cams=[FC(0.0, [2.5, 1.3, 0.3], [[0.0, CEIL, 0.0], [0.0, 0.0, 0.0], [P1[0], 2.25, P1[2]], [P2[0], 2.25, P2[2]]], top=0.06, bottom=0.76, lenses=range(30, 57),
                  inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2))])
 st.cue('pop', 'S12', POP12, 0.5); st.cue('sfx:thud', 'S12', round(POP12 + 0.13, 3), 0.45)
 
@@ -261,7 +261,7 @@ st.shot('S14', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(0.8, toon={'reach': {'R': [*GRIPC, 1, 0.05]}, 'hands': {'R': 'grip'}, 'lay': [0.0, -0.04], 'face': {'lid': 0.5, 'gy': 0.6}}, toonDur=0.35, toonEase='inOut')]),
         act('p2', [0.0, 0, 0.85], 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.6, 0.0]), k(0.0, toon={'face': {'lid': 0.5}}, toonDur=0.0), k(0.7, toon={'face': {'lid': 1.0}}, toonDur=0.05), k(0.8, toon={'face': {'lid': 0.5}}, toonDur=0.08)])],
         props=[METRO('S14', sway=[0.01, 6]), P('pl14', 'plunger', pos=CEILPL, rot=[round(PI, 4), 0, 0], opts={**PLOPTS, 'wobble': [[0.3, 0.06, 6, 0.5]]})],
-        cams=[FC(0.0, [2.3, 1.4, 0.6], [[0.0, CEIL, 0.0], [0.0, 0.3, -0.32], [0.0, 2.3, -0.32], [0.0, 1.9, 0.85]], top=0.06, bottom=0.76, lenses=range(30, 57), inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2), drift=(-0.12, 0.0, 0.0))])
+        cams=[FC(0.0, [2.3, 1.4, 0.6], [[0.0, CEIL, 0.0], [0.0, 0.3, -0.32], [0.0, 2.3, -0.32], [0.0, 2.25, 0.85]], top=0.06, bottom=0.76, lenses=range(30, 57), inside=(-5.8, 5.8, 0.2, 2.2, -1.2, 1.2), drift=(-0.12, 0.0, 0.0))])
 
 # 15: he is out of work. The platform: he sits on the bench, the red ring on his forehead, deadpan; behind him the train pulls out
 D15 = st.dur('S15'); SEAT15 = [0.0, 0, -3.2]
@@ -273,7 +273,7 @@ st.shot('S15', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(2.6, toon={'reach': {'L': [-0.18, 0.6, -2.95, 1, 0.05], 'R': [0.18, 0.6, -2.95, 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.45, 'gx': 0.4}}, toonDur=0.4, toonEase='inOut')])],
         props=[P('plat15', 'metroPlatform', pos=[0.0, 0, 0.0], opts={'len': 16.0, 'depth': 4.0, 'name': 'RUE DES ARTS', 'benchX': 0.0}),
                RING('ring15', 0.0),
-               P('car15', 'metroCar', pos=[3.6, 0.05, 1.45], opts={'len': 12.0}, keys=[k(0.0, to=[16.0, 0.05, 1.45], dur=2.2, ease='linear')])],   # (check stills) the train pulls out between us and him: its tail goes by and there he is
+               P('car15', 'metroCar', pos=[5.6, 0.05, 1.45], opts={'len': 12.0, 'glass': '#7FA2B8'}, keys=[k(0.0, to=[16.0, 0.05, 1.45], dur=1.86, ease='linear')])],   # (check stills) the train pulls out between us and him: its tail goes by and there he is
         cams=[FC(0.0, [0.5, 1.3, 3.6], [[SEAT15[0], 1.95, SEAT15[2]], [SEAT15[0], 0.3, SEAT15[2]], [-1.1, 1.0, SEAT15[2]], [1.1, 1.0, SEAT15[2]], [0.0, 2.45, -3.95]], top=0.1, bottom=0.74, lenses=range(30, 57), drift=(-0.05, 0.0, -0.12))])   # (check stills) from across the track
 st.cue('whoosh', 'S15', 0.5, 0.35, 2.4, 200, 900)
 
@@ -289,7 +289,7 @@ st.card('S15', 'CHÔMAGE')
 
 st.write("La ventouse", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
-    'guichet': {'preset': 'madame', 'seed': 551, 'suit': '#3F8A7A', 'hair': 'bun', 'hairColor': '#B8B8B8', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}},
+    'guichet': {'preset': 'madame', 'seed': 551, 'suit': '#8E2A3A', 'hair': 'bun', 'hairColor': '#B8B8B8', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'plombier': {'preset': 'worker', 'seed': 552, 'suit': '#2F5C9E', 'build': {'width': 1.0, 'headWidth': 1.2}},
     'p1': {'preset': 'madame', 'seed': 553, 'suit': '#C8643A', 'hairColor': '#6B3A1E', 'build': {'width': 0.9, 'headWidth': 1.25}},
     'p2': {'preset': 'boss', 'seed': 554, 'suit': '#6B4E8A', 'build': {'width': 0.95, 'headWidth': 1.2}},

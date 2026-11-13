@@ -588,16 +588,19 @@ const S = {
     g.userData.anchors = { center: [0, 0, 0], umbrella: [-2.1, 0, -2.8], towel: [-2.6, 0.03, -1.6], sea: [0, 0, -9], shore: [0, 0, -7.5], castle: [2.0, 0, -2.6], palm: [5.5, 0, -5] };
     g.userData.lighting = 'day'; return g;
   },
-  hospital() {
+  hospital(o = {}) {   // (story 53, final pass) o.monitor === false: no heart monitor on its stand; o.cross === false: no red cross on the wall (an osteopath's room)
     const g = grp(), { back } = room(g, { wall: '#F4F4EE', band: P.tealPale, bandH: 1.1, trim: P.teal, floor: '#DCE3DD' });
     g.add(prop('bed', { blanket: P.tealLight }, -2.5, 0, back + 1.15));
     g.add(at(grp(cyl(0.2, 0.22, 0.05, P.greyDark, 6, { pivot: 'bottom' }), at(cyl(0.02, 0.02, 2.0, P.grey, 6, { pivot: 'bottom' }), 0, 0.05, 0), at(box(0.4, 0.02, 0.02, P.grey), 0, 2.02, 0), at(box(0.18, 0.28, 0.06, '#CFE6E8', { opacity: 0.7 }), 0.15, 1.82, 0), rod([0.15, 1.68, 0], [0.4, 0.8, 0.4], 0.006, P.white)), -3.9, 0, back + 0.9));
-    const mon = canvasPlane(0.5, 0.34, (c, W, H) => { c.fillStyle = '#10201E'; c.fillRect(0, 0, W, H); c.strokeStyle = LCDc; c.lineWidth = 6; c.beginPath(); c.moveTo(0, H * 0.6); [0.3, 0.36, 0.4, 0.45, 0.5, 1].forEach((k, i) => c.lineTo(W * k, H * [0.6, 0.6, 0.15, 0.85, 0.6, 0.6][i])); c.stroke(); c.fillStyle = LCDc; c.font = `bold ${H * 0.2}px Arial`; c.fillText('72', W * 0.75, H * 0.3); }, { res: 256, emissive: 0.6 });
-    g.add(at(grp(cyl(0.04, 0.04, 1.3, P.grey, 6, { pivot: 'bottom' }), cyl(0.2, 0.22, 0.05, P.greyDark, 6, { pivot: 'bottom' }), at(box(0.58, 0.42, 0.12, P.greyDark, { outline: 0.02 }), 0, 1.45, 0), at(mon, 0, 1.45, 0.062)), -1.0, 0, back + 0.45));
+    if (o.monitor !== false) {
+      const mon = canvasPlane(0.5, 0.34, (c, W, H) => { c.fillStyle = '#10201E'; c.fillRect(0, 0, W, H); c.strokeStyle = LCDc; c.lineWidth = 6; c.beginPath(); c.moveTo(0, H * 0.6); [0.3, 0.36, 0.4, 0.45, 0.5, 1].forEach((k, i) => c.lineTo(W * k, H * [0.6, 0.6, 0.15, 0.85, 0.6, 0.6][i])); c.stroke(); c.fillStyle = LCDc; c.font = `bold ${H * 0.2}px Arial`; c.fillText('72', W * 0.75, H * 0.3); }, { res: 256, emissive: 0.6 });
+      g.add(at(grp(cyl(0.04, 0.04, 1.3, P.grey, 6, { pivot: 'bottom' }), cyl(0.2, 0.22, 0.05, P.greyDark, 6, { pivot: 'bottom' }), at(box(0.58, 0.42, 0.12, P.greyDark, { outline: 0.02 }), 0, 1.45, 0), at(mon, 0, 1.45, 0.062)), -1.0, 0, back + 0.45));
+    }
     // curtain on a rail
     g.add(rod([1.7, 2.35, back], [1.7, 2.35, -1.2], 0.02, P.grey));
     for (let i = 0; i < 7; i++) g.add(at(box(0.04, 2.0, 0.36, i % 2 ? P.tealLight : '#8DBDB5'), 1.7 + (i % 2 ? 0.06 : -0.06), 1.33, back + 0.2 + i * 0.32, 0, i % 2 ? 0.35 : -0.35, 0));
-    g.add(prop('window', { w: 1.3, h: 1.3, color: P.teal }, 3.6, 1.0, back), at(box(0.6, 0.6, 0.02, P.white), 0.6, 2.5, back + 0.01), at(box(0.42, 0.12, 0.03, P.red), 0.6, 2.5, back + 0.03), at(box(0.12, 0.42, 0.03, P.red), 0.6, 2.5, back + 0.03));
+    g.add(prop('window', { w: 1.3, h: 1.3, color: P.teal }, 3.6, 1.0, back));
+    if (o.cross !== false) g.add(at(box(0.6, 0.6, 0.02, P.white), 0.6, 2.5, back + 0.01), at(box(0.42, 0.12, 0.03, P.red), 0.6, 2.5, back + 0.03), at(box(0.12, 0.42, 0.03, P.red), 0.6, 2.5, back + 0.03));
     g.userData.anchors = { center: [0, 0, 0], bed: [-2.5, 0, back + 1.15], bedLie: [-2.5, 0.62, back + 1.15], bedSide: [-1.4, 0, back + 1.4], monitor: [-1.0, 0, back + 0.45], iv: [-3.9, 0, back + 0.9], curtain: [1.7, 0, -2.0], window: [3.6, 1.0, back] };
     g.userData.lighting = 'interior'; return g;
   },

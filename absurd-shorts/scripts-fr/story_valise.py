@@ -215,7 +215,7 @@ st.shot('S10', 'whiteVoid', setOpts={'color': '#DCD6C8'}, actors=[
                VAL('val10', pos=[SEAT[0], 0.47, r(SEAT[2] - 0.05)], rot=[-0.22, 0, 0], scale=1.0, opts={'color': RED, 'stickers': 15, 'seed': 0, 'shades': 'mask', **GOLD, 'tagScale': 2.0, 'tagSwing': 0.15},
                    keys=[k(0.85, rotTo=[-0.34, 0, 0], dur=0.3, ease='inOut'), k(1.25, rotTo=[-0.26, 0, 0], dur=0.3, ease='inOut')]),   # (pass 2) it settles back into the leather
                P('flute10', 'flute', pos=[-0.42, 0.59, 0.5], scale=1.6, opts={'level': 0.8})],
-        cams=[FC(0.0, [-1.35, 1.55, 2.5], [[SEAT[0], 1.6, SEAT[2]], [SEAT[0], 0.45, SEAT[2]], [HOST[0], 1.85, HOST[2]], [-0.42, 0.75, 0.5]], top=0.27, bottom=0.74, drift=(0.08, 0.0, -0.12), inside=(-1.75, 1.75, 0.3, 2.2, -3.8, 3.9))])   # (pass 2) tighter (the lens opened to 68 degrees)
+        cams=[FC(0.0, [-1.35, 1.55, 2.5], [[SEAT[0], 1.6, SEAT[2]], [SEAT[0], 0.45, SEAT[2]], [HOST[0], 1.85, HOST[2]], [-0.42, 0.75, 0.5]], top=0.34, bottom=0.74, drift=(0.08, 0.0, -0.05), inside=(-1.75, 1.75, 0.3, 2.2, -3.8, 3.9))])   # (pass 2) tighter (the lens opened to 68 degrees)
 st.cue('sfx:pour', 'S10', 0.2, 0.25); st.cue('sfx:jet', 'S10', 0.0, 0.06)
 
 # 11: he flies in the hold. Dark, between the bags: he sits folded with his knees up, FRAGILE stuck on his forehead, under a swinging bulb; the plane
@@ -259,7 +259,7 @@ st.shot('S12', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
             k(round(JMP + 0.55, 3), toon={'face': {'lid': 0.45}}, toonDur=0.1),
             k(JMP, to=[ME12[0], 0.62, ME12[2]], dur=0.16, glide=True, ease='out', face='keep'), k(round(JMP + 0.16, 3), to=[ME12[0], 0.66, ME12[2]], dur=0.14, glide=True, ease='inOut', face='keep'),   # up, a hang at the top...
             k(round(JMP + 0.3, 3), to=[ME12[0], 0.0, ME12[2]], dur=0.13, glide=True, ease='in', face='keep')])],   # ...and down
-        props=[HALL('hall12', signX=-1.25), P('car12', 'carousel', pos=CAR, opts={**CAROPTS, 'flap': [[0.0, 0.0], [round(OUT12 - 0.05, 3), 0.0], [round(OUT12 + 0.1, 3), 0.45], [round(OUT12 + 0.35, 3), 0.35], [round(OUT12 + 0.5, 3), 0.0]]}),
+        props=[HALL('hall12', signX=-0.95), P('car12', 'carousel', pos=CAR, opts={**CAROPTS, 'flap': [[0.0, 0.0], [round(OUT12 - 0.05, 3), 0.0], [round(OUT12 + 0.1, 3), 0.45], [round(OUT12 + 0.35, 3), 0.35], [round(OUT12 + 0.5, 3), 0.0]]}),
                VAL('val12', pos=VR12, rot=[r(-PI / 2), 0, r(-PI / 2)], scale=1.3, opts={'color': RED, 'stickers': 15, 'seed': 0, **GOLD, 'tagScale': 2.0, 'tagSwing': 0.3},   # (pass 2) bigger, the gold card on it
                    keys=[k(OUT12, to=[r(VR12[0] - 0.55 * (D12 - OUT12)), BELT, BACKZ], dur=round(D12 - OUT12, 3), ease='linear')])],   # rides out at the belt's speed
         cams=[FC(0.0, [-1.6, 2.05, 1.6], [[ME12[0], 3.3, ME12[2]], [ME12[0], 0.7, ME12[2]], [r(ME12[0] - 0.9), 3.0, ME12[2]], [r(ME12[0] + 0.9), 3.0, ME12[2]], [r(EXITX + 1.0), 2.5, BACKZ], [r(EXITX - 0.5), BELT, BACKZ]], top=0.08, bottom=0.74)])   # (pass 2) both arms in at the top of the jump
