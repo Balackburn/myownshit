@@ -1780,3 +1780,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   le saut de joie suspendu, le double take et la mâchoire qui tombe, la petite valise qui croque sa main et le bras-élastique.
 - **Procédé** : les tâches de fond s'arrêtent à 30 min (2 h au plus) ; un brouillon coupé à 120 images sur 670 l'a montré. Les rendus longs partent
   maintenant détachés (`setsid nohup`, une chaîne par histoire) avec un guetteur qui signale chaque étape terminée.
+- **50 « Le hoquet » livrée** : génération complète finale (1080×1920, 27,3 s, −16,0 LUFS, crête −4,1 dBFS ; contrôles HyperFrames sans erreur)
+  après la revue 3 (7,5 / 7,6) et la passe finale.
