@@ -258,7 +258,7 @@ D10 = st.dur('S10')
 ME10 = [0.0, 0, -1.6]; OST10 = [0.45, 0, -1.2]   # (pass 3) the osteopath at his knee, facing the back of his head: from in front of the face on his back both faces show
 COUCH = lambda pid: P(pid, 'table', pos=[0.0, 0, -1.6], opts={'w': 1.85, 'd': 0.62, 'h': 0.47, 'color': '#F2F4F1', 'legs': '#8F9AA0'})   # (pass 3) he sits on its edge
 CHART = lambda pid: P(pid, 'spinePoster', pos=[-1.2, 1.75, -3.57], opts={'w': 0.7, 'h': 1.05})
-GRIP10 = {'reach': {'L': [-0.13, 1.6, -1.6, 1, 0.04], 'R': [0.13, 1.6, -1.6, 1, 0.04]}, 'hands': {'L': 'grip', 'R': 'grip'}}   # (pass 3) the fingertips on the sides of the head ('flat' is no hand pose: the hands hung relaxed beside it)
+GRIP10 = {'reach': {'L': [-0.13, 1.6, -1.53, 1, 0.04], 'R': [0.13, 1.6, -1.53, 1, 0.04]}, 'hands': {'L': 'grip', 'R': 'grip'}}   # (pass 3) the fingertips on the sides of the head ('flat' is no hand pose: the hands hung relaxed beside it)
 STRAIN = {'face': {'tongue': 0.85, 'tongueLen': 0.12, 'tongueYaw': 0.3, 'brow': -0.7, 'lid': 0.6, 'low': 0.3}}
 st.shot('S10', 'hospital', look=LOOKI, actors=[
         act('mec', ME10, 0, 'sit', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=BACK, toonDur=0.0),
@@ -273,14 +273,14 @@ st.shot('S10', 'hospital', look=LOOKI, actors=[
         props=[COUCH('couch10'), CHART('chart10'),
                P('wall10', 'plainWall', pos=[0.0, 1.6, 0.9], ry=180, opts={'w': 6.0, 'h': 3.2, 'color': '#EEF1EC'}),
                P('poster10', 'spinePoster', pos=[-0.95, 1.7, 0.88], ry=180, opts={'w': 0.7, 'h': 1.05})],   # (pass 3) the room's near wall behind them, the spine chart on it
-        cams=[FC(0.0, [-0.55, 1.75, -3.25], [[0.0, 1.98, ME10[2]], [0.0, 1.2, ME10[2]], [OST10[0], 2.22, OST10[2]], [-0.3, 1.5, ME10[2]], [0.7, 1.6, OST10[2]]], top=0.12, bottom=0.74,
+        cams=[FC(0.0, [-0.55, 1.75, -3.25], [[0.0, 1.98, ME10[2]], [0.0, 1.2, ME10[2]], [r(OST10[0] - 0.1), 2.48, OST10[2]], [-0.3, 1.5, ME10[2]], [0.7, 1.6, OST10[2]]], top=0.08, bottom=0.74,
                  drift=(0.08, 0.0, 0.06), lenses=range(30, 56), inside=(-6.8, 6.8, 0.0, 6.5, -3.45, 13.0))])   # (pass 3) from the chest up: against the wall, the knees asked for a 64 degree lens
         # (pass 3) in front of the face on his back: his face to us, the osteopath's straining face over his head, the hands clamped on it (from behind
         # the osteopath, the back of his head filled 40 % of the frame and his face never showed)
 
 # 11: straight. Close: CRAC! the head snaps round to the front: his face to us at last, a blink, the hint of a smile; the osteopath beams
 D11 = st.dur('S11'); CR11 = 0.18; OST11 = [0.75, 0, -1.25]   # (pass 3) the osteopath at his side, where S10 left him
-GRIP11 = {'reach': {'L': [-0.13, 1.6, -1.6, 1, 0.04], 'R': [0.13, 1.6, -1.6, 1, 0.04]}, 'hands': {'L': 'grip', 'R': 'grip'}}
+GRIP11 = {'reach': {'L': [-0.13, 1.6, -1.53, 1, 0.04], 'R': [0.13, 1.6, -1.53, 1, 0.04]}, 'hands': {'L': 'grip', 'R': 'grip'}}   # (pass 3) toward the back of the head: at mid-depth a hand covered his cheek
 TADA = lambda dy=0.0: {'touch': {'L': ['torso', 0.48, round(0.52 + dy, 3), 0.2, 1, 0.05], 'R': ['torso', -0.48, round(0.52 - dy, 3), 0.2, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}
 GRIN = {'mouth': 'teeth', 'mouthW': 0.4, 'cheeks': 0.6, 'brow': 0.6}
 st.shot('S11', 'hospital', look=LOOKI, actors=[
@@ -319,7 +319,7 @@ st.cue('whoosh', 'S12', 0.05, 0.35, 0.35, 400, 1800); st.cue('whoosh', 'S12', 0.
 
 # 13: it locked looking at the sky. From the side: the head stops with a spring, bent right back, the face to the ceiling, bobbling; deadpan; the
 #     osteopath scratches his head, looking up too
-D13 = st.dur('S13'); OST13 = [1.0, 0, -1.2]
+D13 = st.dur('S13'); OST13 = [0.82, 0, -1.25]   # (pass 3) a step nearer him: whole in the frame (at 1.0 the right edge cut him)
 SCR = lambda i: {'touch': {'R': ['head', (-0.05 if i % 2 else -0.11), (0.52 if i % 2 else 0.48), -0.02, 1, 0.03], 'L': ['torso', 0.24, -0.08, 0.06, 1, 0.03]}, 'hands': {'R': 'claw', 'L': 'fist'}, 'face': {'brow': 0.9, 'browTilt': 12, 'jaw': 0.25, 'mouth': 'wavy'}}
 st.shot('S13', 'hospital', look=LOOKI, actors=[
         act('mec', ME10, 0, 'sit', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=NECK(0.0, bx=-0.3), toonDur=0.0),
@@ -334,7 +334,7 @@ st.shot('S13', 'hospital', look=LOOKI, actors=[
             *[k(round(0.6 + 0.09 * i, 3), toon=SCR(i + 1), toonDur=0.08) for i in range(12)]])],
             # (pass 3) ...and scratches his head, in the frame (half out at the edge, his hand never reached his head)
         props=[COUCH('couch13'), CHART('chart13')],
-        cams=[FC(0.0, [0.8, 3.15, -0.55], [[0.0, 2.15, ME10[2]], [0.0, 1.0, ME10[2]], [-0.45, 1.5, ME10[2]], [0.45, 1.5, ME10[2]], [OST13[0], 2.3, OST13[2]], [OST13[0], 0.0, OST13[2]], [r(OST13[0] + 0.3), 1.6, OST13[2]]],
+        cams=[FC(0.0, [0.8, 3.15, -0.55], [[0.0, 2.15, ME10[2]], [0.0, 1.0, ME10[2]], [-0.45, 1.5, ME10[2]], [0.45, 1.5, ME10[2]], [OST13[0], 2.45, OST13[2]], [OST13[0], 0.0, OST13[2]], [r(OST13[0] + 0.45), 1.6, OST13[2]], [r(OST13[0] - 0.2), 2.5, OST13[2]]],
                  top=0.12, bottom=0.74, drift=(-0.05, -0.05, 0.0), lenses=range(30, 52))])
         # (pass 3) the osteopath whole beside him
         # (pass 2b) closer and higher, from the knees up: the face turned up to the ceiling read as a blank box at 70 px
