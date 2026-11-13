@@ -274,7 +274,7 @@ def WEDS(extra=None, react_at=None):
         out.append(act(nm, p, ry, 'stand', ex, keys=ks))
     return out
 GROOM = [0.05, 0.25, -27.3]
-VEILO = {'opacity': 0.95, 'len': 1.25, 'flare': 1.15, 'drape': True}; VEILOFF = [0, 0.53, -0.09]   # (pass 3) flattened down her back (round, it swung in front of her like a bell)   # (pass 2) an opaque, longer veil, its headband off her eye (faint and low, she read as a woman in a white suit)
+VEILO = {'opacity': 0.95, 'len': 1.25, 'flare': 1.15, 'drape': True, 'ring': 0.13}; VEILOFF = [0, 0.53, -0.09]   # (final) from a ring at the headband: the cone's point stood up above her bun as a white spike when she faced the lens   # (pass 3) flattened down her back (round, it swung in front of her like a bell)   # (pass 2) an opaque, longer veil, its headband off her eye (faint and low, she read as a woman in a white suit)
 VEIL = lambda pid: P(pid, 'brideVeil', on={'actor': 'mariee', 'joint': 'head', 'offset': VEILOFF}, opts=VEILO)
 BOUQ = lambda pid: P(pid, 'bouquet', on={'actor': 'mariee', 'hand': 'R', 'offset': [0, 0.02, 0.04]}, scale=1.6)
 HOLDB = {'reach': {'R': [-0.42, 1.3, -26.95, 1, 0.05]}, 'hands': {'R': 'grip'}}

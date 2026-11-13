@@ -957,7 +957,10 @@ export const NEWS_PROPS = {
   },
   brideVeil(o) { // a bride's veil to attach to an actor's head joint (offset to the top of the head): a translucent white drape down the back and a headband of flowers
     // (pass 2 of 52) o.opacity / o.len: a veil that reads (faint and short, she read as a woman in a white suit)
-    const vl = o.len ?? 0.95, g = grp(at(new THREE.Mesh(new THREE.ConeGeometry(0.3 * (o.flare ?? 1), vl, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: (o.opacity ?? 0.6) < 0.99, opacity: o.opacity ?? 0.6, side: THREE.DoubleSide, depthWrite: (o.opacity ?? 0.6) >= 0.99 })), 0, -0.35 - (vl - 0.95) / 2, -0.1 - (o.drape ? 0.1 : 0)));
+    // (final pass of 52) o.ring: the drape starts from a ring of that radius at the headband, not from a point (the cone's apex stood 0.12 above her bun
+    // and showed as a white spike whenever her head turned towards the lens)
+    const vl = o.len ?? 0.95, rb = 0.3 * (o.flare ?? 1), vgeo = o.ring ? new THREE.CylinderGeometry(o.ring, rb, vl, 14, 1, true) : new THREE.ConeGeometry(rb, vl, 14, 1, true);
+    const g = grp(at(new THREE.Mesh(vgeo, new THREE.MeshLambertMaterial({ color: '#FFFFFF', transparent: (o.opacity ?? 0.6) < 0.99, opacity: o.opacity ?? 0.6, side: THREE.DoubleSide, depthWrite: (o.opacity ?? 0.6) >= 0.99 })), 0, o.ring ? -vl / 2 : -0.35 - (vl - 0.95) / 2, -0.1 - (o.drape ? 0.1 : 0)));
     // (pass 3 of 52) o.drape: the cone flattened to a drape down her back, its front edge behind her shoulders (round, its hem swung in front of her torso
     // like a bell whenever she turned her head)
     if (o.drape) { const cone = g.children[0]; cone.scale.set(1, 1, 0.42); }

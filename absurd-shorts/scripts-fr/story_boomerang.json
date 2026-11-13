@@ -4727,7 +4727,8 @@
       "opacity": 0.95,
       "len": 1.25,
       "flare": 1.15,
-      "drape": true
+      "drape": true,
+      "ring": 0.13
      }
     },
     {
@@ -5272,7 +5273,8 @@
       "opacity": 0.95,
       "len": 1.25,
       "flare": 1.15,
-      "drape": true
+      "drape": true,
+      "ring": 0.13
      }
     },
     {
@@ -6275,7 +6277,8 @@
       "opacity": 0.95,
       "len": 1.25,
       "flare": 1.15,
-      "drape": true
+      "drape": true,
+      "ring": 0.13
      }
     },
     {
@@ -6570,7 +6573,8 @@
       "opacity": 0.95,
       "len": 1.25,
       "flare": 1.15,
-      "drape": true
+      "drape": true,
+      "ring": 0.13
      }
     },
     {
@@ -6977,7 +6981,8 @@
       "opacity": 0.95,
       "len": 1.25,
       "flare": 1.15,
-      "drape": true
+      "drape": true,
+      "ring": 0.13
      }
     },
     {
