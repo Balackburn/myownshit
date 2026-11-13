@@ -764,7 +764,7 @@ const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
-const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR', 'red'];   // (cycle 9) red: the whole face warms toward red   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
+const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR', 'red', 'bags'];   // (pass 4 of 50) bags: under the eyes   // (cycle 9) red: the whole face warms toward red   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
 function rigFace(A, t, env, tp, pos, ry, sc) {
   const custom = S.script?.faces, ek = lastKey(A.exprKeys, t), pk = prevKey(A.exprKeys, ek), since = t - ek.at, ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0), cfg = A.obj.userData.faceCfg || {};
   let st;
@@ -774,7 +774,8 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
   const strong = RIG_STRONG.has(ek.expr) && since < 0.9 || (cf?.exprW || 0) > 0.3, E = st.eyes;
   // blink: every 3.3 s (sometimes twice), and a quick one that winds up a strong reaction
   let lid = 0;
-  if (!strong && (cfg.blink ?? 1)) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3)); }
+  // (pass 3 of 51) toon face.noBlink: 1: no blink of its own while it is keyed (the eyes stay open through a jerk; the blink is keyed after it)
+  if (!strong && (cfg.blink ?? 1) && !cf?.noBlink) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3)); }
   if (RIG_STRONG.has(ek.expr) && pk && since < 0.1) lid = Math.max(lid, Math.sin(Math.PI * clamp01(since / 0.1)));
   if (cf?.lid) lid = Math.max(lid, cf.lid);   // toon face.lid 0..1: a keyed blink (a slow one: key it up and down over a few frames) or heavy lids
   // gaze: toward the look target before the head gets there, into a turn of the body before it starts, and idle darts
@@ -783,7 +784,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     const to = lk.look != null ? lookOffsets(A, lk.look, t, pos, ry, sc) : [0, 0], from = plk && plk.look != null ? lookOffsets(A, plk.look, t, pos, ry, sc) : [0, 0];
     const wh = ease.out(clamp01((t - lk.at - LOOK_LEAD) / 0.25)), wg = ease.out(clamp01((t - lk.at) / 0.06));
     gx += (to[0] - from[0]) * (1 - wh) * wg * 1.5; gy += (to[1] - from[1]) * (1 - wh) * wg * 1.5;
-    if (Math.abs(to[0] - from[0]) > 0.5 && t - lk.at > 0.02 && t - lk.at < 0.3) lid = Math.max(lid, blinkLid(t - lk.at - 0.05) * 0.85);   // a big shift of the gaze takes a blink with it
+    if (Math.abs(to[0] - from[0]) > 0.5 && t - lk.at > 0.02 && t - lk.at < 0.3 && !cf?.noBlink) lid = Math.max(lid, blinkLid(t - lk.at - 0.05) * 0.85);   // a big shift of the gaze takes a blink with it
   }
   gx += clamp(wrapA(facingAt(A, t + 0.2) - ry) * 1.1, -0.7, 0.7);
   if (!strong && (cfg.darts ?? 1)) {

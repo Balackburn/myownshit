@@ -43,7 +43,8 @@ function eiffelV2(o) {
     const pts = [0, 0.33, 0.66, 1].map(u => { const r = F + (D1 - F) * (1 - Math.pow(1 - u, 1.7)); return [sx * r, y1 * u, sz * r]; });
     for (let i = 0; i < 3; i++) seg(pts[i], pts[i + 1], 0.07 * H * (1 - 0.18 * i), 0.07 * H * (1 - 0.18 * (i + 1)));
     seg([sx * D1, y1, sz * D1], [sx * D2, y2, sz * D2], 0.045 * H, 0.032 * H);   // first deck to the second
-    seg([sx * D2, y2, sz * D2], [sx * T, yT, sz * T], 0.03 * H, 0.016 * H);      // the long upper legs to the top
+    seg([sx * D2, y2, sz * D2], [sx * T, yT, sz * T], 0.038 * H, 0.016 * H);     // the long upper legs to the top
+    g.add(at(box(0.095 * H, 0.03 * H, 0.095 * H, c, { pivot: 'bottom', outline: 0.004 * H }), sx * F, 0, sz * F));   // (pass 3 of 51) a pier under each foot: it stands on four feet (a leg read as a ramp into the avenue)
   }
   // the arches between the feet, on the four sides (half tori standing in the plane of each side)
   for (let k = 0; k < 4; k++) { const ar = new THREE.Mesh(new THREE.TorusGeometry(0.105 * H, 0.016 * H, 5, 12, Math.PI), mat(c)); ar.castShadow = true;
@@ -51,8 +52,11 @@ function eiffelV2(o) {
   // decks (a dark band under each reads as the platform's shadow), the core of the upper tower, the top, the spire
   g.add(at(box(2.2 * D1, 0.028 * H, 2.2 * D1, dk, { outline: 0.004 * H }), 0, y1, 0), at(box(2.5 * D1, 0.012 * H, 2.5 * D1, c), 0, y1 + 0.02 * H, 0));
   g.add(at(box(2.3 * D2, 0.022 * H, 2.3 * D2, dk, { outline: 0.004 * H }), 0, y2, 0), at(box(2.6 * D2, 0.01 * H, 2.6 * D2, c), 0, y2 + 0.015 * H, 0));
-  g.add(at(box(0.075 * H, yT - y2, 0.075 * H, c, { pivot: 'bottom', taper: { x: 0.35, z: 0.35 } }), 0, y2, 0));
-  g.add(at(box(0.06 * H, 0.035 * H, 0.06 * H, dk, { outline: 0.004 * H }), 0, yT, 0), at(cyl(0.006 * H, 0.012 * H, H - yT - 0.03 * H, c, 6, { pivot: 'bottom' }), 0, yT + 0.03 * H, 0));
+  // (pass 3 of 51) the upper tower a solid tapering shaft between the upper legs, the lantern, and a spire that ends in a point (three planks and a
+  // hair-thin cylinder read as no top at all)
+  g.add(at(box(0.12 * H, yT - y2, 0.12 * H, c, { pivot: 'bottom', taper: { x: 0.24, z: 0.24 }, outline: 0.004 * H }), 0, y2, 0));
+  const spire = new THREE.Mesh(new THREE.ConeGeometry(0.02 * H, H - yT - 0.03 * H, 6), mat(c)); spire.castShadow = true; spire.position.set(0, yT + 0.03 * H + (H - yT - 0.03 * H) / 2, 0);
+  g.add(at(box(0.055 * H, 0.035 * H, 0.055 * H, dk, { outline: 0.004 * H }), 0, yT, 0), spire);
   return g;
 }
 

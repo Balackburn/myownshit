@@ -80,11 +80,19 @@ export const GOMME_PROPS = {
     if (o.text !== '') cab.add(at(label(o.text || 'TÉLÉPHÉRIQUE', W * 0.8, 0.13, { bg: null, fg: '#F4F2EA', wrap: false }), 0, -0.12 - H * 0.62, D / 2 + 0.012));
     const riders = o.riders ?? 3, skins = ['#E2B48A', '#C98B5E', '#F0C9A0', '#8D5A3B'], hairs = ['#2B2118', '#5A3A22', '#D9C27A', '#1B1B1E'];
     const hs = o.riderScale ?? 1;   // (pass 2 of 51) o.riderScale: bigger heads, with eyes, leaning out toward the camera side (o.lean, m)
+    // (pass 3 of 51) o.riderFace: painted reactions on the riders (white eyes with pupils looking down, raised brows, an O mouth: two dots and no mouth
+    // read as blocks); o.riderLook (rad): their heads tipped down toward the street (at the gum), each nodding a little with the swing
+    const heads = [];
     for (let i = 0; i < riders; i++) { const xx = -W / 2 + (i + 0.5) * W / riders, hh = grp(at(box(0.2, 0.24, 0.2, skins[i % 4]), 0, 0, 0), at(box(0.21, 0.07, 0.21, hairs[(i + 1) % 4]), 0, 0.13, 0));
-      if (o.riderScale) for (const ex of [-0.045, 0.045]) hh.add(at(box(0.035, 0.05, 0.01, '#1B1B1E'), ex, 0.02, 0.102));
-      hh.scale.setScalar(hs); hh.position.set(xx, winY - 0.02 + (hs - 1) * 0.08, D / 2 - 0.18 + (o.lean || 0)); cab.add(hh); }
+      if (o.riderFace) {
+        for (const ex of [-0.05, 0.05]) { hh.add(at(box(0.06, 0.07, 0.008, '#FFFFFF'), ex, 0.03, 0.101), at(box(0.03, 0.035, 0.008, '#1B1B1E'), ex, 0.012, 0.106));
+          hh.add(at(box(0.06, 0.014, 0.008, '#1B1B1E'), ex, 0.085, 0.104, 0, 0, ex > 0 ? -0.35 : 0.35)); }
+        hh.add(at(box(0.05, 0.06, 0.008, '#4A1E1E'), 0, -0.065, 0.104));
+      } else if (o.riderScale) for (const ex of [-0.045, 0.045]) hh.add(at(box(0.035, 0.05, 0.01, '#1B1B1E'), ex, 0.02, 0.102));
+      hh.scale.setScalar(hs); hh.position.set(xx, winY - 0.02 + (hs - 1) * 0.08, D / 2 - 0.18 + (o.lean || 0)); hh.rotation.x = o.riderLook || 0; cab.add(hh); heads.push(hh); }
     hang.add(cab); g.add(hang);
-    g.userData.update = t => { let a = o.tilt || 0; for (const [t0, k] of o.swing || []) a += k * wob(t - t0, 4.2, 1.1); hang.rotation.z = a; };
+    g.userData.update = t => { let a = o.tilt || 0; for (const [t0, k] of o.swing || []) a += k * wob(t - t0, 4.2, 1.1); hang.rotation.z = a;
+      if (o.riderLook) heads.forEach((h, i) => { h.rotation.x = o.riderLook + 0.06 * Math.sin(t * 7 + i * 2.1); h.rotation.z = -a * 0.8; }); };
     g.userData.update(0); return g;
   },
 };

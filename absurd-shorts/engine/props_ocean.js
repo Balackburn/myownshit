@@ -120,12 +120,20 @@ export const OCEAN_PROPS = {
   waterGlass(o) { // an empty drinking glass (o.level 0..1 of water)
     const g = grp(); const gl = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.038, 0.13, 12, 1, true), new THREE.MeshLambertMaterial({ color: '#E8F6FF', transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
     gl.position.y = 0.065; g.add(gl, at(cyl(0.038, 0.038, 0.008, '#DCEFF8', 12), 0, 0.004, 0));
-    if (o.level) { const w = at(cyl(0.042, 0.038, 0.12 * o.level, o.water || '#7FC6EA', 12), 0, 0.06 * o.level + 0.008, 0); g.add(w); }   // (cycle 13) o.water: a deeper blue that reads under a warm grade (the pale one came out white)
+    let w = null, wl = null;
+    if (o.level) { w = at(cyl(0.042, 0.038, 0.12 * o.level, o.water || '#7FC6EA', 12), 0, 0.06 * o.level + 0.008, 0); g.add(w); }   // (cycle 13) o.water: a deeper blue that reads under a warm grade (the pale one came out white)
     // (pass 3 of 50) o.tumbler: a thick white rim at the mouth, two highlight strips down the side, a firmer glass and a lighter water line (a pale
     // see-through slab with no rim and no water line read as neither a glass nor upside down)
     if (o.tumbler) { gl.material.opacity = 0.5; g.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.0065, 6, 16), new THREE.MeshLambertMaterial({ color: '#F6FBFF' })), 0, 0.13, 0, PI / 2, 0, 0));
       for (const a of [0.5, 0.8]) g.add(at(box(0.006, 0.11, 0.002, '#FFFFFF'), Math.sin(a) * 0.043, 0.068, Math.cos(a) * 0.043, 0, a, 0));
-      if (o.level) g.add(at(cyl(0.0425, 0.0425, 0.004, o.waterLine || '#9ED8FF', 12), 0, 0.12 * o.level + 0.009, 0)); }
+      if (o.level) { wl = at(cyl(0.0425, 0.0425, 0.004, o.waterLine || '#9ED8FF', 12), 0, 0.12 * o.level + 0.009, 0); g.add(wl); } }
+    // (pass 4 of 50) o.vivid: the water unlit in a saturated blue behind a thinner glass (through the white glass it came out grey: a jar of nothing);
+    // o.levels [[t, level], ...]: the level over time, the gulps drinking it down
+    if (o.vivid && w) { w.material = new THREE.MeshBasicMaterial({ color: o.water || '#2E8BEA', toneMapped: false }); gl.material.opacity = 0.2; if (wl) wl.material = new THREE.MeshBasicMaterial({ color: o.waterLine || '#CFEFFF', toneMapped: false }); }
+    if (o.levels && w) { const L0 = o.level, ks = o.levels;
+      g.userData.update = t => { let lv = ks[0][1]; for (let i = 0; i < ks.length; i++) { if (t >= ks[i][0]) lv = ks[i][1]; if (i + 1 < ks.length && t >= ks[i][0] && t < ks[i + 1][0]) { const u = (t - ks[i][0]) / (ks[i + 1][0] - ks[i][0]); lv = ks[i][1] + (ks[i + 1][1] - ks[i][1]) * u; break; } }
+        lv = Math.max(0.02, lv); w.scale.y = lv / L0; w.position.y = 0.06 * lv + 0.008; if (wl) wl.position.y = 0.12 * lv + 0.009; };
+      g.userData.update(0); }
     g.userData.grip = [0, 0.06, 0]; return g;
   },
   sandPuff(o) { // a ring of sand clouds rising from the floor (current, impacts), from o.t0

@@ -60,14 +60,14 @@ export const HOQUET_PROPS = {
     // (pass 3 of 50) the flying pen: up 2.4 m/s and swelling to twice its size on the way (at its own size it read as a 2-3 px line sliding off the
     // paper), three fading copies behind it
     const penAt = u => ({ p: new THREE.Vector3(0.8 * u, 0.5 + 2.4 * u - 4.9 * u * u, 0.2 + 0.7 * u), rz: 9 * u, rx: 5 * u, s: 1 + Math.min(1, u / 0.15) });
-    const ghosts = o.penOff == null ? [] : [0.45, 0.28, 0.14].map(op => { const gm = new THREE.MeshBasicMaterial({ color: '#2A2C31', transparent: true, opacity: op, depthWrite: false });
+    const ghosts = o.penOff == null ? [] : [0.62, 0.38, 0.18].map(op => { const gm = new THREE.MeshBasicMaterial({ color: '#2A2C31', transparent: true, opacity: op, depthWrite: false });
       const gh = grp(new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.012, 0.34), gm), new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.004, 0.05, 8), new THREE.MeshBasicMaterial({ color: '#C8202A', transparent: true, opacity: op, depthWrite: false })));
       gh.children[0].position.z = -0.17; gh.children[1].position.set(0, -0.02, -0.34); gh.children[1].rotation.x = PI / 2; gh.visible = false; g.add(gh); return gh; });
     g.userData.update = t => {
       drum.rotation.x = -t * sp / 0.11;
       const a = amp(t), off = Math.max(0, Math.abs(a) - 1.0); arm.rotation.set(-0.42 - 0.25 * off + 0.04 * off * Math.sin(t * 60), 0.42 * Math.max(-1.3, Math.min(1.3, a)), 0);
       if (o.penOff != null) { const u = t - o.penOff; arm.visible = u < 0.75; if (u >= 0) { const P = penAt(u); arm.position.copy(P.p); arm.rotation.z += P.rz; arm.rotation.x -= P.rx; arm.scale.setScalar(P.s); } else { arm.position.set(0, 0.5, 0.2); arm.scale.setScalar(1); }   // (pass 2 of 50) o.penOff: the pen flies off in an arc
-        ghosts.forEach((gh, i) => { const v = u - 0.03 * (i + 1); gh.visible = v >= 0 && u < 0.5; if (gh.visible) { const P = penAt(v); gh.position.copy(P.p); gh.rotation.set(arm.rotation.x + 5 * (u - v), arm.rotation.y, arm.rotation.z - 9 * (u - v)); gh.scale.setScalar(P.s); } }); }   // (pass 3 of 50) three ghosts behind it: a smear
+        ghosts.forEach((gh, i) => { const v = u - 0.05 * (i + 1); gh.visible = v >= 0 && u < 0.5; if (gh.visible) { const P = penAt(v); gh.position.copy(P.p); gh.rotation.set(arm.rotation.x + 5 * (u - v), arm.rotation.y, arm.rotation.z - 9 * (u - v)); gh.scale.setScalar(P.s); } }); }   // (pass 3 of 50) three ghosts behind it: a smear
       band.redraw(Math.round(t * 30), (c, W, H) => { c.fillStyle = '#FBF8EE'; c.fillRect(0, 0, W, H); c.strokeStyle = 'rgba(60,80,120,0.25)'; c.lineWidth = 2;
         for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(W * i / 6, 0); c.lineTo(W * i / 6, H); c.stroke(); }
         c.strokeStyle = o.ink ? '#0B1236' : '#1B2A6B'; c.lineWidth = W * (o.ink ?? 0.008); c.lineJoin = 'round'; c.beginPath();   // (pass 2 of 50) o.ink: a thick dark line that reads at phone size
@@ -152,7 +152,9 @@ export const HOQUET_PROPS = {
   sodaCan(o) {
     const g = grp(at(cyl(0.045, 0.045, 0.16, o.color || '#C8202A', 12, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.04, 0.045, 0.012, P.grey, 12), 0, 0.166, 0),
       at(label(o.text || 'SODA', 0.085, 0.04, { bg: null, fg: '#FFFFFF' }), 0, 0.085, 0.046));
-    if (o.straw !== false) g.add(at(cyl(0.006, 0.006, 0.14, '#F4F2EA', 6), 0.012, 0.22, 0), at(cyl(0.006, 0.006, 0.08, '#F4F2EA', 6), 0.04, 0.3, 0, 0, 0, -0.9), at(cyl(0.0062, 0.0062, 0.05, '#E85A6A', 6), 0.012, 0.2, 0));
+    // (pass 4 of 50) o.strawBend 'back': the bent end turned back toward the drinker (a can turned to us bent it sideways, away from his mouth)
+    if (o.straw !== false && o.strawBend === 'back') g.add(at(cyl(0.006, 0.006, 0.14, '#F4F2EA', 6), 0.012, 0.22, 0), at(cyl(0.006, 0.006, 0.08, '#F4F2EA', 6), 0.012, 0.3, -0.03, -0.9, 0, 0), at(cyl(0.0062, 0.0062, 0.05, '#E85A6A', 6), 0.012, 0.2, 0));
+    else if (o.straw !== false) g.add(at(cyl(0.006, 0.006, 0.14, '#F4F2EA', 6), 0.012, 0.22, 0), at(cyl(0.006, 0.006, 0.08, '#F4F2EA', 6), 0.04, 0.3, 0, 0, 0, -0.9), at(cyl(0.0062, 0.0062, 0.05, '#E85A6A', 6), 0.012, 0.2, 0));
     g.userData.grip = [0, 0.08, 0]; return g;
   },
 
@@ -164,13 +166,24 @@ export const HOQUET_PROPS = {
   },
   // (pass 2 of 50) Blue water drops bursting from a point (pivot): o.at (t), o.n (16), o.dir [x, y, z] (the main direction), o.speed (2.4 m/s), o.spread
   // (0.6), o.color ('#4FA9E6'), o.r (0.022 m), o.life (0.75 s), o.g (9.8: lower for plaster flakes that drift): each drop flies on its arc under gravity, shrinks and is gone (the water from his cheeks)
+  // (pass 4 of 50) o.tear: outlined teardrops, their tip trailing their flight (icosahedra read as blue cubes, gravel); o.chip: flat outlined chips
+  // that tumble (plaster: white beads sat on his cheeks like popcorn); o.ink: the outline colour
   waterDrops(o) {
-    const n = o.n ?? 16, g = grp(), dir = new THREE.Vector3(...(o.dir || [0, 0.6, 1])).normalize(), sp = o.speed ?? 2.4, spr = o.spread ?? 0.6, life = o.life ?? 0.75;
-    const m = new THREE.MeshLambertMaterial({ color: o.color || '#4FA9E6', emissive: '#16507A', emissiveIntensity: 0.25 }), geo = new THREE.IcosahedronGeometry(o.r ?? 0.022, 0);
-    const drops = Array.from({ length: n }, (_, i) => { const d = new THREE.Mesh(geo, m); d.castShadow = false; g.add(d);
-      const v = dir.clone().add(new THREE.Vector3(Math.sin(i * 2.399) * spr, Math.cos(i * 1.7) * spr * 0.6, Math.sin(i * 3.1 + 1) * spr * 0.5)).normalize().multiplyScalar(sp * (0.7 + 0.5 * rnd(i + 3))); return { d, v, k: 0.6 + 0.8 * rnd(i) }; });
+    const n = o.n ?? 16, g = grp(), dir = new THREE.Vector3(...(o.dir || [0, 0.6, 1])).normalize(), sp = o.speed ?? 2.4, spr = o.spread ?? 0.6, life = o.life ?? 0.75, R = o.r ?? 0.022;
+    const m = new THREE.MeshLambertMaterial({ color: o.color || '#4FA9E6', emissive: o.tear ? (o.glow || '#1E5FA8') : '#16507A', emissiveIntensity: o.tear ? 0.45 : 0.25 }), geo = new THREE.IcosahedronGeometry(R, 0);
+    const inkM = new THREE.MeshBasicMaterial({ color: o.ink || (o.tear ? '#123A63' : '#5A4A3A'), side: THREE.BackSide });
+    const outlined = (mesh, k) => { const ol = new THREE.Mesh(mesh.geometry, inkM); ol.position.copy(mesh.position); ol.scale.setScalar(k); ol.castShadow = false; return ol; };
+    const mk = () => { if (o.tear) { const ball = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 8), m), tip = at(new THREE.Mesh(new THREE.ConeGeometry(R * 0.94, R * 2.5, 10), m), 0, R * 1.3, 0);
+        const d = grp(ball, tip, outlined(ball, 1.24), outlined(tip, 1.2)); return d; }
+      if (o.chip) { const c = new THREE.Mesh(new THREE.BoxGeometry(R * 2.4, R * 0.45, R * 1.7), m); return grp(c, outlined(c, 1.3)); }
+      return new THREE.Mesh(geo, m); };
+    const UP = new THREE.Vector3(0, 1, 0), vel = new THREE.Vector3();
+    const drops = Array.from({ length: n }, (_, i) => { const d = mk(); d.castShadow = false; g.add(d);
+      const v = dir.clone().add(new THREE.Vector3(Math.sin(i * 2.399) * spr, Math.cos(i * 1.7) * spr * 0.6, Math.sin(i * 3.1 + 1) * spr * 0.5)).normalize().multiplyScalar(sp * (0.7 + 0.5 * rnd(i + 3))); return { d, v, k: 0.6 + 0.8 * rnd(i), i }; });
     g.userData.update = t => { const u = t - (o.at ?? 0); for (const q of drops) { const on = u >= 0 && u < life; q.d.visible = on; if (!on) continue;
-      q.d.position.set(q.v.x * u, q.v.y * u - 0.5 * (o.g ?? 9.8) * u * u, q.v.z * u); q.d.scale.setScalar(q.k * (1 - 0.6 * u / life)); } };
+      const gg = o.g ?? 9.8; q.d.position.set(q.v.x * u, q.v.y * u - 0.5 * gg * u * u, q.v.z * u); q.d.scale.setScalar(q.k * (1 - (o.tear || o.chip ? 0.35 : 0.6) * u / life));
+      if (o.tear) { vel.set(q.v.x, q.v.y - gg * u, q.v.z); if (vel.lengthSq() > 1e-6) q.d.quaternion.setFromUnitVectors(UP, vel.normalize().negate()); }
+      if (o.chip) q.d.rotation.set(u * (5 + 6 * rnd(q.i + 1)), u * (4 + 5 * rnd(q.i + 2)), u * 3); } };
     g.userData.update(0); return g;
   },
 
@@ -179,6 +192,26 @@ export const HOQUET_PROPS = {
   // (pass 3 of 50) o.thick: line width times this (the 1-2 px hairlines vanished at phone size); o.edge: a light chipped edge drawn under each crack
   ceilingCracks(o) {
     const R = o.r ?? 0.9, n = o.n ?? 9, th = o.thick ?? 1;
+    // (pass 4 of 50) o.jag: jagged cracks (seven sharp kinks) that fork into branches, small pale chips along them (the offset light band read as a
+    // cast shadow, the even rods as sticks); o.crater [rx, ry] (fractions of the half-size): a dented outline round the body, the cracks starting at its
+    // edge; o.from: the scale it grows from (an old crater that a new blow enlarges)
+    if (o.jag) {
+      const pl2 = canvasPlane(2 * R, 2 * R, (c, W, H) => { c.clearRect(0, 0, W, H); c.lineCap = 'round'; c.lineJoin = 'miter';
+        const segs = 7, w0 = W * 0.011 * th, cr = o.crater;
+        const path = (seed, a0, x0, y0, L0) => { let a = a0, x = x0, y = y0; const pts = [[x, y]]; for (let j = 0; j < segs; j++) { a += (rnd(seed * 7 + j) - 0.5) * 1.25; x += Math.cos(a) * L0 / segs; y += Math.sin(a) * L0 / segs; pts.push([x, y]); } return pts; };
+        const stroke = (pts, w) => { for (let j = 0; j < pts.length - 1; j++) { c.beginPath(); c.moveTo(pts[j][0], pts[j][1]); c.lineTo(pts[j + 1][0], pts[j + 1][1]); c.lineWidth = Math.max(1.5, w * (1 - 0.8 * j / pts.length)); c.strokeStyle = '#2B211B'; c.stroke(); } };
+        const chips = (pts, w, seed) => { c.fillStyle = o.edge || '#FFFDF8'; for (let j = 1; j < pts.length - 1; j++) { if (rnd(seed + j * 3) < 0.3) continue; const [x, y] = pts[j], [nx, ny] = pts[j + 1], s_ = w * (1.4 + 1.6 * rnd(seed + j)), side = rnd(seed + j * 5) < 0.5 ? -1 : 1, an = Math.atan2(ny - y, nx - x) + side * PI / 2;
+          c.beginPath(); c.moveTo(x + Math.cos(an) * s_ * 0.5, y + Math.sin(an) * s_ * 0.5); c.lineTo(x + Math.cos(an + 0.6) * s_ * 1.7, y + Math.sin(an + 0.6) * s_ * 1.7); c.lineTo(x + Math.cos(an - 0.5) * s_ * 1.5, y + Math.sin(an - 0.5) * s_ * 1.5); c.closePath(); c.fill(); } };
+        if (cr) { c.beginPath(); for (let k_ = 0; k_ <= 48; k_++) { const a = k_ / 48 * TAU, jj = 1 + 0.16 * (rnd(k_ * 3.7) - 0.5); const x = W / 2 + Math.cos(a) * cr[0] * W / 2 * jj, y = H / 2 + Math.sin(a) * cr[1] * H / 2 * jj; k_ ? c.lineTo(x, y) : c.moveTo(x, y); } c.closePath();
+          c.fillStyle = 'rgba(120,96,74,0.2)'; c.fill(); c.lineWidth = w0 * 0.75; c.strokeStyle = '#3A2E26'; c.stroke(); c.save(); c.translate(-w0 * 0.55, -w0 * 0.55); c.lineWidth = w0 * 0.45; c.strokeStyle = 'rgba(255,253,248,0.95)'; c.stroke(); c.restore(); }
+        for (let i = 0; i < n; i++) { const a = i * TAU / n + 0.3 * rnd(i), x0 = W / 2 + (cr ? Math.cos(a) * cr[0] * W / 2 : 0), y0 = H / 2 + (cr ? Math.sin(a) * cr[1] * H / 2 : 0);
+          const L = W * (0.3 + 0.16 * rnd(i + 9)) * (cr ? 0.75 : 1), pts = path(i, a, x0, y0, L); chips(pts, w0, i * 11); stroke(pts, w0);
+          for (const b of [2, 4]) if (rnd(i * 13 + b) < 0.75) { const [bx, by] = pts[b], ba = Math.atan2(pts[b + 1][1] - by, pts[b + 1][0] - bx) + (rnd(i + b) < 0.5 ? -1 : 1) * (0.55 + 0.4 * rnd(i * 3 + b)); const bp = path(i * 31 + b, ba, bx, by, L * 0.4); chips(bp, w0 * 0.6, i * 29 + b); stroke(bp, w0 * 0.6); } }
+        if (!cr) { c.fillStyle = 'rgba(58,46,38,0.35)'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.05, 0, TAU); c.fill(); } }, { res: 1024, transparent: true });
+      pl2.userData.noAO = true; const g2 = grp(pl2), f0 = o.from ?? 0.01;
+      g2.userData.update = t => { const u = (t - (o.at ?? 0)) / 0.08; g2.visible = u >= 0; g2.scale.setScalar(Math.min(1, Math.max(f0, f0 + (1 - f0) * u))); };
+      g2.userData.update(0); return g2;
+    }
     const pl = canvasPlane(2 * R, 2 * R, (c, W, H) => { c.clearRect(0, 0, W, H); c.lineCap = 'round'; c.lineJoin = 'round';
       const path = i => { let a = i * TAU / n + 0.3 * rnd(i), x = W / 2, y = H / 2; const L = W * (0.32 + 0.16 * rnd(i + 9)), pts = [[x, y]];
         for (let j = 0; j < 4; j++) { a += (rnd(i * 7 + j) - 0.5) * 0.7; x += Math.cos(a) * L / 4; y += Math.sin(a) * L / 4; pts.push([x, y]); } return pts; };
@@ -214,6 +247,51 @@ export const HOQUET_PROPS = {
         const fold = Math.sin((x / w + 0.5) * nf * TAU) * (0.02 + 0.025 * v + 0.07 * u), hem = -0.035 * v * v * (0.5 + 0.5 * Math.cos((x / w) * 11)) * (1 - u);
         pa.setXYZ(i, x * (1 - 0.3 * u * v), y * (1 - 0.62 * u) + hem - 0.2 * u * u * h * v, fold + 0.3 * u * (1 - v) * (1 - v) + sway * v); }
       pa.needsUpdate = true; geo.computeVertexNormals(); };
+    g.userData.update(0); return g;
+  },
+
+  // (pass 4 of 50) a framed chart for the lab wall: o.w x o.h, o.title ('RÉSEAU SISMIQUE'), five traces, the last one red with a spike (the lab had
+  // the living room's landscape painting: it read as his flat)
+  seismoChart(o) {
+    const w = o.w ?? 1.1, h = o.h ?? 0.75;
+    const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F4F7F8'; c.fillRect(0, 0, W, H); c.strokeStyle = '#C9D6DC'; c.lineWidth = 1; for (let x = 0; x < W; x += W / 24) { c.beginPath(); c.moveTo(x, H * 0.18); c.lineTo(x, H); c.stroke(); }
+      c.fillStyle = '#1F3B57'; c.fillRect(0, 0, W, H * 0.16); c.fillStyle = '#FFFFFF'; c.font = `bold ${Math.round(H * 0.09)}px Poppins, Arial, sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.title || 'RÉSEAU SISMIQUE', W / 2, H * 0.085);
+      for (let r_ = 0; r_ < 5; r_++) { const y0 = H * (0.3 + r_ * 0.15); c.beginPath(); c.lineWidth = Math.max(2, W * 0.004); c.strokeStyle = r_ === 4 ? '#C62828' : '#24303A';
+        for (let x = 0; x <= W; x += 3) { const u = x / W, sp_ = r_ === 4 && Math.abs(u - 0.62) < 0.08 ? Math.sin(u * 160) * H * 0.07 * (1 - Math.abs(u - 0.62) / 0.08) : 0, y = y0 + Math.sin(u * 47 + r_ * 1.7) * H * 0.008 + (rnd(Math.floor(x / 3) + r_ * 500) - 0.5) * H * 0.012 + sp_; x ? c.lineTo(x, y) : c.moveTo(x, y); }
+        c.stroke(); } }, { res: 768 });
+    return grp(at(box(w + 0.05, h + 0.05, 0.03, '#3B4148', { outline: 0.006 }), 0, 0, -0.018), pl);
+  },
+
+  // (pass 4 of 50) speed lines drawn like the bursts: o.n (5) upright white strokes with a black outline, o.len (1.2 m), spread over o.w (0.8 m),
+  // popping at o.at and gone in o.dur (0.13 s, four frames), shrinking up toward their tops (a fast launch left a soft grey smear that read as a stain).
+  // Faces +Z (face: 'camera'); origin at the foot of the lines
+  zipLines(o) {
+    // o.horiz: 1 lying flat, shrinking toward the left (-1: the right): a zip off along the ground
+    const n = o.n ?? 5, L = o.len ?? 1.2, Wd = o.w ?? 0.8, g = grp(), inner = grp(), lines = []; g.add(inner); if (o.horiz) inner.rotation.z = (o.horiz === -1 ? -1 : 1) * PI / 2;
+    for (let i = 0; i < n; i++) { const x = (n > 1 ? i / (n - 1) - 0.5 : 0) * Wd + (rnd(i) - 0.5) * 0.08, l = L * (0.6 + 0.4 * rnd(i + 5)), y0 = (rnd(i + 9) - 0.5) * 0.25;
+      const ink = new THREE.Mesh(new THREE.PlaneGeometry(0.055, l), new THREE.MeshBasicMaterial({ color: '#1B1B1E', transparent: true, depthWrite: false, toneMapped: false }));
+      const fill = new THREE.Mesh(new THREE.PlaneGeometry(0.028, l - 0.03), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, depthWrite: false, toneMapped: false }));
+      const ln = grp(ink, at(fill, 0, 0, 0.002)); inner.add(ln); lines.push({ ln, l, y0, ink, fill }); }
+    g.userData.update = t => { const u = (t - (o.at ?? 0)) / (o.dur ?? 0.13); g.visible = u >= 0 && u < 1; if (!g.visible) return;
+      for (const q of lines) { const k = Math.max(0.05, 1 - u); q.ln.scale.y = k; q.ln.position.set(q.ln.position.x || 0, q.y0 + q.l * (1 - k / 2), 0); q.ink.material.opacity = 1 - 0.4 * u; q.fill.material.opacity = 1 - 0.4 * u; } };
+    lines.forEach((q, i) => { q.ln.position.x = (n > 1 ? i / (n - 1) - 0.5 : 0) * Wd + (rnd(i) - 0.5) * 0.08; });
+    g.userData.update(-1); return g;
+  },
+
+  // (pass 4 of 50) a plaster cornice along the top of a wall, o.w long, front +Z, its top at the origin: seen from below, the corner where the wall meets
+  // the ceiling gives the ceiling its perspective (flat on, it read as the top of a wall)
+  cornice(o) {
+    const w = o.w ?? 7, col = o.color || '#F3EDE2';
+    return grp(at(box(w, 0.07, 0.17, col, { outline: 0.005 }), 0, -0.035, 0.085), at(box(w, 0.06, 0.11, col, { outline: 0.005 }), 0, -0.1, 0.055), at(box(w, 0.04, 0.055, '#E2D8C8', { outline: 0.004 }), 0, -0.15, 0.028));
+  },
+
+  // (pass 4 of 50) a pendant lamp: a cord o.drop (0.55 m) and a cone shade (o.color), origin at the ceiling; o.swing [[t, amp], ...] it swings and dies out
+  pendantLamp(o) {
+    const d = o.drop ?? 0.55, g = grp(), arm = grp(at(cyl(0.008, 0.008, d, '#2A2C31', 6), 0, -d / 2, 0));
+    const shade = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.18, 14, 1, true), new THREE.MeshLambertMaterial({ color: o.color || '#E8452C', side: THREE.DoubleSide })); shade.position.y = -d - 0.06;
+    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFF6DA', toneMapped: false })); bulb.position.y = -d - 0.14;
+    arm.add(shade, bulb); g.add(at(cyl(0.05, 0.05, 0.03, '#2A2C31', 10), 0, -0.015, 0), arm);
+    g.userData.update = t => { let a = 0; for (const [t0, k] of o.swing || []) a += k * wob(t - t0, 6.5, 1.4); arm.rotation.z = a; arm.rotation.x = a * 0.4; };
     g.userData.update(0); return g;
   },
 

@@ -195,10 +195,12 @@ function mergeStatic(root) {
 /* ------------------------------------------------------------------ sets */
 const S = {
   office(o = {}) { // o.door === false: no door (a scene prop door replaces it); o.printer === false: free the right corner
-    const g = grp(), { back } = room(g, { wall: P.cream, band: P.teal, bandH: 1.05, trim: P.navy, floor: '#CDB894' });
-    g.add(prop('carpet', { w: 4.8, d: 2.6, color: o.carpet || P.red }, 0, 0, -0.4), prop('window', { w: 1.3, h: 1.3, color: P.teal }, -1.75, 1.0, back),
+    // (pass 4 of 50) o.wall / o.band / o.trim: walls of its own (a lab in the living room's peach and teal read as his flat); o.picture === false: no
+    // landscape painting; o.carpet === false: no rug (its red band was the hottest colour of the frame, under the map)
+    const g = grp(), { back } = room(g, { wall: o.wall || P.cream, band: o.band || P.teal, bandH: 1.05, trim: o.trim || P.navy, floor: o.floor || '#CDB894' });
+    g.add(...(o.carpet === false ? [] : [prop('carpet', { w: 4.8, d: 2.6, color: o.carpet || P.red }, 0, 0, -0.4)]), prop('window', { w: 1.3, h: 1.3, color: P.teal }, -1.75, 1.0, back),
       prop('table', { color: P.red, legs: P.redDark, w: 0.75, d: 0.5, h: 0.72 }, 2.0, 0, back + 0.45), tableLamp(1.8, 0.72, back + 0.4), prop('mug', { color: P.cream }, 2.2, 0.72, back + 0.5),
-      at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03), prop('plant', {}, -3.9, 0, back + 0.4),
+      ...(o.picture === false ? [] : [at(picture(0.9, 0.7), 2.0, 2.05, back + 0.03)]), prop('plant', {}, -3.9, 0, back + 0.4),
       prop('desk', {}, -4.6, 0, -1.4, 0.35), prop('chair', { color: P.navy }, -4.9, 0, -2.1, 0.35));
     if (o.door !== false) g.add(prop('door', {}, 4.7, 0, back));
     g.add(at(grp(cyl(0.28, 0.28, 0.05, P.white, 12), at(torus(0.28, 0.03, P.navy, 4, 16), 0, 0, 0, PI / 2), at(box(0.02, 0.18, 0.01, P.ink), 0, 0.07, 0.03), at(box(0.13, 0.02, 0.01, P.ink), 0.05, 0, 0.03)), 3.4, 2.6, back + 0.03, PI / 2));

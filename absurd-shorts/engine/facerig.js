@@ -165,6 +165,13 @@ export function makeFaceRig(v = null) {
     const X = st.extras || {};
     if (X.red > 0.02) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.88 * c01(X.red); g.fillStyle = '#FF3A22'; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }   // (cycle 9) extras.red: the face warms toward red (multiplied over the skin, under the line work)
     for (const k of ['shadow', 'blush']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
+    // (pass 4 of 50) extras.bags 0..1: grey-violet bags under both eyes, a soft crescent and two painted arcs (three days without sleep: the blue gloom
+    // strokes on the forehead alone did not say it)
+    if (X.bags > 0.02) for (const s of 'LR') { const a = A['eye' + s]; if (!a) continue; const u = c01(X.bags), ex = a.cx, ey = a.cy + a.h * 0.5;
+      g.save(); g.globalAlpha = 0.32 * u; g.fillStyle = '#8E7FA8'; g.beginPath(); g.ellipse(ex, ey + a.h * 0.1, a.w * 0.5, a.h * 0.26, 0, 0, Math.PI); g.fill();
+      g.globalAlpha = 0.85 * u; g.strokeStyle = '#6E5E8A'; g.lineCap = 'round';
+      for (const [dy, sx, lw] of [[0.06, 0.46, 0.085], [0.3, 0.34, 0.065]]) { g.lineWidth = Math.max(2.5, a.h * lw); g.beginPath(); g.ellipse(ex, ey + a.h * dy, a.w * sx, a.h * 0.2, 0, 0.12 * Math.PI, 0.88 * Math.PI); g.stroke(); }
+      g.restore(); }
     for (const s of 'LR') {
       if (st.cheeks > 0.02) { const [x, y] = centre('cheek' + s); spr(g, 'cheek' + s, x, y, 0, 8 - 14 * st.cheeks, 0, 1, 1, c01(st.cheeks * 1.6)); }
       if (st.puff > 0.02) { const [x, y] = centre('puff' + s); spr(g, 'puff' + s, x + (s === 'L' ? 30 : -30), y, (s === 'L' ? -1 : 1) * 10 * (st.puff - 1), 0, 0, 0.5 + 0.5 * st.puff, 0.7 + 0.3 * st.puff, c01(st.puff * 1.6)); }

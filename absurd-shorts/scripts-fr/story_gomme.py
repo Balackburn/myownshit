@@ -39,14 +39,17 @@ PT = lambda p: {'point': [r(v) for v in p]}
 STREET = {'clear': [-80, 80], 'paveW': 6.5, 'eiffelStyle': 'v2'}   # (pass 2) the connected Eiffel tower (the old one read as a stepladder)
 LR = {'tv': False, 'carpet': False, 'pictureX': -1.7}   # (pass 2) the painting off the axis of his head (its frame sat behind it)
 SEAT = [0.0, 0, -2.75]
-PHONE = lambda pid: P(pid, 'smartPhone', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.05], 'face': 'camera', 'faceBack': True}, scale=2.2, opts={'case': '#F2C94C'})   # (pass 2) its back to us, the screen to him (we saw the screen and his palm)
-READ = {'bend': {'neck': [0.42, 0, 0, 1, None]}, 'face': {'gy': 0.75, 'lid': 0.35}}   # (pass 2) head down on his phone: absorbed (the cause of the step)
+PHONE = lambda pid: P(pid, 'smartPhone', on={'actor': 'mec', 'hand': 'R', 'offset': [0, -0.07, -0.06], 'face': 'camera', 'faceBack': True}, scale=1.85, opts={'case': '#22252B'})   # (pass 3) a thin dark phone (the flat yellow plane read as a card held to his ear)
+READ = {'bend': {'neck': [0.62, 0, 0, 1, None]}, 'touch': {'R': ['torso', -0.06, 0.5, 0.4, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'gy': 0.8, 'lid': 0.35}}   # (pass 2) head down on his phone: absorbed (the cause of the step)
+# (pass 3) the head tipped well down, the phone held out under his chin in front of the face (held at chin height beside the face it read as a call);
+# guided in the frame of his torso (the touch on the face left the hand at his chest, behind the target); the phone up out of his fist (centred
+# on the fist, the fist and the forearm hid it)
 def PLANT(p, w=1.0, side='L', base=None):
     """a toon state with the foot held at p (weight w), on top of `base`"""
     d = dict(base or {}); d['plant'] = {side: [r(p[0]), r(p[1]), r(p[2]), w]}; return d
 def RD(extra=None):
     """(pass 2) the reading state (head down on the phone) with extra channels on top"""
-    d = {'bend': dict(READ['bend']), 'face': dict(READ['face'])}
+    d = {'bend': dict(READ['bend']), 'face': dict(READ['face']), 'touch': dict(READ['touch']), 'hands': dict(READ['hands'])}
     for k_, v in (extra or {}).items():
         if k_ in ('bend', 'face'): d[k_].update(v)
         else: d[k_] = v
@@ -72,41 +75,45 @@ st.cue('sfx:splat', 'S01', TS, 0.45)
 D2 = st.dur('S02'); SNAP = 1.0
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [X1, 0, 0.72], 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=PLANT(GUMPT, 1.0, base=RD()), toonDur=0.0),
-            k(0.0, to=[X1, 0, 2.36], dur=round(SNAP + 0.5, 3), clip='walkRead', then='readPhone', ease='linear', face='keep'),   # (pass 2b) he stops for the take (it played while he walked on)
+            k(0.0, to=[X1, 0, 2.36], dur=round(SNAP + 0.5, 3), clip='walkRead', then='readPhone', ease='out', face='keep'),   # (pass 2b) he stops for the take (it played while he walked on); (pass 3) slowing against the pull
+            k(0.3, toon=PLANT(GUMPT, 1.0, base=RD({'lay': [0.14, 0]})), toonDur=0.4, toonEase='inOut'),   # (pass 3) leaning into it, the leg thinning
             k(round(SNAP - 0.12, 3), toon=PLANT(GUMPT, 1.0, base=RD({'sq': [0.97, 1.03, 0.97]})), toonDur=0.1),                      # the strain, just before
             k(SNAP, toon={'plant': {'L': [GUMPT[0], GUMPT[1], GUMPT[2], 0.0]}, 'wave': {'legL': [0.16, 1.0, 0.0, 1], 'shinL': [0.16, 1.0, -1.0, 1]},
                           'bend': {'legL': [-1.0, 0, 0, 1, None], 'shinL': [0.35, 0, 0, 1, None], 'armL': [0, 0.9, 0, 1, None], 'armR': [0, -0.6, 0, 1, None]}, 'lay': [-0.18, 0], 'face': {'lid': 0.0, 'brow': 0.6, 'eye': 0.3}}, toonDur=0.05, toonEase='out'),   # (pass 2) it lets go: the leg slings forward past the other, he rocks back...
             k(round(SNAP + 0.14, 3), toon={'wave': {'legL': [0.08, 1.0, 1.0, 1], 'shinL': [0.08, 1.0, 0.0, 1]}, 'bend': {'legL': [0.35, 0, 0, 1, None], 'armL': [0, 0.5, 0, 1, None], 'armR': [0, -0.4, 0, 1, None]}, 'lay': [0.16, 0], 'face': {'lid': 0.1, 'brow': 0.5}}, toonDur=0.08),   # ...stumbles forward...
             k(round(SNAP + 0.28, 3), toon=RD({'wave': {'legL': [0.0, 1.0, 2.0, 1], 'shinL': [0.0, 1.0, 1.0, 1]}}), toonDur=0.14),   # ...and back to his phone
-            k(round(SNAP + 0.34, 3), look=[GUMPT[0], 0.1, GUMPT[2]]), k(round(SNAP + 0.47, 3), look=None),   # (pass 2b) a glance back at the gum, back to his phone...
+            k(round(SNAP + 0.34, 3), look=[r(GUMPT[0] - 1.6), 0.2, r(GUMPT[2] + 1.2)]), k(round(SNAP + 0.47, 3), look=None),   # (pass 2b) a glance back at the gum, back to his phone...
+            # (pass 3) the glance three-quarters over the shoulder on our side, the eyes leading: aimed straight back we saw the back of his head
             k(round(SNAP + 0.52, 3), toon={'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),   # ...the dip...
             k(round(SNAP + 0.56, 3), look='camera'),
-            k(round(SNAP + 0.56, 3), toon={'sq': [0.95, 1.06, 0.95], 'bend': {'armL': [0, 0.5, 0, 1, None], 'armR': [0, -0.55, 0, 1, None], 'foreR': [1.1, 0, 0, 1, None]}, 'face': {'pop': 0.7, 'popLen': 0.28, 'brow': 1, 'jaw': 0.35}}, toonDur=0.04, toonEase='outBack')])],
+            k(round(SNAP + 0.56, 3), toon={'sq': [0.95, 1.06, 0.95], 'bend': {'armL': [0, 0.5, 0, 1, None]}, 'reach': {'R': [r(X1 - 0.3), 0.98, 2.62, 1, 0.05]}, 'face': {'pop': 0.7, 'popLen': 0.28, 'brow': 1, 'jaw': 0.35}}, toonDur=0.04, toonEase='outBack')])],
+        # (pass 3) the phone dropped to his waist in the take (on his chest it covered his chin)
         # (pass 2b) ...and the take at us, eyes out on stalks, the arms open, the forearm dropped (the phone off his face): with the take aimed at the gum behind him,
         # all we saw was the back of his head
 
         props=[PHONE('phone2'), P('blob2', 'gumBlob', pos=BLOB, opts={'r': 0.2, 'pull': [[round(SNAP - 0.02, 3), 0.0], [round(SNAP + 0.08, 3), 1.0]]})],
         tethers=[STRAND(PT(GUMPT), FOOT(), frm=SNAP, sag=0.0, rad=0.03, taper=0.5, thin=[0.8], wobble=[[SNAP, 0.06, 30, 6]])],
-        cams=[FC(0.0, [4.4, 1.15, 4.7], [[GUMPT[0], 0.0, GUMPT[2]], [X1, 2.3, 2.75], [X1, 2.3, 1.7], [X1, 0.0, 2.75]], top=0.1, bottom=0.74),
+        cams=[FC(0.0, [1.6, 1.1, 1.25], [[GUMPT[0], 0.0, GUMPT[2]], [X1, 2.3, 2.45], [X1, 0.0, 2.45], [X1, 2.3, 1.0]], top=0.1, bottom=0.74),   # (pass 3) side on: the leg stretched to twice its length reads at its length (from the front it measured 1.1x); far enough back for him and the gum
               glide([FC(round(SNAP + 0.3, 3), [6.1, 1.6, 4.6], [[X1, 2.4, 2.3], [X1, 1.15, 2.3], [r(X1 - 0.45), 1.8, 2.3], [r(X1 + 0.45), 1.8, 2.3]], top=0.14, bottom=0.7, drift=(0.0, 0.0, 0.35))], 0.3)])   # (pass 2) a push in for the double take
 st.cue('sfx:stretch', 'S02', 0.2, 0.3); st.cue('sfx:boing', 'S02', SNAP, 0.4)
 
 # 3: since then it stretches behind him. From the front, low: he walks toward us on his phone, the pink strand trailing behind him all the way back to
 #    the blob; a lady crossing the pavement hops over it, looks down at it, then at him
 D3 = st.dur('S03'); HOP3 = 0.55
-LADY_A = [5.4, 0, 3.4]; LADY_B = [r(X1 - 0.55), 0, 3.36]; LADY_C = [r(X1 + 0.5), 0, 3.32]; LADY_D = [9.4, 0, 3.25]
+LADY_A = [5.4, 0, 4.4]; LADY_B = [r(X1 - 0.55), 0, 4.36]; LADY_C = [r(X1 + 0.55), 0, 4.32]; LADY_D = [9.4, 0, 4.25]   # (pass 3) a metre closer to us
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [X1, 0, 5.3], 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=RD(), toonDur=0.0), k(0.0, to=[X1, 0, 7.25], dur=round(D3 + 0.03, 3), clip='walkRead', then='stand', ease='linear', face='move'),
             k(round(D3 - 0.55, 3), look='camera')]),
         act('dame', LADY_A, 90, 'stand', 'neutral', keys=[k(0.0, look=[GUMPT[0], 0.0, 3.3]),
             k(0.0, to=LADY_B, dur=HOP3, clip='walk', then='stand', ease='linear', face='move'),
-            k(HOP3, to=[X1, 0.45, 3.3], dur=0.13, glide=True, ease='out', face='keep'), k(HOP3, toon={'bend': {'legL': [-1.3, 0, 0, 1, None], 'shinL': [1.7, 0, 0, 1, None], 'legR': [-0.9, 0, 0, 1, None], 'shinR': [1.5, 0, 0, 1, None], 'armL': [0, 1.0, 0, 1, None], 'armR': [0, -1.0, 0, 1, None]}, 'sq': [0.92, 1.1, 0.92], 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.06),   # (pass 2) the hop: knees up, arms out (a stiff fold with straight legs)
-            k(round(HOP3 + 0.13, 3), to=LADY_C, dur=0.13, glide=True, ease='in', face='keep'), k(round(HOP3 + 0.2, 3), toon={'sq': [1.08, 0.92, 1.08]}, toonDur=0.04), k(round(HOP3 + 0.3, 3), toon={}, toonDur=0.08),
-            k(round(HOP3 + 0.26, 3), to=LADY_D, dur=round(D3 - HOP3 - 0.23, 3), clip='walk', then='stand', ease='linear', face='move'),
+            # (pass 3) higher and held at the top
+            k(HOP3, to=[X1, 0.62, 4.3], dur=0.16, glide=True, ease='out', face='keep'), k(HOP3, toon={'bend': {'legL': [-1.55, 0, 0, 1, None], 'shinL': [1.9, 0, 0, 1, None], 'legR': [-1.15, 0, 0, 1, None], 'shinR': [1.7, 0, 0, 1, None], 'armL': [0, 1.0, 0, 1, None], 'armR': [0, -1.0, 0, 1, None]}, 'sq': [0.92, 1.1, 0.92], 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.06),   # (pass 2) the hop: knees up, arms out (a stiff fold with straight legs)
+            k(round(HOP3 + 0.22, 3), to=LADY_C, dur=0.14, glide=True, ease='in', face='keep'), k(round(HOP3 + 0.33, 3), toon={'sq': [1.1, 0.9, 1.1]}, toonDur=0.04), k(round(HOP3 + 0.42, 3), toon={}, toonDur=0.08),
+            k(round(HOP3 + 0.38, 3), to=LADY_D, dur=round(D3 - HOP3 - 0.35, 3), clip='walk', then='stand', ease='linear', face='move'),
             k(round(HOP3 + 0.32, 3), look=[X1, 1.9, 6.4])])],
         props=[PHONE('phone3'), P('blob3', 'gumBlob', pos=BLOB, opts={'r': 0.2, 'pull': [[0.0, 1.0]]})],
         tethers=[STRAND(PT(GUMPT), FOOT(), sag=0.0, rad=0.07, taper=0.35, thin=[4.0])],
-        cams=[FC(0.0, [4.3, 1.05, 10.4], [[X1, 2.3, 5.3], [X1, 2.3, 7.25], [GUMPT[0], 0.0, GUMPT[2]], [5.6, 1.9, 3.4], [9.4, 1.9, 3.25], [X1, 0.0, 7.25]], top=0.1, bottom=0.74, drift=(0.0, 0.0, 0.25))])
+        cams=[FC(0.0, [4.3, 1.05, 10.4], [[X1, 2.3, 5.3], [X1, 2.3, 7.25], [GUMPT[0], 0.0, GUMPT[2]], [5.6, 1.9, 4.4], [9.0, 1.9, 4.25], [X1, 0.0, 7.25]], top=0.1, bottom=0.74, drift=(0.0, 0.0, 0.25))])
 
 # 4: the pink strand crosses the whole of Paris. High over the street: a pink line down the middle of the avenue to the Eiffel tower; a pluck runs
 #    along it
@@ -114,41 +121,50 @@ D4 = st.dur('S04')
 st.shot('S04', 'parisStreet', setOpts={**STREET, 'clear': [-200, 80]}, actors=[],
         props=[P('blob4', 'gumBlob', pos=[7.2, 0, 26.0], scale=6.0, opts={'r': 0.13})],
         tethers=[STRAND(PT([7.2, 0.4, 26.0]), PT([-6.0, 0.4, -160.0]), sag=0.0, rad=0.32, taper=0.0, via=[[3.0, 8.0, 6.0], [-13.5, 22.0, -18.0], [12.5, 23.0, -62.0], [-12.5, 22.0, -105.0], [-7.0, 8.0, -145.0]], ripple=[[0.25, 2.2, 0.9], [1.3, 2.2, 0.9]], segments=96, minPx=6)],   # (pass 2) over the roofs of block after block to the tower (one straight line down one street did not say « all of Paris »)
-        cams=[cam(0.0, [-16.0, 44.0, 62.0], [-12.5, 40.5, 47.0], [-1.0, 6.0, -55.0], [-1.0, 6.4, -64.0], lens=36)])
+        cams=[cam(0.0, [-16.0, 40.0, 62.0], [-12.5, 37.0, 47.0], [-4.0, 14.0, -60.0], [-4.0, 15.0, -68.0], lens=44)])   # (pass 3) the top of the tower inside the frame
         # (pass 2c) a real flight along the strand, a second pluck (the freeze check read 1.07 s with nothing moving by a pixel at strip size)
 st.cue('whoosh', 'S04', 0.25, 0.25, 0.8, 300, 900)
 
 # 5: the town hall listed it as a communal road. On the pavement: a road worker walks backwards painting white dashes on the strand with a roller on a
 #    pole; behind him a blue street plate VOIRIE COMMUNALE on a post; the roller sticks: he tugs, a pink thread stretches from it and snaps; he looks at us
-D5 = st.dur('S05'); CARD5 = round(st.at('S05', 'L04', 4) - 0.05, 3); STK5 = 1.45
-SX5 = 6.4; W5A = [6.95, 0, 1.9]; W5B = [6.95, 0, -0.35]; WALK5 = 1.35
+D5 = st.dur('S05'); CARD5 = round(st.at('S05', 'L04', 4) - 0.05, 3); STK5 = 1.1   # (pass 3) earlier: the tug, the snap, the stumble and the plate need 1.1 s
+SX5 = 6.4; W5A = [6.95, 0, 1.9]; W5B = [6.95, 0, -0.35]; WALK5 = 1.05; W5C = [6.95, 0, -0.85]
 POLE5 = 1.45; TIL5 = 2.26                                           # the pole: from the hands (prop origin) down and forward (+Z) to the roller on the strand
 def HANDLE5(t):                                                     # where his hands hold the pole at t (he walks backwards toward -Z, facing +Z)
     u = min(1.0, max(0.0, t / WALK5)); return [r(SX5 + 0.12), 1.05, r(W5A[2] + 0.32 + (W5B[2] - W5A[2]) * u)]
 HEAD5 = lambda t, a=TIL5: [SX5, r(HANDLE5(t)[1] + POLE5 * math.cos(a)), r(HANDLE5(t)[2] + POLE5 * math.sin(a))]
 DASHES = [(z, r(max(0.05, (W5A[2] + 0.32 + POLE5 * math.sin(TIL5) - z) / (W5A[2] - W5B[2]) * WALK5))) for z in (3.0, 2.6, 2.2, 1.8, 1.4)]
 def GRIP5(t, a=TIL5, extra=None):
-    h = HANDLE5(t); d = {'reach': {'R': [h[0], h[1], h[2], 1, 0.05], 'L': [h[0], r(h[1] + 0.25 * math.cos(a)), r(h[2] + 0.25 * math.sin(a)), 1, 0.05]}, 'hands': {'R': 'grip', 'L': 'grip'}}
+    return GRIPH(HANDLE5(t), a, extra)
+H2 = [r(SX5 + 0.12), 1.12, -0.62]; H2b = [r(SX5 + 0.12), 1.18, -0.78]; H3 = [r(SX5 + 0.12), 1.05, -0.53]   # (pass 3) the hands going back with him: leaning, the snap, after the stumble
+def GRIPH(h, a=TIL5, extra=None):
+    d = {'reach': {'R': [h[0], h[1], h[2], 1, 0.05], 'L': [h[0], r(h[1] + 0.25 * math.cos(a)), r(h[2] + 0.25 * math.sin(a)), 1, 0.05]}, 'hands': {'R': 'grip', 'L': 'grip'}}
     d.update(extra or {}); return d
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
         act('ouvrier', W5A, 0, 'stand', 'neutral', keys=[k(0.0, look=[SX5, 0.0, 2.6]),
             k(0.0, to=W5B, dur=WALK5, clip='walk', then='stand', ease='linear', face='keep', back=True),                        # backwards, painting
-            *[k(round(t_, 3), toon=GRIP5(t_), toonDur=0.15, toonEase='linear') for t_ in (0.0, 0.3, 0.6, 0.9, 1.2, WALK5)],
+            *[k(round(t_, 3), toon=GRIP5(t_), toonDur=0.15, toonEase='linear') for t_ in (0.0, 0.3, 0.6, 0.9, WALK5)],
             k(STK5, toon=GRIP5(WALK5, 1.95, {'sq': [0.97, 1.04, 0.97]}), toonDur=0.08),                                      # he lifts: it sticks
-            k(round(STK5 + 0.18, 3), toon=GRIP5(WALK5, 2.1), toonDur=0.08),
-            k(round(STK5 + 0.3, 3), toon=GRIP5(WALK5, 1.8, {'sq': [0.92, 1.08, 0.92], 'lay': [-0.22, 0], 'face': {'brow': -0.6, 'lid': 0.5, 'jaw': 0.3}}), toonDur=0.07),   # (pass 2) a harder tug, leaning right back: it snaps
-            k(round(STK5 + 0.42, 3), toon=GRIP5(WALK5, 2.0), toonDur=0.12, settle=0.6),
-            k(round(STK5 + 0.5, 3), look='camera')])],
+            k(round(STK5 + 0.14, 3), toon=GRIP5(WALK5, 2.1), toonDur=0.08),
+            k(round(STK5 + 0.26, 3), toon=GRIPH(H2, 1.72, {'sq': [0.93, 1.07, 0.93], 'lay': [-0.6, 0], 'bend': {'legL': [-0.35, 0, 0, 1, None], 'shinL': [0.3, 0, 0, 1, None]}, 'face': {'brow': -0.7, 'lid': 0.55, 'jaw': 0.35}}), toonDur=0.26, toonEase='out'),
+            # (pass 3) the big tug: leaning back 35 degrees, a foot up, the gum thread stretching to arm's length (at 13 degrees the review saw him upright)
+            k(round(STK5 + 0.52, 3), to=W5C, dur=0.3, clip='walk', then='stand', ease='out', face='keep', back=True),            # it snaps: a stumble backwards...
+            k(round(STK5 + 0.52, 3), toon=GRIPH(H2b, 1.5, {'lay': [-0.38, 0], 'face': {'brow': 0.6, 'eye': 0.3, 'jaw': 0.2}}), toonDur=0.05, toonEase='out'),
+            k(round(STK5 + 0.66, 3), toon=GRIPH(H3, 1.95, {'lay': [-0.12, 0]}), toonDur=0.2, settle=0.6),                         # ...caught
+            k(round(STK5 + 0.78, 3), look='camera')])],
         props=[P('roller5', 'paintRoller', pos=HANDLE5(0.0), rot=[TIL5, 0, 0], opts={'len': POLE5, 'rollerW': 0.22, 'rollerR': 0.065, 'color': '#F4F2EA', 'sleeve': '#F4F2EA'},
-                 keys=[k(0.0, to=HANDLE5(WALK5), dur=WALK5, ease='linear'), k(STK5, rotTo=[1.95, 0, 0], dur=0.08), k(round(STK5 + 0.18, 3), rotTo=[2.1, 0, 0], dur=0.08),
-                       k(round(STK5 + 0.3, 3), rotTo=[1.8, 0, 0], dur=0.07), k(round(STK5 + 0.42, 3), rotTo=[2.0, 0, 0], dur=0.12)]),
-               P('plaque5', 'streetPlaque', pos=[8.6, 0, -1.1], ry=-25, opts={'lines': ['VOIRIE', 'COMMUNALE'], 'post': 2.45, 'w': 0.95, 'h': 0.5, 'screw': [[round(STK5 + 0.36, 3), 0.32]]}),   # (pass 2) the plate swings on its last screw (it never moved)
+                 keys=[k(0.0, to=HANDLE5(WALK5), dur=WALK5, ease='linear'), k(STK5, rotTo=[1.95, 0, 0], dur=0.08), k(round(STK5 + 0.14, 3), rotTo=[2.1, 0, 0], dur=0.08),
+                       k(round(STK5 + 0.26, 3), rotTo=[1.72, 0, 0], dur=0.26, ease='out'), k(round(STK5 + 0.26, 3), to=H2, dur=0.26, ease='out'),
+                       k(round(STK5 + 0.52, 3), rotTo=[1.45, 0, 0], dur=0.05, ease='out'), k(round(STK5 + 0.52, 3), to=H2b, dur=0.05, ease='out'),   # (pass 3) the release whips the roller up...
+                       k(round(STK5 + 0.58, 3), rotTo=[2.0, 0, 0], dur=0.3, ease='inOut'), k(round(STK5 + 0.58, 3), to=H3, dur=0.28, ease='inOut')]),   # ...and it falls back
+               P('plaque5', 'streetPlaque', pos=[8.6, 0, -1.1], ry=-25, opts={'lines': ['VOIRIE', 'COMMUNALE'], 'post': 2.45, 'w': 0.95, 'h': 0.5, 'screw': [[round(STK5 + 0.56, 3), 0.5]]}),   # (pass 2) the plate swings on its last screw (it never moved)
                *[P(f'dash5{i}', 'paperSheet', pos=[SX5, 0.1, z], rot=[round(-PI / 2, 4), 0, 0], opts={'w': 0.08, 'h': 0.3, 'paper': '#FFFFFF', 'bright': True}, keys=[k(0.0, visible=False), k(t_, visible=True)]) for i, (z, t_) in enumerate(DASHES)]],
         tethers=[STRAND(PT([SX5, 0.04, -9.0]), PT([SX5, 0.04, 9.0]), sag=0.0, rad=0.05, taper=0.0, n=12),
-                 STRAND(PT([SX5, 0.07, r(HEAD5(WALK5)[2])]), {'prop': 'roller5', 'offset': [0, round(POLE5 - 0.04, 3), 0.03]}, frm=round(STK5 - 0.02, 3), until=round(STK5 + 0.33, 3), sag=0.0, rad=0.016, taper=0.7)],
-        cams=[FC(0.0, [4.0, 1.3, 4.6], [[6.95, 2.25, 1.9], [6.95, 2.25, -0.35], [8.6, 2.5, -1.1], [8.6, 1.95, -1.1], [SX5, 0.0, 3.0], [SX5, 0.0, -1.0]], top=0.22, bottom=0.74)])   # (probe) his head below the title card band (29 % of it under VOIRIE COMMUNALE)
+                 STRAND(PT([SX5, 0.07, r(HEAD5(WALK5)[2])]), {'prop': 'roller5', 'offset': [0, round(POLE5 - 0.04, 3), 0.03]}, frm=round(STK5 - 0.02, 3), until=round(STK5 + 0.53, 3), sag=0.0, rad=0.035, taper=0.6)],   # (pass 3) a thick thread, stretched for a quarter second
+        cams=[FC(0.0, [4.0, 1.3, 4.6], [[6.95, 2.25, 1.9], [6.95, 2.25, -0.35], [8.6, 2.5, -1.1], [8.6, 1.95, -1.1], [SX5, 0.0, 3.0], [SX5, 0.0, -1.0]], top=0.22, bottom=0.74),
+              glide([FC(round(STK5 + 0.05, 3), [4.7, 1.3, 2.7], [[6.95, 2.25, -0.35], [6.95, 2.2, -0.85], [8.6, 2.5, -1.1], [8.6, 1.95, -1.1], [SX5, 0.0, 1.2], [6.95, 0.0, -0.85]], top=0.22, bottom=0.74)], 0.4)])   # (pass 3) a push in on the tug   # (probe) his head below the title card band (29 % of it under VOIRIE COMMUNALE)
 st.card('S05', 'VOIRIE COMMUNALE', at=CARD5)
-st.cue('sfx:scratch', 'S05', 0.15, 0.25); st.cue('sfx:stretch', 'S05', STK5, 0.3); st.cue('sfx:twang', 'S05', round(STK5 + 0.32, 3), 0.3)
+st.cue('sfx:scratch', 'S05', 0.15, 0.25); st.cue('sfx:stretch', 'S05', round(STK5 + 0.26, 3), 0.3); st.cue('sfx:twang', 'S05', round(STK5 + 0.52, 3), 0.3)
 
 # 6: on Sundays the children skip with it. On the pavement, two children turn the strand like a skipping rope, a third jumps it, in time
 D6 = st.dur('S06'); FQ = 1.5; ZA, ZB, XK = -22.0, -18.4, 6.6; ZC = round((ZA + ZB) / 2, 3)
@@ -171,11 +187,11 @@ def JUMPS(base):
     return ks
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('enfant1', [XK, 0, ZA], 0, 'stand', 'happy', keys=[k(0.0, look=[XK, 0.9, ZC]), *TURN('R', [XK - 0.05, 0.85, ZA + 0.32], 0.0)]),
-        act('enfant2', [XK, 0, ZB], 180, 'stand', 'happy', keys=[k(0.0, look=[XK, 0.9, ZC]), *TURN('L', [XK + 0.05, 0.85, ZB - 0.32], 0.0)]),
+        act('enfant2', [XK, 0, ZB], -110, 'stand', 'happy', keys=[k(0.0, look='camera'), *TURN('R', [XK - 0.2, 0.85, ZB - 0.3], 0.0)]),   # (pass 3) turned to us, the rope in his right hand (his back was to us)
         act('enfant3', [XK, 0, ZC], -90, 'stand', 'happy', keys=[k(0.0, look='camera'), *JUMPS([XK, 0, ZC])])],
-        tethers=[STRAND(HAND('enfant1', 'R'), HAND('enfant2', 'L'), sag=0.24, rad=0.028, taper=0.2, spin=[FQ, 0.0]),
+        tethers=[STRAND(HAND('enfant1', 'R'), HAND('enfant2', 'R'), sag=0.24, rad=0.028, taper=0.2, spin=[FQ, 0.0]),
                  STRAND(PT([XK, 0.3, -70.0]), HAND('enfant1', 'R'), sag=0.004, rad=0.026, taper=0.0),
-                 STRAND(HAND('enfant2', 'L'), PT([XK, 0.3, 40.0]), sag=0.004, rad=0.026, taper=0.0)],
+                 STRAND(HAND('enfant2', 'R'), PT([XK, 0.03, 40.0]), sag=0.0, rad=0.026, taper=0.0, via=[[r(XK - 0.45), 0.03, r(ZB + 0.45)]])],   # (pass 3) the tail drops to the pavement in front of him
         cams=[FC(0.0, [1.1, 1.35, -13.2], [[XK, 1.45, ZA], [XK, 1.45, ZB], [XK, 0.0, ZC], [XK, 1.85, ZC], [XK, 0.0, ZA], [XK, 0.0, ZB], [XK, 1.1, r(ZB + 0.45)], [XK, 1.1, r(ZA - 0.45)]], top=0.12, bottom=0.74)])
 st.cue('sfx:whoosh', 'S06', 0.0, 0.2)
 
@@ -195,87 +211,118 @@ st.shot('S07', 'livingRoom', setOpts=LR, actors=[
         props=[P('paper7', 'newspaper', pos=[SEAT[0], 1.08, r(SEAT[2] + 0.45)], rot=[1.3, 0, 0], scale=1.55, opts={'headline': 'DIMANCHE'})],
         tethers=[STRAND(FOOT(), PT(WIN7), sag=0.16, rad=0.026, taper=0.25, spin=[FQ, 0.25])],
         cams=[FC(0.0, [0.4, 1.2, 0.4], [[SEAT[0], 1.9, SEAT[2]], [r(C7[0] + 0.45), 0.3, C7[2]], [r(C7[0] + 0.45), 1.25, C7[2]], [r(SEAT[0] - 0.5), 1.0, SEAT[2]], [1.6, 1.1, -2.5]], top=0.1, bottom=0.74),
-              glide([FC(round(D7 - 0.62, 3), [0.3, 1.45, -0.9], [[SEAT[0], 1.95, SEAT[2]], [SEAT[0], 1.0, SEAT[2]], [r(SEAT[0] - 0.4), 1.5, SEAT[2]], [r(SEAT[0] + 0.4), 1.5, SEAT[2]]], top=0.12, bottom=0.72)], 0.35)])   # (pass 2) a push in for his glance at us
+              glide([FC(round(D7 - 0.62, 3), [0.45, 1.35, -0.6], [[SEAT[0], 1.95, SEAT[2]], [r(SEAT[0] - 0.45), 1.2, SEAT[2]], [r(C7[0] + 0.48), 0.32, C7[2]], [r(C7[0] + 0.48), 1.25, C7[2]]], top=0.12, bottom=0.72)], 0.35)])   # (pass 3) a medium shot: the leg still turning beside his glance   # (pass 2) a push in for his glance at us
 st.cue('sfx:whoosh', 'S07', 0.1, 0.2)
 
 # 8: the city hung a cable car on it. From a roof: a red cabin with three riders rides along the pink strand over the street, swinging, the strand
 #    dipping under it; the Eiffel tower behind
 D8 = st.dur('S08'); Y8, Z8 = 15.5, -12.0
 st.shot('S08', 'parisStreet', setOpts={**STREET, 'clear': [-200, 80]}, actors=[],
-        props=[P('cab8', 'cableCar', pos=[-4.6, round(Y8 - 2.2, 3), Z8], opts={'riders': 3, 'swing': [[0.0, 0.07]], 'tilt': -0.04, 'glassOpacity': 0.28, 'riderScale': 1.35, 'lean': 0.2}, keys=[k(0.0, to=[2.2, round(Y8 - 2.2, 3), Z8], dur=D8, ease='linear')])],   # (pass 2) the strand dips under the cabin; riders seen (opaque panes hid them)
-        tethers=[STRAND(PT([-45.0, Y8, Z8]), {'prop': 'cab8', 'offset': [0, 0.06, 0]}, sag=0.008, rad=0.07, taper=0.0, n=14),
-                 STRAND({'prop': 'cab8', 'offset': [0, 0.06, 0]}, PT([45.0, Y8, Z8]), sag=0.008, rad=0.07, taper=0.0, n=14)],
+        props=[P('cab8', 'cableCar', pos=[-4.6, round(Y8 - 2.2, 3), Z8], opts={'riders': 3, 'swing': [[0.0, 0.16], [0.6, 0.07]], 'tilt': -0.04, 'glassOpacity': 0.28, 'riderScale': 1.35, 'lean': 0.2, 'riderFace': True, 'riderLook': 0.4}, keys=[k(0.0, to=[2.2, round(Y8 - 2.2, 3), Z8], dur=D8, ease='linear')])],   # (pass 2) the strand dips under the cabin; riders seen (opaque panes hid them)
+        tethers=[STRAND(PT([-20.0, round(Y8 + 1.7, 3), Z8]), {'prop': 'cab8', 'offset': [0, 0.06, 0]}, sag=0.0, rad=0.07, taper=0.0, n=14),
+                 STRAND({'prop': 'cab8', 'offset': [0, 0.06, 0]}, PT([20.0, round(Y8 + 1.7, 3), Z8]), sag=0.0, rad=0.07, taper=0.0, n=14),
+                 STRAND(PT([-70.0, round(Y8 + 1.7, 3), Z8]), PT([-20.0, round(Y8 + 1.7, 3), Z8]), sag=0.0, rad=0.07, taper=0.0, n=6),
+                 STRAND(PT([20.0, round(Y8 + 1.7, 3), Z8]), PT([70.0, round(Y8 + 1.7, 3), Z8]), sag=0.0, rad=0.07, taper=0.0, n=6)],
+        # (pass 3) the strand pulled down into a V by the grip (13 degrees each side; at 3 degrees it read as a straight bar)
         cams=[cam(0.0, [-3.6, 12.8, -4.2], [0.2, 12.8, -4.2], [-4.4, 12.3, -12.0], [1.9, 12.3, -12.0], lens=44)])
 st.cue('sfx:rotor', 'S08', 0.0, 0.25)
 
 # 9: ... and him at his desk, hanging upside down by the foot from the strand that comes in by the window, swinging gently, still typing, deadpan
-D9 = st.dur('S09'); ME9 = [-1.75, 3.3, -2.3]
+D9 = st.dur('S09'); ME9 = [-1.75, 3.17, -2.3]   # (pass 3) 13 cm lower: his face just over the lid, his hands down on the keys (they hung at head height)
 HANG = {'lay': [0, round(PI, 4)], 'bend': {'legR': [0.55, 0, 0, 1, None], 'shinR': [-1.5, 0, 0, 1, None]}}
-TYPE9 = lambda dx: {'bend': {'armL': [round(0.35 + dx, 3), 2.65, 0, 1, None], 'armR': [round(0.35 - dx, 3), -2.65, 0, 1, None]}, 'hands': {'L': 'open', 'R': 'open'}}   # (pass 2) upside down the arms hang to the keys (raised over the head in his own frame: the reach pointed them at the ceiling)
 WIN9 = [0.4, 3.35, -3.36]                                                                     # a window high on the back wall: the strand comes in there
+SW9 = 0.035; KEYS9 = [-1.75, 0.8, -1.82]; STEP9 = 0.1                                      # (pass 3) a gentle swing; the middle of the keyboard (laptop turned to him)
+A9 = lambda t: round(PI + SW9 * math.sin(t * 2 * PI * 0.9), 4)
+def MIRROR9(p, a):
+    """(pass 3) a hand target for a body rolled by `a` about its feet: the reach is solved before the roll, so it is given the point the roll carries onto p"""
+    dx, dy = p[0] - ME9[0], p[1] - ME9[1]; c_, s_ = math.cos(a), math.sin(a)
+    return [r(ME9[0] + c_ * dx + s_ * dy), r(ME9[1] - s_ * dx + c_ * dy), r(p[2])]
+def TYPE9(i, a):
+    """(pass 3) both hands on the keys, tapping in turn (the reach pointed them at the ceiling when given the keys themselves: hence MIRROR9)"""
+    up = 0.04 if i % 2 else 0.0
+    L = [r(KEYS9[0] - 0.1), r(KEYS9[1] + 0.04 - up), KEYS9[2]]; R = [r(KEYS9[0] + 0.1), r(KEYS9[1] + up), KEYS9[2]]
+    return {'reach': {'L': [*MIRROR9(L, a), 1, 0.05], 'R': [*MIRROR9(R, a), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}, 'hose': 0.1}
 st.shot('S09', 'office', setOpts={'door': False}, actors=[
         act('mec', ME9, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
-            *[k(round(i * 0.12, 3), toon={**HANG, 'lay': [0, round(PI + 0.07 * math.sin(i * 0.12 * 2 * PI * 0.9), 4)], **TYPE9(0.12 * (i % 2)), 'bend': {**HANG['bend'], **TYPE9(0.12 * (i % 2))['bend']}}, toonDur=0.12, toonEase='linear') for i in range(int(D9 / 0.12) + 1)]])],
+            *[k(round(i * STEP9, 3), toon={**HANG, 'lay': [0, A9(i * STEP9)], **TYPE9(i, A9(i * STEP9)), 'tie': [0.95, 0.2, 1.3], 'hip': 0}, toonDur=(STEP9 if i else 0.0), toonEase='linear') for i in range(int(D9 / STEP9) + 2)]])],
+        # (pass 3) the first key is the settled hang (it popped in from a standing pose); the tie swung aside off his face; hip 0: no idle weight shift (it slid the hands off the keys)
         props=[P('desk9', 'desk', pos=[-1.75, 0, -1.55], ry=180, opts={'w': 1.2, 'd': 0.6}), P('laptop9', 'laptop', pos=[-1.75, 0.76, -1.72], ry=180, opts={'text': 'RAPPORT'}),
                P('win9', 'plainWall', pos=[WIN9[0], 2.75, -3.38], opts={'w': 1.0, 'h': 1.2, 'color': '#BFE3F5'})],   # (pass 2) the window the strand comes in by
         tethers=[STRAND(FOOT(), PT(WIN9), sag=0.05, rad=0.03, taper=0.2)],
-        cams=[FC(0.0, [-0.6, 1.6, 1.6], [[-1.75, 3.65, -2.3], [-1.75, 0.95, -2.3], [-1.75, 0.74, -1.45], [WIN9[0], 3.4, WIN9[2]], [-2.25, 1.6, -2.3]], top=0.06, bottom=0.74)])   # (pass 2) wider: the shoe, the strand to the window, his face at the keys
+        cams=[FC(0.0, [-0.6, 1.6, 1.6], [[-1.75, 3.5, -2.3], [-1.75, 0.85, -2.3], [-1.75, 0.74, -1.45], [WIN9[0], 3.4, WIN9[2]], [-2.25, 1.5, -2.3]], top=0.06, bottom=0.74)])   # (pass 2) wider: the shoe, the strand to the window, his face at the keys
 st.cue('sfx:squeak', 'S09', 0.1, 0.25); st.cue('sfx:click', 'S09', 0.0, 0.25)
 
 # 10: yesterday he wanted to get rid of it. On the pavement, the strand running from his shoe back toward home: he looks down, bends, grabs it with
 #     both hands, stands up with it, plants his feet wide, takes a deep breath
 D10 = st.dur('S10'); X10, Z10 = 7.1, 40.0; GRAB = 0.55; UP10 = 1.0
 FAR = PT([7.2, 0.05, 0.0])
+WIDE10 = {'L': [r(X10 - 0.27), 0.0, r(Z10 + 0.04), 1.0], 'R': [r(X10 + 0.27), 0.0, r(Z10 - 0.04), 1.0]}   # (pass 3) the feet planted wide from the grab on (together in the wide shot)
 def HOLD10(lift=0.95, fwd=0.4, extra=None):
-    d = {'reach': {'L': [r(X10 - 0.08), lift, r(Z10 - fwd + 0.05), 1, 0.05], 'R': [r(X10 + 0.06), r(lift - 0.04), r(Z10 - fwd - 0.12), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}
+    d = {'plant': WIDE10, 'reach': {'L': [r(X10 - 0.08), lift, r(Z10 - fwd + 0.05), 1, 0.05], 'R': [r(X10 + 0.06), r(lift - 0.04), r(Z10 - fwd - 0.12), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}
     d.update(extra or {}); return d
 st.shot('S10', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
         act('mec', [X10, 0, Z10], 180, 'stand', 'unimpressed', keys=[k(0.0, look=[X10, 0.0, r(Z10 - 0.6)]),
             k(round(GRAB - 0.27, 3), to=[X10, -0.42, Z10], dur=0.24, glide=True, ease='out', face='keep'),
-            k(round(GRAB - 0.25, 3), toon={'plant': {'L': [r(X10 - 0.12), 0.0, r(Z10 + 0.04), 1.0], 'R': [r(X10 + 0.12), 0.0, r(Z10 - 0.04), 1.0]}, 'bend': {'spine': [0.45, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'reach': {'L': [r(X10 - 0.05), 0.12, r(Z10 - 0.5), 1, 0.05], 'R': [r(X10 + 0.06), 0.12, r(Z10 - 0.65), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.25),   # crouches and grabs
-            k(GRAB, toon={'plant': {'L': [r(X10 - 0.12), 0.0, r(Z10 + 0.04), 1.0], 'R': [r(X10 + 0.12), 0.0, r(Z10 - 0.04), 1.0]}, 'bend': {'spine': [0.45, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'reach': {'L': [r(X10 - 0.05), 0.1, r(Z10 - 0.5), 1, 0.05], 'R': [r(X10 + 0.06), 0.1, r(Z10 - 0.65), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}, toonDur=0.08),
+            k(round(GRAB - 0.25, 3), toon={'plant': WIDE10, 'bend': {'spine': [0.45, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'reach': {'L': [r(X10 - 0.05), 0.12, r(Z10 - 0.5), 1, 0.05], 'R': [r(X10 + 0.06), 0.12, r(Z10 - 0.65), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.25),   # crouches and grabs
+            k(GRAB, toon={'plant': WIDE10, 'bend': {'spine': [0.45, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'reach': {'L': [r(X10 - 0.05), 0.1, r(Z10 - 0.5), 1, 0.05], 'R': [r(X10 + 0.06), 0.1, r(Z10 - 0.65), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}, toonDur=0.08),
             k(round(UP10 - 0.3, 3), to=[X10, 0, Z10], dur=0.3, glide=True, ease='inOut', face='keep'),
             k(UP10, toon=HOLD10(), toonDur=0.3, toonEase='outBack'), k(round(UP10 + 0.1, 3), look=[X10, 1.0, r(Z10 - 8)]),
-            k(round(UP10 + 0.45, 3), to=[r(X10 + 0.04), 0, r(Z10 + 0.15)], dur=0.2, glide=True, face='keep'),
-            k(round(UP10 + 0.45, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None]}, 'sq': [1.0, 0.96, 1.0]}), toonDur=0.15),   # feet wide
-            k(round(UP10 + 0.55, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'scl': {'head': [1.3, 1.1, 1.3]}, 'face': {'expr': 'puffed', 'exprW': 1.0, 'eye': 0.25}}), toonDur=0.2, toonEase='in'),   # (pass 2) the big breath: cheeks puffed, chest up, eyes open, held
-            # (pass 2b) the head swells with the breath like a balloon, the puffed face (eyes open, frown, cheeks out): the puff alone was two small
-            # brackets at the mouth under his heavy lids
-            k(round(UP10 + 0.75, 3), look='camera')])],
+            k(round(UP10 + 0.4, 3), toon=HOLD10(extra={'bend': {'spine': [-0.14, 0, 0, 1, None]}, 'sq': [1.04, 1.05, 1.07], 'scl': {'head': [1.04, 1.02, 1.04]}, 'face': {'eye': 0.15}}), toonDur=0.14, toonEase='out'),   # (pass 3) first the chest rises...
+            k(round(UP10 + 0.56, 3), toon=HOLD10(extra={'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'scl': {'head': [1.32, 1.12, 1.32]}, 'face': {'expr': 'puffed', 'exprW': 1.0, 'eye': 0.25}}), toonDur=0.3, toonEase='inOut'),
+            # ...then the head swells like a balloon over nine frames, the puffed face (eyes open, frown, cheeks out)...
+            *[k(round(UP10 + 0.88 + 0.066 * i_, 3), toon=HOLD10(extra={'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'sq': [round(1.1 + (0.012 if i_ % 2 else -0.008), 3), 1.06, 1.16], 'scl': {'head': ([1.35, 1.14, 1.35] if i_ % 2 else [1.29, 1.1, 1.29])}, 'face': {'expr': 'puffed', 'exprW': 1.0, 'eye': 0.25}}), toonDur=0.033) for i_ in range(4)],
+            # ...and shakes in the hold, about to burst (it froze flat)
+            k(round(UP10 + 0.9, 3), look='camera')])],
         tethers=[STRAND(FOOT(), HAND('mec', 'L'), frm=round(GRAB + 0.02, 3), sag=0.25, rad=0.024, taper=0.3),
                  STRAND(HAND('mec', 'R'), FAR, frm=round(GRAB + 0.02, 3), sag=0.0, rad=0.026, taper=0.0, thin=[2.0], n=14),
                  STRAND(FOOT(), FAR, until=round(GRAB + 0.02, 3), sag=0.0, rad=0.026, taper=0.0, n=14)],
         cams=[FC(0.0, [4.4, 1.3, 36.6], [[X10, 2.3, Z10], [X10, 0.0, Z10], [r(X10 - 0.4), 1.0, r(Z10 - 1.0)], [r(X10 + 0.5), 1.2, Z10]], top=0.12, bottom=0.74),
-              glide([FC(round(UP10 + 0.35, 3), [5.6, 1.7, 37.6], [[X10, 2.4, Z10], [X10, 1.15, Z10], [r(X10 - 0.45), 1.7, Z10], [r(X10 + 0.45), 1.7, Z10]], top=0.12, bottom=0.72)], 0.3)])   # (pass 2) a push in for the puffed cheeks
+              glide([FC(round(UP10 + 0.02, 3), [5.6, 1.7, 37.6], [[X10, 2.4, Z10], [X10, 1.15, Z10], [r(X10 - 0.45), 1.7, Z10], [r(X10 + 0.45), 1.7, Z10]], top=0.12, bottom=0.72)], 0.3)])   # (pass 2) a push in for the puffed cheeks; (pass 3) settled before the breath (it read as more camera move)
 st.cue('sfx:stretch', 'S10', UP10, 0.25); st.cue('sfx:sniff', 'S10', round(UP10 + 0.7, 3), 0.3)
 
 # 11: he pulled hard. From the side: he leans right back, arms out along the strand, which goes thin and taut and hums; he trembles; held; then the
 #     strand wins: his arms shoot out after it, his feet leave the ground, and he is gone out of the frame
-D11 = st.dur('S11'); YANK = 1.12; GONE = round(YANK + 0.18, 3)
+D11 = st.dur('S11'); YANK = 1.12; GONE = round(YANK + 0.24, 3)   # (pass 3) GONE: he leaves after the hang
 def PULL(lean, fwd, extra=None):
     d = {'lay': [round(-lean, 3), 0], 'reach': {'L': [r(X10 - 0.06), 1.0, r(Z10 - fwd), 1, 0.05], 'R': [r(X10 + 0.06), 0.97, r(Z10 - fwd - 0.14), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'},
          'bend': {'legL': [-0.25, 0.22, 0, 1, None], 'legR': [-0.25, -0.22, 0, 1, None], 'shinL': [0.45, 0, 0, 1, None], 'shinR': [0.45, 0, 0, 1, None]},
-         'plant': {'L': [r(X10 + 0.18), 0.0, r(Z10 - 0.35), 1.0], 'R': [r(X10 - 0.16), 0.0, r(Z10 - 0.3), 1.0]}, 'face': {'expr': 'strain', 'exprW': 1.0, 'puff': 0.9},
-         'scl': {'head': [1.12, 1.04, 1.12]}}   # (pass 2b) still swollen with the held breath (it goes out at the pop), the strain (eyes squeezed, teeth, vein)
+         'plant': {'L': [r(X10 - 0.2), 0.0, r(Z10 - 0.35), 1.0], 'R': [r(X10 + 0.2), 0.0, r(Z10 - 0.3), 1.0]}, 'face': {'expr': 'strain', 'exprW': 1.0, 'puff': 0.9},
+         'scl': {'head': [1.12, 1.04, 1.12]}}   # (pass 2b) still swollen with the held breath (it goes out at the pop), the strain (eyes squeezed, teeth, vein); (pass 3) the feet apart (they crossed)
     if extra: d.update(extra)
     return d
+def UHOH(w=1.0, extra=None):
+    """(pass 3) yanked off the pavement: horizontal on his side, facing us, the arms over his head along the strand, an uh-oh at us"""
+    d = {'lay': [0, round(PI / 2, 4)], 'bend': {'armL': [0, 2.8, 0, 1, None], 'armR': [0, -2.8, 0, 1, None], 'legL': [0.3, 0, 0, 1, None], 'shinL': [0.55, 0, 0, 1, None], 'legR': [0.08, 0, 0, 1, None]},
+         'hands': {'L': 'grip', 'R': 'grip'}, 'hairUp': 1.0, 'face': {'brow': 1.0, 'pop': round(0.45 * w, 3), 'popLen': 0.25, 'mouth': 'O', 'jaw': round(0.15 + 0.15 * w, 3), 'lid': 0.0, 'noBlink': 1}}
+    if extra: d.update(extra)
+    return d
+TREM11 = [round(0.36 + 0.066 * j_, 3) for j_ in range(6)]
+CAM11 = [r(X10 - 2.9), 1.45, r(Z10 - 3.1)]
 st.shot('S11', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
-        act('mec', [X10, 0, r(Z10 + 0.15)], 180, 'stand', 'unimpressed', keys=[k(0.0, look=[X10, 1.0, r(Z10 - 8)]),
-            k(0.0, toon=PULL(0.15, 0.45), toonDur=0.0), k(0.35, toon=PULL(0.42, 0.55), toonDur=0.3, toonEase='out'),
-            *[k(round(0.65 + 0.05 * i, 3), toon=PULL(0.45 + 0.012 * (i % 2), 0.56, {'sq': [1.0, r(1.0 + 0.012 * (i % 2)), 1.0]}), toonDur=0.04) for i in range(2)],   # held, trembling
-            k(0.76, toon=PULL(0.48, 0.58, {'face': {'puff': 0.0, 'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'scl': {}}), toonDur=0.033, toonEase='out'),   # (pass 2) it is going to win: eyes out on stalks, hair up...
-            *[k(round(0.8 + 0.066 * i, 3), toon=PULL(0.48, 0.58, {'face': {'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'scl': {}, 'sq': [1.0, round(1.0 + (0.02 if i % 2 else -0.02), 3), 1.0]}), toonDur=0.033) for i in range(4)],   # ...held ten frames, shaking
-            k(YANK, toon={'lay': [0.9, 0], 'reach': {'L': [r(X10 - 0.05), 1.0, r(Z10 - 2.4), 1, 0.05], 'R': [r(X10 + 0.05), 0.98, r(Z10 - 2.5), 1, 0.05]}, 'hose': 0.12, 'hands': {'L': 'grip', 'R': 'grip'},
-                          'face': {'brow': 0.9, 'mouth': 'O', 'jaw': 0.5, 'lid': 0.0}, 'hairUp': 0.8}, toonDur=0.05, toonEase='out'),   # yanked: arms out, tipped forward
-            k(YANK, to=[X10, 0.75, r(Z10 - 0.7)], dur=0.1, glide=True, ease='out', face='keep'),   # (pass 2) yanked up into the air...
-            k(round(YANK + 0.1, 3), toon={'lay': [1.35, 0], 'reach': {'L': [r(X10 - 0.05), 1.3, r(Z10 - 2.6), 1, 0.05], 'R': [r(X10 + 0.05), 1.28, r(Z10 - 2.7), 1, 0.05]}, 'hose': 0.15, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'legL': [0.4, 0, 0, 1, None], 'legR': [0.1, 0, 0, 1, None]}, 'face': {'brow': 1.0, 'mouth': 'O', 'jaw': 0.6, 'pop': 0.5, 'lid': 0.0}, 'hairUp': 1.0}, toonDur=0.05),   # ...horizontal, a beat of hang...
-            k(round(YANK + 0.2, 3), to=[X10, 1.0, r(Z10 - 26.0)], dur=0.12, glide=True, ease='in', face='keep')])],                    # ...and gone
-        props=[P('dust11', 'dustPuff', pos=[X10, 0.1, Z10], scale=0.7, opts={'once': True, 'startAt': YANK, 'period': 0.5, 'color': '#E8DCC6'}, keys=[k(0.0, visible=False), k(YANK, visible=True)])],
-        tethers=[STRAND(FOOT(), HAND('mec', 'L'), until=YANK, sag=0.25, rad=0.022, taper=0.3),
+        act('mec', [X10, 0, r(Z10 + 0.15)], 180, 'stand', 'unimpressed', keys=[k(0.0, look={'point': [X10, 1.0, r(Z10 - 8)], 'cheat': 0.45}),
+            # (pass 3) no travel smear: on his side the smear's sideways stretch stood him upright at the exit
+            # (pass 3) the strain face cheated toward us (side-on it read as a profile)
+            k(0.0, toon=PULL(0.2, 0.45), toonDur=0.0), k(0.04, toon=PULL(0.45, 0.55), toonDur=0.28, toonEase='out'),   # (pass 3) he leans right back at once...
+            *[k(t_, toon=PULL(round(0.45 + 0.012 * j_ + (0.012 if j_ % 2 else -0.012), 3), 0.56, {'sq': [1.0, (1.02 if j_ % 2 else 0.985), 1.0]}), toonDur=0.033) for j_, t_ in enumerate(TREM11)],
+            # ...trembling every two frames, the lean creeping further back (the pull pose was the same for 0.7 s)
+            k(0.76, toon=PULL(0.53, 0.58, {'face': {'puff': 0.0, 'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'scl': {}}), toonDur=0.033, toonEase='out'),   # (pass 2) it is going to win: eyes out on stalks, hair up...
+            *[k(round(0.8 + 0.066 * i, 3), toon=PULL(0.53, 0.58, {'face': {'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'scl': {}, 'sq': [1.0, round(1.0 + (0.02 if i % 2 else -0.02), 3), 1.0]}), toonDur=0.033) for i in range(4)],   # ...held ten frames, shaking
+            k(YANK, look='camera'), k(YANK, face=[CAM11[0], CAM11[2]], turn=0.1),
+            k(YANK, toon=UHOH(0.0), toonDur=0.06, toonEase='out'),
+            k(YANK, to=[r(X10 - 0.7), 1.0, r(Z10 + 0.85)], dur=0.07, glide=True, ease='out', face='keep'),   # (pass 3) yanked off the pavement, spun round to us...
+            k(round(YANK + 0.07, 3), to=[r(X10 - 0.64), 1.05, r(Z10 + 0.73)], dur=0.17, glide=True, ease='linear', face='keep'),   # ...hanging there five frames: uh-oh...
+            # (the body tips about its feet: the feet set back toward our right so that the 2.5 m from his shoes to his hands sit in the frame)
+            k(round(YANK + 0.1, 3), toon=UHOH(1.0), toonDur=0.08),
+            k(GONE, toon=UHOH(1.0, {'sq': [0.8, 1.3, 0.8]}), toonDur=0.04),
+            k(GONE, to=[r(X10 + 1.0), 3.0, r(Z10 - 26.0)], dur=0.1, glide=True, ease='in', face='keep')])],   # ...and gone, stretched, along the strand (frame left)
+        props=[P('dust11', 'dustPuff', pos=[X10, 0.1, r(Z10 + 0.1)], scale=0.45, opts={'once': True, 'startAt': YANK, 'period': 0.45, 'color': '#FFFFFF'}, keys=[k(0.0, visible=False), k(YANK, visible=True), k(round(YANK + 0.45, 3), visible=False)]),   # (pass 3) small, white, gone: the grey puffs read as rocks
+               P('zip11', 'zipLines', pos=[r(X10 + 0.1), 0.95, r(Z10 + 0.0)], face='camera', opts={'at': GONE, 'dur': 0.14, 'n': 4, 'len': 1.5, 'w': 0.7, 'horiz': 1})],   # (pass 3) and speed lines where he was, four frames
+        tethers=[STRAND(FOOT(), HAND('mec', 'L'), until=GONE, sag=0.25, rad=0.022, taper=0.3),
                  STRAND(HAND('mec', 'R'), FAR, sag=[[0.0, 0.004], [0.4, 0.0]], rad=0.03, taper=0.0, thin=[1.2], n=14, wobble=[[0.65, 0.025, 60, 0.8]]),
-                 STRAND(FOOT(), FAR, frm=YANK, sag=0.0, rad=0.03, taper=0.0, n=14)],
-        cams=[FC(0.0, [5.0, 1.35, 36.6], [[X10, 2.4, r(Z10 + 0.15)], [X10, 0.0, r(Z10 + 0.15)], [X10, 1.0, r(Z10 - 1.5)], [X10, 2.05, r(Z10 + 1.15)], [X10, 1.4, r(Z10 + 1.35)], [r(X10 + 0.35), 2.1, r(Z10 + 1.3)]], top=0.12, bottom=0.74)])   # (pass 2) three-quarter front: his face at the pull (from the side it was turned away)
-st.cue('sfx:stretch', 'S11', 0.3, 0.35); st.cue('sfx:boing', 'S11', YANK, 0.45); st.cue('whoosh', 'S11', round(YANK + 0.08, 3), 0.4, 0.3, 500, 3200)
+                 STRAND(FOOT(), FAR, frm=GONE, sag=0.0, rad=0.03, taper=0.0, n=14)],
+        cams=[FC(0.0, CAM11, [[X10, 2.4, r(Z10 + 0.15)], [X10, 0.0, r(Z10 + 0.15)], [X10, 1.0, r(Z10 - 1.5)], [X10, 2.05, r(Z10 + 1.15)], [X10, 1.4, r(Z10 + 1.35)], [r(X10 + 1.15), 1.2, r(Z10 - 1.0)], [r(X10 - 0.85), 0.9, r(Z10 + 1.0)]], top=0.12, bottom=0.74)])
+        # (pass 3) 45 degrees in front: his face at the pull, and the yank crossing out of the frame on the left (straight on, it flew into the lens)
+st.cue('sfx:stretch', 'S11', 0.3, 0.35); st.cue('sfx:boing', 'S11', YANK, 0.45); st.cue('whoosh', 'S11', round(GONE - 0.02, 3), 0.4, 0.3, 500, 3200)
 
 # 12: brought him home in one second. Alongside him over the roofs: he flies feet first along the pink strand, stretched by the speed, tie and hair
 #     streaming, deadpan; the roofs race past under him
@@ -309,17 +356,19 @@ st.cue('whoosh', 'S13', 0.0, 0.35, 0.4, 600, 2400); st.cue('thud', 'S13', HIT13,
 # 14: since then he works from home. On his sofa, deadpan, the laptop on his knees, typing; the slack strand coiled on the floor from his shoe to the
 #     window; a last jerk of the foot (the children again); he does not even look; a slow blink
 D14 = st.dur('S14'); JERK = round(D14 - 1.05, 3)
-LAP14 = {'reach': {'L': [-0.12, 0.72, -2.25, 1, 0.08], 'R': [0.12, 0.72, -2.25, 1, 0.08]}, 'hands': {'L': 'flat', 'R': 'flat'}}
+LAP14 = {'reach': {'L': [-0.12, 0.72, -2.25, 1, 0.08], 'R': [0.12, 0.72, -2.25, 1, 0.08]}, 'hands': {'L': 'flat', 'R': 'flat'}, 'face': {'noBlink': 1}}   # (pass 3) only keyed blinks
 COIL = [[0.35, 0.03, -1.7], [-0.35, 0.03, -1.15], [0.1, 0.03, -0.55], [0.95, 0.03, -0.75], [1.5, 0.03, -1.45], [2.4, 0.03, -1.05], [3.1, 0.3, -2.4]]   # (pass 2) soft loops on the floor to the window
 st.shot('S14', 'livingRoom', setOpts=LR, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[0.0, 0.75, -2.2]), k(0.0, toon=LAP14, toonDur=0.0),
             *[k(round(0.2 + 0.1 * i, 3), toon={**LAP14, 'reach': {'L': [r(-0.12 + 0.035 * (i % 2)), r(0.72 + 0.045 * (i % 2)), -2.25, 1, 0.08], 'R': [r(0.12 - 0.035 * ((i + 1) % 2)), r(0.72 + 0.045 * ((i + 1) % 2)), -2.25, 1, 0.08]},
                                                   'bend': {'neck': [round(0.05 + 0.03 * (i % 2), 3), 0, 0, 1, None]}}, toonDur=0.05) for i in range(int((JERK - 0.3) / 0.1))],   # typing (pass 2c: hands up 4.5 cm, the head nodding with them: at 1.2 cm the freeze check read a still)
-            k(round(JERK - 0.6, 3), toon={**LAP14, 'sq': [1.0, 1.015, 1.0], 'face': {'lid': 1.0}}, toonDur=0.05), k(round(JERK - 0.48, 3), toon=LAP14, toonDur=0.07),   # (pass 2) an ordinary blink, a breath
+            k(round(JERK - 0.6, 3), toon={**LAP14, 'sq': [1.0, 1.015, 1.0], 'face': {'lid': 1.0, 'noBlink': 1}}, toonDur=0.05), k(round(JERK - 0.48, 3), toon=LAP14, toonDur=0.07),   # (pass 2) an ordinary blink, a breath
             k(JERK, toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 1.0]}, 'sq': [1.03, 0.97, 1.03], 'lay': [0.05, 0]}, toonDur=0.05, toonEase='out'), k(round(JERK + 0.12, 3), toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 0.0]}}, toonDur=0.12, toonEase='in'),   # the jerk of the foot, his hips jostled, the face unmoved
-            k(round(JERK + 0.55, 3), look='camera'), k(round(D14 - 0.55, 3), toon={**LAP14, 'face': {'lid': 1}}, toonDur=0.14), k(round(D14 - 0.33, 3), toon=LAP14, toonDur=0.16)])],   # a slow blink at us
+            k(round(JERK + 0.22, 3), toon={**LAP14, 'face': {'lid': 1.0, 'noBlink': 1}}, toonDur=0.05), k(round(JERK + 0.32, 3), toon=LAP14, toonDur=0.08),   # (pass 3) the eyes open through the jerk, the blink seven frames after
+            k(round(JERK + 0.55, 3), look='camera'), k(round(D14 - 0.55, 3), toon={**LAP14, 'face': {'lid': 1, 'noBlink': 1}}, toonDur=0.14), k(round(D14 - 0.33, 3), toon=LAP14, toonDur=0.16)])],   # a slow blink at us
         props=[P('lap14', 'laptop', pos=[0.0, 0.6, -2.22], ry=180, scale=1.6, opts={'text': 'VISIO'}, keys=[k(JERK, to=[0.0, 0.66, -2.2], dur=0.05, ease='out'), k(round(JERK + 0.07, 3), to=[0.0, 0.6, -2.22], dur=0.1, ease='in')])],   # (pass 2) the laptop jumps with the jerk
-        tethers=[STRAND(FOOT(), PT(COIL[-1]), sag=0.0, rad=0.026, taper=0.0, via=COIL[:-1], ripple=[[JERK, 0.12, 2.2]])],   # (pass 2) one cord in soft loops, a ripple running down it on the jerk (three straight segments read as a pipe)
+        tethers=[STRAND(PT(COIL[-1]), FOOT(), sag=0.0, rad=0.026, taper=0.0, via=COIL[-2::-1], ripple=[[round(JERK - 0.38, 3), 0.14, 2.6]])],
+        # (pass 3) the cord laid from the window to his shoe: the ripple runs in from the window and reaches the foot with the jerk (it ran away from him)   # (pass 2) one cord in soft loops, a ripple running down it on the jerk (three straight segments read as a pipe)
         cams=[FC(0.0, [0.5, 1.45, 0.4], [[SEAT[0], 1.9, SEAT[2]], [0.35, 0.0, -1.7], [-0.35, 0.0, -1.15], [r(SEAT[0] - 0.55), 1.0, SEAT[2]], [r(SEAT[0] + 0.55), 1.0, SEAT[2]]], top=0.1, bottom=0.74, drift=(0.0, -0.05, -0.3))])   # (pass 2) a little higher: the fingers on the keys, the loops; (pass 2c) a slow push in
 st.cue('sfx:click', 'S14', 0.2, 0.25); st.cue('sfx:boing', 'S14', JERK, 0.25)
 
