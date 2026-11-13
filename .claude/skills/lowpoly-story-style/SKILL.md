@@ -309,6 +309,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le permis en miroir | un permis rose dont tous les mots sont à l'envers, la photo d'un arrière de tête, tenu à plat face à l'objectif à côté de son visage sur le dos | 53 |
 | La marche arrière au boulevard | la petite décapotable rouge descend le boulevard en marche arrière, son visage par-dessus le siège, la circulation de face ; le conducteur doublé : chapeau qui saute, mâchoire sur le volant | 53 |
 | Les trois tours de toupie | le CRAC de l'ostéopathe remet la tête devant, puis elle continue : trois tours, la cravate lancée autour par un vent qui tourne avec la tête, traînées de vent, pause de cinq images au-delà du troisième tour, retour en ressort, yeux en spirale ; bloquée renversée vers le plafond, il finit présentateur météo sous la caméra du plafond | 53 |
+| La mâchoire en bloc (cycle 19) | `face: {jaw: 1, jawLen: 0,7-0,75, jawBlock: 1}` : sous la bouche, le menton tombe d'un bloc jusque sous le col et l'écart devient une bouche ouverte sombre ; la langue sortie (`tongue: 0,8`) tombe avec le bloc ; à poser sur une prise étalée (regard, détour, trois images d'écrasement, prise, tenue 0,6 s) | 54 |
+| La caméra embarquée dans la porte (cycle 19) | clé de caméra `ride: {prop}` sur un accessoire qui pivote (porte tournante, manège) : la caméra placée au milieu du compartiment qu'il regarde tourne avec lui ; il reste de face, impassible, la rue défile derrière lui ; à 2,4 tours/s la rue devient un tourbillon pendant qu'une carte reste collée sur son visage | 57 |
+| Le sac qui tombe d'en haut | au virage de l'avion, le sac posé sur la valise derrière lui bascule et lui tombe sur la tête : il s'écrase large et court (1,6 × 0,5, tête comprise par `scl.head`), bras à plat au sol, tenu ; le sac glisse, il remonte au-delà de sa taille deux fois ; la caméra basse le voit de face | 54 |
+| Le bras élastique vu de côté | filmé à angle droit de la ligne du bras, depuis le côté de ce bras : le bras court devant les jambes de l'épaule au couvercle, d'une seule épaisseur (`bend` fat 0,95 sur le bras et l'avant-bras), l'autre main en appui au sol derrière lui | 54 |
 
 ## Erreurs à éviter
 
@@ -1117,3 +1121,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 19) `fitBack(..., inside=...)` rendait tel quel un point de départ hors de la pièce (avec l'objectif le plus large) : le plan filmait le
   dos du mur du hall. Il ramène maintenant le départ dans la pièce et l'écrit (`WARNING ... brought inside`) ; corriger alors le départ dans le script.
 - (cycle 19) Le sol du décor `whiteVoid` est maintenant 4 mm sous y = 0 : les sols d'accessoires posés à y = 0 ne se battent plus avec lui.
+- (cycle 19) Poser un personnage sur un accessoire porté par la tête d'un autre (le médecin sur la bosse) d'après une hauteur estimée : la boule
+  n'était pas écrasée avec l'homme (`sq` ne touche pas la chaîne de la tête) et le médecin avait les jambes dedans. Mesurer avec `debugJoints`
+  (une image fixe suffit) avant de poser quoi que ce soit dessus.
+- (cycle 19) Une échelle « appuyée » contre une sphère dont le haut entre dans la sphère, avec un personnage dessus : le corps dans la boule.
+  Le point de contact d'une échelle inclinée de L radians est à L au-dessus de l'équateur ; ou poser le personnage sur le sommet.
+- (cycle 19) Un poteau central dans une porte tournante où l'homme tourne à l'axe : il ressort par son visage dans les plans embarqués.
+- (cycle 19) Dans un cadre vertical, une chute de travers sort du champ en trois ou quatre images (le skieur de 56) : faire tomber de haut en
+  bas, devant le visage, et cadrer le point de départ en entier.
+- (cycle 19) Un personnage qui recule derrière une poutre basse après le choc garde son visage caché par la poutre : le faire passer dessous,
+  écrasé, vers l'objectif, et ressortir la tête devant.
+- (cycle 19) Une carte tendue par une main se cache derrière le corps de celle qui la tient quand la caméra est derrière son épaule : la tenir
+  de son côté vers la caméra.

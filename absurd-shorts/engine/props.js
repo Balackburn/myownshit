@@ -787,10 +787,10 @@ const B = {
       s.position.set(0, 0, d / 2 + 0.25); s.rotation.x = -0.36; g.add(s); }
     return g;
   },
-  streetLamp(o) {
-    const H = o.height || 4.2, on = !!o.on;
-    const g = grp(cyl(0.07, 0.1, H, P.navy, 6, { pivot: 'bottom' }), cyl(0.16, 0.2, 0.4, P.navy, 6, { pivot: 'bottom' }), at(box(0.9, 0.07, 0.07, P.navy), 0.42, H - 0.05, 0),
-      at(box(0.5, 0.14, 0.3, P.navy, { taper: 0.8 }), 0.85, H - 0.06, 0), at(box(0.4, 0.03, 0.22, on ? '#FFE3A0' : P.creamDark, on ? { emissive: '#FFD27A', noGrain: true } : {}), 0.85, H - 0.145, 0));
+  streetLamp(o) {   // (story 55, pass 3) o.color: the cast iron's colour (navy by default: a navy suit hanging from it merged into it)
+    const H = o.height || 4.2, on = !!o.on, C = o.color || P.navy;
+    const g = grp(cyl(0.07, 0.1, H, C, 6, { pivot: 'bottom' }), cyl(0.16, 0.2, 0.4, C, 6, { pivot: 'bottom' }), at(box(0.9, 0.07, 0.07, C), 0.42, H - 0.05, 0),
+      at(box(0.5, 0.14, 0.3, C, { taper: 0.8 }), 0.85, H - 0.06, 0), at(box(0.4, 0.03, 0.22, on ? '#FFE3A0' : P.creamDark, on ? { emissive: '#FFD27A', noGrain: true } : {}), 0.85, H - 0.145, 0));
     if (on && o.glow !== false) { const c = noShadow(new THREE.Mesh(new THREE.ConeGeometry(1.5, H - 0.2, 12, 1, true), new THREE.MeshBasicMaterial({ color: '#FFE2A0', transparent: true, opacity: 0.09, depthWrite: false, side: THREE.DoubleSide })));
       g.add(at(c, 0.85, (H - 0.2) / 2, 0)); }
     if (on && o.light) { const l = new THREE.PointLight('#FFD9A0', o.light === true ? 6 : o.light, 9, 1.4); l.position.set(0.85, H - 0.35, 0); g.add(l); }

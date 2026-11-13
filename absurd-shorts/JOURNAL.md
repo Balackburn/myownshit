@@ -1954,3 +1954,34 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   remplit, étiquette qui rebondit sur le couvercle, panneau lisible des deux côtés, voile en anneau, quai central (banc retourné, panneau
   déplaçable), rame plus haute avec ses barres sous le toit.
 - Non-régression : les scripts de 54, 55 et 56 reconstruits donnent les mêmes fichiers.
+- Moteur (suite) : **caméra embarquée** (`cam` clé `ride` {prop, k}) : la caméra tourne autour de l'axe d'un accessoire qui pivote (porte
+  tournante), de l'angle dont il a tourné depuis le début de la clé ; l'homme qui tourne avec la porte reste face à nous et la rue défile
+  derrière lui (vu du dehors, les vantaux lui barraient le visage quatre fois par tour).
+- Rig : **mâchoire qui tombe en bloc** (`face.jawBlock`) : sous la bouche, le menton descend d'un bloc et l'écart est une bouche ouverte sombre ;
+  la langue suit (étiré uniformément, le bas du visage n'était qu'une boîte haute avec un arc peint au pied).
+- Accessoires : vitre de la porte tournante plus légère (o.glass), plus de poteau central quand un homme tourne à l'axe (il ressortait par son
+  visage dans les plans embarqués), noms d'articles de la facture rétrécis pour laisser leur prix lisible, couleur du réverbère (o.color).
+- Mesure plutôt qu'estimation : `debugJoints` a montré que la tête de l'homme écrasé (sq) reste à 1,64 m : la boule sur sa tête n'est pas
+  écrasée avec lui ; le médecin posé d'après l'estimation avait les jambes dans la boule.
+### Histoires de ce cycle
+- 54 « La valise », revue 3 : animation 7,0, direction artistique 7,0 (5,5/6,0 → 6,5/6,5 → 7,0/7,0). Passe finale : carte tenue plus loin et
+  bras qui s'étire vraiment, doigts sous l'arc de la carte et poing fermé sur le vide deux images trop tard, plus de balance en S09 (son
+  montant passait pour un troisième bras), sac qui tombe d'en haut et l'écrase large et court en pleine vue (plan bas), saut à gauche de la
+  valise avec étirement, genoux repliés et écrasement à l'atterrissage, double prise étalée (regard, détour, écrasement, prise à 0,97 s)
+  avec la mâchoire en bloc et la langue, bras élastique filmé de côté devant ses jambes avec l'autre main en appui au sol.
+- Décision (prise sans demander) sur la question laissée à l'utilisateur par la revue 3 de 54 : les lunettes de soleil de la valise se lisent
+  comme deux yeux et le masque de nuit porte des yeux fermés peints. Le brief interdit un visage à la valise ; je garde ces deux accessoires
+  (lunettes et masque imprimé sont des objets de voyage, pas des traits du visage) mais rien ne doit faire bouche dessous : la carte OR reste
+  sur l'étiquette pendue au côté.
+- 55 « La ventouse », revue 2 : animation 6,4, direction artistique 6,8. Passe 3 écrite : le plan S02 reprend l'inclinaison de S01 et le
+  POP le jette en arrière, bras levés, la titubation visible (caméra sur le côté de l'îlot) ; le cou en chewing-gum quatre fois sa longueur,
+  mains en haut du manche, caméra basse de trois quarts face, tenue tremblée cinq images, retour au-delà du repos avec écrasement et quatre
+  oscillations ; rame à 3,05 m (pieds à 0,6 m du sol), caméra basse dans l'axe de la rame (une barre traversait son épaule), balancement,
+  passagers qui respirent et réagissent l'un après l'autre ; POP plus tôt, tête juste sous le débouchoir, crêpe tenue huit images puis
+  regonflée en accordéon ; pigeon qui tire sa tête à chaque battement, corps en retard, pose avachie ; réverbère vert de Paris ; travelling
+  final plus court (sa tête entrait dans la bande du carton).
+- 56 « La bosse » : passe 3 (après la passe 2 et ses contrôles) : le médecin à genoux sur le sommet de la boule, l'échelle posée sur son flanc,
+  la prise après le BONG passe sous la poutre vers nous, le géomètre tourné vers nous, le skieur quitte la lèvre du bord de la colline et tombe
+  devant son visage. Brouillon 2 en rendu, revue 2 préparée.
+- 57 « La porte tournante » : contrôles 2 et 3, plans embarqués pour S05 et le gros plan de S10, cadrages S06/S09 repris, carte tenue par son
+  bord, concierge tourné vers nous. Brouillon 1 en rendu, dossier de revue 1 écrit.
