@@ -112,7 +112,8 @@ st.cue('sfx:boing', 'S02', H2a, 0.35); st.cue('thud', 'S02', round(H2a + LANDT(1
 # 3: the seismographs detected an earthquake. The lab: the drum turns, the pen writes a calm line, then scribbles a spike at each hiccup, the second one
 #    so big the pen jumps off the paper; the seismologist leans in, then his eyes shoot out on stalks
 D3 = st.dur('S03'); SP3a = round(st.at('S03', 'L03', 1) + 0.1, 3); SP3b = round(st.at('S03', 'L03', 5) - 0.05, 3)
-LAB = {'door': False, 'wall': '#DCE7EE', 'band': '#9DB6C5', 'trim': '#4E6B7E', 'picture': False, 'carpet': False}   # (pass 4) a cool lab of its own (the living room's peach, teal band and landscape: it read as his flat; the red rug was the hottest colour under the map)
+LAB = {'door': False, 'wall': '#9CC7EA', 'band': '#5E86A6', 'trim': '#3E5A70', 'picture': False, 'carpet': False}   # (pass 4) a cool lab of its own (the living room's peach, teal band and landscape: it read as his flat; the red rug was the hottest colour under the map);
+# a strong blue (the warm light turned a pale grey-blue into beige: 208,196,173 measured)
 BENCH = [0.0, 0, -2.2]; SEIS = [0.0, 0.76, -2.2]; SAV = [0.1, 0, -2.85]
 READ = lambda sp, nk, **f: {'bend': {'spine': [sp, 0, 0, 1, None], 'neck': [nk, 0, 0, 1, None]}, 'face': dict(f)}
 PAPER3 = [SEIS[0], round(SEIS[1] + 0.22, 3), round(SEIS[2] + 0.2, 3)]
@@ -225,8 +226,9 @@ st.shot('S08', 'livingRoom', setOpts=LR, actors=[
                  keys=[k(0.4, rotTo=[-0.52, 0, 0], dur=0.12), k(0.62, rotTo=[-0.35, 0, 0], dur=0.12), k(0.8, rotTo=[-0.55, 0, 0], dur=0.12), k(1.02, rotTo=[-0.38, 0, 0], dur=0.12), k(1.18, rotTo=[-0.6, 0, 0], dur=0.12), k(1.4, rotTo=[-0.4, 0, 0], dur=0.12)]),
                # (pass 4) a saturated blue behind thin glass (it came out grey: an empty jar), its level going down at each gulp as the fireman tips it
                # (pass 3) a tumbler that reads (a thick rim, highlights, dark blue water), upright and tipped to his lips (upside down above his face it read as a pale slab)
-               P('spray8', 'waterDrops', pos=[0.39, 3.52, -1.12], opts={'at': round(H8 + 0.07, 3), 'n': 16, 'dir': [0, 0.75, 0.66], 'speed': 2.6, 'spread': 0.4, 'r': 0.04, 'life': 0.6, 'color': '#2F8FEA', 'tear': True}),
-               P('stream8', 'waterDrops', pos=[0.39, 3.52, -1.12], opts={'at': round(H8 + 0.07, 3), 'n': 12, 'dir': [0, 0.75, 0.66], 'speed': 2.2, 'spread': 0.07, 'r': 0.032, 'life': 0.45, 'color': '#2F8FEA', 'tear': True})],
+               P('spray8', 'waterDrops', pos=[0.43, 3.12, -1.08], opts={'at': round(H8 + 0.11, 3), 'n': 16, 'dir': [0, 0.15, 1.0], 'speed': 2.4, 'spread': 0.45, 'r': 0.04, 'life': 0.6, 'color': '#2F8FEA', 'tear': True}),
+               P('stream8', 'waterDrops', pos=[0.43, 3.12, -1.08], opts={'at': round(H8 + 0.11, 3), 'n': 12, 'dir': [0, 0.15, 1.0], 'speed': 2.0, 'spread': 0.07, 'r': 0.032, 'life': 0.45, 'color': '#2F8FEA', 'tear': True})],
+               # (pass 4b) as he folds over at the top, forward out of his mouth (fired at the arch it flew up while he came down: it hung above his head)
                # (pass 4) out of his mouth at the top (measured: the head joint at 3.42 m, the mouth 0.2 m in front of it), outlined teardrops, and a stream
                # of slower drops that links the burst to his lips (blue cubes hanging 200 px above his mouth)
                # (pass 3) a fountain out of his mouth at the top (measured: the head at 3.26 m, arched back): it burst round the glass in the fireman's fist
@@ -312,7 +314,7 @@ D11 = st.dur('S11'); UNV11 = 0.55; H11 = 0.95; HG11 = 0.75; LAND11 = round(H11 +
 PLAQ = [round(SEAT[0] - 0.8, 3), 1.75, -3.46]; PREF = [-1.45, 0, -2.3]; BASE11 = [round(SEAT[0] + 0.45, 3), 0, SEAT[2]]   # (pass 3) apart: his hand covered the last E of NATURELLE
 st.shot('S11', 'livingRoom', setOpts={**LR, 'picture': False}, actors=[   # (pass 2) the plaque takes the painting's place
         act('mec', BASE11, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.5, look=[PREF[0], 2.0, PREF[2]]), k(1.0, look='camera'),
-            *HICK(H11, BASE11, 1.0, hang=HG11, pose={'bend': {'armL': [0, 1.25, 0, 1, None], 'armR': [0, -1.25, 0, 1, None], 'legL': [0.25, 0.15, 0, 1, None], 'legR': [0.1, -0.15, 0, 1, None]}, 'wind': [0, 7, 0], 'hairUp': 0.7})]),
+            *HICK(H11, BASE11, 1.0, hang=HG11, pose={'bend': {'armL': [0, 1.25, 0, 1, None], 'armR': [0, -1.25, 0, 1, None], 'legL': [0.25, 0.15, 0, 1, None], 'legR': [0.1, -0.15, 0, 1, None]}, 'wind': [4, 3, 0], 'hairUp': 0.7})]),   # (pass 4b) the tie drifting up to his side (straight up it covered his face)
         # (pass 4) a slow float: arms drifting out, legs dangling apart, the tie and the hair drifting up   # (pass 3) a metre up, held 0.75 s (at 0.7 m his feet sat on the seat line: he seemed to stand on the sofa)
         # (pass 4) the official more frontal, his looks cheated toward us (turned 80 degrees away, his face never showed)
         act('prefet', PREF, 18, 'stand', 'happy', keys=[k(0.0, look={'point': PLAQ, 'cheat': 0.35}), k(round(UNV11 - 0.2, 3), toon={'reach': {'R': [round(PLAQ[0] - 0.2, 3), 2.0, round(PLAQ[2] + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.12),
