@@ -1796,3 +1796,17 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   images de contrôle : « set fills 38 % of the frame in front of the head » au plan 7 (le montant noir de la vitre) et « prop:tvcam14 fills 25 % »
   au plan 14 (la caméra de plateau) ; sur la passe 2b, plus rien. Elle signale aussi pour la passe suivante du torticolis : le double take de la
   dame vu de dos (123°) et le permis coupé par le bord droit dans le travelling avant du plan 7.
+
+### Le torticolis (53) — passe 3, d'après la revue 2 (animation 6,5 ; direction artistique 6,4)
+- Décisions (prises sans demander) : le plan 9 commence à 11,43 s au lieu du mot « arrière » (un quart de seconde pris au plan 8, comme demandé par la
+  critique) ; le cabinet de l'ostéopathe est le décor `hospital` (murs pâles, rideau, croix rouge) avec une table de soins blanche à la place du
+  bureau ; au plan 7 il s'est retourné vers le comptoir pour que la caméra ait la salle derrière elle (devant la vitre, elle n'avait que 1,2 m) ;
+  les fenêtres « GUICHET » sont retirées (coupées au bord gauche).
+- Plans : permis en accessoire à part, face caméra, à côté du visage, la moitié du cadre, travelling avant qui atterrit dessus avant « à l'envers »,
+  clignement des deux yeux ; marche à reculons filmée de trois quarts face, basse ; la dame s'arrête, se retourne vers lui, écrasement de deux
+  images puis yeux sur tiges et mâchoire tenus 0,6 s ; guichetière qui tamponne le permis sur le comptoir clair puis le tend sur le côté droit ;
+  cuillère échangée contre une copie fixée à la tête (dans la bouche, puis dans l'oreille avec une giclée de lait et la tête écrasée) ; claque
+  posée sur le réveil à son image d'écrasement ; ostéopathe face à nous au-dessus de sa tête, mains « grip » ; ta-da avec un grand sourire et les
+  bras qui flottent ; grattage de tête dans le cadre ; respirations et clignements dans les tenues ; intérieurs moins ambrés (`warm` 0,45).
+- Trouvé en route : `'flat'` n'est pas une pose de main (repos à la place) ; le bras « sur le dossier » visait un point de la rue, resté derrière la
+  voiture : remplacé par un `touch` dans le repère du buste. Consigné dans le skill (Erreurs à éviter).

@@ -1011,3 +1011,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 16) Un commentaire collé au milieu d'une ligne de code avale la fin de la ligne : dans `props_valise.js`, `// ...` posé devant
   `hatch.position.set(...); g.add(hatch);` a fait disparaître le tunnel du tapis à bagages de tous les plans. Après chaque modification :
   `python3 tools/lint_comments.py` (scripts Python) et `python3 tools/lint_js_comments.py` (moteur JavaScript).
+- (cycle 16, passe 3 de 53) Un nom de pose de main inconnu ne fait aucune erreur : la main garde la pose de repos. `'flat'` n'existe pas (les mains
+  de l'ostéopathe « flottaient » à côté de la tête, la claque sur le réveil s'arrêtait une main au-dessus) ; les poses sont `rest`, `open` (main à
+  plat), `spread`, `fist`, `point`, `two`, `pinch`, `thumbUp`, `grip` (agripper), `claw` (gratter).
+- (cycle 16, passe 3 de 53) Un `reach` vise un point du monde : sur un personnage qui roule (voiture, tapis), la main reste sur place derrière lui.
+  Pour un bras posé sur le dossier, une main sur la hanche, utiliser `touch` dans le repère de son propre buste (`['torso', x, y, z, 1, tip]`).
+- (cycle 16, passe 3 de 53) Un accessoire tenu en main pointe où pointe le poignet : la cuillère arrivait « cuilleron en l'air » au-dessus de la tête,
+  jamais dans la bouche. Pour un contact précis (cuillère dans la bouche, puis dans l'oreille), échanger à l'arrivée la cuillère de la main contre
+  une copie fixée à la tête (`on={'actor', 'joint': 'head', 'offset', 'rot'}`, clés `visible`), la main posée sur le manche (voir `SPOONAT` dans
+  `story_torticolis.py` : le cuilleron à un point, le manche dans une direction, le creux tourné vers le haut). Mesures de la tête du héros :
+  0,24 m de large, 0,5 de haut, 0,17 de profondeur, l'articulation au menton ; la bouche à 0,115 m au-dessus, le visage à 0,085 m devant.
+- (cycle 16, passe 3 de 53) Un papier qu'on doit lire (un permis à l'envers) tenu dans la main finit au bord du cadre, à moitié derrière le poing, et
+  le travelling avant le perd : en faire un accessoire à part, `face='camera'`, posé à côté du visage, la moitié de la largeur du cadre, la main
+  qui le pince par un coin, le travelling avant qui atterrit dessus avant le mot.
