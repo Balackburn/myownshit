@@ -144,7 +144,7 @@ export const BOSSE_PROPS = {
       hook = box(0.06, 0.03, 0.04, '#B88A3A', { outline: 0.03 }); dress.add(hook);
       if (tp.readout) { const tw = tp.tagW ?? 0.55, th = tw * 0.42; tag = canvasPlane(tw, th, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#1C1C1E'; c.lineWidth = H * 0.06; c.strokeRect(0, 0, W, H);
           c.fillStyle = '#1C1C1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let fs = H * 0.62; c.font = `900 ${fs}px Arial`; while (c.measureText(tp.readout[0]).width > W * 0.86) { fs -= 2; c.font = `900 ${fs}px Arial`; } c.fillText(tp.readout[0], W / 2, H * 0.54); }, { res: 384 });
-        tag.material = new THREE.MeshBasicMaterial({ map: tag.material.map, side: THREE.DoubleSide, toneMapped: false }); const tq = S(tp.tagAt ?? 0.32, ph, 0.08); tag.position.copy(tq); tag.rotation.y = PI / 2 - ph; dress.add(tag); }
+        tag.material = new THREE.MeshBasicMaterial({ map: tag.material.map, side: THREE.DoubleSide, toneMapped: false }); const tph = ph + (tp.tagDphi ?? 0), tq = S(tp.tagAt ?? 0.32, tph, 0.08); tag.position.copy(tq); tag.rotation.y = PI / 2 - tph; dress.add(tag); }   // (pass 4 of 56) tagDphi: the tag beside the tape, not on it
     }
     // the plaster after it went down (at the scale of the head, not of the bump)
     const plaster = o.plaster ? grp(at(box(0.15, 0.008, 0.035, '#F0D9B8', { outline: 0.03 }), 0, 0.004, 0, 0, 0.7, 0), at(box(0.15, 0.008, 0.035, '#F0D9B8', { outline: 0.03 }), 0, 0.006, 0, 0, -0.7, 0)) : null;

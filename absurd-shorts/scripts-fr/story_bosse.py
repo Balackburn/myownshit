@@ -42,18 +42,21 @@ SUNK = lambda s_, extra=None: {'bend': {'neck': [0.0, 0, 0, r(s_), None]}, **(ex
 #    head driven down into his shoulders, his body squashed, stars; he staggers back a step, the head popping back up, cross-eyed
 D1 = st.dur('S01'); HIT1 = round(st.at('S01', 'L01', 3) + 0.02, 3)   # « cogné »
 BEAMH = 1.86
+# (pass 4) he walks AWAY from us into the doorway and his forehead hits the sign on the beam's near face: the contact in view, the squash against the
+# wood; he staggers back toward us and turns, cross-eyed, held six frames (walking at us he hit the far face of the beam, out of sight, and the take
+# left the frame at the top)
+ME1 = [0.0, 0, 1.65]; HITZ = 0.24
 st.shot('S01', 'livingRoom', setOpts={'carpet': False, 'picture': False, 'tv': False}, look=LOOKI, actors=[
-        act('mec', [0.0, 0, -2.3], 0, 'stand', 'unimpressed', keys=[k(0.0, look=[0.0, 1.9, 2.0]), k(0.0, toon={'face': DEADPAN}, toonDur=0.0),
-            k(0.0, to=[0.0, 0, -0.3], dur=HIT1, clip='walk', then='stand', ease='linear', face='keep'),
-            k(HIT1, toon={'scl': {'head': [1.26, 0.7, 1.26]}, 'bend': {'neck': [0.25, 0, 0, 0.35, None]}, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.033, toonEase='out'),   # BONG: the head into his shoulders...
-            k(round(HIT1 + 0.05, 3), toon={'scl': {'head': [1.22, 0.74, 1.22]}, 'bend': {'neck': [0.25, 0, 0, 0.38, None]}, 'sq': [1.1, 0.88, 1.1], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.03),
-            k(round(HIT1 + 0.08, 3), toon={'scl': {'head': [1.27, 0.69, 1.27]}, 'bend': {'neck': [0.25, 0, 0, 0.34, None]}, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.02),   # (pass 2) the squash held, shivering
-            k(round(HIT1 + 0.07, 3), to=[0.0, 0, 0.65], dur=0.22, ease='out', face='keep'),                                            # ...squashed short, he staggers on under it toward us (stills 4: backing off, the beam hid his face)...
-            k(round(HIT1 + 0.17, 3), toon={'scl': {'head': [0.92, 1.12, 0.92]}, 'bend': {'neck': [-0.08, 0, 0, 1.14, None]}, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.06, toonEase='outBack'),   # ...past it, the head pops back up...
-            k(round(HIT1 + 0.23, 3), toon={'bend': {'neck': [0.0, 0, 0, 0.92, None]}, 'lay': [0.05, 0.04], 'face': {'lid': 0.05, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.08)])],   # ...swaying, his eyes wide and crossed, stars round them, held to the cut
-        props=[P('beam1', 'lowBeam', pos=[0.0, 0, 0.0], opts={'h': BEAMH, 'w': 1.3, 'shake': [[HIT1, 0.05]], 'wall': [1.8, 2.7, '#E9DCC6']}), BURST('bong1', [0.75, 2.05, 0.35], HIT1, 'BONG !', 0.46)],   # (pass 2) the doorway in a wall   # (stills v1) the burst beside his head, below the beam (at the top edge it was cut)
-        cams=[FC(0.0, [1.45, 1.1, 2.2], [[0.0, 2.25, -0.3], [0.0, 0.0, -0.3], [-0.8, 2.1, 0.0], [0.8, 2.1, 0.0], [0.0, 0.0, -1.5]], top=0.1, bottom=0.78, drift=(0.0, 0.0, -0.1))])   # (pass 3) lower: under the beam's edge, his face after the blow
-        # (pass 2) 33 degrees off his axis at chest height: the forehead meets the front of the beam in view (from the front, low, the beam hid the blow and the take)
+        act('mec', ME1, 180, 'stand', 'unimpressed', keys=[k(0.0, look=[0.0, 1.9, -2.0]), k(0.0, toon={'face': DEADPAN}, toonDur=0.0),
+            k(0.0, to=[0.0, 0, HITZ], dur=HIT1, clip='walk', then='stand', ease='linear', face='keep'),
+            k(HIT1, toon={'scl': {'head': [1.26, 0.7, 1.26]}, 'bend': {'neck': [0.25, 0, 0, 0.35, None]}, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.033, toonEase='out'),   # BONG: the head into his shoulders against the beam...
+            k(round(HIT1 + 0.04, 3), toon={'scl': {'head': [1.22, 0.74, 1.22]}, 'bend': {'neck': [0.25, 0, 0, 0.38, None]}, 'sq': [1.1, 0.88, 1.1], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.03),   # ...held two frames, shivering...
+            k(round(HIT1 + 0.05, 3), to=[0.0, 0, 0.95], dur=0.2, ease='out', face='keep'),                                            # ...he staggers back toward us...
+            k(round(HIT1 + 0.05, 3), face=0, turn=0.08), k(round(HIT1 + 0.08, 3), look='camera'),                                     # ...turning round to us...
+            k(round(HIT1 + 0.08, 3), toon={'scl': {'head': [0.92, 1.12, 0.92]}, 'bend': {'neck': [-0.08, 0, 0, 1.14, None]}, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.06, toonEase='outBack'),   # ...the head pops back up...
+            k(round(HIT1 + 0.14, 3), toon={'bend': {'neck': [0.0, 0, 0, 1.0, None]}, 'lay': [0.05, 0.04], 'face': {'lid': 0.0, 'cross': 1.0, 'stars': 1.0, 'eyeScale': 1.2}}, toonDur=0.08)])],   # ...cross-eyed to us, stars round his head, held to the cut
+        props=[P('beam1', 'lowBeam', pos=[0.0, 0, 0.0], opts={'h': BEAMH, 'w': 1.3, 'shake': [[HIT1, 0.05]], 'wall': [1.8, 2.7, '#E9DCC6']}), BURST('bong1', [0.62, 2.2, 0.3], HIT1, 'BONG !', 0.46)],
+        cams=[FC(0.0, [1.0, 1.5, 3.7], [[0.0, 2.45, 0.95], [0.0, 0.0, ME1[2]], [-0.8, 2.15, 0.0], [0.8, 2.15, 0.0], [0.62, 2.45, 0.3], [0.0, 0.0, 0.2]], top=0.1, bottom=0.78, drift=(0.0, 0.0, -0.08))])
 st.cue('sfx:bonk', 'S01', HIT1, 0.5); st.cue('sfx:boing', 'S01', round(HIT1 + 0.1, 3), 0.25)
 
 # 2: the bump. Close: the head springs up and the bump pops out of his skull in three throbs, POC, POC, POC, each bigger; his eyes roll up to it

@@ -44,22 +44,22 @@ BUS = lambda pid: P(pid, 'busStop', pos=[r(ME[0] + 0.9), 0, r(ME[2] - 1.9)], ry=
 #    and wider, his hair rising
 D1 = st.dur('S01'); Y1 = 0.35
 YAWN = lambda k_: {'reach': {'L': [r(ME[0] - 0.05), r(1.9 + 0.55 * k_), r(ME[2] + 0.32), 1, 0.05], 'R': [r(ME[0] - 0.05), r(1.9 + 0.55 * k_), r(ME[2] - 0.32), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'},
-                   'bend': {'spine': [r(-0.3 * k_), 0, 0, 1, None], 'neck': [r(-0.35 * k_), 0, 0, 1, None]}, 'sq': [r(1 - 0.06 * k_), r(1 + 0.1 * k_), r(1 - 0.06 * k_)]}
+                   'bend': {'spine': [r(-0.2 * k_), 0, 0, 1, None], 'neck': [r(-0.1 * k_), 0, 0, 1, None]}, 'sq': [r(1 - 0.06 * k_), r(1 + 0.1 * k_), r(1 - 0.06 * k_)]}
 st.shot('S01', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
             k(round(Y1 - 0.12, 3), toon={'sq': [1.03, 0.96, 1.03], 'face': {'lid': 0.6}}, toonDur=0.12, toonEase='in'),   # a little sag first...
-            k(Y1, toon={**YAWN(0.5), 'face': {'lid': 0.9, 'jaw': 0.35, 'jawLen': 0.5, 'mouth': 'O', 'brow': -0.4}}, toonDur=0.3, toonEase='inOut'),   # ...up into the stretch...
-            k(round(Y1 + 0.32, 3), toon={**YAWN(1.0), 'hairUp': 0.7, 'face': {'lid': 1.0, 'jaw': 0.9, 'jawLen': 0.7, 'mouth': 'O', 'brow': -0.6}}, toonDur=0.45, toonEase='inOut'),   # ...wider and wider...
-            *[k(round(Y1 + 0.8 + 0.035 * i, 3), toon={**YAWN(1.0), 'hairUp': 0.8, 'face': {'lid': 1.0, 'jaw': round(0.95 + (0.04 if i % 2 else 0.0), 3), 'jawLen': 0.75, 'mouth': 'O', 'brow': -0.7}}, toonDur=0.035) for i in range(5)]])],   # ...a quiver at the top
+            k(Y1, toon={**YAWN(0.5), 'face': {'lid': 0.9, 'jaw': 0.35, 'jawLen': 0.5, 'jawBlock': 1.0, 'jawFwd': 0.03, 'mouth': 'O', 'brow': -0.4}}, toonDur=0.3, toonEase='inOut'),   # ...up into the stretch...
+            k(round(Y1 + 0.32, 3), toon={**YAWN(1.0), 'hairUp': 0.7, 'face': {'lid': 1.0, 'jaw': 0.9, 'jawLen': 0.7, 'jawBlock': 1.0, 'jawFwd': 0.04, 'mouth': 'O', 'brow': -0.6}}, toonDur=0.45, toonEase='inOut'),   # ...wider and wider...
+            *[k(round(Y1 + 0.8 + 0.035 * i, 3), toon={**YAWN(1.0), 'hairUp': 0.8, 'face': {'lid': 1.0, 'jaw': round(0.95 + (0.04 if i % 2 else 0.0), 3), 'jawLen': 0.75, 'jawBlock': 1.0, 'jawFwd': 0.04, 'mouth': 'O', 'brow': -0.7}}, toonDur=0.035) for i in range(5)]])],   # ...a quiver at the top
         props=[BUS('bus1')],
-        cams=[FC(0.0, [r(ME[0] - 2.4), 1.6, 1.3], [[ME[0], 2.85, ME[2]], [ME[0], 1.0, ME[2]], [ME[0], 2.4, r(ME[2] + 0.5)], [ME[0], 2.4, r(ME[2] - 0.5)]], top=0.1, bottom=0.72, drift=(0.15, 0.0, -0.06))])
+        cams=[FC(0.0, [r(ME[0] - 2.5), 1.3, 0.85], [[ME[0], 2.85, ME[2]], [ME[0], 1.0, ME[2]], [ME[0], 2.4, r(ME[2] + 0.5)], [ME[0], 2.4, r(ME[2] - 0.5)]], top=0.1, bottom=0.72, drift=(0.15, 0.0, -0.06))])   # (stills 1) lower and more frontal: from above and the side the yawn was the top of a skull
 st.cue('sfx:slideUp', 'S01', round(Y1 + 0.1, 3), 0.3)
 
 # 2: his jaw fell to the ground. Full figure: the jaw drops as a block down in front of him to the pavement: CLONK, a puff of dust, his eyes pop out;
 #    then deadpan above it, a long dark open mouth from under his nose to the ground
 D2 = st.dur('S02'); DROP2 = 0.18; HIT2 = 0.34
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**YAWN(0.9), 'face': {'lid': 1.0, 'jaw': 0.9, 'jawLen': 0.75, 'jawBlock': 1.0, 'jawFwd': JF, 'mouth': 'O'}}, toonDur=0.0),
+        act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**YAWN(0.9), 'face': {'lid': 1.0, 'jaw': 0.95, 'jawLen': 0.75, 'jawBlock': 1.0, 'jawFwd': 0.04, 'mouth': 'O'}}, toonDur=0.0),
             k(DROP2, toon={'face': {**JAWDOWN, 'jaw': 0.35, 'lid': 0.3, 'brow': 0.5, 'mouth': 'O'}}, toonDur=0.08, toonEase='in'),   # the arms down, the jaw going...
             k(round(DROP2 + 0.08, 3), toon={'face': {**JAWDOWN, 'lid': 0.2, 'brow': 0.6, 'mouth': 'O'}}, toonDur=round(HIT2 - DROP2 - 0.08, 3), toonEase='in'),   # ...all the way down...
             k(HIT2, toon={'sq': [1.04, 0.95, 1.04], 'face': {**JAWDOWN, 'lid': 0.0, 'pop': 0.6, 'popLen': 0.22, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.03, toonEase='out'),   # ...CLONK: his eyes pop...
@@ -82,7 +82,7 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
             k(round(LET3 + 0.04, 3), toon={'face': {**JAWDOWN, 'lid': 0.3, 'brow': 0.7}}, toonDur=round(HIT3 - LET3 - 0.04, 3), toonEase='in'),   # ...it drops...
             k(HIT3, toon={'sq': [1.03, 0.96, 1.03], 'face': FACE({'lid': 0.6})}, toonDur=0.03, toonEase='out'), k(round(HIT3 + 0.15, 3), toon={'face': FACE()}, toonDur=0.1)])],   # ...CLONK, deadpan
         props=[BUS('bus3'), P('dust3', 'dustPuff', pos=[CHINX, 0.0, ME[2]], opts={'once': True, 'startAt': HIT3, 'period': 0.5}), BURST('clonk3', [r(CHINX - 0.35), 0.7, r(ME[2] - 0.55)], HIT3, 'CLONK !', 0.5)],
-        cams=[FC(0.0, [r(ME[0] - 2.6), 1.1, -1.2], [[ME[0], 2.3, ME[2]], [ME[0], 0.0, ME[2]], [r(CHINX - 0.3), 0.0, ME[2]], [ME[0], 1.8, r(ME[2] + 0.5)]], top=0.12, bottom=0.74)])
+        cams=[FC(0.0, [r(ME[0] - 2.8), 0.95, -0.8], [[ME[0], 2.3, ME[2]], [ME[0], 0.0, ME[2]], [r(CHINX - 0.3), 0.0, ME[2]], [ME[0], 1.8, r(ME[2] + 0.5)]], top=0.12, bottom=0.74)])   # (stills 1) more frontal: the lift read as a plank across his back
 st.cue('sfx:stretch', 'S03', 0.25, 0.2); st.cue('sfx:thud', 'S03', HIT3, 0.45)
 
 # 4: the town hall classed it as a slide. The mayor in his sash snips a ribbon in front of him with giant scissors: a TOBOGGAN sign pops up beside
@@ -102,7 +102,7 @@ st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
                P('sci4', 'bigScissors', on={'actor': 'maire', 'hand': 'R', 'offset': [0, 0, 0.04]}, opts={'snip': [[0.0, 1.0], [round(SNIP4 - 0.04, 3), 1.0], [SNIP4, 0.0], [round(SNIP4 + 0.2, 3), 0.0]]}, keys=[k(round(SNIP4 + 0.22, 3), visible=False)]),
                P('sign4', 'signBoard', pos=[r(ME[0] - 0.1), 0, r(ME[2] + 1.0)], ry=-90, opts={'text': 'TOBOGGAN', 'w': 1.1, 'h': 0.42, 'height': 1.45, 'bg': '#F4F1E8', 'fg': '#1F3E99', 'frame': '#1F3E99'},
                  keys=[k(0.0, scale=0.001), k(round(SNIP4 + 0.05, 3), scale=1.0, dur=0.18, ease='outBack')])],   # pops up
-        cams=[FC(0.0, [r(ME[0] - 3.3), 1.35, 2.2], [[ME[0], 2.35, ME[2]], [r(ME[0] - 1.7), 0.0, ME[2]], [MAIRE[0], 2.1, MAIRE[2]], [ME[0], 2.0, r(ME[2] + 1.0)], [MAIRE[0], 0.0, MAIRE[2]]], top=0.1, bottom=0.74)])
+        cams=[FC(0.0, [r(ME[0] - 3.3), 1.35, 2.2], [[ME[0], 2.35, ME[2]], [r(ME[0] - 1.7), 0.0, ME[2]], [MAIRE[0], 2.1, r(MAIRE[2] - 0.3)], [r(ME[0] - 0.1), 1.9, r(ME[2] + 1.6)], [MAIRE[0], 0.0, MAIRE[2]]], top=0.24, bottom=0.74)])   # (stills 1) the edges, not the centres; under the title card
 st.cue('sfx:click', 'S04', SNIP4, 0.35); st.cue('sfx:pop', 'S04', round(SNIP4 + 0.05, 3), 0.3); st.cue('sfx:zip', 'S04', UNR4[0], 0.3); st.cue('sfx:fanfare', 'S04', round(SNIP4 + 0.1, 3), 0.15)
 
 # 5: on Sundays there is a queue. Wide: a ladder propped against his chest, a queue of people waiting at its foot along the pavement, the sign, the
@@ -117,22 +117,22 @@ st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
         act('q3', Q[2], -5, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 1.7, ME[2]]), k(0.15, toon={'lay': [0.04, 0.0]}, toonDur=0.3, toonEase='inOut')])],
         props=[BUS('bus5'), TONGUE('tong5'), P('lad5', 'ladder', pos=LADB, ry=25, opts={'h': 1.9, 'lean': 0.32}),
                P('sign5', 'signBoard', pos=[r(ME[0] - 0.1), 0, r(ME[2] + 1.0)], ry=-90, opts={'text': 'TOBOGGAN', 'w': 1.1, 'h': 0.42, 'height': 1.45, 'bg': '#F4F1E8', 'fg': '#1F3E99', 'frame': '#1F3E99'})],
-        cams=[FC(0.0, [r(ME[0] - 4.2), 1.5, 2.2], [[ME[0], 2.3, ME[2]], [r(ME[0] - 1.8), 0.0, ME[2]], [Q[2][0], 2.1, Q[2][2]], [Q[2][0], 0.0, Q[2][2]], [ME[0], 2.0, r(ME[2] + 1.0)]], top=0.1, bottom=0.74)])
+        cams=[FC(0.0, [r(ME[0] - 4.2), 1.5, 2.2], [[ME[0], 2.3, ME[2]], [r(ME[0] - 1.6), 0.0, ME[2]], [Q[1][0], 2.0, r(Q[1][2] - 0.25)], [Q[1][0], 0.0, Q[1][2]], [r(ME[0] - 0.1), 1.9, r(ME[2] + 0.5)]], top=0.1, bottom=0.76)])   # (stills 1) tighter: he was 26 % of the frame; the sign (shown in S04) and the last of the queue may go out at the sides
 st.cue('sfx:street', 'S05', 0.0, 0.1)
 
 # 6: the queue. A granny in his open mouth slides down it, out over his chin and along his tongue to the kerb, her arms up: WHEE; at the end she lands
 #    on her bottom, bounces; he looks down at her, deadpan
-D6 = st.dur('S06'); GO6 = 0.12; BOT6 = 0.42; END6 = 0.78
-MAMIE0 = [r(CHINX - 0.12), 1.12, r(ME[2] + 0.02)]
+D6 = st.dur('S06'); GO6 = 0.06; BOT6 = 0.3; END6 = 0.56   # (stills 1) the bump at the end fell after the cut (the shot is 0.77 s)
+MAMIE0 = [r(CHINX - 0.32), 1.25, r(ME[2] + 0.02)]   # (debugJoints) reclined, her head is 0.37 m behind her seat: further out, her head is at his lips, not in his chest
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE({'gy': 0.5})}, toonDur=0.0), k(0.5, toon={'face': FACE({'gy': 0.8, 'gx': -0.2})}, toonDur=0.12)]),
-        act('mamie', MAMIE0, -90, 'sit', 'happy', keys=[k(0.0, look=[r(ME[0] - 2.0), 0.4, ME[2]]),
-            k(0.0, toon={'reach': {'L': [r(MAMIE0[0] - 0.1), 1.95, r(MAMIE0[2] + 0.3), 1, 0.05], 'R': [r(MAMIE0[0] - 0.1), 1.95, r(MAMIE0[2] - 0.3), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 0.6, 'face': {'mouth': 'bigsmile', 'lid': 0.0, 'brow': 0.7}}, toonDur=0.0),
-            k(GO6, to=[r(CHINX - 0.12), 0.06, ME[2]], dur=round(BOT6 - GO6, 3), glide=True, ease='in', face='keep'),   # down his mouth...
-            k(BOT6, to=[r(CHINX - 1.5), 0.04, ME[2]], dur=round(END6 - BOT6, 3), glide=True, ease='linear', face='keep'),   # ...along his tongue...
-            k(END6, to=[r(CHINX - 1.85), 0.0, ME[2]], dur=0.12, glide=True, ease='out', face='keep'),
+        act('mamie', MAMIE0, -90, 'reclineBack', 'happy', keys=[k(0.0, look=[r(ME[0] - 2.0), 0.4, ME[2]]),   # (stills 1) seated legs out, leaning back: on 'sit' she sat on a chair in the air
+            k(0.0, toon={'touch': {'L': ['torso', 0.28, 0.95, 0.12, 1], 'R': ['torso', -0.28, 0.95, 0.12, 1]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 0.6, 'face': {'mouth': 'bigsmile', 'lid': 0.0, 'brow': 0.7}}, toonDur=0.0),
+            k(GO6, to=[r(CHINX - 0.34), 0.38, ME[2]], dur=round(BOT6 - GO6, 3), glide=True, ease='in', face='keep'),   # down his mouth... ((debugJoints) her feet hang 0.2-0.4 m under her seat: kept above the tongue)
+            k(BOT6, to=[r(CHINX - 1.5), 0.36, ME[2]], dur=round(END6 - BOT6, 3), glide=True, ease='linear', face='keep'),   # ...along his tongue...
+            k(END6, to=[r(CHINX - 1.85), 0.3, ME[2]], dur=0.12, glide=True, ease='out', face='keep'),
             k(END6, toon={'sq': [1.25, 0.75, 1.25], 'face': {'mouth': 'bigsmile', 'lid': 0.2, 'brow': 0.8}}, toonDur=0.04, toonEase='out'), k(round(END6 + 0.1, 3), toon={'sq': [0.95, 1.05, 0.95], 'face': {'mouth': 'bigsmile', 'lid': 0.2}}, toonDur=0.08)])],   # ...a bump at the end
-        props=[BUS('bus6'), TONGUE('tong6'), BURST('whee6', [r(CHINX - 0.85), 1.15, r(ME[2] + 0.5)], round(BOT6 - 0.05, 3), 'YOUPI !', 0.45)],
+        props=[BUS('bus6'), TONGUE('tong6'), BURST('whee6', [r(CHINX - 0.6), 1.55, r(ME[2] - 0.65)], round(BOT6 - 0.05, 3), 'YOUPI !', 0.42)],
         cams=[FC(0.0, [r(ME[0] - 2.2), 1.0, 2.4], [[ME[0], 2.3, ME[2]], [MAMIE0[0], 2.45, MAMIE0[2]], [r(CHINX - 1.9), 0.0, ME[2]], [r(CHINX - 1.9), 1.0, ME[2]], [ME[0], 0.0, ME[2]]], top=0.1, bottom=0.74, drift=(-0.2, 0.0, 0.0))])
 st.cue('whoosh', 'S06', GO6, 0.3, 0.6, 400, 1500); st.cue('sfx:boing', 'S06', END6, 0.3)
 
@@ -190,7 +190,7 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[
             k(1.1, toon={'face': {'lid': 1.0, 'cheeks': 0.3}}, toonDur=0.06), k(1.22, toon={'face': {'lid': 0.45, 'cheeks': 0.3}}, toonDur=0.08)])],
         props=[BUS('bus10'), P('bul10', 'bellyBulge', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0, 0]}, opts={'r': 0.13, 'path': [[b[0], b[1], b[2], b[3]] for b in BULGE], 'size': [[0.0, 0.7], [0.36, 1.2], [0.45, 0.9], [0.62, 1.25], [0.7, 0.9], [0.96, 1.3], [1.05, 0.95]]}),
                BURST('toc10', [r(ME[0] - 0.55), 1.35, r(ME[2] + 0.45)], 0.36, 'TOC !', 0.32), BURST('toc10b', [r(ME[0] - 0.55), 1.05, r(ME[2] - 0.45)], 0.62, 'TOC !', 0.28)],
-        cams=[FC(0.0, [r(ME[0] - 1.8), 1.35, 0.7], [[ME[0], 2.25, ME[2]], [ME[0], 0.75, ME[2]], [ME[0], 1.4, r(ME[2] + 0.45)], [ME[0], 1.4, r(ME[2] - 0.45)]], top=0.14, bottom=0.7, drift=(0.12, 0.0, -0.04))])
+        cams=[FC(0.0, [r(ME[0] - 1.8), 1.35, 0.7], [[ME[0], 2.25, ME[2]], [ME[0], 0.75, ME[2]], [ME[0], 1.4, r(ME[2] + 0.45)], [ME[0], 1.4, r(ME[2] - 0.45)]], top=0.24, bottom=0.72, drift=(0.12, 0.0, -0.04))])   # (stills 1) under the title card
 st.cue('thud', 'S10', 0.36, 0.25); st.cue('thud', 'S10', 0.62, 0.25); st.cue('thud', 'S10', 0.96, 0.2)
 
 # 11: he gets his mail from the inside. A letter rises out between his lips like toast from a toaster; he takes it, unfolds it and reads it; he looks

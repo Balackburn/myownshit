@@ -33,12 +33,13 @@ export const TOURNANTE_PROPS = {
   // the drum alone. userData.angleAt(t): the wings' angle (rad), for a script that times something on a wing.
   revolvingDoor(o) {
     // (stills 2) o.glass [wall, wing] opacities (0.12, 0.07): seen through a wall and two panes a man inside came out grey (0.3 and 0.2)
-    const R = o.r ?? 1.0, H = o.h ?? 2.4, g = grp(), metal = o.metal || '#3A4048';
+    // (pass 2) o.frame: the colour of the posts and the wings' frames (brass: a navy suit read against navy posts at 1.07 to 1)
+    const R = o.r ?? 1.0, H = o.h ?? 2.4, g = grp(), metal = o.metal || '#3A4048', frame = o.frame || metal;
     g.add(at(cyl(R + 0.04, R + 0.04, 0.03, '#5A6068', 32), 0, 0.015, 0));                                         // the floor plate
     g.add(at(cyl(R + 0.08, R + 0.08, 0.22, metal, 32), 0, H + 0.11, 0));                                            // the canopy
     for (const s of [-1, 1]) {   // the curved glass walls and their metal edges, on the ±X sides
       const wall = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 20, 1, true, s > 0 ? PI / 4 : 5 * PI / 4, PI / 2), glassMat(o.glass?.[0] ?? 0.12)); wall.position.y = H / 2; g.add(wall);
-      for (const a of [PI / 4, 3 * PI / 4]) { const th = s > 0 ? a : a + PI; g.add(at(box(0.06, H, 0.06, metal, { outline: 0.004 }), R * Math.sin(th), H / 2, R * Math.cos(th))); }
+      for (const a of [PI / 4, 3 * PI / 4]) { const th = s > 0 ? a : a + PI; g.add(at(box(0.06, H, 0.06, frame, { outline: 0.004 }), R * Math.sin(th), H / 2, R * Math.cos(th))); }
     }
     const sign = canvasPlane(1.4, 0.18, (c, W, Ht) => { c.fillStyle = '#1C2A3A'; c.fillRect(0, 0, W, Ht); c.fillStyle = '#F2D27A'; c.textAlign = 'center'; c.textBaseline = 'middle';
       let fs = Ht * 0.62; c.font = `900 ${fs}px Arial`; const tw = c.measureText(o.text || 'ENTRÉE').width; if (tw > W * 0.9) { fs *= W * 0.9 / tw; c.font = `900 ${fs}px Arial`; } c.fillText(o.text || 'ENTRÉE', W / 2, Ht * 0.54); }, { res: 512 });
@@ -51,18 +52,31 @@ export const TOURNANTE_PROPS = {
     const r0 = o.inner ?? 0.05;
     if (o.wings !== false) for (let i = 0; i < 4; i++) { const w = grp(); w.rotation.y = i * PI / 2; rot.add(w);
       const L = R - 0.06 - r0, pane = new THREE.Mesh(new THREE.BoxGeometry(0.025, H - 0.16, L - 0.06), glassMat(o.glass?.[1] ?? 0.07)); pane.position.set(0, H / 2, r0 + (L - 0.06) / 2); w.add(pane);
-      for (const y of [0.06, H - 0.06]) w.add(at(box(0.05, 0.08, L, metal, { outline: 0.004 }), 0, y, r0 + L / 2));
-      w.add(at(box(0.05, H - 0.04, 0.05, metal, { outline: 0.004 }), 0, H / 2, r0 + L)); w.add(at(box(0.05, H - 0.04, 0.05, metal, { outline: 0.004 }), 0, H / 2, r0));
+      for (const y of [0.06, H - 0.06]) w.add(at(box(0.05, 0.08, L, frame, { outline: 0.004 }), 0, y, r0 + L / 2));
+      w.add(at(box(0.05, H - 0.04, 0.05, frame, { outline: 0.004 }), 0, H / 2, r0 + L)); w.add(at(box(0.05, H - 0.04, 0.05, frame, { outline: 0.004 }), 0, H / 2, r0));
       w.add(at(box(0.04, 0.05, L * 0.6, '#C9CCD1'), 0.03, 1.05, r0 + L * 0.55)); }
-    const blur = new THREE.Mesh(new THREE.CylinderGeometry(R - 0.06, R - 0.06, H - 0.16, 28, 1, true), new THREE.MeshBasicMaterial({ color: '#E6F2F6', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide }));
+    // (pass 2) the blur only on the drum's far side, behind him (both sides veiled him grey: suit saturation 0.14), with streaks round it
+    const streak = document.createElement('canvas'); streak.width = 256; streak.height = 64; { const c = streak.getContext('2d'); c.fillStyle = 'rgba(230,242,246,0.55)'; c.fillRect(0, 0, 256, 64); c.fillStyle = 'rgba(255,255,255,0.95)'; for (let i = 0; i < 9; i++) c.fillRect((i * 53) % 256, 4 + i * 6.5, 70 + (i % 3) * 30, 2.2); }
+    const stex = new THREE.CanvasTexture(streak); stex.wrapS = THREE.RepeatWrapping; stex.repeat.set(3, 1);
+    const blur = new THREE.Mesh(new THREE.CylinderGeometry(R - 0.06, R - 0.06, H - 0.16, 28, 1, true), new THREE.MeshBasicMaterial({ map: stex, color: '#FFFFFF', transparent: true, opacity: 0, depthWrite: false, side: THREE.BackSide }));
     blur.position.y = H / 2; g.add(blur);
     g.userData.angleAt = t => TAU * integ(o.spin, t);
     g.userData.update = t => {
       rot.rotation.y = TAU * integ(o.spin, t);
-      const rate = Math.abs(lin(o.spin, t, 0)); blur.material.opacity = Math.max(0, Math.min(0.12, (rate - 0.9) * 0.08)); blur.visible = blur.material.opacity > 0.01;   // (stills v1) faint: a man turning at the axis is inside the drum and a thick blur whitened him
+      const rate = Math.abs(lin(o.spin, t, 0)); blur.material.opacity = Math.max(0, Math.min(0.6, (rate - 0.9) * 0.4)); blur.visible = blur.material.opacity > 0.01; stex.offset.x = -TAU * integ(o.spin, t) / TAU * 3;   // (stills v1) faint: a man turning at the axis is inside the drum and a thick blur whitened him; (pass 2) behind him only, so it can be strong
       const bk = lin(o.bulbs, t, 0); bulbs.forEach((b, i) => { b.material.emissiveIntensity = bk * (0.75 + 0.25 * Math.sin(t * 9 + i * 1.3)) * 2.2; });
     };
     g.userData.update(0); return g;
+  },
+
+  // A long beard (pivot at the chin, hanging along -Y, the face +Z): one tapered hanging mass o.len (0.7) long, o.color, swept out to one side by o.sweep
+  // (rad, about Z) and out in front by o.lift (rad, about X): grown while he turned for three years (a fan of dark sticks read as a comb).
+  longBeard(o) {
+    const L = o.len ?? 0.7, w0 = o.w ?? 0.2, c = o.color || '#4A3626', g = grp(), hang = grp(); g.add(hang);
+    const N = 6; for (let i = 0; i < N; i++) { const u = i / N, w = w0 * (1 - 0.75 * u), h = L / N * 1.08; hang.add(at(box(w, h, w * 0.55, c, { outline: 0.01 }), 0, -L * (u + 0.5 / N), 0.02 + 0.02 * u)); }
+    hang.add(at(box(w0 * 0.25, L * 0.12, w0 * 0.15, c), 0, -L * 1.02, 0.04, 0, 0, 0.3));
+    hang.rotation.set(o.lift ?? 0.15, 0, o.sweep ?? 0);
+    return g;
   },
 
   // A thick power cable from the origin (a big plug pushed into a socket box) to o.to [x, y, z] in the prop's frame, sagging by o.sag (0.3), o.color;

@@ -497,7 +497,9 @@ const S = {
     const field = flat(9000, 9000, o.grass || '#86BE5C', 0, 0, 0); field.renderOrder = -2; g.add(field);   // drawn first: a road strip is painted over it (props_elan.js: roadStrip)
     for (let i = 0; i < (o.clouds ?? 40); i++) { const a = i / (o.clouds ?? 40) * TAU + r() * 0.12, d = (o.cloudR || 650) * (0.85 + r() * 0.35);
       g.add(prop('cumulus', { w: 150 + r() * 120, h: 55 + r() * 35, n: 22, seed: i + 3 }, Math.cos(a) * d, -8, Math.sin(a) * d)); }
-    for (let i = 0; i < 26; i++) { const a = r() * TAU, d = 60 + r() * 240; g.add(prop('tree', { seed: i + 9, color: '#4E8A4A' }, Math.cos(a) * d, 0, Math.sin(a) * d, 0, 2.2 + r() * 1.6)); }
+    // (story 56, pass 3) o.treeColors [main, top, side]: snowy trees in winter (the summer greens stayed on a snowed-in field)
+    const tcs = o.treeColors || ['#4E8A4A'];
+    for (let i = 0; i < 26; i++) { const a = r() * TAU, d = 60 + r() * 240; g.add(prop('tree', { seed: i + 9, color: tcs[0], ...(tcs[1] ? { color2: tcs[1] } : {}), ...(tcs[2] ? { color3: tcs[2] } : {}) }, Math.cos(a) * d, 0, Math.sin(a) * d, 0, 2.2 + r() * 1.6)); }
     Object.assign(g.userData, { lighting: 'day', near: 0.1, far: 5000, fog: { color: '#CFE3E6', near: 300, far: 2400 }, anchors: { center: [0, 0, 0] } });
     return g;
   },

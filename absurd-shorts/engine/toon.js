@@ -37,6 +37,7 @@
 //         both take one more value, [px, py, pz]: where the elbow goes, a direction in the frame of the chest (default: low, a little out and back)
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
 //           heights; (cycle 19) jawBlock 1: the chin drops as a block below a dark open mouth instead), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears; steamInk: 1: inked, opaque puffs), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
+//           (cycle 20) starsScale (1) / starsY (m): bigger stars on a wider ring, lower (at eye level: -0.25),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
 //           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), stalkYaw / stalkPitch (rad: the stalks themselves swing), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
@@ -181,6 +182,12 @@ function headOverlays(head, hm, dim, skin) {
   // (cycle 19) face.jawBlock 0..1: the jaw drops as a block (a hinge, not a stretch) and the gap is a dark open mouth from under the nose to the dropped
   // lip: the take reads as a jaw on the floor (stretched evenly, the lower face was a tall box with a thin painted arch at its foot, story 54)
   const cavity = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).translate(0, -0.5, 0), new THREE.MeshBasicMaterial({ color: '#2A1014' })); cavity.visible = false; cavity.userData.noAO = true; g.add(cavity);
+  // (cycle 20) teeth on the lips of the open block jaw: a row under the upper lip and a row on the dropped chin, and the dark mouth slants from the upper
+  // lip to the chin hung forward (jawFwd): a dark strip down a long skin-coloured block read as a plank, not as a mouth (story 58)
+  const teethTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 32; const q = c.getContext('2d'); q.fillStyle = '#F4F0E6'; q.fillRect(0, 0, 256, 32); q.fillStyle = '#16130F';
+    for (let i = 1; i < 6; i++) q.fillRect(Math.round(i * 256 / 6) - 3, 0, 6, 32); q.fillRect(0, 0, 256, 4); q.fillRect(0, 28, 256, 4); q.fillRect(0, 0, 5, 32); q.fillRect(251, 0, 5, 32);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+  const teeth = [0, 1].map(() => { const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: teethTex })); m.visible = false; m.userData.noAO = true; g.add(m); return m; });
   // the tongue hangs out of the mouth (the mouth moves down with the jaw)
   const tongue = outlined(new THREE.Mesh(new THREE.BoxGeometry(hw * 0.3, 0.016, 1).translate(0, 0, 0.5), new THREE.MeshLambertMaterial({ color: '#D9606A' })), 1.06); tongue.visible = false; g.add(tongue);
   // (cycle 5) the tongue blown aside by a run (face.tongueYaw): a pink ribbon on edge, wide at the mouth, narrow and round at the tip, a wave running along
@@ -213,7 +220,10 @@ function headOverlays(head, hm, dim, skin) {
     // instead of through it
     const blk = Math.max(0, Math.min(1, f.jawBlock || 0)), jf = f.jawFwd != null ? Math.round(f.jawFwd * 500) / 500 : null, fw = jf ?? Math.min(0.055, drop * 0.5);
     deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20, jf);
-    cavity.visible = blk > 0.5 && drop > 0.01; if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop; cavity.position.set(0, top, hd / 2 + fw + 0.007); cavity.scale.set(hw * 0.56, Math.max(0.001, top - bot), 1); }
+    cavity.visible = blk > 0.5 && drop > 0.01; teeth[0].visible = teeth[1].visible = cavity.visible;
+    if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop, tilt = -Math.atan2(fw, top - bot), th = 0.07 * hh, zAt = y => hd / 2 + fw * (top - y) / (top - bot);
+      cavity.position.set(0, top, hd / 2 + 0.007); cavity.rotation.x = tilt; cavity.scale.set(hw * 0.56, Math.max(0.001, Math.hypot(top - bot, fw)), 1);
+      [0.28 * hh - th / 2, 0.28 * hh - drop + th / 2].forEach((y, i) => { teeth[i].position.set(0, y, zAt(y) + 0.011); teeth[i].rotation.x = tilt; teeth[i].scale.set(hw * 0.5, th, 1); }); }
     const tg = f.tongue || 0, fly = !!f.tongueYaw && tg > 0.01; tongue.visible = tg > 0.01 && !fly; tongueFly.visible = fly;
     const kMo = (1 - MOUTH_Y / JAW_TOP) * (1 - blk) + blk;   // how much of the drop the mouth takes: all of it when the jaw drops as a block
     if (fly) { const k = kMo, L = tg * (f.tongueLen ?? 0.3), w0 = hw * 0.11 * (f.tongueW ?? 1);
@@ -231,7 +241,7 @@ function headOverlays(head, hm, dim, skin) {
       const q = (t * 1.6 + i * 0.37) % 1; p.material.rotation = 0;
       p.position.set(side * (hw / 2 + 0.03 + q * 0.16), hh * 0.5 + q * 0.2, -hd * 0.1); p.scale.setScalar((0.05 + q * 0.14) * steam); p.material.opacity = 0.85 * Math.sin(Math.PI * q) * Math.min(1, steam); });
     const bk = f.bump || 0; bump.visible = bk > 0.01; if (bump.visible) { bump.position.set(hw * 0.08, hh - 0.05 + 0.07 * bk, -hd * 0.05); bump.scale.setScalar(bk * (1 + 0.07 * Math.sin(t * 13))); }
-    const sk = f.stars || 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * 0.27, hh + 0.13 + 0.04 * Math.sin(t * 7 + i), Math.cos(a) * 0.27); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
+    const sk = f.stars || 0, ss = f.starsScale ?? 1, sr = 0.27 * Math.max(1, ss * 0.8), sy = f.starsY ?? 0; stars.forEach((m, i) => { m.visible = sk > 0.01; if (!m.visible) return; const a = t * 5.2 + i * Math.PI / 2; m.position.set(Math.sin(a) * sr, hh + 0.13 + sy + 0.04 * Math.sin(t * 7 + i), Math.cos(a) * sr); m.rotation.set(0.3, -a, t * 4 + i); m.scale.setScalar(ss * sk * (0.8 + 0.25 * Math.sin(t * 9 + i * 2))); });
   };
 }
 
