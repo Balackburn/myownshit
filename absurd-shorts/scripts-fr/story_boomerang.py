@@ -75,8 +75,7 @@ HAND3 = OFF(P0, RY0, 0.42, 0.18, 1.12)
 st.shot('S03', 'grassland', setOpts=PARK, actors=[
         act('mec', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-6, 6.5, 3.5]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.0),
             k(0.25, toon={**OUT(P0, RY0), 'face': {'lid': 1.0}}, toonDur=0.05), k(0.36, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.07),
-            k(round(CN3 + 0.12, 3), look=[HAND3[0], 1.0, HAND3[2]]), k(round(CN3 + 0.12, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.5}}, toonDur=0.1),   # he looks at the coin...
-            k(round(CN3 + 0.62, 3), look=[-6, 6.5, 3.5]), k(round(CN3 + 0.62, 3), toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.12)]),   # ...and back at the sky
+            *doubleTake(round(CN3 + 0.1, 3), [HAND3[0], 1.0, HAND3[2]], keep=OUT(P0, RY0), back=[-6, 6.5, 3.5], pop=0.55)]),   # (first look) a double take at the coin: a glance, back to the sky, then the eyes out on it (his one take before the wedding)
         act('gamin', [2.1, 0, 0.75], -95, 'stand', 'happy', keys=[k(0.0, look=[P0[0], 1.4, P0[2]]), k(0.0, to=[-2.4, 0, 0.95], dur=round(D3 - 0.05, 3), clip='walk', then='walk', ease='linear', face='move'),   # a child: small, he does not hide the man as he passes
             k(round(CN3 - 0.15, 3), toon={'reach': {'L': [HAND3[0], r(HAND3[1] + 0.12), HAND3[2], 1, 0.05]}, 'hands': {'L': 'pinch'}}, toonDur=0.1), k(round(CN3 + 0.08, 3), toon={}, toonDur=0.15), k(round(CN3 + 0.3, 3), look='camera')])],
         props=[P('coin3', 'coin', pos=[HAND3[0], r(HAND3[1] + 0.35), HAND3[2]], scale=1.6, keys=[k(0.0, visible=False), k(round(CN3 - 0.06, 3), visible=True), k(round(CN3 - 0.06, 3), to=[HAND3[0], r(HAND3[1] + 0.03), HAND3[2]], dur=0.08, ease='in')]),
