@@ -264,7 +264,7 @@ st.shot('S11', 'livingRoom', setOpts={**LR, 'picture': False}, actors=[   # (pas
                P('sash11', 'sash', on={'actor': 'prefet', 'joint': 'torso', 'offset': [0.0, 0.3, 0.13], 'rot': [0, 0, 0.8]}, opts={'len': 0.78, 'w': 0.11})],   # (pass 2) the tricolour sash: an official, not a second hero
         cams=[FC(0.0, [0.2, 1.6, 1.1], [[PLAQ[0] - 0.6, 2.05, PLAQ[2]], [PLAQ[0] + 0.6, 1.5, PLAQ[2]], [PREF[0], 2.35, PREF[2]], [BASE11[0], 2.8, BASE11[2]], [BASE11[0], 0.4, BASE11[2]], [PREF[0], 0.4, PREF[2]]], top=0.24, bottom=0.74)])   # (pass 2) the top of his jump under the card band
 st.cue('sfx:paper', 'S11', UNV11, 0.3); st.cue('sfx:boing', 'S11', H11, 0.35); st.cue('thud', 'S11', LAND11, 0.25)
-st.card('S11', 'CATASTROPHE NATURELLE', at=round(UNV11 + 0.12, 3))
+st.card('S11', 'CATASTROPHE NATURELLE', at=round(st.at('S11', 'L10', 3) + 0.14, 3))   # (pass 3) still with the words (1.21 s), not with the earlier reveal
 
 # 12: his insurance paid him three thousand euros. The insurer, three-quarters to us, holds out a giant cheque, 3 000 €; the man takes it by its corner,
 #     deadpan; on « euros » a hiccup throws him up a metre; the cheque left behind in the air flutters down after him; the insurer's jaw drops, his hand
