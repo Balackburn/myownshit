@@ -93,8 +93,8 @@ st.shot('S03', 'office', setOpts={'door': False}, actors=[
             k(round(SP3a + 0.35, 3), toon={**READ(0.45, 0.35, brow=0.6, lid=1.0), 'touch': {'R': ['face', 0.0, 0.62, 0.06, 1, 0.08]}, 'hands': {'R': 'point'}}, toonDur=0.1),   # a finger to the bridge of his nose, a blink...
             k(round(SP3a + 0.5, 3), toon={**READ(0.45, 0.35, brow=0.7), 'touch': {'R': ['face', 0.0, 0.66, 0.06, 1, 0.08]}, 'hands': {'R': 'point'}}, toonDur=0.08),
             k(round(SP3a + 0.68, 3), toon=READ(0.5, 0.4, brow=0.8, eye=0.2), toonDur=0.2),   # ...reading on
-            k(round(SP3b - 0.25, 3), toon=READ(0.55, 0.32, brow=0.9, lid=0.35), toonDur=0.08, toonEase='out'),   # (pass 2) the second spike: his nose down to the paper for eight frames...
-            # (pass 3) bent 50 degrees, not 72: the probe read his face 82 degrees away (a profile from above); from the lower camera it stays toward us
+            k(round(SP3b - 0.25, 3), toon=READ(0.5, 0.1, brow=0.9, lid=0.3, gy=0.95), toonDur=0.08, toonEase='out'),   # (pass 2) the second spike: his nose down to the paper for eight frames...
+            # (pass 3) the spine bent, the neck barely, the eyes down on the paper: bent 72 degrees the probe read his face 82 degrees away (the top of his hair)
             *take(round(SP3b + 0.06, 3), 'stalks', keep={'bend': {'spine': [0.1, 0, 0, 1, None]}}, hold=0.35),   # ...then the head snaps up, the eyes out on stalks
             k(round(SP3b + 0.45, 3), look=[0.55, 1.15, -1.9])])],   # his eyes after the pen flying off
         props=[P('board3', 'tallyBoard', pos=[SAV[0], 2.05, -3.5], opts={'w': 1.7, 'h': 1.05}),   # (pass 3) a dark board behind his head (white coat and hair on the cream wall: 1.11:1)
@@ -153,18 +153,19 @@ D7 = st.dur('S07'); H7 = round(st.at('S07', 'L06', 6) + 0.05, 3)
 st.shot('S07', 'livingRoom', setOpts={**LR, 'carpet': False}, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.8, look=[SEAT[0], 0.9, round(SEAT[2] + 1.0, 3)]), k(1.3, look='camera'),
             k(1.0, toon={**TIRED, 'sq': [0.95, 1.07, 0.95], 'bend': {'armL': [0, 0.35, 0, 1, None], 'armR': [0, -0.35, 0, 1, None]}}, toonDur=0.12), k(1.32, toon=TIRED, toonDur=0.15),   # (pass 2) a shrug
-            *HICK(H7, SEAT, 1.75)])],   # (pass 2) higher than the rule shot: the escalation (pass 3: 1.75 m: at 1.4 m he rose by his own height, as in S02)
+            *HICK(H7, SEAT, 1.55)])],   # (pass 2) higher than the rule shot: the escalation (pass 3: 1.55 m; at 1.75 m his head left the top of the frame)
         props=[P('rings7', 'quakeRings', pos=[SEAT[0], 0, round(SEAT[2] + 0.2, 3)], opts={'r': 2.2, 'n': 4, 'pulses': [0.1, H7]}),
                P('cordon7', 'cordon', pos=[SEAT[0], 0, round(SEAT[2] + 0.15, 3)], opts={'w': 3.0, 'd': 1.7, 'sign': 'ÉPICENTRE', 'signW': 1.0, 'signH': 0.3, 'jumps': [[H7, 1.0]], 'snap': round(H7 + 0.04, 3)})],   # (pass 2) the front tape snaps under the jolt, its plate drops
-        cams=[FC(0.0, [1.4, 4.2, 1.0], [[SEAT[0], 3.4, SEAT[2]], [-1.6, 0.0, round(SEAT[2] + 1.0, 3)], [1.6, 0.0, round(SEAT[2] + 1.0, 3)], [-1.6, 0.0, round(SEAT[2] - 0.75, 3)], [1.6, 0.0, round(SEAT[2] - 0.75, 3)]], top=0.1, bottom=0.74, drift=(0.0, -0.05, -0.08))])   # (pass 1b) framed on the cordon, not on the back wall: the man was 23 % of the frame
-st.cue('sfx:boing', 'S07', H7, 0.35); st.cue('clack', 'S07', round(H7 + 0.04, 3), 0.3); st.cue('thud', 'S07', round(H7 + 2 * (0.1 + 0.05 * 1.75) + 0.13 + 0.02, 3), 0.3)
+        cams=[FC(0.0, [1.4, 4.2, 1.0], [[SEAT[0], 3.5, SEAT[2]], [-1.6, 0.0, round(SEAT[2] + 1.0, 3)], [1.6, 0.0, round(SEAT[2] + 1.0, 3)], [-1.6, 0.0, round(SEAT[2] - 0.75, 3)], [1.6, 0.0, round(SEAT[2] - 0.75, 3)]], top=0.1, bottom=0.74, drift=(0.0, -0.05, -0.08))])   # (pass 1b) framed on the cordon, not on the back wall: the man was 23 % of the frame
+st.cue('sfx:boing', 'S07', H7, 0.35); st.cue('clack', 'S07', round(H7 + 0.04, 3), 0.3); st.cue('thud', 'S07', round(H7 + 2 * (0.1 + 0.05 * 1.55) + 0.13 + 0.02, 3), 0.3)
 
 # 8: the firemen tried the glass of water upside down. Two firemen fold him over at the waist; one holds a big glass of blue water upside down at his lips;
 #    on « envers » a hiccup jackknifes him up out of their hands in an arc, the water spraying out of his cheeks; the firemen wince
 D8 = st.dur('S08'); H8 = round(st.at('S08', 'L07', 8) + 0.05, 3)
 ME8 = [0.0, 0, -1.6]; BENT = {'bend': {'spine': [1.15, 0, 0, 1, None], 'neck': [-0.35, 0, 0, 1, None]}}
-MOUTH8 = OFF(ME8, 0, 0.55, 0.0, 1.32); GLASS8 = [MOUTH8[0], round(MOUTH8[1] + 0.4, 3), round(MOUTH8[2] + 0.1, 3)]   # (pass 2b) the pivot is the glass's foot: upside down, its rim lands at his lips
-HOLD8 = {'reach': {'R': [GLASS8[0], round(GLASS8[1] - 0.17, 3), round(GLASS8[2] + 0.14, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}
+MOUTH8 = [0.15, 1.58, -0.99]                                        # (pass 3) measured (debugJoints: the head joint at 1.6 m, the face 46 degrees down): 0.26 m above the guess
+GLASS8 = [0.15, 1.15, -0.88]                                        # (pass 3) the remedy as it is done: the glass upright under his mouth, tipped toward him, he drinks from its far rim
+HOLD8 = {'reach': {'R': [0.05, 1.33, -0.84, 1, 0.06]}, 'hands': {'R': 'grip'}}
 FOL8 = {'actor': 'mec', 'lag': 0.1, 'dy': -0.35, 'cheat': 0.3}   # (pass 3) the firemen's eyes on him, a tenth of a second late, their faces cheated a third toward us
 st.shot('S08', 'livingRoom', setOpts=LR, actors=[
         act('mec', ME8, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[MOUTH8[0], 1.1, MOUTH8[2]]), k(0.0, toon={**BENT, **TIRED}, toonDur=0.0),
@@ -183,11 +184,11 @@ st.shot('S08', 'livingRoom', setOpts=LR, actors=[
         act('pompier2', [-0.62, 0, -0.78], 117, 'stand', 'neutral', keys=[k(0.0, look=MOUTH8), k(0.7, look='camera'), k(1.1, look=MOUTH8), k(0.0, toon=HOLD8, toonDur=0.0),   # the glass at his lips, upside down
             k(round(H8 + 0.03, 3), look=FOL8),
             *react(round(H8 + 0.13, 3), 0.8, keep=HOLD8, look=FOL8, kind='wince')])],   # he keeps hold of the glass, wincing
-        props=[P('glass8', 'waterGlass', pos=GLASS8, rot=[PI, 0, 0], scale=3.0, opts={'level': 0.7, 'water': '#1565C0', 'tumbler': True}),   # (pass 2) a big glass of blue water, upside down at his lips, free (in the hand it turned sideways at his chest)
-               # (pass 3) a tumbler that reads: a thick rim at his lips, highlights, the water dark blue at the closed end
-               P('spray8', 'waterDrops', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.1, 0.22]}, opts={'at': round(H8 + 0.1, 3), 'n': 26, 'dir': [0, 0.25, 1], 'speed': 3.4, 'spread': 0.8, 'r': 0.026, 'life': 0.38, 'color': '#1E88E5'})],
-               # (pass 3) the spray out of his mouth at the top of the jackknife (it burst round the glass in the fireman's fist)
-        cams=[FC(0.0, [3.2, 1.45, -0.44], [[ME8[0], 2.3, ME8[2]], [-0.68, 2.4, -1.92], [-0.62, 2.4, -0.78], [ME8[0], 0.3, ME8[2]], [ME8[0], 3.45, ME8[2]], [GLASS8[0], round(GLASS8[1] + 0.2, 3), GLASS8[2]]], top=0.08, bottom=0.74)])
+        props=[P('glass8', 'waterGlass', pos=GLASS8, rot=[-0.35, 0, 0], scale=3.0, opts={'level': 0.7, 'water': '#1565C0', 'tumbler': True}),
+               # (pass 3) a tumbler that reads (a thick rim, highlights, dark blue water), upright and tipped to his lips (upside down above his face it read as a pale slab)
+               P('spray8', 'waterDrops', pos=[0.0, 3.36, -1.32], opts={'at': round(H8 + 0.05, 3), 'n': 28, 'dir': [0, 0.6, 0.8], 'speed': 3.2, 'spread': 0.5, 'r': 0.03, 'life': 0.7, 'color': '#1E88E5'})],
+               # (pass 3) a fountain out of his mouth at the top (measured: the head at 3.26 m, arched back): it burst round the glass in the fireman's fist
+        cams=[FC(0.0, [3.2, 1.45, -0.44], [[ME8[0], 2.3, ME8[2]], [-0.68, 2.4, -1.92], [-0.62, 2.4, -0.78], [ME8[0], 0.3, ME8[2]], [ME8[0], 3.7, -1.2], [GLASS8[0], GLASS8[1], GLASS8[2]]], top=0.08, bottom=0.74)])
         # (pass 3) from his side, 70 degrees: the fold is an L against the wall and the glass upside down at his lips in profile (head on, his torso
         # stacked toward the lens into a navy knot)
 st.cue('sfx:pour', 'S08', 0.3, 0.25); st.cue('sfx:splash', 'S08', round(H8 + 0.09, 3), 0.4)
@@ -235,13 +236,13 @@ st.shot('S10', 'livingRoom', setOpts=LR, actors=[
         # (pass 3) the firemen at the back, under his feet, looking up and toward us at him: their faces and dropped jaws turned to the lens (under his
         # chest, looking back up at him, they showed us the backs of their heads, and the right one had no head in the frame)
         act('pompier1', [-0.8, 0, -2.85], 12, 'stand', 'neutral', keys=[k(0.0, look=[-0.2, CEIL, -1.7]), k(0.6, look=[0.5, 1.9, -2.7]), k(0.95, look=[-0.2, CEIL, -1.7]), k(0.0, toon={'face': {'jaw': 0.8, 'brow': 0.8, 'eye': 0.25}}, toonDur=0.0)]),
-        act('pompier2', [0.85, 0, -2.75], -12, 'stand', 'neutral', keys=[k(0.0, look=[0.2, CEIL, -1.6]), k(0.0, toon={'face': {'jaw': 0.6, 'brow': 0.9, 'eye': 0.3}}, toonDur=0.0), *react(H10, 0.8, look=[0.2, CEIL, -1.6], kind='wince')])],   # (pass 2) a wince under the flakes (no eye-pop)
+        act('pompier2', [0.68, 0, -2.75], -12, 'stand', 'neutral', keys=[k(0.0, look=[0.2, CEIL, -1.6]), k(0.0, toon={'face': {'jaw': 0.6, 'brow': 0.9, 'eye': 0.3}}, toonDur=0.0), *react(H10, 0.8, look=[0.2, CEIL, -1.6], kind='wince')])],   # (pass 2) a wince under the flakes (no eye-pop)
         props=[P('ceil10', 'ceilingPlaster', pos=[0.0, round(CEIL + 0.02, 3), -3.1], rot=[round(PI / 2, 4), 0, 0], opts={'w': 7.0, 'h': 6.5, 'color': '#F7F2EA', 'rim': '#E2D8C8', 'cy': 0.62}),   # (pass 3) a pale plaster ceiling, evenly lit (lit by the room it came out brown, the darkest picture of the film)
                P('cracks10', 'ceilingCracks', pos=[0.0, round(CEIL + 0.012, 3), -2.05], rot=[round(PI / 2, 4), 0, 0], opts={'r': 1.45, 'n': 11, 'at': H10, 'thick': 3.2, 'edge': '#FFFDF8'}),   # (pass 3) thick dark cracks with a light chipped edge (1-2 px hairlines)
                *[P(f'flakes10{i}', 'waterDrops', pos=[x_, round(CEIL - 0.08, 3), z_], opts={'at': round(H10 + 0.02 + 0.03 * i, 3), 'n': 6, 'dir': [0, -1, 0], 'speed': 0.35, 'spread': 0.5, 'color': '#EDE6D8', 'r': 0.032, 'life': 1.0, 'g': 2.5})
                  for i, (x_, z_) in enumerate([(0.0, -0.95), (-1.05, -1.65), (1.05, -1.65), (-0.35, -2.95), (0.35, -2.95), (0.0, -2.05)])]],   # (pass 3) flakes from his outline and the cracks (from one point they made a ring of beads round his crotch)
         fx=[{'type': 'shake', 'at': H10, 'dur': 0.12, 'amount': 0.008}],
-        cams=[FC(0.0, [0.25, 0.75, 0.9], [[-1.0, CEIL, -1.0], [1.0, CEIL, -3.2], [-0.8, 2.4, -2.85], [0.85, 2.4, -2.75], [-0.8, 1.55, -2.85], [0.85, 1.55, -2.75], [0.0, CEIL, -2.2]], top=0.1, bottom=0.78)])   # (pass 3) both firemen's heads whole
+        cams=[FC(0.0, [0.25, 0.75, 0.9], [[-1.0, CEIL, -1.0], [1.0, CEIL, -3.2], [-0.8, 2.4, -2.85], [0.68, 2.45, -2.75], [-0.8, 1.55, -2.85], [0.95, 1.55, -2.75], [0.0, CEIL, -2.2]], top=0.1, bottom=0.78)])   # (pass 3) both firemen's heads whole
 st.cue('thud', 'S10', 0.02, 0.4); st.cue('thud', 'S10', H10, 0.4); st.cue('clack', 'S10', round(H10 + 0.02, 3), 0.25)
 
 # 11: yesterday the State declared him a natural disaster. His living room: an official in his tricolour sash pulls the red cloth off a bronze plaque over the
