@@ -120,7 +120,7 @@ export const OCEAN_PROPS = {
   waterGlass(o) { // an empty drinking glass (o.level 0..1 of water)
     const g = grp(); const gl = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.038, 0.13, 12, 1, true), new THREE.MeshLambertMaterial({ color: '#E8F6FF', transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
     gl.position.y = 0.065; g.add(gl, at(cyl(0.038, 0.038, 0.008, '#DCEFF8', 12), 0, 0.004, 0));
-    if (o.level) { const w = at(cyl(0.042, 0.038, 0.12 * o.level, '#7FC6EA', 12), 0, 0.06 * o.level + 0.008, 0); g.add(w); }
+    if (o.level) { const w = at(cyl(0.042, 0.038, 0.12 * o.level, o.water || '#7FC6EA', 12), 0, 0.06 * o.level + 0.008, 0); g.add(w); }   // (cycle 13) o.water: a deeper blue that reads under a warm grade (the pale one came out white)
     g.userData.grip = [0, 0.06, 0]; return g;
   },
   sandPuff(o) { // a ring of sand clouds rising from the floor (current, impacts), from o.t0

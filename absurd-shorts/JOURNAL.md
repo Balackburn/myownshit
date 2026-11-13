@@ -1584,3 +1584,62 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   le rouleau attaché à la main pointait en l'air (accessoire libre qui suit l'ouvrier), le téléphone invisible faisait lire un salut militaire,
   le tapis rouge mangeait un tiers des plans du salon (retiré), le visage tête en bas caché derrière le bureau (remonté, cadré serré), le corps
   hors cadre pendant le vol (caméra centrée sur le milieu du corps), la tête qui ressortait sous le canapé (enfoncée dans le coussin).
+- **48 « Le code-barres » livré** (génération complète : −16,1 LUFS, pic −2,4 dB, contrôles HyperFrames sans erreur, aucune image isolée aux
+  coupes). Blocage contourné : l'étape du mix plantait sur un effet « whoosh » écrit de l'aigu vers le grave (3000, 800) ; scipy refuse une
+  bande inversée et tout le projet tombait. Effet corrigé et `mix.py` trie désormais les bornes de la bande (ajout, rien de supprimé) ; un
+  script `hf_only.sh` relance le projet et le rendu HyperFrames sans refaire la couche 3D quand seule cette étape a échoué.
+- **50 « Le hoquet », revue 1** : animation 6,8, direction artistique 6,5. Ce qu'ils ont vu : la variation du gag répétitif était dans le décor,
+  pas dans le corps (chaque saut identique) ; les deux prises réservées (la peur, la double prise) étaient les plus faibles ; la carte du plan 5
+  finissait sur un disque rouge et un « C » ; le sismographe ne se lisait pas ; le chèque faisait 7 px ; le visage du dernier plan 7 % de l'image.
+  Passe 2 : la règle reste au plan 2 (deux sauts identiques, une règle jaune « 1 M » dont la plaque saute quand il arrive au repère), puis
+  escalade dans le corps : plan 7 plus haut (1,4 m) et le ruban du cordon qui casse, sa plaque qui tombe ; plan 8 en portefeuille (il s'ouvre en
+  montant, se referme en haut, l'eau bleue jaillit de ses joues) ; plan 10 aplati dans le plâtre (fissures qui rayonnent, écailles qui
+  tombent) puis il se regonfle ; plan 11 suspendu 0,4 s (il respire là-haut) pendant la double prise du préfet, qui claque avant qu'il ne
+  retombe ; plan 12 le chèque géant laissé en l'air qui redescend en feuille morte. La peur (plan 9) : cheveux dressés, yeux sur tiges et cri
+  sur la même image, tenus huit images, bras du pompier en V (croisés, ils cachaient son cri), pompier côté coussin rouge (en jaune sur le
+  coussin jaune il disparaissait), sa tête qui le suit vers le haut, puis le choc au plafond hors champ : l'image tremble, des écailles de
+  plâtre tombent. Sismographe : encre épaisse, montant de la plume décalé, plume qui s'envole en arc au deuxième pic, le sismologue le nez sur
+  le papier huit images avant que sa tête ne remonte d'un coup. Carte : pas d'étiquette au plan 4 ; au plan 5 zoom de 0,7 s qui se pose sur
+  « canapé », étiquette qui surgit sous le point sur le mot, MAGNITUDE 4 entier en haut. Plan 13 en plan rapproché qui avance, canette à la
+  poitrine (la paille se voit), pyramides de canettes au premier plan. Préfet en costume gris avec l'écharpe tricolore (en marine il passait
+  pour un second héros) ; pompiers à bandes réfléchissantes ; les prises des pompiers et de l'assureur deviennent une grimace et une mâchoire
+  qui tombe (les yeux sur tiges sont gardés pour trois prises seulement). Les cheveux des têtes immobiles disparaissaient : le moteur garde
+  désormais un léger soulèvement au repos (`hairRest`).
+- **Décisions prises sans question** : (1) au plan 11 la peinture du salon est retirée (la plaque prend sa place), ailleurs elle est déplacée à
+  gauche du canapé (sa tête atterrissait devant à chaque saut) ; (2) le tapis rouge est retiré de tous les plans du salon (27 % du dernier plan,
+  les sous-titres posés dessus) ; (3) l'étiquette CANAPÉ surgit sur le mot plutôt que d'être là dès le début : la révélation tombe sur la voix.
+- **Outil du cycle 14 commencé** : `reflection()` / `mirror_keys()` dans `story_kit.py` : un acteur reflet qui reprend les clés d'un autre,
+  décalées dans le temps (en retard ou en avance) et en miroir (positions et regards réfléchis, gauche et droite échangées, rotations du corps
+  autour de son axe vertical et de son axe avant inversées, regard horizontal des pupilles inversé). Testé sur des clés synthétiques ; il servira
+  à l'histoire 52.
+
+## Cycle 14 — histoire 52 « Le boomerang » ; 49 passe finale ; 50 brouillon 2 ; 51 revue 1
+
+- **Histoire 52 choisie : « Le boomerang »** (structure du skill inchangée : accroche, logique absurde d'institutions prises au pied de la
+  lettre, escalade, retournement, aparté) : il a lancé un boomerang il y a dix ans ; il n'est jamais revenu ; les objets trouvés ont refusé sa
+  déclaration (un boomerang n'est pas perdu : il revient) ; les aiguilleurs du ciel lui ont ouvert un couloir aérien ; les avions lui laissent
+  la priorité ; hier il est revenu, pile pendant sa photo de mariage ; il est reparti avec ; sa femme l'attend, dans dix ans. Voix faite (22,3 s).
+- **Décisions prises sans question** : (1) l'idée « Le reflet » (un reflet en retard d'une seconde) est écartée : « L'ombre » (42) jouait déjà sur
+  une ombre en retard, ce serait le même gag ; l'outil de reflet décalé reste dans le kit ; (2) pas de « la météo » qui suit le boomerang comme une
+  tempête (l'éternuement, 38, avait déjà la météo qui nomme une tempête) ni d'astronome au télescope (déjà au catalogue) : objets trouvés, tour de
+  contrôle, passage piéton dans les nuages ; (3) pas de nom d'organisme réel (ni Météo France, ni La Poste) ; (4) la bosse et les étoiles sont au
+  catalogue : le boomerang qui retombe aplatit la tête en disque et continue de tourner dessus comme un rotor, il décolle ; (5) le gag répétitif
+  de la pièce dans la main varie : un enfant la lui donne, une vieille dame la donne à la mariée.
+- **49 « La photocopieuse », revue 3** : animation 7,4, direction artistique 7,1 (contre 7,0 / 7,0). Passe finale d'après les deux rapports :
+  photocopieuse gris froid à dessus anthracite, écran ardoise et un seul vert (le gros bouton), bac sombre avec des feuilles (beige sur mur
+  beige, elle passait pour un meuble) ; insert du bouton filmé de l'autre côté du panneau (le doigt descend vers nous, son visage derrière ; de
+  son côté la manche remplissait 46 % de l'image), appui tenu six images ; la copie recto verso en deux moitiés raides qui ne tournent plus la
+  tête (elles se décalaient en deux têtes et trois mains) ; pied à coulisse plus court, vu presque de profil, la copie devant lui par la tranche,
+  sans tremblement (pincement, regonflage et retour en 0,83 s) ; tampon NON CONFORME de la largeur de son front, rouge plus foncé ; prise sur le
+  prix (mâchoire jusqu'à la poitrine, sueur qui gicle), tape sous le prix ; boîte qui l'écrase et le recule d'un vrai pas ; double prise quand la
+  copie se dresse ; ennui joué (menton sur le poing, doigts qui pianotent, soupir) au lieu de regarder le couvercle (on voyait sa nuque) ; mains
+  posées sur la vitre au plan 2 ; la responsable trichée vers l'objectif dans chaque réaction ; langue courte ; dernière feuille posée sur sa tête
+  avant la coupe ; poussée finale sur son regard et son clignement.
+- **Moteur** : options ajoutées à la photocopieuse (couleurs du corps, du dessus, du panneau, du bac, de l'écran ; durée d'appui ; feuilles dans
+  le bac) et encre du tampon (`ink`), verre d'eau à la couleur d'eau réglable (`water`), gouttes avec gravité réglable (écailles de plâtre qui
+  flottent). Accessoires de l'histoire 52 installés (`props_boomerang.js`) : boomerang qui tourne avec une traînée au-delà de 2,5 tours par
+  seconde et un léger tangage, formulaire de perte dessiné avec tampon, étagère des objets trouvés, écran radar avec la boucle et le couloir qui
+  se dessine, cônes sur les nuages, passage piéton flottant, appareil à soufflet avec voile noir et éclair, bouquet.
+- **51 « La gomme à mâcher », revue 1 (direction artistique)** : 6,0. Le fil rose, dont dépend chaque gag, n'a qu'1 ou 2 px de large à la moitié
+  de ses temps forts (et disparaît des mains au plan 10) ; visages petits ou détournés aux sommets des gags ; plan 9 sans sa cause (le fil et la
+  fenêtre hors champ) ; plan 12 qui traverse les immeubles ; tour Eiffel en escabeau. Passe 2 à faire après le rapport d'animation.

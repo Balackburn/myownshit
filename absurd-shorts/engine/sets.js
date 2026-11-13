@@ -1262,7 +1262,7 @@ Object.assign(S, {
       const clr = (zz) => o.clear && zz > o.clear[0] && zz < o.clear[1];   // o.clear [zmin, zmax]: no tree and no lamp on the right-hand pavement there (nothing growing out of a head)
       if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
     }
-    if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70 }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));
+    if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70, style: o.eiffelStyle }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));   // (cycle 14) o.eiffelStyle 'v2': the connected silhouette
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0], ...(o.hole ? { hole: [o.hole[0], 0, o.hole[1]] } : {}) };
     g.userData.sun = o.sun || [-0.35, 0.78, 0.52];   // shader look: down the street, the pavements lit
     if (snow) g.userData.snow = true;

@@ -7773,5 +7773,6 @@
  "holdLife": 1,
  "limbSmear": 1,
  "follow": 1,
- "pupil": 0.5
+ "pupil": 0.5,
+ "hairRest": 0.07
 }

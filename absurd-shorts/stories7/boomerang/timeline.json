@@ -1,0 +1,478 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a lancé un boomerang il y a dix ans.",
+   "hl": [
+    "boomerang",
+    "dix"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.42,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "a",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "lancé",
+     "s": 0.66,
+     "e": 0.873
+    },
+    {
+     "w": "un",
+     "s": 0.927,
+     "e": 0.98
+    },
+    {
+     "w": "boomerang",
+     "s": 1.02,
+     "e": 1.38
+    },
+    {
+     "w": "il",
+     "s": 1.46,
+     "e": 1.54
+    },
+    {
+     "w": "y",
+     "s": 1.567,
+     "e": 1.593
+    },
+    {
+     "w": "a",
+     "s": 1.62,
+     "e": 1.78
+    },
+    {
+     "w": "dix",
+     "s": 1.833,
+     "e": 1.94
+    },
+    {
+     "w": "ans.",
+     "s": 2.06,
+     "e": 2.42
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il n'est jamais revenu.",
+   "hl": [
+    "jamais"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L02.mp3",
+   "file_start": 2.52,
+   "speech_start": 2.52,
+   "speech_end": 3.88,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.52,
+     "e": 2.6
+    },
+    {
+     "w": "n'est",
+     "s": 2.68,
+     "e": 2.84
+    },
+    {
+     "w": "jamais",
+     "s": 2.92,
+     "e": 3.16
+    },
+    {
+     "w": "revenu.",
+     "s": 3.24,
+     "e": 3.88
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Les objets trouvés ont refusé sa déclaration.",
+   "hl": [
+    "refusé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L03.mp3",
+   "file_start": 3.98,
+   "speech_start": 3.98,
+   "speech_end": 6.62,
+   "words": [
+    {
+     "w": "Les",
+     "s": 3.98,
+     "e": 4.14
+    },
+    {
+     "w": "objets",
+     "s": 4.22,
+     "e": 4.46
+    },
+    {
+     "w": "trouvés",
+     "s": 4.5,
+     "e": 4.94
+    },
+    {
+     "w": "ont",
+     "s": 5.02,
+     "e": 5.1
+    },
+    {
+     "w": "refusé",
+     "s": 5.22,
+     "e": 5.5
+    },
+    {
+     "w": "sa",
+     "s": 5.58,
+     "e": 5.66
+    },
+    {
+     "w": "déclaration.",
+     "s": 5.74,
+     "e": 6.62
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Un boomerang n'est pas perdu : il revient.",
+   "hl": [
+    "revient."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L04.mp3",
+   "file_start": 6.72,
+   "speech_start": 6.72,
+   "speech_end": 9.12,
+   "words": [
+    {
+     "w": "Un",
+     "s": 6.72,
+     "e": 6.8
+    },
+    {
+     "w": "boomerang",
+     "s": 6.88,
+     "e": 7.28
+    },
+    {
+     "w": "n'est",
+     "s": 7.333,
+     "e": 7.44
+    },
+    {
+     "w": "pas",
+     "s": 7.52,
+     "e": 7.6
+    },
+    {
+     "w": "perdu:",
+     "s": 7.72,
+     "e": 8.293
+    },
+    {
+     "w": "il",
+     "s": 8.32,
+     "e": 8.4
+    },
+    {
+     "w": "revient.",
+     "s": 8.52,
+     "e": 9.12
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les aiguilleurs du ciel lui ont ouvert un couloir aérien.",
+   "hl": [
+    "couloir",
+    "aérien."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L05.mp3",
+   "file_start": 9.22,
+   "speech_start": 9.22,
+   "speech_end": 12.26,
+   "words": [
+    {
+     "w": "Les",
+     "s": 9.22,
+     "e": 9.38
+    },
+    {
+     "w": "aiguilleurs",
+     "s": 9.42,
+     "e": 9.78
+    },
+    {
+     "w": "du",
+     "s": 9.86,
+     "e": 9.94
+    },
+    {
+     "w": "ciel",
+     "s": 10.02,
+     "e": 10.34
+    },
+    {
+     "w": "lui",
+     "s": 10.42,
+     "e": 10.5
+    },
+    {
+     "w": "ont",
+     "s": 10.58,
+     "e": 10.66
+    },
+    {
+     "w": "ouvert",
+     "s": 10.7,
+     "e": 10.9
+    },
+    {
+     "w": "un",
+     "s": 10.98,
+     "e": 11.06
+    },
+    {
+     "w": "couloir",
+     "s": 11.1,
+     "e": 11.38
+    },
+    {
+     "w": "aérien.",
+     "s": 11.46,
+     "e": 12.26
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les avions lui laissent la priorité.",
+   "hl": [
+    "priorité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L06.mp3",
+   "file_start": 12.36,
+   "speech_start": 12.36,
+   "speech_end": 14.2,
+   "words": [
+    {
+     "w": "Les",
+     "s": 12.36,
+     "e": 12.44
+    },
+    {
+     "w": "avions",
+     "s": 12.52,
+     "e": 12.76
+    },
+    {
+     "w": "lui",
+     "s": 12.84,
+     "e": 12.92
+    },
+    {
+     "w": "laissent",
+     "s": 13.0,
+     "e": 13.16
+    },
+    {
+     "w": "la",
+     "s": 13.2,
+     "e": 13.24
+    },
+    {
+     "w": "priorité.",
+     "s": 13.32,
+     "e": 14.2
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, il est revenu.",
+   "hl": [
+    "revenu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L07.mp3",
+   "file_start": 14.3,
+   "speech_start": 14.3,
+   "speech_end": 15.74,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 14.3,
+     "e": 14.86
+    },
+    {
+     "w": "il",
+     "s": 14.9,
+     "e": 14.94
+    },
+    {
+     "w": "est",
+     "s": 15.02,
+     "e": 15.1
+    },
+    {
+     "w": "revenu.",
+     "s": 15.14,
+     "e": 15.74
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Pile pendant sa photo de mariage.",
+   "hl": [
+    "mariage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L08.mp3",
+   "file_start": 15.84,
+   "speech_start": 15.84,
+   "speech_end": 17.6,
+   "words": [
+    {
+     "w": "Pile",
+     "s": 15.84,
+     "e": 16.08
+    },
+    {
+     "w": "pendant",
+     "s": 16.16,
+     "e": 16.4
+    },
+    {
+     "w": "sa",
+     "s": 16.44,
+     "e": 16.48
+    },
+    {
+     "w": "photo",
+     "s": 16.56,
+     "e": 16.72
+    },
+    {
+     "w": "de",
+     "s": 16.8,
+     "e": 16.84
+    },
+    {
+     "w": "mariage.",
+     "s": 16.88,
+     "e": 17.6
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Ce mec est reparti avec.",
+   "hl": [
+    "reparti"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L09.mp3",
+   "file_start": 17.7,
+   "speech_start": 17.7,
+   "speech_end": 19.3,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 17.7,
+     "e": 17.78
+    },
+    {
+     "w": "mec",
+     "s": 17.86,
+     "e": 18.02
+    },
+    {
+     "w": "est",
+     "s": 18.1,
+     "e": 18.14
+    },
+    {
+     "w": "reparti",
+     "s": 18.18,
+     "e": 18.58
+    },
+    {
+     "w": "avec.",
+     "s": 18.9,
+     "e": 19.3
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Sa femme l'attend. Dans dix ans.",
+   "hl": [
+    "dix",
+    "ans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/boomerang/tts/L10.mp3",
+   "file_start": 19.4,
+   "speech_start": 19.4,
+   "speech_end": 21.48,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 19.4,
+     "e": 19.56
+    },
+    {
+     "w": "femme",
+     "s": 19.64,
+     "e": 19.8
+    },
+    {
+     "w": "l'attend.",
+     "s": 19.88,
+     "e": 20.6
+    },
+    {
+     "w": "Dans",
+     "s": 20.68,
+     "e": 20.76
+    },
+    {
+     "w": "dix",
+     "s": 20.84,
+     "e": 21.0
+    },
+    {
+     "w": "ans.",
+     "s": 21.12,
+     "e": 21.48
+    }
+   ]
+  }
+ ],
+ "total": 22.32
+}

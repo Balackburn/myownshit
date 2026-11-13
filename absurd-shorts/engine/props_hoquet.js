@@ -82,14 +82,15 @@ export const HOQUET_PROPS = {
         for (const a of pulses) { const u = (t - a) / 0.9; if (u < 0 || u >= 1) continue; c.strokeStyle = `rgba(200,32,42,${1 - u})`; c.lineWidth = W * 0.012; for (const q of [0, 0.33]) { const r = (u + q) % 1; c.beginPath(); c.arc(cx, cy, W * 0.05 + r * W * 0.45, 0, TAU); c.stroke(); } }
         const dot = () => { c.fillStyle = '#C8202A'; c.beginPath(); c.arc(cx, cy, W * 0.022, 0, TAU); c.fill(); c.strokeStyle = '#FFFFFF'; c.lineWidth = W * 0.006; c.stroke(); };
         if (!o.labelBelow) dot(); c.restore();
-        if (o.label !== '') { const L = o.label || 'CANAPÉ';
+        const lab = o.labelAt == null ? 1 : t < o.labelAt ? 0 : 1 + 0.35 * Math.max(0, wob(t - o.labelAt + 0.045, 22, 7) / 0.9);   // (pass 2 of 50) o.labelAt: the label pops in on the word
+        if (o.label !== '' && lab > 0) { const L = o.label || 'CANAPÉ';
           if (o.labelBelow) {   // (pass 2 of 50) under the dot, centred, its box behind the dot (beside it the box bit a notch out of the dot and ran off the frame)
-            c.font = `900 ${H * 0.07 * Math.min(2.2, 0.6 + 0.4 * zoom)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; const lw = c.measureText(L).width, fh = H * 0.07 * Math.min(2.2, 0.6 + 0.4 * zoom), ly = cy + W * 0.022 * zoom + fh * 0.95;
+            const fh = H * 0.07 * Math.min(o.labelMax ?? 2.2, 0.6 + 0.4 * zoom) * lab; c.font = `900 ${fh}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; const lw = c.measureText(L).width, ly = cy + W * 0.022 * zoom + fh * 0.95;
             c.fillStyle = '#FFFFFF'; c.fillRect(cx - lw / 2 - W * 0.02, ly - fh * 0.68, lw + W * 0.04, fh * 1.36); c.fillStyle = '#1B1B1E'; c.fillText(L, cx, ly);
             c.save(); c.translate(cx, cy); c.scale(zoom, zoom); c.translate(-cx, -cy); dot(); c.restore();
           } else { c.fillStyle = '#1B1B1E'; c.font = `bold ${H * 0.085 * Math.min(1.6, 0.8 + 0.25 * zoom)}px Arial`; c.textAlign = 'left'; c.textBaseline = 'middle';
             const lw = c.measureText(L).width; c.fillStyle = '#FFFFFF'; c.fillRect(cx + W * 0.04, cy - H * 0.12, lw + W * 0.03, H * 0.11); c.fillStyle = '#1B1B1E'; c.fillText(L, cx + W * 0.055, cy - H * 0.065); } }
-        else { c.save(); c.translate(cx, cy); c.scale(zoom, zoom); c.translate(-cx, -cy); if (o.labelBelow) dot(); c.restore(); }
+        else if (o.labelBelow) { c.save(); c.translate(cx, cy); c.scale(zoom, zoom); c.translate(-cx, -cy); dot(); c.restore(); }
         c.fillStyle = '#B0101A'; c.fillRect(0, 0, W, H * 0.16); c.fillStyle = '#FFFFFF'; c.font = `900 ${H * 0.11}px Arial`; c.textAlign = 'center'; c.fillText(o.head || 'MAGNITUDE 4', W / 2, H * 0.085); }); };
     g.userData.update(0); return g;
   },
@@ -142,14 +143,14 @@ export const HOQUET_PROPS = {
     return g;
   },
   // (pass 2 of 50) Blue water drops bursting from a point (pivot): o.at (t), o.n (16), o.dir [x, y, z] (the main direction), o.speed (2.4 m/s), o.spread
-  // (0.6), o.color ('#4FA9E6'), o.r (0.022 m), o.life (0.75 s): each drop flies on its arc under gravity, shrinks and is gone (the water from his cheeks)
+  // (0.6), o.color ('#4FA9E6'), o.r (0.022 m), o.life (0.75 s), o.g (9.8: lower for plaster flakes that drift): each drop flies on its arc under gravity, shrinks and is gone (the water from his cheeks)
   waterDrops(o) {
     const n = o.n ?? 16, g = grp(), dir = new THREE.Vector3(...(o.dir || [0, 0.6, 1])).normalize(), sp = o.speed ?? 2.4, spr = o.spread ?? 0.6, life = o.life ?? 0.75;
     const m = new THREE.MeshLambertMaterial({ color: o.color || '#4FA9E6', emissive: '#16507A', emissiveIntensity: 0.25 }), geo = new THREE.IcosahedronGeometry(o.r ?? 0.022, 0);
     const drops = Array.from({ length: n }, (_, i) => { const d = new THREE.Mesh(geo, m); d.castShadow = false; g.add(d);
       const v = dir.clone().add(new THREE.Vector3(Math.sin(i * 2.399) * spr, Math.cos(i * 1.7) * spr * 0.6, Math.sin(i * 3.1 + 1) * spr * 0.5)).normalize().multiplyScalar(sp * (0.7 + 0.5 * rnd(i + 3))); return { d, v, k: 0.6 + 0.8 * rnd(i) }; });
     g.userData.update = t => { const u = t - (o.at ?? 0); for (const q of drops) { const on = u >= 0 && u < life; q.d.visible = on; if (!on) continue;
-      q.d.position.set(q.v.x * u, q.v.y * u - 4.9 * u * u, q.v.z * u); q.d.scale.setScalar(q.k * (1 - 0.6 * u / life)); } };
+      q.d.position.set(q.v.x * u, q.v.y * u - 0.5 * (o.g ?? 9.8) * u * u, q.v.z * u); q.d.scale.setScalar(q.k * (1 - 0.6 * u / life)); } };
     g.userData.update(0); return g;
   },
 
@@ -173,6 +174,34 @@ export const HOQUET_PROPS = {
     const tex = canvasPlane(W, L, (c, cw, ch) => { const s3 = cw / 3; c.fillStyle = '#1F3E9C'; c.fillRect(0, 0, s3, ch); c.fillStyle = '#F4F2EA'; c.fillRect(s3, 0, s3, ch); c.fillStyle = '#D21E2A'; c.fillRect(2 * s3, 0, cw - 2 * s3, ch); }, { res: 64 });
     const g = grp(tex, at(box(W * 0.9, 0.05, 0.03, '#E8C766'), 0, -L / 2, 0.01), at(box(W * 0.8, 0.07, 0.01, '#E8C766'), 0, -L / 2 - 0.05, 0.012));
     return g;
+  },
+
+  // (pass 2 of 50) A height ruler on a wall (front +Z, pivot at the foot of the bar): a yellow bar o.h (1.0 m) tall, o.w (0.09) wide, black ticks every
+  // 0.1 m (long ones at the ends and the middle), black end bars, and a yellow plate with o.text ('1 M') in big black capitals beside its middle (o.side
+  // 1: to the right, -1: to the left; o.plateW 0.46). o.pops [t, ...]: the plate jumps (scale 1.3 -> 1 with a wobble) at each time (he reaches the mark).
+  heightRuler(o) {
+    const H = o.h ?? 1.0, W = o.w ?? 0.09, g = grp(at(box(W, H, 0.02, '#F2C80F', { outline: 0.005 }), 0, H / 2, 0));
+    for (let i = 0; i <= 10; i++) { const L = i % 5 === 0 ? W * 1.9 : W * 0.7; g.add(at(box(L, 0.012, 0.024, '#1B1B1E'), (L - W) / 2 - (i % 5 === 0 ? (L - W) / 2 : 0), H * i / 10, 0.002)); }
+    const pw = o.plateW ?? 0.46, ph = pw * 0.5, side = o.side ?? 1, plate = grp(at(box(pw, ph, 0.025, '#F2C80F', { outline: 0.006 }), 0, 0, 0), at(label(o.text || '1 M', pw * 0.86, ph * 0.8, { bg: null, fg: '#1B1B1E', wrap: false }), 0, 0, 0.015));
+    plate.position.set(side * (W / 2 + pw / 2 + 0.05), H / 2, 0.01); g.add(plate);
+    g.add(at(box(0.05, 0.01, 0.02, '#1B1B1E'), side * (W / 2 + 0.025), H / 2, 0.01));
+    g.userData.update = t => { let k = 0; for (const a of list(o.pops)) { const u = t - a; if (u >= 0 && u < 0.6) k = Math.max(k, Math.exp(-u * 7) * (0.3 + 0.1 * Math.sin(u * 30))); } plate.scale.setScalar(1 + k); };
+    g.userData.update(0); return g;
+  },
+
+  // (pass 2 of 50) A giant novelty cheque (front +Z, pivot at its centre): o.w (1.0 m) x o.h (0.46), a stiff board; o.amount ('3 000 €') in big type over
+  // half its height, o.text (the payer, 'ASSURANCE') top left, a signature; o.flutter (t): from then on it rocks and swings like a falling leaf (move it
+  // down with keys: to=..., the flutter is inside, about its centre).
+  bigCheque(o) {
+    const w = o.w ?? 1.0, h = o.h ?? 0.46, inner = grp(), g = grp(inner);
+    const face = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#EAF3E6'; c.fillRect(0, 0, W, H); c.strokeStyle = '#2C6A4A'; c.lineWidth = H * 0.03; c.strokeRect(H * 0.04, H * 0.04, W - H * 0.08, H * 0.92);
+      c.fillStyle = '#2C6A4A'; c.font = `bold ${H * 0.13}px Arial`; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(o.text || 'ASSURANCE', W * 0.05, H * 0.17);
+      c.fillStyle = '#1B1B1E'; c.textAlign = 'center'; let fs = H * 0.42; c.font = `900 ${fs}px Arial`; while (c.measureText(o.amount || '3 000 €').width > W * 0.86 && fs > 10) { fs -= 2; c.font = `900 ${fs}px Arial`; } c.fillText(o.amount || '3 000 €', W * 0.5, H * 0.56);
+      c.strokeStyle = '#1B2A6B'; c.lineWidth = H * 0.025; c.beginPath(); c.moveTo(W * 0.6, H * 0.88); for (let i = 0; i < 7; i++) c.lineTo(W * (0.62 + i * 0.045), H * (i % 2 ? 0.8 : 0.9)); c.stroke(); }, { res: 768 });
+    face.position.z = 0.009; inner.add(at(box(w, h, 0.016, '#DDE8D8', { outline: 0.006 }), 0, 0, 0), face);
+    g.userData.update = t => { if (o.flutter == null || t < o.flutter) { inner.rotation.set(0, 0, 0); inner.position.set(0, 0, 0); return; } const u = t - o.flutter;
+      inner.rotation.set(0.5 * Math.sin(u * 5.3 + 0.6), 0, 0.45 * Math.sin(u * 7.0)); inner.position.set(0.12 * Math.sin(u * 7.0), 0.03 * Math.cos(u * 14), 0); };
+    g.userData.update(0); return g;
   },
 
 };

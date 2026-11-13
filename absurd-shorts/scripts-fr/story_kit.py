@@ -176,6 +176,86 @@ def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0, antic_f=2, settle_f=4):
     return beat(t0, ex, antic=an, hold=hold, settle=dict(keep) if keep else None, antic_f=antic_f, settle_f=settle_f)
 
 
+# (cycle 14) a reflection that lags (or leads): the same keys shifted in time and mirrored, for an actor standing behind a mirror opening
+_SIDE = {'L': 'R', 'R': 'L'}
+_FACE_MIRROR = {'side': 'sideL', 'sideL': 'side'}
+def _swapLR(name):
+    """'armL' -> 'armR', 'lidR' -> 'lidL', 'handL' -> 'handR', 'L' -> 'R'; any other name unchanged."""
+    if name in _SIDE: return _SIDE[name]
+    if isinstance(name, str) and len(name) > 1 and name[-1] in _SIDE and name[-2].islower(): return name[:-1] + _SIDE[name[-1]]
+    return name
+
+def mirror_point(p, zm=None, xm=None):
+    """A world point mirrored across the plane z = zm (a mirror on a back or front wall) or x = xm (on a side wall)."""
+    if not isinstance(p, (list, tuple)) or len(p) < 3 or not all(isinstance(v, (int, float)) for v in p[:3]): return p
+    q = list(p)
+    if zm is not None: q[2] = round(2 * zm - q[2], 4)
+    if xm is not None: q[0] = round(2 * xm - q[0], 4)
+    return q
+
+def _mirror_toon(tn, zm, xm):
+    if not isinstance(tn, dict): return tn
+    out = {}
+    for key, v in tn.items():
+        if key in ('reach', 'plant') and isinstance(v, dict):      # world points: mirrored; the side swaps
+            out[key] = {_swapLR(sd): ([*mirror_point(q[:3], zm, xm), *q[3:]] if isinstance(q, list) else q) for sd, q in v.items()}
+        elif key == 'touch' and isinstance(v, dict):               # on his own face or joint: across (or the joint's own x) flips, the side swaps
+            o2 = {}
+            for sd, q in v.items():
+                if isinstance(q, list) and len(q) >= 4:
+                    q = list(q); q[1] = -q[1] if isinstance(q[1], (int, float)) else q[1]
+                    if isinstance(q[0], str): q[0] = _swapLR(q[0])
+                o2[_swapLR(sd)] = q
+            out[key] = o2
+        elif key in ('hands', 'scl') and isinstance(v, dict): out[key] = {_swapLR(sd): q for sd, q in v.items()}
+        elif key == 'bend' and isinstance(v, dict):                # left and right swap; turns about the body's own vertical and forward axes change sign
+            out[key] = {_swapLR(part): ([q[0], -q[1], -q[2], *q[3:]] if isinstance(q, list) and len(q) >= 3 and all(isinstance(x, (int, float)) for x in q[:3]) else q) for part, q in v.items()}
+        elif key == 'lay' and isinstance(v, list) and len(v) >= 2: out[key] = [v[0], -v[1], *v[2:]]
+        elif key == 'face' and isinstance(v, dict):
+            out[key] = {_swapLR(fk): (-fv if fk == 'gx' and isinstance(fv, (int, float)) else fv) for fk, fv in v.items()}
+        else: out[key] = v
+    return out
+
+def mirror_keys(keys, zm=None, xm=None, shift=0.0, cam_pos=None, start=0.0):
+    """(cycle 14) The keys of a reflection: the same keys `shift` seconds later (> 0: a reflection that lags; < 0: one that is ahead of him),
+    mirrored across the plane z = zm or x = xm. Moves (to) and look targets are mirrored; the limbs swap sides (reach, touch, hands, plant, bend
+    armL/armR...), bends about the body's own vertical and forward axes change sign, the pupils' gx flips, the one-sided faces swap (side/sideL);
+    look='camera' becomes a look at the camera's mirror image (cam_pos given) or stays 'camera'. A key pushed before `start` by a negative shift is
+    dropped, but the last state of each channel before `start` is kept at `start` (the reflection does not begin from rest)."""
+    out, early = [], {}
+    for key in keys:
+        q = dict(key); t = round(q.get('at', 0.0) + shift, 3); q['at'] = t
+        if 'to' in q: q['to'] = mirror_point(q['to'], zm, xm)
+        if 'look' in q:
+            if q['look'] == 'camera' and cam_pos is not None: q['look'] = mirror_point(cam_pos, zm, xm)
+            else: q['look'] = mirror_point(q['look'], zm, xm)
+        if 'toon' in q: q['toon'] = _mirror_toon(q['toon'], zm, xm)
+        if isinstance(q.get('face'), str): q['face'] = _FACE_MIRROR.get(q['face'], q['face'])
+        if 'ry' in q and isinstance(q['ry'], (int, float)): q['ry'] = round(180 - q['ry'], 2) if zm is not None else round(-q['ry'], 2)
+        if t < start:
+            for ch in ('toon', 'look', 'to', 'clip', 'face', 'visible'):
+                if ch in q: early[ch] = q
+            continue
+        out.append(q)
+    for ch, q in early.items():   # the state reached before the start, from the start (a move lands where it was going)
+        q2 = {'at': start}
+        if ch == 'to': q2.update({'to': q['to'], 'dur': 0.0})
+        elif ch == 'toon': q2.update({'toon': q['toon'], 'toonDur': 0.0})
+        else: q2[ch] = q[ch]
+        out.insert(0, q2)
+    return sorted(out, key=lambda q: q['at'])
+
+def reflection(src, zm=None, xm=None, shift=1.0, id=None, cam_pos=None, **kw):
+    """(cycle 14) The actor seen in a mirror: a copy of act() dict `src` standing at his mirror image (across z = zm or x = xm), facing back,
+    with his keys mirrored and shifted by `shift` s (mirror_keys). Give the reflection its own id (cast it like him in extra_cast, the same preset)
+    and put it behind a mirror opening (a portal: the reflected room is built behind the wall, the reflection is the only one of him in it)."""
+    r = dict(src); r['id'] = id or f"{src['id']}_reflet"
+    r['pos'] = mirror_point(src['pos'], zm, xm); r['ry'] = round(180 - src.get('ry', 0), 2) if zm is not None else round(-src.get('ry', 0), 2)
+    if isinstance(src.get('expr'), str): r['expr'] = _FACE_MIRROR.get(src['expr'], src['expr'])
+    r['keys'] = mirror_keys(src.get('keys', []), zm=zm, xm=xm, shift=shift, cam_pos=cam_pos)
+    r.update(kw); return r
+
+
 def bands(frm, look, lens, points, card=False, aspect=9 / 16):
     """(cycle 7) Which of `points` (dict name -> [x, y, z]) fall outside the frame, in the caption band (0.77-0.83 of the height) or, with card=True,
     in the band of a one-line title card (0.07-0.18): a list of (name, 'out' | 'captions' | 'card', (x, y)). Call it on what must be read: a face, a

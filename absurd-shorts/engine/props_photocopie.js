@@ -41,23 +41,27 @@ export const PHOTOCOPIE_PROPS = {
   photocopier(o) {
     const g = grp(), W = 1.1, H = 0.95, D = 0.7, body = o.color || '#E6E1D5'; let btn = null;
     g.add(at(box(W, H, D, body, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(W + 0.02, 0.06, D + 0.02, '#9A958B', { pivot: 'bottom' }), 0, 0, 0));
-    const drawers = [0.14, 0.34, 0.54].map((y, i) => { const d = grp(at(box(W - 0.1, 0.17, 0.04, '#D8D2C4', { outline: 0.006 }), 0, 0, 0), at(box(0.22, 0.03, 0.03, '#6E6A62'), 0, 0.03, 0.03)); d.position.set(0, y + 0.085, D / 2 + 0.01); g.add(d); return d; });
+    // (final pass of 49) o.drawerColor, o.lidColor, o.panelColor, o.trayColor, o.screen [colour, glow], o.pressDur, o.traySheets: a cool grey copier with a
+    // charcoal top reads as a copier (beige on a beige wall it was a cabinet); the screen not green, so the round button is the only green
+    const drawers = [0.14, 0.34, 0.54].map((y, i) => { const d = grp(at(box(W - 0.1, 0.17, 0.04, o.drawerColor || '#D8D2C4', { outline: 0.006 }), 0, 0, 0), at(box(0.22, 0.03, 0.03, '#6E6A62'), 0, 0.03, 0.03)); d.position.set(0, y + 0.085, D / 2 + 0.01); g.add(d); return d; });
     const glass = new THREE.Mesh(new THREE.BoxGeometry(W - 0.12, 0.012, D - 0.12), new THREE.MeshLambertMaterial({ color: '#2E3A44', transparent: true, opacity: 0.85 })); glass.position.set(0, H + 0.006, 0); g.add(glass);
     const bar = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.008, D - 0.14), new THREE.MeshBasicMaterial({ color: '#7DFF6A', toneMapped: false })); bar.position.set(0, H - 0.004, 0); bar.userData.noAO = true; bar.visible = false; g.add(bar);
     const glowM = new THREE.MeshBasicMaterial({ color: '#8CFF78', transparent: true, opacity: 0.0, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
     const glow = new THREE.Mesh(new THREE.BoxGeometry(W + 0.06, 0.16, D + 0.06), glowM); glow.position.set(0, H + 0.08, 0); glow.userData.noAO = true; glow.visible = false; g.add(glow);
-    const lid = grp(at(box(W - 0.02, 0.06, D - 0.02, '#D9D3C6', { outline: 0.008 }), 0, 0.03, (D - 0.02) / 2), at(box(W - 0.12, 0.005, D - 0.14, '#F2F1EC'), 0, -0.003, (D - 0.02) / 2));   // the white pad under the lid
+    const lid = grp(at(box(W - 0.02, 0.06, D - 0.02, o.lidColor || '#D9D3C6', { outline: 0.008 }), 0, 0.03, (D - 0.02) / 2), at(box(W - 0.12, 0.005, D - 0.14, '#F2F1EC'), 0, -0.003, (D - 0.02) / 2));   // the white pad under the lid
     lid.position.set(0, H + 0.012, -D / 2 + 0.01); g.add(lid);
-    const panel = grp(at(box(0.36, 0.1, 0.2, '#CFC9BC', { outline: 0.006 }), 0, 0.05, 0), at(box(0.16, 0.012, 0.09, '#2D4F3A', { emissive: '#1F5C36' }), -0.07, 0.106, 0), (btn = at(cyl(o.btnR ?? 0.035, o.btnR ?? 0.035, 0.03, '#33B24A', 14), 0.1, 0.11, 0.02)));   // (pass 3 of 49) o.btnR, o.pressAt
+    const scr = o.screen || ['#2D4F3A', '#1F5C36'];
+    const panel = grp(at(box(0.36, 0.1, 0.2, o.panelColor || '#CFC9BC', { outline: 0.006 }), 0, 0.05, 0), at(box(0.16, 0.012, 0.09, scr[0], { emissive: scr[1] }), -0.07, 0.106, 0), (btn = at(cyl(o.btnR ?? 0.035, o.btnR ?? 0.035, 0.03, '#33B24A', 14), 0.1, 0.11, 0.02)));   // (pass 3 of 49) o.btnR, o.pressAt
     panel.position.set(W / 2 - 0.2, H, D / 2 - 0.02); panel.rotation.x = 0.3; g.add(panel);
     if (btn?.material) btn.material = btn.material.clone();   // its own material: the press lights this button only
-    g.add(at(box(0.36, 0.025, 0.4, '#CFC9BC', { outline: 0.006 }), W / 2 + 0.17, 0.6, 0.0, 0, 0, -0.18), at(box(0.04, 0.2, 0.42, '#CFC9BC'), W / 2 + 0.02, 0.62, 0));   // the output tray
+    g.add(at(box(0.36, 0.025, 0.4, o.trayColor || '#CFC9BC', { outline: 0.006 }), W / 2 + 0.17, 0.6, 0.0, 0, 0, -0.18), at(box(0.04, 0.2, 0.42, o.trayColor || '#CFC9BC'), W / 2 + 0.02, 0.62, 0));   // the output tray
+    for (let i = 0; i < (o.traySheets || 0); i++) g.add(at(box(0.3, 0.004, 0.21, '#FAFAF7'), W / 2 + 0.18 + 0.006 * i, 0.618 + 0.006 * i, 0.01 * (i % 2), 0, 0.04 * (i - 1), -0.18));   // sheets on the tray
     const sheets = list(o.sheetsAt).map(() => { const s = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.004, 0.21), mat('#FAFAF7')); s.visible = false; g.add(s); return s; });
     const lk = o.lidKeys || [[0, o.lid ?? 0]];
     const lidAt = t => { let v = lk[0][1]; for (let i = 1; i < lk.length; i++) { const [t1, v1] = lk[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / 0.25)); } return v; };
     g.userData.update = t => {
       lid.rotation.x = -lidAt(t);
-      if (btn) { const pr = list(o.pressAt).some(a => t >= a && t < a + 0.16); btn.position.y = pr ? 0.098 : 0.11; btn.material.emissive?.set(pr ? '#4CFF66' : '#000000'); }
+      if (btn) { const pr = list(o.pressAt).some(a => t >= a && t < a + (o.pressDur ?? 0.16)); btn.position.y = pr ? 0.098 : 0.11; btn.material.emissive?.set(pr ? '#4CFF66' : '#000000'); }
       const sa = list(o.scanAt).find(a => t >= a && t < a + (o.scanDur ?? 0.6)); bar.visible = sa != null; glow.visible = sa != null;
       if (sa != null) { const u = (t - sa) / (o.scanDur ?? 0.6); bar.position.x = (-0.5 + u) * (W - 0.16); glowM.opacity = 0.22 + 0.12 * Math.sin(u * 40); glow.scale.set(1, 1 + 0.3 * Math.sin(u * PI), 1); }
       list(o.sheetsAt).forEach((a, i) => { const u = clamp01((t - a) / 0.28), s = sheets[i]; s.visible = t >= a; if (!s.visible) return; s.position.set(W / 2 + 0.05 + 0.24 * ease.out(u), 0.63 + 0.012 * i - 0.05 * ease.out(u), 0); s.rotation.z = -0.18; });
@@ -125,7 +129,7 @@ export const PHOTOCOPIE_PROPS = {
     g.add(at(box(L, 0.05, 0.02, steel, { outline: 0.004 }), L / 2, 0, 0)); for (let i = 0; i < 20; i++) g.add(at(box(0.004, i % 5 ? 0.012 : 0.022, 0.003, '#2A2C31'), 0.05 + i * (L - 0.1) / 20, 0.012, 0.012));
     g.add(at(box(0.04, jaw, 0.02, steel, { outline: 0.004, pivot: 'top' }), 0.02, -0.025, 0));
     const slide = grp(at(box(0.1, 0.09, 0.035, '#9AA0A7', { outline: 0.004 }), 0, 0, 0), at(box(0.04, jaw, 0.02, steel, { outline: 0.004, pivot: 'top' }), -0.03, -0.045, 0)); g.add(slide);
-    let cur = null; const DW = o.dispW ?? 0.09, disp = canvasPlane(DW, DW * 0.55, () => {}, { res: 256 }); disp.position.set(0, 0.012 + (DW > 0.1 ? DW * 0.3 : 0), 0.019); disp.rotation.y = o.dispRy ?? 0; slide.add(disp);   // (pass 3 of 49) o.dispRy: the readout turned toward the lens   // o.dispW: a bigger readout
+    let cur = null; const DW = o.dispW ?? 0.09, disp = canvasPlane(DW, DW * 0.55, () => {}, { res: 256 }); disp.position.set(o.dispX ?? 0, 0.012 + (DW > 0.1 ? DW * 0.3 : 0), 0.019); disp.rotation.y = o.dispRy ?? 0; slide.add(disp);   // (final pass of 49) o.dispX: the readout out past the slider, clear of his chest   // (pass 3 of 49) o.dispRy: the readout turned toward the lens   // o.dispW: a bigger readout
     const draw = txt => { const c = disp.material.map.image, x = c.getContext('2d'); x.fillStyle = '#C9E3C6'; x.fillRect(0, 0, c.width, c.height); x.fillStyle = '#14161A'; x.font = `900 ${Math.round(c.height * 0.62)}px Arial`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt, c.width / 2, c.height * 0.55); disp.material.map.needsUpdate = true; };
     const gk = o.gapKeys || [[0, o.gap ?? 0.3]];
     const gapAt = t => { let v = gk[0][1]; for (let i = 1; i < gk.length; i++) { const [t1, v1] = gk[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / (o.gapEase ?? 0.2))); } return v; };   // (pass 2 of 49) o.gapEase: a snap (0.05) instead of 0.2 s
@@ -143,8 +147,8 @@ export const PHOTOCOPIE_PROPS = {
   // A red rubber-stamp mark (o.text, e.g. NON CONFORME) on a transparent plane o.w wide, tilted o.rot; from o.at it lands with a little pop
   // (named stampPop: as stampMark it replaced the older stories' stampMark, of other options, in the merged prop table)
   stampPop(o) {
-    const w = o.w ?? 0.3, h = w * 0.36, g = grp(), pl = canvasPlane(w, h, (c, W, H) => { c.strokeStyle = '#D21E1E'; c.lineWidth = H * 0.08; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);
-      c.fillStyle = '#D21E1E'; c.font = `900 ${Math.round(H * 0.46)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text ?? 'NON CONFORME', W / 2, H * 0.54, W * 0.9); }, { res: 512, transparent: true });
+    const w = o.w ?? 0.3, h = w * 0.36, ink = o.ink || '#D21E1E', g = grp(), pl = canvasPlane(w, h, (c, W, H) => { c.strokeStyle = ink; c.lineWidth = H * 0.08; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);   // (final pass of 49) o.ink: a deeper red (2.1:1 on his skin)
+      c.fillStyle = ink; c.font = `900 ${Math.round(H * 0.46)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text ?? 'NON CONFORME', W / 2, H * 0.54, W * 0.9); }, { res: 512, transparent: true });
     pl.rotation.z = o.rot ?? -0.15; pl.userData.noAO = true; g.add(pl);
     g.userData.update = t => { const u = (t - (o.at ?? 0)) / 0.12; g.visible = u >= 0; if (!g.visible) return; const s = u < 1 ? 1.4 - 0.4 * ease.out(u) : 1; g.scale.setScalar(s); };
     g.userData.update(0); return g;

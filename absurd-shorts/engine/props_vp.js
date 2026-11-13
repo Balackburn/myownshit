@@ -28,6 +28,34 @@ function textBoard(text, w, h, { bg = '#F4F1E8', fg = '#1E2A33', frame = null, f
   return c;
 }
 
+// (cycle 14) the Eiffel tower as one connected low-poly silhouette, o.h tall: four legs that curve in from splayed feet to the first deck, an arch
+// between each pair of feet, the first and second decks, the four upper legs converging to the top deck, the spire; every part touches the next
+function eiffelV2(o) {
+  const H = o.h || 30, c = o.color || '#7A5C44', dk = o.deck || '#5E4532', g = grp();
+  const seg = (a, b, w0, w1, col = c) => {   // a tapered beam from point a to point b (widths w0 at a, w1 at b)
+    const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b), L = A.distanceTo(B);
+    const m = box(w0, L, w0, col, { taper: { x: w1 / w0, z: w1 / w0 }, outline: 0.004 * H });
+    m.position.copy(A.clone().add(B).multiplyScalar(0.5)); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), B.clone().sub(A).normalize()); g.add(m);
+  };
+  const F = 0.21 * H, D1 = 0.115 * H, D2 = 0.062 * H, T = 0.022 * H, y1 = 0.2 * H, y2 = 0.4 * H, yT = 0.86 * H;
+  for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+    // the leg: three beams on a curve bowed outward, from the foot to the first deck
+    const pts = [0, 0.33, 0.66, 1].map(u => { const r = F + (D1 - F) * (1 - Math.pow(1 - u, 1.7)); return [sx * r, y1 * u, sz * r]; });
+    for (let i = 0; i < 3; i++) seg(pts[i], pts[i + 1], 0.07 * H * (1 - 0.18 * i), 0.07 * H * (1 - 0.18 * (i + 1)));
+    seg([sx * D1, y1, sz * D1], [sx * D2, y2, sz * D2], 0.045 * H, 0.032 * H);   // first deck to the second
+    seg([sx * D2, y2, sz * D2], [sx * T, yT, sz * T], 0.03 * H, 0.016 * H);      // the long upper legs to the top
+  }
+  // the arches between the feet, on the four sides (half tori standing in the plane of each side)
+  for (let k = 0; k < 4; k++) { const ar = new THREE.Mesh(new THREE.TorusGeometry(0.105 * H, 0.016 * H, 5, 12, Math.PI), mat(c)); ar.castShadow = true;
+    const ang = k * Math.PI / 2; ar.position.set(Math.sin(ang) * 0.165 * H, 0.06 * H, Math.cos(ang) * 0.165 * H); ar.rotation.y = ang; g.add(ar); }
+  // decks (a dark band under each reads as the platform's shadow), the core of the upper tower, the top, the spire
+  g.add(at(box(2.2 * D1, 0.028 * H, 2.2 * D1, dk, { outline: 0.004 * H }), 0, y1, 0), at(box(2.5 * D1, 0.012 * H, 2.5 * D1, c), 0, y1 + 0.02 * H, 0));
+  g.add(at(box(2.3 * D2, 0.022 * H, 2.3 * D2, dk, { outline: 0.004 * H }), 0, y2, 0), at(box(2.6 * D2, 0.01 * H, 2.6 * D2, c), 0, y2 + 0.015 * H, 0));
+  g.add(at(box(0.075 * H, yT - y2, 0.075 * H, c, { pivot: 'bottom', taper: { x: 0.35, z: 0.35 } }), 0, y2, 0));
+  g.add(at(box(0.06 * H, 0.035 * H, 0.06 * H, dk, { outline: 0.004 * H }), 0, yT, 0), at(cyl(0.006 * H, 0.012 * H, H - yT - 0.03 * H, c, 6, { pivot: 'bottom' }), 0, yT + 0.03 * H, 0));
+  return g;
+}
+
 export const VP_PROPS = {
   cloudChar(o) { // faceted grey (or white) cloud with a face: blinks, bobs and wobbles; o.expr [[t, name]]; o.rain [[t, true|false]]
     const r = rng(o.seed || 31), g = grp(), body = grp(); g.add(body);
@@ -150,6 +178,7 @@ export const VP_PROPS = {
     g.userData.update(0); return g;
   },
   eiffelTower(o) { // low-poly Eiffel tower (four splayed legs, two decks, tapering spire), o.h tall
+    if (o.style === 'v2') return eiffelV2(o);   // (cycle 14) one connected silhouette (the reviews of 51: the old one read as a stepladder)
     const H = o.h || 30, c = o.color || '#8E6E4C', g = grp();
     [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sz]) => {
       const leg = box(0.09 * H, 0.42 * H, 0.09 * H, c, { taper: { x: 0.45, z: 0.45 } }); leg.position.set(sx * 0.12 * H, 0.2 * H, sz * 0.12 * H); leg.rotation.set(-sz * 0.32, 0, sx * 0.32); g.add(leg);

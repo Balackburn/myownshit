@@ -186,7 +186,9 @@ function setupScene(si, analyzing = false) {
   });
   S.propById = Object.fromEntries(S.props.map(p => [p.id, p]));
   // tethers: a sagging cord rebuilt every frame between two moving anchors ({actor, hand|joint, offset} or {prop, offset}), e.g. a leash
-  S.tethers = (sc.tethers || []).map(td => { const m = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshLambertMaterial({ color: td.color || '#C0392B' })); m.castShadow = true; m.frustumCulled = false; S.root.add(m); return { td, m }; });
+  S.tethers = (sc.tethers || []).map(td => { const m = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshLambertMaterial({ color: td.color || '#C0392B' })); m.castShadow = true; m.frustumCulled = false; S.root.add(m);
+    let rim = null; if (td.rim) { rim = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: td.rimColor || new THREE.Color(td.color || '#C0392B').multiplyScalar(0.42), side: THREE.BackSide })); rim.frustumCulled = false; rim.visible = false; rim.userData.noAO = true; S.root.add(rim); }   // (cycle 14) td.rim: a darker hull round the cord
+    return { td, m, rim }; });
   // crowds (background extras, deterministic)
   for (const cr of sc.crowd || []) for (let i = 0; i < (cr.count || 4); i++) {
     const id = `${cr.id || 'crowd'}${i}`, pos = cr.positions?.[i] || [cr.center[0] + ((i * 1.37) % 1 - 0.5) * (cr.spread || 3), 0, cr.center[2] + ((i * 0.61) % 1 - 0.5) * (cr.spread || 3)];
@@ -869,10 +871,14 @@ function evalTethers(t) {
     // td.spin: [turns per second, phase (turns), from, until]: the belly of the cord goes round its axis (a skipping rope turned by two children)
     const sp = td.spin && t >= (td.spin[2] ?? -1e9) && t < (td.spin[3] ?? 1e9) ? td.spin : null, ax = b.clone().sub(a).normalize(), dn = V(0, -1, 0).addScaledVector(ax, ax.y).normalize(), sd = V().crossVectors(ax, dn).normalize();
     const th = sp ? 2 * Math.PI * (sp[0] * t + (sp[1] || 0)) : 0, dir = sp ? dn.clone().multiplyScalar(Math.cos(th)).addScaledVector(sd, Math.sin(th)) : V(0, -1, 0);
-    for (let i = 0; i <= n; i++) { const u = i / n, p = a.clone().lerp(b, u); p.addScaledVector(dir, sag * 4 * u * (1 - u)); p.y += wob * Math.sin(Math.PI * u); pts.push(p); }
-    const curve = new THREE.CatmullRomCurve3(pts), T = td.segments || 20, RS = td.radial || 5;
+    if (td.via && td.via.length) { pts.push(a.clone()); for (const q of td.via) pts.push(V(...q)); pts.push(b.clone()); }   // (cycle 14) td.via: points it passes through (slack laid in soft loops on a floor)
+    else for (let i = 0; i <= n; i++) { const u = i / n, p = a.clone().lerp(b, u); p.addScaledVector(dir, sag * 4 * u * (1 - u)); p.y += wob * Math.sin(Math.PI * u); pts.push(p); }
+    // (cycle 14) td.ripple: [[t, amp (m), speed (cord lengths per second)], ...] a bump that runs along the cord from its a end (a jerk travelling down the slack)
+    if (td.ripple) for (const [t0, amp, spd = 2.5] of td.ripple) { const c = (t - t0) * spd; if (c < 0 || c > 1.4) continue; pts.forEach((p, i) => { const u = i / Math.max(1, pts.length - 1); p.y += amp * Math.exp(-((u - c) ** 2) / 0.012) * Math.max(0, 1 - 0.5 * c); }); }
+    const curve = new THREE.CatmullRomCurve3(pts), T = td.segments || (td.via ? 48 : 20), RS = td.radial || 5;
     const R = (td.radius || 0.012) * (td.thin ? Math.min(1.6, Math.sqrt(td.thin[0] / Math.max(0.05, L))) : 1);
     const geo = new THREE.TubeGeometry(curve, T, R, RS);
+    m.userData.curve = curve; m.userData.T = T; m.userData.RS = RS; m.userData.radii = Array.from({ length: T + 1 }, (_, j) => R * (td.taper ? 1 - td.taper * Math.pow(Math.sin(Math.PI * j / T), 0.6) : 1));   // (cycle 14) for the screen pass
     if (td.taper) { const pa = geo.attributes.position, P = V(), Q = V();
       for (let j = 0; j <= T; j++) { const u = j / T, f = 1 - td.taper * Math.pow(Math.sin(Math.PI * u), 0.6); curve.getPointAt(u, P);
         for (let r = 0; r <= RS; r++) { const ix = j * (RS + 1) + r; Q.fromBufferAttribute(pa, ix).sub(P).multiplyScalar(f).add(P); pa.setXYZ(ix, Q.x, Q.y, Q.z); } }
@@ -1192,7 +1198,7 @@ export function renderFrame(tAbs) {
     placeCamera(tk); darkPool(tk); if (S.script.debugJoints && k === K - 1) debugJoints(sc, tk);
     if (sc.fogTo && scene.fog && sc.fog) { const u = Math.min(1, Math.max(0, tk / sc.duration)); scene.fog.near = sc.fog.near + (sc.fogTo.near - sc.fog.near) * u; scene.fog.far = sc.fog.far + (sc.fogTo.far - sc.fog.far) * u; }   // sc.fogTo: the veil follows a descending camera
     for (const o of S.follow || []) o.position.copy(camera.position);
-    camLocked(camera); facePropsToCamera(camera);
+    camLocked(camera); facePropsToCamera(camera); tetherScreen(camera);
     if (S.look) S.look.render(); else renderer.render(scene, camera);
     const frozen = frozenNow(tk);
     g.globalAlpha = 1 / (k + 1);
@@ -1219,7 +1225,27 @@ function camLocked(camera) {
 // reads face-on whatever the arm does (an attached prop took the rotation of the hand: sheets were seen edge-on, a thumb pointed sideways, a phone hid
 // behind the head). `faceRoll` (rad) tilts it in its own plane, `faceFlat: true` keeps it upright (turned about the vertical only), `faceAmt` (0..1)
 // blends from the carried rotation to the facing one.
+const _yAx = new THREE.Vector3(0, 1, 0);
 const _fz = new THREE.Vector3(), _fx = new THREE.Vector3(), _fy = new THREE.Vector3(), _fp = new THREE.Vector3(), _fm = new THREE.Matrix4(), _fq = new THREE.Quaternion(), _pq = new THREE.Quaternion(), _rq = new THREE.Quaternion(), _zA = new THREE.Vector3(0, 0, 1);
+// (cycle 14) td.minPx: a cord never thinner on screen than that many pixels of a 1920-px-tall frame (the reviews of 51: a 1-2 px strand vanished at phone
+// size, then came back as a rope); td.rim: a darker hull round it, `rim` times its radius (and at least a third of minPx), so it reads on a facade of the same value
+function tetherScreen(camera) {
+  if (!S.tethers?.length) return;
+  const th = Math.tan((camera.fov || 40) * Math.PI / 360), P = V(), Q = V();
+  for (const { td, m, rim } of S.tethers) {
+    if (rim) rim.visible = false;
+    if (!m.visible || !(td.minPx || td.rim)) continue;
+    const ud = m.userData; if (!ud.curve) continue;
+    const pa = m.geometry.attributes.position, T = ud.T, RS = ud.RS, px = d => d * th / 1920;   // world metres per pixel at distance d, times 0.5 (a radius)
+    if (td.minPx) { for (let j = 0; j <= T; j++) { ud.curve.getPointAt(j / T, P); const rmin = td.minPx * px(P.distanceTo(camera.position)), r0 = ud.radii[j];
+      if (r0 < rmin) { const k = rmin / Math.max(1e-6, r0); for (let r = 0; r <= RS; r++) { const ix = j * (RS + 1) + r; Q.fromBufferAttribute(pa, ix).sub(P).multiplyScalar(k).add(P); pa.setXYZ(ix, Q.x, Q.y, Q.z); } } }
+      pa.needsUpdate = true; m.geometry.computeBoundingSphere(); }
+    if (td.rim && rim) { const g2 = m.geometry.clone(), p2 = g2.attributes.position;
+      for (let j = 0; j <= T; j++) { ud.curve.getPointAt(j / T, P); const extra = Math.max(0, (td.minPx || 0) * px(P.distanceTo(camera.position)) * 0.66);
+        for (let r = 0; r <= RS; r++) { const ix = j * (RS + 1) + r; Q.fromBufferAttribute(p2, ix).sub(P); const len = Q.length(); Q.multiplyScalar((len + Math.max(len * td.rim, extra)) / Math.max(1e-6, len)).add(P); p2.setXYZ(ix, Q.x, Q.y, Q.z); } }
+      p2.needsUpdate = true; rim.geometry.dispose(); rim.geometry = g2; rim.visible = true; }
+  }
+}
 function facePropsToCamera(camera) {
   let any = false;
   for (const Pp of S.props) { const k = Pp.faceKey; if (!k || !Pp.obj.visible) continue;
@@ -1229,6 +1255,7 @@ function facePropsToCamera(camera) {
     _fx.set(0, 1, 0).cross(_fz); if (_fx.lengthSq() < 1e-6) _fx.set(1, 0, 0); _fx.normalize(); _fy.copy(_fz).cross(_fx);
     _fm.makeBasis(_fx, _fy, _fz); _fq.setFromRotationMatrix(_fm);
     if (k.faceRoll) _fq.multiply(_rq.setFromAxisAngle(_zA, k.faceRoll));
+    if (k.faceBack) _fq.multiply(_rq.setFromAxisAngle(_yAx, Math.PI));   // (cycle 14) faceBack: its back to the camera (a phone whose screen faces him: the reviews of 51 saw the screen and his palm)
     if (o.parent) { o.parent.getWorldQuaternion(_pq); _fq.premultiply(_pq.invert()); }
     const a = k.faceAmt ?? 1; if (a >= 1) o.quaternion.copy(_fq); else o.quaternion.slerp(_fq, a);
     o.updateMatrixWorld(true);
