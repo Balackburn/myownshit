@@ -49,7 +49,7 @@ export const TOURNANTE_PROPS = {
     // o.inner: the wings start that far from the axis (0.05): room in the middle for a man who turns with the door (the post hidden in him)
     const r0 = o.inner ?? 0.05;
     if (o.wings !== false) for (let i = 0; i < 4; i++) { const w = grp(); w.rotation.y = i * PI / 2; rot.add(w);
-      const L = R - 0.06 - r0, pane = new THREE.Mesh(new THREE.BoxGeometry(0.025, H - 0.16, L - 0.06), glassMat(0.35)); pane.position.set(0, H / 2, r0 + (L - 0.06) / 2); w.add(pane);
+      const L = R - 0.06 - r0, pane = new THREE.Mesh(new THREE.BoxGeometry(0.025, H - 0.16, L - 0.06), glassMat(0.2)); pane.position.set(0, H / 2, r0 + (L - 0.06) / 2); w.add(pane);
       for (const y of [0.06, H - 0.06]) w.add(at(box(0.05, 0.08, L, metal, { outline: 0.004 }), 0, y, r0 + L / 2));
       w.add(at(box(0.05, H - 0.04, 0.05, metal, { outline: 0.004 }), 0, H / 2, r0 + L)); w.add(at(box(0.05, H - 0.04, 0.05, metal, { outline: 0.004 }), 0, H / 2, r0));
       w.add(at(box(0.04, 0.05, L * 0.6, '#C9CCD1'), 0.03, 1.05, r0 + L * 0.55)); }
@@ -58,7 +58,7 @@ export const TOURNANTE_PROPS = {
     g.userData.angleAt = t => TAU * integ(o.spin, t);
     g.userData.update = t => {
       rot.rotation.y = TAU * integ(o.spin, t);
-      const rate = Math.abs(lin(o.spin, t, 0)); blur.material.opacity = Math.max(0, Math.min(0.42, (rate - 0.9) * 0.22)); blur.visible = blur.material.opacity > 0.01;
+      const rate = Math.abs(lin(o.spin, t, 0)); blur.material.opacity = Math.max(0, Math.min(0.12, (rate - 0.9) * 0.08)); blur.visible = blur.material.opacity > 0.01;   // (stills v1) faint: a man turning at the axis is inside the drum and a thick blur whitened him
       const bk = lin(o.bulbs, t, 0); bulbs.forEach((b, i) => { b.material.emissiveIntensity = bk * (0.75 + 0.25 * Math.sin(t * 9 + i * 1.3)) * 2.2; });
     };
     g.userData.update(0); return g;
