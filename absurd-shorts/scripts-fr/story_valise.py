@@ -189,7 +189,7 @@ st.cue('sfx:pour', 'S10', 0.2, 0.25); st.cue('sfx:jet', 'S10', 0.0, 0.06)
 # 11: he flies in the hold. Dark, between the bags: he sits folded with his knees up, FRAGILE stuck on his forehead, under a swinging bulb; the plane
 #     banks: a big bag slides in and squashes him flat against the stack, then it slides off and he springs back into shape; deadpan
 D11 = st.dur('S11'); HIT11 = 0.62
-ME11 = [0.0, 0, -0.6]
+ME11 = [-0.45, 0, -0.6]                                               # (first look) against the stack on his left, so that the sliding bag sandwiches him
 st.shot('S11', 'whiteVoid', setOpts={'color': '#20242C'}, actors=[
         act('mec', ME11, 15, 'sitFloor', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'sq': [1.0, 0.92, 1.0], 'face': {'lid': 0.45}}, toonDur=0.0),
             k(round(HIT11 - 0.03, 3), toon={'sq': [1.0, 0.94, 1.0], 'face': {'lid': 0.3, 'brow': 0.3}}, toonDur=0.08),
@@ -202,8 +202,8 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#20242C'}, actors=[
                VAL('b11a', pos=[-0.95, 0, -0.8], ry=80, scale=1.1, opts={'color': '#2E6FB5', 'stickers': 2, 'seed': 3}), VAL('b11b', pos=[-0.95, 0.75, -0.8], ry=75, scale=1.0, opts={'color': '#3CB371', 'seed': 4}),
                VAL('b11c', pos=[0.8, 0, -1.3], ry=-20, scale=1.15, opts={'color': '#7A7F87', 'seed': 5}), VAL('b11d', pos=[-0.3, 0, -1.6], ry=10, scale=1.25, opts={'color': '#9B59B6', 'seed': 6}),
                VAL('b11e', pos=[1.6, 0, -0.55], ry=-95, scale=1.3, opts={'color': '#F28C28', 'stickers': 3, 'seed': 7},
-                   keys=[k(0.25, to=[0.6, 0, -0.55], dur=round(HIT11 - 0.25, 3), ease='in'), k(round(HIT11 + 0.38, 3), to=[1.5, 0, -0.5], dur=0.3, ease='inOut')])],   # the bag that slides in on the bank
-        cams=[FC(0.0, [0.55, 1.15, 1.55], [[ME11[0], 1.55, ME11[2]], [ME11[0], 0.0, ME11[2]], [-1.2, 1.2, -0.8], [1.0, 0.9, -0.55]], top=0.14, bottom=0.74, drift=(0.0, 0.0, -0.1))])
+                   keys=[k(0.25, to=[-0.18, 0, -0.55], dur=round(HIT11 - 0.25, 3), ease='in'), k(round(HIT11 + 0.38, 3), to=[1.5, 0, -0.5], dur=0.3, ease='inOut')])],   # the bag that slides in on the bank, up against him
+        cams=[FC(0.0, [0.2, 1.15, 1.55], [[ME11[0], 1.55, ME11[2]], [ME11[0], 0.0, ME11[2]], [-1.2, 1.2, -0.8], [0.9, 0.9, -0.55]], top=0.14, bottom=0.74, drift=(0.0, 0.0, -0.1))])
 st.cue('sfx:splat', 'S11', HIT11, 0.4); st.cue('sfx:boing', 'S11', round(HIT11 + 0.45, 3), 0.25); st.cue('sfx:jet', 'S11', 0.0, 0.1)
 
 # 12: yesterday it came back. At the carousel, he behind the belt as before: the flaps lift and his red suitcase rides out of the tunnel covered in
