@@ -15,7 +15,7 @@ const keyAt = (keys, t, d = 0) => { if (!keys || !keys.length) return d; if (t <
 // a pop-in: 0 before, up to 1.3 in two frames, a damped settle on 1 by 0.2 s
 const popK = u => u < 0 ? 0 : u < 0.06 ? 1.3 * u / 0.06 : u < 0.2 ? 1 + 0.3 * Math.cos((u - 0.06) / 0.14 * PI * 1.5) * (1 - (u - 0.06) / 0.14) : 1;
 const unlit = pl => { pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, side: THREE.DoubleSide, toneMapped: false, transparent: !!pl.material.transparent, alphaTest: pl.material.transparent ? 0.05 : 0 }); return pl; };
-const CITIES = ['PARIS', 'LE CAIRE', 'TOKYO', 'RIO', 'NEW YORK', 'SYDNEY', 'ROMA', 'OSLO', 'DAKAR', 'LIMA', 'SÉOUL', 'MEXICO', 'BOMBAY', 'LISBOA', 'NAIROBI', 'QUÉBEC'];
+const CITIES = ['PARIS', 'LE CAIRE', 'TOKYO', 'RIO', 'NEW YORK', 'SYDNEY', 'ROME', 'OSLO', 'DAKAR', 'LIMA', 'SÉOUL', 'MEXICO', 'BOMBAY', 'LISBONNE', 'NAIROBI', 'QUÉBEC'];
 const STICK = ['#E8463A', '#F2C230', '#3C8DD9', '#3CB371', '#F28C28', '#9B59B6', '#FFFFFF', '#E86FA8'];
 
 // one travel sticker (front +Z, pivot at its centre): a round or a rounded-rectangle label with a city name, seeded by i
@@ -62,13 +62,19 @@ export const VALISE_PROPS = {
     for (let i = 0; i < n; i++) { const s = sticker((o.seed ?? 0) * 17 + i, Math.min(W, H) / 0.5); const u = rnd(i * 7.3 + (o.seed ?? 0)), v = rnd(i * 4.9 + 1.7 + (o.seed ?? 0));
       s.position.set((u - 0.5) * W * 0.78, -H * (0.12 + 0.76 * v), D / 2 + 0.012 + i * 0.0006); s.rotation.z = (rnd(i * 2.3) - 0.5) * 0.7; lid.add(s); st.push(s); }
     // the luggage tag on its strap
-    let tag = null;
-    if (o.tag) { tag = grp(); tag.position.set(0, wh + H + 0.05, -D * 0.2 + 0.02); body.add(tag);
+    let tag = null, glint = null;
+    // (pass 2 of 54) the tag hangs down the front of the lid from its top edge (hung from the handle in the middle of the case, the card was inside the
+    // shell: no review ever saw it); o.tagScale: an oversized tag that reads in a wide shot
+    if (o.tag) { tag = grp(); tag.position.set(0, wh + H + 0.03, D / 2 + 0.012); body.add(tag); tag.scale.setScalar(o.tagScale ?? 1);
       tag.add(at(box(0.012, 0.1, 0.004, '#2A2D33'), 0, -0.05, 0));
       const gold = o.tag === 'gold', card = canvasPlane(0.11, 0.07, (c, Wc, Hc) => { const gr = c.createLinearGradient(0, 0, Wc, Hc); gr.addColorStop(0, gold ? '#FFE27A' : '#F4F1E8'); gr.addColorStop(0.5, gold ? '#E8B830' : '#E2DDD0'); gr.addColorStop(1, gold ? '#FFD45A' : '#F4F1E8');
         c.fillStyle = gr; c.fillRect(0, 0, Wc, Hc); c.strokeStyle = gold ? '#9A6A10' : '#8A8578'; c.lineWidth = Hc * 0.06; c.strokeRect(0, 0, Wc, Hc); c.fillStyle = gold ? '#5A3A06' : '#3A3A40'; c.textAlign = 'center'; c.textBaseline = 'middle';
         c.font = `900 ${Hc * 0.3}px Arial`; c.fillText(gold ? 'OR' : '✈', Wc / 2, Hc * 0.5); }, { res: 192 });
-      card.position.set(0, -0.135, 0.006); tag.add(card, at(box(0.116, 0.076, 0.004, gold ? '#C99A20' : '#B8B2A4'), 0, -0.135, 0)); }
+      card.position.set(0, -0.135, 0.006); tag.add(card, at(box(0.116, 0.076, 0.004, gold ? '#C99A20' : '#B8B2A4'), 0, -0.135, 0));
+      if (o.tagGlint) { const cv = document.createElement('canvas'); cv.width = cv.height = 64; const x = cv.getContext('2d'); x.translate(32, 32); x.fillStyle = '#FFFFFF';   // (pass 2 of 54) o.tagGlint: a twinkle on the gold card
+        for (const a of [0, PI / 2]) { x.save(); x.rotate(a); x.beginPath(); x.moveTo(-31, 0); x.lineTo(0, -3); x.lineTo(31, 0); x.lineTo(0, 3); x.closePath(); x.fill(); x.restore(); }
+        x.beginPath(); x.arc(0, 0, 6, 0, TAU); x.fill();
+        glint = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), color: '#FFF3C4', transparent: true, depthWrite: false, toneMapped: false })); glint.position.set(0.035, -0.115, 0.02); glint.scale.setScalar(o.tagGlint); tag.add(glint); } }
     // eyewear
     if (o.shades) { const ey = grp(); ey.position.set(0, -H * 0.16, D / 2 + 0.02); lid.add(ey);
       if (o.shades === 'mask') { for (const x of [-1, 1]) ey.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.07 * W / 0.5, 10, 6), mat('#F5A3C0')), x * W * 0.16, 0, 0)); ey.children.forEach(q => q.scale.set(1.25, 0.75, 0.3)); ey.add(at(box(W * 1.02, 0.02, 0.02, '#F5A3C0'), 0, 0, -0.01)); }
@@ -83,6 +89,7 @@ export const VALISE_PROPS = {
       const hk = Array.isArray(o.handle) ? keyAt(o.handle, t, 0) : (o.handle || 0); tele.position.y = 0.42 * clamp01(hk);
       const times = o.stickerTimes; st.forEach((s, i) => { const k = times && times[i] != null ? popK(t - times[i]) : 1; s.visible = k > 0.001; s.scale.setScalar(Math.max(0.001, k)); });
       if (tag) tag.rotation.x = (o.tagSwing ?? 0.25) * Math.sin(t * 7.0) * Math.exp(-0.3 * t);
+      if (glint) { const kk = 0.6 + 0.4 * Math.abs(Math.sin(t * 8.5)); glint.scale.setScalar(o.tagGlint * kk); glint.material.rotation = t * 2.2; }
       const b = keyAt(o.bob, t, 0); body.position.y = b > 0 ? b * Math.abs(Math.sin(t * 9.0)) : 0;
     };
     g.userData.update(0); return g;
@@ -158,7 +165,7 @@ export const VALISE_PROPS = {
   // the far end (o.curtain: the first-class curtain, blue)
   cabinShell(o) {
     const L = o.len ?? 8, hw = o.half ?? 1.9, H = o.h ?? 2.3, g = grp();
-    g.add(at(box(2 * hw, 0.04, L, '#2F3E66'), 0, -0.02, 0));                                        // carpet
+    g.add(at(box(2 * hw, 0.03, L, '#2F3E66'), 0, -0.004, 0));                                       // carpet; (pass 2 of 54) its top 1 cm over the floor (level with it, the two strobed)
     g.add(at(box(0.6, 0.005, L, '#B9A16A'), 0, 0.003, 0));                                          // the aisle runner
     for (const s of [-1, 1]) {
       const wall = box(0.06, H, L, '#EDE6D6'); wall.position.set(s * hw, H / 2, 0); wall.rotation.z = s * 0.1; g.add(wall);
@@ -216,10 +223,21 @@ export const VALISE_PROPS = {
     g.userData.update(0); return g;
   },
 
+  // (pass 2 of 54) A sock that reads as one (pivot at the middle of its leg, the leg up +Y, the foot forward +Z): a striped leg o.len (0.24 m), a foot,
+  // a darker heel and toe; o.color, o.stripe (the striped brick read as a road barrier)
+  sockL(o) {
+    const C = o.color || '#F4F1E8', S = o.stripe || '#D7262E', L = o.len ?? 0.24, w = 0.095, d = 0.055, g = grp();
+    g.add(at(box(w, L, d, C, { outline: 0.005 }), 0, 0, 0));
+    for (let i = 0; i < 3; i++) g.add(at(box(w + 0.004, 0.022, d + 0.004, S), 0, L / 2 - 0.03 - i * 0.05, 0));
+    g.add(at(box(w, 0.07, 0.19, C, { outline: 0.005 }), 0, -L / 2 - 0.02, 0.07), at(box(w + 0.004, 0.072, 0.05, S), 0, -L / 2 - 0.02, 0.145), at(box(w + 0.004, 0.09, 0.06, S), 0, -L / 2 - 0.01, -0.005));
+    g.add(at(box(w + 0.006, 0.03, d + 0.006, C), 0, L / 2 + 0.005, 0));
+    return g;
+  },
+
   // A FRAGILE label (front +Z, pivot at its centre): o.w (0.3) x 0.4 o.w, white with a red border, FRAGILE and a broken glass; o.bright: unlit
   fragileTag(o) {
     const w = o.w ?? 0.3, h = w * 0.4, pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#D7262E'; c.lineWidth = H * 0.1; c.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);
-      c.fillStyle = '#D7262E'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.44}px Arial`; c.fillText('FRAGILE', W * 0.27, H * 0.54);
+      c.fillStyle = '#D7262E'; c.textAlign = 'left'; c.textBaseline = 'middle'; let fs = H * 0.44; c.font = `900 ${fs}px Arial`; const tw = c.measureText('FRAGILE').width; if (tw > W * 0.68) { fs *= W * 0.68 / tw; c.font = `900 ${fs}px Arial`; } c.fillText('FRAGILE', W * 0.27, H * 0.54);   // (pass 2 of 54) fitted (it read FRAGIL)
       c.strokeStyle = '#D7262E'; c.lineWidth = H * 0.06; c.beginPath(); c.moveTo(W * 0.08, H * 0.24); c.lineTo(W * 0.2, H * 0.24); c.lineTo(W * 0.17, H * 0.5); c.lineTo(W * 0.11, H * 0.5); c.closePath(); c.stroke();
       c.beginPath(); c.moveTo(W * 0.14, H * 0.5); c.lineTo(W * 0.14, H * 0.76); c.moveTo(W * 0.1, H * 0.78); c.lineTo(W * 0.18, H * 0.78); c.moveTo(W * 0.13, H * 0.24); c.lineTo(W * 0.15, H * 0.36); c.lineTo(W * 0.13, H * 0.42); c.stroke(); }, { res: 256 });
     if (o.bright) unlit(pl); return grp(pl);
