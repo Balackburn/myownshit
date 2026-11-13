@@ -112,7 +112,14 @@
   },
   "gamin": {
    "preset": "gamin",
-   "seed": 527
+   "seed": 527,
+   "suit": "#F2C80F",
+   "pants": "#2F4F8C",
+   "build": {
+    "height": 0.52,
+    "width": 0.8,
+    "headScale": 1.5
+   }
   },
   "photographe": {
    "preset": "worker",
@@ -556,16 +563,23 @@
        "toon": {
         "bend": {
          "armR": [
+          -0.9,
+          0.75,
           0,
-          -1.25,
+          1.25,
+          null
+         ],
+         "armL": [
+          0.4,
+          1.35,
           0,
           1,
           null
          ],
-         "armL": [
+         "spine": [
           0,
-          1.25,
           0,
+          0.35,
           1,
           null
          ]

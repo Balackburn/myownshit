@@ -59,7 +59,8 @@ st.cue('whoosh', 'S01', 0.1, 0.25, 0.35, 300, 1200); st.cue('whoosh', 'S01', REL
 D2 = st.dur('S02')
 BRW = {'touch': {'R': ['face', 0.0, 0.78, 0.07, 1, 0.06]}, 'hands': {'R': 'open'}}   # a hand at his brow, shading his eyes
 st.shot('S02', 'grassland', setOpts=PARK, actors=[
-        act('mec', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'bend': {'armR': [0, -1.25, 0, 1, None], 'armL': [0, 1.25, 0, 1, None]}, 'sq': [0.93, 1.08, 0.93], 'face': {'lid': 0.2, 'brow': 0.4}}, toonDur=0.0),   # arms flung out by the spin
+        act('mec', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'bend': {'armR': [-0.9, 0.75, 0, 1.25, None], 'armL': [0.4, 1.35, 0, 1, None], 'spine': [0, 0, 0.35, 1, None]}, 'sq': [0.93, 1.08, 0.93], 'face': {'lid': 0.2, 'brow': 0.4}}, toonDur=0.0),
+            # (first look) the throwing arm wrapped across his chest, the other flung out and back, the spine wound (both arms straight out read as a T-pose)
             *[k(round(0.03 + 0.085 * i, 3), to=list(P0), dur=0.085, clip='stand', then='stand', face=r(RY0 + 108 * (i + 1), 1)) for i in range(5)],   # a turn and a half on the spot
             k(0.48, toon={'sq': [1.04, 0.96, 1.04], 'bend': {'spine': [0, 0, 0.12, 1, None]}, 'face': {'cross': 0.6, 'lid': 0.3}}, toonDur=0.08), k(0.6, toon={'bend': {'spine': [0, 0, -0.1, 1, None]}, 'face': {'cross': 0.3, 'lid': 0.3}}, toonDur=0.12),   # dizzy, a wobble
             k(0.8, toon={**BRW, 'face': {'lid': 0.4}}, toonDur=0.15), k(0.8, look=[-30, 14, 10])])],   # then a hand at his brow, watching it go
@@ -310,6 +311,6 @@ st.write("Le boomerang", rig='toon', fingers=True, cloth=True, idleShift=1.6, ho
     'mariee': {'preset': 'madame', 'seed': 524, 'suit': '#F7F4EE', 'hair': 'bun', 'hairColor': '#5A3A22', 'build': {'width': 0.9, 'headWidth': 1.25}},
     'mamie': {'preset': 'mamie', 'seed': 525, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'voisin': {'preset': 'boss', 'seed': 526, 'suit': '#6B4E8A', 'build': {'width': 0.95, 'headWidth': 1.2}},
-    'gamin': {'preset': 'gamin', 'seed': 527},
+    'gamin': {'preset': 'gamin', 'seed': 527, 'suit': '#F2C80F', 'pants': '#2F4F8C', 'build': {'height': 0.52, 'width': 0.8, 'headScale': 1.5}},   # (first look) a child: short, a big head, bright clothes (the preset alone was a man's size in teal)
     'photographe': {'preset': 'worker', 'seed': 528, 'hat': None, 'build': {'width': 0.95, 'headWidth': 1.2}},
 })
