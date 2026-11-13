@@ -27,11 +27,13 @@ export const HOQUET_PROPS = {
   // 0.32 s with a wiggle, gone in 0.08 s); o.w (0.55 m), o.text ('HIC !'), o.tilt (rad, a different slant at each pop when it is a list). Faces +Z (give
   // it face: 'camera'). Each pop also jumps a little (o.rise, 0.12 m), the sound going up with him.
   hicBurst(o) {
-    const w = o.w ?? 0.55, txt = o.text || 'HIC !';
+    // (pass 3 of 50) o.inner: the star's inner radius (0.62; 0.8 for a long word: the spikes bit into « BOUH ! » and swallowed its « ! »), o.fit: the
+    // share of the width the word may take (0.62)
+    const w = o.w ?? 0.55, txt = o.text || 'HIC !', inr = o.inner ?? 0.62, fit = o.fit ?? 0.62;
     const pl = canvasPlane(w, w * 0.62, (c, W, H) => { c.clearRect(0, 0, W, H); const cx = W / 2, cy = H / 2, n = 14;
-      c.beginPath(); for (let i = 0; i <= 2 * n; i++) { const a = i * PI / n, r = (i % 2 ? 0.62 : 0.98) * (0.5 + 0.08 * rnd(i)); c.lineTo(cx + Math.cos(a) * r * W * 0.98, cy + Math.sin(a) * r * H * 0.98); }
+      c.beginPath(); for (let i = 0; i <= 2 * n; i++) { const a = i * PI / n, r = (i % 2 ? inr : 0.98) * (0.5 + 0.08 * rnd(i)); c.lineTo(cx + Math.cos(a) * r * W * 0.98, cy + Math.sin(a) * r * H * 0.98); }
       c.closePath(); c.fillStyle = '#FFE14A'; c.fill(); c.lineWidth = H * 0.05; c.strokeStyle = '#1C1C1E'; c.stroke();
-      c.fillStyle = '#1C1C1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = H * 0.42; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > W * 0.62) { px *= W * 0.62 / tw; c.font = `900 ${px}px Arial`; }
+      c.fillStyle = '#1C1C1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = H * 0.42; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > W * fit) { px *= W * fit / tw; c.font = `900 ${px}px Arial`; }
       c.fillText(txt, cx, cy + H * 0.02); }, { res: 384, transparent: true });
     pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide, toneMapped: false }); pl.userData.noAO = true;
     const inner = grp(pl), g = grp(inner), ats = list(o.at), hold = o.hold ?? 0.32, tilts = list(o.tilt ?? [0.18, -0.22, 0.1, -0.15]);
@@ -55,10 +57,17 @@ export const HOQUET_PROPS = {
     const amp = (tt) => { let v = 0.04 * Math.sin(tt * 31) * Math.sin(tt * 7.3); for (const [a, s] of spikes) { const u = tt - a; if (u >= 0 && u < 1.2) v += s * wob(u, 38, 4.2) * 1.15; } return v; };
     const arm = grp(at(box(0.012, 0.012, 0.34, '#2A2C31'), 0, 0, -0.17), at(cyl(0.012, 0.004, 0.05, '#C8202A', 8), 0, -0.02, -0.34, PI / 2, 0, 0)); arm.position.set(0, 0.5, 0.2); g.add(arm);
     g.add(at(box(0.05, 0.3, 0.05, '#5A6168'), o.postX ?? 0, 0.35, 0.22));   // o.postX: the pen post aside (in the middle it hid the nib)
+    // (pass 3 of 50) the flying pen: up 2.4 m/s and swelling to twice its size on the way (at its own size it read as a 2-3 px line sliding off the
+    // paper), three fading copies behind it
+    const penAt = u => ({ p: new THREE.Vector3(0.8 * u, 0.5 + 2.4 * u - 4.9 * u * u, 0.2 + 0.7 * u), rz: 9 * u, rx: 5 * u, s: 1 + Math.min(1, u / 0.15) });
+    const ghosts = o.penOff == null ? [] : [0.45, 0.28, 0.14].map(op => { const gm = new THREE.MeshBasicMaterial({ color: '#2A2C31', transparent: true, opacity: op, depthWrite: false });
+      const gh = grp(new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.012, 0.34), gm), new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.004, 0.05, 8), new THREE.MeshBasicMaterial({ color: '#C8202A', transparent: true, opacity: op, depthWrite: false })));
+      gh.children[0].position.z = -0.17; gh.children[1].position.set(0, -0.02, -0.34); gh.children[1].rotation.x = PI / 2; gh.visible = false; g.add(gh); return gh; });
     g.userData.update = t => {
       drum.rotation.x = -t * sp / 0.11;
       const a = amp(t), off = Math.max(0, Math.abs(a) - 1.0); arm.rotation.set(-0.42 - 0.25 * off + 0.04 * off * Math.sin(t * 60), 0.42 * Math.max(-1.3, Math.min(1.3, a)), 0);
-      if (o.penOff != null) { const u = t - o.penOff; arm.visible = u < 0.75; if (u >= 0) { arm.position.set(0.7 * u, 0.5 + 1.6 * u - 4.9 * u * u, 0.2 + 0.4 * u); arm.rotation.z += 9 * u; arm.rotation.x -= 5 * u; } else arm.position.set(0, 0.5, 0.2); }   // (pass 2 of 50) o.penOff: the pen flies off in an arc
+      if (o.penOff != null) { const u = t - o.penOff; arm.visible = u < 0.75; if (u >= 0) { const P = penAt(u); arm.position.copy(P.p); arm.rotation.z += P.rz; arm.rotation.x -= P.rx; arm.scale.setScalar(P.s); } else { arm.position.set(0, 0.5, 0.2); arm.scale.setScalar(1); }   // (pass 2 of 50) o.penOff: the pen flies off in an arc
+        ghosts.forEach((gh, i) => { const v = u - 0.03 * (i + 1); gh.visible = v >= 0 && u < 0.5; if (gh.visible) { const P = penAt(v); gh.position.copy(P.p); gh.rotation.set(arm.rotation.x + 5 * (u - v), arm.rotation.y, arm.rotation.z - 9 * (u - v)); gh.scale.setScalar(P.s); } }); }   // (pass 3 of 50) three ghosts behind it: a smear
       band.redraw(Math.round(t * 30), (c, W, H) => { c.fillStyle = '#FBF8EE'; c.fillRect(0, 0, W, H); c.strokeStyle = 'rgba(60,80,120,0.25)'; c.lineWidth = 2;
         for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(W * i / 6, 0); c.lineTo(W * i / 6, H); c.stroke(); }
         c.strokeStyle = o.ink ? '#0B1236' : '#1B2A6B'; c.lineWidth = W * (o.ink ?? 0.008); c.lineJoin = 'round'; c.beginPath();   // (pass 2 of 50) o.ink: a thick dark line that reads at phone size
@@ -118,13 +127,24 @@ export const HOQUET_PROPS = {
         // (50) printed on both faces: seen from outside, the front plate read backwards
         const sg = grp(at(mk(), 0, sy, 0.01), at(mk(), 0, sy, -0.01, 0, PI, 0)); s.add(sg); signs.push(sg); } }
     const jumps = o.jumps || [];
-    const ends = o.snap != null ? [-1, 1].map(sx => { const e = new THREE.Mesh(new THREE.PlaneGeometry(0.06, 0.42), new THREE.MeshLambertMaterial({ color: '#D3202A', side: THREE.DoubleSide })); e.position.set(sx * (w / 2 - 0.03), H - 0.21, d / 2); e.visible = false; g.add(e); return e; }) : [];   // (pass 2 of 50) o.snap: the tape snaps
+    // (pass 2 of 50) o.snap: the tape snaps. (pass 3) Into two halves that whip back to their posts, a ripple running along them, and droop to hang
+    // there (it simply vanished between two frames)
+    const ends = o.snap != null ? [-1, 1].map(sx => { const tx = tapeTex.clone(); tx.needsUpdate = true; tx.repeat.set(w / 2 / 0.5, 1);
+      const geo = new THREE.PlaneGeometry(w / 2, 0.07, 16, 1); geo.translate(-sx * w / 4, 0, 0);   // from its post (x = 0) toward the middle
+      const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tx, side: THREE.DoubleSide })), e = grp(m); e.position.set(sx * w / 2, H, d / 2); e.visible = false; g.add(e);
+      return { e, m, sx, base: geo.attributes.position.array.slice() }; }) : [];
     g.userData.update = t => { let k = 0; for (const [a, amp] of jumps) { const u = t - a; if (u >= 0 && u < 1) k += amp * wob(u, 26, 5); }
-      if (o.snap != null) { const sn = t >= o.snap, u = t - o.snap; sides[2].m.visible = !sn; ends.forEach((e, i) => { e.visible = sn; if (sn) e.rotation.z = (i ? 1 : -1) * 0.5 * wob(u + 0.05, 14, 3); }); }
+      if (o.snap != null) { const sn = t >= o.snap, u = t - o.snap; sides[2].m.visible = !sn;
+        ends.forEach(E => { E.e.visible = sn; if (!sn) return; const sw = ease.out(clamp01(u / 0.16)), dr = ease.inOut(clamp01((u - 0.1) / 0.35));
+          E.e.rotation.set(0, -E.sx * (2.6 * sw - 0.5 * wob(u - 0.16, 18, 5)), 0); E.e.scale.x = 1 - 0.35 * sw;   // the whip back past the post, a bounce
+          const pa = E.m.geometry.attributes.position; for (let j = 0; j < pa.count; j++) { const f = Math.abs(E.base[3 * j]) / (w / 2), y = E.base[3 * j + 1];
+            pa.setY(j, y + 0.09 * Math.sin(f * 3 * PI - u * 46) * Math.exp(-u * 5) * f - 0.42 * dr * f * f); } pa.needsUpdate = true; }); }
       for (const S of sides) { const pa = S.m.geometry.attributes.position; for (let j = 0; j < pa.count; j++) { const x = S.base[3 * j], y = S.base[3 * j + 1], f = Math.cos(PI * x / S.L); pa.setY(j, y + k * 0.12 * f - 0.03 * f * f); } pa.needsUpdate = true; }
       signs.forEach((sg, i) => { sg.rotation.x = 0.35 * k * (i ? -1 : 1); sg.position.y = 0.1 * k; });
       // the front plate drops with the snapped tape and lands on the floor, leaning (its group stays: only the tape mesh is hidden)
-      if (o.snap != null && t >= o.snap && signs[0]) { const u = t - o.snap; signs[0].position.y = Math.max(-H + 0.25, -4.9 * u * u); signs[0].rotation.set(0, 0, Math.min(0.45, 1.6 * u)); } };
+      // (pass 3) it spins toward the camera as it falls: one turn about its long axis before it lands (it slid down flat)
+      if (o.snap != null && t >= o.snap && signs[0]) { const u = t - o.snap, tl = Math.sqrt((H - 0.25) / 4.9); signs[0].position.y = Math.max(-H + 0.25, -4.9 * u * u); signs[0].position.z = 0.25 * clamp01(u / tl);
+        signs[0].rotation.set(-TAU * ease.out(clamp01(u / tl)), 0, Math.min(0.45, 1.6 * u)); } };
     g.userData.update(0); return g;
   },
 
@@ -156,11 +176,15 @@ export const HOQUET_PROPS = {
 
   // (pass 2 of 50) Cracks radiating from a point on a ceiling or a wall (a flat decal facing +Z, pivot at the centre): o.r (0.9 m), o.n (9 cracks), o.at:
   // they run out from the centre in 0.08 s
+  // (pass 3 of 50) o.thick: line width times this (the 1-2 px hairlines vanished at phone size); o.edge: a light chipped edge drawn under each crack
   ceilingCracks(o) {
-    const R = o.r ?? 0.9, n = o.n ?? 9;
-    const pl = canvasPlane(2 * R, 2 * R, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = '#3A2E26'; c.lineCap = 'round';
-      for (let i = 0; i < n; i++) { let a = i * TAU / n + 0.3 * rnd(i), x = W / 2, y = H / 2, L = W * (0.32 + 0.16 * rnd(i + 9)); c.lineWidth = W * 0.012; c.beginPath(); c.moveTo(x, y);
-        for (let j = 0; j < 4; j++) { a += (rnd(i * 7 + j) - 0.5) * 0.7; x += Math.cos(a) * L / 4; y += Math.sin(a) * L / 4; c.lineTo(x, y); c.lineWidth = W * 0.012 * (1 - j / 4); } c.stroke(); }
+    const R = o.r ?? 0.9, n = o.n ?? 9, th = o.thick ?? 1;
+    const pl = canvasPlane(2 * R, 2 * R, (c, W, H) => { c.clearRect(0, 0, W, H); c.lineCap = 'round'; c.lineJoin = 'round';
+      const path = i => { let a = i * TAU / n + 0.3 * rnd(i), x = W / 2, y = H / 2; const L = W * (0.32 + 0.16 * rnd(i + 9)), pts = [[x, y]];
+        for (let j = 0; j < 4; j++) { a += (rnd(i * 7 + j) - 0.5) * 0.7; x += Math.cos(a) * L / 4; y += Math.sin(a) * L / 4; pts.push([x, y]); } return pts; };
+      for (const pass of o.edge ? [0, 1] : [1]) for (let i = 0; i < n; i++) { const pts = path(i);
+        for (let j = 0; j < 4; j++) { c.beginPath(); c.moveTo(pts[j][0] + (pass ? 0 : W * 0.004 * th), pts[j][1] + (pass ? 0 : W * 0.004 * th)); c.lineTo(pts[j + 1][0] + (pass ? 0 : W * 0.004 * th), pts[j + 1][1] + (pass ? 0 : W * 0.004 * th));
+          c.lineWidth = W * 0.012 * th * (1 - j / 4) * (pass ? 1 : 1.9); c.strokeStyle = pass ? '#3A2E26' : o.edge; c.stroke(); } }
       c.fillStyle = 'rgba(58,46,38,0.35)'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.06, 0, TAU); c.fill(); }, { res: 512, transparent: true });
     pl.userData.noAO = true; const g = grp(pl);
     g.userData.update = t => { const u = (t - (o.at ?? 0)) / 0.08; g.visible = u >= 0; g.scale.setScalar(Math.min(1, Math.max(0.01, u))); };
@@ -169,6 +193,30 @@ export const HOQUET_PROPS = {
 
   // (pass 2 of 50) A French official's sash (écharpe tricolore): a band o.len (0.8 m) long, o.w (0.12) wide, blue-white-red along its length, worn
   // across the chest; attach it to the torso (joint 'torso', rot z about 0.9) with a little knot and fringe at the low end
+  // (pass 3 of 50) a plaster ceiling seen from below (a plane facing -Y once laid with rot [PI / 2, 0, 0]): o.w x o.h, o.color, unlit with a soft
+  // darker rim (lit by the room it came out the darkest, muddiest picture of the film: mean luma 125 against 150-173 everywhere else)
+  ceilingPlaster(o) {
+    const w = o.w ?? 7, h = o.h ?? 5.5, pl = canvasPlane(w, h, (c, W, H) => { const gr = c.createRadialGradient(W * (o.cx ?? 0.5), H * (o.cy ?? 0.5), 0, W / 2, H / 2, Math.max(W, H) * 0.62);
+      gr.addColorStop(0, o.color || '#F6F1E8'); gr.addColorStop(1, o.rim || '#DCD3C4'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      for (let i = 0; i < 260; i++) { c.fillStyle = `rgba(120,100,80,${0.04 + 0.05 * rnd(i)})`; c.fillRect(W * rnd(i + 1), H * rnd(i + 2), W * 0.004, H * 0.004); } }, { res: 512 });
+    pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, side: THREE.DoubleSide, toneMapped: false }); pl.userData.noAO = true; return grp(pl);
+  },
+
+  // (pass 3 of 50) a cloth over a plaque, pulled off (front +Z, origin at its centre): o.w x o.h, o.color; soft vertical folds and a scalloped hem
+  // that sway; from o.at it crumples while its keys carry it away: the folds deepen, the top edge curls over, it gathers to a third of its height in
+  // o.dur (0.3 s) (a flat sheet read as a stiff red slab)
+  unveilCloth(o) {
+    const w = o.w ?? 1.2, h = o.h ?? 0.6, geo = new THREE.PlaneGeometry(w, h, 18, 10), pa = geo.attributes.position, base = pa.array.slice();
+    const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: o.color || '#B5302A', side: THREE.DoubleSide, flatShading: true })); m.castShadow = true;
+    const g = grp(m), t0 = o.at ?? 1e9, dur = o.dur ?? 0.3, nf = o.folds ?? 4;
+    g.userData.update = t => { const u = clamp01((t - t0) / dur), sway = 0.012 * Math.sin(t * 2.3);
+      for (let i = 0; i < pa.count; i++) { const x = base[3 * i], y = base[3 * i + 1], v = 0.5 - y / h;   // v: 0 at the top edge, 1 at the hem
+        const fold = Math.sin((x / w + 0.5) * nf * TAU) * (0.02 + 0.025 * v + 0.07 * u), hem = -0.035 * v * v * (0.5 + 0.5 * Math.cos((x / w) * 11)) * (1 - u);
+        pa.setXYZ(i, x * (1 - 0.3 * u * v), y * (1 - 0.62 * u) + hem - 0.2 * u * u * h * v, fold + 0.3 * u * (1 - v) * (1 - v) + sway * v); }
+      pa.needsUpdate = true; geo.computeVertexNormals(); };
+    g.userData.update(0); return g;
+  },
+
   sash(o) {
     const L = o.len ?? 0.8, W = o.w ?? 0.12;
     const tex = canvasPlane(W, L, (c, cw, ch) => { const s3 = cw / 3; c.fillStyle = '#1F3E9C'; c.fillRect(0, 0, s3, ch); c.fillStyle = '#F4F2EA'; c.fillRect(s3, 0, s3, ch); c.fillStyle = '#D21E2A'; c.fillRect(2 * s3, 0, cw - 2 * s3, ch); }, { res: 64 });

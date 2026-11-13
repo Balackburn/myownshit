@@ -150,8 +150,10 @@ export const BOOMERANG_PROPS = {
   },
 
   // A zebra crossing floating on the clouds (pivot at its middle, lying flat): o.w (across, 3 m) x o.l (along, 2 m), white bars on nothing
+  // (first look) o.road: a strip of grey asphalt under the bars (white bars on white clouds did not show at all)
   skyCrossing(o) {
     const w = o.w ?? 3, L = o.l ?? 2, n = o.n ?? 6, g = grp(), bw = w / (2 * n - 1);
+    if (o.road) g.add(at(box(w + 2 * bw, 0.02, L + 0.5, o.road === true ? '#4A4F57' : o.road, { outline: 0.004 }), 0, -0.02, 0));
     for (let i = 0; i < n; i++) g.add(at(box(bw, 0.03, L, '#FBFBF6', { outline: 0.004 }), -w / 2 + bw / 2 + i * 2 * bw, 0, 0));
     return g;
   },

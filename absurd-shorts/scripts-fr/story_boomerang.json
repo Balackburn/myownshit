@@ -3128,7 +3128,8 @@
      "opts": {
       "w": 9.0,
       "l": 3.2,
-      "n": 7
+      "n": 7,
+      "road": true
      }
     },
     {
@@ -3777,7 +3778,7 @@
        "toon": {
         "bend": {
          "spine": [
-          0.35,
+          0.5,
           0,
           0,
           1,
@@ -3804,7 +3805,7 @@
        "toon": {
         "bend": {
          "spine": [
-          0.35,
+          0.5,
           0,
           0,
           1,
@@ -3831,7 +3832,7 @@
        "toon": {
         "bend": {
          "spine": [
-          0.35,
+          0.5,
           0,
           0,
           1,
@@ -3884,31 +3885,23 @@
      "ry": 196
     },
     {
-     "id": "veil12",
-     "name": "brideVeil",
+     "id": "hood12",
+     "name": "unveilCloth",
      "on": {
-      "actor": "mariee",
+      "actor": "photographe",
       "joint": "head",
       "offset": [
        0,
-       0.42,
-       -0.05
-      ]
-     }
-    },
-    {
-     "id": "bq12",
-     "name": "bouquet",
-     "on": {
-      "actor": "mariee",
-      "hand": "R",
-      "offset": [
-       0,
        0.02,
-       0.04
+       -0.17
       ]
      },
-     "scale": 1.6
+     "opts": {
+      "w": 0.52,
+      "h": 0.62,
+      "color": "#141416",
+      "folds": 3
+     }
     },
     {
      "id": "flower12",

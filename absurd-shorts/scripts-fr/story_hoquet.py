@@ -27,18 +27,28 @@ def OFF(p, ry, fwd=0.0, rgt=0.0, y=0.0):                           # a point in 
 LR = {'tv': False, 'carpet': False, 'pictureX': -1.6}               # the living room, the sofa against the back wall (its seat at 0.5 m); (pass 2) no red rug (27 % of S13 and the captions on it), the painting off the axis of his jumps (his head landed in front of it)
 SEAT = [0.0, 0, -2.75]                                              # where he sits on the sofa (the sit clip drops the hips onto the seat)
 TIRED = {'face': {'lid': 0.55, 'shadow': 0.6}}                      # three days of hiccups: heavy lids, rings under the eyes
-def HICK(t, base, h=1.0, keep=None, hang=0.13):
+def HICK(t, base, h=1.0, keep=None, hang=0.13, hs=1.5):
     """A hiccup: a gather (squash), up h metres stretched, the top held four frames (hang time), the fall, a squash on landing. keep: toon channels to
     carry (a reach, a held can). (pass 1b) His face stays bored through it (cheeks puffing, a « hic » mouth, heavy lids at the top): the violence is in
     the body, not in the eyes; the eyes-on-stalks take is kept for the fright (S09) and the official's double take (S11). (pass 2) hang: the time held
-    at the top (0.13 s; S11 keeps him up there 0.4 s through the official's double take, breathing: a long hang is never a still)."""
-    kp = dict(keep or {}); up = [base[0], round(base[1] + h, 3), base[2]]; fl = round(0.1 + 0.05 * h, 3); hg = round(hang, 3)
+    at the top (0.13 s; S11 keeps him up there 0.4 s through the official's double take, breathing: a long hang is never a still).
+    (pass 3) No hitch at the top: the squash and stretch scale him about his feet, so the stretch relaxing at the top dropped his head and the fall
+    stretch, keyed as the drop began (an ease-in barely moves), lifted it again: up, down, up, slam (the review measured the shoulders rising 10 to 23
+    px of the strip before each drop). Now the head reaches the top on the stretch (as high as before: the 1 M mark, the card band) and stays there
+    while the feet catch up (the body rises the last (stretch - 1) x hs, hs his sitting height), and the fall stretch waits until the drop is under
+    way. The stretch is dosed by the height: a small jolt barely stretches."""
+    kp = dict(keep or {}); fl = round(0.1 + 0.05 * h, 3); hg = round(hang, 3)
+    st_ = round(1 + 0.2 * min(1.0, h / 0.6), 3); sx = round(st_ ** -0.5, 3); dH = round((st_ - 1) * hs, 3)
+    fs = round(1 + 0.06 * min(1.0, h / 0.6), 3); fx = round(fs ** -0.5, 3)
+    up = [base[0], round(base[1] + h - dH, 3), base[2]]; up2 = [base[0], round(base[1] + h, 3), base[2]]   # the head reaches its old top on the stretch
     ks = [k(round(t - 0.06, 3), toon={**kp, 'sq': [1.1, 0.86, 1.1], 'face': {'puff': 0.55, 'lid': 0.45, 'brow': 0.1, 'mouth': 'kiss'}}, toonDur=0.05, toonEase='in'),   # the gather
-          k(t, to=up, dur=fl, glide=True, ease='out', face='keep'), k(t, toon={**kp, 'sq': [0.86, 1.2, 0.86], 'face': {'lid': 0.5, 'brow': 0.15, 'mouth': 'O', 'jaw': 0.3}}, toonDur=0.04, toonEase='out'),   # up, stretched
+          k(t, to=up, dur=fl, glide=True, ease='out', face='keep'), k(t, toon={**kp, 'sq': [sx, st_, sx], 'face': {'lid': 0.5, 'brow': 0.15, 'mouth': 'O', 'jaw': 0.3}}, toonDur=0.04, toonEase='out'),   # up, stretched
+          k(round(t + fl, 3), to=up2, dur=0.06, glide=True, ease='out', face='keep'),   # (pass 3) the feet catch up: the head stays where the stretch took it
           k(round(t + fl, 3), toon={**kp, 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.62, 'brow': 0.0, 'shadow': 0.6}}, toonDur=0.06),   # the top, held
-          k(round(t + fl + hg, 3), to=list(base), dur=fl, glide=True, ease='in', face='keep'), k(round(t + fl + hg + 0.03, 3), toon={**kp, 'sq': [0.95, 1.06, 0.95]}, toonDur=0.05),   # the fall
-          k(round(t + 2 * fl + hg, 3), toon={**kp, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.5}}, toonDur=0.03, toonEase='out'),   # landed
-          k(round(t + 2 * fl + hg + 0.09, 3), toon={**kp, **TIRED}, toonDur=0.1)]
+          k(round(t + fl + hg, 3), to=list(base), dur=round(fl + 0.02, 3), glide=True, ease='in', face='keep'),
+          k(round(t + fl + hg + 0.06, 3), toon={**kp, 'sq': [fx, fs, fx]}, toonDur=0.04),   # (pass 3) the fall: the stretch once the drop is under way
+          k(round(t + 2 * fl + hg + 0.02, 3), toon={**kp, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.5}}, toonDur=0.03, toonEase='out'),   # landed
+          k(round(t + 2 * fl + hg + 0.11, 3), toon={**kp, **TIRED}, toonDur=0.1)]
     if hg > 0.2:   # up there for a while: a slow puff of the cheeks, a blink
         ks += [k(round(t + fl + 0.1, 3), toon={**kp, 'sq': [1.02, 0.98, 1.02], 'face': {'lid': 0.7, 'puff': 0.35, 'shadow': 0.6}}, toonDur=0.1),
                k(round(t + fl + hg - 0.12, 3), toon={**kp, 'sq': [0.98, 1.02, 0.98], 'face': {'lid': 1.0, 'shadow': 0.6}}, toonDur=0.04),
@@ -219,20 +229,22 @@ st.cue('thud', 'S10', 0.02, 0.4); st.cue('thud', 'S10', H10, 0.4); st.cue('clack
 # 11: yesterday the State declared him a natural disaster. His living room: an official in his tricolour sash pulls the red cloth off a bronze plaque over the
 #     sofa: CATASTROPHE NATURELLE; proud, he turns to us; beside him a hiccup throws the man up and keeps him hanging there: the official's double take while
 #     he is still in the air
-D11 = st.dur('S11'); UNV11 = round(st.at('S11', 'L10', 3) + 0.02, 3); H11 = round(st.at('S11', 'L10', 4) + 0.08, 3)
-PLAQ = [round(SEAT[0] - 0.55, 3), 1.75, -3.46]; PREF = [-1.45, 0, -2.3]; BASE11 = [round(SEAT[0] + 0.25, 3), 0, SEAT[2]]
+D11 = st.dur('S11'); UNV11 = 0.55; H11 = 0.95; HG11 = 0.75; LAND11 = round(H11 + 2 * 0.15 + HG11 + 0.02, 3)
+# (pass 3) the reveal at 0.55 s, not on « déclaré » (1.09 s: 0.9 s of a head turn before the arm reached the cloth), the hiccup at 0.95 s, and the time won
+# goes to the hang (0.75 s, 1 m up: the feet clear the seat) and to the official's double take (a blank look at us of 0.25 s, then the eyes out 0.4 s)
+PLAQ = [round(SEAT[0] - 0.8, 3), 1.75, -3.46]; PREF = [-1.45, 0, -2.3]; BASE11 = [round(SEAT[0] + 0.45, 3), 0, SEAT[2]]   # (pass 3) apart: his hand covered the last E of NATURELLE
 st.shot('S11', 'livingRoom', setOpts={**LR, 'picture': False}, actors=[   # (pass 2) the plaque takes the painting's place
         act('mec', BASE11, 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=TIRED, toonDur=0.0), k(0.5, look=[PREF[0], 2.0, PREF[2]]), k(1.0, look='camera'),
-            *HICK(H11, BASE11, 0.7, hang=0.4)]),   # (pass 2) lower (his head went into the card band) and held 0.4 s up there
+            *HICK(H11, BASE11, 1.0, hang=HG11)]),   # (pass 3) a metre up, held 0.75 s (at 0.7 m his feet sat on the seat line: he seemed to stand on the sofa)
         act('prefet', PREF, 40, 'stand', 'happy', keys=[k(0.0, look=PLAQ), k(round(UNV11 - 0.2, 3), toon={'reach': {'R': [round(PLAQ[0] - 0.2, 3), 2.0, round(PLAQ[2] + 0.12, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.12),
             k(UNV11, toon={'reach': {'R': [round(PLAQ[0] - 0.45, 3), 1.3, round(PLAQ[2] + 0.5, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}, toonDur=0.08, toonEase='out'), k(round(UNV11 + 0.15, 3), look='camera'), k(round(UNV11 + 0.3, 3), toon={'face': {'brow': 0.6}}, toonDur=0.15),
-            *doubleTake(round(H11 + 0.15, 3), [BASE11[0], 2.2, BASE11[2]])])],   # (pass 2) the double take while he is still in the air (it peaked as he fell)
+            *doubleTake(round(H11 + 0.2, 3), [BASE11[0], 2.5, BASE11[2]], blank=0.25, hold=0.4)])],   # (pass 3) a real blank beat before the snap (2-4 frames read as one take)
         props=[P('plaque11', 'bronzePlaque', pos=PLAQ, opts={'text': 'CATASTROPHE/NATURELLE', 'w': 1.1, 'h': 0.42}),
                P('veil11', 'paperSheet', pos=[PLAQ[0], PLAQ[1], round(PLAQ[2] + 0.04, 3)], opts={'w': 1.25, 'h': 0.55, 'paper': '#B5302A'},
                  keys=[k(UNV11, to=[round(PLAQ[0] - 0.5, 3), 0.35, round(PLAQ[2] + 0.55, 3)], dur=0.3, ease='in'), k(UNV11, rotTo=[0.35, 0.2, 1.1], dur=0.3, ease='in'), k(round(UNV11 + 0.32, 3), visible=False)]),   # (pass 2) a thin red cloth sliding off (the box read as a stiff cream crate)
                P('sash11', 'sash', on={'actor': 'prefet', 'joint': 'torso', 'offset': [0.0, 0.3, 0.13], 'rot': [0, 0, 0.8]}, opts={'len': 0.78, 'w': 0.11})],   # (pass 2) the tricolour sash: an official, not a second hero
         cams=[FC(0.0, [0.2, 1.6, 1.1], [[PLAQ[0] - 0.6, 2.05, PLAQ[2]], [PLAQ[0] + 0.6, 1.5, PLAQ[2]], [PREF[0], 2.35, PREF[2]], [BASE11[0], 2.8, BASE11[2]], [BASE11[0], 0.4, BASE11[2]], [PREF[0], 0.4, PREF[2]]], top=0.24, bottom=0.74)])   # (pass 2) the top of his jump under the card band
-st.cue('sfx:paper', 'S11', UNV11, 0.3); st.cue('sfx:boing', 'S11', H11, 0.35); st.cue('thud', 'S11', round(H11 + 0.67, 3), 0.25)
+st.cue('sfx:paper', 'S11', UNV11, 0.3); st.cue('sfx:boing', 'S11', H11, 0.35); st.cue('thud', 'S11', LAND11, 0.25)
 st.card('S11', 'CATASTROPHE NATURELLE', at=round(UNV11 + 0.12, 3))
 
 # 12: his insurance paid him three thousand euros. The insurer, three-quarters to us, holds out a giant cheque, 3 000 €; the man takes it by its corner,

@@ -155,15 +155,17 @@ TAKES = {
 }
 
 
-def doubleTake(t0, look_at, keep=None, back='camera', pop=0.6):
+def doubleTake(t0, look_at, keep=None, back='camera', pop=0.6, blank=0.11, hold=0.35):
     """(cycle 12) A double take, as keys for an actor: a glance at something (look_at: a point or 'camera'), back to `back`, then two frames later
     the head snaps back to it with a dip and a stretch, the eyes out on stalks, held, then a settle. keep: toon channels to carry through the take
-    (a reach, a sit). The reviewers asked for one in several stories (none had it): use it when a character notices something absurd late."""
-    keep = dict(keep or {})
-    return [k(t0, look=look_at), k(round(t0 + 0.16, 3), look=back), k(round(t0 + 0.27, 3), look=look_at),
-            k(round(t0 + 0.23, 3), toon={**keep, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),
-            k(round(t0 + 0.27, 3), toon={**keep, 'sq': [0.95, 1.06, 0.95], 'face': {'pop': pop, 'popLen': 0.25, 'brow': 1, 'jaw': 0.3}}, toonDur=0.04, toonEase='outBack'),
-            k(round(t0 + 0.62, 3), toon={**keep, 'face': {'brow': 0.6}}, toonDur=0.12)]
+    (a reach, a sit). The reviewers asked for one in several stories (none had it): use it when a character notices something absurd late.
+    (cycle 14) blank: how long the blank look at `back` lasts before the snap (0.11 s by default; the review of 50 asked for 6 to 8 frames, 0.2-0.27 s:
+    with 2-4 frames the realisation landed on the wrong look and the double take played as a single take); hold: how long the eyes stay out (0.35 s)."""
+    keep = dict(keep or {}); sn = round(t0 + 0.16 + blank, 3)
+    return [k(t0, look=look_at), k(round(t0 + 0.16, 3), look=back), k(sn, look=look_at),
+            k(round(sn - 0.04, 3), toon={**keep, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),
+            k(sn, toon={**keep, 'sq': [0.95, 1.06, 0.95], 'face': {'pop': pop, 'popLen': 0.25, 'brow': 1, 'jaw': 0.3}}, toonDur=0.04, toonEase='outBack'),
+            k(round(sn + hold, 3), toon={**keep, 'face': {'brow': 0.6}}, toonDur=0.12)]
 
 def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0, antic_f=2, settle_f=4):
     """(cycle 11) The hero's cartoon take at t0, built on beat(): two frames of anticipation, the extreme held `hold` s with a shiver (the hang time),
