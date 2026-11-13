@@ -299,6 +299,10 @@ Engine: `engine/toon.js`, `director3.js`, `props_gomme.js`, `render/render3.mjs`
   small, seen at under 67 %, more than 30 % in the caption band (0.77-0.86) or more than 20 % under a title card (0.06-0.20, for 1 s after the
   card's time). It writes `out/work/<name>/probe.json`. The audit's own "head cut" warnings assume a man standing up: trust the probe for a
   man upside down or flying.
+- **Lettering probe**: `st.text(sid, t, prop_id, name)` declares a prop whose text must read (a stamp, a form, a plate, a screen); the same
+  `--probe` run measures its height on screen (under 3.5 % of the frame its letters do not read on a phone), the angle between its face (its
+  local +Z) and the lens (over 60 degrees: seen too flat or edge-on) and what covers it. The "seen" share is unreliable on thin, open props (a
+  caliper: the rays pass between the beam and the jaws); look at the still for those.
 - **`st.audit_life()`** (run by `write()`): an actor in the frame with no key for 1.3 s or more on a static clip (stand, sit, idle) is listed as
   still (give him a blink, a glance, a breath or a weight shift), and the eyes-on-stalks take (face `pop` >= 0.3) in more than three shots is
   flagged (keep the big one for the peak; vary the others with `take()` kinds: jaw, accordion, hair, tongue, cross, or `doubleTake()`).

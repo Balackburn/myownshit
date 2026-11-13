@@ -4866,6 +4866,119 @@
  ],
  "total": 24.29,
  "look": "natural",
+ "gags": [
+  {
+   "t": 0.921,
+   "who": "mec",
+   "name": "hop_top",
+   "sid": "S01"
+  },
+  {
+   "t": 3.444,
+   "who": "mec",
+   "name": "hair_take",
+   "sid": "S02"
+  },
+  {
+   "t": 5.006,
+   "who": "mec",
+   "name": "jaw_take",
+   "sid": "S03"
+  },
+  {
+   "t": 12.934,
+   "who": "copie2",
+   "name": "back_blink",
+   "sid": "S07"
+  },
+  {
+   "t": 14.147,
+   "who": "mec",
+   "name": "shoved",
+   "sid": "S08"
+  },
+  {
+   "t": 16.004,
+   "who": "mec",
+   "name": "crossed",
+   "sid": "S09"
+  },
+  {
+   "t": 17.4,
+   "who": "mec",
+   "name": "pinched",
+   "sid": "S10"
+  },
+  {
+   "t": 17.56,
+   "who": "mec",
+   "name": "swollen",
+   "sid": "S10"
+  },
+  {
+   "t": 18.777,
+   "who": "mec",
+   "name": "steam",
+   "sid": "S11"
+  },
+  {
+   "t": 21.0,
+   "who": "mec",
+   "name": "tongue",
+   "sid": "S12"
+  },
+  {
+   "t": 23.79,
+   "who": "mec",
+   "name": "blink",
+   "sid": "S13"
+  },
+  {
+   "t": 7.159,
+   "prop": "contract4",
+   "name": "embauche",
+   "sid": "S04"
+  },
+  {
+   "t": 8.635,
+   "prop": "board5",
+   "name": "prix",
+   "sid": "S05"
+  },
+  {
+   "t": 16.054,
+   "prop": "nc9",
+   "name": "non_conforme",
+   "sid": "S09"
+  },
+  {
+   "t": 17.7,
+   "prop": "cal10",
+   "name": "trente_cm",
+   "sid": "S10"
+  },
+  {
+   "t": 18.333,
+   "prop": "form11h",
+   "name": "reclamation",
+   "sid": "S11"
+  },
+  {
+   "t": 19.593,
+   "prop": "form12",
+   "name": "reclamation_vitre",
+   "sid": "S12"
+  },
+  {
+   "t": 23.059,
+   "prop": "ream13",
+   "name": "rame",
+   "sid": "S13"
+  }
+ ],
+ "cardTimes": [
+  17.549
+ ],
  "rig": "toon",
  "fingers": true,
  "cloth": true,

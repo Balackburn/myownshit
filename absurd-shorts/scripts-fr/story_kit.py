@@ -333,6 +333,13 @@ class Story:
         prop, another actor, his own arm), in the caption band or under a title card (the reviews of 47-49 found the peak hidden in each of these ways)."""
         self.gags.append({'t': round(self.SH[sid][0] + t, 3), 'who': who, 'name': name or f'{sid}+{t:g}', 'sid': sid})
 
+    def text(self, sid, t, prop, name=None):
+        """(cycle 13) Declare a prop whose lettering must read at t seconds into shot sid (a stamp, a form, a plate, a screen): render3 --probe
+        measures its height on screen (under 3.5 % of the frame the letters do not read on a phone), which way it faces (more than 60 degrees away:
+        edge-on), what covers it, and the caption and card bands. The reviews of 49 found NON CONFORME at 14 px, RÉCLAMATION at 10 px and a label
+        cut by a hand."""
+        self.gags.append({'t': round(self.SH[sid][0] + t, 3), 'prop': prop, 'name': name or prop, 'sid': sid})
+
     def audit_life(self, still=1.3, quiet=False):
         """(cycle 13) Two checks the reviews kept asking for, on the keys alone (run by write()):
         - an actor in the frame who gets no key for `still` seconds or more on a static clip (stand, sit, idle): "frozen" (the mother still for 1.7 s,

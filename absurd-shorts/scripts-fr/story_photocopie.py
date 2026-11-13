@@ -251,6 +251,16 @@ st.shot('S13', 'office', setOpts=OF, actors=[
         cams=[FC(0.0, [round(CP[0] - 1.05, 3), 0.95, round(CP[2] + 3.1, 3)], [[ME13[0], 1.9, ME13[2]], [ME13[0], 0.1, round(ME13[2] + 0.3, 3)], [round(CP[0] + 0.55, 3), 1.05, CP[2]], [round(ME13[0] - 0.9, 3), 1.9, round(ME13[2] - 0.4, 3)]], top=0.14, bottom=0.78, drift=(0.04, 0, -0.06))])   # (pass 2) low in front of him, three-quarter
 st.cue('sfx:paper', 'S13', RM13, 0.3)
 
+# (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
+for g_ in [('S01', round(UP1 + 0.2, 3), 'mec', 'hop_top'), ('S02', round(SC2 + 0.9, 3), 'mec', 'hair_take'), ('S03', round(UP3 + 0.2, 3), 'mec', 'jaw_take'),
+           ('S07', round(D7 - 0.5, 3), 'copie2', 'back_blink'), ('S08', round(LIC8 + 0.06, 3), 'mec', 'shoved'), ('S09', round(NC9 + 0.25, 3), 'mec', 'crossed'),
+           ('S10', 0.2, 'mec', 'pinched'), ('S10', 0.36, 'mec', 'swollen'), ('S11', round(SL11 + 0.35, 3), 'mec', 'steam'), ('S12', round(D12 - 0.7, 3), 'mec', 'tongue'),
+           ('S13', round(D13 - 0.5, 3), 'mec', 'blink')]:
+    st.gag(g_[0], g_[1], g_[2], g_[3])
+for t_ in [('S04', round(EMB4 + 0.3, 3), 'contract4', 'embauche'), ('S05', round(CO5 + 0.05, 3), 'board5', 'prix'), ('S09', round(NC9 + 0.3, 3), 'nc9', 'non_conforme'),
+           ('S10', 0.5, 'cal10', 'trente_cm'), ('S11', 0.3, 'form11h', 'reclamation'), ('S12', round(GO12 - 0.05, 3), 'form12', 'reclamation_vitre'), ('S13', round(RM13 + 0.6, 3), 'ream13', 'rame')]:
+    st.text(t_[0], t_[1], t_[2], t_[3])
+
 st.write("La photocopieuse", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'copie': {'preset': 'lemec', 'atlas': None, 'mono': 0.95, 'monoTint': [0.93, 0.97, 1.07], 'monoContrast': 1.35, 'suit': '#585858', 'pants': '#4E4E4E', 'tie': '#8E8E8E', 'lapel': '#B4B4B4', 'skin': '#C6C6C6', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},   # a black-and-white copy of him (the face desaturated by mono, the clothes given in greys)

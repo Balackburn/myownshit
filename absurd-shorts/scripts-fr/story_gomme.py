@@ -128,7 +128,7 @@ st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
                *[P(f'dash5{i}', 'paperSheet', pos=[SX5, 0.1, z], rot=[round(-PI / 2, 4), 0, 0], opts={'w': 0.08, 'h': 0.3, 'paper': '#FFFFFF', 'bright': True}, keys=[k(0.0, visible=False), k(t_, visible=True)]) for i, (z, t_) in enumerate(DASHES)]],
         tethers=[STRAND(PT([SX5, 0.04, -9.0]), PT([SX5, 0.04, 9.0]), sag=0.0, rad=0.05, taper=0.0, n=12),
                  STRAND(PT([SX5, 0.07, r(HEAD5(WALK5)[2])]), {'prop': 'roller5', 'offset': [0, round(POLE5 - 0.04, 3), 0.03]}, frm=round(STK5 - 0.02, 3), until=round(STK5 + 0.33, 3), sag=0.0, rad=0.016, taper=0.7)],
-        cams=[FC(0.0, [4.0, 1.3, 4.6], [[6.95, 2.25, 1.9], [6.95, 2.25, -0.35], [8.6, 2.5, -1.1], [8.6, 1.95, -1.1], [SX5, 0.0, 3.0], [SX5, 0.0, -1.0]], top=0.1, bottom=0.74)])
+        cams=[FC(0.0, [4.0, 1.3, 4.6], [[6.95, 2.25, 1.9], [6.95, 2.25, -0.35], [8.6, 2.5, -1.1], [8.6, 1.95, -1.1], [SX5, 0.0, 3.0], [SX5, 0.0, -1.0]], top=0.22, bottom=0.74)])   # (probe) his head below the title card band (29 % of it under VOIRIE COMMUNALE)
 st.card('S05', 'VOIRIE COMMUNALE', at=CARD5)
 st.cue('sfx:scratch', 'S05', 0.15, 0.25); st.cue('sfx:stretch', 'S05', STK5, 0.3); st.cue('sfx:twang', 'S05', round(STK5 + 0.32, 3), 0.3)
 
@@ -294,7 +294,7 @@ st.cue('sfx:click', 'S14', 0.2, 0.25); st.cue('sfx:boing', 'S14', JERK, 0.25)
 
 # (cycle 13) the key poses, measured in the engine by render3 --probe
 for g_ in [('S01', round(TS + 0.1, 3), 'mec', 'step'), ('S02', round(SNAP - 0.05, 3), 'mec', 'leg_stretch'), ('S03', HOP3, 'dame', 'hop'),
-           ('S05', round(STK5 + 0.3, 3), 'ouvrier', 'stuck_roller'), ('S06', 0.0, 'enfant3', 'skip'), ('S07', 0.6, 'mec', 'leg_whirl'),
+           ('S05', round(STK5 + 0.3, 3), 'ouvrier', 'stuck_roller'), ('S06', 0.05, 'enfant3', 'skip'), ('S07', 0.6, 'mec', 'leg_whirl'),
            ('S09', 0.5, 'mec', 'hanging'), ('S10', round(UP10 + 0.8, 3), 'mec', 'breath'), ('S11', 0.9, 'mec', 'pull'), ('S11', round(YANK + 0.03, 3), 'mec', 'yank'),
            ('S12', round(D12 / 2, 3), 'mec', 'flight'), ('S14', round(D14 - 0.5, 3), 'mec', 'blink')]:
     st.gag(g_[0], g_[1], g_[2], g_[3])

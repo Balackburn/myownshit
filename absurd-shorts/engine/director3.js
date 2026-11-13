@@ -1359,6 +1359,27 @@ export function probe(tAbs, specs = []) {
   const out = [];
   for (const sp of specs) {
     const rec = { t: tAbs, who: sp.who, name: sp.name || '' };
+    if (sp.prop) {   // (cycle 13) a prop that carries text (a stamp, a form, a plate, a screen): its size on screen, which way it faces, what covers it
+      const Pp = S.propById[sp.prop]; rec.prop = sp.prop; if (!Pp) { out.push({ ...rec, err: 'no prop ' + sp.prop + ' in this shot' }); continue; }
+      const o = Pp.alt && Pp.alt.visible ? Pp.alt : Pp.obj; let vis = o.visible; for (let q = o.parent; q && vis; q = q.parent) vis = q.visible;
+      if (!vis) { out.push({ ...rec, err: 'hidden' }); continue; }
+      o.updateWorldMatrix(true, true); const pb = new THREE.Box3().setFromObject(o); if (pb.isEmpty()) { out.push({ ...rec, err: 'empty' }); continue; }
+      let a0 = 1e9, a1 = -1e9, b0 = 1e9, b1 = -1e9;
+      for (let i = 0; i < 8; i++) { const p = V(i & 1 ? pb.max.x : pb.min.x, i & 2 ? pb.max.y : pb.min.y, i & 4 ? pb.max.z : pb.min.z).project(cam); const sx = (p.x + 1) / 2, sy = (1 - p.y) / 2; a0 = Math.min(a0, sx); a1 = Math.max(a1, sx); b0 = Math.min(b0, sy); b1 = Math.max(b1, sy); }
+      const pc = pb.getCenter(V()), nrm = V(0, 0, 1).applyQuaternion(o.getWorldQuaternion(new THREE.Quaternion())), toCam = camPos.clone().sub(pc).normalize();
+      const facing = Math.round(Math.acos(Math.max(-1, Math.min(1, nrm.dot(toCam)))) * 180 / Math.PI);
+      const inProp = q => { for (let x = q; x; x = x.parent) if (x === o) return true; return false; }, sz = pb.getSize(V()), w2 = 0.3 * Math.max(sz.x, sz.z), h2 = 0.3 * sz.y;
+      let seenP = 0; const coverP = {};
+      for (const a of [-1, 0, 1]) for (const b of [-1, 0, 1]) {
+        const target = pc.clone().addScaledVector(right, a * w2).addScaledVector(up, b * h2), dd = target.clone().sub(camPos), LL = dd.length();
+        ray.set(camPos, dd.normalize()); ray.near = 0.02; ray.far = LL + 0.6;
+        const hit = ray.intersectObjects(S.root.children, true).find(h => { const q = h.object; if (!q.isMesh || q.name === 'outline') return false; for (let x = q; x; x = x.parent) if (!x.visible) return false; const m = Array.isArray(q.material) ? q.material[0] : q.material; return !(m && m.transparent && m.opacity < 0.5 && !inProp(q)); });
+        if (!hit) continue; if (inProp(hit.object)) { seenP++; continue; }
+        if (hit.distance < LL - 0.02) { const k2 = ownerOf(hit.object); coverP[k2] = (coverP[k2] || 0) + 1; }
+      }
+      out.push({ ...rec, box: [a0, b0, a1, b1].map(v => +v.toFixed(3)), h: +(b1 - b0).toFixed(3), seen: +(seenP / 9).toFixed(2), cover: coverP, facing });
+      continue;
+    }
     const A = S.actorById[sp.who]; if (!A) { out.push({ ...rec, err: 'no actor ' + sp.who + ' in this shot' }); continue; }
     if (!A.obj.visible) { out.push({ ...rec, err: 'hidden' }); continue; }
     // the box of the head mesh alone (the painted face is on it): the whole head subtree also holds hidden FX and overlays parked away from it at
