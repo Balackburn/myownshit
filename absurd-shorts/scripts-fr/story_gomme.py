@@ -113,8 +113,9 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
 D4 = st.dur('S04')
 st.shot('S04', 'parisStreet', setOpts={**STREET, 'clear': [-200, 80]}, actors=[],
         props=[P('blob4', 'gumBlob', pos=[7.2, 0, 26.0], scale=6.0, opts={'r': 0.13})],
-        tethers=[STRAND(PT([7.2, 0.4, 26.0]), PT([-6.0, 0.4, -160.0]), sag=0.0, rad=0.32, taper=0.0, via=[[3.0, 8.0, 6.0], [-13.5, 22.0, -18.0], [12.5, 23.0, -62.0], [-12.5, 22.0, -105.0], [-7.0, 8.0, -145.0]], ripple=[[0.25, 2.2, 0.9]], segments=96, minPx=6)],   # (pass 2) over the roofs of block after block to the tower (one straight line down one street did not say « all of Paris »)
-        cams=[cam(0.0, [-16.0, 44.0, 62.0], [-15.2, 43.0, 59.0], [-1.0, 6.0, -55.0], [-1.0, 6.4, -57.0], lens=36)])
+        tethers=[STRAND(PT([7.2, 0.4, 26.0]), PT([-6.0, 0.4, -160.0]), sag=0.0, rad=0.32, taper=0.0, via=[[3.0, 8.0, 6.0], [-13.5, 22.0, -18.0], [12.5, 23.0, -62.0], [-12.5, 22.0, -105.0], [-7.0, 8.0, -145.0]], ripple=[[0.25, 2.2, 0.9], [1.3, 2.2, 0.9]], segments=96, minPx=6)],   # (pass 2) over the roofs of block after block to the tower (one straight line down one street did not say « all of Paris »)
+        cams=[cam(0.0, [-16.0, 44.0, 62.0], [-12.5, 40.5, 47.0], [-1.0, 6.0, -55.0], [-1.0, 6.4, -64.0], lens=36)])
+        # (pass 2c) a real flight along the strand, a second pluck (the freeze check read 1.07 s with nothing moving by a pixel at strip size)
 st.cue('whoosh', 'S04', 0.25, 0.25, 0.8, 300, 900)
 
 # 5: the town hall listed it as a communal road. On the pavement: a road worker walks backwards painting white dashes on the strand with a roller on a
@@ -312,13 +313,14 @@ LAP14 = {'reach': {'L': [-0.12, 0.72, -2.25, 1, 0.08], 'R': [0.12, 0.72, -2.25, 
 COIL = [[0.35, 0.03, -1.7], [-0.35, 0.03, -1.15], [0.1, 0.03, -0.55], [0.95, 0.03, -0.75], [1.5, 0.03, -1.45], [2.4, 0.03, -1.05], [3.1, 0.3, -2.4]]   # (pass 2) soft loops on the floor to the window
 st.shot('S14', 'livingRoom', setOpts=LR, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[0.0, 0.75, -2.2]), k(0.0, toon=LAP14, toonDur=0.0),
-            *[k(round(0.2 + 0.11 * i, 3), toon={**LAP14, 'reach': {'L': [r(-0.12 + 0.02 * (i % 2)), r(0.72 + 0.012 * (i % 2)), -2.25, 1, 0.08], 'R': [r(0.12 - 0.02 * ((i + 1) % 2)), r(0.72 + 0.012 * ((i + 1) % 2)), -2.25, 1, 0.08]}}, toonDur=0.06) for i in range(int((JERK - 0.3) / 0.11))],   # typing
+            *[k(round(0.2 + 0.1 * i, 3), toon={**LAP14, 'reach': {'L': [r(-0.12 + 0.035 * (i % 2)), r(0.72 + 0.045 * (i % 2)), -2.25, 1, 0.08], 'R': [r(0.12 - 0.035 * ((i + 1) % 2)), r(0.72 + 0.045 * ((i + 1) % 2)), -2.25, 1, 0.08]},
+                                                  'bend': {'neck': [round(0.05 + 0.03 * (i % 2), 3), 0, 0, 1, None]}}, toonDur=0.05) for i in range(int((JERK - 0.3) / 0.1))],   # typing (pass 2c: hands up 4.5 cm, the head nodding with them: at 1.2 cm the freeze check read a still)
             k(round(JERK - 0.6, 3), toon={**LAP14, 'sq': [1.0, 1.015, 1.0], 'face': {'lid': 1.0}}, toonDur=0.05), k(round(JERK - 0.48, 3), toon=LAP14, toonDur=0.07),   # (pass 2) an ordinary blink, a breath
             k(JERK, toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 1.0]}, 'sq': [1.03, 0.97, 1.03], 'lay': [0.05, 0]}, toonDur=0.05, toonEase='out'), k(round(JERK + 0.12, 3), toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 0.0]}}, toonDur=0.12, toonEase='in'),   # the jerk of the foot, his hips jostled, the face unmoved
             k(round(JERK + 0.55, 3), look='camera'), k(round(D14 - 0.55, 3), toon={**LAP14, 'face': {'lid': 1}}, toonDur=0.14), k(round(D14 - 0.33, 3), toon=LAP14, toonDur=0.16)])],   # a slow blink at us
         props=[P('lap14', 'laptop', pos=[0.0, 0.6, -2.22], ry=180, scale=1.6, opts={'text': 'VISIO'}, keys=[k(JERK, to=[0.0, 0.66, -2.2], dur=0.05, ease='out'), k(round(JERK + 0.07, 3), to=[0.0, 0.6, -2.22], dur=0.1, ease='in')])],   # (pass 2) the laptop jumps with the jerk
         tethers=[STRAND(FOOT(), PT(COIL[-1]), sag=0.0, rad=0.026, taper=0.0, via=COIL[:-1], ripple=[[JERK, 0.12, 2.2]])],   # (pass 2) one cord in soft loops, a ripple running down it on the jerk (three straight segments read as a pipe)
-        cams=[FC(0.0, [0.5, 1.45, 0.4], [[SEAT[0], 1.9, SEAT[2]], [0.35, 0.0, -1.7], [-0.35, 0.0, -1.15], [r(SEAT[0] - 0.55), 1.0, SEAT[2]], [r(SEAT[0] + 0.55), 1.0, SEAT[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, -0.08))])   # (pass 2) a little higher: the fingers on the keys, the loops
+        cams=[FC(0.0, [0.5, 1.45, 0.4], [[SEAT[0], 1.9, SEAT[2]], [0.35, 0.0, -1.7], [-0.35, 0.0, -1.15], [r(SEAT[0] - 0.55), 1.0, SEAT[2]], [r(SEAT[0] + 0.55), 1.0, SEAT[2]]], top=0.1, bottom=0.74, drift=(0.0, -0.05, -0.3))])   # (pass 2) a little higher: the fingers on the keys, the loops; (pass 2c) a slow push in
 st.cue('sfx:click', 'S14', 0.2, 0.25); st.cue('sfx:boing', 'S14', JERK, 0.25)
 
 # (cycle 13) the key poses, measured in the engine by render3 --probe
