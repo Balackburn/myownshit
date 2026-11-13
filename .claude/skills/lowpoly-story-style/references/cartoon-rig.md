@@ -335,3 +335,18 @@ Engine: `engine/toon.js`, `director3.js`, `props_gomme.js`, `render/render3.mjs`
   (formulaire dessiné, tampon), `lostShelf`, `radarScope` (`corridor`), `skyCone`, `skyCrossing`, `bellowsCamera` (`flashAt`), `bouquet`.
 - **Photocopieuse** : couleurs (`color`, `drawerColor`, `lidColor`, `panelColor`, `trayColor`, `screen`), `pressDur`, `traySheets` ; tampon `ink` ;
   pied à coulisse `dispX` ; verre d'eau `water` ; cabine de téléphérique `glassOpacity`, `riderScale`, `lean`.
+
+## Cycles 17-18: the pin, and the order of the whole-body channels
+
+- `pin: {joint ('head'), off [x, y, z] in the joint's frame, at [x, y, z] in the world, w}` (cycle 17): the whole actor moves so that this point
+  of him stays on `at` (stuck by the forehead to a lamp post, a carriage ceiling, the mouth of a tunnel). Pose the body to hang from it; `lay`
+  swings it; key `w` to 0 to let go (`blendToon` lerps the point and the weight).
+- (cycle 18) The order inside a frame: the clip, then `lay` (the body tipped about its feet), then the rig: `sq`, the spine and the neck, then
+  `pin` (solved here, with the spine and neck bent), then the guided hands (`reach`, `touch`), then the feet (`plant`) and the other parts. So a
+  hand guided to a point of the world stays on it while the body tips or hangs (before the fix the tip and the pin came last and carried the
+  hands off their points).
+- New props for growth gags (`engine/props_bosse.js`): `skullBump` (a ball of skin that rises out of the skull, half buried while small, then
+  sitting on it on a neck; or a dressed hill balanced on the head: grass, snow, trees, a path, a plate, hikers, skiers, a chair lift; `grow`
+  keys, `throb`, `deflate` with a wobble, a plaster after; a tape measure down its side that snaps back), `miniFigure` (tiny hikers and skiers
+  with poses: walk, ski, hang, flail, sit, wave, look), `billScroll` (a bill that unrolls to the floor and away along it), `lowBeam` (a
+  doorway with a low beam and a sign), `theodolite`, `tapeMeasure`.

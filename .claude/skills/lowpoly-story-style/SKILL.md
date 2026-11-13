@@ -1056,3 +1056,30 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   se coller à lui (un pigeon qui s'écrase sur la ventouse), visage vers nous.
 - (cycle 17) En écrivant une liste `actors=[act(...), act(...)]`, le dernier `act` se ferme par `)])],` avant `props=` : l'oublier donne
   « closing parenthesis ')' does not match » trois lignes plus bas (trois fois dans l'histoire 55).
+- (cycle 18) **Main guidée + bascule ou épingle** : le moteur posait la bascule (`lay`) et l'épingle (`pin`) après le calcul des bras, si bien
+  qu'une main guidée ratait son point dès que le corps basculait ou pendait (le bras élastique sorti du couvercle de la petite valise, les
+  mains des passagers à côté des siennes). Corrigé au cycle 18 : `lay` est posé avant le rig, `pin` est résolu dans le rig avant les mains.
+  Les histoires livrées avant réglaient leurs mains à l'œil avec ce défaut : à re-rendre, vérifier leurs mains guidées.
+- (cycle 18) **Script de revue** : une description entre apostrophes simples qui contient une apostrophe (« plane's path ») casse le heredoc
+  Python ; la chaîne affiche quand même son marqueur et les critiques partent sans consignes. Écrire les dictionnaires avec `repr()` ou des
+  apostrophes typographiques, et vérifier que `prompt_anim.txt` et `prompt_art.txt` existent avant de lancer les critiques.
+- (cycle 18) Un coup reçu quand le personnage est penché en deux (la tête dans le tunnel) : son visage regarde le sol, la caméra voit le dessus
+  du crâne. Tordre le cou vers l'objectif au moment où il ressort (canal twist du cou, ici −1,2 rad) : la gifle tombe sur un visage.
+- (cycle 18) Écrasement « en tranche » dans un décor sombre : costume sombre sur fond sombre, lampe derrière lui, il ne se lit pas. Lampe
+  devant lui, caméra plus près, une onomatopée au choc (SCHLAC !).
+- (cycle 18) Un personnage d'avant-plan coupé à la tête par le bord du cadre (plan par-dessus l'épaule) : l'inclure en entier ou le sortir du
+  cadre sauf le bras (l'agente déplacée de 0,6 m suffisait).
+- (cycle 18) Le contrôle à l'écriture se trompe sur les poses assises au sol : « tête coupée » alors que l'image est bonne. La sonde du rendu
+  (`--probe`) et les images font foi.
+- (cycle 18) Une rame vue du quai : ses vitres sombres remplissaient le cadre comme un mur noir pendant le passage. Vitres claires (`metroCar`
+  o.glass) et train parti plus loin : sa queue passe en un tiers de seconde.
+- (cycle 18) Dans ce monde les adultes mesurent 2,1 à 2,2 m (le front à 1,99 m) : un point de cadrage à 1,9 m coupe les têtes. Viser le haut
+  réel des têtes (2,25 m).
+- (histoire 53, passe finale) Deux prises de témoin pareilles (yeux sur tiges, bouche ouverte) dans un même film : c'est un gag réutilisé. En
+  varier les moyens (étirement et mâchoire jusqu'au col pour la dame, chapeau qui saute et mâchoire sur le volant pour le chauffeur).
+- (histoire 53, passe finale) Un figurant qui ressemble au héros (même peau, cheveux noirs, barbe de trois jours) se fait attribuer la prise, et
+  la règle « il reste impassible » se casse : chapeau, moustache, cheveux gris.
+- (histoire 53, passe finale) Un cabinet d'ostéopathe dans le décor `hospital` : moniteur cardiaque et croix rouge disent hôpital (et la croix
+  sortait de la tête de l'ostéopathe). Options `monitor: False`, `cross: False`.
+- (histoire 53, passe finale) Une marche à reculons ne se lit qu'avec un repère : un passant qui marche à l'endroit à côté de lui, dans le même
+  sens, caméra sur son chemin à hauteur de hanche (seul et petit dans un cadre aux deux tiers vide, il « marchait », tout simplement).

@@ -1850,3 +1850,65 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   tête tirée au bout d'un cou de chewing-gum qui revient en vibrant ; la pichenette au bout d'un bras qui s'allonge, la tête qui tremble avec le
   manche ; TOC, TOC, la tête qui s'écrase à chaque coup ; pendu au lampadaire, balancé ; traîné par le bus, à plat comme un drapeau ; poignée de
   métro, tout le wagon qui bascule au freinage ; POP, la chute et l'anneau rouge.
+- (images v2, puis avant le brouillon 1) Le bus remplacé par un pigeon qui vient se coller à la ventouse (collé à la vitre, son visage ne se voyait
+  jamais) ; la guichetière sortie de derrière lui et habillée en bordeaux (pâle, cachée, elle passait pour un fantôme) ; les têtes des passagers
+  rentrées dans le cadre (ils mesurent 2,2 m) ; le train vu du quai avec des vitres claires et parti plus loin (ses vitres sombres faisaient un
+  mur noir pendant 0,8 s). Brouillon 1 et dossier de revue `critic/ventouse1` en file.
+
+## Histoire 53 « Le torticolis » — revue 3 et passe finale
+- Revue 3 : animation 7,2 (contre 6,5), direction artistique 6,9 (contre 6,4).
+- Passe finale : la marche à reculons filmée sur son chemin, à hauteur de hanche, avec un passant qui marche à l'endroit à côté de lui et des
+  potelets ; la prise de la dame devenue un étirement avec la mâchoire jusqu'au col ; celle du chauffeur, un chapeau qui saute et la mâchoire sur
+  le volant, et le chauffeur ne ressemble plus au héros (feutre, cheveux gris, moustache) ; l'ostéopathe à côté de sa tête, une main sur le crâne,
+  une sur la tempe, un tour de vis à l'envers plus grand qui tremble ; le CRAC en gros plan avant d'élargir pour le ta-da ; la toupie plus rapide,
+  la cravate lancée autour par un vent qui tourne avec la tête, des traînées de vent, une pause de cinq images après le troisième tour et un
+  retour en ressort ; les doigts sur le cuir chevelu ; des respirations dans les tenues ; une cuillère claire et un bol plus grand ; un cabinet
+  sans moniteur ni croix rouge (nouvelles options du décor `hospital`).
+- Décision (prise sans demander) : la critique proposait des chaussures à bout ou une fente au dos de la veste pour distinguer l'avant de l'arrière ;
+  le modèle du héros est un choix fixe de la série : la lecture passe par la mise en scène seule (le passant, le cadrage).
+
+## Histoire 54 « La valise » — passes 2 et 2b
+- Passe 2b : le cou tordu vers l'objectif quand il ressort du tunnel, si bien que la gifle tombe sur son visage (de profil, 105 degrés) ; la gifle
+  avancée pour qu'il se redresse vers nous dans le plan ; l'agente sortie du cadre sauf son bras dans S08-S09 (sa tête était coupée par le haut) ;
+  l'hôtesse sous le carton PREMIÈRE ; la soute éclairée de face, plus près, avec SCHLAC ! ; l'enseigne BAGAGES au-dessus de lui. Le bras élastique
+  tient enfin le couvercle grâce au correctif du moteur. Brouillon 2 et dossier `critic/valise2` en file.
+
+## Histoire 52 « Le boomerang » — revue 3
+- Le script de revue n'avait pas écrit ses consignes (deux descriptions avec une apostrophe dans une chaîne entre apostrophes) ; la chaîne avait quand
+  même affiché son marqueur. La critique de direction artistique a reconstruit les consignes elle-même : 7,1 (contre 7,0). Script corrigé
+  (apostrophes typographiques), consignes réécrites ; leçon ajoutée au skill.
+- Décision (prise sans demander) : la critique demandait une silhouette de robe pour la mariée ; les modèles de la série sont un choix fixe : le voile
+  sera plaqué dans le dos jusqu'au bout plutôt qu'un nouveau modèle.
+
+## Cycle 18 — analyse, correctif du moteur, histoire 56 « La bosse »
+
+### Analyse (faiblesses relevées sur les histoires 52 à 55)
+1. **Mains guidées qui ratent leur point quand le corps bascule ou pend** : cause trouvée dans le moteur (la bascule et l'épingle posées après les
+   bras). C'est la faiblesse qui expliquait le bras élastique hors du couvercle et les mains des passagers à côté des siennes.
+2. **Coups reçus de profil** : la gifle quand il est penché en deux, la toupie de la tête avec le visage de l'ostéopathe tourné.
+3. **Personnages d'avant-plan coupés** par le haut du cadre (l'agente, les passagers) et figurants qui ressemblent au héros.
+4. **Croissance et passage du temps** : aucun outil pour montrer une chose qui grandit des jours durant ; les histoires montraient des états.
+5. **Chaînes qui affichent leur marqueur même quand une étape a échoué** (le dossier de revue sans consignes).
+
+### Outils faits
+- Moteur : `lay` posé avant le rig, `pin` résolu dans le rig après la colonne et le cou, avant les mains guidées ; les mains tenues restent sur
+  leur point pendant que le corps bascule ou pend. Vérifié sur la valise (bras élastique) et la ventouse (mains des passagers).
+- Décor `hospital` : options `monitor` et `cross`. Rame de métro : `glass`.
+- `props_bosse.js` : `skullBump` (une boule de peau qui sort du crâne, à moitié enfoncée tant qu'elle est petite puis posée sur un cou ; ou une
+  colline habillée posée sur la tête : herbe, neige, arbres, chemin, plaque, drapeau, randonneurs, skieurs, télésiège ; clés de croissance,
+  battement de cœur, dégonflage en baudruche qui tremble, pansement après ; un mètre ruban le long de son flanc qui claque), `miniFigure`, `tapeMeasure`,
+  `billScroll` (une facture qui se déroule jusqu'au sol puis le long du sol), `lowBeam` (poutre basse, ATTENTION À LA TÊTE), `theodolite`.
+  Testés sur une planche à part : la bosse qui gonfle, la boule mesurée « 3,00 M », la colline et sa plaque COLLINE, la colline enneigée, le
+  dégonflage, la facture.
+
+### Histoire 56 « La bosse » (structure du skill inchangée)
+- Accroche : il s'est cogné la tête ; logique absurde : la bosse n'arrête pas de pousser, le médecin la mesure (trois mètres), le cadastre la classe
+  colline ; escalade : des randonneurs le dimanche, une station de ski l'hiver ; retournement : la bosse se dégonfle, les skieurs « tombent de
+  haut » (au propre et au figuré) ; aparté sec : la station lui réclame les forfaits. Aucun nom d'organisation réelle (le cadastre, la station).
+- Gags du rig prévus : BONG sous la poutre, la tête enfoncée dans les épaules, étoiles ; la bosse qui sort en trois POC, les yeux qui montent vers
+  elle ; la croissance en accéléré, le cou qui s'enfonce sous le poids ; le mètre ruban qui claque au nez du médecin, qui vacille sur son échelle ;
+  la plaque COLLINE qui tombe sur la boule, ses genoux qui plient, l'herbe qui descend ; le skieur qui saute du bord devant ses yeux ; le dégonflage
+  en baudruche, le cou qui rebondit plus long que lui ; les skieurs suspendus en l'air qui regardent en bas, puis nous, puis tombent ; l'un atterrit
+  assis sur sa tête et y reste ; la facture qui se déroule à l'infini.
+- Décision (prise sans demander) : au stade « trois mètres », la bosse est une boule de peau posée sur le crâne (une calotte de trois mètres de large
+  autour d'une tête de 30 cm aurait été illisible) ; le mètre ruban suit sa surface, du sommet au crâne.
