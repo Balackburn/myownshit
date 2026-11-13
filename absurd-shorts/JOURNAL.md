@@ -1690,7 +1690,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   du cadre jusqu'aux dernières images (objectif de 30°) et les mariés sous le bord bas → plus large (52°), plus bas, trajectoire dans le cadre ;
   le photographe, à 2 m de la caméra, remplissait le bord droit et cachait son appareil → caméra reculée ; la main tendue pendait à hauteur de
   hanche (0,42 m devant, 1,12 m de haut) → 0,55 m devant, 1,32 m de haut.
-- **52, revue 2 de 50 (direction artistique) : 7,4** (6,5 à la revue 1). Restent : le verre d'eau du plan 8 illisible (dalle bleu pâle, pli vu de
+- **50 « Le hoquet », revue 2 (direction artistique) : 7,4** (6,5 à la revue 1). Restent : le verre d'eau du plan 8 illisible (dalle bleu pâle, pli vu de
   face, gouttes qui partent du poing du pompier, pompiers en casquettes), le plafond du plan 10 sombre et boueux (fissures trop fines, éclats en
   anneau, pompiers de dos), les pyramides de canettes coupées aux coins du dernier plan et un dernier hoquet trop haut, du texte couvert (le E de
   NATURELLE, l'étoile du BOUH), des visages de dos aux plans 3, 4 et 12. La revue d'animation est en cours.
