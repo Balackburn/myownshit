@@ -272,6 +272,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le pied à coulisse qui pince | accessoire à l'échelle 1,6, mâchoires sur la poitrine et le dos dès la première image, pincé à la moitié de son épaisseur en quatre images (`sq` z 0,45, élargi), corps poussé contre la mâchoire fixe, regonfle au-delà et repousse les mâchoires, affichage tourné vers l'objectif (`dispRy`) | 49 S10 |
 | L'assoupi qui sursaute (début et fin) | la tête qui tombe lentement (`neck` 0,4 à 0,45 en presque une seconde, paupières à 0,85-1) puis remonte d'un coup (0,06 s, sourcils levés) ; repris au dernier plan, la canette à la main : le film finit comme il a commencé | 50 S01, S13 |
 
+| L'escalade dans le corps | un plan règle (deux sauts identiques, une règle jaune « 1 M » dont la plaque saute au repère, `heightRuler`), puis chaque reprise change le corps : plus haut et le ruban du cordon qui casse (`cordon snap`), en portefeuille, aplati dans le plâtre, suspendu 0,4 s en respirant (`HICK(..., hang=0.4)`), le chèque laissé en l'air | 50 (cycle 14) |
+| La peur en une seule image | cheveux dressés (`hairUp` 1,3), yeux sur tiges et cri (`jaw` 0,8 : bouche `scream`) sur la même image, tenus huit images en tremblant, puis le départ ; celui qui fait peur lève les bras en V à côté de sa tête (croisés, ils cachaient son cri) | 50 S09 (cycle 14) |
+| Le portefeuille | sauté hors des mains des pompiers : il s'ouvre en montant (`spine` -0,6, jambes en arrière), se referme en haut (`spine` 1,25, jambes à 1,1), redescend plié ; l'eau bleue jaillit de ses joues (`waterDrops`) | 50 S08 (cycle 14) |
+| Aplati dans le plâtre | déjà collé au plafond, le hoquet l'y enfonce : `sq [1.32, 1.06, 0.22]` et 8 cm plus haut en une image, fissures qui rayonnent en 0,08 s (`ceilingCracks`), écailles de plâtre qui flottent (`waterDrops` g 2,5), puis il se regonfle au-delà (`outBack`) | 50 S10 (cycle 14) |
+| La plume qui s'envole | le sismographe à l'encre épaisse (`ink`), le montant décalé (`postX`), au deuxième pic la plume part en arc (`penOff`) ; le sismologue a le nez sur le papier huit images avant que sa tête remonte, yeux sur tiges | 50 S03 (cycle 14) |
+| La révélation sur le mot | le zoom de la carte en 0,7 s (`zoomDur`, `ease.inOut`) se pose sur le mot ; l'étiquette surgit sous le point sur le mot (`labelAt`, `labelBelow`), l'en-tête entier en haut ; rien sur la carte du plan d'avant | 50 S05 (cycle 14) |
+| La façade qui saute | tout l'immeuble (et sa porte) saute de 22 cm trois images (`to` par clés) avec un écrasement ; la cause à l'image : « HIC ! » à sa fenêtre, de la poussière et des gravats | 50 S06 (cycle 14) |
+| Le chèque géant en feuille morte | `bigCheque` (le montant sur la moitié de sa hauteur) tenu par un coin ; au saut il monte avec lui, reste en l'air, puis redescend en feuille morte (`flutter`) | 50 S12 (cycle 14) |
+| Le doigt sur le seul bouton vert | l'insert filmé de l'autre côté du panneau, d'en haut : le doigt descend vers nous sur le bouton, appui tenu six images (`pressDur`) ; l'écran du panneau n'est plus vert, le bouton est le seul vert | 49 S06 (cycle 14) |
+| Recto verso d'un seul contour | les deux moitiés raides (`stiffStand`), sans regard ni balancement (`toon: {shift: 0, holdLife: 0}`), séparées de 12 mm : un seul contour, le quart de tour en trait | 49 S07 (cycle 14) |
+| Le pied à coulisse presque de profil | à 53° du profil, son épaisseur devient une largeur à l'écran ; la règle à 1,5 fois son épaisseur, l'affichage déporté au-delà du coulisseau (`dispX`), la copie devant lui tournée par la tranche vers l'objectif | 49 S10 (cycle 14) |
+
 ## Erreurs à éviter
 
 - `then` est ignoré sur un déplacement `glide` (chute, glissade) : poser une clé de clip explicite à la fin (`k(t, clip='pancake')`).
@@ -891,3 +903,22 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 13) La sonde mesurait d'abord toute la tête avec ses effets cachés rangés à l'écart à l'échelle zéro (59 % de l'image) : mesurer la
   tête seule. Sa part « vue » est fausse sur un accessoire fin et ouvert (un pied à coulisse) : regarder l'image.
 - (cycle 13) Un brouillon envoyé en revue avec des temps morts y perd la moitié de l'animation : `freeze_check.py` avant la revue.
+- (cycle 14) Deux doubles plats dos à dos se séparent en deux têtes et trois mains : le balancement de repos et la vie des tenues sont en miroir.
+  `toon: {shift: 0, holdLife: 0}` dans leur distribution, `look=None`, la posture `stiffStand`.
+- (cycle 14) Un fil fin (laisse, gomme, ficelle) fait 1 ou 2 px sur un téléphone et disparaît par endroits : `minPx` (au moins 4 à 5 px d'une image
+  de 1920) et `rim` (un liseré sombre) sur le `tether` ; des boucles au sol par `via` (un seul fil), pas des segments droits.
+- (cycle 14) La sonde dit « vu à 100 % » d'un visage tourné de profil ou de dos : regarder l'orientation du visage aux sommets des gags (les
+  revues de 51 l'ont relevé deux fois) et tricher le corps de 30 à 45° vers l'objectif dans chaque réaction.
+- (cycle 14) Une caméra qui démarre dans un immeuble donne 0,2 s de gris uni : un travelling au-dessus des toits passe au-dessus du plus haut
+  (20 m dans `parisStreet`) ; l'alerte « caméra dans un accessoire » ne couvre pas le décor.
+- (cycle 14) Un commentaire ajouté en remplaçant le début d'une ligne avale la fin de la ligne (des clés entières disparues sans erreur) :
+  le mettre sur sa propre ligne et lancer `lint_comments.py` après chaque correctif (six fois dans ce cycle).
+- (cycle 14) Un effet `whoosh` écrit de l'aigu vers le grave (3000, 800) faisait échouer tout le mix : `mix.py` trie maintenant la bande ; un
+  projet seul se relance avec `hf_only.sh` sans refaire la couche 3D.
+- (cycle 14) Des vitres opaques cachent les passagers d'une cabine : `glassOpacity`. Une cible de main (`reach`) sur un corps à l'envers envoie les
+  bras au plafond : plier les bras dans son propre repère (`bend`).
+- (cycle 14) Les yeux sur tiges prêtés aux pompiers et à l'assureur affaiblissaient les trois prises du héros : aux autres une grimace
+  (`react(kind='wince')`) ou une mâchoire qui tombe.
+- (cycle 14) Une étiquette à côté d'un point sort du cadre au zoom et sa boîte mord le point : sous le point, sa boîte derrière ; et un texte de
+  3 ou 7 px (un post-it, un chèque) se refait en version géante (règle de hauteur, chèque géant).
+- (cycle 14) Le tableau du salon derrière sa tête au sommet de chaque saut : le déplacer hors de l'axe (`pictureX`) ou le retirer du plan.

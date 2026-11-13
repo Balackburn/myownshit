@@ -161,16 +161,16 @@ st.cue('clack', 'S07', RV7, 0.35)
 # 8: the air-traffic controllers opened it an air corridor. The control room: on his radar the boomerang's blip goes round a dashed loop; he sways round in
 #    circles following it, then draws the corridor: two white lines along the loop
 D8 = st.dur('S08'); CO8 = round(st.at('S08', 'L05', 7) - st.SH['S08'][0] - 0.55, 3)
-RAD = [0.0, 0, -1.6]; CTL = [0.0, 0, -0.85]
+RADW = [0.0, 1.62, -3.38]; CTL = [0.95, 0, -2.6]                    # (first look) the radar on the wall facing us, the controller beside it facing us (on a console the screen faced away from the camera)
 SW = lambda a, d=0.22: {'bend': {'spine': [r(d * math.cos(a)), 0, r(d * math.sin(a)), 1, None]}}
+DRAW = lambda dx, dy: {'reach': {'R': [r(RADW[0] + dx), r(RADW[1] + dy), r(RADW[2] + 0.07), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.3, 'brow': 0.6}}
 st.shot('S08', 'office', setOpts={'door': False}, actors=[
-        act('aiguilleur', CTL, 180, 'stand', 'neutral', keys=[k(0.0, look=[RAD[0], 1.1, r(RAD[2] + 0.15)]),
+        act('aiguilleur', CTL, -20, 'stand', 'neutral', keys=[k(0.0, look=[RADW[0], RADW[1], RADW[2]]),
             *[k(round(0.05 + 0.12 * i, 3), toon={**SW(i * PI / 2), 'face': {'lid': 0.3, 'brow': 0.5}}, toonDur=0.12, toonEase='inOut') for i in range(6)],   # he sways round in circles with the blip
-            k(round(CO8 - 0.1, 3), toon={'reach': {'R': [r(RAD[0] - 0.12), 1.22, r(RAD[2] + 0.2), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'brow': 0.6}}, toonDur=0.1),
-            k(round(CO8 + 0.2, 3), toon={'reach': {'R': [r(RAD[0] + 0.16), 1.2, r(RAD[2] + 0.12), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3}}, toonDur=0.2), k(round(CO8 + 0.45, 3), toon={'reach': {'R': [r(RAD[0] - 0.02), 1.12, r(RAD[2] + 0.3), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3}}, toonDur=0.2),   # drawing the corridor with a marker
-            k(round(CO8 + 0.75, 3), look='camera'), k(round(CO8 + 0.75, 3), toon={'reach': {'R': [r(CTL[0] + 0.25), 1.55, r(CTL[2] - 0.15), 1, 0.05]}, 'hands': {'R': 'thumbUp'}, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.12)])],   # a thumbs up to us
-        props=[P('radar8', 'radarScope', pos=RAD, opts={'corridor': CO8, 'label': 'SECTEUR 4'}), P('marker8', 'marker', on={'actor': 'aiguilleur', 'hand': 'R', 'offset': [0, -0.05, 0.03]}, scale=1.3)],
-        cams=[FC(0.0, [0.75, 2.05, -2.75], [[CTL[0], 2.45, CTL[2]], [r(RAD[0] - 0.35), 1.05, RAD[2]], [r(RAD[0] + 0.35), 1.05, RAD[2]], [r(CTL[0] + 0.4), 1.4, CTL[2]], [r(CTL[0] - 0.4), 1.4, CTL[2]]], top=0.1, bottom=0.74)])
+            k(round(CO8 - 0.12, 3), toon=DRAW(0.38, 0.12), toonDur=0.1), k(round(CO8 + 0.15, 3), toon=DRAW(0.05, -0.22), toonDur=0.2), k(round(CO8 + 0.42, 3), toon=DRAW(-0.32, 0.05), toonDur=0.2),   # draws the corridor on the screen with a marker
+            k(round(CO8 + 0.72, 3), look='camera'), k(round(CO8 + 0.72, 3), toon={'reach': {'R': [r(CTL[0] + 0.1), 1.6, r(CTL[2] + 0.4), 1, 0.05]}, 'hands': {'R': 'thumbUp'}, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.12)])],   # a thumbs up to us
+        props=[P('radar8', 'radarScope', pos=RADW, opts={'wall': True, 'r': 0.62, 'corridor': CO8, 'label': 'SECTEUR 4'}), P('marker8', 'marker', on={'actor': 'aiguilleur', 'hand': 'R', 'offset': [0, -0.05, 0.03]}, scale=1.3)],
+        cams=[FC(0.0, [0.6, 1.6, 0.9], [[r(RADW[0] - 0.74), r(RADW[1] + 0.74), RADW[2]], [r(RADW[0] + 0.74), r(RADW[1] - 0.8), RADW[2]], [CTL[0], 2.45, CTL[2]], [CTL[0], 0.6, CTL[2]], [r(CTL[0] + 0.45), 1.6, CTL[2]]], top=0.1, bottom=0.74)])
 st.cue('sfx:beep', 'S08', 0.1, 0.25); st.cue('sfx:beep', 'S08', 0.8, 0.25); st.cue('sfx:scratch', 'S08', CO8, 0.3)
 
 # 9: an air corridor. Above the clouds: two rows of orange cones standing on the cloud tops, a lane into the distance; the boomerang comes down it toward us
@@ -203,7 +203,7 @@ st.shot('S11', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, acto
         act('mariee', [-0.55, 0.25, -27.3], 0, 'stand', 'happy', keys=[k(0.0, look='camera')]),
         act('mec', [0.05, 0.25, -27.3], 0, 'stand', 'happy', keys=[k(0.0, look='camera')]),
         act('mamie', [-1.25, 0.25, -27.5], 10, 'stand', 'happy', keys=[k(0.0, look='camera')]), act('voisin', [0.85, 0.25, -27.5], -10, 'stand', 'happy', keys=[k(0.0, look='camera')])],
-        props=[P('th11', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4}),
+        props=[P('th11', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}),
                BOOM('boom11', pos=[3.0, 26.0, -36.0], scale=3.0, opts={'spin': [[0.0, 6.0]], 'wobble': 0.2}, keys=[k(0.0, to=[0.6, 9.0, -29.0], dur=round(D11 - 0.05, 3), ease='in')])],
         cams=[cam(0.0, [2.2, 0.9, -15.5], [2.0, 0.95, -16.2], [0.3, 6.5, -30.0], [0.3, 6.8, -30.0], lens=30)])
 st.cue('whoosh', 'S11', 0.05, 1.4, 0.6, 1200, 3200)
@@ -231,7 +231,7 @@ st.shot('S12', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, acto
         act('mec', GROOM, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.0), k(0.6, toon={'face': {'mouth': 'smile', 'lid': 1.0}}, toonDur=0.05), k(0.72, toon={'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.07)]),   # a polite smile, heavy lids
         act('photographe', PHOTOG, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.5, -27.3]), k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.55, -24.0, 1, 0.05]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
             k(0.35, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.95, -24.0, 1, 0.05]}, 'hands': {'R': 'spread'}}, toonDur=0.1), k(0.5, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.55, -24.0, 1, 0.05]}, 'hands': {'R': 'grip'}}, toonDur=0.1)])],   # « souriez » with his free hand
-        props=[P('th12', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4}), P('cam12', 'bellowsCamera', pos=[1.35, 0, -24.05], ry=200), VEIL('veil12'), BOUQ('bq12'),
+        props=[P('th12', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}), P('cam12', 'bellowsCamera', pos=[1.35, 0, -24.05], ry=200), VEIL('veil12'), BOUQ('bq12'),
                P('flower12', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45)],
         cams=[FC(0.0, [0.9, 1.75, -21.6], [[-1.3, 2.3, -27.55], [0.9, 2.3, -27.55], [-1.3, 0.25, -27.3], [0.9, 0.25, -27.3], [PHOTOG[0], 1.2, PHOTOG[2]]], top=0.18, bottom=0.74)])
 
@@ -247,7 +247,7 @@ st.shot('S13', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, acto
             k(LD13, toon={**DISC, 'sq': [1.08, 0.9, 1.08], 'face': {'mouth': 'smile', 'lid': 0.3}}, toonDur=0.02, toonEase='out'),   # the head squashed flat as a disc...
             k(round(LD13 + 0.1, 3), toon={**DISC, 'sq': [0.98, 1.03, 0.98], 'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.08),   # ...still smiling
             *[k(round(LD13 + 0.2 + 0.08 * i, 3), toon={**DISC, 'sq': [1.0, round(1.0 + (0.02 if i % 2 else -0.02), 3), 1.0], 'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.04) for i in range(6)]])],   # the rotor shaking him
-        props=[P('th13', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4}), VEIL('veil13'), BOUQ('bq13'), P('flower13', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45),
+        props=[P('th13', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}), VEIL('veil13'), BOUQ('bq13'), P('flower13', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45),
                BOOM('boom13', pos=[0.4, 6.0, -27.6], scale=1.6, opts={'spin': [[0.0, 6.0], [LD13, 9.0]], 'wobble': 0.1}, keys=[k(0.0, to=[GROOM[0], 2.6, GROOM[2]], dur=LD13, ease='in'), k(LD13, visible=False)]),
                BOOM('boom13h', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.34, 0.0]}, scale=1.6, opts={'spin': [[0.0, 9.0]], 'wobble': 0.05}, keys=[k(0.0, visible=False), k(LD13, visible=True)])],
         cams=[FC(0.0, [0.35, 1.75, -23.9], [[GROOM[0], 2.75, GROOM[2]], [-0.55, 0.9, -27.3], [0.55, 0.9, -27.3], [-0.95, 2.1, -27.3]], top=0.14, bottom=0.74)])
@@ -264,10 +264,10 @@ st.shot('S14', 'parisStreet', setOpts={'eiffel': False, 'clear': [-40, 0]}, acto
             k(0.3, toon={**DISC, 'bend': {'legL': [0.15, 0, 0, 1, None], 'legR': [-0.1, 0, 0, 1, None]}, 'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.3), k(0.95, toon={**DISC, 'face': {'mouth': 'smile', 'lid': 1.0}}, toonDur=0.05), k(1.05, toon={**DISC, 'face': {'mouth': 'smile', 'lid': 0.45}}, toonDur=0.07)]),   # legs dangling, a blink
         act('photographe', PHOTOG, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 2.0, -27.3]), k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.55, -24.0, 1, 0.05]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
             k(0.4, toon={'bend': {'spine': [-0.1, 0, 0, 1, None]}, 'reach': {'R': [1.62, 1.75, -24.0, 1, 0.05]}, 'hands': {'R': 'grip'}}, toonDur=0.4)])],   # he straightens up after him
-        props=[P('th14', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4}), VEIL('veil14'), BOUQ('bq14'), P('flower14', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45),
+        props=[P('th14', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}), VEIL('veil14'), BOUQ('bq14'), P('flower14', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45),
                P('cam14', 'bellowsCamera', pos=[1.35, 0, -24.05], ry=200, opts={'flashAt': 0.35}, keys=[k(0.4, rotTo=[-0.35, 0, 0], dur=0.5, ease='inOut')]),
                BOOM('boom14h', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.34, 0.0]}, scale=1.6, opts={'spin': [[0.0, 9.0]], 'wobble': 0.05}),
-               P('hat14', 'hat', pos=[0.9, 2.2, -27.55], opts={'kind': 'fedora'}, keys=[k(0.12, to=[2.4, 3.8, -26.5], dur=0.9, ease='out'), k(0.12, rotTo=[1.2, 0.6, 2.4], dur=0.9)])],
+               P('hat14', 'fedoraHat', pos=[0.9, 2.2, -27.55], keys=[k(0.12, to=[2.4, 3.8, -26.5], dur=0.9, ease='out'), k(0.12, rotTo=[1.2, 0.6, 2.4], dur=0.9)])],
         cams=[FC(0.0, [1.3, 1.5, -20.6], [[GROOM[0], 4.2, GROOM[2]], [-1.3, 0.25, -27.3], [0.9, 0.25, -27.3], [PHOTOG[0], 1.4, PHOTOG[2]]], top=0.08, bottom=0.74, drift=(0.0, 0.25, 0.0))])
 st.cue('sfx:rotor', 'S14', 0.05, 0.3); st.cue('sfx:shutter', 'S14', 0.35, 0.35)
 

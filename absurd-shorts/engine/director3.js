@@ -1432,7 +1432,11 @@ export function probe(tAbs, specs = []) {
       if (inHead(h.object)) { seen++; continue; }
       if (h.distance < L - 0.02) { const who = ownerOf(h.object), key = who === sp.who ? sp.who + ' (his own body)' : who; cover[key] = (cover[key] || 0) + 1; }
     }
-    out.push({ ...rec, box: [x0, y0, x1, y1].map(v => +v.toFixed(3)), h: +(y1 - y0).toFixed(3), seen: +(seen / total).toFixed(2), cover, behind });
+    // (cycle 14) which way the face looks: the angle between the head's front (its local +Z, where the face is painted) and the lens. The rays above
+    // count a head as seen whichever side faces us; the reviews of 51 found the back of his head and a profile at two gag peaks
+    const fq = (hm || headRoot).getWorldQuaternion(new THREE.Quaternion()), fz = V(0, 0, 1).applyQuaternion(fq), tc = camPos.clone().sub(c).normalize();
+    const facing = Math.round(Math.acos(Math.max(-1, Math.min(1, fz.dot(tc)))) * 180 / Math.PI);
+    out.push({ ...rec, box: [x0, y0, x1, y1].map(v => +v.toFixed(3)), h: +(y1 - y0).toFixed(3), seen: +(seen / total).toFixed(2), cover, behind, facing });
   }
   return out;
 }

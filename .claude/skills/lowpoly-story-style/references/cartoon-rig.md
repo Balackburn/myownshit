@@ -306,3 +306,25 @@ Engine: `engine/toon.js`, `director3.js`, `props_gomme.js`, `render/render3.mjs`
 - **`st.audit_life()`** (run by `write()`): an actor in the frame with no key for 1.3 s or more on a static clip (stand, sit, idle) is listed as
   still (give him a blink, a glance, a breath or a weight shift), and the eyes-on-stalks take (face `pop` >= 0.3) in more than three shots is
   flagged (keep the big one for the peak; vary the others with `take()` kinds: jaw, accordion, hair, tongue, cross, or `doubleTake()`).
+
+## Cycle 14: fils lisibles, reflets décalés, accessoires du boomerang
+
+- **Fils lisibles** (`tethers`, director3) : `minPx` (épaisseur minimale à l'écran, en pixels d'une image de 1920 de haut : chaque anneau du tube
+  est élargi après la pose de la caméra si la distance le rend plus fin), `rim` (coque sombre en faces arrière, `rim` fois le rayon et au moins un
+  tiers de `minPx` ; couleur `rimColor` ou celle du fil assombrie), `via` (points de passage : un seul fil en boucles souples, au lieu de segments
+  droits à angles vifs), `ripple: [[t, amplitude, vitesse]]` (une bosse qui court le long du fil depuis son bout `a`). Les fils sans ces options
+  sont inchangés.
+- **Accessoire de dos** : `on={..., 'face': 'camera', 'faceBack': True}` tourne le dos de l'accessoire vers la caméra (un téléphone dont l'écran
+  regarde son porteur).
+- **Reflet décalé** (`story_kit.mirror_keys(keys, zm|xm, shift)`, `reflection(act, zm|xm, shift)`) : les mêmes clés décalées dans le temps (en
+  retard ou en avance) et en miroir par rapport au plan z = zm ou x = xm (positions et regards réfléchis, côtés gauche et droit échangés pour
+  `reach`, `touch`, `hands`, `plant`, `bend`, rotations autour de l'axe vertical et de l'axe avant du corps inversées, `gx` inversé, `side`/`sideL`
+  échangés). Mettre l'acteur reflet derrière une ouverture (un « portail » : la pièce réfléchie construite derrière le mur).
+- **Tour Eiffel v2** : `parisStreet eiffelStyle: 'v2'` (ou `eiffelTower {style: 'v2'}`) : pieds courbes reliés, arches, deux plateformes, flèche.
+- **Hoquet** (`props_hoquet.js`, ajouts) : `cordon snap`, `waterDrops` (gouttes ou écailles, gravité `g`), `ceilingCracks`, `sash` (écharpe
+  tricolore), `heightRuler`, `bigCheque` (`flutter`), sismographe `ink` / `clampV` / `postX` / `penOff`, carte `res` / `dotX` / `labelBelow` /
+  `labelAt` / `labelMax` / `zoomDur`.
+- **Boomerang** (`props_boomerang.js`) : `boomerang` (`spin` en tours par seconde intégrés, traînée au-delà de 2,5 tours/s, `wobble`), `lossForm`
+  (formulaire dessiné, tampon), `lostShelf`, `radarScope` (`corridor`), `skyCone`, `skyCrossing`, `bellowsCamera` (`flashAt`), `bouquet`.
+- **Photocopieuse** : couleurs (`color`, `drawerColor`, `lidColor`, `panelColor`, `trayColor`, `screen`), `pressDur`, `traySheets` ; tampon `ink` ;
+  pied à coulisse `dispX` ; verre d'eau `water` ; cabine de téléphérique `glassOpacity`, `riderScale`, `lean`.

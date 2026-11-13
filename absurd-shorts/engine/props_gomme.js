@@ -71,12 +71,18 @@ export const GOMME_PROPS = {
     cab.add(at(box(W, H * 0.42, D, C, { outline: 0.008 }), 0, -0.12 - H * 0.21, 0));                                     // the glazing belt (windows drawn on it)
     cab.add(at(box(W, H * 0.46, D, C, { outline: 0.008 }), 0, -0.12 - H * 0.42 - H * 0.23, 0));                           // the lower body
     const glass = '#2F4A5C', winY = -0.12 - H * 0.21;
-    for (const sz of [-1, 1]) { const n = 3; for (let i = 0; i < n; i++) cab.add(at(box(W / n - 0.12, H * 0.34, 0.012, glass), -W / 2 + (i + 0.5) * W / n, winY, sz * (D / 2 + 0.006))); }
-    for (const sx of [-1, 1]) cab.add(at(box(0.012, H * 0.34, D - 0.16, glass), sx * (W / 2 + 0.006), winY, 0));
+    // (pass 2 of 51) o.glassOpacity: see-through windows (opaque, they hid the riders: the review saw an empty cabin)
+    const gm = o.glassOpacity != null ? new THREE.MeshLambertMaterial({ color: '#9FC3D6', transparent: true, opacity: o.glassOpacity, depthWrite: false }) : null;
+    const pane = (w, h, d) => gm ? new THREE.Mesh(new THREE.BoxGeometry(w, h, d), gm) : box(w, h, d, glass);
+    for (const sz of [-1, 1]) { const n = 3; for (let i = 0; i < n; i++) cab.add(at(pane(W / n - 0.12, H * 0.34, 0.012), -W / 2 + (i + 0.5) * W / n, winY, sz * (D / 2 + 0.006))); }
+    for (const sx of [-1, 1]) cab.add(at(pane(0.012, H * 0.34, D - 0.16), sx * (W / 2 + 0.006), winY, 0));
     cab.add(at(box(W + 0.01, 0.07, D + 0.01, '#F4F2EA'), 0, -0.12 - H * 0.44, 0));                                        // a white band
     if (o.text !== '') cab.add(at(label(o.text || 'TÉLÉPHÉRIQUE', W * 0.8, 0.13, { bg: null, fg: '#F4F2EA', wrap: false }), 0, -0.12 - H * 0.62, D / 2 + 0.012));
     const riders = o.riders ?? 3, skins = ['#E2B48A', '#C98B5E', '#F0C9A0', '#8D5A3B'], hairs = ['#2B2118', '#5A3A22', '#D9C27A', '#1B1B1E'];
-    for (let i = 0; i < riders; i++) { const xx = -W / 2 + (i + 0.5) * W / riders, hh = grp(at(box(0.2, 0.24, 0.2, skins[i % 4]), 0, 0, 0), at(box(0.21, 0.07, 0.21, hairs[(i + 1) % 4]), 0, 0.13, 0)); hh.position.set(xx, winY - 0.02, D / 2 - 0.18); cab.add(hh); }
+    const hs = o.riderScale ?? 1;   // (pass 2 of 51) o.riderScale: bigger heads, with eyes, leaning out toward the camera side (o.lean, m)
+    for (let i = 0; i < riders; i++) { const xx = -W / 2 + (i + 0.5) * W / riders, hh = grp(at(box(0.2, 0.24, 0.2, skins[i % 4]), 0, 0, 0), at(box(0.21, 0.07, 0.21, hairs[(i + 1) % 4]), 0, 0.13, 0));
+      if (o.riderScale) for (const ex of [-0.045, 0.045]) hh.add(at(box(0.035, 0.05, 0.01, '#1B1B1E'), ex, 0.02, 0.102));
+      hh.scale.setScalar(hs); hh.position.set(xx, winY - 0.02 + (hs - 1) * 0.08, D / 2 - 0.18 + (o.lean || 0)); cab.add(hh); }
     hang.add(cab); g.add(hang);
     g.userData.update = t => { let a = o.tilt || 0; for (const [t0, k] of o.swing || []) a += k * wob(t - t0, 4.2, 1.1); hang.rotation.z = a; };
     g.userData.update(0); return g;

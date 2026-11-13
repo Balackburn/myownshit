@@ -37,7 +37,7 @@ FOOT = lambda who='mec', side='L': {'actor': who, 'joint': 'foot' + side, 'offse
 HAND = lambda who='mec', side='R': {'actor': who, 'hand': side, 'offset': [0, -0.08, 0.02]}
 PT = lambda p: {'point': [r(v) for v in p]}
 STREET = {'clear': [-80, 80], 'paveW': 6.5, 'eiffelStyle': 'v2'}   # (pass 2) the connected Eiffel tower (the old one read as a stepladder)
-LR = {'tv': False, 'carpet': False}
+LR = {'tv': False, 'carpet': False, 'pictureX': -1.7}   # (pass 2) the painting off the axis of his head (its frame sat behind it)
 SEAT = [0.0, 0, -2.75]
 PHONE = lambda pid: P(pid, 'smartPhone', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.05], 'face': 'camera', 'faceBack': True}, scale=2.6, opts={'case': '#F2C94C'})   # (pass 2) its back to us, the screen to him (we saw the screen and his palm)
 READ = {'bend': {'neck': [0.42, 0, 0, 1, None]}, 'face': {'gy': 0.75, 'lid': 0.35}}   # (pass 2) head down on his phone: absorbed (the cause of the step)
@@ -173,13 +173,13 @@ st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
 st.cue('sfx:whoosh', 'S06', 0.0, 0.2)
 
 # 7: at the other end, on his sofa, reading the paper, deadpan: his left leg whirls round in time with the rope, the strand going out of the window
-D7 = st.dur('S07'); C7 = [r(SEAT[0] + 0.2), 0.78, r(SEAT[2] + 0.7)]; WIN7 = [3.55, 1.45, -3.45]
+D7 = st.dur('S07'); C7 = [r(SEAT[0] + 0.78), 0.8, r(SEAT[2] + 0.45)]; WIN7 = [3.55, 1.45, -3.45]   # (pass 2) the circle at his side, in the plane of the wall
 def WHIRL(t0, t1, f, rr=0.42, ph=0.25):
     out, i = [], 0
     while True:
         t = round(t0 + i / (12 * f), 3)
         if t > t1: break
-        a = 2 * PI * (f * t + ph); p = [C7[0], r(C7[1] - rr * math.cos(a)), r(C7[2] + rr * math.sin(a))]
+        a = 2 * PI * (f * t + ph); p = [r(C7[0] + rr * math.sin(a)), r(C7[1] - rr * math.cos(a)), C7[2]]
         out.append(k(t, toon={**PAPER7, 'plant': {'L': [*p, 1.0]}, 'sq': [1.0, r(1.0 - 0.025 * math.cos(a)), 1.0]}, toonDur=round(1 / (12 * f), 3), toonEase='linear')); i += 1
     return out
 PAPER7 = {'reach': {'L': [r(SEAT[0] - 0.25), 1.3, r(SEAT[2] + 0.5), 1, 0.05], 'R': [r(SEAT[0] + 0.25), 1.3, r(SEAT[2] + 0.5), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}
@@ -187,29 +187,32 @@ st.shot('S07', 'livingRoom', setOpts=LR, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[SEAT[0], 1.35, r(SEAT[2] + 0.45)]), *WHIRL(0.0, D7, FQ), k(round(D7 - 0.5, 3), look='camera')])],
         props=[P('paper7', 'newspaper', pos=[SEAT[0], 1.08, r(SEAT[2] + 0.45)], rot=[1.3, 0, 0], scale=1.55, opts={'headline': 'DIMANCHE'})],
         tethers=[STRAND(FOOT(), PT(WIN7), sag=0.16, rad=0.026, taper=0.25, spin=[FQ, 0.25])],
-        cams=[FC(0.0, [1.0, 1.2, 0.3], [[SEAT[0], 1.9, SEAT[2]], [C7[0], 0.3, C7[2]], [C7[0], 1.25, C7[2]], [r(SEAT[0] - 0.5), 1.0, SEAT[2]], [1.2, 1.1, -2.5]], top=0.1, bottom=0.74)])
+        cams=[FC(0.0, [0.4, 1.2, 0.4], [[SEAT[0], 1.9, SEAT[2]], [r(C7[0] + 0.45), 0.3, C7[2]], [r(C7[0] + 0.45), 1.25, C7[2]], [r(SEAT[0] - 0.5), 1.0, SEAT[2]], [1.6, 1.1, -2.5]], top=0.1, bottom=0.74),
+              glide([FC(round(D7 - 0.62, 3), [0.3, 1.45, -0.9], [[SEAT[0], 1.95, SEAT[2]], [SEAT[0], 1.0, SEAT[2]], [r(SEAT[0] - 0.4), 1.5, SEAT[2]], [r(SEAT[0] + 0.4), 1.5, SEAT[2]]], top=0.12, bottom=0.72)], 0.35)])   # (pass 2) a push in for his glance at us
 st.cue('sfx:whoosh', 'S07', 0.1, 0.2)
 
 # 8: the city hung a cable car on it. From a roof: a red cabin with three riders rides along the pink strand over the street, swinging, the strand
 #    dipping under it; the Eiffel tower behind
 D8 = st.dur('S08'); Y8, Z8 = 15.5, -12.0
 st.shot('S08', 'parisStreet', setOpts={**STREET, 'clear': [-200, 80]}, actors=[],
-        props=[P('cab8', 'cableCar', pos=[-4.6, round(Y8 - 0.55, 3), Z8], opts={'riders': 3, 'swing': [[0.0, 0.07]], 'tilt': -0.04}, keys=[k(0.0, to=[2.2, round(Y8 - 0.55, 3), Z8], dur=D8, ease='linear')])],
+        props=[P('cab8', 'cableCar', pos=[-4.6, round(Y8 - 2.2, 3), Z8], opts={'riders': 3, 'swing': [[0.0, 0.07]], 'tilt': -0.04, 'glassOpacity': 0.28, 'riderScale': 1.35, 'lean': 0.2}, keys=[k(0.0, to=[2.2, round(Y8 - 2.2, 3), Z8], dur=D8, ease='linear')])],   # (pass 2) the strand dips under the cabin; riders seen (opaque panes hid them)
         tethers=[STRAND(PT([-45.0, Y8, Z8]), {'prop': 'cab8', 'offset': [0, 0.06, 0]}, sag=0.008, rad=0.07, taper=0.0, n=14),
                  STRAND({'prop': 'cab8', 'offset': [0, 0.06, 0]}, PT([45.0, Y8, Z8]), sag=0.008, rad=0.07, taper=0.0, n=14)],
-        cams=[cam(0.0, [-3.6, 14.4, -4.2], [0.2, 14.4, -4.2], [-4.4, 13.9, -12.0], [1.9, 13.9, -12.0], lens=44)])
+        cams=[cam(0.0, [-3.6, 12.8, -4.2], [0.2, 12.8, -4.2], [-4.4, 12.3, -12.0], [1.9, 12.3, -12.0], lens=44)])
 st.cue('sfx:rotor', 'S08', 0.0, 0.25)
 
 # 9: ... and him at his desk, hanging upside down by the foot from the strand that comes in by the window, swinging gently, still typing, deadpan
 D9 = st.dur('S09'); ME9 = [-1.75, 3.3, -2.3]
 HANG = {'lay': [0, round(PI, 4)], 'bend': {'legR': [0.55, 0, 0, 1, None], 'shinR': [-1.5, 0, 0, 1, None]}}
-TYPE9 = lambda dx: {'reach': {'L': [r(-1.75 - 0.12 + dx), 0.83, -1.78, 1, 0.08], 'R': [r(-1.75 + 0.12 - dx), 0.83, -1.78, 1, 0.08]}, 'hands': {'L': 'flat', 'R': 'flat'}, 'hose': 0.1}
+TYPE9 = lambda dx: {'bend': {'armL': [round(0.35 + dx, 3), 2.65, 0, 1, None], 'armR': [round(0.35 - dx, 3), -2.65, 0, 1, None]}, 'hands': {'L': 'open', 'R': 'open'}}   # (pass 2) upside down the arms hang to the keys (raised over the head in his own frame: the reach pointed them at the ceiling)
+WIN9 = [0.4, 3.35, -3.36]                                                                     # a window high on the back wall: the strand comes in there
 st.shot('S09', 'office', setOpts={'door': False}, actors=[
         act('mec', ME9, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
-            *[k(round(i * 0.12, 3), toon={**HANG, 'lay': [0, round(PI + 0.07 * math.sin(i * 0.12 * 2 * PI * 0.9), 4)], **TYPE9(0.03 * (i % 2))}, toonDur=0.12, toonEase='linear') for i in range(int(D9 / 0.12) + 1)]])],
-        props=[P('desk9', 'desk', pos=[-1.75, 0, -1.55], ry=180, opts={'w': 1.2, 'd': 0.6}), P('laptop9', 'laptop', pos=[-1.75, 0.76, -1.72], ry=180, opts={'text': 'RAPPORT'})],
-        tethers=[STRAND(FOOT(), PT([-1.75, 9.5, -2.3]), sag=0.0, rad=0.026, taper=0.2)],
-        cams=[FC(0.0, [-1.2, 1.5, 0.4], [[-1.75, 2.75, -2.3], [-1.75, 1.05, -2.3], [-1.75, 0.74, -1.45], [-2.2, 1.6, -2.3], [-1.3, 1.6, -2.3]], top=0.04, bottom=0.74)])   # (s3) on his face and the laptop, the legs going up out of the frame
+            *[k(round(i * 0.12, 3), toon={**HANG, 'lay': [0, round(PI + 0.07 * math.sin(i * 0.12 * 2 * PI * 0.9), 4)], **TYPE9(0.12 * (i % 2)), 'bend': {**HANG['bend'], **TYPE9(0.12 * (i % 2))['bend']}}, toonDur=0.12, toonEase='linear') for i in range(int(D9 / 0.12) + 1)]])],
+        props=[P('desk9', 'desk', pos=[-1.75, 0, -1.55], ry=180, opts={'w': 1.2, 'd': 0.6}), P('laptop9', 'laptop', pos=[-1.75, 0.76, -1.72], ry=180, opts={'text': 'RAPPORT'}),
+               P('win9', 'plainWall', pos=[WIN9[0], 2.75, -3.38], opts={'w': 1.0, 'h': 1.2, 'color': '#BFE3F5'})],   # (pass 2) the window the strand comes in by
+        tethers=[STRAND(FOOT(), PT(WIN9), sag=0.05, rad=0.03, taper=0.2)],
+        cams=[FC(0.0, [-0.6, 1.6, 1.6], [[-1.75, 3.65, -2.3], [-1.75, 0.95, -2.3], [-1.75, 0.74, -1.45], [WIN9[0], 3.4, WIN9[2]], [-2.25, 1.6, -2.3]], top=0.06, bottom=0.74)])   # (pass 2) wider: the shoe, the strand to the window, his face at the keys
 st.cue('sfx:squeak', 'S09', 0.1, 0.25); st.cue('sfx:click', 'S09', 0.0, 0.25)
 
 # 10: yesterday he wanted to get rid of it. On the pavement, the strand running from his shoe back toward home: he looks down, bends, grabs it with
@@ -228,12 +231,13 @@ st.shot('S10', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
             k(UP10, toon=HOLD10(), toonDur=0.3, toonEase='outBack'), k(round(UP10 + 0.1, 3), look=[X10, 1.0, r(Z10 - 8)]),
             k(round(UP10 + 0.45, 3), to=[r(X10 + 0.04), 0, r(Z10 + 0.15)], dur=0.2, glide=True, face='keep'),
             k(round(UP10 + 0.45, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None]}, 'sq': [1.0, 0.96, 1.0]}), toonDur=0.15),   # feet wide
-            k(round(UP10 + 0.7, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None]}, 'sq': [1.08, 1.05, 1.12], 'face': {'puff': 0.8, 'brow': -0.7, 'lid': 0.25}}), toonDur=0.3, toonEase='in'),   # the big breath
+            k(round(UP10 + 0.55, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'face': {'puff': 1.0, 'brow': -0.7, 'lid': 0.15, 'eye': 0.2}}), toonDur=0.2, toonEase='in'),   # (pass 2) the big breath: cheeks puffed, chest up, eyes open, held
             k(round(UP10 + 0.75, 3), look='camera')])],
         tethers=[STRAND(FOOT(), HAND('mec', 'L'), frm=round(GRAB + 0.02, 3), sag=0.25, rad=0.024, taper=0.3),
                  STRAND(HAND('mec', 'R'), FAR, frm=round(GRAB + 0.02, 3), sag=0.0, rad=0.026, taper=0.0, thin=[2.0], n=14),
                  STRAND(FOOT(), FAR, until=round(GRAB + 0.02, 3), sag=0.0, rad=0.026, taper=0.0, n=14)],
-        cams=[FC(0.0, [4.4, 1.3, 36.6], [[X10, 2.3, Z10], [X10, 0.0, Z10], [r(X10 - 0.4), 1.0, r(Z10 - 1.0)], [r(X10 + 0.5), 1.2, Z10]], top=0.12, bottom=0.74)])
+        cams=[FC(0.0, [4.4, 1.3, 36.6], [[X10, 2.3, Z10], [X10, 0.0, Z10], [r(X10 - 0.4), 1.0, r(Z10 - 1.0)], [r(X10 + 0.5), 1.2, Z10]], top=0.12, bottom=0.74),
+              glide([FC(round(UP10 + 0.35, 3), [5.6, 1.7, 37.6], [[X10, 2.4, Z10], [X10, 1.15, Z10], [r(X10 - 0.45), 1.7, Z10], [r(X10 + 0.45), 1.7, Z10]], top=0.12, bottom=0.72)], 0.3)])   # (pass 2) a push in for the puffed cheeks
 st.cue('sfx:stretch', 'S10', UP10, 0.25); st.cue('sfx:sniff', 'S10', round(UP10 + 0.7, 3), 0.3)
 
 # 11: he pulled hard. From the side: he leans right back, arms out along the strand, which goes thin and taut and hums; he trembles; held; then the
@@ -248,24 +252,26 @@ def PULL(lean, fwd, extra=None):
 st.shot('S11', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
         act('mec', [X10, 0, r(Z10 + 0.15)], 180, 'stand', 'unimpressed', keys=[k(0.0, look=[X10, 1.0, r(Z10 - 8)]),
             k(0.0, toon=PULL(0.15, 0.45), toonDur=0.0), k(0.35, toon=PULL(0.42, 0.55), toonDur=0.3, toonEase='out'),
-            *[k(round(0.65 + 0.05 * i, 3), toon=PULL(0.45 + 0.012 * (i % 2), 0.56, {'sq': [1.0, r(1.0 + 0.012 * (i % 2)), 1.0]}), toonDur=0.04) for i in range(9)],   # held, trembling
-            k(round(YANK - 0.04, 3), toon=PULL(0.5, 0.6, {'face': {'puff': 0.2, 'brow': 0.9, 'pop': 0.0, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.4}}), toonDur=0.04),   # it is going: the eyes open wide
+            *[k(round(0.65 + 0.05 * i, 3), toon=PULL(0.45 + 0.012 * (i % 2), 0.56, {'sq': [1.0, r(1.0 + 0.012 * (i % 2)), 1.0]}), toonDur=0.04) for i in range(2)],   # held, trembling
+            k(0.76, toon=PULL(0.48, 0.58, {'face': {'puff': 0.0, 'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0}), toonDur=0.033, toonEase='out'),   # (pass 2) it is going to win: eyes out on stalks, hair up...
+            *[k(round(0.8 + 0.066 * i, 3), toon=PULL(0.48, 0.58, {'face': {'brow': 1.0, 'pop': 0.75, 'popLen': 0.32, 'lid': 0.0, 'mouth': 'O', 'jaw': 0.5}, 'hairUp': 1.0, 'sq': [1.0, round(1.0 + (0.02 if i % 2 else -0.02), 3), 1.0]}), toonDur=0.033) for i in range(4)],   # ...held ten frames, shaking
             k(YANK, toon={'lay': [0.9, 0], 'reach': {'L': [r(X10 - 0.05), 1.0, r(Z10 - 2.4), 1, 0.05], 'R': [r(X10 + 0.05), 0.98, r(Z10 - 2.5), 1, 0.05]}, 'hose': 0.12, 'hands': {'L': 'grip', 'R': 'grip'},
                           'face': {'brow': 0.9, 'mouth': 'O', 'jaw': 0.5, 'lid': 0.0}, 'hairUp': 0.8}, toonDur=0.05, toonEase='out'),   # yanked: arms out, tipped forward
-            k(YANK, to=[X10, 0.45, r(Z10 - 0.6)], dur=0.12, glide=True, ease='in', face='keep'),
-            k(round(YANK + 0.12, 3), to=[X10, 0.9, r(Z10 - 26.0)], dur=0.12, glide=True, ease='in', face='keep')])],                    # gone
+            k(YANK, to=[X10, 0.75, r(Z10 - 0.7)], dur=0.1, glide=True, ease='out', face='keep'),   # (pass 2) yanked up into the air...
+            k(round(YANK + 0.1, 3), toon={'lay': [1.35, 0], 'reach': {'L': [r(X10 - 0.05), 1.3, r(Z10 - 2.6), 1, 0.05], 'R': [r(X10 + 0.05), 1.28, r(Z10 - 2.7), 1, 0.05]}, 'hose': 0.15, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'legL': [0.4, 0, 0, 1, None], 'legR': [0.1, 0, 0, 1, None]}, 'face': {'brow': 1.0, 'mouth': 'O', 'jaw': 0.6, 'pop': 0.5, 'lid': 0.0}, 'hairUp': 1.0}, toonDur=0.05),   # ...horizontal, a beat of hang...
+            k(round(YANK + 0.2, 3), to=[X10, 1.0, r(Z10 - 26.0)], dur=0.12, glide=True, ease='in', face='keep')])],                    # ...and gone
         props=[P('dust11', 'dustPuff', pos=[X10, 0.1, Z10], scale=0.7, opts={'once': True, 'startAt': YANK, 'period': 0.5, 'color': '#E8DCC6'}, keys=[k(0.0, visible=False), k(YANK, visible=True)])],
         tethers=[STRAND(FOOT(), HAND('mec', 'L'), until=YANK, sag=0.25, rad=0.022, taper=0.3),
                  STRAND(HAND('mec', 'R'), FAR, sag=[[0.0, 0.004], [0.4, 0.0]], rad=0.03, taper=0.0, thin=[1.2], n=14, wobble=[[0.65, 0.025, 60, 0.8]]),
                  STRAND(FOOT(), FAR, frm=YANK, sag=0.0, rad=0.03, taper=0.0, n=14)],
-        cams=[FC(0.0, [3.9, 1.25, 38.3], [[X10, 2.3, r(Z10 + 0.15)], [X10, 0.0, r(Z10 + 0.15)], [X10, 1.0, r(Z10 - 1.5)], [X10, 2.05, r(Z10 + 1.15)], [X10, 1.4, r(Z10 + 1.35)], [r(X10 + 0.35), 2.1, r(Z10 + 1.3)]], top=0.12, bottom=0.74)])
+        cams=[FC(0.0, [5.0, 1.35, 36.6], [[X10, 2.4, r(Z10 + 0.15)], [X10, 0.0, r(Z10 + 0.15)], [X10, 1.0, r(Z10 - 1.5)], [X10, 2.05, r(Z10 + 1.15)], [X10, 1.4, r(Z10 + 1.35)], [r(X10 + 0.35), 2.1, r(Z10 + 1.3)]], top=0.12, bottom=0.74)])   # (pass 2) three-quarter front: his face at the pull (from the side it was turned away)
 st.cue('sfx:stretch', 'S11', 0.3, 0.35); st.cue('sfx:boing', 'S11', YANK, 0.45); st.cue('whoosh', 'S11', round(YANK + 0.08, 3), 0.4, 0.3, 500, 3200)
 
 # 12: brought him home in one second. Alongside him over the roofs: he flies feet first along the pink strand, stretched by the speed, tie and hair
 #     streaming, deadpan; the roofs race past under him
-D12 = st.dur('S12'); Y12, Z12 = 17.0, -30.0
+D12 = st.dur('S12'); Y12, Z12 = 24.0, -30.0   # (pass 2) above every roof: at 17 m the camera began inside a building (0.2 s of grey)
 st.shot('S12', 'parisStreet', setOpts={**STREET, 'clear': [-200, 80]}, actors=[
-        act('mec', [16.0, Y12, Z12], 0, 'stand', 'unimpressed', smear=0.6, keys=[k(0.0, look='camera'), k(0.0, toon={'lay': [0, round(-PI / 2, 4)], 'hairUp': 1.0, 'face': {'lid': 0.35}, 'bend': {'armL': [0, 0.6, 0, 1, None], 'armR': [0, -0.6, 0, 1, None]}}, toonDur=0.0),
+        act('mec', [16.0, Y12, Z12], 0, 'stand', 'unimpressed', smear=0.6, keys=[k(0.0, look='camera'), k(0.0, toon={'lay': [0, round(-PI / 2, 4)], 'hairUp': 1.0, 'sq': [0.86, 1.24, 0.86], 'face': {'lid': 0.35}, 'bend': {'armL': [0, 2.7, 0, 1, None], 'armR': [0, -2.7, 0, 1, None]}}, toonDur=0.0),   # (pass 2) stretched by the speed, the arms trailing back over his head
             k(0.0, to=[-16.0, Y12, Z12], dur=D12, glide=True, ease='linear', face='keep')])],
         tethers=[STRAND(FOOT(), PT([-80.0, Y12, Z12]), sag=0.0, rad=0.04, taper=0.0, n=8)],
         cams=[cam(0.0, [17.0, round(Y12 + 0.7, 3), round(Z12 + 7.4, 3)], [-15.0, round(Y12 + 0.7, 3), round(Z12 + 7.4, 3)], [17.0, round(Y12 - 0.1, 3), Z12], [-15.0, round(Y12 - 0.1, 3), Z12], lens=46)])
@@ -274,16 +280,18 @@ st.cue('whoosh', 'S12', 0.0, 0.45, 0.85, 400, 3000)
 # 13: home. His living room: he falls in from above, upside down, feet first along the strand, and plants himself head first in his own sofa like a dart;
 #     the cushions bounce, dust; his legs stick up, quiver, flop
 D13 = st.dur('S13'); HIT13 = 0.42
-DART = {'lay': [0, round(PI, 4)], 'bend': {'armL': [0, 1.2, 0, 1, None], 'armR': [0, -1.2, 0, 1, None]}}
+DART = {'lay': [0, round(PI, 4)], 'bend': {'armL': [0, 0.12, 0, 1, None], 'armR': [0, -0.12, 0, 1, None]}}   # (pass 2) the arms trailing up along him (a stiff T read as a cross)
 st.shot('S13', 'livingRoom', setOpts=LR, actors=[
         act('mec', [0.05, 6.4, -2.88], 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**DART, 'face': {'lid': 0.35}}, toonDur=0.0),
-            k(0.0, to=[0.05, 2.5, -2.88], dur=HIT13, glide=True, ease='in', face='keep'),
-            k(HIT13, toon={**DART, 'sq': [1.18, 0.78, 1.18]}, toonDur=0.03, toonEase='out'),                                                          # the impact
-            k(round(HIT13 + 0.08, 3), toon={**DART, 'sq': [0.94, 1.08, 0.94], 'wave': {'legL': [0.1, 1.0, 0.0, 1], 'legR': [0.1, 1.0, 0.5, 1]}}, toonDur=0.05),   # quivering
-            k(round(HIT13 + 0.45, 3), toon={**DART, 'wave': {'legL': [0.0, 1.0, 2.0, 1], 'legR': [0.0, 1.0, 2.5, 1]}}, toonDur=0.3),
-            k(round(HIT13 + 0.75, 3), toon={**DART, 'bend': {**DART['bend'], 'legL': [0.0, 0.5, 0, 1, None], 'legR': [0.0, -0.5, 0, 1, None], 'shinL': [0.9, 0, 0, 1, None], 'shinR': [0.9, 0, 0, 1, None]}}, toonDur=0.2, toonEase='in')])],   # they flop
+            k(0.0, to=[0.05, 2.28, -2.88], dur=HIT13, glide=True, ease='in', face='keep'),   # (pass 2) deeper: the head into the cushion to the ears
+            k(HIT13, toon={**DART, 'sq': [1.36, 0.62, 1.36]}, toonDur=0.025, toonEase='out'),                                                          # the impact: an accordion...
+            k(round(HIT13 + 0.08, 3), toon={**DART, 'sq': [0.9, 1.14, 0.9], 'wave': {'legL': [0.12, 1.0, 0.0, 1], 'legR': [0.12, 1.0, 0.5, 1]}}, toonDur=0.05, toonEase='outBack'),   # ...re-inflated past straight, quivering
+            k(round(HIT13 + 0.25, 3), toon={**DART, 'wave': {'legL': [0.06, 1.0, 1.0, 1], 'legR': [0.06, 1.0, 1.5, 1]}}, toonDur=0.12),
+            k(round(HIT13 + 0.4, 3), toon={**DART, 'bend': {**DART['bend'], 'legL': [0.0, 0.85, 0, 1, None], 'legR': [0.0, 0.35, 0, 1, None], 'shinL': [0.6, 0, 0, 1, None], 'shinR': [0.5, 0, 0, 1, None]}}, toonDur=0.15, toonEase='in'),   # the legs topple to one side...
+            k(round(HIT13 + 0.55, 3), toon={**DART, 'bend': {**DART['bend'], 'legL': [0.0, 0.7, 0, 1, None], 'legR': [0.0, 0.22, 0, 1, None], 'shinL': [0.7, 0, 0, 1, None], 'shinR': [0.6, 0, 0, 1, None]}}, toonDur=0.08, toonEase='out'),   # ...bounce...
+            k(round(HIT13 + 0.66, 3), toon={**DART, 'bend': {**DART['bend'], 'legL': [0.0, 0.8, 0, 1, None], 'legR': [0.0, 0.3, 0, 1, None], 'shinL': [0.65, 0, 0, 1, None], 'shinR': [0.55, 0, 0, 1, None]}}, toonDur=0.1)])],   # ...and settle
         props=[P('dust13', 'dustPuff', pos=[0.05, 0.55, -2.6], scale=0.8, opts={'once': True, 'startAt': HIT13, 'period': 0.6, 'color': '#F2EAD8'}, keys=[k(0.0, visible=False), k(HIT13, visible=True)])],
-        tethers=[STRAND(FOOT(), PT([0.3, 9.0, -2.6]), sag=0.0, rad=0.026, taper=0.2, until=round(HIT13 + 0.1, 3))],
+        tethers=[STRAND(FOOT(), PT([0.3, 9.0, -2.6]), sag=[[0.0, 0.0], [round(HIT13 + 0.05, 3), 0.0], [round(HIT13 + 0.3, 3), 0.12]], rad=0.03, taper=0.2)],   # (pass 2) the strand stays, going slack after the landing (it vanished)
         fx=[{'type': 'shake', 'at': HIT13, 'dur': 0.16, 'amount': 0.012}],
         cams=[FC(0.0, [0.45, 1.45, 1.0], [[0.05, 2.45, -2.88], [-1.25, 0.4, -2.75], [1.25, 0.4, -2.75], [0.05, 3.5, -2.88]], top=0.08, bottom=0.74)])
 st.cue('whoosh', 'S13', 0.0, 0.35, 0.4, 600, 2400); st.cue('thud', 'S13', HIT13, 0.5)
@@ -292,15 +300,16 @@ st.cue('whoosh', 'S13', 0.0, 0.35, 0.4, 600, 2400); st.cue('thud', 'S13', HIT13,
 #     window; a last jerk of the foot (the children again); he does not even look; a slow blink
 D14 = st.dur('S14'); JERK = round(D14 - 1.05, 3)
 LAP14 = {'reach': {'L': [-0.12, 0.72, -2.25, 1, 0.08], 'R': [0.12, 0.72, -2.25, 1, 0.08]}, 'hands': {'L': 'flat', 'R': 'flat'}}
-COIL = [[0.4, 0.02, -1.6], [-0.35, 0.02, -1.0], [0.6, 0.02, -0.7], [1.6, 0.02, -1.4], [2.6, 0.02, -1.0], [3.4, 0.9, -3.3]]
+COIL = [[0.35, 0.03, -1.7], [-0.35, 0.03, -1.15], [0.1, 0.03, -0.55], [0.95, 0.03, -0.75], [1.5, 0.03, -1.45], [2.4, 0.03, -1.05], [3.1, 0.3, -2.4]]   # (pass 2) soft loops on the floor to the window
 st.shot('S14', 'livingRoom', setOpts=LR, actors=[
         act('mec', SEAT, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[0.0, 0.75, -2.2]), k(0.0, toon=LAP14, toonDur=0.0),
             *[k(round(0.2 + 0.11 * i, 3), toon={**LAP14, 'reach': {'L': [r(-0.12 + 0.02 * (i % 2)), r(0.72 + 0.012 * (i % 2)), -2.25, 1, 0.08], 'R': [r(0.12 - 0.02 * ((i + 1) % 2)), r(0.72 + 0.012 * ((i + 1) % 2)), -2.25, 1, 0.08]}}, toonDur=0.06) for i in range(int((JERK - 0.3) / 0.11))],   # typing
-            k(JERK, toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 1.0]}}, toonDur=0.05, toonEase='out'), k(round(JERK + 0.12, 3), toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 0.0]}}, toonDur=0.12, toonEase='in'),   # the jerk of the foot
-            k(round(D14 - 0.72, 3), look='camera'), k(round(D14 - 0.55, 3), toon={**LAP14, 'face': {'lid': 1}}, toonDur=0.14), k(round(D14 - 0.33, 3), toon=LAP14, toonDur=0.16)])],   # a slow blink at us
-        props=[P('lap14', 'laptop', pos=[0.0, 0.6, -2.22], ry=180, scale=1.6, opts={'text': 'VISIO'})],
-        tethers=[STRAND(FOOT(), PT(COIL[0]), sag=0.0, rad=0.024, taper=0.0), *[STRAND(PT(COIL[i]), PT(COIL[i + 1]), sag=0.0, rad=0.024, taper=0.0) for i in range(len(COIL) - 1)]],
-        cams=[FC(0.0, [0.5, 1.1, 0.2], [[SEAT[0], 1.9, SEAT[2]], [0.4, 0.0, -1.6], [-0.35, 0.0, -1.3], [r(SEAT[0] - 0.55), 1.0, SEAT[2]], [r(SEAT[0] + 0.55), 1.0, SEAT[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, -0.08))])   # (s3) closer: him, the laptop, the first loops of strand
+            k(round(JERK - 0.6, 3), toon={**LAP14, 'sq': [1.0, 1.015, 1.0], 'face': {'lid': 1.0}}, toonDur=0.05), k(round(JERK - 0.48, 3), toon=LAP14, toonDur=0.07),   # (pass 2) an ordinary blink, a breath
+            k(JERK, toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 1.0]}, 'sq': [1.03, 0.97, 1.03], 'lay': [0.05, 0]}, toonDur=0.05, toonEase='out'), k(round(JERK + 0.12, 3), toon={**LAP14, 'plant': {'L': [0.35, 0.95, -1.75, 0.0]}}, toonDur=0.12, toonEase='in'),   # the jerk of the foot, his hips jostled, the face unmoved
+            k(round(JERK + 0.55, 3), look='camera'), k(round(D14 - 0.55, 3), toon={**LAP14, 'face': {'lid': 1}}, toonDur=0.14), k(round(D14 - 0.33, 3), toon=LAP14, toonDur=0.16)])],   # a slow blink at us
+        props=[P('lap14', 'laptop', pos=[0.0, 0.6, -2.22], ry=180, scale=1.6, opts={'text': 'VISIO'}, keys=[k(JERK, to=[0.0, 0.66, -2.2], dur=0.05, ease='out'), k(round(JERK + 0.07, 3), to=[0.0, 0.6, -2.22], dur=0.1, ease='in')])],   # (pass 2) the laptop jumps with the jerk
+        tethers=[STRAND(FOOT(), PT(COIL[-1]), sag=0.0, rad=0.026, taper=0.0, via=COIL[:-1], ripple=[[JERK, 0.12, 2.2]])],   # (pass 2) one cord in soft loops, a ripple running down it on the jerk (three straight segments read as a pipe)
+        cams=[FC(0.0, [0.5, 1.45, 0.4], [[SEAT[0], 1.9, SEAT[2]], [0.35, 0.0, -1.7], [-0.35, 0.0, -1.15], [r(SEAT[0] - 0.55), 1.0, SEAT[2]], [r(SEAT[0] + 0.55), 1.0, SEAT[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, -0.08))])   # (pass 2) a little higher: the fingers on the keys, the loops
 st.cue('sfx:click', 'S14', 0.2, 0.25); st.cue('sfx:boing', 'S14', JERK, 0.25)
 
 # (cycle 13) the key poses, measured in the engine by render3 --probe
@@ -314,7 +323,8 @@ st.write("La gomme à mâcher", rig='toon', fingers=True, cloth=True, idleShift=
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'shoes': True, 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'dame': {'preset': 'madame', 'seed': 511, 'suit': '#7A4E8C', 'build': {'width': 0.9, 'headWidth': 1.25}},
     'ouvrier': {'preset': 'worker', 'seed': 512, 'build': {'width': 0.95, 'headWidth': 1.2}},
-    'enfant1': {'preset': 'gamin', 'seed': 513},
-    'enfant2': {'preset': 'gamin', 'seed': 514},
-    'enfant3': {'preset': 'gamin', 'seed': 515},
+    # (pass 2) children who read as children: shorter, bigger heads, bright clothes (in teal tracksuits, all one height, they read as three businessmen)
+    'enfant1': {'preset': 'gamin', 'seed': 513, 'suit': '#E8452C', 'pants': '#2F4F8C', 'build': {'height': 0.52, 'width': 0.8, 'headScale': 1.5}},
+    'enfant2': {'preset': 'gamin', 'seed': 514, 'suit': '#F2C80F', 'pants': '#3A7D44', 'build': {'height': 0.56, 'width': 0.8, 'headScale': 1.45}},
+    'enfant3': {'preset': 'gamin', 'seed': 515, 'suit': '#3FA34D', 'pants': '#C8202A', 'hat': 'beanie', 'hatColor': '#E8452C', 'build': {'height': 0.48, 'width': 0.8, 'headScale': 1.55}},
 })

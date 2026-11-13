@@ -848,7 +848,9 @@ export const NEWS_PROPS = {
     g.add(at(box(W, H, D, st, { pivot: 'bottom', outline: 0.03 }), 0, 0, 0), at(box(W + 0.4, 0.25, D + 0.6, '#D9CDB4', { pivot: 'bottom' }), 0, 0, 0.1), at(box(W * 0.5, 0.15, 0.6, '#D9CDB4', { pivot: 'bottom' }), 0, 0.25, D / 2 + 0.3));
     for (let i = 0; i < 6; i++) g.add(at(cyl(0.16, 0.18, H * 0.72, '#F6F1E3', 10, { pivot: 'bottom', outline: 0.01 }), -W * 0.36 + i * W * 0.144, 0.25, D / 2 + 0.25));
     g.add(at(box(W + 0.2, 0.35, D + 0.7, '#E2D8C4'), 0, H * 0.75, 0.15));
-    const ped = new THREE.Mesh(new THREE.CylinderGeometry(0.01, W * 0.62, H * 0.32, 3, 1), mat('#E2D8C4')); ped.rotation.y = PI / 2; ped.scale.set(1, 1, 0.12); ped.position.set(0, H * 0.75 + 0.18 + H * 0.16, D / 2 + 0.25); g.add(ped);
+    const ped = new THREE.Mesh(new THREE.CylinderGeometry(0.01, W * 0.62, H * 0.32, 3, 1), mat('#E2D8C4')); ped.rotation.y = PI / 2; ped.scale.set(1, 1, 0.12); ped.position.set(0, H * 0.75 + 0.18 + H * 0.16, D / 2 + 0.25);
+    if (o.gable === 'v2') { ped.rotation.y = 0; ped.scale.set(1, 1, 0.1); }   // (cycle 14) o.gable 'v2': the pediment in the plane of the facade (turned 90 degrees it stuck out toward the street like a fin)
+    g.add(ped);
     g.add(at(sign(o.text || 'MAIRIE', W * 0.55, 0.55, '#1C2E4A', '#F4F1E8'), 0, H * 0.75, D / 2 + 0.52));
     g.add(at(cyl(0.32, 0.32, 0.05, '#F4F1E8', 18), 0, H * 0.75 + 0.62, D / 2 + 0.3, PI / 2, 0, 0), at(box(0.03, 0.22, 0.01, '#1C252A'), 0, H * 0.75 + 0.69, D / 2 + 0.34), at(box(0.16, 0.03, 0.01, '#1C252A'), 0.06, H * 0.75 + 0.62, D / 2 + 0.34));
     g.add(rod([0, H, 0], [0, H + 2.2, 0], 0.035, '#8C949A'));

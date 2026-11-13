@@ -1643,3 +1643,37 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - **51 « La gomme à mâcher », revue 1 (direction artistique)** : 6,0. Le fil rose, dont dépend chaque gag, n'a qu'1 ou 2 px de large à la moitié
   de ses temps forts (et disparaît des mains au plan 10) ; visages petits ou détournés aux sommets des gags ; plan 9 sans sa cause (le fil et la
   fenêtre hors champ) ; plan 12 qui traverse les immeubles ; tour Eiffel en escabeau. Passe 2 à faire après le rapport d'animation.
+- **Outils du cycle 14 (suite)** : la sonde mesure maintenant l'orientation du visage (angle entre l'avant de la tête et l'objectif) et signale
+  un profil au-delà de 65° et une nuque au-delà de 110° (les revues de 51 avaient trouvé la nuque et un profil à deux sommets de gags que la
+  sonde comptait « vus à 100 % ») ; fils lisibles (`minPx`, `rim`, `via`, `ripple`) ; accessoire de dos (`faceBack`) ; tour Eiffel v2 ; vitres
+  transparentes et passagers visibles du téléphérique.
+- **51 « La gomme à mâcher », revue 1 (animation)** : 6,0 aussi. Les deux rapports disent la même chose : le gag répétitif est bien construit
+  (jambe collée, corde à sauter, jambe-manivelle, arrachement, vol, fléchette, dernière secousse), mais le héros n'a aucune vraie prise, son
+  visage est petit ou détourné aux sommets, la fléchette est molle et le vol s'ouvre sur du gris. Passe 2 écrite : téléphone tourné vers lui,
+  tête baissée dessus (la cause du pas) ; au claquement la jambe repart au-delà de l'autre, il chancelle, puis double prise en plan rapproché ;
+  la dame saute genoux levés, bras écartés ; le fil traverse les toits de plusieurs pâtés jusqu'à la tour (une seule rue ne disait pas « tout
+  Paris ») ; vraie traction sur le rouleau et plaque qui se balance ; enfants plus petits à grosses têtes et habits vifs ; jambe-manivelle sur le
+  côté contre le mur (sur le journal c'était bleu marine sur bleu marine) et poussée pour son regard ; téléphérique à vitres transparentes,
+  passagers aux yeux visibles, fil qui plonge sous la cabine ; plan 9 élargi (la chaussure, le fil jusqu'à la fenêtre, les bras pendus vers le
+  clavier) ; respiration gonflée et tenue avec poussée ; à l'arrachement, yeux sur tiges dix images pendant qu'il tire encore, puis soulevé à
+  l'horizontale, un temps suspendu, et parti ; vol au-dessus de tous les toits (la caméra démarrait dans un immeuble), étiré par la vitesse,
+  bras traînant derrière ; fléchette les bras le long du corps, accordéon à l'impact puis regonflage, tête enfoncée jusqu'aux oreilles, jambes
+  qui tremblent, basculent, rebondissent ; fil gardé après l'atterrissage ; fil au sol en boucles souples avec une onde à la secousse, un
+  clignement ordinaire, l'ordinateur qui saute avec lui, une tenue avant le regard.
+- **Décision prise sans question** : les enfants de 51 : les critiques demandaient l'accord de l'utilisateur pour des modèles d'enfants ; le
+  préréglage « gamin » existe déjà dans la série : je l'ai gardé en le rendant lisible (plus petit, tête plus grosse, habits vifs) plutôt que
+  de créer un modèle nouveau.
+- **Cycle 14 — analyse (cinq faiblesses tirées des revues de 49, 50 et 51)** :
+  1. Les visages aux sommets des gags sont trop petits ou détournés (51 : 9 à 15 % de la hauteur, une nuque et un profil aux deux temps forts ;
+     49 : la responsable de profil dans quatre réactions ; 50 : les deux hommes de profil au chèque). Réponse : la sonde mesure l'orientation du
+     visage ; règle : tricher le corps de 30 à 45° vers l'objectif dans chaque réaction, pousser en plan rapproché pour les prises.
+  2. Ce qui est fin disparaît sur un téléphone (51 : le fil à 1-2 px ; 50 : le tracé du sismographe, le « 1 m » de 3 px, le chèque de 7 px ;
+     49 : le tampon trop pâle). Réponse : `minPx` et `rim` sur les fils, versions géantes des textes (règle de hauteur, chèque géant), encre réglable.
+  3. Le héros n'a pas de vraie prise aux grands temps forts (51), les prises réservées sont les plus faibles (50), les réactions sont trop petites
+     (49). Réponse : une prise du héros par grand temps fort, dans un plan assez serré ; la prise combinée (cheveux, yeux, cri) sur la même image,
+     tenue huit images ; aux autres personnages une grimace plutôt que des yeux sur tiges.
+  4. Des erreurs de géométrie que les images fixes ne montrent pas (51 : la caméra qui démarre dans un immeuble ; 49 : la copie recto verso en
+     deux têtes ; 50 : les bras croisés du pompier devant son cri). Réponse : travellings au-dessus des toits, doubles plats sans balancement de
+     repos, gestes en V à côté de la tête.
+  5. Un gag répétitif qui ne varie que par le décor (50 : chaque saut identique). Réponse : un plan règle, puis une échelle d'escalade dans le corps
+     (plus haut, casse, portefeuille, aplati, suspendu).

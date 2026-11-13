@@ -113,12 +113,19 @@ export const BOOMERANG_PROPS = {
   // o.tag ('BOOMERANG') with a bright blip running round it; o.corridor (t): from then on two solid parallel lines are drawn along the loop in 0.5 s
   // (the corridor); o.label (a small plate on the console).
   radarScope(o) {
-    const W = o.w ?? 0.9, R = o.r ?? 0.3, g = grp(at(box(W, 0.95, 0.6, '#3A4048', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(W, 0.06, 0.66, '#2A2F35'), 0, 0.98, 0.02));
-    const scr = liveCanvas(2 * R, 2 * R, 512, { transparent: true }); scr.pl.position.set(0, 1.12, 0.12); scr.pl.rotation.x = -0.75; g.add(scr.pl);
-    g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.025, 6, 32), mat('#22262B')), 0, 1.12, 0.12, -0.75, 0, 0));
-    g.add(at(box(W * 0.9, 0.2, 0.25, '#30363D', { outline: 0.004 }), 0, 1.06, -0.12, -0.75, 0, 0));
-    for (let i = 0; i < 6; i++) g.add(at(box(0.04, 0.02, 0.04, ['#C8202A', '#F2C80F', '#2E8A4E'][i % 3]), -W / 2 + 0.12 + i * 0.13, 1.0, 0.27));
-    if (o.label) g.add(at(label(o.label, W * 0.5, 0.08, { bg: '#1B1B1E', fg: '#E8E8E8', wrap: false }), 0, 0.8, 0.305));
+    const W = o.w ?? 0.9, R = o.r ?? 0.3, g = grp(), scr = liveCanvas(2 * R, 2 * R, 512, { transparent: true });
+    if (o.wall) {   // (first look) o.wall: a big round screen on the wall facing +Z (pivot at its centre), in a dark square bezel: on a console the screen faced its operator, away from any camera that saw his face
+      g.add(at(box(2.3 * R, 2.3 * R, 0.06, '#2A2F35', { outline: 0.008 }), 0, 0, -0.03), scr.pl, at(new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.03, 6, 40), mat('#1B1E22')), 0, 0, 0.012));
+      scr.pl.position.z = 0.008;
+      if (o.label) g.add(at(label(o.label, R * 1.2, R * 0.16, { bg: '#1B1B1E', fg: '#E8E8E8', wrap: false }), 0, -1.27 * R, 0.01));
+    } else {
+      g.add(at(box(W, 0.95, 0.6, '#3A4048', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(W, 0.06, 0.66, '#2A2F35'), 0, 0.98, 0.02));
+      scr.pl.position.set(0, 1.12, 0.12); scr.pl.rotation.x = -0.75; g.add(scr.pl);
+      g.add(at(new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.025, 6, 32), mat('#22262B')), 0, 1.12, 0.12, -0.75, 0, 0));
+      g.add(at(box(W * 0.9, 0.2, 0.25, '#30363D', { outline: 0.004 }), 0, 1.06, -0.12, -0.75, 0, 0));
+      for (let i = 0; i < 6; i++) g.add(at(box(0.04, 0.02, 0.04, ['#C8202A', '#F2C80F', '#2E8A4E'][i % 3]), -W / 2 + 0.12 + i * 0.13, 1.0, 0.27));
+      if (o.label) g.add(at(label(o.label, W * 0.5, 0.08, { bg: '#1B1B1E', fg: '#E8E8E8', wrap: false }), 0, 0.8, 0.305));
+    }
     const route = th => [Math.cos(th) * 0.62 - 0.05, Math.sin(th) * 0.38 + 0.08 * Math.sin(2 * th)];   // a looping route in screen units (-1..1)
     g.userData.update = t => scr.redraw(Math.round(t * 30), (c, Wc, Hc) => { const cx = Wc / 2, cy = Hc / 2, r = Wc * 0.48; c.clearRect(0, 0, Wc, Hc);
       c.fillStyle = '#0C2A1A'; c.beginPath(); c.arc(cx, cy, r, 0, TAU); c.fill(); c.save(); c.beginPath(); c.arc(cx, cy, r, 0, TAU); c.clip();

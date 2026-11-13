@@ -83,3 +83,10 @@ npx --yes hyperframes@0.9.13 render -o renders/<story>.mp4 --fps 30
 - Contact sheet of one frame per shot: every subject in frame, no camera inside a wall, text readable.
 - `scripts/motion.py` against a reference in the same style (or the previous version): shots with near-zero residual motion freeze.
 - Send the MP4, then commit the sources.
+
+## Cycle 14
+- Si seule l'étape du projet ou du rendu HyperFrames échoue (la couche 3D finie est dans `out/story_X_3d.mp4`), la relancer seule :
+  `bash $SP/s7/hf_only.sh X NN "Titre"` (projet, mix, rendu ; écrit « X hf_only DONE … » dans le journal de file).
+- `mix.py` trie les bornes de la bande d'un `whoosh` (une bande écrite de l'aigu vers le grave faisait échouer tout le mix).
+- Après chaque correctif d'un script d'histoire : `python3 $SP/tools/lint_comments.py scripts-fr/story_X.py` (un commentaire collé au milieu
+  d'une ligne avale la suite de la ligne sans erreur de syntaxe).
