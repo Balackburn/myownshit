@@ -988,3 +988,23 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   extrusion plate face à la rue s'éclaire d'un seul ton.
 - (cycle 15) Un flash d'appareil photo en disque translucide se lit comme une bulle de savon : un éclair blanc plein cadre (`fx: flash`).
 - (cycle 15) Un objet tenu ne doit couvrir ni la main ni le visage : le tenir par un coin (l'accessoire décalé de la main), à côté du visage.
+- (cycle 16) Le haut du ciel noir ou brun en extérieur venait d'objectifs très larges (69°) : passé 56°, le haut du cadre atteint le haut sombre
+  du dôme. Limiter `lenses` à 56 en extérieur (`range(30, 57)`) et reculer la caméra plutôt qu'ouvrir.
+- (cycle 16) `fitBack` recule la caméra jusqu'à ce que tout tienne : elle peut passer derrière un décor (au plan 7 de 53, derrière un montant noir de
+  la vitre du guichet : une barre sombre au milieu de l'image). Lui donner la pièce où rester (`inside=(x0, x1, y0, y1, z0, z1)`) : au bord, il ouvre
+  l'objectif au lieu de reculer.
+- (cycle 16) Un point très lointain dans les points de cadrage (là où file un boomerang, à 16 m) pousse le personnage au bord du cadre, coupé : garder
+  la trajectoire de l'objet dans le cadre (la ramener plus près, plus bas) et ne cadrer que des points proches.
+- (cycle 16) Un insert sur une main filmé du côté du personnage filme le dos de sa veste (deux tiers du cadre bleu marine) : passer de l'autre côté de
+  la main, et déclarer le gag sur la main (`st.gag(..., joint='handR')`) pour que la sonde mesure ce qui la cache.
+- (cycle 16) Un accessoire tenu en main part le long de l'avant-bras par défaut (une cuillère invisible, cachée par le bras) : le retourner hors du
+  poing (`'rot': [3.1416, 0, 0]` sur `on`) et le colorer sombre sur un mur clair.
+- (cycle 16) Un accessoire sur trépied tourné d'un quart de tour pour pendre au plafond : ses pieds deviennent trois barres noires et son corps part à
+  1,5 m de là où on l'a mis ; utiliser sa variante sans pieds (`tvCamera` `legs: false`).
+- (cycle 16) Le héros qui fait face à un tapis, un comptoir, une vitrine tourne le dos à une caméra placée de notre côté (l'audit : « turned 170 deg
+  away ») : mettre l'action derrière l'objet, face à nous, ou filmer par-dessus l'épaule de celui d'en face.
+- (cycle 16) Dans la cabine d'une caméra de plateau qu'on « devient » (le plan suivant est sa vue), cacher l'accessoire à la coupe : il bouchait la
+  moitié du plan en grue.
+- (cycle 16) Un visage tourné vers le plafond, filmé de loin, fait 70 px et se lit comme une boîte vide : plus près et plus haut, cadré aux genoux.
+- (cycle 16) Une passante ou un enfant qui traverse doit marcher au-delà de la coupe (la durée du déplacement plus longue que le plan) : arrivé avant
+  la fin, il piétine sur place.
