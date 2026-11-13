@@ -100,8 +100,8 @@ st.shot('S05', 'parisStreet', actors=[
         act('mec', [r(X5 + 1.1), 0, 0.0], 90, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=BACK, toonDur=0.0),
             k(0.0, to=[r(X5 - 0.9), 0, 0.0], dur=round(D5 + 0.03, 3), clip='walk', then='walk', ease='linear', face='keep', speed=-1.0),
             k(0.45, toon=NECK(PI, bx=0.22), toonDur=0.08), k(0.6, toon=BACK, toonDur=0.1)]),                                            # a nod to her
-        act('dame', [r(X5 - 1.6), 0, -0.55], 90, 'stand', 'happy', keys=[k(0.0, look={'actor': 'mec', 'dy': -0.1}),
-            k(0.0, to=[r(X5 + 1.9), 0, -0.55], dur=round(D5 + 0.03, 3), clip='walk', then='walk', ease='linear', face='move'),
+        act('dame', [r(X5 - 1.6), 0, -1.15], 90, 'stand', 'happy', keys=[k(0.0, look={'actor': 'mec', 'dy': -0.1}),
+            k(0.0, to=[r(X5 + 1.9), 0, -1.15], dur=round(D5 + 0.03, 3), clip='walk', then='walk', ease='linear', face='move'),   # (first look) further back: crossing behind him she was hidden at her double take
             k(0.4, toon={'face': {'mouth': 'smile'}}, toonDur=0.1),
             k(0.85, look={'actor': 'mec', 'dy': -0.1, 'cheat': 0.35}), k(0.95, toon={'face': {'jaw': 0.85, 'brow': 1.0, 'eye': 0.3}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.05, toonEase='out')])],   # her double take: the jaw drops
         props=[],
@@ -155,7 +155,8 @@ st.shot('S09', 'parisStreet', actors=[
             k(0.45, look={'actor': 'mec', 'cheat': 0.35}), k(0.55, toon={'face': {'jaw': 0.9, 'brow': 1.0, 'eye': 0.3}}, toonDur=0.05, toonEase='out')])],
         props=[P('car9', 'car', pos=[6.5, 0, Z9], opts={'color': '#C9473A'}, keys=[k(0.0, to=[3.0, 0, Z9], dur=round(D9 + 0.05, 3), ease='linear')]),
                P('car9b', 'car', pos=[-6.0, 0, 6.0], opts={'color': '#3E7CC9'}, keys=[k(0.0, to=[1.0, 0, 6.0], dur=round(D9 + 0.05, 3), ease='linear')])],
-        cams=[cam(0.0, [-3.2, 2.3, 1.2], [-3.0, 2.25, 1.2], [4.6, 1.35, 2.75], [1.9, 1.3, 2.75], lens=34)])   # (first look) back and up: the rear window and his face in it (up close the car's tail filled the frame)
+        cams=[cam(0.0, [2.9, 1.75, 2.75], [-0.6, 1.75, 2.75], [6.55, 1.3, 2.6], [3.05, 1.3, 2.6], lens=30)])
+        # (first look) tracking with the car, 3.6 m behind it: his face in the rear window holds still while the street streams by (static, the face was 3 % of the frame)
 st.cue('sfx:honkLong', 'S09', 0.6, 0.25); st.cue('sfx:beep', 'S09', 0.0, 0.15)
 
 # 10: yesterday an osteopath put his head straight. His room, a spine on the wall: he sits on a stool, his back to us... the osteopath stands at his
@@ -169,7 +170,7 @@ st.shot('S10', 'office', setOpts={'door': False}, actors=[
         act('osteo', OST, 0, 'stand', 'determined', keys=[k(0.0, look=[0.0, 2.0, ME10[2]]), k(0.25, toon=HEAD(0), toonDur=0.25, toonEase='out'),
             k(0.75, toon={**HEAD(0), 'bend': {'spine': [0, -0.25, 0, 1, None]}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.4, toonEase='inOut')])],
         props=[P('bench10', 'bench', pos=[0.0, 0, -1.6], ry=90), P('poster10', 'spinePoster', pos=[-1.2, 1.75, -3.47], opts={'w': 0.7, 'h': 1.05})],
-        cams=[FC(0.0, [1.75, 1.65, -3.05], [[0.0, 2.55, -1.95], [0.0, 0.3, -1.6], [-0.55, 1.8, -2.3], [0.55, 1.8, -1.6]], top=0.12, bottom=0.74, drift=(-0.1, 0.0, 0.0))])
+        cams=[FC(0.0, [1.35, 1.7, -3.0], [[0.0, 2.55, -1.95], [0.0, 0.3, -1.6], [-0.55, 1.8, -2.3], [0.55, 1.8, -1.6]], top=0.12, bottom=0.74, drift=(-0.1, 0.0, 0.0))])
         # (first look) from behind the osteopath, three-quarters on the face on his back (side on, both faces were profiles)
 
 # 11: straight. Close: CRAC! the head snaps round to the front: his face to us at last, a blink, the hint of a smile; the osteopath beams
