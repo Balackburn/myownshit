@@ -1763,3 +1763,20 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     au plan 13 le visage tourné vers le plafond faisait 70 px (lu comme une boîte vide) : plus près, plus haut ; au plan 14 la caméra de plateau
     bouchait la moitié de la vue en grue : elle disparaît dans sa propre vue (c'est nous).
   - Décision : pas de nouvelle revue sur les images de contrôle ; les revues 2 se feront sur les brouillons 2 complets.
+- **Cycle 16 — analyse (revues et images de contrôle de 52 et 53)** : cinq faiblesses : (1) des caméras reculées par l'ajustement qui passent
+  derrière un décor (un montant noir de vitre au milieu de l'image) ; (2) des objets proches qui bouchent l'objectif sans toucher la tête (le dos du
+  héros dans un insert, une caméra de plateau, un plafond) : aucune mesure ne les voyait ; (3) des accessoires tenus le long de l'avant-bras, donc
+  invisibles ; (4) des objectifs trop larges en extérieur (le haut sombre du ciel) ; (5) des héros de dos quand ils font face à un comptoir ou un
+  tapis. Outils : la sonde (`render3 --probe`) mesure maintenant les « bloqueurs proches » (une grille de 9 x 16 rayons sur tout le cadre ; ce qui
+  occupe plus de 20 % du cadre devant le sujet est signalé), `st.gag(..., joint='handR')` pour un gag joué sur une main, `tvCamera` sans pieds.
+- **54 « La valise » (cycle 16), décisions sans question** : type de la série tenu (accroche : il a perdu sa valise à l'aéroport ; l'institution
+  qui prend tout au pied de la lettre : la compagnie donne la carte de fidélité… à la valise ; escalade : elle en première, lui en soute ;
+  retournement : elle revient avec une petite valise ; chute sèche : il paie la pension alimentaire). Aucun nom de compagnie réelle (« la
+  compagnie ») ; les étiquettes portent des noms de villes. Une réplique ajoutée (« Quarante pays. Trois cents vols. ») pour laisser au tour du
+  monde le temps de ses gags (17,2 s → 19,5 s). Le comptoir d'enregistrement est un bureau dans le hall du terminal (le décor de bureau de poste
+  mettait ses vitres entre l'hôtesse et lui). Le héros attend derrière le tapis, face à nous (l'audit le trouvait de dos dans sept plans), et le
+  comptoir est filmé par-dessus l'épaule de l'hôtesse. Gags du rig : la chaussette seule sur le tapis, la tête passée de côté dans les lanières et
+  la gifle de la lanière au retour, le bras qui s'étire vers la carte qui passe au-dessus de sa main, l'aplati entre deux valises dans la soute,
+  le saut de joie suspendu, le double take et la mâchoire qui tombe, la petite valise qui croque sa main et le bras-élastique.
+- **Procédé** : les tâches de fond s'arrêtent à 30 min (2 h au plus) ; un brouillon coupé à 120 images sur 670 l'a montré. Les rendus longs partent
+  maintenant détachés (`setsid nohup`, une chaîne par histoire) avec un guetteur qui signale chaque étape terminée.
