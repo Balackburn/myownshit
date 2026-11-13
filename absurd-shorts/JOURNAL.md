@@ -1937,3 +1937,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   débouchoir entre deux visages, passagère qui tient le manche au-dessus de sa tête avec un journal, quai central : le train part derrière lui
   et découvre le quai d'en face, lent travelling avant, mains sur les genoux ; anneau rouge plus petit et plus haut ; double prise de la guichetière
   et plans rapprochés sur les réactions (fin de S02, S04).
+- Histoire 52 « Le boomerang » : génération complète livrée après la correction du voile (1080 × 1920, 22,3 s, −16 LUFS, contrôles HyperFrames
+  sans erreur). Intermédiaires supprimés après la livraison (segments, calque 3D en double, images des critiques des revues closes).
