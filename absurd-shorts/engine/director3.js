@@ -1156,6 +1156,12 @@ function placeCamera(t) {
     const q = camPoseAt(S.cams[i - 1], c.t0), w = ease.inOut(clamp01((t - c.t0) / (c.glide ?? 0.8)));
     p = { pos: q.pos.clone().lerp(p.pos, w), look: q.look.clone().lerp(p.look, w), fov: lerp(q.fov, p.fov, w) };
   }
+  // (cycle 19) c.ride {prop, k (1)}: the camera turns with a prop that spins about its vertical axis and says by how much (userData.angleAt(t), a
+  // revolving door): its position and its aim go round the prop's axis by k times the angle the prop has turned since the key began. A man turning
+  // with the door stays in the frame and the street whirls behind him (seen from outside, the wings crossed his face four times a turn)
+  if (c.ride && S.propById[c.ride.prop]?.obj.userData.angleAt) { const Pr = S.propById[c.ride.prop], fa = Pr.obj.userData.angleAt, ax = Pr.obj.getWorldPosition(V());
+    const a = (fa(t) - fa(c.t0)) * (c.ride.k ?? 1), ca = Math.cos(a), sa = Math.sin(a), turn = v => V(ax.x + (v.x - ax.x) * ca + (v.z - ax.z) * sa, v.y, ax.z - (v.x - ax.x) * sa + (v.z - ax.z) * ca);
+    p = { pos: turn(p.pos), look: turn(p.look), fov: p.fov }; }
   const sc_ = S.sc;
   if (sc_.camDolly || sc_.camTruck || sc_.camPed || sc_.camPan || sc_.camTilt) {   // per-scene framing trims (A/B sweeps): dolly factor, truck/ped (m), pan/tilt (deg)
     const pos = p.pos.clone(), look = p.look.clone(), fwd = look.clone().sub(pos), right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();

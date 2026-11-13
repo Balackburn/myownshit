@@ -47,12 +47,12 @@ st.shot('S01', 'livingRoom', setOpts={'carpet': False, 'picture': False, 'tv': F
             k(0.0, to=[0.0, 0, -0.3], dur=HIT1, clip='walk', then='stand', ease='linear', face='keep'),
             k(HIT1, toon={'scl': {'head': [1.26, 0.7, 1.26]}, 'bend': {'neck': [0.25, 0, 0, 0.35, None]}, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.033, toonEase='out'),   # BONG: the head into his shoulders...
             k(round(HIT1 + 0.05, 3), toon={'scl': {'head': [1.22, 0.74, 1.22]}, 'bend': {'neck': [0.25, 0, 0, 0.38, None]}, 'sq': [1.1, 0.88, 1.1], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.03),
-            k(round(HIT1 + 0.09, 3), toon={'scl': {'head': [1.27, 0.69, 1.27]}, 'bend': {'neck': [0.25, 0, 0, 0.34, None]}, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.03),   # (pass 2) the squash held four frames, shivering
-            k(round(HIT1 + 0.1, 3), to=[0.0, 0, -0.55], dur=0.2, ease='out', face='keep'),                                            # ...he staggers back a little, still under it...
-            k(round(HIT1 + 0.12, 3), toon={'scl': {'head': [0.92, 1.12, 0.92]}, 'bend': {'neck': [-0.08, 0, 0, 1.14, None]}, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.07, toonEase='outBack'),   # ...the head pops back up...
-            k(round(HIT1 + 0.22, 3), toon={'bend': {'neck': [0.0, 0, 0, 1.0, None]}, 'lay': [0.05, 0.04], 'face': {'lid': 0.05, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.08)])],   # ...swaying, his eyes wide and crossed, stars round them, held to the cut
+            k(round(HIT1 + 0.08, 3), toon={'scl': {'head': [1.27, 0.69, 1.27]}, 'bend': {'neck': [0.25, 0, 0, 0.34, None]}, 'sq': [1.12, 0.86, 1.12], 'face': {'lid': 0.2, 'cross': 0.9, 'brow': 0.9, 'mouth': 'O', 'stars': 1.0}}, toonDur=0.02),   # (pass 2) the squash held, shivering
+            k(round(HIT1 + 0.07, 3), to=[0.0, 0, 0.65], dur=0.22, ease='out', face='keep'),                                            # ...squashed short, he staggers on under it toward us (stills 4: backing off, the beam hid his face)...
+            k(round(HIT1 + 0.17, 3), toon={'scl': {'head': [0.92, 1.12, 0.92]}, 'bend': {'neck': [-0.08, 0, 0, 1.14, None]}, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.06, toonEase='outBack'),   # ...past it, the head pops back up...
+            k(round(HIT1 + 0.23, 3), toon={'bend': {'neck': [0.0, 0, 0, 0.92, None]}, 'lay': [0.05, 0.04], 'face': {'lid': 0.05, 'cross': 1.0, 'stars': 1.0}}, toonDur=0.08)])],   # ...swaying, his eyes wide and crossed, stars round them, held to the cut
         props=[P('beam1', 'lowBeam', pos=[0.0, 0, 0.0], opts={'h': BEAMH, 'w': 1.3, 'shake': [[HIT1, 0.05]], 'wall': [1.8, 2.7, '#E9DCC6']}), BURST('bong1', [0.75, 2.05, 0.35], HIT1, 'BONG !', 0.46)],   # (pass 2) the doorway in a wall   # (stills v1) the burst beside his head, below the beam (at the top edge it was cut)
-        cams=[FC(0.0, [1.45, 1.55, 2.2], [[0.0, 2.25, -0.3], [0.0, 0.0, -0.3], [-0.8, 2.1, 0.0], [0.8, 2.1, 0.0], [0.0, 0.0, -1.5]], top=0.1, bottom=0.78, drift=(0.0, 0.0, -0.1))])
+        cams=[FC(0.0, [1.45, 1.1, 2.2], [[0.0, 2.25, -0.3], [0.0, 0.0, -0.3], [-0.8, 2.1, 0.0], [0.8, 2.1, 0.0], [0.0, 0.0, -1.5]], top=0.1, bottom=0.78, drift=(0.0, 0.0, -0.1))])   # (pass 3) lower: under the beam's edge, his face after the blow
         # (pass 2) 33 degrees off his axis at chest height: the forehead meets the front of the beam in view (from the front, low, the beam hid the blow and the take)
 st.cue('sfx:bonk', 'S01', HIT1, 0.5); st.cue('sfx:boing', 'S01', round(HIT1 + 0.1, 3), 0.25)
 
@@ -94,42 +94,45 @@ st.cue('sfx:static', 'S03', 0.1, 0.1)
 #    lays a yellow tape measure down its front from the top to his skull; he waits under it, his neck sunk, deadpan
 D4 = st.dur('S04')
 ME4 = [0.0, 0, -1.0]
-# (pass 2) the ladder against the ball's front right at 45 degrees (side on to the lens it read as one pole), the doctor on its ninth rung, three
-# quarters to us (his trousers ended in mid-air beside it)
-LADB = [1.15, 0, -0.05]; LADL = 0.3; RUNG = 2.4
-DOC = [r(LADB[0] - RUNG * math.sin(LADL) * 0.707 + 0.11), r(RUNG * math.cos(LADL)), r(LADB[2] - RUNG * math.sin(LADL) * 0.707 + 0.11)]
-DOCRY = -60
-NOSE = [r(DOC[0] - 0.87 * 0.13), r(DOC[1] + 1.95), r(DOC[2] + 0.5 * 0.13)]
-HOOKTO = [r((NOSE[0] - ME4[0]) / BALL), r((NOSE[1] - BALLC) / BALL), r((NOSE[2] - ME4[2] - 0.02) / BALL)]   # his nose in the ball's own frame
+# (pass 3) the doctor kneels ON the top of the ball, bent over its front to the reading: up a ladder at its side his body was inside the ball (and the
+# ladder's top went into it). The ladder now rests on the ball's front right at 17 degrees, where the ball's side leans as much: how he got up there
+BSQ = (1.0, 1.0)                                                         # (measured) his squash does not reach the ball on his head
+BCA = [0.0, 3.53, -0.98]; BTA = 4.93                                     # the ball's centre and top as he stands under it (debugJoints: his head joint at 1.64)
+LADB = [1.8, 0, 0.82]; LADL = 0.3
+DOC = [0.0, r(BTA - 0.01), -1.12]
+TAG = 0.55                                                               # the reading this far down the front, in radians from the top: clear of his shoes
+NOSE = [0.0, r(BTA + 1.2), -0.55]                                        # his nose as he peers down at it
+HOOKTO = [r((NOSE[0] - BCA[0]) / (BALL * BSQ[0])), r((NOSE[1] - BCA[1]) / (BALL * BSQ[1])), r((NOSE[2] - BCA[2]) / (BALL * BSQ[0]))]   # his nose in the ball's own frame
 TAPEU = [[0.0, 0.0], [0.15, 0.0], [0.95, 1.0]]
-REACHTOP = {'reach': {'R': [0.12, r(BALLTOP + 0.02), -0.85, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.1}
+HOLDTOP = {'reach': {'R': [-0.06, r(BTA + 0.06), -0.9, 1, 0.05]}, 'hands': {'R': 'grip'}}   # the end of the tape held on the top of the ball
+PEER = lambda extra=None: {**HOLDTOP, **(extra or {})}
+LOOKTAG = [0.0, r(BTA - 0.2), -0.2]
 st.shot('S04', 'pavillon', actors=[
         act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': DEADPAN}), toonDur=0.0),
             k(0.7, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': {'lid': 1.0}}), toonDur=0.05), k(0.8, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': {'lid': 0.45, 'gy': -0.5}}), toonDur=0.1)]),
-        act('medecin', DOC, DOCRY, 'stand', 'determined', keys=[k(0.0, look={'point': [0.0, BALLTOP, -1.0], 'cheat': 0.3}), k(0.0, toon={**REACHTOP, 'face': {'tongue': 0.5, 'tongueLen': 0.07}}, toonDur=0.0),
-            k(0.5, toon={**REACHTOP, 'bend': {'spine': [-0.1, 0.12, 0, 1, None]}, 'face': {'tongue': 0.6, 'tongueLen': 0.08, 'brow': -0.3}}, toonDur=0.3, toonEase='inOut'),
-            k(0.9, look={'point': [0.0, 3.4, -0.5], 'cheat': 0.3})])],
-        props=[P('b4', 'skullBump', on=HEAD(), opts={'r': BALL, 'throb': [0.03, 1.4], 'red': 0.08, 'tape': {'phi': round(PI / 2, 4), 'u': TAPEU, 'readout': ['3,00 M', 0.95, 9.0], 'tagW': 0.55}}),
-               P('lad4', 'ladder', pos=LADB, ry=45, opts={'h': 3.6, 'lean': LADL})],
-        cams=[FC(0.0, [0.9, 2.4, 6.0], [[0.0, r(BALLTOP + 0.1), ME4[2]], [0.0, 0.0, ME4[2]], [-1.45, BALLC, ME4[2]], [r(DOC[0] + 0.35), r(DOC[1] + 2.2), DOC[2]], [r(LADB[0] + 0.3), 0.0, LADB[2]]], top=0.06, bottom=0.8, drift=(0.0, 0.0, -0.15))])
+        act('medecin', DOC, 0, 'peerIn', 'determined', keys=[k(0.0, look=LOOKTAG), k(0.0, toon=PEER({'face': {'tongue': 0.5, 'tongueLen': 0.07}}), toonDur=0.0),
+            k(0.5, toon=PEER({'bend': {'spine': [0.15, 0, 0, 1, None]}, 'face': {'tongue': 0.6, 'tongueLen': 0.08, 'brow': -0.3}}), toonDur=0.3, toonEase='inOut')])],   # bent further as the tape runs down, his tongue out
+        props=[P('b4', 'skullBump', on=HEAD(), opts={'r': BALL, 'throb': [0.03, 1.4], 'red': 0.08, 'tape': {'phi': round(PI / 2, 4), 'u': TAPEU, 'readout': ['3,00 M', 0.95, 9.0], 'tagW': 0.55, 'tagAt': TAG}}),
+               P('lad4', 'ladder', pos=LADB, ry=45, opts={'h': 4.1, 'lean': LADL})],
+        cams=[FC(0.0, [0.9, 2.4, 7.0], [[0.0, r(BTA + 1.6), DOC[2]], [0.0, 0.0, ME4[2]], [-1.55, BCA[1], ME4[2]], [1.55, BCA[1], ME4[2]], [r(LADB[0] + 0.3), 0.0, LADB[2]]], top=0.06, bottom=0.8, drift=(0.0, 0.0, -0.15))])
 st.cue('sfx:zip', 'S04', 0.2, 0.25)
 
-# 5: three metres. Close at the top: the reading 3,00 M by the doctor's face; he lets go: CLAC, the tape whips back up and its hook hits him on the
-#    nose, his head knocked back and squashed, his glasses askew; he rocks on the ladder
+# 5: three metres. Close at the top: the doctor on his knees on the ball, the reading 3,00 M under his nose; he lets it go: the tape whips back up,
+#    his eyes pop, CLAC, its hook on his nose, his head knocked back and squashed; he rocks on his knees on top of the ball
 D5 = st.dur('S05'); SN5 = 0.34; HITD = round(SN5 + 0.3, 3)   # (pass 2) the hook lands on his nose 0.3 s after he lets go (it flew off the top: no cause for the CLAC)
 st.shot('S05', 'pavillon', actors=[
-        act('medecin', DOC, DOCRY, 'stand', 'determined', keys=[k(0.0, look={'point': [0.0, r(BALLTOP - 0.3), -0.6], 'cheat': 0.5}), k(0.0, toon={**REACHTOP, 'face': {'brow': 0.6, 'mouth': 'smile'}}, toonDur=0.0),
-            k(round(SN5 - 0.08, 3), toon={**REACHTOP, 'face': {'brow': 0.7, 'mouth': 'smile', 'lid': 0.2}}, toonDur=0.05),
-            k(SN5, toon={'face': {'brow': 0.7, 'mouth': 'smile', 'lid': 0.2}}, toonDur=0.12), k(round(SN5 + 0.12, 3), look={'point': [0.0, BALLTOP, -0.9], 'cheat': 0.4}),   # he lets go, smiling, and watches it go...
-            k(HITD, toon={'reach': {'R': [0.3, r(BALLTOP + 0.4), -0.7, 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'neck': [-0.55, 0, 0, 1, None], 'spine': [-0.2, 0, 0, 1, None]}, 'scl': {'head': [1.2, 0.8, 1.2]},
-                         'lay': [0.0, -0.18], 'face': {'cross': 0.9, 'brow': 1.0, 'mouth': 'O', 'stars': 0.8}}, toonDur=0.033, toonEase='out'),   # CLAC: the hook on his nose...
-            *[k(round(HITD + 0.06 + 0.07 * i, 3), toon={'reach': {'R': [0.3, r(BALLTOP + 0.2), -0.7, 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'neck': [round(-0.3 * 0.6 ** i, 3), 0, 0, 1, None]},
-                         'lay': [0.0, round(0.16 * (0.6 ** i) * (1 if i % 2 == 0 else -1), 3)], 'face': {'cross': 0.6, 'brow': 0.8, 'mouth': 'wavy', 'stars': 0.6}}, toonDur=0.06) for i in range(4)]]),   # ...he rocks on the ladder
+        act('medecin', DOC, 0, 'peerIn', 'determined', keys=[k(0.0, look=LOOKTAG), k(0.0, toon=PEER({'face': {'brow': 0.6, 'mouth': 'smile'}}), toonDur=0.0),
+            k(round(SN5 - 0.08, 3), toon=PEER({'face': {'brow': 0.7, 'mouth': 'smile', 'lid': 0.2}}), toonDur=0.05),   # he reads it, pleased...
+            k(round(SN5 + 0.1, 3), toon=PEER({'face': {'brow': 1.0, 'mouth': 'O', 'lid': 0.0, 'pop': 0.5}}), toonDur=0.05, toonEase='out'),   # ...the tape whips up at him: his eyes pop...
+            k(HITD, toon={'reach': {'R': [-0.35, r(BTA + 1.75), -0.85, 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'neck': [-0.55, 0, 0, 1, None], 'spine': [-0.35, 0, 0, 1, None]}, 'scl': {'head': [1.2, 0.8, 1.2]},
+                         'lay': [0.0, -0.18], 'face': {'cross': 0.9, 'brow': 1.0, 'mouth': 'O', 'stars': 0.8}}, toonDur=0.033, toonEase='out'),   # ...CLAC: the hook on his nose, his head knocked back...
+            *[k(round(HITD + 0.06 + 0.07 * i, 3), toon={'reach': {'R': [-0.35, r(BTA + 1.55), -0.85, 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'neck': [round(-0.3 * 0.6 ** i, 3), 0, 0, 1, None], 'spine': [-0.2, 0, 0, 1, None]},
+                         'lay': [0.0, round(0.16 * (0.6 ** i) * (1 if i % 2 == 0 else -1), 3)], 'face': {'cross': 0.6, 'brow': 0.8, 'mouth': 'wavy', 'stars': 0.6}}, toonDur=0.06) for i in range(4)]]),   # ...he rocks on his knees on top of the ball
         act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': DEADPAN}), toonDur=0.0)])],
-        props=[P('b5', 'skullBump', on=HEAD(), opts={'r': BALL, 'throb': [0.03, 1.4], 'red': 0.08, 'tape': {'phi': round(PI / 2, 4), 'u': [[0.0, 1.0]], 'snap': SN5, 'readout': ['3,00 M', 0.0, 9.0], 'tagW': 0.55, 'hookTo': HOOKTO}}),
-               P('lad5', 'ladder', pos=LADB, ry=45, opts={'h': 3.6, 'lean': LADL}), BURST('clac5', [r(NOSE[0] + 0.45), r(NOSE[1] + 0.3), r(NOSE[2] + 0.25)], HITD, 'CLAC !', 0.42)],
-        cams=[FC(0.0, [1.25, r(BALLTOP - 0.35), 1.7], [[0.0, r(BALLTOP + 0.25), -1.0], [r(DOC[0] + 0.1), r(DOC[1] + 2.3), DOC[2]], [r(DOC[0] - 0.15), r(DOC[1] + 1.35), DOC[2]], [r(DOC[0] + 0.55), r(DOC[1] + 1.9), DOC[2]], [-0.2, r(BALLTOP - 0.45), -0.35]], top=0.2, bottom=0.66)])   # (pass 2) on his face, the top of the ball and the tape beside it
-        # close on the top of the ball: the reading and the doctor's face, the card band clear
+        props=[P('b5', 'skullBump', on=HEAD(), opts={'r': BALL, 'throb': [0.03, 1.4], 'red': 0.08, 'tape': {'phi': round(PI / 2, 4), 'u': [[0.0, 1.0]], 'snap': SN5, 'readout': ['3,00 M', 0.0, 9.0], 'tagW': 0.55, 'tagAt': TAG, 'hookTo': HOOKTO}}),
+               P('lad5', 'ladder', pos=LADB, ry=45, opts={'h': 4.1, 'lean': LADL}), BURST('clac5', [r(NOSE[0] + 0.5), r(NOSE[1] + 0.3), r(NOSE[2] + 0.2)], HITD, 'CLAC !', 0.5)],
+        cams=[FC(0.0, [0.75, r(BTA + 0.35), 1.6], [[0.0, r(BTA + 1.6), DOC[2]], [0.0, r(BTA - 0.45), -0.15], [-0.6, r(BTA + 0.9), DOC[2]], [0.95, r(BTA + 1.5), r(NOSE[2] + 0.2)]], top=0.18, bottom=0.68)])
+        # close on the top of the ball: his face, the reading under it and the burst beside it, the card band clear
 st.cue('sfx:twang', 'S05', SN5, 0.4); st.cue('clack', 'S05', HITD, 0.45)
 
 # 6: the land registry. A meadow: the surveyor in his hard hat sights the man and his ball through a level on its tripod, bends to the eyepiece,
@@ -140,7 +143,7 @@ st.shot('S06', 'grassland', setOpts=SUMMER, actors=[
         act('mec', ME6, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[SUR[0], 1.8, SUR[2]]), k(0.0, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': DEADPAN}), toonDur=0.0),
             k(0.8, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': {'lid': 1.0}}), toonDur=0.05), k(0.9, toon=SUNK(0.55, {'sq': [1.05, 0.95, 1.05], 'face': DEADPAN}), toonDur=0.08)]),
         act('geometre', SUR, -150, 'stand', 'neutral', keys=[k(0.0, look=[ME6[0], 3.0, ME6[2]]), k(0.0, toon={'bend': {'spine': [0.55, 0, 0, 1, None]}, 'reach': {'L': [r(LEV[0] + 0.1), 1.5, r(LEV[2] - 0.05), 1, 0.05]}, 'hands': {'L': 'grip'}, 'face': {'lidL': 0.9, 'brow': -0.3}}, toonDur=0.0),
-            k(0.45, toon={'bend': {'spine': [0.05, 0, 0, 1, None]}, 'face': {'brow': 0.5}}, toonDur=0.15, toonEase='out'), k(0.45, face=-75, turn=0.15), k(0.5, look={'actor': 'mec', 'cheat': 0.4}),   # (stills v1) he straightens up turned to us (his back, 114 degrees)
+            k(0.45, toon={'bend': {'spine': [0.05, 0, 0, 1, None]}, 'face': {'brow': 0.5}}, toonDur=0.15, toonEase='out'), k(0.45, face=-40, turn=0.15), k(0.5, look={'actor': 'mec', 'cheat': 0.65}),   # (stills v1) he straightens up turned to us (his back, 114 degrees; pass 3: in profile at -75, 86 degrees)
             *[k(round(0.62 + 0.1 * i, 3), toon={'bend': {'spine': [0.05, 0, 0, 1, None]}, 'reach': {'R': [r(SUR[0] - 0.42 - (0.32 if i % 2 else 0.0)), (1.6 if i % 2 else 1.78), r(SUR[2] - 0.3), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'brow': 0.6, 'mouth': 'flat'}}, toonDur=0.08) for i in range(4)]])],   # a little to the left, please (pass 2: a wave you can see)
         props=[P('b6', 'skullBump', on=HEAD(), opts={'r': BALL, 'throb': [0.03, 1.4], 'red': 0.08}), P('lev6', 'theodolite', pos=LEV, ry=round(math.degrees(math.atan2(ME6[0] - LEV[0], ME6[2] - LEV[2])), 1))],
         cams=[FC(0.0, [0.9, 1.55, 3.3], [[ME6[0], r(BALLTOP + 0.1), ME6[2]], [ME6[0], 0.0, ME6[2]], [-1.45, BALLC, ME6[2]], [r(SUR[0] + 0.3), 2.25, SUR[2]], [SUR[0], 0.0, SUR[2]], [LEV[0], 1.5, LEV[2]]], top=0.1, bottom=0.8)])
@@ -193,21 +196,27 @@ st.shot('S10', 'grassland', setOpts=SNOWY, actors=[
         cams=[FC(0.0, [0.4, 2.4, 6.5], [[ME6[0], r(HILLTOP + 0.4), ME6[2]], [ME6[0], 0.0, ME6[2]], [r(ME6[0] - 2.6), TOP, ME6[2]], [r(ME6[0] + 2.6), TOP, ME6[2]]], top=0.1, bottom=0.8, drift=(0.0, -0.3, -1.6))])
 st.cue('whoosh', 'S10', 0.1, 0.2, 0.6, 300, 900)
 
-# 11: a ski resort. Closer: a skier shoots off the rim of the hill beside his ear and flies past his face; his eyes follow it across; deadpan
-D11 = st.dur('S11'); JMP11 = 0.12
-SKPATH = [[0.55, 2.4, -1.85], [0.3, 2.3, -1.45], [-0.15, 2.05, -1.35], [-0.65, 1.6, -1.45], [-1.15, 0.95, -1.6]]   # (pass 2) off the rim beside his ear and across his face (at the far left in four frames)
+# 11: a ski resort. Closer: a skier shoots off the rim of the hill above him like off a ski jump and sails down past his face, in profile, into the
+#     snow in front of him; his eyes and then his head follow it across and down; deadpan, a blink
+D11 = st.dur('S11'); JMP11 = 0.1; LAND11 = 0.5
+# (pass 3) the rim is 2.4 m in front of his face (the hill is that wide): the skier leaves it at its lip and comes down in front of it, the whole flight
+# in view (pass 2 started inside the hill: the rim hid its head and it left the frame in four frames)
+SKTOP = [0.75, 2.47, -0.2]; SKLIP = [0.5, 2.03, 0.26]
+SKFLY = [[0.38, 2.22, 0.5], [0.22, 2.0, 0.72], [0.08, 1.55, 0.88], [-0.04, 0.85, 1.0], [-0.12, 0.02, 1.08]]   # (stills 3) down in front of him, not across: a vertical frame is narrow
+GAZE11 = [(0.0, 0.3, -0.6), (JMP11, 0.25, -0.5), (0.25, 0.1, -0.1), (0.36, 0.0, 0.3), (LAND11, -0.05, 0.75), (0.68, -0.05, 0.7)]   # (t, gx, gy): the eyes lead...
 st.shot('S11', 'grassland', setOpts=SNOWY, actors=[
-        act('mec', ME6, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'gx': 0.8}}), toonDur=0.0),
-            k(round(JMP11 + 0.1, 3), toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'lid': 0.1, 'gx': 0.3, 'gy': 0.0}}), toonDur=0.1),
-            k(round(JMP11 + 0.25, 3), toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'lid': 0.1, 'gx': -0.4, 'gy': 0.2}}), toonDur=0.12),
-            k(round(JMP11 + 0.42, 3), toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'lid': 0.15, 'gx': -0.9, 'gy': 0.5}}), toonDur=0.12),   # his eyes, wide, follow it across...
-            k(round(D11 - 0.15, 3), toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'gx': 0.0, 'lid': 1.0}}), toonDur=0.06)])],   # ...and a blink
+        act('mec', ME6, 0, 'stand', 'unimpressed', keys=[k(0.0, look={'point': [0.6, 2.5, 0.0], 'cheat': 0.6}), k(0.0, toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'lid': 0.15, 'gx': 0.4, 'gy': -0.5}}), toonDur=0.0),
+            *[k(t_, toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'lid': 0.1, 'gx': gx_, 'gy': gy_}}), toonDur=0.07) for t_, gx_, gy_ in GAZE11[1:]],
+            k(0.3, look={'point': [0.1, 1.6, 0.9], 'cheat': 0.6}), k(0.56, look={'point': [-0.1, 0.0, 1.2], 'cheat': 0.5}),   # ...the head follows, a few frames behind
+            k(round(D11 - 0.12, 3), toon=SUNK(0.5, {'sq': [1.06, 0.94, 1.06], 'face': {**COLD, 'gx': -0.5, 'lid': 1.0}}), toonDur=0.05)])],   # a blink
         props=[P('b11', 'skullBump', on=HEAD(), opts={**SNOWOPTS, 'skiers': [[0.2, 0.3], [0.6, 0.26]]}),
-               P('jump11', 'miniFigure', pos=SKPATH[0], ry=-90, opts={'kind': 'skier', 'h': 0.8, 'poses': [[0.0, 'ski'], [round(JMP11 + 0.05, 3), 'hang']], 'color': '#E0A030'},
-                 keys=[k(JMP11, path=SKPATH[1:], dur=0.42, ease='inOut'), k(JMP11, rotTo=[0.0, -1.4, 0.5], dur=0.42), k(round(JMP11 + 0.12, 3), squash=[0.8, 1.3, 0.8], dur=0.12)]),   # (pass 2) bigger, in profile, a stretch at mid-flight
-               P('snow11', 'snowfall', pos=[ME6[0], 0, ME6[2]], opts={'w': 6, 'h': 5, 'd': 6, 'n': 450})],
-        cams=[FC(0.0, [0.55, 1.95, 1.0], [[ME6[0], 2.55, ME6[2]], [ME6[0], 1.4, ME6[2]], [0.95, 2.2, -1.4], [-0.6, 1.7, -1.2]], top=0.14, bottom=0.7)])   # (stills v1) close: the skier crosses in front of his face (wide, it was a speck under the rim)
-st.cue('whoosh', 'S11', round(JMP11 + 0.15, 3), 0.35, 0.4, 500, 2000)
+               P('jump11', 'miniFigure', pos=SKTOP, ry=-90, opts={'kind': 'skier', 'h': 0.8, 'poses': [[0.0, 'ski'], [round(JMP11 + 0.03, 3), 'flail'], [LAND11, 'ski']], 'color': '#E0A030'},
+                 keys=[k(0.0, to=SKLIP, dur=JMP11, ease='in'), k(JMP11, path=SKFLY, dur=round(LAND11 - JMP11, 3), ease='linear'), k(JMP11, rotTo=[0.0, round(-PI / 2, 4), 0.35], dur=0.25),
+                       k(JMP11, squash=[0.85, 1.25, 0.85], dur=0.16), k(LAND11, squash=[1.35, 0.65, 1.35], dur=0.2)]),   # in profile; stretched as it leaves the lip, squashed as it lands
+               P('snow11', 'snowfall', pos=[ME6[0], 0, ME6[2]], opts={'w': 6, 'h': 5, 'd': 7, 'n': 450})],
+        cams=[FC(0.0, [0.3, 1.6, 2.6], [[ME6[0], 2.0, ME6[2]], [ME6[0], 0.95, ME6[2]], [0.62, 2.95, 0.22], [0.62, 2.0, 0.26], [-0.35, 2.05, 0.26]], top=0.05, bottom=0.8, lenses=range(26, 45))])   # (stills 4) the skier whole on the lip (it was cut by the top)
+        # low, in front of the rim: the brim of the hill across the top of the frame, his face under it, the skier dropping off its lip
+st.cue('whoosh', 'S11', round(JMP11 + 0.05, 3), 0.35, 0.4, 500, 2000); st.cue('sfx:thud', 'S11', LAND11, 0.3)
 
 # 12: yesterday it went down. Close on his face under the white rim: PSCHHH: the hill goes down like a balloon, wobbling; his neck springs back up past
 #     its length; a plaster on his skull; deadpan

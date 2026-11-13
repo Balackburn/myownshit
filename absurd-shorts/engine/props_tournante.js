@@ -32,11 +32,12 @@ export const TOURNANTE_PROPS = {
   // one turn a second a pale drum of blur fills between the wings; o.bulbs [[t, k]]: a ring of bulbs round the canopy lights up (0..1); o.wings false:
   // the drum alone. userData.angleAt(t): the wings' angle (rad), for a script that times something on a wing.
   revolvingDoor(o) {
+    // (stills 2) o.glass [wall, wing] opacities (0.12, 0.07): seen through a wall and two panes a man inside came out grey (0.3 and 0.2)
     const R = o.r ?? 1.0, H = o.h ?? 2.4, g = grp(), metal = o.metal || '#3A4048';
     g.add(at(cyl(R + 0.04, R + 0.04, 0.03, '#5A6068', 32), 0, 0.015, 0));                                         // the floor plate
     g.add(at(cyl(R + 0.08, R + 0.08, 0.22, metal, 32), 0, H + 0.11, 0));                                            // the canopy
     for (const s of [-1, 1]) {   // the curved glass walls and their metal edges, on the ±X sides
-      const wall = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 20, 1, true, s > 0 ? PI / 4 : 5 * PI / 4, PI / 2), glassMat(0.3)); wall.position.y = H / 2; g.add(wall);
+      const wall = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 20, 1, true, s > 0 ? PI / 4 : 5 * PI / 4, PI / 2), glassMat(o.glass?.[0] ?? 0.12)); wall.position.y = H / 2; g.add(wall);
       for (const a of [PI / 4, 3 * PI / 4]) { const th = s > 0 ? a : a + PI; g.add(at(box(0.06, H, 0.06, metal, { outline: 0.004 }), R * Math.sin(th), H / 2, R * Math.cos(th))); }
     }
     const sign = canvasPlane(1.4, 0.18, (c, W, Ht) => { c.fillStyle = '#1C2A3A'; c.fillRect(0, 0, W, Ht); c.fillStyle = '#F2D27A'; c.textAlign = 'center'; c.textBaseline = 'middle';
@@ -45,11 +46,11 @@ export const TOURNANTE_PROPS = {
     const bulbs = []; for (let i = 0; i < 18; i++) { const a = i / 18 * TAU, b = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 6), new THREE.MeshStandardMaterial({ color: '#F4E6B8', emissive: '#FFD45A', emissiveIntensity: 0 }));
       b.position.set((R + 0.1) * Math.sin(a), H + 0.02, (R + 0.1) * Math.cos(a)); g.add(b); bulbs.push(b); }
     const rot = grp(); g.add(rot);
-    rot.add(at(cyl(0.05, 0.05, H, metal, 10), 0, H / 2, 0));
+    if (!((o.inner ?? 0) > 0.2)) rot.add(at(cyl(0.05, 0.05, H, metal, 10), 0, H / 2, 0));   // (stills 3) no central post when a man turns at the axis: from the riding camera it came out through his face
     // o.inner: the wings start that far from the axis (0.05): room in the middle for a man who turns with the door (the post hidden in him)
     const r0 = o.inner ?? 0.05;
     if (o.wings !== false) for (let i = 0; i < 4; i++) { const w = grp(); w.rotation.y = i * PI / 2; rot.add(w);
-      const L = R - 0.06 - r0, pane = new THREE.Mesh(new THREE.BoxGeometry(0.025, H - 0.16, L - 0.06), glassMat(0.2)); pane.position.set(0, H / 2, r0 + (L - 0.06) / 2); w.add(pane);
+      const L = R - 0.06 - r0, pane = new THREE.Mesh(new THREE.BoxGeometry(0.025, H - 0.16, L - 0.06), glassMat(o.glass?.[1] ?? 0.07)); pane.position.set(0, H / 2, r0 + (L - 0.06) / 2); w.add(pane);
       for (const y of [0.06, H - 0.06]) w.add(at(box(0.05, 0.08, L, metal, { outline: 0.004 }), 0, y, r0 + L / 2));
       w.add(at(box(0.05, H - 0.04, 0.05, metal, { outline: 0.004 }), 0, H / 2, r0 + L)); w.add(at(box(0.05, H - 0.04, 0.05, metal, { outline: 0.004 }), 0, H / 2, r0));
       w.add(at(box(0.04, 0.05, L * 0.6, '#C9CCD1'), 0.03, 1.05, r0 + L * 0.55)); }

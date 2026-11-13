@@ -224,7 +224,8 @@ export const BOSSE_PROPS = {
     const w = o.w ?? 0.3, top = o.top ?? 1.1, head = o.head || 'FORFAITS', g = grp();
     const rowsTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const x = c.getContext('2d'); x.fillStyle = '#FBFAF4'; x.fillRect(0, 0, 256, 512); x.fillStyle = '#3A3A40';
       const items = o.items || ['FORFAIT JOURNÉE', 'FORFAIT SEMAINE', 'TÉLÉSIÈGE', 'LOCATION SKIS', 'CHOCOLAT CHAUD', 'FORFAIT ENFANT'];
-      for (let i = 0; i < 6; i++) { const y = 40 + i * 80; x.font = '600 22px Arial'; x.textAlign = 'left'; x.fillText(items[i % items.length], 14, y); x.textAlign = 'right'; x.font = '700 24px Arial'; x.fillText(`${[49, 245, 12, 38, 4, 31][i]} €`, 242, y); x.fillRect(14, y + 18, 228, 2); }
+      for (let i = 0; i < 6; i++) { const y = 40 + i * 80, pr = `${[49, 245, 12, 38, 4, 31][i]} €`, nm = items[i % items.length]; x.textAlign = 'right'; x.font = '700 24px Arial'; const pw = x.measureText(pr).width; x.fillText(pr, 242, y);
+        x.textAlign = 'left'; let fs = 22; x.font = `600 ${fs}px Arial`; while (x.measureText(nm).width > 228 - pw - 12 && fs > 11) { fs -= 1; x.font = `600 ${fs}px Arial`; } x.fillText(nm, 14, y); x.fillRect(14, y + 18, 228, 2); }   // (pass 3 of 56) the name shrinks to clear its price (« CHOCOLAT CHAUD » ran into it)
       const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapT = THREE.RepeatWrapping; return t; })();
     const mk = () => { const tx = rowsTex.clone(); tx.needsUpdate = true; tx.wrapT = THREE.RepeatWrapping; const m = new THREE.Mesh(new THREE.PlaneGeometry(w, 1), new THREE.MeshLambertMaterial({ map: tx, side: THREE.DoubleSide })); m.receiveShadow = true; return m; };
     const down = mk(); down.geometry.translate(0, -0.5, 0); const along = mk(); along.geometry.translate(0, 0.5, 0); along.rotation.x = PI / 2;

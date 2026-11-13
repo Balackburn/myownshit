@@ -36,7 +36,7 @@
 //         nose: 0.31, the mouth: 0.23, an eye: 0.62), metres in front of the face, w, tip]. The hand follows the head wherever the spine and the neck take it
 //         both take one more value, [px, py, pz]: where the elbow goes, a direction in the frame of the chest (default: low, a little out and back)
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
-//           heights), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears; steamInk: 1: inked, opaque puffs), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
+//           heights; (cycle 19) jawBlock 1: the chin drops as a block below a dark open mouth instead), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears; steamInk: 1: inked, opaque puffs), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           expr + exprW: pull the painted face toward a named expression of the face rig (engine/facerig.js),
 //           gx / gy (-1..1): the pupils alone look aside (- = toward his right) / down (+) or up (-): the head stays where it is (painted faces of the face rig),
 //           eyeYaw / eyePitch / eyeRoll (rad: the popped eyeballs turn on their stalks; pitch > 0: the pupils go down), stalkYaw / stalkPitch (rad: the stalks themselves swing), popBlink: 1 (lids over the popped eyes), stalkRed: 0..1, stalkBow (m),
@@ -143,13 +143,15 @@ function puffInkTex() { const c = document.createElement('canvas'); c.width = c.
   for (const [x, y, r] of L) disc(x, y, r + 6, 'rgba(58,74,104,0.95)'); for (const [x, y, r] of L) disc(x, y, r, '#FFFFFF'); disc(74, 78, 22, '#D4E0F2'); disc(66, 66, 26, '#FFFFFF'); disc(48, 76, 18, '#FFFFFF');
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
 const JAW_TOP = 0.31, MOUTH_Y = 0.227;   // as fractions of the head height from the chin: the stretch starts under the nose; the mouth's centre
+const JAW_B = 0.28;                      // (cycle 19) face.jawBlock: below this the chin drops as one block; the band above it stretches (the open mouth)
 function headDeform(hm, dim) {
   const sub = subdivideY(hm.geometry, 13); if (!sub) return null;
   const old = hm.geometry; hm.geometry = sub; hm.traverse(c => { if (c !== hm && c.isMesh && c.geometry === old) c.geometry = sub; }); hm.frustumCulled = false; hm.traverse(c => { c.frustumCulled = false; });
   const p = sub.attributes.position, rest = new Float32Array(p.array), yM = dim.y0 + JAW_TOP * dim.hh; let last = 0;
-  return drop => {
-    if (drop === last) return; last = drop; const fwd = Math.min(0.055, drop * 0.5);
-    for (let i = 0; i < p.count; i++) { const y = rest[i * 3 + 1], k = y < yM ? (yM - y) / (yM - dim.y0) : 0; p.setXYZ(i, rest[i * 3], y - drop * k, rest[i * 3 + 2] + fwd * k); }
+  const yB = dim.y0 + JAW_B * dim.hh; let lastB = 0;
+  return (drop, block = 0) => {
+    if (drop === last && block === lastB) return; last = drop; lastB = block; const fwd = Math.min(0.055, drop * 0.5);
+    for (let i = 0; i < p.count; i++) { const y = rest[i * 3 + 1], kL = y < yM ? (yM - y) / (yM - dim.y0) : 0, k = kL + ((y < yB ? 1 : 0) - kL) * block; p.setXYZ(i, rest[i * 3], y - drop * k, rest[i * 3 + 2] + fwd * k); }
     p.needsUpdate = true;
   };
 }
@@ -176,6 +178,9 @@ function headOverlays(head, hm, dim, skin) {
     e.visible = false; return { e, stalk, ball, pupil, sign, lid, bow, skin0, r, ph: i * 1.7 };
   });
   const deform = hm ? headDeform(hm, dim) : null;
+  // (cycle 19) face.jawBlock 0..1: the jaw drops as a block (a hinge, not a stretch) and the gap is a dark open mouth from under the nose to the dropped
+  // lip: the take reads as a jaw on the floor (stretched evenly, the lower face was a tall box with a thin painted arch at its foot, story 54)
+  const cavity = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).translate(0, -0.5, 0), new THREE.MeshBasicMaterial({ color: '#2A1014' })); cavity.visible = false; cavity.userData.noAO = true; g.add(cavity);
   // the tongue hangs out of the mouth (the mouth moves down with the jaw)
   const tongue = outlined(new THREE.Mesh(new THREE.BoxGeometry(hw * 0.3, 0.016, 1).translate(0, 0, 0.5), new THREE.MeshLambertMaterial({ color: '#D9606A' })), 1.06); tongue.visible = false; g.add(tongue);
   // (cycle 5) the tongue blown aside by a run (face.tongueYaw): a pink ribbon on edge, wide at the mouth, narrow and round at the tip, a wave running along
@@ -204,14 +209,16 @@ function headOverlays(head, hm, dim, skin) {
       E.e.rotation.set(-(f.stalkPitch || 0), f.stalkYaw || 0, 0);   // (cycle 9) face.stalkYaw / stalkPitch (rad): both stalks swing together (+ yaw toward his left, + pitch down): they follow a bus that goes by
       E.stalk.material.color.copy(E.skin0).lerp(STALK_RED, f.stalkRed || 0);
     }
-    deform?.(Math.round(drop * 500) / 500);
+    const blk = Math.max(0, Math.min(1, f.jawBlock || 0)); deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20);
+    cavity.visible = blk > 0.5 && drop > 0.01; if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop; cavity.position.set(0, top, hd / 2 + Math.min(0.055, drop * 0.5) + 0.007); cavity.scale.set(hw * 0.56, Math.max(0.001, top - bot), 1); }
     const tg = f.tongue || 0, fly = !!f.tongueYaw && tg > 0.01; tongue.visible = tg > 0.01 && !fly; tongueFly.visible = fly;
-    if (fly) { const k = 1 - MOUTH_Y / JAW_TOP, L = tg * (f.tongueLen ?? 0.3), w0 = hw * 0.11 * (f.tongueW ?? 1);
+    const kMo = (1 - MOUTH_Y / JAW_TOP) * (1 - blk) + blk;   // how much of the drop the mouth takes: all of it when the jaw drops as a block
+    if (fly) { const k = kMo, L = tg * (f.tongueLen ?? 0.3), w0 = hw * 0.11 * (f.tongueW ?? 1);
       tongueFly.position.set(0, MOUTH_Y * hh - drop * k - 0.004, hd / 2 + 0.006); tongueFly.rotation.set(0, f.tongueYaw, 0);
       for (let i = 0; i <= TFN; i++) { const u = i / TFN, z = u * L, y = (f.tongueDip ?? -0.1) * z * 0.5 + 0.03 * u * Math.sin(t * 26 - u * 7), hwd = w0 * (1 - 0.5 * u) * (i === TFN ? 0.3 : 1), e = 0.008;
         tfPos.set([0, y + hwd + e, z, 0, y + hwd, z, 0, y - hwd, z, 0, y - hwd - e, z], i * 12); }
       tfGeo.attributes.position.needsUpdate = true; }
-    if (tongue.visible) { const k = 1 - MOUTH_Y / JAW_TOP; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
+    if (tongue.visible) { const k = kMo; tongue.position.set(0, MOUTH_Y * hh - drop * k - 0.01, hd / 2 + Math.min(0.055, drop * 0.5) * k - 0.01); tongue.scale.set(1, 1, Math.max(0.001, tg * (f.tongueLen ?? 0.3))); tongue.rotation.x = 0.35 + 0.9 * Math.min(1, tg) + 0.06 * Math.sin(t * 9);
       if (f.tongueYaw) { tongue.rotation.set((f.tongueDip ?? -0.1) + 0.05 * Math.sin(t * 19), f.tongueYaw + 0.14 * Math.sin(t * 23), 0); tongue.position.z += 0.012; } }   // (cycle 5) face.tongueYaw (rad, + = toward his left): the tongue blown aside by the wind of a run (1.5: flat across the cheek and out past the head), fluttering; face.tongueDip: its pitch
     const ink = f.steamInk || 0; if (ink && !ptInk) ptInk = puffInkTex();   // (cycle 6) steamInk 0..1: inked steam: a jet that leaves the ear thin and fast, swells into lobed clouds and thins as it rises
     puffs.forEach((p, i) => { const side = i % 2 ? 1 : -1; p.visible = steam > 0.01; if (!p.visible) return; const m = ink ? ptInk : pt; if (p.material.map !== m) { p.material.map = m; p.material.needsUpdate = true; }
