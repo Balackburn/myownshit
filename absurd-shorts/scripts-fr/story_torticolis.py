@@ -70,7 +70,7 @@ st.cue('clack', 'S02', CR2, 0.45); st.cue('sfx:twang', 'S02', round(CR2 + 0.02, 
 #    bowl and goes up over his shoulder to the face on his back, the arm bending backwards; he chews, deadpan; again
 D3 = st.dur('S03')
 ME3 = [0.0, 0, -1.25]; BOWL = [0.08, 0.76, -1.75]
-MOUTH3 = {'touch': {'R': ['face', 0.02, 0.24, 0.07, 1, 0.05]}, 'hands': {'R': 'pinch'}}
+MOUTH3 = {'touch': {'R': ['face', 0.16, 0.22, 0.07, 1, 0.05]}, 'hands': {'R': 'pinch'}}   # (first look) at the corner of the mouth: in the middle the hand hid it
 DIP3 = {'reach': {'R': [BOWL[0], 0.86, BOWL[2], 1, 0.05]}, 'hands': {'R': 'pinch'}}
 st.shot('S03', 'kitchenDay', actors=[
         act('mec', ME3, 180, 'sit', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**BACK, **DIP3}, toonDur=0.0),
@@ -105,7 +105,7 @@ st.shot('S05', 'parisStreet', actors=[
             k(0.4, toon={'face': {'mouth': 'smile'}}, toonDur=0.1),
             k(0.85, look={'actor': 'mec', 'dy': -0.1, 'cheat': 0.35}), k(0.95, toon={'face': {'jaw': 0.85, 'brow': 1.0, 'eye': 0.3}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.05, toonEase='out')])],   # her double take: the jaw drops
         props=[],
-        cams=[FC(0.0, [X5, 1.45, 4.4], [[r(X5 - 1.2), 2.4, -0.3], [r(X5 + 1.2), 2.4, -0.3], [X5, 0.0, -0.3]], top=0.14, bottom=0.74, drift=(-0.2, 0.0, 0.0))])
+        cams=[FC(0.0, [r(X5 - 2.3), 1.5, 3.4], [[r(X5 - 1.2), 2.4, -0.3], [r(X5 + 1.2), 2.4, -0.3], [X5, 0.0, -0.3]], top=0.14, bottom=0.74, drift=(-0.2, 0.0, 0.0))])   # (first look) three-quarters on his face (side on it was a profile)
 st.cue('sfx:gasp', 'S05', 0.95, 0.25)
 
 # 6: the prefecture issued him a licence. The counter, PRÉFECTURE: he stands with his back to it, his face to the clerk; she holds out the licence over
@@ -126,13 +126,13 @@ st.cue('sfx:paper', 'S06', GIVE6, 0.3)
 # 7: back to front. Over his shoulder: he holds the licence up to the face on his back: pink, every word mirrored, the photo the back of a head; he
 #    looks at it, deadpan, a slow blink
 D7 = st.dur('S07')
-ME7 = [0.35, 0, -1.65]
+ME7 = [0.35, 0, -0.35]                                                # (first look) a step away from the counter: the camera fits between it and the face on his back (behind the counter it shot through the glass past the clerk)
 st.shot('S07', 'poste', setOpts={'title': 'PRÉFECTURE'}, actors=[
         act('mec', ME7, 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**BACK, 'touch': {'R': ['face', -0.42, 0.45, 0.32, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'gx': -0.7, 'gy': 0.3}}, toonDur=0.0),
             k(0.75, toon={**BACK, 'touch': {'R': ['face', -0.42, 0.45, 0.32, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'gx': -0.7, 'gy': 0.3, 'lid': 1.0}}, toonDur=0.08),
             k(0.95, toon={**BACK, 'touch': {'R': ['face', -0.42, 0.45, 0.32, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'gx': 0.0, 'lid': 0.45}}, toonDur=0.12)])],   # a slow blink, then at us
         props=[P('permis7', 'reversePermit', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.06, 0.05], 'face': 'camera'}, opts={'s': 1.15, 'bright': True})],
-        cams=[FC(0.0, [0.55, 2.05, -3.0], [[ME7[0], 2.45, ME7[2]], [ME7[0], 1.45, ME7[2]], [-0.1, 1.9, ME7[2]], [0.85, 1.9, ME7[2]]], top=0.18, bottom=0.66, drift=(0.0, 0.0, 0.12))])
+        cams=[FC(0.0, [0.6, 2.0, -1.45], [[ME7[0], 2.45, ME7[2]], [ME7[0], 1.45, ME7[2]], [-0.15, 1.9, ME7[2]], [0.85, 1.9, ME7[2]]], top=0.18, bottom=0.66, drift=(0.0, 0.0, 0.12))])
 
 # 8: he only drives in reverse. The boulevard from high up: his little red car flies down it backwards; the traffic comes the other way
 D8 = st.dur('S08'); Z8 = 3.0
@@ -148,28 +148,29 @@ st.cue('engine', 'S08', 0.0, 0.3, round(D8, 3)); st.cue('sfx:beep', 'S08', 0.05,
 #    drops his jaw
 D9 = st.dur('S09'); Z9 = 3.0
 st.shot('S09', 'parisStreet', actors=[
-        act('mec', [r(4.0 + 0.05), 0.12, r(Z9 - 0.4)], 90, 'drive', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**BACK, 'reach': {'L': [r(4.0 - 0.15), 1.25, r(Z9 + 0.1), 1, 0.05]}, 'hands': {'L': 'flat'}}, toonDur=0.0),
-            k(0.0, to=[r(0.5 + 0.05), 0.12, r(Z9 - 0.4)], dur=round(D9 + 0.05, 3), glide=True, ease='linear', face='keep')]),
+        act('mec', [r(6.5 + 0.05), 0.12, r(Z9 - 0.4)], 90, 'drive', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**BACK, 'reach': {'L': [r(6.5 - 0.15), 1.25, r(Z9 + 0.1), 1, 0.05]}, 'hands': {'L': 'flat'}}, toonDur=0.0),
+            k(0.0, to=[r(3.0 + 0.05), 0.12, r(Z9 - 0.4)], dur=round(D9 + 0.05, 3), glide=True, ease='linear', face='keep')]),
         act('voisin', [r(-6.0 + 0.05), 0.12, r(6.0 - 0.4)], 90, 'drive', 'neutral', keys=[k(0.0, look=[4.0, 1.4, Z9]),
             k(0.0, to=[r(1.0 + 0.05), 0.12, r(6.0 - 0.4)], dur=round(D9 + 0.05, 3), glide=True, ease='linear', face='keep'),
             k(0.45, look={'actor': 'mec', 'cheat': 0.35}), k(0.55, toon={'face': {'jaw': 0.9, 'brow': 1.0, 'eye': 0.3}}, toonDur=0.05, toonEase='out')])],
-        props=[P('car9', 'car', pos=[4.0, 0, Z9], opts={'color': '#C9473A'}, keys=[k(0.0, to=[0.5, 0, Z9], dur=round(D9 + 0.05, 3), ease='linear')]),
+        props=[P('car9', 'car', pos=[6.5, 0, Z9], opts={'color': '#C9473A'}, keys=[k(0.0, to=[3.0, 0, Z9], dur=round(D9 + 0.05, 3), ease='linear')]),
                P('car9b', 'car', pos=[-6.0, 0, 6.0], opts={'color': '#3E7CC9'}, keys=[k(0.0, to=[1.0, 0, 6.0], dur=round(D9 + 0.05, 3), ease='linear')])],
-        cams=[cam(0.0, [-3.6, 1.6, 1.4], [-3.4, 1.6, 1.4], [1.5, 1.2, 3.3], [0.6, 1.2, 3.4], lens=38)])
+        cams=[cam(0.0, [-3.2, 2.3, 1.2], [-3.0, 2.25, 1.2], [4.6, 1.35, 2.75], [1.9, 1.3, 2.75], lens=34)])   # (first look) back and up: the rear window and his face in it (up close the car's tail filled the frame)
 st.cue('sfx:honkLong', 'S09', 0.6, 0.25); st.cue('sfx:beep', 'S09', 0.0, 0.15)
 
 # 10: yesterday an osteopath put his head straight. His room, a spine on the wall: he sits on a stool, his back to us... the osteopath stands at his
 #     face, takes his head in both hands, his tongue out in concentration, and winds it up the other way
 D10 = st.dur('S10')
 ME10 = [0.0, 0, -1.6]; OST = [0.0, 0, -2.3]
-HEAD = lambda tw: {'reach': {'L': [0.2, 2.02, r(ME10[2] - 0.05), 1, 0.05], 'R': [-0.2, 2.02, r(ME10[2] - 0.05), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}, 'face': {'tongue': 0.6, 'tongueLen': 0.1, 'brow': -0.4}}
+HEAD = lambda tw: {'reach': {'L': [0.22, 1.62, r(ME10[2] - 0.05), 1, 0.05], 'R': [-0.22, 1.62, r(ME10[2] - 0.05), 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}, 'face': {'tongue': 0.6, 'tongueLen': 0.1, 'brow': -0.4}}   # (first look) at the sides of his seated head (at 2 m they waved above it)
 st.shot('S10', 'office', setOpts={'door': False}, actors=[
         act('mec', ME10, 0, 'sit', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=BACK, toonDur=0.0),
             k(0.75, toon=NECK(PI + 0.45, extra={'face': {'lid': 0.3, 'brow': 0.3}}), toonDur=0.4, toonEase='inOut')]),   # wound up the other way
         act('osteo', OST, 0, 'stand', 'determined', keys=[k(0.0, look=[0.0, 2.0, ME10[2]]), k(0.25, toon=HEAD(0), toonDur=0.25, toonEase='out'),
             k(0.75, toon={**HEAD(0), 'bend': {'spine': [0, -0.25, 0, 1, None]}, 'sq': [1.03, 0.97, 1.03]}, toonDur=0.4, toonEase='inOut')])],
         props=[P('bench10', 'bench', pos=[0.0, 0, -1.6], ry=90), P('poster10', 'spinePoster', pos=[-1.2, 1.75, -3.47], opts={'w': 0.7, 'h': 1.05})],
-        cams=[FC(0.0, [2.3, 1.6, -0.6], [[0.0, 2.6, -1.95], [0.0, 0.3, -1.95], [-0.6, 1.8, -2.3], [0.6, 1.8, -1.6], [-1.2, 2.2, -3.47]], top=0.12, bottom=0.74, drift=(-0.1, 0.0, 0.0))])
+        cams=[FC(0.0, [1.75, 1.65, -3.05], [[0.0, 2.55, -1.95], [0.0, 0.3, -1.6], [-0.55, 1.8, -2.3], [0.55, 1.8, -1.6]], top=0.12, bottom=0.74, drift=(-0.1, 0.0, 0.0))])
+        # (first look) from behind the osteopath, three-quarters on the face on his back (side on, both faces were profiles)
 
 # 11: straight. Close: CRAC! the head snaps round to the front: his face to us at last, a blink, the hint of a smile; the osteopath beams
 D11 = st.dur('S11'); CR11 = 0.18
@@ -225,7 +226,8 @@ st.shot('S14', 'pressRoom', setOpts={'backdrop': 'MÉTÉO', 'podium': False, 'fl
             k(1.5, toon={**NECK(0.0, bx=-1.4, extra={'face': {'lid': 1.0}}), 'reach': {'R': [r(MAP14[0] + 0.05), 1.45, r(MAP14[2] + 0.1), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1}, toonDur=0.07),
             k(1.65, toon={**NECK(0.0, bx=-1.4, extra={'face': {'lid': 0.45}}), 'reach': {'R': [r(MAP14[0] + 0.05), 1.45, r(MAP14[2] + 0.1), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1}, toonDur=0.12)])],
         props=[P('map14', 'weatherMap', pos=MAP14, opts={'w': 1.7, 'h': 1.05}), P('tvcam14', 'tvCamera', pos=[2.1, 0, -0.5], ry=-140)],
-        cams=[FC(0.0, [0.55, 4.6, 0.9], [[ME14[0], 2.4, ME14[2]], [ME14[0], 0.0, ME14[2]], [r(MAP14[0] - 0.85), 2.25, MAP14[2]], [r(MAP14[0] + 0.85), 1.25, MAP14[2]], [2.1, 1.5, -0.5]], top=0.12, bottom=0.74, drift=(0.0, -0.1, -0.15))])
+        cams=[FC(0.0, [0.95, 3.6, -0.55], [[ME14[0], 2.4, ME14[2]], [ME14[0], 0.2, ME14[2]], [r(MAP14[0] + 0.15), 2.25, MAP14[2]], [r(MAP14[0] + 0.85), 1.25, MAP14[2]]], top=0.12, bottom=0.74, drift=(0.0, -0.1, -0.12))])
+        # (first look) closer: from 4.6 m up his upturned face was 5 % of the frame
 st.cue('sfx:static', 'S14', 0.0, 0.12)
 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
