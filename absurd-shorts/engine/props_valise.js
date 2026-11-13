@@ -93,7 +93,8 @@ export const VALISE_PROPS = {
       hinge.rotation.x = -keyAt(o.open, t, 0);
       const hk = Array.isArray(o.handle) ? keyAt(o.handle, t, 0) : (o.handle || 0); tele.position.y = 0.42 * clamp01(hk);
       const times = o.stickerTimes; st.forEach((s, i) => { const k = times && times[i] != null ? popK(t - times[i]) : 1; s.visible = k > 0.001; s.scale.setScalar(Math.max(0.001, k)); });
-      if (tag) tag.rotation.x = (o.tagSwing ?? 0.25) * Math.sin(t * 7.0) * Math.exp(-0.3 * t);
+      // (pass 3 of 54) the tag bounces off the lid instead of swinging into it (half of each swing it went inside the shell: the card vanished)
+      if (tag) tag.rotation.x = -(o.tagSwing ?? 0.25) * Math.abs(Math.sin(t * 7.0)) * Math.exp(-0.3 * t);
       if (glint) { const kk = 0.6 + 0.4 * Math.abs(Math.sin(t * 8.5)); glint.scale.setScalar(o.tagGlint * kk); glint.material.rotation = t * 2.2; }
       const b = keyAt(o.bob, t, 0); body.position.y = b > 0 ? b * Math.abs(Math.sin(t * 9.0)) : 0;
     };

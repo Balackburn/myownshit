@@ -182,7 +182,7 @@ st.shot('S07', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
                P('card7', 'loyaltyCard', pos=CARD7, face='camera', opts={'s': 2.2, 'bright': True},
                  keys=[k(0.62, to=CARD7B, dur=0.18, ease='inOut'), k(0.95, to=[r(CARD7B[0] + 0.04), r(CARD7B[1] + 0.03), CARD7B[2]], dur=0.12, ease='inOut'), k(1.07, to=CARD7B, dur=0.12, ease='inOut')]),
                VAL('val7', pos=VS7, ry=170, scale=1.2, opts={'color': RED, 'stickers': 15, 'seed': 0, 'handle': 1.0})],
-        cams=[FC(0.0, [1.9, 2.35, -4.3], [[ME7[0], 2.45, ME7[2]], [ME7[0], 0.9, ME7[2]], [VS7[0], 1.2, VS7[2]], [CARD7[0], CARD7[1], CARD7[2]], [-0.1, 3.02, -1.3], [-0.85, 2.8, -1.3], [0.65, 2.8, -1.3], [r(AG[0] - 0.05), 2.2, AG[2]]], top=0.1, bottom=0.74, inside=(-6.8, 6.8, 0.2, 4.8, -4.0, 5.8))])
+        cams=[FC(0.0, [1.75, 2.3, -3.85], [[ME7[0], 2.45, ME7[2]], [ME7[0], 0.9, ME7[2]], [VS7[0], 1.2, VS7[2]], [CARD7[0], CARD7[1], CARD7[2]], [-0.1, 3.02, -1.3], [-0.85, 2.8, -1.3], [0.65, 2.8, -1.3], [r(AG[0] - 0.05), 2.2, AG[2]]], top=0.1, bottom=0.74, inside=(-6.8, 6.8, 0.2, 4.8, -4.0, 5.8))])
         # over the agent's shoulder: his face to us across the desk (from his side we saw his back)
 st.cue('sfx:stretch', 'S07', 0.4, 0.3)
 
@@ -264,12 +264,13 @@ st.cue('sfx:pour', 'S10', 0.24, 0.3); st.cue('sfx:jet', 'S10', 0.0, 0.06)
 D11 = st.dur('S11'); HIT11 = 0.56; OFF11 = round(HIT11 + 0.1, 3); BACK11 = round(HIT11 + 0.48, 3)
 ME11 = [-0.45, 0, -0.6]
 FLAT11 = [ME11[0], 0, -0.98]                                          # pressed back against the case behind him
+SPLAT11 = {'reach': {'L': [r(ME11[0] - 0.62), 0.95, -0.95, 1, 0.05], 'R': [r(ME11[0] + 0.62), 0.95, -0.95, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}   # arms and hands splayed on the case
 st.shot('S11', 'whiteVoid', setOpts={'color': '#20242C'}, actors=[
-        act('mec', ME11, 15, 'sitFloor', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'sq': [1.0, 0.92, 1.0], 'face': {'lid': 0.45}}, toonDur=0.0),
+        act('mec', ME11, 0, 'sitFloor', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'sq': [1.0, 0.92, 1.0], 'face': {'lid': 0.45}}, toonDur=0.0),
             k(round(HIT11 - 0.14, 3), toon={'sq': [1.0, 0.94, 1.0], 'face': {'lid': 0.3, 'brow': 0.5, 'gx': 0.6}}, toonDur=0.08),   # he sees it coming...
-            k(HIT11, toon={'sq': [1.45, 1.15, 0.2], 'face': {'lid': 0.5, 'cross': 0.7, 'brow': 0.6}}, toonDur=0.033, toonEase='out'),   # ...SCHLAC: flat as a pancake...
-            k(HIT11, to=FLAT11, dur=0.04, glide=True, face='keep'),
-            k(round(BACK11 - 0.1, 3), toon={'sq': [1.42, 1.13, 0.22], 'face': {'lid': 0.5, 'cross': 0.7, 'brow': 0.5}}, toonDur=0.2),   # ...held, facing us...
+            k(round(HIT11 - 0.02, 3), toon={**SPLAT11, 'sq': [1.45, 1.15, 0.2], 'face': {'lid': 0.5, 'cross': 0.7, 'brow': 0.6}}, toonDur=0.03, toonEase='out'),   # ...SCHLAC: flat as a pancake, splayed...
+            k(round(HIT11 - 0.04, 3), to=FLAT11, dur=0.04, glide=True, face='keep'),   # (check stills) pushed back with the bag, not after it
+            k(round(BACK11 - 0.1, 3), toon={**SPLAT11, 'sq': [1.42, 1.13, 0.22], 'face': {'lid': 0.5, 'cross': 0.7, 'brow': 0.5}}, toonDur=0.2),   # ...held, facing us...
             k(BACK11, toon={'sq': [0.86, 0.97, 1.3], 'face': {'lid': 0.45}}, toonDur=0.06, toonEase='outBack'),                    # ...and back, past his shape...
             k(BACK11, to=ME11, dur=0.1, glide=True, face='keep'),
             k(round(BACK11 + 0.1, 3), toon={'sq': [1.1, 0.9, 0.92], 'face': {'lid': 0.45}}, toonDur=0.07), k(round(BACK11 + 0.19, 3), toon={'sq': [0.96, 0.95, 1.05], 'face': {'lid': 0.45}}, toonDur=0.07),   # ...twice...
@@ -283,8 +284,8 @@ st.shot('S11', 'whiteVoid', setOpts={'color': '#20242C'}, actors=[
                VAL('b11e', pos=[1.7, 0, 0.1], ry=5, scale=1.3, opts={'color': '#F28C28', 'stickers': 3, 'seed': 7},
                    keys=[k(0.12, to=[-0.42, 0, 0.1], dur=round(HIT11 - 0.16, 3), ease='in'), k(round(HIT11 - 0.04, 3), to=[-0.42, 0, -0.77], dur=0.04, ease='in'),   # across in front of him, then into him
                          k(OFF11, to=[1.8, 0, -0.2], dur=0.2, ease='inOut')])],   # ...and off again
-        cams=[FC(0.0, [-0.5, 1.05, 1.05], [[ME11[0], 1.6, ME11[2]], [ME11[0], 0.4, ME11[2]], [-0.85, 1.0, -0.8], [0.25, 0.9, -0.55]], top=0.16, bottom=0.74, drift=(0.0, 0.0, -0.1)),
-              {**glide([FC(round(HIT11 - 0.1, 3), [-0.5, 1.05, 1.05], [[ME11[0], 1.6, ME11[2]], [ME11[0], 0.4, ME11[2]], [-0.85, 1.0, -0.8], [0.25, 0.9, -0.55]], top=0.16, bottom=0.74)], 0.2), 'roll': 0.12}])
+        cams=[FC(0.0, [0.4, 1.1, 0.75], [[ME11[0], 1.6, ME11[2]], [ME11[0], 0.4, ME11[2]], [-0.95, 1.0, -0.8], [0.25, 0.9, -0.55]], top=0.16, bottom=0.74, drift=(0.0, 0.0, -0.1)),
+              {**glide([FC(round(HIT11 - 0.1, 3), [0.4, 1.1, 0.75], [[ME11[0], 1.6, ME11[2]], [ME11[0], 0.4, ME11[2]], [-0.95, 1.0, -0.8], [0.25, 0.9, -0.55]], top=0.16, bottom=0.74)], 0.2), 'roll': 0.12}])   # (check stills) from 35 degrees off his front: the pancake reads thin (from the front, only wider)
         # (pass 2) the frame banks with the plane as the bag comes in
 st.cue('sfx:splat', 'S11', HIT11, 0.45); st.cue('whoosh', 'S11', OFF11, 0.2, 0.25, 300, 1200); st.cue('sfx:boing', 'S11', BACK11, 0.25); st.cue('sfx:jet', 'S11', 0.0, 0.1)
 
@@ -320,14 +321,14 @@ st.cue('sfx:slideDown', 'S12', 0.05, 0.2); st.cue('sfx:boing', 'S12', JMP, 0.3);
 # 1.60 s of 1.63: the take helper's keys and the shot's own fought each other)
 D13 = st.dur('S13'); OUT13 = 0.06; BUMP13 = 0.34; CUT13 = 0.55; SNAP13 = 0.72; SPD13 = 0.25
 ME13 = [-1.55, 0, -3.0]
-VB13 = [-0.8, BELT, BACKZ]; VBX = lambda t: r(VB13[0] - SPD13 * t)
+VB13 = [-1.0, BELT, BACKZ]; VBX = lambda t: r(VB13[0] - SPD13 * t)   # (check stills) clear of the tunnel's wall, which cut the little one
 LS0 = [r(EXITX + 0.22), BELT, BACKZ]; LSB = [r(VBX(BUMP13) + 0.7 / 2 + 0.375 / 2), BELT, BACKZ]   # the little one against the big one's side
 TAKEF = {'pop': 0.8, 'popLen': 0.35, 'brow': 1.0, 'jaw': 1.0, 'jawLen': 1.0, 'mouth': 'O'}
 st.shot('S13', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
         act('mec', ME13, 15, 'stand', 'unimpressed', keys=[k(0.0, look=[VBX(0.0), 1.0, BACKZ]), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'smile'}}, toonDur=0.0),
             k(0.4, look=[LSB[0], 0.7, BACKZ]),                                       # a glance at the little one...
-            k(0.56, look=[r(VBX(0.56) - 0.1), 1.0, BACKZ]),                          # ...back to the big one, blank...
-            k(SNAP13, look=[r(LSB[0] - SPD13 * (SNAP13 - BUMP13)), 0.7, BACKZ]),     # ...and the snap back to the little one
+            k(0.56, look={'point': [r(VBX(0.56) - 0.1), 1.0, BACKZ], 'cheat': 0.45}),                          # ...back to the big one, blank...
+            k(SNAP13, look={'point': [r(LSB[0] - SPD13 * (SNAP13 - BUMP13)), 0.7, BACKZ], 'cheat': 0.5}),     # ...and the snap back to the little one, cheated to the lens (a 67-degree profile)
             k(round(SNAP13 - 0.05, 3), toon={'sq': [1.1, 0.88, 1.1], 'face': {'lid': 0.6, 'brow': -0.3, 'mouth': 'smile'}}, toonDur=0.04, toonEase='in'),   # the anticipation squash...
             k(SNAP13, toon={'sq': [0.88, 1.18, 0.88], 'face': TAKEF}, toonDur=0.05, toonEase='outBack'),                                                   # ...the stretch, eyes out, jaw to his belt...
             k(0.95, toon={'sq': [0.9, 1.15, 0.9], 'face': TAKEF}, toonDur=0.1), k(1.15, toon={'sq': [0.89, 1.16, 0.89], 'face': TAKEF}, toonDur=0.1), k(1.35, toon={'sq': [0.91, 1.14, 0.91], 'face': TAKEF}, toonDur=0.1),   # ...held, a shiver...
@@ -339,8 +340,8 @@ st.shot('S13', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
                    keys=[k(OUT13, path=[[r((LS0[0] + LSB[0]) / 2), r(BELT + 0.42), BACKZ], LSB], dur=round(BUMP13 - OUT13, 3), ease='out'),   # out with a hop...
                          k(BUMP13, squash=[1.25, 0.78, 1.25], dur=0.3),                                                                       # ...a bump into the big one...
                          k(BUMP13, to=[r(LSB[0] + 0.05 - SPD13 * (D13 - BUMP13)), BELT, BACKZ], dur=round(D13 - BUMP13, 3), ease='linear')])],   # ...and on with it
-        cams=[FC(0.0, [-0.75, 1.05, 0.75], [[r(EXITX + 0.1), 1.85, BACKZ], [VBX(0.0), 1.55, BACKZ], [VBX(CUT13), BELT, BACKZ], [r((LS0[0] + LSB[0]) / 2), r(BELT + 0.85), BACKZ], [LS0[0], BELT, BACKZ], [ME13[0], 2.45, ME13[2]]], top=0.1, bottom=0.72),
-              FC(CUT13, [r(ME13[0] - 0.25), 1.95, -1.25], [[ME13[0], 2.7, ME13[2]], [ME13[0], 1.15, ME13[2]]], top=0.1, bottom=0.66)])
+        cams=[FC(0.0, [-1.25, 1.05, 0.7], [[r(EXITX + 0.1), 1.85, BACKZ], [VBX(0.0), 1.55, BACKZ], [VBX(CUT13), BELT, BACKZ], [r((LS0[0] + LSB[0]) / 2), r(BELT + 0.85), BACKZ], [LS0[0], BELT, BACKZ], [ME13[0], 2.45, ME13[2]]], top=0.1, bottom=0.72),
+              FC(CUT13, [r(ME13[0] + 0.2), 1.95, -1.25], [[ME13[0], 2.7, ME13[2]], [ME13[0], 1.15, ME13[2]]], top=0.1, bottom=0.66)])
 st.cue('sfx:squeak', 'S13', OUT13, 0.25); st.cue('clack', 'S13', BUMP13, 0.25); st.cue('sfx:gasp', 'S13', SNAP13, 0.25)
 
 # 14: he pays the maintenance. At home on the rug: he kneels before the little suitcase lying open like a mouth and feeds it a banknote; the lid snaps
@@ -375,7 +376,7 @@ st.shot('S14', 'livingRoom', setOpts={'carpet': False, 'picture': False}, actors
             k(round(LET + 0.3, 3), toon={'reach': {'R': [r(ME14[0] + 0.25), 0.85, r(ME14[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45}}, toonDur=0.1),   # the hand empty
             k(round(LET + 0.32, 3), look='camera'), k(round(D14 - 0.42, 3), toon={'reach': {'R': [r(ME14[0] + 0.25), 0.85, r(ME14[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 1.0}}, toonDur=0.07),
             k(round(D14 - 0.25, 3), toon={'reach': {'R': [r(ME14[0] + 0.25), 0.85, r(ME14[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45}}, toonDur=0.1)])],
-        props=[P('rug14', 'carpet', pos=[-0.05, 0, -0.35], opts={'w': 2.4, 'd': 1.7, 'color': '#3E5A70', 'inner': '#5F7F96'}),   # (pass 2) a cool rug under them (pink on the orange floor was 1.3 to 1)
+        props=[P('rug14', 'carpet', pos=[-0.05, 0, -0.35], opts={'w': 2.4, 'd': 1.7, 'color': '#C9D3C2', 'inner': '#DCE3D6'}),   # (check stills) a pale sage rug: the navy arm a line across it (on the blue-grey rug it vanished); (pass 2) pink on the orange floor was 1.3 to 1
                VAL('val14s', pos=SM14, rot=[r(-PI / 2), 0, YAWM], scale=0.75, opts={'color': '#F5A3C0', 'pacifier': True, 'pacScale': 2.0, 'stickers': 1, 'seed': 9, 'open': LIDO},
                    keys=[k(round(PULL + 0.12, 3), to=TOWARD(0.12), dur=round(PEAK - PULL - 0.12, 3), ease='inOut'), k(LET, to=TOWARD(0.06), dur=0.18, ease='out')]),   # it skids after him on its back, a little
                VAL('val14', pos=[0.95, 0, -0.85], ry=-35, scale=1.15, opts={'color': RED, 'stickers': 15, 'seed': 0, **GOLD, 'tagScale': 2.0, 'tagSwing': 0.12}),
