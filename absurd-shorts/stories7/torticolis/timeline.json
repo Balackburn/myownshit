@@ -1,0 +1,454 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est réveillé avec un torticolis.",
+   "hl": [
+    "torticolis."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.34,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "s'est",
+     "s": 0.54,
+     "e": 0.66
+    },
+    {
+     "w": "réveillé",
+     "s": 0.74,
+     "e": 1.06
+    },
+    {
+     "w": "avec",
+     "s": 1.18,
+     "e": 1.3
+    },
+    {
+     "w": "un",
+     "s": 1.34,
+     "e": 1.38
+    },
+    {
+     "w": "torticolis.",
+     "s": 1.46,
+     "e": 2.34
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Sa tête est restée tournée vers l'arrière.",
+   "hl": [
+    "l'arrière."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L02.mp3",
+   "file_start": 2.44,
+   "speech_start": 2.44,
+   "speech_end": 4.52,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 2.44,
+     "e": 2.6
+    },
+    {
+     "w": "tête",
+     "s": 2.68,
+     "e": 2.84
+    },
+    {
+     "w": "est",
+     "s": 2.88,
+     "e": 2.92
+    },
+    {
+     "w": "restée",
+     "s": 3.04,
+     "e": 3.24
+    },
+    {
+     "w": "tournée",
+     "s": 3.32,
+     "e": 3.56
+    },
+    {
+     "w": "vers",
+     "s": 3.64,
+     "e": 3.72
+    },
+    {
+     "w": "l'arrière.",
+     "s": 3.8,
+     "e": 4.52
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Depuis, il marche à reculons pour voir devant lui.",
+   "hl": [
+    "reculons"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L03.mp3",
+   "file_start": 4.62,
+   "speech_start": 4.62,
+   "speech_end": 7.34,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 4.62,
+     "e": 5.26
+    },
+    {
+     "w": "il",
+     "s": 5.34,
+     "e": 5.42
+    },
+    {
+     "w": "marche",
+     "s": 5.46,
+     "e": 5.7
+    },
+    {
+     "w": "à",
+     "s": 5.74,
+     "e": 5.82
+    },
+    {
+     "w": "reculons",
+     "s": 5.9,
+     "e": 6.22
+    },
+    {
+     "w": "pour",
+     "s": 6.3,
+     "e": 6.38
+    },
+    {
+     "w": "voir",
+     "s": 6.5,
+     "e": 6.62
+    },
+    {
+     "w": "devant",
+     "s": 6.66,
+     "e": 6.86
+    },
+    {
+     "w": "lui.",
+     "s": 6.94,
+     "e": 7.34
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La préfecture lui a délivré un permis de conduire à l'envers.",
+   "hl": [
+    "permis",
+    "l'envers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L04.mp3",
+   "file_start": 7.44,
+   "speech_start": 7.44,
+   "speech_end": 10.4,
+   "words": [
+    {
+     "w": "La",
+     "s": 7.44,
+     "e": 7.52
+    },
+    {
+     "w": "préfecture",
+     "s": 7.6,
+     "e": 8.08
+    },
+    {
+     "w": "lui",
+     "s": 8.107,
+     "e": 8.16
+    },
+    {
+     "w": "a",
+     "s": 8.2,
+     "e": 8.24
+    },
+    {
+     "w": "délivré",
+     "s": 8.32,
+     "e": 8.64
+    },
+    {
+     "w": "un",
+     "s": 8.72,
+     "e": 8.8
+    },
+    {
+     "w": "permis",
+     "s": 8.88,
+     "e": 9.04
+    },
+    {
+     "w": "de",
+     "s": 9.08,
+     "e": 9.12
+    },
+    {
+     "w": "conduire",
+     "s": 9.2,
+     "e": 9.44
+    },
+    {
+     "w": "à",
+     "s": 9.52,
+     "e": 9.547
+    },
+    {
+     "w": "l'envers.",
+     "s": 9.573,
+     "e": 10.4
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il ne roule qu'en marche arrière.",
+   "hl": [
+    "marche",
+    "arrière."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L05.mp3",
+   "file_start": 10.5,
+   "speech_start": 10.5,
+   "speech_end": 12.18,
+   "words": [
+    {
+     "w": "Il",
+     "s": 10.5,
+     "e": 10.58
+    },
+    {
+     "w": "ne",
+     "s": 10.66,
+     "e": 10.74
+    },
+    {
+     "w": "roule",
+     "s": 10.82,
+     "e": 10.98
+    },
+    {
+     "w": "qu'en",
+     "s": 11.02,
+     "e": 11.14
+    },
+    {
+     "w": "marche",
+     "s": 11.18,
+     "e": 11.54
+    },
+    {
+     "w": "arrière.",
+     "s": 11.7,
+     "e": 12.18
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Hier, un ostéopathe lui a remis la tête droite.",
+   "hl": [
+    "ostéopathe"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L06.mp3",
+   "file_start": 12.28,
+   "speech_start": 12.28,
+   "speech_end": 15.0,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 12.28,
+     "e": 12.84
+    },
+    {
+     "w": "un",
+     "s": 12.92,
+     "e": 13.0
+    },
+    {
+     "w": "ostéopathe",
+     "s": 13.08,
+     "e": 13.56
+    },
+    {
+     "w": "lui",
+     "s": 13.6,
+     "e": 13.72
+    },
+    {
+     "w": "a",
+     "s": 13.76,
+     "e": 13.8
+    },
+    {
+     "w": "remis",
+     "s": 13.88,
+     "e": 14.0
+    },
+    {
+     "w": "la",
+     "s": 14.04,
+     "e": 14.12
+    },
+    {
+     "w": "tête",
+     "s": 14.16,
+     "e": 14.28
+    },
+    {
+     "w": "droite.",
+     "s": 14.36,
+     "e": 15.0
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Elle a fait trois tours.",
+   "hl": [
+    "trois",
+    "tours."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L07.mp3",
+   "file_start": 15.1,
+   "speech_start": 15.1,
+   "speech_end": 16.38,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 15.1,
+     "e": 15.18
+    },
+    {
+     "w": "a",
+     "s": 15.22,
+     "e": 15.26
+    },
+    {
+     "w": "fait",
+     "s": 15.34,
+     "e": 15.42
+    },
+    {
+     "w": "trois",
+     "s": 15.5,
+     "e": 15.74
+    },
+    {
+     "w": "tours.",
+     "s": 15.78,
+     "e": 16.38
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Elle s'est bloquée vers le ciel.",
+   "hl": [
+    "ciel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L08.mp3",
+   "file_start": 16.48,
+   "speech_start": 16.48,
+   "speech_end": 18.16,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 16.48,
+     "e": 16.64
+    },
+    {
+     "w": "s'est",
+     "s": 16.68,
+     "e": 16.8
+    },
+    {
+     "w": "bloquée",
+     "s": 16.88,
+     "e": 17.12
+    },
+    {
+     "w": "vers",
+     "s": 17.2,
+     "e": 17.28
+    },
+    {
+     "w": "le",
+     "s": 17.36,
+     "e": 17.44
+    },
+    {
+     "w": "ciel.",
+     "s": 17.52,
+     "e": 18.16
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il présente la météo.",
+   "hl": [
+    "météo."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/torticolis/tts/L09.mp3",
+   "file_start": 18.26,
+   "speech_start": 18.26,
+   "speech_end": 19.62,
+   "words": [
+    {
+     "w": "Il",
+     "s": 18.26,
+     "e": 18.34
+    },
+    {
+     "w": "présente",
+     "s": 18.42,
+     "e": 18.74
+    },
+    {
+     "w": "la",
+     "s": 18.82,
+     "e": 18.86
+    },
+    {
+     "w": "météo.",
+     "s": 18.9,
+     "e": 19.62
+    }
+   ]
+  }
+ ],
+ "total": 20.46
+}

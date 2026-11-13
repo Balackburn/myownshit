@@ -29,6 +29,7 @@ import { CODEBARRE_PROPS } from './props_codebarre.js';
 import { PHOTOCOPIE_PROPS } from './props_photocopie.js';
 import { GOMME_PROPS } from './props_gomme.js';
 import { BOOMERANG_PROPS } from './props_boomerang.js';   // (cycle 14) « Le boomerang »
+import { TORTICOLIS_PROPS } from './props_torticolis.js';   // (cycle 15) « Le torticolis »
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -2065,7 +2066,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS, STATUE_PROPS, FOURRIERE_PROPS, RADAR_PROPS, HOQUET_PROPS, AIMANT_PROPS, CODEBARRE_PROPS, PHOTOCOPIE_PROPS, GOMME_PROPS, BOOMERANG_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS, STATUE_PROPS, FOURRIERE_PROPS, RADAR_PROPS, HOQUET_PROPS, AIMANT_PROPS, CODEBARRE_PROPS, PHOTOCOPIE_PROPS, GOMME_PROPS, BOOMERANG_PROPS, TORTICOLIS_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.

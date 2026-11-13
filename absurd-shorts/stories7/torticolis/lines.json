@@ -1,0 +1,77 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est réveillé avec un torticolis.",
+  "hl": [
+   "torticolis."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Sa tête est restée tournée vers l'arrière.",
+  "hl": [
+   "l'arrière."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Depuis, il marche à reculons pour voir devant lui.",
+  "hl": [
+   "reculons"
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "La préfecture lui a délivré un permis de conduire à l'envers.",
+  "hl": [
+   "permis",
+   "l'envers."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il ne roule qu'en marche arrière.",
+  "hl": [
+   "marche",
+   "arrière."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Hier, un ostéopathe lui a remis la tête droite.",
+  "hl": [
+   "ostéopathe"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Elle a fait trois tours.",
+  "hl": [
+   "trois",
+   "tours."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Elle s'est bloquée vers le ciel.",
+  "hl": [
+   "ciel."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il présente la météo.",
+  "hl": [
+   "météo."
+  ]
+ }
+]
