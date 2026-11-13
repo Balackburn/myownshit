@@ -740,7 +740,8 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   let all = addToon(tp, extra);
   if (keyed) all = addToon(all, keyed);
   // (cycle 18) the tip is set before the rig solves the guided hands: tipped after it, the body carried them off their points of the world
-  if (all.lay) { A.obj.rotation.order = 'YXZ'; A.obj.rotation.x = all.lay[0] || 0; A.obj.rotation.z = all.lay[1] || 0; }   // (cycle 6) toon channel lay [rx, rz] (rad): the whole body tipped about his feet, in his own frame (-PI / 2: on his back, his head behind him): a shadow on the ground, a man laid flat
+  if (all.lay) { A.obj.rotation.order = 'YXZ'; A.obj.rotation.x = all.lay[0] || 0; A.obj.rotation.z = all.lay[1] || 0; }
+  if (all.yaw) A.obj.rotation.y += all.yaw;   // (cycle 19) toon channel yaw (rad): a spin on top of his facing, set before the rig like the tip   // (cycle 6) toon channel lay [rx, rz] (rad): the whole body tipped about his feet, in his own frame (-PI / 2: on his back, his head behind him): a shadow on the ground, a man laid flat
   ud.toon.apply(all, t, sc);
   if (ud.fingers) ud.fingers.set(all.hands);
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space

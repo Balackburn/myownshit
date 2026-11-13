@@ -10,6 +10,8 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
+//   yaw: rad   (cycle 19) the whole body turned about its own vertical axis, on top of its facing (keys in turns: k(t, toon={'yaw': 2 * PI * n},
+//         toonEase='linear') spins him n times without the stutter of a chain of facing keys)
 //   lay: [rx, rz] (rad)   (cycle 6) the whole body tipped about his feet, in his own frame: -PI / 2 lays him on his back, his head behind him (with
 //         sq [1, 1, 0.03]: a shadow on the ground, a man flat as paper); key it back to 0 and he stands up like a board
 //   tie: [length, forward, aside]   the tie taken in a hand (engine/cloth.js, needs `cloth`): it stretches (1 = its own length, 1.7 = pulled like the cord of a
@@ -354,6 +356,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
   if (a.lay || b.lay) { const x = a.lay || [0, 0], y = b.lay || [0, 0]; out.lay = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0)]; }
+  if (a.yaw || b.yaw) out.yaw = L(a.yaw || 0, b.yaw || 0);   // (cycle 19) the whole body turned about its own vertical axis on top of its facing (rad): a spin keyed in turns
   if (a.pin || b.pin) { const x = a.pin, y = b.pin, p = x || y, q = y || x, po = p.off || [0, 0, 0], qo = q.off || [0, 0, 0];   // (cycle 17) a body point pinned to the world: it lets go and takes hold by its weight
     out.pin = { joint: (w < 0.5 ? p : q).joint, off: [L(po[0], qo[0]), L(po[1], qo[1]), L(po[2], qo[2])], at: [L(p.at[0], q.at[0]), L(p.at[1], q.at[1]), L(p.at[2], q.at[2])], w: L(x ? (x.w ?? 1) : 0, y ? (y.w ?? 1) : 0) }; }   // (cycle 6) the whole body tipped about his feet
   if (a.touch || b.touch) { out.touch = {}; for (const sd of ['L', 'R']) { const x = a.touch?.[sd], y = b.touch?.[sd]; if (!x && !y) continue;
@@ -373,7 +376,7 @@ export function addToon(a = {}, b = {}) {
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
-  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot;
+  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot; if (b.yaw) out.yaw = (a.yaw || 0) + b.yaw;
   if (b.pin) out.pin = b.pin;   // (cycle 17)
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };

@@ -1,0 +1,393 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec est entré dans une porte tournante.",
+   "hl": [
+    "porte",
+    "tournante."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.174,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "est",
+     "s": 0.544,
+     "e": 0.619
+    },
+    {
+     "w": "entré",
+     "s": 0.693,
+     "e": 0.841
+    },
+    {
+     "w": "dans",
+     "s": 0.878,
+     "e": 0.989
+    },
+    {
+     "w": "une",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "porte",
+     "s": 1.211,
+     "e": 1.433
+    },
+    {
+     "w": "tournante.",
+     "s": 1.47,
+     "e": 2.174
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il n'en est jamais sorti.",
+   "hl": [
+    "jamais",
+    "sorti."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L02.k.wav",
+   "file_start": 2.274,
+   "speech_start": 2.274,
+   "speech_end": 3.607,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.274,
+     "e": 2.348
+    },
+    {
+     "w": "n'en",
+     "s": 2.397,
+     "e": 2.496
+    },
+    {
+     "w": "est",
+     "s": 2.57,
+     "e": 2.644
+    },
+    {
+     "w": "jamais",
+     "s": 2.719,
+     "e": 2.941
+    },
+    {
+     "w": "sorti.",
+     "s": 3.015,
+     "e": 3.607
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il tourne depuis trois ans.",
+   "hl": [
+    "trois",
+    "ans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L03.k.wav",
+   "file_start": 3.707,
+   "speech_start": 3.707,
+   "speech_end": 5.115,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.707,
+     "e": 3.781
+    },
+    {
+     "w": "tourne",
+     "s": 3.856,
+     "e": 4.152
+    },
+    {
+     "w": "depuis",
+     "s": 4.226,
+     "e": 4.448
+    },
+    {
+     "w": "trois",
+     "s": 4.522,
+     "e": 4.67
+    },
+    {
+     "w": "ans.",
+     "s": 4.744,
+     "e": 5.115
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La centrale l'a branché au réseau.",
+   "hl": [
+    "centrale",
+    "réseau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L04.k.wav",
+   "file_start": 5.215,
+   "speech_start": 5.215,
+   "speech_end": 6.844,
+   "words": [
+    {
+     "w": "La",
+     "s": 5.215,
+     "e": 5.363
+    },
+    {
+     "w": "centrale",
+     "s": 5.474,
+     "e": 5.733
+    },
+    {
+     "w": "l'a",
+     "s": 5.77,
+     "e": 5.881
+    },
+    {
+     "w": "branché",
+     "s": 5.993,
+     "e": 6.178
+    },
+    {
+     "w": "au",
+     "s": 6.252,
+     "e": 6.289
+    },
+    {
+     "w": "réseau.",
+     "s": 6.326,
+     "e": 6.844
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il éclaire tout le quartier.",
+   "hl": [
+    "éclaire",
+    "quartier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L05.k.wav",
+   "file_start": 6.944,
+   "speech_start": 6.944,
+   "speech_end": 8.426,
+   "words": [
+    {
+     "w": "Il",
+     "s": 6.944,
+     "e": 7.019
+    },
+    {
+     "w": "éclaire",
+     "s": 7.093,
+     "e": 7.463
+    },
+    {
+     "w": "tout",
+     "s": 7.5,
+     "e": 7.537
+    },
+    {
+     "w": "le",
+     "s": 7.611,
+     "e": 7.685
+    },
+    {
+     "w": "quartier.",
+     "s": 7.722,
+     "e": 8.426
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La salle de sport lui a offert un abonnement.",
+   "hl": [
+    "sport",
+    "abonnement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L06.k.wav",
+   "file_start": 8.526,
+   "speech_start": 8.526,
+   "speech_end": 10.6,
+   "words": [
+    {
+     "w": "La",
+     "s": 8.526,
+     "e": 8.674
+    },
+    {
+     "w": "salle",
+     "s": 8.711,
+     "e": 8.822
+    },
+    {
+     "w": "de",
+     "s": 8.896,
+     "e": 8.97
+    },
+    {
+     "w": "sport",
+     "s": 9.119,
+     "e": 9.267
+    },
+    {
+     "w": "lui",
+     "s": 9.304,
+     "e": 9.415
+    },
+    {
+     "w": "a",
+     "s": 9.452,
+     "e": 9.489
+    },
+    {
+     "w": "offert",
+     "s": 9.563,
+     "e": 9.711
+    },
+    {
+     "w": "un",
+     "s": 9.785,
+     "e": 9.859
+    },
+    {
+     "w": "abonnement.",
+     "s": 9.933,
+     "e": 10.6
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, la porte s'est arrêtée.",
+   "hl": [
+    "arrêtée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L07.k.wav",
+   "file_start": 10.7,
+   "speech_start": 10.7,
+   "speech_end": 12.629,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 10.7,
+     "e": 11.293
+    },
+    {
+     "w": "la",
+     "s": 11.367,
+     "e": 11.441
+    },
+    {
+     "w": "porte",
+     "s": 11.552,
+     "e": 11.663
+    },
+    {
+     "w": "s'est",
+     "s": 11.737,
+     "e": 11.885
+    },
+    {
+     "w": "arrêtée.",
+     "s": 12.033,
+     "e": 12.626
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Lui, non.",
+   "hl": [
+    "non."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L08.k.wav",
+   "file_start": 12.729,
+   "speech_start": 12.729,
+   "speech_end": 13.766,
+   "words": [
+    {
+     "w": "Lui,",
+     "s": 12.729,
+     "e": 13.247
+    },
+    {
+     "w": "non.",
+     "s": 13.358,
+     "e": 13.766
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La centrale lui facture la panne.",
+   "hl": [
+    "facture",
+    "panne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tournante/tts/L09.k.wav",
+   "file_start": 13.866,
+   "speech_start": 13.866,
+   "speech_end": 15.718,
+   "words": [
+    {
+     "w": "La",
+     "s": 13.866,
+     "e": 13.94
+    },
+    {
+     "w": "centrale",
+     "s": 14.014,
+     "e": 14.458
+    },
+    {
+     "w": "lui",
+     "s": 14.532,
+     "e": 14.681
+    },
+    {
+     "w": "facture",
+     "s": 14.755,
+     "e": 15.051
+    },
+    {
+     "w": "la",
+     "s": 15.125,
+     "e": 15.199
+    },
+    {
+     "w": "panne.",
+     "s": 15.273,
+     "e": 15.718
+    }
+   ]
+  }
+ ],
+ "total": 16.56
+}

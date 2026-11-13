@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec est entré dans une porte tournante.", "hl": ["porte", "tournante."]},
+ {"id": "L02", "who": "N", "text": "Il n'en est jamais sorti.", "hl": ["jamais", "sorti."]},
+ {"id": "L03", "who": "N", "text": "Il tourne depuis trois ans.", "hl": ["trois", "ans."]},
+ {"id": "L04", "who": "N", "text": "La centrale l'a branché au réseau.", "hl": ["centrale", "réseau."]},
+ {"id": "L05", "who": "N", "text": "Il éclaire tout le quartier.", "hl": ["éclaire", "quartier."]},
+ {"id": "L06", "who": "N", "text": "La salle de sport lui a offert un abonnement.", "hl": ["sport", "abonnement."]},
+ {"id": "L07", "who": "N", "text": "Hier, la porte s'est arrêtée.", "hl": ["arrêtée."]},
+ {"id": "L08", "who": "N", "text": "Lui, non.", "hl": ["non."]},
+ {"id": "L09", "who": "N", "text": "La centrale lui facture la panne.", "hl": ["facture", "panne."]}
+]
