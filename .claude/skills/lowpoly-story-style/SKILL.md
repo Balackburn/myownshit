@@ -1008,3 +1008,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 16) Un visage tourné vers le plafond, filmé de loin, fait 70 px et se lit comme une boîte vide : plus près et plus haut, cadré aux genoux.
 - (cycle 16) Une passante ou un enfant qui traverse doit marcher au-delà de la coupe (la durée du déplacement plus longue que le plan) : arrivé avant
   la fin, il piétine sur place.
+- (cycle 16) Un commentaire collé au milieu d'une ligne de code avale la fin de la ligne : dans `props_valise.js`, `// ...` posé devant
+  `hatch.position.set(...); g.add(hatch);` a fait disparaître le tunnel du tapis à bagages de tous les plans. Après chaque modification :
+  `python3 tools/lint_comments.py` (scripts Python) et `python3 tools/lint_js_comments.py` (moteur JavaScript).
