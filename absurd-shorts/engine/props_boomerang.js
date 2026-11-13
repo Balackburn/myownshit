@@ -183,6 +183,21 @@ export const BOOMERANG_PROPS = {
     return g;
   },
 
+  // (final pass of 52) A French pedestrian-crossing sign on its post (pivot at the foot of the post, the sign faces +Z): a blue square o.s (0.6 m) with a
+  // white triangle and a black walker on a striped crossing, o.h (2.2 m) up
+  crossingSign(o) {
+    const S = o.s ?? 0.6, H = o.h ?? 2.2, g = grp(at(cyl(0.035, 0.035, H, '#9AA1A8', 8), 0, H / 2, -0.03));
+    const face = canvasPlane(S, S, (c, W, Hc) => { c.fillStyle = '#1F5FB8'; c.fillRect(0, 0, W, Hc); c.strokeStyle = '#FFFFFF'; c.lineWidth = W * 0.035; c.strokeRect(W * 0.04, W * 0.04, W * 0.92, Hc * 0.92);
+      c.fillStyle = '#FFFFFF'; c.beginPath(); c.moveTo(W * 0.5, Hc * 0.13); c.lineTo(W * 0.88, Hc * 0.84); c.lineTo(W * 0.12, Hc * 0.84); c.closePath(); c.fill();
+      c.fillStyle = '#1C1C1E'; for (let i = 0; i < 4; i++) c.fillRect(W * (0.27 + i * 0.13), Hc * 0.74, W * 0.07, Hc * 0.06);   // the stripes
+      c.beginPath(); c.arc(W * 0.5, Hc * 0.33, W * 0.045, 0, TAU); c.fill();   // the walker: head, body, legs and arms in stride
+      c.lineWidth = W * 0.05; c.lineCap = 'round'; c.strokeStyle = '#1C1C1E'; c.beginPath(); c.moveTo(W * 0.5, Hc * 0.39); c.lineTo(W * 0.48, Hc * 0.55);
+      c.moveTo(W * 0.48, Hc * 0.55); c.lineTo(W * 0.4, Hc * 0.7); c.moveTo(W * 0.48, Hc * 0.55); c.lineTo(W * 0.57, Hc * 0.69); c.moveTo(W * 0.49, Hc * 0.43); c.lineTo(W * 0.4, Hc * 0.52);
+      c.moveTo(W * 0.49, Hc * 0.43); c.lineTo(W * 0.59, Hc * 0.5); c.stroke(); }, { res: 256 });
+    face.position.set(0, H - S / 2, 0.004); g.add(at(box(S + 0.03, S + 0.03, 0.02, '#E8ECEF', { outline: 0.01 }), 0, H - S / 2, -0.008), face);
+    return g;
+  },
+
   // An old wooden plate camera on a tripod (front +Z, pivot at the floor): the back box o.h (1.45 m) up, black bellows, a brass lens; a black cloth
   // hanging from the back (the photographer's head goes under it: o.cloth); o.flashAt (t): a flash tray raised on a rod fires a white burst.
   bellowsCamera(o) {

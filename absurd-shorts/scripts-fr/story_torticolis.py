@@ -325,7 +325,7 @@ st.shot('S12', 'hospital', setOpts=HOSP, look=LOOKI, actors=[
         act('osteo', OST11, -115, 'stand', 'surprised', keys=[k(0.0, look=[0.0, 2.0, ME10[2]]), k(0.1, to=OST12, dur=0.3, glide=True, ease='out', face='keep'), k(0.12, face=-30, turn=0.2),   # (pass 3) opened to us as he steps back (the probe: his back, 131 degrees)
             k(0.1, toon={'lay': [-0.12, 0], 'face': {'jaw': 0.6, 'brow': 1.0, 'gx': 0.8}}, toonDur=0.1),
             *[k(round(0.2 + 0.11 * i, 3), toon={'lay': [-0.12, (0.06 if i % 2 else -0.06)], 'face': {'jaw': 0.6, 'brow': 1.0, 'gx': [0.9, 0.0, -0.9, 0.0][i % 4], 'gy': [0.0, 0.7, 0.0, -0.7][i % 4]}}, toonDur=0.08) for i in range(9)],   # his eyes going round (final: in circles)...
-            *[k(round(0.25 + 0.11 * i, 3), look=[(0.45 if i % 2 else -0.45), 1.9, ME10[2]]) for i in range(8)],   # ...then his head with them
+            *[k(round(0.25 + 0.11 * i, 3), look={'point': [(0.45 if i % 2 else -0.45), 1.9, ME10[2]], 'cheat': 0.55}) for i in range(8)],   # ...then his head with them (final: cheated to the lens, the probe saw a profile)
             k(round(D12 - 0.22, 3), toon={'lay': [-0.05, 0.1], 'face': {'expr': 'dizzy', 'exprW': 0.8, 'jaw': 0.4}}, toonDur=0.1)])],   # (pass 2) and he staggers, dizzy
         props=[COUCH('couch12'), CHART('chart12'), P('swirl12', 'windSwirl', pos=[0.0, 1.62, -1.53], keys=[k(SP12, visible=False)])],   # (final) wind streaks round the spinning head
         cams=[FC(0.0, [0.9, 1.7, 0.35], [[0.0, 2.6, ME10[2]], [0.0, 0.9, ME10[2]], [-0.65, 2.2, ME10[2]], [0.7, 2.2, ME10[2]], [OST12[0], 2.3, OST12[2]], [r(OST12[0] + 0.35), 1.6, OST12[2]]], top=0.12, bottom=0.72, drift=(0.0, 0.0, -0.25))])
@@ -342,7 +342,7 @@ st.shot('S13', 'hospital', setOpts=HOSP, look=LOOKI, actors=[
             k(0.62, toon=NECK(0.0, bx=-1.4, extra={'sq': [1.02, 1.03, 1.02]}), toonDur=0.2, toonEase='inOut'), k(0.86, toon=NECK(0.0, bx=-1.4), toonDur=0.15),   # (pass 2) a breath
             k(1.05, toon=NECK(0.0, bx=-1.4, extra={'face': {'lid': 1.0}}), toonDur=0.06), k(1.18, toon=NECK(0.0, bx=-1.4, extra={'face': {'lid': 0.45}}), toonDur=0.1),   # a blink at the ceiling
             k(1.45, toon=NECK(0.0, bx=-1.4, extra={'sq': [1.02, 1.03, 1.02], 'face': {'lid': 0.45, 'gx': 0.3}}), toonDur=0.2, toonEase='inOut')]),   # (pass 3) another breath, the eyes sliding
-        act('osteo', OST13, -20, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.75, ME10[2]]), k(0.3, look=[0.0, 3.2, -1.9]),   # (pass 3) he looks up where the face looks...
+        act('osteo', OST13, -20, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.75, ME10[2]]), k(0.3, look={'point': [0.0, 3.2, -1.9], 'cheat': 0.5}),   # (pass 3) he looks up where the face looks...
             # (pass 3) opened to the lens (the probe: 114 degrees, his back)
             k(0.35, toon=SCR(0), toonDur=0.2, toonEase='out'),
             *[k(round(0.6 + 0.09 * i, 3), toon=SCR(i + 1), toonDur=0.08) for i in range(12)]])],
