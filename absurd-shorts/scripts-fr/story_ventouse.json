@@ -82,6 +82,11 @@
    "build": {
     "width": 0.9,
     "headWidth": 1.25
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
    }
   },
   "p2": {
@@ -91,6 +96,11 @@
    "build": {
     "width": 0.95,
     "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
    }
   }
  },

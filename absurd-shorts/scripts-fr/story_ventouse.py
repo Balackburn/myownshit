@@ -330,10 +330,11 @@ for t_ in [('S04', 0.3, 'pl4', 'plunger'), ('S15', 3.0, 'plat15b', 'station')]:
 st.card('S05', 'PLOMBERIE')
 st.card('S15', 'CHÔMAGE')
 
+# (cycle 20) the extras get a fuller life in their holds (cast toon: holdLife, shift, breathe): at the defaults they stood frozen within 5 px
 st.write("La ventouse", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'guichet': {'preset': 'madame', 'seed': 551, 'suit': '#8E2A3A', 'hair': 'bun', 'hairColor': '#B8B8B8', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'plombier': {'preset': 'worker', 'seed': 552, 'suit': '#2F5C9E', 'build': {'width': 1.0, 'headWidth': 1.2}},
-    'p1': {'preset': 'madame', 'seed': 553, 'suit': '#C8643A', 'hairColor': '#6B3A1E', 'build': {'width': 0.9, 'headWidth': 1.25}},
-    'p2': {'preset': 'boss', 'seed': 554, 'suit': '#6B4E8A', 'build': {'width': 0.95, 'headWidth': 1.2}},
+    'p1': {'preset': 'madame', 'seed': 553, 'suit': '#C8643A', 'hairColor': '#6B3A1E', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    'p2': {'preset': 'boss', 'seed': 554, 'suit': '#6B4E8A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
 })

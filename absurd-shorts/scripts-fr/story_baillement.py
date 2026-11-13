@@ -220,12 +220,13 @@ for t_ in [('S04', 0.8, 'sign4', 'toboggan')]:
 st.card('S04', 'TOBOGGAN')
 st.card('S10', 'DEDANS')
 
+# (cycle 20) the extras get a fuller life in their holds (cast toon: holdLife, shift, breathe): at the defaults they stood frozen within 5 px
 st.write("Le bâillement", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'maire': {'preset': 'politique', 'seed': 581, 'build': {'width': 1.0, 'headWidth': 1.2, 'belly': 0.06}},
-    'q1': {'preset': 'boss', 'seed': 582, 'suit': '#6B5B45', 'build': {'width': 0.95, 'headWidth': 1.2}},
-    'q2': {'preset': 'madame', 'seed': 583, 'suit': '#3E8E6E', 'build': {'width': 0.9, 'headWidth': 1.25}},
-    'q3': {'preset': 'sportif', 'seed': 584, 'suit': '#C8642A', 'build': {'width': 0.95, 'headWidth': 1.2}},
+    'q1': {'preset': 'boss', 'seed': 582, 'suit': '#6B5B45', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    'q2': {'preset': 'madame', 'seed': 583, 'suit': '#3E8E6E', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    'q3': {'preset': 'sportif', 'seed': 584, 'suit': '#C8642A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
     'mamie': {'preset': 'mamie', 'seed': 585, 'build': {'width': 0.9, 'headWidth': 1.25}},
     'facteur': {'preset': 'worker', 'seed': 586, 'suit': '#2E5AA8', 'hat': 'beanie', 'hatColor': '#F2C230', 'build': {'width': 1.0, 'headWidth': 1.2}},
 })
