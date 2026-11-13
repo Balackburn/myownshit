@@ -1747,3 +1747,19 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   du héros, la voiture en marche arrière illisible, des accessoires qui ne se lisent pas (le réveil, la cuillère, le permis caché par sa main), du texte
   coupé. Décision sans question (« à voir avec l'utilisateur ») : le modèle du héros reste celui de la série (pas de fente ni de col au dos de la
   veste) ; ce sont les cadrages et la lumière qui doivent faire lire le visage sur son dos.
+- **53 « Le torticolis », revue 1 (animation) : 5,5** → passe 2 écrite (réveil rond qui s'écrase sous la claque, yeux qui jaillissent, CRAC avec
+  traînée et dépassement, cuillère par-dessus l'épaule puis dans l'oreille, marche arrière de profil, double take de la dame, voitures dans l'axe du
+  boulevard, ostéopathe par-dessus l'épaule, six tours avec yeux en spirale, caméra de plateau accrochée au plafond).
+- **Images de contrôle des passes 2 (boomerang et torticolis)** : neuf plans à reprendre, corrigés dans une passe 2b.
+  - Boomerang : le haut du ciel noir ou brun venait d'objectifs très larges (69°) : au-delà de 56° le haut du cadre atteint le haut sombre du dôme ;
+    au plan 2 le point lointain du boomerang poussait l'homme hors du cadre : caméra derrière lui à gauche, boomerang qui rapetisse en haut à gauche ;
+    l'insert du tampon filmait le dos de sa veste (deux tiers du cadre bleu marine) : caméra passée à gauche de sa main, et le tampon se lève avant
+    de frapper ; l'aiguilleur en uniforme bleu (crème sur mur crème), son pouce levé tenu une demi-seconde (il durait deux images) ; caméra du plan 13
+    montée à 4,9 m (à 3,25 m les pales étaient à 5° sous l'objectif : encore une planche) ; les passants marchent au-delà de la coupe.
+  - Torticolis : la cuillère tenue le long de l'avant-bras ne se voyait pas : retournée hors du poing et sombre ; au plan 6 l'homme au bord du cadre
+    pour faire tenir tout le titre : les deux personnages décalés à gauche, caméra de son côté droit (sa main qui part vers la guichetière se voit) ;
+    au plan 7 la caméra reculée par l'ajustement passait derrière un montant noir de la vitre du guichet : contrainte de rester devant la vitre ;
+    au plan 9 le coffre de la voiture remplissait l'image : caméra qui roule à côté du conducteur doublé, la voiture rouge file derrière lui ;
+    au plan 13 le visage tourné vers le plafond faisait 70 px (lu comme une boîte vide) : plus près, plus haut ; au plan 14 la caméra de plateau
+    bouchait la moitié de la vue en grue : elle disparaît dans sa propre vue (c'est nous).
+  - Décision : pas de nouvelle revue sur les images de contrôle ; les revues 2 se feront sur les brouillons 2 complets.
