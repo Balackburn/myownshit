@@ -1709,3 +1709,25 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   voiture en marche arrière (le visage à la lunette arrière), la torsion de l'ostéopathe, la tête-toupie à trois tours, l'arrêt sur un ressort
   le visage au plafond, le présentateur qui montre la carte sans la voir. « La préfecture » plutôt que « la mairie » : c'est elle qui délivre le
   permis ; le décor du bureau de poste prend le titre PRÉFECTURE. « La météo » au sens commun, sans nom d'organisme réel.
+- **50 « Le hoquet », revue 3 : animation 7,5, direction artistique 7,6** (7,4/7,5 à la revue 2). Restent pour la passe finale : l'accroc au sommet
+  de chaque saut (la tête dépasse puis retombe, et remonte au début de la chute), le verre d'eau gris et le jet qui flotte au-dessus de sa bouche,
+  le plafond qui se lit comme un mur (fissures en bâtons, éclats sur ses joues), le visage de l'officiel jamais tourné vers nous, l'ouverture trop
+  large, le labo aux couleurs de son salon. Cause de l'accroc trouvée en mesurant le saut image par image (`debugJoints`) : le moteur ajoute son
+  propre étirement selon la vitesse (jusqu'à ×1,32), qui se multipliait au mien → `autoSq: 0` dans les clés du saut, et un saut refait clé à clé à
+  30 images/s (la tête mène sur une courbe qui ne redescend jamais, les pieds suivent ; à la chute les pieds mènent). Mesuré après : la tête monte
+  sans dépasser, redescend sans remonter.
+  Décisions sans question (« à voir avec l'utilisateur » de la revue) : la règle porte « 1 m » (le symbole correct du mètre) ; la plaque garde
+  « CATASTROPHE NATURELLE » malgré le titre et le sous-titre qui disent la même chose au même moment : la plaque dévoilée est l'image même de la
+  phrase, l'écho est voulu.
+- **51 « La gomme à mâcher », passe 3** (revue 2 : animation 6,4, direction artistique 7,4). Décision sans question : la tête reste la boîte de la
+  série ; la grande inspiration est la boîte qui enfle (pas de tête ronde). Le téléphone restait invisible : la main guidée sur le visage restait à
+  la poitrine, puis le téléphone, centré sur le poing, était caché par le poing et l'avant-bras (vérifié avec un téléphone magenta trois fois plus
+  grand) → main guidée dans le repère du torse, téléphone monté au-dessus du poing et devant. Tape la tête en bas : l'IK des mains est résolu avant
+  la rotation du corps (cibles données en miroir) et le balancement de poids faisait glisser les mains (`hip: 0`) ; mesuré : les deux mains restent
+  sur le clavier pendant qu'il se balance. Le « oh-oh » : le corps couché pivote autour de ses pieds (2,5 m des chaussures aux mains) → les pieds
+  placés pour qu'il tienne dans le cadre ; la traînée de vitesse le redressait à la sortie → retirée.
+- **52 « Le boomerang », revue 1 (direction artistique) : 6,5** : gags trop larges ou de profil (le boomerang à 5 % de la hauteur, le rotor vu par la
+  tranche à hauteur des yeux), accessoires cachés (l'appareil du photographe, l'avion sans pare-brise qui flotte), défauts de rendu (un coin noir
+  dans le ciel du plan 2, le fronton noir de la mairie, l'éclair en bulle de savon), texte illisible (le formulaire, BOOMERANG coupé par le
+  contrôleur). La revue d'animation est en cours.
+- **53 « Le torticolis », brouillon 1** rendu ; deux passages trop calmes notés (plans 13 et 14) pour la passe suivante ; revue 1 lancée.

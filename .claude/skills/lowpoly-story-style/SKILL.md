@@ -289,6 +289,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le stylo qui s'envole | l'aiguille du sismographe part en arc vers le haut, grossit du double en route et laisse trois copies qui s'effacent derrière elle : une traînée (`seismograph` `penOff`) | 50 S03 (cycle 14) |
 | Le drap qui se froisse | `unveilCloth` : un drap souple à plis et ourlet festonné qui se balance ; tiré, il se froisse, son bord haut s'enroule et il se ramasse au tiers de sa hauteur pendant que ses clés l'emportent. Accroché à une tête (`on` joint `head`), c'est aussi le drap noir du photographe | 50 S11, 52 S12 (cycle 14) |
 | La prise vers nous | la double prise d'un homme qui marche : coup d'œil à la chose derrière lui, retour au téléphone, il s'arrête, et la prise vers l'objectif, yeux sur tiges, bras ouverts, avant-bras baissé (l'objet quitte le visage) | 51 S02 (cycle 14) |
+| Le saut image par image | un saut clé à clé à 30 images/s : la tête monte sur une seule courbe jusqu'au sommet sans jamais redescendre, les pieds la suivent sur une courbe plus lente, et l'étirement n'est que l'avance de la tête sur les pieds (la tête ne dépasse jamais le sommet ; la première image en l'air est la traînée) ; à la descente les pieds mènent, la tête suit deux images plus tard ; l'écrasement à l'arrivée est dosé par la hauteur. `autoSq: 0` dans chaque clé du saut | 50 (cycle 15, passe finale) |
+| Chaque saut sa silhouette | le même gag qui revient change de pose en l'air : boule jambes repliées et bras en ailes, flottement lent bras écartés avec la cravate et les cheveux qui montent (`wind` vers le haut), torsion qui rattrape l'objet laissé en l'air | 50 S07, S11, S12 (cycle 15) |
+| Il tape même la tête en bas | pendu par le pied au-dessus de son bureau, il se balance et ses deux mains restent sur le clavier, en frappe alternée (cibles miroir, sans balancement de poids) | 51 S09 (cycle 15) |
+| Le « oh-oh » à plat | arraché du trottoir, il se retrouve à l'horizontale face à nous, bras au-dessus de la tête le long du fil, cinq images de suspension, puis il part étiré hors du cadre en laissant des traits de vitesse et une petite poussière | 51 S11 (cycle 15) |
+| Le fil qui s'étire jusqu'à casser | le rouleau colle : l'ouvrier se penche en arrière à 35 degrés, un pied levé, le fil de gomme s'étire à longueur de bras, casse, il recule en titubant et la plaque oscille sur sa dernière vis | 51 S05 (cycle 15) |
+| Le V sous la cabine | un téléphérique accroché au fil de chewing-gum : les ancrages proches (±20 m) font un V net sous la pince (13 degrés), la cabine se balance, les passagers regardent en bas | 51 S08 (cycle 15) |
+| Le cratère qui s'agrandit | collé au plafond : la bosse de la frayeur est déjà là au début du plan, le hoquet l'agrandit (fissures ramifiées, éclats pâles, contour de cratère) ; une corniche et un lustre qui se balance au choc donnent la perspective vue d'en bas | 50 S10 (cycle 15) |
+| L'eau en larmes cernées | l'eau qui sort de la bouche : des gouttes en larmes cernées de noir, la pointe en arrière, et un filet de gouttes plus lentes qui relie la gerbe aux lèvres ; le verre d'un bleu franc dont le niveau baisse à chaque gorgée | 50 S08 (cycle 15) |
 
 ## Erreurs à éviter
 
@@ -954,3 +962,17 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   la passante). `st.write` le signale maintenant (« keys before the shot starts »).
 - (cycle 15) Recoller plutôt que tout refaire : un brouillon dont seuls deux plans changent se corrige par `render3 --range a:b` et
   `tools/splice_range.sh` (deux plans en 20 min au lieu de 105 min pour le film entier).
+- (cycle 15) Le moteur ajoute son propre écrasement-étirement selon la vitesse verticale (jusqu'à ×1,32) : il se multiplie à celui qu'on clé à la main.
+  Dans un saut clé à la main, mettre `autoSq: 0` dans chaque clé (50 : la tête dépassait le sommet de 0,9 m au départ et remontait au début de la
+  chute ; l'« accroc au sommet » des trois revues venait de là). Mesurer le saut image par image avec `debugJoints` avant de le juger.
+- (cycle 15) Sur un corps couché ou la tête en bas (`lay`), l'IK des mains est résolu avant la rotation : donner à `reach` le point que la rotation
+  amène sur la cible (miroir autour des pieds), et couper le balancement de poids (`hip: 0`), qui faisait glisser les mains du clavier.
+- (cycle 15) `lay` fait pivoter le corps autour de ses pieds : couché, il s'étend sur 1,9 m (2,5 m bras compris) depuis ses chaussures. Placer les pieds
+  pour que le corps entier tienne dans le cadre (51 : le « oh-oh » sortait du cadre par la tête).
+- (cycle 15) Pas de traînée de vitesse (`smear`) sur un corps couché sur le côté : son étirement latéral le redresse à la verticale.
+- (cycle 15) Un accessoire tenu (`on` main + `offset`) : l'axe y de la main descend le long de l'avant-bras ; un téléphone centré sur le poing est
+  caché par le poing et l'avant-bras. Le monter hors du poing (y négatif) et le mettre devant (z négatif), puis vérifier sur une image.
+- (cycle 15) `touch` sur le visage peut laisser la main derrière la cible ; pour un objet tenu devant la poitrine ou le menton pendant la marche, guider
+  la main dans le repère du torse (`['torso', x, y, z]`).
+- (cycle 15) Des yeux qui se ferment pile sur un sursaut se lisent comme une grimace : `face: {noBlink: 1}` dans les clés du plan, et le clignement clé
+  six à huit images après.
