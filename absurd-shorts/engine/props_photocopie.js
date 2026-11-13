@@ -11,7 +11,7 @@ const list = v => [].concat(v ?? []);
 const grey = v => `rgb(${v},${v},${v})`;
 
 // the man as a black-and-white photocopy, drawn flat (his box head and stubble, the suit, the tie): the cutouts of the copy fountain
-function drawCopyMan(c, W, H, back = false, sheet = false) {
+function drawCopyMan(c, W, H, back = false, sheet = false, painted = false) {
   c.clearRect(0, 0, W, H);
   if (sheet) { c.fillStyle = '#F7F6F1'; c.fillRect(W * 0.03, H * 0.005, W * 0.94, H * 0.99); c.strokeStyle = grey(170); c.lineWidth = Math.max(1, W * 0.008); c.strokeRect(W * 0.03, H * 0.005, W * 0.94, H * 0.99); }   // (pass 2 of 49) o.sheet: printed on a white sheet with its margin (one design for every copy)
   if (back && back !== 'face') { c.fillStyle = grey(232); c.fillRect(W * 0.1, H * 0.03, W * 0.8, H * 0.95); return; }   // the blank back of a single-sided copy
@@ -22,7 +22,12 @@ function drawCopyMan(c, W, H, back = false, sheet = false) {
   c.fillStyle = grey(238); c.beginPath(); c.moveTo(W * 0.41, H * 0.3); c.lineTo(W * 0.59, H * 0.3); c.lineTo(W * 0.5, H * 0.47); c.closePath(); c.fill();   // the shirt
   R(0.475, 0.31, 0.05, 0.21, 112);                                                                                             // the tie
   R(0.455, 0.255, 0.09, 0.05, 186); R(0.35, 0.025, 0.3, 0.24, 200); R(0.35, 0.025, 0.3, 0.05, 38);                               // neck, head, hair
-  R(0.40, 0.115, 0.07, 0.012, 22); R(0.53, 0.115, 0.07, 0.012, 22); R(0.425, 0.14, 0.03, 0.022, 22); R(0.555, 0.14, 0.03, 0.022, 22); R(0.455, 0.215, 0.09, 0.009, 30);   // brows, eyes, mouth
+  if (painted) {   // (pass 3 of 49) the same face as the printed copy (the hero's painted face in greys): white eyes under heavy lids, small pupils, slanted brows
+    const E = (cx) => { c.fillStyle = grey(244); c.beginPath(); c.ellipse(W * cx, H * 0.148, W * 0.034, H * 0.017, 0, 0, TAU); c.fill(); c.fillStyle = grey(150); c.fillRect(W * (cx - 0.036), H * 0.128, W * 0.072, H * 0.014);
+      c.fillStyle = grey(16); c.beginPath(); c.arc(W * (cx + 0.004), H * 0.151, W * 0.011, 0, TAU); c.fill(); };
+    E(0.44); E(0.56); c.fillStyle = grey(30); c.save(); c.translate(W * 0.44, H * 0.118); c.rotate(-0.12); c.fillRect(-W * 0.04, -H * 0.005, W * 0.08, H * 0.01); c.restore();
+    c.save(); c.translate(W * 0.56, H * 0.118); c.rotate(0.12); c.fillRect(-W * 0.04, -H * 0.005, W * 0.08, H * 0.01); c.restore(); R(0.465, 0.215, 0.07, 0.008, 40);
+  } else { R(0.40, 0.115, 0.07, 0.012, 22); R(0.53, 0.115, 0.07, 0.012, 22); R(0.425, 0.14, 0.03, 0.022, 22); R(0.555, 0.14, 0.03, 0.022, 22); R(0.455, 0.215, 0.09, 0.009, 30); }   // brows, eyes, mouth
   c.fillStyle = grey(120); for (let i = 0; i < 30; i++) c.fillRect(W * (0.38 + ((i * 37) % 24) / 100), H * (0.19 + ((i * 13) % 6) / 100), Math.max(1, W * 0.006), Math.max(1, W * 0.006));   // stubble
   c.strokeStyle = grey(18); c.lineWidth = Math.max(1, W * 0.01); c.strokeRect(W * 0.35, H * 0.025, W * 0.3, H * 0.24);
 }
@@ -34,7 +39,7 @@ export const PHOTOCOPIE_PROPS = {
   // (o.scanDur 0.6 s) with a glow escaping round whatever sits on it; o.sheetsAt (t or list): a sheet slides out onto the tray; o.drawerAt: the
   // bottom drawer slides out (o.drawerCloseAt: back in). userData.top: the glass, userData.tray: the tip of the tray.
   photocopier(o) {
-    const g = grp(), W = 1.1, H = 0.95, D = 0.7, body = o.color || '#E6E1D5';
+    const g = grp(), W = 1.1, H = 0.95, D = 0.7, body = o.color || '#E6E1D5'; let btn = null;
     g.add(at(box(W, H, D, body, { pivot: 'bottom', outline: 0.01 }), 0, 0, 0), at(box(W + 0.02, 0.06, D + 0.02, '#9A958B', { pivot: 'bottom' }), 0, 0, 0));
     const drawers = [0.14, 0.34, 0.54].map((y, i) => { const d = grp(at(box(W - 0.1, 0.17, 0.04, '#D8D2C4', { outline: 0.006 }), 0, 0, 0), at(box(0.22, 0.03, 0.03, '#6E6A62'), 0, 0.03, 0.03)); d.position.set(0, y + 0.085, D / 2 + 0.01); g.add(d); return d; });
     const glass = new THREE.Mesh(new THREE.BoxGeometry(W - 0.12, 0.012, D - 0.12), new THREE.MeshLambertMaterial({ color: '#2E3A44', transparent: true, opacity: 0.85 })); glass.position.set(0, H + 0.006, 0); g.add(glass);
@@ -43,14 +48,16 @@ export const PHOTOCOPIE_PROPS = {
     const glow = new THREE.Mesh(new THREE.BoxGeometry(W + 0.06, 0.16, D + 0.06), glowM); glow.position.set(0, H + 0.08, 0); glow.userData.noAO = true; glow.visible = false; g.add(glow);
     const lid = grp(at(box(W - 0.02, 0.06, D - 0.02, '#D9D3C6', { outline: 0.008 }), 0, 0.03, (D - 0.02) / 2), at(box(W - 0.12, 0.005, D - 0.14, '#F2F1EC'), 0, -0.003, (D - 0.02) / 2));   // the white pad under the lid
     lid.position.set(0, H + 0.012, -D / 2 + 0.01); g.add(lid);
-    const panel = grp(at(box(0.36, 0.1, 0.2, '#CFC9BC', { outline: 0.006 }), 0, 0.05, 0), at(box(0.16, 0.012, 0.09, '#2D4F3A', { emissive: '#1F5C36' }), -0.07, 0.106, 0), at(cyl(0.035, 0.035, 0.03, '#33B24A', 12), 0.1, 0.11, 0.02));
+    const panel = grp(at(box(0.36, 0.1, 0.2, '#CFC9BC', { outline: 0.006 }), 0, 0.05, 0), at(box(0.16, 0.012, 0.09, '#2D4F3A', { emissive: '#1F5C36' }), -0.07, 0.106, 0), (btn = at(cyl(o.btnR ?? 0.035, o.btnR ?? 0.035, 0.03, '#33B24A', 14), 0.1, 0.11, 0.02)));   // (pass 3 of 49) o.btnR, o.pressAt
     panel.position.set(W / 2 - 0.2, H, D / 2 - 0.02); panel.rotation.x = 0.3; g.add(panel);
+    if (btn?.material) btn.material = btn.material.clone();   // its own material: the press lights this button only
     g.add(at(box(0.36, 0.025, 0.4, '#CFC9BC', { outline: 0.006 }), W / 2 + 0.17, 0.6, 0.0, 0, 0, -0.18), at(box(0.04, 0.2, 0.42, '#CFC9BC'), W / 2 + 0.02, 0.62, 0));   // the output tray
     const sheets = list(o.sheetsAt).map(() => { const s = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.004, 0.21), mat('#FAFAF7')); s.visible = false; g.add(s); return s; });
     const lk = o.lidKeys || [[0, o.lid ?? 0]];
     const lidAt = t => { let v = lk[0][1]; for (let i = 1; i < lk.length; i++) { const [t1, v1] = lk[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / 0.25)); } return v; };
     g.userData.update = t => {
       lid.rotation.x = -lidAt(t);
+      if (btn) { const pr = list(o.pressAt).some(a => t >= a && t < a + 0.16); btn.position.y = pr ? 0.098 : 0.11; btn.material.emissive?.set(pr ? '#4CFF66' : '#000000'); }
       const sa = list(o.scanAt).find(a => t >= a && t < a + (o.scanDur ?? 0.6)); bar.visible = sa != null; glow.visible = sa != null;
       if (sa != null) { const u = (t - sa) / (o.scanDur ?? 0.6); bar.position.x = (-0.5 + u) * (W - 0.16); glowM.opacity = 0.22 + 0.12 * Math.sin(u * 40); glow.scale.set(1, 1 + 0.3 * Math.sin(u * PI), 1); }
       list(o.sheetsAt).forEach((a, i) => { const u = clamp01((t - a) / 0.28), s = sheets[i]; s.visible = t >= a; if (!s.visible) return; s.position.set(W / 2 + 0.05 + 0.24 * ease.out(u), 0.63 + 0.012 * i - 0.05 * ease.out(u), 0); s.rotation.z = -0.18; });
@@ -73,7 +80,7 @@ export const PHOTOCOPIE_PROPS = {
   // with a little paper flutter. o.n cutouts; o.recto: the man on both faces (double-sided), else a blank back. o.start: the ones already standing.
   copyFountain(o) {
     const n = o.n ?? 30, w = o.w ?? 0.85, h = o.h ?? 2.1, g = grp(), r = rng(o.seed ?? 49);
-    const mk = back => canvasPlane(w, h, (c, W, H) => drawCopyMan(c, W, H, back, !!o.sheet), { res: 256, transparent: true });
+    const mk = back => { const m = canvasPlane(w, h, (c, W, H) => drawCopyMan(c, W, H, back, !!o.sheet, !!o.painted), { res: 256, transparent: true }); if (o.opaque) { m.material.transparent = false; m.material.alphaTest = 0.5; m.material.depthWrite = true; } return m; };   // (pass 3 of 49) o.painted, o.opaque
     const front = mk(false), backM = o.recto ? mk('face') : mk(true);
     if (o.cool) { front.material.color.set(o.cool); backM.material.color.set(o.cool); }   // (pass 2 of 49) o.cool: a cool cast on the grey prints (under the warm grade they read sepia)
     const G = o.grid || { x0: 0, z0: 0, dx: 0.7, dz: 0.6, cols: 6 }, F = o.from || [0, 0.6, 0], fl = o.flight ?? 0.55, st = o.start ?? 0;
@@ -83,7 +90,8 @@ export const PHOTOCOPIE_PROPS = {
       if (u < 0) { q.c.visible = false; continue; } q.c.visible = true;
       if (u >= 1) { q.c.position.set(q.tx, 0, q.tz); q.c.rotation.set(0.03 * Math.sin(t * 3.1 + q.ph), (o.face ?? 0) + 0.06 * Math.sin(t * 1.7 + q.ph), 0); continue; }
       const e = ease.out(u); q.c.position.set(F[0] + (q.tx - F[0]) * u, F[1] * (1 - u) + 1.6 * Math.sin(PI * u), F[2] + (q.tz - F[2]) * u);
-      q.c.rotation.set(PI / 2 * (1 - e) * 0.9, (o.face ?? 0) + q.spin * TAU * (1 - e), 0.4 * Math.sin(u * PI)); } };
+      const fl2 = (o.flutter ?? 0) * Math.sin(PI * u);   // (pass 3 of 49) o.flutter: the sheets rock as they fly (rigid boards before)
+      q.c.rotation.set(PI / 2 * (1 - e) * 0.9 + fl2 * Math.sin(u * 26 + q.ph), (o.face ?? 0) + q.spin * TAU * (1 - e), 0.4 * Math.sin(u * PI) + fl2 * Math.sin(u * 19 + 2 * q.ph)); } };
     g.userData.update(0); return g;
   },
 
@@ -117,7 +125,7 @@ export const PHOTOCOPIE_PROPS = {
     g.add(at(box(L, 0.05, 0.02, steel, { outline: 0.004 }), L / 2, 0, 0)); for (let i = 0; i < 20; i++) g.add(at(box(0.004, i % 5 ? 0.012 : 0.022, 0.003, '#2A2C31'), 0.05 + i * (L - 0.1) / 20, 0.012, 0.012));
     g.add(at(box(0.04, jaw, 0.02, steel, { outline: 0.004, pivot: 'top' }), 0.02, -0.025, 0));
     const slide = grp(at(box(0.1, 0.09, 0.035, '#9AA0A7', { outline: 0.004 }), 0, 0, 0), at(box(0.04, jaw, 0.02, steel, { outline: 0.004, pivot: 'top' }), -0.03, -0.045, 0)); g.add(slide);
-    let cur = null; const DW = o.dispW ?? 0.09, disp = canvasPlane(DW, DW * 0.55, () => {}, { res: 256 }); disp.position.set(0, 0.012 + (DW > 0.1 ? DW * 0.3 : 0), 0.019); slide.add(disp);   // o.dispW: a bigger readout
+    let cur = null; const DW = o.dispW ?? 0.09, disp = canvasPlane(DW, DW * 0.55, () => {}, { res: 256 }); disp.position.set(0, 0.012 + (DW > 0.1 ? DW * 0.3 : 0), 0.019); disp.rotation.y = o.dispRy ?? 0; slide.add(disp);   // (pass 3 of 49) o.dispRy: the readout turned toward the lens   // o.dispW: a bigger readout
     const draw = txt => { const c = disp.material.map.image, x = c.getContext('2d'); x.fillStyle = '#C9E3C6'; x.fillRect(0, 0, c.width, c.height); x.fillStyle = '#14161A'; x.font = `900 ${Math.round(c.height * 0.62)}px Arial`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt, c.width / 2, c.height * 0.55); disp.material.map.needsUpdate = true; };
     const gk = o.gapKeys || [[0, o.gap ?? 0.3]];
     const gapAt = t => { let v = gk[0][1]; for (let i = 1; i < gk.length; i++) { const [t1, v1] = gk[i]; if (t < t1) break; v = v + (v1 - v) * ease.inOut(clamp01((t - t1) / (o.gapEase ?? 0.2))); } return v; };   // (pass 2 of 49) o.gapEase: a snap (0.05) instead of 0.2 s

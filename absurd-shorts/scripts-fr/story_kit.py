@@ -124,21 +124,23 @@ def react(t0, s=1.0, keep=None, look=None, kind='startle'):
     if look is not None: ks.insert(1, k(round(t0 + 0.04, 3), look=look))
     return ks
 
-def beat(t0, extreme, antic=None, hold=0.3, over=None, settle=None, shiver=0.04, fps=FPS):
+def beat(t0, extreme, antic=None, hold=0.3, over=None, settle=None, shiver=0.04, fps=FPS, antic_f=2, settle_f=4):
     """(cycle 9) The timing of a cartoon key pose in one call, as a list of keys for an actor (the reviews kept finding extremes that came and went
     in two frames: no anticipation, no hold, no settle). t0: when the extreme hits (the contact, the sound); extreme: the toon state, snapped to in one
     frame; antic: the state two frames before (default: the extreme's squash turned the other way, 12 %); hold (s, >= 0.2 = six frames): held,
     shivering every two frames by `shiver` on the squash; over: the overshoot past rest (default: a small opposite squash), three frames; settle: the
-    rest state (default: no toon), three frames after. Merge the result into the actor's keys: keys=[..., *beat(SN8, JUMP)]."""
+    rest state (default: no toon), three frames after. Merge the result into the actor's keys: keys=[..., *beat(SN8, JUMP)]. (cycle 13) antic_f: how many frames
+    before the extreme the brace starts (2; 4 holds it two frames: the review of 49 saw takes switch on in two frames), settle_f: frames from the overshoot
+    to the rest (4; 6-8 for a slower settle)."""
     sq = extreme.get('sq', [1, 1, 1]); inv = [round(1 + (1 - v) * 0.6, 3) for v in sq]
     antic = antic if antic is not None else {'sq': [round(1 + (1 - v) * 1.0, 3) if v != 1 else 1 for v in sq] if 'sq' in extreme else [1.08, 0.88, 1.08]}
     over = over if over is not None else {'sq': inv if 'sq' in extreme else [1.06, 0.94, 1.06]}
-    f = 1.0 / fps; ks = [k(round(t0 - 2 * f, 3), toon=antic, toonDur=round(1.5 * f, 3)), k(round(t0, 3), toon=extreme, toonDur=round(f, 3), toonEase='out')]
+    f = 1.0 / fps; ks = [k(round(t0 - antic_f * f, 3), toon=antic, toonDur=round(max(1.5, antic_f / 2) * f, 3)), k(round(t0, 3), toon=extreme, toonDur=round(f, 3), toonEase='out')]
     n = max(0, int(hold / (2 * f)) - 1)
     for i in range(n):
         q = dict(extreme); s_ = 1 + (shiver if i % 2 == 0 else -shiver) * 0.5; q['sq'] = [round(sq[0] / math.sqrt(s_), 3), round(sq[1] * s_, 3), round(sq[2] / math.sqrt(s_), 3)]
         ks.append(k(round(t0 + 2 * f * (i + 1), 3), toon=q, toonDur=round(f, 3)))
-    ks += [k(round(t0 + hold, 3), toon=over, toonDur=round(3 * f, 3), toonEase='in'), k(round(t0 + hold + 4 * f, 3), toon=settle or {}, toonDur=round(3 * f, 3))]
+    ks += [k(round(t0 + hold, 3), toon=over, toonDur=round(3 * f, 3), toonEase='in'), k(round(t0 + hold + settle_f * f, 3), toon=settle or {}, toonDur=round(max(3, settle_f - 1) * f, 3))]
     return ks
 
 
@@ -163,7 +165,7 @@ def doubleTake(t0, look_at, keep=None, back='camera', pop=0.6):
             k(round(t0 + 0.27, 3), toon={**keep, 'sq': [0.95, 1.06, 0.95], 'face': {'pop': pop, 'popLen': 0.25, 'brow': 1, 'jaw': 0.3}}, toonDur=0.04, toonEase='outBack'),
             k(round(t0 + 0.62, 3), toon={**keep, 'face': {'brow': 0.6}}, toonDur=0.12)]
 
-def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0):
+def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0, antic_f=2, settle_f=4):
     """(cycle 11) The hero's cartoon take at t0, built on beat(): two frames of anticipation, the extreme held `hold` s with a shiver (the hang time),
     the overshoot, the settle. kind: one of TAKES ('stalks', 'jaw', 'accordion', 'hair', 'tongue', 'cross'): change it from one gag to the next.
     keep: a toon state carried under the take and returned to after it (toon keys are whole states: a guided hand is kept); s doses the squash."""
@@ -171,7 +173,7 @@ def take(t0, kind='stalks', keep=None, hold=0.3, s=1.0):
     ex.update({x: v for x, v in tk.items() if x != 'face'}); ex['face'] = {**f0, **tk.get('face', {})}
     if s != 1.0 and 'sq' in ex: ex['sq'] = [round(1 + (v - 1) * s, 3) for v in ex['sq']]
     an = dict(keep or {}); an['sq'] = [round(1 + (1 - v) * 0.8, 3) for v in ex.get('sq', [1, 1, 1])]   # the anticipation keeps the carried state too
-    return beat(t0, ex, antic=an, hold=hold, settle=dict(keep) if keep else None)
+    return beat(t0, ex, antic=an, hold=hold, settle=dict(keep) if keep else None, antic_f=antic_f, settle_f=settle_f)
 
 
 def bands(frm, look, lens, points, card=False, aspect=9 / 16):
