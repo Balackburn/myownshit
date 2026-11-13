@@ -303,6 +303,13 @@ Engine: `engine/toon.js`, `director3.js`, `props_gomme.js`, `render/render3.mjs`
   `--probe` run measures its height on screen (under 3.5 % of the frame its letters do not read on a phone), the angle between its face (its
   local +Z) and the lens (over 60 degrees: seen too flat or edge-on) and what covers it. The "seen" share is unreliable on thin, open props (a
   caliper: the rays pass between the beam and the jaws); look at the still for those.
+- **Near blockers** (cycle 16): the same `--probe` run casts a 9 x 16 grid of rays through the whole frame at each declared gag and lists what
+  fills it in front of the subject (nearer than 75 % of its distance; floors and table tops left out, ceilings counted): `set` (a window post,
+  a ceiling), `prop:tvcam14`, another actor, `mec (own body)`. From 20 % of the frame it warns: `set fills 35 % of the frame in front of the
+  head`. For a gag that plays on a hand or a foot, `st.gag(sid, t, who, name, joint='handR')` measures in front of that joint (an insert on a
+  stamped hand filmed past his own back read as two thirds navy).
+- **Hung studio camera** (cycle 16): `tvCamera` `legs: false` drops the tripod and puts the body at the origin, for a camera rotated to point down
+  from the ceiling (rotated with its tripod, the legs stuck out as three black bars).
 - **`st.audit_life()`** (run by `write()`): an actor in the frame with no key for 1.3 s or more on a static clip (stand, sit, idle) is listed as
   still (give him a blink, a glance, a breath or a weight shift), and the eyes-on-stalks take (face `pop` >= 0.3) in more than three shots is
   flagged (keep the big one for the peak; vary the others with `take()` kinds: jaw, accordion, hair, tongue, cross, or `doubleTake()`).
