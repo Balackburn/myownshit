@@ -260,6 +260,17 @@ la technique, changer la situation, le rythme ou la chute. Les numéros renvoien
 | Collé au plafond en étoile | `lay [π/2, 0]` face vers le sol à hauteur du plafond, aplati (`sq` z 0,6), bras et jambes écartés ; un plafond (`plainWall` tourné vers le bas) ; caméra au sol qui regarde en l'air, les pompiers bouche bée en bas du cadre | 50 S10 (cycle 12) |
 | La double prise | `doubleTake(t0, cible)` : un coup d'œil, retour vers nous, puis la tête qui revient d'un coup, yeux sur tiges, tenue | 50 S11 (cycle 12) |
 Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont été dans la 41) : langue déroulée, vapeur aux oreilles, `inflate`, `noodle`, `stretchGrab` horizontal, `doubleTakeToon`, expressions `zap`, `dotEyes` (`paperThin` : servi dans la 40). Versions de la première passe remplacées (ne pas les reprendre telles quelles non plus) : crêpe verticale `pancake`, take du policier, bras levé tendu du maire, `periscope` en poteau droit.
+| Le hoquet impassible | le corps fait toute la violence (ramassé, un mètre en l'air étiré, sommet tenu quatre images, chute, écrasé à l'atterrissage), le visage reste las (joues qui gonflent, bouche « hic », paupières lourdes) ; la grande prise gardée pour la peur et le préfet ; `HICK()` dans `story_hoquet.py` | 50 S01-S13 |
+| Les joues pleines d'eau | le verre à l'envers : gorgées (`puff` 0,55 par coups de 0,16 s), puis le hoquet le jette en l'air les joues pleines (`puff` 1, bouche `kiss`), l'eau gicle | 50 S08 |
+| La jambe collée qui s'étire | `plant` : le pied tenu au point de la gomme pendant qu'il marche, la jambe s'étire au double (IK hanche-genou), puis le poids passe à 0 en 0,05 s : la jambe claque, onde `wave` sur la cuisse et le tibia (phase 0 à 2 en 0,3 s, `free`), le fil naît au même instant | 51 S02 |
+| La jambe-manivelle | `plant` en cercle (12 clés par tour à 1,5 tour/s) synchronisé avec le fil qui tourne (`spin`) : il lit son journal, impassible, la jambe tourne comme la corde à sauter des enfants à l'autre bout | 51 S06-S07 |
+| Pendu par le pied, il tape encore | `lay: [0, π]` (tête en bas, face à nous), balancement par clés, jambe libre repliée, mains guidées sur le clavier ; le visage au-dessus du bureau (dessous, il disparaissait derrière) | 51 S09 |
+| Le rouleau collé | le rouleau de peinture (accessoire libre qui suit l'ouvrier, ses mains sur le manche) peint des tirets blancs sur le fil, puis colle : un fil rose s'étire du rouleau (`tether` de l'accessoire au fil) et casse ; la plaque se balance | 51 S05 |
+| Le vol à l'horizontale | caméra qui le suit à la même vitesse au-dessus des toits, centrée sur le milieu du corps ; `lay [0, -π/2]`, traînée de vitesse `smear` 0,6, cheveux dressés, impassible ; le fil part de son pied devant lui | 51 S12 |
+| Planté comme une fléchette | il tombe tête en bas et s'enfonce la tête la première dans son canapé (la tête dans le coussin), écrasement à l'impact, poussière, les jambes tremblent (`wave`) puis s'affaissent | 51 S13 |
+| Recto verso | deux copies plates dos à dos, décalées de 2 cm, qui tournent ensemble ; le décalage s'inverse pendant le quart de tour (la tranche) : l'autre face est le même visage imprimé, qui cligne | 49 S07 |
+| Le pied à coulisse qui pince | accessoire à l'échelle 1,6, mâchoires sur la poitrine et le dos dès la première image, pincé à la moitié de son épaisseur en quatre images (`sq` z 0,45, élargi), corps poussé contre la mâchoire fixe, regonfle au-delà et repousse les mâchoires, affichage tourné vers l'objectif (`dispRy`) | 49 S10 |
+| L'assoupi qui sursaute (début et fin) | la tête qui tombe lentement (`neck` 0,4 à 0,45 en presque une seconde, paupières à 0,85-1) puis remonte d'un coup (0,06 s, sourcils levés) ; repris au dernier plan, la canette à la main : le film finit comme il a commencé | 50 S01, S13 |
 
 ## Erreurs à éviter
 
@@ -863,3 +874,20 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 10) Le carton de titre posé sur le pic d'un étirement cache la prise : le poser après le retour au calme.
 - (cycle 10) Du lettrage dans le bandeau des sous-titres (le bandeau d'un comptoir) se bat avec les sous-titres : pas de texte à cette hauteur.
 - (machine) Quatre cœurs : trois rendus à la fois font ramper la génération complète en 1080p (0,1 image par seconde) ; enchaîner les générations complètes (`chain_*.sh`) plutôt que de les lancer ensemble.
+- (cycle 13) Un accessoire modélisé à plat (le journal, posé sur une table) attaché à une main avec `face: 'camera'` montre sa tranche : le
+  tenir debout en accessoire libre devant lui (`rot` x ≈ 1,3), ses mains sur ses bords.
+- (cycle 13) Un outil long attaché à la main (le manche d'un rouleau) pointe là où pointent les axes de la main, en l'air : en faire un
+  accessoire libre qui suit l'acteur (mêmes clés `to`), sa tête posée sur le sol, et poser les mains sur le manche (`reach` par clés).
+- (cycle 13) `then='walk'` à la fin d'un déplacement : il marche sur place (le moteur le signale) ; `then='stand'`, ou un déplacement qui dure
+  jusqu'à la coupe. Et quatre personnes envoyées au même point d'arrivée s'empilent : une ligne chacune.
+- (cycle 13) S'accroupir en pliant le dos montre le dessus de la tête de boîte : tenir les pieds (`plant`) et baisser les hanches, les genoux
+  plient d'eux-mêmes.
+- (cycle 13) Le tapis rouge du salon mange un tiers de l'image dans les plans larges ou plongeants : `livingRoom carpet: False`.
+- (cycle 13) Un visage la tête en bas derrière un bureau disparaît : le monter au-dessus du meuble et cadrer serré sur lui.
+- (cycle 13) Une ligne trop longue pour son écran est rétrécie jusqu'à tenir (`lcdScreen`) : le prix qui devait être le plus gros sortait plus
+  petit ; le mettre seul sur sa ligne.
+- (cycle 13) Viser le vrai bouton : le doigt visait 10 cm à côté et c'est la manche qui appuyait. Et la caméra d'un insert sur un bouton ne se
+  met pas du côté du bras (la manche remplit l'image) : de l'autre côté, d'en haut.
+- (cycle 13) La sonde mesurait d'abord toute la tête avec ses effets cachés rangés à l'écart à l'échelle zéro (59 % de l'image) : mesurer la
+  tête seule. Sa part « vue » est fausse sur un accessoire fin et ouvert (un pied à coulisse) : regarder l'image.
+- (cycle 13) Un brouillon envoyé en revue avec des temps morts y perd la moitié de l'animation : `freeze_check.py` avant la revue.
