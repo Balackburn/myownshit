@@ -1782,3 +1782,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   maintenant détachés (`setsid nohup`, une chaîne par histoire) avec un guetteur qui signale chaque étape terminée.
 - **50 « Le hoquet » livrée** : génération complète finale (1080×1920, 27,3 s, −16,0 LUFS, crête −4,1 dBFS ; contrôles HyperFrames sans erreur)
   après la revue 3 (7,5 / 7,6) et la passe finale.
+- **51 « La gomme à mâcher », revue 3 : animation 7,0, direction artistique 7,7** (6,4 / 7,4 à la revue 2) → passe finale : l'étirement du plan 2
+  raccourci (à fond, la jambe atteignait sa limite : la semelle décollait de la gomme et la tête sortait du cadre), la gomme qui file autour de la
+  semelle, un claquement plus élastique, le travelling posé avant le double take ; une ville de pâtés de maisons autour de la rue dans les vues
+  aériennes (une plaine grise nue jusqu'à l'horizon) ; une fenêtre à côté du canapé par laquelle le fil sort (plans 7, 13, 14), une ondulation plus
+  grande et plus lente, l'ordinateur qui saute avec les mains ; la tête-ballon moitié plus large ; plan 11 serré pendant le tremblement, le
+  « oh-oh » tenu onze images, de longues traînées ; plan 13 aplati de moitié à l'image du contact, tenu, regonflé ; la tour Eiffel épaissie en
+  haut (son tiers supérieur disparaissait à la taille d'un téléphone).
+  Décisions sans question : la liste des procédés (aplati-regonflé, double take, traînées…) est une palette où piocher, pas une obligation par
+  histoire ; ici les revues les demandaient et les plans 2 et 13 s'y prêtent, ils y sont. Les enfants gardent la tête du modèle de la série
+  (une tête d'enfant changerait les modèles fixés) ; leur taille et leurs vêtements disent l'enfance.
