@@ -1696,3 +1696,16 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   NATURELLE, l'étoile du BOUH), des visages de dos aux plans 3, 4 et 12. La revue d'animation est en cours.
 - **49 « La photocopieuse » livrée** : génération complète (1080x1920, 24,3 s, -16,0 LUFS, crête -4,2 dBFS, aucun flash aux coupes, contrôles
   HyperFrames sans erreur) envoyée. Revues 6,3/6,4 → 7,0/7,0 → 7,1/7,4, puis passe finale.
+- **Cycle 15 — outils** : un regard peut suivre un acteur avec retard (`look: {actor, lag, dy}` : les yeux et la tête d'un spectateur suivent
+  le héros un dixième de seconde plus tard — la revue de 50 : des pompiers qui regardaient encore l'endroit où il était pendant qu'il montait),
+  et tricher vers l'objectif (`cheat` sur la clé, dans le `toon` d'un rôle ou dans le script : le visage tourné de cette part vers l'objectif,
+  moitié moins en hauteur — des spectateurs qui regardaient le héros derrière eux nous montraient leur nuque). Mesurer avant de placer :
+  `debugJoints` a donné la bouche réelle au plan 8 de 50 (26 cm au-dessus de l'estimation : le verre était devant son front).
+- **53 « Le torticolis » (cycle 15), décisions sans question** : type de la série tenu (accroche : l'homme et l'événement absurde ;
+  l'institution qui prend tout au pied de la lettre : la préfecture et son permis à l'envers ; escalade : la marche arrière ; retournement :
+  l'ostéopathe, trois tours, bloquée vers le ciel ; chute sèche : il présente la météo). La tête retournée passe par la torsion du cou
+  (canal `bend.neck`), tenue toute l'histoire jusqu'au plan 11 ; les gags du rig : le demi-tour avec dépassement (CRAC), le bras qui passe par-dessus
+  l'épaule jusqu'au visage dans le dos, la marche jouée à l'envers (`speed` -1), le permis en miroir avec en photo l'arrière d'une tête, la
+  voiture en marche arrière (le visage à la lunette arrière), la torsion de l'ostéopathe, la tête-toupie à trois tours, l'arrêt sur un ressort
+  le visage au plafond, le présentateur qui montre la carte sans la voir. « La préfecture » plutôt que « la mairie » : c'est elle qui délivre le
+  permis ; le décor du bureau de poste prend le titre PRÉFECTURE. « La météo » au sens commun, sans nom d'organisme réel.
