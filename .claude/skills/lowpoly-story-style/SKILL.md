@@ -1114,3 +1114,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 18) L'espace disque de la session se remplit (segments de rendu, images des critiques, calques 3D en double) et le rendu HyperFrames
   refuse de partir sous 1 Go libre. Après chaque livraison, supprimer les segments assemblés et les images de travail des critiques ; ne jamais
   toucher aux sorties de la réplique de la tornade.
+- (cycle 19) `fitBack(..., inside=...)` rendait tel quel un point de départ hors de la pièce (avec l'objectif le plus large) : le plan filmait le
+  dos du mur du hall. Il ramène maintenant le départ dans la pièce et l'écrit (`WARNING ... brought inside`) ; corriger alors le départ dans le script.
+- (cycle 19) Le sol du décor `whiteVoid` est maintenant 4 mm sous y = 0 : les sols d'accessoires posés à y = 0 ne se battent plus avec lui.

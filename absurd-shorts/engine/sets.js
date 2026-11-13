@@ -708,7 +708,8 @@ const S = {
     const c = o.color || P.cream, g = grp();
     // unlit floor + dome of the same colour = no horizon; a shadow-catcher keeps contact shadows
     g.add(new THREE.Mesh(new THREE.SphereGeometry(180, 16, 8), new THREE.MeshBasicMaterial({ color: c, side: THREE.BackSide })));
-    const f = new THREE.Mesh(new THREE.CircleGeometry(170, 24).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: c })); g.add(f);
+    // (cycle 19) the floor 4 mm under y 0: props whose own floors sit at y 0 (a platform, a carriage) fought with it for the same pixels and strobed
+    const f = new THREE.Mesh(new THREE.CircleGeometry(170, 24).rotateX(-PI / 2), new THREE.MeshBasicMaterial({ color: c })); f.position.y = -0.004; g.add(f);
     const sh = new THREE.Mesh(new THREE.CircleGeometry(40, 24).rotateX(-PI / 2), new THREE.ShadowMaterial({ opacity: 0.18 })); sh.position.y = 0.002; sh.receiveShadow = true; g.add(sh);
     g.userData.anchors = { center: [0, 0, 0] };
     g.userData.lighting = 'interior'; return g;

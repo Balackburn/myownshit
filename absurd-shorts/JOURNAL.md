@@ -1939,3 +1939,18 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   et plans rapprochés sur les réactions (fin de S02, S04).
 - Histoire 52 « Le boomerang » : génération complète livrée après la correction du voile (1080 × 1920, 22,3 s, −16 LUFS, contrôles HyperFrames
   sans erreur). Intermédiaires supprimés après la livraison (segments, calque 3D en double, images des critiques des revues closes).
+
+## Cycle 19 (en parallèle des passes 54-56)
+### Analyse (faiblesses relevées sur les revues de 54 à 56)
+1. **Sols qui clignotent** (quai, rame) : des sols d'accessoires au même niveau que le sol du décor `whiteVoid`.
+2. **Caméra derrière un mur** sans alerte au moment d'écrire : `fitBack` rendait un départ hors de la pièce tel quel.
+3. **Écrasements et prises invisibles** : écrasement dans l'axe de la caméra, prises de profil, prises écrites deux fois (assistant + clés).
+4. **Objets héros illisibles** quand ils sont couchés ou petits (valise couchée sur le tapis roulant, étiquette qui rentre dans la coque).
+5. **Pendus qui ont l'air debout** : accroche au niveau de leur front debout, pieds au sol.
+### Outils faits
+- Moteur : le sol du `whiteVoid` 4 mm sous y = 0 (plus de combat de profondeur avec les sols d'accessoires).
+- Kit : `fitBack` ramène dans la pièce une caméra de départ hors de la boîte `inside` et l'écrit.
+- Accessoires : chaussette molle (`sockL` o.flop), masque en bandeau peint, tétine agrandie, bouteille de champagne qui verse, flûte qui se
+  remplit, étiquette qui rebondit sur le couvercle, panneau lisible des deux côtés, voile en anneau, quai central (banc retourné, panneau
+  déplaçable), rame plus haute avec ses barres sous le toit.
+- Non-régression : les scripts de 54, 55 et 56 reconstruits donnent les mêmes fichiers.

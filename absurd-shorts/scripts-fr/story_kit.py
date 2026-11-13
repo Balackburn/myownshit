@@ -84,6 +84,11 @@ def fitBack(frm, points, step=0.25, most=14.0, level=True, inside=None, **kw):
     Prints how far it went when it had to move: put that distance back in the script when it is more than a step or two. inside=(x0, x1, y0, y1, z0,
     z1): the room the camera must stay in (backed out of the hall it filmed the back of a wall): at its edge the lens opens instead (up to 85)."""
     P = list(points.values()) if isinstance(points, dict) else list(points)
+    if inside and not all(inside[2 * i] <= frm[i] <= inside[2 * i + 1] for i in range(3)):
+        # (cycle 19) a start outside the room came back as it was with the widest lens: the shot filmed the back of the hall's wall (54, S07)
+        cl = [round(min(max(frm[i], inside[2 * i] + 0.1), inside[2 * i + 1] - 0.1), 3) for i in range(3)]
+        print(f'  fitBack: WARNING {frm} is outside the room {inside}: brought inside to {cl}')
+        frm = cl
     c = [sum(q[i] for q in P) / len(P) for i in range(3)]; d = [frm[i] - c[i] for i in range(3)]
     if level: d[1] = 0.0
     n = math.sqrt(sum(v * v for v in d)) or 1.0; u = [v / n for v in d]
