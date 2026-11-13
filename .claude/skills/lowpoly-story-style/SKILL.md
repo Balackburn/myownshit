@@ -976,3 +976,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   la main dans le repère du torse (`['torso', x, y, z]`).
 - (cycle 15) Des yeux qui se ferment pile sur un sursaut se lisent comme une grimace : `face: {noBlink: 1}` dans les clés du plan, et le clignement clé
   six à huit images après.
+- (cycle 15) Dans un intérieur, une caméra basse qui regarde vers le haut cadre le plafond sombre : 40 % du cadre bleu marine au plan 10 de 53, la
+  scène cachée. Monter la caméra et regarder vers le bas (par-dessus l'épaule de quelqu'un, à 2,5 m).
+- (cycle 15) Un coin noir dans le ciel : la caméra regarde trop haut, vers le sommet sombre du dôme. Baisser la visée, garder la cible plus bas.
+- (cycle 15) Un gag de direction (il marche à reculons, il roule en marche arrière) se lit de profil, ou dans l'axe avec un contraste : sa voiture
+  vient vers nous par l'arrière pendant que celle d'à côté vient par l'avant. De face, ou en travers de la rue, l'arrière ressemble à l'avant.
+- (cycle 15) Un visage dans une voiture fermée tombe dans l'ombre de la carrosserie (« une pièce sombre ») : une décapotable le met au soleil.
+- (cycle 15) Une main près d'un visage tourné (la tête sur le dos) : la guider dans le repère de la tête (`['head', x, y, z]`, son avant est là où est
+  le visage), pas sur le visage, qui peut laisser la main à la poitrine.
+- (cycle 15) Un triangle fait d'un cône à trois côtés aplati (un fronton) : une de ses faces tombe dans l'ombre, la moitié droite noire. Une
+  extrusion plate face à la rue s'éclaire d'un seul ton.
+- (cycle 15) Un flash d'appareil photo en disque translucide se lit comme une bulle de savon : un éclair blanc plein cadre (`fx: flash`).
+- (cycle 15) Un objet tenu ne doit couvrir ni la main ni le visage : le tenir par un coin (l'accessoire décalé de la main), à côté du visage.
