@@ -1,0 +1,86 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a perdu sa valise à l'aéroport.",
+  "hl": [
+   "valise"
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Elle a fait le tour du monde sans lui.",
+  "hl": [
+   "tour",
+   "monde"
+  ]
+ },
+ {
+  "id": "L02b",
+  "who": "N",
+  "text": "Quarante pays. Trois cents vols.",
+  "hl": [
+   "Quarante",
+   "cents"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "La compagnie lui a offert une carte de fidélité.",
+  "hl": [
+   "carte",
+   "fidélité."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "À la valise.",
+  "hl": [
+   "valise."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Elle voyage en première classe.",
+  "hl": [
+   "première"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Lui, en soute.",
+  "hl": [
+   "soute."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Hier, elle est revenue.",
+  "hl": [
+   "revenue."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Avec une petite valise.",
+  "hl": [
+   "petite"
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Il paie la pension alimentaire.",
+  "hl": [
+   "pension",
+   "alimentaire."
+  ]
+ }
+]

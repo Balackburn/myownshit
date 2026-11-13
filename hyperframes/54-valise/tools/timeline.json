@@ -1,0 +1,424 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a perdu sa valise à l'aéroport.",
+   "hl": [
+    "valise"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.26,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "a",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "perdu",
+     "s": 0.66,
+     "e": 0.9
+    },
+    {
+     "w": "sa",
+     "s": 0.98,
+     "e": 1.06
+    },
+    {
+     "w": "valise",
+     "s": 1.14,
+     "e": 1.38
+    },
+    {
+     "w": "à",
+     "s": 1.407,
+     "e": 1.433
+    },
+    {
+     "w": "l'aéroport.",
+     "s": 1.46,
+     "e": 2.26
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Elle a fait le tour du monde sans lui.",
+   "hl": [
+    "tour",
+    "monde"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L02.mp3",
+   "file_start": 2.36,
+   "speech_start": 2.36,
+   "speech_end": 4.28,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 2.36,
+     "e": 2.44
+    },
+    {
+     "w": "a",
+     "s": 2.48,
+     "e": 2.52
+    },
+    {
+     "w": "fait",
+     "s": 2.6,
+     "e": 2.68
+    },
+    {
+     "w": "le",
+     "s": 2.76,
+     "e": 2.84
+    },
+    {
+     "w": "tour",
+     "s": 2.96,
+     "e": 3.08
+    },
+    {
+     "w": "du",
+     "s": 3.12,
+     "e": 3.16
+    },
+    {
+     "w": "monde",
+     "s": 3.24,
+     "e": 3.48
+    },
+    {
+     "w": "sans",
+     "s": 3.56,
+     "e": 3.64
+    },
+    {
+     "w": "lui.",
+     "s": 3.68,
+     "e": 4.28
+    }
+   ]
+  },
+  {
+   "id": "L02b",
+   "who": "N",
+   "text": "Quarante pays. Trois cents vols.",
+   "hl": [
+    "Quarante",
+    "cents"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L02b.mp3",
+   "file_start": 4.38,
+   "speech_start": 4.38,
+   "speech_end": 6.62,
+   "words": [
+    {
+     "w": "Quarante",
+     "s": 4.38,
+     "e": 4.78
+    },
+    {
+     "w": "pays.",
+     "s": 4.86,
+     "e": 5.5
+    },
+    {
+     "w": "Trois",
+     "s": 5.58,
+     "e": 5.74
+    },
+    {
+     "w": "cents",
+     "s": 5.82,
+     "e": 5.98
+    },
+    {
+     "w": "vols.",
+     "s": 6.02,
+     "e": 6.62
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "La compagnie lui a offert une carte de fidélité.",
+   "hl": [
+    "carte",
+    "fidélité."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L03.mp3",
+   "file_start": 6.72,
+   "speech_start": 6.72,
+   "speech_end": 9.28,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.72,
+     "e": 6.8
+    },
+    {
+     "w": "compagnie",
+     "s": 6.88,
+     "e": 7.28
+    },
+    {
+     "w": "lui",
+     "s": 7.32,
+     "e": 7.44
+    },
+    {
+     "w": "a",
+     "s": 7.48,
+     "e": 7.52
+    },
+    {
+     "w": "offert",
+     "s": 7.6,
+     "e": 7.84
+    },
+    {
+     "w": "une",
+     "s": 7.92,
+     "e": 8.0
+    },
+    {
+     "w": "carte",
+     "s": 8.08,
+     "e": 8.24
+    },
+    {
+     "w": "de",
+     "s": 8.28,
+     "e": 8.32
+    },
+    {
+     "w": "fidélité.",
+     "s": 8.4,
+     "e": 9.28
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "À la valise.",
+   "hl": [
+    "valise."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L04.mp3",
+   "file_start": 9.38,
+   "speech_start": 9.38,
+   "speech_end": 10.34,
+   "words": [
+    {
+     "w": "À",
+     "s": 9.38,
+     "e": 9.42
+    },
+    {
+     "w": "la",
+     "s": 9.46,
+     "e": 9.54
+    },
+    {
+     "w": "valise.",
+     "s": 9.66,
+     "e": 10.34
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Elle voyage en première classe.",
+   "hl": [
+    "première"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L05.mp3",
+   "file_start": 10.44,
+   "speech_start": 10.44,
+   "speech_end": 12.12,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 10.44,
+     "e": 10.56
+    },
+    {
+     "w": "voyage",
+     "s": 10.6,
+     "e": 10.92
+    },
+    {
+     "w": "en",
+     "s": 10.96,
+     "e": 11.0
+    },
+    {
+     "w": "première",
+     "s": 11.08,
+     "e": 11.32
+    },
+    {
+     "w": "classe.",
+     "s": 11.4,
+     "e": 12.12
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Lui, en soute.",
+   "hl": [
+    "soute."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L06.mp3",
+   "file_start": 12.22,
+   "speech_start": 12.22,
+   "speech_end": 13.66,
+   "words": [
+    {
+     "w": "Lui,",
+     "s": 12.22,
+     "e": 12.78
+    },
+    {
+     "w": "en",
+     "s": 12.86,
+     "e": 12.94
+    },
+    {
+     "w": "soute.",
+     "s": 12.98,
+     "e": 13.66
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, elle est revenue.",
+   "hl": [
+    "revenue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L07.mp3",
+   "file_start": 13.76,
+   "speech_start": 13.76,
+   "speech_end": 15.2,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 13.76,
+     "e": 14.32
+    },
+    {
+     "w": "elle",
+     "s": 14.36,
+     "e": 14.4
+    },
+    {
+     "w": "est",
+     "s": 14.48,
+     "e": 14.56
+    },
+    {
+     "w": "revenue.",
+     "s": 14.6,
+     "e": 15.2
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Avec une petite valise.",
+   "hl": [
+    "petite"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L08.mp3",
+   "file_start": 15.3,
+   "speech_start": 15.3,
+   "speech_end": 16.82,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 15.3,
+     "e": 15.54
+    },
+    {
+     "w": "une",
+     "s": 15.62,
+     "e": 15.7
+    },
+    {
+     "w": "petite",
+     "s": 15.78,
+     "e": 15.94
+    },
+    {
+     "w": "valise.",
+     "s": 16.02,
+     "e": 16.82
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il paie la pension alimentaire.",
+   "hl": [
+    "pension",
+    "alimentaire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/valise/tts/L09.mp3",
+   "file_start": 16.92,
+   "speech_start": 16.92,
+   "speech_end": 18.68,
+   "words": [
+    {
+     "w": "Il",
+     "s": 16.92,
+     "e": 17.0
+    },
+    {
+     "w": "paie",
+     "s": 17.16,
+     "e": 17.24
+    },
+    {
+     "w": "la",
+     "s": 17.32,
+     "e": 17.4
+    },
+    {
+     "w": "pension",
+     "s": 17.507,
+     "e": 17.72
+    },
+    {
+     "w": "alimentaire.",
+     "s": 17.76,
+     "e": 18.68
+    }
+   ]
+  }
+ ],
+ "total": 19.52
+}
