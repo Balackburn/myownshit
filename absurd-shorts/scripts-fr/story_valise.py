@@ -320,7 +320,7 @@ st.cue('sfx:slideDown', 'S12', 0.05, 0.2); st.cue('sfx:boing', 'S12', JMP, 0.3);
 # the take: the look back at the big one, the snap, the eyes on stalks and the jaw down to his belt, hit at 0.72 s and held to the cut (the jaw came at
 # 1.60 s of 1.63: the take helper's keys and the shot's own fought each other)
 D13 = st.dur('S13'); OUT13 = 0.06; BUMP13 = 0.34; CUT13 = 0.55; SNAP13 = 0.72; SPD13 = 0.25
-ME13 = [-1.55, 0, -3.0]
+ME13 = [-1.85, 0, -3.0]   # (check stills) further left: the big case riding toward him covered his jaw in the cut to his take
 VB13 = [-1.0, BELT, BACKZ]; VBX = lambda t: r(VB13[0] - SPD13 * t)   # (check stills) clear of the tunnel's wall, which cut the little one
 LS0 = [r(EXITX + 0.22), BELT, BACKZ]; LSB = [r(VBX(BUMP13) + 0.7 / 2 + 0.375 / 2), BELT, BACKZ]   # the little one against the big one's side
 TAKEF = {'pop': 0.8, 'popLen': 0.35, 'brow': 1.0, 'jaw': 1.0, 'jawLen': 1.0, 'mouth': 'O'}
@@ -340,8 +340,8 @@ st.shot('S13', 'whiteVoid', setOpts={'color': '#E3E8EC'}, actors=[
                    keys=[k(OUT13, path=[[r((LS0[0] + LSB[0]) / 2), r(BELT + 0.42), BACKZ], LSB], dur=round(BUMP13 - OUT13, 3), ease='out'),   # out with a hop...
                          k(BUMP13, squash=[1.25, 0.78, 1.25], dur=0.3),                                                                       # ...a bump into the big one...
                          k(BUMP13, to=[r(LSB[0] + 0.05 - SPD13 * (D13 - BUMP13)), BELT, BACKZ], dur=round(D13 - BUMP13, 3), ease='linear')])],   # ...and on with it
-        cams=[FC(0.0, [-1.25, 1.05, 0.7], [[r(EXITX + 0.1), 1.85, BACKZ], [VBX(0.0), 1.55, BACKZ], [VBX(CUT13), BELT, BACKZ], [r((LS0[0] + LSB[0]) / 2), r(BELT + 0.85), BACKZ], [LS0[0], BELT, BACKZ], [ME13[0], 2.45, ME13[2]]], top=0.1, bottom=0.72),
-              FC(CUT13, [r(ME13[0] + 0.2), 1.95, -1.25], [[ME13[0], 2.7, ME13[2]], [ME13[0], 1.15, ME13[2]]], top=0.1, bottom=0.66)])
+        cams=[FC(0.0, [-1.25, 1.05, 0.7], [[r(EXITX + 0.1), 1.85, BACKZ], [VBX(0.0), 1.55, BACKZ], [VBX(CUT13), BELT, BACKZ], [r((LS0[0] + LSB[0]) / 2), r(BELT + 0.85), BACKZ], [LS0[0], BELT, BACKZ]], top=0.1, bottom=0.72),   # the cause alone: the flaps and the two cases
+              FC(CUT13, [r(ME13[0] - 0.2), 1.95, -1.25], [[ME13[0], 2.7, ME13[2]], [ME13[0], 1.15, ME13[2]]], top=0.1, bottom=0.66)])
 st.cue('sfx:squeak', 'S13', OUT13, 0.25); st.cue('clack', 'S13', BUMP13, 0.25); st.cue('sfx:gasp', 'S13', SNAP13, 0.25)
 
 # 14: he pays the maintenance. At home on the rug: he kneels before the little suitcase lying open like a mouth and feeds it a banknote; the lid snaps
