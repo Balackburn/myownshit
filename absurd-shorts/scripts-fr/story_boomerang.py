@@ -344,8 +344,8 @@ st.cue('sfx:rotor', 'S14', 0.05, 0.3); st.cue('sfx:shutter', 'S14', 0.35, 0.35)
 # 15: his wife is waiting for him. The park again: the bride in her dress and veil, her hand held out, eyes on the sky, deadpan, where he stood
 D15 = st.dur('S15')
 st.shot('S15', 'grassland', setOpts=PARK, actors=[
-        act('mariee', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-6, 6.5, 3.5]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.35, 'gy': -0.7}}, toonDur=0.0),
-            k(0.55, toon={**OUT(P0, RY0), 'face': {'lid': 1.0, 'gy': -0.7}}, toonDur=0.05), k(0.66, toon={**OUT(P0, RY0), 'face': {'lid': 0.35, 'gy': -0.7}}, toonDur=0.07), k(0.9, look=[-4, 7.5, 2.0])])],   # (pass 2) her eyes up at the sky (they looked down)
+        act('mariee', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-6, 2.6, 3.5]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.35, 'gy': -0.85}}, toonDur=0.0),   # (final) the head level, the eyes up: tipped up, the head stood the veil up as a spike
+            k(0.55, toon={**OUT(P0, RY0), 'face': {'lid': 1.0, 'gy': -0.85}}, toonDur=0.05), k(0.66, toon={**OUT(P0, RY0), 'face': {'lid': 0.35, 'gy': -0.85}}, toonDur=0.07), k(0.9, look=[-4, 2.7, 2.0])])],   # (pass 2) her eyes up at the sky (they looked down)
         props=[VEIL('veil15'), P('bq15', 'bouquet', on={'actor': 'mariee', 'hand': 'L', 'offset': [0, 0.02, 0.04]}, scale=1.6),
                P('lamp15', 'streetLamp', pos=[-2.6, 0, -2.4])],
         cams=[FC(0.0, [-1.2, 1.45, 2.9], [[P0[0], 2.45, P0[2]], [P0[0], 0.55, P0[2]], [HAND3[0], 1.0, HAND3[2]], [r(P0[0] + 0.55), 1.6, P0[2]], [r(P0[0] - 0.6), 1.6, P0[2]]], top=0.12, bottom=0.74, drift=(0.1, 0.05, -0.35))])   # (draft 1) a slow push in (a held shot read as a freeze)
@@ -365,7 +365,7 @@ def AT16(fx, fy, z):
     return [r(x), r(y), z]
 G16A, G16B = AT16(-0.15, 0.13, -40.0), AT16(1.15, 0.09, -40.0)   # (pass 3) across the whole frame, high above her, a little rising
 st.shot('S16', 'grassland', setOpts=PARK, actors=[
-        act('mariee', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-4, 7.5, 2.0]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.0),
+        act('mariee', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-4, 2.7, 2.0]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.45, 'gy': -0.8}}, toonDur=0.0),
             k(round(CN16 + 0.12, 3), look=[HAND3[0], 1.7, HAND3[2]]), k(round(CN16 + 0.12, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.08, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'gy': 0.8}}, toonDur=0.1),   # (final) the eyes down to the coin, the head nearly level
             k(round(D16 - 0.66, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.08, 0, 0, 1, None]}, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 1.0, 'gy': 0.8}}, toonDur=0.2), k(round(D16 - 0.3, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.06, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'gy': -0.3}}, toonDur=0.25)]),   # (pass 3) the blink with a breath, then her eyes drift up (frozen 0.7 s)   # (pass 2) a slow blink over half a second   # she looks at the coin, a slow blink
         act('mec', G16A, 0, 'stand', 'unimpressed', scale=2.0, keys=[
