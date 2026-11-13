@@ -821,16 +821,25 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
   }
   return st;
 }
+// (cycle 15) a look target may also be { actor | prop, lag (s), dy (m), cheat }: an actor followed `lag` seconds late (an onlooker's eyes and head trail
+// the hero: the review of 50 saw firemen keep looking where he had been while he shot up past their heads), dy raises or lowers the point.
+// cheat (0..1, the key's own or the cast's toon { cheat } or the script's `cheat`): the face turned that share of the way toward the lens, half as much
+// in pitch (the stage cheat: onlookers who look at a hero behind or beside them showed us the backs of their heads and their profiles)
+function camPosNow(t) { if (!S.cams || !S.cams.length) return null; let i = 0; for (let j = 0; j < S.cams.length; j++) if (S.cams[j].t0 <= t) i = j; try { return camPoseAt(S.cams[i], t).pos; } catch (e) { return null; } }
 function lookOffsets(A, target, t, pos, ry, sc) {
-  let p;
+  let p, lag = 0, dy = 0, ch = A.obj.userData.toonCfg?.cheat ?? S.script?.cheat ?? 0;
+  if (target && typeof target === 'object' && !Array.isArray(target)) { lag = target.lag || 0; dy = target.dy || 0; if (target.cheat != null) ch = target.cheat; target = target.actor ?? target.prop ?? target.point; }
   if (Array.isArray(target)) p = V(...target);
-  else if (S.actorById[target]) { const B = S.actorById[target]; p = posAt(B, effTime(B.id, t)); p.y += (B.obj.userData.height || 1.9) * scaleAt(B, t) * 0.9; }
+  else if (S.actorById[target]) { const B = S.actorById[target], tb = Math.max(0, t - lag);   /* t is the time in the shot */ p = posAt(B, effTime(B.id, tb)); p.y += (B.obj.userData.height || 1.9) * scaleAt(B, tb) * 0.9; }
   else if (S.propById[target]) { p = S.propById[target].obj.getWorldPosition(V()); }
   else return [0, 0];
+  p.y += dy;
   const eye = pos.clone(); eye.y += (A.obj.userData.height || 1.9) * sc * 0.9;
-  const dx = p.x - eye.x, dz = p.z - eye.z, dy = p.y - eye.y;
-  const yaw = clamp(wrapA(Math.atan2(dx, dz) - ry), -1.15, 1.15);
-  const pitch = clamp(-Math.atan2(dy, Math.hypot(dx, dz)), -0.6, 0.6);
+  const dx = p.x - eye.x, dz = p.z - eye.z, dyy = p.y - eye.y;
+  let yaw = clamp(wrapA(Math.atan2(dx, dz) - ry), -1.15, 1.15);
+  let pitch = clamp(-Math.atan2(dyy, Math.hypot(dx, dz)), -0.6, 0.6);
+  if (ch && target !== 'camera') { const c = camPosNow(t); if (c) { const cx = c.x - eye.x, cz = c.z - eye.z, cy = c.y - eye.y;
+    yaw = lerp(yaw, clamp(wrapA(Math.atan2(cx, cz) - ry), -1.15, 1.15), ch); pitch = lerp(pitch, clamp(-Math.atan2(cy, Math.hypot(cx, cz)), -0.6, 0.6), ch * 0.5); } }
   return [yaw, pitch];
 }
 function applyHuman(A, pose, pos, ry, s) {

@@ -230,7 +230,7 @@ def mirror_keys(keys, zm=None, xm=None, shift=0.0, cam_pos=None, start=0.0):
         if 'to' in q: q['to'] = mirror_point(q['to'], zm, xm)
         if 'look' in q:
             if q['look'] == 'camera' and cam_pos is not None: q['look'] = mirror_point(cam_pos, zm, xm)
-            else: q['look'] = mirror_point(q['look'], zm, xm)
+            elif not isinstance(q['look'], (dict, str)): q['look'] = mirror_point(q['look'], zm, xm)   # (cycle 15) an actor to follow ({actor, lag}) or an id needs no mirroring
         if 'toon' in q: q['toon'] = _mirror_toon(q['toon'], zm, xm)
         if isinstance(q.get('face'), str): q['face'] = _FACE_MIRROR.get(q['face'], q['face'])
         if 'ry' in q and isinstance(q['ry'], (int, float)): q['ry'] = round(180 - q['ry'], 2) if zm is not None else round(-q['ry'], 2)

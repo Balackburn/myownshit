@@ -165,6 +165,7 @@ D8 = st.dur('S08'); H8 = round(st.at('S08', 'L07', 8) + 0.05, 3)
 ME8 = [0.0, 0, -1.6]; BENT = {'bend': {'spine': [1.15, 0, 0, 1, None], 'neck': [-0.35, 0, 0, 1, None]}}
 MOUTH8 = OFF(ME8, 0, 0.55, 0.0, 1.32); GLASS8 = [MOUTH8[0], round(MOUTH8[1] + 0.4, 3), round(MOUTH8[2] + 0.1, 3)]   # (pass 2b) the pivot is the glass's foot: upside down, its rim lands at his lips
 HOLD8 = {'reach': {'R': [GLASS8[0], round(GLASS8[1] - 0.17, 3), round(GLASS8[2] + 0.14, 3), 1, 0.06]}, 'hands': {'R': 'grip'}}
+FOL8 = {'actor': 'mec', 'lag': 0.1, 'dy': -0.35, 'cheat': 0.3}   # (pass 3) the firemen's eyes on him, a tenth of a second late, their faces cheated a third toward us
 st.shot('S08', 'livingRoom', setOpts=LR, actors=[
         act('mec', ME8, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[MOUTH8[0], 1.1, MOUTH8[2]]), k(0.0, toon={**BENT, **TIRED}, toonDur=0.0),
             *[x for t_ in (0.4, 0.8, 1.18) for x in (k(t_, toon={**BENT, 'scl': {'head': [1.14, 1.0, 1.14]}, 'face': {**TIRED['face'], 'puff': 1.0}}, toonDur=0.06), k(round(t_ + 0.16, 3), toon={**BENT, **TIRED}, toonDur=0.08))],   # (pass 1b) gulps, upside down (pass 3: the cheeks out, the head swelling: they were flat)
@@ -177,11 +178,11 @@ st.shot('S08', 'livingRoom', setOpts=LR, actors=[
             k(round(H8 + 0.4, 3), toon={**BENT, 'sq': [1.1, 0.88, 1.1], 'face': {'lid': 0.5}}, toonDur=0.03, toonEase='out'), k(round(H8 + 0.5, 3), toon={**BENT, **TIRED}, toonDur=0.1)]),
         # (pass 3) both firemen on the far side of him, facing us (one at his front on our side hid him; seen from the side they were profiles)
         act('pompier1', [-0.68, 0, -1.92], 65, 'stand', 'determined', keys=[k(0.0, look=[ME8[0], 1.3, ME8[2]]), k(0.55, look='camera'), k(1.0, look=[ME8[0], 1.3, ME8[2]]), k(0.0, toon={'reach': {'L': [-0.14, 1.45, -1.78, 1, 0.05], 'R': [-0.1, 1.3, -1.45, 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}, toonDur=0.0),   # holding him folded
-            k(round(H8 + 0.07, 3), look=[ME8[0], 2.5, round(ME8[2] + 0.3, 3)]),   # (pass 3) the eyes then the head follow him up, two frames after the launch...
-            *react(round(H8 + 0.12, 3), 0.8, look=[ME8[0], 2.3, round(ME8[2] + 0.3, 3)], kind='wince')]),   # ...a wince under the spray
+            k(round(H8 + 0.03, 3), look=FOL8),   # (pass 3) the eyes then the head follow him up and down, three frames late (cycle 15: a look at an actor with a lag)...
+            *react(round(H8 + 0.12, 3), 0.8, look=FOL8, kind='wince')]),   # ...a wince under the spray
         act('pompier2', [-0.62, 0, -0.78], 117, 'stand', 'neutral', keys=[k(0.0, look=MOUTH8), k(0.7, look='camera'), k(1.1, look=MOUTH8), k(0.0, toon=HOLD8, toonDur=0.0),   # the glass at his lips, upside down
-            k(round(H8 + 0.08, 3), look=[ME8[0], 2.5, round(ME8[2] + 0.3, 3)]),
-            *react(round(H8 + 0.13, 3), 0.8, keep=HOLD8, look=[ME8[0], 2.3, round(ME8[2] + 0.3, 3)], kind='wince')])],   # he keeps hold of the glass, wincing
+            k(round(H8 + 0.03, 3), look=FOL8),
+            *react(round(H8 + 0.13, 3), 0.8, keep=HOLD8, look=FOL8, kind='wince')])],   # he keeps hold of the glass, wincing
         props=[P('glass8', 'waterGlass', pos=GLASS8, rot=[PI, 0, 0], scale=3.0, opts={'level': 0.7, 'water': '#1565C0', 'tumbler': True}),   # (pass 2) a big glass of blue water, upside down at his lips, free (in the hand it turned sideways at his chest)
                # (pass 3) a tumbler that reads: a thick rim at his lips, highlights, the water dark blue at the closed end
                P('spray8', 'waterDrops', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0.1, 0.22]}, opts={'at': round(H8 + 0.1, 3), 'n': 26, 'dir': [0, 0.25, 1], 'speed': 3.4, 'spread': 0.8, 'r': 0.026, 'life': 0.38, 'color': '#1E88E5'})],
