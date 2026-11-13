@@ -102,10 +102,10 @@ export const VALISE_PROPS = {
       s -= PI * R; if (s < Ls) return [Ls / 2 - s, -R, -PI];                                      // back straight, -X
       s -= Ls; const a = s / R; return [-Ls / 2 - R * Math.sin(a), -R * Math.cos(a), -PI - a]; };    // left end
     g.userData.at = s => { const [x, z, h] = pathAt(s); return { pos: [x, Hb + 0.02, z], heading: h }; };
-    // the island and the skirt
-    g.add(at(box(Ls, Hb + 0.2, 2 * (R - bw / 2) - 0.04, '#B7BEC6', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0));
-    for (const s of [-1, 1]) g.add(at(cyl(R - bw / 2 - 0.02, R - bw / 2 - 0.02, Hb + 0.2, '#B7BEC6', 20), s * Ls / 2, (Hb + 0.2) / 2, 0));
-    g.add(at(box(Ls, 0.04, 2 * (R - bw / 2) - 0.04, '#8C949D'), 0, Hb + 0.22, 0));
+    // the island and the skirt; (first look) the island flush with the belt: raised 0.2 m above it, it hid the far straight and whatever rode on it
+    g.add(at(box(Ls, Hb, 2 * (R - bw / 2) - 0.04, '#B7BEC6', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0));
+    for (const s of [-1, 1]) g.add(at(cyl(R - bw / 2 - 0.02, R - bw / 2 - 0.02, Hb, '#B7BEC6', 20), s * Ls / 2, Hb / 2, 0));
+    g.add(at(box(Ls - 0.1, 0.02, 2 * (R - bw / 2) - 0.14, '#8C949D'), 0, Hb + 0.01, 0));
     const skirt = (y, h, col) => { g.add(at(box(Ls, h, 0.05, col), 0, y, R + bw / 2), at(box(Ls, h, 0.05, col), 0, y, -R - bw / 2));
       for (const s of [-1, 1]) { const ring = new THREE.Mesh(new THREE.CylinderGeometry(R + bw / 2, R + bw / 2, h, 24, 1, true, s > 0 ? 0 : PI, PI), mat(col)); ring.material.side = THREE.DoubleSide; ring.position.set(s * Ls / 2, y, 0); g.add(ring); } };
     skirt(Hb / 2, Hb, '#5E6670'); skirt(Hb + 0.015, 0.03, '#D9DEE3');
@@ -113,7 +113,8 @@ export const VALISE_PROPS = {
     const ns = Math.round(P / 0.3), slats = [];
     for (let i = 0; i < ns; i++) { const sl = box(0.27, 0.035, bw, i % 2 ? '#3A4048' : '#454C55'); sl.castShadow = false; g.add(sl); slats.push(sl); }
     // the hatch over the back straight: a tunnel along the belt (the bags ride through it toward -X), its exit hung with rubber flap strips
-    const hx = o.hatchX ?? 0, hw = 1.3, hh = o.hatchH ?? 0.95, hatch = grp();   // o.hatchH: the height of its mouth (a man can lean in at 1.9) hatch.position.set(hx, 0, -R); g.add(hatch);
+    // o.hatchH: the height of its mouth (a man can lean in at 1.9)
+    const hx = o.hatchX ?? 0, hw = 1.3, hh = o.hatchH ?? 0.95, hatch = grp(); hatch.position.set(hx, 0, -R); g.add(hatch);
     hatch.add(at(box(hw + 0.3, 0.25, bw + 0.34, '#8C949D', { outline: 0.006 }), 0, Hb + hh + 0.12, 0));
     for (const s of [-1, 1]) hatch.add(at(box(hw + 0.3, Hb + hh, 0.15, '#8C949D', { outline: 0.006 }), 0, (Hb + hh) / 2, s * (bw / 2 + 0.095)));
     hatch.add(at(box(0.04, hh, bw, '#15181D'), hw / 2, Hb + hh / 2, 0));                                // dark inside
@@ -253,6 +254,16 @@ export const VALISE_PROPS = {
         c.strokeStyle = '#F2C230'; c.lineWidth = Hc * 0.07; c.strokeRect(Wc * 0.07, Hc * 0.3, Wc * 0.15, Hc * 0.48); c.beginPath(); c.moveTo(Wc * 0.115, Hc * 0.3); c.lineTo(Wc * 0.115, Hc * 0.18); c.lineTo(Wc * 0.175, Hc * 0.18); c.lineTo(Wc * 0.175, Hc * 0.3); c.stroke(); }, { res: 512 });
       unlit(sg); const sgG = grp(at(box(2.7, 0.8, 0.06, '#141C30'), 0, 0, -0.04), sg, at(box(0.03, 0.8, 0.03, '#5A6068'), -1.0, 0.8, 0), at(box(0.03, 0.8, 0.03, '#5A6068'), 1.0, 0.8, 0)); sg.position.z = 0.002;
       sgG.position.set(o.signX ?? 0, o.signY ?? 3.6, o.signZ ?? -2.6); g.add(sgG); }
+    return g;
+  },
+
+  // A check-in baggage scale beside the desk (front +Z, pivot at the floor): a low grey platform o.w (0.75) x o.d (0.6), 0.25 high, with a little
+  // display on a post that reads o.kg ('23 KG')
+  bagScale(o) {
+    const w = o.w ?? 0.75, d = o.d ?? 0.6, g = grp(at(box(w, 0.22, d, '#8C949D', { pivot: 'bottom', outline: 0.006 }), 0, 0, 0), at(box(w - 0.06, 0.03, d - 0.06, '#3A3F48'), 0, 0.235, 0));
+    g.add(at(box(0.04, 0.55, 0.04, '#5A6068', { pivot: 'bottom' }), w / 2 - 0.05, 0.22, -d / 2 + 0.05));
+    const scr = canvasPlane(0.2, 0.09, (c, W, H) => { c.fillStyle = '#10151C'; c.fillRect(0, 0, W, H); c.fillStyle = '#5BE07A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.62}px monospace`; c.fillText(o.kg || '23 KG', W / 2, H * 0.55); }, { res: 128 });
+    unlit(scr); scr.position.set(w / 2 - 0.05, 0.82, -d / 2 + 0.08); g.add(scr, at(box(0.22, 0.11, 0.04, '#2A2E34'), w / 2 - 0.05, 0.82, -d / 2 + 0.055));
     return g;
   },
 
