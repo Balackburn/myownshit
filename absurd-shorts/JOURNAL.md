@@ -1792,3 +1792,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   Décisions sans question : la liste des procédés (aplati-regonflé, double take, traînées…) est une palette où piocher, pas une obligation par
   histoire ; ici les revues les demandaient et les plans 2 et 13 s'y prêtent, ils y sont. Les enfants gardent la tête du modèle de la série
   (une tête d'enfant changerait les modèles fixés) ; leur taille et leurs vêtements disent l'enfance.
+- **Sonde des bloqueurs proches, validée** : sur la passe 2 du torticolis (avant 2b), elle retrouve seule les deux défauts vus à l'œil sur les
+  images de contrôle : « set fills 38 % of the frame in front of the head » au plan 7 (le montant noir de la vitre) et « prop:tvcam14 fills 25 % »
+  au plan 14 (la caméra de plateau) ; sur la passe 2b, plus rien. Elle signale aussi pour la passe suivante du torticolis : le double take de la
+  dame vu de dos (123°) et le permis coupé par le bord droit dans le travelling avant du plan 7.
