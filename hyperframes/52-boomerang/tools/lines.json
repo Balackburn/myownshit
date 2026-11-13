@@ -1,0 +1,12 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a lancé un boomerang il y a dix ans.", "hl": ["boomerang", "dix"]},
+ {"id": "L02", "who": "N", "text": "Il n'est jamais revenu.", "hl": ["jamais"]},
+ {"id": "L03", "who": "N", "text": "Les objets trouvés ont refusé sa déclaration.", "hl": ["refusé"]},
+ {"id": "L04", "who": "N", "text": "Un boomerang n'est pas perdu : il revient.", "hl": ["revient."]},
+ {"id": "L05", "who": "N", "text": "Les aiguilleurs du ciel lui ont ouvert un couloir aérien.", "hl": ["couloir", "aérien."]},
+ {"id": "L06", "who": "N", "text": "Les avions lui laissent la priorité.", "hl": ["priorité."]},
+ {"id": "L07", "who": "N", "text": "Hier, il est revenu.", "hl": ["revenu."]},
+ {"id": "L08", "who": "N", "text": "Pile pendant sa photo de mariage.", "hl": ["mariage."]},
+ {"id": "L09", "who": "N", "text": "Ce mec est reparti avec.", "hl": ["reparti"]},
+ {"id": "L10", "who": "N", "text": "Sa femme l'attend. Dans dix ans.", "hl": ["dix", "ans."]}
+]
