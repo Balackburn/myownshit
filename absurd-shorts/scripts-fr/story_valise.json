@@ -1,0 +1,3861 @@
+{
+ "version": 3,
+ "title": "La valise",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "passager": {
+   "preset": "worker",
+   "seed": 541,
+   "hat": null,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   }
+  },
+  "agent": {
+   "preset": "madame",
+   "seed": 542,
+   "suit": "#1F3A6E",
+   "hairColor": "#6B3A1E",
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  },
+  "hotesse": {
+   "preset": "madame",
+   "seed": 543,
+   "suit": "#1F3A6E",
+   "hair": "bun",
+   "hairColor": "#2A2A2E",
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.25
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.05,
+      0,
+      -3.0
+     ],
+     "ry": 12,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.21,
+        0.7,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.35,
+       "look": [
+        -0.46,
+        0.5,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.75,
+       "look": [
+        -0.76,
+        0.5,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "gy": 0.3
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "gy": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.86,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "gy": 0.3
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "passager",
+     "pos": [
+      2.6,
+      0,
+      -3.25
+     ],
+     "ry": 95,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        6.0,
+        1.5,
+        -3.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "to": [
+        5.2,
+        0,
+        -3.3
+       ],
+       "dur": 1.6,
+       "clip": "walk",
+       "then": "walk",
+       "ease": "linear",
+       "face": "move"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "hands": {
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall1",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5
+     }
+    },
+    {
+     "id": "car1",
+     "name": "carousel",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "len": 4.4,
+      "r": 1.0,
+      "speed": 0.55,
+      "number": 3,
+      "hatchX": 0.6,
+      "hatchH": 1.9,
+      "flap": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.05,
+        0.0
+       ],
+       [
+        0.12,
+        0.3
+       ],
+       [
+        0.35,
+        0.12
+       ],
+       [
+        0.6,
+        0.0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "sock1",
+     "name": "sockSingle",
+     "pos": [
+      -0.06,
+      0.53,
+      -2.3
+     ],
+     "rot": [
+      1.571,
+      0,
+      -1.571
+     ],
+     "scale": 1.8,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -0.885,
+        0.53,
+        -2.3
+       ],
+       "dur": 1.5,
+       "ease": "linear"
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "bag1p",
+     "name": "briefcase",
+     "on": {
+      "actor": "passager",
+      "hand": "L"
+     },
+     "scale": 1.3
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.461,
+      1.5,
+      2.691
+     ],
+     "to": [
+      -1.401,
+      1.5,
+      2.571
+     ],
+     "lookAt": [
+      -0.514,
+      0.039,
+      -7.156
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      -0.454,
+      0.039,
+      -7.276
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.1,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.91,
+      0,
+      -2.8
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": null
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          -0.0,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          0.0,
+          -0.0,
+          1.0,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.06,
+       "toon": {
+        "bend": {
+         "spine": [
+          -0.022,
+          0,
+          0.083,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          -0.3,
+          0.068,
+          0.932,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          -0.55,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          1.35,
+          -0.45,
+          1.45,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.3,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.162,
+          0,
+          -0.594,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          1.45,
+          -0.486,
+          1.486,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.3,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.03,
+          0,
+          -0.11,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          0.15,
+          -0.09,
+          1.09,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "sq": [
+         1.0,
+         1.03,
+         1.0
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.07,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.83,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.007,
+          0,
+          -0.028,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          -0.25,
+          -0.023,
+          1.022,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "scl": {
+         "head": [
+          0.72,
+          1.06,
+          1.12
+         ]
+        },
+        "lay": [
+         0,
+         -0.1
+        ],
+        "face": {
+         "cross": 0.9,
+         "lid": 0.2,
+         "brow": 0.8
+        }
+       },
+       "toonDur": 0.033,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.93,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          -0.0,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          0.08,
+          -0.0,
+          1.0,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "scl": {
+         "head": [
+          1.06,
+          0.97,
+          0.98
+         ]
+        },
+        "face": {
+         "cross": 0.5,
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.03,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          -0.0,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          0.0,
+          -0.0,
+          1.0,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.06,
+       "look": "camera"
+      },
+      {
+       "at": 1.053,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          -0.0,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          0.0,
+          -0.0,
+          1.0,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.153,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          -0.0,
+          1,
+          null
+         ],
+         "neck": [
+          0,
+          0.0,
+          -0.0,
+          1.0,
+          null
+         ]
+        },
+        "hands": {
+         "L": "rest",
+         "R": "rest"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall2",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5
+     }
+    },
+    {
+     "id": "car2",
+     "name": "carousel",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "len": 4.4,
+      "r": 1.0,
+      "speed": 0.55,
+      "number": 3,
+      "hatchX": 0.6,
+      "hatchH": 1.9,
+      "flap": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.3,
+        0.0
+       ],
+       [
+        0.4,
+        -0.5
+       ],
+       [
+        0.74,
+        -0.45
+       ],
+       [
+        0.82,
+        0.5
+       ],
+       [
+        0.9,
+        -0.18
+       ],
+       [
+        1.0,
+        0.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.468,
+      1.6,
+      0.843
+     ],
+     "to": [
+      -1.468,
+      1.6,
+      0.843
+     ],
+     "lookAt": [
+      0.753,
+      0.604,
+      -8.856
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      0.753,
+      0.604,
+      -8.856
+     ]
+    }
+   ],
+   "start": 1.1,
+   "duration": 1.2333,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "val3",
+     "name": "suitcase",
+     "pos": [
+      0.0,
+      0,
+      -2.0
+     ],
+     "ry": 8,
+     "scale": 1.4,
+     "opts": {
+      "color": "#C0392B",
+      "shades": true,
+      "selfie": 0.45,
+      "stickers": 1,
+      "stickerTimes": [
+       0.42
+      ],
+      "seed": 0,
+      "bob": [
+       [
+        0.0,
+        0.06
+       ],
+       [
+        0.3,
+        0.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.7,
+      0.55,
+      1.6
+     ],
+     "to": [
+      0.7,
+      0.55,
+      1.48
+     ],
+     "lookAt": [
+      -0.258,
+      0.951,
+      -8.346
+     ],
+     "lens": 46,
+     "ease": "linear",
+     "lookAt2": [
+      -0.258,
+      0.951,
+      -8.466
+     ]
+    }
+   ],
+   "start": 2.3333,
+   "duration": 0.8667,
+   "setOpts": {
+    "eiffelStyle": "v2",
+    "eiffelX": -3.0,
+    "eiffelZ": -120
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "savannah",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "towel4",
+     "name": "carpet",
+     "pos": [
+      0.0,
+      0,
+      -1.65
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 1.5,
+      "d": 0.75,
+      "color": "#E8463A",
+      "inner": "#FFFFFF"
+     }
+    },
+    {
+     "id": "val4",
+     "name": "suitcase",
+     "pos": [
+      0.0,
+      0.18,
+      -1.3
+     ],
+     "rot": [
+      -1.321,
+      0,
+      0
+     ],
+     "scale": 1.3,
+     "opts": {
+      "color": "#C0392B",
+      "shades": true,
+      "stickers": 2,
+      "stickerTimes": [
+       -1.0,
+       0.35
+      ],
+      "seed": 0
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "parasol4",
+     "name": "parasol",
+     "pos": [
+      0.75,
+      0,
+      -2.2
+     ],
+     "opts": {
+      "openAt": -1.0
+     }
+    },
+    {
+     "id": "pyr4a",
+     "name": "pyramid",
+     "pos": [
+      -6.0,
+      0,
+      -26.0
+     ],
+     "opts": {
+      "base": 13,
+      "h": 9
+     }
+    },
+    {
+     "id": "pyr4b",
+     "name": "pyramid",
+     "pos": [
+      7.5,
+      0,
+      -36.0
+     ],
+     "opts": {
+      "base": 18,
+      "h": 12
+     }
+    },
+    {
+     "id": "pyr4c",
+     "name": "pyramid",
+     "pos": [
+      20.0,
+      0,
+      -50.0
+     ],
+     "opts": {
+      "base": 10,
+      "h": 7
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.144,
+      1.25,
+      2.199
+     ],
+     "to": [
+      1.044,
+      1.25,
+      2.099
+     ],
+     "lookAt": [
+      0.393,
+      0.196,
+      -7.717
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      0.293,
+      0.196,
+      -7.817
+     ]
+    }
+   ],
+   "start": 3.2,
+   "duration": 1.1333,
+   "setOpts": {
+    "seed": 8
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "spaceDark",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "earth5",
+     "name": "earthGlobe",
+     "pos": [
+      0.0,
+      0.0,
+      -5.0
+     ],
+     "opts": {
+      "radius": 1.6,
+      "spin": 0.5
+     }
+    },
+    {
+     "id": "trail5",
+     "name": "orbitTrail",
+     "pos": [
+      0.0,
+      1.6,
+      -5.0
+     ],
+     "opts": {
+      "r": 1.75,
+      "tilt": -0.33,
+      "speed": 0.55
+     }
+    },
+    {
+     "id": "val5",
+     "name": "suitcase",
+     "pos": [
+      1.444,
+      1.254,
+      -5.988
+     ],
+     "scale": 0.8,
+     "opts": {
+      "color": "#C0392B",
+      "shades": true,
+      "stickers": 4,
+      "seed": 0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.678,
+        1.426,
+        -5.496
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.163,
+       "to": [
+        1.749,
+        1.615,
+        -4.956
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.325,
+       "to": [
+        1.651,
+        1.803,
+        -4.421
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.488,
+       "to": [
+        1.393,
+        1.971,
+        -3.941
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.65,
+       "to": [
+        1.0,
+        2.103,
+        -3.564
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.812,
+       "to": [
+        0.51,
+        2.186,
+        -3.326
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.975,
+       "to": [
+        -0.029,
+        2.212,
+        -3.25
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 1.137,
+       "to": [
+        -0.566,
+        2.18,
+        -3.344
+       ],
+       "dur": 0.163,
+       "ease": "linear"
+      },
+      {
+       "at": 0.0,
+       "rotTo": [
+        0.4,
+        2.4,
+        0.3
+       ],
+       "dur": 1.3
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      2.6,
+      3.5
+     ],
+     "to": [
+      0.0,
+      2.55,
+      3.2
+     ],
+     "lookAt": [
+      0.0,
+      1.55,
+      -5.0
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      1.55,
+      -5.0
+     ]
+    }
+   ],
+   "start": 4.3333,
+   "duration": 1.2,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "hall6",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5,
+      "sign": "DÉPARTS",
+      "signX": -1.9,
+      "signY": 3.4,
+      "signZ": -3.0
+     }
+    },
+    {
+     "id": "board6",
+     "name": "flightBoard",
+     "pos": [
+      0.35,
+      1.9,
+      -2.6
+     ],
+     "scale": 1.25,
+     "opts": {
+      "from": 37,
+      "to": 300,
+      "t0": 0.0,
+      "t1": 0.967
+     }
+    },
+    {
+     "id": "val6",
+     "name": "suitcase",
+     "pos": [
+      0.0,
+      0,
+      -1.2
+     ],
+     "ry": -10,
+     "scale": 1.35,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "stickerTimes": [
+       -1.0,
+       -1.0,
+       -1.0,
+       -1.0,
+       0.08,
+       0.159,
+       0.238,
+       0.316,
+       0.395,
+       0.474,
+       0.553,
+       0.632,
+       0.711,
+       0.789,
+       0.868
+      ],
+      "seed": 0,
+      "handle": 1.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.103,
+      1.25,
+      2.579
+     ],
+     "to": [
+      1.103,
+      1.25,
+      2.429
+     ],
+     "lookAt": [
+      -0.251,
+      0.136,
+      -7.266
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -0.251,
+      0.136,
+      -7.416
+     ]
+    }
+   ],
+   "start": 5.5333,
+   "duration": 1.1667,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "agent",
+     "pos": [
+      0.15,
+      0,
+      -2.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": {
+        "actor": "mec",
+        "cheat": 0.2
+       }
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.0,
+          1.45,
+          -2.25,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          0.12,
+          1.51,
+          -2.52,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.2,
+      0,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.45,
+        -2.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.25,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.3,
+          1.2,
+          -1.05,
+          1.0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "hose": 0.12,
+        "sq": [
+         1.03,
+         0.97,
+         1.03
+        ],
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.05,
+          1.45,
+          -2.08,
+          1.4,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          0.05,
+          1.49,
+          -2.38,
+          1.6,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall7",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5,
+      "sign": false
+     }
+    },
+    {
+     "id": "desk7",
+     "name": "serviceDesk",
+     "pos": [
+      -0.1,
+      0,
+      -2.05
+     ],
+     "opts": {
+      "w": 2.4,
+      "text": "ENREGISTREMENT",
+      "sub": false,
+      "band": "#1F3A6E",
+      "color": "#E4E0D6",
+      "signY": 2.75
+     }
+    },
+    {
+     "id": "card7",
+     "name": "loyaltyCard",
+     "on": {
+      "actor": "agent",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.06,
+       0.04
+      ]
+     },
+     "scale": 1.0,
+     "opts": {
+      "s": 1.1,
+      "bright": true
+     }
+    },
+    {
+     "id": "val7",
+     "name": "suitcase",
+     "pos": [
+      -0.95,
+      0.0,
+      -1.35
+     ],
+     "ry": 170,
+     "scale": 1.2,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "handle": 1.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      1.95,
+      -3.75
+     ],
+     "to": [
+      0.9,
+      1.95,
+      -3.75
+     ],
+     "lookAt": [
+      -4.105,
+      0.329,
+      4.754
+     ],
+     "lens": 48,
+     "ease": "linear",
+     "lookAt2": [
+      -4.105,
+      0.329,
+      4.754
+     ]
+    }
+   ],
+   "start": 6.7,
+   "duration": 1.3333,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "agent",
+     "pos": [
+      0.15,
+      0,
+      -2.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.95,
+        1.2,
+        -1.35
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.12,
+          1.51,
+          -2.52,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.65,
+          1.4,
+          -1.75,
+          1.35,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0.25,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.5,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.2,
+      0,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.45,
+        -2.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.05,
+          1.49,
+          -2.38,
+          1.6,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.2,
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.32,
+       "look": [
+        -0.95,
+        1.3,
+        -1.35
+       ]
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          0.02,
+          1.48,
+          -2.42,
+          1.6,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.06
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall8",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5,
+      "sign": false
+     }
+    },
+    {
+     "id": "desk8",
+     "name": "serviceDesk",
+     "pos": [
+      -0.1,
+      0,
+      -2.05
+     ],
+     "opts": {
+      "w": 2.4,
+      "text": "ENREGISTREMENT",
+      "sub": false,
+      "band": "#1F3A6E",
+      "color": "#E4E0D6",
+      "signY": 2.75
+     }
+    },
+    {
+     "id": "card8",
+     "name": "loyaltyCard",
+     "on": {
+      "actor": "agent",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.06,
+       0.04
+      ]
+     },
+     "scale": 1.0,
+     "opts": {
+      "s": 1.1,
+      "bright": true
+     }
+    },
+    {
+     "id": "val8",
+     "name": "suitcase",
+     "pos": [
+      -0.95,
+      0.0,
+      -1.35
+     ],
+     "ry": 170,
+     "scale": 1.2,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "handle": 1.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.763,
+      1.8,
+      -3.032
+     ],
+     "to": [
+      1.663,
+      1.8,
+      -3.032
+     ],
+     "lookAt": [
+      -6.608,
+      0.381,
+      2.251
+     ],
+     "lens": 51,
+     "ease": "linear",
+     "lookAt2": [
+      -6.708,
+      0.381,
+      2.251
+     ]
+    }
+   ],
+   "start": 8.0333,
+   "duration": 1.3,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "agent",
+     "pos": [
+      0.15,
+      0,
+      -2.95
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.95,
+        1.2,
+        -1.35
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.65,
+          1.4,
+          -1.75,
+          1.35,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0.25,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.28,
+       "toon": {
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.0
+        }
+       },
+       "toonDur": 0.25
+      },
+      {
+       "at": 0.38,
+       "look": {
+        "actor": "mec",
+        "cheat": 0.2
+       }
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "mec",
+     "pos": [
+      -0.2,
+      0,
+      -1.2
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.95,
+        1.3,
+        -1.35
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.02,
+          1.48,
+          -2.42,
+          1.6,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "look": "camera"
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          0.02,
+          1.48,
+          -2.42,
+          1.6,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          0.02,
+          1.48,
+          -2.42,
+          1.6,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "hose": 0.12,
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall9",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5,
+      "sign": false
+     }
+    },
+    {
+     "id": "desk9",
+     "name": "serviceDesk",
+     "pos": [
+      -0.1,
+      0,
+      -2.05
+     ],
+     "opts": {
+      "w": 2.4,
+      "text": "ENREGISTREMENT",
+      "sub": false,
+      "band": "#1F3A6E",
+      "color": "#E4E0D6",
+      "signY": 2.75
+     }
+    },
+    {
+     "id": "val9",
+     "name": "suitcase",
+     "pos": [
+      -0.95,
+      0.0,
+      -1.35
+     ],
+     "ry": 170,
+     "scale": 1.2,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "handle": 1.0
+     },
+     "keys": [
+      {
+       "at": 0.18,
+       "visible": false
+      }
+     ]
+    },
+    {
+     "id": "val9g",
+     "name": "suitcase",
+     "pos": [
+      -0.95,
+      0.0,
+      -1.35
+     ],
+     "ry": 170,
+     "scale": 1.2,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "handle": 1.0,
+      "tag": "gold",
+      "tagSwing": 0.5
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.18,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "card9",
+     "name": "loyaltyCard",
+     "on": {
+      "actor": "agent",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.06,
+       0.04
+      ]
+     },
+     "scale": 1.0,
+     "opts": {
+      "s": 1.1,
+      "bright": true
+     },
+     "keys": [
+      {
+       "at": 0.18,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.282,
+      1.85,
+      -3.949
+     ],
+     "to": [
+      -0.282,
+      1.85,
+      -3.949
+     ],
+     "lookAt": [
+      -0.809,
+      -0.248,
+      5.814
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      -0.809,
+      -0.248,
+      5.814
+     ]
+    }
+   ],
+   "start": 9.3333,
+   "duration": 1.0667,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "hotesse",
+     "pos": [
+      0.15,
+      0,
+      1.05
+     ],
+     "ry": -120,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.85,
+        1.0,
+        0.4
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.38,
+          1.0,
+          0.72,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.25
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.42,
+          0.95,
+          0.68,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.6
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.2,
+          1.05,
+          0.8,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.25
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "cabin10",
+     "name": "cabinShell",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "len": 8,
+      "half": 1.9
+     }
+    },
+    {
+     "id": "seat10",
+     "name": "firstSeat",
+     "pos": [
+      -0.85,
+      0,
+      0.4
+     ],
+     "ry": 0
+    },
+    {
+     "id": "seat10b",
+     "name": "firstSeat",
+     "pos": [
+      -0.85,
+      0,
+      -1.4
+     ],
+     "ry": 0
+    },
+    {
+     "id": "seat10c",
+     "name": "firstSeat",
+     "pos": [
+      0.95,
+      0,
+      -1.4
+     ],
+     "ry": 0
+    },
+    {
+     "id": "val10",
+     "name": "suitcase",
+     "pos": [
+      -0.85,
+      0.47,
+      0.35
+     ],
+     "rot": [
+      -0.22,
+      0,
+      0
+     ],
+     "scale": 1.0,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "shades": "mask",
+      "tag": "gold",
+      "tagSwing": 0.15
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "flute10",
+     "name": "flute",
+     "pos": [
+      -0.42,
+      0.59,
+      0.5
+     ],
+     "scale": 1.6,
+     "opts": {
+      "level": 0.8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.407,
+      1.45,
+      3.664
+     ],
+     "to": [
+      1.307,
+      1.45,
+      3.514
+     ],
+     "lookAt": [
+      -3.61,
+      0.847,
+      -4.965
+     ],
+     "lens": 53,
+     "ease": "linear",
+     "lookAt2": [
+      -3.71,
+      0.847,
+      -5.115
+     ]
+    }
+   ],
+   "start": 10.4,
+   "duration": 1.8,
+   "setOpts": {
+    "color": "#DCD6C8"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.0,
+      0,
+      -0.6
+     ],
+     "ry": 15,
+     "clip": "sitFloor",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "sq": [
+         1.0,
+         0.92,
+         1.0
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.59,
+       "toon": {
+        "sq": [
+         1.0,
+         0.94,
+         1.0
+        ],
+        "face": {
+         "lid": 0.3,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "sq": [
+         0.42,
+         1.08,
+         1.25
+        ],
+        "face": {
+         "lid": 0.5,
+         "cross": 0.4
+        }
+       },
+       "toonDur": 0.033,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "sq": [
+         0.45,
+         1.06,
+         1.22
+        ],
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.07,
+       "toon": {
+        "sq": [
+         1.15,
+         0.9,
+         0.95
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.18,
+       "toon": {
+        "sq": [
+         0.97,
+         0.95,
+         1.0
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.28,
+       "toon": {
+        "sq": [
+         1.0,
+         0.92,
+         1.0
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hold11",
+     "name": "cargoHold",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "len": 6,
+      "half": 1.6,
+      "h": 1.7,
+      "lampX": 0.2,
+      "lampZ": -0.3,
+      "swing": 0.35
+     }
+    },
+    {
+     "id": "frag11",
+     "name": "fragileTag",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0,
+       0.07,
+       0.17
+      ]
+     },
+     "scale": 0.8,
+     "opts": {
+      "w": 0.3
+     }
+    },
+    {
+     "id": "b11a",
+     "name": "suitcase",
+     "pos": [
+      -0.95,
+      0,
+      -0.8
+     ],
+     "ry": 80,
+     "scale": 1.1,
+     "opts": {
+      "color": "#2E6FB5",
+      "stickers": 2,
+      "seed": 3
+     }
+    },
+    {
+     "id": "b11b",
+     "name": "suitcase",
+     "pos": [
+      -0.95,
+      0.75,
+      -0.8
+     ],
+     "ry": 75,
+     "scale": 1.0,
+     "opts": {
+      "color": "#3CB371",
+      "seed": 4
+     }
+    },
+    {
+     "id": "b11c",
+     "name": "suitcase",
+     "pos": [
+      0.8,
+      0,
+      -1.3
+     ],
+     "ry": -20,
+     "scale": 1.15,
+     "opts": {
+      "color": "#7A7F87",
+      "seed": 5
+     }
+    },
+    {
+     "id": "b11d",
+     "name": "suitcase",
+     "pos": [
+      -0.3,
+      0,
+      -1.6
+     ],
+     "ry": 10,
+     "scale": 1.25,
+     "opts": {
+      "color": "#9B59B6",
+      "seed": 6
+     }
+    },
+    {
+     "id": "b11e",
+     "name": "suitcase",
+     "pos": [
+      1.6,
+      0,
+      -0.55
+     ],
+     "ry": -95,
+     "scale": 1.3,
+     "opts": {
+      "color": "#F28C28",
+      "stickers": 3,
+      "seed": 7
+     },
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        0.6,
+        0,
+        -0.55
+       ],
+       "dur": 0.37,
+       "ease": "in"
+      },
+      {
+       "at": 1.0,
+       "to": [
+        1.5,
+        0,
+        -0.5
+       ],
+       "dur": 0.3,
+       "ease": "inOut"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.079,
+      1.15,
+      3.479
+     ],
+     "to": [
+      1.079,
+      1.15,
+      3.379
+     ],
+     "lookAt": [
+      -1.411,
+      -0.313,
+      -6.095
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -1.411,
+      -0.313,
+      -6.195
+     ]
+    }
+   ],
+   "start": 12.2,
+   "duration": 1.5333,
+   "setOpts": {
+    "color": "#20242C"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.15,
+      0,
+      -3.0
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.21,
+        1.1,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.24,
+       "look": {
+        "point": [
+         -0.61,
+         0.7,
+         -2.3
+        ],
+        "cheat": 0.3
+       }
+      },
+      {
+       "at": 0.42,
+       "toon": {
+        "sq": [
+         1.12,
+         0.85,
+         1.12
+        ],
+        "face": {
+         "lid": 0.3
+        },
+        "autoSq": 0
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "sq": [
+         0.9,
+         1.15,
+         0.9
+        ],
+        "reach": {
+         "L": [
+          -0.45,
+          2.55,
+          -3.0,
+          1,
+          0.05
+         ],
+         "R": [
+          -1.85,
+          2.55,
+          -3.0,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
+        },
+        "face": {
+         "lid": 0.2,
+         "mouth": "smile"
+        },
+        "autoSq": 0
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "sq": [
+         1.08,
+         0.92,
+         1.08
+        ],
+        "face": {
+         "lid": 0.4
+        },
+        "autoSq": 0
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.6,
+       "to": [
+        -1.15,
+        0.62,
+        -3.0
+       ],
+       "dur": 0.16,
+       "glide": true,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.76,
+       "to": [
+        -1.15,
+        0.66,
+        -3.0
+       ],
+       "dur": 0.14,
+       "glide": true,
+       "ease": "inOut",
+       "face": "keep"
+      },
+      {
+       "at": 0.9,
+       "to": [
+        -1.15,
+        0.0,
+        -3.0
+       ],
+       "dur": 0.13,
+       "glide": true,
+       "ease": "in",
+       "face": "keep"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall12",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5
+     }
+    },
+    {
+     "id": "car12",
+     "name": "carousel",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "len": 4.4,
+      "r": 1.0,
+      "speed": 0.55,
+      "number": 3,
+      "hatchX": 0.6,
+      "hatchH": 1.9,
+      "flap": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.07,
+        0.0
+       ],
+       [
+        0.22,
+        0.85
+       ],
+       [
+        0.47,
+        0.7
+       ],
+       [
+        0.62,
+        0.0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "val12",
+     "name": "suitcase",
+     "pos": [
+      0.04,
+      0.46,
+      -2.3
+     ],
+     "rot": [
+      -1.571,
+      0,
+      -1.571
+     ],
+     "scale": 1.05,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "tag": "gold",
+      "tagSwing": 0.3
+     },
+     "keys": [
+      {
+       "at": 0.12,
+       "to": [
+        -0.737,
+        0.46,
+        -2.3
+       ],
+       "dur": 1.413,
+       "ease": "linear"
+      }
+     ],
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.8,
+      1.25,
+      2.0
+     ],
+     "to": [
+      -1.8,
+      1.25,
+      2.0
+     ],
+     "lookAt": [
+      1.494,
+      1.42,
+      -7.44
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      1.494,
+      1.42,
+      -7.44
+     ]
+    }
+   ],
+   "start": 13.7333,
+   "duration": 1.5334,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "whiteVoid",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.15,
+      0,
+      -3.0
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": {
+        "point": [
+         -0.737,
+         0.7,
+         -2.3
+        ],
+        "cheat": 0.3
+       }
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.5,
+       "look": [
+        -0.31,
+        0.55,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.66,
+       "look": [
+        -0.737,
+        0.7,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.77,
+       "look": [
+        -0.31,
+        0.55,
+        -2.3
+       ]
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "sq": [
+         1.04,
+         0.95,
+         1.04
+        ]
+       },
+       "toonDur": 0.03
+      },
+      {
+       "at": 0.77,
+       "toon": {
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ],
+        "face": {
+         "pop": 0.0,
+         "popLen": 0.25,
+         "brow": 1,
+         "jaw": 0.3
+        }
+       },
+       "toonDur": 0.04,
+       "toonEase": "outBack"
+      },
+      {
+       "at": 1.12,
+       "toon": {
+        "face": {
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.07,
+       "toon": {
+        "face": {
+         "jaw": 1.0,
+         "lid": 0.0,
+         "brow": 1.0
+        },
+        "sq": [
+         0.95,
+         1.06,
+         0.95
+        ]
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "hall13",
+     "name": "terminalHall",
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "opts": {
+      "w": 14,
+      "back": -4.2,
+      "front": 6,
+      "h": 5
+     }
+    },
+    {
+     "id": "car13",
+     "name": "carousel",
+     "pos": [
+      0.0,
+      0,
+      -1.3
+     ],
+     "opts": {
+      "len": 4.4,
+      "r": 1.0,
+      "speed": 0.55,
+      "number": 3,
+      "hatchX": 0.6,
+      "hatchH": 1.9,
+      "flap": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.2,
+        0.0
+       ],
+       [
+        0.31,
+        0.45
+       ],
+       [
+        0.5,
+        0.3
+       ],
+       [
+        0.65,
+        0.0
+       ]
+      ]
+     }
+    },
+    {
+     "id": "val13",
+     "name": "suitcase",
+     "pos": [
+      -0.737,
+      0.46,
+      -2.3
+     ],
+     "rot": [
+      -1.571,
+      0,
+      -1.571
+     ],
+     "scale": 1.05,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "tag": "gold",
+      "tagSwing": 0.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -1.635,
+        0.46,
+        -2.3
+       ],
+       "dur": 1.633,
+       "ease": "linear"
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "val13s",
+     "name": "suitcase",
+     "pos": [
+      -0.01,
+      0.46,
+      -2.3
+     ],
+     "rot": [
+      -1.571,
+      0,
+      -1.571
+     ],
+     "scale": 0.42,
+     "opts": {
+      "color": "#F5A3C0",
+      "pacifier": true,
+      "stickers": 1,
+      "seed": 9
+     },
+     "keys": [
+      {
+       "at": 0.25,
+       "to": [
+        -0.502,
+        0.46,
+        -2.3
+       ],
+       "dur": 0.45,
+       "ease": "out"
+      },
+      {
+       "at": 0.7,
+       "to": [
+        -1.035,
+        0.46,
+        -2.3
+       ],
+       "dur": 0.933,
+       "ease": "linear"
+      }
+     ],
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.6,
+      1.2,
+      1.4
+     ],
+     "to": [
+      -1.6,
+      1.2,
+      1.4
+     ],
+     "lookAt": [
+      0.911,
+      1.033,
+      -8.278
+     ],
+     "lens": 44,
+     "ease": "linear",
+     "lookAt2": [
+      0.911,
+      1.033,
+      -8.278
+     ]
+    }
+   ],
+   "start": 15.2667,
+   "duration": 1.6333,
+   "setOpts": {
+    "color": "#E3E8EC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "livingRoom",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.55,
+      0,
+      -0.55
+     ],
+     "ry": 60,
+     "clip": "kneel",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.25,
+        0.15,
+        -0.15
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.1,
+          0.6,
+          -0.2,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          0.23,
+          0.13,
+          -0.17,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          0.23,
+          0.13,
+          -0.17,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "lid": 0.0,
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.033,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "reach": {
+         "R": [
+          0.23,
+          0.13,
+          -0.17,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.82,
+       "look": "camera"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.03,
+          0.13,
+          -0.29,
+          1.9,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          -0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.4,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.05,
+       "look": [
+        0.25,
+        0.15,
+        -0.15
+       ]
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.45,
+          1.1,
+          -0.25,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "spread"
+        },
+        "bend": {
+         "spine": [
+          -0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "sq": [
+         0.96,
+         1.04,
+         0.96
+        ],
+        "face": {
+         "lid": 0.2,
+         "brow": 0.7
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.75,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.3,
+          0.85,
+          -0.2,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.8,
+       "look": "camera"
+      },
+      {
+       "at": 2.2,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.3,
+          0.85,
+          -0.2,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.07
+      },
+      {
+       "at": 2.37,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.3,
+          0.85,
+          -0.2,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "val14s",
+     "name": "suitcase",
+     "pos": [
+      0.25,
+      0.0,
+      -0.15
+     ],
+     "rot": [
+      -1.571,
+      0,
+      -2.034
+     ],
+     "scale": 0.55,
+     "opts": {
+      "color": "#F5A3C0",
+      "pacifier": true,
+      "stickers": 1,
+      "seed": 9,
+      "open": [
+       [
+        0.0,
+        1.1
+       ],
+       [
+        0.57,
+        1.1
+       ],
+       [
+        0.62,
+        0.0
+       ],
+       [
+        1.55,
+        0.0
+       ],
+       [
+        1.6,
+        0.35
+       ],
+       [
+        1.8,
+        0.0
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 1.0,
+       "to": [
+        -0.03,
+        0.0,
+        -0.29
+       ],
+       "dur": 0.4,
+       "ease": "inOut"
+      },
+      {
+       "at": 1.55,
+       "to": [
+        0.21,
+        0.0,
+        -0.17
+       ],
+       "dur": 0.15,
+       "ease": "out"
+      }
+     ],
+     "ry": 0.0
+    },
+    {
+     "id": "val14",
+     "name": "suitcase",
+     "pos": [
+      1.0,
+      0,
+      -0.95
+     ],
+     "ry": -35,
+     "scale": 1.15,
+     "opts": {
+      "color": "#C0392B",
+      "stickers": 15,
+      "seed": 0,
+      "tag": "gold",
+      "tagSwing": 0.12
+     }
+    },
+    {
+     "id": "note14",
+     "name": "banknote",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0,
+       -0.08,
+       0.02
+      ]
+     },
+     "scale": 0.7,
+     "keys": [
+      {
+       "at": 0.62,
+       "visible": false
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.367,
+      1.4,
+      3.3
+     ],
+     "to": [
+      0.287,
+      1.4,
+      3.18
+     ],
+     "lookAt": [
+      0.335,
+      -0.191,
+      -6.573
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      0.255,
+      -0.191,
+      -6.693
+     ]
+    }
+   ],
+   "start": 16.9,
+   "duration": 2.62,
+   "setOpts": {
+    "carpet": false,
+    "picture": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 19.52,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 0.7,
+   "who": "mec",
+   "name": "sock",
+   "sid": "S01"
+  },
+  {
+   "t": 1.96,
+   "who": "mec",
+   "name": "slap",
+   "sid": "S02"
+  },
+  {
+   "t": 7.25,
+   "who": "mec",
+   "name": "reach",
+   "sid": "S07"
+  },
+  {
+   "t": 8.433,
+   "who": "mec",
+   "name": "hand",
+   "sid": "S08",
+   "joint": "handR"
+  },
+  {
+   "t": 9.933,
+   "who": "mec",
+   "name": "blink",
+   "sid": "S09"
+  },
+  {
+   "t": 11.0,
+   "who": "hotesse",
+   "name": "bow",
+   "sid": "S10"
+  },
+  {
+   "t": 12.97,
+   "who": "mec",
+   "name": "flat",
+   "sid": "S11"
+  },
+  {
+   "t": 14.533,
+   "who": "mec",
+   "name": "jump",
+   "sid": "S12"
+  },
+  {
+   "t": 16.417,
+   "who": "mec",
+   "name": "jaw",
+   "sid": "S13"
+  },
+  {
+   "t": 18.2,
+   "who": "mec",
+   "name": "elastic",
+   "sid": "S14"
+  },
+  {
+   "t": 19.22,
+   "who": "mec",
+   "name": "end",
+   "sid": "S14"
+  },
+  {
+   "t": 6.433,
+   "prop": "board6",
+   "name": "vols",
+   "sid": "S06"
+  },
+  {
+   "t": 7.2,
+   "prop": "card7",
+   "name": "card",
+   "sid": "S07"
+  },
+  {
+   "t": 12.6,
+   "prop": "frag11",
+   "name": "fragile",
+   "sid": "S11"
+  }
+ ],
+ "cardTimes": [
+  3.2,
+  10.4
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07
+}
