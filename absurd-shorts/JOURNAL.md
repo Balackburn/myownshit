@@ -1731,3 +1731,19 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   dans le ciel du plan 2, le fronton noir de la mairie, l'éclair en bulle de savon), texte illisible (le formulaire, BOOMERANG coupé par le
   contrôleur). La revue d'animation est en cours.
 - **53 « Le torticolis », brouillon 1** rendu ; deux passages trop calmes notés (plans 13 et 14) pour la passe suivante ; revue 1 lancée.
+- **52 « Le boomerang », revue 1 : animation 6,0, direction artistique 6,5** → passe 2 écrite : le lancer filmé de profil (le bras doublé et le
+  boomerang étirés sur le ciel, cinq images de tremblement, son visage triché vers nous, la langue sortie) ; le tire-bouchon entraîne le corps (la tête
+  mène, hanches et jambes traînent, genoux pliés), trois vacillements, et il finit face au boomerang, la main à plat au front (guidée dans le repère de
+  la tête : la main sur le visage donnait une paume levée, un « coucou ») ; le boomerang plus gros avec un reflet qui scintille ; le coin noir du ciel
+  venait de la caméra qui regardait trop haut. La pièce est lancée par l'enfant (le bras tendu faisait une planche en travers de son torse). Sa main
+  posée sur le comptoir (elle pendait devant, le bord avant du comptoir est à 0,475 m) et le tampon qui écrase le formulaire et ses doigts dans un
+  insert, la main en crêpe huit images, puis son visage et un lent clignement. Le tour de tête en plan moyen, le boomerang tournant autour de sa
+  tête, le cou qui s'étire. Le contrôleur passe à gauche (il cachait BOOMERANG) et lève le pouce dans le plan (il était clé après la fin du plan).
+  L'avion sur ses roues à la ligne d'arrêt, un pare-brise, écrasé de 18 % au freinage, une politesse du bout de l'aile, le boomerang qui file sur les
+  bandes ; le fronton de la mairie refait en triangle plein face (une face du cône aplati tombait dans l'ombre) ; plus de nuages-boîtes ; le rotor vu
+  d'en haut au-dessus de la tête aplatie ; le flash en éclair plein cadre ; voile opaque et long ; la vieille dame passe derrière la mariée et la
+  pièce rebondit dans sa paume ; dans le dernier ciel, le marié lui-même pend sous le rotor.
+- **53 « Le torticolis », revue 1 (direction artistique) : 6,0** : le plan 10 bouché par un pan bleu marine, le plan 13 qui cadre l'ostéopathe au lieu
+  du héros, la voiture en marche arrière illisible, des accessoires qui ne se lisent pas (le réveil, la cuillère, le permis caché par sa main), du texte
+  coupé. Décision sans question (« à voir avec l'utilisateur ») : le modèle du héros reste celui de la série (pas de fente ni de col au dos de la
+  veste) ; ce sont les cadrages et la lumière qui doivent faire lire le visage sur son dos.
