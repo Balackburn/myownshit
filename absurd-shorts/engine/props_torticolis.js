@@ -63,7 +63,7 @@ export const TORTICOLIS_PROPS = {
   spinePoster(o) {
     const w = o.w ?? 0.6, h = o.h ?? 0.9;
     const pl = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F6F1E3'; c.fillRect(0, 0, W, H); c.strokeStyle = '#8A7A5A'; c.lineWidth = W * 0.012; c.strokeRect(W * 0.03, H * 0.02, W * 0.94, H * 0.96);
-      c.fillStyle = '#2C4A8A'; c.font = `900 ${H * 0.055}px Arial`; c.textAlign = 'center'; c.fillText(o.title || 'OSTÉOPATHIE', W / 2, H * 0.08);
+      c.fillStyle = '#2C4A8A'; c.font = `900 ${H * 0.064}px Arial`; c.textAlign = "center"; c.fillText(o.title || "OSTÉOPATHIE", W / 2, H * 0.1);   // (pass 2 of 53) bigger, lower: the accent was lost at phone size
       c.strokeStyle = '#5A4A32'; c.fillStyle = '#EFE3C4'; c.lineWidth = W * 0.01; c.beginPath(); c.ellipse(W / 2, H * 0.19, W * 0.13, H * 0.075, 0, 0, TAU); c.fill(); c.stroke();   // the skull
       c.fillStyle = '#5A4A32'; c.beginPath(); c.arc(W * 0.45, H * 0.19, W * 0.03, 0, TAU); c.arc(W * 0.55, H * 0.19, W * 0.03, 0, TAU); c.fill();
       for (let i = 0; i < 17; i++) { const y = H * (0.29 + i * 0.037), ww = W * (0.1 + 0.05 * Math.sin(i * 0.35) + 0.035 * i / 17); c.fillStyle = i < 7 ? '#E8C9A0' : i < 12 ? '#E2BE90' : '#D9B07E';

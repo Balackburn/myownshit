@@ -1346,6 +1346,26 @@ const B = {
   // ---- six classic stories: the alarm clock, the sun, the washing machine, the fridge camera, honey, the nest of eggs
   alarmClock(o) { // a huge twin-bell alarm clock with a digital face (o.time, then o.time2 from switchAt) and a snooze button on top;
                   // shakes between ringAt and stopAt
+    // (pass 2 of 53) o.style 'round': the classic round twin-bell clock (a dial with hands at o.time, two bells, a hammer that rattles, ringing lines
+    // flickering round it, two feet); o.squashAt: flattened under a slap, then it springs back past its shape (the red box with a dark window read as
+    // a toaster)
+    if (o.style === 'round') {
+      const C = o.color || '#C8302A', R = 0.2, body = grp();
+      body.add(at(cyl(R, R, 0.12, C, 24, { outline: 0.01 }), 0, R + 0.06, 0, PI / 2, 0, 0));
+      const dial = canvasPlane(R * 1.7, R * 1.7, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = '#FBF8EE'; c.beginPath(); c.arc(W / 2, H / 2, W / 2 - 2, 0, TAU); c.fill(); c.strokeStyle = '#1E1E22'; c.lineWidth = W * 0.03; c.stroke();
+        c.fillStyle = '#1E1E22'; c.font = `bold ${H * 0.16}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; [['12', 0, -0.33], ['3', 0.33, 0], ['6', 0, 0.33], ['9', -0.33, 0]].forEach(([s, x, y]) => c.fillText(s, W / 2 + x * W, H / 2 + y * H));
+        const hand = (a, l, w) => { c.save(); c.translate(W / 2, H / 2); c.rotate(a); c.lineWidth = W * w; c.lineCap = 'round'; c.beginPath(); c.moveTo(0, 0); c.lineTo(0, -l * H); c.stroke(); c.restore(); };
+        const [hh, mm] = String(o.time || '07:00').split(':').map(Number); hand(((hh % 12) + mm / 60) / 12 * TAU, 0.2, 0.05); hand(mm / 60 * TAU, 0.31, 0.035); c.fillStyle = '#C8302A'; c.beginPath(); c.arc(W / 2, H / 2, W * 0.04, 0, TAU); c.fill(); }, { res: 256, transparent: true });
+      dial.position.set(0, R + 0.06, 0.062); body.add(dial);
+      const bells = [-1, 1].map(s => { const b = grp(at(sphere(0.085, '#E2C24A', 1), 0, 0, 0)); b.children[0].scale.y = 0.75; b.position.set(s * 0.12, 2 * R + 0.08, 0); b.rotation.z = -s * 0.5; body.add(b); return b; });
+      const hammer = grp(at(cyl(0.008, 0.008, 0.1, '#5A5A60', 6), 0, 0.05, 0), at(sphere(0.02, '#5A5A60', 0), 0, 0.1, 0)); hammer.position.set(0, 2 * R + 0.06, 0); body.add(hammer);
+      for (const s of [-1, 1]) body.add(at(cyl(0.015, 0.02, 0.08, '#2A2A2E', 6), s * 0.12, 0.04, 0, 0, 0, s * 0.35));
+      const lines = []; for (let i = 0; i < 6; i++) { const a = PI * (0.12 + 0.76 * i / 5), m = new THREE.Mesh(new THREE.PlaneGeometry(0.11, 0.02), new THREE.MeshBasicMaterial({ color: '#1E1E22', toneMapped: false })); m.position.set(Math.cos(a) * 0.36, R + 0.1 + Math.sin(a) * 0.32, 0.03); m.rotation.z = a; body.add(m); lines.push(m); }
+      const g = grp(body);
+      g.userData.update = t => { const ring = o.ringAt != null && t >= o.ringAt && (o.stopAt == null || t < o.stopAt); body.rotation.z = ring ? 0.07 * Math.sin(t * 70) : 0; body.position.y = ring ? 0.015 * Math.abs(Math.sin(t * 55)) : 0;
+        hammer.rotation.z = ring ? 0.6 * Math.sin(t * 95) : 0; bells.forEach((b, i) => { b.position.y = 2 * R + 0.08 + (ring ? 0.01 * Math.sin(t * 90 + i * 2) : 0); }); lines.forEach((m, i) => { m.visible = ring && Math.floor(t * 20 + i) % 2 === 0; });
+        let sx = 1, sy = 1; if (o.squashAt != null && t >= o.squashAt) { const u = t - o.squashAt, k = u < 0.03 ? u / 0.03 : Math.exp(-(u - 0.03) * 7) * Math.cos((u - 0.03) * 22); sy = 1 - 0.62 * k; sx = 1 + 0.35 * k; } body.scale.set(sx, sy, sx); };
+      g.userData.update(0); return g; }
     const C = o.color || '#B5302A', face = t => canvasPlane(0.3, 0.14, (c, W, H) => { c.fillStyle = '#141414'; c.fillRect(0, 0, W, H); c.fillStyle = '#FF5A3A'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `bold ${H * 0.72}px monospace`; c.fillText(t, W / 2, H * 0.55); }, { res: 256, emissive: 0.9 });
     const f1 = face(o.time || '06:00'), f2 = face(o.time2 || '03:09'); f1.position.set(0, 0.2, 0.096); f2.position.copy(f1.position); f2.visible = false;
     const body = grp(at(box(0.42, 0.34, 0.18, C, { outline: 0.01 }), 0, 0.2, 0), at(box(0.34, 0.18, 0.02, '#1E1E22'), 0, 0.2, 0.082), f1, f2,
