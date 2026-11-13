@@ -24,6 +24,8 @@
 //   plant: { L | R: [x, y, z, w, [px, py, pz], flat] }   (cycle 13) a foot held at a point of the world (two-bone IK on the hip and the knee; the leg
 //                                          stretches when the point is too far: the foot glued to the pavement while he walks on; [px, py, pz]: where the
 //                                          knee goes, in the frame of the hips, default forward; flat false: the foot turns with the shin)
+//   pin: { joint ('head'), off [x, y, z] (in the joint's frame), at [x, y, z] (world), w }   (cycle 17) that point of him stays on `at`: the whole body
+//         moves so that it does (stuck by the forehead to a lamp post, a bus window, a carriage ceiling): pose the body to hang, `lay` swings it
 //   hose: 0..0.35   (cycle 9) a guided arm keeps a bend at the elbow however far it reaches: it grows that much longer than the distance (0.15: a rubber
 //                   hose with an elbow; at 0 a far reach is a straight rod, the reviewers' "five reaches, the same rod")
 //   touch: { L | R: [joint, x, y, z, w, tip] }   the same, to a point given in the frame of one of his own joints ('torso', 'head'...: the joint's own units, a
@@ -342,7 +344,9 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
   if (a.hands || b.hands) out.hands = blendHands(a.hands, b.hands, w);   // finger poses (engine/fingers.js): {L, R}, by name or as numbers
   if (a.hat || b.hat) { const x = a.hat || [0, 0, 0], y = b.hat || [0, 0, 0]; out.hat = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }
-  if (a.lay || b.lay) { const x = a.lay || [0, 0], y = b.lay || [0, 0]; out.lay = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0)]; }   // (cycle 6) the whole body tipped about his feet
+  if (a.lay || b.lay) { const x = a.lay || [0, 0], y = b.lay || [0, 0]; out.lay = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0)]; }
+  if (a.pin || b.pin) { const x = a.pin, y = b.pin, p = x || y, q = y || x, po = p.off || [0, 0, 0], qo = q.off || [0, 0, 0];   // (cycle 17) a body point pinned to the world: it lets go and takes hold by its weight
+    out.pin = { joint: (w < 0.5 ? p : q).joint, off: [L(po[0], qo[0]), L(po[1], qo[1]), L(po[2], qo[2])], at: [L(p.at[0], q.at[0]), L(p.at[1], q.at[1]), L(p.at[2], q.at[2])], w: L(x ? (x.w ?? 1) : 0, y ? (y.w ?? 1) : 0) }; }   // (cycle 6) the whole body tipped about his feet
   if (a.touch || b.touch) { out.touch = {}; for (const sd of ['L', 'R']) { const x = a.touch?.[sd], y = b.touch?.[sd]; if (!x && !y) continue;
     if (x && y && x[0] === y[0]) out.touch[sd] = [x[0], L(x[1], y[1]), L(x[2], y[2]), L(x[3], y[3]), L(x[4] ?? 1, y[4] ?? 1), L(x[5] || 0, y[5] || 0), POLE(x[6], y[6])];
     else { const q = !x ? y : !y ? x : (w < 0.5 ? x : y), k = !x ? w : !y ? 1 - w : Math.abs(2 * w - 1); out.touch[sd] = [q[0], q[1], q[2], q[3], (q[4] ?? 1) * k, q[5] || 0, q[6] || null]; } } }   // fades in and out; between two joints it lets go and takes again
@@ -361,6 +365,7 @@ export function addToon(a = {}, b = {}) {
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
   if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot;
+  if (b.pin) out.pin = b.pin;   // (cycle 17)
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
