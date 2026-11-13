@@ -481,6 +481,23 @@ class Story:
                 _n = _c[0]
                 if (_n.startswith('sfx:') and _n[4:] not in _sfx) or (not _n.startswith('sfx:') and _n not in _mix): print(f'  audit cue {_n!r} at {_c[1]:.2f} s: the mix has no such sound (built-ins: {sorted(_mix)}; others as sfx:<name>)')
         except OSError: pass
+        try:   # (cycle 16) an unknown hand pose name is no error in the engine: the hand stays at rest ('flat' never existed: the osteopath's hands hung
+            # beside the head, the slap on the clock stopped a hand above it, in two stories, for two passes): say it now
+            import re as _re2
+            _fj = open(os.path.join(ROOT, 'engine', 'fingers.js')).read(); _blk = _fj[_fj.index('HAND_POSES'):_fj.index('};', _fj.index('HAND_POSES'))]
+            _poses = set(_re2.findall(r"^\s+([a-zA-Z]+):\s*\[", _blk, _re2.M))
+            def _hands(o, path):
+                if isinstance(o, dict):
+                    for _k, _v in o.items():
+                        if _k == 'hands' and isinstance(_v, dict):
+                            for _sd, _p in _v.items():
+                                if isinstance(_p, str) and _p not in _poses: print(f'  audit {path}: hand pose {_p!r} ({_sd}) does not exist: the hand stays at rest (poses: {", ".join(sorted(_poses))})')
+                        else: _hands(_v, path)
+                elif isinstance(o, list):
+                    for _v in o: _hands(_v, path)
+            for _sc in self.scenes:
+                for _a in _sc.get('actors', []): _hands(_a.get('keys', []), f"{_sc['id']} {_a.get('id')}")
+        except (OSError, ValueError): pass
         # (cycle 15) a key before its shot never plays: st.at() is already the time in the shot, and 52 took the shot start off it a second time in six
         # places (the boomerang never landed on his head, the plane braked before its shot): say it now
         for sc_ in self.scenes:
