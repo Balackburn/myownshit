@@ -1985,3 +1985,21 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   devant son visage. Brouillon 2 en rendu, revue 2 préparée.
 - 57 « La porte tournante » : contrôles 2 et 3, plans embarqués pour S05 et le gros plan de S10, cadrages S06/S09 repris, carte tenue par son
   bord, concierge tourné vers nous. Brouillon 1 en rendu, dossier de revue 1 écrit.
+
+## Cycle 20 (en parallèle des livraisons 54-57)
+### Analyse (faiblesses relevées sur les revues de 54 à 57)
+1. **Gags masqués par un objet ou un corps** : la carte derrière l'agente, le sac entre l'objectif et le choc, la poutre devant le visage, les
+   bras devant le cou, le poteau central dans le visage. La sonde le signale (« covered by ») : en faire une porte avant chaque brouillon.
+2. **Géométrie estimée au lieu d'être mesurée** : le médecin dans la boule, l'échelle dans la sphère. Mesurer (`debugJoints`) dès qu'on pose un
+   personnage sur un autre ou sur ce qu'il porte.
+3. **Le cadre vertical est étroit** : un mouvement de côté sort du champ en trois images (le skieur) ; faire tomber de haut en bas, cadrer le
+   départ en entier.
+4. **Poses de réaction illisibles** : profils (le côté d'une tête-boîte n'a pas de visage), yeux croisés sur une tête de travers, mâchoire en
+   fente : tricher l'angle, garder la tête droite pour les yeux, mâchoire en bloc.
+5. **Figurants immobiles** : passagers figés à ±5 px ; leur donner respiration, transferts de poids et réactions décalées (assistant BREATH).
+### Outils faits
+- Rig : `face.jawFwd` (la mâchoire tombée pend devant le torse ; tenue d'une clé à l'autre comme `jawLen`).
+- Accessoires de l'histoire 58 (`props_baillement.js`) : langue-toboggan qui se déroule comme un tapis, lettre, sacoche, bosse qui se promène
+  sous la chemise, ruban d'inauguration et ciseaux géants, écharpe de maire, bonnet tombé ; couleur du réverbère.
+- 58 « Le bâillement » : narration (neuf phrases, 16,4 s, accélérée de 8 %), script de onze plans dans un seul décor (un arrêt de bus parisien),
+  dossier de revue préparé.
