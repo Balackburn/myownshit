@@ -949,3 +949,8 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 14) Deux bras droits à l'horizontale pendant une vrille se lisent comme la pose en T d'un modèle : un bras enroulé sur la poitrine, l'autre
   jeté en arrière, la colonne vrillée.
 - (cycle 14) Une main « tendue » à 0,42 m devant et 1,12 m de haut pend à la hanche : 0,55 m devant, 1,32 m de haut (à la poitrine).
+- (cycle 15) `st.at(shot, ligne, mot)` donne déjà le temps dans le plan : lui retirer encore le début du plan (`- st.SH[...][0]`) met le temps fort
+  avant le plan, et il ne se joue jamais (52 : le boomerang ne tombait pas sur la tête du marié, l'avion freinait hors champ, la pièce tombait avant
+  la passante). `st.write` le signale maintenant (« keys before the shot starts »).
+- (cycle 15) Recoller plutôt que tout refaire : un brouillon dont seuls deux plans changent se corrige par `render3 --range a:b` et
+  `tools/splice_range.sh` (deux plans en 20 min au lieu de 105 min pour le film entier).
