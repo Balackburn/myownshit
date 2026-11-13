@@ -53,7 +53,7 @@ st.shot('S01', 'grassland', setOpts=PARK, actors=[
         props=[BOOM('boom1h', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.06, 0.04], 'rot': [PI / 2, 0, 0]}, scale=1.4, keys=[k(REL1, visible=False)]),
                BOOM('boom1', pos=FRONT1, scale=1.4, opts={'spin': [[REL1, 7.0]], 'wobble': 0.25}, keys=[k(0.0, visible=False), k(REL1, visible=True), k(REL1, to=[-6.5, 7.0, 3.2], dur=0.42, ease='out')]),
                P('bench1', 'bench', pos=[2.2, 0, -1.6], ry=-90), P('lamp1', 'streetLamp', pos=[-2.6, 0, 2.6])],   # (pass 2) the lamp out of the side view
-        cams=[FC(0.0, [-2.95, 0.95, -2.07], [[P0[0], 2.55, P0[2]], [P0[0], 0.0, P0[2]], [BACK1[0], BACK1[1], BACK1[2]], [FRONT1[0], FRONT1[1] + 0.25, FRONT1[2]], [r(P0[0] + 0.5), 1.4, P0[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, 0.08))])
+        cams=[FC(0.0, [-2.95, 0.95, -2.07], [[P0[0], 2.55, P0[2]], [P0[0], 0.0, P0[2]], [BACK1[0], BACK1[1], BACK1[2]], [FRONT1[0], FRONT1[1] + 0.25, FRONT1[2]], [r(P0[0] + 0.5), 1.4, P0[2]]], top=0.1, bottom=0.74, drift=(0.0, 0.0, 0.08), lenses=range(30, 57))])   # (pass 2b) at most 56 degrees: at 69 the top of the frame reached the dark top of the sky (a brown band)
         # (pass 2) side on, from his right, low: the doubled arm and the boomerang stretched out against the sky (three-quarter front, they hid behind his torso)
 st.cue('whoosh', 'S01', 0.1, 0.25, 0.35, 300, 1200); st.cue('whoosh', 'S01', REL1, 0.4, 0.3, 600, 3000)
 
@@ -61,7 +61,8 @@ st.cue('whoosh', 'S01', 0.1, 0.25, 0.35, 300, 1200); st.cue('whoosh', 'S01', REL
 #    the boomerang a spinning speck shrinking toward the horizon
 D2 = st.dur('S02')
 BRW = {'touch': {'R': ['head', -0.04, 0.3, 0.2, 1, 0.04]}, 'hands': {'R': 'flat'}}   # a hand at his brow, shading his eyes ((pass 2) in the frame of the head: the touch on the face left a raised palm, a wave)
-SPIN2 = round(-70 - RY0 + 720, 1) / 6                                 # (pass 2) six steps that end facing the boomerang (a turn and a half left him facing us, looking away from it)
+SPIN2 = round(-70 - RY0 + 720, 1) / 6
+GONE2 = [-18.0, 6.5, 4.0]                                               # (pass 2b) where the boomerang goes: lower and ahead of him, so that it shrinks inside the frame (it left it on the left)                                 # (pass 2) six steps that end facing the boomerang (a turn and a half left him facing us, looking away from it)
 st.shot('S02', 'grassland', setOpts=PARK, actors=[
         act('mec', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={'bend': {'armR': [-0.9, 0.75, 0, 1.25, None], 'armL': [0.4, 1.35, 0, 1, None], 'spine': [0, 0, 0.35, 1, None]}, 'sq': [0.93, 1.08, 0.93], 'face': {'lid': 0.2, 'brow': 0.4}}, toonDur=0.0),
             # (first look) the throwing arm wrapped across his chest, the other flung out and back, the spine wound (both arms straight out read as a T-pose)
@@ -70,11 +71,13 @@ st.shot('S02', 'grassland', setOpts=PARK, actors=[
             k(0.3, toon={'bend': {'armR': [-0.6, 0.9, 0, 1.1, None], 'armL': [0.3, 1.2, 0, 1, None], 'spine': [0.05, 0, 0.35, 1, None], 'legL': [0.35, 0.1, 0, 1, None], 'legR': [0.35, -0.1, 0, 1, None], 'shinL': [0.5, 0, 0, 1, None], 'shinR': [0.5, 0, 0, 1, None]}, 'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.3, 'cross': 0.4}}, toonDur=0.14),
             # (pass 2) the head leads, the hips and the legs drag, the knees bend (a rigid turntable turn)
             *[k(round(0.5 + 0.12 * j, 3), toon={'sq': [1.03, 0.97, 1.03], 'lay': [0, (0.09 if j % 2 else -0.09)], 'bend': {'spine': [0, 0, (0.1 if j % 2 else -0.1), 1, None]}, 'face': {'cross': round(0.6 - 0.15 * j, 2), 'lid': 0.3}}, toonDur=0.1) for j in range(3)],   # (pass 2) dizzy, three wobbles
-            k(0.88, toon={**BRW, 'face': {'lid': 0.4}}, toonDur=0.15), k(0.86, look=[-16.0, 8.5, 7.5])])],   # then a flat hand at his brow, watching it go
-        props=[BOOM('boom2', pos=[-1.5, 3.0, 1.4], scale=2.4, opts={'spin': [[0.0, 7.0]], 'wobble': 0.25, 'glint': 0.5}, keys=[k(0.0, to=[-16.0, 8.5, 7.5], dur=round(D2 - 0.05, 3), ease='out')]),
+            k(0.88, toon={**BRW, 'face': {'lid': 0.4}}, toonDur=0.15), k(0.86, look=GONE2)])],   # then a flat hand at his brow, watching it go
+        props=[BOOM('boom2', pos=[-1.5, 3.0, 1.4], scale=2.4, opts={'spin': [[0.0, 7.0]], 'wobble': 0.25, 'glint': 0.5}, keys=[k(0.0, to=GONE2, dur=round(D2 - 0.05, 3), ease='out')]),
                # (pass 2) bigger, lower, with a glint (a 15 x 3 px speck)
                P('lamp2', 'streetLamp', pos=[-2.6, 0, -2.4])],
-        cams=[FC(0.0, [2.2, 0.85, 1.7], [[P0[0], 2.5, P0[2]], [P0[0], 0.0, P0[2]], [-5.0, 4.0, 2.8], [r(P0[0] - 0.5), 1.5, P0[2]]], top=0.1, bottom=0.74, drift=(-0.15, 0.05, 0.15))])
+        cams=[FC(0.0, [3.8, 0.8, 0.42], [[P0[0], 2.45, P0[2]], [P0[0], 0.0, P0[2]], [r(P0[0] + 0.6), 1.4, P0[2]], [r(P0[0] - 0.6), 1.4, P0[2]], [-2.4, 3.4, 1.2]], top=0.1, bottom=0.74, drift=(-0.12, 0.03, 0.04), lenses=range(30, 57))])
+        # (pass 2b) behind him on his left (he ends facing the boomerang, his back to us), the man on the right third, whole (his arm left the frame), the
+        # boomerang shrinking at the upper left; at most 56 degrees (the dark top of the sky)
         # (pass 2) three-quarters from behind, not looking so far up (the dark top of the sky came into the frame as a black wedge)
 st.cue('whoosh', 'S02', 0.05, 0.3, 0.45, 300, 1000)
 
@@ -86,7 +89,8 @@ st.shot('S03', 'grassland', setOpts=PARK, actors=[
         act('mec', P0, RY0, 'stand', 'unimpressed', keys=[k(0.0, look=[-6, 6.5, 3.5]), k(0.0, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.0),
             k(0.25, toon={**OUT(P0, RY0), 'face': {'lid': 1.0}}, toonDur=0.05), k(0.36, toon={**OUT(P0, RY0), 'face': {'lid': 0.45}}, toonDur=0.07),
             *doubleTake(round(CN3 + 0.1, 3), [HAND3[0], 1.0, HAND3[2]], keep=OUT(P0, RY0), back=[-6, 6.5, 3.5], pop=0.55)]),   # (first look) a double take at the coin: a glance, back to the sky, then the eyes out on it (his one take before the wedding)
-        act('gamin', [2.1, 0, 0.75], -95, 'stand', 'happy', keys=[k(0.0, look=[P0[0], 1.4, P0[2]]), k(0.0, to=[-2.4, 0, 0.95], dur=round(D3 - 0.05, 3), clip='walk', then='walk', ease='linear', face='move'),   # a child: small, he does not hide the man as he passes
+        act('gamin', [2.1, 0, 0.75], -95, 'stand', 'happy', keys=[k(0.0, look=[P0[0], 1.4, P0[2]]), k(0.0, to=[r(2.1 - 4.5 * (D3 + 0.3) / (D3 - 0.05)), 0, 0.97], dur=round(D3 + 0.3, 3), clip='walk', then='walk', ease='linear', face='move'),   # (pass 2b) on past the cut
+   # a child: small, he does not hide the man as he passes
             k(0.04, toon={'reach': {'L': [1.78, 0.62, 0.95, 1, 0.05]}, 'hands': {'L': 'pinch'}}, toonDur=0.08), k(0.13, toon={'reach': {'L': [1.6, 0.98, 1.05, 1, 0.05]}, 'hands': {'L': 'open'}}, toonDur=0.05, toonEase='out'),   # (pass 2) a flick of the wrist...
             k(0.3, toon={}, toonDur=0.15), k(round(CN3 + 0.3, 3), look='camera')])],   # ...the coin tossed into his palm (the stretched arm was a plank across his torso)
         props=[P('coin3', 'coin', pos=[1.6, 1.0, 1.05], scale=1.6, keys=[k(0.0, visible=False), k(0.14, visible=True), k(0.14, to=[0.56, 1.85, 0.7], dur=0.13, ease='out'), k(0.27, to=[HAND3[0], r(HAND3[1] + 0.03), HAND3[2]], dur=round(CN3 - 0.27, 3), ease='in'),
@@ -115,11 +119,12 @@ st.cue('sfx:paper', 'S04', 0.1, 0.25)
 
 # 5: refused. Close over the counter: she slaps the form down by his hand and her stamp comes down: REFUSÉ on the form and on his fingers: his hand squashed
 #    flat as a pancake, then it pops back; he blinks; she blows on her stamp
-D5 = st.dur('S05'); ST5 = round(st.at('S05', 'L03', 4) + 0.06, 3)
+D5 = st.dur('S05'); ST5 = round(st.at('S05', 'L03', 4) + 0.16, 3)   # (pass 2b) 0.1 s later: room for the stamp to lift first
 FORM5 = [r(FLATH[0] - 0.1), 0.823, r(FLATH[2] - 0.03)]               # (pass 2) the form under his hand, on the counter (it lay a stamp-width away, in front of the counter)
 CLK5 = [0.32, 0, -1.42]                                               # (pass 2) the clerk leans in over the counter to him
 st.shot('S05', 'mairie', setOpts=OFC, actors=[
         act('guichet', CLK5, 35, 'stand', 'unimpressed', keys=[k(0.0, look=[FLATH[0], 0.9, FLATH[2]]), k(0.0, toon={'reach': {'R': [FLATH[0], 1.2, r(FLATH[2] - 0.02), 1, 0.05]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'gy': 0.5, 'brow': -0.3}}, toonDur=0.0),   # the stamp up...
+            k(round(ST5 - 0.13, 3), toon={'reach': {'R': [FLATH[0], 1.36, r(FLATH[2] - 0.02), 1, 0.05]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'gy': 0.5, 'brow': -0.2}}, toonDur=0.08, toonEase='out'),   # (pass 2b) it lifts...
             k(round(ST5 - 0.04, 3), toon={'reach': {'R': [FLATH[0], 0.93, r(FLATH[2] - 0.02), 1, 0.05]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.4, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'gy': 0.5, 'brow': -0.4}}, toonDur=0.04, toonEase='in'),   # ...and down on his fingers
             k(round(ST5 + 0.42, 3), toon={'reach': {'R': [r(CLK5[0] + 0.15), 1.6, r(CLK5[2] + 0.3), 1, 0.05]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.5, 'puff': 0.7, 'mouth': 'kiss'}}, toonDur=0.15), k(round(ST5 + 0.42, 3), look=[r(CLK5[0] + 0.15), 1.6, r(CLK5[2] + 0.3)]),   # she blows on her stamp
             k(round(ST5 + 0.95, 3), look='camera')]),
@@ -133,7 +138,8 @@ st.shot('S05', 'mairie', setOpts=OFC, actors=[
                P('stamp5', 'rubberStamp', on={'actor': 'guichet', 'hand': 'R', 'offset': [0, -0.06, 0.02]}, scale=2.2, opts={'color': '#C23A2E'}),
                P('shelf5', 'lostShelf', pos=[-0.4, 0, -2.3], opts={'sign': ''})],
         fx=[{'type': 'shake', 'at': ST5, 'dur': 0.12, 'amount': 0.01}],
-        cams=[FC(0.0, [r(FLATH[0] + 0.7), 1.35, r(FLATH[2] + 0.95)], [[r(FLATH[0] - 0.35), 0.82, FLATH[2]], [r(FLATH[0] + 0.25), 0.82, FLATH[2]], [FLATH[0], 1.25, r(FLATH[2] - 0.05)], [r(FORM5[0] - 0.2), 0.82, FORM5[2]]], top=0.18, bottom=0.66),
+        cams=[FC(0.0, [r(FLATH[0] - 0.75), 1.4, r(FLATH[2] + 1.0)], [[r(FLATH[0] - 0.35), 0.82, FLATH[2]], [r(FLATH[0] + 0.25), 0.82, FLATH[2]], [FLATH[0], 1.4, r(FLATH[2] - 0.05)], [r(FORM5[0] - 0.2), 0.82, FORM5[2]]], top=0.18, bottom=0.66),
+              # (pass 2b) from the left of his hand: from his side the camera filmed the back of his jacket (two thirds of the frame navy)
               glide([FC(round(ST5 + 0.5, 3), [r(ME4[0] + 0.25), 1.75, r(ME4[2] + 1.9)], [[ME4[0], 2.45, ME4[2]], [ME4[0], 1.25, ME4[2]], [r(CLK5[0] - 0.1), 2.3, CLK5[2]], [FLATH[0], 0.85, FLATH[2]]], top=0.12, bottom=0.66)], 0.25)])
         # (pass 2) a close insert on the counter for the stamp (the hand was a sliver at the counter edge, his face turned away), then up to his face for
         # the slow blink while she blows on the stamp; the plate out of the caption band
@@ -179,17 +185,17 @@ st.cue('clack', 'S07', RV7, 0.35)
 
 # 8: the air-traffic controllers opened it an air corridor. The control room: on his radar the boomerang's blip goes round a dashed loop; he sways round in
 #    circles following it, then draws the corridor: two white lines along the loop
-D8 = st.dur('S08'); CO8 = round(st.at('S08', 'L05', 7) - 0.55, 3)
+D8 = st.dur('S08'); CO8 = round(st.at('S08', 'L05', 7) - 0.55, 3); DR8 = round(CO8 - 0.45, 3)   # (pass 2b) the drawing from DR8, the thumbs up held half a second to the cut (keyed at CO8 + 0.32 it showed for two frames)
 RADW = [0.0, 1.62, -3.38]; CTL = [-0.95, 0, -2.6]   # (pass 2) on the left: on the right he hid the label                    # (first look) the radar on the wall facing us, the controller beside it facing us (on a console the screen faced away from the camera)
 SW = lambda a, d=0.22: {'bend': {'spine': [r(d * math.cos(a)), 0, r(d * math.sin(a)), 1, None]}}
 DRAW = lambda dx, dy: {'reach': {'R': [r(RADW[0] + dx), r(RADW[1] + dy), r(RADW[2] + 0.07), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.3, 'brow': 0.6}}
 st.shot('S08', 'office', setOpts={'door': False}, actors=[
         act('aiguilleur', CTL, 20, 'stand', 'neutral', keys=[k(0.0, look=[RADW[0], RADW[1], RADW[2]]),
             *[k(round(0.05 + 0.12 * i, 3), toon={**SW(i * PI / 2), 'face': {'lid': 0.3, 'brow': 0.5}}, toonDur=0.12, toonEase='inOut') for i in range(6)],   # he sways round in circles with the blip
-            k(round(CO8 - 0.12, 3), toon=DRAW(0.38, 0.12), toonDur=0.1), k(round(CO8 + 0.15, 3), toon=DRAW(0.05, -0.22), toonDur=0.2), k(round(CO8 + 0.42, 3), toon=DRAW(-0.32, 0.05), toonDur=0.2),   # draws the corridor on the screen with a marker
-            k(round(CO8 + 0.32, 3), look='camera'), k(round(CO8 + 0.32, 3), face=20, turn=0.12), k(round(CO8 + 0.32, 3), toon={'reach': {'R': [r(CTL[0] + 0.25), 1.55, r(CTL[2] + 0.42), 1, 0.05]}, 'hands': {'R': 'thumbUp'}, 'face': {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.4}}, toonDur=0.1)])],
+            k(DR8, toon=DRAW(0.38, 0.12), toonDur=0.08), k(round(DR8 + 0.16, 3), toon=DRAW(0.05, -0.22), toonDur=0.14), k(round(DR8 + 0.32, 3), toon=DRAW(-0.32, 0.05), toonDur=0.14),   # draws the corridor on the screen with a marker
+            k(round(DR8 + 0.46, 3), look='camera'), k(round(DR8 + 0.46, 3), face=10, turn=0.12), k(round(DR8 + 0.48, 3), toon={'reach': {'R': [r(CTL[0] + 0.25), 1.55, r(CTL[2] + 0.42), 1, 0.05]}, 'hands': {'R': 'thumbUp'}, 'face': {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.4}}, toonDur=0.1)])],
             # (pass 2) the thumbs up to us inside the shot (keyed after its end, it never showed), turned to the lens
-        props=[P('radar8', 'radarScope', pos=RADW, opts={'wall': True, 'r': 0.62, 'corridor': CO8, 'label': 'SECTEUR 4'}), P('marker8', 'marker', on={'actor': 'aiguilleur', 'hand': 'R', 'offset': [0, -0.05, 0.03]}, scale=1.3)],
+        props=[P('radar8', 'radarScope', pos=RADW, opts={'wall': True, 'r': 0.62, 'corridor': DR8, 'label': 'SECTEUR 4'}), P('marker8', 'marker', on={'actor': 'aiguilleur', 'hand': 'R', 'offset': [0, -0.05, 0.03]}, scale=1.3)],
         cams=[FC(0.0, [-0.4, 1.6, 0.9], [[r(RADW[0] - 0.74), r(RADW[1] + 0.74), RADW[2]], [r(RADW[0] + 0.74), r(RADW[1] - 0.8), RADW[2]], [CTL[0], 2.45, CTL[2]], [CTL[0], 0.6, CTL[2]], [r(CTL[0] - 0.45), 1.6, CTL[2]]], top=0.1, bottom=0.74)])
 st.cue('sfx:beep', 'S08', 0.1, 0.25); st.cue('sfx:beep', 'S08', 0.8, 0.25); st.cue('sfx:scratch', 'S08', CO8, 0.3)
 
@@ -289,7 +295,8 @@ st.shot('S13', 'parisStreet', setOpts=STREETB, actors=[
         props=[P('th13', 'townHall', pos=TH, opts={'w': 8, 'h': 5.5, 'd': 4, 'gable': 'v2'}), VEIL('veil13'), BOUQ('bq13'), P('flower13', 'bouquet', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.42, 0.13]}, scale=0.45),
                BOOM('boom13', pos=[0.4, 6.0, -27.6], scale=1.6, opts={'spin': [[0.0, 6.0], [LD13, 9.0]], 'wobble': 0.1}, keys=[k(0.0, to=[GROOM[0], 2.6, GROOM[2]], dur=LD13, ease='in'), k(LD13, visible=False)]),
                ROTOR('boom13h', opts={'spin': [[0.0, 9.0]], 'wobble': 0.05}, keys=[k(0.0, visible=False), k(LD13, visible=True)])],
-        cams=[FC(0.0, [0.55, 3.25, -23.5], [[GROOM[0], 2.95, GROOM[2]], [-1.3, 2.1, -27.55], [0.9, 2.1, -27.55], [-1.3, 0.9, -27.3], [0.9, 0.9, -27.3], [-0.95, 1.6, -26.9]], top=0.14, bottom=0.74)])
+        cams=[FC(0.0, [0.55, 4.9, -23.4], [[GROOM[0], 2.95, GROOM[2]], [-1.3, 2.1, -27.55], [0.9, 2.1, -27.55], [-1.3, 0.9, -27.3], [0.9, 0.9, -27.3], [-0.95, 1.6, -26.9]], top=0.14, bottom=0.74)])
+        # (pass 2b) at 4.9 m, about 22 degrees above the blades (at 3.25 m they were 5 degrees below the lens: a plank again)
         # (pass 2) 20 degrees above their heads: the blades a disc on top of his flattened head, the guests' hair blowing up (at eye height, edge on, a
         # plank through his head with its smear across the bride's cheek)
 st.cue('sfx:bonk', 'S13', LD13, 0.45); st.cue('sfx:rotor', 'S13', round(LD13 + 0.05, 3), 0.25)
@@ -332,7 +339,8 @@ st.shot('S16', 'grassland', setOpts=PARK, actors=[
             k(round(D16 - 0.66, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 1.0}}, toonDur=0.12), k(round(D16 - 0.3, 3), toon={**OUT(P0, RY0), 'bend': {'neck': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.5}}, toonDur=0.12)]),   # (pass 2) a slow blink over half a second   # she looks at the coin, a slow blink
         act('mec', [-24.0, 12.5, -40.0], 0, 'stand', 'unimpressed', scale=2.4, keys=[k(0.0, look='camera'), k(0.0, toon={**DISC, 'face': {'mouth': 'smile', 'lid': 0.45}, 'bend': {'legL': [0.2, 0.05, 0, 1, None], 'legR': [-0.15, -0.05, 0, 1, None]}, 'wind': [0, 5, 0]}, toonDur=0.0),
             k(0.0, to=[20.0, 14.5, -40.0], dur=round(D16 - 0.05, 3), glide=True, ease='linear', face='keep')]),   # (pass 2) the groom himself dangling under it (the speck was the boomerang alone)
-        act('passante', [1.2, 0, -1.0], -95, 'stand', 'neutral', keys=[k(0.0, look=[P0[0], 1.3, P0[2]]), k(0.0, to=[-2.6, 0, -1.2], dur=round(D16 - 0.1, 3), clip='walk', then='walk', ease='linear', face='move'),   # an old lady this time, behind her
+        act('passante', [1.2, 0, -1.0], -95, 'stand', 'neutral', keys=[k(0.0, look=[P0[0], 1.3, P0[2]]), k(0.0, to=[r(1.2 - 3.8 * (D16 + 0.3) / (D16 - 0.1)), 0, -1.22], dur=round(D16 + 0.3, 3), clip='walk', then='walk', ease='linear', face='move'),   # (pass 2b) on past the cut
+   # an old lady this time, behind her
             k(0.0, toon={'reach': {'L': [0.95, 1.25, -0.7, 1, 0.05]}, 'hands': {'L': 'open'}}, toonDur=0.0), k(0.12, toon={}, toonDur=0.15)])],   # (pass 2) the coin already tossed over: it bounces into the bride's palm
         props=[VEIL('veil16'), P('bq16', 'bouquet', on={'actor': 'mariee', 'hand': 'L', 'offset': [0, 0.02, 0.04]}, scale=1.6),
                P('coin16', 'coin', pos=[0.8, 1.4, -0.6], scale=1.6, keys=[k(0.0, to=[0.15, 1.95, -0.1], dur=0.12, ease='out'), k(0.12, to=[HAND3[0], r(HAND3[1] + 0.03), HAND3[2]], dur=round(CN16 - 0.12, 3), ease='in'),
@@ -355,7 +363,8 @@ st.write("Le boomerang", rig='toon', fingers=True, cloth=True, idleShift=1.6, ho
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'passante': {'preset': 'mamie', 'seed': 521, 'build': {'width': 0.92, 'headWidth': 1.2}},
     'guichet': {'preset': 'madame', 'seed': 522, 'suit': '#3F8A7A', 'hair': 'bun', 'hairColor': '#B8B8B8', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}},
-    'aiguilleur': {'preset': 'boss', 'seed': 523, 'suit': '#E8E4DA', 'build': {'width': 0.95, 'headWidth': 1.25}},
+    'aiguilleur': {'preset': 'boss', 'seed': 523, 'suit': '#3F7FA8',   # (pass 2b) a mid-blue uniform (the cream suit on the cream wall: 1.03:1)
+                   'build': {'width': 0.95, 'headWidth': 1.25}},
     'mariee': {'preset': 'madame', 'seed': 524, 'suit': '#F7F4EE', 'hair': 'bun', 'hairColor': '#5A3A22', 'build': {'width': 0.9, 'headWidth': 1.25}},
     'mamie': {'preset': 'mamie', 'seed': 525, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'voisin': {'preset': 'boss', 'seed': 526, 'suit': '#6B4E8A', 'build': {'width': 0.95, 'headWidth': 1.2}},

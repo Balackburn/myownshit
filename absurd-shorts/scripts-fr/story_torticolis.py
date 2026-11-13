@@ -33,7 +33,8 @@ def NECK(tw, bx=0.0, extra=None):
     return d
 BACK = NECK(PI)                                                     # the head the wrong way round: the rule of the film until S11
 CRAC = lambda pid, pos, at_, w=0.5: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': 'CRAC !', 'inner': 0.78, 'fit': 0.56})
-SPOON = lambda pid: P(pid, 'spoon', on={'actor': 'mec', 'hand': 'R', 'offset': [0, -0.02, 0.06]}, scale=2.7)   # (pass 2) an oversized spoon (it never showed)
+SPOON = lambda pid: P(pid, 'spoon', on={'actor': 'mec', 'hand': 'R', 'offset': [0, -0.04, 0.03], 'rot': [3.1416, 0, 0]}, scale=2.7, opts={'color': '#4A5260', 'outline': 0.005})   # (pass 2b) turned out of the fist and dark (along the forearm, pale silver, it never showed)
+#   # (pass 2) an oversized spoon (it never showed)
 STREETT = {'eiffelStyle': 'v2'}                                     # (pass 2) the connected tower with its arch (the old one read as a giant A)
 
 # 1: the hook. His bedroom, morning: sitting up in bed under the blanket, eyes shut; the alarm clock rings on the bedside table; his eyes open, a big
@@ -126,7 +127,7 @@ st.cue('sfx:gasp', 'S05', 0.95, 0.25)
 # 6: the prefecture issued him a licence. The counter, PRÉFECTURE: he stands with his back to it, his face to the clerk; she holds out the licence over
 #    the counter; he takes it with his hand behind his back
 D6 = st.dur('S06'); GIVE6 = 0.85
-ME6 = [0.35, 0, -1.65]; CLERK = [0.35, 0, -2.95]; HANDOFF = [0.35, 1.22, -2.05]
+ME6 = [-0.5, 0, -1.65]; CLERK = [-0.5, 0, -2.95]; HANDOFF = [-0.5, 1.22, -2.05]   # (pass 2b) left of the title's middle: from his right side he sits in the frame, not at its edge
 st.shot('S06', 'poste', setOpts={'title': 'PRÉFECTURE'}, actors=[
         act('mec', ME6, 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon=BACK, toonDur=0.0),
             k(round(GIVE6 - 0.25, 3), toon={**BACK, 'reach': {'R': [HANDOFF[0], HANDOFF[1], r(HANDOFF[2] + 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.1}, toonDur=0.2, toonEase='inOut'),   # the arm bends back to it
@@ -135,7 +136,9 @@ st.shot('S06', 'poste', setOpts={'title': 'PRÉFECTURE'}, actors=[
             k(round(GIVE6 + 0.05, 3), toon={}, toonDur=0.2), k(round(GIVE6 + 0.1, 3), toon={'face': {'brow': 0.7}}, toonDur=0.1)])],
         props=[P('permis6', 'reversePermit', pos=[HANDOFF[0], HANDOFF[1], HANDOFF[2]], rot=[-0.3, 0, 0], opts={'s': 0.9},
                  keys=[k(round(GIVE6 + 0.05, 3), to=[r(ME6[0] + 0.1), 1.47, r(ME6[2] - 0.32)], dur=0.2, ease='inOut')])],
-        cams=[FC(0.0, [2.7, 1.55, -0.55], [[ME6[0], 2.45, ME6[2]], [ME6[0], 0.3, ME6[2]], [CLERK[0], 2.35, CLERK[2]], [HANDOFF[0], HANDOFF[1], HANDOFF[2]], [-1.75, 3.0, -3.45], [1.75, 3.42, -3.45]], top=0.06, bottom=0.74)])   # (pass 2) the whole title (PRÉFECTUR was cut)
+        cams=[FC(0.0, [-1.9, 1.8, 1.4], [[ME6[0], 2.45, ME6[2]], [ME6[0], 0.3, ME6[2]], [CLERK[0], 2.35, CLERK[2]], [HANDOFF[0], HANDOFF[1], HANDOFF[2]], [-1.75, 3.0, -3.45], [1.75, 3.42, -3.45]], top=0.06, bottom=0.74, lenses=range(30, 62))])
+        # (pass 2b) from in front on his right: he stands at 60 % of the width, the clerk's head beside his, his hand going back between them (from the
+        # side with the whole title he stood at the edge of the frame)   # (pass 2) the whole title (PRÉFECTUR was cut)
 st.cue('sfx:paper', 'S06', GIVE6, 0.3)
 
 # 7: back to front. Over his shoulder: he holds the licence up to the face on his back: pink, every word mirrored, the photo the back of a head; he
@@ -148,8 +151,10 @@ st.shot('S07', 'poste', setOpts={'title': 'PRÉFECTURE'}, actors=[
             k(0.75, toon={**BACK, **LIC7, 'face': {'gx': -0.7, 'gy': 0.3, 'lid': 1.0}}, toonDur=0.08),
             k(0.95, toon={**BACK, **LIC7, 'face': {'gx': 0.0, 'lid': 0.45}}, toonDur=0.12)])],   # a slow blink, then at us
         props=[P('permis7', 'reversePermit', on={'actor': 'mec', 'hand': 'R', 'offset': [0.11, 0.12, 0.03], 'face': 'camera'}, opts={'s': 1.5, 'bright': True})],   # (pass 2) bigger, held by its corner
-        cams=[FC(0.0, [0.6, 2.0, -1.45], [[ME7[0], 2.45, ME7[2]], [ME7[0], 1.45, ME7[2]], [-0.35, 1.9, ME7[2]], [1.0, 1.9, ME7[2]]], top=0.18, bottom=0.66),
-              glide([FC(0.85, [0.45, 1.95, -1.15], [[ME7[0], 2.35, ME7[2]], [ME7[0], 1.5, ME7[2]], [-0.3, 1.8, ME7[2]], [0.9, 1.8, ME7[2]]], top=0.16, bottom=0.66)], 0.3)])   # (pass 2) a push in on the mirrored licence and his face
+        cams=[FC(0.0, [0.55, 1.95, -1.9], [[ME7[0], 2.4, ME7[2]], [ME7[0], 1.55, ME7[2]], [-0.1, 1.9, ME7[2]], [1.0, 1.9, ME7[2]]], top=0.18, bottom=0.66, lenses=range(30, 71), inside=(-5.8, 5.8, 0.0, 6.5, -1.95, 6.0)),
+              glide([FC(0.85, [0.5, 1.95, -1.5], [[ME7[0], 2.35, ME7[2]], [ME7[0], 1.6, ME7[2]], [0.0, 1.85, ME7[2]], [0.95, 1.85, ME7[2]]], top=0.16, bottom=0.66, lenses=range(30, 71), inside=(-5.8, 5.8, 0.0, 6.5, -1.95, 6.0))], 0.3)])
+        # (pass 2b) kept in front of the counter glass (backed off by the fit, the first camera stood behind a black post of the window frame: a dark bar
+        # down the middle of the frame)   # (pass 2) a push in on the mirrored licence and his face
 
 # 8: he only drives in reverse. The boulevard from high up: his little red car flies down it backwards; the traffic comes the other way
 D8 = st.dur('S08'); XL8 = 1.6; ZA8, ZB8 = -17.0, -2.5
@@ -165,17 +170,19 @@ st.cue('engine', 'S08', 0.0, 0.3, round(D8, 3)); st.cue('sfx:beep', 'S08', 0.05,
 
 # 9: in reverse. Close, from behind the car: it comes at us backwards, his face in the rear window, an arm over the seat, cool; the driver he passes
 #    drops his jaw
-D9 = st.dur('S09'); XL9 = 1.6; ZA9 = -6.0; ZB9 = r(ZA9 + 9.0 * D9); XO9 = r(XL9 - 3.4); ZO9a = -3.4; ZO9b = r(ZO9a + 3.0 * D9)
+D9 = st.dur('S09'); XL9 = 1.6; ZA9 = -6.0; ZB9 = r(ZA9 + 9.0 * D9); XO9 = r(XL9 - 2.4); ZO9a = -3.4; ZO9b = r(ZO9a + 3.0 * D9)
 # (pass 2) fast (9 m/s) so the street streams by, in an open car so his face is in the light (behind the rear window the cabin was a dark room)
 st.shot('S09', 'parisStreet', setOpts=STREETT, actors=[
         act('mec', [r(XL9 - 0.4), 0.12, r(ZA9 - 0.15)], 180, 'drive', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**BACK, 'reach': {'L': [r(XL9 - 0.95), 1.05, r(ZA9 - 0.4), 1, 0.05]}, 'hands': {'L': 'flat'}}, toonDur=0.0),
             k(0.0, to=[r(XL9 - 0.4), 0.12, r(ZB9 - 0.15)], dur=round(D9 + 0.05, 3), glide=True, ease='linear', face='keep')]),
         act('voisin', [r(XO9 + 0.4), 0.12, r(ZO9a + 0.15)], 0, 'drive', 'neutral', keys=[k(0.0, look=[r(XO9 + 0.4), 1.4, 3.0]),
             k(0.0, to=[r(XO9 + 0.4), 0.12, r(ZO9b + 0.15)], dur=round(D9 + 0.05, 3), glide=True, ease='linear', face='keep'),
-            k(0.08, look={'actor': 'mec', 'cheat': 0.55}), k(0.12, toon={'sq': [0.95, 1.07, 0.95], 'face': {'pop': 0.7, 'popLen': 0.3, 'jaw': 1.0, 'brow': 1.0}}, toonDur=0.033, toonEase='out')])],   # eyes on stalks, jaw to the floor
+            k(0.16, look={'actor': 'mec', 'cheat': 0.55}), k(0.24, toon={'sq': [0.95, 1.07, 0.95], 'face': {'pop': 0.7, 'popLen': 0.3, 'jaw': 1.0, 'brow': 1.0}}, toonDur=0.033, toonEase='out')])],   # (pass 2b) as the red car draws level   # eyes on stalks, jaw to the floor
         props=[P('car9', 'car', pos=[XL9, 0, ZA9], ry=90, opts={'color': '#C9473A', 'convertible': True, 'interior': '#E8D2B0'}, keys=[k(0.0, to=[XL9, 0, ZB9], dur=round(D9 + 0.05, 3), ease='linear')]),
                P('car9b', 'car', pos=[XO9, 0, ZO9a], ry=-90, opts={'color': '#3E7CC9', 'convertible': True}, keys=[k(0.0, to=[XO9, 0, ZO9b], dur=round(D9 + 0.05, 3), ease='linear')])],
-        cams=[cam(0.0, [r(XL9 + 1.6), 1.75, r(ZA9 + 4.2)], [r(XL9 + 1.6), 1.75, r(ZB9 + 4.2)], [r(XL9 - 1.6), 1.25, ZA9], [r(XL9 - 1.6), 1.25, ZB9], lens=42)])
+        cams=[cam(0.0, [r(XO9 - 0.6), 1.65, r(ZO9a + 2.4)], [r(XO9 - 0.6), 1.65, r(ZO9b + 2.4)], [r(XO9 + 1.1), 1.4, r(ZO9a - 0.4)], [r(XO9 + 1.1), 1.4, r(ZO9b - 0.4)], lens=50)])
+        # (pass 2b) riding beside the overtaken driver: his take on the left, the red car streaking past behind him rear first, the face over its seat
+        # (from behind the car, its boot filled the frame and hid the man)
         # (pass 2) tracking just ahead of him: his face over the back of the seat, the overtaken driver's take beside it
 st.cue('sfx:honkLong', 'S09', 0.12, 0.25); st.cue('sfx:beep', 'S09', 0.0, 0.15)
 
@@ -195,7 +202,7 @@ st.shot('S10', 'office', setOpts={'door': False}, actors=[
             # (pass 2) a notch at a time with him, then the strain held before the release, the tongue further out
         props=[P('bench10', 'bench', pos=[0.0, 0, -1.6], ry=90), P('screen10', 'plainWall', pos=[-0.75, 1.1, -0.62], ry=180, opts={'w': 1.4, 'h': 2.2, 'color': '#DCE6E8'}),
                P('poster10', 'spinePoster', pos=[-0.75, 1.5, -0.64], ry=180, opts={'w': 0.7, 'h': 1.05})],   # (pass 2) the spine poster on a screen behind him, in this view
-        cams=[FC(0.0, [0.75, 2.5, -3.25], [[0.0, 2.08, -1.6], [0.0, 1.25, -1.6], [-0.3, 1.62, -1.65], [0.3, 1.62, -1.65], [0.05, 2.15, -2.3], [-0.75, 2.0, -0.64]], top=0.1, bottom=0.74, drift=(-0.06, 0.0, 0.0))])
+        cams=[FC(0.0, [0.95, 2.5, -3.2], [[0.0, 2.08, -1.6], [0.0, 1.25, -1.6], [-0.3, 1.62, -1.65], [0.3, 1.62, -1.65], [0.05, 2.15, -2.3], [-0.75, 2.0, -0.64]], top=0.1, bottom=0.74, drift=(-0.06, 0.0, 0.0))])
         # (pass 2) high over the osteopath's shoulder, clear of his head: his hands on the box head, his tongue, the face on the man's back (from 1.7 m the
         # camera looked up into the dark ceiling: 40 % of the frame navy)
         # (first look) from behind the osteopath, three-quarters on the face on his back (side on, both faces were profiles)
@@ -247,7 +254,8 @@ st.shot('S13', 'office', setOpts={'door': False}, actors=[
             k(0.6, toon={'touch': {'R': ['head', 0.04, 0.34, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.1),
             k(0.75, toon={'touch': {'R': ['head', -0.03, 0.32, 0.05, 1, 0.06]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'jaw': 0.3}}, toonDur=0.1)])],
         props=[P('bench13', 'bench', pos=[0.0, 0, -1.6], ry=90), P('poster13', 'spinePoster', pos=[-1.2, 1.75, -3.47], opts={'w': 0.7, 'h': 1.05})],
-        cams=[FC(0.0, [1.0, 2.85, -0.3], [[0.0, 2.15, ME10[2]], [0.0, 0.45, ME10[2]], [-0.45, 1.5, ME10[2]], [0.45, 1.5, ME10[2]], [0.95, 2.05, -2.25]], top=0.12, bottom=0.74, drift=(-0.05, -0.05, 0.0))])
+        cams=[FC(0.0, [0.8, 3.15, -0.55], [[0.0, 2.15, ME10[2]], [0.0, 1.0, ME10[2]], [-0.45, 1.5, ME10[2]], [0.45, 1.5, ME10[2]], [0.95, 2.05, -2.25]], top=0.12, bottom=0.74, drift=(-0.05, -0.05, 0.0), lenses=range(30, 52))])
+        # (pass 2b) closer and higher, from the knees up: the face turned up to the ceiling read as a blank box at 70 px
         # (pass 2) high three-quarters in front: his face up to the ceiling looks at us, the man in the middle (from the side, a dark box at the edge)
 st.cue('sfx:spring', 'S13', 0.12, 0.35)
 
@@ -261,9 +269,10 @@ st.shot('S14', 'pressRoom', setOpts={'backdrop': 'MÉTÉO', 'podium': False, 'fl
             k(1.0, toon={**NECK(0.0, bx=-1.4), 'reach': {'R': [r(MAP14[0] - 1.15), 1.45, r(MAP14[2] + 0.1), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1}, toonDur=0.25, toonEase='inOut'),   # (pass 2) the blind finger lands off the map, on the wall
             k(1.5, toon={**NECK(0.0, bx=-1.4, extra={'face': {'lid': 1.0}}), 'reach': {'R': [r(MAP14[0] - 1.15), 1.45, r(MAP14[2] + 0.1), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1}, toonDur=0.07),
             k(1.65, toon={**NECK(0.0, bx=-1.4, extra={'face': {'lid': 0.45}}), 'reach': {'R': [r(MAP14[0] - 1.15), 1.45, r(MAP14[2] + 0.1), 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.1}, toonDur=0.12)])],
-        props=[P('map14', 'weatherMap', pos=MAP14, opts={'w': 1.7, 'h': 1.05}), P('tvcam14', 'tvCamera', pos=[ME14[0], 3.2, r(ME14[2] + 0.1)], rot=[round(PI / 2, 4), 0, 0], scale=0.9),
-               P('rig14', 'plainWall', pos=[ME14[0], 3.75, r(ME14[2] + 0.1)], opts={'w': 0.08, 'h': 1.1, 'color': '#2A2C31'})],   # (pass 2) the studio camera hung from the ceiling over him, pointing down
-        cams=[FC(0.0, [3.3, 1.55, -0.6], [[ME14[0], 3.75, ME14[2]], [ME14[0], 0.2, ME14[2]], [r(MAP14[0] - 1.25), 1.6, MAP14[2]], [r(MAP14[0] + 0.9), 1.25, MAP14[2]]], top=0.08, bottom=0.74),
+        props=[P('map14', 'weatherMap', pos=MAP14, opts={'w': 1.7, 'h': 1.05}), P('tvcam14', 'tvCamera', pos=[ME14[0], 3.2, r(ME14[2] + 0.1)], rot=[round(PI / 2, 4), 0, 0], scale=0.9, keys=[k(0.6, visible=False)]),   # (pass 2b) gone in the crane view: we are the camera
+               P('rig14', 'plainWall', pos=[ME14[0], 3.75, r(ME14[2] + 0.1)], opts={'w': 0.08, 'h': 1.1, 'color': '#2A2C31'}, keys=[k(0.6, visible=False)])],   # (pass 2) the studio camera hung from the ceiling over him, pointing down
+        cams=[FC(0.0, [3.0, 1.75, -0.7], [[ME14[0], 3.35, ME14[2]], [ME14[0], 0.2, ME14[2]], [MAP14[0], 1.75, MAP14[2]], [r(ME14[0] + 0.4), 1.5, ME14[2]]], top=0.08, bottom=0.74, lenses=range(30, 62)),
+              # (pass 2b) tighter: the man, the camera over him and the map (with the rig's top and the far wall the man was a quarter of the frame)
               glide([FC(0.6, [0.95, 3.6, -0.55], [[ME14[0], 2.4, ME14[2]], [ME14[0], 0.2, ME14[2]], [r(MAP14[0] - 1.3), 2.25, MAP14[2]], [r(MAP14[0] + 0.9), 1.25, MAP14[2]]], top=0.12, bottom=0.74, drift=(0.0, -0.1, -0.12))], 0.4)])
         # (pass 2) first the cause, from the side: the camera hangs from the ceiling over his bent-back head; then the crane up into its view (from above
         # only, he read as an ordinary presenter); the whole map and the miss on the wall in the frame
