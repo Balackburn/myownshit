@@ -470,6 +470,7 @@ function precomputeReleases(sc) {
 }
 
 function evalProp(Pp, t) {
+  Pp.lastT = t;   // (final pass of 47) the time of this frame, for a prop worked out again once turned to the camera (afterFace)
   const o = propOwnerAt(Pp, t);
   const vis = lastKey(Pp.visKeys, t).visible; Pp.obj.visible = vis;
   if (o && o.attach && placeAttached(Pp, o, t)) { Pp.obj.userData.update?.(t); return; }
@@ -1215,7 +1216,7 @@ function facePropsToCamera(camera) {
     if (o.parent) { o.parent.getWorldQuaternion(_pq); _fq.premultiply(_pq.invert()); }
     const a = k.faceAmt ?? 1; if (a >= 1) o.quaternion.copy(_fq); else o.quaternion.slerp(_fq, a);
     o.updateMatrixWorld(true);
-    if (o.userData.afterFace) o.userData.update?.(o.userData.lastT ?? 0); }   // (pass 3 of 47) a prop whose drawing depends on its own orientation (a compass needle aimed at a point) is worked out again once turned: before, it was aimed in the hand's frame and pointed anywhere
+    if (o.userData.afterFace) o.userData.update?.(Pp.lastT ?? 0); }   // (final pass of 47) Pp.lastT: the prop's own userData is hoisted onto its wrapper by buildProp, so a time kept there was lost (the needles were aimed as at t = 0)   // (pass 3 of 47) a prop whose drawing depends on its own orientation (a compass needle aimed at a point) is worked out again once turned: before, it was aimed in the hand's frame and pointed anywhere
 }
 // sc.dark: [[t, k, ramp?], ...]: the lights go off and on. Steps of darkness (0 = lit, 1 = dark), each reached in `ramp` seconds (default one frame: a switch).
 // What is left of the picture: sc.darkFloor (0.05: faint cold silhouettes; 0: black), sc.darkTint. The eyes of the face rig stay visible, and any prop with

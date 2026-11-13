@@ -66,9 +66,9 @@ st.shot('S01', 'kitchenDay', setOpts=KIT, actors=[
             k(round(IN1 + 0.1, 3), toon={'face': {'gulp': 1.0, 'eye': 0.4}}, toonDur=0.28), k(round(IN1 + 0.1, 3), look='camera'),   # the gulp goes down
             k(round(IN1 + 0.34, 3), toon={'face': {'gulp': 1.0, 'eye': 0.3}, 'sq': [1.1, 0.86, 1.1], 'bend': {'neck': [0, 0, 0, 0.6, None], 'spine': [0.18, 0, 0, 1, None], 'armL': [0, -0.12, 0, 1, None], 'armR': [0, 0.12, 0, 1, None]}}, toonDur=0.06, toonEase='in'),   # (pass 3) the head sinks into the collar, the whole body crouches...
             k(round(IN1 + 0.42, 3), toon={'face': {'cross': 1.0, 'brow': 0.8, 'pop': 0.35, 'tremble': 1}, 'sq': [0.9, 1.16, 0.9], 'bend': {'spine': [-0.12, 0, 0, 1, None], 'armL': [0.2, 0.6, 0, 1, None], 'armR': [0.2, -0.6, 0, 1, None], 'foreL': [0, 0.4, 0, 1, None], 'foreR': [0, -0.4, 0, 1, None]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.04, toonEase='outBack'),   # ...then the take: up off the floor, arms flung out, the crossed eyes shivering
-            k(round(IN1 + 0.42, 3), to=[ME[0], 0.16, ME[2]], dur=0.07, glide=True, ease='out', face='keep'), k(round(IN1 + 0.56, 3), to=ME, dur=0.08, glide=True, ease='in', face='keep'),   # (pass 3) a hop: four frames of hang time
-            k(round(IN1 + 0.64, 3), toon={'face': {'cross': 1.0, 'brow': 0.8, 'pop': 0.3, 'tremble': 1}, 'sq': [1.06, 0.93, 1.06], 'bend': {'armL': [0.1, 0.3, 0, 1, None], 'armR': [0.1, -0.3, 0, 1, None]}}, toonDur=0.04),   # landing
-            k(round(IN1 + 0.74, 3), toon={'face': {'cross': 1.0, 'brow': 0.8, 'pop': 0.3, 'tremble': 1}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.08), k(round(IN1 + 1.0, 3), toon={'face': {'cross': 0.6, 'brow': 0.5, 'lid': 0.3}}, toonDur=0.2)])],
+            k(round(IN1 + 0.42, 3), to=[ME[0], 0.16, ME[2]], dur=0.07, glide=True, ease='out', face='keep'), k(round(IN1 + 0.62, 3), to=ME, dur=0.08, glide=True, ease='in', face='keep'),   # (pass 3) a hop   # (final) six frames of hang time
+            k(round(IN1 + 0.7, 3), toon={'face': {'cross': 1.0, 'brow': 0.8, 'pop': 0.3, 'tremble': 1}, 'sq': [1.06, 0.93, 1.06], 'bend': {'armL': [0.1, 0.3, 0, 1, None], 'armR': [0.1, -0.3, 0, 1, None]}}, toonDur=0.04),   # landing
+            k(round(IN1 + 0.8, 3), toon={'face': {'cross': 1.0, 'brow': 0.8, 'pop': 0.3, 'tremble': 1}, 'sq': [0.98, 1.03, 0.98]}, toonDur=0.08), k(round(IN1 + 1.0, 3), toon={'face': {'cross': 0.6, 'brow': 0.5, 'lid': 0.3}}, toonDur=0.2)])],
         props=[P('mag1', 'magnet', on={'actor': 'mec', 'hand': 'R', 'offset': [0, 0.03, 0.04], 'face': 'camera'}, opts={'s': 0.3, 'glow': [0.0, IN1]}, keys=[k(round(IN1 - 0.02, 3), scale=0.01, dur=0.04)])],
         cams=[FC(0.0, [0.55, 1.9, -0.6], [[ME[0], 2.4, ME[2]], [ME[0], 2.9, ME[2]], [ME[0], 1.2, ME[2]], MAG1, *BODY()], top=0.08, bottom=0.7, drift=(-0.05, 0, -0.08))])   # (pass 3) room above him for the hop of the take
 st.cue('sfx:gulp', 'S01', IN1 + 0.1, 0.45); st.cue('clang', 'S01', IN1 + 0.42, 0.15)
@@ -119,7 +119,8 @@ st.cue('clang', 'S04', K4, 0.3)
 # 5: the frying pan. It leaves the stove and flattens his face: BONG. (pass 3) He has turned back to us: the pan lands square on the whole face, his head a
 #    pancake round it (rocked back, arms flung out); four frames, then it peels off top edge first, hangs three frames and drops onto his chest, leaving
 #    its print; the head pops back past round, eyes out on stalks, stars round it
-D5 = st.dur('S05'); P5 = 0.24; PEEL5 = round(P5 + 0.13, 3); DROP5 = round(P5 + 0.3, 3); YP = round(math.radians(MRY), 4)
+D5 = st.dur('S05'); P5 = 0.3; PEEL5 = round(P5 + 0.12, 3); DROP5 = round(P5 + 0.36, 3);   # (final) the flight on screen, the flat face held about seven frames
+YP = round(math.radians(MRY), 4)
 STOVE5 = [1.35, 1.02, -3.2]
 FACE5 = [round(ME[0] + 0.36 * FWD[0], 3), HEADY, round(ME[2] + 0.36 * FWD[1], 3)]
 FLAT5 = {'scl': {'head': [1.5, 1.22, 0.42]}, 'sq': [1.08, 0.9, 1.08], 'lay': [-0.1, 0], 'bend': {'spine': [-0.18, 0, 0, 1, None], 'armL': [0.3, 0.55, 0, 1, None], 'armR': [0.3, -0.55, 0, 1, None]}, 'hands': {'L': 'spread', 'R': 'spread'}}
@@ -129,10 +130,10 @@ st.shot('S05', 'kitchenDay', setOpts=KIT, actors=[
             k(P5, toon={**FLAT5, 'face': {'brow': 0.8}}, toonDur=0.02, toonEase='out'),   # BONG
             k(PEEL5, toon={**FLAT5, 'face': {'brow': 0.8, 'lid': 0.6}}, toonDur=0.04),   # still flat while the pan peels and hangs
             k(round(DROP5 + 0.03, 3), toon={'scl': {'head': [0.84, 1.26, 1.18]}, 'sq': [0.95, 1.07, 0.95], 'face': {'pop': 1, 'stars': 1}, 'lay': [0.03, 0]}, toonDur=0.05, toonEase='outBack'),   # back past round, eyes out on stalks
-            k(round(DROP5 + 0.15, 3), toon={'scl': {'head': [1.06, 0.96, 1.0]}, 'face': {'pop': 0.6, 'stars': 1}}, toonDur=0.07),
-            k(round(DROP5 + 0.26, 3), toon={'face': {'stars': 1, 'lid': 0.35}}, toonDur=0.1)])],
+            k(round(DROP5 + 0.12, 3), toon={'scl': {'head': [1.06, 0.96, 1.0]}, 'face': {'pop': 0.6, 'stars': 1}}, toonDur=0.06),
+            k(round(D5 - 0.05, 3), toon={'face': {'stars': 1, 'lid': 0.35}}, toonDur=0.05)])],
         props=[*FORKS_ON(), P('keys5', 'keyRing', on={'actor': 'mec', 'joint': 'head', 'offset': KEYS_ON, 'face': 'camera'}, scale=2.4),
-               P('pan5', 'pan', pos=STOVE5, rot=[PI / 2, YP, 0], rotOrder='YXZ', opts={'r': 0.22}, keys=[k(round(P5 - 0.14, 3), to=FACE5, dur=0.14, ease='in'), k(P5, visible=False)]),
+               P('pan5', 'pan', pos=STOVE5, rot=[PI / 2, YP, 0], rotOrder='YXZ', opts={'r': 0.22}, keys=[k(round(P5 - 0.18, 3), squash=[1.0, 1.0, 1.7], dur=0.0), k(round(P5 - 0.18, 3), to=FACE5, dur=0.18, ease='in'), k(P5, visible=False)]),   # (final) stretched along its flight
                P('pan5b', 'pan', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.26, 0.27], 'rot': [PI / 2, 0, 0]}, opts={'r': 0.27}, keys=[k(0.0, visible=False), k(P5, visible=True), k(PEEL5, visible=False)]),   # square over the whole face
                P('pan5d', 'pan', pos=[FACE5[0], round(HEADY + 0.02, 3), FACE5[2]], rot=[PI / 2, YP, 0], rotOrder='YXZ', opts={'r': 0.27}, keys=[k(0.0, visible=False), k(PEEL5, visible=True),
                  k(PEEL5, rotTo=[round(PI / 2 + 1.05, 4), YP, 0], dur=0.07, ease='out'), k(PEEL5, to=[round(FACE5[0] + 0.2 * FWD[0], 3), round(HEADY - 0.24, 3), round(FACE5[2] + 0.2 * FWD[1], 3)], dur=0.07, ease='out'),   # it peels off, top edge first, and hangs under his chin (his printed face above it)...
@@ -150,7 +151,7 @@ STUCK = lambda: [*FORKS_ON(), P('keysS', 'keyRing', on={'actor': 'mec', 'joint':
 
 # 4 (line): even the street lamps bow as he passes. (pass 3) Low in front of him, down the pavement: one after the other the lamp posts bend over like
 #    stems (a curve along their length, not a hinge), their heads dipping to his face, then spring back up past upright as he walks under them
-D6 = st.dur('S06'); Z6 = (-3.6, 3.4); LAMPZ = (-1.6, 0.8, 2.9); LAMPX = 4.3; BOW6 = -1.4   # bent -1.4 rad the head comes down to 2.2 m, 2.3 m out: at his face
+D6 = st.dur('S06'); Z6 = (-3.6, 3.4); LAMPZ = (-1.6, 0.8, 2.9); LAMPX = 4.3; BOW6 = -1.32   # bent -1.4 rad the head comes down to 2.2 m, 2.3 m out: at his face
 TL6 = lambda zl: (zl - Z6[0]) / (Z6[1] - Z6[0]) * D6                  # when he is level with it
 def bow6(zl):
     tl = TL6(zl)
@@ -167,11 +168,11 @@ st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
 #    at our man walking past behind
 D7 = st.dur('S07'); H7 = [PX - 1.4, 0, 6.5]; ME7 = [PX + 0.4, 0, 9.4]
 st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
-        act('rando', H7, 20, 'stand', 'neutral', keys=[k(0.0, look=[H7[0] + 0.2, 0.9, H7[2] + 0.5]), k(0.0, toon={'reach': {'R': [round(H7[0] + 0.1, 3), 1.42, round(H7[2] + 0.55, 3), 1, 0.05]}, 'hands': {'R': 'flat'}}, toonDur=0.0),   # (pass 2) higher, further out
+        act('rando', H7, -20, 'stand', 'neutral', keys=[k(0.0, look=[H7[0] + 0.2, 0.9, H7[2] + 0.5]), k(0.0, toon={'reach': {'R': [round(H7[0] + 0.1, 3), 1.42, round(H7[2] + 0.55, 3), 1, 0.05]}, 'hands': {'R': 'flat'}}, toonDur=0.0),   # (pass 2) higher, further out
             k(0.85, toon={'reach': {'R': [round(H7[0] + 0.1, 3), 1.42, round(H7[2] + 0.55, 3), 1, 0.05]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.8, 'eye': 0.3}}, toonDur=0.1)]),
         act('mec', ME7, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[PX - 1.2, 0, 9.6], dur=D7, clip='walk', then='walk', ease='linear', face=-90)])],
         props=[*STUCK(), P('backpack7', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}),
-               P('comp7', 'compass', on={'actor': 'rando', 'hand': 'R', 'offset': [0, 0.03, 0.12], 'rot': [0, PI, 0]}, scale=3.4, opts={'path': [[0.0, ME7[0], 1.4, ME7[2]], [D7, PX - 1.2, 1.4, 9.6]], 'spin': [0.35, 0.95], 'north': [0, 0, -1]})],
+               P('comp7', 'compass', on={'actor': 'rando', 'hand': 'R', 'offset': [0, 0.03, 0.12], 'face': 'camera'}, scale=3.4, opts={'upright': True, 'path': [[0.0, ME7[0], 1.6, ME7[2]], [D7, PX - 1.2, 1.6, 9.6]], 'spin': [0.35, 0.95], 'north': [0, 1, 0]})],   # (final) turned to us: on N first, then on him
         cams=[FC(0.0, [round(H7[0] - 0.7, 3), 3.05, round(H7[2] - 0.45, 3)], [[round(H7[0] + 0.1, 3), 1.32, round(H7[2] + 0.55, 3)], [round(H7[0] + 0.1, 3), 1.55, round(H7[2] + 0.7, 3)], [PX - 0.4, 2.3, 9.5], [PX - 0.4, 0.4, 9.5]], top=0.08, bottom=0.64)])   # (pass 3) bottom 0.64: the dial at 55-65 % of the height, above the captions   # (first look) high over his right shoulder, looking down: the dial big in the middle, our man walking past beyond it   # (first look) over his right shoulder and above it (behind his head the frame was his skull and his backpack)
 st.cue('sfx:zip', 'S07', 0.35, 0.25)
 
@@ -183,12 +184,13 @@ ROW8 = [('rando', [round(PX - 0.45, 3), 0, round(ZL8 - 1.25, 3)], -95), ('mamie'
 PATH8 = [[0.0, X8, 1.6, Z8[0]], [LUI8, X8, 1.6, ZL8], [D8, X8, 1.6, ZL8]]
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [X8, 0, Z8[0]], 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, to=[X8, 0, ZL8], dur=LUI8, clip='walk', then='stand', ease='out', face=0),   # he walks in behind them, taller than them...
+            k(round(LUI8 + 0.02, 3), to=[X8, 0, round(ZL8 + 0.01, 3)], dur=0.16, clip='stand', then='stand', face=-90),   # (final) turned square to us (in profile only his ear showed)
             k(round(LUI8 + 0.1, 3), look='camera'), k(round(LUI8 + 0.1, 3), toon={'face': {'lid': 0.4, 'browL': 0.4}}, toonDur=0.12)]),   # ...stops in the gap and looks at us
         *[act(n, p, ry, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [round(p[0] + 0.3 * math.sin(math.radians(ry)), 3), 1.4, round(p[2] + 0.3 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}}, toonDur=0.0),
                                                  k(LUI8, look=[X8, 2.0, ZL8]), k(LUI8, toon={'reach': {'R': [round(p[0] + 0.3 * math.sin(math.radians(ry)), 3), 1.4, round(p[2] + 0.3 * math.cos(math.radians(ry)), 3), 1, 0.05]}, 'hands': {'R': 'flat'}, 'face': {'brow': 0.6, 'eye': 0.3}}, toonDur=0.08)]) for n, p, ry in ROW8]],   # « lui »: the heads turn to him
         props=[*STUCK(), P('backpack8', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}),
-               *[P(f'comp8{i}', 'compass', on={'actor': n, 'hand': 'R', 'offset': [0, 0.03, 0.15], 'face': 'camera'}, scale=3.0, opts={'upright': True, 'path': PATH8}) for i, (n, p, ry) in enumerate(ROW8)]],   # every needle follows him along
-        cams=[FC(0.0, [round(X8 - 6.4, 3), 2.9, round(ZL8 - 0.3, 3)], [[ROW8[0][1][0], 2.3, round(ROW8[0][1][2] - 0.4, 3)], [ROW8[2][1][0], 2.3, round(ROW8[2][1][2] + 0.4, 3)], [X8, 2.65, ZL8], [ROW8[1][1][0], 0.3, ZL8]], top=0.14, bottom=0.74)])   # (pass 3) square to the row from the road: the gap in the row is a gap in the frame
+               *[P(f'comp8{i}', 'compass', on={'actor': n, 'hand': 'R', 'offset': [0, 0.03, 0.15], 'face': 'camera'}, scale=3.0, opts={'upright': True, 'path': PATH8, 'north': [0, 1, 0]}) for i, (n, p, ry) in enumerate(ROW8)]],   # every needle follows him along
+        cams=[FC(0.0, [round(X8 - 6.4, 3), 2.9, round(ZL8 - 0.3, 3)], [[ROW8[0][1][0], 2.3, round(ROW8[0][1][2] - 0.4, 3)], [ROW8[2][1][0], 2.3, round(ROW8[2][1][2] + 0.4, 3)], [X8, 2.65, ZL8], [ROW8[1][1][0], 0.85, ZL8]], top=0.14, bottom=0.74)])   # (pass 3) square to the row from the road: the gap in the row is a gap in the frame
 st.cue('sfx:zip', 'S08', 0.1, 0.2)
 
 # ---- his building: a block on the right-hand side of the street (flatsWall, three floors over the shops); his window, the middle of the third floor
@@ -203,7 +205,7 @@ def RAISE(p, ry, hy=2.05, side=0.32, fwd=0.2):                    # (pass 2) the
     return [round(p[0] + fwd * f[0] + side * r[0], 3), hy, round(p[2] + fwd * f[1] + side * r[1], 3), 1, 0.05]
 LOOKUP = lambda n, p, ry, t0=0.0: act(n, p, ry, 'stand', 'neutral', keys=[k(t0, look=[WIN[0], WIN[1] + 1.6, WIN[2]]), k(0.0, toon={'reach': {'R': RAISE(p, ry)}, 'hands': {'R': 'flat'}}, toonDur=0.0)])
 CROWD_PROPS = lambda at=0.0: [P('bpA', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}), P('bpB', 'backpack', on={'actor': 'rando2', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}, opts={'color': '#B5532A'}),
-                       *[P(f'cc{i}', 'compass', on={'actor': n, 'hand': 'R', 'offset': [0, 0.03, 0.1], 'face': 'camera'}, scale=2.8, opts={'upright': True, 'target': [WIN[0], WIN[1] + 1.4, WIN[2]], 'at': at}) for i, (n, p, ry) in enumerate(CROWD)]]   # (pass 2) dials turned to us, the needles up at his window (pass 3: aimed in the turned dial, red end up)
+                       *[P(f'cc{i}', 'compass', on={'actor': n, 'hand': 'R', 'offset': [0, 0.03, 0.1], 'face': 'camera'}, scale=2.8, opts={'upright': True, 'target': [WIN[0], WIN[1] + 1.4, WIN[2]], 'at': at, 'north': [0, 0, -1]}) for i, (n, p, ry) in enumerate(CROWD)]]   # (pass 2) dials turned to us, the needles up at his window (pass 3: aimed in the turned dial, red end up)
 
 # 7 (line): hikers, — at the foot of his block: three hikers with backpacks arrive, compasses out, the needles pointing up at his window
 D9 = st.dur('S09'); END9 = [6.75, 8.35, 29.25]
@@ -216,7 +218,7 @@ st.shot('S09', 'parisStreet', setOpts=STREET, actors=[HIM_WIN(), *[act(n, [p[0],
 
 # 7 (line): boats, — a sailboat on its trailer rolls in and stops dead under his window: (pass 3) the hull pitches onto its bow and rocks, the mast
 #    whips; the skipper at the stern lurches forward and back, his compass held up beside his head
-D10 = st.dur('S10'); BOAT = [4.4, 0, 33.4]; ARR10 = 0.3; DECK = 1.12; SKIP10 = [4.4, DECK, round(BOAT[2] - 1.15, 3)]
+D10 = st.dur('S10'); BOAT = [4.4, 0, 33.4]; ARR10 = 0.3; DECK = 1.12; SKIP10 = [4.4, DECK, round(BOAT[2] + 0.95, 3)]   # (final) forward of the mast, in front of the sail
 UP10 = lambda **f: {'reach': {'R': RAISE(SKIP10, 0, hy=round(DECK + 2.0, 3))}, 'hands': {'R': 'flat'}, **f}
 st.shot('S10', 'parisStreet', setOpts=STREET, actors=[HIM_WIN(), *[LOOKUP(n, p, ry) for n, p, ry in CROWD],
         act('skipper', [SKIP10[0], DECK, round(SKIP10[2] - 6.0, 3)], 0, 'stand', 'neutral', keys=[k(0.0, look=[WIN[0], WIN[1] + 1.6, WIN[2]]), k(0.0, to=SKIP10, dur=ARR10, glide=True, ease='out', face='keep'),
@@ -224,7 +226,7 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[HIM_WIN(), *[LOOKUP(n, p, 
             k(round(ARR10 + 0.1, 3), toon=UP10(lay=[-0.08, 0]), toonDur=0.08), k(round(ARR10 + 0.2, 3), toon=UP10(), toonDur=0.1)])],   # ...back, and settles, the compass still up
         props=[FLATS(), *CROWD_PROPS(), P('boat', 'sailboat', pos=[BOAT[0], 0, BOAT[2] - 6.0], ry=-90, opts={'brake': ARR10}, keys=[k(0.0, to=BOAT, dur=ARR10, ease='out')]),
                P('cskip', 'compass', on={'actor': 'skipper', 'hand': 'R', 'offset': [0, 0.03, 0.1], 'face': 'camera'}, scale=2.8, opts={'upright': True, 'target': [WIN[0], WIN[1] + 1.4, WIN[2]], 'at': ARR10})],
-        cams=[FC(0.0, [1.6, 1.0, 27.0], [[BOAT[0], 4.3, round(BOAT[2] + 0.2, 3)], [BOAT[0], 0.0, round(BOAT[2] - 1.7, 3)], [BOAT[0], 0.0, round(BOAT[2] + 1.9, 3)], [PX - 0.6, 2.4, 31.2], [round(SKIP10[0] + 0.3, 3), round(DECK + 2.3, 3), SKIP10[2]]], top=0.1, bottom=0.74)])
+        cams=[FC(0.0, [1.2, 1.4, 36.6], [[BOAT[0], 4.3, round(BOAT[2] + 0.2, 3)], [BOAT[0], 0.0, round(BOAT[2] - 1.7, 3)], [BOAT[0], 0.0, round(BOAT[2] + 1.9, 3)], [round(SKIP10[0] + 0.3, 3), round(DECK + 2.3, 3), SKIP10[2]]], top=0.1, bottom=0.74)])   # (final) from ahead, three-quarter: the pointed bow and the sail broadside (from astern it was a slab on a cart)
 st.cue('sfx:brake', 'S10', ARR10 - 0.08, 0.3)
 
 # 7 (line): planes: everybody comes to his place. Wide from the road: a little plane taxis in and stops, propeller turning; the hikers, the boat;
@@ -248,13 +250,13 @@ TAP12 = [round(MAP[0] - 0.6, 3), round(MAP[1] + 0.35, 3), round(MAP[2] + 0.06, 3
 TAPK = lambda pt: {'reach': {'R': [*pt, 1, 0.08]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'brow': 0.5}}
 st.shot('S12', 'office', setOpts={'door': False}, actors=[
         act('carto1', CART[0][1], CART[0][2], 'stand', 'determined', keys=[k(0.0, look=TAP12), k(0.0, toon=TAPK(BACK12), toonDur=0.0),
-            *[x for i in range(3) for x in (k(round(0.2 + 0.25 * i, 3), toon=TAPK(TAP12), toonDur=0.06, toonEase='in'), k(round(0.3 + 0.25 * i, 3), toon=TAPK(BACK12), toonDur=0.1, toonEase='out'))],   # tap, tap, tap
+            *[x for i in range(3) for x in (k(round(0.2 + 0.25 * i, 3), toon=TAPK(TAP12), toonDur=0.04, toonEase='in'), k(round(0.28 + 0.25 * i, 3), toon=TAPK(BACK12), toonDur=0.1, toonEase='outBack'))],   # tap, tap, tap
             k(1.0, look='camera'), k(1.0, toon={'face': {'brow': 0.6}}, toonDur=0.15)]),
         act('carto2', CART[1][1], CART[1][2], 'stand', 'neutral', keys=[k(0.0, look=[0.75, 2.2, -3.0]), k(0.55, look='camera'),
-            k(0.82, toon={'bend': {'neck': [0.6, 0, 0, 1, None], 'spine': [0.12, 0, 0, 1, None]}, 'sq': [1.04, 0.95, 1.04], 'face': {'lid': 0.4, 'brow': 0.6}}, toonDur=0.08, toonEase='in'),   # one big nod...
-            k(0.94, toon={'bend': {'neck': [-0.22, 0, 0, 1, None]}, 'sq': [0.98, 1.03, 0.98], 'face': {'brow': 0.8}}, toonDur=0.08, toonEase='out'), k(1.06, toon={'face': {'brow': 0.5}}, toonDur=0.12)])],   # ...back up past level, settles
+            k(0.82, toon={'bend': {'neck': [0.68, 0, 0, 1, None], 'spine': [0.15, 0, 0, 1, None]}, 'sq': [1.06, 0.92, 1.06], 'face': {'lid': 0.4, 'brow': 0.6}}, toonDur=0.07, toonEase='in'),   # one big nod...
+            k(0.94, toon={'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'sq': [0.96, 1.06, 0.96], 'face': {'brow': 0.8}}, toonDur=0.08, toonEase='out'), k(1.06, toon={'face': {'brow': 0.5}}, toonDur=0.12)])],   # ...back up past level, settles
         props=[P('map', 'mapFrance', pos=MAP, opts={'w': 1.5, 'h': 1.2, 'pin': [0.62, 0.66]})],   # (his arm stretches to the map: the pointer is his finger)
-        cams=[FC(0.0, [-0.35, 1.7, 1.5], [[MAP[0] - 0.8, 2.4, MAP[2]], [MAP[0] + 0.8, 1.1, MAP[2]], [round(CART[0][1][0] + 0.45, 3), 2.35, CART[0][1][2]], [round(CART[1][1][0] - 0.45, 3), 2.35, CART[1][1][2]], [round(CART[0][1][0] + 0.45, 3), 0.3, CART[0][1][2]], [round(CART[1][1][0] - 0.45, 3), 0.3, CART[1][1][2]]], top=0.12, bottom=0.74)])   # (pass 3) half a metre of margin outside each
+        cams=[FC(0.0, [-0.35, 1.7, 1.5], [[MAP[0] - 0.8, 2.4, MAP[2]], [MAP[0] + 0.8, 1.3, MAP[2]], [round(CART[0][1][0] + 0.4, 3), 2.35, CART[0][1][2]], [round(CART[1][1][0] - 0.4, 3), 2.35, CART[1][1][2]], [round(CART[0][1][0] + 0.4, 3), 1.05, CART[0][1][2]], [round(CART[1][1][0] - 0.4, 3), 1.05, CART[1][1][2]]], top=0.12, bottom=0.74)])   # (final) in to the waist: the heads twice the size   # (pass 3) half a metre of margin outside each
 [st.cue('sfx:tick', 'S12', round(0.26 + 0.25 * i, 3), 0.25) for i in range(3)]
 
 # 9 (line): the north, from now on, is him. Close on the map: the N of the rose is crossed out in red, a fat arrow is drawn to his face on the map
@@ -279,9 +281,11 @@ st.cue('sfx:zip', 'S14', 0.05, 0.25)
 #     on the sofa back and arms, drifts at both ends
 D15 = st.dur('S15'); SOFA = [0.0, 0, -2.75]
 FORKS_LOW = lambda: [P(f'cl{i}', kind, on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.08, 3), 0.2], 'rot': [0, 0, fan]}, scale=CS, opts=CUTOPT(kind)) for i, (lat, y, fan, kind) in enumerate([(a, b, c, d) for (_, d, _f, a, b, c) in CUT2] + [(a, b, c, 'fork') for (a, b, c) in FAN3]) if y <= 1.36]   # (pass 3) only the lower ones, lower still: two forks covered his mouth
-SHIV15 = [k(round(0.04 * i, 3), toon={'lay': [0, round(0.022 * (1 if i % 2 else -1), 3)], 'sq': [1.0, round(1.0 - 0.012 * (i % 2), 3), 1.0], 'face': {'lid': 0.45, 'jaw': 0.1 if i % 2 else 0.0, 'mouth': 'teeth', 'tremble': 1, **({'gx': -0.5} if 0.04 * i >= 0.7 else {})}}, toonDur=0.03) for i in range(int(D15 / 0.04))]   # shivering, teeth chattering
+HUG15 = {'reach': {'L': [0.18, 1.3, -2.45, 1, 0.05], 'R': [0.82, 1.3, -2.45, 1, 0.05]}, 'hands': {'L': 'flat', 'R': 'flat'}}   # (final) hugging himself (arms out read as a shrug)
+SHIV15 = [k(round(0.04 * i, 3), toon={**HUG15, 'lay': [0, round(0.022 * (1 if i % 2 else -1), 3)], 'sq': [1.0, round(1.0 - 0.012 * (i % 2), 3), 1.0], 'face': {'lid': 0.0, 'eye': 0.15, 'brow': 0.7, 'jaw': 0.1 if i % 2 else 0.0, 'mouth': 'grimace', 'tremble': 1, **({'pop': 0.55, 'popLen': 0.2} if 0.95 <= 0.04 * i < 1.2 else {})}}, toonDur=0.03) for i in range(int(D15 / 0.04))]   # shivering, teeth chattering   # (final) wide-eyed (half-closed it read as a smug grin)
 st.shot('S15', 'livingRoom', setOpts={'tv': False}, look={'sunColor': '#D6E4FF', 'tint': [0.9, 0.97, 1.1], 'warm': 0.25, 'sat': 0.9}, actors=[   # (pass 3) cool: it was graded as warm as the kitchen
-        act('mec', [0.5, 0, -2.75], 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, fx={'breath': {'side': 0.32, 'up': 0.2, 'fwd': 0.12, 'size': 0.85}}), *SHIV15]),
+        act('mec', [0.5, 0, -2.75], 0, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, fx={'breath': {'side': 0.32, 'up': 0.2, 'fwd': 0.12, 'size': 0.85}}), *SHIV15,
+            k(0.68, look=[-0.62, 1.7, -2.85]), k(0.84, look='camera'), k(0.95, look=[-0.62, 1.7, -2.85])]),   # (final) a double take at the bear: a glance, back to us, snapped back with his eyes out
         act('ours', [-0.62, 0, -2.85], 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.62, look=[0.5, 1.6, -2.75])])],
         props=[*FORKS_LOW(), P('snow', 'snowfall', pos=[0.0, 0, -1.6], opts={'w': 5.5, 'h': 4.0, 'd': 4.5, 'n': 800, 'size': 0.085}), P('bank', 'snowBank', pos=[0.0, 0, -3.42], opts={'len': 6.0}),
                P('bankL', 'snowBank', pos=[-1.85, 0, -2.45], opts={'len': 1.3, 'seed': 33}), P('bankR', 'snowBank', pos=[1.85, 0, -2.4], opts={'len': 1.3, 'seed': 35}),
@@ -321,6 +325,7 @@ st.shot('S16', 'whiteVoid', actors=[
                *[P(f'cl{i}', kind, on={'actor': 'mec', 'joint': 'torso', 'offset': [round(-lat, 3), round(y - 1.0, 3), 0.2], 'rot': [0, 0, fan]}, scale=CS, opts=CUTOPT(kind)) for i, (pid, kind, frm, lat, y, fan) in enumerate(CUT2)]],
         cams=[FC(0.0, [1.2, 7.5, 5.5], [[DOOR[0] - 0.6, LAND + 2.45, DOOR[2]], [DOOR[0] + 0.6, LAND + 2.45, DOOR[2]], [-0.35, LAND, -2.0], [1.4, 0.6, 1.62], [1.4, 2.6, 1.62], [2.4, LAND + 1.8, 0.05]], top=0.1, bottom=0.74, drift=(0.0, -0.08, -0.1)),   # (pass 2) they start higher up the flight: a tighter wide   # (pass 2) down the stairwell from high behind the last flight: its depth runs up the tall frame (from the side it ran across it and they were specks), and the leaf, seen edge on, leaves the doorway clear
               FC(round(OPEN16 + 0.6, 3), [-0.5, round(LAND + 1.8, 3), -0.6], [[DOOR[0], round(LAND + 2.4, 3), round(DOOR[2] + 0.35, 3)], [DOOR[0], round(LAND + 1.15, 3), round(DOOR[2] + 0.35, 3)], [DOOR[0] - 0.4, round(LAND + 1.7, 3), round(DOOR[2] + 0.35, 3)], [DOOR[0] + 0.4, round(LAND + 1.7, 3), round(DOOR[2] + 0.35, 3)]], top=0.16, bottom=0.68)])   # then close on him in the doorway
+st.card('S16', 'PÔLE NORD', at=round(FLAG16 + 0.08, 3))   # (final) the doormat's words as a card (8 px on the mat from up the stairwell)
 st.cue('sfx:gasp', 'S16', 0.1, 0.3); st.cue('sfx:gasp', 'S16', 0.55, 0.25); st.cue('thud', 'S16', FLAG16, 0.3); st.cue('sfx:carDoor', 'S16', OPEN16, 0.25)
 
 st.write("L'aimant", rig='toon', fingers=True, cloth=True, idleShift=1.6, limbSmear=1, follow=1, pupil=0.5, extra_cast={
