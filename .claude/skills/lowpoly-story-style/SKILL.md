@@ -313,6 +313,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La caméra embarquée dans la porte (cycle 19) | clé de caméra `ride: {prop}` sur un accessoire qui pivote (porte tournante, manège) : la caméra placée au milieu du compartiment qu'il regarde tourne avec lui ; il reste de face, impassible, la rue défile derrière lui ; à 2,4 tours/s la rue devient un tourbillon pendant qu'une carte reste collée sur son visage | 57 |
 | Le sac qui tombe d'en haut | au virage de l'avion, le sac posé sur la valise derrière lui bascule et lui tombe sur la tête : il s'écrase large et court (1,6 × 0,5, tête comprise par `scl.head`), bras à plat au sol, tenu ; le sac glisse, il remonte au-delà de sa taille deux fois ; la caméra basse le voit de face | 54 |
 | Le bras élastique vu de côté | filmé à angle droit de la ligne du bras, depuis le côté de ce bras : le bras court devant les jambes de l'épaule au couvercle, d'une seule épaisseur (`bend` fat 0,95 sur le bras et l'avant-bras), l'autre main en appui au sol derrière lui | 54 |
+| La chaussette seule sur le tapis | au tapis à bagages vide, une chaussette rayée molle sort debout des lamelles et défile devant lui, impassible (`sockL` o.flop : le haut plie et oscille) | 54 |
+| La gifle des lamelles | plié en deux, la tête passée entre les lamelles du tunnel (`pin` de la tête), il ressort ; une lamelle revient et lui écrase la tête sur sa propre hauteur (moitié), yeux croisés, tenue huit images | 54 |
+| L'objet qui vit la vie du héros | la valise fait le tour du monde sans lui : selfie sous la tour Eiffel (flash), bronzage sur une serviette devant les pyramides (le couvercle soupire), orbite autour de la Terre, un autocollant par vol qui saute sur elle ; elle voyage en première avec une flûte qui se remplit pendant que lui voyage en soute | 54 |
+| La carte qui passe au-dessus des doigts | la carte de fidélité tendue loin, le bras qui s'étire deux fois sa longueur ; la carte file en arc au-dessus de ses doigts jusqu'à l'étiquette de la valise ; le poing se ferme sur le vide deux images trop tard | 54 |
 
 ## Erreurs à éviter
 

@@ -2003,3 +2003,5 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   sous la chemise, ruban d'inauguration et ciseaux géants, écharpe de maire, bonnet tombé ; couleur du réverbère.
 - 58 « Le bâillement » : narration (neuf phrases, 16,4 s, accélérée de 8 %), script de onze plans dans un seul décor (un arrêt de bus parisien),
   dossier de revue préparé.
+- 54 « La valise » : **livrée** (1080 × 1920, 19,5 s, −16 LUFS, contrôles HyperFrames sans erreur ; une remarque sur la tenue d'un carton en
+  milieu de film, sans suite). Revues 5,5/6,0 → 6,5/6,5 → 7,0/7,0, passe finale, deux contrôles d'images avant le rendu final.
