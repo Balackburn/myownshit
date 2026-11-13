@@ -1095,3 +1095,8 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   sortait de la tête de l'ostéopathe). Options `monitor: False`, `cross: False`.
 - (histoire 53, passe finale) Une marche à reculons ne se lit qu'avec un repère : un passant qui marche à l'endroit à côté de lui, dans le même
   sens, caméra sur son chemin à hauteur de hanche (seul et petit dans un cadre aux deux tiers vide, il « marchait », tout simplement).
+- (cycle 18) Dans un accessoire, `Object3D.lookAt` prend des points du **monde** : appelé avec des coordonnées locales dans un `update(t)`,
+  il couche les objets dès que l'accessoire est attaché à une articulation (les randonneurs allongés sur la colline posée sur sa tête).
+  Orienter à la main (`rotation.set(0, atan2(dx, dz), 0)`), ou n'appeler `lookAt` qu'à la construction, avant tout rattachement.
+- (cycle 18) Un commentaire collé en fin de ligne après une modification automatique avale encore la fin de la ligne (`],` du `props=[...]`
+  de S01, histoire 56) : le lint ne voit rien quand le fichier ne s'analyse même plus ; lancer le script tout de suite après chaque modification.
