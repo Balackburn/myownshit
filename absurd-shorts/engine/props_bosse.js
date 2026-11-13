@@ -156,7 +156,7 @@ export const BOSSE_PROPS = {
       let R = keyed(o.grow, t, o.r ?? 0.06);
       const th = o.throb; if (th) { const [amp, rate = 1.6, t0 = -1e9, t1 = 1e9] = th; if (t >= t0 && t <= t1) { const ph = ((t - t0) * rate) % 1; R *= 1 + amp * Math.exp(-ph * 7) * (1 - Math.exp(-ph * 55)); } }
       let sy = 1, sxz = 1;
-      const df = o.deflate; if (df) { const u = (t - df[0]) / (df[1] || 0.5); if (u >= 1) R = 0.0001; else if (u > 0) { R *= Math.max(0.0001, 1 - sstep(u)); const wv = Math.sin(u * 40) * 0.22 * (1 - u); sy = 1 + wv; sxz = 1 - wv * 0.6; } }
+      const df = o.deflate; if (df) { const u = (t - df[0]) / (df[1] || 0.5); if (u >= 1) R = 0.0001; else if (u > 0) { R *= Math.max(0.0001, 1 - sstep(u)); const wv = Math.sin(u * 40) * 0.22 * (1 - u); sy = 1 - 0.38 * sstep(Math.min(1, u * 1.6)) + wv; sxz = 1 + 0.18 * Math.sin(Math.min(1, u * 1.3) * PI) - wv * 0.6; } }   // (pass 2 of 56) it sags and bulges as it empties (it shrank evenly)
       size = R; dg.scale.set(R * sxz, R * sy, R * sxz); dg.position.y = lift0(R); dg.visible = R > 0.0005;
       if (plaster) plaster.visible = !!df && t >= df[0] + (df[1] || 0.5) * 0.85;
       if (grass && o.grassAt != null) { const u = Math.max(0, Math.min(1, (t - o.grassAt) / 0.35)); grass.visible = u > 0.01; grass.geometry.setDrawRange(0, Math.ceil(grass.geometry.index.count * Math.max(0.02, u) / 3) * 3); }
@@ -173,7 +173,12 @@ export const BOSSE_PROPS = {
         if (tp.snap != null && t >= tp.snap) { const v = (t - tp.snap) / 0.12; if (v < 1) u *= 1 - v * v; else { u = 0; fly = (t - tp.snap - 0.12) / 0.18; } }
         const n = Math.round(u * TN); tapeSegs.forEach((sg, i) => { sg.visible = i < n; });
         const ph = tp.phi ?? PI / 2, end = S(TEND * Math.max(0.002, u), ph, 0.03);
-        if (fly < 0) { hook.visible = u > 0.01; hook.position.copy(end); } else { hook.visible = fly < 1; hook.position.set(0, HR * (1 + 0.6 * fly), 0.15 * fly); hook.rotation.x = fly * 9; }
+        // (pass 2 of 56) tp.hookTo [x, y, z] (in the ball's own frame, radius 1): the hook flies on an arc from the top to that point (the doctor's nose)
+        // and hangs there 0.2 s before it drops (it flew straight up off the top: the CLAC had no cause)
+        if (fly < 0) { hook.visible = u > 0.01; hook.position.copy(end); }
+        else if (tp.hookTo) { const [hx, hy, hz] = tp.hookTo, f = Math.min(1, fly), e = f * f * (3 - 2 * f); hook.visible = fly < 2.1;
+          hook.position.set(hx * e, HR + (hy - HR) * e + 0.35 * Math.sin(f * PI), hz * e - (fly > 1.1 ? (fly - 1.1) * 0.6 : 0)); hook.rotation.set(fly < 1 ? fly * 7 : 0.3, 0, 0); }
+        else { hook.visible = fly < 1; hook.position.set(0, HR * (1 + 0.6 * fly), 0.15 * fly); hook.rotation.x = fly * 9; }
         if (tag) tag.visible = t >= (tp.readout[1] ?? -1e9) && t <= (tp.readout[2] ?? 1e9) && (tp.snap == null || t < tp.snap);
       }
     };
@@ -241,6 +246,9 @@ export const BOSSE_PROPS = {
   lowBeam(o) {
     const w = o.w ?? 1.3, h = o.h ?? 1.72, bh = 0.2, g = grp(), C = o.color || '#8A5A34';
     for (const s of [-1, 1]) g.add(at(box(0.16, h + bh, 0.18, C, { outline: 0.012, pivot: 'bottom' }), s * (w / 2 + 0.08), 0, 0));
+    // (pass 2 of 56) o.wall [width, height, colour]: the doorway set in a section of wall (a free-standing frame read as a prop on the floor)
+    if (o.wall) { const [ww, wh, wc] = o.wall; for (const s of [-1, 1]) g.add(at(box(ww, wh, 0.14, wc || '#E9DCC6', { outline: 0.006, pivot: 'bottom' }), s * (w / 2 + 0.16 + ww / 2), 0, -0.01));
+      g.add(at(box(w + 0.32, Math.max(0.01, wh - h - bh), 0.14, wc || '#E9DCC6', { outline: 0.006, pivot: 'bottom' }), 0, h + bh, -0.01)); }
     const beam = grp(at(box(w + 0.5, bh, 0.22, C, { outline: 0.012 }), 0, 0, 0)); beam.position.y = h + bh / 2; g.add(beam);
     if (o.sign !== false) { const txt = o.sign || 'ATTENTION À LA TÊTE', sw = Math.min(w * 0.9, 1.0), sh = 0.14;
       const sg = canvasPlane(sw, sh, (c, W, H) => { c.fillStyle = '#F2C230'; c.fillRect(0, 0, W, H); c.fillStyle = '#1C1C1E'; c.fillRect(0, 0, W, H * 0.1); c.fillRect(0, H * 0.9, W, H * 0.1);
