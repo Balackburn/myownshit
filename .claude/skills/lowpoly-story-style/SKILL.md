@@ -1040,3 +1040,19 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 16) En corrigeant un script par remplacement de texte, ne jamais terminer un remplacement par un commentaire quand le texte remplacé
   s'arrête au milieu d'une ligne : la suite de la ligne passe dans le commentaire sans erreur (trois fois en une passe : des clés de regard, une
   constante `VEILOFF`, des clés de caméra). `tools/lint_comments.py` attrape maintenant aussi `; NOM = ...` dans un commentaire.
+- (cycle 17, passe 2 de 54) L'étiquette de la valise pendait de la poignée au milieu de la coque : la carte dorée était **dans** la valise, aucune
+  revue ne l'a jamais vue. Avant de compter sur un détail d'accessoire, le regarder sur une image de contrôle rapprochée ; l'étiquette pend
+  maintenant devant le couvercle (`tagScale` pour l'agrandir, `tagGlint` pour un scintillement).
+- (cycle 17) Le poids d'un `reach` (4e valeur) au-delà de 1 n'allonge pas le bras : il extrapole la main au-delà du point, le bras pend à côté
+  (la main « sortie » du couvercle qui mord). Toujours 1 ; pour un bras élastique, éloigner le corps (`lay`, colonne en arrière) pendant que la
+  main reste au point.
+- (cycle 17) `fitBack` collé à un mur rend un objectif plus large que permis sans erreur (77°, 85° au comptoir de la valise) : le `FC` des
+  histoires affiche désormais un AVERTISSEMENT ; resserrer les points ou avancer tout le décor (le comptoir avancé d'1,2 m).
+- (cycle 17) Un accessoire dirigé droit vers la caméra se lit comme un disque (la ventouse sur le front, vue de face : une boule rouge) :
+  l'incliner (40° vers le haut) pour montrer sa longueur.
+- (cycle 17) Une enseigne lisible d'un seul côté (ENREGISTREMENT, tourné vers les clients) ne peut pas être cadrée depuis l'autre côté : ne pas
+  promettre le mot dans un plan pris de derrière le comptoir.
+- (cycle 17) Un personnage collé face à une surface (vitre d'un bus) ne montre jamais son visage : préférer un gag où c'est la chose qui vient
+  se coller à lui (un pigeon qui s'écrase sur la ventouse), visage vers nous.
+- (cycle 17) En écrivant une liste `actors=[act(...), act(...)]`, le dernier `act` se ferme par `)])],` avant `props=` : l'oublier donne
+  « closing parenthesis ')' does not match » trois lignes plus bas (trois fois dans l'histoire 55).
