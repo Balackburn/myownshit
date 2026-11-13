@@ -81,8 +81,8 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
             k(round(SNAP + 0.34, 3), look=[GUMPT[0], 0.1, GUMPT[2]]), k(round(SNAP + 0.47, 3), look=None),   # (pass 2b) a glance back at the gum, back to his phone...
             k(round(SNAP + 0.52, 3), toon={'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),   # ...the dip...
             k(round(SNAP + 0.56, 3), look='camera'),
-            k(round(SNAP + 0.56, 3), toon={'sq': [0.95, 1.06, 0.95], 'bend': {'armL': [0, 0.5, 0, 1, None], 'armR': [0, -0.55, 0, 1, None]}, 'face': {'pop': 0.7, 'popLen': 0.28, 'brow': 1, 'jaw': 0.35}}, toonDur=0.04, toonEase='outBack')])],
-        # (pass 2b) ...and the take at us, eyes out on stalks, the arms open (the phone off his face): with the take aimed at the gum behind him,
+            k(round(SNAP + 0.56, 3), toon={'sq': [0.95, 1.06, 0.95], 'bend': {'armL': [0, 0.5, 0, 1, None], 'armR': [0, -0.55, 0, 1, None], 'foreR': [1.1, 0, 0, 1, None]}, 'face': {'pop': 0.7, 'popLen': 0.28, 'brow': 1, 'jaw': 0.35}}, toonDur=0.04, toonEase='outBack')])],
+        # (pass 2b) ...and the take at us, eyes out on stalks, the arms open, the forearm dropped (the phone off his face): with the take aimed at the gum behind him,
         # all we saw was the back of his head
 
         props=[PHONE('phone2'), P('blob2', 'gumBlob', pos=BLOB, opts={'r': 0.2, 'pull': [[round(SNAP - 0.02, 3), 0.0], [round(SNAP + 0.08, 3), 1.0]]})],
@@ -237,8 +237,9 @@ st.shot('S10', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
             k(UP10, toon=HOLD10(), toonDur=0.3, toonEase='outBack'), k(round(UP10 + 0.1, 3), look=[X10, 1.0, r(Z10 - 8)]),
             k(round(UP10 + 0.45, 3), to=[r(X10 + 0.04), 0, r(Z10 + 0.15)], dur=0.2, glide=True, face='keep'),
             k(round(UP10 + 0.45, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None]}, 'sq': [1.0, 0.96, 1.0]}), toonDur=0.15),   # feet wide
-            k(round(UP10 + 0.55, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'scl': {'head': [1.2, 1.06, 1.2]}, 'face': {'puff': 1.0, 'brow': -0.7, 'lid': 0.0, 'eye': 0.2}}), toonDur=0.2, toonEase='in'),   # (pass 2) the big breath: cheeks puffed, chest up, eyes open, held
-            # (pass 2b) the head swells with the breath like a balloon, the eyes wide open (the puff alone was two small brackets at the mouth)
+            k(round(UP10 + 0.55, 3), toon=HOLD10(extra={'bend': {'legL': [0, 0.28, 0, 1, None], 'legR': [0, -0.28, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.1, 1.06, 1.16], 'scl': {'head': [1.3, 1.1, 1.3]}, 'face': {'expr': 'puffed', 'exprW': 1.0, 'eye': 0.25}}), toonDur=0.2, toonEase='in'),   # (pass 2) the big breath: cheeks puffed, chest up, eyes open, held
+            # (pass 2b) the head swells with the breath like a balloon, the puffed face (eyes open, frown, cheeks out): the puff alone was two small
+            # brackets at the mouth under his heavy lids
             k(round(UP10 + 0.75, 3), look='camera')])],
         tethers=[STRAND(FOOT(), HAND('mec', 'L'), frm=round(GRAB + 0.02, 3), sag=0.25, rad=0.024, taper=0.3),
                  STRAND(HAND('mec', 'R'), FAR, frm=round(GRAB + 0.02, 3), sag=0.0, rad=0.026, taper=0.0, thin=[2.0], n=14),
@@ -253,8 +254,8 @@ D11 = st.dur('S11'); YANK = 1.12; GONE = round(YANK + 0.18, 3)
 def PULL(lean, fwd, extra=None):
     d = {'lay': [round(-lean, 3), 0], 'reach': {'L': [r(X10 - 0.06), 1.0, r(Z10 - fwd), 1, 0.05], 'R': [r(X10 + 0.06), 0.97, r(Z10 - fwd - 0.14), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'},
          'bend': {'legL': [-0.25, 0.22, 0, 1, None], 'legR': [-0.25, -0.22, 0, 1, None], 'shinL': [0.45, 0, 0, 1, None], 'shinR': [0.45, 0, 0, 1, None]},
-         'plant': {'L': [r(X10 + 0.18), 0.0, r(Z10 - 0.35), 1.0], 'R': [r(X10 - 0.16), 0.0, r(Z10 - 0.3), 1.0]}, 'face': {'puff': 0.9, 'brow': -0.9, 'lid': 0.3, 'mouth': 'flat'},
-         'scl': {'head': [1.12, 1.04, 1.12]}}   # (pass 2b) still swollen with the held breath (it goes out at the pop)
+         'plant': {'L': [r(X10 + 0.18), 0.0, r(Z10 - 0.35), 1.0], 'R': [r(X10 - 0.16), 0.0, r(Z10 - 0.3), 1.0]}, 'face': {'expr': 'strain', 'exprW': 1.0, 'puff': 0.9},
+         'scl': {'head': [1.12, 1.04, 1.12]}}   # (pass 2b) still swollen with the held breath (it goes out at the pop), the strain (eyes squeezed, teeth, vein)
     if extra: d.update(extra)
     return d
 st.shot('S11', 'parisStreet', setOpts={**STREET, 'clear': [-80, 120]}, actors=[
