@@ -942,11 +942,11 @@
     {
      "id": "voisine",
      "pos": [
-      5.3,
+      4.55,
       0,
-      -12.62
+      -12.1
      ],
-     "ry": 15,
+     "ry": 0,
      "clip": "stand",
      "keys": [
       {
@@ -985,9 +985,9 @@
        "toon": {
         "reach": {
          "L": [
-          5.018,
-          1.86,
-          -11.601,
+          5.0,
+          1.905,
+          -11.633,
           1,
           0.05
          ]
@@ -1009,9 +1009,9 @@
        "toon": {
         "reach": {
          "L": [
-          5.26,
-          1.42,
-          -11.75,
+          5.22,
+          1.52,
+          -11.82,
           1,
           0.03
          ]
@@ -1414,18 +1414,18 @@
       "joint": "head",
       "offset": [
        0.0,
-       0.7,
+       0.42,
        0.0
       ]
      },
      "opts": {
       "n": 7,
-      "r": 0.36,
+      "r": 0.24,
       "size": 1.0,
       "basic": true,
       "color": [
-       "#B8A688",
-       "#9E8E74"
+       "#E6D6BC",
+       "#D2C2A6"
       ]
      },
      "scale": 2.2
@@ -1517,7 +1517,7 @@
      "pos": [
       4.1,
       1.62,
-      -6.4
+      -4.0
      ],
      "ry": 180,
      "clip": "stand",
@@ -1551,7 +1551,7 @@
        "to": [
         4.1,
         1.62,
-        -6.175
+        -3.79
        ],
        "dur": 0.14,
        "ease": "linear",
@@ -1562,7 +1562,7 @@
        "to": [
         4.1,
         1.69,
-        -5.789
+        -3.43
        ],
        "dur": 0.24,
        "ease": "inOut",
@@ -1573,7 +1573,7 @@
        "to": [
         4.1,
         1.62,
-        -5.403
+        -3.07
        ],
        "dur": 0.24,
        "ease": "inOut",
@@ -1584,7 +1584,7 @@
        "to": [
         4.1,
         1.69,
-        -5.017
+        -2.71
        ],
        "dur": 0.24,
        "ease": "inOut",
@@ -1638,7 +1638,7 @@
      "pos": [
       4.1,
       0,
-      -4.9
+      -2.5
      ],
      "ry": 0,
      "clip": "stand",
@@ -1648,7 +1648,7 @@
        "to": [
         4.1,
         0,
-        -3.4
+        -1.1
        ],
        "dur": 0.933,
        "clip": "walk",
@@ -1701,7 +1701,7 @@
      "pos": [
       4.1,
       0,
-      -6.05
+      -3.65
      ],
      "ry": 0,
      "clip": "stand",
@@ -1711,7 +1711,7 @@
        "to": [
         4.1,
         0,
-        -4.55
+        -2.25
        ],
        "dur": 0.933,
        "clip": "walk",
@@ -1852,26 +1852,26 @@
     {
      "at": 0.0,
      "from": [
-      -1.144,
-      4.2,
-      -10.096
+      0.456,
+      3.5,
+      -6.522
      ],
      "to": [
-      -1.144,
-      4.2,
-      -9.896
+      0.456,
+      3.5,
+      -6.322
      ],
      "lookAt": [
-      5.133,
-      0.558,
-      -3.216
+      6.928,
+      -0.186,
+      0.152
      ],
-     "lens": 56,
+     "lens": 54,
      "ease": "linear",
      "lookAt2": [
-      5.133,
-      0.558,
-      -3.016
+      6.928,
+      -0.186,
+      0.352
      ]
     }
    ],
@@ -4229,7 +4229,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 0.2,
          "puff": 0.6
@@ -4269,7 +4269,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 1.0,
          "puff": 0.0
@@ -4308,7 +4308,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 0.2,
          "puff": 0.6
@@ -4347,7 +4347,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 1.0,
          "puff": 0.0
@@ -4386,7 +4386,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 0.2,
          "puff": 0.6
@@ -4425,7 +4425,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 1.0,
          "puff": 0.0
@@ -4464,7 +4464,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 0.2,
          "puff": 0.6
@@ -4503,7 +4503,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 1.0,
          "puff": 0.0
@@ -4542,7 +4542,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 0.2,
          "puff": 0.6
@@ -4581,7 +4581,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 1.0,
          "puff": 0.0
@@ -4620,7 +4620,7 @@
          "eyeScale": 1.2,
          "pupilSize": -0.3,
          "brow": 1.0,
-         "mouth": "O",
+         "mouth": "clench",
          "tremble": 1.0,
          "cheeks": 0.2,
          "puff": 0.6
@@ -4841,16 +4841,16 @@
      "id": "tut8",
      "name": "hicBurst",
      "pos": [
-      0.9,
-      3.7,
-      -1.6
+      0.7,
+      2.75,
+      1.6
      ],
      "face": "camera",
      "opts": {
       "at": [
        0.36
       ],
-      "w": 0.85,
+      "w": 1.0,
       "text": "TUUUT !",
       "inner": 0.78,
       "fit": 0.56,
@@ -4863,26 +4863,26 @@
     {
      "at": 0.0,
      "from": [
-      0.2,
+      -0.6,
       0.55,
-      5.2
+      5.0
      ],
      "to": [
-      0.22,
+      -0.58,
       0.56,
-      5.12
+      4.92
      ],
      "lookAt": [
       2.0,
-      2.45,
-      -1.6
+      2.4,
+      -1.8
      ],
      "lens": 46,
      "ease": "linear",
      "lookAt2": [
       2.0,
-      2.45,
-      -1.6
+      2.4,
+      -1.8
      ]
     },
     {
