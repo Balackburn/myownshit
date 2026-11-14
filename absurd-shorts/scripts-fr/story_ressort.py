@@ -241,7 +241,7 @@ def SEATHOPS(t0, n, dt, hs, p=PIL):
         toon += [k(t, toon={'sq': [0.9, 1.12, 0.9], 'hairUp': 0.3, 'face': DEAD}, toonDur=0.03, toonEase='out'), k(r(t + 0.03), toon={'sq': [1.0, 1.0, 1.0], 'hairUp': 0.0, 'face': DEAD}, toonDur=r(tu - 0.03), toonEase='out'),
                  k(r(t + 2 * tu - 0.07), toon={'sq': [0.96, 1.06, 0.96], 'face': DEAD}, toonDur=0.05, toonEase='in'), k(r(t + 2 * tu), toon={'sq': SQS9, 'face': {'lid': 0.6}}, toonDur=0.02, toonEase='out')]
     return keys, toon
-K9, T9 = SEATHOPS(0.0, 4, r(D9 / 4), [1.2, 1.4, 1.12, 1.32])   # (review 3) a clear gap under him at the top ((final stills) higher: at 0.86 his soles stopped on the top of the backrest, standing on it)
+K9, T9 = SEATHOPS(0.0, 4, r(D9 / 4), [1.12, 1.24, 1.06, 1.18])   # (review 3) a clear gap under him at the top ((final stills) higher: at 0.86 his soles stopped on the top of the backrest, standing on it; at 1.4 his goggles touched the ceiling rose, the next shot's hit)
 CLIPR = {'reach': {'L': [0.7, 1.25, -0.28, 1, 0.05]}, 'hands': {'L': 'grip'}}   # (pass 3) the clipboard before him, in front of his chest
 NOD9 = lambda up: {**CLIPR, 'bend': {'neck': [(-0.32 if up else 0.22), 0, 0, 1, None]}, 'face': {'lid': (0.3 if up else 0.55), 'gy': (-0.5 if up else 0.3)}}
 st.shot('S09', 'mairie', setOpts=EXAMSET, look={'exposure': 1.32, 'fill': 1.2, 'sunColor': '#FFE6C2'}, actors=[
