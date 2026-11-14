@@ -106,6 +106,10 @@ export const BAILLEMENT_PROPS = {
       const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; return tx; };
     const dome = new THREE.Mesh(new THREE.SphereGeometry(0.11, 16, 8, 0, 2 * PI, 0, PI / 2), new THREE.MeshLambertMaterial({ map: rib(18, true), flatShading: true })); addOutline(dome, 0.05); dome.scale.set(1, 1.05, 1);
     const cuffTex = rib(18, true), cuff = new THREE.Mesh(new THREE.CylinderGeometry(0.122, 0.118, 0.065, 18), new THREE.MeshLambertMaterial({ map: cuffTex, color: '#D8D8D8', flatShading: true })); addOutline(cuff, 0.04);
+    // (final pass of 58) o.boxy: the rig's own beanie (a tapered box, human.js) with the ribs and a cuff: the round one did not match the cap he wore
+    if (o.boxy) { const bw = o.boxy[0] ?? 0.3, bh = o.boxy[1] ?? 0.12, bd = o.boxy[2] ?? 0.32, bm = new THREE.MeshLambertMaterial({ map: rib(14, true), flatShading: true });
+      const top = box(bw, bh, bd, hex, { pivot: 'bottom', taper: 0.8, material: bm, outline: 0.03 }), band = box(bw * 1.04, bh * 0.32, bd * 1.04, dhex, { pivot: 'bottom', outline: 0.03 });
+      return grp(top, band); }
     const g = grp(dome, at(cuff, 0, 0.02, 0)); if (o.bobble !== false) g.add(at(sphere(0.035, '#FFFFFF', 1), 0, 0.12, 0));   // (pass 2 of 58) o.bobble false: the cap he wore had none
     return g;
   },
@@ -114,7 +118,9 @@ export const BAILLEMENT_PROPS = {
   // o.w (0.13) wide, o.len (0.75) long, standing o.z (0.13) in front of the joint.
   mayorSash(o) {
     const w = o.w ?? 0.13, L = o.len ?? 0.75, g = grp(), b = grp();
-    ['#1F3E99', '#F4F4F2', '#D2282E'].forEach((c, i) => b.add(at(box(w / 3, L, 0.012, c, i === 1 ? {} : { outline: 0.01 }), (i - 1) * w / 3, 0, 0)));
+    // (final pass of 58) blue nearest the collar (red was), gold fringed tassels at the hip
+    (o.flip === false ? ['#1F3E99', '#F4F4F2', '#D2282E'] : ['#D2282E', '#F4F4F2', '#1F3E99']).forEach((c, i) => b.add(at(box(w / 3, L, 0.012, c, i === 1 ? {} : { outline: 0.01 }), (i - 1) * w / 3, 0, 0)));
+    for (let i = 0; i < 2; i++) { b.add(at(box(w * 0.5, 0.05, 0.02, '#D9B44A', { outline: 0.02 }), (i - 0.5) * w * 0.5, -L / 2 - 0.02, 0.004)); for (let j = 0; j < 4; j++) b.add(at(box(0.008, 0.07, 0.008, '#C9A23E'), (i - 0.5) * w * 0.5 + (j - 1.5) * 0.014, -L / 2 - 0.08, 0.004)); }
     b.rotation.z = o.tilt ?? 0.62; b.position.set(0, o.y ?? -0.1, o.z ?? 0.13); g.add(b);
     return g;
   },
