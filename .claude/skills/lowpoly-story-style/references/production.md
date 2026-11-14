@@ -107,3 +107,9 @@ npx --yes hyperframes@0.9.13 render -o renders/<story>.mp4 --fps 30
 - Restent exclus : la réplique de la tornade et les remakes de vidéos d'autres personnes (projets 01 à 03), ainsi que les doublons de rendu.
 - Tant que TikTok n'a pas audité l'application du développeur, l'API ne publie qu'en privé (`SELF_ONLY`) ; l'outil choisit « public » dès
   que le compte le permet.
+- (mise à jour) Voie retenue : le serveur MCP hébergé de PostOnce (`https://postonce.to/mcp`, github.com/postoncehq/tiktok-mcp), déclaré dans le
+  `.mcp.json` du dépôt, avec les skills TikTok de PostOnce copiés dans `.claude/skills/` (licence MIT jointe). Le script
+  `python3 tools/postonce_publish.py` parle MCP directement : `--tools`, `--check`, puis la publication. Il suit le même inventaire et le même
+  registre que `tiktok_publish.py`, qui reste comme voie directe. La clé d'API PostOnce (offre payante) est un secret réseau de l'environnement
+  pour `postonce.to` ; sans clé, on ajoute le connecteur `https://postonce.to/mcp` sur claude.ai et l'agent appelle les mêmes outils dans une
+  nouvelle session.
