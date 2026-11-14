@@ -351,3 +351,25 @@ Engine: `engine/toon.js`, `director3.js`, `props_gomme.js`, `render/render3.mjs`
   keys, `throb`, `deflate` with a wobble, a plaster after; a tape measure down its side that snaps back), `miniFigure` (tiny hikers and skiers
   with poses: walk, ski, hang, flail, sit, wave, look), `billScroll` (a bill that unrolls to the floor and away along it), `lowBeam` (a
   doorway with a low beam and a sign), `theodolite`, `tapeMeasure`.
+
+## Cycle 26: a cord that carries things, clignements de tenue
+
+- **Hold blink** (director3): a hold of 0.7 s or more with no face or expression key, left without a blink by the 3.3 s cycle, gets one
+  0.3-0.45 s in; script `holdBlink: 0` turns it off.
+- **Tethers that carry things** (director3, `st.shot(..., tethers=[...])`), on top of the options above:
+  - `lift: [[t0, t1, u, h, w], ...]`: the cord pushed up at `u` (0 at `a`, 1 at `b`) by `h` m between t0 and t1, ramped in and out over
+    0.15 s, `w` the width of the bump as a fraction of the cord (a bus roof under a tongue across the street: `h` 1.15, `w` 0.1);
+  - `snap: [t0, dur, whip]`: the `b` end lets go and runs back along the cord into `a`, faster and faster (1 − s²), the free end whipping
+    from side to side by `whip` m; gone at t0 + dur (a stuck tongue coming home like a tape measure: 0.42 s over 11 m);
+  - `bulbs: {n, colors, size, drop, hang: [t0, t1], fromA, on, period, chase, dim, glow}`: a garland clipped under the cord, hung one bulb
+    at a time from the `b` end (`fromA`: from `a`) between t0 and t1, lit at `on` and chasing (each bulb dark one beat in three every
+    `period` s), `dim` the brightness of a bulb still off (0.55; 0.85 reads at 5 m), `glow` the size of the lit halo (× size). On a `snap`
+    the bulbs past the free end bunch on it and shrink into `a` with it;
+  - `birds: [[u, flyAt, yaw], ...]`: birds perched on the cord, flying off at `flyAt`, or by themselves when a snap runs past them;
+  - `plug: true`: a plug dangling from the `b` end (the last thing in on a snap); `tip: true`: a rounded end at `b`.
+  - Read on a wide shot: give a long cord `minPx` (and `rim`), or it thins to a hair at 15 m.
+- **props_langue.js**: `iceSleeve` (frost up a lamp post and icicles under its arm; `lick` [y, angle] a frost star from `lickAt`; `collar`
+  [y, n] a ring of icicles where a close shot sees them; `meltAt`: they drip and shrink, the frost clears, a puddle spreads), `bigButton`
+  (an inauguration pedestal, `pressAt`), `bellyLights` (lights chasing inside a belly, seen through the shirt; hang it on the torso),
+  `snowCap` (snow piling up on a head between `t0` and `t1`: time passing). The face rig's own cheeks do not read as full: two `cheekPuff`
+  props on the head joint (±0.12, 0.16, 0.06; `r` 0.11) do.

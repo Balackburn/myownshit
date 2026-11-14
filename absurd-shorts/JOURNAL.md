@@ -2556,3 +2556,25 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   avertissements de contraste et un d'artisanat ; 526 images, aucune image grise). Revues : 6,5/6,8 → 7,2/6,8 → 7,4/7,3 (animation /
   direction artistique), puis la passe finale. Envoyée.
   - Publication TikTok : toujours bloquée (pas de clé PostOnce) ; elle partira avec les autres dès qu'une clé sera là.
+- 64 « La langue » (cycle 26) :
+  - Même type d'histoire que la série (« ce mec », une conséquence absurde, la mairie qui pousse la logique, escalade, retournement, aparté
+    sec), structure du skill inchangée ; voix de 19,0 s, dix répliques, onze plans, trois cartons (COLLÉ, NOËL, DÉGEL).
+  - Gags qui passent par le rig (au moins cinq) :
+    - la langue collée au poteau gelé, étirée comme du chewing-gum, qui le ramène et lui écrase le visage contre le poteau ;
+    - le tir à la corde des pompiers, tous inclinés depuis les pieds, son cou en élastique, la neige qui s'accumule sur les casques ;
+    - le bus qui passe sous la langue et l'emporte : on le découvre pendu en l'air, il regarde en bas, il tombe (temps suspendu) ;
+    - la guirlande accrochée ampoule par ampoule, la langue qui s'affaisse et sa tête qui s'incline d'un cran à chaque ampoule ;
+    - l'allumage : ses yeux clignotent en rythme, son visage passe au rouge, au vert et à l'or, ses cheveux se dressent ;
+    - le dégel : la langue revient comme un mètre ruban, les ampoules entassées sur son bout, les joues qui gonflent ;
+    - la prise avalée en dernier, la boule qui descend sous la chemise ; le ventre qui clignote la nuit.
+  - Moteur : extension des liens (bosse, retour d'un coup, guirlande, oiseaux, prise, bout arrondi) et `props_langue.js` (givre et glaçons
+    qui fondent, collier de glaçons, gros bouton, ventre lumineux, neige qui s'accumule).
+  - Images de contrôle, trois séries :
+    - la bouche est à 1,9 m (articulation de la tête à 1,81 m + 0,14) : la langue descendait vers le poteau, contact remonté à 1,88 m ;
+    - le poteau près de l'objectif remplissait un tiers du cadre : caméras reculées et plus longues, le poteau à la même distance que lui ;
+    - le tir à la corde ne se lisait pas (dos un peu courbés, tous collés) : écartés et inclinés depuis les pieds (`lay`) ;
+    - le bus masquait le gag : il passe devant, puis on découvre le héros en l'air ; recalé plus tôt pour huit images de suspension ;
+    - les nuits restaient claires (exposition automatique) : obscurité réglée (`dark`) autour de ce qui brille ;
+    - ampoules trop petites et ternes à 5 m : plus grosses, plus nombreuses, plus claires éteintes ;
+    - les joues peintes ne gonflaient pas assez : deux vraies joues (`cheekPuff`) sur les côtés de la tête.
+  - Brouillon 1 en rendu.
