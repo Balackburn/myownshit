@@ -4,7 +4,7 @@
 import * as THREE from 'three';
 import { mat, box, cyl, sphere, addOutline } from './style.js';
 import { grp, at, canvasPlane } from './props.js';
-import { makeFaceRig, faceState, hasFaceRig } from './facerig.js';
+import { makeFaceRig, faceState, hasFaceRig, cloneFace } from './facerig.js';
 
 const PI = Math.PI, TAU = 2 * PI;
 const list = v => [].concat(v ?? []);
@@ -17,6 +17,17 @@ function lin(ks, t, dflt) {
 }
 // the turns made from 0 to t at a rate keyed linearly (turns per second)
 function turns(ks, t, n = 120) { if (t <= 0) return 0; const h = t / n; let s = 0; for (let i = 0; i < n; i++) s += (lin(ks, i * h, 0) + lin(ks, (i + 1) * h, 0)) / 2 * h; return s; }
+
+// (pass 2 of 59) the script's face offsets on a painted state, as director3.js applies them to a live face: the photo is the very same grimace
+function faceWith(cf = {}) {
+  const st = cloneFace(faceState(cf.expr || 'grimace')), E = st.eyes, cl = (v, a, b) => Math.max(a, Math.min(b, v));
+  if (cf.cross) { E.L.px = cl(E.L.px + 0.95 * cf.cross, -1, 1); E.R.px = cl(E.R.px - 0.95 * cf.cross, -1, 1); }
+  for (const sd of 'LR') { const b = st.brows[sd], e = E[sd], up = (cf.brow || 0) + (cf['brow' + sd] || 0), sz = (cf.eye || 0) + (cf['eye' + sd] || 0), pz = (cf.pupilSize || 0) + 0.5;
+    if (up) b.dy -= 26 * up; if (sz) e.s = cl(e.s * (1 + sz), 0.5, 1.9); e.ps = cl(e.ps * (1 + pz), 0.3, 3.4); }
+  if (typeof cf.mouth === 'string' && cf.mouth) st.mouth = { ...st.mouth, spr: cf.mouth, w: 1, h: 1, tilt: 0, dx: 0, dy: 0 };
+  if (cf.mouthW || cf.mouthH || cf.mouthTilt) st.mouth = { ...st.mouth, w: st.mouth.w * (1 + (cf.mouthW || 0)), h: st.mouth.h * (1 + (cf.mouthH || 0)), tilt: st.mouth.tilt + (cf.mouthTilt || 0) };
+  return st;
+}
 
 export const GRIMACE_PROPS = {
   // A weathervane (pivot at the foot of its rod, on a roof ridge): a black iron rod o.h (1.2) tall, the four letters N S E O on a cross, and on top an
@@ -55,7 +66,9 @@ export const GRIMACE_PROPS = {
     const rate = t => lin(o.spin || [[0, 0]], t, 0), sign = t => Math.sign(rate(t)) || 1;
     g.userData.update = t => { let yaw = TAU * turns(o.spin || [[0, 0]], t) + (o.yaw0 ?? 0); const w = o.wobble; if (w && t >= w[0]) { const u = t - w[0]; yaw += 0.25 * Math.sin(u * 22) * Math.exp(-u * 5); }
       const L = o.lift, u = L ? t - L[0] : -1;
-      if (u >= 0) { vane.rotation.y = yaw; top.rotation.y = 0; vane.position.set((L[2] ?? 0) * u, 0.3 * u + 0.5 * (L[1] ?? 6) * u * u, 0); } else { vane.rotation.y = 0; vane.position.set(0, 0, 0); top.rotation.y = yaw; }
+      // (pass 2 of 59) o.lift [t0, rise (s), height (m), hover (s), zip (m/s²)]: it unscrews up slowly, hovers bobbing, then zips off; three values: the old climb
+      const ph = L && L.length >= 5 ? (u < L[1] ? L[2] * u / L[1] : u < L[1] + L[3] ? L[2] + 0.06 * Math.sin((u - L[1]) * 18) : L[2] + 0.5 * L[4] * (u - L[1] - L[3]) ** 2) : 0;
+      if (u >= 0) { vane.rotation.y = yaw; top.rotation.y = 0; if (L.length >= 5) vane.position.set(0, ph, 0); else vane.position.set((L[2] ?? 0) * u, 0.3 * u + 0.5 * (L[1] ?? 6) * u * u, 0); } else { vane.rotation.y = 0; vane.position.set(0, 0, 0); top.rotation.y = yaw; }
       const rr = Math.abs(rate(t)), bl = o.blur ?? 1.2, on = rr > bl;
       ghosts.forEach((gh, i) => { gh.visible = on; gh.rotation.y = -sign(t) * Math.min(0.5, 0.12 * rr) * (i + 1); }); };
     g.userData.update(0); return g;
@@ -83,7 +96,7 @@ export const GRIMACE_PROPS = {
   // printed across it (the stamp's imprint is part of the photo, above its face)
   grimacePhoto(o) {
     const w = o.w ?? 0.1, h = w * 1.25, g = grp(at(box(w * 1.12, h * 1.1, 0.002, '#FFFFFF', { outline: 0.004 }), 0, 0, 0));
-    let face = null; if (hasFaceRig) { try { const fr = makeFaceRig(null); fr.set(faceState(o.expr || 'grimace')); face = fr.canvas; } catch (e) { face = null; } }
+    let face = null; if (hasFaceRig) { try { const fr = makeFaceRig(null); fr.set(o.face ? faceWith(o.face) : faceState(o.expr || 'grimace')); face = fr.canvas; } catch (e) { face = null; } }   // o.face: the script's face dict
     const draw = (c, W, H) => { c.fillStyle = '#9CC9E8'; c.fillRect(0, 0, W, H);
       c.fillStyle = '#1F2E4A'; c.fillRect(W * 0.08, H * 0.8, W * 0.84, H * 0.2); c.fillStyle = '#F2F2EC'; c.beginPath(); c.moveTo(W * 0.42, H * 0.8); c.lineTo(W * 0.5, H * 0.92); c.lineTo(W * 0.58, H * 0.8); c.fill();
       c.fillStyle = '#C8202A'; c.fillRect(W * 0.48, H * 0.82, W * 0.04, H * 0.18);
@@ -96,6 +109,19 @@ export const GRIMACE_PROPS = {
         c.strokeRect(-W * 0.46, -H * 0.075, W * 0.92, H * 0.15); c.font = `900 ${Math.round(H * 0.11)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.stamp, 0, H * 0.008, W * 0.86); c.restore(); } };
     const plane = canvasPlane(w, h, draw, { res: 384 }); plane.position.z = 0.0015; g.add(plane);
     g.userData.grip = [0, -h * 0.4, 0]; return g;
+  },
+
+  // A carnival banner across a street (pivot at its middle, front +Z): a cloth o.w (5) by o.h (0.9) in stripes with « CARNAVAL » (o.text) on it,
+  // hung from two ropes to the facades at o.span (14) metres, with pennants along its top edge; it sways a little
+  carnivalBanner(o) {
+    const w = o.w ?? 5, h = o.h ?? 0.9, span = o.span ?? 14, g = grp(), cloth = grp(); g.add(cloth);
+    const pl = canvasPlane(w, h, (c, W, H) => { const cols = ['#E8463A', '#F5C33B', '#3A9BDC', '#52B76A', '#C255C8']; for (let i = 0; i < 10; i++) { c.fillStyle = cols[i % 5]; c.fillRect(i * W / 10, 0, W / 10 + 1, H); }
+      c.fillStyle = 'rgba(255,255,255,0.88)'; c.fillRect(W * 0.04, H * 0.16, W * 0.92, H * 0.68); c.fillStyle = '#C8202A'; c.font = `900 ${Math.round(H * 0.52)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.fillText(o.text || 'CARNAVAL', W / 2, H * 0.53, W * 0.86); }, { res: 768 });
+    cloth.add(pl, at(box(w + 0.06, 0.05, 0.05, '#7A5A3C'), 0, h / 2 + 0.02, 0));
+    for (const sx of [-1, 1]) { const len = (span - w) / 2, rope = at(box(len, 0.02, 0.02, '#5A4A3A'), sx * (w / 2 + len / 2), h / 2 + 0.25, 0, 0, 0, sx * -0.08); g.add(rope); }
+    g.userData.update = t => { cloth.rotation.x = 0.06 * Math.sin(t * 2.2); cloth.position.z = 0.04 * Math.sin(t * 2.2); };
+    g.userData.update(0); return g;
   },
 
   // A gust: o.n (14) leaves blown along +X across o.w (5) metres from o.startAt for o.dur (0.9) seconds, fluttering, o.h high (pivot where they enter)

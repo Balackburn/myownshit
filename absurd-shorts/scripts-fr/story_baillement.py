@@ -34,7 +34,7 @@ JLEN = r(HEADY / 0.5 + 0.02)                                             # the d
 JAWDOWN = {'jaw': 1.0, 'jawLen': JLEN, 'jawBlock': 1.0, 'jawFwd': JF}
 CHINX = r(ME[0] + FX * (0.085 + JF))                                     # where the chin lands, in front of his feet
 MOUTHTOP = 1.78                                                          # the top of the open mouth (under his nose)
-DEAD = {'lid': 0.45, 'pupil': 1.0}                                         # (final pass) bigger pupils: 3 px slits disappeared on a phone
+DEAD = {'lid': 0.45, 'pupilSize': 0.5}                                     # (final pass) bigger pupils (the painted eyes read pupilSize: 'pupil' sizes popped eyeballs only): 3 px slits disappeared on a phone
 BURST = lambda pid, pos, at_, text, w=0.5: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.78, 'fit': 0.56})
 FACE = lambda extra=None: {**JAWDOWN, **DEAD, **(extra or {})}           # his face with the jaw on the pavement
 TONGUE = lambda pid, unroll=None: P(pid, 'tongueSlide', pos=[r(CHINX - 0.02), 0.0, ME[2]], ry=-90, opts={'len': 1.55, 'w': 0.26, **({'unroll': unroll} if unroll else {})})
@@ -276,11 +276,11 @@ for t_ in KN10: st.cue('thud', 'S10', t_, 0.25)
 D11 = st.dur('S11'); OUT11 = 0.22; TAKE11 = 0.62
 LIPS = [r(ME[0] + FX * 0.16), r(HEADY + 0.15), ME[2]]                     # (final pass) at his upper lip: half the letter over the dark open mouth reads as half in it
 READ = [r(ME[0] - 0.4), 1.38, ME[2]]
-RHOLD = lambda face: {'reach': {'R': [READ[0], READ[1], r(READ[2] - 0.12), 1, 0.05], 'L': [READ[0], READ[1], r(READ[2] + 0.12), 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'pupil': 1.0, **face}}
+RHOLD = lambda face: {'reach': {'R': [READ[0], READ[1], r(READ[2] - 0.12), 1, 0.05], 'L': [READ[0], READ[1], r(READ[2] + 0.12), 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'pupilSize': 0.5, **face}}
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.6}}, toonDur=0.0),
-            k(round(OUT11 - 0.08, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.2, 'gy': 0.6, 'pupil': 1.0, 'jaw': 0.6, 'jawLen': 0.42, 'jawBlock': 1.0, 'jawFwd': 0.0}}, toonDur=0.06),   # (pass 3) a slot opens in his mouth...
-            k(round(TAKE11 + 0.05, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5, 'pupil': 1.0, 'jaw': 0.0, 'jawLen': 0.42, 'jawBlock': 1.0}}, toonDur=0.08),   # ...and shuts once the letter is taken
+            k(round(OUT11 - 0.08, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.2, 'gy': 0.6, 'pupilSize': 0.5, 'jaw': 0.6, 'jawLen': 0.42, 'jawBlock': 1.0, 'jawFwd': 0.0}}, toonDur=0.06),   # (pass 3) a slot opens in his mouth...
+            k(round(TAKE11 + 0.05, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5, 'pupilSize': 0.5, 'jaw': 0.0, 'jawLen': 0.42, 'jawBlock': 1.0}}, toonDur=0.08),   # ...and shuts once the letter is taken
             k(round(TAKE11 - 0.2, 3), toon={'reach': {'R': [r(LIPS[0] - 0.06), r(LIPS[1] + 0.07), r(LIPS[2] - 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5}}, toonDur=0.18, toonEase='inOut'),   # he takes it by its corner...
             k(round(TAKE11 + 0.15, 3), toon=RHOLD({'lid': 0.4, 'gy': 0.9, 'gx': 0.0}), toonDur=0.25, toonEase='inOut'), k(1.12, toon={**RHOLD({'lid': 0.4, 'gy': 0.85, 'gx': 0.15}), 'sq': [1.0, 1.025, 1.0]}, toonDur=0.25, toonEase='inOut'),   # (final pass) reading, eyes down on it; a breath (0.6 s froze)
             k(round(TAKE11 + 0.2, 3), look=[READ[0], READ[1], READ[2]]),   # ...and reads it, his head down to it...

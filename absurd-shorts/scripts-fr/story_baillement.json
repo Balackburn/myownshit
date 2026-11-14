@@ -175,7 +175,7 @@
        "toon": {
         "face": {
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         }
        },
        "toonDur": 0.0
@@ -991,7 +991,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "pop": 0.0
         },
         "tieHide": 1
@@ -1007,7 +1007,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.7
         },
         "tieHide": 1
@@ -1032,7 +1032,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.0
         },
         "tieHide": 1
@@ -1058,7 +1058,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gx": 0.3
         },
         "tieHide": 1
@@ -1075,7 +1075,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 1.0,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -1090,7 +1090,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -1241,7 +1241,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -1998,7 +1998,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2158,7 +2158,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2173,7 +2173,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.6,
          "gx": -0.3
         },
@@ -2202,7 +2202,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2217,7 +2217,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 1.0,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2237,7 +2237,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2815,7 +2815,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2830,7 +2830,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 1.0,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -2845,7 +2845,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gx": 0.4
         },
         "tieHide": 1
@@ -3479,7 +3479,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.3
         },
         "tieHide": 1
@@ -3502,7 +3502,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.8
         },
         "tieHide": 1
@@ -3525,7 +3525,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.9,
          "gx": -0.4
         },
@@ -3550,7 +3550,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.8,
          "gx": -0.6
         },
@@ -4010,7 +4010,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0
+         "pupilSize": 0.5
         },
         "tieHide": 1
        },
@@ -4025,7 +4025,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.4,
          "gx": 0.4
         },
@@ -4042,7 +4042,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.4,
          "gx": 0.4
         },
@@ -4059,7 +4059,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.4,
          "gx": 0.4
         },
@@ -4488,7 +4488,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.25
         },
         "tieHide": 1
@@ -4504,7 +4504,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.55
         },
         "tieHide": 1
@@ -4520,7 +4520,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.9
         },
         "tieHide": 1
@@ -4536,7 +4536,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 1.0,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.9
         },
         "tieHide": 1
@@ -4552,7 +4552,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.35
         },
         "tieHide": 1
@@ -4670,7 +4670,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.45,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "gy": 0.5
         },
         "tieHide": 1
@@ -4691,7 +4691,7 @@
          "jawBlock": 1.0,
          "jawFwd": 0.22,
          "lid": 0.6,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "brow": -0.3
         },
         "tieHide": 1
@@ -6345,7 +6345,7 @@
          "lid": 0.45,
          "cheeks": 0.2,
          "gy": 0.6,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "jaw": 0.6,
          "jawLen": 0.42,
          "jawBlock": 1.0,
@@ -6361,7 +6361,7 @@
          "lid": 0.45,
          "cheeks": 0.3,
          "gy": 0.5,
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "jaw": 0.0,
          "jawLen": 0.42,
          "jawBlock": 1.0
@@ -6417,7 +6417,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 0.4,
          "gy": 0.9,
          "gx": 0.0
@@ -6450,7 +6450,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 0.4,
          "gy": 0.85,
          "gx": 0.15
@@ -6496,7 +6496,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 0.45,
          "gy": -0.2
         }
@@ -6531,7 +6531,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 1.0
         }
        },
@@ -6561,7 +6561,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 0.45
         }
        },
@@ -6591,7 +6591,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 0.4
         },
         "sq": [
@@ -6635,7 +6635,7 @@
          "L": "pinch"
         },
         "face": {
-         "pupil": 1.0,
+         "pupilSize": 0.5,
          "lid": 0.45
         }
        },
