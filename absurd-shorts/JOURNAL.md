@@ -2090,3 +2090,14 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 57 « La porte tournante » : **livrée** (1080 × 1920, 16,6 s, −16,1 LUFS, contrôles HyperFrames sans erreur, deux avertissements de
   contraste sur des mots-clés des sous-titres cernés de noir, lisibles ; aucune chute de saturation). Revues 6,0/6,5 → 6,5/6,5 → 6,5/7,0,
   passe finale contrôlée en images. Dix lignes ajoutées au catalogue.
+- 58 « Le bâillement » : revue 3 = animation 7,2, direction artistique 7,0. Décision (« À voir avec l'utilisateur » du critique animation :
+  agrandir ses yeux) : le modèle de la série reste ; les pupilles grossissent dans le modèle (`pupilSize`) et des mouvements de tête suivent
+  chaque événement. Passe finale contrôlée en images : lettres qui tombent dans la fente (accrochées à sa tête), YOUPI ! sur la mamie, file
+  variée (enfant, cheveux gris, chapeaux), applaudissements devant la poitrine, envoi en plan à deux du bon côté, claquement sur un seul
+  angle, poing qui bombe la chemise blanche avec trois coups croissants, lettre à moitié sortie des lèvres. Rendu final en cours.
+- 59 « La grimace » : revue 1 = animation 7,1, direction artistique 6,0 (grimaces trop timides et visages trop petits, photo qui ne lui
+  ressemblait pas, REFUSÉE absent, renvoi pris pour une accolade). Décision (« À voir avec l'utilisateur » du critique art : le ciel cyan) :
+  retour au ciel pastel de la série. Passe 2 : grimace aux yeux ouverts qui louchent et bouche deux fois plus large, photo peinte par son
+  propre rig, REFUSÉE imprimé sur la photo, banderole CARNAVAL, grosse tête qui gonfle en huit images, girouette qui se dévisse, plane et file,
+  foule en gros plan balayée par la rafale, doigt dans le cadre, révélation de son visage avant la peur.
+- 60 « L'écho » : brouillon 1 rendu (une tenue figée de 0,47 s en S05) ; revue 1 en cours.

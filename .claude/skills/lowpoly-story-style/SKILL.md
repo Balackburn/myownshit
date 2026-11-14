@@ -1205,3 +1205,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   visage : `['face', ±0.58, 0.55, -0.06]` (juste derrière le bord du visage, à hauteur des yeux).
 - (cycle 22) Un panneau en `canvasPlane` (double face) vu de dos se lit en miroir (« SOMMET » à l'envers). Deux plans dos à dos en face avant
   seulement, ou orienter le panneau vers la caméra.
+- (cycle 22) Grossir les pupilles avec `'pupil'` dans `face` : ce canal ne règle que les yeux sortis sur tiges ; les yeux peints lisent
+  `'pupilSize'` (0,5 = moitié plus grandes, en plus du `pupil` du script). Des pupilles de 3 px disparaissaient sur un téléphone (58, 59).
+- (cycle 22) Des accessoires placés dans le monde autour d'un personnage qui respire et se balance (lettres qui tombent dans sa bouche) :
+  ils passent à côté et derrière lui (58 : les lettres sur le revers). Les accrocher à son articulation (`on: {actor, joint: 'head'}`) et les
+  animer dans ce repère (accessoire `slotLetters`).
+- (cycle 22) Un portrait d'un personnage dessiné à la main (la photo d'identité de 59) ne lui ressemble pas : yeux ronds, sans barbe. Le faire
+  peindre par son propre rig facial (`makeFaceRig` + `faceState`, avec les mêmes décalages de visage que le script).
