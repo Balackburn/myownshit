@@ -2153,3 +2153,20 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 61 « Le ressort » : trois séries d'images de contrôle (assis pour de bon avec `then='sit'`, ressort visible sans poussière, insert du
   formulaire entier, abat-jour en tambour, fin au-dessus de la chaussée avec la rue et la tour derrière lui) ; l'envol refait en plan qui
   monte avec lui sur la tête et les épaules (de loin et étiré il n'était qu'un trait) ; brouillon 1 en rendu.
+- 60 « L'écho » : revue 2 = animation 6,5, direction artistique 7,2. Décision (« À voir avec l'utilisateur » du critique animation :
+  S06, S07 et S10 ne durent que 0,73 à 0,83 s, fixées par la voix) : la voix ne bouge pas ; chacun de ces plans est ramené à une seule
+  action lisible (le randonneur : regard, puis bras qui part pointer ; le fermier : la mâchoire qui tombe et la casquette qui monte au-dessus
+  du mot ; la nuit : la mère et le petit qui tremblent, mains sur les oreilles). Passe 3 : l'accroche en trois plans (le sommet de face avec
+  le rocher et le vide dessous ; coupe sur l'inspiration tenue en plan poitrine, les mains qui encadrent la mâchoire étirée au lieu de la
+  cacher, le mot qui sort de la bouche et grossit vers l'objectif une demi-seconde ; contrechamp en plongée par-dessus sa tête, le mot qui
+  rapetisse pour de bon, le village minuscule, des nuages sous le sommet) ; une grosse main en cornet derrière l'oreille et le soleil de
+  notre côté (le costume virait au brun en contre-jour) ; le mime qui s'ouvre d'abord en V, bras levés hors du costume, puis claque dans le
+  cri muet, sans plaque dans la bande des sous-titres ; l'enseigne coupée « RMERIE » sortie du cadre ; la double prise tenue sept images en
+  tremblant, le chapeau sous le carton DISPARU, la penchée vers l'affiche ; randonneur plus près, vallée caillouteuse et arbres ; fermier
+  à la mâchoire en bloc sous une bouche noire, vache qui se retourne, clôture et ferme ; la crêpe vue d'au-dessus de ses pieds, visage à
+  l'endroit, bras écartés au sol, grosses étoiles, SPLAT deux fois plus grand ; la planche et le POP dans un plan moyen (planche qui
+  ondule, POP gonflé bien au-delà, retombée en vagues, clignement) ; un petit garçon à la moitié de la taille de sa mère, bonnet rouge, qui
+  hurle les yeux fermés ; l'amende claquée sur un front tourné vers nous ; un vrai gros plan final sous le carton TAPAGE, l'amende plus
+  grande, le petit « ohé » blanc qui descend à côté du visage jusqu'à l'épaule. Images de contrôle en rendu.
+- 61 « Le ressort » : brouillon 1 rendu (494 images, aucune image grise ; un arrêt de 0,73 s en S12, « en plein vol » : à animer de petits
+  mouvements) ; dossier de revue 1 en préparation.
