@@ -120,7 +120,9 @@ export const ECHO_PROPS = {
     g.add(at(box(r0 * 1.5, 0.06, 0.06, '#8A6A45'), 0, 0.95, r0 * 0.82), at(box(r0 * 1.5, 0.05, 0.05, '#8A6A45'), 0, 0.55, r0 * 0.82));
     const sign = canvasPlane(0.6, 0.3, (c, W, H) => { c.fillStyle = '#F4EBD8'; c.fillRect(0, 0, W, H); c.strokeStyle = '#7A5A3C'; c.lineWidth = W * 0.03; c.strokeRect(0, 0, W, H);
       c.fillStyle = '#2A2C30'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Math.round(H * 0.34)}px Arial`; c.fillText('SOMMET', W / 2, H * 0.36); c.font = `700 ${Math.round(H * 0.26)}px Arial`; c.fillText(o.alt ?? '2 040 m', W / 2, H * 0.72); }, { res: 256 });
-    g.add(at(cyl(0.04, 0.04, 1.5, '#7A5A3C', 6, { pivot: 'bottom' }), r0 * 0.75, 0, -r0 * 0.3), at(sign, r0 * 0.75, 1.35, -r0 * 0.3 + 0.045));
+    // (check) a sign on both faces: one double-sided plane read mirrored from behind
+    sign.material.side = THREE.FrontSide; const back = sign.clone(); back.material = sign.material.clone(); back.material.side = THREE.FrontSide; back.rotation.y = PI;
+    g.add(at(cyl(0.04, 0.04, 1.5, '#7A5A3C', 6, { pivot: 'bottom' }), r0 * 0.75, 0, -r0 * 0.3), at(sign, r0 * 0.75, 1.35, -r0 * 0.3 + 0.045), at(back, r0 * 0.75, 1.35, -r0 * 0.3 - 0.045));
     return g;
   },
 };

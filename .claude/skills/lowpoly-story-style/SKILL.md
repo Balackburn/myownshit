@@ -1200,3 +1200,8 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 22) Des décalages de visage seuls (`cross`, `eyeL`, `browL`, `tongue`…) posés sur les paupières lourdes du mec : la grimace se lisait
   comme son air blasé habituel (59). Les poser sur une expression peinte (`'expr': 'grimace', 'exprW': 0.9`) ; une base différente par
   figurant (`angry`, `disgusted`, `shocked`, `suspicious`, `scared`) varie une foule de grimaces.
+- (cycle 22) Une main sur l'oreille donnée dans le repère de la tête (`['head', 0.9, 0.55, 0]`) : ce repère compte en mètres, la main partait
+  presque un mètre au-dessus de la tête et le bras se dressait (60 : « mains sur les oreilles » devenues bras levés). Utiliser le repère du
+  visage : `['face', ±0.58, 0.55, -0.06]` (juste derrière le bord du visage, à hauteur des yeux).
+- (cycle 22) Un panneau en `canvasPlane` (double face) vu de dos se lit en miroir (« SOMMET » à l'envers). Deux plans dos à dos en face avant
+  seulement, ou orienter le panneau vers la caméra.
