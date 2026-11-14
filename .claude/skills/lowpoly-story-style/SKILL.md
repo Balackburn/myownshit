@@ -1187,3 +1187,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   `stand`, ou allonger le déplacement jusqu'à la sortie du cadre.
 - (cycle 22) Un accessoire tourné vers la caméra (`face='camera'`) pivote autour de son origine : une trajectoire calculée à l'intérieur de
   l'accessoire tourne avec lui et part ailleurs. Le faire voler avec des clés de déplacement (`to`, `dur`) en coordonnées du monde.
+- (cycle 22) Des décalages de visage seuls (`cross`, `eyeL`, `browL`, `tongue`…) posés sur les paupières lourdes du mec : la grimace se lisait
+  comme son air blasé habituel (59). Les poser sur une expression peinte (`'expr': 'grimace', 'exprW': 0.9`) ; une base différente par
+  figurant (`angry`, `disgusted`, `shocked`, `suspicious`, `scared`) varie une foule de grimaces.

@@ -2071,3 +2071,19 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   occupaient 3 à 10 % du cadre : cadrages resserrés, mairie remise en scène (lui triché vers nous, la photo à côté de son visage, l'employée
   de trois quarts), tampon en insert vu d'en haut. Décision : le mec reste impassible sous la grimace (ses yeux louchent mais ne jouent pas),
   les réactions vont aux autres ; son visage normal à la fin est la chute.
+
+## Cycle 22
+
+- Analyse (cinq faiblesses retenues des revues 3 de 57 et 2 de 58 et des premières images de 59) : la pose clé noyée dans un fond de même
+  valeur (le costume marine sur l'auvent marine, la bosse marine sur la veste) : donner un contraste de valeur à chaque pose clé (fond clair,
+  contre-jour) ; les réactions qui se répètent (cheveux dressés trois fois, yeux sur tiges deux fois dans 57) : un budget de réactions, les
+  yeux sur tiges une seule fois par film, les autres réactions variées (mâchoire, chapeau, pupilles minuscules, tremblement) ; des gags de
+  visage filmés trop loin (visages à 3-10 % du cadre dans les premières images de 59) : visage à 12 % au moins de la hauteur pour un gag de
+  visage, plan large seulement pour un gag d'espace ; des accessoires qui se lisent comme autre chose (barbe en boules, bonnet en casque,
+  ciseaux en guitare) : vérifier la silhouette de chaque nouvel accessoire en image de contrôle avant le brouillon ; des tenues figées :
+  respiration et clignement dans toute tenue de plus d'une demi-seconde, occupations des figurants.
+- Outils : traits de vitesse (`speedLines`) ; vol d'un accessoire tourné vers la caméra par clés en coordonnées du monde (aide `FLY`) ;
+  grimaces construites sur une expression peinte (`expr`) plus des décalages par trait.
+- 60 « L'écho » : voix (17,9 s), accessoires (`props_echo.js` : lettres découpées du cri, chaînes de montagnes, avis de recherche,
+  amende, sommet rocheux, traits de vitesse), script de treize plans. Décision : le budget de réactions s'applique déjà (yeux sur tiges
+  gardés pour le retour de l'écho en S08 ; le randonneur ouvre de grands yeux, le gamin a les pupilles qui tremblent).
