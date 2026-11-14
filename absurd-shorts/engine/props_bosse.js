@@ -132,16 +132,19 @@ export const BOSSE_PROPS = {
       dress.add(rod([LA.x, LA.y, LA.z], [LB.x, LB.y, LB.z], 0.003, '#2A2A30'));
       for (let i = 0; i < (o.chairs ?? 5); i++) { const c = liftChair(1, ['#D93A3A', '#2F6FB5', '#F2C230'][i % 3]); dress.add(c); chairs.push(c); }
     }
-    const hikers = list(o.hikers).map((h, i) => { const f = figure('hiker', h[2] || ['#3C8DD9', '#E0A030', '#C8463A'][i % 3], 0.13, 11 + i); dress.add(f.g); return { f, u0: h[0] ?? 0, sp: h[1] ?? 0.08 }; });
-    const skiers = list(o.skiers).map((s, i) => { const f = figure('skier', s[2] || ['#E04A3A', '#3A8FE0', '#7A4AC8', '#2EA86A'][i % 4], 0.13, 21 + i); dress.add(f.g); return { f, u0: s[0] ?? 0, sp: s[1] ?? 0.22, side: s[3] ?? (i * 1.7) }; });
+    // (pass 4 of 56) o.figH (0.13 of the radius): the size of the hikers and skiers on the hill (at 25-40 px the reviewers could not read them)
+    const hikers = list(o.hikers).map((h, i) => { const f = figure('hiker', h[2] || ['#3C8DD9', '#E0A030', '#C8463A'][i % 3], o.figH ?? 0.13, 11 + i); dress.add(f.g); return { f, u0: h[0] ?? 0, sp: h[1] ?? 0.08 }; });
+    const skiers = list(o.skiers).map((s, i) => { const f = figure('skier', s[2] || ['#E04A3A', '#3A8FE0', '#7A4AC8', '#2EA86A'][i % 4], o.figH ?? 0.13, 21 + i); dress.add(f.g); return { f, u0: s[0] ?? 0, sp: s[1] ?? 0.22, side: s[3] ?? (i * 1.7) }; });
     // the doctor's tape measure, laid down a meridian of the ball
-    const tp = o.tape; let tapeSegs = [], hook = null, tag = null;
+    const tp = o.tape; let tapeSegs = [], hook = null, tag = null, ghosts = [];
     const TN = 40, TEND = tp?.end ?? 2.5;
     if (tp) {
       const ph = tp.phi ?? PI / 2;
       for (let i = 0; i < TN; i++) { const a = S(TEND * i / TN, ph, 0.012), b = S(TEND * (i + 1) / TN, ph, 0.012);
         const sg = box(tp.w ?? 0.04, 0.006, a.distanceTo(b) * 1.04, i % 4 === 3 ? '#1C1C1E' : '#F5CE2E'); sg.position.copy(a).add(b).multiplyScalar(0.5); sg.lookAt(b); dress.add(sg); tapeSegs.push(sg); }
       hook = box(0.06, 0.03, 0.04, '#B88A3A', { outline: 0.03 }); dress.add(hook);
+      // (pass 4 of 56) three fading yellow copies trail the flying hook: a smear that reads at phone size (one small brown box crossed in 4 frames, unseen)
+      ghosts = [0.55, 0.35, 0.2].map(op => { const m = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.03, 0.04), new THREE.MeshBasicMaterial({ color: '#F5CE2E', transparent: true, opacity: op, depthWrite: false })); m.visible = false; m.userData.noAO = true; dress.add(m); return m; });
       if (tp.readout) { const tw = tp.tagW ?? 0.55, th = tw * 0.42; tag = canvasPlane(tw, th, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#1C1C1E'; c.lineWidth = H * 0.06; c.strokeRect(0, 0, W, H);
           c.fillStyle = '#1C1C1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let fs = H * 0.62; c.font = `900 ${fs}px Arial`; while (c.measureText(tp.readout[0]).width > W * 0.86) { fs -= 2; c.font = `900 ${fs}px Arial`; } c.fillText(tp.readout[0], W / 2, H * 0.54); }, { res: 384 });
         tag.material = new THREE.MeshBasicMaterial({ map: tag.material.map, side: THREE.DoubleSide, toneMapped: false }); const tph = ph + (tp.tagDphi ?? 0), tq = S(tp.tagAt ?? 0.32, tph, 0.08); tag.position.copy(tq); tag.rotation.y = PI / 2 - tph; dress.add(tag); }   // (pass 4 of 56) tagDphi: the tag beside the tape, not on it
@@ -156,7 +159,7 @@ export const BOSSE_PROPS = {
       let R = keyed(o.grow, t, o.r ?? 0.06);
       const th = o.throb; if (th) { const [amp, rate = 1.6, t0 = -1e9, t1 = 1e9] = th; if (t >= t0 && t <= t1) { const ph = ((t - t0) * rate) % 1; R *= 1 + amp * Math.exp(-ph * 7) * (1 - Math.exp(-ph * 55)); } }
       let sy = 1, sxz = 1;
-      const df = o.deflate; if (df) { const u = (t - df[0]) / (df[1] || 0.5); if (u >= 1) R = 0.0001; else if (u > 0) { R *= Math.max(0.0001, 1 - sstep(u)); const wv = Math.sin(u * 40) * 0.22 * (1 - u); sy = 1 - 0.38 * sstep(Math.min(1, u * 1.6)) + wv; sxz = 1 + 0.18 * Math.sin(Math.min(1, u * 1.3) * PI) - wv * 0.6; } }   // (pass 2 of 56) it sags and bulges as it empties (it shrank evenly)
+      const df = o.deflate; if (df) { const u = (t - df[0]) / (df[1] || 0.5); if (u >= 1) R = 0.0001; else if (u > 0) { R *= Math.max(0.0001, 1 - Math.pow(u, 1.5)); const wv = Math.sin(u * 28) * 0.3 * (1 - u); sy = 1 - 0.3 * sstep(Math.min(1, u * 1.4)) + wv; sxz = 1 + 0.2 * Math.sin(Math.min(1, u * 1.3) * PI) - wv * 0.7; } }   // (pass 2 of 56) it sags and bulges as it empties (it shrank evenly); (pass 4) slower at first, a bigger, slower wobble: it was gone in 10 frames
       size = R; dg.scale.set(R * sxz, R * sy, R * sxz); dg.position.y = lift0(R); dg.visible = R > 0.0005;
       if (plaster) plaster.visible = !!df && t >= df[0] + (df[1] || 0.5) * 0.85;
       if (grass && o.grassAt != null) { const u = Math.max(0, Math.min(1, (t - o.grassAt) / 0.35)); grass.visible = u > 0.01; grass.geometry.setDrawRange(0, Math.ceil(grass.geometry.index.count * Math.max(0.02, u) / 3) * 3); }
@@ -170,14 +173,18 @@ export const BOSSE_PROPS = {
       if (flag) flag.userData.cloth.rotation.y = 0.25 * Math.sin(t * 7);
       if (tp) {
         let u = keyed(tp.u, t, 0), fly = -1;
-        if (tp.snap != null && t >= tp.snap) { const v = (t - tp.snap) / 0.12; if (v < 1) u *= 1 - v * v; else { u = 0; fly = (t - tp.snap - 0.12) / 0.18; } }
+        const SNAPD = 0.2, FLYD = 0.14;   // (pass 4 of 56) the tape whips up in 6 frames, the hook flies in 4 and hangs on the nose 8 before it drops (it left in a frame: CLAC with no hook)
+        if (tp.snap != null && t >= tp.snap) { const v = (t - tp.snap) / SNAPD; if (v < 1) u *= 1 - v * v; else { u = 0; fly = (t - tp.snap - SNAPD) / FLYD; } }
         const n = Math.round(u * TN); tapeSegs.forEach((sg, i) => { sg.visible = i < n; });
         const ph = tp.phi ?? PI / 2, end = S(TEND * Math.max(0.002, u), ph, 0.03);
         // (pass 2 of 56) tp.hookTo [x, y, z] (in the ball's own frame, radius 1): the hook flies on an arc from the top to that point (the doctor's nose)
         // and hangs there 0.2 s before it drops (it flew straight up off the top: the CLAC had no cause)
-        if (fly < 0) { hook.visible = u > 0.01; hook.position.copy(end); }
-        else if (tp.hookTo) { const [hx, hy, hz] = tp.hookTo, f = Math.min(1, fly), e = f * f * (3 - 2 * f); hook.visible = fly < 2.1;
-          hook.position.set(hx * e, HR + (hy - HR) * e + 0.35 * Math.sin(f * PI), hz * e - (fly > 1.1 ? (fly - 1.1) * 0.6 : 0)); hook.rotation.set(fly < 1 ? fly * 7 : 0.3, 0, 0); }
+        ghosts.forEach(gh => { gh.visible = false; });
+        if (fly < 0) { hook.visible = u > 0.01; hook.position.copy(end); hook.scale.setScalar(1); }
+        else if (tp.hookTo) { const [hx, hy, hz] = tp.hookTo, arc = f0 => { const f = Math.min(1, Math.max(0, f0)), e = f * f * (3 - 2 * f); return [hx * e, HR + (hy - HR) * e + 0.35 * Math.sin(f * PI), hz * e]; };
+          const dr = Math.max(0, fly - 3.0), q = arc(fly); hook.visible = fly < 4.5; hook.scale.setScalar(2.2);   // on the nose from 1 to 3, then it drops
+          hook.position.set(q[0], q[1] - dr * dr * 0.45, q[2] + dr * 0.08); hook.rotation.set(fly < 1 ? fly * 7 : 0.3 + dr * 5, 0, 0);
+          ghosts.forEach((gh, i) => { const fg = fly - 0.18 * (i + 1); gh.visible = fly < 1.25 && fg > -0.05; if (!gh.visible) return; const p = arc(fg); gh.position.set(p[0], p[1], p[2]); gh.rotation.copy(hook.rotation); gh.scale.setScalar(2.2 * (1 - 0.15 * (i + 1))); }); }
         else { hook.visible = fly < 1; hook.position.set(0, HR * (1 + 0.6 * fly), 0.15 * fly); hook.rotation.x = fly * 9; }
         if (tag) tag.visible = t >= (tp.readout[1] ?? -1e9) && t <= (tp.readout[2] ?? 1e9) && (tp.snap == null || t < tp.snap);
       }
