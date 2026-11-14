@@ -17,12 +17,14 @@
 //   skin: { color, k: 0..1, glow: 0..1, fill: 0..1 }   (cycle 24, story 62) the skin (hands, neck, ears, the painted head) multiplied toward `color`
 //         by k and lit from inside by glow (a sunburn, a face going green, a glow in the dark); fill rises from the hands (0.4) to the neck (0.8)
 //         and the head (1.0), a thermometer filling up; without the channel the skin goes back to its own colour
+//         (review 1 of 62) from 0.8 to 1 the head fills gradually: a level climbs the painted face from the chin under a wavy edge, the head's other faces follow
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
 //   yaw: rad   (cycle 19) the whole body turned about its own vertical axis, on top of its facing (keys in turns: k(t, toon={'yaw': 2 * PI * n},
 //         toonEase='linear') spins him n times without the stutter of a chain of facing keys)
 //   lay: [rx, rz] (rad)   (cycle 6) the whole body tipped about his feet, in his own frame: -PI / 2 lays him on his back, his head behind him (with
 //         sq [1, 1, 0.03]: a shadow on the ground, a man flat as paper); key it back to 0 and he stands up like a board
 //   tieHide: 1   (cycle 20) the whole tie hidden, knot included (engine/cloth.js): under a jaw dropped as a block it showed in the open mouth
+//   headOnly: 1   (review 1 of 62, director3.js) only the head and what rides on it show: a face in a traffic light, the body hidden behind the holes
 //   tie: [length, forward, aside]   the tie taken in a hand (engine/cloth.js, needs `cloth`): it stretches (1 = its own length, 1.7 = pulled like the cord of a
 //         lamp) and swings toward the hand (radians: forward away from the chest, aside toward his left). Key it back through 0.85 and 1.05: it snaps
 //   wave: { spine|neck|armL|foreL|...: [amp (m), waves, phase (turns), free, axis (rad)] }   a ripple along a part, on top of its bend: `waves` periods
@@ -63,6 +65,7 @@
 //           (cycle 6) tremble: 0..1 (the lip trembles), pupilShake: 0..1 (the pupils shiver), gulp: 0..1 (a lump goes down the neck: key it from 0 to 1 in 0.25 s) }
 import * as THREE from 'three';
 import { blendHands } from './fingers.js';
+const clamp01 = x => Math.max(0, Math.min(1, x));
 
 
 // (final pass of 60) an ear grown into a dish: a bowl the colour of the skin opening along -Y, turned to open out and forward (+Z, the face), its
@@ -398,7 +401,7 @@ export function toonUpgrade(obj) {
       const er = tp.ears || 0, es = tp.earScale ?? 1; for (const e of ears) { const big = es > 1.3; e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); e.m.scale.set(e.s.x * (1 + (es - 1) * 0.35), e.s.y * es, e.s.z * es); e.inner.visible = es > 1.25 && !big;
         e.m.visible = !big; e.dish.visible = big; if (big) e.dish.scale.setScalar(0.05 * es); }   // (final pass of 60) a dish from 1.3 (turned once, out and forward), the box ear below
       if (tp.skin || skinOn) { const S = tp.skin, parts2 = skinParts(); skinOn = !!S; _sc.set(S?.color || '#FFFFFF');   // (cycle 24) the skin channel
-        for (const p of parts2) { const on = S && (S.fill ?? 1) >= p.lv - 1e-6, k = on ? (S.k ?? 1) : 0, gl = on ? (S.glow || 0) : 0;
+        for (const p of parts2) { const fl = S ? (S.fill ?? 1) : 0, part = p.face ? clamp01((fl - 0.8) / 0.2) : (fl >= p.lv - 1e-6 ? 1 : 0), on = S && part > 0, k = on ? (S.k ?? 1) * part : 0, gl = on ? (S.glow || 0) * part : 0;   // (review 1 of 62) the head fills from fill 0.8 to 1
           p.mats.forEach((m, i) => { _wc.setRGB(1, 1, 1).lerp(_sc, k); if (!(p.face && i === 4)) m.color.copy(p.base[i]).multiply(_wc); if (m.emissive && p.baseE[i]) m.emissive.copy(p.baseE[i]).lerp(_sc, gl * (p.face && i === 4 ? 0.4 : 0.85)); }); } }   // (cycle 24) a dish, not a block: the thickness grows a third as fast
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
       face?.(tp.face || {}, t);
@@ -420,6 +423,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
   if (a.earScale != null || b.earScale != null) out.earScale = L(a.earScale ?? 1, b.earScale ?? 1);   // (cycle 24)
   if (a.buzz != null || b.buzz != null) out.buzz = L(a.buzz ?? 0, b.buzz ?? 0);   // (cycle 25) the vibration's amplitude
+  if (a.headOnly || b.headOnly) out.headOnly = (w < 0.5 ? a.headOnly : b.headOnly) ? 1 : 0;   // (review 1 of 62) on or off, no fade
   if (a.skin || b.skin) { const x = a.skin || { ...b.skin, k: 0, glow: 0 }, y = b.skin || { ...a.skin, k: 0, glow: 0 }, ca = new THREE.Color(x.color || '#FFFFFF'), cb = new THREE.Color(y.color || '#FFFFFF');   // (cycle 24) the colour slides from one to the other
     out.skin = { color: '#' + ca.lerp(cb, w).getHexString(), k: L(x.k ?? 1, y.k ?? 1), glow: L(x.glow || 0, y.glow || 0), fill: L(x.fill ?? 1, y.fill ?? 1) }; }
   if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
@@ -458,6 +462,7 @@ export function addToon(a = {}, b = {}) {
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.earScale != null) out.earScale = (a.earScale ?? 1) * b.earScale;   // (cycle 24) a layer scales the ears again
   if (b.buzz != null) out.buzz = (a.buzz ?? 0) + b.buzz;   // (cycle 25)
+  if (b.headOnly != null) out.headOnly = b.headOnly;   // (review 1 of 62)
   if (b.skin) out.skin = b.skin;   // (cycle 24)
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };

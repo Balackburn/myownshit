@@ -80,8 +80,12 @@ export const CAFE_PROPS = {
     const lamps = [], every = o.lampEvery ?? 4;
     for (let x = -L / 2 + every / 2; x < L / 2; x += every) { const lm = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.08), new THREE.MeshBasicMaterial({ color: '#FFE8A8', toneMapped: false })); lm.position.set(x, 2.1, -R + 0.08); g.add(lm); lamps.push(lm); }
     let face = null;
-    if (o.face != null) { face = grp(); for (let i = 0; i < 22; i++) { const r = 0.5 + hash(i) * 0.6, rk = new THREE.Mesh(new THREE.DodecahedronGeometry(r, 0), mat(i % 3 ? '#7A6A58' : '#6A5C4C')); const a = hash(i + 3) * PI, d = hash(i + 9) * (R - 0.3);
-        rk.position.set(hash(i + 5) * 0.4, Math.max(0.2, h0 + Math.sin(a) * d * 0.9), Math.cos(a) * d); rk.rotation.set(hash(i) * 3, hash(i + 1) * 3, 0); face.add(rk); }
+    // (script of 63) the boulders keep to the rim of the bore and stand back in the face (in its middle they filled the place where he digs): big ones
+    // round the edge, small ones studding the face itself, none sticking out more than about 0.45 m
+    if (o.face != null) { face = grp(); for (let i = 0; i < 22; i++) { const r = 0.35 + hash(i) * 0.4, rk = new THREE.Mesh(new THREE.DodecahedronGeometry(r, 0), mat(i % 3 ? '#7A6A58' : '#6A5C4C')); const a = hash(i + 3) * PI, d = R * 0.7 + hash(i + 9) * (R * 0.3 - 0.15);
+        rk.position.set(0.3 + hash(i + 5) * 0.3, Math.max(0.2, h0 + Math.sin(a) * d * 0.9), Math.cos(a) * d); rk.rotation.set(hash(i) * 3, hash(i + 1) * 3, 0); face.add(rk); }
+      for (let i = 0; i < 40; i++) { const r = 0.12 + hash(i + 50) * 0.2, rk = new THREE.Mesh(new THREE.DodecahedronGeometry(r, 0), mat(i % 2 ? '#857462' : '#6E604F')); const a = hash(i + 51) * TAU, d = Math.sqrt(hash(i + 52)) * (R - 0.4);
+        rk.position.set(0.22 + hash(i + 53) * 0.08, Math.min(h0 + R - 0.3, Math.max(0.15, h0 * 0.6 + Math.sin(a) * d)), Math.cos(a) * d); rk.rotation.set(hash(i + 54) * 3, hash(i + 55) * 3, 0); face.add(rk); }
       face.add(at(box(0.3, h0 + R, 2 * R, '#5E5244'), 0.35, (h0 + R) / 2, 0)); face.position.x = o.face; g.add(face); }
     if (o.endCap !== false) g.add(at(box(0.1, h0 + R + 0.2, 2 * R + 0.4, '#050608'), -L / 2, (h0 + R) / 2, 0));
     const FM = o.faceMove, faceX = t => { if (!FM || !FM.length) return o.face ?? 0; if (t <= FM[0][0]) return FM[0][1];
@@ -89,15 +93,16 @@ export const CAFE_PROPS = {
       return FM[FM.length - 1][1]; };
     g.userData.faceX = faceX;
     const puffs = [];
-    if (o.dust) for (let i = 0; i < 10; i++) { const p = new THREE.Mesh(new THREE.SphereGeometry(0.35, 8, 6), new THREE.MeshLambertMaterial({ color: '#BFB29A', transparent: true, opacity: 0, depthWrite: false })); g.add(p); puffs.push(p); }
+    // (stills 2 of 63) many small thin puffs: ten big opaque ones read as a ball rolling off the face
+    if (o.dust) for (let i = 0; i < 18; i++) { const p = new THREE.Mesh(new THREE.SphereGeometry(0.16, 8, 6), new THREE.MeshLambertMaterial({ color: '#CFC3AA', transparent: true, opacity: 0, depthWrite: false })); g.add(p); puffs.push(p); }
     g.userData.update = t => {
       const fxt = faceX(t); if (face) face.position.x = fxt;
       let litTo = Infinity; if (o.lit) { litTo = -Infinity; for (const [t0, x] of o.lit) if (t >= t0) litTo = x; }
       if (o.litFollow != null) litTo = fxt - o.litFollow;
       lamps.forEach(lm => { const on = lm.position.x <= litTo; lm.material.color.set(on ? '#FFE8A8' : '#3A3830'); });
       const active = (o.dust || []).some(([a, b]) => t >= a && t < b);
-      puffs.forEach((p, i) => { const v = (t * 1.4 + i * 0.1) % 1; p.visible = active; if (!active) return; const fx = fxt - 0.4 - v * 2.2;
-        p.position.set(fx, 0.6 + hash(i) * 2.2 + v * 0.4, (hash(i + 4) - 0.5) * 3.2); p.scale.setScalar(0.6 + v * 1.6); p.material.opacity = 0.75 * (1 - v); });
+      puffs.forEach((p, i) => { const v = (t * 1.4 + i * 0.057) % 1; p.visible = active; if (!active) return; const fx = fxt - 0.25 - v * 1.6;
+        p.position.set(fx, 0.4 + hash(i) * 2.4 + v * 0.3, (hash(i + 4) - 0.5) * 3.6); p.scale.setScalar(0.5 + v * 1.8); p.material.opacity = 0.32 * (1 - v); });
     };
     g.userData.update(0); return g;
   },
@@ -106,7 +111,8 @@ export const CAFE_PROPS = {
   // o.h (3.4); a cream paper with faint teal sprigs over a teal dado band (to o.dado, 0.95 m) and its trim, a skirting board, a framed seascape
   // (o.picture [x, y, w, h]: its centre in the wall's metres from the middle of the foot) and a light switch (o.switchX), all painted on the face so
   // they ripple with it. o.ripple [[t, x, y, amp], ...]: from t, rings run out from (x, y) at o.speed (3.2 m/s), o.wave (0.5 m) apart, dying away
-  // (o.decay, 2.4 /s); amp (0.09 m) pushes the face toward +Z. Behind it a plain back (o.back) down to o.thick (0.2 m)
+  // (o.decay, 2.4 /s); amp (0.09 m) pushes the face toward +Z, and o.shear (0.6) of it sideways along the ring (the painted lines wave even head-on).
+  // Behind it a plain back (o.back) down to o.thick (0.2 m)
   jellyWall(o) {
     const W = o.w ?? 6, H = o.h ?? 3.4, g = grp(), cv = document.createElement('canvas'); cv.width = 1024; cv.height = Math.round(1024 * H / W);
     const c = cv.getContext('2d'), sx = cv.width / W, sy = cv.height / H, X = x => (x + W / 2) * sx, Y = y => (H - y) * sy, dado = o.dado ?? 0.95;
@@ -131,9 +137,11 @@ export const CAFE_PROPS = {
     const pos = geo.attributes.position, base = Float32Array.from(pos.array), sp = o.speed ?? 3.2, wv = o.wave ?? 0.5, dk = o.decay ?? 2.4;
     g.userData.update = t => {
       for (let i = 0; i < pos.count; i++) { const x = base[3 * i], y = base[3 * i + 1]; let dz = 0;
+        let dx = 0, dy = 0;
         for (const [t0, rx, ry, amp] of (o.ripple || [])) { const tau = t - t0; if (tau <= 0) continue; const rr = Math.hypot(x - rx, y - ry), front = sp * tau; if (rr >= front) continue;
-          dz += (amp ?? 0.09) * clamp01((front - rr) / 0.3) * Math.exp(-dk * tau - 0.3 * rr) * Math.sin(TAU * (front - rr) / wv); }
-        pos.array[3 * i + 2] = dz * clamp01(Math.min(x + W / 2, W / 2 - x, y, H - y) / 0.35); }
+          const env = (amp ?? 0.09) * clamp01((front - rr) / 0.3) * Math.exp(-dk * tau - 0.3 * rr), ph = TAU * (front - rr) / wv; dz += env * Math.sin(ph);
+          const dr = (o.shear ?? 0.6) * env * Math.cos(ph) / Math.max(0.05, rr); dx += (x - rx) * dr; dy += (y - ry) * dr; }
+        const e = clamp01(Math.min(x + W / 2, W / 2 - x, y, H - y) / 0.35); pos.array[3 * i] = x + dx * e; pos.array[3 * i + 1] = y + dy * e; pos.array[3 * i + 2] = dz * e; }
       pos.needsUpdate = true; geo.computeVertexNormals(); };
     g.userData.update(0); return g;
   },
@@ -189,7 +197,7 @@ export const CAFE_PROPS = {
       const x = dig(t), rest = L / 2 - x;
       for (const [e, y] of [[e1, top - TH / 4], [e2, -D + TH / 4]]) { e.visible = rest > 0.01; e.scale.x = Math.max(0.01, rest); e.position.set(x + rest / 2, y, -DZ / 2); }
       lamps.forEach(lm => lm.material.color.set(lm.position.x < x - 0.6 ? '#FFE8A8' : '#3A3830'));
-      const dw = clamp01((t - d0) / Math.max(1e-3, d1 - d0)); dawn.material.opacity = dw; stars.forEach((s, i) => { s.material.opacity = (1 - dw) * (0.6 + 0.4 * Math.sin(t * 3 + i)); });
+      const dw = clamp01((t - d0) / Math.max(1e-3, d1 - d0)); dawn.material.opacity = dw; stars.forEach((s, i) => { s.visible = dw < 0.9; s.material.opacity = (1 - dw) * (0.6 + 0.4 * Math.sin(t * 3 + i)); });
       wins.forEach(m => m.material.color.set(m.userData.lit && dw < 0.6 ? '#FFD873' : '#5A6A84')); heads.forEach(h => h.material.color.set(dw < 0.75 ? '#FFE7A0' : '#9AA0A6'));
       const u = clamp01((t - t0) / Math.max(1e-3, t1 - t0)), kk = Math.min(1.999, u * 2), j = Math.floor(kk), f = kk - j;   // the moon along its three points
       moon.position.x = mo[j][0] + (mo[j + 1][0] - mo[j][0]) * f; moon.position.y = mo[j][1] + (mo[j + 1][1] - mo[j][1]) * f;
@@ -212,8 +220,8 @@ export const CAFE_PROPS = {
       g.add(s); slices.push(s); }
     const cab = grp(at(box(0.12, H - 0.04, W, o.cab || '#E8E2D2', { pivot: 'bottom', outline: 0.008 }), 0.06, 0.04, 0), at(box(0.04, 0.86, W * 0.78, '#1E2A33'), 0.13, 1.52, 0),
       at(box(0.2, 0.22, W * 0.86, '#2A2C31', { outline: 0.006 }), 0.12, 0.32, 0), at(box(0.03, 0.12, W + 0.02, o.band || '#2E8C86'), 0.13, 1.0, 0));
-    for (const z of [-1, 1]) { const hl = new THREE.Mesh(new THREE.CircleGeometry(0.13, 16), new THREE.MeshBasicMaterial({ color: o.lights === false ? '#8A8A80' : '#FFF6D0', toneMapped: false }));
-      hl.rotation.y = PI / 2; hl.position.set(0.135, 0.72, z * W * 0.33); cab.add(hl); }
+    const lights = []; for (const z of [-1, 1]) { const hl = new THREE.Mesh(new THREE.CircleGeometry(0.13, 16), new THREE.MeshBasicMaterial({ color: o.lights === false ? '#8A8A80' : '#FFF6D0', toneMapped: false }));
+      hl.rotation.y = PI / 2; hl.position.set(0.135, 0.72, z * W * 0.33); cab.add(hl); lights.push(hl); }
     const plate = canvasPlane(0.36, 0.36, (c, Wd, Ht) => { c.fillStyle = '#F4C430'; c.beginPath(); c.arc(Wd / 2, Ht / 2, Wd * 0.48, 0, TAU); c.fill(); c.fillStyle = '#1A1A1A'; c.textAlign = 'center'; c.textBaseline = 'middle';
       c.font = `900 ${Math.round(Ht * 0.56)}px Arial`; c.fillText(o.line ?? '10', Wd / 2, Ht * 0.54); }, { res: 128, transparent: true });
     plate.rotation.y = PI / 2; plate.position.set(0.135, 2.06, 0); cab.add(plate);
@@ -224,8 +232,13 @@ export const CAFE_PROPS = {
     g.userData.update = t => { let c = 0; const cr = o.crumple; if (cr && t >= cr[0]) c = ob((t - cr[0]) / Math.max(1e-3, cr[2] ?? 0.1));
       const K = cr ? Math.max(1, Math.round((cr[1] ?? 0.4) * n)) : 0, fold = o.fold ?? 0.3; let px = 0, pz = 0, ang = 0;
       crack.visible = c > 0.3;
-      slices.forEach((s, i) => { const k = i < K ? c : 0, sx = Math.max(0.05, 1 - k * (1 - fold)), th = i < K ? (i % 2 ? -1 : 1) * 0.5 * Math.min(1.2, k) : 0;
-        s.position.set(px, 0, pz); s.rotation.y = th; s.scale.x = sx; const len = sl * sx; px -= Math.cos(th) * len; pz += Math.sin(th) * len; ang = th; });
+      // (stills 1 of 63) seen from in front the folds hid behind him: the folded slices also bulge and pinch in turn (a corrugated roofline above his
+      // shoulders), the cab buckles back and tips, one headlight drops out of its socket on a spring
+      slices.forEach((s, i) => { const k = i < K ? c : 0, sx = Math.max(0.05, 1 - k * (1 - fold)), th = i < K ? (i % 2 ? -1 : 1) * 0.4 * Math.min(1.2, k) : 0;
+        s.position.set(px, 0, pz); s.rotation.y = th; s.scale.set(sx, 1 + (i % 2 ? -0.16 : 0.1) * k, 1 + (i % 2 ? 0.1 : -0.08) * k); const len = sl * sx; px -= Math.cos(th) * len; pz += Math.sin(th) * len; ang = th; });
+      cab.rotation.z = 0.1 * c; cab.position.x = -0.05 * c;
+      if (lights[1]) { const dr = clamp01(c), sw = cr && t >= cr[0] ? Math.sin((t - cr[0]) * 14) * Math.exp(-(t - cr[0]) * 2.5) : 0;
+        lights[1].position.set(0.135 + 0.12 * dr, 0.72 - 0.32 * dr + 0.05 * sw, W * 0.33 + 0.06 * sw); }
       void ang; };
     g.userData.update(0); return g;
   },

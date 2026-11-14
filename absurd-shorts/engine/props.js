@@ -1414,7 +1414,7 @@ const B = {
     g.userData.update(0); g.userData.drum = [0, yc, D / 2 + 0.03]; return g; },
   car(o) { // civilian car facing +x, see-through cabin so a driver shows (clip 'drive' at userData.seat); o.color, o.plate; o.convertible: an open-top limousine
     if (o.convertible) return B.convertible(o);
-    const C = o.color || '#C9473A', g = grp(), gl = glassMat(o.glass ?? 0.07, '#E6F2F5');
+    const C = o.color || '#C9473A', g = grp(), gl = glassMat(o.glass ?? 0.07, o.glassColor || '#E6F2F5');   // (review 1 of 62) o.glass 0.8 + o.glassColor: tinted windows (see-through cars stacked into a cage down a long lens)
     g.add(at(box(4.0, 0.56, 1.8, C, { outline: 0.012 }), 0, 0.63, 0), at(box(4.02, 0.16, 1.82, P.greyDark), 0, 0.42, 0),
       at(box(3.0, 0.07, 1.72, C, { outline: 0.008 }), -0.25, 2.02, 0));
     for (const z of [-0.84, 0.84]) g.add(at(box(0.07, 1.2, 0.07, C), 1.32, 1.46, z, 0, 0, 0.4), at(box(0.07, 1.16, 0.07, C), -1.72, 1.46, z, 0, 0, -0.3), at(box(0.06, 1.1, 0.06, C), -0.25, 1.46, z));

@@ -1249,6 +1249,7 @@ function streetSet(o, night) {
 
 Object.assign(S, {
   parisStreet(o = {}) { // bright Paris street for the tornado-style remakes: asphalt road along Z, pale sidewalks, Haussmann blocks both sides (o.night: stars, lit windows and lamps),
+    // (review 1 of 62) o.lampsOff / o.windowsOff: at night the street lamps unlit / every window dark (the street lit by one glowing man alone)
     // round trees, lamps, the Eiffel tower at the far end, the replica's blue sky and white clouds
     const g = grp(), r = rng(o.seed || 12), night = !!o.night, snow = !!o.snow;   // o.snow: snowed-in street, flakes falling round the origin
     if (night) nightSky(g, [26, 44, -150]); else { sky(g, o.sky || (snow ? ['#C3CCD5', '#EEF1F3'] : ['#62AEE2', '#A7D4EC'])); if ((o.clouds ?? 8) >= 2) clouds(g, o.cloudSeed ?? 6, o.clouds ?? 8); }   // o.cloudSeed / o.clouds: other clouds, or fewer (a cloud right behind a head reads as a hat)
@@ -1265,11 +1266,11 @@ Object.assign(S, {
     const z0 = o.z0 ?? -120, n = o.n ?? 16;
     for (let i = 0; i < n; i++) {
       const z = z0 + i * 13, h = 15 + r() * 5;
-      g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: o.blockW ?? 13.04, night, seed: i }, 10.2, 0, z, -PI / 2));   // (review 2 of 61) 13.04 m every 13 m: at 12.6 a slit of sky ran up between two blocks
-      g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: o.blockW ?? 13.04, night, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
+      g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: o.blockW ?? 13.04, night, dark: !!o.windowsOff, seed: i }, 10.2, 0, z, -PI / 2));   // (review 2 of 61) 13.04 m every 13 m: at 12.6 a slit of sky ran up between two blocks
+      g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: o.blockW ?? 13.04, night, dark: !!o.windowsOff, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
       const clr = (zz) => o.clear && zz > o.clear[0] && zz < o.clear[1];   // o.clear [zmin, zmax]: no tree and no lamp on the right-hand pavement there (nothing growing out of a head)
       const clrL = (zz) => o.clearL && zz > o.clearL[0] && zz < o.clearL[1];   // (cycle 24, review 3 of 59) o.clearL [zmin, zmax]: no tree on the left-hand pavement there (one stood behind his neck like a green ruff)
-      if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); if (!clrL(z - 2)) g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
+      if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); if (!clrL(z - 2)) g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night && !o.lampsOff }, 5.6, 0, z + 9)); }
     }
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70, style: o.eiffelStyle }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));   // (cycle 14) o.eiffelStyle 'v2': the connected silhouette
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0], ...(o.hole ? { hole: [o.hole[0], 0, o.hole[1]] } : {}) };

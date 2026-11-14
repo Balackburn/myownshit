@@ -1317,3 +1317,28 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   lit comme une oreille.
 - (cycle 24) Une planche vue de face ressemble à un homme maigre. Tournée de chant vers l'objectif, c'est une ligne, et le POP qui suit lui
   rend tout son volume.
+- (cycle 25) Une caméra placée au-delà d'un accessoire qui ferme le décor (le front de taille d'un tunnel) est dans la roche : image noire
+  (63). Garder la caméra derrière le plan de ce qui ferme le décor, et les rochers d'un front au bord de la galerie, pas au milieu.
+- (cycle 25) Un plan à deux en travers d'un tunnel de 4,8 m ne tient pas dans une image verticale : objectif de 80° ou caméra dans le mur.
+  Filmer dans l'axe du tunnel, le second personnage qui arrive derrière l'épaule du premier, et allonger le décor pour reculer (63).
+- (cycle 25) Un flou de bougé de 0,022 s sur un plan moyen change la vibration en bouillie : 0,01 à 0,016 s, et seulement pendant la
+  vibration (le flou s'arrête à l'image où il s'arrête net).
+- (cycle 25) Des bouffées de poussière opaques et grises autour des pieds se lisent comme des rochers (63) : les retirer, laisser les éclats.
+- (cycle 25) Un témoin qui regarde quelque chose derrière lui montre sa nuque (la vieille dame tournée vers le mur, 63) : le placer de trois
+  quarts entre la caméra et ce qu'il regarde, le visage vers nous quand il le voit.
+- (cycle 25) Une passante qui tend un gobelet à ses lèvres en se plaçant devant lui le cache entièrement (63) : à côté de lui, du côté
+  opposé à la caméra, le bras en travers.
+- (cycle 25) Un homme assis aux cheveux dressés dépasse du haut du cadre même quand l'audit le croit debout : mettre dans le cadrage un point
+  au sommet des cheveux (2,3 m pour un homme assis à `hairUp` 1).
+- (cycle 25) Un rendu HyperFrames refuse de partir sous 1 Go de disque libre (« Low disk space ») : vider d'abord le cache d'extraction
+  d'images (`/tmp/hyperframes-extract-cache-0/hfcache-*`), puis relancer à partir de la couche 3D déjà calculée.
+- (cycle 25) `face.mouth: 'flat'` n'existe pas : la bouche disparaît (62, « pas de trait de bouche du tout »). La bouche droite s'appelle
+  `line` (et `line_m6`, `line_p6`... pour une courbe légère).
+- (cycle 25) Le canal `eye` agrandit l'œil peint mais garde les paupières lourdes de l'expression de base : sur un visage blasé, des yeux
+  « grands ouverts » demandent `expr: 'surprised'` avec `exprW` vers 1 (63).
+- (cycle 25) Un cou étiré (`bend.neck` étirement 4) qui plie vers l'avant fait des gens qui saluent : pour « tendre le cou », le plier sur
+  le côté vers ce qu'on regarde et viser le regard à hauteur des yeux (visé vers le sol, les têtes tombaient, 63).
+- (cycle 25) En recopiant un dossier de revue pour le tour suivant, changer aussi la phrase du tour dans le script qui écrit les consignes
+  des critiques (build.sh), pas seulement le brief : la revue 3 de 61 s'est appelée « deuxième revue » dans la consigne.
+- (cycle 25) Un visage dans un trou de feu tricolore : tout ce qui n'est pas la tête se voit par les trous et les parois au moindre
+  écrasement ou saut (chemise, jambes, mains). Canal `headOnly` : la tête seule (62).

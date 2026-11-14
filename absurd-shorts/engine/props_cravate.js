@@ -103,6 +103,8 @@ export const CRAVATE_PROPS = {
     // (a tan roller laying tan paint was a block the colour of what it laid)
     const R = o.rollerR ?? 0.05, RW = o.rollerW ?? 0.26, r = cyl(R, R, RW, o.sleeve || o.color || '#D9C7A3', 10); r.rotation.z = PI / 2; r.position.set(0, L - 0.04, 0.02); g.add(r);
     if (o.sleeve) { const pb = cyl(R * 1.04, R * 1.04, RW * 0.5, o.color || '#D9C7A3', 10); pb.rotation.z = PI / 2; pb.position.set(RW * 0.25, L - 0.04, 0.02); g.add(pb); }
+    // (review 1 of 62) o.frame: the bent wire frame from the handle to the end of the roller (a red sleeve alone on a hidden handle read as a cap)
+    if (o.frame) g.add(at(box(0.012, 0.16, 0.012, '#B8BEC4'), -RW * 0.55, L - 0.16, 0.02), at(box(RW * 0.6, 0.012, 0.012, '#B8BEC4'), -RW * 0.27, L - 0.24, 0.02), at(box(0.012, 0.012, 0.03, '#B8BEC4'), -RW * 0.55, L - 0.04, 0.02), at(cyl(0.024, 0.02, 0.16, '#C23A2A', 8), 0, -0.02, 0));
     g.userData.grip = [0, 0, 0]; return g;
   },
 

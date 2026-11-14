@@ -166,7 +166,10 @@ export function makeFaceRig(v = null) {
     if (X.red > 0.02) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.88 * c01(X.red); g.fillStyle = '#FF3A22'; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }   // (cycle 9) extras.red: the face warms toward red (multiplied over the skin, under the line work)
     // (cycle 24, stills 2 of 62) extras.tint 0..1 with extras.tintColor: the painted skin multiplied toward a colour under the line work (the skin channel of
     // the rig tints the head; done on the material it turned the whites of the eyes red too and an open eye vanished in a red face)
-    if (X.tint > 0.02 && X.tintColor) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = c01(X.tint); g.fillStyle = X.tintColor; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }
+    // (review 1 of 62) extras.tintLevel 0..1: only up to that height from the chin, under a wavy top edge (a thermometer filling: the head went red in one frame)
+    if (X.tint > 0.02 && X.tintColor) { const W = g.canvas.width, H = g.canvas.height, lv = X.tintLevel ?? 1; g.globalCompositeOperation = 'multiply'; g.globalAlpha = c01(X.tint); g.fillStyle = X.tintColor;
+      if (lv >= 0.999) g.fillRect(0, 0, W, H); else if (lv > 0.02) { const y0 = H * (1 - lv); g.beginPath(); g.moveTo(0, H); g.lineTo(0, y0); for (let x = 0; x <= W; x += W / 24) g.lineTo(x, y0 + H * 0.018 * Math.sin(x / W * 14 + lv * 11)); g.lineTo(W, H); g.closePath(); g.fill(); }
+      g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }
     for (const k of ['shadow', 'blush']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
     // (pass 4 of 50) extras.bags 0..1: grey-violet bags under both eyes, a soft crescent and two painted arcs (three days without sleep: the blue gloom
     // strokes on the forehead alone did not say it)

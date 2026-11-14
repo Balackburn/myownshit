@@ -2364,3 +2364,32 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     histoires livrées a été refusée : elles restent.
 - 62 « Le coup de soleil » : brouillon 1 rendu (526 images, aucune image grise ; trois tenues figées de 0,5 à 0,7 s en S01, S05 et S09, à
   animer à la passe 2). Revue 1 en cours.
+- 63 « Le café » : trois séries d'images de contrôle.
+  - Série 1 : une caméra du tunnel était dans la roche (image noire) ; les plans à deux en travers du tunnel exigeaient 80° d'objectif ;
+    des boules de poussière se lisaient comme des rochers ; la vieille dame tournait la nuque ; la passante du dernier plan le cachait ;
+    la rame pliée se lisait mal de face.
+  - Corrections : rochers du front de taille au bord de la galerie, front reculé de 2,2 m, plans dans l'axe du tunnel (le serveur arrive
+    derrière son épaule droite, plateau haut sur la main gauche, serviette blanche), poussière en petites bouffées pâles, mur en gelée
+    aux anneaux plus forts et qui décalent aussi le papier peint (on voit la cimaise onduler), vieille dame de trois quarts vers le mur,
+    passante à côté de lui, gobelets plus grands, quai vu de l'autre côté des voies, rame dont les tronçons pliés gonflent et se pincent
+    à tour de rôle (toit en tôle ondulée au-dessus de ses épaules), cabine qui recule et bascule, phare qui pend au bout d'un ressort.
+  - Série 2 : ses yeux ne s'ouvraient pas (le canal `eye` agrandit l'œil peint mais garde ses paupières lourdes) : visage tiré vers
+    l'expression `surprised` ; les cous des voyageurs penchaient vers le bas : cou étiré sur le côté au-dessus de la voie, regard au niveau
+    du tunnel.
+  - Décision : la bouche droite s'appelle `line` (« flat » n'existe pas : la bouche disparaissait, déjà dans 62).
+- 62 « Le coup de soleil » : revue 1 = animation 6,5, direction artistique 6,8 (aucun « À voir avec l'utilisateur »).
+  - Passe 2 :
+    - Moteur : la peau se remplit progressivement sur la tête (de `fill` 0,8 à 1, un niveau monte du menton au crâne sous un bord ondulé,
+      les autres faces de la tête suivent) ; canal `headOnly` (tête seule : sa chemise, ses jambes et ses mains se voyaient par les trous et
+      les parois du feu) ; options de rue `lampsOff` et `windowsOff` ; vitres teintées pour les voitures ; rouleau avec sa monture.
+    - Accessoires : camion avec calandre, chauffeur et deux grandes trompes chromées ; papillons de nuit gris-brun à antennes, éclairés ;
+      œuf entier plus gros et deux demi-coquilles qui s'écartent au choc ; halo derrière une tête qui brille ; traces de freinage.
+    - Mise en scène : rouge cramoisi (l'orange-rouge se confondait avec sa cravate), mains posées sur la chaise longue ; le sourire tombe,
+      puis le niveau monte en dix images ; gros plan de l'œuf (bras en arc, coquilles, CRAC au point d'impact, yeux qui montent et
+      louchent) ; nuit sans réverbères ni fenêtres, lumière rouge plus forte, halo ; transport vu de haut et de près ; POP avec temps
+      suspendu, chute en traînée, écrasement au-delà du bord, regonflage en cinq images ; file de dix-huit voitures vue de plus haut ;
+      crépuscule (l'image s'assombrit, une flaque de lumière reste sur son visage), soleil couché derrière les toits, yeux qui le suivent ;
+      camion vu de face, deux images de paupières qui se plissent avant le souffle, visage écrasé large au-delà du bord, joues qui ondulent,
+      cheveux soufflés de côté, retour en POP ; saut hors du trou du haut tenu six images avant la chute ; yeux qui suivent chaque voiture ;
+      voiture qui pique du nez avec traces de freinage.
+- 61 « Le ressort » : revue 3, direction artistique = 7,2 (l'animation n'a pas encore rendu son avis).

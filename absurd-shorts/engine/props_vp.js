@@ -114,7 +114,7 @@ export const VP_PROPS = {
           c.fillStyle = k % 2 ? awn : '#F4F1E8'; c.fillRect(k * cw + cw * 0.08, Hp - fh * 1.0, cw * 0.84, fh * 0.16);
           continue; }
         c.fillStyle = '#F6F2E8'; c.fillRect(x - w * 0.12, y - h * 0.06, w * 1.24, h * 1.12);
-        c.fillStyle = o.night ? ((((f * 7 + k * 13 + (o.seed || 0) * 5) % 10) < 4) ? '#F2C46B' : '#27303D') : '#5B7894'; c.fillRect(x, y, w, h);   // night: about 40 % of the windows lit
+        c.fillStyle = o.night ? ((!o.dark && ((f * 7 + k * 13 + (o.seed || 0) * 5) % 10) < 4) ? '#F2C46B' : '#27303D') : '#5B7894'; c.fillRect(x, y, w, h);   // night: about 40 % of the windows lit ((review 1 of 62) o.dark: none)
         c.fillStyle = 'rgba(255,255,255,0.35)'; c.fillRect(x + w * 0.08, y + h * 0.08, w * 0.25, h * 0.5);
         if (f === 1 || f === floors - 1) { c.fillStyle = '#23262B'; c.fillRect(f === 1 ? 0 : x - w * 0.2, y + h * 0.72, f === 1 ? Wp : w * 1.4, h * 0.07); for (let b = 0; b < 6; b++) c.fillRect((f === 1 ? x - w * 0.2 : x - w * 0.2) + b * w * 0.28, y + h * 0.72, w * 0.035, h * 0.28); }
       }

@@ -744,6 +744,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   // (cycle 18) the tip is set before the rig solves the guided hands: tipped after it, the body carried them off their points of the world
   if (all.lay) { A.obj.rotation.order = 'YXZ'; A.obj.rotation.x = all.lay[0] || 0; A.obj.rotation.z = all.lay[1] || 0; }
   if (all.yaw) A.obj.rotation.y += all.yaw;   // (cycle 19) toon channel yaw (rad): a spin on top of his facing, set before the rig like the tip   // (cycle 6) toon channel lay [rx, rz] (rad): the whole body tipped about his feet, in his own frame (-PI / 2: on his back, his head behind him): a shadow on the ground, a man laid flat
+  if (ud._hidden) { for (const n of ud._hidden) n.visible = true; ud._hidden = null; }   // (review 1 of 62) what headOnly hid last frame shows again first
   ud.toon.apply(all, t, sc);
   if (ud.fingers) ud.fingers.set(all.hands);
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
@@ -751,6 +752,9 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
     const lw = all.wind, wx = lw ? lw[0] * Math.cos(ry) + lw[2] * Math.sin(ry) : 0, wz = lw ? -lw[0] * Math.sin(ry) + lw[2] * Math.cos(ry) : 0;   // toon channel `wind`: his own wind, given in his frame
     A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null, { gravity: A.cfg?.clothGravity ?? S.script?.clothGravity, knot: all.knot, hide: all.tieHide });   // (cycle 6) script / cast `clothGravity`: upside down, the tie hangs toward the head
   }
+  // (review 1 of 62) toon channel headOnly: 1: only his head (and what rides on it: hair, hat, eyes) shows; a face in a traffic light: his shirt, his
+  // trousers and his hands showed through the holes and the cabinet's walls. Hidden after everything else this frame, shown again before the next
+  if (all.headOnly) { const hj = ud.joints?.head; if (hj) { const keep = new Set(); hj.traverse(n => keep.add(n)); ud._hidden = []; A.obj.traverse(n => { if (n.isMesh && n.visible && !keep.has(n)) { n.visible = false; ud._hidden.push(n); } }); } }
   return all;
 }
 // scene wind: fx {type: 'wind', at, dur, v: [x, y, z] (m/s, world), attack (0.06 s), release (0.25 s)}; gusts add up
@@ -824,7 +828,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     if (cf.pupilShake) for (const s of 'LR') { E[s].px = clamp(E[s].px + 0.08 * cf.pupilShake * Math.sin(t * 58 + (s === 'L' ? 0 : 0.7)), -1, 1); E[s].py = clamp(E[s].py + 0.06 * cf.pupilShake * Math.sin(t * 49 + 1.1), -1, 1); }   // (cycle 6) face.pupilShake 0..1: the pupils shiver in the eyes (fear held in)
     for (const x of FACE_EXTRAS) if (cf[x]) st.extras[x] = clamp01(Math.max(st.extras[x] || 0, cf[x])); if (cf.dropSize) st.extras.dropSize = cf.dropSize;   // face.sweat / blush / tears / tear / vein / shadow: 0..1
   }
-  const sk = tp?.skin; if (sk && (sk.fill ?? 1) >= 0.999 && (sk.k ?? 1) > 0.02) { st.extras = { ...(st.extras || {}), tint: clamp01(sk.k ?? 1), tintColor: sk.color || '#FFFFFF' }; }   // (cycle 24) the skin channel on the painted face: under the eyes, not over them
+  const sk = tp?.skin; if (sk && (sk.fill ?? 1) > 0.8 && (sk.k ?? 1) > 0.02) { st.extras = { ...(st.extras || {}), tint: clamp01(sk.k ?? 1), tintColor: sk.color || '#FFFFFF', tintLevel: clamp01(((sk.fill ?? 1) - 0.8) / 0.2) }; }   // (cycle 24) the skin channel on the painted face: under the eyes, not over them; (review 1 of 62) between fill 0.8 and 1 a level climbs the face from the chin
   return st;
 }
 // (cycle 15) a look target may also be { actor | prop, lag (s), dy (m), cheat }: an actor followed `lag` seconds late (an onlooker's eyes and head trail
