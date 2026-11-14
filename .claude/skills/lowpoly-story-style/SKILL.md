@@ -324,6 +324,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le pigeon dans la ventouse | un pigeon fonce droit dans la coupe et y reste collé : chaque battement d'ailes tire sa tête de côté, le corps suit en retard dans l'autre sens ; impassible | 55 |
 | La poignée de métro humaine | suspendu au plafond de la rame par son débouchoir (`pin`), deux passagers tiennent ses mains comme des poignées ; au freinage, ils partent d'abord, lui plus loin que tout le monde ; POP : décollé, il reste huit images en l'air une main sous le pommeau, tombe, crêpe tenue, trois coups de pompe pour se regonfler | 55 |
 | L'accessoire qui garde le poste | le débouchoir resté au plafond : une passagère s'y tient comme à une poignée en lisant son journal ; lui, au chômage, sur le banc du quai pendant que la rame s'en va | 55 |
+| La bosse qui fait POC trois fois | après le BONG, la bosse sort du crâne en trois battements (`skullBump` o.grow), chacun plus gros, dépassant et retombant ; les yeux grands ouverts, pupilles visibles, remontent vers elle | 56 |
+| Le médecin qui mesure à genoux sur la boule | la boule de peau de trois mètres sur sa tête, le médecin agenouillé au sommet déroule le mètre ruban à la main sur sa face avant ; lâché, le ruban remonte en six images, le crochet traîné de trois copies jaunes se colle à son nez (accessoire `tapeHook` sur la tête) : CLAC, mains au visage | 56 |
+| La plaque qui écrase | la plaque COLLINE tombe sur le sommet : TCHAC, tout le bonhomme écrasé à 64 % de sa hauteur quatre images, puis rebond au-delà ; l'herbe descend du sommet | 56 |
+| La colline sur la tête, vue en entier | caméra à hauteur de poitrine, assez loin pour le dôme entier avec du ciel des deux côtés : sentier, plaque, drapeau, randonneurs (`figH` 0,26), puis la station de ski enneigée et son télésiège | 56 |
+| Le skieur qui hésite sur le bord | au bord du dôme au-dessus de sa tête, le skieur moulinette des bras et vacille (trois clés de roulis), puis plonge devant son visage ; la tête reste droite sous la colline, les yeux seuls suivent | 56 |
+| La colline qui se dégonfle | PSCHHH : le dôme se dégonfle sur vingt images en ondulant ; le cou, libéré, jaillit à deux fois et demie sa longueur et revient ; un pansement sur le crâne | 56 |
+| Les skieurs restés en l'air | plus de colline : les skieurs tiennent debout sur le vide là où était la pente, regardent en bas, l'un fait un petit signe, moulinent, puis tombent ; deux plantés tête la première dans la neige avec une bouffée blanche, le troisième assis sur sa tête écrasée (POF) | 56 |
+| La facture sans fin | la note des forfaits se déroule de ses mains jusqu'à la neige et file vers l'objectif, ruban crème bordé de brun (`billScroll`), caméra haute qui avance lentement pendant qu'il cligne | 56 |
 
 ## Erreurs à éviter
 

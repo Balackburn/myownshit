@@ -2036,3 +2036,10 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   bouche élargie, facteur suspendu par la tête les jambes battantes, poing qui tape sous la chemise, lettre qui sort comme un toast.
 - 56 « La bosse » : revue 3 = animation 7,0, direction artistique 7,3. Passe finale à faire (BONG face à nous de trois quarts, crochet du
   mètre sur le nez, genoux, colline entière avec le ciel des deux côtés, ciel sans zénith noir, facture continue sur la neige).
+- 56 « La bosse » : **livrée** (1080 × 1920, 18,9 s, −16 LUFS, contrôles HyperFrames sans erreur ni avertissement, aucune chute de
+  saturation). Revues 6,8/6,5 → 7,2/7,2 → 7,0/7,3, passe finale contrôlée en images : BONG face à nous en plongée de trois quarts, crochet
+  tenu sur le nez par un accessoire posé sur la tête du médecin, écrasement réel au TCHAC, colline entière, pupilles pleines (`pupil` 1,0),
+  skieur qui vacille, chutes avec bouffées de neige, facture continue bordée de brun. Bug moteur trouvé en route : le ciel noir au-dessus de 29°.
+- 57 « La porte tournante » : revue 2 = 6,5 / 6,5. Passe 3 : barbe en touffes qui ondulent, plus de rubans de vent, secousse du BZZT,
+  quartier entier, toupie dans le cadre, balai armé, œil du coach sur chaque tour, passante qui finit face à nous, écrasement tenu, tampon sur
+  la facture, nuit plus claire. Brouillon 3 en file.

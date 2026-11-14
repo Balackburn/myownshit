@@ -1,0 +1,401 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est cogné la tête.",
+   "hl": [
+    "cogné"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.656,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.693
+    },
+    {
+     "w": "cogné",
+     "s": 0.742,
+     "e": 0.915
+    },
+    {
+     "w": "la",
+     "s": 0.989,
+     "e": 1.063
+    },
+    {
+     "w": "tête.",
+     "s": 1.137,
+     "e": 1.656
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Sa bosse n'a jamais arrêté de pousser.",
+   "hl": [
+    "bosse",
+    "pousser."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L02.k.wav",
+   "file_start": 1.756,
+   "speech_start": 1.756,
+   "speech_end": 3.607,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 1.756,
+     "e": 1.904
+    },
+    {
+     "w": "bosse",
+     "s": 1.978,
+     "e": 2.126
+    },
+    {
+     "w": "n'a",
+     "s": 2.163,
+     "e": 2.348
+    },
+    {
+     "w": "jamais",
+     "s": 2.422,
+     "e": 2.644
+    },
+    {
+     "w": "arrêté",
+     "s": 2.756,
+     "e": 2.941
+    },
+    {
+     "w": "de",
+     "s": 2.978,
+     "e": 3.015
+    },
+    {
+     "w": "pousser.",
+     "s": 3.052,
+     "e": 3.607
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le médecin l'a mesurée : trois mètres.",
+   "hl": [
+    "trois",
+    "mètres."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L03.k.wav",
+   "file_start": 3.707,
+   "speech_start": 3.707,
+   "speech_end": 5.93,
+   "words": [
+    {
+     "w": "Le",
+     "s": 3.707,
+     "e": 3.781
+    },
+    {
+     "w": "médecin",
+     "s": 3.856,
+     "e": 4.078
+    },
+    {
+     "w": "l'a",
+     "s": 4.152,
+     "e": 4.226
+    },
+    {
+     "w": "mesurée:",
+     "s": 4.337,
+     "e": 5.016
+    },
+    {
+     "w": "trois",
+     "s": 5.041,
+     "e": 5.189
+    },
+    {
+     "w": "mètres.",
+     "s": 5.263,
+     "e": 5.93
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le cadastre l'a classée colline.",
+   "hl": [
+    "cadastre",
+    "colline."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L04.k.wav",
+   "file_start": 6.03,
+   "speech_start": 6.03,
+   "speech_end": 7.807,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.03,
+     "e": 6.104
+    },
+    {
+     "w": "cadastre",
+     "s": 6.178,
+     "e": 6.622
+    },
+    {
+     "w": "l'a",
+     "s": 6.647,
+     "e": 6.696
+    },
+    {
+     "w": "classée",
+     "s": 6.77,
+     "e": 7.067
+    },
+    {
+     "w": "colline.",
+     "s": 7.141,
+     "e": 7.807
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le dimanche, il y a des randonneurs.",
+   "hl": [
+    "randonneurs."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L05.k.wav",
+   "file_start": 7.907,
+   "speech_start": 7.907,
+   "speech_end": 9.759,
+   "words": [
+    {
+     "w": "Le",
+     "s": 7.907,
+     "e": 7.981
+    },
+    {
+     "w": "dimanche,",
+     "s": 8.056,
+     "e": 8.611
+    },
+    {
+     "w": "il",
+     "s": 8.648,
+     "e": 8.722
+    },
+    {
+     "w": "y",
+     "s": 8.747,
+     "e": 8.771
+    },
+    {
+     "w": "a",
+     "s": 8.796,
+     "e": 8.833
+    },
+    {
+     "w": "des",
+     "s": 8.87,
+     "e": 8.944
+    },
+    {
+     "w": "randonneurs.",
+     "s": 9.019,
+     "e": 9.759
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "L'hiver, une station de ski.",
+   "hl": [
+    "station",
+    "ski."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L06.k.wav",
+   "file_start": 9.859,
+   "speech_start": 9.859,
+   "speech_end": 11.563,
+   "words": [
+    {
+     "w": "L'hiver,",
+     "s": 9.859,
+     "e": 10.526
+    },
+    {
+     "w": "une",
+     "s": 10.6,
+     "e": 10.674
+    },
+    {
+     "w": "station",
+     "s": 10.822,
+     "e": 10.97
+    },
+    {
+     "w": "de",
+     "s": 11.044,
+     "e": 11.119
+    },
+    {
+     "w": "ski.",
+     "s": 11.267,
+     "e": 11.563
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, sa bosse a dégonflé.",
+   "hl": [
+    "dégonflé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L07.k.wav",
+   "file_start": 11.663,
+   "speech_start": 11.663,
+   "speech_end": 13.441,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 11.663,
+     "e": 12.256
+    },
+    {
+     "w": "sa",
+     "s": 12.33,
+     "e": 12.404
+    },
+    {
+     "w": "bosse",
+     "s": 12.478,
+     "e": 12.626
+    },
+    {
+     "w": "a",
+     "s": 12.651,
+     "e": 12.675
+    },
+    {
+     "w": "dégonflé.",
+     "s": 12.7,
+     "e": 13.441
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les skieurs sont tombés de haut.",
+   "hl": [
+    "tombés",
+    "haut."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L08.k.wav",
+   "file_start": 13.541,
+   "speech_start": 13.541,
+   "speech_end": 15.17,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.541,
+     "e": 13.615
+    },
+    {
+     "w": "skieurs",
+     "s": 13.689,
+     "e": 14.059
+    },
+    {
+     "w": "sont",
+     "s": 14.096,
+     "e": 14.281
+    },
+    {
+     "w": "tombés",
+     "s": 14.331,
+     "e": 14.504
+    },
+    {
+     "w": "de",
+     "s": 14.578,
+     "e": 14.652
+    },
+    {
+     "w": "haut.",
+     "s": 14.726,
+     "e": 15.17
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La station lui réclame les forfaits.",
+   "hl": [
+    "forfaits."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bosse/tts/L09.k.wav",
+   "file_start": 15.27,
+   "speech_start": 15.27,
+   "speech_end": 17.048,
+   "words": [
+    {
+     "w": "La",
+     "s": 15.27,
+     "e": 15.344
+    },
+    {
+     "w": "station",
+     "s": 15.419,
+     "e": 15.789
+    },
+    {
+     "w": "lui",
+     "s": 15.826,
+     "e": 15.937
+    },
+    {
+     "w": "réclame",
+     "s": 16.011,
+     "e": 16.233
+    },
+    {
+     "w": "les",
+     "s": 16.307,
+     "e": 16.381
+    },
+    {
+     "w": "forfaits.",
+     "s": 16.493,
+     "e": 17.048
+    }
+   ]
+  }
+ ],
+ "total": 18.85
+}
