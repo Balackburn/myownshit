@@ -549,7 +549,7 @@
        ],
        "dur": 0.7,
        "ease": "linear",
-       "face": "keep"
+       "face": -90
       },
       {
        "at": 0.0,

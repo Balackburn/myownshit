@@ -40,12 +40,18 @@ export const GRIMACE_PROPS = {
     if (o.roof) { const L = o.roof.len ?? 3.2, W = o.roof.w ?? 2.4, H = o.roof.h ?? 1.1, sl = o.roof.color || '#566170', sh = new THREE.Shape();
       sh.moveTo(-W / 2, -H); sh.lineTo(0, 0); sh.lineTo(W / 2, -H); sh.closePath();
       const geo = new THREE.ExtrudeGeometry(sh, { depth: L, bevelEnabled: false }).translate(0, 0, -L / 2).rotateY(PI / 2), rf = new THREE.Mesh(geo, mat(sl)); rf.castShadow = rf.receiveShadow = true; addOutline(rf, 0.006); g.add(rf);
-      g.add(at(box(L + 0.06, 0.07, 0.1, '#3E4652'), 0, 0.0, 0), at(box(0.42, 0.9, 0.42, '#A65A3E', { pivot: 'bottom', outline: 0.008 }), L * 0.3, -0.45, -0.25), at(box(0.5, 0.08, 0.5, '#7E4430'), L * 0.3, 0.47, -0.25));
+      g.add(at(box(L + 0.08, 0.08, 0.14, o.roof.zinc || '#A9B2BA', { outline: 0.006 }), 0, 0.0, 0), at(box(0.42, 0.9, 0.42, '#A65A3E', { pivot: 'bottom', outline: 0.008 }), L * 0.3, -0.45, -0.25), at(box(0.5, 0.08, 0.5, '#7E4430'), L * 0.3, 0.47, -0.25));
+      // (pass 3 of 59) slate courses down both slopes (a flat slab read as a blue wall) and the zinc ridge above
+      const ang = Math.atan2(H, W / 2), dk = new THREE.Color(sl).multiplyScalar(0.72).getStyle();
+      for (const sd of [-1, 1]) for (let k = 1; k < 7; k++) { const f = k / 7, y = -H * f, z = sd * (W / 2) * f;
+        g.add(at(box(L + 0.02, 0.018, 0.03, dk), 0, y + 0.012, z + sd * 0.004, sd * ang, 0, 0)); }
       for (let i = 0; i < 2; i++) g.add(at(cyl(0.06, 0.06, 0.18, '#C9765A', 8, { pivot: 'bottom' }), L * 0.3 + (i - 0.5) * 0.16, 0.5, -0.25)); }
     for (const [a, l] of [[0, 'N'], [PI / 2, 'E'], [PI, 'S'], [-PI / 2, 'O']]) {
       vane.add(at(box(0.012, 0.012, 0.32, iron), 0.16 * Math.sin(a), h * 0.62, 0.16 * Math.cos(a), 0, a, 0));
       const lt = canvasPlane(0.1, 0.1, (c, W, H) => { c.clearRect(0, 0, W, H); c.fillStyle = iron; c.font = `900 ${H * 0.9}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(l, W / 2, H * 0.55); }, { res: 64, transparent: true });
-      lt.position.set(0.34 * Math.sin(a), h * 0.62, 0.34 * Math.cos(a)); lt.rotation.y = a; vane.add(lt);
+      // (pass 3 of 59) two one-sided planes back to back: the double-sided plane read mirrored from behind (E and S backwards)
+      lt.material.side = THREE.FrontSide; const lb = lt.clone(); lb.material = lt.material.clone(); lb.material.side = THREE.FrontSide;
+      lt.position.set(0.34 * Math.sin(a), h * 0.62, 0.34 * Math.cos(a)); lt.rotation.y = a; lb.position.copy(lt.position); lb.rotation.y = a + PI; vane.add(lt, lb);
     }
     top.position.y = h; vane.add(top);
     // the rooster in silhouette, facing the arrow's point (+X): sickle tail feathers, body, neck, head, comb, beak, wattle, legs on the arrow
@@ -80,7 +86,11 @@ export const GRIMACE_PROPS = {
     const w = o.w ?? 2.6, d = o.d ?? 1.4, h = o.h ?? 0.75, g = grp();
     const skirt = canvasPlane(w, h, (c, W, H) => { const cols = ['#E8463A', '#F5C33B', '#3A9BDC', '#52B76A', '#C255C8']; const n = 13; for (let i = 0; i < n; i++) { c.fillStyle = cols[i % cols.length]; c.fillRect(i * W / n, 0, W / n + 1, H); }
       c.fillStyle = 'rgba(255,255,255,0.85)'; for (let i = 0; i < n; i++) { c.beginPath(); c.arc((i + 0.5) * W / n, H * 0.12, W / n * 0.28, 0, TAU); c.fill(); } }, { res: 512 });
-    for (const [z, ry] of [[d / 2 + 0.005, 0], [-d / 2 - 0.005, PI]]) { const s = skirt.clone(); s.position.set(0, h / 2, z); s.rotation.y = ry; g.add(s); }
+    // (pass 3 of 59) the skirt lifted 0.24 m with a gold fringe at its hem, a dark chassis and the wheels showing under it (a plain striped box)
+    const lift = o.lift ?? 0.24, sk = skirt.clone(); sk.scale.y = (h - lift) / h;
+    for (const [z, ry] of [[d / 2 + 0.005, 0], [-d / 2 - 0.005, PI]]) { const s = sk.clone(); s.position.set(0, lift + (h - lift) / 2, z); s.rotation.y = ry; g.add(s);
+      for (let i = 0; i < 26; i++) g.add(at(box(0.05, 0.08, 0.012, '#E3B23C'), -w / 2 + (i + 0.5) * w / 26, lift - 0.03, z + Math.sign(z) * 0.004)); }
+    g.add(at(box(w * 0.94, 0.12, d * 0.9, '#3A3A40'), 0, lift - 0.06, 0));
     g.add(at(box(w, 0.08, d, '#F4EBD8', { outline: 0.01 }), 0, h, 0));
     for (let i = 0; i < 9; i++) g.add(at(sphere(0.07, ['#E8463A', '#F5C33B', '#FFFFFF', '#C255C8'][i % 4], 1), -w / 2 + (i + 0.5) * w / 9, h + 0.07, d / 2 - 0.05));
     for (const sx of [-1, 1]) g.add(at(cyl(0.025, 0.025, 1.3, '#E8D9B0', 6, { pivot: 'bottom' }), sx * (w / 2 - 0.12), h, -d / 2 + 0.12), at(sphere(0.06, '#F5C33B', 1), sx * (w / 2 - 0.12), h + 1.32, -d / 2 + 0.12));
@@ -105,8 +115,10 @@ export const GRIMACE_PROPS = {
       if (face) c.drawImage(face, fx, fy, fw, fh);
       else { c.fillStyle = '#E2A270'; c.fillRect(fx, fy, fw, fh); c.fillStyle = '#1E1A18'; c.fillRect(fx, fy, fw, fh * 0.16); c.fillStyle = '#2A1A14'; c.fillRect(fx + fw * 0.2, fy + fh * 0.45, fw * 0.6, fh * 0.03); }
       c.fillStyle = '#E0717F'; c.strokeStyle = '#7A2A34'; c.lineWidth = W * 0.012; c.beginPath(); c.ellipse(W * 0.44, fy + fh * 0.86, W * 0.07, H * 0.075, -0.4, 0, 2 * Math.PI); c.fill(); c.stroke();   // the tongue, out and aside
-      if (o.stamp) { c.save(); c.translate(W / 2, H * 0.5); c.rotate(-0.28); c.strokeStyle = 'rgba(200,24,36,0.92)'; c.fillStyle = 'rgba(200,24,36,0.92)'; c.lineWidth = W * 0.03;
-        c.strokeRect(-W * 0.46, -H * 0.075, W * 0.92, H * 0.15); c.font = `900 ${Math.round(H * 0.11)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.stamp, 0, H * 0.008, W * 0.86); c.restore(); } };
+      if (o.stamp) { c.save(); c.translate(W / 2, H * 0.5); c.rotate(-0.28); c.font = `900 ${Math.round(H * 0.11)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle';
+        // (pass 3 of 59) a white halo under a darker ink: red on his orange face measured 2.2:1
+        c.strokeStyle = 'rgba(255,255,255,0.95)'; c.lineWidth = W * 0.06; c.strokeRect(-W * 0.46, -H * 0.075, W * 0.92, H * 0.15); c.lineJoin = 'round'; c.lineWidth = W * 0.035; c.strokeText(o.stamp, 0, H * 0.008, W * 0.86);
+        c.strokeStyle = c.fillStyle = 'rgba(150,8,20,0.97)'; c.lineWidth = W * 0.03; c.strokeRect(-W * 0.46, -H * 0.075, W * 0.92, H * 0.15); c.fillText(o.stamp, 0, H * 0.008, W * 0.86); c.restore(); } };
     const plane = canvasPlane(w, h, draw, { res: 384 }); plane.position.z = 0.0015; g.add(plane);
     g.userData.grip = [0, -h * 0.4, 0]; return g;
   },
@@ -127,7 +139,10 @@ export const GRIMACE_PROPS = {
   // A gust: o.n (14) leaves blown along +X across o.w (5) metres from o.startAt for o.dur (0.9) seconds, fluttering, o.h high (pivot where they enter)
   leafGust(o) {
     const n = o.n ?? 14, w = o.w ?? 5, g = grp(), leaves = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(0.09, 0.06), new THREE.MeshLambertMaterial({ color: ['#D9832B', '#C8452E', '#E2B23A', '#8E9A3A'][i % 4], side: THREE.DoubleSide })); g.add(m); leaves.push({ m, y: 0.2 + ((i * 37) % 17) / 17 * (o.h ?? 1.8), z: (((i * 53) % 11) / 11 - 0.5) * (o.d ?? 1.2), d: (i * 0.071) % 0.35, s: 0.8 + ((i * 29) % 7) / 10 }); }
+    // (pass 3 of 59) leaf-shaped (pointed ovals with a stem): the rectangles read as carnival confetti
+    const lf = new THREE.Shape(); lf.moveTo(-0.055, 0); lf.quadraticCurveTo(-0.01, 0.04, 0.05, 0); lf.quadraticCurveTo(-0.01, -0.04, -0.055, 0); lf.lineTo(-0.075, 0.004); lf.lineTo(-0.075, -0.004); lf.lineTo(-0.055, 0);
+    const leafGeo = new THREE.ShapeGeometry(lf);
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(leafGeo, new THREE.MeshLambertMaterial({ color: ['#D9832B', '#C8452E', '#E2B23A', '#8E9A3A'][i % 4], side: THREE.DoubleSide })); g.add(m); leaves.push({ m, y: 0.2 + ((i * 37) % 17) / 17 * (o.h ?? 1.8), z: (((i * 53) % 11) / 11 - 0.5) * (o.d ?? 1.2), d: (i * 0.071) % 0.35, s: 0.8 + ((i * 29) % 7) / 10 }); }
     g.userData.update = t => { const u0 = (t - (o.startAt ?? 0)) / (o.dur ?? 0.9);
       for (const L of leaves) { const u = u0 - L.d; L.m.visible = u > 0 && u < 1; if (!L.m.visible) continue; L.m.position.set(u * w * L.s, L.y + 0.25 * Math.sin(u * 9 + L.d * 20), L.z + 0.15 * Math.cos(u * 7)); L.m.rotation.set(u * 14, u * 9, u * 11); } };
     g.userData.update(0); return g;

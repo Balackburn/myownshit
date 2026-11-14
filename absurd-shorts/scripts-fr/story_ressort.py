@@ -69,7 +69,7 @@ st.cue('sfx:boing', 'S02', SPR2, 0.5); st.cue('whoosh', 'S02', GO2, 0.4, 0.6, 30
 D3 = st.dur('S03')
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [SEAT[0], 0.6, SEAT[2]], RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
-            k(0.0, to=[SEAT[0], 18.0, SEAT[2]], dur=D3, ease='linear', face='keep'),
+            k(0.0, to=[SEAT[0], 18.0, SEAT[2]], dur=D3, ease='linear', face=RY),   # (stills 3) the facing given: with 'keep' on a straight-up move he turned side on (a stripe with no face)
             k(0.0, toon={'sq': [0.72, 1.42, 0.72], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.3, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.3, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 1.0,
                           'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.0)])],   # (stills 1) stretched less: at 1.7 he was a dark stripe
         props=[P('spd3', 'speedLines', **FLY([[0.0, SEAT[0], 0.0, SEAT[2]], [D3, SEAT[0], 15.5, SEAT[2]]]), face='camera', opts={'n': 7, 'len': 2.2, 'w': 0.8, 'angle': 1.57, 'at': [[0.0, D3]]})],
