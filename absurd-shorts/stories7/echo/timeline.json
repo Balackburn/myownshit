@@ -1,0 +1,399 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a crié dans la montagne.",
+   "hl": [
+    "crié",
+    "montagne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.73,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "crié",
+     "s": 0.693,
+     "e": 0.915
+    },
+    {
+     "w": "dans",
+     "s": 0.952,
+     "e": 1.026
+    },
+    {
+     "w": "la",
+     "s": 1.063,
+     "e": 1.1
+    },
+    {
+     "w": "montagne.",
+     "s": 1.137,
+     "e": 1.73
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "L'écho n'est jamais revenu.",
+   "hl": [
+    "écho",
+    "jamais"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L02.k.wav",
+   "file_start": 1.83,
+   "speech_start": 1.83,
+   "speech_end": 3.237,
+   "words": [
+    {
+     "w": "L'écho",
+     "s": 1.83,
+     "e": 2.126
+    },
+    {
+     "w": "n'est",
+     "s": 2.2,
+     "e": 2.348
+    },
+    {
+     "w": "jamais",
+     "s": 2.422,
+     "e": 2.644
+    },
+    {
+     "w": "revenu.",
+     "s": 2.719,
+     "e": 3.237
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a porté plainte.",
+   "hl": [
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L03.k.wav",
+   "file_start": 3.337,
+   "speech_start": 3.337,
+   "speech_end": 4.374,
+   "words": [
+    {
+     "w": "Il",
+     "s": 3.337,
+     "e": 3.411
+    },
+    {
+     "w": "a",
+     "s": 3.448,
+     "e": 3.485
+    },
+    {
+     "w": "porté",
+     "s": 3.596,
+     "e": 3.781
+    },
+    {
+     "w": "plainte.",
+     "s": 3.93,
+     "e": 4.374
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La gendarmerie a lancé un avis de recherche.",
+   "hl": [
+    "gendarmerie",
+    "recherche."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L04.k.wav",
+   "file_start": 4.474,
+   "speech_start": 4.474,
+   "speech_end": 6.548,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.474,
+     "e": 4.548
+    },
+    {
+     "w": "gendarmerie",
+     "s": 4.622,
+     "e": 5.141
+    },
+    {
+     "w": "a",
+     "s": 5.178,
+     "e": 5.215
+    },
+    {
+     "w": "lancé",
+     "s": 5.252,
+     "e": 5.511
+    },
+    {
+     "w": "un",
+     "s": 5.548,
+     "e": 5.585
+    },
+    {
+     "w": "avis",
+     "s": 5.659,
+     "e": 5.807
+    },
+    {
+     "w": "de",
+     "s": 5.832,
+     "e": 5.856
+    },
+    {
+     "w": "recherche.",
+     "s": 5.881,
+     "e": 6.548
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "On l'a signalé dans trois vallées.",
+   "hl": [
+    "trois",
+    "vallées."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L05.k.wav",
+   "file_start": 6.648,
+   "speech_start": 6.648,
+   "speech_end": 8.204,
+   "words": [
+    {
+     "w": "On",
+     "s": 6.648,
+     "e": 6.722
+    },
+    {
+     "w": "l'a",
+     "s": 6.771,
+     "e": 6.87
+    },
+    {
+     "w": "signalé",
+     "s": 7.019,
+     "e": 7.241
+    },
+    {
+     "w": "dans",
+     "s": 7.29,
+     "e": 7.389
+    },
+    {
+     "w": "trois",
+     "s": 7.463,
+     "e": 7.611
+    },
+    {
+     "w": "vallées.",
+     "s": 7.648,
+     "e": 8.204
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Hier, l'écho est rentré.",
+   "hl": [
+    "écho",
+    "rentré."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L06.k.wav",
+   "file_start": 8.304,
+   "speech_start": 8.304,
+   "speech_end": 9.933,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 8.304,
+     "e": 8.896
+    },
+    {
+     "w": "l'écho",
+     "s": 8.933,
+     "e": 9.193
+    },
+    {
+     "w": "est",
+     "s": 9.23,
+     "e": 9.267
+    },
+    {
+     "w": "rentré.",
+     "s": 9.341,
+     "e": 9.933
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Avec deux ans de retard.",
+   "hl": [
+    "deux",
+    "retard."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L07.k.wav",
+   "file_start": 10.033,
+   "speech_start": 10.033,
+   "speech_end": 11.367,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 10.033,
+     "e": 10.33
+    },
+    {
+     "w": "deux",
+     "s": 10.367,
+     "e": 10.478
+    },
+    {
+     "w": "ans",
+     "s": 10.552,
+     "e": 10.626
+    },
+    {
+     "w": "de",
+     "s": 10.663,
+     "e": 10.7
+    },
+    {
+     "w": "retard.",
+     "s": 10.811,
+     "e": 11.367
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il a hurlé pendant trois jours.",
+   "hl": [
+    "hurlé",
+    "jours."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L08.k.wav",
+   "file_start": 11.467,
+   "speech_start": 11.467,
+   "speech_end": 13.319,
+   "words": [
+    {
+     "w": "Il",
+     "s": 11.467,
+     "e": 11.541
+    },
+    {
+     "w": "a",
+     "s": 11.615,
+     "e": 11.689
+    },
+    {
+     "w": "hurlé",
+     "s": 11.763,
+     "e": 12.133
+    },
+    {
+     "w": "pendant",
+     "s": 12.207,
+     "e": 12.43
+    },
+    {
+     "w": "trois",
+     "s": 12.504,
+     "e": 12.652
+    },
+    {
+     "w": "jours.",
+     "s": 12.726,
+     "e": 13.319
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La gendarmerie a verbalisé le mec pour tapage.",
+   "hl": [
+    "verbalisé",
+    "tapage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/echo/tts/L09.k.wav",
+   "file_start": 13.419,
+   "speech_start": 13.419,
+   "speech_end": 15.937,
+   "words": [
+    {
+     "w": "La",
+     "s": 13.419,
+     "e": 13.493
+    },
+    {
+     "w": "gendarmerie",
+     "s": 13.567,
+     "e": 14.085
+    },
+    {
+     "w": "a",
+     "s": 14.122,
+     "e": 14.159
+    },
+    {
+     "w": "verbalisé",
+     "s": 14.233,
+     "e": 14.678
+    },
+    {
+     "w": "le",
+     "s": 14.715,
+     "e": 14.752
+    },
+    {
+     "w": "mec",
+     "s": 14.826,
+     "e": 14.974
+    },
+    {
+     "w": "pour",
+     "s": 15.048,
+     "e": 15.122
+    },
+    {
+     "w": "tapage.",
+     "s": 15.196,
+     "e": 15.937
+    }
+   ]
+  }
+ ],
+ "total": 17.94
+}

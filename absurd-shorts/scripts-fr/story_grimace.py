@@ -31,7 +31,8 @@ STREET = {'eiffelStyle': 'v2', 'clear': [-4.0, 4.0]}                    # no tre
 ME = [7.2, 0, 0.0]; RY = -90                                             # on the right pavement, facing the road (-X); his left is +Z
 DEAD = {'lid': 0.45}
 # his grimace: the mouth stretched wide, the tongue out and aside, the eyes crossed, one eye big and one small, one brow up and one down, big pupils
-GH = {'mouth': 'grimace', 'mouthW': 0.7, 'mouthH': 0.3, 'tongue': 1.0, 'tongueLen': 0.22, 'tongueYaw': -0.25, 'tongueDip': 0.2, 'cross': 1.0, 'eyeL': 0.55, 'eyeR': -0.2,
+GH = {'expr': 'grimace', 'exprW': 0.9, 'mouth': 'grimace', 'mouthW': 0.7,   # (stills 2) on the painted grimace expression: offsets alone on his heavy lids read as deadpan
+       'mouthH': 0.3, 'tongue': 1.0, 'tongueLen': 0.22, 'tongueYaw': -0.25, 'tongueDip': 0.2, 'cross': 1.0, 'eyeL': 0.55, 'eyeR': -0.2,
       'browL': 0.9, 'browR': -0.7, 'lid': 0.0, 'pupil': 1.2}
 GHEAD = [1.36, 0.84, 1.06]                                               # his head pulled wide with it ((stills 1) 1.28 hardly showed)
 GF = lambda extra=None: {**GH, **(extra or {})}
@@ -42,12 +43,12 @@ def PULL(k_, across=0.58):
     a = r(0.3 + (across - 0.3) * k_)
     return {'touch': {'L': ['face', a, 0.2, 0.03, 1, 0.04, POLE['L']], 'R': ['face', -a, 0.2, 0.03, 1, 0.04, POLE['R']]}, 'hands': {'L': 'point', 'R': 'point'}}
 # the other faces of the town, each its own
-G_BOSS = {'mouth': 'teeth', 'mouthW': 0.5, 'eyeL': 0.7, 'lidR': 1.0, 'browL': 1.0, 'browR': -0.8, 'pupil': 1.2}       # one eye huge, the other shut, the teeth bared
-G_K1 = {'mouth': 'tongueout', 'tongue': 1.0, 'tongueLen': 0.14, 'tongueYaw': 0.6, 'cross': 1.0, 'brow': 0.8, 'pupil': 1.2}   # the tongue aside, cross-eyed
-G_W1 = {'mouth': 'kiss', 'puff': 1.0, 'cheeks': 1.0, 'cross': 0.7, 'brow': -0.6, 'pupil': 1.1}                          # a fish: cheeks puffed, lips out
-G_M1 = {'mouth': 'zigzag', 'mouthW': 0.4, 'mouthDx': 25, 'eyeR': 0.6, 'eyeL': -0.3, 'browTiltL': 25, 'browR': 0.8, 'pupil': 1.1}   # a zigzag pulled aside
-G_MAM = {'mouth': 'wavy', 'mouthH': 0.5, 'eye': 0.5, 'pupil': 0.4, 'brow': 1.0}                                         # wavy lips, pin eyes
-G_K2 = {'mouth': 'scream', 'mouthTilt': 15, 'eyeL': -0.3, 'eyeR': 0.5, 'browTiltR': -20, 'pupil': 1.2}                  # a crooked scream
+G_BOSS = {'expr': 'angry', 'exprW': 0.7, 'mouth': 'teeth', 'mouthW': 0.5, 'eyeL': 0.7, 'lidR': 1.0, 'browL': 1.0, 'browR': -0.8, 'pupil': 1.2}       # one eye huge, the other shut, the teeth bared
+G_K1 = {'expr': 'grimace', 'exprW': 0.6, 'mouth': 'tongueout', 'tongue': 1.0, 'tongueLen': 0.14, 'tongueYaw': 0.6, 'cross': 1.0, 'brow': 0.8, 'pupil': 1.2}   # the tongue aside, cross-eyed
+G_W1 = {'expr': 'disgusted', 'exprW': 0.6, 'mouth': 'kiss', 'puff': 1.0, 'cheeks': 1.0, 'cross': 0.7, 'brow': -0.6, 'pupil': 1.1}                          # a fish: cheeks puffed, lips out
+G_M1 = {'expr': 'shocked', 'exprW': 0.6, 'mouth': 'zigzag', 'mouthW': 0.4, 'mouthDx': 25, 'eyeR': 0.6, 'eyeL': -0.3, 'browTiltL': 25, 'browR': 0.8, 'pupil': 1.1}   # a zigzag pulled aside
+G_MAM = {'expr': 'suspicious', 'exprW': 0.6, 'mouth': 'wavy', 'mouthH': 0.5, 'eye': 0.5, 'pupil': 0.4, 'brow': 1.0}                                         # wavy lips, pin eyes
+G_K2 = {'expr': 'scared', 'exprW': 0.6, 'mouth': 'scream', 'mouthTilt': 15, 'eyeL': -0.3, 'eyeR': 0.5, 'browTiltR': -20, 'pupil': 1.2}                  # a crooked scream
 
 # 1: the hook. A Paris pavement: deadpan, a squint, his fingers to the corners of his mouth: he pulls the face of the century (the mouth wide, the
 #    tongue out, the eyes crossed, his head pulled wide, his ears out), and holds it, the tongue wagging
@@ -109,8 +110,8 @@ st.shot('S04', 'mairie', setOpts=OFFICE, actors=[
             k(0.64, toon={**HOLD4(), 'scl': {'head': [0.84, 1.42, 0.86]}, 'hairUp': 1.0, 'sq': [0.95, 1.07, 0.95], 'face': {'lid': 0.0, 'eye': 0.8, 'pupil': 0.45, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.05, toonEase='out'),   # ...the take: her head shoots up
             k(r(0.64 + 0.12), toon={**HOLD4(), 'scl': {'head': [0.94, 1.12, 0.95]}, 'hairUp': 0.8, 'face': {'lid': 0.0, 'eye': 0.6, 'pupil': 0.5, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.08),
             k(r(0.64 + 0.24), toon={**HOLD4(), 'scl': {'head': [1.0, 1.04, 1.0]}, 'hairUp': 0.6, 'face': {'lid': 0.1, 'eye': 0.5, 'pupil': 0.5, 'brow': 0.8, 'mouth': 'o'}}, toonDur=0.12)])],
-        props=[P('photo4', 'grimacePhoto', on={'actor': 'agent', 'hand': 'R', 'offset': [0.0, 0.1, 0.05], 'face': 'camera'}, scale=2.6)],
-        cams=[FC(0.0, [-2.2, 1.65, 0.6], [[VIS[0], 2.38, VIS[2]], [VIS[0], 1.3, VIS[2]], [CLERK[0], 2.55, CLERK[2]], [PH4[0], 2.0, PH4[2]], [PH4[0], 1.55, PH4[2]]], top=0.12, bottom=0.7, drift=(0.06, 0.0, -0.05))])   # (stills 1) his face and the photo side by side to us, her face three-quarters behind
+        props=[P('photo4', 'grimacePhoto', on={'actor': 'agent', 'hand': 'R', 'offset': [0.0, 0.12, 0.05], 'face': 'camera'}, scale=3.6)],   # (stills 2) bigger: a stamp-sized photo did not read
+        cams=[FC(0.0, [-2.2, 1.65, 0.6], [[VIS[0], 2.38, VIS[2]], [VIS[0], 1.3, VIS[2]], [VIS[0], 2.0, r(VIS[2] + 0.42)], [VIS[0], 2.0, r(VIS[2] - 0.42)], [CLERK[0], 2.55, CLERK[2]], [PH4[0], 2.1, PH4[2]], [PH4[0], 1.5, PH4[2]]], top=0.12, bottom=0.7, drift=(0.06, 0.0, -0.05))])   # (stills 2) his whole head in (cut by the right edge)   # (stills 1) his face and the photo side by side to us, her face three-quarters behind
 st.cue('sfx:paper', 'S04', 0.05, 0.15); st.cue('sfx:gasp', 'S04', 0.64, 0.3)
 
 # 5: ...his identity photo. Low over the desk: the photo lies there, his grimace on it, him behind it pulling the same face; the clerk's big stamp
@@ -195,7 +196,7 @@ st.cue('gust', 'S08', 0.05, 0.5, 1.8); st.cue('sfx:squeak', 'S08', 0.1, 0.3); st
 # 9: the whole town stayed in a grimace. The carnival street, wide: five carnival-goers cheering; the gust runs through them from left to right and
 #    each face snaps into a grimace of its own, one after the other, the head squashed by it
 D9 = st.dur('S09')
-TOWN = [('patron', [-1.0, 0, -0.35], 12, G_BOSS, 'happy'), ('k1', [-0.55, 0, 0.55], 6, G_K1, 'happy'), ('w1', [0.0, 0, -0.5], -4, G_W1, 'happy'), ('mamie', [0.55, 0, 0.55], -8, G_MAM, 'happy'), ('m1', [1.0, 0, -0.35], -14, G_M1, 'happy')]   # (stills 1) a tight group: in a row 4.4 m wide the faces were 3 % of the frame
+TOWN = [('patron', [-0.75, 0, -0.4], 12, G_BOSS, 'happy'), ('k1', [-0.4, 0, 0.5], 6, G_K1, 'happy'), ('w1', [0.0, 0, -0.55], -4, G_W1, 'happy'), ('mamie', [0.4, 0, 0.5], -8, G_MAM, 'happy'), ('m1', [0.75, 0, -0.4], -14, G_M1, 'happy')]   # (stills 1) a tight group: in a row 4.4 m wide the faces were 3 % of the frame
 SNAP9 = [0.4, 0.58, 0.76, 0.94, 1.12]
 def SNAPKEYS(ts, g_, i):
     return [k(0.0, toon={'sq': [1.0, 1.02, 1.0], 'face': {'mouth': 'bigsmile', 'lid': 0.1}}, toonDur=0.0),
@@ -206,7 +207,7 @@ def SNAPKEYS(ts, g_, i):
 st.shot('S09', 'parisStreet', setOpts=CARN, actors=[
         act(n_, p_, ry_, 'stand', ex_, keys=[k(0.0, look='camera'), *SNAPKEYS(SNAP9[i], g_, i)]) for i, (n_, p_, ry_, g_, ex_) in enumerate(TOWN)],
         props=[*DECOR('9'), P('leaf9', 'leafGust', pos=[-2.4, 0.5, 1.0], scale=1.3, opts={'n': 30, 'w': 3.8, 'h': 1.6, 'd': 1.2, 'startAt': 0.25, 'dur': 1.05})],
-        cams=[FC(0.0, [0.0, 1.7, 3.6], [[-1.0, 2.5, -0.35], [1.0, 2.35, -0.35], [-1.25, 1.6, -0.35], [1.25, 1.6, -0.35], [-0.55, 1.15, 0.55], [0.55, 1.15, 0.55]], top=0.18, bottom=0.62, drift=(0.0, 0.0, -0.12))])
+        cams=[FC(0.0, [0.0, 1.75, 3.0], [[-0.75, 2.5, -0.4], [0.75, 2.35, -0.4], [-1.0, 1.75, -0.4], [1.0, 1.75, -0.4], [-0.4, 1.15, 0.5], [0.4, 1.15, 0.5]], top=0.18, bottom=0.6, drift=(0.0, 0.0, -0.1))])   # (stills 2) a tighter group: the faces 7 % of the frame
 st.cue('gust', 'S09', 0.2, 0.4, 1.2)
 for t_ in SNAP9: st.cue('sfx:pop', 'S09', t_, 0.25)
 
@@ -240,7 +241,7 @@ st.shot('S11', 'parisStreet', setOpts=CARN, actors=[
             k(r(PT11 + 0.2), toon={'reach': {'R': [OUTPT[0], OUTPT[1], OUTPT[2], 1, 0.08]}, 'hands': {'R': 'point', 'L': 'fist'}, 'face': G_BOSS}, toonDur=0.1),
             k(0.9, toon={'reach': {'R': [OUTPT[0], OUTPT[1], OUTPT[2], 1, 0.08]}, 'hands': {'R': 'point', 'L': 'fist'}, 'sq': [1.0, 1.02, 1.0], 'face': G_BOSS}, toonDur=0.3, toonEase='inOut')])],   # ...held, breathing
         props=[*DECOR('11')],
-        cams=[FC(0.0, [0.1, 1.65, 3.0], [[MC11[0], 2.38, MC11[2]], [BOSS11[0], 2.6, BOSS11[2]], [MC11[0], 0.8, MC11[2]], [BOSS11[0], 0.8, BOSS11[2]], [r(OUTPT[0] - 0.05), 1.75, OUTPT[2]], [r(OUTPT[0] - 0.05), 1.4, OUTPT[2]]], top=0.14, bottom=0.7, drift=(-0.06, 0.0, -0.08))])   # (stills 1) closer
+        cams=[FC(0.0, [0.25, 1.7, 2.5], [[MC11[0], 2.38, MC11[2]], [BOSS11[0], 2.62, BOSS11[2]], [MC11[0], 1.0, MC11[2]], [BOSS11[0], 1.0, BOSS11[2]], [r(MC11[0] - 0.35), 1.7, MC11[2]], [r(BOSS11[0] + 0.4), 1.7, BOSS11[2]]], top=0.14, bottom=0.66, drift=(-0.05, 0.0, -0.06))])   # (stills 2) the two from the waist up: the arm shoots out of the frame (wide, their faces were 5 %)
 st.cue('sfx:stretch', 'S11', PT11, 0.3); st.cue('sfx:whistle', 'S11', r(PT11 + 0.02), 0.15)
 
 # 12: he is too scary. The grimacing children and the mamie turn to his plain face: a squash of fright, then they jump out of their skins (hang time,

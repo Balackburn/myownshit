@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a crié dans la montagne.", "hl": ["crié", "montagne."]},
+ {"id": "L02", "who": "N", "text": "L'écho n'est jamais revenu.", "hl": ["écho", "jamais"]},
+ {"id": "L03", "who": "N", "text": "Il a porté plainte.", "hl": ["plainte."]},
+ {"id": "L04", "who": "N", "text": "La gendarmerie a lancé un avis de recherche.", "hl": ["gendarmerie", "recherche."]},
+ {"id": "L05", "who": "N", "text": "On l'a signalé dans trois vallées.", "hl": ["trois", "vallées."]},
+ {"id": "L06", "who": "N", "text": "Hier, l'écho est rentré.", "hl": ["écho", "rentré."]},
+ {"id": "L07", "who": "N", "text": "Avec deux ans de retard.", "hl": ["deux", "retard."]},
+ {"id": "L08", "who": "N", "text": "Il a hurlé pendant trois jours.", "hl": ["hurlé", "jours."]},
+ {"id": "L09", "who": "N", "text": "La gendarmerie a verbalisé le mec pour tapage.", "hl": ["verbalisé", "tapage."]}
+]

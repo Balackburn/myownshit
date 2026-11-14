@@ -2043,3 +2043,31 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 57 « La porte tournante » : revue 2 = 6,5 / 6,5. Passe 3 : barbe en touffes qui ondulent, plus de rubans de vent, secousse du BZZT,
   quartier entier, toupie dans le cadre, balai armé, œil du coach sur chaque tour, passante qui finit face à nous, écrasement tenu, tampon sur
   la facture, nuit plus claire. Brouillon 3 en file.
+
+## Cycle 21
+
+- Analyse (cinq faiblesses retenues des revues 55-58) : les gags se jouent entre deux images (contacts tenus 4 à 6 images, traînées) ;
+  pupilles trop petites (`pupil` 1,0 et plus sur les visages qui jouent) ; accessoires mal placés par erreur de coordonnées (vérifier en
+  images avant tout brouillon) ; pose clé hors cadre (le cadrage doit contenir le sommet de l'action : chapeau qui saute, bras levés) ;
+  tenues figées (respiration et clignement dans toute tenue de plus d'une demi-seconde).
+- 57 « La porte tournante » : revue 3 = animation 6,5, direction artistique 7,0. Décision (« À voir avec l'utilisateur » du critique
+  animation : la narration sans pauses laisse 0,7 à 0,9 s à S05, S06 et S11) : la narration reste telle quelle (règle de la série) ; seule la
+  queue silencieuse de la fin sert de temps libre. Passe finale : barbe en touffes pointues gris-brun avec des mèches claires (boules noires
+  sur le costume), casque qui monte sur sept images et flotte au-dessus des cheveux dressés, cadre élargi, étincelles deux fois plus grandes,
+  caméra inclinée en S08 (`fitBack` gardait la caméra de niveau), mains en V sous l'auvent en S12, passante qui marche, écrasement final
+  avec un temps de suspension, une galette tenue douze images et un rebond au-delà de sa taille, facture sortie de la poche (sa clé était
+  dans un commentaire). Rendu final en cours (`queue10.sh tournante`).
+- 58 « Le bâillement » : revue 2 = animation 7,0, direction artistique 6,5. Passe 3 : accroupissement et inspiration avant le bâillement,
+  relève qui force et tremble, bouche fermée sur le petit sourire, maire qui applaudit haut en rebondissant, ciseaux à poignées sombres,
+  caméra basse le long de la langue, file qui s'occupe (montre, pas en avant, rebonds, se penche), mamie qui balance la jambe puis se lance
+  à la fin de S05, glissade à vitesse constante dans la fente (sa tête restait dans la bouche : siège décalé de la longueur du buste),
+  YOUPI ! fixe et entier, file et échelle derrière, grandes enveloppes blanches sorties de la sacoche jusque sous les dents, lettres qui
+  tombent au milieu de la fente avec ses yeux qui suivent, plongeon derrière la paroi de la bouche, traînée de la mâchoire, CLAC contre la
+  mâchoire et plan rapproché au claquement, TOC aussi grands que les autres, bosse couleur veste avec des plis, sauts à chaque coup, lettre
+  qui jaillit au-dessus de sa tête comme un toast, dernier coup de poing à la fin. Brouillon 3 et revue 3 en rendu.
+- 59 « La grimace » (cycle 21, type « ce mec + événement absurde + institution qui le prend au mot ») : narration enregistrée (17,6 s),
+  accessoires `props_grimace.js` (girouette sur toit d'ardoise avec traînée et décollage, char de carnaval, photo d'identité grimaçante,
+  rafale de feuilles), douze plans. Premières images : l'idée se lit (girouette, grosse tête sur le char, foule qui saute), mais les visages
+  occupaient 3 à 10 % du cadre : cadrages resserrés, mairie remise en scène (lui triché vers nous, la photo à côté de son visage, l'employée
+  de trois quarts), tampon en insert vu d'en haut. Décision : le mec reste impassible sous la grimace (ses yeux louchent mais ne jouent pas),
+  les réactions vont aux autres ; son visage normal à la fin est la chute.
