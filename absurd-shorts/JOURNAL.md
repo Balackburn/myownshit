@@ -2453,3 +2453,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - Les bonds du fauteuil s'arrêtaient au sommet du dossier, puis frôlaient le plafonnier : hauteurs entre les deux.
     - Les sons des rebonds sont recalés sur les atterrissages.
   - Huit lignes ajoutées au catalogue.
+- 63 « Le café » : brouillon 1 rendu (546 images, 18,2 s ; aucune tenue figée, aucune image grise). Revue 1 en cours.
+  - Blocage noté : le script de chaîne appelait `freeze_check.py` sans le fichier de l'histoire (deuxième argument obligatoire) ; contrôle
+    relancé à la main avec `scripts-fr/story_cafe.json`. Les chaînes suivantes passent le fichier.
