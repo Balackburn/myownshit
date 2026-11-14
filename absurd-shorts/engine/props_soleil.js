@@ -33,6 +33,7 @@ export const SOLEIL_PROPS = {
     const yolk = new THREE.Mesh(new THREE.SphereGeometry(R * 0.36, 12, 8), new THREE.MeshLambertMaterial({ color: '#F6B21E' })); yolk.position.set(R * 0.08, 0.02, -R * 0.05); yolk.scale.y = 0.6; g.add(yolk);
     // (review 1 of 62) o.wholeR: the whole egg's size against the white (0.42; at 0.42 of a 0.085 white it was a crumb nobody saw in her hand); o.shells
     // (true): at o.at two half shells spring apart from the crack and drop
+    // (review 2 of 62) o.shellSpread (1): how far the shells fly (at 1 they stayed under the burst; 2.5 throws them clear of the head)
     const whole = new THREE.Mesh(new THREE.SphereGeometry(R * (o.wholeR ?? 0.42), 12, 10), new THREE.MeshLambertMaterial({ color: '#F2E6D0' })); whole.scale.y = 1.3; whole.position.y = R * (o.wholeR ?? 0.42) * 1.2; if (o.whole !== false) g.add(whole);
     const shells = []; if (o.shells !== false) for (const sd of [-1, 1]) { const sg = new THREE.SphereGeometry(R * (o.wholeR ?? 0.42), 12, 6, 0, TAU, 0, PI / 2), sm = new THREE.MeshLambertMaterial({ color: '#F2E6D0', side: THREE.DoubleSide });
       const sh = new THREE.Mesh(sg, sm); sh.scale.y = 1.3; sh.visible = false; g.add(sh); shells.push({ sh, sd }); }
@@ -41,7 +42,7 @@ export const SOLEIL_PROPS = {
       const u = t - (o.at ?? 0), k = u < 0 ? 0 : eo(u / 0.25);
       whole.visible = u < 0.02; white.visible = yolk.visible = u >= 0;
       shells.forEach(({ sh, sd }) => { const v = u / 0.45; sh.visible = u >= 0 && v < 1; if (!sh.visible) return; const wr = R * (o.wholeR ?? 0.42);
-        sh.position.set(sd * (0.6 * wr + 2.2 * R * v), wr * 1.2 + 3.0 * R * v - 9.0 * R * v * v, R * 0.2 * v); sh.rotation.set(0, 0, sd * (PI / 2 + 2.5 * v)); }); blobs.forEach((b, i) => { b.visible = u >= 0; b.scale.set(1 + 0.25 * Math.sin(t * 22 + i * 1.7), 0.25, 1 + 0.25 * Math.sin(t * 22 + i * 1.7)); });
+        const sp = o.shellSpread ?? 1; sh.position.set(sd * (0.6 * wr + 2.2 * R * v * sp), wr * 1.2 + 3.0 * R * v * sp - 9.0 * R * v * v * sp, R * 0.2 * v * sp); sh.rotation.set(0, 0, sd * (PI / 2 + 2.5 * v)); }); blobs.forEach((b, i) => { b.visible = u >= 0; b.scale.set(1 + 0.25 * Math.sin(t * 22 + i * 1.7), 0.25, 1 + 0.25 * Math.sin(t * 22 + i * 1.7)); });
       white.scale.set(Math.max(0.05, k), 1, Math.max(0.05, k)); blobs.forEach(b => b.position.set(b.userData.p0[0] * k, 0.008, b.userData.p0[1] * k)); yolk.scale.set(Math.max(0.2, k), 0.6 * Math.max(0.3, k), Math.max(0.2, k));
       puffs.forEach((p, i) => { const v = (u - 0.2 - i * 0.18) % 0.72, on = u > 0.2 + i * 0.18 && u < (o.dur ?? 1.5) + 0.2; p.visible = on; if (!on) return;
         const w = clamp01(v / 0.72); p.position.set(Math.sin(i * 2.1) * R * 0.5, 0.05 + w * R * 3.2, Math.cos(i * 2.1) * R * 0.4); p.scale.setScalar(0.6 + w * 1.2); p.material.opacity = 0.75 * (1 - w); });
@@ -56,7 +57,8 @@ export const SOLEIL_PROPS = {
     const n = o.n ?? 6, R = o.r ?? 0.35, g = grp(), ms = [], z = o.size ?? 1;
     const tri = new THREE.Shape(); tri.moveTo(0, 0); tri.lineTo(0.055 * z, -0.012 * z); tri.lineTo(0.046 * z, -0.042 * z); tri.lineTo(0, -0.024 * z); tri.lineTo(0, 0);
     const wgeo = new THREE.ShapeGeometry(tri); wgeo.rotateX(-PI / 2);
-    for (let i = 0; i < n; i++) { const m = grp(), wm = new THREE.MeshLambertMaterial({ color: i % 2 ? '#9C8C76' : '#8A7A66', side: THREE.DoubleSide });
+    const cols = list(o.color ?? ['#8A7A66', '#9C8C76']);   // (review 2 of 62) o.color (one or two), o.basic: unlit wings that keep their grey-brown under his red glow (lit, they read as red birds)
+    for (let i = 0; i < n; i++) { const m = grp(), wm = o.basic ? new THREE.MeshBasicMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide }) : new THREE.MeshLambertMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide });
       const wl = new THREE.Group(), wr = new THREE.Group(); const ml = new THREE.Mesh(wgeo, wm), mr = new THREE.Mesh(wgeo, wm); mr.scale.x = -1; wl.add(ml); wr.add(mr);
       const body = new THREE.Mesh(new THREE.CylinderGeometry(0.007 * z, 0.005 * z, 0.04 * z, 6), mat('#5E5244')); body.rotation.x = PI / 2;
       m.add(wl, wr, body); for (const sd of [-1, 1]) { const an = new THREE.Mesh(new THREE.CylinderGeometry(0.0015 * z, 0.0015 * z, 0.03 * z, 4), mat('#4A4036')); an.position.set(sd * 0.006 * z, 0.004 * z, 0.026 * z); an.rotation.set(PI / 2 - 0.5, 0, sd * 0.5); m.add(an); }
@@ -96,7 +98,8 @@ export const SOLEIL_PROPS = {
   // horns on the cab roof; o.color (cab), o.box (cargo box)
   truck(o) {
     const C = o.color || '#2F6FB2', BX = o.box || '#ECE8DE', g = grp();
-    g.add(at(box(1.9, 1.75, 2.3, C, { pivot: 'bottom', outline: 0.012 }), 2.6, 0.55, 0), at(box(0.04, 0.85, 2.0, '#BFE3F0'), 3.56, 1.6, 0), at(box(0.06, 0.55, 1.9, '#C9CED4'), 3.57, 0.85, 0),
+    const ws = o.front === false ? at(box(0.04, 0.85, 2.0, '#BFE3F0'), 3.56, 1.6, 0) : at(new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.85, 2.0), new THREE.MeshLambertMaterial({ color: '#CFEAF5', transparent: true, opacity: 0.28, depthWrite: false })), 3.56, 1.6, 0);   // (review 2 of 62) a see-through windscreen: the driver showed as a blank panel
+    g.add(at(box(1.9, 1.75, 2.3, C, { pivot: 'bottom', outline: 0.012 }), 2.6, 0.55, 0), ws, at(box(0.06, 0.55, 1.9, '#C9CED4'), 3.57, 0.85, 0),
       at(box(4.6, 2.7, 2.4, BX, { pivot: 'bottom', outline: 0.014 }), -0.75, 0.6, 0), at(box(6.9, 0.22, 2.2, '#3C3F44'), 0.4, 0.45, 0));
     for (const x of [-2.4, -1.4, 2.9]) for (const z of [-1.08, 1.08]) { const w = cyl(0.48, 0.48, 0.32, '#22252A', 14); w.rotation.x = PI / 2; w.position.set(x, 0.48, z); g.add(w); }
     // (review 1 of 62) seen from the side it read as a blue wall: o.front (true): a cab face that reads from three-quarter front, a dark grille with
@@ -109,11 +112,39 @@ export const SOLEIL_PROPS = {
     g.add(at(box(0.18, 0.26, 2.36, '#1C1E22', { outline: 0.008 }), 3.6, 0.42, 0));
     for (const z of [-0.9, 0.9]) { const hl = cyl(0.13, 0.13, 0.05, '#FFF3C2', 14); hl.rotation.z = PI / 2; hl.position.set(3.62, 0.86, z); hl.material = new THREE.MeshBasicMaterial({ color: '#FFF3C2', toneMapped: false }); g.add(hl);
       g.add(at(box(0.05, 0.05, 0.42, '#2A2C31'), 3.4, 2.0, z * 1.28), at(box(0.06, 0.34, 0.2, '#2A2C31', { outline: 0.004 }), 3.4, 1.86, z * 1.48)); }
-    g.add(at(box(0.3, 0.42, 0.3, '#3A3F4A'), 3.25, 1.62, -0.45), at(box(0.26, 0.24, 0.24, '#E0B48C'), 3.27, 1.98, -0.45));   // the driver behind the windscreen
-    const HL = o.hornLen ?? 1.0;
-    for (const z of [-0.55, 0.55]) { const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.05, HL, 14, 1, true), new THREE.MeshLambertMaterial({ color: '#E6EAEE', emissive: '#40464C', side: THREE.DoubleSide }));
-      tr.rotation.z = -PI / 2; tr.position.set(3.0 + HL / 2 - 0.25, 2.55, z); g.add(tr); g.add(at(box(0.5, 0.08, 0.08, '#B8BEC4'), 2.9, 2.36, z)); }
-    return g;
+    // (review 2 of 62) the driver leans on the horn: o.honkAt (s), o.honkDur (0.6): his body tips forward, his raised arm pulls a cord down from the cab roof;
+    // the chrome trumpets (a banded chrome texture, unlit so the white streak stays hot against the sky) flare, recoil and shiver, and sound rings fly
+    // out of their bells for as long as the horn lasts
+    const drv = grp(at(box(0.3, 0.42, 0.3, '#3A3F4A'), 0, 0.21, 0), at(box(0.26, 0.24, 0.24, '#E0B48C'), 0.02, 0.57, 0)); drv.position.set(3.25, 1.41, -0.45); g.add(drv);
+    const arm = grp(at(box(0.08, 0.36, 0.08, '#3A3F4A'), 0, 0.18, 0), at(box(0.08, 0.08, 0.08, '#E0B48C'), 0, 0.38, 0)); arm.position.set(0.0, 0.36, 0.12); drv.add(arm);
+    const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.4, 4), mat('#1C1C1C')); cord.position.set(3.25, 2.1, -0.33); g.add(cord);
+    const cv = document.createElement('canvas'); cv.width = 64; cv.height = 8; const cx = cv.getContext('2d'), gr = cx.createLinearGradient(0, 0, 64, 0);
+    [[0, '#5A6068'], [0.18, '#E8EEF4'], [0.27, '#FFFFFF'], [0.36, '#AEB8C4'], [0.55, '#4A5058'], [0.72, '#C8D2DC'], [0.86, '#FFFFFF'], [1, '#6A7078']].forEach(([a, c_]) => gr.addColorStop(a, c_)); cx.fillStyle = gr; cx.fillRect(0, 0, 64, 8);
+    const chrome = new THREE.CanvasTexture(cv); chrome.colorSpace = THREE.SRGBColorSpace;
+    const HL = o.hornLen ?? 1.0, horns = [], rings = [];
+    for (const z of [-0.55, 0.55]) { const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.05, HL, 18, 1, true), new THREE.MeshBasicMaterial({ map: chrome, side: THREE.DoubleSide }));
+      tr.rotation.z = -PI / 2; tr.position.set(3.0 + HL / 2 - 0.25, 2.55, z); g.add(tr); horns.push(tr); g.add(at(box(0.5, 0.08, 0.08, '#B8BEC4'), 2.9, 2.36, z));
+      for (let i = 0; i < 4; i++) { const rg = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.012, 6, 24), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0, depthWrite: false })); rg.rotation.y = PI / 2; rg.position.set(3.0 + HL - 0.2, 2.55, z); rg.visible = false; g.add(rg); rings.push({ rg, i, x0: 3.0 + HL - 0.2 }); } }
+    g.userData.update = t => { const u = o.honkAt == null ? -1 : t - o.honkAt, D = o.honkDur ?? 0.6, on = u >= 0 && u < D;
+      const fl = on ? (u < 0.08 ? eo(u / 0.08) : 1) * (1 + 0.04 * Math.sin(u * 90)) : (u >= D && u < D + 0.15 ? 1 - (u - D) / 0.15 : 0);
+      horns.forEach(h => { h.scale.set(1 + 0.45 * fl, 1 - 0.12 * fl, 1 + 0.45 * fl); h.position.x = 3.0 + HL / 2 - 0.25 - 0.08 * fl; });
+      rings.forEach(({ rg, i, x0 }) => { const v = on ? ((u - i * 0.1) % 0.4) / 0.4 : -1; rg.visible = on && u >= i * 0.1 && v >= 0; if (!rg.visible) return; rg.position.x = x0 + 1.6 * v; rg.scale.setScalar(1 + 2.6 * v); rg.material.opacity = 0.85 * (1 - v); });
+      const lean = on ? (u < 0.1 ? eo(u / 0.1) : 1) : (u >= D && u < D + 0.2 ? 1 - (u - D) / 0.2 : 0); drv.rotation.z = -0.35 * lean; arm.rotation.z = 0.5 * lean; cord.scale.y = 1 + 0.5 * lean; cord.position.y = 2.1 - 0.1 * lean; };
+    g.userData.update(0); return g;
+  },
+
+  // (review 2 of 62) An open newspaper held up (pivot at its centre, its print toward +Z): two pages o.w (0.56) x o.h (0.4), a masthead, headlines and
+  // columns, unlit and tinted o.tint (a pale pink: it reads by his light; lit by the night it was a black slab)
+  glowPaper(o) {
+    const W = o.w ?? 0.56, H = o.h ?? 0.4, cv = document.createElement('canvas'); cv.width = 512; cv.height = Math.round(512 * H / W); const c = cv.getContext('2d'), CW = cv.width, CH = cv.height;
+    c.fillStyle = '#F4F0E6'; c.fillRect(0, 0, CW, CH); c.fillStyle = '#2A2A2A'; c.textAlign = 'center'; c.font = `900 ${CH * 0.13}px Georgia, serif`; c.fillText(o.title || 'LE SOIR', CW * 0.25, CH * 0.16);
+    c.fillRect(CW * 0.03, CH * 0.2, CW * 0.44, 3); c.fillRect(CW * 0.53, CH * 0.2, CW * 0.44, 3); c.font = `bold ${CH * 0.07}px Arial`; c.fillText(o.headline || 'NUIT ROUGE', CW * 0.75, CH * 0.15);
+    c.fillStyle = '#8E8E8E'; c.fillRect(CW * 0.55, CH * 0.26, CW * 0.4, CH * 0.24); c.fillStyle = '#4A4A4A';
+    for (const x0 of [0.03, 0.18, 0.33, 0.55, 0.7, 0.85]) for (let i = 0; i < 14; i++) { const y = 0.27 + i * 0.05; if (x0 >= 0.55 && y < 0.52) continue; c.fillRect(CW * x0, CH * y, CW * 0.12 * (i % 5 === 4 ? 0.6 : 1), 3); }
+    c.fillStyle = '#C8C2B4'; c.fillRect(CW / 2 - 1, 0, 2, CH);
+    const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(W, H), new THREE.MeshBasicMaterial({ map: tex, color: o.tint || '#FFC9D2', side: THREE.DoubleSide })); m.castShadow = false;
+    return grp(m);
   },
 
   // A glow (pivot at its centre): a coloured point light of o.k (6) over o.dist (7 m) from o.at, so a glowing face lights the walls round it

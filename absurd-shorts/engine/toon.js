@@ -402,7 +402,10 @@ export function toonUpgrade(obj) {
         e.m.visible = !big; e.dish.visible = big; if (big) e.dish.scale.setScalar(0.05 * es); }   // (final pass of 60) a dish from 1.3 (turned once, out and forward), the box ear below
       if (tp.skin || skinOn) { const S = tp.skin, parts2 = skinParts(); skinOn = !!S; _sc.set(S?.color || '#FFFFFF');   // (cycle 24) the skin channel
         for (const p of parts2) { const fl = S ? (S.fill ?? 1) : 0, part = p.face ? clamp01((fl - 0.8) / 0.2) : (fl >= p.lv - 1e-6 ? 1 : 0), on = S && part > 0, k = on ? (S.k ?? 1) * part : 0, gl = on ? (S.glow || 0) * part : 0;   // (review 1 of 62) the head fills from fill 0.8 to 1
-          p.mats.forEach((m, i) => { _wc.setRGB(1, 1, 1).lerp(_sc, k); if (!(p.face && i === 4)) m.color.copy(p.base[i]).multiply(_wc); if (m.emissive && p.baseE[i]) m.emissive.copy(p.baseE[i]).lerp(_sc, gl * (p.face && i === 4 ? 0.4 : 0.85)); }); } }   // (cycle 24) a dish, not a block: the thickness grows a third as fast
+          p.mats.forEach((m, i) => { _wc.setRGB(1, 1, 1).lerp(_sc, k); const fp = p.face && i === 4; if (!fp) m.color.copy(p.base[i]).multiply(_wc);
+            if (fp && m.map && m.emissive) { if (m.emissiveMap !== m.map && gl > 0.01) { m.emissiveMap = m.map; m.needsUpdate = true; }   // (review 2 of 62) the painted face lights itself: its own (tinted) drawing as the emissive map, line work
+              if (m.emissiveMap === m.map) m.emissive.setRGB(gl * 0.95, gl * 0.95, gl * 0.95); else if (p.baseE[i]) m.emissive.copy(p.baseE[i]); }   // and all; a flat red emissive left the glowing face darker than its own halo at night
+            else if (m.emissive && p.baseE[i]) m.emissive.copy(p.baseE[i]).lerp(_sc, gl * 0.85); }); } }   // (cycle 24) a dish, not a block: the thickness grows a third as fast
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
       face?.(tp.face || {}, t);
       if (gulp) { const gp = tp.face?.gulp || 0; gulp.visible = gp > 0.02 && gp < 0.98; if (gulp.visible) { const sw = Math.pow(Math.sin(Math.PI * gp), 0.6); gulp.position.set(0, 0.135 - 0.115 * gp, 0.034); gulp.scale.set(0.95 * sw, 0.75 * sw, 0.62 * sw); } }
