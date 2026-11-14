@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec s'est assis sur un ressort.", "hl": ["ressort."]},
+ {"id": "L02", "who": "N", "text": "Il a rebondi jusqu'au toit.", "hl": ["rebondi", "toit."]},
+ {"id": "L03", "who": "N", "text": "Depuis, il rebondit partout.", "hl": ["rebondit", "partout."]},
+ {"id": "L04", "who": "N", "text": "La mairie l'a déclaré objet volant.", "hl": ["mairie", "volant."]},
+ {"id": "L05", "who": "N", "text": "Il doit passer le permis de pilote.", "hl": ["permis", "pilote."]},
+ {"id": "L06", "who": "N", "text": "Il l'a raté trois fois.", "hl": ["raté", "trois"]},
+ {"id": "L07", "who": "N", "text": "Hier, il a arrêté de rebondir.", "hl": ["arrêté"]},
+ {"id": "L08", "who": "N", "text": "En plein vol.", "hl": ["plein", "vol."]},
+ {"id": "L09", "who": "N", "text": "Les pigeons ont fait leur nid sur sa tête.", "hl": ["pigeons", "nid"]}
+]
