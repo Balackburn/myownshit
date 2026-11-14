@@ -108,33 +108,35 @@ st.cue('sfx:stretch', 'S03', 0.3, 0.25); st.cue('sfx:stretch', 'S03', 1.14, 0.25
 #    pigeons perched on it over the road; a little car drives under it and lifts it over its roof: he is yanked onto his toes, then dropped
 D4 = st.dur('S04'); BUS4 = 0.65; GONE4 = 1.14                       # the bus under the tongue, from its front to its back (15.6 m/s)
 U_CAR = r((FAR[0] - 0.12 - 2.2) / (FAR[0] - 0.12 - POLE[0] - 0.1))    # where lane x = 2.2 crosses the tongue
-HANG4 = {'bend': {'neck': [0.2, 0, 0, 1.4, None], 'legL': [0.25, 0, 0, 1, None], 'legR': [0.1, 0, 0, 1, None]}, 'reach': {'L': [5.6, 1.6, 0.75, 1, 0.05], 'R': [5.6, 1.6, -0.75, 1, 0.05]}, 'face': {'lid': 0.0, 'eye': 0.55, 'pupilSize': -0.4, 'mouth': 'tongueout', 'brow': 0.9}}
+UP4 = 1.4; LOOK4 = r(GONE4 + 0.2); DROP4 = r(GONE4 + 0.32); LAND4 = r(DROP4 + 0.14)
+HANG4 = lambda gy: {'bend': {'neck': [0.2, 0, 0, 1.4, None], 'legL': [0.3, 0, 0, 1, None], 'legR': [0.12, 0, 0, 1, None]}, 'reach': {'L': [5.75, r(1.6 + UP4), 0.8, 1, 0.05], 'R': [5.75, r(1.6 + UP4), -0.8, 1, 0.05]}, 'face': {'lid': 0.0, 'eye': 0.5, 'pupilSize': -0.4, 'mouth': 'tongueout', 'brow': 0.6, 'gy': gy}}
 st.shot('S04', 'parisStreet', setOpts=SNOW, actors=[
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
-            k(r(BUS4 - 0.04), to=[FAR[0], 0.8, 0.0], dur=0.14, ease='out', face='keep'), k(r(BUS4 - 0.04), toon=HANG4, toonDur=0.1, toonEase='out'),   # yanked off his feet, legs dangling...
-            k(GONE4, to=FAR, dur=0.13, ease='in', face='keep'), k(r(GONE4 + 0.13), toon={'sq': [1.14, 0.82, 1.14], 'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.04),   # ...dropped: squashed on landing...
-            k(r(GONE4 + 0.3), toon={'sq': [0.98, 1.03, 0.98], 'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.12), k(r(GONE4 + 0.45), toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.12)])],   # ...deadpan
+            k(r(BUS4 - 0.02), to=[FAR[0], UP4, 0.0], dur=0.16, ease='out', face='keep'), k(r(BUS4 - 0.02), toon=HANG4(0.0), toonDur=0.1, toonEase='out'), k(BUS4, look='camera'),   # yanked up behind the bus...
+            k(LOOK4, toon=HANG4(0.85), toonDur=0.06), k(LOOK4, look=[FAR[0], 0.0, -0.6]),   # ...revealed hanging in the air: a look down...
+            k(DROP4, to=FAR, dur=0.14, ease='in', face='keep'), k(LAND4, toon={'sq': [1.16, 0.8, 1.16], 'face': {'lid': 0.3, 'mouth': 'tongueout'}}, toonDur=0.04), k(LAND4, look='camera'),   # ...and down: squashed on landing
+            k(r(LAND4 + 0.16), toon={'sq': [0.98, 1.03, 0.98], 'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.1)])],
         props=[*LAMP(lick_at=-1.0), P('bus4', 'cityBus', pos=[2.2, 0, -14.0], ry=-90, opts={'len': 7.6}, keys=[k(0.0, to=[2.2, 0, 14.0], dur=D4, ease='linear')])],
         tethers=[TONGUE(**{'sag': 0.022, 'n': 28, 'segments': 64, 'taper': 0.2, 'lift': [[BUS4, GONE4, U_CAR, 1.15, 0.1]],
-                           'birds': [[0.17, 99, 120], [0.23, 99, 100], [0.3, 99, 140]], 'ripple': [[GONE4, 0.18, 2.0]]})],
-        cams=[FC(0.0, [-7.4, 4.6, -1.8], [[FAR[0], 3.15, 0.0], [FAR[0], 0.0, 0.0], [-2.5, 1.9, 0.0], [2.2, 3.0, 0.0]], top=0.1, bottom=0.78)])   # (stills 1) high on the pole's side, over the bus: behind the pole the pole filled the frame and he was tiny
-st.cue('sfx:engine', 'S04', 0.1, 0.3); st.cue('sfx:boing', 'S04', BUS4, 0.35); st.cue('thud', 'S04', r(GONE4 + 0.13), 0.3)
+                           'birds': [[0.17, r(BUS4 + 0.04), 120], [0.23, r(BUS4 + 0.08), 100], [0.3, r(BUS4 + 0.02), 140]], 'ripple': [[GONE4, 0.18, 2.0]]})],
+        cams=[FC(0.0, [-1.0, 1.5, 3.4], [[FAR[0], r(2.45 + UP4), 0.0], [FAR[0], 0.0, 0.0], [3.4, 2.0, 0.0]], top=0.1, bottom=0.78)])   # (stills 2) from the road on the pole's side, facing him: the bus wipes across, then the hang
+st.cue('sfx:engine', 'S04', 0.2, 0.35); st.cue('sfx:boing', 'S04', BUS4, 0.3); st.cue('sfx:slideDown', 'S04', DROP4, 0.25); st.cue('thud', 'S04', LAND4, 0.35)
 
 # 5: the town hall hung the Christmas lights on it. A worker in the road clips bulbs onto the tongue from the pole end toward him; the tongue sags
 #    deeper at each bulb and his head bows with it; the mayor beside him ticks his clipboard
 D5 = st.dur('S05'); HANG5 = [-7.1, 3.8]   # (stills 1) the hanging front keeps up with the worker's hands (it ran ahead of him, off the frame)
-WORK5 = [1.5, 0, 0.3]
+WORK5 = [1.5, 0, -0.38]
 st.shot('S05', 'parisStreet', setOpts=SNOW, actors=[
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
             *[k(r(0.4 + 0.45 * j), toon={'bend': {'neck': [r(0.12 + 0.12 * j), 0, 0, 1, None], 'spine': [r(0.03 * j), 0, 0, 1, None]}, 'face': {'lid': r(0.45 + 0.05 * j), 'mouth': 'tongueout', 'gy': -0.4}}, toonDur=0.2, toonEase='inOut') for j in range(4)]]),   # bowing a notch at each bulb, eyes up
-        act('ouv', WORK5, 90, 'stand', 'neutral', keys=[k(0.0, to=[4.0, 0, 0.3], dur=D5, ease='linear', clip='walk', then='stand', face='keep'),
+        act('ouv', WORK5, 90, 'stand', 'neutral', keys=[k(0.0, to=[4.0, 0, -0.38], dur=D5, ease='linear', clip='walk', then='stand', face='keep'),
             k(0.0, toon={'touch': {'R': ['torso', -0.16, 0.95, 0.4, 1, 0.05], 'L': ['torso', 0.16, 0.92, 0.4, 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'grip'}, 'bend': {'spine': [0.12, 0, 0, 1, None]}}, toonDur=0.0)]),
         act('maire', [6.7, 0, -1.0], -120, 'stand', 'neutral', keys=[k(0.0, look=[2.0, 1.4, 0.0]), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'smirk'}}, toonDur=0.0),
             *[k(r(0.45 + 0.5 * j), toon={'touch': {'R': ['torso', 0.02, 0.62, 0.32, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smirk', 'gy': 0.5}}, toonDur=0.1) for j in range(3)],
             k(r(D5 - 0.45), look='camera'), k(r(D5 - 0.4), toon={'face': {'lid': 0.2, 'mouth': 'smirk', 'brow': 0.4}}, toonDur=0.1)])],   # ticking his board at each bulb, then a look to us
         props=[*LAMP(lick_at=-1.0), P('board5', 'clipboardProp', on={'actor': 'maire', 'hand': 'L'})],
         tethers=[TONGUE(**{'sag': [[0.0, 0.022], [HANG5[1], 0.05]], 'n': 24, 'segments': 56, 'taper': 0.2, 'bulbs': BULBS(hang=HANG5)})],
-        cams=[FC(0.0, [0.4, 1.9, 3.8], [[FAR[0], 2.3, 0.0], [FAR[0], 0.0, 0.0], [6.7, 2.2, -1.0], [2.2, 1.5, 0.3]], top=0.1, bottom=0.78)])   # (stills 1) from the road, wider: near the worker he filled half the frame
+        cams=[FC(0.0, [0.6, 2.5, 4.8], [[FAR[0], 2.3, 0.0], [FAR[0], 0.0, 0.0], [6.7, 2.2, -1.0], [2.0, 2.3, -0.38], [2.0, 1.3, 0.0]], top=0.1, bottom=0.78)])   # (stills 2) higher and farther, the worker behind the tongue: the bulbs in front
 st.cue('sfx:clink', 'S05', 0.5, 0.15); st.cue('sfx:clink', 'S05', 1.0, 0.15); st.cue('sfx:clink', 'S05', 1.5, 0.15)
 
 # 6: the mayor pressed the button. Dusk: the mayor in his sash behind a pedestal with a big red button, two neighbours behind a red ribbon; the dark
@@ -147,14 +149,14 @@ st.shot('S06', 'parisStreet', setOpts=NIGHT, look=DUSK, actors=[
             k(PRESS6, toon={'reach': {'R': [6.2, 1.0, 1.4, 1, 0.05]}, 'hands': {'R': 'point'}, 'bend': {'spine': [0.22, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.05, toonEase='in')]),   # ...CLIC
         act('vois1', [5.3, 0, 0.3], 20, 'stand', 'neutral', keys=[k(0.0, look=BTN6), k(0.7, look=[2.0, 2.2, -1.0]), k(1.15, look=BTN6)]), act('vois2', [7.0, 0, 0.2], -20, 'stand', 'neutral', keys=[k(0.0, look=BTN6), k(0.5, look=[6.2, 2.0, 1.0]), k(r(PRESS6 - 0.1), look=BTN6), k(PRESS6, toon={'face': {'eye': 0.4, 'mouth': 'O'}}, toonDur=0.08)])],
         props=[P('btn6', 'bigButton', pos=BTN6, ry=180, opts={'pressAt': PRESS6, 'cable': 2.5}), BURST('clic6', [6.6, 1.65, 1.6], r(PRESS6 + 0.02), 'CLIC !', 0.32, 0.3)],
-        cams=[FC(0.0, [6.4, 1.6, 4.2], [[6.2, 2.35, 1.0], [6.2, 0.5, 1.4], [5.3, 2.1, 0.3], [7.0, 1.7, 0.2]], top=0.14, bottom=0.76)])   # (stills 1) facing the mayor behind his button, the neighbours behind him
+        cams=[FC(0.0, [6.4, 1.6, 4.2], [[6.2, 2.45, 1.0], [6.2, 0.5, 1.4], [5.3, 2.1, 0.3], [7.0, 1.7, 0.2]], top=0.18, bottom=0.76)])   # (stills 1) facing the mayor behind his button, the neighbours behind him
 st.cue('sfx:click', 'S06', PRESS6, 0.4)
 
 # 7: everything blinks; him too. Night: the garland lit and chasing on the tongue, glowing over the street; close on him: his eyes blink on the beat,
 #    his face flashes red, green and gold, his hair stands up (NOËL)
 D7 = st.dur('S07'); ON7 = 0.05; PER = 0.3; ALSO7 = st.at('S07', 'L06', 2)   # on « Lui »
 SKINS7 = ['#FF5A5A', '#5AE070', '#FFD45A']
-st.shot('S07', 'parisStreet', setOpts=NIGHT, look=NLOOK, actors=[
+st.shot('S07', 'parisStreet', setOpts=NIGHT, look=NLOOK, dark=[[0.0, 0.68]], darkTint='#1E2747', darkFloor=0.16, actors=[
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'bend': {'neck': [0.48, 0, 0, 1, None]}, 'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
             *[k(r(ALSO7 + PER * j), toon={'bend': {'neck': [0.48, 0, 0, 1, None]}, 'hairUp': 1.0, 'skin': {'color': SKINS7[j % 3], 'k': 0.85, 'glow': 0.5, 'fill': 1.0}, 'face': {'lid': 1.0 if j % 3 == 0 else 0.0, 'mouth': 'tongueout', 'eye': 0.2}}, toonDur=0.03) for j in range(int((D7 - ALSO7) / PER) + 1)]]),   # on the beat
         ],
@@ -179,8 +181,8 @@ st.shot('S09', 'parisStreet', setOpts={**SNOW, 'sky': ['#62AEE2', '#A7D4EC'], 's
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
             k(r(SNAP9 + 0.1), toon={'face': {'lid': 0.0, 'eye': 0.6, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'tongueout'}}, toonDur=0.05),   # it is coming...
             k(HOME9, to=[r(FAR[0] + 0.28), 0, 0.0], dur=0.12, ease='out', face='keep'),
-            k(HOME9, toon={'bend': {'spine': [-0.5, 0, 0, 1, None]}, 'scl': {'head': [1.5, 1.05, 1.15]}, 'face': {'lid': 0.0, 'eye': 0.7, 'pupilSize': -0.45, 'brow': 1.0, 'mouth': 'O', 'puff': 1.0, 'cheeks': 1.0}}, toonDur=0.04, toonEase='out'),   # ...WHAP: cheeks full, knocked back
-            k(r(HOME9 + 0.3), toon={'bend': {'spine': [-0.3, 0, 0, 1, None]}, 'scl': {'head': [1.32, 1.04, 1.1]}, 'face': {'lid': 0.3, 'eye': 0.3, 'mouth': 'O', 'puff': 0.85, 'cheeks': 0.9}}, toonDur=0.2)])],
+            k(HOME9, look='camera'), k(HOME9, toon={'bend': {'spine': [-0.22, 0, 0, 1, None]}, 'scl': {'head': [1.62, 1.08, 1.2]}, 'face': {'lid': 0.0, 'eye': 0.7, 'pupilSize': -0.45, 'brow': 1.0, 'mouth': 'O', 'puff': 1.0, 'cheeks': 1.0}}, toonDur=0.04, toonEase='out'),   # ...WHAP: cheeks full, knocked back
+            k(r(HOME9 + 0.3), toon={'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'scl': {'head': [1.4, 1.05, 1.12]}, 'face': {'lid': 0.3, 'eye': 0.3, 'mouth': 'O', 'puff': 0.85, 'cheeks': 0.9}}, toonDur=0.2)])],
         props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('zip9', [2.8, 2.6, 0.6], r(SNAP9 + 0.12), 'ZIIIP !', 0.5, 0.3), P('lines9', 'speedLines', pos=[2.4, 1.7, 0.3], face='camera', opts={'n': 7, 'len': 1.6, 'w': 0.6, 'angle': 0.0, 'soft': True, 'alpha': 0.8, 'at': [[SNAP9, HOME9]]})],
         tethers=[TONGUE(**{'sag': 0.05, 'n': 24, 'segments': 56, 'taper': 0.2, 'snap': [SNAP9, DUR9, 0.45], 'bulbs': BULBS(on=-1.0, period=PER), 'birds': [[0.17, 99, 60], [0.23, 99, 40], [0.3, 99, 80]], 'plug': True})],
         cams=[FC(0.0, [3.7, 1.75, 2.2], [[FAR[0], 2.4, 0.0], [FAR[0], 0.75, 0.0], [r(FAR[0] + 0.55), 1.9, 0.0], [4.3, 1.85, 0.0]], top=0.12, bottom=0.76)])   # (stills 1) nearer, him in the middle: knocked back he left the frame
@@ -193,7 +195,7 @@ st.shot('S10', 'parisStreet', setOpts={**SNOW, 'sky': ['#62AEE2', '#A7D4EC'], 's
             k(r(SLURP10 + 0.2), toon={'scl': {'head': [1.12, 1.02, 1.04]}, 'face': {'lid': 0.2, 'mouth': 'line', 'puff': 0.4, 'cheeks': 0.5}}, toonDur=0.1),
             k(GULP10, toon={'face': {'lid': 0.0, 'mouth': 'line', 'gulp': 1.0, 'cross': 0.7, 'eye': 0.3}}, toonDur=0.3, toonEase='inOut'),   # GULP
             k(r(GULP10 + 0.45), toon={'face': {**DEAD, 'mouth': 'line', 'gulp': 1.0}}, toonDur=0.15)])],
-        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('gulp10', [r(FAR[0] + 0.1), 2.45, 0.55], GULP10, 'GLOUPS !', 0.34, 0.3),
+        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('gulp10', [r(FAR[0] - 0.35), 2.05, 0.62], GULP10, 'GLOUPS !', 0.32, 0.3),
                P('lump10', 'bellyBulge', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.0, 0.0]}, opts={'r': 0.12, 'path': [[GULP10, 0.0, 0.66, 0.12], [r(GULP10 + 0.4), 0.0, 0.28, 0.14]], 'size': [[r(GULP10 - 0.01), 0.0], [r(GULP10 + 0.06), 1.0], [r(GULP10 + 0.4), 1.25], [r(GULP10 + 0.6), 0.5]]}),   # (stills 1) the lump going down shows on the chest (the neck is too short)
                P('belly10', 'bellyLights', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.28, 0.15]}, opts={'at': r(GULP10 + 0.45), 'period': PER, 'size': 0.2, 'spread': 0.09, 'k': 1.2})],
         tethers=[{'a': {'actor': 'mec', 'joint': 'head', 'offset': MOUTH}, 'b': {'actor': 'mec', 'joint': 'head', 'offset': [0.12, -0.12, 0.34]}, 'color': PINK, 'radius': 0.03, 'radial': 8, 'sag': 0.0, 'n': 6, 'snap': [SLURP10, 0.22, 0.12], 'plug': True, 'tip': True}],
@@ -203,13 +205,13 @@ st.cue('sfx:slideUp', 'S10', SLURP10, 0.3); st.cue('sfx:gulp', 'S10', GULP10, 0.
 # 11: he has been blinking ever since. Night, the snowy pavement: deadpan, his belly blinks red, green and gold through his shirt, his eyes on the
 #    beat; a passer-by stops and stares
 D11 = st.dur('S11')
-st.shot('S11', 'parisStreet', setOpts=NIGHT, look=NLOOK, actors=[
+st.shot('S11', 'parisStreet', setOpts=NIGHT, look=NLOOK, dark=[[0.0, 0.62]], darkTint='#1E2747', darkFloor=0.18, actors=[
         act('mec', [r(FAR[0] + 0.45), 0, 0.0], -40, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
             *[k(r(0.12 + PER * j), toon={'face': {'lid': 1.0 if j % 3 == 1 else 0.45}}, toonDur=0.03) for j in range(int(D11 / PER))]]),
         act('passante', [3.4, 0, -1.9], 60, 'stand', 'neutral', keys=[k(0.0, to=[4.3, 0, -1.5], dur=0.6, clip='walk', then='stand', ease='out', face='keep'), k(0.0, look=[r(FAR[0] + 0.45), 1.1, 0.0]),
             k(0.7, toon={'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O', 'brow': 0.6}}, toonDur=0.12)])],
         props=[P('belly11', 'bellyLights', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.3, 0.14]}, opts={'at': 0.0, 'period': PER, 'size': 0.28, 'spread': 0.1, 'k': 2.6})],   # (stills 1) bigger and brighter: they were a speck on his tie
-        cams=[FC(0.0, [4.2, 1.55, 2.5], [[r(FAR[0] + 0.45), 2.35, 0.0], [r(FAR[0] + 0.45), 0.55, 0.0], [4.3, 2.0, -1.5]], top=0.12, bottom=0.76)])   # (stills 1) nearer him, the passer-by behind and aside (in front she filled a third of the frame)
+        cams=[FC(0.0, [4.5, 1.5, 2.0], [[r(FAR[0] + 0.45), 2.35, 0.0], [r(FAR[0] + 0.45), 0.8, 0.0], [4.3, 2.0, -1.5]], top=0.12, bottom=0.76)])   # (stills 2) nearer, him in the middle, his glowing belly big
 st.cue('sfx:ding', 'S11', 0.12, 0.15); st.cue('sfx:ding', 'S11', 0.72, 0.12); st.cue('sfx:ding', 'S11', 1.32, 0.12)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
