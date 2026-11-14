@@ -41,7 +41,7 @@ D1 = st.dur('S01')
 BENCH = [7.75, 0, 0.0]; SEAT = [7.7, 0, 0.0]
 st.shot('S01', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [7.05, 0, 0.0], RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
-            k(0.22, to=SEAT, dur=0.3, clip='sit', glide=True, ease='inOut', face=RY, blend=0.12),   # he sits down...
+            k(0.22, to=SEAT, dur=0.3, clip='sit', then='sit', glide=True, ease='inOut', face=RY, blend=0.12),   # he sits down ((stills 1) then='sit': without it he stood up again)...
             k(0.5, toon={'sq': [1.04, 0.95, 1.04], 'face': DEAD}, toonDur=0.05, toonEase='out'), k(0.58, toon={'sq': [0.99, 1.01, 0.99], 'face': {'lid': 0.5}}, toonDur=0.1),   # ...a little settle...
             k(0.75, toon={'face': {'lid': 0.55, 'cheeks': 0.3}}, toonDur=0.12)])],   # ...content
         props=[P('bench1', 'bench', pos=BENCH, ry=RY)],
@@ -59,8 +59,8 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
             k(GO2, to=[SEAT[0], 7.0, SEAT[2]], dur=0.34, ease='out', face='keep'),   # ...shot up...
             k(GO2, toon={'sq': [0.6, 1.75, 0.6], 'reach': {'L': [r(SEAT[0] - 0.2), 12.0, 0.3, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 12.0, -0.3, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 1.0,
                           'face': {'lid': 0.0, 'eye': 0.5, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.04, toonEase='out')])],   # ...stretched like a rubber band, arms up
-        props=[P('bench2', 'bench', pos=BENCH, ry=RY), P('spring2', 'springCoil', pos=SPRING, opts={'at': SPR2, 'len': 0.55}),
-               P('dust2', 'dustPuff', pos=[SPRING[0], 0.5, SPRING[2]], opts={'at': GO2}), BURST('boing2', [r(SPRING[0] - 0.5), 1.05, r(SPRING[2] - 0.55)], SPR2, 'BOING !', 0.46),
+        props=[P('bench2', 'bench', pos=BENCH, ry=RY), P('spring2', 'springCoil', pos=SPRING, opts={'at': SPR2, 'len': 0.75, 'r': 0.1, 'wire': 0.02}),   # (stills 1) bigger, no dust (the puff hid it)
+               BURST('boing2', [r(SPRING[0] - 0.5), 1.05, r(SPRING[2] - 0.55)], SPR2, 'BOING !', 0.46),
                P('spd2', 'speedLines', **FLY([[GO2, SEAT[0], 0.6, SEAT[2]], [r(GO2 + 0.3), SEAT[0], 4.5, SEAT[2]]]), face='camera', opts={'n': 6, 'len': 1.4, 'w': 0.7, 'angle': 1.57, 'at': [[GO2, r(GO2 + 0.4)]]})],
         cams=[FC(0.0, [6.3, 0.72, -1.15], [[SEAT[0], 2.05, SEAT[2]], [SEAT[0], 0.35, SEAT[2]], [r(SEAT[0] - 0.4), 0.9, -0.55], [r(SEAT[0] - 0.4), 0.9, 0.55]], top=0.2, bottom=0.8)])
 st.cue('sfx:boing', 'S02', SPR2, 0.5); st.cue('whoosh', 'S02', GO2, 0.4, 0.6, 300, 1500)
@@ -70,10 +70,10 @@ D3 = st.dur('S03')
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [SEAT[0], 0.6, SEAT[2]], RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
             k(0.0, to=[SEAT[0], 18.0, SEAT[2]], dur=D3, ease='linear', face='keep'),
-            k(0.0, toon={'sq': [0.62, 1.7, 0.62], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.3, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.3, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 1.0,
-                          'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.0)])],
+            k(0.0, toon={'sq': [0.72, 1.42, 0.72], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.3, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.3, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 1.0,
+                          'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.0)])],   # (stills 1) stretched less: at 1.7 he was a dark stripe
         props=[P('spd3', 'speedLines', **FLY([[0.0, SEAT[0], 0.0, SEAT[2]], [D3, SEAT[0], 15.5, SEAT[2]]]), face='camera', opts={'n': 7, 'len': 2.2, 'w': 0.8, 'angle': 1.57, 'at': [[0.0, D3]]})],
-        cams=[cam(0.0, [5.4, 1.6, -2.6], [5.4, 16.0, -2.6], [SEAT[0], 2.4, 0.3], [SEAT[0], 18.6, 0.3], lens=50)])   # (audit) riding up beside him, the windows streaming down behind (tilting from the street he was 8 % of the frame)
+        cams=[cam(0.0, [3.9, 1.8, -3.7], [3.9, 16.2, -3.7], [SEAT[0], 2.6, 0.3], [SEAT[0], 18.8, 0.3], lens=50)])   # (audit) riding up beside him, the windows streaming down behind (tilting from the street he was 8 % of the frame)
 st.cue('whoosh', 'S03', 0.0, 0.35, 0.7, 400, 1800)
 
 # 4: ...up to the roof. A slate roof ridge high over the city: he drops onto it and lands like an accordion, squashed flat and springing back up past
@@ -102,10 +102,10 @@ st.cue('sfx:thud', 'S04', LAND4, 0.45); st.cue('sfx:boing', 'S04', r(LAND4 + 0.1
 D5 = st.dur('S05')
 PATH5 = [[7.2, 6.4], [7.2, 4.2], [7.2, 1.9], [7.2, -0.3]]
 K5, T5 = HOPS(0.0, PATH5, [1.2, 2.5, 1.1], r(D5 / 3))
-W5 = [5.75, 0, 1.6]                                                       # (audit) beside his path: in it she hid him
+W5 = [6.1, 0, 1.6]                                                       # (audit) beside his path: in it she hid him
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [PATH5[0][0], 0, PATH5[0][1]], 180, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0), *K5, *T5]),
-        act('passante', W5, 0, 'walk', 'neutral', keys=[k(0.0, look=[7.2, 2.4, 3.0]), k(0.0, to=[W5[0], 0, r(W5[2] + 0.9)], dur=D5, clip='walk', then='walk', ease='linear', face='keep'),
+        act('passante', W5, 0, 'stand', 'neutral', keys=[k(0.0, look=[7.2, 2.4, 3.0]), k(0.0, to=[W5[0], 0, r(W5[2] + 0.9)], dur=D5, clip='walk', then='walk', ease='linear', face='keep'),
             k(0.24, toon={'sq': [1.12, 0.8, 1.12], 'bend': {'spine': [0.5, 0, 0, 1, None]}, 'touch': {'L': ['face', 0.3, 0.9, 0.05, 1, 0.03], 'R': ['face', -0.3, 0.9, 0.05, 1, 0.03]}, 'hands': {'L': 'open', 'R': 'open'},
                            'hairUp': 0.8, 'face': {'lid': 1.0, 'brow': -0.8, 'mouth': 'clench'}}, toonDur=0.06, toonEase='out'),   # she ducks under him...
             k(0.62, toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.0, 'eye': 0.5, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.12)])],   # ...and comes up, staring
@@ -137,7 +137,8 @@ OFFICE = {'title': 'MAIRIE', 'plate': False, 'map': False}
 VIS = [0.0, 0, 0.45]; CLERK = [0.3, 0, -1.65]
 FORM = [0.05, 0.836, -0.88]
 BOXZ = [r(FORM[2] + 0.09 - 0.12 * i) for i in range(3)]
-PEN7 = lambda i, y=0.9: {'reach': {'R': [r(FORM[0] - 0.12), y, BOXZ[i], 1, 0.04]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}}
+PEN7 = lambda i, y=0.9: {'reach': {'R': [r(FORM[0] + 0.2), y, BOXZ[i], 1, 0.04]},   # (stills 1) beside the boxes: over them her arm hid the words
+              'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}}
 K7, T7 = HOPS(0.0, [[VIS[0], VIS[2]]] * 4, [1.1, 1.1, 1.1], r(D7 / 3))
 st.shot('S07', 'mairie', setOpts=OFFICE, actors=[
         act('mec', VIS, 180, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0), *K7, *T7]),
@@ -146,7 +147,7 @@ st.shot('S07', 'mairie', setOpts=OFFICE, actors=[
             k(0.5, toon={**PEN7(2), 'face': {'lid': 0.5, 'gy': 0.6}}, toonDur=0.12, toonEase='inOut'),
             k(r(TICK7 - 0.04), toon={**PEN7(2, 0.85), 'face': {'lid': 0.4, 'gy': 0.6, 'brow': 0.4}}, toonDur=0.04, toonEase='in')])],   # ...OBJET VOLANT: tick
         props=[P('form7', 'formCheck', pos=FORM, rot=[round(-PI / 2, 4), 0, round(PI, 4)], opts={'w': 0.42, 'tickAt': TICK7})],
-        cams=[FC(0.0, [-0.4, 1.8, -1.85], [[FORM[0], FORM[1], r(FORM[2] - 0.3)], [FORM[0], FORM[1], r(FORM[2] + 0.3)], [VIS[0], 2.4, VIS[2]], [VIS[0], 1.0, VIS[2]]], top=0.1, bottom=0.86, level=False)])
+        cams=[cam(0.0, [-0.15, 1.42, -1.42], [-0.12, 1.4, -1.36], [FORM[0], 0.98, r(FORM[2] + 0.28)], [FORM[0], 0.98, r(FORM[2] + 0.3)], lens=46)])   # (stills 1) an insert: the form big, him bobbing behind the counter (with him in the fit the form was a speck)
 st.cue('sfx:paper', 'S07', TICK7, 0.25)
 
 # 8: ...a flying object. In front of the counter: the clerk leans out with a sticker, her head going up and down with his bounces, times it and slaps
@@ -161,8 +162,8 @@ st.shot('S08', 'mairie', setOpts=OFFICE, actors=[
             k(0.12, look=[VIS[0], 1.4, VIS[2]]), k(0.26, look=[VIS[0], 2.6, VIS[2]]), k(0.4, look=[VIS[0], 1.4, VIS[2]]),   # her head goes up and down with him...
             k(r(SLAP8 - 0.06), toon={'reach': {'R': [CHEST[0], CHEST[1], r(CHEST[2] + 0.02), 1, 0.03]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}, 'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.3, 'brow': -0.6, 'mouth': 'clench'}}, toonDur=0.06, toonEase='in'),   # ...SLAP
             k(r(SLAP8 + 0.16), toon={'reach': {'R': [0.25, 1.2, -0.7, 1, 0.05]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.14)])],
-        props=[P('stkA8', 'regSticker', on={'actor': 'agent', 'hand': 'R', 'offset': [0.0, 0.05, 0.03], 'face': 'camera'}, opts={'w': 0.26}, keys=[k(SLAP8, visible=False)]),
-               P('stkB8', 'regSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.3, 0.16]}, opts={'w': 0.26}, keys=[k(0.0, visible=False), k(SLAP8, visible=True)])],
+        props=[P('stkA8', 'regSticker', on={'actor': 'agent', 'hand': 'R', 'offset': [0.0, 0.05, 0.03], 'face': 'camera'}, opts={'w': 0.34}, keys=[k(SLAP8, visible=False)]),
+               P('stkB8', 'regSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.3, 0.16]}, opts={'w': 0.34}, keys=[k(0.0, visible=False), k(SLAP8, visible=True)])],
         cams=[FC(0.0, [-2.6, 1.6, -0.3], [[VIS[0], 2.45, VIS[2]], [VIS[0], 0.0, VIS[2]], [VIS[0], 3.4, VIS[2]], [0.15, 2.3, -1.25]], top=0.08, bottom=0.8)])
 st.cue('clack', 'S08', SLAP8, 0.35)
 
@@ -184,7 +185,7 @@ st.shot('S09', 'mairie', setOpts=EXAMSET, actors=[
         act('exam', EXM, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[PIL[0], 1.5, PIL[2]]), k(0.0, toon={'reach': {'L': [r(EXM[0] + 0.2), 1.25, r(EXM[2] + 0.35), 1, 0.05]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.5, 'gy': -0.2}}, toonDur=0.0),
             *[k(r(0.12 + D9 / 4 * i), look=[PIL[0], 2.0, PIL[2]]) for i in range(4)], *[k(r(0.12 + D9 / 8 + D9 / 4 * i), look=[PIL[0], 1.45, PIL[2]]) for i in range(4)]])],   # his head going up and down
         props=[P('chair9', 'chair', pos=[PIL[0], 0, r(PIL[2] + 0.05)], ry=180), P('clip9', 'clipboardX', on={'actor': 'exam', 'hand': 'L', 'offset': [0.0, 0.05, 0.05]}, opts={'w': 0.26})],
-        cams=[FC(0.0, [-1.9, 1.4, 0.8], [[PIL[0], 2.3, PIL[2]], [PIL[0], 0.3, PIL[2]], [EXM[0], 2.35, EXM[2]], [EXM[0], 0.9, EXM[2]]], top=0.12, bottom=0.76, drift=(0.06, 0.0, -0.05))])
+        cams=[FC(0.0, [-1.9, 1.4, 0.8], [[PIL[0], 2.85, PIL[2]], [PIL[0], 0.3, PIL[2]], [EXM[0], 2.35, EXM[2]], [EXM[0], 0.9, EXM[2]]], top=0.12, bottom=0.76, drift=(0.06, 0.0, -0.05))])
 for i in range(4): st.cue('sfx:squeak', 'S09', r(D9 / 4 * (i + 1) - 0.03), 0.12)
 
 # 10: he failed it... One bounce too many: he shoots up into the ceiling lamp, CLONK, and drops back into his chair wearing its shade, deadpan
@@ -199,7 +200,7 @@ st.shot('S10', 'mairie', setOpts=EXAMSET, actors=[
         act('exam', EXM, 0, 'stand', 'unimpressed', keys=[k(0.0, look=[PIL[0], 2.6, PIL[2]]), k(0.0, toon={'reach': {'L': [r(EXM[0] + 0.2), 1.25, r(EXM[2] + 0.35), 1, 0.05]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.4}}, toonDur=0.0),
             k(r(BACK10 + 0.04), look=[PIL[0], 1.6, PIL[2]]), k(r(BACK10 + 0.06), toon={'reach': {'L': [r(EXM[0] + 0.2), 1.25, r(EXM[2] + 0.35), 1, 0.05]}, 'hands': {'L': 'grip'}, 'face': {'lid': 0.55, 'brow': -0.4}}, toonDur=0.08)])],
         props=[P('chair10', 'chair', pos=[PIL[0], 0, r(PIL[2] + 0.05)], ry=180), P('lamp10', 'pendantLamp', pos=LAMP, opts={'drop': 0.55}, keys=[k(HIT10, visible=False)]),
-               P('shade10', 'lampShade', pos=[LAMP[0], r(LAMP[1] - 0.55 - 0.15), LAMP[2]], rot=[round(PI, 4), 0, 0], keys=[k(HIT10, attach='pilote', joint='head', offset=[0.0, 0.5, 0.0], rot=[0.0, 0.0, 0.1])]),
+               P('shade10', 'lampShade', pos=[LAMP[0], r(LAMP[1] - 0.55 - 0.15), LAMP[2]], rot=[round(PI, 4), 0, 0], keys=[k(0.0, visible=False), k(HIT10, visible=True), k(HIT10, attach='pilote', joint='head', offset=[0.0, 0.5, 0.0], rot=[0.0, 0.0, 0.1])]),   # (stills 1) a drum shade with its flex: the cone read as a straw hat
                P('clip10', 'clipboardX', on={'actor': 'exam', 'hand': 'L', 'offset': [0.0, 0.05, 0.05]}, opts={'w': 0.26})],
         cams=[FC(0.0, [-1.6, 1.5, 1.1], [[PIL[0], 3.05, PIL[2]], [PIL[0], 0.5, PIL[2]], [EXM[0], 2.3, EXM[2]]], top=0.06, bottom=0.78)])
 st.cue('clack', 'S10', HIT10, 0.4)
@@ -251,7 +252,7 @@ st.shot('S14', 'parisStreet', setOpts=STREET, actors=[
                                                                                                                    k(0.3, to=[r(HEAD14[0] - 0.08), HEAD14[1], r(HEAD14[2] - 0.05)], dur=0.2, clip='fly', then='idle', ease='out', face='keep')])],
         props=[P('nest14', 'nest', pos=[HEAD14[0], r(HEAD14[1] - 0.06), HEAD14[2]], scale=0.42, opts={'layAt': [1.25, 1.55, 1.85], 'max': 3}, keys=[k(0.0, scale=0.001, dur=0.0), k(0.8, scale=0.42, dur=0.12, ease='outBack')]),
                P('fth14', 'feather', pos=[r(HEAD14[0] + 0.3), r(HEAD14[1] + 0.3), r(HEAD14[2] + 0.2)], opts={'at': 0.3, 'fall': 1.6, 'dur': 2.0, 's': 1.2})],
-        cams=[FC(0.0, [r(AIR[0] - 1.3), r(AIR[1] + 1.6), r(AIR[2] - 1.8)], [[HEAD14[0], r(HEAD14[1] + 1.0), HEAD14[2]], [AIR[0], r(AIR[1] + 1.35), AIR[2]], [r(AIR[0] - 0.4), r(AIR[1] + 2.0), AIR[2]], [r(AIR[0] + 0.4), r(AIR[1] + 2.0), AIR[2]]], top=0.12, bottom=0.66, drift=(0.1, 0.0, 0.08))])   # a slow push-in
+        cams=[FC(0.0, [r(AIR[0] - 1.1), r(AIR[1] + 0.7), r(AIR[2] - 1.5)], [[HEAD14[0], r(HEAD14[1] + 1.1), HEAD14[2]], [AIR[0], r(AIR[1] + 1.25), AIR[2]], [r(AIR[0] - 0.4), r(AIR[1] + 2.0), AIR[2]], [r(AIR[0] + 0.4), r(AIR[1] + 2.0), AIR[2]]], top=0.12, bottom=0.7, drift=(0.08, 0.0, 0.06))])   # (stills 1) from below his head: the sky behind (at his height a facade made him stand on the ground)
 st.cue('whoosh', 'S14', 0.15, 0.18, 0.3, 700, 2000); st.cue('whoosh', 'S14', 0.4, 0.14, 0.3, 700, 2000); st.cue('sfx:pop', 'S14', 0.8, 0.2)
 for t_ in [1.25, 1.55, 1.85]: st.cue('sfx:pop', 'S14', t_, 0.12)
 

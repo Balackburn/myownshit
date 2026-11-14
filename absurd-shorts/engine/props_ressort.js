@@ -71,12 +71,15 @@ export const RESSORT_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // A lamp shade (pivot at its rim, the cone up +Y like a hat; turn it over with rot [PI, 0, 0] to hang it): an open red cone o.r (0.24) wide at the rim,
-  // o.h (0.22) high, a little brass cap on top
+  // A lamp shade (pivot at its rim, the shade up +Y like a hat; turn it over with rot [PI, 0, 0] to hang it): by default a drum (a truncated cone o.r
+  // (0.26) wide at the rim, 0.45 of that at the top, o.h (0.24) high) with a brass ring and o.cord (0.35 m) of flex sticking up from the top, so it
+  // reads as a lamp shade on a head (stills 1 of 61: the pointed cone read as a straw hat); o.cone: the pointed cone it was
   lampShade(o) {
-    const r = o.r ?? 0.24, h = o.h ?? 0.22, g = grp();
-    const c = new THREE.Mesh(new THREE.ConeGeometry(r, h, 14, 1, true), new THREE.MeshLambertMaterial({ color: o.color || '#E8452C', side: THREE.DoubleSide })); c.position.y = h / 2; g.add(c);
-    g.add(at(cyl(0.035, 0.04, 0.05, '#B08A3E', 10), 0, h, 0));
+    const r = o.r ?? 0.26, h = o.h ?? 0.24, g = grp(), m = new THREE.MeshLambertMaterial({ color: o.color || '#E8452C', side: THREE.DoubleSide });
+    if (o.cone) { const c = new THREE.Mesh(new THREE.ConeGeometry(r, h, 14, 1, true), m); c.position.y = h / 2; g.add(c, at(cyl(0.035, 0.04, 0.05, '#B08A3E', 10), 0, h, 0)); return g; }
+    const d = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.45, r, h, 16, 1, true), m); d.position.y = h / 2; g.add(d);
+    g.add(at(cyl(r * 1.01, r * 1.01, 0.02, '#F2D7A0', 16), 0, 0.01, 0), at(cyl(r * 0.46, r * 0.46, 0.02, '#B08A3E', 14), 0, h, 0));
+    if (o.cord !== 0) g.add(at(cyl(0.008, 0.008, o.cord ?? 0.35, '#2A2C31', 6, { pivot: 'bottom' }), 0, h, 0));
     return g;
   },
 };
