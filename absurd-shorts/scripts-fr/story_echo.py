@@ -101,9 +101,9 @@ st.shot('S01', 'grassland', setOpts=ALPS, actors=[
         props=[*HIGH('1'), PEAK('1'), SUMMIT('1'), *VALLEY('1', 0.6),   # (final pass) no sign: cut by his body and in the caption band
                P('mtnB1', 'mountainRange', pos=[0, 0, 34], ry=180, opts={'n': 5, 'w': 70, 'h': 26, 'd': 14, 'seed': 31}),   # (final pass) a near range behind him: peaks past his shoulders, the plain hidden
                *[P(f'cldC1{i}', 'cumulus', pos=[x_, y_, z_], opts={'w': w_, 'h': 2.2, 'n': 9, 'seed': 50 + i}) for i, (x_, y_, z_, w_) in enumerate(CLOUDS1)],
-               P('ohe1', 'shoutLetters', **FLY([[SH1, 0.0, r(TOP + 1.8), -0.3], [r(SH1 + 0.1), 0.32, r(TOP + 1.78), -0.55], [r(SH1 + 0.26), 0.51, r(TOP + 1.7), -0.97], [r(CUT1 - 0.06), 0.69, r(TOP + 1.6), -1.37], [CUT1, 0.77, r(TOP + 1.56), -1.55],
+               P('ohe1', 'shoutLetters', **FLY([[SH1, 0.0, r(TOP + 1.8), -0.3], [r(SH1 + 0.1), 0.32, r(TOP + 1.66), -0.55], [r(SH1 + 0.26), 0.51, r(TOP + 1.56), -0.97], [r(CUT1 - 0.06), 0.69, r(TOP + 1.47), -1.37], [CUT1, 0.77, r(TOP + 1.44), -1.55],
                                                 [r(CUT1 + 0.15), 0.1, r(TOP + 3.2), -5.0], [r(CUT1 + 0.4), -0.5, r(TOP + 3.6), -16.0], [D1, -1.4, r(TOP + 4.0), -42.0]]), face='camera',
-                 opts={'text': 'OHÉ !', 'size': 0.45, 'show': [SH1, 99.0], 'wobble': 0.22, 'grow': [[SH1, 0.06], [r(SH1 + 0.1), 0.14], [r(SH1 + 0.26), 0.22], [r(CUT1 - 0.06), 0.28], [CUT1, 0.3], [r(CUT1 + 0.15), 0.5], [D1, 1.0]]})],   # (final pass) out of his mouth along the lens axis, swelling until it fills the frame at the cut, then away over the valley
+                 opts={'text': 'OHÉ !', 'size': 0.45, 'show': [SH1, 99.0], 'wobble': 0.22, 'grow': [[SH1, 0.08], [r(SH1 + 0.1), 0.19], [r(SH1 + 0.26), 0.3], [r(CUT1 - 0.06), 0.38], [CUT1, 0.42], [r(CUT1 + 0.15), 0.6], [D1, 1.1]]})],   # (final pass) out of his mouth along the lens axis, swelling until it fills the frame at the cut, then away over the valley ((final stills) bigger and lower: it rose over his head at half the width)
         cams=[cam(0.0, [1.1, r(TOP + 1.3), -2.3], [1.04, r(TOP + 1.3), -2.18], [0.0, r(TOP + 1.95), 0.2], [0.0, r(TOP + 1.95), 0.2], lens=40),   # (final pass) chest-up from below his chin: his face in the upper middle, the near peaks behind his shoulders   # (stills 6) no wide first: from below his face tipped away, from above the rock filled the frame; the mountains behind him say where he is   # ...cut on the held breath, chest-up: the shout, the word swelling up into the top of the frame...
               cam(CUT1, [0.6, r(TOP + 3.8), 2.9], [0.55, r(TOP + 3.75), 2.65], [-1.0, 3.0, -40.0], [-1.0, 3.0, -40.0], lens=52)])   # (stills 5) looking down on the valley (level, the village sat beside his head like a street)   # ...high behind him, his head and shoulder low left: the word shrinking over the valley, the village small below
 st.cue('sfx:gasp', 'S01', 0.08, 0.3); st.cue('whoosh', 'S01', SH1, 0.4, 1.1, 200, 900); st.cue('gust', 'S01', SH1, 0.35, 1.2)
@@ -149,7 +149,7 @@ st.shot('S03', 'mairie', setOpts=GEND3, actors=[
             k(0.85, toon={'face': {'lid': 0.45, 'mouth': 'o', 'gx': 0.4}}, toonDur=0.15)]),   # ...and back, deadpan
         act('gendarme', GDM, 10, 'stand', 'neutral', keys=[k(0.0, look=[GDM[0], 0.85, r(GDM[2] + 0.45)]), k(0.0, toon=WRITE3(), toonDur=0.0),   # (stills 2) three-quarters to the camera
             *[k(r(0.08 + 0.1 * i), toon=WRITE3(0.06 if i % 2 else -0.04), toonDur=0.08) for i in range(3)],   # writing...
-            k(0.38, look={'point': [VIS[0], 1.85, VIS[2]], 'cheat': 0.4}), k(0.4, toon=WRITE3(0.0, 0.05, {'lid': 0.0, 'eye': 0.5, 'eyeScale': 1.4, 'brow': 1.0, 'mouth': 'o', 'gx': -0.3}), toonDur=0.07, toonEase='out'),   # (pass 2) ...he looks up at the silent shout, his brows up ((final pass) higher, bigger eyes)...
+            k(0.38, look={'point': [VIS[0], 1.85, VIS[2]], 'cheat': 0.4}), k(0.4, toon=WRITE3(0.0, 0.05, {'lid': 0.0, 'eye': 0.9, 'brow': 1.0, 'mouth': 'o', 'gx': -0.3}), toonDur=0.07, toonEase='out'),   # (pass 2) ...he looks up at the silent shout, his brows up ((final pass) higher, bigger eyes)...
             k(0.82, look=[GDM[0], 0.85, r(GDM[2] + 0.45)]), k(0.84, toon=WRITE3(0.03), toonDur=0.08), *[k(r(0.9 + 0.06 * i), toon=WRITE3(0.07 if i % 2 else -0.05, 0.3), toonDur=0.05) for i in range(4)]])],   # ...and scratches it down
         props=[P('form3', 'paperSheet', pos=[r(GDM[0] - 0.05), 0.832, r(GDM[2] + 0.48)], rot=[round(-PI / 2, 4), 0, 0.2], opts={'w': 0.3, 'h': 0.4, 'head': 'PLAINTE'})],
         cams=[FC(0.0, [-0.5, 1.65, 1.6], [[r(VIS[0] + 0.32), 2.4, VIS[2]], [VIS[0], 1.2, VIS[2]], [r(GDM[0] - 0.38), 2.35, GDM[2]], [GDM[0], 0.85, r(GDM[2] + 0.5)], [0.75, 3.0, -2.57],
@@ -186,7 +186,7 @@ STREET = {'eiffelStyle': 'v2', 'clear': [-4.0, 4.0]}
 PST = [6.25, 0, 1.3]; PST1 = [6.25, 0, -0.45]
 NOTE5 = [6.95, 1.55, -0.6]
 POSTERS = [[NOTE5[0], NOTE5[1], NOTE5[2], 180], [6.95, 1.6, 4.4, 180], [-6.95, 1.5, 2.6, 180], [6.95, 1.5, 9.4, 180], [-6.95, 1.55, 7.8, 180]]
-POP5 = {'lid': 0.0, 'eye': 0.9, 'eyeScale': 1.9, 'pupilSize': -0.55, 'brow': 1.0, 'mouth': 'O'}   # (final pass) big whites and pinpoint pupils (his eyes stayed slits)
+POP5 = {'lid': 0.0, 'pop': 0.6, 'popLen': 0.05, 'eyeScale': 1.5, 'pupilSize': -0.3, 'brow': 1.0, 'mouth': 'O'}   # (final pass) eyeballs bulging out of his head, short stalks (painted, his eyes stayed dots: 'eyeScale' only sizes popped eyes)
 STREET5 = {**STREET, 'clear': [-4.0, 18.0]}                                # (final pass) no tree behind his neck
 st.shot('S05', 'parisStreet', setOpts=STREET5, actors=[
         act('passant', PST, 180, 'stand', 'neutral', keys=[k(0.0, look=None), k(0.0, to=PST1, dur=0.34, clip='walk', then='stand', ease='out', face='keep'), k(0.0, toon={'face': {'lid': 0.3}}, toonDur=0.0),   # (final pass) stopped before the take (his legs strode through it)
@@ -246,7 +246,7 @@ st.shot('S07', 'grassland', setOpts={**ALPS, 'grass': '#9CC46E'}, actors=[
         props=[*RING('7'), P('fork7', 'pitchfork', on={'actor': 'fermier', 'hand': 'L'}, rot=[round(PI, 4), 0, 0]),   # (stills 2) the tines up (they hung down: a walking stick)
                P('fence7', 'fence', pos=[-1.4, 0, -3.7], ry=8, opts={'length': 6, 'color': '#C9B48A'}), P('farm7', 'cottage', pos=[-5.2, 0, -8.5], ry=25, scale=0.9),   # (pass 3) a farm: the fence behind the cow, the farmhouse
                P('ohe7', 'shoutLetters', **FLY(OHE7), face='camera', opts={'text': 'OHÉ !', 'size': 0.6, 'grow': [[0.0, 1.6]], 'wobble': 0.25})],   # (pass 2) low and big this time, left to right
-        cams=[FC(0.0, [-1.6, 0.85, 1.9], [[FARM[0], 3.15, FARM[2]], [FARM[0], 0.0, FARM[2]], [-1.9, 1.3, -2.0], [-0.3, 2.7, -0.35]], top=0.06, bottom=0.8, drift=(0.08, 0.0, 0.0))])   # (final pass) lower and closer: he fills the height, the cap against the sky   # (stills 5) closer (with the cap up at 3.75 he went small)   # (pass 3) room for the cap up high   # (pass 2) from the other side, at his height: a different valley from the hiker's
+        cams=[FC(0.0, [1.0, 0.85, 3.2], [[FARM[0], 3.15, FARM[2]], [FARM[0], 0.0, FARM[2]], [-1.9, 1.3, -2.0], [-0.3, 2.7, -0.35]], top=0.06, bottom=0.8, drift=(0.08, 0.0, 0.0))])   # (final pass) low on his right: the cow behind him, the cap against the sky (from his left the cow pushed him to the edge)   # (stills 5) closer (with the cap up at 3.75 he went small)   # (pass 3) room for the cap up high   # (pass 2) from the other side, at his height: a different valley from the hiker's
 st.cue('whoosh', 'S07', 0.15, 0.4, 0.7, 200, 1000); st.cue('sfx:gasp', 'S07', PASS7, 0.2)
 
 # 8: yesterday the echo came home. His street: he walks out on the pavement; down the open road the letters come back, growing huge as they come; he
@@ -302,7 +302,7 @@ st.shot('S09', 'parisStreet', setOpts=STREET8, actors=[
         props=[P('ohe9', 'shoutLetters', **FLY([[0.0, r(ME[0] - 0.9), 1.7, -2.0], [HIT9, r(ME[0] - 0.15), 1.1, -0.35], [r(HIT9 + 0.12), r(ME[0] + 0.4), 1.6, 2.6], [r(HIT9 + 0.4), r(ME[0] + 1.0), 3.0, 4.5], [D9, r(ME[0] + 3.0), 5.5, 9.0]]), face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6,
                  'grow': [[0.0, 2.0], [D9, 1.8]], 'squash': [[0.0, 1.0, 1.0], [HIT9, 1.35, 0.6], [r(HIT9 + 0.1), 0.9, 1.15], [r(HIT9 + 0.2), 1.0, 1.0]], 'wobble': 0.35}),   # (pass 3) in from under the lens, squashed on him, bouncing off beside him and away
                BURST('splat9', [r(ME[0] + 1.1), 0.5, 1.2], HIT9, 'SPLAT !', 1.0),   # (pass 3) twice the size, beside the sheet
-               BURST('pop9', [r(ME[0] - 0.85), 2.7, r(ME[2] - 0.45)], POP9, 'POP !', 0.42)],   # (final pass) the POP named
+               BURST('pop9', [r(ME[0] - 0.5), 2.9, r(ME[2] + 0.9)], POP9, 'POP !', 0.42)],   # (final pass) the POP named, beside his shoulder (in front of him it hid his face)
         fx=[{'type': 'shake', 'at': HIT9, 'dur': 0.2, 'amount': 0.016}],
         cams=[FC(0.0, [5.6, 3.0, -1.2], [[ME[0], 0.0, -0.25], [ME[0], 0.0, 2.15], [r(ME[0] - 0.95), 0.0, 1.5], [r(ME[0] + 0.95), 0.0, 1.5], [r(ME[0] + 1.1), 0.9, 1.2], [r(ME[0] + 1.1), 0.1, 1.2]], top=0.12, bottom=0.72, lenses=range(28, 60)),   # (stills 5) three-quarters high from beside his feet: the sheet lies across the frame, thin at its edge, his face slanted but upright (straight down, a flat man reads as a standing one)
               FC(CUT9, [5.3, 1.6, -0.9], [[ME[0], 3.35, ME[2]], [ME[0], 0.6, ME[2]], [r(ME[0] - 0.75), 2.2, ME[2]], [r(ME[0] + 0.75), 2.2, ME[2]], [r(ME[0] - 0.85), 3.0, r(ME[2] - 0.45)]], top=0.1, bottom=0.72, lenses=range(28, 56))])   # (final pass) room for the stars, the hair and the POP   # (pass 3) a medium shot, three-quarters: the board swings up into it, the POP turns him to us
@@ -345,23 +345,25 @@ st.cue('sfx:whistle', 'S11', 0.1, 0.15)
 D12 = st.dur('S12'); STICK12 = 0.7
 GD12 = [6.49, 0, 0.42]; F12 = [0.861, -0.509]; L12 = [-0.509, -0.861]     # (pass 3) beside him on his left, facing him: forward and left of the gendarme
 G12 = lambda fw, lf, y: [r(GD12[0] + fw * F12[0] + lf * L12[0]), y, r(GD12[2] + fw * F12[1] + lf * L12[1])]   # a point in front (fw) and to the left (lf) of the gendarme
-FORE = [7.02, 2.35, -0.18]                                                 # his forehead, turned to us
-FINE_AT = [0.0, 0.56, 0.2]                                                 # (stills 5) on the forehead (on 0.6 it stood up above his head)   # (pass 3) higher, clear of his eyes   # (pass 2) above his eyes (on 0.42 it covered one)
+FORE = [7.08, 2.15, -0.06]                                                 # his forehead, turned to us ((final stills) measured: the head 1.77 m up, the ticket 0.43 over it, turned to the lens)
+FINE_AT = [0.0, 0.43, 0.1]                                                 # (stills 5) on the forehead (on 0.6 it stood up above his head); (final stills) flat on the forehead over his eyes (on 0.56 and 0.2 out it floated over his hair once his head went back)   # (pass 3) higher, clear of his eyes   # (pass 2) above his eyes (on 0.42 it covered one)
 WR12 = lambda i: {'reach': {'R': [*G12(0.32, r(-0.12 + (0.04 if i % 2 else -0.03)), 1.15), 1, 0.05], 'L': [*G12(0.3, 0.1, 1.1), 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'open'}, 'face': {'lid': 0.55, 'gy': 0.6}}
 st.shot('S12', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, -135, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'hairUp': 0.8, 'face': TIRED}, toonDur=0.0),   # (pass 3) three-quarters to us: the forehead faces the lens
             k(0.45, toon={'hairUp': 0.8, 'face': {**TIRED, 'gx': 0.5}}, toonDur=0.08),   # his eyes to the raised hand, deadpan...
-            k(STICK12, toon={'bend': {'neck': [-0.55, 0, 0, 1, None], 'spine': [-0.12, 0, 0, 1, None]}, 'sq': [1.04, 0.96, 1.04], 'hairUp': 0.9, 'face': {**TIRED, 'lid': 1.0}}, toonDur=0.04, toonEase='out'),   # (pass 2) the slap knocks his head back thirty degrees...
-            k(r(STICK12 + 0.1), toon={'bend': {'neck': [0.14, 0, 0, 1, None]}, 'hairUp': 0.8, 'face': {**TIRED, 'lid': 0.7}}, toonDur=0.1, toonEase='inOut'),   # ...past it...
-            k(r(STICK12 + 0.24), toon={'hairUp': 0.8, 'face': TIRED}, toonDur=0.14, toonEase='inOut')]),   # ...and back, deadpan
+            k(STICK12, toon={'scl': {'head': [1.16, 0.8, 1.0]}, 'sq': [1.04, 0.96, 1.04], 'hairUp': 0.9, 'face': {**TIRED, 'lid': 1.0}}, toonDur=0.03, toonEase='out'),   # (final pass) his head squashed under the palm, held three frames...
+            k(r(STICK12 + 0.1), toon={'bend': {'neck': [-0.45, 0, 0, 1, None], 'spine': [-0.1, 0, 0, 1, None]}, 'scl': {'head': [0.94, 1.08, 1.0]}, 'hairUp': 0.9, 'face': {**TIRED, 'lid': 0.9}}, toonDur=0.04, toonEase='out'),   # ...the hand gone, it springs back, stretched...
+            k(r(STICK12 + 0.2), toon={'bend': {'neck': [0.12, 0, 0, 1, None]}, 'hairUp': 0.8, 'face': {**TIRED, 'lid': 0.7}}, toonDur=0.1, toonEase='inOut'),   # ...past it...
+            k(r(STICK12 + 0.34), toon={'hairUp': 0.8, 'face': TIRED}, toonDur=0.14, toonEase='inOut')]),   # ...and back, deadpan
         act('gendarme', GD12, 121, 'stand', 'neutral', keys=[k(0.0, look={'point': G12(0.32, -0.1, 1.1), 'cheat': 0.5}),   # (pass 2) writing, his face cheated to us (he was in profile)
             *[k(r(0.05 + 0.1 * i), toon=WR12(i), toonDur=0.08) for i in range(4)],   # writing on his pad...
             k(0.44, look=[FORE[0], 2.2, FORE[2]]), k(0.46, toon={'reach': {'R': [*G12(-0.15, -0.35, 2.4), 1, 0.05]}, 'hands': {'R': 'open'}, 'bend': {'spine': [-0.15, 0, 0, 1, None]}, 'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.4, 'brow': -0.5, 'mouth': 'clench'}}, toonDur=0.12, toonEase='inOut'),   # ...his arm cocked high and back, held...
             k(r(STICK12 - 0.04), toon={'reach': {'R': [FORE[0], FORE[1], FORE[2], 1, 0.03]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.12, 0, 0, 1, None]}, 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.4, 'brow': -0.7, 'mouth': 'clench'}}, toonDur=0.04, toonEase='in'),   # ...SLAP on his forehead...
-            k(r(STICK12 + 0.08), toon={'reach': {'R': [r(FORE[0] + 0.1), r(FORE[1] - 0.1), r(FORE[2] + 0.12), 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'brow': -0.4}}, toonDur=0.08),   # ...following through...
+            k(r(STICK12 + 0.03), toon={'reach': {'R': [FORE[0], r(FORE[1] - 0.06), FORE[2], 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'brow': -0.5}}, toonDur=0.03),   # (final pass) ...his palm pressing the ticket three frames as the head squashes...
+            k(r(STICK12 + 0.1), toon={'reach': {'R': [7.0, 2.45, -0.42, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4, 'brow': -0.4}}, toonDur=0.07),   # ...peeled off up and away, the ticket left on it...
             k(r(STICK12 + 0.25), toon={'reach': {'R': [*G12(0.2, -0.25, 1.2), 1, 0.05]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45, 'mouth': 'smirk'}}, toonDur=0.15), k(r(STICK12 + 0.3), look='camera')])],   # ...a smirk to us
         props=[P('fine12', 'fineTicket', pos=G12(0.32, -0.05, 1.18), rot=[-1.2, 1.2, 0], opts={'w': 0.24}, keys=[k(0.44, attach='gendarme', hand='R', offset=[0.0, -0.05, 0.06]), k(STICK12, attach='mec', joint='head', offset=FINE_AT, rot=[0.0, 0.0, 0.12])]),   # (final pass) torn off the pad and carried in the striking hand (it appeared on his forehead)
-               BURST('paf12', [r(FORE[0] - 0.25), r(FORE[1] + 0.12), r(FORE[2] - 0.3)], STICK12, 'PAF !', 0.36)],   # (pass 3) on the forehead, toward us   # (pass 2) where it lands (by his cap it hit the gendarme)
+               BURST('paf12', [r(FORE[0] - 0.12), r(FORE[1] + 0.06), r(FORE[2] - 0.2)], STICK12, 'PAF !', 0.36)],   # (final pass) on the contact, beside the palm   # (pass 3) on the forehead, toward us   # (pass 2) where it lands (by his cap it hit the gendarme)
         cams=[FC(0.0, [6.2, 1.7, -2.2], [[ME[0], 2.6, ME[2]], [ME[0], 0.95, ME[2]], [GD12[0], 2.6, GD12[2]], G12(-0.15, -0.35, 2.45), [r(FORE[0] - 0.1), 2.55, r(FORE[2] - 0.25)], [GD12[0], 0.95, GD12[2]]], top=0.12, bottom=0.72, drift=(0.05, 0.0, 0.05))])   # (pass 3) both whole, room over his head for the knock-back
 st.cue('sfx:paper', 'S12', 0.1, 0.15); st.cue('sfx:punch', 'S12', STICK12, 0.35)
 

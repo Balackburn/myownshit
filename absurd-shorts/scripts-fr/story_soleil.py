@@ -165,8 +165,8 @@ D8 = st.dur('S08'); HONK8 = 0.45; CUT8 = 0.62
 TRUCK = [2.2, 0, -4.4]
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
         act('mec', BEHIND(2), LRY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'face': {**DEAD, 'gx': 0.6}}), toonDur=0.0),   # (stills 3) his head stays in the hole (turned to the lorry it slid out of it), his eyes go to it
-            k(HONK8, toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'wind': [0.0, 0.5, -14.0], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 1.0, 'eyeScale': 1.9, 'pupilSize': -0.5, 'brow': 1.0, 'mouth': 'O'}}, {'head': [2.2, 0.95, 0.65]}), toonDur=0.04, toonEase='out'),   # (stills 4) flattened in depth and spread wide, not in height (squashed, his wide eyes read as heavy lids)   # (stills 3) the blast blows back (forward, his tie came out through the glass)   # TUUUT: his face flattened by the blast...
-            *[k(r(HONK8 + 0.06 + 0.05 * i), toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'wind': [0.0, 0.5, -14.0], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 1.0, 'eyeScale': 1.9, 'pupilSize': -0.5, 'brow': 1.0, 'mouth': 'O', 'tremble': 1.0}}, ({'head': [2.15, 0.97, 0.67]} if i % 2 else {'head': [2.25, 0.93, 0.63]})), toonDur=0.04) for i in range(10)],   # ...held while the horn lasts, quivering...
+            k(HONK8, toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'wind': [0.0, 0.5, -14.0], 'hairUp': 1.0, 'face': {'lid': 0.0, 'pop': 0.55, 'popLen': 0.06, 'eyeScale': 1.4, 'pupilSize': -0.3, 'brow': 1.0, 'mouth': 'O'}}, {'head': [2.2, 0.95, 0.65]}), toonDur=0.04, toonEase='out'),   # (stills 4) flattened in depth and spread wide, not in height (squashed, his wide eyes read as heavy lids)   # (stills 3) the blast blows back (forward, his tie came out through the glass)   # TUUUT: his face flattened by the blast...
+            *[k(r(HONK8 + 0.06 + 0.05 * i), toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'wind': [0.0, 0.5, -14.0], 'hairUp': 1.0, 'face': {'lid': 0.0, 'pop': 0.55, 'popLen': (0.07 if i % 2 else 0.05), 'eyeScale': 1.4, 'pupilSize': -0.3, 'brow': 1.0, 'mouth': 'O', 'tremble': 1.0}}, ({'head': [2.15, 0.97, 0.67]} if i % 2 else {'head': [2.25, 0.93, 0.63]})), toonDur=0.04) for i in range(10)],   # ...held while the horn lasts, quivering...
             k(r(HONK8 + 0.62), toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'hairUp': 0.8, 'face': {'lid': 0.0, 'eye': 0.7, 'brow': 0.8, 'mouth': 'o'}}), toonDur=0.1, toonEase='out')]),   # ...and back, his hair on end
         ],
         props=[P('light8', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True, 'shake': [[HONK8, 0.05]]}),
@@ -184,7 +184,7 @@ st.cue('sfx:honkLong', 'S08', HONK8, 0.6)
 D9 = st.dur('S09'); TURN9 = 0.25; DROP9 = 0.8
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[
         act('mec', BEHIND(2), LRY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=IN({'skin': SKIN(RED, 1.0, 0.6), 'hairUp': 0.8, 'face': {'lid': 0.0, 'eye': 0.7, 'brow': 0.8, 'mouth': 'o'}}), toonDur=0.0),
-            k(TURN9, toon=IN({'skin': SKIN(GREEN, 1.0, 0.6), 'hairUp': 0.9, 'sq': [0.98, 1.02, 0.98], 'face': {'lid': 0.0, 'eye': 1.0, 'eyeScale': 1.5, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'wavy', 'tremble': 1.0}}), toonDur=0.3, toonEase='inOut'),   # red to green, eyes popping, quivering...
+            k(TURN9, toon=IN({'skin': SKIN(GREEN, 1.0, 0.6), 'hairUp': 0.9, 'sq': [0.98, 1.02, 0.98], 'face': {'lid': 0.0, 'eye': 0.6, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'wavy', 'tremble': 1.0}}), toonDur=0.3, toonEase='inOut'),   # red to green, eyes popping, quivering...
             k(r(DROP9 - 0.06), toon=IN({'skin': SKIN(GREEN, 1.0, 0.6), 'sq': [1.02, 0.98, 1.02], 'face': {'lid': 0.0, 'eye': 0.9, 'brow': 1.0, 'mouth': 'wavy'}}), toonDur=0.05, toonEase='in'),
             k(DROP9, to=BEHIND(0), dur=0.12, ease='in', face='keep'),   # ...and down, out of the top hole into the bottom one...
             k(r(DROP9 + 0.12), toon=IN({'skin': SKIN(GREEN, 1.0, 0.7), 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.3, 'gulp': 1.0}}, {'head': [2.2, 0.84, 1.0]}), toonDur=0.03, toonEase='out'),   # ...a landing squash in his head, a gulp...
@@ -232,9 +232,11 @@ st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
             k(1.3, toon={**ROLL(0.0), 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.2), k(1.35, look='camera')])],
         props=[P('light11', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True, 'open': [[0.0, 0]]}), P('lad11', 'ladder', pos=LAD, ry=20, opts={'h': 2.2, 'lean': 0.18}),
                P('roller11', 'paintRoller', on={'actor': 'peintre', 'hand': 'R'}, opts={'len': 0.5, 'color': RED}),
-               P('car11', 'car', pos=[2.2, 0, -30.0], ry=-90, opts={'color': '#3A9BDC'}, keys=[k(r(BRAKE11 - 0.4), to=[2.2, 0, -4.3], dur=0.4, ease='out'), k(BRAKE11, squash=[1.0, 0.86, 1.06], dur=0.4)])],   # (stills 2) the next car brakes hard at the light, in the second shot
+               *[P(f'car11{i}', 'car', pos=[x_, 0, z_], ry=-90, opts={'color': c_}) for i, (x_, z_, c_) in enumerate(CARS) if i != 5],   # (stills 4) the queue again: the second shot is the long lens of S06
+               P('car11', 'car', pos=[2.2, 0, -44.0], ry=-90, opts={'color': '#F08A3C'}, keys=[k(r(BRAKE11 - 0.35), to=[2.2, 0, -31.0], dur=0.35, ease='out'), k(BRAKE11, squash=[1.0, 0.86, 1.06], dur=0.4)]),   # ...its last car braking hard into place, nose down
+               P('glow11', 'glowLight', pos=[LIGHT[0], HOLE(0)[1], r(LIGHT[2] - 0.6)], opts={'color': '#FF4A2A', 'k': 3, 'dist': 4, 'at': 0.94})],
         cams=[FC(0.0, [4.9, 2.1, -3.4], [[LIGHT[0], r(POLE + 1.75), r(LIGHT[2] - 0.17)], [LIGHT[0], r(POLE - 0.2), r(LIGHT[2] - 0.17)], [LAD[0], 2.8, r(LAD[2] - 0.2)], [LAD[0], 0.9, r(LAD[2] - 0.2)]], top=0.12, bottom=0.76, drift=(0.04, 0.0, -0.04)),
-              FC(CUT11, [-0.4, 1.8, -5.6], [[LIGHT[0], 3.95, LIGHT[2]], [LIGHT[0], 1.9, r(LIGHT[2] - 0.17)], [2.2, 1.45, -2.3], [2.2, 0.4, -2.3], [LAD[0], 3.0, r(LAD[2] - 0.2)]], top=0.08, bottom=0.8, lenses=range(24, 50))])   # (stills 2) the light, the painter and the braking car; (stills 4) in front of them from the far side of the road: the car's nose stopping under the light (from behind it, its open cabin filled the frame and the painter hid his face)
+              cam(CUT11, [0.8, 2.6, -62.0], [0.8, 2.6, -60.5], [3.4, 2.6, 0.0], [3.4, 2.6, 0.0], lens=9)])   # (stills 4) ...cut to the long lens of S06: the queue stopped again at his red light, its last car braking into place (a vertical frame cannot hold the light and a car side by side up close: from behind, beside or across, the car filled it)
 for t_ in STROKES: st.cue('sfx:squeak', 'S11', t_, 0.15)
 st.cue('sfx:brake', 'S11', r(BRAKE11 - 0.25), 0.3)
 

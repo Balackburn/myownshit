@@ -2279,3 +2279,41 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     des yeux virait au rouge : un œil ouvert disparaissait dans un visage rouge.
   - Les doigts prennent le canal `skin` (mains restées pâles).
   - Fond sombre dans le feu ; papillons non éclairés.
+- 61 « Le ressort » : revue 2 = animation 7,2, direction artistique 7,0.
+  - Décisions (« À voir avec l'utilisateur » du critique animation) :
+    - Une petite double prise du héros, des yeux seulement, au moment où il regarde ses pieds dans le vide (S13). Il reste impassible :
+      pas d'yeux qui sortent.
+    - Pour que les regards se lisent (S13, et ses yeux vers chaque œuf en S14), les paupières s'ouvrent davantage et les pupilles
+      grossissent pendant ces regards. Le modèle ne change pas.
+  - Passe 3 :
+    - Il s'assoit normalement : la pose assise dure tout le glissé. Atteinte en 0,12 s, il s'asseyait dans le vide devant le banc, comme
+      une chute.
+    - Le BOING devient une vraie prise : les yeux sortent sur de courtes tiges (`pop`, peints ils faisaient un regard en coin), la
+      mâchoire tombe, une petite secousse le précède, et c'est l'écrasement le plus fort du début. Il reste étiré sur le ressort trois
+      images avant de partir.
+    - Pendant la montée, ses joues se gonflent en deux temps, bouche fermée (la langue sortie se lisait comme un cri), ses bras battent
+      au vent et les traînées sont plus épaisses.
+    - Les trois sauts à cloche-pied tiennent dans le cadre ; la passante arrive en marchant.
+    - Au café, il sort huit images du cadre.
+    - L'employée tient son stylo rouge côté marge, la pointe sur la case, et la coche est plus grasse.
+    - La mairie devient une salle bleue et tricolore sous un plafond.
+    - L'autocollant est claqué sur sa poitrine au moment où il est écrasé (mesurée plus bas : à 1,16 m la main tombait sur sa tête),
+      tenu deux images, CLAC sur le contact.
+    - La salle d'examen est retournée : le candidat face à nous, l'examinateur derrière lui de trois quarts, deux affiches et une
+      fenêtre au fond, un plafond avec une rosace pour la lampe, un bureau qui ne cache plus les atterrissages. Dans le fauteuil,
+      l'étirement se résorbe sur toute la montée (relâché en trois images, la tête redescendait pendant que le corps montait), et chaque
+      rebond a sa hauteur.
+    - CLONK avec un simple clignement (une grimace aurait fait une deuxième prise). Un seul fil va de la rosace à l'ampoule, et
+      l'abat-jour n'a plus son fil sur sa tête : on aurait dit une antenne.
+    - Les témoins sont plus haut dans la rue, face à nous. Ils arrivent en marchant et s'arrêtent un temps après lui. Les yeux puis la
+      tête montent vers lui ; il y a une main sur la bouche et un doigt pointé. Puis on coupe haut, devant lui : il monte vers nous et
+      s'arrête au-dessus de la rue, en rebondissant (écrasé, cravate relevée puis retombée, cheveux qui s'affaissent).
+    - Il regarde en bas filmé de côté, presque à sa hauteur, les étages des façades derrière lui (sur un ciel vide, la hauteur ne se
+      lisait pas), avec la double prise.
+    - Le ciel est plus pâle, et le dessus est filmé en oblique (vus d'aplomb, les témoins semblaient couchés sur la chaussée).
+  - Moteur :
+    - Le décor `mairie` peut avoir un plafond et une rosace (`ceiling`, `roseX`, `roseZ`), des affiches et une fenêtre (`posters`,
+      `window`).
+    - La lampe suspendue a une douille au bout du fil.
+    - La coche du formulaire est plus grasse.
+    - Les immeubles de la rue font 13,04 m pour un pas de 13 m : à 12,6 m, une fente de ciel montait entre deux blocs.

@@ -289,8 +289,8 @@ export const HOQUET_PROPS = {
   pendantLamp(o) {
     const d = o.drop ?? 0.55, g = grp(), arm = grp(at(cyl(0.008, 0.008, d, '#2A2C31', 6), 0, -d / 2, 0));
     const shade = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.18, 14, 1, true), new THREE.MeshLambertMaterial({ color: o.color || '#E8452C', side: THREE.DoubleSide })); shade.position.y = -d - 0.06;
-    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFF6DA', toneMapped: false })); bulb.position.y = -d - 0.14;
-    arm.add(shade, bulb); g.add(at(cyl(0.05, 0.05, 0.03, '#2A2C31', 10), 0, -0.015, 0), arm);
+    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFF6DA', toneMapped: false })); bulb.position.y = -d - 0.1;
+    arm.add(shade, bulb, at(cyl(0.024, 0.03, 0.06, '#2A2C31', 10), 0, -d - 0.03, 0)); g.add(at(cyl(0.05, 0.05, 0.03, '#2A2C31', 10), 0, -0.015, 0), arm);   // (review 2 of 61) a socket at the end of the cord holds the bulb (without the shade it floated under the cord)
     g.userData.update = t => { let a = 0; for (const [t0, k] of o.swing || []) a += k * wob(t - t0, 6.5, 1.4); arm.rotation.z = a; arm.rotation.x = a * 0.4; shade.visible = !(o.shadeOff != null && t >= o.shadeOff); };   // (cycle 24, story 61) o.shadeOff: from then the shade is gone (knocked onto a head), the bare bulb swings on
     g.userData.update(0); return g;
   },

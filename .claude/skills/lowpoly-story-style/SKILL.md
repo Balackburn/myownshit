@@ -1279,3 +1279,33 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   `joint: 'head'`) avec la cuvette sur les cheveux, et poser les pigeons sur ses bords pour qu'ils ne le cachent pas.
 - (cycle 23) « Arrêté en plein vol » à 4 m au-dessus de la rue, filmé à sa hauteur : la rue derrière ses jambes, il semble debout. Le monter
   plus haut et le filmer d'au-dessus, la rue loin en dessous, ou d'en dessous sur le ciel.
+- (cycle 24) La couleur de peau (`skin`) multipliée sur le matériau de la tête teignait aussi le blanc des yeux : un œil ouvert disparaissait
+  dans un visage rouge. Le moteur teinte désormais le visage peint sous le dessin des traits (`extras.tint`). Vérifier l'œil ouvert en image
+  de contrôle à chaque nouvelle couleur.
+- (cycle 24) Les mains faites de doigts n'étaient pas des pièces de peau : un coup de soleil s'arrêtait aux poignets. Toute nouvelle pièce de
+  corps doit être marquée pour les canaux de peau (`skinPart` ou `fingerSkin`).
+- (cycle 24) `eyeScale` n'agrandit que des yeux sortis de leur orbite (`pop`). Sans `pop`, il ne fait rien : une prise aux « yeux
+  exorbités » restait aux yeux en fente. Pour un œil peint plus grand, `eye` (0 à 0,9). Pour des yeux qui jaillissent, `pop` avec de
+  courtes tiges (`popLen` 0,05).
+- (cycle 24) Une tête qui doit apparaître dans un trou d'accessoire : mesurer la tête dans le moteur (`debugJoints`), parce que son centre
+  n'était pas là où la taille le laissait croire. Couper le balancement au repos (`hip` 0), qui faisait glisser le visage de 8 cm hors du
+  trou. Élargir la tête (`scl.head`) pour remplir un trou rond.
+- (cycle 24) Une boîte ouverte à l'arrière montre le ciel par ses trous : lui mettre un fond sombre.
+- (cycle 24) De petits accessoires éclairés prennent la couleur de la lueur voisine : dans une lueur rouge, des papillons de nuit devenaient
+  des bouts de papier rouge. Pour ce qui doit rester pâle, un matériau non éclairé.
+- (cycle 24) Le vent propre d'un personnage (`wind`) se donne dans son repère, +Z devant lui. Un souffle qui vient d'en face pousse donc
+  vers -Z : en +Z, la cravate passait à travers la vitre devant lui.
+- (cycle 24) Le cadre vertical est trois fois plus étroit que haut. Une voiture et un feu côte à côte, à deux mètres l'un de l'autre, ne
+  tiennent ensemble qu'à neuf mètres. De près, de derrière, de côté ou d'en face, la voiture remplissait l'image : aligner les deux sujets
+  en profondeur (un long foyer dans l'axe de la rue) ou les montrer dans deux plans.
+- (cycle 24) Un mot qui doit « remplir l'image » doit voler dans l'axe de l'objectif, vers lui. Lancé à hauteur de la tête, il sortait par
+  le haut du cadre à la moitié de sa taille.
+- (cycle 24) Un objet qu'on claque sur quelque chose (une affiche sur un mur, une amende sur un front) se porte dans la main qui frappe et
+  reste là où la paume se pose. Apparu sous une main vide, il se lit comme une erreur de montage.
+- (cycle 24) Une tête frappée qui part en arrière dans les quatre images du contact emporte avec elle ce qu'on y colle, et la main reste
+  dans le vide : la tête s'écrase sous la paume trois images, la main s'en va, et c'est seulement ensuite que la tête repart.
+- (cycle 24) Les cheveux dressés (`hairUp`) font d'un chignon la brosse du héros : 0 pour un personnage dont la coiffure est la silhouette.
+- (cycle 24) Une oreille agrandie en gardant la forme d'une boîte se lit comme une planche. Une coupelle (bol, creux sombre, bord, repli) se
+  lit comme une oreille.
+- (cycle 24) Une planche vue de face ressemble à un homme maigre. Tournée de chant vers l'objectif, c'est une ligne, et le POP qui suit lui
+  rend tout son volume.

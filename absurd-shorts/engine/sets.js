@@ -1265,8 +1265,8 @@ Object.assign(S, {
     const z0 = o.z0 ?? -120, n = o.n ?? 16;
     for (let i = 0; i < n; i++) {
       const z = z0 + i * 13, h = 15 + r() * 5;
-      g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: 12.6, night, seed: i }, 10.2, 0, z, -PI / 2));
-      g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: 12.6, night, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
+      g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: o.blockW ?? 13.04, night, seed: i }, 10.2, 0, z, -PI / 2));   // (review 2 of 61) 13.04 m every 13 m: at 12.6 a slit of sky ran up between two blocks
+      g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: o.blockW ?? 13.04, night, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
       const clr = (zz) => o.clear && zz > o.clear[0] && zz < o.clear[1];   // o.clear [zmin, zmax]: no tree and no lamp on the right-hand pavement there (nothing growing out of a head)
       const clrL = (zz) => o.clearL && zz > o.clearL[0] && zz < o.clearL[1];   // (cycle 24, review 3 of 59) o.clearL [zmin, zmax]: no tree on the left-hand pavement there (one stood behind his neck like a green ruff)
       if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); if (!clrL(z - 2)) g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
@@ -1386,6 +1386,18 @@ Object.assign(S, {
     // (cycle 7) o.front (14): where the wall behind the visitor stands; o.frontSign { text, x, y, w, h }: a board on that wall, read from the clerk's side (a reverse shot must say where we are)
     const g = grp(), { back } = room(g, { wall: o.wall || '#EFE7D6', band: o.band || '#B98A5A', bandH: 1.0, trim: o.trim || '#7A5A3C', floor: o.floor || '#C7A77C', back: o.back ?? -2.6, half: 5, front: o.front });
     if (o.front != null) g.add(wall(10, 1.0, 0.04, o.band || '#B98A5A', 0, 0.5, o.front - 0.02), wall(10, 0.08, 0.08, o.trim || '#7A5A3C', 0, 1.04, o.front - 0.04));
+    // (cycle 24, review 2 of 61) o.ceiling (m, or true = 3.6): a ceiling over the office with a plaster rose at (o.roseX, o.roseZ) for a hanging lamp
+    // (a camera that looked up saw a pale void over the walls and the lamp hung from nothing); o.posters [{ text, x, y, w, h, bg, fg }]: boards on the
+    // back wall; o.window { x, y, w, h }: a window in the back wall, sky behind the panes (another institution's room must not be the same brown box)
+    if (o.ceiling) { const ch = o.ceiling === true ? 3.6 : +o.ceiling, fz = o.front ?? 14, bz = o.back ?? -2.6;
+      g.add(at(box(10.4, 0.12, fz - bz + 0.4, o.ceilingColor || '#F3EFE7'), 0, ch + 0.06, (fz + bz) / 2), at(box(10.0, 0.1, 0.1, o.trim || '#7A5A3C'), 0, ch - 0.05, bz + 0.06));
+      if (o.rose !== false) g.add(at(cyl(0.2, 0.25, 0.05, o.roseColor || '#E9E3D6', 18), o.roseX ?? 0, ch - 0.025, o.roseZ ?? 0)); }
+    for (const q of o.posters || []) { const pw = q.w ?? 0.6, ph = q.h ?? 0.8, lb = label(q.text || '', pw, ph, { bg: q.bg || '#1B3A6B', fg: q.fg || '#F4F1E8', wrap: true });
+      lb.position.set(q.x ?? 0, q.y ?? 2.0, (o.back ?? -2.6) + 0.05); g.add(lb, at(box(pw + 0.06, ph + 0.06, 0.03, q.frame || '#D9D2C2'), q.x ?? 0, q.y ?? 2.0, (o.back ?? -2.6) + 0.03)); }
+    if (o.window) { const q = o.window, ww = q.w ?? 1.2, wh = q.h ?? 1.4, wx = q.x ?? 0, wy = q.y ?? 1.9, wz = (o.back ?? -2.6) + 0.04;
+      g.add(at(box(ww, wh, 0.02, q.sky || '#A9D4EE', { emissive: q.sky || '#A9D4EE', noGrain: true }), wx, wy, wz));
+      for (const [dx, dy, bw, bh] of [[0, wh / 2, ww + 0.1, 0.08], [0, -wh / 2, ww + 0.16, 0.1], [-ww / 2, 0, 0.08, wh], [ww / 2, 0, 0.08, wh], [0, 0, 0.05, wh], [0, wh * 0.15, ww, 0.05]])
+        g.add(at(box(bw, bh, 0.06, q.frame || '#F4F1E8', { outline: 0.004 }), wx + dx, wy + dy, wz + 0.02)); }
     if (o.frontSign) { const q = o.frontSign, sw = q.w ?? 1.3, sh = q.h ?? sw * 0.26, z = (o.front ?? 14) - 0.03, lb = label(q.text || 'ÉTAT CIVIL', sw, sh, { bg: q.bg || '#1B2A4A', fg: q.fg || '#F4F1E8', wrap: false });
       lb.position.set(q.x ?? 0, q.y ?? 2.6, z - 0.03); lb.rotation.y = PI; g.add(lb, at(box(sw + 0.08, sh + 0.08, 0.04, '#C9A24B'), q.x ?? 0, q.y ?? 2.6, z)); }
     for (let i = -6; i <= 6; i++) g.add(flat(0.03, 12, o.joint || '#A88A62', i * 0.8, 0.004, 1));   // parquet joints

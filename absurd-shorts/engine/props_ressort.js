@@ -51,8 +51,10 @@ export const RESSORT_PROPS = {
     const pick = o.pick ?? 2, cx = -w / 2 + w * 0.08 + h * 0.055, cy = h / 2 - h * (0.34 + pick * 0.22);
     // (review 1 of 61: the tick was a red 3D stick) flat strokes of red ink, unlit, a little wider than a pen line
     const ink = new THREE.MeshBasicMaterial({ color: '#D0202A', side: THREE.DoubleSide }), stroke = (L, t) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(L, t), ink); m.position.x = L / 2; return m; };
-    const a = grp(), b = grp(); a.add(stroke(h * 0.085, h * 0.022)); b.add(stroke(h * 0.18, h * 0.022));
-    a.position.set(cx - h * 0.04, cy + h * 0.005, 0.004); a.rotation.z = -0.8; b.position.set(cx + h * 0.012, cy - h * 0.045, 0.004); b.rotation.z = 0.95; g.add(a, b);
+    // (review 2 of 61: it read as one slash, the first stroke of the exam's crosses) a bolder check: a longer short stroke down into the box, the
+    // long stroke up out of it from the same point, thicker ink
+    const a = grp(), b = grp(); a.add(stroke(h * 0.11, h * 0.032)); b.add(stroke(h * 0.23, h * 0.032));
+    a.position.set(cx - h * 0.065, cy + h * 0.035, 0.004); a.rotation.z = -0.85; b.position.set(cx + h * 0.0, cy - h * 0.045, 0.004); b.rotation.z = 1.0; g.add(a, b);
     g.userData.update = t => { const u = t - (o.tickAt ?? 99); a.scale.x = Math.max(0.001, eo(u / 0.05)); b.scale.x = Math.max(0.001, eo((u - 0.05) / 0.07)); a.visible = u > 0; b.visible = u > 0.05; };
     g.userData.update(0); return g;
   },
