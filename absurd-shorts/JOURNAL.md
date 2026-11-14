@@ -2456,3 +2456,34 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 63 « Le café » : brouillon 1 rendu (546 images, 18,2 s ; aucune tenue figée, aucune image grise). Revue 1 en cours.
   - Blocage noté : le script de chaîne appelait `freeze_check.py` sans le fichier de l'histoire (deuxième argument obligatoire) ; contrôle
     relancé à la main avec `scripts-fr/story_cafe.json`. Les chaînes suivantes passent le fichier.
+- 63 « Le café » : revue 1 = direction artistique 6,5, animation 7,1.
+  - Points relevés :
+    - Le tunnel est sombre (luminance moyenne 27-30 ; le costume bleu marine et le smoking noir se fondent dans les parois).
+    - La poignée de main du maire est filmée de profil : sa réaction ne se voit pas.
+    - Gags trop petits ou collés au bord du cadre : la vieille dame, le caillou, la fin, les onomatopées.
+    - Accessoires mal lus : la rame pliée en panneaux plats, la poussière en boules floues, les débris en billes noires, la tour qui
+      s'arrête à hauteur de sa tête, le plateau vu par la tranche.
+    - Silhouettes confondues : le marteau-piqueur, le serveur sur l'entrée du tunnel, la passagère en diagonale devant lui.
+    - Les deux bascules du gag (l'arrêt net, le tic final) sont trop discrètes.
+  - Décision sur la seule question pour l'utilisateur (le tunnel peut-il être plus clair que « sombre » ?) : oui. Le tunnel reste éclairé
+    par ses lampes, avec des contre-jours chauds derrière les personnages, parce qu'il occupe la moitié du film et que la série est claire.
+  - Passe 2 :
+    - Moteur : poussière en éclats gris anguleux éclairés ; débris en plaques de bitume grises et fissures épaisses ; plis en accordéon et toit
+      en dents de scie sur l'avant de la rame quand elle se plie ; onomatopées en lettres colorées cernées de noir (`hicBurst` `bold`).
+    - Mise en scène :
+      - Tunnel : exposition 1,5, une lampe tous les 1,6 m, une lumière chaude derrière chaque personnage.
+      - S01 : la tour au-dessus de ses cheveux ; à la dixième tasse, une vraie réaction (étiré, yeux sur tiges, pupilles en tête
+        d'épingle, retour avec dépassement).
+      - S03 : la dame plus au centre ; anneaux plus forts dès la première image.
+      - S04 : les deux hommes de trois quarts vers nous ; le maire regarde la caméra, yeux sur tiges, secoué de haut en bas ; ses cheveux
+        sous la bande du carton.
+      - S05 : de côté, l'ouvrier derrière et au-dessus de lui, coudes écartés ; enfoncé jusqu'aux genoux.
+      - S06 : le front de taille au milieu de l'image, éclairé, de gros éclats qui tombent.
+      - S07 : la caméra le suit.
+      - S08 : fantômes plus larges, serveur écarté de lui et détaché du fond par une lampe, plateau à hauteur de poitrine.
+      - S09 : fantômes au plus large avant la gorgée, arrêt net en deux images, casque qui retombe, caillou clair qui rebondit, yeux
+        levés vers lui.
+      - S10 : les phares en grands halos qui le découpent en arrivant.
+      - S11 : cous tendus à l'horizontale vers une entrée de tunnel visible.
+      - S12 : la passagère accroupie au premier plan à gauche ; plan plus serré pour la fin, avec une reprise de quatre images de
+        vibration avant le tic de la paupière.
