@@ -3,7 +3,7 @@
 // station bills him for the blackout. Conventions as in props.js (metres, front +Z, pivot at the floor unless said); every animated prop is a pure
 // function of the shot time.
 import * as THREE from 'three';
-import { mat, box, cyl, sphere } from './style.js';
+import { mat, box, cyl, sphere, addOutline } from './style.js';
 import { grp, at, canvasPlane } from './props.js';
 
 const PI = Math.PI, TAU = 2 * PI;
@@ -63,7 +63,7 @@ export const TOURNANTE_PROPS = {
     g.userData.angleAt = t => TAU * integ(o.spin, t);
     g.userData.update = t => {
       rot.rotation.y = TAU * integ(o.spin, t);
-      const rate = Math.abs(lin(o.spin, t, 0)); blur.material.opacity = Math.max(0, Math.min(0.6, (rate - 0.9) * 0.4)); blur.visible = blur.material.opacity > 0.01; stex.offset.x = -TAU * integ(o.spin, t) / TAU * 3;   // (stills v1) faint: a man turning at the axis is inside the drum and a thick blur whitened him; (pass 2) behind him only, so it can be strong
+      const rate = Math.abs(lin(o.spin, t, 0)); blur.material.opacity = Math.max(0, Math.min(0.82, (rate - 0.9) * 0.6)); blur.visible = blur.material.opacity > 0.01; stex.offset.x = -TAU * integ(o.spin, t) / TAU * 3;   // (stills v1) faint: a man turning at the axis is inside the drum and a thick blur whitened him; (pass 2) behind him only, so it can be strong
       const bk = lin(o.bulbs, t, 0); bulbs.forEach((b, i) => { b.material.emissiveIntensity = bk * (0.75 + 0.25 * Math.sin(t * 9 + i * 1.3)) * 2.2; });
     };
     g.userData.update(0); return g;
@@ -72,10 +72,20 @@ export const TOURNANTE_PROPS = {
   // A long beard (pivot at the chin, hanging along -Y, the face +Z): one tapered hanging mass o.len (0.7) long, o.color, swept out to one side by o.sweep
   // (rad, about Z) and out in front by o.lift (rad, about X): grown while he turned for three years (a fan of dark sticks read as a comb).
   longBeard(o) {
-    const L = o.len ?? 0.7, w0 = o.w ?? 0.2, c = o.color || '#4A3626', g = grp(), hang = grp(); g.add(hang);
-    const N = 6; for (let i = 0; i < N; i++) { const u = i / N, w = w0 * (1 - 0.75 * u), h = L / N * 1.08; hang.add(at(box(w, h, w * 0.55, c, { outline: 0.01 }), 0, -L * (u + 0.5 / N), 0.02 + 0.02 * u)); }
-    hang.add(at(box(w0 * 0.25, L * 0.12, w0 * 0.15, c), 0, -L * 1.02, 0.04, 0, 0, 0.3));
-    hang.rotation.set(o.lift ?? 0.15, 0, o.sweep ?? 0);
+    // (pass 3 of 57) a chain of tapering, rounded tufts that curves and waves, a pointed tip, in his hair colour: six hard brown boxes read as a brick or
+    // a plank on his chest. o.len (0.7), o.w (0.2), o.color, o.sweep: the curl to one side over its length (the trail of the spin), o.lift: forward,
+    // o.wave [amp, rate]: a whip running down it
+    const L = o.len ?? 0.7, w0 = o.w ?? 0.2, c = o.color || '#2B2622', N = 6, segL = L / N, g = grp(), segs = [];
+    let parent = g;
+    for (let i = 0; i < N; i++) {
+      const u = i / N, w = w0 * (1 - 0.72 * u), seg = grp(); seg.position.y = i ? -segL : 0; parent.add(seg); parent = seg;
+      const tuft = sphere(w * 0.55, c, 1); tuft.scale.set(1, (segL * 0.68) / (w * 0.55), 0.55); tuft.position.set(i % 2 ? 0.014 : -0.014, -segL * 0.5, 0.02 + 0.015 * u); addOutline(tuft, 0.05); seg.add(tuft);
+      segs.push(seg);
+    }
+    const tip = new THREE.Mesh(new THREE.ConeGeometry(w0 * 0.14, segL * 0.9, 6).rotateX(PI), mat(c)); tip.position.y = -segL * 1.05; parent.add(tip);
+    const base = segs.map((sg, i) => [(o.lift ?? 0.15) / N * (i ? 1 : 0.5), (o.sweep ?? 0) / N * (1 + 0.4 * Math.sin(i * 1.4))]);
+    g.userData.update = t => { const [amp, rate] = o.wave || [0.12, 9]; segs.forEach((sg, i) => { sg.rotation.set(base[i][0], 0, base[i][1] + amp * Math.sin(t * rate - i * 0.9) * (i / N)); }); };
+    g.userData.update(0);
     return g;
   },
 
@@ -88,7 +98,7 @@ export const TOURNANTE_PROPS = {
     g.add(at(box(0.22, 0.2, 0.12, '#E7E3D6', { outline: 0.006 }), 0, 0.1, -0.06), at(box(0.16, 0.14, 0.16, '#2A2C31', { outline: 0.006 }), 0, 0.1, 0.06));   // the socket box and the plug
     for (const x of [-0.04, 0.04]) g.add(at(cyl(0.008, 0.008, 0.06, '#C9A33A', 6), x, 0.1, 0.0, PI / 2, 0, 0));
     const dashes = []; for (let i = 0; i < 9; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry((o.r ?? 0.035) * 1.25, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFE36A', toneMapped: false })); g.add(d); dashes.push(d); }
-    const sparks = []; for (let i = 0; i < 7; i++) { const s = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.09, 0.012), new THREE.MeshBasicMaterial({ color: '#FFE36A', toneMapped: false })); g.add(s); sparks.push(s); }
+    const sk = o.sparkSize ?? 1, sparks = []; for (let i = 0; i < 7; i++) { const s = new THREE.Mesh(new THREE.BoxGeometry(0.012 * sk, 0.09 * sk, 0.012 * sk), new THREE.MeshBasicMaterial({ color: '#FFE36A', toneMapped: false })); g.add(s); sparks.push(s); }   // (pass 3 of 57) o.sparkSize: two yellow specks at 1
     g.userData.update = t => {
       const fk = lin(o.flow, t, 0); dashes.forEach((d, i) => { const u = ((t * 0.9 + i / dashes.length) % 1); d.visible = fk > 0.02; d.position.copy(curve.getPointAt(u)); d.scale.setScalar(Math.max(0.01, fk)); });
       const s0 = list(o.sparkAt).filter(x => t >= x && t < x + 0.3).pop(); sparks.forEach((s, i) => { s.visible = s0 != null; if (!s.visible) return; const u = (t - s0) / 0.3, a = i / sparks.length * TAU + t * 3;
