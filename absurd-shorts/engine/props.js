@@ -1423,7 +1423,7 @@ const B = {
     for (const z of [-0.4, 0.4]) g.add(at(box(0.5, 0.12, 0.48, '#3A3D44'), 0.05, 0.5, z), at(box(0.1, 0.62, 0.48, '#3A3D44'), -0.25, 0.82, z, 0, 0, 0.15));
     g.add(at(box(0.3, 0.3, 1.6, '#2A2A2E'), 0.95, 0.85, 0), at(torus(0.16, 0.025, P.ink, 6, 16), 0.62, 1.06, -0.4, 0, PI / 2, 0));
     for (const x of [-1.3, 1.3]) for (const z of [-0.8, 0.8]) g.add(at(cyl(0.34, 0.34, 0.26, P.ink, 12), x, 0.34, z, PI / 2), at(cyl(0.15, 0.15, 0.02, P.grey, 8), x, 0.34, z * 1.17, PI / 2));
-    for (const z of [-0.6, 0.6]) g.add(at(box(0.04, 0.14, 0.32, '#FFF6C8', { noGrain: true }), 2.01, 0.74, z), at(box(0.04, 0.14, 0.32, P.red), -2.01, 0.74, z));
+    for (const z of [-0.6, 0.6]) g.add(at(box(0.04, 0.14, 0.32, '#FFF6C8', { noGrain: true }), 2.01, 0.74, z), o.brake ? at(box(0.05, 0.17, 0.38, '#FF4A3A', { emissive: '#FF1E10', noGrain: true }), -2.02, 0.76, z) : at(box(0.04, 0.14, 0.32, P.red), -2.01, 0.74, z));   // (pass 3 of 62) o.brake: the tail lights lit (a stopped queue read from behind down a long lens)
     for (const sx of [-1, 1]) g.add(at(label(o.plate || 'AB-123-CD', 0.52, 0.12, { bg: P.white, fg: P.ink, wrap: false }), sx * 2.012, 0.5, 0, 0, sx * PI / 2, 0));
     g.userData.seat = [0.05, 0.12, -0.4]; g.userData.seat2 = [0.05, 0.12, 0.4]; return g; },
   convertible(o) { // open-top car facing +x (a star's limousine): hollow tub, front bucket seats, a rear bench (userData.rear), chrome grille and bumpers,

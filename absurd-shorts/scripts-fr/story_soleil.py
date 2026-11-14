@@ -158,13 +158,28 @@ st.cue('sfx:poof', 'S05', 0.1, 0.3)
 D6 = st.dur('S06')
 CARS = [(2.2, -3.0, '#3A9BDC'), (2.2, -8.6, '#F5C33B'), (2.2, -14.2, '#5FB86A'), (2.2, -19.8, '#C255C8'), (2.2, -25.4, '#E8463A'), (2.2, -31.0, '#F08A3C'), (-1.6, -5.0, '#8C949A'), (-1.6, -10.6, '#3A9BDC'), (-1.6, -16.2, '#F5C33B'), (-1.6, -21.8, '#5FB86A')]
 CARS += [(2.2, r(-36.6 - 5.6 * i), c_) for i, c_ in enumerate(['#8C949A', '#3A9BDC', '#F5C33B', '#5FB86A', '#C255C8', '#E8463A', '#F08A3C', '#3A9BDC'])] + [(-1.6, r(-27.4 - 5.6 * i), c_) for i, c_ in enumerate(['#E8463A', '#8C949A', '#F08A3C', '#5FB86A'])]   # (review 1) the queue to the end of the street
-QUEUE = lambda sid, extra=lambda i: {}: [P(f'car{sid}{i}', 'car', pos=[x_, 0, z_], ry=-90, opts={'color': c_, 'glass': 0.85, 'glassColor': '#33485A'}, **extra(i)) for i, (x_, z_, c_) in enumerate(CARS)]   # (review 1) tinted windows: see-through cars stacked into one cage down a long lens
+QUEUE = lambda sid, extra=lambda i: {}, skip=(): [P(f'car{sid}{i}', 'car', pos=[x_, 0, z_], ry=-90, opts={'color': c_, 'glass': 0.85, 'glassColor': '#33485A', 'brake': True}, **extra(i)) for i, (x_, z_, c_) in enumerate(CARS) if i not in skip]   # (pass 3) brake lights lit   # (review 1) tinted windows: see-through cars stacked into one cage down a long lens
+# (pass 3: from 10.5 m up the queue was a staircase of coloured slabs, the roofs only, and nothing moved for 1.27 s) the classic long lens of a jam:
+#     from the road at 2.6 m, past the end of the queue, so the cars show their rear windows and their lit tail lights, one lane stacked up to the
+#     light; the queue creeps forward in a wave from the front car back, each car dipping its nose as it stops; a red halo round his face
+RLANE = sorted([i for i, (x_, z_, c_) in enumerate(CARS) if x_ > 0], key=lambda i: -CARS[i][1])   # the right lane, front car first
+def CREEP(t0, gap=0.07, d=0.6, skip=()):
+    """(pass 3) the queue inches forward d metres in a wave from the front car back (one car every `gap` s), each nose dipping as it stops"""
+    out = {}
+    for n, i in enumerate([j for j in RLANE if j not in skip]):
+        x_, z_, c_ = CARS[i]; t = r(t0 + gap * n); YAW = round(-PI / 2, 4)
+        out[i] = [k(t, to=[x_, 0, r(z_ + d)], dur=0.3, ease='inOut'), k(r(t + 0.27), rot=[0.0, YAW, -0.05], dur=0.05, ease='out'),
+                  k(r(t + 0.32), rot=[0.0, YAW, 0.02], dur=0.1, ease='inOut'), k(r(t + 0.44), rot=[0.0, YAW, 0.0], dur=0.1, ease='inOut')]
+    return out
+JAMCAM = lambda t=0.0: cam(t, [2.0, 2.6, -112.0], [2.0, 2.6, -110.0], [3.6, 3.0, -0.2], [3.6, 3.0, -0.2], lens=5)   # (pass 3) the long lens from the road
+PUFFS = lambda sid: [P(f'exh{sid}{n}', 'dustPuff', pos=[2.2, 0.35, r(CARS[i][1] - 2.15)], scale=0.6, opts={'period': 0.7, 'color': '#C8CCD2', 'seed': 640 + n}) for n, i in enumerate(RLANE[-6:])]   # exhaust on the near cars
+HALO = lambda sid, at=0.0: P(f'halo{sid}', 'halo', pos=[LIGHT[0], HOLE(2)[1], r(LIGHT[2] - 0.35)], face='camera', opts={'r': 0.75, 'k': 0.75, 'core': '#FFE6E0', 'color': '#FF3A50', 'at': at})   # his glow read 110 m away
 HEADON = lambda col=RED, glow=0.7, i=2: act('mec', BEHIND(i), LRY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=IN({'skin': SKIN(col, 1.0, glow), 'face': DEAD}), toonDur=0.0),
                                                                   k(0.6, toon=IN({'skin': SKIN(col, 1.0, glow), 'face': {'lid': 1.0}}), toonDur=0.1), k(0.78, toon=IN({'skin': SKIN(col, 1.0, glow), 'face': DEAD}), toonDur=0.12)])   # (audit) a blink in the long hold
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[HEADON()],
-        props=[P('light6', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True}), P('glow6', 'glowLight', pos=[LIGHT[0], HOLE(2)[1], r(LIGHT[2] - 0.6)], opts={'color': '#FF4A2A', 'k': 3, 'dist': 4}), *QUEUE('6'),
-               *[P(f'exh6{i}', 'dustPuff', pos=[2.2, 0.35, r(z_ - 2.15)], scale=0.6, opts={'period': 0.7, 'color': '#C8CCD2', 'seed': 620 + i}) for i, z_ in enumerate([-3.0, -8.6, -14.2, -19.8])]],   # (review 1) exhaust puffing: engines running
-        cams=[cam(0.0, [1.2, 10.5, -96.0], [1.2, 10.4, -94.5], [3.7, 2.0, -3.0], [3.7, 2.0, -3.0], lens=6)])   # (stills p2) from beyond the end of the queue: nearer, its last cars filled the frame as blocks   # a long lens down the queue: the light at its head; (review 1) from higher and tighter: the roofs to the end of the street, the light big in the top third
+        props=[P('light6', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True}), P('glow6', 'glowLight', pos=[LIGHT[0], HOLE(2)[1], r(LIGHT[2] - 0.6)], opts={'color': '#FF4A2A', 'k': 3, 'dist': 4}), HALO('6'),
+               *QUEUE('6', extra=lambda i, C6=CREEP(0.12): {'keys': C6[i]} if i in C6 else {}), *PUFFS('6')],   # (review 1) exhaust puffing: engines running; (pass 3) the queue creeping
+        cams=[JAMCAM()])   # (pass 3) from the road; (stills p2) from beyond the end of the queue: nearer, its last cars filled the frame as blocks   # a long lens down the queue: the light at its head; (review 1) from higher and tighter: the roofs to the end of the street, the light big in the top third
 
 # 7: ...all day long. The light against the sky: the sun races across behind him and goes down; he glows on, deadpan, a slow blink
 #    (stills 2: from under the box his face was a red sliver in the top hole) in front of the light, a little below it: his face in the top hole, the
@@ -277,12 +292,12 @@ st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
             k(1.3, toon={**ROLL(0.0), 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.2), k(1.35, look='camera')])],
         props=[P('light11', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True, 'open': [[0.0, 0]]}), P('lad11', 'ladder', pos=LAD, ry=20, opts={'h': 2.2, 'lean': 0.18}),
                P('roller11', 'paintRoller', on={'actor': 'peintre', 'hand': 'R'}, opts={'len': 0.62, 'color': RED, 'sleeve': '#F2EFE6', 'frame': True, 'rollerR': 0.06, 'rollerW': 0.3}),   # (review 1) a frame and a white sleeve with its band of red (a red cylinder alone read as a cap)
-               *[P(f'car11{i}', 'car', pos=[x_, 0, z_], ry=-90, opts={'color': c_}) for i, (x_, z_, c_) in enumerate(CARS) if i != 5],   # (stills 4) the queue again: the second shot is the long lens of S06
-               P('car11', 'car', pos=[2.2, 0, -44.0], ry=-90, opts={'color': '#F08A3C', 'glass': 0.85, 'glassColor': '#33485A'}, keys=[k(r(BRAKE11 - 0.35), to=[2.2, 0, -31.0], dur=0.35, ease='out'), k(r(BRAKE11 - 0.04), rot=[0.0, round(-PI / 2, 4), -0.12], dur=0.06, ease='out'), k(r(BRAKE11 + 0.1), rot=[0.0, round(-PI / 2, 4), 0.03], dur=0.12, ease='inOut'), k(r(BRAKE11 + 0.24), rot=[0.0, round(-PI / 2, 4), 0.0], dur=0.12, ease='inOut')]),   # ...its last car braking hard into place, (review 1) pitching nose down and rocking back
-               P('skid11', 'skidMarks', pos=[2.2, 0, -29.6], opts={'at': r(BRAKE11 - 0.3), 'len': 3.2}),
+               *QUEUE('11', extra=lambda i, C11=CREEP(2.0, gap=0.05, d=0.35, skip=(RLANE[-1],)): {'keys': C11[i]} if i in C11 else {}, skip=(RLANE[-1],)), *PUFFS('11'), HALO('11', at=CUT11),   # (stills 4) the queue again: the second shot is the long lens of S06; (pass 3) the near car's slot free for the braking car, the queue inching on after it (a 0.6 s freeze at the end)
+               P('car11', 'car', pos=[2.2, 0, -92.0], ry=-90, opts={'color': '#F08A3C', 'glass': 0.85, 'glassColor': '#33485A', 'brake': True}, keys=[k(r(BRAKE11 - 0.4), to=[2.2, 0, CARS[RLANE[-1]][1]], dur=0.4, ease='out'), k(r(BRAKE11 - 0.04), rot=[0.0, round(-PI / 2, 4), -0.12], dur=0.06, ease='out'), k(r(BRAKE11 + 0.1), rot=[0.0, round(-PI / 2, 4), 0.03], dur=0.12, ease='inOut'), k(r(BRAKE11 + 0.24), rot=[0.0, round(-PI / 2, 4), 0.0], dur=0.12, ease='inOut')]),   # ...its last car braking hard into place, (review 1) pitching nose down and rocking back   # (pass 3) the last car of the queue, in from the bottom of the frame
+               P('skid11', 'skidMarks', pos=[2.2, 0, r(CARS[RLANE[-1]][1] + 1.3)], opts={'at': r(BRAKE11 - 0.3), 'len': 3.2}),
                P('glow11', 'glowLight', pos=[LIGHT[0], HOLE(0)[1], r(LIGHT[2] - 0.6)], opts={'color': '#FF4A2A', 'k': 3, 'dist': 4, 'at': 0.94})],
         cams=[FC(0.0, [4.9, 2.1, -3.4], [[LIGHT[0], r(POLE + 1.75), r(LIGHT[2] - 0.17)], [LIGHT[0], r(POLE - 0.2), r(LIGHT[2] - 0.17)], [LAD[0], 2.8, r(LAD[2] - 0.2)], [LAD[0], 0.9, r(LAD[2] - 0.2)]], top=0.12, bottom=0.76, drift=(0.04, 0.0, -0.04)),
-              cam(CUT11, [1.2, 10.5, -96.0], [1.2, 10.4, -94.5], [3.7, 2.0, -3.0], [3.7, 2.0, -3.0], lens=6)])   # (stills 4) ...cut to the long lens of S06: the queue stopped again at his red light, its last car braking into place (a vertical frame cannot hold the light and a car side by side up close: from behind, beside or across, the car filled it)
+              JAMCAM(CUT11)])   # (stills 4) ...cut to the long lens of S06: the queue stopped again at his red light, its last car braking into place (a vertical frame cannot hold the light and a car side by side up close: from behind, beside or across, the car filled it)
 for t_ in STROKES: st.cue('sfx:squeak', 'S11', t_, 0.15)
 st.cue('sfx:brake', 'S11', r(BRAKE11 - 0.25), 0.3)
 
