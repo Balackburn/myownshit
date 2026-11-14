@@ -2138,3 +2138,18 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 61 « Le ressort » : voix (16,5 s), script de quatorze plans. Décision : le budget de réactions reste (pas d'yeux sur tiges dans cet
   épisode : la prise du ressort fait sauter les yeux grand ouverts, le reste passe par l'écrasement, l'étirement et les rebonds) ;
   l'épisode réutilise la girouette de 59 comme décor de toit, sans son gag. Images de contrôle en rendu.
+- 59 « La grimace » : revue 2 = animation 7,6, direction artistique 7,4. Décision (« À voir avec l'utilisateur » du critique art : la
+  palette saturée du carnaval face au pastel de la série) : gardée ; le carnaval est le seul décor qui la justifie, la ville reste pastel.
+  Passe 3 : grimace tirée en cinq images avec dépassement, tenue qui tremble et langue qui remue à contretemps, plan rapproché pour la
+  tenue ; S03 avec un vrai moment d'espoir (pression plus longue, mains qui se lèvent sur un visage normal, clignement de soulagement, puis
+  BOING plus large et trois oscillations) ; photo debout à côté de son visage tenue par le bord, employée de trois quarts, MAIRIE au mur ;
+  la photo qui saute sous le tampon ; prise du patron avant la poignée de main, quatre grosses secousses qui remontent jusqu'à la tête,
+  confettis tombés d'en haut ; grosse tête sur le ciel ; girouette qui s'enfonce et tremble avant de se dévisser, feuilles dans l'autre
+  sens ; S11 en profondeur, l'homme entier au premier plan, le bras du patron le long de la rue, le doigt qui pique ; S12 par-dessus son
+  épaule, les grimaces tenues huit images avant la frayeur, sauts à des hauteurs différentes, casquette en arc sur le ciel, sorties
+  décalées, sans banderole sur la fin. Moteur : lettres de la girouette lisibles des deux côtés, ardoises et faîtage en zinc, feuilles en
+  forme de feuille, encre de REFUSÉE foncée et cernée de blanc, char sur roues avec une frange, creux d'anticipation (`dip`) de la girouette.
+- 60 « L'écho » : brouillon 2 rendu (une tenue figée de 0,53 s en S13) ; revue 2 en préparation.
+- 61 « Le ressort » : trois séries d'images de contrôle (assis pour de bon avec `then='sit'`, ressort visible sans poussière, insert du
+  formulaire entier, abat-jour en tambour, fin au-dessus de la chaussée avec la rue et la tour derrière lui) ; l'envol refait en plan qui
+  monte avec lui sur la tête et les épaules (de loin et étiré il n'était qu'un trait) ; brouillon 1 en rendu.

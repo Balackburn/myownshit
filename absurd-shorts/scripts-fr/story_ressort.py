@@ -70,10 +70,12 @@ D3 = st.dur('S03')
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [SEAT[0], 0.6, SEAT[2]], RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'),
             k(0.0, to=[SEAT[0], 18.0, SEAT[2]], dur=D3, ease='linear', face=RY),   # (stills 3) the facing given: with 'keep' on a straight-up move he turned side on (a stripe with no face)
-            k(0.0, toon={'sq': [0.72, 1.42, 0.72], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.3, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.3, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 1.0,
-                          'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.0)])],   # (stills 1) stretched less: at 1.7 he was a dark stripe
+            k(0.0, toon={'sq': [0.86, 1.18, 0.86], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.35, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.35, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'wind': [0.0, -14.0, 0.0],
+                          'face': {'lid': 0.0, 'eye': 0.7, 'pupilSize': -0.3, 'brow': 1.0, 'mouth': 'O', 'cheeks': 0.6}}, toonDur=0.0),   # (stills 4) the speed on his face: eyes wide, cheeks blown, hair and tie flattened downward
+            k(0.35, toon={'sq': [0.86, 1.18, 0.86], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.35, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.35, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'wind': [0.0, -14.0, 0.0],
+                          'face': {'lid': 0.0, 'eye': 0.8, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'scream', 'cheeks': 0.8}}, toonDur=0.1)])],
         props=[P('spd3', 'speedLines', **FLY([[0.0, SEAT[0], 0.0, SEAT[2]], [D3, SEAT[0], 15.5, SEAT[2]]]), face='camera', opts={'n': 7, 'len': 2.2, 'w': 0.8, 'angle': 1.57, 'at': [[0.0, D3]]})],
-        cams=[cam(0.0, [3.0, 2.2, -4.6], [3.0, 16.6, -4.6], [SEAT[0], 3.6, 0.0], [SEAT[0], 19.8, 0.0], lens=46)])   # (stills 2) farther, on his head: close he was a stripe without a face   # (audit) riding up beside him, the windows streaming down behind (tilting from the street he was 8 % of the frame)
+        cams=[cam(0.0, [5.55, 3.4, -2.1], [5.55, 20.8, -2.1], [SEAT[0], 3.5, 0.0], [SEAT[0], 20.9, 0.0], lens=42)])   # (stills 4) riding up with him on his head and shoulders, the windows streaming down (whole and far he was a stripe 4 % wide)   # (audit) riding up beside him, the windows streaming down behind (tilting from the street he was 8 % of the frame)
 st.cue('whoosh', 'S03', 0.0, 0.35, 0.7, 400, 1800)
 
 # 4: ...up to the roof. A slate roof ridge high over the city: he drops onto it and lands like an accordion, squashed flat and springing back up past

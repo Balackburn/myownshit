@@ -74,7 +74,9 @@ export const GRIMACE_PROPS = {
       const L = o.lift, u = L ? t - L[0] : -1;
       // (pass 2 of 59) o.lift [t0, rise (s), height (m), hover (s), zip (m/s²)]: it unscrews up slowly, hovers bobbing, then zips off; three values: the old climb
       const ph = L && L.length >= 5 ? (u < L[1] ? L[2] * u / L[1] : u < L[1] + L[3] ? L[2] + 0.06 * Math.sin((u - L[1]) * 18) : L[2] + 0.5 * L[4] * (u - L[1] - L[3]) ** 2) : 0;
-      if (u >= 0) { vane.rotation.y = yaw; top.rotation.y = 0; if (L.length >= 5) vane.position.set(0, ph, 0); else vane.position.set((L[2] ?? 0) * u, 0.3 * u + 0.5 * (L[1] ?? 6) * u * u, 0); } else { vane.rotation.y = 0; vane.position.set(0, 0, 0); top.rotation.y = yaw; }
+      if (u >= 0) { vane.rotation.y = yaw; top.rotation.y = 0; if (L.length >= 5) vane.position.set(0, ph, 0); else vane.position.set((L[2] ?? 0) * u, 0.3 * u + 0.5 * (L[1] ?? 6) * u * u, 0); } else { vane.rotation.y = 0; vane.position.set(0, 0, 0); vane.rotation.z = 0; top.rotation.y = yaw;
+        // (pass 3 of 59) o.dip [t0, dur, depth]: the anticipation before it unscrews: the whole vane sinks into its socket and shudders, then comes back
+        const D = o.dip; if (D && t >= D[0] && t < D[0] + D[1]) { const v = (t - D[0]) / D[1], env = Math.sin(PI * v); vane.position.y = -(D[2] ?? 0.12) * env; vane.rotation.z = 0.14 * Math.sin(v * 34) * env; } }
       const rr = Math.abs(rate(t)), bl = o.blur ?? 1.2, on = rr > bl;
       ghosts.forEach((gh, i) => { gh.visible = on; gh.rotation.y = -sign(t) * Math.min(0.5, 0.12 * rr) * (i + 1); }); };
     g.userData.update(0); return g;
