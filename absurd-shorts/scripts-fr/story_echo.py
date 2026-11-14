@@ -53,7 +53,8 @@ st.shot('S01', 'grassland', setOpts=ALPS, actors=[
         props=[*RING('1'), SUMMIT('1'),
                P('ohe1', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'show': [SH1, 99.0],
                  'path': [[SH1] + MOUTH_S, [r(SH1 + 0.3), -0.3, r(TOP + 2.1), -2.6], [r(SH1 + 0.7), -1.4, r(TOP + 3.0), -9.0], [D1, -3.5, r(TOP + 4.5), -26.0]],
-                 'grow': [[SH1, 0.3], [r(SH1 + 0.15), 1.4], [r(SH1 + 0.35), 1.25], [D1, 2.2]]})],   # out of his mouth, big, then off over the valley
+                 'grow': [[SH1, 0.3], [r(SH1 + 0.15), 1.4], [r(SH1 + 0.35), 1.25], [D1, 2.2]]}),   # out of his mouth, big, then off over the valley
+               P('spd1', 'speedLines', pos=[0, 0, 0], face='camera', opts={'n': 6, 'len': 0.9, 'w': 0.5, 'angle': 0.35, 'at': [[SH1, r(SH1 + 0.6)]], 'path': [[SH1] + MOUTH_S, [r(SH1 + 0.3), 0.2, r(TOP + 1.95), -1.6], [r(SH1 + 0.6), -0.6, r(TOP + 2.6), -5.0]]})],   # (cycle 22) speed lines behind it
         cams=[FC(0.0, [1.7, r(TOP + 1.55), -1.5], [[ME_S[0], r(TOP + 2.35), ME_S[2]], [ME_S[0], r(TOP + 0.9), ME_S[2]], [-0.3, r(TOP + 2.6), -2.6], [ME_S[0], r(TOP - 0.2), r(ME_S[2] + 0.8)]],
                  top=0.16, bottom=0.7, drift=(0.08, 0.0, 0.1))])
 st.cue('sfx:gasp', 'S01', 0.08, 0.3); st.cue('whoosh', 'S01', SH1, 0.4, 1.1, 200, 900); st.cue('gust', 'S01', SH1, 0.35, 1.2)
@@ -146,7 +147,8 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
             k(r(TURN8 - 0.12), toon={'face': {'lid': 0.3, 'gx': -0.8, 'gy': -0.2}}, toonDur=0.06), k(TURN8, look=[0.0, 3.0, -20.0]),   # his eyes first, then his head...
             k(r(TURN8 + 0.3), toon={'face': {'lid': 0.0, 'pop': 0.95, 'popLen': 0.3, 'brow': 1.0, 'mouth': 'O'}, 'sq': [0.95, 1.06, 0.95], 'hairUp': 1.0}, toonDur=0.06, toonEase='out'),   # ...his eyes out on stalks
             k(r(TURN8 + 0.5), toon={'face': {'lid': 0.0, 'pop': 0.85, 'popLen': 0.26, 'brow': 1.0, 'mouth': 'O', 'tremble': 1.0}, 'sq': [0.98, 1.02, 0.98], 'hairUp': 1.0}, toonDur=0.08)])],
-        props=[P('ohe8', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'path': [[0.0, 0.5, 4.0, -60.0], [r(TURN8 + 0.15), 2.5, 3.2, -22.0], [D8, 5.3, 2.4, -1.6]], 'grow': [[0.0, 1.0], [D8, 3.4]], 'wobble': 0.3})],
+        props=[P('ohe8', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'path': [[0.0, 0.5, 4.0, -60.0], [r(TURN8 + 0.15), 2.5, 3.2, -22.0], [D8, 5.3, 2.4, -1.6]], 'grow': [[0.0, 1.0], [D8, 3.4]], 'wobble': 0.3}),
+               P('spd8', 'speedLines', pos=[0, 0, 0], face='camera', opts={'n': 8, 'len': 2.2, 'w': 1.6, 'angle': 1.45, 'at': [[0.0, r(TURN8 + 0.2)]], 'path': [[0.0, 0.5, 4.0, -58.0], [r(TURN8 + 0.15), 2.5, 3.4, -19.0]]})],   # (cycle 22) streaks behind the word
         cams=[FC(0.0, [7.9, 2.0, 3.0], [[ME[0], 2.35, ME[2]], [r(ME[0] - 0.3), 1.2, ME[2]], [1.0, 5.0, -40.0], [4.0, 1.0, -30.0]], top=0.12, bottom=0.7, drift=(0.0, 0.0, 0.1)),   # over his shoulder: the letters far down the street...
               FC(r(TURN8 + 0.2), [r(ME[0] - 1.2), 1.85, -2.3], [[ME[0], 2.42, ME[2]], [ME[0], 1.2, ME[2]], [r(ME[0] - 0.45), 1.9, ME[2]], [r(ME[0] + 0.45), 1.9, ME[2]]], top=0.14, bottom=0.66, drift=(0.0, 0.0, 0.12))])   # ...a reverse on his face: eyes on stalks
 st.cue('whoosh', 'S08', 0.4, 0.4, 1.3, 150, 700); st.cue('sfx:boing', 'S08', r(TURN8 + 0.3), 0.3)

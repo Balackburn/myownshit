@@ -46,6 +46,28 @@ export const ECHO_PROPS = {
     g.userData.update(0); return g;
   },
 
+  // Speed lines (cycle 22; pivot at their middle, give the prop face='camera' so that they lie in the picture plane): o.n (7) streaks, white with an
+  // ink edge, o.len (1.2) long, spread over o.w (0.8) across, pointing along o.angle (rad in the picture plane, 0: toward +X of the prop), each one
+  // sliding back along it and fading in a loop; visible during o.at [[t0, t1], ...] (always without it); o.path [[t, x, y, z], ...] carries them like
+  // shoutLetters (the same keys behind a flying word), o.color
+  speedLines(o) {
+    const n = o.n ?? 7, L = o.len ?? 1.2, W = o.w ?? 0.8, r = rng(o.seed ?? 3), g = grp(), rot = grp(); g.add(rot); rot.rotation.z = o.angle ?? 0;
+    const ls = [];
+    for (let i = 0; i < n; i++) {
+      const len = L * (0.5 + 0.5 * r()), th = 0.018 + 0.012 * r(), y = (i / Math.max(1, n - 1) - 0.5) * W + (r() - 0.5) * W * 0.12;
+      const fm = new THREE.MeshBasicMaterial({ color: o.color || '#FFFFFF', transparent: true, depthWrite: false, toneMapped: false });
+      const bm = new THREE.MeshBasicMaterial({ color: '#1E2230', transparent: true, depthWrite: false });
+      const f = new THREE.Mesh(new THREE.PlaneGeometry(len, th), fm), b = new THREE.Mesh(new THREE.PlaneGeometry(len + 0.02, th + 0.014), bm); b.position.z = -0.002;
+      const s1 = grp(b, f); rot.add(s1); ls.push({ s1, fm, bm, len, y, ph: r(), rate: 2.5 + 2 * r() });
+    }
+    g.userData.update = t => {
+      const on = !o.at || list(o.at).some(([a, b]) => t >= a && t < b); g.visible = on; if (!on) return;
+      if (o.path) { const p = lin(o.path, t, [0, 0, 0]); g.position.set(p[0], p[1], p[2]); }
+      for (const l of ls) { const u = (t * l.rate + l.ph) % 1; l.s1.position.set(-u * L * 0.9 - l.len / 2, l.y, 0); const a = Math.sin(PI * u); l.fm.opacity = a; l.bm.opacity = a * 0.85; }
+    };
+    g.userData.update(0); return g;
+  },
+
   // A mountain range (pivot at the middle of its foot): o.n (7) low-poly peaks over o.w (60) metres along X, up to o.h (18) high, o.d (14) deep in
   // rows, grey-green rock with snow caps (o.snow false: none), o.seed; o.colors [rock, rock2, snow]
   mountainRange(o) {
