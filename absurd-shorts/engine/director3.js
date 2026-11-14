@@ -901,7 +901,7 @@ function tetherAnchor(a) {
 const sagAt = (ks, t) => { if (t <= ks[0][0]) return ks[0][1]; for (let i = 1; i < ks.length; i++) if (t < ks[i][0]) { const [t0, v0] = ks[i - 1], [t1, v1] = ks[i], u = (t - t0) / Math.max(1e-6, t1 - t0); return v0 + (v1 - v0) * u * u * (3 - 2 * u); } return ks[ks.length - 1][1]; };   // (cycle 13) sag keys, smoothstep between them
 // (cycle 26) a tether's extras, parented to the scene root and placed every frame by evalTethers: td.bulbs {n, colors, size, drop, hang [t0, t1],
 // fromA, on, period, chase}: a garland of bulbs clipped under the cord, hung one by one from its b end (fromA: from its a end) between t0 and t1,
-// lit at `on` and chasing (each bulb dark one beat in three); td.birds [[u, flyAt, yaw (deg)], ...]: birds perched on it, flying off at flyAt (or
+// lit at `on` and chasing (each bulb dark one beat in three), dim (0.55) the colour of a bulb before then; td.birds [[u, flyAt, yaw (deg)], ...]: birds perched on it, flying off at flyAt (or
 // when a snap runs past them); td.plug: a plug dangling from its b end; td.tip: a rounded tip at its b end (the end of a tongue)
 let _haloTex = null;
 function haloTex() {
@@ -953,7 +953,7 @@ function placeTetherExtras(td, ex, curve, t, endU, R) {
       else e.g.rotation.set(0, 0, 0);
       e.g.scale.setScalar(gone);
       const lit = t >= on && (B.chase === false || (Math.floor((t - on) / per) + e.k) % 3 !== 0);
-      e.bulb.material.color.copy(e.col).multiplyScalar(lit ? 1.3 : (t >= on ? 0.4 : 0.55)); e.glow.visible = lit; } }
+      e.bulb.material.color.copy(e.col).multiplyScalar(lit ? 1.3 : (t >= on ? 0.4 : (B.dim ?? 0.55))); e.glow.visible = lit; } }   // (cycle 26) B.dim: how bright an unlit bulb is before the lights go on
   for (const e of ex.birds) {
     const fa = Math.min(e.flyAt, snapT(e.u) - 0.06), k = (t - fa) / 0.7; if (k > 1) { e.g.visible = false; continue; } e.g.visible = true;
     at01(Math.min(e.u, endU) / Math.max(1e-3, endU)); e.g.position.copy(_xp); e.g.position.y += R * 0.9; e.g.rotation.set(0, e.yaw, 0);

@@ -43,7 +43,7 @@ LAMP = lambda melt=None, lick_at=None: [P('lamp', 'streetLamp', pos=POLE, opts={
                                         P('ice', 'iceSleeve', pos=POLE, opts={'h': 4.2, 'lick': [LICK_Y, 90], 'collar': [r(LICK_Y + 0.3), 9], **({'lickAt': lick_at} if lick_at is not None else {}), **({'meltAt': melt} if melt is not None else {})})]
 FAR = [5.6, 0, 0.0]                                 # where he ends up: the right-hand pavement, facing the pole across the street
 COLS = ['#FF3B3B', '#3BD45A', '#FFC93B', '#3B8BFF']
-BULBS = lambda **kw: {'n': 22, 'colors': COLS, 'size': 0.075, 'drop': 0.01, **kw}
+BULBS = lambda **kw: {'n': 30, 'colors': COLS, 'size': 0.11, 'drop': 0.01, 'dim': 0.85, 'glow': 2.4, **kw}   # (stills 3) bigger and brighter while off: at 5 m they were dull specks
 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
 for g_ in [('S01', 1.45, 'mec', 'stuck'), ('S02', 0.75, 'mec', 'splat'), ('S03', 1.4, 'mec', 'pull'), ('S04', 0.7, 'mec', 'lift'), ('S05', 2.0, 'mec', 'bow'),
@@ -106,9 +106,9 @@ st.cue('sfx:stretch', 'S03', 0.3, 0.25); st.cue('sfx:stretch', 'S03', 1.14, 0.25
 
 # 4: his tongue now crosses the street. Behind his right shoulder, low: the pink tongue from his mouth across the road to the frosted pole; three
 #    pigeons perched on it over the road; a little car drives under it and lifts it over its roof: he is yanked onto his toes, then dropped
-D4 = st.dur('S04'); BUS4 = 0.65; GONE4 = 1.14                       # the bus under the tongue, from its front to its back (15.6 m/s)
+D4 = st.dur('S04'); BUS4 = 0.49; GONE4 = 0.97                       # the bus under the tongue, from its front to its back (15.6 m/s); (stills 3) earlier: it clears the line of sight at 1.12
 U_CAR = r((FAR[0] - 0.12 - 2.2) / (FAR[0] - 0.12 - POLE[0] - 0.1))    # where lane x = 2.2 crosses the tongue
-UP4 = 1.4; LOOK4 = r(GONE4 + 0.2); DROP4 = r(GONE4 + 0.32); LAND4 = r(DROP4 + 0.14)
+UP4 = 1.4; LOOK4 = r(GONE4 + 0.27); DROP4 = r(GONE4 + 0.41); LAND4 = r(DROP4 + 0.14)
 HANG4 = lambda gy: {'bend': {'neck': [0.2, 0, 0, 1.4, None], 'legL': [0.3, 0, 0, 1, None], 'legR': [0.12, 0, 0, 1, None]}, 'reach': {'L': [5.75, r(1.6 + UP4), 0.8, 1, 0.05], 'R': [5.75, r(1.6 + UP4), -0.8, 1, 0.05]}, 'face': {'lid': 0.0, 'eye': 0.5, 'pupilSize': -0.4, 'mouth': 'tongueout', 'brow': 0.6, 'gy': gy}}
 st.shot('S04', 'parisStreet', setOpts=SNOW, actors=[
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
@@ -116,7 +116,7 @@ st.shot('S04', 'parisStreet', setOpts=SNOW, actors=[
             k(LOOK4, toon=HANG4(0.85), toonDur=0.06), k(LOOK4, look=[FAR[0], 0.0, -0.6]),   # ...revealed hanging in the air: a look down...
             k(DROP4, to=FAR, dur=0.14, ease='in', face='keep'), k(LAND4, toon={'sq': [1.16, 0.8, 1.16], 'face': {'lid': 0.3, 'mouth': 'tongueout'}}, toonDur=0.04), k(LAND4, look='camera'),   # ...and down: squashed on landing
             k(r(LAND4 + 0.16), toon={'sq': [0.98, 1.03, 0.98], 'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.1)])],
-        props=[*LAMP(lick_at=-1.0), P('bus4', 'cityBus', pos=[2.2, 0, -14.0], ry=-90, opts={'len': 7.6}, keys=[k(0.0, to=[2.2, 0, 14.0], dur=D4, ease='linear')])],
+        props=[*LAMP(lick_at=-1.0), P('bus4', 'cityBus', pos=[2.2, 0, -11.4], ry=-90, opts={'len': 7.6}, keys=[k(0.0, to=[2.2, 0, 16.6], dur=D4, ease='linear')])],
         tethers=[TONGUE(**{'sag': 0.022, 'n': 28, 'segments': 64, 'taper': 0.2, 'lift': [[BUS4, GONE4, U_CAR, 1.15, 0.1]],
                            'birds': [[0.17, r(BUS4 + 0.04), 120], [0.23, r(BUS4 + 0.08), 100], [0.3, r(BUS4 + 0.02), 140]], 'ripple': [[GONE4, 0.18, 2.0]]})],
         cams=[FC(0.0, [-1.0, 1.5, 3.4], [[FAR[0], r(2.45 + UP4), 0.0], [FAR[0], 0.0, 0.0], [3.4, 2.0, 0.0]], top=0.1, bottom=0.78)])   # (stills 2) from the road on the pole's side, facing him: the bus wipes across, then the hang
@@ -181,9 +181,11 @@ st.shot('S09', 'parisStreet', setOpts={**SNOW, 'sky': ['#62AEE2', '#A7D4EC'], 's
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
             k(r(SNAP9 + 0.1), toon={'face': {'lid': 0.0, 'eye': 0.6, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'tongueout'}}, toonDur=0.05),   # it is coming...
             k(HOME9, to=[r(FAR[0] + 0.28), 0, 0.0], dur=0.12, ease='out', face='keep'),
-            k(HOME9, look='camera'), k(HOME9, toon={'bend': {'spine': [-0.22, 0, 0, 1, None]}, 'scl': {'head': [1.62, 1.08, 1.2]}, 'face': {'lid': 0.0, 'eye': 0.7, 'pupilSize': -0.45, 'brow': 1.0, 'mouth': 'O', 'puff': 1.0, 'cheeks': 1.0}}, toonDur=0.04, toonEase='out'),   # ...WHAP: cheeks full, knocked back
-            k(r(HOME9 + 0.3), toon={'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'scl': {'head': [1.4, 1.05, 1.12]}, 'face': {'lid': 0.3, 'eye': 0.3, 'mouth': 'O', 'puff': 0.85, 'cheeks': 0.9}}, toonDur=0.2)])],
-        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('zip9', [2.8, 2.6, 0.6], r(SNAP9 + 0.12), 'ZIIIP !', 0.5, 0.3), P('lines9', 'speedLines', pos=[2.4, 1.7, 0.3], face='camera', opts={'n': 7, 'len': 1.6, 'w': 0.6, 'angle': 0.0, 'soft': True, 'alpha': 0.8, 'at': [[SNAP9, HOME9]]})],
+            k(HOME9, look='camera'), k(HOME9, toon={'bend': {'spine': [-0.22, 0, 0, 1, None]}, 'scl': {'head': [1.3, 1.06, 1.12]}, 'face': {'lid': 0.0, 'eye': 0.7, 'pupilSize': -0.45, 'brow': 1.0, 'mouth': 'O', 'puff': 1.0, 'cheeks': 1.0}}, toonDur=0.04, toonEase='out'),   # ...WHAP: cheeks full, knocked back
+            k(r(HOME9 + 0.3), toon={'bend': {'spine': [-0.12, 0, 0, 1, None]}, 'scl': {'head': [1.22, 1.04, 1.08]}, 'face': {'lid': 0.3, 'eye': 0.3, 'mouth': 'O', 'puff': 0.85, 'cheeks': 0.9}}, toonDur=0.2)])],
+        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('zip9', [2.8, 2.6, 0.6], r(SNAP9 + 0.12), 'ZIIIP !', 0.5, 0.3),
+               *[P(f'cheek9{sd}', 'cheekPuff', on={'actor': 'mec', 'joint': 'head', 'offset': [r(0.12 * (1 if sd == 'L' else -1)), 0.16, 0.06]}, opts={'r': 0.11, 'growAt': r(HOME9 - 0.02), 'dur': 0.14}) for sd in 'LR'],
+               P('lines9', 'speedLines', pos=[2.4, 1.7, 0.3], face='camera', opts={'n': 7, 'len': 1.6, 'w': 0.6, 'angle': 0.0, 'soft': True, 'alpha': 0.8, 'at': [[SNAP9, HOME9]]})],
         tethers=[TONGUE(**{'sag': 0.05, 'n': 24, 'segments': 56, 'taper': 0.2, 'snap': [SNAP9, DUR9, 0.45], 'bulbs': BULBS(on=-1.0, period=PER), 'birds': [[0.17, 99, 60], [0.23, 99, 40], [0.3, 99, 80]], 'plug': True})],
         cams=[FC(0.0, [3.7, 1.75, 2.2], [[FAR[0], 2.4, 0.0], [FAR[0], 0.75, 0.0], [r(FAR[0] + 0.55), 1.9, 0.0], [4.3, 1.85, 0.0]], top=0.12, bottom=0.76)])   # (stills 1) nearer, him in the middle: knocked back he left the frame
 st.cue('sfx:zip', 'S09', SNAP9, 0.4); st.cue('whoosh', 'S09', r(SNAP9 + 0.15), 0.35, 0.35, 400, 1600); st.cue('sfx:boing', 'S09', HOME9, 0.4)
@@ -195,7 +197,7 @@ st.shot('S10', 'parisStreet', setOpts={**SNOW, 'sky': ['#62AEE2', '#A7D4EC'], 's
             k(r(SLURP10 + 0.2), toon={'scl': {'head': [1.12, 1.02, 1.04]}, 'face': {'lid': 0.2, 'mouth': 'line', 'puff': 0.4, 'cheeks': 0.5}}, toonDur=0.1),
             k(GULP10, toon={'face': {'lid': 0.0, 'mouth': 'line', 'gulp': 1.0, 'cross': 0.7, 'eye': 0.3}}, toonDur=0.3, toonEase='inOut'),   # GULP
             k(r(GULP10 + 0.45), toon={'face': {**DEAD, 'mouth': 'line', 'gulp': 1.0}}, toonDur=0.15)])],
-        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('gulp10', [r(FAR[0] - 0.35), 2.05, 0.62], GULP10, 'GLOUPS !', 0.32, 0.3),
+        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('gulp10', [r(FAR[0] - 0.5), 1.82, 0.38], GULP10, 'GLOUPS !', 0.3, 0.3),
                P('lump10', 'bellyBulge', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.0, 0.0]}, opts={'r': 0.12, 'path': [[GULP10, 0.0, 0.66, 0.12], [r(GULP10 + 0.4), 0.0, 0.28, 0.14]], 'size': [[r(GULP10 - 0.01), 0.0], [r(GULP10 + 0.06), 1.0], [r(GULP10 + 0.4), 1.25], [r(GULP10 + 0.6), 0.5]]}),   # (stills 1) the lump going down shows on the chest (the neck is too short)
                P('belly10', 'bellyLights', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.28, 0.15]}, opts={'at': r(GULP10 + 0.45), 'period': PER, 'size': 0.2, 'spread': 0.09, 'k': 1.2})],
         tethers=[{'a': {'actor': 'mec', 'joint': 'head', 'offset': MOUTH}, 'b': {'actor': 'mec', 'joint': 'head', 'offset': [0.12, -0.12, 0.34]}, 'color': PINK, 'radius': 0.03, 'radial': 8, 'sag': 0.0, 'n': 6, 'snap': [SLURP10, 0.22, 0.12], 'plug': True, 'tip': True}],
