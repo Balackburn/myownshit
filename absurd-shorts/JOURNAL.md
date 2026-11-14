@@ -2443,3 +2443,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Décisions sur les « À voir avec l'utilisateur » :
     - Le carton FEU ROUGE passe après l'écrasement (à 0,3 s il tombait sur ses cheveux en plein temps suspendu).
     - La durée de S04 reste celle de la phrase (0,94 s) : la lecture vient de l'angle.
+- 61 « Le ressort » : **livrée** (1080 × 1920, 16,5 s, −16,1 LUFS, crête −3,8 dBFS ; contrôles HyperFrames sans erreur, deux
+  avertissements de contraste, un de finition ; aucune image grise).
+  - Revues : 6,5/6,0 → 7,2/7,0 → 7,2/7,3, puis la passe finale.
+  - Trois séries d'images de contrôle pendant la passe finale :
+    - Les bras du BOING reprenaient le geste du plan d'avant : mains montées à côté de la tête.
+    - La gifle tombait au redécollage (les rebonds `hops_ball` atterrissent 0,07 s plus tôt) : recalée, écrasement tenu trois images.
+    - La tasse prise avec la main opposée barrait la poitrine : main gauche.
+    - Les bonds du fauteuil s'arrêtaient au sommet du dossier, puis frôlaient le plafonnier : hauteurs entre les deux.
+    - Les sons des rebonds sont recalés sur les atterrissages.
+  - Huit lignes ajoutées au catalogue.
