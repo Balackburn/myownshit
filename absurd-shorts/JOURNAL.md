@@ -2028,3 +2028,11 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 58 « Le bâillement » : premières images vues : bâillement de face (mâchoire en bloc et dents), relève vue de face, bords du panneau et du maire
   dans le cadrage, mamie assise jambes tendues qui sort de sa bouche (mesurée : sa tête était dans sa poitrine). Brouillon 1 en rendu.
 - File : `queue10.sh` (57 et 58).
+- 55 « La ventouse » : **livrée** (1080 × 1920, 19,0 s, −16 LUFS, contrôles HyperFrames sans erreur ni avertissement, aucune chute de
+  saturation). Revues 6,0/6,0 → 6,4/6,8 → 6,8/7,1, passe finale avec deux contrôles d'images (le cou en chewing-gum refait avec `hose`).
+- 58 « Le bâillement » : revue 1 = 6,0/6,0 (la bouche ne fonctionnait pas comme un trou ; la relève, la file, la glissade et le plongeon du
+  facteur ne se lisaient pas). Passe 2 et contrôle d'images : bouche peinte en creux, cravate cachée, accroupissement pour relever la mâchoire
+  (plier le buste faisait passer la mâchoire, solidaire de la tête, derrière ses hanches), file de cinq, glissade sur un seul arc dans une
+  bouche élargie, facteur suspendu par la tête les jambes battantes, poing qui tape sous la chemise, lettre qui sort comme un toast.
+- 56 « La bosse » : revue 3 = animation 7,0, direction artistique 7,3. Passe finale à faire (BONG face à nous de trois quarts, crochet du
+  mètre sur le nez, genoux, colline entière avec le ciel des deux côtés, ciel sans zénith noir, facture continue sur la neige).

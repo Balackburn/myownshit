@@ -1,0 +1,78 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est collé une ventouse sur le front.",
+  "hl": [
+   "ventouse",
+   "front."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Elle ne se décolle plus.",
+  "hl": [
+   "décolle"
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Sa mutuelle refuse de payer : c'est de la plomberie.",
+  "hl": [
+   "mutuelle",
+   "plomberie."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Le plombier refuse aussi : c'est un front.",
+  "hl": [
+   "plombier",
+   "front."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Depuis, il colle à tout.",
+  "hl": [
+   "colle"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le métro l'a embauché comme poignée.",
+  "hl": [
+   "métro",
+   "poignée."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Hier, la ventouse s'est décollée.",
+  "hl": [
+   "ventouse"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le métro l'a gardée.",
+  "hl": [
+   "gardée."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Lui, il est au chômage.",
+  "hl": [
+   "chômage."
+  ]
+ }
+]

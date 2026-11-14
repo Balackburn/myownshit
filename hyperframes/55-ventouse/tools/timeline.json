@@ -1,0 +1,410 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est collé une ventouse sur le front.",
+   "hl": [
+    "ventouse",
+    "front."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.189,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.619
+    },
+    {
+     "w": "collé",
+     "s": 0.693,
+     "e": 0.841
+    },
+    {
+     "w": "une",
+     "s": 0.915,
+     "e": 0.989
+    },
+    {
+     "w": "ventouse",
+     "s": 1.1,
+     "e": 1.433
+    },
+    {
+     "w": "sur",
+     "s": 1.507,
+     "e": 1.581
+    },
+    {
+     "w": "le",
+     "s": 1.619,
+     "e": 1.656
+    },
+    {
+     "w": "front.",
+     "s": 1.73,
+     "e": 2.174
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Elle ne se décolle plus.",
+   "hl": [
+    "décolle"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L02.k.wav",
+   "file_start": 2.289,
+   "speech_start": 2.289,
+   "speech_end": 3.474,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 2.289,
+     "e": 2.4
+    },
+    {
+     "w": "ne",
+     "s": 2.437,
+     "e": 2.511
+    },
+    {
+     "w": "se",
+     "s": 2.548,
+     "e": 2.585
+    },
+    {
+     "w": "décolle",
+     "s": 2.659,
+     "e": 2.955
+    },
+    {
+     "w": "plus.",
+     "s": 3.066,
+     "e": 3.474
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Sa mutuelle refuse de payer : c'est de la plomberie.",
+   "hl": [
+    "mutuelle",
+    "plomberie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L03.k.wav",
+   "file_start": 3.574,
+   "speech_start": 3.574,
+   "speech_end": 6.166,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 3.574,
+     "e": 3.722
+    },
+    {
+     "w": "mutuelle",
+     "s": 3.833,
+     "e": 4.092
+    },
+    {
+     "w": "refuse",
+     "s": 4.166,
+     "e": 4.463
+    },
+    {
+     "w": "de",
+     "s": 4.537,
+     "e": 4.611
+    },
+    {
+     "w": "payer:",
+     "s": 4.759,
+     "e": 5.24
+    },
+    {
+     "w": "c'est",
+     "s": 5.277,
+     "e": 5.352
+    },
+    {
+     "w": "de",
+     "s": 5.377,
+     "e": 5.401
+    },
+    {
+     "w": "la",
+     "s": 5.426,
+     "e": 5.5
+    },
+    {
+     "w": "plomberie.",
+     "s": 5.537,
+     "e": 6.166
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le plombier refuse aussi : c'est un front.",
+   "hl": [
+    "plombier",
+    "front."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L04.k.wav",
+   "file_start": 6.266,
+   "speech_start": 6.266,
+   "speech_end": 8.637,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.266,
+     "e": 6.414
+    },
+    {
+     "w": "plombier",
+     "s": 6.452,
+     "e": 6.711
+    },
+    {
+     "w": "refuse",
+     "s": 6.785,
+     "e": 7.007
+    },
+    {
+     "w": "aussi:",
+     "s": 7.081,
+     "e": 7.723
+    },
+    {
+     "w": "c'est",
+     "s": 7.748,
+     "e": 7.822
+    },
+    {
+     "w": "un",
+     "s": 7.896,
+     "e": 7.97
+    },
+    {
+     "w": "front.",
+     "s": 8.044,
+     "e": 8.637
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Depuis, il colle à tout.",
+   "hl": [
+    "colle"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L05.k.wav",
+   "file_start": 8.737,
+   "speech_start": 8.737,
+   "speech_end": 10.292,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 8.737,
+     "e": 9.329
+    },
+    {
+     "w": "il",
+     "s": 9.403,
+     "e": 9.477
+    },
+    {
+     "w": "colle",
+     "s": 9.552,
+     "e": 9.7
+    },
+    {
+     "w": "à",
+     "s": 9.774,
+     "e": 9.848
+    },
+    {
+     "w": "tout.",
+     "s": 9.959,
+     "e": 10.292
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le métro l'a embauché comme poignée.",
+   "hl": [
+    "métro",
+    "poignée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L06.k.wav",
+   "file_start": 10.392,
+   "speech_start": 10.392,
+   "speech_end": 12.17,
+   "words": [
+    {
+     "w": "Le",
+     "s": 10.392,
+     "e": 10.466
+    },
+    {
+     "w": "métro",
+     "s": 10.54,
+     "e": 10.763
+    },
+    {
+     "w": "l'a",
+     "s": 10.8,
+     "e": 10.874
+    },
+    {
+     "w": "embauché",
+     "s": 10.911,
+     "e": 11.281
+    },
+    {
+     "w": "comme",
+     "s": 11.318,
+     "e": 11.429
+    },
+    {
+     "w": "poignée.",
+     "s": 11.503,
+     "e": 12.17
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, la ventouse s'est décollée.",
+   "hl": [
+    "ventouse"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L07.k.wav",
+   "file_start": 12.27,
+   "speech_start": 12.27,
+   "speech_end": 14.122,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 12.27,
+     "e": 12.789
+    },
+    {
+     "w": "la",
+     "s": 12.863,
+     "e": 12.937
+    },
+    {
+     "w": "ventouse",
+     "s": 13.048,
+     "e": 13.307
+    },
+    {
+     "w": "s'est",
+     "s": 13.332,
+     "e": 13.381
+    },
+    {
+     "w": "décollée.",
+     "s": 13.455,
+     "e": 14.122
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le métro l'a gardée.",
+   "hl": [
+    "gardée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L08.k.wav",
+   "file_start": 14.222,
+   "speech_start": 14.222,
+   "speech_end": 15.407,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.222,
+     "e": 14.37
+    },
+    {
+     "w": "métro",
+     "s": 14.407,
+     "e": 14.592
+    },
+    {
+     "w": "l'a",
+     "s": 14.666,
+     "e": 14.74
+    },
+    {
+     "w": "gardée.",
+     "s": 14.889,
+     "e": 15.407
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Lui, il est au chômage.",
+   "hl": [
+    "chômage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ventouse/tts/L09.k.wav",
+   "file_start": 15.507,
+   "speech_start": 15.507,
+   "speech_end": 17.211,
+   "words": [
+    {
+     "w": "Lui,",
+     "s": 15.507,
+     "e": 16.026
+    },
+    {
+     "w": "il",
+     "s": 16.1,
+     "e": 16.174
+    },
+    {
+     "w": "est",
+     "s": 16.248,
+     "e": 16.322
+    },
+    {
+     "w": "au",
+     "s": 16.359,
+     "e": 16.396
+    },
+    {
+     "w": "chômage.",
+     "s": 16.433,
+     "e": 17.211
+    }
+   ]
+  }
+ ],
+ "total": 19.01
+}
