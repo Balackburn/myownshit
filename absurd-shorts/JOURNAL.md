@@ -2578,3 +2578,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - ampoules trop petites et ternes à 5 m : plus grosses, plus nombreuses, plus claires éteintes ;
     - les joues peintes ne gonflaient pas assez : deux vraies joues (`cheekPuff`) sur les côtés de la tête.
   - Brouillon 1 en rendu.
+- Export demandé par l'utilisateur (« toutes les vidéos dans un zip ») : 58 vidéos finies (01 à 62 ; les numéros 04 à 09 n'existent
+  pas ; deux versions de la tornade et deux du « Ver de terre »), soit 1,99 Go.
+  - Décision : six archives indépendantes de 380 Mo au plus, chacune avec l'index complet (fichier, titre, durée, archive). L'envoi est
+    limité à 400 Mo par fichier, et le disque n'avait que 1,9 Go de libre pour une archive unique. Chaque archive a été créée, envoyée,
+    puis effacée avant la suivante ; aucune vidéo ni ancienne version n'a été supprimée.
