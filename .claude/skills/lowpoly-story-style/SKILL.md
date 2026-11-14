@@ -1360,3 +1360,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   montent à côté de la tête (`touch` ['head', ±0,4, 0,3, ...]).
 - (cycle 25) Un bras qui va chercher un objet du côté opposé barre la poitrine comme une écharpe (61, la tasse) : prendre l'objet avec la
   main du côté où il se trouve à l'image, ou déplacer l'objet.
+- (cycle 25) Un accessoire qui tremble en pivotant sur son pied (`headLight` `shake`) déplace son sommet bien plus que prévu : 0,08 rad
+  font 27 cm de côté au trou du haut, à 3,4 m, alors que la tête de l'acteur reste en place. L'intérieur noir du boîtier apparaissait et
+  son oreille dépassait (62). Calculer le tremblement à la hauteur de ce qu'il contient (quelques centimètres) ou y attacher l'acteur.
+- (cycle 25) Les yeux sur tiges (`face.pop`) suivent l'écrasement de la tête : avec `scl head` [1,7, 0,7, 0,5], leur pupille s'étale en
+  une grande tache noire sur la moitié du visage (62). Pas d'yeux sur tiges sous un écrasement non uniforme ; agrandir les yeux peints
+  (`eyeScale`) à la place.
+- (cycle 25) Le panneau du visage peint n'est pas éclairé (matériau de base, sans émission) : une lueur posée en émission ne change rien.
+  La lueur de la peau (`skin.glow`) éclaircit maintenant sa couleur au-delà du blanc, les traits restant noirs. Un visage qui doit être la
+  chose la plus chaude de l'image la nuit demande aussi une teinte pâle (rose-blanc) et un halo moins fort que lui (62).
+- (cycle 25) `look: 'camera'` suit la caméra active : dans un plan à deux caméras dont l'une est derrière le personnage, sa tête se tourne
+  vers elle et reste tournée quelques images après la coupe (62, ses cheveux plein le trou du feu). Fixer un point de regard devant lui.
