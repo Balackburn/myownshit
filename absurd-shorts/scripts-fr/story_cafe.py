@@ -61,7 +61,7 @@ st.shot('S01', 'parisStreet', setOpts=STREET, actors=[
             k(r(END1 + 0.16), toon={'reach': {'L': [r(TOWER[0] + 0.1), 0.8, r(TOWER[2] - 0.12), 1, 0.04]}, 'hands': {'L': 'grip'}, 'hairUp': 1.0, 'sq': [1.02, 0.98, 1.02], 'face': {**WIRED, 'eye': 0.6}}, toonDur=0.08, toonEase='inOut'),   # ...back in with an overshoot: wired
             k(r(END1 + 0.3), toon={'reach': {'L': [r(TOWER[0] + 0.1), 0.8, r(TOWER[2] - 0.12), 1, 0.04]}, 'hands': {'L': 'grip'}, 'hairUp': 1.0, 'face': {**WIRED, 'eye': 0.55, 'pupilShake': 0.7}}, toonDur=0.15)])],
         props=[P('chair1', 'chair', pos=ME1, ry=RY1), P('table1', 'bistroTable', pos=TB1),
-               P('tower1', 'cupTower', pos=TOWER, scale=TS1, opts={'n': 10, 'at': [r(T0 + DT / 2), r(T0 + DT / 2 + 10 * DT)], 'sway': 1.4}),   # (stills 1) bigger: the tower ends above his head; (review 1) bigger still, wobbling
+               P('tower1', 'cupTower', pos=TOWER, opts={'size': TS1, 'n': 10, 'at': [r(T0 + DT / 2), r(T0 + DT / 2 + 10 * DT)], 'sway': 1.4}),   # (stills 1) bigger: the tower ends above his head; (review 1) bigger still, wobbling
                P('cup1', 'cup', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, -0.08, 0.03]})],
         cams=[FC(0.0, [5.7, 1.2, -21.7], [[ME1[0], 2.3, ME1[2]], [r(ME1[0] - 0.3), 0.05, r(ME1[2] + 0.1)], [TOWER[0], r(TOWER[1] + TS1 * 0.82), TOWER[2]], [TB1[0], 0.0, r(TB1[2] + 0.4)]],   # (stills 1) room for his hair standing up; (review 1) the taller tower
                  top=0.12, bottom=0.74, drift=(0.08, 0.0, 0.03))])
@@ -77,7 +77,7 @@ st.shot('S02', 'parisStreet', setOpts=STREET, blur=[[r(BZ2 + 0.06), D2, VIB]], b
             k(BZ2, toon={**HOLD2, 'hairUp': 1.0, 'buzz': 0.008, 'face': {**WIRED, 'eye': 0.55, 'mouth': 'teeth', 'tremble': 0.5}}, toonDur=0.04),
             k(r(BZ2 + 0.3), toon={**HOLD2, 'hairUp': 1.0, 'buzz': BZ, 'face': {**CHATTER, 'eye': 0.55}}, toonDur=0.22, toonEase='in')])],
         props=[P('chair2', 'chair', pos=ME1, ry=RY1), P('table2', 'bistroTable', pos=TB1),
-               P('tower2', 'cupTower', pos=TOWER, scale=TS1, opts={'n': 10, 'at': [-2.0, -1.0], 'sway': 1.4, 'rattle': [r(BZ2 + 0.1), 0.014]}),
+               P('tower2', 'cupTower', pos=TOWER, opts={'size': TS1, 'n': 10, 'at': [-2.0, -1.0], 'sway': 1.4, 'rattle': [r(BZ2 + 0.1), 0.014]}),
                P('cup2', 'cup', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, -0.08, 0.03]}),
                BURST('vrrr2', [r(ME1[0] - 0.2), 2.12, r(ME1[2] - 0.2)], r(BZ2 + 0.22), 'VRRR !', 0.5)],   # (review 1) inside the frame (the left edge cut it), bigger
         cams=[FC(0.0, [6.7, 1.35, -21.0], [[ME1[0], 2.3, ME1[2]], [ME1[0], 0.7, r(ME1[2] + 0.1)], [TOWER[0], r(TOWER[1] + TS1 * 0.82), TOWER[2]], [r(ME1[0] - 0.2), 2.45, r(ME1[2] - 0.45)]],
@@ -173,7 +173,7 @@ st.shot('S07', 'spaceDark', look={'sun': 0.3, 'sunColor': '#9DB0E8', 'fill': 0.7
         props=[P('cut7', 'groundCut', pos=[0, 0, 0], opts={'len': 40, 'depth': 3.8, 'th': 2.6, 'bottom': 10.0, 'at': DUG, 'x0': GX[0], 'x1': GX[1], 'dawn': [r(D7 - 0.5), r(D7 - 0.12)], 'far': 45, 'frontH': [7, 11],
                                                         'moon': MOON, 'sunX': SUNX, 'sunY': SUNY}),
                P('nose7', 'metroNose', pos=[r(GX[0] - 3.4), GY, GZ], opts={'len': 8}, keys=[k(0.0, to=[r(GX[1] - 3.4), GY, GZ], dur=DUG[1], ease='linear')])],
-        cams=[cam(0.0, C7['from'], [r(C7['from'][0] + 1.7), C7['from'][1], C7['from'][2]], C7['lookAt'], [r(C7['lookAt'][0] + 1.7), C7['lookAt'][1], C7['lookAt'][2]], lens=C7['lens'])])   # (review 1) the camera follows him (at dawn the right edge cut him)
+        cams=[cam(0.0, [r(C7['from'][0] - 1.8), C7['from'][1], C7['from'][2]], [r(C7['from'][0] + 2.6), C7['from'][1], C7['from'][2]], [r(C7['lookAt'][0] - 1.8), C7['lookAt'][1], C7['lookAt'][2]], [r(C7['lookAt'][0] + 2.6), C7['lookAt'][1], C7['lookAt'][2]], lens=C7['lens'])])   # (pass 2 stills) further: a 1.7 m pan still left him at the right edge at dawn   # (review 1) the camera follows him (at dawn the right edge cut him)
 st.cue('whoosh', 'S07', 0.0, 0.35, 0.9, 300, 1200); st.cue('sfx:ding', 'S07', r(D7 - 0.15), 0.25)
 
 # 8: yesterday he was served a decaf. In the tunnel, from in front of him (the rock face behind us): vibrating, facing us, he waits; out of the dark
@@ -241,8 +241,8 @@ st.cue('sfx:brake', 'S10', 0.05, 0.25); st.cue('sfx:crunch', 'S10', HIT10, 0.45)
 D11 = st.dur('S11')
 MOUTH = [-5.6, 1.9, 1.7]                                                 # (stills 3) their eyes level down the tunnel: aimed at its floor the heads drooped; (review 1) the mouth nearer, in the frame
 CRANE = lambda w: {'bend': {'spine': [r(0.18 * w), r(-0.22 * w), 0, 1, None], 'neck': [r(0.95 * w), r(-0.42 * w), 0, r(1 + 3.6 * w), None]}, 'face': {'eye': r(0.3 * w), 'lid': 0.0}}   # (review 1: hooked down, heads drooping toward a grey wall) level out toward the mouth   # (stills 2) a neck four times its length out over the track: at 2.1 they only bowed; (stills 3) out sideways over the track, not bowed down
-VOY = [('voy1', [-3.1, 0, -0.55]), ('voy2', [-2.05, 0, -0.6]), ('voy3', [-1.0, 0, -0.55]), ('voy4', [0.05, 0, -0.62])]
-BOARD = [-1.7, 3.75, -1.6]                                               # (stills 2) clear of the right edge
+VOY = [('voy1', [-4.7, 0, -0.55]), ('voy2', [-3.65, 0, -0.6]), ('voy3', [-2.6, 0, -0.55]), ('voy4', [-1.55, 0, -0.62])]   # (pass 2 stills) nearer the tunnel mouth: with it in the frame the camera had backed off and they were small
+BOARD = [-3.3, 3.75, -1.6]                                               # (stills 2) clear of the right edge
 st.shot('S11', 'spaceDark', look={'sun': 0.2, 'fill': 0.9, 'exposure': 1.0}, actors=[
         act(vid, pos, -90, 'stand', 'neutral', keys=[k(0.0, look=MOUTH), k(0.0, toon={'face': {'lid': 0.5}}, toonDur=0.0),
             k(r(0.16 + 0.05 * i), toon=CRANE(1.15), toonDur=0.12, toonEase='out'), k(r(0.34 + 0.05 * i), toon=CRANE(1.0), toonDur=0.12, toonEase='inOut'),   # all lean out, the necks overshoot...
@@ -253,7 +253,7 @@ st.shot('S11', 'spaceDark', look={'sun': 0.2, 'fill': 0.9, 'exposure': 1.0}, act
                P('end11', 'slab', pos=[-5.95, 1.6, -0.5], opts={'w': 0.3, 'h': 6.0, 'd': 9.0, 'color': '#D9D4C8'}),
                P('mouth11', 'slab', pos=[-5.78, 0.6, 1.7], opts={'w': 0.05, 'h': 3.2, 'd': 3.2, 'color': '#050608'}),   # (review 1) the tunnel mouth nearer, in the frame
                P('board11', 'departureBoard', pos=BOARD, ry=0, opts={'at': [0.12, 1.0], 'from': 4, 'to': 3427})],
-        cams=[FC(0.0, [0.4, 1.3, 3.2], [[-3.1, 2.4, -0.55], [0.05, -0.1, -0.62], [-3.1, -0.1, -0.55], [BOARD[0], r(BOARD[1] + 0.05), BOARD[2]], [-5.6, 2.2, 1.6]],
+        cams=[FC(0.0, [-1.6, 1.3, 3.0], [[-4.7, 2.4, -0.55], [-1.55, -0.1, -0.62], [-4.7, -0.1, -0.55], [BOARD[0], r(BOARD[1] + 0.05), BOARD[2]], [-5.6, 2.2, 1.6]],
                  top=0.06, bottom=0.74, lenses=range(24, 60), drift=(-0.1, 0.0, 0.0))])   # (stills 1) from across the track: from the platform we saw their backs
 st.cue('sfx:stretch', 'S11', 0.18, 0.25); st.cue('sfx:ticks', 'S11', 0.15, 0.2)
 

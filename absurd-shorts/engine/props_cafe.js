@@ -28,11 +28,11 @@ export const CAFE_PROPS = {
   // overshoot; the tower leans and sways more as it grows (o.sway, 1). (S02) o.rattle [t, amp]: from t every cup jitters on the one below, the
   // higher the more (amp 0.012 m at the foot), hopping and turning a little (the table shakes under a man who vibrates)
   cupTower(o) {
-    const n = o.n ?? 10, g = grp(), cups = [], [t0, t1] = o.at || [0, 1];
-    for (let i = 0; i < n; i++) { const c = cup({ empty: true }); c.position.y = i * 0.078; c.rotation.y = hash(i) * TAU; g.add(c); cups.push(c); }
+    const n = o.n ?? 10, g = grp(), cups = [], [t0, t1] = o.at || [0, 1], Z = o.size ?? 1;   // (review 1 of 63) o.size: bigger cups and a taller tower (the prop's scale did not reach it: ten cups ended level with his head)
+    for (let i = 0; i < n; i++) { const c = cup({ empty: true }); c.position.y = i * 0.078 * Z; c.rotation.y = hash(i) * TAU; g.add(c); cups.push(c); }
     g.userData.update = t => { const k = n * clamp01((t - t0) / Math.max(1e-3, t1 - t0)); let shown = 0; const ra = o.rattle && t >= o.rattle[0] ? (o.rattle[1] ?? 0.012) * clamp01((t - o.rattle[0]) / 0.15) : 0;
-      cups.forEach((c, i) => { const u = k - i; c.visible = u > 0; if (!c.visible) return; shown++; const s = ob(u * 2.5); c.scale.setScalar(Math.max(0.01, s)); c.position.x = (hash(i + 7) - 0.5) * 0.02 * i;
-        c.position.y = i * 0.078; c.rotation.y = hash(i) * TAU;
+      cups.forEach((c, i) => { const u = k - i; c.visible = u > 0; if (!c.visible) return; shown++; const s = ob(u * 2.5); c.scale.setScalar(Math.max(0.01, s) * Z); c.position.x = (hash(i + 7) - 0.5) * 0.02 * i * Z;
+        c.position.y = i * 0.078 * Z; c.rotation.y = hash(i) * TAU;
         if (ra) { const a = ra * (1 + 0.18 * i); c.position.x += a * Math.sin(t * 131 + i * 1.7); c.position.z = a * Math.sin(t * 117 + i * 2.3); c.position.y += 0.6 * a * Math.abs(Math.sin(t * 149 + i)); c.rotation.y += 4 * a * Math.sin(t * 97 + i); } });
       const lean = (o.sway ?? 1) * shown / n; g.rotation.z = lean * (0.05 + 0.04 * Math.sin(t * 7.3)); g.rotation.x = lean * 0.03 * Math.sin(t * 5.1 + 1); };
     g.userData.update(0); return g;
