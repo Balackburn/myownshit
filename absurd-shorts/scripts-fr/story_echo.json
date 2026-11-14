@@ -7272,6 +7272,79 @@
        "toonEase": "inOut"
       },
       {
+       "at": 1.48,
+       "toon": {
+        "hairUp": 0.8,
+        "sq": [
+         1.0,
+         0.996,
+         1.0
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0.07,
+          1,
+          null
+         ],
+         "neck": [
+          0.0,
+          0,
+          0.12,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.6,
+         "shadow": 1.0,
+         "brow": -0.3,
+         "mouth": "wavy",
+         "gy": 0.75,
+         "gx": 0.65
+        }
+       },
+       "toonDur": 0.16,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.72,
+       "toon": {
+        "hairUp": 0.8,
+        "sq": [
+         1.0,
+         1.012,
+         1.0
+        ],
+        "bend": {
+         "spine": [
+          0.0,
+          0,
+          0.06,
+          1,
+          null
+         ],
+         "neck": [
+          0.0,
+          0,
+          0.1,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.5,
+         "shadow": 1.0,
+         "brow": 0.35,
+         "mouth": "wavy",
+         "gy": 0.7,
+         "gx": 0.6
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
        "at": 1.95,
        "toon": {
         "hairUp": 0.8,
