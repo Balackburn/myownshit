@@ -1185,3 +1185,5 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   porte et disparaissaient (57 S12). Comparer la hauteur des mains au plafond du décor.
 - (cycle 21) Un déplacement en course (`clip='run'`) terminé par `then='run'` : il court sur place après (le moteur le signale). Finir sur
   `stand`, ou allonger le déplacement jusqu'à la sortie du cadre.
+- (cycle 22) Un accessoire tourné vers la caméra (`face='camera'`) pivote autour de son origine : une trajectoire calculée à l'intérieur de
+  l'accessoire tourne avec lui et part ailleurs. Le faire voler avec des clés de déplacement (`to`, `dur`) en coordonnées du monde.

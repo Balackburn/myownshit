@@ -31,6 +31,8 @@ export const ECHO_PROPS = {
   // o.colors, carried along o.path [[t, x, y, z], ...] (in the parent's frame, held outside the keys), scaled by o.grow [[t, s]]; the letters wobble
   // (o.wobble, 0.18 rad) and bob one after the other; o.spread [[t, k]] spaces them (1: side by side); o.squash [[t, sx, sy]] flattens the word (an
   // impact); o.show [t0, t1]: only visible then.
+  // (check) with face='camera' the whole prop turns to the lens about its origin: o.path turns with it. Fly it with prop keys (to, dur) in world
+  // space instead and keep o.path for a prop that does not face the camera.
   shoutLetters(o) {
     const text = [...(o.text ?? 'OHÉ !')].filter(c => c !== ' '), size = o.size ?? 0.5, cols = o.colors || ['#F5C33B', '#F08A3C', '#E8463A', '#F5C33B', '#3A9BDC'];
     const g = grp(), word = grp(); g.add(word);

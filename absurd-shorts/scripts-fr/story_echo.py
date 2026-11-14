@@ -26,6 +26,10 @@ def FC(t, frm, pts, top=0.14, bottom=0.76, drift=(0.0, 0.0, 0.0), lenses=range(2
     return cam(t, list(frm), r3([frm[i] + drift[i] for i in range(3)]), look, r3([look[i] + drift[i] for i in range(3)]), lens=lens)
 def r(v, n=3): return round(v, n)
 
+def FLY(pts):
+    """(check) a flight through timed points [[t, x, y, z], ...] as prop keys in world space: pos at the first point, then 'to' keys between them
+    (with face='camera' the whole prop turns to the lens about its origin, so a path kept inside the prop would turn with it)"""
+    return {'pos': list(pts[0][1:]), 'keys': [k(pts[i][0], to=list(pts[i + 1][1:]), dur=round(pts[i + 1][0] - pts[i][0], 3), ease='linear') for i in range(len(pts) - 1)]}
 DEAD = {'lid': 0.45}
 BURST = lambda pid, pos, at_, text, w=0.5: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.78, 'fit': 0.56})
 ALPS = {'grass': '#8DB86A', 'clouds': 28}
@@ -51,10 +55,9 @@ st.shot('S01', 'grassland', setOpts=ALPS, actors=[
             *[k(r(SH1 + 0.1 + 0.06 * i), toon={**CUP(1.0), 'sq': ([1.05, 0.96, 1.05] if i % 2 else [1.02, 0.99, 1.02]), 'bend': {'spine': [0.28, 0, 0, 1, None]}, 'wind': [0.0, 1.0, 14.0], 'hairUp': 0.6,
                                               'face': {'lid': 1.0, 'brow': -0.8, 'jaw': (1.0 if i % 2 else 0.9), 'jawLen': 0.65, 'mouth': 'scream', 'tongue': 0.3}}, toonDur=0.05) for i in range(14)]])],   # ...held, quivering
         props=[*RING('1'), SUMMIT('1'),
-               P('ohe1', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'show': [SH1, 99.0],
-                 'path': [[SH1] + MOUTH_S, [r(SH1 + 0.3), -0.3, r(TOP + 2.1), -2.6], [r(SH1 + 0.7), -1.4, r(TOP + 3.0), -9.0], [D1, -3.5, r(TOP + 4.5), -26.0]],
+               P('ohe1', 'shoutLetters', **FLY([[SH1] + MOUTH_S, [r(SH1 + 0.3), -0.3, r(TOP + 2.1), -2.6], [r(SH1 + 0.7), -1.4, r(TOP + 3.0), -9.0], [D1, -3.5, r(TOP + 4.5), -26.0]]), face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'show': [SH1, 99.0],
                  'grow': [[SH1, 0.3], [r(SH1 + 0.15), 1.4], [r(SH1 + 0.35), 1.25], [D1, 2.2]]}),   # out of his mouth, big, then off over the valley
-               P('spd1', 'speedLines', pos=[0, 0, 0], face='camera', opts={'n': 6, 'len': 0.9, 'w': 0.5, 'angle': 0.35, 'at': [[SH1, r(SH1 + 0.6)]], 'path': [[SH1] + MOUTH_S, [r(SH1 + 0.3), 0.2, r(TOP + 1.95), -1.6], [r(SH1 + 0.6), -0.6, r(TOP + 2.6), -5.0]]})],   # (cycle 22) speed lines behind it
+               P('spd1', 'speedLines', **FLY([[SH1] + MOUTH_S, [r(SH1 + 0.3), 0.2, r(TOP + 1.95), -1.6], [r(SH1 + 0.6), -0.6, r(TOP + 2.6), -5.0]]), face='camera', opts={'n': 6, 'len': 0.9, 'w': 0.5, 'angle': 0.35, 'at': [[SH1, r(SH1 + 0.6)]], })],   # (cycle 22) speed lines behind it
         cams=[FC(0.0, [1.7, r(TOP + 1.55), -1.5], [[ME_S[0], r(TOP + 2.35), ME_S[2]], [ME_S[0], r(TOP + 0.9), ME_S[2]], [-0.3, r(TOP + 2.6), -2.6], [ME_S[0], r(TOP - 0.2), r(ME_S[2] + 0.8)]],
                  top=0.16, bottom=0.7, drift=(0.08, 0.0, 0.1))])
 st.cue('sfx:gasp', 'S01', 0.08, 0.3); st.cue('whoosh', 'S01', SH1, 0.4, 1.1, 200, 900); st.cue('gust', 'S01', SH1, 0.35, 1.2)
@@ -122,7 +125,7 @@ HIK = [0.0, 0, 0.0]
 st.shot('S06', 'grassland', setOpts=ALPS, actors=[
         act('rando', HIK, 160, 'stand', 'neutral', keys=[k(0.0, look=[-4.0, 9.0, -30.0]), k(0.0, toon={'face': {'lid': 0.3}}, toonDur=0.0),
             k(0.1, toon={'reach': {'R': [-0.5, 2.4, -0.6, 1, 0.08]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.0, 'eye': 0.7, 'pupil': 0.5, 'brow': 1.0, 'mouth': 'O'}, 'sq': [0.96, 1.05, 0.96]}, toonDur=0.08, toonEase='outBack')])],   # he points, his eyes wide (the stalks kept for S08)
-        props=[*RING('6'), P('ohe6', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'path': [[0.0, 6.0, 7.5, -22.0], [D6, -7.0, 8.5, -24.0]], 'grow': [[0.0, 3.0]]})],
+        props=[*RING('6'), P('ohe6', 'shoutLetters', **FLY([[0.0, 6.0, 7.5, -22.0], [D6, -7.0, 8.5, -24.0]]), face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'grow': [[0.0, 3.0]]})],
         cams=[FC(0.0, [1.2, 1.1, 3.4], [[HIK[0], 2.1, HIK[2]], [HIK[0], 0.0, HIK[2]], [0.0, 10.5, -23.0], [-0.6, 2.5, -0.6]], top=0.1, bottom=0.8, drift=(-0.1, 0.0, 0.0), level=False)])
 st.cue('sfx:boing', 'S06', 0.12, 0.2)
 
@@ -133,7 +136,7 @@ FARM = [0.0, 0, 0.0]
 st.shot('S07', 'grassland', setOpts={**ALPS, 'grass': '#9CC46E'}, actors=[
         act('fermier', FARM, -150, 'stand', 'neutral', keys=[k(0.0, look=[5.0, 9.0, -28.0]), k(0.0, toon={'face': {'lid': 0.4}}, toonDur=0.0),
             k(0.08, toon={'face': {'lid': 0.0, 'brow': 1.0, 'jaw': 0.6, 'jawLen': 0.4, 'mouth': 'O', 'gy': -0.6}, 'hat': [0.25, 0.3, 0.0], 'sq': [0.97, 1.04, 0.97]}, toonDur=0.08, toonEase='outBack')])],   # his jaw drops, his cap lifts
-        props=[*RING('7'), P('ohe7', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'path': [[0.0, -6.0, 8.5, -24.0], [D7, 7.0, 7.5, -22.0]], 'grow': [[0.0, 3.0]]})],
+        props=[*RING('7'), P('ohe7', 'shoutLetters', **FLY([[0.0, -6.0, 8.5, -24.0], [D7, 7.0, 7.5, -22.0]]), face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'grow': [[0.0, 3.0]]})],
         cams=[FC(0.0, [-1.3, 1.0, 3.2], [[FARM[0], 2.2, FARM[2]], [FARM[0], 0.0, FARM[2]], [0.0, 10.5, -23.0]], top=0.1, bottom=0.8, drift=(0.1, 0.0, 0.0), level=False)])
 st.cue('sfx:gasp', 'S07', 0.1, 0.2)
 
@@ -147,8 +150,8 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
             k(r(TURN8 - 0.12), toon={'face': {'lid': 0.3, 'gx': -0.8, 'gy': -0.2}}, toonDur=0.06), k(TURN8, look=[0.0, 3.0, -20.0]),   # his eyes first, then his head...
             k(r(TURN8 + 0.3), toon={'face': {'lid': 0.0, 'pop': 0.95, 'popLen': 0.3, 'brow': 1.0, 'mouth': 'O'}, 'sq': [0.95, 1.06, 0.95], 'hairUp': 1.0}, toonDur=0.06, toonEase='out'),   # ...his eyes out on stalks
             k(r(TURN8 + 0.5), toon={'face': {'lid': 0.0, 'pop': 0.85, 'popLen': 0.26, 'brow': 1.0, 'mouth': 'O', 'tremble': 1.0}, 'sq': [0.98, 1.02, 0.98], 'hairUp': 1.0}, toonDur=0.08)])],
-        props=[P('ohe8', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'path': [[0.0, 0.5, 4.0, -60.0], [r(TURN8 + 0.15), 2.5, 3.2, -22.0], [D8, 5.3, 2.4, -1.6]], 'grow': [[0.0, 1.0], [D8, 3.4]], 'wobble': 0.3}),
-               P('spd8', 'speedLines', pos=[0, 0, 0], face='camera', opts={'n': 8, 'len': 2.2, 'w': 1.6, 'angle': 1.45, 'at': [[0.0, r(TURN8 + 0.2)]], 'path': [[0.0, 0.5, 4.0, -58.0], [r(TURN8 + 0.15), 2.5, 3.4, -19.0]]})],   # (cycle 22) streaks behind the word
+        props=[P('ohe8', 'shoutLetters', **FLY([[0.0, 0.5, 4.0, -60.0], [r(TURN8 + 0.15), 2.5, 3.2, -22.0], [D8, 5.3, 2.4, -1.6]]), face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'grow': [[0.0, 1.0], [D8, 3.4]], 'wobble': 0.3}),
+               P('spd8', 'speedLines', **FLY([[0.0, 0.5, 4.0, -58.0], [r(TURN8 + 0.15), 2.5, 3.4, -19.0]]), face='camera', opts={'n': 8, 'len': 2.2, 'w': 1.6, 'angle': 1.45, 'at': [[0.0, r(TURN8 + 0.2)]], })],   # (cycle 22) streaks behind the word
         cams=[FC(0.0, [7.9, 2.0, 3.0], [[ME[0], 2.35, ME[2]], [r(ME[0] - 0.3), 1.2, ME[2]], [1.0, 5.0, -40.0], [4.0, 1.0, -30.0]], top=0.12, bottom=0.7, drift=(0.0, 0.0, 0.1)),   # over his shoulder: the letters far down the street...
               FC(r(TURN8 + 0.2), [r(ME[0] - 1.2), 1.85, -2.3], [[ME[0], 2.42, ME[2]], [ME[0], 1.2, ME[2]], [r(ME[0] - 0.45), 1.9, ME[2]], [r(ME[0] + 0.45), 1.9, ME[2]]], top=0.14, bottom=0.66, drift=(0.0, 0.0, 0.12))])   # ...a reverse on his face: eyes on stalks
 st.cue('whoosh', 'S08', 0.4, 0.4, 1.3, 150, 700); st.cue('sfx:boing', 'S08', r(TURN8 + 0.3), 0.3)
@@ -163,7 +166,7 @@ st.shot('S09', 'parisStreet', setOpts=STREET, actors=[
             k(UP9, toon={'lay': [0.0, 0.0], 'sq': [1.05, 1.02, 0.06], 'hairUp': 1.0, 'face': {'lid': 0.45, 'stars': 1.0, 'starsScale': 1.6}}, toonDur=0.18, toonEase='inOut'),   # ...he swings up stiff as a board, still flat...
             k(POP9, toon={'sq': [0.88, 1.15, 1.3], 'hairUp': 1.0, 'face': {'lid': 0.2, 'brow': 0.6}}, toonDur=0.06, toonEase='outBack'),   # ...POP: back to his shape, past it...
             k(r(POP9 + 0.12), toon={'sq': [1.04, 0.97, 1.0], 'hairUp': 0.9, 'face': DEAD}, toonDur=0.1), k(r(POP9 + 0.24), toon={'hairUp': 0.85, 'face': DEAD}, toonDur=0.12)])],   # ...deadpan, hair on end
-        props=[P('ohe9', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'path': [[0.0, r(ME[0] - 0.9), 1.7, -2.0], [HIT9, r(ME[0] - 0.15), 1.1, -0.35], [r(HIT9 + 0.3), r(ME[0] - 2.2), 3.0, -1.4], [D9, r(ME[0] - 6.5), 5.0, -8.0]],
+        props=[P('ohe9', 'shoutLetters', **FLY([[0.0, r(ME[0] - 0.9), 1.7, -2.0], [HIT9, r(ME[0] - 0.15), 1.1, -0.35], [r(HIT9 + 0.3), r(ME[0] - 2.2), 3.0, -1.4], [D9, r(ME[0] - 6.5), 5.0, -8.0]]), face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6,
                  'grow': [[0.0, 3.6], [D9, 2.6]], 'squash': [[0.0, 1.0, 1.0], [HIT9, 1.35, 0.6], [r(HIT9 + 0.1), 0.9, 1.15], [r(HIT9 + 0.2), 1.0, 1.0]], 'wobble': 0.35}),   # the letters squash on him and bounce off
                BURST('splat9', [r(ME[0] - 0.75), 0.55, -0.4], HIT9, 'SPLAT !', 0.55)],
         fx=[{'type': 'shake', 'at': HIT9, 'dur': 0.2, 'amount': 0.016}],
@@ -177,7 +180,7 @@ st.shot('S10', 'parisStreet', setOpts=NIGHT, actors=[
         act('voisine', [1.0, 0, 0.6], 160, 'stand', 'scared', keys=[k(0.0, look=[0.0, 4.0, -6.0]), k(0.0, toon={'touch': {'L': ['head', 0.9, 0.55, 0.0, 1, 0.02], 'R': ['head', -0.9, 0.55, 0.0, 1, 0.02]}, 'hands': {'L': 'open', 'R': 'open'}, 'hairUp': 1.0, 'face': {'lid': 1.0, 'brow': -0.8, 'mouth': 'clench'}}, toonDur=0.0),
             *[k(r(0.08 * i), toon={'touch': {'L': ['head', 0.9, 0.55, 0.0, 1, 0.02], 'R': ['head', -0.9, 0.55, 0.0, 1, 0.02]}, 'hands': {'L': 'open', 'R': 'open'}, 'hairUp': 1.0, 'sq': ([0.97, 1.03, 0.97] if i % 2 else [1.02, 0.98, 1.02]), 'face': {'lid': 1.0, 'brow': -0.8, 'mouth': 'clench'}}, toonDur=0.07) for i in range(1, 9)]]),
         act('gamin', [-0.6, 0, 1.0], -160, 'stand', 'scared', keys=[k(0.0, look=[0.0, 4.0, -6.0]), *[k(r(0.04 + 0.08 * i), toon={'touch': {'L': ['head', 0.9, 0.55, 0.0, 1, 0.02], 'R': ['head', -0.9, 0.55, 0.0, 1, 0.02]}, 'hands': {'L': 'open', 'R': 'open'}, 'hairUp': 1.0, 'sq': ([1.03, 0.97, 1.03] if i % 2 else [0.97, 1.03, 0.97]), 'face': {'lid': 0.0, 'eye': 0.6, 'pupilShake': 1.0, 'brow': 1.0, 'mouth': 'scream'}}, toonDur=0.07) for i in range(9)]])],
-        props=[P('ohe10', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'path': [[0.0, -3.5, 5.5, -7.0], [0.25, 3.5, 4.0, -6.5], [0.5, -3.0, 6.0, -7.5], [D10, 3.0, 4.8, -6.5]], 'grow': [[0.0, 3.2]], 'wobble': 0.45})],
+        props=[P('ohe10', 'shoutLetters', **FLY([[0.0, -3.5, 5.5, -7.0], [0.25, 3.5, 4.0, -6.5], [0.5, -3.0, 6.0, -7.5], [D10, 3.0, 4.8, -6.5]]), face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'grow': [[0.0, 3.2]], 'wobble': 0.45})],
         cams=[FC(0.0, [0.3, 1.2, 4.6], [[1.0, 2.2, 0.6], [-0.6, 1.5, 1.0], [1.0, 0.0, 0.6], [-3.5, 7.2, -7.0], [3.5, 7.2, -7.0]], top=0.08, bottom=0.8, drift=(0.0, 0.0, -0.1), level=False)])
 st.cue('sfx:whistle', 'S10', 0.05, 0.2); st.cue('whoosh', 'S10', 0.0, 0.3, 0.7, 300, 1100)
 
@@ -190,7 +193,7 @@ st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, -50, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon=EARS(TIRED), toonDur=0.0),
             *[k(r(0.1 + 0.1 * i), toon=EARS({**TIRED, 'tremble': 1.0}, [0.98, 1.02, 0.98] if i % 2 else [1.01, 0.99, 1.01]), toonDur=0.08) for i in range(6)],   # jolted by the noise
             k(0.8, toon=EARS({**TIRED, 'lid': 1.0}), toonDur=0.08), k(0.95, toon=EARS(TIRED), toonDur=0.12)])],   # a long blink
-        props=[P('ohe11', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'path': [[0.0, 3.0, 9.0, -9.0], [0.4, 5.5, 8.0, -8.0], [0.8, 2.5, 9.5, -9.5], [D11, 5.0, 8.5, -8.5]], 'grow': [[0.0, 2.6]], 'wobble': 0.45})],
+        props=[P('ohe11', 'shoutLetters', **FLY([[0.0, 3.0, 9.0, -9.0], [0.4, 5.5, 8.0, -8.0], [0.8, 2.5, 9.5, -9.5], [D11, 5.0, 8.5, -8.5]]), face='camera', opts={'text': 'OHÉÉÉ !', 'size': 0.6, 'grow': [[0.0, 2.6]], 'wobble': 0.45})],
         cams=[FC(0.0, [5.6, 1.8, 1.4], [[ME[0], 2.4, ME[2]], [ME[0], 1.1, ME[2]], [r(ME[0] - 0.4), 1.7, ME[2]], [r(ME[0] + 0.4), 1.7, ME[2]], [4.0, 10.6, -9.0]], top=0.08, bottom=0.66, level=False)])
 st.cue('sfx:whistle', 'S11', 0.1, 0.15)
 
@@ -220,7 +223,7 @@ st.shot('S13', 'parisStreet', setOpts=STREET, actors=[
             k(1.85, toon={'hairUp': 0.8, 'sq': [1.0, 1.02, 1.0], 'face': {**TIRED, 'gy': 0.0}}, toonDur=0.2, toonEase='inOut'),   # ...back to us...
             k(2.35, toon={'hairUp': 0.8, 'face': {**TIRED, 'lid': 1.0}}, toonDur=0.14), k(2.6, toon={'hairUp': 0.8, 'sq': [1.0, 0.99, 1.0], 'face': TIRED}, toonDur=0.18)])],   # ...a slow blink
         props=[P('fine13', 'fineTicket', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.3, 0.2]}, rot=[0.0, 0.0, 0.08], opts={'w': 0.2}),
-               P('ohe13', 'shoutLetters', pos=[0, 0, 0], face='camera', opts={'text': 'ohé', 'size': 0.07, 'colors': ['#F5C33B', '#F08A3C', '#E8463A'], 'path': [[0.0, r(ME[0] - 0.35), 2.6, 0.25], [1.4, r(ME[0] - 0.32), 1.55, 0.3], [D13, r(ME[0] - 0.3), 1.2, 0.3]], 'wobble': 0.25})],
+               P('ohe13', 'shoutLetters', **FLY([[0.0, r(ME[0] - 0.35), 2.6, 0.25], [1.4, r(ME[0] - 0.32), 1.55, 0.3], [D13, r(ME[0] - 0.3), 1.2, 0.3]]), face='camera', opts={'text': 'ohé', 'size': 0.07, 'colors': ['#F5C33B', '#F08A3C', '#E8463A'], 'wobble': 0.25})],
         cams=[FC(0.0, [r(ME[0] - 1.5), 1.9, 0.7], [[ME[0], 2.42, ME[2]], [ME[0], 1.45, ME[2]], [r(ME[0] - 0.35), 2.0, 0.25]], top=0.14, bottom=0.62, drift=(0.15, 0.0, -0.08))])   # a slow push-in
 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
