@@ -73,7 +73,7 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
             k(0.0, toon={'sq': [0.72, 1.42, 0.72], 'reach': {'L': [r(SEAT[0] - 0.2), 30.0, 0.3, 1, 0.05], 'R': [r(SEAT[0] - 0.2), 30.0, -0.3, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'hairUp': 1.0,
                           'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.0)])],   # (stills 1) stretched less: at 1.7 he was a dark stripe
         props=[P('spd3', 'speedLines', **FLY([[0.0, SEAT[0], 0.0, SEAT[2]], [D3, SEAT[0], 15.5, SEAT[2]]]), face='camera', opts={'n': 7, 'len': 2.2, 'w': 0.8, 'angle': 1.57, 'at': [[0.0, D3]]})],
-        cams=[cam(0.0, [3.9, 1.8, -3.7], [3.9, 16.2, -3.7], [SEAT[0], 2.6, 0.3], [SEAT[0], 18.8, 0.3], lens=50)])   # (audit) riding up beside him, the windows streaming down behind (tilting from the street he was 8 % of the frame)
+        cams=[cam(0.0, [3.0, 2.2, -4.6], [3.0, 16.6, -4.6], [SEAT[0], 3.6, 0.0], [SEAT[0], 19.8, 0.0], lens=46)])   # (stills 2) farther, on his head: close he was a stripe without a face   # (audit) riding up beside him, the windows streaming down behind (tilting from the street he was 8 % of the frame)
 st.cue('whoosh', 'S03', 0.0, 0.35, 0.7, 400, 1800)
 
 # 4: ...up to the roof. A slate roof ridge high over the city: he drops onto it and lands like an accordion, squashed flat and springing back up past
@@ -105,7 +105,7 @@ K5, T5 = HOPS(0.0, PATH5, [1.2, 2.5, 1.1], r(D5 / 3))
 W5 = [6.1, 0, 1.6]                                                       # (audit) beside his path: in it she hid him
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
         act('mec', [PATH5[0][0], 0, PATH5[0][1]], 180, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0), *K5, *T5]),
-        act('passante', W5, 0, 'stand', 'neutral', keys=[k(0.0, look=[7.2, 2.4, 3.0]), k(0.0, to=[W5[0], 0, r(W5[2] + 0.9)], dur=D5, clip='walk', then='walk', ease='linear', face='keep'),
+        act('passante', W5, 0, 'stand', 'neutral', keys=[k(0.0, look=[7.2, 2.4, 3.0]), k(0.0, to=[W5[0], 0, r(W5[2] + 0.9)], dur=D5, clip='walk', then='stand', ease='linear', face='keep'),
             k(0.24, toon={'sq': [1.12, 0.8, 1.12], 'bend': {'spine': [0.5, 0, 0, 1, None]}, 'touch': {'L': ['face', 0.3, 0.9, 0.05, 1, 0.03], 'R': ['face', -0.3, 0.9, 0.05, 1, 0.03]}, 'hands': {'L': 'open', 'R': 'open'},
                            'hairUp': 0.8, 'face': {'lid': 1.0, 'brow': -0.8, 'mouth': 'clench'}}, toonDur=0.06, toonEase='out'),   # she ducks under him...
             k(0.62, toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.0, 'eye': 0.5, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.12)])],   # ...and comes up, staring
@@ -147,7 +147,7 @@ st.shot('S07', 'mairie', setOpts=OFFICE, actors=[
             k(0.5, toon={**PEN7(2), 'face': {'lid': 0.5, 'gy': 0.6}}, toonDur=0.12, toonEase='inOut'),
             k(r(TICK7 - 0.04), toon={**PEN7(2, 0.85), 'face': {'lid': 0.4, 'gy': 0.6, 'brow': 0.4}}, toonDur=0.04, toonEase='in')])],   # ...OBJET VOLANT: tick
         props=[P('form7', 'formCheck', pos=FORM, rot=[round(-PI / 2, 4), 0, round(PI, 4)], opts={'w': 0.42, 'tickAt': TICK7})],
-        cams=[cam(0.0, [-0.15, 1.42, -1.42], [-0.12, 1.4, -1.36], [FORM[0], 0.98, r(FORM[2] + 0.28)], [FORM[0], 0.98, r(FORM[2] + 0.3)], lens=46)])   # (stills 1) an insert: the form big, him bobbing behind the counter (with him in the fit the form was a speck)
+        cams=[cam(0.0, [FORM[0], 1.48, -1.5], [FORM[0], 1.46, -1.46], [FORM[0], 0.86, r(FORM[2] + 0.06)], [FORM[0], 0.86, r(FORM[2] + 0.08)], lens=44)])   # (stills 2) looking down on the whole form (the last line was cut)   # (stills 1) an insert: the form big, him bobbing behind the counter (with him in the fit the form was a speck)
 st.cue('sfx:paper', 'S07', TICK7, 0.25)
 
 # 8: ...a flying object. In front of the counter: the clerk leans out with a sticker, her head going up and down with his bounces, times it and slaps
@@ -216,32 +216,32 @@ for i, t_ in enumerate([0.08, 0.26, 0.44]): st.cue('sfx:paper', 'S11', t_, 0.25)
 # 12: yesterday he stopped bouncing. Down the street he bounces higher and higher toward us, the passers-by stopping; at the top of a bounce he stops
 #     dead in mid-air: his tie and hair settle; below, a woman and a boy look up
 D12 = st.dur('S12'); STOP12 = 0.95
-AIR = [7.0, 4.2, 1.0]
+AIR = [0.5, 4.2, 1.0]                                                     # (stills 2) over the middle of the road: with the street behind him he floats (a facade behind made him stand)
 st.shot('S12', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', [7.0, 0, 7.5], 180, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
-            k(0.0, to=[7.0, 2.6, 6.0], dur=0.22, ease='out', face='keep'), k(0.22, to=[7.0, 0, 4.5], dur=0.22, ease='in', face='keep'),
+        act('mec', [0.5, 0, -6.0], 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
+            k(0.0, to=[0.5, 2.6, -4.2], dur=0.22, ease='out', face='keep'), k(0.22, to=[0.5, 0, -2.4], dur=0.22, ease='in', face='keep'),
             k(0.0, toon={'sq': ST, 'hairUp': 0.5}, toonDur=0.04), k(0.41, toon={'sq': SQ}, toonDur=0.03, toonEase='in'),
             k(0.45, to=AIR, dur=r(STOP12 - 0.45), ease='out', face='keep'), k(0.45, toon={'sq': ST, 'hairUp': 0.6}, toonDur=0.04, toonEase='out'),   # higher...
             k(STOP12, toon={'sq': [1.03, 0.98, 1.03], 'hairUp': 0.3, 'face': {'lid': 0.4}}, toonDur=0.08, toonEase='out'),   # ...and stops dead up there
             k(r(STOP12 + 0.25), toon={'sq': [1.0, 1.0, 1.0], 'face': DEAD}, toonDur=0.2, toonEase='inOut')]),
-        act('voisine', [5.7, 0, -0.6], 30, 'stand', 'neutral', keys=[k(0.0, look=[7.0, 1.6, 4.0]), k(r(STOP12 + 0.15), look=AIR), k(r(STOP12 + 0.2), toon={'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.8, 'mouth': 'o'}}, toonDur=0.1)]),
-        act('gamin', [8.4, 0, -0.4], -30, 'stand', 'happy', keys=[k(0.0, look=[7.0, 1.6, 4.0]), k(r(STOP12 + 0.25), look=AIR), k(r(STOP12 + 0.3), toon={'face': {'lid': 0.0, 'eye': 0.5, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.1)])],
-        cams=[FC(0.0, [7.0, 0.6, -3.4], [[AIR[0], r(AIR[1] + 2.45), AIR[2]], [AIR[0], AIR[1], AIR[2]], [5.7, 2.2, -0.6], [8.4, 1.6, -0.4], [7.0, 2.4, 6.0]], top=0.08, bottom=0.86, drift=(0.0, 0.0, 0.15))])   # (audit) low and closer, them at the sides
+        act('voisine', [-1.9, 0, 3.4], 150, 'stand', 'neutral', keys=[k(0.0, look=[0.5, 1.6, -3.0]), k(r(STOP12 + 0.15), look=AIR), k(r(STOP12 + 0.2), toon={'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.8, 'mouth': 'o'}}, toonDur=0.1)]),
+        act('gamin', [2.1, 0, 3.6], -150, 'stand', 'happy', keys=[k(0.0, look=[0.5, 1.6, -3.0]), k(r(STOP12 + 0.25), look=AIR), k(r(STOP12 + 0.3), toon={'face': {'lid': 0.0, 'eye': 0.5, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.1)])],
+        cams=[FC(0.0, [0.3, 0.8, 6.2], [[AIR[0], r(AIR[1] + 2.45), AIR[2]], [AIR[0], r(AIR[1] - 1.2), AIR[2]], [0.5, 2.6, -4.2]], top=0.08, bottom=0.8, drift=(0.0, 0.0, -0.15))])   # (stills 2) on him: the passers-by at the edges, cut (with them in the fit he was 10 % of the frame)   # (audit) low, them at the sides, the street behind
 st.cue('sfx:boing', 'S12', 0.41, 0.2); st.cue('sfx:boing', 'S12', 0.45, 0.25); st.cue('sfx:squeak', 'S12', STOP12, 0.2)
 
 # 13: in mid-flight. From below, against the sky: he hangs there; he looks down (his eyes first) at the nothing under his feet, then at us, deadpan
 D13 = st.dur('S13')
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', AIR, 180, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
-            k(0.1, toon={'face': {'lid': 0.3, 'gy': 0.8}}, toonDur=0.06), k(0.18, look=[AIR[0], 0.0, r(AIR[2] - 0.6)]),   # his eyes down, then his head...
+        act('mec', AIR, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
+            k(0.1, toon={'face': {'lid': 0.3, 'gy': 0.8}}, toonDur=0.06), k(0.18, look=[AIR[0], 0.0, r(AIR[2] + 0.6)]),   # his eyes down, then his head...
             k(0.55, toon={'face': {'lid': 0.3, 'gy': 0.0}}, toonDur=0.06), k(0.62, look='camera'), k(0.7, toon={'sq': [1.0, 1.015, 1.0], 'face': DEAD}, toonDur=0.2)])],   # ...then to us
-        cams=[FC(0.0, [6.0, 1.3, -1.6], [[AIR[0], r(AIR[1] + 2.45), AIR[2]], [AIR[0], r(AIR[1] - 0.1), AIR[2]], [r(AIR[0] - 0.5), r(AIR[1] + 1.5), AIR[2]], [r(AIR[0] + 0.5), r(AIR[1] + 1.5), AIR[2]]], top=0.14, bottom=0.74, drift=(0.0, 0.0, 0.1))])
+        cams=[FC(0.0, [-0.5, 1.3, 3.6], [[AIR[0], r(AIR[1] + 2.45), AIR[2]], [AIR[0], r(AIR[1] - 0.1), AIR[2]], [r(AIR[0] - 0.5), r(AIR[1] + 1.5), AIR[2]], [r(AIR[0] + 0.5), r(AIR[1] + 1.5), AIR[2]]], top=0.14, bottom=0.74, drift=(0.0, 0.0, 0.1))])
 
 # 14: the pigeons built their nest on his head. Closer, up in the sky: a pigeon lands on his head, then another; a nest appears under them, eggs pop in
 #     one, two, three; a pigeon pecks; a slow blink
 D14 = st.dur('S14'); HEAD14 = [AIR[0], r(AIR[1] + 2.5), AIR[2]]
 st.shot('S14', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', AIR, 180, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
+        act('mec', AIR, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
             k(0.25, toon={'sq': [1.02, 0.98, 1.02], 'face': {'lid': 0.5, 'gy': -0.5}}, toonDur=0.05), k(0.4, toon={'face': {'lid': 0.45, 'gy': 0.0}}, toonDur=0.1),   # the landing presses his head, his eyes up...
             k(0.5, toon={'sq': [1.02, 0.98, 1.02], 'face': {'lid': 0.5, 'gy': -0.4}}, toonDur=0.05), k(0.7, toon={'face': DEAD}, toonDur=0.1),
             k(1.2, toon={'sq': [1.0, 1.012, 1.0], 'face': {'lid': 0.45, 'gy': -0.6, 'gx': 0.2}}, toonDur=0.12), k(1.62, toon={'sq': [1.0, 0.996, 1.0], 'face': {'lid': 0.5, 'gy': -0.5, 'gx': -0.2}}, toonDur=0.12),   # his eyes up at each egg...
@@ -252,7 +252,7 @@ st.shot('S14', 'parisStreet', setOpts=STREET, actors=[
                                                                                                                    k(0.3, to=[r(HEAD14[0] - 0.08), HEAD14[1], r(HEAD14[2] - 0.05)], dur=0.2, clip='fly', then='idle', ease='out', face='keep')])],
         props=[P('nest14', 'nest', pos=[HEAD14[0], r(HEAD14[1] - 0.06), HEAD14[2]], scale=0.42, opts={'layAt': [1.25, 1.55, 1.85], 'max': 3}, keys=[k(0.0, scale=0.001, dur=0.0), k(0.8, scale=0.42, dur=0.12, ease='outBack')]),
                P('fth14', 'feather', pos=[r(HEAD14[0] + 0.3), r(HEAD14[1] + 0.3), r(HEAD14[2] + 0.2)], opts={'at': 0.3, 'fall': 1.6, 'dur': 2.0, 's': 1.2})],
-        cams=[FC(0.0, [r(AIR[0] - 1.1), r(AIR[1] + 0.7), r(AIR[2] - 1.5)], [[HEAD14[0], r(HEAD14[1] + 1.1), HEAD14[2]], [AIR[0], r(AIR[1] + 1.25), AIR[2]], [r(AIR[0] - 0.4), r(AIR[1] + 2.0), AIR[2]], [r(AIR[0] + 0.4), r(AIR[1] + 2.0), AIR[2]]], top=0.12, bottom=0.7, drift=(0.08, 0.0, 0.06))])   # (stills 1) from below his head: the sky behind (at his height a facade made him stand on the ground)
+        cams=[FC(0.0, [r(AIR[0] - 0.5), r(AIR[1] + 2.0), r(AIR[2] + 2.4)], [[HEAD14[0], r(HEAD14[1] + 1.25), HEAD14[2]], [AIR[0], r(AIR[1] + 1.25), AIR[2]], [r(AIR[0] - 0.4), r(AIR[1] + 2.0), AIR[2]], [r(AIR[0] + 0.4), r(AIR[1] + 2.0), AIR[2]]], top=0.12, bottom=0.7, drift=(0.08, 0.0, 0.06))])   # (stills 2) at his height looking down the street: the street, the sky and the tower behind him
 st.cue('whoosh', 'S14', 0.15, 0.18, 0.3, 700, 2000); st.cue('whoosh', 'S14', 0.4, 0.14, 0.3, 700, 2000); st.cue('sfx:pop', 'S14', 0.8, 0.2)
 for t_ in [1.25, 1.55, 1.85]: st.cue('sfx:pop', 'S14', t_, 0.12)
 
