@@ -75,7 +75,7 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
             k(GO2, to=[SEAT[0], 0.9, SEAT[2]], dur=0.1, ease='in', face='keep'), k(r(GO2 + 0.1), to=[SEAT[0], 7.0, SEAT[2]], dur=0.24, ease='out', face='keep'),   # ...shot up, slow for three frames, then gone...
             k(GO2, toon={**UPARMS, 'sq': [0.72, 1.4, 0.72], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 0.8, 'eyeScale': 1.3, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.04, toonEase='out')])],   # ...stretched like a rubber band, arms up, hands open
         props=[P('bench2', 'bench', pos=BENCH, ry=RY), P('spring2', 'springCoil', pos=SPRING, opts={'at': r(GO2 - 0.02), 'len': 0.75, 'r': 0.1, 'wire': 0.02}),   # (pass 2) it kicks up as he leaves (out under him it stood through his body)
-               BURST('boing2', [r(SPRING[0] - 0.5), 1.05, r(SPRING[2] - 0.55)], SPR2, 'BOING !', 0.46),
+               BURST('boing2', [r(SPRING[0] - 0.2), 1.7, r(SPRING[2] + 0.75)], SPR2, 'BOING !', 0.46),   # (stills p2) beside his head (in front of it, it hid the eye-pop)
                P('spd2', 'speedLines', **FLY([[GO2, SEAT[0], 1.2, SEAT[2]], [r(GO2 + 0.3), SEAT[0], 4.6, SEAT[2]]]), face='camera', opts={'n': 6, 'len': 1.2, 'w': 1.15, 'angle': 1.57, 'soft': True, 'taper': True, 'alpha': 0.6, 'at': [[GO2, r(GO2 + 0.4)]]})],   # (pass 2) soft wedges beside him (outlined, from the seat to the pavement, they read as bench legs)
         cams=[FC(0.0, [6.3, 0.72, -1.15], [[SEAT[0], 2.05, SEAT[2]], [SEAT[0], 0.45, SEAT[2]], [r(SEAT[0] - 0.4), 0.9, -0.55], [r(SEAT[0] - 0.4), 0.9, 0.55]], top=0.2, bottom=0.76),   # low and close on the squash...
               FC(GO2, [5.4, 0.45, -2.3], [[SEAT[0], 3.7, SEAT[2]], [SEAT[0], 0.0, SEAT[2]], [BENCH[0], 0.9, -0.85], [BENCH[0], 0.9, 0.85]], top=0.06, bottom=0.82, level=False)])   # (pass 2) ...wider, looking up: the stretched launch in the frame, then the empty bench and its spring
@@ -169,14 +169,14 @@ PEN7 = lambda i, y=0.9: {'reach': {'R': [r(FORM[0] + 0.2), y, BOXZ[i], 1, 0.04]}
               'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}}
 K7, T7 = HOPS(0.0, [[VIS[0], VIS[2]]] * 4, [1.1, 1.1, 1.1], r(D7 / 3))
 st.shot('S07', 'mairie', setOpts=OFFICE, actors=[
-        act('mec', VIS, 140, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0), *K7, *T7]),   # (audit) cheated to the side camera
+        act('mec', VIS, 80, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0), *K7, *T7]),   # (audit) turned to the front-side camera
         act('agent', CLERK, 0, 'stand', 'neutral', keys=[k(0.0, look=[VIS[0], 2.6, VIS[2]]), k(0.0, toon={**PEN7(0), 'face': {'lid': 0.4, 'gy': -0.3}}, toonDur=0.0),   # (pass 2) her eyes on him first...
             k(0.2, look=[FORM[0], FORM[1], FORM[2]]), k(0.24, toon={**PEN7(1), 'face': {'lid': 0.5, 'gy': 0.6}}, toonDur=0.12, toonEase='inOut'),   # ...then on the form: OISEAU... AVION...
             k(0.5, toon={**PEN7(2), 'face': {'lid': 0.5, 'gy': 0.6}}, toonDur=0.12, toonEase='inOut'),
             k(r(TICK7 - 0.04), toon={**PEN7(2, 0.85), 'face': {'lid': 0.4, 'gy': 0.6, 'brow': 0.4}}, toonDur=0.04, toonEase='in')])],   # ...OBJET VOLANT: tick
         props=[P('form7', 'formCheck', pos=FORM, rot=[round(-PI / 2, 4), 0, round(PI, 4)], opts={'w': 0.42, 'tickAt': TICK7}),
                P('pen7', 'marker', on={'actor': 'agent', 'hand': 'R'}, opts={'color': '#C8202A'})],   # (pass 2) her red pen
-        cams=[FC(0.0, [2.4, 1.45, -0.2], [[VIS[0], 3.75, VIS[2]], [VIS[0], 0.0, VIS[2]], [CLERK[0], 2.45, CLERK[2]], [FORM[0], 0.84, FORM[2]]], top=0.12, bottom=0.8),   # (pass 2) from the side: him bouncing whole, her pen over the form...
+        cams=[FC(0.0, [2.0, 1.5, 1.4], [[VIS[0], 3.75, VIS[2]], [VIS[0], 0.0, VIS[2]], [CLERK[0], 2.45, CLERK[2]], [FORM[0], 0.84, FORM[2]]], top=0.12, bottom=0.8, inside=(-3.8, 3.8, 0.3, 3.2, -2.3, 6.0)),   # (stills p2) kept in the room (backed off, it went through the side wall)   # (pass 2) from the side: him bouncing whole, her pen over the form...
               cam(INS7, [FORM[0], 2.05, -1.3], [FORM[0], 2.03, -1.28], [FORM[0], 0.83, -0.9], [FORM[0], 0.83, -0.89], lens=42)])   # (pass 2) ...the form from higher: whole, OBJET VOLANT at 63 % of the height (at the bottom it sat in the caption band)
 st.cue('sfx:paper', 'S07', TICK7, 0.25)
 
