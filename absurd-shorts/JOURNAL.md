@@ -2393,3 +2393,26 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
       cheveux soufflés de côté, retour en POP ; saut hors du trou du haut tenu six images avant la chute ; yeux qui suivent chaque voiture ;
       voiture qui pique du nez avec traces de freinage.
 - 61 « Le ressort » : revue 3, direction artistique = 7,2 (l'animation n'a pas encore rendu son avis).
+  - Revue 3 : direction artistique 7,2 ; animation 7,3 (revue 2 : 7,2/7,0 ; revue 1 : 6,5/6,0).
+  - Points relevés :
+    - Les rebonds ne suivaient pas un arc : la tête traçait un W, le sommet était plat et l'écrasement ne durait qu'une image.
+    - Contacts invisibles : le CLONK, la gifle de l'autocollant, la coche du stylo.
+    - Pigeons posés dans un plan large illisible.
+    - S03 figé.
+    - Rattrapage de la tasse non montré.
+    - Suspension en mannequin.
+  - Passe finale :
+    - Rebonds `hops_ball` (story_kit) : l'étirement s'éteint pendant la montée, l'apex est rond et l'écrasement tenu deux images ; un vrai
+      vide sous lui en haut des sauts sur le fauteuil d'examen.
+    - BOING : écrasement plus profond, mâchoire grande ouverte, mains écartées sur le torse ; ressort en acier sombre, sorti une image plus tôt ;
+      traits de vitesse plus nombreux en S02 et S03.
+    - Tasse : il retombe sous elle, la main encore ouverte, et la referme au fond de l'écrasement ; la tasse plonge un peu.
+    - Coche : la main de l'employée est sur la case et suit le trait ; stylo plus long, du rouge de la coche.
+    - Gifle : tenue trois images avec son écrasement ; CLAC dans le cadre, à côté de l'autocollant.
+    - CLONK : tête aplatie contre l'abat-jour.
+    - Suspension : balancier lent et respiration.
+    - Couleurs : ciel pâle de la série, plus de tour Eiffel (son sommet était coupé), mairie et salle d'examen plus claires, une seule affiche
+      (la seconde, coupée, laissait un E seul).
+  - Décisions sur les « À voir avec l'utilisateur » :
+    - Je garde l'impassibilité en une prise : seule la double prise des yeux en S13 reste, parce que le genre repose sur son flegme.
+    - Les durées de plan restent fixées par la narration : l'anticipation et l'amorti sont pris dans les plans voisins.
