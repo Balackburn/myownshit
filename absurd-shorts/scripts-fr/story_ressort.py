@@ -145,7 +145,7 @@ st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
             k(0.56, look=[7.2, 1.8, 0.4]), k(0.56, toon={'sq': [0.96, 1.05, 0.96], 'hairUp': 0.6, 'face': {'lid': 0.0, 'eye': 0.6, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.08, toonEase='out'),   # ...and comes up staring after him
             k(0.72, toon={'sq': [1.0, 1.0, 1.0], 'hairUp': 0.4, 'face': {'lid': 0.0, 'eye': 0.5, 'brow': 0.8, 'mouth': 'o'}}, toonDur=0.1)])],
         cams=[FC(0.0, [3.6, 1.6, 3.05], [[7.2, 4.75, 3.05], [7.2, 0.0, 1.3], [7.2, 0.0, 4.8], [7.2, 2.6, 4.6], [7.2, 2.5, 1.5]], top=0.08, bottom=0.8)])   # (pass 2) side on across the road: the middle hop over her, whole; (pass 3) the three hops in
-for i in range(3): st.cue('sfx:boing', 'S05', r(D5 / 3 * (i + 1) - 0.03), 0.22)
+for i in range(3): st.cue('sfx:boing', 'S05', r(D5 / 3 * (i + 1) - 0.07), 0.22)   # (final stills) on the hops_ball landings (hold 0.07 before each take-off)
 
 # 6: ...everywhere. At a café, his coffee cup in his hand: a squash, and he bounces straight up out of the frame; the cup stays hanging in the air where
 #    his hand was; he drops back into the frame and his hand closes on it again; he looks at us, deadpan, and squashes for the next one
@@ -251,7 +251,7 @@ st.shot('S09', 'mairie', setOpts=EXAMSET, look={'exposure': 1.32, 'fill': 1.2, '
             *[k(r(D9 / 4 * i + 0.3 + 0.07), toon=NOD9(False), toonDur=0.08, toonEase='in') for i in range(4)]])],   # ...and down
         props=[P('chair9', 'chair', pos=[PIL[0], 0, r(PIL[2] - 0.05)], ry=0), P('clip9', 'clipboardX', on={'actor': 'exam', 'hand': 'L', 'offset': [0.0, 0.05, 0.05]}, opts={'w': 0.26})],
         cams=[FC(0.0, [-0.6, 1.45, 4.4], [[PIL[0], 3.15, PIL[2]], [PIL[0], 0.0, PIL[2]], [r(PIL[0] - 0.55), 1.4, PIL[2]], [EXM[0], 2.4, EXM[2]], [r(EXM[0] + 0.3), 1.3, EXM[2]]], top=0.1, bottom=0.8, drift=(0.04, 0.0, -0.06), inside=(-4.7, 4.7, 0.3, 3.2, -2.4, 6.0))])   # (pass 3) in front of them both: him whole with room for the highest bounce, the examiner over his shoulder
-for i in range(4): st.cue('sfx:squeak', 'S09', r(D9 / 4 * (i + 1) - 0.03), 0.12)
+for i in range(4): st.cue('sfx:squeak', 'S09', r(D9 / 4 * (i + 1) - 0.1), 0.12)   # (final stills) on the landings (SEATHOPS holds 0.1)
 
 # 10: he failed it... One bounce too many: he shoots up into the ceiling lamp, CLONK, and drops back into his chair wearing its shade, deadpan
 #     (pass 2: the hit happened above the frame, the shade went through his chest) his head into the shade, held two frames, CLONK; the bare bulb
@@ -308,7 +308,7 @@ st.shot('S12', 'parisStreet', setOpts=SKYST, look=CLEAR, actors=[
             k(1.4, toon={'reach': {'R': [1.2, 1.55, -2.5, 1, 0.08]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.0, 'eye': 0.6, 'brow': 1.0, 'mouth': 'O', 'gy': -0.3}}, toonDur=0.08, toonEase='out')])],   # ...pointing up at him (a silhouette that reads at any size)
         cams=[FC(0.0, [0.3, 1.0, 7.4], [[0.5, 5.6, -4.2], [0.5, 0.0, -6.0], [-1.6, 1.95, -3.4], [1.6, 1.3, -3.0], [-1.6, 0.0, -3.4]], top=0.08, bottom=0.76, lenses=range(28, 60)),   # (pass 3) the first two bounces, the onlookers walking in up the street, faces to us...
               FC(0.62, [0.6, 10.5, 7.5], [[AIR[0], r(AIR[1] + 2.5), AIR[2]], [AIR[0], r(AIR[1] - 0.1), AIR[2]], [-1.4, 0.0, -3.4], [1.4, 0.0, -3.0], [-1.4, 1.95, -3.4]], top=0.1, bottom=0.76, lenses=range(28, 60))])   # ...cut high in front of him: he rises to us and stops, the street far below, the two looking up at him and at us (from behind and below they were backs in the caption band and he was 11 % of the frame)   # (pass 2) low behind the two onlookers, him up the street; (stills p2) level: backed off along the 3D line it went under the road (black frames)
-st.cue('sfx:boing', 'S12', 0.31, 0.2); st.cue('sfx:boing', 'S12', 0.65, 0.25); st.cue('sfx:squeak', 'S12', STOP12, 0.2)
+st.cue('sfx:boing', 'S12', 0.27, 0.2); st.cue('sfx:boing', 'S12', 0.61, 0.25); st.cue('sfx:squeak', 'S12', STOP12, 0.2)   # (final stills) the boings on the hops_ball landings
 
 # 13: in mid-flight. From below, against the sky: he hangs there; he looks down (his eyes first) at the nothing under his feet, then at us, deadpan
 #     (review 3: a mannequin in the hang) a slow pendulum sway in every key (lay) and a breath
