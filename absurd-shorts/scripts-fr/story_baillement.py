@@ -34,7 +34,7 @@ JLEN = r(HEADY / 0.5 + 0.02)                                             # the d
 JAWDOWN = {'jaw': 1.0, 'jawLen': JLEN, 'jawBlock': 1.0, 'jawFwd': JF}
 CHINX = r(ME[0] + FX * (0.085 + JF))                                     # where the chin lands, in front of his feet
 MOUTHTOP = 1.78                                                          # the top of the open mouth (under his nose)
-DEAD = {'lid': 0.45}
+DEAD = {'lid': 0.45, 'pupil': 1.0}                                         # (final pass) bigger pupils: 3 px slits disappeared on a phone
 BURST = lambda pid, pos, at_, text, w=0.5: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.78, 'fit': 0.56})
 FACE = lambda extra=None: {**JAWDOWN, **DEAD, **(extra or {})}           # his face with the jaw on the pavement
 TONGUE = lambda pid, unroll=None: P(pid, 'tongueSlide', pos=[r(CHINX - 0.02), 0.0, ME[2]], ry=-90, opts={'len': 1.55, 'w': 0.26, **({'unroll': unroll} if unroll else {})})
@@ -123,9 +123,10 @@ st.cue('sfx:stretch', 'S03', 0.32, 0.2); st.cue('sfx:squeak', 'S03', 0.93, 0.2);
 #    along the pavement to the kerb like a carpet; the mayor claps, four wide claps
 D4 = st.dur('S04'); SNIP4 = 0.35; UNR4 = (0.45, 1.05)
 MAIRE = [r(ME[0] - 1.0), 0, r(ME[2] - 0.95)]
-CLAP = lambda open_: {'reach': {'L': [r(MAIRE[0] - 0.14), 1.62, r(MAIRE[2] + (0.5 if open_ else 0.15)), 1, 0.05], 'R': [r(MAIRE[0] - 0.24), 1.62, r(MAIRE[2] + (-0.3 if open_ else 0.07)), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}}   # (pass 3) high and wide: a pat at chest height did not read as applause
+CLAP = lambda open_: {'reach': {'L': [r(MAIRE[0] - 0.19 + (0.17 if open_ else 0.02)), 1.48, r(MAIRE[2] + 0.23 + (0.14 if open_ else 0.02)), 1, 0.05], 'R': [r(MAIRE[0] - 0.19 - (0.17 if open_ else 0.02)), 1.48, r(MAIRE[2] + 0.23 - (0.14 if open_ else 0.02)), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}}   # (final pass) both hands meeting in front of his chest (one arm flung out read as presenting)
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
-        TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE()}, toonDur=0.0), k(round(UNR4[0] + 0.1, 3), toon={'face': FACE({'gy': 0.6, 'gx': -0.3})}, toonDur=0.1),   # his eyes down to his tongue
+        TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE()}, toonDur=0.0), k(round(UNR4[0] + 0.1, 3), toon={'face': FACE({'gy': 0.6, 'gx': -0.3})}, toonDur=0.1), k(round(UNR4[0] + 0.2, 3), look=[r(CHINX - 1.4), 0.1, ME[2]]),   # his eyes down to his tongue, then his head ((final pass) a head turn)
+            k(round(UNR4[1] + 0.05, 3), look='camera'),
             k(round(UNR4[1] + 0.1, 3), toon={'face': FACE()}, toonDur=0.1), k(1.45, toon={'face': FACE({'lid': 1.0})}, toonDur=0.05), k(1.55, toon={'sq': [1.0, 1.015, 1.0], 'face': FACE()}, toonDur=0.2)])),   # (pass 2) a blink, a breath (0.8 s still)
         act('maire', MAIRE, -40, 'stand', 'happy', keys=[k(0.0, look={'point': [r(CHINX - 0.3), 0.95, ME[2]], 'cheat': 0.4}),
             k(0.0, toon={'reach': {'R': [r(CHINX - 0.55), 1.0, r(ME[2] - 0.3), 1, 0.05]}, 'hands': {'R': 'grip'}, 'face': {'mouth': 'bigsmile', 'lid': 0.2}}, toonDur=0.0),
@@ -162,19 +163,19 @@ def FIDGET5(i):
     if i == 2: return [k(round(0.06 + 0.17 * j, 3), toon={'sq': ([0.98, 1.05, 0.98] if j % 2 == 0 else [1.02, 0.97, 1.02])}, toonDur=0.12, toonEase='inOut') for j in range(5)]
     if i == 3: return [k(0.18, toon={'lay': [0.0, -0.16], 'face': {'brow': 0.5}}, toonDur=0.2, toonEase='inOut'), k(0.66, toon={'lay': [0.0, 0.0]}, toonDur=0.2, toonEase='inOut')]
     return [k(0.22, look=[QX[3], 1.6, QZ]), k(0.6, look=[ME[0], 1.6, ME[2]]), k(0.3, toon={'sq': [1.0, 1.025, 1.0]}, toonDur=0.25, toonEase='inOut')]
-st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
+st.shot('S05', 'parisStreet', setOpts={**STREET, 'clouds': 3, 'cloudSeed': 21}, actors=[   # (final pass) a cloud slab floated at the top left
         TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE()}, toonDur=0.0), k(0.45, toon={'face': FACE({'lid': 1.0})}, toonDur=0.05), k(0.55, toon={'face': FACE({'gx': 0.4})}, toonDur=0.08)])),
         act('mamie', [r(LADB[0] + 0.42), 1.05, r(ME[2] - 0.38)], 90, 'stand', 'happy', keys=[k(0.0, look=[ME[0], 1.7, ME[2]]), k(0.0, toon=MAM5(0.0), toonDur=0.0),
             k(0.08, toon=MAM5(-0.6), toonDur=0.14, toonEase='inOut'), k(0.26, toon=MAM5(0.35), toonDur=0.14, toonEase='inOut'), k(0.44, toon=MAM5(-0.5), toonDur=0.14, toonEase='inOut'),   # (pass 3) she swings a leg over the top rung...
             k(GO5, face=-90, turn=0.12), k(GO5, to=MAMIE0, dur=round(D5 - GO5, 3), clip='reclineBack', then='reclineBack', ease='in', face='keep'), k(GO5, toon=MAMRIDE, toonDur=0.12)]),   # ...and pushes off into his mouth
         *[act(f'q{i + 1}', [QX[i], 0, r(QZ + (0.06 if i % 2 else -0.04))], 90, 'stand', ('happy' if i % 2 == 0 else 'neutral'), keys=[k(0.0, look=[ME[0], 1.6, ME[2]]), *FIDGET5(i)]) for i in range(5)]],   # in single file, facing him ((pass 3) fidgeting: they stood frozen)
         props=[BUS('bus5'), TONGUE('tong5'), P('lad5', 'ladder', pos=LADB, ry=-90, opts={'h': LADH, 'lean': LADL})],
-        cams=[FC(0.0, [r(ME[0] - 2.0), 1.45, 2.6], [[ME[0], 2.3, ME[2]], [r(CHINX - 1.6), 0.0, ME[2]], [QX[2], 2.0, QZ], [QX[2], 0.0, QZ], [r(LADB[0] + 0.42), 3.0, LADB[2]]], top=0.1, bottom=0.76)])   # the granny's head on the ladder in the frame
+        cams=[FC(0.0, [r(ME[0] - 2.0), 1.45, 2.6], [[ME[0], 2.3, ME[2]], [ME[0], 1.5, r(ME[2] + 0.4)], [ME[0], 1.5, r(ME[2] - 0.4)], [r(ME[0] + 0.47), 2.7, r(ME[2] - 0.8)], [r(CHINX - 1.6), 0.0, ME[2]], [QX[2], 2.0, QZ], [QX[2], 0.0, QZ], [r(LADB[0] + 0.42), 3.0, LADB[2]]], top=0.1, bottom=0.76)])   # (final pass) his shoulders and the BUS sign whole   # the granny's head on the ladder in the frame
 st.cue('sfx:street', 'S05', 0.0, 0.1)
 
 # 6: the queue. (pass 2) The granny's ride on one arc: in at his upper lip, down the dark slot (his mouth stretched wide for her), out over his lower
 #    teeth, along his tongue, a bump at the kerb, YOUPI ! on her; his eyes follow her down
-D6 = st.dur('S06'); BOT6 = 0.24; OUT6 = 0.36; END6 = 0.56                 # (pass 3) at a constant speed: the slot ~7 frames, then the chin and the tongue
+D6 = st.dur('S06'); BOT6 = 0.28; OUT6 = 0.42; END6 = 0.68                 # (final pass) slower: the slot about eight frames                 # (pass 3) at a constant speed: the slot ~7 frames, then the chin and the tongue
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'scl': {'head': [1.9, 1.0, 1.0]}, 'face': FACE({'gy': 0.3})}, toonDur=0.0),   # the mouth stretched wide for her
             k(BOT6, toon={'scl': {'head': [2.0, 1.0, 1.0]}, 'face': FACE({'gy': 0.8})}, toonDur=0.1), k(OUT6, toon={'scl': {'head': [0.85, 1.05, 1.0]}, 'face': FACE({'gy': 0.9, 'gx': -0.4})}, toonDur=0.06, toonEase='out'),   # ...it snaps back past its width
@@ -182,31 +183,32 @@ st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('mamie', MAMIE0, -90, 'reclineBack', 'happy', keys=[k(0.0, look=[r(ME[0] - 2.0), 0.4, ME[2]]), k(0.0, toon=MAMRIDE, toonDur=0.0),
             k(0.0, path=RIDE6[1:], dur=END6, glide=True, ease='linear', face='keep'),   # one arc: down the slot, out over the chin, along the tongue...
             k(END6, toon={'sq': [1.25, 0.75, 1.25], 'face': {'mouth': 'bigsmile', 'lid': 0.2, 'brow': 0.8}}, toonDur=0.04, toonEase='out'), k(round(END6 + 0.1, 3), toon={'sq': [0.95, 1.05, 0.95], 'face': {'mouth': 'bigsmile', 'lid': 0.2}}, toonDur=0.08)]),   # ...a bump at the kerb
-        *[act(f'q{i + 1}', [r(QX[i] + (0.18 if i == 1 else 0.0)), 0, r(QZ + (0.06 if i % 2 else -0.04))], 90, 'stand', ('happy' if i % 2 == 0 else 'neutral'), keys=[k(0.0, look=[r(ME[0] - 0.4), 1.0, ME[2]]),
-            k(round(0.1 + 0.06 * i, 3), toon={'sq': [0.98, 1.04, 0.98], **({'reach': {'L': [QX[i], 2.1, r(QZ + 0.2), 1, 0.05], 'R': [QX[i], 2.1, r(QZ - 0.2), 1, 0.05]}} if i in (0, 2) else {})}, toonDur=0.14, toonEase='out')]) for i in range(5)]],   # (pass 3) the queue behind, two cheering
+        *[act(f'q{i + 1}', [r(QX[i] - 0.6 + (0.18 if i == 1 else 0.0)), 0, r(QZ + (0.06 if i % 2 else -0.04))], 90, 'stand', ('happy' if i % 2 == 0 else 'neutral'), keys=[k(0.0, look=[r(ME[0] - 0.4), 1.0, ME[2]]),
+            k(round(0.1 + 0.06 * i, 3), toon={'sq': [0.98, 1.04, 0.98], **({'reach': {'L': [r(QX[i] - 0.6), 2.1, r(QZ + 0.2), 1, 0.05], 'R': [r(QX[i] - 0.6), 2.1, r(QZ - 0.2), 1, 0.05]}} if i in (0, 2) else {})}, toonDur=0.14, toonEase='out')]) for i in range(5)]],   # (pass 3) the queue behind, two cheering
         props=[BUS('bus6'), TONGUE('tong6'), P('lad6', 'ladder', pos=LADB, ry=-90, opts={'h': LADH, 'lean': LADL}),
-               P('whee6', 'hicBurst', pos=[r(ME[0] - 0.55), 2.3, r(ME[2] + 0.75)], face='camera', opts={'at': [0.03], 'w': 0.6, 'text': 'YOUPI !', 'inner': 0.78, 'fit': 0.56, 'hold': 0.45})],   # (pass 3) fixed beside the top of the slot, whole for half a second
+               P('whee6', 'hicBurst', on={'actor': 'mamie', 'joint': 'torso', 'offset': [0.0, 0.85, 0.35], 'face': 'camera'}, opts={'at': [0.03], 'w': 0.55, 'text': 'YOUPI !', 'inner': 0.78, 'fit': 0.56, 'hold': 0.5})],   # (final pass) on her, beside her head, moving with her (fixed over his head, he seemed to shout it)
         cams=[FC(0.0, [r(ME[0] - 2.7), 1.25, 2.4], [[ME[0], 2.3, ME[2]], [r(ME[0] - 0.55), 2.72, r(ME[2] + 0.75)], [r(ME[0] - 0.55), 1.9, r(ME[2] + 1.1)], [r(CHINX - 1.6), 0.0, ME[2]], [r(CHINX - 1.6), 1.0, ME[2]], [ME[0], 0.0, ME[2]]], top=0.1, bottom=0.74, drift=(-0.2, 0.0, 0.0))])
 st.cue('whoosh', 'S06', 0.02, 0.3, 0.6, 400, 1500); st.cue('sfx:boing', 'S06', END6, 0.3)
 
 # 7: the postman drops the mail in it. The postman posts letters in at his upper lip, one after another, from his satchel: (pass 2) each one goes in
 #    behind the lip and is gone (they fluttered down in front of his jacket)
 D7 = st.dur('S07')
-FAC = [r(ME[0] - 0.5), 0, r(ME[2] + 0.72)]
+FAC = [r(ME[0] - 0.5), 0, r(ME[2] - 0.72)]                               # (final pass) on the far side: from the usual side the tongue runs to screen-left
 SLOT = [r(XCAV(MOUTHTOP - 0.03) - 0.03), r(MOUTHTOP - 0.03), ME[2]]          # (pass 3) just under the upper teeth (his hand arrived at collar height)
-PICK = [r(FAC[0] + 0.08), 1.05, r(FAC[2] + 0.2)]                          # each envelope taken from the satchel
+PICK = [r(FAC[0] + 0.08), 1.05, r(FAC[2] - 0.2)]                          # each envelope taken from the satchel
 POSTS = [0.12, 0.38, 0.62]
 st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
-        TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE()}, toonDur=0.0), *[k(round(t_ + 0.06, 3), toon={'face': FACE({'gy': 0.4})}, toonDur=0.06) for t_ in POSTS]])),
-        act('facteur', FAC, 145, 'stand', 'neutral', keys=[k(0.0, look=SLOT),
-            *[x for t_ in POSTS for x in (k(round(t_ - 0.1, 3), toon={'reach': {'R': [r(FAC[0] + 0.08), 1.05, r(FAC[2] + 0.2), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.08),
-                                          k(t_, toon={'reach': {'R': [r(SLOT[0] - 0.08), r(SLOT[1] + 0.08), r(SLOT[2] + 0.06), 1, 0.08]}, 'hose': 0.1, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.1, toonEase='out'))]])],
-        props=[BUS('bus7'), TONGUE('tong7'), P('bag7', 'mailBag', on={'actor': 'facteur', 'joint': 'torso', 'offset': [0.12, 0.45, 0.0]}),
-               *[P(f'let7{i}', 'envelope', pos=PICK, ry=-90, opts={'w': 0.2}, keys=[k(0.0, visible=False), k(round(t_ - 0.04, 3), visible=True),   # (pass 3) a big white envelope out of the satchel...
-                   k(t_, to=[r(SLOT[0] - 0.1), r(SLOT[1] + 0.03), r(SLOT[2] + 0.05)], dur=0.1, ease='out'),   # ...up with his hand to the upper teeth...
-                   k(round(t_ + 0.1, 3), to=[r(SLOT[0] + 0.12), r(SLOT[1] - 0.02), SLOT[2]], dur=0.08, ease='in'), k(round(t_ + 0.18, 3), visible=False)])   # ...in behind the lip with a flick, and gone
+        TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE()}, toonDur=0.0), *[k(round(t_ + 0.06, 3), toon={'face': FACE({'gy': 0.4, 'gx': 0.4})}, toonDur=0.06) for t_ in POSTS],
+            k(0.16, look={'point': [FAC[0], 1.7, FAC[2]], 'cheat': 0.5}), k(0.85, look='camera')])),   # (final pass) his eyes, then his head, to the postman
+        act('facteur', FAC, 35, 'stand', 'neutral', keys=[k(0.0, look=SLOT),
+            *[x for t_ in POSTS for x in (k(round(t_ - 0.1, 3), toon={'reach': {'R': PICK + [1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.08),
+                                          k(t_, toon={'reach': {'R': [r(SLOT[0] - 0.1), r(SLOT[1] + 0.08), r(SLOT[2] - 0.06), 1, 0.08]}, 'hose': 0.1, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.1, toonEase='out'))]])],
+        props=[BUS('bus7'), TONGUE('tong7'), P('bag7', 'mailBag', on={'actor': 'facteur', 'joint': 'torso', 'offset': [0.12, 0.45, 0.0]}, scale=1.6),   # (final pass) a shoulder bag that reads
+               *[P(f'let7{i}', 'envelope', pos=PICK, face='camera', opts={'w': 0.24}, keys=[k(0.0, visible=False), k(round(t_ - 0.04, 3), visible=True),   # (final pass) a big white envelope out of the satchel, facing us...
+                   k(t_, to=[r(SLOT[0] - 0.06), r(SLOT[1] - 0.02), SLOT[2]], dur=0.1, ease='out'),   # ...up with his hand, held square over the top of the dark slot...
+                   k(round(t_ + 0.16, 3), to=[r(SLOT[0] - 0.04), r(SLOT[1] - 0.24), SLOT[2]], dur=0.07, ease='in'), k(round(t_ + 0.23, 3), visible=False)])   # ...and down into it, gone
                  for i, t_ in enumerate(POSTS)]],
-        cams=[FC(0.0, [r(ME[0] - 2.5), 1.45, -1.3], [[ME[0], 2.3, ME[2]], [ME[0], 0.0, ME[2]], [FAC[0], 2.0, FAC[2]], [FAC[0], 0.0, FAC[2]], [r(CHINX - 1.55), 0.0, ME[2]], [r(ME[0] + 0.47), 2.65, r(ME[2] - 0.8)], [r(ME[0] + 0.47), 2.25, r(ME[2] - 0.3)]], top=0.1, bottom=0.7)])   # (pass 3) the tongue above the caption band, the BUS sign whole
+        cams=[FC(0.0, [r(ME[0] - 2.3), 1.6, 1.5], [[ME[0], 2.35, ME[2]], [ME[0], 0.9, ME[2]], [FAC[0], 2.05, FAC[2]], [FAC[0], 0.9, FAC[2]], [SLOT[0], 1.5, r(ME[2] + 0.3)]], top=0.12, bottom=0.7)])   # (final pass) a medium two-shot from the usual side (the tongue to screen-left)
 for t_ in POSTS: st.cue('sfx:paper', 'S07', round(t_ + 0.05, 3), 0.2)
 
 # 8: close on his face: deadpan, his eyes down; (pass 2) the letters fall inside his open mouth, pale in its dark, inside its edges
@@ -215,9 +217,7 @@ INSIDE8 = lambda y, dz: [r(XCAV(y) - 0.012), r(y), r(ME[2] + dz)]
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
         TH(act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': FACE({'gy': 0.25})}, toonDur=0.0), k(0.1, toon={'face': FACE({'gy': 0.55})}, toonDur=0.15),   # (pass 3) his eyes track them down...
             k(0.28, toon={'face': FACE({'gy': 0.9})}, toonDur=0.18), k(0.5, toon={'face': FACE({'lid': 1.0, 'gy': 0.9})}, toonDur=0.06), k(0.62, toon={'face': FACE({'gy': 0.35})}, toonDur=0.12)]))],   # ...a blink down there, back up
-        props=[BUS('bus8'), *[P(f'let8{i}', 'envelope', pos=INSIDE8(1.68 - 0.08 * i, 0.008 * (i - 1)), ry=-90, opts={'w': 0.13}, rot=[0.0, round(-PI / 2, 4), round(0.5 * (i - 1), 3)],
-                                  keys=[k(round(0.04 + 0.16 * i, 3), path=[INSIDE8(1.35 - 0.05 * i, 0.01 * (1 - i)), INSIDE8(0.95 - 0.05 * i, 0.008 * (i - 1)), INSIDE8(0.55, 0.0)], dur=0.55, ease='in'),
-                                        k(round(0.04 + 0.16 * i, 3), rotTo=[0.0, round(-PI / 2, 4), round(-0.6 * (i - 1) + 1.2, 3)], dur=0.55)]) for i in range(3)]],   # pale, tumbling down inside the slot
+        props=[BUS('bus8'), P('let8', 'slotLetters', on={'actor': 'mec', 'joint': 'head', 'offset': [0, 0, 0]}, opts={'n': 3, 'w': 0.11, 'top': 0.12, 'bot': -1.0, 'z0': 0.108, 'z1': 0.262, 'at': [0.04, 0.2, 0.36], 'dur': 0.5})],   # (final pass) in his head's frame: in the world they fell down his lapel as he swayed
         cams=[FC(0.0, [r(ME[0] - 1.5), 1.7, 0.2], [[ME[0], 2.25, ME[2]], [ME[0], 1.2, ME[2]], [r(CHINX - 0.1), 1.2, r(ME[2] + 0.2)]], top=0.16, bottom=0.66)])
 st.cue('sfx:paper', 'S08', 0.1, 0.15)
 
@@ -245,52 +245,53 @@ st.shot('S09', 'parisStreet', setOpts=STREET, actors=[
             k(0.1, toon={'reach': {'L': [r(FACP[0] + 0.35), 1.45, r(FACP[2] + 0.12), 1, 0.05], 'R': [r(FACP[0] + 0.35), 1.45, r(FACP[2] - 0.12), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'face': {'lid': 0.4}}, toonDur=0.15),
             k(IN9, toon={**PINF(HEADIN), 'reach': {'L': [r(HEADIN[0] - 0.05), 1.48, r(HEADIN[2] + 0.13), 1, 0.05], 'R': [r(HEADIN[0] - 0.05), 1.48, r(HEADIN[2] - 0.13), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'spine': [0.9, 0, 0, 1, None]}, 'face': {'lid': 0.4}}, toonDur=0.2, toonEase='inOut'),   # head first into his mouth...
             *[k(round(LIFT9 + 0.05 * i, 3), toon={**PINF(HEADIN), 'lay': [round(1.15 + 0.08 * (i % 2), 3), 0.0], **KICK(i), 'reach': {'L': [r(HEADIN[0] - 0.05), 1.48, r(HEADIN[2] + 0.13), 1, 0.05], 'R': [r(HEADIN[0] - 0.05), 1.48, r(HEADIN[2] - 0.13), 1, 0.05]}, 'hands': {'L': 'grip', 'R': 'grip'}}, toonDur=0.05) for i in range(6)],   # ...lifted off his feet, legs kicking...
-            k(SNAP9, toon={**PINF([r(HEADIN[0] + 0.25), 1.5, ME[2]]), 'lay': [1.3, 0.0], **KICK(0)}, toonDur=0.05, toonEase='in'), k(round(SNAP9 + 0.06, 3), visible=False)])],   # ...SNAP: pulled in, legs last
+            k(round(SNAP9 - 0.03, 3), toon={**PINF([r(HEADIN[0] + 0.1), 1.5, ME[2]]), 'lay': [1.3, 0.0], **KICK(1), 'sq': [0.8, 1.45, 0.8]}, toonDur=0.03, toonEase='in'),   # (final pass) stretched as he is sucked in...
+            k(SNAP9, toon={**PINF([r(HEADIN[0] + 0.25), 1.5, ME[2]]), 'lay': [1.3, 0.0], **KICK(0), 'sq': [0.7, 1.7, 0.7]}, toonDur=0.04, toonEase='in'), k(round(SNAP9 + 0.07, 3), visible=False)])],   # ...SNAP: pulled in, legs last
         props=[BUS('bus9'), {**TONGUE('tong9', [[0.0, 1.0], [round(SNAP9 - 0.12, 3), 1.0], [round(SNAP9 - 0.02, 3), 0.02]]), 'keys': [k(round(SNAP9 + 0.01, 3), visible=False)]},   # (check stills) gone with the snap: rolled up on the pavement it was a red tin can   # the tongue slurped back in before the snap...
                P('box9', 'cardboardBox', on={'actor': 'facteur', 'hand': 'R', 'offset': [0.0, 0.0, 0.08]}, scale=0.45, keys=[k(IN9, visible=False)]),
-               P('cap9', 'beanieHat', pos=[r(XCAV(1.6) - 0.15), 1.75, ME[2]], opts={'color': '#F2C230', 'bobble': False}, keys=[k(0.0, visible=False), k(SNAP9, visible=True), k(SNAP9, path=[[r(XCAV(1.6) - 0.35), 1.4, r(ME[2] + 0.2)], [r(XCAV(1.6) - 0.55), 0.6, ME[2]], [r(XCAV(1.6) - 0.7), 0.02, r(ME[2] + 0.15)]], dur=0.7, ease='out')]),
-               BURST('snap9', [r(ME[0] - 0.62), 1.5, r(ME[2] + 0.38)], SNAP9, 'CLAC !', 0.5)],   # (pass 3) against the jaw
-        cams=[FC(0.0, [r(ME[0] - 1.9), 1.45, 2.1], [[ME[0], 2.4, ME[2]], [ME[0], 0.0, ME[2]], [r(FACP[0] - 0.6), 1.2, FACP[2]], [FACP[0], 0.0, FACP[2]], [r(ME[0] - 0.75), 2.45, ME[2]]], top=0.1, bottom=0.74),
-              FC(round(SNAP9 - 0.03, 3), [r(ME[0] - 1.45), 1.72, 1.0], [[ME[0], 2.3, ME[2]], [ME[0], 1.25, ME[2]], [r(ME[0] - 0.62), 1.8, r(ME[2] + 0.38)], [r(ME[0] - 0.62), 1.2, r(ME[2] + 0.38)]], top=0.16, bottom=0.62)])   # (pass 3) a push-in at the snap: his head ~25 % of the frame   # (pass 2) three-quarters: the postman's dive across the frame, his face still painted on (in profile it was a blank box side)
+               P('cap9', 'beanieHat', pos=[r(XCAV(1.6) - 0.15), 1.75, ME[2]], opts={'color': '#F2C230', 'bobble': False, 'boxy': [0.27, 0.12, 0.3]}, keys=[k(0.0, visible=False), k(SNAP9, visible=True), k(SNAP9, path=[[r(XCAV(1.6) - 0.35), 1.4, r(ME[2] + 0.2)], [r(XCAV(1.6) - 0.55), 0.6, ME[2]], [r(XCAV(1.6) - 0.7), 0.02, r(ME[2] + 0.15)]], dur=0.7, ease='out')]),   # (final pass) the shape of the cap he wore
+               BURST('snap9', [r(ME[0] - 0.55), 2.15, r(ME[2] + 0.45)], SNAP9, 'CLAC !', 0.5)],   # (final pass) beside his head
+        cams=[FC(0.0, [r(ME[0] - 1.9), 1.45, 2.1], [[ME[0], 2.4, ME[2]], [ME[0], 0.0, ME[2]], [r(FACP[0] - 0.6), 1.2, FACP[2]], [FACP[0], 0.0, FACP[2]], [r(ME[0] - 0.75), 2.45, ME[2]]], top=0.1, bottom=0.74, drift=(0.35, 0.05, -0.3))])   # (final pass) the snap on one angle, a push in over the shot (the cut at the snap hid it)   # (pass 3) a push-in at the snap: his head ~25 % of the frame   # (pass 2) three-quarters: the postman's dive across the frame, his face still painted on (in profile it was a blank box side)
 st.cue('sfx:slideUp', 'S09', round(SNAP9 - 0.12, 3), 0.25); st.cue('clack', 'S09', SNAP9, 0.5); st.cue('sfx:gulp', 'S09', round(SNAP9 + 0.45, 3), 0.3)
 
 # 10: with the postman inside. (pass 2) Three-quarters: a fist punches out his shirt beyond his outline at each knock, TOC ! on each punch; the fist
 #     wanders between them; deadpan, he blinks
 D10 = st.dur('S10'); KN10 = (0.36, 0.62, 0.96)
-BULGE = [[0.0, 0.0, 0.1, 0.14], [0.32, 0.06, 0.16, 0.14], [0.36, 0.06, 0.16, 0.3], [0.46, 0.04, 0.12, 0.15], [0.58, -0.07, 0.04, 0.14], [0.62, -0.07, 0.04, 0.3], [0.72, -0.05, 0.06, 0.15],
-         [0.92, 0.04, 0.12, 0.14], [0.96, 0.04, 0.12, 0.31], [1.06, 0.03, 0.1, 0.15], [1.4, -0.02, 0.06, 0.14]]
-TOCAT = [[0.06, 0.16], [-0.07, 0.04], [0.04, 0.12]]
+BULGE = [[0.0, 0.0, 0.2, 0.14], [0.32, 0.02, 0.26, 0.14], [0.36, 0.02, 0.26, 0.3], [0.46, 0.01, 0.22, 0.15], [0.58, -0.03, 0.14, 0.14], [0.62, -0.03, 0.14, 0.3], [0.72, -0.02, 0.16, 0.15],
+         [0.92, 0.02, 0.24, 0.14], [0.96, 0.02, 0.24, 0.32], [1.06, 0.01, 0.22, 0.15], [1.4, 0.0, 0.18, 0.14]]   # (final pass) up the shirt between the lapels, travelling between the knocks
+TOCAT = [[0.02, 0.26], [-0.03, 0.14], [0.02, 0.24]]                      # (final pass) where the fist punches out
 st.shot('S10', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45, 'cheeks': 0.4}}, toonDur=0.0),
             *[x for i, t_ in enumerate(KN10) for x in (k(t_, toon={'sq': [0.95, 1.07, 0.95], 'bend': {'spine': [-0.14, 0, 0, 1, None]}, 'lay': [0.05 * (1 if i % 2 else -1), 0.0], 'face': {'lid': 0.3, 'cheeks': 0.3, 'brow': 0.3}}, toonDur=0.05, toonEase='out'),
                                                        k(round(t_ + 0.13, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.3}}, toonDur=0.1, toonEase='inOut'),
                                                        k(t_, to=[ME[0], 0.07, ME[2]], dur=0.05, ease='out', face='keep'), k(round(t_ + 0.06, 3), to=ME, dur=0.07, ease='in', face='keep'))],   # (pass 3) each punch throws his belly out and hops him
             k(1.1, toon={'face': {'lid': 1.0, 'cheeks': 0.3}}, toonDur=0.06), k(1.22, toon={'face': {'lid': 0.45, 'cheeks': 0.3}}, toonDur=0.08)])],
-        props=[BUS('bus10'), P('bul10', 'bellyBulge', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0, 0]}, opts={'r': 0.12, 'fist': True, 'path': BULGE, 'size': [[0.0, 0.8], [0.36, 1.25], [0.46, 0.9], [0.62, 1.25], [0.72, 0.9], [0.96, 1.3], [1.06, 0.9]]}),
-               *[P(f'toc10{i}', 'hicBurst', on={'actor': 'mec', 'joint': 'torso', 'offset': [r(TOCAT[i][0] * 1.6 + (0.3 if TOCAT[i][0] >= 0 else -0.3)), r(TOCAT[i][1] + 0.22), 0.5], 'face': 'camera'}, opts={'at': [t_], 'w': 0.5, 'text': 'TOC !', 'inner': 0.78, 'fit': 0.56}) for i, t_ in enumerate(KN10)]],   # (pass 2) on each punch
-        cams=[FC(0.0, [r(ME[0] - 1.5), 1.3, 1.25], [[ME[0], 2.25, ME[2]], [ME[0], 0.75, ME[2]], [r(ME[0] - 0.45), 1.4, ME[2]], [ME[0], 1.4, r(ME[2] - 0.45)]], top=0.24, bottom=0.72, drift=(0.1, 0.0, -0.04))])   # (pass 2) three-quarters: the fist out of his outline
+        props=[BUS('bus10'), P('bul10', 'bellyBulge', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0, 0]}, opts={'r': 0.12, 'fist': True, 'color': '#F2F2EC', 'outline': 0.02, 'path': BULGE, 'size': [[0.0, 0.8], [0.36, 1.15], [0.46, 0.9], [0.62, 1.3], [0.72, 0.9], [0.96, 1.5], [1.06, 0.95]]}),   # (final pass) the white shirt pushed out, three knocks growing
+               *[P(f'toc10{i}', 'hicBurst', on={'actor': 'mec', 'joint': 'torso', 'offset': [r(TOCAT[i][0] + (0.2 if TOCAT[i][0] >= 0 else -0.2)), r(TOCAT[i][1] + 0.02), 0.42], 'face': 'camera'}, opts={'at': [t_], 'w': [0.36, 0.42, 0.5][i], 'hold': 0.14, 'text': 'TOC !', 'inner': 0.78, 'fit': 0.56}) for i, t_ in enumerate(KN10)]],   # (pass 2) on each punch
+        cams=[FC(0.0, [r(ME[0] - 1.5), 1.3, 1.25], [[ME[0], 2.25, ME[2]], [ME[0], 0.75, ME[2]], [r(ME[0] - 0.45), 1.4, ME[2]], [ME[0], 1.4, r(ME[2] - 0.45)]], top=0.32, bottom=0.74, drift=(0.1, 0.0, -0.04))])   # (pass 2) three-quarters: the fist out of his outline ((final pass) his head below the DEDANS band)
 for t_ in KN10: st.cue('thud', 'S10', t_, 0.25)
 
 # 11: he gets his mail from the inside. (pass 2) A letter pops straight up out of his lips like toast and hangs there five frames; he takes it by its
 #     corner and reads it, his head down to it; his eyes come up to us, then his head; a slow blink; the bulge waves under his shirt
 D11 = st.dur('S11'); OUT11 = 0.22; TAKE11 = 0.62
-LIPS = [r(ME[0] + FX * 0.16), r(HEADY + 0.1), ME[2]]                      # (pass 3) in front of his lips (at 0.1 the letter was in his face and poked out sideways)
+LIPS = [r(ME[0] + FX * 0.16), r(HEADY + 0.15), ME[2]]                     # (final pass) at his upper lip: half the letter over the dark open mouth reads as half in it
 READ = [r(ME[0] - 0.4), 1.38, ME[2]]
-RHOLD = lambda face: {'reach': {'R': [READ[0], READ[1], r(READ[2] - 0.12), 1, 0.05], 'L': [READ[0], READ[1], r(READ[2] + 0.12), 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': face}
+RHOLD = lambda face: {'reach': {'R': [READ[0], READ[1], r(READ[2] - 0.12), 1, 0.05], 'L': [READ[0], READ[1], r(READ[2] + 0.12), 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'pupil': 1.0, **face}}
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.6}}, toonDur=0.0),
-            k(round(OUT11 - 0.08, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.2, 'gy': 0.6, 'jaw': 0.25, 'jawLen': 0.32, 'jawBlock': 1.0, 'jawFwd': 0.0}}, toonDur=0.06),   # (pass 3) a slot opens in his mouth...
-            k(round(OUT11 + 0.18, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5, 'jaw': 0.0, 'jawLen': 0.32, 'jawBlock': 1.0}}, toonDur=0.08),   # ...and shuts behind the letter
-            k(round(TAKE11 - 0.2, 3), toon={'reach': {'R': [r(LIPS[0] - 0.06), r(LIPS[1] + 0.62), r(LIPS[2] - 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5}}, toonDur=0.18, toonEase='inOut'),   # he takes it by its corner...
-            k(round(TAKE11 + 0.15, 3), toon=RHOLD({'lid': 0.4, 'gy': 0.7}), toonDur=0.25, toonEase='inOut'), k(round(TAKE11 + 0.2, 3), look=[READ[0], READ[1], READ[2]]),   # ...and reads it, his head down to it...
+            k(round(OUT11 - 0.08, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.2, 'gy': 0.6, 'pupil': 1.0, 'jaw': 0.6, 'jawLen': 0.42, 'jawBlock': 1.0, 'jawFwd': 0.0}}, toonDur=0.06),   # (pass 3) a slot opens in his mouth...
+            k(round(TAKE11 + 0.05, 3), toon={'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5, 'pupil': 1.0, 'jaw': 0.0, 'jawLen': 0.42, 'jawBlock': 1.0}}, toonDur=0.08),   # ...and shuts once the letter is taken
+            k(round(TAKE11 - 0.2, 3), toon={'reach': {'R': [r(LIPS[0] - 0.06), r(LIPS[1] + 0.07), r(LIPS[2] - 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.45, 'cheeks': 0.3, 'gy': 0.5}}, toonDur=0.18, toonEase='inOut'),   # he takes it by its corner...
+            k(round(TAKE11 + 0.15, 3), toon=RHOLD({'lid': 0.4, 'gy': 0.9, 'gx': 0.0}), toonDur=0.25, toonEase='inOut'), k(1.12, toon={**RHOLD({'lid': 0.4, 'gy': 0.85, 'gx': 0.15}), 'sq': [1.0, 1.025, 1.0]}, toonDur=0.25, toonEase='inOut'),   # (final pass) reading, eyes down on it; a breath (0.6 s froze)
+            k(round(TAKE11 + 0.2, 3), look=[READ[0], READ[1], READ[2]]),   # ...and reads it, his head down to it...
             k(1.45, toon=RHOLD({'lid': 0.45, 'gy': -0.2}), toonDur=0.1), k(1.6, look='camera'),   # ...his eyes up to us first, then his head...
             k(1.95, toon=RHOLD({'lid': 1.0}), toonDur=0.12), k(2.17, toon=RHOLD({'lid': 0.45}), toonDur=0.16),   # ...a slow blink
             k(round(D11 - 0.24, 3), toon={**RHOLD({'lid': 0.4}), 'sq': [0.97, 1.04, 0.97], 'bend': {'spine': [-0.1, 0, 0, 1, None]}}, toonDur=0.05), k(round(D11 - 0.13, 3), toon=RHOLD({'lid': 0.45}), toonDur=0.1)])],   # (pass 3) one last knock jolts him
-        props=[BUS('bus11'), P('let11', 'envelope', pos=[LIPS[0], r(LIPS[1] + 0.01), LIPS[2]], face='camera', scale=0.3, opts={'w': 0.2}, keys=[k(0.0, visible=False), k(round(OUT11 - 0.02, 3), visible=True),
-               k(OUT11, to=[LIPS[0], r(LIPS[1] + 0.68), LIPS[2]], dur=0.13, ease='outBack'), k(OUT11, scale=1.0, dur=0.1, ease='outBack'),   # (pass 3) straight up out of the slot like toast, to over his head, facing us, where it hangs...
+        props=[BUS('bus11'), P('let11', 'envelope', pos=[LIPS[0], r(LIPS[1] - 0.1), LIPS[2]], face='camera', scale=0.6, opts={'w': 0.2}, keys=[k(0.0, visible=False), k(round(OUT11 - 0.02, 3), visible=True),
+               k(OUT11, to=[LIPS[0], LIPS[1], LIPS[2]], dur=0.12, ease='outBack'), k(OUT11, scale=1.0, dur=0.1, ease='outBack'),   # (final pass) up out of the slot like toast and held half out of his lips (over his head it read as a mail icon)...
                k(TAKE11, attach='mec', joint='handR', offset=[0.08, -0.06, 0.03], face='camera')]),   # ...into his hand by its corner, its face to us
                P('bul11', 'bellyBulge', on={'actor': 'mec', 'joint': 'torso', 'offset': [0, 0, 0]}, opts={'r': 0.12, 'fist': True, 'path': [[0.0, 0.0, 0.1, 0.14], [2.6, 0.03, 0.1, 0.14]], 'size': [[0.0, 0.8], [1.6, 0.8], [1.75, 1.15], [1.9, 0.8], [2.05, 1.1], [2.2, 0.8], [round(D11 - 0.32, 3), 0.8], [round(D11 - 0.24, 3), 1.32], [round(D11 - 0.13, 3), 0.85]]})],   # (pass 3) one last knock
-        cams=[FC(0.0, [r(ME[0] - 1.6), 1.6, 0.55], [[ME[0], 2.3, ME[2]], [ME[0], 0.95, ME[2]], [r(ME[0] - 0.45), 1.5, r(ME[2] + 0.35)], [LIPS[0], 2.56, LIPS[2]]], top=0.14, bottom=0.68, drift=(0.15, 0.0, -0.05))])   # (pass 3) the letter's hang over his head in the frame
+        cams=[FC(0.0, [r(ME[0] - 1.6), 1.6, 0.55], [[ME[0], 2.3, ME[2]], [ME[0], 0.95, ME[2]], [r(ME[0] - 0.45), 1.5, r(ME[2] + 0.35)]], top=0.16, bottom=0.68, drift=(0.15, 0.0, -0.05))])
 st.cue('sfx:slideUp', 'S11', OUT11, 0.3); st.cue('sfx:ding', 'S11', round(OUT11 + 0.18, 3), 0.2); st.cue('sfx:paper', 'S11', TAKE11, 0.25); st.cue('thud', 'S11', round(D11 - 0.24, 3), 0.22)   # (pass 3) the last knock
 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
@@ -307,11 +308,12 @@ st.card('S10', 'DEDANS')
 st.write("Le bâillement", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'maire': {'preset': 'politique', 'seed': 581, 'suit': '#5E636B', 'build': {'width': 1.0, 'headWidth': 1.2, 'belly': 0.06}},   # (pass 2) grey: in navy he was the man's double
-    'q1': {'preset': 'boss', 'seed': 582, 'suit': '#6B5B45', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
-    'q2': {'preset': 'madame', 'seed': 583, 'suit': '#3E8E6E', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
-    'q3': {'preset': 'sportif', 'seed': 584, 'suit': '#C8642A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    # (final pass) the queue varied in silhouettes: they were near-clones of him (black hair, box head, one with his stubble)
+    'q1': {'preset': 'tourist', 'seed': 582, 'hat': 'fedora', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    'q2': {'preset': 'madame', 'seed': 583, 'suit': '#3E8E6E', 'hairColor': '#B8B8B8', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    'q3': {'preset': 'gamin', 'seed': 584, 'suit': '#C8642A', 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
     'q4': {'preset': 'madame', 'seed': 587, 'suit': '#B0566A', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
-    'q5': {'preset': 'boss', 'seed': 588, 'suit': '#4E6E8E', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
+    'q5': {'preset': 'fermier', 'seed': 588, 'hat': 'cap', 'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
     'mamie': {'preset': 'mamie', 'seed': 585, 'build': {'width': 0.9, 'headWidth': 1.25}},
     'facteur': {'preset': 'worker', 'seed': 586, 'suit': '#2E5AA8', 'hat': 'beanie', 'hatColor': '#F2C230', 'build': {'width': 1.0, 'headWidth': 1.2}},
 })

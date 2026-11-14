@@ -59,6 +59,19 @@ export const BAILLEMENT_PROPS = {
     return g;
   },
 
+  // (final pass of 58) Letters falling inside the dark mouth, in the frame of his head (give it on: {actor, joint: 'head', offset: [0, 0, 0]}: placed in
+  // the world, they missed the slot as he swayed and fell down his lapel): o.n (3) white envelopes with a red stamp, o.w (0.1) wide, facing out of his
+  // face, each dropping from o.top (0.13) to o.bot (-1.0) along the slot's slant (o.z0 at the top to o.z1 at the bottom, just in front of the dark
+  // recess), starting at o.at[i], falling in o.dur (0.5) s, accelerating, tumbling and shrinking a little as they sink
+  slotLetters(o) {
+    const n = o.n ?? 3, w = o.w ?? 0.1, top = o.top ?? 0.13, bot = o.bot ?? -1.0, z0 = o.z0 ?? 0.105, z1 = o.z1 ?? 0.26, ats = list(o.at ?? [0, 0.15, 0.3]), dur = o.dur ?? 0.5, g = grp(), ls = [];
+    for (let i = 0; i < n; i++) { const h = w * 0.64, e = grp(at(box(w, h, 0.004, '#F7F5EE', { outline: 0.03 }), 0, 0, 0)); e.add(at(box(w * 0.2, w * 0.2, 0.006, '#D23A2E'), w * 0.34, h * 0.26, 0.004)); g.add(e); ls.push(e); }
+    g.userData.update = t => { ls.forEach((e, i) => { const u = (t - ats[i % ats.length]) / dur; e.visible = u >= 0 && u < 1; if (!e.visible) return;
+      const y = top + (bot - top) * Math.pow(u, 1.6), z = z0 + (z1 - z0) * (top - y) / Math.max(1e-6, top - bot);
+      e.position.set((i - (n - 1) / 2) * w * 0.12, y, z); e.rotation.z = (i % 2 ? 1 : -1) * (0.4 + 3.2 * u); e.scale.setScalar(1 - 0.3 * u); }); };
+    g.userData.update(-1); return g;
+  },
+
   // Something moving inside a belly (pivot where it is attached, usually the torso): a bulge of cloth the colour of the suit, o.r (0.13) wide, with
   // an ink outline; o.path [[t, x, y, z], ...] where it is (in the frame of what it is attached to), o.size [[t, s]] how far it pushes out (0..1.5):
   // a knee, a fist, a head pushing against the cloth from inside.

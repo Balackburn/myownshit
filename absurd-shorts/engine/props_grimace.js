@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { mat, box, cyl, sphere, addOutline } from './style.js';
 import { grp, at, canvasPlane } from './props.js';
+import { makeFaceRig, faceState, hasFaceRig } from './facerig.js';
 
 const PI = Math.PI, TAU = 2 * PI;
 const list = v => [].concat(v ?? []);
@@ -77,13 +78,23 @@ export const GRIMACE_PROPS = {
 
   // The identity photo of a man pulling a face (pivot at its centre, face +Z): his square head on the blue background, the eyes crossed and bulging,
   // the mouth stretched wide by two fingers, the tongue out; o.w (0.1) wide: scale it up for inserts.
+  // (pass 2 of 59) painted by his own face rig (o.expr, 'grimace'): the drawn face did not look like him (round eyes, no stubble), so the refusal
+  // looked reasonable; his head pulled wide (o.wide 1.3), his ears, his tongue out and aside, his navy jacket and red tie; o.stamp: a red REFUSÉE
+  // printed across it (the stamp's imprint is part of the photo, above its face)
   grimacePhoto(o) {
     const w = o.w ?? 0.1, h = w * 1.25, g = grp(at(box(w * 1.12, h * 1.1, 0.002, '#FFFFFF', { outline: 0.004 }), 0, 0, 0));
-    g.add(at(canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#9CC9E8'; c.fillRect(0, 0, W, H); c.fillStyle = '#1F2E4A'; c.fillRect(W * 0.12, H * 0.74, W * 0.76, H * 0.26); c.fillStyle = '#E2A270';
-      c.fillRect(W * 0.2, H * 0.12, W * 0.6, H * 0.64); c.fillStyle = '#1E1A18'; c.fillRect(W * 0.18, H * 0.06, W * 0.64, H * 0.12);
-      for (const [x, dx] of [[0.36, 0.05], [0.64, -0.05]]) { c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(W * x, H * 0.36, W * 0.1, 0, TAU); c.fill(); c.fillStyle = '#16130F'; c.beginPath(); c.arc(W * (x + dx), H * 0.37, W * 0.045, 0, TAU); c.fill(); }
-      c.fillStyle = '#3A1014'; c.beginPath(); c.ellipse(W * 0.5, H * 0.6, W * 0.22, H * 0.07, 0, 0, TAU); c.fill(); c.fillStyle = '#E0717F'; c.beginPath(); c.ellipse(W * 0.5, H * 0.67, W * 0.08, H * 0.08, 0, 0, TAU); c.fill();
-      c.fillStyle = '#E2A270'; for (const x of [0.25, 0.75]) c.fillRect(W * (x - 0.04), H * 0.56, W * 0.08, H * 0.22); }, { res: 256 }), 0, 0, 0.0015));
+    let face = null; if (hasFaceRig) { try { const fr = makeFaceRig(null); fr.set(faceState(o.expr || 'grimace')); face = fr.canvas; } catch (e) { face = null; } }
+    const draw = (c, W, H) => { c.fillStyle = '#9CC9E8'; c.fillRect(0, 0, W, H);
+      c.fillStyle = '#1F2E4A'; c.fillRect(W * 0.08, H * 0.8, W * 0.84, H * 0.2); c.fillStyle = '#F2F2EC'; c.beginPath(); c.moveTo(W * 0.42, H * 0.8); c.lineTo(W * 0.5, H * 0.92); c.lineTo(W * 0.58, H * 0.8); c.fill();
+      c.fillStyle = '#C8202A'; c.fillRect(W * 0.48, H * 0.82, W * 0.04, H * 0.18);
+      const fw = W * 0.5 * (o.wide ?? 1.3), fh = H * 0.72, fx = (W - fw) / 2, fy = H * 0.06;
+      c.fillStyle = '#D9A877'; c.fillRect(fx - W * 0.05, fy + fh * 0.4, W * 0.06, fh * 0.22); c.fillRect(fx + fw - W * 0.01, fy + fh * 0.4, W * 0.06, fh * 0.22);   // ears
+      if (face) c.drawImage(face, fx, fy, fw, fh);
+      else { c.fillStyle = '#E2A270'; c.fillRect(fx, fy, fw, fh); c.fillStyle = '#1E1A18'; c.fillRect(fx, fy, fw, fh * 0.16); c.fillStyle = '#2A1A14'; c.fillRect(fx + fw * 0.2, fy + fh * 0.45, fw * 0.6, fh * 0.03); }
+      c.fillStyle = '#E0717F'; c.strokeStyle = '#7A2A34'; c.lineWidth = W * 0.012; c.beginPath(); c.ellipse(W * 0.44, fy + fh * 0.86, W * 0.07, H * 0.075, -0.4, 0, 2 * Math.PI); c.fill(); c.stroke();   // the tongue, out and aside
+      if (o.stamp) { c.save(); c.translate(W / 2, H * 0.5); c.rotate(-0.28); c.strokeStyle = 'rgba(200,24,36,0.92)'; c.fillStyle = 'rgba(200,24,36,0.92)'; c.lineWidth = W * 0.03;
+        c.strokeRect(-W * 0.46, -H * 0.075, W * 0.92, H * 0.15); c.font = `900 ${Math.round(H * 0.11)}px Arial`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.stamp, 0, H * 0.008, W * 0.86); c.restore(); } };
+    const plane = canvasPlane(w, h, draw, { res: 384 }); plane.position.z = 0.0015; g.add(plane);
     g.userData.grip = [0, -h * 0.4, 0]; return g;
   },
 
