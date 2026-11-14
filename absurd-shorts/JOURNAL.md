@@ -2553,6 +2553,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Rappel : la sonde `--probe` (une ligne par gag : taille de la tête, bords, ce qui la cache, bande des sous-titres, carton) existe déjà.
     Elle reste l'étape à lancer avant chaque brouillon.
 - 62 « Le coup de soleil » : **livrée** (1080 × 1920, 17,53 s, −16,1 LUFS, crête −4,2 dBFS ; contrôles HyperFrames sans erreur, deux
-  avertissements de contraste et un d'artisanat ; 526 images, aucune image grise). Revues : 6,5/6,8 → 7,2/7,0 → 7,4/7,3 (animation /
+  avertissements de contraste et un d'artisanat ; 526 images, aucune image grise). Revues : 6,5/6,8 → 7,2/6,8 → 7,4/7,3 (animation /
   direction artistique), puis la passe finale. Envoyée.
   - Publication TikTok : toujours bloquée (pas de clé PostOnce) ; elle partira avec les autres dès qu'une clé sera là.
