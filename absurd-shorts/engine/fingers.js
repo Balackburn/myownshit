@@ -51,6 +51,7 @@ export function fingersUpgrade(obj) {
     }
     const tk = new THREE.Group(); tk.position.set(sx * 0.044, -0.014, 0.006); g.add(tk); tk.add(box(0.024, 0.04, 0.03, skin, { pivot: 'top' }));
     const tk2 = new THREE.Group(); tk2.position.y = -0.04; tk.add(tk2); tk2.add(box(0.022, 0.03, 0.027, skin, { pivot: 'top' }));
+    if (!ud.spec?.gloves) g.traverse(n => { if (n.isMesh) n.userData.fingerSkin = true; });   // (cycle 24, stills 4 of 62) bare fingers take the skin channel (the sunburnt hands stayed pale)
     hands[s] = p => {
       const [a, b, c, d, th, sp] = handPose(p);
       [a, b, c, d].forEach((cv, i) => { const f = fs[i]; f.k.rotation.set(-1.45 * cv, 0, sx * sp * (0.26 - i * 0.175) * (1 - 0.8 * Math.min(1, cv))); f.k2.rotation.x = -1.5 * cv; });

@@ -10,6 +10,8 @@
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
 //   earScale: 1..4   (cycle 24, story 60) both ears grow, their flat face more than their thickness: an ear that turns into a dish to listen
+//         (final pass of 60) from 1.3 the ear is a dish instead: a bowl the colour of the skin opening out and forward, a dark inner cup, a rim and a fold
+//         inside it, its radius 0.05 m times earScale (at 4 it is wider than the head); under 1 the box ear shrinks (an undershoot on the way back)
 //   skin: { color, k: 0..1, glow: 0..1, fill: 0..1 }   (cycle 24, story 62) the skin (hands, neck, ears, the painted head) multiplied toward `color`
 //         by k and lit from inside by glow (a sunburn, a face going green, a glow in the dark); fill rises from the hands (0.4) to the neck (0.8)
 //         and the head (1.0), a thermometer filling up; without the channel the skin goes back to its own colour
@@ -56,6 +58,23 @@
 //           (cycle 6) tremble: 0..1 (the lip trembles), pupilShake: 0..1 (the pupils shiver), gulp: 0..1 (a lump goes down the neck: key it from 0 to 1 in 0.25 s) }
 import * as THREE from 'three';
 import { blendHands } from './fingers.js';
+
+
+// (final pass of 60) an ear grown into a dish: a bowl the colour of the skin opening along -Y, turned to open out and forward (+Z, the face), its
+// inside a dark cup, a rim round it and a fold inside it (a flat slab the colour of the head read as a board or a wider head); unit radius, the rig
+// scales it to 0.05 m times earScale
+function earDish(side, mat0) {
+  const g = new THREE.Group(), skin = (Array.isArray(mat0) ? mat0[0] : mat0)?.clone?.() || new THREE.MeshLambertMaterial({ color: '#E2A878' });
+  const cap = new THREE.SphereGeometry(1, 20, 8, 0, Math.PI * 2, 0, Math.PI * 0.4); cap.translate(0, -1, 0);
+  const cup = new THREE.MeshLambertMaterial({ color: '#7A4630', side: THREE.BackSide });
+  const rr = Math.sin(Math.PI * 0.4), ry = Math.cos(Math.PI * 0.4) - 1;
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(rr, 0.075, 6, 28), skin); rim.rotation.x = Math.PI / 2; rim.position.y = ry;
+  const fold = new THREE.Mesh(new THREE.TorusGeometry(0.74, 0.06, 5, 18, Math.PI * 1.25), skin); fold.rotation.x = Math.PI / 2; fold.position.y = -0.35;
+  g.add(new THREE.Mesh(cap, skin), new THREE.Mesh(cap, cup), rim, fold);
+  for (const c of g.children) { c.castShadow = true; c.userData.skinPart = true; }
+  g.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), new THREE.Vector3(side * 0.74, 0.12, 0.66).normalize());
+  g.name = 'earDish'; g.visible = false; return g;
+}
 
 export const sqv = s => { const k = 1 / Math.sqrt(Math.max(0.05, s)); return [k, s, k]; };   // volume-preserving squash (s < 1) / stretch (s > 1) along Y
 
@@ -274,15 +293,16 @@ export function toonUpgrade(obj) {
   let gulp = null; if (J.neck) { gulp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshLambertMaterial({ color: new THREE.Color(skin) })); gulp.visible = false; gulp.castShadow = false; J.neck.add(gulp); }
   // (cycle 24) the skin parts, for the skin channel: their materials are cloned the first time it is used, and their own colours kept
   let skinTab = null; const skinParts = () => { if (skinTab) return skinTab; skinTab = []; obj.updateWorldMatrix(true, true); const y0 = obj.getWorldPosition(new THREE.Vector3()).y, hgt = ud.height || 2.4;
-    obj.traverse(n => { if (!n.isMesh || !(n.userData.skinPart || n === ud.headMesh)) return; const mats = (Array.isArray(n.material) ? n.material : [n.material]).map(m => m.clone()); n.material = Array.isArray(n.material) ? mats : mats[0];
-      const lv = n === ud.headMesh || n.name === 'ear' || n.parent?.name === 'ear' ? 1.0 : Math.min(0.99, (n.getWorldPosition(new THREE.Vector3()).y - y0) / (hgt * obj.scale.y || hgt));
-      skinTab.push({ mats, base: mats.map(m => m.color.clone()), baseE: mats.map(m => m.emissive ? m.emissive.clone() : null), lv: n === ud.headMesh ? 1.0 : lv > 0.7 ? 0.8 : 0.4 }); });
+    obj.traverse(n => { if (!n.isMesh || !(n.userData.skinPart || n.userData.fingerSkin || n === ud.headMesh)) return; const mats = (Array.isArray(n.material) ? n.material : [n.material]).map(m => m.clone()); n.material = Array.isArray(n.material) ? mats : mats[0];
+      const lv = n === ud.headMesh || n.name === 'ear' || n.parent?.name === 'ear' || n.parent?.name === 'earDish' ? 1.0 : Math.min(0.99, (n.getWorldPosition(new THREE.Vector3()).y - y0) / (hgt * obj.scale.y || hgt));
+      skinTab.push({ mats, base: mats.map(m => m.color.clone()), baseE: mats.map(m => m.emissive ? m.emissive.clone() : null), lv: n === ud.headMesh ? 1.0 : lv > 0.7 ? 0.8 : 0.4, face: n === ud.headMesh && !!ud.setFaceState }); });   // face: the painted panel (index 4) is tinted by the face rig, under the eyes
     return skinTab; };
   let skinOn = false; const _sc = new THREE.Color(), _wc = new THREE.Color();
   const ears = J.head ? J.head.children.filter(c => c.name === 'ear').map(m => {   // (cycle 24) a dark inner ear on its outer face, shown only when the ear grows (big and plain it read as a board)
     const bb = m.geometry ? (m.geometry.boundingBox || (m.geometry.computeBoundingBox(), m.geometry.boundingBox)) : null, hx = bb ? bb.max.x : 0.012, hy = bb ? bb.max.y : 0.047, hz = bb ? bb.max.z : 0.031;
     const inner = new THREE.Mesh(new THREE.BoxGeometry(0.004, hy * 1.3, hz * 1.1), new THREE.MeshLambertMaterial({ color: '#6A4428' })); inner.position.set((m.userData.side || 1) * (hx + 0.002), -hy * 0.05, hz * 0.05); inner.visible = false; m.add(inner);
-    return { m, r: m.rotation.clone(), s: m.scale.clone(), inner }; }) : [], hm0 = J.head?.children.find(c => c.name === 'hat'), hat = hm0 ? { m: hm0, y: hm0.position.y } : null;
+    const dish = earDish(m.userData.side || 1, m.material); dish.position.copy(m.position); J.head.add(dish);   // (final pass of 60) the big ear as a dish
+    return { m, r: m.rotation.clone(), s: m.scale.clone(), inner, dish }; }) : [], hm0 = J.head?.children.find(c => c.name === 'hat'), hat = hm0 ? { m: hm0, y: hm0.position.y } : null;
   // reach: { L | R: [x, y, z, w] }: a hand brought to a point of the world (w 0..1 blends from the clip's pose). Two-bone IK on the shoulder and the elbow, the
   // elbow kept low and a little out; a point further than the arm is long stretches both parts of the arm equally (the cartoon reach). The hand keeps the
   // rotation the clip gives it. Call order: the spine and the neck are bent first (the shoulder rides on them)
@@ -369,10 +389,11 @@ export function toonUpgrade(obj) {
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
       if (!pinned) doPin();
-      const er = tp.ears || 0, es = tp.earScale ?? 1; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); e.m.scale.set(e.s.x * (1 + (es - 1) * 0.35), e.s.y * es, e.s.z * es); e.inner.visible = es > 1.25; }
+      const er = tp.ears || 0, es = tp.earScale ?? 1; for (const e of ears) { const big = es > 1.3; e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); e.m.scale.set(e.s.x * (1 + (es - 1) * 0.35), e.s.y * es, e.s.z * es); e.inner.visible = es > 1.25 && !big;
+        e.m.visible = !big; e.dish.visible = big; if (big) e.dish.scale.setScalar(0.05 * es); }   // (final pass of 60) a dish from 1.3 (turned once, out and forward), the box ear below
       if (tp.skin || skinOn) { const S = tp.skin, parts2 = skinParts(); skinOn = !!S; _sc.set(S?.color || '#FFFFFF');   // (cycle 24) the skin channel
         for (const p of parts2) { const on = S && (S.fill ?? 1) >= p.lv - 1e-6, k = on ? (S.k ?? 1) : 0, gl = on ? (S.glow || 0) : 0;
-          p.mats.forEach((m, i) => { _wc.setRGB(1, 1, 1).lerp(_sc, k); m.color.copy(p.base[i]).multiply(_wc); if (m.emissive && p.baseE[i]) m.emissive.copy(p.baseE[i]).lerp(_sc, gl * 0.85); }); } }   // (cycle 24) a dish, not a block: the thickness grows a third as fast
+          p.mats.forEach((m, i) => { _wc.setRGB(1, 1, 1).lerp(_sc, k); if (!(p.face && i === 4)) m.color.copy(p.base[i]).multiply(_wc); if (m.emissive && p.baseE[i]) m.emissive.copy(p.baseE[i]).lerp(_sc, gl * (p.face && i === 4 ? 0.4 : 0.85)); }); } }   // (cycle 24) a dish, not a block: the thickness grows a third as fast
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
       face?.(tp.face || {}, t);
       if (gulp) { const gp = tp.face?.gulp || 0; gulp.visible = gp > 0.02 && gp < 0.98; if (gulp.visible) { const sw = Math.pow(Math.sin(Math.PI * gp), 0.6); gulp.position.set(0, 0.135 - 0.115 * gp, 0.034); gulp.scale.set(0.95 * sw, 0.75 * sw, 0.62 * sw); } }

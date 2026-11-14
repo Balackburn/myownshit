@@ -822,6 +822,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
     if (cf.pupilShake) for (const s of 'LR') { E[s].px = clamp(E[s].px + 0.08 * cf.pupilShake * Math.sin(t * 58 + (s === 'L' ? 0 : 0.7)), -1, 1); E[s].py = clamp(E[s].py + 0.06 * cf.pupilShake * Math.sin(t * 49 + 1.1), -1, 1); }   // (cycle 6) face.pupilShake 0..1: the pupils shiver in the eyes (fear held in)
     for (const x of FACE_EXTRAS) if (cf[x]) st.extras[x] = clamp01(Math.max(st.extras[x] || 0, cf[x])); if (cf.dropSize) st.extras.dropSize = cf.dropSize;   // face.sweat / blush / tears / tear / vein / shadow: 0..1
   }
+  const sk = tp?.skin; if (sk && (sk.fill ?? 1) >= 0.999 && (sk.k ?? 1) > 0.02) { st.extras = { ...(st.extras || {}), tint: clamp01(sk.k ?? 1), tintColor: sk.color || '#FFFFFF' }; }   // (cycle 24) the skin channel on the painted face: under the eyes, not over them
   return st;
 }
 // (cycle 15) a look target may also be { actor | prop, lag (s), dy (m), cheat }: an actor followed `lag` seconds late (an onlooker's eyes and head trail

@@ -2237,3 +2237,45 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - La voiture de la fin s'arrête plus loin et l'échelle est à côté du feu.
 - 59 « La grimace » : livrée. Version 1080 : 17,6 s, −16,1 LUFS, contrôles HyperFrames sans erreur, aucune image grise ni figée. Huit
   gags ajoutés au catalogue du skill, sans en reprendre un à l'identique.
+- 60 « L'écho » : revue 3 = animation 7,0, direction artistique 7,3 (aucun « À voir avec l'utilisateur »).
+  - Passe finale :
+    - L'accroche est en plan poitrine filmé de sous son menton, avec une chaîne de pics proches derrière ses épaules (elle cache la
+      plaine où le village semblait de plain-pied). Plus de panneau. Le mot sort de sa bouche dans l'axe de l'objectif et grossit jusqu'à
+      remplir l'image à la coupe. Dans le contrechamp, sa tête suit le mot, penchée.
+    - L'oreille devient une vraie coupelle (nouvel élément du rig, voir plus bas). Elle sort trois fois, une image sur deux, en se posant
+      à chaque fois, puis revient plus petite que nature avant de reprendre sa taille.
+    - Le mime se fait un pas plus loin du bureau, le V plus étroit, et le cri muet entre ses mains ouvertes de chaque côté de la mâchoire.
+      Le gendarme lève plus haut les sourcils et gratte son stylo.
+    - L'avis et l'amende sont portés dans la main qui frappe et restent là où la paume se pose, PAF sur le contact. L'amende est arrachée
+      du carnet.
+    - Le passant fait une prise aux grands yeux, pupilles minuscules qui tremblent, pieds plantés, chapeau plus bas, sans arbre derrière
+      sa nuque.
+    - Le randonneur a des pupilles plus grandes : en tête d'épingle, ses yeux passaient pour des verres.
+    - La casquette du fermier part en toupie et retombe de travers. Le cadre est plus bas et plus près.
+    - Une inclinaison de tête et une penchée rompent le dos immobile de S08. Les traînées sont épaisses, effilées, jaunes, derrière le
+      mot.
+    - La planche se lève en huit images et se présente de chant : une ligne. Le POP monte à quarante pour cent au-delà de sa forme
+      pendant quatre images, avec sa bulle, et le cadre laisse de la place au-dessus de lui.
+    - La voisine garde son chignon (dressés, ses cheveux devenaient la brosse du héros). Les lettres passent au-dessus des têtes.
+    - Des cernes sous ses yeux (`bags`) remplacent les traits sur le front. Il est filmé de haut contre le trottoir clair (ses bras bleu
+      marine se perdaient sur la vitrine sombre). Les secousses font claquer la tête, les cheveux et la cravate.
+- 61 « Le ressort » : brouillon 2 rendu (494 images, aucune image grise ; une tenue presque figée de 0,6 s en S12 à animer à la passe
+  suivante). Dossier de la revue 2 construit ; revue 2 en cours.
+- 62 « Le coup de soleil » : images de contrôle 2 à 4.
+  - Face à nous, mains croisées sur le ventre, le soleil derrière lui.
+  - L'œuf posé sur le front, accroché à la tête (il flottait au-dessus) ; la voisine casse l'œuf de la main côté caméra.
+  - La nuit vue du trottoir, le ciel au bout de la rue, une lueur moins forte. Des papillons blancs non éclairés (en rouge, on aurait dit
+    des bouts de papier).
+  - Le transport vu de haut et de trois quarts.
+  - Sa tête mesurée dans le moteur (`debugJoints`) : son centre est à 1,99 m au-dessus de ses pieds, pas à 2,2. Sans balancement au
+    repos (`hip` 0), la tête élargie remplit le trou rond. Un fond sombre ferme le feu (on voyait le ciel par le trou).
+  - Le camion en deux plans : les klaxons, puis son visage soufflé. Le vent du klaxon souffle vers l'arrière (vers l'avant, la cravate
+    sortait par la vitre du feu).
+  - Les voitures filent derrière le feu, vues du trottoir.
+  - Le peintre passe côté trottoir et la voiture s'arrête dans le dernier plan.
+- Moteur (cycle 24, suite) :
+  - Oreille en coupelle (`earDish` dans toon.js : bol couleur peau, creux sombre, bord, repli, à partir d'`earScale` 1,3).
+  - Teinte du visage peint sous le dessin des traits (`extras.tint` du visage). Le canal `skin` teignait le matériau entier et le blanc
+    des yeux virait au rouge : un œil ouvert disparaissait dans un visage rouge.
+  - Les doigts prennent le canal `skin` (mains restées pâles).
+  - Fond sombre dans le feu ; papillons non éclairés.

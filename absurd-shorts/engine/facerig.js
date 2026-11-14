@@ -164,6 +164,9 @@ export function makeFaceRig(v = null) {
     g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; rimOff(); g.drawImage(L.base, 0, 0);
     const X = st.extras || {};
     if (X.red > 0.02) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.88 * c01(X.red); g.fillStyle = '#FF3A22'; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }   // (cycle 9) extras.red: the face warms toward red (multiplied over the skin, under the line work)
+    // (cycle 24, stills 2 of 62) extras.tint 0..1 with extras.tintColor: the painted skin multiplied toward a colour under the line work (the skin channel of
+    // the rig tints the head; done on the material it turned the whites of the eyes red too and an open eye vanished in a red face)
+    if (X.tint > 0.02 && X.tintColor) { g.globalCompositeOperation = 'multiply'; g.globalAlpha = c01(X.tint); g.fillStyle = X.tintColor; g.fillRect(0, 0, g.canvas.width, g.canvas.height); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; }
     for (const k of ['shadow', 'blush']) if (X[k] > 0.02) spr(g, 'extra_' + k, 0, 0, 0, 0, 0, 1, 1, c01(X[k]));
     // (pass 4 of 50) extras.bags 0..1: grey-violet bags under both eyes, a soft crescent and two painted arcs (three days without sleep: the blue gloom
     // strokes on the forehead alone did not say it)
@@ -202,7 +205,7 @@ export function makeFaceRig(v = null) {
     let k = '';
     for (const s of 'LR') { const b = st.brows[s], e = st.eyes[s]; k += `${b.shape},${q(b.dx, 0.5)},${q(b.dy, 0.5)},${q(b.rot, 0.5)}|${e.kind},${q(e.s, 0.01)},${q(e.lid, 0.02)},${q(e.low, 0.02)},${q(e.px, 0.02)},${q(e.py, 0.02)},${q(e.ps, 0.02)},${e.shine ? 1 : 0},${q(e.open ?? 1, 0.03)}|`; }
     const m = st.mouth; k += `${m.spr},${q(m.dx, 0.5)},${q(m.dy, 0.5)},${q(m.w, 0.01)},${q(m.h, 0.01)},${q(m.tilt, 0.5)},${m.flip ? 1 : 0}|${q(st.cheeks, 0.03)},${q(st.puff, 0.03)}`;
-    for (const [n, a] of Object.entries(st.extras || {})) if (a > 0.02) k += `|${n}${q(a, 0.05)}`;
+    for (const [n, a] of Object.entries(st.extras || {})) if (typeof a === 'string') k += `|${n}${a}`; else if (a > 0.02) k += `|${n}${q(a, 0.05)}`;   // (cycle 24) a colour too: red to green at the same strength redraws
     return k;
   };
   let last = null;

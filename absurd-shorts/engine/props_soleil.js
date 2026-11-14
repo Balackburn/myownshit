@@ -46,7 +46,7 @@ export const SOLEIL_PROPS = {
   // Moths (pivot at the light they circle): o.n (6) little grey-white moths fluttering round it in wobbling loops of radius o.r (0.35), wings beating
   moths(o) {
     const n = o.n ?? 6, R = o.r ?? 0.35, g = grp(), ms = [];
-    for (let i = 0; i < n; i++) { const m = grp(), wm = new THREE.MeshLambertMaterial({ color: i % 2 ? '#E6E0D2' : '#CFC6B4', side: THREE.DoubleSide });
+    for (let i = 0; i < n; i++) { const m = grp(), wm = new THREE.MeshBasicMaterial({ color: i % 2 ? '#F4EEE0' : '#E4DCCB', side: THREE.DoubleSide });   // (stills 3 of 62) unlit: in his red glow lit wings turned into red scraps of paper
       const wl = new THREE.Mesh(new THREE.PlaneGeometry(0.05, 0.035), wm), wr = wl.clone(); wl.position.x = -0.025; wr.position.x = 0.025; m.add(wl, wr, at(box(0.012, 0.012, 0.03, '#6E6658'), 0, 0, 0)); g.add(m); ms.push({ m, wl, wr, ph: i * 1.7, rr: R * (0.7 + 0.5 * ((i * 37) % 10) / 10), sp: 4.5 + (i % 3) }); }
     g.userData.update = t => ms.forEach(q => { const a = t * q.sp + q.ph; q.m.position.set(Math.cos(a) * q.rr, Math.sin(a * 1.7) * q.rr * 0.5, Math.sin(a) * q.rr); q.m.rotation.y = -a; const f = Math.sin(t * 40 + q.ph) * 0.9; q.wl.rotation.y = f; q.wr.rotation.y = -f; });
     g.userData.update(0); return g;
@@ -63,6 +63,8 @@ export const SOLEIL_PROPS = {
     const panel = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.04, bevelEnabled: false, curveSegments: 20 }), mat(C)); panel.position.set(0, P, D / 2 - 0.04); panel.castShadow = true; g.add(panel);
     g.add(at(box(0.04, H, D, C, { pivot: 'bottom', outline: 0.008 }), -W / 2 + 0.02, P, 0), at(box(0.04, H, D, C, { pivot: 'bottom', outline: 0.008 }), W / 2 - 0.02, P, 0),
       at(box(W, 0.04, D, C, { outline: 0.008 }), 0, P + H - 0.02, 0), at(box(W, 0.04, D, C, { outline: 0.008 }), 0, P + 0.02, 0));
+    // (stills 2 of 62) a dark back inside the box: open at the back, the sky showed through the hole round his face
+    g.add(at(box(W - 0.08, H - 0.08, 0.02, '#121815', { noGrain: true }), 0, P + H / 2, -D / 2 + 0.012));
     ys.forEach((y, i) => { const ring = new THREE.Mesh(new THREE.TorusGeometry(HR + 0.02, 0.022, 8, 28), new THREE.MeshLambertMaterial({ color: rc[i], emissive: rc[i], emissiveIntensity: 0.25 })); ring.position.set(0, P + y, D / 2 + 0.005); g.add(ring);
       const hood = new THREE.Mesh(new THREE.CylinderGeometry(HR + 0.05, HR + 0.05, 0.22, 20, 1, true, -PI / 2, PI), mat(C)); hood.material.side = THREE.DoubleSide; hood.rotation.x = PI / 2; hood.position.set(0, P + y + 0.01, D / 2 + 0.11); g.add(hood); });
     if (o.column) g.add(at(box(W * 0.9, P, 0.55, '#3C3F44', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.08), at(box(W * 0.94, 0.05, 0.6, '#2E3135', { outline: 0.006 }), 0, P - 0.02, -0.08));   // o.column: a cabinet under it (his body hides inside)
