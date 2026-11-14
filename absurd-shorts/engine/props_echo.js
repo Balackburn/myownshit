@@ -116,13 +116,68 @@ export const ECHO_PROPS = {
     const r0 = o.r ?? 1.6, g = grp(), rock = new THREE.Mesh(new THREE.CylinderGeometry(r0, r0 * 1.9, 3.0, 7, 2), mat('#8E8A84'));
     const pos = rock.geometry.attributes.position, rr = rng(o.seed ?? 5); for (let k = 0; k < pos.count; k++) if (pos.getY(k) < 1.4) { pos.setX(k, pos.getX(k) * (0.85 + 0.3 * rr())); pos.setZ(k, pos.getZ(k) * (0.85 + 0.3 * rr())); }
     rock.geometry.computeVertexNormals(); rock.position.y = -1.5; rock.receiveShadow = true; g.add(rock);
-    for (let i = 0; i < 5; i++) g.add(at(cyl(0.035, 0.035, 0.95, '#7A5A3C', 6, { pivot: 'bottom' }), -r0 * 0.7 + i * r0 * 0.35, 0, r0 * 0.82));
-    g.add(at(box(r0 * 1.5, 0.06, 0.06, '#8A6A45'), 0, 0.95, r0 * 0.82), at(box(r0 * 1.5, 0.05, 0.05, '#8A6A45'), 0, 0.55, r0 * 0.82));
+    if (o.rail !== false) {   // (pass 2) o.rail false: no railing (it stood between him and a side camera)
+      for (let i = 0; i < 5; i++) g.add(at(cyl(0.035, 0.035, 0.95, '#7A5A3C', 6, { pivot: 'bottom' }), -r0 * 0.7 + i * r0 * 0.35, 0, r0 * 0.82));
+      g.add(at(box(r0 * 1.5, 0.06, 0.06, '#8A6A45'), 0, 0.95, r0 * 0.82), at(box(r0 * 1.5, 0.05, 0.05, '#8A6A45'), 0, 0.55, r0 * 0.82)); }
+    if (o.sign === false) return g;   // (pass 2) o.sign false: no signpost (the prop summitSign stands where the camera reads it)
     const sign = canvasPlane(0.6, 0.3, (c, W, H) => { c.fillStyle = '#F4EBD8'; c.fillRect(0, 0, W, H); c.strokeStyle = '#7A5A3C'; c.lineWidth = W * 0.03; c.strokeRect(0, 0, W, H);
       c.fillStyle = '#2A2C30'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Math.round(H * 0.34)}px Arial`; c.fillText('SOMMET', W / 2, H * 0.36); c.font = `700 ${Math.round(H * 0.26)}px Arial`; c.fillText(o.alt ?? '2 040 m', W / 2, H * 0.72); }, { res: 256 });
     // (check) a sign on both faces: one double-sided plane read mirrored from behind
     sign.material.side = THREE.FrontSide; const back = sign.clone(); back.material = sign.material.clone(); back.material.side = THREE.FrontSide; back.rotation.y = PI;
     g.add(at(cyl(0.04, 0.04, 1.5, '#7A5A3C', 6, { pivot: 'bottom' }), r0 * 0.75, 0, -r0 * 0.3), at(sign, r0 * 0.75, 1.35, -r0 * 0.3 + 0.045), at(back, r0 * 0.75, 1.35, -r0 * 0.3 - 0.045));
+    return g;
+  },
+
+  // (pass 2) the « SOMMET » signpost on its own (pivot at the foot of the post, the plate faces +Z and reads from behind too): o.alt (« 2 040 m »),
+  // o.w (0.6) wide, o.post (1.5) high; placed where the camera reads it (on the rock it stood edge-on to the side camera or out of the frame)
+  summitSign(o) {
+    const w = o.w ?? 0.6, h = w * 0.5, post = o.post ?? 1.5, g = grp();
+    const sign = canvasPlane(w, h, (c, W, H) => { c.fillStyle = '#F4EBD8'; c.fillRect(0, 0, W, H); c.strokeStyle = '#7A5A3C'; c.lineWidth = W * 0.03; c.strokeRect(0, 0, W, H);
+      c.fillStyle = '#2A2C30'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Math.round(H * 0.34)}px Arial`; c.fillText('SOMMET', W / 2, H * 0.36); c.font = `700 ${Math.round(H * 0.26)}px Arial`; c.fillText(o.alt ?? '2 040 m', W / 2, H * 0.72); }, { res: 256 });
+    sign.material.side = THREE.FrontSide; const back = sign.clone(); back.material = sign.material.clone(); back.material.side = THREE.FrontSide; back.rotation.y = PI;
+    g.add(at(cyl(0.04, 0.04, post, '#7A5A3C', 6, { pivot: 'bottom' }), 0, 0, 0), at(sign, 0, post - h * 0.5 - 0.02, 0.045), at(back, 0, post - h * 0.5 - 0.02, -0.045));
+    return g;
+  },
+
+  // (pass 2) the mountain under the summit (pivot at its top: put it where the summitRock stands): a low-poly cone o.h (14) high, o.r (1.15 h)
+  // wide at its foot, grey rock on its upper part and grass below, its faces jittered; o.seed (critics: « a boulder on a flat meadow »)
+  summitPeak(o) {
+    const H = o.h ?? 14, R = o.r ?? H * 1.15, r = rng(o.seed ?? 31), g = grp(), seg = 8;
+    const part = (y0, y1, c) => {   // a frustum of the cone between depths y0 and y1 under the top
+      const ra = R * y0 / H, rb = R * y1 / H, geo = new THREE.CylinderGeometry(Math.max(0.01, ra), rb, y1 - y0, seg, 2, true); geo.translate(0, -(y0 + y1) / 2, 0);
+      const pos = geo.attributes.position; for (let k = 0; k < pos.count; k++) { const j = 0.88 + 0.24 * r(); pos.setX(k, pos.getX(k) * j); pos.setZ(k, pos.getZ(k) * j); }
+      geo.computeVertexNormals(); const m = new THREE.Mesh(geo, mat(c)); m.receiveShadow = true; m.rotation.y = (o.seed ?? 0) * 0.37; return m; };
+    g.add(part(1.2, H * 0.42, o.rock || '#8E8A84'), part(H * 0.42, H * 0.7, o.mid || '#8C9A70'), part(H * 0.7, H + 0.4, o.grass || '#7FA35E'));
+    return g;
+  },
+
+  // (pass 2) a river winding along the valley floor (pivot at its middle, on the ground; it runs along X): o.len (140), o.w (4), o.amp (6) and
+  // o.waves (2) of its bends, a pale bank either side
+  river(o) {
+    const L = o.len ?? 140, W = o.w ?? 4, A = o.amp ?? 6, N = o.waves ?? 2, n = 90, g = grp();
+    const strip = (w, c, y) => { const pos = [], idx = [];
+      for (let i = 0; i <= n; i++) { const x = -L / 2 + L * i / n, z = A * Math.sin(TAU * N * i / n + (o.phase ?? 0)), dz = A * TAU * N / L * Math.cos(TAU * N * i / n + (o.phase ?? 0)), k = 1 / Math.hypot(1, dz);
+        pos.push(x + dz * k * w / 2, y, z - k * w / 2, x - dz * k * w / 2, y, z + k * w / 2); if (i < n) { const a = 2 * i; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
+      const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setIndex(idx); geo.computeVertexNormals();
+      const m = new THREE.Mesh(geo, mat(c)); m.receiveShadow = true; return m; };
+    g.add(strip(W * 1.5, o.bank || '#D9CDA8', 0.02), strip(W, o.color || '#5FA8D8', 0.035));
+    return g;
+  },
+
+  // (pass 2) a hiking pole (pivot at the top of its grip, hanging down -Y): o.len (1.2), an alloy shaft, a black grip with a strap, a small basket
+  // near the tip
+  trekPole(o) {
+    const L = o.len ?? 1.2, g = grp();
+    g.add(at(cyl(0.022, 0.022, 0.16, '#2A2C30', 8), 0, -0.08, 0), at(cyl(0.011, 0.011, L - 0.16, o.color || '#2F7FC4', 6), 0, -0.16 - (L - 0.16) / 2, 0),
+          at(cyl(0.045, 0.045, 0.012, '#2A2C30', 10), 0, -L + 0.1, 0), at(cyl(0.006, 0.003, 0.05, '#9A9A9E', 6), 0, -L - 0.02, 0));
+    return g;
+  },
+
+  // (pass 2) a pitchfork (pivot at the middle of its handle, the tines up +Y): o.len (1.5) of wooden handle, a steel head with four tines
+  pitchfork(o) {
+    const L = o.len ?? 1.5, g = grp();
+    g.add(at(cyl(0.02, 0.022, L, '#9A7448', 7), 0, 0, 0), at(box(0.26, 0.04, 0.03, '#8E9094'), 0, L / 2 + 0.02, 0));
+    for (let i = 0; i < 4; i++) g.add(at(cyl(0.008, 0.004, 0.3, '#8E9094', 5), -0.11 + i * 0.0733, L / 2 + 0.19, 0));
     return g;
   },
 };
