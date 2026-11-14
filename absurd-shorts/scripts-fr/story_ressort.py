@@ -153,7 +153,7 @@ st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
             k(r(D6 - 0.12), toon={**HOLD6(1), 'sq': SQ, 'face': DEAD}, toonDur=0.06, toonEase='in')])],   # ...and the next squash
         props=[P('mug6', 'mug', pos=CUP6, ry=RY, opts={'color': '#FFFFFF'}), P('table6', 'bistroTable', pos=[r(C6[0] - 0.7), 0, r(C6[2] + 0.1)]),   # (pass 2) a white cup (teal on the teal window it vanished), a bistro table
                P('chair6', 'chair', pos=[r(C6[0] - 0.75), 0, r(C6[2] + 0.75)], ry=200)],   # the cup never moves
-        cams=[FC(0.0, [5.9, 1.05, r(C6[2] - 1.4)], [[C6[0], 2.25, C6[2]], [C6[0], 0.6, C6[2]], [CUP6[0], CUP6[1], CUP6[2]], [r(C6[0] - 0.7), 0.74, r(C6[2] + 0.4)]], top=0.06, bottom=0.8)])   # (pass 2) lower: the awning out of the top; his head out of the top when he is up
+        cams=[FC(0.0, [5.9, 1.05, r(C6[2] - 1.4)], [[C6[0], 2.5, C6[2]], [C6[0], 0.6, C6[2]], [r(C6[0] + 0.3), 1.8, r(C6[2] - 0.3)], [CUP6[0], CUP6[1], CUP6[2]], [r(C6[0] - 0.7), 0.74, r(C6[2] + 0.4)]], top=0.12, bottom=0.8)])   # (stills p2) his head in the frame when he is down (it was cut at the top)   # (pass 2) lower: the awning out of the top; his head out of the top when he is up
 st.cue('sfx:boing', 'S06', UP6, 0.25); st.cue('sfx:boing', 'S06', DOWN6, 0.15)
 
 # 7: the town hall declared him... From the side: he bounces whole in front of the counter, the clerk's red pen over the form; cut to the form from
@@ -176,7 +176,7 @@ st.shot('S07', 'mairie', setOpts=OFFICE, actors=[
             k(r(TICK7 - 0.04), toon={**PEN7(2, 0.85), 'face': {'lid': 0.4, 'gy': 0.6, 'brow': 0.4}}, toonDur=0.04, toonEase='in')])],   # ...OBJET VOLANT: tick
         props=[P('form7', 'formCheck', pos=FORM, rot=[round(-PI / 2, 4), 0, round(PI, 4)], opts={'w': 0.42, 'tickAt': TICK7}),
                P('pen7', 'marker', on={'actor': 'agent', 'hand': 'R'}, opts={'color': '#C8202A'})],   # (pass 2) her red pen
-        cams=[FC(0.0, [2.4, 1.45, -0.2], [[VIS[0], 3.6, VIS[2]], [VIS[0], 0.0, VIS[2]], [CLERK[0], 2.45, CLERK[2]], [FORM[0], 0.84, FORM[2]]], top=0.08, bottom=0.8),   # (pass 2) from the side: him bouncing whole, her pen over the form...
+        cams=[FC(0.0, [2.4, 1.45, -0.2], [[VIS[0], 3.75, VIS[2]], [VIS[0], 0.0, VIS[2]], [CLERK[0], 2.45, CLERK[2]], [FORM[0], 0.84, FORM[2]]], top=0.12, bottom=0.8),   # (pass 2) from the side: him bouncing whole, her pen over the form...
               cam(INS7, [FORM[0], 2.05, -1.3], [FORM[0], 2.03, -1.28], [FORM[0], 0.83, -0.9], [FORM[0], 0.83, -0.89], lens=42)])   # (pass 2) ...the form from higher: whole, OBJET VOLANT at 63 % of the height (at the bottom it sat in the caption band)
 st.cue('sfx:paper', 'S07', TICK7, 0.25)
 
@@ -250,7 +250,7 @@ st.shot('S10', 'mairie', setOpts=EXAMSET, actors=[
                P('shade10', 'lampShade', pos=[LAMP[0], r(LAMP[1] - 0.55 - 0.15), LAMP[2]], rot=[round(PI, 4), 0, 0], keys=[k(0.0, visible=False), k(HIT10, visible=True), k(HIT10, attach='pilote', joint='head', offset=[0.0, 0.5, 0.0], rot=[0.0, 0.0, 0.1])]),   # (stills 1) a drum shade with its flex: the cone read as a straw hat
                BURST('clonk10', [r(PIL[0] - 0.55), 2.55, r(PIL[2] - 0.3)], HIT10, 'CLONK !', 0.42),   # (pass 2) the hit named, like the BOING
                P('clip10', 'clipboardX', on={'actor': 'exam', 'hand': 'L', 'offset': [0.0, 0.05, 0.05]}, opts={'w': 0.26})],
-        cams=[FC(0.0, [-1.5, 1.5, -1.0], [[LAMP[0], 3.1, LAMP[2]], [PIL[0], 0.5, PIL[2]], [EXM[0], 2.3, EXM[2]], [r(PIL[0] - 0.8), 2.7, PIL[2]]], top=0.06, bottom=0.78)])   # (pass 2) the lamp and the CLONK in the frame
+        cams=[cam(0.0, [-1.55, 1.45, -1.25], [-1.5, 1.45, -1.2], [0.05, 1.85, 0.3], [0.05, 1.86, 0.3], lens=56)])   # (pass 2) the lamp and the CLONK in the frame; (stills p2) fixed: backed off, it went into a filing cabinet
 st.cue('clack', 'S10', HIT10, 0.4)
 
 # 11: ...three times. On the examiner's clipboard (EXAMEN DE PILOTE), three red crosses slash ESSAI 1, 2, 3, one after the other (RECALÉ card)
@@ -282,7 +282,7 @@ st.shot('S12', 'parisStreet', setOpts=STREET, look=CLEAR, actors=[
             k(r(STOP12 + 0.15), toon={'face': {'lid': 0.0, 'eye': 0.5, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.1)]),   # (pass 2) in front of us, following him up
         act('gamin', [1.3, 0, 4.6], -165, 'stand', 'happy', scale=0.62, keys=[*[k(r(0.03 + 0.2 * j), look=LOOKUP(0.03 + 0.2 * j)) for j in range(7)],
             k(r(STOP12 + 0.22), toon={'face': {'lid': 0.0, 'eye': 0.6, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.1)])],
-        cams=[FC(0.0, [0.3, 0.7, 7.4], [[AIR[0], r(AIR[1] + 2.5), AIR[2]], [0.5, 0.0, -6.0], [-0.9, 1.75, 4.4], [1.3, 1.25, 4.6], [-0.9, 0.3, 4.4]], top=0.08, bottom=0.84, level=False, lenses=range(28, 64))])   # (pass 2) low behind the two onlookers, him up the street
+        cams=[FC(0.0, [0.3, 0.7, 7.4], [[AIR[0], r(AIR[1] + 2.5), AIR[2]], [0.5, 0.0, -6.0], [-0.9, 1.75, 4.4], [1.3, 1.25, 4.6], [-0.9, 0.3, 4.4]], top=0.08, bottom=0.84, lenses=range(28, 64))])   # (pass 2) low behind the two onlookers, him up the street; (stills p2) level: backed off along the 3D line it went under the road (black frames)
 st.cue('sfx:boing', 'S12', 0.31, 0.2); st.cue('sfx:boing', 'S12', 0.65, 0.25); st.cue('sfx:squeak', 'S12', STOP12, 0.2)
 
 # 13: in mid-flight. From below, against the sky: he hangs there; he looks down (his eyes first) at the nothing under his feet, then at us, deadpan
@@ -316,7 +316,7 @@ st.shot('S14', 'parisStreet', setOpts=STREET, look=CLEAR, actors=[
         props=[P('nest14', 'twigNest', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, NEST_Y, 0.0]}, opts={'r': 0.3, 'layAt': LAY14, 'max': 3}, keys=[k(0.0, scale=0.001, dur=0.0), k(NEST14, scale=1.0, dur=0.12, ease='outBack')]),   # (pass 2) twigs, on his hair (a smooth dish floated over it)
                P('fth14', 'feather', pos=[r(HEAD14[0] + 0.3), r(HEAD14[1] + 0.3), r(HEAD14[2] + 0.2)], opts={'at': 0.3, 'fall': 1.6, 'dur': 2.0, 's': 1.2})],
         cams=[FC(0.0, [0.35, 12.6, 2.4], [[AIR[0], r(AIR[1] + 2.8), AIR[2]], [AIR[0], r(AIR[1] + 2.15), r(AIR[2] + 0.25)], [AIR[0], AIR[1], AIR[2]], [AIR[0], 0.0, 0.6], [1.4, 0.0, 2.2], [-1.2, 0.0, 2.6]], top=0.12, bottom=0.74, level=False, lenses=range(28, 60)),   # (pass 2) from above: him high over the street, the two tiny below...
-              FC(CUT14, [0.4, 11.4, 2.1], [[AIR[0], r(AIR[1] + 3.1), AIR[2]], [r(AIR[0] - 0.32), r(AIR[1] + 2.8), AIR[2]], [r(AIR[0] + 0.32), r(AIR[1] + 2.8), AIR[2]], [AIR[0], r(AIR[1] + 2.15), r(AIR[2] + 0.25)], [AIR[0], r(AIR[1] + 1.85), r(AIR[2] + 0.2)], [r(AIR[0] - 0.4), r(AIR[1] + 1.7), AIR[2]], [r(AIR[0] + 0.4), r(AIR[1] + 1.7), AIR[2]]],
+              FC(CUT14, [0.45, 10.9, 2.75], [[AIR[0], r(AIR[1] + 3.1), AIR[2]], [r(AIR[0] - 0.32), r(AIR[1] + 2.8), AIR[2]], [r(AIR[0] + 0.32), r(AIR[1] + 2.8), AIR[2]], [AIR[0], r(AIR[1] + 2.15), r(AIR[2] + 0.25)], [AIR[0], r(AIR[1] + 1.85), r(AIR[2] + 0.2)], [r(AIR[0] - 0.4), r(AIR[1] + 1.7), AIR[2]], [r(AIR[0] + 0.4), r(AIR[1] + 1.7), AIR[2]]],
                  top=0.14, bottom=0.74, level=False, lenses=range(28, 60))])   # ...closer from above: the nest, the eggs, his eyes
 st.cue('whoosh', 'S14', 0.15, 0.18, 0.3, 700, 2000); st.cue('whoosh', 'S14', 0.4, 0.14, 0.3, 700, 2000); st.cue('sfx:pop', 'S14', NEST14, 0.2)
 for t_ in LAY14: st.cue('sfx:pop', 'S14', t_, 0.12)

@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a pris un coup de soleil.", "hl": ["coup", "soleil."]},
+ {"id": "L02", "who": "N", "text": "Il est devenu rouge vif.", "hl": ["rouge", "vif."]},
+ {"id": "L03", "who": "N", "text": "La nuit, il éclaire tout le quartier.", "hl": ["nuit,", "quartier."]},
+ {"id": "L04", "who": "N", "text": "La mairie l'a installé comme feu rouge.", "hl": ["mairie", "feu", "rouge."]},
+ {"id": "L05", "who": "N", "text": "Les voitures s'arrêtent devant lui toute la journée.", "hl": ["voitures", "journée."]},
+ {"id": "L06", "who": "N", "text": "Hier, un camion l'a klaxonné.", "hl": ["camion", "klaxonné."]},
+ {"id": "L07", "who": "N", "text": "Il est devenu vert de peur.", "hl": ["vert", "peur."]},
+ {"id": "L08", "who": "N", "text": "Toutes les voitures sont passées.", "hl": ["Toutes", "passées."]},
+ {"id": "L09", "who": "N", "text": "La mairie l'a repeint en rouge.", "hl": ["repeint", "rouge."]}
+]
