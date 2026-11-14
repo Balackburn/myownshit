@@ -94,7 +94,8 @@ export const CAFE_PROPS = {
     g.userData.faceX = faceX;
     const puffs = [];
     // (stills 2 of 63) many small thin puffs: ten big opaque ones read as a ball rolling off the face
-    if (o.dust) for (let i = 0; i < 18; i++) { const p = new THREE.Mesh(new THREE.SphereGeometry(0.16, 8, 6), new THREE.MeshLambertMaterial({ color: '#CFC3AA', transparent: true, opacity: 0, depthWrite: false })); g.add(p); puffs.push(p); }
+    // (review 1 of 63) angular grey puffs, lit by the lamps: soft round ones read as lens bokeh
+    if (o.dust) for (let i = 0; i < 18; i++) { const p = new THREE.Mesh(new THREE.DodecahedronGeometry(0.17, 0), new THREE.MeshLambertMaterial({ color: i % 2 ? '#A49C90' : '#8E877C', flatShading: true, transparent: true, opacity: 0, depthWrite: false })); p.rotation.set(i, i * 2, 0); g.add(p); puffs.push(p); }
     g.userData.update = t => {
       const fxt = faceX(t); if (face) face.position.x = fxt;
       let litTo = Infinity; if (o.lit) { litTo = -Infinity; for (const [t0, x] of o.lit) if (t >= t0) litTo = x; }
@@ -102,7 +103,7 @@ export const CAFE_PROPS = {
       lamps.forEach(lm => { const on = lm.position.x <= litTo; lm.material.color.set(on ? '#FFE8A8' : '#3A3830'); });
       const active = (o.dust || []).some(([a, b]) => t >= a && t < b);
       puffs.forEach((p, i) => { const v = (t * 1.4 + i * 0.057) % 1; p.visible = active; if (!active) return; const fx = fxt - 0.25 - v * 1.6;
-        p.position.set(fx, 0.4 + hash(i) * 2.4 + v * 0.3, (hash(i + 4) - 0.5) * 3.6); p.scale.setScalar(0.5 + v * 1.8); p.material.opacity = 0.32 * (1 - v); });
+        p.position.set(fx, 0.4 + hash(i) * 2.4 + v * 0.3, (hash(i + 4) - 0.5) * 3.6); p.scale.setScalar(0.5 + v * 1.8); p.material.opacity = 0.62 * (1 - v); });
     };
     g.userData.update(0); return g;
   },
@@ -228,10 +229,19 @@ export const CAFE_PROPS = {
     const crack = canvasPlane(W * 0.78, 0.86, (c, Wd, Ht) => { c.clearRect(0, 0, Wd, Ht); c.strokeStyle = '#E8F2F8'; c.lineWidth = 3; const cx = Wd * 0.45, cy = Ht * 0.5;
       for (let i = 0; i < 9; i++) { let a = i / 9 * TAU + hash(i) * 0.4, x = cx, y = cy; c.beginPath(); c.moveTo(x, y); for (let k = 0; k < 5; k++) { a += (hash(i * 5 + k) - 0.5) * 0.6; x += Math.cos(a) * Wd * 0.09; y += Math.sin(a) * Ht * 0.12; c.lineTo(x, y); } c.stroke(); }
       c.beginPath(); c.arc(cx, cy, Ht * 0.12, 0, TAU); c.stroke(); }, { res: 256, transparent: true });
-    crack.rotation.y = PI / 2; crack.position.set(0.16, 1.52, 0); crack.visible = false; cab.add(crack); g.add(cab);
+    crack.rotation.y = PI / 2; crack.position.set(0.16, 1.52, 0); crack.visible = false; cab.add(crack);
+    // (review 1 of 63) seen from in front the folds were flat cream panels: once it crumples the cab face shows accordion pleats (bands shaded light and
+    // dark with zig-zag edges) and a sawtooth roof sticks up along its top
+    const pleat = canvasPlane(W * 0.98, H * 0.92, (c, Wd, Ht) => { c.clearRect(0, 0, Wd, Ht); const nb = 7, bw = Wd / nb;
+      for (let i = 0; i < nb; i++) { const x0 = i * bw, gr = c.createLinearGradient(x0, 0, x0 + bw, 0); gr.addColorStop(0, i % 2 ? 'rgba(40,40,46,0.55)' : 'rgba(255,255,255,0.35)'); gr.addColorStop(1, i % 2 ? 'rgba(255,255,255,0.3)' : 'rgba(40,40,46,0.5)');
+        c.fillStyle = gr; c.beginPath(); c.moveTo(x0, 0); for (let y = 0; y <= Ht; y += Ht / 10) c.lineTo(x0 + (Math.floor(y / (Ht / 10)) % 2 ? 6 : -6), y); c.lineTo(x0 + bw, Ht); c.lineTo(x0 + bw, 0); c.closePath(); c.fill();
+        c.strokeStyle = 'rgba(20,20,24,0.8)'; c.lineWidth = 3; c.beginPath(); c.moveTo(x0, 0); for (let y = 0; y <= Ht; y += Ht / 10) c.lineTo(x0 + (Math.floor(y / (Ht / 10)) % 2 ? 6 : -6), y); c.stroke(); } }, { res: 256, transparent: true });
+    pleat.rotation.y = PI / 2; pleat.position.set(0.15, H * 0.48, 0); pleat.visible = false; cab.add(pleat);
+    const saw = new THREE.Shape(); saw.moveTo(-W / 2, 0); for (let i = 0; i <= 10; i++) saw.lineTo(-W / 2 + i * W / 10, i % 2 ? 0.28 : 0.04); saw.lineTo(W / 2, 0); saw.lineTo(-W / 2, 0);
+    const roof = new THREE.Mesh(new THREE.ExtrudeGeometry(saw, { depth: 0.1, bevelEnabled: false }), mat(o.cab || '#E8E2D2')); roof.rotation.y = PI / 2; roof.position.set(0.0, H - 0.04, 0); roof.scale.y = 0.01; roof.visible = false; cab.add(roof); g.add(cab);
     g.userData.update = t => { let c = 0; const cr = o.crumple; if (cr && t >= cr[0]) c = ob((t - cr[0]) / Math.max(1e-3, cr[2] ?? 0.1));
       const K = cr ? Math.max(1, Math.round((cr[1] ?? 0.4) * n)) : 0, fold = o.fold ?? 0.3; let px = 0, pz = 0, ang = 0;
-      crack.visible = c > 0.3;
+      crack.visible = c > 0.3; pleat.visible = roof.visible = c > 0.15; pleat.material.opacity = clamp01(c); roof.scale.y = Math.max(0.01, clamp01(c));
       // (stills 1 of 63) seen from in front the folds hid behind him: the folded slices also bulge and pinch in turn (a corrugated roofline above his
       // shoulders), the cab buckles back and tips, one headlight drops out of its socket on a spring
       slices.forEach((s, i) => { const k = i < K ? c : 0, sx = Math.max(0.05, 1 - k * (1 - fold)), th = i < K ? (i % 2 ? -1 : 1) * 0.4 * Math.min(1.2, k) : 0;
@@ -270,10 +280,10 @@ export const CAFE_PROPS = {
     const pl = canvasPlane(2 * R, 2 * R, (c, Wd, Ht) => { c.clearRect(0, 0, Wd, Ht); const S = Wd / 2 / R; c.strokeStyle = '#1C1B1A'; c.lineCap = 'round';
       for (let i = 0; i < 10; i++) { let a = i / 10 * TAU + hash(i) * 0.5, rr = 0, x = Wd / 2, y = Ht / 2; const end = R * (0.55 + 0.45 * hash(i + 3));
         while (rr < end) { const nr = rr + 0.1 + hash(i * 7 + rr * 10) * 0.12; a += (hash(i * 13 + rr * 17) - 0.5) * 0.8; const nx = Wd / 2 + Math.cos(a) * nr * S, ny = Ht / 2 + Math.sin(a) * nr * S;
-          c.lineWidth = Math.max(1.5, 9 * (1 - nr / R)); c.beginPath(); c.moveTo(x, y); c.lineTo(nx, ny); c.stroke(); x = nx; y = ny; rr = nr; } } }, { res: 512, transparent: true });
+          c.lineWidth = Math.max(3.5, 18 * (1 - nr / R)); c.beginPath(); c.moveTo(x, y); c.lineTo(nx, ny); c.stroke(); x = nx; y = ny; rr = nr; } } }, { res: 512, transparent: true });   // (review 1 of 63) thick dark cracks (hairlines did not read)
     pl.rotation.x = -PI / 2; pl.position.y = 0.012; g.add(pl);
     const hole = new THREE.Mesh(new THREE.CircleGeometry(o.hole ?? 0.34, 20), new THREE.MeshBasicMaterial({ color: '#141312' })); hole.rotation.x = -PI / 2; hole.position.y = 0.016; g.add(hole);
-    const chunks = []; for (let i = 0; i < (o.chunks ?? 16); i++) { const ch = new THREE.Mesh(new THREE.DodecahedronGeometry(0.035 + hash(i + 20) * 0.05, 0), mat(i % 3 ? '#3E4046' : '#5A5C62')); g.add(ch); chunks.push(ch); }
+    const chunks = []; for (let i = 0; i < (o.chunks ?? 16); i++) { const ch = new THREE.Mesh(new THREE.BoxGeometry(0.09 + hash(i + 20) * 0.08, 0.04 + hash(i + 21) * 0.03, 0.07 + hash(i + 22) * 0.07), mat(i % 3 ? '#6A6C72' : '#82848A')); g.add(ch); chunks.push(ch); }   // (review 1 of 63) flat grey slabs of asphalt (dark balls read as black marbles)
     g.userData.update = t => { const u = clamp01((t - t0) / Math.max(1e-3, t1 - t0)), j = Math.floor(u * 4) / 4 + eo((u * 4) % 1) / 4, s = u >= 1 ? 1 : 0.12 + 0.88 * j;
       pl.scale.set(s, s, 1); hole.scale.setScalar(0.35 + 0.65 * s); pl.visible = hole.visible = t >= t0;
       const active = t >= t0 && t < t1 + 0.3; chunks.forEach((ch, i) => { ch.visible = active; if (!active) return; const v = ((t - t0) * 2.4 + hash(i + 30)) % 1, a = hash(i + 31) * TAU, sp = 0.5 + hash(i + 32) * 1.1;

@@ -34,6 +34,7 @@ export const HOQUET_PROPS = {
       c.beginPath(); for (let i = 0; i <= 2 * n; i++) { const a = i * PI / n, r = (i % 2 ? inr : 0.98) * (0.5 + 0.08 * rnd(i)); c.lineTo(cx + Math.cos(a) * r * W * 0.98, cy + Math.sin(a) * r * H * 0.98); }
       c.closePath(); c.fillStyle = '#FFE14A'; c.fill(); c.lineWidth = H * 0.05; c.strokeStyle = '#1C1C1E'; c.stroke();
       c.fillStyle = '#1C1C1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let px = H * 0.42; c.font = `900 ${px}px Arial`; const tw = c.measureText(txt).width; if (tw > W * fit) { px *= W * fit / tw; c.font = `900 ${px}px Arial`; }
+      if (o.bold) { c.lineJoin = 'round'; c.lineWidth = px * 0.2; c.strokeStyle = '#1C1C1E'; c.strokeText(txt, cx, cy + H * 0.02); c.fillStyle = o.ink || '#E8342A'; }   // (review 1 of 63) o.bold: coloured letters in a thick black outline (the series' PAF ! style; plain black type was thin at phone size)
       c.fillText(txt, cx, cy + H * 0.02); }, { res: 384, transparent: true });
     pl.material = new THREE.MeshBasicMaterial({ map: pl.material.map, transparent: true, alphaTest: 0.05, side: THREE.DoubleSide, toneMapped: false }); pl.userData.noAO = true;
     const inner = grp(pl), g = grp(inner), ats = list(o.at), hold = o.hold ?? 0.32, tilts = list(o.tilt ?? [0.18, -0.22, 0.1, -0.15]);
