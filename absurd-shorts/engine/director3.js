@@ -773,6 +773,26 @@ const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u -
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
 const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR', 'red', 'bags'];   // (pass 4 of 50) bags: under the eyes   // (cycle 9) red: the whole face warms toward red   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
+// (cycle 26) a blink in every hold: the face's own blinks come every 3.3 s, so most holds of a 1-2 s shot had none and a held face looked painted
+// on. A hold is 0.7 s or more with no face or expression key; when no blink of the cycle falls inside it, one comes 0.3-0.45 s into it (once
+// the new face has settled). Script holdBlink: 0 turns it off. Computed once per actor and shot.
+function holdBlinks(A, ph) {
+  if (A._holdBlinks) return A._holdBlinks;
+  const out = [], D = S.sc?.duration ?? 0;
+  if ((S.script.holdBlink ?? 1) && D > 0.7) {
+    const ts = [0];
+    for (const k of A.toonKeys || []) if (k.at > 0 && k.at < D && k.toon?.face) ts.push(k.at + (k.dur || 0));
+    for (const k of A.exprKeys || []) if (k.at > 0 && k.at < D) ts.push(k.at);
+    ts.sort((a, b) => a - b); ts.push(D);
+    const first = ((-ph % 3.3) + 3.3) % 3.3;
+    for (let i = 0; i + 1 < ts.length; i++) {
+      const a = ts[i], b = ts[i + 1]; if (b - a < 0.7) continue;
+      let has = false; for (let c = first; c < b; c += 3.3) if (c > a + 0.1 && c < b - 0.25) has = true;
+      if (!has) out.push(a + 0.3 + 0.15 * hash01(ph * 1.7 + i));
+    }
+  }
+  return (A._holdBlinks = out);
+}
 function rigFace(A, t, env, tp, pos, ry, sc) {
   const custom = S.script?.faces, ek = lastKey(A.exprKeys, t), pk = prevKey(A.exprKeys, ek), since = t - ek.at, ph = A.phase * 7 + (A.id ? A.id.length * 0.61 : 0), cfg = A.obj.userData.faceCfg || {};
   let st;
@@ -783,7 +803,8 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
   // blink: every 3.3 s (sometimes twice), and a quick one that winds up a strong reaction
   let lid = 0;
   // (pass 3 of 51) toon face.noBlink: 1: no blink of its own while it is keyed (the eyes stay open through a jerk; the blink is keyed after it)
-  if (!strong && (cfg.blink ?? 1) && !cf?.noBlink) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3)); }
+  if (!strong && (cfg.blink ?? 1) && !cf?.noBlink) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3));
+    for (const hb of holdBlinks(A, ph)) lid = Math.max(lid, blinkLid(t - hb)); }   // (cycle 26) the hold blinks
   if (RIG_STRONG.has(ek.expr) && pk && since < 0.1) lid = Math.max(lid, Math.sin(Math.PI * clamp01(since / 0.1)));
   if (cf?.lid) lid = Math.max(lid, cf.lid);   // toon face.lid 0..1: a keyed blink (a slow one: key it up and down over a few frames) or heavy lids
   // gaze: toward the look target before the head gets there, into a turn of the body before it starts, and idle darts

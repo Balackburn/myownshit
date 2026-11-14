@@ -98,7 +98,9 @@
    ],
    "sashW": 0.12,
    "hairColor": "#BDBDBD",
-   "suit": "#6B6E76",
+   "suit": "#A9A397",
+   "lapel": "#A9A397",
+   "tie": "#7A2333",
    "glasses": true,
    "build": {
     "width": 1.0,
@@ -1878,26 +1880,26 @@
     {
      "at": 0.0,
      "from": [
-      -3.799,
-      3.0,
-      -2.381
+      -0.637,
+      4.4,
+      -2.39
      ],
      "to": [
-      -3.799,
-      3.0,
-      -2.181
+      -0.637,
+      4.4,
+      -1.14
      ],
      "lookAt": [
-      5.98,
-      0.921,
-      -2.172
+      7.604,
+      -1.215,
+      -3.139
      ],
-     "lens": 56,
+     "lens": 55,
      "ease": "linear",
      "lookAt2": [
-      5.98,
-      0.921,
-      -1.972
+      7.604,
+      -1.215,
+      -1.889
      ]
     }
    ],
@@ -3764,16 +3766,16 @@
       7.6
      ],
      "lookAt": [
-      2.6,
+      3.0,
       0.6,
-      -10.0
+      -4.5
      ],
      "lens": 34,
      "ease": "linear",
      "lookAt2": [
-      2.6,
+      3.0,
       0.6,
-      -10.0
+      -4.5
      ]
     }
    ],
@@ -3821,7 +3823,7 @@
         },
         "face": {
          "lid": 0.45,
-         "gx": 0.55,
+         "gx": -0.55,
          "gy": -0.2
         },
         "scl": {
@@ -3847,7 +3849,7 @@
         },
         "face": {
          "lid": 0.08,
-         "gx": 0.25,
+         "gx": -0.25,
          "gy": -0.5
         },
         "scl": {
@@ -3874,7 +3876,7 @@
         },
         "face": {
          "lid": 0.08,
-         "gx": -0.2,
+         "gx": 0.2,
          "gy": -0.52
         },
         "scl": {
@@ -3901,7 +3903,7 @@
         },
         "face": {
          "lid": 0.08,
-         "gx": -0.55,
+         "gx": 0.55,
          "gy": -0.3
         },
         "scl": {
@@ -3989,7 +3991,7 @@
       "r": 1.3
      },
      "pos": [
-      -3.4,
+      9.5,
       7.0,
       24.0
      ],
@@ -3997,7 +3999,7 @@
       {
        "at": 0.0,
        "to": [
-        0.4,
+        7.4,
         16.5,
         24.0
        ],
@@ -4017,7 +4019,7 @@
       {
        "at": 0.516,
        "to": [
-        8.0,
+        0.9,
         15.0,
         24.0
        ],
@@ -4027,8 +4029,8 @@
       {
        "at": 0.775,
        "to": [
-        7.0,
-        10.0,
+        2.1,
+        8.5,
         24.0
        ],
        "dur": 0.258,
@@ -4233,7 +4235,7 @@
        "to": [
         4.3,
         1.42,
-        -0.12
+        -0.04
        ],
        "dur": 0.03,
        "ease": "out",
@@ -4258,7 +4260,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4296,7 +4300,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4333,7 +4339,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4370,7 +4378,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4407,7 +4417,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4444,7 +4456,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4481,7 +4495,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4518,7 +4534,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4555,7 +4573,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4592,7 +4612,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4629,7 +4651,9 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "eye": 0.75,
+         "eye": 1.1,
+         "expr": "shocked",
+         "exprW": 0.8,
          "pupilSize": -0.45,
          "brow": 1.0,
          "mouth": "clench",
@@ -4654,8 +4678,8 @@
         1.39,
         0.08
        ],
-       "dur": 0.06,
-       "ease": "out",
+       "dur": 0.14,
+       "ease": "inOut",
        "face": "keep"
       },
       {
@@ -8198,16 +8222,16 @@
       7.6
      ],
      "lookAt": [
-      2.6,
+      3.0,
       0.6,
-      -10.0
+      -4.5
      ],
      "lens": 34,
      "ease": "linear",
      "lookAt2": [
-      2.6,
+      3.0,
       0.6,
-      -10.0
+      -4.5
      ]
     },
     {

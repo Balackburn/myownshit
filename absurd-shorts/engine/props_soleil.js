@@ -99,7 +99,13 @@ export const SOLEIL_PROPS = {
   truck(o) {
     const C = o.color || '#2F6FB2', BX = o.box || '#ECE8DE', g = grp();
     const ws = o.front === false ? at(box(0.04, 0.85, 2.0, '#BFE3F0'), 3.56, 1.6, 0) : at(new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.85, 2.0), new THREE.MeshLambertMaterial({ color: '#CFEAF5', transparent: true, opacity: 0.28, depthWrite: false })), 3.56, 1.6, 0);   // (review 2 of 62) a see-through windscreen: the driver showed as a blank panel
-    g.add(at(box(1.9, 1.75, 2.3, C, { pivot: 'bottom', outline: 0.012 }), 2.6, 0.55, 0), ws, at(box(0.06, 0.55, 1.9, '#C9CED4'), 3.57, 0.85, 0),
+    // (final pass of 62) o.front: the cab is a shell open behind the windscreen (lower body, rear block, roof, two side posts, a dark back wall), so the
+    // driver shows through the glass (inside a solid cab he was hidden and the glass showed the blue face behind it)
+    if (o.front === false) g.add(at(box(1.9, 1.75, 2.3, C, { pivot: 'bottom', outline: 0.012 }), 2.6, 0.55, 0));
+    else g.add(at(box(1.9, 0.63, 2.3, C, { pivot: 'bottom', outline: 0.012 }), 2.6, 0.55, 0), at(box(1.3, 1.12, 2.3, C, { pivot: 'bottom', outline: 0.012 }), 2.3, 1.18, 0),
+      at(box(0.6, 0.27, 2.3, C, { pivot: 'bottom', outline: 0.01 }), 3.25, 2.03, 0), at(box(0.6, 0.85, 0.15, C, { pivot: 'bottom', outline: 0.008 }), 3.25, 1.18, -1.075),
+      at(box(0.6, 0.85, 0.15, C, { pivot: 'bottom', outline: 0.008 }), 3.25, 1.18, 1.075), at(box(0.02, 0.85, 2.0, '#2A2D33'), 2.96, 1.6, 0));
+    g.add(ws, at(box(0.06, 0.55, 1.9, '#C9CED4'), 3.57, 0.85, 0),
       at(box(4.6, 2.7, 2.4, BX, { pivot: 'bottom', outline: 0.014 }), -0.75, 0.6, 0), at(box(6.9, 0.22, 2.2, '#3C3F44'), 0.4, 0.45, 0));
     for (const x of [-2.4, -1.4, 2.9]) for (const z of [-1.08, 1.08]) { const w = cyl(0.48, 0.48, 0.32, '#22252A', 14); w.rotation.x = PI / 2; w.position.set(x, 0.48, z); g.add(w); }
     // (review 1 of 62) seen from the side it read as a blue wall: o.front (true): a cab face that reads from three-quarter front, a dark grille with
@@ -115,8 +121,8 @@ export const SOLEIL_PROPS = {
     // (review 2 of 62) the driver leans on the horn: o.honkAt (s), o.honkDur (0.6): his body tips forward, his raised arm pulls a cord down from the cab roof;
     // the chrome trumpets (a banded chrome texture, unlit so the white streak stays hot against the sky) flare, recoil and shiver, and sound rings fly
     // out of their bells for as long as the horn lasts
-    const drv = grp(at(box(0.3, 0.42, 0.3, '#3A3F4A'), 0, 0.21, 0), at(box(0.26, 0.24, 0.24, '#E0B48C'), 0.02, 0.57, 0)); drv.position.set(3.25, 1.41, -0.45); g.add(drv);
-    if (o.cabLight) { const cl = new THREE.PointLight(o.cabColor || '#FFE2B0', o.cabLight, 1.7, 1.4); cl.position.set(3.46, 2.12, -0.4); g.add(cl); }   // (review 3 of 62) o.cabLight (0: none): a warm light in the cab on the driver, o.cabColor (behind the windscreen he was a tan block)
+    const drv = grp(at(box(0.3, 0.42, 0.3, '#3A3F4A'), 0, 0.21, 0), at(box(0.26, 0.24, 0.24, '#E0B48C'), 0.02, 0.57, 0)); drv.position.set(3.25, 1.3, -0.45); g.add(drv);   // (final pass of 62) lower: his head under the cab roof
+    if (o.cabLight) { const cl = new THREE.PointLight(o.cabColor || '#FFE2B0', o.cabLight, 1.7, 1.4); cl.position.set(3.45, 1.9, -0.2); g.add(cl); }   // (review 3 of 62) o.cabLight (0: none): a warm light in the cab on the driver, o.cabColor (behind the windscreen he was a tan block)
     const arm = grp(at(box(0.08, 0.36, 0.08, '#3A3F4A'), 0, 0.18, 0), at(box(0.08, 0.08, 0.08, '#E0B48C'), 0, 0.38, 0)); arm.position.set(0.0, 0.36, 0.12); drv.add(arm);
     const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.4, 4), mat('#1C1C1C')); cord.position.set(3.25, 2.1, -0.33); g.add(cord);
     const cv = document.createElement('canvas'); cv.width = 64; cv.height = 8; const cx = cv.getContext('2d'), gr = cx.createLinearGradient(0, 0, 64, 0);

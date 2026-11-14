@@ -537,6 +537,21 @@ class Story:
             for a_ in list(sc_.get('actors', [])) + list(sc_.get('props', [])):
                 bad = sorted({round(k_['at'], 2) for k_ in a_.get('keys', []) if isinstance(k_.get('at'), (int, float)) and k_['at'] < -0.001})
                 if bad: print(f"  audit {sc_['id']}: {a_.get('id', '?')} has keys before the shot starts (t = {bad[:4]}): st.at() already gives the time in the shot")
+        # (cycle 26) a callback filmed like the first time with the same action reads as a freeze, not a joke (62: the queue at his red light, S11 from
+        # S06's camera, called « identical » by the critic): flag a camera within 0.8 m of an earlier shot's, aimed within 1.5 m of the same point,
+        # with a field of view within 6 degrees (the same frame can work for a callback when the action escalates; nearer, the light's back filled the frame)
+        try:
+            _seen = []
+            for sc_ in self.scenes:
+                for ci_, c_ in enumerate(sc_.get('cams', [])):
+                    _f, _l = c_.get('from'), c_.get('lookAt')
+                    if not (isinstance(_f, list) and isinstance(_l, list)): continue
+                    for sid_, cj_, f2_, l2_, ln2_ in _seen:
+                        if sid_ != sc_['id'] and math.dist(_f, f2_) < 0.8 and math.dist(_l, l2_) < 1.5 and abs(c_.get('lens', 44) - ln2_) < 6:
+                            print(f"  audit {sc_['id']} camera {ci_ + 1}: the same set-up as {sid_} camera {cj_ + 1}: a callback in the same frame must escalate the action (more, faster, bigger, inside the shot); otherwise change the angle or the size")
+                            break
+                    _seen.append((sc_['id'], ci_, _f, _l, c_.get('lens', 44)))
+        except (TypeError, ValueError): pass
         json.dump(self.cues, open(os.path.join(d, 'cues.json'), 'w')); open(os.path.join(d, 'cards.txt'), 'w').write(','.join(self.cards))
         cardT = []   # (cycle 13) the title-card times, for the key-pose probe (a gag's peak under the card)
         for c_ in self.cards:
