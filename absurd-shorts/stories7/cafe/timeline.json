@@ -1,0 +1,442 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a bu dix cafés d'affilée.",
+   "hl": [
+    "dix",
+    "cafés"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.952,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "bu",
+     "s": 0.619,
+     "e": 0.767
+    },
+    {
+     "w": "dix",
+     "s": 0.841,
+     "e": 0.989
+    },
+    {
+     "w": "cafés",
+     "s": 1.063,
+     "e": 1.359
+    },
+    {
+     "w": "d'affilée.",
+     "s": 1.396,
+     "e": 1.952
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il s'est mis à vibrer.",
+   "hl": [
+    "vibrer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L02.k.wav",
+   "file_start": 2.052,
+   "speech_start": 2.052,
+   "speech_end": 3.319,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.052,
+     "e": 2.126
+    },
+    {
+     "w": "s'est",
+     "s": 2.2,
+     "e": 2.348
+    },
+    {
+     "w": "mis",
+     "s": 2.422,
+     "e": 2.496
+    },
+    {
+     "w": "à",
+     "s": 2.533,
+     "e": 2.57
+    },
+    {
+     "w": "vibrer.",
+     "s": 2.607,
+     "e": 3.311
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Si vite qu'il passe à travers les murs.",
+   "hl": [
+    "travers",
+    "murs."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L03.k.wav",
+   "file_start": 3.419,
+   "speech_start": 3.419,
+   "speech_end": 5.271,
+   "words": [
+    {
+     "w": "Si",
+     "s": 3.419,
+     "e": 3.567
+    },
+    {
+     "w": "vite",
+     "s": 3.641,
+     "e": 3.789
+    },
+    {
+     "w": "qu'il",
+     "s": 3.826,
+     "e": 4.011
+    },
+    {
+     "w": "passe",
+     "s": 4.048,
+     "e": 4.234
+    },
+    {
+     "w": "à",
+     "s": 4.271,
+     "e": 4.308
+    },
+    {
+     "w": "travers",
+     "s": 4.345,
+     "e": 4.604
+    },
+    {
+     "w": "les",
+     "s": 4.678,
+     "e": 4.752
+    },
+    {
+     "w": "murs.",
+     "s": 4.851,
+     "e": 5.271
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La mairie l'a embauché comme marteau-piqueur.",
+   "hl": [
+    "mairie",
+    "marteau-piqueur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L04.k.wav",
+   "file_start": 5.371,
+   "speech_start": 5.371,
+   "speech_end": 7.445,
+   "words": [
+    {
+     "w": "La",
+     "s": 5.371,
+     "e": 5.445
+    },
+    {
+     "w": "mairie",
+     "s": 5.519,
+     "e": 5.741
+    },
+    {
+     "w": "l'a",
+     "s": 5.766,
+     "e": 5.815
+    },
+    {
+     "w": "embauché",
+     "s": 5.889,
+     "e": 6.26
+    },
+    {
+     "w": "comme",
+     "s": 6.334,
+     "e": 6.482
+    },
+    {
+     "w": "marteau-piqueur.",
+     "s": 6.556,
+     "e": 7.445
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il a creusé une ligne de métro en une nuit.",
+   "hl": [
+    "métro",
+    "nuit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L05.k.wav",
+   "file_start": 7.545,
+   "speech_start": 7.545,
+   "speech_end": 9.915,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.545,
+     "e": 7.619
+    },
+    {
+     "w": "a",
+     "s": 7.656,
+     "e": 7.693
+    },
+    {
+     "w": "creusé",
+     "s": 7.767,
+     "e": 8.026
+    },
+    {
+     "w": "une",
+     "s": 8.063,
+     "e": 8.137
+    },
+    {
+     "w": "ligne",
+     "s": 8.248,
+     "e": 8.36
+    },
+    {
+     "w": "de",
+     "s": 8.434,
+     "e": 8.508
+    },
+    {
+     "w": "métro",
+     "s": 8.545,
+     "e": 8.878
+    },
+    {
+     "w": "en",
+     "s": 8.952,
+     "e": 9.1
+    },
+    {
+     "w": "une",
+     "s": 9.174,
+     "e": 9.323
+    },
+    {
+     "w": "nuit.",
+     "s": 9.36,
+     "e": 9.915
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Hier, on lui a servi un déca.",
+   "hl": [
+    "déca."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L06.k.wav",
+   "file_start": 10.015,
+   "speech_start": 10.015,
+   "speech_end": 11.793,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 10.015,
+     "e": 10.534
+    },
+    {
+     "w": "on",
+     "s": 10.571,
+     "e": 10.608
+    },
+    {
+     "w": "lui",
+     "s": 10.645,
+     "e": 10.719
+    },
+    {
+     "w": "a",
+     "s": 10.756,
+     "e": 10.83
+    },
+    {
+     "w": "servi",
+     "s": 10.941,
+     "e": 11.089
+    },
+    {
+     "w": "un",
+     "s": 11.126,
+     "e": 11.2
+    },
+    {
+     "w": "déca.",
+     "s": 11.274,
+     "e": 11.793
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Il s'est arrêté net, en plein tunnel.",
+   "hl": [
+    "net,",
+    "tunnel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L07.k.wav",
+   "file_start": 11.893,
+   "speech_start": 11.893,
+   "speech_end": 13.967,
+   "words": [
+    {
+     "w": "Il",
+     "s": 11.893,
+     "e": 11.967
+    },
+    {
+     "w": "s'est",
+     "s": 12.041,
+     "e": 12.189
+    },
+    {
+     "w": "arrêté",
+     "s": 12.3,
+     "e": 12.486
+    },
+    {
+     "w": "net,",
+     "s": 12.634,
+     "e": 13.004
+    },
+    {
+     "w": "en",
+     "s": 13.078,
+     "e": 13.152
+    },
+    {
+     "w": "plein",
+     "s": 13.189,
+     "e": 13.3
+    },
+    {
+     "w": "tunnel.",
+     "s": 13.374,
+     "e": 13.967
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "La ligne est bloquée depuis.",
+   "hl": [
+    "bloquée"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L08.k.wav",
+   "file_start": 14.067,
+   "speech_start": 14.067,
+   "speech_end": 15.4,
+   "words": [
+    {
+     "w": "La",
+     "s": 14.067,
+     "e": 14.141
+    },
+    {
+     "w": "ligne",
+     "s": 14.215,
+     "e": 14.437
+    },
+    {
+     "w": "est",
+     "s": 14.474,
+     "e": 14.511
+    },
+    {
+     "w": "bloquée",
+     "s": 14.586,
+     "e": 14.808
+    },
+    {
+     "w": "depuis.",
+     "s": 14.882,
+     "e": 15.4
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les voyageurs lui apportent des cafés.",
+   "hl": [
+    "voyageurs",
+    "cafés."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/cafe/tts/L09.k.wav",
+   "file_start": 15.5,
+   "speech_start": 15.5,
+   "speech_end": 17.352,
+   "words": [
+    {
+     "w": "Les",
+     "s": 15.5,
+     "e": 15.574
+    },
+    {
+     "w": "voyageurs",
+     "s": 15.648,
+     "e": 16.093
+    },
+    {
+     "w": "lui",
+     "s": 16.118,
+     "e": 16.167
+    },
+    {
+     "w": "apportent",
+     "s": 16.241,
+     "e": 16.537
+    },
+    {
+     "w": "des",
+     "s": 16.611,
+     "e": 16.686
+    },
+    {
+     "w": "cafés.",
+     "s": 16.797,
+     "e": 17.352
+    }
+   ]
+  }
+ ],
+ "total": 18.19
+}

@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a bu dix cafés d'affilée.", "hl": ["dix", "cafés"]},
+ {"id": "L02", "who": "N", "text": "Il s'est mis à vibrer.", "hl": ["vibrer."]},
+ {"id": "L03", "who": "N", "text": "Si vite qu'il passe à travers les murs.", "hl": ["travers", "murs."]},
+ {"id": "L04", "who": "N", "text": "La mairie l'a embauché comme marteau-piqueur.", "hl": ["mairie", "marteau-piqueur."]},
+ {"id": "L05", "who": "N", "text": "Il a creusé une ligne de métro en une nuit.", "hl": ["métro", "nuit."]},
+ {"id": "L06", "who": "N", "text": "Hier, on lui a servi un déca.", "hl": ["déca."]},
+ {"id": "L07", "who": "N", "text": "Il s'est arrêté net, en plein tunnel.", "hl": ["net,", "tunnel."]},
+ {"id": "L08", "who": "N", "text": "La ligne est bloquée depuis.", "hl": ["bloquée"]},
+ {"id": "L09", "who": "N", "text": "Les voyageurs lui apportent des cafés.", "hl": ["voyageurs", "cafés."]}
+]

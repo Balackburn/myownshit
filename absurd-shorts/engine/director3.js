@@ -169,6 +169,7 @@ function setupScene(si, analyzing = false) {
     return prepActor(cfg, obj, sc, place);
   });
   S.actorById = Object.fromEntries(S.actors.map(a => [a.id, a]));
+  globalThis.__toonActors = S.actorById;   // (cycle 25) the rig's touch on another actor ('@id.joint') looks him up here
   // props
   // prop options ending in "At" (openAt, writeAt, closeAt, ...) accept scene time expressions ('M2:nom+0.2') or lists of them
   const optT = v => typeof v === 'string' ? T(v, sc) : Array.isArray(v) ? v.map(optT) : v;
@@ -571,6 +572,7 @@ function evalActor(A, tIn) {
     else if (ud.toon && (ud.toonCfg?.shift ?? S.script?.idleShift)) pose = idleShift(A, t, pose, ud.toonCfg?.shift ?? S.script.idleShift);
     applyHuman(A, pose, pos, ry, sc);
     const tp = ud.toon ? toonLayer(A, t, pc, pp, dt, BL, sc, ry) : null;
+    if (tp?.buzz) { const bz = tp.buzz, ph = A.phase || 0; A.obj.position.x += bz * (0.6 * Math.sin(t * 151 + ph) + 0.4 * Math.sin(t * 97 + 2 * ph)); A.obj.position.z += bz * (0.6 * Math.sin(t * 137 + 1.3 + ph) + 0.4 * Math.sin(t * 83 + ph)); A.obj.position.y += bz * 0.35 * Math.abs(Math.sin(t * 173 + ph)); }   // (cycle 25) toon channel buzz: the vibration
     if (ud.faceRig) { const fs = rigFace(A, t, env, tp, pos, ry, sc); ud.setFaceState(fs); if (S.dark > 0.02 || ud.glowOn || ud.silhouette) { ud.glowOn = (S.dark > 0.02 || !!ud.silhouette) && A.cfg?.darkEyes !== false; ud.setEyeGlow?.(fs, ud.glowOn ? (ud.silhouette ? 1 : S.dark) : 0, A.cfg?.darkEyes ?? S.sc.darkEyes ?? 1.3); } } else ud.setExpression?.(expr, blink);
     const fx = lastKey(A.fxKeys, t).fx; ud.setFx?.(fx, t);
     if (fx.shiver && ud.joints?.head) { ud.joints.head.rotation.z += 0.045 * Math.sin(t * 47); ud.joints.head.rotation.x += 0.02 * Math.sin(t * 61 + 1); }

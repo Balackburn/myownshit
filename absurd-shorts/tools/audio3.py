@@ -212,6 +212,21 @@ def sfx(name, seed=0):
         ph = np.cumsum(f) / SR; saw = (2 * (ph % 1) - 1) * (1 + 0.4 * np.sin(2 * np.pi * 9 * t))
         x = lp(saw.astype(np.float32), 1800) * 0.55 + bp(noise(d, seed), 1500, 6000) * 0.25 * np.clip((t - 0.45) / 0.1, 0, 1) * np.clip((1.3 - t) / 0.1, 0, 1)
         return (x * np.minimum(1, t / 0.05) * np.clip((d - t) / 0.2, 0, 1)).astype(np.float32)
+    if name == 'rattleShort':  # (story 63) the rattle cut to 0.45 s, faded out
+        x = sfx('rattle', seed)[:int(0.45 * SR)].copy(); x[-int(0.06 * SR):] *= np.linspace(1, 0, int(0.06 * SR)).astype(np.float32); return x
+    if name == 'rattle':  # (story 63) a jackhammer, a man vibrating: hard knocks at 24 Hz over a grinding hiss, 1.0 s
+        d = 1.0; n = int(d * SR); t = np.arange(n) / SR; x = np.zeros(n, np.float32); m = int(0.012 * SR); kn = bp(noise(0.012, seed), 600, 5000) * decay(m, 9)
+        for t0 in np.arange(0, d - 0.015, 1 / 24): j = int(t0 * SR); x[j:j + m] += kn[:min(m, n - j)] * (0.8 + 0.2 * r.random())
+        thump = (np.sin(2 * np.pi * 24 * t) > 0.6).astype(np.float32) * np.sin(2 * np.pi * 90 * t).astype(np.float32) * 0.25
+        return ((x + thump + bp(noise(d, seed + 1), 2000, 7000) * 0.06) * np.minimum(1, t / 0.03) * np.clip((d - t) / 0.08, 0, 1)).astype(np.float32)
+    if name == 'scratch':  # (story 63) a record scratch: the needle dragged back, then forward (zzzip-zip), 0.32 s
+        d = 0.32; t = np.arange(int(d * SR)) / SR; f = np.where(t < 0.18, 2600 - 1800 * t / 0.18, 800 + 2600 * (t - 0.18) / 0.14)
+        x = np.sin(np.cumsum(2 * np.pi * f / SR)) * bp(noise(d, seed), 400, 6000) * 3.0
+        return (lp(x.astype(np.float32), 5000) * np.minimum(1, t / 0.01) * np.clip((d - t) / 0.03, 0, 1) * 0.32).astype(np.float32)
+    if name == 'crunch':  # (story 63) sheet metal folding up: a dull thud under a quick run of creaks and clanks, 0.5 s
+        d = 0.5; n = int(d * SR); t = np.arange(n) / SR; x = (np.sin(2 * np.pi * (80 - 40 * t / d) * t) * np.exp(-t * 9) * 0.8).astype(np.float32); m = int(0.06 * SR)
+        for i in range(9): j = int((0.02 + 0.04 * i + 0.01 * r.random()) * SR); seg = bp(noise(0.06, seed + i), 800 + 300 * i, 6000) * decay(m, 7) * (0.7 - 0.05 * i); x[j:j + m] += seg[:min(m, n - j)]
+        return (x * 0.72).astype(np.float32)
     if name == 'heartbeat':  # two low thumps (lub-dub)
         t = np.arange(int(0.16 * SR)) / SR; th = (np.sin(2 * np.pi * (55 - 15 * t / 0.16) * t) * np.exp(-t * 22)).astype(np.float32)
         out = np.zeros(int(0.6 * SR), np.float32); out[:len(th)] += th; i0 = int(0.22 * SR); out[i0:i0 + len(th)] += th * 0.7; return out

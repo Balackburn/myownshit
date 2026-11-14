@@ -9,6 +9,8 @@
 //         bx and bz are the rotation of the far end (radians), with the signs of a joint's rotation.x / rotation.z: on the spine bx > 0
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
+//   buzz: m   (cycle 25, story 63) he vibrates: his whole body jitters that far round its place at about 24 Hz (three incommensurate sines, so no
+//         two frames repeat); under the shot's motion blur (shot blur [[t0, t1, shutter]], blurSamples 5) the samples spread into ghost copies
 //   earScale: 1..4   (cycle 24, story 60) both ears grow, their flat face more than their thickness: an ear that turns into a dish to listen
 //         (final pass of 60) from 1.3 the ear is a dish instead: a bowl the colour of the skin opening out and forward, a dark inner cup, a rim and a fold
 //         inside it, its radius 0.05 m times earScale (at 4 it is wider than the head); under 1 the box ear shrinks (an undershoot on the way back)
@@ -42,6 +44,9 @@
 //         scaled head counts in unscaled metres), or on his face: ['face', across (-0.5..0.5, + = his left), up (0 = chin .. 1 = top of the skull; under the
 //         nose: 0.31, the mouth: 0.23, an eye: 0.62), metres in front of the face, w, tip]. The hand follows the head wherever the spine and the neck take it
 //         both take one more value, [px, py, pz]: where the elbow goes, a direction in the frame of the chest (default: low, a little out and back)
+//         (cycle 25) touch: ['@id.joint', x, y, z, w, tip]: a point in the frame of another actor's joint ('@mec.torso', '@mec.head': the joint's own units):
+//         the hand lands on him and stays on him when he moves (a slap on a chest that squashes, a ticket on a forehead knocked back, a hand on a
+//         shoulder), at most a frame late when he is worked out after the hand's owner
 //   face: { pop: 0..1 (eyes out on stalks; euro: 1 puts a euro sign on them), pupil: 0.3..1.6, eyeScale, popLen, jaw: 0..1 (the lower face stretches down, jawLen in head
 //           heights; (cycle 19) jawBlock 1: the chin drops as a block below a dark open mouth instead), tongue: 0..1 (tongueLen in m; tongueYaw / tongueDip: blown aside), steam: 0..1 (ears; steamInk: 1: inked, opaque puffs), bump: 0..1 (a lump on the skull), stars: 0..1 (circling the head),
 //           (cycle 20) starsScale (1) / starsY (m): bigger stars on a wider ring, lower (at eye level: -0.25),
@@ -380,6 +385,7 @@ export function toonUpgrade(obj) {
         let rc = tp.reach;
         if (tp.touch) { rc = { ...(rc || {}) }; for (const sd of ['L', 'R']) { const q = tp.touch[sd]; if (!q) continue;
           if (q[0] === 'face') { if (!hm || !dim) continue; hm.updateWorldMatrix(true, false); _T.set(dim.cx + q[1] * dim.hw, dim.y0 + q[2] * dim.hh, dim.z1 + q[3] / (hm.getWorldScale(_X).z || 1)); hm.localToWorld(_T); }   // on the face: across (-0.5..0.5), up from the chin (0..1), metres in front
+          else if (q[0][0] === '@') { const [aid, jn] = q[0].slice(1).split('.'), j2 = globalThis.__toonActors?.[aid]?.obj?.userData?.joints?.[jn || 'head']; if (!j2) continue; j2.updateWorldMatrix(true, false); _T.set(q[1], q[2], q[3]); j2.localToWorld(_T); }   // (cycle 25) a point on another actor
           else { const j = J[q[0]]; if (!j) continue; j.updateWorldMatrix(true, false); _T.set(q[1], q[2], q[3]); j.localToWorld(_T); }
           rc[sd] = [_T.x, _T.y, _T.z, q[4] ?? 1, q[5] || 0, q[6] || null]; } }
         b = solveReach(rc, b, tp.hose || 0); first = 2;
@@ -413,6 +419,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
   if (a.earScale != null || b.earScale != null) out.earScale = L(a.earScale ?? 1, b.earScale ?? 1);   // (cycle 24)
+  if (a.buzz != null || b.buzz != null) out.buzz = L(a.buzz ?? 0, b.buzz ?? 0);   // (cycle 25) the vibration's amplitude
   if (a.skin || b.skin) { const x = a.skin || { ...b.skin, k: 0, glow: 0 }, y = b.skin || { ...a.skin, k: 0, glow: 0 }, ca = new THREE.Color(x.color || '#FFFFFF'), cb = new THREE.Color(y.color || '#FFFFFF');   // (cycle 24) the colour slides from one to the other
     out.skin = { color: '#' + ca.lerp(cb, w).getHexString(), k: L(x.k ?? 1, y.k ?? 1), glow: L(x.glow || 0, y.glow || 0), fill: L(x.fill ?? 1, y.fill ?? 1) }; }
   if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
@@ -450,6 +457,7 @@ export function addToon(a = {}, b = {}) {
   if (b.pin) out.pin = b.pin;   // (cycle 17)
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.earScale != null) out.earScale = (a.earScale ?? 1) * b.earScale;   // (cycle 24) a layer scales the ears again
+  if (b.buzz != null) out.buzz = (a.buzz ?? 0) + b.buzz;   // (cycle 25)
   if (b.skin) out.skin = b.skin;   // (cycle 24)
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };

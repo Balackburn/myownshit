@@ -2317,3 +2317,50 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - La lampe suspendue a une douille au bout du fil.
     - La coche du formulaire est plus grasse.
     - Les immeubles de la rue font 13,04 m pour un pas de 13 m : à 12,6 m, une fente de ciel montait entre deux blocs.
+
+## Cycle 25
+
+- Analyse (cinq faiblesses retenues des revues 3 de 60 et 2 de 61 et du brouillon 1 de 62) :
+  - Les contacts entre deux personnages se décollaient (61 : l'autocollant tombait sur sa tête quand il était écrasé ; 60 : la paume du
+    gendarme à côté de l'avis) : une main posée sur un autre personnage doit le suivre, même s'il bouge.
+  - La vitesse n'avait qu'un langage, les traînées des membres : rien pour un corps qui tremble sur place.
+  - Une matière qui reçoit un choc ne réagissait pas (murs, chaussée) : le gag Looney Tunes vient souvent du décor qui se déforme.
+  - Les décors étroits (tunnel, cabine) poussaient vers des objectifs de 80° : allonger le décor ou filmer dans son axe plutôt qu'élargir.
+  - Les tenues figées de plus d'une demi-seconde reviennent à chaque brouillon (62 : S01, S05, S09) : lire l'audit avant de lancer.
+- Outils :
+  - Canal `buzz` du rig (m) : tout le corps tremble autour de sa place à environ 24 Hz (trois sinus incommensurables, jamais deux images
+    pareilles) ; avec le flou de bougé du plan (`blur` [[t0, t1, obturation]], `blurSamples` 5), les échantillons deviennent des copies
+    fantômes.
+  - Main posée sur un autre personnage : `touch` ['@id.articulation', x, y, z, poids, bout] ; la main reste sur lui quand il bouge
+    (poignée de main qui transmet la vibration, mains sur les épaules d'un homme-outil, gobelet tenu à ses lèvres).
+  - `props_cafe.js` : tour de tasses vides qui grandit et tremble (`cupTower`, `rattle`), tasse DÉCA, comptoir en zinc, mur en gelée qui
+    ondule en anneaux autour d'un point de passage (`jellyWall`, tableau et papier peints dessus, donc ils ondulent aussi), chaussée qui
+    se fend avec éclats (`roadCracks`), tunnel de métro avec front de taille qui recule, lampes qui s'allument derrière lui, poussière et
+    bout fermé (`metroTunnel`), coupe de terrain façon dessin animé (`groundCut` : strates, tunnel creusé, rue, façades, ciel qui passe de
+    la nuit à l'aube, lune, soleil), avant de rame qui se plie en accordéon (`metroNose`), panneau qui compte les minutes
+    (`departureBoard`), plateau de serveur, caillou, bloc simple (`slab`).
+  - Sons (tools/audio3.py, ajouts) : `rattle` et `rattleShort` (marteau-piqueur, homme qui vibre), `scratch` (disque rayé), `crunch`
+    (tôle qui se plie).
+- 63 « Le café » :
+  - Même type d'histoire que la série (« ce mec » et une chaîne de conséquences absurdes, une institution qui pousse la logique), structure
+    du skill inchangée ; voix de 18,2 s, douze plans.
+  - Gags qui passent par le rig (au moins cinq) : la tour de dix tasses qui grandit à côté de sa tête pendant que ses yeux s'ouvrent et
+    ses cheveux montent d'un cran par tasse ; la vibration et ses copies fantômes, dents qui claquent ; la sortie du mur en gelée et les yeux
+    qui sortent de la vieille dame ; la poignée de main du maire qui remonte son bras (cheveux dressés, cravate qui flotte, dents qui
+    claquent) ; l'ouvrier qui le tient comme un marteau-piqueur pendant qu'il s'enfonce dans la chaussée ; l'arrêt net (les fantômes se
+    rassemblent, les cheveux retombent, disque rayé, caillou sur le casque) ; la rame qui se plie contre son dos sans qu'il bouge ; les
+    cous des voyageurs qui s'étirent vers le tunnel ; la paupière qui tressaute au dernier gobelet.
+  - Décisions :
+    - Pas de mur crevé en silhouette (déjà servi dans 46) : il traverse sans trou, le mur ondule.
+    - Pas de toile d'araignée ni de barbe pour « depuis » (déjà servi) : le panneau qui compte les minutes jusqu'aux milliers et les cous
+      tendus.
+    - Le marteau-piqueur : debout, tenu aux épaules par un ouvrier, plutôt que tête en bas (il aurait fallu des mains à 2,4 m de haut).
+    - Les plans du tunnel regardent dans l'axe (un plan à deux en travers d'un tunnel de 4,8 m ne tient pas dans une image verticale), et
+      le front de taille est reculé de 2,2 m pour garder des objectifs sous 60° quand la caméra regarde en arrière.
+- 60 « L'écho » : **livrée** (1080 × 1920, 17,97 s, −16,0 LUFS, crête −3,3 dBFS, contrôles HyperFrames sans erreur, un avertissement de
+  contraste ; aucune image grise). Huit lignes ajoutées au catalogue.
+  - Blocage : le premier rendu HyperFrames a échoué faute de place disque (0,7 Go libres). Contournement : cache d'extraction d'images
+    HyperFrames vidé (2 Go regagnés), rendu relancé à partir de la couche 3D déjà calculée. La suppression des images de contrôle des
+    histoires livrées a été refusée : elles restent.
+- 62 « Le coup de soleil » : brouillon 1 rendu (526 images, aucune image grise ; trois tenues figées de 0,5 à 0,7 s en S01, S05 et S09, à
+  animer à la passe 2). Revue 1 en cours.

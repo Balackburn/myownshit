@@ -1390,7 +1390,8 @@ Object.assign(S, {
     // (a camera that looked up saw a pale void over the walls and the lamp hung from nothing); o.posters [{ text, x, y, w, h, bg, fg }]: boards on the
     // back wall; o.window { x, y, w, h }: a window in the back wall, sky behind the panes (another institution's room must not be the same brown box)
     if (o.ceiling) { const ch = o.ceiling === true ? 3.6 : +o.ceiling, fz = o.front ?? 14, bz = o.back ?? -2.6;
-      g.add(at(box(10.4, 0.12, fz - bz + 0.4, o.ceilingColor || '#F3EFE7'), 0, ch + 0.06, (fz + bz) / 2), at(box(10.0, 0.1, 0.1, o.trim || '#7A5A3C'), 0, ch - 0.05, bz + 0.06));
+      const ceil = at(box(10.4, 0.12, fz - bz + 0.4, o.ceilingColor || '#F3EFE7'), 0, ch + 0.06, (fz + bz) / 2); ceil.castShadow = false;   // (stills 3 of 61) no shadow: casting one it put the whole office in the dark
+      g.add(ceil, at(box(10.0, 0.1, 0.1, o.trim || '#7A5A3C'), 0, ch - 0.05, bz + 0.06));
       if (o.rose !== false) g.add(at(cyl(0.2, 0.25, 0.05, o.roseColor || '#E9E3D6', 18), o.roseX ?? 0, ch - 0.025, o.roseZ ?? 0)); }
     for (const q of o.posters || []) { const pw = q.w ?? 0.6, ph = q.h ?? 0.8, lb = label(q.text || '', pw, ph, { bg: q.bg || '#1B3A6B', fg: q.fg || '#F4F1E8', wrap: true });
       lb.position.set(q.x ?? 0, q.y ?? 2.0, (o.back ?? -2.6) + 0.05); g.add(lb, at(box(pw + 0.06, ph + 0.06, 0.03, q.frame || '#D9D2C2'), q.x ?? 0, q.y ?? 2.0, (o.back ?? -2.6) + 0.03)); }
