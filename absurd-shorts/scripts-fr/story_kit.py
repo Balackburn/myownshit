@@ -109,6 +109,19 @@ def fitBack(frm, points, step=0.25, most=14.0, level=True, inside=None, **kw):
     return frm, None, None
 
 
+def hops(t0, pts, peaks, dt, sq=(1.22, 0.76, 1.22), st=(0.84, 1.22, 0.84), y0=0.0):
+    """(cycle 23, story 61) bounces through ground points pts [[x, z], ...] from t0, dt seconds a bounce, one peak height (m) per bounce: returns
+    (position keys, toon keys) for an actor: up on an ease-out, down on an ease-in (a parabola's timing: slow at the top), a stretch on each take-off,
+    round at the top, a two-frame squash on each landing. The toon keys are whole states: an actor that also holds something passes it in after."""
+    keys, toon = [], []
+    for i in range(len(pts) - 1):
+        a, b = pts[i], pts[i + 1]; t = round(t0 + dt * i, 3); m = [round((a[0] + b[0]) / 2, 3), round(y0 + peaks[i], 3), round((a[1] + b[1]) / 2, 3)]
+        keys += [k(t, to=m, dur=round(dt / 2, 3), ease='out', face='keep'), k(round(t + dt / 2, 3), to=[b[0], y0, b[1]], dur=round(dt / 2, 3), ease='in', face='keep')]
+        toon += [k(t, toon={'sq': list(st), 'hairUp': 0.6}, toonDur=0.04, toonEase='out'), k(round(t + dt * 0.3, 3), toon={'sq': [1.0, 1.0, 1.0], 'hairUp': 0.3}, toonDur=0.06),
+                 k(round(t + dt - 0.03, 3), toon={'sq': list(sq), 'hairUp': 0.0}, toonDur=0.03, toonEase='in')]
+    return keys, toon
+
+
 def react(t0, s=1.0, keep=None, look=None, kind='startle'):
     """(cycle 10) A bystander's reaction to a loud beat at t0 (the reviews: "the pound man keeps the same pose through the clack and the jump"),
     as keys to add to a secondary actor. kind 'startle': a two-frame squash, then a jump of the shoulders with the eyes popping and the hair up,

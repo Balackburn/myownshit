@@ -34,16 +34,7 @@ BURST = lambda pid, pos, at_, text, w=0.5: P(pid, 'hicBurst', pos=pos, face='cam
 STREET = {'eiffelStyle': 'v2', 'clear': [-6.0, 6.0]}                       # no tree or lamp on the right pavement around him
 ME = [7.2, 0, 0.0]; RY = -90                                             # on the right pavement, facing the road (-X); his left is +Z
 SQ = [1.22, 0.76, 1.22]; ST = [0.84, 1.22, 0.84]                          # a landing squash, a take-off stretch
-def HOPS(t0, pts, peak, dt, land=True):
-    """bounces through ground points pts [[x, z], ...] starting at t0, dt seconds a bounce, peaks [m] per bounce: position keys and the squash and
-    stretch at each contact (squash two frames on landing, stretch on take-off, round at the top)"""
-    keys, toon = [], []
-    for i in range(len(pts) - 1):
-        a, b = pts[i], pts[i + 1]; t = r(t0 + dt * i); m = [r((a[0] + b[0]) / 2), peak[i], r((a[1] + b[1]) / 2)]
-        keys += [k(t, to=m, dur=r(dt / 2), ease='out', face='keep'), k(r(t + dt / 2), to=[b[0], 0, b[1]], dur=r(dt / 2), ease='in', face='keep')]
-        toon += [k(t, toon={'sq': ST, 'hairUp': 0.6}, toonDur=0.04, toonEase='out'), k(r(t + dt * 0.3), toon={'sq': [1.0, 1.0, 1.0], 'hairUp': 0.3}, toonDur=0.06),
-                 k(r(t + dt - 0.03), toon={'sq': SQ, 'hairUp': 0.0}, toonDur=0.03, toonEase='in')]
-    return keys, toon
+HOPS = lambda t0, pts, peak, dt: hops(t0, pts, peak, dt, SQ, ST)          # (cycle 23) the bounces: story_kit.hops
 
 # 1: the hook. A Paris pavement: he walks up to a bench and sits down on it, deadpan, settling
 D1 = st.dur('S01')

@@ -2120,3 +2120,21 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   saturation). Revues 6,0/6,0 → 7,0/6,5 → 7,2/7,0, passe finale contrôlée en images. Décision (avertissement « dernière ligne lue
   1,40 s » sur DEDANS) : gardée telle quelle ; un seul mot reste lisible en 1,4 s, et l'allonger demandait de refaire tout le rendu 3D.
   Sept lignes ajoutées au catalogue.
+
+## Cycle 23
+
+- Analyse (cinq faiblesses retenues des revues 1 de 59 et 60 et des images de contrôle) : la tête-boîte filmée de profil n'a pas de visage
+  (le profil « pour la mâchoire » ou « pour les tiges » se lit comme l'arrière de la tête) : rester de trois quarts, ou tourner le
+  personnage vers nous (`yaw`) au moment clé ; les onomatopées posées loin du point d'impact font croire que c'est le frappeur qui est
+  frappé : les poser là où la main touche ; les témoins anonymes (randonneur sans sac, fermier sans casquette) : chaque figurant porte un
+  accessoire qui dit qui il est ; les pièges silencieux du moteur (nuit éclairée comme le jour en look naturel, crêpe sous le trottoir,
+  chapeau inconnu ignoré, oreilles en radians) : vérifier en image de contrôle chaque nouveau canal ou réglage avant le brouillon ; l'objet
+  du gag qui quitte le cadre en un tiers de seconde (le mot qui s'envole) : couper sur un plan qui le suit.
+- Outils : `story_kit.hops()` (rebonds le long d'un chemin : montée en sortie lente, descente en entrée lente, étirement au décollage,
+  écrasement de deux images à l'atterrissage) ; bonnet d'aviateur (`'aviator'` dans `HATS`, lunettes relevées sur le front) ;
+  `props_ressort.js` : ressort qui jaillit d'un siège et vibre (`springCoil`), autocollant d'immatriculation (`regSticker`), formulaire où
+  une coche rouge se trace (`formCheck`), planchette d'examen où trois croix rouges barrent les essais (`clipboardX`), abat-jour qui
+  coiffe une tête (`lampShade`).
+- 61 « Le ressort » : voix (16,5 s), script de quatorze plans. Décision : le budget de réactions reste (pas d'yeux sur tiges dans cet
+  épisode : la prise du ressort fait sauter les yeux grand ouverts, le reste passe par l'écrasement, l'étirement et les rebonds) ;
+  l'épisode réutilise la girouette de 59 comme décor de toit, sans son gag. Images de contrôle en rendu.
