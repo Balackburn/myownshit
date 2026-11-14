@@ -90,3 +90,20 @@ npx --yes hyperframes@0.9.13 render -o renders/<story>.mp4 --fps 30
 - `mix.py` trie les bornes de la bande d'un `whoosh` (une bande écrite de l'aigu vers le grave faisait échouer tout le mix).
 - Après chaque correctif d'un script d'histoire : `python3 $SP/tools/lint_comments.py scripts-fr/story_X.py` (un commentaire collé au milieu
   d'une ligne avale la suite de la ligne sans erreur de syntaxe).
+
+## Publication sur TikTok (après chaque livraison)
+
+- Outil : `python3 tools/tiktok_publish.py` (depuis `absurd-shorts/`). Il passe par l'API officielle de publication de TikTok (Content Posting
+  API, publication directe), jamais par l'identifiant et le mot de passe du compte. Les robots de connexion web vont contre les conditions de
+  TikTok et butent sur les captchas.
+- Le jeton d'accès est un secret réseau de l'environnement pour `open.tiktokapis.com` : le proxy l'ajoute aux requêtes. Il n'est jamais
+  écrit dans un fichier, un commit, une variable d'environnement ou ce skill. Il dure 24 heures et doit donc être renouvelé dans les
+  réglages de l'environnement.
+- Ordre : `--list` (inventaire local, sans réseau), `--check` (ce qui manque sur le compte, rien n'est publié), puis la publication de tout ce
+  qui manque, du plus ancien au plus récent.
+- Chaque publication porte la mention « contenu généré par IA » (`is_aigc`), le titre et quelques mots-dièse en français. Une pause de
+  75 s sépare deux envois. Le registre `stories7/tiktok_published.json` garde ce qui est parti ; une erreur de plafond journalier arrête
+  l'envoi et le suivant reprend là.
+- Restent exclus : la réplique de la tornade et les remakes de vidéos d'autres personnes (projets 01 à 03), ainsi que les doublons de rendu.
+- Tant que TikTok n'a pas audité l'application du développeur, l'API ne publie qu'en privé (`SELF_ONLY`) ; l'outil choisit « public » dès
+  que le compte le permet.
