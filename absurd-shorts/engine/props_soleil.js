@@ -116,6 +116,7 @@ export const SOLEIL_PROPS = {
     // the chrome trumpets (a banded chrome texture, unlit so the white streak stays hot against the sky) flare, recoil and shiver, and sound rings fly
     // out of their bells for as long as the horn lasts
     const drv = grp(at(box(0.3, 0.42, 0.3, '#3A3F4A'), 0, 0.21, 0), at(box(0.26, 0.24, 0.24, '#E0B48C'), 0.02, 0.57, 0)); drv.position.set(3.25, 1.41, -0.45); g.add(drv);
+    if (o.cabLight) { const cl = new THREE.PointLight(o.cabColor || '#FFE2B0', o.cabLight, 1.7, 1.4); cl.position.set(3.46, 2.12, -0.4); g.add(cl); }   // (review 3 of 62) o.cabLight (0: none): a warm light in the cab on the driver, o.cabColor (behind the windscreen he was a tan block)
     const arm = grp(at(box(0.08, 0.36, 0.08, '#3A3F4A'), 0, 0.18, 0), at(box(0.08, 0.08, 0.08, '#E0B48C'), 0, 0.38, 0)); arm.position.set(0.0, 0.36, 0.12); drv.add(arm);
     const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.4, 4), mat('#1C1C1C')); cord.position.set(3.25, 2.1, -0.33); g.add(cord);
     const cv = document.createElement('canvas'); cv.width = 64; cv.height = 8; const cx = cv.getContext('2d'), gr = cx.createLinearGradient(0, 0, 64, 0);

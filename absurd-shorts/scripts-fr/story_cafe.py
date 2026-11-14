@@ -48,7 +48,7 @@ ME1 = [8.3, 0, -20.0]; RY1 = -90                                         # his b
 TB1 = [8.12, 0, -19.36]                                                  # the table at his left (+Z)
 TOWER = [8.12, 0.745, -19.36]
 SIP = lambda: {'touch': {'L': ['face', 0.06, 0.22, 0.1, 1, 0.03]}, 'hands': {'L': 'grip'}}
-TS1 = 1.75                                                               # (review 1) the tower's scale: at 1.35 it ended level with his head; now well over his hair
+TS1 = 2.1                                                                # (review 1) the tower's scale: at 1.35 it ended level with his head; now well over his hair
 STACK = lambda i: {'reach': {'L': [TOWER[0], r(TOWER[1] + TS1 * 0.078 * (i + 1) + 0.08), r(TOWER[2] - 0.02), 1, 0.04]}, 'hands': {'L': 'grip'}}
 UP1 = lambda i: {'hairUp': r(0.1 * (i + 1)), 'face': {'expr': 'surprised', 'exprW': r(0.085 * (i + 1)), 'eye': r(0.05 * (i + 1)), 'pupil': r(1.0 - 0.065 * (i + 1)), 'brow': r(0.05 * (i + 1)), 'lid': 0.0}}   # (stills 2) the face opens a notch per cup
 K1 = []

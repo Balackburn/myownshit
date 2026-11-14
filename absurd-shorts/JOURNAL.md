@@ -2487,3 +2487,23 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
       - S11 : cous tendus à l'horizontale vers une entrée de tunnel visible.
       - S12 : la passagère accroupie au premier plan à gauche ; plan plus serré pour la fin, avec une reprise de quatre images de
         vibration avant le tic de la paupière.
+- Publication automatique sur TikTok (demande de l'utilisateur : publier toute vidéo absente du compte, en commençant par vérifier ce qui
+  manque).
+  - Décision : ni mot de passe ni nom d'utilisateur dans la conversation ou dans un fichier. La connexion passe par une clé enregistrée
+    comme secret réseau de l'environnement ; le proxy l'ajoute aux requêtes, les scripts n'envoient qu'un en-tête fictif.
+  - Premier outil : `tools/tiktok_publish.py`, par l'API officielle de publication directe.
+    - Il dresse l'inventaire des 52 histoires finies (10 à 61) ; la réplique, les reprises de vidéos d'autres auteurs et le doublon sont
+      exclus.
+    - Il tient un registre (`stories7/tiktok_published.json`).
+    - Chaque envoi porte l'étiquette « contenu généré par IA » et cinq mots-dièse français, avec une pause entre deux envois.
+  - Puis, à la demande de l'utilisateur, PostOnce à la place (dépôt postoncehq/tiktok-mcp, licence MIT, lu sans rien exécuter).
+    - Le serveur hébergé `https://postonce.to/mcp` est déclaré dans le `.mcp.json` du dépôt.
+    - Les huit skills du dépôt sont installés (postonce et les sept outils TikTok).
+    - Nouvel outil `tools/postonce_publish.py` : même inventaire, même registre ; il téléverse, publie, suit la publication, avec une clé
+      d'idempotence par histoire.
+  - Blocage : le serveur répond 401, faute de clé. L'utilisateur a refusé le formulaire de clé : pas de nouvelle demande.
+    - Il peut lever le blocage de deux façons : enregistrer sa clé PostOnce comme secret réseau de l'environnement (hôte postonce.to),
+      ou ajouter le connecteur claude.ai `https://postonce.to/mcp` puis ouvrir une nouvelle session.
+    - En attendant, la production continue. Dès qu'une clé est là : `--check`, puis l'envoi de tout ce qui manque.
+  - Étape ajoutée au skill (`references/production.md`) : après chaque livraison, `python3 tools/postonce_publish.py --check`, puis la
+    publication.
