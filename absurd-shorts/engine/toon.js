@@ -403,6 +403,8 @@ export function toonUpgrade(obj) {
       if (tp.skin || skinOn) { const S = tp.skin, parts2 = skinParts(); skinOn = !!S; _sc.set(S?.color || '#FFFFFF');   // (cycle 24) the skin channel
         for (const p of parts2) { const fl = S ? (S.fill ?? 1) : 0, part = p.face ? clamp01((fl - 0.8) / 0.2) : (fl >= p.lv - 1e-6 ? 1 : 0), on = S && part > 0, k = on ? (S.k ?? 1) * part : 0, gl = on ? (S.glow || 0) * part : 0;   // (review 1 of 62) the head fills from fill 0.8 to 1
           p.mats.forEach((m, i) => { _wc.setRGB(1, 1, 1).lerp(_sc, k); const fp = p.face && i === 4; if (!fp) m.color.copy(p.base[i]).multiply(_wc);
+            if (fp && m.isMeshBasicMaterial && p.base[i]) m.color.copy(p.base[i]).multiplyScalar(1 + 0.8 * gl);   // (review 2 of 62) the painted panel is unlit (no emissive): its colour is raised past white, so the tinted skin
+            // burns pink-white while the line work stays black (the glowing face at night was darker than its own halo)
             if (fp && m.map && m.emissive) { if (m.emissiveMap !== m.map && gl > 0.01) { m.emissiveMap = m.map; m.needsUpdate = true; }   // (review 2 of 62) the painted face lights itself: its own (tinted) drawing as the emissive map, line work
               if (m.emissiveMap === m.map) m.emissive.setRGB(gl * 0.95, gl * 0.95, gl * 0.95); else if (p.baseE[i]) m.emissive.copy(p.baseE[i]); }   // and all; a flat red emissive left the glowing face darker than its own halo at night
             else if (m.emissive && p.baseE[i]) m.emissive.copy(p.baseE[i]).lerp(_sc, gl * 0.85); }); } }   // (cycle 24) a dish, not a block: the thickness grows a third as fast

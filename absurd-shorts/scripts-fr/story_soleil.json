@@ -1914,7 +1914,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -1949,7 +1949,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -1985,7 +1985,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2011,7 +2011,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2036,7 +2036,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2072,7 +2072,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2097,7 +2097,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2133,7 +2133,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2158,7 +2158,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2182,7 +2182,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2206,7 +2206,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -2340,7 +2340,11 @@
      "keys": [
       {
        "at": 0.0,
-       "look": "camera"
+       "look": [
+        4.3,
+        3.38,
+        -6.0
+       ]
       },
       {
        "at": 0.0,
@@ -2350,7 +2354,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.7,
+         "glow": 0.5,
          "fill": 1.0
         },
         "face": {
@@ -2374,7 +2378,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.7,
+         "glow": 0.5,
          "fill": 1.0
         },
         "face": {
@@ -2398,7 +2402,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.7,
+         "glow": 0.5,
          "fill": 1.0
         },
         "face": {
@@ -3786,7 +3790,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -4141,7 +4145,11 @@
      "keys": [
       {
        "at": 0.0,
-       "look": "camera"
+       "look": [
+        4.3,
+        3.38,
+        -6.0
+       ]
       },
       {
        "at": 0.0,
@@ -4151,7 +4159,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -4176,7 +4184,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -4213,7 +4221,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4253,7 +4261,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4292,7 +4300,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4331,7 +4339,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4370,7 +4378,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4409,7 +4417,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4448,7 +4456,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4487,7 +4495,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4526,7 +4534,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4565,7 +4573,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4604,7 +4612,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "wind": [
@@ -4654,7 +4662,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "hairUp": 1.0,
@@ -4683,7 +4691,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "hairUp": 0.95,
@@ -4950,7 +4958,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "hairUp": 0.8,
@@ -4978,7 +4986,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "hairUp": 0.9,
@@ -5009,7 +5017,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -5048,7 +5056,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -5076,7 +5084,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -5108,7 +5116,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -5147,7 +5155,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -5174,7 +5182,7 @@
         "skin": {
          "color": "#FFB22E",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -5211,7 +5219,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -5248,7 +5256,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -5284,7 +5292,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -5310,7 +5318,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -5335,7 +5343,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -5359,7 +5367,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.5,
+         "glow": 0.35,
          "fill": 1.0
         },
         "face": {
@@ -5517,7 +5525,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5547,7 +5555,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5585,7 +5593,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5623,7 +5631,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5661,7 +5669,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5699,7 +5707,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5737,7 +5745,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5775,7 +5783,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5813,7 +5821,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "wind": [
@@ -5851,7 +5859,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "hairUp": 0.9,
@@ -5876,7 +5884,7 @@
         "skin": {
          "color": "#9CFF9C",
          "k": 1.0,
-         "glow": 0.6,
+         "glow": 0.4,
          "fill": 1.0
         },
         "hairUp": 0.9,
@@ -6233,7 +6241,11 @@
      "keys": [
       {
        "at": 0.0,
-       "look": "camera"
+       "look": [
+        4.3,
+        2.32,
+        -6.0
+       ]
       },
       {
        "at": 0.0,
@@ -6243,7 +6255,7 @@
         "skin": {
          "color": "#3FE04A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6267,7 +6279,7 @@
         "skin": {
          "color": "#8FCB3A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6291,7 +6303,7 @@
         "skin": {
          "color": "#E0A22A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6315,7 +6327,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6339,7 +6351,7 @@
         "skin": {
          "color": "#8FCB3A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6363,7 +6375,7 @@
         "skin": {
          "color": "#E0A22A",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6387,7 +6399,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6411,7 +6423,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "sq": [
@@ -6440,7 +6452,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
@@ -6464,7 +6476,7 @@
         "skin": {
          "color": "#FF4FA8",
          "k": 1.0,
-         "glow": 0.45,
+         "glow": 0.3,
          "fill": 1.0
         },
         "face": {
