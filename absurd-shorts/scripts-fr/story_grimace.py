@@ -64,7 +64,7 @@ st.shot('S01', 'parisStreet', setOpts=STREET, actors=[
                                          'scl': {'head': ([1.5, 0.79, 1.09] if i % 2 else [1.42, 0.83, 1.07])}, 'ears': (1.05 if i % 2 else 0.9),
                                          'face': GF({'tongueYaw': yw_, 'tongueLen': 0.34})}, toonDur=0.1, toonEase='inOut') for i, (dt_, yw_) in enumerate([(0.0, -0.35), (0.16, 0.25), (0.3, -0.15), (0.48, 0.4), (0.6, -0.3), (0.78, 0.1), (0.92, -0.4)])]])],   # (pass 3) held, straining: the shoulders trembling, the tongue wagging off the beat
         cams=[FC(0.0, [r(ME[0] - 1.25), 1.95, 0.3], [[ME[0], 2.38, ME[2]], [ME[0], 1.5, ME[2]], [r(ME[0] - 0.2), 1.9, r(ME[2] + 0.7)], [r(ME[0] - 0.2), 1.9, r(ME[2] - 0.7)]], top=0.14, bottom=0.6, drift=(0.08, 0.0, -0.03)),   # (pass 2) his head 30 % of the frame...
-              FC(0.74, [r(ME[0] - 1.05), 2.02, 0.22], [[ME[0], 2.46, ME[2]], [ME[0], 1.35, ME[2]]], top=0.17, bottom=0.62, drift=(0.05, 0.0, -0.02))])   # ...(pass 3) the hold in a medium close-up: the face about half the frame wide
+              FC(0.74, [r(ME[0] - 1.05), 2.08, 0.22], [[ME[0], 2.46, ME[2]], [ME[0], 1.72, ME[2]]], top=0.2, bottom=0.66, drift=(0.04, 0.0, -0.02))])   # ...(pass 3) the hold in a close-up: the face about half the frame wide ((stills) chin to crown, not chest to crown)
 st.cue('sfx:squeak', 'S01', 0.3, 0.2); st.cue('sfx:stretch', 'S01', PULL1, 0.35)
 
 # 2: the wind turned. A weathervane on a slate roof against the sky: the iron rooster creaks, shudders, then whirls up in a gust of leaves
@@ -101,7 +101,7 @@ st.cue('gust', 'S03', 0.0, 0.3, 0.6); st.cue('sfx:squeak', 'S03', PRESS3, 0.2); 
 # 4: the town hall refuses... At the counter the clerk holds his identity photo up beside his face, at the end of her arm: the same grimace; her eyes
 #    go to the photo, to him, to the photo, to him: a double take, her head shoots up
 D4 = st.dur('S04')
-OFFICE = {'title': 'MAIRIE', 'plate': False, 'bannerY': 2.72, 'bannerX': -0.5}   # (pass 2) the ÉTAT CIVIL plate sat in the caption band; (pass 3) the banner down where the shot sees it
+OFFICE = {'title': 'MAIRIE', 'plate': False, 'bannerY': 2.72, 'bannerX': 3.3}   # (pass 2) the ÉTAT CIVIL plate sat in the caption band; (pass 3) the banner down where the shot sees it
 VIS = [0.0, 0, 0.0]; CLERK = [0.25, 0, -1.4]                             # him in front of the desk, the clerk behind it
 PH4 = [0.32, 1.84, -0.4]                                                  # (pass 2) her hand under the photo: the photo itself beside his face, at its height; (stills 2) it sat at his collar: raised to his face
 PHC = [0.36, 2.05, -0.42]                                                 # (pass 3) the photo itself beside his face at its height, standing on its own
@@ -246,8 +246,8 @@ st.cue('sfx:zip', 'S10', r(BACK10 - 0.02), 0.35); st.cue('sfx:pop', 'S10', BACK1
 #     behind him the boss, grimacing, cocks his arm and flings it out down the street, the arm stretching along the road two and a half times, past the
 #     point and back, the finger jabbing; the man's eyes go along the arm (four frames), then his head (eight), his face kept to us
 D11 = st.dur('S11'); PT11 = 0.32
-MC11 = [0.85, 0, 1.25]; BOSS11 = [-0.45, 0, -0.3]
-OUTPT = [-1.9, 2.25, -2.6]                                                 # (pass 3) down the street (it pointed up into the air)
+MC11 = [1.1, 0, 1.25]; BOSS11 = [-1.05, 0, -0.35]                        # (stills) the boss clear of him (behind him the boss and the arm were hidden)
+OUTPT = [-2.6, 2.25, -2.9]                                                 # (pass 3) down the street (it pointed up into the air)
 JAB = lambda j: [r(OUTPT[0] + (0.05 if j % 2 else -0.03)), r(OUTPT[1] + (0.02 if j % 2 else 0.0)), r(OUTPT[2] + (0.07 if j % 2 else -0.04))]
 PTK = lambda p_, hand='point': {'reach': {'R': [r(p_[0]), r(p_[1]), r(p_[2]), 1, 0.08], 'L': [r(BOSS11[0] + 0.25), 1.0, r(BOSS11[2] + 0.12), 1, 0.05]}, 'hands': {'R': hand, 'L': 'fist'}}   # his other fist on his hip
 BH = {'scl': {'head': [1.2, 0.87, 1.07]}, 'face': G_BOSS}
@@ -302,7 +302,7 @@ st.shot('S12', 'parisStreet', setOpts=CARN, actors=[
         *[act(n_, p_, ry_, 'stand', 'happy', keys=FRIGHT(i, p_, g_, ex_, jh_)) for i, (n_, p_, ry_, g_, ex_, jh_) in enumerate(CROWD)]],
         props=[*DECOR_NB('12')],   # (pass 3) no banner: the end hold read « CARNAV » behind his head
         cams=[FC(0.0, [-0.3, 1.85, 1.6], [[MC12[0], 2.38, MC12[2]], [MC12[0], 1.5, MC12[2]], [r(MC12[0] + 0.4), 1.9, MC12[2]], [r(MC12[0] - 0.4), 1.9, MC12[2]]], top=0.16, bottom=0.6),   # close on his plain face turning to them...
-              FC(REV12, [-1.75, 1.95, -0.35], [[MC12[0], 2.4, MC12[2]], [0.55, 2.05, 0.35], [1.2, 2.25, 1.0], [2.05, 1.95, 0.25], [1.2, 0.9, 1.0], [0.55, 3.0, 0.35]], top=0.1, bottom=0.78, drift=(0.0, 0.0, 0.06)),   # (pass 3) ...over his shoulder, close on them...
+              FC(REV12, [-2.3, 1.95, -0.75], [[MC12[0], 2.4, MC12[2]], [0.55, 2.05, 0.35], [1.2, 2.25, 1.0], [2.05, 1.95, 0.25], [1.2, 0.9, 1.0], [0.55, 3.0, 0.35]], top=0.1, bottom=0.78, drift=(0.0, 0.0, 0.06)),   # (pass 3) ...over his shoulder, close on them ((stills) a step back: his head filled half the frame)...
               FC(CUT12, [-0.6, 1.75, 2.6], [[MC12[0], 2.3, MC12[2]], [MC12[0], 1.0, MC12[2]], [r(MC12[0] + 0.5), 1.6, MC12[2]], [r(MC12[0] - 0.5), 1.6, MC12[2]]], top=0.16, bottom=0.68, drift=(0.0, 0.0, -0.35))])   # ...alone: a slow push-in
 st.cue('sfx:gasp', 'S12', SEE12, 0.35); st.cue('sfx:boing', 'S12', JUMP12, 0.3); st.cue('sfx:thud', 'S12', r(DROP12 + 0.08), 0.25); st.cue('sfx:zip', 'S12', RUN12, 0.3)
 
