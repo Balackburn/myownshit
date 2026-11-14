@@ -1155,5 +1155,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   (`fedora`, `beanie`, `hardhat`, `cap`).
 - (cycle 20) Plier les genoux avec `sq` et `bend` sur les jambes : l'écrasement d'ensemble et les jambes courbées soulèvent les pieds, le
   genou ne descend que de 1 % du cadre. Épingler la tête plus bas (`pin`) en gardant les pieds au sol (`plant`) : l'IK plie les jambes.
+- (cycle 20) Un ciel qui vire au noir dès que la caméra regarde vers le haut (56 : S07, S08, S10, S14) : le « ciel approfondi » du rendu
+  naturel lisait le rayon d'un dôme sans sphère englobante calculée et prenait 180 m pour un dôme de 3 km (`skyFollow`) ; au-dessus de 29°
+  la luminosité tombait sous zéro. Corrigé dans `look.js` ; un point noir en haut du ciel ou une nuit au milieu d'une scène de jour vient de là.
+- (cycle 20) Une clé `toon` agit APRÈS son instant (le mélange dure `toonDur` à partir de la clé) : un accroupissement clé à 0,22 avec 0,2 de
+  durée n'était bas qu'à 0,42, trop tard pour la relève (58). Placer la clé `toonDur` plus tôt que la pose voulue.
+- (cycle 20) Pencher le buste quand une mâchoire tombée (`jawBlock`) pend jusqu'au sol : elle est solidaire de la tête et part derrière les
+  hanches. Pour la ramasser, s'accroupir (tête épinglée plus bas, pieds plantés) et raccourcir `jaw` pour garder le menton au sol.
 - (cycle 20) Insérer un commentaire en fin de ligne avant la suite du code (`}` ou `,`) : le commentaire avale la suite (deux fois encore).
   Le placer après tout le code de la ligne, ou sur sa propre ligne.

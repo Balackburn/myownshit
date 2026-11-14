@@ -172,6 +172,7 @@ export function createLook(stage, W, H, o = {}) {
       if (look.outdoor && !scene.fog && k.haze !== false) { const hz = new THREE.Color(k.hazeColor || '#CFE3F0'); scene.fog = new THREE.Fog(hz, k.hazeNear ?? 70, k.hazeFar ?? Math.max(260, camera.far * 1.1)); }
       set.traverse(n => { if (!isSky(n)) return; n.material.fog = false; n.material.toneMapped = false;   // the authored gradient, made a little deeper (shader skies)
         const ca = n.geometry.attributes.color; if (!ca || n.userData.deepSky || k.deepSky === false) return; n.userData.deepSky = true; const c = new THREE.Color(), hsl = {};
+        if (!n.geometry.boundingSphere) n.geometry.computeBoundingSphere();   // (cycle 20) the dome's own radius: with none computed it took 180 m, and a 3 km dome (skyFollow) went black above 29 degrees (56: S07, S08, S10, S14)
         for (let i = 0; i < ca.count; i++) { c.fromBufferAttribute(ca, i); c.getHSL(hsl); if (hsl.h > 0.42 && hsl.h < 0.72) { const top = Math.max(0, n.geometry.attributes.position.getY(i)) / (n.geometry.boundingSphere?.radius || 180); c.setHSL(0.575 + (hsl.h - 0.575) * 0.3, Math.min(0.82, hsl.s * 1.6 + 0.22 + 0.15 * top), Math.min(0.78, hsl.l * (0.97 - 0.12 * top))); ca.setXYZ(i, c.r, c.g, c.b); } } ca.needsUpdate = true; });
       sun.visible = look.outdoor && k.sunDisc !== false; sun.material.color.set(k.sunColor || '#FFF0D8');
       look.L = L;

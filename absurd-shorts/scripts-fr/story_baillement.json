@@ -1196,7 +1196,7 @@
        "toonDur": 0.0
       },
       {
-       "at": 0.22,
+       "at": 0.04,
        "toon": {
         "pin": {
          "joint": "head",
@@ -1257,11 +1257,11 @@
         },
         "tieHide": 1
        },
-       "toonDur": 0.2,
+       "toonDur": 0.18,
        "toonEase": "inOut"
       },
       {
-       "at": 0.3,
+       "at": 0.24,
        "toon": {
         "pin": {
          "joint": "head",
@@ -1324,7 +1324,7 @@
        "toonDur": 0.06
       },
       {
-       "at": 0.55,
+       "at": 0.31,
        "toon": {
         "pin": {
          "joint": "head",
@@ -1384,11 +1384,11 @@
         },
         "tieHide": 1
        },
-       "toonDur": 0.25,
+       "toonDur": 0.24,
        "toonEase": "inOut"
       },
       {
-       "at": 0.6,
+       "at": 0.55,
        "toon": {
         "pin": {
          "joint": "head",
@@ -4879,7 +4879,13 @@
         0.02
        ]
       ]
-     }
+     },
+     "keys": [
+      {
+       "at": 0.73,
+       "visible": false
+      }
+     ]
     },
     {
      "id": "box9",

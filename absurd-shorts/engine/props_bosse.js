@@ -186,10 +186,17 @@ export const BOSSE_PROPS = {
           hook.position.set(q[0], q[1] - dr * dr * 0.45, q[2] + dr * 0.08); hook.rotation.set(fly < 1 ? fly * 7 : 0.3 + dr * 5, 0, 0);
           ghosts.forEach((gh, i) => { const fg = fly - 0.18 * (i + 1); gh.visible = fly < 1.25 && fg > -0.05; if (!gh.visible) return; const p = arc(fg); gh.position.set(p[0], p[1], p[2]); gh.rotation.copy(hook.rotation); gh.scale.setScalar(2.2 * (1 - 0.15 * (i + 1))); }); }
         else { hook.visible = fly < 1; hook.position.set(0, HR * (1 + 0.6 * fly), 0.15 * fly); hook.rotation.x = fly * 9; }
+        if (tp.hookOff != null && t >= tp.hookOff) { hook.visible = false; ghosts.forEach(gh => { gh.visible = false; }); }   // (final pass of 56) tp.hookOff: from then a tapeHook prop on his nose takes over
         if (tag) tag.visible = t >= (tp.readout[1] ?? -1e9) && t <= (tp.readout[2] ?? 1e9) && (tp.snap == null || t < tp.snap);
       }
     };
     g.userData.update(0); return g;
+  },
+
+  // (final pass of 56) The hook of a tape measure stuck on a nose (pivot at the hook, attach it to the head): a brass hook and the end of the yellow tape
+  // hanging from it, as big as the flying hook (2.2 times the tape's own)
+  tapeHook(o) {
+    return grp(at(box(0.13, 0.065, 0.09, '#B88A3A', { outline: 0.02 }), 0, 0, 0), at(box(0.085, 0.3, 0.008, '#F5CE2E', { outline: 0.01 }), 0, -0.18, -0.03), at(box(0.085, 0.012, 0.009, '#1C1C1E'), 0, -0.12, -0.026));
   },
 
   // A tiny person standing alone (pivot at the feet, o.h tall, 0.2 m): o.kind 'hiker' | 'skier', o.color (the jacket), o.pose ('walk', 'ski', 'hang',
@@ -229,7 +236,7 @@ export const BOSSE_PROPS = {
   // end that rolls on. o.len [[t, length], ...] (eased): how much of it has unrolled; the rows repeat every o.rowsPer (0.45 m).
   billScroll(o) {
     const w = o.w ?? 0.3, top = o.top ?? 1.1, head = o.head || 'FORFAITS', g = grp();
-    const rowsTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const x = c.getContext('2d'); x.fillStyle = '#FBFAF4'; x.fillRect(0, 0, 256, 512); x.fillStyle = '#3A3A40';
+    const rowsTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const x = c.getContext('2d'); x.fillStyle = '#F6E7C1'; x.fillRect(0, 0, 256, 512); x.fillStyle = '#7A5A30'; x.fillRect(0, 0, 7, 512); x.fillRect(249, 0, 7, 512); x.fillStyle = '#3A3A40';   // (final pass of 56) warm cream, dark edges: cream on snow vanished
       const items = o.items || ['FORFAIT JOURNÉE', 'FORFAIT SEMAINE', 'TÉLÉSIÈGE', 'LOCATION SKIS', 'CHOCOLAT CHAUD', 'FORFAIT ENFANT'];
       for (let i = 0; i < 6; i++) { const y = 40 + i * 80, pr = `${[49, 245, 12, 38, 4, 31][i]} €`, nm = items[i % items.length]; x.textAlign = 'right'; x.font = '700 24px Arial'; const pw = x.measureText(pr).width; x.fillText(pr, 242, y);
         x.textAlign = 'left'; let fs = 22; x.font = `600 ${fs}px Arial`; while (x.measureText(nm).width > 228 - pw - 12 && fs > 11) { fs -= 1; x.font = `600 ${fs}px Arial`; } x.fillText(nm, 14, y); x.fillRect(14, y + 18, 228, 2); }   // (pass 3 of 56) the name shrinks to clear its price (« CHOCOLAT CHAUD » ran into it)
@@ -243,7 +250,7 @@ export const BOSSE_PROPS = {
     g.userData.update = t => {
       const L = Math.max(0.05, keyed(o.len, t, 0.3)), Lv = Math.min(L, top - 0.035), Lf = Math.max(0, L - Lv);
       down.scale.y = Lv; down.material.map.repeat.set(1, Lv / (o.rowsPer ?? 0.45)); down.material.map.offset.set(0, -Lv / (o.rowsPer ?? 0.45));
-      along.visible = Lf > 0.002; along.scale.y = Math.max(0.002, Lf); along.position.set(0, -top + 0.003, 0); along.material.map.repeat.set(1, Lf / (o.rowsPer ?? 0.45));
+      along.visible = Lf > 0.002; along.scale.y = Math.max(0.002, Lf); along.position.set(0, -top + 0.012, 0); along.material.map.repeat.set(1, Lf / (o.rowsPer ?? 0.45));
       if (Lf > 0.002) { roll.position.set(0, -top + 0.035, Lf); roll.rotation.set(Lf / 0.035, 0, PI / 2); } else { roll.position.set(0, -Lv, 0.0); roll.rotation.set(Lv / 0.035, 0, PI / 2); }
     };
     g.userData.update(0); return g;
