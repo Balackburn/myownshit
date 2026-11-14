@@ -2195,3 +2195,45 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   brindilles posé sur ses cheveux, vu d'au-dessus avec la rue loin en dessous, trois œufs sur le bord. Outils : `twigNest`, `bistroTable`,
   traînées `soft`/`taper`/`alpha`, lampe à abat-jour qui saute (`shadeOff`), casque d'aviateur refait (calotte haute, fourrure, grosses
   lunettes), coche à plat. Images de contrôle en rendu.
+
+## Cycle 24
+
+- Analyse (cinq faiblesses retenues de la revue 1 de 61, de la revue 3 de 59 et des images de contrôle de 60) :
+  - Un personnage assis qui s'écrase passait à travers son siège (61) : l'écrasement doit pivoter sur la surface de contact, l'acteur
+    levé de ce que l'écrasement lui retire.
+  - Les rebonds flottaient (61) : une vraie balle monte en sortie lente, redescend en entrée lente et reste deux ou trois images au sol.
+  - Une partie du corps agrandie sans détail intérieur se lit comme un objet (60 : l'oreille géante passait pour une planche) : un creux
+    sombre et la silhouette d'origine.
+  - Une déformation filmée sans repère ne se lit plus (60 : vue de dessus, la crêpe passait pour un homme debout) : la filmer avec le sol
+    ou un autre personnage dans l'image.
+  - La série ne savait pas changer la couleur de la peau : « rouge de colère », « vert de peur » ou « brûlé » n'avaient que les joues. D'où
+    le canal `skin`.
+- Outils :
+  - Canal `skin` du rig ({color, k, glow, fill}) : une couleur qui remplit le personnage comme un thermomètre (les mains, le cou, puis la
+    tête) et une lueur qu'il émet. Les matériaux de peau sont clonés à la demande, donc aucun autre personnage ne change de couleur.
+  - `props_soleil.js` :
+    - chaise longue ;
+    - œuf au plat qui cuit sur un front (le blanc s'étale, le jaune gonfle, la vapeur monte) ;
+    - papillons de nuit qui tournent ;
+    - feu tricolore où une tête prend la place d'une lampe (`headLight` : trois trous cerclés vert, orange et rouge, visières, caisson
+      sur le mât, verres sombres sur les trous fermés, secousse) ;
+    - camion aux deux klaxons ;
+    - lumière colorée (`glowLight`), la lueur qui éclaire la rue.
+- 62 « Le coup de soleil » :
+  - Même type d'histoire que la série (« ce mec » et une chaîne de conséquences absurdes), structure du skill inchangée ; voix de 17,5 s,
+    onze plans.
+  - Gags qui passent par le rig :
+    - la peau qui se remplit de rouge et la vapeur aux oreilles ;
+    - l'œuf qui cuit sur son front ;
+    - la lueur rouge qui éclaire la rue la nuit, avec les papillons ;
+    - sa tête dans le trou du haut du feu ;
+    - le klaxon qui lui aplatit le visage, les yeux qui sortent, la peau qui vire au vert et le visage qui tombe au trou du bas ;
+    - le pinceau du peintre qui le repeint en rouge, trait par trait.
+  - Décisions (images de contrôle 1) :
+    - La voisine casse l'œuf : à la hauteur de son front, le bras du petit garçon s'étirait comme une perche.
+    - Les ouvriers le portent par la tête et les pieds, raide comme une planche.
+    - Le camion est filmé de près (il remplissait l'image).
+    - Des verres sombres sur les trous fermés du feu (on voyait son corps à travers).
+    - La voiture de la fin s'arrête plus loin et l'échelle est à côté du feu.
+- 59 « La grimace » : livrée. Version 1080 : 17,6 s, −16,1 LUFS, contrôles HyperFrames sans erreur, aucune image grise ni figée. Huit
+  gags ajoutés au catalogue du skill, sans en reprendre un à l'identique.

@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a fait une grimace.", "hl": ["grimace."]},
+ {"id": "L02", "who": "N", "text": "Le vent a tourné.", "hl": ["vent", "tourné."]},
+ {"id": "L03", "who": "N", "text": "Il est resté comme ça.", "hl": ["resté", "ça."]},
+ {"id": "L04", "who": "N", "text": "La mairie refuse sa photo d'identité.", "hl": ["mairie", "photo"]},
+ {"id": "L05", "who": "N", "text": "Le carnaval l'a embauché comme masque.", "hl": ["carnaval", "masque."]},
+ {"id": "L06", "who": "N", "text": "Hier, le vent a encore tourné.", "hl": ["vent", "tourné."]},
+ {"id": "L07", "who": "N", "text": "Toute la ville est restée en grimace.", "hl": ["ville", "grimace."]},
+ {"id": "L08", "who": "N", "text": "Sauf lui.", "hl": ["lui."]},
+ {"id": "L09", "who": "N", "text": "Le carnaval l'a viré : il fait trop peur.", "hl": ["viré", "peur."]}
+]
