@@ -1199,7 +1199,7 @@
        "at": 0.0,
        "toon": {
         "skin": {
-         "color": "#FFA0B8",
+         "color": "#FFC4DE",
          "k": 1.0,
          "glow": 1.0,
          "fill": 1.0
@@ -1214,7 +1214,7 @@
        "at": 0.6,
        "toon": {
         "skin": {
-         "color": "#FFA0B8",
+         "color": "#FFC4DE",
          "k": 1.0,
          "glow": 1.0,
          "fill": 1.0
@@ -1235,7 +1235,7 @@
        "at": 1.2,
        "toon": {
         "skin": {
-         "color": "#FFA0B8",
+         "color": "#FFC4DE",
          "k": 1.0,
          "glow": 1.0,
          "fill": 1.0
@@ -1250,7 +1250,7 @@
        "at": 1.45,
        "toon": {
         "skin": {
-         "color": "#FFA0B8",
+         "color": "#FFC4DE",
          "k": 1.0,
          "glow": 1.0,
          "fill": 1.0
@@ -4232,9 +4232,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.045,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4246,7 +4244,7 @@
          "head": [
           1.8,
           0.7,
-          0.48
+          0.88
          ]
         }
        },
@@ -4272,9 +4270,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.06,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4286,7 +4282,7 @@
          "head": [
           1.72,
           0.72,
-          0.5
+          0.9
          ]
         }
        },
@@ -4311,9 +4307,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.045,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4325,7 +4319,7 @@
          "head": [
           1.8,
           0.7,
-          0.48
+          0.88
          ]
         }
        },
@@ -4350,9 +4344,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.06,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4364,7 +4356,7 @@
          "head": [
           1.72,
           0.72,
-          0.5
+          0.9
          ]
         }
        },
@@ -4389,9 +4381,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.045,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4403,7 +4393,7 @@
          "head": [
           1.8,
           0.7,
-          0.48
+          0.88
          ]
         }
        },
@@ -4428,9 +4418,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.06,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4442,7 +4430,7 @@
          "head": [
           1.72,
           0.72,
-          0.5
+          0.9
          ]
         }
        },
@@ -4467,9 +4455,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.045,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4481,7 +4467,7 @@
          "head": [
           1.8,
           0.7,
-          0.48
+          0.88
          ]
         }
        },
@@ -4506,9 +4492,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.06,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4520,7 +4504,7 @@
          "head": [
           1.72,
           0.72,
-          0.5
+          0.9
          ]
         }
        },
@@ -4545,9 +4529,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.045,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4559,7 +4541,7 @@
          "head": [
           1.8,
           0.7,
-          0.48
+          0.88
          ]
         }
        },
@@ -4584,9 +4566,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.06,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4598,7 +4578,7 @@
          "head": [
           1.72,
           0.72,
-          0.5
+          0.9
          ]
         }
        },
@@ -4623,9 +4603,7 @@
         "hairUp": 1.0,
         "face": {
          "lid": 0.0,
-         "pop": 0.32,
-         "popLen": 0.045,
-         "eyeScale": 1.2,
+         "eyeScale": 1.45,
          "pupilSize": -0.3,
          "brow": 1.0,
          "mouth": "clench",
@@ -4637,7 +4615,7 @@
          "head": [
           1.8,
           0.7,
-          0.48
+          0.88
          ]
         }
        },

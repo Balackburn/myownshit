@@ -91,9 +91,9 @@ NLOOK = {'sun': 0.12, 'sunColor': '#7F96D8', 'fill': 0.32, 'exposure': 0.9}   # 
 ME3 = [5.5, 0, -12.0]; VOI3 = [6.32, 0, -11.52]                          # (stills 2) she sits at his left, turned like him toward us
 PAPER3 = lambda gx: {'reach': {'R': [6.09, 1.05, -11.26, 1, 0.05], 'L': [6.33, 1.05, -11.18, 1, 0.05]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 0.5, 'gy': 0.45, 'gx': gx}}
 st.shot('S03', 'parisStreet', setOpts=NIGHT, look=NLOOK, actors=[
-        act('mec', ME3, -30, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'skin': SKIN('#FFA0B8', 1.0, 1.0), 'face': DEAD}, toonDur=0.0),
-            k(0.6, toon={'skin': SKIN('#FFA0B8', 1.0, 1.0), 'sq': [1.0, 1.012, 1.0], 'face': DEAD}, toonDur=0.3, toonEase='inOut'),   # (review 1) a paler, hotter pink-red core at night
-            k(1.2, toon={'skin': SKIN('#FFA0B8', 1.0, 1.0), 'face': {'lid': 1.0}}, toonDur=0.14), k(1.45, toon={'skin': SKIN('#FFA0B8', 1.0, 1.0), 'sq': [1.0, 0.996, 1.0], 'face': DEAD}, toonDur=0.18)]),   # glowing, a slow blink
+        act('mec', ME3, -30, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'skin': SKIN('#FFC4DE', 1.0, 1.0), 'face': DEAD}, toonDur=0.0),
+            k(0.6, toon={'skin': SKIN('#FFC4DE', 1.0, 1.0), 'sq': [1.0, 1.012, 1.0], 'face': DEAD}, toonDur=0.3, toonEase='inOut'),   # (review 1) a paler, hotter pink-red core at night
+            k(1.2, toon={'skin': SKIN('#FFC4DE', 1.0, 1.0), 'face': {'lid': 1.0}}, toonDur=0.14), k(1.45, toon={'skin': SKIN('#FFC4DE', 1.0, 1.0), 'sq': [1.0, 0.996, 1.0], 'face': DEAD}, toonDur=0.18)]),   # glowing, a slow blink
         act('voisine', VOI3, -20, 'sit', 'neutral', keys=[k(0.0, look=[6.21, 1.0, -11.2]), k(0.0, toon={**PAPER3(0.0), 'skin': SKIN('#FF8A96', 0.6)}, toonDur=0.0), k(0.9, toon={**PAPER3(0.05), 'skin': SKIN('#FF8A96', 0.6)}, toonDur=0.3)])],   # (review 2) her face and hands washed in his red (her painted face took no light at all)   # reading by his light ((review 1) her eyes stay on the paper)
         props=[P('glow3', 'glowLight', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.3, 0.4]}, opts={'color': '#FF3A4A', 'k': 11, 'dist': 9, 'at': -1.0}),   # (review 2) lit from the first frame (it switched on at the cut)   # (stills 2) a pool of red; (review 1) stronger and wider: the facades, the bench, her face and her paper in his red
                P('halo3', 'halo', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.25, -0.12], 'face': 'camera'}, opts={'r': 0.55, 'k': 0.42, 'core': '#FF8A9C', 'color': '#FF3A50', 'at': -1.0}),   # (review 2) dimmer than his face now (the face was darker than its own halo)   # (review 1) a burning outline behind his head: the hottest thing in the frame ((stills p2) smaller and softer: at 0.75 a red balloon)
@@ -224,8 +224,8 @@ st.shot('S07', 'parisStreet', setOpts=STREET, dark=[[0.0, 0.0], [r(D7 * 0.42), 0
 #    sideways, wind lines hitting it, the light rocking; then it pops back with an overshoot, his hair left frazzled
 D8 = st.dur('S08'); HONK8 = 0.36; CUT8 = 0.72; BLAST8 = 0.79; BACK8 = 1.24   # (review 2) TUUUT eleven frames on the lorry before the cut (it had four)
 TRUCK = [2.2, 0, -4.4]
-BLASTF = lambda i: IN({'skin': SKIN(RED, 1.0, 0.3), 'wind': [-15.0, 0.6, 0.0], 'hairUp': 1.0, 'face': {'lid': 0.0, 'pop': 0.32, 'popLen': (0.06 if i % 2 else 0.045), 'eyeScale': 1.2, 'pupilSize': -0.3, 'brow': 1.0, 'mouth': 'clench', 'tremble': 1.0, 'cheeks': (1.0 if i % 2 else 0.2), 'puff': (0.0 if i % 2 else 0.6)}},
-                      ({'head': [1.72, 0.72, 0.5]} if i % 2 else {'head': [1.8, 0.7, 0.48]}))   # (review 2) inside the box: at 2.8 wide red blocks poked out of its sides
+BLASTF = lambda i: IN({'skin': SKIN(RED, 1.0, 0.3), 'wind': [-15.0, 0.6, 0.0], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eyeScale': 1.45, 'pupilSize': -0.3, 'brow': 1.0, 'mouth': 'clench', 'tremble': 1.0, 'cheeks': (1.0 if i % 2 else 0.2), 'puff': (0.0 if i % 2 else 0.6)}},
+                      ({'head': [1.72, 0.72, 0.9]} if i % 2 else {'head': [1.8, 0.7, 0.88]}))   # (review 2) inside the box: at 2.8 wide red blocks poked out of its sides; (pass 3 stills: half the face black in the hole) no eyes on stalks, the head's depth kept
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
         act('mec', BEHIND(2), LRY, 'stand', 'unimpressed', keys=[k(0.0, look=[LIGHT[0], HOLE(2)[1], -6.0]), k(0.0, toon=IN({'skin': SKIN(RED, 1.0, 0.3), 'face': {**DEAD, 'gx': 0.6}}), toonDur=0.0),   # (pass 3 stills) a fixed look ahead: 'camera' turned his head toward the lorry camera behind the light, his hair filling the hole after the cut
             k(CUT8, toon=IN({'skin': SKIN(RED, 1.0, 0.3), 'face': {'lid': 0.62, 'gx': 0.6, 'brow': -0.5}}), toonDur=0.05),   # two frames of narrowing eyes...
