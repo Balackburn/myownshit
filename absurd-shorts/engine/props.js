@@ -35,6 +35,7 @@ import { VENTOUSE_PROPS } from './props_ventouse.js';   // (cycle 17) « La vent
 import { BOSSE_PROPS } from './props_bosse.js';   // (cycle 18) « La bosse »
 import { TOURNANTE_PROPS } from './props_tournante.js';   // (cycle 19) « La porte tournante »
 import { BAILLEMENT_PROPS } from './props_baillement.js';   // (cycle 20) « Le bâillement »
+import { GRIMACE_PROPS } from './props_grimace.js';   // (cycle 21) « La grimace »
 
 const PI = Math.PI, TAU = PI * 2;
 const ORANGE = '#E07A2E', BLUE = '#2F62B5', LCD = '#7CE38B';
@@ -2097,7 +2098,7 @@ const B = {
   },
 };
 
-Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS, STATUE_PROPS, FOURRIERE_PROPS, RADAR_PROPS, HOQUET_PROPS, AIMANT_PROPS, CODEBARRE_PROPS, PHOTOCOPIE_PROPS, GOMME_PROPS, BOOMERANG_PROPS, TORTICOLIS_PROPS, VALISE_PROPS, VENTOUSE_PROPS, BOSSE_PROPS, TOURNANTE_PROPS, BAILLEMENT_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
+Object.assign(B, VP_PROPS, OCEAN_PROPS, NEWS_PROPS, CANICULE_PROPS, VER_PROPS, CHAUSSETTES_PROPS, TROU_PROPS, ETERNUEMENT_PROPS, PORTE_PROPS, INTERRUPTEUR_PROPS, ELAN_PROPS, OMBRE_PROPS, CRAVATE_PROPS, STATUE_PROPS, FOURRIERE_PROPS, RADAR_PROPS, HOQUET_PROPS, AIMANT_PROPS, CODEBARRE_PROPS, PHOTOCOPIE_PROPS, GOMME_PROPS, BOOMERANG_PROPS, TORTICOLIS_PROPS, VALISE_PROPS, VENTOUSE_PROPS, BOSSE_PROPS, TOURNANTE_PROPS, BAILLEMENT_PROPS, GRIMACE_PROPS);   // Vos papiers props (cloud character, Earth, map, barrier, ...)
 export const PROP_NAMES = Object.keys(B);
 
 // Labelled placeholder for unknown names — never throws.

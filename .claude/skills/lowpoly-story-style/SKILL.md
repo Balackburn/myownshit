@@ -1172,3 +1172,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   hanches. Pour la ramasser, s'accroupir (tête épinglée plus bas, pieds plantés) et raccourcir `jaw` pour garder le menton au sol.
 - (cycle 20) Insérer un commentaire en fin de ligne avant la suite du code (`}` ou `,`) : le commentaire avale la suite (deux fois encore).
   Le placer après tout le code de la ligne, ou sur sa propre ligne.
+- (cycle 21) `fitBack` garde par défaut la caméra de niveau (`level=True`) : une caméra basse ne peut pas poser le sujet au pied du cadre, il
+  reste vers le milieu (57 S08 : la porte à 68 %, le tiers bas en sol vide). Passer `level=False` pour qu'elle s'incline.
+- (cycle 21) Un personnage incliné (`reclineBack`) a la tête 0,4 m derrière son siège : posé 0,2 m devant un fond (la bouche sombre de 58),
+  sa tête s'enfonce dedans et il paraît décapité. Décaler le siège de la longueur du buste.
+- (cycle 21) Une lettre qui « sort de la bouche comme un toast » : une carte ne peut pas cacher sa moitié basse derrière le visage (devant,
+  elle couvre le visage ; dedans, on ne la voit pas). La faire jaillir d'une fente de la bouche jusqu'au-dessus de la tête, la tenir en l'air,
+  la rattraper.
+- (cycle 21) Encore une clé avalée par un commentaire (57 S14 : la facture apparaissait dans sa main sans que le bras bouge). Vérifier avant
+  chaque rendu : `grep -nE "#.*\bk\(" scripts-fr/story_X.py` ne doit trouver que des commentaires voulus.
+- (cycle 21) Des mains levées sous un auvent : à 1,45 dans le repère du buste, étiré de 1,18, elles montaient dans l'auvent sombre de la
+  porte et disparaissaient (57 S12). Comparer la hauteur des mains au plafond du décor.
+- (cycle 21) Un déplacement en course (`clip='run'`) terminé par `then='run'` : il court sur place après (le moteur le signale). Finir sur
+  `stand`, ou allonger le déplacement jusqu'à la sortie du cadre.

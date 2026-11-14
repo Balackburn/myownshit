@@ -1,0 +1,388 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a fait une grimace.",
+   "hl": [
+    "grimace."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.581,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "fait",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "une",
+     "s": 0.73,
+     "e": 0.767
+    },
+    {
+     "w": "grimace.",
+     "s": 0.841,
+     "e": 1.581
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le vent a tourné.",
+   "hl": [
+    "vent",
+    "tourné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L02.k.wav",
+   "file_start": 1.681,
+   "speech_start": 1.681,
+   "speech_end": 2.719,
+   "words": [
+    {
+     "w": "Le",
+     "s": 1.681,
+     "e": 1.83
+    },
+    {
+     "w": "vent",
+     "s": 1.904,
+     "e": 1.978
+    },
+    {
+     "w": "a",
+     "s": 2.052,
+     "e": 2.126
+    },
+    {
+     "w": "tourné.",
+     "s": 2.2,
+     "e": 2.719
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il est resté comme ça.",
+   "hl": [
+    "resté",
+    "ça."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L03.k.wav",
+   "file_start": 2.819,
+   "speech_start": 2.819,
+   "speech_end": 4.004,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.819,
+     "e": 2.893
+    },
+    {
+     "w": "est",
+     "s": 2.93,
+     "e": 2.967
+    },
+    {
+     "w": "resté",
+     "s": 3.041,
+     "e": 3.263
+    },
+    {
+     "w": "comme",
+     "s": 3.3,
+     "e": 3.485
+    },
+    {
+     "w": "ça.",
+     "s": 3.596,
+     "e": 4.004
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La mairie refuse sa photo d'identité.",
+   "hl": [
+    "mairie",
+    "photo"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L04.k.wav",
+   "file_start": 4.104,
+   "speech_start": 4.104,
+   "speech_end": 6.178,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.104,
+     "e": 4.252
+    },
+    {
+     "w": "mairie",
+     "s": 4.289,
+     "e": 4.548
+    },
+    {
+     "w": "refuse",
+     "s": 4.622,
+     "e": 4.993
+    },
+    {
+     "w": "sa",
+     "s": 5.067,
+     "e": 5.141
+    },
+    {
+     "w": "photo",
+     "s": 5.252,
+     "e": 5.363
+    },
+    {
+     "w": "d'identité.",
+     "s": 5.388,
+     "e": 6.178
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le carnaval l'a embauché comme masque.",
+   "hl": [
+    "carnaval",
+    "masque."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L05.k.wav",
+   "file_start": 6.278,
+   "speech_start": 6.278,
+   "speech_end": 8.278,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.278,
+     "e": 6.352
+    },
+    {
+     "w": "carnaval",
+     "s": 6.426,
+     "e": 6.87
+    },
+    {
+     "w": "l'a",
+     "s": 6.895,
+     "e": 6.944
+    },
+    {
+     "w": "embauché",
+     "s": 7.019,
+     "e": 7.389
+    },
+    {
+     "w": "comme",
+     "s": 7.426,
+     "e": 7.537
+    },
+    {
+     "w": "masque.",
+     "s": 7.611,
+     "e": 8.278
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Hier, le vent a encore tourné.",
+   "hl": [
+    "vent",
+    "tourné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L06.k.wav",
+   "file_start": 8.378,
+   "speech_start": 8.378,
+   "speech_end": 10.23,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 8.378,
+     "e": 8.97
+    },
+    {
+     "w": "le",
+     "s": 9.044,
+     "e": 9.119
+    },
+    {
+     "w": "vent",
+     "s": 9.193,
+     "e": 9.267
+    },
+    {
+     "w": "a",
+     "s": 9.341,
+     "e": 9.378
+    },
+    {
+     "w": "encore",
+     "s": 9.415,
+     "e": 9.637
+    },
+    {
+     "w": "tourné.",
+     "s": 9.711,
+     "e": 10.23
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Toute la ville est restée en grimace.",
+   "hl": [
+    "ville",
+    "grimace."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L07.k.wav",
+   "file_start": 10.33,
+   "speech_start": 10.33,
+   "speech_end": 12.181,
+   "words": [
+    {
+     "w": "Toute",
+     "s": 10.33,
+     "e": 10.478
+    },
+    {
+     "w": "la",
+     "s": 10.552,
+     "e": 10.626
+    },
+    {
+     "w": "ville",
+     "s": 10.7,
+     "e": 10.848
+    },
+    {
+     "w": "est",
+     "s": 10.885,
+     "e": 10.922
+    },
+    {
+     "w": "restée",
+     "s": 11.033,
+     "e": 11.219
+    },
+    {
+     "w": "en",
+     "s": 11.256,
+     "e": 11.293
+    },
+    {
+     "w": "grimace.",
+     "s": 11.367,
+     "e": 12.181
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Sauf lui.",
+   "hl": [
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L08.k.wav",
+   "file_start": 12.281,
+   "speech_start": 12.281,
+   "speech_end": 13.022,
+   "words": [
+    {
+     "w": "Sauf",
+     "s": 12.281,
+     "e": 12.504
+    },
+    {
+     "w": "lui.",
+     "s": 12.541,
+     "e": 13.022
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le carnaval l'a viré : il fait trop peur.",
+   "hl": [
+    "viré",
+    "peur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/grimace/tts/L09.k.wav",
+   "file_start": 13.122,
+   "speech_start": 13.122,
+   "speech_end": 15.567,
+   "words": [
+    {
+     "w": "Le",
+     "s": 13.122,
+     "e": 13.196
+    },
+    {
+     "w": "carnaval",
+     "s": 13.27,
+     "e": 13.715
+    },
+    {
+     "w": "l'a",
+     "s": 13.764,
+     "e": 13.863
+    },
+    {
+     "w": "viré:",
+     "s": 13.974,
+     "e": 14.505
+    },
+    {
+     "w": "il",
+     "s": 14.555,
+     "e": 14.604
+    },
+    {
+     "w": "fait",
+     "s": 14.678,
+     "e": 14.752
+    },
+    {
+     "w": "trop",
+     "s": 14.826,
+     "e": 14.974
+    },
+    {
+     "w": "peur.",
+     "s": 15.011,
+     "e": 15.567
+    }
+   ]
+  }
+ ],
+ "total": 17.57
+}

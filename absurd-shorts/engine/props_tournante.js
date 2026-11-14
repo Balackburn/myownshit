@@ -75,14 +75,19 @@ export const TOURNANTE_PROPS = {
     // (pass 3 of 57) a chain of tapering, rounded tufts that curves and waves, a pointed tip, in his hair colour: six hard brown boxes read as a brick or
     // a plank on his chest. o.len (0.7), o.w (0.2), o.color, o.sweep: the curl to one side over its length (the trail of the spin), o.lift: forward,
     // o.wave [amp, rate]: a whip running down it
-    const L = o.len ?? 0.7, w0 = o.w ?? 0.2, c = o.color || '#2B2622', N = 6, segL = L / N, g = grp(), segs = [];
+    // (final pass of 57) pointed tufts (overlapping downward cones: a zigzag edge) in a grey-brown with lighter strand lines, wider at the jaw: round
+    // near-black tufts read as black balls on the navy suit (1.02:1)
+    const L = o.len ?? 0.7, w0 = o.w ?? 0.2, c = o.color || '#6E5644', sc = o.strand || '#A08A74', N = 6, segL = L / N, g = grp(), segs = [];
     let parent = g;
     for (let i = 0; i < N; i++) {
-      const u = i / N, w = w0 * (1 - 0.72 * u), seg = grp(); seg.position.y = i ? -segL : 0; parent.add(seg); parent = seg;
-      const tuft = sphere(w * 0.55, c, 1); tuft.scale.set(1, (segL * 0.68) / (w * 0.55), 0.55); tuft.position.set(i % 2 ? 0.014 : -0.014, -segL * 0.5, 0.02 + 0.015 * u); addOutline(tuft, 0.05); seg.add(tuft);
+      const u = i / N, w = w0 * (1 - 0.7 * u) * (i === 0 ? 1.25 : 1), seg = grp(); seg.position.y = i ? -segL : 0; parent.add(seg); parent = seg;
+      for (const [dx, k] of (i < 2 ? [[-w * 0.32, 0.8], [w * 0.32, 0.8], [0, 1]] : [[0, 1]])) {
+        const tuft = new THREE.Mesh(new THREE.ConeGeometry(w * 0.5 * k, segL * 1.7, 6).rotateX(PI), mat(c)); tuft.position.set(dx + (i % 2 ? 0.01 : -0.01), -segL * 0.6, 0.02 + 0.012 * u); tuft.scale.z = 0.55; addOutline(tuft, 0.04); seg.add(tuft);
+        for (const sx of [-0.25, 0.25]) seg.add(at(box(0.008, segL * 1.1, 0.006, sc), dx + sx * w * 0.5 * k, -segL * 0.5, 0.02 + 0.012 * u + w * 0.5 * k * 0.5, 0, 0, sx * 0.3));
+      }
       segs.push(seg);
     }
-    const tip = new THREE.Mesh(new THREE.ConeGeometry(w0 * 0.14, segL * 0.9, 6).rotateX(PI), mat(c)); tip.position.y = -segL * 1.05; parent.add(tip);
+    const tip = new THREE.Mesh(new THREE.ConeGeometry(w0 * 0.16, segL * 1.1, 6).rotateX(PI), mat(c)); tip.position.y = -segL * 1.1; addOutline(tip, 0.05); parent.add(tip);
     const base = segs.map((sg, i) => [(o.lift ?? 0.15) / N * (i ? 1 : 0.5), (o.sweep ?? 0) / N * (1 + 0.4 * Math.sin(i * 1.4))]);
     g.userData.update = t => { const [amp, rate] = o.wave || [0.12, 9]; segs.forEach((sg, i) => { sg.rotation.set(base[i][0], 0, base[i][1] + amp * Math.sin(t * rate - i * 0.9) * (i / N)); }); };
     g.userData.update(0);

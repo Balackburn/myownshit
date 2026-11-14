@@ -96,8 +96,8 @@ st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         act('mec', MED, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys(SP3, 0.0, D3, lambda t: {**FLUNG(1.0), 'face': DEADPAN}, dt=0.12)]),
         act('passant', [r(DOOR[0] - 3.0), 0, r(DOOR[2] - 3.0)], 0, 'stand', 'neutral', keys=[k(0.0, look=[DOOR[0], 1.4, DOOR[2]]), k(0.0, to=[r(DOOR[0] - 3.0), 0, r(DOOR[2] + 3.2)], dur=r(D3 + 0.6), clip='walk', then='walk', ease='linear', face='move'),   # (pass 2) nearer us, under the hero in the frame (in front of the door he hid him)
             k(r(HAT3 - 0.04), toon={'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.2, 'brow': 0.8, 'mouth': 'O'}, 'hat': [0.45, 0.4, 1.0]}, toonDur=0.08, toonEase='out'),   # his hat lifts off in the wind...
-            k(r(HAT3 + 0.04), toon={'face': {'lid': 0.0, 'brow': 1.0, 'mouth': 'O'}, 'hat': [0.55, 0.5, 1.4]}, toonDur=0.14),   # ...(pass 2) hangs there five frames...
-            k(r(HAT3 + 0.18), toon={'reach': {'R': [r(DOOR[0] - 3.0), 2.3, r(DOOR[2] - 0.6), 1, 0.05]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.1, 'brow': 1.0, 'mouth': 'O'}, 'hat': [3.2, 1.6, 9.0]}, toonDur=0.4, toonEase='in')])],   # ...and whips away while he grabs at the air
+            k(r(HAT3 + 0.04), toon={'face': {'lid': 0.0, 'brow': 1.0, 'mouth': 'O', 'gy': -0.9}, 'hat': [0.55, 0.5, 1.4]}, toonDur=0.14),   # ...(pass 2) hangs there five frames ((final pass) his eyes up to it first)...
+            k(r(HAT3 + 0.18), toon={'reach': {'R': [r(DOOR[0] - 3.0), 2.3, r(DOOR[2] - 0.6), 1, 0.05]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.1, 'brow': 1.0, 'mouth': 'O', 'gy': -0.7}, 'hat': [1.25, 2.6, 9.0]}, toonDur=0.4, toonEase='in')])],   # ...and whips away while he grabs at the air ((final pass) tumbling, under the card's band: at 3.2 m it ran through it)
         props=[DOORP('door3', SP3)],
         cams=[FC(0.0, [r(DOOR[0] - 6.0), 2.4, r(DOOR[2] + 1.4)], [[DOOR[0], r(DH + 0.4), DOOR[2]], [DOOR[0], 0.0, DOOR[2]], [r(DOOR[0] - 3.0), 2.3, r(DOOR[2] - 1.0)], [r(DOOR[0] - 3.0), 0.0, r(DOOR[2] + 1.4)]], top=0.22, bottom=0.76, drift=(0.0, 0.0, -0.2))])   # (pass 2) higher (the passer-by under him in the frame); BUREAUX under the TOUJOURS card
 st.cue('whoosh', 'S03', 0.0, 0.25, 1.3, 250, 1100)
@@ -114,7 +114,7 @@ st.cue('sfx:paper', 'S04', 0.1, 0.25)
 # 5: three years. Close on him turning: a beard has grown, long, and it trails as he turns; his face deadpan each time it comes round
 D5 = st.dur('S05')
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', MED, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys([[0.0, 0.8]], 0.0, D5, lambda t: {**FLUNG(0.75), 'face': DEADPAN}, dt=0.1, yaw0=PI / 4)])],   # (stills v1) his face to us mid-shot (the back of his head); (stills 2) to the riding camera
+        act('mec', MED, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys([[0.0, 0.8]], 0.0, D5, lambda t: {**FLUNG(0.75), 'face': ({'lid': 1.0} if abs(t - 0.4) < 0.02 else {'lid': 0.45, 'gx': (0.6 if t > 0.45 else (-0.4 if t > 0.15 else 0.0))})}, dt=0.1, yaw0=PI / 4)])],   # (final pass) an eye dart and a blink   # (stills v1) his face to us mid-shot (the back of his head); (stills 2) to the riding camera
         props=[DOORP('door5', [[0.0, 0.8]]), BEARD('beard5', 0.75, 0.7, 0.6, keys=[k(0.0, scale=0.6), k(0.0, scale=1.0, dur=r(D5 - 0.1))])],   # (pass 2) one long mass to his belt, swept by the turn, growing (a comb of sticks)
         cams=[rideCam(0.0, [[0.0, 0.8]], 'door5', d=1.18, y=1.85)])   # (stills 2) inside, turning with him: the mullion of a wing crossed his face
 
@@ -128,13 +128,14 @@ st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
             k(0.0, toon={'reach': {'L': [r(SOCK[0] + 0.3), 0.45, r(SOCK[2] + 0.12), 1, 0.05]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.6, 0, 0, 1, None]}, 'face': {'lid': 0.5}}, toonDur=0.0),
             k(r(PLUG6 - 0.28), toon={'reach': {'L': [r(SOCK[0] + 0.45), 0.5, r(SOCK[2] + 0.2), 1, 0.05]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'brow': -0.3}}, toonDur=0.12, toonEase='inOut'),   # (pass 2) a wind-up back...
             k(r(PLUG6 - 0.1), toon={'reach': {'L': [r(SOCK[0] + 0.1), 0.2, r(SOCK[2] + 0.04), 1, 0.05]}, 'hands': {'L': 'grip'}, 'bend': {'spine': [0.78, 0, 0, 1, None]}, 'face': {'lid': 0.5, 'brow': -0.4}}, toonDur=0.1, toonEase='in'),   # ...in it goes...
-            k(r(PLUG6 + 0.02), toon={'touch': {'L': ['torso', 0.85, 0.75, 0.0, 1, 0.05], 'R': ['torso', -0.85, 0.75, 0.0, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [0.84, 1.24, 0.84], 'hairUp': 1.0, 'hat': [0.75, 0.3, 0.0], 'face': {'lid': 0.0, 'brow': 1.0, 'mouth': 'grimace', 'pop': 0.55, 'popLen': 0.18}}, toonDur=0.033, toonEase='out'),   # (pass 3) BZZT: rigid, stretched, arms splayed, the hat rocketing up...
-            *[k(r(PLUG6 + 0.06 + 0.035 * i), toon={'touch': {'L': ['torso', 0.85, 0.75, 0.0, 1, 0.05], 'R': ['torso', -0.85, 0.75, 0.0, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': ([0.9, 1.16, 0.9] if i % 2 else [0.82, 1.27, 0.82]), 'hairUp': 1.0, 'hat': [0.8, 0.35 + 0.05 * (i % 2), 0.0], 'face': {'lid': 0.0, 'brow': 1.0, 'mouth': 'grimace', 'pop': 0.55, 'popLen': 0.18}}, toonDur=0.03) for i in range(6)],   # ...six frames buzzing, the hat hanging over his hair...
-            k(r(PLUG6 + 0.3), toon={'bend': {'spine': [0.1, 0, 0, 1, None]}, 'hairUp': 0.9, 'hat': [0.05, 0.1, 0.0], 'face': {'lid': 0.0, 'brow': 0.9, 'pop': 0.35, 'popLen': 0.14}}, toonDur=0.1, toonEase='in'),   # ...it drops back on his head...
+            k(r(PLUG6 + 0.02), toon={'touch': {'L': ['torso', 0.85, 0.75, 0.0, 1, 0.05], 'R': ['torso', -0.85, 0.75, 0.0, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [0.84, 1.24, 0.84], 'hairUp': 1.0, 'hat': [0.3, 0.3, 0.0], 'face': {'lid': 0.0, 'brow': 1.0, 'mouth': 'grimace', 'pop': 0.55, 'popLen': 0.18}}, toonDur=0.033, toonEase='out'),   # (pass 3) BZZT: rigid, stretched, arms splayed, the hat rocketing up...
+            *[k(r(PLUG6 + 0.06 + 0.035 * i), toon={'touch': {'L': ['torso', 0.85, 0.75, 0.0, 1, 0.05], 'R': ['torso', -0.85, 0.75, 0.0, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': ([0.9, 1.16, 0.9] if i % 2 else [0.82, 1.27, 0.82]), 'hairUp': 1.0, 'hat': [r(0.36 + 0.09 * i), 0.35 + 0.05 * (i % 2), 0.0], 'face': {'lid': 0.0, 'brow': 1.0, 'mouth': 'grimace', 'pop': 0.55, 'popLen': 0.18}}, toonDur=0.03) for i in range(6)],   # ...six frames buzzing, the hat hanging over his hair...
+            k(r(PLUG6 + 0.26), toon={'bend': {'spine': [0.1, 0, 0, 1, None]}, 'hairUp': 1.0, 'hat': [0.85, 0.42, 0.0], 'face': {'lid': 0.0, 'brow': 1.0, 'pop': 0.45, 'popLen': 0.16}}, toonDur=0.06),   # (final pass) the hat hangs over his bristling hair...
+            k(r(PLUG6 + 0.34), toon={'bend': {'spine': [0.1, 0, 0, 1, None]}, 'hairUp': 0.9, 'hat': [0.05, 0.1, 0.0], 'face': {'lid': 0.0, 'brow': 0.9, 'pop': 0.35, 'popLen': 0.14}}, toonDur=0.1, toonEase='in'),   # ...it drops back on his head...
             k(r(PLUG6 + 0.45), toon={'bend': {'spine': [0.1, 0, 0, 1, None]}, 'hairUp': 0.8, 'face': {'lid': 0.3, 'brow': 0.7}}, toonDur=0.15)])],
-        props=[DOORP('door6', SP3), P('cable6', 'powerCable', pos=SOCK, opts={'r': 0.06, 'sag': 0.02, 'sparkSize': 3, 'to': [-6.5, 0.04, 4.5], 'sparkAt': [PLUG6], 'flow': [[PLUG6, 0.0], [r(PLUG6 + 0.2), 1.0]]}), BEARD('beard6', 0.8),
+        props=[DOORP('door6', SP3), P('cable6', 'powerCable', pos=SOCK, opts={'r': 0.06, 'sag': 0.02, 'sparkSize': 6, 'to': [-6.5, 0.04, 4.5], 'sparkAt': [PLUG6], 'flow': [[PLUG6, 0.0], [r(PLUG6 + 0.2), 1.0]]}), BEARD('beard6', 0.8),
                BURST('bzzt6', [r(SOCK[0] - 0.35), 0.75, r(SOCK[2] + 0.35)], PLUG6, 'BZZT !', 0.55)],   # (pass 2) thick, running off to the grid; a burst you can read
-        cams=[FC(0.0, [r(DOOR[0] - 3.4), 1.3, r(DOOR[2] + 3.8)], [[TECH6[0], 2.25, TECH6[2]], [r(TECH6[0] + 0.45), 2.1, TECH6[2]], [TECH6[0], 0.0, TECH6[2]], [SOCK[0], 0.0, SOCK[2]], [DOOR[0], 2.4, DOOR[2]]], top=0.12, bottom=0.74)])   # (stills 2) his head was cut by the right edge
+        cams=[FC(0.0, [r(DOOR[0] - 3.4), 1.3, r(DOOR[2] + 3.8)], [[TECH6[0], 3.35, TECH6[2]], [r(TECH6[0] + 0.95), 2.1, TECH6[2]], [r(TECH6[0] - 0.95), 2.1, TECH6[2]], [TECH6[0], 0.0, TECH6[2]], [SOCK[0], 0.0, SOCK[2]], [DOOR[0], 2.4, DOOR[2]]], top=0.12, bottom=0.74)])   # (stills 2) his head was cut by the right edge
 st.cue('sfx:zip', 'S06', r(PLUG6 - 0.05), 0.2); st.cue('sfx:static', 'S06', PLUG6, 0.35)
 
 # 7: to the grid. The meter on its post: its disc whirls and its counter rolls; the cable runs off to the grid behind it
@@ -154,7 +155,7 @@ st.shot('S08', 'whiteVoid', setOpts=NIGHT, actors=[
         act('mec', ND, 0, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys(SP3, 0.0, D8, lambda t: {**FLUNG(1.0), 'face': DEADPAN}, dt=0.12)])],
         props=[DOORP('door8', SP3, pos=ND, bulbs=[[0.0, 1.0]]), BEARD('beard8', 0.82), P('town8', 'nightSkyline', pos=[0.0, 0, -9.0], opts={'n': 8, 'w': 18, 'wave': WAVE8}),
                P('pave8', 'carpet', pos=[0.0, 0, -1.5], opts={'w': 22, 'd': 9, 'color': '#3A4152', 'inner': '#3A4152'})],
-        cams=[FC(0.0, [1.3, 0.6, 9.0], [[0.0, r(DH + 0.3), 0.0], [0.0, 0.0, 0.0], [-5.5, 7.5, -9.0], [5.5, 7.5, -9.0]], top=0.06, bottom=0.82, drift=(-0.12, 0.05, -0.4))])   # (pass 3) wide: the door small at the foot of the frame under the whole district   # (pass 2) low: the door at the foot of the frame, the town over it
+        cams=[FC(0.0, [1.1, 0.3, 9.0], [[0.0, r(DH + 0.3), 0.0], [0.0, 0.0, 0.0], [-5.0, 7.5, -9.0], [5.0, 7.5, -9.0]], top=0.04, bottom=0.94, drift=(-0.12, 0.03, -0.35), level=False)])   # (final pass) tilted up (level, the door sat at 68 %): lower: the empty ground under the door and the sky over the town filled 54 % of the frame   # (pass 3) wide: the door small at the foot of the frame under the whole district   # (pass 2) low: the door at the foot of the frame, the town over it
 st.cue('sfx:static', 'S08', 0.2, 0.15); st.cue('pop', 'S08', 0.4, 0.12); st.cue('pop', 'S08', 0.75, 0.12); st.cue('pop', 'S08', 1.05, 0.12)
 
 # 9: the gym. Day: a coach in a red tracksuit beside the door clicks his laps on a stopwatch and blows his whistle, a thumb up
@@ -163,12 +164,12 @@ COACH = [r(DOOR[0] - 1.45), 0, r(DOOR[2] - 1.7)]   # (stills v1) the far side of
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[
         act('mec', MED, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys(SP3, 0.0, D9, lambda t: {**FLUNG(1.0), 'face': DEADPAN}, dt=0.12)]),
         act('coach', COACH, -30, 'stand', 'happy', keys=[k(0.0, look={'point': [DOOR[0], 1.4, DOOR[2]], 'cheat': 0.4}),
-            *[k(r(0.08 + 0.21 * i), toon={'reach': {'R': [r(COACH[0] - 0.05), 1.4, r(COACH[2] + 0.3), 1, 0.05], 'L': [r(COACH[0] - 0.12), r(1.62 if i % 2 else 1.55), r(COACH[2] + 0.12), 1, 0.05]},
+            *[k(r(0.08 + 0.21 * i), toon={'reach': {'R': [r(COACH[0] + 0.12), 1.58, r(COACH[2] + 0.32), 1, 0.05], 'L': [r(COACH[0] - 0.1), r(1.74 if i % 2 else 1.5), r(COACH[2] + 0.16), 1, 0.05]},
                                        'hands': {'R': 'grip', 'L': 'fist'}, 'face': {'lid': 0.2, 'mouth': 'O' if i % 2 else 'smile', 'cheeks': 1.0 if i % 2 else 0.0, 'gx': (0.5 if i % 2 else -0.5)}}, toonDur=0.06) for i in range(4)],   # click, click, the whistle, cheeks puffed; his eyes on each lap
             *[k(r(0.12 + 0.21 * i), look={'point': [DOOR[0], 1.4, r(DOOR[2] + (0.9 if i % 2 else -0.9))], 'cheat': 0.4}) for i in range(4)],   # (pass 3) his head follows each lap after his eyes
             k(0.92, toon={'reach': {'R': [r(COACH[0] + 0.05), 1.6, r(COACH[2] + 0.35), 1, 0.05]}, 'hands': {'R': 'thumbUp'}, 'face': {'lid': 0.15, 'mouth': 'bigsmile'}}, toonDur=0.1, toonEase='outBack')])],   # a thumb up
-        props=[DOORP('door9', SP3), P('watch9', 'stopwatch', on={'actor': 'coach', 'hand': 'R', 'offset': [0, 0, 0.03]}, scale=2.8), BEARD('beard9', 0.84),   # (pass 2) twice as big: a beige disc
-               P('whis9', 'whistle', on={'actor': 'coach', 'hand': 'L', 'offset': [0, 0.02, 0.03]}, scale=2.6)],
+        props=[DOORP('door9', SP3), P('watch9', 'stopwatch', on={'actor': 'coach', 'hand': 'R', 'offset': [0, 0, 0.03], 'face': 'camera'}, scale=2.8), BEARD('beard9', 0.84),   # (pass 2) twice as big: a beige disc
+               P('whis9', 'whistle', on={'actor': 'coach', 'hand': 'L', 'offset': [0, 0.02, 0.03]}, scale=3.8)],
         cams=[FC(0.0, [r(DOOR[0] - 4.0), 1.55, r(DOOR[2] + 2.6)], [[COACH[0], 2.25, COACH[2]], [r(COACH[0] - 0.5), 2.1, COACH[2]], [COACH[0], 0.2, COACH[2]], [DOOR[0], 2.5, DOOR[2]], [DOOR[0], 0.3, DOOR[2]]], top=0.12, bottom=0.74)])   # (stills 2) his head was cut by the left edge
 st.cue('sfx:click', 'S09', 0.08, 0.2); st.cue('sfx:click', 'S09', 0.5, 0.2); st.cue('sfx:whistle', 'S09', 0.29, 0.25)
 
@@ -209,12 +210,13 @@ st.cue('clang', 'S11', JAM, 0.5)
 D12 = st.dur('S12')
 # (pass 2) a top: squashed into a coil at the start (the door stopped dead), then stretched thin, the arms up together over his head, the tie and the
 # beard flying out (a dark stick turning in place with its arms out)
-TOP12 = lambda t: {'touch': {'L': ['torso', 0.1, 1.45, 0.05, 1, 0.05], 'R': ['torso', -0.1, 1.45, 0.05, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'tie': [1.2, 0.2, 1.45], 'hairUp': 1.0,
-                   'sq': ([1.18, 0.82, 1.18] if t < 0.12 else [0.84, 1.18, 0.84]), 'face': DEADPAN}
+TOP12 = lambda t: {'touch': {'L': ['torso', 0.22, 1.12, 0.05, 1, 0.05], 'R': ['torso', -0.22, 1.12, 0.05, 1, 0.05]},   # (final pass) a V under the canopy (at 1.45 the hands went up into it)
+                   'hands': {'L': 'spread', 'R': 'spread'}, 'tie': [1.2, 0.2, 1.45], 'hairUp': 1.0,
+                   'sq': ([1.18, 0.82, 1.18] if t < 0.12 else [0.88, 1.1, 0.88]), 'face': DEADPAN}
 st.shot('S12', 'parisStreet', setOpts=STREET, actors=[
         act('mec', MED, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys([[0.0, FAST]], 0.0, D12, TOP12, dt=0.1)])],
         props=[DOORP('door12', [[0.0, 0.0]]), BEARD('beard12', 0.9, 1.1, 1.0), P('broom12', 'broom', pos=[r(DOOR[0] - 0.95), 0.05, r(DOOR[2] - 0.75)], rot=[0.0, 0.0, -0.55], scale=1.1)],   # (pass 3) no wind ribbons
-        cams=[FC(0.0, [r(DOOR[0] - 2.8), 1.5, r(DOOR[2] - 0.9)], [[DOOR[0], 3.15, DOOR[2]], [DOOR[0], 0.3, DOOR[2]], [r(DOOR[0] - 0.95), 1.3, r(DOOR[2] - 0.75)]], top=0.2, bottom=0.76, drift=(0.15, 0.0, 0.08))])   # (pass 3) his raised hands and face in the frame (they were above its top edge)
+        cams=[FC(0.0, [r(DOOR[0] - 2.8), 1.75, r(DOOR[2] - 0.9)], [[DOOR[0], 3.0, DOOR[2]], [DOOR[0], 0.3, DOOR[2]], [r(DOOR[0] - 0.95), 1.3, r(DOOR[2] - 0.75)]], top=0.2, bottom=0.76, drift=(0.15, 0.0, 0.08))])   # (pass 3) his raised hands and face in the frame (they were above its top edge)
 st.cue('whoosh', 'S12', 0.0, 0.25, 1.1, 300, 1200)
 
 # 13: he did not. He drills out of the door like a top and spins away down the pavement in a whirl of wind; a passer-by is spun round as he goes by
@@ -226,27 +228,32 @@ DRILL = lambda t: {'touch': {'L': ['torso', 0.08, 1.45, 0.1, 1, 0.05], 'R': ['to
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[
         act('mec', MED, -90, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys([[0.0, FAST], [0.5, 3.4]], 0.0, D13, DRILL, dt=0.08),
             k(0.1, to=[r(DOOR[0] - 1.2), 0, r(DOOR[2] - 1.4)], dur=0.22, glide=True, ease='in', face='keep'), k(0.32, to=OUT13, dur=r(D13 - 0.32), glide=True, ease='in', face='keep')]),
-        act('passante', PASS13, 90, 'stand', 'neutral', keys=[k(0.0, look=[r(DOOR[0] - 1.0), 1.4, r(DOOR[2] - 1.0)]),
+        act('passante', [PASS13[0], 0, r(PASS13[2] - 0.7)], 90, 'stand', 'neutral', keys=[k(0.0, look=[r(DOOR[0] - 1.0), 1.4, r(DOOR[2] - 1.0)]), k(0.0, to=PASS13, dur=0.5, clip='walk', then='stand', ease='out', face='keep'),   # (final pass) she walks up (she stood frozen)
             k(0.55, toon={'yaw': 0.0, 'face': {'lid': 0.0, 'brow': 1.0}}, toonDur=0.0),
-            k(0.55, toon={'yaw': r(TAU * 2.0 + PI / 2, 4), 'hairUp': 1.0, 'face': {'lid': 0.0, 'brow': 1.0, 'cross': 1.0, 'eyeScale': 1.25}}, toonDur=0.5, toonEase='out')])],   # (pass 3) she ends facing us (her back was to us)   # spun round twice as he passes, cross-eyed
+            k(0.55, toon={'yaw': r(TAU * 2.0 + PI / 2, 4), 'hairUp': 1.0, 'face': {'lid': 0.0, 'brow': 1.0, 'cross': 1.0, 'eyeScale': 1.7}}, toonDur=0.5, toonEase='out')])],   # (pass 3) she ends facing us (her back was to us)   # spun round twice as he passes, cross-eyed
         props=[DOORP('door13', [[0.0, 0.0]]), BEARD('beard13', 0.92, 1.3, 1.2), P('broom13', 'broom', pos=[r(DOOR[0] - 0.95), 0.05, r(DOOR[2] - 0.75)], rot=[0.0, 0.0, -0.55], scale=1.1)],   # (pass 3) no wind ribbons
         cams=[FC(0.0, [r(DOOR[0] - 1.6), 1.25, r(DOOR[2] - 8.2)], [[DOOR[0], r(DH + 0.3), DOOR[2]], [OUT13[0], 2.5, OUT13[2]], [OUT13[0], 0.0, OUT13[2]], [PASS13[0], 2.2, PASS13[2]]], top=0.12, bottom=0.76)])   # (pass 2) down the pavement, on his path: he drills out of the door at us
 st.cue('whoosh', 'S13', 0.05, 0.4, 1.1, 200, 1000); st.cue('sfx:boing', 'S13', 0.55, 0.2)
 
 # 14: the station bills him for the blackout. Night, the district dark: he wobbles to a stop, dizzy, stars round his head; the technician holds up
 #     the bill; deadpan, a blink
-D14 = st.dur('S14'); STOP14 = 0.9; BILL14 = 1.25
+D14 = st.dur('S14'); STOP14 = 0.9; BILL14 = 1.72                         # (final pass) after the pop (it came during the pancake)
 ME14 = [0.0, 0, 0.0]; TECH14 = [0.95, 0, 0.45]
 WOB = lambda t: {'wave': {'spine': [r(0.06 * max(0.0, 1 - t / 1.8)), 1.0, r(t * 2.2), 0, 0.0]}, 'face': {'lid': 0.3, 'cross': r(0.8 * max(0.0, 1 - t / 1.6)), 'stars': r(min(1.0, max(0.0, (D14 - 0.45 - t) / 0.3))), 'starsScale': 2.2, 'starsY': -0.25}}   # (pass 2) big stars at his eyes, under the card, until the blink
 st.shot('S14', 'whiteVoid', setOpts={'color': '#2A3A62'}, actors=[   # (pass 3) a lighter night behind him (navy on navy, 1.05:1)
         act('mec', ME14, 15, 'stand', 'unimpressed', keys=[k(0.0, look=None), *spinKeys([[0.0, 1.6], [STOP14, 0.0]], 0.0, r(STOP14 + 0.05), lambda t: {**FLUNG(max(0.0, 1 - t / STOP14)), **WOB(t)}, dt=0.1, yaw0=-TAU * turns([[0.0, 1.6], [STOP14, 0.0]], STOP14)),   # (stills v1) he comes to rest facing us (in profile)
-            k(r(STOP14 + 0.05), toon={'yaw': 0.18, **WOB(STOP14), 'sq': [1.62, 0.47, 1.62]}, toonDur=0.05, toonEase='out'),   # (pass 3) flattened to half his height as he stops...
-            k(r(STOP14 + 0.1), toon={'yaw': 0.18, **WOB(STOP14 + 0.05), 'sq': [1.58, 0.5, 1.58]}, toonDur=0.2),   # ...held eight frames...
-            k(r(STOP14 + 0.32), toon={'yaw': -0.11, **WOB(STOP14 + 0.3), 'sq': [0.88, 1.16, 0.88]}, toonDur=0.07, toonEase='outBack'),   # ...a pop: re-inflated past his height...
-            *[k(r(STOP14 + 0.42 + 0.2 * i), toon={'yaw': r(0.1 * (0.6 ** i) * (1 if i % 2 == 0 else -1), 3), **WOB(STOP14 + 0.4 + 0.2 * i)}, toonDur=0.18, toonEase='inOut') for i in range(4)],   # ...and a wobble back and forth to a stop
+            k(r(STOP14 + 0.05), toon={'yaw': 0.18, **WOB(STOP14), 'sq': [0.94, 1.08, 0.94]}, toonDur=0.05, toonEase='out'),   # (final pass) he stops dead: a hang of four frames, stretched up...
+            k(r(STOP14 + 0.17), toon={'yaw': 0.18, **WOB(STOP14 + 0.1), 'sq': [1.66, 0.45, 1.66]}, toonDur=0.04, toonEase='in'),   # ...then his top half comes down on him, flat...
+            k(r(STOP14 + 0.22), toon={'yaw': 0.18, **WOB(STOP14 + 0.2), 'sq': [1.6, 0.48, 1.6]}, toonDur=0.33),   # ...held twelve frames...
+            k(r(STOP14 + 0.6), toon={'yaw': -0.11, **WOB(STOP14 + 0.5), 'sq': [0.8, 1.26, 0.8]}, toonDur=0.07, toonEase='outBack'),   # ...a pop: past his height for five frames...
+            k(r(STOP14 + 0.76), toon={'yaw': -0.06, **WOB(STOP14 + 0.66), 'sq': [1.05, 0.96, 1.05]}, toonDur=0.08, toonEase='inOut'),   # ...settling
+            *[k(r(STOP14 + 0.86 + 0.2 * i), toon={'yaw': r(0.1 * (0.6 ** i) * (1 if i % 2 == 0 else -1), 3), **WOB(STOP14 + 0.4 + 0.2 * i)}, toonDur=0.18, toonEase='inOut') for i in range(3)],   # ...and a wobble back and forth to a stop
             k(round(STOP14 + 1.1, 3), look='camera'),
             k(r(D14 - 0.45), toon={'yaw': 0.0, 'face': {'lid': 1.0}}, toonDur=0.06), k(r(D14 - 0.3), toon={'yaw': 0.0, 'face': DEADPAN}, toonDur=0.1)]),
-        act('technicien', TECH14, -60, 'stand', 'neutral', keys=[k(0.0, look={'actor': 'mec'}), k(0.3, toon={'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.4, 'gx': -0.3}}, toonDur=0.3, toonEase='inOut'), k(0.7, toon={'face': {'lid': 0.4, 'gx': 0.3}}, toonDur=0.15),   # (pass 3) his eyes follow the wobble, he breathes k(BILL14, toon={'reach': {'R': [0.8, 1.3, 0.8, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.5}}, toonDur=0.15),   # (pass 2) by its corner: his fingers lay on the price
+        act('technicien', TECH14, -60, 'stand', 'neutral', keys=[k(0.0, look={'actor': 'mec'}), k(0.3, toon={'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.4, 'gx': -0.3}}, toonDur=0.3, toonEase='inOut'), k(0.7, toon={'face': {'lid': 0.4, 'gx': 0.3}}, toonDur=0.15),   # (pass 3) his eyes follow the wobble, he breathes
+            k(1.05, toon={'sq': [1.0, 0.985, 1.0], 'face': {'lid': 0.45, 'gy': 0.6}}, toonDur=0.15), k(1.3, toon={'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.4, 'gx': -0.3}}, toonDur=0.2, toonEase='inOut'),   # (final pass) a glance down at the pancake, a breath
+            k(r(BILL14 - 0.24), toon={'reach': {'R': [1.05, 0.95, 0.5, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.45, 'gy': 0.4}}, toonDur=0.08),   # (final pass) a hand to his pocket...
+            k(r(BILL14 - 0.12), toon={'reach': {'R': [0.8, 1.3, 0.8, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.5}}, toonDur=0.12, toonEase='outBack'),   # ...and up with the bill (this key sat inside a comment: the bill appeared with his arm still) toonDur=0.15),   # (pass 2) by its corner: his fingers lay on the price
             k(1.9, toon={'reach': {'R': [0.8, 1.32, 0.8, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 1.015, 1.0], 'face': {'lid': 1.0}}, toonDur=0.06), k(2.02, toon={'reach': {'R': [0.8, 1.3, 0.8, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.5, 'brow': 0.3}}, toonDur=0.1)])],
         props=[DOORP('door14', [[0.0, 0.0]], pos=[-2.6, 0, -2.4]), P('town14', 'nightSkyline', pos=[0.0, 0, -9.0], opts={'n': 8, 'w': 18, 'wave': [99.0, 99.0]}),
                P('pave14', 'carpet', pos=[0.0, 0, -1.5], opts={'w': 22, 'd': 9, 'color': '#3A4152', 'inner': '#3A4152'}),

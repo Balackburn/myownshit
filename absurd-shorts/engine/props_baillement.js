@@ -63,12 +63,14 @@ export const BAILLEMENT_PROPS = {
   // an ink outline; o.path [[t, x, y, z], ...] where it is (in the frame of what it is attached to), o.size [[t, s]] how far it pushes out (0..1.5):
   // a knee, a fist, a head pushing against the cloth from inside.
   bellyBulge(o) {
-    const r = o.r ?? 0.13, m = sphere(r, o.color || '#33497A', 1); m.scale.set(1, 1.15, 0.7); addOutline(m, 0.05);
-    const g = grp(m);
-    // (pass 2 of 58) o.fist: four knuckles on its front (a fist punching the shirt from inside); a lighter blue than the suit (navy on navy it read as a
-    // ball stuck on the jacket, 1.05:1)
-    if (o.fist) for (let i = 0; i < 4; i++) m.add(at(sphere(r * 0.24, o.color || '#33497A', 1), (i - 1.5) * r * 0.42, r * 0.25, r * 0.86));
-    g.userData.update = t => { const p = linP(o.path, t), s = Math.max(0.001, lin(o.size, t, 1)); m.position.set(p[0], p[1], p[2]); m.scale.set(s, s * 1.15, s * 0.7); m.visible = s > 0.02; };
+    // (pass 3 of 58) the default is the jacket's own navy (suitNavy), with a thin outline and four creases fanning out from it: a lighter blue read as a
+    // blue ball stuck on him (9,40,95 against 1,15,32), navy with a thick ink outline as a ball too: the creases make it the cloth pushed out
+    const r = o.r ?? 0.13, c = o.color || '#1F3550', m = sphere(r, c, 1); m.scale.set(1, 1.15, 0.7); addOutline(m, o.outline ?? 0.025);
+    const g = grp(m), creases = grp(); g.add(creases);
+    for (let i = 0; i < 4; i++) { const a = PI / 4 + i * PI / 2, cr = at(box(r * 0.9, 0.006, 0.006, '#0B1626'), Math.cos(a) * r * 1.25, Math.sin(a) * r * 1.25, r * 0.12, 0, 0, a); creases.add(cr); }
+    if (o.fist) for (let i = 0; i < 4; i++) m.add(at(sphere(r * 0.24, c, 1), (i - 1.5) * r * 0.42, r * 0.25, r * 0.86));
+    g.userData.update = t => { const p = linP(o.path, t), s = Math.max(0.001, lin(o.size, t, 1)); m.position.set(p[0], p[1], p[2]); m.scale.set(s, s * 1.15, s * 0.7); m.visible = s > 0.02;
+      creases.position.set(p[0], p[1], p[2]); creases.scale.setScalar(s); creases.visible = m.visible; };
     g.userData.update(0); return g;
   },
 
@@ -86,18 +88,25 @@ export const BAILLEMENT_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // Giant ceremonial scissors (pivot at their screw, the blades along +X): silver blades, red handles; o.snip [[t, 0..1]]: 1 open, 0 shut.
+  // Giant ceremonial scissors (pivot at their screw, the blades along +X): silver blades, red handles (o.handle: (pass 3 of 58) dark ones, the red handles
+  // merged with the sash and the ribbon); o.snip [[t, 0..1]]: 1 open, 0 shut; o.open (0.35 rad): how far each blade opens.
   bigScissors(o) {
-    const L = o.len ?? 0.5, g = grp(), mk = s => { const b = grp(at(box(L, 0.035, 0.012, '#D9DEE3', { outline: 0.02 }), L / 2, 0, 0), at(cyl(0.07, 0.07, 0.02, '#C23A30', 12), -0.1, -s * 0.05, 0, PI / 2, 0, 0)); g.add(b); return b; };
+    const L = o.len ?? 0.5, g = grp(), mk = s => { const b = grp(at(box(L, 0.035, 0.012, '#D9DEE3', { outline: 0.02 }), L / 2, 0, 0), at(cyl(0.07, 0.07, 0.02, o.handle || '#C23A30', 12), -0.1, -s * 0.05, 0, PI / 2, 0, 0)); g.add(b); return b; };
     const a = mk(1), b = mk(-1); g.add(at(sphere(0.02, '#8A9097', 1), 0, 0, 0.012));
-    g.userData.update = t => { const op = Math.max(0, Math.min(1, lin(o.snip, t, 1))) * 0.35; a.rotation.z = op; b.rotation.z = -op; };
+    g.userData.update = t => { const op = Math.max(0, Math.min(1, lin(o.snip, t, 1))) * (o.open ?? 0.35); a.rotation.z = op; b.rotation.z = -op; };
     g.userData.update(0); return g;
   },
 
   // A knitted cap lying loose (pivot at its rim's middle): a dome o.color ('#F2C230') with a turned-up band and a bobble: the postman's, left behind.
+  // (pass 3 of 58) knitted: vertical ribs painted on the dome and a thicker turned-up cuff with its own ribs (smooth, it read as a hard hat)
   beanieHat(o) {
-    const c = o.color || '#F2C230', dome = new THREE.Mesh(new THREE.SphereGeometry(0.11, 12, 8, 0, 2 * PI, 0, PI / 2), mat(c)); addOutline(dome, 0.05); dome.scale.set(1, 1.05, 1);
-    const g = grp(dome, at(cyl(0.115, 0.115, 0.05, c, 14), 0, 0.012, 0)); if (o.bobble !== false) g.add(at(sphere(0.035, '#FFFFFF', 1), 0, 0.12, 0));   // (pass 2 of 58) o.bobble false: the cap he wore had none
+    const c = new THREE.Color(o.color || '#F2C230'), dk = c.clone().multiplyScalar(0.72), hex = '#' + c.getHexString(), dhex = '#' + dk.getHexString();
+    const rib = (n, vertical) => { const cv = document.createElement('canvas'); cv.width = cv.height = 128; const x = cv.getContext('2d'); x.fillStyle = hex; x.fillRect(0, 0, 128, 128); x.fillStyle = dhex;
+      for (let i = 0; i < n; i++) { if (vertical) x.fillRect(i * 128 / n, 0, 128 / n * 0.35, 128); else x.fillRect(0, i * 128 / n, 128, 128 / n * 0.3); }
+      const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; return tx; };
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(0.11, 16, 8, 0, 2 * PI, 0, PI / 2), new THREE.MeshLambertMaterial({ map: rib(18, true), flatShading: true })); addOutline(dome, 0.05); dome.scale.set(1, 1.05, 1);
+    const cuffTex = rib(18, true), cuff = new THREE.Mesh(new THREE.CylinderGeometry(0.122, 0.118, 0.065, 18), new THREE.MeshLambertMaterial({ map: cuffTex, color: '#D8D8D8', flatShading: true })); addOutline(cuff, 0.04);
+    const g = grp(dome, at(cuff, 0, 0.02, 0)); if (o.bobble !== false) g.add(at(sphere(0.035, '#FFFFFF', 1), 0, 0.12, 0));   // (pass 2 of 58) o.bobble false: the cap he wore had none
     return g;
   },
 
