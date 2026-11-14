@@ -55,7 +55,7 @@ export const SOLEIL_PROPS = {
   // A traffic light made for a head (pivot at the foot of its pole): a dark green box o.w (0.8) wide on a pole o.pole (2.0) high, its front panel
   // pierced by three round holes (radius o.hole 0.24) with hoods over them, at 0.32, 0.85 and 1.38 m over the box's base; a ring round each hole in
   // its colour (green, amber, red, from the bottom). A man standing behind the panel shows his face through a hole; the box is open at the back;
-  // o.column: a cabinet instead of the pole, his body inside it; o.shake [[t, k], ...]: it rattles from t
+  // o.column: a cabinet instead of the pole, his body inside it; o.shake [[t, k], ...]: it rattles from t; o.open: which hole is open when
   headLight(o) {
     const W = o.w ?? 0.8, H = 1.7, D = 0.34, P = o.pole ?? 2.0, HR = o.hole ?? 0.24, C = o.color || '#2F4A3A', g = grp(), ys = [0.32, 0.85, 1.38], rc = ['#3FB84A', '#F2A81E', '#E2312A'];
     const sh = new THREE.Shape(); sh.moveTo(-W / 2, 0); sh.lineTo(W / 2, 0); sh.lineTo(W / 2, H); sh.lineTo(-W / 2, H); sh.lineTo(-W / 2, 0);
@@ -67,8 +67,13 @@ export const SOLEIL_PROPS = {
       const hood = new THREE.Mesh(new THREE.CylinderGeometry(HR + 0.05, HR + 0.05, 0.22, 20, 1, true, -PI / 2, PI), mat(C)); hood.material.side = THREE.DoubleSide; hood.rotation.x = PI / 2; hood.position.set(0, P + y + 0.01, D / 2 + 0.11); g.add(hood); });
     if (o.column) g.add(at(box(W * 0.9, P, 0.55, '#3C3F44', { pivot: 'bottom', outline: 0.01 }), 0, 0, -0.08), at(box(W * 0.94, 0.05, 0.6, '#2E3135', { outline: 0.006 }), 0, P - 0.02, -0.08));   // o.column: a cabinet under it (his body hides inside)
     else g.add(at(cyl(0.07, 0.08, P, '#3C3F44', 10, { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.18, 0.2, 0.08, '#3C3F44', 12), 0, 0.04, 0));
-    if (o.shake) g.userData.update = t => { let a = 0; for (const [t0, k] of list(o.shake)) { const u = t - t0; if (u > 0 && u < 0.8) a += k * Math.exp(-u * 5) * Math.sin(u * 46); } g.rotation.z = a; };
-    if (g.userData.update) g.userData.update(0);
+    // (stills 1 of 62) the unlit holes behind dark glass (open, they showed his suit and tie); o.open [[t, i], ...]: from t, hole i (0 green .. 2 red)
+    // is the open one, where his face shows (default: the red one)
+    const glass = ys.map(y => { const d = new THREE.Mesh(new THREE.CircleGeometry(HR + 0.004, 24), new THREE.MeshLambertMaterial({ color: '#1A2420', emissive: '#0C1210' })); d.position.set(0, P + y, D / 2 + 0.002); g.add(d); return d; });
+    const opens = o.open ? o.open : [[0, 2]];
+    g.userData.update = t => { let a = 0; for (const [t0, k] of list(o.shake)) { const u = t - t0; if (u > 0 && u < 0.8) a += k * Math.exp(-u * 5) * Math.sin(u * 46); } g.rotation.z = a;
+      let op = opens[0][1]; for (const [t0, i] of opens) if (t >= t0) op = i; glass.forEach((d, i) => { d.visible = i !== op; }); };
+    g.userData.update(0);
     return g;
   },
 
