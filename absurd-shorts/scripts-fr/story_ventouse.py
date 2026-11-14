@@ -54,7 +54,8 @@ st.shot('S01', 'kitchenDay', look=LOOKI, actors=[
         props=[P('isl1', 'islandSink', pos=ISL),
                P('pl1', 'plunger', pos=DRAIN, opts={**PLOPTS, 'squash': [[0.18, 0.5], [0.46, 0.5], [0.74, 0.5]]},
                  keys=[k(0.86, scale=1.0)])],
-        cams=[FC(0.0, [1.55, 1.6, -0.35], [[MEK[0], 2.45, MEK[2]], [MEK[0], 1.0, MEK[2]], [MEK[0], 2.2, r(MEK[2] - 1.15)], [MEK[0], 0.0, r(MEK[2] - 0.3)], [-0.55, 0.9, ISL[2]], [0.55, 0.9, ISL[2]], [DRAIN[0], 0.75, DRAIN[2]]], top=0.12, bottom=0.74, drift=(-0.05, 0.0, -0.06))])   # (check stills) the leaning head inside (cut by the right edge)
+        cams=[FC(0.0, [1.55, 2.05, -0.2], [[MEK[0], 2.45, MEK[2]],   # (final pass) higher: the red cup in the sink in view
+                   [MEK[0], 1.0, MEK[2]], [MEK[0], 2.2, r(MEK[2] - 1.15)], [MEK[0], 0.0, r(MEK[2] - 0.3)], [-0.55, 0.9, ISL[2]], [0.55, 0.9, ISL[2]], [DRAIN[0], 0.75, DRAIN[2]]], top=0.12, bottom=0.74, drift=(-0.05, 0.0, -0.06))])   # (check stills) the leaning head inside (cut by the right edge)
         # (pass 2) three-quarters from his side, lower: the lean back reads as a diagonal (from the front, high, he stood upright in a white tray)
 st.cue('sfx:squeak', 'S01', 0.18, 0.25); st.cue('sfx:squeak', 'S01', 0.46, 0.25); st.cue('sfx:squeak', 'S01', 0.74, 0.25)
 
@@ -87,16 +88,18 @@ st.cue('pop', 'S02', POP2, 0.45); st.cue('sfx:bonk', 'S02', HIT2, 0.45); st.cue(
 #    hands slip: the head snaps back, wobbling; the plunger has not moved
 D3 = st.dur('S03'); SL3 = 0.78; ME3 = [0.0, 0, -2.15]   # (pass 2) seen in profile: from three-quarters behind his raised arms covered the neck
 HDL = lambda d: [r(FORE[1] + d * math.sin(HA)), r(FORE[2] + d * math.cos(HA))]   # a point up the handle, d from his forehead (in the frame of his head)
-PULL = lambda d, w=1: {'touch': {'L': ['head', -0.04, HDL(0.3)[0], HDL(0.3)[1], w, 0.03], 'R': ['head', 0.04, HDL(0.4)[0], HDL(0.4)[1], w, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}}   # (pass 3) up the handle near the cup: the arms rise above the neck (at the knob they covered it)
+PULL = lambda d, w=1: {'touch': {'L': ['head', -0.04, HDL(0.3)[0], HDL(0.3)[1], w, 0.03, [1.0, -0.2, 0.1]], 'R': ['head', 0.04, HDL(0.4)[0], HDL(0.4)[1], w, 0.03, [-1.0, -0.2, 0.1]]}, 'hands': {'L': 'grip', 'R': 'grip'}}   # (final pass) the elbows out wide: the forearms frame his face (they crossed it)   # (pass 3) up the handle near the cup: the arms rise above the neck (at the knob they covered it)
 st.shot('S03', 'kitchenDay', look=LOOKI, actors=[
         act('mec', ME3, 0, 'stand', 'determined', keys=[k(0.0, look=None), k(0.0, toon={**PULL(0.0), 'face': {'brow': -0.5}}, toonDur=0.0),
             k(0.1, toon={**PULL(0.0), 'bend': {'neck': [0.35, 0, 0, 1.35, None], 'spine': [-0.25, 0, 0, 1, None]}, 'lay': [-0.12, 0.0], 'face': {'brow': -0.8, 'lid': 0.75, 'mouth': 'clench'}}, toonDur=0.25, toonEase='inOut'),
-            k(0.36, toon={**PULL(0.0), 'bend': {'neck': [-0.55, 0, 0, 4.2, 0.9], 'spine': [-0.15, 0, 0, 1, None]}, 'lay': [-0.08, 0.0], 'sq': [0.95, 1.06, 0.95], 'face': {'brow': -1.0, 'lid': 0.9, 'mouth': 'clench', 'cheeks': 0.8, 'vein': 1.0}}, toonDur=0.28, toonEase='inOut'),   # (pass 3) the neck four times its length, the head pulled straight up between his arms
-            *[k(round(0.6 + 0.033 * i, 3), toon={**PULL(0.0), 'bend': {'neck': [-0.55, 0, 0, round(4.2 + (0.12 if i % 2 else -0.12), 3), 0.9], 'spine': [-0.15, 0, 0, 1, None]}, 'lay': [-0.08, 0.0], 'face': {'brow': -1.0, 'lid': 0.9, 'mouth': 'clench', 'vein': 1.0}}, toonDur=0.03) for i in range(5)],   # held five frames, trembling
+            k(0.36, toon={**PULL(0.0), 'bend': {'neck': [-0.08, 0, 0, 4.4, 0.9], 'spine': [-0.15, 0, 0, 1, None]},   # (final pass) the head level: the face square to us, lit (tipped back it was in shadow)
+                          'lay': [-0.08, 0.0], 'sq': [0.95, 1.06, 0.95], 'face': {'brow': -1.0, 'lid': 0.9, 'mouth': 'clench', 'cheeks': 0.8, 'vein': 1.0}}, toonDur=0.28, toonEase='inOut'),   # (pass 3) the neck four times its length, the head pulled straight up between his arms
+            *[k(round(0.6 + 0.033 * i, 3), toon={**PULL(0.0), 'bend': {'neck': [-0.08, 0, 0, round(4.4 + (0.12 if i % 2 else -0.12), 3), 0.9], 'spine': [-0.15, 0, 0, 1, None]}, 'lay': [-0.08, 0.0], 'face': {'brow': -1.0, 'lid': 0.9, 'mouth': 'clench', 'vein': 1.0}}, toonDur=0.03) for i in range(5)],   # held five frames, trembling
             # the head out on a neck twice its length, quivering at the limit...
-            k(SL3, toon={'reach': {'L': [-0.55, 1.2, r(ME3[2] - 0.4), 1, 0.05], 'R': [0.55, 1.25, r(ME3[2] - 0.4), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}, 'bend': {'neck': [-0.35, 0, 0, 0.5, None]}, 'scl': {'head': [1.25, 0.76, 1.2]}, 'lay': [-0.28, 0.0], 'sq': [1.1, 0.9, 1.1], 'face': {'eye': 0.35, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.04, toonEase='out'),   # (pass 3) back past its place by a third, squashed
+            k(SL3, toon={'reach': {'L': [-0.75, 2.7, r(ME3[2] - 0.25), 1, 0.05], 'R': [0.75, 2.75, r(ME3[2] - 0.25), 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'},   # (final pass) the hands fly off up and out...
+                          'bend': {'neck': [-0.35, 0, 0, 0.5, None]}, 'scl': {'head': [1.25, 0.76, 1.2]}, 'lay': [-0.28, 0.0], 'sq': [1.1, 0.9, 1.1], 'face': {'eye': 0.35, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.04, toonEase='out'),   # (pass 3) back past its place by a third, squashed
             # ...his hands slip: the head snaps back past its place, his arms fly back...
-            k(round(SL3 + 0.07, 3), toon={'bend': {'neck': [0.3, 0, 0, 1.6, None]}, 'scl': {'head': [0.92, 1.1, 0.95]}, 'lay': [-0.05, 0.0], 'face': {'brow': 0.3}}, toonDur=0.06), k(round(SL3 + 0.14, 3), toon={'bend': {'neck': [-0.2, 0, 0, 0.7, None]}, 'face': {'lid': 0.45}}, toonDur=0.06),
+            k(round(SL3 + 0.07, 3), toon={'reach': {'L': [-0.5, 0.82, r(ME3[2] + 0.08), 1, 0.05], 'R': [0.5, 0.8, r(ME3[2] + 0.08), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'bend': {'neck': [0.3, 0, 0, 1.6, None]}, 'scl': {'head': [0.92, 1.1, 0.95]}, 'lay': [-0.05, 0.0], 'face': {'brow': 0.3}}, toonDur=0.07),   # ...flop down past his hips (the overshoot) and settle k(round(SL3 + 0.14, 3), toon={'bend': {'neck': [-0.2, 0, 0, 0.7, None]}, 'face': {'lid': 0.45}}, toonDur=0.06),
             k(round(SL3 + 0.21, 3), toon={'bend': {'neck': [0.14, 0, 0, 1.25, None]}, 'face': {'lid': 0.45}}, toonDur=0.06), k(round(SL3 + 0.28, 3), toon={'bend': {'neck': [-0.06, 0, 0, 0.9, None]}, 'face': {'lid': 0.45}}, toonDur=0.06),   # (pass 3) four wobbles big enough for 15 frames a second
             k(round(SL3 + 0.36, 3), toon={'bend': {'neck': [0.0, 0, 0, 1.0, None]}, 'face': {'lid': 0.45}}, toonDur=0.08)])],   # ...and wobbles to rest, four times, deadpan
         props=[P('isl3', 'islandSink', pos=ISL), HORNP('pl3', {'wobble': [[SL3, 0.3, 30, 5]]})],
@@ -110,13 +113,17 @@ POSTEV = {'title': 'MUTUELLE', 'guichets': False}
 ME4 = [-0.4, 0, -1.55]; CLK4 = [0.35, 0, -2.62]   # (stills v2) the clerk off his shoulder, to his left: behind him she was a pale ghost
 LEAN4 = {'bend': {'spine': [0.75, 0, 0, 1, None], 'neck': [0.3, 0, 0, 1, None]}}   # (pass 2) further out over the counter (she only tilted her head behind the glass)
 TIP4 = [ME4[0], r(1.99 + PLEN * math.sin(HA)), r(ME4[2] + 0.085 + PLEN * math.cos(HA))]
+SLOUCH = {'lay': [0.03, 0.04], 'bend': {'spine': [0.12, 0.05, 0, 1, None]}}   # (final pass) slumped and uneven at the counter (the rig's straight default pose)
+LEANIN4 = {'bend': {'spine': [0.85, 0, 0, 1, None], 'neck': [0.38, 0, 0, 1, None]}}
 st.shot('S04', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
-        act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),
-            k(0.5, toon={'sq': [1.0, 1.015, 1.0], 'face': {'lid': 0.45}}, toonDur=0.3, toonEase='inOut'), k(1.3, toon={'face': {'lid': 1.0}}, toonDur=0.05), k(1.4, toon={'face': {'lid': 0.45}}, toonDur=0.08)]),
+        act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**SLOUCH, 'face': {'lid': 0.45}}, toonDur=0.0),
+            k(0.5, toon={**SLOUCH, 'sq': [1.0, 1.015, 1.0], 'face': {'lid': 0.45}}, toonDur=0.3, toonEase='inOut'), k(1.3, toon={**SLOUCH, 'face': {'lid': 1.0}}, toonDur=0.05), k(1.4, toon={**SLOUCH, 'face': {'lid': 0.45}}, toonDur=0.08)]),
         act('guichet', CLK4, -10, 'stand', 'unimpressed', keys=[k(0.0, look=[ME4[0], 2.0, r(ME4[2] + 0.3)]), k(0.0, toon={**LEAN4, 'face': {'lid': 0.55, 'gy': 0.3}}, toonDur=0.0),
             k(0.3, look=TIP4), k(0.46, look=[ME4[0], 2.0, r(ME4[2] + 0.3)]), k(0.66, look=TIP4),   # (pass 2) a double take: a glance at the cup, back to him, and the snap back to it
+            k(0.3, toon={**LEANIN4, 'face': {'lid': 0.5, 'gy': 0.3}}, toonDur=0.1), k(0.46, toon={**LEAN4, 'face': {'lid': 0.55, 'gy': 0.3}}, toonDur=0.1),   # (final pass) the glance leans in, the look back settles: beats you can see
             k(0.62, toon={**LEAN4, 'sq': [1.03, 0.96, 1.03], 'face': {'lid': 0.6, 'gy': 0.2}}, toonDur=0.04, toonEase='in'),
-            k(0.66, toon={**LEAN4, 'face': {'pop': 0.55, 'popLen': 0.22, 'brow': 1.0, 'lid': 0.2, 'gy': 0.1}}, toonDur=0.05, toonEase='outBack'),
+            k(0.66, toon={**LEANIN4, 'scl': {'head': [0.88, 1.18, 0.9]}, 'face': {'pop': 0.55, 'popLen': 0.22, 'brow': 1.0, 'lid': 0.2, 'gy': 0.1}}, toonDur=0.05, toonEase='outBack'),   # the snap: the head stretched (a smear)
+            k(0.74, toon={**LEAN4, 'face': {'pop': 0.5, 'popLen': 0.2, 'brow': 1.0, 'lid': 0.2, 'gy': 0.1}}, toonDur=0.06),
             k(1.05, toon={**LEAN4, 'face': {'lid': 0.4, 'brow': 0.7, 'gy': 0.1}}, toonDur=0.15)])],
         props=[HORNP('pl4')],
         cams=[FC(0.0, [0.55, 1.7, 1.5], [[ME4[0], 2.45, ME4[2]], [ME4[0], 0.9, ME4[2]], [r(ME4[0] - 0.45), 1.8, ME4[2]], [r(ME4[0] + 0.45), 1.8, ME4[2]], [ME4[0], 2.0, r(ME4[2] + 0.65)], [CLK4[0], 2.15, r(CLK4[2] + 0.4)], [-0.95, 3.3, -3.45], [0.95, 3.05, -3.45]],
@@ -128,14 +135,18 @@ st.shot('S04', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
 D5 = st.dur('S05'); FL5 = 0.24
 TIP5 = [ME4[0], r(1.99 + PLEN * math.sin(HA)), r(ME4[2] + 0.085 + PLEN * math.cos(HA))]
 st.shot('S05', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
-        act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),
-            *[k(round(FL5 + 0.06 * i, 3), toon={'bend': {'neck': [0.0, round(0.16 * (0.72 ** i) * (1 if i % 2 == 0 else -1), 3), 0, 1, None]}, 'face': {'lid': 0.45, 'gx': (0.3 if i % 2 else -0.3)}}, toonDur=0.05) for i in range(8)],
+        act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**SLOUCH, 'face': {'lid': 0.45}}, toonDur=0.0),
+            *[k(round(FL5 + 0.06 * i, 3), toon={**SLOUCH, 'bend': {'spine': [0.12, 0.05, 0, 1, None], 'neck': [0.0, round(0.16 * (0.72 ** i) * (1 if i % 2 == 0 else -1), 3), 0, 1, None]}, 'face': {'lid': 0.45, 'gx': (0.3 if i % 2 else -0.3)}}, toonDur=0.05) for i in range(8)],
             k(round(FL5 + 0.55, 3), toon={'face': {'lid': 0.45}}, toonDur=0.08)]),   # his head shivers with the handle, deadpan
-        act('guichet', CLK4, -10, 'stand', 'unimpressed', keys=[k(0.0, look=TIP5), k(0.0, toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.25), r(TIP5[1] + 0.1), r(TIP5[2] - 0.3), 1, 0.05]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.0),
-            k(round(FL5 - 0.14, 3), toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.12), r(TIP5[1] + 0.05), r(TIP5[2] - 0.02), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.08, toonEase='inOut'),   # her arm stretched out over his shoulder: the finger cocked...
-            k(round(FL5 - 0.03, 3), toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.04), TIP5[1], r(TIP5[2] + 0.02), 1, 0.05]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.03, toonEase='in'),   # ...the flick...
-            k(round(FL5 + 0.04, 3), toon={**LEAN4, 'reach': {'R': [r(TIP5[0] - 0.15), r(TIP5[1] + 0.08), r(TIP5[2] + 0.06), 1, 0.05]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'lid': 0.5, 'brow': 0.5}}, toonDur=0.05, toonEase='out'),
-            k(round(FL5 + 0.14, 3), toon={**LEAN4, 'face': {'lid': 0.5, 'brow': 0.5}}, toonDur=0.16, toonEase='inOut'),   # ...and her hand away (it hung by the cup: a raised finger, 'ahem')
+        act('guichet', CLK4, -10, 'stand', 'unimpressed', keys=[k(0.0, look=TIP5), k(0.0, toon={**LEAN4, 'face': {'lid': 0.5}}, toonDur=0.0),
+            # (final pass) the arm comes out of her shoulder on her side over four frames, holds the cocked finger three, flicks, and goes back the same
+            # way, never across his face (it was at the cup on the first frame, crossed his face and left on his far side, away from her)
+            k(0.13, toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.17), r(TIP5[1] + 0.07), r(TIP5[2] - 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.12, toonEase='out'),   # out, the finger cocked...
+            k(round(FL5 - 0.03, 3), toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.17), r(TIP5[1] + 0.07), r(TIP5[2] - 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.5, 'brow': -0.2}}, toonDur=0.08),   # ...held...
+            k(FL5, toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.03), TIP5[1], r(TIP5[2] + 0.02), 1, 0.05]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.03, toonEase='in'),   # ...the flick...
+            k(round(FL5 + 0.05, 3), toon={**LEAN4, 'reach': {'R': [r(TIP5[0] - 0.04), r(TIP5[1] + 0.04), r(TIP5[2] + 0.03), 1, 0.05]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'lid': 0.5, 'brow': 0.5}}, toonDur=0.04, toonEase='out'),   # ...a little past...
+            k(round(FL5 + 0.16, 3), toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.22), r(TIP5[1] + 0.05), r(TIP5[2] - 0.12), 1, 0.05]}, 'hands': {'R': 'point'}, 'hose': 0.12, 'face': {'lid': 0.5, 'brow': 0.5}}, toonDur=0.1, toonEase='inOut'),   # ...back on her side...
+            k(round(FL5 + 0.3, 3), toon={**LEAN4, 'face': {'lid': 0.5, 'brow': 0.5}}, toonDur=0.14, toonEase='inOut'),   # ...and into her shoulder
             k(round(FL5 + 0.4, 3), toon={**LEAN4, 'face': {'lid': 0.5, 'brow': 0.5, 'mouth': 'smirk'}}, toonDur=0.2)])],   # a smirk
         props=[HORNP('pl5', {'wobble': [[FL5, 0.45, 34, 4.5]]})],
         cams=[FC(0.0, [0.35, 1.85, 0.8], [[ME4[0], 2.3, ME4[2]], [ME4[0], 1.45, ME4[2]], [ME4[0], 2.0, TIP5[2]], [r(ME4[0] + 0.35), 1.8, ME4[2]], [r(ME4[0] - 0.4), 1.8, ME4[2]], [CLK4[0], 2.1, r(CLK4[2] + 0.4)]],
@@ -148,7 +159,7 @@ D6 = st.dur('S06'); KN6 = (0.38, 0.72)
 # 38 % from the side at each TOC, held two frames, back past its shape (it only dipped); the bursts beside the knock, inside the frame (a corner); the
 # second plunger on the worktop out (it competed with the one on his forehead)
 ME6 = [-0.25, 0, -2.0]; PLB = [0.55, 0, -2.1]
-KNOCK = [r(ME6[0] + 0.17), 2.08, r(ME6[2] - 0.02)]                       # his left temple
+KNOCK = [r(ME6[0] + 0.16), 2.06, r(ME6[2] + 0.05)]                       # his left temple ((final pass) its near edge: the knuckles in view)
 SQH = lambda k_: {'scl': {'head': [r(1 - 0.38 * k_), r(1 + 0.12 * k_), r(1 + 0.1 * k_)]}}
 st.shot('S06', 'kitchenDay', look=LOOKI, actors=[
         act('mec', ME6, 20, 'stand', 'unimpressed', keys=[k(0.0, look={'point': [PLB[0], 1.9, PLB[2]], 'cheat': 0.5}), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0),   # (check stills) cheated to the lens (an 80-degree profile)
@@ -162,18 +173,18 @@ st.shot('S06', 'kitchenDay', look=LOOKI, actors=[
                                          k(round(t_ + 0.04, 3), toon={'reach': {'R': [r(KNOCK[0] + 0.12), r(KNOCK[1] + 0.15), r(KNOCK[2] - 0.12), 1, 0.05]}, 'hands': {'R': 'fist'}, 'face': {'brow': 0.6, 'lid': 0.5}}, toonDur=0.1))],
             k(1.1, toon={'reach': {'R': [r(PLB[0] - 0.1), 1.2, r(PLB[2] - 0.25), 0, 0.05]}, 'face': {'brow': 0.7, 'mouth': 'flat'}}, toonDur=0.2)])],
         props=[P('isl6', 'islandSink', pos=ISL), HORNP('pl6'),
-               BURST('toc6a', [r(KNOCK[0] + 0.35), r(KNOCK[1] + 0.28), r(KNOCK[2] + 0.15)], KN6[0], 'TOC !', 0.4), BURST('toc6b', [r(KNOCK[0] + 0.42), r(KNOCK[1] - 0.02), r(KNOCK[2] + 0.2)], KN6[1], 'TOC !', 0.4)],
+               BURST('toc6a', [r(KNOCK[0] + 0.22), r(KNOCK[1] - 0.3), r(KNOCK[2] + 0.4)], KN6[0], 'TOC !', 0.36), BURST('toc6b', [r(KNOCK[0] + 0.3), r(KNOCK[1] - 0.55), r(KNOCK[2] + 0.42)], KN6[1], 'TOC !', 0.36)],   # (final pass) between the two of them, under the knock: clear of the cup and of the faces
         cams=[FC(0.0, [0.25, 1.75, 1.2], [[ME6[0], 2.5, ME6[2]], [ME6[0], 0.9, ME6[2]], [PLB[0], 2.35, PLB[2]], [PLB[0], 0.9, PLB[2]], [r(ME6[0] - 0.4), 1.8, ME6[2]], [r(PLB[0] + 0.35), 1.8, PLB[2]]], top=0.12, bottom=0.72)])
 st.cue('clack', 'S06', KN6[0], 0.45); st.cue('clack', 'S06', KN6[1], 0.45)
 
 # 7: it is a forehead. The plumber taps his own forehead with a finger, eyebrows up, and shrugs; the man, deadpan, blinks
 D7 = st.dur('S07')
 st.shot('S07', 'kitchenDay', look=LOOKI, actors=[
-        act('mec', ME6, 20, 'stand', 'unimpressed', keys=[k(0.0, look={'point': [PLB[0], 1.9, PLB[2]], 'cheat': 0.5}), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0), k(0.55, toon={'face': {'lid': 1.0}}, toonDur=0.05), k(0.66, toon={'face': {'lid': 0.45}}, toonDur=0.08)]),
+        act('mec', ME6, 20, 'stand', 'unimpressed', keys=[k(0.0, look={'point': [PLB[0], 1.9, PLB[2]], 'cheat': 0.5}), k(0.0, toon={'face': {'lid': 0.45}}, toonDur=0.0), k(round(min(D7 - 0.2, 0.78), 3), toon={'face': {'lid': 1.0}}, toonDur=0.05), k(round(min(D7 - 0.1, 0.88), 3), toon={'face': {'lid': 0.45}}, toonDur=0.08)]),   # (final pass) the blink after the shrug's hold
         act('plombier', PLB, -8, 'stand', 'neutral', keys=[k(0.0, look='camera'),   # (check stills) turned to us (we saw the back of his head)
-            k(0.0, toon={'touch': {'R': ['head', 0.05, 0.46, 0.11, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'lid': 0.4, 'mouth': 'flat'}}, toonDur=0.0),   # (pass 2) on his forehead (at 0.38 the finger sat on his glasses)
-            *[k(round(0.08 + 0.12 * i, 3), toon={'touch': {'R': ['head', 0.05, 0.46, (0.09 if i % 2 else 0.12), 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'lid': 0.4, 'mouth': 'flat'}}, toonDur=0.06) for i in range(3)],   # tap, tap, tap
-            k(0.5, toon={'reach': {'L': [r(PLB[0] + 0.15), 1.25, r(PLB[2] - 0.45), 1, 0.05], 'R': [r(PLB[0] - 0.45), 1.25, r(PLB[2] + 0.15), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}, 'sq': [1.04, 0.96, 1.04], 'face': {'brow': 1.0, 'mouth': 'flat'}}, toonDur=0.12, toonEase='outBack')])],   # a shrug
+            k(0.0, toon={'touch': {'R': ['head', -0.11, 0.47, 0.1, 1, 0.03, [-1.0, -0.1, 0.15]]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'lid': 0.4, 'mouth': 'flat'}}, toonDur=0.0),   # (final pass) the side of his forehead, the elbow out: his face clear   # (pass 2) on his forehead (at 0.38 the finger sat on his glasses)
+            *[k(round(0.08 + 0.12 * i, 3), toon={'touch': {'R': ['head', -0.11, 0.47, (0.08 if i % 2 else 0.11), 1, 0.03, [-1.0, -0.1, 0.15]]}, 'hands': {'R': 'point'}, 'face': {'brow': 0.9, 'lid': 0.4, 'mouth': 'flat'}}, toonDur=0.06) for i in range(3)],   # tap, tap, tap
+            k(0.46, clip='bigShrug'), k(0.46, toon={'sq': [0.97, 1.05, 0.97], 'face': {'brow': 1.0, 'mouth': 'flat', 'lid': 0.3}}, toonDur=0.1, toonEase='outBack')])],   # (final pass) a real shrug: the shoulders up, both palms out, the head tilted (it was a hand at the man's hip), held to the cut
         props=[P('isl7', 'islandSink', pos=ISL), HORNP('pl7')],
         cams=[FC(0.0, [0.2, 1.8, 0.6], [[PLB[0], 2.45, PLB[2]], [PLB[0], 1.1, PLB[2]], [ME6[0], 2.3, ME6[2]], [r(PLB[0] + 0.5), 1.6, PLB[2]], [r(ME6[0] - 0.3), 1.9, ME6[2]]], top=0.12, bottom=0.72)])   # (check stills) the two side by side (he stood in front of the man)
 
@@ -238,23 +249,23 @@ D11 = st.dur('S11'); BR11 = 0.2
 SWG = lambda a: {'lay': [0.0, r(a)]}
 st.shot('S11', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
         act('mec', [0.0, 0, 0.0], 90, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**PIN(HANG10), **UPF, **ARMS10, 'face': {'lid': 0.45, 'gy': 0.5}}, toonDur=0.0),
-            k(BR11, toon={**PIN(HANG10), **UPF, **ARMS10, **SWG(-0.55), 'sq': [0.94, 1.08, 0.94], 'face': {'lid': 0.45, 'gy': 0.5}}, toonDur=0.14, toonEase='out'),
+            k(round(BR11 + 0.04, 3), toon={**PIN(HANG10), **UPF, **ARMS10, **SWG(-0.78), 'sq': [0.92, 1.1, 0.92], 'face': {'lid': 0.45, 'gy': 0.5}}, toonDur=0.14, toonEase='out'),   # (final pass) a beat after them, further than anyone
             k(round(BR11 + 0.3, 3), toon={**PIN(HANG10), **UPF, **ARMS10, **SWG(0.3), 'face': {'lid': 0.45}}, toonDur=0.2, toonEase='inOut'),
             k(round(BR11 + 0.55, 3), toon={**PIN(HANG10), **UPF, **ARMS10, **SWG(-0.12), 'face': {'lid': 0.45}}, toonDur=0.18, toonEase='inOut')]),
         act('p1', P1, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={**HOLD(-0.42), 'face': {'lid': 0.5}}, toonDur=0.0),
-            k(BR11, toon={**HOLD(-0.42), 'lay': [0.0, -0.22], 'face': {'lid': 0.5, 'brow': 0.6}}, toonDur=0.16, toonEase='out'), k(round(BR11 + 0.35, 3), toon={**HOLD(-0.42), 'lay': [0.0, 0.08], 'face': {'lid': 0.5}}, toonDur=0.2)]),
+            k(BR11, toon={**HOLD(-0.42), 'lay': [0.0, -0.3], 'face': {'lid': 0.5, 'brow': 0.6}}, toonDur=0.14, toonEase='out'), k(round(BR11 + 0.35, 3), toon={**HOLD(-0.42), 'lay': [0.0, 0.08], 'face': {'lid': 0.5}}, toonDur=0.2)]),
         act('p2', P2, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.9, -1.0]), k(0.0, toon={**HOLD(0.42), 'face': {'lid': 0.5}}, toonDur=0.0),
-            k(BR11, toon={**HOLD(0.42), 'lay': [0.0, 0.22], 'face': {'lid': 0.5, 'brow': 0.6}}, toonDur=0.16, toonEase='out'), k(round(BR11 + 0.35, 3), toon={**HOLD(0.42), 'lay': [0.0, -0.08], 'face': {'lid': 0.5}}, toonDur=0.2)])],
+            k(BR11, toon={**HOLD(0.42), 'lay': [0.0, 0.3], 'face': {'lid': 0.5, 'brow': 0.6}}, toonDur=0.14, toonEase='out'), k(round(BR11 + 0.35, 3), toon={**HOLD(0.42), 'lay': [0.0, -0.08], 'face': {'lid': 0.5}}, toonDur=0.2)])],
         props=[METRO('S11', sway=[0.02, 14]), HORNP('pl11')],
         fx=[{'type': 'shake', 'at': BR11, 'dur': 0.2, 'amount': 0.012}],
-        cams=[FC(0.0, [2.7, 1.25, 0.0], [[0.0, CEIL, 0.0], [0.0, 0.0, 0.0], [P1[0], 2.25, P1[2]], [P2[0], 2.25, P2[2]]], top=0.06, bottom=0.72, lenses=range(30, 57), inside=INSIDE)])
+        cams=[FC(0.0, [2.6, 1.25, 0.75], [[0.0, CEIL, 0.0], [0.0, 0.0, 0.0], [P1[0], 2.25, P1[2]], [P2[0], 2.25, P2[2]], [0.0, 1.0, -0.95]], top=0.06, bottom=0.72, lenses=range(30, 57), inside=INSIDE)])   # (final pass) from the side he swings away from: his arc in the open (behind a passenger it was hidden)
 st.cue('sfx:brake', 'S11', round(BR11 - 0.05, 3), 0.4)
 
 # 12: yesterday the plunger came off. POP: he drops to the floor, a red ring on his forehead; the plunger stays up on the roof
 # (pass 2) the POP on « ventouse » (it came on « hier », 0.9 s early); eight frames in the air after it, his eyes down then at us, then the drop and a
 # pancake landing (POP to the floor took 0.13 s with inches to fall); the POP burst clear of the heads
 D12 = st.dur('S12'); POP12 = 0.5; DROP12 = round(POP12 + 0.22, 3); LAND12 = round(DROP12 + 0.08, 3)   # (pass 3) the static hang before the POP pays for a longer pancake
-CEILPL = [0.0, CEIL, 0.0]; HANGY = r(CEIL - PLEN - 0.12 - 2.13)          # (pass 3) unstuck, his head just under the plunger (he shot up into its place and hid it)
+CEILPL = [0.0, CEIL, 0.0]; HANGY = r(CEIL - PLEN - 0.22 - 2.13)   # (final pass) a hand's width under the knob (touching it, he did not hang on nothing)          # (pass 3) unstuck, his head just under the plunger (he shot up into its place and hid it)
 UP12 = {'reach': {'L': [0.0, 2.35, -0.5, 1, 0.05], 'R': [0.0, 2.35, 0.5, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}
 st.shot('S12', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
         act('mec', [0.0, 0, 0.0], 90, 'stand', 'unimpressed', keys=[k(0.0, look=None), k(0.0, toon={**PIN(HANG10), **UPF, **ARMS10, 'face': {'lid': 0.45, 'gy': 0.5}}, toonDur=0.0),
@@ -265,9 +276,10 @@ st.shot('S12', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(round(POP12 + 0.17, 3), look='camera'), k(round(POP12 + 0.17, 3), toon={**UP12, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.45, 'brow': 0.6}}, toonDur=0.06),   # ...then at us, deadpan, hanging on nothing...
             k(DROP12, to=[0.0, 0.0, 0.0], dur=0.1, glide=True, ease='in', face='keep'),                                                                              # ...and down
             k(round(LAND12 - 0.02, 3), toon={'sq': [1.45, 0.5, 1.45], 'scl': {'head': [1.3, 0.62, 1.3]}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.6, 'brow': 0.4}}, toonDur=0.03, toonEase='out'),   # flat as a pancake...
-            k(round(LAND12 + 0.1, 3), toon={'sq': [1.42, 0.52, 1.42], 'scl': {'head': [1.28, 0.64, 1.28]}, 'face': {'lid': 0.6, 'brow': 0.4}}, toonDur=0.1),   # ...held eight frames...
-            k(round(LAND12 + 0.25, 3), toon={'sq': [0.86, 1.18, 0.86], 'face': {'lid': 0.45}}, toonDur=0.05, toonEase='out'), k(round(LAND12 + 0.31, 3), toon={'sq': [1.12, 0.88, 1.12], 'face': {'lid': 0.45}}, toonDur=0.05),
-            k(round(LAND12 + 0.37, 3), toon={'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.45}}, toonDur=0.04)]),   # ...and pumped back up like an accordion, a red ring on his forehead
+            k(round(LAND12 + 0.06, 3), toon={'sq': [1.42, 0.52, 1.42], 'scl': {'head': [1.28, 0.64, 1.28]}, 'face': {'lid': 0.6, 'brow': 0.4}}, toonDur=0.05),   # ...held...
+            k(round(LAND12 + 0.12, 3), toon={'sq': [1.1, 0.78, 1.1], 'face': {'lid': 0.45}}, toonDur=0.05, toonEase='out'), k(round(LAND12 + 0.16, 3), toon={'sq': [1.3, 0.62, 1.3], 'face': {'lid': 0.45}}, toonDur=0.03),   # (final pass) pump one...
+            k(round(LAND12 + 0.21, 3), toon={'sq': [0.92, 1.1, 0.92], 'face': {'lid': 0.45}}, toonDur=0.04, toonEase='out'), k(round(LAND12 + 0.24, 3), toon={'sq': [1.12, 0.88, 1.12], 'face': {'lid': 0.45}}, toonDur=0.03),   # ...two...
+            k(round(LAND12 + 0.28, 3), toon={'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.45}}, toonDur=0.03, toonEase='out')]),   # ...three: pumped back up like an accordion, a red ring on his forehead
         act('p1', P1, 0, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.8, 0.0]), k(0.0, toon={**HOLD(-0.42), 'face': {'lid': 0.5}}, toonDur=0.0), k(POP12, toon={'face': {'lid': 0.2, 'brow': 0.8, 'pop': 0.4, 'popLen': 0.15}}, toonDur=0.06)]),
         act('p2', P2, 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.8, 0.0]), k(0.0, toon={**HOLD(0.42), 'face': {'lid': 0.5}}, toonDur=0.0), k(round(POP12 + 0.1, 3), toon={'face': {'lid': 0.2, 'brow': 0.8}}, toonDur=0.06)])],   # (pass 3) a beat after her
         props=[METRO('S12'), HORNP('pl12h', keys=[k(POP12, visible=False)]),
@@ -312,12 +324,14 @@ st.shot('S15', 'whiteVoid', setOpts={'color': '#2A2E33'}, look=LOOKI, actors=[
             k(0.9, toon={**KNEES, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.45}}, toonDur=0.4, toonEase='inOut'),
             k(1.7, toon={**KNEES, 'face': {'lid': 1.0}}, toonDur=0.07),
             k(1.85, toon={**KNEES, 'face': {'lid': 0.45}}, toonDur=0.12),
-            k(2.6, toon={**KNEES, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.45, 'gx': 0.4}}, toonDur=0.4, toonEase='inOut')])],
+            k(2.6, toon={**KNEES, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 0.45, 'gx': 0.4}}, toonDur=0.4, toonEase='inOut'),
+            k(2.75, toon={**KNEES, 'sq': [1.0, 1.02, 1.0], 'face': {'lid': 1.0, 'gx': 0.2}}, toonDur=0.1), k(2.92, toon={**KNEES, 'face': {'lid': 0.45}}, toonDur=0.14),   # (final pass) a slow blink in the long hold...
+            k(3.1, toon={**KNEES, 'sq': [1.03, 0.96, 1.03], 'face': {'lid': 0.5}}, toonDur=0.3, toonEase='inOut')])],   # ...and a sigh: the shoulders drop
         props=[P('plat15', 'metroPlatform', pos=[0.0, 0, 0.0], opts={'len': 16.0, 'depth': 4.0, 'name': 'RUE DES ARTS', 'benchX': 0.0, 'benchZ': 3.2, 'benchFlip': True}),
                P('plat15b', 'metroPlatform', pos=[0.0, 0, 3.4], ry=180, opts={'len': 16.0, 'depth': 4.0, 'name': 'RUE DES ARTS', 'bench': False, 'signX': -0.85, 'signY': 1.9}),   # (stills 4) the sign whole in the frame   # the far platform across the track
                RING('ring15', 0.0),
                P('car15', 'metroCar', pos=[0.0, 0.05, TRAIN15], opts={'len': 12.0, 'glass': '#7FA2B8'}, keys=[k(0.35, to=[15.0, 0.05, TRAIN15], dur=2.7, ease='in')])],   # it pulls out behind him
-        cams=[FC(0.0, [0.3, 1.2, -3.55], [[SEAT15[0], 1.8, SEAT15[2]], [SEAT15[0], 0.25, SEAT15[2]], [-0.75, 1.0, SEAT15[2]], [0.75, 1.0, SEAT15[2]]], top=0.26, bottom=0.74, lenses=range(30, 57), drift=(0.0, 0.0, 0.55))])   # (pass 3) a shorter push in: it ended with his hair and the ring in the card band
+        cams=[FC(0.0, [0.3, 1.2, -3.55], [[SEAT15[0], 1.8, SEAT15[2]], [SEAT15[0], 0.25, SEAT15[2]], [-0.75, 1.0, SEAT15[2]], [0.75, 1.0, SEAT15[2]]], top=0.29, bottom=0.74, lenses=range(30, 57), drift=(0.0, 0.0, 0.55), inside=(-8.0, 8.0, 0.2, 3.5, -3.88, 3.0))])   # (pass 3) a shorter push in: it ended with his hair and the ring in the card band; (final pass) inside the platform's wall (fitBack backed it 7 cm behind the tiles: a grey veil on the first four frames), the hair under the card
 st.cue('whoosh', 'S15', 0.5, 0.35, 2.4, 200, 900)
 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
@@ -333,7 +347,8 @@ st.card('S15', 'CHÔMAGE')
 # (cycle 20) the extras get a fuller life in their holds (cast toon: holdLife, shift, breathe): at the defaults they stood frozen within 5 px
 st.write("La ventouse", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
-    'guichet': {'preset': 'madame', 'seed': 551, 'suit': '#8E2A3A', 'hair': 'bun', 'hairColor': '#B8B8B8', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}},
+    'guichet': {'preset': 'madame', 'seed': 551, 'suit': '#B25A6C',   # (final pass) lighter: her arm in front of the glass and her top behind it read as one colour
+                 'hair': 'bun', 'hairColor': '#B8B8B8', 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}},
     'plombier': {'preset': 'worker', 'seed': 552, 'suit': '#2F5C9E', 'build': {'width': 1.0, 'headWidth': 1.2}},
     'p1': {'preset': 'madame', 'seed': 553, 'suit': '#C8643A', 'hairColor': '#6B3A1E', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
     'p2': {'preset': 'boss', 'seed': 554, 'suit': '#6B4E8A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}},
