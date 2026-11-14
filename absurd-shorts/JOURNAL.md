@@ -2101,3 +2101,22 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   propre rig, REFUSÉE imprimé sur la photo, banderole CARNAVAL, grosse tête qui gonfle en huit images, girouette qui se dévisse, plane et file,
   foule en gros plan balayée par la rafale, doigt dans le cadre, révélation de son visage avant la peur.
 - 60 « L'écho » : brouillon 1 rendu (une tenue figée de 0,47 s en S05) ; revue 1 en cours.
+- 60 « L'écho » : revue 1 = animation 6,0, direction artistique 6,2 (la crêpe enfoncée dans le trottoir, un « sommet » de 3 m sur un pré,
+  le mot qui quitte le cadre, la main sur l'oreille opposée lue comme un grattage de tête, PAF loin du point d'impact, témoins
+  anonymes, nuit éclairée comme le jour, amende sur un œil, « ohé » posé comme un logo). Décision (« À voir avec l'utilisateur » du critique
+  art : un panneau GENDARMERIE au mur) : oui, en lettres seules et sans insigne, comme MAIRIE dans les autres épisodes ; « la gendarmerie »
+  est le nom générique déjà retenu pour la série. Passe 2 : montagne de 14 m sous le rocher (`summitPeak`), chaînes à l'horizon, rivière et
+  village en bas, panneau SOMMET dans le champ (`summitSign`), plan de trois quarts puis coupe par-dessus l'épaule sur le mot qui
+  rapetisse ; main en cornet côté caméra et oreille qui bat trois fois ; plan à deux au bureau sous la banderole ; gifle sur le bord de
+  l'affiche, PAF au point d'impact ; double-take du passant ; randonneur (veste unie, bonnet, sac, bâton `trekPole`) en contre-plongée
+  sous le mot ; fermier (casquette `maocap`, fourche `pitchfork`, vache, clôture) dont la casquette s'envole sous le mot qui le frôle ;
+  mot qui descend le milieu de la rue, prise de vue de trois quarts, anticipation (écrasement et clignement) puis yeux sur tiges de 0,6 m ;
+  crêpe soulevée de 4 cm, relevée sur la tranche, POP qui le tourne vers nous ; nuit assombrie (réglage `look` du plan) avec réverbères
+  allumés ; élan avant l'amende, tête renversée de 30° ; amende au-dessus des yeux ; « ohé » qui passe devant son visage, se pose sur son
+  épaule avec un petit rebond et disparaît.
+- 59 « La grimace » : images de la passe 2 vérifiées ; trois retouches avant le brouillon 2 : photo plus grande et à hauteur de son visage,
+  plan « Sauf lui » resserré avec les deux grimaces entières aux bords, son visage entier dans le cadre de la révélation.
+- 58 « Le bâillement » : **livrée** (1080 × 1920, 16,4 s, −16,0 LUFS, crête −4,4 dBFS, contrôles HyperFrames sans erreur ; aucune chute de
+  saturation). Revues 6,0/6,0 → 7,0/6,5 → 7,2/7,0, passe finale contrôlée en images. Décision (avertissement « dernière ligne lue
+  1,40 s » sur DEDANS) : gardée telle quelle ; un seul mot reste lisible en 1,4 s, et l'allonger demandait de refaire tout le rendu 3D.
+  Sept lignes ajoutées au catalogue.

@@ -1,0 +1,390 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a bâillé trop fort.",
+   "hl": [
+    "bâillé",
+    "fort."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.656,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.507,
+     "e": 0.544
+    },
+    {
+     "w": "bâillé",
+     "s": 0.581,
+     "e": 0.841
+    },
+    {
+     "w": "trop",
+     "s": 0.915,
+     "e": 1.137
+    },
+    {
+     "w": "fort.",
+     "s": 1.285,
+     "e": 1.656
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Sa mâchoire est tombée par terre.",
+   "hl": [
+    "mâchoire",
+    "terre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L02.k.wav",
+   "file_start": 1.756,
+   "speech_start": 1.756,
+   "speech_end": 3.459,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 1.756,
+     "e": 1.904
+    },
+    {
+     "w": "mâchoire",
+     "s": 1.953,
+     "e": 2.274
+    },
+    {
+     "w": "est",
+     "s": 2.348,
+     "e": 2.422
+    },
+    {
+     "w": "tombée",
+     "s": 2.459,
+     "e": 2.719
+    },
+    {
+     "w": "par",
+     "s": 2.793,
+     "e": 2.867
+    },
+    {
+     "w": "terre.",
+     "s": 2.941,
+     "e": 3.459
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Elle n'est jamais remontée.",
+   "hl": [
+    "jamais",
+    "remontée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L03.k.wav",
+   "file_start": 3.559,
+   "speech_start": 3.559,
+   "speech_end": 4.893,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 3.559,
+     "e": 3.67
+    },
+    {
+     "w": "n'est",
+     "s": 3.707,
+     "e": 3.856
+    },
+    {
+     "w": "jamais",
+     "s": 3.93,
+     "e": 4.152
+    },
+    {
+     "w": "remontée.",
+     "s": 4.226,
+     "e": 4.893
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La mairie l'a classée toboggan.",
+   "hl": [
+    "mairie",
+    "toboggan."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L04.k.wav",
+   "file_start": 4.993,
+   "speech_start": 4.993,
+   "speech_end": 6.696,
+   "words": [
+    {
+     "w": "La",
+     "s": 4.993,
+     "e": 5.141
+    },
+    {
+     "w": "mairie",
+     "s": 5.24,
+     "e": 5.437
+    },
+    {
+     "w": "l'a",
+     "s": 5.462,
+     "e": 5.511
+    },
+    {
+     "w": "classée",
+     "s": 5.585,
+     "e": 5.881
+    },
+    {
+     "w": "toboggan.",
+     "s": 5.956,
+     "e": 6.696
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le dimanche, il y a la queue.",
+   "hl": [
+    "dimanche",
+    "queue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L05.k.wav",
+   "file_start": 6.796,
+   "speech_start": 6.796,
+   "speech_end": 8.44,
+   "words": [
+    {
+     "w": "Le",
+     "s": 6.796,
+     "e": 6.87
+    },
+    {
+     "w": "dimanche,",
+     "s": 6.944,
+     "e": 7.537
+    },
+    {
+     "w": "il",
+     "s": 7.611,
+     "e": 7.685
+    },
+    {
+     "w": "y",
+     "s": 7.71,
+     "e": 7.734
+    },
+    {
+     "w": "a",
+     "s": 7.759,
+     "e": 7.796
+    },
+    {
+     "w": "la",
+     "s": 7.833,
+     "e": 7.907
+    },
+    {
+     "w": "queue.",
+     "s": 7.981,
+     "e": 8.426
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le facteur y dépose le courrier.",
+   "hl": [
+    "facteur",
+    "courrier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L06.k.wav",
+   "file_start": 8.54,
+   "speech_start": 8.54,
+   "speech_end": 10.244,
+   "words": [
+    {
+     "w": "Le",
+     "s": 8.54,
+     "e": 8.614
+    },
+    {
+     "w": "facteur",
+     "s": 8.689,
+     "e": 9.059
+    },
+    {
+     "w": "y",
+     "s": 9.096,
+     "e": 9.133
+    },
+    {
+     "w": "dépose",
+     "s": 9.207,
+     "e": 9.503
+    },
+    {
+     "w": "le",
+     "s": 9.54,
+     "e": 9.577
+    },
+    {
+     "w": "courrier.",
+     "s": 9.651,
+     "e": 10.244
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, il a refermé la bouche.",
+   "hl": [
+    "refermé",
+    "bouche."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L07.k.wav",
+   "file_start": 10.344,
+   "speech_start": 10.344,
+   "speech_end": 12.122,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 10.344,
+     "e": 10.863
+    },
+    {
+     "w": "il",
+     "s": 10.937,
+     "e": 11.011
+    },
+    {
+     "w": "a",
+     "s": 11.048,
+     "e": 11.085
+    },
+    {
+     "w": "refermé",
+     "s": 11.196,
+     "e": 11.455
+    },
+    {
+     "w": "la",
+     "s": 11.492,
+     "e": 11.529
+    },
+    {
+     "w": "bouche.",
+     "s": 11.603,
+     "e": 12.122
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Avec le facteur dedans.",
+   "hl": [
+    "facteur",
+    "dedans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L08.k.wav",
+   "file_start": 12.222,
+   "speech_start": 12.222,
+   "speech_end": 13.629,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 12.222,
+     "e": 12.444
+    },
+    {
+     "w": "le",
+     "s": 12.518,
+     "e": 12.592
+    },
+    {
+     "w": "facteur",
+     "s": 12.703,
+     "e": 12.963
+    },
+    {
+     "w": "dedans.",
+     "s": 13.037,
+     "e": 13.629
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Il reçoit son courrier de l'intérieur.",
+   "hl": [
+    "courrier",
+    "l'intérieur."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/baillement/tts/L09.k.wav",
+   "file_start": 13.729,
+   "speech_start": 13.729,
+   "speech_end": 15.581,
+   "words": [
+    {
+     "w": "Il",
+     "s": 13.729,
+     "e": 13.877
+    },
+    {
+     "w": "reçoit",
+     "s": 13.951,
+     "e": 14.174
+    },
+    {
+     "w": "son",
+     "s": 14.248,
+     "e": 14.322
+    },
+    {
+     "w": "courrier",
+     "s": 14.396,
+     "e": 14.618
+    },
+    {
+     "w": "de",
+     "s": 14.655,
+     "e": 14.692
+    },
+    {
+     "w": "l'intérieur.",
+     "s": 14.766,
+     "e": 15.581
+    }
+   ]
+  }
+ ],
+ "total": 16.42
+}

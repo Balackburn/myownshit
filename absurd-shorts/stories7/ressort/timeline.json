@@ -1,0 +1,398 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est assis sur un ressort.",
+   "hl": [
+    "ressort."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.878,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "s'est",
+     "s": 0.507,
+     "e": 0.619
+    },
+    {
+     "w": "assis",
+     "s": 0.693,
+     "e": 0.915
+    },
+    {
+     "w": "sur",
+     "s": 0.989,
+     "e": 1.063
+    },
+    {
+     "w": "un",
+     "s": 1.1,
+     "e": 1.137
+    },
+    {
+     "w": "ressort.",
+     "s": 1.248,
+     "e": 1.878
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a rebondi jusqu'au toit.",
+   "hl": [
+    "rebondi",
+    "toit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L02.k.wav",
+   "file_start": 1.978,
+   "speech_start": 1.978,
+   "speech_end": 3.607,
+   "words": [
+    {
+     "w": "Il",
+     "s": 1.978,
+     "e": 2.052
+    },
+    {
+     "w": "a",
+     "s": 2.089,
+     "e": 2.126
+    },
+    {
+     "w": "rebondi",
+     "s": 2.2,
+     "e": 2.644
+    },
+    {
+     "w": "jusqu'au",
+     "s": 2.681,
+     "e": 3.015
+    },
+    {
+     "w": "toit.",
+     "s": 3.052,
+     "e": 3.607
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Depuis, il rebondit partout.",
+   "hl": [
+    "rebondit",
+    "partout."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L03.k.wav",
+   "file_start": 3.707,
+   "speech_start": 3.707,
+   "speech_end": 5.485,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 3.707,
+     "e": 4.3
+    },
+    {
+     "w": "il",
+     "s": 4.374,
+     "e": 4.448
+    },
+    {
+     "w": "rebondit",
+     "s": 4.522,
+     "e": 4.893
+    },
+    {
+     "w": "partout.",
+     "s": 5.004,
+     "e": 5.485
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La mairie l'a déclaré objet volant.",
+   "hl": [
+    "mairie",
+    "volant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L04.k.wav",
+   "file_start": 5.585,
+   "speech_start": 5.585,
+   "speech_end": 7.437,
+   "words": [
+    {
+     "w": "La",
+     "s": 5.585,
+     "e": 5.659
+    },
+    {
+     "w": "mairie",
+     "s": 5.733,
+     "e": 5.956
+    },
+    {
+     "w": "l'a",
+     "s": 5.981,
+     "e": 6.03
+    },
+    {
+     "w": "déclaré",
+     "s": 6.104,
+     "e": 6.548
+    },
+    {
+     "w": "objet",
+     "s": 6.622,
+     "e": 6.844
+    },
+    {
+     "w": "volant.",
+     "s": 6.919,
+     "e": 7.437
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Il doit passer le permis de pilote.",
+   "hl": [
+    "permis",
+    "pilote."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L05.k.wav",
+   "file_start": 7.537,
+   "speech_start": 7.537,
+   "speech_end": 9.167,
+   "words": [
+    {
+     "w": "Il",
+     "s": 7.537,
+     "e": 7.611
+    },
+    {
+     "w": "doit",
+     "s": 7.685,
+     "e": 7.759
+    },
+    {
+     "w": "passer",
+     "s": 7.833,
+     "e": 8.056
+    },
+    {
+     "w": "le",
+     "s": 8.13,
+     "e": 8.204
+    },
+    {
+     "w": "permis",
+     "s": 8.278,
+     "e": 8.426
+    },
+    {
+     "w": "de",
+     "s": 8.463,
+     "e": 8.5
+    },
+    {
+     "w": "pilote.",
+     "s": 8.574,
+     "e": 9.167
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Il l'a raté trois fois.",
+   "hl": [
+    "raté",
+    "trois"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L06.k.wav",
+   "file_start": 9.267,
+   "speech_start": 9.267,
+   "speech_end": 10.526,
+   "words": [
+    {
+     "w": "Il",
+     "s": 9.267,
+     "e": 9.341
+    },
+    {
+     "w": "l'a",
+     "s": 9.415,
+     "e": 9.489
+    },
+    {
+     "w": "raté",
+     "s": 9.6,
+     "e": 9.785
+    },
+    {
+     "w": "trois",
+     "s": 9.859,
+     "e": 10.007
+    },
+    {
+     "w": "fois.",
+     "s": 10.081,
+     "e": 10.526
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, il a arrêté de rebondir.",
+   "hl": [
+    "arrêté"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L07.k.wav",
+   "file_start": 10.626,
+   "speech_start": 10.626,
+   "speech_end": 12.552,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 10.626,
+     "e": 11.144
+    },
+    {
+     "w": "il",
+     "s": 11.219,
+     "e": 11.293
+    },
+    {
+     "w": "a",
+     "s": 11.33,
+     "e": 11.367
+    },
+    {
+     "w": "arrêté",
+     "s": 11.515,
+     "e": 11.7
+    },
+    {
+     "w": "de",
+     "s": 11.737,
+     "e": 11.811
+    },
+    {
+     "w": "rebondir.",
+     "s": 11.885,
+     "e": 12.552
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "En plein vol.",
+   "hl": [
+    "plein",
+    "vol."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L08.k.wav",
+   "file_start": 12.652,
+   "speech_start": 12.652,
+   "speech_end": 13.615,
+   "words": [
+    {
+     "w": "En",
+     "s": 12.652,
+     "e": 12.8
+    },
+    {
+     "w": "plein",
+     "s": 12.874,
+     "e": 13.022
+    },
+    {
+     "w": "vol.",
+     "s": 13.096,
+     "e": 13.615
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les pigeons ont fait leur nid sur sa tête.",
+   "hl": [
+    "pigeons",
+    "nid"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/ressort/tts/L09.k.wav",
+   "file_start": 13.715,
+   "speech_start": 13.715,
+   "speech_end": 15.641,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.715,
+     "e": 13.863
+    },
+    {
+     "w": "pigeons",
+     "s": 13.937,
+     "e": 14.233
+    },
+    {
+     "w": "ont",
+     "s": 14.307,
+     "e": 14.381
+    },
+    {
+     "w": "fait",
+     "s": 14.456,
+     "e": 14.53
+    },
+    {
+     "w": "leur",
+     "s": 14.604,
+     "e": 14.678
+    },
+    {
+     "w": "nid",
+     "s": 14.752,
+     "e": 14.826
+    },
+    {
+     "w": "sur",
+     "s": 14.9,
+     "e": 14.974
+    },
+    {
+     "w": "sa",
+     "s": 15.048,
+     "e": 15.122
+    },
+    {
+     "w": "tête.",
+     "s": 15.196,
+     "e": 15.641
+    }
+   ]
+  }
+ ],
+ "total": 16.48
+}

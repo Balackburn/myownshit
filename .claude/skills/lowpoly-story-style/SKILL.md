@@ -342,6 +342,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La vrille qui sort de la porte | il sort de la porte en vrille, penché, et fait tourner deux fois une passante qui finit face à nous, les yeux qui louchent | 57 |
 | La galette à l'arrêt | il s'arrête net : quatre images de suspension étiré, puis le haut retombe sur lui, aplati à 45 % douze images, rebond au-delà de sa taille, oscillation, grandes étoiles à hauteur des yeux | 57 |
 | La facture sortie de la poche | le technicien porte la main à sa poche et lève la facture « PANNE DU QUARTIER, 9 999 € », tampon À PAYER ; impassible, un clignement | 57 |
+| La mâchoire qui tombe en bloc (cycle 20) | `face.jawBlock` : le bas du visage devient un bloc pendu devant le corps ; un bâillement étiré trois temps, puis le bloc descend jusqu'au trottoir en 0,1 s, CLONK, poussière, yeux qui sortent ; il le remonte à deux mains, le lâche : il retombe (même chute, plus sèche) | 58 |
+| La langue déroulée en tapis | accessoire `tongueSlide` : la langue se déroule sur le trottoir comme un tapis rouge pendant que le maire en écharpe (`mayorSash`, bleu au col) coupe un ruban aux grands ciseaux (`bigScissors`) ; le panneau TOBOGGAN surgit | 58 |
+| La mamie qui glisse dans sa bouche | la file du dimanche attend au pied d'une échelle posée contre lui ; une mamie glisse de sa lèvre au bout de la langue, bras levés, YOUPI ! au-dessus d'elle (texte accroché au torse, décalé vers la caméra) ; siège décalé de 0,38 m pour que sa tête ne s'enfonce pas dans la fente | 58 |
+| Les lettres qui tombent dans la fente | le facteur glisse les lettres entre ses lèvres ; accessoire `slotLetters` accroché à l'articulation de la tête : trois lettres tombent dans la fente l'une après l'autre en tournoyant, dans son repère (posées dans le monde, elles passaient à côté de lui quand il respirait) | 58 |
+| SNAP : la bouche qui se referme sur le facteur | le facteur penché tête la première avec un colis ; la mâchoire remonte d'un coup (0,06 s), SNAP, le facteur a disparu, sa casquette redescend seule en papillonnant ; carte CLAC sur un seul angle | 58 |
+| Le poing qui bombe la chemise | accessoire `bellyBulge` (chemise blanche, plis) : une bosse remonte le long de sa chemise, puis trois coups de plus en plus forts la bombent de l'intérieur (TOC, TOC, TOC de plus en plus grands) ; lui impassible, les pupilles qui suivent | 58 |
+| Le courrier qui sort comme un toast | une lettre monte entre ses lèvres comme une tranche de pain d'un grille-pain, à moitié sortie, puis saute ; il la prend et la lit, impassible, une respiration | 58 |
 
 ## Erreurs à éviter
 
@@ -1212,3 +1219,25 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   animer dans ce repère (accessoire `slotLetters`).
 - (cycle 22) Un portrait d'un personnage dessiné à la main (la photo d'identité de 59) ne lui ressemble pas : yeux ronds, sans barbe. Le faire
   peindre par son propre rig facial (`makeFaceRig` + `faceState`, avec les mêmes décalages de visage que le script).
+- (cycle 22) `'hat': 'cap'` dans la distribution : ce chapeau n'existe pas (liste `HATS` de `engine/human.js`) et rien ne s'affiche, sans
+  erreur (60 : le fermier sans casquette, son envol prévu impossible). Une casquette = `'maocap'` avec `'hatColor'`. Vérifier le nom dans
+  `HATS` avant de bâtir un gag sur un chapeau.
+- (cycle 22) En look naturel, une nuit (`'night': True`) est éclairée comme le jour : `setupLights` remet le soleil à 3,0 et chaud quel que
+  soit le préréglage de nuit (60 : chaussée de nuit à 92 contre 89 de jour, seul le ciel noir). Donner au plan son propre réglage
+  `look={'sun': 0.3, 'sunColor': '#9DB4EC', 'fill': 0.75, 'exposure': 0.9}` et des réverbères avec `'light'` et `'pool'`.
+- (cycle 22) Un personnage aplati (`'lay'` + `'sq'` à 0,04 en profondeur) posé à y = 0 : la crêpe tient dans ±1 cm autour du sol et le
+  trottoir est à 6 mm, elle disparaît dedans (60 : seuls la cravate et les jambes, la tête et les bras en pointillés). Le soulever de 4 cm
+  par une clé de position pendant qu'il est à plat, le reposer au moment où il se relève.
+- (cycle 22) Filmer de profil « pour que la mâchoire se voie » ou « pour que les tiges des yeux sortent » : le côté d'une tête-boîte n'a pas
+  de visage peint et se lit comme l'arrière de la tête (l'audit le signale). Rester de trois quarts (45° au plus), ou tourner le personnage
+  vers nous par le canal `'yaw'` au moment où l'on doit voir son visage.
+- (cycle 22) Un « sommet » de 3 m sur un pré entouré de chaînes de 30 m : un rocher dans une vallée (60). Bâtir la montagne sous lui
+  (accessoire `summitPeak`, 14 m), garder les chaînes autour de l'horizon (`h` 19 à 80 m) et montrer le fond de la vallée (rivière, village).
+- (cycle 22) Une main en cornet derrière l'oreille du côté opposé à la caméra : on lit « il se gratte la tête ». Prendre la main et l'oreille
+  du côté caméra, et décoller l'oreille sur le ciel.
+- (cycle 22) L'onomatopée d'une gifle (PAF) posée près de la tête de celui qui frappe : c'est lui qui semble frappé (60, deux fois). La poser
+  là où la main touche, sans couvrir le texte de l'affiche.
+- (cycle 22) Un mot qui s'envole « loin sur la vallée » filmé de face ou de profil : il sort du cadre en un tiers de seconde et le reste du
+  plan montre une vallée vide. Couper sur une caméra par-dessus l'épaule qui le regarde rapetisser jusqu'à la fin du plan.
+- (cycle 22) `fitBack(level=False)` avec une caméra basse qui regarde en l'air : en reculant sur la ligne 3D elle passe sous le sol
+  (y = -0,09). Garder `level=True` pour une contre-plongée.

@@ -1,0 +1,11 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a bâillé trop fort.", "hl": ["bâillé", "fort."]},
+ {"id": "L02", "who": "N", "text": "Sa mâchoire est tombée par terre.", "hl": ["mâchoire", "terre."]},
+ {"id": "L03", "who": "N", "text": "Elle n'est jamais remontée.", "hl": ["jamais", "remontée."]},
+ {"id": "L04", "who": "N", "text": "La mairie l'a classée toboggan.", "hl": ["mairie", "toboggan."]},
+ {"id": "L05", "who": "N", "text": "Le dimanche, il y a la queue.", "hl": ["dimanche", "queue."]},
+ {"id": "L06", "who": "N", "text": "Le facteur y dépose le courrier.", "hl": ["facteur", "courrier."]},
+ {"id": "L07", "who": "N", "text": "Hier, il a refermé la bouche.", "hl": ["refermé", "bouche."]},
+ {"id": "L08", "who": "N", "text": "Avec le facteur dedans.", "hl": ["facteur", "dedans."]},
+ {"id": "L09", "who": "N", "text": "Il reçoit son courrier de l'intérieur.", "hl": ["courrier", "l'intérieur."]}
+]

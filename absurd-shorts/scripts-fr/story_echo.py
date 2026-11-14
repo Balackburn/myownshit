@@ -166,7 +166,7 @@ st.shot('S06', 'grassland', setOpts=ALPS, actors=[
             k(0.06, toon={**PT6(0.06), 'sq': [0.95, 1.06, 0.95], 'face': W6}, toonDur=0.06, toonEase='outBack'),   # his eyes pop, his finger up...
             *[k(r(0.2 + 0.2 * i), look=at6(r(0.2 + 0.2 * i))) for i in range(3)],
             *[k(r(0.2 + 0.2 * i), toon={**PT6(r(0.3 + 0.2 * i)), 'sq': [0.98, 1.02, 0.98], 'face': {**W6, 'pupilSize': r(-0.4 - 0.1 * i)}}, toonDur=0.2) for i in range(3)]])],   # ...following it across the sky
-        props=[*RING('6'), P('slopeL6', 'mountainRange', pos=[-30, 0, -18], ry=90, opts={'n': 3, 'w': 60, 'h': 30, 'd': 10, 'seed': 41}), P('slopeR6', 'mountainRange', pos=[30, 0, -22], ry=-90, opts={'n': 3, 'w': 60, 'h': 34, 'd': 10, 'seed': 43}),
+        props=[*RING('6'), P('slopeL6', 'mountainRange', pos=[-46, 0, -18], ry=90, opts={'n': 3, 'w': 60, 'h': 30, 'd': 10, 'seed': 41}), P('slopeR6', 'mountainRange', pos=[48, 0, -22], ry=-90, opts={'n': 3, 'w': 60, 'h': 34, 'd': 10, 'seed': 43}),   # (check) 46 m out: at 30 their 33 m cones swallowed the camera
                P('pack6', 'backpack', on={'actor': 'rando', 'joint': 'torso', 'offset': [0, 0.42, -0.24]}), P('pole6', 'trekPole', on={'actor': 'rando', 'hand': 'L'}),
                P('ohe6', 'shoutLetters', **FLY(OHE6), face='camera', opts={'text': 'OHÉ !', 'size': 0.45, 'grow': [[0.0, 2.4]]})],   # (pass 2) over him in clear sky, left to right like the way out
         cams=[FC(0.0, [0.7, 0.75, 3.2], [[HIK[0], 2.3, HIK[2]], [HIK[0], 0.2, HIK[2]], [-1.4, 4.45, -1.0], [1.4, 4.6, -1.2]], top=0.08, bottom=0.82)])   # (pass 2) low: the word skims over his head (level: backed along the line it went under the ground)
