@@ -373,6 +373,17 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | L'autocollant claqué au rebond | l'employée suit ses rebonds de la tête, puis son bras élastique (`touch` ['@mec.torso', ...]) colle F-MEC sur sa poitrine à l'atterrissage, sa main et son écrasement tenus trois images ensemble, CLAC dans le cadre à côté ; il repart avec | 61 S08 |
 | CLONK dans l'abat-jour | un bond de trop au fauteuil d'examen : tête aplatie dans l'abat-jour deux images, l'ampoule nue qui se balance sur son fil, il retombe assis coiffé de l'abat-jour rouge, impassible | 61 S10 |
 | L'arrêt net en plein vol, puis le nid | trois bonds de plus en plus hauts vers nous, arrêt net au sommet (écrasement, cravate relevée, cheveux qui retombent), balancier lent dans le vide ; gros plan : les pigeons se posent sur sa tête, nid, trois œufs qui apparaissent un par un avec un dépassement, clignement lent | 61 S12-S14 |
+| Rouge comme un thermomètre qui monte | le canal `skin` (`fill` de 0 à 1) fait monter le rouge par niveaux : les mains, puis le cou, puis toute la tête ; vapeur encrée qui sort des oreilles (`steam` 1, `steamInk` 1) ; il reste impassible dans son transat | 62 S01 |
+| L'œuf cuit sur le front | la voisine casse un œuf sur son front (main guidée, CRAC entier dans le cadre) ; l'œuf s'étale au plat et grésille (`friedEgg`, coquilles qui s'écartent `shellSpread`) ; ses yeux montent vers l'œuf et louchent (`expr` surprised 0,6, `gy` −0,6, `cross` 0,85) | 62 S02 |
+| Le quartier éclairé par sa tête | la nuit, sa tête rouge est la lampe de la rue (`skin` lueur 1, `glowLight`, `halo`) ; des papillons de nuit tournent autour (`moths`) ; la voisine lit son journal à sa lumière (`glowPaper` LE SOIR / NUIT ROUGE), un coup d'œil vers lui | 62 S03 |
+| Porté raide comme une planche | deux ouvriers le portent à plat sur le dos (`lay` −π/2), au-dessus de leurs casques, bras levés ; caméra de côté et en plongée qui suit le porteur ; le maire, en costume clair, montre le trou du haut d'un feu vide | 62 S04 |
+| La tête dans le feu rouge | sa tête seule (`headOnly`) remplit le trou rouge d'un feu tricolore (`headLight`), élargie au diamètre du trou ; elle surgit avec un dépassement ; carton FEU ROUGE | 62 S05 |
+| La file qui pile à son rouge, puis plus fort | la file monte la rue et s'arrête voiture par voiture à sa lumière, nez qui plonge, petit rebond (`STOPS` ; `ts` fait démarrer le mouvement dans le plan) ; le rappel garde le cadre mais pile plus fort (`hard` 1,6), traces de pneus | 62 S06, S11 |
+| Le soleil qui file au-dessus du feu | contre le ciel, le soleil traverse en arc et se couche dans le ciel libre pendant que la nuit tombe sur l'image ; ses yeux le suivent, son halo grossit, un clignement lent à la nuit | 62 S07 |
+| Le klaxon qui aplatit le visage | camion de trois quarts face, deux trompes chromées, le chauffeur visible dans la cabine éclairée qui tire la corde (`cabLight`) : TUUUT ; coupe sur son visage poussé hors du trou et écrasé (tête [1,62, 0,6, 0,62]), grands yeux blancs (`eye` 1,1, `pupilSize` −0,45), joues qui ondulent, cheveux à l'horizontale (`wind`) ; retour lent puis rebond à 115 %, cheveux en bataille | 62 S08 |
+| Vert de peur, trou par trou | le rouge vire à l'orange puis au vert (`skin`) pendant que sa tête descend du trou rouge au trou orange (tenu cinq images) puis au vert | 62 S09 |
+| Toutes les voitures passent au vert | caméra basse à côté du feu : les voitures filent l'une après l'autre avec des traits de vitesse, ses cheveux fouettés dans le trou du bas, vert franc (`GREEN`, pas un vert pâle qui tourne à l'olive) | 62 S10 |
+| Repeint en rouge au rouleau | un peintre sur une échelle passe le rouleau sur son visage vert : à chaque passage la couleur se rapproche du rouge et ses yeux se ferment ; puis il recule pour admirer, rouleau baissé, et le dernier clignement se voit | 62 S11 |
 
 ## Erreurs à éviter
 
@@ -1371,3 +1382,28 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   chose la plus chaude de l'image la nuit demande aussi une teinte pâle (rose-blanc) et un halo moins fort que lui (62).
 - (cycle 25) `look: 'camera'` suit la caméra active : dans un plan à deux caméras dont l'une est derrière le personnage, sa tête se tourne
   vers elle et reste tournée quelques images après la coupe (62, ses cheveux plein le trou du feu). Fixer un point de regard devant lui.
+- (cycle 26) Correction de l'entrée précédente : `eyeScale` et `pupil` ne règlent que les yeux sur tiges. Sur le visage peint, c'est `eye`
+  (0,4 = 40 % plus grand) et `pupilSize` (−0,45 : pupilles en tête d'épingle). Une tête écrasée en hauteur écrase aussi les yeux peints :
+  avec `scl head` [1,62, 0,6, 0,62], il faut `eye` 1,1 pour qu'ils restent de grands yeux blancs (62).
+- (cycle 26) Un retour rapide après une poussée en avant fait déborder la suite du mouvement : la tête, poussée de 0,2 m hors du feu puis
+  ramenée en 0,06 s, est partie 0,25 m derrière le boîtier, et le trou est resté noir quatre images (62). Pousser moins (0,12 m), revenir
+  en 0,14 s (`inOut`) et vérifier la position de la tête image par image avec `debugJoints`.
+- (cycle 26) Un personnage placé dans un volume plein ne se voit pas à travers une vitre transparente : la vitre montre la face du volume
+  derrière elle (le chauffeur dans une cabine pleine : un panneau bleu clair, 62). Faire la cabine en coque ouverte derrière la vitre,
+  avec un fond sombre et une lumière dedans (`truck` `cabLight`).
+- (cycle 26) `lens` est l'angle de champ vertical en degrés, pas une focale : 34 donne 34° en hauteur et 19,5° en largeur en 9:16. À 6 m,
+  un boîtier de 0,6 × 1,6 m prend déjà un quart de la largeur ; un rappel « plus près » a mis le dos du feu en grand carré rouge (62).
+  Calculer le cadre avec ces angles avant de rendre.
+- (cycle 26) `FC` (fitBack) cadre la hauteur entre `top` et `bottom` : un sujet couché plus large que l'image au recul choisi sort par les
+  côtés (le visage du porté coupé au bord droit, 62). Mettre l'extrémité qui compte (la tête) dans les points, faire suivre la caméra
+  (`drift`), ou tourner le sujet dans l'axe de l'image.
+- (cycle 26) Un gris moyen (#6B6E76) sous le ciel bleu du look naturel se lit bleu marine, comme le costume du héros : le maire passait
+  encore pour lui (62). Pour séparer deux personnages, changer de valeur et de chaleur (gris clair chaud #A9A397, cravate bordeaux), pas
+  seulement de teinte.
+- (cycle 26) La fin d'un arc (soleil, lune, objet lancé) doit tomber dans le ciel libre de ce cadre-là : le soleil qui se couchait à gauche
+  passait derrière le boîtier du feu (62). Vérifier la dernière position contre la caméra ; si le ciel libre est de l'autre côté, inverser
+  l'arc, et le regard qui le suit avec.
+- (cycle 26) Un remplacement scripté qui ajoute un commentaire `#` au milieu d'une ligne avale la fin de la ligne (quatre fois en deux
+  histoires). Le script de correction refuse maintenant un commentaire si le texte remplacé ne termine pas sa ligne.
+- (cycle 26) Un rappel filmé dans le même cadre ne vaut que si l'action monte (plus dur, plus vite, dans le plan) : la file qui s'arrêtait
+  avant la coupe se lisait comme une image figée (62). La construction signale maintenant une caméra reprise d'un plan précédent.

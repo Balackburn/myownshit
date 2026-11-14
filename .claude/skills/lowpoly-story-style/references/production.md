@@ -46,6 +46,8 @@ node render/render3.mjs scripts-fr/<story>.json --timed --w 288 --h 512 --probe 
 One line per gag: head height in the frame, how much of it the lens sees, and what is wrong (cut by an edge, too small, covered and by what, in
 the caption band, under the title card). Fix every warning before the draft render: the reviews of 47-49 kept finding the peak of a gag where
 nobody could see it. `write()` also prints the frozen actors and the repeated takes (`audit_life`).
+(cycle 26) It also flags a shot that reuses an earlier shot's camera set-up (within 0.8 m, aimed within 1.5 m, field of view within 6°):
+a callback in the same frame must escalate the action inside the shot, or change the angle or the size.
 
 After the draft render, before the review: `python3 tools/freeze_check.py DRAFT.mp4 scripts-fr/<story>.json` repeats the animation reviewer's
 freeze measurement (frames two apart at the size of a strip tile, the 99.5th percentile of the local difference under 14 for 0.4 s or more) and

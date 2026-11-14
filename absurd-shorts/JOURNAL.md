@@ -2507,3 +2507,48 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
     - En attendant, la production continue. Dès qu'une clé est là : `--check`, puis l'envoi de tout ce qui manque.
   - Étape ajoutée au skill (`references/production.md`) : après chaque livraison, `python3 tools/postonce_publish.py --check`, puis la
     publication.
+- 62 « Le coup de soleil » : revue 3 = direction artistique 7,3, animation 7,4. Passe finale, en deux temps, chaque fois vérifiée sur des
+  images de contrôle.
+  - Corrections demandées par la revue :
+    - S02 : l'œuf dans le cadre pendant ses dernières images, le CRAC entier, ses yeux ouverts qui montent et louchent, la main de la voisine
+      qui sort du cadre.
+    - S03 : son visage reste la chose la plus rouge ; la voisine plus sombre, avec un coup d'œil vers lui.
+    - S04 : porté au-dessus des casques.
+    - S06 et S11 : les voitures roulent dans le plan (`STOPS` `ts`) ; au rappel, elles pilent plus fort (`hard` 1,6).
+    - S08 : le visage poussé hors du trou, écrasé, de grands yeux, un rebond à 115 %.
+    - S09 : l'orange tenu cinq images.
+    - S10 : le même vert que le feu.
+    - S11 : le peintre recule pour admirer, rouleau baissé : le dernier clignement se voit.
+    - S01 : vapeur encrée. Respiration dans les tenues (`breathe` 1,6).
+  - Ce que les images de contrôle ont montré, et corrigé :
+    - S08 : au rebond, la tête partait 0,25 m derrière le boîtier (retour en 0,06 s depuis 0,2 m devant) et le trou restait noir quatre
+      images. Poussée réduite à 0,12 m, retour en 0,14 s.
+    - S08 : les yeux du visage écrasé restaient petits (`eyeScale` ne règle que les yeux sur tiges) : `eye` 1,1, `expr` choqué.
+    - S08 : le chauffeur était enfermé dans la cabine pleine. Cabine refaite en coque ouverte, avec une lumière dedans.
+    - S04 : vu de côté et presque à l'horizontale, le porté était un bâton noir. Caméra plus haute et plus proche, qui suit le porteur.
+      Le maire en gris clair chaud (le gris moyen se lisait bleu marine).
+    - S06 et S11 : le dos du feu tombait dans la bande des sous-titres. Visée plus proche : le feu au milieu de l'image.
+    - S07 : le soleil se couchait derrière le boîtier. L'arc est inversé (lever derrière la façade de gauche, coucher dans le ciel libre à
+      droite), le regard aussi.
+  - Décision : le rappel du S11 garde le cadre du S06, et l'action monte d'un cran. Un cadre plus proche essayé deux fois mettait le dos du
+    feu en grand carré rouge ; en comédie, un rappel dans le même cadre se reconnaît mieux.
+  - Génération complète lancée (file d'attente des rendus 1080).
+
+## Cycle 26
+
+- Analyse (faiblesses retenues de la revue 3 de 62, de la revue 1 de 63 et des images de contrôle de la passe finale de 62) :
+  - Un rappel filmé comme la première fois, avec la même action, se lit comme une image figée (62 : la file au feu rouge).
+  - Les visages de 1 à 2 s n'avaient souvent aucun clignement : le cycle de 3,3 s laissait des tenues de plus d'une demi-seconde sans
+    vie (62 : remarque de l'animation).
+  - Un retour rapide après une poussée fait déborder la suite du mouvement hors d'un décor étroit (62 : la tête derrière le feu).
+  - Les angles de champ estimés à vue : `lens` est un angle vertical en degrés ; deux cadres « plus proches » ont été trop serrés (62).
+  - Les couleurs de séparation tournent sous le ciel bleu du look naturel : gris moyen lu bleu marine, vert pâle lu olive (62).
+- Outils :
+  - Clignement de tenue (`director3.js`) : une tenue de 0,7 s ou plus sans clignement du cycle en reçoit un, 0,3 à 0,45 s après son
+    début, une fois le visage posé. `holdBlink: 0` dans le script le coupe.
+  - Contrôle à la construction (`story_kit.py`) : il signale un plan qui reprend la caméra d'un plan précédent (à moins de 0,8 m, visée à
+    moins de 1,5 m, angle à moins de 6°). Un rappel dans le même cadre doit faire monter l'action ; sinon, il faut changer l'angle ou la
+    taille.
+  - `truck` : cabine ouverte derrière le pare-brise, `cabLight`.
+  - Rappel : la sonde `--probe` (une ligne par gag : taille de la tête, bords, ce qui la cache, bande des sous-titres, carton) existe déjà.
+    Elle reste l'étape à lancer avant chaque brouillon.

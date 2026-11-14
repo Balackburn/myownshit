@@ -23,6 +23,7 @@ For stories staged with visual gags: squash and stretch, bendable limbs, takes, 
 | overlap | elbows, hands, head and neck arrive a few frames after the rest |
 | eyes | the pupils go to a look target 0.07 s before the head, glance into a turn of the body, dart now and then |
 | blink | lids close in 2 frames, stay shut 1, open in 4; twice now and then; a quick one winds up a strong reaction |
+| hold blink (cycle 26) | a hold of 0.7 s or more (no face or expression key) that the 3.3 s cycle leaves without a blink gets one 0.3-0.45 s in, once the new face has settled; script `holdBlink: 0` turns it off |
 | expressions | blend as numbers in 0.15 s: brows first (overshoot), eyes, then the mouth; lip flaps keep the expression |
 
 ## Channels (a clip returns them under `toon`; a story keys them with `k(t, toon={...}, toonDur=0.12, toonEase='out')`, `toon={}` clears)
