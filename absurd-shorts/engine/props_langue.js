@@ -48,6 +48,10 @@ export const LANGUE_PROPS = {
     const spots = o.icicles || [[0.12, 0.2], [0.24, 0.34], [0.36, 0.16], [0.48, 0.28], [0.6, 0.22], [0.72, 0.38], [0.84, 0.3], [0.95, 0.2], [0.78, 0.18]];
     spots.forEach(([x, l], i) => { const c = new THREE.Mesh(new THREE.ConeGeometry(0.022 + 0.014 * hash(i + 4), 1, 6), im); c.rotation.x = PI; c.scale.y = l;
       const y = x > 0.62 ? H - 0.2 : H - 0.09; c.position.set(x, y - l / 2, (hash(i + 9) - 0.5) * 0.08); c.userData.l = l; c.userData.y = y; g.add(c); ics.push(c); });
+    // o.collar [y, n (8)]: a frosted ring with n icicles round the pole at height y (in a close shot the thaw shows there: they drip and shrink)
+    if (o.collar) { const [cy, cn = 8] = o.collar, cr = rAt(cy) + 0.02, ring = new THREE.Mesh(new THREE.TorusGeometry(cr, 0.024, 6, 16), im); ring.rotation.x = PI / 2; ring.position.y = cy; g.add(ring);
+      for (let i = 0; i < cn; i++) { const a = i / cn * 2 * PI, l = 0.09 + 0.13 * hash(i + 31), c = new THREE.Mesh(new THREE.ConeGeometry(0.015 + 0.008 * hash(i + 5), 1, 6), im);
+        c.rotation.x = PI; c.scale.y = l; c.position.set(Math.sin(a) * cr, cy - l / 2, Math.cos(a) * cr); c.userData.l = l; c.userData.y = cy; g.add(c); ics.push(c); } }
     const drops = ics.map((c, i) => { const d = new THREE.Mesh(new THREE.SphereGeometry(0.014, 6, 4), new THREE.MeshLambertMaterial({ color: '#BFE6FF', transparent: true, opacity: 0.9 })); d.visible = false; g.add(d); return d; });
     let star = null, starDrop = null;
     if (o.lick) { const [ly, la] = o.lick, a = la * PI / 180, rr = rAt(ly) + 0.018;
