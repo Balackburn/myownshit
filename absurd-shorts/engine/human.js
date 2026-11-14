@@ -14,7 +14,7 @@ import { hasFaceRig, makeFaceRig } from './facerig.js';
 
 export const OUTFITS = ['suit', 'cop', 'swat', 'judge', 'chef', 'doctor', 'worker', 'tourist', 'prisoner', 'pajamas', 'vampire', 'tracksuit', 'waiter', 'scientist', 'farmer', 'firefighter', 'skirtsuit', 'mao'];
 export const HAIRS = ['crew', 'bald', 'combover', 'mohawk', 'curly', 'long', 'bun', 'slick', 'buzz', 'afro', 'receding', 'spiky'];
-export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'hardhat2', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'firecrest', 'party', 'crown', 'maocap', 'beekeeper'];
+export const HATS = ['none', 'copcap', 'swatcap', 'hardhat', 'hardhat2', 'toque', 'wig', 'beanie', 'fedora', 'cowboy', 'firehelmet', 'firecrest', 'party', 'crown', 'maocap', 'beekeeper', 'aviator'];
 export const FACIALS = ['stubble', 'none', 'mustache', 'beard'];
 
 // Named presets — the cast. `lemec` is the protagonist archetype.
@@ -395,6 +395,14 @@ function addHat(head, hat, hw, hh, hd, C) {
       for (let i = 0; i < 3; i++) { const c = cyl(0.06, 0.06, hw * 1.2, W, 8, { outline: 0.02 }); c.rotation.z = Math.PI / 2; c.position.set(0, 0.1, -hd * 0.3 + i * 0.12); g.add(c); }
       break; }
     case 'beanie': g.add(box(hw * 1.15, 0.12, hd * 1.2, C.hat || P.red, { pivot: 'bottom', taper: 0.8 })); break;   // hatColor: a burglar's black one
+    case 'aviator': {   // (cycle 23, story 61) a pilot's leather cap: a padded crown, ear flaps down the sides, a band, round goggles pushed up on the forehead (hatColor: the leather)
+      const hc = C.hat || '#6B4A2E', dk = new THREE.Color(hc).multiplyScalar(0.72).getStyle();
+      g.add(box(hw * 1.14, 0.1, hd * 1.18, hc, { pivot: 'bottom', taper: 0.86, outline: 0.02 }));
+      for (const s of [-1, 1]) { const f = box(0.032, 0.2, hd * 0.55, hc, { outline: 0.015 }); f.position.set(s * (hw * 0.5 + 0.018), -0.1, -hd * 0.05); g.add(f); }
+      const band = box(hw * 1.16, 0.034, hd * 1.2, dk); band.position.y = 0.022; g.add(band);
+      for (const s of [-1, 1]) { const rim = cyl(0.05, 0.05, 0.03, '#B08A3E', 12, { outline: 0.01 }); rim.rotation.x = Math.PI / 2; rim.position.set(s * hw * 0.23, -0.01, hd * 0.6); g.add(rim);
+        const lens = cyl(0.04, 0.04, 0.034, '#9FD3E8', 12); lens.rotation.x = Math.PI / 2; lens.position.set(s * hw * 0.23, -0.01, hd * 0.6 + 0.002); g.add(lens); }
+      const bridge = box(hw * 0.12, 0.018, 0.02, '#B08A3E'); bridge.position.set(0, -0.01, hd * 0.6); g.add(bridge); break; }
     case 'fedora': { g.add(box(hw * 1.7, 0.02, hd * 1.9, P.woodDark)); g.add(box(hw * 1.1, 0.12, hd * 1.2, P.woodDark, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); break; }
     case 'cowboy': { const b = box(hw * 2.2, 0.02, hd * 2.2, P.wood); g.add(b); g.add(box(hw * 1.1, 0.16, hd * 1.2, P.wood, { pivot: 'bottom', taper: 0.85 })); break; }
     case 'firehelmet': { const hc = C.hat || P.red; g.add(box(hw * 1.25, 0.13, hd * 1.4, hc, { pivot: 'bottom', taper: 0.75 })); const br = box(hw * 1.3, 0.02, hd * 2, hc); br.position.z = -0.04; g.add(br); break; }   // hatColor: e.g. the silver French F1 helmet
