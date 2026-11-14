@@ -2416,3 +2416,30 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Décisions sur les « À voir avec l'utilisateur » :
     - Je garde l'impassibilité en une prise : seule la double prise des yeux en S13 reste, parce que le genre repose sur son flegme.
     - Les durées de plan restent fixées par la narration : l'anticipation et l'amorti sont pris dans les plans voisins.
+- 62 « Le coup de soleil » : brouillon 2 rendu (526 images, aucune image grise ; deux tenues figées : la file de voitures 1,27 s, la fin 0,6 s).
+  - Revue 2 : direction artistique 6,8, animation 7,2 (revue 1 : 6,8/6,5).
+  - Points communs aux deux critiques : l'œuf jamais vu avant l'impact, la planche cachée entre les deux casques, la file de voitures
+    en « blocs de couleur », la nuit à l'envers (son visage plus sombre que son halo), le camion sans chrome ni chauffeur, S09 qui
+    reprenait le gag de S05.
+  - Tentative intermédiaire : un téléobjectif au ras des toits, refusée sur images de contrôle (chaque voiture cache la suivante, il ne
+    reste que des bandes de couleur, la plus proche bouche le bas de l'image et le ciel prend 60 % du cadre).
+  - Passe 3 :
+    - Moteur : le visage peint s'éclaire lui-même avec son propre dessin teinté (la lueur n'était qu'un rouge uniforme à 40 %) ; feux stop
+      allumés pour les voitures ; coquilles d'œuf projetées plus loin ; camion à pare-brise transparent, chauffeur qui tire la corde,
+      trompes chromées qui se gonflent, reculent et tremblent, ondes sonores ; papillons gris-brun non éclairés ; journal clair à colonnes,
+      éclairé de rose ; le soleil du crépuscule n'est plus dessiné par-dessus le décor.
+    - Mise en scène :
+      - S02 : gros plan (tête à 35-40 % du cadre), œuf blanc bien visible qui arrive d'en haut à gauche, CRAC à côté de l'impact
+        cinq images.
+      - S03 : la nuit allumée dès la première image ; la voisine et son journal lavés de rouge.
+      - S04 : la planche vue de trois quarts depuis la route.
+      - S05 : trois images de ressort accroupi avant le POP ; l'écrasement déborde devant la bague.
+      - S06 et fin de S11 : la file vue de derrière le feu, les voitures de face qui s'arrêtent l'une après l'autre en piquant du nez,
+        couleurs atténuées.
+      - S08 : TUUUT onze images en grand dans le ciel, coup de klaxon tenu sur son visage, visage écrasé gardé dans le boîtier.
+      - S09 : de trois quarts, regard vers nous pendant le temps suspendu, passage orange par le trou du milieu.
+      - S10 : visage vert pâle avancé dans le trou.
+      - S11 : rouleau jaune ; on finit sur son clignement.
+  - Décisions sur les « À voir avec l'utilisateur » :
+    - Le carton FEU ROUGE passe après l'écrasement (à 0,3 s il tombait sur ses cheveux en plein temps suspendu).
+    - La durée de S04 reste celle de la phrase (0,94 s) : la lecture vient de l'angle.
