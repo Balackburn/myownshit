@@ -9,6 +9,7 @@
 //         bx and bz are the rotation of the far end (radians), with the signs of a joint's rotation.x / rotation.z: on the spine bx > 0
 //         bows forward and bz > 0 leans toward -X; on a hanging arm or leg bx > 0 swings the end back, bz > 0 toward +X. stretch
 //         multiplies the length (the far joint moves with it), fat multiplies the thickness (default: volume kept, 1/sqrt(stretch))
+//   earScale: 1..4   (cycle 24, story 60) both ears grow, their flat face more than their thickness: an ear that turns into a dish to listen
 //   ears: radians (both ears flap outward)        hat: [lift (m), tilt, spin]  (a hat that jumps off the head)
 //   yaw: rad   (cycle 19) the whole body turned about its own vertical axis, on top of its facing (keys in turns: k(t, toon={'yaw': 2 * PI * n},
 //         toonEase='linear') spins him n times without the stutter of a chain of facing keys)
@@ -268,7 +269,10 @@ export function toonUpgrade(obj) {
   const ORDER = ['spine', 'neck', 'armL', 'foreL', 'armR', 'foreR', 'legL', 'shinL', 'legR', 'shinR'], ZERO3 = [0, 0, 0];
   // (cycle 6) a gulp: a lump that goes down the front of the neck (face.gulp 0..1: from under the chin to the collar, swelling in the middle of its way)
   let gulp = null; if (J.neck) { gulp = new THREE.Mesh(new THREE.IcosahedronGeometry(0.05, 1), new THREE.MeshLambertMaterial({ color: new THREE.Color(skin) })); gulp.visible = false; gulp.castShadow = false; J.neck.add(gulp); }
-  const ears = J.head ? J.head.children.filter(c => c.name === 'ear').map(m => ({ m, r: m.rotation.clone() })) : [], hm0 = J.head?.children.find(c => c.name === 'hat'), hat = hm0 ? { m: hm0, y: hm0.position.y } : null;
+  const ears = J.head ? J.head.children.filter(c => c.name === 'ear').map(m => {   // (cycle 24) a dark inner ear on its outer face, shown only when the ear grows (big and plain it read as a board)
+    const bb = m.geometry ? (m.geometry.boundingBox || (m.geometry.computeBoundingBox(), m.geometry.boundingBox)) : null, hx = bb ? bb.max.x : 0.012, hy = bb ? bb.max.y : 0.047, hz = bb ? bb.max.z : 0.031;
+    const inner = new THREE.Mesh(new THREE.BoxGeometry(0.004, hy * 1.3, hz * 1.1), new THREE.MeshLambertMaterial({ color: '#6A4428' })); inner.position.set((m.userData.side || 1) * (hx + 0.002), -hy * 0.05, hz * 0.05); inner.visible = false; m.add(inner);
+    return { m, r: m.rotation.clone(), s: m.scale.clone(), inner }; }) : [], hm0 = J.head?.children.find(c => c.name === 'hat'), hat = hm0 ? { m: hm0, y: hm0.position.y } : null;
   // reach: { L | R: [x, y, z, w] }: a hand brought to a point of the world (w 0..1 blends from the clip's pose). Two-bone IK on the shoulder and the elbow, the
   // elbow kept low and a little out; a point further than the arm is long stretches both parts of the arm equally (the cartoon reach). The hand keeps the
   // rotation the clip gives it. Call order: the spine and the neck are bent first (the shoulder rides on them)
@@ -355,7 +359,7 @@ export function toonUpgrade(obj) {
       for (const hn of HANDS) { const h = J[hn]; if (!h) continue; const v = tp.scl?.[hn]; h.scale.set(v?.[0] ?? 1, v?.[1] ?? 1, v?.[2] ?? 1); }   // scl.handL / handR: a hand that swells (the big glove of a cartoon wave)
       const sq = tp.sq; if (sq) obj.scale.set(baseScale * sq[0], baseScale * sq[1], baseScale * sq[2]);
       if (!pinned) doPin();
-      const er = tp.ears || 0; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); }
+      const er = tp.ears || 0, es = tp.earScale ?? 1; for (const e of ears) { e.m.rotation.set(e.r.x, e.r.y + e.m.userData.side * er, e.r.z); e.m.scale.set(e.s.x * (1 + (es - 1) * 0.35), e.s.y * es, e.s.z * es); e.inner.visible = es > 1.25; }   // (cycle 24) a dish, not a block: the thickness grows a third as fast
       if (hat) { const h = tp.hat || ZERO3; hat.m.position.y = hat.y + h[0]; hat.m.rotation.set(0, h[2], h[1]); }
       face?.(tp.face || {}, t);
       if (gulp) { const gp = tp.face?.gulp || 0; gulp.visible = gp > 0.02 && gp < 0.98; if (gulp.visible) { const sw = Math.pow(Math.sin(Math.PI * gp), 0.6); gulp.position.set(0, 0.135 - 0.115 * gp, 0.034); gulp.scale.set(0.95 * sw, 0.75 * sw, 0.62 * sw); } }
@@ -374,6 +378,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   const ks = new Set([...Object.keys(a.bend || {}), ...Object.keys(b.bend || {})]);
   if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
+  if (a.earScale != null || b.earScale != null) out.earScale = L(a.earScale ?? 1, b.earScale ?? 1);   // (cycle 24)
   if (a.wave || b.wave) { out.wave = {}; for (const k of new Set([...Object.keys(a.wave || {}), ...Object.keys(b.wave || {})])) { const x = a.wave?.[k], y = b.wave?.[k], p = x || y, q = y || x;   // the ripple of a part: it swells and dies down, its shape stays
     out.wave[k] = [L(x ? x[0] || 0 : 0, y ? y[0] || 0 : 0), L(p[1] ?? 1, q[1] ?? 1), L(p[2] || 0, q[2] || 0), (w < 0.5 ? p : q)[3] || 0, L(p[4] || 0, q[4] || 0)]; } }
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);
@@ -408,6 +413,7 @@ export function addToon(a = {}, b = {}) {
   if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot; if (b.yaw) out.yaw = (a.yaw || 0) + b.yaw; if (b.tieHide != null) out.tieHide = b.tieHide;
   if (b.pin) out.pin = b.pin;   // (cycle 17)
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
+  if (b.earScale != null) out.earScale = (a.earScale ?? 1) * b.earScale;   // (cycle 24) a layer scales the ears again
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };
   if (b.reach) out.reach = { ...(a.reach || {}), ...b.reach };
   if (b.touch) out.touch = { ...(a.touch || {}), ...b.touch };

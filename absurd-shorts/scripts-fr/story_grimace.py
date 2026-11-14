@@ -45,7 +45,7 @@ def PULL(k_, across=0.8):
 # (pass 2) every face of the town pushed as far as his: a wide mouth or a long tongue, eyes at odds, on its own painted base
 G_BOSS = {'expr': 'angry', 'exprW': 0.8, 'mouth': 'teeth', 'mouthW': 0.9, 'mouthH': 0.6, 'eyeL': 0.8, 'lidR': 1.0, 'browL': 1.0, 'browR': -0.9, 'pupilSize': 0.6, 'tongue': 1.0, 'tongueLen': 0.2, 'tongueYaw': 0.6}
 G_K1 = {'expr': 'shocked', 'exprW': 0.8, 'mouth': 'scream', 'mouthW': 0.6, 'cross': 1.0, 'tongue': 1.0, 'tongueLen': 0.18, 'tongueYaw': -0.6, 'brow': 0.9, 'pupilSize': 0.8}
-G_W1 = {'expr': 'disgusted', 'exprW': 0.8, 'mouth': 'kiss', 'mouthW': 0.4, 'puff': 1.0, 'cheeks': 1.0, 'cross': 1.0, 'eyeL': 0.5, 'brow': -0.6, 'pupilSize': 0.6}
+G_W1 = {'expr': 'disgusted', 'exprW': 0.9, 'mouth': 'teeth', 'mouthW': 0.95, 'mouthH': 0.7, 'mouthTilt': -14, 'cross': 1.0, 'eyeL': 0.6, 'eyeR': -0.2, 'browL': -0.9, 'browR': 1.0, 'pupilSize': 0.7, 'tongue': 1.0, 'tongueLen': 0.22, 'tongueYaw': 0.5}   # (final) as loud as his (pursed lips read almost neutral)
 G_M1 = {'expr': 'shocked', 'exprW': 0.8, 'mouth': 'zigzag', 'mouthW': 0.8, 'mouthH': 0.6, 'mouthDx': 25, 'eyeR': 0.7, 'eyeL': -0.3, 'browTiltL': 25, 'browR': 0.9, 'pupilSize': 0.6}
 G_MAM = {'expr': 'suspicious', 'exprW': 0.8, 'mouth': 'teeth', 'mouthW': 0.7, 'mouthTilt': 18, 'eye': 0.5, 'cross': 0.8, 'brow': 1.0, 'pupilSize': 0.4, 'tongue': 1.0, 'tongueLen': 0.15, 'tongueYaw': 0.5}
 G_K2 = {'expr': 'scared', 'exprW': 0.8, 'mouth': 'scream', 'mouthTilt': 18, 'eyeL': -0.3, 'eyeR': 0.6, 'browTiltR': -20, 'pupilSize': 0.8}
@@ -79,17 +79,18 @@ st.cue('gust', 'S02', 0.1, 0.45, 1.1); st.cue('sfx:squeak', 'S02', 0.14, 0.3); s
 
 # 3: he stayed like that. Closer: the gust hits him (leaves, his hair and tie blown flat); he lets go of his mouth: the face stays; he presses his cheeks
 #    back to normal with both palms (his head squeezed narrow, his face plain), a hopeful beat; he lets go: BOING, it springs back, wobbling
-D3 = st.dur('S03'); LET3 = 0.18; PRESS3 = 0.3; LIFT3 = 0.62; REL3 = 0.95             # (pass 3) the press twelve frames, the plain face held seven, then BOING
+D3 = st.dur('S03'); LET3 = 0.12; PRESS3 = 0.2; LIFT3 = 0.5; REL3 = 0.92              # (final) the press from 0.2, the plain face held thirteen frames with an exhale, then BOING   # (pass 3) the press twelve frames, the plain face held seven, then BOING
 WIND3 = [-10.0, 1.0, 0.0]                                                 # from his left to his right
-PRESS = lambda: {'touch': {'L': ['face', 0.44, 0.45, 0.02, 1, 0.02, [0.6, -0.8, 0.2]], 'R': ['face', -0.44, 0.45, 0.02, 1, 0.02, [-0.6, -0.8, 0.2]]}, 'hands': {'L': 'open', 'R': 'open'}}   # (pass 2) the elbows down
+PRESS = lambda: {'touch': {'L': ['face', 0.5, 0.42, 0.02, 1, 0.02, [1.0, 0.05, 0.1]], 'R': ['face', -0.5, 0.42, 0.02, 1, 0.02, [-1.0, 0.05, 0.1]]}, 'hands': {'L': 'open', 'R': 'open'}}   # (final) both palms flat on his cheeks, the elbows out wide: the arms frame the squeezed head (with the elbows down it read as a chin scratch)
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**PULL(1.0), 'scl': {'head': GHEAD}, 'ears': 0.7, 'wind': WIND3, 'face': GF()}, toonDur=0.0),
             k(LET3, toon={'scl': {'head': GHEAD}, 'ears': 0.7, 'wind': WIND3, 'hands': {'L': 'spread', 'R': 'spread'}, 'face': GF()}, toonDur=0.08, toonEase='out'),   # he lets go: it stays
-            k(r(LET3 + 0.1), toon={'scl': {'head': [1.32, 0.84, 1.05]}, 'ears': 0.7, 'wind': WIND3, 'face': GF({'tongueYaw': 0.3})}, toonDur=0.06),   # (a shiver of the tongue)
-            k(PRESS3, toon={**PRESS(), 'scl': {'head': [0.8, 1.14, 1.0]}, 'wind': [-3.0, 0.0, 0.0], 'face': {'lid': 0.45, 'cheeks': 0.7, 'mouth': 'pout'}}, toonDur=0.1, toonEase='inOut'),   # palms on his cheeks: plain again...
-            k(r(PRESS3 + 0.16), toon={**PRESS(), 'scl': {'head': [0.78, 1.16, 1.0]}, 'face': {'lid': 0.6, 'cheeks': 0.8, 'mouth': 'pout'}}, toonDur=0.14),   # ...pressing harder...
+            k(r(LET3 + 0.04), toon={'scl': {'head': [1.32, 0.84, 1.05]}, 'ears': 0.7, 'wind': WIND3, 'face': GF({'tongueYaw': 0.3})}, toonDur=0.03),   # (a shiver of the tongue; (stills F) before the press: after it, it undid it)
+            k(PRESS3, toon={**PRESS(), 'scl': {'head': [0.76, 1.2, 1.0]}, 'sq': [1.04, 0.95, 1.04], 'wind': [-3.0, 0.0, 0.0], 'face': {'lid': 0.0, 'eye': 0.6, 'gy': -0.5, 'cheeks': 0.7, 'mouth': 'pout'}}, toonDur=0.08, toonEase='inOut'),   # palms on his cheeks, squeezing: plain again, the head tall and thin, his eyes bulging up...
+            k(r(PRESS3 + 0.14), toon={**PRESS(), 'scl': {'head': [0.72, 1.24, 1.0]}, 'sq': [1.06, 0.93, 1.06], 'face': {'lid': 0.0, 'eye': 0.7, 'gy': -0.6, 'cheeks': 0.8, 'mouth': 'pout', 'tremble': 1.0}}, toonDur=0.1),   # ...pressing harder, his whole body straining down...
             k(LIFT3, toon={'hands': {'L': 'open', 'R': 'open'}, 'reach': {'L': [r(ME[0] - 0.35), 1.85, r(ME[2] + 0.42), 1, 0.05], 'R': [r(ME[0] - 0.35), 1.85, r(ME[2] - 0.42), 1, 0.05]}, 'scl': {'head': [0.98, 1.02, 1.0]}, 'face': {'lid': 0.3, 'brow': 0.6, 'mouth': 'flat'}}, toonDur=0.12, toonEase='inOut'),   # ...his hands lift slowly off a plain face...
-            k(r(LIFT3 + 0.16), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'face': {'lid': 1.0, 'brow': 0.4}}, toonDur=0.04), k(r(LIFT3 + 0.22), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'face': {'lid': 0.25, 'brow': 0.7, 'mouth': 'smile'}}, toonDur=0.06),   # ...a blink of relief, hope...
+            k(r(LIFT3 + 0.14), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'sq': [1.02, 0.97, 1.02], 'face': {'lid': 1.0, 'brow': 0.4}}, toonDur=0.06), k(r(LIFT3 + 0.22), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'sq': [1.02, 0.97, 1.02], 'face': {'lid': 0.25, 'brow': 0.7, 'mouth': 'smile'}}, toonDur=0.08),   # ...an exhale, the shoulders dropping, a blink of relief, hope...
+            k(r(LIFT3 + 0.34), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.2, 'brow': 0.75, 'mouth': 'smile'}}, toonDur=0.06),   # ...held...
             k(REL3, toon={'scl': {'head': [1.62, 0.7, 1.12]}, 'ears': 1.1, 'hands': {'L': 'spread', 'R': 'spread'}, 'sq': [1.05, 0.94, 1.05], 'face': GF()}, toonDur=0.05, toonEase='out'),   # ...BOING: back, wider than ever...
             k(r(REL3 + 0.08), toon={'scl': {'head': [1.2, 0.92, 1.03]}, 'ears': 0.6, 'face': GF({'tongueYaw': 0.35})}, toonDur=0.07),
             k(r(REL3 + 0.16), toon={'scl': {'head': [1.52, 0.77, 1.1]}, 'ears': 0.95, 'face': GF({'tongueYaw': -0.4})}, toonDur=0.07),
@@ -101,7 +102,7 @@ st.cue('gust', 'S03', 0.0, 0.3, 0.6); st.cue('sfx:squeak', 'S03', PRESS3, 0.2); 
 # 4: the town hall refuses... At the counter the clerk holds his identity photo up beside his face, at the end of her arm: the same grimace; her eyes
 #    go to the photo, to him, to the photo, to him: a double take, her head shoots up
 D4 = st.dur('S04')
-OFFICE = {'title': 'MAIRIE', 'plate': False, 'bannerY': 2.72, 'bannerX': 3.3}   # (pass 2) the ÉTAT CIVIL plate sat in the caption band; (pass 3) the banner down where the shot sees it
+OFFICE = {'title': 'MAIRIE', 'plate': False, 'bannerY': 2.8, 'bannerX': 2.5, 'clockX': -3.4}   # (final) the clock off the banner (it cut it to « MA »)   # (pass 2) the ÉTAT CIVIL plate sat in the caption band; (pass 3) the banner down where the shot sees it
 VIS = [0.0, 0, 0.0]; CLERK = [0.25, 0, -1.4]                             # him in front of the desk, the clerk behind it
 PH4 = [0.32, 1.84, -0.4]                                                  # (pass 2) her hand under the photo: the photo itself beside his face, at its height; (stills 2) it sat at his collar: raised to his face
 PHC = [0.36, 2.05, -0.42]                                                 # (pass 3) the photo itself beside his face at its height, standing on its own
@@ -110,12 +111,13 @@ st.shot('S04', 'mairie', setOpts=OFFICE, actors=[
         act('mec', VIS, -75, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'scl': {'head': GHEAD}, 'ears': 0.7, 'face': GF()}, toonDur=0.0),   # (check) cheated toward us: at 180 his face was in profile
             k(0.5, toon={'scl': {'head': [1.31, 0.84, 1.05]}, 'ears': 0.7, 'face': GF({'tongueYaw': 0.2})}, toonDur=0.12), k(0.8, toon={'scl': {'head': GHEAD}, 'ears': 0.7, 'face': GF()}, toonDur=0.12)]),
         act('agent', CLERK, -40, 'stand', 'neutral', keys=[k(0.0, look={'point': PHC, 'cheat': 0.5}), k(0.0, toon={**HOLD4(), 'face': {'lid': 0.4, 'gx': 0.4}}, toonDur=0.0),
-            k(0.16, toon={**HOLD4(), 'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.0, 0.18, 0, 1, None]}, 'face': {'lid': 0.35, 'gx': -0.6}}, toonDur=0.06), k(0.24, look={'point': [VIS[0], 1.85, VIS[2]], 'cheat': 0.5}),   # her eyes to him first, then her head ((pass 3) cheated three-quarters to us)...
-            k(0.36, toon={**HOLD4(), 'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.0, -0.18, 0, 1, None]}, 'face': {'lid': 0.3, 'gx': 0.6}}, toonDur=0.06), k(0.42, look={'point': PHC, 'cheat': 0.5}),   # ...back to the photo...
-            k(0.54, toon={**HOLD4(), 'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.0, 0.2, 0, 1, None]}, 'face': {'lid': 0.3, 'gx': -0.7}}, toonDur=0.05), k(0.58, look={'point': [VIS[0], 1.85, VIS[2]], 'cheat': 0.6}),   # ...to him again...
-            k(0.64, toon={**HOLD4(), 'scl': {'head': [0.84, 1.42, 0.86]}, 'hairUp': 1.0, 'sq': [0.95, 1.07, 0.95], 'face': {'lid': 0.0, 'eye': 0.8, 'pupil': 0.45, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.05, toonEase='out'),   # ...the take: her head shoots up
-            k(r(0.64 + 0.12), toon={**HOLD4(), 'scl': {'head': [0.94, 1.12, 0.95]}, 'hairUp': 0.8, 'face': {'lid': 0.0, 'eye': 0.6, 'pupil': 0.5, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.08),
-            k(r(0.64 + 0.24), toon={**HOLD4(), 'scl': {'head': [1.0, 1.04, 1.0]}, 'hairUp': 0.6, 'face': {'lid': 0.1, 'eye': 0.5, 'pupil': 0.5, 'brow': 0.8, 'mouth': 'o'}}, toonDur=0.12)])],
+            k(0.16, toon={**HOLD4(), 'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.0, 0.36, 0, 1, None]}, 'face': {'lid': 0.35, 'gx': -0.7}}, toonDur=0.06), k(0.24, look={'point': [VIS[0], 1.85, VIS[2]], 'cheat': 0.5}),   # her eyes to him first, then her head ((pass 3) cheated three-quarters to us)...
+            k(0.36, toon={**HOLD4(), 'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.0, -0.36, 0, 1, None]}, 'face': {'lid': 0.3, 'gx': 0.7}}, toonDur=0.06), k(0.42, look={'point': PHC, 'cheat': 0.5}),   # ...back to the photo...
+            k(0.54, toon={**HOLD4(), 'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.0, 0.38, 0, 1, None]}, 'face': {'lid': 0.3, 'gx': -0.8}}, toonDur=0.05), k(0.58, look={'point': [VIS[0], 1.85, VIS[2]], 'cheat': 0.6}),   # ...to him again...
+            k(0.64, toon={**HOLD4(), 'scl': {'head': [0.84, 1.42, 0.86]}, 'hairUp': 1.0, 'sq': [0.95, 1.07, 0.95], 'face': {'lid': 0.0, 'eye': 0.9, 'eyeScale': 1.7, 'pupil': 0.45, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.05, toonEase='out'),   # ...the take: her head shoots up, her eyes bulging behind her glasses...
+            k(0.76, toon={**HOLD4(), 'scl': {'head': [0.86, 1.4, 0.87]}, 'hairUp': 1.0, 'sq': [0.95, 1.07, 0.95], 'face': {'lid': 0.0, 'eye': 0.9, 'eyeScale': 1.65, 'pupil': 0.45, 'brow': 1.0, 'mouth': 'O', 'tremble': 1.0}}, toonDur=0.04),   # (final) ...hanging up there four frames...
+            k(r(0.76 + 0.1), toon={**HOLD4(), 'scl': {'head': [0.94, 1.12, 0.95]}, 'hairUp': 0.8, 'face': {'lid': 0.0, 'eye': 0.6, 'pupil': 0.5, 'brow': 0.9, 'mouth': 'O'}}, toonDur=0.08),
+            k(r(0.76 + 0.22), toon={**HOLD4(), 'scl': {'head': [1.0, 1.04, 1.0]}, 'hairUp': 0.6, 'face': {'lid': 0.1, 'eye': 0.5, 'pupil': 0.5, 'brow': 0.8, 'mouth': 'o'}}, toonDur=0.12)])],
         props=[P('photo4', 'grimacePhoto', pos=PHC, face='camera', scale=4.6, opts={'face': {k_: v_ for k_, v_ in GH.items() if not k_.startswith('tongue')}})],   # (pass 2) his very face; (pass 3) in the air beside his face, her hand at its edge
         cams=[FC(0.0, [-2.2, 1.65, 0.6], [[VIS[0], 2.38, VIS[2]], [VIS[0], 1.3, VIS[2]], [VIS[0], 2.0, r(VIS[2] + 0.42)], [VIS[0], 2.0, r(VIS[2] - 0.42)], [CLERK[0], 2.55, CLERK[2]], [r(CLERK[0] - 0.35), 2.3, CLERK[2]], [PHC[0], 2.35, PHC[2]], [PHC[0], 1.75, PHC[2]]], top=0.12, bottom=0.7, drift=(0.06, 0.0, -0.05))])   # (stills 2) his whole head in (cut by the right edge)   # (stills 1) his face and the photo side by side to us, her face three-quarters behind
 st.cue('sfx:paper', 'S04', 0.05, 0.15); st.cue('sfx:gasp', 'S04', 0.64, 0.3)
@@ -141,16 +143,16 @@ st.shot('S05', 'mairie', setOpts=OFFICE, actors=[
                                                                  k(r(HIT5 + 0.2), to=[0.0, 1.38, -0.95], dur=0.16, ease='out')]),
                # (pass 2) no stampPop: its mark lay under the photo
                P('pap5', 'paperSheet', pos=[0.55, 0.83, -0.72], rot=[round(-PI / 2, 4), 0, 0.3], opts={'w': 0.3, 'h': 0.4}, keys=[k(HIT5, to=[0.57, 0.98, -0.72], dur=0.06, ease='out'), k(r(HIT5 + 0.07), to=[0.58, 0.83, -0.71], dur=0.1, ease='in')])],   # the desk's papers jump
-        fx=[{'type': 'shake', 'at': HIT5, 'dur': 0.15, 'amount': 0.012}],
+        fx=[{'type': 'shake', 'at': HIT5, 'dur': 0.1, 'amount': 0.024}],   # (final) a harder, shorter shake on the impact
         cams=[FC(0.0, [0.3, 2.05, -0.2], [[0.19, 0.836, -0.64], [-0.19, 0.836, -1.06], [0.19, 0.836, -1.06], [-0.19, 0.836, -0.64], [STOP5[0], 1.56, STOP5[2]]], top=0.08, bottom=0.88, level=False)])   # (stills 1) an insert from above: the photo big, the stamp coming down into it
 st.cue('clack', 'S05', HIT5, 0.5); st.cue('sfx:thud', 'S05', HIT5, 0.4)
 
 # 6: the carnival hired him. The carnival street (garlands over it, balloons): the carnival boss in a party hat sees his face and lights up (his eyes
 #    huge), grabs his hand and pumps it: the shake ripples up the man's arm, his body jiggles, the grimace flaps; confetti
 D6 = st.dur('S06'); GRAB6 = 0.28
-CARN = {**STREET, 'eiffel': False}                                       # (pass 2) no tower stump behind the heads
-MC = [-0.5, 0, 0.0]; BOSS = [0.55, 0, 0.15]
-HS = [0.03, 1.05, 0.38]                                                   # where the hands meet
+CARN = {**STREET, 'eiffel': False, 'clearL': [-14.0, 8.0]}             # (pass 2) no tower stump behind the heads; (final) no tree behind his neck
+MC = [-0.72, 0, 0.0]; BOSS = [0.76, 0, 0.15]                            # (final) further apart: the arms reach out of the bodies
+HS = [0.03, 1.15, 0.62]                                                   # where the hands meet: (final) in the gap, forward of them, against the road (across his torso the arm vanished)
 DECOR = lambda sid, z0=0.0: [P(f'ban{sid}', 'carnivalBanner', pos=[0.0, 3.6, r(z0 - 4.0)], opts={'w': 4.6, 'h': 0.85, 'span': 15}),   # (pass 2) the institution named
                              P(f'bunA{sid}', 'bunting', pos=[0.0, 4.6, r(z0 - 2.5)], opts={'len': 14, 'sag': 0.6, 'n': 22}), P(f'bunB{sid}', 'bunting', pos=[0.0, 5.0, r(z0 - 7.5)], opts={'len': 14, 'sag': 0.7, 'n': 22}),
                              P(f'bunC{sid}', 'bunting', pos=[0.0, 5.2, r(z0 - 13.0)], opts={'len': 14, 'sag': 0.7, 'n': 22}), P(f'bal{sid}', 'balloonBunch', pos=[2.6, 1.0, r(z0 - 1.6)], opts={'n': 7, 'len': 1.3})]
@@ -208,10 +210,10 @@ st.cue('gust', 'S08', 0.05, 0.5, 1.8); st.cue('sfx:squeak', 'S08', 0.1, 0.3); st
 #    them from left to right (hair, hats and ties whipped one after another, leaves); each face snaps into a grimace of its own as it passes, the head
 #    squashed four frames, overshooting, set wide, the arms dropping
 D9 = st.dur('S09')
-TOWN = [('patron', [-0.62, 0, 0.35], 14, G_BOSS, 'happy'), ('w1', [0.0, 0, 0.15], 0, G_W1, 'happy'), ('mamie', [0.6, 0, 0.4], -14, G_MAM, 'happy'),
+TOWN = [('patron', [-0.74, 0, 0.35], 14, G_BOSS, 'happy'), ('w1', [0.0, 0, 0.15], 0, G_W1, 'happy'), ('mamie', [0.74, 0, 0.4], -14, G_MAM, 'happy'),   # (final) a head apart: no raised arm across a face
         ('k1', [-1.5, 0, -1.6], 10, G_K1, 'happy'), ('m1', [1.5, 0, -1.7], -10, G_M1, 'happy')]   # three big faces, two behind
 SNAP9 = [0.42, 0.62, 0.82, 1.0, 1.12]
-CHEER = lambda p_: {'reach': {'L': [r(p_[0] + 0.32), 2.25, r(p_[2] + 0.1), 1, 0.05], 'R': [r(p_[0] - 0.32), 2.25, r(p_[2] + 0.1), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}}
+CHEER = lambda p_: {'reach': {'L': [r(p_[0] + 0.24), 2.4, r(p_[2] + 0.05), 1, 0.05], 'R': [r(p_[0] - 0.24), 2.4, r(p_[2] + 0.05), 1, 0.05]}, 'hands': {'L': 'open', 'R': 'open'}}   # (final) straight up over their own heads
 def SNAPKEYS(ts, g_, i, p_):
     wind = {'wind': [12.0, 1.5, 0.0], 'hairUp': 0.5}
     return [k(0.0, toon={**CHEER(p_), 'sq': [1.0, 1.02, 1.0], 'face': {'mouth': 'bigsmile', 'lid': 0.1}}, toonDur=0.0),
@@ -220,11 +222,11 @@ def SNAPKEYS(ts, g_, i, p_):
             k(ts, toon={**wind, 'scl': {'head': [1.38, 0.7, 1.15]}, 'sq': [1.06, 0.92, 1.06], 'ears': 0.8, 'face': g_}, toonDur=0.04, toonEase='out'),   # ...CLAC: the face snaps, the head squashed, the arms drop...
             k(r(ts + 0.13), toon={**wind, 'scl': {'head': [1.36, 0.72, 1.14]}, 'ears': 0.8, 'face': g_}, toonDur=0.1),   # ...held four frames...
             k(r(ts + 0.2), toon={'scl': {'head': [0.9, 1.16, 0.95]}, 'ears': 0.4, 'face': g_}, toonDur=0.06),   # ...overshooting tall...
-            k(r(ts + 0.3), toon={'scl': {'head': [1.22, 0.86, 1.08]}, 'face': g_}, toonDur=0.08), k(r(ts + 0.5), toon={'scl': {'head': [1.2, 0.87, 1.07]}, 'sq': [1.0, 1.015, 1.0], 'face': g_}, toonDur=0.25, toonEase='inOut')]   # ...and set wide
+            k(r(ts + 0.3), toon={'scl': {'head': [1.34, 0.78, 1.1]}, 'face': g_}, toonDur=0.08), k(r(ts + 0.5), toon={'scl': {'head': [1.32, 0.79, 1.1]}, 'sq': [1.0, 1.015, 1.0], 'face': g_}, toonDur=0.25, toonEase='inOut')]   # ...and set wide ((final) as wide as his, not back to tall boxes)
 st.shot('S09', 'parisStreet', setOpts=CARN, actors=[
         act(n_, p_, ry_, 'stand', ex_, keys=[k(0.0, look='camera'), *SNAPKEYS(SNAP9[i], g_, i, p_)]) for i, (n_, p_, ry_, g_, ex_) in enumerate(TOWN)],
         props=[*DECOR('9'), P('leaf9', 'leafGust', pos=[-2.4, 0.6, 1.0], scale=1.3, opts={'n': 34, 'w': 3.8, 'h': 1.8, 'd': 1.2, 'startAt': 0.3, 'dur': 1.0})],
-        cams=[FC(0.0, [0.0, 1.85, 2.3], [[-0.62, 2.5, 0.35], [0.6, 2.2, 0.4], [-0.95, 1.9, 0.35], [0.95, 1.9, 0.4], [0.0, 1.45, 0.15]], top=0.16, bottom=0.6, drift=(0.0, 0.0, -0.08))])   # (pass 2) three faces each a quarter of the frame
+        cams=[FC(0.0, [0.0, 1.85, 2.0], [[-0.74, 2.5, 0.35], [0.74, 2.3, 0.4], [-1.02, 2.0, 0.35], [1.02, 2.0, 0.4], [0.0, 1.55, 0.15]], top=0.16, bottom=0.62, drift=(0.0, 0.0, -0.08))])   # (final) closer: the three faces fill the width   # (pass 2) three faces each a quarter of the frame
 st.cue('gust', 'S09', 0.25, 0.4, 1.2)
 for t_ in SNAP9[:3]: st.cue('sfx:pop', 'S09', t_, 0.3)
 
@@ -236,32 +238,33 @@ st.shot('S10', 'parisStreet', setOpts=CARN, actors=[
             k(BACK10, toon={'scl': {'head': [0.86, 1.14, 0.95]}, 'ears': 0.0, 'wind': [10.0, 1.0, 0.0], 'face': {'lid': 0.2, 'tongue': 0.0, 'tongueLen': 0.3, 'pupilSize': 0.4}}, toonDur=0.06, toonEase='out'),   # ZIP: it all springs back...
             k(r(BACK10 + 0.1), toon={'scl': {'head': [1.06, 0.95, 1.02]}, 'face': {'lid': 0.35}}, toonDur=0.08), k(r(BACK10 + 0.2), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'face': DEAD}, toonDur=0.1),   # ...wobbling to his plain face
             k(0.58, toon={'face': {'lid': 1.0}}, toonDur=0.05), k(0.66, toon={'face': DEAD}, toonDur=0.08)]),   # a blink
-        act('patron', [-0.48, 0, -0.4], 20, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'scl': {'head': [1.2, 0.87, 1.07]}, 'face': G_BOSS}, toonDur=0.0), k(0.3, toon={'scl': {'head': [1.22, 0.85, 1.07]}, 'sq': [1.0, 1.02, 1.0], 'face': G_BOSS}, toonDur=0.3, toonEase='inOut')]),
-        act('mamie', [0.5, 0, -0.35], -20, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'scl': {'head': [1.2, 0.87, 1.07]}, 'face': G_MAM}, toonDur=0.0), k(0.2, toon={'scl': {'head': [1.18, 0.88, 1.07]}, 'sq': [1.0, 1.02, 1.0], 'face': G_MAM}, toonDur=0.3, toonEase='inOut')])],
+        act('patron', [-0.72, 0, -0.4], 20, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'scl': {'head': [1.32, 0.79, 1.1]}, 'face': G_BOSS}, toonDur=0.0), k(0.3, toon={'scl': {'head': [1.22, 0.85, 1.07]}, 'sq': [1.0, 1.02, 1.0], 'face': G_BOSS}, toonDur=0.3, toonEase='inOut')]),
+        act('mamie', [0.74, 0, -0.35], -20, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'scl': {'head': [1.32, 0.79, 1.1]}, 'face': G_MAM}, toonDur=0.0), k(0.2, toon={'scl': {'head': [1.18, 0.88, 1.07]}, 'sq': [1.0, 1.02, 1.0], 'face': G_MAM}, toonDur=0.3, toonEase='inOut')])],
         props=[*DECOR('10'), P('leaf10', 'leafGust', pos=[-2.0, 1.6, -1.2], scale=1.3, opts={'n': 16, 'w': 3.6, 'h': 1.2, 'd': 0.6, 'startAt': 0.0, 'dur': 0.5})],   # (stills 2) behind the heads: a leaf crossed his face on the beat
-        cams=[FC(0.0, [0.05, 1.95, 1.5], [[0.0, 2.42, 0.0], [0.0, 1.5, 0.0], [-0.76, 2.2, -0.4], [0.78, 2.15, -0.35]], top=0.16, bottom=0.66, drift=(0.0, 0.0, -0.06))])   # (stills 2) his head a third of the frame, the two grimaces cut by its edges (his head was as small as theirs on « Sauf lui »); (stills 3) their whole faces in: the boss's was out of frame
+        cams=[FC(0.0, [0.05, 1.95, 1.5], [[0.0, 2.42, 0.0], [0.0, 1.5, 0.0], [-0.98, 2.2, -0.4], [1.0, 2.15, -0.35]], top=0.16, bottom=0.66, drift=(0.0, 0.0, -0.06))])   # (final) a head-width aside: the mamie sat right behind his head   # (stills 2) his head a third of the frame, the two grimaces cut by its edges (his head was as small as theirs on « Sauf lui »); (stills 3) their whole faces in: the boss's was out of frame
 st.cue('sfx:zip', 'S10', r(BACK10 - 0.02), 0.35); st.cue('sfx:pop', 'S10', BACK10, 0.2)
 
 # 11: the carnival fired him. (pass 3) Staged in depth, the street running away to the left: the man large in the foreground, three-quarters to us;
 #     behind him the boss, grimacing, cocks his arm and flings it out down the street, the arm stretching along the road two and a half times, past the
 #     point and back, the finger jabbing; the man's eyes go along the arm (four frames), then his head (eight), his face kept to us
 D11 = st.dur('S11'); PT11 = 0.32
-MC11 = [1.1, 0, 1.25]; BOSS11 = [-1.05, 0, -0.35]                        # (stills) the boss clear of him (behind him the boss and the arm were hidden)
-OUTPT = [-2.6, 2.25, -2.9]                                                 # (pass 3) down the street (it pointed up into the air)
+MC11 = [0.6, 0, 1.2]; BOSS11 = [1.5, 0, 0.4]                             # (stills F) the boss on the right, the man on the left: the arm crosses the frame past his nose (pointed down the street it was end-on to the lens, invisible)   # (final) the boss closer, bigger   # (stills) the boss clear of him (behind him the boss and the arm were hidden)
+OUTPT = [-3.5, 2.15, 1.9]                                                  # (stills F) far off the left of the frame at his nose height: the arm runs out of the frame   # (final) far down the street at shoulder height (up at the awning it vanished)   # (pass 3) down the street (it pointed up into the air)
 JAB = lambda j: [r(OUTPT[0] + (0.05 if j % 2 else -0.03)), r(OUTPT[1] + (0.02 if j % 2 else 0.0)), r(OUTPT[2] + (0.07 if j % 2 else -0.04))]
-PTK = lambda p_, hand='point': {'reach': {'R': [r(p_[0]), r(p_[1]), r(p_[2]), 1, 0.08], 'L': [r(BOSS11[0] + 0.25), 1.0, r(BOSS11[2] + 0.12), 1, 0.05]}, 'hands': {'R': hand, 'L': 'fist'}}   # his other fist on his hip
+PTK = lambda p_, hand='point': {'reach': {'R': [r(p_[0]), r(p_[1]), r(p_[2]), 1, 0.08], 'L': [r(BOSS11[0] + 0.05), 1.0, r(BOSS11[2] + 0.28), 1, 0.05]}, 'hands': {'R': hand, 'L': 'fist'}}   # his other fist on his hip
 BH = {'scl': {'head': [1.2, 0.87, 1.07]}, 'face': G_BOSS}
 st.shot('S11', 'parisStreet', setOpts=CARN, actors=[
-        act('mec', MC11, 25, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
+        act('mec', MC11, 28, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
             k(r(PT11 + 0.04), toon={'face': {'lid': 0.4, 'gx': -0.9, 'pupilSize': 0.3}}, toonDur=0.13), k(r(PT11 + 0.17), look={'point': OUTPT, 'cheat': 0.55}),   # his eyes along the arm (four frames), then his head (eight)...
             k(0.62, toon={'sq': [1.0, 1.012, 1.0], 'face': {'lid': 0.45, 'gx': -0.7}}, toonDur=0.2), k(0.95, toon={'face': {'lid': 1.0, 'gx': -0.6}}, toonDur=0.05), k(1.03, toon={'sq': [1.0, 0.995, 1.0], 'face': {'lid': 0.45, 'gx': -0.4}}, toonDur=0.1)]),   # ...a breath, a blink
-        act('patron', BOSS11, 40, 'stand', 'determined', keys=[k(0.0, look={'point': [MC11[0], 1.8, MC11[2]], 'cheat': 0.6}), k(0.0, toon=BH, toonDur=0.0),
-            k(0.08, toon={**PTK([r(BOSS11[0] + 0.3), 1.6, r(BOSS11[2] + 0.2)], 'fist'), **BH, 'bend': {'spine': [-0.15, 0, -0.12, 1, None]}, 'sq': [1.05, 0.94, 1.05]}, toonDur=0.15, toonEase='inOut'),   # the arm cocked across...
+        act('patron', BOSS11, -95, 'stand', 'determined', keys=[k(0.0, look={'point': [MC11[0], 1.8, MC11[2]], 'cheat': 0.6}), k(0.0, toon=BH, toonDur=0.0),
+            k(0.06, toon={**PTK([r(BOSS11[0] + 0.38), 1.75, r(BOSS11[2] - 0.1)], 'fist'), **BH, 'bend': {'spine': [-0.2, 0, -0.15, 1, None]}, 'sq': [1.06, 0.93, 1.06]}, toonDur=0.12, toonEase='inOut'),   # the arm cocked back across his chest (six frames)...
             k(PT11, toon={**PTK([r(OUTPT[0] - 0.3), r(OUTPT[1] + 0.08), r(OUTPT[2] - 0.4)]), **BH, 'bend': {'spine': [0.1, 0, 0.12, 1, None]}, 'sq': [0.96, 1.06, 0.96]}, toonDur=0.07, toonEase='out'),   # ...FLUNG down the street, past the point...
             k(r(PT11 + 0.1), toon={**PTK([r(OUTPT[0] + 0.08), r(OUTPT[1] - 0.02), r(OUTPT[2] + 0.1)]), **BH}, toonDur=0.08), k(r(PT11 + 0.2), look={'point': OUTPT, 'cheat': 0.5}),   # ...back...
-            *[k(r(PT11 + 0.2 + 0.07 * j), toon={**PTK(JAB(j)), **BH, 'sq': [1.0, 1.012 if j % 2 else 0.996, 1.0]}, toonDur=0.06) for j in range(13)]])],   # ...the finger jabbing, all the way through
+            k(r(PT11 + 0.2), toon={**PTK(OUTPT), **BH, 'sq': [1.0, 1.01, 1.0]}, toonDur=0.05),   # (final) ...held stretched eight frames...
+            *[k(r(PT11 + 0.47 + 0.07 * j), toon={**PTK(JAB(j)), **BH, 'sq': [1.0, 1.012 if j % 2 else 0.996, 1.0]}, toonDur=0.06) for j in range(9)]])],   # ...then the finger jabbing
         props=[*DECOR_NB('11')],   # (pass 3) no banner under the VIRÉ card
-        cams=[FC(0.0, [1.9, 1.7, 3.1], [[MC11[0], 2.44, MC11[2]], [r(MC11[0] + 0.32), 2.2, MC11[2]], [MC11[0], 1.15, MC11[2]], [BOSS11[0], 2.62, BOSS11[2]], [r(OUTPT[0] - 0.12), r(OUTPT[1] + 0.15), OUTPT[2]]],
+        cams=[FC(0.0, [2.3, 1.65, 4.3], [[MC11[0], 2.44, MC11[2]], [MC11[0], 1.1, MC11[2]], [BOSS11[0], 2.62, BOSS11[2]], [r(BOSS11[0] + 0.3), 2.45, BOSS11[2]], [BOSS11[0], 1.1, BOSS11[2]], [r(MC11[0] - 0.75), 2.05, r(MC11[2] + 0.35)]],   # (stills F2) the boss's whole head (it was cut by the edge)
                  top=0.2, bottom=0.72, drift=(-0.04, 0.0, -0.05))])   # (pass 3) the man whole from the cut (half out of the frame), the arm along the road
 st.cue('sfx:stretch', 'S11', PT11, 0.35); st.cue('sfx:whistle', 'S11', r(PT11 + 0.02), 0.15)
 
@@ -302,7 +305,7 @@ st.shot('S12', 'parisStreet', setOpts=CARN, actors=[
         *[act(n_, p_, ry_, 'stand', 'happy', keys=FRIGHT(i, p_, g_, ex_, jh_)) for i, (n_, p_, ry_, g_, ex_, jh_) in enumerate(CROWD)]],
         props=[*DECOR_NB('12')],   # (pass 3) no banner: the end hold read « CARNAV » behind his head
         cams=[FC(0.0, [-0.3, 1.85, 1.6], [[MC12[0], 2.38, MC12[2]], [MC12[0], 1.5, MC12[2]], [r(MC12[0] + 0.4), 1.9, MC12[2]], [r(MC12[0] - 0.4), 1.9, MC12[2]]], top=0.16, bottom=0.6),   # close on his plain face turning to them...
-              FC(REV12, [-2.3, 1.95, -0.75], [[MC12[0], 2.4, MC12[2]], [0.55, 2.05, 0.35], [1.2, 2.25, 1.0], [2.05, 1.95, 0.25], [1.2, 0.9, 1.0], [0.55, 3.0, 0.35]], top=0.1, bottom=0.78, drift=(0.0, 0.0, 0.06)),   # (pass 3) ...over his shoulder, close on them ((stills) a step back: his head filled half the frame)...
+              FC(REV12, [-2.3, 1.95, -0.75], [[MC12[0], 2.4, MC12[2]], [0.55, 2.05, 0.35], [1.2, 2.25, 1.0], [2.05, 1.95, 0.25], [1.2, 0.9, 1.0], [0.55, 3.25, 0.35], [1.2, 3.1, 1.0], [1.4, 2.9, -0.65], [2.05, 2.75, 0.25]], top=0.12, bottom=0.78, drift=(0.0, 0.0, 0.06)),   # (final) room over their heads at the top of the leap (eyes and the mamie's head were cut)   # (pass 3) ...over his shoulder, close on them ((stills) a step back: his head filled half the frame)...
               FC(CUT12, [-0.6, 1.75, 2.6], [[MC12[0], 2.3, MC12[2]], [MC12[0], 1.0, MC12[2]], [r(MC12[0] + 0.5), 1.6, MC12[2]], [r(MC12[0] - 0.5), 1.6, MC12[2]]], top=0.16, bottom=0.68, drift=(0.0, 0.0, -0.35))])   # ...alone: a slow push-in
 st.cue('sfx:gasp', 'S12', SEE12, 0.35); st.cue('sfx:boing', 'S12', JUMP12, 0.3); st.cue('sfx:thud', 'S12', r(DROP12 + 0.08), 0.25); st.cue('sfx:zip', 'S12', RUN12, 0.3)
 

@@ -49,7 +49,9 @@ export const RESSORT_PROPS = {
       items.forEach((it, i) => { const y = H * (0.34 + i * 0.22); c.lineWidth = W * 0.014; c.strokeStyle = '#1B2A4A'; c.strokeRect(W * 0.08, y - H * 0.055, H * 0.11, H * 0.11);
         c.font = `900 ${Math.round(H * (it.length > 8 ? 0.062 : 0.075))}px Arial`; c.fillText(it, W * 0.08 + H * 0.16, y); }); }, { res: 512 }));
     const pick = o.pick ?? 2, cx = -w / 2 + w * 0.08 + h * 0.055, cy = h / 2 - h * (0.34 + pick * 0.22);
-    const a = grp(), b = grp(); a.add(at(box(h * 0.075, 0.012, 0.004, '#D0202A'), h * 0.0375, 0, 0)); b.add(at(box(h * 0.16, 0.012, 0.004, '#D0202A'), h * 0.08, 0, 0));
+    // (review 1 of 61: the tick was a red 3D stick) flat strokes of red ink, unlit, a little wider than a pen line
+    const ink = new THREE.MeshBasicMaterial({ color: '#D0202A', side: THREE.DoubleSide }), stroke = (L, t) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(L, t), ink); m.position.x = L / 2; return m; };
+    const a = grp(), b = grp(); a.add(stroke(h * 0.085, h * 0.022)); b.add(stroke(h * 0.18, h * 0.022));
     a.position.set(cx - h * 0.04, cy + h * 0.005, 0.004); a.rotation.z = -0.8; b.position.set(cx + h * 0.012, cy - h * 0.045, 0.004); b.rotation.z = 0.95; g.add(a, b);
     g.userData.update = t => { const u = t - (o.tickAt ?? 99); a.scale.x = Math.max(0.001, eo(u / 0.05)); b.scale.x = Math.max(0.001, eo((u - 0.05) / 0.07)); a.visible = u > 0; b.visible = u > 0.05; };
     g.userData.update(0); return g;
@@ -81,5 +83,29 @@ export const RESSORT_PROPS = {
     g.add(at(cyl(r * 1.01, r * 1.01, 0.02, '#F2D7A0', 16), 0, 0.01, 0), at(cyl(r * 0.46, r * 0.46, 0.02, '#B08A3E', 14), 0, h, 0));
     if (o.cord !== 0) g.add(at(cyl(0.008, 0.008, o.cord ?? 0.35, '#2A2C31', 6, { pivot: 'bottom' }), 0, h, 0));
     return g;
+  },
+
+  // (review 1 of 61: the nest was a smooth orange dish floating over his hair) a twig nest (pivot at the bottom of its bowl, so it sits on what is
+  // under it): a low brown bowl, a ragged rim of o.n (44) twigs sticking out every way, eggs (o.egg colour) that pop in one by one at the o.layAt
+  // times, overshooting to 1.3 times their size, on the near half of the bowl so they show over the rim; o.r (0.4) the rim radius
+  twigNest(o) {
+    const R = o.r ?? 0.4, g = grp(), rnd = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+    g.add(at(cyl(R * 0.95, R * 0.62, R * 0.32, '#7A5A34', 14, { pivot: 'bottom' }), 0, 0, 0), at(cyl(R * 0.78, R * 0.78, 0.01, '#4E3A22', 14), 0, R * 0.3, 0));
+    const tw = ['#8A6A3E', '#6E5230', '#A07C4A', '#5C4428'];
+    for (let i = 0; i < (o.n ?? 44); i++) { const a = i / (o.n ?? 44) * 2 * Math.PI + rnd(i, 1) * 0.3, L = R * (0.6 + 0.5 * rnd(i, 2)), y = R * (0.12 + 0.24 * rnd(i, 3));
+      const t = box(L, 0.016, 0.016, tw[i % 4]); t.position.set(Math.cos(a) * R * 0.92, y, Math.sin(a) * R * 0.92); t.rotation.set(0, -a + (rnd(i, 4) - 0.5) * 1.6, (rnd(i, 5) - 0.3) * 0.9); g.add(t); }
+    const lay = list(o.layAt), eggs = [];
+    for (let i = 0; i < (o.max ?? 3); i++) { const e = new THREE.Mesh(new THREE.SphereGeometry(R * 0.17, 10, 8), new THREE.MeshLambertMaterial({ color: o.egg || '#EAF2F4' }));
+      e.scale.y = 1.3; e.position.set((i - ((o.max ?? 3) - 1) / 2) * R * 0.36, R * 0.38, R * 0.3); g.add(e); eggs.push(e); }
+    g.userData.update = t => eggs.forEach((e, i) => { const u = t - (lay[i] ?? 99); e.visible = u > 0; const k = u < 0.06 ? 1.3 * eo(u / 0.06) : 1 + 0.3 * Math.max(0, 1 - (u - 0.06) / 0.08); e.scale.set(k, 1.3 * k, k); });
+    g.userData.update(0); return g;
+  },
+
+  // (review 1 of 61: a plank table did not say café) a round bistro table (pivot at the floor): a white marble top o.r (0.32) on a black cast-iron
+  // pedestal and foot, o.h (0.74) high
+  bistroTable(o) {
+    const R = o.r ?? 0.32, H = o.h ?? 0.74;
+    return grp(at(cyl(R, R, 0.03, o.top || '#F2F0EA', 20, { outline: 0.006 }), 0, H - 0.015, 0), at(cyl(0.028, 0.028, H - 0.03, '#26272B', 8, { pivot: 'bottom' }), 0, 0, 0),
+      at(cyl(0.2, 0.22, 0.025, '#26272B', 12), 0, 0.012, 0));
   },
 };

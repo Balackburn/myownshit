@@ -1241,3 +1241,33 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   plan montre une vallée vide. Couper sur une caméra par-dessus l'épaule qui le regarde rapetisser jusqu'à la fin du plan.
 - (cycle 22) `fitBack(level=False)` avec une caméra basse qui regarde en l'air : en reculant sur la ligne 3D elle passe sous le sol
   (y = -0,09). Garder `level=True` pour une contre-plongée.
+- (cycle 23) Un bras qui « montre le fond de la rue » filmé par une caméra qui regarde déjà dans cette direction : il est dans l'axe de
+  l'objectif et disparaît (59). Faire traverser l'image au bras, perpendiculaire à l'axe, et laisser la main sortir par le bord.
+- (cycle 23) Les clés `toon` sont des états complets : une petite clé de frisson posée juste après une pose d'appui (paumes sur les joues)
+  efface l'appui. Placer les clés secondaires avant la pose, ou répéter la pose dedans.
+- (cycle 23) Un écrasement sur un siège pivote sur l'origine de l'acteur, au sol : le personnage s'enfonce à travers l'assise jusqu'au
+  trottoir (61, quatre fois). Le soulever pendant l'écrasement de ce que celui-ci retire à la hauteur de ses hanches, environ
+  0,47 × (1 − sq_y) assis, avec une clé `to` en `clip='sit'`.
+- (cycle 23) Un écrasement du corps entier écrase aussi les yeux en fentes au moment même où ils doivent sortir : étirer la tête contre
+  l'écrasement (`scl.head` [0,84, 1,28, 0,84]) et grossir les yeux (`eyeScale` 1,7).
+- (cycle 23) Un personnage aplati vu exactement de dessus se lit comme un personnage debout (60) : filmer la crêpe de trois quarts en
+  plongée depuis ses pieds, bras écartés au sol (`reach` sur des points du trottoir) ; le visage reste à l'endroit.
+- (cycle 23) Des mains en porte-voix pendant que la mâchoire s'étire : la touche `face` suit la tête non étirée, les mains couvrent la
+  bouche et le haut du visage. Jeter les bras en avant et en dehors avec le cri.
+- (cycle 23) Un mot qui grossit pendant qu'il s'éloigne ne rapetisse presque pas : garder sa taille et l'envoyer à 40 m.
+- (cycle 23) Un petit mot jaune ou orange sur une peau orangée disparaît (contraste 1,3:1) : le blanc cerné de foncé, et un trajet à côté du
+  visage, pas devant les yeux.
+- (cycle 23) Un « gros plan » dont les points de cadrage comprennent le point de départ d'un objet qui tombe devient un plan moyen : laisser
+  l'objet entrer par le bord du cadre.
+- (cycle 23) Le rig toon ignore `build.height` : un enfant à 83 % de sa mère se lit comme un petit adulte. Le faire avec `act(..., scale=0.62)`
+  et lui donner sa propre tête (un bonnet).
+- (cycle 23) Une main en cornet derrière l'oreille se lit comme un grattage de tête, même grosse, même du côté caméra : faire grandir l'oreille
+  elle-même (`earScale`, avec le creux sombre qui apparaît au-delà de 1,25).
+- (cycle 23) Dans un insert sur un formulaire posé à plat, la ligne qui porte la chute est la dernière, donc en bas du cadre, dans la bande
+  des sous-titres : filmer plus haut et plus raide pour la remonter vers 60 % de la hauteur, avec 10 % de marge sur les côtés.
+- (cycle 23) Une flèche de vitesse cernée de foncé, debout entre un siège et le trottoir, se lit comme un pied de banc : des traînées douces
+  en coin (`speedLines` `soft`, `taper`, `alpha` 0,6) à côté du personnage, pas sous lui.
+- (cycle 23) Un nid posé au-dessus de la tête par sa position dans le monde flotte dès que la tête bouge : l'attacher à la tête (`on` …
+  `joint: 'head'`) avec la cuvette sur les cheveux, et poser les pigeons sur ses bords pour qu'ils ne le cachent pas.
+- (cycle 23) « Arrêté en plein vol » à 4 m au-dessus de la rue, filmé à sa hauteur : la rue derrière ses jambes, il semble debout. Le monter
+  plus haut et le filmer d'au-dessus, la rue loin en dessous, ou d'en dessous sur le ciel.

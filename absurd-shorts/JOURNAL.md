@@ -2170,3 +2170,28 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   grande, le petit « ohé » blanc qui descend à côté du visage jusqu'à l'épaule. Images de contrôle en rendu.
 - 61 « Le ressort » : brouillon 1 rendu (494 images, aucune image grise ; un arrêt de 0,73 s en S12, « en plein vol » : à animer de petits
   mouvements) ; dossier de revue 1 en préparation.
+- 59 « La grimace » : revue 3 = animation 7,8, direction artistique 7,6 (aucun « À voir avec l'utilisateur »). Passe finale : appui frontal
+  au plan 3 (paumes à plat sur les joues, coudes écartés, tête écrasée en hauteur, yeux exorbités vers le haut, corps qui force), visage
+  normal tenu treize images avec un soupir avant le BOING ; guichetière aux regards plus amples, yeux grossis derrière les lunettes,
+  suspendue quatre images en haut de sa prise ; tampon à la secousse plus forte et plus courte ; poignée de main dans le vide entre les deux
+  hommes, sur la chaussée ; foule aux grimaces aussi fortes que la sienne, têtes restées larges, un visage d'écart pour qu'aucun bras levé ne
+  traverse un visage, caméra plus près ; au plan 10, les deux grimaçants écartés d'une tête ; au plan 11, le patron à droite et son bras qui
+  traverse l'image et sort par le bord (pointé vers le fond de la rue, il était dans l'axe de l'objectif, invisible) ; place au-dessus des
+  têtes au sommet du saut final ; horloge déplacée hors de la banderole MAIRIE ; arbre retiré de derrière sa nuque (nouvelle option `clearL`
+  du décor de rue, trottoir de gauche). Génération complète en cours.
+- 60 « L'écho » : images de contrôle 5 et 6. Le plan large d'ouverture est retiré (en contre-plongée son visage se perdait, en plongée le
+  rocher remplissait la moitié du cadre) : le plan poitrine ouvre, les montagnes et les nuages derrière lui situent le sommet. Les bras
+  partent en avant avec le cri (les mains sur la mâchoire se lisaient comme un bras tendu). L'oreille qui écoute grandit en assiette au lieu
+  de la main en cornet (outil du cycle : canal `earScale` du rig, creux sombre au-delà de 1,25). Brouillon 3 en rendu.
+- 61 « Le ressort » : revue 1 = animation 6,5, direction artistique 6,0. Décision (« À voir avec l'utilisateur » du critique animation : le
+  plan 3 demandait des yeux grands et des joues gonflées alors que l'épisode reste impassible avec une seule prise, au BOING) : le vent de
+  l'ascension déforme son visage (yeux écarquillés, joues soufflées) sans que ce soit une prise ; le BOING reste la seule. Passe 2 : les
+  écrasements sur un siège pivotent sur l'assise (il s'enfonçait jusqu'au trottoir) et les yeux du BOING sortent cinq images ; l'envol vu en
+  entier depuis plus bas, puis le banc vide et son ressort ; traînées de vitesse douces ; l'ascension mains visibles ; de profil, le saut
+  pile au-dessus de la tête de la passante ; tasse blanche et table de bistrot ; insert du formulaire remonté (OBJET VOLANT hors de la bande
+  des sous-titres), coche à plat et stylo rouge en main, lui en entier juste avant ; autocollant claqué à l'atterrissage, CLAC ; rebonds de
+  balle sur la chaise, la tête de l'examinateur qui suit avec deux images de retard, son visage et le nouveau casque vers nous ; CLONK dans
+  la lampe et l'ampoule nue qui se balance ; trois rebonds de plus en plus hauts et l'arrêt à 7 m, les deux témoins devant nous ; un nid de
+  brindilles posé sur ses cheveux, vu d'au-dessus avec la rue loin en dessous, trois œufs sur le bord. Outils : `twigNest`, `bistroTable`,
+  traînées `soft`/`taper`/`alpha`, lampe à abat-jour qui saute (`shadeOff`), casque d'aviateur refait (calotte haute, fourrure, grosses
+  lunettes), coche à plat. Images de contrôle en rendu.

@@ -396,13 +396,19 @@ function addHat(head, hat, hw, hh, hd, C) {
       break; }
     case 'beanie': g.add(box(hw * 1.15, 0.12, hd * 1.2, C.hat || P.red, { pivot: 'bottom', taper: 0.8 })); break;   // hatColor: a burglar's black one
     case 'aviator': {   // (cycle 23, story 61) a pilot's leather cap: a padded crown, ear flaps down the sides, a band, round goggles pushed up on the forehead (hatColor: the leather)
-      const hc = C.hat || '#6B4A2E', dk = new THREE.Color(hc).multiplyScalar(0.72).getStyle();
-      g.add(box(hw * 1.14, 0.1, hd * 1.18, hc, { pivot: 'bottom', taper: 0.86, outline: 0.02 }));
-      for (const s of [-1, 1]) { const f = box(0.032, 0.2, hd * 0.55, hc, { outline: 0.015 }); f.position.set(s * (hw * 0.5 + 0.018), -0.1, -hd * 0.05); g.add(f); }
-      const band = box(hw * 1.16, 0.034, hd * 1.2, dk); band.position.y = 0.022; g.add(band);
-      for (const s of [-1, 1]) { const rim = cyl(0.05, 0.05, 0.03, '#B08A3E', 12, { outline: 0.01 }); rim.rotation.x = Math.PI / 2; rim.position.set(s * hw * 0.23, -0.01, hd * 0.6); g.add(rim);
-        const lens = cyl(0.04, 0.04, 0.034, '#9FD3E8', 12); lens.rotation.x = Math.PI / 2; lens.position.set(s * hw * 0.23, -0.01, hd * 0.6 + 0.002); g.add(lens); }
-      const bridge = box(hw * 0.12, 0.018, 0.02, '#B08A3E'); bridge.position.set(0, -0.01, hd * 0.6); g.add(bridge); break; }
+      // (review 1 of 61: a flat brown box, the goggles unreadable) a taller, rounder crown with a seam over the top, a cream fleece trim, long flaps,
+      // and big brass goggles with dark lenses and a glint, set high on the band
+      const hc = C.hat || '#6B4A2E', dk = new THREE.Color(hc).multiplyScalar(0.72).getStyle(), FL = '#EADFC8';
+      g.add(box(hw * 1.16, 0.16, hd * 1.2, hc, { pivot: 'bottom', taper: 0.7, outline: 0.02 }));
+      const seam = box(0.03, 0.022, hd * 0.95, dk); seam.position.y = 0.162; g.add(seam);
+      const trim = box(hw * 1.2, 0.04, hd * 1.24, FL, { outline: 0.012 }); trim.position.y = 0.0; g.add(trim);
+      for (const s of [-1, 1]) { const f = box(0.036, 0.26, hd * 0.52, hc, { outline: 0.015 }); f.position.set(s * (hw * 0.5 + 0.02), -0.13, -hd * 0.04); f.rotation.z = s * 0.08; g.add(f);
+        const ft = box(0.012, 0.05, hd * 0.5, FL); ft.position.set(s * (hw * 0.5 + 0.004), -0.24, -hd * 0.04); g.add(ft); }
+      const band = box(hw * 1.18, 0.036, hd * 1.22, '#2E2622'); band.position.y = 0.06; g.add(band);
+      for (const s of [-1, 1]) { const rim = cyl(0.074, 0.074, 0.034, '#C49A3A', 14, { outline: 0.012 }); rim.rotation.x = Math.PI / 2; rim.position.set(s * hw * 0.25, 0.07, hd * 0.62); g.add(rim);
+        const lens = cyl(0.058, 0.058, 0.036, '#3E7F9C', 14); lens.rotation.x = Math.PI / 2; lens.position.set(s * hw * 0.25, 0.07, hd * 0.62 + 0.003); g.add(lens);
+        const glint = box(0.022, 0.012, 0.004, '#FFFFFF'); glint.position.set(s * hw * 0.25 - 0.016, 0.092, hd * 0.62 + 0.022); glint.rotation.z = 0.6; g.add(glint); }
+      const bridge = box(hw * 0.14, 0.02, 0.022, '#C49A3A'); bridge.position.set(0, 0.07, hd * 0.62); g.add(bridge); break; }
     case 'fedora': { g.add(box(hw * 1.7, 0.02, hd * 1.9, P.woodDark)); g.add(box(hw * 1.1, 0.12, hd * 1.2, P.woodDark, { pivot: 'bottom', taper: 0.9 })); const band = box(hw * 1.12, 0.03, hd * 1.22, P.black); band.position.y = 0.03; g.add(band); break; }
     case 'cowboy': { const b = box(hw * 2.2, 0.02, hd * 2.2, P.wood); g.add(b); g.add(box(hw * 1.1, 0.16, hd * 1.2, P.wood, { pivot: 'bottom', taper: 0.85 })); break; }
     case 'firehelmet': { const hc = C.hat || P.red; g.add(box(hw * 1.25, 0.13, hd * 1.4, hc, { pivot: 'bottom', taper: 0.75 })); const br = box(hw * 1.3, 0.02, hd * 2, hc); br.position.z = -0.04; g.add(br); break; }   // hatColor: e.g. the silver French F1 helmet

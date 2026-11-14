@@ -1268,7 +1268,8 @@ Object.assign(S, {
       g.add(prop('haussmann', { color: WC[i % WC.length], awning: AW[i % 4], h, floors: 6, cols: 5, w: 12.6, night, seed: i }, 10.2, 0, z, -PI / 2));
       g.add(prop('haussmann', { color: WC[(i + 3) % WC.length], awning: AW[(i + 2) % 4], h: 15 + r() * 5, floors: 6, cols: 5, w: 12.6, night, seed: i + 40 }, -10.2, 0, z + 5, PI / 2));
       const clr = (zz) => o.clear && zz > o.clear[0] && zz < o.clear[1];   // o.clear [zmin, zmax]: no tree and no lamp on the right-hand pavement there (nothing growing out of a head)
-      if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
+      const clrL = (zz) => o.clearL && zz > o.clearL[0] && zz < o.clearL[1];   // (cycle 24, review 3 of 59) o.clearL [zmin, zmax]: no tree on the left-hand pavement there (one stood behind his neck like a green ruff)
+      if (i % 2 === 0) { if (!clr(z + 4)) g.add(prop('tree', { seed: i + 7 }, 6.6, 0, z + 4, 0, 1.1)); if (!clrL(z - 2)) g.add(prop('tree', { seed: i + 50 }, -6.6, 0, z - 2, 0, 1.1)); if (!clr(z + 9)) g.add(prop('streetLamp', { on: night }, 5.6, 0, z + 9)); }
     }
     if (o.eiffel !== false) g.add(prop('eiffelTower', { h: o.eiffelH || 70, style: o.eiffelStyle }, o.eiffelX ?? -8, 0, o.eiffelZ ?? -175));   // (cycle 14) o.eiffelStyle 'v2': the connected silhouette
     g.userData.anchors = { center: [0, 0, 0], sidewalk: [7.5, 0, 0], road: [0, 0, 0], ...(o.hole ? { hole: [o.hole[0], 0, o.hole[1]] } : {}) };
