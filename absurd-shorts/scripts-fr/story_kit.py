@@ -122,6 +122,21 @@ def hops(t0, pts, peaks, dt, sq=(1.22, 0.76, 1.22), st=(0.84, 1.22, 0.84), y0=0.
     return keys, toon
 
 
+def hops_ball(t0, pts, peaks, dt, sq=(1.22, 0.76, 1.22), st=(0.84, 1.22, 0.84), y0=0.0, hold=0.07):
+    """(cycle 25, review 3 of 61) bounces like a ball: the same as hops, but (1) the take-off stretch fades over the whole rise on the same ease as the
+    climb, so the head never sinks while the body rises (released in three frames the head traced a W), and it is scaled to the bounce's height; (2)
+    round at the top; (3) a slight stretch leads the fall; (4) the landing squash is held `hold` seconds on the ground (two or three frames) before the
+    next take-off. Use it with the actor's automatic squash off (cast toon {'autoSq': 0}): the two stretches add up."""
+    keys, toon = [], []
+    for i in range(len(pts) - 1):
+        a, b = pts[i], pts[i + 1]; t = round(t0 + dt * i, 3); air = round(dt - hold, 3); half = round(air / 2, 3)
+        m = [round((a[0] + b[0]) / 2, 3), round(y0 + peaks[i], 3), round((a[1] + b[1]) / 2, 3)]; kk = min(1.0, peaks[i] / 1.2)
+        s_ = [round(1 + (st[0] - 1) * kk, 3), round(1 + (st[1] - 1) * kk, 3), round(1 + (st[2] - 1) * kk, 3)]
+        keys += [k(t, to=m, dur=half, ease='out', face='keep'), k(round(t + half, 3), to=[b[0], y0, b[1]], dur=half, ease='in', face='keep')]
+        toon += [k(t, toon={'sq': s_, 'hairUp': 0.6}, toonDur=0.03, toonEase='out'), k(round(t + 0.03, 3), toon={'sq': [1.0, 1.0, 1.0], 'hairUp': 0.3}, toonDur=round(half - 0.03, 3), toonEase='out'),
+                 k(round(t + air - 0.08, 3), toon={'sq': [0.95, 1.08, 0.95], 'hairUp': 0.5}, toonDur=0.06, toonEase='in'), k(round(t + air, 3), toon={'sq': list(sq), 'hairUp': 0.0}, toonDur=0.02, toonEase='out')]
+    return keys, toon
+
 def react(t0, s=1.0, keep=None, look=None, kind='startle'):
     """(cycle 10) A bystander's reaction to a loud beat at t0 (the reviews: "the pound man keeps the same pose through the clack and the jump"),
     as keys to add to a secondary actor. kind 'startle': a two-frame squash, then a jump of the shoulders with the eyes popping and the hair up,

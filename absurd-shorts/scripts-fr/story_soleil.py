@@ -60,23 +60,23 @@ st.cue('sfx:static', 'S01', 0.3, 0.12); st.cue('sfx:static', 'S01', 1.12, 0.22)
 #    real close-up (his head about 38 % of the frame): her hand comes in from the right on an arc with a big egg in it, a contact frame with the two half
 #    shells springing apart and CRAC big at the impact; the white spreads and the yolk swells while his eyes roll up and cross toward it
 D2 = st.dur('S02'); CRACK2 = 0.42
-GAM2 = [6.0, 0, -12.04]                                                  # (stills 1) the neighbour at his side, her hand at his forehead height (the boy's arm stretched like a pole); (stills 2) at his left, the camera side
+GAM2 = [5.3, 0, -12.62]                                                   # (stills 1) the neighbour at his side, her hand at his forehead height (the boy's arm stretched like a pole); (stills 2) at his left, the camera side; (stills p2) behind the deckchair: from his side her arm crossed his face at the crack
 FORE2 = [5.24, 1.32, -11.78]                                             # his forehead, seated and leaning back ((stills 2) turned up the street)
-ARC2 = lambda t_: [r(FORE2[0] + 0.55 - 0.5 * t_), r(FORE2[1] + 0.42 - 0.36 * t_ + 0.12 * math.sin(PI * t_)), r(FORE2[2] + 0.12 - 0.07 * t_)]   # (review 1) her hand on an arc: up and over, down onto his forehead
+ARC2 = lambda t_: [r(FORE2[0] + 0.05 - 0.04 * t_), r(FORE2[1] + 0.85 - 0.76 * t_ + 0.08 * math.sin(PI * t_)), r(FORE2[2] - 0.28 + 0.31 * t_)]   # (review 1) her hand on an arc; (stills p2) from high above his head straight down onto his forehead, a tall neighbour behind him: her arm over his head, clear of his eyes
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
         act('mec', SEATED, RY, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**LOUNGE, 'skin': SKIN(RED, 1.0, 0.15), 'face': {**DEAD, 'gx': 0.35}}, toonDur=0.0),   # his eyes on the egg coming
             k(r(CRACK2 + 0.02), toon={**LOUNGE, 'skin': SKIN(RED, 1.0, 0.15), 'sq': [1.04, 0.96, 1.04], 'face': {'lid': 1.0}}, toonDur=0.03),   # CRAC: a blink...
             k(r(CRACK2 + 0.14), toon={**LOUNGE, 'skin': SKIN(RED, 1.0, 0.15), 'face': {'lid': 0.15, 'gy': -0.95, 'gx': 0.0, 'cross': 0.55, 'eye': 0.25}}, toonDur=0.1),   # ...his eyes roll up and cross toward the egg frying on his forehead...
             k(r(CRACK2 + 0.75), toon={**LOUNGE, 'skin': SKIN(RED, 1.0, 0.15), 'face': {'lid': 0.3, 'gy': -0.9, 'gx': 0.0, 'cross': 0.6, 'eye': 0.2}}, toonDur=0.25), k(r(D2 - 0.2), toon={**LOUNGE, 'skin': SKIN(RED, 1.0, 0.15), 'face': DEAD}, toonDur=0.14)]),   # ...held, then deadpan
-        act('voisine', GAM2, -60, 'stand', 'happy', keys=[k(0.0, look=[FORE2[0], FORE2[1], FORE2[2]]),
+        act('voisine', GAM2, 15, 'stand', 'happy', keys=[k(0.0, look=[FORE2[0], FORE2[1], FORE2[2]]),
             k(0.0, toon={'reach': {'L': ARC2(0.0) + [1, 0.05]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'bigsmile', 'lid': 0.0, 'brow': 0.6}}, toonDur=0.0),   # the egg up beside his head, in the frame...
             k(0.12, toon={'reach': {'L': ARC2(0.45) + [1, 0.05]}, 'hands': {'L': 'grip'}, 'face': {'mouth': 'bigsmile', 'lid': 0.0, 'brow': 0.7}}, toonDur=0.14, toonEase='in'),   # ...over the top of the arc...
             k(r(CRACK2 - 0.06), toon={'reach': {'L': ARC2(1.0) + [1, 0.03]}, 'hands': {'L': 'grip'}, 'sq': [1.04, 0.96, 1.04], 'face': {'mouth': 'bigsmile', 'lid': 0.0, 'brow': 0.8}}, toonDur=0.06, toonEase='in'),   # ...CRAC on his forehead...
-            k(r(CRACK2 + 0.2), toon={'reach': {'L': [r(FORE2[0] + 0.45), 1.15, r(FORE2[2] + 0.12), 1, 0.05]}, 'hands': {'L': 'open'}, 'sq': [0.96, 1.05, 0.96], 'face': {'mouth': 'laugh', 'lid': 0.0, 'eye': 0.4, 'brow': 1.0}}, toonDur=0.12, toonEase='out')])],   # ...delighted
+            k(r(CRACK2 + 0.2), toon={'reach': {'L': [r(FORE2[0] + 0.25), r(FORE2[1] + 0.55), r(FORE2[2] - 0.3), 1, 0.05]}, 'hands': {'L': 'open'}, 'sq': [0.96, 1.05, 0.96], 'face': {'mouth': 'laugh', 'lid': 0.0, 'eye': 0.4, 'brow': 1.0}}, toonDur=0.12, toonEase='out')])],   # ...delighted, her hand back up
         props=[P('chair2', 'deckChair', pos=ME, ry=RY),
                P('egg2', 'friedEgg', on={'actor': 'voisine', 'hand': 'L', 'offset': [0.0, 0.0, 0.04]}, opts={'at': CRACK2, 'r': 0.085, 'dur': 1.2, 'wholeR': 0.62}, keys=[k(CRACK2, attach='mec', joint='head', offset=[0.0, 0.415, 0.088], rot=[round(PI / 2, 4), 0.0, 0.0])]),   # (stills 2) flat on the front of his head above the eyes; (review 1) a big whole egg in her hand, half shells at the crack
-               BURST('crac2', [r(FORE2[0] - 0.16), r(FORE2[1] + 0.3), r(FORE2[2] + 0.12)], CRACK2, 'CRAC !', 0.42)],   # (review 1) at the impact, at TUUUT's scale (it was small, 0.2 m away)
-        cams=[FC(0.0, [6.15, 1.45, -10.7], [[ME[0], 1.88, r(ME[2] - 0.05)], [ME[0], 1.05, r(ME[2] + 0.2)], [r(FORE2[0] + 0.55), r(FORE2[1] + 0.55), FORE2[2]], [r(FORE2[0] - 0.42), r(FORE2[1] + 0.45), r(FORE2[2] + 0.1)]],
+               BURST('crac2', [r(FORE2[0] + 0.3), r(FORE2[1] + 0.28), r(FORE2[2] + 0.14)], CRACK2, 'CRAC !', 0.42)],   # (review 1) at the impact, at TUUUT's scale (it was small, 0.2 m away); (stills p2) on the other side of the impact from her arm
+        cams=[FC(0.0, [5.95, 1.5, -10.75], [[ME[0], 2.05, r(ME[2] - 0.05)], [ME[0], 0.95, r(ME[2] + 0.2)], [r(FORE2[0] + 0.62), r(FORE2[1] + 0.42), r(FORE2[2] + 0.14)], [r(FORE2[0] - 0.3), r(FORE2[1] + 0.2), FORE2[2]]],
                  top=0.1, bottom=0.74, lenses=range(26, 57), drift=(0.03, 0.0, 0.03))])   # (review 1) a real close-up: his head and her hand's arc
 st.cue('sfx:bonk', 'S02', CRACK2, 0.25); st.cue('sfx:static', 'S02', r(CRACK2 + 0.05), 0.3)
 
@@ -96,7 +96,7 @@ st.shot('S03', 'parisStreet', setOpts=NIGHT, look=NLOOK, actors=[
             k(1.2, toon={'skin': SKIN('#FF6A7A', 1.0, 1.0), 'face': {'lid': 1.0}}, toonDur=0.14), k(1.45, toon={'skin': SKIN('#FF6A7A', 1.0, 1.0), 'sq': [1.0, 0.996, 1.0], 'face': DEAD}, toonDur=0.18)]),   # glowing, a slow blink
         act('voisine', VOI3, -20, 'sit', 'neutral', keys=[k(0.0, look=[6.21, 1.0, -11.2]), k(0.0, toon=PAPER3(0.0), toonDur=0.0), k(0.9, toon=PAPER3(0.05), toonDur=0.3)])],   # reading by his light ((review 1) her eyes stay on the paper)
         props=[P('glow3', 'glowLight', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.3, 0.4]}, opts={'color': '#FF3A4A', 'k': 11, 'dist': 9, 'at': 0.0}),   # (stills 2) a pool of red; (review 1) stronger and wider: the facades, the bench, her face and her paper in his red
-               P('halo3', 'halo', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.25, -0.12], 'face': 'camera'}, opts={'r': 0.75, 'k': 0.95, 'core': '#FFE6E0', 'color': '#FF3A50'}),   # (review 1) a burning outline behind his head: the hottest thing in the frame
+               P('halo3', 'halo', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.25, -0.12], 'face': 'camera'}, opts={'r': 0.58, 'k': 0.7, 'core': '#FFE6E0', 'color': '#FF3A50'}),   # (review 1) a burning outline behind his head: the hottest thing in the frame ((stills p2) smaller and softer: at 0.75 a red balloon)
                P('moths3', 'moths', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.55, 0.0]}, opts={'n': 7, 'r': 0.2, 'size': 1.3}, scale=2.6),   # (stills 2) big enough to see; (review 1) grey-brown moths with antennae, lit red
                P('bench3', 'bench', pos=[VOI3[0], 0, VOI3[2]], ry=-20), P('news3', 'newspaper', on={'actor': 'voisine', 'hand': 'R', 'offset': [0.0, 0.05, 0.05]})],
         cams=[FC(0.0, [4.7, 1.0, -6.6], [[ME3[0], 2.8, ME3[2]], [ME3[0], 0.0, ME3[2]], [VOI3[0], 1.5, VOI3[2]], [VOI3[0], 0.0, VOI3[2]], [3.0, 14.0, -60.0]], top=0.06, bottom=0.8, drift=(0.0, 0.0, -0.06))])   # (stills 2) the sky over the end of the street
@@ -125,7 +125,7 @@ st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
         act('maire', [5.35, 0, -0.95], -160, 'stand', 'determined', keys=[k(0.0, look=[LIGHT[0], 3.4, LIGHT[2]]), k(0.0, toon={'reach': {'L': [4.75, 3.3, -0.5, 1, 0.08]}, 'hands': {'L': 'point'}, 'face': {'lid': 0.4, 'brow': -0.2, 'mouth': 'smirk'}}, toonDur=0.0),
             k(0.35, look='camera'), k(0.4, toon={'reach': {'L': [4.75, 3.36, -0.5, 1, 0.08]}, 'hands': {'L': 'point'}, 'face': {'lid': 0.3, 'brow': 0.3, 'mouth': 'smirk'}}, toonDur=0.1)])],   # the mayor points at the top hole, pleased
         props=[P('light4', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True})],
-        cams=[FC(0.0, [2.4, 6.6, -8.6], [[LIGHT[0], 3.95, LIGHT[2]], [5.35, 2.2, -0.95], [CARRY0[0], 1.62, r(CARRY0[2] - 0.1)], [CARRY0[0], 1.62, r(CARRY0[2] + 2.1)], [r(CARRY0[0] - 0.5), 0.0, r(CARRY0[2] + 0.35)], [r(CARRY0[0] + 0.5), 0.0, r(CARRY0[2] + 1.5)]], top=0.08, bottom=0.78, drift=(0.0, 0.0, 0.25))])   # (review 1) high and close, nearly looking down on the plank, the light at the top
+        cams=[FC(0.0, [3.1, 5.6, -8.0], [[LIGHT[0], r(POLE + 1.38), r(LIGHT[2] - 0.2)], [CARRY0[0], 1.62, r(CARRY0[2] - 0.1)], [CARRY0[0], 1.62, r(CARRY0[2] + 2.1)], [r(CARRY0[0] - 0.4), 0.4, r(CARRY0[2] + 0.35)], [r(CARRY0[0] + 0.4), 0.4, r(CARRY0[2] + 1.5)]], top=0.06, bottom=0.8, drift=(0.0, 0.0, 0.25))])   # (stills p2) tighter on the plank: the light's top hole the top of the frame   # (review 1) high and close, nearly looking down on the plank, the light at the top
 
 # 5: ...as a red light. Close on the light: his face pops up into the top hole, red, glowing, overshooting and settling; deadpan (FEU ROUGE)
 #    (stills 2: his head 18 cm under the hole's centre and 8 cm aside (his weight shift at rest), the sky through the open back round it) his feet
@@ -164,7 +164,7 @@ HEADON = lambda col=RED, glow=0.7, i=2: act('mec', BEHIND(i), LRY, 'stand', 'uni
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[HEADON()],
         props=[P('light6', 'headLight', pos=LIGHT, ry=LRY, opts={'pole': POLE, 'column': True}), P('glow6', 'glowLight', pos=[LIGHT[0], HOLE(2)[1], r(LIGHT[2] - 0.6)], opts={'color': '#FF4A2A', 'k': 3, 'dist': 4}), *QUEUE('6'),
                *[P(f'exh6{i}', 'dustPuff', pos=[2.2, 0.35, r(z_ - 2.15)], scale=0.6, opts={'period': 0.7, 'color': '#C8CCD2', 'seed': 620 + i}) for i, z_ in enumerate([-3.0, -8.6, -14.2, -19.8])]],   # (review 1) exhaust puffing: engines running
-        cams=[cam(0.0, [1.0, 7.2, -52.0], [1.0, 7.1, -50.5], [3.7, 1.9, -3.2], [3.7, 1.9, -3.2], lens=8)])   # a long lens down the queue: the light at its head; (review 1) from higher and tighter: the roofs to the end of the street, the light big in the top third
+        cams=[cam(0.0, [1.2, 10.5, -96.0], [1.2, 10.4, -94.5], [3.7, 2.0, -3.0], [3.7, 2.0, -3.0], lens=6)])   # (stills p2) from beyond the end of the queue: nearer, its last cars filled the frame as blocks   # a long lens down the queue: the light at its head; (review 1) from higher and tighter: the roofs to the end of the street, the light big in the top third
 
 # 7: ...all day long. The light against the sky: the sun races across behind him and goes down; he glows on, deadpan, a slow blink
 #    (stills 2: from under the box his face was a red sliver in the top hole) in front of the light, a little below it: his face in the top hole, the
@@ -210,7 +210,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
                P('truck8', 'truck', pos=[TRUCK[0], 0, -13.0], ry=-90, opts={'color': '#2F6FB2', 'hornLen': 1.1}, keys=[k(0.0, to=TRUCK, dur=0.3, ease='out'), k(0.28, rot=[0.0, round(-PI / 2, 4), -0.05], dur=0.08, ease='out'), k(0.4, rot=[0.0, round(-PI / 2, 4), 0.0], dur=0.25, ease='inOut')]),   # it rolls up and stops nose down
                P('blast8', 'speedLines', **FLY([[BLAST8, r(LIGHT[0] - 1.4), r(HOLE(2)[1] + 0.05), r(LIGHT[2] - 0.45)], [r(BLAST8 + 0.55), r(LIGHT[0] - 0.9), r(HOLE(2)[1] + 0.05), r(LIGHT[2] - 0.45)]]), face='camera', opts={'n': 8, 'len': 0.75, 'w': 0.5, 'angle': 0.0, 'soft': True, 'alpha': 0.85, 'at': [[BLAST8, r(BLAST8 + 0.55)]]}),   # (review 1) the wind lines hit his face
                BURST('tut8', [1.5, 3.25, -1.3], HONK8, 'TUUUT !', 0.5)],
-        cams=[cam(0.0, [0.6, 0.75, 2.2], [0.62, 0.76, 2.15], [2.25, 2.05, -1.6], [2.25, 2.05, -1.6], lens=52),   # (review 1) low in front, three-quarter: the grille, the driver, the chrome horns against the sky
+        cams=[cam(0.0, [0.2, 0.8, 5.2], [0.22, 0.81, 5.12], [2.2, 1.75, -1.6], [2.2, 1.75, -1.6], lens=44),   # (review 1) low in front, three-quarter: the grille, the driver, the chrome horns against the sky
               FC(CUT8, [LIGHT[0], 3.0, -2.7], [[LIGHT[0], r(POLE + 1.78), r(LIGHT[2] - 0.17)], [LIGHT[0], r(POLE + 0.6), r(LIGHT[2] - 0.17)], [r(LIGHT[0] - 0.72), r(POLE + 1.2), r(LIGHT[2] - 0.17)], [r(LIGHT[0] + 0.72), r(POLE + 1.2), r(LIGHT[2] - 0.17)]], top=0.16, bottom=0.76)])   # ...his face in the hole, flattened
 st.cue('sfx:honkLong', 'S08', HONK8, 0.6); st.cue('whoosh', 'S08', BLAST8, 0.3, 0.5, 300, 1200); st.cue('sfx:boing', 'S08', BACK8, 0.2)
 
@@ -282,7 +282,7 @@ st.shot('S11', 'parisStreet', setOpts=STREET, actors=[
                P('skid11', 'skidMarks', pos=[2.2, 0, -29.6], opts={'at': r(BRAKE11 - 0.3), 'len': 3.2}),
                P('glow11', 'glowLight', pos=[LIGHT[0], HOLE(0)[1], r(LIGHT[2] - 0.6)], opts={'color': '#FF4A2A', 'k': 3, 'dist': 4, 'at': 0.94})],
         cams=[FC(0.0, [4.9, 2.1, -3.4], [[LIGHT[0], r(POLE + 1.75), r(LIGHT[2] - 0.17)], [LIGHT[0], r(POLE - 0.2), r(LIGHT[2] - 0.17)], [LAD[0], 2.8, r(LAD[2] - 0.2)], [LAD[0], 0.9, r(LAD[2] - 0.2)]], top=0.12, bottom=0.76, drift=(0.04, 0.0, -0.04)),
-              cam(CUT11, [0.8, 2.6, -62.0], [0.8, 2.6, -60.5], [3.4, 2.6, 0.0], [3.4, 2.6, 0.0], lens=9)])   # (stills 4) ...cut to the long lens of S06: the queue stopped again at his red light, its last car braking into place (a vertical frame cannot hold the light and a car side by side up close: from behind, beside or across, the car filled it)
+              cam(CUT11, [1.2, 10.5, -96.0], [1.2, 10.4, -94.5], [3.7, 2.0, -3.0], [3.7, 2.0, -3.0], lens=6)])   # (stills 4) ...cut to the long lens of S06: the queue stopped again at his red light, its last car braking into place (a vertical frame cannot hold the light and a car side by side up close: from behind, beside or across, the car filled it)
 for t_ in STROKES: st.cue('sfx:squeak', 'S11', t_, 0.15)
 st.cue('sfx:brake', 'S11', r(BRAKE11 - 0.25), 0.3)
 
@@ -294,11 +294,11 @@ st.card('S05', 'FEU ROUGE', at=0.3)
 st.card('S11', 'REPEINT', at=0.6)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
-MEC = {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}
+MEC = {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'autoSq': 0}}   # (stills p2) no automatic landing squash: after the drop into a hole it shortened him 0.4 m and his face sank out of it
 st.write("Le coup de soleil", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, extra_cast={
     'mec': MEC,
     'gamin': {'preset': 'gamin', 'seed': 621, 'suit': '#F08A3C', 'hat': 'beanie', 'hatColor': '#3A9BDC', 'build': {'height': 0.55, 'headScale': 1.35}, 'toon': EX},
-    'voisine': {'preset': 'madame', 'seed': 622, 'suit': '#8E5AA8', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': EX},
+    'voisine': {'preset': 'madame', 'seed': 622, 'suit': '#8E5AA8', 'build': {'width': 0.9, 'headWidth': 1.25, 'height': 1.22}, 'toon': EX},   # (stills p2) a tall neighbour: her arm comes down onto his forehead from above, not across his eyes
     'maire': {'preset': 'politique', 'seed': 623, 'sash': ['#2F62B5', '#F4F4F0', '#E0413A'], 'sashW': 0.12, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'ouv1': {'preset': 'sportif', 'seed': 624, 'suit': '#F08A3C', 'hat': 'hardhat', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'ouv2': {'preset': 'sportif', 'seed': 625, 'suit': '#F08A3C', 'hat': 'hardhat', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},

@@ -15,6 +15,9 @@
     "width": 0.82,
     "headWidth": 1.3,
     "headScale": 1.0
+   },
+   "toon": {
+    "autoSq": 0
    }
   },
   "flic": {
@@ -60,6 +63,9 @@
     "width": 0.82,
     "headWidth": 1.3,
     "headScale": 1.0
+   },
+   "toon": {
+    "autoSq": 0
    },
    "hat": "aviator"
   },
@@ -107,7 +113,10 @@
   "voisine": {
    "preset": "madame",
    "seed": 614,
-   "suit": "#3A9BDC",
+   "suit": "#5FA35A",
+   "hair": "curly",
+   "hairColor": "#6B3A22",
+   "skin": "#E2A878",
    "build": {
     "width": 0.9,
     "headWidth": 1.25
@@ -288,7 +297,12 @@
     "clear": [
      -12.0,
      20.0
-    ]
+    ],
+    "sky": [
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "grade": "none",
    "soften": 0.3
@@ -355,9 +369,9 @@
        "at": 0.24,
        "toon": {
         "sq": [
-         1.3,
-         0.68,
-         1.3
+         1.38,
+         0.6,
+         1.38
         ],
         "scl": {
          "head": [
@@ -375,8 +389,30 @@
          "pupilSize": -0.35,
          "brow": 1.0,
          "mouth": "O",
-         "jaw": 0.5,
-         "jawLen": 0.3
+         "jaw": 0.9,
+         "jawLen": 0.4
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.62,
+          0.62,
+          0.18,
+          1,
+          0.05
+         ],
+         "R": [
+          "torso",
+          -0.62,
+          0.62,
+          0.18,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
         }
        },
        "toonDur": 0.03,
@@ -386,9 +422,9 @@
        "at": 0.3,
        "toon": {
         "sq": [
-         1.26,
-         0.72,
-         1.26
+         1.33,
+         0.64,
+         1.33
         ],
         "scl": {
          "head": [
@@ -406,9 +442,31 @@
          "pupilSize": -0.35,
          "brow": 1.0,
          "mouth": "O",
-         "jaw": 0.5,
-         "jawLen": 0.3,
+         "jaw": 0.9,
+         "jawLen": 0.4,
          "tremble": 1.0
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.66,
+          0.66,
+          0.16,
+          1,
+          0.05
+         ],
+         "R": [
+          "torso",
+          -0.66,
+          0.66,
+          0.16,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
         }
        },
        "toonDur": 0.04
@@ -417,9 +475,9 @@
        "at": 0.36,
        "toon": {
         "sq": [
-         1.3,
-         0.68,
-         1.3
+         1.38,
+         0.6,
+         1.38
         ],
         "scl": {
          "head": [
@@ -437,9 +495,31 @@
          "pupilSize": -0.35,
          "brow": 1.0,
          "mouth": "O",
-         "jaw": 0.5,
-         "jawLen": 0.3,
+         "jaw": 0.9,
+         "jawLen": 0.4,
          "tremble": 1.0
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.62,
+          0.6,
+          0.18,
+          1,
+          0.05
+         ],
+         "R": [
+          "torso",
+          -0.62,
+          0.6,
+          0.18,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "L": "spread",
+         "R": "spread"
         }
        },
        "toonDur": 0.04
@@ -536,10 +616,11 @@
       0.0
      ],
      "opts": {
-      "at": 0.5,
+      "at": 0.4,
       "len": 0.75,
-      "r": 0.1,
-      "wire": 0.02
+      "r": 0.11,
+      "wire": 0.026,
+      "color": "#4A5058"
      }
     },
     {
@@ -583,13 +664,13 @@
      ],
      "face": "camera",
      "opts": {
-      "n": 6,
-      "len": 1.2,
-      "w": 1.15,
+      "n": 7,
+      "len": 1.3,
+      "w": 1.25,
       "angle": 1.57,
       "soft": true,
       "taper": true,
-      "alpha": 0.6,
+      "alpha": 0.9,
       "at": [
        [
         0.42,
@@ -659,7 +740,12 @@
     "clear": [
      -12.0,
      20.0
-    ]
+    ],
+    "sky": [
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "grade": "none",
    "soften": 0.3
@@ -1096,15 +1182,15 @@
       }
      ],
      "face": "camera",
-     "scale": 1.9,
+     "scale": 2.4,
      "opts": {
-      "n": 6,
-      "len": 1.4,
-      "w": 0.6,
+      "n": 8,
+      "len": 1.6,
+      "w": 0.75,
       "angle": 1.57,
       "soft": true,
       "taper": true,
-      "alpha": 0.8,
+      "alpha": 0.95,
       "at": [
        [
         0.0,
@@ -1149,7 +1235,12 @@
     "clear": [
      -12.0,
      20.0
-    ]
+    ],
+    "sky": [
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "grade": "none",
    "soften": 0.3
@@ -1462,7 +1553,12 @@
     "clear": [
      -12.0,
      20.0
-    ]
+    ],
+    "sky": [
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "fx": [
     {
@@ -1510,18 +1606,18 @@
         1.0,
         4.1
        ],
-       "dur": 0.139,
+       "dur": 0.104,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.139,
+       "at": 0.104,
        "to": [
         7.2,
         0.0,
         3.6
        ],
-       "dur": 0.139,
+       "dur": 0.104,
        "ease": "in",
        "face": "keep"
       },
@@ -1532,18 +1628,18 @@
         2.3,
         3.05
        ],
-       "dur": 0.139,
+       "dur": 0.104,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.417,
+       "at": 0.382,
        "to": [
         7.2,
         0.0,
         2.5
        ],
-       "dur": 0.139,
+       "dur": 0.104,
        "ease": "in",
        "face": "keep"
       },
@@ -1554,18 +1650,18 @@
         0.9,
         2.0
        ],
-       "dur": 0.139,
+       "dur": 0.104,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.695,
+       "at": 0.66,
        "to": [
         7.2,
         0.0,
         1.5
        ],
-       "dur": 0.139,
+       "dur": 0.104,
        "ease": "in",
        "face": "keep"
       },
@@ -1573,17 +1669,17 @@
        "at": 0.0,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.867,
+         1.183,
+         0.867
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.083,
+       "at": 0.03,
        "toon": {
         "sq": [
          1.0,
@@ -1592,10 +1688,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.074,
+       "toonEase": "out"
       },
       {
-       "at": 0.248,
+       "at": 0.128,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.208,
        "toon": {
         "sq": [
          1.22,
@@ -1604,8 +1714,8 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.278,
@@ -1617,11 +1727,11 @@
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.361,
+       "at": 0.308,
        "toon": {
         "sq": [
          1.0,
@@ -1630,10 +1740,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.074,
+       "toonEase": "out"
       },
       {
-       "at": 0.526,
+       "at": 0.406,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.486,
        "toon": {
         "sq": [
          1.22,
@@ -1642,24 +1766,24 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.556,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.88,
+         1.165,
+         0.88
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.639,
+       "at": 0.586,
        "toon": {
         "sq": [
          1.0,
@@ -1668,10 +1792,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.074,
+       "toonEase": "out"
       },
       {
-       "at": 0.804,
+       "at": 0.684,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.764,
        "toon": {
         "sq": [
          1.22,
@@ -1680,8 +1818,8 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       }
      ],
      "expr": "unimpressed"
@@ -1912,7 +2050,12 @@
     "clear": [
      -12.0,
      20.0
-    ]
+    ],
+    "sky": [
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "grade": "none",
    "soften": 0.3
@@ -1941,9 +2084,9 @@
        "toon": {
         "reach": {
          "R": [
-          7.04,
-          1.18,
-          -9.12,
+          6.84,
+          1.0,
+          -9.08,
           1,
           0.05
          ]
@@ -1962,9 +2105,9 @@
        "toon": {
         "reach": {
          "R": [
-          7.04,
-          1.18,
-          -9.12,
+          6.84,
+          1.0,
+          -9.08,
           1,
           0.05
          ]
@@ -2000,9 +2143,9 @@
        "toon": {
         "reach": {
          "R": [
-          7.04,
-          1.18,
-          -9.12,
+          6.84,
+          1.0,
+          -9.08,
           0,
           0.05
          ]
@@ -2035,14 +2178,41 @@
        "face": "keep"
       },
       {
+       "at": 0.56,
+       "toon": {
+        "reach": {
+         "R": [
+          6.84,
+          1.0,
+          -9.08,
+          0,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "in"
+      },
+      {
        "at": 0.6,
        "toon": {
         "reach": {
          "R": [
-          7.04,
-          1.18,
-          -9.12,
-          1,
+          6.84,
+          1.0,
+          -9.08,
+          0.4,
           0.05
          ]
         },
@@ -2062,6 +2232,33 @@
        "toonEase": "in"
       },
       {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "R": [
+          6.84,
+          1.0,
+          -9.08,
+          1,
+          0.05
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1.1,
+         0.9,
+         1.1
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
        "at": 0.66,
        "look": "camera"
       },
@@ -2070,9 +2267,9 @@
        "toon": {
         "reach": {
          "R": [
-          7.04,
-          1.18,
-          -9.12,
+          6.84,
+          1.0,
+          -9.08,
           1,
           0.05
          ]
@@ -2097,9 +2294,9 @@
        "toon": {
         "reach": {
          "R": [
-          7.04,
-          1.18,
-          -9.12,
+          6.84,
+          1.0,
+          -9.08,
           1,
           0.05
          ]
@@ -2128,22 +2325,35 @@
      "id": "mug6",
      "name": "mug",
      "pos": [
-      7.04,
-      1.22,
-      -9.14
+      6.84,
+      1.04,
+      -9.1
      ],
      "ry": -90,
      "opts": {
       "color": "#FFFFFF"
-     }
-    },
-    {
-     "id": "table6",
-     "name": "bistroTable",
-     "pos": [
-      6.7,
-      0,
-      -8.9
+     },
+     "keys": [
+      {
+       "at": 0.65,
+       "to": [
+        6.84,
+        0.99,
+        -9.1
+       ],
+       "dur": 0.05,
+       "ease": "out"
+      },
+      {
+       "at": 0.7,
+       "to": [
+        6.84,
+        1.04,
+        -9.1
+       ],
+       "dur": 0.12,
+       "ease": "inOut"
+      }
      ]
     },
     {
@@ -2162,26 +2372,26 @@
     {
      "at": 0.0,
      "from": [
-      5.378,
+      5.388,
       1.05,
-      -10.939
+      -10.948
      ],
      "to": [
-      5.378,
+      5.388,
       1.05,
-      -10.939
+      -10.948
      ],
      "lookAt": [
-      12.038,
-      2.24,
-      -3.575
+      12.013,
+      2.241,
+      -3.553
      ],
      "lens": 53,
      "ease": "linear",
      "lookAt2": [
-      12.038,
-      2.24,
-      -3.575
+      12.013,
+      2.241,
+      -3.553
      ]
     }
    ],
@@ -2192,7 +2402,12 @@
     "clear": [
      -12.0,
      20.0
-    ]
+    ],
+    "sky": [
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "grade": "none",
    "soften": 0.3
@@ -2232,18 +2447,18 @@
         0.8,
         0.45
        ],
-       "dur": 0.172,
+       "dur": 0.137,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.172,
+       "at": 0.137,
        "to": [
         0.0,
         0.0,
         0.45
        ],
-       "dur": 0.172,
+       "dur": 0.137,
        "ease": "in",
        "face": "keep"
       },
@@ -2254,18 +2469,18 @@
         0.8,
         0.45
        ],
-       "dur": 0.172,
+       "dur": 0.137,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.516,
+       "at": 0.481,
        "to": [
         0.0,
         0.0,
         0.45
        ],
-       "dur": 0.172,
+       "dur": 0.137,
        "ease": "in",
        "face": "keep"
       },
@@ -2276,18 +2491,18 @@
         0.8,
         0.45
        ],
-       "dur": 0.172,
+       "dur": 0.137,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.86,
+       "at": 0.825,
        "to": [
         0.0,
         0.0,
         0.45
        ],
-       "dur": 0.172,
+       "dur": 0.137,
        "ease": "in",
        "face": "keep"
       },
@@ -2295,17 +2510,17 @@
        "at": 0.0,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.893,
+         1.147,
+         0.893
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.103,
+       "at": 0.03,
        "toon": {
         "sq": [
          1.0,
@@ -2314,10 +2529,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.107,
+       "toonEase": "out"
       },
       {
-       "at": 0.314,
+       "at": 0.194,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.274,
        "toon": {
         "sq": [
          1.22,
@@ -2326,24 +2555,24 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.344,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.893,
+         1.147,
+         0.893
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.447,
+       "at": 0.374,
        "toon": {
         "sq": [
          1.0,
@@ -2352,10 +2581,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.107,
+       "toonEase": "out"
       },
       {
-       "at": 0.658,
+       "at": 0.538,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.618,
        "toon": {
         "sq": [
          1.22,
@@ -2364,24 +2607,24 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.688,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.893,
+         1.147,
+         0.893
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.791,
+       "at": 0.718,
        "toon": {
         "sq": [
          1.0,
@@ -2390,10 +2633,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.107,
+       "toonEase": "out"
       },
       {
-       "at": 1.002,
+       "at": 0.882,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.962,
        "toon": {
         "sq": [
          1.22,
@@ -2402,8 +2659,8 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       }
      ],
      "expr": "unimpressed"
@@ -2534,9 +2791,9 @@
        "toon": {
         "reach": {
          "R": [
-          -0.17,
+          -0.08,
           0.85,
-          -1.03,
+          -1.01,
           1,
           0.04
          ]
@@ -2561,6 +2818,39 @@
        },
        "toonDur": 0.04,
        "toonEase": "in"
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.03,
+          0.86,
+          -1.06,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.4,
+         "gy": 0.6,
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
       }
      ],
      "expr": "neutral"
@@ -2593,9 +2883,9 @@
       "actor": "agent",
       "hand": "R"
      },
-     "scale": 1.6,
+     "scale": 2.6,
      "opts": {
-      "color": "#C8202A"
+      "color": "#E2312A"
      }
     }
    ],
@@ -2658,11 +2948,16 @@
     "title": "MAIRIE",
     "plate": false,
     "map": false,
-    "wall": "#E6EDF6",
-    "band": "#2A4B9B",
-    "trim": "#1B2A4A",
+    "wall": "#EEF2F8",
+    "band": "#7FA4D8",
+    "trim": "#4A6FA8",
     "ceiling": 3.4,
     "bannerY": 2.85
+   },
+   "look": {
+    "exposure": 1.32,
+    "fill": 1.2,
+    "sunColor": "#FFE6C2"
    },
    "grade": "none",
    "soften": 0.3
@@ -2702,18 +2997,18 @@
         1.0,
         0.45
        ],
-       "dur": 0.15,
+       "dur": 0.115,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.15,
+       "at": 0.115,
        "to": [
         0.0,
         0.0,
         0.45
        ],
-       "dur": 0.15,
+       "dur": 0.115,
        "ease": "in",
        "face": "keep"
       },
@@ -2724,18 +3019,18 @@
         1.0,
         0.45
        ],
-       "dur": 0.15,
+       "dur": 0.115,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.45,
+       "at": 0.415,
        "to": [
         0.0,
         0.0,
         0.45
        ],
-       "dur": 0.15,
+       "dur": 0.115,
        "ease": "in",
        "face": "keep"
       },
@@ -2746,18 +3041,18 @@
         1.0,
         0.45
        ],
-       "dur": 0.15,
+       "dur": 0.115,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.75,
+       "at": 0.715,
        "to": [
         0.0,
         0.0,
         0.45
        ],
-       "dur": 0.15,
+       "dur": 0.115,
        "ease": "in",
        "face": "keep"
       },
@@ -2765,17 +3060,17 @@
        "at": 0.0,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.867,
+         1.183,
+         0.867
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.09,
+       "at": 0.03,
        "toon": {
         "sq": [
          1.0,
@@ -2784,10 +3079,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.085,
+       "toonEase": "out"
       },
       {
-       "at": 0.27,
+       "at": 0.15,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.23,
        "toon": {
         "sq": [
          1.22,
@@ -2796,24 +3105,24 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.3,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.867,
+         1.183,
+         0.867
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.39,
+       "at": 0.33,
        "toon": {
         "sq": [
          1.0,
@@ -2822,10 +3131,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.085,
+       "toonEase": "out"
       },
       {
-       "at": 0.57,
+       "at": 0.45,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.53,
        "toon": {
         "sq": [
          1.22,
@@ -2834,24 +3157,24 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.6,
        "toon": {
         "sq": [
-         0.84,
-         1.22,
-         0.84
+         0.867,
+         1.183,
+         0.867
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.69,
+       "at": 0.63,
        "toon": {
         "sq": [
          1.0,
@@ -2860,10 +3183,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.085,
+       "toonEase": "out"
       },
       {
-       "at": 0.87,
+       "at": 0.75,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.83,
        "toon": {
         "sq": [
          1.22,
@@ -2872,8 +3209,8 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       }
      ],
      "expr": "unimpressed"
@@ -2955,11 +3292,12 @@
       {
        "at": 0.54,
        "toon": {
-        "reach": {
+        "touch": {
          "R": [
+          "@mec.torso",
           0.0,
-          0.98,
-          0.65,
+          0.42,
+          0.17,
           1,
           0.03
          ]
@@ -2991,13 +3329,14 @@
        "toonEase": "in"
       },
       {
-       "at": 0.67,
+       "at": 0.7,
        "toon": {
-        "reach": {
+        "touch": {
          "R": [
+          "@mec.torso",
           0.0,
-          0.98,
-          0.65,
+          0.42,
+          0.17,
           1,
           0.03
          ]
@@ -3116,9 +3455,9 @@
      "id": "clac8",
      "name": "hicBurst",
      "pos": [
-      -0.32,
-      1.05,
-      0.85
+      0.12,
+      1.32,
+      0.87
      ],
      "face": "camera",
      "opts": {
@@ -3166,11 +3505,16 @@
     "title": "MAIRIE",
     "plate": "MAIRIE",
     "map": false,
-    "wall": "#E6EDF6",
-    "band": "#2A4B9B",
-    "trim": "#1B2A4A",
+    "wall": "#EEF2F8",
+    "band": "#7FA4D8",
+    "trim": "#4A6FA8",
     "ceiling": 3.4,
     "bannerY": 2.85
+   },
+   "look": {
+    "exposure": 1.32,
+    "fill": 1.2,
+    "sunColor": "#FFE6C2"
    },
    "grade": "none",
    "soften": 0.3
@@ -3207,23 +3551,23 @@
        "at": 0.0,
        "to": [
         0.0,
-        0.42,
+        0.86,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "out",
        "clip": "sit",
        "glide": true,
        "face": "keep"
       },
       {
-       "at": 0.173,
+       "at": 0.166,
        "to": [
         0.0,
         0.08,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "in",
        "clip": "sit",
        "glide": true,
@@ -3233,23 +3577,23 @@
        "at": 0.433,
        "to": [
         0.0,
-        0.56,
+        1.02,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "out",
        "clip": "sit",
        "glide": true,
        "face": "keep"
       },
       {
-       "at": 0.606,
+       "at": 0.599,
        "to": [
         0.0,
         0.08,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "in",
        "clip": "sit",
        "glide": true,
@@ -3259,23 +3603,23 @@
        "at": 0.866,
        "to": [
         0.0,
-        0.36,
+        0.8,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "out",
        "clip": "sit",
        "glide": true,
        "face": "keep"
       },
       {
-       "at": 1.039,
+       "at": 1.032,
        "to": [
         0.0,
         0.08,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "in",
        "clip": "sit",
        "glide": true,
@@ -3285,23 +3629,23 @@
        "at": 1.299,
        "to": [
         0.0,
-        0.5,
+        0.96,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "out",
        "clip": "sit",
        "glide": true,
        "face": "keep"
       },
       {
-       "at": 1.472,
+       "at": 1.465,
        "to": [
         0.0,
         0.08,
         0.3
        ],
-       "dur": 0.173,
+       "dur": 0.166,
        "ease": "in",
        "clip": "sit",
        "glide": true,
@@ -3311,9 +3655,9 @@
        "at": 0.0,
        "toon": {
         "sq": [
-         0.88,
-         1.14,
-         0.88
+         0.9,
+         1.12,
+         0.9
         ],
         "hairUp": 0.3,
         "face": {
@@ -3336,11 +3680,26 @@
          "lid": 0.45
         }
        },
-       "toonDur": 0.143,
+       "toonDur": 0.136,
        "toonEase": "out"
       },
       {
-       "at": 0.326,
+       "at": 0.262,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.332,
        "toon": {
         "sq": [
          1.16,
@@ -3352,15 +3711,15 @@
         }
        },
        "toonDur": 0.02,
-       "toonEase": "in"
+       "toonEase": "out"
       },
       {
        "at": 0.433,
        "toon": {
         "sq": [
-         0.88,
-         1.14,
-         0.88
+         0.9,
+         1.12,
+         0.9
         ],
         "hairUp": 0.3,
         "face": {
@@ -3383,11 +3742,26 @@
          "lid": 0.45
         }
        },
-       "toonDur": 0.143,
+       "toonDur": 0.136,
        "toonEase": "out"
       },
       {
-       "at": 0.759,
+       "at": 0.695,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.765,
        "toon": {
         "sq": [
          1.16,
@@ -3399,15 +3773,15 @@
         }
        },
        "toonDur": 0.02,
-       "toonEase": "in"
+       "toonEase": "out"
       },
       {
        "at": 0.866,
        "toon": {
         "sq": [
-         0.88,
-         1.14,
-         0.88
+         0.9,
+         1.12,
+         0.9
         ],
         "hairUp": 0.3,
         "face": {
@@ -3430,11 +3804,26 @@
          "lid": 0.45
         }
        },
-       "toonDur": 0.143,
+       "toonDur": 0.136,
        "toonEase": "out"
       },
       {
-       "at": 1.192,
+       "at": 1.128,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.198,
        "toon": {
         "sq": [
          1.16,
@@ -3446,15 +3835,15 @@
         }
        },
        "toonDur": 0.02,
-       "toonEase": "in"
+       "toonEase": "out"
       },
       {
        "at": 1.299,
        "toon": {
         "sq": [
-         0.88,
-         1.14,
-         0.88
+         0.9,
+         1.12,
+         0.9
         ],
         "hairUp": 0.3,
         "face": {
@@ -3477,11 +3866,26 @@
          "lid": 0.45
         }
        },
-       "toonDur": 0.143,
+       "toonDur": 0.136,
        "toonEase": "out"
       },
       {
-       "at": 1.625,
+       "at": 1.561,
+       "toon": {
+        "sq": [
+         0.96,
+         1.06,
+         0.96
+        ],
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.631,
        "toon": {
         "sq": [
          1.16,
@@ -3493,7 +3897,7 @@
         }
        },
        "toonDur": 0.02,
-       "toonEase": "in"
+       "toonEase": "out"
       }
      ],
      "expr": "unimpressed"
@@ -3870,11 +4274,11 @@
     "plate": false,
     "map": false,
     "banner": false,
-    "wall": "#DCE5EC",
-    "band": "#5D7A96",
-    "trim": "#3E5770",
-    "floor": "#AEB7BE",
-    "joint": "#99A2A9",
+    "wall": "#E8EEF2",
+    "band": "#9DB6CC",
+    "trim": "#6E8AA4",
+    "floor": "#C4CBD0",
+    "joint": "#AEB5BA",
     "ceiling": 3.4,
     "roseX": 0.0,
     "roseZ": 0.3,
@@ -3890,14 +4294,6 @@
       "w": 0.85,
       "h": 0.62,
       "bg": "#1B3A6B"
-     },
-     {
-      "text": "AÉRO-CLUB",
-      "x": 2.2,
-      "y": 2.05,
-      "w": 0.62,
-      "h": 0.82,
-      "bg": "#C8202A"
      }
     ],
     "window": {
@@ -3906,6 +4302,11 @@
      "w": 1.2,
      "h": 1.3
     }
+   },
+   "look": {
+    "exposure": 1.32,
+    "fill": 1.2,
+    "sunColor": "#FFE6C2"
    },
    "grade": "none",
    "soften": 0.3
@@ -3970,6 +4371,13 @@
          0.84,
          1.14
         ],
+        "scl": {
+         "head": [
+          1.18,
+          0.8,
+          1.18
+         ]
+        },
         "face": {
          "lid": 0.45
         }
@@ -3985,6 +4393,13 @@
          0.86,
          1.12
         ],
+        "scl": {
+         "head": [
+          1.16,
+          0.82,
+          1.16
+         ]
+        },
         "face": {
          "lid": 1.0
         }
@@ -4188,6 +4603,15 @@
         0.0,
         0.1
        ]
+      },
+      {
+       "at": 0.16,
+       "squash": [
+        1.2,
+        0.72,
+        1.2
+       ],
+       "dur": 0.3
       }
      ],
      "ry": 0.0
@@ -4263,11 +4687,11 @@
     "plate": false,
     "map": false,
     "banner": false,
-    "wall": "#DCE5EC",
-    "band": "#5D7A96",
-    "trim": "#3E5770",
-    "floor": "#AEB7BE",
-    "joint": "#99A2A9",
+    "wall": "#E8EEF2",
+    "band": "#9DB6CC",
+    "trim": "#6E8AA4",
+    "floor": "#C4CBD0",
+    "joint": "#AEB5BA",
     "ceiling": 3.4,
     "roseX": 0.0,
     "roseZ": 0.3,
@@ -4283,14 +4707,6 @@
       "w": 0.85,
       "h": 0.62,
       "bg": "#1B3A6B"
-     },
-     {
-      "text": "AÉRO-CLUB",
-      "x": 2.2,
-      "y": 2.05,
-      "w": 0.62,
-      "h": 0.82,
-      "bg": "#C8202A"
      }
     ],
     "window": {
@@ -4299,6 +4715,11 @@
      "w": 1.2,
      "h": 1.3
     }
+   },
+   "look": {
+    "exposure": 1.32,
+    "fill": 1.2,
+    "sunColor": "#FFE6C2"
    },
    "grade": "none",
    "soften": 0.3
@@ -4368,11 +4789,11 @@
     "plate": false,
     "map": false,
     "banner": false,
-    "wall": "#DCE5EC",
-    "band": "#5D7A96",
-    "trim": "#3E5770",
-    "floor": "#AEB7BE",
-    "joint": "#99A2A9",
+    "wall": "#E8EEF2",
+    "band": "#9DB6CC",
+    "trim": "#6E8AA4",
+    "floor": "#C4CBD0",
+    "joint": "#AEB5BA",
     "ceiling": 3.4,
     "roseX": 0.0,
     "roseZ": 0.3,
@@ -4388,14 +4809,6 @@
       "w": 0.85,
       "h": 0.62,
       "bg": "#1B3A6B"
-     },
-     {
-      "text": "AÉRO-CLUB",
-      "x": 2.2,
-      "y": 2.05,
-      "w": 0.62,
-      "h": 0.82,
-      "bg": "#C8202A"
      }
     ],
     "window": {
@@ -4404,6 +4817,11 @@
      "w": 1.2,
      "h": 1.3
     }
+   },
+   "look": {
+    "exposure": 1.32,
+    "fill": 1.2,
+    "sunColor": "#FFE6C2"
    },
    "grade": "none",
    "soften": 0.3
@@ -4443,18 +4861,18 @@
         1.4,
         -5.1
        ],
-       "dur": 0.17,
+       "dur": 0.135,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.17,
+       "at": 0.135,
        "to": [
         0.5,
         0.0,
         -4.2
        ],
-       "dur": 0.17,
+       "dur": 0.135,
        "ease": "in",
        "face": "keep"
       },
@@ -4465,18 +4883,18 @@
         3.0,
         -3.3
        ],
-       "dur": 0.17,
+       "dur": 0.135,
        "ease": "out",
        "face": "keep"
       },
       {
-       "at": 0.51,
+       "at": 0.475,
        "to": [
         0.5,
         0.0,
         -2.4
        ],
-       "dur": 0.17,
+       "dur": 0.135,
        "ease": "in",
        "face": "keep"
       },
@@ -4490,11 +4908,11 @@
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.102,
+       "at": 0.03,
        "toon": {
         "sq": [
          1.0,
@@ -4503,10 +4921,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.105,
+       "toonEase": "out"
       },
       {
-       "at": 0.31,
+       "at": 0.19,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.27,
        "toon": {
         "sq": [
          1.22,
@@ -4515,8 +4947,8 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.34,
@@ -4528,11 +4960,11 @@
         ],
         "hairUp": 0.6
        },
-       "toonDur": 0.04,
+       "toonDur": 0.03,
        "toonEase": "out"
       },
       {
-       "at": 0.442,
+       "at": 0.37,
        "toon": {
         "sq": [
          1.0,
@@ -4541,10 +4973,24 @@
         ],
         "hairUp": 0.3
        },
-       "toonDur": 0.06
+       "toonDur": 0.105,
+       "toonEase": "out"
       },
       {
-       "at": 0.65,
+       "at": 0.53,
+       "toon": {
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ],
+        "hairUp": 0.5
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.61,
        "toon": {
         "sq": [
          1.22,
@@ -4553,8 +4999,8 @@
         ],
         "hairUp": 0.0
        },
-       "toonDur": 0.03,
-       "toonEase": "in"
+       "toonDur": 0.02,
+       "toonEase": "out"
       },
       {
        "at": 0.68,
@@ -4902,9 +5348,10 @@
      20.0
     ],
     "sky": [
-     "#8EC3E8",
-     "#CBE5F3"
-    ]
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "look": {
     "haze": false
@@ -4934,6 +5381,10 @@
       {
        "at": 0.0,
        "toon": {
+        "lay": [
+         0.0,
+         0.025
+        ],
         "face": {
          "lid": 0.45
         }
@@ -4943,6 +5394,10 @@
       {
        "at": 0.08,
        "toon": {
+        "lay": [
+         0.014,
+         0.024
+        ],
         "face": {
          "lid": 0.15,
          "gy": 0.85
@@ -4961,6 +5416,10 @@
       {
        "at": 0.44,
        "toon": {
+        "lay": [
+         0.026,
+         -0.006
+        ],
         "face": {
          "lid": 0.15,
          "gy": 0.0,
@@ -4976,6 +5435,10 @@
       {
        "at": 0.6,
        "toon": {
+        "lay": [
+         0.001,
+         -0.019
+        ],
         "face": {
          "lid": 0.15,
          "gy": 0.85
@@ -4986,6 +5449,10 @@
       {
        "at": 0.68,
        "toon": {
+        "lay": [
+         -0.013,
+         -0.023
+        ],
         "face": {
          "lid": 0.2,
          "gy": 0.0
@@ -4996,6 +5463,10 @@
       {
        "at": 0.8,
        "toon": {
+        "lay": [
+         -0.03,
+         -0.025
+        ],
         "sq": [
          1.0,
          1.015,
@@ -5010,6 +5481,10 @@
       {
        "at": 0.92,
        "toon": {
+        "lay": [
+         -0.035,
+         -0.02
+        ],
         "face": {
          "lid": 1.0
         }
@@ -5019,6 +5494,10 @@
       {
        "at": 1.0,
        "toon": {
+        "lay": [
+         -0.031,
+         -0.014
+        ],
         "face": {
          "lid": 0.45
         }
@@ -5067,9 +5546,10 @@
      20.0
     ],
     "sky": [
-     "#8EC3E8",
-     "#CBE5F3"
-    ]
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "look": {
     "haze": false
@@ -5488,31 +5968,6 @@
     {
      "at": 0.0,
      "from": [
-      -5.69,
-      14.822,
-      6.264
-     ],
-     "to": [
-      -5.69,
-      14.822,
-      6.264
-     ],
-     "lookAt": [
-      -1.014,
-      6.669,
-      2.849
-     ],
-     "lens": 58,
-     "ease": "linear",
-     "lookAt2": [
-      -1.014,
-      6.669,
-      2.849
-     ]
-    },
-    {
-     "at": 1.05,
-     "from": [
       0.45,
       10.9,
       2.75
@@ -5545,9 +6000,10 @@
      20.0
     ],
     "sky": [
-     "#8EC3E8",
-     "#CBE5F3"
-    ]
+     "#86C1EA",
+     "#C8E4F3"
+    ],
+    "eiffel": false
    },
    "look": {
     "haze": false
