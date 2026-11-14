@@ -2005,3 +2005,26 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   dossier de revue préparé.
 - 54 « La valise » : **livrée** (1080 × 1920, 19,5 s, −16 LUFS, contrôles HyperFrames sans erreur ; une remarque sur la tenue d'un carton en
   milieu de film, sans suite). Revues 5,5/6,0 → 6,5/6,5 → 7,0/7,0, passe finale, deux contrôles d'images avant le rendu final.
+- Décision (revue 2 de 56, « Needs the user ») : le mec reste impassible ; les prises passent par les yeux seuls (yeux grands ouverts) et par
+  les autres personnages. Même règle que pour 55.
+- Rig : dents sur la mâchoire en bloc, une rangée sous la lèvre du haut et une sur le menton tombé ; la bouche sombre penche jusqu'au menton
+  avancé (`jawFwd`). Une bande sombre le long d'un long bloc couleur peau se lisait comme une planche, pas comme une bouche.
+- Accessoires de 56 : le ruban du mètre remonte en six images, son crochet traîné de trois copies jaunes (une traînée lisible) reste huit images
+  sur le nez ; la colline se dégonfle sur vingt images avec une oscillation plus lente ; `figH` pour la taille des randonneurs et des skieurs.
+- Bug trouvé (55, S15) : quatre images grises à l'entrée du dernier plan. `fitBack` avait reculé la caméra 7 cm derrière le mur carrelé du quai
+  (un accessoire, pas un décor). Corrigé avec `inside=` ; outil `grey_scan.py` (chutes de saturation). Les autres creux trouvés dans les
+  livraisons 49, 52 et 54 sont des flashs voulus (photocopieuse, photo, selfie).
+- 55 « La ventouse » : revue 3 = animation 6,8, direction artistique 7,1. Passe finale : caméra devant le mur, coupe d'eau visible dans l'évier,
+  cou en chewing-gum avec le visage droit et les coudes écartés (`hose` + pôle), l'assureuse en temps distincts, son bras qui sort de son
+  épaule de son côté et y revient, le plombier qui tape sur le côté de son front et un vrai haussement d'épaules, le freinage vu du côté libre,
+  trois coups de pompe visibles, un clignement et un soupir dans la dernière tenue.
+- 56 « La bosse » : passe 4 (les deux revues 2) : yeux grands ouverts en S02, médecin posé sur la boule qui déroule le mètre à la main, genoux
+  qui plient vraiment (tête épinglée plus bas, pieds plantés), caméras basses sous la colline (le ciel sous le bord), skieur qui marque un temps
+  sur la lèvre (la tête reste droite, les yeux suivent), chutes complètes dans leur plan, skieur assis de profil, arbres enneigés, neige plus
+  froide. Brouillon 3 et revue 3 en rendu.
+- 57 « La porte tournante » : passe 2 (les deux revues 1, 6,0/6,5) : pose en T, cadres laiton et verre plus clair, longue barbe gardée
+  jusqu'à la fin, chapeau (le nom `bowler` n'existait pas) qui reste en l'air puis s'envole, BZZT avec le casque qui saute sur les cheveux
+  dressés, toupie puis vrille qui sort de la porte vers l'objectif, grandes étoiles sous le carton, facture reprise. Brouillon 2 en file.
+- 58 « Le bâillement » : premières images vues : bâillement de face (mâchoire en bloc et dents), relève vue de face, bords du panneau et du maire
+  dans le cadrage, mamie assise jambes tendues qui sort de sa bouche (mesurée : sa tête était dans sa poitrine). Brouillon 1 en rendu.
+- File : `queue10.sh` (57 et 58).

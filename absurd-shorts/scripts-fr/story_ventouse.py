@@ -88,7 +88,7 @@ st.cue('pop', 'S02', POP2, 0.45); st.cue('sfx:bonk', 'S02', HIT2, 0.45); st.cue(
 #    hands slip: the head snaps back, wobbling; the plunger has not moved
 D3 = st.dur('S03'); SL3 = 0.78; ME3 = [0.0, 0, -2.15]   # (pass 2) seen in profile: from three-quarters behind his raised arms covered the neck
 HDL = lambda d: [r(FORE[1] + d * math.sin(HA)), r(FORE[2] + d * math.cos(HA))]   # a point up the handle, d from his forehead (in the frame of his head)
-PULL = lambda d, w=1: {'touch': {'L': ['head', -0.04, HDL(0.3)[0], HDL(0.3)[1], w, 0.03, [1.0, -0.2, 0.1]], 'R': ['head', 0.04, HDL(0.4)[0], HDL(0.4)[1], w, 0.03, [-1.0, -0.2, 0.1]]}, 'hands': {'L': 'grip', 'R': 'grip'}}   # (final pass) the elbows out wide: the forearms frame his face (they crossed it)   # (pass 3) up the handle near the cup: the arms rise above the neck (at the knob they covered it)
+PULL = lambda d, w=1: {'touch': {'L': ['head', -0.04, HDL(0.3)[0], HDL(0.3)[1], w, 0.03, [1.0, -0.2, 0.1]], 'R': ['head', 0.04, HDL(0.4)[0], HDL(0.4)[1], w, 0.03, [-1.0, -0.2, 0.1]]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'hose': 0.3}   # (final pass) the elbows out wide, kept bent however far the head goes (stretched straight, the arms made an A over his face): the forearms frame it   # (pass 3) up the handle near the cup: the arms rise above the neck (at the knob they covered it)
 st.shot('S03', 'kitchenDay', look=LOOKI, actors=[
         act('mec', ME3, 0, 'stand', 'determined', keys=[k(0.0, look=None), k(0.0, toon={**PULL(0.0), 'face': {'brow': -0.5}}, toonDur=0.0),
             k(0.1, toon={**PULL(0.0), 'bend': {'neck': [0.35, 0, 0, 1.35, None], 'spine': [-0.25, 0, 0, 1, None]}, 'lay': [-0.12, 0.0], 'face': {'brow': -0.8, 'lid': 0.75, 'mouth': 'clench'}}, toonDur=0.25, toonEase='inOut'),
@@ -138,7 +138,7 @@ st.shot('S05', 'poste', setOpts=POSTEV, look=LOOKI, actors=[
         act('mec', ME4, 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**SLOUCH, 'face': {'lid': 0.45}}, toonDur=0.0),
             *[k(round(FL5 + 0.06 * i, 3), toon={**SLOUCH, 'bend': {'spine': [0.12, 0.05, 0, 1, None], 'neck': [0.0, round(0.16 * (0.72 ** i) * (1 if i % 2 == 0 else -1), 3), 0, 1, None]}, 'face': {'lid': 0.45, 'gx': (0.3 if i % 2 else -0.3)}}, toonDur=0.05) for i in range(8)],
             k(round(FL5 + 0.55, 3), toon={'face': {'lid': 0.45}}, toonDur=0.08)]),   # his head shivers with the handle, deadpan
-        act('guichet', CLK4, -10, 'stand', 'unimpressed', keys=[k(0.0, look=TIP5), k(0.0, toon={**LEAN4, 'face': {'lid': 0.5}}, toonDur=0.0),
+        act('guichet', CLK4, -10, 'stand', 'unimpressed', keys=[k(0.0, look=TIP5), k(0.0, toon={**LEAN4, 'reach': {'R': [0.5, 1.75, -2.3, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.0),   # (check stills) her hand starts up by her own shoulder: from her side it crossed his chest
             # (final pass) the arm comes out of her shoulder on her side over four frames, holds the cocked finger three, flicks, and goes back the same
             # way, never across his face (it was at the cup on the first frame, crossed his face and left on his far side, away from her)
             k(0.13, toon={**LEAN4, 'reach': {'R': [r(TIP5[0] + 0.17), r(TIP5[1] + 0.07), r(TIP5[2] - 0.05), 1, 0.05]}, 'hands': {'R': 'pinch'}, 'hose': 0.12, 'face': {'lid': 0.5}}, toonDur=0.12, toonEase='out'),   # out, the finger cocked...

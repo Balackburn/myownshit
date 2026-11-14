@@ -1137,3 +1137,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   écrasé, vers l'objectif, et ressortir la tête devant.
 - (cycle 19) Une carte tendue par une main se cache derrière le corps de celle qui la tient quand la caméra est derrière son épaule : la tenir
   de son côté vers la caméra.
+- (cycle 20) Laisser `fitBack` reculer la caméra sans `inside=` dans un décor fait d'accessoires (le quai de métro et son mur carrelé) : elle
+  est passée 7 cm derrière le mur, vu de dos comme un voile gris sur quatre images, jusqu'à ce que le plan proche le coupe (55, S15).
+  L'alerte « camera inside prop » du rendu le signalait ; `tools/grey_scan.py` trouve ces chutes de saturation dans une vidéo.
+- (cycle 20) Courber les bras avec `bend` pour les écarter : `bend` courbe une partie, il ne tourne pas l'articulation, et les bras sont restés
+  le long du corps (57). Pour une pose en T, placer les mains avec `touch` dans le repère du torse (à ±0,8 m, hauteur des épaules 0,55).
+- (cycle 20) Un bras guidé plus loin que sa longueur devient une ligne droite : les deux bras tendus vers le manche au-dessus de la tête ont
+  fait un A devant le visage. Garder le coude plié avec `hose` (0,3) et le diriger vers l'extérieur avec le pôle de `touch`.
+- (cycle 20) Un nom de chapeau inconnu du rig (`bowler`) : pas de chapeau du tout, et le gag du chapeau envolé a disparu. Vérifier le nom
+  (`fedora`, `beanie`, `hardhat`, `cap`).
+- (cycle 20) Plier les genoux avec `sq` et `bend` sur les jambes : l'écrasement d'ensemble et les jambes courbées soulèvent les pieds, le
+  genou ne descend que de 1 % du cadre. Épingler la tête plus bas (`pin`) en gardant les pieds au sol (`plant`) : l'IK plie les jambes.
+- (cycle 20) Insérer un commentaire en fin de ligne avant la suite du code (`}` ou `,`) : le commentaire avale la suite (deux fois encore).
+  Le placer après tout le code de la ligne, ou sur sa propre ligne.
