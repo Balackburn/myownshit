@@ -332,6 +332,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La colline qui se dégonfle | PSCHHH : le dôme se dégonfle sur vingt images en ondulant ; le cou, libéré, jaillit à deux fois et demie sa longueur et revient ; un pansement sur le crâne | 56 |
 | Les skieurs restés en l'air | plus de colline : les skieurs tiennent debout sur le vide là où était la pente, regardent en bas, l'un fait un petit signe, moulinent, puis tombent ; deux plantés tête la première dans la neige avec une bouffée blanche, le troisième assis sur sa tête écrasée (POF) | 56 |
 | La facture sans fin | la note des forfaits se déroule de ses mains jusqu'à la neige et file vers l'objectif, ruban crème bordé de brun (`billScroll`), caméra haute qui avance lentement pendant qu'il cligne | 56 |
+| La porte qui l'emporte | il pousse le battant : la porte accélère et il tourne en son axe (`yaw` en tours), bras jetés en T, cravate à l'horizontale, cheveux dressés, son visage impassible revient face à nous à chaque tour | 57 |
+| Le chapeau soufflé par le vent de la porte | le chapeau d'un passant se soulève, reste cinq images en l'air (ses yeux montent d'abord), puis file en tournoyant sous la bande du carton pendant qu'il attrape le vide d'un bras étiré | 57 |
+| La barbe de trois ans filmée de l'intérieur | caméra qui tourne avec le compartiment (`ride`) : son visage reste face à nous, la rue défile derrière ; une barbe en touffes pointues gris-brun pousse et traîne dans la rotation | 57 |
+| Le technicien électrocuté | il enfonce la prise : BZZT, raide, étiré, bras et jambes écartés, tenue qui vibre, casque qui monte sur sept images et flotte au-dessus des cheveux dressés, gerbe d'étincelles | 57 |
+| Le quartier qui s'allume | la nuit, la porte lumineuse au pied du cadre, les fenêtres de toute la ville s'allument en vague de gauche à droite, caméra basse inclinée vers le haut | 57 |
+| La carte d'abonnement collée sur la figure | le coach tend la carte, un battant la lui arrache et la plaque sur le visage du tournoyant, vu de l'intérieur du compartiment | 57 |
+| Le balai dans la porte | CLANG : le manche du balai bloque le battant, la porte s'arrête net, les yeux du concierge sortent ; lui continue de tourner au milieu comme une toupie, bras en V sous l'auvent | 57 |
+| La vrille qui sort de la porte | il sort de la porte en vrille, penché, et fait tourner deux fois une passante qui finit face à nous, les yeux qui louchent | 57 |
+| La galette à l'arrêt | il s'arrête net : quatre images de suspension étiré, puis le haut retombe sur lui, aplati à 45 % douze images, rebond au-delà de sa taille, oscillation, grandes étoiles à hauteur des yeux | 57 |
+| La facture sortie de la poche | le technicien porte la main à sa poche et lève la facture « PANNE DU QUARTIER, 9 999 € », tampon À PAYER ; impassible, un clignement | 57 |
 
 ## Erreurs à éviter
 

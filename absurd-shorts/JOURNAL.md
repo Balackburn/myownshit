@@ -2087,3 +2087,6 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - 60 « L'écho » : voix (17,9 s), accessoires (`props_echo.js` : lettres découpées du cri, chaînes de montagnes, avis de recherche,
   amende, sommet rocheux, traits de vitesse), script de treize plans. Décision : le budget de réactions s'applique déjà (yeux sur tiges
   gardés pour le retour de l'écho en S08 ; le randonneur ouvre de grands yeux, le gamin a les pupilles qui tremblent).
+- 57 « La porte tournante » : **livrée** (1080 × 1920, 16,6 s, −16,1 LUFS, contrôles HyperFrames sans erreur, deux avertissements de
+  contraste sur des mots-clés des sous-titres cernés de noir, lisibles ; aucune chute de saturation). Revues 6,0/6,5 → 6,5/6,5 → 6,5/7,0,
+  passe finale contrôlée en images. Dix lignes ajoutées au catalogue.
