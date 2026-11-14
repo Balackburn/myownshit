@@ -79,9 +79,9 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[
         act('mec', SEAT, RY, 'sit', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.55, 'cheeks': 0.3}}, toonDur=0.0),
             k(r(SPR2 - 0.06), toon={'sq': [0.96, 1.05, 0.96], 'face': {'lid': 0.35, 'brow': 0.3}}, toonDur=0.04, toonEase='out'),   # (pass 3) a jolt up first, two frames...
             k(SPR2, to=[SEAT[0], 0.15, SEAT[2]], dur=0.03, ease='out', clip='sit', glide=True, face='keep'),   # (pass 2) lifted by what the squash takes off: his seat stays on the bench
-            k(SPR2, toon={**SQS([1.38, 0.6, 1.38], [0.84, 1.3, 0.84], POP2), 'touch': {'L': ['torso', 0.62, 0.62, 0.18, 1, 0.05], 'R': ['torso', -0.62, 0.62, 0.18, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.03, toonEase='out'),   # (review 3) harder, arms and fingers thrown out   # BOING: squashed into the seat ((pass 3) the deepest squash of the opening), eyes popping out...
-            k(r(SPR2 + 0.06), toon={**SQS([1.33, 0.64, 1.33], [0.86, 1.27, 0.86], {**POP2, 'tremble': 1.0, 'popLen': 0.16}), 'touch': {'L': ['torso', 0.66, 0.66, 0.16, 1, 0.05], 'R': ['torso', -0.66, 0.66, 0.16, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.04),
-            k(r(SPR2 + 0.12), toon={**SQS([1.38, 0.6, 1.38], [0.84, 1.3, 0.84], {**POP2, 'tremble': 1.0}), 'touch': {'L': ['torso', 0.62, 0.6, 0.18, 1, 0.05], 'R': ['torso', -0.62, 0.6, 0.18, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.04),   # ...held five frames, quivering...
+            k(SPR2, toon={**SQS([1.38, 0.6, 1.38], [0.84, 1.3, 0.84], POP2), 'touch': {'L': ['head', 0.4, 0.3, 0.06, 1, 0.05], 'R': ['head', -0.4, 0.3, 0.06, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.03, toonEase='out'),   # (review 3) harder, arms and fingers thrown out ((final stills) up beside his head: out at the waist they read as the S01 palm-up)   # BOING: squashed into the seat ((pass 3) the deepest squash of the opening), eyes popping out...
+            k(r(SPR2 + 0.06), toon={**SQS([1.33, 0.64, 1.33], [0.86, 1.27, 0.86], {**POP2, 'tremble': 1.0, 'popLen': 0.16}), 'touch': {'L': ['head', 0.43, 0.34, 0.05, 1, 0.05], 'R': ['head', -0.43, 0.34, 0.05, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.04),
+            k(r(SPR2 + 0.12), toon={**SQS([1.38, 0.6, 1.38], [0.84, 1.3, 0.84], {**POP2, 'tremble': 1.0}), 'touch': {'L': ['head', 0.4, 0.31, 0.06, 1, 0.05], 'R': ['head', -0.4, 0.31, 0.06, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'}}, toonDur=0.04),   # ...held five frames, quivering...
             k(GO2, clip='stand', blend=0.04),
             k(r(GO2 + 0.1), to=[SEAT[0], 0.9, SEAT[2]], dur=0.07, ease='in', face='keep'), k(r(GO2 + 0.17), to=[SEAT[0], 7.0, SEAT[2]], dur=0.22, ease='out', face='keep'),   # (pass 3) ...his feet on the spring three frames while he stretches, then the snap: gone...
             k(GO2, toon={**UPARMS, 'sq': [0.72, 1.42, 0.72], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 0.6, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.04, toonEase='out')])],   # ...stretched like a rubber band, arms up, hands open
@@ -153,8 +153,8 @@ for i in range(3): st.cue('sfx:boing', 'S05', r(D5 / 3 * (i + 1) - 0.03), 0.22)
 #    awning out of the top), a smaller landing squash, his look back to us
 D6 = st.dur('S06'); UP6 = 0.14; DOWN6 = 0.6
 C6 = [7.4, 0, -9.0]
-CUP6 = [r(C6[0] - 0.56), 1.04, r(C6[2] - 0.1)]                               # (review 3) lower and further out: at 1.22 his arm crossed his eyes when he landed squashed
-HOLD6 = lambda w: {'reach': {'R': [CUP6[0], r(CUP6[1] - 0.04), r(CUP6[2] + 0.02), w, 0.05]}, 'hands': {'R': 'grip'}}
+CUP6 = [r(C6[0] - 0.56), 1.04, r(C6[2] + 0.14)]                               # (review 3) lower and further out: at 1.22 his arm crossed his eyes when he landed squashed
+HOLD6 = lambda w: {'reach': {'L': [CUP6[0], r(CUP6[1] - 0.04), r(CUP6[2] - 0.02), w, 0.05]}, 'hands': {'L': 'grip'}}   # (final stills) his left hand, on our side of the cup: the right arm crossed his chest like a sash
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('mec', C6, RY, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={**HOLD6(1), 'face': DEAD}, toonDur=0.0),
             k(r(UP6 - 0.06), toon={**HOLD6(1), 'sq': SQ, 'face': {'lid': 0.5}}, toonDur=0.04, toonEase='in'),   # a squash...
@@ -199,17 +199,17 @@ st.cue('sfx:paper', 'S07', TICK7, 0.25)
 #    « F-MEC » on his chest at the bottom of one; he bounces on with it
 #    (pass 2: the slap fell on him in mid-air, her hand at his thigh; the room said nothing of a town hall) the slap on the landing, her hand on the
 #    squashed chest, held two frames, CLAC; MAIRIE on the desk front
-D8 = st.dur('S08'); SLAP8 = 0.6
+D8 = st.dur('S08'); DT8 = r(D8 / 3); HOLD8 = 0.1; SLAP8 = r(2 * DT8 - HOLD8)   # (final stills) on the second landing: hops_ball lands HOLD8 before the take-off (at 0.6 he was already leaving)
 CHEST = [VIS[0], 0.98, r(VIS[2] + 0.18)]                                  # (pass 2) his chest squashed on the landing ((pass 3) measured lower: at 1.16 the hand came down on his squashed head)
-K8, T8 = HOPS(0.0, [[VIS[0], VIS[2]]] * 4, [1.0, 1.0, 1.0], r(D8 / 3))
+K8, T8 = hops_ball(0.0, [[VIS[0], VIS[2]]] * 4, [1.0, 1.0, 1.0], DT8, SQ, ST, hold=HOLD8)   # (final stills) the squash held three frames under her hand
 SLAPK = lambda: {'touch': {'R': ['@mec.torso', 0.0, 0.42, 0.17, 1, 0.03]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}, 'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.3, 'brow': -0.6, 'mouth': 'clench'}}   # (review 3) her hand on his chest wherever he is (at a world point it was left at his thigh)
 st.shot('S08', 'mairie', setOpts={**OFFICE, 'plate': 'MAIRIE'}, look={'exposure': 1.32, 'fill': 1.2, 'sunColor': '#FFE6C2'}, actors=[   # (pass 2) the town hall named on the desk
         act('mec', VIS, -140, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0), *K8, *T8]),   # (audit) cheated to the side camera
         act('agent', [0.15, 0, -1.25], -40, 'stand', 'determined', keys=[k(0.0, look=[VIS[0], 2.4, VIS[2]]),
             k(0.0, toon={'reach': {'R': [0.25, 1.65, -0.55, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'brow': -0.3, 'gy': -0.5}}, toonDur=0.0),
-            k(0.12, look=[VIS[0], 2.6, VIS[2]]), k(0.3, look=[VIS[0], 1.3, VIS[2]]), k(0.45, look=[VIS[0], 2.6, VIS[2]]),   # her head goes up and down with him...
-            k(r(SLAP8 - 0.06), toon=SLAPK(), toonDur=0.06, toonEase='in'), k(r(SLAP8 + 0.1), toon=SLAPK(), toonDur=0.02),   # ...SLAP on the landing, held ((review 3) three frames, with his squash)
-            k(r(SLAP8 + 0.18), toon={'reach': {'R': [0.25, 1.2, -0.7, 1, 0.05]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.12)])],
+            k(r((DT8 - HOLD8) / 2), look=[VIS[0], 2.6, VIS[2]]), k(r(DT8 - HOLD8), look=[VIS[0], 1.3, VIS[2]]), k(r(DT8 + (DT8 - HOLD8) / 2), look=[VIS[0], 2.6, VIS[2]]),   # her head goes up and down with him...
+            k(r(SLAP8 - 0.06), toon=SLAPK(), toonDur=0.06, toonEase='in'), k(r(SLAP8 + HOLD8), toon=SLAPK(), toonDur=0.02),   # ...SLAP on the landing, held ((review 3) three frames, with his squash)
+            k(r(SLAP8 + HOLD8 + 0.08), toon={'reach': {'R': [0.25, 1.2, -0.7, 1, 0.05]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'smirk'}}, toonDur=0.12)])],
         props=[P('stkA8', 'regSticker', on={'actor': 'agent', 'hand': 'R', 'offset': [0.0, 0.05, 0.03], 'face': 'camera'}, opts={'w': 0.34}, keys=[k(SLAP8, visible=False)]),
                P('stkB8', 'regSticker', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.3, 0.16]}, opts={'w': 0.34}, keys=[k(0.0, visible=False), k(SLAP8, visible=True)]),
                BURST('clac8', [r(VIS[0] + 0.12), 1.32, r(VIS[2] + 0.42)], SLAP8, 'CLAC !', 0.34)],   # (pass 2) the impact accent ((pass 3) on the contact; (review 3) inside the frame, by the sticker)
@@ -241,7 +241,7 @@ def SEATHOPS(t0, n, dt, hs, p=PIL):
         toon += [k(t, toon={'sq': [0.9, 1.12, 0.9], 'hairUp': 0.3, 'face': DEAD}, toonDur=0.03, toonEase='out'), k(r(t + 0.03), toon={'sq': [1.0, 1.0, 1.0], 'hairUp': 0.0, 'face': DEAD}, toonDur=r(tu - 0.03), toonEase='out'),
                  k(r(t + 2 * tu - 0.07), toon={'sq': [0.96, 1.06, 0.96], 'face': DEAD}, toonDur=0.05, toonEase='in'), k(r(t + 2 * tu), toon={'sq': SQS9, 'face': {'lid': 0.6}}, toonDur=0.02, toonEase='out')]
     return keys, toon
-K9, T9 = SEATHOPS(0.0, 4, r(D9 / 4), [0.86, 1.02, 0.8, 0.96])   # (review 3) a clear gap under him at the top
+K9, T9 = SEATHOPS(0.0, 4, r(D9 / 4), [1.2, 1.4, 1.12, 1.32])   # (review 3) a clear gap under him at the top ((final stills) higher: at 0.86 his soles stopped on the top of the backrest, standing on it)
 CLIPR = {'reach': {'L': [0.7, 1.25, -0.28, 1, 0.05]}, 'hands': {'L': 'grip'}}   # (pass 3) the clipboard before him, in front of his chest
 NOD9 = lambda up: {**CLIPR, 'bend': {'neck': [(-0.32 if up else 0.22), 0, 0, 1, None]}, 'face': {'lid': (0.3 if up else 0.55), 'gy': (-0.5 if up else 0.3)}}
 st.shot('S09', 'mairie', setOpts=EXAMSET, look={'exposure': 1.32, 'fill': 1.2, 'sunColor': '#FFE6C2'}, actors=[

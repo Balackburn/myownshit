@@ -1342,3 +1342,13 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   des critiques (build.sh), pas seulement le brief : la revue 3 de 61 s'est appelée « deuxième revue » dans la consigne.
 - (cycle 25) Un visage dans un trou de feu tricolore : tout ce qui n'est pas la tête se voit par les trous et les parois au moindre
   écrasement ou saut (chemise, jambes, mains). Canal `headOnly` : la tête seule (62).
+- (cycle 25) `hops_ball` atterrit `hold` secondes avant le décollage suivant (atterrissage n° i à t0 + dt × i − hold) : un événement calé
+  sur l'ancien atterrissage (`hops`, à t0 + dt × i) tombe au décollage. La gifle de 61 frappait un homme déjà étiré en l'air. Recaler
+  chaque gifle, son ou réaction, et allonger `hold` pour tenir l'écrasement sous la main (0,1 s = trois images).
+- (cycle 25) Un sommet de saut au ras du bord d'un accessoire se lit comme un appui : ses semelles arrêtées pile au haut du dossier, il
+  semblait debout dessus (61). Dépasser le bord d'au moins un tiers de la hauteur du corps, ou décaler la caméra pour décoller les deux.
+- (cycle 25) Une main posée sur le torse (`touch` ['torso', ...]) se compte dans les unités du torse, écrasement compris : à 0,6 sur le côté,
+  les bras écrasés partaient à hauteur de taille, paume en l'air, et reprenaient le geste du plan d'avant (61). Pour un sursaut, les mains
+  montent à côté de la tête (`touch` ['head', ±0,4, 0,3, ...]).
+- (cycle 25) Un bras qui va chercher un objet du côté opposé barre la poitrine comme une écharpe (61, la tasse) : prendre l'objet avec la
+  main du côté où il se trouve à l'image, ou déplacer l'objet.
