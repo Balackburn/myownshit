@@ -63,8 +63,11 @@ export const BAILLEMENT_PROPS = {
   // an ink outline; o.path [[t, x, y, z], ...] where it is (in the frame of what it is attached to), o.size [[t, s]] how far it pushes out (0..1.5):
   // a knee, a fist, a head pushing against the cloth from inside.
   bellyBulge(o) {
-    const r = o.r ?? 0.13, m = sphere(r, o.color || '#1F2E4A', 1); m.scale.set(1, 1.15, 0.7); addOutline(m, 0.05);
+    const r = o.r ?? 0.13, m = sphere(r, o.color || '#33497A', 1); m.scale.set(1, 1.15, 0.7); addOutline(m, 0.05);
     const g = grp(m);
+    // (pass 2 of 58) o.fist: four knuckles on its front (a fist punching the shirt from inside); a lighter blue than the suit (navy on navy it read as a
+    // ball stuck on the jacket, 1.05:1)
+    if (o.fist) for (let i = 0; i < 4; i++) m.add(at(sphere(r * 0.24, o.color || '#33497A', 1), (i - 1.5) * r * 0.42, r * 0.25, r * 0.86));
     g.userData.update = t => { const p = linP(o.path, t), s = Math.max(0.001, lin(o.size, t, 1)); m.position.set(p[0], p[1], p[2]); m.scale.set(s, s * 1.15, s * 0.7); m.visible = s > 0.02; };
     g.userData.update(0); return g;
   },
@@ -94,7 +97,8 @@ export const BAILLEMENT_PROPS = {
   // A knitted cap lying loose (pivot at its rim's middle): a dome o.color ('#F2C230') with a turned-up band and a bobble: the postman's, left behind.
   beanieHat(o) {
     const c = o.color || '#F2C230', dome = new THREE.Mesh(new THREE.SphereGeometry(0.11, 12, 8, 0, 2 * PI, 0, PI / 2), mat(c)); addOutline(dome, 0.05); dome.scale.set(1, 1.05, 1);
-    return grp(dome, at(cyl(0.115, 0.115, 0.05, c, 14), 0, 0.012, 0), at(sphere(0.035, '#FFFFFF', 1), 0, 0.12, 0));
+    const g = grp(dome, at(cyl(0.115, 0.115, 0.05, c, 14), 0, 0.012, 0)); if (o.bobble !== false) g.add(at(sphere(0.035, '#FFFFFF', 1), 0, 0.12, 0));   // (pass 2 of 58) o.bobble false: the cap he wore had none
+    return g;
   },
 
   // A mayor's sash (pivot at the joint it is attached to, the chest): a band of blue, white and red worn from the right shoulder to the left hip,

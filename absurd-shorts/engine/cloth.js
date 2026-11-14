@@ -49,6 +49,7 @@ export function clothUpgrade(obj, opts = {}) {
     apply(aw = [0, 0, 0], t = 0, k = 1, fat = 1, hairUp = 0, pull = null, opt = null) {   // pull [length, forward, aside]: the tie taken in a hand (toon channel `tie`): it stretches (1 = its own length) and swings toward the hand (radians)   // hairUp 0..1: hair left standing whatever the wind (toon channel `hairUp`)   // fat: how much the chest is inflated (the spine band's thickness): the knot stays on its surface
       const sp = Math.hypot(aw[0], aw[1], aw[2]), fl = Math.min(1, sp / 7);
       if (tie && tie.knot) { const c = opt?.knot || tie.col0; if (tie.knot.userData.col !== c) { if (!tie.knot.userData.own) { tie.knot.material = tie.knot.material.clone(); tie.knot.userData.own = true; } tie.knot.material.color.set(c); tie.knot.userData.col = c; } }   // (cycle 7) toon channel `knot`: another colour for the knot (his tie painted over)
+      if (tie) tie.root.visible = !((opt?.hide ?? 0) > 0.5);   // (cycle 20) toon channel `tieHide`: the whole tie hidden, knot included (it showed in the open block jaw)
       if (tie) {
         tie.root.position.z = (d.front + 0.014) * Math.max(0.6, fat);
         J.torso.getWorldQuaternion(q).invert(); const head = -F.set(aw[0], aw[1], aw[2]).applyQuaternion(q).z;   // the wind that blows onto the chest (m/s)

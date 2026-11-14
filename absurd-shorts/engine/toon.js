@@ -14,6 +14,7 @@
 //         toonEase='linear') spins him n times without the stutter of a chain of facing keys)
 //   lay: [rx, rz] (rad)   (cycle 6) the whole body tipped about his feet, in his own frame: -PI / 2 lays him on his back, his head behind him (with
 //         sq [1, 1, 0.03]: a shadow on the ground, a man flat as paper); key it back to 0 and he stands up like a board
+//   tieHide: 1   (cycle 20) the whole tie hidden, knot included (engine/cloth.js): under a jaw dropped as a block it showed in the open mouth
 //   tie: [length, forward, aside]   the tie taken in a hand (engine/cloth.js, needs `cloth`): it stretches (1 = its own length, 1.7 = pulled like the cord of a
 //         lamp) and swings toward the hand (radians: forward away from the chest, aside toward his left). Key it back through 0.85 and 1.05: it snaps
 //   wave: { spine|neck|armL|foreL|...: [amp (m), waves, phase (turns), free, axis (rad)] }   a ripple along a part, on top of its bend: `waves` periods
@@ -181,7 +182,14 @@ function headOverlays(head, hm, dim, skin) {
   const deform = hm ? headDeform(hm, dim) : null;
   // (cycle 19) face.jawBlock 0..1: the jaw drops as a block (a hinge, not a stretch) and the gap is a dark open mouth from under the nose to the dropped
   // lip: the take reads as a jaw on the floor (stretched evenly, the lower face was a tall box with a thin painted arch at its foot, story 54)
-  const cavity = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).translate(0, -0.5, 0), new THREE.MeshBasicMaterial({ color: '#2A1014' })); cavity.visible = false; cavity.userData.noAO = true; g.add(cavity);
+  // (cycle 20) the open mouth painted as a recess: two inner walls in perspective, a black throat between them, a shadow under the upper teeth, the
+  // tongue on its floor (a flat dark red read as a stripe painted on a board, story 58)
+  const cavTex = (() => { const c = document.createElement('canvas'); c.width = 64; c.height = 256; const q = c.getContext('2d'); q.fillStyle = '#0B0304'; q.fillRect(0, 0, 64, 256);
+    for (const [x0, x1] of [[0, 15], [64, 49]]) { const gr = q.createLinearGradient(x0, 0, x1, 0); gr.addColorStop(0, '#5A1E27'); gr.addColorStop(1, '#170608'); q.fillStyle = gr; q.beginPath(); q.moveTo(x0, 0); q.lineTo(x1, 14); q.lineTo(x1, 234); q.lineTo(x0, 256); q.closePath(); q.fill(); }
+    const top = q.createLinearGradient(0, 0, 0, 22); top.addColorStop(0, '#030101'); top.addColorStop(1, 'rgba(3,1,1,0)'); q.fillStyle = top; q.fillRect(0, 0, 64, 22);
+    const tg = q.createLinearGradient(0, 256, 0, 222); tg.addColorStop(0, '#C45A68'); tg.addColorStop(1, 'rgba(120,40,52,0)'); q.fillStyle = tg; q.beginPath(); q.moveTo(8, 256); q.lineTo(15, 226); q.lineTo(49, 226); q.lineTo(56, 256); q.closePath(); q.fill();
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+  const cavity = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).translate(0, -0.5, 0), new THREE.MeshBasicMaterial({ color: '#FFFFFF', map: cavTex })); cavity.visible = false; cavity.userData.noAO = true; g.add(cavity);
   // (cycle 20) teeth on the lips of the open block jaw: a row under the upper lip and a row on the dropped chin, and the dark mouth slants from the upper
   // lip to the chin hung forward (jawFwd): a dark strip down a long skin-coloured block read as a plank, not as a mouth (story 58)
   const teethTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 32; const q = c.getContext('2d'); q.fillStyle = '#F4F0E6'; q.fillRect(0, 0, 256, 32); q.fillStyle = '#16130F';
@@ -370,6 +378,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
     out.wave[k] = [L(x ? x[0] || 0 : 0, y ? y[0] || 0 : 0), L(p[1] ?? 1, q[1] ?? 1), L(p[2] || 0, q[2] || 0), (w < 0.5 ? p : q)[3] || 0, L(p[4] || 0, q[4] || 0)]; } }
   if (a.hairUp || b.hairUp) out.hairUp = L(a.hairUp || 0, b.hairUp || 0);
   if (a.hose || b.hose) out.hose = L(a.hose || 0, b.hose || 0);   // (cycle 9) the bend kept in a far reach
+  if (a.tieHide || b.tieHide) out.tieHide = w < 0.5 ? (a.tieHide || 0) : (b.tieHide || 0);   // (cycle 20) the tie hidden (switches half-way between two keys)
   if (a.knot || b.knot) out.knot = w < 0.5 ? (a.knot || b.knot) : (b.knot || a.knot);   // (cycle 7) the colour of his tie knot (a colour switches half-way between two keys)   // hair left on end (engine/cloth.js)
   if (a.tie || b.tie) { const x = a.tie || TIE0, y = b.tie || TIE0; out.tie = [L(x[0] ?? 1, y[0] ?? 1), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0)]; }   // the tie taken in a hand: [length, forward, aside] (engine/cloth.js)
   if (a.wind || b.wind) { const x = a.wind || ZERO, y = b.wind || ZERO; out.wind = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; }   // a wind of his own on what trails (an inhale lifts the tie)
@@ -396,7 +405,7 @@ export function addToon(a = {}, b = {}) {
   if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
-  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot; if (b.yaw) out.yaw = (a.yaw || 0) + b.yaw;
+  if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot; if (b.yaw) out.yaw = (a.yaw || 0) + b.yaw; if (b.tieHide != null) out.tieHide = b.tieHide;
   if (b.pin) out.pin = b.pin;   // (cycle 17)
   if (b.ears) out.ears = (a.ears || 0) + b.ears;
   if (b.hands) out.hands = { ...(a.hands || {}), ...b.hands };

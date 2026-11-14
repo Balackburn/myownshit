@@ -747,7 +747,7 @@ function toonLayer(A, t, pc, pp, dt, BL, sc, ry) {
   if (ud.cloth) {   // what trails: the apparent wind (scene wind minus his own velocity, taken a few frames late so it lags), in world space
     const tl = t - 0.04, dd = 2 * d, hy = tt => posAt(A, tt).y + (clipPoseFn(A, lastKey(A.clipKeys, tt), tt).root?.y || 0) * sc, a = posAt(A, tl - dd), b = posAt(A, tl + dd), w = windAt(tl);
     const lw = all.wind, wx = lw ? lw[0] * Math.cos(ry) + lw[2] * Math.sin(ry) : 0, wz = lw ? -lw[0] * Math.sin(ry) + lw[2] * Math.cos(ry) : 0;   // toon channel `wind`: his own wind, given in his frame
-    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null, { gravity: A.cfg?.clothGravity ?? S.script?.clothGravity, knot: all.knot });   // (cycle 6) script / cast `clothGravity`: upside down, the tie hangs toward the head
+    A.obj.updateMatrixWorld(true); const sb = all.bend?.spine; ud.cloth.apply([w.x + wx - (b.x - a.x) / (2 * dd), w.y + (lw ? lw[1] : 0) - (hy(tl + dd) - hy(tl - dd)) / (2 * dd), w.z + wz - (b.z - a.z) / (2 * dd)], t, cfg.cloth ?? 1, sb ? (sb[4] ?? 1 / Math.sqrt(sb[3] ?? 1)) : 1, all.hairUp || 0, all.tie || null, { gravity: A.cfg?.clothGravity ?? S.script?.clothGravity, knot: all.knot, hide: all.tieHide });   // (cycle 6) script / cast `clothGravity`: upside down, the tie hangs toward the head
   }
   return all;
 }

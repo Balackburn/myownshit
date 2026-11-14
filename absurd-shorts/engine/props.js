@@ -888,6 +888,7 @@ const B = {
     const r = rng(o.seed || 47), per = o.period || 1.2, puffs = [], g = grp();
     for (let i = 0; i < 7; i++) { const m = sphere(0.16 + r() * 0.06, o.color || '#D8CFBA', 0, { unique: true, opacity: 0.99 }); m.castShadow = false; const a = i / 7 * TAU + r() * 0.5; puffs.push({ m, dx: Math.cos(a), dz: Math.sin(a) * 0.6, d: 0.4 + r() * 0.4 }); g.add(m); }
     g.userData.update = t => { const tt = Math.max(0, t - (o.startAt ?? 0)), p = o.once ? clamp01(tt / per) : (tt % per) / per, e = ease.out(p);   // startAt: when a `once` puff starts
+      g.visible = !o.once || (t >= (o.startAt ?? 0) && p < 1);   // (cycle 20) a `once` puff is not there before it starts or after it ends (it sat at the feet as a grey rock)
       puffs.forEach(({ m, dx, dz, d }) => { m.position.set(dx * d * e, 0.12 + 0.35 * p, dz * d * e); m.scale.setScalar(0.4 + 1.1 * e); m.material.opacity = 1 - p * p; }); };
     g.userData.update(0.3); return g;
   },
