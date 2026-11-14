@@ -189,7 +189,7 @@ function setupScene(si, analyzing = false) {
   // tethers: a sagging cord rebuilt every frame between two moving anchors ({actor, hand|joint, offset} or {prop, offset}), e.g. a leash
   S.tethers = (sc.tethers || []).map(td => { const m = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshLambertMaterial({ color: td.color || '#C0392B' })); m.castShadow = true; m.frustumCulled = false; S.root.add(m);
     let rim = null; if (td.rim) { rim = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: td.rimColor || new THREE.Color(td.color || '#C0392B').multiplyScalar(0.42), side: THREE.BackSide })); rim.frustumCulled = false; rim.visible = false; rim.userData.noAO = true; S.root.add(rim); }   // (cycle 14) td.rim: a darker hull round the cord
-    return { td, m, rim }; });
+    return { td, m, rim, ex: tetherExtras(td) }; });   // (cycle 26) bulbs, birds, a plug, a tip
   // crowds (background extras, deterministic)
   for (const cr of sc.crowd || []) for (let i = 0; i < (cr.count || 4); i++) {
     const id = `${cr.id || 'crowd'}${i}`, pos = cr.positions?.[i] || [cr.center[0] + ((i * 1.37) % 1 - 0.5) * (cr.spread || 3), 0, cr.center[2] + ((i * 0.61) % 1 - 0.5) * (cr.spread || 3)];
@@ -899,10 +899,75 @@ function tetherAnchor(a) {
   return null;
 }
 const sagAt = (ks, t) => { if (t <= ks[0][0]) return ks[0][1]; for (let i = 1; i < ks.length; i++) if (t < ks[i][0]) { const [t0, v0] = ks[i - 1], [t1, v1] = ks[i], u = (t - t0) / Math.max(1e-6, t1 - t0); return v0 + (v1 - v0) * u * u * (3 - 2 * u); } return ks[ks.length - 1][1]; };   // (cycle 13) sag keys, smoothstep between them
+// (cycle 26) a tether's extras, parented to the scene root and placed every frame by evalTethers: td.bulbs {n, colors, size, drop, hang [t0, t1],
+// fromA, on, period, chase}: a garland of bulbs clipped under the cord, hung one by one from its b end (fromA: from its a end) between t0 and t1,
+// lit at `on` and chasing (each bulb dark one beat in three); td.birds [[u, flyAt, yaw (deg)], ...]: birds perched on it, flying off at flyAt (or
+// when a snap runs past them); td.plug: a plug dangling from its b end; td.tip: a rounded tip at its b end (the end of a tongue)
+let _haloTex = null;
+function haloTex() {
+  if (_haloTex) return _haloTex;
+  const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+  _haloTex = new THREE.CanvasTexture(c); return _haloTex;
+}
+function makeBird() {
+  const L = (c) => new THREE.MeshLambertMaterial({ color: c }), g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.SphereGeometry(0.075, 10, 8), L('#8C95A3')); body.scale.set(0.9, 0.85, 1.35); body.position.y = 0.075;
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.042, 8, 6), L('#7C8594')); head.position.set(0, 0.15, 0.085);
+  const neck = new THREE.Mesh(new THREE.SphereGeometry(0.046, 8, 6), L('#5F8C7E')); neck.position.set(0, 0.12, 0.06);
+  const beak = new THREE.Mesh(new THREE.ConeGeometry(0.013, 0.04, 6), L('#E2A23B')); beak.rotation.x = Math.PI / 2; beak.position.set(0, 0.145, 0.135);
+  const eyes = [-1, 1].map(sd => { const e = new THREE.Mesh(new THREE.SphereGeometry(0.009, 6, 4), new THREE.MeshBasicMaterial({ color: '#111111' })); e.position.set(sd * 0.03, 0.16, 0.11); return e; });
+  const tail = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.015, 0.09), L('#6A7280')); tail.position.set(0, 0.07, -0.13); tail.rotation.x = -0.35;
+  const wings = [-1, 1].map(sd => { const w = new THREE.Group(), m = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.012, 0.13), L('#76808E')); m.position.x = sd * 0.055; w.add(m); w.position.set(sd * 0.05, 0.1, -0.01); w.userData.sd = sd; return w; });
+  const legs = [-1, 1].map(sd => { const l = new THREE.Mesh(new THREE.CylinderGeometry(0.005, 0.005, 0.03, 4), L('#D9837A')); l.position.set(sd * 0.025, 0.012, 0.01); return l; });
+  g.add(body, head, neck, beak, ...eyes, tail, ...wings, ...legs); g.userData.wings = wings; return g;
+}
+function tetherExtras(td) {
+  if (!td.bulbs && !td.birds && !td.plug && !td.tip) return null;
+  const ex = { bulbs: [], birds: [], plug: null, tip: null };
+  if (td.bulbs) { const B = td.bulbs, n = B.n || 12, cols = B.colors || ['#FF3B3B', '#3BD45A', '#FFC93B', '#3B8BFF'], sz = B.size || 0.07;
+    for (let k = 0; k < n; k++) { const col = new THREE.Color(cols[k % cols.length]), g = new THREE.Group();
+      const bulb = new THREE.Mesh(new THREE.SphereGeometry(sz / 2, 10, 8), new THREE.MeshBasicMaterial({ color: col.clone().multiplyScalar(0.35) })); bulb.scale.y = 1.35; bulb.position.y = -sz * 0.45;
+      const cap = new THREE.Mesh(new THREE.CylinderGeometry(sz * 0.24, sz * 0.24, sz * 0.4, 6), new THREE.MeshLambertMaterial({ color: B.wire || '#1F5A2E' })); cap.position.y = sz * 0.2;
+      const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex(), color: col, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.85 })); glow.scale.setScalar(sz * (B.glow ?? 3.2)); glow.position.y = -sz * 0.45; glow.userData.noAO = true;
+      g.add(bulb, cap, glow); g.visible = false; S.root.add(g); ex.bulbs.push({ g, bulb, glow, col, k, u: (k + 0.5) / n }); } }
+  for (const [u, flyAt = 1e9, yaw = 0] of td.birds || []) { const g = makeBird(); g.visible = false; S.root.add(g); ex.birds.push({ g, u, flyAt, yaw: yaw * Math.PI / 180, k: ex.birds.length }); }
+  if (td.plug) { const g = new THREE.Group(), w = new THREE.MeshLambertMaterial({ color: '#F2F2EE' }), d = new THREE.MeshLambertMaterial({ color: '#2B2B2B' });
+    const cable = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.2, 5), new THREE.MeshLambertMaterial({ color: '#1F5A2E' })); cable.position.y = -0.1;
+    const bodyP = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.07, 0.035), w); bodyP.position.y = -0.235;
+    const prongs = [-1, 1].map(sd => { const q = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.04, 5), d); q.position.set(sd * 0.012, -0.29, 0); return q; });
+    g.add(cable, bodyP, ...prongs); g.visible = false; S.root.add(g); ex.plug = g; }
+  if (td.tip) { ex.tip = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 8), new THREE.MeshLambertMaterial({ color: td.color || '#C0392B' })); ex.tip.visible = false; S.root.add(ex.tip); }
+  return ex;
+}
+function hideExtras(ex) { if (!ex) return; for (const e of ex.bulbs) e.g.visible = false; for (const e of ex.birds) e.g.visible = false; if (ex.plug) ex.plug.visible = false; if (ex.tip) ex.tip.visible = false; }
+const _xp = V(), _xq = V();
+function placeTetherExtras(td, ex, curve, t, endU, R) {
+  const at01 = u => curve.getPointAt(Math.min(1, Math.max(0, u)), _xp), snapT = u => td.snap ? td.snap[0] + td.snap[1] * Math.sqrt(Math.max(0, 1 - u)) : 1e9;
+  const gone = endU < 0.07 ? Math.max(0, endU / 0.07) : 1;   // the last of the cord going into the mouth: what rides on its end shrinks with it
+  if (ex.bulbs.length) { const B = td.bulbs, hang = B.hang || [-1e9, -1e9], on = B.on ?? 1e9, per = B.period || 0.3, drop = B.drop ?? 0.02;
+    for (const e of ex.bulbs) {
+      const shown = t >= hang[0] + (hang[1] - hang[0]) * (B.fromA ? e.u : 1 - e.u) && gone > 0.02; e.g.visible = shown; if (!shown) continue;
+      const over = e.u > endU; at01(over ? 1 : e.u / endU); e.g.position.copy(_xp); e.g.position.y -= R + drop;
+      if (over) { const j = Math.min(1, (e.u - endU) * 5); e.g.position.x += 0.09 * j * Math.sin(e.k * 2.1); e.g.position.y += 0.09 * j * Math.cos(e.k * 1.7); e.g.position.z += 0.09 * j * Math.sin(e.k * 3.3); e.g.rotation.set(j * Math.sin(e.k), 0, j * Math.cos(e.k * 1.3)); }
+      else e.g.rotation.set(0, 0, 0);
+      e.g.scale.setScalar(gone);
+      const lit = t >= on && (B.chase === false || (Math.floor((t - on) / per) + e.k) % 3 !== 0);
+      e.bulb.material.color.copy(e.col).multiplyScalar(lit ? 1.3 : (t >= on ? 0.4 : 0.55)); e.glow.visible = lit; } }
+  for (const e of ex.birds) {
+    const fa = Math.min(e.flyAt, snapT(e.u) - 0.06), k = (t - fa) / 0.7; if (k > 1) { e.g.visible = false; continue; } e.g.visible = true;
+    at01(Math.min(e.u, endU) / Math.max(1e-3, endU)); e.g.position.copy(_xp); e.g.position.y += R * 0.9; e.g.rotation.set(0, e.yaw, 0);
+    const w = e.g.userData.wings;
+    if (k > 0) { const sd = e.k % 2 ? 1 : -1; e.g.position.y += 1.5 * k + 0.25 * Math.sin(Math.PI * k); e.g.position.x += Math.cos(e.yaw) * sd * 1.6 * k; e.g.position.z -= Math.sin(e.yaw) * sd * 1.6 * k; e.g.rotation.x = -0.5;
+      for (const wg of w) wg.rotation.z = wg.userData.sd * (0.2 + 0.9 * Math.abs(Math.sin(t * 28 + e.k))); }
+    else { for (const wg of w) wg.rotation.z = 0; e.g.position.y += 0.01 * Math.max(0, Math.sin(t * 3.1 + e.k * 1.9)); } }
+  if (ex.plug) { at01(1); ex.plug.position.copy(_xp); ex.plug.position.y -= R * 0.5; ex.plug.scale.setScalar(gone); ex.plug.visible = gone > 0.02; ex.plug.rotation.z = endU < 1 ? 0.6 * Math.sin(t * 30) : 0.05 * Math.sin(t * 2.3); }
+  if (ex.tip) { at01(1); ex.tip.position.copy(_xp); ex.tip.scale.setScalar(R * 1.08 * Math.max(0.3, gone)); ex.tip.visible = gone > 0.02; }
+}
 function evalTethers(t) {
-  for (const { td, m } of S.tethers || []) {
-    const on = (td.from == null || t >= td.from) && (td.until == null || t < td.until); m.visible = on; if (!on) continue;
-    const a = tetherAnchor(td.a), b = tetherAnchor(td.b); if (!a || !b) { m.visible = false; continue; }
+  for (const { td, m, ex } of S.tethers || []) {
+    const on = (td.from == null || t >= td.from) && (td.until == null || t < td.until); m.visible = on; if (!on) { hideExtras(ex); continue; }
+    const a = tetherAnchor(td.a), b = tetherAnchor(td.b); if (!a || !b) { m.visible = false; hideExtras(ex); continue; }
     // (cycle 13) td.sag: a number or keys [[t, sag], ...] (taut when pulled, slack after); td.wobble: [[t, amp (m), freq, damping], ...] a plucked cord
     // vibrating and dying out; td.taper 0..1: thinner in the middle (a strand of gum); td.thin: [L0] the radius thins as the cord grows longer than L0 m
     // (and thickens below it, at most 1.6 times)
@@ -915,6 +980,17 @@ function evalTethers(t) {
     else for (let i = 0; i <= n; i++) { const u = i / n, p = a.clone().lerp(b, u); p.addScaledVector(dir, sag * 4 * u * (1 - u)); p.y += wob * Math.sin(Math.PI * u); pts.push(p); }
     // (cycle 14) td.ripple: [[t, amp (m), speed (cord lengths per second)], ...] a bump that runs along the cord from its a end (a jerk travelling down the slack)
     if (td.ripple) for (const [t0, amp, spd = 2.5] of td.ripple) { const c = (t - t0) * spd; if (c < 0 || c > 1.4) continue; pts.forEach((p, i) => { const u = i / Math.max(1, pts.length - 1); p.y += amp * Math.exp(-((u - c) ** 2) / 0.012) * Math.max(0, 1 - 0.5 * c); }); }
+    // (cycle 26) td.lift: [[t0, t1, u, h, w], ...]: the cord pushed up at u by h between t0 and t1, ramped in and out over 0.15 s (a car roof passing
+    // under a tongue across the street); w the width of the bump (0.12 of the cord)
+    if (td.lift) for (const [t0, t1, uc, h, w = 0.12] of td.lift) { if (t < t0 - 0.15 || t > t1 + 0.15) continue; const k = Math.min(clamp01((t - t0 + 0.15) / 0.15), clamp01((t1 + 0.15 - t) / 0.15));
+      pts.forEach((p, i) => { const u = i / Math.max(1, pts.length - 1); p.y += h * k * Math.exp(-((u - uc) ** 2) / (2 * w * w)); }); }
+    // (cycle 26) td.snap: [t0, dur, whip (0.35 m)]: the b end lets go and runs back along the cord into the a end, faster and faster (a stuck tongue
+    // coming home like a tape measure), its free end whipping from side to side; gone at t0 + dur
+    let endU = 1;
+    if (td.snap && t >= td.snap[0]) { const s = clamp01((t - td.snap[0]) / td.snap[1]); if (s >= 1) { m.visible = false; hideExtras(ex); continue; } endU = 1 - s * s;
+      const c0 = new THREE.CatmullRomCurve3(pts.map(p => p.clone())), np = pts.length, side = V().crossVectors(b.clone().sub(a).normalize(), V(0, 1, 0)).normalize();
+      for (let i = 0; i < np; i++) { const u = i / (np - 1), p = c0.getPointAt(u * endU), f = u * u;
+        p.addScaledVector(side, (td.snap[2] ?? 0.35) * (1 - s) * f * Math.sin(18 * s + 6 * u)); p.y += 0.15 * (1 - s) * f * Math.cos(14 * s + 5 * u); pts[i] = p; } }
     const curve = new THREE.CatmullRomCurve3(pts), T = td.segments || (td.via ? 48 : 20), RS = td.radial || 5;
     const R = (td.radius || 0.012) * (td.thin ? Math.min(1.6, Math.sqrt(td.thin[0] / Math.max(0.05, L))) : 1);
     const geo = new THREE.TubeGeometry(curve, T, R, RS);
@@ -924,6 +1000,7 @@ function evalTethers(t) {
         for (let r = 0; r <= RS; r++) { const ix = j * (RS + 1) + r; Q.fromBufferAttribute(pa, ix).sub(P).multiplyScalar(f).add(P); pa.setXYZ(ix, Q.x, Q.y, Q.z); } }
       pa.needsUpdate = true; }
     m.geometry.dispose(); m.geometry = geo;
+    if (ex) placeTetherExtras(td, ex, curve, t, endU, R);   // (cycle 26)
   }
 }
 function evalAll(t) {
