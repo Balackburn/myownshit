@@ -147,7 +147,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[],
         props=[P('jar8', 'picklesJar', pos=JR, scale=2.2),
                P('char8', 'armyTank', pos=[0.0, 0, -2.6], ry=0, scale=TK, keys=[k(0.0, to=[0.0, 0, 0.9], dur=0.5, ease='linear'), k(0.5, to=[0.0, 0.45, 2.6], dur=0.3, ease='out'), k(0.8, to=[0.0, 0.45, 3.8], dur=0.28, ease='linear'),
                                                                                     k(1.08, to=[0.0, 0.0, 5.0], dur=0.2, ease='in'), k(1.28, to=[0.0, 0.0, 6.4], dur=0.4, ease='out'), k(1.28, squash=[1.04, 0.9, 1.04], dur=0.35)])],   # it bucks over the jar
-        cams=[FC(0.0, [4.3, 1.1, 2.6], [[JR[0], 0.0, JR[2]], [JR[0], 0.6, JR[2]], [0.0, 2.9, JR[2]], [0.0, 0.0, r(JR[2] - 1.8)], [0.0, 0.0, r(JR[2] + 1.8)]], top=0.14, bottom=0.78, inside=(-4.4, 4.4, 0.2, 6.0, -40.0, 40.0), lenses=range(26, 86))])   # (stills 1) it backed out behind a building corner
+        cams=[FC(0.0, [4.3, 0.45, 2.6], [[JR[0], 0.0, JR[2]], [JR[0], 0.6, JR[2]], [0.0, 2.9, JR[2]], [0.0, 0.0, r(JR[2] - 1.8)], [0.0, 0.0, r(JR[2] + 1.8)]], top=0.16, bottom=0.72, inside=(-4.4, 4.4, 0.2, 6.0, -40.0, 40.0), lenses=range(26, 86))])   # (stills 1) it backed out behind a building corner
 st.cue('engine', 'S08', 0.0, 0.3); st.cue('clang', 'S08', 0.55, 0.35); st.cue('thud', 'S08', 1.28, 0.3)
 
 # 9: the tank got a flat. Behind the jar in the foreground: the tank sags down on one side with a hiss, a puff of dust; the jar has not a scratch
