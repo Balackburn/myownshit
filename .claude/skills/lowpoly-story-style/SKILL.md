@@ -423,6 +423,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La forêt en ligne droite | caméra de poursuite derrière et au-dessus de la tondeuse : les arbres devant elle tombent à gauche et à droite au moment où elle les atteint ; de face, les arbres qui tombaient la cachaient |
 | La moustache qui part seule | créature `moustache` avec `sheen`, bras courts et fins finis par des gants blancs (`hand: 'glove'`, `handW`) : elle se lit comme une moustache vivante, pas comme une araignée à quatre pattes ; nœud papillon sur un col blanc (une cravate sous la moustache se lisait comme une langue) |
 | La carrière qui monte | à chaque échelon plus haut, la créature est plus grande dans le cadre et l'action plus franche : sur les échelons les plus hauts (ministre, président), cadrer bas et serré, à plus de la moitié de la largeur |
+| La bouchée qui reste bouche fermée | après le claquement des mâchoires, `gulp` avec `bliss` long (jusqu'à la coupe) : les yeux fermés en arc, la bouche close, le corps qui gonfle et oscille ; les déplacements du poisson pendant ce temps glissent (`glide=True`), sinon le geste repart et la bouche se rouvre |
 
 ## Erreurs à éviter
 
@@ -1591,3 +1592,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 29) Dans un patch Python, ne jamais coller un commentaire `#` au milieu d'une ligne qui continue par `; X = ...` : tout ce qui suit devient
   commentaire et la variable n'existe plus (NameError au premier usage). Mettre le commentaire en fin de ligne.
 - (cycle 34) Un nom d'effet sonore inconnu (`sfx:skid`, `sfx:cheer`) est ignoré au mixage : l'audit le signale ; prendre un nom de la liste.
+- (cycle 27, passe finale) Un déplacement (`to=`) sans `glide=True` joue la marche pendant le trajet puis rend au personnage son geste précédent
+  en le relançant du début : un geste ponctuel (`gulp`, un saut, une bouchée) déjà joué recommence (la bouche se rouvre, les yeux se rouvrent).
+  Pendant un geste ponctuel, tout déplacement du même personnage doit glisser (`glide=True`).
+- (cycle 27, passe finale) Les mains guidées se croisent si l'on se trompe de côté : un personnage tourné vers +Z a sa main droite du côté des X
+  négatifs. Une cible `R` à droite de l'écran et une cible `L` à gauche font des avant-bras en X (des bras croisés, pas une frappe au clavier).
+- (cycle 27, passe finale) Un poisson qui tourne en rond dans un sac transparent se montre de face une fois sur deux et sa queue traverse le sac s'il
+  est aussi long que lui : le faire nager de gauche à droite, toujours de profil, plus petit que la moitié du sac (`fishBag` avec `v2`).

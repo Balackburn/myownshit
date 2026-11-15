@@ -14,7 +14,7 @@ cards = open(f'{HERE}/{S}/cards.txt').read().strip()
 subprocess.run(['python3', f'{SK}/build_hf.py', f'{PROJ}/tools/timeline.json', PROJ, '--cards', cards], check=True)
 TL = json.load(open(f'{HERE}/{S}/timeline.json')); D = TL['total']; SH = json.load(open(f'{HERE}/{S}/shots.json'))
 hosts = []
-for i, kv in enumerate([c for c in cards.split(',') if c]):
+for i, kv in enumerate([c for c in re.split(r',(?=S\d+[@:])', cards) if c]):   # (story 77) a card's own text may hold a comma (0,01 €)
     sid, _, off = kv.split(':')[0].partition('@'); a = round(SH[sid][0] + max(0.07, float(off or 0)), 3); b = round(SH[sid][1] - 0.03, 3)   # 'S12@0.42:WORD': the card drops 0.42 s into the shot (st.card(sid, word, at=...))
     hosts.append(f'''      <div id="host-c{i + 1}" data-composition-id="card-c{i + 1}" data-composition-src="compositions/card-c{i + 1}.html"
            data-start="{a}" data-duration="{round(b - a, 3)}" data-track-index="3" data-track-kind="graphics"

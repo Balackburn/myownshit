@@ -31,6 +31,18 @@ export const POISSON_PROPS = {
   // A pet-shop bag with a goldfish in it (pivot at the knot on top, hang it from a hand): a clear bag of water, the fish circling inside
   fishBag(o) {
     const g = grp(), s = o.s ?? 1, R = 0.1 * s;
+    if (o.v2) {   // (final pass of 65) o.v2: a smooth clear bag (only its far side tinted, so nothing lies over the fish), a pale rim round its outline facing +Z (attach it with face='camera'), and a smaller fish that swims side-on, left and right, turning at each end (it circled: head-on half the time, its tail through the bag)
+      const wm = new THREE.MeshBasicMaterial({ color: '#BDE8FA', transparent: true, opacity: 0.42, depthWrite: false, side: THREE.BackSide });   // unlit: a lit back face went dark grey (the bag read as a black ball)
+      const water = ball(R, wm, 28); water.scale.y = 1.12; water.position.y = -0.17 * s; g.add(water);
+      const shell = ball(R * 1.02, glass('#FFFFFF', 0.05), 28); shell.material.side = THREE.FrontSide; shell.scale.y = 1.13; shell.position.y = -0.17 * s; g.add(shell);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.0045 * s, 6, 40), new THREE.MeshBasicMaterial({ color: '#EAF7FF', transparent: true, opacity: 0.85, depthWrite: false })); rim.scale.y = 1.13; rim.position.y = -0.17 * s; g.add(rim);
+      const neck = new THREE.Mesh(new THREE.ConeGeometry(R * 0.75, 0.09 * s, 16, 1, true), glass('#FFFFFF', 0.22)); neck.rotation.x = PI; neck.position.y = -0.05 * s; g.add(neck);
+      g.add(at(ball(0.012 * s, '#F4F4F4', 6), 0, 0, 0));
+      const f = miniFish(o.fishS ?? 0.1 * s); g.add(f);
+      g.userData.grip = [0, 0, 0];
+      g.userData.update = t => { const a = t * 1.5, c = Math.cos(a); f.position.set(Math.sin(a) * R * 0.24, -0.18 * s + 0.008 * Math.sin(t * 3), 0); f.rotation.y = (PI / 2) * Math.tanh(c * 5); f.userData.tail.rotation.y = 0.45 * Math.sin(t * 12); };
+      g.userData.update(0); return g;
+    }
     const water = ball(R, glass('#8FD3F2', 0.3), 14); water.scale.y = 1.12; water.position.y = -0.17 * s; g.add(water);
     const shell = ball(R * 1.06, glass('#FFFFFF', 0.1), 14); shell.scale.y = 1.15; shell.position.y = -0.17 * s; g.add(shell);
     const neck = new THREE.Mesh(new THREE.ConeGeometry(R * 0.75, 0.09 * s, 10, 1, true), glass('#FFFFFF', 0.22)); neck.rotation.x = PI; neck.position.y = -0.05 * s; g.add(neck);
