@@ -419,6 +419,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le ticket qui ne s'arrête pas | `ticketRibbon` posé à la fente : le papier sort, s'enroule jusqu'au trottoir et file le long d'un chemin jusqu'au point de fuite (vue d'avion : bande élargie à 0,22 m pour se lire à cent mètres) ; les marques imprimées avancent avec le papier, la tête se soulève et frémit |
 | La voiture devenue maison | `carHome` posé sur la voiture : rideaux vichy noués, tuyau de poêle qui fume, géranium et antenne sur le toit, paillasson BIENVENUE, courrier glissé sous l'essuie-glace (`letterAt`), linge tendu jusqu'à l'horodateur |
 | Le visage écrasé contre la vitre | caméra dans la cabine de la fourgonnette garée à côté, à travers sa fenêtre ouverte : sa tête aplatie contre sa propre vitre (`scl.head` [1,16, 1,1, 0,6]), les deux mains à plat, puis il glisse vers le bas en grinçant |
+| Le pays entier tondu | `mowFrance` (props_tondeuse) vu de très haut : la silhouette de la France en vert non tondu sur la mer, des bandes claires et foncées qui la balaient du nord au sud, bande après bande, derrière une tondeuse rouge et son sillage ; un damier de champs carrés ne se lisait pas à 165 m |
+| La forêt en ligne droite | caméra de poursuite derrière et au-dessus de la tondeuse : les arbres devant elle tombent à gauche et à droite au moment où elle les atteint ; de face, les arbres qui tombaient la cachaient |
+| La moustache qui part seule | créature `moustache` avec `sheen`, bras courts et fins finis par des gants blancs (`hand: 'glove'`, `handW`) : elle se lit comme une moustache vivante, pas comme une araignée à quatre pattes ; nœud papillon sur un col blanc (une cravate sous la moustache se lisait comme une langue) |
+| La carrière qui monte | à chaque échelon plus haut, la créature est plus grande dans le cadre et l'action plus franche : sur les échelons les plus hauts (ministre, président), cadrer bas et serré, à plus de la moitié de la largeur |
 
 ## Erreurs à éviter
 
@@ -1574,3 +1578,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   par-dessus l'épaule doit poser l'épaule presque sur l'axe, et alors elle couvre le sujet : asseoir le personnage de premier plan et monter la caméra.
 - (cycle 37) Une fourgonnette en double file à côté d'une voiture : aligner sa cabine sur le siège du conducteur (son centre décalé de la longueur
   du capot), sinon la caméra placée « dans la cabine » tombe dans la caisse de chargement.
+- (cycle 34) `fitBack` recule la caméra jusqu'à ce que tous les points tiennent : si les points sont larges et que la caméra est du côté des maisons,
+  elle recule jusque dans une maison et l'image devient un aplat sombre ou de la couleur de la façade (une image noire, une violette). Mettre la
+  caméra du côté ouvert (de l'autre côté de la route) ou la borner avec `inside=`.
+- (cycle 31) Les points de cadrage se donnent aux hauteurs réelles des articulations (la tête vers 1,8 m debout, plus bas penché ou à genoux) : des
+  points à 2,95 m cadrent du vide au-dessus de lui et le poussent en bas de l'image. L'audit de la tête coupée ignore la pose : à genoux ou penché,
+  il signale à tort une tête coupée ; vérifier sur les images.
+- (cycle 28) Des gardes du corps placés juste derrière les personnages principaux se confondent avec eux en silhouettes à deux têtes : les décaler
+  d'une demi-largeur vers l'extérieur et d'un pas en arrière, pour que leurs lunettes noires se voient toujours.
+- (cycle 28) Une barbe ou des cheveux faits de cylindres enchaînés laissent un coin vide à chaque pliure et se lisent comme des tuyaux segmentés :
+  une boule à chaque articulation, de l'épaisseur de la mèche (`beardHair` le fait par défaut, `joints: false` l'enlève).
+- (cycle 29) Dans un patch Python, ne jamais coller un commentaire `#` au milieu d'une ligne qui continue par `; X = ...` : tout ce qui suit devient
+  commentaire et la variable n'existe plus (NameError au premier usage). Mettre le commentaire en fin de ligne.
+- (cycle 34) Un nom d'effet sonore inconnu (`sfx:skid`, `sfx:cheer`) est ignoré au mixage : l'audit le signale ; prendre un nom de la liste.
