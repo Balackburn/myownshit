@@ -41,7 +41,7 @@ HEDGEP = lambda pid, hole_at=None, **o: P(pid, 'hedgeWall', pos=HEDGE, ry=90, op
 STRIPE = [[-1.0, *LOC(EDGE0, M0[2])], [-0.01, *LOC(-5.6, M0[2])]]   # the one stripe across his lawn, already cut in the later shots
 # (review 2) the palace: a lawn in the pitch's two-tone bands running to the steps (stripePitch without lines or goals); a stone slab that covers the
 # black hull of the town hall's main box (its outline read as a dark box behind the pediment); the guards' plumed helmets
-PLAWN = lambda pid, z, d, passes=None, w=11.2, n=7: P(pid, 'stripePitch', pos=[0.0, 0, z], opts={'w': w, 'd': d, 'n': n, 'lines': False, 'goals': False, 'passes': passes or [[-3.0, -2.0]] * n})
+PLAWN = lambda pid, z, d, passes=None, w=11.2, n=7: P(pid, 'stripePitch', pos=[0.0, 0, z], opts={'w': w, 'd': d, 'n': n, 'lines': False, 'goals': False, 'over': True, 'passes': passes or [[-3.0, -2.0]] * n})
 COVER = lambda pid, w, z: P(pid, 'slab', pos=[0.0, r((4.5 * 1.03 + 0.04) / 2), z], opts={'w': r(w * 1.03 + 0.04), 'h': r(4.5 * 1.03 + 0.04), 'd': r(4 * 1.03 + 0.06), 'color': '#EDE4D0'})
 HELMET = lambda pid, who: P(pid, 'guardHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, scale=1.1)
 
@@ -61,28 +61,28 @@ UP1 = [r(M0[0] + 1.65), 1.95, -0.32]                                   # where t
 st.shot('S01', 'pavillon', setOpts={'fence': False, 'mailbox': False}, look=XLOOK, actors=[
         act('mec', ME0, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[M0[0], 0.4, Z1]), k(0.0, toon=PULL(*CORD), toonDur=0.0),
             *[kk for j, t_ in enumerate((0.18, 0.62, 1.05)) for kk in (k(t_, toon={**PULL(r(M0[0] + 1.52 + 0.12 * j), r(1.45 + 0.15 * j), -0.32), 'bend': {'spine': [r(0.12 + 0.05 * j), 0, 0, 1, None]}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.08, toonEase='out'),
-                k(r(t_ + 0.24), toon=PULL(*CORD), toonDur=0.12, toonEase='inOut'))],
+                *([k(r(t_ + 0.24), toon=PULL(*CORD), toonDur=0.12, toonEase='inOut')] if j < 2 else []))],   # (review 2) no return after the third pull: its key fell after the start's and brought the hand back down
             k(r(START1 + 0.12), toon={**PULL(*UP1), 'face': {'lid': 0.3, 'brow': 0.4}}, toonDur=0.06), k(r(START1 + 0.42), look='camera', lookDur=0.22),
             k(r(START1 + 0.58), toon={'face': {'lid': 1.0}}, toonDur=0.05, keepPose=True), k(r(START1 + 0.68), toon={'face': DEAD}, toonDur=0.07, keepPose=True)])],
         props=[LAWNF('lawn1', 0.55, [[r(START1 + 0.17), *LOC(EDGE0, Z1)], [D1, *LOC(-2.6, Z1)]]), HEDGEP('hedge1'),
                MOWER('mow1', M0, runAt=START1, cough=[0.3, 0.75, START1], startAt=START1, startK=2.2,
                      keys=[k(r(START1 + 0.05), to=[EDGE0, 0, Z1], dur=0.12, ease='linear'), k(r(START1 + 0.17), to=[-2.6, 0, Z1], dur=r(D1 - START1 - 0.17), ease='linear')])],
         tethers=[{'a': {'prop': 'mow1', 'offset': [0.12, 0.86, -0.75]}, 'b': {'actor': 'mec', 'hand': 'R'}, 'color': '#111111', 'radius': 0.018, 'radial': 6, 'sag': 0.02, 'n': 8, 'from': 0.15, 'snap': [START1, 0.12, 0.2]}],
-        cams=[FC(0.0, [-0.9, 1.45, 4.0], [[ME0[0], 2.45, Z1], [ME0[0], 0.0, Z1], [r(UP1[0] + 0.2), 2.1, -0.35], [r(M0[0] - 0.45), 0.0, Z1], [-0.9, 0.5, Z1]], top=0.14, bottom=0.76, lenses=range(26, 68))])   # (review 2) no fence: the mower in the clear, three quarters on his face
+        cams=[FC(0.0, [-0.9, 1.45, 4.0], [[ME0[0], 2.45, Z1], [ME0[0], 0.0, Z1], [r(UP1[0] + 0.2), 2.1, -0.35], [r(M0[0] - 0.45), 0.0, Z1], [-0.3, 0.5, Z1]], top=0.14, bottom=0.76, lenses=range(26, 68))])   # (review 2) no fence: the mower in the clear, three quarters on his face
 st.cue('sfx:zip', 'S01', 0.18, 0.25); st.cue('sfx:rattleShort', 'S01', 0.3, 0.3); st.cue('sfx:zip', 'S01', 0.62, 0.25); st.cue('sfx:rattleShort', 'S01', 0.75, 0.3); st.cue('sfx:engine', 'S01', START1, 0.45)
 
 # 2: it never stopped. Behind the mower, down the stripe it cuts: it runs on alone and bursts through the hedge, leaves flying, leaving a hole of its
 #    own shape; then on him, his hand still up where the cord left it: he looks at us and slowly lowers it
 D2 = st.dur('S02'); HOLE2 = 0.75; CUT2 = 1.0
-UP2 = {'reach': {'R': [r(ME0[0] - 0.45), 2.0, -0.35, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}
-st.shot('S02', 'pavillon', setOpts={'fence': False, 'mailbox': False}, look=XLOOK, actors=[act('mec', ME0, -15, 'stand', 'unimpressed', keys=[k(0.0, look=[-3.5, 0.4, M0[2]]), k(0.0, toon=UP2, toonDur=0.0),
-            k(r(HOLE2 + 0.05), look=[-5.5, 0.6, M0[2]]), k(r(CUT2 + 0.04), look='camera', lookDur=0.15),
-            k(1.3, toon={'reach': {'R': [r(ME0[0] - 0.4), 1.0, -0.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.3, toonEase='inOut'),
+UP2 = {'reach': {'R': [r(ME0[0] + 0.3), 2.05, -0.9, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}
+st.shot('S02', 'pavillon', setOpts={'fence': False, 'mailbox': False}, look=XLOOK, actors=[act('mec', ME0, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[-5.5, 0.6, M0[2]]), k(0.0, toon=UP2, toonDur=0.0),
+            k(r(CUT2 + 0.06), look='camera', lookDur=0.12),
+            k(1.3, toon={'reach': {'R': [r(ME0[0] - 0.05), 1.0, -0.72, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.32, toonEase='inOut'),
             k(1.5, toon={'face': {'lid': 1.0}}, toonDur=0.06, keepPose=True), k(1.62, toon={'face': DEAD}, toonDur=0.08, keepPose=True)])],
         props=[LAWNF('lawn2', 0.55, [[-1.0, *LOC(EDGE0, M0[2])], [0.0, *LOC(-2.6, M0[2])], [HOLE2, *LOC(-5.6, M0[2])]]), HEDGEP('hedge2', HOLE2, leaves=70, leafS=1.7),
                MOWER('mow2', [-2.6, 0, M0[2]], runAt=0.0, keys=[k(0.0, to=[-5.6, 0, M0[2]], dur=HOLE2, ease='linear'), k(HOLE2, to=[-8.6, 0, M0[2]], dur=r(D2 - HOLE2), ease='linear')])],
         cams=[cam(0.0, [-0.2, 1.25, M0[2]], [-1.1, 1.15, M0[2]], [-5.5, 0.75, M0[2]], [-5.5, 0.75, M0[2]], lens=38),
-              FC(CUT2, [3.3, 1.5, 1.3], [[ME0[0], 2.5, M0[2]], [ME0[0], 0.75, M0[2]], [r(ME0[0] - 0.55), 2.15, -0.35], [-5.5, 1.3, M0[2]]], top=0.15, bottom=0.76, lenses=range(26, 74))])
+              FC(CUT2, [-1.3, 1.45, 0.2], [[ME0[0], 2.5, M0[2]], [ME0[0], 0.7, M0[2]], [r(ME0[0] + 0.3), 2.2, -1.0], [ME0[0], 1.4, 0.15]], top=0.15, bottom=0.76)])   # from the stripe, in front of him
 st.cue('sfx:engine', 'S02', 0.0, 0.4); st.cue('sfx:crunch', 'S02', HOLE2, 0.35)
 
 # 3: it mowed the neighbour's garden. Next door: the neighbour in pyjamas dozes in his deckchair with his paper; the mower bursts through the hedge: he is
@@ -95,7 +95,7 @@ PED3 = lambda i: {'bend': {'legL': [-1.4 if i % 2 else -0.3, 0, 0, 1, None], 'le
 st.shot('S03', 'pavillon', setOpts={**HOUSE_N, 'fence': False, 'mailbox': False}, look=XLOOK, actors=[
         act('voisin', [-1.8, 0, 0.25], 0, 'sit', 'neutral', keys=[k(0.0, look=[-1.8, 0.9, 1.2]), k(0.0, toon=SIT3(0.0), toonDur=0.0),
             k(0.5, look=[1.0, 0.4, 1.0]), k(r(UP3 - 0.07), toon={**SIT3(0.0, 0.3), 'sq': [1.15, 0.8, 1.15]}, toonDur=0.05),
-            k(UP3, to=[-1.8, 0.95, 0.25], dur=0.14, ease='out', clip='sit', face='keep'), k(UP3, toon={**SIT3(1.0, 0.6), 'sq': [0.85, 1.22, 0.85], 'hairUp': 1.0}, toonDur=0.05, toonEase='out'),
+            k(UP3, to=[-1.8, 0.95, 0.25], dur=0.14, ease='out', clip='sit', face='keep'), k(UP3, toon={**SIT3(1.0, 0.6), 'sq': [0.9, 1.14, 0.9], 'hairUp': 1.0}, toonDur=0.05, toonEase='out'),
             *[k(r(UP3 + 0.1 + 0.066 * i), toon=PED3(i), toonDur=0.05) for i in range(6)],
             k(r(DOWN3 - 0.14), to=[-1.8, 0.0, 0.25], dur=0.14, ease='in', clip='sit', face='keep'),
             k(DOWN3, toon={**SIT3(0.0, 0.4), 'sq': [1.22, 0.72, 1.22]}, toonDur=0.03), k(r(DOWN3 + 0.1), toon={**SIT3(0.0, 0.4), 'sq': [0.95, 1.06, 0.95]}, toonDur=0.08), k(r(DOWN3 + 0.24), toon=SIT3(0.0, 0.4), toonDur=0.1),
@@ -106,7 +106,7 @@ st.shot('S03', 'pavillon', setOpts={**HOUSE_N, 'fence': False, 'mailbox': False}
                P('gnome3', 'gnome', pos=GN3, ry=20, opts={'s': 1.7, 'hatAt': HAT3, 'hatUp': 0.8, 'hatT': 0.62}),
                P('paper3', 'newspaper', on={'actor': 'voisin', 'hand': 'R', 'offset': [0.05, 0.0, 0.05]}, keys=[k(UP3, detach=True, fall=True, toss=[0.2, 2.6, 0.4], spinFall=8.0)]),
                MOWER('mow3', [VX3(0.0), 0, 1.0], runAt=0.0, keys=[k(0.0, to=[VX3(D3), 0, 1.0], dur=D3, ease='linear')])],
-        cams=[FC(0.0, [-1.0, 1.05, 3.1], [[-1.8, 2.5, 0.25], [-1.8, 0.0, 1.2], [GN3[0], 2.3, GN3[2]], [r(GN3[0] - 0.3), 0.5, GN3[2]], [-0.2, 0.6, 1.0]], top=0.14, bottom=0.78, lenses=range(26, 80))])   # his launch and the hat's flight inside the frame
+        cams=[FC(0.0, [-1.0, 1.05, 3.1], [[-1.8, 2.85, 0.25], [-1.8, 0.0, 1.2], [GN3[0], 2.3, GN3[2]], [r(GN3[0] - 0.3), 0.5, GN3[2]], [-0.2, 0.6, 1.0]], top=0.14, bottom=0.78, lenses=range(26, 80))])   # his launch and the hat's flight inside the frame
 st.cue('sfx:crunch', 'S03', HOLE3, 0.3); st.cue('sfx:engine', 'S03', 0.1, 0.35); st.cue('sfx:gasp', 'S03', UP3, 0.25); st.cue('sfx:pop', 'S03', HAT3, 0.25); st.cue('thud', 'S03', DOWN3, 0.25)
 
 # 4: then the football stadium. From the stands: the mower runs up and down the pitch so fast it is a blur, and perfect stripes appear one after another;
@@ -124,27 +124,27 @@ st.shot('S04', 'grassland', look=XLOOK, actors=[*[act(f'joueur{j + 1}', PL4(j), 
             keys=[k(0.0, look=[XS4(0), 0.3, D4P / 2]), k(0.0, toon={'yaw': YAW4(j, XS4(0), D4P / 2)}, toonDur=0.0),
                   *[k(PASSES4[i][0], look=[XS4(i), 0.3, (-1 if i % 2 == 0 else 1) * D4P / 2], lookDur=r(PASS4 - 0.02)) for i in range(NS4)],
                   *[k(r(PASSES4[i][0] + 0.04 + 0.03 * j), toon={'yaw': YAW4(j, XS4(i), (-1 if i % 2 == 0 else 1) * D4P / 2), 'sq': [1.0, 1.02, 1.0] if i % 2 else [1.02, 0.97, 1.02]}, toonDur=PASS4, toonEase='inOut') for i in range(NS4)]]) for j in range(3)]],   # (review 2) heads on the mower all the way down each band and back: a tennis match
-        props=[P('pitch4', 'stripePitch', opts={'w': W4, 'd': D4P, 'n': NS4, 'passes': PASSES4}), P('stands4', 'bleachers', pos=[-W4 / 2 - 4.0, 0, 0], ry=90, opts={'l': 60, 'rows': 7}),
+        props=[P('pitch4', 'stripePitch', opts={'w': W4, 'd': D4P, 'n': NS4, 'passes': PASSES4, 'over': True}), P('stands4', 'bleachers', pos=[-W4 / 2 - 4.0, 0, 0], ry=90, opts={'l': 60, 'rows': 7}),
                P('stands4b', 'bleachers', pos=[W4 / 2 + 4.0, 0, 0], ry=-90, opts={'l': 60, 'rows': 7}), MOWER('mow4', [XS4(0), 0, D4P / 2], ry=180, s=4.0, runAt=0.0, speedLines=True, keys=MK4)],
         cams=[FC(0.0, [1.0, 6.5, 40.0], [[-8.0, 0.0, 14.0], [8.0, 0.0, 14.0], [0.0, 2.44, -D4P / 2], [0.0, 2.45, D4P / 2 + 2.6]], top=0.12, bottom=0.86, lenses=range(26, 80))])   # (review 1) low behind the players: the pitch, its lines and the stripes fill the frame
 st.cue('whoosh', 'S04', 0.05, 0.3, 1.2, 300, 1500); st.cue('sfx:engine', 'S04', 0.0, 0.4)
 
 # 5: the players applauded. At the touchline three players clap, each his own way (at the chest, over the head, hopping), the referee a step clear of
 #    them, the striped pitch gleaming behind them
-D5 = st.dur('S05'); POS5 = [[-0.85, 0, 0.25], [0.0, 0, -0.5], [0.85, 0, 0.3]]; REF5 = [1.7, 0, -1.3]; DT5 = [0.075, 0.09, 0.065, 0.11]; OFF5 = [0.0, 0.06, 0.03, 0.1]
+D5 = st.dur('S05'); POS5 = [[-0.85, 0, 0.25], [0.0, 0, -0.5], [0.85, 0, 0.3]]; REF5 = [-1.8, 0, -1.2]; DT5 = [0.075, 0.09, 0.065, 0.11]; OFF5 = [0.0, 0.06, 0.03, 0.1]
 SMILE5 = {'mouth': 'bigsmile', 'lid': 0.1, 'brow': 0.3}
 CLAP = lambda j, i: {'touch': {'R': ['torso', r(-0.03 if i % 2 else -0.24), 0.8, 0.38, 1, 0.02], 'L': ['torso', r(0.03 if i % 2 else 0.24), 0.8, 0.38, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'mouth': 'bigsmile', 'lid': 0.1}}   # the president's clap (S13) and the hero dusting his hands (S18)
 def CLAP5(j, i):   # one key of a clap: even i apart, odd i together; whole poses
     a = 0.03 if i % 2 else 0.27
     if j == 1: return {'touch': {'R': ['face', r(-0.06 if i % 2 else -0.6), 1.3, 0.06, 1, 0.02], 'L': ['face', r(0.06 if i % 2 else 0.6), 1.3, 0.06, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': SMILE5}   # over his head
-    q = {'touch': {'R': ['torso', -a, [0.62, 0, 0.58, 0.55][j], 0.42, 1, 0.02], 'L': ['torso', a, [0.62, 0, 0.58, 0.55][j], 0.42, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': SMILE5}
+    q = {'touch': {'R': ['torso', -a, [0.45, 0, 0.41, 0.43][j], 0.42, 1, 0.02], 'L': ['torso', a, [0.45, 0, 0.41, 0.43][j], 0.42, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': SMILE5}
     if j == 2: q['sq'] = [0.95, 1.08, 0.95] if i % 2 else [1.06, 0.92, 1.06]   # he bounces with each clap
     return q
 st.shot('S05', 'grassland', look=XLOOK, actors=[*[act(f'joueur{j + 1}', POS5[j], [14, -3, -16][j], 'stand', 'happy', keys=[k(0.0, look='camera'), *[k(r(OFF5[j] + DT5[j] * i), toon=CLAP5(j, i), toonDur=0.05) for i in range(int((D5 - OFF5[j]) / DT5[j]))]]) for j in range(3)],
-        act('arbitre', REF5, -24, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.6, 0.0]), k(0.7, look='camera', lookDur=0.2), *[k(r(OFF5[3] + DT5[3] * i), toon=CLAP5(3, i), toonDur=0.06) for i in range(int((D5 - OFF5[3]) / DT5[3]))]])],
-        props=[P('pitch5', 'stripePitch', pos=[0.0, 0, -20.0], ry=90, opts={'w': W4, 'd': D4P, 'n': NS4, 'passes': [[-2.0, -1.0]] * NS4}),
-               *[P(f'num5{j}', 'raceBib', on={'actor': f'joueur{j + 1}', 'joint': 'torso', 'offset': [0.0, 0.3, 0.19]}, scale=1.25, opts={'num': ['7', '10', '9'][j]}) for j in range(3)]],
-        cams=[FC(0.0, [-0.7, 1.3, 5.2], [[-0.85, 2.45, 0.25], [0.85, 2.45, 0.3], [-0.85, 0.0, 0.25], [0.85, 0.0, 0.3], [-1.25, 1.2, 0.25], [2.05, 1.2, -1.3]], top=0.24, bottom=0.76)])   # (review 2) pushed in: heads near a quarter, feet near three quarters
+        act('arbitre', REF5, 16, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.6, 0.0]), k(0.7, look='camera', lookDur=0.2), *[k(r(OFF5[3] + DT5[3] * i), toon=CLAP5(3, i), toonDur=0.06) for i in range(int((D5 - OFF5[3]) / DT5[3]))]])],
+        props=[P('pitch5', 'stripePitch', pos=[0.0, 0, -20.0], ry=90, opts={'w': W4, 'd': D4P, 'n': NS4, 'passes': [[-2.0, -1.0]] * NS4, 'over': True}),
+               *[P(f'num5{j}', 'raceBib', on={'actor': f'joueur{j + 1}', 'joint': 'torso', 'offset': [0.0, 0.26, 0.19]}, scale=1.25, opts={'num': ['7', '10', '9'][j]}) for j in range(3)]],
+        cams=[FC(0.0, [-0.7, 1.3, 5.2], [[-0.85, 2.45, 0.25], [0.85, 2.45, 0.3], [-0.85, 0.0, 0.25], [0.85, 0.0, 0.3], [1.25, 1.2, 0.3], [-2.15, 1.2, -1.2], [-1.8, 2.45, -1.2]], top=0.24, bottom=0.76)])   # (review 2) pushed in: heads near a quarter, feet near three quarters
 for i in range(1, int(D5 / DT5[0]), 2): st.cue('sfx:click', 'S05', r(DT5[0] * i), 0.22)   # the first player's claps, one click each (the mix has no applause)
 
 # 6: it went through the forest in a straight line. Chasing it down its lane over a dark mossy floor: brown trunks with high crowns either side tip
@@ -157,7 +157,7 @@ st.shot('S06', 'grassland', setOpts={'grass': '#3D5A2E'}, look=XLOOK, actors=[],
                *[P(f'fb6{i}', 'fallTree', pos=[LX6 if i % 2 else -LX6, 0, r(-24.2 + 1.7 * i)], opts={'s': 1.25, 'seed': i + 40, 'crown': 1.1, 'dir': (PI / 2 if i % 2 else -PI / 2), 'fallAt': -2.0}) for i in range(8)],
                *[P(f'tr6{i}', 'fallTree', pos=[r((3.4 + 1.5 * (i % 3)) * (1 if i % 2 else -1)), 0, r(-25.0 + 1.75 * i)], opts={'s': r(1.2 + 0.25 * (i % 3)), 'seed': i + 9, 'crown': r(0.9 + 0.3 * (i % 2))}) for i in range(22)],
                P('lane6', 'mowField', pos=[0.0, 0, -6.0], opts={'w': 2.6, 'd': 40.0, 'h': 0.24, 'n': 700, 'width': 1.6, 'path': [[-1.5, 0.0, r(Z06 - 10.5 + 6.0)], [D6, 0.0, r(Z06 + V6 * D6 + 6.0)]],
-                                                                 'cols': ['#4E7A3A', '#5B8A44', '#44703A'], 'cutCol': '#B9A26A', 'stripCol': '#CDBB86', 'ground': 'none'}),
+                                                                 'cols': ['#4E7A3A', '#5B8A44', '#44703A'], 'cutCol': '#B9A26A', 'stripCol': '#CDBB86', 'ground': 'none', 'over': True}),
                MOWER('mow6', [0.0, 0, Z06], ry=0, s=2.0, runAt=0.0, keys=[k(0.0, to=[0.0, 0, r(Z06 + V6 * D6)], dur=D6, ease='linear')])],
         cams=[cam(0.0, CAM6(Z06)[0], CAM6(Z06 + V6 * D6)[0], CAM6(Z06)[1], CAM6(Z06 + V6 * D6)[1], lens=54)])   # (review 2) behind and above it: the mower at two thirds of the frame's height on its pale lane, stumps either side, the trees ahead tipping aside
 for i, z_ in enumerate(TREES6): st.cue('sfx:crunch', 'S06', r(max(0.0, (z_ - Z06 - LEN6) / V6 + 0.3)), 0.25) if (z_ - Z06 - LEN6) / V6 + 0.3 < D6 else None
@@ -187,16 +187,16 @@ BINO8 = {'touch': {'R': ['face', -0.42, 0.62, 0.2, 1, 0.02], 'L': ['face', 0.42,
 LOUPE8 = lambda ac, up, fr: {'touch': {'R': ['face', ac, up, fr, 1, 0.03]}, 'hands': {'R': 'grip'}}
 BIG8 = {'eyeR': 0.9, 'brow': 0.8, 'mouth': 'O'}
 st.shot('S08', 'grassland', look=XLOOK, actors=[
-        act('savant1', S18, 90, 'stand', 'neutral', keys=[k(0.0, look=[6.0, 9.0, 0.5]), k(0.0, toon={**BINO8, 'bend': {'spine': [-0.28, 0, 0, 1, None]}}, toonDur=0.0),
-            k(0.4, look=[6.0, 8.0, -2.0], lookDur=0.3), k(r(OV8 + 0.08), face=165, turn=0.16), k(r(OV8 + 0.08), look='camera', lookDur=0.12),
+        act('savant1', S18, 125, 'stand', 'neutral', keys=[k(0.0, look=[6.0, 9.0, -3.5]), k(0.0, toon={**BINO8, 'bend': {'spine': [-0.28, 0, 0, 1, None]}}, toonDur=0.0),
+            k(0.4, look=[5.0, 8.0, -5.5], lookDur=0.3), k(r(OV8 + 0.08), face=165, turn=0.16), k(r(OV8 + 0.08), look='camera', lookDur=0.12),
             k(r(OV8 + 0.1), toon={**BINO8, 'sq': [0.95, 1.07, 0.95]}, toonDur=0.06, toonEase='out'), k(r(OV8 + 0.3), toon=BINO8, toonDur=0.1),
             k(1.75, toon={**BINO8, 'bend': {'spine': [0.14, 0, 0, 1, None]}}, toonDur=0.3, toonEase='inOut')]),   # ...and leans toward us behind them
-        act('savant2', S28, 90, 'kneelLook', 'neutral', keys=[k(0.0, look=[0.0, 0.0, 0.05]), k(0.0, toon={**LOUPE8(0.0, 0.05, 0.42), 'face': {'lid': 0.2, 'brow': -0.3}}, toonDur=0.0),
+        act('savant2', S28, 125, 'kneelLook', 'neutral', keys=[k(0.0, look=[-0.3, 0.0, -0.35]), k(0.0, toon={**LOUPE8(0.0, 0.05, 0.42), 'face': {'lid': 0.2, 'brow': -0.3}}, toonDur=0.0),
             k(0.4, toon={**LOUPE8(0.0, 0.0, 0.5), 'face': {'lid': 0.2, 'brow': -0.3}}, toonDur=0.3, toonEase='inOut'),
             k(r(OV8 + 0.2), face=180, turn=0.16), k(r(OV8 + 0.2), look='camera', lookDur=0.12),
             k(r(OV8 + 0.24), toon={**LOUPE8(-0.22, -0.03, 0.3), 'face': BIG8, 'sq': [0.95, 1.06, 0.95]}, toonDur=0.1, toonEase='out'), k(r(OV8 + 0.5), toon={**LOUPE8(-0.22, -0.03, 0.3), 'face': BIG8}, toonDur=0.1),
             k(1.9, toon={'face': {**BIG8, 'lid': 1.0}}, toonDur=0.05, keepPose=True), k(2.0, toon={'face': BIG8}, toonDur=0.07, keepPose=True)])],
-        props=[P('wheat8', 'mowField', pos=[0.0, 0, 3.0], opts={'w': 26.0, 'd': 26.0, 'h': 0.9, 'n': 9000, 'width': 2.0, 'path': [[p_[0] - 5.0, p_[1], p_[2]] for p_ in RP7], 'bw': 0.04, **WHEAT, 'ground': '#C9A646', 'stripCol': '#F2E8BE'}),   # the first ring passes under them; gold as from above
+        props=[P('wheat8', 'mowField', pos=[0.0, 0, 3.0], opts={'w': 26.0, 'd': 26.0, 'h': 0.9, 'n': 9000, 'width': 2.0, 'path': [[p_[0] - 5.0, p_[1], p_[2]] for p_ in RP7], 'bw': 0.04, **WHEAT, 'ground': '#C9A646', 'stripCol': '#F2E8BE', 'over': True}),   # the first ring passes under them; gold as from above
                P('bino8', 'binoculars', on={'actor': 'savant1', 'joint': 'head', 'offset': [0.0, 0.33, 0.35]}, scale=3.0),
                P('loupe8', 'magnifier', on={'actor': 'savant2', 'hand': 'R', 'offset': [0.0, 0.0, 0.0], 'face': 'camera', 'faceFlat': True}, scale=2.2),
                BURST('ovni8', [-0.1, 3.0, 0.2], OV8, 'OVNI ?', 0.75, 0.6)],
@@ -210,7 +210,7 @@ RUNK = lambda: {'face': {'sweat': 1.0, 'brow': -0.6, 'mouth': 'clench'}}
 st.shot('S09', 'pavillon', setOpts={'houseColor': '#D8DDE6', 'roof': '#3A4A6A', 'door': '#1F3B73', 'frame': '#1F3B73', 'fence': False, 'mailbox': False}, look=XLOOK, fx=[{'type': 'shake', 'at': OUT9[0], 'dur': 0.2, 'amount': 0.012}], actors=[
         *[act(f'gend{j + 1}', [0.97, 0, -4.7], 0, 'run', 'angry', keys=[k(0.0, visible=False), k(OUT9[j], visible=True), k(0.0, look=[0.97, 1.0, 3.0]), k(0.0, toon=RUNK(), toonDur=0.0),
             k(OUT9[j], to=[r(0.85 + 0.3 * j), 0, r(MZ9 - 0.9)], dur=0.42, ease='out', clip='run'),
-            k(r(OUT9[j] + 0.42), to=[r(-1.7 + 0.9 * j), 0, r(MZ9 + 0.1 - 0.3 * j)], dur=r(D9 - OUT9[j] - 0.42), ease='linear', clip='run'),
+            k(r(OUT9[j] + 0.42), to=[r(-1.1 + 0.9 * j), 0, r(MZ9 + 0.1 - 0.3 * j)], dur=r(D9 - OUT9[j] - 0.42), ease='linear', clip='run'),
             k(r(OUT9[j] + 0.3), look=[-3.0, 0.5, MZ9], lookDur=0.1)]) for j in range(2)]],
         props=[P('sign9', 'signBoard', pos=[0.97, 0, -4.0], opts={'text': 'GENDARMERIE', 'w': 2.6, 'h': 0.5, 'height': 2.4, 'bg': '#1F3B73', 'fg': '#FFFFFF', 'frame': '#F4F4F0', 'posts': False}),
                P('flag9', 'regionFlag', pos=[2.6, 0, -3.8], opts={'kind': 'fr'}),
@@ -252,13 +252,13 @@ st.shot('S12', 'grassland', look=XLOOK, actors=[
         act('president', PR12, 20, 'kneelLook', 'happy', keys=[k(0.0, look=[0.4, 0.0, 0.7]), k(0.0, toon={'reach': {'R': [0.2, 0.08, 0.7, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
             k(0.35, toon={'reach': {'R': [0.55, 0.08, 0.6, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.3, toonEase='inOut'),   # his hand over the stripes...
             k(0.95, clip='stand'), k(1.05, look='camera'),
-            k(1.27, toon=TH12(-0.36, 1.8, 0.52, sq=[0.95, 1.07, 0.95]), toonDur=0.1, toonEase='out'), k(1.42, toon=TH12(-0.3, 1.52, 0.46), toonDur=0.1, toonEase='inOut'),   # ...up: the thumb past its place, then at his chest
-            k(1.78, toon=TH12(-0.31, 1.57, 0.47, sq=[1.0, 1.015, 1.0]), toonDur=0.25, toonEase='inOut'),
+            k(1.22, toon=TH12(-0.36, 1.8, 0.52, sq=[0.95, 1.07, 0.95], scl={'handR': 1.9}), toonDur=0.1, toonEase='out'), k(1.4, toon=TH12(-0.3, 1.52, 0.46, scl={'handR': 1.6}), toonDur=0.1, toonEase='inOut'),   # ...up: the thumb past its place, then at his chest
+            k(1.78, toon=TH12(-0.31, 1.57, 0.47, sq=[1.0, 1.015, 1.0], scl={'handR': 1.6}), toonDur=0.25, toonEase='inOut'),
             k(1.95, toon={'face': {'mouth': 'bigsmile', 'lid': 1.0, 'brow': 0.4}}, toonDur=0.05, keepPose=True), k(2.05, toon={'face': {'mouth': 'bigsmile', 'lid': 0.15, 'brow': 0.4}}, toonDur=0.07, keepPose=True)])],
         props=[PLAWN('lawn12', -4.0, 16.0),
                P('palais12', 'townHall', pos=[0.0, 0, -14.0], opts={'text': 'PALAIS', 'w': 12, 'gable': 'v2'}), COVER('cov12', 12, -14.0), P('pin12', 'cockade', on={'actor': 'president', 'joint': 'torso', 'offset': [-0.15, 0.6, 0.17]}),
-               MOWER('mow12', [1.4, 0, -0.4], ry=-60, runAt=0.0)],
-        cams=[FC(0.0, [1.8, 1.3, 3.6], [[0.0, 2.5, 0.0], [0.0, 0.0, 0.0], [1.6, 0.0, -0.4], [0.6, 0.0, 0.8], [-0.5, 1.9, 0.5]], top=0.16, bottom=0.8)])
+               MOWER('mow12', [1.15, 0, -0.5], ry=-60, runAt=0.0)],
+        cams=[FC(0.0, [1.8, 1.3, 3.6], [[0.0, 2.5, 0.0], [0.0, 0.0, 0.0], [1.75, 0.3, -0.5], [0.6, 0.0, 0.8], [-0.55, 1.9, 0.5]], top=0.16, bottom=0.8, lenses=range(26, 68))])
 
 # 13: he named it national gardener. On the striped lawn before the palace the president pins a medal on its handle and steps back to clap; the mower
 #     dips its nose: a bow; a helmeted guard salutes (JARDINIÈRE)
@@ -267,13 +267,13 @@ SAL13 = {'touch': {'R': ['face', -0.46, 0.8, 0.05, 1, 0.02]}, 'hands': {'R': 'op
 st.shot('S13', 'grassland', look=XLOOK, actors=[
         act('president', [-1.1, 0, -0.1], 44, 'stand', 'happy', keys=[k(0.0, look=[-0.5, 0.9, 0.5]), k(0.2, toon={'reach': {'R': [-0.5, 0.97, 0.5, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'mouth': 'smile'}}, toonDur=0.3, toonEase='inOut'),
             k(r(PIN13 + 0.15), look='camera'), *[k(r(PIN13 + 0.2 + 0.14 * i), toon=CLAP(0, i), toonDur=0.05) for i in range(8)]]),
-        act('garde1', [1.5, 0, 0.0], -30, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.6, 1.2]), k(0.3, look=[-1.1, 1.9, -0.1], lookDur=0.15), k(0.3, toon={'sq': [1.0, 1.03, 1.0]}, toonDur=0.2, toonEase='inOut'), k(0.62, look=[0.0, 0.9, 1.2], lookDur=0.12),
+        act('garde1', [1.25, 0, 0.0], -30, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.6, 1.2]), k(0.3, look=[-1.1, 1.9, -0.1], lookDur=0.15), k(0.3, toon={'sq': [1.0, 1.03, 1.0]}, toonDur=0.2, toonEase='inOut'), k(0.62, look=[0.0, 0.9, 1.2], lookDur=0.12),
             k(r(PIN13 + 0.22), toon={'sq': [1.05, 0.94, 1.05]}, toonDur=0.05), k(r(PIN13 + 0.3), toon={**SAL13, 'sq': [0.95, 1.08, 0.95]}, toonDur=0.08, toonEase='out'), k(r(PIN13 + 0.48), toon=SAL13, toonDur=0.1),
             k(1.5, look='camera'), k(1.8, toon={'face': {'lid': 1.0}}, toonDur=0.05, keepPose=True), k(1.9, toon={'face': {}}, toonDur=0.07, keepPose=True), k(2.05, look=[0.6, 0.6, 0.0])])],   # eyes on the medal, a stiff salute at the helmet's rim, a look to us
         props=[MOWER('mow13', MW13, ry=37, runAt=0.0, bowAt=r(PIN13 + 0.3)), P('med13', 'medal', scale=1.6, keys=[k(0.0, attach='mow13', offset=[0.0, 0.92, -0.85]), k(0.0, scale=0.01, dur=0.0), k(PIN13, scale=1.6, dur=0.08, ease='outBack')]),
                PLAWN('lawn13', -1.0, 11.0), HELMET('hel13', 'garde1'),
                P('palais13', 'townHall', pos=[0.0, 0, -9.0], opts={'text': 'PALAIS', 'w': 12, 'gable': 'v2'}), COVER('cov13', 12, -9.0), P('flag13', 'regionFlag', pos=[-2.6, 0, -1.2], opts={'kind': 'fr'}), P('pin13', 'cockade', on={'actor': 'president', 'joint': 'torso', 'offset': [-0.15, 0.6, 0.17]})],
-        cams=[FC(0.0, [0.9, 1.4, 4.6], [[-1.1, 2.5, -0.1], [0.0, 0.0, 1.2], [1.5, 2.95, 0.0], [0.95, 2.1, -0.2], [1.9, 1.5, 0.0], [-1.1, 0.0, -0.1]], top=0.2, bottom=0.76)])   # (review 2) the guard's helmet, his salute and his elbow inside the frame
+        cams=[FC(0.0, [0.9, 1.4, 4.6], [[-1.1, 2.5, -0.1], [0.0, 0.0, 1.2], [1.25, 2.95, 0.0], [0.7, 2.1, -0.2], [1.65, 1.5, 0.0], [-1.1, 0.0, -0.1], [-1.6, 1.5, -0.1]], top=0.2, bottom=0.76, lenses=range(26, 68))])   # (review 2) the guard's helmet, his salute and his elbow inside the frame
 st.cue('sfx:clink', 'S13', PIN13, 0.3); st.cue('sfx:fanfare', 'S13', r(PIN13 + 0.25), 0.2)
 
 # 14: it mowed the whole country. From very high: fields and hills, and wide stripes sweeping across them one after another, the mower a dot
@@ -325,24 +325,24 @@ st.cue('thud', 'S18', 0.2, 0.25); st.cue('clang', 'S18', r(CLOSE18 + 0.25), 0.4)
 
 # 19: his garden still isn't mowed. His front lawn waist-high, the one pale stripe across it from the first day, seen from above; he stands in it,
 #     deadpan, looks at us; a gnome pops up beside him and looks at us too; a blink; the end hold
-D19 = st.dur('S19'); ME19 = [-1.4, 0, -0.4]; GN19 = [-0.6, 0.5, 0.42]   # (review 1) in the one stripe from the first day
+D19 = st.dur('S19'); ME19 = [-1.4, 0, -0.4]; GN19 = [-0.62, 0.0, -0.3]   # (review 1) in the one stripe from the first day
 ST19 = {'width': 1.1, 'stripCol': '#D6EDA6', 'cutCol': '#C6E392', 'short': 0.06}   # (review 2) a wide pale trench that reads before the gnome pops
 st.shot('S19', 'pavillon', setOpts={'fence': False, 'mailbox': False}, look=XLOOK, actors=[act('mec', ME19, 10, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': DEAD}, toonDur=0.0),
             k(0.25, toon={'face': DEAD, 'sq': [1.0, 1.018, 1.0]}, toonDur=0.2, toonEase='inOut'), k(0.47, toon={'face': DEAD}, toonDur=0.15, toonEase='inOut'),
             k(0.6, look=[-3.5, 0.5, -0.4]), k(1.0, look='camera'), k(1.4, toon={'face': DEAD, 'sq': [1.0, 1.018, 1.0]}, toonDur=0.22, toonEase='inOut'),
             k(1.7, toon={'face': {'lid': 1.0}}, toonDur=0.12, toonEase='inOut'), k(1.95, toon={'face': DEAD}, toonDur=0.12, toonEase='inOut')])],
         props=[LAWNF('lawn19', 0.8, STRIPE, **ST19), P('lawn19b', 'mowField', pos=[3.2, 0, -0.9], opts={'w': 3.0, 'd': 5.8, 'h': 0.8, 'n': 1400}), HEDGEP('hedge19', -5.0),
-               P('gnome19', 'gnome', pos=GN19, ry=-15, opts={'s': 1.55, 'popAt': 1.05})],   # (review 1) bigger, standing in the grass: its head and hat above it, at his hand's height
-        cams=[FC(0.0, [-0.6, 4.2, 2.2], [[ME19[0], 2.45, ME19[2]], [ME19[0], 0.0, ME19[2]], [-2.7, 0.0, -0.4], [GN19[0], 1.5, GN19[2]], [0.1, 0.0, -0.4]], top=0.14, bottom=0.74, lenses=range(26, 76))])   # (review 2) higher: we look down into the stripe, him in it
+               P('gnome19', 'gnome', pos=GN19, ry=-15, opts={'s': 1.55, 'popAt': 1.05})],   # (review 2) in the stripe beside him, whole, at his hand's height (in the tall grass in front it fell under the captions)
+        cams=[FC(0.0, [-0.6, 4.2, 2.2], [[ME19[0], 2.45, ME19[2]], [ME19[0], 0.0, ME19[2]], [-2.7, 0.0, -0.4], [GN19[0], 1.0, GN19[2]], [0.1, 0.0, -0.4]], top=0.14, bottom=0.72, lenses=range(26, 76))])   # (review 2) higher: we look down into the stripe, him in it
 st.cue('sfx:pop', 'S19', 1.05, 0.2)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 st.write("La tondeuse", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec'], extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
     'voisin': {'preset': 'pyjama', 'seed': 701, 'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX},
-    'joueur1': {'suit': '#2F62B5', 'preset': 'footballeur', 'outfit': 'tracksuit', 'skin': '#9A6848', 'seed': 702, 'faceRim': True, 'pants': '#F4F4F0', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'joueur2': {'suit': '#2F62B5', 'preset': 'footballeur', 'outfit': 'tracksuit', 'skin': '#A5714E', 'seed': 703, 'faceRim': True, 'pants': '#F4F4F0', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
-    'joueur3': {'suit': '#2F62B5', 'preset': 'footballeur', 'outfit': 'tracksuit', 'skin': '#8F6044', 'seed': 704, 'faceRim': True, 'pants': '#F4F4F0', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'joueur1': {'suit': '#2F62B5', 'preset': 'footballeur', 'outfit': 'tracksuit', 'skin': '#AF8F7A', 'gloves': '#7A5038', 'seed': 702, 'faceRim': True, 'pants': '#F4F4F0', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'joueur2': {'suit': '#2F62B5', 'preset': 'footballeur', 'outfit': 'tracksuit', 'skin': '#B6957F', 'gloves': '#845840', 'seed': 703, 'faceRim': True, 'pants': '#F4F4F0', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
+    'joueur3': {'suit': '#2F62B5', 'preset': 'footballeur', 'outfit': 'tracksuit', 'skin': '#A88972', 'gloves': '#704832', 'seed': 704, 'faceRim': True, 'pants': '#F4F4F0', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'arbitre': {'preset': 'sportif', 'seed': 705, 'suit': '#16181C', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'savant1': {'preset': 'savant', 'seed': 706, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'savant2': {'preset': 'savant', 'seed': 707, 'hairColor': '#8A6A4A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},

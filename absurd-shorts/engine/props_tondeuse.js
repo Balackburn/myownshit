@@ -10,7 +10,11 @@ const PI = Math.PI, TAU = 2 * PI;
 const clamp01 = x => Math.max(0, Math.min(1, x));
 const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const L = c => new THREE.MeshLambertMaterial({ color: c });
-const LO = (c, k) => new THREE.MeshLambertMaterial({ color: c, polygonOffset: true, polygonOffsetFactor: -k, polygonOffsetUnits: -4 * k });   // (review 1 of 70) a ground overlay that never sinks into the field under it, however far the camera
+const LO = (c, k, over) => over ? new THREE.MeshLambertMaterial({ color: c, depthTest: false, depthWrite: false }) : new THREE.MeshLambertMaterial({ color: c, polygonOffset: true, polygonOffsetFactor: -k, polygonOffsetUnits: -4 * k });   // (review 1 of 70) a ground overlay that never sinks into the field under it, however far the camera
+// (review 2 of 70) o.over on mowField and stripePitch: on the grassland set (a ground plane 9 km wide, drawn first: renderOrder -2) the overlays fought with
+// the ground for depth near a low camera and lost (the palace's stripes, the forest's lane and the wheat's ground showed only far away): with o.over they
+// are painted over the ground without a depth test, right after it and before everything else (as props_elan.js does for its road)
+const OV = (m, k, over) => { if (over) { m.renderOrder = -1.5 + 0.1 * k; m.receiveShadow = true; m.castShadow = false; } return m; };
 const ball = (r, c, seg = 10) => new THREE.Mesh(new THREE.SphereGeometry(r, seg, Math.max(6, seg - 2)), typeof c === 'string' ? L(c) : c);
 const UP = new THREE.Vector3(0, 1, 0);
 
@@ -22,7 +26,7 @@ export const TONDEUSE_PROPS = {
   mowField(o) {
     const W = o.w ?? 8, D = o.d ?? 6, H = o.h ?? 0.5, n = o.n ?? 2400, path = o.path || [], half = (o.width ?? 0.55) / 2, sh = o.short ?? 0.12, g = grp();
     const cols = (o.cols || ['#5E9A4A', '#6FB05A', '#4E8A3E', '#7FBF5E']).map(c => new THREE.Color(c)), cutCol = new THREE.Color(o.cutCol || '#9CCB6A');
-    if (o.ground !== 'none') g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), LO(o.ground || '#4E7F3A', 1)), 0, 0.01, 0));   // o.ground 'none': only the mown bands, over a ground of its own
+    if (o.ground !== 'none') g.add(at(OV(new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), LO(o.ground || '#4E7F3A', 1, o.over)), 1, o.over), 0, 0.01, 0));   // o.ground 'none': only the mown bands, over a ground of its own
     const geo = new THREE.ConeGeometry(o.bw ?? 0.022, 1, 3); geo.translate(0, 0.5, 0);
     const im = new THREE.InstancedMesh(geo, new THREE.MeshLambertMaterial({ color: '#FFFFFF' }), n); im.frustumCulled = false; im.castShadow = false; im.receiveShadow = true; g.add(im);
     const dm = new THREE.Object3D(), B = [];
@@ -32,7 +36,7 @@ export const TONDEUSE_PROPS = {
       B.push({ x, z, h: H * (0.75 + 0.5 * hash(i * 3 + 3)), lean: (hash(i + 7) - 0.5) * 0.4, ry: hash(i + 9) * TAU, tc, col: cols[i % cols.length], was: null }); }
     const strips = [];
     for (let k = 1; k < path.length; k++) { const [t0, x0, z0] = path[k - 1], [t1, x1, z1] = path[k], len = Math.hypot(x1 - x0, z1 - z0); if (len < 1e-3) continue;
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(half * 2, 1).rotateX(-PI / 2).translate(0, 0, 0.5), LO(o.stripCols ? o.stripCols[(k - 1) % o.stripCols.length] : (o.stripCol || '#8DC05E'), 2)); m.position.set(x0, 0.02, z0); m.rotation.y = Math.atan2(x1 - x0, z1 - z0); m.visible = false; g.add(m); strips.push({ m, t0, t1, len }); }
+      const m = OV(new THREE.Mesh(new THREE.PlaneGeometry(half * 2, 1).rotateX(-PI / 2).translate(0, 0, 0.5), LO(o.stripCols ? o.stripCols[(k - 1) % o.stripCols.length] : (o.stripCol || '#8DC05E'), 2, o.over)), 2, o.over); m.position.set(x0, 0.02, z0); m.rotation.y = Math.atan2(x1 - x0, z1 - z0); m.visible = false; g.add(m); strips.push({ m, t0, t1, len }); }
     g.userData.update = t => {
       for (let i = 0; i < n; i++) { const b = B[i], cut = t >= b.tc; dm.position.set(b.x, 0, b.z); dm.rotation.set(b.lean, b.ry, 0); dm.scale.set(1, b.h * (cut ? sh : 1), 1); dm.updateMatrix(); im.setMatrixAt(i, dm.matrix);
         if (cut !== b.was) { im.setColorAt(i, cut ? cutCol : b.col); b.was = cut; } }
@@ -115,7 +119,7 @@ export const TONDEUSE_PROPS = {
   // light and dark in turn) grows along the pitch between t0 and t1 (from the near end for even i, the far end for odd)
   stripePitch(o) {
     const W = o.w ?? 34, D = o.d ?? 52, n = o.n ?? 8, g = grp();
-    g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W + 6, D + 6).rotateX(-PI / 2), LO(o.base || '#4F7F34', 1)), 0, 0.01, 0));
+    g.add(at(OV(new THREE.Mesh(new THREE.PlaneGeometry(W + 6, D + 6).rotateX(-PI / 2), LO(o.base || '#4F7F34', 1, o.over)), 1, o.over), 0, 0.01, 0));
     const lines = canvasPlane(W, D, (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = '#F4F4F0'; c.lineWidth = Wc * 0.007; const sx = Wc / W, sz = Hc / D;
       c.strokeRect(Wc * 0.015, Hc * 0.01, Wc * 0.97, Hc * 0.98); c.beginPath(); c.moveTo(Wc * 0.015, Hc / 2); c.lineTo(Wc * 0.985, Hc / 2); c.stroke(); c.beginPath(); c.arc(Wc / 2, Hc / 2, 6 * sx, 0, TAU); c.stroke();
       c.strokeRect(Wc / 2 - 12 * sx, Hc * 0.01, 24 * sx, 10 * sz); c.strokeRect(Wc / 2 - 12 * sx, Hc * 0.99 - 10 * sz, 24 * sx, 10 * sz); }, { res: 512, transparent: true });
@@ -123,7 +127,7 @@ export const TONDEUSE_PROPS = {
     for (const e of [-1, 1]) { const goal = grp(at(box(0.14, 2.44, 0.14, '#F4F4F0', { outline: 0.006 }), -3.66, 1.22, 0), at(box(0.14, 2.44, 0.14, '#F4F4F0', { outline: 0.006 }), 3.66, 1.22, 0), at(box(7.46, 0.14, 0.14, '#F4F4F0', { outline: 0.006 }), 0, 2.44, 0));
       goal.position.z = e * (D / 2 - 0.25); if (o.goals !== false) g.add(goal); }
     const sw = W / n, stripes = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(sw, 1).rotateX(-PI / 2), LO(i % 2 ? (o.light || '#A6E07A') : (o.dark || '#5E9F3E'), 2)); m.position.set(-W / 2 + (i + 0.5) * sw, 0.02, 0); m.visible = false; g.add(m); stripes.push(m); }
+    for (let i = 0; i < n; i++) { const m = OV(new THREE.Mesh(new THREE.PlaneGeometry(sw, 1).rotateX(-PI / 2), LO(i % 2 ? (o.light || '#A6E07A') : (o.dark || '#5E9F3E'), 2, o.over)), 2, o.over); m.position.set(-W / 2 + (i + 0.5) * sw, 0.02, 0); m.visible = false; g.add(m); stripes.push(m); }
     const P_ = o.passes || [];
     g.userData.update = t => { stripes.forEach((m, i) => { const p = P_[i]; if (!p) { m.visible = false; return; } const u = clamp01((t - p[0]) / Math.max(0.01, p[1] - p[0]));
       m.visible = u > 0; m.scale.z = Math.max(0.001, u * D); m.position.z = (i % 2 ? -1 : 1) * (D / 2) * (1 - u); }); };
