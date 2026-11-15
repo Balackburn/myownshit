@@ -100,10 +100,17 @@ export const ROBINET_PROPS = {
     // the tail of a submarine stuck in the plughole: the stern, its fins and propeller, the periscope beside it
     let subTail = null, subPeri = null; if (o.sub) { subTail = grp(); const hull = '#5E6B7A';
       const cone = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.42, 14), L(hull)); cone.position.y = 0.21; subTail.add(cone, at(box(0.36, 0.016, 0.06, hull), 0, 0.12, 0), at(box(0.016, 0.16, 0.06, hull), 0, 0.14, 0));
-      const pr = grp(at(box(0.03, 0.13, 0.012, '#C9A43E'), 0, 0.06, 0), at(box(0.03, 0.13, 0.012, '#C9A43E'), 0, -0.06, 0)); pr.position.y = 0.44; pr.rotation.x = PI / 2; subTail.add(pr); subTail.userData.pr = pr;
+      // (review 2 of 71) it reads as the submarine stuck in the plughole (a grey cone in a tub): a red stripe and a porthole on the hull, the blades
+      // across the shaft (they turned on their own long axis, never seeming to move) with a pale blur disc, and a chrome drain ring round its base
+      const band = new THREE.Mesh(new THREE.CylinderGeometry(0.084, 0.092, 0.04, 16, 1, true), L('#C8322A')); band.position.y = 0.1; subTail.add(band);
+      subTail.add(at(new THREE.Mesh(new THREE.CircleGeometry(0.02, 12), L('#1C2A38')), 0, 0.22, 0.056), at(new THREE.Mesh(new THREE.TorusGeometry(0.021, 0.004, 6, 14), L('#E8ECEF')), 0, 0.22, 0.057));
+      const pr = grp(at(box(0.19, 0.012, 0.045, '#C9A43E'), 0.1, 0, 0), at(box(0.19, 0.012, 0.045, '#C9A43E'), -0.1, 0, 0));
+      const blur = new THREE.Mesh(new THREE.CircleGeometry(0.2, 24), new THREE.MeshBasicMaterial({ color: '#F4E8BC', transparent: true, opacity: 0.32, depthWrite: false, side: THREE.DoubleSide })); blur.rotation.x = -PI / 2; pr.add(blur);
+      pr.position.y = 0.44; subTail.add(pr); subTail.userData.pr = pr;
       subTail.position.set(hole[0], y0 + 0.03, 0); subTail.rotation.z = 0.25; g.add(subTail);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.02, 8, 28), L('#D9DEE4')); ring.rotation.x = PI / 2; ring.position.set(hole[0], y0 + 0.02, 0); g.add(ring);
       subPeri = grp(at(cyl(0.012, 0.012, 0.3, '#3A424C', 6, { pivot: 'bottom' }), 0, 0, 0)); const hd = grp(at(box(0.04, 0.05, 0.08, '#3A424C'), 0, 0, 0.02), at(new THREE.Mesh(new THREE.CircleGeometry(0.017, 12), L('#14161B')), 0, 0, 0.061), at(ball(0.006, '#FFFFFF', 5), 0.006, 0.007, 0.064));
-      hd.position.y = 0.3; subPeri.add(hd); subPeri.userData.hd = hd; subPeri.position.set(hole[0] - 0.12, y0 + 0.03, 0.06); g.add(subPeri); }
+      hd.position.y = 0.3; hd.scale.setScalar(1.6); subPeri.add(hd); subPeri.userData.hd = hd; subPeri.position.set(hole[0] - 0.12, y0 + 0.03, 0.06); g.add(subPeri); }   // (review 2 of 71) the periscope head bigger (its lens was a 6 px dot)
     g.userData.update = tt => {
       const f = keyAt(fk, tt), over = f > 1, wy = y0 + 0.03 + (H - 0.04) * Math.min(1, Math.max(0, f));
       water.visible = f > 0.02; water.position.y = wy + 0.01 * Math.sin(tt * 4.2); water.scale.setScalar(1);
@@ -121,7 +128,7 @@ export const ROBINET_PROPS = {
           else { const tl = Math.sqrt(Math.max(0, (mouth[1] - 0.04 - lv) / 4.9)), rs = fall - tl; if (rs < 0.45) { dring.visible = true; dring.position.set(mouth[0], lv + 0.005, 0); dring.scale.setScalar(0.4 + 2.2 * rs); dring.material.opacity = 0.8 * (1 - rs / 0.45); } } } }
       drop.visible = dv;
       weed.forEach((s, i) => { let seg = s.children[0], j = 0; while (seg) { seg.rotation.z = 0.18 * Math.sin(tt * 1.6 + i * 1.3 + j * 0.7); seg.rotation.x = 0.08 * Math.sin(tt * 1.2 + i); j++; seg = seg.children.find(c => c.type === 'Group'); } });
-      if (subTail) { subTail.userData.pr.rotation.y = tt * 9; subTail.rotation.x = 0.04 * Math.sin(tt * 3.1); if (subPeri) subPeri.userData.hd.rotation.y = keyAt(o.subYaw, tt, 0) * PI / 180; }
+      if (subTail) { subTail.userData.pr.rotation.y = tt * 16; subTail.rotation.x = 0.04 * Math.sin(tt * 3.1); if (subPeri) subPeri.userData.hd.rotation.y = keyAt(o.subYaw, tt, 0) * PI / 180; }
     };
     g.userData.update(0); g.userData.drain = hole; g.userData.mouth = mouth; g.userData.lie = [0, y0 + 0.2, 0]; return g;
   },

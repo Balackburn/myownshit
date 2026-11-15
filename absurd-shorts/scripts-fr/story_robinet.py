@@ -68,9 +68,9 @@ st.shot('S01', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', ME1, -10
             k(0.0, toon={'reach': {'R': [TAPH[0], 0.95, TAPH[2], 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3}}, toonDur=0.0),
             k(0.18, toon={'reach': {'R': [r(TAPH[0] - 0.03), 0.97, r(TAPH[2] + 0.04), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3}}, toonDur=0.12, toonEase='out'),   # a full turn of the tap
             k(ON1, look=[MOUTH[0], 0.5, MOUTH[2]]), k(0.55, toon={'face': {'lid': 0.25, 'mouth': 'smile'}}, toonDur=0.12),
-            k(RING1, look=[3.0, 1.6, 2.0]), k(r(RING1 + 0.02), toon={'face': {'lid': 0.0, 'brow': 0.5}}, toonDur=0.06),   # the phone: his head snaps round
+            k(r(RING1 + 0.1), look=[3.0, 1.6, 2.0], lookDur=0.06), k(r(RING1 + 0.02), toon={'ears': 0.7, 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'eye': 0.4, 'brow': 0.8}}, toonDur=0.05),   # (review 2) the phone: his ears first, then his head snaps round
             k(GO1, to=[2.3, 0, 1.9], dur=r(D1 - GO1 + 0.4), ease='in', clip='walk'), k(r(GO1 + 0.15), look='camera'), k(r(GO1 + 0.2), toon={'face': {'lid': 0.2, 'mouth': 'O'}}, toonDur=0.08)])],   # off toward us, whistling
-        props=[TUBP('tub1', fillKeys=[[0.0, 0.2], [ON1, 0.2], [D1, 0.55]], tap=[ON1, 99.0]),
+        props=[TUBP('tub1', fillKeys=[[0.0, 0.08], [ON1, 0.08], [r(ON1 + 0.7), 0.55], [D1, 0.85]], tap=[ON1, 99.0]),   # (review 2) the tub fills in front of us (it stayed empty)
                P('notes1', 'whistleNotes', on={'actor': 'mec', 'joint': 'head', 'offset': [0.12, 0.05, 0.12]}, opts={'from': r(GO1 + 0.2), 'every': 0.22, 'n': 4, 'size': 0.09})],
         cams=[FC(0.0, [-0.5, 2.0, 1.4], [[ME1[0], 2.45, ME1[2]], [ME1[0], 0.0, ME1[2]], [r(ME1[0] + 0.5), 1.4, ME1[2]], [r(TUB[0] - TW / 2), 0.1, TUB[2]], [MOUTH[0], 1.1, MOUTH[2]], [r(TUB[0] - TW / 2), 0.9, RIMZ]], top=0.14, bottom=0.78, inside=BATH)])   # (stills 1) higher, into the tub (the water and the stream were hidden by its wall); him whole
 st.cue('sfx:click', 'S01', 0.18, 0.3); st.cue('sfx:pour', 'S01', ON1, 0.45); st.cue('sfx:ring', 'S01', RING1, 0.35)
@@ -121,14 +121,15 @@ BLOW4 = lambda puff: {'touch': {'R': ['face', -0.05, -0.1, 0.16, 1, 0.02], 'L': 
 st.shot('S04', 'parisStreet', setOpts={'clear': [-8.0, 8.0]}, look=XLOOK, actors=[
         act('voisin1', [BX4, 3.6, -1.0], -90, 'stand', 'neutral', keys=[k(0.0, look=[8.6, 4.3, -1.0]), k(0.0, toon=BLOW4(0.0), toonDur=0.0),
             *[kk for i, t_ in enumerate((0.15, 0.5, 0.85)) for kk in (k(t_, toon=BLOW4(1.0), toonDur=0.1, toonEase='out'), k(r(t_ + 0.22), toon=BLOW4(0.2), toonDur=0.1))],
-            k(1.25, toon={'touch': {'R': ['face', -0.05, -0.1, 0.16, 1, 0.02], 'L': ['face', 0.05, -0.1, 0.16, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'eye': 0.8, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.06), k(1.3, look='camera')]),   # the duck looks at him: his eyes pop
+            k(1.25, toon={'touch': {'R': ['face', -0.05, -0.1, 0.16, 1, 0.02], 'L': ['face', 0.05, -0.1, 0.16, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [0.9, 1.12, 0.9], 'face': {'pop': 1.0, 'popLen': 0.12, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.06), k(1.3, look='camera')]),   # (review 2) the duck looks at him: his eyes out on stalks
         act('voisine2', [BX4, 6.8, 1.2], -90, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'touch': {'R': ['face', -0.1, 0.12, 0.14, 1, 0.02], 'L': ['face', 0.1, 0.12, 0.14, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0),
             k(0.55, toon={'touch': {'R': ['face', -0.1, 0.0, 0.16, 1, 0.02], 'L': ['face', 0.1, 0.0, 0.16, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3}}, toonDur=0.12, toonEase='inOut'), *BLINK(1.4, {'lid': 0.3})])],
         props=[P('balc4a', 'balcony', pos=[9.55, 3.6, -1.0], ry=-90, opts={'w': 2.6, 'd': 1.1, 'rail': 'front'}), P('balc4b', 'balcony', pos=[9.55, 6.8, 1.2], ry=-90, opts={'w': 2.6, 'd': 1.1, 'rail': 'front'}),
-               P('duck4', 'duckRing', pos=[9.05, 3.95, -1.0], ry=-90, opts={'r': 0.42, 'inflate': [0.1, 1.15]}, keys=[k(1.15, rotTo=[0, r(-PI / 2 + 0.5), 0], dur=0.15, ease='out')]),
+               P('duck4', 'duckRing', pos=[9.05, 3.95, -1.0], ry=-90, scale=0.3, opts={'r': 0.42, 'inflate': [-1.0, -0.9]}, keys=[k(0.15, scale=0.55, dur=0.12, ease='out'), k(0.5, scale=0.8, dur=0.12, ease='out'),
+                   k(0.85, scale=1.18, dur=0.12, ease='out'), k(1.0, scale=1.0, dur=0.15, ease='inOut'), k(1.15, rotTo=[0, r(-PI / 2 + 0.5), 0], dur=0.15, ease='out')]),   # (review 2) three puffs, the last one overshoots
                P('mask4', 'diveMask', on={'actor': 'voisine2', 'joint': 'head', 'offset': [0.0, -0.18, 0.0]}, keys=[k(0.0, offset=[0.0, -0.06, 0.0], dur=0.0), k(0.55, offset=[0.0, -0.18, 0.0], dur=0.12)]),
                FLOOD('fl4', 1.9, 2.0, 0.0, D4, w=30.0, d=40.0)],
-        cams=[FC(0.0, [3.4, 2.3, 5.8], [[BX4, 6.3, -1.0], [BX4, 8.9, 1.2], [8.8, 3.6, -1.0], [8.8, 2.0, 1.5], [9.6, 2.1, -2.6]], top=0.14, bottom=0.8)])
+        cams=[FC(0.0, [6.0, 4.6, 2.2], [[BX4, 6.25, -1.0], [8.8, 3.45, -1.0], [9.05, 4.5, -0.45], [9.05, 4.5, -1.55]], top=0.14, bottom=0.76)])   # (review 2) pushed in on him and the duck (faces were 3 % of the frame)
 st.cue('sfx:stretch', 'S04', 0.15, 0.3); st.cue('sfx:stretch', 'S04', 0.5, 0.3); st.cue('sfx:stretch', 'S04', 0.85, 0.3); st.cue('sfx:squeak', 'S04', 1.15, 0.3)
 
 # 5: the firemen pumped all night. At night in the flooded street: a fire engine; one fireman works the pump, the other holds the outflow hose
@@ -138,12 +139,12 @@ st.shot('S05', 'parisStreet', setOpts={'night': True, 'clear': [-8.0, 8.0]}, loo
         act('pompier1', [-1.2, 0.55, 1.0], 60, 'stand', 'neutral', keys=[k(0.0, look=[1.6, 0.5, 1.6]),
             k(0.0, toon={'reach': {'R': [-0.75, 1.15, 1.25, 1, 0.03], 'L': [-0.95, 1.05, 1.05, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': DEAD}, toonDur=0.0),
             k(0.75, look=[-3.0, 0.5, -0.8]), k(1.2, look=[1.6, 0.5, 1.6]), k(1.45, look='camera'), k(1.5, toon={'reach': {'R': [-0.75, 1.15, 1.25, 1, 0.03], 'L': [-0.95, 1.05, 1.05, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.5, 'brow': 0.3}}, toonDur=0.1), *BLINK(1.85, {'lid': 0.5, 'brow': 0.3})]),   # the jet, the intake, us
-        act('pompier2', [-3.6, 0.55, -1.6], 20, 'stand', 'neutral', keys=[k(0.0, look=[-3.2, 1.0, -1.0]),
-            *[kk for i in range(5) for kk in (k(r(0.05 + 0.4 * i), toon={'reach': {'R': [-3.4, 1.35, -1.2, 1, 0.03], 'L': [-3.6, 1.35, -1.2, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [-0.1, 0, 0, 1, None]}}, toonDur=0.15, toonEase='inOut'),
-                                       k(r(0.25 + 0.4 * i), toon={'reach': {'R': [-3.4, 0.95, -1.2, 1, 0.03], 'L': [-3.6, 0.95, -1.2, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.35, 0, 0, 1, None]}}, toonDur=0.15, toonEase='inOut'))]])],   # the pump handle up and down
-        props=[P('truck5', 'fireTruck', pos=[-5.6, 0, -2.0], ry=0), FLOOD('fl5', 0.55, 0.55, 0.0, 1.0, w=30.0, d=50.0, op=0.8),
+        act('pompier2', [-2.6, 0.55, 0.8], 20, 'stand', 'neutral', keys=[k(0.0, look=[-2.2, 1.0, 1.4]),   # (review 2) beside the other one (he hid behind him)
+            *[kk for i in range(5) for kk in (k(r(0.05 + 0.4 * i), toon={'reach': {'R': [-2.4, 1.35, 1.2, 1, 0.03], 'L': [-2.6, 1.35, 1.2, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [-0.1, 0, 0, 1, None]}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.15, toonEase='inOut'),
+                                       k(r(0.25 + 0.4 * i), toon={'reach': {'R': [-2.4, 0.95, 1.2, 1, 0.03], 'L': [-2.6, 0.95, 1.2, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.45, 0, 0, 1, None]}, 'sq': [1.05, 0.92, 1.05]}, toonDur=0.15, toonEase='inOut'))]])],   # the pump handle up and down, his whole body in it
+        props=[P('truck5', 'fireTruck', pos=[-5.6, 0, -2.0], ry=0), P('fl5', 'floodWater', pos=[0.0, 0, 0.0], opts={'w': 30.0, 'd': 50.0, 'y0': 0.55, 'y1': 0.55, 't0': 0.0, 't1': 1.0, 'opacity': 0.86, 'color': '#1E3C63'}),   # (review 2) night water (it was as bright as by day)
                P('jet5', 'waterJet', on={'actor': 'pompier1', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, opts={'len': 0.3, 'lance': 0.6, 'on': [[0.0, True]]}), P('arc5', 'hoseArc', pos=[-0.23, 1.15, 1.55], opts={'to': [1.83, -0.6, 0.05], 'h': 0.6, 'r': 0.07, 'from': 0.0, 'grow': 0.01}),   # (pass 2) the outflow arcs over and lands in the street a few metres from the intake (a straight rod left the frame)
-               P('pump5', 'floorSlab', pos=[-3.5, 0.55, -1.2], opts={'w': 0.5, 'd': 0.4, 'h': 0.55, 'color': '#C8322A'})],
+               P('pump5', 'floorSlab', pos=[-2.5, 0.55, 1.2], opts={'w': 0.5, 'd': 0.4, 'h': 0.55, 'color': '#C8322A'})],
         tethers=[{'a': {'prop': 'truck5', 'offset': [1.2, 1.0, 1.2]}, 'b': {'actor': 'pompier1', 'hand': 'L'}, 'color': '#C9A43E', 'radius': 0.05, 'radial': 8, 'sag': 0.5, 'n': 14},
                  {'a': {'prop': 'truck5', 'offset': [1.3, 0.8, 0.6]}, 'b': {'prop': 'pump5', 'offset': [3.6, -0.6, 1.4]}, 'color': '#C9A43E', 'radius': 0.05, 'radial': 8, 'sag': 0.3, 'n': 14}],
         cams=[FC(0.0, [3.4, 1.7, 6.2], [[-1.2, 2.95, 1.0], [-3.6, 2.95, -1.6], [1.8, 0.5, 1.8], [-3.0, 0.5, 0.0], [-5.6, 2.5, -2.0]], top=0.14, bottom=0.8)])
@@ -200,7 +201,7 @@ st.shot('S09', 'grassland', look=XLOOK, actors=[
                FLOOD('fl9', WY9, WY9, 0.0, 1.0, w=600.0, d=600.0, op=0.86), *TOWN('9', WY9, [(-15.0, -20.0, 0, 0.0), (5.0, -24.0, 0, 0.7), (21.0, -9.0, -90, 0.3), (-27.0, -6.0, 90, 0.9)]),
                P('shades9a', 'shades', on={'actor': 'touriste1', 'joint': 'head', 'offset': [0.0, 0.2, 0.16]}), P('shades9b', 'shades', on={'actor': 'touriste2', 'joint': 'head', 'offset': [0.0, 0.2, 0.16]}),
                P('drops9', 'waterDrops', pos=[5.4, WY9, -0.6], opts={'at': r(DIVE9 + 0.58), 'n': 26, 'r': 0.07, 'speed': 4.5, 'spread': 0.9, 'color': '#BFE6F7', 'life': 0.8})],
-        cams=[FC(0.0, [0.6, r(WY9 + 1.9), 6.5], [[-1.2, r(WY9 + 2.0), 0.2], [1.5, r(WY9 + 4.6), -0.6], [5.4, WY9, -0.6], [-2.8, WY9, 0.6]], top=0.14, bottom=0.78)])
+        cams=[FC(0.0, [0.6, r(WY9 + 1.9), 6.5], [[-1.2, r(WY9 + 2.0), 0.2], [1.5, r(WY9 + 4.6), -0.6], [6.4, WY9, -0.6], [6.4, r(WY9 + 1.2), -0.6], [-2.8, WY9, 0.6]], top=0.14, bottom=0.78)])   # (review 2) the splash inside the frame
 st.cue('sfx:boing', 'S09', DIVE9, 0.25); st.cue('sfx:splash', 'S09', r(DIVE9 + 0.58), 0.45)
 
 # 10: the navy sent a submarine. Low over the water in the drowned street: a periscope pops up, looks left, right, sees us, ducks under with a gulp
@@ -229,7 +230,8 @@ st.shot('S11', 'grassland', look=XLOOK, actors=[
                P('sub11', 'submarine', pos=SUB11, ry=90, opts={'len': 6.0, 'hatchAt': HATCH11, 'peri': [[0.0, 1.0]]}, keys=[k(0.0, to=SUB11, dur=0.0), k(0.0, to=[SUB11[0], r(SUB11[1] - 1.2), SUB11[2]], dur=0.0), k(0.0, to=SUB11, dur=0.35, ease='out')]),
                P('cap11', 'captainCap', on={'actor': 'marin', 'joint': 'head', 'offset': [0.0, 0.17, -0.01]}, scale=1.0),
                P('bag11', 'baguette', on={'actor': 'boulanger', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, keys=[k(1.12, attach='marin', hand='R', offset=[0.0, 0.0, 0.05])]),
-               P('hat11', 'chefHat', on={'actor': 'boulanger', 'joint': 'head', 'offset': [0.0, 0.4, 0.0]})],
+               P('hat11', 'chefHat', on={'actor': 'boulanger', 'joint': 'head', 'offset': [0.0, 0.4, 0.0]}),
+               P('balc11', 'balcony', pos=[10.15, r(WY11 + 1.2), 0.0], ry=-90, opts={'w': 1.8, 'd': 0.9, 'rail': 'front'})],   # (review 2) he stood on air
         cams=[FC(0.0, [3.0, r(WY11 + 1.6), 5.2], [[8.2, r(WY11 + 3.6), 0.0], [10.25, r(WY11 + 3.4), 0.0], [5.4, WY11, 0.0], [10.0, WY11, 1.6]], top=0.14, bottom=0.78)])
 st.cue('sfx:splash', 'S11', 0.1, 0.3); st.cue('sfx:boing', 'S11', r(HATCH11 + 0.08), 0.3); st.cue('sfx:clink', 'S11', HATCH11, 0.25)
 
@@ -254,7 +256,7 @@ st.shot('S13', 'mairie', setOpts={'desk': False, 'banner': False, 'map': False},
             k(r(LAB13 + 0.1), toon={'reach': {'R': [0.28, 1.72, -2.49, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3}}, toonDur=0.05), k(r(LAB13 + 0.18), toon={'reach': {'R': [0.3, 1.7, -2.44, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.3}}, toonDur=0.05),
             k(r(LAB13 + 0.35), look='camera'), *BLINK(r(LAB13 + 0.7), {'lid': 0.3})])],
         props=[P('map13', 'seaMap', pos=[0.0, 1.75, -2.53], opts={'w': 2.6, 'h': 1.8, 'paint': [-1.0, 0.25], 'labelAt': LAB13})],
-        cams=[FC(0.0, [0.1, 1.7, 0.0], [[-1.3, 2.65, -2.53], [1.3, 0.85, -2.53], [1.25, 2.4, -1.9]], top=0.16, bottom=0.7)])   # his knees at the frame's foot
+        cams=[FC(0.0, [0.1, 1.7, 0.0], [[-1.3, 2.65, -2.53], [1.3, 0.85, -2.53], [1.25, 2.4, -1.9], [1.6, 2.35, -1.9]], top=0.16, bottom=0.7)])   # (review 2) his face inside the frame   # his knees at the frame's foot
 st.cue('sfx:pop', 'S13', LAB13, 0.25); st.cue('sfx:tick', 'S13', r(LAB13 + 0.1), 0.2)
 
 # 14: the president came by pedalo. Between the chimneys at roof level: the president pedals a swan pedalo, knees pumping up to his chin, his two
@@ -268,20 +270,21 @@ st.shot('S14', 'grassland', look=XLOOK, actors=[
         props=[FLOOD('fl14', WY14, WY14, 0.0, 1.0, w=600.0, d=600.0, op=0.86), *TOWN('14', WY14, [(-12.0, -22.0, 0, 0.5), (12.0, -26.0, 0, 0.0), (-26.0, -2.0, 90, 0.8)]), P('ped14', 'pedalo', pos=PED14, ry=70, keys=[k(0.0, to=[0.6, WY14, 0.4], dur=D14, ease='linear')]),
                *[P(f'ring14{j}', 'duckRing', pos=[-2.1, r(WY14 + 0.05), r(-1.3 + 2.6 * j)], ry=70, opts={'r': 0.45, 'bob': True}, keys=[k(0.0, to=[0.5, r(WY14 + 0.05), r(-0.9 + 2.6 * j)], dur=D14, ease='linear')]) for j in range(2)],
                P('roof14a', 'zincRoof', pos=[-4.0, r(WY14 + 0.6), -4.0], opts={'w': 7.0}), P('roof14b', 'zincRoof', pos=[4.5, r(WY14 + 0.6), -3.0], ry=90, opts={'w': 4.0})],
-        cams=[FC(0.0, [2.8, r(WY14 + 1.6), 5.0], [[-2.0, r(WY14 + 1.9), 0.0], [0.6, r(WY14 + 1.9), 0.4], [-2.1, WY14, -1.3], [0.5, WY14, 1.7], [-4.0, r(WY14 + 2.2), -4.0]], top=0.2, bottom=0.78)])
+        cams=[FC(0.0, [2.8, r(WY14 + 1.6), 5.0], [[-2.0, r(WY14 + 1.9), 0.0], [0.6, r(WY14 + 1.9), 0.4], [-2.1, WY14, -1.3], [0.5, WY14, 1.7], [-4.0, r(WY14 + 2.2), -4.0]], top=0.3, bottom=0.78)])   # (review 2) his head below the card
 st.cue('sfx:squeak', 'S14', 0.1, 0.2); st.cue('sfx:splash', 'S14', 0.6, 0.15)
 
 # 15: he opened a lighthouse. On the roof of this man's building, now a lighthouse: the president presses a big red button; the lamp lights, the
 #     beam sweeps round and catches him full in the face; squint, smile
 D15 = st.dur('S15'); WY15 = 14.6; PRESS15 = 0.35; LH15 = [0.0, r(WY15 + 0.6), -2.0]
 st.shot('S15', 'grassland', look={'sat': 0.85, 'exposure': 0.95}, actors=[
-        act('president', [1.6, r(WY15 + 0.6), -0.4], -60, 'stand', 'happy', keys=[k(0.0, look=[1.05, r(WY15 + 1.6), -0.8]), k(0.92, toon={'face': {'lid': 0.85, 'mouth': 'smile', 'brow': -0.4}, 'sq': [1.04, 0.96, 1.04]}, toonDur=0.05, toonEase='out'), k(1.15, look='camera', lookDur=0.15), k(1.2, toon={'face': {'lid': 0.3, 'mouth': 'bigsmile'}}, toonDur=0.12),   # (review 1) the beam across his face: a squint, then a beam at us
-            k(0.0, toon={'reach': {'R': [1.1, r(WY15 + 1.75), -0.75, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'mouth': 'smile'}}, toonDur=0.0),
-            k(PRESS15, toon={'reach': {'R': [1.1, r(WY15 + 1.62), -0.75, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'mouth': 'smile'}}, toonDur=0.06), k(r(PRESS15 + 0.2), look=[0.0, r(WY15 + 5.4), -2.0]),
+        act('president', [1.6, r(WY15 + 0.6), -0.4], 28, 'stand', 'happy', keys=[   # (review 2) facing the camera (his face was turned away)
+            k(0.0, look=[1.05, r(WY15 + 1.6), -0.8]), k(0.92, toon={'face': {'lid': 0.85, 'mouth': 'smile', 'brow': -0.4}, 'sq': [1.04, 0.96, 1.04]}, toonDur=0.05, toonEase='out'), k(1.15, look='camera', lookDur=0.15), k(1.2, toon={'face': {'lid': 0.3, 'mouth': 'bigsmile'}}, toonDur=0.12),   # (review 1) the beam across his face: a squint, then a beam at us
+            k(0.0, toon={'reach': {'R': [1.8, r(WY15 + 1.75), 0.15, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'mouth': 'smile'}}, toonDur=0.0),
+            k(PRESS15, toon={'reach': {'R': [1.8, r(WY15 + 1.62), 0.15, 1, 0.03]}, 'hands': {'R': 'point'}, 'face': {'mouth': 'smile'}}, toonDur=0.06), k(r(PRESS15 + 0.2), look=[0.0, r(WY15 + 5.4), -2.0]),
             k(1.0, look='camera'), k(1.02, toon={'face': {'lid': 0.85, 'mouth': 'bigsmile', 'brow': -0.3}}, toonDur=0.04), k(1.55, toon={'face': {'lid': 0.4, 'mouth': 'smile'}}, toonDur=0.1)])],   # the beam in his face
         props=[FLOOD('fl15', WY15, WY15, 0.0, 1.0, w=600.0, d=600.0, op=0.86), *TOWN('15', WY15, [(-14.0, -20.0, 0, 0.3), (14.0, -16.0, -90, 0.6)]), P('roof15', 'floorSlab', pos=[0.4, r(WY15 + 0.3), -1.2], opts={'w': 5.0, 'd': 4.0, 'h': 0.3, 'color': '#8C9AA8'}),
                P('lh15', 'lighthouseLive', pos=LH15, opts={'h': 2.6, 'onAt': r(PRESS15 + 0.05), 'aim': [[0.0, 140.0], [r(PRESS15 + 0.05), 140.0], [0.95, 40.0], [1.05, 62.0], [1.6, 62.0], [2.2, 200.0]], 'len': 14.0}),
-               P('btn15', 'bigButton', pos=[1.1, r(WY15 + 0.6), -0.75], opts={'pressAt': PRESS15})],
+               P('btn15', 'bigButton', pos=[1.8, r(WY15 + 0.6), 0.15], opts={'pressAt': PRESS15})],   # (review 2) in front of him
         cams=[FC(0.0, [4.2, r(WY15 + 2.2), 4.4], [[0.0, r(WY15 + 6.8), -2.0], [1.6, r(WY15 + 2.95), -0.4], [1.6, r(WY15 + 0.6), -0.4], [-1.8, WY15, 0.0]], top=0.12, bottom=0.78)])
 st.cue('sfx:click', 'S15', PRESS15, 0.3); st.cue('sfx:ding', 'S15', 1.0, 0.3)
 
@@ -291,7 +294,7 @@ D16 = st.dur('S16'); WY16 = 0.72
 st.shot('S16', 'salleDeBain', setOpts={'half': 3.4}, look={'exposure': 1.0}, actors=[act('mec', [2.5, 0, -0.45], -105, 'stand', 'unimpressed', keys=[k(0.0, to=[1.65, 0, -0.7], dur=D16, ease='out', clip='walk'), k(0.0, look=[0.9, 0.8, -1.6]), k(0.0, toon={'face': DEAD}, toonDur=0.0), k(0.85, look='camera')])],
         props=[TUBP('tub16', fill=1.05, tap=[-1.0, 99.0], weed=True, barnacles=True), FLOOD('fl16', WY16, WY16, 0.0, 1.0, w=5.4, d=7.0, pos=(0.0, 0, 1.2), op=0.62),
                P('crab16', 'crab', pos=[0.0, 0.78, r(RIMZ - 0.02)], opts={'s': 0.22, 'path': [[0.0, -0.3, 0.0], [0.5, 0.15, 0.0], [1.2, 0.15, 0.0]], 'snap': [0.55, 0.85]}),
-               P('fish16', 'fishSchool', pos=[0.0, 0.0, -0.4], opts={'n': 4, 'rx': 1.4, 'rz': 0.6, 'y': [0.08, 0.22], 'size': 0.2, 'speed': 0.8, 'color': '#F28C28'}),   # (review 1) under the water line, bigger
+               P('fish16', 'fishSchool', pos=[0.0, 0.0, -0.4], opts={'n': 4, 'rx': 1.4, 'rz': 0.6, 'y0': 0.12, 'y1': 0.5, 'size': 0.2, 'speed': 0.8, 'color': '#F28C28'}),   # (review 2) under the water line: fishSchool reads y0 and y1 (the 'y' given was ignored: they swam in the air)
                P('mask16', 'diveMask', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]})],
         cams=[FC(0.0, [-1.9, 0.95, 1.0], [[1.65, 2.45, -0.7], [-0.7, 0.6, TUB[2]], [MOUTH[0], 1.4, MOUTH[2]], [0.0, 0.7, RIMZ], [2.5, 1.0, -0.45]], top=0.14, bottom=0.78, inside=BATH)])   # low over the water from the left
 st.cue('sfx:splash', 'S16', 0.1, 0.25); st.cue('sfx:splash', 'S16', 0.6, 0.2)
@@ -342,11 +345,11 @@ st.cue('sfx:splat', 'S19', 0.15, 0.2); st.cue('sfx:splat', 'S19', 0.55, 0.2); st
 # 20: the submarine too. His bathroom, drained: the empty tub, the submarine's tail sticking out of the plughole, its propeller turning; its
 #     periscope turns to him; he looks down at it, then at us
 D20 = st.dur('S20')
-st.shot('S20', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [0.5, 0, -0.85], 156, 'stand', 'unimpressed', keys=[k(0.0, look=[DRAIN[0], 0.3, DRAIN[2]]), k(0.0, toon={'face': DEAD, 'bend': {'spine': [0.6, 0, 0, 1, None]}}, toonDur=0.0), k(0.75, look='camera'), *BLINK(1.0)])],
-        props=[TUBP('tub20', fill=0.0, sub=True, subYaw=[[0.0, -90.0], [0.3, -90.0], [0.5, 35.0]], weed=True, barnacles=True),
+st.shot('S20', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [1.5, 0, -1.2], -115, 'stand', 'unimpressed', keys=[k(0.0, look=[DRAIN[0], 0.3, DRAIN[2]]), k(0.0, toon={'face': DEAD, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.0),
+            k(0.75, look='camera'), k(1.0, toon={'face': {'lid': 1.0}, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.05), k(1.11, toon={'face': DEAD, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.07)])],   # (review 2) bent over the drain at the tap end
+        props=[TUBP('tub20', fill=0.0, sub=True, subYaw=[[0.0, -90.0], [0.3, -90.0], [0.5, 70.0]], weed=True, barnacles=True),
                P('plug20', 'bathPlug', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]})],
-        cams=[FC(0.0, [1.05, 1.5, -1.25], [[DRAIN[0], 0.19, DRAIN[2]], [r(DRAIN[0] - 0.25), 0.45, DRAIN[2]], [r(DRAIN[0] + 0.22), 0.45, DRAIN[2]], [DRAIN[0], 0.75, DRAIN[2]]], top=0.14, bottom=0.82, lenses=range(20, 60), inside=BATH),   # (review 1) down into the tub: the tail, the propeller, the periscope turning up (the rim hid the plughole)
-              FC(0.6, [r(DRAIN[0] - 0.12), 0.42, r(DRAIN[2] + 0.12)], [[0.5, 2.15, -1.05], [0.5, 1.45, -1.05], [0.2, 1.8, -1.05], [0.8, 1.8, -1.05]], top=0.14, bottom=0.8, lenses=range(20, 64))])   # ...then from the plughole up at him leaning over the rim, then his look at us   # (stills 1) low at the tap end, the tail in front, him over the rim (from inside the tub he was out of the frame)
+        cams=[FC(0.0, [0.7, 1.5, -0.5], [[DRAIN[0], 0.17, DRAIN[2]], [DRAIN[0], 0.72, DRAIN[2]], [r(DRAIN[0] - 0.24), 0.3, DRAIN[2]], [r(DRAIN[0] + 0.24), 0.3, DRAIN[2]], [1.2, 2.15, -1.3]], top=0.1, bottom=0.78, lenses=range(20, 60), inside=BATH)])   # (review 2) one angle: the drain ring, the tail and its spinning propeller centred, his face bent in at the top
 st.cue('sfx:squeak', 'S20', 0.45, 0.25)
 
 # 21: he got his water bill. On his landing: the postman hands him the bill; it unrolls from his hand down to the floor, across the landing and
@@ -356,7 +359,7 @@ st.shot('S21', 'immeubleHall', setOpts={'back': -3.2, 'plant': False}, actors=[
         act('mec', [-0.5, 0, -1.6], 30, 'stand', 'unimpressed', keys=[k(0.0, look=[0.2, 1.3, -1.2]), k(0.0, toon={'reach': {'R': [-0.1, 1.45, -1.25, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.0), k(1.0, look='camera'), *BLINK(1.3)]),
         act('facteur', [0.6, 0, -1.2], -60, 'stand', 'neutral', keys=[k(0.0, look=[-0.1, 1.4, -1.25]), k(0.0, toon={'reach': {'R': [0.0, 1.35, -1.2, 1, 0.03]}, 'hands': {'R': 'open'}}, toonDur=0.0),
             k(0.35, look=[-0.1, 0.0, -0.4]), k(0.8, look=[0.4, 0.0, 1.6]), k(0.85, toon={'reach': {'R': [0.15, 1.2, -1.0, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'eye': 0.5, 'brow': 0.6}}, toonDur=0.1)])],
-        props=[P('bill21', 'billScroll', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, opts={'w': 0.34, 'top': 1.45, 'head': "FACTURE D'EAU", 'items': ['UNE MER', 'UN SOUS-MARIN', 'UN PHARE', 'LES POMPIERS', 'LES BOUÉES', 'UN PÉDALO'],
+        props=[P('bill21', 'billScroll', pos=[-0.1, 1.45, -1.21], opts={'w': 0.34, 'top': 1.45, 'head': "FACTURE D'EAU", 'items': ['UNE MER', 'UN SOUS-MARIN', 'UN PHARE', 'LES POMPIERS', 'LES BOUÉES', 'UN PÉDALO'],
                     'prices': ['4 000 000 000 €', '820 000 000 €', '12 000 000 €', '3 600 000 €', '48 000 €', '1 200 €'], 'len': [[0.0, 0.3], [0.15, 0.3], [1.2, 4.0]], 'rowsPer': 0.45}),
                P('bag21', 'mailBag', on={'actor': 'facteur', 'joint': 'torso', 'offset': [0.2, 0.4, 0.0]}), P('cap21', 'copCap', on={'actor': 'facteur', 'joint': 'head', 'offset': [0.0, 0.31, 0.0]}, opts={'color': '#2F5E8C'})],
         cams=[FC(0.0, [1.9, 1.5, 2.6], [[-0.5, 2.45, -1.6], [0.6, 2.45, -1.2], [-0.5, 0.0, 1.0], [-0.1, 1.5, -1.25]], top=0.14, bottom=0.8)])
@@ -365,15 +368,20 @@ st.cue('sfx:paper', 'S21', 0.15, 0.35); st.cue('sfx:slideDownLong', 'S21', 0.25,
 # 22: he is contesting it. By his bathtub, sitting on a stool with the bill on his knees: he stamps it, THUNK: CONTESTÉ; looks at us; behind him the
 #     tap drips once into the empty tub: plic. The end hold
 D22 = st.dur('S22'); STAMP22 = 0.3; DRIP22 = r(D22 - 0.75)
-st.shot('S22', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [-0.2, 0, -0.5], 20, 'sit', 'unimpressed', keys=[k(0.0, look=[-0.15, 0.55, -0.2]),
-            k(0.0, toon={'reach': {'R': [-0.12, 1.15, -0.15, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.0),   # (review 1) the stamp raised high first
-            k(STAMP22, toon={'reach': {'R': [-0.12, 0.66, -0.13, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.4, 'brow': -0.3}}, toonDur=0.06, toonEase='in'),   # THUNK
-            k(r(STAMP22 + 0.25), toon={'reach': {'R': [0.15, 0.8, -0.2, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.15), k(r(STAMP22 + 0.35), look='camera'),
-            k(r(DRIP22 + 0.15), look=[MOUTH[0], 1.0, MOUTH[2]]), k(r(DRIP22 + 0.55), look='camera'), *BLINK(r(D22 - 0.35))])],
+BL22 = {'L': [-0.45, 1.08, -0.1, 1, 0.03]}   # (review 2) his left hand holds the bill up at his chest (on his knees the stamp fell in the caption band, behind his shins)
+HOLD22 = lambda f, rr=None: {'reach': {'R': rr or [0.18, 0.98, -0.12, 1, 0.03], **BL22}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f}
+st.shot('S22', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [-0.2, 0, -0.5], 20, 'sit', 'unimpressed', keys=[k(0.0, look=[-0.12, 1.1, -0.1]),
+            k(0.0, toon=HOLD22(DEAD, [-0.12, 1.5, -0.1, 1, 0.03]), toonDur=0.0), k(0.08, toon=HOLD22({'lid': 0.3, 'brow': -0.4}, [-0.12, 1.88, -0.12, 1, 0.03]), toonDur=0.1, toonEase='out'),   # the stamp up over his head, held...
+            k(STAMP22, toon={**HOLD22({'lid': 0.4, 'brow': -0.3}, [-0.1, 1.16, -0.06, 1, 0.03]), 'sq': [1.04, 0.95, 1.04]}, toonDur=0.06, toonEase='in'),   # ...THUNK
+            k(r(STAMP22 + 0.25), toon=HOLD22({'lid': 0.3, 'mouth': 'line'}), toonDur=0.15), k(r(STAMP22 + 0.35), look='camera'),
+            k(r(DRIP22 + 0.15), look=[MOUTH[0], 1.0, MOUTH[2]]), k(r(DRIP22 + 0.55), look='camera'), k(r(DRIP22 + 0.55), toon=HOLD22({'lid': 0.2, 'mouth': 'line'}), toonDur=0.15),
+            k(r(D22 - 0.35), toon=HOLD22({'lid': 1.0, 'mouth': 'line'}), toonDur=0.07), k(r(D22 - 0.22), toon=HOLD22({'lid': 0.2, 'mouth': 'line'}), toonDur=0.1)])],   # (review 2) the end on his open eyes, a slow blink
+        fx=[{'type': 'shake', 'at': STAMP22, 'dur': 0.18, 'amount': 0.025}],
         props=[TUBP('tub22', fill=0.0, drips=[DRIP22]), P('stool22', 'barStool', pos=[-0.2, 0, -0.55], scale=0.75),
-               P('bill22', 'waterBill', pos=[-0.12, 0.66, -0.12], rot=[-0.55, 0.35, 0.0], opts={'w': 0.66, 'h': 0.52, 'amount': '4 836 849 200 €', 'stamp': 'CONTESTÉ', 'stampDelay': r(STAMP22 + 0.03), 'popAt': -1.0}),   # (review 1) tilted up to us, bigger, the stamp at the THUNK (it showed a second late, edge-on)
+               P('bill22', 'waterBill', pos=[-0.14, 1.12, -0.08], rot=[-0.2, 0.35, 0.0], opts={'w': 0.66, 'h': 0.52, 'amount': '4 836 849 200 €', 'stamp': 'CONTESTÉ', 'stampDelay': r(STAMP22 + 0.03), 'popAt': -1.0},
+                 keys=[k(STAMP22, squash=[1.04, 0.88, 1.04], dur=0.3)]),   # (review 2) held up at his chest, whole, the bill flexing at the THUNK
                P('stamp22', 'bigStamp', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.0]}, scale=0.6)],
-        cams=[FC(0.0, [0.6, 1.35, 1.2], [[-0.2, 2.1, -0.5], [-0.2, 0.45, -0.5], [-0.12, 0.66, -0.12], [MOUTH[0], 1.1, MOUTH[2]]], top=0.14, bottom=0.78, inside=BATH)])   # (review 1) frontal and closer: him centred, CONTESTÉ readable, the tap behind   # from the right: him, the tap behind; (stills 1) kept inside (behind the wall: a peach screen)
+        cams=[FC(0.0, [0.6, 1.35, 1.2], [[-0.2, 2.1, -0.5], [-0.2, 0.45, -0.5], [-0.14, 1.12, -0.08], [r(MOUTH[0] + 0.22), 1.25, MOUTH[2]], [-0.5, 1.12, -0.08]], top=0.14, bottom=0.78, inside=BATH)])   # (review 2) the bill whole, the tap and its drip inside the frame
 st.cue('sfx:stampDown' if False else 'thud', 'S22', STAMP22, 0.35); st.cue('sfx:tick', 'S22', r(DRIP22 + 0.33), 0.35)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
