@@ -1677,11 +1677,15 @@ const B = {
     const pic = canvasPlane(0.07, 0.1, (c, W, H) => { c.fillStyle = '#F7F3EA'; c.fillRect(0, 0, W, H); c.fillStyle = '#2C4A8A'; c.fillRect(0, 0, W, H * 0.16); c.fillStyle = '#F6F1E3'; c.font = `bold ${H * 0.09}px Arial`; c.textAlign = 'center'; { const w = c.measureText('VOTRE NUMÉRO').width; if (w > W * 0.88) c.font = `bold ${H * 0.09 * W * 0.88 / w}px Arial`; } c.fillText('VOTRE NUMÉRO', W / 2, H * 0.11);
       c.fillStyle = '#141414'; c.font = `bold ${H * 0.3}px Arial`; c.fillText(String(o.num ?? '4000'), W / 2, H * 0.58); c.font = `${H * 0.07}px Arial`; c.fillText(o.sub || 'Merci de patienter', W / 2, H * 0.85); }, { res: 256 });
     const g = grp(at(box(0.071, 0.101, 0.002, P.white), 0, 0, 0), at(pic, 0, 0, 0.0015)); g.userData.grip = [0, -0.04, 0]; return g; },
-  sofaProp(o) { // a movable three-seat sofa (same design as the living room's)
-    const c = o.color || P.teal, c2 = o.color2 || P.tealLight;
-    return grp(box(2.2, 0.42, 0.9, c, { pivot: 'bottom', outline: 0.006 }), at(box(1.0, 0.14, 0.75, c2), -0.52, 0.49, 0.05), at(box(1.0, 0.14, 0.75, c2), 0.52, 0.49, 0.05),
+  sofaProp(o) { // a movable three-seat sofa (same design as the living room's); (story 69) o.legs: raised on four wooden legs that high (a camera can look from under it)
+    const c = o.color || P.teal, c2 = o.color2 || P.tealLight, lg = o.legs || 0;
+    const g = grp(box(2.2, 0.42, 0.9, c, { pivot: 'bottom', outline: 0.006 }), at(box(1.0, 0.14, 0.75, c2), -0.52, 0.49, 0.05), at(box(1.0, 0.14, 0.75, c2), 0.52, 0.49, 0.05),
       at(box(2.2, 0.62, 0.24, c), 0, 0.73, -0.33), at(box(0.22, 0.66, 0.9, c, { pivot: 'bottom' }), -1.1, 0, 0), at(box(0.22, 0.66, 0.9, c, { pivot: 'bottom' }), 1.1, 0, 0),
-      at(box(0.4, 0.38, 0.12, P.red), -0.7, 0.72, -0.18, -0.2, 0.1, 0.1)); },
+      at(box(0.4, 0.38, 0.12, P.red), -0.7, 0.72, -0.18, -0.2, 0.1, 0.1));
+    if (!lg) return g;
+    g.children.forEach(ch => { ch.position.y += lg; });
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) g.add(at(box(0.07, lg, 0.07, P.woodDark, { pivot: 'bottom', taper: 0.7 }), sx * 1.08, 0, sz * 0.38));
+    return g; },
   oxyMeter(o) { // wall-mounted "oxygen meter": a dial and digits that count up from countAt at o.rate per second
     const draw = n => (c, W, H) => { c.fillStyle = '#F6F1E3'; c.fillRect(0, 0, W, H); c.fillStyle = '#1E1E22'; c.font = `bold ${H * 0.16}px Arial`; c.textAlign = 'center'; c.fillText(o.title || 'COMPTEUR O₂', W / 2, H * 0.2);
       c.fillStyle = '#141414'; c.fillRect(W * 0.1, H * 0.34, W * 0.8, H * 0.3); c.fillStyle = '#F2C230'; c.font = `bold ${H * 0.24}px monospace`; c.fillText(String(n).padStart(6, '0') + ' €', W / 2, H * 0.57);

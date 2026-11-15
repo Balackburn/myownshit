@@ -31,7 +31,7 @@ def r(v, n=3): return round(v, n)
 BURST = lambda pid, pos, at_, text, w=0.5, hold=0.3: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.76, 'fit': 0.6, 'hold': hold, 'bold': True})
 DEAD = {'lid': 0.45}
 SQUINT = {'lid': 0.35, 'low': 0.3, 'brow': -0.35, 'mouth': 'pout'}       # without his glasses: he squints
-GL = lambda pid, glint=(): P(pid, 'bigGlasses', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.47, 0.095]}, opts={'glint': list(glint)})   # pushed up on his head, in every shot
+GL = lambda pid, glint=(): P(pid, 'bigGlasses', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.6, 0.045]}, rot=[-0.55, 0.0, 0.0], opts={'glint': list(glint)})   # pushed up on top of his head, tilted back, in every shot; (stills 1) at 0.47 they sat on his brow and read as worn
 DOGC = [{'body': '#C99A62', 'collar': '#2F62B5'}, {'body': '#3B2E26', 'collar': '#E0413A'}, {'body': '#E8E2D6', 'collar': '#2F8F6B'}, {'body': '#8A6A4A', 'collar': '#F2C94E'}]
 
 for g_ in [('S01', 1.0, 'mec', 'squint'), ('S05', 0.8, 'mec', 'mime'), ('S10', 1.2, 'chien1', 'stare'), ('S14', 1.2, 'gamin', 'point'), ('S15', 0.6, 'mec', 'found'),
@@ -75,11 +75,11 @@ for j in range(4): st.cue('whoosh', 'S02', r(0.26 + 0.3 * j), 0.2, 0.25, 500, 15
 # 3: under the sofa. Low beside the sofa: on his knees, cheek to the floor, he peers under it; the glasses on his head scrape its edge
 D3 = st.dur('S03'); ME3 = [0.0, 0, -1.25]; SOFA3 = [0.0, 0, -2.2]   # (build) from under the sofa: his face peering in (from the side it was his back)
 st.shot('S03', 'livingRoom', actors=[
-        act('mec', ME3, 180, 'kneelLook', 'neutral', keys=[k(0.0, look=[0.0, 0.15, -2.6]), k(0.0, toon={'bend': {'spine': [0.6, 0, 0, 1, None], 'neck': [0.35, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'O'}}, toonDur=0.0),
-            k(0.45, look=[-0.6, 0.15, -2.6]), k(0.75, look=[0.6, 0.15, -2.6]), k(0.6, toon={'bend': {'spine': [0.66, 0, 0, 1, None], 'neck': [0.4, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'pout'}}, toonDur=0.2), k(r(D3 - 0.25), look='camera')])],
-        props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0), P('coin3', 'coin', pos=[0.35, 0.02, -2.35], rot=[PI / 2, 0, 0]), P('sock3', 'slab', pos=[-0.3, 0.03, -2.4], opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
+        act('mec', ME3, 180, 'crawl', 'neutral', keys=[k(0.0, look=[0.0, 0.15, -2.6]), k(0.0, toon={'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'O'}}, toonDur=0.0),   # (stills 1) on all fours, his head low enough to show under the sofa
+            k(0.45, look=[-0.6, 0.15, -2.6]), k(0.75, look=[0.6, 0.15, -2.6]), k(0.6, toon={'bend': {'spine': [0.3, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'pout'}}, toonDur=0.2), k(r(D3 - 0.25), look='camera')])],
+        props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0, opts={'legs': 0.32}), P('coin3', 'coin', pos=[0.3, 0.02, -2.05], rot=[PI / 2, 0, 0]), P('sock3', 'slab', pos=[-0.28, 0.03, -2.0], opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
                P('dust3', 'dustPuff', pos=[0.1, 0.0, -2.2], scale=0.5, opts={'color': '#BDB4A6', 'period': 1.1})],
-        cams=[FC(0.0, [0.25, 0.22, -2.75], [[0.0, 1.35, -1.3], [0.0, 0.25, -1.3], [0.4, 0.8, -1.5], [-0.4, 0.8, -1.5]], top=0.12, bottom=0.8, inside=(-1.5, 1.5, 0.12, 3.0, -3.3, 2.0))])
+        cams=[FC(0.0, [0.15, 0.14, -2.5], [[0.0, 0.62, -1.35], [0.0, 0.05, -1.3], [0.35, 0.45, -1.45], [-0.35, 0.45, -1.45], [0.3, 0.0, -2.05]], top=0.12, bottom=0.82, lenses=range(30, 76), inside=(-1.5, 1.5, 0.06, 0.3, -2.6, 2.0))])   # (stills 1) from under the sofa on its legs: the camera was inside its solid base
 st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 
 # 4: in the fridge. In the kitchen: the fridge door open, his head and shoulders inside, cold mist rolling out round him; he comes out with frost on
@@ -90,7 +90,7 @@ st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
             k(0.6, to=[0.15, 0, -1.25], dur=0.18, ease='out', clip='stand', face='keep'), k(0.62, look='camera'), k(0.62, toon={'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0, 'blush': 0.0}}, toonDur=0.1)])],   # he backs out, shivering
         props=[P('fr4', 'bigFridge', pos=FR4, opts={'open': 1.0, 'mode': 'full', 'mist': True, 'light': True}), GL('gl4', glint=[0.75]),
                P('mist4', 'dustPuff', pos=[0.15, 1.5, -1.6], scale=1.4, opts={'color': '#E8F4FF', 'period': 0.9})],
-        cams=[FC(0.0, [0.05, 1.55, -2.65], [[0.15, 2.95, -1.4], [0.15, 1.85, -1.4], [0.4, 2.3, -1.45], [-0.1, 2.3, -1.45]], top=0.14, bottom=0.74, inside=(-0.45, 0.45, 0.4, 2.4, -2.75, 0.5))])   # (build) from inside the fridge out at his face
+        cams=[FC(0.0, [0.05, 1.82, -2.62], [[0.15, 2.95, -1.4], [0.15, 1.85, -1.4], [0.4, 2.3, -1.45], [-0.1, 2.3, -1.45]], top=0.14, bottom=0.74, inside=(-0.45, 0.45, 0.4, 2.4, -2.75, 0.5))])   # (stills 1) above the food on the top shelf (the camera sat in a carton)   # (build) from inside the fridge out at his face
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:sniff', 'S04', 0.7, 0.2)
 
 # 5: he filed a complaint. At the police desk, over the officer's shoulder: he makes rings of his fingers round his eyes (glasses!); the officer looks
@@ -126,7 +126,7 @@ st.shot('S07', 'grassland', actors=[
         act('plong2', [1.0, 0, 0.4], -30, 'holdUp', 'neutral', keys=[k(0.0, look='camera')]),
         act('mec', [-3.9, 2.55, -0.2], 90, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.0, 0.5]), k(0.0, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.9, look=[1.0, 0.5, 0.4]), k(1.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.36, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.06)]),
         act('poisson7', [0.2, 0.0, 1.9], 0, 'stand', 'neutral', scale=0.35, keys=[*[k(r(0.1 + 0.3 * j), to=[r(0.2 + 0.05 * (j % 2)), 0.25 if j % 2 == 0 else 0.0, 1.9], dur=0.15, ease='out' if j % 2 == 0 else 'in') for j in range(6)]])],
-        props=[P('river7', 'drainedRiver', pos=[0.0, 0, 0.0], opts={'w': 8, 'len': 40, 'qh': 2.45, 'bridgeZ': -16}), GL('gl7'),
+        props=[P('river7', 'drainedRiver', pos=[0.0, 0.03, 0.0], opts={'w': 8, 'len': 40, 'qh': 2.45, 'bridgeZ': -16}), GL('gl7'),
                P('mask71', 'diveMask', on={'actor': 'plong1', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.28, 'y': 0.3}),
                P('mask72', 'diveMask', on={'actor': 'plong2', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.28, 'y': 0.3}),
                P('boot7', 'slab', on={'actor': 'plong2', 'hand': 'R', 'offset': [0.0, 0.08, 0.04]}, opts={'w': 0.12, 'h': 0.26, 'd': 0.28, 'color': '#3B2A20'})],
@@ -148,8 +148,8 @@ st.cue('sfx:engine', 'S08', 0.05, 0.4); st.cue('sfx:ding', 'S08', r(PASS8 - 0.05
 D9 = st.dur('S09')
 st.shot('S09', 'spaceDark', actors=[],
         props=[P('earth9', 'earthGlobe', pos=[0.0, -9.0, -12.0], scale=9.0, opts={'spin': 0.06}),
-               P('sat9', 'satellite', pos=[-0.6, 1.6, -3.5], rot=[0.15, 0.4, 0.0], scale=0.8, opts={'scan': [[0.1, 9.0]], 'scanLen': 7.5, 'sweepDeg': 30}, keys=[k(0.0, to=[0.6, 1.8, -3.8], dur=D9, ease='linear')])],
-        cams=[FC(0.0, [0.4, 2.2, 3.6], [[-2.5, 2.4, -3.5], [2.5, 2.4, -3.5], [0.0, -3.5, -8.0], [0.0, 0.5, -4.0]], top=0.14, bottom=0.78)])
+               P('sat9', 'satellite', pos=[-0.3, 1.2, -2.8], rot=[0.15, 0.4, 0.0], scale=1.35, opts={'scan': [[0.1, 9.0]], 'scanLen': 7.5, 'sweepDeg': 30}, keys=[k(0.0, to=[0.4, 1.35, -3.0], dur=D9, ease='linear')])],
+        cams=[FC(0.0, [0.9, 2.0, 0.9], [[-1.7, 2.3, -2.8], [1.5, 2.3, -2.8], [0.0, -2.2, -6.5], [0.0, 0.3, -3.0]], top=0.14, bottom=0.78)])   # (stills 1) closer: the satellite was a speck over green triangles
 st.cue('sfx:static', 'S09', 0.1, 0.2); st.cue('sfx:ding', 'S09', 1.2, 0.15)
 
 # 10: the other countries sent their dogs. In the street: dogs of every colour, each with a collar of its own colour, sniff round his shoes and
@@ -177,7 +177,7 @@ st.shot('S11', 'pressRoom', setOpts={'backdrop': 'GOUVERNEMENT', 'fontScale': 0.
 st.shot('S12', 'pressRoom', setOpts={'backdrop': 'GOUVERNEMENT', 'fontScale': 0.55}, actors=[MIN([k(0.0, look=[1.1, 1.9, -2.2]), k(0.0, toon={'reach': {'R': [0.8, 1.9, -2.2, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.2, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.0),
             k(0.6, look='camera')])],
         props=[P('poster12', 'rewardPoster', pos=[1.15, 0, -2.3], ry=-15, opts={'at': 0.05, 'w': 1.0, 'h': 1.35, 'stand': 0.9})],
-        cams=[FC(0.0, [0.5, 1.65, 1.5], [[0.0, 2.6, -2.45], [1.15, 2.35, -2.3], [1.15, 0.9, -2.3], [0.0, 1.0, -2.0]], top=0.2, bottom=0.78)])
+        cams=[FC(0.0, [0.5, 1.65, 1.5], [[0.0, 2.6, -2.45], [1.15, 2.35, -2.3], [1.15, 0.9, -2.3], [0.0, 1.0, -2.0], [1.72, 2.4, -2.45], [1.72, 0.9, -2.45]], top=0.2, bottom=0.78)])   # (stills 1) its right edge was cut
 st.cue('sfx:click', 'S11', 0.3, 0.2); st.cue('sfx:click', 'S11', 0.65, 0.2); st.cue('sfx:boing', 'S12', 0.05, 0.25); st.cue('sfx:cash', 'S12', 0.25, 0.3)
 
 # 13: the whole world searched for a year. An office turned upside down: one searcher under a desk, one with a magnifying glass at the floor, one in a
@@ -199,7 +199,7 @@ st.shot('S14', 'parisStreet', setOpts={'clear': [-12.0, 12.0], 'clearL': [-12.0,
         act('mec', [5.0, 0, 0.0], 15, 'stand', 'unimpressed', keys=[k(0.0, look=[3.0, 2.0, 2.0]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(r(TUG14 + 0.1), look=[4.35, 1.0, 0.45]), k(r(TUG14 + 0.12), toon={'bend': {'neck': [0.35, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.12), k(1.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None]}, 'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.36, toon={'bend': {'neck': [0.35, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.06), k(1.7, look='camera')]),
         act('gamin', [4.35, 0, 0.45], 70, 'stand', 'neutral', keys=[k(0.0, look=[5.0, 2.6, 0.0]), k(0.0, toon={'touch': {'R': ['@mec.handL', 0.0, 0.0, 0.0, 1, 0.0]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.0),
             *[k(r(TUG14 * (j + 1) / 2), toon={'touch': {'R': ['@mec.handL', 0.0, r(-0.03 * (j % 2)), 0.0, 1, 0.0]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.06) for j in range(2)],
-            k(r(TUG14 + 0.35), toon={'reach': {'R': [4.85, 2.75, 0.2, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.15, toonEase='out'), k(1.5, toon={'reach': {'R': [4.85, 2.8, 0.2, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 1.0, 'mouth': 'open'}}, toonDur=0.04), k(1.56, toon={'reach': {'R': [4.85, 2.8, 0.2, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.06)])],   # ...then points up at his head
+            k(r(TUG14 + 0.35), toon={'reach': {'R': [4.5, 1.85, 0.32, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.15, toonEase='out'), k(1.5, toon={'reach': {'R': [4.5, 1.9, 0.32, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 1.0, 'mouth': 'open'}}, toonDur=0.04), k(1.56, toon={'reach': {'R': [4.85, 2.8, 0.2, 1, 0.05]}, 'hands': {'R': 'point'}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.06)])],   # ...then points up at his head
         props=[GL('gl14', glint=[r(TUG14 + 0.6)])],
         cams=[FC(0.0, [5.6, 1.4, 3.2], [[5.0, 2.95, 0.0], [5.0, 0.6, 0.0], [4.35, 0.6, 0.45], [4.85, 2.85, 0.2]], top=0.12, bottom=0.78)])
 st.cue('sfx:stepSoft', 'S14', 0.1, 0.15); st.cue('sfx:gasp', 'S14', r(TUG14 + 0.35), 0.2)
@@ -217,7 +217,7 @@ st.cue('sfx:ding', 'S15', r(UP15 + 0.2), 0.35); st.cue('pop', 'S15', POP15, 0.25
 
 # 16: the child got the million. A town-hall stage: the boy holds a giant cheque over his head and jumps; the minister claps beside him
 D16 = st.dur('S16')
-st.shot('S16', 'mairie', actors=[
+st.shot('S16', 'mairie', setOpts={'desk': False}, actors=[
         act('gamin', [0.0, 0, -1.2], 0, 'holdUp', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'bigsmile', 'brow': 0.8}}, toonDur=0.0),
             *[k(r(0.15 + 0.4 * j), to=[0.0, 0.25 if j % 2 == 0 else 0.0, -1.2], dur=0.18, ease='out' if j % 2 == 0 else 'in') for j in range(4)]]),
         act('ministre', [1.1, 0, -1.5], -40, 'stand', 'happy', keys=[k(0.0, look=[0.0, 1.6, -1.2]), *[k(r(0.1 + 0.15 * j), toon={'reach': {'R': [r(0.85 + 0.05 * (j % 2)), 1.6, -1.15, 1, 0.04], 'L': [r(0.72 - 0.05 * (j % 2)), 1.6, -1.2, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.2, 'mouth': 'smirk'}}, toonDur=0.06) for j in range(8)]])],

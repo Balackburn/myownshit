@@ -1,0 +1,7143 @@
+{
+ "version": 3,
+ "title": "Le robinet",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "mamie": {
+   "preset": "mamie",
+   "seed": 711,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "passant": {
+   "preset": "boss",
+   "seed": 712,
+   "suit": "#5A6470",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "voisin1": {
+   "preset": "pyjama",
+   "seed": 713,
+   "build": {
+    "width": 1.1,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "voisine2": {
+   "preset": "madame",
+   "seed": 714,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "pompier1": {
+   "preset": "pompier",
+   "seed": 715,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "pompier2": {
+   "preset": "pompier",
+   "seed": 716,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "agent": {
+   "preset": "cop",
+   "seed": 717,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "maire": {
+   "preset": "politique",
+   "seed": 718,
+   "suit": "#2C3440",
+   "build": {
+    "width": 1.1,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "touriste1": {
+   "preset": "tourist",
+   "seed": 719,
+   "build": {
+    "width": 1.1,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "touriste2": {
+   "preset": "tourist",
+   "seed": 720,
+   "suit": "#3FA7D6",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "marin": {
+   "preset": "sportif",
+   "seed": 721,
+   "suit": "#F4F4F0",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "boulanger": {
+   "preset": "chef",
+   "seed": 722,
+   "build": {
+    "width": 1.1,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "savant1": {
+   "preset": "savant",
+   "seed": 723,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "savant2": {
+   "preset": "savant",
+   "seed": 724,
+   "hairColor": "#8A6A4A",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "president": {
+   "preset": "politique",
+   "seed": 725,
+   "suit": "#4A4D55",
+   "lapel": "#4A4D55",
+   "tie": "#9A1F2E",
+   "hairColor": "#D2D2D2",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "garde1": {
+   "preset": "officiel",
+   "seed": 726,
+   "suit": "#1F2A44",
+   "lapel": "#1F2A44",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "garde2": {
+   "preset": "officiel",
+   "seed": 727,
+   "suit": "#1F2A44",
+   "lapel": "#1F2A44",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "facteur": {
+   "preset": "worker",
+   "seed": 728,
+   "suit": "#2F5E8C",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "salleDeBain",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.75,
+      0,
+      -1.5
+     ],
+     "ry": -100,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.08,
+        0.9,
+        -1.81
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.08,
+          0.95,
+          -1.81,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "reach": {
+         "R": [
+          1.05,
+          0.97,
+          -1.77,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.3,
+       "look": [
+        0.85,
+        0.5,
+        -1.65
+       ]
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "face": {
+         "lid": 0.25,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.75,
+       "look": [
+        3.0,
+        1.6,
+        2.0
+       ]
+      },
+      {
+       "at": 0.77,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "brow": 0.5
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.95,
+       "to": [
+        2.3,
+        0,
+        1.9
+       ],
+       "dur": 1.683,
+       "ease": "in",
+       "clip": "walk"
+      },
+      {
+       "at": 1.1,
+       "look": "camera"
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "face": {
+         "lid": 0.2,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "tub1",
+     "name": "bathTub",
+     "pos": [
+      0.25,
+      0,
+      -1.65
+     ],
+     "opts": {
+      "w": 1.9,
+      "d": 0.95,
+      "h": 0.6,
+      "fillKeys": [
+       [
+        0.0,
+        0.2
+       ],
+       [
+        0.3,
+        0.2
+       ],
+       [
+        2.233,
+        0.55
+       ]
+      ],
+      "tap": [
+       0.3,
+       99.0
+      ]
+     }
+    },
+    {
+     "id": "notes1",
+     "name": "whistleNotes",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.12,
+       0.05,
+       0.12
+      ]
+     },
+     "opts": {
+      "from": 1.15,
+      "every": 0.22,
+      "n": 4,
+      "size": 0.09
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.209,
+      1.3,
+      2.483
+     ],
+     "to": [
+      -1.209,
+      1.3,
+      2.483
+     ],
+     "lookAt": [
+      2.498,
+      0.584,
+      -6.777
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      2.498,
+      0.584,
+      -6.777
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 2.2333,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mamie",
+     "pos": [
+      0.15,
+      1.4,
+      -0.82
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.1,
+        0.0,
+        2.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.35
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.375,
+       "look": [
+        0.1,
+        3.0,
+        -2.6
+       ]
+      },
+      {
+       "at": 0.625,
+       "clip": "sitFloorSip"
+      },
+      {
+       "at": 0.625,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "brow": 0.2
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.625,
+       "to": [
+        0.15,
+        1.38,
+        -0.526
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.725,
+       "to": [
+        0.15,
+        1.171,
+        -0.233
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.825,
+       "to": [
+        0.15,
+        0.961,
+        0.06
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.925,
+       "to": [
+        0.15,
+        0.752,
+        0.353
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 1.025,
+       "to": [
+        0.15,
+        0.543,
+        0.646
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 1.125,
+       "to": [
+        0.15,
+        0.334,
+        0.939
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 1.225,
+       "to": [
+        0.15,
+        0.132,
+        1.237
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 1.325,
+       "to": [
+        0.15,
+        0.09,
+        1.5
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 1.425,
+       "to": [
+        0.15,
+        0.09,
+        1.5
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 1.525,
+       "to": [
+        0.15,
+        0.09,
+        1.5
+       ],
+       "dur": 0.1,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.975,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "stairs2",
+     "name": "stairs",
+     "pos": [
+      0.0,
+      0,
+      1.0
+     ],
+     "opts": {
+      "steps": 12,
+      "w": 1.5
+     }
+    },
+    {
+     "id": "land2",
+     "name": "floorSlab",
+     "pos": [
+      0.0,
+      2.32,
+      -2.95
+     ],
+     "opts": {
+      "w": 1.8,
+      "d": 0.5,
+      "h": 0.1
+     }
+    },
+    {
+     "id": "casc2",
+     "name": "cascade",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "profile": [
+       [
+        -2.75,
+        2.42
+       ],
+       [
+        -2.08,
+        2.42
+       ],
+       [
+        1.0,
+        0.22
+       ],
+       [
+        1.3,
+        0.02
+       ]
+      ],
+      "w": 1.45,
+      "at": 0.05,
+      "speed": 3.6,
+      "thick": 0.08,
+      "pool": 3.2
+     }
+    },
+    {
+     "id": "cup2",
+     "name": "mug",
+     "on": {
+      "actor": "mamie",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.02,
+       0.05
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.9,
+      0.9,
+      4.6
+     ],
+     "to": [
+      0.9,
+      0.9,
+      4.6
+     ],
+     "lookAt": [
+      -0.972,
+      1.295,
+      -5.215
+     ],
+     "lens": 55,
+     "ease": "linear",
+     "lookAt2": [
+      -0.972,
+      1.295,
+      -5.215
+     ]
+    }
+   ],
+   "start": 2.2333,
+   "duration": 1.7,
+   "setOpts": {
+    "back": -3.2,
+    "plant": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "passant",
+     "pos": [
+      7.4,
+      0,
+      -3.0
+     ],
+     "ry": 0,
+     "clip": "walkRead",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        7.4,
+        0,
+        0.2
+       ],
+       "dur": 1.067,
+       "ease": "linear",
+       "clip": "walkRead"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.5
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "door3",
+     "name": "door",
+     "pos": [
+      10.15,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 1.5,
+      "h": 2.6,
+      "open": 1.0
+     }
+    },
+    {
+     "id": "casc3",
+     "name": "cascade",
+     "pos": [
+      10.1,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "profile": [
+       [
+        0.0,
+        1.0
+       ],
+       [
+        0.25,
+        0.9
+       ],
+       [
+        1.1,
+        0.05
+       ]
+      ],
+      "w": 1.5,
+      "at": 0.0,
+      "speed": 4.0,
+      "thick": 0.1,
+      "pool": 4.5
+     }
+    },
+    {
+     "id": "fl3",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 30.0,
+      "d": 40.0,
+      "y0": 0.0,
+      "y1": 0.32,
+      "t0": 0.15,
+      "t1": 1.067,
+      "opacity": 0.74,
+      "color": "#4FA3D9",
+      "floaters": [
+       {
+        "kind": "letter",
+        "x": 3.0,
+        "z": -1.0,
+        "ry": 0.5,
+        "s": 1.0
+       },
+       {
+        "kind": "stool",
+        "x": -1.0,
+        "z": 1.5,
+        "ry": 0.3,
+        "s": 1.0
+       }
+      ]
+     }
+    },
+    {
+     "id": "paper3",
+     "name": "newspaper",
+     "on": {
+      "actor": "passant",
+      "hand": "R",
+      "offset": [
+       0.05,
+       0.0,
+       0.05
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.4,
+      6.5
+     ],
+     "to": [
+      1.0,
+      1.4,
+      6.5
+     ],
+     "lookAt": [
+      8.187,
+      0.632,
+      -0.411
+     ],
+     "lens": 35,
+     "ease": "linear",
+     "lookAt2": [
+      8.187,
+      0.632,
+      -0.411
+     ]
+    }
+   ],
+   "start": 3.9333,
+   "duration": 1.0667,
+   "setOpts": {
+    "clear": [
+     -6.0,
+     6.0
+    ]
+   },
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "voisin1",
+     "pos": [
+      9.6,
+      3.6,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        8.6,
+        4.3,
+        -1.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.0,
+         "eye": 0.0,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.9,
+         "eye": 0.3,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.37,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.18,
+         "eye": 0.06,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.9,
+         "eye": 0.3,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.18,
+         "eye": 0.06,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.9,
+         "eye": 0.3,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.07,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "mouth": "O",
+         "swell": 0.18,
+         "eye": 0.06,
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          -0.1,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "eye": 0.8,
+         "brow": 1.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.3,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisine2",
+     "pos": [
+      9.6,
+      6.8,
+      1.2
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.1,
+          0.12,
+          0.14,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.1,
+          0.12,
+          0.14,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.1,
+          0.0,
+          0.16,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.1,
+          0.0,
+          0.16,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.51,
+       "toon": {
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "balc4a",
+     "name": "balcony",
+     "pos": [
+      9.55,
+      3.6,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 2.6,
+      "d": 1.1,
+      "rail": "front"
+     }
+    },
+    {
+     "id": "balc4b",
+     "name": "balcony",
+     "pos": [
+      9.55,
+      6.8,
+      1.2
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 2.6,
+      "d": 1.1,
+      "rail": "front"
+     }
+    },
+    {
+     "id": "duck4",
+     "name": "duckRing",
+     "pos": [
+      9.05,
+      3.95,
+      -1.0
+     ],
+     "ry": -90,
+     "opts": {
+      "r": 0.42,
+      "inflate": [
+       0.1,
+       1.15
+      ]
+     },
+     "keys": [
+      {
+       "at": 1.15,
+       "rotTo": [
+        0,
+        -1.071,
+        0
+       ],
+       "dur": 0.15,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "mask4",
+     "name": "diveMask",
+     "on": {
+      "actor": "voisine2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       -0.18,
+       0.0
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "offset": [
+        0.0,
+        -0.06,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.55,
+       "offset": [
+        0.0,
+        -0.18,
+        0.0
+       ],
+       "dur": 0.12
+      }
+     ]
+    },
+    {
+     "id": "fl4",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 30.0,
+      "d": 40.0,
+      "y0": 1.9,
+      "y1": 2.0,
+      "t0": 0.0,
+      "t1": 1.867,
+      "opacity": 0.74,
+      "color": "#4FA3D9"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.711,
+      2.3,
+      6.524
+     ],
+     "to": [
+      2.711,
+      2.3,
+      6.524
+     ],
+     "lookAt": [
+      9.485,
+      4.981,
+      -0.326
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      9.485,
+      4.981,
+      -0.326
+     ]
+    }
+   ],
+   "start": 5.0,
+   "duration": 1.8667,
+   "setOpts": {
+    "clear": [
+     -8.0,
+     8.0
+    ]
+   },
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "pompier1",
+     "pos": [
+      -1.2,
+      0.55,
+      1.0
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.6,
+        0.5,
+        1.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.75,
+          1.15,
+          1.25,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.95,
+          1.05,
+          1.05,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.75,
+       "look": [
+        -3.0,
+        0.5,
+        -0.8
+       ]
+      },
+      {
+       "at": 1.2,
+       "look": [
+        1.6,
+        0.5,
+        1.6
+       ]
+      },
+      {
+       "at": 1.45,
+       "look": "camera"
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.75,
+          1.15,
+          1.25,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.95,
+          1.05,
+          1.05,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.5,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 1.85,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.96,
+       "toon": {
+        "face": {
+         "lid": 0.5,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "pompier2",
+     "pos": [
+      -3.6,
+      0.55,
+      -1.6
+     ],
+     "ry": 20,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.2,
+        1.0,
+        -1.0
+       ]
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.25,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.65,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.85,
+       "toon": {
+        "reach": {
+         "R": [
+          -3.4,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ],
+         "L": [
+          -3.6,
+          0.95,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.35,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "truck5",
+     "name": "fireTruck",
+     "pos": [
+      -5.6,
+      0,
+      -2.0
+     ],
+     "ry": 0
+    },
+    {
+     "id": "fl5",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 30.0,
+      "d": 50.0,
+      "y0": 0.55,
+      "y1": 0.55,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.8,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "jet5",
+     "name": "waterJet",
+     "on": {
+      "actor": "pompier1",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.05
+      ]
+     },
+     "opts": {
+      "len": 2.2,
+      "lance": 0.6,
+      "on": [
+       [
+        0.0,
+        true
+       ]
+      ]
+     }
+    },
+    {
+     "id": "pump5",
+     "name": "floorSlab",
+     "pos": [
+      -3.5,
+      0.55,
+      -1.2
+     ],
+     "opts": {
+      "w": 0.5,
+      "d": 0.4,
+      "h": 0.55,
+      "color": "#C8322A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.4,
+      1.7,
+      6.2
+     ],
+     "to": [
+      3.4,
+      1.7,
+      6.2
+     ],
+     "lookAt": [
+      -2.154,
+      1.024,
+      -2.089
+     ],
+     "lens": 55,
+     "ease": "linear",
+     "lookAt2": [
+      -2.154,
+      1.024,
+      -2.089
+     ]
+    }
+   ],
+   "start": 6.8667,
+   "duration": 2.1666,
+   "setOpts": {
+    "night": true,
+    "clear": [
+     -8.0,
+     8.0
+    ]
+   },
+   "look": {
+    "exposure": 1.15
+   },
+   "tethers": [
+    {
+     "a": {
+      "prop": "truck5",
+      "offset": [
+       1.2,
+       1.0,
+       1.2
+      ]
+     },
+     "b": {
+      "actor": "pompier1",
+      "hand": "L"
+     },
+     "color": "#C9A43E",
+     "radius": 0.05,
+     "radial": 8,
+     "sag": 0.5,
+     "n": 14
+    },
+    {
+     "a": {
+      "prop": "truck5",
+      "offset": [
+       1.3,
+       0.8,
+       0.6
+      ]
+     },
+     "b": {
+      "prop": "pump5",
+      "offset": [
+       3.6,
+       -0.6,
+       1.4
+      ]
+     },
+     "color": "#C9A43E",
+     "radius": 0.05,
+     "radial": 8,
+     "sag": 0.3,
+     "n": 14
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "agent",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 25,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.35,
+          0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.98,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.35,
+          0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.28,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.58,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.35,
+          0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.88,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fl6",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 30.0,
+      "d": 50.0,
+      "y0": 1.0,
+      "y1": 2.6,
+      "t0": 0.25,
+      "t1": 1.15,
+      "opacity": 0.74,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "cap6",
+     "name": "copCap",
+     "on": {
+      "actor": "agent",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.31,
+       0.0
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.62,
+       "detach": true
+      },
+      {
+       "at": 0.62,
+       "to": [
+        0.05,
+        2.22,
+        0.1
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 0.7,
+       "to": [
+        0.09,
+        2.35,
+        0.13
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 0.78,
+       "to": [
+        0.13,
+        2.454,
+        0.16
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 0.86,
+       "to": [
+        0.17,
+        2.533,
+        0.19
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 0.94,
+       "to": [
+        0.21,
+        2.587,
+        0.22
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.02,
+       "to": [
+        0.25,
+        2.615,
+        0.25
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.1,
+       "to": [
+        0.29,
+        2.62,
+        0.28
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.18,
+       "to": [
+        0.33,
+        2.62,
+        0.31
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.26,
+       "to": [
+        0.37,
+        2.62,
+        0.34
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.34,
+       "to": [
+        0.41,
+        2.62,
+        0.37
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.42,
+       "to": [
+        0.45,
+        2.62,
+        0.4
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.5,
+       "to": [
+        0.49,
+        2.62,
+        0.43
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.58,
+       "to": [
+        0.53,
+        2.62,
+        0.46
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      },
+      {
+       "at": 1.66,
+       "to": [
+        0.57,
+        2.62,
+        0.49
+       ],
+       "dur": 0.08,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "bub6",
+     "name": "bubbles",
+     "pos": [
+      0.05,
+      1.6,
+      0.15
+     ],
+     "opts": {
+      "rate": 9.0,
+      "area": 0.2,
+      "h": 1.2,
+      "life": 0.9,
+      "speed": 1.2
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.75,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "whis6",
+     "name": "whistle",
+     "on": {
+      "actor": "agent",
+      "joint": "head",
+      "offset": [
+       0.0,
+       -0.05,
+       0.17
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.669,
+      1.7,
+      5.64
+     ],
+     "to": [
+      1.669,
+      1.7,
+      5.64
+     ],
+     "lookAt": [
+      -1.447,
+      1.294,
+      -3.854
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      -1.447,
+      1.294,
+      -3.854
+     ]
+    }
+   ],
+   "start": 9.0333,
+   "duration": 2.0334,
+   "setOpts": {
+    "clear": [
+     -8.0,
+     8.0
+    ]
+   },
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "maire",
+     "pos": [
+      0.0,
+      4.75,
+      -6.2
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.12,
+          6.3,
+          -5.9,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.25,
+       "toon": {
+        "reach": {
+         "R": [
+          0.12,
+          6.37,
+          -5.85,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.35,
+          6.95,
+          -5.95,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "point"
+        },
+        "face": {
+         "mouth": "O",
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.11,
+       "toon": {
+        "face": {
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "th7",
+     "name": "townHall",
+     "pos": [
+      0.0,
+      0,
+      -6.0
+     ],
+     "opts": {
+      "w": 7.0,
+      "h": 4.5,
+      "text": "MAIRIE"
+     }
+    },
+    {
+     "id": "fl7",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 40.0,
+      "d": 40.0,
+      "y0": 2.3,
+      "y1": 2.4,
+      "t0": 0.0,
+      "t1": 1.033,
+      "opacity": 0.74,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "sash7",
+     "name": "mayorSash",
+     "on": {
+      "actor": "maire",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "mega7",
+     "name": "megaphone",
+     "on": {
+      "actor": "maire",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.08
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.199,
+      3.4,
+      8.131
+     ],
+     "to": [
+      3.199,
+      3.4,
+      8.131
+     ],
+     "lookAt": [
+      0.826,
+      3.866,
+      -1.572
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.826,
+      3.866,
+      -1.572
+     ]
+    }
+   ],
+   "start": 11.0667,
+   "duration": 1.0333,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "maire",
+     "pos": [
+      -0.9,
+      4.75,
+      -6.2
+     ],
+     "ry": 15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.75,
+          5.75,
+          -6.0,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.01,
+       "toon": {
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "th8",
+     "name": "townHall",
+     "pos": [
+      0.0,
+      0,
+      -6.0
+     ],
+     "opts": {
+      "w": 7.0,
+      "h": 4.5,
+      "text": "MAIRIE"
+     }
+    },
+    {
+     "id": "fl8",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 40.0,
+      "d": 40.0,
+      "y0": 2.4,
+      "y1": 2.4,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.74,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "ban8",
+     "name": "carnivalBanner",
+     "pos": [
+      0.6,
+      4.5,
+      -3.95
+     ],
+     "opts": {
+      "text": "STATION BALNÉAIRE",
+      "w": 4.6,
+      "h": 1.3,
+      "startAt": 0.05,
+      "dur": 0.35
+     }
+    },
+    {
+     "id": "para8",
+     "name": "parasol",
+     "pos": [
+      -0.1,
+      4.5,
+      -6.0
+     ],
+     "opts": {
+      "openAt": 0.3,
+      "colors": [
+       "#E8463A",
+       "#FFFFFF"
+      ]
+     }
+    },
+    {
+     "id": "bunt8",
+     "name": "bunting",
+     "pos": [
+      0.0,
+      4.55,
+      -3.9
+     ],
+     "opts": {
+      "len": 6.8,
+      "sag": 0.35,
+      "n": 14
+     }
+    },
+    {
+     "id": "sash8",
+     "name": "mayorSash",
+     "on": {
+      "actor": "maire",
+      "joint": "torso",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "mega8",
+     "name": "megaphone",
+     "on": {
+      "actor": "maire",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.08
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.004,
+      4.4,
+      5.193
+     ],
+     "to": [
+      2.004,
+      4.4,
+      5.193
+     ],
+     "lookAt": [
+      0.482,
+      4.737,
+      -4.685
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.482,
+      4.737,
+      -4.685
+     ]
+    }
+   ],
+   "start": 12.1,
+   "duration": 1.7,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "touriste1",
+     "pos": [
+      -1.2,
+      15.75,
+      0.2
+     ],
+     "ry": 20,
+     "clip": "reclineBack",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        30.0,
+        10.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.5,
+       "look": "camera"
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "touriste2",
+     "pos": [
+      1.5,
+      16.8,
+      -0.6
+     ],
+     "ry": 90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.0,
+        14.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.35,
+       "clip": "swanDive"
+      },
+      {
+       "at": 0.95,
+       "clip": "swanDive"
+      },
+      {
+       "at": 1.0,
+       "to": [
+        4.2,
+        17.6,
+        -0.6
+       ],
+       "dur": 0.3,
+       "ease": "out",
+       "glide": true,
+       "face": "keep"
+      },
+      {
+       "at": 1.3,
+       "to": [
+        5.4,
+        13.8,
+        -0.6
+       ],
+       "dur": 0.3,
+       "ease": "in",
+       "glide": true,
+       "face": "keep"
+      },
+      {
+       "at": 1.6,
+       "visible": false
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "roof9a",
+     "name": "zincRoof",
+     "pos": [
+      -1.0,
+      15.2,
+      -0.2
+     ],
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "roof9b",
+     "name": "zincRoof",
+     "pos": [
+      1.8,
+      15.2,
+      -0.4
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 3.0
+     }
+    },
+    {
+     "id": "chair9",
+     "name": "deckChair",
+     "pos": [
+      -1.2,
+      15.75,
+      0.2
+     ],
+     "ry": 20
+    },
+    {
+     "id": "para9",
+     "name": "parasol",
+     "pos": [
+      -2.4,
+      15.75,
+      -0.3
+     ],
+     "opts": {
+      "openAt": -1.0
+     }
+    },
+    {
+     "id": "fl9",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 60.0,
+      "d": 60.0,
+      "y0": 14.6,
+      "y1": 14.6,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.85,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "shades9a",
+     "name": "shades",
+     "on": {
+      "actor": "touriste1",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.2,
+       0.16
+      ]
+     }
+    },
+    {
+     "id": "shades9b",
+     "name": "shades",
+     "on": {
+      "actor": "touriste2",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.2,
+       0.16
+      ]
+     }
+    },
+    {
+     "id": "drops9",
+     "name": "waterDrops",
+     "pos": [
+      5.4,
+      14.6,
+      -0.6
+     ],
+     "opts": {
+      "at": 1.58,
+      "n": 26,
+      "r": 0.07,
+      "speed": 4.5,
+      "spread": 0.9,
+      "color": "#BFE6F7",
+      "life": 0.8
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.439,
+      16.5,
+      14.998
+     ],
+     "to": [
+      0.439,
+      16.5,
+      14.998
+     ],
+     "lookAt": [
+      0.872,
+      16.263,
+      5.01
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.872,
+      16.263,
+      5.01
+     ]
+    }
+   ],
+   "start": 13.8,
+   "duration": 2.5,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "fl10",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 30.0,
+      "d": 60.0,
+      "y0": 3.0,
+      "y1": 3.0,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.78,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "sub10",
+     "name": "submarine",
+     "pos": [
+      0.0,
+      0.4,
+      -1.0
+     ],
+     "ry": 20,
+     "opts": {
+      "len": 6.0,
+      "peri": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.15,
+        0.0
+       ],
+       [
+        0.4,
+        1.0
+       ],
+       [
+        1.15,
+        1.0
+       ],
+       [
+        1.25,
+        0.25
+       ],
+       [
+        1.45,
+        0.25
+       ],
+       [
+        1.8,
+        0.85
+       ]
+      ],
+      "periYaw": [
+       [
+        0.0,
+        -20.0
+       ],
+       [
+        0.45,
+        -20.0
+       ],
+       [
+        0.65,
+        -80.0
+       ],
+       [
+        0.85,
+        40.0
+       ],
+       [
+        1.0,
+        -20.0
+       ],
+       [
+        1.12,
+        -20.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.803,
+      3.5,
+      6.738
+     ],
+     "to": [
+      -0.803,
+      3.5,
+      6.738
+     ],
+     "lookAt": [
+      0.486,
+      3.147,
+      -3.172
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.486,
+      3.147,
+      -3.172
+     ]
+    }
+   ],
+   "start": 16.3,
+   "duration": 2.1,
+   "setOpts": {
+    "clear": [
+     -8.0,
+     8.0
+    ]
+   },
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "marin",
+     "pos": [
+      8.26,
+      14.321,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.53,
+       "visible": true
+      },
+      {
+       "at": 0.53,
+       "to": [
+        8.26,
+        15.071,
+        0.0
+       ],
+       "dur": 0.18,
+       "ease": "outBack",
+       "glide": true,
+       "face": "keep"
+      },
+      {
+       "at": 0.53,
+       "look": [
+        10.0,
+        17.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "sq": [
+         0.85,
+         1.25,
+         0.85
+        ],
+        "face": {
+         "eye": 0.3,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.71,
+       "toon": {
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          9.6,
+          17.15,
+          0.05,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.35,
+       "look": "camera"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "boulanger",
+     "pos": [
+      10.25,
+      15.8,
+      0.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        8.2,
+        16.0,
+        0.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          9.65,
+          17.1,
+          0.05,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.25,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          9.9,
+          16.8,
+          0.0,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "bend": {
+         "spine": [
+          0.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fl11",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 60.0,
+      "d": 60.0,
+      "y0": 14.6,
+      "y1": 14.6,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.85,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "fac11",
+     "name": "haussmann",
+     "pos": [
+      10.6,
+      1.4,
+      0.0
+     ],
+     "ry": -90,
+     "opts": {
+      "w": 13.0,
+      "h": 18.0,
+      "floors": 6,
+      "cols": 5
+     }
+    },
+    {
+     "id": "sign11",
+     "name": "signBoard",
+     "pos": [
+      10.0,
+      17.6,
+      1.4
+     ],
+     "ry": -90,
+     "opts": {
+      "text": "BOULANGERIE ↓",
+      "w": 2.4,
+      "h": 0.45,
+      "height": 0.0,
+      "bg": "#7A4A2A",
+      "fg": "#F6E7C1",
+      "posts": false
+     }
+    },
+    {
+     "id": "sub11",
+     "name": "submarine",
+     "pos": [
+      8.2,
+      13.45,
+      0.0
+     ],
+     "ry": 90,
+     "opts": {
+      "len": 6.0,
+      "hatchAt": 0.45,
+      "peri": [
+       [
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        8.2,
+        13.45,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        8.2,
+        12.25,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.0,
+       "to": [
+        8.2,
+        13.45,
+        0.0
+       ],
+       "dur": 0.35,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "cap11",
+     "name": "captainCap",
+     "on": {
+      "actor": "marin",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.17,
+       -0.01
+      ]
+     },
+     "scale": 1.0
+    },
+    {
+     "id": "bag11",
+     "name": "baguette",
+     "on": {
+      "actor": "boulanger",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": 1.12,
+       "attach": "marin",
+       "hand": "R",
+       "offset": [
+        0.0,
+        0.0,
+        0.05
+       ]
+      }
+     ]
+    },
+    {
+     "id": "hat11",
+     "name": "chefHat",
+     "on": {
+      "actor": "boulanger",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.4,
+       0.0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.685,
+      16.2,
+      6.355
+     ],
+     "to": [
+      1.685,
+      16.2,
+      6.355
+     ],
+     "lookAt": [
+      8.783,
+      15.768,
+      -0.676
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      8.783,
+      15.768,
+      -0.676
+     ]
+    }
+   ],
+   "start": 18.4,
+   "duration": 1.8,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "savant1",
+     "pos": [
+      -1.3,
+      0,
+      -2.0
+     ],
+     "ry": 160,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.0,
+        1.6,
+        -3.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.15,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -1.25,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "to": [
+        0.4,
+        0,
+        -2.0
+       ],
+       "dur": 1.05,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.997,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -1.097,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.843,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.943,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.69,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.79,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.537,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.637,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "linear"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.383,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.483,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "linear"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.23,
+          1.75,
+          -2.75,
+          1,
+          0.03
+         ],
+         "L": [
+          -0.33,
+          1.45,
+          -2.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "linear"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "savant2",
+     "pos": [
+      1.4,
+      0,
+      -1.6
+     ],
+     "ry": -150,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.6,
+        -3.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.08,
+          -0.12,
+          0.1,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.81,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "map12",
+     "name": "seaMap",
+     "pos": [
+      0.0,
+      1.75,
+      -2.85
+     ],
+     "opts": {
+      "w": 2.6,
+      "h": 1.8,
+      "paint": [
+       0.15,
+       2.4
+      ]
+     }
+    },
+    {
+     "id": "roll12",
+     "name": "paintRoller",
+     "on": {
+      "actor": "savant1",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.05
+      ]
+     },
+     "opts": {
+      "color": "#2F7FC4",
+      "len": 0.5
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.192,
+      1.5,
+      3.35
+     ],
+     "to": [
+      0.192,
+      1.5,
+      3.35
+     ],
+     "lookAt": [
+      0.03,
+      0.405,
+      -6.589
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.03,
+      0.405,
+      -6.589
+     ]
+    }
+   ],
+   "start": 20.2,
+   "duration": 1.2,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "mairie",
+   "lines": [],
+   "actors": [
+    {
+     "id": "savant2",
+     "pos": [
+      1.25,
+      0,
+      -2.2
+     ],
+     "ry": -140,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.75,
+        -2.85
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.7,
+          -2.75,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "reach": {
+         "R": [
+          0.28,
+          1.72,
+          -2.79,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.7,
+          -2.74,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.9,
+       "look": "camera"
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.36,
+       "toon": {
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "map13",
+     "name": "seaMap",
+     "pos": [
+      0.0,
+      1.75,
+      -2.85
+     ],
+     "opts": {
+      "w": 2.6,
+      "h": 1.8,
+      "paint": [
+       -1.0,
+       0.25
+      ],
+      "labelAt": 0.55
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.27,
+      1.7,
+      2.425
+     ],
+     "to": [
+      -0.27,
+      1.7,
+      2.425
+     ],
+     "lookAt": [
+      0.352,
+      1.035,
+      -7.533
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      0.352,
+      1.035,
+      -7.533
+     ]
+    }
+   ],
+   "start": 21.4,
+   "duration": 1.4333,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "president",
+     "pos": [
+      -2.0,
+      14.85,
+      0.0
+     ],
+     "ry": 70,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.6,
+        14.85,
+        0.4
+       ],
+       "dur": 1.867,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.6,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "bend": {
+         "legL": [
+          -2.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.9,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "mouth": "smile",
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.1,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "garde1",
+     "pos": [
+      -2.1,
+      13.55,
+      -1.3
+     ],
+     "ry": 70,
+     "clip": "scuba",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        13.55,
+        -0.9
+       ],
+       "dur": 1.867,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.0,
+       "look": [
+        3.0,
+        14.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.9,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "garde2",
+     "pos": [
+      -2.1,
+      13.55,
+      1.3
+     ],
+     "ry": 70,
+     "clip": "scuba",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        13.55,
+        1.7
+       ],
+       "dur": 1.867,
+       "ease": "linear",
+       "face": "keep",
+       "glide": true
+      },
+      {
+       "at": 0.0,
+       "look": [
+        3.0,
+        14.6,
+        0.0
+       ]
+      },
+      {
+       "at": 1.2,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fl14",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 60.0,
+      "d": 60.0,
+      "y0": 14.6,
+      "y1": 14.6,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.85,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "ped14",
+     "name": "pedalo",
+     "pos": [
+      -2.0,
+      14.6,
+      0.0
+     ],
+     "ry": 70,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.6,
+        14.6,
+        0.4
+       ],
+       "dur": 1.867,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "ring140",
+     "name": "duckRing",
+     "pos": [
+      -2.1,
+      14.65,
+      -1.3
+     ],
+     "ry": 70,
+     "opts": {
+      "r": 0.45,
+      "bob": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        14.65,
+        -0.9
+       ],
+       "dur": 1.867,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "ring141",
+     "name": "duckRing",
+     "pos": [
+      -2.1,
+      14.65,
+      1.3
+     ],
+     "ry": 70,
+     "opts": {
+      "r": 0.45,
+      "bob": true
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.5,
+        14.65,
+        1.7
+       ],
+       "dur": 1.867,
+       "ease": "linear"
+      }
+     ]
+    },
+    {
+     "id": "roof14a",
+     "name": "zincRoof",
+     "pos": [
+      -4.0,
+      15.2,
+      -4.0
+     ],
+     "opts": {
+      "w": 7.0
+     }
+    },
+    {
+     "id": "roof14b",
+     "name": "zincRoof",
+     "pos": [
+      4.5,
+      15.2,
+      -3.0
+     ],
+     "ry": 90,
+     "opts": {
+      "w": 4.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.8,
+      16.2,
+      5.0
+     ],
+     "to": [
+      2.8,
+      16.2,
+      5.0
+     ],
+     "lookAt": [
+      -2.812,
+      14.53,
+      -3.106
+     ],
+     "lens": 43,
+     "ease": "linear",
+     "lookAt2": [
+      -2.812,
+      14.53,
+      -3.106
+     ]
+    }
+   ],
+   "start": 22.8333,
+   "duration": 1.8667,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [
+    {
+     "id": "president",
+     "pos": [
+      1.6,
+      15.2,
+      -0.4
+     ],
+     "ry": -60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.05,
+        16.2,
+        -0.8
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.1,
+          16.35,
+          -0.75,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "reach": {
+         "R": [
+          1.1,
+          16.22,
+          -0.75,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "point"
+        },
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.55,
+       "look": [
+        0.0,
+        20.0,
+        -2.0
+       ]
+      },
+      {
+       "at": 1.0,
+       "look": "camera"
+      },
+      {
+       "at": 1.02,
+       "toon": {
+        "face": {
+         "lid": 0.85,
+         "mouth": "bigsmile",
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.55,
+       "toon": {
+        "face": {
+         "lid": 0.4,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "fl15",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "w": 60.0,
+      "d": 60.0,
+      "y0": 14.6,
+      "y1": 14.6,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.85,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "roof15",
+     "name": "floorSlab",
+     "pos": [
+      0.4,
+      14.9,
+      -1.2
+     ],
+     "opts": {
+      "w": 5.0,
+      "d": 4.0,
+      "h": 0.3,
+      "color": "#8C9AA8"
+     }
+    },
+    {
+     "id": "lh15",
+     "name": "lighthouseLive",
+     "pos": [
+      0.0,
+      15.2,
+      -2.0
+     ],
+     "opts": {
+      "h": 6.0,
+      "onAt": 0.4,
+      "aim": [
+       [
+        0.0,
+        140.0
+       ],
+       [
+        0.4,
+        140.0
+       ],
+       [
+        0.95,
+        40.0
+       ],
+       [
+        1.05,
+        62.0
+       ],
+       [
+        1.6,
+        62.0
+       ],
+       [
+        2.2,
+        200.0
+       ]
+      ],
+      "len": 14.0
+     }
+    },
+    {
+     "id": "btn15",
+     "name": "bigButton",
+     "pos": [
+      1.1,
+      15.2,
+      -0.75
+     ],
+     "opts": {
+      "pressAt": 0.35
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.254,
+      16.8,
+      5.797
+     ],
+     "to": [
+      5.254,
+      16.8,
+      5.797
+     ],
+     "lookAt": [
+      -1.239,
+      17.327,
+      -1.79
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      -1.239,
+      17.327,
+      -1.79
+     ]
+    }
+   ],
+   "start": 24.7,
+   "duration": 1.7,
+   "look": {
+    "sat": 0.85,
+    "exposure": 0.95
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "salleDeBain",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.5,
+      0,
+      -0.45
+     ],
+     "ry": -105,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.65,
+        0,
+        -0.7
+       ],
+       "dur": 1.133,
+       "ease": "out",
+       "clip": "walk"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        0.9,
+        0.8,
+        -1.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.85,
+       "look": "camera"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tub16",
+     "name": "bathTub",
+     "pos": [
+      0.25,
+      0,
+      -1.65
+     ],
+     "opts": {
+      "w": 1.9,
+      "d": 0.95,
+      "h": 0.6,
+      "fill": 1.05,
+      "tap": [
+       -1.0,
+       99.0
+      ],
+      "weed": true,
+      "barnacles": true
+     }
+    },
+    {
+     "id": "fl16",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      1.2
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 7.0,
+      "y0": 0.72,
+      "y1": 0.72,
+      "t0": 0.0,
+      "t1": 1.0,
+      "opacity": 0.62,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "crab16",
+     "name": "crab",
+     "pos": [
+      0.0,
+      0.78,
+      -1.195
+     ],
+     "opts": {
+      "s": 0.22,
+      "path": [
+       [
+        0.0,
+        -0.3,
+        0.0
+       ],
+       [
+        0.5,
+        0.15,
+        0.0
+       ],
+       [
+        1.2,
+        0.15,
+        0.0
+       ]
+      ],
+      "snap": [
+       0.55,
+       0.85
+      ]
+     }
+    },
+    {
+     "id": "fish16",
+     "name": "fishSchool",
+     "pos": [
+      0.0,
+      0.0,
+      -0.4
+     ],
+     "opts": {
+      "n": 4,
+      "rx": 1.4,
+      "rz": 0.6,
+      "y": [
+       0.3,
+       0.6
+      ],
+      "size": 0.12,
+      "speed": 0.8,
+      "color": "#F28C28"
+     }
+    },
+    {
+     "id": "mask16",
+     "name": "diveMask",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -3.485,
+      0.95,
+      2.22
+     ],
+     "to": [
+      -3.485,
+      0.95,
+      2.22
+     ],
+     "lookAt": [
+      4.263,
+      1.375,
+      -4.088
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      4.263,
+      1.375,
+      -4.088
+     ]
+    }
+   ],
+   "start": 26.4,
+   "duration": 1.1333,
+   "look": {
+    "tint": "#BFE6F2"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "salleDeBain",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.45,
+      0,
+      -0.9
+     ],
+     "ry": 156,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.78,
+        0.3,
+        -1.65
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.83,
+          0.62,
+          -1.55,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "bend": {
+         "spine": [
+          0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "reach": {
+         "R": [
+          0.78,
+          0.22,
+          -1.65,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.55,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          0.83,
+          1.5,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "bend": {
+         "spine": [
+          0.05,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.3,
+         "brow": 0.3
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.85,
+       "look": "camera"
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.26,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tub17",
+     "name": "bathTub",
+     "pos": [
+      0.25,
+      0,
+      -1.65
+     ],
+     "opts": {
+      "w": 1.9,
+      "d": 0.95,
+      "h": 0.6,
+      "fillKeys": [
+       [
+        0.0,
+        1.0
+       ],
+       [
+        0.55,
+        1.0
+       ],
+       [
+        2.6,
+        0.45
+       ]
+      ],
+      "swirl": [
+       0.55,
+       99.0
+      ],
+      "plugOut": 0.55,
+      "weed": true,
+      "barnacles": true
+     }
+    },
+    {
+     "id": "fl17",
+     "name": "floodWater",
+     "pos": [
+      0.0,
+      0,
+      1.2
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 7.0,
+      "y0": 0.72,
+      "y1": 0.45,
+      "t0": 0.55,
+      "t1": 2.6,
+      "opacity": 0.62,
+      "color": "#4FA3D9"
+     }
+    },
+    {
+     "id": "plug17",
+     "name": "bathPlug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.03,
+       0.03
+      ]
+     },
+     "opts": {
+      "at": 0.55
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.55,
+       "visible": true
+      }
+     ]
+    },
+    {
+     "id": "plop17",
+     "name": "hicBurst",
+     "pos": [
+      0.98,
+      1.2,
+      -1.25
+     ],
+     "face": "camera",
+     "opts": {
+      "at": [
+       0.57
+      ],
+      "w": 0.42,
+      "text": "PLOP !",
+      "inner": 0.76,
+      "fit": 0.6,
+      "hold": 0.3,
+      "bold": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.392,
+      1.3,
+      -1.653
+     ],
+     "to": [
+      3.392,
+      1.3,
+      -1.653
+     ],
+     "lookAt": [
+      -6.529,
+      1.282,
+      -0.399
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      -6.529,
+      1.282,
+      -0.399
+     ]
+    }
+   ],
+   "start": 27.5333,
+   "duration": 1.6,
+   "look": {
+    "tint": "#BFE6F2"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "skyHigh",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "pool18",
+     "name": "whirlpool",
+     "pos": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "r": 22.0,
+      "funnel": 4.2,
+      "depth": 9.0,
+      "at": 0.0,
+      "dur": 1.2,
+      "spin": 3.4,
+      "items": [
+       {
+        "kind": "pedalo",
+        "r": 13.0,
+        "a": 0.3,
+        "s": 1.6,
+        "from": 0.0,
+        "dur": 1.9,
+        "turns": 1.4
+       },
+       {
+        "kind": "sub",
+        "r": 15.0,
+        "a": 2.4,
+        "s": 1.0,
+        "from": 0.0,
+        "dur": 2.1,
+        "turns": 1.2
+       },
+       {
+        "kind": "boat",
+        "r": 11.0,
+        "a": 4.0,
+        "s": 1.2,
+        "from": 0.0,
+        "dur": 1.6,
+        "turns": 1.5
+       },
+       {
+        "kind": "ring",
+        "r": 8.0,
+        "a": 1.5,
+        "s": 2.2,
+        "from": 0.0,
+        "dur": 1.2,
+        "turns": 1.6
+       },
+       {
+        "kind": "duck",
+        "r": 9.5,
+        "a": 5.2,
+        "s": 1.6,
+        "from": 0.0,
+        "dur": 1.4,
+        "turns": 1.6
+       },
+       {
+        "kind": "chair",
+        "r": 7.0,
+        "a": 3.3,
+        "s": 2.0,
+        "from": 0.0,
+        "dur": 1.0,
+        "turns": 1.4
+       },
+       {
+        "kind": "parasol",
+        "r": 12.0,
+        "a": 5.9,
+        "s": 1.6,
+        "from": 0.1,
+        "dur": 1.8,
+        "turns": 1.3
+       }
+      ]
+     }
+    },
+    {
+     "id": "bld18",
+     "name": "floorSlab",
+     "pos": [
+      0.0,
+      -8.0,
+      0.0
+     ],
+     "opts": {
+      "w": 4.4,
+      "d": 4.4,
+      "h": 9.2,
+      "color": "#EFE6D2"
+     }
+    },
+    {
+     "id": "lh18",
+     "name": "lighthouseLive",
+     "pos": [
+      0.0,
+      1.2,
+      0.0
+     ],
+     "opts": {
+      "h": 4.5,
+      "onAt": 0.0,
+      "rate": 0.8,
+      "len": 9.0
+     }
+    },
+    {
+     "id": "rf180",
+     "name": "zincRoof",
+     "pos": [
+      15.658,
+      0.4,
+      6.62
+     ],
+     "ry": 0.0,
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "rf181",
+     "name": "zincRoof",
+     "pos": [
+      2.049,
+      0.4,
+      16.876
+     ],
+     "ry": 60.0,
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "rf182",
+     "name": "zincRoof",
+     "pos": [
+      -13.619,
+      0.4,
+      10.174
+     ],
+     "ry": 120.0,
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "rf183",
+     "name": "zincRoof",
+     "pos": [
+      -15.602,
+      0.4,
+      -6.752
+     ],
+     "ry": 180.0,
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "rf184",
+     "name": "zincRoof",
+     "pos": [
+      -1.907,
+      0.4,
+      -16.893
+     ],
+     "ry": 240.0,
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "rf185",
+     "name": "zincRoof",
+     "pos": [
+      13.704,
+      0.4,
+      -10.059
+     ],
+     "ry": 300.0,
+     "opts": {
+      "w": 5.0
+     }
+    },
+    {
+     "id": "glou18",
+     "name": "hicBurst",
+     "pos": [
+      -5.0,
+      6.0,
+      4.0
+     ],
+     "face": "camera",
+     "opts": {
+      "at": [
+       0.5
+      ],
+      "w": 3.6,
+      "text": "GLOUGLOU",
+      "inner": 0.76,
+      "fit": 0.6,
+      "hold": 0.6,
+      "bold": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      50.0,
+      14.0
+     ],
+     "to": [
+      0.0,
+      50.0,
+      14.0
+     ],
+     "lookAt": [
+      0.0,
+      40.632,
+      10.503
+     ],
+     "lens": 60,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      40.632,
+      10.503
+     ]
+    }
+   ],
+   "start": 29.1333,
+   "duration": 2.0334,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "parisStreet",
+   "lines": [],
+   "actors": [
+    {
+     "id": "agent",
+     "pos": [
+      -0.6,
+      0,
+      -2.0
+     ],
+     "ry": 25,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.05,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.35,
+          0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.35,
+          0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          2.35,
+          -0.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.18,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fish190",
+     "name": "fishFlop",
+     "pos": [
+      -1.6,
+      0,
+      1.4
+     ],
+     "ry": 0.0,
+     "opts": {
+      "s": 0.32,
+      "rate": 1.8,
+      "phase": 0.0,
+      "color": "#9AA7B2"
+     }
+    },
+    {
+     "id": "fish191",
+     "name": "fishFlop",
+     "pos": [
+      -0.5,
+      0,
+      0.9
+     ],
+     "ry": 30.0,
+     "opts": {
+      "s": 0.32,
+      "rate": 2.1,
+      "phase": 0.27,
+      "color": "#F28C28"
+     }
+    },
+    {
+     "id": "fish192",
+     "name": "fishFlop",
+     "pos": [
+      0.6,
+      0,
+      1.4
+     ],
+     "ry": 60.0,
+     "opts": {
+      "s": 0.32,
+      "rate": 2.4,
+      "phase": 0.54,
+      "color": "#9AA7B2"
+     }
+    },
+    {
+     "id": "fish193",
+     "name": "fishFlop",
+     "pos": [
+      1.7,
+      0,
+      0.9
+     ],
+     "ry": 90.0,
+     "opts": {
+      "s": 0.32,
+      "rate": 2.7,
+      "phase": 0.81,
+      "color": "#C9B26A"
+     }
+    },
+    {
+     "id": "crab19",
+     "name": "crab",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "opts": {
+      "s": 0.22,
+      "path": [
+       [
+        0.0,
+        1.6,
+        2.2
+       ],
+       [
+        1.3,
+        0.6,
+        2.2
+       ]
+      ]
+     }
+    },
+    {
+     "id": "lamp19",
+     "name": "streetLamp",
+     "pos": [
+      3.6,
+      0,
+      -3.0
+     ]
+    },
+    {
+     "id": "ped19",
+     "name": "pedalo",
+     "pos": [
+      3.4,
+      3.2,
+      -3.0
+     ],
+     "rot": [
+      0.0,
+      0.6,
+      0.35
+     ],
+     "ry": 34.377
+    },
+    {
+     "id": "cap19",
+     "name": "copCap",
+     "on": {
+      "actor": "agent",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.31,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "weed19",
+     "name": "seaweed",
+     "on": {
+      "actor": "agent",
+      "joint": "head",
+      "offset": [
+       0.05,
+       0.4,
+       0.0
+      ]
+     },
+     "scale": 0.25
+    },
+    {
+     "id": "puddle19",
+     "name": "meltPuddle",
+     "pos": [
+      0.4,
+      0.01,
+      0.6
+     ],
+     "scale": 3.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.44,
+      1.2,
+      10.193
+     ],
+     "to": [
+      1.44,
+      1.2,
+      10.193
+     ],
+     "lookAt": [
+      0.451,
+      1.468,
+      0.246
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.451,
+      1.468,
+      0.246
+     ]
+    }
+   ],
+   "start": 31.1667,
+   "duration": 1.3,
+   "setOpts": {
+    "clear": [
+     -8.0,
+     8.0
+    ]
+   },
+   "look": {
+    "sat": 0.8,
+    "tint": "#E6F0F2"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S20",
+   "set": "salleDeBain",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.5,
+      0,
+      -0.85
+     ],
+     "ry": 156,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.78,
+        0.3,
+        -1.65
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        },
+        "bend": {
+         "spine": [
+          0.45,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.65,
+       "look": "camera"
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.06,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tub20",
+     "name": "bathTub",
+     "pos": [
+      0.25,
+      0,
+      -1.65
+     ],
+     "opts": {
+      "w": 1.9,
+      "d": 0.95,
+      "h": 0.6,
+      "fill": 0.0,
+      "sub": true,
+      "subYaw": [
+       [
+        0.0,
+        -90.0
+       ],
+       [
+        0.3,
+        -90.0
+       ],
+       [
+        0.5,
+        35.0
+       ]
+      ],
+      "weed": true,
+      "barnacles": true
+     }
+    },
+    {
+     "id": "plug20",
+     "name": "bathPlug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.03,
+       0.03
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.72,
+      0.42,
+      -1.89
+     ],
+     "to": [
+      -0.72,
+      0.42,
+      -1.89
+     ],
+     "lookAt": [
+      8.016,
+      3.496,
+      1.882
+     ],
+     "lens": 72,
+     "ease": "linear",
+     "lookAt2": [
+      8.016,
+      3.496,
+      1.882
+     ]
+    }
+   ],
+   "start": 32.4667,
+   "duration": 1.3,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S21",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.5,
+      0,
+      -1.6
+     ],
+     "ry": 30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.2,
+        1.3,
+        -1.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.1,
+          1.45,
+          -1.25,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 1.0,
+       "look": "camera"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.41,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "unimpressed"
+    },
+    {
+     "id": "facteur",
+     "pos": [
+      0.6,
+      0,
+      -1.2
+     ],
+     "ry": -60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.1,
+        1.4,
+        -1.25
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.0,
+          1.35,
+          -1.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "look": [
+        -0.1,
+        0.0,
+        -0.4
+       ]
+      },
+      {
+       "at": 0.8,
+       "look": [
+        0.4,
+        0.0,
+        1.6
+       ]
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "reach": {
+         "R": [
+          0.15,
+          1.2,
+          -1.0,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "eye": 0.5,
+         "brow": 0.6
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bill21",
+     "name": "billScroll",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.34,
+      "top": 1.45,
+      "head": "FACTURE D'EAU",
+      "items": [
+       "UNE MER",
+       "UN SOUS-MARIN",
+       "UN PHARE",
+       "LES POMPIERS",
+       "LES BOUÉES",
+       "UN PÉDALO"
+      ],
+      "prices": [
+       "4 000 000 000 €",
+       "820 000 000 €",
+       "12 000 000 €",
+       "3 600 000 €",
+       "48 000 €",
+       "1 200 €"
+      ],
+      "len": [
+       [
+        0.0,
+        0.3
+       ],
+       [
+        0.15,
+        0.3
+       ],
+       [
+        1.2,
+        4.0
+       ]
+      ],
+      "rowsPer": 0.45
+     }
+    },
+    {
+     "id": "bag21",
+     "name": "mailBag",
+     "on": {
+      "actor": "facteur",
+      "joint": "torso",
+      "offset": [
+       0.2,
+       0.4,
+       0.0
+      ]
+     }
+    },
+    {
+     "id": "cap21",
+     "name": "copCap",
+     "on": {
+      "actor": "facteur",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.31,
+       0.0
+      ]
+     },
+     "opts": {
+      "color": "#2F5E8C"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.416,
+      1.5,
+      3.457
+     ],
+     "to": [
+      2.416,
+      1.5,
+      3.457
+     ],
+     "lookAt": [
+      -3.358,
+      0.236,
+      -4.61
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -3.358,
+      0.236,
+      -4.61
+     ]
+    }
+   ],
+   "start": 33.7667,
+   "duration": 1.7,
+   "setOpts": {
+    "back": -3.2,
+    "plant": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S22",
+   "set": "salleDeBain",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -0.2,
+      0,
+      -0.5
+     ],
+     "ry": 20,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.15,
+        0.55,
+        -0.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          0.9,
+          -0.15,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.12,
+          0.66,
+          -0.13,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.4,
+         "brow": -0.3
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "in"
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "reach": {
+         "R": [
+          0.15,
+          0.8,
+          -0.2,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 0.65,
+       "look": "camera"
+      },
+      {
+       "at": 1.393,
+       "look": [
+        0.85,
+        1.0,
+        -1.65
+       ]
+      },
+      {
+       "at": 1.793,
+       "look": "camera"
+      },
+      {
+       "at": 1.643,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.753,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.07
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "tub22",
+     "name": "bathTub",
+     "pos": [
+      0.25,
+      0,
+      -1.65
+     ],
+     "opts": {
+      "w": 1.9,
+      "d": 0.95,
+      "h": 0.6,
+      "fill": 0.0,
+      "drips": [
+       1.243
+      ]
+     }
+    },
+    {
+     "id": "stool22",
+     "name": "barStool",
+     "pos": [
+      -0.2,
+      0,
+      -0.55
+     ],
+     "scale": 0.75
+    },
+    {
+     "id": "bill22",
+     "name": "waterBill",
+     "pos": [
+      -0.15,
+      0.58,
+      -0.15
+     ],
+     "rot": [
+      -1.4,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "w": 0.5,
+      "h": 0.4,
+      "amount": "4 836 849 200 €",
+      "stamp": "CONTESTÉ",
+      "stampDelay": 0.0,
+      "popAt": -1.0
+     },
+     "ry": 0.0
+    },
+    {
+     "id": "stamp22",
+     "name": "bigStamp",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "scale": 0.6
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.846,
+      1.1,
+      1.566
+     ],
+     "to": [
+      2.846,
+      1.1,
+      1.566
+     ],
+     "lookAt": [
+      -4.073,
+      0.642,
+      -5.639
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -4.073,
+      0.642,
+      -5.639
+     ]
+    }
+   ],
+   "start": 35.4667,
+   "duration": 1.9933,
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 37.46,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 3.233,
+   "who": "mamie",
+   "name": "surf",
+   "sid": "S02"
+  },
+  {
+   "t": 6.0,
+   "who": "voisin1",
+   "name": "duck",
+   "sid": "S04"
+  },
+  {
+   "t": 8.067,
+   "who": "pompier1",
+   "name": "loop",
+   "sid": "S05"
+  },
+  {
+   "t": 10.033,
+   "who": "agent",
+   "name": "glove",
+   "sid": "S06"
+  },
+  {
+   "t": 15.4,
+   "who": "touriste2",
+   "name": "dive",
+   "sid": "S09"
+  },
+  {
+   "t": 17.5,
+   "who": null,
+   "name": "periscope",
+   "sid": "S10"
+  },
+  {
+   "t": 19.4,
+   "who": "marin",
+   "name": "hatch",
+   "sid": "S11"
+  },
+  {
+   "t": 23.833,
+   "who": "president",
+   "name": "pedalo",
+   "sid": "S14"
+  },
+  {
+   "t": 25.7,
+   "who": "president",
+   "name": "beam",
+   "sid": "S15"
+  },
+  {
+   "t": 28.133,
+   "who": "mec",
+   "name": "plop",
+   "sid": "S17"
+  },
+  {
+   "t": 30.133,
+   "who": null,
+   "name": "whirlpool",
+   "sid": "S18"
+  },
+  {
+   "t": 33.067,
+   "who": "mec",
+   "name": "sub",
+   "sid": "S20"
+  },
+  {
+   "t": 34.567,
+   "who": "facteur",
+   "name": "scroll",
+   "sid": "S21"
+  },
+  {
+   "t": 35.967,
+   "who": "mec",
+   "name": "stamp",
+   "sid": "S22"
+  }
+ ],
+ "cardTimes": [
+  12.3,
+  23.133,
+  31.317
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07,
+ "debugJoints": [
+  "mec"
+ ]
+}
