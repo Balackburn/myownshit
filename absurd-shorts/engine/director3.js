@@ -446,7 +446,7 @@ function placeAttached(Pp, k, t) {
   const os = A.obj.scale, mn = Math.min(os.x, os.y, os.z), mx = Math.max(os.x, os.y, os.z);
   const as = mn < 0.2 * mx ? [os.x, os.y, os.z].sort((a, b) => a - b)[1] : (os.x || 1);   // a flattened carrier (a shadow on its wall, flat across its shoulders): what it carries is flattened with it (divided by the 0.03 of its x, a watch on its wrist was two metres wide)
   const sc = (k.scale ?? scaleOf(Pp, t)) / Math.max(0.01, as);
-  Pp.obj.scale.setScalar(sc); squashProp(Pp, t);
+  Pp.obj.scale.setScalar(sc); squashProp(Pp, t); if (Pp.cfg.flat) { const f = Pp.cfg.flat, q = Pp.obj.scale; q.set(q.x * f[0], q.y * f[1], q.z * f[2]); }   // (story 66) `flat` on a carried prop too (a beard five times longer than wide)
   return true;
 }
 // a keyed impact on a prop (key `squash`): squashed at the key, it springs back, overshooting a little

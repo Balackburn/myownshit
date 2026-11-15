@@ -33,7 +33,7 @@ ME = [5.55, 0, 0.0]                                  # at the kerb of the right-
 LIGHT = [-5.55, 0, 1.6]                              # the pedestrian light across the road, its lenses toward him (+X)
 RED = lambda pid='feu', state=None, pos=LIGHT, ry=90: P(pid, 'trafficLight', pos=pos, ry=ry, opts={'h': 2.7, 'state': state or [[0.0, 'r']]})
 ZEBRA = lambda pid='zeb': P(pid, 'zebra', pos=[-5.0, 0.012, -1.5], opts={'n': 10})
-BEARD = lambda pid='barbe', s=(1.5, 5.4, 1.5), keys=None: P(pid, 'beard', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.05, 0.09]}, scale=list(s), opts={'color': '#3A322B'}, **({'keys': keys} if keys else {}))
+BEARD = lambda pid='barbe', s=1.5, keys=None: P(pid, 'beard', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.05, 0.09]}, scale=s, flat=[1.0, 3.6, 1.0], opts={'color': '#3A322B'}, **({'keys': keys} if keys else {}))   # (stills 1) a scalar scale and `flat` (a list scale drew nothing)
 WAIT = lambda: [k(0.0, look=[LIGHT[0], 2.5, LIGHT[2]]), k(0.0, toon={'face': DEAD}, toonDur=0.0)]   # his eyes on the light across the road
 CAR = lambda pid, x, z0, z1, t0, dur, col: P(pid, 'car', pos=[x, 0, z0], ry=(90 if z1 < z0 else -90), opts={'color': col}, keys=[k(t0, to=[x, 0, z1], dur=dur, ease='linear')])
 
@@ -60,7 +60,7 @@ st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('araignee', [r(LIGHT[0
 # 3: that was twelve years ago. Chest-up on him: in one shot his beard grows down out of the frame, his eyes on the light, two slow blinks
 D3 = st.dur('S03')
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=[*WAIT(), k(0.5, toon={'face': {'lid': 1.0}}, toonDur=0.15), k(0.75, toon={'face': DEAD}, toonDur=0.15)])],
-        props=[RED(), BEARD(s=(0.2, 0.2, 0.2), keys=[k(0.0, scale=[1.5, 5.4, 1.5], dur=r(D3 - 0.1), ease='inOut')])],
+        props=[RED(), BEARD(s=0.2, keys=[k(0.0, scale=1.5, dur=r(D3 - 0.1), ease='inOut')])],
         cams=[FC(0.0, [3.6, 1.95, 1.15], [[ME[0], 2.45, ME[2]], [ME[0], 1.2, ME[2]]], top=0.14, bottom=0.74)])
 st.cue('sfx:stretch', 'S03', 0.1, 0.25)
 
@@ -76,9 +76,9 @@ st.cue('sfx:cluck', 'S04', 0.4, 0.15)
 #    off to us with a sweep of the hand
 D5 = st.dur('S05')
 st.shot('S05', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT()),
-        act('maire', [r(ME[0] - 1.3), 0, 1.9], 150, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.2, toon={'reach': {'R': [r(ME[0] - 0.6), 1.6, 1.0, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'mouth': 'bigsmile'}}, toonDur=0.3, toonEase='out')])],
+        act('maire', [3.9, 0, -1.0], 20, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.2, toon={'reach': {'R': [4.6, 1.6, -0.5, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'mouth': 'bigsmile'}}, toonDur=0.3, toonEase='out')])],
         props=[RED(), ZEBRA(), BEARD(), P('maison5', 'house', pos=[r(ME[0] + 1.3), 0, 0.0], ry=-90, opts={'w': 3.0, 'd': 2.6, 'h': 2.2})],
-        cams=[FC(0.0, [1.4, 1.6, 6.0], [[ME[0], 2.45, ME[2]], [r(ME[0] + 1.3), 3.4, 0.0], [r(ME[0] - 1.3), 0.0, 1.9], [ME[0], 0.0, ME[2]]], top=0.16, bottom=0.78)])
+        cams=[FC(0.0, [2.2, 1.6, 6.0], [[ME[0], 2.45, ME[2]], [r(ME[0] + 1.3), 3.4, 0.0], [3.9, 2.45, -1.0], [3.9, 0.0, -1.0], [ME[0], 0.0, ME[2]]], top=0.16, bottom=0.78)])   # (stills 1) the mayor beside him (in front he hid him)
 
 # 6: the postman delivers his mail at the light. The postman holds out a letter; his hand takes it without his eyes leaving the light
 D6 = st.dur('S06'); TAKE6 = 0.85
@@ -118,7 +118,7 @@ D9 = st.dur('S09')
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=[*WAIT(), k(1.0, toon={'face': {'lid': 1.0}}, toonDur=0.08), k(1.12, toon={'face': DEAD}, toonDur=0.1)]),
         act('pigeon', [r(ME[0] - 0.24), 1.42, 0.0], -90, 'idle', 'neutral', scale=1.3, keys=[k(0.0, look='camera')])],
         props=[RED(), BEARD(), P('nid9', 'nest', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.42, 0.24]}, scale=0.45, opts={'layAt': [0.3, 0.6, 0.9]})],
-        cams=[FC(0.0, [4.2, 1.75, 1.0], [[ME[0], 2.45, ME[2]], [ME[0], 1.0, ME[2]], [r(ME[0] - 0.3), 1.9, 0.0]], top=0.14, bottom=0.74)])
+        cams=[FC(0.0, [4.4, 1.45, -1.0], [[ME[0], 2.45, ME[2]], [ME[0], 1.0, ME[2]], [r(ME[0] - 0.3), 1.9, 0.0]], top=0.14, bottom=0.74)])   # (audit) from his other side and lower: not S03's frame
 for t_ in (0.3, 0.6, 0.9): st.cue('pop', 'S09', t_, 0.15)
 
 # 10: tourists queue for the photo. Along the pavement a queue of tourists; the first one photographs him: a flash; the next one steps up
@@ -127,18 +127,18 @@ st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand
         *[act(f'tour{j + 1}', [r(ME[0] + 0.3 + 0.75 * j), 0, r(1.4 + 0.55 * j)], -150, 'stand', 'happy', keys=[k(0.0, look=[ME[0], 1.9, ME[2]]),
             *([k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0)] if j == 0 else [])]) for j in range(4)]],
         props=[RED(), ZEBRA(), BEARD(), P('cam10', 'pressCamera', on={'actor': 'tour1', 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': FL10})],
-        cams=[FC(0.0, [2.6, 1.7, 5.2], [[ME[0], 2.45, ME[2]], [r(ME[0] + 2.55), 2.45, 3.05], [r(ME[0] + 2.55), 0.0, 3.05], [ME[0], 0.0, ME[2]]], top=0.16, bottom=0.78)])
+        cams=[FC(0.0, [3.4, 1.7, 3.6], [[ME[0], 2.45, ME[2]], [r(ME[0] + 2.55), 2.45, 3.05], [r(ME[0] + 2.55), 0.0, 3.05], [ME[0], 0.0, ME[2]]], top=0.16, bottom=0.78)])   # (stills 1) nearer the queue
 for t_ in FL10: st.cue('sfx:click', 'S10', t_, 0.25)
 
 # 11: the government decorated him for his patience. A minister pins a medal on his chest and steps back to clap; he does not take his eyes off the
 #     light (BRAVO)
 D11 = st.dur('S11'); PIN11 = 0.5
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT()),
-        act('ministre', [r(ME[0] - 0.45), 0, 0.85], 160, 'stand', 'happy', keys=[k(0.0, look=[ME[0], 1.55, ME[2]]), k(0.0, toon={'reach': {'R': [r(ME[0] - 0.15), 1.55, 0.2, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'mouth': 'smile'}}, toonDur=0.0),
+        act('ministre', [r(ME[0] - 0.7), 0, -0.65], 30, 'stand', 'happy', keys=[k(0.0, look=[ME[0], 1.55, ME[2]]), k(0.0, toon={'reach': {'R': [r(ME[0] - 0.2), 1.55, -0.15, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'mouth': 'smile'}}, toonDur=0.0),
             k(r(PIN11 + 0.15), look='camera'), k(r(PIN11 + 0.15), toon={'touch': {'R': ['torso', -0.05, 0.5, 0.3, 1, 0.03], 'L': ['torso', 0.05, 0.5, 0.3, 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'mouth': 'bigsmile'}}, toonDur=0.15),
             *[k(r(PIN11 + 0.35 + 0.18 * j), toon={'touch': {'R': ['torso', r(-0.05 + (0.03 if j % 2 else 0.0)), 0.5, 0.3, 1, 0.03], 'L': ['torso', r(0.05 - (0.03 if j % 2 else 0.0)), 0.5, 0.3, 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'mouth': 'bigsmile'}}, toonDur=0.06) for j in range(5)]])],   # clapping
         props=[RED(), BEARD(), P('med11', 'medal', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.12, 0.62, 0.17]}, scale=1.4, keys=[k(0.0, scale=0.01, dur=0.0), k(PIN11, scale=1.4, dur=0.08, ease='outBack')])],
-        cams=[FC(0.0, [3.4, 1.75, 2.2], [[ME[0], 2.45, ME[2]], [r(ME[0] - 0.45), 2.45, 0.85], [ME[0], 1.0, ME[2]]], top=0.2, bottom=0.74)])
+        cams=[FC(0.0, [3.6, 1.75, 2.4], [[ME[0], 2.45, ME[2]], [r(ME[0] - 0.7), 2.45, -0.65], [ME[0], 1.0, ME[2]]], top=0.2, bottom=0.74)])   # (stills 1) the minister beside him (from behind he hid the medal)
 st.cue('sfx:clink', 'S11', PIN11, 0.3); st.cue('sfx:fanfare', 'S11', r(PIN11 + 0.3), 0.18)
 
 # 12: the president came to wait with him. Side by side at the kerb, the president and him, both deadpan, eyes on the light; two bodyguards behind
@@ -159,7 +159,7 @@ st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand
             k(GO13, to=[r(ME[0] + 4.0), 0, 2.4], dur=r(D13 - GO13), clip='walk', ease='in', face='keep'), k(GO13, toon={}, toonDur=0.2)]),   # ...and off
         *[act(f'garde{j + 1}', [r(ME[0] + 1.3), 0, r(-0.4 + 1.6 * j)], -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 2.0, LIGHT[2]]), k(r(GO13 + 0.08), to=[r(ME[0] + 4.6), 0, r(1.8 + 1.4 * j)], dur=r(D13 - GO13), clip='walk', ease='in', face='keep')]) for j in range(2)]],
         props=[RED(), ZEBRA(), BEARD(), P('montre13', 'wristWatch', on={'actor': 'president', 'hand': 'L', 'offset': [0.0, 0.04, 0.0]}, opts={'bright': True, 'both': True})],
-        cams=[FC(0.0, [2.2, 1.6, 3.6], [[ME[0], 2.45, ME[2]], [ME[0], 2.45, 0.95], [r(ME[0] + 1.3), 2.45, 1.2], [ME[0], 0.6, 0.5]], top=0.16, bottom=0.76)])
+        cams=[FC(0.0, [1.6, 1.9, 5.4], [[ME[0], 2.45, ME[2]], [ME[0], 2.45, 0.95], [r(ME[0] + 4.6), 2.45, 3.2], [ME[0], 0.0, 0.5]], top=0.16, bottom=0.78)])   # (audit) wider, to see them walk off
 
 # 14: yesterday the light turned green. Close on the light: the red goes out, the green lights up with a pop, the spider drops off on its thread (VERT)
 D14 = st.dur('S14'); GREEN14 = 0.35
