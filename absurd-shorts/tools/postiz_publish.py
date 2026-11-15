@@ -8,7 +8,8 @@ What it does:
   2. Ledger: stories7/tiktok_published.json (shared with the other publishers) says what was already scheduled or published; a story is never sent
      twice.
   3. For each story to send: `postiz upload` of the mp4, then `postiz posts:create` on the TikTok channel with DIRECT_POST (it is published, not left
-     as a draft in the app), the AI-generated label (synthetic voice, animation made by code), the title, and a caption made of the title, the
+     as a draft in the app), without the AI-generated label (the owner's decision: the pictures are a 3D render made by code, not a generated
+     video), the title, and a caption made of the title, the
      story's first line of narration and five French hashtags. Videos are 1080x1920 H.264 mp4 already, so no re-encoding.
 
 Credentials: the Postiz API key is read from the environment variable POSTIZ_API_KEY and never written to a file, a commit or a log. Node reaches
@@ -19,6 +20,7 @@ Usage (from absurd-shorts/):
   python3 tools/postiz_publish.py --now 1                  publish the oldest missing story in two minutes
   python3 tools/postiz_publish.py --schedule               schedule every missing story, six a day (9:00 to 21:30 Paris time)
   python3 tools/postiz_publish.py --only 75-parcmetre --now 1    a new delivery, right away
+  python3 tools/postiz_publish.py --only 75-parcmetre --now 1 --inbox    the same, to the TikTok app's inbox (published from the app)
   python3 tools/postiz_publish.py --status                 refresh the ledger from Postiz (published, error)
   python3 tools/postiz_publish.py --cancel-scheduled       delete every post still waiting in the Postiz queue and mark those stories as already on
                                                            the account (posted by hand), so they are never sent again
@@ -90,7 +92,7 @@ def slots_after(start, taken, n):
     return out
 
 
-def send(v, when, chan):
+def send(v, when, chan, inbox=False):
     up = last_json(run(['upload', v['file']], 1800)) or {}
     path = up.get('path')
     if not path:
@@ -98,7 +100,9 @@ def send(v, when, chan):
     h = hook(v['id'])
     content = f"<p>{v['title']}{' — ' + h if h else ''}</p><p>{TAGS}</p>"
     settings = {'title': v['title'][:90], 'privacy_level': 'PUBLIC_TO_EVERYONE', 'duet': True, 'stitch': True, 'comment': True, 'autoAddMusic': 'no',
-                'brand_content_toggle': False, 'brand_organic_toggle': False, 'video_made_with_ai': True, 'content_posting_method': 'DIRECT_POST'}
+                'brand_content_toggle': False, 'brand_organic_toggle': False, 'video_made_with_ai': False, 'content_posting_method': 'DIRECT_POST'}
+    if inbox:   # (15 Nov) --inbox: TikTok's inbox instead of the profile; the owner publishes it from the app (where the high-quality upload setting
+        settings = {'title': v['title'][:90], 'content_posting_method': 'UPLOAD'}   # applies); TikTok's inbox endpoint keeps only the title
     res = last_json(run(['posts:create', '-c', content, '-m', path, '-i', chan, '-s', when, '--settings', json.dumps(settings, ensure_ascii=False)], 300))
     items = res if isinstance(res, list) else (res.get('posts') or res.get('data') or [res]) if isinstance(res, dict) else []
     pid = next((it.get('postId') or it.get('id') for it in items if isinstance(it, dict) and (it.get('postId') or it.get('id'))), None)
@@ -114,6 +118,7 @@ def main():
     ap.add_argument('--max', type=int, default=0)
     ap.add_argument('--only', nargs='*')
     ap.add_argument('--cancel-scheduled', action='store_true', help='delete the posts still queued in Postiz; mark their stories as already on the account')
+    ap.add_argument('--inbox', action='store_true', help="send to the TikTok app's inbox (the owner publishes from the app) instead of publishing")
     a = ap.parse_args()
     L = ledger()
     vids = [v for v in inventory() if not a.only or v['id'] in a.only]
@@ -166,11 +171,11 @@ def main():
         plan += list(zip(todo, slots_after(last, taken, len(todo))))
     for v, when in plan:
         try:
-            pid, path = send(v, when, chan)
+            pid, path = send(v, when, chan, inbox=a.inbox)
         except (RuntimeError, subprocess.TimeoutExpired) as e:
             print(f"  FAILED {v['id']}: {e}")
             break
-        L[v['id']] = {'title': v['title'], 'via': 'postiz', 'post_id': pid, 'status': 'scheduled', 'date': when, 'media': path,
+        L[v['id']] = {'title': v['title'], 'via': 'postiz', 'post_id': pid, 'status': 'sent to the TikTok inbox' if a.inbox else 'scheduled', 'date': when, 'media': path,
                       'at': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%d %H:%M')}
         save_ledger(L)
         print(f"  scheduled {v['id']} « {v['title']} » for {when} (post {pid})")

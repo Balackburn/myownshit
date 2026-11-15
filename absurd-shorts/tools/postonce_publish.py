@@ -141,7 +141,7 @@ def main():
     schema = (T.get('create_post') or {}).get('inputSchema', {})
     props = schema.get('properties', {})
     tgt_props = ((props.get('targets') or {}).get('items') or {}).get('properties', {})
-    opts = {'privacy': 'public', 'publish_mode': 'direct', 'ai_generated': True}   # the AI label: synthetic voice, animation made by code
+    opts = {'privacy': 'public', 'publish_mode': 'direct', 'ai_generated': False}   # no AI label (the owner's decision: a 3D render made by code)
     done = 0
     for v in missing:
         if a.max and done >= a.max:

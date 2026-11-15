@@ -7,7 +7,7 @@ What it does, in order:
   2. Account check: the videos already on the account (Display API /v2/video/list/), matched to the stories by title, plus the local ledger
      (stories7/tiktok_published.json) of what this tool already sent.
   3. Publication of every story still missing, oldest first: creator info (privacy options, maximum length), init with FILE_UPLOAD, one PUT of
-     the file to the upload URL, then the status polled until TikTok has the post. Each post carries the AI-generated label (is_aigc), the title
+     the file to the upload URL, then the status polled until TikTok has the post. Each post goes out without the AI-generated label (is_aigc false: a 3D render, the owner's decision), the title
      and a few French hashtags. A pause between posts keeps to the API's rate limits; a daily cap error stops the run and the next run resumes.
 
 Credentials: none in this file, in the repository or in the environment variables. The access token is a network secret of the cloud
@@ -112,7 +112,7 @@ def publish(v, info):
     size = v['size']
     post = {'title': f"{v['title']} {TAGS}", 'privacy_level': privacy, 'disable_duet': bool(info.get('duet_disabled')),
             'disable_comment': bool(info.get('comment_disabled')), 'disable_stitch': bool(info.get('stitch_disabled')),
-            'video_cover_timestamp_ms': 1500, 'is_aigc': True}   # the AI-generated label: synthetic voice and animation made by code
+            'video_cover_timestamp_ms': 1500, 'is_aigc': False}   # no AI-generated label (the owner's decision: a 3D render made by code, not a generated video)
     data, err = call('/v2/post/publish/video/init/', {'post_info': post, 'source_info': {'source': 'FILE_UPLOAD', 'video_size': size,
                                                                                          'chunk_size': size, 'total_chunk_count': 1}})
     if err:
