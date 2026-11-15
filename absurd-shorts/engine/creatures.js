@@ -24,7 +24,7 @@ export const CREATURE_NAMES = [
   'frog', 'shark', 'fish', 'octopus', 'penguin', 'owl', 'alien', 'robot', 'ghost',
   'snowman', 'banana-man', 'worm', 'avocat', 'sock',
 ];
-export const CREATURE_CLIPS = ['idle', 'walk', 'run', 'flee', 'fly', 'hop', 'peck', 'sit', 'talk', 'celebrate', 'sleep', 'angry', 'eat', 'grow', 'carry', 'point', 'refuse', 'bow', 'sad'];
+export const CREATURE_CLIPS = ['idle', 'walk', 'run', 'flee', 'fly', 'hop', 'peck', 'sit', 'talk', 'celebrate', 'sleep', 'angry', 'eat', 'grow', 'carry', 'point', 'refuse', 'bow', 'sad', 'gulp'];   // (cycle 27) gulp: swimmers
 export const CREATURE_EXPRESSIONS = ['neutral', 'angry', 'sad', 'surprised', 'shocked', 'smug', 'sleepy', 'happy', 'scared', 'suspicious', 'closed', 'blink', 'dead', 'talk'];
 const NAME_ALIASES = { banana: 'banana-man', bananaman: 'banana-man', banana_man: 'banana-man', mouse: 'rat', kitten: 'cat', puppy: 'dog', gull: 'seagull', hen: 'chicken', rooster: 'chicken', ape: 'gorilla', donkey: 'horse', bull: 'cow', lamb: 'sheep', bunny: 'rabbit', toad: 'frog', squid: 'octopus', ufo: 'alien', android: 'robot' };
 
@@ -1362,6 +1362,12 @@ function swimPose(c, t, p, R) {
     case 'talk': swim(0.8, 0.25); q.jaw = [0.45 * abs(S(t * 11)), 0, 0]; q.head = [0.05 * S(t * 6), 0, 0]; break;
     case 'angry': swim(3.5, 0.5); q.root.x = 0.02 * S(t * 40); q.jaw = [0.5 * abs(S(t * 9)), 0, 0]; q.expr = 'angry'; break;
     case 'eat': case 'peck': { swim(2, 0.4); const k = max(0, S(t * 2 * PI * 1.2)); q.root.z = 0.1 * k * (R.height / 0.75) * 0.5; q.jaw = [0.6 * k, 0, 0]; break; }
+    // (cycle 27) gulp: one huge bite: the mouth opens wide over 0.28 s (the head tipping back), holds, snaps shut at 0.4 s, then the body
+    // swells round what went down and settles; surprised while it opens, pleased after
+    case 'gulp': { swim(1.2, 0.3); const o = t < 0.28 ? 1 - Math.pow(1 - t / 0.28, 3) : t < 0.4 ? 1 : t < 0.46 ? 1 - (t - 0.4) / 0.06 : 0;
+      q.jaw = [1.15 * o, 0, 0]; q.head = [-0.28 * o, 0, 0]; q.root.z = (R.height / 0.75) * 0.12 * (t < 0.4 ? o : Math.max(0, 1 - (t - 0.4) / 0.3));
+      const sw = t < 0.46 ? 0 : t < 0.6 ? (t - 0.46) / 0.14 : Math.max(0.35, 1 - (t - 0.6) / 0.8); q.scl = { body: [1 + 0.22 * sw, 1 + 0.16 * sw, 1 + 0.06 * sw] };
+      q.expr = t < 0.42 ? 'surprised' : 'happy'; break; }
     case 'sleep': case 'sit': swim(0.3, 0.12); q.root.y = -0.1 + 0.02 * S(t * 1.2); if (c === 'sleep') { q.expr = 'closed'; q.noBlink = true; } break;
     case 'celebrate': case 'hop': case 'fly': {
       const k = (t * 0.9) % 1; swim(3, 0.5); q.root.y = 0.7 * 4 * k * (1 - k) * (R.height / 1.0); q.root.rx = -k * 2 * PI * (c === 'celebrate' ? 1 : 0) - (c !== 'celebrate' ? 0.6 * (k - 0.5) * 2 : 0); if (c === 'celebrate') q.expr = 'happy'; break;

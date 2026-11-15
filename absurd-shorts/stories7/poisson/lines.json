@@ -1,0 +1,23 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a acheté un poisson rouge.", "hl": ["poisson", "rouge."]},
+ {"id": "L02", "who": "N", "text": "Le vendeur a dit : trois grains par jour.", "hl": ["trois", "grains"]},
+ {"id": "L03", "who": "N", "text": "Il en a mis trois cents.", "hl": ["trois", "cents."]},
+ {"id": "L04", "who": "N", "text": "Le lendemain, il fallait la baignoire.", "hl": ["baignoire."]},
+ {"id": "L05", "who": "N", "text": "Le surlendemain, la piscine municipale.", "hl": ["piscine", "municipale."]},
+ {"id": "L06", "who": "N", "text": "La mairie a fermé la piscine.", "hl": ["mairie", "fermé"]},
+ {"id": "L07", "who": "N", "text": "Le poisson a déménagé dans le lac.", "hl": ["lac."]},
+ {"id": "L08", "who": "N", "text": "Il a mangé tous les pédalos.", "hl": ["pédalos."]},
+ {"id": "L09", "who": "N", "text": "Les canards ont porté plainte.", "hl": ["canards", "plainte."]},
+ {"id": "L10", "who": "N", "text": "Le juge a donné raison au poisson.", "hl": ["juge", "poisson."]},
+ {"id": "L11", "who": "N", "text": "Les canards ont fait appel.", "hl": ["appel."]},
+ {"id": "L12", "who": "N", "text": "Le poisson a mangé le tribunal.", "hl": ["tribunal."]},
+ {"id": "L13", "who": "N", "text": "L'armée a été envoyée.", "hl": ["armée"]},
+ {"id": "L14", "who": "N", "text": "Trois chars, deux avions de chasse.", "hl": ["chars,", "chasse."]},
+ {"id": "L15", "who": "N", "text": "Le poisson les a pris pour des grains.", "hl": ["grains."]},
+ {"id": "L16", "who": "N", "text": "Le gouvernement a négocié.", "hl": ["gouvernement"]},
+ {"id": "L17", "who": "N", "text": "Accord historique : il a eu la mer.", "hl": ["mer."]},
+ {"id": "L18", "who": "N", "text": "En échange, il surveille les côtes.", "hl": ["surveille", "côtes."]},
+ {"id": "L19", "who": "N", "text": "Payé trois grains par jour.", "hl": ["trois", "grains"]},
+ {"id": "L20", "who": "N", "text": "Le mec s'est racheté un poisson rouge.", "hl": ["racheté"]},
+ {"id": "L21", "who": "N", "text": "Il lui en donne trois cents.", "hl": ["trois", "cents."]}
+]

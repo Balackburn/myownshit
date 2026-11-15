@@ -910,9 +910,9 @@ function haloTex() {
   gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
   _haloTex = new THREE.CanvasTexture(c); return _haloTex;
 }
-function makeBird() {
-  const L = (c) => new THREE.MeshLambertMaterial({ color: c }), g = new THREE.Group();
-  const body = new THREE.Mesh(new THREE.SphereGeometry(0.075, 10, 8), L('#8C95A3')); body.scale.set(0.9, 0.85, 1.35); body.position.y = 0.075;
+function makeBird(tint) {
+  const L = (c) => new THREE.MeshLambertMaterial({ color: c }), g = new THREE.Group();   // (pass 2 of 64) tint: the body's colour (a pale one reads against dark shop fronts)
+  const body = new THREE.Mesh(new THREE.SphereGeometry(0.075, 10, 8), L(tint || '#8C95A3')); body.scale.set(0.9, 0.85, 1.35); body.position.y = 0.075;
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.042, 8, 6), L('#7C8594')); head.position.set(0, 0.15, 0.085);
   const neck = new THREE.Mesh(new THREE.SphereGeometry(0.046, 8, 6), L('#5F8C7E')); neck.position.set(0, 0.12, 0.06);
   const beak = new THREE.Mesh(new THREE.ConeGeometry(0.013, 0.04, 6), L('#E2A23B')); beak.rotation.x = Math.PI / 2; beak.position.set(0, 0.145, 0.135);
@@ -931,7 +931,8 @@ function tetherExtras(td) {
       const cap = new THREE.Mesh(new THREE.CylinderGeometry(sz * 0.24, sz * 0.24, sz * 0.4, 6), new THREE.MeshLambertMaterial({ color: B.wire || '#1F5A2E' })); cap.position.y = sz * 0.2;
       const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex(), color: col, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.85 })); glow.scale.setScalar(sz * (B.glow ?? 3.2)); glow.position.y = -sz * 0.45; glow.userData.noAO = true;
       g.add(bulb, cap, glow); g.visible = false; S.root.add(g); ex.bulbs.push({ g, bulb, glow, col, k, u: (k + 0.5) / n }); } }
-  for (const [u, flyAt = 1e9, yaw = 0] of td.birds || []) { const g = makeBird(); g.visible = false; S.root.add(g); ex.birds.push({ g, u, flyAt, yaw: yaw * Math.PI / 180, k: ex.birds.length }); }
+  for (const [u, flyAt = 1e9, yaw = 0] of td.birds || []) { const g = makeBird(td.birdTint); g.scale.setScalar(td.birdScale ?? 1); g.visible = false;   // (pass 2 of 64) td.birdScale, td.birdTint
+ S.root.add(g); ex.birds.push({ g, u, flyAt, yaw: yaw * Math.PI / 180, k: ex.birds.length }); }
   if (td.plug) { const g = new THREE.Group(), w = new THREE.MeshLambertMaterial({ color: '#F2F2EE' }), d = new THREE.MeshLambertMaterial({ color: '#2B2B2B' });
     const cable = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.2, 5), new THREE.MeshLambertMaterial({ color: '#1F5A2E' })); cable.position.y = -0.1;
     const bodyP = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.07, 0.035), w); bodyP.position.y = -0.235;
@@ -943,20 +944,24 @@ function tetherExtras(td) {
 function hideExtras(ex) { if (!ex) return; for (const e of ex.bulbs) e.g.visible = false; for (const e of ex.birds) e.g.visible = false; if (ex.plug) ex.plug.visible = false; if (ex.tip) ex.tip.visible = false; }
 const _xp = V(), _xq = V();
 function placeTetherExtras(td, ex, curve, t, endU, R) {
-  const at01 = u => curve.getPointAt(Math.min(1, Math.max(0, u)), _xp), snapT = u => td.snap ? td.snap[0] + td.snap[1] * Math.sqrt(Math.max(0, 1 - u)) : 1e9;
+  const at01 = u => curve.getPointAt(Math.min(1, Math.max(0, u)), _xp), snapT = u => td.snap ? td.snap[0] + td.snap[1] * Math.pow(Math.max(0, 1 - u), 1 / (td.snap[3] ?? 2)) : 1e9;
   const gone = endU < 0.07 ? Math.max(0, endU / 0.07) : 1;   // the last of the cord going into the mouth: what rides on its end shrinks with it
   if (ex.bulbs.length) { const B = td.bulbs, hang = B.hang || [-1e9, -1e9], on = B.on ?? 1e9, per = B.period || 0.3, drop = B.drop ?? 0.02;
     for (const e of ex.bulbs) {
       const shown = t >= hang[0] + (hang[1] - hang[0]) * (B.fromA ? e.u : 1 - e.u) && gone > 0.02; e.g.visible = shown; if (!shown) continue;
-      const over = e.u > endU; at01(over ? 1 : e.u / endU); e.g.position.copy(_xp); e.g.position.y -= R + drop;
+      // (pass 2 of 64) td.reel: the cord runs back like a tape measure into its case: everything on it slides toward the a end from the first frame and goes in
+      // there (a bulb that reaches the mouth is swallowed); without it the bulbs stay put and bunch on the running end (in a close frame nothing moved until
+      // the end came by, four frames from the end)
+      const rl = td.reel && endU < 1, up = rl ? e.u - (1 - endU) : e.u; if (rl && up < 0.012) { e.g.visible = false; continue; }
+      const over = !rl && e.u > endU; at01(over ? 1 : up / endU); e.g.position.copy(_xp); e.g.position.y -= R + drop;
       if (over) { const j = Math.min(1, (e.u - endU) * 5); e.g.position.x += 0.09 * j * Math.sin(e.k * 2.1); e.g.position.y += 0.09 * j * Math.cos(e.k * 1.7); e.g.position.z += 0.09 * j * Math.sin(e.k * 3.3); e.g.rotation.set(j * Math.sin(e.k), 0, j * Math.cos(e.k * 1.3)); }
       else e.g.rotation.set(0, 0, 0);
       e.g.scale.setScalar(gone);
       const lit = t >= on && (B.chase === false || (Math.floor((t - on) / per) + e.k) % 3 !== 0);
       e.bulb.material.color.copy(e.col).multiplyScalar(lit ? 1.3 : (t >= on ? 0.4 : (B.dim ?? 0.55))); e.glow.visible = lit; } }   // (cycle 26) B.dim: how bright an unlit bulb is before the lights go on
   for (const e of ex.birds) {
-    const fa = Math.min(e.flyAt, snapT(e.u) - 0.06), k = (t - fa) / 0.7; if (k > 1) { e.g.visible = false; continue; } e.g.visible = true;
-    at01(Math.min(e.u, endU) / Math.max(1e-3, endU)); e.g.position.copy(_xp); e.g.position.y += R * 0.9; e.g.rotation.set(0, e.yaw, 0);
+    const fa = Math.min(e.flyAt, td.reel && td.snap ? td.snap[0] + 0.03 * e.k : snapT(e.u) - 0.06), k = (t - fa) / 0.7; if (k > 1) { e.g.visible = false; continue; } e.g.visible = true;
+    at01((td.reel && endU < 1 ? Math.max(0, e.u - (1 - endU)) : Math.min(e.u, endU)) / Math.max(1e-3, endU)); e.g.position.copy(_xp); e.g.position.y += R * 0.9; e.g.rotation.set(0, e.yaw, 0);
     const w = e.g.userData.wings;
     if (k > 0) { const sd = e.k % 2 ? 1 : -1; e.g.position.y += 1.5 * k + 0.25 * Math.sin(Math.PI * k); e.g.position.x += Math.cos(e.yaw) * sd * 1.6 * k; e.g.position.z -= Math.sin(e.yaw) * sd * 1.6 * k; e.g.rotation.x = -0.5;
       for (const wg of w) wg.rotation.z = wg.userData.sd * (0.2 + 0.9 * Math.abs(Math.sin(t * 28 + e.k))); }
@@ -987,7 +992,7 @@ function evalTethers(t) {
     // (cycle 26) td.snap: [t0, dur, whip (0.35 m)]: the b end lets go and runs back along the cord into the a end, faster and faster (a stuck tongue
     // coming home like a tape measure), its free end whipping from side to side; gone at t0 + dur
     let endU = 1;
-    if (td.snap && t >= td.snap[0]) { const s = clamp01((t - td.snap[0]) / td.snap[1]); if (s >= 1) { m.visible = false; hideExtras(ex); continue; } endU = 1 - s * s;
+    if (td.snap && t >= td.snap[0]) { const s = clamp01((t - td.snap[0]) / td.snap[1]); if (s >= 1) { m.visible = false; hideExtras(ex); continue; } endU = 1 - Math.pow(s, td.snap[3] ?? 2);   // (pass 2 of 64) td.snap[3]: the power of the run back (2: slow then very fast, the end in view for four frames; 1.3: steadier)
       const c0 = new THREE.CatmullRomCurve3(pts.map(p => p.clone())), np = pts.length, side = V().crossVectors(b.clone().sub(a).normalize(), V(0, 1, 0)).normalize();
       for (let i = 0; i < np; i++) { const u = i / (np - 1), p = c0.getPointAt(u * endU), f = u * u;
         p.addScaledVector(side, (td.snap[2] ?? 0.35) * (1 - s) * f * Math.sin(18 * s + 6 * u)); p.y += 0.15 * (1 - s) * f * Math.cos(14 * s + 5 * u); pts[i] = p; } }

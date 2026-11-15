@@ -40,9 +40,12 @@ export const CAFE_PROPS = {
 
   // A decaf (pivot at the saucer's underside): the cup and saucer, DÉCA in brown letters on the cup's front (+Z), two wisps of steam
   decaCup(o) {
-    const g = cup({}), lb = canvasPlane(0.07, 0.03, (c, W, H) => { c.fillStyle = 'rgba(0,0,0,0)'; c.clearRect(0, 0, W, H); c.fillStyle = '#6B3A1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Math.round(H * 0.82)}px Arial`; c.fillText(o.text || 'DÉCA', W / 2, H / 2); }, { res: 256, transparent: true });
-    lb.position.set(0, 0.043, 0.041); g.add(lb);
-    const wisps = [0, 1].map(i => { const w = new THREE.Mesh(new THREE.SphereGeometry(0.018, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0, depthWrite: false })); g.add(w); return w; });
+    // (pass 3 of 63) o.band: a brown band round the cup with the word in cream on it (brown letters on white china over a white shirt: 1.15:1); o.steam false:
+    // no wisps (two solid white balls)
+    const g = cup({}), bd = o.band, lb = canvasPlane(bd ? 0.082 : 0.07, bd ? 0.034 : 0.03, (c, W, H) => { c.fillStyle = 'rgba(0,0,0,0)'; c.clearRect(0, 0, W, H); c.fillStyle = bd ? '#FFF2D6' : '#6B3A1E'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${Math.round(H * 0.82)}px Arial`; c.fillText(o.text || 'DÉCA', W / 2, H / 2); }, { res: 256, transparent: true });
+    if (bd) g.add(at(cyl(0.0418, 0.0372, 0.036, typeof bd === 'string' ? bd : '#6B3A1E', 18), 0, 0.044, 0));
+    lb.position.set(0, 0.044, bd ? 0.0435 : 0.041); g.add(lb);
+    const wisps = (o.steam === false ? [] : [0, 1]).map(i => { const w = new THREE.Mesh(new THREE.SphereGeometry(0.018, 8, 6), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0, depthWrite: false })); g.add(w); return w; });
     g.userData.update = t => wisps.forEach((w, i) => { const v = ((t * 0.9 + i * 0.5) % 1); w.position.set(0.01 * Math.sin(t * 3 + i), 0.08 + v * 0.12, 0); w.scale.setScalar(0.6 + v * 1.4); w.material.opacity = 0.6 * (1 - v); });
     g.userData.update(0); return g;
   },
@@ -136,8 +139,14 @@ export const CAFE_PROPS = {
     const face = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex })); face.receiveShadow = true; g.add(face);
     const T = o.thick ?? 0.2; g.add(at(box(W, H, T - 0.12, o.back || '#E3D7B8', { pivot: 'bottom' }), 0, 0, -(T + 0.12) / 2));
     const pos = geo.attributes.position, base = Float32Array.from(pos.array), sp = o.speed ?? 3.2, wv = o.wave ?? 0.5, dk = o.decay ?? 2.4;
+    // (pass 3 of 63) o.press [[t0, t1, x, depth], ...]: a man behind the paper pushes it out in his own shape (head, shoulders, the cup in his hand, legs)
+    // from t0, the bulge swelling over 0.06 s to depth (m), until he breaks through at t1 and it is gone (rings from o.ripple take over): a round bump
+    // there read as a balloon coming out of the wall. o.pressH (2.3 m): his height
+    const PH = (o.pressH ?? 2.3) / 2.3, PARTS = [[0, 2.06, 0.17, 0.27], [0, 1.45, 0.3, 0.42], [0.15, 1.42, 0.09, 0.1], [-0.12, 0.55, 0.11, 0.52], [0.12, 0.55, 0.11, 0.52]].map(([px, py, a, b]) => [px * PH, py * PH, a * PH, b * PH]);
+    const pressAt = (t, x, y) => { let d = 0; for (const [t0, t1, cx, dep] of (o.press || [])) { if (t < t0 || t >= t1) continue; const k = eo((t - t0) / 0.06) * dep; let m = 0;
+        for (const [px, py, a, b] of PARTS) { const q = ((x - cx - px) / a) ** 2 + ((y - py) / b) ** 2; if (q < 4) m = Math.max(m, Math.exp(-q * q)); } d = Math.max(d, k * m); } return d; };
     g.userData.update = t => {
-      for (let i = 0; i < pos.count; i++) { const x = base[3 * i], y = base[3 * i + 1]; let dz = 0;
+      for (let i = 0; i < pos.count; i++) { const x = base[3 * i], y = base[3 * i + 1]; let dz = o.press ? pressAt(t, x, y) : 0;
         let dx = 0, dy = 0;
         for (const [t0, rx, ry, amp] of (o.ripple || [])) { const tau = t - t0; if (tau <= 0) continue; const rr = Math.hypot(x - rx, y - ry), front = sp * tau; if (rr >= front) continue;
           const env = (amp ?? 0.09) * clamp01((front - rr) / 0.3) * Math.exp(-dk * tau - 0.3 * rr), ph = TAU * (front - rr) / wv; dz += env * Math.sin(ph);
@@ -216,7 +225,9 @@ export const CAFE_PROPS = {
   // cracks
   metroNose(o) {
     const L = o.len ?? 8, W = o.w ?? 2.5, H = o.h ?? 2.3, n = o.n ?? 8, sl = L / n, g = grp(), slices = [], body = o.body || '#ECE7DA';
+    const _bc = new THREE.Color(body), _dc = new THREE.Color(o.foldShade || '#7E796E');   // (pass 3 of 63) o.foldShade: the colour a fold turned away goes to
     for (let i = 0; i < n; i++) { const s = grp(at(box(sl, H - 0.06, W, body, { pivot: 'bottom', outline: 0.006 }), -sl / 2, 0.06, 0), at(box(sl + 0.004, 0.12, W + 0.012, o.band || '#2E8C86'), -sl / 2, 1.0, 0));
+      if (o.foldShade) s.children[0].traverse(m => { if (m.isMesh && m.name !== 'outline' && m.material?.color) m.material = m.material.clone(); });
       for (const z of [-1, 1]) s.add(at(box(sl * 0.78, 0.72, 0.03, '#26323C'), -sl / 2, 1.5, z * (W / 2 + 0.01)));
       g.add(s); slices.push(s); }
     const cab = grp(at(box(0.12, H - 0.04, W, o.cab || '#E8E2D2', { pivot: 'bottom', outline: 0.008 }), 0.06, 0.04, 0), at(box(0.04, 0.86, W * 0.78, '#1E2A33'), 0.13, 1.52, 0),
@@ -232,23 +243,32 @@ export const CAFE_PROPS = {
     crack.rotation.y = PI / 2; crack.position.set(0.16, 1.52, 0); crack.visible = false; cab.add(crack);
     // (review 1 of 63) seen from in front the folds were flat cream panels: once it crumples the cab face shows accordion pleats (bands shaded light and
     // dark with zig-zag edges) and a sawtooth roof sticks up along its top
-    const pleat = canvasPlane(W * 0.98, H * 0.92, (c, Wd, Ht) => { c.clearRect(0, 0, Wd, Ht); const nb = 7, bw = Wd / nb;
-      for (let i = 0; i < nb; i++) { const x0 = i * bw, gr = c.createLinearGradient(x0, 0, x0 + bw, 0); gr.addColorStop(0, i % 2 ? 'rgba(40,40,46,0.55)' : 'rgba(255,255,255,0.35)'); gr.addColorStop(1, i % 2 ? 'rgba(255,255,255,0.3)' : 'rgba(40,40,46,0.5)');
+    const pleat = canvasPlane(W * 0.98, H * 0.92, (c, Wd, Ht) => { c.clearRect(0, 0, Wd, Ht); const nb = o.pleats ?? 7, bw = Wd / nb, dk = o.pleatDark ?? 0.55, lt = o.pleatLight ?? 0.35;   // (pass 3 of 63) o.pleats, o.pleatDark, o.pleatLight: four bold folds (seven faint ones read as a flat wall)
+      for (let i = 0; i < nb; i++) { const x0 = i * bw, gr = c.createLinearGradient(x0, 0, x0 + bw, 0); gr.addColorStop(0, i % 2 ? `rgba(40,40,46,${dk})` : `rgba(255,255,255,${lt})`); gr.addColorStop(1, i % 2 ? `rgba(255,255,255,${lt * 0.86})` : `rgba(40,40,46,${dk * 0.9})`);
         c.fillStyle = gr; c.beginPath(); c.moveTo(x0, 0); for (let y = 0; y <= Ht; y += Ht / 10) c.lineTo(x0 + (Math.floor(y / (Ht / 10)) % 2 ? 6 : -6), y); c.lineTo(x0 + bw, Ht); c.lineTo(x0 + bw, 0); c.closePath(); c.fill();
-        c.strokeStyle = 'rgba(20,20,24,0.8)'; c.lineWidth = 3; c.beginPath(); c.moveTo(x0, 0); for (let y = 0; y <= Ht; y += Ht / 10) c.lineTo(x0 + (Math.floor(y / (Ht / 10)) % 2 ? 6 : -6), y); c.stroke(); } }, { res: 256, transparent: true });
+        c.strokeStyle = 'rgba(20,20,24,0.8)'; c.lineWidth = o.pleatLine ?? 3; c.beginPath(); c.moveTo(x0, 0); for (let y = 0; y <= Ht; y += Ht / 10) c.lineTo(x0 + (Math.floor(y / (Ht / 10)) % 2 ? 6 : -6), y); c.stroke(); } }, { res: 256, transparent: true });
     pleat.rotation.y = PI / 2; pleat.position.set(0.15, H * 0.48, 0); pleat.visible = false; cab.add(pleat);
     const saw = new THREE.Shape(); saw.moveTo(-W / 2, 0); for (let i = 0; i <= 10; i++) saw.lineTo(-W / 2 + i * W / 10, i % 2 ? 0.28 : 0.04); saw.lineTo(W / 2, 0); saw.lineTo(-W / 2, 0);
     const roof = new THREE.Mesh(new THREE.ExtrudeGeometry(saw, { depth: 0.1, bevelEnabled: false }), mat(o.cab || '#E8E2D2')); roof.rotation.y = PI / 2; roof.position.set(0.0, H - 0.04, 0); roof.scale.y = 0.01; roof.visible = false; cab.add(roof); g.add(cab);
-    g.userData.update = t => { let c = 0; const cr = o.crumple; if (cr && t >= cr[0]) c = ob((t - cr[0]) / Math.max(1e-3, cr[2] ?? 0.1));
+    const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 1, 6), mat('#2A2C31')); cord.visible = false; cab.add(cord); const _Yu = new THREE.Vector3(0, 1, 0), _dv = new THREE.Vector3();
+    // (pass 3 of 63) o.stagger (s): each slice folds that much after the one in front (all at once, the fold was a cut); o.rebound: once folded the front
+    // springs back out a little and settles (a squash and its re-inflation); o.drop, o.swing, o.swingDecay: how far the loose headlight falls on its cord
+    // and how long it bounces there (through the hold after the hit)
+    const dur = Math.max(1e-3, o.crumple?.[2] ?? 0.1), stg = o.stagger ?? 0, rb = o.rebound ?? 0;
+    const cAt = (t, d) => { const cr = o.crumple; if (!cr || t < cr[0] + d) return 0; const u = (t - cr[0] - d) / dur; let v = ob(u); if (rb && u > 1) v -= rb * Math.sin((u - 1) * dur * 21) * Math.exp(-(u - 1) * dur * 6); return v; };
+    g.userData.update = t => { const cr = o.crumple, c = cAt(t, 0);
       const K = cr ? Math.max(1, Math.round((cr[1] ?? 0.4) * n)) : 0, fold = o.fold ?? 0.3; let px = 0, pz = 0, ang = 0;
       crack.visible = c > 0.3; pleat.visible = roof.visible = c > 0.15; pleat.material.opacity = clamp01(c); roof.scale.y = Math.max(0.01, clamp01(c));
       // (stills 1 of 63) seen from in front the folds hid behind him: the folded slices also bulge and pinch in turn (a corrugated roofline above his
       // shoulders), the cab buckles back and tips, one headlight drops out of its socket on a spring
-      slices.forEach((s, i) => { const k = i < K ? c : 0, sx = Math.max(0.05, 1 - k * (1 - fold)), th = i < K ? (i % 2 ? -1 : 1) * 0.4 * Math.min(1.2, k) : 0;
+      slices.forEach((s, i) => { const k = i < K ? cAt(t, i * stg) : 0, sx = Math.max(0.05, 1 - k * (1 - fold)), th = i < K ? (i % 2 ? -1 : 1) * 0.4 * Math.min(1.2, k) : 0;
+        if (o.foldShade) s.children[0].traverse(m => { if (m.isMesh && m.name !== 'outline' && m.material?.color) m.material.color.lerpColors(_bc, _dc, clamp01(k) * (i % 2 ? 0.75 : 0.12)); });
         s.position.set(px, 0, pz); s.rotation.y = th; s.scale.set(sx, 1 + (i % 2 ? -0.16 : 0.1) * k, 1 + (i % 2 ? 0.1 : -0.08) * k); const len = sl * sx; px -= Math.cos(th) * len; pz += Math.sin(th) * len; ang = th; });
       cab.rotation.z = 0.1 * c; cab.position.x = -0.05 * c;
-      if (lights[1]) { const dr = clamp01(c), sw = cr && t >= cr[0] ? Math.sin((t - cr[0]) * 14) * Math.exp(-(t - cr[0]) * 2.5) : 0;
-        lights[1].position.set(0.135 + 0.12 * dr, 0.72 - 0.32 * dr + 0.05 * sw, W * 0.33 + 0.06 * sw); }
+      if (lights[1]) { const dr = clamp01(c), sw = cr && t >= cr[0] ? Math.sin((t - cr[0]) * 14) * Math.exp(-(t - cr[0]) * (o.swingDecay ?? 2.5)) : 0, sa = o.swing ?? 0.05;
+        lights[1].position.set(0.135 + 0.12 * dr, 0.72 - (o.drop ?? 0.32) * dr + sa * sw, W * 0.33 + 1.2 * sa * sw);
+        const lp = lights[1].position, sx = 0.135, sy = 0.72, sz = W * 0.33, dx = lp.x - sx, dy = lp.y - sy, dz = lp.z - sz, dl = Math.hypot(dx, dy, dz);
+        cord.visible = dl > 0.04 && o.drop != null; if (cord.visible) { cord.position.set((sx + lp.x) / 2, (sy + lp.y) / 2, (sz + lp.z) / 2); cord.scale.set(1, dl, 1); cord.quaternion.setFromUnitVectors(_Yu, _dv.set(dx / dl, dy / dl, dz / dl)); } }
       void ang; };
     g.userData.update(0); return g;
   },

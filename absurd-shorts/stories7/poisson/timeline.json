@@ -1,0 +1,945 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a acheté un poisson rouge.",
+   "hl": [
+    "poisson",
+    "rouge."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.952,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.285,
+     "e": 0.47
+    },
+    {
+     "w": "a",
+     "s": 0.544,
+     "e": 0.619
+    },
+    {
+     "w": "acheté",
+     "s": 0.693,
+     "e": 0.915
+    },
+    {
+     "w": "un",
+     "s": 0.989,
+     "e": 1.063
+    },
+    {
+     "w": "poisson",
+     "s": 1.1,
+     "e": 1.359
+    },
+    {
+     "w": "rouge.",
+     "s": 1.433,
+     "e": 1.952
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le vendeur a dit : trois grains par jour.",
+   "hl": [
+    "trois",
+    "grains"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L02.k.wav",
+   "file_start": 2.052,
+   "speech_start": 2.052,
+   "speech_end": 4.274,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.052,
+     "e": 2.126
+    },
+    {
+     "w": "vendeur",
+     "s": 2.2,
+     "e": 2.496
+    },
+    {
+     "w": "a",
+     "s": 2.533,
+     "e": 2.57
+    },
+    {
+     "w": "dit:",
+     "s": 2.644,
+     "e": 3.114
+    },
+    {
+     "w": "trois",
+     "s": 3.138,
+     "e": 3.237
+    },
+    {
+     "w": "grains",
+     "s": 3.311,
+     "e": 3.459
+    },
+    {
+     "w": "par",
+     "s": 3.533,
+     "e": 3.607
+    },
+    {
+     "w": "jour.",
+     "s": 3.681,
+     "e": 4.274
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il en a mis trois cents.",
+   "hl": [
+    "trois",
+    "cents."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L03.k.wav",
+   "file_start": 4.374,
+   "speech_start": 4.374,
+   "speech_end": 5.633,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.374,
+     "e": 4.448
+    },
+    {
+     "w": "en",
+     "s": 4.522,
+     "e": 4.596
+    },
+    {
+     "w": "a",
+     "s": 4.633,
+     "e": 4.67
+    },
+    {
+     "w": "mis",
+     "s": 4.744,
+     "e": 4.819
+    },
+    {
+     "w": "trois",
+     "s": 4.893,
+     "e": 5.041
+    },
+    {
+     "w": "cents.",
+     "s": 5.115,
+     "e": 5.633
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Le lendemain, il fallait la baignoire.",
+   "hl": [
+    "baignoire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L04.k.wav",
+   "file_start": 5.733,
+   "speech_start": 5.733,
+   "speech_end": 7.659,
+   "words": [
+    {
+     "w": "Le",
+     "s": 5.733,
+     "e": 5.807
+    },
+    {
+     "w": "lendemain,",
+     "s": 5.844,
+     "e": 6.474
+    },
+    {
+     "w": "il",
+     "s": 6.548,
+     "e": 6.622
+    },
+    {
+     "w": "fallait",
+     "s": 6.696,
+     "e": 6.844
+    },
+    {
+     "w": "la",
+     "s": 6.881,
+     "e": 6.919
+    },
+    {
+     "w": "baignoire.",
+     "s": 6.956,
+     "e": 7.659
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le surlendemain, la piscine municipale.",
+   "hl": [
+    "piscine",
+    "municipale."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L05.k.wav",
+   "file_start": 7.759,
+   "speech_start": 7.759,
+   "speech_end": 10.056,
+   "words": [
+    {
+     "w": "Le",
+     "s": 7.759,
+     "e": 7.833
+    },
+    {
+     "w": "surlendemain,",
+     "s": 7.907,
+     "e": 8.648
+    },
+    {
+     "w": "la",
+     "s": 8.722,
+     "e": 8.796
+    },
+    {
+     "w": "piscine",
+     "s": 8.87,
+     "e": 9.093
+    },
+    {
+     "w": "municipale.",
+     "s": 9.167,
+     "e": 10.056
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La mairie a fermé la piscine.",
+   "hl": [
+    "mairie",
+    "fermé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L06.k.wav",
+   "file_start": 10.156,
+   "speech_start": 10.156,
+   "speech_end": 11.859,
+   "words": [
+    {
+     "w": "La",
+     "s": 10.156,
+     "e": 10.304
+    },
+    {
+     "w": "mairie",
+     "s": 10.341,
+     "e": 10.6
+    },
+    {
+     "w": "a",
+     "s": 10.674,
+     "e": 10.748
+    },
+    {
+     "w": "fermé",
+     "s": 10.822,
+     "e": 10.97
+    },
+    {
+     "w": "la",
+     "s": 11.044,
+     "e": 11.119
+    },
+    {
+     "w": "piscine.",
+     "s": 11.193,
+     "e": 11.859
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le poisson a déménagé dans le lac.",
+   "hl": [
+    "lac."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L07.k.wav",
+   "file_start": 11.959,
+   "speech_start": 11.959,
+   "speech_end": 13.737,
+   "words": [
+    {
+     "w": "Le",
+     "s": 11.959,
+     "e": 12.033
+    },
+    {
+     "w": "poisson",
+     "s": 12.107,
+     "e": 12.478
+    },
+    {
+     "w": "a",
+     "s": 12.515,
+     "e": 12.552
+    },
+    {
+     "w": "déménagé",
+     "s": 12.626,
+     "e": 12.996
+    },
+    {
+     "w": "dans",
+     "s": 13.033,
+     "e": 13.144
+    },
+    {
+     "w": "le",
+     "s": 13.181,
+     "e": 13.219
+    },
+    {
+     "w": "lac.",
+     "s": 13.293,
+     "e": 13.737
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Il a mangé tous les pédalos.",
+   "hl": [
+    "pédalos."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L08.k.wav",
+   "file_start": 13.837,
+   "speech_start": 13.837,
+   "speech_end": 15.393,
+   "words": [
+    {
+     "w": "Il",
+     "s": 13.837,
+     "e": 13.911
+    },
+    {
+     "w": "a",
+     "s": 13.948,
+     "e": 13.985
+    },
+    {
+     "w": "mangé",
+     "s": 14.059,
+     "e": 14.356
+    },
+    {
+     "w": "tous",
+     "s": 14.393,
+     "e": 14.504
+    },
+    {
+     "w": "les",
+     "s": 14.578,
+     "e": 14.652
+    },
+    {
+     "w": "pédalos.",
+     "s": 14.701,
+     "e": 15.393
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les canards ont porté plainte.",
+   "hl": [
+    "canards",
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L09.k.wav",
+   "file_start": 15.493,
+   "speech_start": 15.493,
+   "speech_end": 16.974,
+   "words": [
+    {
+     "w": "Les",
+     "s": 15.493,
+     "e": 15.641
+    },
+    {
+     "w": "canards",
+     "s": 15.752,
+     "e": 15.937
+    },
+    {
+     "w": "ont",
+     "s": 16.011,
+     "e": 16.085
+    },
+    {
+     "w": "porté",
+     "s": 16.159,
+     "e": 16.381
+    },
+    {
+     "w": "plainte.",
+     "s": 16.53,
+     "e": 16.974
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le juge a donné raison au poisson.",
+   "hl": [
+    "juge",
+    "poisson."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L10.k.wav",
+   "file_start": 17.074,
+   "speech_start": 17.074,
+   "speech_end": 18.926,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.074,
+     "e": 17.222
+    },
+    {
+     "w": "juge",
+     "s": 17.296,
+     "e": 17.519
+    },
+    {
+     "w": "a",
+     "s": 17.556,
+     "e": 17.593
+    },
+    {
+     "w": "donné",
+     "s": 17.667,
+     "e": 17.815
+    },
+    {
+     "w": "raison",
+     "s": 17.963,
+     "e": 18.111
+    },
+    {
+     "w": "au",
+     "s": 18.185,
+     "e": 18.259
+    },
+    {
+     "w": "poisson.",
+     "s": 18.296,
+     "e": 18.926
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les canards ont fait appel.",
+   "hl": [
+    "appel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L11.k.wav",
+   "file_start": 19.026,
+   "speech_start": 19.026,
+   "speech_end": 20.433,
+   "words": [
+    {
+     "w": "Les",
+     "s": 19.026,
+     "e": 19.174
+    },
+    {
+     "w": "canards",
+     "s": 19.285,
+     "e": 19.47
+    },
+    {
+     "w": "ont",
+     "s": 19.544,
+     "e": 19.619
+    },
+    {
+     "w": "fait",
+     "s": 19.693,
+     "e": 19.767
+    },
+    {
+     "w": "appel.",
+     "s": 19.878,
+     "e": 20.433
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le poisson a mangé le tribunal.",
+   "hl": [
+    "tribunal."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L12.k.wav",
+   "file_start": 20.533,
+   "speech_start": 20.533,
+   "speech_end": 22.533,
+   "words": [
+    {
+     "w": "Le",
+     "s": 20.533,
+     "e": 20.607
+    },
+    {
+     "w": "poisson",
+     "s": 20.681,
+     "e": 21.126
+    },
+    {
+     "w": "a",
+     "s": 21.2,
+     "e": 21.274
+    },
+    {
+     "w": "mangé",
+     "s": 21.348,
+     "e": 21.57
+    },
+    {
+     "w": "le",
+     "s": 21.607,
+     "e": 21.644
+    },
+    {
+     "w": "tribunal.",
+     "s": 21.719,
+     "e": 22.533
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "L'armée a été envoyée.",
+   "hl": [
+    "armée"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L13.k.wav",
+   "file_start": 22.633,
+   "speech_start": 22.633,
+   "speech_end": 23.967,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 22.633,
+     "e": 23.004
+    },
+    {
+     "w": "a",
+     "s": 23.041,
+     "e": 23.078
+    },
+    {
+     "w": "été",
+     "s": 23.189,
+     "e": 23.3
+    },
+    {
+     "w": "envoyée.",
+     "s": 23.374,
+     "e": 23.967
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Trois chars, deux avions de chasse.",
+   "hl": [
+    "chars,",
+    "chasse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L14.k.wav",
+   "file_start": 24.067,
+   "speech_start": 24.067,
+   "speech_end": 25.919,
+   "words": [
+    {
+     "w": "Trois",
+     "s": 24.067,
+     "e": 24.289
+    },
+    {
+     "w": "chars,",
+     "s": 24.474,
+     "e": 24.881
+    },
+    {
+     "w": "deux",
+     "s": 24.919,
+     "e": 25.03
+    },
+    {
+     "w": "avions",
+     "s": 25.104,
+     "e": 25.252
+    },
+    {
+     "w": "de",
+     "s": 25.289,
+     "e": 25.326
+    },
+    {
+     "w": "chasse.",
+     "s": 25.363,
+     "e": 25.919
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le poisson les a pris pour des grains.",
+   "hl": [
+    "grains."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L15.k.wav",
+   "file_start": 26.019,
+   "speech_start": 26.019,
+   "speech_end": 27.722,
+   "words": [
+    {
+     "w": "Le",
+     "s": 26.019,
+     "e": 26.093
+    },
+    {
+     "w": "poisson",
+     "s": 26.167,
+     "e": 26.463
+    },
+    {
+     "w": "les",
+     "s": 26.537,
+     "e": 26.611
+    },
+    {
+     "w": "a",
+     "s": 26.648,
+     "e": 26.685
+    },
+    {
+     "w": "pris",
+     "s": 26.759,
+     "e": 26.907
+    },
+    {
+     "w": "pour",
+     "s": 26.981,
+     "e": 27.056
+    },
+    {
+     "w": "des",
+     "s": 27.13,
+     "e": 27.204
+    },
+    {
+     "w": "grains.",
+     "s": 27.241,
+     "e": 27.722
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Le gouvernement a négocié.",
+   "hl": [
+    "gouvernement"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L16.k.wav",
+   "file_start": 27.822,
+   "speech_start": 27.822,
+   "speech_end": 29.378,
+   "words": [
+    {
+     "w": "Le",
+     "s": 27.822,
+     "e": 27.896
+    },
+    {
+     "w": "gouvernement",
+     "s": 27.97,
+     "e": 28.415
+    },
+    {
+     "w": "a",
+     "s": 28.452,
+     "e": 28.489
+    },
+    {
+     "w": "négocié.",
+     "s": 28.526,
+     "e": 29.378
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Accord historique : il a eu la mer.",
+   "hl": [
+    "mer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L17.k.wav",
+   "file_start": 29.478,
+   "speech_start": 29.478,
+   "speech_end": 31.774,
+   "words": [
+    {
+     "w": "Accord",
+     "s": 29.478,
+     "e": 29.922
+    },
+    {
+     "w": "historique:",
+     "s": 30.107,
+     "e": 30.836
+    },
+    {
+     "w": "il",
+     "s": 30.86,
+     "e": 30.885
+    },
+    {
+     "w": "a",
+     "s": 30.959,
+     "e": 30.996
+    },
+    {
+     "w": "eu",
+     "s": 31.033,
+     "e": 31.107
+    },
+    {
+     "w": "la",
+     "s": 31.144,
+     "e": 31.181
+    },
+    {
+     "w": "mer.",
+     "s": 31.256,
+     "e": 31.774
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "En échange, il surveille les côtes.",
+   "hl": [
+    "surveille",
+    "côtes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L18.k.wav",
+   "file_start": 31.874,
+   "speech_start": 31.874,
+   "speech_end": 33.874,
+   "words": [
+    {
+     "w": "En",
+     "s": 31.874,
+     "e": 32.022
+    },
+    {
+     "w": "échange,",
+     "s": 32.244,
+     "e": 32.689
+    },
+    {
+     "w": "il",
+     "s": 32.763,
+     "e": 32.837
+    },
+    {
+     "w": "surveille",
+     "s": 32.948,
+     "e": 33.207
+    },
+    {
+     "w": "les",
+     "s": 33.281,
+     "e": 33.356
+    },
+    {
+     "w": "côtes.",
+     "s": 33.393,
+     "e": 33.874
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Payé trois grains par jour.",
+   "hl": [
+    "trois",
+    "grains"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L19.k.wav",
+   "file_start": 33.974,
+   "speech_start": 33.974,
+   "speech_end": 35.456,
+   "words": [
+    {
+     "w": "Payé",
+     "s": 33.974,
+     "e": 34.27
+    },
+    {
+     "w": "trois",
+     "s": 34.344,
+     "e": 34.493
+    },
+    {
+     "w": "grains",
+     "s": 34.567,
+     "e": 34.715
+    },
+    {
+     "w": "par",
+     "s": 34.789,
+     "e": 34.863
+    },
+    {
+     "w": "jour.",
+     "s": 34.937,
+     "e": 35.456
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "who": "N",
+   "text": "Le mec s'est racheté un poisson rouge.",
+   "hl": [
+    "racheté"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L20.k.wav",
+   "file_start": 35.556,
+   "speech_start": 35.556,
+   "speech_end": 37.333,
+   "words": [
+    {
+     "w": "Le",
+     "s": 35.556,
+     "e": 35.63
+    },
+    {
+     "w": "mec",
+     "s": 35.704,
+     "e": 35.852
+    },
+    {
+     "w": "s'est",
+     "s": 35.926,
+     "e": 36.0
+    },
+    {
+     "w": "racheté",
+     "s": 36.049,
+     "e": 36.296
+    },
+    {
+     "w": "un",
+     "s": 36.333,
+     "e": 36.37
+    },
+    {
+     "w": "poisson",
+     "s": 36.444,
+     "e": 36.741
+    },
+    {
+     "w": "rouge.",
+     "s": 36.852,
+     "e": 37.333
+    }
+   ]
+  },
+  {
+   "id": "L21",
+   "who": "N",
+   "text": "Il lui en donne trois cents.",
+   "hl": [
+    "trois",
+    "cents."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/poisson/tts/L21.k.wav",
+   "file_start": 37.433,
+   "speech_start": 37.433,
+   "speech_end": 38.767,
+   "words": [
+    {
+     "w": "Il",
+     "s": 37.433,
+     "e": 37.507
+    },
+    {
+     "w": "lui",
+     "s": 37.544,
+     "e": 37.656
+    },
+    {
+     "w": "en",
+     "s": 37.73,
+     "e": 37.804
+    },
+    {
+     "w": "donne",
+     "s": 37.841,
+     "e": 38.026
+    },
+    {
+     "w": "trois",
+     "s": 38.1,
+     "e": 38.248
+    },
+    {
+     "w": "cents.",
+     "s": 38.322,
+     "e": 38.767
+    }
+   ]
+  }
+ ],
+ "total": 39.61
+}

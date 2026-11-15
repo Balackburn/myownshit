@@ -161,7 +161,7 @@ function makePart(joint, jointSet, L, dir, seg = 6) {
       // child joints ride on the deformed part: position and an extra rotation in front of their pose rotation
       for (const k of kids) {
         if (idle) { k.j.position.copy(k.rest); continue; }
-        const u = Math.max(0, (k.rest.y * dir) / L); frame(u, k.rest.x, k.rest.z, prm, P0, Q0, wv); k.j.position.copy(P0); k.j.quaternion.premultiply(Q0);
+        const u = Math.max(0, (k.rest.y * dir) / L); frame(u, k.rest.x, k.rest.z, prm, P0, Q0, wv); k.j.position.copy(P0); if (prm && prm[5]) Q0.slerp(_q.identity(), Math.min(1, prm[5])); k.j.quaternion.premultiply(Q0);   // (pass 3 of 63) prm[5] (lvl, 0..1): the child joint gives back that share of the bend's turn: a head held upright at the end of a neck bent out sideways (it lay on its side, crown first)
       }
     },
   };
@@ -181,10 +181,14 @@ function headDeform(hm, dim) {
   const sub = subdivideY(hm.geometry, 13); if (!sub) return null;
   const old = hm.geometry; hm.geometry = sub; hm.traverse(c => { if (c !== hm && c.isMesh && c.geometry === old) c.geometry = sub; }); hm.frustumCulled = false; hm.traverse(c => { c.frustumCulled = false; });
   const p = sub.attributes.position, rest = new Float32Array(p.array), yM = dim.y0 + JAW_TOP * dim.hh; let last = 0;
-  const yB = dim.y0 + JAW_B * dim.hh; let lastB = 0, lastF = null;
-  return (drop, block = 0, fwdIn = null) => {
-    if (drop === last && block === lastB && fwdIn === lastF) return; last = drop; lastB = block; lastF = fwdIn; const fwd = fwdIn ?? Math.min(0.055, drop * 0.5);
-    for (let i = 0; i < p.count; i++) { const y = rest[i * 3 + 1], kL = y < yM ? (yM - y) / (yM - dim.y0) : 0, k = kL + ((y < yB ? 1 : 0) - kL) * block; p.setXYZ(i, rest[i * 3], y - drop * k, rest[i * 3 + 2] + fwd * k); }
+  const yB = dim.y0 + JAW_B * dim.hh; let lastB = 0, lastF = null, lastS = 0;
+  // (pass 2 of 64) swell 0..1: the cheeks blow out: the lower half of the head itself widens (1.5x at the mouth's height at 1, less toward the chin, nothing
+  // from the eyes up) and pushes forward a little, its painted skin and stubble stretched with it (two spheres stuck on its sides read as earmuffs)
+  const sm = x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }, swW = u => u >= 0.62 ? 0 : u >= 0.3 ? sm((0.62 - u) / 0.32) : 0.55 + 0.45 * sm(u / 0.3);
+  return (drop, block = 0, fwdIn = null, swell = 0) => {
+    if (drop === last && block === lastB && fwdIn === lastF && swell === lastS) return; last = drop; lastB = block; lastF = fwdIn; lastS = swell; const fwd = fwdIn ?? Math.min(0.055, drop * 0.5);
+    for (let i = 0; i < p.count; i++) { const y = rest[i * 3 + 1], kL = y < yM ? (yM - y) / (yM - dim.y0) : 0, k = kL + ((y < yB ? 1 : 0) - kL) * block, w = swell ? swell * swW((y - dim.y0) / dim.hh) : 0, z0 = rest[i * 3 + 2];
+      p.setXYZ(i, rest[i * 3] * (1 + 0.5 * w), y - drop * k, z0 * (1 + 0.18 * w) + fwd * k); }
     p.needsUpdate = true;
   };
 }
@@ -258,7 +262,7 @@ function headOverlays(head, hm, dim, skin) {
     // (cycle 20) face.jawFwd (m): how far forward the dropped jaw hangs (default up to 5.5 cm): a jaw dropped to the floor hangs in front of his chest
     // instead of through it
     const blk = Math.max(0, Math.min(1, f.jawBlock || 0)), jf = f.jawFwd != null ? Math.round(f.jawFwd * 500) / 500 : null, fw = jf ?? Math.min(0.055, drop * 0.5);
-    deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20, jf);
+    deform?.(Math.round(drop * 500) / 500, Math.round(blk * 20) / 20, jf, Math.round(Math.max(0, Math.min(1.4, f.swell || 0)) * 50) / 50);   // (pass 2 of 64) face.swell: the cheeks blown out
     cavity.visible = blk > 0.5 && drop > 0.01; teeth[0].visible = teeth[1].visible = cavity.visible;
     if (cavity.visible) { const top = 0.3 * hh, bot = 0.24 * hh - drop, tilt = -Math.atan2(fw, top - bot), th = 0.07 * hh, zAt = y => hd / 2 + fw * (top - y) / (top - bot);
       cavity.position.set(0, top, hd / 2 + 0.007); cavity.rotation.x = tilt; cavity.scale.set(hw * 0.56, Math.max(0.001, Math.hypot(top - bot, fw)), 1);
@@ -424,7 +428,7 @@ export function blendToon(a = {}, b = {}, w = 1) {
   const sa = a.sq || [1, 1, 1], sb = b.sq || [1, 1, 1]; if (a.sq || b.sq) out.sq = [L(sa[0], sb[0]), L(sa[1], sb[1]), L(sa[2], sb[2])];
   for (const n of SCL_KEYS) { const ha = a.scl?.[n], hb = b.scl?.[n]; if (ha || hb) { const x = ha || ONE3, y = hb || ONE3; (out.scl ||= {})[n] = [L(x[0], y[0]), L(x[1], y[1]), L(x[2], y[2])]; } }
   const ks = new Set([...Object.keys(a.bend || {}), ...Object.keys(b.bend || {})]);
-  if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy)]; } }
+  if (ks.size) { out.bend = {}; for (const k of ks) { const x = a.bend?.[k] || NEUTRAL_B, y = b.bend?.[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [L(x[0] || 0, y[0] || 0), L(x[1] || 0, y[1] || 0), L(x[2] || 0, y[2] || 0), L(x[3] ?? 1, y[3] ?? 1), L(fx, fy), L(x[5] || 0, y[5] || 0)]; } }
   if (a.ears || b.ears) out.ears = L(a.ears || 0, b.ears || 0);
   if (a.earScale != null || b.earScale != null) out.earScale = L(a.earScale ?? 1, b.earScale ?? 1);   // (cycle 24)
   if (a.buzz != null || b.buzz != null) out.buzz = L(a.buzz ?? 0, b.buzz ?? 0);   // (cycle 25) the vibration's amplitude
@@ -459,7 +463,7 @@ export function addToon(a = {}, b = {}) {
   const out = { ...a };
   if (b.sq) { const s = a.sq || [1, 1, 1]; out.sq = [s[0] * b.sq[0], s[1] * b.sq[1], s[2] * b.sq[2]]; }
   if (b.scl) { out.scl = { ...(a.scl || {}) }; for (const n of SCL_KEYS) { const h = b.scl[n]; if (!h) continue; const s = a.scl?.[n] || ONE3; out.scl[n] = [s[0] * h[0], s[1] * h[1], s[2] * h[2]]; } }
-  if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy]; } }
+  if (b.bend) { out.bend = { ...(a.bend || {}) }; for (const [k, y] of Object.entries(b.bend)) { const x = out.bend[k] || NEUTRAL_B, fx = x[4] ?? 1 / Math.sqrt(x[3] ?? 1), fy = y[4] ?? 1 / Math.sqrt(y[3] ?? 1); out.bend[k] = [(x[0] || 0) + (y[0] || 0), (x[1] || 0) + (y[1] || 0), (x[2] || 0) + (y[2] || 0), (x[3] ?? 1) * (y[3] ?? 1), fx * fy, Math.max(x[5] || 0, y[5] || 0)]; } }
   if (b.face) out.face = { ...(a.face || {}), ...b.face };
   if (b.wave) out.wave = { ...(a.wave || {}), ...b.wave };
   if (b.tie) out.tie = b.tie; if (b.lay) out.lay = b.lay; if (b.knot) out.knot = b.knot; if (b.yaw) out.yaw = (a.yaw || 0) + b.yaw; if (b.tieHide != null) out.tieHide = b.tieHide;
