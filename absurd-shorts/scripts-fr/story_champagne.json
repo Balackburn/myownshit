@@ -1748,7 +1748,9 @@
        0.0,
        -0.12,
        0.03
-      ]
+      ],
+      "face": "camera",
+      "faceFlat": true
      },
      "scale": 2.6,
      "opts": {
@@ -3519,9 +3521,9 @@
        0.0,
        0.0,
        0.03
-      ]
+      ],
+      "face": "camera"
      },
-     "face": "camera",
      "scale": 2.0
     },
     {
@@ -8398,7 +8400,9 @@
        0.0,
        -0.13,
        0.03
-      ]
+      ],
+      "face": "camera",
+      "faceFlat": true
      },
      "scale": 2.4,
      "opts": {

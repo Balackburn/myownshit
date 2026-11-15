@@ -1625,3 +1625,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   les recolore maintenant (côtés et arrière), en plus du dessus en bloc ; sans cela le vieux avait le dessus blanc et les côtés noirs.
 - (passe finale de 67) Un carton de titre en haut du cadre sur un panneau de la même couleur (TRIBUNAL bleu marine) se fond dedans : `courtroom` avec
   `sign: False` (ni panneau ni sceau au-dessus du juge) et le nom du tribunal sur la façade du banc, sous le carton.
+- (passe finale de 68) Un accessoire tenu (`on={...}`) ignore `face='camera'` passé à côté : le moteur ne lit l'orientation face caméra que dans
+  l'attache. Écrire `on={'actor': ..., 'hand': 'L', 'face': 'camera'}` (et `'faceFlat': True` pour un verre qui doit rester droit, vu de profil) ;
+  sinon l'objet prend la rotation de la main : la loupe pendait sous le poing, le verre tenu penchait vers la caméra et se lisait comme une cloche blanche.
