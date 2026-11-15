@@ -1512,3 +1512,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   face à la caméra (l'accessoire entre le personnage et nous), ou passer la caméra de l'autre côté.
 - (cycles 31-33) Un champ de blé de 26 m vu de haut reste un carré brun au milieu du vert (70) : champ jusqu'aux bords du cadre, brins plus
   larges et plus nombreux, sol doré, bandes coupées pâles pour le contraste.
+- (cycle 33, revue 2 de 65) Les yeux en boule aplatis laissent dépasser la pupille à travers la paupière fermée : un « yeux fermés de plaisir »
+  se lit comme un regard fixe (moteur corrigé : pupille cachée dès que la paupière est presque baissée, trait d'œil fermé en arche).
+- (cycle 33) Une créature qui recule avec l'orientation par défaut (`face` 'move') fait demi-tour : après le gobage, on voyait le dos du poisson et
+  une nageoire en planche devant l'objectif (65). `face='keep'` sur tout déplacement qui n'est pas une marche en avant.
+- (cycle 33) Un saut sur place (déplacement vertical seulement) prenait un cap nul et retournait le personnage vers +Z : les canards sautaient de
+  dos (65). Corrigé dans le moteur ; sur un ancien moteur, `face='keep'`.
+- (cycle 33) Le clignement automatique d'une créature tombe au même instant dans chaque plan (même phase) : mécanique. Donner ses clignements
+  au plan (`params={'blinks': [...]}`), un double de temps en temps.
+- (cycle 33) Une onomatopée posée à la profondeur d'une grosse créature finit dans sa tête et ne se voit jamais (65 : aucun MIAM) : la mettre
+  devant, du côté de la caméra.
+- (cycle 33) Un objet d'échelle (voilier, pédalo) placé derrière le sujet géant ne se voit pas : le faire passer devant, sur toute la durée.
