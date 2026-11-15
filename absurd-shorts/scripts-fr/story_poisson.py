@@ -57,7 +57,7 @@ st.shot('S01', 'supermarket', setOpts=SHOP, actors=[
         props=[P('cnt1', 'table', pos=[-0.05, 0, -1.55], opts={'w': 1.6, 'd': 0.6, 'h': 1.0, 'color': '#C9A06A'}), P('till1', 'cashRegister', pos=[0.45, 1.0, -1.65], ry=-20, opts={'text': '3,50'}),
                *[P(f'aq1{j}', 'aquarium', pos=[r(-2.4 + 1.6 * j), 0, -3.55], opts={'w': 1.3}) for j in range(4)],
                P('bag1', 'fishBag', on={'actor': 'vendeur', 'hand': 'R', 'offset': [0.0, -0.02, 0.0]}, opts={'s': 1.3}, keys=[k(TAKE1, attach='mec', hand='R', offset=[0.0, -0.02, 0.0], face='camera')])],
-        cams=[FC(0.0, [-0.2, 1.55, 2.6], [[ME1[0], 2.45, ME1[2]], [VE1[0], 2.45, VE1[2]], [ME1[0], 0.55, ME1[2]], [VE1[0], 0.9, VE1[2]], [-1.1, 1.9, -0.9]], top=0.16, bottom=0.76, drift=(0.1, 0.0, -0.12))])
+        cams=[FC(0.0, [0.0, 1.55, 3.0], [[ME1[0], 2.45, ME1[2]], [r(VE1[0] + 0.45), 2.45, VE1[2]], [ME1[0], 0.55, ME1[2]], [r(VE1[0] + 0.45), 0.9, VE1[2]], [-1.15, 1.9, -0.9]], top=0.16, bottom=0.76, drift=(0.1, 0.0, -0.12))])
 st.cue('sfx:ding', 'S01', 0.1, 0.12); st.cue('sfx:splash', 'S01', r(TAKE1 + 0.3), 0.12)
 
 # 2: the seller said: three grains a day. Close on the seller: he holds three grains up between finger and thumb, very serious, a finger wagging;
@@ -88,13 +88,13 @@ st.cue('sfx:crunch', 'S03', 0.15, 0.18); st.cue('sfx:crunch', 'S03', 0.55, 0.15)
 
 # 4: the next day it needed the bathtub. The bathroom: the goldfish fills the tub, its back out of the water, its head over one end and its tail
 #    flopping over the other; he stands beside it with the box, deadpan
-D4 = st.dur('S04'); S4 = 5.2; TUB4 = [0.0, 0, -2.4]
+D4 = st.dur('S04'); S4 = 3.8; TUB4 = [0.0, 0, -2.4]   # (stills 1) it filled the room: the tub must show round it
 st.shot('S04', 'laundryRoom', setOpts={'washer': False}, actors=[
         act('poisson', [0.05, FY(S4, 0.62), r(TUB4[2] + 0.05)], 90, 'walk', 'happy', scale=S4, keys=[k(0.0, look='camera')]),   # swimming on the spot, its tail swishing over the rim
         act('mec', [1.35, 0, -1.7], -30, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'touch': {'R': ['torso', -0.14, 0.45, 0.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.0),
             k(r(D4 * 0.5), toon={'touch': {'R': ['torso', -0.14, 0.45, 0.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0}}, toonDur=0.08), k(r(D4 * 0.5 + 0.12), toon={'touch': {'R': ['torso', -0.14, 0.45, 0.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.1)])],
         props=[P('tub4', 'bathtub', pos=TUB4, opts={'water': True}), P('box4', 'grainBox', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.02, 0.06]}, scale=1.2)],
-        cams=[FC(0.0, [0.6, 1.45, 1.9], [[-1.0, 1.5, TUB4[2]], [1.2, 1.4, TUB4[2]], [0.0, 0.1, r(TUB4[2] + 0.4)], [1.35, 2.45, -1.7], [1.35, 0.3, -1.7]], top=0.16, bottom=0.78)])
+        cams=[FC(0.0, [0.8, 1.65, 2.8], [[-0.9, 0.7, TUB4[2]], [0.9, 0.7, TUB4[2]], [0.05, 1.25, TUB4[2]], [0.0, 0.0, r(TUB4[2] + 0.4)], [1.35, 2.45, -1.7], [1.35, 0.3, -1.7]], top=0.16, bottom=0.78)])
 st.cue('sfx:splash', 'S04', 0.3, 0.2); st.cue('sfx:splash', 'S04', 1.2, 0.15)
 
 # 5: the day after, the municipal pool. The open-air pool: the fish fills the basin, its back out like an island, the water heaving; the lifeguard on
@@ -119,7 +119,7 @@ st.shot('S06', 'grassland', actors=[
             k(r(SIGN6 + 0.1), toon={'bend': {'spine': [0.0, 0, 0, 1, None]}, 'face': {'mouth': 'smirk', 'lid': 0.3}}, toonDur=0.2, toonEase='out'), k(r(SIGN6 + 0.3), look='camera'),
             k(r(SIGN6 + 0.45), toon={'touch': {'R': ['torso', 0.0, 0.5, 0.25, 1, 0.03], 'L': ['torso', 0.0, 0.52, 0.27, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'mouth': 'smirk', 'lid': 0.3}}, toonDur=0.2)])],   # hands folded, satisfied
         props=[P('pool6', 'pool', pos=POOL, opts={'w': 6, 'l': 12, 'deck': 3, 'waves': 1.5}), P('sign6', 'closedSign', pos=[0.35, 0.2, 2.75], ry=-10, opts={'text': 'PISCINE|FERMÉE', 'at': SIGN6})],
-        cams=[FC(0.0, [0.2, 1.4, 6.8], [[-0.9, 2.5, 2.5], [-0.9, 0.2, 2.5], [0.35, 1.3, 2.75], [0.6, 2.6, -3.5], [1.8, 0.2, 2.5]], top=0.22, bottom=0.78)])
+        cams=[FC(0.0, [0.6, 1.5, 7.8], [[-1.3, 2.5, 2.5], [-1.3, 0.2, 2.5], [0.8, 1.3, 2.75], [0.6, 3.0, -3.5]], top=0.22, bottom=0.78)])
 st.cue('thud', 'S06', SIGN6, 0.3)
 
 # 7: the fish moved into the lake. The lakeside: the fish shoots up out of the water in a high arc and dives back in: a wall of spray; a duck on the water
@@ -161,9 +161,9 @@ st.shot('S10', 'courtroom', actors=[
             k(r(BANG10 - 0.25), toon={'reach': {'R': [0.4, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'brow': -0.4}}, toonDur=0.18, toonEase='out'),   # up...
             k(BANG10, toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.05, 0.95, 1.05], 'face': {'lid': 0.0, 'brow': -0.6, 'mouth': 'open'}}, toonDur=0.05, toonEase='in'),   # ...BANG
             k(r(BANG10 + 0.2), toon={'reach': {'R': [0.4, 1.55, -3.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.35}}, toonDur=0.15)]),
-        *[act(f'can{j + 1}', [r(-3.7 + 0.45 * j), 0.78, 0.9], 160, 'angry', 'angry', scale=1.3, keys=[k(0.0, look=[0.0, 2.2, -4.0]), k(r(BANG10 + 0.04 + 0.04 * j), toon={'lay': [-1.4, 0.0]}, toonDur=0.12, toonEase='out')]) for j in range(3)]],
-        props=[HAND('gav10', 'gavel', 'juge', off=(0.0, -0.02, 0.05)), P('desk10', 'desk', pos=[-3.3, 0, 1.0], opts={'w': 1.8})],
-        cams=[FC(0.0, [-1.6, 1.9, 4.2], [[0.0, 2.75, -4.0], [-3.9, 0.7, 0.9], [-2.6, 1.5, 0.9], [0.6, 1.3, -3.3]], top=0.16, bottom=0.76)])
+        *[act(f'can{j + 1}', [r(-2.0 + 0.45 * j), 0.78, -1.5], 130, 'angry', 'angry', scale=1.3, keys=[k(0.0, look=[0.0, 2.2, -4.0]), k(r(BANG10 + 0.04 + 0.04 * j), toon={'lay': [-1.4, 0.0]}, toonDur=0.12, toonEase='out')]) for j in range(3)]],
+        props=[HAND('gav10', 'gavel', 'juge', off=(0.0, -0.02, 0.05)), P('desk10', 'desk', pos=[-1.55, 0, -1.5], ry=40, opts={'w': 1.8})],
+        cams=[FC(0.0, [-0.4, 1.75, 2.4], [[0.0, 2.75, -4.0], [-2.2, 0.75, -1.5], [-1.1, 1.6, -1.5], [0.6, 1.3, -3.3]], top=0.16, bottom=0.76)])   # (stills 1) nearer: the judge was a speck
 st.cue('clang', 'S10', BANG10, 0.4); st.cue('sfx:cluck', 'S10', r(BANG10 + 0.1), 0.25)
 
 # 11: the ducks appealed. Close on the three ducks back on their feet, hopping mad, quacking up at the bench (APPEL)
@@ -213,18 +213,18 @@ st.cue('whoosh', 'S15', 0.1, 0.35, 0.7, 200, 1200); st.cue('sfx:gulp', 'S15', GU
 D16 = st.dur('S16'); S16 = 62.0; JET = [0.0, 0.0, 2.0]
 JETTY = lambda pid: P(pid, 'slab', pos=[0.0, 0.25, 4.0], opts={'w': 2.2, 'h': 0.2, 'd': 10.0, 'color': '#A8774A'})
 st.shot('S16', 'seaSurface', setOpts=LAKE, actors=[
-        act('poisson', [0.0, FY(S16, 2.0), -16.0], 0, 'idle', 'neutral', scale=S16, keys=[k(0.0, look=[0.0, 2.0, 2.0])]),
+        act('poisson', [0.0, FY(S16, -1.0), -36.0], 0, 'idle', 'neutral', scale=S16, keys=[k(0.0, look=[0.0, 2.0, 2.0])]),
         act('ministre', [0.2, 0.35, 0.6], 180, 'talk', 'worried', keys=[k(0.0, look=[0.0, 6.0, -8.0]), k(0.0, toon={'face': {'sweat': 1.0, 'brow': 0.6}}, toonDur=0.0),
             k(0.7, toon={'touch': {'L': ['face', 0.1, 0.35, 0.1, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': {'sweat': 1.0, 'brow': 0.7}}, toonDur=0.2, toonEase='inOut'), k(1.2, toon={'face': {'sweat': 1.0, 'brow': 0.6}}, toonDur=0.2)])],   # mopping his brow
         props=[JETTY('jet16'), HAND('case16', 'briefcase', 'ministre', off=(0.0, -0.1, 0.0))],
-        cams=[FC(0.0, [3.2, 1.5, 4.6], [[0.2, 2.6, 0.6], [0.2, 0.35, 0.6], [0.0, 12.0, -16.0], [-3.0, 3.0, -10.0]], top=0.14, bottom=0.78, lenses=range(26, 66))])
+        cams=[FC(0.0, [3.0, 1.6, 6.5], [[0.2, 2.6, 0.6], [0.2, 0.35, 0.6], [0.0, 6.5, -36.0], [-8.0, 0.0, -36.0], [8.0, 0.0, -36.0]], top=0.14, bottom=0.78, lenses=range(26, 66))])   # (stills 1) the fish further out: its whole head over the water
 
 # 17: historic agreement: it got the sea. On the jetty the minister holds up the signed agreement to two photographers whose flashes go off; the fish
 #     behind him smiles (ACCORD)
 D17 = st.dur('S17'); FL17 = [0.45, 0.8, 1.2, 1.55]
 SNAP17 = lambda w: {'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [r(-0.12 * w), 0, 0, 1, None]}, 'face': {'lid': r(0.6 * w)}}
 st.shot('S17', 'seaSurface', setOpts=LAKE, actors=[
-        act('poisson', [0.0, FY(S16, 2.0), -16.0], 0, 'idle', 'happy', scale=S16, keys=[k(0.0, look=[0.0, 2.0, 4.0])]),
+        act('poisson', [0.0, FY(S16, -1.0), -36.0], 0, 'idle', 'happy', scale=S16, keys=[k(0.0, look=[0.0, 2.0, 4.0])]),
         act('ministre', [0.0, 0.35, 1.0], 0, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'touch': {'R': ['face', -0.32, 0.4, 0.15, 1, 0.03], 'L': ['face', 0.32, 0.4, 0.15, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'mouth': 'bigsmile', 'lid': 0.1}}, toonDur=0.0),
             *[k(t_, toon={'touch': {'R': ['face', -0.32, r(0.4 + 0.05 * (j % 2)), 0.15, 1, 0.03], 'L': ['face', 0.32, r(0.4 + 0.05 * (j % 2)), 0.15, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'mouth': 'bigsmile', 'lid': 0.1 if j % 2 else 0.3}}, toonDur=0.12) for j, t_ in enumerate([0.5, 0.9, 1.3, 1.7, 2.1])]]),   # the agreement up in both hands, nodding to the flashes
         *[act(pid_, pos_, ry_, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.9, 1.0]), k(0.0, toon=SNAP17(0.0), toonDur=0.0),
@@ -232,13 +232,13 @@ st.shot('S17', 'seaSurface', setOpts=LAKE, actors=[
           [('photo1', [-1.4, 0.35, 3.4], 160, [FL17[0], FL17[2]]), ('photo2', [1.5, 0.35, 3.6], -160, [FL17[1], FL17[3]])]]],   # each flash: a little bob back
         props=[JETTY('jet17'), P('doc17', 'slab', on={'actor': 'ministre', 'hand': 'R', 'offset': [0.3, 0.05, 0.02]}, opts={'w': 0.62, 'h': 0.42, 'd': 0.01, 'color': '#FBF8EE'}),
                HAND('cam17a', 'pressCamera', 'photo1', off=(0.06, 0.0, 0.08), opts={'flashAt': [FL17[0], FL17[2]]}), HAND('cam17b', 'pressCamera', 'photo2', off=(0.06, 0.0, 0.08), opts={'flashAt': [FL17[1], FL17[3]]})],
-        cams=[FC(0.0, [1.1, 1.5, 7.2], [[0.0, 2.7, 1.0], [0.0, 0.35, 1.0], [-1.4, 2.4, 3.4], [1.5, 2.4, 3.6], [0.0, 10.0, -16.0]], top=0.22, bottom=0.78, lenses=range(26, 66))])
+        cams=[FC(0.0, [1.1, 1.5, 7.2], [[0.0, 2.7, 1.0], [0.0, 0.35, 1.0], [-1.4, 2.4, 3.4], [1.5, 2.4, 3.6], [0.0, 6.5, -36.0]], top=0.22, bottom=0.78, lenses=range(26, 66))])
 for t_ in FL17: st.cue('sfx:click', 'S17', t_, 0.25)
 
 # 18: in exchange it guards the coast. The open sea: the fish cruises past the shore in a captain's cap, a sailboat bobbing in its wake
 D18 = st.dur('S18'); S18 = 62.0
 st.shot('S18', 'seaSurface', setOpts=SEA, actors=[act('poisson', [-30.0, FY(S18, 1.0), -30.0], 90, 'walk', 'neutral', scale=S18, keys=[k(0.0, to=[0.0, FY(S18, 1.0), -30.0], dur=D18, ease='linear'), k(0.0, look=[40.0, 4.0, -30.0])])],
-        props=[P('cap18', 'copCap', on={'actor': 'poisson', 'joint': 'head', 'offset': [0.0, 0.1, 0.0]}, scale=0.7)],
+        props=[P('cap18', 'copCap', on={'actor': 'poisson', 'joint': 'head', 'offset': [0.0, 0.11, 0.02]}, scale=40.0)],
         cams=[FC(0.0, [8.0, 3.0, 30.0], [[-30.0, 0.0, -30.0], [10.0, 0.0, -30.0], [-10.0, 22.0, -30.0], [0.0, 0.0, 6.0]], top=0.16, bottom=0.8, drift=(4.0, 0.0, 0.0), lenses=range(26, 66))])
 st.cue('sfx:honk', 'S18', 0.6, 0.25)
 
@@ -246,11 +246,11 @@ st.cue('sfx:honk', 'S18', 0.6, 0.25)
 #     deadpan
 D19 = st.dur('S19')
 st.shot('S19', 'seaSurface', setOpts=LAKE, actors=[
-        act('poisson', [0.0, FY(S16, 0.5), -9.0], 0, 'idle', 'neutral', scale=S16, keys=[k(0.0, look=[0.0, 1.5, 2.0])]),
-        act('agent', [0.3, 0.35, 1.2], 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 3.0, -2.0]), k(0.0, toon={'reach': {'R': [0.1, 2.3, 0.6, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.0),
-            *[k(r(0.2 + 0.2 * j), toon={'reach': {'R': [r(0.1 + 0.02 * (1 if j % 2 else -1)), 2.3, 0.6, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4 if j != 3 else 1.0}}, toonDur=0.08) for j in range(6)]])],   # a nervous little tremble, a blink
+        act('poisson', [0.0, FY(S16, 0.0), -17.0], 0, 'idle', 'neutral', scale=S16, keys=[k(0.0, look=[0.0, 1.5, 2.0])]),
+        act('agent', [0.3, 0.35, -0.5], 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 3.0, -2.0]), k(0.0, toon={'reach': {'R': [0.1, 2.3, -1.1, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.0),
+            *[k(r(0.2 + 0.2 * j), toon={'reach': {'R': [r(0.1 + 0.02 * (1 if j % 2 else -1)), 2.3, -1.1, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4 if j != 3 else 1.0}}, toonDur=0.08) for j in range(6)]])],   # a nervous little tremble, a blink
         props=[JETTY('jet19'), HAND('gr19', 'grains', 'agent', off=(0.0, 0.0, 0.03), opts={'n': 3, 's': 2.6})],
-        cams=[FC(0.0, [2.2, 0.8, 4.4], [[0.3, 2.6, 1.2], [0.3, 0.35, 1.2], [0.0, 8.0, -9.0], [-3.0, 0.0, -2.0]], top=0.14, bottom=0.78, lenses=range(26, 66))])
+        cams=[FC(0.0, [1.8, 1.1, 4.2], [[0.3, 2.6, -0.5], [0.3, 0.35, -0.5], [0.0, 6.0, -6.5], [-3.5, 0.0, -6.5], [3.5, 0.0, -6.5]], top=0.14, bottom=0.78, lenses=range(26, 66))])   # (stills 1) behind him on the jetty, the mouth beyond (the camera was inside the fish)
 
 # 20: the man bought himself another goldfish. The pet shop again: the seller hands him another bag; the seller's smile going stiff
 D20 = st.dur('S20'); TAKE20 = 0.6

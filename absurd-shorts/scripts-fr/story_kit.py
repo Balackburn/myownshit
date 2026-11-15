@@ -546,11 +546,11 @@ class Story:
                 for ci_, c_ in enumerate(sc_.get('cams', [])):
                     _f, _l = c_.get('from'), c_.get('lookAt')
                     if not (isinstance(_f, list) and isinstance(_l, list)): continue
-                    for sid_, cj_, f2_, l2_, ln2_ in _seen:
-                        if sid_ != sc_['id'] and math.dist(_f, f2_) < 0.8 and math.dist(_l, l2_) < 1.5 and abs(c_.get('lens', 44) - ln2_) < 6:
+                    for sid_, cj_, f2_, l2_, ln2_, set2_ in _seen:
+                        if sid_ != sc_['id'] and set2_ == sc_.get('set') and math.dist(_f, f2_) < 0.8 and math.dist(_l, l2_) < 1.5 and abs(c_.get('lens', 44) - ln2_) < 6:   # (story 65) only within one set: a courtroom and a shop at the same coordinates are not a repeat
                             print(f"  audit {sc_['id']} camera {ci_ + 1}: the same set-up as {sid_} camera {cj_ + 1}: a callback in the same frame must escalate the action (more, faster, bigger, inside the shot); otherwise change the angle or the size")
                             break
-                    _seen.append((sc_['id'], ci_, _f, _l, c_.get('lens', 44)))
+                    _seen.append((sc_['id'], ci_, _f, _l, c_.get('lens', 44), sc_.get('set')))
         except (TypeError, ValueError): pass
         json.dump(self.cues, open(os.path.join(d, 'cues.json'), 'w')); open(os.path.join(d, 'cards.txt'), 'w').write(','.join(self.cards))
         cardT = []   # (cycle 13) the title-card times, for the key-pose probe (a gag's peak under the card)

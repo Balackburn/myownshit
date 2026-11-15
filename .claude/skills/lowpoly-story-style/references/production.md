@@ -48,6 +48,7 @@ the caption band, under the title card). Fix every warning before the draft rend
 nobody could see it. `write()` also prints the frozen actors and the repeated takes (`audit_life`).
 (cycle 26) It also flags a shot that reuses an earlier shot's camera set-up (within 0.8 m, aimed within 1.5 m, field of view within 6°):
 a callback in the same frame must escalate the action inside the shot, or change the angle or the size.
+(Story 65) The audit compares cameras within one set only: a courtroom and a shop framed from the same coordinates are not a repeat.
 
 After the draft render, before the review: `python3 tools/freeze_check.py DRAFT.mp4 scripts-fr/<story>.json` repeats the animation reviewer's
 freeze measurement (frames two apart at the size of a strip tile, the 99.5th percentile of the local difference under 14 for 0.4 s or more) and
