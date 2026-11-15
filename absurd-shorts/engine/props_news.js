@@ -842,7 +842,7 @@ export const NEWS_PROPS = {
     const tur = grp(at(box(0.32, 0.12, 0.36, c, { pivot: 'bottom', outline: 0.008 }), 0, 0, 0), at(cyl(0.025, 0.03, 0.55, c, 8), 0, 0.06, 0.42, PI / 2, 0, 0), at(cyl(0.05, 0.05, 0.03, d, 8), 0, 0.12, -0.05));
     tur.position.y = 0.24; g.add(tur);
     const st = canvasPlane(0.14, 0.14, (cc, W, Hh) => { cc.clearRect(0, 0, W, Hh); cc.fillStyle = '#F4F1E8'; cc.beginPath(); for (let i = 0; i < 10; i++) { const a = -PI / 2 + i * PI / 5, rr = i % 2 ? W * 0.2 : W * 0.48; cc.lineTo(W / 2 + rr * Math.cos(a), Hh / 2 + rr * Math.sin(a)); } cc.closePath(); cc.fill(); }, { res: 128, transparent: true });
-    st.rotation.y = PI / 2; st.position.set(0.161, 0.3, 0.0); tur.add(st);
+    st.rotation.y = PI / 2; st.position.set(0.161, 0.06, 0.0); tur.add(st);   // (review 1 of 78) on the turret's side (at 0.3 it floated above the turret)
     return g;
   },
   townHall(o) { // « MAIRIE »: a pale stone town hall (front +Z, o.w wide): steps, columns, pediment with a clock, the name, a French flag on top

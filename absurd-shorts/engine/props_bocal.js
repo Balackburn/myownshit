@@ -15,6 +15,7 @@ export const BOCAL_PROPS = {
   // pickles standing in it, a ridged gold lid and a cream label (o.label, 'CORNICHONS'). o.openAt (s): the lid pops off, flies up spinning and lands
   // beside the jar; o.shake [[t0, t1], ...]: it rattles in place (someone wrestling with it); o.glint: the glint flashes (a laser bouncing off)
   // o.lidGone: the jar stands open, no lid (handed over after it was opened)
+  // (review 1 of 78) o.lidArc (0.32) / o.lidFar (0.18) / o.lidFly (0.7 s): the popped lid's flight (a flick sends it high and far, out of the frame)
   picklesJar(o) {
     const s = o.s ?? 1, g = grp(), body = grp(); g.add(body);
     const glass = new THREE.MeshLambertMaterial({ color: '#E4F2E2', transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false });
@@ -38,8 +39,8 @@ export const BOCAL_PROPS = {
     g.userData.update = t => {
       let jx = 0, jz = 0; for (const [a, b] of sh) if (t >= a && t < b) { jx = 0.004 * Math.sin(t * 71); jz = 0.003 * Math.sin(t * 53); }
       body.position.set(jx, 0, jz);
-      if (open != null && t >= open) { const u = t - open, f = Math.min(1, u / 0.7);   // up, spinning, and down on the table beside the jar
-        lid.position.set(0.18 * f + jx, LY + 0.32 * Math.sin(PI * f) - (LY - 0.014) * f * f, 0.05 * f + jz); lid.rotation.set(f < 1 ? u * 14 : 0, 0, f < 1 ? u * 9 : 0.03); }
+      if (open != null && t >= open) { const u = t - open, f = Math.min(1, u / (o.lidFly ?? 0.7));   // up, spinning, and down on the table beside the jar
+        lid.position.set((o.lidFar ?? 0.18) * f + jx, LY + (o.lidArc ?? 0.32) * Math.sin(PI * f) - (LY - 0.014) * f * f, 0.05 * f + jz); lid.rotation.set(f < 1 ? u * 14 : 0, 0, f < 1 ? u * 9 : 0.03); }
       else { lid.position.set(jx, LY, jz); lid.rotation.set(0, 0, 0); }
       lid.visible = !o.lidGone;
       glint.material.color.set(o.glint && o.glint.some(([a, b]) => t >= a && t < b) ? '#FFF6A0' : '#FFFFFF'); glint.scale.y = o.glint && o.glint.some(([a, b]) => t >= a && t < b) ? 1.4 : 1;
@@ -81,10 +82,11 @@ export const BOCAL_PROPS = {
     const glass = new THREE.Mesh(new THREE.BoxGeometry(w, w, w), new THREE.MeshLambertMaterial({ color: '#E6F3FA', transparent: true, opacity: 0.2, depthWrite: false, side: THREE.DoubleSide })); glass.position.y = h + w / 2; glass.renderOrder = 4; g.add(glass);
     for (const [x, z] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) g.add(at(box(0.012, w, 0.012, '#C9A43E'), x * w / 2, h + w / 2, z * w / 2));
     for (const y of [h + 0.006, h + w]) for (const [x, z, ry] of [[0, -1, 0], [0, 1, 0], [-1, 0, PI / 2], [1, 0, PI / 2]]) { const b = at(box(w, 0.012, 0.012, '#C9A43E'), x * w / 2, y, z * w / 2); b.rotation.y = ry; g.add(b); }
-    const lab = document.createElement('canvas'); lab.width = 256; lab.height = 64; const c = lab.getContext('2d'); c.fillStyle = '#C9A43E'; c.fillRect(0, 0, 256, 64); c.fillStyle = '#2A2016'; c.font = '700 30px Arial'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || '', 128, 34);
+    const lab = document.createElement('canvas'); lab.width = 256; lab.height = 64; const c = lab.getContext('2d'); c.fillStyle = '#C9A43E'; c.fillRect(0, 0, 256, 64); c.fillStyle = '#2A2016'; let fs = 30; c.font = `700 ${fs}px Arial`; while (c.measureText(o.text || '').width > 236 && fs > 10) { fs -= 1; c.font = `700 ${fs}px Arial`; } c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.text || '', 128, 34);   // (review 1 of 78) the text is fitted to the plate (it ran off it)
     const lt = new THREE.CanvasTexture(lab); lt.colorSpace = THREE.SRGBColorSpace; const lp = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.7, w * 0.175), new THREE.MeshLambertMaterial({ map: lt })); lp.position.set(0, h * 0.82, w * 0.476); g.add(lp);
     const cover = grp(); for (let i = g.children.length - 1; i >= 1; i--) { const ch = g.children[i]; if (ch === lp) continue; cover.add(ch); } g.add(cover);
-    g.userData.update = t => { const u = o.liftAt == null ? 0 : clamp01((t - o.liftAt) / 0.25); cover.position.y = 0.6 * u * u * (3 - 2 * u); };
+    g.userData.update = t => { const u = o.liftAt == null ? 0 : clamp01((t - o.liftAt) / 0.25), v = o.liftAt == null || !o.coverAway ? 0 : clamp01((t - o.liftAt - 0.3) / 0.35);
+      cover.position.set(0, 0.6 * u * u * (3 - 2 * u) - 1.4 * v * v, -0.75 * v); cover.rotation.x = -0.5 * v; cover.visible = v < 1; };   // (review 1 of 78) o.coverAway: once lifted, the glass is put aside behind the plinth (it hung in mid-air)
     g.userData.update(-1); return g;
   },
   // (cycle 40) A stream of water falling from a tap's spout (origin at the spout's mouth, falling along -Y): o.len (0.3 m) down to where it lands,

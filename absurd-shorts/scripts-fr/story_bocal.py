@@ -106,32 +106,37 @@ st.shot('S04', 'parisStreet', setOpts=STREET, actors=[
 st.cue('sfx:siren', 'S04', 0.0, 0.35); st.cue('sfx:brake', 'S04', 0.5, 0.3)
 
 # 5: they brought out the big jaws. In the kitchen: one fireman clamps the hydraulic jaws on the lid, straining, the other holds the jar steady
-D5 = st.dur('S05'); JAR5 = [0.0, TH, -1.25]; JAWP = [0.72, r(TH + JH - 0.02), -0.48]; JAWRY = -137
+D5 = st.dur('S05'); JAR5 = [0.0, TH, -1.25]; JAWRY = -137; JS5 = 1.8   # (review 1) the jaws comically big: longer than a fireman's torso
+JDX, JDZ = math.sin(math.radians(JAWRY)), math.cos(math.radians(JAWRY))
+JAWP = [r(0.01 - 0.87 * JS5 * JDX), r(TH + JH - 0.02), r(-1.24 - 0.87 * JS5 * JDZ)]   # the handle end, the tips at the lid
+FP1 = [r(JAWP[0] - 0.5 * JDX), 0, r(JAWP[2] - 0.5 * JDZ)]   # the fireman just behind the handles
 OPEN5 = [[0.0, 1.0], [0.25, 1.0], [0.5, 0.22], [0.75, 0.28], [1.0, 0.16], [1.25, 0.22], [1.5, 0.14], [1.76, 0.18]]
-HOLD5 = lambda f, sq=None: {'reach': {'R': [0.86, r(JAWP[1] + 0.12), -0.36, 1, 0.03], 'L': [0.66, r(JAWP[1] + 0.06), -0.56, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
+HOLD5 = lambda f, sq=None: {'reach': {'R': [r(JAWP[0] + 0.14), r(JAWP[1] + 0.12), r(JAWP[2] + 0.12), 1, 0.03], 'L': [r(JAWP[0] - 0.06 - 0.25 * JDX), r(JAWP[1] + 0.06), r(JAWP[2] - 0.08 - 0.25 * JDZ), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
 STEADY = lambda f: {'reach': {'L': [-0.1, r(TH + 0.12), -1.24, 1, 0.03], 'R': [0.1, r(TH + 0.12), -1.24, 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'grip'}, 'bend': {'spine': [0.3, 0, 0, 1, None]}, 'face': f}
 st.shot('S05', 'kitchenDay', actors=[
-        act('pompier1', [1.15, 0, -0.05], JAWRY, 'stand', 'determined', keys=[k(0.0, look=[JAR5[0], r(TH + JH), JAR5[2]]), k(0.0, toon=HOLD5({'lid': 0.4, 'mouth': 'line', 'brow': -0.5}), toonDur=0.0),
+        act('pompier1', FP1, JAWRY, 'stand', 'determined', keys=[k(0.0, look=[JAR5[0], r(TH + JH), JAR5[2]]), k(0.0, toon=HOLD5({'lid': 0.4, 'mouth': 'line', 'brow': -0.5}), toonDur=0.0),
             *[k(t_, toon=HOLD5({'lid': 0.75, 'mouth': 'clench', 'brow': -0.9, 'vein': 1.0, 'blush': 0.6}, [1.06, 0.93, 1.06] if i % 2 == 0 else [0.98, 1.03, 0.98]), toonDur=0.08) for i, t_ in enumerate([0.5, 0.75, 1.0, 1.25, 1.5])]]),
         act('pompier2', [-0.3, 0, -1.85], 15, 'stand', 'neutral', keys=[k(0.0, look=[JAR5[0], r(TH + JH), JAR5[2]]), k(0.0, toon=STEADY({'lid': 0.5, 'mouth': 'line'}), toonDur=0.0), k(1.3, toon=STEADY({'lid': 0.6, 'mouth': 'wavy', 'sweat': 1.0}), toonDur=0.1)])],
         props=[P('table5', 'table', pos=TABLE, opts={'w': 1.0, 'd': 0.7, 'h': TH}), P('jar5', 'picklesJar', pos=JAR5, scale=JS, opts={'shake': [[0.5, 1.76]]}),
-               P('pince5', 'rescueJaws', pos=JAWP, ry=JAWRY, opts={'s': 1.2, 'open': OPEN5})],
-        cams=[FC(0.0, [-0.9, 1.55, 0.55], [[JAR5[0], r(TH + JH + 0.1), JAR5[2]], [1.15, 2.4, -0.05], [-0.3, 2.4, -1.85], [JAWP[0], TH, JAWP[2]], [JAR5[0], TH, JAR5[2]], [1.15, 0.0, -0.05], [-0.3, 0.0, -1.85]], top=0.12, bottom=0.74)])
+               P('pince5', 'rescueJaws', pos=JAWP, ry=JAWRY, opts={'s': JS5, 'open': OPEN5})],
+        cams=[FC(0.0, [-0.9, 1.55, 0.55], [[JAR5[0], r(TH + JH + 0.1), JAR5[2]], [FP1[0], 2.4, FP1[2]], [-0.3, 2.4, -1.85], [JAWP[0], TH, JAWP[2]], [JAR5[0], TH, JAR5[2]], [FP1[0], 0.0, FP1[2]], [-0.3, 0.0, -1.85]], top=0.12, bottom=0.74)])
 st.cue('sfx:rattle', 'S05', 0.45, 0.3); st.cue('sfx:squeak', 'S05', 1.0, 0.2)
 
 # 6: the jaws broke. Tighter: CRAC, the arms snap off and fly apart in a puff; the fireman shoots back with his eyes out on stalks, the other freezes
 D6 = st.dur('S06'); BRK6 = 0.25
 st.shot('S06', 'kitchenDay', actors=[
-        act('pompier1', [1.15, 0, -0.05], JAWRY, 'stand', 'determined', keys=[k(0.0, look=[JAR5[0], r(TH + JH), JAR5[2]]), k(0.0, toon=HOLD5({'lid': 0.75, 'mouth': 'clench', 'brow': -0.9, 'vein': 1.0}, [1.06, 0.93, 1.06]), toonDur=0.0),
-            k(BRK6, toon={'reach': {'R': [1.0, 1.75, 0.2, 1, 0.03], 'L': [1.4, 1.7, 0.1, 1, 0.03]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'lay': [-0.3, 0.0], 'sq': [0.9, 1.12, 0.9],
-                          'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.14, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out'),   # thrown back, eyes on stalks
-            k(r(BRK6 + 0.5), toon={'reach': {'R': [1.0, 1.4, 0.1, 1, 0.03], 'L': [1.35, 1.4, 0.05, 1, 0.03]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'lay': [-0.08, 0.0], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.2)]),
+        act('pompier1', FP1, JAWRY, 'stand', 'determined', keys=[k(0.0, look=[JAR5[0], r(TH + JH), JAR5[2]]), k(0.0, toon=HOLD5({'lid': 0.75, 'mouth': 'clench', 'brow': -0.9, 'vein': 1.0}, [1.06, 0.93, 1.06]), toonDur=0.0),
+            k(BRK6, toon={'reach': {'R': [r(FP1[0] - 0.15), 1.75, r(FP1[2] + 0.25), 1, 0.03], 'L': [r(FP1[0] + 0.25), 1.7, r(FP1[2] + 0.15), 1, 0.03]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'lay': [-0.3, 0.0], 'sq': [0.9, 1.12, 0.9],
+                          'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.3, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.05, toonEase='out'),   # thrown back, eyes on stalks...
+            k(r(BRK6 + 0.42), toon={'reach': {'R': [r(FP1[0] - 0.15), 1.6, r(FP1[2] + 0.2), 1, 0.03], 'L': [r(FP1[0] + 0.22), 1.55, r(FP1[2] + 0.1), 1, 0.03]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'lay': [-0.18, 0.0],
+                          'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.3, 'mouth': 'O', 'brow': 1.0, 'noBlink': 1}}, toonDur=0.2),   # ...held (review 1: two frames)
+            k(r(BRK6 + 0.62), toon={'reach': {'R': [r(FP1[0] - 0.15), 1.4, r(FP1[2] + 0.15), 1, 0.03], 'L': [r(FP1[0] + 0.2), 1.4, r(FP1[2] + 0.1), 1, 0.03]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'lay': [-0.08, 0.0], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.2)]),
         act('pompier2', [-0.3, 0, -1.85], 15, 'stand', 'neutral', keys=[k(0.0, look=[JAR5[0], r(TH + JH), JAR5[2]]), k(0.0, toon=STEADY({'lid': 0.6, 'mouth': 'wavy', 'sweat': 1.0}), toonDur=0.0),
             k(r(BRK6 + 0.05), toon={**STEADY({'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}), 'sq': [0.95, 1.06, 0.95]}, toonDur=0.05), k(r(BRK6 + 0.4), look='camera')])],
         props=[P('table6', 'table', pos=TABLE, opts={'w': 1.0, 'd': 0.7, 'h': TH}), P('jar6', 'picklesJar', pos=JAR5, scale=JS),
-               P('pince6', 'rescueJaws', pos=JAWP, ry=JAWRY, opts={'s': 1.2, 'open': [[0.0, 0.16]], 'breakAt': BRK6}),
+               P('pince6', 'rescueJaws', pos=JAWP, ry=JAWRY, opts={'s': JS5, 'open': [[0.0, 0.16]], 'breakAt': BRK6}, keys=[k(r(BRK6 + 0.05), to=[JAWP[0], 0.12, JAWP[2]], dur=0.3, ease='in'), k(r(BRK6 + 0.05), rotTo=[0.0, r(math.radians(JAWRY)), 1.3], dur=0.3)]),   # (review 1) the body drops (it hung in mid-air)
                BURST('crac6', [0.35, r(TH + 0.75), -0.9], r(BRK6 + 0.02), 'CRAC !', 0.42, 0.3)],
-        cams=[FC(0.0, [-0.75, 1.45, 0.6], [[JAR5[0], r(TH + JH + 0.15), JAR5[2]], [1.15, 2.4, -0.05], [1.65, 2.3, 0.35], [-0.3, 2.4, -1.85], [JAR5[0], TH, JAR5[2]], [0.35, r(TH + 1.0), -0.9]], top=0.12, bottom=0.74)])   # (stills 1) the thrown fireman left the frame
+        cams=[FC(0.0, [-0.75, 1.45, 0.6], [[JAR5[0], r(TH + JH + 0.15), JAR5[2]], [FP1[0], 2.4, FP1[2]], [r(FP1[0] + 0.5), 2.3, r(FP1[2] + 0.4)], [-0.3, 2.4, -1.85], [JAR5[0], TH, JAR5[2]], [0.35, r(TH + 1.0), -0.9]], top=0.12, bottom=0.74)])   # (stills 1) the thrown fireman left the frame
 st.cue('sfx:crunch', 'S06', BRK6, 0.45); st.cue('clang', 'S06', r(BRK6 + 0.3), 0.2)
 
 # 7: the army sent a tank. His street from the kerb, low: the jar stands in the middle of the road, big in the foreground; a tank rumbles down at it
