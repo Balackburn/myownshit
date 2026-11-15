@@ -1599,3 +1599,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   négatifs. Une cible `R` à droite de l'écran et une cible `L` à gauche font des avant-bras en X (des bras croisés, pas une frappe au clavier).
 - (cycle 27, passe finale) Un poisson qui tourne en rond dans un sac transparent se montre de face une fois sur deux et sa queue traverse le sac s'il
   est aussi long que lui : le faire nager de gauche à droite, toujours de profil, plus petit que la moitié du sac (`fishBag` avec `v2`).
+- (cycle 38) Avant d'écrire un nouveau fichier (script de file, accessoire, histoire), vérifier qu'il n'existe pas déjà (`ls`, `git log -- fichier`) :
+  `queue11.sh` existait déjà pour deux histoires et a été remplacé par une version plus large ; sans le vérifier, on peut écraser un travail.
+- (cycle 38) Une barbe faite d'un éventail plat de mèches attachée à la tête disparaît de profil et se lit comme des planches sur l'épaule : lui donner
+  du volume (`beardHair` avec `depth`, racines en U le long de la mâchoire) et garder les têtes à moins de 45° de la caméra dans les plans clés.
+- (cycle 38) Un « double » qui doit être le même homme doit avoir le même modèle, les mêmes cheveux, le même fauteuil et le même plaid ; ne changer
+  qu'un détail (la cravate). Un autre préréglage (chauve, costume gris) se lit comme un autre personnage et casse la chute.
+- (cycle 38) Un ascenseur ouvert sur un rectangle noir avec le soubassement du hall dessous se lit comme « pas de cabine » : `immeubleHall` avec
+  `car` (ouverture dans le mur, cabine éclairée, portes qui rentrent dans le mur).
