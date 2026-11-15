@@ -410,6 +410,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Le tableau des résultats à soixante pour cent | `resultsBoard` avec `pct` : la barre du gagnant s'arrête à `pct` %, celle des autres (rouge) prend le reste, les chiffres suivent (100 % / 0 % contredisait la réplique) |
 | Le cadrage résolu par projection | quand la composition est dictée (sa tête en bas à droite, le feu dans le tiers gauche), chercher l'orientation et l'objectif qui posent deux cibles sur deux points de l'image (`projshot.solve`) au lieu de laisser `fitBack` cadrer tous les points au bord |
 | La file vue au long foyer | lui au premier plan au bout de la file, les touristes en diagonale qui s'éloignent vers le fond, le photographe dans la rue devant sa porte, un enfant qui saute sur place dans la file, chacun avec un geste à lui |
+| Le regard mené par les yeux (moteur) | une clé `look` fait d'abord partir les yeux (3 images), puis la tête tourne en douceur sur 0,3 s ; `lookDur` (0,06) pour un mouvement sec, comme dans les doubles prises |
+| La musique d'attente qui coule du téléphone | `holdNotes` accroché à la tête près de l'oreille, tourné vers la caméra : des notes sortent sans fin, montent de côté en ondulant et s'effacent ; `until` coupe le flot net (le « clic » de la reprise d'appel) |
+| Le téléphone collé à l'oreille | le téléphone passe de la main à la tête (`joint: 'head'`) : la main s'écarte et revient vide ; quand il tire à deux mains, sa tête s'étire de côté (`scl.head`) et revient d'un coup |
+| La course poursuite qui ne finit pas | coureur et bus avancent à la même vitesse sur une route droite (`floorSlab`) avec la caméra qui dérive d'autant ; la chute renvoie au premier plan : le numéro du bus (21) n'était pas celui de son arrêt (12) |
 
 ## Erreurs à éviter
 
@@ -1551,3 +1555,9 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   dérive quand un point d'ancrage touche le bord, ou des points de marge autour de lui.
 - (cycle 28) Pour une contravention ou une lettre collée sur la poitrine, la clé `attach` doit répéter `face: 'camera'` : sans elle le papier passe
   de profil (une tranche rose de 15 px).
+- (cycle 34) Avant de créer le dossier d'une histoire, vérifier que son nom n'existe pas déjà : `attente` était l'histoire 32, et le placement de la
+  narration a réécrit son minutage (restauré depuis git).
+- (cycle 34) Un personnage de 2,45 m debout dans le bus de ville passe la tête par le plafond (2,3 m) : `top` à 2,8 pour les plans intérieurs, ou
+  la scène prise à la porte, de l'extérieur.
+- (cycle 34) Un coureur filmé de côté sur une route droite est de profil, et le côté de sa tête en boîte se lit comme l'arrière : placer la caméra
+  de trois quarts devant lui en dérivant à sa vitesse.
