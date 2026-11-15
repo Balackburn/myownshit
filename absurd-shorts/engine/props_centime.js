@@ -66,8 +66,8 @@ export const CENTIME_PROPS = {
     const g = grp(), from = o.from ?? 0, rps = o.rps ?? 2;
     g.add(at(cyl(0.05, 0.055, 0.04, '#26282C', 12, { pivot: 'bottom', outline: 0.003 }), 0, 0, 0));
     const domeM = new THREE.MeshBasicMaterial({ color: '#7A1A1A' }), dome = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 8, 0, TAU, 0, PI / 2), domeM); dome.position.y = 0.04; g.add(dome);
-    const geo = new THREE.ConeGeometry(0.35, 1.4, 16, 1, true); geo.translate(0, -0.7, 0); geo.rotateZ(PI / 2);
-    const beam = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: '#FF4A3A', transparent: true, opacity: 0.28, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }));
+    const BL = o.len ?? 0.6, geo = new THREE.ConeGeometry(BL * 0.25, BL, 16, 1, true); geo.translate(0, -BL / 2, 0); geo.rotateZ(PI / 2);   // (stills 1) o.len: the beam's reach (1.4 m crossed the whole frame)
+    const beam = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: '#FF4A3A', transparent: true, opacity: o.opacity ?? 0.22, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }));
     const spin = grp(); spin.position.y = 0.06; spin.add(beam); g.add(spin);
     g.userData.update = t => { const on = t >= from; spin.visible = on; domeM.color.set(on ? (Math.sin((t - from) * rps * TAU) > -0.2 ? '#FF3A2A' : '#B02020') : '#7A1A1A'); spin.rotation.y = (t - from) * rps * TAU; };
     g.userData.update(-1); return g;

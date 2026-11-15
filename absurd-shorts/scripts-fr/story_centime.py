@@ -32,7 +32,7 @@ STREET = {'eiffelStyle': 'v2', 'clear': [-6.0, 6.0], 'clearL': [-6.0, 6.0]}   # 
 ME = [5.6, 0, 0.0]                                   # on the right-hand pavement at his door, facing the road (-X)
 MIN = [4.35, 0, 0.35]                                # the minister in front of him
 TRI = ['#2F62B5', '#F4F4F0', '#E0413A']
-GUARD = lambda pid, who: P(pid, 'guardHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.26, 0.0]}, scale=1.15)
+GUARD = lambda pid, who: P(pid, 'guardHelmet', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.47, 0.0]}, scale=1.1)   # (stills 1) on top of the head (at 0.26 it sat on his chin)
 COCK = lambda pid, who: P(pid, 'slab', on={'actor': who, 'joint': 'torso', 'offset': [0.1, 0.48, 0.13]}, opts={'w': 0.05, 'h': 0.05, 'd': 0.01, 'color': '#E0413A'})   # a tricolour pin
 
 for g_ in [('S01', 0.8, 'agent', 'alarm'), ('S03', 0.6, 'agent2', 'stamp'), ('S05', 0.5, 'garde1', 'salute'), ('S09', 0.9, 'garde3', 'cushion'), ('S13', 0.9, 'mec', 'piggy'), ('S15', 0.6, 'mec', 'bill')]:
@@ -49,7 +49,7 @@ st.shot('S01', 'office', actors=[
             k(AL1, toon={'sq': [0.9, 1.14, 0.9], 'face': {'lid': 0.0, 'eye': 0.6, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.05, toonEase='out'), k(r(AL1 + 0.1), toon={'face': {'lid': 0.0, 'eye': 0.5, 'brow': 1.0, 'mouth': 'O'}}, toonDur=0.1),
             k(r(AL1 + 0.45), look=[-3.75, 1.9, -1.05]), *BLINK(1.7, {'eye': 0.5, 'brow': 1.0, 'mouth': 'O'}), k(2.2, look=[-4.6, 0.95, -1.55], lookDur=0.12)]),   # types... freezes, eyes popping at the screen, then looks up at him
         act('mec', [-3.75, 0, -1.05], 15, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=LIP, toonDur=0.0), k(r(AL1 + 0.1), look=[-4.95, 0.9, -1.45], lookDur=0.12), k(r(AL1 + 0.6), look='camera', lookDur=0.15), *BLINK(r(AL1 + 0.95), {'mouth': 'line'})])],   # facing us at the corner of the desk, deadpan, a glance at the light
-        props=[P('pc1', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gyro1', 'beacon', pos=[-4.95, 0.76, -1.45], opts={'from': AL1, 'rps': 2.2}),
+        props=[P('pc1', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gyro1', 'beacon', pos=[-4.95, 0.76, -1.45], opts={'from': AL1, 'rps': 2.2, 'len': 0.55}),
                P('imp1', 'signBoard', pos=[-4.6, 1.95, -3.55], opts={'text': 'CENTRE DES IMPÔTS', 'bg': '#26365F', 'fg': '#FFFFFF', 'frame': '#E0413A', 'w': 1.9, 'h': 0.38, 'posts': False, 'height': 0}),
                BURST('b1', [-4.3, 1.35, -1.55], r(AL1 + 0.05), '+0,01 €', 0.5, 0.5)],
         cams=[FC(0.0, [-3.9, 1.6, 1.4], [[-4.6, 1.95, -2.15], [-3.75, 2.45, -1.05], [-4.95, 0.85, -1.45], [-3.75, 0.5, -1.05], [-4.6, 2.2, -3.55]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])
@@ -65,7 +65,7 @@ st.shot('S02', 'office', actors=[
             [k(r(BANG2 - 0.2), toon={'reach': {'R': [-4.45, 1.45, -1.75, 1, 0.03]}, 'hands': {'R': 'fist'}, 'face': {'lid': 0.2, 'brow': -0.8, 'mouth': 'clench'}}, toonDur=0.15, toonEase='out'),
              k(BANG2, toon={'reach': {'R': [-4.45, 0.8, -1.65, 1, 0.03]}, 'hands': {'R': 'fist'}, 'sq': [1.06, 0.94, 1.06], 'face': {'lid': 0.1, 'brow': -0.9, 'mouth': 'open'}}, toonDur=0.05, toonEase='in'), k(r(BANG2 + 0.4), look='camera')])]) for n_, p_, ry_, _ in OFF2]],
         props=[P('table2', 'desk', pos=[-4.6, 0, -1.35], opts={'w': 1.4}), P('tab2', 'signBoard', pos=[-4.6, 1.5, -3.55], opts={'text': 'TROP-PERÇU\n0,01 €', 'bg': '#F6F1E3', 'fg': '#C8322A', 'frame': '#26365F', 'w': 1.5, 'h': 0.8, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [-2.9, 1.9, 1.1], [[-4.6, 1.9, -2.15], [-5.45, 1.9, -1.35], [-3.75, 1.9, -1.35], [-4.6, 2.35, -3.55], [-4.6, 0.7, -0.6]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])
+        cams=[FC(0.0, [-3.6, 2.75, 1.2], [[-4.6, 1.9, -2.15], [-5.45, 1.9, -1.35], [-3.75, 1.9, -1.35], [-4.6, 2.35, -3.55], [-5.4, 1.5, -3.55], [-3.8, 1.5, -3.55], [-4.6, 0.7, -0.6]], top=0.1, bottom=0.8, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # (stills 1) high over the near officials' heads (their backs filled the frame), the board whole
 st.cue('thud', 'S02', BANG2, 0.35)
 
 # 3: but the stamp cost more than the cent. Close on the desk from above: a cheque for 0,01 € and its envelope; a hand slaps a big stamp 3,00 € on the
@@ -109,7 +109,7 @@ D6 = st.dur('S06')
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[act('flic', [1.2, 0, 3.4], 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.6, 8.0]), k(0.0, toon={'reach': {'R': [1.3, 2.35, 3.6, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.2, 'mouth': 'whistle'}}, toonDur=0.0),
             *[k(r(0.15 + 0.25 * j), toon={'reach': {'R': [r(1.3 + (0.15 if j % 2 else -0.15)), 2.35, 3.6, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.2, 'mouth': 'whistle'}}, toonDur=0.08) for j in range(5)]])],
         props=[*[P(f'barr6{j}', 'crowdBarrier', pos=[r(-3.0 + 2.0 * j), 0, 2.6], opts={'w': 1.9}) for j in range(4)],
-               P('ferme6', 'signBoard', pos=[0.0, 0, 2.3], opts={'text': 'RUE FERMÉE', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.4, 'h': 0.42, 'height': 1.05, 'posts': True}),
+               P('ferme6', 'signBoard', pos=[0.0, 0, 2.3], ry=180, opts={'text': 'RUE FERMÉE', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.4, 'h': 0.42, 'height': 1.05, 'posts': True}),
                *[P(f'voit6{j}', 'car', pos=[r(-2.2 + 2.6 * (j % 2)), 0, r(5.6 + 3.4 * (j // 2))], ry=180, opts={'color': ['#C8322A', '#2F62B5', '#E2B53C', '#4A8C5A'][j]}) for j in range(4)]],
         cams=[FC(0.0, [3.4, 1.1, -3.0], [[0.0, 1.6, 2.3], [-3.0, 0.0, 2.6], [3.0, 0.0, 2.6], [1.2, 2.45, 3.4], [-2.2, 1.4, 9.0]], top=0.14, bottom=0.78)])
 st.cue('sfx:whistle', 'S06', 0.1, 0.25); st.cue('sfx:honkLong', 'S06', 0.6, 0.2)
@@ -120,17 +120,17 @@ BAND = [('musi1', [3.4, 0, -0.9], 'trumpet'), ('musi2', [3.6, 0, 0.3], 'tuba'), 
 st.shot('S07', 'parisStreet', setOpts=STREET, actors=[*[act(n_, p_, 80, 'stand', 'happy', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [r(p_[0] + 0.45), 1.75 if kd == 'trumpet' else 1.3, p_[2], 1, 0.03], 'L': [r(p_[0] + 0.35), 1.7 if kd == 'trumpet' else 1.3, r(p_[2] + 0.12), 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'puff': 1.0 if kd != 'drum' else 0.0, 'lid': 0.3}}, toonDur=0.0),
             *[k(b_, toon={'sq': [1.03, 0.97, 1.03] if i % 2 == 0 else [0.98, 1.03, 0.98]}, toonDur=0.08) for i, b_ in enumerate(BEATS7)]]) for n_, p_, kd in BAND]],
         props=[*[P(f'instr7{j}', 'brass', on={'actor': n_, 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, opts={'kind': kd, 's': 1.2, **({'beat': BEATS7} if kd == 'drum' else {})}) for j, (n_, p_, kd) in enumerate(BAND)],
-               *[P(f'kepi7{j}', 'copCap', on={'actor': n_, 'joint': 'head', 'offset': [0.0, 0.26, 0.0]}, opts={'color': '#B5302A'}) for j, (n_, p_, kd) in enumerate(BAND)]],
-        cams=[FC(0.0, [6.4, 1.6, 1.0], [[3.4, 2.6, -0.9], [3.4, 2.6, 1.5], [3.6, 0.6, 0.3], [3.4, 0.6, -1.2], [3.4, 0.6, 1.8]], top=0.12, bottom=0.78)])
+               *[P(f'kepi7{j}', 'copCap', on={'actor': n_, 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#B5302A'}) for j, (n_, p_, kd) in enumerate(BAND)]],
+        cams=[FC(0.0, [5.9, 1.7, 0.4], [[3.4, 2.75, -0.9], [3.4, 2.75, 1.5], [3.6, 0.9, 0.3], [3.4, 0.9, -1.1], [3.4, 0.9, 1.7]], top=0.1, bottom=0.8)])
 for b_ in BEATS7[::2]: st.cue('thud', 'S07', b_, 0.2)
 st.cue('sfx:fanfare', 'S07', 0.05, 0.3)
 
 # 8: helicopters flew over the neighbourhood. Low on the pavement looking up past the roofs: two helicopters sweep over, rotors blurring; he looks up
 D8 = st.dur('S08')
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=[k(0.0, look=[9.0, 12.0, -4.0]), k(0.0, toon=LIP, toonDur=0.0), *BLINK(0.7), k(r(D8 * 0.6), look=[9.0, 12.0, 4.0], lookDur=0.4)])],
-        props=[P('heli8a', 'helicopter', pos=[10.0, 13.0, -14.0], ry=0, scale=1.4, keys=[k(0.0, to=[10.0, 12.0, 14.0], dur=D8, ease='linear')]),
-               P('heli8b', 'helicopter', pos=[12.5, 15.0, -20.0], ry=0, scale=1.4, keys=[k(0.0, to=[12.5, 14.0, 10.0], dur=D8, ease='linear')])],
-        cams=[FC(0.0, [2.4, 0.9, 1.4], [[ME[0], 2.45, ME[2]], [ME[0], 1.3, ME[2]], [10.0, 13.5, 0.0], [12.5, 15.0, -4.0]], top=0.08, bottom=0.78, lenses=range(26, 70))])   # low in front of him, the helicopters over the roofs behind him
+        props=[P('heli8a', 'helicopter', pos=[8.6, 9.6, -9.0], ry=0, scale=1.5, keys=[k(0.0, to=[8.6, 9.2, 9.0], dur=D8, ease='linear')]),
+               P('heli8b', 'helicopter', pos=[10.5, 11.0, -15.0], ry=0, scale=1.5, keys=[k(0.0, to=[10.5, 10.6, 5.0], dur=D8, ease='linear')])],   # (stills 1) lower and nearer: they were cut off at the top
+        cams=[FC(0.0, [3.2, 0.95, 1.0], [[ME[0], 2.45, ME[2]], [ME[0], 1.0, ME[2]], [8.6, 10.2, 0.0], [10.5, 11.6, -4.0], [8.6, 8.8, 0.0]], top=0.06, bottom=0.8, lenses=range(26, 72))])   # low in front of him, the helicopters over the roofs behind him
 st.cue('sfx:chainsaw' if False else 'engine', 'S08', 0.0, 0.3)
 
 # 9: the cent arrived on a velvet cushion. A guard walks slowly toward us carrying the red cushion on both palms; on it, tiny and gleaming, the cent;
@@ -149,20 +149,21 @@ st.cue('sfx:choir', 'S09', 0.1, 0.25); st.cue('sfx:ding', 'S09', 0.6, 0.2)
 D10 = st.dur('S10'); NOD10 = 0.9
 st.shot('S10', 'parisStreet', setOpts=STREET, actors=[
         act('ministre', MIN, 90, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 2.0, ME[2]]), *[k(r(0.1 + 0.3 * j), toon={'reach': {('R' if j % 2 else 'L'): [r(MIN[0] + 0.35), r(2.0 + 0.15 * (j % 3)), r(MIN[2] + (-0.35 if j % 2 else 0.45)), 1, 0.03]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'mouth': 'open' if j % 2 else 'O', 'lid': 0.2, 'brow': 0.6}}, toonDur=0.12) for j in range(int(D10 / 0.3))]]),
-        act('garde1', [3.3, 0, 1.6], 90, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 1.9, 1.6]), k(0.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None]}, 'face': {'lid': 1.0}}, toonDur=0.4, toonEase='inOut'),
+        act('garde1', [3.55, 0, -1.3], 90, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 1.9, -1.3]), k(0.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None]}, 'face': {'lid': 1.0}}, toonDur=0.4, toonEase='inOut'),
             k(NOD10, toon={'bend': {'neck': [-0.1, 0, 0, 1, None]}, 'sq': [0.95, 1.08, 0.95], 'face': {'lid': 0.0, 'eye': 0.5}}, toonDur=0.05, toonEase='out'), k(r(NOD10 + 0.15), toon={'face': {'lid': 0.3}}, toonDur=0.1)]),   # asleep... awake with a jerk
         act('mec', ME, -90, 'stand', 'neutral', keys=[k(0.0, look=[MIN[0], 2.2, MIN[2]]), k(0.0, toon=LIP, toonDur=0.0), *BLINK(0.6), *BLINK(1.4), k(1.6, look='camera')])],
         props=[P('pupitre10', 'podium', pos=[r(MIN[0] + 0.3), 0, MIN[2]], ry=90, opts={'text': 'RÉPUBLIQUE'}), COCK('ck10', 'ministre'), GUARD('casque10', 'garde1')],
-        cams=[FC(0.0, [2.0, 1.6, 3.8], [[ME[0], 2.45, ME[2]], [MIN[0], 2.45, MIN[2]], [3.3, 2.75, 1.6], [MIN[0], 0.9, MIN[2]], [ME[0], 0.9, ME[2]]], top=0.12, bottom=0.78)])   # three-quarter on him from the road side
+        cams=[FC(0.0, [2.0, 1.6, 3.8], [[ME[0], 2.45, ME[2]], [MIN[0], 2.45, MIN[2]], [3.55, 2.95, -1.3], [MIN[0], 0.9, MIN[2]], [ME[0], 0.9, ME[2]]], top=0.12, bottom=0.78)])   # three-quarter on him from the road side (stills 1: the guard is behind the minister now, he filled the foreground)
 st.cue('sfx:ticks', 'S10', 0.1, 0.2); st.cue('sfx:boing', 'S10', NOD10, 0.15)
 
 # 11: the neighbours wept. Up the facade, the neighbours at their windows, handkerchiefs out, tears spurting in arcs
 D11 = st.dur('S11')
-NB11 = [('voisin1', [6.9, 3.2, -1.6], 'mamie'), ('voisin2', [6.9, 3.2, 1.8], 'madame'), ('voisin3', [6.9, 6.2, 0.1], 'boss')]
+NB11 = [('voisin1', [7.25, 3.25, -1.6], 'mamie'), ('voisin2', [7.25, 3.25, 1.8], 'madame'), ('voisin3', [7.25, 6.3, 0.1], 'boss')]   # (stills 1) on the balconies (in front of the facade they floated)
 st.shot('S11', 'parisStreet', setOpts=STREET, actors=[*[act(n_, p_, -90, 'stand', 'sad', keys=[k(0.0, look=[4.4, 1.0, 0.3]), k(0.0, toon={'face': {'lid': 0.7, 'mouth': 'cry', 'brow': 1.0}}, toonDur=0.0),
             *[k(r(0.12 + 0.22 * i + 0.07 * j), toon={'sq': [1.04, 0.95, 1.04] if i % 2 else [0.98, 1.03, 0.98], 'face': {'lid': 0.75, 'mouth': 'cry', 'brow': 1.0}}, toonDur=0.08) for i in range(int(D11 / 0.22))]]) for j, (n_, p_, _) in enumerate(NB11)]],
-        props=[*[P(f'larmes11{j}', 'tearFountain', on={'actor': n_, 'joint': 'head'}, opts={'from': r(0.05 + 0.1 * j)}) for j, (n_, p_, _) in enumerate(NB11)]],
-        cams=[FC(0.0, [3.6, 2.6, 2.4], [[6.9, 4.4, -1.6], [6.9, 4.4, 1.8], [6.9, 7.4, 0.1], [6.9, 3.0, -1.6], [6.9, 3.0, 1.8]], top=0.12, bottom=0.78, lenses=range(26, 64))])
+        props=[*[P(f'larmes11{j}', 'tearFountain', on={'actor': n_, 'joint': 'head'}, opts={'from': r(0.05 + 0.1 * j)}) for j, (n_, p_, _) in enumerate(NB11)],
+               *[P(f'balc11{j}', 'slab', pos=[6.95, r(p_[1] + 0.5), p_[2]], opts={'w': 0.05, 'h': 1.0, 'd': 1.3, 'color': '#2A2C30'}) for j, (n_, p_, _) in enumerate(NB11)]],   # a railing in front of each
+        cams=[FC(0.0, [3.6, 2.6, 2.4], [[7.25, 5.75, -1.6], [7.25, 5.75, 1.8], [7.25, 8.8, 0.1], [7.25, 3.4, -1.6], [7.25, 3.4, 1.8]], top=0.12, bottom=0.8, lenses=range(26, 64))])
 st.cue('sfx:gasp', 'S11', 0.1, 0.15)
 
 # 12: television filmed it live. Behind the barriers, TV cameras on tripods, a reporter with a microphone, EN DIRECT; the red lights on
@@ -173,7 +174,7 @@ st.shot('S12', 'parisStreet', setOpts=STREET, actors=[act('reporter', [2.2, 0, -
                P('direct12', 'signBoard', pos=[2.4, 2.5, -2.2], ry=40, opts={'text': 'EN DIRECT', 'bg': '#C8322A', 'fg': '#FFFFFF', 'w': 1.1, 'h': 0.32, 'posts': False, 'height': 0}),
                P('micro12', 'megaphone', on={'actor': 'reporter', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, scale=0.35),
                *[P(f'barr12{j}', 'crowdBarrier', pos=[r(0.6 + 1.9 * j), 0, 2.5], opts={'w': 1.8}) for j in range(2)]],
-        cams=[FC(0.0, [4.6, 1.6, 4.6], [[2.2, 2.45, -1.2], [2.4, 2.9, -2.2], [1.0, 0.0, 1.2], [3.2, 0.0, 2.2], [2.2, 0.6, -1.2]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [3.9, 1.7, 2.6], [[2.2, 2.45, -1.2], [1.9, 2.95, -2.2], [2.9, 2.95, -2.2], [1.0, 0.6, 1.2], [2.2, 0.6, -1.2]], top=0.1, bottom=0.8)])   # (stills 1) nearer the reporter, the sign whole
 st.cue('sfx:shutter', 'S12', 0.3, 0.15); st.cue('sfx:shutter', 'S12', 0.9, 0.15)
 
 # 13: he put the cent in his piggy bank. His kitchen table, close: his fingers hold the cent over the pink pig; he lets go; it drops into the slot
@@ -200,7 +201,7 @@ D15 = st.dur('S15')
 st.shot('S15', 'kitchenDay', actors=[act('mec', [0.3, 0, -1.3], 0, 'stand', 'neutral', keys=[k(0.0, look=[0.3, 1.0, -0.4]), k(0.0, toon={'reach': {'R': [0.2, 1.55, -0.95, 1, 0.03], 'L': [0.42, 1.55, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.0),
             k(0.7, look='camera'), *BLINK(1.0, {'mouth': 'line'})])],
         props=[P('facture15', 'billScroll', pos=[0.31, 1.55, -0.92], opts={'w': 0.36, 'top': 1.55, 'head': 'FACTURE', 'items': ['VOITURE', 'GARDE', 'FANFARE', 'HÉLICOPTÈRES', 'COUSSIN', 'DISCOURS', 'TOTAL : 2 000 000 €'], 'len': [[0.0, 0.2], [0.2, 1.55], [r(D15 - 0.1), 3.4]]})],
-        cams=[FC(0.0, [0.75, 1.6, 1.6], [[0.3, 2.45, -1.3], [0.3, 0.0, -0.4], [0.3, 0.0, 1.0], [0.0, 1.0, -0.6], [0.6, 1.0, -0.6]], top=0.12, bottom=0.8)])
+        cams=[FC(0.0, [0.7, 1.45, 1.1], [[0.3, 2.45, -1.3], [0.3, 0.0, -0.4], [0.3, 0.0, 0.6], [0.05, 1.0, -0.6], [0.55, 1.0, -0.6]], top=0.1, bottom=0.82)])   # (stills 1) nearer the bill
 st.cue('sfx:paper', 'S15', 0.1, 0.2); st.cue('sfx:slideDown', 'S15', 0.25, 0.25)
 
 # 16: travel expenses. Close on the bill's last line, FRAIS DE DÉPLACEMENT, then up to him: deadpan, a slow blink, a look at us; beside him on the
@@ -209,7 +210,7 @@ D16 = st.dur('S16')
 st.shot('S16', 'kitchenDay', actors=[act('mec', [0.3, 0, -1.3], 0, 'stand', 'neutral', keys=[k(0.0, look=[0.3, 1.2, -0.9]), k(0.0, toon={'reach': {'R': [0.2, 1.3, -0.95, 1, 0.03], 'L': [0.42, 1.3, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.0),
             k(0.45, look='camera'), k(0.75, toon={'reach': {'R': [0.2, 1.3, -0.95, 1, 0.03], 'L': [0.42, 1.3, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.14, toonEase='inOut'),
             k(0.95, toon={'reach': {'R': [0.2, 1.3, -0.95, 1, 0.03], 'L': [0.42, 1.3, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.14, toonEase='inOut')])],
-        props=[P('frais16', 'paperSheet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.11, 0.02, 0.03]}, face='camera', opts={'w': 0.34, 'h': 0.22, 'lines': ['FRAIS DE', 'DÉPLACEMENT'], 'bright': True}),
+        props=[P('frais16', 'paperSheet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.11, 0.02, 0.03]}, face='camera', opts={'w': 0.5, 'h': 0.3, 'lines': ['FRAIS DE', 'DÉPLACEMENT'], 'bright': True}),
                P('table16', 'table', pos=[-0.75, 0, -1.4], opts={'w': 0.8, 'd': 0.6, 'h': 0.76}), P('cochon16', 'piggyBank', pos=[-0.6, 0.76, -1.3], ry=40, opts={'s': 1.25})],
         cams=[FC(0.0, [-0.35, 1.45, 0.5], [[0.3, 2.45, -1.3], [0.3, 1.15, -1.3], [-0.6, 0.85, -1.3], [0.5, 1.3, -0.95]], top=0.12, bottom=0.78)])   # lower and from the pig's side (the same set-up as S13)
 
@@ -223,7 +224,7 @@ st.write("Le centime", rig='toon', fingers=True, cloth=True, idleShift=1.6, hold
     'off2': {'preset': 'avocat', 'seed': 775, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'off3': {'preset': 'officiel', 'seed': 776, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'ministre': {'preset': 'politique', 'seed': 777, 'suit': '#23262E', 'lapel': '#23262E', 'tie': '#2F62B5', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    **{f'garde{j + 1}': {'preset': 'cop', 'seed': 778 + j, 'suit': '#1C1F2A', 'pants': '#F2F2EE', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX} for j in range(4)},
+    **{f'garde{j + 1}': {'preset': 'boss', 'seed': 778 + j, 'suit': '#1C1F2A', 'lapel': '#1C1F2A', 'tie': '#1C1F2A', 'pants': '#F2F2EE', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX} for j in range(4)},
     'flic': {'preset': 'cop', 'seed': 782, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     **{f'musi{j + 1}': {'preset': 'serveur', 'seed': 783 + j, 'suit': '#B5302A', 'pants': '#1C1F2A', 'build': {'width': 1.0 + 0.1 * (j == 1), 'headWidth': 1.2}, 'toon': EX} for j in range(3)},
     'voisin1': {'preset': 'mamie', 'seed': 786, 'build': {'width': 1.0, 'headWidth': 1.25}, 'toon': EX},
