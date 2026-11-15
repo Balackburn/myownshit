@@ -195,7 +195,7 @@ def doubleTake(t0, look_at, keep=None, back='camera', pop=0.6, blank=0.11, hold=
     (cycle 14) blank: how long the blank look at `back` lasts before the snap (0.11 s by default; the review of 50 asked for 6 to 8 frames, 0.2-0.27 s:
     with 2-4 frames the realisation landed on the wrong look and the double take played as a single take); hold: how long the eyes stay out (0.35 s)."""
     keep = dict(keep or {}); sn = round(t0 + 0.16 + blank, 3)
-    return [k(t0, look=look_at), k(round(t0 + 0.16, 3), look=back), k(sn, look=look_at),
+    return [k(t0, look=look_at, lookDur=0.12), k(round(t0 + 0.16, 3), look=back, lookDur=0.12), k(sn, look=look_at, lookDur=0.06),   # (cycle 34) snaps: head turns ease over 0.3 s otherwise
             k(round(sn - 0.04, 3), toon={**keep, 'sq': [1.04, 0.95, 1.04]}, toonDur=0.03),
             k(sn, toon={**keep, 'sq': [0.95, 1.06, 0.95], 'face': {'pop': pop, 'popLen': 0.25, 'brow': 1, 'jaw': 0.3}}, toonDur=0.04, toonEase='outBack'),
             k(round(sn + hold, 3), toon={**keep, 'face': {'brow': 0.6}}, toonDur=0.12)]

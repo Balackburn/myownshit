@@ -265,7 +265,7 @@ function prepActor(cfg, obj, sc, place) {
       if (k.clip) A.clipKeys.push({ at: k.t, clip: k.clip, params: k.params || {}, speed: k.speed ?? A.speed, key: k });
       if (k.face != null) A.faceKeys.push({ at: k.t, face: k.face, turn: k.turn ?? 0.22 / S.tempo });
     }
-    if (k.look !== undefined) A.lookKeys.push({ at: k.t, look: k.look });
+    if (k.look !== undefined) A.lookKeys.push({ at: k.t, look: k.look, dur: k.lookDur });   // (cycle 34) k.lookDur: how long the head takes to get there (a snap: 0.06)
     if (k.expr) A.exprKeys.push({ at: k.t, expr: k.expr });
     if (k.fx) A.fxKeys.push({ at: k.t, fx: { ...k.fx } });   // face FX: {wet, tears, sweat, blush, shiver}
     if (k.toon) (A.toonKeys = A.toonKeys || [{ at: -1e6, toon: {}, dur: 0 }]).push({ at: k.t, toon: k.toon, dur: k.toonDur ?? 0.12, ease: k.toonEase || 'out' });   // cartoon channels keyed from the story (added to the clip's): {sq, scl, bend, face, ears, hat}; {} clears
@@ -608,7 +608,8 @@ function evalActor(A, tIn) {
   // head look-at (on top of the clip), blended
   const lk = lastKey(A.lookKeys, t);
   if (lk && lk.look != null) {
-    const w = ease.out(clamp01((t - lk.at - (ud.faceRig ? LOOK_LEAD : 0)) / 0.25));
+    // (cycle 34) the head eases in and out over 0.3 s after the eyes (ease.out over 0.25 s read as a two-frame snap); a key's lookDur makes it a snap
+    const w = (lk.dur != null ? ease.out : ease.inOut)(clamp01((t - lk.at - (ud.faceRig ? LOOK_LEAD : 0)) / (lk.dur ?? 0.3)));
     const off = lookOffsets(A, lk.look, t, pos, ry, sc);
     const plk = prevKey(A.lookKeys, lk); const off0 = plk && plk.look != null ? lookOffsets(A, plk.look, t, pos, ry, sc) : [0, 0];
     const J = ud.joints || {};
@@ -780,7 +781,7 @@ function windAt(t) {
 // ---- face rig: the expression as numbers, blended from the previous one (the brows lead, the mouth trails, a little overshoot), then
 // the life on top: a blink that closes and opens over a few frames, the eyes that move before the head, small darts of the pupils,
 // lip flaps that keep the expression, and whatever the clip asks for (toon.face.expr)
-const LOOK_LEAD = 0.07, FACE_DUR = 0.15, CROSS_SIGN = 1;
+const LOOK_LEAD = 0.09, FACE_DUR = 0.15, CROSS_SIGN = 1;   // (cycle 34) the eyes lead the head by 3 frames (2 hardly read)
 const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_FLAP = new Set(['shocked', 'surprised', 'scared', 'sleepy', 'dead', 'happy', 'laugh', 'cry', 'yawn', 'awe', 'take', 'takeSmall']);
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -824,7 +825,7 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
   let gx = 0, gy = 0; const lk = lastKey(A.lookKeys, t), plk = lk ? prevKey(A.lookKeys, lk) : null;
   if (lk) {
     const to = lk.look != null ? lookOffsets(A, lk.look, t, pos, ry, sc) : [0, 0], from = plk && plk.look != null ? lookOffsets(A, plk.look, t, pos, ry, sc) : [0, 0];
-    const wh = ease.out(clamp01((t - lk.at - LOOK_LEAD) / 0.25)), wg = ease.out(clamp01((t - lk.at) / 0.06));
+    const wh = (lk.dur != null ? ease.out : ease.inOut)(clamp01((t - lk.at - LOOK_LEAD) / (lk.dur ?? 0.3))), wg = ease.out(clamp01((t - lk.at) / 0.06));
     gx += (to[0] - from[0]) * (1 - wh) * wg * 1.5; gy += (to[1] - from[1]) * (1 - wh) * wg * 1.5;
     if (Math.abs(to[0] - from[0]) > 0.5 && t - lk.at > 0.02 && t - lk.at < 0.3 && !cf?.noBlink) lid = Math.max(lid, blinkLid(t - lk.at - 0.05) * 0.85);   // a big shift of the gaze takes a blink with it
   }
