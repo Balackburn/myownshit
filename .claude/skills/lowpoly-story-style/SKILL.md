@@ -1490,3 +1490,25 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   ondulent, plus pleines au menton, deux tons, bombées pour passer devant la poitrine, la pointe enroulée au sol.
 - (cycles 27-28) Les rôles d'un dossier de critique recopiés d'une autre histoire emportent la liste de gags de cette autre histoire (64) :
   écrire les rôles pour chaque histoire.
+- (cycles 31-33) Une caméra basse devant une clôture de jardin ne montre que des piquets : le pied de la tondeuse, les jambes, le nain
+  disparaissent (70). Mettre la caméra dans le jardin, ou retirer la clôture du plan (`pavillon` : `fence: False`, `mailbox: False`).
+- (cycles 31-33) Une caméra près du portail se retrouve avec la boîte aux lettres rouge en premier plan (70) : vérifier ce que le décor pose
+  autour du point de départ de la caméra avant de la reculer (`fitBack` recule le long de l'axe de visée).
+- (cycles 31-33) Filmer « sous le canapé » est impossible si son socle va jusqu'au sol : la caméra était dans le tissu, image toute verte
+  (69). Canapé sur pieds (`sofaProp` : `legs`), caméra dans l'espace libre, personnage à quatre pattes (`crawl`) pour que sa tête passe
+  sous la ligne du socle.
+- (cycles 31-33) Une caméra dans un frigo plein se retrouve dans un carton (69) : la placer au-dessus de la nourriture de l'étagère du haut.
+- (cycles 31-33) Un accessoire posé au niveau du sol (lit de rivière vidée, flaque, tapis) passe sous le sol du décor et devient de l'herbe
+  (69) : le relever de quelques centimètres.
+- (cycles 31-33) Un enfant qui « montre la tête » d'un adulte avec `reach` sur la tête étire son bras en bâton rouge (69) : bras levé
+  au-dessus de sa propre tête, la cible à sa portée.
+- (cycles 31-33) Le bureau du décor `mairie` cache tout ce qui se tient derrière lui (69 : le chèque géant) : `desk: False` pour une
+  estrade ou une salle de cartes.
+- (cycles 31-33) De grosses lunettes « relevées » à hauteur du front se lisent comme portées (69) : les poser sur le dessus du crâne,
+  inclinées vers l'arrière (`rot` sur l'accessoire attaché).
+- (cycles 31-33) Les plans larges en vertical (stade, champ vu du ciel, pays, tourbillon sur la ville) ne trouvent pas de focale : resserrer
+  les points à cadrer, monter la caméra presque à la verticale et autoriser des focales jusqu'à 72-74.
+- (cycles 31-33) Les savants filmés de dos, le président de dos qui épingle la médaille (70) : orienter la scène pour que l'action se fasse
+  face à la caméra (l'accessoire entre le personnage et nous), ou passer la caméra de l'autre côté.
+- (cycles 31-33) Un champ de blé de 26 m vu de haut reste un carré brun au milieu du vert (70) : champ jusqu'aux bords du cadre, brins plus
+  larges et plus nombreux, sol doré, bandes coupées pâles pour le contraste.
