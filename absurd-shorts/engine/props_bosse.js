@@ -235,10 +235,10 @@ export const BOSSE_PROPS = {
   // then runs along +Z on the floor): white paper o.w (0.3) wide with a heading (o.head 'FORFAITS') and rows of items with prices, a roll at its
   // end that rolls on. o.len [[t, length], ...] (eased): how much of it has unrolled; the rows repeat every o.rowsPer (0.45 m).
   billScroll(o) {
-    const w = o.w ?? 0.3, top = o.top ?? 1.1, head = o.head || 'FORFAITS', g = grp();
+    const w = o.w ?? 0.3, top = o.top ?? 1.1, head = o.head || 'FORFAITS', g = grp();   // (story 71) o.prices: the prices of the rows (strings), in place of the ski-shop ones
     const rowsTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 512; const x = c.getContext('2d'); x.fillStyle = '#F6E7C1'; x.fillRect(0, 0, 256, 512); x.fillStyle = '#7A5A30'; x.fillRect(0, 0, 7, 512); x.fillRect(249, 0, 7, 512); x.fillStyle = '#3A3A40';   // (final pass of 56) warm cream, dark edges: cream on snow vanished
       const items = o.items || ['FORFAIT JOURNÉE', 'FORFAIT SEMAINE', 'TÉLÉSIÈGE', 'LOCATION SKIS', 'CHOCOLAT CHAUD', 'FORFAIT ENFANT'];
-      for (let i = 0; i < 6; i++) { const y = 40 + i * 80, pr = `${[49, 245, 12, 38, 4, 31][i]} €`, nm = items[i % items.length]; x.textAlign = 'right'; x.font = '700 24px Arial'; const pw = x.measureText(pr).width; x.fillText(pr, 242, y);
+      for (let i = 0; i < 6; i++) { const y = 40 + i * 80, pr = o.prices ? String(o.prices[i % o.prices.length]) : `${[49, 245, 12, 38, 4, 31][i]} €`, nm = items[i % items.length]; x.textAlign = 'right'; x.font = '700 24px Arial'; const pw = x.measureText(pr).width; x.fillText(pr, 242, y);
         x.textAlign = 'left'; let fs = 22; x.font = `600 ${fs}px Arial`; while (x.measureText(nm).width > 228 - pw - 12 && fs > 11) { fs -= 1; x.font = `600 ${fs}px Arial`; } x.fillText(nm, 14, y); x.fillRect(14, y + 18, 228, 2); }   // (pass 3 of 56) the name shrinks to clear its price (« CHOCOLAT CHAUD » ran into it)
       const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapT = THREE.RepeatWrapping; return t; })();
     const mk = () => { const tx = rowsTex.clone(); tx.needsUpdate = true; tx.wrapT = THREE.RepeatWrapping; const m = new THREE.Mesh(new THREE.PlaneGeometry(w, 1), new THREE.MeshLambertMaterial({ map: tx, side: THREE.DoubleSide })); m.receiveShadow = true; return m; };

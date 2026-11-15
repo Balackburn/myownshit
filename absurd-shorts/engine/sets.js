@@ -1490,6 +1490,32 @@ Object.assign(S, {
 
 
 Object.assign(S, {
+  // (cycle 33) « Le robinet »: a small bathroom: a white tiled lower wall under a pastel one (o.wall), a checker floor, a frosted window, a basin with
+  // its mirror, a towel rail with two towels, a shelf with a rubber duck and bottles; the bathtub is a scene prop (bathTub) along the back wall
+  // (anchors.tub, the taps toward +x); o.half: the half width (2.6), o.back (-2.2)
+  salleDeBain(o = {}) {
+    const g = grp(), { back, half } = room(g, { wall: o.wall || '#F3D6C4', band: '#FAFBFC', bandH: 1.4, trim: '#6FA6C0', floor: '#E9ECEE', back: o.back ?? -2.2, half: o.half ?? 2.6, height: 3.0, front: 5 });
+    for (let i = 0; i <= 26; i++) g.add(at(box(0.008, 1.4, 0.006, '#CCD5DA'), -half + i * (2 * half) / 26, 0.7, back + 0.05));
+    for (let j = 1; j < 10; j++) g.add(at(box(2 * half, 0.008, 0.006, '#CCD5DA'), 0, j * 0.14, back + 0.05));
+    for (const sx of [-1, 1]) { for (let i = 0; i <= 30; i++) g.add(at(box(0.006, 1.4, 0.008, '#CCD5DA'), sx * (half - 0.05), 0.7, back + i * 0.24)); for (let j = 1; j < 10; j++) g.add(at(box(0.006, 0.008, 7.2, '#CCD5DA'), sx * (half - 0.05), j * 0.14, back + 3.6)); }
+    const tiles = []; for (let i = -8; i < 8; i++) for (let j = 0; j < 20; j++) if ((i + j) % 2 === 0) tiles.push([i * 0.4 + 0.2, 0.003, back + j * 0.4 + 0.2]);
+    g.add(inst(new THREE.PlaneGeometry(0.4, 0.4).rotateX(-PI / 2), mat('#A9C3CF'), tiles));
+    g.add(prop('window', { w: 0.7, h: 0.8, color: P.cream }, -1.55, 1.95, back));
+    g.add(at(canvasPlane(0.66, 0.76, (c, W, H) => { const gr = c.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, o.night ? '#1C2A44' : '#CFE8F6'); gr.addColorStop(1, o.night ? '#2E3E5C' : '#F2F8FC'); c.fillStyle = gr; c.fillRect(0, 0, W, H);
+      c.fillStyle = 'rgba(255,255,255,0.35)'; for (let i = 0; i < 40; i++) { c.beginPath(); c.arc((i * 37 % 100) / 100 * W, (i * 53 % 100) / 100 * H, W * 0.03, 0, PI * 2); c.fill(); } }), -1.55, 1.95, back + 0.03));
+    const BX = o.basinX ?? -1.7, BZ = back + 0.3;   // the basin on its pedestal, the mirror over it
+    g.add(at(cyl(0.09, 0.13, 0.78, '#FAFAF7', 10, { pivot: 'bottom' }), BX, 0, BZ), at(box(0.6, 0.14, 0.42, '#FAFAF7', { outline: 0.006 }), BX, 0.85, BZ + 0.05), at(box(0.48, 0.02, 0.3, '#BFD7E2'), BX, 0.925, BZ + 0.06),
+      at(cyl(0.02, 0.02, 0.18, '#C9D1D8', 6, { pivot: 'bottom' }), BX, 0.92, BZ - 0.12), at(box(0.62, 0.8, 0.03, '#8FA9B6', { outline: 0.006 }), BX, 1.75, back + 0.03), at(box(0.56, 0.74, 0.01, '#DCEBF2'), BX, 1.75, back + 0.05));
+    const RX = o.railX ?? 1.85;   // the towel rail and two towels
+    g.add(at(cyl(0.015, 0.015, 0.8, '#C9D1D8', 6), RX, 1.35, back + 0.12, 0, 0, PI / 2), at(box(0.34, 0.62, 0.03, '#E8505B', { outline: 0.005 }), RX - 0.2, 1.06, back + 0.13), at(box(0.3, 0.5, 0.03, '#F2C230', { outline: 0.005 }), RX + 0.2, 1.12, back + 0.14));
+    g.add(at(box(0.9, 0.04, 0.2, '#E8E1D0', { outline: 0.006 }), 0.4, 1.95, back + 0.1));   // a shelf: a rubber duck, bottles
+    [['#3C8DD9', 0.1], ['#7FC4B2', 0.25], ['#E0413A', 0.7]].forEach(([c, x]) => g.add(at(cyl(0.045, 0.05, 0.22, c, 8, { pivot: 'bottom' }), x, 1.97, back + 0.1)));
+    const duck = grp(at(sphere(0.07, '#F7D23A', 1), 0, 0.06, 0), at(sphere(0.045, '#F7D23A', 1), 0.02, 0.15, 0.03), at(box(0.04, 0.02, 0.05, '#F08A24'), 0.02, 0.14, 0.08)); duck.position.set(0.48, 1.97, back + 0.1); g.add(duck);
+    g.add(at(box(0.9, 0.012, 0.6, '#7FB2C9'), 0.2, 0.006, back + 1.35));   // the bath mat
+    g.add(hangLamp(0, 2.8, back + 1.4, '#FAFBFC', 5));
+    g.userData.anchors = { center: [0, 0, 0], tub: [0.25, 0, back + 0.55], basin: [BX, 0, BZ], rail: [RX, 0, back] };
+    g.userData.sun = [0.4, 0.65, 0.65]; g.userData.lighting = 'interior'; return g;
+  },
   laundryRoom(o = {}) { // « Les chaussettes »: a bright laundry corner — pale blue walls, a white tiled band, the big washing machine (o.washer === false: a scene
     // bigWasher replaces it; anchors.washer is its spot), a shelf of washing powder, a basket of laundry, a clothes horse with socks, a sunny window
     const g = grp(), { back, half } = room(g, { wall: '#C9DFEA', band: '#F4F6F8', bandH: 1.1, trim: '#6F9DB5', floor: '#D9DEE1', half: 6 });
