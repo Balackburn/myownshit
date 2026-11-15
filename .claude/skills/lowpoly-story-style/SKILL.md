@@ -440,6 +440,9 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   mettre une étiquette au-dessus des sous-titres et des pieds hors de la bande 0,77-0,86 sans passer par des images de contrôle.
 - (cycle 40) Accessoire tenu qui doit se lire (cuillère, outil) : un accessoire libre animé avec les mêmes clés que la main (`to` aux mêmes instants)
   plutôt qu'un accessoire attaché dont l'orientation dans le poing est inconnue ; la cuillère pend la tête en bas au-dessus du couvercle.
+- (cycle 40) Clignement, coup d'œil ou grimace pendant que les mains tiennent quelque chose : `k(t, toon={'face': {...}}, keepPose=True)`. La clé
+  reprend la pose de la clé précédente de l'acteur (reach, touch, hands, bend) et ne change que ce qu'elle nomme ; un clignement écrit avec le seul
+  visage faisait retomber les bras (« Le robinet », « Le centime »). Les fonctions BLINK des scripts l'emploient.
 
 ## Erreurs à éviter
 

@@ -528,6 +528,15 @@ class Story:
 
     def write(self, title, extra_cast=None, **doc_extra):   # doc_extra: extra top-level keys of the script (rig='toon': the cartoon rig for every human, faces={...}: the story's own expressions)
         d = os.path.join(ROOT, 'stories7', self.name)
+        # (cycle 40) k(t, toon={...}, keepPose=True): the key keeps what the actor's previous toon key held (reach, touch, hands, bend, ...) and changes
+        # only what it names. A toon key replaces the whole pose, so a blink written as a face alone dropped the arms (robinet, centime)
+        for _sc in self.scenes:
+            for _a in _sc.get('actors', []):
+                _last = None
+                for _kk in sorted((x for x in _a.get('keys', []) if isinstance(x, dict) and 'toon' in x), key=lambda x: x.get('at', 0)):
+                    if _kk.pop('keepPose', False) and _last is not None:
+                        _kk['toon'] = {**{_n: _v for _n, _v in _last.items() if _n != 'face'}, **_kk['toon']}
+                    _last = _kk['toon']
         try:   # (cycle 10) a cue the final mix cannot play fails only after the 1080p render (45: 'splat' without 'sfx:'): say it now
             import re as _re
             _a3 = open(os.path.join(ROOT, 'tools', 'audio3.py')).read() + open(os.path.join(ROOT, 'tools', 'audio.py')).read()

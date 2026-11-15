@@ -27,7 +27,7 @@ def r(v, n=3): return round(v, n)
 BURST = lambda pid, pos, at_, text, w=0.5, hold=0.3: P(pid, 'hicBurst', pos=pos, face='camera', opts={'at': [at_], 'w': w, 'text': text, 'inner': 0.76, 'fit': 0.6, 'hold': hold, 'bold': True})
 DEAD = {'lid': 0.45}
 LIP = {'face': {'lid': 0.45, 'mouth': 'line'}}
-BLINK = lambda t, f=None: [k(t, toon={'face': {'lid': 1.0, **(f or {})}}, toonDur=0.07), k(r(t + 0.12), toon={'face': {**DEAD, **(f or {})}}, toonDur=0.08)]
+BLINK = lambda t, f=None: [k(t, toon={'face': {'lid': 1.0, **(f or {})}}, toonDur=0.07, keepPose=True), k(r(t + 0.12), toon={'face': {**DEAD, **(f or {})}}, toonDur=0.08, keepPose=True)]   # (cycle 40) keepPose: a blink keeps what the hands hold
 STREET = {'eiffelStyle': 'v2', 'clear': [-6.0, 6.0], 'clearL': [-6.0, 6.0]}   # no tree or lamp of the set in front of his door
 ME = [5.6, 0, 0.0]                                   # on the right-hand pavement at his door, facing the road (-X)
 MIN = [4.35, 0, 0.35]                                # the minister in front of him
