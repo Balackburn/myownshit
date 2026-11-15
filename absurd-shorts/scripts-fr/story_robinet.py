@@ -170,7 +170,7 @@ D7 = st.dur('S07'); TH = [0.0, 0, -6.0]
 st.shot('S07', 'grassland', look=XLOOK, actors=[act('maire', [0.0, 4.75, -6.2], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'),
             k(0.0, toon={'reach': {'R': [0.12, 1.55 + 4.75, -5.9, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'mouth': 'line'}}, toonDur=0.0),
             k(0.25, toon={'reach': {'R': [0.12, 1.62 + 4.75, -5.85, 1, 0.03], 'L': [-0.35, 2.2 + 4.75, -5.95, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'point'}, 'face': {'mouth': 'O', 'brow': 0.6}}, toonDur=0.12, toonEase='out'), *BLINK(1.0, {'mouth': 'line'})])],
-        props=[P('th7', 'townHall', pos=TH, opts={'w': 7.0, 'h': 4.5, 'text': 'MAIRIE'}), FLOOD('fl7', 2.3, 2.4, 0.0, D7, w=40.0, d=40.0),
+        props=[P('th7', 'townHall', pos=TH, opts={'w': 7.0, 'h': 4.5, 'text': 'MAIRIE', 'gable': 'v2'}), FLOOD('fl7', 2.3, 2.4, 0.0, D7, w=40.0, d=40.0),
                P('sash7', 'mayorSash', on={'actor': 'maire', 'joint': 'torso', 'offset': [0.0, 0.0, 0.0]}), P('mega7', 'megaphone', on={'actor': 'maire', 'hand': 'R', 'offset': [0.0, 0.0, 0.08]})],
         cams=[FC(0.0, [2.2, 3.4, 4.0], [[0.0, 7.4, -6.2], [-3.5, 2.4, -4.0], [3.5, 2.4, -4.0], [0.0, 4.75, -6.2]], top=0.14, bottom=0.78)])
 st.cue('sfx:static', 'S07', 0.25, 0.25)
@@ -180,7 +180,7 @@ st.cue('sfx:static', 'S07', 0.25, 0.25)
 D8 = st.dur('S08')
 st.shot('S08', 'grassland', look=XLOOK, actors=[act('maire', [-0.9, 4.75, -6.2], 15, 'stand', 'happy', keys=[k(0.0, look='camera'),
             k(0.0, toon={'reach': {'R': [-0.75, 1.0 + 4.75, -6.0, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'mouth': 'smile'}}, toonDur=0.0), *BLINK(0.9, {'mouth': 'smile'})])],
-        props=[P('th8', 'townHall', pos=TH, opts={'w': 7.0, 'h': 4.5, 'text': 'MAIRIE'}), FLOOD('fl8', 2.4, 2.4, 0.0, 1.0, w=40.0, d=40.0),
+        props=[P('th8', 'townHall', pos=TH, opts={'w': 7.0, 'h': 4.5, 'text': 'MAIRIE', 'gable': 'v2'}), FLOOD('fl8', 2.4, 2.4, 0.0, 1.0, w=40.0, d=40.0),
                P('ban8', 'carnivalBanner', pos=[0.6, 4.05, -3.65], opts={'text': 'STATION BALNÉAIRE', 'w': 4.6, 'h': 1.05, 'startAt': 0.05, 'dur': 0.35}),
                P('para8', 'parasol', pos=[-0.1, 4.5, -6.0], opts={'openAt': 0.3, 'colors': ['#E8463A', '#FFFFFF']}),
                P('bunt8', 'bunting', pos=[0.0, 4.55, -3.9], opts={'len': 6.8, 'sag': 0.35, 'n': 14}),

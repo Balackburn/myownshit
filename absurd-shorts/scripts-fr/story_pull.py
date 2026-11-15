@@ -30,6 +30,7 @@ BURST = lambda pid, pos, at_, text, w=0.5, hold=0.3: P(pid, 'hicBurst', pos=pos,
 DEAD = {'lid': 0.45}
 JUMP = lambda pid, who, color='#C8322A', inside=True, w=0.66, flip=None: P(pid, 'knitJumper', on={'actor': who, 'joint': 'torso', 'offset': [0.0, -0.05, 0.0]}, opts={'color': color, 'inside': inside, 'w': w, 'h': 0.62, 'd': 0.42, **({'flipAt': flip} if flip is not None else {})})   # (stills 1) wider and deeper: over the jacket, not a board on the chest
 MJ = lambda pid, inside=True, flip=None: JUMP(pid, 'mec', '#C8322A', inside, 0.6, flip)   # his red jumper (his build is narrower)
+TAG = lambda pid, keys=None: P(pid, 'slab', on={'actor': 'mec', 'joint': 'torso', 'offset': [-0.18, 0.63, -0.17]}, rot=[-0.25, 0, 0.75], opts={'w': 0.18, 'h': 0.17, 'd': 0.006, 'color': '#FFFFFF', 'outline': 0.004}, **({'keys': keys} if keys else {}))   # (stills 2) the label sticking out of his collar, readable beside his head
 COLS = ['#2F62B5', '#2F8F6B', '#E8A33C', '#8E5AA8', '#3A9BDC', '#E0813A', '#C255C8', '#5BB5A8']
 
 for g_ in [('S02', 0.6, 'mec', 'label'), ('S05', 0.6, 'mec', 'office'), ('S13', 1.2, 'mec', 'reflection'), ('S14', 0.9, 'mec', 'flip'), ('S16', 1.2, 'mec', 'arrest'), ('S19', 0.5, 'mec', 'end')]:
@@ -164,11 +165,11 @@ st.cue('sfx:gasp', 'S15', 0.3, 0.3)
 
 # 16: the police arrested him for indecent dress. Two policemen in jumpers inside out grab him; one covers his own eyes; handcuffs (INDÉCENT)
 D16 = st.dur('S16')
-F1 = [r(ME1[0] - FW[0] * 0.55 - LW[0] * 0.45), 0, r(ME1[2] - FW[1] * 0.55 - LW[1] * 0.45)]; F2 = [r(ME1[0] - FW[0] * 0.5 + LW[0] * 0.62), 0, r(ME1[2] - FW[1] * 0.5 + LW[1] * 0.62)]
+F1 = [r(ME1[0] - FW[0] * 0.45 - LW[0] * 0.75), 0, r(ME1[2] - FW[1] * 0.45 - LW[1] * 0.75)]; F2 = [r(ME1[0] - FW[0] * 0.5 + LW[0] * 0.62), 0, r(ME1[2] - FW[1] * 0.5 + LW[1] * 0.62)]   # (stills 2) flic1 further to his right: leaning in, his head no longer covers the man's face
 EYES = {'touch': {'R': ['face', 0.0, 0.12, 0.22, 1, 0.02]}, 'hands': {'R': 'open'}}
 st.shot('S16', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[act('mec', ME1, -60, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.5, toon={'sq': [0.98, 1.02, 0.98], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1),
             k(1.0, look=[F1[0], 1.4, F1[2]], lookDur=0.2), k(1.6, look='camera'), k(1.9, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.1), k(2.05, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),
-        act('flic1', F1, -45, 'cuffOther', 'determined', keys=[k(0.0, look=[ME1[0], 1.3, ME1[2]])]),
+        act('flic1', F1, -4, 'cuffOther', 'determined', keys=[k(0.0, look=[ME1[0], 1.3, ME1[2]])]),
         act('flic2', F2, -80, 'stand', 'neutral', keys=[k(0.0, look=[ME1[0], 1.6, ME1[2]]), k(0.3, toon={**EYES, 'face': {'lid': 1.0, 'mouth': 'O'}}, toonDur=0.12),
             k(1.2, toon={**EYES, 'face': {'lid': 0.3, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.08), k(1.25, look=[ME1[0], 1.3, ME1[2]], lookDur=0.1), k(1.6, toon={**EYES, 'face': {'lid': 1.0, 'mouth': 'O'}, 'sq': [0.97, 1.03, 0.97]}, toonDur=0.08)])],   # covering his eyes, one peek
         props=[MJ('pull16', False), JUMP('pj16a', 'flic1', '#2F4A8A'), JUMP('pj16b', 'flic2', '#2F4A8A'), P('menottes16', 'tapeRoll', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.0]}, scale=0.7)],
@@ -180,7 +181,7 @@ D17 = st.dur('S17'); BANG17 = 0.7
 st.shot('S17', 'courtroom', actors=[act('juge', [0.0, 0.3, -4.0], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [0.4, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'brow': -0.5}}, toonDur=0.0),
             k(BANG17, toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.05, 0.95, 1.05], 'face': {'lid': 0.0, 'brow': -0.7, 'mouth': 'open'}}, toonDur=0.05, toonEase='in')])],
         props=[P('gav17', 'gavel', on={'actor': 'juge', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}), P('etiq17', 'slab', on={'actor': 'juge', 'joint': 'torso', 'offset': [0.0, 0.68, -0.14]}, rot=[-0.35, 0, 0], opts={'w': 0.12, 'h': 0.1, 'd': 0.005, 'color': '#FFFFFF'})],
-        cams=[FC(0.0, [1.0, 2.3, -0.8], [[0.0, 2.85, -4.0], [0.0, 1.7, -4.0], [0.6, 2.7, -3.4], [-0.6, 2.7, -3.4]], top=0.24, bottom=0.76)])
+        cams=[FC(0.0, [1.0, 2.3, -0.8], [[0.0, 2.85, -4.0], [0.0, 1.7, -4.0], [0.6, 2.7, -3.4], [-0.6, 2.7, -3.4], [-1.25, 3.25, -5.1], [1.25, 3.25, -5.1]], top=0.14, bottom=0.76)])   # (stills 2) the whole TRIBUNAL sign in frame
 st.cue('clang', 'S17', BANG17, 0.4)
 
 # 18: ...to wear his jumper inside out. On the pavement he pulls it back on inside out: the label pops back up out of the collar
@@ -188,7 +189,7 @@ D18 = st.dur('S18'); FLIP18 = 0.8
 st.shot('S18', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[act('mec', ME1, -60, 'stand', 'neutral', keys=[k(0.0, look=[r(ME1[0] - 0.45), 1.1, r(ME1[2] + 0.25)]),
             k(0.2, toon={'reach': {'R': [r(ME1[0] - 0.1), 2.6, 0.75, 1, 0.04], 'L': [r(ME1[0] - 0.1), 2.6, 0.45, 1, 0.04]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.2, toonEase='out'),
             k(FLIP18, toon={'touch': {'R': ['torso', -0.12, 0.3, 0.2, 1, 0.02], 'L': ['torso', 0.12, 0.3, 0.2, 1, 0.02]}, 'hands': {'R': 'open', 'L': 'open'}, 'sq': [1.04, 0.96, 1.04], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12, toonEase='out')])],
-        props=[P('pull18', 'knitJumper', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, -0.05, 0.0]}, opts={'color': '#C8322A', 'inside': False, 'w': 0.6, 'h': 0.62, 'd': 0.42}, keys=[k(FLIP18, visible=False)]), MJ('pull18b'),
+        props=[P('pull18', 'knitJumper', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, -0.05, 0.0]}, opts={'color': '#C8322A', 'inside': False, 'w': 0.6, 'h': 0.62, 'd': 0.42}, keys=[k(FLIP18, visible=False)]), MJ('pull18b'), TAG('etiq18', [k(0.0, visible=False), k(FLIP18, visible=True, scale=0.2), k(r(FLIP18 + 0.1), scale=1.2), k(r(FLIP18 + 0.2), scale=1.0)]),
                P('pull18bv', 'slab', pos=[0, -9, 0], opts={'w': 0.01, 'h': 0.01, 'd': 0.01})],
         cams=[FC(0.0, [2.4, 2.15, 0.35], [[ME1[0], 2.75, ME1[2]], [ME1[0], 1.25, ME1[2]], [r(ME1[0] - 0.35), 2.2, r(ME1[2] + 0.2)], [r(ME1[0] + 0.3), 2.2, r(ME1[2] - 0.2)]], top=0.16, bottom=0.74)])
 st.cue('sfx:zip', 'S18', 0.3, 0.2); st.cue('pop', 'S18', FLIP18, 0.2)
@@ -197,7 +198,7 @@ st.cue('sfx:zip', 'S18', 0.3, 0.2); st.cue('pop', 'S18', FLIP18, 0.2)
 D19 = st.dur('S19')
 st.shot('S19', 'parisStreet', setOpts={'clear': [-8.0, 8.0], 'eiffelStyle': 'v2'}, actors=[act('mec', ME1, -60, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
             k(0.35, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.12, toonEase='inOut'), k(0.55, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12, toonEase='inOut')])],
-        props=[MJ('pull19')],
+        props=[MJ('pull19'), TAG('etiq19')],
         cams=[FC(0.0, [2.9, 2.1, 1.6], [[ME1[0], 2.6, ME1[2]], [ME1[0], 1.6, ME1[2]], [r(ME1[0] + 0.15), 2.05, r(ME1[2] - 0.2)], [r(ME1[0] - 0.3), 2.0, ME1[2]]], top=0.16, bottom=0.74)])
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}

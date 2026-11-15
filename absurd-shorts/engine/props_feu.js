@@ -184,9 +184,9 @@ export const FEU_PROPS = {
   // Confetti raining down (pivot at the bottom middle of its box o.w x o.h x o.d): o.n pieces (160) of six colours, already spread through the box,
   // falling and fluttering from o.at, looping (the burst of 66's draft 1 was specks: another confetti prop of the same name won)
   confettiRain(o) {
-    const n = o.n ?? 160, W = o.w ?? 3, H = o.h ?? 3, D = o.d ?? 1, sp = o.speed ?? 1.2, g = grp(), cols = ['#E0413A', '#F2C230', '#3A7BD5', '#4CC26A', '#F28CC2', '#FFFFFF'];
+    const n = o.n ?? 160, W = o.w ?? 3, H = o.h ?? 3, D = o.d ?? 1, sp = o.speed ?? 1.2, g = grp(), cols = o.colors || ['#E0413A', '#F2C230', '#3A7BD5', '#4CC26A', '#F28CC2', '#FFFFFF'];   // (review 2 of 67) o.colors: the paper colours (tricolour)
     const geo = new THREE.PlaneGeometry(o.s ?? 0.07, (o.s ?? 0.07) * 0.65), pcs = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: cols[i % 6], side: THREE.DoubleSide })); m.visible = false; g.add(m);
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: cols[i % cols.length], side: THREE.DoubleSide })); m.visible = false; g.add(m);
       pcs.push({ m, x: (hash(i) - 0.5) * W, z: (hash(i + 1) - 0.5) * D, ph: hash(i + 2), v: sp * (0.7 + 0.6 * hash(i + 3)), sw: 0.08 + 0.1 * hash(i + 4) }); }
     g.userData.update = t => { const u = t - (o.at ?? 0); for (const p of pcs) { p.m.visible = u >= 0; if (u < 0) continue; const y = H - ((u * p.v + p.ph * H) % H);
       p.m.position.set(p.x + p.sw * Math.sin(u * 5 + p.ph * 9), y, p.z + p.sw * Math.cos(u * 4 + p.ph * 7)); p.m.rotation.set(u * 7 + p.ph * 9, u * 5 + p.ph * 3, u * 3); } };

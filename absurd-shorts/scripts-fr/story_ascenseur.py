@@ -55,7 +55,7 @@ st.shot('S01', 'immeubleHall', setOpts=HALL(), actors=[act('mec', [1.3, 0, -2.38
             k(0.1, toon={'reach': {'L': [BTN[0] + 0.01, BTN[1] + 0.01, BTN[2] + 0.05, 1, 0.04]}, 'hands': {'L': 'point'}}, toonDur=0.25, toonEase='out'),
             k(0.4, toon={'reach': {'L': [BTN[0], BTN[1] + 0.01, BTN[2] + 0.025, 1, 0.04]}, 'hands': {'L': 'point'}}, toonDur=0.06), k(0.75, toon={'reach': {'L': [1.0, 1.3, -2.55, 1, 0.04]}, 'hands': {'L': 'point'}}, toonDur=0.25)])],
         props=[BUTTON('bt1', pressAt=0.4)],
-        cams=[FC(0.0, [1.15, 1.25, -2.05], [[BTN[0], 1.24, BTN[2]], [BTN[0], 1.0, BTN[2]], [BTN[0] - 0.12, 1.12, BTN[2]], [BTN[0] + 0.25, 1.12, BTN[2] + 0.2]], top=0.3, bottom=0.66, lenses=range(16, 50))])
+        cams=[FC(0.0, [0.3, 1.2, -2.3], [[BTN[0], 1.24, BTN[2]], [BTN[0], 1.0, BTN[2]], [BTN[0] - 0.12, 1.12, BTN[2]], [BTN[0] + 0.25, 1.12, BTN[2] + 0.2]], top=0.3, bottom=0.66, lenses=range(16, 50))])   # (stills 1) beside the button, left of his reach: from behind his shoulder his arm blacked out the frame
 st.cue('sfx:beep', 'S01', 0.4, 0.3)
 
 # 2: ...twenty years ago. Wide on the hall: he turns his back to the doors and waits beside them, hands behind his back; a 2006 calendar on the wall
@@ -167,8 +167,8 @@ st.shot('S11', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), actors=[act('me
 D12 = st.dur('S12')
 st.shot('S12', 'immeubleHall', setOpts=HALL(floor=[[0.0, '6']]), actors=[act('mec', SITP, 0, 'sit', 'neutral', keys=[k(0.0, look=BTN), k(0.0, toon={'face': {**OLD, 'mouth': 'line'}}, toonDur=0.0)])],
         props=[BUTTON('bt12', litAfter=0.0), P('plaque12', 'bronzePlaque', pos=[BTN[0], 0.82, BACK + 0.04], scale=0.8, opts={'text': 'MONUMENT/HISTORIQUE'}),
-               P('spot12', 'lightCone', pos=[BTN[0], 3.3, BACK + 0.45], opts={'h': 2.3, 'r': 0.42}), P('cordon12', 'stanchions', pos=[BTN[0], 0, BACK + 0.75], opts={'w': 1.0}), CHAIR('fauteuil12')],
-        cams=[FC(0.0, [0.6, 1.25, -1.2], [[BTN[0], 1.3, BTN[2]], [BTN[0], 0.62, BTN[2]], [BTN[0] - 0.3, 1.0, BACK + 0.75], [BTN[0] + 0.3, 1.0, BACK + 0.75]], top=0.24, bottom=0.72, lenses=range(18, 50))])
+               P('spot12', 'lightCone', pos=[BTN[0], 3.3, BACK + 0.3], opts={'h': 2.4, 'r': 0.34, 'opacity': 0.16}), P('cordon12', 'stanchions', pos=[BTN[0], 0, BACK + 0.75], opts={'w': 1.0}), CHAIR('fauteuil12')],
+        cams=[FC(0.0, [0.8, 1.05, -1.6], [[BTN[0], 1.34, BTN[2]], [BTN[0], 0.66, BTN[2]], [BTN[0] - 0.26, 1.0, BTN[2]], [BTN[0] + 0.26, 1.0, BTN[2]]], top=0.22, bottom=0.72, lenses=range(18, 50))])   # (stills 1) centred on the button and the plaque (a wide frame put the cone over it and cut the chair)
 st.cue('sfx:choir', 'S12', 0.0, 0.8)
 
 # 13: ...historic. Wider: the button roped off under the spotlight like a museum piece, the old man beside it like its guard
@@ -200,7 +200,7 @@ D15 = st.dur('S15'); RC = 0.35
 st.shot('S15', 'immeubleHall', setOpts=HALL(floor=[[0.0, '2'], [0.18, '1'], [RC, 'RC']]), actors=[act('mec', SITP, 0, 'sit', 'neutral', keys=[k(0.0, look=[0.5, 1.0, -1.0]), k(0.0, toon={'face': {**OLD, 'mouth': 'line'}}, toonDur=0.0),
             k(r(RC + 0.05), look=DISP, lookDur=0.08), k(r(RC + 0.08), toon={'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.95, 1.08, 0.95]}, toonDur=0.06, toonEase='out')])],
         props=[BUTTON('bt15', litAfter=0.0), CHAIR('fauteuil15'), BEARD('barbe15', s=1.25, swing=[r(RC + 0.08), r(RC + 0.5), 0.25]), SPECS('lun15'), STICK('canne15')],
-        cams=[FC(0.0, [-0.75, 1.3, -1.05], [[DISP[0], 2.58, DISP[2]], [DISP[0], 2.22, DISP[2]], [SITP[0], 2.25, SITP[2]], [SITP[0], 1.5, SITP[2]]], top=0.16, bottom=0.72, lenses=range(24, 64))])
+        cams=[FC(0.0, [-0.75, 1.3, -1.05], [[DISP[0], 2.58, DISP[2]], [DISP[0], 2.22, DISP[2]], [SITP[0], 2.25, SITP[2]], [SITP[0], 1.5, SITP[2]], [r(SITP[0] + 0.28), 1.95, SITP[2]]], top=0.16, bottom=0.72, lenses=range(24, 64))])   # (stills 1) his whole head (it was cut at the edge)
 st.cue('sfx:ding', 'S15', RC, 0.5)
 
 # 16: ...the doors opened. Wide: the doors slide apart onto the lit car; he grips his stick, beard trembling
@@ -222,13 +222,13 @@ st.shot('S17', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=[[0.0, 1.
         cams=[FC(0.0, [0.3, 1.5, -0.3], [[AUT[0], 2.25, AUT[2]], [AUT[0], 0.0, AUT[2] + 0.3], [-0.6, 2.2, ZF], [0.6, 2.2, ZF]], top=0.14, bottom=0.76, drift=(0.0, 0.0, -0.2))])
 
 # 18: he had been waiting for the ground floor... Close on the car's panel beside him: his finger still on the lit RC button, dusty, a cobweb in the corner
-D18 = st.dur('S18'); PAN = [-0.42, 1.2, BACK + 0.25]
-st.shot('S18', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=[[0.0, 1.0]]), actors=[act('autre', [AUT[0], 0, AUT[2] + 0.08], 0, 'sit', 'neutral', keys=[k(0.0, look=PAN),
-            k(0.0, toon={'reach': {'L': [PAN[0] + 0.01, PAN[1] - 0.2, PAN[2] + 0.04, 1, 0.04]}, 'hands': {'L': 'point'}, 'face': {**OLD, 'mouth': 'line'}}, toonDur=0.0),
-            k(0.8, toon={'reach': {'L': [PAN[0] + 0.12, PAN[1] - 0.12, PAN[2] + 0.25, 1, 0.04]}, 'hands': {'L': 'point'}, 'face': {**OLD, 'mouth': 'line'}}, toonDur=0.4, toonEase='inOut')])],
-        props=[P('fauteuil18', 'armchair', pos=AUT, opts={'color': '#3F6E8C'}), BEARD('barbe18', who='autre', s=1.25), SPECS('lun18', who='autre'),
+D18 = st.dur('S18'); PAN = [-0.42, 1.2, BACK + 0.25]; AUT18 = [0.25, 0, AUT[2]]   # (stills 1) him right of centre: from the hall he hid the panel
+st.shot('S18', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=[[0.0, 1.0]]), actors=[act('autre', [AUT18[0], 0, AUT18[2] + 0.08], 0, 'sit', 'neutral', keys=[k(0.0, look=PAN), k(0.65, look='camera', lookDur=0.25),
+            k(0.0, toon={'reach': {'R': [PAN[0] + 0.04, PAN[1] - 0.2, PAN[2] + 0.04, 1, 0.04]}, 'hands': {'R': 'point'}, 'face': {**OLD, 'mouth': 'line'}}, toonDur=0.0),
+            k(0.8, toon={'reach': {'R': [PAN[0] + 0.05, PAN[1] - 0.2, PAN[2] + 0.05, 1, 0.04]}, 'hands': {'R': 'point'}, 'face': {**OLD, 'mouth': 'line'}}, toonDur=0.4, toonEase='inOut')])],
+        props=[P('fauteuil18', 'armchair', pos=AUT18, opts={'color': '#3F6E8C'}), BEARD('barbe18', who='autre', s=1.25), SPECS('lun18', who='autre'),
                P('panneau18', 'liftPanel', pos=PAN, ry=90, opts={'lit': 'RC', 'dusty': True})],
-        cams=[FC(0.0, [0.25, 1.15, -1.75], [[PAN[0], 1.55, PAN[2]], [PAN[0], 0.85, PAN[2]], [AUT[0], 2.1, AUT[2]], [AUT[0] - 0.3, 1.0, AUT[2]]], top=0.18, bottom=0.72, lenses=range(20, 56))])
+        cams=[FC(0.0, [0.1, 1.35, -1.55], [[PAN[0], 1.5, PAN[2]], [PAN[0], 0.9, PAN[2]], [AUT18[0], 2.0, AUT18[2]], [r(AUT18[0] + 0.25), 1.2, AUT18[2]]], top=0.16, bottom=0.74, lenses=range(18, 56))])   # (stills 1) the panel at left, his finger on it, his face at right
 
 # 19: ...for twenty years. The two old men face to face across the threshold, identical beards, identical armchairs, the same deadpan
 D19 = st.dur('S19')

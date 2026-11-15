@@ -10,7 +10,18 @@ const PI = Math.PI;
 export const MOUSTACHE_PROPS = {
   // A safety razor held in a fist (pivot at the grip): a light handle o.len long (0.22) running down -Y with dark grip rings, a T head up +Y with a
   // steel blade edge along its top, o.color the handle
+  // (review 2 of 67) o.style 'safety': a chrome safety razor that reads as one on a phone (the pale handle with rings read as a test tube): a short
+  // dark knurled grip, a chrome neck and a wide chrome T head, the blade's dark edge showing between its plate and its cap
   razor(o) {
+    if (o.style === 'safety') { const L = o.len ?? 0.15, g = grp();
+      g.add(at(cyl(0.017, 0.015, L, '#3A3F46', 10, { outline: 0.004 }), 0, -L * 0.3, 0));
+      for (let i = 0; i < 4; i++) g.add(at(cyl(0.019, 0.019, 0.008, '#C9D0D8', 10), 0, -L * 0.62 + i * 0.03, 0));
+      g.add(at(cyl(0.011, 0.014, 0.05, '#D5DBE2', 10, { outline: 0.003 }), 0, L * 0.2 + 0.025, 0));
+      const hy = L * 0.2 + 0.055;
+      g.add(at(box(0.165, 0.016, 0.05, '#C4CBD3', { outline: 0.004 }), 0, hy, 0), at(box(0.172, 0.006, 0.054, '#1F2328'), 0, hy + 0.011, 0),
+            at(box(0.168, 0.02, 0.05, '#F2F5F8', { outline: 0.004 }), 0, hy + 0.024, 0));
+      g.add(at(box(0.14, 0.004, 0.004, '#FFFFFF'), 0, hy + 0.035, 0.024));   // a glint along the cap
+      return g; }
     const L = o.len ?? 0.22, c = o.color || '#A8DAF2', g = grp();
     g.add(at(cyl(0.016, 0.013, L, c, 10, { outline: 0.004 }), 0, -L * 0.25, 0));
     for (let i = 0; i < 3; i++) g.add(at(cyl(0.018, 0.018, 0.01, '#4F7FA8', 10), 0, -L * 0.55 + i * 0.035, 0));

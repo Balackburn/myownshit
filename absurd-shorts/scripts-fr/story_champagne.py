@@ -147,9 +147,9 @@ st.shot('S05', 'office', setOpts={'printer': False}, actors=[
             *[k(r(0.12 + 0.24 * j), toon=JAB5(j % 2 == 0, j), toonDur=0.07, toonEase='out') for j in range(6)], k(0.7, look=[VO5[0], 3.4, -1.0]), k(1.2, look=[FL5[0], 1.6, FL5[2]])]),   # (review 1) jab, jab, jab, furious (a held arm, a bored face)
         act('flic', FL5, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[-4.6, 0.8, -1.65]), k(0.0, toon={'face': {'lid': 0.55, 'mouth': 'line', 'gy': 0.5}}, toonDur=0.0),
             *[k(tj, toon={'reach': {('R' if j % 2 else 'L'): [r(-4.5 if j % 2 else -4.7), r(0.84 if (j // 2) % 2 else 0.8), -1.68, 1, 0.04]}, 'hands': {'R': 'point', 'L': 'point'}, 'face': {'lid': 0.55, 'mouth': 'line', 'gy': 0.5}}, toonDur=0.06) for j, tj in enumerate(TYPE5)]])],   # two fingers on the keys
-        props=[P('pc5', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gend5', 'signBoard', pos=[-3.55, 0, 0.35], ry=200, opts={'text': 'GENDARMERIE', 'bg': '#26365F', 'fg': '#FFFFFF', 'w': 1.5, 'h': 0.36, 'height': 1.9}),
+        props=[P('pc5', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gend5', 'signBoard', pos=[-3.8, 0, 0.3], ry=200, opts={'text': 'GENDARMERIE', 'bg': '#26365F', 'fg': '#FFFFFF', 'w': 1.5, 'h': 0.36, 'height': 1.9}),
                P('gunk5', 'gunk', on={'actor': 'voisine', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.26, 'h': 0.48, 'd': 0.17, 'color': SOUP, 'at': -1.0, 'n': 11, 'noodle': True})],
-        cams=[FC(0.0, [-5.25, 1.75, -2.85], [[VO5[0], 2.95, VO5[2]], [VO5[0], 1.2, VO5[2]], [r(VO5[0] + 0.3), 2.95, -0.85], [-4.6, 2.2, -2.15]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.3, 3.4, -3.45, 13.0))])   # (review 1) the desk, the laptop and the sign (only a cap at the edge)
+        cams=[FC(0.0, [-4.2, 2.35, -3.4], [[VO5[0], 2.95, VO5[2]], [VO5[0], 1.2, VO5[2]], [r(VO5[0] + 0.3), 2.95, -0.85], [-4.6, 1.45, -2.15]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.3, 3.4, -3.45, 13.0))])   # (stills 3) high and to his right: his seated cap low at the left edge, no longer over her   # (review 1) the desk, the laptop and the sign (only a cap at the edge)
 for tj in TYPE5: st.cue('sfx:click', 'S05', tj, 0.12)
 
 # 6: the police opened an inquiry. Back in his living room, from low: a detective in a trench coat looks up the hole through a magnifying glass,
@@ -359,8 +359,8 @@ st.shot('S20', 'livingRoom', actors=[
             k(r(SIP20 + 0.85), look='camera')])],   # ...and on us
         props=[P('flute20', 'flute', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.2, opts={'level': 0.68, 'flatAt': -1.0, 'splashAt': -2.0, 'lastBubble': BLOP20}),
                P('cork20', 'cork', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.2, 0.03]}, scale=1.4, rot=[0.4, 0, 0.3])],   # floating in it
-        cams=[FC(0.0, [0.55, 2.1, 1.25], [[0.2, 2.35, 0.42], [0.2, 1.9, 0.42], [-0.1, 2.15, 0.2], [0.42, 2.1, 0.42]], top=0.18, bottom=0.72, lenses=range(20, 60)),   # (review 1) an insert on the glass top: dead wine, the cork, the last bubble (a block hand hid it)
-              FC(CUT20, [0.45, 2.05, 1.6], [[-0.1, 2.55, 0.2], [-0.1, 1.45, 0.2], [0.3, 1.9, 0.5], [-0.45, 2.0, 0.2]], top=0.14, bottom=0.74)])
+        cams=[FC(0.0, [0.55, 2.0, 1.25], [[0.1, 2.06, 0.5], [0.1, 1.6, 0.5], [0.3, 1.85, 0.5], [-0.1, 1.85, 0.5]], top=0.2, bottom=0.7, lenses=range(20, 60)),   # (stills 3) the points on the glass itself (his hand is at 1.77 m: the old points framed above his head)   # (review 1) an insert on the glass top: dead wine, the cork, the last bubble (a block hand hid it)
+              FC(CUT20, [0.45, 1.95, 1.6], [[-0.1, 2.12, 0.2], [-0.1, 1.3, 0.2], [0.3, 1.75, 0.5], [-0.4, 1.8, 0.2]], top=0.16, bottom=0.74)])   # (stills 3) tighter on his face and the glass
 st.cue('sfx:pop', 'S20', BLOP20, 0.18); st.cue('sfx:gulp', 'S20', r(SIP20 + 0.15), 0.3)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
