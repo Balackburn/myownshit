@@ -221,7 +221,7 @@ st.shot('S11', 'skyHigh', look=XLOOK, actors=[
         act('boulanger', [10.25, r(WY11 + 1.2), 0.0], -90, 'stand', 'happy', keys=[k(0.0, look=[8.2, r(WY11 + 1.4), 0.0]), k(0.0, toon={'reach': {'R': [9.65, r(WY11 + 2.5), 0.05, 1, 0.03]}, 'hands': {'R': 'grip'}, 'bend': {'spine': [0.25, 0, 0, 1, None]}}, toonDur=0.0),
             k(1.2, toon={'reach': {'R': [9.9, r(WY11 + 2.2), 0.0, 1, 0.03]}, 'hands': {'R': 'open'}, 'bend': {'spine': [0.1, 0, 0, 1, None]}, 'face': {'mouth': 'smile'}}, toonDur=0.15)])],
         props=[FLOOD('fl11', WY11, WY11, 0.0, 1.0, w=60.0, d=60.0, op=0.85), P('fac11', 'haussmann', pos=[10.6, r(WY11 - 13.2), 0.0], ry=-90, opts={'w': 13.0, 'h': 18.0, 'floors': 6, 'cols': 5}),
-               P('sign11', 'signBoard', pos=[10.0, r(WY11 + 3.0), 1.4], ry=-90, opts={'text': 'BOULANGERIE ↓', 'w': 2.4, 'h': 0.45, 'height': 0.0, 'bg': '#7A4A2A', 'fg': '#F6E7C1', 'posts': False}),
+               P('sign11', 'signBoard', pos=[10.0, r(WY11 + 3.0), 1.4], ry=-90, opts={'text': 'BOULANGERIE', 'w': 2.4, 'h': 0.45, 'height': 0.0, 'bg': '#7A4A2A', 'fg': '#F6E7C1', 'posts': False}),
                P('sub11', 'submarine', pos=SUB11, ry=90, opts={'len': 6.0, 'hatchAt': HATCH11, 'peri': [[0.0, 1.0]]}, keys=[k(0.0, to=SUB11, dur=0.0), k(0.0, to=[SUB11[0], r(SUB11[1] - 1.2), SUB11[2]], dur=0.0), k(0.0, to=SUB11, dur=0.35, ease='out')]),
                P('cap11', 'captainCap', on={'actor': 'marin', 'joint': 'head', 'offset': [0.0, 0.17, -0.01]}, scale=1.0),
                P('bag11', 'baguette', on={'actor': 'boulanger', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, keys=[k(1.12, attach='marin', hand='R', offset=[0.0, 0.0, 0.05])]),
@@ -366,7 +366,7 @@ st.shot('S22', 'salleDeBain', actors=[act('mec', [-0.2, 0, -0.5], 20, 'sit', 'un
             k(r(STAMP22 + 0.25), toon={'reach': {'R': [0.15, 0.8, -0.2, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.15), k(r(STAMP22 + 0.35), look='camera'),
             k(r(DRIP22 + 0.15), look=[MOUTH[0], 1.0, MOUTH[2]]), k(r(DRIP22 + 0.55), look='camera'), *BLINK(r(D22 - 0.35))])],
         props=[TUBP('tub22', fill=0.0, drips=[DRIP22]), P('stool22', 'barStool', pos=[-0.2, 0, -0.55], scale=0.75),
-               P('bill22', 'waterBill', pos=[-0.15, 0.58, -0.15], rot=[-1.4, 0.0, 0.0], opts={'w': 0.5, 'h': 0.4, 'amount': '4 836 849 200 €', 'stamp': 'CONTESTÉ', 'stampDelay': 0.0, 'popAt': -1.0}),
+               P('bill22', 'waterBill', pos=[-0.15, 0.58, -0.15], rot=[-1.4, 0.0, 0.0], opts={'w': 0.5, 'h': 0.4, 'amount': '4 836 849 200 €', 'stamp': 'CONTESTÉ', 'stampDelay': r(STAMP22 + 1.02), 'popAt': -1.0}),
                P('stamp22', 'bigStamp', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.0]}, scale=0.6)],
         cams=[FC(0.0, [2.1, 1.1, 0.9], [[-0.2, 2.1, -0.5], [-0.2, 0.0, -0.5], [MOUTH[0], 1.1, MOUTH[2]], [-0.9, 0.5, TUB[2]]], top=0.2, bottom=0.74)])   # from the right: him, the tap behind
 st.cue('sfx:stampDown' if False else 'thud', 'S22', STAMP22, 0.35); st.cue('sfx:tick', 'S22', r(DRIP22 + 0.33), 0.35)

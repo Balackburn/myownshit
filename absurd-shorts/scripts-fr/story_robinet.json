@@ -3668,7 +3668,7 @@
      ],
      "ry": -90,
      "opts": {
-      "text": "BOULANGERIE ↓",
+      "text": "BOULANGERIE",
       "w": 2.4,
       "h": 0.45,
       "height": 0.0,
@@ -6981,7 +6981,7 @@
       "h": 0.4,
       "amount": "4 836 849 200 €",
       "stamp": "CONTESTÉ",
-      "stampDelay": 0.0,
+      "stampDelay": 1.32,
       "popAt": -1.0
      },
      "ry": 0.0
