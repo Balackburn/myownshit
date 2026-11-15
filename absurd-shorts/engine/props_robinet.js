@@ -52,6 +52,8 @@ export const ROBINET_PROPS = {
   // spiral turns on the water over the plughole, faster and faster; o.plugOut: the plug and its chain leave the tub then (they are in his hand);
   // o.drips [t, ...]: a drop swells at the spout and falls; o.weed: seaweed hangs from the spout; o.barnacles: shells on the front; o.sub: the tail
   // of a submarine stuck in the plughole (its periscope turning by o.subYaw [[t, deg], ...]); userData.drain, userData.mouth (in the tub's frame)
+  // (review 3 of 71) o.streamR: a thicker, whiter jet from the tap (2 or more: a cartoon jet); o.spill false: water at the rim does not pour down the
+  // front; the submarine's tail: a dark hull (o.subHull), three blades round a hub, a bright chrome ring round the plughole
   bathTub(o) {
     const W = o.w ?? 1.9, D = o.d ?? 0.95, H = o.h ?? 0.6, y0 = o.feet ?? 0.16, t = 0.06, rr = D * 0.45, g = grp(), white = L('#FAFAF7');
     const ring = (w, d, r, th, hgt, m, y) => { const s = rrect(w, d, r); s.holes.push(rrect(w - 2 * th, d - 2 * th, Math.max(0.01, r - th))); const ms = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: hgt, bevelEnabled: false, curveSegments: 10 }), m);
@@ -78,7 +80,7 @@ export const ROBINET_PROPS = {
     let tOver = null; for (let s = fk[0][0]; s <= fk[fk.length - 1][0] + 0.01; s += 0.02) if (keyAt(fk, s) >= 1) { tOver = s; break; }
     // the stream from the tap, the ring where it lands, the drops it throws
     const stTex = streaks(9, 0.85); stTex.repeat.set(1, 2.5);
-    const stream = grp(at(new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.034, 1, 10, 1, true), waterMat(0.92, '#BFE8FA')), 0, -0.5, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.049, 0.038, 1, 10, 1, true), streakMat(stTex)), 0, -0.5, 0));   // (stills 1 of 71) thicker and paler: at 26 mm it did not show
+    const SR = o.streamR ?? 1, stream = grp(at(new THREE.Mesh(new THREE.CylinderGeometry(0.045 * SR, 0.034 * SR, 1, 10, 1, true), waterMat(SR > 1 ? 0.97 : 0.92, SR > 1 ? '#F4FBFF' : '#BFE8FA')), 0, -0.5, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.049 * SR, 0.038 * SR, 1, 10, 1, true), streakMat(stTex)), 0, -0.5, 0));   // (stills 1 of 71) thicker and paler: at 26 mm it did not show
     stream.position.set(...mouth); g.add(stream);
     const splash = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.014, 5, 18), waterMat(0.85, '#E8F7FF')); splash.rotation.x = PI / 2; g.add(splash);
     const jumps = []; for (let i = 0; i < 7; i++) { const d = ball(0.013, '#E8F7FF', 6); g.add(d); jumps.push(d); }
@@ -98,23 +100,23 @@ export const ROBINET_PROPS = {
       s.position.set(tx - 0.2 + i * 0.045, y0 + H + 0.3, (i - 1.5) * 0.012); g.add(s); weed.push(s); }
     if (o.barnacles) for (let i = 0; i < 16; i++) { const b = new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.03, 6), L(i % 3 ? '#E8E2D2' : '#B9B2A0')); b.position.set((hash(i * 2 + 1) - 0.5) * W * 0.8, y0 + 0.08 + hash(i * 2 + 2) * H * 0.75, D / 2 + 0.035); b.rotation.x = PI / 2; g.add(b); }
     // the tail of a submarine stuck in the plughole: the stern, its fins and propeller, the periscope beside it
-    let subTail = null, subPeri = null; if (o.sub) { subTail = grp(); const hull = '#5E6B7A';
+    let subTail = null, subPeri = null; if (o.sub) { subTail = grp(); const hull = o.subHull || '#2F3A46';
       const cone = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.42, 14), L(hull)); cone.position.y = 0.21; subTail.add(cone, at(box(0.36, 0.016, 0.06, hull), 0, 0.12, 0), at(box(0.016, 0.16, 0.06, hull), 0, 0.14, 0));
       // (review 2 of 71) it reads as the submarine stuck in the plughole (a grey cone in a tub): a red stripe and a porthole on the hull, the blades
       // across the shaft (they turned on their own long axis, never seeming to move) with a pale blur disc, and a chrome drain ring round its base
       const band = new THREE.Mesh(new THREE.CylinderGeometry(0.084, 0.092, 0.04, 16, 1, true), L('#C8322A')); band.position.y = 0.1; subTail.add(band);
       subTail.add(at(new THREE.Mesh(new THREE.CircleGeometry(0.02, 12), L('#1C2A38')), 0, 0.22, 0.056), at(new THREE.Mesh(new THREE.TorusGeometry(0.021, 0.004, 6, 14), L('#E8ECEF')), 0, 0.22, 0.057));
-      const pr = grp(at(box(0.19, 0.012, 0.045, '#C9A43E'), 0.1, 0, 0), at(box(0.19, 0.012, 0.045, '#C9A43E'), -0.1, 0, 0));
+      const pr = grp(at(cyl(0.035, 0.035, 0.05, '#8A8F96', 10), 0, 0, 0)); for (let i = 0; i < 3; i++) { const bl = grp(at(box(0.19, 0.014, 0.06, '#E2B437', { outline: 0.004 }), 0.11, 0, 0)); bl.rotation.y = i * TAU / 3; bl.children[0].rotation.x = 0.35; pr.add(bl); }
       const blur = new THREE.Mesh(new THREE.CircleGeometry(0.2, 24), new THREE.MeshBasicMaterial({ color: '#F4E8BC', transparent: true, opacity: 0.32, depthWrite: false, side: THREE.DoubleSide })); blur.rotation.x = -PI / 2; pr.add(blur);
       pr.position.y = 0.44; subTail.add(pr); subTail.userData.pr = pr;
       subTail.position.set(hole[0], y0 + 0.03, 0); subTail.rotation.z = 0.25; g.add(subTail);
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.02, 8, 28), L('#D9DEE4')); ring.rotation.x = PI / 2; ring.position.set(hole[0], y0 + 0.02, 0); g.add(ring);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.026, 8, 28), new THREE.MeshPhongMaterial({ color: '#F4F7FA', specular: '#FFFFFF', shininess: 90 })); ring.rotation.x = PI / 2; ring.position.set(hole[0], y0 + 0.022, 0); g.add(ring);
       subPeri = grp(at(cyl(0.012, 0.012, 0.3, '#3A424C', 6, { pivot: 'bottom' }), 0, 0, 0)); const hd = grp(at(box(0.04, 0.05, 0.08, '#3A424C'), 0, 0, 0.02), at(new THREE.Mesh(new THREE.CircleGeometry(0.017, 12), L('#14161B')), 0, 0, 0.061), at(ball(0.006, '#FFFFFF', 5), 0.006, 0.007, 0.064));
       hd.position.y = 0.3; hd.scale.setScalar(1.6); subPeri.add(hd); subPeri.userData.hd = hd; subPeri.position.set(hole[0] - 0.12, y0 + 0.03, 0.06); g.add(subPeri); }   // (review 2 of 71) the periscope head bigger (its lens was a 6 px dot)
     g.userData.update = tt => {
       const f = keyAt(fk, tt), over = f > 1, wy = y0 + 0.03 + (H - 0.04) * Math.min(1, Math.max(0, f));
       water.visible = f > 0.02; water.position.y = wy + 0.01 * Math.sin(tt * 4.2); water.scale.setScalar(1);
-      spill.visible = over; sTex.offset.y = -tt * 2.2;
+      spill.visible = over && o.spill !== false; sTex.offset.y = -tt * 2.2;
       const pr = tOver == null ? 0 : Math.max(0, tt - tOver); puddle.visible = pr > 0; puddle.scale.setScalar(Math.min(o.puddle ?? 2.6, 0.25 + 1.4 * pr));
       const tapOn = o.tap && tt >= o.tap[0] && tt < o.tap[1];
       stream.visible = !!tapOn; stTex.offset.y = tt * 3.0; const land = over ? y0 + H : wy; stream.scale.set(1, Math.max(0.02, mouth[1] - land), 1);
