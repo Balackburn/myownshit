@@ -75,7 +75,7 @@ for j in range(4): st.cue('whoosh', 'S02', r(0.26 + 0.3 * j), 0.2, 0.25, 500, 15
 # 3: under the sofa. The camera under the sofa at floor level, looking out (review 1: from the side he read as a headless navy arch): the dark
 #    underside frames the top, a coin, a sock and dust in front; he kneels bent right down, cheek to the floor, squinting into the dark, the glasses
 #    on his head against the bright room; he looks left, right, blinks, then at us
-D3 = st.dur('S03'); ME3 = [0.0, 0, -0.75]; SOFA3 = [0.0, 0, -2.2]
+D3 = st.dur('S03'); ME3 = [0.0, 0, -0.55]; SOFA3 = [0.0, 0, -2.2]   # (stills 7) a step back: his face filled the whole frame
 LOW3 = lambda f, sq=(1.08, 0.62, 1.08): {'bend': {'spine': [1.25, 0, 0, 1, None], 'neck': [-0.55, 0, 0, 1, None]}, 'face': f, 'sq': list(sq)}   # (stills 6) squashed flat to the floor: bent, his head stayed at 0.73 m, over the gap
 st.shot('S03', 'livingRoom', actors=[
         act('mec', ME3, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.2, -2.6]), k(0.0, toon=LOW3({**SQUINT, 'mouth': 'O'}), toonDur=0.0),
@@ -84,13 +84,13 @@ st.shot('S03', 'livingRoom', actors=[
         props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0, opts={'legs': 0.46}), P('coin3', 'coin', pos=[0.16, 0.02, -2.05], rot=[PI / 2, 0, 0], scale=1.6),
                P('sock3', 'slab', pos=[-0.22, 0.03, -1.98], ry=25, opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
                P('dust3', 'dustPuff', pos=[0.3, 0.0, -1.9], scale=0.15, opts={'color': '#BDB4A6', 'period': 1.1})],
-        cams=[FC(0.0, [0.06, 0.12, -1.93], [[0.0, 0.95, -1.4], [0.0, 0.22, -1.35], [-0.32, 0.55, -1.4], [0.32, 0.55, -1.4]], top=0.3, bottom=0.8, inside=(-0.8, 0.8, 0.05, 0.4, -2.6, -1.92), lenses=range(26, 86))])   # (stills 6) just behind the front edge: from deeper under, the rail hid his head
+        cams=[FC(0.0, [0.06, 0.12, -1.93], [[0.0, 0.95, -1.2], [0.0, 0.0, -1.6], [-0.32, 0.55, -1.2], [0.32, 0.55, -1.2]], top=0.3, bottom=0.8, inside=(-0.8, 0.8, 0.05, 0.4, -2.6, -1.92), lenses=range(26, 86))])   # (stills 6) just behind the front edge: from deeper under, the rail hid his head
 st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 
 # 4: in the fridge. The camera inside the fridge behind the food, looking out (review 1: from outside his head stayed in the fridge): his face
 #    pushes in between the shelves, squinting, the cold mist round the glasses on his head; the cold jolts him out: he shoots back stretched,
 #    hangs, drops squashed with his hair on end, and shivers outside, frosted, looking at us
-D4 = st.dur('S04'); FR4 = [0.0, 0, -2.4]; IN4 = [0.1, 0, -1.55]; OUT4 = [0.1, 0, -1.08]; JOLT4 = 0.62
+D4 = st.dur('S04'); FR4 = [0.0, 0, -2.4]; IN4 = [0.1, 0, -1.4]; OUT4 = [0.1, 0, -1.08]; JOLT4 = 0.62
 st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
         act('mec', IN4, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.1, 1.0, -2.8]), k(0.0, toon={'bend': {'spine': [0.45, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.28, look=[-0.3, 1.0, -2.8]), k(0.46, look=[0.35, 1.0, -2.8]),
             k(JOLT4, to=[0.1, 0.32, -1.25], dur=0.1, ease='out', face='keep'), k(r(JOLT4 + 0.2), to=OUT4, dur=0.08, ease='in', face='keep'),   # jolted out: up, a hang, down
@@ -98,7 +98,7 @@ st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
             k(r(JOLT4 + 0.28), toon={'sq': [1.22, 0.8, 1.22], 'hairUp': 1.0, 'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0}}, toonDur=0.05, toonEase='in'),
             k(r(JOLT4 + 0.4), toon={'hairUp': 1.0, 'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0, 'blush': 0.0}}, toonDur=0.1), k(r(JOLT4 + 0.4), look='camera')])],
         props=[P('fr4', 'bigFridge', pos=FR4, opts={'open': 1.0, 'mode': 'full', 'mist': True, 'light': True}), GL('gl4', glint=[0.4])],
-        cams=[FC(0.0, [-0.05, 1.05, -2.72], [[0.1, 1.35, -2.05], [0.1, 0.72, -2.05], [-0.18, 1.0, -2.05], [0.38, 1.0, -2.05]], top=0.2, bottom=0.8, inside=(-0.45, 0.45, 0.86, 1.16, -2.78, -2.3), lenses=range(26, 86))])
+        cams=[FC(0.0, [0.28, 1.05, -2.76], [[0.1, 1.35, -2.05], [0.1, 0.72, -2.05], [-0.18, 1.0, -2.05], [0.38, 1.0, -2.05]], top=0.2, bottom=0.8, inside=(-0.45, 0.45, 0.86, 1.16, -2.78, -2.3), lenses=range(26, 86))])
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.4, 0.15); st.cue('whoosh', 'S04', JOLT4, 0.2, 0.25, 600, 1500); st.cue('sfx:sniff', 'S04', r(JOLT4 + 0.45), 0.2)
 
 # 5: he filed a complaint. At the police desk, over the officer's shoulder (review 1: no officer, a white wall, one hand over one eye): a partition
@@ -145,8 +145,8 @@ st.shot('S07', 'grassland', actors=[
                P('boot7', 'slab', on={'actor': 'plong2', 'hand': 'R', 'offset': [0.0, 0.12, 0.04]}, opts={'w': 0.13, 'h': 0.3, 'd': 0.13, 'color': '#3B2A20'}),
                P('boot7b', 'slab', on={'actor': 'plong2', 'hand': 'R', 'offset': [0.0, -0.02, 0.12]}, opts={'w': 0.13, 'h': 0.1, 'd': 0.3, 'color': '#3B2A20'}),   # (review 1) the shaft and the foot of a boot (one box read as a brick)
                *[P(f'tank7{j}', 'slab', on={'actor': f'plong{j}', 'joint': 'torso', 'offset': [0.0, 0.15, -0.2]}, opts={'w': 0.2, 'h': 0.55, 'd': 0.18, 'color': '#F2C21E', 'outline': 0.006}) for j in (1, 2)],   # air tanks
-               P('tour7', 'eiffelTower', pos=[2.5, 0.0, -48.0], opts={'h': 34, 'style': 'v2'})],   # (review 1) nothing said Seine
-        cams=[FC(0.0, [-2.6, 4.3, 5.2], [[-1.0, 2.4, 1.0], [1.0, 2.6, 0.4], [-3.65, 5.5, 2.2], [-3.65, 3.6, 2.2], [0.2, 0.16, 1.9], [1.0, 0.16, 0.4]], top=0.12, bottom=0.78)])   # (stills 6) from the quay: he was still small in a corner
+               P('tour7', 'eiffelTower', pos=[3.0, 0.0, -95.0], opts={'h': 30, 'style': 'v2'})],   # (review 1) nothing said Seine
+        cams=[FC(0.0, [-2.9, 4.7, 3.7], [[-3.65, 5.5, 2.2], [-3.65, 4.0, 2.2], [-1.0, 2.4, 1.0], [1.0, 2.6, 0.4], [-1.0, 1.0, 1.0], [1.0, 1.0, 0.4]], top=0.12, bottom=0.78)])   # (stills 7) behind his shoulder on the quay, looking down at the divers
 st.cue('sfx:splash', 'S07', 0.1, 0.15); st.cue('sfx:splash', 'S07', 0.7, 0.12); st.cue('sfx:splash', 'S07', 1.3, 0.12)
 
 # 8: the army sent helicopters. At night in the street, from low: a helicopter hangs over the roofs, its searchlight sweeps the street, crosses him,
@@ -167,7 +167,7 @@ D9 = st.dur('S09'); EARTH9 = [0.0, -9.0, -26.0]   # (stills 6) at -15 the globe 
 SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.32, 0.3, 0.0], 0.3, 72.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.3, -0.5, 0.15], 0.22, 70.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.32, 0.7, -0.15], 0.22, 64.0, 0.2)]
 st.shot('S09', 'spaceDark', actors=[],
         props=[P('earth9', 'earthGlobe', pos=EARTH9, scale=7.0, opts={'spin': 0.06}),
-               *[P(n_, 'satellite', pos=p_, rot=ro_, scale=s_, opts={'scan': [[t_, 9.0]], 'scanLen': L_, 'sweepDeg': 24, 'fanOpacity': 0.42, 'fanBlend': 'normal', 'fanColor': '#FF2A1E'},
+               *[P(n_, 'satellite', pos=p_, rot=ro_, scale=s_, opts={'scan': [[t_, 9.0]], 'scanLen': L_, 'sweepDeg': 24, 'fanOpacity': 0.34, 'fanBlend': 'normal', 'fanColor': '#FF2A1E', 'fanWidth': 0.11},   # (stills 7) narrow beams: wide ones hid the Earth
                    keys=[k(0.0, to=[r(p_[0] + 0.35), r(p_[1] + 0.08), p_[2]], dur=D9, ease='linear')]) for n_, p_, ro_, s_, L_, t_ in SATS9]],
         cams=[cam(0.0, [0.0, 1.0, 5.0], [0.12, 1.0, 4.85], [0.0, -0.3, -6.0], [0.08, -0.3, -6.0], lens=44)])
 st.cue('sfx:static', 'S09', 0.1, 0.2); st.cue('sfx:ding', 'S09', 1.2, 0.15)
