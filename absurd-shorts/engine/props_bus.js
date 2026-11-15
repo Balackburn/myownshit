@@ -12,7 +12,8 @@ const hash = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x
 export const BUS_PROPS = {
   // A French town sign on its post (front +Z): a white plate with a red border and the town's name; o.exit: the red bar across it (leaving the
   // town); o.name, o.w (1.3), o.h (post height to the plate's bottom, 1.5)
-  townSign(o) {
+  // (pass 2) renamed from townSign: props_elan.js has a townSign (story 41), which this one, loaded after it, replaced
+  exitSign(o) {
     const w = o.w ?? 1.3, ph = w * 0.42, y = o.h ?? 1.5, g = grp();
     g.add(at(box(0.07, y + ph, 0.07, '#8E949A', { pivot: 'bottom' }), 0, 0, -0.06));
     const face = canvasPlane(w, ph, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#D22B2B'; c.lineWidth = H * 0.1; c.strokeRect(H * 0.07, H * 0.07, W - H * 0.14, H - H * 0.14);
@@ -100,26 +101,6 @@ export const BUS_PROPS = {
     return g;
   },
 
-  // (pass 2 of 72) A wheel of legs (pivot at its hub, in the XY plane, front +Z: put it on his hips with face camera): a blurred disc o.r (0.6) in
-  // the trouser colour with swirl streaks, and o.n (5) ghost legs with a shoe at the rim, turning o.rate turns a second (2.3; o.dir -1: clockwise
-  // seen from the front, a run toward the right of the picture). o.at [t0, t1]: there between those times only; o.fwd: that far toward the lens
-  // (0.3: in front of his real legs); o.sx: wider than tall (1.15)
-  legWheel(o) {
-    const R = o.r ?? 0.6, n = o.n ?? 5, g = grp(), spin = grp(), col = o.color || '#2E3442', dir = o.dir ?? -1; g.add(spin); spin.position.z = o.fwd ?? 0.3;
-    const disc = canvasPlane(2 * R, 2 * R, (c, W, H) => { const gr = c.createRadialGradient(W / 2, H / 2, W * 0.05, W / 2, H / 2, W / 2); gr.addColorStop(0, col); gr.addColorStop(0.6, col + 'E6'); gr.addColorStop(1, col + '00');
-      c.fillStyle = gr; c.fillRect(0, 0, W, H); c.lineCap = 'round';
-      for (let i = 0; i < 10; i++) { const a0 = i * 0.66, rr = W * (0.14 + 0.3 * hash(i + 1)); c.strokeStyle = i % 2 ? 'rgba(255,255,255,0.8)' : 'rgba(16,18,24,0.65)'; c.lineWidth = W * 0.018; c.beginPath(); c.arc(W / 2, H / 2, rr, a0, a0 + 1.0 + hash(i) * 0.9); c.stroke(); } }, { res: 512 });
-    disc.material = new THREE.MeshBasicMaterial({ map: disc.material.map, transparent: true, depthWrite: false, toneMapped: false, opacity: o.alpha ?? 0.95 });
-    const legs = grp(); legs.position.z = 0.01; spin.add(disc, legs);
-    for (let i = 0; i < n; i++) { const solid = i % 2 === 0, lg = grp();
-      const lm = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: solid ? 0.95 : 0.5, depthWrite: false, toneMapped: false }), sm = new THREE.MeshBasicMaterial({ color: o.shoe || '#111317', transparent: true, opacity: solid ? 1 : 0.6, depthWrite: false, toneMapped: false });
-      const th = new THREE.Mesh(new THREE.PlaneGeometry(0.13, R * 0.8), lm), sh = new THREE.Mesh(new THREE.PlaneGeometry(0.32, 0.13), sm); th.position.y = -R * 0.45; sh.position.set(-dir * 0.1, -R * 0.9, 0.002);
-      lg.add(th, sh); lg.rotation.z = i / n * TAU; legs.add(lg); }
-    g.userData.update = t => { const on = !o.at || (t >= o.at[0] && t < o.at[1]); g.visible = on; if (!on) return;
-      disc.rotation.z = dir * t * 11; legs.rotation.z = dir * t * TAU * (o.rate ?? 2.3); const wv = 1 + 0.04 * Math.sin(t * 43); spin.scale.set((o.sx ?? 1.15) * wv, 2 - wv, 1); };
-    g.userData.update(0); return g;
-  },
-
   // (pass 2 of 72) A calf swollen like a balloon (pivot at the knee, hanging down -Y: put it on kneeL / kneeR): an egg o.r thick (0.21) and
   // o.len long (0.5), bulging to the back, in the trouser colour (o.color), throbbing. o.tape: a yellow measuring tape round its widest part.
   // o.grow [t0, t1]: it swells from a third of its size to all of it between those times, with a bounce (full from the start without it)
@@ -132,9 +113,9 @@ export const BUS_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // (pass 2 of 72) A small blue beacon (pivot at its foot): a dark base and a blue dome o.r (0.07) that glows by itself, a pale spot turning
+  // (pass 2 of 72) A small blue beacon (pivot at its foot; `blueBeacon`: other stories have a `beacon`): a dark base and a blue dome o.r (0.07) that glows by itself, a pale spot turning
   // inside it o.rate turns a second (2). It puts no light on the scene (the two alternating lamps of policeFlash strobed the whole road)
-  beacon(o) {
+  blueBeacon(o) {
     const R = o.r ?? 0.07, g = grp(), m = new THREE.MeshBasicMaterial({ color: '#1F5CFF' });
     const dome = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 6, 0, TAU, 0, PI / 2), m), spot = new THREE.Mesh(new THREE.SphereGeometry(R * 0.42, 8, 6), new THREE.MeshBasicMaterial({ color: '#6FA8FF' }));   // (stills 4) deep blues, tone-mapped: the near-white spot bloomed into a pale pink disc
     dome.position.y = R * 0.5; g.add(at(cyl(R * 1.15, R * 1.15, R * 0.5, '#1C1E22', 10, { pivot: 'bottom' }), 0, 0, 0), dome, spot);
