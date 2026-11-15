@@ -39,9 +39,14 @@ def norm(t):
 
 
 def titles():
-    """story key -> French title, from the TITLE table of the final render queue"""
-    m = re.search(r'declare -A TITLE=\((.*?)\)\n', QUEUE.read_text(encoding='utf-8'), re.S)
-    return dict(re.findall(r'\[(\w+)\]="([^"]*)"', m.group(1))) if m else {}
+    """story key -> French title, from the TITLE tables of the final render queues (queue10.sh, then the newer queue1N.sh files: the stories 69 and
+    up are only in queue11.sh)"""
+    out = {}
+    for q in sorted(QUEUE.parent.glob('queue1[0-9].sh')):
+        m = re.search(r'declare -A TITLE=\((.*?)\)\n', q.read_text(encoding='utf-8'), re.S)
+        if m:
+            out.update(re.findall(r'\[(\w+)\]="([^"]*)"', m.group(1)))
+    return out
 
 
 def inventory():
