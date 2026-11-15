@@ -324,6 +324,9 @@ export const CAFE_PROPS = {
   // (S09) A pebble falling from the vault (pivot at its centre): a grey stone o.r (0.045 m)
   pebble(o) { const m = new THREE.Mesh(new THREE.DodecahedronGeometry(o.r ?? 0.045, 0), mat(o.color || '#8C8478')); m.scale.y = 0.75; return grp(m); },
 
-  // (S11) A plain block (pivot at its centre): o.w x o.h x o.d (1 m) of o.color, matte; a ceiling, an end wall, a black tunnel mouth
-  slab(o) { const m = box(o.w ?? 1, o.h ?? 1, o.d ?? 1, o.color || '#3A3C42', o.outline ? { outline: o.outline } : {}); if (o.noShadow) m.traverse(n => { n.castShadow = false; }); return grp(m); },
+  // (S11) A plain block (pivot at its centre): o.w x o.h x o.d (1 m) of o.color, matte; a ceiling, an end wall, a black tunnel mouth; (cycle 37)
+  // o.opacity below 1: a see-through pane (a shop window, a car window) that casts no shadow (an opaque 'window' hid the reflection behind it)
+  slab(o) { const m = box(o.w ?? 1, o.h ?? 1, o.d ?? 1, o.color || '#3A3C42', o.outline ? { outline: o.outline } : {}); if (o.noShadow || (o.opacity ?? 1) < 1) m.traverse(n => { n.castShadow = false; });
+    if ((o.opacity ?? 1) < 1) m.traverse(n => { if (n.isMesh && n.material) { n.material = n.material.clone(); n.material.transparent = true; n.material.opacity = o.opacity; n.material.depthWrite = false; } });
+    return grp(m); },
 };
