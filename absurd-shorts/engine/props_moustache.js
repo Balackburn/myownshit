@@ -50,15 +50,18 @@ export const MOUSTACHE_PROPS = {
 
   // A glass jar held upside down (pivot at its rim, the open mouth down -Y): clear walls o.h high (0.3) and o.r round (0.13) with white glints,
   // a frosted screw rim at the mouth and a closed bottom on top
+  // (final pass of 67) o.bold: a jar that reads on a phone (a faint dome vanished against his shirt and the wall): dark rims top and bottom, six dark
+  // facet lines down its walls and wider glints
   glassJar(o) {
-    const h = o.h ?? 0.3, r = o.r ?? 0.13, g = grp();
+    const h = o.h ?? 0.3, r = o.r ?? 0.13, g = grp(), B = !!o.bold;
     const glass = new THREE.MeshLambertMaterial({ color: '#DDF3FB', emissive: '#6FA8C0', emissiveIntensity: 0.15, transparent: true, opacity: 0.32, depthWrite: false, side: THREE.DoubleSide });
     const wall = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 20, 1, true), glass); wall.position.y = h / 2; wall.renderOrder = 3; g.add(wall);
     const top = new THREE.Mesh(new THREE.CircleGeometry(r, 20), glass); top.rotation.x = -PI / 2; top.position.y = h; top.renderOrder = 3; g.add(top);
-    const edge = new THREE.MeshBasicMaterial({ color: '#2A5C70', transparent: true, opacity: 0.6 });
-    for (const y of [0.004, h]) { const t = new THREE.Mesh(new THREE.TorusGeometry(r, 0.006, 4, 24), edge); t.rotation.x = PI / 2; t.position.y = y; g.add(t); }
+    const edge = new THREE.MeshBasicMaterial({ color: B ? '#163848' : '#2A5C70', transparent: true, opacity: B ? 0.95 : 0.6 });
+    for (const y of [0.004, h]) { const t = new THREE.Mesh(new THREE.TorusGeometry(r, B ? 0.011 : 0.006, 4, 24), edge); t.rotation.x = PI / 2; t.position.y = y; g.add(t); }
+    if (B) for (let i = 0; i < 6; i++) { const a = i / 6 * 2 * PI + 0.3; g.add(at(box(0.005, h, 0.005, '#3D7890', { opacity: 0.75 }), Math.sin(a) * r, h / 2, Math.cos(a) * r)); }
     g.add(at(cyl(r * 1.04, r * 1.04, 0.03, '#E6EEF2', 20, { outline: 0.003 }), 0, 0.015, 0));   // the rim
-    for (const [a, w] of [[0.5, 0.022], [0.8, 0.01]]) { const s = at(box(w, h * 0.7, 0.004, '#FFFFFF'), Math.sin(a) * r * 0.98, h * 0.5, Math.cos(a) * r * 0.98); s.rotation.y = a; g.add(s); }   // glints
+    for (const [a, w] of [[0.5, B ? 0.034 : 0.022], [0.8, B ? 0.016 : 0.01]]) { const s = at(box(w, h * 0.7, 0.004, '#FFFFFF'), Math.sin(a) * r * 0.98, h * 0.5, Math.cos(a) * r * 0.98); s.rotation.y = a; g.add(s); }   // glints
     return g;
   },
 
@@ -80,7 +83,8 @@ export const MOUSTACHE_PROPS = {
       for (let k = 0; k < 4; k++) { const ray = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 0.3), m); ray.rotation.z = k * PI / 4 + PI / 8; f.add(ray); }
       f.position.set((((i * 0.618) % 1) - 0.5) * W, (((i * 0.382 + 0.2) % 1) - 0.5) * H, 0); f.visible = false; g.add(f); fl.push(f); }
     const times = o.at || Array.from({ length: n }, (_, i) => (o.from ?? 0.1) + i / (o.rate ?? 6));
-    g.userData.update = t => fl.forEach((f, i) => { const u = t - times[i % times.length]; f.visible = u >= 0 && u < 0.12; if (f.visible) f.scale.setScalar(0.6 + 3.5 * u); });
+    const life = o.life ?? 0.12;   // (final pass of 67) o.life: how long each flash shows (0.12 s fell between the frames of a draft)
+    g.userData.update = t => fl.forEach((f, i) => { const u = t - times[i % times.length]; f.visible = u >= 0 && u < life; if (f.visible) f.scale.setScalar(0.6 + 3.5 * u * 0.12 / life); });
     g.userData.update(-1); return g;
   },
 };

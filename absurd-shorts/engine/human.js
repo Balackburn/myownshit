@@ -210,10 +210,10 @@ export function buildHuman(spec = {}) {
   const faceOpts = { skin: o.skin, hair: o.hair, hairColor: o.hairColor, facial: o.facial === 'cop' ? 'mustache' : o.facial, glasses: o.glasses, glassesColor: o.glassesColor, lipstick: o.lipstick, seed: o.seed, redNose: o.redNose, beardColor: o.beardColor, rim: o.faceRim };   // faceRim (true or 0..1): a pale rim round the painted features, for dark skins (the black lines are lost at phone size)
   const HEROFACE = !ATL && hasFaceSet && o.ownFace !== true;   // every character wears the hero's face set (with variations), unless ownFace
   const headMats = ATL ? [
-    new THREE.MeshLambertMaterial({ map: atlasSideTexture(false) }), new THREE.MeshLambertMaterial({ map: atlasSideTexture(true) }),
+    new THREE.MeshLambertMaterial({ map: atlasSideTexture(false, o.hairColor) }), new THREE.MeshLambertMaterial({ map: atlasSideTexture(true, o.hairColor) }),
     atlasMaterial(), atlasMaterial(),
     new THREE.MeshBasicMaterial({ map: atlasFaceTexture('neutral'), color: new THREE.Color(0.97, 0.97, 0.97) }), // flat painted panel: unlit like the originals (face RGB ≈ 235,203,173)
-    new THREE.MeshLambertMaterial({ map: atlasBackTexture() }),
+    new THREE.MeshLambertMaterial({ map: atlasBackTexture(o.hairColor) }),   // (76) recoloured painted hair when o.hairColor
   ] : [
     new THREE.MeshLambertMaterial({ map: sideTexture(faceOpts) }), new THREE.MeshLambertMaterial({ map: mirrored(sideTexture(faceOpts)) }),
     mat(o.hair === 'bald' ? o.skin : o.hairColor), mat(o.skin),

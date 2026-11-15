@@ -307,9 +307,11 @@ const S = {
     const g = grp(), { back } = room(g, { wall: '#F3EFE6', floor: '#B98A5A', back: -4.6 });
     g.add(flat(2.2, 18, o.runner || P.red, 0, 0.004, 4.4));
     [-6.2, -4.4, -2.6, 2.6, 4.4, 6.2].forEach((x, i) => { const c = i % 2 ? P.teal : P.red; g.add(at(box(0.8, 5.2, 0.12, c, { outline: 0.004 }), x, 3.1, back + 0.07), at(box(0.8, 0.5, 0.12, c, { taper: { x: 0.02, z: 1 } }), x, 0.25, back + 0.07, 0, 0, PI), at(cyl(0.22, 0.22, 0.03, P.cream, 10), x, 4.6, back + 0.15, PI / 2)); });
-    g.add(prop('courtBench', {}, 0, 0, back + 1.2), prop('signBoard', { text: o.sign || 'TRIBUNAL', bg: P.navy, fg: P.cream, w: 2.6, h: 0.6, posts: false, height: 0, frame: P.yellow }, 0, 3.0, back + 0.04));
+    g.add(prop('courtBench', {}, 0, 0, back + 1.2));
+    // (final pass of 67) o.sign === false: no sign and no seal over the judge (a title card landing above his head met the navy sign: navy on navy)
+    if (o.sign !== false) g.add(prop('signBoard', { text: o.sign || 'TRIBUNAL', bg: P.navy, fg: P.cream, w: 2.6, h: 0.6, posts: false, height: 0, frame: P.yellow }, 0, 3.0, back + 0.04));
     const sy = 4.25; // seal above the sign (kept off the actor's head line)
-    g.add(at(cyl(0.38, 0.38, 0.04, P.yellow, 14), 0, sy, back + 0.03, PI / 2), at(cyl(0.3, 0.3, 0.04, P.cream, 14), 0, sy, back + 0.05, PI / 2), at(box(0.06, 0.32, 0.02, P.navy), 0, sy, back + 0.075), at(box(0.34, 0.04, 0.02, P.navy), 0, sy + 0.1, back + 0.075));
+    if (o.sign !== false) g.add(at(cyl(0.38, 0.38, 0.04, P.yellow, 14), 0, sy, back + 0.03, PI / 2), at(cyl(0.3, 0.3, 0.04, P.cream, 14), 0, sy, back + 0.05, PI / 2), at(box(0.06, 0.32, 0.02, P.navy), 0, sy, back + 0.075), at(box(0.34, 0.04, 0.02, P.navy), 0, sy + 0.1, back + 0.075));
     // witness stand + long white desks with chairs
     g.add(at(box(0.9, 1.05, 0.9, P.teal, { pivot: 'bottom', outline: 0.006 }), 2.5, 0, back + 1.25), at(box(1.0, 0.06, 1.0, P.wood), 2.5, 1.08, back + 1.25));
     [-3.3, 3.3].forEach(x => { g.add(at(box(2.4, 0.06, 0.7, P.white, { outline: 0.006 }), x, 0.76, 0.3), at(box(2.4, 0.72, 0.05, P.white), x, 0.37, -0.03), at(box(0.06, 0.73, 0.65, P.white, { pivot: 'bottom' }), x - 1.17, 0, 0.3), at(box(0.06, 0.73, 0.65, P.white, { pivot: 'bottom' }), x + 1.17, 0, 0.3));

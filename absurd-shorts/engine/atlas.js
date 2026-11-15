@@ -326,14 +326,29 @@ function sideCanvas(withEar = true) {
   if (!withEar) feathered(g, s, 446 - R.headSide[0], 488 - R.headSide[1], 178, 214, 16);  // hide painted ear
   return c;
 }
-export function atlasSideTexture(mirror = false) {
-  const k = mirror ? 'm' : 'n'; if (sideCache[k] || !atlasImage) return sideCache[k];
-  const t = new THREE.CanvasTexture(sideCanvas(true)); t.colorSpace = THREE.SRGBColorSpace;
+// (76) A painted head with o.hairColor: the black hair painted on the side and back panels (their top 450 rows; the painted ear sits lower) takes
+// that colour, keeping the brush's light variation; the anti-aliased edge into the skin is blended, so a white-haired man is not black at the sides
+function recolourHair(c, hex) {
+  const n = parseInt(String(hex).replace('#', ''), 16), HR = (n >> 16) & 255, HG = (n >> 8) & 255, HB = n & 255;
+  const g = c.getContext('2d'), h = Math.min(c.height, 450), im = g.getImageData(0, 0, c.width, h), d = im.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const L = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2], m = Math.max(0, Math.min(1, (100 - L) / 60));
+    if (!m) continue;
+    const f = 0.86 + 0.14 * Math.max(0, Math.min(1, (L - 10) / 15));
+    d[i] = d[i] * (1 - m) + HR * f * m; d[i + 1] = d[i + 1] * (1 - m) + HG * f * m; d[i + 2] = d[i + 2] * (1 - m) + HB * f * m;
+  }
+  g.putImageData(im, 0, 0); return c;
+}
+export function atlasSideTexture(mirror = false, hair = null) {
+  const k = (mirror ? 'm' : 'n') + (hair || ''); if (sideCache[k] || !atlasImage) return sideCache[k];
+  const c = sideCanvas(true); if (hair) recolourHair(c, hair);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
   if (mirror) { t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1; }
   return (sideCache[k] = t);
 }
 // Back of the head: hair cap with drips, no ear.
-export function atlasBackTexture() {
-  if (sideCache.back || !atlasImage) return sideCache.back;
-  const t = new THREE.CanvasTexture(sideCanvas(false)); t.colorSpace = THREE.SRGBColorSpace; return (sideCache.back = t);
+export function atlasBackTexture(hair = null) {
+  const k = 'back' + (hair || ''); if (sideCache[k] || !atlasImage) return sideCache[k];
+  const c = sideCanvas(false); if (hair) recolourHair(c, hair);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return (sideCache[k] = t);
 }

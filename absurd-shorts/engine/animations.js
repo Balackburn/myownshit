@@ -80,6 +80,9 @@ export const CLIPS = {
   lookUp: (t) => ({ head: [-0.55, 0, 0], torso: [-0.08, 0, 0], ...CLIPS.stand() }),
   lookDown: () => ({ head: [0.5, 0, 0], ...CLIPS.stand() }),
   stareCamera: (t) => ({ ...CLIPS.stand(), head: [0.01 * S(t), 0, 0] }), // THE deadpan reaction hold
+  // (final pass of 67) a held pose given joint by joint: params { joints: { hipL: [x, y, z], ... } } over the rest pose (a moustache still on a lip with
+  // its legs and arms folded back into the face, so the creature is not given away before its eyes open)
+  pose: (t, p = {}) => ({ ...CLIPS.stand(), ...(p.joints || {}) }),
   angryFist: (t) => ({ ...arms(m([0, 0, 0.06], [-0.4, 0, 2.2]), m([-0.1, 0, 0], [0, 0, 0.6 + 0.3 * S(t * 14)])), head: [-0.1, 0, 0], torso: [-0.05, 0, 0] }),
   celebrate: (t) => ({ ...arms(m([0, 0, 2.7 + 0.15 * S(t * 10)], [0, 0, 2.7 + 0.15 * S(t * 10 + 1)]), m([0, 0, 0.3], [0, 0, 0.3])), root: { y: 0.08 * Math.abs(S(t * 5)) }, head: [-0.2, 0, 0] }),
   surrender: (t) => ({ ...arms(m([0, 0, 2.1], [0, 0, 2.1]), m([0, 0, -1.4], [0, 0, -1.4])), head: [0.05, 0, 0] }),
