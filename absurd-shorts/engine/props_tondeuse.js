@@ -74,10 +74,10 @@ export const TONDEUSE_PROPS = {
       if (sput) { jy += 0.03 * Math.max(0, Math.sin(t * 22)); rx -= 0.12 * Math.max(0, Math.sin(t * 17)); }
       if (cu < 0.4) { const a = 0.6 + 0.2 * Math.min(2, cs.length - 1), sq_ = cu < 0.1 ? Math.sin(cu / 0.1 * PI / 2) : Math.max(0, 1 - (cu - 0.1) / 0.12);
         sy *= 1 - 0.28 * a * sq_ + (cu > 0.1 && cu < 0.4 ? 0.16 * a * Math.sin((cu - 0.1) / 0.3 * PI) : 0); jy += cu > 0.1 ? 0.07 * a * Math.sin(Math.min(1, (cu - 0.1) / 0.3) * PI) : 0; rx -= 0.2 * a * Math.sin(Math.min(1, cu / 0.3) * PI); }
-      if (o.startAt != null) { const u = t - o.startAt; if (u > -0.12 && u < 0) sy *= 1 - 0.18 * (1 + u / 0.12); if (u >= 0 && u < 0.45) { const e = Math.exp(-7 * u); sz *= 1 + 0.32 * e; sy *= 1 - 0.12 * e; rx -= 0.25 * e; } }
+      if (o.startAt != null) { const u = t - o.startAt, sk = o.startK ?? 1; if (u > -0.12 && u < 0) sy *= 1 - 0.18 * sk * (1 + u / 0.12); if (u >= 0 && u < 0.45) { const e = Math.exp(-7 * u); sz *= 1 + 0.32 * sk * e; sy *= 1 - 0.12 * sk * e; rx -= 0.25 * e; } }   // (review 2 of 70) o.startK: compressed like a spring, then stretched away
       if (bowing) { const d = bu < 0.18 ? bu / 0.18 : bu < 0.5 ? 1 : 1 - (bu - 0.5) / 0.4, e = d * d * (3 - 2 * d); rx += 0.62 * e; hr += 0.4 * e; }
-      if (o.slumpAt != null && t >= o.slumpAt && !o.dead) { const u = clamp01((t - o.slumpAt) / 0.35), e = u * u * (3 - 2 * u); sy *= 1 - 0.38 * e + 0.05 * Math.sin(u * PI); hr -= 1.05 * e + (u >= 1 ? 0.04 * Math.exp(-6 * (t - o.slumpAt - 0.35)) * Math.sin((t - o.slumpAt - 0.35) * 20) : 0); }
-      if (o.dead) { sy *= 0.62; hr -= 1.05; }
+      if (o.slumpAt != null && t >= o.slumpAt && !o.dead) { const u = clamp01((t - o.slumpAt) / 0.35), e = u * u * (3 - 2 * u); sy *= 1 - (o.slumpK ?? 0.38) * e + 0.05 * Math.sin(u * PI); hr -= 1.05 * e + (u >= 1 ? 0.04 * Math.exp(-6 * (t - o.slumpAt - 0.35)) * Math.sin((t - o.slumpAt - 0.35) * 20) : 0); }
+      if (o.dead) { sy *= 1 - (o.slumpK ?? 0.38); hr -= 1.05; }   // (review 2 of 70) o.slumpK (0.38): how flat it goes, a punctured tyre at 0.6
       body.position.set(jx, jy, 0); body.rotation.x = rx; body.scale.set(1 + (1 - sy) * 0.35, sy, sz); hdl.rotation.x = hr;
       lines.forEach((m, i) => { m.visible = on && !dead; m.scale.z = 0.6 + 0.5 * Math.abs(Math.sin(t * 9 + i)); m.position.z = -0.6 - m.scale.z / 2; });
       const spray = on && !sput && !dead && o.spray !== false;
@@ -100,10 +100,10 @@ export const TONDEUSE_PROPS = {
   // A low-poly tree that falls (pivot at the foot of its trunk): a brown trunk and three stacked green cones; at o.fallAt it topples toward o.dir (radians
   // about y, 0 = +Z) in 0.42 s with a little bounce on the ground, leaving its stump; o.s its size
   fallTree(o) {
-    const s = o.s ?? 1, g = grp(), pivot = grp(), tree = grp(), green = o.color || ['#3F7A3A', '#4B8A42', '#356B31'][Math.floor(hash(o.seed ?? 1) * 3)];
+    const s = o.s ?? 1, cr = (o.crown ?? 0) * s, g = grp(), pivot = grp(), tree = grp(), green = o.color || ['#3F7A3A', '#4B8A42', '#356B31'][Math.floor(hash(o.seed ?? 1) * 3)];   // (review 2 of 70) o.crown (in tree sizes): the crown raised on a longer bare trunk (the foliage skirts hid what passed between the trees)
     g.add(at(cyl(0.16 * s, 0.2 * s, 0.25 * s, '#7A5230', 7, { pivot: 'bottom' }), 0, 0, 0));
-    tree.add(at(cyl(0.12 * s, 0.16 * s, 1.4 * s, '#7A5230', 7, { pivot: 'bottom' }), 0, 0, 0));
-    [[1.05, 1.3], [1.75, 1.05], [2.35, 0.75]].forEach(([y, r]) => { const c = new THREE.Mesh(new THREE.ConeGeometry(r * s, 1.2 * s, 7), L(green)); c.position.y = y * s; c.castShadow = true; tree.add(c); });
+    tree.add(at(cyl(0.12 * s, 0.16 * s, 1.4 * s + cr, o.trunk || '#7A5230', 7, { pivot: 'bottom' }), 0, 0, 0));
+    [[1.05, 1.3], [1.75, 1.05], [2.35, 0.75]].forEach(([y, r]) => { const c = new THREE.Mesh(new THREE.ConeGeometry(r * s, 1.2 * s, 7), L(green)); c.position.y = y * s + cr; c.castShadow = true; tree.add(c); });
     pivot.position.y = 0.25 * s; pivot.rotation.y = o.dir ?? 0; pivot.add(tree); g.add(pivot);
     g.userData.update = t => { const u = o.fallAt == null ? -1 : t - o.fallAt; let a = 0;
       if (u > 0) { const k = Math.min(1, u / 0.42); a = (PI / 2 - 0.06) * k * k; if (u > 0.42) a = PI / 2 - 0.06 - 0.09 * Math.exp(-(u - 0.42) * 7) * Math.abs(Math.sin((u - 0.42) * 24)); }
@@ -119,9 +119,9 @@ export const TONDEUSE_PROPS = {
     const lines = canvasPlane(W, D, (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = '#F4F4F0'; c.lineWidth = Wc * 0.007; const sx = Wc / W, sz = Hc / D;
       c.strokeRect(Wc * 0.015, Hc * 0.01, Wc * 0.97, Hc * 0.98); c.beginPath(); c.moveTo(Wc * 0.015, Hc / 2); c.lineTo(Wc * 0.985, Hc / 2); c.stroke(); c.beginPath(); c.arc(Wc / 2, Hc / 2, 6 * sx, 0, TAU); c.stroke();
       c.strokeRect(Wc / 2 - 12 * sx, Hc * 0.01, 24 * sx, 10 * sz); c.strokeRect(Wc / 2 - 12 * sx, Hc * 0.99 - 10 * sz, 24 * sx, 10 * sz); }, { res: 512, transparent: true });
-    lines.rotation.x = -PI / 2; lines.position.y = 0.03; Object.assign(lines.material, { polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -12 }); g.add(lines);
+    lines.rotation.x = -PI / 2; lines.position.y = 0.03; Object.assign(lines.material, { polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -12 }); if (o.lines !== false) g.add(lines);   // (review 2 of 70) o.lines false / o.goals false: a plain striped lawn (the palace's)
     for (const e of [-1, 1]) { const goal = grp(at(box(0.14, 2.44, 0.14, '#F4F4F0', { outline: 0.006 }), -3.66, 1.22, 0), at(box(0.14, 2.44, 0.14, '#F4F4F0', { outline: 0.006 }), 3.66, 1.22, 0), at(box(7.46, 0.14, 0.14, '#F4F4F0', { outline: 0.006 }), 0, 2.44, 0));
-      goal.position.z = e * (D / 2 - 0.25); g.add(goal); }
+      goal.position.z = e * (D / 2 - 0.25); if (o.goals !== false) g.add(goal); }
     const sw = W / n, stripes = [];
     for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(sw, 1).rotateX(-PI / 2), LO(i % 2 ? (o.light || '#A6E07A') : (o.dark || '#5E9F3E'), 2)); m.position.set(-W / 2 + (i + 0.5) * sw, 0.02, 0); m.visible = false; g.add(m); stripes.push(m); }
     const P_ = o.passes || [];
@@ -149,12 +149,17 @@ export const TONDEUSE_PROPS = {
     body.add(at(ball(0.085 * s, '#F2C2A0', 10), 0, 0.3 * s, 0.01 * s), at(new THREE.Mesh(new THREE.ConeGeometry(0.075 * s, 0.14 * s, 8), L('#F4F4F0')), 0, 0.23 * s, 0.06 * s, PI, 0, 0));
     body.add(at(ball(0.012 * s, '#111111', 6), -0.03 * s, 0.32 * s, 0.08 * s), at(ball(0.012 * s, '#111111', 6), 0.03 * s, 0.32 * s, 0.08 * s), at(ball(0.018 * s, '#E0786A', 6), 0, 0.29 * s, 0.09 * s));
     const tip = new THREE.Mesh(new THREE.ConeGeometry(0.045 * s, 0.14 * s, 8), L('#D8342A')); tip.castShadow = true;
-    body.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.045 * s, 0.09 * s, 0.1 * s, 8), L('#D8342A')), 0, 0.42 * s, 0), tip);
+    const hat = grp(at(new THREE.Mesh(new THREE.CylinderGeometry(0.045 * s, 0.09 * s, 0.1 * s, 8), L('#D8342A')), 0, 0, 0), tip); hat.position.y = 0.42 * s; body.add(hat);
     g.add(body);
     g.userData.update = t => {
       if (o.popAt != null) { const u = t - o.popAt; body.visible = u >= -0.02; body.position.y = u < 0 ? -0.6 * s : u < 0.15 ? -0.6 * s * (1 - u / 0.15) : 0.06 * s * Math.exp(-(u - 0.15) * 10) * Math.sin((u - 0.15) * 30); }
       const v = o.trimAt == null ? -1 : t - o.trimAt;
-      if (v > 0) { tip.position.set(0.35 * s * v, 0.54 * s + 1.6 * v - 4.9 * v * v, 0.1 * v); tip.rotation.set(v * 12, 0, v * 8); tip.visible = v < 0.9; } else { tip.position.set(0, 0.54 * s, 0); tip.rotation.set(0, 0, 0); tip.visible = true; } };
+      if (v > 0) { tip.position.set(0.35 * s * v, 0.12 * s + 1.6 * v - 4.9 * v * v, 0.1 * v); tip.rotation.set(v * 12, 0, v * 8); tip.visible = v < 0.9; } else { tip.position.set(0, 0.12 * s, 0); tip.rotation.set(0, 0, 0); tip.visible = true; }
+      // (review 2 of 70) o.hatAt: the whole hat is knocked up off the head (o.hatUp, 0.9 gnome sizes), spins twice, hangs and lands askew (o.hatT, 0.75 s): the bare head shows meanwhile
+      const w = o.hatAt == null ? -1 : t - o.hatAt, T = o.hatT ?? 0.75;
+      if (w <= 0) { hat.position.set(0, 0.42 * s, 0); hat.rotation.set(0, 0, 0); }
+      else if (w < T) { const q = w / T, hgt = Math.sin(PI * Math.pow(q, 0.8)); hat.position.set(0.03 * s * q, 0.42 * s + (o.hatUp ?? 0.9) * s * hgt, 0); hat.rotation.set(0, 0, q * TAU * 2 + 0.45 * q); }
+      else { hat.position.set(0.03 * s, 0.4 * s + 0.03 * s * Math.exp(-8 * (w - T)) * Math.abs(Math.sin(30 * (w - T))), 0); hat.rotation.set(0, 0, 0.45); } };
     g.userData.update(0); return g;
   },
 
@@ -163,10 +168,13 @@ export const TONDEUSE_PROPS = {
   hedgeWall(o) {
     const l = o.l ?? 6, h = o.h ?? 1.4, d = o.d ?? 0.6, hx = o.holeX ?? 0, hw = o.holeW ?? 0.8, hh = o.holeH ?? 0.75, bd = o.burstDir ?? 1, g = grp(), A = '#3E7A34', B2 = '#4C8C3E';
     const left = hx - hw / 2 + l / 2, right = l / 2 - hx - hw / 2;
-    g.add(at(box(left, h, d, A, { outline: 0.008 }), -l / 2 + left / 2, h / 2, 0), at(box(right, h, d, A, { outline: 0.008 }), hx + hw / 2 + right / 2, h / 2, 0), at(box(hw, h - hh, d, A, { outline: 0.008 }), hx, hh + (h - hh) / 2, 0));
-    const plug = at(box(hw, hh, d, B2, { outline: 0.008 }), hx, hh / 2, 0); g.add(plug);
+    g.add(at(box(left, h, d, A, { outline: 0.008 }), -l / 2 + left / 2, h / 2, 0), at(box(right, h, d, A, { outline: 0.008 }), hx + hw / 2 + right / 2, h / 2, 0));
+    // (review 2 of 70) o.holeShape 'mower': the hole has the mower's outline (the wide deck below, o.holeH high, the narrower handle above it up to o.handleH, o.handleW wide); a neat rectangle did not read as a burst
+    const mw = o.holeShape === 'mower', hu = mw ? Math.min(h - 0.12, o.handleH ?? 1.12) : hh, uw = mw ? (o.handleW ?? 0.5) : hw, plug = grp(at(box(hw, hh, d, B2, { outline: 0.008 }), hx, hh / 2, 0)); g.add(plug);
+    g.add(at(box(hw, h - hu, d, A, { outline: 0.008 }), hx, hu + (h - hu) / 2, 0));
+    if (mw) { for (const sd of [-1, 1]) g.add(at(box((hw - uw) / 2, hu - hh, d, A, { outline: 0.008 }), hx + sd * (uw / 2 + (hw - uw) / 4), hh + (hu - hh) / 2, 0)); plug.add(at(box(uw, hu - hh, d, B2, { outline: 0.008 }), hx, hh + (hu - hh) / 2, 0)); }
     for (let i = 0; i < Math.floor(l / 0.35); i++) g.add(at(ball(0.2, i % 2 ? A : B2, 6), -l / 2 + 0.2 + i * 0.35, h, (hash(i) - 0.5) * 0.15));
-    const leaves = []; for (let i = 0; i < 30; i++) { const m = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.014, 0.045), L(i % 2 ? A : '#6AAE4E')); m.visible = false; g.add(m); leaves.push({ m, v: [(hash(i + 1) - 0.5) * 2.0, 1.2 + hash(i + 2) * 1.6, 0.6 + hash(i + 3) * 1.4] }); }
+    const ls = o.leafS ?? 1, leaves = []; for (let i = 0; i < (o.leaves ?? 30); i++) { const m = new THREE.Mesh(new THREE.BoxGeometry(0.07 * ls, 0.014 * ls, 0.045 * ls), L(i % 2 ? A : '#6AAE4E')); m.visible = false; g.add(m); leaves.push({ m, v: [(hash(i + 1) - 0.5) * 2.0 * ls, 1.2 + hash(i + 2) * 1.6 * ls, 0.6 + hash(i + 3) * 1.4 * ls] }); }   // (review 2 of 70) o.leaves (30) / o.leafS (1): a bigger burst
     g.userData.update = t => { const u = o.holeAt == null ? -1 : t - o.holeAt; plug.visible = u < 0;
       leaves.forEach(({ m, v }, i) => { const on = u >= 0 && u < 1.0; m.visible = on; if (!on) return; m.position.set(hx + v[0] * u * 0.5, Math.max(0.01, hh * 0.5 + v[1] * u - 4.9 * u * u), bd * v[2] * u); m.rotation.set(u * 10 + i, u * 7, i); }); };
     g.userData.update(0); return g;
