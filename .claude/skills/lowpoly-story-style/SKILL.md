@@ -1407,3 +1407,23 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   histoires). Le script de correction refuse maintenant un commentaire si le texte remplacé ne termine pas sa ligne.
 - (cycle 26) Un rappel filmé dans le même cadre ne vaut que si l'action monte (plus dur, plus vite, dans le plan) : la file qui s'arrêtait
   avant la coupe se lisait comme une image figée (62). La construction signale maintenant une caméra reprise d'un plan précédent.
+- (cycle 27) The scale of a prop is a single number: a list such as [1.5, 5.4, 1.5] drew nothing at all (the beard of 66). For a non-uniform
+  shape, use `flat` [x, y, z] on top of the scale. It now works on carried props too.
+- (cycle 27) A carried prop keeps its own size, because the carrier's scale is divided out, but its offset is in the joint's scaled frame. On a
+  fish scaled 62 (65), a cap at 0.7 came out 17 cm wide and an offset of 0.1 put it 6 m off. For a giant creature, either place the prop in the
+  world with keys that follow the creature, or give the prop the creature's size.
+- (cycle 27) A fish's tail fin reaches about half its body length beyond the body. A giant fish in a pool stuck out over the deck in front of the
+  sign (65). Keep its centre a body length from the edge of what holds it.
+- (cycle 27) The build measures creatures as if they were the height of a person. Its "head cut by the top" and "small at phone size" warnings
+  on ducks, a moustache or a giant fish are therefore false: judge those on the stills.
+- (cycle 27) Seen exactly side-on, a box head shows no face. This happened on the post being licked, the rock face being dug and the
+  passengers peering down the tunnel (63, 64). For a gag that plays on the face, shoot from three-quarters in front, or turn the head toward a
+  point between the target and the camera. When a profile shot is unavoidable, eyes out on stalks still read.
+- (cycle 27) A cord that runs back while everything on it stays put shows nothing in a close frame until its end comes by, four frames from
+  the end (64). With `reel`, the bulbs ride the cord into the mouth from the first frame.
+- (cycle 27) Inside a shot's blur window, anything that moves smears. A hand holding a cup to a head that vibrates (`touch` '@id.head') shook
+  with it and became a purple streak (63). Take the hand away before the window opens.
+- (cycle 27) Darkening a night after the fact (`dark`) crushes everything toward black, the lights included, and leaves the first frame
+  ungraded (64). Build the night with a cool fill and real lights instead: the bulbs, plus coloured glow lights that change on the beat.
+- (cycle 27) The 'teeth' mouth, an upturned crescent of teeth, reads as a grin under wide eyes (63). For chattering teeth, use 'clench', a
+  flat bar.
