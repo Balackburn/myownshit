@@ -1,0 +1,8139 @@
+{
+ "version": 3,
+ "title": "La tondeuse",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "voisin": {
+   "preset": "pyjama",
+   "seed": 701,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "joueur1": {
+   "preset": "footballeur",
+   "seed": 702,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "joueur2": {
+   "preset": "footballeur",
+   "seed": 703,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "joueur3": {
+   "preset": "footballeur",
+   "seed": 704,
+   "suit": "#2F62B5",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "arbitre": {
+   "preset": "sportif",
+   "seed": 705,
+   "suit": "#16181C",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "savant1": {
+   "preset": "savant",
+   "seed": 706,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "savant2": {
+   "preset": "savant",
+   "seed": 707,
+   "hairColor": "#8A6A4A",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "gend1": {
+   "preset": "cop",
+   "seed": 708,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "gend2": {
+   "preset": "cop",
+   "seed": 709,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "president": {
+   "preset": "politique",
+   "seed": 710,
+   "suit": "#4A4D55",
+   "lapel": "#4A4D55",
+   "tie": "#9A1F2E",
+   "hairColor": "#D2D2D2",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "garde1": {
+   "preset": "officiel",
+   "seed": 711,
+   "suit": "#1F2A44",
+   "lapel": "#1F2A44",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "garde2": {
+   "preset": "officiel",
+   "seed": 712,
+   "suit": "#1F2A44",
+   "lapel": "#1F2A44",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.0,
+      0,
+      -0.4
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.1,
+        0.4,
+        -0.4
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.65,
+          0.86,
+          -0.28,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "reach": {
+         "R": [
+          1.25,
+          1.2,
+          -0.3,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        },
+        "bend": {
+         "spine": [
+          -0.08,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          0.65,
+          0.86,
+          -0.28,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "reach": {
+         "R": [
+          1.25,
+          1.2,
+          -0.3,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        },
+        "bend": {
+         "spine": [
+          -0.08,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "reach": {
+         "R": [
+          0.65,
+          0.86,
+          -0.28,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.05,
+       "toon": {
+        "reach": {
+         "R": [
+          1.25,
+          1.2,
+          -0.3,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        },
+        "bend": {
+         "spine": [
+          -0.08,
+          0,
+          0,
+          1,
+          null
+         ]
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.27,
+       "toon": {
+        "reach": {
+         "R": [
+          0.65,
+          0.86,
+          -0.28,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          1.25,
+          1.25,
+          -0.3,
+          1,
+          0.03
+         ],
+         "L": [
+          0.75,
+          0.98,
+          -0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.3,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.65,
+       "look": "camera"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn1",
+     "name": "mowField",
+     "pos": [
+      -2.5,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 5.8,
+      "h": 0.55,
+      "n": 2600,
+      "width": 0.6,
+      "path": [
+       [
+        1.15,
+        2.4,
+        0.5
+       ],
+       [
+        1.933,
+        -0.1,
+        0.5
+       ]
+      ],
+      "stripCol": "#9FCF6E"
+     }
+    },
+    {
+     "id": "hedge1",
+     "name": "hedgeWall",
+     "pos": [
+      -5.5,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "opts": {
+      "l": 6.0,
+      "h": 1.45,
+      "holeX": -0.6,
+      "burstDir": -1
+     }
+    },
+    {
+     "id": "mow1",
+     "name": "mowerLive",
+     "pos": [
+      -0.1,
+      0,
+      -0.4
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 1.15,
+      "cough": [
+       0.3,
+       0.75,
+       1.15
+      ]
+     },
+     "keys": [
+      {
+       "at": 1.2,
+       "to": [
+        -2.6,
+        0,
+        -0.4
+       ],
+       "dur": 0.733,
+       "ease": "in"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.818,
+      1.35,
+      3.15
+     ],
+     "to": [
+      -1.818,
+      1.35,
+      3.15
+     ],
+     "lookAt": [
+      2.252,
+      0.307,
+      -5.924
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      2.252,
+      0.307,
+      -5.924
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.9333,
+   "look": {
+    "sat": 0.85
+   },
+   "tethers": [
+    {
+     "a": {
+      "prop": "mow1",
+      "offset": [
+       0.12,
+       0.86,
+       -0.75
+      ]
+     },
+     "b": {
+      "actor": "mec",
+      "hand": "R"
+     },
+     "color": "#1A1A1A",
+     "radius": 0.008,
+     "radial": 6,
+     "sag": 0.02,
+     "n": 8,
+     "from": 0.15,
+     "snap": [
+      1.15,
+      0.12,
+      0.2
+     ]
+    }
+   ],
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.0,
+      0,
+      -0.4
+     ],
+     "ry": -15,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -3.5,
+        0.4,
+        -0.4
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          1.161,
+          1.25,
+          -0.616,
+          1,
+          0.03
+         ],
+         "L": [
+          0.742,
+          0.98,
+          -0.21,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          1.161,
+          1.1,
+          -0.616,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.95,
+       "look": [
+        -5.5,
+        0.6,
+        -0.4
+       ]
+      },
+      {
+       "at": 1.25,
+       "look": "camera"
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 1.57,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn2",
+     "name": "mowField",
+     "pos": [
+      -2.5,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 5.8,
+      "h": 0.55,
+      "n": 2600,
+      "width": 0.6,
+      "path": [
+       [
+        -1.0,
+        2.4,
+        0.5
+       ],
+       [
+        0.0,
+        -0.1,
+        0.5
+       ],
+       [
+        0.9,
+        -3.1,
+        0.5
+       ]
+      ],
+      "stripCol": "#9FCF6E"
+     }
+    },
+    {
+     "id": "hedge2",
+     "name": "hedgeWall",
+     "pos": [
+      -5.5,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "opts": {
+      "l": 6.0,
+      "h": 1.45,
+      "holeX": -0.6,
+      "burstDir": -1,
+      "holeAt": 0.9
+     }
+    },
+    {
+     "id": "mow2",
+     "name": "mowerLive",
+     "pos": [
+      -2.6,
+      0,
+      -0.4
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -5.6,
+        0,
+        -0.4
+       ],
+       "dur": 0.9,
+       "ease": "linear"
+      },
+      {
+       "at": 0.9,
+       "to": [
+        -8.6,
+        0,
+        -0.4
+       ],
+       "dur": 0.867,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      4.027,
+      1.9,
+      4.063
+     ],
+     "to": [
+      4.027,
+      1.9,
+      4.063
+     ],
+     "lookAt": [
+      -3.723,
+      0.027,
+      -1.973
+     ],
+     "lens": 70,
+     "ease": "linear",
+     "lookAt2": [
+      -3.723,
+      0.027,
+      -1.973
+     ]
+    }
+   ],
+   "start": 1.9333,
+   "duration": 1.7667,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "voisin",
+     "pos": [
+      -1.8,
+      0,
+      0.25
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.8,
+        0.9,
+        1.2
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.0,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.5,
+         "eye": 0.0,
+         "brow": 0.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "look": [
+        1.0,
+        0.4,
+        1.0
+       ]
+      },
+      {
+       "at": 0.62,
+       "toon": {
+        "bend": {
+         "legL": [
+          -1.1,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -1.1,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.0,
+         "eye": 0.6,
+         "brow": 0.9,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "bend": {
+         "legL": [
+          -0.0,
+          0,
+          0,
+          1,
+          null
+         ],
+         "legR": [
+          -0.0,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.5,
+         "eye": 0.4,
+         "brow": 0.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.15,
+       "look": [
+        -5.0,
+        0.4,
+        1.0
+       ]
+      },
+      {
+       "at": 1.6,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn3",
+     "name": "mowField",
+     "pos": [
+      -2.0,
+      0,
+      -0.6
+     ],
+     "opts": {
+      "w": 6.4,
+      "d": 5.6,
+      "h": 0.18,
+      "n": 2200,
+      "width": 0.6,
+      "path": [
+       [
+        0.0,
+        3.5,
+        1.6
+       ],
+       [
+        1.933,
+        -4.039,
+        1.6
+       ]
+      ],
+      "stripCol": "#9FCF6E"
+     }
+    },
+    {
+     "id": "hedge3",
+     "name": "hedgeWall",
+     "pos": [
+      0.6,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "opts": {
+      "l": 6.0,
+      "h": 1.45,
+      "holeX": -2.0,
+      "burstDir": -1,
+      "holeAt": 0.2
+     }
+    },
+    {
+     "id": "chair3",
+     "name": "deckChair",
+     "pos": [
+      -1.8,
+      0,
+      0.05
+     ]
+    },
+    {
+     "id": "gnome3",
+     "name": "gnome",
+     "pos": [
+      -3.8,
+      0,
+      1.0
+     ],
+     "ry": 20,
+     "opts": {
+      "s": 0.9,
+      "trimAt": 1.359
+     }
+    },
+    {
+     "id": "paper3",
+     "name": "newspaper",
+     "on": {
+      "actor": "voisin",
+      "hand": "R",
+      "offset": [
+       0.05,
+       0.0,
+       0.05
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.62,
+       "detach": true,
+       "fall": true,
+       "toss": [
+        0.2,
+        2.2,
+        0.4
+       ],
+       "spinFall": 8.0
+      }
+     ]
+    },
+    {
+     "id": "mow3",
+     "name": "mowerLive",
+     "pos": [
+      1.5,
+      0,
+      1.0
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -6.039,
+        0,
+        1.0
+       ],
+       "dur": 1.933,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.464,
+      0.85,
+      6.627
+     ],
+     "to": [
+      2.464,
+      0.85,
+      6.627
+     ],
+     "lookAt": [
+      -3.008,
+      0.503,
+      -1.736
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -3.008,
+      0.503,
+      -1.736
+     ]
+    }
+   ],
+   "start": 3.7,
+   "duration": 1.9333,
+   "setOpts": {
+    "houseColor": "#F2D6C9",
+    "roof": "#5A6E8C",
+    "door": "#8C2F39",
+    "frame": "#8C2F39"
+   },
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "joueur1",
+     "pos": [
+      18.5,
+      0,
+      -4.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.3,
+        20.0
+       ]
+      },
+      {
+       "at": 0.6,
+       "look": [
+        0.0,
+        0.3,
+        -20.0
+       ]
+      },
+      {
+       "at": 1.1,
+       "look": [
+        0.0,
+        0.3,
+        20.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "joueur2",
+     "pos": [
+      18.5,
+      0,
+      -1.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.3,
+        20.0
+       ]
+      },
+      {
+       "at": 0.6,
+       "look": [
+        0.0,
+        0.3,
+        -20.0
+       ]
+      },
+      {
+       "at": 1.1,
+       "look": [
+        0.0,
+        0.3,
+        20.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "joueur3",
+     "pos": [
+      18.5,
+      0,
+      2.0
+     ],
+     "ry": -90,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.3,
+        20.0
+       ]
+      },
+      {
+       "at": 0.6,
+       "look": [
+        0.0,
+        0.3,
+        -20.0
+       ]
+      },
+      {
+       "at": 1.1,
+       "look": [
+        0.0,
+        0.3,
+        20.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pitch4",
+     "name": "stripePitch",
+     "opts": {
+      "w": 34.0,
+      "d": 52.0,
+      "n": 8,
+      "passes": [
+       [
+        0.05,
+        0.21
+       ],
+       [
+        0.21,
+        0.37
+       ],
+       [
+        0.37,
+        0.53
+       ],
+       [
+        0.53,
+        0.69
+       ],
+       [
+        0.69,
+        0.85
+       ],
+       [
+        0.85,
+        1.01
+       ],
+       [
+        1.01,
+        1.17
+       ],
+       [
+        1.17,
+        1.33
+       ]
+      ]
+     }
+    },
+    {
+     "id": "stands4",
+     "name": "bleachers",
+     "pos": [
+      -21.0,
+      0,
+      0
+     ],
+     "ry": 90,
+     "opts": {
+      "l": 60,
+      "rows": 7
+     }
+    },
+    {
+     "id": "mow4",
+     "name": "mowerLive",
+     "pos": [
+      -14.875,
+      0,
+      26.0
+     ],
+     "ry": 180,
+     "scale": 3.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        -14.875,
+        0,
+        26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.05,
+       "to": [
+        -14.875,
+        0,
+        -26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 0.05,
+       "rotTo": [
+        0.0,
+        3.141592653589793,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.21,
+       "to": [
+        -10.625,
+        0,
+        -26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.21,
+       "to": [
+        -10.625,
+        0,
+        26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 0.21,
+       "rotTo": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.37,
+       "to": [
+        -6.375,
+        0,
+        26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.37,
+       "to": [
+        -6.375,
+        0,
+        -26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 0.37,
+       "rotTo": [
+        0.0,
+        3.141592653589793,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.53,
+       "to": [
+        -2.125,
+        0,
+        -26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.53,
+       "to": [
+        -2.125,
+        0,
+        26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 0.53,
+       "rotTo": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.69,
+       "to": [
+        2.125,
+        0,
+        26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.69,
+       "to": [
+        2.125,
+        0,
+        -26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 0.69,
+       "rotTo": [
+        0.0,
+        3.141592653589793,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.85,
+       "to": [
+        6.375,
+        0,
+        -26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 0.85,
+       "to": [
+        6.375,
+        0,
+        26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 0.85,
+       "rotTo": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 1.01,
+       "to": [
+        10.625,
+        0,
+        26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 1.01,
+       "to": [
+        10.625,
+        0,
+        -26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 1.01,
+       "rotTo": [
+        0.0,
+        3.141592653589793,
+        0.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 1.17,
+       "to": [
+        14.875,
+        0,
+        -26.0
+       ],
+       "dur": 0.0
+      },
+      {
+       "at": 1.17,
+       "to": [
+        14.875,
+        0,
+        26.0
+       ],
+       "dur": 0.16,
+       "ease": "linear"
+      },
+      {
+       "at": 1.17,
+       "rotTo": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "dur": 0.0
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.0,
+      27.0,
+      50.0
+     ],
+     "to": [
+      3.0,
+      27.0,
+      50.0
+     ],
+     "lookAt": [
+      2.229,
+      21.882,
+      41.444
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      2.229,
+      21.882,
+      41.444
+     ]
+    }
+   ],
+   "start": 5.6333,
+   "duration": 1.4667,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "joueur1",
+     "pos": [
+      -1.0,
+      0,
+      0.0
+     ],
+     "ry": 10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.13,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.26,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.39,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.65,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.91,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.04,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.17,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "joueur2",
+     "pos": [
+      0.0,
+      0,
+      0.3
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.06,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.19,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.58,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.71,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.97,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.23,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.36,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "joueur3",
+     "pos": [
+      1.0,
+      0,
+      0.0
+     ],
+     "ry": -10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.12,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.25,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.51,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.77,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.03,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.16,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.29,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.42,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "arbitre",
+     "pos": [
+      2.0,
+      0,
+      -0.4
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.04,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.19,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.34,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.49,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.79,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.09,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.24,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.39,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "pitch5",
+     "name": "stripePitch",
+     "pos": [
+      0.0,
+      0,
+      -28.0
+     ],
+     "opts": {
+      "w": 34.0,
+      "d": 52.0,
+      "n": 8,
+      "passes": [
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ],
+       [
+        -2.0,
+        -1.0
+       ]
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.358,
+      1.5,
+      6.6
+     ],
+     "to": [
+      0.358,
+      1.5,
+      6.6
+     ],
+     "lookAt": [
+      0.481,
+      1.519,
+      -3.399
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      0.481,
+      1.519,
+      -3.399
+     ]
+    }
+   ],
+   "start": 7.1,
+   "duration": 1.5333,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "ft60",
+     "name": "fallTree",
+     "pos": [
+      0.0,
+      0,
+      -17.0
+     ],
+     "opts": {
+      "s": 1.3,
+      "seed": 0,
+      "dir": -1.5707963267948966,
+      "fallAt": 0.526
+     }
+    },
+    {
+     "id": "ft61",
+     "name": "fallTree",
+     "pos": [
+      0.0,
+      0,
+      -14.0
+     ],
+     "opts": {
+      "s": 1.3,
+      "seed": 1,
+      "dir": 1.5707963267948966,
+      "fallAt": 0.842
+     }
+    },
+    {
+     "id": "ft62",
+     "name": "fallTree",
+     "pos": [
+      0.0,
+      0,
+      -11.0
+     ],
+     "opts": {
+      "s": 1.3,
+      "seed": 2,
+      "dir": -1.5707963267948966,
+      "fallAt": 1.158
+     }
+    },
+    {
+     "id": "ft63",
+     "name": "fallTree",
+     "pos": [
+      0.0,
+      0,
+      -8.0
+     ],
+     "opts": {
+      "s": 1.3,
+      "seed": 3,
+      "dir": 1.5707963267948966,
+      "fallAt": 1.474
+     }
+    },
+    {
+     "id": "ft64",
+     "name": "fallTree",
+     "pos": [
+      0.0,
+      0,
+      -5.0
+     ],
+     "opts": {
+      "s": 1.3,
+      "seed": 4,
+      "dir": -1.5707963267948966,
+      "fallAt": 1.789
+     }
+    },
+    {
+     "id": "tr60",
+     "name": "fallTree",
+     "pos": [
+      -2.6,
+      0,
+      -2.0
+     ],
+     "opts": {
+      "s": 1.1,
+      "seed": 9
+     }
+    },
+    {
+     "id": "tr61",
+     "name": "fallTree",
+     "pos": [
+      3.8,
+      0,
+      -4.6
+     ],
+     "opts": {
+      "s": 1.35,
+      "seed": 10
+     }
+    },
+    {
+     "id": "tr62",
+     "name": "fallTree",
+     "pos": [
+      -5.0,
+      0,
+      -7.2
+     ],
+     "opts": {
+      "s": 1.6,
+      "seed": 11
+     }
+    },
+    {
+     "id": "tr63",
+     "name": "fallTree",
+     "pos": [
+      2.6,
+      0,
+      -9.8
+     ],
+     "opts": {
+      "s": 1.1,
+      "seed": 12
+     }
+    },
+    {
+     "id": "tr64",
+     "name": "fallTree",
+     "pos": [
+      -3.8,
+      0,
+      -12.4
+     ],
+     "opts": {
+      "s": 1.35,
+      "seed": 13
+     }
+    },
+    {
+     "id": "tr65",
+     "name": "fallTree",
+     "pos": [
+      5.0,
+      0,
+      -15.0
+     ],
+     "opts": {
+      "s": 1.6,
+      "seed": 14
+     }
+    },
+    {
+     "id": "tr66",
+     "name": "fallTree",
+     "pos": [
+      -2.6,
+      0,
+      -17.6
+     ],
+     "opts": {
+      "s": 1.1,
+      "seed": 15
+     }
+    },
+    {
+     "id": "tr67",
+     "name": "fallTree",
+     "pos": [
+      3.8,
+      0,
+      -20.2
+     ],
+     "opts": {
+      "s": 1.35,
+      "seed": 16
+     }
+    },
+    {
+     "id": "tr68",
+     "name": "fallTree",
+     "pos": [
+      -5.0,
+      0,
+      -22.8
+     ],
+     "opts": {
+      "s": 1.6,
+      "seed": 17
+     }
+    },
+    {
+     "id": "tr69",
+     "name": "fallTree",
+     "pos": [
+      2.6,
+      0,
+      -25.4
+     ],
+     "opts": {
+      "s": 1.1,
+      "seed": 18
+     }
+    },
+    {
+     "id": "mow6",
+     "name": "mowerLive",
+     "pos": [
+      0.0,
+      0,
+      -22.0
+     ],
+     "ry": 0,
+     "scale": 1.5,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.0,
+        0,
+        -0.463
+       ],
+       "dur": 2.267,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.889,
+      0.55,
+      4.042
+     ],
+     "to": [
+      0.889,
+      0.55,
+      4.042
+     ],
+     "lookAt": [
+      -0.421,
+      1.599,
+      -5.816
+     ],
+     "lens": 69,
+     "ease": "linear",
+     "lookAt2": [
+      -0.421,
+      1.599,
+      -5.816
+     ]
+    }
+   ],
+   "start": 8.6333,
+   "duration": 2.2667,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "wheat7",
+     "name": "mowField",
+     "opts": {
+      "w": 26.0,
+      "d": 26.0,
+      "h": 0.9,
+      "n": 9000,
+      "width": 1.1,
+      "path": [
+       [
+        0.1,
+        3.0,
+        0.0
+       ],
+       [
+        0.113,
+        2.898,
+        0.776
+       ],
+       [
+        0.126,
+        2.598,
+        1.5
+       ],
+       [
+        0.139,
+        2.121,
+        2.121
+       ],
+       [
+        0.152,
+        1.5,
+        2.598
+       ],
+       [
+        0.165,
+        0.776,
+        2.898
+       ],
+       [
+        0.178,
+        0.0,
+        3.0
+       ],
+       [
+        0.191,
+        -0.776,
+        2.898
+       ],
+       [
+        0.204,
+        -1.5,
+        2.598
+       ],
+       [
+        0.217,
+        -2.121,
+        2.121
+       ],
+       [
+        0.23,
+        -2.598,
+        1.5
+       ],
+       [
+        0.243,
+        -2.898,
+        0.776
+       ],
+       [
+        0.256,
+        -3.0,
+        0.0
+       ],
+       [
+        0.269,
+        -2.898,
+        -0.776
+       ],
+       [
+        0.282,
+        -2.598,
+        -1.5
+       ],
+       [
+        0.295,
+        -2.121,
+        -2.121
+       ],
+       [
+        0.308,
+        -1.5,
+        -2.598
+       ],
+       [
+        0.321,
+        -0.776,
+        -2.898
+       ],
+       [
+        0.334,
+        -0.0,
+        -3.0
+       ],
+       [
+        0.347,
+        0.776,
+        -2.898
+       ],
+       [
+        0.36,
+        1.5,
+        -2.598
+       ],
+       [
+        0.373,
+        2.121,
+        -2.121
+       ],
+       [
+        0.385,
+        2.598,
+        -1.5
+       ],
+       [
+        0.398,
+        2.898,
+        -0.776
+       ],
+       [
+        0.411,
+        3.0,
+        -0.0
+       ],
+       [
+        0.461,
+        6.0,
+        0.0
+       ],
+       [
+        0.461,
+        6.0,
+        0.0
+       ],
+       [
+        0.487,
+        5.796,
+        1.553
+       ],
+       [
+        0.513,
+        5.196,
+        3.0
+       ],
+       [
+        0.539,
+        4.243,
+        4.243
+       ],
+       [
+        0.565,
+        3.0,
+        5.196
+       ],
+       [
+        0.591,
+        1.553,
+        5.796
+       ],
+       [
+        0.617,
+        0.0,
+        6.0
+       ],
+       [
+        0.643,
+        -1.553,
+        5.796
+       ],
+       [
+        0.669,
+        -3.0,
+        5.196
+       ],
+       [
+        0.695,
+        -4.243,
+        4.243
+       ],
+       [
+        0.721,
+        -5.196,
+        3.0
+       ],
+       [
+        0.747,
+        -5.796,
+        1.553
+       ],
+       [
+        0.772,
+        -6.0,
+        0.0
+       ],
+       [
+        0.798,
+        -5.796,
+        -1.553
+       ],
+       [
+        0.824,
+        -5.196,
+        -3.0
+       ],
+       [
+        0.85,
+        -4.243,
+        -4.243
+       ],
+       [
+        0.876,
+        -3.0,
+        -5.196
+       ],
+       [
+        0.902,
+        -1.553,
+        -5.796
+       ],
+       [
+        0.928,
+        -0.0,
+        -6.0
+       ],
+       [
+        0.954,
+        1.553,
+        -5.796
+       ],
+       [
+        0.98,
+        3.0,
+        -5.196
+       ],
+       [
+        1.006,
+        4.243,
+        -4.243
+       ],
+       [
+        1.032,
+        5.196,
+        -3.0
+       ],
+       [
+        1.058,
+        5.796,
+        -1.553
+       ],
+       [
+        1.084,
+        6.0,
+        -0.0
+       ],
+       [
+        1.133,
+        9.0,
+        0.0
+       ],
+       [
+        1.133,
+        9.0,
+        0.0
+       ],
+       [
+        1.172,
+        8.693,
+        2.329
+       ],
+       [
+        1.211,
+        7.794,
+        4.5
+       ],
+       [
+        1.25,
+        6.364,
+        6.364
+       ],
+       [
+        1.289,
+        4.5,
+        7.794
+       ],
+       [
+        1.328,
+        2.329,
+        8.693
+       ],
+       [
+        1.367,
+        0.0,
+        9.0
+       ],
+       [
+        1.406,
+        -2.329,
+        8.693
+       ],
+       [
+        1.445,
+        -4.5,
+        7.794
+       ],
+       [
+        1.484,
+        -6.364,
+        6.364
+       ],
+       [
+        1.523,
+        -7.794,
+        4.5
+       ],
+       [
+        1.562,
+        -8.693,
+        2.329
+       ],
+       [
+        1.601,
+        -9.0,
+        0.0
+       ],
+       [
+        1.64,
+        -8.693,
+        -2.329
+       ],
+       [
+        1.679,
+        -7.794,
+        -4.5
+       ],
+       [
+        1.717,
+        -6.364,
+        -6.364
+       ],
+       [
+        1.756,
+        -4.5,
+        -7.794
+       ],
+       [
+        1.795,
+        -2.329,
+        -8.693
+       ],
+       [
+        1.834,
+        -0.0,
+        -9.0
+       ],
+       [
+        1.873,
+        2.329,
+        -8.693
+       ],
+       [
+        1.912,
+        4.5,
+        -7.794
+       ],
+       [
+        1.951,
+        6.364,
+        -6.364
+       ],
+       [
+        1.99,
+        7.794,
+        -4.5
+       ],
+       [
+        2.029,
+        8.693,
+        -2.329
+       ],
+       [
+        2.068,
+        9.0,
+        -0.0
+       ]
+      ],
+      "bw": 0.035,
+      "cols": [
+       "#E2C25A",
+       "#D4B048",
+       "#EBD27A",
+       "#C9A43E"
+      ],
+      "cutCol": "#C8B07A",
+      "ground": "#B8964E",
+      "stripCol": "#D9C88E"
+     }
+    },
+    {
+     "id": "mow7",
+     "name": "mowerLive",
+     "pos": [
+      3.0,
+      0,
+      0.0
+     ],
+     "ry": -90,
+     "scale": 3.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        2.898,
+        0,
+        0.776
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.113,
+       "to": [
+        2.598,
+        0,
+        1.5
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.126,
+       "to": [
+        2.121,
+        0,
+        2.121
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.139,
+       "to": [
+        1.5,
+        0,
+        2.598
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.152,
+       "to": [
+        0.776,
+        0,
+        2.898
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.165,
+       "to": [
+        0.0,
+        0,
+        3.0
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.178,
+       "to": [
+        -0.776,
+        0,
+        2.898
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.191,
+       "to": [
+        -1.5,
+        0,
+        2.598
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.204,
+       "to": [
+        -2.121,
+        0,
+        2.121
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.217,
+       "to": [
+        -2.598,
+        0,
+        1.5
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.23,
+       "to": [
+        -2.898,
+        0,
+        0.776
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.243,
+       "to": [
+        -3.0,
+        0,
+        0.0
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.256,
+       "to": [
+        -2.898,
+        0,
+        -0.776
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.269,
+       "to": [
+        -2.598,
+        0,
+        -1.5
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.282,
+       "to": [
+        -2.121,
+        0,
+        -2.121
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.295,
+       "to": [
+        -1.5,
+        0,
+        -2.598
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.308,
+       "to": [
+        -0.776,
+        0,
+        -2.898
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.321,
+       "to": [
+        -0.0,
+        0,
+        -3.0
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.334,
+       "to": [
+        0.776,
+        0,
+        -2.898
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.347,
+       "to": [
+        1.5,
+        0,
+        -2.598
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.36,
+       "to": [
+        2.121,
+        0,
+        -2.121
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.373,
+       "to": [
+        2.598,
+        0,
+        -1.5
+       ],
+       "dur": 0.012,
+       "ease": "linear"
+      },
+      {
+       "at": 0.385,
+       "to": [
+        2.898,
+        0,
+        -0.776
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.398,
+       "to": [
+        3.0,
+        0,
+        -0.0
+       ],
+       "dur": 0.013,
+       "ease": "linear"
+      },
+      {
+       "at": 0.411,
+       "to": [
+        6.0,
+        0,
+        0.0
+       ],
+       "dur": 0.05,
+       "ease": "linear"
+      },
+      {
+       "at": 0.461,
+       "to": [
+        6.0,
+        0,
+        0.0
+       ],
+       "dur": 0.0,
+       "ease": "linear"
+      },
+      {
+       "at": 0.461,
+       "to": [
+        5.796,
+        0,
+        1.553
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.487,
+       "to": [
+        5.196,
+        0,
+        3.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.513,
+       "to": [
+        4.243,
+        0,
+        4.243
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.539,
+       "to": [
+        3.0,
+        0,
+        5.196
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.565,
+       "to": [
+        1.553,
+        0,
+        5.796
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.591,
+       "to": [
+        0.0,
+        0,
+        6.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.617,
+       "to": [
+        -1.553,
+        0,
+        5.796
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.643,
+       "to": [
+        -3.0,
+        0,
+        5.196
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.669,
+       "to": [
+        -4.243,
+        0,
+        4.243
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.695,
+       "to": [
+        -5.196,
+        0,
+        3.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.721,
+       "to": [
+        -5.796,
+        0,
+        1.553
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.747,
+       "to": [
+        -6.0,
+        0,
+        0.0
+       ],
+       "dur": 0.025,
+       "ease": "linear"
+      },
+      {
+       "at": 0.772,
+       "to": [
+        -5.796,
+        0,
+        -1.553
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.798,
+       "to": [
+        -5.196,
+        0,
+        -3.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.824,
+       "to": [
+        -4.243,
+        0,
+        -4.243
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.85,
+       "to": [
+        -3.0,
+        0,
+        -5.196
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.876,
+       "to": [
+        -1.553,
+        0,
+        -5.796
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.902,
+       "to": [
+        -0.0,
+        0,
+        -6.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.928,
+       "to": [
+        1.553,
+        0,
+        -5.796
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.954,
+       "to": [
+        3.0,
+        0,
+        -5.196
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 0.98,
+       "to": [
+        4.243,
+        0,
+        -4.243
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 1.006,
+       "to": [
+        5.196,
+        0,
+        -3.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 1.032,
+       "to": [
+        5.796,
+        0,
+        -1.553
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 1.058,
+       "to": [
+        6.0,
+        0,
+        -0.0
+       ],
+       "dur": 0.026,
+       "ease": "linear"
+      },
+      {
+       "at": 1.084,
+       "to": [
+        9.0,
+        0,
+        0.0
+       ],
+       "dur": 0.049,
+       "ease": "linear"
+      },
+      {
+       "at": 1.133,
+       "to": [
+        9.0,
+        0,
+        0.0
+       ],
+       "dur": 0.0,
+       "ease": "linear"
+      },
+      {
+       "at": 1.133,
+       "to": [
+        8.693,
+        0,
+        2.329
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.172,
+       "to": [
+        7.794,
+        0,
+        4.5
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.211,
+       "to": [
+        6.364,
+        0,
+        6.364
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.25,
+       "to": [
+        4.5,
+        0,
+        7.794
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.289,
+       "to": [
+        2.329,
+        0,
+        8.693
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.328,
+       "to": [
+        0.0,
+        0,
+        9.0
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.367,
+       "to": [
+        -2.329,
+        0,
+        8.693
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.406,
+       "to": [
+        -4.5,
+        0,
+        7.794
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.445,
+       "to": [
+        -6.364,
+        0,
+        6.364
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.484,
+       "to": [
+        -7.794,
+        0,
+        4.5
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.523,
+       "to": [
+        -8.693,
+        0,
+        2.329
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.562,
+       "to": [
+        -9.0,
+        0,
+        0.0
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.601,
+       "to": [
+        -8.693,
+        0,
+        -2.329
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.64,
+       "to": [
+        -7.794,
+        0,
+        -4.5
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.679,
+       "to": [
+        -6.364,
+        0,
+        -6.364
+       ],
+       "dur": 0.038,
+       "ease": "linear"
+      },
+      {
+       "at": 1.717,
+       "to": [
+        -4.5,
+        0,
+        -7.794
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.756,
+       "to": [
+        -2.329,
+        0,
+        -8.693
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.795,
+       "to": [
+        -0.0,
+        0,
+        -9.0
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.834,
+       "to": [
+        2.329,
+        0,
+        -8.693
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.873,
+       "to": [
+        4.5,
+        0,
+        -7.794
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.912,
+       "to": [
+        6.364,
+        0,
+        -6.364
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.951,
+       "to": [
+        7.794,
+        0,
+        -4.5
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 1.99,
+       "to": [
+        8.693,
+        0,
+        -2.329
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      },
+      {
+       "at": 2.029,
+       "to": [
+        9.0,
+        0,
+        -0.0
+       ],
+       "dur": 0.039,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      36.0,
+      8.5
+     ],
+     "to": [
+      0.0,
+      36.0,
+      8.5
+     ],
+     "lookAt": [
+      0.0,
+      26.636,
+      4.991
+     ],
+     "lens": 71,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      26.636,
+      4.991
+     ]
+    }
+   ],
+   "start": 10.9,
+   "duration": 2.2667,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "savant1",
+     "pos": [
+      3.0,
+      0,
+      0.5
+     ],
+     "ry": 200,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.0,
+        12.0,
+        -8.0
+       ]
+      },
+      {
+       "at": 1.55,
+       "look": "camera"
+      },
+      {
+       "at": 2.15,
+       "look": [
+        1.0,
+        12.0,
+        -8.0
+       ]
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.05,
+          0.08,
+          0.18,
+          1,
+          0.02
+         ],
+         "L": [
+          "face",
+          0.05,
+          0.08,
+          0.18,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "bend": {
+         "spine": [
+          -0.3,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "eye": 0.5,
+         "brow": 0.9
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "savant2",
+     "pos": [
+      1.6,
+      0,
+      -0.9
+     ],
+     "ry": 160,
+     "clip": "kneelLook",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.9,
+        0.0,
+        -0.2
+       ]
+      },
+      {
+       "at": 1.1,
+       "look": "camera"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "face": {
+         "eye": 0.5,
+         "brow": 0.8,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.1
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "wheat8",
+     "name": "mowField",
+     "opts": {
+      "w": 26.0,
+      "d": 26.0,
+      "h": 0.9,
+      "n": 6000,
+      "width": 1.1,
+      "path": [
+       [
+        -4.9,
+        3.0,
+        0.0
+       ],
+       [
+        -4.887,
+        2.898,
+        0.776
+       ],
+       [
+        -4.874,
+        2.598,
+        1.5
+       ],
+       [
+        -4.861,
+        2.121,
+        2.121
+       ],
+       [
+        -4.848,
+        1.5,
+        2.598
+       ],
+       [
+        -4.835,
+        0.776,
+        2.898
+       ],
+       [
+        -4.822,
+        0.0,
+        3.0
+       ],
+       [
+        -4.809,
+        -0.776,
+        2.898
+       ],
+       [
+        -4.796,
+        -1.5,
+        2.598
+       ],
+       [
+        -4.783,
+        -2.121,
+        2.121
+       ],
+       [
+        -4.77,
+        -2.598,
+        1.5
+       ],
+       [
+        -4.757,
+        -2.898,
+        0.776
+       ],
+       [
+        -4.744,
+        -3.0,
+        0.0
+       ],
+       [
+        -4.731,
+        -2.898,
+        -0.776
+       ],
+       [
+        -4.718,
+        -2.598,
+        -1.5
+       ],
+       [
+        -4.705,
+        -2.121,
+        -2.121
+       ],
+       [
+        -4.692,
+        -1.5,
+        -2.598
+       ],
+       [
+        -4.679,
+        -0.776,
+        -2.898
+       ],
+       [
+        -4.666,
+        -0.0,
+        -3.0
+       ],
+       [
+        -4.6530000000000005,
+        0.776,
+        -2.898
+       ],
+       [
+        -4.64,
+        1.5,
+        -2.598
+       ],
+       [
+        -4.627,
+        2.121,
+        -2.121
+       ],
+       [
+        -4.615,
+        2.598,
+        -1.5
+       ],
+       [
+        -4.602,
+        2.898,
+        -0.776
+       ],
+       [
+        -4.589,
+        3.0,
+        -0.0
+       ],
+       [
+        -4.539,
+        6.0,
+        0.0
+       ],
+       [
+        -4.539,
+        6.0,
+        0.0
+       ],
+       [
+        -4.513,
+        5.796,
+        1.553
+       ],
+       [
+        -4.487,
+        5.196,
+        3.0
+       ],
+       [
+        -4.461,
+        4.243,
+        4.243
+       ],
+       [
+        -4.4350000000000005,
+        3.0,
+        5.196
+       ],
+       [
+        -4.409,
+        1.553,
+        5.796
+       ],
+       [
+        -4.383,
+        0.0,
+        6.0
+       ],
+       [
+        -4.357,
+        -1.553,
+        5.796
+       ],
+       [
+        -4.3309999999999995,
+        -3.0,
+        5.196
+       ],
+       [
+        -4.305,
+        -4.243,
+        4.243
+       ],
+       [
+        -4.279,
+        -5.196,
+        3.0
+       ],
+       [
+        -4.253,
+        -5.796,
+        1.553
+       ],
+       [
+        -4.228,
+        -6.0,
+        0.0
+       ],
+       [
+        -4.202,
+        -5.796,
+        -1.553
+       ],
+       [
+        -4.176,
+        -5.196,
+        -3.0
+       ],
+       [
+        -4.15,
+        -4.243,
+        -4.243
+       ],
+       [
+        -4.124,
+        -3.0,
+        -5.196
+       ],
+       [
+        -4.098,
+        -1.553,
+        -5.796
+       ],
+       [
+        -4.072,
+        -0.0,
+        -6.0
+       ],
+       [
+        -4.046,
+        1.553,
+        -5.796
+       ],
+       [
+        -4.02,
+        3.0,
+        -5.196
+       ],
+       [
+        -3.9939999999999998,
+        4.243,
+        -4.243
+       ],
+       [
+        -3.968,
+        5.196,
+        -3.0
+       ],
+       [
+        -3.942,
+        5.796,
+        -1.553
+       ],
+       [
+        -3.916,
+        6.0,
+        -0.0
+       ],
+       [
+        -3.867,
+        9.0,
+        0.0
+       ],
+       [
+        -3.867,
+        9.0,
+        0.0
+       ],
+       [
+        -3.8280000000000003,
+        8.693,
+        2.329
+       ],
+       [
+        -3.7889999999999997,
+        7.794,
+        4.5
+       ],
+       [
+        -3.75,
+        6.364,
+        6.364
+       ],
+       [
+        -3.7110000000000003,
+        4.5,
+        7.794
+       ],
+       [
+        -3.6719999999999997,
+        2.329,
+        8.693
+       ],
+       [
+        -3.633,
+        0.0,
+        9.0
+       ],
+       [
+        -3.5940000000000003,
+        -2.329,
+        8.693
+       ],
+       [
+        -3.5549999999999997,
+        -4.5,
+        7.794
+       ],
+       [
+        -3.516,
+        -6.364,
+        6.364
+       ],
+       [
+        -3.4770000000000003,
+        -7.794,
+        4.5
+       ],
+       [
+        -3.4379999999999997,
+        -8.693,
+        2.329
+       ],
+       [
+        -3.399,
+        -9.0,
+        0.0
+       ],
+       [
+        -3.3600000000000003,
+        -8.693,
+        -2.329
+       ],
+       [
+        -3.3209999999999997,
+        -7.794,
+        -4.5
+       ],
+       [
+        -3.283,
+        -6.364,
+        -6.364
+       ],
+       [
+        -3.2439999999999998,
+        -4.5,
+        -7.794
+       ],
+       [
+        -3.205,
+        -2.329,
+        -8.693
+       ],
+       [
+        -3.166,
+        -0.0,
+        -9.0
+       ],
+       [
+        -3.127,
+        2.329,
+        -8.693
+       ],
+       [
+        -3.088,
+        4.5,
+        -7.794
+       ],
+       [
+        -3.049,
+        6.364,
+        -6.364
+       ],
+       [
+        -3.01,
+        7.794,
+        -4.5
+       ],
+       [
+        -2.971,
+        8.693,
+        -2.329
+       ],
+       [
+        -2.932,
+        9.0,
+        -0.0
+       ]
+      ],
+      "bw": 0.035,
+      "cols": [
+       "#E2C25A",
+       "#D4B048",
+       "#EBD27A",
+       "#C9A43E"
+      ],
+      "cutCol": "#C8B07A",
+      "ground": "#B8964E",
+      "stripCol": "#D9C88E"
+     }
+    },
+    {
+     "id": "bino8",
+     "name": "binoculars",
+     "on": {
+      "actor": "savant1",
+      "hand": "R",
+      "offset": [
+       0.04,
+       0.02,
+       0.06
+      ]
+     }
+    },
+    {
+     "id": "loupe8",
+     "name": "magnifier",
+     "on": {
+      "actor": "savant2",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "ovni8",
+     "name": "hicBurst",
+     "pos": [
+      2.2,
+      2.9,
+      0.4
+     ],
+     "face": "camera",
+     "opts": {
+      "at": [
+       0.9
+      ],
+      "w": 0.75,
+      "text": "OVNI ?",
+      "inner": 0.76,
+      "fit": 0.6,
+      "hold": 0.45,
+      "bold": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      5.2,
+      1.3,
+      4.4
+     ],
+     "to": [
+      5.2,
+      1.3,
+      4.4
+     ],
+     "lookAt": [
+      -0.246,
+      2.198,
+      -3.939
+     ],
+     "lens": 41,
+     "ease": "linear",
+     "lookAt2": [
+      -0.246,
+      2.198,
+      -3.939
+     ]
+    }
+   ],
+   "start": 13.1667,
+   "duration": 2.4333,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gend1",
+     "pos": [
+      0.67,
+      0,
+      -3.4
+     ],
+     "ry": 0,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.6,
+        0,
+        2.6
+       ],
+       "dur": 2.0,
+       "ease": "in",
+       "clip": "run",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        -1.0,
+        0.6,
+        3.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "sweat": 1.0,
+         "brow": -0.6,
+         "mouth": "clench"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "gend2",
+     "pos": [
+      1.27,
+      0,
+      -3.4
+     ],
+     "ry": 0,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.2,
+        0,
+        2.6
+       ],
+       "dur": 1.9,
+       "ease": "in",
+       "clip": "run",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        -1.0,
+        0.6,
+        3.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "sweat": 1.0,
+         "brow": -0.6,
+         "mouth": "clench"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "sign9",
+     "name": "signBoard",
+     "pos": [
+      0.0,
+      0,
+      -4.0
+     ],
+     "opts": {
+      "text": "GENDARMERIE",
+      "w": 2.6,
+      "h": 0.5,
+      "height": 2.25,
+      "bg": "#1F3B73",
+      "fg": "#FFFFFF",
+      "frame": "#F4F4F0",
+      "posts": false
+     }
+    },
+    {
+     "id": "flag9",
+     "name": "regionFlag",
+     "pos": [
+      2.6,
+      0,
+      -3.8
+     ],
+     "opts": {
+      "kind": "fr"
+     }
+    },
+    {
+     "id": "mow9",
+     "name": "mowerLive",
+     "pos": [
+      3.5,
+      0,
+      3.6
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.4,
+        0,
+        3.6
+       ],
+       "dur": 2.0,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -5.013,
+      1.6,
+      11.247
+     ],
+     "to": [
+      -5.013,
+      1.6,
+      11.247
+     ],
+     "lookAt": [
+      0.436,
+      0.81,
+      2.899
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.436,
+      0.81,
+      2.899
+     ]
+    }
+   ],
+   "start": 15.6,
+   "duration": 2.0,
+   "setOpts": {
+    "houseColor": "#D8DDE6",
+    "roof": "#3A4A6A",
+    "door": "#1F3B73",
+    "frame": "#1F3B73"
+   },
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "gend1",
+     "pos": [
+      -5.6,
+      0,
+      3.3
+     ],
+     "ry": -90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -6.2,
+        0,
+        3.3
+       ],
+       "dur": 0.9,
+       "ease": "linear",
+       "clip": "run",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        -12.0,
+        0.8,
+        3.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "sweat": 1.0,
+         "brow": 0.8,
+         "mouth": "tongueout",
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "angry"
+    },
+    {
+     "id": "gend2",
+     "pos": [
+      -4.7,
+      0,
+      3.9
+     ],
+     "ry": -90,
+     "clip": "run",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -5.3,
+        0,
+        3.9
+       ],
+       "dur": 0.9,
+       "ease": "linear",
+       "clip": "run",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        -12.0,
+        0.8,
+        3.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "sweat": 1.0,
+         "brow": 0.8,
+         "mouth": "tongueout",
+         "eye": 0.3
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "id": "mow10",
+     "name": "mowerLive",
+     "pos": [
+      -8.4,
+      0,
+      3.6
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        -9.0,
+        0,
+        3.6
+       ],
+       "dur": 0.9,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -14.5,
+      1.1,
+      3.9
+     ],
+     "to": [
+      -14.5,
+      1.1,
+      3.9
+     ],
+     "lookAt": [
+      -4.512,
+      0.755,
+      3.564
+     ],
+     "lens": 31,
+     "ease": "linear",
+     "lookAt2": [
+      -4.512,
+      0.755,
+      3.564
+     ]
+    }
+   ],
+   "start": 17.6,
+   "duration": 0.9,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "garde1",
+     "pos": [
+      -2.2,
+      0,
+      -10.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.3,
+        -3.0
+       ]
+      },
+      {
+       "at": 0.5,
+       "look": [
+        -3.0,
+        0.3,
+        -1.0
+       ]
+      },
+      {
+       "at": 1.4,
+       "look": [
+        6.0,
+        0.3,
+        4.5
+       ]
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "garde2",
+     "pos": [
+      2.2,
+      0,
+      -10.6
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        0.3,
+        -3.0
+       ]
+      },
+      {
+       "at": 0.8,
+       "look": [
+        3.0,
+        0.3,
+        -1.0
+       ]
+      },
+      {
+       "at": 1.4,
+       "look": [
+        6.0,
+        0.3,
+        4.5
+       ]
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "palais11",
+     "name": "townHall",
+     "pos": [
+      0.0,
+      0,
+      -12.0
+     ],
+     "opts": {
+      "text": "PALAIS",
+      "w": 10
+     }
+    },
+    {
+     "id": "lawn11",
+     "name": "mowField",
+     "pos": [
+      0.0,
+      0,
+      -3.0
+     ],
+     "opts": {
+      "w": 10.0,
+      "d": 10.5,
+      "h": 0.22,
+      "n": 4000,
+      "width": 1.5,
+      "path": [
+       [
+        -3.0,
+        -4.6,
+        -4.5
+       ],
+       [
+        -2.38,
+        4.6,
+        -4.5
+       ],
+       [
+        -2.38,
+        4.6,
+        -3.0
+       ],
+       [
+        -1.76,
+        -4.6,
+        -3.0
+       ],
+       [
+        -1.76,
+        -4.6,
+        -1.5
+       ],
+       [
+        -1.14,
+        4.6,
+        -1.5
+       ],
+       [
+        -1.14,
+        4.6,
+        0.0
+       ],
+       [
+        -0.52,
+        -4.6,
+        0.0
+       ],
+       [
+        -0.52,
+        -4.6,
+        1.5
+       ],
+       [
+        0.1,
+        4.6,
+        1.5
+       ],
+       [
+        0.1,
+        4.6,
+        3.0
+       ],
+       [
+        1.2,
+        -4.6,
+        3.0
+       ],
+       [
+        1.2,
+        -4.6,
+        4.5
+       ],
+       [
+        2.3,
+        4.6,
+        4.5
+       ]
+      ],
+      "stripCols": [
+       "#8DC05E",
+       "#74AE4C"
+      ],
+      "short": 0.25
+     }
+    },
+    {
+     "id": "mow11",
+     "name": "mowerLive",
+     "pos": [
+      4.6,
+      0,
+      0.0
+     ],
+     "ry": 90,
+     "scale": 1.4,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.1,
+       "to": [
+        -4.6,
+        0,
+        0.0
+       ],
+       "dur": 1.1,
+       "ease": "linear"
+      },
+      {
+       "at": 1.2,
+       "to": [
+        -4.6,
+        0,
+        1.5
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.2,
+       "to": [
+        4.6,
+        0,
+        1.5
+       ],
+       "dur": 1.1,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.248,
+      6.5,
+      14.479
+     ],
+     "to": [
+      3.248,
+      6.5,
+      14.479
+     ],
+     "lookAt": [
+      1.106,
+      3.622,
+      5.145
+     ],
+     "lens": 73,
+     "ease": "linear",
+     "lookAt2": [
+      1.106,
+      3.622,
+      5.145
+     ]
+    }
+   ],
+   "start": 18.5,
+   "duration": 2.5,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "president",
+     "pos": [
+      0.0,
+      0,
+      0.0
+     ],
+     "ry": 20,
+     "clip": "kneelLook",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.4,
+        0.0,
+        0.7
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.2,
+          0.08,
+          0.7,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "reach": {
+         "R": [
+          0.55,
+          0.08,
+          0.6,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.95,
+       "clip": "stand"
+      },
+      {
+       "at": 1.05,
+       "look": "camera"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          0.25,
+          1.55,
+          0.45,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "thumbUp"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.15,
+         "brow": 0.4
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn12",
+     "name": "mowField",
+     "pos": [
+      0.0,
+      0,
+      -1.0
+     ],
+     "opts": {
+      "w": 10.0,
+      "d": 8.0,
+      "h": 0.22,
+      "n": 2600,
+      "width": 1.5,
+      "path": [
+       [
+        -1.0,
+        -5.0,
+        -3.0
+       ],
+       [
+        -1.0,
+        5.0,
+        -1.5
+       ],
+       [
+        -1.0,
+        -5.0,
+        0.0
+       ],
+       [
+        -1.0,
+        5.0,
+        1.5
+       ],
+       [
+        -1.0,
+        -5.0,
+        3.0
+       ]
+      ],
+      "stripCols": [
+       "#8DC05E",
+       "#74AE4C"
+      ],
+      "short": 0.25
+     }
+    },
+    {
+     "id": "palais12",
+     "name": "townHall",
+     "pos": [
+      0.0,
+      0,
+      -14.0
+     ],
+     "opts": {
+      "text": "PALAIS",
+      "w": 12
+     }
+    },
+    {
+     "id": "pin12",
+     "name": "cockade",
+     "on": {
+      "actor": "president",
+      "joint": "torso",
+      "offset": [
+       -0.15,
+       0.6,
+       0.17
+      ]
+     }
+    },
+    {
+     "id": "mow12",
+     "name": "mowerLive",
+     "pos": [
+      1.4,
+      0,
+      -0.4
+     ],
+     "ry": -60,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.884,
+      1.3,
+      3.835
+     ],
+     "to": [
+      1.884,
+      1.3,
+      3.835
+     ],
+     "lookAt": [
+      -0.697,
+      0.574,
+      -5.799
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      -0.697,
+      0.574,
+      -5.799
+     ]
+    }
+   ],
+   "start": 21.0,
+   "duration": 2.2,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "grassland",
+   "lines": [],
+   "actors": [
+    {
+     "id": "president",
+     "pos": [
+      -0.3,
+      0,
+      1.0
+     ],
+     "ry": 120,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.6,
+        0.9,
+        -0.5
+       ]
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "reach": {
+         "R": [
+          0.62,
+          0.95,
+          -0.55,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "face": {
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.75,
+       "look": "camera"
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.22,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.36,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.5,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.64,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.78,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.05
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "garde1",
+     "pos": [
+      -1.8,
+      0,
+      -1.6
+     ],
+     "ry": 30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.6,
+        0.6,
+        0.0
+       ]
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "touch": {
+         "R": [
+          "face",
+          -0.14,
+          0.2,
+          0.1,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.5,
+       "look": "camera"
+      },
+      {
+       "at": 2.05,
+       "look": [
+        0.6,
+        0.6,
+        0.0
+       ]
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "mow13",
+     "name": "mowerLive",
+     "pos": [
+      0.6,
+      0,
+      0.0
+     ],
+     "ry": -120,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0,
+      "bowAt": 0.9
+     }
+    },
+    {
+     "id": "med13",
+     "name": "medal",
+     "scale": 1.6,
+     "keys": [
+      {
+       "at": 0.0,
+       "attach": "mow13",
+       "offset": [
+        0.0,
+        0.92,
+        -0.85
+       ]
+      },
+      {
+       "at": 0.0,
+       "scale": 0.01,
+       "dur": 0.0
+      },
+      {
+       "at": 0.6,
+       "scale": 1.6,
+       "dur": 0.08,
+       "ease": "outBack"
+      }
+     ]
+    },
+    {
+     "id": "palais13",
+     "name": "townHall",
+     "pos": [
+      0.0,
+      0,
+      -9.0
+     ],
+     "opts": {
+      "text": "PALAIS",
+      "w": 12
+     }
+    },
+    {
+     "id": "flag13",
+     "name": "regionFlag",
+     "pos": [
+      -2.6,
+      0,
+      -1.2
+     ],
+     "opts": {
+      "kind": "fr"
+     }
+    },
+    {
+     "id": "pin13",
+     "name": "cockade",
+     "on": {
+      "actor": "president",
+      "joint": "torso",
+      "offset": [
+       -0.15,
+       0.6,
+       0.17
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.764,
+      1.4,
+      3.788
+     ],
+     "to": [
+      2.764,
+      1.4,
+      3.788
+     ],
+     "lookAt": [
+      -3.481,
+      0.847,
+      -4.002
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -3.481,
+      0.847,
+      -4.002
+     ]
+    }
+   ],
+   "start": 23.2,
+   "duration": 2.3333,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "grassland",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "land14",
+     "name": "mowField",
+     "opts": {
+      "w": 78.0,
+      "d": 76.0,
+      "h": 0.7,
+      "n": 7000,
+      "width": 5.0,
+      "path": [
+       [
+        0.05,
+        -38.0,
+        -36.0
+       ],
+       [
+        0.173,
+        38.0,
+        -36.0
+       ],
+       [
+        0.173,
+        38.0,
+        -31.0
+       ],
+       [
+        0.297,
+        -38.0,
+        -31.0
+       ],
+       [
+        0.297,
+        -38.0,
+        -26.0
+       ],
+       [
+        0.42,
+        38.0,
+        -26.0
+       ],
+       [
+        0.42,
+        38.0,
+        -21.0
+       ],
+       [
+        0.543,
+        -38.0,
+        -21.0
+       ],
+       [
+        0.543,
+        -38.0,
+        -16.0
+       ],
+       [
+        0.667,
+        38.0,
+        -16.0
+       ],
+       [
+        0.667,
+        38.0,
+        -11.0
+       ],
+       [
+        0.79,
+        -38.0,
+        -11.0
+       ],
+       [
+        0.79,
+        -38.0,
+        -6.0
+       ],
+       [
+        0.913,
+        38.0,
+        -6.0
+       ],
+       [
+        0.913,
+        38.0,
+        -1.0
+       ],
+       [
+        1.037,
+        -38.0,
+        -1.0
+       ],
+       [
+        1.037,
+        -38.0,
+        4.0
+       ],
+       [
+        1.16,
+        38.0,
+        4.0
+       ],
+       [
+        1.16,
+        38.0,
+        9.0
+       ],
+       [
+        1.283,
+        -38.0,
+        9.0
+       ],
+       [
+        1.283,
+        -38.0,
+        14.0
+       ],
+       [
+        1.407,
+        38.0,
+        14.0
+       ],
+       [
+        1.407,
+        38.0,
+        19.0
+       ],
+       [
+        1.53,
+        -38.0,
+        19.0
+       ],
+       [
+        1.53,
+        -38.0,
+        24.0
+       ],
+       [
+        1.653,
+        38.0,
+        24.0
+       ],
+       [
+        1.653,
+        38.0,
+        29.0
+       ],
+       [
+        1.777,
+        -38.0,
+        29.0
+       ],
+       [
+        1.777,
+        -38.0,
+        34.0
+       ],
+       [
+        1.9,
+        38.0,
+        34.0
+       ]
+      ],
+      "stripCols": [
+       "#8DC05E",
+       "#74AE4C"
+      ],
+      "bw": 0.06
+     }
+    },
+    {
+     "id": "mow14",
+     "name": "mowerLive",
+     "pos": [
+      -38.0,
+      0,
+      -36.0
+     ],
+     "ry": 90,
+     "scale": 6.0,
+     "opts": {
+      "runAt": 0.0
+     },
+     "keys": [
+      {
+       "at": 0.05,
+       "to": [
+        38.0,
+        0,
+        -36.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 0.173,
+       "to": [
+        38.0,
+        0,
+        -31.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.173,
+       "to": [
+        -38.0,
+        0,
+        -31.0
+       ],
+       "dur": 0.124,
+       "ease": "linear"
+      },
+      {
+       "at": 0.297,
+       "to": [
+        -38.0,
+        0,
+        -26.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.297,
+       "to": [
+        38.0,
+        0,
+        -26.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 0.42,
+       "to": [
+        38.0,
+        0,
+        -21.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.42,
+       "to": [
+        -38.0,
+        0,
+        -21.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 0.543,
+       "to": [
+        -38.0,
+        0,
+        -16.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.543,
+       "to": [
+        38.0,
+        0,
+        -16.0
+       ],
+       "dur": 0.124,
+       "ease": "linear"
+      },
+      {
+       "at": 0.667,
+       "to": [
+        38.0,
+        0,
+        -11.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.667,
+       "to": [
+        -38.0,
+        0,
+        -11.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 0.79,
+       "to": [
+        -38.0,
+        0,
+        -6.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.79,
+       "to": [
+        38.0,
+        0,
+        -6.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 0.913,
+       "to": [
+        38.0,
+        0,
+        -1.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 0.913,
+       "to": [
+        -38.0,
+        0,
+        -1.0
+       ],
+       "dur": 0.124,
+       "ease": "linear"
+      },
+      {
+       "at": 1.037,
+       "to": [
+        -38.0,
+        0,
+        4.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.037,
+       "to": [
+        38.0,
+        0,
+        4.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 1.16,
+       "to": [
+        38.0,
+        0,
+        9.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.16,
+       "to": [
+        -38.0,
+        0,
+        9.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 1.283,
+       "to": [
+        -38.0,
+        0,
+        14.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.283,
+       "to": [
+        38.0,
+        0,
+        14.0
+       ],
+       "dur": 0.124,
+       "ease": "linear"
+      },
+      {
+       "at": 1.407,
+       "to": [
+        38.0,
+        0,
+        19.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.407,
+       "to": [
+        -38.0,
+        0,
+        19.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 1.53,
+       "to": [
+        -38.0,
+        0,
+        24.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.53,
+       "to": [
+        38.0,
+        0,
+        24.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      },
+      {
+       "at": 1.653,
+       "to": [
+        38.0,
+        0,
+        29.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.653,
+       "to": [
+        -38.0,
+        0,
+        29.0
+       ],
+       "dur": 0.124,
+       "ease": "linear"
+      },
+      {
+       "at": 1.777,
+       "to": [
+        -38.0,
+        0,
+        34.0
+       ],
+       "dur": 0.01,
+       "ease": "linear"
+      },
+      {
+       "at": 1.777,
+       "to": [
+        38.0,
+        0,
+        34.0
+       ],
+       "dur": 0.123,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.0,
+      52.0,
+      72.0
+     ],
+     "to": [
+      0.0,
+      52.0,
+      72.0
+     ],
+     "lookAt": [
+      0.0,
+      45.779,
+      64.171
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      0.0,
+      45.779,
+      64.171
+     ]
+    }
+   ],
+   "start": 25.5333,
+   "duration": 2.0,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "kitchenDay",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "cal15",
+     "name": "calendar",
+     "pos": [
+      0.0,
+      1.55,
+      -3.45
+     ],
+     "scale": 1.6,
+     "opts": {
+      "rate": 19.0,
+      "start": 0.08
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.4,
+      1.5,
+      -1.6
+     ],
+     "to": [
+      0.4,
+      1.5,
+      -1.6
+     ],
+     "lookAt": [
+      -1.604,
+      1.652,
+      -11.396
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      -1.604,
+      1.652,
+      -11.396
+     ]
+    }
+   ],
+   "start": 27.5333,
+   "duration": 1.3,
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "mow16",
+     "name": "mowerLive",
+     "pos": [
+      6.0,
+      0,
+      3.4
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": 0.0,
+      "stopAt": 1.6,
+      "sputter": [
+       0.6,
+       1.55
+      ],
+      "cough": [
+       1.0,
+       1.4
+      ],
+      "slumpAt": 1.65
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.97,
+        0,
+        3.4
+       ],
+       "dur": 1.6,
+       "ease": "out"
+      }
+     ]
+    },
+    {
+     "id": "teuf16a",
+     "name": "hicBurst",
+     "pos": [
+      3.0,
+      1.2,
+      3.6
+     ],
+     "face": "camera",
+     "opts": {
+      "at": [
+       0.75
+      ],
+      "w": 0.45,
+      "text": "TEUF",
+      "inner": 0.76,
+      "fit": 0.6,
+      "hold": 0.2,
+      "bold": true
+     }
+    },
+    {
+     "id": "teuf16b",
+     "name": "hicBurst",
+     "pos": [
+      1.8,
+      1.25,
+      3.6
+     ],
+     "face": "camera",
+     "opts": {
+      "at": [
+       1.2
+      ],
+      "w": 0.55,
+      "text": "TEUF !",
+      "inner": 0.76,
+      "fit": 0.6,
+      "hold": 0.2,
+      "bold": true
+     }
+    },
+    {
+     "id": "pff16",
+     "name": "hicBurst",
+     "pos": [
+      0.7,
+      1.15,
+      3.8
+     ],
+     "face": "camera",
+     "opts": {
+      "at": [
+       1.72
+      ],
+      "w": 0.4,
+      "text": "pfff...",
+      "inner": 0.76,
+      "fit": 0.6,
+      "hold": 0.35,
+      "bold": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.6,
+      0.55,
+      6.4
+     ],
+     "to": [
+      -1.6,
+      0.55,
+      6.4
+     ],
+     "lookAt": [
+      5.562,
+      0.607,
+      -0.579
+     ],
+     "lens": 56,
+     "ease": "linear",
+     "lookAt2": [
+      5.562,
+      0.607,
+      -0.579
+     ]
+    }
+   ],
+   "start": 28.8333,
+   "duration": 2.2667,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.97,
+      0,
+      0.9
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.97,
+        0.3,
+        3.4
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.12,
+          0.5,
+          0.32,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "look": "camera"
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.12,
+          0.5,
+          0.32,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.97,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.12,
+          0.5,
+          0.32,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn17",
+     "name": "mowField",
+     "pos": [
+      -2.5,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 5.8,
+      "h": 0.85,
+      "n": 2600,
+      "width": 0.6,
+      "path": [
+       [
+        -1.0,
+        2.4,
+        0.5
+       ],
+       [
+        -0.01,
+        -3.1,
+        0.5
+       ]
+      ],
+      "stripCol": "#9FCF6E"
+     }
+    },
+    {
+     "id": "lawn17b",
+     "name": "mowField",
+     "pos": [
+      3.2,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "w": 3.0,
+      "d": 5.8,
+      "h": 0.85,
+      "n": 1400
+     }
+    },
+    {
+     "id": "hedge17",
+     "name": "hedgeWall",
+     "pos": [
+      -5.5,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "opts": {
+      "l": 6.0,
+      "h": 1.45,
+      "holeX": -0.6,
+      "burstDir": -1,
+      "holeAt": -5.0
+     }
+    },
+    {
+     "id": "mow17",
+     "name": "mowerLive",
+     "pos": [
+      0.97,
+      0,
+      3.4
+     ],
+     "ry": -90,
+     "scale": 1.0,
+     "opts": {
+      "runAt": -1.0,
+      "stopAt": -0.5,
+      "slumpAt": -0.4
+     }
+    },
+    {
+     "id": "mug17",
+     "name": "mug",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.02,
+       0.04
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.972,
+      1.4,
+      7.8
+     ],
+     "to": [
+      0.972,
+      1.4,
+      7.8
+     ],
+     "lookAt": [
+      0.94,
+      0.054,
+      -2.109
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      0.94,
+      0.054,
+      -2.109
+     ]
+    }
+   ],
+   "start": 31.1,
+   "duration": 1.2333,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      4.6,
+      0,
+      -1.9
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        4.6,
+        0.4,
+        -3.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          4.4,
+          0.98,
+          -2.55,
+          1,
+          0.03
+         ],
+         "L": [
+          4.8,
+          0.98,
+          -2.55,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.18,
+       "toon": {
+        "reach": {
+         "R": [
+          4.45,
+          1.0,
+          -2.95,
+          1,
+          0.03
+         ],
+         "L": [
+          4.75,
+          1.0,
+          -2.95,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "bend": {
+         "spine": [
+          0.15,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.08,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "reach": {
+         "R": [
+          4.6,
+          2.05,
+          -3.55,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.15,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          4.6,
+          1.2,
+          -3.45,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.3
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "in"
+      },
+      {
+       "at": 1.02,
+       "face": 40,
+       "turn": 0.2
+      },
+      {
+       "at": 1.15,
+       "look": "camera"
+      },
+      {
+       "at": 1.25,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.35,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.04,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 1.45,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          0.16,
+          0.5,
+          0.35,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "face": {
+         "mouth": "bigsmile",
+         "lid": 0.1
+        }
+       },
+       "toonDur": 0.04
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "gar18",
+     "name": "garageShed",
+     "pos": [
+      4.6,
+      0,
+      -3.6
+     ],
+     "opts": {
+      "w": 2.4,
+      "d": 3.0,
+      "h": 2.3,
+      "closeAt": 0.85
+     }
+    },
+    {
+     "id": "mow18",
+     "name": "mowerLive",
+     "pos": [
+      4.6,
+      0,
+      -2.85
+     ],
+     "ry": 180,
+     "scale": 1.0,
+     "opts": {},
+     "keys": [
+      {
+       "at": 0.2,
+       "to": [
+        4.6,
+        0,
+        -5.2
+       ],
+       "dur": 0.5,
+       "ease": "out"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      7.183,
+      1.55,
+      1.012
+     ],
+     "to": [
+      7.183,
+      1.55,
+      1.012
+     ],
+     "lookAt": [
+      2.359,
+      0.199,
+      -7.643
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      2.359,
+      0.199,
+      -7.643
+     ]
+    }
+   ],
+   "start": 32.3333,
+   "duration": 1.5334,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "pavillon",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      -1.4,
+      0,
+      0.6
+     ],
+     "ry": 10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.6,
+       "look": [
+        -3.5,
+        0.5,
+        -0.4
+       ]
+      },
+      {
+       "at": 1.0,
+       "look": "camera"
+      },
+      {
+       "at": 1.7,
+       "toon": {
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.95,
+       "toon": {
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "unimpressed"
+    }
+   ],
+   "props": [
+    {
+     "id": "lawn19",
+     "name": "mowField",
+     "pos": [
+      -2.5,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "w": 5.4,
+      "d": 5.8,
+      "h": 0.95,
+      "n": 2600,
+      "width": 0.6,
+      "path": [
+       [
+        -1.0,
+        2.4,
+        0.5
+       ],
+       [
+        -0.01,
+        -3.1,
+        0.5
+       ]
+      ],
+      "stripCol": "#9FCF6E"
+     }
+    },
+    {
+     "id": "lawn19b",
+     "name": "mowField",
+     "pos": [
+      3.2,
+      0,
+      -0.9
+     ],
+     "opts": {
+      "w": 3.0,
+      "d": 5.8,
+      "h": 0.95,
+      "n": 1400
+     }
+    },
+    {
+     "id": "hedge19",
+     "name": "hedgeWall",
+     "pos": [
+      -5.5,
+      0,
+      -1.0
+     ],
+     "ry": 90,
+     "opts": {
+      "l": 6.0,
+      "h": 1.45,
+      "holeX": -0.6,
+      "burstDir": -1,
+      "holeAt": -5.0
+     }
+    },
+    {
+     "id": "gnome19",
+     "name": "gnome",
+     "pos": [
+      -0.7,
+      0,
+      1.2
+     ],
+     "ry": -10,
+     "opts": {
+      "s": 1.1,
+      "popAt": 1.05
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.443,
+      1.45,
+      6.679
+     ],
+     "to": [
+      0.443,
+      1.45,
+      6.679
+     ],
+     "lookAt": [
+      -2.483,
+      0.889,
+      -2.867
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -2.483,
+      0.889,
+      -2.867
+     ]
+    }
+   ],
+   "start": 33.8667,
+   "duration": 2.7133,
+   "look": {
+    "sat": 0.85
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 36.58,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 1.2,
+   "who": "mec",
+   "name": "pull",
+   "sid": "S01"
+  },
+  {
+   "t": 4.6,
+   "who": "voisin",
+   "name": "feet",
+   "sid": "S03"
+  },
+  {
+   "t": 7.9,
+   "who": "joueur1",
+   "name": "clap",
+   "sid": "S05"
+  },
+  {
+   "t": 14.167,
+   "who": "savant1",
+   "name": "ovni",
+   "sid": "S08"
+  },
+  {
+   "t": 18.1,
+   "who": "gend1",
+   "name": "run",
+   "sid": "S10"
+  },
+  {
+   "t": 22.6,
+   "who": "president",
+   "name": "thumb",
+   "sid": "S12"
+  },
+  {
+   "t": 24.4,
+   "who": "president",
+   "name": "medal",
+   "sid": "S13"
+  },
+  {
+   "t": 31.9,
+   "who": "mec",
+   "name": "mug",
+   "sid": "S17"
+  },
+  {
+   "t": 35.267,
+   "who": "mec",
+   "name": "end",
+   "sid": "S19"
+  }
+ ],
+ "cardTimes": [
+  11.4,
+  17.7,
+  23.6
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07,
+ "debugJoints": [
+  "mec"
+ ]
+}
