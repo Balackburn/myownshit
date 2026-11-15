@@ -114,12 +114,12 @@ for j_ in range(3): st.cue('sfx:whistle', 'S05', r(0.25 + 0.44 * j_), 0.3)
 #    fish's eye over the edge of the basin, on the sign (FERMÉE)
 D6 = st.dur('S06'); SIGN6 = 0.45
 st.shot('S06', 'grassland', actors=[
-        act('poisson', [0.6, FY(S5, -1.0), -3.5], 180, 'idle', 'neutral', scale=S5, keys=[k(0.0, look=[0.0, 1.0, 3.0])]),
+        act('poisson', [0.6, FY(S5, -1.0), -6.8], 180, 'idle', 'neutral', scale=S5, keys=[k(0.0, look=[0.0, 1.0, 3.0])]),
         act('maire', [-0.9, 0.2, 2.5], 15, 'stand', 'happy', keys=[k(0.0, look=[0.3, 0.9, 2.6]), k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'reach': {'R': [0.05, 1.0, 2.75, 1, 0.03]}, 'hands': {'R': 'open'}}, toonDur=0.0),
             k(r(SIGN6 + 0.1), toon={'bend': {'spine': [0.0, 0, 0, 1, None]}, 'face': {'mouth': 'smirk', 'lid': 0.3}}, toonDur=0.2, toonEase='out'), k(r(SIGN6 + 0.3), look='camera'),
             k(r(SIGN6 + 0.45), toon={'touch': {'R': ['torso', 0.0, 0.5, 0.25, 1, 0.03], 'L': ['torso', 0.0, 0.52, 0.27, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'mouth': 'smirk', 'lid': 0.3}}, toonDur=0.2)])],   # hands folded, satisfied
         props=[P('pool6', 'pool', pos=POOL, opts={'w': 6, 'l': 12, 'deck': 3, 'waves': 1.5}), P('sign6', 'closedSign', pos=[0.35, 0.2, 2.75], ry=-10, opts={'text': 'PISCINE|FERMÉE', 'at': SIGN6})],
-        cams=[FC(0.0, [0.6, 1.5, 7.8], [[-1.3, 2.5, 2.5], [-1.3, 0.2, 2.5], [0.8, 1.3, 2.75], [0.6, 3.0, -3.5]], top=0.22, bottom=0.78)])
+        cams=[FC(0.0, [0.6, 1.5, 7.8], [[-1.3, 2.5, 2.5], [-1.3, 0.2, 2.5], [0.8, 1.3, 2.75], [0.6, 3.0, -6.8]], top=0.22, bottom=0.78)])
 st.cue('thud', 'S06', SIGN6, 0.3)
 
 # 7: the fish moved into the lake. The lakeside: the fish shoots up out of the water in a high arc and dives back in: a wall of spray; a duck on the water
@@ -238,7 +238,7 @@ for t_ in FL17: st.cue('sfx:click', 'S17', t_, 0.25)
 # 18: in exchange it guards the coast. The open sea: the fish cruises past the shore in a captain's cap, a sailboat bobbing in its wake
 D18 = st.dur('S18'); S18 = 62.0
 st.shot('S18', 'seaSurface', setOpts=SEA, actors=[act('poisson', [-30.0, FY(S18, 1.0), -30.0], 90, 'walk', 'neutral', scale=S18, keys=[k(0.0, to=[0.0, FY(S18, 1.0), -30.0], dur=D18, ease='linear'), k(0.0, look=[40.0, 4.0, -30.0])])],
-        props=[P('cap18', 'copCap', on={'actor': 'poisson', 'joint': 'head', 'offset': [0.0, 0.11, 0.02]}, scale=40.0)],
+        props=[P('cap18', 'copCap', pos=[-24.0, 7.2, -30.0], ry=90, scale=42.0, keys=[k(0.0, to=[6.0, 7.2, -30.0], dur=D18, ease='linear')])],   # (stills 2) riding along over its head (on the head joint it never showed)
         cams=[FC(0.0, [8.0, 3.0, 30.0], [[-30.0, 0.0, -30.0], [10.0, 0.0, -30.0], [-10.0, 22.0, -30.0], [0.0, 0.0, 6.0]], top=0.16, bottom=0.8, drift=(4.0, 0.0, 0.0), lenses=range(26, 66))])
 st.cue('sfx:honk', 'S18', 0.6, 0.25)
 
@@ -246,7 +246,7 @@ st.cue('sfx:honk', 'S18', 0.6, 0.25)
 #     deadpan
 D19 = st.dur('S19')
 st.shot('S19', 'seaSurface', setOpts=LAKE, actors=[
-        act('poisson', [0.0, FY(S16, 0.0), -17.0], 0, 'idle', 'neutral', scale=S16, keys=[k(0.0, look=[0.0, 1.5, 2.0])]),
+        act('poisson', [0.0, FY(S16, 3.0), -17.0], 0, 'idle', 'neutral', scale=S16, keys=[k(0.0, look=[0.0, 1.5, 2.0]), k(0.3, clip='gulp')]),
         act('agent', [0.3, 0.35, -0.5], 180, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 3.0, -2.0]), k(0.0, toon={'reach': {'R': [0.1, 2.3, -1.1, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.0),
             *[k(r(0.2 + 0.2 * j), toon={'reach': {'R': [r(0.1 + 0.02 * (1 if j % 2 else -1)), 2.3, -1.1, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4 if j != 3 else 1.0}}, toonDur=0.08) for j in range(6)]])],   # a nervous little tremble, a blink
         props=[JETTY('jet19'), HAND('gr19', 'grains', 'agent', off=(0.0, 0.0, 0.03), opts={'n': 3, 's': 2.6})],
