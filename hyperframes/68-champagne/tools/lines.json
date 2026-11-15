@@ -1,0 +1,155 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a ouvert le champagne.",
+  "hl": [
+   "champagne."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le bouchon n'est jamais redescendu.",
+  "hl": [
+   "jamais",
+   "redescendu."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Il a traversé le plafond.",
+  "hl": [
+   "plafond."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Puis le salon de la voisine.",
+  "hl": [
+   "voisine."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La voisine a porté plainte.",
+  "hl": [
+   "plainte."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La police a ouvert une enquête.",
+  "hl": [
+   "police",
+   "enquête."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "La mairie a fermé le ciel.",
+  "hl": [
+   "fermé",
+   "ciel."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "L'armée de l'air l'a pris en chasse.",
+  "hl": [
+   "armée",
+   "chasse."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le bouchon a gagné.",
+  "hl": [
+   "gagné."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il est passé en orbite.",
+  "hl": [
+   "orbite."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les savants l'ont baptisé Bouchon Un.",
+  "hl": [
+   "Bouchon",
+   "Un."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Depuis, la télé capte mieux.",
+  "hl": [
+   "télé",
+   "mieux."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Le gouvernement l'a déclaré trésor national.",
+  "hl": [
+   "trésor",
+   "national."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Les autres pays l'ont réclamé.",
+  "hl": [
+   "pays",
+   "réclamé."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le mec a reçu une facture pour occupation de l'espace.",
+  "hl": [
+   "facture",
+   "l'espace."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Hier, le bouchon est redescendu.",
+  "hl": [
+   "redescendu."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Pile dans son verre.",
+  "hl": [
+   "verre."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Le champagne était éventé.",
+  "hl": [
+   "éventé."
+  ]
+ }
+]

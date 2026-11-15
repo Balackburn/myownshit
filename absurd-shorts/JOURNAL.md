@@ -2749,3 +2749,24 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   maintenant les côtés et l'arrière peints.
 - Erreur évitée de justesse : une copie maître périmée installée sur le moteur par une chaîne `diff && cp ; suite` ; ligne perdue remise à la main,
   `git diff --stat engine/` vérifié (seules les lignes voulues changent).
+
+## 15 novembre, 19 h 45 — « Le bocal » (78) ; revues 1 des « Lunettes » et du « Parcmètre » ; « Le champagne » livré et publié
+
+- « Le bocal » (78), dans la manière des premières histoires : une accroche (il n'arrive pas à ouvrir un bocal de cornichons), une escalade
+  institutionnelle (cuillère, eau chaude, pompiers et grosse pince, char, fusée, six astronautes, laser, musée), un retournement (sa grand-mère
+  l'ouvre d'une main) et une chute sèche (il n'aime pas les cornichons). Nouveaux accessoires : bocal à couvercle qui saute, pince hydraulique qui
+  éclate, casque d'astronaute, vitrine qui se soulève, filet d'eau de robinet. Images 1 et 2 : cuillère pendue au-dessus du couvercle (dans le poing
+  elle disparaissait), vapeur en petits panaches, deux pompiers dans le cadre, cercle des astronautes ouvert vers nous (de dos ils cachaient le
+  bocal), caméra latérale gardée dans la rue, plan du musée calculé (étiquette au-dessus des sous-titres). Brouillon 1 en file, grille de revue prête.
+- « Les lunettes » (69), revue 1 = animation 5,5 ; direction artistique 6,0. Passe 2 : caméra sous le canapé à ras du sol et dans le frigo derrière la
+  nourriture (de l'extérieur on ne voyait ni son visage ni les lunettes), sursaut au froid avec temps suspendu et écrasement, policier vu par-dessus
+  l'épaule avec affiche et drapeau, jumelles face à nous et tête dans la poubelle, plongeurs avec bouteilles, botte, tour Eiffel au bout du fleuve,
+  éclat en étoile sur les lunettes dans le faisceau, trois satellites devant une Terre opaque, chien de profil qui fixe ses lunettes, bras du ministre
+  dégagé et écharpe, bureau fouillé et calendrier de douze mois (le précédent plantait : il attend une liste de noms), vraie prise de conscience
+  (yeux qui montent, écrasement, yeux sur tiges tenus), chèque d'un million et pluie de confettis, plan final tenu avec de grosses clés.
+- « Le parcmètre » (75), revue 1 = animation 5,0 ; direction artistique 6,2. La passe 2 (face de la machine, doigt sur 400 ANS, ticket qui file,
+  camionnette, visage écrasé sur la vitre, partie de cartes) est confiée à un agent dérivé.
+- « Le champagne » (68) : final contrôlé (1080x1920, −16 LUFS), envoyé et publié sur TikTok. La baisse de saturation relevée vers 32 s est voulue
+  (plafond beige percé vu d'en dessous). « La moustache » (67) suit dans la file des finaux.
+- Erreurs relevées : casquette en double sur un gardien (le préréglage `cop` en a déjà une), chèque d'une autre histoire, confettis d'une seule pièce
+  (nom pris par un autre accessoire), caméra de rue sortie derrière une façade. Ajouts au skill.

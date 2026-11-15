@@ -428,6 +428,19 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La moustache qui cache ses pattes | sur la lèvre, la créature tient le clip `pose` (jambes et bras repliés vers l'arrière, dans le visage) : ce n'est qu'une moustache jusqu'à l'ouverture des yeux ; les pattes sortent au milieu de la chute (`airborne`), elle s'aplatit à l'atterrissage puis regonfle un peu plus grosse (clé `scale`) ; la caméra la suit vers le bas jusqu'au bord du lavabo, elle de face et grande |
 | La pièce vide derrière la porte | `door` avec `inside: 'empty'` : en s'ouvrant, la porte montre une pièce nue éclairée par une ampoule au bout de son fil (un appartement qu'on vient de trouver), au lieu du fond noir du modèle |
 
+- (cycle 40, « Le bocal ») Escalade « moyens énormes contre petit objet » : chaque tentative casse le moyen, jamais l'objet (la cuillère se tord, la
+  pince hydraulique éclate, le char crève, les astronautes partent en toupie, le laser revient sur le savant) ; le retournement vient de la personne
+  la plus modeste (la grand-mère, d'une pichenette : POP), la chute est sèche (il n'aime pas les cornichons).
+- (cycle 40) Caméra cachée dans un meuble (sous le canapé, dans le frigo) : la poser dans le volume libre avec `inside=(...)` à ses bornes et
+  `lenses=range(26, 86)` ; ne cadrer que le visage (les bords de l'ouverture font le cadre, ils n'entrent pas dans les points du cadrage) ; la tête doit
+  tenir dans l'interstice (frigo plein : étagères à 0,81 et 1,21 m, donc personnage à genoux, tête vers 1,0 m).
+- (cycle 40) Robinet qui coule : `islandSink` + `tapStream` posé à la bouche du robinet (0, H + 0,26, −D/2 + 0,22 dans le repère de l'évier), longueur
+  jusqu'au couvercle ; la vapeur en trois petits `dustPuff` blancs au-dessus des mains (posés sur les mains, on voyait des boules blanches).
+- (cycle 40) Cadrage calculé avant le rendu : `story_kit.project(frm, look, lens, point)` donne la position d'un point à l'écran ; s'en servir pour
+  mettre une étiquette au-dessus des sous-titres et des pieds hors de la bande 0,77-0,86 sans passer par des images de contrôle.
+- (cycle 40) Accessoire tenu qui doit se lire (cuillère, outil) : un accessoire libre animé avec les mêmes clés que la main (`to` aux mêmes instants)
+  plutôt qu'un accessoire attaché dont l'orientation dans le poing est inconnue ; la cuillère pend la tête en bas au-dessus du couvercle.
+
 ## Erreurs à éviter
 
 - `then` est ignoré sur un déplacement `glide` (chute, glissade) : poser une clé de clip explicite à la fin (`k(t, clip='pancake')`).
@@ -1640,3 +1653,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   `stampScale` (1,8) et `stampRot` (0,35) pour un tampon de chute en grand, en travers.
 - (revue 1 de 77) Un garde-corps fait d'un pavé sombre (`slab` couleur fer, 1,3 m de large) devant un personnage se lit comme un trou noir : prendre le
   `balcony` (dalle de pierre, barreaux de fer). Une voiture vue de près : `glass` 0,85 et `glassColor` sombre, sinon on voit l'acteur debout dedans.
+
+- (cycle 40) Une option d'accessoire au mauvais format plante l'accessoire en silence et laisse à l'écran une étiquette portant son nom de code
+  (« monthCalendar » : `months` attend une liste de noms de mois, pas un nombre). Lire la signature de l'accessoire avant de l'employer.
+- (cycle 40) Deux accessoires du même nom dans deux fichiers : le dernier passé à `Object.assign` gagne. `confetti` est la gerbe d'une couleur de
+  props_elan.js (o.n vaut 1 par défaut : un seul point blanc sur une estrade) ; la pluie de confettis multicolores s'appelle maintenant `confettiRain`.
+- (cycle 40) Le préréglage `cop` porte déjà sa casquette : un `copCap` ajouté par-dessus flotte au-dessus de la tête.
+- (cycle 40) `bigCheque` sans `text` ni `amount` affiche « ASSURANCE 3 000 € » (le chèque d'une autre histoire) ; la carte officielle de `mairie`
+  garde le tampon d'un autre épisode : `map: False` quand on n'en veut pas.
+- (cycle 40) Une caméra de rue que `fitBack` fait reculer peut passer derrière une façade (tout le cadre bouché par un mur) : lui donner
+  `inside=(...)` aux limites de la rue et resserrer ce qu'elle doit montrer.
+- (cycle 40) Un script shell qu'un bash est en train d'exécuter ne s'édite pas en place (bash le lit au fil de l'eau) : écrire la nouvelle version à
+  côté puis `mv` (nouvel inode, le processus en cours garde l'ancien fichier).
