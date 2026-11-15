@@ -592,6 +592,16 @@ function evalActor(A, tIn) {
       ud.mover.position.add(h.sub(rh));
     }
     obj.position.copy(pos); obj.rotation.set(0, ry, 0); obj.scale.setScalar(sc);
+    if (A.toonKeys) { // (pass 2 of 65) a creature takes two toon channels keyed like a man's: lay [rx, rz] (tipped about its feet: a duck bowled over) and sq [x, y, z] (squashed about its feet: flattened, then re-inflated)
+      const kk = lastKey(A.toonKeys, t), pk = prevKey(A.toonKeys, kk), w = kk.dur ? (ease[kk.ease] || ease.out)(clamp01((t - kk.at) / kk.dur)) : 1;
+      const get = (k, n, d) => (k && k.toon && k.toon[n]) || d, mix = (a, b) => a.map((v, i) => lerp(v, b[i], w));
+      const lay = pk && w < 1 ? mix(get(pk, 'lay', [0, 0]), get(kk, 'lay', [0, 0])) : get(kk, 'lay', [0, 0]);
+      const sq = pk && w < 1 ? mix(get(pk, 'sq', [1, 1, 1]), get(kk, 'sq', [1, 1, 1])) : get(kk, 'sq', [1, 1, 1]);
+      if (lay[0] || lay[1]) { obj.rotation.order = 'YXZ'; obj.rotation.x = lay[0]; obj.rotation.z = lay[1]; }
+      if (sq[0] !== 1 || sq[1] !== 1 || sq[2] !== 1) obj.scale.set(sc * sq[0], sc * sq[1], sc * sq[2]);
+      const pv = (ud.pivotY || 0) * sc;   // a swimmer turns and squashes about its body (pivotY up from its root), the rest about their feet
+      if (pv && (lay[0] || lay[1] || sq[1] !== 1)) { const pp = V(0, pv * sq[1], 0).applyEuler(obj.rotation); obj.position.add(V(0, pv, 0).sub(pp)); }
+    }
   } else { obj.position.copy(pos); obj.rotation.set(0, ry, 0); obj.scale.setScalar(sc); }
   // head look-at (on top of the clip), blended
   const lk = lastKey(A.lookKeys, t);

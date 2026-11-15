@@ -905,7 +905,7 @@ const SPECIES = {
   fish(R, o) {
     const c = col(o, { body: P.salmon, fin: '#E8A33C', belly: '#F2D0A0' });
     R.ol = 0.007;
-    swimmer(R, c, { len: 0.34, h: 0.22, w: 0.1, y: 0.55, fin: 0.16, eyeR: 0.06 });
+    swimmer(R, c, { len: 0.34, h: 0.22, w: 0.1, y: 0.55, fin: 0.16, eyeR: 0.06, bigMouth: !!o.bigMouth });   // (pass 2 of 65) o.bigMouth: the cartoon mouth
     R.height = 0.8;
   },
   shark(R, o) {
@@ -1166,9 +1166,23 @@ function swimmer(R, c, o) {
   const hd = R.joint('head', body, 0, 0, len * 0.3);
   const er = o.eyeR;
   addEyes(R, hd, { x: w * 0.5, y: h * 0.42, z: len * 0.2, r: er, lid: c.body, yaw: 0.3 });
-  const jaw = R.joint('jaw', hd, 0, -h * 0.25, len * 0.12, 0);
-  R.a(jaw, facet(w * 0.6, h * 0.14, len * 0.12, c.belly, { seed: 103, detail: 0 }), [0, -h * 0.05, len * 0.08]);
-  R.a(jaw, box(w * 0.7, 0.01, len * 0.14, P.redDark), [0, 0.01, len * 0.08], null, false);
+  if (o.bigMouth) { // (pass 2 of 65) the cartoon mouth: two pursed lips on the front; the lower one drops like a drawer (q.pos.jaw) and turns (q.jaw),
+    // both lips grow with q.scl.jaw / q.scl.lipU, and a dark inside shows between them as the mouth opens (R.post): a gulp that reads at phone size
+    const lc = c.lip ?? c.belly, top = -h * 0.06;
+    const lipU = R.joint('lipU', hd, 0, -h * 0.12, len * 0.25);
+    R.a(lipU, facet(w * 0.56, h * 0.085, len * 0.075, lc, { seed: 105, detail: 1, jit: 0.04 }), [0, 0, 0]);
+    const jaw = R.joint('jaw', hd, 0, -h * 0.2, len * 0.17, 0);
+    R.a(jaw, facet(w * 0.56, h * 0.085, len * 0.075, lc, { seed: 106, detail: 1, jit: 0.04 }), [0, -h * 0.02, len * 0.08]);
+    R.a(jaw, box(w * 0.62, 0.006, len * 0.1, c.tongue ?? '#D9606A'), [0, h * 0.02, len * 0.05], null, false);
+    const cav = R.a(hd, facet(w * 0.5, 0.5, len * 0.022, c.mouth ?? '#4A1418', { seed: 107, detail: 0, jit: 0.02 }), [0, top, len * 0.25], null, false);
+    cav.visible = false; cav.castShadow = false;
+    R.post = (q) => { const a = q.jaw ? max(0, q.jaw[0]) : 0, dy = q.pos?.jaw ? max(0, -q.pos.jaw[1]) : 0, ms = q.scl?.jaw ? q.scl.jaw[0] : 1;
+      const gap = (a * len * 0.16 + dy) * ms; cav.visible = gap > h * 0.02; cav.scale.set(ms, max(0.001, gap + h * 0.05 * ms), 1); cav.position.y = top - gap / 2; };
+  } else {
+    const jaw = R.joint('jaw', hd, 0, -h * 0.25, len * 0.12, 0);
+    R.a(jaw, facet(w * 0.6, h * 0.14, len * 0.12, c.belly, { seed: 103, detail: 0 }), [0, -h * 0.05, len * 0.08]);
+    R.a(jaw, box(w * 0.7, 0.01, len * 0.14, P.redDark), [0, 0.01, len * 0.08], null, false);
+  }
   if (o.teeth) for (let i = 0; i < 5; i++) for (const sd of [1, -1]) R.a(hd, cone(0.016, 0.05, P.white, 4), [sd * w * (0.15 + i * 0.07), -h * 0.27, len * (0.26 - i * 0.025)], [PI, 0, 0], false);
   // fins
   R.a(body, box(0.012 + w * 0.05, o.fin * (o.shark ? 1.1 : 0.6), len * 0.32, c.fin, { pivot: 'bottom', taper: { x: 1, z: 0.15 } }), [0, h * 0.85, -len * 0.05], [-0.35, 0, 0]);
@@ -1181,7 +1195,7 @@ function swimmer(R, c, o) {
   const fin = R.joint('tailFin', tl, 0, 0, -len * 0.42);
   for (const sd of [1, -1]) R.a(fin, box(0.012 + w * 0.04, o.fin * (o.shark ? 1.1 : 0.9), len * 0.22, c.fin, { pivot: 'bottom', taper: { x: 1, z: 0.25 } }), [0, 0, 0], [PI / 2 + sd * (PI / 2 - 0.65) + PI, 0, 0]);
   if (o.shark) for (let i = 0; i < 3; i++) for (const sd of [1, -1]) R.a(body, box(0.006, h * 0.4, 0.008, c.fin), [sd * w * 0.86, h * 0.05, len * (0.2 - i * 0.05)], null, false);
-  R.plan = 'swim';
+  R.plan = 'swim'; R.pivotY = o.y;   // (pass 2 of 65) the keyed squash and tip of a swimmer turn about its body, not about the point under it
 }
 
 // ---------------------------------------------------------------- the clips --
@@ -1381,10 +1395,16 @@ function swimPose(c, t, p, R) {
     case 'eat': case 'peck': { swim(2, 0.4); const k = max(0, S(t * 2 * PI * 1.2)); q.root.z = 0.1 * k * (R.height / 0.75) * 0.5; q.jaw = [0.6 * k, 0, 0]; break; }
     // (cycle 27) gulp: one huge bite: the mouth opens wide over 0.28 s (the head tipping back), holds, snaps shut at 0.4 s, then the body
     // swells round what went down and settles; surprised while it opens, pleased after
-    case 'gulp': { swim(1.2, 0.3); const o = t < 0.28 ? 1 - Math.pow(1 - t / 0.28, 3) : t < 0.4 ? 1 : t < 0.46 ? 1 - (t - 0.4) / 0.06 : 0;
-      q.jaw = [1.15 * o, 0, 0]; q.head = [-0.28 * o, 0, 0]; q.root.z = (R.height / 0.75) * 0.12 * (t < 0.4 ? o : Math.max(0, 1 - (t - 0.4) / 0.3));
-      const sw = t < 0.46 ? 0 : t < 0.6 ? (t - 0.46) / 0.14 : Math.max(0.35, 1 - (t - 0.6) / 0.8); q.scl = { body: [1 + 0.22 * sw, 1 + 0.16 * sw, 1 + 0.06 * sw] };
-      q.expr = t < 0.42 ? 'surprised' : 'happy'; break; }
+    case 'gulp': { swim(1.2, 0.3);
+      // (pass 2 of 65) every beat of the gulp is a param (defaults: the cycle 27 gulp); after the snap the body swells past round, wobbles and settles
+      const A = p.open ?? 0.28, Hd = p.hold ?? 0.12, Sn = p.snap ?? 0.06, t1 = A + Hd, t2 = t1 + Sn, J = p.jaw ?? 1.15, Lg = p.lunge ?? 1, Sw = p.swell ?? 1;
+      const o = t < A ? 1 - Math.pow(1 - t / A, 3) : t < t1 ? 1 : t < t2 ? 1 - (t - t1) / Sn : 0;
+      q.jaw = [J * o, 0, 0]; q.head = [-0.28 * o, 0, 0]; q.root.z = (R.height / 0.75) * 0.12 * Lg * (t < t1 ? o : Math.max(0, 1 - (t - t1) / 0.3));
+      if (p.drop) q.pos = { jaw: [0, -0.22 * p.drop * o * (R.height / 0.8) * 0.25, 0.04 * o * (R.height / 0.8) * 0.25] };
+      const u = t - t2, sw = u < 0 ? 0 : p.wobble ? (u < 0.1 ? u / 0.1 : 0.62 + 0.38 * Math.exp(-(u - 0.1) * 3.2) * Math.cos((u - 0.1) * 16)) : u < 0.14 ? u / 0.14 : Math.max(0.35, 1 - (u - 0.14) / 0.8);
+      const ms = 1 + ((p.mouth ?? 1) - 1) * o, hg = 1 + (p.grow ?? 0) * o;
+      q.scl = { body: [1 + 0.22 * sw * Sw, 1 + 0.16 * sw * Sw, 1 + 0.06 * sw * Sw], jaw: [ms, ms, ms], lipU: [ms, ms, ms], head: [hg, hg, hg] };
+      q.expr = t < t1 + Sn / 3 ? 'surprised' : p.bliss && u < p.bliss ? 'closed' : 'happy'; if (p.bliss && u > 0 && u < p.bliss) q.noBlink = true; break; }
     case 'sleep': case 'sit': swim(0.3, 0.12); q.root.y = -0.1 + 0.02 * S(t * 1.2); if (c === 'sleep') { q.expr = 'closed'; q.noBlink = true; } break;
     case 'celebrate': case 'hop': case 'fly': {
       const k = (t * 0.9) % 1; swim(3, 0.5); q.root.y = 0.7 * 4 * k * (1 - k) * (R.height / 1.0); q.root.rx = -k * 2 * PI * (c === 'celebrate' ? 1 : 0) - (c !== 'celebrate' ? 0.6 * (k - 0.5) * 2 : 0); if (c === 'celebrate') q.expr = 'happy'; break;
@@ -1544,7 +1564,7 @@ export function buildCreature(name, opts = {}) {
   R.root.userData = {
     kind: 'creature', name: nm, plan: R.plan, clips, expressions: CREATURE_EXPRESSIONS,
     joints: R.J, hand: R.J.handR || null, handL: R.J.handL || null, grip, mover: R.mover, scaler: R.scaler, legScale: R.legScale || 1,
-    height: (R.height ?? 1) * baseScale, upright: R.plan === 'biped', opts: o,
+    height: (R.height ?? 1) * baseScale, upright: R.plan === 'biped', opts: o, pivotY: (R.pivotY ?? 0) * baseScale,
     animate,
     setExpression: (expr) => { userExpr = EXPR[expr] ? expr : 'neutral'; applyExpression(R, userExpr); },
   };
