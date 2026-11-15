@@ -229,10 +229,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.1,
         "face": {
          "expr": "surprised",
-         "exprW": 0.085,
+         "exprW": 0.1,
          "eye": 0.05,
          "pupil": 0.935,
          "brow": 0.05,
@@ -260,7 +269,7 @@
         "hairUp": 0.1,
         "face": {
          "expr": "surprised",
-         "exprW": 0.085,
+         "exprW": 0.1,
          "eye": 0.05,
          "pupil": 0.935,
          "brow": 0.05,
@@ -286,10 +295,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.2,
         "face": {
          "expr": "surprised",
-         "exprW": 0.17,
+         "exprW": 0.2,
          "eye": 0.1,
          "pupil": 0.87,
          "brow": 0.1,
@@ -317,7 +335,7 @@
         "hairUp": 0.2,
         "face": {
          "expr": "surprised",
-         "exprW": 0.17,
+         "exprW": 0.2,
          "eye": 0.1,
          "pupil": 0.87,
          "brow": 0.1,
@@ -343,10 +361,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.3,
         "face": {
          "expr": "surprised",
-         "exprW": 0.255,
+         "exprW": 0.3,
          "eye": 0.15,
          "pupil": 0.805,
          "brow": 0.15,
@@ -374,7 +401,7 @@
         "hairUp": 0.3,
         "face": {
          "expr": "surprised",
-         "exprW": 0.255,
+         "exprW": 0.3,
          "eye": 0.15,
          "pupil": 0.805,
          "brow": 0.15,
@@ -400,10 +427,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.4,
         "face": {
          "expr": "surprised",
-         "exprW": 0.34,
+         "exprW": 0.4,
          "eye": 0.2,
          "pupil": 0.74,
          "brow": 0.2,
@@ -431,7 +467,7 @@
         "hairUp": 0.4,
         "face": {
          "expr": "surprised",
-         "exprW": 0.34,
+         "exprW": 0.4,
          "eye": 0.2,
          "pupil": 0.74,
          "brow": 0.2,
@@ -457,10 +493,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.5,
         "face": {
          "expr": "surprised",
-         "exprW": 0.425,
+         "exprW": 0.5,
          "eye": 0.25,
          "pupil": 0.675,
          "brow": 0.25,
@@ -488,7 +533,7 @@
         "hairUp": 0.5,
         "face": {
          "expr": "surprised",
-         "exprW": 0.425,
+         "exprW": 0.5,
          "eye": 0.25,
          "pupil": 0.675,
          "brow": 0.25,
@@ -514,10 +559,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.6,
         "face": {
          "expr": "surprised",
-         "exprW": 0.51,
+         "exprW": 0.6,
          "eye": 0.3,
          "pupil": 0.61,
          "brow": 0.3,
@@ -545,7 +599,7 @@
         "hairUp": 0.6,
         "face": {
          "expr": "surprised",
-         "exprW": 0.51,
+         "exprW": 0.6,
          "eye": 0.3,
          "pupil": 0.61,
          "brow": 0.3,
@@ -571,10 +625,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.7,
         "face": {
          "expr": "surprised",
-         "exprW": 0.595,
+         "exprW": 0.7,
          "eye": 0.35,
          "pupil": 0.545,
          "brow": 0.35,
@@ -602,7 +665,7 @@
         "hairUp": 0.7,
         "face": {
          "expr": "surprised",
-         "exprW": 0.595,
+         "exprW": 0.7,
          "eye": 0.35,
          "pupil": 0.545,
          "brow": 0.35,
@@ -628,10 +691,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.8,
         "face": {
          "expr": "surprised",
-         "exprW": 0.68,
+         "exprW": 0.8,
          "eye": 0.4,
          "pupil": 0.48,
          "brow": 0.4,
@@ -659,7 +731,7 @@
         "hairUp": 0.8,
         "face": {
          "expr": "surprised",
-         "exprW": 0.68,
+         "exprW": 0.8,
          "eye": 0.4,
          "pupil": 0.48,
          "brow": 0.4,
@@ -685,10 +757,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 0.9,
         "face": {
          "expr": "surprised",
-         "exprW": 0.765,
+         "exprW": 0.9,
          "eye": 0.45,
          "pupil": 0.415,
          "brow": 0.45,
@@ -716,7 +797,7 @@
         "hairUp": 0.9,
         "face": {
          "expr": "surprised",
-         "exprW": 0.765,
+         "exprW": 0.9,
          "eye": 0.45,
          "pupil": 0.415,
          "brow": 0.45,
@@ -742,10 +823,19 @@
         "hands": {
          "L": "grip"
         },
+        "bend": {
+         "neck": [
+          -0.16,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
         "hairUp": 1.0,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -773,7 +863,7 @@
         "hairUp": 1.0,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -813,7 +903,7 @@
         },
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.7,
          "pupil": 0.3,
          "brow": 0.5,
@@ -849,7 +939,7 @@
         ],
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.6,
          "pupil": 0.35,
          "brow": 0.5,
@@ -878,7 +968,7 @@
         "hairUp": 1.0,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.55,
          "pupil": 0.35,
          "brow": 0.5,
@@ -890,6 +980,8 @@
        "toonDur": 0.15
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     }
    ],
@@ -1023,7 +1115,7 @@
         "hairUp": 1.0,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.55,
          "pupil": 0.35,
          "brow": 0.5,
@@ -1053,7 +1145,7 @@
         "buzz": 0.008,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.55,
          "pupil": 0.35,
          "brow": 0.5,
@@ -1084,7 +1176,7 @@
         "buzz": 0.028,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.55,
          "pupil": 0.35,
          "brow": 0.5,
@@ -1098,6 +1190,8 @@
        "toonEase": "in"
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     }
    ],
@@ -1264,7 +1358,7 @@
         "buzz": 0.028,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -1277,31 +1371,33 @@
        "toonDur": 0.0
       },
       {
-       "at": 0.0,
+       "at": 0.27,
        "to": [
         -0.8,
         0,
         -3.0
        ],
-       "dur": 0.8,
+       "dur": 0.6,
        "clip": "walk",
        "ease": "linear",
        "face": "keep"
       },
       {
-       "at": 0.8,
+       "at": 0.87,
        "to": [
         -1.0,
         0,
         -2.45
        ],
-       "dur": 1.133,
+       "dur": 1.063,
        "clip": "walk",
        "then": "stand",
        "ease": "out",
        "face": "keep"
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     },
     {
@@ -1418,6 +1514,68 @@
         "reach": {
          "R": [
           0.89,
+          1.5,
+          -1.65,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "sq": [
+         1.14,
+         0.84,
+         1.14
+        ],
+        "hairUp": 1.0,
+        "face": {
+         "eye": 0.9,
+         "lid": 0.0,
+         "brow": 1.0,
+         "mouth": "scream"
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.98,
+       "toon": {
+        "reach": {
+         "R": [
+          0.89,
+          1.62,
+          -1.65,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "sq": [
+         0.88,
+         1.14,
+         0.88
+        ],
+        "hairUp": 1.0,
+        "face": {
+         "eye": 0.85,
+         "lid": 0.0,
+         "brow": 1.0,
+         "mouth": "scream"
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.12,
+       "toon": {
+        "reach": {
+         "R": [
+          0.89,
           1.05,
           -1.65,
           1,
@@ -1428,23 +1586,22 @@
          "R": "pinch"
         },
         "sq": [
-         0.95,
-         1.06,
-         0.95
+         1.03,
+         0.97,
+         1.03
         ],
-        "hairUp": 0.6,
+        "hairUp": 0.7,
         "face": {
-         "pop": 0.75,
-         "popLen": 0.22,
-         "brow": 1.0,
+         "eye": 0.6,
+         "brow": 0.8,
          "mouth": "O"
         }
        },
-       "toonDur": 0.05,
-       "toonEase": "out"
+       "toonDur": 0.12,
+       "toonEase": "inOut"
       },
       {
-       "at": 1.35,
+       "at": 1.5,
        "toon": {
         "reach": {
          "R": [
@@ -1458,15 +1615,37 @@
         "hands": {
          "R": "pinch"
         },
-        "hairUp": 0.4,
+        "hairUp": 0.5,
         "face": {
-         "pop": 0.5,
-         "popLen": 0.2,
-         "brow": 0.8,
+         "lid": 1.0,
          "mouth": "O"
         }
        },
-       "toonDur": 0.3
+       "toonDur": 0.05
+      },
+      {
+       "at": 1.56,
+       "toon": {
+        "reach": {
+         "R": [
+          0.89,
+          1.0,
+          -1.65,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "pinch"
+        },
+        "hairUp": 0.5,
+        "face": {
+         "eye": 0.5,
+         "brow": 0.6,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.08
       }
      ],
      "expr": "neutral"
@@ -1492,25 +1671,25 @@
       ],
       "ripple": [
        [
-        0.14,
+        0.27,
         -0.75,
         1.7,
         0.22
        ],
        [
-        0.24,
+        0.37,
         -0.75,
         1.3,
         0.22
        ],
        [
-        0.4,
+        0.53,
         -0.75,
         1.05,
         0.22
        ],
        [
-        0.66,
+        0.79,
         -0.75,
         0.55,
         0.14
@@ -1519,11 +1698,12 @@
       "press": [
        [
         0.0,
-        0.14,
+        0.27,
         -0.75,
-        0.27
+        0.3
        ]
-      ]
+      ],
+      "res": 24
      }
     },
     {
@@ -1568,26 +1748,26 @@
     {
      "at": 0.0,
      "from": [
-      1.007,
-      1.2,
-      2.938
+      0.836,
+      1.05,
+      2.44
      ],
      "to": [
-      0.907,
-      1.2,
-      2.938
+      0.736,
+      1.05,
+      2.44
      ],
      "lookAt": [
-      -0.104,
-      0.506,
-      -6.976
+      -0.303,
+      0.923,
+      -7.494
      ],
-     "lens": 56,
+     "lens": 55,
      "ease": "linear",
      "lookAt2": [
-      -0.204,
-      0.506,
-      -6.976
+      -0.403,
+      0.923,
+      -7.494
      ]
     }
    ],
@@ -1622,16 +1802,12 @@
       0,
       0.15
      ],
-     "ry": 28,
+     "ry": 14,
      "clip": "stand",
      "keys": [
       {
        "at": 0.0,
-       "look": [
-        0.44,
-        1.9,
-        0.15
-       ]
+       "look": "camera"
       },
       {
        "at": 0.0,
@@ -1653,19 +1829,22 @@
         "buzz": 0.04,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
          "lid": 0.0,
          "mouth": "clench",
          "tremble": 1.0,
-         "pupilShake": 1.0
+         "pupilShake": 1.0,
+         "gx": 0.6
         }
        },
        "toonDur": 0.0
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     },
     {
@@ -1790,9 +1969,9 @@
          3.0
         ],
         "sq": [
-         1.04,
-         0.95,
-         1.04
+         1.02,
+         0.98,
+         1.02
         ],
         "face": {
          "expr": "surprised",
@@ -1834,9 +2013,9 @@
          3.0
         ],
         "sq": [
-         0.94,
-         1.08,
-         0.94
+         0.97,
+         1.04,
+         0.97
         ],
         "face": {
          "expr": "surprised",
@@ -1878,9 +2057,9 @@
          3.0
         ],
         "sq": [
-         1.04,
-         0.95,
-         1.04
+         1.02,
+         0.98,
+         1.02
         ],
         "face": {
          "expr": "surprised",
@@ -1922,9 +2101,9 @@
          3.0
         ],
         "sq": [
-         0.94,
-         1.08,
-         0.94
+         0.97,
+         1.04,
+         0.97
         ],
         "face": {
          "expr": "surprised",
@@ -1966,9 +2145,9 @@
          3.0
         ],
         "sq": [
-         1.04,
-         0.95,
-         1.04
+         1.02,
+         0.98,
+         1.02
         ],
         "face": {
          "expr": "surprised",
@@ -2010,9 +2189,9 @@
          3.0
         ],
         "sq": [
-         0.94,
-         1.08,
-         0.94
+         0.97,
+         1.04,
+         0.97
         ],
         "face": {
          "expr": "surprised",
@@ -2054,9 +2233,9 @@
          3.0
         ],
         "sq": [
-         1.04,
-         0.95,
-         1.04
+         1.02,
+         0.98,
+         1.02
         ],
         "face": {
          "expr": "surprised",
@@ -2098,9 +2277,9 @@
          3.0
         ],
         "sq": [
-         0.94,
-         1.08,
-         0.94
+         0.97,
+         1.04,
+         0.97
         ],
         "face": {
          "expr": "surprised",
@@ -2119,6 +2298,7 @@
        "toonEase": "out"
       }
      ],
+     "buzzY": 0.0,
      "expr": "happy"
     }
    ],
@@ -2180,7 +2360,7 @@
       0,
       -30.0
      ],
-     "ry": 0,
+     "ry": -32,
      "clip": "stand",
      "keys": [
       {
@@ -2204,7 +2384,7 @@
         "buzz": 0.034,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -2215,6 +2395,8 @@
        "toonDur": 0.0
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     },
     {
@@ -2431,26 +2613,26 @@
     {
      "at": 0.0,
      "from": [
-      -2.333,
-      0.9,
-      -27.712
+      -1.315,
+      0.75,
+      -28.497
      ],
      "to": [
-      -2.333,
-      0.8,
-      -27.712
+      -1.315,
+      0.65,
+      -28.497
      ],
      "lookAt": [
-      6.686,
-      0.61,
-      -32.022
+      7.902,
+      0.861,
+      -32.374
      ],
-     "lens": 56,
+     "lens": 55,
      "ease": "linear",
      "lookAt2": [
-      6.686,
-      0.51,
-      -32.022
+      7.902,
+      0.761,
+      -32.374
      ]
     }
    ],
@@ -2500,12 +2682,34 @@
       {
        "at": 0.0,
        "to": [
+        6.467,
+        0,
+        0
+       ],
+       "dur": 0.22,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.48,
+       "to": [
+        6.933,
+        0,
+        0
+       ],
+       "dur": 0.22,
+       "ease": "out",
+       "face": "keep"
+      },
+      {
+       "at": 0.96,
+       "to": [
         7.4,
         0,
         0
        ],
-       "dur": 1.433,
-       "ease": "linear",
+       "dur": 0.22,
+       "ease": "out",
        "face": "keep"
       },
       {
@@ -2545,7 +2749,7 @@
         "buzz": 0.034,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -2554,8 +2758,325 @@
         }
        },
        "toonDur": 0.0
+      },
+      {
+       "at": 0.02,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
+        "buzz": 0.034,
+        "lay": [
+         0.08,
+         0.0
+        ],
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "expr": "surprised",
+         "exprW": 1.0,
+         "eye": 0.5,
+         "pupil": 0.35,
+         "brow": 0.5,
+         "lid": 0.25,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
+        "buzz": 0.034,
+        "lay": [
+         0.08,
+         0.0
+        ],
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "expr": "surprised",
+         "exprW": 1.0,
+         "eye": 0.5,
+         "pupil": 0.35,
+         "brow": 0.5,
+         "lid": 0.25,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.98,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
+        "buzz": 0.034,
+        "lay": [
+         0.08,
+         0.0
+        ],
+        "sq": [
+         1.04,
+         0.96,
+         1.04
+        ],
+        "face": {
+         "expr": "surprised",
+         "exprW": 1.0,
+         "eye": 0.5,
+         "pupil": 0.35,
+         "brow": 0.5,
+         "lid": 0.25,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
+        "buzz": 0.034,
+        "face": {
+         "expr": "surprised",
+         "exprW": 1.0,
+         "eye": 0.5,
+         "pupil": 0.35,
+         "brow": 0.5,
+         "lid": 0.25,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
+        "buzz": 0.034,
+        "face": {
+         "expr": "surprised",
+         "exprW": 1.0,
+         "eye": 0.5,
+         "pupil": 0.35,
+         "brow": 0.5,
+         "lid": 0.25,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.16,
+       "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
+        "buzz": 0.034,
+        "face": {
+         "expr": "surprised",
+         "exprW": 1.0,
+         "eye": 0.5,
+         "pupil": 0.35,
+         "brow": 0.5,
+         "lid": 0.25,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "inOut"
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     }
    ],
@@ -2570,14 +3091,30 @@
      ],
      "opts": {
       "face": 6.6,
-      "lampEvery": 1.6,
+      "lampEvery": 0.7,
       "faceMove": [
        [
         0.0,
         6.6
        ],
        [
-        1.433,
+        0.22,
+        7.067
+       ],
+       [
+        0.48,
+        7.067
+       ],
+       [
+        0.7,
+        7.533
+       ],
+       [
+        0.96,
+        7.533
+       ],
+       [
+        1.18,
         8.0
        ]
       ],
@@ -2587,7 +3124,7 @@
         1.433
        ]
       ],
-      "litFollow": 1.0
+      "litFollow": 0.6
      }
     },
     {
@@ -2928,10 +3465,41 @@
       {
        "at": 0.0,
        "toon": {
+        "bend": {
+         "spine": [
+          0.48,
+          0,
+          0,
+          1,
+          null
+         ]
+        },
+        "touch": {
+         "L": [
+          "torso",
+          0.2,
+          0.58,
+          0.52,
+          1,
+          0.02
+         ],
+         "R": [
+          "torso",
+          -0.2,
+          0.6,
+          0.52,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "L": "open",
+         "R": "open"
+        },
         "buzz": 0.03,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -2942,6 +3510,8 @@
        "toonDur": 0.0
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     }
    ],
@@ -3110,7 +3680,7 @@
         "buzz": 0.042,
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -3147,7 +3717,7 @@
         },
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -3181,7 +3751,7 @@
         },
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -3193,6 +3763,8 @@
        "toonEase": "out"
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     },
     {
@@ -3642,7 +4214,7 @@
         },
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -3686,7 +4258,7 @@
         },
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -3731,7 +4303,7 @@
         },
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.5,
          "pupil": 0.35,
          "brow": 0.5,
@@ -3854,16 +4426,17 @@
          "R": "grip"
         },
         "face": {
-         "lid": 0.12,
-         "eye": 0.08,
-         "gy": -0.62
+         "lid": 0.0,
+         "eye": 0.2,
+         "gy": -0.7,
+         "noBlink": 1
         }
        },
        "toonDur": 0.07,
        "toonEase": "inOut"
       },
       {
-       "at": 0.86,
+       "at": 0.84,
        "toon": {
         "touch": {
          "R": [
@@ -3879,14 +4452,51 @@
          "R": "grip"
         },
         "sq": [
-         1.02,
-         0.98,
-         1.02
+         1.03,
+         0.97,
+         1.03
+        ],
+        "hat": [
+         -0.05,
+         0.0,
+         0.0
         ],
         "face": {
-         "lid": 0.1,
-         "eye": 0.15,
-         "gy": -0.62
+         "lid": 0.0,
+         "eye": 0.25,
+         "gy": -0.7,
+         "noBlink": 1
+        }
+       },
+       "toonDur": 0.03,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.91,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          -0.1,
+          0.42,
+          0.26,
+          1,
+          0.03
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1.01,
+         0.99,
+         1.01
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.2,
+         "gy": -0.7,
+         "noBlink": 1
         }
        },
        "toonDur": 0.05,
@@ -3964,6 +4574,8 @@
        "toonDur": 0.2
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     }
    ],
@@ -4200,6 +4812,8 @@
        "toonDur": 0.1
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     }
    ],
@@ -4539,14 +5153,6 @@
        "toonEase": "inOut"
       },
       {
-       "at": 0.95,
-       "look": [
-        -3.3,
-        3.45,
-        -1.6
-       ]
-      },
-      {
        "at": 0.97,
        "toon": {
         "bend": {
@@ -4567,8 +5173,10 @@
          ]
         },
         "face": {
-         "lid": 0.2,
-         "eye": 0.15
+         "lid": 0.0,
+         "eye": 0.25,
+         "gy": -0.85,
+         "gx": 0.3
         }
        },
        "toonDur": 0.15
@@ -4664,14 +5272,6 @@
        "toonEase": "inOut"
       },
       {
-       "at": 0.99,
-       "look": [
-        -3.3,
-        3.45,
-        -1.6
-       ]
-      },
-      {
        "at": 1.01,
        "toon": {
         "bend": {
@@ -4692,8 +5292,10 @@
          ]
         },
         "face": {
-         "lid": 0.2,
-         "eye": 0.15
+         "lid": 0.0,
+         "eye": 0.25,
+         "gy": -0.85,
+         "gx": 0.3
         }
        },
        "toonDur": 0.15
@@ -4789,14 +5391,6 @@
        "toonEase": "inOut"
       },
       {
-       "at": 1.03,
-       "look": [
-        -3.3,
-        3.45,
-        -1.6
-       ]
-      },
-      {
        "at": 1.05,
        "toon": {
         "bend": {
@@ -4817,8 +5411,10 @@
          ]
         },
         "face": {
-         "lid": 0.2,
-         "eye": 0.15
+         "lid": 0.0,
+         "eye": 0.25,
+         "gy": -0.85,
+         "gx": 0.3
         }
        },
        "toonDur": 0.15
@@ -4914,14 +5510,6 @@
        "toonEase": "inOut"
       },
       {
-       "at": 1.07,
-       "look": [
-        -3.3,
-        3.45,
-        -1.6
-       ]
-      },
-      {
        "at": 1.09,
        "toon": {
         "bend": {
@@ -4942,8 +5530,10 @@
          ]
         },
         "face": {
-         "lid": 0.2,
-         "eye": 0.15
+         "lid": 0.0,
+         "eye": 0.25,
+         "gy": -0.85,
+         "gx": 0.3
         }
        },
        "toonDur": 0.15
@@ -5599,7 +6189,7 @@
      "name": "departureBoard",
      "pos": [
       -3.3,
-      3.75,
+      3.2,
       -1.6
      ],
      "ry": 0,
@@ -5628,16 +6218,16 @@
       2.9
      ],
      "lookAt": [
-      -6.299,
-      0.431,
-      -4.544
+      -6.327,
+      0.981,
+      -4.574
      ],
-     "lens": 63,
+     "lens": 64,
      "ease": "linear",
      "lookAt2": [
-      -6.399,
-      0.431,
-      -4.544
+      -6.427,
+      0.981,
+      -4.574
      ]
     }
    ],
@@ -5743,7 +6333,7 @@
         ],
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.65,
          "pupil": 0.3,
          "brow": 0.5,
@@ -5766,7 +6356,7 @@
         ],
         "face": {
          "expr": "surprised",
-         "exprW": 0.85,
+         "exprW": 1.0,
          "eye": 0.7,
          "pupil": 0.25,
          "brow": 0.5,
@@ -5949,6 +6539,8 @@
        "toonDur": 0.03
       }
      ],
+     "buzzXZ": 0.45,
+     "buzzY": 0.9,
      "expr": "unimpressed"
     },
     {

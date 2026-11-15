@@ -135,16 +135,19 @@ export const CAFE_PROPS = {
       c.fillStyle = '#FFD84A'; c.beginPath(); c.arc(ix + iw * 0.17, iy + ih * 0.22, ih * 0.1, 0, TAU); c.fill(); }
     const swx = o.switchX ?? -W / 2 + 0.6; c.fillStyle = '#F8F6F0'; c.fillRect(X(swx), Y(1.2), 0.08 * sx, 0.12 * sy); c.strokeStyle = '#A9A496'; c.lineWidth = 2; c.strokeRect(X(swx), Y(1.2), 0.08 * sx, 0.12 * sy);
     const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
-    const geo = new THREE.PlaneGeometry(W, H, Math.round(W * 16), Math.round(H * 16)); geo.translate(0, H / 2, 0);
+    const geo = new THREE.PlaneGeometry(W, H, Math.round(W * (o.res ?? 16)), Math.round(H * (o.res ?? 16))); geo.translate(0, H / 2, 0);   // (final pass of 63) o.res: vertices per metre (24: the hair spikes of the bulge show)
     const face = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex })); face.receiveShadow = true; g.add(face);
     const T = o.thick ?? 0.2; g.add(at(box(W, H, T - 0.12, o.back || '#E3D7B8', { pivot: 'bottom' }), 0, 0, -(T + 0.12) / 2));
     const pos = geo.attributes.position, base = Float32Array.from(pos.array), sp = o.speed ?? 3.2, wv = o.wave ?? 0.5, dk = o.decay ?? 2.4;
     // (pass 3 of 63) o.press [[t0, t1, x, depth], ...]: a man behind the paper pushes it out in his own shape (head, shoulders, the cup in his hand, legs)
     // from t0, the bulge swelling over 0.06 s to depth (m), until he breaks through at t1 and it is gone (rings from o.ripple take over): a round bump
     // there read as a balloon coming out of the wall. o.pressH (2.3 m): his height
-    const PH = (o.pressH ?? 2.3) / 2.3, PARTS = [[0, 2.06, 0.17, 0.27], [0, 1.45, 0.3, 0.42], [0.15, 1.42, 0.09, 0.1], [-0.12, 0.55, 0.11, 0.52], [0.12, 0.55, 0.11, 0.52]].map(([px, py, a, b]) => [px * PH, py * PH, a * PH, b * PH]);
+    // (final pass of 63) each part [x, y, a, b, p]: p the exponent of its outline (2: an ellipse; 8: a box): his box head, three hair spikes, a boxy cup
+    // (the round head read as a snowman or a ghost coming out of the wall)
+    const PH = (o.pressH ?? 2.3) / 2.3, PARTS = [[0, 2.06, 0.17, 0.27, 8], [-0.1, 2.44, 0.045, 0.14, 2], [0.0, 2.5, 0.05, 0.17, 2], [0.11, 2.44, 0.045, 0.13, 2], [0, 1.45, 0.3, 0.42, 2], [0.22, 1.5, 0.07, 0.09, 6],
+      [-0.12, 0.55, 0.11, 0.52, 2], [0.12, 0.55, 0.11, 0.52, 2]].map(([px, py, a, b, p]) => [px * PH, py * PH, a * PH, b * PH, p]);
     const pressAt = (t, x, y) => { let d = 0; for (const [t0, t1, cx, dep] of (o.press || [])) { if (t < t0 || t >= t1) continue; const k = eo((t - t0) / 0.06) * dep; let m = 0;
-        for (const [px, py, a, b] of PARTS) { const q = ((x - cx - px) / a) ** 2 + ((y - py) / b) ** 2; if (q < 4) m = Math.max(m, Math.exp(-q * q)); } d = Math.max(d, k * m); } return d; };
+        for (const [px, py, a, b, p] of PARTS) { const ux = Math.abs((x - cx - px) / a), uy = Math.abs((y - py) / b), q = p === 2 ? ux * ux + uy * uy : Math.pow(Math.pow(ux, p) + Math.pow(uy, p), 2 / p); if (q < 4) m = Math.max(m, Math.exp(-q * q)); } d = Math.max(d, k * m); } return d; };
     g.userData.update = t => {
       for (let i = 0; i < pos.count; i++) { const x = base[3 * i], y = base[3 * i + 1]; let dz = o.press ? pressAt(t, x, y) : 0;
         let dx = 0, dy = 0;
