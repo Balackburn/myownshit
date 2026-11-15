@@ -583,10 +583,10 @@ function evalActor(A, tIn) {
     ud.setExpression?.(expr === 'talkWide' ? 'talk' : (expr === 'lookSide' || expr === 'lookLeft') ? ek.expr : expr);
     const lt = (k) => Math.max(0, (t - (k.t0 ?? k.at)) * (k.speed ?? 1) * (k.move || k.t0 != null ? 1 : S.tempo) + A.phase);
     if (prev && dt < BLEND / S.tempo) {
-      ud.animate(prev.clip, lt(prev), prev.params || {}); const a = snapshot(A);
-      ud.animate(cur.clip, lt(cur), cur.params || {}); const b = snapshot(A);
+      ud.animate(prev.clip, lt(prev), crParams(A, prev)); const a = snapshot(A);
+      ud.animate(cur.clip, lt(cur), crParams(A, cur)); const b = snapshot(A);
       writeSnap(A, a, b, ease.inOut(clamp01(dt / (BLEND / S.tempo))));
-    } else ud.animate(cur.clip, lt(cur), cur.params || {});
+    } else ud.animate(cur.clip, lt(cur), crParams(A, cur));
     // pivot about the hips for human clips that ask for it (flips, lying down…)
     const hp = CLIPS[cur.clip] ? samplePose(cur.clip, lt(cur), cur.params || {}).root : null;
     if (hp?.pivot === 'hips' && ud.mover && ud.hipYMover) {
@@ -785,6 +785,8 @@ const LOOK_LEAD = 0.09, FACE_DUR = 0.15, CROSS_SIGN = 1;   // (cycle 34) the eye
 const RIG_STRONG = new Set([...STRONG, 'take', 'takeSmall', 'zap', 'gulp']), NO_FLAP = new Set(['shocked', 'surprised', 'scared', 'sleepy', 'dead', 'happy', 'laugh', 'cry', 'yawn', 'awe', 'take', 'takeSmall']);
 const backOut = (u, c1) => 1 + (c1 + 1) * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2);
 const hash01 = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+// (cycle 35) a creature's clip params, with an automatic blink phase of its own in each shot unless the story keys one (blinks or blinkPhase)
+const crParams = (A, k) => { const p = k.params || {}; return p.blinks || p.blinkPhase != null ? p : { ...p, blinkPhase: hash01((S.scene ?? 0) * 3.7 + (A.phase || 0) * 2.3 + 0.1) }; };
 const blinkLid = tb => tb < 0 ? 0 : tb < 0.066 ? Math.pow(tb / 0.066, 0.7) : tb < 0.1 ? 1 : tb < 0.24 ? 1 - ease.out((tb - 0.1) / 0.14) : 0;
 const FACE_EXTRAS = ['sweat', 'blush', 'tears', 'tear', 'vein', 'shadow', 'drop', 'dropR', 'red', 'bags'];   // (pass 4 of 50) bags: under the eyes   // (cycle 9) red: the whole face warms toward red   // (cycle 6) drop / dropR: a drawn tear that rolls down the cheek (0..1 = how far), face.dropSize its size
 // (cycle 26) a blink in every hold: the face's own blinks come every 3.3 s, so most holds of a 1-2 s shot had none and a held face looked painted
@@ -817,7 +819,9 @@ function rigFace(A, t, env, tp, pos, ry, sc) {
   // blink: every 3.3 s (sometimes twice), and a quick one that winds up a strong reaction
   let lid = 0;
   // (pass 3 of 51) toon face.noBlink: 1: no blink of its own while it is keyed (the eyes stay open through a jerk; the blink is keyed after it)
-  if (!strong && (cfg.blink ?? 1) && !cf?.noBlink) { const cyc = (t + ph) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + ph) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3));
+  // (cycle 35) a phase of its own in each shot (the same actor blinked at the same moment of every shot: mechanical)
+  const phB = ph + 3.3 * hash01((S.scene ?? 0) * 7.31 + ph * 1.7 + 0.5);
+  if (!strong && (cfg.blink ?? 1) && !cf?.noBlink) { const cyc = (t + phB) % 3.3; lid = blinkLid(cyc); if (Math.floor((t + phB) / 3.3) % 3 === 1) lid = Math.max(lid, blinkLid(cyc - 0.3));
     for (const hb of holdBlinks(A, ph)) lid = Math.max(lid, blinkLid(t - hb)); }   // (cycle 26) the hold blinks
   if (RIG_STRONG.has(ek.expr) && pk && since < 0.1) lid = Math.max(lid, Math.sin(Math.PI * clamp01(since / 0.1)));
   if (cf?.lid) lid = Math.max(lid, cf.lid);   // toon face.lid 0..1: a keyed blink (a slow one: key it up and down over a few frames) or heavy lids
