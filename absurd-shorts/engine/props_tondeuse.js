@@ -187,4 +187,41 @@ export const TONDEUSE_PROPS = {
       hinge.rotation.x = a; };
     g.userData.update(0); return g;
   },
+
+  // (stills 2 of 70) The whole country mowed, seen from very high (pivot at Paris-ish, lying flat, north toward -Z): France in uncut green on a
+  // blue sea, and o.n (12) bands of striped lawn, light and dark, swept across it from the north between o.from and o.to (seconds), each band
+  // growing west to east, then east to west, behind a mower running back and forth (a red block with a pale wake); o.k (10): metres per degree of
+  // latitude (88 m wide at 10). A patchwork of square fields read as abstract pale blocks from 165 m; the country's outline reads at once.
+  mowFrance(o) {
+    const K = o.k ?? 10, n = o.n ?? 12, S = o.segs ?? 12, t0 = o.from ?? 0.1, t1 = o.to ?? 1.8, g = grp();
+    const FR = [[2.55, 51.08], [1.6, 50.9], [1.6, 50.2], [0.1, 49.5], [-1.2, 49.4], [-1.9, 49.7], [-1.6, 48.65], [-3.5, 48.8], [-4.8, 48.4], [-4.7, 47.9], [-2.2, 47.2], [-1.2, 46.2], [-1.2, 44.6], [-1.8, 43.35],
+      [-0.6, 42.9], [1.7, 42.5], [3.1, 42.45], [3.2, 43.0], [4.8, 43.4], [6.2, 43.1], [7.5, 43.8], [6.8, 44.4], [7.0, 45.9], [6.1, 46.4], [7.6, 47.6], [8.2, 49.0], [6.4, 49.45], [5.9, 49.5], [4.85, 49.8], [4.8, 50.15], [4.2, 49.95], [3.6, 50.4], [2.9, 50.7]];
+    const P0 = FR.map(([lon, lat]) => [(lon - 3) * K * 0.68, (lat - 47.5) * K]);   // x east, y north in the shape plane (laid flat: y north becomes -Z)
+    const flat = (pts, mt, y) => { const sh = new THREE.Shape(); pts.forEach(([x, z], i) => i ? sh.lineTo(x, z) : sh.moveTo(x, z)); const m = new THREE.Mesh(new THREE.ShapeGeometry(sh), mt); m.rotation.x = -PI / 2; m.position.y = y; return m; };
+    const edge = (pts, inside, cut) => { const out = []; for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i + 1) % pts.length], ia = inside(a), ib = inside(b); if (ia) out.push(a); if (ia !== ib) out.push(cut(a, b)); } return out; };
+    const atX = (a, b, x) => [x, a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0])], atY = (a, b, y) => [a[0] + (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]), y];
+    const clip = (pts, x0, x1, y0, y1) => { let q = edge(pts, p => p[0] >= x0, (a, b) => atX(a, b, x0)); if (q.length) q = edge(q, p => p[0] <= x1, (a, b) => atX(a, b, x1));
+      if (q.length) q = edge(q, p => p[1] >= y0, (a, b) => atY(a, b, y0)); if (q.length) q = edge(q, p => p[1] <= y1, (a, b) => atY(a, b, y1)); return q; };
+    const sea = new THREE.Mesh(new THREE.PlaneGeometry(70 * K, 70 * K).rotateX(-PI / 2), L(o.sea || '#4F9AD6')); sea.position.y = 0.3; g.add(sea);
+    g.add(flat(P0, LO(o.uncut || '#4E8A30', 1), 0.6));
+    const ys = P0.map(p => p[1]), yMax = Math.max(...ys), yMin = Math.min(...ys), hb = (yMax - yMin) / n, dt = (t1 - t0) / n, bands = [];
+    for (let i = 0; i < n; i++) {
+      const y1 = yMax - i * hb, y0 = y1 - hb, whole = clip(P0, -1e4, 1e4, y0, y1); if (whole.length < 3) continue;
+      const xs = whole.map(p => p[0]), bx0 = Math.min(...xs), bx1 = Math.max(...xs), mt = LO(i % 2 ? (o.dark || '#7CBF4E') : (o.light || '#B8E67C'), 2), segs = [];
+      for (let k = 0; k < S; k++) { const j = i % 2 ? S - 1 - k : k, q = clip(whole, bx0 + (bx1 - bx0) * j / S, bx0 + (bx1 - bx0) * (j + 1) / S, y0, y1);
+        if (q.length >= 3) { const m = flat(q, mt, 0.9); m.visible = false; g.add(m); segs.push([k, m]); } }
+      bands.push({ i, y: (y0 + y1) / 2, bx0, bx1, tb: t0 + i * dt, segs });
+    }
+    const mow = grp(at(box(2.6, 1.4, 3.4, '#D23A2E', { outline: 0.2 }), 0, 0.7, 0), at(box(1.0, 1.6, 0.5, '#2A2C30'), 0, 1.6, -1.6)); mow.position.y = 0.9; g.add(mow);
+    const wake = new THREE.Mesh(new THREE.PlaneGeometry(1, 2.6).rotateX(-PI / 2), LO('#E8F7C8', 3)); wake.position.y = 0.95; g.add(wake);
+    g.userData.update = t => {
+      let cur = null;
+      for (const b of bands) { const u = clamp01((t - b.tb) / dt); for (const [k, m] of b.segs) m.visible = t >= b.tb + dt * (k + 0.5) / S; if (t >= b.tb && t < b.tb + dt) cur = [b, u]; }
+      if (!cur) { const last = bands[bands.length - 1]; cur = t < t0 ? [bands[0], 0] : [last, 1]; }
+      const [b, u] = cur, x0 = b.i % 2 ? b.bx1 : b.bx0, x = x0 + ((b.i % 2 ? b.bx0 : b.bx1) - x0) * u, dir = b.i % 2 ? -1 : 1;
+      mow.position.x = x; mow.position.z = -b.y; mow.rotation.y = dir > 0 ? PI / 2 : -PI / 2; mow.visible = t >= t0 - 0.05 && t <= t1 + 0.3;
+      const len = Math.max(0.01, Math.min(14, Math.abs(x - x0))); wake.scale.x = len; wake.position.x = x - dir * len / 2; wake.position.z = -b.y; wake.visible = mow.visible && len > 0.05;
+    };
+    g.userData.update(0); return g;
+  },
 };

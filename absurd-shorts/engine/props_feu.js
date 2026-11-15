@@ -63,9 +63,12 @@ export const FEU_PROPS = {
       const u0 = n > 1 ? i / (n - 1) - 0.5 : 0, x0 = u0 * W, ph = hash(i + 3) * TAU, amp = 0.012 + 0.01 * hash(i + 7), Ln = len * (0.86 + 0.14 * (1 - Math.abs(u0) * 1.6)), pts = [];
       for (let k = 0; k <= 12; k++) { const u = k / 12; pts.push(new THREE.Vector3(x0 * (1 - 0.45 * u) + amp * Math.sin(u * 9 + ph), -Ln * u, 0.03 + (o.bulge ?? 0.14) * Math.sin(PI * Math.min(1, u * 1.12)))); }
       if (coil > 0 && Math.abs(u0) < 0.3) { const e = pts[pts.length - 1]; for (let k = 1; k <= 6; k++) { const a = k / 6 * PI * 1.4; pts.push(new THREE.Vector3(e.x + Math.sin(a) * coil * 0.25, e.y + 0.012, e.z + coil * (0.5 - 0.5 * Math.cos(a * 0.75)))); } }
-      const ms = [];
+      const ms = [], js = [];
       for (let k = 0; k < pts.length - 1; k++) { const m = seg(pts[k], pts[k + 1], r0 * (1 - 0.78 * k / (pts.length - 1)), r0 * (1 - 0.78 * (k + 1) / (pts.length - 1)), mats[i % 2]); sw.add(m); ms.push(m); }
-      strands.push({ pts, ms, len: ms.map((m, k) => pts[k + 1].distanceTo(pts[k])) });
+      // (review 3 of 66) a ball at every joint, as thick as the lock there: the chains of cylinders left a wedge at each bend and read as segmented
+      // pipes; o.joints false leaves them out
+      if (o.joints !== false) for (let k = 1; k < pts.length - 1; k++) { const sp = new THREE.Mesh(new THREE.SphereGeometry(r0 * (1 - 0.78 * k / (pts.length - 1)), 7, 5), mats[i % 2]); sp.position.copy(pts[k]); sw.add(sp); js.push(sp); }
+      strands.push({ pts, ms, js, len: ms.map((m, k) => pts[k + 1].distanceTo(pts[k])) });
     }
     const dv = new THREE.Vector3(), p2 = Array.from({ length: 48 }, () => new THREE.Vector3());
     // o.swing [t0, t1, amp]: it swings from t0 and, after t1, the swing dies away over about a second (it snapped straight at t1); o.whip: each point
@@ -78,7 +81,8 @@ export const FEU_PROPS = {
           const y1 = P0.y * Math.cos(a) - P0.z * Math.sin(a), z1 = P0.y * Math.sin(a) + P0.z * Math.cos(a);
           p2[k].set(P0.x * Math.cos(b) - y1 * Math.sin(b), P0.x * Math.sin(b) + y1 * Math.cos(b), z1); }
         for (let k = 0; k < N - 1; k++) { const m = S.ms[k]; dv.copy(p2[k + 1]).sub(p2[k]); const l = dv.length(); m.position.copy(p2[k]).add(p2[k + 1]).multiplyScalar(0.5);
-          m.quaternion.setFromUnitVectors(UP, dv.multiplyScalar(1 / Math.max(1e-5, l))); m.scale.y = l / Math.max(1e-5, S.len[k]); } } };
+          m.quaternion.setFromUnitVectors(UP, dv.multiplyScalar(1 / Math.max(1e-5, l))); m.scale.y = l / Math.max(1e-5, S.len[k]); }
+        S.js.forEach((sp, k) => sp.position.copy(p2[k + 1])); } };
     g.userData.update(0); return g;
   },
 

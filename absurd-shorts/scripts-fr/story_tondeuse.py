@@ -122,7 +122,7 @@ st.shot('S06', 'grassland', look=XLOOK, actors=[],
         props=[*[P(f'ft6{i}', 'fallTree', pos=[0.0, 0, z_], opts={'s': 1.3, 'seed': i, 'dir': (PI / 2 if i % 2 else -PI / 2), 'fallAt': r((z_ - Z06) / V6)}) for i, z_ in enumerate(TREES6)],
                *[P(f'tr6{i}', 'fallTree', pos=[r((2.6 + 1.2 * (i % 3)) * (1 if i % 2 else -1)), 0, r(-2.0 - 2.6 * i)], opts={'s': r(1.1 + 0.25 * (i % 3)), 'seed': i + 9}) for i in range(10)],
                MOWER('mow6', [0.0, 0, Z06], ry=0, s=2.0, runAt=0.0, keys=[k(0.0, to=[0.0, 0, r(Z06 + V6 * D6)], dur=D6, ease='linear')])],
-        cams=[FC(0.0, [2.6, 4.6, 3.4], [[0.0, 0.0, -16.0], [0.0, 3.8, -4.0], [-2.0, 0.0, -1.0], [2.0, 0.0, -1.0]], top=0.12, bottom=0.82, lenses=range(30, 70))])   # (review 1) high enough to see it between the trees from the first frame   # off the axis and higher: behind the trees in its way the mower was hidden
+        cams=[cam(0.0, [0.9, 4.2, r(Z06 - 4.6)], [0.9, 4.2, r(Z06 + V6 * D6 - 4.6)], [0.0, 0.6, r(Z06 + 5.0)], [0.0, 0.6, r(Z06 + V6 * D6 + 5.0)], lens=52)])   # (stills 2) chasing it from behind and above: the trees ahead fall aside as it reaches them (from in front they hid it)   # (review 1) high enough to see it between the trees from the first frame   # off the axis and higher: behind the trees in its way the mower was hidden
 for i, z_ in enumerate(TREES6): st.cue('sfx:crunch', 'S06', r((z_ - Z06) / V6), 0.25)
 
 # 7: the wheat fields got circles. From high above a golden field: the mower draws ring after ring, the stubble pale, the wheat standing between (CERCLES)
@@ -226,12 +226,8 @@ RP14 = [p_ for i, z_ in enumerate(ROWS14) for p_ in ([[r(0.05 + 1.85 * i / 12), 
 FIELDS14 = ['#8DBB5A', '#C9B45A', '#6E9E48', '#B8A060', '#A5C46A', '#7FA650', '#D2BC6E', '#94B05A']
 VILL14 = [(-55.0, -40.0), (48.0, -58.0), (30.0, 22.0), (-38.0, 35.0)]
 st.shot('S14', 'grassland', look=XLOOK, actors=[],
-        props=[*[P(f'champ14{i}{j}', 'floorSlab', pos=[r(-84.0 + 42.0 * i), 0.02, r(-104.0 + 42.0 * j)], opts={'w': 41.0, 'd': 41.0, 'h': 0.04, 'color': FIELDS14[(i * 3 + j * 5) % len(FIELDS14)]}) for i in range(5) for j in range(5)],
-               P('road14a', 'floorSlab', pos=[-21.0, 0.06, -20.0], opts={'w': 3.2, 'd': 220.0, 'h': 0.04, 'color': '#8A8A86'}), P('road14b', 'floorSlab', pos=[0.0, 0.06, -62.0], ry=72, opts={'w': 3.2, 'd': 240.0, 'h': 0.04, 'color': '#8A8A86'}),
-               *[P(f'maison14{v}{h}', 'cottage', pos=[r(vx + 7.0 * (h % 2) - 3.5), 0, r(vz + 7.0 * (h // 2) - 3.5)], ry=r(30 * h), scale=2.4, opts={'seed': v * 4 + h}) for v, (vx, vz) in enumerate(VILL14) for h in range(4)],
-               P('land14', 'mowField', pos=[0.0, 0.05, 0.0], opts={'w': 190.0, 'd': 150.0, 'h': 0.2, 'n': 300, 'width': 12.0, 'path': RP14, 'stripCols': ['#D8F0A8', '#BFE48A'], 'ground': 'none', 'bw': 0.2}),   # only the bands: the patchwork shows between them
-               MOWER('mow14', [RP14[0][1], 0, RP14[0][2]], ry=90, s=10.0, runAt=0.0, keys=[k(RP14[i - 1][0], to=[RP14[i][1], 0, RP14[i][2]], dur=r(max(0.01, RP14[i][0] - RP14[i - 1][0])), ease='linear') for i in range(1, len(RP14))])],
-        cams=[cam(0.0, [0.0, 165.0, 62.0], [0.0, 162.0, 58.0], [0.0, 0.0, -12.0], [0.0, 0.0, -14.0], lens=42)])   # (review 1) from 165 m: the country, its fields and villages, the bands sweeping it
+        props=[P('fr14', 'mowFrance', pos=[0.0, 0, 0.0], opts={'k': 10.0, 'n': 12, 'from': 0.12, 'to': r(D14 - 0.3)})],   # (stills 2) France itself mowed in stripes, band after band (the patchwork read as pale blocks)
+        cams=[cam(0.0, [-8.8, 162.0, 22.0], [-8.8, 150.0, 19.0], [-8.8, 0.0, 6.0], [-8.8, 0.0, 6.0], lens=60)])
 st.cue('whoosh', 'S14', 0.05, 0.3, 1.8, 200, 1000)
 
 # 15: in three weeks. On his kitchen wall a calendar's days race by, 1 to 21

@@ -75,11 +75,11 @@ for j in range(4): st.cue('whoosh', 'S02', r(0.26 + 0.3 * j), 0.2, 0.25, 500, 15
 # 3: under the sofa. Low beside the sofa: on his knees, cheek to the floor, he peers under it; the glasses on his head scrape its edge
 D3 = st.dur('S03'); ME3 = [0.0, 0, -1.25]; SOFA3 = [0.0, 0, -2.2]   # (build) from under the sofa: his face peering in (from the side it was his back)
 st.shot('S03', 'livingRoom', actors=[
-        act('mec', ME3, 180, 'crawl', 'neutral', keys=[k(0.0, look=[0.0, 0.15, -2.6]), k(0.0, toon={'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'O'}}, toonDur=0.0),   # (stills 1) on all fours, his head low enough to show under the sofa
-            k(0.45, look=[-0.6, 0.15, -2.6]), k(0.75, look=[0.6, 0.15, -2.6]), k(0.6, toon={'bend': {'spine': [0.3, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'pout'}}, toonDur=0.2), k(r(D3 - 0.25), look='camera')])],
+        act('mec', ME3, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.15, -2.6]), k(0.0, toon={'bend': {'spine': [0.75, 0, 0, 1, None], 'neck': [-0.2, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'O'}}, toonDur=0.0),   # (stills 3) kneeling, bent low (the crawl clip laid him on his back, arms up)   # (stills 1) on all fours, his head low enough to show under the sofa
+            k(0.45, look=[-0.6, 0.15, -2.6]), k(0.75, look=[0.6, 0.15, -2.6]), k(0.6, toon={'bend': {'spine': [0.82, 0, 0, 1, None], 'neck': [-0.2, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'pout'}}, toonDur=0.2), k(r(D3 - 0.25), look='camera')])],
         props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0, opts={'legs': 0.46}), P('coin3', 'coin', pos=[0.3, 0.02, -2.05], rot=[PI / 2, 0, 0]), P('sock3', 'slab', pos=[-0.28, 0.03, -2.0], opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
-               P('dust3', 'dustPuff', pos=[0.05, 0.0, -1.55], scale=0.3, opts={'color': '#BDB4A6', 'period': 1.1})],   # (stills 2) by his hands: 0.3 m from the lens it fogged the whole frame
-        cams=[FC(0.0, [0.15, 0.14, -2.5], [[0.0, 0.62, -1.35], [0.0, 0.05, -1.3], [0.35, 0.45, -1.45], [-0.35, 0.45, -1.45]], top=0.12, bottom=0.82, lenses=range(30, 76), inside=(-1.5, 1.5, 0.06, 0.4, -2.6, 2.0))])   # (stills 2) the sofa on 0.46 m legs: from 0.32 its front base hid his face
+               P('dust3', 'dustPuff', pos=[0.75, 0.0, -1.7], scale=0.25, opts={'color': '#BDB4A6', 'period': 1.1})],   # (stills 3) aside: in front of his face it hid it   # (stills 2) by his hands: 0.3 m from the lens it fogged the whole frame
+        cams=[FC(0.0, [1.05, 0.34, -2.05], [[0.0, 1.0, -1.45], [0.0, 0.1, -1.3], [-0.35, 0.5, -1.8], [0.3, 0.55, -1.4]], top=0.12, bottom=0.8, lenses=range(30, 76))])   # (stills 3) low beside the sofa's end, three-quarter on his face (from under it the sofa's front hid his head)   # (stills 2) the sofa on 0.46 m legs: from 0.32 its front base hid his face
 st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 
 # 4: in the fridge. In the kitchen: the fridge door open, his head and shoulders inside, cold mist rolling out round him; he comes out with frost on
@@ -89,8 +89,8 @@ st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
         act('mec', [0.15, 0, -1.55], 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 1.6, -2.6]), k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0),
             k(0.6, to=[0.15, 0, -1.25], dur=0.18, ease='out', clip='stand', face='keep'), k(0.62, look='camera'), k(0.62, toon={'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0, 'blush': 0.0}}, toonDur=0.1)])],   # he backs out, shivering
         props=[P('fr4', 'bigFridge', pos=FR4, opts={'open': 1.0, 'mode': 'full', 'mist': True, 'light': True}), GL('gl4', glint=[0.75]),
-               P('mist4', 'dustPuff', pos=[0.35, 0.55, -1.75], scale=0.9, opts={'color': '#E8F4FF', 'period': 0.9})],   # (stills 2) rolling out low at his knees: at his face it whited out the frame
-        cams=[FC(0.0, [0.05, 1.82, -2.62], [[0.15, 2.95, -1.4], [0.15, 1.85, -1.4], [0.4, 2.3, -1.45], [-0.1, 2.3, -1.45]], top=0.14, bottom=0.74, inside=(-0.45, 0.45, 0.4, 2.4, -2.75, 0.5))])   # (stills 1) above the food on the top shelf (the camera sat in a carton)   # (build) from inside the fridge out at his face
+               P('mist4', 'dustPuff', pos=[0.4, 0.3, -1.5], scale=0.6, opts={'color': '#E8F4FF', 'period': 0.9})],   # (stills 3) lower and smaller   # (stills 2) rolling out low at his knees: at his face it whited out the frame
+        cams=[FC(0.0, [0.05, 1.62, -2.62], [[0.15, 2.12, -1.4], [0.15, 1.3, -1.4], [0.45, 1.7, -1.45], [-0.15, 1.7, -1.45]], top=0.16, bottom=0.74, inside=(-0.45, 0.45, 0.4, 2.4, -2.75, 0.5))])   # (stills 1) above the food on the top shelf (the camera sat in a carton)   # (build) from inside the fridge out at his face
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:sniff', 'S04', 0.7, 0.2)
 
 # 5: he filed a complaint. At the police desk, over the officer's shoulder: he makes rings of his fingers round his eyes (glasses!); the officer looks
