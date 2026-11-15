@@ -203,17 +203,17 @@ st.cue('sfx:ding', 'S17', 0.1, 0.15)
 # 18: ...for an adviser, press one. He takes the phone off his ear (it comes free with a pop) and holds it in front of him: the keypad
 D18 = st.dur('S18'); OFF18 = 0.35
 st.shot('S18', 'livingRoom', actors=[act('mec', [0.0, 0, -1.6], 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=HOLD({'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}), toonDur=0.0),
-            k(OFF18, toon={'reach': {'R': [0.05, 1.45, -1.15, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'line'}}, toonDur=0.15, toonEase='out'), k(r(OFF18 + 0.1), look=[0.05, 1.45, -1.15])])],
+            k(OFF18, toon={'reach': {'R': [0.1, 1.18, -1.05, 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'line'}}, toonDur=0.15, toonEase='out'), k(r(OFF18 + 0.1), look=[0.1, 1.18, -1.05])])],   # (stills 1) held at chest height: in front of his face it hid it
         props=[P('pad18', 'phoneKeypad', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, face='camera', scale=0.3, opts={'label': 'SERVICE CLIENT'})],
-        cams=[FC(0.0, [0.3, 1.6, 0.4], [[0.0, 2.15, -1.6], [0.0, 1.2, -1.6], [0.2, 1.6, -1.15], [-0.25, 1.6, -1.15]], top=0.16, bottom=0.74)])
+        cams=[FC(0.0, [0.3, 1.6, 0.4], [[0.0, 2.15, -1.6], [0.0, 1.0, -1.6], [0.25, 1.2, -1.05], [-0.2, 1.2, -1.05]], top=0.16, bottom=0.74)])
 st.cue('pop', 'S18', OFF18, 0.25)
 
 # 19: he pressed one. Insert: the keypad big in his hand; his finger comes in and presses 1: it lights up green (UN)
-D19 = st.dur('S19'); PRESS19 = 0.55
-st.shot('S19', 'livingRoom', actors=[act('mec', [0.0, 0, -1.6], 0, 'sit', 'neutral', keys=[k(0.0, look=[0.05, 1.45, -1.15]), k(0.0, toon={'reach': {'R': [0.05, 1.45, -1.15, 1, 0.03], 'L': [-0.2, 1.4, -1.05, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'point'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0),
-            k(r(PRESS19 - 0.15), toon={'reach': {'R': [0.05, 1.45, -1.15, 1, 0.03], 'L': [-0.02, 1.52, -1.08, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'point'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.15, toonEase='inOut')])],
-        props=[P('pad19', 'phoneKeypad', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, face='camera', scale=0.3, opts={'label': 'SERVICE CLIENT', 'pressAt': PRESS19})],
-        cams=[FC(0.0, [0.15, 1.5, -0.45], [[0.05, 1.62, -1.15], [0.05, 1.28, -1.15], [-0.15, 1.45, -1.12], [0.25, 1.45, -1.12]], top=0.2, bottom=0.72, lenses=range(20, 60))])
+D19 = st.dur('S19'); PRESS19 = 0.55; PAD19 = [0.05, 1.25, -0.95]   # (stills 1) the keypad as its own prop, square to the lens (held in the hand it turned edge-on and his face filled the insert)
+st.shot('S19', 'livingRoom', actors=[act('mec', [0.0, 0, -1.6], 0, 'sit', 'neutral', keys=[k(0.0, look=PAD19), k(0.0, toon={'reach': {'R': [0.14, 1.12, -0.97, 1, 0.03], 'L': [-0.2, 1.3, -1.0, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'point'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0),
+            k(r(PRESS19 - 0.18), toon={'reach': {'R': [0.14, 1.12, -0.97, 1, 0.03], 'L': [0.01, 1.31, -0.91, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'point'}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.18, toonEase='inOut')])],   # the finger comes in to the 1
+        props=[P('pad19', 'phoneKeypad', pos=PAD19, face='camera', scale=0.3, opts={'label': 'SERVICE CLIENT', 'pressAt': PRESS19})],
+        cams=[FC(0.0, [0.12, 1.3, -0.45], [[-0.04, 1.42, -0.95], [0.14, 1.42, -0.95], [-0.04, 1.08, -0.95], [0.14, 1.08, -0.95]], top=0.18, bottom=0.74, lenses=range(16, 60))])   # (stills 1) the keypad fills the frame
 st.cue('sfx:click', 'S19', PRESS19, 0.35)
 
 # 20: the music started again. The notes pour out of the phone again; he puts it back to his ear and looks at us, deadpan
