@@ -63,7 +63,7 @@ st.cue('sfx:sting', 'S02', 0.35, 0.15)
 
 # 3: nobody dared tell him. On the pavement: two passers-by stare at the label as he walks past, open their mouths, then look away whistling
 D3 = st.dur('S03'); PASS3 = [('pass1', 5.45, -0.4, 90), ('pass2', 6.95, 0.3, -110)]
-st.shot('S03', 'parisStreet', setOpts={**PARIS, 'clouds': 0}, actors=[act('mec', [6.2, 0, -1.2], 0, 'walk', 'neutral', keys=[k(0.0, to=[6.2, 0, 0.9], dur=D3, clip='walk', ease='linear'), k(0.0, look='camera')]),
+st.shot('S03', 'parisStreet', setOpts={**PARIS, 'clouds': 0, 'eiffel': False}, actors=[act('mec', [6.2, 0, -1.2], 0, 'walk', 'neutral', keys=[k(0.0, to=[6.2, 0, 0.9], dur=D3, clip='walk', ease='linear'), k(0.0, look='camera')]),
         *[act(pid, [px, 0, pz], pry, 'stand', 'neutral', keys=[k(0.0, look=[6.5, 1.8, -0.9]), k(0.3, look=[6.5, 1.8, 0.1]), k(0.3, toon={'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}, 'sq': [0.95, 1.06, 0.95]}, toonDur=0.08, toonEase='out'),
             k(r(0.8 + 0.12 * j), look=[r(px + (-1.2 if j == 0 else 1.2)), 3.4, r(pz + 2.5)], lookDur=0.15), k(r(0.8 + 0.12 * j), toon={'face': {'lid': 0.4, 'mouth': 'whistle', 'brow': 0.4}}, toonDur=0.12),
             k(r(1.25 + 0.1 * j), toon={'face': {'lid': 1.0, 'mouth': 'whistle', 'brow': 0.4}}, toonDur=0.05), k(r(1.36 + 0.1 * j), toon={'face': {'lid': 0.4, 'mouth': 'whistle', 'brow': 0.4}}, toonDur=0.07)]) for j, (pid, px, pz, pry) in enumerate(PASS3)]],
@@ -73,14 +73,14 @@ st.cue('sfx:whistle', 'S03', 0.8, 0.2)
 
 # 4: the next day his colleague did the same. The office, waist up: the colleague comes in beside him, his blue jumper inside out, label up; they
 #    look at each other; a nod, one after the other
-D4 = st.dur('S04'); M4 = [-0.45, 0, -0.6]; C4 = [0.6, 0, -0.3]
+D4 = st.dur('S04'); M4 = [-0.4, 0, -0.6]; C4 = [0.45, 0, -0.35]
 NOD = lambda t_: [k(t_, toon={'bend': {'neck': [0.4, 0, 0, 1, None]}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1, toonEase='out'), k(r(t_ + 0.2), toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.14)]
 st.shot('S04', 'office', actors=[act('mec', M4, 35, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0), k(0.5, look=[1.6, 1.9, 0.2]), k(1.0, look=[C4[0], 2.0, C4[2]]),
             k(0.3, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.05), k(0.42, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.07), *NOD(1.3), k(1.95, look='camera')]),
         act('coll', [2.3, 0, 0.3], -100, 'walk', 'neutral', keys=[k(0.0, to=C4, dur=1.0, clip='walk', then='stand', ease='out'), k(1.0, face=-40, turn=0.25), k(0.0, look=[M4[0], 2.0, M4[2]]), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
             *NOD(1.55), k(2.0, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.05), k(2.12, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.07)])],
         props=[MJ('pull4', tagKick=[1.32]), JUMP('pj4', 'coll', '#2F62B5', tagSway=0.12, tagRate=8.0, tagKick=[1.0, 1.57])],
-        cams=[FC(0.0, [0.25, 1.6, 2.5], [[M4[0], 2.5, M4[2]], [C4[0], 2.5, C4[2]], [r(M4[0] - 0.4), 1.05, M4[2]], [r(C4[0] + 0.45), 1.05, C4[2]], LBL(C4, -40, 1, 0.66, 1.92)], top=0.14, bottom=0.82)])   # (review 1) a waist-up two-shot, both labels in frame
+        cams=[FC(0.0, [0.15, 1.5, 2.2], [[M4[0], 2.5, M4[2]], [C4[0], 2.5, C4[2]], [r(M4[0] - 0.3), 1.3, M4[2]], [r(C4[0] + 0.4), 1.3, C4[2]], LBL(C4, -40, 1, 0.66, 1.92), [0.0, 0.8, -0.45]], top=0.14, bottom=0.84)])   # (review 1) a waist-up two-shot, both labels in frame
 
 # 5: then the whole office. From behind the rows, three-quarter back: every worker in a jumper inside out, a field of white labels bobbing over the
 #    shoulders with the typing; he stands at the far end, facing them (review 1: from the front the labels hid behind the necks)
@@ -101,18 +101,18 @@ st.shot('S06', 'parisStreet', setOpts=PARIS, actors=[act('mec', [4.6, 0, -1.8], 
 
 # 7: the shops sewed their labels on the outside. A clothes shop: with an oversized needle and a red thread the seamstress sews a label onto the
 #    chest of a jumper, stitch after stitch; a pile of jumpers, labels out, on the table (DEHORS)
-D7 = st.dur('S07'); J7 = [0.05, 1.12, -1.45]; SEW7 = [r(J7[0] + 0.07), r(J7[1] + 0.2), r(J7[2] + 0.2)]
-ST7 = lambda far, f: {'reach': {'R': [r(SEW7[0] + 0.02 + 0.2 * far), r(SEW7[1] + 0.02 + 0.2 * far), r(SEW7[2] + 0.05 + 0.16 * far), 1, 0.04], 'L': [r(J7[0] - 0.24), r(J7[1] + 0.46), r(J7[2] + 0.02), 1, 0.04]}, 'hands': {'R': 'pinch', 'L': 'grip'}, 'face': f}
+D7 = st.dur('S07'); J7 = [0.42, 1.12, -1.45]; CO7 = [-0.32, 0, -1.9]; SEW7 = [0.47, 1.37, -1.28]   # the jumper she holds up beside her, and the label on its chest
+ST7 = lambda far, f: {'reach': {'R': [r(-0.03 - 0.17 * far), r(1.4 + 0.15 * far), r(-1.45 + 0.15 * far), 1, 0.04], 'L': [0.3, 1.64, -1.5, 1, 0.04]}, 'hands': {'R': 'pinch', 'L': 'grip'}, 'face': f}   # the needle crosses the knit to the label
 K7 = [k(0.0, look=SEW7), k(0.0, toon=ST7(1, {'lid': 0.3, 'mouth': 'smile'}), toonDur=0.0)]
 for j in range(5):
     K7 += [k(r(0.22 + 0.44 * j), toon={**ST7(0, {'lid': 0.4, 'mouth': 'smile', 'brow': -0.2}), 'sq': [1.02, 0.98, 1.02]}, toonDur=0.1, toonEase='in'), k(r(0.42 + 0.44 * j), toon=ST7(1, {'lid': 0.3, 'mouth': 'smile'}), toonDur=0.16, toonEase='out')]
 K7 += [k(1.6, look='camera', lookDur=0.15), k(2.05, look=SEW7)]
-st.shot('S07', 'poste', setOpts={'title': ' ', 'guichets': False}, actors=[act('coutu', [0.0, 0, -1.9], 0, 'stand', 'happy', keys=K7)],
-        props=[P('pull7', 'knitJumper', pos=J7, scale=0.8, opts={'color': '#2F8F6B', 'inside': False, 'tie': False, 'sewn': 0.5}), P('tas7', 'jumperPile', pos=[1.4, 0, -1.6]),
+st.shot('S07', 'poste', setOpts={'title': ' ', 'guichets': False}, actors=[act('coutu', CO7, 20, 'stand', 'happy', keys=K7)],
+        props=[P('pull7', 'knitJumper', pos=J7, scale=0.8, opts={'color': '#2F8F6B', 'inside': False, 'tie': False, 'sewn': 0.5, 'sleeves': True}), P('tas7', 'jumperPile', pos=[1.5, 0, -1.6]),
                P('aiguille7', 'sewNeedle', on={'actor': 'coutu', 'hand': 'R', 'offset': [0.0, -0.12, 0.04], 'rot': [3.1416, 0, 0]}, opts={'s': 1.3}),   # the point out past her fingers (the hand's +y runs up the arm)
-               P('ens7', 'signBoard', pos=[1.5, 2.2, -3.3], opts={'text': 'PRÊT-À-PORTER', 'bg': '#F2C230', 'fg': '#2C4A8A', 'w': 1.5, 'h': 0.3, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [0.55, 1.6, 0.45], [[0.0, 2.5, -1.9], [J7[0], r(J7[1] - 0.02), J7[2]], [-0.45, 1.5, -1.5], [0.6, 1.5, -1.2], [1.0, 1.0, -1.6]], top=0.24, bottom=0.76)])   # (review 1) tighter: the stitch and the label on the chest
-st.cue('sfx:tick', 'S07', 0.22, 0.12); st.cue('sfx:tick', 'S07', 0.66, 0.12); st.cue('sfx:tick', 'S07', 1.1, 0.12); st.cue('sfx:tick', 'S07', 1.54, 0.12)
+               P('ens7', 'signBoard', pos=[0.5, 2.25, -3.3], opts={'text': 'PRÊT-À-PORTER', 'bg': '#F2C230', 'fg': '#2C4A8A', 'w': 1.1, 'h': 0.26, 'posts': False, 'height': 0})],
+        cams=[FC(0.0, [0.5, 1.6, 0.6], [[CO7[0], 2.5, CO7[2]], [J7[0], r(J7[1] - 0.04), J7[2]], [-0.75, 1.5, -1.7], [0.85, 1.4, -1.4]], top=0.24, bottom=0.76)])   # (review 1) tighter: the needle, the thread and the label on the chest
+st.cue('sfx:tick', 'S07', 0.32, 0.12); st.cue('sfx:tick', 'S07', 0.76, 0.12); st.cue('sfx:tick', 'S07', 1.2, 0.12); st.cue('sfx:tick', 'S07', 1.64, 0.12)
 
 # 8: the news presenter... The news desk: the presenter reads the news, a big JOURNAL backdrop, the label up over his shoulder
 D8 = st.dur('S08'); PRES = [0.0, 0, 0.3]; NEWS = {'backdrop': 'LE JOURNAL', 'fontScale': 0.6, 'podium': False, 'chairs': False, 'flags': False, 'bg': '#5878A8', 'wall': '#4C6A96'}
@@ -121,38 +121,39 @@ st.shot('S08', 'pressRoom', setOpts=NEWS, actors=[act('presentateur', PRES, 0, '
         cams=[FC(0.0, [0.3, 1.5, 3.2], [[0.0, 2.2, 0.3], [0.0, 0.8, 0.75], [-0.75, 1.2, 0.75], [0.75, 1.2, 0.75], [0.5, 1.7, 0.2]], top=0.14, bottom=0.8)])
 
 # 9: ...wore it live. From behind, at his shoulder: the white label standing between his head and the red EN DIRECT light of the camera in front
-D9 = st.dur('S09'); TV9 = [0.95, 0, 2.5]
+D9 = st.dur('S09'); TV9 = [1.55, 0, 1.2]; DIR9 = [1.3, 1.4, 1.0]   # the studio camera at his left, its red plate just past the label as seen from behind him
 st.shot('S09', 'pressRoom', setOpts=NEWS, actors=[act('presentateur', PRES, 0, 'sitTalk', 'neutral', keys=[k(0.0, look=[TV9[0], 1.5, TV9[2]]), k(0.7, toon={'sq': [1.02, 0.98, 1.02]}, toonDur=0.15), k(1.0, toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.2)])],
-        props=[P('desk9', 'desk', pos=[0.0, 0, 0.85], opts={'w': 1.6}), P('ch9', 'chair', pos=PRES), JUMP('pj9', 'presentateur', '#E8A33C', tagKick=[0.3, 0.75]), P('tv9', 'tvCamera', pos=TV9, ry=180),
-               P('direct9', 'signBoard', pos=[r(TV9[0] + 0.1), 1.6, r(TV9[2] - 0.35)], ry=180, opts={'text': 'EN DIRECT', 'bg': '#D22B2B', 'fg': '#FFFFFF', 'w': 0.7, 'h': 0.2, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [-0.3, 1.55, -1.2], [[0.0, 2.05, 0.3], [-0.2, 1.1, 0.3], [0.5, 1.25, 0.2], [r(TV9[0] + 0.5), 1.75, r(TV9[2] - 0.35)], [0.0, 0.78, 0.85]], top=0.16, bottom=0.74, inside=(-5.0, 5.0, 0.5, 3.0, -2.8, 6.0))])   # (review 1) the label between the head and the red light, above the caption band
+        props=[P('desk9', 'desk', pos=[0.0, 0, 0.85], opts={'w': 1.6}), P('ch9', 'chair', pos=PRES), JUMP('pj9', 'presentateur', '#E8A33C', tagKick=[0.3, 0.75]), P('tv9', 'tvCamera', pos=TV9, ry=-125),
+               P('direct9', 'signBoard', pos=DIR9, ry=-150, opts={'text': 'EN DIRECT', 'bg': '#D22B2B', 'fg': '#FFFFFF', 'w': 0.5, 'h': 0.17, 'posts': False, 'height': 0})],
+        cams=[FC(0.0, [-0.45, 1.5, -2.5], [[0.0, 1.95, 0.3], [-0.38, 1.5, 0.3], [0.6, 1.3, 0.2], [r(DIR9[0] + 0.32), 1.55, DIR9[2]], [0.0, 0.8, 0.85]], top=0.2, bottom=0.74, inside=(-5.0, 5.0, 0.5, 3.0, -2.8, 6.0))])   # (review 1) the label between the head and the red light, above the caption band
 
 # 10: the president gave his wishes... At the lectern between two flags, the president, solemn
-D10 = st.dur('S10'); PR10 = [0.0, 0, -0.3]; ELY = {'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6, 'podium': False, 'bg': '#5878A8', 'wall': '#4C6A96'}
+D10 = st.dur('S10'); PR10 = [0.0, 0, -0.3]; ELY = {'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6, 'podium': False, 'flags': False, 'bg': '#5878A8', 'wall': '#4C6A96'}
+FLAGS10 = lambda: [P(f'fl10{j}', 'flag', pos=[x, 0, -0.6], scale=1.5, opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True, 'poleColor': '#D8C27A'}) for j, x in enumerate([-1.3, 0.38])]   # a tricolour either side of him, above his shoulders
 st.shot('S10', 'pressRoom', setOpts=ELY, actors=[act('president', PR10, 0, 'podiumTalk', 'neutral', keys=[k(0.0, look='camera'), k(0.45, toon={'face': {'lid': 1.0}}, toonDur=0.06), k(0.58, toon={'face': {'lid': 0.2}}, toonDur=0.08)])],
-        props=[P('pod10', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), JUMP('pj10', 'president', '#2F62B5', tag=1.25), *[P(f'fl10{j}', 'flag', pos=[r(-0.85 + 1.7 * j), 0, -0.6], opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True}) for j in range(2)]],
-        cams=[FC(0.0, [0.95, 0.7, 2.9], [[0.0, 2.6, PR10[2]], [0.0, 0.55, 0.46], [-1.0, 2.2, -0.6], [1.0, 2.2, -0.6]], top=0.14, bottom=0.74)])   # (review 1) the RÉPUBLIQUE plate above the captions, both flags in
+        props=[P('pod10', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), JUMP('pj10', 'president', '#2F62B5', tag=1.25), *FLAGS10()],
+        cams=[FC(0.0, [0.95, 0.7, 2.9], [[0.0, 2.6, PR10[2]], [0.0, 0.55, 0.46], [-1.3, 2.3, -0.6], [1.3, 2.3, -0.6]], top=0.14, bottom=0.74)])   # (review 1) the RÉPUBLIQUE plate above the captions, both flags in
 
 # 11: ...in a jumper inside out. Close on him: the big label standing beside his solemn face, the seams on his shoulders; it flops when he nods
 D11 = st.dur('S11'); L11 = LBL(PR10, 0, 1, 0.66, 1.95)
 st.shot('S11', 'pressRoom', setOpts=ELY, actors=[act('president', PR10, 0, 'podiumTalk', 'neutral', keys=[k(0.0, look='camera'), k(0.5, toon={'bend': {'neck': [0.3, 0, 0, 1, None]}, 'face': {'lid': 0.5}}, toonDur=0.12, toonEase='out'), k(0.72, toon={'face': {'lid': 0.2}}, toonDur=0.15),
             k(1.15, toon={'face': {'lid': 1.0}}, toonDur=0.07), k(1.27, toon={'face': {'lid': 0.2}}, toonDur=0.08)])],
-        props=[P('pod11', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), JUMP('pj11', 'president', '#2F62B5', tag=1.25, tagKick=[0.55])],
-        cams=[FC(0.0, [0.7, 2.1, 1.3], [[0.0, 2.6, PR10[2]], [0.0, 1.6, PR10[2]], [L11[0], 2.15, L11[2]], [r(L11[0] + 0.18), 1.75, L11[2]], [-0.35, 2.0, PR10[2]]], top=0.16, bottom=0.74)])
+        props=[P('pod11', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), JUMP('pj11', 'president', '#2F62B5', tag=1.25, tagKick=[0.55]), *FLAGS10()],
+        cams=[FC(0.0, [0.7, 2.1, 1.3], [[0.16, 2.6, PR10[2]], [0.16, 1.55, PR10[2]], [0.82, 1.95, L11[2]], [0.82, 1.6, L11[2]], [-0.2, 2.0, PR10[2]]], top=0.16, bottom=0.74)])
 
 # 12: the fashion shows went inside out. A catwalk, from the end of it, low: a model strides at us in a jumper inside out, its head-tall label flopping
 #     at each step, another behind her; flashes on both sides (À L'ENVERS)
 D12 = st.dur('S12'); M12 = [('mod1', 0.0, -1.1), ('mod2', 0.0, -3.0)]
 st.shot('S12', 'pressRoom', setOpts={'backdrop': 'PARIS', 'fontScale': 0.9, 'podium': False, 'chairs': False, 'bg': '#2B2E3A', 'wall': '#23252E'}, actors=[
         *[act(mid, [mx, 0, mz], 0, 'strut', 'smug', keys=[k(0.0, to=[mx, 0, r(mz + 1.5)], dur=D12, clip='strut', ease='linear'), k(0.0, look='camera')]) for mid, mx, mz in M12],
-        *[act(f'photo{j + 1}', [r(-1.3 if j % 2 else 1.3), 0, r(-0.4 + 0.8 * (j // 2))], 90 if j % 2 else -90, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.8, 0.0]), k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0),
+        *[act(f'photo{j + 1}', [r(-0.85 if j % 2 else 0.85), 0, r(-2.0 + 0.9 * (j // 2))], 90 if j % 2 else -90, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.8, 0.0]), k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0),
             *[k(r(fa), toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.0, 0.97, 1.0]}, toonDur=0.06) for fa in [0.2 + 0.3 * j, 0.9 + 0.25 * j]],
             *[k(r(fa + 0.12), toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.15) for fa in [0.2 + 0.3 * j, 0.9 + 0.25 * j]],
             k(r(1.5 + 0.1 * j), look=[0.0, 1.8, 0.6], lookDur=0.3)]) for j in range(4)]],
-        props=[P('podium12', 'floorSlab', pos=[0.0, 0.04, -1.0], opts={'w': 1.2, 'd': 6.0, 'h': 0.08, 'color': '#F4F1E8'}),
+        props=[P('podium12', 'floorSlab', pos=[0.0, 0.04, -1.0], opts={'w': 0.9, 'd': 6.0, 'h': 0.08, 'color': '#F4F1E8'}),
                JUMP('pj12a', 'mod1', '#C255C8', tag=2.0, tagSway=0.32, tagRate=9.4), JUMP('pj12b', 'mod2', '#F2C94E', tag=2.0, tagSide=-1, tagSway=0.32, tagRate=9.4, tagPhase=1.6),
                *[P(f'cam12{j}', 'pressCamera', on={'actor': f'photo{j + 1}', 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': [r(0.2 + 0.3 * j), r(0.9 + 0.25 * j)], 'burst': 0.5}) for j in range(4)]],
-        cams=[FC(0.0, [0.3, 0.9, 3.0], [[0.0, 2.75, 0.4], [0.0, 0.0, 0.4], [-0.75, 2.2, 0.4], [0.75, 2.2, 0.4]], top=0.2, bottom=0.76)])   # (review 1) low at the end of the catwalk: she fills the frame as she comes
+        cams=[FC(0.0, [0.12, 0.9, 3.4], [[0.0, 2.5, 0.4], [0.0, 0.75, 0.4], [-0.6, 1.5, 0.4], [0.9, 2.0, 0.4]], top=0.2, bottom=0.8)])   # (review 1) low at the end of the catwalk: she fills the frame as she comes
 st.cue('sfx:click', 'S12', 0.2, 0.15); st.cue('sfx:click', 'S12', 0.5, 0.15); st.cue('sfx:click', 'S12', 0.8, 0.15); st.cue('sfx:click', 'S12', 1.1, 0.15)
 
 # 13: yesterday he saw himself in a shop window. On the pavement at a big shop window, both of them and both labels in frame: his reflection looks
@@ -167,10 +168,10 @@ TAP13 = lambda near, f: {'reach': {'L': [r(R13[0] + (0.1 if near else 0.22)), r(
 REF13['keys'] = REF13['keys'] + [k(0.3, toon=TAP13(0, {'lid': 0.3, 'mouth': 'smirk'}), toonDur=0.15, toonEase='out'), k(0.5, toon=TAP13(1, {'lid': 0.3, 'mouth': 'smirk'}), toonDur=0.06, toonEase='in'), k(0.62, toon=TAP13(0, {'lid': 0.3, 'mouth': 'smirk'}), toonDur=0.08),
                                  k(0.75, toon=TAP13(1, {'lid': 0.3, 'mouth': 'smirk'}), toonDur=0.06, toonEase='in'), k(0.9, toon=TAP13(0, {'lid': 0.2, 'mouth': 'smirk', 'brow': 0.4}), toonDur=0.1)]   # the reflection taps its own label, twice
 st.shot('S13', 'parisStreet', setOpts=PARIS, actors=[SRC13, REF13],
-        props=[MJ('pull13', tagKick=[r(TAKE13 + 0.02)]), JUMP('pullref13', 'mec_reflet', '#C8322A', True, 0.6, tagSide=-1, tagKick=[0.52, 0.77, r(TAKE13 + 0.02)]),
+        props=[MJ('pull13', tagKick=[r(TAKE13 + 0.06)]), JUMP('pullref13', 'mec_reflet', '#C8322A', True, 0.6, tagSide=-1, tagKick=[0.56, 0.81, r(TAKE13 + 0.06)]),
                P('vitre13', 'slab', pos=[0.4, 1.5, ZW], opts={'w': 2.6, 'h': 2.8, 'd': 0.02, 'color': '#CFE6F2', 'opacity': 0.25}), P('cadre13', 'slab', pos=[0.4, 3.0, ZW], opts={'w': 2.8, 'h': 0.25, 'd': 0.1, 'color': '#2E4563'})],
         cams=[FC(0.0, [-1.15, 1.9, 1.55], [[0.4, 2.5, -0.1], [L13[0], 1.95, L13[2]], [0.78, 1.45, -0.1], [0.4, 1.15, -0.1], [0.4, 2.5, -1.9], [R13[0], 1.95, R13[2]], [0.4, 1.15, -1.9]], top=0.14, bottom=0.78)])   # (review 1) from his label's side: both figures and both labels inside the frame
-st.cue('sfx:tick', 'S13', 0.5, 0.2); st.cue('sfx:tick', 'S13', 0.75, 0.2); st.cue('sfx:sting', 'S13', TAKE13, 0.15)
+st.cue('sfx:tick', 'S13', 0.56, 0.2); st.cue('sfx:tick', 'S13', 0.81, 0.2); st.cue('sfx:sting', 'S13', TAKE13, 0.15)
 
 # 14: he turned his jumper right side out. A crouch, then he hauls it up over his head: it stretches over him, head and arms lost inside, bulges
 #     twice as he fights it, changes side, snaps down with a squash and wobbles; he smooths it down, pleased (review 1: a texture swap)
@@ -221,7 +222,7 @@ st.shot('S16', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
             k(0.3, toon=OFFER({**DEAD, 'mouth': 'line'}), toonDur=0.2, toonEase='out'), k(CUFF16, toon={**OFFER({'lid': 0.3, 'mouth': 'line'}), 'sq': [1.02, 0.97, 1.02]}, toonDur=0.06),   # he holds his wrists up; the cuffs snap on
             k(1.0, look=[F1[0], 2.0, F1[2]], lookDur=0.2), k(1.6, look='camera'), k(1.9, toon=OFFER({'lid': 1.0, 'mouth': 'line'}), toonDur=0.1), k(2.05, toon=OFFER({**DEAD, 'mouth': 'line'}), toonDur=0.12)]),
         act('flic1', F1, -22, 'stand', 'determined', keys=[k(0.0, look=WR(-1)[:3]), k(0.0, toon=CLAMP({'lid': 0.3, 'brow': -0.5, 'mouth': 'line'}, 0.2), toonDur=0.0),
-            k(r(CUFF16 - 0.12), toon=CLAMP({'lid': 0.3, 'brow': -0.5, 'mouth': 'line'}, 0.28), toonDur=0.1, toonEase='out'), k(CUFF16, toon=CLAMP({'lid': 0.4, 'brow': -0.7, 'mouth': 'clench'}, 0.0, [1.04, 0.96, 1.04]), toonDur=0.05, toonEase='in'),   # a wind-up, snap
+            k(r(CUFF16 - 0.2), toon=CLAMP({'lid': 0.3, 'brow': -0.5, 'mouth': 'line'}, 0.28), toonDur=0.1, toonEase='out'), k(r(CUFF16 - 0.05), toon=CLAMP({'lid': 0.4, 'brow': -0.7, 'mouth': 'clench'}, 0.0, [1.04, 0.96, 1.04]), toonDur=0.05, toonEase='in'),   # a wind-up, snap
             k(1.3, look='camera', lookDur=0.15), k(1.35, toon=CLAMP({'lid': 0.4, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.12), k(2.1, toon=CLAMP({'lid': 1.0, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.06), k(2.22, toon=CLAMP({'lid': 0.4, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.08)]),
         act('flic2', F2, -100, 'stand', 'neutral', keys=[k(0.0, look=[ME1[0], 1.6, ME1[2]]), k(0.3, toon={**EYES, 'face': {'lid': 1.0, 'mouth': 'O'}}, toonDur=0.12),
             k(1.2, toon={'touch': {'R': ['face', 0.0, -0.02, 0.24, 1, 0.02]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.08), k(1.25, look=[ME1[0], 1.3, ME1[2]], lookDur=0.1),
@@ -237,9 +238,9 @@ st.cue('sfx:click', 'S16', CUFF16, 0.3); st.cue('sfx:whistle', 'S16', 0.2, 0.2)
 D17 = st.dur('S17'); BANG17 = 0.34; JG = [0.0, 0.3, -4.0]
 GAV = lambda x, y, z, f, sq=None: {'reach': {'R': [x, y, z, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
 st.shot('S17', 'courtroom', actors=[act('juge', JG, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=GAV(-0.72, 2.7, -3.6, {'lid': 0.2, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.0),
-            k(0.1, toon=GAV(-0.8, 2.95, -3.75, {'lid': 0.2, 'brow': -0.7, 'mouth': 'line'}, [0.95, 1.07, 0.95]), toonDur=0.12, toonEase='out'),   # the wind-up, out beside his head...
-            k(BANG17, toon=GAV(-0.5, 1.72, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [1.1, 0.88, 1.1]), toonDur=0.07, toonEase='in'),   # ...the hit
-            k(r(BANG17 + 0.1), toon=GAV(-0.5, 1.9, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [0.97, 1.04, 0.97]), toonDur=0.08), k(r(BANG17 + 0.24), toon=GAV(-0.5, 1.76, -3.3, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'}), toonDur=0.1)])],   # the bounce
+            k(0.05, toon=GAV(-0.8, 2.95, -3.75, {'lid': 0.2, 'brow': -0.7, 'mouth': 'line'}, [0.95, 1.07, 0.95]), toonDur=0.12, toonEase='out'),   # the wind-up, out beside his head...
+            k(r(BANG17 - 0.07), toon=GAV(-0.5, 1.72, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [1.1, 0.88, 1.1]), toonDur=0.07, toonEase='in'),   # ...the hit
+            k(r(BANG17 + 0.03), toon=GAV(-0.5, 1.9, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [0.97, 1.04, 0.97]), toonDur=0.08), k(r(BANG17 + 0.15), toon=GAV(-0.5, 1.76, -3.3, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'}), toonDur=0.1)])],   # the bounce
         props=[P('gav17', 'gavel', on={'actor': 'juge', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}), P('etiq17', 'careLabel', on={'actor': 'juge', 'joint': 'torso', 'offset': [0.32, 0.58, -0.08]}, opts={'s': 1.3, 'lean': -0.3, 'kick': [r(BANG17 + 0.02)]})],
         cams=[FC(0.0, [0.75, 2.25, -1.5], [[0.0, 2.95, -4.0], [0.0, 1.5, -3.5], [-0.95, 2.9, -3.7], [0.75, 2.3, -4.0]], top=0.16, bottom=0.76)], fx=[{'type': 'shake', 'at': BANG17, 'dur': 0.2, 'amount': 0.012}])
 st.cue('clang', 'S17', BANG17, 0.4)
@@ -251,7 +252,7 @@ Y18 = lambda a, y, f, sq=None, **more: {'reach': {'R': [r(ME1[0] + FW[0] * a), y
 SAD = {'lid': 0.6, 'mouth': 'line', 'brow': -0.2}
 st.shot('S18', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand', 'neutral', keys=[k(0.0, look=[r(ME1[0] + FW[0] * 1.2), 0.9, r(ME1[2] + FW[1] * 1.2)]), k(0.0, toon={'face': SAD}, toonDur=0.0),
             k(0.1, toon={'sq': [1.03, 0.96, 1.03], 'face': SAD}, toonDur=0.14),   # a sigh
-            k(0.27, toon=Y18(-0.14, 1.74, SAD), toonDur=0.12, toonEase='out'),   # one hand to the collar at his nape
+            k(0.27, toon=Y18(-0.14, 1.74, SAD), toonDur=0.12, toonEase='out'), k(0.3, look=[r(ME1[0] + FW[0] * 3.0), 1.9, r(ME1[2] + FW[1] * 3.0)], lookDur=0.1),   # one hand to the collar at his nape, his head up
             k(T18, toon=Y18(0.08, 2.78, SAD, [0.93, 1.1, 0.93]), toonDur=0.14, toonEase='out'),   # one yank up...
             k(r(T18 + 0.68 * TD18), toon=Y18(0.36, 1.25, SAD, [1.16, 0.78, 1.16]), toonDur=0.09, toonEase='in'),   # ...and down in front
             k(r(POP18 + 0.16), toon={'bend': {'neck': [0.0, 0.0, 0.22, 1, None]}, 'sq': [0.98, 1.03, 0.98], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.16),   # the arm drops, the head tilted
@@ -272,7 +273,7 @@ st.shot('S19', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 # (review 1) the jumpers' sleeves: each wearer's jacket in the colour of his jumper (and trousers of his own): the arms read as knitted sleeves
 SL = lambda preset, col, seed, pants=None, **kw: {'preset': preset, 'seed': seed, 'suit': col, 'lapel': col, **({'pants': pants} if pants else {}), 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX, **kw}
-MEC = {'preset': 'lemec', 'tint': '#E6F2FF', 'suit': '#C8322A', 'lapel': '#C8322A', 'pants': '#1F3550', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}
+MEC = {'preset': 'lemec', 'atlasBody': False, 'tint': '#E6F2FF', 'suit': '#C8322A', 'lapel': '#C8322A', 'pants': '#1F3550', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}}
 st.write("Le pull", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec', 'presentateur', 'president', 'juge', 'mod1'], extra_cast={
     'mec': MEC, 'mec_reflet': dict(MEC),
     'pass1': SL('madame', COLS[0], 761, build={'width': 0.92, 'headWidth': 1.25}),

@@ -1,0 +1,166 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a oublié de fermer son robinet.",
+  "hl": [
+   "oublié",
+   "robinet."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "L'eau a coulé dans l'escalier.",
+  "hl": [
+   "l'escalier."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Puis dans la rue.",
+  "hl": [
+   "rue."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Les voisins ont sorti leurs bouées.",
+  "hl": [
+   "bouées."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les pompiers ont pompé toute la nuit.",
+  "hl": [
+   "pompiers",
+   "nuit."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "L'eau est montée encore plus vite.",
+  "hl": [
+   "montée",
+   "vite."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "La mairie a déclaré la ville station balnéaire.",
+  "hl": [
+   "mairie",
+   "balnéaire."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les touristes sont venus bronzer sur les toits.",
+  "hl": [
+   "touristes",
+   "toits."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La marine a envoyé un sous-marin.",
+  "hl": [
+   "marine",
+   "sous-marin."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Il s'est garé devant la boulangerie.",
+  "hl": [
+   "garé",
+   "boulangerie."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les savants ont ajouté une mer sur les cartes.",
+  "hl": [
+   "savants",
+   "mer"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le président est venu en pédalo.",
+  "hl": [
+   "président",
+   "pédalo."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il a inauguré un phare.",
+  "hl": [
+   "phare."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Trois ans plus tard, ce mec a enlevé la bonde.",
+  "hl": [
+   "Trois",
+   "bonde."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "La mer est partie dans sa baignoire.",
+  "hl": [
+   "mer",
+   "baignoire."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "En six secondes.",
+  "hl": [
+   "six",
+   "secondes."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Le sous-marin aussi.",
+  "hl": [
+   "sous-marin"
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il a reçu sa facture d'eau.",
+  "hl": [
+   "facture"
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il la conteste.",
+  "hl": [
+   "conteste."
+  ]
+ }
+]
