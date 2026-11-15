@@ -83,7 +83,7 @@ st.shot('S03', 'office', actors=[act('agent2', [-4.6, 0, -2.15], 0, 'sit', 'neut
                P('env3', 'envelope', pos=[-4.4, 0.775, -1.45], rot=[-PI / 2, 0, -0.1], scale=1.6, keys=[k(SLAP3, squash=[1.08, 0.8, 1.08], dur=0.3)]),
                P('tampon3', 'rubberStamp', on={'actor': 'agent2', 'hand': 'R', 'offset': [0.0, -0.08, 0.03]}, scale=2.2),   # (review 1) the big stamp in his hand
                P('timbre3', 'stampMark', pos=[-4.35, 0.79, -1.47], rot=[-PI / 2, 0, -0.1], opts={'text': '3,00 €', 'w': 0.17, 'h': 0.09}, keys=[k(0.0, visible=False), k(SLAP3, visible=True)])],
-        cams=[FC(0.0, [-4.6, 1.75, -1.02], [[-4.95, 0.775, -1.4], [-4.2, 0.775, -1.45], [-4.6, 0.775, -1.62], [-4.6, 0.775, -1.22]], top=0.2, bottom=0.68, lenses=range(20, 60), inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0)),   # (review 1) from above: the two prices fill the frame
+        cams=[FC(0.0, [-4.6, 1.6, -1.05], [[-4.9, 0.775, -1.4], [-4.25, 0.775, -1.45], [-4.6, 0.775, -1.58], [-4.6, 0.775, -1.26]], top=0.15, bottom=0.72, lenses=range(20, 60), inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0)),   # (review 1) from above: the two prices fill the frame
               FC(1.05, [-4.15, 1.85, -0.35], [[-4.6, 2.08, -2.15], [-4.6, 1.3, -2.15], [-4.85, 0.78, -1.3], [-4.3, 0.78, -1.3]], top=0.12, bottom=0.72, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # then him, sweating, at us
 st.cue('thud', 'S03', SLAP3, 0.4); st.cue('sfx:gasp', 'S03', r(SLAP3 + 0.3), 0.2)
 
@@ -227,7 +227,7 @@ D16 = st.dur('S16')
 st.shot('S16', 'kitchenDay', actors=[act('mec', [0.3, 0, -1.3], 0, 'stand', 'neutral', keys=[k(0.0, look=[0.3, 1.2, -0.9]), k(0.0, toon={'reach': {'R': [0.2, 1.3, -0.95, 1, 0.03], 'L': [0.42, 1.3, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.0),
             k(0.45, look='camera'), k(0.75, toon={'reach': {'R': [0.2, 1.3, -0.95, 1, 0.03], 'L': [0.42, 1.3, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.14, toonEase='inOut'),
             k(0.95, toon={'reach': {'R': [0.2, 1.3, -0.95, 1, 0.03], 'L': [0.42, 1.3, -0.95, 1, 0.03]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.14, toonEase='inOut')])],
-        props=[P('frais16', 'paperSheet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.11, 0.02, 0.03], 'face': 'camera'}, opts={'w': 0.5, 'h': 0.3, 'lines': ['FRAIS DE', 'DÉPLACEMENT'], 'bright': True}),   # (review 1) face to the camera (edge-on it read as a wire)
+        props=[P('frais16', 'paperSheet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.11, 0.02, 0.03], 'face': 'camera'}, opts={'w': 0.5, 'h': 0.3, 'head': 'FRAIS DE', 'big': 'DÉPLACEMENT', 'bright': True}),   # (review 1) face to the camera (edge-on it read as a wire), the words in large type
                P('table16', 'table', pos=[-0.75, 0, -1.4], opts={'w': 0.8, 'd': 0.6, 'h': 0.76}), P('cochon16', 'piggyBank', pos=[-0.6, 0.76, -1.3], ry=40, opts={'s': 1.25})],
         cams=[FC(0.0, [0.25, 1.35, -0.25], [[0.31, 1.47, -0.92], [0.31, 1.13, -0.92], [0.04, 1.3, -0.92], [0.58, 1.3, -0.92]], top=0.25, bottom=0.66),   # (review 1) the last line first, filling the width...
               glide([FC(0.5, [-0.35, 1.45, 0.5], [[0.3, 2.45, -1.3], [0.3, 1.15, -1.3], [-0.6, 0.85, -1.3], [0.5, 1.3, -0.95]], top=0.12, bottom=0.78)], 0.35)])   # ...then up to his face, the pig beside him
