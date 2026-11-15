@@ -92,7 +92,9 @@ export const BAILLEMENT_PROPS = {
   ribbonCut(o) {
     const w = o.w ?? 1.2, h = o.h ?? 0.95, g = grp(), red = '#D2282E';
     for (const s of [-1, 1]) g.add(at(cyl(0.035, 0.045, h + 0.08, '#C8B07A', 8, { pivot: 'bottom' }), s * w / 2, 0, 0), at(sphere(0.05, '#C8B07A', 1), s * w / 2, h + 0.1, 0));
-    const halves = [-1, 1].map(s => { const hg = grp(at(box(w / 2, 0.06, 0.008, red, { outline: 0.02 }), -s * w / 4, 0, 0)); hg.position.set(s * w / 2, h, 0); g.add(hg); return { hg, s }; });
+    // (review 1 of 75) o.tricolor: a blue, white and red ribbon (three bands) instead of the red one
+    const halves = [-1, 1].map(s => { const hg = o.tricolor ? grp(...[['#2A4B9B', 0.022], ['#F4F1E8', 0], ['#D2282E', -0.022]].map(([c, dy]) => at(box(w / 2, 0.022, 0.008, c, { outline: 0.012 }), -s * w / 4, dy, 0)))
+      : grp(at(box(w / 2, 0.06, 0.008, red, { outline: 0.02 }), -s * w / 4, 0, 0)); hg.position.set(s * w / 2, h, 0); g.add(hg); return { hg, s }; });
     const bow = grp(at(box(0.12, 0.09, 0.02, red, { outline: 0.02 }), -0.06, 0, 0, 0, 0, 0.5), at(box(0.12, 0.09, 0.02, red, { outline: 0.02 }), 0.06, 0, 0, 0, 0, -0.5)); bow.position.set(0, h, 0.01); g.add(bow);
     g.userData.update = t => {
       const u = o.cutAt == null ? -1 : t - o.cutAt;

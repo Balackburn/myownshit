@@ -130,6 +130,7 @@ export const PARCMETRE_PROPS = {
   // A delivery van (pivot at the floor in its middle, facing +X like the car prop): a white cargo box with LIVRAISON on both sides (o.text), a cab in
   // o.color with a see-through windscreen, open side windows, two seats (userData.seat driver at -Z, userData.seat2 passenger at +Z, for clip 'drive'
   // or 'sitTalk'), a dash and wheel; four orange hazard lamps blinking from o.hazardFrom (1.6 Hz); o.brakeAt: the nose dips and the body rebounds as it stops.
+  // (review 1 of 75) o.brakeAmp (1): scales that dip and rebound (2.5: a cartoon stop, the rear lifting)
   deliveryVan(o) {
     const C = o.color || '#E9E6DE', g = grp(), body = grp(); g.add(body);
     const glass = new THREE.MeshLambertMaterial({ color: '#CFEAF5', transparent: true, opacity: 0.2, depthWrite: false });
@@ -149,7 +150,7 @@ export const PARCMETRE_PROPS = {
     const hz = [[2.31, 0.92, -0.85], [2.31, 0.92, 0.85], [-2.61, 0.95, -0.82], [-2.61, 0.95, 0.82]].map(([x, y, z]) => { const off = at(lamp(0.04, 0.12, 0.2, false), x, y, z), lit = at(lamp(0.05, 0.14, 0.22, true), x, y, z); lit.visible = false; body.add(off, lit); return lit; });
     g.userData.update = t => { const blink = o.hazardFrom != null && t >= o.hazardFrom && ((t - o.hazardFrom) * (o.hazardRate ?? 1.6)) % 1 < 0.5; hz.forEach(l => { l.visible = blink; });
       const u = o.brakeAt == null ? -1 : t - o.brakeAt, a = u >= 0 && u < 1.2 ? Math.exp(-4.5 * u) * Math.sin(u * 13) : 0;
-      body.rotation.z = -0.07 * a; body.position.y = -0.04 * Math.abs(a); body.scale.set(1 + 0.05 * Math.max(0, a), 1 - 0.04 * Math.max(0, a), 1); };
+      const ba = o.brakeAmp ?? 1; body.rotation.z = -0.07 * ba * a; body.position.y = -0.04 * ba * Math.abs(a); body.scale.set(1 + 0.05 * ba * Math.max(0, a), 1 - 0.04 * ba * Math.max(0, a), 1); };
     g.userData.update(-1); g.userData.seat = [1.15, 0.5, -0.45]; g.userData.seat2 = [1.15, 0.5, 0.45]; return g;
   },
 
@@ -197,14 +198,26 @@ export const PARCMETRE_PROPS = {
 
   // A card game on a little tray (pivot at the middle of the tray's underside): a wooden tray o.w (0.6) x o.d (0.34), a face-down deck at one end, a
   // pile in the middle; o.slapAt [t...]: a card slaps down on the pile (from 0.25 m up in 0.09 s, a little bounce) and stays, the pile growing.
+  // (review 1 of 75) o.cardScale (1): bigger cards (2: they read at phone size); o.top: the tray's colour (a light one under white cards)
   cardTray(o) {
-    const w = o.w ?? 0.6, d = o.d ?? 0.34, g = grp(at(box(w, 0.03, d, '#B98A5A', { outline: 0.004 }), 0, 0.015, 0), at(box(w, 0.04, 0.02, '#8A6238'), 0, 0.04, d / 2 - 0.01), at(box(w, 0.04, 0.02, '#8A6238'), 0, 0.04, -d / 2 + 0.01));
-    g.add(at(box(0.07, 0.04, 0.1, '#2F62B5', { outline: 0.003 }), -w / 2 + 0.08, 0.05, 0));
-    const face = (suit, red) => canvasPlane(0.07, 0.1, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#9A9A9A'; c.lineWidth = W * 0.04; c.strokeRect(0, 0, W, H);
+    const cs = o.cardScale ?? 1, w = o.w ?? 0.6, d = o.d ?? 0.34, g = grp(at(box(w, 0.03, d, o.top || '#B98A5A', { outline: 0.004 }), 0, 0.015, 0), at(box(w, 0.04, 0.02, '#8A6238'), 0, 0.04, d / 2 - 0.01), at(box(w, 0.04, 0.02, '#8A6238'), 0, 0.04, -d / 2 + 0.01));
+    g.add(at(box(0.07 * cs, 0.04, 0.1 * cs, '#2F62B5', { outline: 0.003 }), -w / 2 + 0.05 + 0.035 * cs, 0.05, 0));
+    const face = (suit, red) => canvasPlane(0.07 * cs, 0.1 * cs, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#9A9A9A'; c.lineWidth = W * 0.04; c.strokeRect(0, 0, W, H);
       c.fillStyle = red ? '#D22B2B' : '#1C1C1C'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.5}px Arial`; c.fillText(suit, W / 2, H * 0.55); }, { res: 128 });
     const S = ['♥', '♠', '♦', '♣'], cards = (o.slapAt || []).map((t0, i) => { const f = face(S[i % 4], i % 2 === 0); f.rotation.x = -PI / 2; const h = grp(f); g.add(h); return { t0, h, i }; });
     g.userData.update = t => cards.forEach(({ t0, h, i }) => { const u = t - t0; h.visible = u >= 0; if (u < 0) return; const fall = clamp01(u / 0.09), y = 0.035 + 0.003 * i;
-      h.position.set(0.04 * Math.sin(i * 2.1), y + 0.25 * (1 - fall) * (1 - fall) + (u > 0.09 && u < 0.25 ? 0.02 * Math.sin((u - 0.09) / 0.16 * PI) : 0), 0.03 * Math.cos(i * 1.7)); h.rotation.y = 0.3 * Math.sin(i * 1.3); });
+      h.position.set(0.04 * cs * Math.sin(i * 2.1), y + 0.25 * (1 - fall) * (1 - fall) + (u > 0.09 && u < 0.25 ? 0.02 * Math.sin((u - 0.09) / 0.16 * PI) : 0), 0.03 * cs * Math.cos(i * 1.7)); h.rotation.y = 0.3 * Math.sin(i * 1.3); });
     g.userData.update(-1); return g;
+  },
+
+  // (review 1 of 75) A hand of playing cards fanned out (pivot at the hand, the fan rising along +Y, faces toward +Z): o.n (5) white cards o.s (1: 0.12 x
+  // 0.17 m) with red and black suits, spread over o.spread (1.1 rad); a blue back on the other side
+  cardFan(o) {
+    const n = o.n ?? 5, sc = o.s ?? 1, cw = 0.12 * sc, ch = 0.17 * sc, sp = o.spread ?? 1.1, g = grp(), S = ['♥', '♠', '♦', '♣', '♥'];
+    for (let i = 0; i < n; i++) { const a = (i / Math.max(1, n - 1) - 0.5) * sp, piv = grp(); piv.rotation.z = -a; piv.position.z = 0.002 * i;
+      const front = canvasPlane(cw, ch, (c, W, H) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, W, H); c.strokeStyle = '#8A8A8A'; c.lineWidth = W * 0.04; c.strokeRect(0, 0, W, H);
+        c.fillStyle = i % 2 === 0 ? '#D22B2B' : '#1C1C1C'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = `900 ${H * 0.42}px Arial`; c.fillText(S[i % S.length], W / 2, H * 0.55); }, { res: 128 });
+      front.position.set(0, ch * 0.42, 0.001); const back = at(box(cw * 0.96, ch * 0.96, 0.002, '#2F62B5'), 0, ch * 0.42, -0.001); piv.add(back, front); g.add(piv); }
+    return g;
   },
 };

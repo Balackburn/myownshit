@@ -58,39 +58,51 @@ for g_ in [('S02', 0.86, 'mec', 'screen'), ('S04', 0.3, 'mec', 'ticket'), ('S08'
 st.card('S06', 'REFUSÉ', at=0.95)
 st.card('S19', 'DOUBLE FILE', at=0.35)
 
-# 1: the hook. At the machine on the pavement: a coin in, then the red button pressed without a look; then a look at us
-D1 = st.dur('S01')
-st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -110, 'stand', 'neutral', keys=[k(0.0, look=SCREEN),
-            k(0.08, toon=REACH('R', CARD, 'pinch'), toonDur=0.22, toonEase='out'), k(0.45, toon=REACH('R', [RED[0] + 0.01, RED[1], RED[2]]), toonDur=0.14, toonEase='inOut'),
-            k(0.62, toon={**REACH('R', [RED[0] - 0.005, RED[1], RED[2]]), 'sq': [1.0, 0.985, 1.0]}, toonDur=0.05), k(0.8, look='camera', lookDur=0.2)])],
+# 1: the hook. At the machine, from the pavement side (review 1: from its blank back it read as a black lectern): the screen, the coin slot and the
+#    two big buttons face us; a coin in, then he looks round at us and presses the red button without a look
+D1 = st.dur('S01'); FACE1 = -121                  # facing the machine's front: his right profile to us
+st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, FACE1, 'stand', 'neutral', keys=[k(0.0, look=CARD),
+            k(0.06, toon=REACH('R', CARD, 'pinch'), toonDur=0.2, toonEase='out'), k(0.36, look='camera', lookDur=0.16), k(0.36, toon={**REACH('R', [RED[0] + 0.04, RED[1], RED[2]]), 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.14, toonEase='inOut'),
+            k(0.62, toon={**REACH('R', [RED[0] - 0.005, RED[1], RED[2]]), 'sq': [1.0, 0.985, 1.0], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.05), k(0.85, toon={**REACH('R', [RED[0] + 0.02, RED[1], RED[2]]), 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.15)])],
         props=[MTR('pm1', pressAt=[0.62], litAfter=0.62, screens=[[0.62, '1 H']]), CARP('car1'), BAY('bay1'),
-               P('piece1', 'coin', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.03]}, scale=0.6, keys=[k(0.3, visible=False)])],
-        cams=[FC(0.0, [3.9, 1.55, 3.9], [[MP[0], 2.45, MP[2]], [MP[0], 0.0, MP[2]], [METER[0], 2.15, METER[2]], [METER[0], 0.0, METER[2]]], top=0.14, bottom=0.78, drift=(0.12, 0.0, -0.1))])
-st.cue('sfx:kaching', 'S01', 0.3, 0.2); st.cue('sfx:beep', 'S01', 0.62, 0.25)
+               P('piece1', 'coin', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.03]}, scale=0.8, keys=[k(0.26, visible=False)])],
+        cams=[FC(0.0, [7.45, 1.45, 1.6], [[MP[0], 2.45, MP[2]], [MP[0], 0.0, MP[2]], [METER[0], 2.15, METER[2]], [METER[0], 0.0, METER[2]], [SCREEN[0], SCREEN[1], r(SCREEN[2] - 0.25)]], top=0.12, bottom=0.76, drift=(-0.1, 0.0, 0.1))])
+st.cue('sfx:kaching', 'S01', 0.26, 0.2); st.cue('sfx:beep', 'S01', 0.62, 0.25)
 
-# 2: ...his parking for four hundred years. Over his shoulder, the screen rolls up: one hour, a day, a month, a year, ten, a hundred, four hundred
-D2 = st.dur('S02'); ROLL = [[0.0, '1 H'], [0.18, '1 JOUR'], [0.34, '1 MOIS'], [0.48, '1 AN'], [0.6, '10 ANS'], [0.72, '100 ANS'], [0.86, '400 ANS']]
-st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -110, 'stand', 'neutral', keys=[k(0.0, look=SCREEN), k(0.9, toon={'sq': [0.97, 1.04, 0.97]}, toonDur=0.08, toonEase='out')])],
+# 2: ...his parking for four hundred years. Over his right shoulder (review 1: no shoulder showed), the screen rolls up faster and faster and slams
+#    on 400 ANS on « quatre »; his head jolts back; then he leans in on it, a slow blink
+D2 = st.dur('S02'); SLAM2 = 0.72
+ROLL = [[0.0, '1 H'], [0.2, '1 JOUR'], [0.36, '1 MOIS'], [0.48, '1 AN'], [0.57, '10 ANS'], [0.64, '100 ANS'], [SLAM2, '400 ANS']]
+st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, FACE1, 'stand', 'neutral', keys=[k(0.0, look=SCREEN),
+            k(0.0, toon={**REACH('R', [RED[0] + 0.05, RED[1] - 0.03, RED[2]]), 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
+            k(SLAM2, toon={**REACH('R', [RED[0] + 0.12, RED[1] - 0.06, RED[2]]), 'lay': [-0.12, 0.0], 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out'),   # the jolt
+            k(r(SLAM2 + 0.3), toon={**REACH('R', [RED[0] + 0.12, RED[1] - 0.06, RED[2]]), 'lay': [0.08, 0.0], 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.5, toonEase='inOut'),
+            k(1.45, toon={**REACH('R', [RED[0] + 0.12, RED[1] - 0.06, RED[2]]), 'lay': [0.08, 0.0], 'face': {'lid': 1.0, 'mouth': 'O'}}, toonDur=0.1), k(1.58, toon={**REACH('R', [RED[0] + 0.12, RED[1] - 0.06, RED[2]]), 'lay': [0.08, 0.0], 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.12)])],
         props=[MTR('pm2', litAfter=0.0, screens=ROLL)],
-        cams=[FC(0.0, [6.8, 1.3, 2.7], [[SCREEN[0], 1.36, 2.7], [SCREEN[0], 1.36, 3.1], [RED[0], 0.98, 2.7], [RED[0], 0.98, 3.1]], top=0.3, bottom=0.64, lenses=range(16, 66), drift=(-0.12, -0.02, 0.0))])
-for t_ in [0.18, 0.34, 0.48, 0.6, 0.72]: st.cue('sfx:tick', 'S02', t_, 0.15)
-st.cue('sfx:ding', 'S02', 0.86, 0.35)
+        cams=[FC(0.0, [7.0, 2.2, 3.4], [[SCREEN[0], 1.4, 2.72], [SCREEN[0], 1.4, 3.08], [RED[0], 0.98, 2.72], [GREEN[0], 0.98, 3.08], [6.48, 1.75, 3.14]], top=0.22, bottom=0.86, lenses=range(16, 70), drift=(-0.1, -0.03, -0.04))])
+for t_ in [0.2, 0.36, 0.48, 0.57, 0.64]: st.cue('sfx:tick', 'S02', t_, 0.15)
+st.cue('sfx:ding', 'S02', SLAM2, 0.4)
 
-# 3: he pressed the wrong button. Close on the two big buttons: his finger still on the lit red 400 ANS beside the green 1 H; it lifts away slowly
+# 3: he pressed the wrong button. Close on the two big buttons: his finger still on the lit red 400 ANS beside the green 1 H; it lifts away slowly,
+#    hangs, then jerks back (review 1: no finger showed, and the machine's side was black: a warm bounce light on it now)
 D3 = st.dur('S03')
-st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -110, 'stand', 'neutral', keys=[k(0.0, look=RED)])],
-        props=[MTR('pm3', litAfter=0.0, screens=[[0.0, '400 ANS']])],
-        cams=[FC(0.0, [6.25, 0.85, 2.45], [[RED[0], 1.14, RED[2] - 0.1], [GREEN[0], 1.14, GREEN[2] + 0.1], [RED[0], 0.98, RED[2] - 0.1], [GREEN[0], 0.98, GREEN[2] + 0.1]], top=0.36, bottom=0.6, lenses=range(14, 60), drift=(-0.1, 0.03, -0.05))])   # low from his side: not the S02 axis
+F3 = lambda out, y=0.0: REACH('R', [r(RED[0] + out), r(RED[1] + y), RED[2]])
+st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, FACE1, 'stand', 'neutral', keys=[k(0.0, look=RED), k(0.0, toon=F3(-0.005), toonDur=0.0),
+            k(0.25, toon=F3(0.02), toonDur=0.15, toonEase='out'), k(0.95, toon=F3(0.09, 0.02), toonDur=0.65, toonEase='inOut'), k(1.15, toon=F3(0.3, 0.12), toonDur=0.08, toonEase='in')])],   # off the button, slowly... then away
+        props=[MTR('pm3', litAfter=0.0, screens=[[0.0, '400 ANS']]), P('rebond3', 'glowLight', pos=[6.25, 1.35, 2.25], opts={'color': '#FFE7C2', 'k': 3.5, 'dist': 2.5})],
+        cams=[FC(0.0, [6.25, 0.85, 2.45], [[RED[0], 1.14, RED[2] - 0.1], [GREEN[0], 1.14, GREEN[2] + 0.1], [RED[0], 0.98, RED[2] - 0.1], [GREEN[0], 0.98, GREEN[2] + 0.1], [r(RED[0] + 0.12), 1.06, RED[2]]], top=0.34, bottom=0.62, lenses=range(14, 60), drift=(-0.1, 0.03, -0.05))])
 
 st.cue('sfx:sting', 'S03', 0.3, 0.2)
 
-# 4: the ticket... Low on the pavement: the ticket gushes out of the slot and races along the ground toward the lens; he turns to watch it go
+# 4: the ticket... Low on the pavement: the ticket bursts out of the slot and races along the ground past the lens; he follows it, does a double
+#    take back at the machine, and his eyes pop (review 1: it pooled at his feet)
 D4 = st.dur('S04')
-st.shot('S04', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -160, 'stand', 'neutral', keys=[k(0.0, look=SLOT), k(0.15, look=[6.5, 0.0, 1.2], lookDur=0.15),
-            k(0.2, toon={'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.08, toonEase='out')])],
-        props=[MTR('pm4', litAfter=0.0, screens=[[0.0, '400 ANS']]), RIB('rib4', **{'from': 0.0, 'rate': 3.2, 'accel': 0.2, 'w': 0.16})],
-        cams=[FC(0.0, [7.3, 1.45, 0.9], [[SLOT[0], 0.75, SLOT[2]], [METER[0], 1.6, METER[2]], [6.5, 0.0, 1.2], [6.5, 0.0, 2.4], [MP[0], 2.45, MP[2]]], top=0.12, bottom=0.8, lenses=range(26, 70))])   # (stills 2) from above: at ground level the strip was edge-on
-st.cue('sfx:paper', 'S04', 0.0, 0.5); st.cue('sfx:zip', 'S04', 0.1, 0.25)
+st.shot('S04', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -160, 'stand', 'neutral', keys=[k(0.0, look=SLOT), k(0.1, look=[6.6, 0.0, 0.6], lookDur=0.1), k(0.32, look=SLOT, lookDur=0.06),
+            k(0.1, toon={'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'O', 'brow': 0.8}}, toonDur=0.06, toonEase='out'),
+            k(0.4, toon={'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.22, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.93, 1.09, 0.93]}, toonDur=0.05, toonEase='out')])],   # the double take: eyes out
+        props=[MTR('pm4', litAfter=0.0, screens=[[0.0, '400 ANS']]), RIB('rib4', **{'from': 0.0, 'rate': 12.0, 'accel': 0.1, 'w': 0.2})],
+        cams=[FC(0.0, [7.3, 1.45, 0.9], [[SLOT[0], 0.75, SLOT[2]], [METER[0], 1.6, METER[2]], [6.5, 0.0, 1.2], [6.5, 0.0, 2.4], [MP[0], 2.45, MP[2]]], top=0.12, bottom=0.8, lenses=range(26, 70))])
+st.cue('sfx:paper', 'S04', 0.0, 0.5); st.cue('sfx:zip', 'S04', 0.05, 0.3); st.cue('pop', 'S04', 0.4, 0.2)
 
 # 5: ...is three kilometres long. High over the street: the white ticket runs down the pavement to the vanishing point, the man a dot at the machine
 D5 = st.dur('S05')
@@ -102,8 +114,8 @@ st.cue('whoosh', 'S05', 0.0, 1.0)
 # 6: the town hall refuses to refund him. Over the clerk's shoulder: him at the counter beside the paper roll, taller than he is; the big stamp
 #    comes down on his claim (REFUSÉ)
 D6 = st.dur('S06'); HIT6 = 0.9; ME6 = [0.3, 0, 1.05]
-st.shot('S06', 'mairie', setOpts={'front': 3.6, 'frontSign': {'text': 'ÉTAT CIVIL', 'x': 0.0, 'y': 2.6, 'w': 1.8, 'h': 0.42}, 'map': False}, actors=[
-        act('mec', ME6, 180, 'stand', 'neutral', keys=[k(0.0, look=[-0.3, 1.9, -0.7]), k(r(HIT6 + 0.02), toon={'face': {'lid': 1.0, 'mouth': 'line'}, 'sq': [1.02, 0.97, 1.02]}, toonDur=0.05),
+st.shot('S06', 'mairie', setOpts={'front': 3.6, 'frontSign': {'text': 'ÉTAT CIVIL', 'x': -1.15, 'y': 2.15, 'w': 1.5, 'h': 0.36}, 'map': False}, actors=[   # (review 1) the sign out from under the REFUSÉ card
+        act('mec', ME6, 180, 'stand', 'neutral', keys=[k(0.0, look=[-0.3, 1.9, -0.7]), k(r(HIT6 + 0.02), toon={'face': {'lid': 1.0, 'mouth': 'line'}, 'sq': [0.94, 1.06, 0.94], 'lay': [-0.08, 0.0]}, toonDur=0.04, toonEase='out'),   # (review 1) a real flinch at the stamp
             k(r(HIT6 + 0.14), toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1), k(1.45, look='camera', lookDur=0.25), k(1.6, toon={'face': {**DEAD, 'mouth': 'line'}, 'sq': [1.0, 0.97, 1.0]}, toonDur=0.3)]),
         act('guichet', [-0.4, 0, -0.75], 10, 'sitWrite', 'neutral', keys=[k(0.0, look=[-0.25, 0.8, -0.15]),
             k(0.45, toon={'reach': {'R': [-0.22, 1.55, -0.3, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.4, 'brow': -0.5}}, toonDur=0.3, toonEase='out'),
@@ -112,7 +124,7 @@ st.shot('S06', 'mairie', setOpts={'front': 3.6, 'frontSign': {'text': 'ÉTAT CIV
         props=[P('desk6', 'desk', pos=[0.0, 0, 0.0], opts={'w': 1.6}), P('chaise6', 'chair', pos=[-0.4, 0, -0.75]), P('rouleau6', 'paperRoll', pos=[0.62, 0.76, 0.1], opts={'r': 0.62, 'w': 0.15, 'tail': 0.0}),
                P('tampon6', 'bigStamp', on={'actor': 'guichet', 'hand': 'R', 'offset': [0.0, -0.04, 0.05]}, scale=0.55),
                P('formulaire6', 'paperSheet', pos=[-0.3, 0.77, -0.15], rot=[-PI / 2, 0, 0], opts={'w': 0.3, 'h': 0.4, 'lines': ['REMBOURSEMENT']})],
-        cams=[FC(0.0, [0.8, 2.6, -2.3], [[ME6[0], 2.45, ME6[2]], [ME6[0], 1.1, ME6[2]], [0.62, 2.05, 0.1], [-0.22, 0.9, -0.18]], top=0.14, bottom=0.76, inside=(-4.8, 4.8, 0.3, 3.4, -2.5, 3.4))])
+        cams=[FC(0.0, [0.8, 2.6, -2.3], [[ME6[0], 2.45, ME6[2]], [ME6[0], 1.1, ME6[2]], [0.62, 2.05, 0.1], [-0.22, 0.9, -0.18], [-0.22, 0.55, -0.18]], top=0.14, bottom=0.76, inside=(-4.8, 4.8, 0.3, 3.4, -2.5, 3.4))])
 st.cue('thud', 'S06', HIT6, 0.6)
 
 # 7: so he stays parked. Through the windscreen: he sits back in the driver's seat, folds his arms, settles, and looks at us; the ticket on the dash
@@ -187,11 +199,12 @@ st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'dri
 
 # 14: every year the mayor... In his sash, the mayor strides to the tricolour ribbon across the front of the bay, the giant scissors up, posing for us
 D14 = st.dur('S14'); MAY = [2.35, 0, -3.15]; RIBZ = -3.0
-SCI = lambda pid, snip: P(pid, 'bigScissors', on={'actor': 'maire', 'hand': 'R', 'offset': [0, 0, 0.04]}, scale=2.2, opts={'handle': '#2A2C30', 'open': 0.5, 'snip': snip})
+SCI = lambda pid, snip: P(pid, 'bigScissors', on={'actor': 'maire', 'hand': 'R', 'offset': [0, 0, 0.04]}, scale=2.2, opts={'handle': '#D23B32', 'open': 0.5, 'snip': snip})   # (review 1) red rings: black ones read as a blob
 st.shot('S14', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'happy', keys=[k(0.0, look=MAY), k(0.7, look='camera')]),
         act('maire', [1.45, 0, -1.6], 150, 'walk', 'smug', keys=[k(0.0, to=MAY, dur=0.75, clip='walk', then='stand', ease='out'), k(0.0, look=[3.4, 1.0, RIBZ]), k(0.8, look='camera', lookDur=0.2),
-            k(0.85, toon={'reach': {'R': [2.6, 2.6, -3.3, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.2, toonEase='out')])],
-        props=[CARP('car14'), BAY('bay14'), HOME('home14', smoke=False), P('ruban14', 'ribbonCut', pos=[CAR[0], 0, RIBZ], opts={'w': 2.3, 'h': 0.95}), SCI('sci14', [[0.0, 0.0]]),
+            k(0.85, toon={'reach': {'R': [2.95, 2.75, -3.0, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.2, toonEase='out'),   # (review 1) raised beside his head, not over his face
+            k(1.4, toon={'reach': {'R': [2.95, 2.75, -3.0, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'smile'}}, toonDur=0.06), k(1.52, toon={'reach': {'R': [2.95, 2.75, -3.0, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.08)])],
+        props=[CARP('car14'), BAY('bay14'), HOME('home14', smoke=False), P('ruban14', 'ribbonCut', pos=[CAR[0], 0, RIBZ], opts={'w': 2.3, 'h': 0.95, 'tricolor': True}), SCI('sci14', [[0.0, 0.0]]),
                P('sash14', 'mayorSash', on={'actor': 'maire', 'joint': 'torso', 'offset': [0, 0.42, 0]}, opts={'z': 0.21, 'w': 0.17, 'len': 0.8})],
         cams=[FC(0.0, [1.9, 1.6, -7.6], [[1.45, 2.45, -1.6], [MAY[0], 2.45, MAY[2]], [5.0, 1.05, RIBZ], [CAR[0], 2.1, -1.2], [MAY[0], 0.0, MAY[2]]], top=0.14, bottom=0.78)])
 st.cue('sfx:fanfare', 'S14', 0.2, 0.3)
@@ -201,7 +214,7 @@ D15 = st.dur('S15'); SNIP = 0.3
 st.shot('S15', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'happy', keys=[k(0.0, look='camera'), k(r(SNIP + 0.1), clip='royalWave', params={'freq': 2.2})]),
         act('maire', MAY, 150, 'stand', 'smug', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [2.92, 0.98, RIBZ, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
             k(SNIP, toon={'reach': {'R': [2.92, 0.98, RIBZ, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [1.03, 0.97, 1.03], 'face': {'lid': 0.2, 'mouth': 'grin'}}, toonDur=0.05)])],
-        props=[CARP('car15'), BAY('bay15'), HOME('home15', smoke=False), P('ruban15', 'ribbonCut', pos=[CAR[0], 0, RIBZ], opts={'w': 2.3, 'h': 0.95, 'cutAt': SNIP}),
+        props=[CARP('car15'), BAY('bay15'), HOME('home15', smoke=False), P('ruban15', 'ribbonCut', pos=[CAR[0], 0, RIBZ], opts={'w': 2.3, 'h': 0.95, 'cutAt': SNIP, 'tricolor': True}),
                SCI('sci15', [[0.0, 1.0], [r(SNIP - 0.04), 1.0], [SNIP, 0.0], [r(SNIP + 0.4), 0.0], [r(SNIP + 0.6), 1.0]]),
                P('sash15', 'mayorSash', on={'actor': 'maire', 'joint': 'torso', 'offset': [0, 0.42, 0]}, opts={'z': 0.21, 'w': 0.17, 'len': 0.8}),
                P('conf15', 'confettiRain', pos=[CAR[0], 0.0, -2.6], opts={'w': 3.4, 'h': 3.4, 'd': 1.8, 'n': 170, 'at': SNIP})],
@@ -210,86 +223,118 @@ st.cue('sfx:twang', 'S15', SNIP, 0.4); st.cue('pop', 'S15', r(SNIP + 0.05), 0.3)
 
 # 16: tourists photograph it. A tourist takes a selfie in front of the car, the man waving behind the windscreen; two more flash cameras
 D16 = st.dur('S16'); SELF = [4.5, 0, -3.35]
-st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look='camera'), k(0.5, clip='royalWave', params={'freq': 1.6}), k(0.5, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1)]),
+st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[4.8, 2.3, -4.1]), k(0.0, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),   # (review 1) no second wave: he poses for the selfie
+            k(0.45, toon={'reach': {'R': [r(SEAT[0] + 0.15), 1.95, r(SEAT[2] - 0.45), 1, 0.04]}, 'hands': {'R': 'thumbUp'}, 'face': {**DEAD, 'mouth': 'smirk'}}, toonDur=0.15, toonEase='out'), k(1.05, look='camera', lookDur=0.15),
+            k(1.25, toon={'reach': {'R': [r(SEAT[0] + 0.15), 1.95, r(SEAT[2] - 0.45), 1, 0.04]}, 'hands': {'R': 'thumbUp'}, 'face': {'lid': 1.0, 'mouth': 'smirk'}}, toonDur=0.06), k(1.37, toon={'reach': {'R': [r(SEAT[0] + 0.15), 1.95, r(SEAT[2] - 0.45), 1, 0.04]}, 'hands': {'R': 'thumbUp'}, 'face': {**DEAD, 'mouth': 'smirk'}}, toonDur=0.08)]),
         act('touriste1', SELF, 180, 'stand', 'happy', keys=[k(0.0, look=[4.75, 2.25, -4.1]), k(0.0, toon={'reach': {'R': [4.8, 2.3, -4.1, 1, 0.04]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'grin'}}, toonDur=0.0),
             k(0.9, toon={'reach': {'R': [4.8, 2.3, -4.1, 1, 0.04]}, 'hands': {'R': 'grip'}, 'sq': [0.98, 1.03, 0.98], 'face': {'lid': 0.0, 'mouth': 'grin', 'brow': 0.6}}, toonDur=0.08)]),
         *[act(tid, [tx, 0, tz], try_, 'stand', 'happy', keys=[k(0.0, look=[3.6, 1.8, -0.5]), k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0),
             k(r(fl + 0.02), toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.0, 0.97, 1.0]}, toonDur=0.06),
             k(r(fl + 0.2), toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.15)])
           for tid, tx, tz, try_, fl in [('touriste2', 2.15, -4.5, 25, 0.35), ('touriste3', 5.35, -4.7, -20, 1.0)]]],
-        props=[CARP('car16'), BAY('bay16'), HOME('home16', smoke=False), P('tel16', 'smartPhone', on={'actor': 'touriste1', 'hand': 'R', 'offset': [0.0, 0.03, 0.04]}, rot=[0, PI, 0], opts={'case': '#2F62B5'}),
+        props=[CARP('car16'), BAY('bay16'), HOME('home16', smoke=False), P('tel16', 'handset', on={'actor': 'touriste1', 'hand': 'R', 'offset': [0.0, 0.05, 0.04], 'face': 'camera'}, scale=2.4, opts={'screen': '#8FD3F2'}),   # (review 1) no phone showed
                *[P(f'app16{j}', 'pressCamera', on={'actor': tid, 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': [fl], 'burst': 0.5}) for j, (tid, fl) in enumerate([('touriste2', 0.35), ('touriste3', 1.0)])]],
-        cams=[FC(0.0, [3.85, 1.9, -11.5], [[SELF[0], 2.45, SELF[2]], [SELF[0], 0.0, SELF[2]], [SEAT[0], 2.15, SEAT[2]], [CAR[0], 2.1, -0.6], [2.15, 2.4, -4.5], [5.35, 2.4, -4.7]], top=0.14, bottom=0.78, lenses=range(14, 34))])
+        cams=[FC(0.0, [3.0, 1.6, -11.5], [[SELF[0], 2.45, SELF[2]], [SELF[0], 0.0, SELF[2]], [SEAT[0], 2.15, SEAT[2]], [CAR[0], 2.1, -0.6], [2.15, 2.4, -4.5], [5.35, 2.4, -4.7]], top=0.14, bottom=0.78, lenses=range(14, 34))])
 st.cue('sfx:shutter', 'S16', 0.35, 0.3); st.cue('sfx:shutter', 'S16', 0.9, 0.3); st.cue('sfx:shutter', 'S16', 1.0, 0.3)
 
-# 17: yesterday a delivery van... Down the road the van comes on fast, brakes hard alongside his car (the nose dips), its hazard lights start blinking
-D17 = st.dur('S17'); STOP17 = 1.3; V0 = [VAN[0], 0, 16.0]
+# 17: yesterday a delivery van... Down the road the van comes on fast and stops dead alongside his car (review 1: it eased to a stop): the nose
+#     pitches down hard, the rear lifts, two rocks to rest; the driver lurches; its hazard lights start blinking
+D17 = st.dur('S17'); STOP17 = 1.3; V0 = [VAN[0], 0, 16.0]; VNEAR = [VAN[0], 0, r(VAN[2] + 1.0)]
+VKEYS = lambda a, b: [k(0.0, to=a, dur=r(STOP17 - 0.1), ease='linear'), k(r(STOP17 - 0.1), to=b, dur=0.1, ease='out')]
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[1.6, 1.8, 8.0]), k(0.8, look=[1.6, 1.8, 2.0], lookDur=0.3), k(1.35, look=[2.3, 1.9, 0.0], lookDur=0.1),
             k(1.35, toon={'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O'}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.06, toonEase='out')]),
-        act('livreur', vw(1.15, 0.5, -0.45, V0), 180, 'drive', 'neutral', keys=[k(0.0, to=VSEAT, dur=STOP17, ease='out', clip='drive'), k(0.0, look=[1.15, 1.8, -8.0])])],
-        props=[CARP('car17'), BAY('bay17'), HOME('home17', smoke=False), VANP('van17', V0, brakeAt=STOP17, hazardFrom=r(STOP17 + 0.15), keys=[k(0.0, to=VAN, dur=STOP17, ease='out')])],
+        act('livreur', vw(1.15, 0.5, -0.45, V0), 180, 'drive', 'neutral', keys=[*VKEYS(vw(1.15, 0.5, -0.45, VNEAR), VSEAT), k(0.0, look=[1.15, 1.8, -8.0]),
+            k(STOP17, toon={'lay': [0.35, 0.0], 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'O'}}, toonDur=0.06, toonEase='out'), k(r(STOP17 + 0.22), toon={'lay': [-0.06, 0.0], 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.15)])],   # the lurch
+        props=[CARP('car17'), BAY('bay17'), HOME('home17', smoke=False), VANP('van17', V0, brakeAt=r(STOP17 - 0.04), brakeAmp=2.6, hazardFrom=r(STOP17 + 0.15), keys=VKEYS(VNEAR, VAN))],
         cams=[FC(0.0, [-1.6, 1.7, -7.8], [[VAN[0], 2.8, VAN[2]], [VAN[0], 0.0, VAN[2] + 2.6], [CAR[0], 2.1, -2.0], [CAR[0], 0.0, -2.0], [VAN[0], 2.8, 9.0]], top=0.14, bottom=0.78)])
-st.cue('engine', 'S17', 0.0, 1.3); st.cue('sfx:brake', 'S17', r(STOP17 - 0.35), 0.5)
+st.cue('engine', 'S17', 0.0, 1.3); st.cue('sfx:brake', 'S17', r(STOP17 - 0.2), 0.4)
 
-# 18: ...parked beside him. Front on, the two side by side, a hand's width apart: the van rocks to rest, hazards blinking; he looks at the wall of van
-#     outside his window, then at us
+# 18: ...parked beside him. Close through his windscreen (review 1: faces 20 px tall): the wall of van a hand's width from his window, hazards
+#     blinking; his eyes go to the van wall first, then his head; then at us; a slow blink
 D18 = st.dur('S18')
-st.shot('S18', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[2.3, 1.9, -0.05]), k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.0),
-            k(0.6, look='camera', lookDur=0.25), k(0.65, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.15),
-            k(0.95, toon={'face': {**DEAD, 'lid': 1.0, 'mouth': 'line'}}, toonDur=0.08), k(1.08, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),   # (draft 1: still from 0.63 s) a slow blink at us
+st.shot('S18', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[2.3, 1.9, -0.05]), k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O', 'gx': -0.8}}, toonDur=0.0),
+            k(0.6, look='camera', lookDur=0.25), k(0.55, toon={'face': {**DEAD, 'mouth': 'line', 'gx': 0.0}}, toonDur=0.1),
+            k(0.95, toon={'face': {**DEAD, 'lid': 1.0, 'mouth': 'line'}}, toonDur=0.08), k(1.08, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),
         act('livreur', VSEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[1.15, 1.8, -8.0]), k(0.7, look=[1.15, 1.6, -0.8], lookDur=0.2),
-            k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0), k(0.85, toon={'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.12), k(1.0, toon={'face': {'lid': 1.0, 'mouth': 'smile'}}, toonDur=0.06), k(1.1, toon={'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.08)])],   # he smiles at him, blinks
-        props=[CARP('car18'), BAY('bay18'), HOME('home18', smoke=False), VANP('van18', brakeAt=-0.25, hazardFrom=0.0)],
-        cams=[FC(0.0, [2.75, 1.55, -6.0], [[1.6, 2.8, VAN[2] - 2.3], [CAR[0], 2.1, -2.0], [0.6, 0.0, VAN[2] - 2.3], [4.75, 0.0, -2.0], [SEAT[0], 2.15, SEAT[2]]], top=0.14, bottom=0.78)])
+            k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0), k(0.85, toon={'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.12), k(1.0, toon={'face': {'lid': 1.0, 'mouth': 'smile'}}, toonDur=0.06), k(1.1, toon={'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.08)])],
+        props=[CARP('car18'), BAY('bay18'), HOME('home18', smoke=False), VANP('van18', brakeAt=-0.25, hazardFrom=0.0, hazardRate=1.0)],
+        cams=[FC(0.0, [3.55, 1.85, -2.2], [[SEAT[0], 2.3, SEAT[2]], [SEAT[0], 1.25, SEAT[2]], [2.5, 2.1, -0.05], [2.5, 1.3, -0.05], [4.05, 1.8, -0.05]], top=0.14, bottom=0.74, drift=(0.0, 0.0, 0.2))])
 st.cue('sfx:honkTiny', 'S18', 0.4, 0.2)
 
-# 19: double-parked. Straight down from above: the car in its bay, the van alongside with its hazards blinking, two cars stuck behind it, honking
-D19 = st.dur('S19')
+# 19: double-parked. Straight down from above, higher (review 1: one car, cut by the bottom; the card over the bay's number): the car in its bay at
+#     the top, the van alongside, hazards blinking slowly, two cars stuck behind it, each hopping on its honk (TÛT !)
+D19 = st.dur('S19'); C19A, C19B = 5.8, 10.0; Z19 = 5.15
+HOP = lambda x, z, t0: [k(t0, to=[x, 0.22, z], dur=0.06, ease='out'), k(r(t0 + 0.06), to=[x, 0.0, z], dur=0.09, ease='in')]
 st.shot('S19', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[3.45, 1.8, -5.0])]), act('livreur', VSEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[1.15, 1.8, -5.0])])],
-        props=[CARP('car19'), BAY('bay19'), HOME('home19', mat=False), VANP('van19', hazardFrom=0.0),
-               P('bouchon19a', 'car', pos=[1.6, 0, 7.4], ry=90, opts={'color': '#3A7BC8', 'plate': 'GH-123-JK'}), P('bouchon19b', 'car', pos=[1.6, 0, 12.6], ry=90, opts={'color': '#E8C547', 'plate': 'LM-456-NP'})],
-        cams=[cam(0.0, [2.6, 15.5, 2.2], [2.6, 15.0, 2.0], [2.6, 0.0, 1.9], [2.6, 0.0, 1.8], lens=40)])
-st.cue('sfx:honkLong', 'S19', 0.15, 0.5); st.cue('sfx:honk', 'S19', 0.6, 0.4)
+        props=[CARP('car19'), BAY('bay19'), HOME('home19', mat=False), VANP('van19', hazardFrom=0.0, hazardRate=1.0),
+               P('bouchon19a', 'car', pos=[1.6, 0, C19A], ry=90, opts={'color': '#3A7BC8', 'plate': 'GH-123-JK'}, keys=[*HOP(1.6, C19A, 0.15), *HOP(1.6, C19A, 0.75)]),
+               P('bouchon19b', 'car', pos=[1.6, 0, C19B], ry=90, opts={'color': '#E8C547', 'plate': 'LM-456-NP'}, keys=[*HOP(1.6, C19B, 0.45), *HOP(1.6, C19B, 0.95)]),
+               P('tut19a', 'hicBurst', pos=[3.0, 2.5, C19A], face='camera', opts={'at': [0.15, 0.75], 'w': 1.7, 'text': 'TÛT !', 'inner': 0.76, 'fit': 0.6, 'hold': 0.25, 'bold': True}),
+               P('tut19b', 'hicBurst', pos=[0.2, 2.5, C19B], face='camera', opts={'at': [0.45, 0.95], 'w': 1.7, 'text': 'TÛT !', 'inner': 0.76, 'fit': 0.6, 'hold': 0.25, 'bold': True})],
+        cams=[cam(0.0, [2.6, 32.0, r(Z19 + 0.3)], [2.6, 31.5, r(Z19 + 0.1)], [2.6, 0.0, Z19], [2.6, 0.0, r(Z19 - 0.1)], lens=48)])
+st.cue('sfx:honkLong', 'S19', 0.15, 0.4); st.cue('sfx:honk', 'S19', 0.45, 0.3); st.cue('sfx:honk', 'S19', 0.75, 0.3); st.cue('sfx:honkLong', 'S19', 0.95, 0.3)
 
-# 20: he can't get out. From inside the van's cab, across the gap: his face pressed flat against his window glass, sliding down with a squeak
-D20 = st.dur('S20'); SQZ = {'scl': {'head': [1.3, 1.2, 0.5]}}
+# 20: he can't get out. From inside the van's cab, across the gap: his face mashed flat against his window (wide and shallow), then dragged slowly
+#     down the glass, squeaking, the face stretching up it, his hands sliding after; at the sill it pops back up, hair on end (review 1: the head bobbed
+#     instead of sliding: no more root move, the slide is a squash of the body)
+D20 = st.dur('S20'); SLIDE0, SLIDE1 = 0.25, 1.05
+FLAT = lambda w=1.5, h=1.05: {'scl': {'head': [w, h, 0.35]}}
+GLASS = lambda y, f, sq=None, w=1.5, h=1.05: {**FLAT(w, h), 'reach': {'R': [3.0, r(y), -0.38, 1, 0.04], 'L': [3.0, r(y + 0.05), 0.28, 1, 0.04]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'face': f, **({'sq': sq} if sq else {})}
 st.shot('S20', 'parisStreet', setOpts=STREET, actors=[act('mec', [r(SEAT[0] - 0.1), SEAT[1], SEAT[2]], -90, 'drive', 'neutral', keys=[k(0.0, look='camera'),
-            k(0.0, toon={**SQZ, 'reach': {'R': [3.0, 2.1, -0.38, 1, 0.04], 'L': [3.0, 2.15, 0.28, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.6, 'mouth': 'O'}}, toonDur=0.0),
-            k(0.3, toon={**SQZ, 'reach': {'R': [3.0, 2.1, -0.38, 1, 0.04], 'L': [3.0, 2.15, 0.28, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.75, 'mouth': 'O'}, 'sq': [1.02, 0.97, 1.02]}, toonDur=0.1),
-            k(0.45, to=[r(SEAT[0] - 0.1), r(SEAT[1] - 0.22), SEAT[2]], dur=0.75, ease='in', face='keep'),
-            k(0.45, toon={**SQZ, 'reach': {'R': [3.0, 1.85, -0.38, 1, 0.04], 'L': [3.0, 1.9, 0.28, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.8, 'mouth': 'O'}}, toonDur=0.75, toonEase='in')])],
-        props=[CARP('car20'), VANP('van20', hazardFrom=0.0), P('vitre20', 'slab', pos=[2.975, 1.85, -0.05], opts={'w': 0.012, 'h': 0.95, 'd': 1.3, 'color': '#D8EEF8', 'opacity': 0.24}),
+            k(0.0, toon=GLASS(2.1, {'lid': 0.6, 'mouth': 'O'}, [1.04, 0.97, 1.04]), toonDur=0.0),
+            k(0.08, toon=GLASS(2.1, {'lid': 0.75, 'mouth': 'O'}, [1.06, 0.95, 1.06], 1.6, 1.0), toonDur=0.06, toonEase='out'),   # mashed on the glass
+            k(SLIDE1, toon=GLASS(1.72, {'lid': 0.8, 'mouth': 'O'}, [1.08, 0.8, 1.08], 1.4, 1.25), toonDur=r(SLIDE1 - SLIDE0), toonEase='in'),   # dragged down, the face stretching up
+            k(r(SLIDE1 + 0.12), toon={'reach': {'R': [3.0, 2.0, -0.38, 1, 0.04], 'L': [3.0, 2.05, 0.28, 1, 0.04]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'sq': [0.93, 1.1, 0.93], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.06, toonEase='out'),   # pops back
+            k(r(SLIDE1 + 0.3), toon={'reach': {'R': [3.0, 2.0, -0.38, 1, 0.04], 'L': [3.0, 2.05, 0.28, 1, 0.04]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'hairUp': 1.0, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.6}}, toonDur=0.1)])],
+        props=[CARP('car20'), VANP('van20', hazardFrom=0.0, hazardRate=1.0), P('vitre20', 'slab', pos=[2.975, 1.85, -0.05], opts={'w': 0.012, 'h': 0.95, 'd': 1.3, 'color': '#D8EEF8', 'opacity': 0.24}),
                P('reflet20', 'slab', pos=[2.965, 2.05, 0.3], rot=[0.6, 0, 0], opts={'w': 0.004, 'h': 0.55, 'd': 0.05, 'color': '#FFFFFF', 'opacity': 0.55})],
-        cams=[FC(0.0, [2.3, 1.95, 0.05], [[3.05, 2.25, -0.05], [3.05, 1.55, -0.05], [3.0, 2.0, 0.35], [3.0, 2.0, -0.45]], top=0.22, bottom=0.72, lenses=range(24, 64))])
-st.cue('sfx:squeak', 'S20', 0.45, 0.8); st.cue('sfx:bonk', 'S20', 0.05, 0.3)
+        cams=[FC(0.0, [2.3, 1.95, 0.05], [[3.05, 2.25, -0.05], [3.05, 1.45, -0.05], [3.0, 2.0, 0.35], [3.0, 2.0, -0.45]], top=0.22, bottom=0.74, lenses=range(24, 64))])
+st.cue('sfx:bonk', 'S20', 0.08, 0.3); st.cue('sfx:squeak', 'S20', SLIDE0, r(SLIDE1 - SLIDE0)); st.cue('pop', 'S20', r(SLIDE1 + 0.12), 0.2)
 
-# 21: the delivery man paid... At the machine, on purpose, with a smug grin at us: he presses the red button
-D21 = st.dur('S21'); LP = [6.3, 0, 3.45]
-st.shot('S21', 'parisStreet', setOpts=STREET, actors=[act('livreur', LP, -80, 'stand', 'smug', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.35, 'mouth': 'smirk'}}, toonDur=0.0),
-            k(0.25, toon={**REACH('R', [RED[0] + 0.03, RED[1], RED[2]]), 'face': {'lid': 0.35, 'mouth': 'smirk'}}, toonDur=0.2, toonEase='out'),
-            k(0.6, toon={**REACH('R', [RED[0] - 0.005, RED[1], RED[2]]), 'sq': [1.02, 0.97, 1.02], 'face': {'lid': 0.3, 'mouth': 'grin', 'brow': 0.6}}, toonDur=0.06), k(0.95, look=SCREEN, lookDur=0.2)])],
-        props=[MTR('pm21', pressAt=[0.6], litAfter=0.6, screens=[[0.6, '1 H']], marks=MARKS, plaque='PLACE N° 12/DEPUIS 2026'), CARP('car21'), VANP('van21', hazardFrom=0.0)],
-        cams=[FC(0.0, [4.3, 1.05, 4.75], [[LP[0], 2.45, LP[2]], [LP[0], 0.0, LP[2]], [METER[0], 2.15, METER[2]], [METER[0], 0.0, METER[2]]], top=0.14, bottom=0.76)])
+# 21: the delivery man paid... At the machine, from the pavement side like 1 (review 1: from its back), the button reading 500 ANS now: with a smug
+#     look at us he winds up, and presses the red button on purpose, hard
+D21 = st.dur('S21'); LP = [6.3, 0, 3.45]; MTR5 = lambda pid, **kw: P(pid, 'horodateur', pos=METER, ry=90, opts={'labels': ['1 H', '500 ANS'], **kw})
+st.shot('S21', 'parisStreet', setOpts=STREET, actors=[act('livreur', LP, -121, 'stand', 'smug', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.35, 'mouth': 'smirk'}}, toonDur=0.0),
+            k(0.25, toon={**REACH('R', [RED[0] + 0.22, RED[1] + 0.12, RED[2]]), 'lay': [-0.06, 0.0], 'face': {'lid': 0.35, 'mouth': 'smirk', 'brow': 0.4}}, toonDur=0.18, toonEase='out'),   # the wind-up
+            k(0.6, toon={**REACH('R', [RED[0] - 0.005, RED[1], RED[2]]), 'lay': [0.06, 0.0], 'sq': [1.03, 0.96, 1.03], 'face': {'lid': 0.3, 'mouth': 'grin', 'brow': 0.6}}, toonDur=0.05, toonEase='in'), k(0.95, look=SCREEN, lookDur=0.2)])],
+        props=[MTR5('pm21', pressAt=[0.6], litAfter=0.6, screens=[[0.6, '1 H']], marks=MARKS, plaque='PLACE N° 12/DEPUIS 2026'), CARP('car21'), VANP('van21', hazardFrom=0.0, hazardRate=1.0)],
+        cams=[FC(0.0, [7.45, 1.45, 1.6], [[LP[0], 2.45, LP[2]], [LP[0], 0.0, LP[2]], [METER[0], 2.15, METER[2]], [METER[0], 0.0, METER[2]], [SCREEN[0], SCREEN[1], r(SCREEN[2] - 0.25)]], top=0.12, bottom=0.76, drift=(-0.1, 0.0, 0.1))])
 st.cue('sfx:beep', 'S21', 0.6, 0.3)
 
-# 22: ...for five hundred years. Wider on the machine: the screen jumps straight to 500 ANS and the second ticket shoots out twice as fast
+# 22: ...for five hundred years. Wider on the machine: the screen jumps straight to 500 ANS and the second ticket whips out twice as fast as his,
+#     past the delivery man's legs and out of the frame
 D22 = st.dur('S22')
-st.shot('S22', 'parisStreet', setOpts=STREET, actors=[act('livreur', LP, -80, 'stand', 'smug', keys=[k(0.0, look=SCREEN), k(0.4, toon={'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.3, 'mouth': 'grin'}}, toonDur=0.1)])],
-        props=[MTR('pm22', litAfter=0.0, screens=[[0.0, '1 H'], [0.12, '50 ANS'], [0.22, '500 ANS']], marks=MARKS, plaque='PLACE N° 12/DEPUIS 2026'),
-               RIB('rib22', **{'from': 0.0, 'rate': 7.0, 'accel': 0.1, 'text': '500 ANS', 'color': '#B8322A'})],
+st.shot('S22', 'parisStreet', setOpts=STREET, actors=[act('livreur', LP, -121, 'stand', 'smug', keys=[k(0.0, look=SCREEN), k(0.3, look=[6.6, 0.0, 0.8], lookDur=0.1), k(0.4, toon={'sq': [0.97, 1.04, 0.97], 'face': {'lid': 0.3, 'mouth': 'grin'}}, toonDur=0.1), k(0.75, look='camera', lookDur=0.15)])],
+        props=[MTR5('pm22', litAfter=0.0, screens=[[0.0, '1 H'], [0.12, '50 ANS'], [0.22, '500 ANS']], marks=MARKS, plaque='PLACE N° 12/DEPUIS 2026'),
+               RIB('rib22', **{'from': 0.18, 'rate': 24.0, 'accel': 0.06, 'w': 0.2, 'text': '500 ANS', 'color': '#B8322A'})],
         cams=[FC(0.0, [7.05, 1.15, 2.05], [[SCREEN[0], 1.4, 2.7], [SCREEN[0], 1.4, 3.1], [SLOT[0], 0.5, SLOT[2]], [6.5, 0.0, 1.6]], top=0.2, bottom=0.72, lenses=range(20, 60))])
-st.cue('sfx:ding', 'S22', 0.22, 0.35); st.cue('sfx:paper', 'S22', 0.25, 0.6)
+st.cue('sfx:ding', 'S22', 0.22, 0.35); st.cue('sfx:paper', 'S22', 0.2, 0.6); st.cue('whoosh', 'S22', 0.2, 0.3, 0.4, 3000, 800)
 
-# 23: they play cards on Sundays. Front on, high: the two of them at their windows, a tray across the gap, cards slapped down; then a look at us
-D23 = st.dur('S23'); TRAY = [2.79, 1.37, 0.0]
-st.shot('S23', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, -135, 'drive', 'neutral', keys=[k(0.0, look=[2.8, 1.4, 0.0]),
-            k(0.4, toon={'reach': {'R': [2.98, 1.5, 0.02, 1, 0.04]}, 'hands': {'R': 'pinch'}}, toonDur=0.15, toonEase='out'), k(0.6, toon={'reach': {'R': [3.25, 1.75, -0.1, 1, 0.04]}, 'hands': {'R': 'pinch'}}, toonDur=0.25),
-            k(1.6, look='camera', lookDur=0.3), k(1.65, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1), k(2.1, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.1), k(2.24, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),
-        act('livreur', VSEAT2, 135, 'drive', 'happy', keys=[k(0.0, look=[2.8, 1.4, 0.0]),
-            k(1.0, toon={'reach': {'R': [2.62, 1.52, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.97, 1.0]}, toonDur=0.1, toonEase='in'), k(1.25, toon={'reach': {'R': [2.3, 1.75, -0.1, 1, 0.04]}, 'hands': {'R': 'pinch'}}, toonDur=0.25),
-            k(1.7, look='camera', lookDur=0.3), k(1.75, toon={'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.15)])],
-        props=[CARP('car23'), BAY('bay23'), HOME('home23'), VANP('van23', hazardFrom=0.0), P('cartes23', 'cardTray', pos=TRAY, opts={'w': 0.66, 'd': 0.34, 'slapAt': [0.5, 1.1, 1.55]})],
-        cams=[FC(0.0, [2.85, 2.15, -3.9], [[SEAT[0], 2.15, SEAT[2]], [VSEAT2[0], 2.5, VSEAT2[2]], [TRAY[0], 1.3, TRAY[2]], [SEAT[0], 1.1, SEAT[2]], [VSEAT2[0], 1.4, VSEAT2[2]]], top=0.16, bottom=0.74, drift=(0.0, -0.05, 0.12))])
+# 23: they play cards on Sundays. Front on at window height across the gap (review 1: high, the heads tipped to the tray, a sliver of card): the two
+#     of them at their windows, faces up and three-quarter to us, each with a fan of big cards; they slap three cards on a light tray between the
+#     windows, looking at each other, a glance down at each slap; then both look at us (a Sunday: no hazards)
+D23 = st.dur('S23'); TRAY = [2.79, 1.37, 0.0]; SLAPS = [0.5, 1.1, 1.55]
+ME23, LV23 = [SEAT[0], 1.95, SEAT[2]], [VSEAT2[0], 1.9, VSEAT2[2]]
+def GLANCES(other, t_end):
+    out = [k(0.0, look=other)]
+    for t_ in SLAPS: out += [k(r(t_ - 0.05), look=[TRAY[0], 1.4, TRAY[2]], lookDur=0.06), k(r(t_ + 0.22), look=other, lookDur=0.1)]
+    return out + [k(t_end, look='camera', lookDur=0.25)]
+st.shot('S23', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, -135, 'drive', 'neutral', keys=[*GLANCES(LV23, 1.75),
+            k(0.0, toon={'reach': {'R': [3.05, 1.62, 0.02, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
+            k(0.42, toon={'reach': {'R': [2.9, 1.52, 0.02, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.97, 1.0], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.08, toonEase='in'),   # slap
+            k(0.62, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.2),
+            k(1.47, toon={'reach': {'R': [2.92, 1.5, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.97, 1.0], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.08, toonEase='in'),   # slap
+            k(1.7, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.2),
+            k(2.1, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.1), k(2.24, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),
+        act('livreur', VSEAT2, 135, 'drive', 'happy', keys=[*GLANCES(ME23, 1.85),
+            k(0.0, toon={'reach': {'R': [2.5, 1.62, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
+            k(1.02, toon={'reach': {'R': [2.66, 1.52, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.96, 1.0], 'face': {'lid': 0.2, 'mouth': 'grin'}}, toonDur=0.08, toonEase='in'),   # slap
+            k(1.25, toon={'reach': {'R': [2.45, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.2),
+            k(1.9, toon={'reach': {'R': [2.45, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.15)])],
+        props=[CARP('car23'), BAY('bay23'), HOME('home23'), VANP('van23'), P('cartes23', 'cardTray', pos=TRAY, opts={'w': 0.7, 'd': 0.4, 'slapAt': SLAPS, 'cardScale': 2.0, 'top': '#EADCBE'}),
+               P('main23a', 'cardFan', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, 0.02, 0.03], 'face': 'camera'}, opts={'s': 1.1}),
+               P('main23b', 'cardFan', on={'actor': 'livreur', 'hand': 'L', 'offset': [0.0, 0.02, 0.03], 'face': 'camera'}, opts={'s': 1.1})],
+        cams=[FC(0.0, [2.75, 1.95, -2.7], [[SEAT[0], 2.45, SEAT[2]], [VSEAT2[0], 2.4, VSEAT2[2]], [TRAY[0], 1.3, TRAY[2]], [r(SEAT[0] + 0.3), 1.9, SEAT[2]], [r(VSEAT2[0] - 0.3), 1.9, VSEAT2[2]], [TRAY[0], 1.05, TRAY[2]]], top=0.18, bottom=0.7, drift=(0.0, 0.0, 0.15))])
 st.cue('sfx:clink', 'S23', 0.5, 0.25); st.cue('sfx:clink', 'S23', 1.1, 0.25); st.cue('sfx:clink', 'S23', 1.55, 0.25); st.cue('sfx:bell', 'S23', 0.0, 0.25)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
