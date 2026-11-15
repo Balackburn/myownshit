@@ -58,14 +58,27 @@ export const FEU_PROPS = {
   // o.coil; o.swing [t0, t1, amp]: it swings about the chin (a walk); grow it with scale keys
   beardHair(o) {
     const n = o.n ?? 9, len = o.len ?? 1.3, coil = o.coil ?? 0.3, g = grp(), sw = grp(); g.add(sw);
-    const mats = [L(o.color || '#D3CEC4'), L(o.dark || '#958E84')], r0 = o.r ?? 0.034, W = o.w ?? 0.22;
+    const mats = [L(o.color || '#D3CEC4'), L(o.dark || '#958E84')], r0 = o.r ?? 0.034, W = o.w ?? 0.22, strands = [];
     for (let i = 0; i < n; i++) {
       const u0 = n > 1 ? i / (n - 1) - 0.5 : 0, x0 = u0 * W, ph = hash(i + 3) * TAU, amp = 0.012 + 0.01 * hash(i + 7), Ln = len * (0.86 + 0.14 * (1 - Math.abs(u0) * 1.6)), pts = [];
       for (let k = 0; k <= 12; k++) { const u = k / 12; pts.push(new THREE.Vector3(x0 * (1 - 0.45 * u) + amp * Math.sin(u * 9 + ph), -Ln * u, 0.03 + (o.bulge ?? 0.14) * Math.sin(PI * Math.min(1, u * 1.12)))); }
       if (coil > 0 && Math.abs(u0) < 0.3) { const e = pts[pts.length - 1]; for (let k = 1; k <= 6; k++) { const a = k / 6 * PI * 1.4; pts.push(new THREE.Vector3(e.x + Math.sin(a) * coil * 0.25, e.y + 0.012, e.z + coil * (0.5 - 0.5 * Math.cos(a * 0.75)))); } }
-      for (let k = 0; k < pts.length - 1; k++) sw.add(seg(pts[k], pts[k + 1], r0 * (1 - 0.78 * k / (pts.length - 1)), r0 * (1 - 0.78 * (k + 1) / (pts.length - 1)), mats[i % 2]));
+      const ms = [];
+      for (let k = 0; k < pts.length - 1; k++) { const m = seg(pts[k], pts[k + 1], r0 * (1 - 0.78 * k / (pts.length - 1)), r0 * (1 - 0.78 * (k + 1) / (pts.length - 1)), mats[i % 2]); sw.add(m); ms.push(m); }
+      strands.push({ pts, ms, len: ms.map((m, k) => pts[k + 1].distanceTo(pts[k])) });
     }
-    g.userData.update = t => { const s = o.swing; if (!s) return; const w = t > s[0] && t < s[1] ? (s[2] ?? 0.15) * Math.sin((t - s[0]) * 7) : 0; sw.rotation.x = w; sw.rotation.z = 0.4 * w; };
+    const dv = new THREE.Vector3(), p2 = Array.from({ length: 48 }, () => new THREE.Vector3());
+    // o.swing [t0, t1, amp]: it swings from t0 and, after t1, the swing dies away over about a second (it snapped straight at t1); o.whip: each point
+    // turns about the chin by an angle that grows toward the tip and lags behind it, so the beard bends like hair (one rigid swing read as a scythe)
+    g.userData.update = t => { const s = o.swing; if (!s) return;
+      const A = s[2] ?? 0.15, u = t - s[0], env = t <= s[0] ? 0 : t < s[1] ? 1 : Math.exp(-(t - s[1]) * 3.5);
+      if (!o.whip) { const w = A * env * Math.sin(u * 7); sw.rotation.x = w; sw.rotation.z = 0.4 * w; return; }
+      for (const S of strands) { const N = S.pts.length;
+        for (let k = 0; k < N; k++) { const f = k / (N - 1), a = env * A * (0.3 + 0.9 * f) * Math.sin(u * 7 - 1.8 * f), b = 0.4 * a, P0 = S.pts[k];
+          const y1 = P0.y * Math.cos(a) - P0.z * Math.sin(a), z1 = P0.y * Math.sin(a) + P0.z * Math.cos(a);
+          p2[k].set(P0.x * Math.cos(b) - y1 * Math.sin(b), P0.x * Math.sin(b) + y1 * Math.cos(b), z1); }
+        for (let k = 0; k < N - 1; k++) { const m = S.ms[k]; dv.copy(p2[k + 1]).sub(p2[k]); const l = dv.length(); m.position.copy(p2[k]).add(p2[k + 1]).multiplyScalar(0.5);
+          m.quaternion.setFromUnitVectors(UP, dv.multiplyScalar(1 / Math.max(1e-5, l))); m.scale.y = l / Math.max(1e-5, S.len[k]); } } };
     g.userData.update(0); return g;
   },
 
@@ -201,6 +214,6 @@ export const FEU_PROPS = {
     g.userData.update(0); return g;
   },
 
-  // A tricolour cockade for a lapel (pivot at its middle, front +Z): three discs, blue, white and red, o.r across
-  cockade(o) { const r = o.r ?? 0.035, g = grp(); [['#2F62B5', 1], ['#F4F4F0', 0.66], ['#E0413A', 0.33]].forEach(([c, k], i) => { const d = new THREE.Mesh(new THREE.CircleGeometry(r * k, 16), L(c)); d.position.z = 0.002 * (i + 1); g.add(d); }); return g; },
+  // A tricolour cockade for a lapel (pivot at its middle, front +Z): three discs, red outside, white, blue at the middle, o.r across
+  cockade(o) { const r = o.r ?? 0.035, g = grp(); [['#E0413A', 1], ['#F4F4F0', 0.66], ['#2F62B5', 0.33]].forEach(([c, k], i) => { const d = new THREE.Mesh(new THREE.CircleGeometry(r * k, 16), L(c)); d.position.z = 0.002 * (i + 1); g.add(d); }); return g; },
 };

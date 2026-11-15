@@ -77,9 +77,9 @@ D3 = st.dur('S03'); ME3 = [0.0, 0, -1.25]; SOFA3 = [0.0, 0, -2.2]   # (build) fr
 st.shot('S03', 'livingRoom', actors=[
         act('mec', ME3, 180, 'crawl', 'neutral', keys=[k(0.0, look=[0.0, 0.15, -2.6]), k(0.0, toon={'bend': {'spine': [0.25, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'O'}}, toonDur=0.0),   # (stills 1) on all fours, his head low enough to show under the sofa
             k(0.45, look=[-0.6, 0.15, -2.6]), k(0.75, look=[0.6, 0.15, -2.6]), k(0.6, toon={'bend': {'spine': [0.3, 0, 0, 1, None], 'neck': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'mouth': 'pout'}}, toonDur=0.2), k(r(D3 - 0.25), look='camera')])],
-        props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0, opts={'legs': 0.32}), P('coin3', 'coin', pos=[0.3, 0.02, -2.05], rot=[PI / 2, 0, 0]), P('sock3', 'slab', pos=[-0.28, 0.03, -2.0], opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
-               P('dust3', 'dustPuff', pos=[0.1, 0.0, -2.2], scale=0.5, opts={'color': '#BDB4A6', 'period': 1.1})],
-        cams=[FC(0.0, [0.15, 0.14, -2.5], [[0.0, 0.62, -1.35], [0.0, 0.05, -1.3], [0.35, 0.45, -1.45], [-0.35, 0.45, -1.45], [0.3, 0.0, -2.05]], top=0.12, bottom=0.82, lenses=range(30, 76), inside=(-1.5, 1.5, 0.06, 0.3, -2.6, 2.0))])   # (stills 1) from under the sofa on its legs: the camera was inside its solid base
+        props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0, opts={'legs': 0.46}), P('coin3', 'coin', pos=[0.3, 0.02, -2.05], rot=[PI / 2, 0, 0]), P('sock3', 'slab', pos=[-0.28, 0.03, -2.0], opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
+               P('dust3', 'dustPuff', pos=[0.05, 0.0, -1.55], scale=0.3, opts={'color': '#BDB4A6', 'period': 1.1})],   # (stills 2) by his hands: 0.3 m from the lens it fogged the whole frame
+        cams=[FC(0.0, [0.15, 0.14, -2.5], [[0.0, 0.62, -1.35], [0.0, 0.05, -1.3], [0.35, 0.45, -1.45], [-0.35, 0.45, -1.45]], top=0.12, bottom=0.82, lenses=range(30, 76), inside=(-1.5, 1.5, 0.06, 0.4, -2.6, 2.0))])   # (stills 2) the sofa on 0.46 m legs: from 0.32 its front base hid his face
 st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 
 # 4: in the fridge. In the kitchen: the fridge door open, his head and shoulders inside, cold mist rolling out round him; he comes out with frost on
@@ -89,7 +89,7 @@ st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
         act('mec', [0.15, 0, -1.55], 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 1.6, -2.6]), k(0.0, toon={'bend': {'spine': [0.35, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0),
             k(0.6, to=[0.15, 0, -1.25], dur=0.18, ease='out', clip='stand', face='keep'), k(0.62, look='camera'), k(0.62, toon={'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0, 'blush': 0.0}}, toonDur=0.1)])],   # he backs out, shivering
         props=[P('fr4', 'bigFridge', pos=FR4, opts={'open': 1.0, 'mode': 'full', 'mist': True, 'light': True}), GL('gl4', glint=[0.75]),
-               P('mist4', 'dustPuff', pos=[0.15, 1.5, -1.6], scale=1.4, opts={'color': '#E8F4FF', 'period': 0.9})],
+               P('mist4', 'dustPuff', pos=[0.35, 0.55, -1.75], scale=0.9, opts={'color': '#E8F4FF', 'period': 0.9})],   # (stills 2) rolling out low at his knees: at his face it whited out the frame
         cams=[FC(0.0, [0.05, 1.82, -2.62], [[0.15, 2.95, -1.4], [0.15, 1.85, -1.4], [0.4, 2.3, -1.45], [-0.1, 2.3, -1.45]], top=0.14, bottom=0.74, inside=(-0.45, 0.45, 0.4, 2.4, -2.75, 0.5))])   # (stills 1) above the food on the top shelf (the camera sat in a carton)   # (build) from inside the fridge out at his face
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:sniff', 'S04', 0.7, 0.2)
 
@@ -124,13 +124,13 @@ D7 = st.dur('S07')
 st.shot('S07', 'grassland', actors=[
         act('plong1', [-1.0, 0, 1.0], 20, 'pointDown', 'neutral', keys=[k(0.0, look=[-1.0, 0.0, 1.8]), k(0.4, look=[-1.2, 0.0, 0.6])]),
         act('plong2', [1.0, 0, 0.4], -30, 'holdUp', 'neutral', keys=[k(0.0, look='camera')]),
-        act('mec', [-3.9, 2.55, -0.2], 90, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.0, 0.5]), k(0.0, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.9, look=[1.0, 0.5, 0.4]), k(1.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.36, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.06)]),
+        act('mec', [-3.9, 2.76, -0.2], 90, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.0, 0.5]), k(0.0, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.9, look=[1.0, 0.5, 0.4]), k(1.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.36, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.06)]),
         act('poisson7', [0.2, 0.0, 1.9], 0, 'stand', 'neutral', scale=0.35, keys=[*[k(r(0.1 + 0.3 * j), to=[r(0.2 + 0.05 * (j % 2)), 0.25 if j % 2 == 0 else 0.0, 1.9], dur=0.15, ease='out' if j % 2 == 0 else 'in') for j in range(6)]])],
-        props=[P('river7', 'drainedRiver', pos=[0.0, 0.03, 0.0], opts={'w': 8, 'len': 40, 'qh': 2.45, 'bridgeZ': -16}), GL('gl7'),
+        props=[P('river7', 'drainedRiver', pos=[0.0, 0.16, 0.0], opts={'w': 8, 'len': 40, 'qh': 2.45, 'bridgeZ': -16}), GL('gl7'),
                P('mask71', 'diveMask', on={'actor': 'plong1', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.28, 'y': 0.3}),
                P('mask72', 'diveMask', on={'actor': 'plong2', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.28, 'y': 0.3}),
                P('boot7', 'slab', on={'actor': 'plong2', 'hand': 'R', 'offset': [0.0, 0.08, 0.04]}, opts={'w': 0.12, 'h': 0.26, 'd': 0.28, 'color': '#3B2A20'})],
-        cams=[FC(0.0, [1.4, 1.1, 5.2], [[-1.0, 2.4, 1.0], [1.0, 2.6, 0.4], [-3.9, 5.25, -0.2], [0.2, 0.0, 1.9]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [1.4, 1.1, 5.2], [[-1.0, 2.4, 1.0], [1.0, 2.6, 0.4], [-3.9, 5.46, -0.2], [0.2, 0.16, 1.9]], top=0.12, bottom=0.78)])   # (stills 2) the river bed raised over the grass of the set (green showed through the mud)
 st.cue('sfx:splash', 'S07', 0.1, 0.15); st.cue('sfx:splash', 'S07', 0.7, 0.12); st.cue('sfx:splash', 'S07', 1.3, 0.12)
 
 # 8: the army sent helicopters. At night in the street, from low: a helicopter hangs over the roofs, its searchlight sweeps the street, crosses him,

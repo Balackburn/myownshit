@@ -33,7 +33,7 @@ ME = [5.55, 0, 0.0]                                  # at the kerb of the right-
 LIGHT = [-5.55, 0, 1.6]                              # the pedestrian light across the road, its lenses toward him (+X)
 RED = lambda pid='feu', state=None, pos=LIGHT, ry=90, web=False, h=2.3: P(pid, 'pedSignal', pos=pos, ry=ry, opts={'h': h, 's': 1.25, 'state': state or [[0.0, 'r']], 'web': web})   # (review 1) a French pedestrian light, a red man over a green man (a three-lens car signal)
 ZEBRA = lambda pid='zeb': P(pid, 'zebra', pos=[-5.0, 0.012, -1.5], opts={'n': 10})
-BEARD = lambda pid='barbe', s=1.5, keys=None, swing=None: P(pid, 'beardHair', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.02, 0.1]}, scale=s, opts={'len': 1.2, 'coil': 0.3, **({'swing': swing} if swing else {})}, **({'keys': keys} if keys else {}))   # (review 1) clumps of hair, fuller at the chin, the tips curled on the paving (slats read as a rake)
+BEARD = lambda pid='barbe', s=1.5, keys=None, swing=None: P(pid, 'beardHair', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.02, 0.1]}, scale=s, opts={'len': 1.2, 'coil': 0.3, **({'swing': swing, 'whip': True} if swing else {})}, **({'keys': keys} if keys else {}))   # (review 1) clumps of hair, fuller at the chin, the tips curled on the paving (slats read as a rake)
 HOUSE = lambda pid='maison': P(pid, 'kerbHouse', pos=[r(ME[0] + 0.05), 0, ME[2]], ry=-90, opts={'w': 2.4, 'd': 2.2, 'h': 2.8})   # (review 1) the house built round him: he stands in its doorway; it stays in the later shots
 PILE = lambda pid='pile', n=30: P(pid, 'letterPile', pos=[r(ME[0] - 0.5), 0, 0.62], opts={'n': n, 'r': 0.32})   # the letters piling up at his door from S06
 NEST = lambda pid='nid', lay=None: P(pid, 'twigNest', on={'actor': 'mec', 'joint': 'torso', 'offset': [0.0, 0.42, 0.3]}, scale=0.5, opts=({'layAt': lay} if lay else {}))   # a woven nest in the beard, kept from S09
@@ -46,15 +46,15 @@ CAR = lambda pid, x, z0, z1, t0, dur, col: P(pid, 'car', pos=[x, 0, z0], ry=(90 
 # (cycle 13) the key poses and the lettering, measured in the engine by render3 --probe
 for g_ in [('S03', 1.0, 'mec', 'beard'), ('S07', 1.0, 'flic1', 'tug'), ('S09', 1.0, 'mec', 'nest'), ('S13', 1.0, 'president', 'watch'), ('S14', 0.8, 'mec', 'green'), ('S16', 0.8, 'mec', 'step'), ('S19', 0.6, 'mec', 'end')]:
     st.gag(*g_)
-st.card('S08', 'AMENDE', at=0.35)
+st.card('S08', 'AMENDE', at=0.62)   # (review 2) on the slap (0.3 s early)
 st.card('S11', 'BRAVO', at=0.45)
-st.card('S14', 'VERT', at=0.25)
+st.card('S14', 'VERT', at=0.36)   # (review 2) on the switch to green
 
 # 1: the hook. Over his shoulder at the kerb: across the road the little red man of the pedestrian light; a car goes by between them; he waits, deadpan
 D1 = st.dur('S01')
 st.shot('S01', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT(0.9))],
         props=[RED(), ZEBRA(), CAR('car1', -2.4, 14.0, -14.0, 0.2, 1.2, '#E0413A')],
-        cams=[FC(0.0, [9.4, 2.35, 0.35], [[ME[0], 2.45, ME[2]], [ME[0], 1.85, ME[2]], [LIGHT[0], 3.55, LIGHT[2]], [LIGHT[0], 2.25, LIGHT[2]]], top=0.14, bottom=0.76, drift=(-0.12, 0.0, 0.0), lenses=range(16, 40))])   # (review 1) over his shoulder, the light big near the middle (41 x 93 px at the right edge); (stills 3) a long lens: the light a fifth of the frame
+        cams=[cam(0.0, [10.6, 2.25, 0.0], [10.32, 2.25, 0.013], [0.614, 2.032, 0.48], [0.334, 2.032, 0.493], lens=26.5)])   # (review 2) his head lower right, the red man in the left third, a slow push (solved with projshot: his head was half out of the right edge)
 st.cue('sfx:engine', 'S01', 0.2, 0.3)
 
 # 2: the light never turned green. Close on the light: the red man lit; the green lens below grey, a spider in its web across it
@@ -88,17 +88,22 @@ st.shot('S05', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand
         props=[RED(), ZEBRA(), BEARD(), HOUSE()],
         cams=[FC(0.0, [1.4, 1.5, 5.4], [[ME[0], 2.45, ME[2]], [r(ME[0] + 0.05), 3.75, 0.0], [MA5[0], 2.45, MA5[2]], [MA5[0], 0.0, MA5[2]], [ME[0], 0.0, -1.3], [ME[0], 0.0, 1.3]], top=0.14, bottom=0.78)])   # (review 1) the house round him, him in its doorway, the mayor whole beside it (pressed to a house front, a lamp post and a tree behind the mayor's head)
 
-# 6: the postman delivers his mail at the light. The postman holds out a letter; his hand takes it without his eyes leaving the light
-D6 = st.dur('S06'); TAKE6 = 0.85
+# 6: the postman delivers his mail at the light. In the road at the door, the postman holds out a letter at arm's length; only his arm rises, his eyes
+#    never leave the light; he takes it and lets it drop on the pile at his feet without a look
+D6 = st.dur('S06'); TAKE6 = 0.85; DROP6 = 1.55; PO6 = [r(ME[0] - 0.95), 0, 0.6]; LET6 = [r(ME[0] - 0.43), 1.35, 0.3]
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
-        act('mec', ME, -90, 'stand', 'neutral', keys=[*WAIT(), k(r(TAKE6 - 0.25), toon={'reach': {'R': [ME[0], 1.3, 0.5, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': DEAD}, toonDur=0.2, toonEase='inOut'),
-            k(TAKE6, toon={'reach': {'R': [ME[0], 1.3, 0.5, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': DEAD}, toonDur=0.05), k(r(TAKE6 + 0.15), toon={'touch': {'R': ['torso', -0.36, 0.55, 0.3, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': DEAD}, toonDur=0.25)]),   # (stills 3) held out beside the beard (in front of his chest it vanished into it)
-        act('facteur', [r(ME[0] - 0.25), 0, 1.3], 180, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 1.9, ME[2]]), k(0.0, toon={'reach': {'R': [ME[0], 1.3, 0.55, 1, 0.03]}, 'hands': {'R': 'pinch'}}, toonDur=0.0),
-            k(r(TAKE6 + 0.05), toon={'reach': {'R': [ME[0], 1.2, 0.8, 0, 0.03]}, 'hands': {'R': 'open'}}, toonDur=0.25)])],
-        props=[RED(), BEARD(), HOUSE(), PILE(n=18), P('lettre6', 'envelope', on={'actor': 'facteur', 'hand': 'R', 'offset': [0.0, 0.0, 0.03]}, face='camera', opts={'w': 0.34}, keys=[k(TAKE6, attach='mec', hand='R', offset=[0.0, 0.0, 0.03], face='camera')]),
+        act('mec', ME, -90, 'stand', 'neutral', keys=[*WAIT(), k(r(TAKE6 - 0.3), toon={'reach': {'L': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'L': 'open'}, 'face': DEAD}, toonDur=0.25, toonEase='inOut'),
+            k(TAKE6, toon={'reach': {'L': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'L': 'pinch'}, 'face': DEAD}, toonDur=0.05),
+            k(r(TAKE6 + 0.12), toon={'reach': {'L': [r(ME[0] - 0.4), 1.1, 0.45, 1, 0.03]}, 'hands': {'L': 'pinch'}, 'face': DEAD}, toonDur=0.3, toonEase='inOut'),
+            k(DROP6, toon={'reach': {'L': [r(ME[0] - 0.4), 1.1, 0.45, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': DEAD}, toonDur=0.06),
+            k(r(DROP6 + 0.25), toon={'face': DEAD}, toonDur=0.3, toonEase='inOut')]),   # (review 2) only the arm moves: up, take, down over the pile, let go
+        act('facteur', PO6, 122, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 1.9, ME[2]]), k(0.0, toon={'reach': {'R': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'R': 'pinch'}}, toonDur=0.0),
+            k(r(TAKE6 + 0.08), toon={'reach': {'R': [r(PO6[0] + 0.3), 1.15, r(PO6[2] + 0.1), 0, 0.03]}, 'hands': {'R': 'open'}}, toonDur=0.25), k(r(DROP6 + 0.05), look=[r(ME[0] - 0.5), 0.1, 0.62])])],   # holds it out from the first frame; looks down at the pile when it lands
+        props=[RED(), BEARD(), HOUSE(), PILE(n=18), P('lettre6', 'envelope', on={'actor': 'facteur', 'hand': 'R', 'offset': [0.0, 0.0, 0.03]}, face='camera', opts={'w': 0.34},
+               keys=[k(TAKE6, attach='mec', hand='L', offset=[0.0, 0.0, 0.03], face='camera'), k(DROP6, detach=True, fall=True, floor=0.14, spinFall=3.0)]),
                P('bal6', 'mailbox', pos=[r(ME[0] - 0.55), 0, -0.95], ry=-90)],
-        cams=[FC(0.0, [3.2, 1.8, 0.9], [[ME[0], 2.45, ME[2]], [r(ME[0] - 0.25), 2.45, 1.3], [ME[0], 1.1, 0.6], [ME[0], 1.1, -0.5]], top=0.16, bottom=0.74)])   # (review 1) nearer the hand-over, the letter big between them (30 px, cut by the edge); (stills 3) more in front of him (he was cut by the edge)
-st.cue('sfx:paper', 'S06', TAKE6, 0.25)
+        cams=[FC(0.0, [3.0, 1.6, 2.6], [[ME[0], 2.45, ME[2]], [PO6[0], 2.3, PO6[2]], LET6, [ME[0], 1.0, ME[2]], [PO6[0], 1.0, PO6[2]]], top=0.16, bottom=0.76)])   # (review 2) the letter mid-frame between them (it hung in the air, then swung out of the frame)
+st.cue('sfx:paper', 'S06', TAKE6, 0.25); st.cue('sfx:paper', 'S06', r(DROP6 + 0.45), 0.2)
 
 # 7: a policeman tried to make him cross. The policeman pulls him by the arm toward the road, leaning back, his arm stretching; he does not budge
 D7 = st.dur('S07'); SNAP7 = 1.5
@@ -112,23 +117,26 @@ st.shot('S07', 'parisStreet', setOpts=STREET, actors=[
             *[kk for t_, x_ in FX7[1:] for kk in (k(t_, to=[x_, 0, 0.15], dur=0.14, ease='out', face='keep'), k(t_, toon=TUG(0.38 if x_ < 4.2 else 0.12), toonDur=0.12, toonEase='out'))],
             k(SNAP7, to=[3.25, 0, 0.15], dur=0.12, ease='out', face='keep'), k(SNAP7, toon={'lay': [-0.9, 0.0], 'face': {'eye': 0.6, 'brow': 0.9, 'mouth': 'open'}}, toonDur=0.08, toonEase='out'),   # the grip goes: flung back...
             k(1.62, toon={'lay': [-1.5, 0.0], 'sq': [1.3, 0.32, 1.3], 'face': {'eye': 0.5, 'pop': 0.4, 'popLen': 0.12}}, toonDur=0.05, toonEase='in'),   # ...flat on his back...
-            k(1.85, toon={'lay': [-1.5, 0.0], 'sq': [0.85, 1.22, 0.85], 'face': {'eye': 0.3}}, toonDur=0.1, toonEase='out'), k(2.0, toon={'lay': [-1.5, 0.0], 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.5}}, toonDur=0.12)])],   # ...re-inflating
+            k(1.8, toon={'lay': [-1.5, 0.0], 'sq': [0.85, 1.22, 0.85], 'face': {'eye': 0.3}}, toonDur=0.08, toonEase='out'),   # ...re-inflating...
+            k(1.9, toon={'lay': [0.18, 0.0], 'sq': [0.88, 1.16, 0.88], 'face': {'eye': 0.5, 'brow': 0.6}}, toonDur=0.1, toonEase='out'),   # ...and up past upright (review 2: he lay flat to the cut)...
+            k(2.02, toon={'lay': [-0.06, 0.0], 'sq': [1.08, 0.93, 1.08], 'face': {'lid': 0.5}}, toonDur=0.07, toonEase='inOut'), k(2.11, toon={'lay': [0.0, 0.0], 'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.5}}, toonDur=0.09)])],   # ...settling, dazed
         props=[RED(), ZEBRA(), BEARD(), HOUSE(), PILE()],
-        cams=[FC(0.0, [4.3, 1.5, 4.6], [[ME[0], 2.45, ME[2]], [3.55, 2.4, 0.15], [3.0, 0.0, 0.15], [ME[0], 0.0, ME[2]]], top=0.16, bottom=0.78, drift=(-0.9, 0.0, 0.0))])   # side on, both faces in (the policeman's face left the frame); (stills 3) panning left with the fling
+        cams=[FC(0.0, [4.3, 1.5, 4.6], [[ME[0], 2.5, ME[2]], [r(ME[0] + 0.4), 2.5, ME[2]], [ME[0], 0.0, ME[2]], [r(ME[0] + 0.4), 0.0, ME[2]], [2.85, 1.95, 0.15], [3.55, 0.0, 0.15], [2.6, 0.3, -0.25]], top=0.16, bottom=0.8, lenses=range(24, 62))])   # (review 2) still and wide: him whole with room at the right, the policeman's lean and his fall (the pan left him past the edge)
 st.cue('sfx:stretch', 'S07', 0.25, 0.25); st.cue('sfx:stretch', 'S07', 0.8, 0.25); st.cue('sfx:grunt', 'S07', 1.15, 0.2); st.cue('sfx:boing', 'S07', SNAP7, 0.3); st.cue('thud', 'S07', 1.62, 0.3)
 
 # 8: the policeman got a fine. On the crossing, red still lit: his colleague writes him a ticket and hands it over; his jaw drops (AMENDE)
 D8 = st.dur('S08'); TIC8 = 0.6
 st.shot('S08', 'parisStreet', setOpts=STREET, actors=[
-        act('flic1', [2.7, 0, 0.3], 70, 'stand', 'neutral', keys=[k(0.0, look=[3.5, 1.9, 0.9]),
+        act('flic1', [2.7, 0, 0.3], -12, 'stand', 'neutral', keys=[k(0.0, look=[3.5, 1.9, 0.9]),   # (review 2) turned to us (in profile the take and the ticket were lost)
+
             k(r(TIC8 + 0.02), toon={'sq': [1.12, 0.86, 1.12], 'face': {'eye': 0.3, 'brow': 0.6}}, toonDur=0.05, toonEase='out'),   # (review 1) slapped: squashed...
-            k(r(TIC8 + 0.12), look='camera'), k(r(TIC8 + 0.12), toon={'sq': [0.94, 1.1, 0.94], 'bend': {'neck': [0, 0, 0, 1.25, None]}, 'face': {'jaw': 1.0, 'eye': 0.85, 'pop': 0.5, 'popLen': 0.14, 'brow': 1.0}}, toonDur=0.08, toonEase='out'),   # ...the jaw to his chest, eyes on stalks, to us
-            k(r(TIC8 + 0.7), toon={'bend': {'neck': [0, 0, 0, 1.18, None]}, 'face': {'jaw': 0.9, 'eye': 0.7, 'pop': 0.3, 'popLen': 0.12, 'brow': 0.9}}, toonDur=0.2)]),   # (the closed arched eyes read as laughter)
-        act('flic2', [3.55, 0, 0.95], -120, 'stand', 'neutral', keys=[k(0.0, look=[2.7, 1.9, 0.3]), k(0.0, toon={'reach': {'R': [3.25, 1.35, 0.6, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.0),
-            k(r(TIC8 - 0.12), toon={'reach': {'R': [2.95, 1.45, 0.42, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4}}, toonDur=0.1, toonEase='in'), k(r(TIC8 + 0.1), toon={'reach': {'R': [3.3, 1.2, 0.8, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45}}, toonDur=0.2)]),   # SLAP
+            k(r(TIC8 + 0.12), look='camera'), k(r(TIC8 + 0.12), toon={'sq': [0.94, 1.1, 0.94], 'bend': {'neck': [0, 0, 0, 1.25, None]}, 'face': {'jaw': 1.0, 'eye': 0.9, 'pop': 1.0, 'popLen': 0.3, 'brow': 1.0}}, toonDur=0.08, toonEase='out'),   # ...the jaw to his chest, eyes out on long stalks at the lens (review 2: 45 px, sideways)
+            k(r(TIC8 + 0.7), toon={'bend': {'neck': [0, 0, 0, 1.18, None]}, 'face': {'jaw': 0.9, 'eye': 0.75, 'pop': 0.55, 'popLen': 0.2, 'brow': 0.9}}, toonDur=0.2)]),   # (the closed arched eyes read as laughter)
+        act('flic2', [3.55, 0, 0.95], -120, 'stand', 'neutral', keys=[k(0.0, look=[2.7, 1.9, 0.3]), k(0.0, toon={'reach': {'R': [3.25, 1.35, 0.75, 1, 0.03]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.4}}, toonDur=0.0),
+            k(r(TIC8 - 0.12), toon={'reach': {'R': [2.78, 1.4, 0.58, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.4}}, toonDur=0.1, toonEase='in'), k(r(TIC8 + 0.1), toon={'reach': {'R': [3.3, 1.2, 0.8, 1, 0.03]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.45}}, toonDur=0.2)]),   # SLAP
         act('mec', ME, -90, 'stand', 'neutral', keys=WAIT(0.7))],
-        props=[RED(), ZEBRA(), BEARD(), HOUSE(), PILE(n=24), P('pv8', 'bigTicket', on={'actor': 'flic2', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, face='camera', opts={'title': 'CONTRAVENTION', 'sum': '135 €'}, keys=[k(TIC8, attach='flic1', joint='torso', offset=[0.0, 0.55, 0.34])])],   # (review 1) a big ticket stuck on his chest (20 x 10 px hidden in the clasped hands: a handshake)
-        cams=[FC(0.0, [1.9, 1.75, 3.4], [[2.7, 2.6, 0.3], [3.55, 2.5, 0.95], [2.7, 1.15, 0.3]], top=0.2, bottom=0.78, lenses=range(26, 66))])   # (stills 3) waist up: the faces and the ticket
+        props=[RED(), ZEBRA(), BEARD(), HOUSE(), PILE(n=24), P('pv8', 'bigTicket', on={'actor': 'flic2', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, face='camera', scale=1.25, opts={'title': 'CONTRAVENTION', 'sum': '135 €'}, keys=[k(TIC8, attach='flic1', joint='torso', offset=[0.0, 0.4, 0.21], face='camera')])],   # (review 2) flat on his chest, facing us (edge on, 70 px off his chest)
+        cams=[FC(0.0, [1.9, 1.75, 3.4], [[2.25, 2.6, 0.3], [2.7, 0.95, 0.3], [3.55, 2.5, 0.95], [3.85, 2.5, 0.95]], top=0.2, bottom=0.78, lenses=range(26, 66))])   # (review 2) room at the left: he and the ticket were on the edge
 st.cue('thud', 'S08', TIC8, 0.3); st.cue('sfx:gasp', 'S08', r(TIC8 + 0.12), 0.25)
 
 # 9: the pigeons nested in his beard. Close: a straw nest in the beard, a pigeon sitting in it, eggs popping in one after another; he blinks
@@ -136,17 +144,25 @@ D9 = st.dur('S09'); LAY9 = [0.3, 0.6, 0.9]
 st.shot('S09', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=[*WAIT(), k(1.0, toon={'face': {'lid': 1.0}}, toonDur=0.08), k(1.12, toon={'face': DEAD}, toonDur=0.1)]),
         act('pigeon', [r(ME[0] - 0.22), 1.6, 0.16], -110, 'idle', 'neutral', scale=1.3, keys=[k(0.0, look='camera'), *[kk for t_ in LAY9 for kk in (k(r(t_ + 0.02), toon={'sq': [1.15, 0.85, 1.15]}, toonDur=0.04, toonEase='out'), k(r(t_ + 0.1), toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.08))]])],   # (review 1) on the rim of the nest, a jolt at each egg
         props=[RED(), BEARD(), HOUSE(), NEST('nid9', LAY9)],
-        cams=[FC(0.0, [4.4, 1.45, -1.0], [[ME[0], 2.45, ME[2]], [ME[0], 1.0, ME[2]], [r(ME[0] - 0.3), 1.9, 0.0]], top=0.14, bottom=0.74)])   # (audit) from his other side and lower: not S03's frame
+        cams=[FC(0.0, [4.0, 2.55, 1.6], [[ME[0], 2.45, ME[2]], [r(ME[0] - 0.3), 1.35, 0.0], [r(ME[0] - 0.3), 1.95, 0.0], [ME[0], 2.45, 0.35]], top=0.14, bottom=0.76)])   # (review 2) from above his left: into the bowl, the eggs seen (only their tops showed); his eyeline back on the screen-left side
 for t_ in LAY9: st.cue('pop', 'S09', t_, 0.15)
 
-# 10: tourists queue for the photo. Along the pavement a queue of tourists; the first one photographs him: a flash; the next one steps up
+# 10: tourists queue for the photo. A long lens down the kerb: him at the near end in his doorway, the photographer in the road at his door, the queue
+#     receding out of the frame (a kid hopping on the spot in it); a flash; the next one cranes to see
 D10 = st.dur('S10'); FL10 = [0.4, 1.1]
+Q10 = [([r(ME[0] - 0.8), 0, -0.75], 47), ([r(ME[0] - 1.0), 0, -1.55], 25), ([r(ME[0] - 1.2), 0, -2.35], 20), ([r(ME[0] - 1.4), 0, -3.1], 15), ([r(ME[0] - 1.6), 0, -3.85], 20), ([r(ME[0] - 1.8), 0, -4.6], 10)]
+LOOK10 = [[ME[0], 1.9, ME[2]], [ME[0], 1.9, ME[2]], 'camera', [ME[0], 1.9, ME[2]], [ME[0], 1.9, ME[2]], [ME[0], 1.9, ME[2]]]
 st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT(1.3)),
-        *[act(f'tour{j + 1}', [r(ME[0] + 0.3 + 0.75 * j), 0, r(1.55 + 0.55 * j)], -150, 'stand', 'happy', keys=[k(0.0, look=[ME[0], 1.9, ME[2]]),
+        *[act(f'tour{j + 1}', Q10[j][0], Q10[j][1], 'stand', 'happy' if j != 2 else 'neutral', keys=[k(0.0, look=LOOK10[j]),
             *([k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0)] if j == 0 else []),
-            *([kk for i_ in range(4) for kk in (k(r(0.2 + 0.45 * i_), to=[r(ME[0] + 2.55), 0.18, 3.2], dur=0.1, ease='out'), k(r(0.3 + 0.45 * i_), to=[r(ME[0] + 2.55), 0, 3.2], dur=0.1, ease='in'))] if j == 3 else [])]) for j in range(4)]],   # (review 1) the kid hops on the spot
+            *([kk for i_ in range(4) for kk in (k(r(0.15 + 0.4 * i_), to=[Q10[3][0][0], 0.2, Q10[3][0][2]], dur=0.1, ease='out'), k(r(0.25 + 0.4 * i_), to=[Q10[3][0][0], 0, Q10[3][0][2]], dur=0.1, ease='in'))] if j == 3 else []),   # the kid hops on the spot
+            *([k(0.5, toon={'sq': [0.95, 1.08, 0.95], 'bend': {'spine': [0.0, 0, 0.12, 1, None]}}, toonDur=0.2, toonEase='out'), k(1.3, toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.25)] if j == 1 else []),   # the next one cranes round the photographer
+            *([k(0.9, toon={'face': {'lid': 0.6, 'mouth': 'flat'}}, toonDur=0.2)] if j == 2 else []),
+            *([kk for f_ in FL10 for kk in (k(r(f_ + 0.02), toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.04, 0.96, 1.04]}, toonDur=0.04, toonEase='out'),
+                                         k(r(f_ + 0.12), toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.1))] if j == 0 else []),   # the photographer jolts with each flash
+            *([k(1.0, look='camera'), k(1.6, look=[ME[0], 1.9, ME[2]])] if j == 4 else []), *([k(0.7, toon={'sq': [1.03, 0.97, 1.03]}, toonDur=0.25, toonEase='inOut'), k(1.5, toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.3)] if j == 5 else [])]) for j in range(6)]],   # (review 2) six tourists, all different (two orange tourists in profile, no kid, no queue)
         props=[RED(), ZEBRA(), BEARD(), HOUSE(), NEST(), PILE(), P('cam10', 'pressCamera', on={'actor': 'tour1', 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': FL10, 'burst': 0.5})],
-        cams=[FC(0.0, [3.7, 1.35, 2.7], [[ME[0], 2.45, ME[2]], [r(ME[0] + 1.05), 2.45, 2.1], [ME[0], 0.6, ME[2]]], top=0.16, bottom=0.76)])   # (review 1) lower and nearer: the queue runs out of the frame (a third of the frame was empty road)
+        cams=[cam(0.0, [3.7, 1.7, 10.0], [3.7, 1.7, 9.7], [4.831, 1.264, 0.074], [4.831, 1.264, -0.226], lens=34.5)])   # (review 2) solved with projshot: him at the near end on the right, the queue receding to the left (he was a sliver at the edge, the lens on the house corner)
 for t_ in FL10: st.cue('sfx:click', 'S10', t_, 0.25)
 
 # 11: the government decorated him for his patience. A minister pins a medal on his chest and steps back to clap; he does not take his eyes off the
@@ -164,26 +180,26 @@ st.cue('sfx:clink', 'S11', PIN11, 0.3); st.cue('sfx:fanfare', 'S11', r(PIN11 + 0
 D12 = st.dur('S12'); BL12 = 1.2; PR = [r(ME[0] - 0.1), 0, 1.0]
 BACK = lambda lid: {'touch': {'R': ['torso', 0.0, 0.25, -0.25, 1, 0.03], 'L': ['torso', 0.0, 0.25, -0.27, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': lid}}
 TWO = lambda: [k(0.0, toon=BACK(0.45), toonDur=0.0), k(BL12, toon=BACK(1.0), toonDur=0.08), k(r(BL12 + 0.12), toon=BACK(0.45), toonDur=0.1)]   # the same pose and the same blink, together
-GU = [[r(ME[0] + 0.45), 0, 1.95], [r(ME[0] + 0.95), 0, 2.65]]
+GU = [[r(ME[0] + 0.75), 0, -0.45], [r(ME[0] + 0.75), 0, 1.5]]   # (review 2) one guard behind each of them (one guard was half out of the frame)
 st.shot('S12', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 3.2, LIGHT[2]]), *TWO()]),
         act('president', PR, -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 3.2, LIGHT[2]]), *TWO()]),
-        *[act(f'garde{j + 1}', GU[j], -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 2.0, LIGHT[2]])]) for j in range(2)]],
+        *[act(f'garde{j + 1}', GU[j], -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 2.0, r(LIGHT[2] + (2.5 if j else -2.5))]), k(r(0.7 + 0.5 * j), look=[LIGHT[0], 2.0, r(LIGHT[2] + (-2.5 if j else 2.5))]), k(r(1.5 + 0.3 * j), look=[LIGHT[0], 2.0, LIGHT[2]])]) for j in range(2)]],   # (pass 3) the bodyguards scan the street
         props=[RED(), ZEBRA(), BEARD(), HOUSE(), NEST(), MEDAL(), PILE(), PIN('pin12'), SHADES('sh12a', 'garde1'), SHADES('sh12b', 'garde2')],
-        cams=[FC(0.0, [r(ME[0] - 2.9), 1.65, 0.6], [[ME[0], 2.5, ME[2]], [PR[0], 2.5, PR[2]], [ME[0], 1.1, ME[2]], [PR[0], 1.1, PR[2]], [GU[0][0], 2.5, GU[0][2]]], top=0.16, bottom=0.76)])   # (review 1) from the front, the two of them side by side (him pushed to the edge, a guard between them)
+        cams=[FC(0.0, [r(ME[0] - 3.6), 1.7, 0.5], [[ME[0], 2.5, -0.45], [PR[0], 2.5, 1.45], [ME[0], 1.0, -0.45], [PR[0], 1.0, 1.45]], top=0.16, bottom=0.76)])   # (review 2) frontal and centred between them, room either side (half his face was at the edge)
 
 # 13: he left after ten minutes. The president looks at his watch, puffs out his cheeks and walks off with his bodyguards; he stays
 D13 = st.dur('S13'); GO13 = 1.05
-WT = lambda dy: {'touch': {'L': ['face', 0.05, 0.05, 0.3, 1, 0.03], 'R': ['@president.handL', 0.0, r(dy), 0.0, 1, 0.0]}, 'hands': {'L': 'open', 'R': 'point'}, 'face': {'gy': 0.6, 'eye': 0.3}}
+WT = lambda dy: {'touch': {'L': ['face', 0.06, 0.13, 0.32, 1, 0.03], 'R': ['@president.handL', 0.0, r(dy), 0.0, 1, 0.0]}, 'hands': {'L': 'open', 'R': 'point'}, 'face': {'gy': 0.4, 'eye': 0.3}}   # (review 2) at eye level
 st.shot('S13', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT(0.8)),
         act('president', PR, -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 3.2, LIGHT[2]]),
-            k(0.05, toon={'touch': {'L': ['face', 0.05, 0.05, 0.3, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': {'gy': 0.6, 'eye': 0.3}}, toonDur=0.08, toonEase='out'),   # (review 1) the wrist whipped up to his eyes...
+            k(0.05, toon={'touch': {'L': ['face', 0.06, 0.13, 0.32, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': {'gy': 0.4, 'eye': 0.3}}, toonDur=0.08, toonEase='out'),   # (review 1) the wrist whipped up to his eyes...
             k(0.17, toon=WT(0.03), toonDur=0.05), k(0.24, toon=WT(0.09), toonDur=0.04), k(0.3, toon=WT(0.03), toonDur=0.04),   # ...two taps on the glass...
-            k(0.42, toon={'touch': {'L': ['face', 0.21, 0.12, -0.02, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': {'gx': -0.5, 'lid': 0.3, 'brow': 0.5}}, toonDur=0.1, toonEase='inOut'),   # ...held to his ear...
+            k(0.42, toon={'touch': {'L': ['face', 0.33, 0.1, -0.06, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': {'gx': -0.5, 'lid': 0.3, 'brow': 0.5}}, toonDur=0.1, toonEase='inOut'),   # ...held to the side of his head, at the ear (review 2: over the mouth it read as a cough)...
             k(0.62, toon={'scl': {'head': [1.08, 1.04, 1.08]}, 'face': {'puff': 1.0, 'swell': 1.0, 'mouth': 'kiss', 'lid': 0.3}}, toonDur=0.12, toonEase='out'),   # ...the cheeks balloon...
             k(0.86, toon={'scl': {'head': [0.97, 0.99, 0.97]}, 'face': {'puff': 0.0, 'mouth': 'open', 'lid': 0.5}}, toonDur=0.06, toonEase='out'),   # ...a huff...
-            k(GO13, to=[r(ME[0] + 3.0), 0, 3.8], dur=r(D13 - GO13), clip='walk', ease='in', face='keep'), k(GO13, toon={}, toonDur=0.15)]),   # ...and off with his guards in step
-        *[act(f'garde{j + 1}', GU[j], -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 2.0, LIGHT[2]]), k(GO13, to=[r(GU[j][0] + 3.6), 0, r(GU[j][2] + 2.5)], dur=r(D13 - GO13), clip='walk', ease='in', face='keep')]) for j in range(2)]],
-        props=[RED(), ZEBRA(), BEARD(), HOUSE(), NEST(), MEDAL(), PILE(), PIN('pin13'), SHADES('sh13a', 'garde1'), SHADES('sh13b', 'garde2'), P('montre13', 'wristWatch', on={'actor': 'president', 'hand': 'L', 'offset': [0.0, 0.04, 0.0]}, opts={'bright': True, 'both': True})],
+            k(GO13, to=[r(PR[0] + 0.9), 0, r(PR[2] + 1.2)], dur=r(D13 - GO13), clip='walk', ease='inOut'), k(GO13, toon={}, toonDur=0.15)]),   # ...and off at a walk with his guards in step (review 2: gone in 0.25 s, walking backwards)
+        *[act(f'garde{j + 1}', GU[j], -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 2.0, LIGHT[2]]), k(r(GO13 + 0.05), to=[r(GU[j][0] + 0.9), 0, r(GU[j][2] + 1.2)], dur=r(D13 - GO13 - 0.05), clip='walk', ease='inOut')]) for j in range(2)]],
+        props=[RED(), ZEBRA(), BEARD(), HOUSE(), NEST(), MEDAL(), PILE(), PIN('pin13'), SHADES('sh13a', 'garde1'), SHADES('sh13b', 'garde2'), P('montre13', 'wristWatch', on={'actor': 'president', 'hand': 'L', 'offset': [0.0, 0.04, 0.0]}, scale=1.7, opts={'bright': True, 'both': True})],   # (review 2) big enough to read (no watch was visible)
         cams=[FC(0.0, [r(ME[0] - 2.3), 1.75, 2.2], [[PR[0], 2.55, PR[2]], [PR[0], 1.2, PR[2]], [ME[0], 2.45, ME[2]]], top=0.16, bottom=0.76)])   # (review 1) medium on the president with him in the frame (a wide shot: heads 5 % of the frame, no watch look, no cheeks)
 
 # 14: yesterday the light turned green. Close on the light: the red goes out, the green lights up with a pop, the spider drops off on its thread (VERT)
@@ -203,36 +219,44 @@ D15 = st.dur('S15'); FL15 = [0.3, 0.55, 0.8, 1.1, 1.4, 1.7]
 MIC15 = [('INFO', '#C8322A'), ('JT', '#2F62B5'), ('DIRECT', '#E8A33C')]
 REP15 = [[r(ME[0] - 1.25), 0, 0.75], [r(ME[0] - 1.45), 0, -0.55], [r(ME[0] - 1.8), 0, 1.6]]
 st.shot('S15', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT(1.2)),
-        *[act(f'jour{j + 1}', REP15[j], 90 - 25 * (j - 1), 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 2.0, ME[2]]), k(0.0, toon={'reach': {'R': [r(ME[0] - 0.5), 1.65, r(REP15[j][2] * 0.4), 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.0)]) for j in range(3)],
+        *[act(f'jour{j + 1}', REP15[j], 90 - 25 * (j - 1), 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 2.0, ME[2]]), k(0.0, toon={'reach': {'R': [r(ME[0] - 0.5), 1.65, r(REP15[j][2] * 0.4), 1, 0.03]}, 'hands': {'R': 'grip'}}, toonDur=0.0),
+            *[kk for i_ in range(3) for kk in (k(r(0.25 + 0.55 * i_ + 0.17 * j), to=[r(REP15[j][0] + 0.12 * (1 if (i_ + j) % 2 else -1)), 0, r(REP15[j][2] + 0.1 * (1 if i_ % 2 else -1))], dur=0.14, ease='out'),
+                                              k(r(0.25 + 0.55 * i_ + 0.17 * j), toon={'reach': {'R': [r(ME[0] - 0.45), 1.75, r(REP15[j][2] * 0.4), 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [0.95, 1.07, 0.95]}, toonDur=0.1, toonEase='out'),
+                                              k(r(0.45 + 0.55 * i_ + 0.17 * j), toon={'reach': {'R': [r(ME[0] - 0.5), 1.65, r(REP15[j][2] * 0.4), 1, 0.03]}, 'hands': {'R': 'grip'}, 'sq': [1.0, 1.0, 1.0]}, toonDur=0.12))]]) for j in range(3)],   # (review 2) jostling and craning (they stood still)
         *[act(f'photo{j + 1}', [r(ME[0] - 2.3 - 0.3 * j), 0, r(-1.2 + 3.2 * j)], 90 - 40 * (j * 2 - 1), 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 2.0, ME[2]]),
             k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0)]) for j in range(2)]],
         props=[RED(state=[[0.0, 'g']]), ZEBRA(), BEARD(), HOUSE(), NEST(), MEDAL(), PILE(),
                *[P(f'tv15{j}', 'tvCamera', pos=[r(ME[0] - 2.0 - 0.35 * (j % 2)), 0, r(-1.9 + 0.75 * j)], ry=r(90 - 12 * (j - 3))) for j in range(7)],   # (review 1) a wall of cameras (two cameras and three reporters)
                *[P(f'mic15{j}', 'pressMic', on={'actor': f'jour{j + 1}', 'hand': 'R', 'offset': [0.0, -0.02, 0.04]}, opts={'text': MIC15[j][0], 'color': MIC15[j][1]}) for j in range(3)],
-               P('boom15', 'boomMic', on={'actor': 'jour3', 'hand': 'L', 'offset': [0.0, -0.02, 0.0]}, opts={'len': 2.2, 'tilt': 0.65}),
+               P('boom15', 'boomMic', on={'actor': 'jour3', 'hand': 'L', 'offset': [0.0, -0.02, 0.0]}, opts={'len': 2.2, 'tilt': 0.65}, keys=[k(0.0, rotTo=[0.0, 0.0, 0.35], dur=0.0), k(0.5, rotTo=[0.0, 0.0, -0.12], dur=0.35, ease='out'), k(0.85, rotTo=[0.0, 0.0, 0.0], dur=0.3, ease='inOut')]),   # the boom swings in over the pack
                *[P(f'cam15{j}', 'pressCamera', on={'actor': f'photo{j + 1}', 'hand': 'R', 'offset': [0.06, 0.0, 0.08]}, opts={'flashAt': FL15[j::2], 'burst': 0.6}) for j in range(2)]],
-        cams=[FC(0.0, [r(ME[0] - 5.2), 1.7, 0.6], [[ME[0], 2.9, ME[2]], [ME[0], 0.0, ME[2]], [r(ME[0] - 2.0), 1.6, -1.9], [r(ME[0] - 2.0), 1.6, 2.6]], top=0.14, bottom=0.8)])   # behind the press pack, him framed in his doorway at the end of the lenses
+        cams=[FC(0.0, [r(ME[0] - 4.4), 1.3, 0.0], [[ME[0], 2.6, ME[2]], [ME[0], 0.3, ME[2]], [r(ME[0] - 1.25), 1.9, 0.75], [r(ME[0] - 1.45), 1.9, -0.55]], top=0.14, bottom=0.78),
+              glide([FC(r(D15 - 0.85), [r(ME[0] - 2.9), 1.55, 0.0], [[ME[0], 2.45, ME[2]], [ME[0], 1.3, ME[2]]], top=0.16, bottom=0.76)], 0.75)])   # (review 2) low behind the tripods, him centred in the gap; a push in on him in the last second (a 35 px figure, the lower third empty road)
 for t_ in FL15: st.cue('sfx:click', 'S15', t_, 0.2)
 
-# 16: he crossed. From the road: the first step off the kerb, slow, the beard dragging; dust falls off him; a crack of the knees
-D16 = st.dur('S16'); STEP16 = 0.3
+# 16: he crossed. From the road: three creaks of the joints, dust falls off him, then one step off the kerb planted on the road with a puff, the beard
+#     swinging after it
+D16 = st.dur('S16'); STEP16 = 0.5
 CREAK = lambda a, b: {'bend': {'spine': [r(a), 0, 0, 1, None], 'legL': [r(b), 0, 0, 1, None], 'shinL': [r(-b * 1.2), 0, 0, 1, None]}, 'face': DEAD}
 st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 3.2, LIGHT[2]]), k(0.0, toon={'face': DEAD}, toonDur=0.0),
-            k(0.04, toon=CREAK(0.04, 0.08), toonDur=0.03), k(0.1, toon=CREAK(0.0, 0.0), toonDur=0.03), k(0.16, toon=CREAK(0.06, 0.16), toonDur=0.03), k(0.22, toon=CREAK(0.02, 0.06), toonDur=0.03),   # (review 1) the joints unlock in jerks
-            k(STEP16, to=[r(ME[0] - 1.3), 0, 0.0], dur=r(D16 - STEP16), clip='walk', ease='inOut', face='keep'), k(STEP16, toon={'sq': [1.04, 0.96, 1.04], 'face': {'lid': 0.3}}, toonDur=0.1)])],
-        props=[RED(state=[[0.0, 'g']]), ZEBRA(), BEARD(swing=[STEP16, 1.3, 0.16]), HOUSE(), NEST(), MEDAL(), PILE(),
-               P('dust16', 'dustFall', pos=[r(ME[0] - 0.05), 1.3, 0.0], opts={'at': 0.24, 'n': 22, 'floor': 1.28, 'life': 0.95})],   # once, solid, falling to the kerb (translucent shards fired twice at his shoulders)
-        cams=[FC(0.0, [2.4, 0.9, 1.6], [[ME[0], 2.45, ME[2]], [r(ME[0] - 1.3), 0.0, 0.0], [ME[0], 0.0, ME[2]]], top=0.16, bottom=0.8, drift=(-0.6, 0.0, 0.0))])
-st.cue('sfx:crunch', 'S16', 0.05, 0.25); st.cue('sfx:crunch', 'S16', 0.17, 0.25); st.cue('sfx:step', 'S16', r(STEP16 + 0.4), 0.2)
+            k(0.04, toon=CREAK(0.14, 0.3), toonDur=0.06), k(0.17, toon=CREAK(0.03, 0.06), toonDur=0.06), k(0.3, toon=CREAK(0.16, 0.34), toonDur=0.06), k(0.42, toon=CREAK(0.0, 0.0), toonDur=0.06),   # (review 2) three jolts big enough to read, each held
+            k(STEP16, to=[r(ME[0] - 0.75), 0, 0.0], dur=0.5, clip='walk', then='stand', ease='out', face='keep'), k(r(STEP16 + 0.48), toon={'sq': [1.06, 0.94, 1.06], 'face': DEAD}, toonDur=0.05, toonEase='out'),
+            k(r(STEP16 + 0.6), toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.3}}, toonDur=0.12)])],   # the foot lands on the road by 1.0 s and he holds (the step came in the last 0.2 s)
+        props=[RED(state=[[0.0, 'g']]), ZEBRA(), BEARD(swing=[STEP16, 1.0, 0.16]), HOUSE(), NEST(), MEDAL(), PILE(),
+               P('dust16', 'dustFall', pos=[r(ME[0] - 0.05), 1.3, 0.0], opts={'at': 0.45, 'n': 22, 'floor': 1.28, 'life': 0.95}),
+               P('puff16', 'dustPuff', pos=[r(ME[0] - 0.9), 0.0, 0.0], scale=0.6, opts={'once': True, 'startAt': r(STEP16 + 0.48), 'period': 0.45})],
+        cams=[FC(0.0, [2.4, 0.9, 1.6], [[ME[0], 2.45, ME[2]], [r(ME[0] - 0.9), 0.0, 0.0], [ME[0], 0.0, ME[2]], [r(ME[0] + 0.3), 2.45, ME[2]]], top=0.16, bottom=0.8, drift=(-0.35, 0.0, 0.0))])
+st.cue('sfx:crunch', 'S16', 0.04, 0.25); st.cue('sfx:crunch', 'S16', 0.17, 0.2); st.cue('sfx:crunch', 'S16', 0.3, 0.25); st.cue('sfx:step', 'S16', r(STEP16 + 0.48), 0.25)
 
 # 17: the crowd wept. Behind the barriers: the reporters and onlookers in tears, one blowing his nose, confetti coming down
 D17 = st.dur('S17')
-SOB = lambda w: {'face': {'tears': 1.0, 'mouth': 'sob', 'brow': 0.9, 'lid': 0.45}, 'sq': [r(1 + 0.03 * w), r(1 - 0.035 * w), r(1 + 0.03 * w)], 'bend': {'spine': [r(0.07 * w), 0, 0, 1, None]}}
+SOB = lambda w: {'face': {'tears': 1.0, 'mouth': 'scream', 'brow': 0.9, 'lid': 0.85},   # (review 2) wailing, eyes squeezed (closed mouths, half lids)
+ 'sq': [r(1 + 0.03 * w), r(1 - 0.035 * w), r(1 + 0.03 * w)], 'bend': {'spine': [r(0.07 * w), 0, 0, 1, None]}}
 CROWD17 = [('jour1', [3.3, 0, 2.2], 160), ('jour2', [4.1, 0, 2.65], 180), ('jour3', [4.9, 0, 2.25], -160)]
-WRING = lambda a: {'face': {'tears': 1.0, 'mouth': 'sob', 'brow': 0.9, 'lid': 0.6}, 'touch': {'R': ['face', -0.06, 0.05, 0.22, 1, 0.02], 'L': ['face', 0.06, 0.05, 0.22, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [r(0.08 * a), 0, 0, 1, None]}}
+WRING = lambda a: {'face': {'tears': 1.0, 'mouth': 'scream', 'brow': 0.9, 'lid': 0.85}, 'touch': {'R': ['face', -0.06, 0.05, 0.22, 1, 0.02], 'L': ['face', 0.06, 0.05, 0.22, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [r(0.08 * a), 0, 0, 1, None]}}
 st.shot('S17', 'parisStreet', setOpts=STREET, actors=[*[act(pid_, pos_, ry_, 'stand', 'neutral', keys=[k(0.0, look=[4.6, 1.8, 0.0]), *[k(r(0.05 * j + 0.14 * i), toon=SOB(1.0 if i % 2 else 0.0), toonDur=0.07) for i in range(10)]]) for j, (pid_, pos_, ry_) in enumerate(CROWD17)],   # (review 1) sobs heaving their shoulders, three-quarters to us (profiles, faces edge on)
         act('tour1', [4.5, 0, 3.25], 175, 'stand', 'neutral', keys=[k(0.0, look=[4.6, 1.8, 0.0]), *[k(r(0.12 * i), toon=WRING(1.0 if i % 2 else 0.0), toonDur=0.06) for i in range(12)]])],   # wringing the handkerchief
-        props=[*[P(f'tf17{j}', 'tearFountain', on={'actor': pid_, 'joint': 'head', 'offset': [0.0, 0.24, 0.17]}, opts={'at': r(0.05 * j), 'dx': 0.09}) for j, (pid_, _, _) in enumerate(CROWD17)],
+        props=[*[P(f'tf17{j}', 'tearFountain', on={'actor': pid_, 'joint': 'head', 'offset': [0.0, 0.24, 0.17]}, opts={'at': r(0.05 * j), 'dx': 0.09, 'rate': 24, 'speed': 1.9, 'r': 0.026}) for j, (pid_, _, _) in enumerate(CROWD17)],   # (review 2) jets like hoses (a sprinkle of dots)
                P('hk17', 'slab', on={'actor': 'tour1', 'hand': 'R', 'offset': [0.04, 0.0, 0.03]}, opts={'w': 0.2, 'h': 0.16, 'd': 0.01, 'color': '#FFFFFF'}, keys=[*[k(r(0.12 * i), rotTo=[0.0, 0.0, 0.5 if i % 2 else -0.5], dur=0.1, ease='inOut') for i in range(12)]]),
                P('conf17', 'confettiRain', pos=[4.1, 0.0, 1.3], opts={'w': 3.2, 'h': 3.4, 'd': 1.0, 'n': 170})],   # raining in front of the lens (specks in draft 1)
         cams=[FC(0.0, [4.1, 1.65, -0.4], [[3.3, 2.45, 2.2], [4.9, 2.45, 2.25], [4.1, 1.25, 2.65]], top=0.16, bottom=0.76)])
@@ -245,23 +269,27 @@ st.shot('S18', 'parisStreet', setOpts=STREET, actors=[act('mec', [-2.9, 0, 0.0],
         cams=[FC(0.0, [-3.6, 2.0, 3.6], [[FEU2[0], 4.15, FEU2[2]], [FEU2[0], 0.0, FEU2[2]], [FAR18[0], 2.45, FAR18[2]], [FAR18[0], 0.0, FAR18[2]]], top=0.14, bottom=0.78)])   # (review 1) the red light first, high and to the side; he walks in under it (it merged with his head)
 st.cue('sfx:ding', 'S18', 1.45, 0.15)
 
-# 19: he is waiting. Him under the new red light, deadpan, the beard to the ground; a pigeon lands on his head; a look at us
-D19 = st.dur('S19'); LAND19 = 0.82
-st.shot('S19', 'parisStreet', setOpts=STREET, actors=[act('mec', FAR18, -25, 'stand', 'neutral', keys=[k(0.0, look=[FEU2[0], 3.8, FEU2[2]]), k(0.0, toon={'face': DEAD}, toonDur=0.0), k(0.55, look='camera'),
-            k(r(LAND19 + 0.01), toon={'scl': {'head': [1.06, 0.88, 1.06]}, 'face': {'lid': 0.5}}, toonDur=0.04, toonEase='out'), k(r(LAND19 + 0.08), toon={'scl': {'head': [0.97, 1.05, 0.97]}, 'face': DEAD}, toonDur=0.06), k(r(LAND19 + 0.18), toon={'scl': {'head': [1.0, 1.0, 1.0]}, 'face': DEAD}, toonDur=0.08),   # (review 1) the pigeon lands: his head squashes and springs back
-            k(1.18, toon={'face': {'lid': 1.0}}, toonDur=0.14, toonEase='inOut'), k(1.42, toon={'face': DEAD}, toonDur=0.14, toonEase='inOut')]),   # one slow blink in the end hold
-        act('pigeon', [-3.9, 3.6, 1.6], -120, 'fly', 'neutral', scale=1.3, keys=[k(0.0, to=[FAR18[0], 2.5, FAR18[2]], dur=LAND19, ease='out'), k(LAND19, clip='idle'), k(0.6, look='camera'),
-            k(LAND19, toon={'sq': [1.35, 0.65, 1.35]}, toonDur=0.04, toonEase='out'), k(r(LAND19 + 0.08), toon={'sq': [0.88, 1.15, 0.88]}, toonDur=0.06), k(r(LAND19 + 0.2), toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.1)])],   # (review 1) it lands (it hung in the air to the cut): a squash, wings folded, a settle
+# 19: he is waiting. Chest up under the new red light, deadpan, the beard to the ground; a pigeon brakes and lands on top of his head: his head squashes
+#     and springs back with the pigeon riding it; his eyes come to us; one slow blink
+D19 = st.dur('S19'); LAND19 = 0.6; HT19 = [r(FAR18[0] - 0.01), 2.33, 0.03]   # the top of his head (review 2: the pigeon landed 50 px above him, on a railing)
+HSQ = lambda y, xz: {'scl': {'head': [xz, y, xz]}}
+st.shot('S19', 'parisStreet', setOpts=STREET, actors=[act('mec', FAR18, -25, 'stand', 'neutral', keys=[k(0.0, look=[FEU2[0], 3.8, FEU2[2]]), k(0.0, toon={'face': DEAD}, toonDur=0.0),
+            k(r(LAND19 + 0.005), toon={**HSQ(0.74, 1.16), 'face': {'lid': 0.7}}, toonDur=0.04, toonEase='out'), k(r(LAND19 + 0.1), toon={**HSQ(1.1, 0.95), 'face': DEAD}, toonDur=0.07, toonEase='out'),
+            k(r(LAND19 + 0.2), toon={**HSQ(0.97, 1.02), 'face': DEAD}, toonDur=0.07), k(r(LAND19 + 0.3), toon={**HSQ(1.0, 1.0), 'face': DEAD}, toonDur=0.08),   # squash to 74 %, past 110 %, settle
+            k(1.0, look='camera'), k(1.25, toon={'face': {'lid': 1.0}}, toonDur=0.15, toonEase='inOut'), k(1.5, toon={'face': DEAD}, toonDur=0.15, toonEase='inOut')]),   # the eyes to us, then one slow blink in the end hold
+        act('pigeon', [-7.6, 3.5, 1.3], -120, 'fly', 'neutral', scale=1.3, keys=[k(0.0, to=HT19, dur=LAND19, ease='out'), k(LAND19, clip='idle'),
+            k(LAND19, to=[HT19[0], r(HT19[1] - 0.15), HT19[2]], dur=0.045, ease='out'), k(r(LAND19 + 0.06), to=[HT19[0], r(HT19[1] + 0.05), HT19[2]], dur=0.06, ease='out'), k(r(LAND19 + 0.14), to=HT19, dur=0.12, ease='inOut'),   # it rides his head down and up
+            k(LAND19, toon={'sq': [1.35, 0.65, 1.35]}, toonDur=0.04, toonEase='out'), k(r(LAND19 + 0.08), toon={'sq': [0.88, 1.15, 0.88]}, toonDur=0.06), k(r(LAND19 + 0.2), toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.1), k(0.95, look='camera')])],
         props=[RED('feu2', pos=FEU2, ry=40, h=2.9), BEARD(), MEDAL(), NEST()],
-        cams=[FC(0.0, [-3.4, 1.7, 3.6], [[FAR18[0], 2.95, FAR18[2]], [FEU2[0], 4.15, FEU2[2]], [FAR18[0], 0.7, FAR18[2]]], top=0.14, bottom=0.76)])
-st.cue('sfx:cluck', 'S19', LAND19, 0.2)
+        cams=[FC(0.0, [-4.0, 1.15, 2.9], [[FAR18[0], 2.75, FAR18[2]], [FAR18[0], 1.3, FAR18[2]], [FEU2[0], 3.75, FEU2[2]], [FAR18[0], 2.75, 0.4], [FAR18[0], 2.75, -0.4]], top=0.14, bottom=0.76, lenses=range(24, 60))])   # (review 2) chest up, the red light at the top left
+st.cue('sfx:flap', 'S19', 0.2, 0.15); st.cue('sfx:boing', 'S19', LAND19, 0.25); st.cue('sfx:cluck', 'S19', r(LAND19 + 0.15), 0.2)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 st.write("Le feu rouge", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec'], extra_cast={
     'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
-    'araignee': {'type': 'creature', 'name': 'spider', 'opts': {'seed': 666}},
+    'araignee': {'type': 'creature', 'name': 'spider', 'opts': {'seed': 666, 'colors': {'body': '#7A8194', 'abdomen': '#8C93A6', 'leg': '#4E5566'}}},
     'pigeon': {'type': 'creature', 'name': 'pigeon', 'opts': {'seed': 667}},
-    'maire': {'preset': 'politique', 'seed': 668, 'sash': ['#2F62B5', '#F4F4F0', '#E0413A'], 'sashW': 0.12, 'hairColor': '#BDBDBD', 'suit': '#A9A397', 'lapel': '#A9A397', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'maire': {'preset': 'politique', 'seed': 668, 'sash': ['#2F62B5', '#F4F4F0', '#E0413A'], 'sashW': 0.12, 'hairColor': '#BDBDBD', 'suit': '#26365F', 'lapel': '#26365F', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'facteur': {'preset': 'officiel', 'seed': 669, 'suit': '#2F5FA8', 'hat': 'copcap', 'hatColor': '#F2C230', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'flic1': {'preset': 'cop', 'seed': 670, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'flic2': {'preset': 'cop2', 'seed': 671, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
@@ -269,6 +297,8 @@ st.write("Le feu rouge", rig='toon', fingers=True, cloth=True, idleShift=1.6, ho
     'tour2': {'preset': 'tourist', 'seed': 673, 'suit': '#E0813A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
     'tour3': {'preset': 'femme', 'seed': 674, 'suit': '#3A9BDC', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': EX},
     'tour4': {'preset': 'gamin', 'seed': 675, 'suit': '#7CC25A', 'build': {'headScale': 1.25}, 'toon': EX},
+    'tour5': {'preset': 'madame', 'seed': 685, 'suit': '#E8A33C', 'build': {'width': 0.95, 'headWidth': 1.25}, 'toon': EX},
+    'tour6': {'preset': 'tourist', 'seed': 686, 'suit': '#5BB5A8', 'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX},
     'ministre': {'preset': 'politique', 'seed': 676, 'suit': '#33363D', 'lapel': '#33363D', 'tie': '#2F62B5', 'glasses': True, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'president': {'preset': 'politique', 'seed': 677, 'suit': '#4A4D55', 'lapel': '#4A4D55', 'tie': '#9A1F2E', 'hairColor': '#D2D2D2', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'garde1': {'preset': 'politique', 'seed': 678, 'suit': '#15171C', 'lapel': '#15171C', 'tie': '#15171C', 'hairColor': '#2A2A2A', 'glasses': False, 'build': {'width': 1.15, 'headWidth': 1.2}, 'toon': EX},
