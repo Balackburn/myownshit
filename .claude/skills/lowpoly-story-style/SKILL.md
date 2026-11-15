@@ -1675,3 +1675,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 40) Un brouillon lit le JSON au moment où son rendu démarre, pas quand on le met en file. Ne le mettre en file qu'une fois les corrections
   des images de contrôle faites et le script reconstruit : le brouillon 1 du « Bocal » a démarré cinq minutes avant elles, et ses deux critiques
   ont noté une version déjà corrigée (cuillère invisible, char vu de derrière un mur, astronautes de dos).
+
+- (cycle 41) Une bande d'images nommée d'après un groupe de plans (`S11_S13`) couvre TOUS les plans du groupe, pas ses deux bornes : l'outil qui
+  prépare la revue suivante ne gardait que S11 et S13, et les critiques signalaient des plans « absents des planches » trois revues de suite.
+  Quand un critique dit qu'un plan manque, vérifier d'abord la liste de preuves avant de corriger le film. Les outils de revue sont dans
+  `absurd-shorts/tools/review/` (voir son LISEZ-MOI) : ne plus les laisser dans un dossier temporaire.
+- (cycle 41) L'accessoire qui porte le gag récurrent (téléphone à l'oreille, étiquette, ticket) doit se lire à la taille d'un téléphone tenu à
+  bout de bras : deux tiers de la hauteur de la tête au moins, couleur saturée, du côté de l'objectif, coude écarté. Un poing sous le menton se
+  lit comme une toux. Le vérifier sur l'image de contrôle du PREMIER plan avant tout le reste (« Le service client », revue 1 : 5,4).

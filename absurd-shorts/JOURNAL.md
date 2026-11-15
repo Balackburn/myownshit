@@ -2796,3 +2796,18 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   « Le bus » (revue 1 : 5,2 ; 5,6). Trois agents dérivés font les passes de correction, chacun limité à son script et à son fichier d'accessoires.
 - « Le bocal » (78) : la revue 1 (5,5 ; 5,6) a porté sur un brouillon démarré avant les corrections des images de contrôle ; passe 2 faite
   (grosse pince, char qui se cabre sur le bocal, pas de tir, pichenette de la grand-mère, combinaisons blanches), brouillon 2 en file.
+
+## 16 novembre, 0 h 30 — outils de revue sauvés dans le dépôt ; revue 1 du « Service client »
+
+- Cause trouvée d'un reproche récurrent des critiques (« ce plan n'est pas dans mes planches ») : l'outil qui prépare la revue suivante lisait le
+  nom d'une bande de trois plans (S11_S13) comme deux plans et perdait celui du milieu. Corrigé dans `next_config.py` ; les quatre revues en
+  attente (tondeuse 3, pull 2, lunettes 2, parcmètre 2) ont été reconstruites. Revues touchées avant la correction : robinet 3, tondeuse 2,
+  ascenseur 2.
+- Les outils de revue et la file de rendu n'existaient que dans le dossier temporaire de la session : ils sont maintenant dans `tools/review/`
+  (constructeur de dossier de revue, config de la revue suivante, file équitable `runq4.sh`, voie prioritaire, contrôle final, script du
+  workflow des deux critiques, modèle d'instructions et image de référence), avec un LISEZ-MOI.
+- « Le service client » (73) : revue 1 = 5,4 (animation) ; 5,4 (direction artistique). Reproche commun : le téléphone, sujet de toutes les
+  phrases, ne se lit pas à l'oreille (poing sous le menton), les trois gags de déformation sont timides, la touche 1 qui s'allume est cachée par
+  la main, quatre plans de la montée cachent leur sujet. Passe 2 confiée à un agent dérivé (son script et son fichier d'accessoires seulement).
+- « L'ascenseur » (76) : revue 2 = 6,0 ; 6,5. Reste à corriger : barbe qui s'écrase et lunettes qui flottent quand la tête tourne, cabine pas
+  plus claire que le palier, plans larges trop petits.
