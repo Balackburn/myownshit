@@ -6094,22 +6094,6 @@
        0.03
       ]
      }
-    },
-    {
-     "id": "casq14",
-     "name": "copCap",
-     "on": {
-      "actor": "gardien",
-      "joint": "head",
-      "offset": [
-       0.0,
-       0.45,
-       0.0
-      ]
-     },
-     "opts": {
-      "color": "#26365F"
-     }
     }
    ],
    "sfx": [],
@@ -6320,22 +6304,6 @@
       ]
      },
      "scale": 0.55
-    },
-    {
-     "id": "casq15",
-     "name": "copCap",
-     "on": {
-      "actor": "gardien",
-      "joint": "head",
-      "offset": [
-       0.0,
-       0.45,
-       0.0
-      ]
-     },
-     "opts": {
-      "color": "#26365F"
-     }
     }
    ],
    "sfx": [],
@@ -6683,22 +6651,6 @@
       ]
      },
      "scale": 0.55
-    },
-    {
-     "id": "casq16",
-     "name": "copCap",
-     "on": {
-      "actor": "gardien",
-      "joint": "head",
-      "offset": [
-       0.0,
-       0.45,
-       0.0
-      ]
-     },
-     "opts": {
-      "color": "#26365F"
-     }
     },
     {
      "id": "pop16",

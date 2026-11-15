@@ -224,8 +224,7 @@ st.shot('S14', 'mairie', setOpts=MUSEE, actors=[
             *[k(t_, toon={'touch': {'R': ['face', 0.0, 0.18, 0.08, 1, 0.02]}, 'hands': {'R': 'rest'}, 'face': {'lid': l_, 'mouth': 'O', 'brow': 0.7}}, toonDur=0.06) for t_, l_ in ((0.0, 0.2), (0.85, 1.0), (0.97, 0.2))]]),   # a blink, a glance at the photographer
         act('gardien', [1.05, 0, -2.45], -25, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.0), k(1.3, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06), k(1.42, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.08)])],
         props=[P('vitrine14', 'displayCase', pos=CASE, opts=CASEO), P('jar14', 'picklesJar', pos=JAR14, scale=JS14),
-               P('photo14', 'handset', on={'actor': 'visiteur1', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}),
-               P('casq14', 'copCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#26365F'})],
+               P('photo14', 'handset', on={'actor': 'visiteur1', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]})],
         cams=[FC(0.0, [0.25, 1.15, 0.6], [[0.0, 1.6, -1.2], [-0.68, 0.0, -1.65], [0.68, 0.0, -1.6], [-0.68, 2.35, -1.65], [0.68, 2.35, -1.6], [1.05, 2.45, -2.45], [1.05, 0.0, -2.45]], top=0.12, bottom=0.76)])   # (stills 1: a small case between two big backs) low, whole figures: the label at 0.57, the feet above the captions
 st.cue('sfx:shutter', 'S14', 0.5, 0.2)
 
@@ -236,8 +235,7 @@ st.shot('S15', 'mairie', setOpts=MUSEE, actors=[
         act('mec', [-0.9, 0, -0.4], 30, 'stand', 'neutral', keys=[k(0.0, look=[2.0, 1.6, -0.3]), k(0.0, toon={'face': LIP}, toonDur=0.0), k(0.6, look=[1.0, 1.4, -0.8])]),
         act('gardien', [1.5, 0, -1.9], -20, 'stand', 'neutral', keys=[k(0.0, look=[2.2, 1.4, -0.3]), k(0.7, look=[0.8, 1.4, -0.9]), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.0)])],
         props=[P('vitrine15', 'displayCase', pos=CASE, opts=CASEO), P('jar15', 'picklesJar', pos=JAR14, scale=JS14),
-               P('sac15', 'briefcase', on={'actor': 'mamie', 'hand': 'L', 'offset': [0.0, -0.1, 0.03]}, scale=0.55),
-               P('casq15', 'copCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#26365F'})],
+               P('sac15', 'briefcase', on={'actor': 'mamie', 'hand': 'L', 'offset': [0.0, -0.1, 0.03]}, scale=0.55)],
         cams=[FC(0.0, [0.4, 1.5, 2.6], [[0.0, 2.3, -1.2], [2.4, 2.2, -0.3], [-0.9, 2.4, -0.4], [0.0, 0.0, -1.2]], top=0.12, bottom=0.78)])
 st.cue('sfx:stepSoft', 'S15', 0.2, 0.15); st.cue('sfx:stepSoft', 'S15', 0.55, 0.15); st.cue('sfx:stepSoft', 'S15', 0.9, 0.15)
 
@@ -257,7 +255,6 @@ st.shot('S16', 'mairie', setOpts=MUSEE, actors=[
         props=[P('vitrine16', 'displayCase', pos=CASE, opts={**CASEO, 'liftAt': LIFT16}),
                P('jar16', 'picklesJar', pos=JAR14, scale=JS14, opts={'openAt': POP16}, keys=[k(TAKE16, attach='mamie', hand='L', offset=[0.0, -0.1, 0.04], face='camera', faceFlat=True)]),
                P('sac16', 'briefcase', on={'actor': 'mamie', 'joint': 'torso', 'offset': [0.22, -0.05, 0.05]}, scale=0.55),
-               P('casq16', 'copCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#26365F'}),
                BURST('pop16', [0.1, 2.05, -0.7], r(POP16 + 0.02), 'POP !', 0.36, 0.3)],
         cams=[FC(0.0, [0.6, 1.55, 1.7], [[0.55, 2.25, -0.95], [0.98, 1.3, -0.95], [0.45, 1.8, -0.88], [-0.9, 2.4, -0.4], [1.5, 2.45, -1.9], [0.1, 2.25, -0.7], [0.55, 0.0, -0.95]], top=0.12, bottom=0.76)])   # (stills 1) she was cut by the right edge
 st.cue('sfx:zip', 'S16', LIFT16, 0.15); st.cue('sfx:pop', 'S16', POP16, 0.45)
