@@ -102,7 +102,7 @@ def send(v, when, chan, inbox=False):
     settings = {'title': v['title'][:90], 'privacy_level': 'PUBLIC_TO_EVERYONE', 'duet': True, 'stitch': True, 'comment': True, 'autoAddMusic': 'no',
                 'brand_content_toggle': False, 'brand_organic_toggle': False, 'video_made_with_ai': False, 'content_posting_method': 'DIRECT_POST'}
     if inbox:   # (15 Nov) --inbox: TikTok's inbox instead of the profile; the owner publishes it from the app (where the high-quality upload setting
-        settings = {'title': v['title'][:90], 'content_posting_method': 'UPLOAD'}   # applies); TikTok's inbox endpoint keeps only the title
+        settings = {**settings, 'content_posting_method': 'UPLOAD'}   # applies); Postiz still validates every field, TikTok's inbox keeps the title
     res = last_json(run(['posts:create', '-c', content, '-m', path, '-i', chan, '-s', when, '--settings', json.dumps(settings, ensure_ascii=False)], 300))
     items = res if isinstance(res, list) else (res.get('posts') or res.get('data') or [res]) if isinstance(res, dict) else []
     pid = next((it.get('postId') or it.get('id') for it in items if isinstance(it, dict) and (it.get('postId') or it.get('id'))), None)
