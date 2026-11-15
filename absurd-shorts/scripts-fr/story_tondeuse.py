@@ -114,8 +114,8 @@ for i in range(10): st.cue('sfx:click', 'S05', r(0.04 + 0.15 * i), 0.22)   # the
 
 # 6: it went through the forest in a straight line. Low in the forest: the mower comes straight at us; the trees in its way fall left and right as it
 #    reaches them, a line of stumps behind it
-D6 = st.dur('S06'); Z06 = -22.0; V6 = 9.5
-TREES6 = [-17.0, -14.0, -11.0, -8.0, -5.0]
+D6 = st.dur('S06'); Z06 = -16.0; V6 = 7.0   # (stills 2) closer at the start: from -22 it showed only after the trees in its way had fallen
+TREES6 = [-13.0, -10.0, -7.0, -4.0]
 st.shot('S06', 'grassland', look=XLOOK, actors=[],
         props=[*[P(f'ft6{i}', 'fallTree', pos=[0.0, 0, z_], opts={'s': 1.3, 'seed': i, 'dir': (PI / 2 if i % 2 else -PI / 2), 'fallAt': r((z_ - Z06) / V6)}) for i, z_ in enumerate(TREES6)],
                *[P(f'tr6{i}', 'fallTree', pos=[r((2.6 + 1.2 * (i % 3)) * (1 if i % 2 else -1)), 0, r(-2.0 - 2.6 * i)], opts={'s': r(1.1 + 0.25 * (i % 3)), 'seed': i + 9}) for i in range(10)],
@@ -159,11 +159,11 @@ st.cue('sfx:sting', 'S08', OV8, 0.3)
 D9 = st.dur('S09')
 RUNK = lambda: {'face': {'sweat': 1.0, 'brow': -0.6, 'mouth': 'clench'}}
 st.shot('S09', 'pavillon', setOpts={'houseColor': '#D8DDE6', 'roof': '#3A4A6A', 'door': '#1F3B73', 'frame': '#1F3B73'}, look=XLOOK, actors=[
-        *[act(f'gend{j + 1}', [r(0.97 - 0.3 + 0.6 * j), 0, -3.4], 0, 'run', 'angry', keys=[k(0.0, to=[r(0.6 + 0.6 * j), 0, 2.6], dur=r(D9 - 0.1 * j), ease='in', clip='run', face='keep'), k(0.0, look=[-1.0, 0.6, 3.6]), k(0.0, toon=RUNK(), toonDur=0.0)]) for j in range(2)]],
+        *[act(f'gend{j + 1}', [r(0.97 - 0.3 + 0.6 * j), 0, r(0.6 - 0.5 * j)], 0, 'run', 'angry', keys=[k(0.0, to=[r(0.4 + 0.6 * j), 0, r(4.2 - 0.5 * j)], dur=r(D9 - 0.1 * j), ease='in', clip='run', face='keep'), k(0.0, look=[-1.0, 0.6, 3.6]), k(0.0, toon=RUNK(), toonDur=0.0)]) for j in range(2)]],
         props=[P('sign9', 'signBoard', pos=[0.0, 0, -4.0], opts={'text': 'GENDARMERIE', 'w': 2.6, 'h': 0.5, 'height': 2.25, 'bg': '#1F3B73', 'fg': '#FFFFFF', 'frame': '#F4F4F0', 'posts': False}),
                P('flag9', 'regionFlag', pos=[2.6, 0, -3.8], opts={'kind': 'fr'}),
                MOWER('mow9', [3.5, 0, 3.6], ry=-90, runAt=0.0, keys=[k(0.0, to=[1.4, 0, 3.6], dur=D9, ease='linear')])],
-        cams=[FC(0.0, [-2.4, 1.4, 6.4], [[0.97, 2.45, -3.4], [3.5, 0.0, 3.6], [-0.2, 0.0, 3.4], [0.6, 2.45, 2.6]], top=0.14, bottom=0.8)])   # closer: the gendarmes were specks at the door
+        cams=[FC(0.0, [-2.2, 1.4, 8.0], [[0.97, 2.45, 0.6], [3.5, 0.0, 3.6], [-0.2, 0.0, 3.4], [0.4, 2.45, 4.2], [0.97, 3.0, -4.0]], top=0.14, bottom=0.8)])   # closer: the gendarmes were specks at the door
 st.cue('clack', 'S09', 0.05, 0.3); st.cue('sfx:whistle', 'S09', 0.4, 0.3)
 
 # 10: on foot. A long lens down the pavement: the mower trundles toward us; behind it the two gendarmes pump their arms, sweating, tongues out, and gain
@@ -222,7 +222,8 @@ D14 = st.dur('S14'); ROWS14 = [r(-36.0 + 5.0 * i) for i in range(15)]
 RP14 = [p_ for i, z_ in enumerate(ROWS14) for p_ in ([[r(0.05 + 1.85 * i / 15), -38.0, z_], [r(0.05 + 1.85 * (i + 1) / 15), 38.0, z_]] if i % 2 == 0 else [[r(0.05 + 1.85 * i / 15), 38.0, z_], [r(0.05 + 1.85 * (i + 1) / 15), -38.0, z_]])]
 st.shot('S14', 'grassland', look=XLOOK, actors=[],
         props=[P('land14', 'mowField', opts={'w': 78.0, 'd': 76.0, 'h': 0.7, 'n': 9000, 'width': 5.0, 'path': RP14, 'stripCols': ['#B2E27A', '#7CC052'], 'bw': 0.08, 'ground': '#3C6A30'}),   # dark rough meadow, bright regular bands
-               P('vil14a', 'cityBlocks', opts={'x': [-26.0, -14.0], 'z': [-18.0, -6.0], 'block': 3.0, 'street': 1.2, 'seed': 3}), P('vil14b', 'cityBlocks', opts={'x': [10.0, 22.0], 'z': [6.0, 16.0], 'block': 3.0, 'street': 1.2, 'seed': 7}),
+               P('road14', 'floorSlab', pos=[0.0, 0.03, 0.0], ry=35, opts={'w': 2.2, 'd': 110.0, 'h': 0.04, 'color': '#8A8A86'}),   # (stills 2) a country road and copses instead of the city blocks (15 m Haussmann blocks: a grey grid)
+               *[P(f'tree14{i}', 'tree', pos=[r(-30.0 + 60.0 * ((i * 37) % 100) / 100.0), 0, r(-28.0 + 52.0 * ((i * 61) % 100) / 100.0)], scale=2.6, opts={'seed': i + 3}) for i in range(14)],
                MOWER('mow14', [RP14[0][1], 0, RP14[0][2]], ry=90, s=6.0, runAt=0.0, keys=[k(RP14[i - 1][0], to=[RP14[i][1], 0, RP14[i][2]], dur=r(max(0.01, RP14[i][0] - RP14[i - 1][0])), ease='linear') for i in range(1, len(RP14))])],
         cams=[FC(0.0, [0.0, 40.0, 50.0], [[-18.0, 0.0, -30.0], [18.0, 0.0, 26.0], [-18.0, 0.0, 26.0], [18.0, 0.0, -30.0]], top=0.12, bottom=0.82, lenses=range(26, 72))])   # the stripes run on off the frame: the whole country
 st.cue('whoosh', 'S14', 0.05, 0.3, 1.8, 200, 1000)
@@ -271,7 +272,7 @@ st.shot('S19', 'pavillon', setOpts={'fence': False, 'mailbox': False}, look=XLOO
             k(0.6, look=[-3.5, 0.5, -0.4]), k(1.0, look='camera'), k(1.7, toon={'face': {'lid': 1.0}}, toonDur=0.12, toonEase='inOut'), k(1.95, toon={'face': DEAD}, toonDur=0.12, toonEase='inOut')])],
         props=[LAWNF('lawn19', 0.95, STRIPE), P('lawn19b', 'mowField', pos=[3.2, 0, -0.9], opts={'w': 3.0, 'd': 5.8, 'h': 0.95, 'n': 1400}), HEDGEP('hedge19', -5.0),
                P('gnome19', 'gnome', pos=[-0.7, 0, 1.2], ry=-10, opts={'s': 1.1, 'popAt': 1.05})],
-        cams=[FC(0.0, [0.4, 1.35, 4.2], [[ME19[0], 2.45, ME19[2]], [ME19[0], 0.6, ME19[2]], [-3.6, 0.0, -0.4], [0.2, 0.0, -0.4], [-0.7, 0.3, 1.2]], top=0.14, bottom=0.8)])   # no fence: the pickets hid the gnome and his legs
+        cams=[FC(0.0, [-0.3, 1.3, 3.3], [[ME19[0], 2.45, ME19[2]], [ME19[0], 0.6, ME19[2]], [-2.6, 0.0, -0.4], [0.0, 0.0, -0.2], [-0.7, 0.3, 1.2]], top=0.14, bottom=0.8)])   # (stills 2) closer: him and the gnome   # no fence: the pickets hid the gnome and his legs
 st.cue('sfx:pop', 'S19', 1.05, 0.2)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
