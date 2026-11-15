@@ -1427,3 +1427,23 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   (64). Construire la nuit avec un fond froid et de vraies lumières : les ampoules, plus des lumières colorées qui changent sur le temps.
 - (cycle 27) La bouche 'teeth' (un croissant de dents relevé) se lit comme un sourire sous des yeux grands ouverts (63). Pour des dents qui
   claquent, prendre 'clench' (une barre plate).
+- (cycle 29) Une expression peinte poussée à 85 % (`exprW` 0.85) garde 15 % de l'expression du plan : la paupière d'un « impassible »
+  reste en trait sur un œil, et des yeux « survoltés » ont l'air sceptiques (63). Pour une expression franche, `exprW` 1.0.
+- (cycle 29) Une vibration latérale sous le flou de mouvement aligne les copies fantômes des deux yeux en une paire de lunettes (63).
+  Réduire la part latérale sur le personnage dont on doit lire le visage (`buzzXZ` 0.45) et la reporter en haut et en bas (`buzzY`).
+- (cycle 29) Une forme qui pousse un mur doit avoir la silhouette du personnage (tête-boîte, mèches, accessoire) et durer six à huit
+  images : une bosse ronde de quatre images se lit comme un fantôme ou un bonhomme de neige (63).
+- (cycle 29) Un panneau ou un tableau qui porte le gag ne doit pas tomber dans le bandeau du titre : le carton le recouvre au moment
+  où le compte grimpe (63). Le placer juste sous le bandeau (19 à 26 % de la hauteur).
+- (cycle 30) Une facture qui se déroule (`billScroll`) a son pivot au bord du haut : posée au sol, elle pend sous le plancher et ne se
+  voit pas (68). La placer à la hauteur des mains.
+- (cycle 30) Des fissures épaisses et peu nombreuses autour d'un trou au plafond se lisent comme une araignée (68) : plus nombreuses
+  et plus fines.
+- (cycle 30) Une télé dont le gag est l'écran doit montrer l'écran : de dos, le passage de la neige à l'image nette n'existe pas (68).
+  La tourner vers la caméra et vers ceux qui la regardent, de côté dans le cadre.
+- (cycle 30) Le fond de la salle de presse répète ses mots en grand : un mot long se chevauche lui-même (67, 68). Un seul mot et
+  `fontScale` 0.55.
+- (cycle 30) La zone dégagée d'une rue (`clear`) ne couvre que les abords : un lampadaire à vingt mètres sort encore de la tête d'un
+  personnage cadré de face dans l'axe de la rue (64). L'étendre loin derrière lui.
+- (cycle 30) Une créature petite filmée de loin au sol est un point à l'écran (67) : la filmer à sa hauteur et de près, ou faire du
+  premier plan un gros plan sur l'endroit où elle naît.
