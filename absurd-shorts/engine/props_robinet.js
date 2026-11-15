@@ -78,7 +78,7 @@ export const ROBINET_PROPS = {
     let tOver = null; for (let s = fk[0][0]; s <= fk[fk.length - 1][0] + 0.01; s += 0.02) if (keyAt(fk, s) >= 1) { tOver = s; break; }
     // the stream from the tap, the ring where it lands, the drops it throws
     const stTex = streaks(9, 0.85); stTex.repeat.set(1, 2.5);
-    const stream = grp(at(new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.02, 1, 8, 1, true), waterMat(0.85, '#8FD3F0')), 0, -0.5, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.029, 0.023, 1, 8, 1, true), streakMat(stTex)), 0, -0.5, 0));
+    const stream = grp(at(new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.034, 1, 10, 1, true), waterMat(0.92, '#BFE8FA')), 0, -0.5, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.049, 0.038, 1, 10, 1, true), streakMat(stTex)), 0, -0.5, 0));   // (stills 1 of 71) thicker and paler: at 26 mm it did not show
     stream.position.set(...mouth); g.add(stream);
     const splash = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.014, 5, 18), waterMat(0.85, '#E8F7FF')); splash.rotation.x = PI / 2; g.add(splash);
     const jumps = []; for (let i = 0; i < 7; i++) { const d = ball(0.013, '#E8F7FF', 6); g.add(d); jumps.push(d); }
