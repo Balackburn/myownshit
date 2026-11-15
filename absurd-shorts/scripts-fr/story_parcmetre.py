@@ -319,22 +319,22 @@ def GLANCES(other, t_end):
     out = [k(0.0, look=other)]
     for t_ in SLAPS: out += [k(r(t_ - 0.05), look=[TRAY[0], 1.4, TRAY[2]], lookDur=0.06), k(r(t_ + 0.22), look=other, lookDur=0.1)]
     return out + [k(t_end, look='camera', lookDur=0.25)]
-st.shot('S23', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, -135, 'drive', 'neutral', keys=[*GLANCES(LV23, 1.75),
+st.shot('S23', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, -158, 'drive', 'neutral', keys=[*GLANCES(LV23, 1.75),   # (stills 5) turned more to us: his face read in profile
             k(0.0, toon={'reach': {'R': [3.05, 1.62, 0.02, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
             k(0.42, toon={'reach': {'R': [2.9, 1.52, 0.02, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.97, 1.0], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.08, toonEase='in'),   # slap
             k(0.62, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.2),
             k(1.47, toon={'reach': {'R': [2.92, 1.5, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.97, 1.0], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.08, toonEase='in'),   # slap
             k(1.7, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.2),
             k(2.1, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.1), k(2.24, toon={'reach': {'R': [3.1, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),
-        act('livreur', VSEAT2, 135, 'drive', 'happy', keys=[*GLANCES(ME23, 1.85),
+        act('livreur', VSEAT2, 152, 'drive', 'happy', keys=[*GLANCES(ME23, 1.85),
             k(0.0, toon={'reach': {'R': [2.5, 1.62, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0),
             k(1.02, toon={'reach': {'R': [2.66, 1.52, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.96, 1.0], 'face': {'lid': 0.2, 'mouth': 'grin'}}, toonDur=0.08, toonEase='in'),   # slap
             k(1.25, toon={'reach': {'R': [2.45, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.2),
             k(1.9, toon={'reach': {'R': [2.45, 1.66, -0.05, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'face': {'lid': 0.3, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.15)])],
-        props=[CARP('car23'), BAY('bay23'), HOME('home23'), VANP('van23'), P('cartes23', 'cardTray', pos=TRAY, opts={'w': 0.7, 'd': 0.4, 'slapAt': SLAPS, 'cardScale': 2.0, 'top': '#EADCBE'}),
+        props=[CARP('car23'), BAY('bay23'), HOME('home23'), VANP('van23'), P('fill23', 'glowLight', pos=[3.15, 2.3, -0.75], opts={'color': '#FFF1DC', 'k': 2.5, 'dist': 2.2}), P('cartes23', 'cardTray', pos=TRAY, opts={'w': 0.7, 'd': 0.4, 'slapAt': SLAPS, 'cardScale': 2.0, 'top': '#EADCBE'}),
                P('main23a', 'cardFan', on={'actor': 'mec', 'hand': 'L', 'offset': [0.0, 0.02, 0.03], 'face': 'camera'}, opts={'s': 1.1}),
                P('main23b', 'cardFan', on={'actor': 'livreur', 'hand': 'L', 'offset': [0.0, 0.02, 0.03], 'face': 'camera'}, opts={'s': 1.1})],
-        cams=[FC(0.0, [2.75, 1.95, -2.7], [[SEAT[0], 2.45, SEAT[2]], [VSEAT2[0], 2.4, VSEAT2[2]], [TRAY[0], 1.3, TRAY[2]], [r(SEAT[0] + 0.3), 1.9, SEAT[2]], [r(VSEAT2[0] - 0.3), 1.9, VSEAT2[2]], [TRAY[0], 1.05, TRAY[2]]], top=0.18, bottom=0.7, drift=(0.0, 0.0, 0.15))])
+        cams=[FC(0.0, [2.75, 2.45, -2.6], [[SEAT[0], 2.45, SEAT[2]], [VSEAT2[0], 2.4, VSEAT2[2]], [r(SEAT[0] + 0.2), 1.9, SEAT[2]], [r(VSEAT2[0] - 0.2), 1.9, VSEAT2[2]], [TRAY[0], 1.2, TRAY[2]]], top=0.2, bottom=0.66, drift=(0.0, -0.05, 0.15))])   # (stills 5) higher: the tray's top and the cards on it
 st.cue('sfx:clink', 'S23', 0.5, 0.25); st.cue('sfx:clink', 'S23', 1.1, 0.25); st.cue('sfx:clink', 'S23', 1.55, 0.25); st.cue('sfx:bell', 'S23', 0.0, 0.25)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
