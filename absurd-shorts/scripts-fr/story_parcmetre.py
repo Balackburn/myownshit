@@ -235,8 +235,10 @@ st.cue('engine', 'S17', 0.0, 1.3); st.cue('sfx:brake', 'S17', r(STOP17 - 0.35), 
 #     outside his window, then at us
 D18 = st.dur('S18')
 st.shot('S18', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[2.3, 1.9, -0.05]), k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}}, toonDur=0.0),
-            k(0.6, look='camera', lookDur=0.25), k(0.65, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.15)]),
-        act('livreur', VSEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[1.15, 1.8, -8.0]), k(0.7, look=[1.15, 1.6, -0.8], lookDur=0.2)])],
+            k(0.6, look='camera', lookDur=0.25), k(0.65, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.15),
+            k(0.95, toon={'face': {**DEAD, 'lid': 1.0, 'mouth': 'line'}}, toonDur=0.08), k(1.08, toon={'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.12)]),   # (draft 1: still from 0.63 s) a slow blink at us
+        act('livreur', VSEAT, 180, 'drive', 'neutral', keys=[k(0.0, look=[1.15, 1.8, -8.0]), k(0.7, look=[1.15, 1.6, -0.8], lookDur=0.2),
+            k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.0), k(0.85, toon={'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.12), k(1.0, toon={'face': {'lid': 1.0, 'mouth': 'smile'}}, toonDur=0.06), k(1.1, toon={'face': {'lid': 0.15, 'mouth': 'smile', 'brow': 0.4}}, toonDur=0.08)])],   # he smiles at him, blinks
         props=[CARP('car18'), BAY('bay18'), HOME('home18', smoke=False), VANP('van18', brakeAt=-0.25, hazardFrom=0.0)],
         cams=[FC(0.0, [2.75, 1.55, -6.0], [[1.6, 2.8, VAN[2] - 2.3], [CAR[0], 2.1, -2.0], [0.6, 0.0, VAN[2] - 2.3], [4.75, 0.0, -2.0], [SEAT[0], 2.15, SEAT[2]]], top=0.14, bottom=0.78)])
 st.cue('sfx:honkTiny', 'S18', 0.4, 0.2)
