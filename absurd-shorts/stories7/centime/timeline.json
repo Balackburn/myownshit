@@ -1,0 +1,739 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a payé ses impôts avec un centime de trop.",
+   "hl": [
+    "centime",
+    "trop."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.82,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "a",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "payé",
+     "s": 0.66,
+     "e": 0.82
+    },
+    {
+     "w": "ses",
+     "s": 0.9,
+     "e": 0.98
+    },
+    {
+     "w": "impôts",
+     "s": 1.06,
+     "e": 1.3
+    },
+    {
+     "w": "avec",
+     "s": 1.42,
+     "e": 1.54
+    },
+    {
+     "w": "un",
+     "s": 1.62,
+     "e": 1.7
+    },
+    {
+     "w": "centime",
+     "s": 1.78,
+     "e": 2.1
+    },
+    {
+     "w": "de",
+     "s": 2.18,
+     "e": 2.26
+    },
+    {
+     "w": "trop.",
+     "s": 2.3,
+     "e": 2.82
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le fisc a décidé de le rembourser.",
+   "hl": [
+    "rembourser."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L02.mp3",
+   "file_start": 2.92,
+   "speech_start": 2.92,
+   "speech_end": 5.08,
+   "words": [
+    {
+     "w": "Le",
+     "s": 2.92,
+     "e": 3.0
+    },
+    {
+     "w": "fisc",
+     "s": 3.08,
+     "e": 3.48
+    },
+    {
+     "w": "a",
+     "s": 3.56,
+     "e": 3.6
+    },
+    {
+     "w": "décidé",
+     "s": 3.64,
+     "e": 3.96
+    },
+    {
+     "w": "de",
+     "s": 4.04,
+     "e": 4.08
+    },
+    {
+     "w": "le",
+     "s": 4.12,
+     "e": 4.16
+    },
+    {
+     "w": "rembourser.",
+     "s": 4.2,
+     "e": 5.08
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Mais le timbre coûtait plus cher que le centime.",
+   "hl": [
+    "timbre",
+    "centime."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L03.mp3",
+   "file_start": 5.18,
+   "speech_start": 5.18,
+   "speech_end": 7.66,
+   "words": [
+    {
+     "w": "Mais",
+     "s": 5.18,
+     "e": 5.26
+    },
+    {
+     "w": "le",
+     "s": 5.34,
+     "e": 5.42
+    },
+    {
+     "w": "timbre",
+     "s": 5.5,
+     "e": 5.82
+    },
+    {
+     "w": "coûtait",
+     "s": 5.86,
+     "e": 6.14
+    },
+    {
+     "w": "plus",
+     "s": 6.26,
+     "e": 6.38
+    },
+    {
+     "w": "cher",
+     "s": 6.5,
+     "e": 6.62
+    },
+    {
+     "w": "que",
+     "s": 6.66,
+     "e": 6.7
+    },
+    {
+     "w": "le",
+     "s": 6.78,
+     "e": 6.86
+    },
+    {
+     "w": "centime.",
+     "s": 6.98,
+     "e": 7.66
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Alors le ministre est venu en personne.",
+   "hl": [
+    "ministre"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L04.mp3",
+   "file_start": 7.76,
+   "speech_start": 7.76,
+   "speech_end": 9.92,
+   "words": [
+    {
+     "w": "Alors",
+     "s": 7.76,
+     "e": 8.08
+    },
+    {
+     "w": "le",
+     "s": 8.32,
+     "e": 8.4
+    },
+    {
+     "w": "ministre",
+     "s": 8.48,
+     "e": 8.76
+    },
+    {
+     "w": "est",
+     "s": 8.8,
+     "e": 8.84
+    },
+    {
+     "w": "venu",
+     "s": 8.88,
+     "e": 9.04
+    },
+    {
+     "w": "en",
+     "s": 9.12,
+     "e": 9.2
+    },
+    {
+     "w": "personne.",
+     "s": 9.36,
+     "e": 9.92
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Avec la garde républicaine.",
+   "hl": [
+    "garde",
+    "républicaine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L05.mp3",
+   "file_start": 10.02,
+   "speech_start": 10.02,
+   "speech_end": 11.78,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 10.02,
+     "e": 10.26
+    },
+    {
+     "w": "la",
+     "s": 10.34,
+     "e": 10.42
+    },
+    {
+     "w": "garde",
+     "s": 10.5,
+     "e": 10.74
+    },
+    {
+     "w": "républicaine.",
+     "s": 10.82,
+     "e": 11.78
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La rue a été fermée.",
+   "hl": [
+    "fermée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L06.mp3",
+   "file_start": 11.88,
+   "speech_start": 11.88,
+   "speech_end": 13.4,
+   "words": [
+    {
+     "w": "La",
+     "s": 11.88,
+     "e": 12.04
+    },
+    {
+     "w": "rue",
+     "s": 12.08,
+     "e": 12.2
+    },
+    {
+     "w": "a",
+     "s": 12.28,
+     "e": 12.32
+    },
+    {
+     "w": "été",
+     "s": 12.36,
+     "e": 12.6
+    },
+    {
+     "w": "fermée.",
+     "s": 12.72,
+     "e": 13.4
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Une fanfare a joué.",
+   "hl": [
+    "fanfare"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L07.mp3",
+   "file_start": 13.5,
+   "speech_start": 13.5,
+   "speech_end": 14.78,
+   "words": [
+    {
+     "w": "Une",
+     "s": 13.5,
+     "e": 13.66
+    },
+    {
+     "w": "fanfare",
+     "s": 13.74,
+     "e": 14.06
+    },
+    {
+     "w": "a",
+     "s": 14.14,
+     "e": 14.22
+    },
+    {
+     "w": "joué.",
+     "s": 14.273,
+     "e": 14.78
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Des hélicoptères ont survolé le quartier.",
+   "hl": [
+    "hélicoptères"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L08.mp3",
+   "file_start": 14.88,
+   "speech_start": 14.88,
+   "speech_end": 17.12,
+   "words": [
+    {
+     "w": "Des",
+     "s": 14.88,
+     "e": 15.04
+    },
+    {
+     "w": "hélicoptères",
+     "s": 15.08,
+     "e": 15.6
+    },
+    {
+     "w": "ont",
+     "s": 15.68,
+     "e": 15.76
+    },
+    {
+     "w": "survolé",
+     "s": 15.84,
+     "e": 16.2
+    },
+    {
+     "w": "le",
+     "s": 16.24,
+     "e": 16.32
+    },
+    {
+     "w": "quartier.",
+     "s": 16.36,
+     "e": 17.12
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le centime est arrivé sur un coussin de velours.",
+   "hl": [
+    "coussin",
+    "velours."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L09.mp3",
+   "file_start": 17.22,
+   "speech_start": 17.22,
+   "speech_end": 19.86,
+   "words": [
+    {
+     "w": "Le",
+     "s": 17.22,
+     "e": 17.3
+    },
+    {
+     "w": "centime",
+     "s": 17.38,
+     "e": 17.78
+    },
+    {
+     "w": "est",
+     "s": 17.86,
+     "e": 17.94
+    },
+    {
+     "w": "arrivé",
+     "s": 18.06,
+     "e": 18.26
+    },
+    {
+     "w": "sur",
+     "s": 18.34,
+     "e": 18.42
+    },
+    {
+     "w": "un",
+     "s": 18.5,
+     "e": 18.58
+    },
+    {
+     "w": "coussin",
+     "s": 18.66,
+     "e": 18.9
+    },
+    {
+     "w": "de",
+     "s": 18.94,
+     "e": 18.98
+    },
+    {
+     "w": "velours.",
+     "s": 19.06,
+     "e": 19.86
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le ministre a fait un discours d'une heure.",
+   "hl": [
+    "heure."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L10.mp3",
+   "file_start": 19.96,
+   "speech_start": 19.96,
+   "speech_end": 22.12,
+   "words": [
+    {
+     "w": "Le",
+     "s": 19.96,
+     "e": 20.04
+    },
+    {
+     "w": "ministre",
+     "s": 20.12,
+     "e": 20.52
+    },
+    {
+     "w": "a",
+     "s": 20.56,
+     "e": 20.6
+    },
+    {
+     "w": "fait",
+     "s": 20.68,
+     "e": 20.76
+    },
+    {
+     "w": "un",
+     "s": 20.8,
+     "e": 20.84
+    },
+    {
+     "w": "discours",
+     "s": 20.96,
+     "e": 21.32
+    },
+    {
+     "w": "d'une",
+     "s": 21.373,
+     "e": 21.48
+    },
+    {
+     "w": "heure.",
+     "s": 21.56,
+     "e": 22.12
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les voisins ont pleuré.",
+   "hl": [
+    "pleuré."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L11.mp3",
+   "file_start": 22.22,
+   "speech_start": 22.22,
+   "speech_end": 23.66,
+   "words": [
+    {
+     "w": "Les",
+     "s": 22.22,
+     "e": 22.3
+    },
+    {
+     "w": "voisins",
+     "s": 22.38,
+     "e": 22.7
+    },
+    {
+     "w": "ont",
+     "s": 22.78,
+     "e": 22.94
+    },
+    {
+     "w": "pleuré.",
+     "s": 23.02,
+     "e": 23.66
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "La télé a filmé en direct.",
+   "hl": [
+    "direct."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L12.mp3",
+   "file_start": 23.76,
+   "speech_start": 23.76,
+   "speech_end": 25.52,
+   "words": [
+    {
+     "w": "La",
+     "s": 23.76,
+     "e": 23.84
+    },
+    {
+     "w": "télé",
+     "s": 23.92,
+     "e": 24.16
+    },
+    {
+     "w": "a",
+     "s": 24.24,
+     "e": 24.32
+    },
+    {
+     "w": "filmé",
+     "s": 24.44,
+     "e": 24.6
+    },
+    {
+     "w": "en",
+     "s": 24.64,
+     "e": 24.72
+    },
+    {
+     "w": "direct.",
+     "s": 25.08,
+     "e": 25.52
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il a rangé le centime dans sa tirelire.",
+   "hl": [
+    "tirelire."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L13.mp3",
+   "file_start": 25.62,
+   "speech_start": 25.62,
+   "speech_end": 27.7,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.62,
+     "e": 25.7
+    },
+    {
+     "w": "a",
+     "s": 25.78,
+     "e": 25.82
+    },
+    {
+     "w": "rangé",
+     "s": 25.86,
+     "e": 26.1
+    },
+    {
+     "w": "le",
+     "s": 26.14,
+     "e": 26.18
+    },
+    {
+     "w": "centime",
+     "s": 26.26,
+     "e": 26.58
+    },
+    {
+     "w": "dans",
+     "s": 26.66,
+     "e": 26.74
+    },
+    {
+     "w": "sa",
+     "s": 26.82,
+     "e": 26.9
+    },
+    {
+     "w": "tirelire.",
+     "s": 26.94,
+     "e": 27.7
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le lendemain, il a reçu une facture.",
+   "hl": [
+    "facture."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L14.mp3",
+   "file_start": 27.8,
+   "speech_start": 27.8,
+   "speech_end": 30.12,
+   "words": [
+    {
+     "w": "Le",
+     "s": 27.8,
+     "e": 27.88
+    },
+    {
+     "w": "lendemain,",
+     "s": 27.96,
+     "e": 28.64
+    },
+    {
+     "w": "il",
+     "s": 28.68,
+     "e": 28.72
+    },
+    {
+     "w": "a",
+     "s": 28.76,
+     "e": 28.8
+    },
+    {
+     "w": "reçu",
+     "s": 28.84,
+     "e": 29.08
+    },
+    {
+     "w": "une",
+     "s": 29.12,
+     "e": 29.16
+    },
+    {
+     "w": "facture.",
+     "s": 29.24,
+     "e": 30.12
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Deux millions d'euros.",
+   "hl": [
+    "Deux",
+    "millions"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L15.mp3",
+   "file_start": 30.22,
+   "speech_start": 30.22,
+   "speech_end": 31.42,
+   "words": [
+    {
+     "w": "Deux",
+     "s": 30.22,
+     "e": 30.38
+    },
+    {
+     "w": "millions",
+     "s": 30.46,
+     "e": 30.78
+    },
+    {
+     "w": "d'euros.",
+     "s": 30.82,
+     "e": 31.42
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Frais de déplacement.",
+   "hl": [
+    "déplacement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/centime/tts/L16.mp3",
+   "file_start": 31.52,
+   "speech_start": 31.52,
+   "speech_end": 32.64,
+   "words": [
+    {
+     "w": "Frais",
+     "s": 31.52,
+     "e": 31.76
+    },
+    {
+     "w": "de",
+     "s": 31.8,
+     "e": 31.84
+    },
+    {
+     "w": "déplacement.",
+     "s": 31.92,
+     "e": 32.64
+    }
+   ]
+  }
+ ],
+ "total": 33.48
+}
