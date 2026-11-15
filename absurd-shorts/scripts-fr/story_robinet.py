@@ -349,7 +349,7 @@ st.shot('S20', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [1.5, 0,
             k(0.75, look='camera'), k(1.0, toon={'face': {'lid': 1.0}, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.05), k(1.11, toon={'face': DEAD, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.07)])],   # (review 2) bent over the drain at the tap end
         props=[TUBP('tub20', fill=0.0, sub=True, subYaw=[[0.0, -90.0], [0.3, -90.0], [0.5, 70.0]], weed=True, barnacles=True),
                P('plug20', 'bathPlug', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]})],
-        cams=[FC(0.0, [0.75, 2.25, -0.7], [[DRAIN[0], 0.17, DRAIN[2]], [DRAIN[0], 0.72, DRAIN[2]], [r(DRAIN[0] - 0.24), 0.3, DRAIN[2]], [r(DRAIN[0] + 0.24), 0.3, DRAIN[2]], [1.2, 2.15, -1.3]], top=0.1, bottom=0.78, lenses=range(20, 60), inside=BATH)])   # (review 2) one angle: the drain ring, the tail and its spinning propeller centred, his face bent in at the top
+        cams=[FC(0.0, [0.82, 2.6, -0.92], [[DRAIN[0], 0.17, DRAIN[2]], [DRAIN[0], 0.72, DRAIN[2]], [r(DRAIN[0] - 0.24), 0.3, DRAIN[2]], [r(DRAIN[0] + 0.24), 0.3, DRAIN[2]], [1.2, 2.15, -1.3]], top=0.1, bottom=0.78, lenses=range(20, 60), inside=BATH)])   # (review 2) one angle: the drain ring, the tail and its spinning propeller centred, his face bent in at the top
 st.cue('sfx:squeak', 'S20', 0.45, 0.25)
 
 # 21: he got his water bill. On his landing: the postman hands him the bill; it unrolls from his hand down to the floor, across the landing and
