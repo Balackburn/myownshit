@@ -121,14 +121,14 @@ st.shot('S08', 'pressRoom', setOpts=NEWS, actors=[act('presentateur', PRES, 0, '
         cams=[FC(0.0, [0.3, 1.5, 3.2], [[0.0, 2.2, 0.3], [0.0, 0.8, 0.75], [-0.75, 1.2, 0.75], [0.75, 1.2, 0.75], [0.5, 1.7, 0.2]], top=0.14, bottom=0.8)])
 
 # 9: ...wore it live. From behind, at his shoulder: the white label standing between his head and the red EN DIRECT light of the camera in front
-D9 = st.dur('S09'); TV9 = [1.55, 0, 1.2]; DIR9 = [1.3, 1.4, 1.0]   # the studio camera at his left, its red plate just past the label as seen from behind him
+D9 = st.dur('S09'); TV9 = [1.55, 0, 1.2]; DIR9 = [1.43, 1.44, 1.11]   # a low studio camera at his left, its red plate on top of it: just past the label as seen from behind him
 st.shot('S09', 'pressRoom', setOpts=NEWS, actors=[act('presentateur', PRES, 0, 'sitTalk', 'neutral', keys=[k(0.0, look=[TV9[0], 1.5, TV9[2]]), k(0.7, toon={'sq': [1.02, 0.98, 1.02]}, toonDur=0.15), k(1.0, toon={'sq': [1.0, 1.0, 1.0]}, toonDur=0.2)])],
-        props=[P('desk9', 'desk', pos=[0.0, 0, 0.85], opts={'w': 1.6}), P('ch9', 'chair', pos=PRES), JUMP('pj9', 'presentateur', '#E8A33C', tagKick=[0.3, 0.75]), P('tv9', 'tvCamera', pos=TV9, ry=-125),
+        props=[P('desk9', 'desk', pos=[0.0, 0, 0.85], opts={'w': 1.6}), P('ch9', 'chair', pos=PRES), JUMP('pj9', 'presentateur', '#E8A33C', tagKick=[0.3, 0.75]), P('tv9', 'tvCamera', pos=TV9, ry=-125, opts={'h': 1.0}),
                P('direct9', 'signBoard', pos=DIR9, ry=-150, opts={'text': 'EN DIRECT', 'bg': '#D22B2B', 'fg': '#FFFFFF', 'w': 0.5, 'h': 0.17, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [-0.45, 1.5, -2.5], [[0.0, 1.95, 0.3], [-0.38, 1.5, 0.3], [0.6, 1.3, 0.2], [r(DIR9[0] + 0.32), 1.55, DIR9[2]], [0.0, 0.8, 0.85]], top=0.2, bottom=0.74, inside=(-5.0, 5.0, 0.5, 3.0, -2.8, 6.0))])   # (review 1) the label between the head and the red light, above the caption band
+        cams=[FC(0.0, [-0.45, 1.5, -2.5], [[0.0, 1.95, 0.3], [-0.38, 1.5, 0.3], [0.6, 1.3, 0.2], [r(DIR9[0] + 0.32), 1.6, DIR9[2]], [0.0, 0.8, 0.85]], top=0.2, bottom=0.74, inside=(-5.0, 5.0, 0.5, 3.0, -2.8, 6.0))])   # (review 1) the label between the head and the red light, above the caption band
 
 # 10: the president gave his wishes... At the lectern between two flags, the president, solemn
-D10 = st.dur('S10'); PR10 = [0.0, 0, -0.3]; ELY = {'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6, 'podium': False, 'flags': False, 'bg': '#5878A8', 'wall': '#4C6A96'}
+D10 = st.dur('S10'); PR10 = [0.0, 0, -0.3]; ELY = {'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6, 'podium': False, 'flags': False, 'chairs': False, 'bg': '#5878A8', 'wall': '#4C6A96'}   # no rows of chairs: the low camera of S10 backs up through them
 FLAGS10 = lambda: [P(f'fl10{j}', 'flag', pos=[x, 0, -0.6], scale=1.5, opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True, 'poleColor': '#D8C27A'}) for j, x in enumerate([-1.3, 0.38])]   # a tricolour either side of him, above his shoulders
 st.shot('S10', 'pressRoom', setOpts=ELY, actors=[act('president', PR10, 0, 'podiumTalk', 'neutral', keys=[k(0.0, look='camera'), k(0.45, toon={'face': {'lid': 1.0}}, toonDur=0.06), k(0.58, toon={'face': {'lid': 0.2}}, toonDur=0.08)])],
         props=[P('pod10', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), JUMP('pj10', 'president', '#2F62B5', tag=1.25), *FLAGS10()],
@@ -189,7 +189,7 @@ st.shot('S14', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
             k(r(POP14 + 0.08), toon={**SMOOTH(0.4), 'sq': [0.95, 1.06, 0.95], 'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.1), k(r(POP14 + 0.32), toon={**SMOOTH(0.16), 'face': {'lid': 0.2, 'mouth': 'smile'}}, toonDur=0.24),   # he smooths it down
             k(r(POP14 + 0.6), toon={**SMOOTH(0.16), 'face': {'lid': 1.0, 'mouth': 'smile'}}, toonDur=0.1)])],   # pleased, eyes closed
         props=[MJ('pull14', True, turn={'at': T14, 'dur': TD14})],
-        cams=[FC(0.0, [2.6, 1.7, 2.6], [[ME1[0], 3.0, ME1[2]], [ME1[0], 0.75, ME1[2]], [r(ME1[0] - 0.45), 2.2, ME1[2]], [r(ME1[0] + 0.45), 2.2, ME1[2]]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [2.6, 1.7, 2.6], [[ME1[0], 3.4, ME1[2]], [ME1[0], 0.75, ME1[2]], [r(ME1[0] - 0.45), 2.2, ME1[2]], [r(ME1[0] + 0.45), 2.2, ME1[2]]], top=0.12, bottom=0.78)])
 st.cue('sfx:zip', 'S14', T14, 0.2); st.cue('pop', 'S14', POP14, 0.25)
 
 # 15: the whole street turned round. Behind him the street has its back to us; head after head whips round, then the bodies, to stare at him; a woman's
@@ -239,8 +239,8 @@ D17 = st.dur('S17'); BANG17 = 0.34; JG = [0.0, 0.3, -4.0]
 GAV = lambda x, y, z, f, sq=None: {'reach': {'R': [x, y, z, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
 st.shot('S17', 'courtroom', actors=[act('juge', JG, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=GAV(-0.72, 2.7, -3.6, {'lid': 0.2, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.0),
             k(0.05, toon=GAV(-0.8, 2.95, -3.75, {'lid': 0.2, 'brow': -0.7, 'mouth': 'line'}, [0.95, 1.07, 0.95]), toonDur=0.12, toonEase='out'),   # the wind-up, out beside his head...
-            k(r(BANG17 - 0.07), toon=GAV(-0.5, 1.72, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [1.1, 0.88, 1.1]), toonDur=0.07, toonEase='in'),   # ...the hit
-            k(r(BANG17 + 0.03), toon=GAV(-0.5, 1.9, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [0.97, 1.04, 0.97]), toonDur=0.08), k(r(BANG17 + 0.15), toon=GAV(-0.5, 1.76, -3.3, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'}), toonDur=0.1)])],   # the bounce
+            k(r(BANG17 - 0.07), toon=GAV(-0.5, 1.92, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [1.08, 0.9, 1.08]), toonDur=0.07, toonEase='in'),   # ...the hit
+            k(r(BANG17 + 0.03), toon=GAV(-0.5, 2.12, -3.3, {'lid': 0.0, 'brow': -0.8, 'mouth': 'open'}, [0.97, 1.04, 0.97]), toonDur=0.08), k(r(BANG17 + 0.15), toon=GAV(-0.5, 1.96, -3.3, {'lid': 0.3, 'brow': -0.6, 'mouth': 'line'}), toonDur=0.1)])],   # the bounce
         props=[P('gav17', 'gavel', on={'actor': 'juge', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}), P('etiq17', 'careLabel', on={'actor': 'juge', 'joint': 'torso', 'offset': [0.32, 0.58, -0.08]}, opts={'s': 1.3, 'lean': -0.3, 'kick': [r(BANG17 + 0.02)]})],
         cams=[FC(0.0, [0.75, 2.25, -1.5], [[0.0, 2.95, -4.0], [0.0, 1.5, -3.5], [-0.95, 2.9, -3.7], [0.75, 2.3, -4.0]], top=0.16, bottom=0.76)], fx=[{'type': 'shake', 'at': BANG17, 'dur': 0.2, 'amount': 0.012}])
 st.cue('clang', 'S17', BANG17, 0.4)
@@ -258,7 +258,7 @@ st.shot('S18', 'parisStreet', setOpts=PARIS, actors=[act('mec', ME1, -60, 'stand
             k(r(POP18 + 0.16), toon={'bend': {'neck': [0.0, 0.0, 0.22, 1, None]}, 'sq': [0.98, 1.03, 0.98], 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.16),   # the arm drops, the head tilted
             k(1.2, look='camera', lookDur=0.15), k(1.42, toon={'bend': {'neck': [0.0, 0.0, 0.22, 1, None]}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.08), k(1.56, toon={'bend': {'neck': [0.0, 0.0, 0.22, 1, None]}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.1)])],
         props=[MJ('pull18', False, turn={'at': T18, 'dur': TD18}, tagKick=[r(POP18 + 0.35), r(POP18 + 0.7)])],
-        cams=[FC(0.0, [2.5, 2.0, 0.45], [[ME1[0], 3.0, ME1[2]], [ME1[0], 1.2, ME1[2]], LBL(ME1, -60, 1, 0.6, 2.0), [r(ME1[0] + 0.3), 2.2, r(ME1[2] - 0.2)]], top=0.12, bottom=0.76)])
+        cams=[FC(0.0, [2.5, 2.0, 0.45], [[ME1[0], 3.4, ME1[2]], [ME1[0], 1.2, ME1[2]], LBL(ME1, -60, 1, 0.6, 2.0), [r(ME1[0] + 0.3), 2.2, r(ME1[2] - 0.2)]], top=0.12, bottom=0.76)])
 st.cue('sfx:zip', 'S18', T18, 0.2); st.cue('pop', 'S18', POP18, 0.2)
 
 # 19: for life. Close on him: deadpan, the label up beside his head, still wobbling; a look at us; a slow blink

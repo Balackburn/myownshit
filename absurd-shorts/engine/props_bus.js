@@ -192,7 +192,7 @@ export const BUS_PROPS = {
   // (pass 2 of 72) A worn sole coming off a shoe (pivot at the toe, the sole running back along -Z): a pale slab o.len long (0.34) that hangs
   // open and slaps shut o.rate times a second (7) between o.at [t0, t1] (hidden outside those times)
   flapSole(o) {
-    const len = o.len ?? 0.34, g = grp(), fl = grp(at(box(0.13, 0.025, len, '#E6DCC8', { outline: 0.004 }), 0, 0, -len / 2)); g.add(fl);
+    const len = o.len ?? 0.34, g = grp(), fl = grp(at(box(o.w ?? 0.13, 0.025, len, '#E6DCC8', { outline: 0.004 }), 0, 0, -len / 2)); g.add(fl);   // o.w: its width (0.13)
     g.userData.update = t => { const on = !o.at || (t >= o.at[0] && t < o.at[1]); g.visible = on; if (!on) return; fl.rotation.x = -(0.15 + 0.8 * Math.abs(Math.sin(t * PI * (o.rate ?? 7)))); };
     g.userData.update(0); return g;
   },
