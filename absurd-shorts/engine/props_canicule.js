@@ -162,6 +162,9 @@ export const CANICULE_PROPS = {
     g.userData.update = t => flags.forEach((f, i) => { f.rotation.x = 0.18 * Math.sin(t * 3.1 + i * 0.9); });
     return g;
   },
+  // (review 1 of 69) confettiRain: this falling confetti under its own name (props_elan.js registers another `confetti`, a one-colour burst of o.n
+  // pieces, default 1, which replaces this one in the registry: a stage got a single white dot)
+  confettiRain(o) { return CANICULE_PROPS.confetti(o); },
   confetti(o) {   // falling confetti in an o.w × o.h × o.d box (origin at its bottom centre), o.n pieces, fluttering
     const n = o.n || 80, r = rng(o.seed || 17), geo = new THREE.PlaneGeometry(o.size || 0.03, (o.size || 0.03) * 0.6), cols = ['#E8508A', '#F2C94C', '#5FA8D3', '#7CC25A', '#F2A63C', '#FFFFFF'];
     const m = new THREE.InstancedMesh(geo, new THREE.MeshBasicMaterial({ side: THREE.DoubleSide }), n), base = [], d = new THREE.Object3D(), c = new THREE.Color();

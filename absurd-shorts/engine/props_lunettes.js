@@ -75,6 +75,7 @@ export const LUNETTES_PROPS = {
 
   // A satellite (pivot at its middle, the dish toward -Y: the Earth below): a gold-foil body, two long blue solar wings, a white dish, an antenna;
   // o.scan [[t0, t1], ...]: a red scanning fan from the dish to o.scanLen (6) below, sweeping to and fro (o.sweepDeg 35 either side)
+  // (review 1 of 69) o.fanColor / o.fanOpacity (0.22) / o.fanBlend 'normal': a saturated red fan over the globe (the faint additive one was lost in the facets)
   satellite(o) {
     const g = grp(), body = grp(); g.add(body);
     body.add(at(box(0.9, 1.1, 0.9, '#D9B44A', { outline: 0.012 }), 0, 0, 0), at(box(0.92, 0.08, 0.92, '#B8902A'), 0, 0.3, 0), at(box(0.92, 0.08, 0.92, '#B8902A'), 0, -0.3, 0));
@@ -82,7 +83,7 @@ export const LUNETTES_PROPS = {
       for (let j = 1; j < 6; j++) body.add(at(box(0.02, 0.05, 0.95, '#9CC3F0'), s * (1.05 + j * 0.43), 0, 0)); }
     const dish = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 6, 0, TAU, 0, 0.9), new THREE.MeshLambertMaterial({ color: '#F2F2EE', side: THREE.DoubleSide })); dish.rotation.x = PI; dish.position.y = -0.95; body.add(dish);
     body.add(at(cyl(0.025, 0.025, 0.5, '#9AA0A6', 5), 0, -0.85, 0), at(cyl(0.02, 0.02, 0.9, '#9AA0A6', 5), 0.25, 0.95, 0.2));
-    const L = o.scanLen ?? 6, fan = new THREE.Mesh(new THREE.ConeGeometry(L * 0.35, L, 4, 1, true), new THREE.MeshBasicMaterial({ color: '#FF4A3A', transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
+    const L = o.scanLen ?? 6, fan = new THREE.Mesh(new THREE.ConeGeometry(L * 0.35, L, 4, 1, true), new THREE.MeshBasicMaterial({ color: o.fanColor || '#FF4A3A', transparent: true, opacity: o.fanOpacity ?? 0.22, side: THREE.DoubleSide, depthWrite: false, blending: o.fanBlend === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending }));
     fan.scale.set(1, 1, 0.12); const fg = grp(); fan.position.y = -L / 2 - 1.0; fg.add(fan); g.add(fg);
     g.userData.update = t => { fg.visible = inWin(o.scan, t); if (fg.visible) fg.rotation.z = (o.sweepDeg ?? 35) * PI / 180 * Math.sin(t * 3.2); body.rotation.y = 0.05 * Math.sin(t * 0.7); };
     g.userData.update(0); return g;

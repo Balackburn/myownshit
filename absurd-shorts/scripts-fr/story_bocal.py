@@ -59,22 +59,27 @@ K1 += [k(SLIP1, toon={'reach': {'L': GRIP1()['reach']['L'], 'R': [r(JAR1[0] - 0.
        k(r(SLIP1 + 0.3), toon={'reach': {'L': GRIP1()['reach']['L'], 'R': [r(JAR1[0] - 0.3), 1.45, r(JAR1[2] + 0.15), 1, 0.03]}, 'hands': {'L': 'grip', 'R': 'rest'}, 'lay': [0.0, 0.0], 'face': {'lid': 0.45, 'mouth': 'line', 'blush': 0.6}}, toonDur=0.2)]
 st.shot('S01', 'kitchenDay', actors=[act('mec', MEK, 0, 'stand', 'determined', keys=K1)],
         props=[P('jar1', 'picklesJar', pos=JAR1, scale=JS, opts={'shake': [[0.3, 2.1]]})],
-        cams=[FC(0.0, [0.6, 1.6, 0.4], [[0.0, 2.38, -1.85], [0.0, 0.95, -1.85], [r(JAR1[0] - 0.25), JAR1[1], JAR1[2]], [r(JAR1[0] + 0.3), r(JAR1[1] + 0.4), JAR1[2]], [-0.6, 2.0, -1.6]], top=0.12, bottom=0.76)])
+        cams=[FC(0.0, [0.55, 1.25, 0.45], [[0.0, 2.38, -1.85], [0.0, 0.95, -1.85], [r(JAR1[0] - 0.25), JAR1[1], JAR1[2]], [r(JAR1[0] + 0.3), r(JAR1[1] + 0.4), JAR1[2]], [-0.6, 2.0, -1.6]], top=0.12, bottom=0.76)])
 for t_ in STRAIN1: st.cue('sfx:squeak', 'S01', t_, 0.14)
 st.cue('whoosh', 'S01', SLIP1, 0.3, 0.25, 1500, 500)
 
-# 2: he tapped the lid with a spoon. Close on the jar on the table: his spoon taps the lid, tink, tink, then a big tap: the spoon bends flat
-D2 = st.dur('S02'); JAR2 = [0.0, TH, -1.25]; TAPS2 = [0.35, 0.8, 1.3]
-SPOON2 = lambda dy, f: {'reach': {'R': [0.05, r(TH + JH + dy), -1.27, 1, 0.03], 'L': [0.11, r(TH + 0.12), -1.22, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f}
+# 2: he tapped the lid with a spoon. Low by the jar on the table, the jar big in front of him (stills 1: the spoon was lost in his fist): a big
+#    spoon hanging bowl-down from his hand taps the lid, tink, tink, then a big tap and the spoon crumples; he looks at us
+D2 = st.dur('S02'); JAR2 = [0.0, TH, -1.25]; TAPS2 = [0.35, 0.8, 1.3]; LIDTOP2 = r(TH + 0.218 * JS)
+GRIPY = lambda dy: r(LIDTOP2 + 0.45 + dy)                     # the spoon (scale 3, hanging bowl down) touches the lid when its grip is at GRIPY(0)
+SPOON2 = lambda dy, f: {'reach': {'R': [0.04, GRIPY(dy), -1.25, 1, 0.03], 'L': [0.11, r(TH + 0.12), -1.22, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': f}
 K2 = [k(0.0, look=[JAR2[0], r(TH + JH), JAR2[2]]), k(0.0, toon=SPOON2(0.16, {'lid': 0.4, 'mouth': 'line', 'brow': -0.2}), toonDur=0.0)]
+KS2 = []
 for i, t_ in enumerate(TAPS2):
     up = 0.16 + 0.12 * (i == 2)
-    K2 += [k(r(t_ - 0.14), toon=SPOON2(up, {'lid': 0.35, 'mouth': 'line', 'brow': -0.3}), toonDur=0.1, toonEase='out'), k(t_, toon={**SPOON2(0.03, {'lid': 0.5, 'mouth': 'clench' if i == 2 else 'line', 'brow': -0.5}), 'sq': [1.03, 0.97, 1.03]}, toonDur=0.05, toonEase='in')]
-K2 += [k(r(TAPS2[-1] + 0.2), look=[0.05, r(TH + JH + 0.2), -1.27]), k(r(TAPS2[-1] + 0.5), look='camera'), k(r(TAPS2[-1] + 0.5), toon=SPOON2(0.18, {'lid': 0.45, 'mouth': 'line'}), toonDur=0.15)]
+    K2 += [k(r(t_ - 0.14), toon=SPOON2(up, {'lid': 0.35, 'mouth': 'line', 'brow': -0.3}), toonDur=0.1, toonEase='out'), k(t_, toon={**SPOON2(0.0, {'lid': 0.5, 'mouth': 'clench' if i == 2 else 'line', 'brow': -0.5}), 'sq': [1.03, 0.97, 1.03]}, toonDur=0.05, toonEase='in')]
+    KS2 += [k(r(t_ - 0.14), to=[0.04, GRIPY(up), -1.25], dur=0.1, ease='out'), k(t_, to=[0.04, GRIPY(0.0), -1.25], dur=0.05, ease='in')]
+K2 += [k(r(TAPS2[-1] + 0.2), look=[0.04, GRIPY(0.0), -1.25]), k(r(TAPS2[-1] + 0.5), look='camera'), k(r(TAPS2[-1] + 0.5), toon=SPOON2(0.18, {'lid': 0.45, 'mouth': 'line'}), toonDur=0.15)]
+KS2 += [k(TAPS2[-1], squash=[1.5, 0.4, 1.5], dur=0.25), k(r(TAPS2[-1] + 0.5), to=[0.04, GRIPY(0.18), -1.25], dur=0.15)]   # the last tap crumples the spoon
 st.shot('S02', 'kitchenDay', actors=[act('mec', MEK, 0, 'stand', 'neutral', keys=K2)],
         props=[P('table2', 'table', pos=TABLE, opts={'w': 1.0, 'd': 0.7, 'h': TH}), P('jar2', 'picklesJar', pos=JAR2, scale=JS),
-               P('cuil2', 'spoon', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.05, 0.03]}, scale=1.8, keys=[k(TAPS2[-1], squash=[1.4, 0.45, 1.4], dur=0.25)])],   # the last tap folds the spoon
-        cams=[FC(0.0, [0.32, 1.22, -0.5], [[JAR2[0], TH, JAR2[2]], [JAR2[0], r(TH + 0.5), JAR2[2]], [-0.18, r(TH + 0.2), JAR2[2]], [0.22, r(TH + 0.2), JAR2[2]], [0.0, 2.05, -1.85]], top=0.1, bottom=0.74)])
+               P('cuil2', 'spoon', pos=[0.04, GRIPY(0.16), -1.25], rot=[PI, 0, 0], scale=3.0, keys=KS2)],
+        cams=[FC(0.0, [-0.38, 1.0, -0.42], [[JAR2[0], TH, JAR2[2]], [0.04, r(GRIPY(0.28) + 0.05), -1.25], [0.0, 2.38, -1.85], [-0.2, r(TH + 0.2), JAR2[2]], [0.25, r(TH + 0.2), JAR2[2]]], top=0.1, bottom=0.76)])
 for t_ in TAPS2: st.cue('sfx:tick', 'S02', t_, 0.3)
 
 # 3: he held it under hot water. At his sink, seen from beyond the tap (another angle than 1): he holds the jar under the hot stream, steam
@@ -87,8 +92,7 @@ st.shot('S03', 'kitchenDay', actors=[act('mec', MEK3, 180, 'stand', 'neutral', k
             k(0.95, toon=G3({'lid': 0.5, 'mouth': 'line', 'sweat': 1.0, 'blush': 0.6}, 2.5), toonDur=0.15), k(1.15, look='camera')])],
         props=[P('evier3', 'islandSink', pos=SINK3, opts={'w': 1.2, 'd': 0.6}), P('jar3', 'picklesJar', pos=JAR3, scale=JS, opts={'shake': [[0.58, 0.9]]}),
                P('eau3', 'tapStream', pos=MOUTH3, opts={'len': r(MOUTH3[1] - JAR3[1] - JH - 0.02), 'r': 0.011}),
-               P('vap3', 'dustPuff', pos=[0.0, r(JAR3[1] + JH - 0.05), -1.36], scale=0.45, opts={'color': '#FFFFFF', 'period': 0.8, 'seed': 31}),
-               P('vap3b', 'dustPuff', pos=[0.06, r(JAR3[1] + JH - 0.05), -1.4], scale=0.35, opts={'color': '#FFFFFF', 'period': 0.65, 'seed': 37})],
+               *[P(f'vap3{j}', 'dustPuff', pos=[r(-0.06 + 0.06 * j), r(JAR3[1] + JH + 0.1 + 0.04 * j), r(-1.42 + 0.02 * j)], scale=0.28, opts={'color': '#F4F8FA', 'period': r(0.7 + 0.12 * j), 'seed': 31 + 6 * j}) for j in range(3)]],   # (stills 1) small wisps above the hands
         cams=[FC(0.0, [1.55, 1.65, -2.5], [[0.0, 2.38, -0.72], [-0.32, 1.6, -0.72], [0.32, 1.6, -0.72], [0.0, 0.74, -1.38], [0.0, 1.22, -1.53]], top=0.12, bottom=0.76, inside=(-6.8, 6.8, 0.3, 4.0, -2.9, 13.0))])
 st.cue('sfx:pour', 'S03', 0.0, 0.35)
 
@@ -127,14 +131,14 @@ st.shot('S06', 'kitchenDay', actors=[
         props=[P('table6', 'table', pos=TABLE, opts={'w': 1.0, 'd': 0.7, 'h': TH}), P('jar6', 'picklesJar', pos=JAR5, scale=JS),
                P('pince6', 'rescueJaws', pos=JAWP, ry=JAWRY, opts={'s': 1.2, 'open': [[0.0, 0.16]], 'breakAt': BRK6}),
                BURST('crac6', [0.35, r(TH + 0.75), -0.9], r(BRK6 + 0.02), 'CRAC !', 0.42, 0.3)],
-        cams=[FC(0.0, [-0.55, 1.4, 0.15], [[JAR5[0], r(TH + JH + 0.15), JAR5[2]], [1.15, 2.4, -0.05], [JAR5[0], TH, JAR5[2]], [0.35, r(TH + 1.0), -0.9]], top=0.12, bottom=0.74)])
+        cams=[FC(0.0, [-0.75, 1.45, 0.6], [[JAR5[0], r(TH + JH + 0.15), JAR5[2]], [1.15, 2.4, -0.05], [1.65, 2.3, 0.35], [-0.3, 2.4, -1.85], [JAR5[0], TH, JAR5[2]], [0.35, r(TH + 1.0), -0.9]], top=0.12, bottom=0.74)])   # (stills 1) the thrown fireman left the frame
 st.cue('sfx:crunch', 'S06', BRK6, 0.45); st.cue('clang', 'S06', r(BRK6 + 0.3), 0.2)
 
 # 7: the army sent a tank. His street from the kerb, low: the jar stands in the middle of the road, big in the foreground; a tank rumbles down at it
 D7 = st.dur('S07'); JR = [0.0, 0, 2.6]; TK = 4.5
 st.shot('S07', 'parisStreet', setOpts=STREET, actors=[],
         props=[P('jar7', 'picklesJar', pos=JR, scale=2.2), P('char7', 'armyTank', pos=[0.0, 0, -14.0], ry=0, scale=TK, keys=[k(0.0, to=[0.0, 0, -4.0], dur=D7, ease='linear')])],
-        cams=[FC(0.0, [0.55, 0.32, 4.4], [[JR[0], 0.0, JR[2]], [JR[0], 0.55, JR[2]], [0.0, 2.6, -6.0], [-1.6, 0.0, -6.0], [1.6, 0.0, -6.0]], top=0.14, bottom=0.78)])
+        cams=[FC(0.0, [0.55, 0.32, 4.4], [[JR[0], 0.0, JR[2]], [JR[0], 0.55, JR[2]], [r(JR[0] - 0.22), 0.3, JR[2]], [r(JR[0] + 0.22), 0.3, JR[2]], [0.0, 2.6, -6.0], [-1.6, 0.0, -6.0], [1.6, 0.0, -6.0]], top=0.14, bottom=0.78)])
 st.cue('engine', 'S07', 0.0, 0.35)
 
 # 8: the tank drove over it. From the side, low: the tank's tracks roll over the jar; the whole tank bucks up over it and lands; the jar stands
@@ -143,7 +147,7 @@ st.shot('S08', 'parisStreet', setOpts=STREET, actors=[],
         props=[P('jar8', 'picklesJar', pos=JR, scale=2.2),
                P('char8', 'armyTank', pos=[0.0, 0, -2.6], ry=0, scale=TK, keys=[k(0.0, to=[0.0, 0, 0.9], dur=0.5, ease='linear'), k(0.5, to=[0.0, 0.45, 2.6], dur=0.3, ease='out'), k(0.8, to=[0.0, 0.45, 3.8], dur=0.28, ease='linear'),
                                                                                     k(1.08, to=[0.0, 0.0, 5.0], dur=0.2, ease='in'), k(1.28, to=[0.0, 0.0, 6.4], dur=0.4, ease='out'), k(1.28, squash=[1.04, 0.9, 1.04], dur=0.35)])],   # it bucks over the jar
-        cams=[FC(0.0, [6.4, 0.75, 2.6], [[JR[0], 0.0, JR[2]], [JR[0], 0.6, JR[2]], [0.0, 2.9, 0.0], [0.0, 0.0, -1.0], [0.0, 0.0, 6.0]], top=0.14, bottom=0.78)])
+        cams=[FC(0.0, [4.3, 1.1, 2.6], [[JR[0], 0.0, JR[2]], [JR[0], 0.6, JR[2]], [0.0, 2.9, JR[2]], [0.0, 0.0, r(JR[2] - 1.8)], [0.0, 0.0, r(JR[2] + 1.8)]], top=0.14, bottom=0.78, inside=(-4.4, 4.4, 0.2, 6.0, -40.0, 40.0), lenses=range(26, 86))])   # (stills 1) it backed out behind a building corner
 st.cue('engine', 'S08', 0.0, 0.3); st.cue('clang', 'S08', 0.55, 0.35); st.cue('thud', 'S08', 1.28, 0.3)
 
 # 9: the tank got a flat. Behind the jar in the foreground: the tank sags down on one side with a hiss, a puff of dust; the jar has not a scratch
@@ -167,7 +171,7 @@ st.cue('engine', 'S10', 0.1, 0.4); st.cue('whoosh', 'S10', 0.3, 0.4, 1.2, 200, 1
 D11 = st.dur('S11'); JAR11 = [0.0, 1.95, -0.7]; N11 = 6; SPIN11 = 1.45
 ASTRO = []
 for j in range(N11):
-    a = j / N11 * 2 * PI + 0.3; px = r(JAR11[0] + 1.0 * math.cos(a)); pz = r(JAR11[2] + 0.75 * math.sin(a)); py = r(0.75 + 0.35 * (j % 3) / 2)
+    a = math.radians(200 + 28 * j); px = r(JAR11[0] + 1.0 * math.cos(a)); pz = r(JAR11[2] + 0.75 * math.sin(a)); py = r(0.7 + 0.4 * ((j * 2) % 3) / 2)   # (stills 1) the far side of the jar only
     ry = r(math.degrees(math.atan2(JAR11[0] - px, JAR11[2] - pz)))
     ASTRO.append((f'astro{j + 1}', [px, py, pz], ry))
 PULL11 = lambda pos, lay=0.0, sq=None: {'reach': {'R': [r(JAR11[0] + 0.25 * (pos[0] - JAR11[0])), r(JAR11[1] + JH), r(JAR11[2] + 0.25 * (pos[2] - JAR11[2])), 1, 0.03],
@@ -200,9 +204,9 @@ st.cue('sfx:click', 'S12', FIRE12, 0.3); st.cue('whoosh', 'S12', FIRE12, 0.3, 0.
 #     sooty, a puff of smoke; he blinks
 D13 = st.dur('S13'); BACK13 = 0.3; HEAD13 = [2.1, 2.05, -0.85]
 st.shot('S13', 'lab', actors=[act('savant1', [2.1, 0, -0.85], -95, 'stand', 'determined', keys=[k(0.0, look=[JAR12[0], r(JAR12[1] + 0.2), JAR12[2]]), k(0.0, toon=GUNK({'lid': 0.6, 'mouth': 'smirk', 'brow': -0.6}, True), toonDur=0.0),
-            k(BACK13, toon={**GUNK({'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}, True), 'hairUp': 1.0, 'sq': [0.92, 1.1, 0.92], 'skin': {'color': '#3A3530', 'k': 0.55, 'fill': 1.0}}, toonDur=0.04, toonEase='out'),   # zapped
-            k(r(BACK13 + 0.5), toon={**GUNK({'lid': 1.0, 'mouth': 'line'}), 'hairUp': 1.0, 'skin': {'color': '#3A3530', 'k': 0.55, 'fill': 1.0}}, toonDur=0.06),
-            k(r(BACK13 + 0.62), toon={**GUNK({'lid': 0.3, 'mouth': 'line'}), 'hairUp': 1.0, 'skin': {'color': '#3A3530', 'k': 0.55, 'fill': 1.0}}, toonDur=0.08), k(r(BACK13 + 0.75), look='camera')])],
+            k(BACK13, toon={**GUNK({'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}, True), 'hairUp': 1.0, 'sq': [0.92, 1.1, 0.92], 'skin': {'color': '#2E2A26', 'k': 0.8, 'fill': 1.0}}, toonDur=0.04, toonEase='out'),   # zapped
+            k(r(BACK13 + 0.5), toon={**GUNK({'lid': 1.0, 'mouth': 'line'}), 'hairUp': 1.0, 'skin': {'color': '#2E2A26', 'k': 0.8, 'fill': 1.0}}, toonDur=0.06),
+            k(r(BACK13 + 0.62), toon={**GUNK({'lid': 0.3, 'mouth': 'line'}), 'hairUp': 1.0, 'skin': {'color': '#2E2A26', 'k': 0.8, 'fill': 1.0}}, toonDur=0.08), k(r(BACK13 + 0.75), look='camera')])],
         props=[P('socle13', 'table', pos=[JAR12[0], 0, JAR12[2]], opts={'w': 0.5, 'd': 0.5, 'h': JAR12[1]}), P('jar13', 'picklesJar', pos=JAR12, scale=JS, opts={'glint': [[0.22, 0.45]]}),
                P('canon13', 'slab', pos=GUN, opts={'w': 0.5, 'h': 0.26, 'd': 0.3, 'color': '#4A5560', 'outline': 0.006}),
                P('laser13a', 'laserBeam', pos=[r(GUN[0] - 0.25), GUN[1], GUN[2]], opts={'vec': [r(JAR12[0] - GUN[0] + 0.33), r(JAR12[1] + JH * 0.6 - GUN[1]), 0.0], 'r': 0.022}, keys=[k(r(BACK13 + 0.05), visible=False)]),
@@ -213,16 +217,16 @@ st.cue('sfx:ding', 'S13', 0.22, 0.25); st.cue('sfx:crunch', 'S13', BACK13, 0.25)
 
 # 14: the jar became a historic monument. A museum hall: the jar alone in a lit display case on a white plinth, MONUMENT HISTORIQUE on its label;
 #     two visitors admire it, one takes a photo; a guard stands by, hands behind his back (HISTORIQUE)
-D14 = st.dur('S14'); CASE = [0.0, 0, -1.2]; JAR14 = [0.0, 1.0, -1.2]
+D14 = st.dur('S14'); CASE = [0.0, 0, -1.2]; JAR14 = [0.0, 0.95, -1.2]; CASEO = {'w': 0.6, 'h': 0.95, 'text': 'MONUMENT HISTORIQUE'}; JS14 = 1.6
 st.shot('S14', 'mairie', setOpts=MUSEE, actors=[
-        act('visiteur1', [-0.95, 0, -0.55], 40, 'stand', 'neutral', keys=[k(0.0, look=[JAR14[0], 1.15, JAR14[2]]), *[k(t_, toon={'reach': {'R': [-0.72, 1.7, -0.75, 1, 0.03], 'L': [-0.8, 1.7, -0.62, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': l_, 'mouth': 'line'}, **({'sq': [1.02, 0.97, 1.02]} if t_ == 0.5 else {})}, toonDur=0.06) for t_, l_ in ((0.0, 0.4), (0.5, 0.8), (0.62, 0.4), (1.6, 1.0), (1.72, 0.4))]]),   # a photo (squints at the click), a blink
-        act('visiteur2', [0.95, 0, -0.5], -35, 'stand', 'happy', keys=[k(0.0, look=[JAR14[0], 1.15, JAR14[2]]), k(1.1, look=[-0.95, 1.9, -0.55]), k(1.8, look=[JAR14[0], 1.15, JAR14[2]]),
+        act('visiteur1', [-0.68, 0, -1.65], 18, 'stand', 'neutral', keys=[k(0.0, look=[JAR14[0], 1.15, JAR14[2]]), *[k(t_, toon={'reach': {'R': [-0.5, 1.72, -1.3, 1, 0.03], 'L': [-0.38, 1.72, -1.33, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': l_, 'mouth': 'line'}, **({'sq': [1.02, 0.97, 1.02]} if t_ == 0.5 else {})}, toonDur=0.06) for t_, l_ in ((0.0, 0.4), (0.5, 0.8), (0.62, 0.4), (1.6, 1.0), (1.72, 0.4))]]),   # a photo (squints at the click), a blink
+        act('visiteur2', [0.68, 0, -1.6], -20, 'stand', 'happy', keys=[k(0.0, look=[JAR14[0], 1.15, JAR14[2]]), k(1.1, look=[-0.68, 1.9, -1.65]), k(1.8, look=[JAR14[0], 1.15, JAR14[2]]),
             *[k(t_, toon={'touch': {'R': ['face', 0.0, 0.18, 0.08, 1, 0.02]}, 'hands': {'R': 'rest'}, 'face': {'lid': l_, 'mouth': 'O', 'brow': 0.7}}, toonDur=0.06) for t_, l_ in ((0.0, 0.2), (0.85, 1.0), (0.97, 0.2))]]),   # a blink, a glance at the photographer
-        act('gardien', [1.5, 0, -1.9], -20, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.0)])],
-        props=[P('vitrine14', 'displayCase', pos=CASE, opts={'w': 0.45, 'h': 1.0, 'text': 'MONUMENT HISTORIQUE'}), P('jar14', 'picklesJar', pos=JAR14, scale=1.2),
+        act('gardien', [1.05, 0, -2.45], -25, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.0), k(1.3, toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.06), k(1.42, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.08)])],
+        props=[P('vitrine14', 'displayCase', pos=CASE, opts=CASEO), P('jar14', 'picklesJar', pos=JAR14, scale=JS14),
                P('photo14', 'handset', on={'actor': 'visiteur1', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}),
                P('casq14', 'copCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#26365F'})],
-        cams=[FC(0.0, [0.9, 1.6, 2.4], [[0.0, 2.35, -1.2], [0.0, 0.0, -1.2], [-1.1, 2.3, -0.75], [1.1, 2.3, -0.75]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [0.25, 1.15, 0.6], [[0.0, 1.6, -1.2], [-0.68, 0.0, -1.65], [0.68, 0.0, -1.6], [-0.68, 2.35, -1.65], [0.68, 2.35, -1.6], [1.05, 2.45, -2.45], [1.05, 0.0, -2.45]], top=0.12, bottom=0.76)])   # (stills 1: a small case between two big backs) low, whole figures: the label at 0.57, the feet above the captions
 st.cue('sfx:shutter', 'S14', 0.5, 0.2)
 
 # 15: then his grandmother came by. In the museum: a little old lady with her handbag trots in past the guard, straight to the case; he follows
@@ -231,7 +235,7 @@ st.shot('S15', 'mairie', setOpts=MUSEE, actors=[
         act('mamie', NAN15, -110, 'walk', 'happy', keys=[k(0.0, to=NAN15E, dur=1.15, clip='walk', then='stand', ease='out'), k(0.0, look=[JAR14[0], 1.2, JAR14[2]]), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.0), k(1.25, look='camera')]),
         act('mec', [-0.9, 0, -0.4], 30, 'stand', 'neutral', keys=[k(0.0, look=[2.0, 1.6, -0.3]), k(0.0, toon={'face': LIP}, toonDur=0.0), k(0.6, look=[1.0, 1.4, -0.8])]),
         act('gardien', [1.5, 0, -1.9], -20, 'stand', 'neutral', keys=[k(0.0, look=[2.2, 1.4, -0.3]), k(0.7, look=[0.8, 1.4, -0.9]), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.0)])],
-        props=[P('vitrine15', 'displayCase', pos=CASE, opts={'w': 0.45, 'h': 1.0, 'text': 'MONUMENT HISTORIQUE'}), P('jar15', 'picklesJar', pos=JAR14, scale=1.2),
+        props=[P('vitrine15', 'displayCase', pos=CASE, opts=CASEO), P('jar15', 'picklesJar', pos=JAR14, scale=JS14),
                P('sac15', 'briefcase', on={'actor': 'mamie', 'hand': 'L', 'offset': [0.0, -0.1, 0.03]}, scale=0.55),
                P('casq15', 'copCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#26365F'})],
         cams=[FC(0.0, [0.4, 1.5, 2.6], [[0.0, 2.3, -1.2], [2.4, 2.2, -0.3], [-0.9, 2.4, -0.4], [0.0, 0.0, -1.2]], top=0.12, bottom=0.78)])
@@ -250,12 +254,12 @@ st.shot('S16', 'mairie', setOpts=MUSEE, actors=[
             k(r(POP16 + 0.04), toon={'sq': [0.93, 1.1, 0.93], 'face': {'lid': 0.0, 'pop': 1.0, 'popLen': 0.14, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out')]),
         act('gardien', [1.5, 0, -1.9], -20, 'stand', 'neutral', keys=[k(0.0, look=[0.45, 1.4, -0.95]), k(0.0, toon={'face': {'lid': 0.5, 'mouth': 'line'}}, toonDur=0.0),
             k(r(POP16 + 0.06), toon={'face': {'lid': 0.0, 'eye': 0.5, 'jaw': 0.8, 'jawBlock': 1, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.06, toonEase='out')])],   # his jaw drops
-        props=[P('vitrine16', 'displayCase', pos=CASE, opts={'w': 0.45, 'h': 1.0, 'text': 'MONUMENT HISTORIQUE', 'liftAt': LIFT16}),
-               P('jar16', 'picklesJar', pos=JAR14, scale=1.2, opts={'openAt': POP16}, keys=[k(TAKE16, attach='mamie', hand='L', offset=[0.0, -0.1, 0.04], face='camera', faceFlat=True)]),
+        props=[P('vitrine16', 'displayCase', pos=CASE, opts={**CASEO, 'liftAt': LIFT16}),
+               P('jar16', 'picklesJar', pos=JAR14, scale=JS14, opts={'openAt': POP16}, keys=[k(TAKE16, attach='mamie', hand='L', offset=[0.0, -0.1, 0.04], face='camera', faceFlat=True)]),
                P('sac16', 'briefcase', on={'actor': 'mamie', 'joint': 'torso', 'offset': [0.22, -0.05, 0.05]}, scale=0.55),
                P('casq16', 'copCap', on={'actor': 'gardien', 'joint': 'head', 'offset': [0.0, 0.45, 0.0]}, opts={'color': '#26365F'}),
                BURST('pop16', [0.1, 2.05, -0.7], r(POP16 + 0.02), 'POP !', 0.36, 0.3)],
-        cams=[FC(0.0, [0.65, 1.6, 1.1], [[0.55, 2.2, -0.95], [0.45, 1.25, -0.95], [-0.9, 2.4, -0.4], [0.1, 2.25, -0.7]], top=0.12, bottom=0.76)])
+        cams=[FC(0.0, [0.6, 1.55, 1.7], [[0.55, 2.25, -0.95], [0.98, 1.3, -0.95], [0.45, 1.8, -0.88], [-0.9, 2.4, -0.4], [1.5, 2.45, -1.9], [0.1, 2.25, -0.7], [0.55, 0.0, -0.95]], top=0.12, bottom=0.76)])   # (stills 1) she was cut by the right edge
 st.cue('sfx:zip', 'S16', LIFT16, 0.15); st.cue('sfx:pop', 'S16', POP16, 0.45)
 
 # 17: he doesn't like pickles. Close on him: he holds the open jar she gave him, looks down into it, then at us, deadpan; a slow blink; he hands it back
@@ -265,7 +269,7 @@ st.shot('S17', 'mairie', setOpts=MUSEE, actors=[act('mec', [-0.1, 0, -0.5], 10, 
             k(0.7, look='camera', lookDur=0.15), k(0.75, toon=HOLD17({'lid': 0.45, 'mouth': 'line'}), toonDur=0.12),
             k(1.3, toon=HOLD17({'lid': 1.0, 'mouth': 'line'}), toonDur=0.12, toonEase='inOut'), k(1.48, toon=HOLD17({'lid': 0.45, 'mouth': 'line'}), toonDur=0.14, toonEase='inOut'),   # a slow blink
             k(1.75, toon=HOLD17({'lid': 0.45, 'mouth': 'line'}, 0.3, 1.36, 0.15), toonDur=0.25, toonEase='inOut')])],   # he hands it back
-        props=[P('jar17', 'picklesJar', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.1, 0.04], 'face': 'camera', 'faceFlat': True}, scale=1.2, opts={'lidGone': True})],
+        props=[P('jar17', 'picklesJar', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.1, 0.04], 'face': 'camera', 'faceFlat': True}, scale=JS14, opts={'lidGone': True})],
         cams=[FC(0.0, [0.45, 1.75, 1.0], [[-0.1, 2.4, -0.5], [-0.1, 1.15, -0.5], [0.15, 1.3, -0.05], [-0.4, 1.9, -0.5]], top=0.12, bottom=0.78)])
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
