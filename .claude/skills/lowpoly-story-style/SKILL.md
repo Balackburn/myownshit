@@ -1672,3 +1672,6 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   passaient). La file `runq4.sh` donne un ticket à chaque attente (fichier horodaté avec le pid) et ne démarre que le plus ancien ticket vivant ;
   pour remettre des attentes dans l'ordre : arrêter d'abord la chaîne parente (sinon elle continue et annonce « READY » sans brouillon), puis son
   attente, et relancer les copies `_q4` une à une dans l'ordre voulu.
+- (cycle 40) Un brouillon lit le JSON au moment où son rendu démarre, pas quand on le met en file. Ne le mettre en file qu'une fois les corrections
+  des images de contrôle faites et le script reconstruit : le brouillon 1 du « Bocal » a démarré cinq minutes avant elles, et ses deux critiques
+  ont noté une version déjà corrigée (cuillère invisible, char vu de derrière un mur, astronautes de dos).
