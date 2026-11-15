@@ -1,0 +1,138 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a perdu ses lunettes.",
+  "hl": [
+   "perdu",
+   "lunettes."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il a cherché partout.",
+  "hl": [
+   "partout."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Sous le canapé.",
+  "hl": [
+   "canapé."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Dans le frigo.",
+  "hl": [
+   "frigo."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Il a porté plainte.",
+  "hl": [
+   "plainte."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "La police a fouillé tout le quartier.",
+  "hl": [
+   "police",
+   "quartier."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Des plongeurs ont vidé la Seine.",
+  "hl": [
+   "plongeurs",
+   "Seine."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "L'armée a envoyé des hélicoptères.",
+  "hl": [
+   "armée",
+   "hélicoptères."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les satellites ont scanné la planète.",
+  "hl": [
+   "satellites",
+   "planète."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les autres pays ont envoyé leurs chiens.",
+  "hl": [
+   "pays",
+   "chiens."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le gouvernement a promis un million d'euros.",
+  "hl": [
+   "million"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le monde entier a cherché pendant un an.",
+  "hl": [
+   "monde",
+   "an."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Hier, un enfant les a trouvées.",
+  "hl": [
+   "enfant",
+   "trouvées."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Sur sa tête.",
+  "hl": [
+   "tête."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "L'enfant a touché le million.",
+  "hl": [
+   "million."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Le mec, lui, cherche ses clés.",
+  "hl": [
+   "clés."
+  ]
+ }
+]
