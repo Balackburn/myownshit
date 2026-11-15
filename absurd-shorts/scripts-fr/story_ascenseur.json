@@ -1,0 +1,6290 @@
+{
+ "version": 3,
+ "title": "L'ascenseur",
+ "grade": "contrast(0.9) saturate(1.05) brightness(1.06)",
+ "captionWords": 0,
+ "captionY": 0.81,
+ "tempo": 1.0,
+ "voice": null,
+ "music": null,
+ "cast": {
+  "mec": {
+   "preset": "lemec",
+   "tint": "#E6F2FF",
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3,
+    "headScale": 1.0
+   }
+  },
+  "flic": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "none",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.82,
+    "headWidth": 1.3
+   }
+  },
+  "flic2": {
+   "preset": "cop",
+   "suit": "#1E2D4A",
+   "pants": "#1E2D4A",
+   "facial": "mustache",
+   "hair": "receding",
+   "seed": 41,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "belly": 0.08
+   }
+  },
+  "juge": {
+   "preset": "judge",
+   "facial": "stubble",
+   "atlas": "lemec",
+   "atlasBody": false,
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.3,
+    "headScale": 1.05
+   }
+  },
+  "autre": {
+   "preset": "boss",
+   "seed": 821,
+   "suit": "#5A6270",
+   "hairColor": "#E8E6E0",
+   "build": {
+    "width": 0.86,
+    "headWidth": 1.28
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "mamie": {
+   "preset": "mamie",
+   "seed": 822,
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.22
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "concierge": {
+   "preset": "madame",
+   "seed": 823,
+   "suit": "#4F7AA8",
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.22
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "syndic": {
+   "preset": "boss",
+   "seed": 824,
+   "suit": "#2E3138",
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "voisin1": {
+   "preset": "femme",
+   "seed": 825,
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "voisin2": {
+   "preset": "avocat",
+   "seed": 826,
+   "build": {
+    "width": 1.0,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "voisin3": {
+   "preset": "madame",
+   "seed": 827,
+   "suit": "#8E6CC4",
+   "build": {
+    "width": 0.95,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "ouvrier": {
+   "preset": "worker",
+   "seed": 828,
+   "build": {
+    "width": 1.05,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "maitresse": {
+   "preset": "femme",
+   "seed": 829,
+   "suit": "#C255C8",
+   "build": {
+    "width": 0.9,
+    "headWidth": 1.2
+   },
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "eleve1": {
+   "preset": "gamin",
+   "seed": 830,
+   "suit": "#E8A33C",
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "eleve2": {
+   "preset": "gamin",
+   "seed": 831,
+   "suit": "#5BB5A8",
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  },
+  "eleve3": {
+   "preset": "gamin",
+   "seed": 832,
+   "suit": "#E25C7A",
+   "toon": {
+    "holdLife": 2.5,
+    "shift": 2.4,
+    "breathe": 1.8
+   }
+  }
+ },
+ "scenes": [
+  {
+   "id": "S01",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.3,
+      0,
+      -2.38
+     ],
+     "ry": 200,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ]
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "reach": {
+         "L": [
+          0.84,
+          1.1300000000000001,
+          -2.8800000000000003,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "point"
+        }
+       },
+       "toonDur": 0.25,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "L": [
+          0.83,
+          1.1300000000000001,
+          -2.9050000000000002,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "point"
+        }
+       },
+       "toonDur": 0.06
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "L": [
+          1.0,
+          1.3,
+          -2.55,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "point"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt1",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "pressAt": 0.4
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.15,
+      1.25,
+      -2.05
+     ],
+     "to": [
+      1.15,
+      1.25,
+      -2.05
+     ],
+     "lookAt": [
+      -1.612,
+      -0.252,
+      -11.543
+     ],
+     "lens": 41,
+     "ease": "linear",
+     "lookAt2": [
+      -1.612,
+      -0.252,
+      -11.543
+     ]
+    }
+   ],
+   "start": 0.0,
+   "duration": 1.4,
+   "setOpts": {
+    "notice": "SYNDIC"
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S02",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.42,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          0.1,
+          0.25,
+          -0.2,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          -0.1,
+          0.25,
+          -0.2,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          0.1,
+          0.25,
+          -0.2,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          -0.1,
+          0.25,
+          -0.2,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "sq": [
+         1.0,
+         1.02,
+         1.0
+        ]
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 0.95,
+       "toon": {
+        "touch": {
+         "R": [
+          "torso",
+          0.1,
+          0.25,
+          -0.2,
+          1,
+          0.02
+         ],
+         "L": [
+          "torso",
+          -0.1,
+          0.25,
+          -0.2,
+          1,
+          0.02
+         ]
+        },
+        "hands": {
+         "R": "open",
+         "L": "open"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.3,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt2",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "cal2",
+     "name": "monthCalendar",
+     "pos": [
+      -1.15,
+      1.62,
+      -2.98
+     ],
+     "scale": 1.3,
+     "opts": {
+      "months": [
+       "2006"
+      ]
+     }
+    },
+    {
+     "id": "horloge2",
+     "name": "wallClock",
+     "pos": [
+      -1.15,
+      2.6,
+      -2.96
+     ],
+     "scale": 0.6,
+     "opts": {
+      "rate": 0.02
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.524,
+      1.6,
+      2.649
+     ],
+     "to": [
+      0.524,
+      1.6,
+      2.349
+     ],
+     "lookAt": [
+      -0.242,
+      0.424,
+      -7.252
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -0.242,
+      0.424,
+      -7.552
+     ]
+    }
+   ],
+   "start": 1.4,
+   "duration": 1.1,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "7"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S03",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.42,
+      0,
+      -2.42
+     ],
+     "ry": -20,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        2.4,
+        -2.94
+       ]
+      },
+      {
+       "at": 0.85,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.3,
+         "mouth": "smile",
+         "brow": 0.8
+        },
+        "sq": [
+         0.98,
+         1.03,
+         0.98
+        ]
+       },
+       "toonDur": 0.1,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "face": {
+         "lid": 0.6,
+         "mouth": "line",
+         "brow": -0.3
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.15,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt3",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.439,
+      1.35,
+      -0.256
+     ],
+     "to": [
+      0.439,
+      1.35,
+      -0.256
+     ],
+     "lookAt": [
+      1.718,
+      3.635,
+      -9.907
+     ],
+     "lens": 63,
+     "ease": "linear",
+     "lookAt2": [
+      1.718,
+      3.635,
+      -9.907
+     ]
+    }
+   ],
+   "start": 2.5,
+   "duration": 1.7667,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "6"
+     ],
+     [
+      0.18,
+      "5"
+     ],
+     [
+      0.36,
+      "4"
+     ],
+     [
+      0.54,
+      "3"
+     ],
+     [
+      0.72,
+      "2"
+     ],
+     [
+      0.9,
+      "1"
+     ],
+     [
+      1.15,
+      "2"
+     ],
+     [
+      1.35,
+      "3"
+     ],
+     [
+      1.55,
+      "4"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S04",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.42,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.02,
+         0.97,
+         1.02
+        ]
+       },
+       "toonDur": 0.6,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "face": {
+         "lid": 0.65,
+         "mouth": "line"
+        },
+        "sq": [
+         1.04,
+         0.93,
+         1.04
+        ]
+       },
+       "toonDur": 0.5,
+       "toonEase": "inOut"
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        },
+        "sq": [
+         1.04,
+         0.93,
+         1.04
+        ]
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt4",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "cal4",
+     "name": "monthCalendar",
+     "pos": [
+      -1.15,
+      1.62,
+      -2.98
+     ],
+     "scale": 1.3,
+     "opts": {
+      "months": [
+       "2006"
+      ]
+     }
+    },
+    {
+     "id": "horloge4",
+     "name": "wallClock",
+     "pos": [
+      -1.15,
+      2.6,
+      -2.96
+     ],
+     "scale": 0.6,
+     "opts": {
+      "rate": 4.0
+     }
+    },
+    {
+     "id": "barbe4",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 0.05,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#5A4636"
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "scale": 0.05
+      },
+      {
+       "at": 0.05,
+       "scale": 1.1,
+       "dur": 1.45,
+       "ease": "linear"
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -2.295,
+      1.8,
+      1.569
+     ],
+     "to": [
+      -2.295,
+      1.8,
+      1.569
+     ],
+     "lookAt": [
+      2.458,
+      0.759,
+      -7.168
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      2.458,
+      0.759,
+      -7.168
+     ]
+    }
+   ],
+   "start": 4.2667,
+   "duration": 1.7,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "4"
+     ],
+     [
+      0.4,
+      "9"
+     ],
+     [
+      0.8,
+      "2"
+     ],
+     [
+      1.2,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S05",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.42,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.5,
+        1.6,
+        -1.6
+       ]
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          1.12,
+          1.25,
+          -2.0,
+          1,
+          0.04
+         ],
+         "L": [
+          1.25,
+          1.2,
+          -1.95,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.2
+      },
+      {
+       "at": 1.2,
+       "look": "camera",
+       "lookDur": 0.25
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "mamie",
+     "pos": [
+      -0.4,
+      0,
+      -0.9
+     ],
+     "ry": 60,
+     "clip": "walk",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.55,
+        0,
+        -1.5
+       ],
+       "dur": 0.6,
+       "clip": "walk",
+       "then": "giveItem",
+       "ease": "out"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.42,
+        2.0,
+        -2.42
+       ]
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt5",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "barbe5",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 0.75,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#5A4636"
+     }
+    },
+    {
+     "id": "soupe5",
+     "name": "soupBowl",
+     "on": {
+      "actor": "mamie",
+      "hand": "R",
+      "offset": [
+       0.0,
+       0.0,
+       0.06
+      ]
+     },
+     "scale": 0.8,
+     "keys": [
+      {
+       "at": 0.85,
+       "attach": {
+        "actor": "mec",
+        "hand": "R",
+        "offset": [
+         0.0,
+         0.0,
+         0.06
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "id": "pain5",
+     "name": "baguette",
+     "on": {
+      "actor": "mamie",
+      "hand": "L",
+      "offset": [
+       0,
+       0,
+       0.04
+      ]
+     },
+     "keys": [
+      {
+       "at": 0.85,
+       "attach": {
+        "actor": "mec",
+        "hand": "L",
+        "offset": [
+         0,
+         0,
+         0.04
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      2.238,
+      1.6,
+      2.341
+     ],
+     "to": [
+      2.238,
+      1.6,
+      2.341
+     ],
+     "lookAt": [
+      -1.866,
+      0.31,
+      -6.686
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      -1.866,
+      0.31,
+      -6.686
+     ]
+    }
+   ],
+   "start": 5.9667,
+   "duration": 1.7,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "3"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S06",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.42,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -1.0,
+        1.0,
+        -1.2
+       ]
+      },
+      {
+       "at": 0.9,
+       "look": [
+        0.2,
+        1.0,
+        -1.6
+       ]
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "concierge",
+     "pos": [
+      -2.2,
+      0,
+      -0.6
+     ],
+     "ry": 70,
+     "clip": "pushCart",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.1,
+        0,
+        -1.45
+       ],
+       "dur": 1.033,
+       "clip": "pushCart",
+       "ease": "linear",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": [
+        1.42,
+        2.0,
+        -2.42
+       ]
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt6",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "barbe6",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 0.85,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#6E6052"
+     }
+    },
+    {
+     "id": "fauteuil6",
+     "name": "armchair",
+     "pos": [
+      -1.55,
+      0,
+      -0.85
+     ],
+     "ry": -20,
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        0.75,
+        0,
+        -1.7
+       ],
+       "dur": 1.033,
+       "ease": "linear"
+      }
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.642,
+      1.7,
+      5.42
+     ],
+     "to": [
+      -0.292,
+      1.7,
+      5.42
+     ],
+     "lookAt": [
+      -0.622,
+      0.479,
+      -4.505
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -0.272,
+      0.479,
+      -4.505
+     ]
+    }
+   ],
+   "start": 7.6667,
+   "duration": 1.0333,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "8"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S07",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0.35,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        1.45,
+        0,
+        -2.42
+       ],
+       "dur": 0.2,
+       "ease": "in",
+       "clip": "sit",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "sq": [
+         1.08,
+         0.88,
+         1.08
+        ],
+        "face": {
+         "lid": 0.8,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.05,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.35,
+       "toon": {
+        "sq": [
+         0.97,
+         1.04,
+         0.97
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ],
+        "face": {
+         "lid": 0.45,
+         "mouth": "smile"
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "concierge",
+     "pos": [
+      0.55,
+      0,
+      -1.65
+     ],
+     "ry": 60,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.45,
+        1.0,
+        -2.42
+       ]
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          1.25,
+          0.95,
+          -2.05,
+          1,
+          0.04
+         ],
+         "L": [
+          1.15,
+          0.95,
+          -2.2,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.25
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt7",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "fauteuil7",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A",
+      "sinkAt": 0.2
+     }
+    },
+    {
+     "id": "barbe7",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 0.85,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#6E6052"
+     }
+    },
+    {
+     "id": "poussiere7",
+     "name": "dustPuff",
+     "pos": [
+      1.45,
+      0.45,
+      -2.2199999999999998
+     ],
+     "scale": 0.6,
+     "opts": {
+      "once": true,
+      "startAt": 0.2,
+      "period": 0.7,
+      "color": "#E8E0D0"
+     }
+    },
+    {
+     "id": "plaid7",
+     "name": "blanketDrape",
+     "pos": [
+      1.45,
+      0.72,
+      -2.04
+     ],
+     "opts": {
+      "w": 0.75,
+      "h": 0.42
+     },
+     "keys": [
+      {
+       "at": 0.0,
+       "visible": false
+      },
+      {
+       "at": 0.75,
+       "visible": true
+      }
+     ]
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.25,
+      2.1
+     ],
+     "to": [
+      1.0,
+      1.25,
+      2.1
+     ],
+     "lookAt": [
+      0.947,
+      0.466,
+      -7.869
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      0.947,
+      0.466,
+      -7.869
+     ]
+    }
+   ],
+   "start": 8.7,
+   "duration": 1.2333,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "8"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S08",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.6,
+        1.8,
+        -0.6
+       ]
+      },
+      {
+       "at": 0.3,
+       "toon": {
+        "reach": {
+         "R": [
+          1.6,
+          2.7,
+          -2.2,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.0,
+       "look": "camera",
+       "lookDur": 0.25
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          1.6,
+          2.7,
+          -2.2,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.42,
+       "toon": {
+        "reach": {
+         "R": [
+          1.6,
+          2.7,
+          -2.2,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.45
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "syndic",
+     "pos": [
+      -0.75,
+      0,
+      -1.6
+     ],
+     "ry": 30,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.2,
+        1.6,
+        0.6
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.55,
+          1.6,
+          -1.15,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "reach": {
+         "R": [
+          -0.55,
+          0.85,
+          -1.15,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "sq": [
+         1.03,
+         0.96,
+         1.03
+        ]
+       },
+       "toonDur": 0.05,
+       "toonEase": "in"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin1",
+     "pos": [
+      -2.05,
+      0,
+      -0.9
+     ],
+     "ry": 80,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.75,
+        2.0,
+        -1.6
+       ]
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.9,
+          2.7,
+          -1.0,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.9,
+          2.78,
+          -1.0,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.9,
+          2.7,
+          -1.0,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin2",
+     "pos": [
+      -1.55,
+      0,
+      0.2
+     ],
+     "ry": 145,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.75,
+        2.0,
+        -1.6
+       ]
+      },
+      {
+       "at": 0.23,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.4,
+          2.7,
+          0.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.4,
+          2.78,
+          0.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "reach": {
+         "R": [
+          -1.4,
+          2.7,
+          0.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "voisin3",
+     "pos": [
+      0.35,
+      0,
+      -0.5
+     ],
+     "ry": -115,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.75,
+        2.0,
+        -1.6
+       ]
+      },
+      {
+       "at": 0.31,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.7,
+          -0.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        }
+       },
+       "toonDur": 0.2,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.3,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.78,
+          -0.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 1.0
+        }
+       },
+       "toonDur": 0.08
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "reach": {
+         "R": [
+          0.5,
+          2.7,
+          -0.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "face": {
+         "lid": 0.2
+        }
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt8",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "fauteuil8",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe8",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 0.9,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#7A6E62"
+     }
+    },
+    {
+     "id": "table8",
+     "name": "desk",
+     "pos": [
+      -0.75,
+      0,
+      -1.15
+     ],
+     "ry": 180,
+     "opts": {
+      "w": 1.3
+     }
+    },
+    {
+     "id": "marteau8",
+     "name": "gavel",
+     "on": {
+      "actor": "syndic",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.02,
+       0.05
+      ]
+     }
+    },
+    {
+     "id": "banniere8",
+     "name": "signBoard",
+     "pos": [
+      -0.75,
+      2.75,
+      -2.95
+     ],
+     "opts": {
+      "text": "ASSEMBLÉE GÉNÉRALE",
+      "bg": "#1B2F6B",
+      "fg": "#FFFFFF",
+      "w": 2.0,
+      "h": 0.32,
+      "posts": false,
+      "height": 0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.585,
+      2.0,
+      5.497
+     ],
+     "to": [
+      0.585,
+      2.0,
+      5.497
+     ],
+     "lookAt": [
+      -0.798,
+      0.241,
+      -4.249
+     ],
+     "lens": 58,
+     "ease": "linear",
+     "lookAt2": [
+      -0.798,
+      0.241,
+      -4.249
+     ]
+    }
+   ],
+   "start": 9.9333,
+   "duration": 1.9334,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "5"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S09",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.1,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.17,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.24,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.31,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.38,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.59,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 0.94,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.01,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.08,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.15,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.22,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.29,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.36,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      },
+      {
+       "at": 1.43,
+       "toon": {
+        "face": {
+         "lid": 0.45,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.035
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "ouvrier",
+     "pos": [
+      0.15,
+      0,
+      -1.9
+     ],
+     "ry": 20,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.15,
+        0.0,
+        -1.5
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.08,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.16,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.24,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.32,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.4,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.48,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.56,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.64,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         0.99,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.88,
+       "toon": {
+        "reach": {
+         "R": [
+          0.37,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ],
+         "L": [
+          0.07,
+          1.02,
+          -1.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip",
+         "L": "grip"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      }
+     ],
+     "expr": "determined"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt9",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "fauteuil9",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe9",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 0.95,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#A49C90"
+     }
+    },
+    {
+     "id": "piqueur9",
+     "name": "jackhammer",
+     "pos": [
+      0.22,
+      1.02,
+      -1.6
+     ],
+     "opts": {
+      "from": 0.0,
+      "floorY": -1.0
+     }
+    },
+    {
+     "id": "panneau9",
+     "name": "signBoard",
+     "pos": [
+      -1.3,
+      0,
+      -1.2
+     ],
+     "ry": 15,
+     "opts": {
+      "text": "TRAVAUX",
+      "bg": "#F2C230",
+      "fg": "#1B1B1E",
+      "w": 0.8,
+      "h": 0.4
+     }
+    },
+    {
+     "id": "nuage9",
+     "name": "dustPuff",
+     "pos": [
+      0.2,
+      0.05,
+      -1.55
+     ],
+     "scale": 1.2,
+     "opts": {
+      "startAt": 0.0,
+      "period": 0.5,
+      "color": "#E3DBCB"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.879,
+      1.5,
+      3.58
+     ],
+     "to": [
+      0.879,
+      1.5,
+      3.58
+     ],
+     "lookAt": [
+      -0.769,
+      0.463,
+      -6.229
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      -0.769,
+      0.463,
+      -6.229
+     ]
+    }
+   ],
+   "start": 11.8667,
+   "duration": 1.1333,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "—"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S10",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [],
+   "props": [
+    {
+     "id": "cal10",
+     "name": "monthCalendar",
+     "pos": [
+      -1.15,
+      1.62,
+      -2.98
+     ],
+     "scale": 1.3,
+     "opts": {
+      "months": [
+       "2007",
+       "2008",
+       "2009",
+       "2010",
+       "2011",
+       "2012",
+       "2013",
+       "2014",
+       "2015",
+       "2016",
+       "2017",
+       "2018",
+       "2019",
+       "2020",
+       "2021"
+      ],
+      "flipAt": 0.05,
+      "dur": 0.037
+     }
+    },
+    {
+     "id": "horloge10",
+     "name": "wallClock",
+     "pos": [
+      -1.15,
+      2.6,
+      -2.96
+     ],
+     "scale": 0.6,
+     "opts": {
+      "rate": 9.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.769,
+      1.95,
+      -0.657
+     ],
+     "to": [
+      -0.769,
+      1.95,
+      -0.657
+     ],
+     "lookAt": [
+      -2.383,
+      1.819,
+      -10.525
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -2.383,
+      1.819,
+      -10.525
+     ]
+    }
+   ],
+   "start": 13.0,
+   "duration": 0.8,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "—"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S11",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.45,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ],
+       "lookDur": 0.9
+      },
+      {
+       "at": 1.2,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.15
+      },
+      {
+       "at": 1.4,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.15
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt11",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "fauteuil11",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe11",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun11",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne11",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    },
+    {
+     "id": "toile11a",
+     "name": "cobweb",
+     "pos": [
+      1.88,
+      1.25,
+      -2.8
+     ],
+     "ry": -90,
+     "opts": {
+      "s": 0.42
+     }
+    },
+    {
+     "id": "toile11b",
+     "name": "cobweb",
+     "pos": [
+      0.55,
+      2.1,
+      -2.92
+     ],
+     "opts": {
+      "s": 0.38
+     }
+    },
+    {
+     "id": "plaid11",
+     "name": "blanketDrape",
+     "pos": [
+      1.45,
+      0.72,
+      -2.04
+     ],
+     "opts": {
+      "w": 0.75,
+      "h": 0.42
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.15,
+      1.6,
+      0.3
+     ],
+     "to": [
+      1.15,
+      1.6,
+      0.05
+     ],
+     "lookAt": [
+      1.963,
+      1.013,
+      -9.65
+     ],
+     "lens": 45,
+     "ease": "linear",
+     "lookAt2": [
+      1.963,
+      1.013,
+      -9.9
+     ]
+    }
+   ],
+   "start": 13.8,
+   "duration": 1.8,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S12",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt12",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "plaque12",
+     "name": "bronzePlaque",
+     "pos": [
+      0.83,
+      0.82,
+      -2.96
+     ],
+     "scale": 0.8,
+     "opts": {
+      "text": "MONUMENT/HISTORIQUE"
+     }
+    },
+    {
+     "id": "spot12",
+     "name": "lightCone",
+     "pos": [
+      0.83,
+      3.3,
+      -2.55
+     ],
+     "opts": {
+      "h": 2.3,
+      "r": 0.42
+     }
+    },
+    {
+     "id": "cordon12",
+     "name": "stanchions",
+     "pos": [
+      0.83,
+      0,
+      -2.25
+     ],
+     "opts": {
+      "w": 1.0
+     }
+    },
+    {
+     "id": "fauteuil12",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.559,
+      1.25,
+      -0.953
+     ],
+     "to": [
+      0.559,
+      1.25,
+      -0.953
+     ],
+     "lookAt": [
+      2.484,
+      -0.329,
+      -10.638
+     ],
+     "lens": 49,
+     "ease": "linear",
+     "lookAt2": [
+      2.484,
+      -0.329,
+      -10.638
+     ]
+    }
+   ],
+   "start": 15.6,
+   "duration": 1.0333,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S13",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.02,
+         0.98,
+         1.02
+        ]
+       },
+       "toonDur": 0.3
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.0,
+         1.0,
+         1.0
+        ]
+       },
+       "toonDur": 0.3
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt13",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "plaque13",
+     "name": "bronzePlaque",
+     "pos": [
+      0.83,
+      0.82,
+      -2.96
+     ],
+     "scale": 0.8,
+     "opts": {
+      "text": "MONUMENT/HISTORIQUE"
+     }
+    },
+    {
+     "id": "spot13",
+     "name": "lightCone",
+     "pos": [
+      0.83,
+      3.3,
+      -2.55
+     ],
+     "opts": {
+      "h": 2.3,
+      "r": 0.42
+     }
+    },
+    {
+     "id": "cordon13",
+     "name": "stanchions",
+     "pos": [
+      0.83,
+      0,
+      -2.25
+     ],
+     "opts": {
+      "w": 1.0
+     }
+    },
+    {
+     "id": "fauteuil13",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe13",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun13",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne13",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    },
+    {
+     "id": "toile13a",
+     "name": "cobweb",
+     "pos": [
+      1.88,
+      1.25,
+      -2.8
+     ],
+     "ry": -90,
+     "opts": {
+      "s": 0.42
+     }
+    },
+    {
+     "id": "toile13b",
+     "name": "cobweb",
+     "pos": [
+      0.55,
+      2.1,
+      -2.92
+     ],
+     "opts": {
+      "s": 0.38
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -0.44,
+      1.8,
+      2.08
+     ],
+     "to": [
+      -0.44,
+      1.8,
+      2.08
+     ],
+     "lookAt": [
+      2.309,
+      0.808,
+      -7.483
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      2.309,
+      0.808,
+      -7.483
+     ]
+    }
+   ],
+   "start": 16.6333,
+   "duration": 1.3,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S14",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.55,
+        1.3,
+        -1.75
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.7,
+       "toon": {
+        "reach": {
+         "R": [
+          0.95,
+          1.25,
+          -2.1,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.3,
+         "mouth": "line",
+         "brow": -0.7
+        }
+       },
+       "toonDur": 0.12,
+       "toonEase": "out"
+      },
+      {
+       "at": 1.1,
+       "toon": {
+        "reach": {
+         "R": [
+          1.25,
+          0.9,
+          -2.2,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.25
+      },
+      {
+       "at": 1.25,
+       "look": "camera"
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "maitresse",
+     "pos": [
+      -0.85,
+      0,
+      -1.9
+     ],
+     "ry": 60,
+     "clip": "point",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ]
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "eleve1",
+     "pos": [
+      0.55,
+      0,
+      -1.75
+     ],
+     "ry": 150,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ]
+      },
+      {
+       "at": 0.5,
+       "toon": {
+        "reach": {
+         "R": [
+          0.9,
+          1.1,
+          -2.6,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "point"
+        }
+       },
+       "toonDur": 0.3,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.9,
+       "toon": {
+        "reach": {
+         "R": [
+          0.75,
+          0.95,
+          -2.2,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "open"
+        },
+        "sq": [
+         0.96,
+         1.05,
+         0.96
+        ],
+        "face": {
+         "lid": 0.0,
+         "eye": 0.4,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "eleve2",
+     "pos": [
+      0.05,
+      0,
+      -1.35
+     ],
+     "ry": 160,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ]
+      },
+      {
+       "at": 0.5,
+       "look": [
+        0.55,
+        1.4,
+        -1.75
+       ],
+       "lookDur": 0.2
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "happy"
+    },
+    {
+     "id": "eleve3",
+     "pos": [
+      -0.45,
+      0,
+      -1.05
+     ],
+     "ry": 160,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.83,
+        1.12,
+        -2.93
+       ]
+      },
+      {
+       "at": 0.7,
+       "look": [
+        0.55,
+        1.4,
+        -1.75
+       ],
+       "lookDur": 0.2
+      },
+      {
+       "at": 1.0,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "mouth": "O"
+        }
+       },
+       "toonDur": 0.08
+      }
+     ],
+     "expr": "happy"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt14",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "plaque14",
+     "name": "bronzePlaque",
+     "pos": [
+      0.83,
+      0.82,
+      -2.96
+     ],
+     "scale": 0.8,
+     "opts": {
+      "text": "MONUMENT/HISTORIQUE"
+     }
+    },
+    {
+     "id": "cordon14",
+     "name": "stanchions",
+     "pos": [
+      0.83,
+      0,
+      -2.25
+     ],
+     "opts": {
+      "w": 1.0
+     }
+    },
+    {
+     "id": "fauteuil14",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe14",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun14",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne14",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      3.296,
+      1.55,
+      1.718
+     ],
+     "to": [
+      3.296,
+      1.55,
+      1.718
+     ],
+     "lookAt": [
+      -2.911,
+      0.193,
+      -6.004
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      -2.911,
+      0.193,
+      -6.004
+     ]
+    }
+   ],
+   "start": 17.9333,
+   "duration": 1.7667,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "6"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S15",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.5,
+        1.0,
+        -1.0
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.4,
+       "look": [
+        0.0,
+        2.4,
+        -2.94
+       ],
+       "lookDur": 0.08
+      },
+      {
+       "at": 0.43,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         0.95,
+         1.08,
+         0.95
+        ]
+       },
+       "toonDur": 0.06,
+       "toonEase": "out"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt15",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "fauteuil15",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe15",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8",
+      "swing": [
+       0.43,
+       0.85,
+       0.25
+      ],
+      "whip": true
+     }
+    },
+    {
+     "id": "lun15",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne15",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.085,
+      1.3,
+      -0.679
+     ],
+     "to": [
+      -1.085,
+      1.3,
+      -0.679
+     ],
+     "lookAt": [
+      5.289,
+      3.293,
+      -8.122
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      5.289,
+      3.293,
+      -8.122
+     ]
+    }
+   ],
+   "start": 19.7,
+   "duration": 1.0333,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "2"
+     ],
+     [
+      0.18,
+      "1"
+     ],
+     [
+      0.35,
+      "RC"
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S16",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": -15,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        1.5,
+        -2.94
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.2,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.28,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.36,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.44,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.52,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.68,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.76,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.84,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         0.99,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      },
+      {
+       "at": 0.92,
+       "toon": {
+        "face": {
+         "lid": 0.0,
+         "eye": 0.45,
+         "mouth": "O",
+         "brow": 1.0
+        },
+        "sq": [
+         1.0,
+         1.01,
+         1.0
+        ]
+       },
+       "toonDur": 0.04
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "bt16",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "fauteuil16",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "barbe16",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8",
+      "swing": [
+       0.2,
+       1.0,
+       0.12
+      ],
+      "whip": true
+     }
+    },
+    {
+     "id": "lun16",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne16",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    },
+    {
+     "id": "lumiere16",
+     "name": "lightCone",
+     "pos": [
+      0.0,
+      2.1,
+      -3.19
+     ],
+     "rot": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "opts": {
+      "h": 2.1,
+      "r": 0.6,
+      "opacity": 0.16
+     },
+     "ry": 0.0
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.0,
+      1.55,
+      2.6
+     ],
+     "to": [
+      1.0,
+      1.55,
+      2.3
+     ],
+     "lookAt": [
+      0.089,
+      0.213,
+      -7.268
+     ],
+     "lens": 50,
+     "ease": "linear",
+     "lookAt2": [
+      0.089,
+      0.213,
+      -7.568
+     ]
+    }
+   ],
+   "start": 20.7333,
+   "duration": 1.0,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "RC"
+     ]
+    ],
+    "doors": [
+     [
+      0.0,
+      0.0
+     ],
+     [
+      0.15,
+      0.0
+     ],
+     [
+      0.85,
+      1.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S17",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "autre",
+     "pos": [
+      0.0,
+      0,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.55,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.75,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.1,
+       "look": [
+        1.45,
+        2.0,
+        -2.42
+       ],
+       "lookDur": 0.4
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fauteuil17",
+     "name": "armchair",
+     "pos": [
+      0.0,
+      0,
+      -2.38
+     ],
+     "opts": {
+      "color": "#3F6E8C"
+     }
+    },
+    {
+     "id": "barbe17",
+     "name": "beardHair",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun17",
+     "name": "glasses",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "plaid17",
+     "name": "blanketDrape",
+     "pos": [
+      0.0,
+      0.72,
+      -1.92
+     ],
+     "opts": {
+      "w": 0.75,
+      "h": 0.42
+     }
+    },
+    {
+     "id": "toile17",
+     "name": "cobweb",
+     "pos": [
+      -0.55,
+      2.1,
+      -2.92
+     ],
+     "ry": 180,
+     "opts": {
+      "s": 0.42
+     }
+    },
+    {
+     "id": "lumiere17",
+     "name": "lightCone",
+     "pos": [
+      0.0,
+      2.1,
+      -3.19
+     ],
+     "opts": {
+      "h": 2.1,
+      "r": 0.6,
+      "opacity": 0.16
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.495,
+      1.5,
+      1.187
+     ],
+     "to": [
+      0.495,
+      1.5,
+      0.987
+     ],
+     "lookAt": [
+      -0.656,
+      -0.139,
+      -8.61
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      -0.656,
+      -0.139,
+      -8.81
+     ]
+    }
+   ],
+   "start": 21.7333,
+   "duration": 1.8667,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "RC"
+     ]
+    ],
+    "doors": [
+     [
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S18",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "autre",
+     "pos": [
+      0.0,
+      0,
+      -2.3
+     ],
+     "ry": 0,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        -0.42,
+        1.2,
+        -2.75
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.41,
+          1.0,
+          -2.71,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "point"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.8,
+       "toon": {
+        "reach": {
+         "L": [
+          -0.3,
+          1.08,
+          -2.5,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "point"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.4,
+       "toonEase": "inOut"
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fauteuil18",
+     "name": "armchair",
+     "pos": [
+      0.0,
+      0,
+      -2.38
+     ],
+     "opts": {
+      "color": "#3F6E8C"
+     }
+    },
+    {
+     "id": "barbe18",
+     "name": "beardHair",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun18",
+     "name": "glasses",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "panneau18",
+     "name": "liftPanel",
+     "pos": [
+      -0.42,
+      1.2,
+      -2.75
+     ],
+     "ry": 90,
+     "opts": {
+      "lit": "RC",
+      "dusty": true
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      1.073,
+      1.15,
+      -0.496
+     ],
+     "to": [
+      1.073,
+      1.15,
+      -0.496
+     ],
+     "lookAt": [
+      -4.328,
+      2.152,
+      -8.853
+     ],
+     "lens": 54,
+     "ease": "linear",
+     "lookAt2": [
+      -4.328,
+      2.152,
+      -8.853
+     ]
+    }
+   ],
+   "start": 23.6,
+   "duration": 1.2,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "RC"
+     ]
+    ],
+    "doors": [
+     [
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S19",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      1.45,
+      0,
+      -2.42
+     ],
+     "ry": -60,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        0.0,
+        2.0,
+        -2.38
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.6,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.72,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "autre",
+     "pos": [
+      0.0,
+      0,
+      -2.3
+     ],
+     "ry": 40,
+     "clip": "sit",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": [
+        1.45,
+        2.0,
+        -2.42
+       ]
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.66,
+       "toon": {
+        "face": {
+         "lid": 1.0,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.1
+      },
+      {
+       "at": 0.78,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        }
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "fauteuil19a",
+     "name": "armchair",
+     "pos": [
+      1.45,
+      0,
+      -2.5
+     ],
+     "ry": -60,
+     "opts": {
+      "color": "#B5523A"
+     }
+    },
+    {
+     "id": "fauteuil19b",
+     "name": "armchair",
+     "pos": [
+      0.0,
+      0,
+      -2.38
+     ],
+     "ry": 40,
+     "opts": {
+      "color": "#3F6E8C"
+     }
+    },
+    {
+     "id": "barbe19a",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun19a",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "barbe19b",
+     "name": "beardHair",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun19b",
+     "name": "glasses",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "bt19",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.75,
+      2.4,
+      0.5
+     ],
+     "to": [
+      0.75,
+      2.4,
+      0.5
+     ],
+     "lookAt": [
+      0.646,
+      -0.495,
+      -9.071
+     ],
+     "lens": 57,
+     "ease": "linear",
+     "lookAt2": [
+      0.646,
+      -0.495,
+      -9.071
+     ]
+    }
+   ],
+   "start": 24.8,
+   "duration": 1.2,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "RC"
+     ]
+    ],
+    "doors": [
+     [
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S20",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      0.75,
+      0,
+      -1.55
+     ],
+     "ry": -10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.25,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.25,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.19,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.59,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.31,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.19,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.31,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.01,
+       "toon": {
+        "reach": {
+         "R": [
+          0.3,
+          1.19,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "R": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "autre",
+     "pos": [
+      -0.15,
+      0,
+      -1.55
+     ],
+     "ry": 10,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "look": "camera"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.0
+      },
+      {
+       "at": 0.15,
+       "toon": {
+        "reach": {
+         "L": [
+          0.3,
+          1.25,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.25,
+       "toonEase": "out"
+      },
+      {
+       "at": 0.45,
+       "toon": {
+        "reach": {
+         "L": [
+          0.3,
+          1.19,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.59,
+       "toon": {
+        "reach": {
+         "L": [
+          0.3,
+          1.31,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.73,
+       "toon": {
+        "reach": {
+         "L": [
+          0.3,
+          1.19,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 0.87,
+       "toon": {
+        "reach": {
+         "L": [
+          0.3,
+          1.31,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      },
+      {
+       "at": 1.01,
+       "toon": {
+        "reach": {
+         "L": [
+          0.3,
+          1.19,
+          -1.35,
+          1,
+          0.04
+         ]
+        },
+        "hands": {
+         "L": "grip"
+        },
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.12
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "barbe20a",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun20a",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne20",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "L",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    },
+    {
+     "id": "barbe20b",
+     "name": "beardHair",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun20b",
+     "name": "glasses",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "bt20",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    },
+    {
+     "id": "flash20",
+     "name": "flashBursts",
+     "pos": [
+      0.3,
+      1.8,
+      1.2
+     ],
+     "opts": {
+      "n": 1,
+      "w": 1.2,
+      "h": 1.2,
+      "at": [
+       0.9
+      ]
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      0.3,
+      1.2,
+      1.2
+     ],
+     "to": [
+      0.3,
+      1.2,
+      1.2
+     ],
+     "lookAt": [
+      0.3,
+      2.283,
+      -8.741
+     ],
+     "lens": 52,
+     "ease": "linear",
+     "lookAt2": [
+      0.3,
+      2.283,
+      -8.741
+     ]
+    }
+   ],
+   "start": 26.0,
+   "duration": 1.4667,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "RC"
+     ]
+    ],
+    "doors": [
+     [
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "grade": "none",
+   "soften": 0.3
+  },
+  {
+   "id": "S21",
+   "set": "immeubleHall",
+   "lines": [],
+   "actors": [
+    {
+     "id": "mec",
+     "pos": [
+      2.3,
+      0,
+      -0.1
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.0,
+       "to": [
+        2.3,
+        0.2,
+        -0.38
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 0.42,
+       "to": [
+        2.3,
+        0.4,
+        -0.66
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 0.84,
+       "to": [
+        2.3,
+        0.6,
+        -0.94
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 1.26,
+       "to": [
+        2.3,
+        0.8,
+        -1.22
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 1.68,
+       "to": [
+        2.3,
+        1.0,
+        -1.5
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 1.633,
+       "look": "camera",
+       "lookDur": 0.3
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    },
+    {
+     "id": "autre",
+     "pos": [
+      2.8,
+      0,
+      0.4
+     ],
+     "ry": 180,
+     "clip": "stand",
+     "keys": [
+      {
+       "at": 0.3,
+       "to": [
+        2.8,
+        0.2,
+        0.12
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 0.72,
+       "to": [
+        2.8,
+        0.4,
+        -0.16
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 1.14,
+       "to": [
+        2.8,
+        0.6,
+        -0.44
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 1.56,
+       "to": [
+        2.8,
+        0.8,
+        -0.72
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 1.98,
+       "to": [
+        2.8,
+        1.0,
+        -1.0
+       ],
+       "dur": 0.336,
+       "ease": "inOut",
+       "clip": "walk",
+       "face": "keep"
+      },
+      {
+       "at": 0.0,
+       "toon": {
+        "face": {
+         "lid": 0.55,
+         "mouth": "line"
+        },
+        "sq": [
+         1.03,
+         0.95,
+         1.03
+        ]
+       },
+       "toonDur": 0.0
+      }
+     ],
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "id": "escalier21",
+     "name": "stairs",
+     "pos": [
+      2.55,
+      0,
+      -0.35
+     ],
+     "opts": {
+      "steps": 9,
+      "w": 1.1
+     }
+    },
+    {
+     "id": "barbe21a",
+     "name": "beardHair",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun21a",
+     "name": "glasses",
+     "on": {
+      "actor": "mec",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne21a",
+     "name": "slab",
+     "on": {
+      "actor": "mec",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    },
+    {
+     "id": "barbe21b",
+     "name": "beardHair",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.0,
+       0.02,
+       0.1
+      ]
+     },
+     "scale": 1.25,
+     "opts": {
+      "len": 0.95,
+      "coil": 0.0,
+      "color": "#E4E0D8"
+     }
+    },
+    {
+     "id": "lun21b",
+     "name": "glasses",
+     "on": {
+      "actor": "autre",
+      "joint": "head",
+      "offset": [
+       0.02,
+       0.17,
+       0.15
+      ]
+     },
+     "opts": {
+      "r": 0.042,
+      "dx": 0.07
+     }
+    },
+    {
+     "id": "canne21b",
+     "name": "slab",
+     "on": {
+      "actor": "autre",
+      "hand": "R",
+      "offset": [
+       0.0,
+       -0.45,
+       0.04
+      ]
+     },
+     "opts": {
+      "w": 0.03,
+      "h": 0.95,
+      "d": 0.03,
+      "color": "#6B4A2E"
+     }
+    },
+    {
+     "id": "bt21",
+     "name": "callButton",
+     "pos": [
+      0.83,
+      1.12,
+      -2.93
+     ],
+     "opts": {
+      "litAfter": 0.0
+     }
+    }
+   ],
+   "sfx": [],
+   "cams": [
+    {
+     "at": 0.0,
+     "from": [
+      -1.67,
+      1.9,
+      6.269
+     ],
+     "to": [
+      -1.67,
+      1.9,
+      6.269
+     ],
+     "lookAt": [
+      2.056,
+      1.038,
+      -2.971
+     ],
+     "lens": 59,
+     "ease": "linear",
+     "lookAt2": [
+      2.056,
+      1.038,
+      -2.971
+     ]
+    }
+   ],
+   "start": 27.4667,
+   "duration": 2.2333,
+   "setOpts": {
+    "notice": "SYNDIC",
+    "floor": [
+     [
+      0.0,
+      "RC"
+     ]
+    ],
+    "doors": [
+     [
+      0.0,
+      1.0
+     ],
+     [
+      0.6,
+      1.0
+     ],
+     [
+      1.3,
+      0.0
+     ]
+    ],
+    "plant": false
+   },
+   "grade": "none",
+   "soften": 0.3
+  }
+ ],
+ "total": 29.7,
+ "look": "natural",
+ "gags": [
+  {
+   "t": 3.65,
+   "who": "mec",
+   "name": "display",
+   "sid": "S03"
+  },
+  {
+   "t": 8.95,
+   "who": "mec",
+   "name": "chair",
+   "sid": "S07"
+  },
+  {
+   "t": 18.833,
+   "who": "mec",
+   "name": "stick",
+   "sid": "S14"
+  },
+  {
+   "t": 21.233,
+   "who": "mec",
+   "name": "doors",
+   "sid": "S16"
+  },
+  {
+   "t": 22.333,
+   "who": "autre",
+   "name": "twin",
+   "sid": "S17"
+  },
+  {
+   "t": 28.067,
+   "who": "mec",
+   "name": "stairs",
+   "sid": "S21"
+  }
+ ],
+ "cardTimes": [
+  10.733,
+  15.95
+ ],
+ "rig": "toon",
+ "fingers": true,
+ "cloth": true,
+ "idleShift": 1.6,
+ "holdLife": 1,
+ "limbSmear": 1,
+ "follow": 1,
+ "pupil": 0.5,
+ "hairRest": 0.07,
+ "debugJoints": [
+  "mec"
+ ]
+}
