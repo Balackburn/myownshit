@@ -24,8 +24,9 @@ function frostTex() {
     g.beginPath(); g.moveTo(x, y); g.lineTo(x + (hash(i + 11) - 0.5) * l * 0.6, y + l); g.stroke(); }
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
 }
-function burstTex() {   // a frost star: white crystals out from a point, pale blue tips
+function burstTex(ink) {   // a frost star: white crystals out from a point, pale blue tips; (review 2 of 64) ink: drawn over a dark blue copy of itself (white on the white frost it vanished)
   const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); g.translate(128, 128); g.lineCap = 'round';
+  if (ink) { g.strokeStyle = 'rgba(28,52,96,0.95)'; for (let i = 0; i < 14; i++) { const a = i / 14 * 2 * PI + 0.2 * hash(i), L = 70 + 50 * hash(i + 20); g.lineWidth = 15; g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a) * L, Math.sin(a) * L); g.stroke(); } g.fillStyle = 'rgba(28,52,96,0.95)'; g.beginPath(); g.arc(0, 0, 33, 0, 2 * PI); g.fill(); }
   for (let i = 0; i < 14; i++) { const a = i / 14 * 2 * PI + 0.2 * hash(i), L = 70 + 50 * hash(i + 20); g.strokeStyle = 'rgba(255,255,255,0.95)'; g.lineWidth = 7;
     g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a) * L, Math.sin(a) * L); g.stroke();
     for (const f of [0.45, 0.7]) { const bx = Math.cos(a) * L * f, by = Math.sin(a) * L * f; g.lineWidth = 4; g.strokeStyle = 'rgba(200,232,255,0.95)';
@@ -55,7 +56,7 @@ export const LANGUE_PROPS = {
     const drops = ics.map((c, i) => { const d = new THREE.Mesh(new THREE.SphereGeometry(0.014, 6, 4), new THREE.MeshLambertMaterial({ color: '#BFE6FF', transparent: true, opacity: 0.9 })); d.visible = false; g.add(d); return d; });
     let star = null, starDrop = null;
     if (o.lick) { const [ly, la] = o.lick, a = la * PI / 180, rr = rAt(ly) + 0.018;
-      star = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.34), new THREE.MeshBasicMaterial({ map: burstTex(), transparent: true, depthWrite: false }));
+      star = new THREE.Mesh(new THREE.PlaneGeometry(o.starSize ?? 0.34, o.starSize ?? 0.34), new THREE.MeshBasicMaterial({ map: burstTex(!!o.starInk), transparent: true, depthWrite: false }));   // (review 2 of 64) o.starInk, o.starSize
       star.position.set(Math.sin(a) * rr, ly, Math.cos(a) * rr); star.rotation.y = a; g.add(star);
       starDrop = new THREE.Mesh(new THREE.SphereGeometry(0.016, 6, 4), new THREE.MeshLambertMaterial({ color: '#BFE6FF', transparent: true, opacity: 0.9 })); starDrop.visible = false; g.add(starDrop); starDrop.userData.p = star.position.clone(); }
     const puddle = new THREE.Mesh(new THREE.CircleGeometry(1, 18), new THREE.MeshLambertMaterial({ color: '#A8C6D8', transparent: true, opacity: 0.6, depthWrite: false })); puddle.rotation.x = -PI / 2; puddle.position.y = 0.012; puddle.visible = false; g.add(puddle);

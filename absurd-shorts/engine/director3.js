@@ -952,7 +952,8 @@ function placeTetherExtras(td, ex, curve, t, endU, R) {
       // (pass 2 of 64) td.reel: the cord runs back like a tape measure into its case: everything on it slides toward the a end from the first frame and goes in
       // there (a bulb that reaches the mouth is swallowed); without it the bulbs stay put and bunch on the running end (in a close frame nothing moved until
       // the end came by, four frames from the end)
-      const rl = td.reel && endU < 1, up = rl ? e.u - (1 - endU) : e.u; if (rl && up < 0.012) { e.g.visible = false; continue; }
+      const rl = td.reel && endU < 1, u0 = rl ? e.u - (1 - endU) : e.u; if (rl && u0 < -0.16) { e.g.visible = false; continue; }
+      const up = rl && u0 < 0.06 ? 0.014 + 0.046 * Math.max(0, (u0 + 0.16) / 0.22) : u0;   // (review 2 of 64) at the lips they clack into a cluster before they go in (evenly spaced to the end, the reel read as a slide)
       const over = !rl && e.u > endU; at01(over ? 1 : up / endU); e.g.position.copy(_xp); e.g.position.y -= R + drop;
       if (over) { const j = Math.min(1, (e.u - endU) * 5); e.g.position.x += 0.09 * j * Math.sin(e.k * 2.1); e.g.position.y += 0.09 * j * Math.cos(e.k * 1.7); e.g.position.z += 0.09 * j * Math.sin(e.k * 3.3); e.g.rotation.set(j * Math.sin(e.k), 0, j * Math.cos(e.k * 1.3)); }
       else e.g.rotation.set(0, 0, 0);

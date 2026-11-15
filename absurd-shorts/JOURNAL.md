@@ -2609,3 +2609,15 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Vingt et une répliques, 39,6 s, un plan par réplique. L'escalade passe par la mairie, la plainte des canards, le juge, l'appel, l'armée et le gouvernement ; accord historique, puis aparté sec.
   - Plan écrit : animalerie, bocal qui déborde, baignoire, piscine, panneau, lac, pédalos, gendarmerie, tribunal, tribunal avalé, chars et avions, jetée, côte, rappel final.
   - Contrôles : les canards sonnaient faux, le caquètement de la banque de sons les remplace. Le héros de profil (tête-boîte) a été tourné de trois quarts.
+- 64 « La langue », revue 2 : animation 7,1, direction artistique 6,4. Passe 3 :
+  - Accroche (S01) : il se penche dès 0,3 s ; deux images après le TSK, les yeux jaillissent ; il tire, le cou s'étire, il revient claquer contre le poteau ; six images de regard impassible vers nous. L'étoile de givre est cerclée de bleu foncé et tournée vers les caméras (blanche sur le poteau blanc, vue par la tranche, elle ne se voyait jamais).
+  - S02 : la tête aplatie se regonfle en trois images au-delà du rond, puis rebondit ; SPLAT contre le poteau, à côté du visage.
+  - S03 : le second pompier arrête de tirer sur « deux heures », relève la tête, se tourne vers nous et cligne des yeux.
+  - S04 : la chute arrive plus tôt ; l'atterrissage écrasé tient six images, puis étirement, retour au repos et clignement ; toit du bus gris (blanc comme la neige) ; caméra plus basse, de la place à droite de lui.
+  - S05 : l'ouvrier est dans le cadre dès la première image ; ampoules 1,6 fois plus grosses ; les yeux roulent vers le haut à chaque cran.
+  - S06 : vrai crépuscule (ciel indigo et orange, soleil bas) au lieu de la nuit étoilée ; le bouton passe à sa main droite, l'index levé contre le ciel pendant douze images, puis l'appui sur le dôme, hors de sa veste grise ; CLIC au bouton ; plus de lampadaire derrière sa tête.
+  - Nuits (S07, S11) : un tiers de la lumière ambiante (les murs n'étaient que 6 à 10 % plus sombres que de jour).
+  - S08 : soleil bas et chaud du dégel ; deux secousses, une traction, puis la pointe se décolle vite, avec dix images avant la coupe.
+  - S09 : caméra rapprochée de trois quarts (le recul automatique l'avait reculée de 3,75 m : il ne faisait que 30 % de l'image) ; grimace d'attente, joues pleines au maximum, recul en 3-4 images avec la tête droite tournée vers nous, bras écartés loin du visage, tremblement, puis il se redresse d'un coup au-delà de la verticale pendant que les joues dégonflent d'un cran, et cligne des yeux (il restait figé 0,7 s).
+  - S10 : plus de bosse sur la poitrine ; les yeux se croisent franchement pendant sept images.
+  - Jour : soleil blanc (la neige mesurait (240, 212, 190) sous le soleil chaud par défaut).
