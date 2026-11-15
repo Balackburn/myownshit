@@ -1,0 +1,697 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec s'est rasé la moustache.",
+   "hl": [
+    "rasé",
+    "moustache."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.86,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.34,
+     "e": 0.58
+    },
+    {
+     "w": "s'est",
+     "s": 0.62,
+     "e": 0.74
+    },
+    {
+     "w": "rasé",
+     "s": 0.86,
+     "e": 1.06
+    },
+    {
+     "w": "la",
+     "s": 1.1,
+     "e": 1.14
+    },
+    {
+     "w": "moustache.",
+     "s": 1.22,
+     "e": 1.86
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "La moustache est partie toute seule.",
+   "hl": [
+    "partie",
+    "seule."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L02.mp3",
+   "file_start": 1.96,
+   "speech_start": 1.96,
+   "speech_end": 3.88,
+   "words": [
+    {
+     "w": "La",
+     "s": 1.96,
+     "e": 2.04
+    },
+    {
+     "w": "moustache",
+     "s": 2.08,
+     "e": 2.52
+    },
+    {
+     "w": "est",
+     "s": 2.6,
+     "e": 2.68
+    },
+    {
+     "w": "partie",
+     "s": 2.76,
+     "e": 2.92
+    },
+    {
+     "w": "toute",
+     "s": 3.0,
+     "e": 3.16
+    },
+    {
+     "w": "seule.",
+     "s": 3.24,
+     "e": 3.88
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Elle a pris le bus.",
+   "hl": [
+    "bus."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L03.mp3",
+   "file_start": 3.98,
+   "speech_start": 3.98,
+   "speech_end": 5.1,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 3.98,
+     "e": 4.1
+    },
+    {
+     "w": "a",
+     "s": 4.14,
+     "e": 4.18
+    },
+    {
+     "w": "pris",
+     "s": 4.22,
+     "e": 4.34
+    },
+    {
+     "w": "le",
+     "s": 4.38,
+     "e": 4.46
+    },
+    {
+     "w": "bus.",
+     "s": 4.66,
+     "e": 5.1
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Elle a trouvé un appartement.",
+   "hl": [
+    "appartement."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L04.mp3",
+   "file_start": 5.2,
+   "speech_start": 5.2,
+   "speech_end": 6.72,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 5.2,
+     "e": 5.307
+    },
+    {
+     "w": "a",
+     "s": 5.333,
+     "e": 5.36
+    },
+    {
+     "w": "trouvé",
+     "s": 5.4,
+     "e": 5.68
+    },
+    {
+     "w": "un",
+     "s": 5.72,
+     "e": 5.76
+    },
+    {
+     "w": "appartement.",
+     "s": 5.84,
+     "e": 6.72
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Et un travail à la banque.",
+   "hl": [
+    "banque."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L05.mp3",
+   "file_start": 6.82,
+   "speech_start": 6.82,
+   "speech_end": 8.26,
+   "words": [
+    {
+     "w": "Et",
+     "s": 6.82,
+     "e": 6.9
+    },
+    {
+     "w": "un",
+     "s": 6.98,
+     "e": 7.06
+    },
+    {
+     "w": "travail",
+     "s": 7.1,
+     "e": 7.38
+    },
+    {
+     "w": "à",
+     "s": 7.46,
+     "e": 7.487
+    },
+    {
+     "w": "la",
+     "s": 7.513,
+     "e": 7.54
+    },
+    {
+     "w": "banque.",
+     "s": 7.62,
+     "e": 8.26
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les impôts lui ont envoyé une facture.",
+   "hl": [
+    "impôts"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L06.mp3",
+   "file_start": 8.36,
+   "speech_start": 8.36,
+   "speech_end": 10.52,
+   "words": [
+    {
+     "w": "Les",
+     "s": 8.36,
+     "e": 8.52
+    },
+    {
+     "w": "impôts",
+     "s": 8.6,
+     "e": 8.88
+    },
+    {
+     "w": "lui",
+     "s": 8.92,
+     "e": 9.0
+    },
+    {
+     "w": "ont",
+     "s": 9.08,
+     "e": 9.16
+    },
+    {
+     "w": "envoyé",
+     "s": 9.24,
+     "e": 9.533
+    },
+    {
+     "w": "une",
+     "s": 9.587,
+     "e": 9.64
+    },
+    {
+     "w": "facture.",
+     "s": 9.8,
+     "e": 10.52
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Elle l'a payée.",
+   "hl": [
+    "payée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L07.mp3",
+   "file_start": 10.62,
+   "speech_start": 10.62,
+   "speech_end": 11.66,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 10.62,
+     "e": 10.74
+    },
+    {
+     "w": "l'a",
+     "s": 10.78,
+     "e": 10.94
+    },
+    {
+     "w": "payée.",
+     "s": 11.06,
+     "e": 11.66
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Elle s'est présentée à la mairie.",
+   "hl": [
+    "mairie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L08.mp3",
+   "file_start": 11.76,
+   "speech_start": 11.76,
+   "speech_end": 13.28,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 11.76,
+     "e": 11.88
+    },
+    {
+     "w": "s'est",
+     "s": 11.92,
+     "e": 12.0
+    },
+    {
+     "w": "présentée",
+     "s": 12.08,
+     "e": 12.48
+    },
+    {
+     "w": "à",
+     "s": 12.507,
+     "e": 12.533
+    },
+    {
+     "w": "la",
+     "s": 12.56,
+     "e": 12.64
+    },
+    {
+     "w": "mairie.",
+     "s": 12.68,
+     "e": 13.28
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Elle a gagné, avec soixante pour cent.",
+   "hl": [
+    "gagné,",
+    "soixante"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L09.mp3",
+   "file_start": 13.38,
+   "speech_start": 13.38,
+   "speech_end": 15.54,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 13.38,
+     "e": 13.46
+    },
+    {
+     "w": "a",
+     "s": 13.5,
+     "e": 13.54
+    },
+    {
+     "w": "gagné,",
+     "s": 13.62,
+     "e": 14.18
+    },
+    {
+     "w": "avec",
+     "s": 14.3,
+     "e": 14.42
+    },
+    {
+     "w": "soixante",
+     "s": 14.5,
+     "e": 14.82
+    },
+    {
+     "w": "pour",
+     "s": 14.9,
+     "e": 14.98
+    },
+    {
+     "w": "cent.",
+     "s": 15.06,
+     "e": 15.54
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Le mec a voulu la récupérer.",
+   "hl": [
+    "récupérer."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L10.mp3",
+   "file_start": 15.64,
+   "speech_start": 15.64,
+   "speech_end": 17.32,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.64,
+     "e": 15.72
+    },
+    {
+     "w": "mec",
+     "s": 15.8,
+     "e": 15.96
+    },
+    {
+     "w": "a",
+     "s": 16.0,
+     "e": 16.04
+    },
+    {
+     "w": "voulu",
+     "s": 16.08,
+     "e": 16.28
+    },
+    {
+     "w": "la",
+     "s": 16.32,
+     "e": 16.36
+    },
+    {
+     "w": "récupérer.",
+     "s": 16.4,
+     "e": 17.32
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Elle a porté plainte.",
+   "hl": [
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L11.mp3",
+   "file_start": 17.42,
+   "speech_start": 17.42,
+   "speech_end": 18.62,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 17.42,
+     "e": 17.5
+    },
+    {
+     "w": "a",
+     "s": 17.54,
+     "e": 17.58
+    },
+    {
+     "w": "porté",
+     "s": 17.7,
+     "e": 17.9
+    },
+    {
+     "w": "plainte.",
+     "s": 18.06,
+     "e": 18.62
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le juge l'a condamné à rester rasé.",
+   "hl": [
+    "condamné",
+    "rasé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L12.mp3",
+   "file_start": 18.72,
+   "speech_start": 18.72,
+   "speech_end": 20.72,
+   "words": [
+    {
+     "w": "Le",
+     "s": 18.72,
+     "e": 18.8
+    },
+    {
+     "w": "juge",
+     "s": 18.88,
+     "e": 19.12
+    },
+    {
+     "w": "l'a",
+     "s": 19.173,
+     "e": 19.28
+    },
+    {
+     "w": "condamné",
+     "s": 19.36,
+     "e": 19.68
+    },
+    {
+     "w": "à",
+     "s": 19.72,
+     "e": 19.76
+    },
+    {
+     "w": "rester",
+     "s": 19.8,
+     "e": 20.08
+    },
+    {
+     "w": "rasé.",
+     "s": 20.2,
+     "e": 20.72
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "La moustache est devenue ministre.",
+   "hl": [
+    "ministre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L13.mp3",
+   "file_start": 20.82,
+   "speech_start": 20.82,
+   "speech_end": 22.66,
+   "words": [
+    {
+     "w": "La",
+     "s": 20.82,
+     "e": 20.9
+    },
+    {
+     "w": "moustache",
+     "s": 20.98,
+     "e": 21.38
+    },
+    {
+     "w": "est",
+     "s": 21.42,
+     "e": 21.46
+    },
+    {
+     "w": "devenue",
+     "s": 21.54,
+     "e": 21.78
+    },
+    {
+     "w": "ministre.",
+     "s": 21.9,
+     "e": 22.66
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Puis présidente.",
+   "hl": [
+    "présidente."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L14.mp3",
+   "file_start": 22.76,
+   "speech_start": 22.76,
+   "speech_end": 23.96,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 22.76,
+     "e": 22.92
+    },
+    {
+     "w": "présidente.",
+     "s": 23.08,
+     "e": 23.96
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le mec a postulé pour être son assistant.",
+   "hl": [
+    "assistant."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L15.mp3",
+   "file_start": 24.06,
+   "speech_start": 24.06,
+   "speech_end": 26.38,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.06,
+     "e": 24.14
+    },
+    {
+     "w": "mec",
+     "s": 24.22,
+     "e": 24.38
+    },
+    {
+     "w": "a",
+     "s": 24.42,
+     "e": 24.46
+    },
+    {
+     "w": "postulé",
+     "s": 24.62,
+     "e": 24.94
+    },
+    {
+     "w": "pour",
+     "s": 25.02,
+     "e": 25.1
+    },
+    {
+     "w": "être",
+     "s": 25.18,
+     "e": 25.34
+    },
+    {
+     "w": "son",
+     "s": 25.42,
+     "e": 25.5
+    },
+    {
+     "w": "assistant.",
+     "s": 25.9,
+     "e": 26.38
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Elle a refusé.",
+   "hl": [
+    "refusé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L16.mp3",
+   "file_start": 26.48,
+   "speech_start": 26.48,
+   "speech_end": 27.52,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 26.48,
+     "e": 26.6
+    },
+    {
+     "w": "a",
+     "s": 26.64,
+     "e": 26.68
+    },
+    {
+     "w": "refusé.",
+     "s": 26.72,
+     "e": 27.52
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Pas assez de poils.",
+   "hl": [
+    "poils."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/moustache/tts/L17.mp3",
+   "file_start": 27.62,
+   "speech_start": 27.62,
+   "speech_end": 28.74,
+   "words": [
+    {
+     "w": "Pas",
+     "s": 27.62,
+     "e": 27.78
+    },
+    {
+     "w": "assez",
+     "s": 27.86,
+     "e": 27.993
+    },
+    {
+     "w": "de",
+     "s": 28.047,
+     "e": 28.1
+    },
+    {
+     "w": "poils.",
+     "s": 28.14,
+     "e": 28.74
+    }
+   ]
+  }
+ ],
+ "total": 29.58
+}

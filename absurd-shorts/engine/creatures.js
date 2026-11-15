@@ -978,6 +978,23 @@ const SPECIES = {
     R.mouthScale = true;
     R.height = 1.05;
   },
+  moustache(R, o) { // (story 67) a shaved-off moustache that walks off on its own: a dark bristly handlebar for a body (a thick middle, two wings
+    // tapering out and curling up at the tips), googly eyes on top, short thin legs and arms of the same dark brown; biped rig, so the human clips and the
+    // walk work; attach a sash, a hat or a tie to the 'head' joint (the moustache)
+    const c = col(o, { body: '#2B2420', tip: '#3A302A', limb: '#2B2420', foot: '#1E1916' });
+    R.ol = 0.01;
+    bipedBody(R, { leg: 0.13, legW: 0.035, footH: 0.03, footLen: 0.09, tw: 0.3, th: 0.1, td: 0.2, taper: 1, armW: 0.032, armU: 0.13, armF: 0.12, hand: 'mitten',
+      noTorso: true, noPelvis: true, shY: 2.2, shX: 0.2, colors: { body: c.body, arm: c.limb, leg: c.limb, hand: c.limb, foot: c.foot } });
+    const m = R.joint('head', R.J.torso, 0, 0, 0);
+    R.a(m, facet(0.13, 0.075, 0.075, c.body, { seed: 71, jit: 0.03, detail: 2 }), [0, 0.1, 0]);   // the thick middle
+    for (const sd of [1, -1]) {
+      R.a(m, facet(0.14, 0.058, 0.058, c.body, { seed: 72 + sd, jit: 0.03, detail: 1 }), [sd * 0.17, 0.085, 0], [0, 0, sd * -0.18]);   // a wing, drooping a little
+      R.a(m, facet(0.085, 0.04, 0.04, c.tip, { seed: 75 + sd, jit: 0.03, detail: 1 }), [sd * 0.29, 0.1, 0], [0, 0, sd * 0.35]);   // tapering out
+      R.a(m, new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.017, 6, 12, PI * 1.3), mat(c.tip)), [sd * 0.345, 0.15, 0], [0, sd > 0 ? 0 : PI, -0.5]);   // the curl at the tip
+    }
+    addEyes(R, m, { x: 0.058, y: 0.2, z: 0.035, r: 0.048, lid: c.body });
+    R.height = 0.62;
+  },
   snowman(R, o) {
     const c = col(o, { body: '#F6F4EE', coal: '#1A1B20', carrot: '#E07A2E', hat: '#17181B', band: P.red, scarf: P.red, stick: P.woodDark });
     R.ol = 0.012;

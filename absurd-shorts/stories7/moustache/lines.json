@@ -1,0 +1,142 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec s'est rasé la moustache.",
+  "hl": [
+   "rasé",
+   "moustache."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "La moustache est partie toute seule.",
+  "hl": [
+   "partie",
+   "seule."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Elle a pris le bus.",
+  "hl": [
+   "bus."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Elle a trouvé un appartement.",
+  "hl": [
+   "appartement."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Et un travail à la banque.",
+  "hl": [
+   "banque."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Les impôts lui ont envoyé une facture.",
+  "hl": [
+   "impôts"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Elle l'a payée.",
+  "hl": [
+   "payée."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Elle s'est présentée à la mairie.",
+  "hl": [
+   "mairie."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Elle a gagné, avec soixante pour cent.",
+  "hl": [
+   "gagné,",
+   "soixante"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Le mec a voulu la récupérer.",
+  "hl": [
+   "récupérer."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Elle a porté plainte.",
+  "hl": [
+   "plainte."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le juge l'a condamné à rester rasé.",
+  "hl": [
+   "condamné",
+   "rasé."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "La moustache est devenue ministre.",
+  "hl": [
+   "ministre."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Puis présidente.",
+  "hl": [
+   "présidente."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le mec a postulé pour être son assistant.",
+  "hl": [
+   "assistant."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Elle a refusé.",
+  "hl": [
+   "refusé."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Pas assez de poils.",
+  "hl": [
+   "poils."
+  ]
+ }
+]
