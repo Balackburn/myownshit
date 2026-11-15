@@ -80,7 +80,7 @@ st.cue('sfx:stepSoft', 'S01', 0.15, 0.15); st.cue('sfx:stepSoft', 'S01', 0.4, 0.
 # 2: so he ran after it. (pass 2) Side on, half the height of the frame: leaning in on the spot, his legs a wheel under a still body, dust spinning
 #    up; a crouch, a tall stretch, and he is gone to the right in a smear; the puff hangs to the cut
 D2 = st.dur('S02'); GO2 = 1.26; ME2 = [3.6, 0, 1.0]; F2 = {'lid': 0.2, 'mouth': 'clench', 'brow': -0.8}
-st.shot('S02', 'parisStreet', setOpts={'clear': [-14.0, 8.0], 'eiffelStyle': 'v2'}, actors=[
+st.shot('S02', 'parisStreet', setOpts={'clear': [-14.0, 8.0], 'clearL': [-14.0, 10.0], 'eiffelStyle': 'v2'}, actors=[
         act('mec', ME2, 180, 'run', 'determined', params={'bounce': 0.0}, keys=[k(0.0, clip='run', speed=2.6), k(0.0, look=[3.6, 1.9, -12.0]), k(0.0, toon={'lay': [0.2, 0.0], 'face': F2}, toonDur=0.0),
             k(r(GO2 - 0.16), toon={'lay': [-0.1, 0.0], 'sq': [1.18, 0.78, 1.18], 'face': F2}, toonDur=0.12, toonEase='out'),
             k(GO2, toon={'lay': [0.3, 0.0], 'sq': [0.8, 1.25, 0.8], 'face': F2}, toonDur=0.05, toonEase='out'),
@@ -99,7 +99,7 @@ st.shot('S03', 'parisStreet', setOpts={'clear': [-40.0, 30.0], 'eiffelStyle': 'v
         props=[BUS('bus3', [3.5, 0, r(Z3 - 5.6)], 90, keys=[k(0.0, to=[3.5, 0, r(Z3 - 5.6 - V3 * D3)], dur=D3, ease='linear')]), PLQS('plq3', 'bus3', y=0.78), PLQ('plq3b', 'bus3'), WHEEL('roue3'),
                P('sl3', 'speedLines', on={'actor': 'mec', 'joint': 'hips', 'offset': [0.0, 0.35, -1.5], 'face': 'camera'}, opts={'n': 6, 'len': 1.6, 'w': 1.3, 'soft': True, 'alpha': 0.8}),
                P('dust3', 'dustPuff', on={'actor': 'mec', 'joint': 'hips', 'offset': [0.0, -1.0, -0.8]}, scale=0.5, opts={'period': 0.3, 'color': '#EFE8D8'})],
-        cams=[FC(0.0, [9.6, 1.3, r(Z3 - 4.5)], [[3.6, 2.5, Z3], [3.6, 0.0, Z3], [4.7, 1.2, r(Z3 - 2.3)]], top=0.2, bottom=0.76, drift=(0.0, 0.0, r(-V3 * D3)), inside=(5.3, 9.8, 0.3, 4.0, -200.0, 200.0))])   # (stills 3) three-quarter front (in profile his box head has no face)
+        cams=[FC(0.0, [9.6, 1.3, r(Z3 - 4.5)], [[3.6, 2.5, Z3], [3.6, 0.0, Z3], [4.7, 1.2, r(Z3 - 2.3)], [3.6, 0.8, r(Z3 + 1.1)]], top=0.2, bottom=0.76, drift=(0.0, 0.0, r(-V3 * D3)), inside=(5.3, 9.8, 0.3, 4.0, -200.0, 200.0))])   # (stills 3) three-quarter front (in profile his box head has no face)
 st.cue('engine', 'S03', 0.0, 0.3); st.cue('sfx:stepSoft', 'S03', 0.3, 0.15); st.cue('sfx:stepSoft', 'S03', 0.6, 0.15); st.cue('sfx:stepSoft', 'S03', 0.9, 0.15)
 
 # 4: after an hour he had left the town. The road out of town: the town sign crossed out (SAINT-ARRÊT); the bus goes by it, then him; the last houses
@@ -181,7 +181,7 @@ D9 = st.dur('S09')
 R9 = [x for j in range(6) for x in rider(f'cyc{j + 1}', r(-1.7 - 1.15 * (j // 2)), r(-0.5 + 1.0 * (j % 2)), 90, RID8[j], params={'cadence': 2.6, 'lean': 0.95})]
 st.shot('S09', 'grassland', actors=[act('mec', [0, 0, 0], 90, 'run', 'determined', params={'bounce': 0.5}, keys=[k(0.0, clip='run', speed=2.2), k(0.0, look=[12.0, 1.9, 0.0]), FLAT(), k(0.45, look='camera', lookDur=0.15)]), *[x for x in R9 if x.get('clip') == 'ride']],
         props=[ROAD('road9'), *DASH('9', D9), *[x for x in R9 if x.get('name') == 'bicycle'], *scroll(TREES('9', -6.5, -12.0, 20.0, 8), D9), STREAK('sl9', [-5.4, 1.4, 0.6], n=7, ln=1.8), *DUST('9')],
-        cams=[FC(0.0, [4.4, 0.75, 2.9], [[0, 2.5, 0], [0, 0.0, 0], [0.8, 1.5, 0.3], [-4.0, 2.3, 0.5], [-1.7, 2.3, -0.5]], top=0.14, bottom=0.76)])
+        cams=[FC(0.0, [4.4, 0.75, 2.9], [[0, 2.5, 0], [0, 0.0, 0], [1.4, 1.5, 0.3], [-4.0, 2.3, 0.5], [-1.7, 2.3, -0.5]], top=0.14, bottom=0.76)])
 st.cue('sfx:bell', 'S09', 0.3, 0.15)
 
 # 10: they threw him the yellow jersey. (pass 2) Low, three-quarter front, his shoulders against the sky: a spectator on the verge slides away
@@ -229,9 +229,9 @@ st.cue('engine', 'S13', 0.0, 0.25); st.cue('gust', 'S13', 0.2, 0.2)
 D14 = st.dur('S14'); X14 = -1.6; Z14 = 1.3
 IT14 = [{'x': -7.2, 'color': '#E9B569', 'roof': '#B5522F', 'door': '#6B3F26', 'shutters': '#2E7D4F'}, {'x': 1.6, 'color': '#E8946A', 'roof': '#A8452C', 'door': '#2E7D4F'}, {'x': 9.6, 'color': '#F0D08A', 'roof': '#B5522F', 'door': '#6B3F26'},
         {'x': -15.4, 'color': '#E7A77A', 'roof': '#A8452C'}, {'x': 17.6, 'color': '#F2DFA6', 'roof': '#B5522F'}, {'x': -23.6, 'color': '#E9B569', 'roof': '#B5522F'}, {'x': 25.6, 'color': '#E8946A', 'roof': '#A8452C'}]
-st.shot('S14', 'cottageStreet', setOpts={'seed': 23, 'roadColor': '#8C8C88', 'houses': IT14}, actors=[act('serveur', [-0.4, 0, -2.3], 40, 'run', 'happy', keys=[k(0.0, to=[1.7, 0, 0.7], dur=r(D14 - 0.1), clip='run', ease='linear'),
+st.shot('S14', 'cottageStreet', setOpts={'seed': 23, 'roadColor': '#8C8C88', 'houses': IT14}, actors=[act('serveur', [-0.4, 0, -2.3], 40, 'run', 'happy', keys=[k(0.0, to=[1.2, 0, -0.5], dur=r(D14 - 0.1), clip='run', ease='linear'),
             k(0.0, toon={'reach': {'R': [-0.1, 2.7, -2.0, 1, 0.04]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}, toonDur=0.0),
-            k(0.0, toon={'reach': {'R': [2.0, 2.7, 1.0, 1, 0.04]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}, toonDur=r(D14 - 0.1), toonEase='linear'), k(0.0, look=[4.0, 1.9, Z14])]),   # (stills 3) the plate held up travels with him (aimed at one far point his arm was a pole)
+            k(0.0, toon={'reach': {'R': [1.5, 2.7, -0.2, 1, 0.04]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}, toonDur=r(D14 - 0.1), toonEase='linear'), k(0.0, look=[4.0, 1.9, Z14])]),   # (stills 3) the plate held up travels with him (aimed at one far point his arm was a pole)
         act('mec', [X14, 0, Z14], 90, 'run', 'determined', keys=[*RUNK([r(X14 + V * D14), 0, Z14], D14, 0.0, 2.0), FLAT(), k(0.7, look='camera', lookDur=0.15)])],
         props=[MJ('mjr14'), P('caffe14', 'trattoria', pos=[-0.4, 0, -2.75]), P('pates14', 'pastaPlate', on={'actor': 'serveur', 'hand': 'R', 'offset': [0.0, 0.05, 0.0]}, scale=1.6),
                P('tab14', 'bistroTable', pos=[1.6, 0, -1.6], opts={'r': 0.35, 'h': 0.75}), P('para14', 'parasol', pos=[3.9, 0, -1.5], opts={'openAt': -1.0, 'colors': ['#2E9A4A', '#F4F4F0', '#D23A2E']}),
@@ -245,7 +245,7 @@ st.cue('sfx:bell', 'S14', 0.05, 0.15)
 D15 = st.dur('S15'); N15 = [0.25, 0.4, 0.95]; PL15 = [1.2, 1.56, -0.2]; MO15 = [0.47, 1.78, -0.1]
 WP15 = lambda p, f, **o: {'reach': {'R': p + [1, 0.04]}, 'hands': {'R': 'open'}, 'face': f, **o}
 st.shot('S15', 'grassland', actors=[act('mec', [0, 0, 0], 90, 'run', 'determined', params={'bounce': 0.3}, keys=[k(0.0, clip='run', speed=2.0), k(0.0, look=[12.0, 1.9, 0.0]), FLAT(),
-            k(N15[0], toon={'face': {'lid': 0.4, 'mouth': 'kiss', 'cheeks': 0.6}}, toonDur=0.08), k(N15[2], toon={'sq': [1.06, 0.94, 1.06], 'face': {'lid': 0.0, 'eye': 0.2, 'mouth': 'kiss', 'cheeks': 1.0}}, toonDur=0.06, toonEase='out'),
+            k(N15[0], toon={'face': {'lid': 0.4, 'mouth': 'kiss', 'cheeks': 0.6}}, toonDur=0.08), k(N15[2], toon={'face': {'lid': 0.0, 'eye': 0.2, 'mouth': 'kiss', 'cheeks': 1.0}}, toonDur=0.06, toonEase='out'),
             k(r(N15[2] + 0.22), toon={'face': {'lid': 0.45, 'mouth': 'line', 'cheeks': 0.5}}, toonDur=0.12), FLAT(r(N15[2] + 0.5), 0.15)]),
         act('serveur', [2.05, 0, -0.35], -90, 'run', 'happy', keys=[k(0.0, clip='run', speed=1.8), k(0.0, look=[0.3, 2.0, 0.0]), k(0.0, toon=WP15(PL15, {'lid': 0.1, 'mouth': 'bigsmile'}), toonDur=0.0),
             k(N15[1], toon=WP15(PL15, {'lid': 0.1, 'mouth': 'bigsmile'}, lay=[-0.14, 0.0]), toonDur=0.3), k(N15[2], toon=WP15([1.5, 1.75, -0.2], {'lid': 0.0, 'eye': 0.3, 'mouth': 'O'}, sq=[0.96, 1.05, 0.96]), toonDur=0.06, toonEase='out'),
@@ -319,7 +319,7 @@ st.cue('sfx:paper', 'S20', 0.1, 0.15); st.cue('sfx:sting', 'S20', 0.75, 0.2)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 st.write("Le bus", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife=1, limbSmear=1, follow=1, pupil=0.5, hairRest=0.07, debugJoints=['mec'], extra_cast={
-    'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}},
+    'mec': {'preset': 'lemec', 'tint': '#E6F2FF', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'autoSq': 0.3}},   # (stills 4) autoSq: the footfall squash of the run dosed down (his head dropped 0.6 m for a frame at each stride)
     'gend1': {'preset': 'cop', 'seed': 722, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'gend2': {'preset': 'cop2', 'seed': 723, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'fan1': {'preset': 'mamie', 'seed': 724, 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': EX},

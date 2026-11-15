@@ -135,10 +135,10 @@ export const BUS_PROPS = {
   // (pass 2 of 72) A small blue beacon (pivot at its foot): a dark base and a blue dome o.r (0.07) that glows by itself, a pale spot turning
   // inside it o.rate turns a second (2). It puts no light on the scene (the two alternating lamps of policeFlash strobed the whole road)
   beacon(o) {
-    const R = o.r ?? 0.07, g = grp(), m = new THREE.MeshBasicMaterial({ color: '#2F7BFF', toneMapped: false });
-    const dome = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 6, 0, TAU, 0, PI / 2), m), spot = new THREE.Mesh(new THREE.SphereGeometry(R * 0.42, 8, 6), new THREE.MeshBasicMaterial({ color: '#D6EAFF', toneMapped: false }));
+    const R = o.r ?? 0.07, g = grp(), m = new THREE.MeshBasicMaterial({ color: '#1F5CFF' });
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 6, 0, TAU, 0, PI / 2), m), spot = new THREE.Mesh(new THREE.SphereGeometry(R * 0.42, 8, 6), new THREE.MeshBasicMaterial({ color: '#6FA8FF' }));   // (stills 4) deep blues, tone-mapped: the near-white spot bloomed into a pale pink disc
     dome.position.y = R * 0.5; g.add(at(cyl(R * 1.15, R * 1.15, R * 0.5, '#1C1E22', 10, { pivot: 'bottom' }), 0, 0, 0), dome, spot);
-    g.userData.update = t => { const a = t * TAU * (o.rate ?? 2) + (o.phase ?? 0); spot.position.set(Math.cos(a) * R * 0.8, R * 0.95, Math.sin(a) * R * 0.8); m.color.set(Math.sin(a) > 0 ? '#4A93FF' : '#2466E0'); };
+    g.userData.update = t => { const a = t * TAU * (o.rate ?? 2) + (o.phase ?? 0); spot.position.set(Math.cos(a) * R * 0.8, R * 0.95, Math.sin(a) * R * 0.8); m.color.set(Math.sin(a) > 0 ? '#2F6BFF' : '#1746C8'); };
     g.userData.update(0); return g;
   },
 
