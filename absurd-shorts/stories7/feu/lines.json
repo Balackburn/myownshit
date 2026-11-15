@@ -1,0 +1,161 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec attend au feu rouge.",
+  "hl": [
+   "feu",
+   "rouge."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Le feu n'est jamais passé au vert.",
+  "hl": [
+   "jamais",
+   "vert."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Ça fait douze ans.",
+  "hl": [
+   "douze",
+   "ans."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Sa barbe touche le trottoir.",
+  "hl": [
+   "barbe"
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "La mairie lui a construit une maison sur le passage piéton.",
+  "hl": [
+   "maison"
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Le facteur lui livre son courrier au feu.",
+  "hl": [
+   "facteur"
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Un policier a voulu le faire traverser.",
+  "hl": [
+   "policier"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Le policier a pris une amende.",
+  "hl": [
+   "amende."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Les pigeons ont fait un nid dans sa barbe.",
+  "hl": [
+   "nid"
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Les touristes font la queue pour la photo.",
+  "hl": [
+   "touristes"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Le gouvernement l'a décoré pour sa patience.",
+  "hl": [
+   "décoré",
+   "patience."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le président est venu attendre avec lui.",
+  "hl": [
+   "président"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il est reparti au bout de dix minutes.",
+  "hl": [
+   "dix",
+   "minutes."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Hier, le feu est passé au vert.",
+  "hl": [
+   "vert."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Les télévisions du monde entier étaient là.",
+  "hl": [
+   "monde",
+   "entier"
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Il a traversé.",
+  "hl": [
+   "traversé."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "La foule pleurait.",
+  "hl": [
+   "pleurait."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "De l'autre côté, il y avait un feu rouge.",
+  "hl": [
+   "feu",
+   "rouge."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Il attend.",
+  "hl": [
+   "attend."
+  ]
+ }
+]

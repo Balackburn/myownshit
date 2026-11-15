@@ -1,0 +1,898 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec attend au feu rouge.",
+   "hl": [
+    "feu",
+    "rouge."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.62,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "attend",
+     "s": 0.62,
+     "e": 0.74
+    },
+    {
+     "w": "au",
+     "s": 0.78,
+     "e": 0.82
+    },
+    {
+     "w": "feu",
+     "s": 0.9,
+     "e": 1.02
+    },
+    {
+     "w": "rouge.",
+     "s": 1.06,
+     "e": 1.62
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le feu n'est jamais passé au vert.",
+   "hl": [
+    "jamais",
+    "vert."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L02.mp3",
+   "file_start": 1.72,
+   "speech_start": 1.72,
+   "speech_end": 3.64,
+   "words": [
+    {
+     "w": "Le",
+     "s": 1.72,
+     "e": 1.8
+    },
+    {
+     "w": "feu",
+     "s": 1.96,
+     "e": 2.12
+    },
+    {
+     "w": "n'est",
+     "s": 2.173,
+     "e": 2.28
+    },
+    {
+     "w": "jamais",
+     "s": 2.36,
+     "e": 2.6
+    },
+    {
+     "w": "passé",
+     "s": 2.72,
+     "e": 2.88
+    },
+    {
+     "w": "au",
+     "s": 2.92,
+     "e": 3.0
+    },
+    {
+     "w": "vert.",
+     "s": 3.28,
+     "e": 3.64
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Ça fait douze ans.",
+   "hl": [
+    "douze",
+    "ans."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L03.mp3",
+   "file_start": 3.74,
+   "speech_start": 3.74,
+   "speech_end": 4.94,
+   "words": [
+    {
+     "w": "Ça",
+     "s": 3.74,
+     "e": 3.9
+    },
+    {
+     "w": "fait",
+     "s": 4.02,
+     "e": 4.14
+    },
+    {
+     "w": "douze",
+     "s": 4.18,
+     "e": 4.38
+    },
+    {
+     "w": "ans.",
+     "s": 4.5,
+     "e": 4.94
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Sa barbe touche le trottoir.",
+   "hl": [
+    "barbe"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L04.mp3",
+   "file_start": 5.04,
+   "speech_start": 5.04,
+   "speech_end": 6.8,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 5.04,
+     "e": 5.2
+    },
+    {
+     "w": "barbe",
+     "s": 5.28,
+     "e": 5.6
+    },
+    {
+     "w": "touche",
+     "s": 5.68,
+     "e": 5.84
+    },
+    {
+     "w": "le",
+     "s": 5.92,
+     "e": 5.96
+    },
+    {
+     "w": "trottoir.",
+     "s": 6.0,
+     "e": 6.8
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La mairie lui a construit une maison sur le passage piéton.",
+   "hl": [
+    "maison"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L05.mp3",
+   "file_start": 6.9,
+   "speech_start": 6.9,
+   "speech_end": 9.7,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.9,
+     "e": 7.06
+    },
+    {
+     "w": "mairie",
+     "s": 7.167,
+     "e": 7.38
+    },
+    {
+     "w": "lui",
+     "s": 7.407,
+     "e": 7.46
+    },
+    {
+     "w": "a",
+     "s": 7.5,
+     "e": 7.54
+    },
+    {
+     "w": "construit",
+     "s": 7.62,
+     "e": 7.94
+    },
+    {
+     "w": "une",
+     "s": 8.02,
+     "e": 8.1
+    },
+    {
+     "w": "maison",
+     "s": 8.14,
+     "e": 8.42
+    },
+    {
+     "w": "sur",
+     "s": 8.5,
+     "e": 8.58
+    },
+    {
+     "w": "le",
+     "s": 8.62,
+     "e": 8.66
+    },
+    {
+     "w": "passage",
+     "s": 8.74,
+     "e": 8.98
+    },
+    {
+     "w": "piéton.",
+     "s": 9.06,
+     "e": 9.7
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Le facteur lui livre son courrier au feu.",
+   "hl": [
+    "facteur"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L06.mp3",
+   "file_start": 9.8,
+   "speech_start": 9.8,
+   "speech_end": 12.12,
+   "words": [
+    {
+     "w": "Le",
+     "s": 9.8,
+     "e": 9.88
+    },
+    {
+     "w": "facteur",
+     "s": 9.96,
+     "e": 10.36
+    },
+    {
+     "w": "lui",
+     "s": 10.4,
+     "e": 10.52
+    },
+    {
+     "w": "livre",
+     "s": 10.6,
+     "e": 10.84
+    },
+    {
+     "w": "son",
+     "s": 10.92,
+     "e": 11.0
+    },
+    {
+     "w": "courrier",
+     "s": 11.08,
+     "e": 11.32
+    },
+    {
+     "w": "au",
+     "s": 11.4,
+     "e": 11.56
+    },
+    {
+     "w": "feu.",
+     "s": 11.64,
+     "e": 12.12
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Un policier a voulu le faire traverser.",
+   "hl": [
+    "policier"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L07.mp3",
+   "file_start": 12.22,
+   "speech_start": 12.22,
+   "speech_end": 14.38,
+   "words": [
+    {
+     "w": "Un",
+     "s": 12.22,
+     "e": 12.3
+    },
+    {
+     "w": "policier",
+     "s": 12.38,
+     "e": 12.86
+    },
+    {
+     "w": "a",
+     "s": 12.94,
+     "e": 13.02
+    },
+    {
+     "w": "voulu",
+     "s": 13.047,
+     "e": 13.18
+    },
+    {
+     "w": "le",
+     "s": 13.26,
+     "e": 13.34
+    },
+    {
+     "w": "faire",
+     "s": 13.38,
+     "e": 13.5
+    },
+    {
+     "w": "traverser.",
+     "s": 13.54,
+     "e": 14.38
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le policier a pris une amende.",
+   "hl": [
+    "amende."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L08.mp3",
+   "file_start": 14.48,
+   "speech_start": 14.48,
+   "speech_end": 16.4,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.48,
+     "e": 14.64
+    },
+    {
+     "w": "policier",
+     "s": 14.68,
+     "e": 15.2
+    },
+    {
+     "w": "a",
+     "s": 15.28,
+     "e": 15.36
+    },
+    {
+     "w": "pris",
+     "s": 15.4,
+     "e": 15.52
+    },
+    {
+     "w": "une",
+     "s": 15.56,
+     "e": 15.6
+    },
+    {
+     "w": "amende.",
+     "s": 15.68,
+     "e": 16.4
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Les pigeons ont fait un nid dans sa barbe.",
+   "hl": [
+    "nid"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L09.mp3",
+   "file_start": 16.5,
+   "speech_start": 16.5,
+   "speech_end": 18.82,
+   "words": [
+    {
+     "w": "Les",
+     "s": 16.5,
+     "e": 16.66
+    },
+    {
+     "w": "pigeons",
+     "s": 16.74,
+     "e": 17.14
+    },
+    {
+     "w": "ont",
+     "s": 17.22,
+     "e": 17.3
+    },
+    {
+     "w": "fait",
+     "s": 17.38,
+     "e": 17.46
+    },
+    {
+     "w": "un",
+     "s": 17.54,
+     "e": 17.62
+    },
+    {
+     "w": "nid",
+     "s": 17.7,
+     "e": 17.78
+    },
+    {
+     "w": "dans",
+     "s": 17.833,
+     "e": 17.94
+    },
+    {
+     "w": "sa",
+     "s": 18.02,
+     "e": 18.1
+    },
+    {
+     "w": "barbe.",
+     "s": 18.18,
+     "e": 18.82
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Les touristes font la queue pour la photo.",
+   "hl": [
+    "touristes"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L10.mp3",
+   "file_start": 18.92,
+   "speech_start": 18.92,
+   "speech_end": 21.0,
+   "words": [
+    {
+     "w": "Les",
+     "s": 18.92,
+     "e": 19.0
+    },
+    {
+     "w": "touristes",
+     "s": 19.08,
+     "e": 19.56
+    },
+    {
+     "w": "font",
+     "s": 19.64,
+     "e": 19.72
+    },
+    {
+     "w": "la",
+     "s": 19.76,
+     "e": 19.8
+    },
+    {
+     "w": "queue",
+     "s": 19.96,
+     "e": 20.12
+    },
+    {
+     "w": "pour",
+     "s": 20.16,
+     "e": 20.2
+    },
+    {
+     "w": "la",
+     "s": 20.28,
+     "e": 20.36
+    },
+    {
+     "w": "photo.",
+     "s": 20.52,
+     "e": 21.0
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Le gouvernement l'a décoré pour sa patience.",
+   "hl": [
+    "décoré",
+    "patience."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L11.mp3",
+   "file_start": 21.1,
+   "speech_start": 21.1,
+   "speech_end": 23.58,
+   "words": [
+    {
+     "w": "Le",
+     "s": 21.1,
+     "e": 21.18
+    },
+    {
+     "w": "gouvernement",
+     "s": 21.26,
+     "e": 21.74
+    },
+    {
+     "w": "l'a",
+     "s": 21.793,
+     "e": 21.9
+    },
+    {
+     "w": "décoré",
+     "s": 21.98,
+     "e": 22.38
+    },
+    {
+     "w": "pour",
+     "s": 22.46,
+     "e": 22.54
+    },
+    {
+     "w": "sa",
+     "s": 22.62,
+     "e": 22.7
+    },
+    {
+     "w": "patience.",
+     "s": 22.78,
+     "e": 23.58
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le président est venu attendre avec lui.",
+   "hl": [
+    "président"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L12.mp3",
+   "file_start": 23.68,
+   "speech_start": 23.68,
+   "speech_end": 25.68,
+   "words": [
+    {
+     "w": "Le",
+     "s": 23.68,
+     "e": 23.76
+    },
+    {
+     "w": "président",
+     "s": 23.84,
+     "e": 24.24
+    },
+    {
+     "w": "est",
+     "s": 24.28,
+     "e": 24.32
+    },
+    {
+     "w": "venu",
+     "s": 24.4,
+     "e": 24.56
+    },
+    {
+     "w": "attendre",
+     "s": 24.72,
+     "e": 24.96
+    },
+    {
+     "w": "avec",
+     "s": 25.08,
+     "e": 25.2
+    },
+    {
+     "w": "lui.",
+     "s": 25.28,
+     "e": 25.68
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il est reparti au bout de dix minutes.",
+   "hl": [
+    "dix",
+    "minutes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L13.mp3",
+   "file_start": 25.78,
+   "speech_start": 25.78,
+   "speech_end": 27.7,
+   "words": [
+    {
+     "w": "Il",
+     "s": 25.78,
+     "e": 25.86
+    },
+    {
+     "w": "est",
+     "s": 25.9,
+     "e": 25.94
+    },
+    {
+     "w": "reparti",
+     "s": 26.02,
+     "e": 26.42
+    },
+    {
+     "w": "au",
+     "s": 26.46,
+     "e": 26.5
+    },
+    {
+     "w": "bout",
+     "s": 26.58,
+     "e": 26.66
+    },
+    {
+     "w": "de",
+     "s": 26.74,
+     "e": 26.82
+    },
+    {
+     "w": "dix",
+     "s": 26.847,
+     "e": 26.9
+    },
+    {
+     "w": "minutes.",
+     "s": 26.98,
+     "e": 27.7
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Hier, le feu est passé au vert.",
+   "hl": [
+    "vert."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L14.mp3",
+   "file_start": 27.8,
+   "speech_start": 27.8,
+   "speech_end": 29.8,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 27.8,
+     "e": 28.44
+    },
+    {
+     "w": "le",
+     "s": 28.52,
+     "e": 28.6
+    },
+    {
+     "w": "feu",
+     "s": 28.68,
+     "e": 28.76
+    },
+    {
+     "w": "est",
+     "s": 28.8,
+     "e": 28.84
+    },
+    {
+     "w": "passé",
+     "s": 28.92,
+     "e": 29.16
+    },
+    {
+     "w": "au",
+     "s": 29.2,
+     "e": 29.24
+    },
+    {
+     "w": "vert.",
+     "s": 29.32,
+     "e": 29.8
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Les télévisions du monde entier étaient là.",
+   "hl": [
+    "monde",
+    "entier"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L15.mp3",
+   "file_start": 29.9,
+   "speech_start": 29.9,
+   "speech_end": 32.14,
+   "words": [
+    {
+     "w": "Les",
+     "s": 29.9,
+     "e": 30.06
+    },
+    {
+     "w": "télévisions",
+     "s": 30.1,
+     "e": 30.62
+    },
+    {
+     "w": "du",
+     "s": 30.7,
+     "e": 30.78
+    },
+    {
+     "w": "monde",
+     "s": 30.86,
+     "e": 31.02
+    },
+    {
+     "w": "entier",
+     "s": 31.14,
+     "e": 31.34
+    },
+    {
+     "w": "étaient",
+     "s": 31.42,
+     "e": 31.58
+    },
+    {
+     "w": "là.",
+     "s": 31.66,
+     "e": 32.14
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Il a traversé.",
+   "hl": [
+    "traversé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L16.mp3",
+   "file_start": 32.24,
+   "speech_start": 32.24,
+   "speech_end": 33.36,
+   "words": [
+    {
+     "w": "Il",
+     "s": 32.24,
+     "e": 32.32
+    },
+    {
+     "w": "a",
+     "s": 32.36,
+     "e": 32.4
+    },
+    {
+     "w": "traversé.",
+     "s": 32.48,
+     "e": 33.36
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "La foule pleurait.",
+   "hl": [
+    "pleurait."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L17.mp3",
+   "file_start": 33.46,
+   "speech_start": 33.46,
+   "speech_end": 34.82,
+   "words": [
+    {
+     "w": "La",
+     "s": 33.46,
+     "e": 33.62
+    },
+    {
+     "w": "foule",
+     "s": 33.7,
+     "e": 34.02
+    },
+    {
+     "w": "pleurait.",
+     "s": 34.1,
+     "e": 34.82
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "De l'autre côté, il y avait un feu rouge.",
+   "hl": [
+    "feu",
+    "rouge."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L18.mp3",
+   "file_start": 34.92,
+   "speech_start": 34.92,
+   "speech_end": 37.4,
+   "words": [
+    {
+     "w": "De",
+     "s": 34.92,
+     "e": 35.0
+    },
+    {
+     "w": "l'autre",
+     "s": 35.08,
+     "e": 35.32
+    },
+    {
+     "w": "côté,",
+     "s": 35.4,
+     "e": 35.96
+    },
+    {
+     "w": "il",
+     "s": 36.04,
+     "e": 36.12
+    },
+    {
+     "w": "y",
+     "s": 36.147,
+     "e": 36.173
+    },
+    {
+     "w": "avait",
+     "s": 36.2,
+     "e": 36.36
+    },
+    {
+     "w": "un",
+     "s": 36.44,
+     "e": 36.52
+    },
+    {
+     "w": "feu",
+     "s": 36.56,
+     "e": 36.68
+    },
+    {
+     "w": "rouge.",
+     "s": 36.76,
+     "e": 37.4
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Il attend.",
+   "hl": [
+    "attend."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/feu/tts/L19.mp3",
+   "file_start": 37.5,
+   "speech_start": 37.5,
+   "speech_end": 38.38,
+   "words": [
+    {
+     "w": "Il",
+     "s": 37.5,
+     "e": 37.66
+    },
+    {
+     "w": "attend.",
+     "s": 37.86,
+     "e": 38.38
+    }
+   ]
+  }
+ ],
+ "total": 39.22
+}
