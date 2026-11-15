@@ -42,15 +42,15 @@ st.shot('S01', 'laundryRoom', setOpts={'washer': False}, actors=[
         act('mous', [0.0, 1.92, r(ME1[2] + 0.115)], 0, 'stand', 'neutral', scale=0.22, keys=[k(0.0, toon={'face': {'lid': 1.0}}, toonDur=0.0),
             k(SHAVE1, to=[0.18, 0.0, r(ME1[2] + 0.5)], dur=0.32, ease='in'), k(r(SHAVE1 + 0.34), toon={'sq': [1.3, 0.7, 1.3], 'face': {'lid': 1.0}}, toonDur=0.04), k(r(SHAVE1 + 0.42), toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.0, 'eye': 0.4}}, toonDur=0.08, toonEase='out')])],   # it drops, squashes, opens its eyes
         props=[P('raz1', 'slab', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.04]}, opts={'w': 0.03, 'h': 0.16, 'd': 0.03, 'color': '#3A7BD5'})],
-        cams=[FC(0.0, [0.25, 1.75, 0.6], [[0.0, 2.45, ME1[2]], [0.0, 1.0, ME1[2]], [0.25, 0.0, r(ME1[2] + 0.5)]], top=0.14, bottom=0.8)])
+        cams=[FC(0.0, [0.2, 1.95, -0.3], [[0.0, 2.5, ME1[2]], [0.0, 1.5, ME1[2]], [0.22, 1.55, r(ME1[2] + 0.3)]], top=0.14, bottom=0.78)])   # (stills 1) the mirror: his face and the moustache on his lip big (from the floor it was a speck)
 st.cue('sfx:stretch', 'S01', 0.3, 0.15); st.cue('sfx:pop', 'S01', SHAVE1, 0.25); st.cue('sfx:boing', 'S01', r(SHAVE1 + 0.34), 0.2)
 
 # 2: the moustache left on its own. Low on the bathroom floor: it trots off to the door on its little legs; behind it his legs, his face looking down
 D2 = st.dur('S02')
 st.shot('S02', 'laundryRoom', setOpts={'washer': False}, actors=[
-        act('mous', [0.2, 0, -1.1], 90, 'walk', 'neutral', scale=MS * 0.6, keys=[k(0.0, to=[2.6, 0, -0.6], dur=D2, clip='walk', ease='linear', face='keep'), k(0.0, look=[4.0, 0.2, -0.4])]),
+        act('mous', [0.2, 0, -1.1], 90, 'walk', 'neutral', scale=MS * 0.75, keys=[k(0.0, to=[2.6, 0, -0.6], dur=D2, clip='walk', ease='linear', face='keep'), k(0.0, look=[4.0, 0.2, -0.4])]),
         act('mec', ME1, 0, 'stand', 'neutral', keys=[k(0.0, look=[1.0, 0.0, -1.0]), k(0.0, toon={'face': {'lid': 0.0, 'eye': 0.3, 'gy': 0.6, 'mouth': 'line'}}, toonDur=0.0)])],
-        cams=[FC(0.0, [1.6, 0.55, 1.6], [[0.0, 2.45, ME1[2]], [2.6, 0.0, -0.6], [0.2, 0.0, -1.1]], top=0.14, bottom=0.8, drift=(0.6, 0.0, 0.0))])
+        cams=[FC(0.0, [1.0, 0.4, 0.5], [[0.2, 0.5, -1.1], [0.9, 0.5, -0.95], [0.0, 1.3, ME1[2]], [0.9, 0.0, -0.95]], top=0.14, bottom=0.7, drift=(1.7, 0.0, 0.4))])   # (stills 1) down at its height, travelling with it; his legs behind
 st.cue('sfx:stepSoft', 'S02', 0.2, 0.15); st.cue('sfx:stepSoft', 'S02', 0.6, 0.15); st.cue('sfx:stepSoft', 'S02', 1.0, 0.15)
 
 # 3: it took the bus. At the stop: the city bus pulls up, the moustache hops up the step and in
@@ -58,7 +58,7 @@ D3 = st.dur('S03')
 st.shot('S03', 'parisStreet', setOpts={'clear': [-8.0, 8.0]}, actors=[
         act('mous', [5.6, 0, 1.2], -90, 'hop', 'neutral', scale=MS, keys=[k(0.0, to=[4.3, 0.25, 0.4], dur=r(D3 - 0.2), ease='inOut', face='keep'), k(0.0, look=[3.0, 0.8, 0.0])])],
         props=[P('bus3', 'cityBus', pos=[3.4, 0, -12.0], ry=-90, opts={'len': 7.6}, keys=[k(0.0, to=[3.4, 0, -1.6], dur=0.5, ease='out')])],
-        cams=[FC(0.0, [8.4, 1.4, 4.2], [[5.6, 0.7, 1.2], [4.3, 0.0, 0.4], [3.4, 3.0, -1.6], [3.4, 0.0, 2.2]], top=0.16, bottom=0.8)])
+        cams=[FC(0.0, [7.1, 0.9, 3.0], [[5.6, 0.7, 1.2], [5.6, 0.0, 1.2], [4.3, 0.0, 0.4], [3.4, 2.4, -0.4], [3.4, 0.0, 0.8]], top=0.16, bottom=0.72)])   # (stills 1) nearer the step: it was a speck by the wheel
 st.cue('sfx:brake', 'S03', 0.35, 0.25)
 
 # 4: it found a flat. A landing: it turns a key in a door bigger than it, a tiny suitcase at its side, and the door swings in
@@ -117,7 +117,7 @@ st.cue('sfx:fanfare', 'S09', 0.15, 0.2)
 # 10: the man wanted it back. In the town hall corridor he creeps up behind it on tiptoe with an upturned jar
 D10 = st.dur('S10')
 st.shot('S10', 'mairie', setOpts={'plate': 'MAIRIE', 'map': False}, actors=[
-        act('mous', [0.0, 0.76, 0.0], 0, 'stand', 'neutral', scale=MS, keys=[k(0.0, look=[0.0, 1.0, 2.0])]),
+        act('mous', [0.0, 0.76, 0.0], 0, 'stand', 'neutral', scale=MS, keys=[k(0.0, look=[0.0, 1.0, 2.0]), k(0.7, toon={'face': {'lid': 1.0}}, toonDur=0.04), k(0.76, toon={'face': {'lid': 0.0}}, toonDur=0.06), k(1.2, look='camera'), k(1.5, toon={'face': {'lid': 1.0}}, toonDur=0.04), k(1.56, toon={'face': {'lid': 0.0}}, toonDur=0.06)]),
         act('mec', [-1.4, 0, -0.6], 60, 'walk', 'neutral', keys=[k(0.0, to=[-0.55, 0, -0.35], dur=r(D10 - 0.2), clip='walk', then='stand', ease='out', face='keep'), k(0.0, look=[0.0, 0.9, 0.0]),
             k(0.0, toon={'reach': {'R': [-0.2, 1.6, -0.2, 1, 0.02], 'L': [-0.35, 1.6, -0.1, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'smirk'}}, toonDur=0.0)])],
         props=[P('table10', 'desk', pos=[0.0, 0, 0.0], opts={'w': 1.2}), P('bocal10', 'slab', on={'actor': 'mec', 'hand': 'R', 'offset': [0.06, 0.05, 0.05]}, opts={'w': 0.22, 'h': 0.26, 'd': 0.22, 'color': '#CFE7F2'})],
@@ -128,17 +128,19 @@ D11 = st.dur('S11')
 st.shot('S11', 'office', actors=[
         act('flic', [-4.6, 0, -2.15], 0, 'sit', 'neutral', keys=[k(0.0, look=[-4.6, 1.1, -1.2]), *[k(r(0.1 + 0.14 * j), toon={'reach': {'L': [-4.8, r(0.85 + 0.03 * (j % 2)), -1.55, 1, 0.03], 'R': [-4.4, r(0.88 - 0.03 * (j % 2)), -1.55, 1, 0.03]}, 'hands': {'L': 'open', 'R': 'open'}, 'face': {'lid': 0.5}}, toonDur=0.06) for j in range(8)]]),
         act('mous', [-4.3, 0.76, -1.1], 40, 'point', 'angry', scale=MS, keys=[k(0.0, look=[-3.2, 1.6, 0.5])]),
-        act('mec', [-3.2, 0, 0.5], 160, 'stand', 'neutral', keys=[k(0.0, look=[-4.3, 1.0, -1.1]), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.0)])],
+        act('mec', [-3.2, 0, 0.5], -115, 'stand', 'neutral', keys=[k(0.0, look=[-4.3, 1.0, -1.1]), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.0)])],
         props=[P('desk11', 'desk', pos=[-4.6, 0, -1.4], opts={'w': 1.6}), P('pc11', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180)],
-        cams=[FC(0.0, [-2.0, 1.5, 1.8], [[-4.6, 2.3, -2.15], [-4.3, 1.2, -1.1], [-3.2, 2.45, 0.5], [-3.2, 0.2, 0.5]], top=0.16, bottom=0.78)])
+        cams=[FC(0.0, [-6.0, 1.45, 1.7], [[-4.6, 2.3, -2.15], [-4.3, 1.2, -1.1], [-3.2, 2.45, 0.5], [-3.2, 0.2, 0.5]], top=0.16, bottom=0.78)])   # (stills 1) from the other side: he stood between us and the moustache on the desk
 st.cue('sfx:cluck', 'S11', 0.2, 0.15)
 
 # 12: the judge sentenced him to stay shaved. The judge brings the gavel down and holds up a razor; the man in the dock, his lip bare (RASÉ)
 D12 = st.dur('S12'); BANG12 = 0.55
 st.shot('S12', 'courtroom', actors=[
         act('juge', [0.0, 0.3, -4.0], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [0.4, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'brow': -0.5}}, toonDur=0.0),
-            k(BANG12, toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03], 'L': [-0.5, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.05, 0.95, 1.05], 'face': {'lid': 0.0, 'brow': -0.7, 'mouth': 'open'}}, toonDur=0.05, toonEase='in')]),
-        act('mec', [1.6, 0, -1.4], -40, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 2.4, -4.0]), k(0.0, toon=LIP, toonDur=0.0), k(r(BANG12 + 0.05), toon={'sq': [1.02, 0.97, 1.02], 'face': {'lid': 0.2, 'eye': 0.3}}, toonDur=0.05)])],
+            k(BANG12, toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03], 'L': [-0.5, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'sq': [1.05, 0.95, 1.05], 'face': {'lid': 0.0, 'brow': -0.7, 'mouth': 'open'}}, toonDur=0.05, toonEase='in'),
+            k(r(BANG12 + 0.6), toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03], 'L': [-0.5, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 1.0, 'brow': -0.7}}, toonDur=0.04), k(r(BANG12 + 0.66), toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03], 'L': [-0.5, 2.6, -3.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.1, 'brow': -0.7, 'mouth': 'line'}}, toonDur=0.06),
+            *[k(r(BANG12 + 1.0 + 0.12 * j), toon={'reach': {'R': [0.4, 1.5, -3.3, 1, 0.03], 'L': [r(-0.5 + (0.08 if j % 2 else -0.04)), 2.62, -3.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.1, 'brow': -0.8, 'mouth': 'line'}}, toonDur=0.06) for j in range(4)]]),   # (stills 1) the razor waved at him
+        act('mec', [1.6, 0, -1.4], -40, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 2.4, -4.0]), k(0.0, toon=LIP, toonDur=0.0), k(r(BANG12 + 0.05), toon={'sq': [1.02, 0.97, 1.02], 'face': {'lid': 0.2, 'eye': 0.3}}, toonDur=0.05), k(r(BANG12 + 0.75), toon={'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.04), k(r(BANG12 + 0.81), toon=LIP, toonDur=0.06), k(r(BANG12 + 1.2), look='camera')])],
         props=[P('gav12', 'gavel', on={'actor': 'juge', 'hand': 'R', 'offset': [0.0, -0.02, 0.05]}), P('raz12', 'slab', on={'actor': 'juge', 'hand': 'L', 'offset': [0.0, 0.05, 0.04]}, opts={'w': 0.05, 'h': 0.28, 'd': 0.05, 'color': '#3A7BD5'})],
         cams=[FC(0.0, [1.6, 1.8, 2.6], [[0.0, 2.85, -4.0], [1.6, 2.45, -1.4], [1.6, 0.6, -1.4], [-0.6, 2.9, -3.4]], top=0.18, bottom=0.76)])
 st.cue('clang', 'S12', BANG12, 0.4)
@@ -153,7 +155,7 @@ st.shot('S13', 'office', actors=[act('mous', [-4.6, 0.76, -1.65], 0, 'stand', 'n
 
 # 14: then president. At a lectern between flags it waves; flashes go off
 D14 = st.dur('S14'); FL14 = [0.2, 0.5]
-st.shot('S14', 'pressRoom', actors=[act('mous', [0.0, 1.05, 0.0], 0, 'celebrate', 'happy', scale=MS, keys=[k(0.0, look='camera')])],
+st.shot('S14', 'pressRoom', setOpts={'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6}, actors=[act('mous', [0.0, 1.05, 0.0], 0, 'celebrate', 'happy', scale=MS, keys=[k(0.0, look='camera')])],
         props=[P('pod14', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), *[P(f'fl14{j}', 'flag', pos=[r(-1.2 + 2.4 * j), 0, -0.8], opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True}) for j in range(2)]],
         cams=[FC(0.0, [0.3, 1.5, 3.4], [[0.0, 1.65, 0.0], [0.0, 0.0, 0.2], [-1.2, 2.6, -0.8], [1.2, 2.6, -0.8]], top=0.18, bottom=0.78)])
 for t_ in FL14: st.cue('sfx:click', 'S14', t_, 0.2)
@@ -161,7 +163,7 @@ for t_ in FL14: st.cue('sfx:click', 'S14', t_, 0.2)
 # 15: the man applied to be its assistant. A waiting room: he sits on a chair, his CV on his knees, deadpan
 D15 = st.dur('S15')
 st.shot('S15', 'office', actors=[act('mec', [0.6, 0, 0.2], 0, 'sit', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.0),
-            k(0.9, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 1.0}}, toonDur=0.08), k(1.02, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.1)])],
+            k(0.9, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 1.0}}, toonDur=0.08), k(1.02, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.1), k(1.5, look=[2.0, 1.6, -1.0]), k(2.0, look='camera'), k(2.1, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, 'face': {'lid': 1.0}}, toonDur=0.04), k(2.16, toon={'touch': {'R': ['torso', -0.08, 0.15, 0.32, 1, 0.02], 'L': ['torso', 0.08, 0.15, 0.32, 1, 0.02]}, 'hands': {'R': 'pinch', 'L': 'pinch'}, **LIP}, toonDur=0.06)])],
         props=[P('chaise15', 'chair', pos=[0.6, 0, 0.2]), P('cv15', 'paperSheet', on={'actor': 'mec', 'hand': 'R', 'offset': [0.08, 0.04, 0.02]}, opts={'w': 0.24, 'h': 0.32, 'lines': ['CV'], 'bright': True})],
         cams=[FC(0.0, [1.2, 1.3, 2.4], [[0.6, 1.9, 0.2], [0.6, 0.0, 0.2]], top=0.2, bottom=0.78)])
 

@@ -2621,3 +2621,19 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - S09 : caméra rapprochée de trois quarts (le recul automatique l'avait reculée de 3,75 m : il ne faisait que 30 % de l'image) ; grimace d'attente, joues pleines au maximum, recul en 3-4 images avec la tête droite tournée vers nous, bras écartés loin du visage, tremblement, puis il se redresse d'un coup au-delà de la verticale pendant que les joues dégonflent d'un cran, et cligne des yeux (il restait figé 0,7 s).
   - S10 : plus de bosse sur la poitrine ; les yeux se croisent franchement pendant sept images.
   - Jour : soleil blanc (la neige mesurait (240, 212, 190) sous le soleil chaud par défaut).
+- 63 « Le café », revue 3 : animation 7,6, direction artistique 7,3. Passe finale :
+  - Visage survolté : les deux yeux grands ouverts (l'expression « impassible » du plan, mêlée à 15 %, laissait une paupière tombante d'un côté : il avait l'air sceptique). Tête rejetée en arrière à chaque gorgée.
+  - Vibration moins latérale sur lui (les copies fantômes de ses yeux s'alignaient en paire de lunettes) ; celle du maire horizontale, son écrasement réduit.
+  - Mur : la bosse a sa tête-boîte, trois mèches et la tasse, tenue huit images ; il sort au moment où le papier crève. La vieille dame réagit avec tout le corps (écrasée dans le canapé, étirée, le thé lancé en l'air) au lieu des yeux sur tiges, déjà vus.
+  - Poignée de main et marteau-piqueur : son visage tourné vers nous, seules ses pupilles regardent le maire.
+  - Tunnel : trois poussées dans la roche, lampes plus rapprochées qui s'allument derrière lui ; la posture penchée gardée dans la vue en coupe.
+  - Caillou : paupières relevées et aucun clignement pendant que les yeux montent ; le casque s'enfonce d'un coup au contact.
+  - Tableau du métro abaissé sous le bandeau du titre ; les voyageurs lèvent les yeux sans tourner la tête.
+  - Moteur : contours des parties de la bosse avec un exposant (ellipse ou boîte) et densité du maillage (`o.res`) ; amplitude de vibration par plan (`buzzXZ`, `buzzY`).
+- 64 « La langue », passe 3 contrôlée en images ; le lampadaire derrière le maire (au-delà de la zone dégagée) retiré, le plan du bus resserré ; brouillon 3 en rendu.
+- 67 « La moustache », images série 1 : la créature était minuscule dans les trois premiers plans (de loin, au sol) ; le premier plan devient le miroir (son visage, la moustache sur la lèvre), le deuxième suit la moustache à sa hauteur, le troisième se rapproche du bus. Au commissariat il cachait la moustache : caméra de l'autre côté. Texte de la conférence de presse réduit (il se chevauchait). Clignements et regards ajoutés dans les tenues.
+- 68 « Le champagne » (cycle 30), dans la veine des premières histoires :
+  - Dix-huit répliques, 35,9 s, vingt plans (deux répliques coupées en deux pour garder une coupe toutes les une à deux secondes). L'escalade passe par la voisine, la police, la mairie qui ferme le ciel, l'armée de l'air, l'orbite, les savants, la télé, le gouvernement, les autres pays, la facture ; retour du bouchon dans son verre, champagne éventé.
+  - Choix : pas de barbe qui pousse pendant l'attente (gag du « Feu rouge ») ; c'est la flûte restée sous le trou, déjà sans bulles, qui reçoit le bouchon.
+  - Moteur (props_champagne.js) : bouchon (traînée, flammes de rentrée, panneaux solaires), flûte (bulles, vin éventé, éclaboussure, dernière bulle), geyser de mousse, trou de plafond avec éclats et poussière, assiette de soupe qui saute, salissures collées sur une tête avec nouille, loupe, vieille télé qui passe de la neige à un match net, écran de salle de contrôle, portrait doré dévoilé.
+  - Images série 1 : fissures trop épaisses (on aurait dit une araignée), commissariat vu de dos, écran de télé de dos, texte de conférence qui se chevauchait, facture sous le plancher (pivot au bord haut) : corrigés ; brouillon 1 en rendu.

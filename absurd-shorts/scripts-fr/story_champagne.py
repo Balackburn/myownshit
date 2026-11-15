@@ -104,7 +104,7 @@ st.shot('S03', 'livingRoom', actors=[
             k(r(PUNCH3 + 0.32), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 1.0, 'mouth': 'wavy', 'brow': -0.4}}, toonDur=0.05),   # the chips land: eyes shut tight...
             k(r(PUNCH3 + 0.6), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 0.25, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.12),   # ...open again, flat
             k(r(PUNCH3 + 0.85), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.04), k(r(PUNCH3 + 0.91), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.06)])],
-        props=[CEILING('ceil3'), HOLEP('hole3', [HOLE[0], r(CEIL - 0.006), HOLE[2]], at_=PUNCH3), P('cracks3', 'ceilingCracks', pos=[HOLE[0], r(CEIL - 0.008), HOLE[2]], rot=[PI / 2, 0, 0], opts={'r': 0.7, 'n': 9, 'at': PUNCH3, 'thick': 3}),
+        props=[CEILING('ceil3'), HOLEP('hole3', [HOLE[0], r(CEIL - 0.006), HOLE[2]], at_=PUNCH3), P('cracks3', 'ceilingCracks', pos=[HOLE[0], r(CEIL - 0.008), HOLE[2]], rot=[PI / 2, 0, 0], opts={'r': 0.8, 'n': 13, 'at': PUNCH3, 'thick': 1.4}),
                P('cork3', 'cork', pos=[HOLE[0], 2.6, HOLE[2]], scale=CS, opts={'spin': 3.0, 'trail': [[0.0, PUNCH3]]}, keys=[k(0.0, to=[HOLE[0], 4.2, HOLE[2]], dur=r(PUNCH3 * 2), ease='linear')]),
                P('gunk3', 'gunk', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={**HEADBOX, 'color': FOAM, 'at': -1.0, 'n': 10}),
                BURST('crac3', [0.75, 3.05, 0.6], r(PUNCH3 + 0.02), 'CRAC !', 0.4, 0.3)],
@@ -142,7 +142,7 @@ st.shot('S05', 'policeStation', actors=[
         act('flic', [-2.7, 0, -2.75], 0, 'stand', 'unimpressed', keys=[k(0.0, look=[-2.7, 1.05, -2.25]), k(0.0, toon={'bend': {'spine': [0.25, 0, 0, 1, None]}, 'face': {'lid': 0.55, 'mouth': 'line', 'gy': 0.5}}, toonDur=0.0),
             *[k(tj, toon={'bend': {'spine': [0.25, 0, 0, 1, None]}, 'reach': {('R' if j % 2 else 'L'): [r(-2.6 if j % 2 else -2.8), r(1.08 if (j // 2) % 2 else 1.04), -2.3, 1, 0.04]}, 'hands': {'R': 'point', 'L': 'point'}, 'face': {'lid': 0.55, 'mouth': 'line', 'gy': 0.5}}, toonDur=0.06) for j, tj in enumerate(TYPE5)]])],   # two fingers on the keys
         props=[P('gunk5', 'gunk', on={'actor': 'voisine', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.26, 'h': 0.48, 'd': 0.17, 'color': SOUP, 'at': -1.0, 'n': 11, 'noodle': True})],
-        cams=[FC(0.0, [-1.3, 1.9, -2.5], [[-2.7, 2.4, -1.05], [-2.5, 2.9, -1.25], [-2.7, 1.2, -1.05], [-2.7, 2.2, -2.75], [-2.95, 1.0, -2.6]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [-1.0, 1.95, -3.35], [[-2.7, 2.45, -1.05], [-2.5, 2.95, -1.25], [-2.7, 1.3, -1.05]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.3, 3.4, -3.45, 13.0))])   # (stills 1) over the officer's shoulder onto her face (we saw his back and half of her)
 for tj in TYPE5: st.cue('sfx:click', 'S05', tj, 0.12)
 
 # 6: the police opened an inquiry. Back in his living room, from low: a detective in a trench coat looks up the hole through a magnifying glass,
@@ -221,28 +221,28 @@ st.shot('S11', 'office', setOpts={'wall': '#3A4A5E', 'band': '#2C3A4C', 'trim': 
             k(r(NAME11 + 0.05), toon=TOAST11(0.95, -1.85), toonDur=0.15, toonEase='out'), k(r(NAME11 + 0.15), look='camera')])],
         props=[P('screen11', 'orbitScreen', pos=[0.0, 0.85, -3.45], opts={'w': 2.7, 'h': 1.5, 'nameAt': NAME11, 'period': 2.6}),
                P('fl11a', 'flute', on={'actor': 'savant1', 'hand': 'R', 'offset': [0.0, -0.1, 0.03]}, scale=CS, opts={'level': 0.7}), P('fl11b', 'flute', on={'actor': 'savant2', 'hand': 'R', 'offset': [0.0, -0.1, 0.03]}, scale=CS, opts={'level': 0.7})],
-        cams=[FC(0.0, [0.4, 1.75, 2.2], [[-1.35, 1.0, -3.45], [1.35, 2.35, -3.45], [-1.15, 2.45, -2.2], [1.15, 2.45, -2.1], [0.0, 0.3, -2.2]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [0.4, 1.6, 2.4], [[-1.35, 1.0, -3.45], [1.35, 2.35, -3.45], [-1.5, 2.5, -2.2], [1.5, 2.5, -2.1], [-0.95, 2.8, -1.95], [0.95, 2.8, -1.85], [0.0, 0.3, -2.2]], top=0.12, bottom=0.78)])
 st.cue('sfx:fanfare', 'S11', NAME11, 0.3); st.cue('sfx:clink', 'S11', r(NAME11 + 0.2), 0.3)
 
 # 12: since then the television gets a better picture. A family in front of an old set: the father holds the rabbit ears, the screen snow; it
 #    clears to a sharp match; they jump for joy, the father lets go of the aerial slowly
-D12 = st.dur('S12'); CLEAR12 = 0.55; TV12 = [0.55, 0, -0.55]
+D12 = st.dur('S12'); CLEAR12 = 0.55; TV12 = [1.1, 0, -0.9]   # (stills 1) the set at the right, its screen turned to us and to them (we saw its back)
 st.shot('S12', 'livingRoom', setOpts={'tv': False}, actors=[
-        act('pere', [0.15, 0, -1.4], 20, 'stand', 'neutral', keys=[k(0.0, look=[0.48, 0.9, -0.3]), k(0.0, toon={'reach': {'R': [0.48, 1.32, -0.55, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.4, 'tongue': 0.0}}, toonDur=0.0),
-            k(CLEAR12, toon={'reach': {'R': [0.48, 1.32, -0.55, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.06, toonEase='out'),   # it clears: he freezes...
-            k(r(CLEAR12 + 0.55), toon={'reach': {'R': [0.62, 1.42, -0.62, 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'spine': [0.08, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'smirk', 'brow': 0.7}}, toonDur=0.3, toonEase='inOut')]),   # ...lets go, very slowly
-        act('mere', [-0.65, 0, -1.9], 25, 'stand', 'neutral', keys=[k(0.0, look=[0.48, 0.9, -0.3]), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
-            k(r(CLEAR12 + 0.05), toon={'reach': {'R': [-0.5, 1.6, -1.55, 1, 0.04], 'L': [-0.62, 1.6, -1.55, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.1, toonEase='out'),
-            *[k(r(CLEAR12 + 0.2 + 0.14 * j), toon={'reach': {'R': [r(-0.5 + (0.05 if j % 2 else 0.0)), 1.6, -1.55, 1, 0.04], 'L': [r(-0.62 - (0.05 if j % 2 else 0.0)), 1.6, -1.55, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.06) for j in range(6)]]),   # clapping
-        act('gamin', [0.95, 0, -1.75], -10, 'stand', 'neutral', keys=[k(0.0, look=[0.48, 0.9, -0.3]), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
-            k(r(CLEAR12 + 0.08), clip='hop'), k(r(CLEAR12 + 0.08), toon={'reach': {'R': [1.2, 2.2, -1.6, 1, 0.05], 'L': [0.7, 2.2, -1.6, 1, 0.05]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'open', 'brow': 0.9}}, toonDur=0.1, toonEase='out')])],
-        props=[P('tv12', 'oldTv', pos=TV12, ry=200, opts={'clearAt': CLEAR12})],
-        cams=[FC(0.0, [1.9, 1.5, 1.2], [[0.15, 2.45, -1.4], [-0.65, 2.4, -1.9], [0.95, 2.0, -1.75], [TV12[0], 0.0, TV12[2]], [TV12[0], 1.5, TV12[2]], [-0.65, 0.0, -1.9]], top=0.12, bottom=0.78)])
+        act('pere', [0.5, 0, -1.3], 60, 'stand', 'neutral', keys=[k(0.0, look=[1.0, 0.63, -0.85]), k(0.0, toon={'reach': {'R': [1.05, 1.32, -0.95, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.2, 'mouth': 'clench', 'brow': -0.4, 'tongue': 0.0}}, toonDur=0.0),
+            k(CLEAR12, toon={'reach': {'R': [1.05, 1.32, -0.95, 1, 0.05]}, 'hands': {'R': 'pinch'}, 'bend': {'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 0.9}}, toonDur=0.06, toonEase='out'),   # it clears: he freezes...
+            k(r(CLEAR12 + 0.55), toon={'reach': {'R': [0.95, 1.5, -0.85, 1, 0.05]}, 'hands': {'R': 'spread'}, 'bend': {'spine': [0.08, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'smirk', 'brow': 0.7}}, toonDur=0.3, toonEase='inOut')]),   # ...lets go, very slowly
+        act('mere', [-0.4, 0, -1.65], 50, 'stand', 'neutral', keys=[k(0.0, look=[1.0, 0.63, -0.85]), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
+            k(r(CLEAR12 + 0.05), toon={'reach': {'R': [-0.18, 1.6, -1.42, 1, 0.04], 'L': [-0.3, 1.6, -1.48, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.1, toonEase='out'),
+            *[k(r(CLEAR12 + 0.2 + 0.14 * j), toon={'reach': {'R': [r(-0.18 + (0.05 if j % 2 else 0.0)), 1.6, -1.42, 1, 0.04], 'L': [r(-0.3 - (0.05 if j % 2 else 0.0)), 1.6, -1.48, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.0, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.06) for j in range(6)]]),   # clapping
+        act('gamin', [0.05, 0, -0.95], 55, 'stand', 'neutral', keys=[k(0.0, look=[1.0, 0.63, -0.85]), k(0.0, toon={'face': {'lid': 0.4, 'mouth': 'line'}}, toonDur=0.0),
+            k(r(CLEAR12 + 0.08), clip='hop'), k(r(CLEAR12 + 0.08), toon={'reach': {'R': [0.3, 2.1, -0.75, 1, 0.05], 'L': [-0.15, 2.1, -1.05, 1, 0.05]}, 'hands': {'R': 'spread', 'L': 'spread'}, 'face': {'lid': 0.0, 'eye': 0.4, 'mouth': 'open', 'brow': 0.9}}, toonDur=0.1, toonEase='out')])],
+        props=[P('tv12', 'oldTv', pos=TV12, ry=-60, opts={'clearAt': CLEAR12})],
+        cams=[FC(0.0, [0.2, 1.55, 2.3], [[0.5, 2.45, -1.3], [-0.4, 2.4, -1.65], [0.05, 2.0, -0.95], [TV12[0], 1.45, TV12[2]], [TV12[0], 0.6, TV12[2]], [-0.4, 1.05, -1.65], [0.05, 1.0, -0.95]], top=0.12, bottom=0.78)])
 st.cue('sfx:static', 'S12', 0.0, 0.3); st.cue('sfx:ding', 'S12', CLEAR12, 0.3); st.cue('sfx:fanfare', 'S12', r(CLEAR12 + 0.1), 0.2)
 
 # 13: the government declared it... At the podium, under the flashes, the minister lifts a solemn finger
 D13 = st.dur('S13'); FL13 = [0.25, 0.6, 0.95]
-st.shot('S13', 'pressRoom', setOpts={'backdrop': 'GOUVERNEMENT|COMMUNIQUÉ'}, actors=[
+st.shot('S13', 'pressRoom', setOpts={'backdrop': 'GOUVERNEMENT', 'fontScale': 0.55}, actors=[
         act('ministre', [0.0, 0, -2.45], 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon={'reach': {'R': [0.25, 1.35, -1.85, 1, 0.04], 'L': [-0.25, 1.35, -1.85, 1, 0.04]}, 'hands': {'R': 'open', 'L': 'open'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.0),
             k(0.3, toon={'reach': {'R': [0.32, 2.45, -1.95, 1, 0.05], 'L': [-0.25, 1.35, -1.85, 1, 0.04]}, 'hands': {'R': 'point', 'L': 'open'}, 'face': {'lid': 0.2, 'mouth': 'open', 'brow': 0.6}}, toonDur=0.2, toonEase='out'),   # the finger up...
             k(0.8, toon={'reach': {'R': [0.32, 2.5, -1.95, 1, 0.05], 'L': [-0.25, 1.35, -1.85, 1, 0.04]}, 'hands': {'R': 'point', 'L': 'open'}, 'face': {'lid': 0.3, 'mouth': 'line', 'brow': 0.7}}, toonDur=0.2)])],
@@ -302,7 +302,7 @@ st.shot('S17', 'immeubleHall', actors=[
             k(0.3, look=[-0.2, 0.0, 2.0]), k(0.3, toon={'reach': {'L': [-0.38, 1.55, 0.42, 1, 0.04], 'R': [-0.02, 1.55, 0.42, 1, 0.04]}, 'hands': {'L': 'pinch', 'R': 'pinch'}, 'face': {'lid': 0.2, 'mouth': 'line', 'gy': 0.8}}, toonDur=0.2),   # his eyes follow it down...
             k(POP17, look='camera'), k(POP17, toon={'reach': {'L': [-0.38, 1.6, 0.42, 1, 0.04], 'R': [-0.02, 1.6, 0.42, 1, 0.04]}, 'hands': {'L': 'pinch', 'R': 'pinch'}, 'sq': [0.94, 1.08, 0.94], 'hairUp': 1.0,
                                                     'face': {'lid': 0.0, 'pop': 0.6, 'popLen': 0.16, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out')])],   # ...POP: eyes out on stalks
-        props=[P('bill17', 'billScroll', pos=[-0.2, 0, 0.45], opts={'w': 0.36, 'top': 1.5, 'head': 'FACTURE', 'items': ['OCCUPATION', "DE L'ESPACE", 'ORBITE', 'SURVOL', 'FRAIS DE DOSSIER', 'TIMBRE'], 'len': [[0.0, 0.25], [0.25, 1.5], [r(D17 - 0.2), 4.5]]})],
+        props=[P('bill17', 'billScroll', pos=[-0.2, 1.5, 0.45], opts={'w': 0.36, 'top': 1.5, 'head': 'FACTURE', 'items': ['OCCUPATION', "DE L'ESPACE", 'ORBITE', 'SURVOL', 'FRAIS DE DOSSIER', 'TIMBRE'], 'len': [[0.0, 0.25], [0.25, 1.5], [r(D17 - 0.2), 4.5]]})],
         cams=[FC(0.0, [0.75, 1.0, 3.2], [[-0.2, 2.6, 0.0], [-0.2, 0.0, 0.45], [-0.2, 0.0, 2.2], [0.35, 1.5, 0.3], [-0.75, 1.5, 0.3]], top=0.12, bottom=0.8)])
 st.cue('sfx:paper', 'S17', 0.05, 0.3); st.cue('sfx:paper', 'S17', 0.45, 0.25); st.cue('sfx:cash', 'S17', POP17, 0.3); st.cue('sfx:gasp', 'S17', r(POP17 + 0.05), 0.3)
 

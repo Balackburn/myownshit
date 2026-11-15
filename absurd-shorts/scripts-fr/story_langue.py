@@ -36,7 +36,7 @@ DAY = {**SNOW, 'sky': ['#62AEE2', '#A7D4EC']}   # (review 1) white snow, a grey 
 NLOOK = {'sun': 0.1, 'sunColor': '#8FA4E0', 'fill': 0.25, 'exposure': 1.05}   # a night look: the bulbs carry the street; (review 1) a cool fill, no darkening after the fact (99 % of the frame under luma 52); (review 2) a third of the ambient: the walls were only 6-10 % darker than by day
 GLOW = lambda pid, pos, col, k_=2.5, dist=3.0: P(pid, 'glowLight', pos=pos, opts={'color': col, 'k': k_, 'dist': dist})
 DUSK = {'sun': 0.5, 'sunColor': '#FFB585', 'elevation': 10, 'fill': 0.5, 'exposure': 1.0}   # (review 2) a low orange sun under an indigo sky (S06 was full night, with stars)
-DUSKSET = {**SNOW, 'sky': ['#3B4A7A', '#E89A6A'], 'clear': [-16.0, 8.0], 'clearL': [-16.0, 8.0]}   # (review 2) and no lamp bracket rising behind the mayor's head
+DUSKSET = {**SNOW, 'sky': ['#3B4A7A', '#E89A6A'], 'clear': [-60.0, 8.0], 'clearL': [-60.0, 8.0]}   # (review 2) and no lamp bracket rising behind the mayor's head
 DLOOK = {'sunColor': '#F4F6FF', 'warm': 0.55}   # (review 2) a white sun by day: the snow measured (240, 212, 190) under the warm default (near white in S08-S10)
 WLOOK = {'sunColor': '#FFE3B5', 'sun': 1.1, 'elevation': 20}   # (review 2) the thaw: a low warm sun on the pole
 POLE = [-6.0, 0, 0]                                 # the frozen lamp post on the left pavement, its arm out over the road (+X)
@@ -144,7 +144,7 @@ st.shot('S04', 'parisStreet', setOpts=DAY, look=DLOOK, actors=[
         props=[*LAMP(lick_at=-1.0), P('bus4', 'cityBus', pos=[2.2, 0, -11.4], ry=-90, opts={'len': 7.6, 'roof': '#8E959C'}, keys=[k(0.0, to=[2.2, 0, 16.6], dur=D4, ease='linear')])],
         tethers=[TONGUE(**{'sag': 0.022, 'n': 28, 'segments': 64, 'taper': 0.2, 'lift': [[BUS4, GONE4, U_CAR, 1.15, 0.1]],
                            'birds': [[0.17, r(BUS4 + 0.04), 120], [0.23, r(BUS4 + 0.08), 100], [0.3, r(BUS4 + 0.02), 140]], 'birdScale': 1.8, 'ripple': [[GONE4, 0.18, 2.0]]})],   # (review 1) bigger pigeons
-        cams=[FC(0.0, [-0.4, 4.4, 3.9], [[FAR[0], r(2.45 + UP4), 0.0], [FAR[0], 0.0, 0.0], [r(FAR[0] + 0.9), r(2.6 + UP4), 0.0], [r(FAR[0] + 0.9), 0.0, 0.0], [3.4, 2.0, 0.0], [2.2, 3.2, 0.0]], top=0.12, bottom=0.78)])   # (review 1) from high on the pole's side: we see over the bus's roof, the hang in view; (review 2) lower, room right of him (his arm was cut), a grey roof (white like the snow)
+        cams=[FC(0.0, [-0.4, 4.4, 3.9], [[FAR[0], r(2.45 + UP4), 0.0], [FAR[0], 0.0, 0.0], [r(FAR[0] + 0.9), r(2.6 + UP4), 0.0], [r(FAR[0] + 0.9), 0.0, 0.0], [3.4, 2.0, 0.0]], top=0.12, bottom=0.78)])   # (review 1) from high on the pole's side: we see over the bus's roof, the hang in view; (review 2) lower, room right of him (his arm was cut), a grey roof (white like the snow)
 st.cue('sfx:engine', 'S04', 0.2, 0.35); st.cue('sfx:boing', 'S04', BUS4, 0.3); st.cue('sfx:slideDown', 'S04', DROP4, 0.25); st.cue('thud', 'S04', LAND4, 0.35)
 
 # 5: the town hall hung the Christmas lights on it. A worker in the road clips bulbs onto the tongue from the pole end toward him; the tongue sags
