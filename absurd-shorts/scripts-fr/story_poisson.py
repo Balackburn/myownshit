@@ -162,7 +162,7 @@ st.shot('S08', 'seaSurface', setOpts=LAKE, look=XLOOK, actors=[
         act('poisson', [X8(0.0), FY(S8, 2.4), -6.4], 90, 'walk', 'happy', scale=S8, keys=[k(0.0, to=[X8(D8), FY(S8, 2.4), -6.4], dur=D8, ease='linear'),
             *[k(r(t_ - 0.14), clip='gulp', params=GULP(open=0.1, hold=0.04, snap=0.04, jaw=0.95, drop=0.5, mouth=1.35, lunge=0.25, swell=0.4)) for t_ in EAT8]])],   # (review 1) a nip per boat, the lips round it, in profile (they vanished behind a head whose mouth never showed)
         props=[*[P(f'ped8{j}', 'pedalo', pos=p_, ry=90, opts={'seed': j, 'goneAt': r(EAT8[j] + 0.03), 'suck': [0.0, 0.4, -0.9]}) for j, p_ in enumerate(PED8)],
-               *[BURST(f'miam8{j}', [r(PED8[j][0] - 0.6), 5.2, -1.8], r(EAT8[j] + 0.04), 'MIAM', 1.3, 0.28) for j in range(4)], *SHORE('8')],   # a small MIAM per boat; (review 2) in front of the head (inside it, they never showed)
+               *[BURST(f'miam8{j}', [r(PED8[j][0] - 0.2), 3.0, -0.6], r(EAT8[j] + 0.04), 'MIAM', 1.3, 0.28) for j in range(4)], *SHORE('8')],   # a small MIAM per boat; (review 2) in front of the head (inside it, they never showed)
         cams=[FC(0.0, [-2.4, 1.3, 7.0], [[-4.6, 0.0, -6.4], [1.8, 0.0, -6.4], [-4.0, 8.6, -6.4], [-1.0, 0.0, -6.4]], top=0.16, bottom=0.8, drift=(4.2, 0.0, 0.0), lenses=range(26, 66))])   # side on, panning with its head along the row
 for t_ in EAT8: st.cue('sfx:gulp', 'S08', r(t_ + 0.03), 0.25)
 

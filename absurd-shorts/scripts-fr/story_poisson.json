@@ -2698,9 +2698,9 @@
      "id": "miam80",
      "name": "hicBurst",
      "pos": [
-      -4.2,
-      5.2,
-      -1.8
+      -3.8,
+      3.0,
+      -0.6
      ],
      "face": "camera",
      "opts": {
@@ -2719,9 +2719,9 @@
      "id": "miam81",
      "name": "hicBurst",
      "pos": [
-      -1.8,
-      5.2,
-      -1.8
+      -1.4,
+      3.0,
+      -0.6
      ],
      "face": "camera",
      "opts": {
@@ -2740,9 +2740,9 @@
      "id": "miam82",
      "name": "hicBurst",
      "pos": [
-      0.6,
-      5.2,
-      -1.8
+      1.0,
+      3.0,
+      -0.6
      ],
      "face": "camera",
      "opts": {
@@ -2761,9 +2761,9 @@
      "id": "miam83",
      "name": "hicBurst",
      "pos": [
+      3.4,
       3.0,
-      5.2,
-      -1.8
+      -0.6
      ],
      "face": "camera",
      "opts": {
