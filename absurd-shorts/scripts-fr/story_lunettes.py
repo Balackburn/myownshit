@@ -75,16 +75,16 @@ for j in range(4): st.cue('whoosh', 'S02', r(0.26 + 0.3 * j), 0.2, 0.25, 500, 15
 # 3: under the sofa. The camera under the sofa at floor level, looking out (review 1: from the side he read as a headless navy arch): the dark
 #    underside frames the top, a coin, a sock and dust in front; he kneels bent right down, cheek to the floor, squinting into the dark, the glasses
 #    on his head against the bright room; he looks left, right, blinks, then at us
-D3 = st.dur('S03'); ME3 = [0.0, 0, -0.95]; SOFA3 = [0.0, 0, -2.2]
-LOW3 = lambda f, sq=None: {'bend': {'spine': [1.25, 0, 0, 1, None], 'neck': [-0.55, 0, 0, 1, None]}, 'face': f, **({'sq': sq} if sq else {})}
+D3 = st.dur('S03'); ME3 = [0.0, 0, -0.75]; SOFA3 = [0.0, 0, -2.2]
+LOW3 = lambda f, sq=(1.08, 0.62, 1.08): {'bend': {'spine': [1.25, 0, 0, 1, None], 'neck': [-0.55, 0, 0, 1, None]}, 'face': f, 'sq': list(sq)}   # (stills 6) squashed flat to the floor: bent, his head stayed at 0.73 m, over the gap
 st.shot('S03', 'livingRoom', actors=[
         act('mec', ME3, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.0, 0.2, -2.6]), k(0.0, toon=LOW3({**SQUINT, 'mouth': 'O'}), toonDur=0.0),
-            k(0.3, look=[-0.6, 0.2, -2.6]), k(0.62, look=[0.6, 0.2, -2.6]), k(0.55, toon=LOW3({**SQUINT, 'mouth': 'pout'}, [1.02, 0.98, 1.02]), toonDur=0.2),
+            k(0.3, look=[-0.6, 0.2, -2.6]), k(0.62, look=[0.6, 0.2, -2.6]), k(0.55, toon=LOW3({**SQUINT, 'mouth': 'pout'}, (1.1, 0.6, 1.1)), toonDur=0.2),
             k(0.85, toon=LOW3({**SQUINT, 'lid': 1.0, 'mouth': 'pout'}), toonDur=0.05), k(0.95, toon=LOW3({**SQUINT, 'mouth': 'pout'}), toonDur=0.07), k(r(D3 - 0.38), look='camera')])],
         props=[GL('gl3'), P('sofa3', 'sofaProp', pos=SOFA3, ry=0, opts={'legs': 0.46}), P('coin3', 'coin', pos=[0.16, 0.02, -2.05], rot=[PI / 2, 0, 0], scale=1.6),
                P('sock3', 'slab', pos=[-0.22, 0.03, -1.98], ry=25, opts={'w': 0.25, 'h': 0.05, 'd': 0.1, 'color': '#F2F2EE'}),
                P('dust3', 'dustPuff', pos=[0.3, 0.0, -1.9], scale=0.15, opts={'color': '#BDB4A6', 'period': 1.1})],
-        cams=[FC(0.0, [0.08, 0.16, -2.45], [[0.0, 0.8, -1.4], [0.0, 0.05, -1.4], [-0.4, 0.4, -1.45], [0.4, 0.4, -1.45]], top=0.24, bottom=0.78, inside=(-0.8, 0.8, 0.05, 0.4, -2.6, -1.9), lenses=range(26, 86))])
+        cams=[FC(0.0, [0.06, 0.12, -1.93], [[0.0, 0.95, -1.4], [0.0, 0.22, -1.35], [-0.32, 0.55, -1.4], [0.32, 0.55, -1.4]], top=0.3, bottom=0.8, inside=(-0.8, 0.8, 0.05, 0.4, -2.6, -1.92), lenses=range(26, 86))])   # (stills 6) just behind the front edge: from deeper under, the rail hid his head
 st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 
 # 4: in the fridge. The camera inside the fridge behind the food, looking out (review 1: from outside his head stayed in the fridge): his face
@@ -92,13 +92,13 @@ st.cue('sfx:scratch', 'S03', 0.35, 0.15)
 #    hangs, drops squashed with his hair on end, and shivers outside, frosted, looking at us
 D4 = st.dur('S04'); FR4 = [0.0, 0, -2.4]; IN4 = [0.1, 0, -1.55]; OUT4 = [0.1, 0, -1.08]; JOLT4 = 0.62
 st.shot('S04', 'kitchenDay', setOpts={'fridge': False}, actors=[
-        act('mec', IN4, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.1, 1.0, -2.8]), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(0.28, look=[-0.3, 1.0, -2.8]), k(0.46, look=[0.35, 1.0, -2.8]),
+        act('mec', IN4, 180, 'peerIn', 'neutral', keys=[k(0.0, look=[0.1, 1.0, -2.8]), k(0.0, toon={'bend': {'spine': [0.45, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.28, look=[-0.3, 1.0, -2.8]), k(0.46, look=[0.35, 1.0, -2.8]),
             k(JOLT4, to=[0.1, 0.32, -1.25], dur=0.1, ease='out', face='keep'), k(r(JOLT4 + 0.2), to=OUT4, dur=0.08, ease='in', face='keep'),   # jolted out: up, a hang, down
             k(JOLT4, toon={'sq': [0.82, 1.3, 0.82], 'hairUp': 1.0, 'face': {'lid': 0.0, 'eye': 0.5, 'mouth': 'O', 'brow': 1.0}}, toonDur=0.05, toonEase='out'),
             k(r(JOLT4 + 0.28), toon={'sq': [1.22, 0.8, 1.22], 'hairUp': 1.0, 'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0}}, toonDur=0.05, toonEase='in'),
             k(r(JOLT4 + 0.4), toon={'hairUp': 1.0, 'face': {**SQUINT, 'mouth': 'zigzag', 'tremble': 1.0, 'blush': 0.0}}, toonDur=0.1), k(r(JOLT4 + 0.4), look='camera')])],
         props=[P('fr4', 'bigFridge', pos=FR4, opts={'open': 1.0, 'mode': 'full', 'mist': True, 'light': True}), GL('gl4', glint=[0.4])],
-        cams=[FC(0.0, [0.2, 1.0, -2.72], [[0.1, 1.35, -2.05], [0.1, 0.72, -2.05], [-0.18, 1.0, -2.05], [0.38, 1.0, -2.05]], top=0.2, bottom=0.8, inside=(-0.45, 0.45, 0.86, 1.16, -2.78, -2.3), lenses=range(26, 86))])
+        cams=[FC(0.0, [-0.05, 1.05, -2.72], [[0.1, 1.35, -2.05], [0.1, 0.72, -2.05], [-0.18, 1.0, -2.05], [0.38, 1.0, -2.05]], top=0.2, bottom=0.8, inside=(-0.45, 0.45, 0.86, 1.16, -2.78, -2.3), lenses=range(26, 86))])
 st.cue('sfx:click', 'S04', 0.05, 0.15); st.cue('sfx:ding', 'S04', 0.4, 0.15); st.cue('whoosh', 'S04', JOLT4, 0.2, 0.25, 600, 1500); st.cue('sfx:sniff', 'S04', r(JOLT4 + 0.45), 0.2)
 
 # 5: he filed a complaint. At the police desk, over the officer's shoulder (review 1: no officer, a white wall, one hand over one eye): a partition
@@ -137,7 +137,7 @@ D7 = st.dur('S07')
 st.shot('S07', 'grassland', actors=[
         act('plong1', [-1.0, 0, 1.0], 20, 'pointDown', 'neutral', keys=[k(0.0, look=[-1.0, 0.0, 1.8]), k(0.4, look=[-1.2, 0.0, 0.6])]),
         act('plong2', [1.0, 0, 0.4], -30, 'holdUp', 'neutral', keys=[k(0.0, look='camera')]),
-        act('mec', [-3.65, 2.76, 2.2], 70, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.0, 0.5]), k(0.0, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.9, look=[1.0, 0.5, 0.4]), k(1.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.36, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.06)]),
+        act('mec', [-3.65, 2.76, 2.2], 25, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 0.0, 0.5]), k(0.0, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.0), k(0.9, look=[1.0, 0.5, 0.4]), k(1.3, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.36, toon={'bend': {'neck': [0.35, 0, 0, 1, None], 'spine': [0.25, 0, 0, 1, None]}, 'face': SQUINT}, toonDur=0.06)]),
         act('poisson7', [0.2, 0.0, 1.9], 0, 'stand', 'neutral', scale=0.35, keys=[*[k(r(0.1 + 0.3 * j), to=[r(0.2 + 0.05 * (j % 2)), 0.25 if j % 2 == 0 else 0.0, 1.9], dur=0.15, ease='out' if j % 2 == 0 else 'in') for j in range(6)]])],
         props=[P('river7', 'drainedRiver', pos=[0.0, 0.16, 0.0], opts={'w': 8, 'len': 40, 'qh': 2.45, 'bridgeZ': -16}), GL('gl7'),
                P('mask71', 'diveMask', on={'actor': 'plong1', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.28, 'y': 0.3}),
@@ -146,7 +146,7 @@ st.shot('S07', 'grassland', actors=[
                P('boot7b', 'slab', on={'actor': 'plong2', 'hand': 'R', 'offset': [0.0, -0.02, 0.12]}, opts={'w': 0.13, 'h': 0.1, 'd': 0.3, 'color': '#3B2A20'}),   # (review 1) the shaft and the foot of a boot (one box read as a brick)
                *[P(f'tank7{j}', 'slab', on={'actor': f'plong{j}', 'joint': 'torso', 'offset': [0.0, 0.15, -0.2]}, opts={'w': 0.2, 'h': 0.55, 'd': 0.18, 'color': '#F2C21E', 'outline': 0.006}) for j in (1, 2)],   # air tanks
                P('tour7', 'eiffelTower', pos=[2.5, 0.0, -48.0], opts={'h': 34, 'style': 'v2'})],   # (review 1) nothing said Seine
-        cams=[FC(0.0, [1.2, 1.25, 6.0], [[-1.0, 2.4, 1.0], [1.0, 2.6, 0.4], [-3.65, 5.46, 2.2], [-3.65, 2.76, 2.2], [0.2, 0.16, 1.9]], top=0.12, bottom=0.78)])   # (review 1) he was 28 px wide in a corner
+        cams=[FC(0.0, [-2.6, 4.3, 5.2], [[-1.0, 2.4, 1.0], [1.0, 2.6, 0.4], [-3.65, 5.5, 2.2], [-3.65, 3.6, 2.2], [0.2, 0.16, 1.9], [1.0, 0.16, 0.4]], top=0.12, bottom=0.78)])   # (stills 6) from the quay: he was still small in a corner
 st.cue('sfx:splash', 'S07', 0.1, 0.15); st.cue('sfx:splash', 'S07', 0.7, 0.12); st.cue('sfx:splash', 'S07', 1.3, 0.12)
 
 # 8: the army sent helicopters. At night in the street, from low: a helicopter hangs over the roofs, its searchlight sweeps the street, crosses him,
@@ -163,10 +163,10 @@ st.cue('sfx:engine', 'S08', 0.05, 0.4); st.cue('sfx:ding', 'S08', r(PASS8 - 0.05
 # 9: satellites scanned the planet. Space, wide: the opaque blue Earth fills the lower half under a black starry sky; three satellites in orbit
 #    over it, the nearest in the upper middle, each sweeping a saturated red fan down across the globe (review 1: the globe filled the whole frame
 #    behind one big satellite and read as a glitch of translucent triangles)
-D9 = st.dur('S09'); EARTH9 = [0.0, -7.2, -15.0]
-SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.55, 0.3, 0.0], 0.3, 36.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.45, -0.5, 0.15], 0.22, 32.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.5, 0.7, -0.15], 0.22, 30.0, 0.2)]
+D9 = st.dur('S09'); EARTH9 = [0.0, -9.0, -26.0]   # (stills 6) at -15 the globe filled the frame
+SATS9 = [('sat9', [-0.2, 1.75, -3.2], [0.32, 0.3, 0.0], 0.3, 72.0, 0.1), ('sat9b', [-1.9, 2.9, -10.0], [0.3, -0.5, 0.15], 0.22, 70.0, 0.3), ('sat9c', [2.2, 2.2, -12.0], [0.32, 0.7, -0.15], 0.22, 64.0, 0.2)]
 st.shot('S09', 'spaceDark', actors=[],
-        props=[P('earth9', 'earthGlobe', pos=EARTH9, scale=6.5, opts={'spin': 0.06}),
+        props=[P('earth9', 'earthGlobe', pos=EARTH9, scale=7.0, opts={'spin': 0.06}),
                *[P(n_, 'satellite', pos=p_, rot=ro_, scale=s_, opts={'scan': [[t_, 9.0]], 'scanLen': L_, 'sweepDeg': 24, 'fanOpacity': 0.42, 'fanBlend': 'normal', 'fanColor': '#FF2A1E'},
                    keys=[k(0.0, to=[r(p_[0] + 0.35), r(p_[1] + 0.08), p_[2]], dur=D9, ease='linear')]) for n_, p_, ro_, s_, L_, t_ in SATS9]],
         cams=[cam(0.0, [0.0, 1.0, 5.0], [0.12, 1.0, 4.85], [0.0, -0.3, -6.0], [0.08, -0.3, -6.0], lens=44)])
@@ -214,13 +214,13 @@ st.shot('S13', 'office', setOpts={'picture': False, 'carpet': False, 'printer': 
         act('mec', [0.0, 0, -1.4], 0, 'stand', 'unimpressed', keys=[k(0.0, look='camera'), k(0.0, toon={'face': SQUINT}, toonDur=0.0), k(1.0, look=[-1.0, 0.5, -0.9]), k(1.6, look='camera'),
             k(1.9, toon={'face': {**SQUINT, 'lid': 1.0}}, toonDur=0.04), k(1.96, toon={'face': SQUINT}, toonDur=0.06)]),
         act('cherch1', [-0.55, 0, -0.85], -90, 'crawl', 'neutral', keys=[k(0.0, look=[-1.3, 0.2, -0.85])]),   # his head under the desk, his legs out
-        act('cherch2', [0.62, 0, -0.55], -65, 'peerIn', 'neutral', keys=[k(0.0, look=[0.3, 0.0, -0.4])]),
+        act('cherch2', [1.0, 0, -0.7], -70, 'peerIn', 'neutral', keys=[k(0.0, look=[0.3, 0.0, -0.4])]),
         act('cherch3', [1.0, 0, -2.25], -25, 'stand', 'neutral', keys=[k(0.0, look=[POT13[0], r(POT13[1] - 0.05), POT13[2]]), k(0.0, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.0),
             k(1.2, toon=PLANTK({'lid': 1.0, 'mouth': 'O', 'brow': 0.4}), toonDur=0.05), k(1.32, toon=PLANTK({'lid': 0.3, 'mouth': 'O', 'brow': 0.4}), toonDur=0.07)])],
-        props=[GL('gl13'), P('cal13', 'monthCalendar', pos=[-0.55, 1.95, -3.55], opts={'months': MOIS, 'w': 0.5, 'h': 0.68, 'flipAt': 0.15, 'dur': 0.16}),
+        props=[GL('gl13'), P('cal13', 'monthCalendar', pos=[-0.62, 1.95, -3.55], opts={'months': MOIS, 'w': 0.7, 'h': 0.92, 'flipAt': 0.15, 'dur': 0.16}),
                P('bureau13', 'table', pos=DESK13, opts={'w': 1.0, 'd': 0.62, 'h': 0.74}), P('plante13', 'plant', pos=POT13, scale=0.8, opts={'seed': 21}),
                P('mag13', 'magnifier', on={'actor': 'cherch2', 'hand': 'R', 'offset': [0.0, 0.0, 0.03]}, scale=2.0)],
-        cams=[FC(0.0, [0.35, 1.6, 2.2], [[0.0, 2.9, -1.4], [-0.55, 2.35, -3.55], [r(POT13[0] + 0.1), 2.7, POT13[2]], [r(DESK13[0] - 0.5), 0.74, DESK13[2]], [0.95, 0.0, -0.45], [-0.2, 0.0, -0.85]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [0.35, 1.6, 2.2], [[0.0, 2.9, -1.4], [-0.55, 2.35, -3.55], [r(POT13[0] + 0.1), 2.7, POT13[2]], [r(DESK13[0] - 0.5), 0.74, DESK13[2]], [1.3, 0.0, -0.6], [-0.2, 0.0, -0.85]], top=0.12, bottom=0.78)])
 st.cue('sfx:paper', 'S13', 0.2, 0.2); st.cue('sfx:paper', 'S13', 0.9, 0.2); st.cue('sfx:paper', 'S13', 1.6, 0.2)
 
 # 14: yesterday a child found them. In the street a boy tugs at his sleeve and points up at his head, mouth open; he looks down at the boy
