@@ -87,7 +87,7 @@ st.shot('S04', 'immeubleHall', setOpts={'liftX': -2.4}, actors=[
                P('cle4b', 'bigKey', pos=[KEY4[0], KEY4[1], -2.875], rot=[0.0, 0.0, 0.0], scale=0.9, keys=[k(0.0, visible=False), k(0.62, visible=True), k(TURN4, rotTo=[0.0, 0.0, 1.57], dur=0.12, ease='out'), k(OPEN4, visible=False)]),   # ...then in the lock, turned
                P('valise4', 'suitcase', pos=[1.25, 0, -2.45], ry=-20, scale=0.35)],
         cams=[FC(0.0, [1.1, 0.42, -1.0], [MO4, [MO4[0], 0.45, MO4[2]], KEY4, [DR4[0], 0.9, DR4[2]], [1.3, 0.0, -2.45]], top=0.16, bottom=0.78)])
-st.cue('sfx:click', 'S04', r(TURN4 + 0.04), 0.25); st.cue('sfx:creak', 'S04', OPEN4, 0.2)
+st.cue('sfx:click', 'S04', r(TURN4 + 0.04), 0.25); st.cue('sfx:squeak', 'S04', OPEN4, 0.18)
 
 # 5: and a job at the bank. At window two of the bank, a little tie on, it stamps a form with a rubber stamp: bang, bang, bang, a squash on each hit
 D5 = st.dur('S05'); STAMPS = [0.4, 0.8, 1.2]; MO5 = [0.0, 1.1, -2.42]
@@ -150,7 +150,7 @@ st.shot('S10', 'mairie', setOpts={'plate': 'MAIRIE', 'map': False}, actors=[
             k(r(SLAM10 - 0.12), toon=JAR(0.84, {'lid': 0.3, 'mouth': 'clench'}), toonDur=0.1, toonEase='in'), k(r(SLAM10 + 0.25), toon=JAR(0.84, {'lid': 0.45, 'mouth': 'line'}), toonDur=0.15), k(1.35, look=DODGE10)])],
         props=[P('table10', 'desk', pos=[0.0, 0, 0.0], opts={'w': 1.2}), P('bocal10', 'glassJar', on={'actor': 'mec', 'hand': 'R', 'offset': [0.06, -0.06, 0.08]}, scale=1.1, keys=[k(SLAM10, detach=True)])],   # a clear glass jar (an opaque white box)
         cams=[FC(0.0, [1.45, 1.35, 2.3], [[MO10[0], 1.2, MO10[2]], [ME10[0], 2.45, ME10[2]], [ME10[0], 0.6, ME10[2]], [DODGE10[0], 0.76, DODGE10[2]]], top=0.16, bottom=0.78)])
-st.cue('sfx:tiptoe', 'S10', 0.2, 0.12); st.cue('sfx:clink', 'S10', SLAM10, 0.3)
+st.cue('sfx:stepSoft', 'S10', 0.2, 0.12); st.cue('sfx:clink', 'S10', SLAM10, 0.3)
 
 # 11: it filed a complaint. At the gendarmerie desk, from in front of it: the moustache on the desk leans back and points a long arm at him, snapping
 #     forward; the gendarme types behind it
@@ -162,7 +162,7 @@ st.shot('S11', 'office', actors=[
         act('mec', ME11, -40, 'stand', 'neutral', keys=[k(0.0, look=[MO11[0], 1.0, MO11[2]]), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.0), k(0.5, toon={'sq': [1.02, 0.97, 1.02], 'face': {'lid': 0.2, 'eye': 0.3, 'mouth': 'line'}}, toonDur=0.05)])],
         props=[P('pc11', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gend11', 'signBoard', pos=[-4.4, 1.6, -3.55], opts={'text': 'GENDARMERIE', 'bg': P_NAVY, 'fg': '#FFFFFF', 'w': 1.8, 'h': 0.4, 'posts': False, 'height': 0})],
         cams=[FC(0.0, [-3.9, 1.35, 1.9], [[-4.6, 2.2, -2.15], [MO11[0], 1.2, MO11[2]], [MO11[0], 0.76, MO11[2]], [ME11[0], 2.45, ME11[2]], [ME11[0], 0.3, ME11[2]]], top=0.16, bottom=0.78, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # (review 1) in front of the desk, inside the room (the camera had backed into the side wall: a blank cream frame)
-st.cue('sfx:typing', 'S11', 0.1, 0.12); st.cue('sfx:whoosh', 'S11', 0.32, 0.15)
+st.cue('sfx:click', 'S11', 0.1, 0.12); st.cue('sfx:click', 'S11', 0.38, 0.1); st.cue('sfx:whoosh', 'S11', 0.32, 0.15)
 
 # 12: the judge sentenced him to stay shaved. The judge brings the gavel down, then holds a big razor out to the side; in the dock in front, him,
 #     three-quarter to us, his bare lip; a blink at us (RASÉ)

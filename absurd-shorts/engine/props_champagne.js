@@ -137,10 +137,12 @@ export const CHAMPAGNE_PROPS = {
     const R = o.r ?? 0.1, g = grp(), S = R * 4.6;
     const tex = canvasTex(256, 256, (x, W) => {
       const c = W / 2, rh = W * R / S, jag = (r, k, i) => r * (1 + k * (hash(i * 3.1) - 0.5));
-      x.strokeStyle = 'rgba(70,62,56,0.95)'; x.lineCap = 'round';
-      for (let i = 0; i < 9; i++) { const a0 = i / 9 * TAU + 0.5 * hash(i); let r = rh * 1.05, a = a0; x.lineWidth = 4; x.beginPath(); x.moveTo(c + Math.cos(a) * r, c + Math.sin(a) * r);
-        while (r < rh * (1.6 + 0.6 * hash(i + 30))) { r += rh * 0.16; a += 0.22 * (hash(i * 7 + r) - 0.5); x.lineTo(c + Math.cos(a) * r, c + Math.sin(a) * r); } x.stroke(); }
-      x.fillStyle = o.rim || '#EEE6D6'; x.beginPath(); for (let i = 0; i < 22; i++) { const a = i / 22 * TAU, r = jag(rh * 1.18, 0.22, i + 50); i ? x.lineTo(c + Math.cos(a) * r, c + Math.sin(a) * r) : x.moveTo(c + Math.cos(a) * r, c + Math.sin(a) * r); } x.fill();
+      // (review 1 of 68) o.plaster: five short thin cracks and a wide light broken edge (nine thick tapering cracks round a dark disc read as a spider)
+      const PL = !!o.plaster, nC = PL ? 5 : 9, lw = PL ? 2.2 : 4, reach = PL ? 1.25 : 1.6, extra = PL ? 0.25 : 0.6;
+      x.strokeStyle = PL ? 'rgba(120,108,96,0.8)' : 'rgba(70,62,56,0.95)'; x.lineCap = 'round';
+      for (let i = 0; i < nC; i++) { const a0 = i / nC * TAU + 0.5 * hash(i); let r = rh * (PL ? 1.3 : 1.05), a = a0; x.lineWidth = lw; x.beginPath(); x.moveTo(c + Math.cos(a) * r, c + Math.sin(a) * r);
+        while (r < rh * (reach + extra * hash(i + 30)) * (PL ? 1.25 : 1)) { r += rh * 0.16; a += 0.22 * (hash(i * 7 + r) - 0.5); x.lineTo(c + Math.cos(a) * r, c + Math.sin(a) * r); } x.stroke(); }
+      x.fillStyle = o.rim || (PL ? '#FBF6EC' : '#EEE6D6'); x.beginPath(); for (let i = 0; i < 22; i++) { const a = i / 22 * TAU, r = jag(rh * (PL ? 1.32 : 1.18), PL ? 0.34 : 0.22, i + 50); i ? x.lineTo(c + Math.cos(a) * r, c + Math.sin(a) * r) : x.moveTo(c + Math.cos(a) * r, c + Math.sin(a) * r); } x.fill();
       x.fillStyle = o.inner || '#2A2A30'; x.strokeStyle = '#3A322C'; x.lineWidth = 6; x.beginPath();
       for (let i = 0; i < 18; i++) { const a = i / 18 * TAU, r = jag(rh, 0.18, i + 90); i ? x.lineTo(c + Math.cos(a) * r, c + Math.sin(a) * r) : x.moveTo(c + Math.cos(a) * r, c + Math.sin(a) * r); } x.closePath(); x.fill(); x.stroke();
     });
