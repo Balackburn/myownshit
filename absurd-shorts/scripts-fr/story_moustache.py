@@ -42,7 +42,7 @@ LAY = lambda t, a, d=0.08, e='out': k(t, toon={'lay': [a, 0.0]}, toonDur=d, toon
 
 # 1: the hook. At the bathroom basin, from beside the mirror: the razor goes along his lip; the moustache on his lip opens its eyes, looks at us, and
 #    drops onto the basin; his eyes follow it down
-D1 = st.dur('S01'); SHAVE1 = 0.55; DROP1 = 0.9; LAND1 = 1.2; ME1 = [-1.7, 0, -1.2]; LIP1 = [-1.7, 1.8, -1.42]; RIM1 = [-1.72, 0.93, -1.66]
+D1 = st.dur('S01'); SHAVE1 = 0.55; DROP1 = 0.9; LAND1 = 1.2; ME1 = [-1.7, 0, -1.2]; LIP1 = [-1.7, 1.81, -1.32]; RIM1 = [-1.72, 0.93, -1.66]   # (stills 2) LIP1 on the lip, from the measured head joint (13 cm out it sat beside his cheek)
 RAZ = lambda x, f=None: {'touch': {'R': ['face', r(x), 0.07, 0.24, 1, 0.02]}, 'hands': {'R': 'grip'}, 'face': f or {'lid': 0.35, 'mouth': 'line'}}
 st.shot('S01', 'salleDeBain', setOpts={'half': 3.4}, actors=[
         act('mec', ME1, 180, 'stand', 'neutral', keys=[k(0.0, look=[-1.7, 1.95, -2.2]), k(0.0, toon={**RAZ(-0.1), 'hip': 0.0}, toonDur=0.0), k(0.08, toon=RAZ(0.1), toonDur=0.42, toonEase='inOut'),   # the razor along the lip, the fist under the mouth
@@ -59,10 +59,10 @@ st.cue('sfx:stretch', 'S01', 0.1, 0.15); st.cue('sfx:pop', 'S01', SHAVE1, 0.2); 
 #    to the lens; behind it his legs, his head bent down after it
 D2 = st.dur('S02'); M2 = [-1.62, 0, -1.58]; G2 = [-0.55, 0, -0.15]
 st.shot('S02', 'salleDeBain', setOpts={'half': 3.4}, actors=[
-        act('mous', [M2[0], 0.3, M2[2]], 35, 'airborne', 'surprised', scale=0.3, keys=[k(0.0, to=M2, dur=0.12, ease='in', face='keep'), MK(0.12, 'land', [0.5, 1.45]), SQ(0.12, (1.4, 0.62, 1.4), 0.04), SQ(0.2, (0.9, 1.12, 0.9), 0.06), SQ(0.32, (1.0, 1.0, 1.0), 0.1),
+        act('mous', [M2[0], 0.3, M2[2]], 35, 'airborne', 'surprised', scale=0.42, keys=[k(0.0, to=M2, dur=0.12, ease='in', face='keep'), MK(0.12, 'land', [0.5, 1.45]), SQ(0.12, (1.4, 0.62, 1.4), 0.04), SQ(0.2, (0.9, 1.12, 0.9), 0.06), SQ(0.32, (1.0, 1.0, 1.0), 0.1),
             k(0.3, expr='neutral'), k(0.45, to=G2, dur=r(D2 - 0.45), clip='walk', ease='linear'), MK(0.45, 'walk', [0.5, 1.45]), k(0.6, look=[0.4, 0.3, 1.2])]),   # (review 1) it lands, recoils and trots, three-quarter to us (from behind its curls read as fists)
         act('mec', ME1, 180, 'stand', 'neutral', keys=[k(0.0, look=[-1.6, 0.0, -1.5]), k(0.0, toon={'bend': {'neck': [0.5, 0, 0, 1, None], 'spine': [0.2, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eye': 0.4, 'gy': 0.7, 'mouth': 'O'}}, toonDur=0.0), k(0.9, look=[-0.6, 0.0, -0.2])])],
-        cams=[FC(0.0, [-0.2, 0.42, 0.75], [[M2[0], 0.25, M2[2]], [G2[0], 0.25, G2[2]], [G2[0], 0.0, G2[2]], [ME1[0], 1.1, ME1[2]], [r(ME1[0] - 0.3), 0.0, ME1[2]]], top=0.14, bottom=0.74, drift=(0.15, 0.0, 0.1))])
+        cams=[FC(0.0, [-0.35, 0.3, 0.45], [[M2[0], 0.3, M2[2]], [G2[0], 0.3, G2[2]], [G2[0], 0.0, G2[2]], [ME1[0], 0.9, ME1[2]], [r(ME1[0] - 0.3), 0.0, ME1[2]]], top=0.14, bottom=0.74, drift=(0.15, 0.0, 0.1))])   # (stills 2) lower and nearer: it read as a speck
 st.cue('thud', 'S02', 0.12, 0.2); st.cue('sfx:stepSoft', 'S02', 0.6, 0.15); st.cue('sfx:stepSoft', 'S02', 0.95, 0.15); st.cue('sfx:stepSoft', 'S02', 1.3, 0.15)
 
 # 3: it took the bus. At the stop the city bus pulls up, its doors fold open; the moustache crouches and hops up into the doorway on an arc
@@ -90,14 +90,14 @@ st.shot('S04', 'immeubleHall', setOpts={'liftX': -2.4}, actors=[
 st.cue('sfx:click', 'S04', r(TURN4 + 0.04), 0.25); st.cue('sfx:squeak', 'S04', OPEN4, 0.18)
 
 # 5: and a job at the bank. At window two of the bank, a little tie on, it stamps a form with a rubber stamp: bang, bang, bang, a squash on each hit
-D5 = st.dur('S05'); STAMPS = [0.4, 0.8, 1.2]; MO5 = [0.0, 1.1, -2.42]
-st.shot('S05', 'poste', setOpts={'title': 'BANQUE'}, actors=[act('mous', MO5, 0, 'stand', 'neutral', scale=MS, keys=[k(0.0, look=[0.05, 1.1, -2.25]),
+D5 = st.dur('S05'); STAMPS = [0.4, 0.8, 1.2]; MO5 = [1.0, 1.1, -2.42]   # (stills 2) between windows two and three: behind the glass it came out grey
+st.shot('S05', 'poste', setOpts={'title': 'BANQUE'}, actors=[act('mous', MO5, 0, 'stand', 'neutral', scale=MS, keys=[k(0.0, look=[1.05, 1.1, -2.25]),
             *[MK(r(t_ - 0.3), 'stampDesk', [0.95], hit=0.3) for t_ in STAMPS], *[kk for t_ in STAMPS for kk in (SQ(t_, (1.12, 0.86, 1.12), 0.04, 'in'), SQ(r(t_ + 0.08), (1.0, 1.0, 1.0), 0.08))], k(1.3, look='camera')])],   # (review 1) three stamps (the OK came with its arms still)
         props=[P('tamp5', 'rubberStamp', on={'actor': 'mous', 'hand': 'R', 'offset': [0.0, -0.02, 0.02]}, scale=1.6),
-               P('form5', 'paperSheet', pos=[0.06, 1.105, -2.28], rot=[-PI / 2, 0, 0], opts={'w': 0.3, 'h': 0.4, 'lines': ['FORMULAIRE'], 'stamp': {'text': 'OK', 'color': '#C2342A', 'at': STAMPS[0]}}),
-               *[P(f'ok5{j}', 'stampMark', pos=[r(0.02 + 0.07 * j), 1.108, r(-2.32 + 0.06 * j)], rot=[-PI / 2, 0, r(0.2 - 0.25 * j)], opts={'text': 'OK', 'w': 0.12, 'h': 0.06}, keys=[k(0.0, visible=False), k(STAMPS[j + 1], visible=True)]) for j in range(2)],
+               P('form5', 'paperSheet', pos=[1.06, 1.105, -2.28], rot=[-PI / 2, 0, 0], opts={'w': 0.3, 'h': 0.4, 'lines': ['FORMULAIRE'], 'stamp': {'text': 'OK', 'color': '#C2342A', 'at': STAMPS[0]}}),
+               *[P(f'ok5{j}', 'stampMark', pos=[r(1.02 + 0.07 * j), 1.108, r(-2.32 + 0.06 * j)], rot=[-PI / 2, 0, r(0.2 - 0.25 * j)], opts={'text': 'OK', 'w': 0.12, 'h': 0.06}, keys=[k(0.0, visible=False), k(STAMPS[j + 1], visible=True)]) for j in range(2)],
                P('cravate5', 'slab', on={'actor': 'mous', 'joint': 'head', 'offset': [0.0, -0.02, 0.06]}, opts={'w': 0.05, 'h': 0.14, 'd': 0.01, 'color': '#C8322A'})],
-        cams=[FC(0.0, [0.25, 1.4, -0.7], [[MO5[0], 1.55, MO5[2]], [MO5[0], 1.1, MO5[2]], [-0.25, 1.3, MO5[2]], [0.25, 1.3, MO5[2]], [0.06, 1.1, -2.28]], top=0.18, bottom=0.76)])   # front-on at its eye level, whole and centred
+        cams=[FC(0.0, [1.0, 1.4, -0.7], [[MO5[0], 1.55, MO5[2]], [MO5[0], 1.1, MO5[2]], [0.75, 1.3, MO5[2]], [1.25, 1.3, MO5[2]], [1.06, 1.1, -2.28]], top=0.18, bottom=0.76)])   # front-on at its eye level, whole and centred
 for t_ in STAMPS: st.cue('thud', 'S05', t_, 0.2)
 
 # 6: the tax office sent it a bill. Front-on at its eye level: it holds the letter out in front of it by both edges; its eyes shoot out on stalks over
@@ -111,12 +111,12 @@ st.cue('sfx:paper', 'S06', 0.15, 0.2); st.cue('sfx:boing', 'S06', POP6, 0.3); st
 
 # 7: it paid. From the clerk's side of the tax office window: on the counter it deals three banknotes out of its hand, one, two, three, each landing
 #    on the last
-D7 = st.dur('S07'); NOTES7 = [0.25, 0.5, 0.75]; MO7 = [0.0, 1.1, -2.1]
-st.shot('S07', 'poste', setOpts={'title': 'CENTRE DES IMPÔTS'}, actors=[act('mous', MO7, 180, 'stand', 'neutral', scale=MS, keys=[k(0.0, look=[0.0, 1.1, -2.6]),
-            *[MK(r(t_ - 0.25), 'giveItem', [0.05]) for t_ in NOTES7], *[SQ(t_, (1.05, 0.95, 1.05), 0.04) for t_ in NOTES7], k(0.95, look=[0.0, 1.6, -3.0])])],   # (review 1) dealt one by one (they slid in on their own)
+D7 = st.dur('S07'); NOTES7 = [0.25, 0.5, 0.75]; MO7 = [1.0, 1.1, -2.1]   # (stills 2) between two windows
+st.shot('S07', 'poste', setOpts={'title': 'CENTRE DES IMPÔTS'}, actors=[act('mous', MO7, 180, 'stand', 'neutral', scale=MS, keys=[k(0.0, look=[1.0, 1.1, -2.6]),
+            *[MK(r(t_ - 0.25), 'giveItem', [0.05]) for t_ in NOTES7], *[SQ(t_, (1.05, 0.95, 1.05), 0.04) for t_ in NOTES7], k(0.95, look=[1.0, 1.6, -3.0])])],   # (review 1) dealt one by one (they slid in on their own)
         props=[*[P(f'note7{j}', 'banknote', on={'actor': 'mous', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]}, face='camera', opts={'w': 0.18},
                    keys=[k(0.0, visible=False), k(r(NOTES7[j] - 0.2), visible=True), k(NOTES7[j], detach=True, fall=True, toss=[r(0.08 * (j - 1)), 0.6, -0.5], floor=r(1.112 + 0.004 * j), restRot=[-PI / 2, 0, r(0.25 * (j - 1))])]) for j in range(3)]],
-        cams=[FC(0.0, [0.3, 1.45, -3.15], [[MO7[0], 1.55, MO7[2]], [MO7[0], 1.1, MO7[2]], [-0.28, 1.3, MO7[2]], [0.28, 1.3, MO7[2]], [0.0, 1.11, -2.35]], top=0.18, bottom=0.76, inside=(-3.0, 3.0, 1.2, 2.5, -3.3, -2.8))])
+        cams=[FC(0.0, [1.05, 1.45, -3.15], [[MO7[0], 1.55, MO7[2]], [MO7[0], 1.1, MO7[2]], [0.72, 1.3, MO7[2]], [1.28, 1.3, MO7[2]], [1.0, 1.11, -2.35]], top=0.18, bottom=0.76, inside=(-3.0, 3.0, 1.2, 2.5, -3.3, -2.8))])
 for t_ in NOTES7: st.cue('sfx:cash', 'S07', t_, 0.15)
 
 # 8: it stood for the town hall. On a crate in the square, the megaphone to its mouth, it shouts (a squash on each word); its poster behind it
@@ -131,7 +131,7 @@ st.cue('sfx:static', 'S08', 0.2, 0.2); st.cue('sfx:static', 'S08', 0.8, 0.15)
 # 9: it won, with sixty per cent. In the town hall, centred and big on the table, in a thin tricolour sash, it jumps for joy; the results board fills to
 #    sixty per cent beside it; confetti (ÉLUE)
 D9 = st.dur('S09'); MO9 = [0.0, 0.76, 0.0]
-st.shot('S09', 'mairie', setOpts={'plate': 'MAIRIE', 'map': False}, actors=[act('mous', MO9, 0, 'celebrate', 'happy', scale=MS, keys=[MK(0.0, 'celebrate', [1.6]), k(0.0, look='camera'),
+st.shot('S09', 'mairie', setOpts={'plate': 'MAIRIE', 'map': False, 'bannerY': 3.9}, actors=[act('mous', MO9, 0, 'celebrate', 'happy', scale=MS, keys=[MK(0.0, 'celebrate', [1.6]), k(0.0, look='camera'),
             k(0.55, to=[0.0, 0.98, 0.0], dur=0.15, ease='out', face='keep'), k(0.7, to=MO9, dur=0.15, ease='in', face='keep'), SQ(0.5, (1.15, 0.85, 1.15), 0.05), SQ(0.56, (0.88, 1.16, 0.88), 0.06), SQ(0.85, (1.25, 0.78, 1.25), 0.04), SQ(0.95, (1.0, 1.0, 1.0), 0.1)])],   # a hop for joy
         props=[P('table9', 'desk', pos=[0.0, 0, 0.0], opts={'w': 1.2}), P('res9', 'resultsBoard', pos=[0.95, 1.45, -1.0], ry=-20, opts={'name': 'MOUSTACHE', 'fillAt': 0.1, 'pct': 60, 'w': 1.2, 'h': 0.8}),   # (review 1) 60 % / 40 % (it read 100 % / 0 %)
                *[P(f'ech9{j}', 'slab', on={'actor': 'mous', 'joint': 'head', 'offset': [0.0, r(0.07 - 0.028 * j), 0.075]}, rot=[0, 0, 0.55], opts={'w': 0.5, 'h': 0.026, 'd': 0.01, 'color': c_}) for j, c_ in enumerate(['#2F62B5', '#F4F4F0', '#E0413A'])],   # a thin tricolour sash (a flat blue bar hid its body)
@@ -161,7 +161,7 @@ st.shot('S11', 'office', actors=[
             MK(0.32, 'point', [1.15]), LAY(0.32, 0.22, 0.06), SQ(0.32, (0.86, 1.18, 0.86), 0.05), LAY(0.42, -0.06, 0.08, 'inOut'), LAY(0.52, 0.0, 0.1), SQ(0.45, (1.0, 1.0, 1.0), 0.1)]),   # ...and snaps forward into the point, overshoots, settles
         act('mec', ME11, -40, 'stand', 'neutral', keys=[k(0.0, look=[MO11[0], 1.0, MO11[2]]), k(0.0, toon={'face': {'lid': 0.45, 'mouth': 'line'}}, toonDur=0.0), k(0.5, toon={'sq': [1.02, 0.97, 1.02], 'face': {'lid': 0.2, 'eye': 0.3, 'mouth': 'line'}}, toonDur=0.05)])],
         props=[P('pc11', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gend11', 'signBoard', pos=[-4.4, 1.6, -3.55], opts={'text': 'GENDARMERIE', 'bg': P_NAVY, 'fg': '#FFFFFF', 'w': 1.8, 'h': 0.4, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [-3.9, 1.35, 1.9], [[-4.6, 2.2, -2.15], [MO11[0], 1.2, MO11[2]], [MO11[0], 0.76, MO11[2]], [ME11[0], 2.45, ME11[2]], [ME11[0], 0.3, ME11[2]]], top=0.16, bottom=0.78, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # (review 1) in front of the desk, inside the room (the camera had backed into the side wall: a blank cream frame)
+        cams=[FC(0.0, [-4.05, 1.25, 0.9], [[-4.6, 2.1, -2.15], [MO11[0], 1.2, MO11[2]], [MO11[0], 0.76, MO11[2]], [r(ME11[0] - 0.2), 2.45, ME11[2]], [r(MO11[0] - 0.35), 0.95, MO11[2]]], top=0.16, bottom=0.78, inside=(-6.8, 6.8, 0.5, 3.0, -3.3, 9.0))])   # (stills 2) nearer the desk: he at the edge, the moustache big   # (review 1) in front of the desk, inside the room (the camera had backed into the side wall: a blank cream frame)
 st.cue('sfx:click', 'S11', 0.1, 0.12); st.cue('sfx:click', 'S11', 0.38, 0.1); st.cue('sfx:whoosh', 'S11', 0.32, 0.15)
 
 # 12: the judge sentenced him to stay shaved. The judge brings the gavel down, then holds a big razor out to the side; in the dock in front, him,
@@ -184,7 +184,7 @@ st.shot('S13', 'office', actors=[act('mous', MO13, 0, 'stand', 'neutral', scale=
         props=[P('stylo13', 'pen', on={'actor': 'mous', 'hand': 'R', 'offset': [0.0, -0.02, 0.02]}, scale=1.5), P('flag13', 'flag', pos=[-5.4, 0, -2.1], opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True}),
                *[P(f'pap13{j}', 'slab', pos=[-4.45, r(0.77 + 0.012 * j), -1.3], opts={'w': 0.3, 'h': 0.01, 'd': 0.4, 'color': '#FBF8EE', 'noShadow': True}) for j in range(8)],
                P('min13', 'signBoard', pos=[-4.6, 1.75, -3.55], opts={'text': 'MINISTÈRE', 'bg': P_NAVY, 'fg': '#FFFFFF', 'w': 1.6, 'h': 0.38, 'posts': False, 'height': 0})],
-        cams=[FC(0.0, [-4.2, 1.15, 0.2], [[MO13[0], 1.2, MO13[2]], [MO13[0], 0.76, MO13[2]], [-4.9, 1.0, MO13[2]], [-4.3, 1.0, MO13[2]], [-5.4, 1.9, -2.1]], top=0.18, bottom=0.76)])
+        cams=[FC(0.0, [-4.45, 1.1, -0.35], [[MO13[0], 1.2, MO13[2]], [MO13[0], 0.76, MO13[2]], [-4.95, 1.0, MO13[2]], [-4.25, 1.0, MO13[2]], [-5.4, 1.45, -2.1]], top=0.18, bottom=0.76)])   # (stills 2) nearer and centred
 for j in range(4): st.cue('sfx:scratch', 'S13', r(0.2 + 0.4 * j), 0.1)
 
 # 14: then president. Behind the lectern between the flags, big and centred, it gives a royal wave; flashes go off in front of it
@@ -192,7 +192,7 @@ D14 = st.dur('S14'); FL14 = [0.12, 0.3, 0.48, 0.7, 0.88, 1.05]
 st.shot('S14', 'pressRoom', setOpts={'backdrop': 'PRÉSIDENCE', 'fontScale': 0.6, 'podium': False, 'bg': '#5878A8', 'wall': '#4C6A96'}, actors=[act('mous', [0.0, 1.12, 0.0], 0, 'stand', 'happy', scale=MS, keys=[MK(0.0, 'royalWave', [0.85], freq=8.0), k(0.0, look='camera')])],   # (review 1) a lighter backdrop, the set's microphones gone (they sat on its eyes)
         props=[P('pod14', 'podium', pos=[0.0, 0, 0.2], opts={'text': 'RÉPUBLIQUE'}), *[P(f'fl14{j}', 'flag', pos=[r(-0.95 + 1.9 * j), 0, -0.7], opts={'colors': ['#2F62B5', '#F4F4F0', '#E0413A'], 'vertical': True}) for j in range(2)],
                P('flash14', 'flashBursts', pos=[0.0, 1.45, 0.75], face='camera', opts={'n': 6, 'w': 1.4, 'h': 0.9, 'at': FL14})],
-        cams=[FC(0.0, [0.15, 1.38, 2.2], [[0.0, 1.6, 0.0], [0.0, 1.0, 0.2], [-0.32, 1.3, 0.0], [0.32, 1.3, 0.0], [-0.95, 2.2, -0.7], [0.95, 2.2, -0.7]], top=0.18, bottom=0.78)])
+        cams=[FC(0.0, [0.1, 1.38, 1.3], [[0.0, 1.6, 0.0], [0.0, 1.05, 0.2], [-0.36, 1.3, 0.0], [0.36, 1.3, 0.0], [-0.95, 1.9, -0.7], [0.95, 1.9, -0.7]], top=0.18, bottom=0.78)])   # (stills 2) nearer: a third of the width
 for t_ in FL14: st.cue('sfx:click', 'S14', t_, 0.18)
 
 # 15: the man applied to be its assistant. A waiting room: he sits on a chair, his CV on his knees, deadpan; his eyes go to the door first, then his head
