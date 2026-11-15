@@ -13,19 +13,23 @@ export const PULL_PROPS = {
   // knit's purl side (a flatter, paler tone) and a big white care label sticking up out of the back of the collar; o.flipAt: it turns right side out
   // at that time (a quick squash as it does)
   knitJumper(o) {
-    const w = o.w ?? 0.52, h = o.h ?? 0.62, d = o.d ?? 0.32, C = new THREE.Color(o.color || '#C8322A'), g = grp();
-    const knit = (purl) => canvasPlane(w, h, (c, W, H) => { const base = purl ? C.clone().lerp(new THREE.Color('#FFFFFF'), 0.18) : C.clone(); c.fillStyle = base.getStyle(); c.fillRect(0, 0, W, H);
+    const w = o.w ?? 0.62, h = o.h ?? 0.62, d = o.d ?? 0.4, C = new THREE.Color(o.color || '#C8322A'), g = grp();
+    const knit = (purl, front) => canvasPlane(w, h, (c, W, H) => { const base = purl ? C.clone().lerp(new THREE.Color('#FFFFFF'), 0.18) : C.clone(); c.fillStyle = base.getStyle(); c.fillRect(0, 0, W, H);
       c.strokeStyle = purl ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.18)'; c.lineWidth = W * 0.012;
       for (let x = 0; x < 14; x++) for (let y = 0; y < 18; y++) { const cx = (x + 0.5) * W / 14, cy = (y + 0.5) * H / 18; c.beginPath();
         if (purl) { c.moveTo(cx - W * 0.025, cy); c.lineTo(cx + W * 0.025, cy); } else { c.moveTo(cx - W * 0.025, cy - H * 0.018); c.lineTo(cx, cy + H * 0.018); c.lineTo(cx + W * 0.025, cy - H * 0.018); } c.stroke(); }
-      c.fillStyle = C.clone().multiplyScalar(0.8).getStyle(); c.fillRect(0, H * 0.9, W, H * 0.1); c.fillRect(W * 0.32, 0, W * 0.36, H * 0.05); }, { res: 256 });
+      c.fillStyle = C.clone().multiplyScalar(0.8).getStyle(); c.fillRect(0, H * 0.9, W, H * 0.1); c.fillRect(W * 0.32, 0, W * 0.36, H * 0.05);
+      c.strokeStyle = C.clone().multiplyScalar(0.62).getStyle(); c.lineWidth = W * 0.012; for (let x = 0; x < 16; x++) { c.beginPath(); c.moveTo((x + 0.5) * W / 16, H * 0.905); c.lineTo((x + 0.5) * W / 16, H); c.stroke(); }
+      if (front) { c.fillStyle = '#F4F2EC'; c.beginPath(); c.moveTo(W * 0.3, 0); c.lineTo(W * 0.7, 0); c.lineTo(W * 0.5, H * 0.34); c.closePath(); c.fill();
+        c.fillStyle = o.tie || '#B5202A'; c.beginPath(); c.moveTo(W * 0.47, 0); c.lineTo(W * 0.53, 0); c.lineTo(W * 0.54, H * 0.26); c.lineTo(W * 0.5, H * 0.32); c.lineTo(W * 0.46, H * 0.26); c.closePath(); c.fill();
+        c.strokeStyle = C.clone().multiplyScalar(0.7).getStyle(); c.lineWidth = W * 0.035; c.beginPath(); c.moveTo(W * 0.29, 0); c.lineTo(W * 0.5, H * 0.35); c.lineTo(W * 0.71, 0); c.stroke(); } }, { res: 256 });
     const mk = (inside) => { const s = grp(); s.add(at(box(w, h, d, C.clone().multiplyScalar(inside ? 1.1 : 1).getStyle(), { outline: 0.008 }), 0, h / 2, 0));
-      const f = knit(inside); f.position.set(0, h / 2, d / 2 + 0.002); s.add(f); const b = knit(inside); b.position.set(0, h / 2, -d / 2 - 0.002); b.rotation.y = PI; s.add(b);
+      const f = knit(inside, true); f.position.set(0, h / 2, d / 2 + 0.002); s.add(f); const b = knit(inside, false); b.position.set(0, h / 2, -d / 2 - 0.002); b.rotation.y = PI; s.add(b);
       s.add(at(box(w * 0.45, 0.05, d * 1.04, C.clone().multiplyScalar(0.8).getStyle()), 0, h - 0.02, 0));   // the collar rib
       if (inside) {
-        for (const sx of [-1, 1]) { s.add(at(box(0.012, h * 0.95, 0.012, '#F4F1E8'), sx * (w / 2 + 0.004), h / 2, d * 0.2), at(box(0.012, h * 0.95, 0.012, '#F4F1E8'), sx * (w / 2 + 0.004), h / 2, -d * 0.2));   // seams down the sides
-          s.add(at(box(w * 0.3, 0.012, 0.012, '#F4F1E8'), sx * w * 0.3, h + 0.004, d * 0.2)); }   // and over the shoulders
-        const tag = at(box(0.11, 0.09, 0.004, '#FFFFFF', { outline: 0.003 }), 0, h + 0.05, -d / 2 + 0.01); tag.rotation.x = -0.35; s.add(tag);   // the care label up out of the collar
+        for (const sx of [-1, 1]) { s.add(at(box(0.022, h * 0.95, 0.022, '#FFFFFF'), sx * (w / 2 + 0.006), h / 2, d * 0.2), at(box(0.022, h * 0.95, 0.022, '#FFFFFF'), sx * (w / 2 + 0.006), h / 2, -d * 0.2));   // seams down the sides
+          s.add(at(box(w * 0.3, 0.02, 0.02, '#FFFFFF'), sx * w * 0.3, h + 0.006, d * 0.2)); }   // and over the shoulders
+        const tag = grp(at(box(0.15, 0.13, 0.005, '#FFFFFF', { outline: 0.004 }), 0, 0.065, 0)); tag.position.set(w * 0.13, h - 0.01, -d / 2 + 0.03); tag.rotation.set(-0.25, 0, -0.45); s.add(tag);   // the care label, up and out of the collar
         const side = at(box(0.004, 0.12, 0.07, '#FFFFFF', { outline: 0.002 }), w / 2 + 0.01, h * 0.25, 0); s.add(side); }
       return s; };
     const IN = mk(o.inside !== false), OUT = mk(false); g.add(IN, OUT);

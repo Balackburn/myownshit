@@ -72,7 +72,7 @@ st.cue('sfx:kaching', 'S01', 0.3, 0.2); st.cue('sfx:beep', 'S01', 0.62, 0.25)
 D2 = st.dur('S02'); ROLL = [[0.0, '1 H'], [0.18, '1 JOUR'], [0.34, '1 MOIS'], [0.48, '1 AN'], [0.6, '10 ANS'], [0.72, '100 ANS'], [0.86, '400 ANS']]
 st.shot('S02', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -110, 'stand', 'neutral', keys=[k(0.0, look=SCREEN), k(0.9, toon={'sq': [0.97, 1.04, 0.97]}, toonDur=0.08, toonEase='out')])],
         props=[MTR('pm2', litAfter=0.0, screens=ROLL)],
-        cams=[FC(0.0, [6.75, 1.3, 2.9], [[SCREEN[0], 1.36, 2.7], [SCREEN[0], 1.36, 3.1], [RED[0], 0.98, 2.7], [RED[0], 0.98, 3.1]], top=0.3, bottom=0.64, lenses=range(16, 66), drift=(-0.12, -0.02, 0.0))])
+        cams=[FC(0.0, [6.8, 1.3, 2.7], [[SCREEN[0], 1.36, 2.7], [SCREEN[0], 1.36, 3.1], [RED[0], 0.98, 2.7], [RED[0], 0.98, 3.1]], top=0.3, bottom=0.64, lenses=range(16, 66), drift=(-0.12, -0.02, 0.0))])
 for t_ in [0.18, 0.34, 0.48, 0.6, 0.72]: st.cue('sfx:tick', 'S02', t_, 0.15)
 st.cue('sfx:ding', 'S02', 0.86, 0.35)
 
@@ -80,7 +80,7 @@ st.cue('sfx:ding', 'S02', 0.86, 0.35)
 D3 = st.dur('S03')
 st.shot('S03', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -110, 'stand', 'neutral', keys=[k(0.0, look=RED)])],
         props=[MTR('pm3', litAfter=0.0, screens=[[0.0, '400 ANS']])],
-        cams=[FC(0.0, [6.3, 0.8, 3.3], [[RED[0], 1.14, RED[2] - 0.1], [GREEN[0], 1.14, GREEN[2] + 0.1], [RED[0], 0.98, RED[2] - 0.1], [GREEN[0], 0.98, GREEN[2] + 0.1]], top=0.36, bottom=0.6, lenses=range(14, 60), drift=(-0.1, 0.03, -0.05))])   # low from his side: not the S02 axis
+        cams=[FC(0.0, [6.25, 0.85, 2.45], [[RED[0], 1.14, RED[2] - 0.1], [GREEN[0], 1.14, GREEN[2] + 0.1], [RED[0], 0.98, RED[2] - 0.1], [GREEN[0], 0.98, GREEN[2] + 0.1]], top=0.36, bottom=0.6, lenses=range(14, 60), drift=(-0.1, 0.03, -0.05))])   # low from his side: not the S02 axis
 
 st.cue('sfx:sting', 'S03', 0.3, 0.2)
 
@@ -88,8 +88,8 @@ st.cue('sfx:sting', 'S03', 0.3, 0.2)
 D4 = st.dur('S04')
 st.shot('S04', 'parisStreet', setOpts=STREET, actors=[act('mec', MP, -160, 'stand', 'neutral', keys=[k(0.0, look=SLOT), k(0.15, look=[6.5, 0.0, 1.2], lookDur=0.15),
             k(0.2, toon={'face': {'lid': 0.0, 'eye': 0.45, 'mouth': 'O', 'brow': 1.0}, 'sq': [0.97, 1.04, 0.97]}, toonDur=0.08, toonEase='out')])],
-        props=[MTR('pm4', litAfter=0.0, screens=[[0.0, '400 ANS']]), RIB('rib4', **{'from': 0.0, 'rate': 3.2, 'accel': 0.2, 'w': 0.12})],
-        cams=[FC(0.0, [6.75, 0.22, 0.35], [[SLOT[0], 0.7, SLOT[2]], [METER[0], 1.95, METER[2]], [MP[0], 1.1, MP[2]], [6.5, 0.0, 1.1]], top=0.16, bottom=0.8, lenses=range(26, 70))])
+        props=[MTR('pm4', litAfter=0.0, screens=[[0.0, '400 ANS']]), RIB('rib4', **{'from': 0.0, 'rate': 3.2, 'accel': 0.2, 'w': 0.16})],
+        cams=[FC(0.0, [7.3, 1.45, 0.9], [[SLOT[0], 0.75, SLOT[2]], [METER[0], 1.6, METER[2]], [6.5, 0.0, 1.2], [6.5, 0.0, 2.4], [MP[0], 2.45, MP[2]]], top=0.12, bottom=0.8, lenses=range(26, 70))])   # (stills 2) from above: at ground level the strip was edge-on
 st.cue('sfx:paper', 'S04', 0.0, 0.5); st.cue('sfx:zip', 'S04', 0.1, 0.25)
 
 # 5: ...is three kilometres long. High over the street: the white ticket runs down the pavement to the vanishing point, the man a dot at the machine
@@ -287,7 +287,7 @@ st.shot('S23', 'parisStreet', setOpts=STREET, actors=[act('mec', SEAT, -135, 'dr
             k(1.0, toon={'reach': {'R': [2.62, 1.52, 0.0, 1, 0.04]}, 'hands': {'R': 'pinch'}, 'sq': [1.0, 0.97, 1.0]}, toonDur=0.1, toonEase='in'), k(1.25, toon={'reach': {'R': [2.3, 1.75, -0.1, 1, 0.04]}, 'hands': {'R': 'pinch'}}, toonDur=0.25),
             k(1.7, look='camera', lookDur=0.3), k(1.75, toon={'face': {'lid': 0.3, 'mouth': 'smile'}}, toonDur=0.15)])],
         props=[CARP('car23'), BAY('bay23'), HOME('home23'), VANP('van23', hazardFrom=0.0), P('cartes23', 'cardTray', pos=TRAY, opts={'w': 0.66, 'd': 0.34, 'slapAt': [0.5, 1.1, 1.55]})],
-        cams=[FC(0.0, [2.85, 1.85, -3.6], [[SEAT[0], 2.15, SEAT[2]], [VSEAT2[0], 2.5, VSEAT2[2]], [TRAY[0], 1.3, TRAY[2]], [SEAT[0], 1.1, SEAT[2]], [VSEAT2[0], 1.4, VSEAT2[2]]], top=0.16, bottom=0.74, drift=(0.0, -0.05, 0.12))])
+        cams=[FC(0.0, [2.85, 2.15, -3.9], [[SEAT[0], 2.15, SEAT[2]], [VSEAT2[0], 2.5, VSEAT2[2]], [TRAY[0], 1.3, TRAY[2]], [SEAT[0], 1.1, SEAT[2]], [VSEAT2[0], 1.4, VSEAT2[2]]], top=0.16, bottom=0.74, drift=(0.0, -0.05, 0.12))])
 st.cue('sfx:clink', 'S23', 0.5, 0.25); st.cue('sfx:clink', 'S23', 1.1, 0.25); st.cue('sfx:clink', 'S23', 1.55, 0.25); st.cue('sfx:bell', 'S23', 0.0, 0.25)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
