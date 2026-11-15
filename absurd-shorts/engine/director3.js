@@ -280,7 +280,8 @@ function prepActor(cfg, obj, sc, place) {
     const pts = [start.toArray(), ...(mv.path ? mv.path.map(p => place(p)) : [place(mv.to)])].map(p => V(p[0], p[1] ?? start.y, p[2]));
     if (mv.path == null && mv.to && Array.isArray(mv.to) && mv.to[1] == null) pts[1].y = start.y;
     const segs = []; let L = 0;
-    for (let i = 1; i < pts.length; i++) { const d = pts[i].clone().sub(pts[i - 1]); const l = Math.hypot(d.x, d.z) || d.length(); segs.push({ a: pts[i - 1], b: pts[i], l, L0: L, head: Math.atan2(d.x, d.z) }); L += l; }
+    // (review 2 of 65) a hop straight up (no ground travel) has no heading: it keeps the facing (atan2(0, 0) turned the ducks round, backs to us)
+    for (let i = 1; i < pts.length; i++) { const d = pts[i].clone().sub(pts[i - 1]); const hz = Math.hypot(d.x, d.z), l = hz || d.length(); segs.push({ a: pts[i - 1], b: pts[i], l, L0: L, head: hz > 0.03 ? Math.atan2(d.x, d.z) : null }); L += l; }
     const clip = mv.clip ?? (mv.glide ? null : 'walk');
     const loco = LOCO[clip];
     const spd = mv.speed ?? (loco ? loco[0] : 1.5);
@@ -363,9 +364,10 @@ function facingAt(A, t, depth = 0) {
   if (src.mv) {
     const mv = src.mv, mode = mv.face ?? 'move';
     let target;
-    if (t <= mv.t1) target = mode === 'move' ? (mv.back ? headingAt(mv, t) + Math.PI : headingAt(mv, t)) : (faceTarget(A, mode, t) ?? from);
+    const hd = tt => { const h = headingAt(mv, tt); return h == null ? from : mv.back ? h + Math.PI : h; };
+    if (t <= mv.t1) target = mode === 'move' ? hd(t) : (faceTarget(A, mode, t) ?? from);
     else {
-      const endHead = mode === 'move' ? (mv.back ? headingAt(mv, mv.t1) + Math.PI : headingAt(mv, mv.t1)) : (faceTarget(A, mode, mv.t1) ?? from);
+      const endHead = mode === 'move' ? hd(mv.t1) : (faceTarget(A, mode, mv.t1) ?? from);
       if (mv.faceEnd == null) return endHead;
       const fe = faceTarget(A, mv.faceEnd, t) ?? endHead;
       return lerpA(endHead, fe, ease.out(clamp01((t - mv.t1) / (mv.turnEnd ?? 0.25 / S.tempo))));

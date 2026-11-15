@@ -1548,7 +1548,10 @@ export function buildCreature(name, opts = {}) {
     R.mover.position.set(rt.x || 0, rt.y || 0, rt.z || 0);
     R.mover.rotation.set(rt.rx || 0, rt.ry || 0, rt.rz || 0);
     // expression: clip-implied > user-set; deterministic blink + brow twitch
-    const bt = (t * 0.37 + phase) % 1, blink = q.noBlink ? 0 : (bt < 0.04 ? S(bt / 0.04 * PI) : 0);
+    // (review 2 of 65) params.blinks [t, ...]: blinks at those times only (the automatic one fell at the same moment of every shot: mechanical);
+    // params.blinkPhase: another phase for the automatic blink
+    const bt = (t * 0.37 + (params.blinkPhase ?? phase)) % 1; let blink = q.noBlink ? 0 : (bt < 0.04 ? S(bt / 0.04 * PI) : 0);
+    if (params.blinks) { blink = 0; for (const b0 of params.blinks) { const u = (t - b0) / 0.12; if (u >= 0 && u < 1) blink = max(blink, S(u * PI)); } }
     const tw = (t * 0.23 + phase * 1.7) % 1, twitch = (cl === 'idle' || cl === 'grow') && tw < 0.06 ? 0.18 * S(tw / 0.06 * PI) : 0;
     const ex = params.expression || q.expr || userExpr;
     applyExpression(R, ex === 'neutral' && cl === 'talk' ? 'talk' : ex, blink, twitch);
