@@ -33,7 +33,7 @@ ME = [5.55, 0, 0.0]                                  # at the kerb of the right-
 LIGHT = [-5.55, 0, 1.6]                              # the pedestrian light across the road, its lenses toward him (+X)
 RED = lambda pid='feu', state=None, pos=LIGHT, ry=90: P(pid, 'trafficLight', pos=pos, ry=ry, opts={'h': 2.7, 'state': state or [[0.0, 'r']]})
 ZEBRA = lambda pid='zeb': P(pid, 'zebra', pos=[-5.0, 0.012, -1.5], opts={'n': 10})
-BEARD = lambda pid='barbe', s=1.5, keys=None: P(pid, 'beard', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.05, 0.09]}, scale=s, flat=[1.0, 3.6, 1.0], opts={'color': '#3A322B'}, **({'keys': keys} if keys else {}))   # (stills 1) a scalar scale and `flat` (a list scale drew nothing)
+BEARD = lambda pid='barbe', s=1.5, keys=None: P(pid, 'beard', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.05, 0.09]}, scale=s, flat=[1.35, 3.6, 1.0], opts={'color': '#A39C92'}, **({'keys': keys} if keys else {}))   # (stills 1) a scalar scale and `flat` (a list scale drew nothing)
 WAIT = lambda: [k(0.0, look=[LIGHT[0], 2.5, LIGHT[2]]), k(0.0, toon={'face': DEAD}, toonDur=0.0)]   # his eyes on the light across the road
 CAR = lambda pid, x, z0, z1, t0, dur, col: P(pid, 'car', pos=[x, 0, z0], ry=(90 if z1 < z0 else -90), opts={'color': col}, keys=[k(t0, to=[x, 0, z1], dur=dur, ease='linear')])
 
