@@ -1665,3 +1665,7 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   `inside=(...)` aux limites de la rue et resserrer ce qu'elle doit montrer.
 - (cycle 40) Un script shell qu'un bash est en train d'exécuter ne s'édite pas en place (bash le lit au fil de l'eau) : écrire la nouvelle version à
   côté puis `mv` (nouvel inode, le processus en cours garde l'ancien fichier).
+- (cycle 40) File de rendu : un verrou `flock` seul ne garde pas l'ordre d'arrivée (un brouillon a attendu 9 h pendant que des plus récents
+  passaient). La file `runq4.sh` donne un ticket à chaque attente (fichier horodaté avec le pid) et ne démarre que le plus ancien ticket vivant ;
+  pour remettre des attentes dans l'ordre : arrêter d'abord la chaîne parente (sinon elle continue et annonce « READY » sans brouillon), puis son
+  attente, et relancer les copies `_q4` une à une dans l'ordre voulu.
