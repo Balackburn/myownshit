@@ -101,6 +101,10 @@ function addEyes(R, parent, o) {
     pupil.position.set(px, py, pz); eye.add(pupil);
     const lid = new THREE.Mesh(new THREE.SphereGeometry(r * 1.06, 18, 8, 0, PI * 2, 0, PI / 2), mat(o.lid ?? P.grey, { doubleSide: true }));
     lid.rotation.x = -PI / 2; eye.add(lid);
+    // (review 2 of 65) the line of a shut eye: an ink arch over the closed lid (the flattened eye let the pupil poke out through the lid, so shut
+    // eyes read as staring ones); shown only once the lid is nearly down, the pupil hidden then
+    const lash = new THREE.Mesh(new THREE.TorusGeometry(r * 0.58, r * (o.lashT ?? 0.09), 4, 12, PI * 0.78), mat(INK, { noGrain: true }));
+    lash.rotation.z = PI / 2 - PI * 0.39; lash.position.set(0, -r * 0.42, r * 1.06 * (o.flat ?? 0.72) + r * 0.05); lash.visible = false; g.add(lash);
     // brow: low-poly arched torus segment
     const browG = new THREE.Group(); const by = o.y + r * (o.browY ?? 1.32);
     browG.position.set(side * o.x * (o.browX ?? 1), by, o.z + r * (o.browZ ?? 0.35)); parent.add(browG);
@@ -109,7 +113,7 @@ function addEyes(R, parent, o) {
     const brow = new THREE.Mesh(new THREE.TorusGeometry(br, r * (o.browT ?? 0.17), 4, 7, arc), mat(o.browColor ?? (dark ? '#E9E1CC' : INK), { noGrain: true }));
     brow.rotation.z = PI / 2 - arc / 2; brow.position.y = -br; browG.add(brow);
     if (o.noBrow) browG.visible = false;
-    R.eyes.push({ side, g, eye, pupil, lid, browG, by, r, px, py, pz });
+    R.eyes.push({ side, g, eye, pupil, lid, browG, by, r, px, py, pz, lash });
   }
 }
 
@@ -134,8 +138,9 @@ function applyExpression(R, name, blink = 0, twitch = 0) {
     const L = E.side > 0, b = (L ? e.bL : e.bR) || e.b || [0, 0];
     E.browG.rotation.z = E.side * b[0];
     E.browG.position.y = E.by + (b[1] + twitch) * E.r;
-    E.lid.rotation.x = lidRx(min(1, max((L ? e.lidL : e.lidR) ?? e.lid ?? 0, blink)));
-    E.pupil.scale.setScalar(e.pup ?? 1);
+    const lv = min(1, max((L ? e.lidL : e.lidR) ?? e.lid ?? 0, blink));
+    E.lid.rotation.x = lidRx(lv);
+    E.pupil.scale.setScalar(e.pup ?? 1); E.pupil.visible = lv < 0.8; if (E.lash) E.lash.visible = lv >= 0.86;   // (review 2 of 65) no pupil through a shut lid
     const lk = e.look || [0, 0];
     E.pupil.position.set(E.px + lk[0] * E.r * 0.4, E.py + lk[1] * E.r * 0.4, E.pz);
   }
