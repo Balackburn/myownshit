@@ -108,12 +108,15 @@ export const LANGUE_PROPS = {
   // Snow piling up on a head or a helmet (hang it on the head joint at the top of the head, pivot at its bottom): a white mound with lumps, o.w
   // (0.3) wide, growing from nothing to o.h (0.22 m) between o.t0 and o.t1: time passing while they stand there
   snowCap(o) {
-    const W = o.w ?? 0.3, g = grp(), m = new THREE.MeshLambertMaterial({ color: '#FAFCFF', emissive: '#4A5A66', emissiveIntensity: 0.15 }), lumps = [];
-    const base = new THREE.Mesh(new THREE.CylinderGeometry(W * 0.44, W * 0.52, 1, 9), m); base.position.y = 0.5; lumps.push(base);
-    for (let i = 0; i < 4; i++) { const b = new THREE.Mesh(new THREE.SphereGeometry(W * (0.2 + 0.06 * hash(i + 3)), 8, 6), m); b.position.set((hash(i) - 0.5) * W * 0.5, 1.0, (hash(i + 8) - 0.5) * W * 0.4); lumps.push(b); }
-    const pile = grp(...lumps); g.add(pile);
+    // (review 2 of 64) a domed, lumpy mound that hangs over the brim (a flat-topped cylinder read as a chef's hat or a marshmallow): a squashed dome of
+    // o.w (0.3 m) across growing to o.h (0.22) high between o.t0 and o.t1, five lumps round its rim, one on top
+    const W = o.w ?? 0.3, R = W * 0.56, g = grp(), m = new THREE.MeshLambertMaterial({ color: '#FAFCFF', emissive: '#4A5A66', emissiveIntensity: 0.15, flatShading: true });
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(R, 10, 6, 0, 2 * PI, 0, PI / 2), m), lumps = [];
+    for (let i = 0; i < 6; i++) { const a = i / 5 * 2 * PI + hash(i) * 0.6, top = i === 5, b = new THREE.Mesh(new THREE.IcosahedronGeometry(R * (top ? 0.42 : 0.34 + 0.1 * hash(i + 3)), 0), m);
+      b.position.set(top ? 0 : Math.cos(a) * R * 0.92, top ? R * 0.78 : R * (0.12 + 0.12 * hash(i + 6)), top ? 0 : Math.sin(a) * R * 0.92); b.rotation.set(hash(i) * 3, hash(i + 1) * 3, 0); lumps.push(b); }
+    const pile = grp(dome, ...lumps); g.add(pile);
     g.userData.update = t => { const k = clamp01((t - (o.t0 ?? 0)) / Math.max(0.05, (o.t1 ?? 1) - (o.t0 ?? 0))), h = Math.max(0.005, (o.h ?? 0.22) * k);
-      pile.scale.set(0.6 + 0.4 * k, h, 0.6 + 0.4 * k); pile.visible = k > 0.02; lumps.slice(1).forEach(b => { b.scale.set(1, Math.min(4, 0.06 / h), 1); }); };
+      pile.scale.set(0.55 + 0.45 * k, h / R, 0.55 + 0.45 * k); pile.visible = k > 0.02; };
     g.userData.update(0); return g;
   },
 };

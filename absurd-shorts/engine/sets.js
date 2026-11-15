@@ -1258,7 +1258,8 @@ Object.assign(S, {
     const pw = o.paveW ?? 5;   // o.paveW: the width of the pavements (5 m: they stop 0.2 m short of the house fronts, and the ground under them shows there as a dark gutter along the foot of the walls; 6.5 closes it, and the floor of the gaps between two blocks)
     g.add(flat(10, 400, snow ? '#C9CED4' : '#6E6E72', 0, 0.004, 0), hole ? flatHoled(pw, 400, snow ? '#F7F8FA' : '#E4D6BE', 5 + pw / 2, 0.006, 0, hole) : flat(pw, 400, snow ? '#F7F8FA' : '#E4D6BE', 5 + pw / 2, 0.006, 0), flat(pw, 400, snow ? '#F7F8FA' : '#E4D6BE', -(5 + pw / 2), 0.006, 0));
     if (hole) g.add(prop('streetHole', { r: o.hole[2] ?? 0.9, seed: o.hole[3] ?? 5, depth: o.holeDepth ?? 6 }, o.hole[0], 0.006, o.hole[1]));
-    if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); g.add(prop('snowfall', { w: 30, h: 12, d: 40, n: o.snowN || 3200, size: o.snowSize || 0.13 }, o.snowX || 0, 0, 0), prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2)); }
+    if (snow) { for (const x of [-1.6, -0.9, 1.0, 1.7]) g.add(flat(0.35, 400, '#A9AFB6', x, 0.007, 0)); const sf = prop('snowfall', { w: 30, h: 12, d: 40, n: o.snowN || 3200, size: o.snowSize || 0.13 }, o.snowX || 0, 0, 0); g.add(sf, prop('snowBank', { len: 30 }, 5.4, 0, 0, PI / 2), prop('snowBank', { len: 30, seed: 7 }, -5.4, 0, 0, PI / 2));
+      g.userData.update = t => sf.userData.update?.(t); }   // (review 2 of 64) the flakes fall: without the set's update they hung still, big blots near the lens read as dust on it
     g.add(at(box(0.2, 0.16, 400, '#D9CDB4'), 5, 0, 0), at(box(0.2, 0.16, 400, '#D9CDB4'), -5, 0, 0));
     const dash = []; for (let z = -190; z <= 190; z += 4) dash.push([0, 0.008, z]);
     g.add(inst(new THREE.BoxGeometry(0.16, 0.01, 1.8), mat('#F4F1E8'), dash));
