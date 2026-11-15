@@ -2770,3 +2770,17 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   (plafond beige percé vu d'en dessous). « La moustache » (67) suit dans la file des finaux.
 - Erreurs relevées : casquette en double sur un gardien (le préréglage `cop` en a déjà une), chèque d'une autre histoire, confettis d'une seule pièce
   (nom pris par un autre accessoire), caméra de rue sortie derrière une façade. Ajouts au skill.
+
+## 15 novembre, 21 h 15 — « La moustache » livrée et publiée ; file de rendu équitable ; clignements qui gardent la pose
+
+- « La moustache » (67) : final contrôlé (1080x1920, 29,6 s, −16 LUFS, aucune chute de luminosité), envoyé et publié sur TikTok.
+- File des brouillons : le verrou seul ne gardait pas l'ordre d'arrivée (« Le pull » attendait depuis 9 h pendant que des brouillons plus récents
+  passaient). Nouvelle file `runq4.sh` à tickets ; les huit brouillons en attente y ont été replacés dans leur ordre d'origine (chaîne parente
+  arrêtée d'abord, pour qu'elle n'annonce pas un brouillon qui n'existe pas).
+- Clignements : une clé de visage seule remplace toute la pose, et les fonctions BLINK de « Le robinet » et « Le centime » faisaient retomber les
+  bras tendus. Nouvelle option `keepPose` dans la boîte à outils (la clé reprend la pose précédente des mains) ; « Le robinet » : clignements,
+  coups d'œil, tapotements, bâillement et grands saluts dans les cinq passages figés du brouillon 3.
+- « Le parcmètre » (75) : passe 2 faite par un agent dérivé (accroche vue du trottoir, doigt qui quitte le bouton 400 ANS, ticket qui file vers
+  l'objectif, camionnette qui pile, visage écrasé sur la vitre, deux voitures qui klaxonnent, partie de cartes en grand) ; brouillon 2 en file.
+- « Les lunettes » (69) : images 6 à 8 relues (canapé vu de dessous avec le visage plaqué au sol, frigo vu de l'intérieur, quai par-dessus son
+  épaule, Terre sous un ciel noir, faisceaux fins) ; brouillon 2 en file. Revues en cours : « Le robinet » (3) et « Le bocal » (1).
