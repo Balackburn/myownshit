@@ -384,6 +384,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | Vert de peur, trou par trou | le rouge vire à l'orange puis au vert (`skin`) pendant que sa tête descend du trou rouge au trou orange (tenu cinq images) puis au vert | 62 S09 |
 | Toutes les voitures passent au vert | caméra basse à côté du feu : les voitures filent l'une après l'autre avec des traits de vitesse, ses cheveux fouettés dans le trou du bas, vert franc (`GREEN`, pas un vert pâle qui tourne à l'olive) | 62 S10 |
 | Repeint en rouge au rouleau | un peintre sur une échelle passe le rouleau sur son visage vert : à chaque passage la couleur se rapproche du rouge et ses yeux se ferment ; puis il recule pour admirer, rouleau baissé, et le dernier clignement se voit | 62 S11 |
+| La bouche de dessin animé qui avale | un poisson aux lèvres pincées (`bigMouth`) : la lèvre du bas descend comme un tiroir (`q.pos.jaw`), l'intérieur sombre apparaît, les lèvres grossissent (`mouth`), mâchoires ouvertes dix images au-dessus de ce qu'il mange, fermeture en deux images, le corps gonfle au-delà du rond et ondule (`wobble`), yeux fermés de plaisir (`bliss`) | 65 S12, S15 |
+| L'onomatopée qui grandit avec le gag | même gag répété trois fois, mot différent et taille croissante : quatre petits MIAM, un GLOUPS, un énorme SCRONCH ; puis au rappel final un minuscule « miam. » en minuscules : la chute sèche | 65 S08-S19 |
+| La bouche géante qui prend trois grains | une bouche haute comme un garage s'entrouvre lentement devant un fonctionnaire tremblant qui tend trois grains ; petite fermeture qui ne prend que les grains, il sursaute ; coupe sur le visage entier qui cligne de satisfaction | 65 S19 |
+| Le panneau qui interdit l'absurde | un panneau officiel avec pictogramme barré (un poisson rouge barré, INTERDIT AUX POISSONS) planté par le maire : le gag se lit sans lire, et le mot du carton n'est pas répété | 65 S06 |
+| L'araignée en élastique | le feu passe au vert sous elle : bond étiré, pattes écartées suspendue à son fil (`thread` à longueur clé), regard vers nous, clignement, chute, rebonds sur le fil | 66 S14 |
+| Le déverrouillage qui grince | immobile depuis des années, il repart par à-coups : trois secousses du dos et du genou avec des craquements, puis le premier pas, la barbe qui balance, la poussière solide qui tombe de lui jusqu'au trottoir | 66 S16 |
+| Le bras en guimauve | un policier tire sa main ; ses pieds restent plantés, seul son bras s'étire (`reach` hors de portée) : traction, glissade, traction ; la prise lâche, le bras revient en tremblant, le policier vole et s'écrase à plat, puis se regonfle | 66 S07 |
+| L'amende plaquée sur la poitrine | le collègue claque une grande contravention sur sa poitrine : écrasement, puis mâchoire jusqu'au torse et yeux sur tiges vers nous | 66 S08 |
+| La foule en fontaines | trois visages de trois quarts, deux jets de larmes en arc par visage (`tearFountain`), sanglots qui soulèvent les épaules, un mouchoir tordu, confettis qui pleuvent devant l'objectif (`confettiRain`) | 66 S17 |
 
 ## Erreurs à éviter
 
@@ -1447,3 +1456,26 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   personnage cadré de face dans l'axe de la rue (64). L'étendre loin derrière lui.
 - (cycle 30) Une créature petite filmée de loin au sol est un point à l'écran (67) : la filmer à sa hauteur et de près, ou faire du
   premier plan un gros plan sur l'endroit où elle naît.
+
+- (cycles 27-28) La mâchoire d'un nageur articulée derrière la surface de son corps rentre dans le ventre en s'ouvrant : aucun gobage ne
+  se voyait (65). Mettre les lèvres devant le corps, faire descendre la lèvre du bas (`q.pos.jaw`) et montrer un intérieur sombre.
+- (cycles 27-28) Les créatures ignoraient les canaux `lay` et `sq` des clés `toon` (réservés aux humains) : les canards « renversés » ne
+  bougeaient pas (65). Ils sont pris en charge depuis ; un nageur tourne et s'écrase autour de son corps (`pivotY`), pas du point sous lui.
+- (cycles 27-28) L'élan d'un gobage (`root.z`) grandit avec l'échelle : à 62, il avançait le poisson de huit mètres, jusque dans la caméra
+  (65). Mettre `lunge` à 0 et déplacer l'acteur soi-même pour que la bouche arrive pile sur sa cible.
+- (cycles 27-28) Deux accessoires du même nom dans deux modules : le dernier fusionné gagne. Les confettis « en boîte » étaient remplacés
+  par une gerbe d'un seul confetti (66). Vérifier le nom avant de s'en servir.
+- (cycles 27-28) La taille des gouttes de `waterDrops` est `r` (pas `s`) : les éclaboussures faisaient deux centimètres à trente mètres (65).
+- (cycles 27-28) Un objet opaque dans un bocal transparent est délavé par les couches de verre et d'eau (le poisson orange passait crème) :
+  le dessiner après elles (`renderOrder`, matériau transparent à opacité 1).
+- (cycles 27-28) Le décalage d'un accessoire posé sur une articulation de créature est dans les unités de l'articulation (avant l'échelle de
+  l'acteur) : une casquette décalée « en mètres » partait à des centaines de mètres au-dessus du poisson (65).
+- (cycles 27-28) Un char dont l'avant est +Z, roulé vers nous avec `ry` 180, roulait à reculons : canon caché derrière la tourelle (65).
+- (cycles 27-28) Le mot du carton répété sur un panneau et dans la légende (FERMÉE trois fois, AMENDE) : écrire autre chose sur l'objet
+  (INTERDIT AUX POISSONS, CONTRAVENTION).
+- (cycles 27-28) La nuit, la sonde de lumière capte la neige éclairée et rallume les façades comme en plein jour (64) : baisser `probe` et
+  `hemi` dans le look de nuit, et poser des flaques de lumière chaude sous les lampadaires.
+- (cycles 27-28) Une barbe faite de lattes plates régulières se lit comme un râteau ou des rayures de pantalon (66) : des mèches effilées qui
+  ondulent, plus pleines au menton, deux tons, bombées pour passer devant la poitrine, la pointe enroulée au sol.
+- (cycles 27-28) Les rôles d'un dossier de critique recopiés d'une autre histoire emportent la liste de gags de cette autre histoire (64) :
+  écrire les rôles pour chaque histoire.
