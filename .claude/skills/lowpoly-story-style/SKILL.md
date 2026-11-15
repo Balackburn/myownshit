@@ -414,6 +414,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La musique d'attente qui coule du téléphone | `holdNotes` accroché à la tête près de l'oreille, tourné vers la caméra : des notes sortent sans fin, montent de côté en ondulant et s'effacent ; `until` coupe le flot net (le « clic » de la reprise d'appel) |
 | Le téléphone collé à l'oreille | le téléphone passe de la main à la tête (`joint: 'head'`) : la main s'écarte et revient vide ; quand il tire à deux mains, sa tête s'étire de côté (`scl.head`) et revient d'un coup |
 | La course poursuite qui ne finit pas | coureur et bus avancent à la même vitesse sur une route droite (`floorSlab`) avec la caméra qui dérive d'autant ; la chute renvoie au premier plan : le numéro du bus (21) n'était pas celui de son arrêt (12) |
+| Le pull à l'envers | `knitJumper` accroché au torse avec `inside` : coutures pâles dehors, grande étiquette blanche qui dépasse du col ; `flipAt` le remet à l'endroit avec un écrasement ; tout le monde le copie, du bureau au président et au défilé |
+| Le mauvais bouton sans regarder | il appuie sur le gros bouton rouge « 400 ANS » à côté du vert « 1 H » en regardant l'écran, puis nous ; insert par-dessus l'épaule : l'écran défile d'une heure à quatre cents ans, un tic à chaque palier, un « ding » à l'arrivée |
+| Le ticket qui ne s'arrête pas | `ticketRibbon` posé à la fente : le papier sort, s'enroule jusqu'au trottoir et file le long d'un chemin jusqu'au point de fuite (vue d'avion : bande élargie à 0,22 m pour se lire à cent mètres) ; les marques imprimées avancent avec le papier, la tête se soulève et frémit |
+| La voiture devenue maison | `carHome` posé sur la voiture : rideaux vichy noués, tuyau de poêle qui fume, géranium et antenne sur le toit, paillasson BIENVENUE, courrier glissé sous l'essuie-glace (`letterAt`), linge tendu jusqu'à l'horodateur |
+| Le visage écrasé contre la vitre | caméra dans la cabine de la fourgonnette garée à côté, à travers sa fenêtre ouverte : sa tête aplatie contre sa propre vitre (`scl.head` [1,16, 1,1, 0,6]), les deux mains à plat, puis il glisse vers le bas en grinçant |
 
 ## Erreurs à éviter
 
@@ -1561,3 +1566,11 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   la scène prise à la porte, de l'extérieur.
 - (cycle 34) Un coureur filmé de côté sur une route droite est de profil, et le côté de sa tête en boîte se lit comme l'arrière : placer la caméra
   de trois quarts devant lui en dérivant à sa vitesse.
+- (cycle 36) Un préréglage de personnage inconnu (`suit`, `farmer`, `tracksuit`, `waiter`) ne provoque aucune erreur : le moteur rend un inconnu
+  générique. La construction le signale désormais (`audit_presets`) ; prendre un nom défini dans `engine/human.js`.
+- (cycle 37) Un accessoire inconnu (`pavilion`, `coffeeCup`) disparaît au rendu : la construction le signale désormais (`audit_props`) ; chercher
+  le nom dans `engine/props*.js` (`cottage`, `hotMug`).
+- (cycle 37) Dans le cadre vertical, l'angle horizontal ne fait qu'environ 26° à 45° de focale : un personnage à 23° de l'axe sort du champ. Un plan
+  par-dessus l'épaule doit poser l'épaule presque sur l'axe, et alors elle couvre le sujet : asseoir le personnage de premier plan et monter la caméra.
+- (cycle 37) Une fourgonnette en double file à côté d'une voiture : aligner sa cabine sur le siège du conducteur (son centre décalé de la longueur
+  du capot), sinon la caméra placée « dans la cabine » tombe dans la caisse de chargement.
