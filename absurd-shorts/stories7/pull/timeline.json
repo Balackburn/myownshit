@@ -1,0 +1,719 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec est sorti avec son pull à l'envers.",
+   "hl": [
+    "pull",
+    "l'envers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.34,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.3,
+     "e": 0.5
+    },
+    {
+     "w": "est",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "sorti",
+     "s": 0.7,
+     "e": 0.9
+    },
+    {
+     "w": "avec",
+     "s": 0.98,
+     "e": 1.06
+    },
+    {
+     "w": "son",
+     "s": 1.14,
+     "e": 1.22
+    },
+    {
+     "w": "pull",
+     "s": 1.3,
+     "e": 1.46
+    },
+    {
+     "w": "à",
+     "s": 1.54,
+     "e": 1.567
+    },
+    {
+     "w": "l'envers.",
+     "s": 1.593,
+     "e": 2.34
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Personne n'a osé lui dire.",
+   "hl": [
+    "osé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L02.mp3",
+   "file_start": 2.44,
+   "speech_start": 2.44,
+   "speech_end": 4.04,
+   "words": [
+    {
+     "w": "Personne",
+     "s": 2.44,
+     "e": 2.84
+    },
+    {
+     "w": "n'a",
+     "s": 2.88,
+     "e": 3.0
+    },
+    {
+     "w": "osé",
+     "s": 3.08,
+     "e": 3.24
+    },
+    {
+     "w": "lui",
+     "s": 3.293,
+     "e": 3.4
+    },
+    {
+     "w": "dire.",
+     "s": 3.56,
+     "e": 4.04
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Le lendemain, son collègue a fait pareil.",
+   "hl": [
+    "pareil."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L03.mp3",
+   "file_start": 4.14,
+   "speech_start": 4.14,
+   "speech_end": 6.3,
+   "words": [
+    {
+     "w": "Le",
+     "s": 4.14,
+     "e": 4.22
+    },
+    {
+     "w": "lendemain,",
+     "s": 4.3,
+     "e": 4.94
+    },
+    {
+     "w": "son",
+     "s": 5.02,
+     "e": 5.1
+    },
+    {
+     "w": "collègue",
+     "s": 5.18,
+     "e": 5.34
+    },
+    {
+     "w": "a",
+     "s": 5.42,
+     "e": 5.46
+    },
+    {
+     "w": "fait",
+     "s": 5.5,
+     "e": 5.58
+    },
+    {
+     "w": "pareil.",
+     "s": 5.66,
+     "e": 6.3
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Puis tout le bureau.",
+   "hl": [
+    "bureau."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L04.mp3",
+   "file_start": 6.4,
+   "speech_start": 6.4,
+   "speech_end": 7.6,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 6.4,
+     "e": 6.56
+    },
+    {
+     "w": "tout",
+     "s": 6.72,
+     "e": 6.88
+    },
+    {
+     "w": "le",
+     "s": 6.92,
+     "e": 6.96
+    },
+    {
+     "w": "bureau.",
+     "s": 7.04,
+     "e": 7.6
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Puis toute la ville.",
+   "hl": [
+    "ville."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L05.mp3",
+   "file_start": 7.7,
+   "speech_start": 7.7,
+   "speech_end": 8.98,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 7.7,
+     "e": 7.94
+    },
+    {
+     "w": "toute",
+     "s": 8.1,
+     "e": 8.26
+    },
+    {
+     "w": "la",
+     "s": 8.34,
+     "e": 8.42
+    },
+    {
+     "w": "ville.",
+     "s": 8.58,
+     "e": 8.98
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Les magasins ont cousu les étiquettes dehors.",
+   "hl": [
+    "étiquettes",
+    "dehors."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L06.mp3",
+   "file_start": 9.08,
+   "speech_start": 9.08,
+   "speech_end": 11.4,
+   "words": [
+    {
+     "w": "Les",
+     "s": 9.08,
+     "e": 9.24
+    },
+    {
+     "w": "magasins",
+     "s": 9.32,
+     "e": 9.64
+    },
+    {
+     "w": "ont",
+     "s": 9.72,
+     "e": 9.8
+    },
+    {
+     "w": "cousu",
+     "s": 9.84,
+     "e": 10.08
+    },
+    {
+     "w": "les",
+     "s": 10.12,
+     "e": 10.2
+    },
+    {
+     "w": "étiquettes",
+     "s": 10.28,
+     "e": 10.68
+    },
+    {
+     "w": "dehors.",
+     "s": 10.76,
+     "e": 11.4
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Le présentateur du journal l'a porté en direct.",
+   "hl": [
+    "direct."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L07.mp3",
+   "file_start": 11.5,
+   "speech_start": 11.5,
+   "speech_end": 14.14,
+   "words": [
+    {
+     "w": "Le",
+     "s": 11.5,
+     "e": 11.58
+    },
+    {
+     "w": "présentateur",
+     "s": 11.66,
+     "e": 12.22
+    },
+    {
+     "w": "du",
+     "s": 12.26,
+     "e": 12.3
+    },
+    {
+     "w": "journal",
+     "s": 12.54,
+     "e": 12.78
+    },
+    {
+     "w": "l'a",
+     "s": 12.82,
+     "e": 12.94
+    },
+    {
+     "w": "porté",
+     "s": 13.06,
+     "e": 13.26
+    },
+    {
+     "w": "en",
+     "s": 13.3,
+     "e": 13.34
+    },
+    {
+     "w": "direct.",
+     "s": 13.42,
+     "e": 14.14
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le président a fait ses vœux le pull à l'envers.",
+   "hl": [
+    "président",
+    "l'envers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L08.mp3",
+   "file_start": 14.24,
+   "speech_start": 14.24,
+   "speech_end": 16.88,
+   "words": [
+    {
+     "w": "Le",
+     "s": 14.24,
+     "e": 14.4
+    },
+    {
+     "w": "président",
+     "s": 14.52,
+     "e": 14.88
+    },
+    {
+     "w": "a",
+     "s": 14.96,
+     "e": 15.04
+    },
+    {
+     "w": "fait",
+     "s": 15.12,
+     "e": 15.2
+    },
+    {
+     "w": "ses",
+     "s": 15.28,
+     "e": 15.36
+    },
+    {
+     "w": "vœux",
+     "s": 15.4,
+     "e": 15.52
+    },
+    {
+     "w": "le",
+     "s": 15.6,
+     "e": 15.76
+    },
+    {
+     "w": "pull",
+     "s": 15.84,
+     "e": 15.92
+    },
+    {
+     "w": "à",
+     "s": 15.96,
+     "e": 16.0
+    },
+    {
+     "w": "l'envers.",
+     "s": 16.053,
+     "e": 16.88
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La mode a défilé à l'envers à Paris.",
+   "hl": [
+    "défilé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L09.mp3",
+   "file_start": 16.98,
+   "speech_start": 16.98,
+   "speech_end": 19.14,
+   "words": [
+    {
+     "w": "La",
+     "s": 16.98,
+     "e": 17.06
+    },
+    {
+     "w": "mode",
+     "s": 17.14,
+     "e": 17.3
+    },
+    {
+     "w": "a",
+     "s": 17.34,
+     "e": 17.38
+    },
+    {
+     "w": "défilé",
+     "s": 17.46,
+     "e": 17.78
+    },
+    {
+     "w": "à",
+     "s": 17.86,
+     "e": 17.92
+    },
+    {
+     "w": "l'envers",
+     "s": 17.98,
+     "e": 18.26
+    },
+    {
+     "w": "à",
+     "s": 18.34,
+     "e": 18.42
+    },
+    {
+     "w": "Paris.",
+     "s": 18.74,
+     "e": 19.14
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Hier, il s'est regardé dans une vitrine.",
+   "hl": [
+    "vitrine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L10.mp3",
+   "file_start": 19.24,
+   "speech_start": 19.24,
+   "speech_end": 21.56,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 19.24,
+     "e": 19.8
+    },
+    {
+     "w": "il",
+     "s": 19.88,
+     "e": 19.96
+    },
+    {
+     "w": "s'est",
+     "s": 20.04,
+     "e": 20.12
+    },
+    {
+     "w": "regardé",
+     "s": 20.2,
+     "e": 20.48
+    },
+    {
+     "w": "dans",
+     "s": 20.52,
+     "e": 20.6
+    },
+    {
+     "w": "une",
+     "s": 20.68,
+     "e": 20.76
+    },
+    {
+     "w": "vitrine.",
+     "s": 20.8,
+     "e": 21.56
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Il a remis son pull à l'endroit.",
+   "hl": [
+    "l'endroit."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L11.mp3",
+   "file_start": 21.66,
+   "speech_start": 21.66,
+   "speech_end": 23.26,
+   "words": [
+    {
+     "w": "Il",
+     "s": 21.66,
+     "e": 21.74
+    },
+    {
+     "w": "a",
+     "s": 21.78,
+     "e": 21.82
+    },
+    {
+     "w": "remis",
+     "s": 21.9,
+     "e": 22.06
+    },
+    {
+     "w": "son",
+     "s": 22.14,
+     "e": 22.3
+    },
+    {
+     "w": "pull",
+     "s": 22.38,
+     "e": 22.46
+    },
+    {
+     "w": "à",
+     "s": 22.487,
+     "e": 22.513
+    },
+    {
+     "w": "l'endroit.",
+     "s": 22.54,
+     "e": 23.26
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Toute la rue s'est retournée.",
+   "hl": [
+    "retournée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L12.mp3",
+   "file_start": 23.36,
+   "speech_start": 23.36,
+   "speech_end": 24.72,
+   "words": [
+    {
+     "w": "Toute",
+     "s": 23.36,
+     "e": 23.52
+    },
+    {
+     "w": "la",
+     "s": 23.6,
+     "e": 23.68
+    },
+    {
+     "w": "rue",
+     "s": 23.72,
+     "e": 23.84
+    },
+    {
+     "w": "s'est",
+     "s": 23.88,
+     "e": 24.0
+    },
+    {
+     "w": "retournée.",
+     "s": 24.08,
+     "e": 24.72
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "La police l'a arrêté pour tenue indécente.",
+   "hl": [
+    "indécente."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L13.mp3",
+   "file_start": 24.82,
+   "speech_start": 24.82,
+   "speech_end": 27.3,
+   "words": [
+    {
+     "w": "La",
+     "s": 24.82,
+     "e": 24.9
+    },
+    {
+     "w": "police",
+     "s": 24.98,
+     "e": 25.22
+    },
+    {
+     "w": "l'a",
+     "s": 25.3,
+     "e": 25.38
+    },
+    {
+     "w": "arrêté",
+     "s": 25.54,
+     "e": 25.86
+    },
+    {
+     "w": "pour",
+     "s": 25.94,
+     "e": 26.02
+    },
+    {
+     "w": "tenue",
+     "s": 26.1,
+     "e": 26.34
+    },
+    {
+     "w": "indécente.",
+     "s": 26.42,
+     "e": 27.3
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Il a été condamné à porter son pull à l'envers.",
+   "hl": [
+    "condamné",
+    "l'envers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L14.mp3",
+   "file_start": 27.4,
+   "speech_start": 27.4,
+   "speech_end": 29.88,
+   "words": [
+    {
+     "w": "Il",
+     "s": 27.4,
+     "e": 27.48
+    },
+    {
+     "w": "a",
+     "s": 27.52,
+     "e": 27.56
+    },
+    {
+     "w": "été",
+     "s": 27.64,
+     "e": 27.8
+    },
+    {
+     "w": "condamné",
+     "s": 27.88,
+     "e": 28.2
+    },
+    {
+     "w": "à",
+     "s": 28.24,
+     "e": 28.28
+    },
+    {
+     "w": "porter",
+     "s": 28.44,
+     "e": 28.6
+    },
+    {
+     "w": "son",
+     "s": 28.72,
+     "e": 28.84
+    },
+    {
+     "w": "pull",
+     "s": 28.92,
+     "e": 29.0
+    },
+    {
+     "w": "à",
+     "s": 29.08,
+     "e": 29.14
+    },
+    {
+     "w": "l'envers.",
+     "s": 29.2,
+     "e": 29.88
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "À vie.",
+   "hl": [
+    "vie."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/pull/tts/L15.mp3",
+   "file_start": 29.98,
+   "speech_start": 29.98,
+   "speech_end": 30.78,
+   "words": [
+    {
+     "w": "À",
+     "s": 29.98,
+     "e": 30.06
+    },
+    {
+     "w": "vie.",
+     "s": 30.14,
+     "e": 30.78
+    }
+   ]
+  }
+ ],
+ "total": 31.62
+}
