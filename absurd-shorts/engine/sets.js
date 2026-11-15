@@ -1285,10 +1285,23 @@ Object.assign(S, {
   // button; letter boxes at the left (o.names: the name tags), a notice board at the right (o.notice: its heading, 'SYNDIC'), a tiled floor.
   // userData.anchors: lift (the foot of the door), seam (the top of the seam between the two leaves: where a tie goes up), boxes, board
   immeubleHall(o = {}) {
-    const g = grp(), { back } = room(g, { wall: o.wall || '#EAE3D2', band: o.band || '#B9AA8C', bandH: 1.1, trim: o.trim || '#8C7B5E', floor: o.floor || '#DAD1C2', back: o.back ?? -3.0, half: 3.4, height: 3.6 });
+    const g = grp(), { back } = room(g, { wall: o.wall || '#EAE3D2', band: o.band || '#B9AA8C', bandH: 1.1, trim: o.trim || '#8C7B5E', floor: o.floor || '#DAD1C2', back: o.back ?? -3.0, half: 3.4, height: 3.6, noBack: !!o.car });
+    // (pass 2 of 76) o.car: the back wall gets an opening the size of the doorway, and behind it a lit car (warm walls, a light in the ceiling, a dark
+    // floor, a handrail): the dark rectangle with the hall's own dado rail under it read as no car at all; the leaves then slide inside the wall
+    if (o.car) { const HW = 3.4 + 0.2, H_ = 3.6, X0 = o.liftX ?? 0, W0 = 1.1, D0 = 2.1, WC = o.wall || '#EAE3D2', BC = o.band || '#B9AA8C', TC = o.trim || '#8C7B5E', bh = 1.1;
+      const lw = X0 - W0 / 2 + HW, rw = HW - (X0 + W0 / 2);
+      g.add(wall(lw, H_, 0.2, WC, -HW + lw / 2, H_ / 2, back - 0.1), wall(rw, H_, 0.2, WC, X0 + W0 / 2 + rw / 2, H_ / 2, back - 0.1), wall(W0, H_ - D0, 0.2, WC, X0, D0 + (H_ - D0) / 2, back - 0.1));
+      const bl = X0 - W0 / 2 - 0.09 + 3.4, br = 3.4 - (X0 + W0 / 2 + 0.09);
+      g.add(wall(bl, bh, 0.04, BC, -3.4 + bl / 2, bh / 2, back + 0.02), wall(br, bh, 0.04, BC, X0 + W0 / 2 + 0.09 + br / 2, bh / 2, back + 0.02));
+      g.add(wall(bl, 0.08, 0.08, TC, -3.4 + bl / 2, bh + 0.04, back + 0.04), wall(br, 0.08, 0.08, TC, X0 + W0 / 2 + 0.09 + br / 2, bh + 0.04, back + 0.04));
+      const CD = o.carDepth ?? 1.3, CW = W0 + 0.5, CH = D0 + 0.3, B = c => new THREE.MeshBasicMaterial({ color: c }), M = (w, h, d, m, x, y, z) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(x, y, z); return b; };
+      g.add(M(CW, CH, 0.04, B(o.carWall || '#EBDDBF'), X0, CH / 2, back - CD), M(0.04, CH, CD, B('#DCCBA8'), X0 - CW / 2, CH / 2, back - CD / 2), M(0.04, CH, CD, B('#DCCBA8'), X0 + CW / 2, CH / 2, back - CD / 2));
+      g.add(M(CW, 0.04, CD, B('#A89E8C'), X0, CH, back - CD / 2), M(CW * 0.62, 0.02, CD * 0.55, B('#FFFBEA'), X0, CH - 0.03, back - CD / 2), M(CW, 0.02, CD, mat('#6E6A66'), X0, 0.012, back - CD / 2));
+      g.add(M(CW - 0.1, 0.04, 0.04, B('#B8A57E'), X0, 0.95, back - CD + 0.06), M(CW - 0.1, 0.32, 0.01, B('#F6EEDB'), X0, 1.75, back - CD + 0.03));
+    }
     for (let i = -5; i <= 5; i++) g.add(flat(0.02, 16, '#C2B8A6', i * 0.6, 0.004, 4)); for (let k_ = 0; k_ < 24; k_++) g.add(flat(6.8, 0.02, '#C2B8A6', 0, 0.004, back + 0.3 + k_ * 0.6));
     const LX = o.liftX ?? 0, DW = 1.1, DH = 2.1, FR = '#6F7680', LC = o.leaf || '#AEB6BF', zf = back + 0.06;
-    g.add(at(box(DW, DH, 0.02, '#14161B'), LX, DH / 2, back + 0.012));                                                                       // the dark of the shaft behind the leaves
+    if (!o.car) g.add(at(box(DW, DH, 0.02, '#14161B'), LX, DH / 2, back + 0.012));                                                           // the dark of the shaft behind the leaves
     for (const sd of [-1, 1]) g.add(at(box(0.09, DH + 0.1, 0.12, FR, { outline: 0.006 }), LX + sd * (DW / 2 + 0.045), (DH + 0.1) / 2, zf));     // the frame
     g.add(at(box(DW + 0.18, 0.12, 0.12, FR, { outline: 0.006 }), LX, DH + 0.06, zf));
     const leaves = [-1, 1].map(sd => { const l = grp(at(box(DW / 2, DH, 0.035, LC, { outline: 0.004 }), 0, DH / 2, 0), at(box(0.012, DH * 0.86, 0.04, '#8E97A1'), sd * (DW / 4 - 0.05), DH / 2, 0.002)); l.userData.sd = sd; g.add(l); return l; });
@@ -1304,7 +1317,8 @@ Object.assign(S, {
     if (o.plant !== false) g.add(prop('plant', { pot: '#C9A06A', seed: 5 }, o.plantX ?? 3.0, 0, back + 0.4, 0, 0.9));
     const DOORS = o.doors || [[0, 0]], FLOOR = o.floor || [[0, 'RC']];
     const ease = x => x * x * (3 - 2 * x), doorAt = t => { let a = DOORS[0][1]; for (let i = 0; i < DOORS.length; i++) { const [t0, v0] = DOORS[i], nx = DOORS[i + 1]; if (t >= t0) a = nx && t < nx[0] ? v0 + (nx[1] - v0) * ease((t - t0) / (nx[0] - t0)) : v0; } return a; };
-    g.userData.update = t => { const a = doorAt(t); for (const l of leaves) l.position.set(LX + l.userData.sd * (DW / 4 + a * (DW / 2 - 0.03)), 0, zf); let cur = String(FLOOR[0][1]); for (const [tt, v] of FLOOR) if (t >= tt) cur = String(v); for (const k_ in disp) disp[k_].visible = k_ === cur; };
+    const zl = o.car ? back - 0.05 : zf;   // (pass 2 of 76) with a car, the leaves run inside the wall's thickness: they slide into it, not out over it
+    g.userData.update = t => { const a = doorAt(t); for (const l of leaves) l.position.set(LX + l.userData.sd * (DW / 4 + a * (DW / 2 - 0.03)), 0, zl); let cur = String(FLOOR[0][1]); for (const [tt, v] of FLOOR) if (t >= tt) cur = String(v); for (const k_ in disp) disp[k_].visible = k_ === cur; };
     g.userData.update(0);
     g.userData.anchors = { center: [0, 0, 0], lift: [LX, 0, back], seam: [LX, DH - 0.03, zf + 0.03], boxes: [BX, 0, back], board: [NX, 0, back] };
     g.userData.lighting = 'interior'; return g;

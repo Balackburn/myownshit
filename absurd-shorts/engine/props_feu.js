@@ -60,8 +60,11 @@ export const FEU_PROPS = {
     const n = o.n ?? 9, len = o.len ?? 1.3, coil = o.coil ?? 0.3, g = grp(), sw = grp(); g.add(sw);
     const mats = [L(o.color || '#D3CEC4'), L(o.dark || '#958E84')], r0 = o.r ?? 0.034, W = o.w ?? 0.22, strands = [];
     for (let i = 0; i < n; i++) {
-      const u0 = n > 1 ? i / (n - 1) - 0.5 : 0, x0 = u0 * W, ph = hash(i + 3) * TAU, amp = 0.012 + 0.01 * hash(i + 7), Ln = len * (0.86 + 0.14 * (1 - Math.abs(u0) * 1.6)), pts = [];
-      for (let k = 0; k <= 12; k++) { const u = k / 12; pts.push(new THREE.Vector3(x0 * (1 - 0.45 * u) + amp * Math.sin(u * 9 + ph), -Ln * u, 0.03 + (o.bulge ?? 0.14) * Math.sin(PI * Math.min(1, u * 1.12)))); }
+      const u0 = n > 1 ? i / (n - 1) - 0.5 : 0, ph = hash(i + 3) * TAU, amp = 0.012 + 0.01 * hash(i + 7), Ln = len * (0.86 + 0.14 * (1 - Math.abs(u0) * 1.6)), pts = [];
+      // (pass 2 of 76) o.depth: the roots follow the jaw in a U, from the chin in front back to the corners of the jaw o.depth behind, and the locks
+      // close in toward the tip: a wedge with volume (a flat fan of locks went edge-on and vanished when the head turned)
+      const D = o.depth ?? 0, x0 = D ? (W / 2) * Math.sin(u0 * PI) : u0 * W, z0 = D ? -D * (1 - Math.cos(u0 * PI)) : 0;
+      for (let k = 0; k <= 12; k++) { const u = k / 12; pts.push(new THREE.Vector3(x0 * (1 - 0.45 * u) + amp * Math.sin(u * 9 + ph), -Ln * u, z0 * (1 - 0.6 * u) + 0.03 + (o.bulge ?? 0.14) * Math.sin(PI * Math.min(1, u * 1.12)))); }
       if (coil > 0 && Math.abs(u0) < 0.3) { const e = pts[pts.length - 1]; for (let k = 1; k <= 6; k++) { const a = k / 6 * PI * 1.4; pts.push(new THREE.Vector3(e.x + Math.sin(a) * coil * 0.25, e.y + 0.012, e.z + coil * (0.5 - 0.5 * Math.cos(a * 0.75)))); } }
       const ms = [], js = [];
       for (let k = 0; k < pts.length - 1; k++) { const m = seg(pts[k], pts[k + 1], r0 * (1 - 0.78 * k / (pts.length - 1)), r0 * (1 - 0.78 * (k + 1) / (pts.length - 1)), mats[i % 2]); sw.add(m); ms.push(m); }

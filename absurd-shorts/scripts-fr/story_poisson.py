@@ -36,9 +36,9 @@ LAKE = {'sand': '#8CC56A', 'sea': '#3E9CB8', 'parasols': False}   # a lake: a gr
 SEA = {'parasols': False}
 HAND = lambda pid, name, who, hand='R', off=(0.0, -0.06, 0.03), **kw: P(pid, name, on={'actor': who, 'hand': hand, 'offset': list(off)}, **kw)
 # (review 2) the far shore of the lake: trees and roofs (the lake had the sea's open horizon, so the sea was no upgrade)
-SHORE = lambda sid: [P(f'shore{sid}', 'floorSlab', pos=[0.0, 0.0, -95.0], opts={'w': 320.0, 'd': 40.0, 'h': 0.6, 'color': '#7DBA5A'}),
+SHORE = lambda sid, hx=0.0: [P(f'shore{sid}', 'floorSlab', pos=[0.0, 0.0, -95.0], opts={'w': 320.0, 'd': 40.0, 'h': 0.6, 'color': '#7DBA5A'}),
                      *[P(f'tr{sid}{i}', 'tree', pos=[r(-110.0 + 18.0 * i + 5.0 * ((i * 7) % 3)), 0.6, r(-80.0 - 6.0 * (i % 3))], scale=4.0, opts={'seed': i + 4}) for i in range(13)],
-                     *[P(f'ho{sid}{i}', 'cottage', pos=[r(-60.0 + 30.0 * i), 0.6, -86.0], scale=2.4, opts={'seed': i + 2}) for i in range(5)]]
+                     *[P(f'ho{sid}{i}', 'cottage', pos=[r(-60.0 + 30.0 * i + hx), 0.6, -86.0], scale=2.4, opts={'seed': i + 2}) for i in range(5)]]
 XLOOK = {'sat': 0.8}   # (review 1) the exteriors graded down: saturation 156-216 against 112-157 indoors and 100-145 in the series' reference
 RF = lambda pid: P(pid, 'signBoard', pos=[0.0, 3.86, -4.5], opts={'text': 'RF', 'bg': '#F3EFE6', 'fg': '#26365F', 'frame': '#E2B53C', 'w': 0.8, 'h': 0.8, 'posts': False, 'height': 0})   # (final pass) over the courtroom seal: its post and beam read as a Latin cross
 JETC = {'color': '#7D8DA3', 'panel': '#97A5B8'}   # (final pass) one blue-grey livery for the jets in S14 and S15
@@ -150,7 +150,7 @@ st.shot('S07', 'seaSurface', setOpts=LAKE, look=XLOOK, actors=[
             k(0.62, toon=SQ7([0.88, 0.88, 1.28], [0.75, 0.0]), toonDur=0.2, toonEase='in')]),   # ...stretched again, nose down into the dive
         act('can1', DUCK7, 200, 'idle', 'neutral', scale=1.6, keys=[k(0.0, look=[-2.0, 6.0, -26.0]), k(0.25, look=[-2.0, 18.0, -26.0]), k(0.6, look=[10.0, 4.0, -24.0]),
             k(r(LEAP7[1] + 0.12), to=[DUCK7[0], 0.6, DUCK7[2]], dur=0.18, ease='out'), k(r(LEAP7[1] + 0.3), to=DUCK7, dur=0.3, ease='inOut')])],   # (review 1) the duck close in front for scale, its head following the leap
-        props=[P('spl7a', 'waterDrops', pos=[-8.0, 0.0, -28.0], opts={'at': 0.02, 'n': 40, 'r': 0.45, 'speed': 9.0, 'spread': 0.35, 'dir': [0, 1, 0.1], 'life': 0.9, 'color': '#F4FBFF'}), P('spl7', 'waterDrops', pos=SPL7, opts={'at': SPL7T, 'n': 120, 'r': 0.9, 'speed': 15.0, 'spread': 0.16, 'dir': [0, 1, 0.0], 'life': 1.1, 'color': '#F4FBFF'}), P('spl7c', 'waterDrops', pos=SPL7, opts={'at': r(SPL7T + 0.03), 'n': 60, 'r': 1.4, 'speed': 7.0, 'spread': 0.9, 'dir': [0, 1, 0.0], 'life': 0.8, 'color': '#F4FBFF'}), *SHORE('7')],
+        props=[P('spl7a', 'waterDrops', pos=[-8.0, 0.0, -28.0], opts={'at': 0.02, 'n': 40, 'r': 0.45, 'speed': 9.0, 'spread': 0.35, 'dir': [0, 1, 0.1], 'life': 0.9, 'color': '#F4FBFF'}), P('spl7', 'waterDrops', pos=SPL7, opts={'at': SPL7T, 'n': 120, 'r': 0.9, 'speed': 20.0, 'g': 36.0, 'spread': 0.16, 'dir': [0, 1, 0.0], 'life': 1.15, 'color': '#F4FBFF'}), P('spl7c', 'waterDrops', pos=SPL7, opts={'at': r(SPL7T + 0.03), 'n': 60, 'r': 1.4, 'speed': 8.0, 'g': 24.0, 'spread': 0.9, 'dir': [0, 1, 0.0], 'life': 0.75, 'color': '#F4FBFF'}), *SHORE('7', 15.0)],
         cams=[FC(0.0, [6.0, 1.3, 12.5], [[-10.0, 0.0, -26.0], [10.0, 0.0, -24.0], [0.0, 17.0, -26.0], list(DUCK7)], top=0.14, bottom=0.8, lenses=range(26, 70))])   # (review 2) the take-off inside the frame (it was cut at the left edge)
 st.cue('whoosh', 'S07', 0.05, 0.3, 0.6, 200, 900); st.cue('sfx:splash', 'S07', 0.02, 0.3); st.cue('sfx:splash', 'S07', SPL7T, 0.5)
 
@@ -210,16 +210,16 @@ st.cue('sfx:cluck', 'S11', 0.05, 0.35); st.cue('sfx:cluck', 'S11', 0.4, 0.35); s
 
 # 12: the fish ate the courthouse. The courthouse on the lakeshore; the giant fish rears up out of the lake behind it, jaws wide, and swallows it in one
 #     gulp; it swells, satisfied
-D12 = st.dur('S12'); S12 = 62.0; SNAP12 = 0.8; TRIB = [2.0, 0.0, 9.0]   # (final pass) the building under the mouth as the camera sees it
+D12 = st.dur('S12'); S12 = 62.0; SNAP12 = 0.8; TRIB = [3.4, 0.0, 9.0]   # (final pass) the building under the mouth as the camera sees it
 st.shot('S12', 'seaSurface', setOpts=LAKE, look=XLOOK, actors=[
         act('poisson', [0.0, FY(S12, -14.0), -26.0], 0, 'idle', 'neutral', scale=S12, keys=[
-            k(0.0, to=[0.0, FY(S12, 7.2), -7.5], dur=0.5, ease='out', face='keep', glide=True),   # rearing up behind the courthouse, the jaws opening...
-            k(0.62, to=[0.0, FY(S12, 4.8), -3.0], dur=0.18, ease='in', face='keep', glide=True),   # ...held wide over it, then down onto it...
-            k(0.86, to=[0.0, FY(S12, 4.6), -3.8], dur=0.5, ease='out', face='keep', glide=True),   # ...(review 2) and stays, face to us, swelling (the move back turned it round: its back and a fin like a plank)
-            k(0.05, clip='gulp', params=GULP(open=0.42, hold=0.33, snap=0.05, jaw=1.45, drop=1.0, mouth=1.8, grow=0.12, lunge=0.0, swell=1.7, wobble=1, bliss=3.0))])],   # (review 1) the jaws twice the building's width for ten frames, a two-frame snap, the body swelling past round, wobbling
-        props=[P('trib12', 'townHall', pos=TRIB, opts={'text': 'TRIBUNAL', 'w': 5}, keys=[k(r(SNAP12 + 0.03), visible=False)]),
-               BURST('glo12', [7.0, 8.0, 6.0], r(SNAP12 + 0.05), 'GLOUPS !', 5.5, 0.4), *SHORE('12')],
-        cams=[FC(0.0, [11.0, 2.2, 30.0], [[r(TRIB[0] - 2.8), 0.0, TRIB[2]], [r(TRIB[0] + 2.8), 0.0, TRIB[2]], [0.0, 23.5, -7.5], [-7.0, 0.0, -7.5], [7.0, 0.0, -7.5], [0.0, 6.0, 8.0]], top=0.12, bottom=0.8, lenses=range(26, 64))])   # three-quarters: the open jaws over the building (in front, it hid the mouth); (stills 3) its face after the snap in the frame
+            k(0.0, to=[0.0, FY(S12, 8.6), -7.5], dur=0.5, ease='out', face='keep', glide=True),   # rearing up behind the courthouse, the jaws opening...
+            k(0.62, to=[0.0, FY(S12, 4.6), -5.6], dur=0.18, ease='in', face='keep', glide=True),   # ...held wide over it, then down onto it...
+            k(0.86, to=[0.0, FY(S12, 4.6), -6.2], dur=0.5, ease='out', face='keep', glide=True),   # ...(review 2) and stays, face to us, swelling (the move back turned it round: its back and a fin like a plank)
+            k(0.05, clip='gulp', params=GULP(open=0.42, hold=0.33, snap=0.05, jaw=1.55, drop=1.3, mouth=1.9, grow=0.12, lunge=0.0, swell=1.7, wobble=1, bliss=3.0))])],   # (review 1) the jaws twice the building's width for ten frames, a two-frame snap, the body swelling past round, wobbling
+        props=[P('trib12', 'townHall', pos=TRIB, opts={'text': 'TRIBUNAL', 'w': 3.8}, keys=[k(r(SNAP12 + 0.03), visible=False)]),
+               BURST('glo12', [8.5, 12.0, 10.0], r(SNAP12 + 0.05), 'GLOUPS !', 5.5, 0.4), *SHORE('12')],
+        cams=[FC(0.0, [11.0, 2.2, 30.0], [[r(TRIB[0] - 2.2), 0.0, TRIB[2]], [r(TRIB[0] + 2.2), 0.0, TRIB[2]], [0.0, 25.0, -7.5], [-7.0, 0.0, -7.5], [7.0, 0.0, -7.5], [0.0, 6.0, 8.0]], top=0.12, bottom=0.8, lenses=range(26, 64))])   # three-quarters: the open jaws over the building (in front, it hid the mouth); (stills 3) its face after the snap in the frame
 st.cue('sfx:gulp', 'S12', r(SNAP12 + 0.03), 0.5)
 
 # 13: the army was sent. A country road to the lake: three tanks rolling toward us in a line, dust behind them
@@ -229,7 +229,7 @@ st.shot('S13', 'grassland', look=XLOOK, actors=[],
                *[P(f'tank13{j}', 'armyTank', pos=TK13(j), ry=0, scale=5.0, keys=[k(0.0, to=[TK13(j)[0], 0, r(TK13(j)[2] + 11.0)], dur=D13, ease='linear'),
                    *[k(r(0.1 * j + 0.3 * i_), rotTo=[0.035 if i_ % 2 else -0.025, 0.0, 0.0], dur=0.3, ease='inOut') for i_ in range(5)]]) for j in range(3)],   # (review 1) on a road, barrels at us, rocking on their tracks (they drove backwards: no barrels)
                *[P(f'dust13{j}', 'dustPuff', pos=[TK13(j)[0], 0, r(TK13(j)[2] - 2.6)], scale=2.2, opts={'period': 0.45, 'seed': 30 + j, 'color': '#D9CDB0'}, keys=[k(0.0, to=[TK13(j)[0], 0, r(TK13(j)[2] + 8.4)], dur=D13, ease='linear')]) for j in range(3)]],
-        cams=[FC(0.0, [-6.5, 1.6, -9.0], [[-3.6, 0.0, -13.5], [-0.4, 0.0, -13.5], [-2.0, 3.6, -13.5], [2.0, 0.0, -30.0], [2.0, 3.2, -30.0]], top=0.16, bottom=0.82, lenses=range(26, 64))])   # (final pass) from the roadside, three-quarters: the barrels in profile   # (stills 3) nearer; (review 2) low on the road, the lead tank at the lens (9 % of the frame under empty sky)
+        cams=[FC(0.0, [-3.0, 2.2, -8.0], [[-3.6, 0.0, -13.5], [-0.4, 0.0, -13.5], [-2.0, 3.6, -13.5], [2.0, 0.0, -30.0], [2.0, 3.2, -30.0]], top=0.16, bottom=0.82, lenses=range(26, 64))])   # (final pass) a little higher and to the side: the three tanks over one another, less sky (the roadside camera lost two of them)   # (stills 3) nearer; (review 2) low on the road, the lead tank at the lens (9 % of the frame under empty sky)
 st.cue('sfx:engine', 'S13', 0.0, 0.45)
 
 # 14: three tanks, two fighter jets. On the lakeshore the three tanks aim their guns at the water; two jets scream in low overhead toward the lake, where
@@ -331,7 +331,7 @@ st.shot('S21', 'livingRoom', setOpts={'sofa': False, 'plant': False}, actors=[
             k(0.75, look='camera'), k(0.78, toon={'reach': {'R': [r(BOWL3[0] - 0.05), 1.42, r(BOWL3[2] + 0.02), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.15),
             k(1.5, toon={'reach': {'R': [r(BOWL3[0] - 0.05), 1.42, r(BOWL3[2] + 0.02), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0}}, toonDur=0.07), k(1.62, toon={'reach': {'R': [r(BOWL3[0] - 0.05), 1.42, r(BOWL3[2] + 0.02), 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': DEAD}, toonDur=0.1)])],
         props=[P('tab21', 'table', pos=[BOWL3[0], 0, BOWL3[2]], opts={'w': 0.6, 'd': 0.6, 'h': 0.72}),
-               P('bowl21', 'fishBowl', pos=BOWL3, opts={'r': 0.2, 'flakes': [0.1, 1.2, 170], 'pour': 0.5, 'popAt': 1.0}, keys=[k(1.02, squash=[1.25, 0.84, 1.25], dur=0.5), k(1.45, squash=[1.32, 0.8, 1.32], dur=0.55)]),   # (final pass) the topper: the bowl already bulging round the new fish
+               P('bowl21', 'fishBowl', pos=BOWL3, opts={'r': 0.2, 'flakes': [0.1, 1.2, 170], 'pour': 0.5, 'popAt': 1.0}, keys=[k(1.02, scale=1.2, dur=0.12, ease='out'), k(1.02, squash=[1.2, 0.86, 1.2], dur=0.45), k(1.45, scale=1.38, dur=0.12, ease='out'), k(1.45, squash=[1.25, 0.82, 1.25], dur=0.5)]),   # (final pass) the topper: the bowl swells twice round the new fish and wobbles (a squash alone lasted two frames)
                P('box21', 'grainBox', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.02, 0.06]}, rot=[0.0, 0.0, 2.3], scale=1.2)],
         cams=[FC(0.0, [0.8, 1.45, 1.4], [[ME3[0], 2.45, ME3[2]], [BOWL3[0], 0.6, BOWL3[2]], [ME3[0], 1.0, ME3[2]], [r(BOWL3[0] + 0.3), 1.3, BOWL3[2]]], top=0.16, bottom=0.76)])   # (script) another angle than S03: the callback is the same action, seen from his other side
 st.cue('sfx:crunch', 'S21', 0.12, 0.18); st.cue('sfx:crunch', 'S21', 0.6, 0.15); st.cue('sfx:boing', 'S21', 1.0, 0.25)

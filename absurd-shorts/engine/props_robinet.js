@@ -297,4 +297,25 @@ export const ROBINET_PROPS = {
       bg.rotation.y = o.aim ? keyAt(o.aim, t, 0) * PI / 180 : ((o.yaw0 ?? 0) * PI / 180 + Math.max(0, t - (o.onAt ?? 0)) * (o.rate ?? 0.35) * TAU); glowB.scale.setScalar(on ? 1 + 0.15 * Math.sin(t * 8) : 1); };
     g.userData.update(0); g.userData.lamp = [0, ly, 0]; return g;
   },
+  // (pass 2 of 71) A stream of water arcing through the air (pivot at the nozzle, world space): from the pivot it climbs o.h (0.7 m) over the straight line
+  // and lands at o.to [dx, dy, dz]; from o.from (0) it shoots out along the curve in o.grow (0.2 s); white foam blobs run along it so it reads as
+  // flowing, and drops spring up where it lands; o.r (0.06) its thickness, o.color the water
+  hoseArc(o) {
+    const g = grp(), to = new THREE.Vector3(...(o.to || [-2, -0.5, -1])), H = o.h ?? 0.7, R = o.r ?? 0.06, from = o.from ?? 0, grow = o.grow ?? 0.2;
+    const a = new THREE.Vector3(0, 0, 0), c = a.clone().lerp(to, 0.5); c.y = Math.max(a.y, to.y) + 2 * H;
+    const curve = new THREE.QuadraticBezierCurve3(a, c, to), N = 48;
+    const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, N, R, 8, false), new THREE.MeshBasicMaterial({ color: o.color || '#BFE6FF', transparent: true, opacity: o.opacity ?? 0.88, depthWrite: false }));
+    const core = new THREE.Mesh(new THREE.TubeGeometry(curve, N, R * 0.45, 6, false), new THREE.MeshBasicMaterial({ color: '#F4FBFF' })); g.add(tube, core);
+    const total = tube.geometry.index.count, totalC = core.geometry.index.count;
+    const foam = Array.from({ length: 7 }, (_, i) => { const m = ball(R * 0.9, new THREE.MeshBasicMaterial({ color: '#FFFFFF' }), 6); g.add(m); return m; });
+    const drops = Array.from({ length: 10 }, (_, i) => { const m = ball(R * 0.7, new THREE.MeshBasicMaterial({ color: '#E8F7FF' }), 6); g.add(m); return { m, ph: hash(i + 1), ang: i * 2.399 }; });
+    g.userData.update = t => {
+      const u = t - from, on = u >= 0, k = on ? clamp01(u / grow) : 0;
+      tube.visible = core.visible = on; tube.geometry.setDrawRange(0, Math.floor(total * k / 6) * 6); core.geometry.setDrawRange(0, Math.floor(totalC * k / 6) * 6);
+      foam.forEach((m, i) => { const f = ((u * 1.6 + i / foam.length) % 1); m.visible = on && f <= k; if (m.visible) m.position.copy(curve.getPoint(f)); });
+      drops.forEach(d => { const f = ((u * 2.2 + d.ph) % 1), vis = on && k >= 1; d.m.visible = vis; if (!vis) return;
+        d.m.position.set(to.x + Math.cos(d.ang) * 0.35 * f, to.y + 0.9 * f - 1.6 * f * f, to.z + Math.sin(d.ang) * 0.35 * f); d.m.scale.setScalar(1 - 0.6 * f); });
+    };
+    g.userData.update(-1); return g;
+  },
 };

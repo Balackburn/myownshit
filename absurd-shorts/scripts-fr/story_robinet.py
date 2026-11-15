@@ -142,7 +142,7 @@ st.shot('S05', 'parisStreet', setOpts={'night': True, 'clear': [-8.0, 8.0]}, loo
             *[kk for i in range(5) for kk in (k(r(0.05 + 0.4 * i), toon={'reach': {'R': [-3.4, 1.35, -1.2, 1, 0.03], 'L': [-3.6, 1.35, -1.2, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [-0.1, 0, 0, 1, None]}}, toonDur=0.15, toonEase='inOut'),
                                        k(r(0.25 + 0.4 * i), toon={'reach': {'R': [-3.4, 0.95, -1.2, 1, 0.03], 'L': [-3.6, 0.95, -1.2, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'bend': {'spine': [0.35, 0, 0, 1, None]}}, toonDur=0.15, toonEase='inOut'))]])],   # the pump handle up and down
         props=[P('truck5', 'fireTruck', pos=[-5.6, 0, -2.0], ry=0), FLOOD('fl5', 0.55, 0.55, 0.0, 1.0, w=30.0, d=50.0, op=0.8),
-               P('jet5', 'waterJet', on={'actor': 'pompier1', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, opts={'len': 2.2, 'lance': 0.6, 'on': [[0.0, True]]}),
+               P('jet5', 'waterJet', on={'actor': 'pompier1', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, opts={'len': 0.3, 'lance': 0.6, 'on': [[0.0, True]]}), P('arc5', 'hoseArc', pos=[-0.23, 1.15, 1.55], opts={'to': [1.83, -0.6, 0.05], 'h': 0.6, 'r': 0.07, 'from': 0.0, 'grow': 0.01}),   # (pass 2) the outflow arcs over and lands in the street a few metres from the intake (a straight rod left the frame)
                P('pump5', 'floorSlab', pos=[-3.5, 0.55, -1.2], opts={'w': 0.5, 'd': 0.4, 'h': 0.55, 'color': '#C8322A'})],
         tethers=[{'a': {'prop': 'truck5', 'offset': [1.2, 1.0, 1.2]}, 'b': {'actor': 'pompier1', 'hand': 'L'}, 'color': '#C9A43E', 'radius': 0.05, 'radial': 8, 'sag': 0.5, 'n': 14},
                  {'a': {'prop': 'truck5', 'offset': [1.3, 0.8, 0.6]}, 'b': {'prop': 'pump5', 'offset': [3.6, -0.6, 1.4]}, 'color': '#C9A43E', 'radius': 0.05, 'radial': 8, 'sag': 0.3, 'n': 14}],
@@ -234,16 +234,16 @@ st.shot('S11', 'grassland', look=XLOOK, actors=[
 st.cue('sfx:splash', 'S11', 0.1, 0.3); st.cue('sfx:boing', 'S11', r(HATCH11 + 0.08), 0.3); st.cue('sfx:clink', 'S11', HATCH11, 0.25)
 
 # 12: the scientists added... In a map room two scientists in white coats: one rolls a paint roller of blue across the big wall map, left to right
-D12 = st.dur('S12'); P12 = [0.15, r(D12 + 1.2)]
+D12 = st.dur('S12'); P12 = [0.1, r(D12 - 0.1)]   # (pass 2) the whole sea painted inside the shot (blue showed only in its last 0.3 s)
 ROLL12 = lambda u: [r(-1.15 + 2.3 * u), 1.75, -2.45]
 st.shot('S12', 'mairie', setOpts={'desk': False, 'banner': False, 'map': False}, actors=[
         act('savant1', [-1.3, 0, -1.75], 160, 'stand', 'neutral', keys=[k(0.0, look=[-1.0, 1.6, -2.6]), k(0.0, toon={'reach': {'R': ROLL12(0.0) + [1, 0.03], 'L': [ROLL12(0.0)[0] - 0.1, 1.45, -2.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3}}, toonDur=0.0),
             k(0.15, to=[0.4, 0, -1.75], dur=r(D12 - 0.15), ease='linear', face='keep', glide=True),
             *[k(r(0.15 + 0.15 * i), toon={'reach': {'R': ROLL12(min(1.0, (0.15 * i) / (P12[1] - P12[0]))) + [1, 0.03], 'L': [r(ROLL12(min(1.0, (0.15 * i) / (P12[1] - P12[0])))[0] - 0.1), 1.45, -2.4, 1, 0.03]}, 'hands': {'R': 'grip', 'L': 'grip'}, 'face': {'lid': 0.3}}, toonDur=0.15, toonEase='linear') for i in range(1, 9) if 0.15 + 0.15 * i < D12]]),
-        act('savant2', [1.4, 0, -1.35], -150, 'stand', 'neutral', keys=[k(0.0, look=[0.0, 1.6, -2.6]), k(0.0, toon={'touch': {'R': ['face', -0.08, -0.12, 0.1, 1, 0.02]}, 'hands': {'R': 'point'}}, toonDur=0.0), *BLINK(0.7, {})])],
+        act('savant2', [-2.0, 0, -1.4], 150, 'stand', 'neutral', keys=[k(0.0, look=ROLL12(0.0)), k(0.0, toon={'touch': {'R': ['face', -0.08, -0.12, 0.1, 1, 0.02]}, 'hands': {'R': 'point'}}, toonDur=0.0), k(r(D12 * 0.45), look=ROLL12(0.5)), k(r(D12 * 0.85), look=ROLL12(1.0)), *BLINK(0.7, {})])],   # (pass 2) on the far side, his eyes following the roller (he stood in front of the map, static)
         props=[P('map12', 'seaMap', pos=[0.0, 1.75, -2.53], opts={'w': 2.6, 'h': 1.8, 'paint': P12}),
                P('roll12', 'paintRoller', on={'actor': 'savant1', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, opts={'color': '#2F7FC4', 'len': 0.5})],
-        cams=[FC(0.0, [0.2, 1.5, 2.6], [[-1.3, 2.45, -1.75], [1.4, 2.45, -1.35], [-1.4, 0.8, -2.53], [1.4, 0.8, -2.53], [0.0, 2.7, -2.53], [1.4, 0.0, -1.35]], top=0.14, bottom=0.75)])
+        cams=[FC(0.0, [2.8, 1.6, 0.9], [[-1.3, 2.45, -1.75], [-2.0, 2.45, -1.4], [-1.4, 0.8, -2.53], [1.4, 0.8, -2.53], [0.0, 2.7, -2.53], [-2.0, 0.0, -1.4]], top=0.14, bottom=0.75)])   # (pass 2) three-quarters from the right: the roller stroke beside his back, not behind it
 st.cue('sfx:slideUp', 'S12', 0.2, 0.25)
 
 # 13: ...a sea to the maps. Close on the map: the new sea in the middle of the country is a bathtub on four feet, its tap and all; the roller
