@@ -1523,3 +1523,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 33) Une onomatopée posée à la profondeur d'une grosse créature finit dans sa tête et ne se voit jamais (65 : aucun MIAM) : la mettre
   devant, du côté de la caméra.
 - (cycle 33) Un objet d'échelle (voilier, pédalo) placé derrière le sujet géant ne se voit pas : le faire passer devant, sur toute la durée.
+- (cycle 33, images de 71) Le décor `skyHigh` pose une couche de nuages blancs : sous des toits « au ras de l'eau », tout le bas de l'image
+  devient blanc. Pour une ville noyée, `grassland`, une nappe d'eau de 600 m et des immeubles enfoncés jusqu'à leur dernier étage.
+- (cycle 33) Une caméra sous la surface d'une nappe (`floodWater`) ne voit plus l'eau du tout (les faces de la boîte disparaissent vues de
+  l'intérieur) : une rue sèche au lieu d'une rue inondée. Garder la caméra au-dessus du niveau final (`inside` avec un plancher).
+- (cycle 33) La clé de look `tint` donne des images noires ou bleues avec le look naturel : ne pas l'utiliser.
+- (cycle 33) Dans une petite pièce, `fitBack` recule la caméra à travers le mur (image d'une seule couleur) ; avec `inside`, elle reste
+  dedans mais passe en très grand angle (80°) : élargir la pièce (`half`) plutôt que d'accepter la déformation.
+- (cycle 33) Un accessoire posé contre le mur du fond d'un décor doit être devant ce mur (`back` + 5 cm) : derrière, il ne se voit pas
+  (la carte de 71 était derrière le mur de la mairie).
