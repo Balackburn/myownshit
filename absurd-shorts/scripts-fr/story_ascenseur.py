@@ -235,7 +235,7 @@ st.shot('S18', 'immeubleHall', setOpts=HALL(floor=[[0.0, 'RC']], doors=[[0.0, 1.
         props=[P('fauteuil18', 'armchair', pos=AUT18, opts={'color': '#B5523A'}), BEARD('barbe18', who='autre', s=1.25), SPECS('lun18', who='autre'),
                P('panneau18', 'liftPanel', pos=PAN, ry=90, opts={'lit': 'RC', 'dusty': True}), P('toile18', 'cobweb', pos=[r(PAN[0] + 0.03), r(PAN[1] - 0.02), r(PAN[2] + 0.1)], ry=90, opts={'s': 0.3})],
         cams=[FC(0.0, [0.3, 1.25, BACK - 0.2], [[PAN[0], 1.42, PAN[2]], [PAN[0], 0.92, PAN[2]], [PAN[0], 1.2, r(PAN[2] + 0.22)], [PAN[0], 1.2, r(PAN[2] - 0.22)]], top=0.2, bottom=0.7, lenses=range(18, 56)),
-              glide([FC(0.55, [0.3, 1.6, BACK - 0.15], [[AUT18[0], 2.15, AUT18[2]], [AUT18[0], 1.3, AUT18[2]], [PAN[0], 1.2, PAN[2]], [r(AUT18[0] + 0.3), 1.8, AUT18[2]]], top=0.16, bottom=0.74, lenses=range(18, 56))], 0.45)])   # (pass 2) the callback to S01: close on the finger on RC, then up to his face
+              glide([FC(0.55, [0.2, 1.55, -1.9], [[AUT18[0], 2.15, AUT18[2]], [AUT18[0], 1.3, AUT18[2]], [r(AUT18[0] - 0.3), 1.8, AUT18[2]], [r(AUT18[0] + 0.3), 1.8, AUT18[2]]], top=0.16, bottom=0.74, lenses=range(18, 56))], 0.45)])   # (stills 2) out through the doorway to his face (inside the car the door post filled the frame)   # (pass 2) the callback to S01: close on the finger on RC, then up to his face
 
 # 19: ...for twenty years. The two old men face to face across the threshold, identical beards, identical armchairs, the same deadpan
 D19 = st.dur('S19')

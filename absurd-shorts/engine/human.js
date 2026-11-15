@@ -234,6 +234,12 @@ for (let i = 0; i < pp.count; i++) {
   if (ATL) atlasUV(headGeo, { py: AR.headTop, ny: AR.headBottom });
   headGeo.computeVertexNormals();
   const headMesh = new THREE.Mesh(headGeo, headMats); headMesh.castShadow = true; headMesh.name = 'headMesh';
+  // (pass 2 of 76) an atlas head's hair is painted on its texture, so hairColor did nothing on it: with hairColor, a cap of that colour sits over the
+  // painted crew cut (the top and the hairline band of the face), following the slope of the head's top edge (the hero twenty years on: white hair)
+  if (ATL && o.hairColor) {
+    const capH = hh * 0.11, cap = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.05, capH, hd * 1.05), new THREE.MeshLambertMaterial({ color: o.hairColor }));
+    cap.rotation.z = -Math.atan(TOP); cap.position.set(0, hh - TOP * hw * 0.5 - capH / 2 + 0.006, -0.015); cap.castShadow = true; cap.name = 'hairCap'; headMesh.add(cap);
+  }
   addOutline(headMesh, 0.035); head.add(headMesh);
   // ears
   for (const s of [-1, 1]) {
