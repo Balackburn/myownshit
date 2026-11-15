@@ -2784,3 +2784,15 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   l'objectif, camionnette qui pile, visage écrasé sur la vitre, deux voitures qui klaxonnent, partie de cartes en grand) ; brouillon 2 en file.
 - « Les lunettes » (69) : images 6 à 8 relues (canapé vu de dessous avec le visage plaqué au sol, frigo vu de l'intérieur, quai par-dessus son
   épaule, Terre sous un ciel noir, faisceaux fins) ; brouillon 2 en file. Revues en cours : « Le robinet » (3) et « Le bocal » (1).
+
+## 15 novembre, 23 h 55 — nouvelle direction : humour noir extrême ; « Le robinet » livré ; trois revues
+
+- Demande de l'utilisateur : beaucoup plus d'humour (humour noir extrême, absurde, police, armée), un script à affiner ensemble avant de produire.
+  Cinq versions concurrentes ont été écrites en parallèle (police, armée, justice, État, escalade totale), notées par trois juges (comédie,
+  rétention, fabrication), et la gagnante réécrite : « Le pissenlit » (7,8), devant « Le pigeon » (7,7). Les deux, leurs variantes et les trois
+  autres pistes sont dans `propositions/79-humour-noir.md`. Rien ne part en production avant validation du texte.
+- « Le robinet » (71) : final contrôlé (1080x1920, 37,5 s, −16 LUFS, aucune chute de luminosité), envoyé et publié sur TikTok.
+- Revues reçues : « Le pull » (revue 1 : animation 5,0 ; direction artistique 6,2), « La tondeuse » (revue 2 : 6,0 ; 6,3, contre 5,5 ; 5,0),
+  « Le bus » (revue 1 : 5,2 ; 5,6). Trois agents dérivés font les passes de correction, chacun limité à son script et à son fichier d'accessoires.
+- « Le bocal » (78) : la revue 1 (5,5 ; 5,6) a porté sur un brouillon démarré avant les corrections des images de contrôle ; passe 2 faite
+  (grosse pince, char qui se cabre sur le bocal, pas de tir, pichenette de la grand-mère, combinaisons blanches), brouillon 2 en file.
