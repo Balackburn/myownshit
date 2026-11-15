@@ -1407,23 +1407,23 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   histoires). Le script de correction refuse maintenant un commentaire si le texte remplacé ne termine pas sa ligne.
 - (cycle 26) Un rappel filmé dans le même cadre ne vaut que si l'action monte (plus dur, plus vite, dans le plan) : la file qui s'arrêtait
   avant la coupe se lisait comme une image figée (62). La construction signale maintenant une caméra reprise d'un plan précédent.
-- (cycle 27) The scale of a prop is a single number: a list such as [1.5, 5.4, 1.5] drew nothing at all (the beard of 66). For a non-uniform
-  shape, use `flat` [x, y, z] on top of the scale. It now works on carried props too.
-- (cycle 27) A carried prop keeps its own size, because the carrier's scale is divided out, but its offset is in the joint's scaled frame. On a
-  fish scaled 62 (65), a cap at 0.7 came out 17 cm wide and an offset of 0.1 put it 6 m off. For a giant creature, either place the prop in the
-  world with keys that follow the creature, or give the prop the creature's size.
-- (cycle 27) A fish's tail fin reaches about half its body length beyond the body. A giant fish in a pool stuck out over the deck in front of the
-  sign (65). Keep its centre a body length from the edge of what holds it.
-- (cycle 27) The build measures creatures as if they were the height of a person. Its "head cut by the top" and "small at phone size" warnings
-  on ducks, a moustache or a giant fish are therefore false: judge those on the stills.
-- (cycle 27) Seen exactly side-on, a box head shows no face. This happened on the post being licked, the rock face being dug and the
-  passengers peering down the tunnel (63, 64). For a gag that plays on the face, shoot from three-quarters in front, or turn the head toward a
-  point between the target and the camera. When a profile shot is unavoidable, eyes out on stalks still read.
-- (cycle 27) A cord that runs back while everything on it stays put shows nothing in a close frame until its end comes by, four frames from
-  the end (64). With `reel`, the bulbs ride the cord into the mouth from the first frame.
-- (cycle 27) Inside a shot's blur window, anything that moves smears. A hand holding a cup to a head that vibrates (`touch` '@id.head') shook
-  with it and became a purple streak (63). Take the hand away before the window opens.
-- (cycle 27) Darkening a night after the fact (`dark`) crushes everything toward black, the lights included, and leaves the first frame
-  ungraded (64). Build the night with a cool fill and real lights instead: the bulbs, plus coloured glow lights that change on the beat.
-- (cycle 27) The 'teeth' mouth, an upturned crescent of teeth, reads as a grin under wide eyes (63). For chattering teeth, use 'clench', a
-  flat bar.
+- (cycle 27) L'échelle d'un accessoire est un seul nombre : une liste comme [1,5, 5,4, 1,5] ne dessine rien du tout (la barbe de 66). Pour une
+  forme non uniforme, ajouter `flat` [x, y, z] par-dessus l'échelle. Cela marche maintenant aussi sur un accessoire porté.
+- (cycle 27) Un accessoire porté garde sa propre taille (l'échelle du porteur est divisée), mais son décalage se compte dans le repère mis à
+  l'échelle de l'articulation. Sur un poisson à l'échelle 62 (65), une casquette à 0,7 faisait 17 cm et un décalage de 0,1 la mettait à 6 m.
+  Pour une créature géante, poser l'accessoire dans le monde avec des clés qui la suivent, ou lui donner la taille de la créature.
+- (cycle 27) La nageoire caudale d'un poisson dépasse son corps d'environ la moitié de sa longueur : le poisson géant de la piscine débordait sur
+  la plage devant le panneau (65). Garder son centre à une longueur de corps du bord de ce qui le contient.
+- (cycle 27) La construction mesure les créatures à la hauteur d'un homme : ses alertes « tête coupée par le haut » et « petit sur téléphone »
+  sont fausses pour des canards, une moustache ou un poisson géant. Juger ces cas sur les images.
+- (cycle 27) Vue exactement de côté, une tête-boîte ne montre aucun visage : le poteau léché, le front de taille, les voyageurs qui regardent le
+  tunnel (63, 64). Pour un gag qui passe par le visage, filmer de trois quarts face, ou tourner la tête vers un point entre la cible et la
+  caméra ; quand le profil est inévitable, des yeux sur pédoncules se lisent encore.
+- (cycle 27) Un lien qui se rembobine alors que tout reste en place dessus ne montre rien en plan serré tant que son bout n'arrive pas, quatre
+  images avant la fin (64). Avec `reel`, les ampoules glissent dans la bouche dès la première image.
+- (cycle 27) Dans la fenêtre de flou d'un plan, tout ce qui bouge se brouille. Une main qui tient un gobelet contre une tête qui vibre
+  (`touch` '@id.head') tremblait avec elle et devenait une traînée violette (63). Retirer la main avant l'ouverture de la fenêtre.
+- (cycle 27) Assombrir une nuit après coup (`dark`) écrase tout vers le noir, lumières comprises, et laisse la première image non étalonnée
+  (64). Construire la nuit avec un fond froid et de vraies lumières : les ampoules, plus des lumières colorées qui changent sur le temps.
+- (cycle 27) La bouche 'teeth' (un croissant de dents relevé) se lit comme un sourire sous des yeux grands ouverts (63). Pour des dents qui
+  claquent, prendre 'clench' (une barre plate).
