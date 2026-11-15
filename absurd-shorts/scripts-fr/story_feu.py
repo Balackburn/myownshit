@@ -90,19 +90,19 @@ st.shot('S05', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand
 
 # 6: the postman delivers his mail at the light. In the road at the door, the postman holds out a letter at arm's length; only his arm rises, his eyes
 #    never leave the light; he takes it and lets it drop on the pile at his feet without a look
-D6 = st.dur('S06'); TAKE6 = 0.85; DROP6 = 1.55; PO6 = [r(ME[0] - 0.95), 0, 0.6]; LET6 = [r(ME[0] - 0.43), 1.35, 0.3]
+D6 = st.dur('S06'); TAKE6 = 0.85; DROP6 = 1.55; PO6 = [r(ME[0] - 0.22), 0, 1.0]; LET6 = [r(ME[0] - 0.38), 1.3, 0.5]   # (stills 4) the postman beside him at the house front, both facing the road
 st.shot('S06', 'parisStreet', setOpts=STREET, actors=[
         act('mec', ME, -90, 'stand', 'neutral', keys=[*WAIT(), k(r(TAKE6 - 0.3), toon={'reach': {'L': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'L': 'open'}, 'face': DEAD}, toonDur=0.25, toonEase='inOut'),
             k(TAKE6, toon={'reach': {'L': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'L': 'pinch'}, 'face': DEAD}, toonDur=0.05),
             k(r(TAKE6 + 0.12), toon={'reach': {'L': [r(ME[0] - 0.4), 1.1, 0.45, 1, 0.03]}, 'hands': {'L': 'pinch'}, 'face': DEAD}, toonDur=0.3, toonEase='inOut'),
             k(DROP6, toon={'reach': {'L': [r(ME[0] - 0.4), 1.1, 0.45, 1, 0.03]}, 'hands': {'L': 'open'}, 'face': DEAD}, toonDur=0.06),
             k(r(DROP6 + 0.25), toon={'face': DEAD}, toonDur=0.3, toonEase='inOut')]),   # (review 2) only the arm moves: up, take, down over the pile, let go
-        act('facteur', PO6, 122, 'stand', 'neutral', keys=[k(0.0, look=[ME[0], 1.9, ME[2]]), k(0.0, toon={'reach': {'R': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'R': 'pinch'}}, toonDur=0.0),
-            k(r(TAKE6 + 0.08), toon={'reach': {'R': [r(PO6[0] + 0.3), 1.15, r(PO6[2] + 0.1), 0, 0.03]}, 'hands': {'R': 'open'}}, toonDur=0.25), k(r(DROP6 + 0.05), look=[r(ME[0] - 0.5), 0.1, 0.62])])],   # holds it out from the first frame; looks down at the pile when it lands
+        act('facteur', PO6, -100, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 2.6, LIGHT[2]]), k(0.0, toon={'reach': {'R': [LET6[0], LET6[1], LET6[2], 1, 0.03]}, 'hands': {'R': 'pinch'}}, toonDur=0.0),
+            k(r(TAKE6 + 0.08), toon={'reach': {'R': [r(PO6[0] + 0.3), 1.15, r(PO6[2] + 0.1), 0, 0.03]}, 'hands': {'R': 'open'}}, toonDur=0.25), k(r(DROP6 + 0.05), look=[r(ME[0] - 0.5), 0.1, 0.62])])],   # holds it out sideways from the first frame without a look, like him; looks down at the pile when it lands
         props=[RED(), BEARD(), HOUSE(), PILE(n=18), P('lettre6', 'envelope', on={'actor': 'facteur', 'hand': 'R', 'offset': [0.0, 0.0, 0.03]}, face='camera', opts={'w': 0.34},
                keys=[k(TAKE6, attach='mec', hand='L', offset=[0.0, 0.0, 0.03], face='camera'), k(DROP6, detach=True, fall=True, floor=0.14, spinFall=3.0)]),
                P('bal6', 'mailbox', pos=[r(ME[0] - 0.55), 0, -0.95], ry=-90)],
-        cams=[FC(0.0, [3.0, 1.6, 2.6], [[ME[0], 2.45, ME[2]], [PO6[0], 2.3, PO6[2]], LET6, [ME[0], 1.0, ME[2]], [PO6[0], 1.0, PO6[2]]], top=0.16, bottom=0.76)])   # (review 2) the letter mid-frame between them (it hung in the air, then swung out of the frame)
+        cams=[FC(0.0, [3.4, 0.85, 0.8], [[ME[0], 2.45, -0.3], [PO6[0], 2.35, r(PO6[2] + 0.3)], LET6, [ME[0], 0.6, ME[2]], [PO6[0], 0.6, PO6[2]]], top=0.16, bottom=0.78)])   # (stills 4) a frontal two-shot: both faces, the letter between them, the pile at their feet
 st.cue('sfx:paper', 'S06', TAKE6, 0.25); st.cue('sfx:paper', 'S06', r(DROP6 + 0.45), 0.2)
 
 # 7: a policeman tried to make him cross. The policeman pulls him by the arm toward the road, leaning back, his arm stretching; he does not budge
@@ -152,7 +152,7 @@ for t_ in LAY9: st.cue('pop', 'S09', t_, 0.15)
 D10 = st.dur('S10'); FL10 = [0.4, 1.1]
 Q10 = [([r(ME[0] - 0.8), 0, -0.75], 47), ([r(ME[0] - 1.0), 0, -1.55], 25), ([r(ME[0] - 1.2), 0, -2.35], 20), ([r(ME[0] - 1.4), 0, -3.1], 15), ([r(ME[0] - 1.6), 0, -3.85], 20), ([r(ME[0] - 1.8), 0, -4.6], 10)]
 LOOK10 = [[ME[0], 1.9, ME[2]], [ME[0], 1.9, ME[2]], 'camera', [ME[0], 1.9, ME[2]], [ME[0], 1.9, ME[2]], [ME[0], 1.9, ME[2]]]
-st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand', 'neutral', keys=WAIT(1.3)),
+st.shot('S10', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -70, 'stand', 'neutral', keys=[k(0.0, look=[LIGHT[0], 3.2, r(LIGHT[2] + 6.5)]), k(0.0, toon={'face': DEAD}, toonDur=0.0), k(1.3, toon={'face': {'lid': 1.0}}, toonDur=0.07), k(1.43, toon={'face': DEAD}, toonDur=0.1)]),   # (stills 4) body and gaze cheated toward the lens: in profile his box head read as the back of it
         *[act(f'tour{j + 1}', Q10[j][0], Q10[j][1], 'stand', 'happy' if j != 2 else 'neutral', keys=[k(0.0, look=LOOK10[j]),
             *([k(0.0, toon={'touch': {'R': ['face', -0.05, 0.22, 0.2, 1, 0.02], 'L': ['face', 0.05, 0.2, 0.2, 1, 0.02]}, 'hands': {'R': 'grip', 'L': 'grip'}}, toonDur=0.0)] if j == 0 else []),
             *([kk for i_ in range(4) for kk in (k(r(0.15 + 0.4 * i_), to=[Q10[3][0][0], 0.2, Q10[3][0][2]], dur=0.1, ease='out'), k(r(0.25 + 0.4 * i_), to=[Q10[3][0][0], 0, Q10[3][0][2]], dur=0.1, ease='in'))] if j == 3 else []),   # the kid hops on the spot
@@ -244,7 +244,7 @@ st.shot('S16', 'parisStreet', setOpts=STREET, actors=[act('mec', ME, -90, 'stand
             k(r(STEP16 + 0.6), toon={'sq': [1.0, 1.0, 1.0], 'face': {'lid': 0.3}}, toonDur=0.12)])],   # the foot lands on the road by 1.0 s and he holds (the step came in the last 0.2 s)
         props=[RED(state=[[0.0, 'g']]), ZEBRA(), BEARD(swing=[STEP16, 1.0, 0.16]), HOUSE(), NEST(), MEDAL(), PILE(),
                P('dust16', 'dustFall', pos=[r(ME[0] - 0.05), 1.3, 0.0], opts={'at': 0.45, 'n': 22, 'floor': 1.28, 'life': 0.95}),
-               P('puff16', 'dustPuff', pos=[r(ME[0] - 0.9), 0.0, 0.0], scale=0.6, opts={'once': True, 'startAt': r(STEP16 + 0.48), 'period': 0.45})],
+               P('puff16', 'dustPuff', pos=[r(ME[0] - 0.9), 0.0, 0.0], scale=0.4, opts={'once': True, 'startAt': r(STEP16 + 0.48), 'period': 0.4, 'color': '#F1EBDD'})],
         cams=[FC(0.0, [2.4, 0.9, 1.6], [[ME[0], 2.45, ME[2]], [r(ME[0] - 0.9), 0.0, 0.0], [ME[0], 0.0, ME[2]], [r(ME[0] + 0.3), 2.45, ME[2]]], top=0.16, bottom=0.8, drift=(-0.35, 0.0, 0.0))])
 st.cue('sfx:crunch', 'S16', 0.04, 0.25); st.cue('sfx:crunch', 'S16', 0.17, 0.2); st.cue('sfx:crunch', 'S16', 0.3, 0.25); st.cue('sfx:step', 'S16', r(STEP16 + 0.48), 0.25)
 
@@ -271,9 +271,9 @@ st.cue('sfx:ding', 'S18', 1.45, 0.15)
 
 # 19: he is waiting. Chest up under the new red light, deadpan, the beard to the ground; a pigeon brakes and lands on top of his head: his head squashes
 #     and springs back with the pigeon riding it; his eyes come to us; one slow blink
-D19 = st.dur('S19'); LAND19 = 0.6; HT19 = [r(FAR18[0] - 0.01), 2.33, 0.03]   # the top of his head (review 2: the pigeon landed 50 px above him, on a railing)
+D19 = st.dur('S19'); LAND19 = 0.6; HT19 = [r(FAR18[0] - 0.02), 2.32, 0.0]   # the top of his head (review 2: the pigeon landed 50 px above him, on a railing)
 HSQ = lambda y, xz: {'scl': {'head': [xz, y, xz]}}
-st.shot('S19', 'parisStreet', setOpts=STREET, actors=[act('mec', FAR18, -25, 'stand', 'neutral', keys=[k(0.0, look=[FEU2[0], 3.8, FEU2[2]]), k(0.0, toon={'face': DEAD}, toonDur=0.0),
+st.shot('S19', 'parisStreet', setOpts=STREET, actors=[act('mec', FAR18, -25, 'stand', 'neutral', keys=[k(0.0, look=[FEU2[0], 3.8, FEU2[2]]), k(0.0, toon={'face': DEAD, 'hip': 0.0}, toonDur=0.0),
             k(r(LAND19 + 0.005), toon={**HSQ(0.74, 1.16), 'face': {'lid': 0.7}}, toonDur=0.04, toonEase='out'), k(r(LAND19 + 0.1), toon={**HSQ(1.1, 0.95), 'face': DEAD}, toonDur=0.07, toonEase='out'),
             k(r(LAND19 + 0.2), toon={**HSQ(0.97, 1.02), 'face': DEAD}, toonDur=0.07), k(r(LAND19 + 0.3), toon={**HSQ(1.0, 1.0), 'face': DEAD}, toonDur=0.08),   # squash to 74 %, past 110 %, settle
             k(1.0, look='camera'), k(1.25, toon={'face': {'lid': 1.0}}, toonDur=0.15, toonEase='inOut'), k(1.5, toon={'face': DEAD}, toonDur=0.15, toonEase='inOut')]),   # the eyes to us, then one slow blink in the end hold
@@ -293,11 +293,11 @@ st.write("Le feu rouge", rig='toon', fingers=True, cloth=True, idleShift=1.6, ho
     'facteur': {'preset': 'officiel', 'seed': 669, 'suit': '#2F5FA8', 'hat': 'copcap', 'hatColor': '#F2C230', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'flic1': {'preset': 'cop', 'seed': 670, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'flic2': {'preset': 'cop2', 'seed': 671, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'tour1': {'preset': 'tourist', 'seed': 672, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'tour1': {'preset': 'tourist', 'seed': 672, 'suit': '#C94E8C', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'tour2': {'preset': 'tourist', 'seed': 673, 'suit': '#E0813A', 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX},
     'tour3': {'preset': 'femme', 'seed': 674, 'suit': '#3A9BDC', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': EX},
     'tour4': {'preset': 'gamin', 'seed': 675, 'suit': '#7CC25A', 'build': {'headScale': 1.25}, 'toon': EX},
-    'tour5': {'preset': 'madame', 'seed': 685, 'suit': '#E8A33C', 'build': {'width': 0.95, 'headWidth': 1.25}, 'toon': EX},
+    'tour5': {'preset': 'madame', 'seed': 685, 'suit': '#8E6CC4', 'build': {'width': 0.95, 'headWidth': 1.25}, 'toon': EX},
     'tour6': {'preset': 'tourist', 'seed': 686, 'suit': '#5BB5A8', 'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX},
     'ministre': {'preset': 'politique', 'seed': 676, 'suit': '#33363D', 'lapel': '#33363D', 'tie': '#2F62B5', 'glasses': True, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'president': {'preset': 'politique', 'seed': 677, 'suit': '#4A4D55', 'lapel': '#4A4D55', 'tie': '#9A1F2E', 'hairColor': '#D2D2D2', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
