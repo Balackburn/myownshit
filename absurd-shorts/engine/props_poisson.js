@@ -18,11 +18,12 @@ const ball = (r, c, seg = 10) => new THREE.Mesh(new THREE.SphereGeometry(r, seg,
 // a small goldfish (length s, facing +Z): a bright orange body lit a little from inside (pass 2: the fish in the bag and the bowl read as an empty
 // grey disc and a cream speck through the water), a dorsal fin, a fan tail, two black eyes that can pop (userData.eyes)
 function miniFish(s = 0.06) {
-  const orange = new THREE.MeshLambertMaterial({ color: '#FF6A12', emissive: '#6A2400' }), finM = new THREE.MeshLambertMaterial({ color: '#FFA238', emissive: '#4A2000' });
+  const orange = new THREE.MeshLambertMaterial({ color: '#FF6A12', emissive: '#6A2400', transparent: true }), finM = new THREE.MeshLambertMaterial({ color: '#FFA238', emissive: '#4A2000', transparent: true });
   const g = new THREE.Group(), body = ball(s * 0.5, orange); body.scale.set(0.55, 0.66, 1); g.add(body);
   const tail = new THREE.Mesh(new THREE.ConeGeometry(s * 0.36, s * 0.55, 6), finM); tail.rotation.x = PI / 2; tail.position.z = -s * 0.64; tail.scale.set(0.3, 1, 1); g.add(tail);
   const dorsal = new THREE.Mesh(new THREE.ConeGeometry(s * 0.14, s * 0.3, 4), finM); dorsal.position.set(0, s * 0.33, -s * 0.05); dorsal.scale.set(0.3, 1, 1.6); g.add(dorsal);
   const eyes = [-1, 1].map(sd => { const e = new THREE.Group(), w = ball(s * 0.13, '#FFFFFF', 8), p = ball(s * 0.075, '#111111', 6); p.position.z = s * 0.08; e.add(w, p); e.position.set(sd * s * 0.21, s * 0.1, s * 0.3); g.add(e); return e; });
+  g.traverse(n => { if (n.isMesh) { n.renderOrder = 6; if (!n.material.transparent) { n.material = n.material.clone(); n.material.transparent = true; } } });   // drawn after the glass and the water (two pale layers over it washed it to cream)
   g.userData.eyes = eyes; g.userData.tail = tail; return g;
 }
 
@@ -86,7 +87,7 @@ export const POISSON_PROPS = {
   // Three grains of fish food in a small cluster (pivot at their middle; hold them by userData.grip): the whole wage
   grains(o) {
     const g = grp(), s = o.s ?? 1;
-    for (let i = 0; i < (o.n ?? 3); i++) g.add(at(ball(0.012 * s, '#C9772E', 6), (i - 1) * 0.022 * s, 0.004 * s * (i % 2), 0));
+    for (let i = 0; i < (o.n ?? 3); i++) g.add(at(ball(0.012 * s, o.color || '#C9772E', 6), (i - 1) * 0.022 * s, 0.004 * s * (i % 2), 0));   // o.color (pass 2: big orange grains read as oranges)
     g.userData.grip = [0, -0.015 * s, 0]; return g;
   },
 
