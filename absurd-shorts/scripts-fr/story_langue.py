@@ -65,7 +65,7 @@ st.card('S09', 'DÉGEL', at=0.25)
 #    eyes go wide, a small tug: stuck
 D1 = st.dur('S01'); LICK1 = 0.9                                          # (review 3) the contact by 0.9 s (at 1.33 s the payoff was squeezed into a third of a second)
 NEAR = [r(POLE[0] + 0.52), 0, 0.0]
-st.shot('S01', 'parisStreet', setOpts=DAY, look=DLOOK, actors=[
+st.shot('S01', 'parisStreet', setOpts={**DAY, 'snowN': 1800}, look=DLOOK, actors=[
         act('mec', NEAR, -90, 'stand', 'neutral', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {'lid': 0.3, 'mouth': 'smirk'}}, toonDur=0.0),
             k(0.05, toon={'bend': {'spine': [0.14, 0, 0, 1, None], 'neck': [0.1, 0, 0, 1.04, None]}, 'face': {'lid': 0.4, 'mouth': 'smirk', 'brow': 0.3}}, toonDur=0.3, toonEase='inOut'), k(0.35, look=[POLE[0], LICK_Y, 0.9]),   # leaning in, his head turning a little to us...
             k(0.38, toon={'bend': {'spine': [0.22, 0, 0, 1, None], 'neck': [0.18, 0, 0, 1.08, None]}, 'face': {'lid': 0.5, 'mouth': 'tongueout'}}, toonDur=0.3, toonEase='inOut'),   # ...tongue out...
@@ -145,7 +145,7 @@ st.shot('S04', 'parisStreet', setOpts=DAY, look=DLOOK, actors=[
         tethers=[TONGUE(**{'sag': 0.022, 'n': 28, 'segments': 64, 'taper': 0.2, 'lift': [[BUS4, GONE4, U_CAR, 1.15, 0.1]],
                            'birds': [[0.17, r(BUS4 + 0.04), 120], [0.23, r(BUS4 + 0.08), 100], [0.3, r(BUS4 + 0.02), 140]], 'birdScale': 1.8, 'ripple': [[GONE4, 0.18, 2.0]]})],   # (review 1) bigger pigeons
         cams=[FC(0.0, [-0.4, 4.4, 3.9], [[FAR[0], r(2.6 + UP4), 0.0], [FAR[0], 0.0, 0.0], [r(FAR[0] + 0.9), r(2.75 + UP4), 0.0], [r(FAR[0] + 0.9), 0.0, 0.0], [3.4, 2.0, 0.0]], top=0.16, bottom=0.78),
-              FC(GONE4, [3.0, 2.4, 3.2], [[FAR[0], r(2.6 + UP4), 0.0], [FAR[0], 0.0, 0.0], [r(FAR[0] + 0.7), r(2.6 + UP4), 0.0], [r(FAR[0] - 1.4), r(1.9 + UP4), 0.0]], top=0.14, bottom=0.8)])   # (review 1) from high on the pole's side: we see over the bus's roof, the hang in view; (review 2) lower, room right of him (his arm was cut), a grey roof (white like the snow); (review 3) headroom on the lift (his hair touched the top), then a cut nearer on him dangling over the clear road, the tongue going off left
+              FC(GONE4, [4.0, 2.7, -3.0], [[FAR[0], r(2.6 + UP4), 0.0], [FAR[0], 0.0, 0.0], [r(FAR[0] + 0.7), r(2.6 + UP4), 0.0], [r(FAR[0] - 1.4), r(1.9 + UP4), 0.0]], top=0.14, bottom=0.8)])   # (review 1) from high on the pole's side: we see over the bus's roof, the hang in view; (review 2) lower, room right of him (his arm was cut), a grey roof (white like the snow); (review 3) headroom on the lift (his hair touched the top), then a cut nearer on him dangling over the clear road, the tongue going off left
 st.cue('sfx:engine', 'S04', 0.2, 0.35); st.cue('sfx:boing', 'S04', BUS4, 0.3); st.cue('sfx:slideDown', 'S04', DROP4, 0.25); st.cue('thud', 'S04', LAND4, 0.35)
 
 # 5: the town hall hung the Christmas lights on it. A worker in the road clips bulbs onto the tongue from the pole end toward him; the tongue sags
@@ -178,7 +178,7 @@ st.shot('S06', 'parisStreet', setOpts=DUSKSET, look=DUSK, actors=[
             k(r(PRESS6 - 0.08), toon={'reach': {'R': [5.65, 1.02, 1.3, 1, 0.05]}, 'hands': {'R': 'point'}, 'bend': {'spine': [0.22, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'mouth': 'open', 'brow': 0.8}}, toonDur=0.08, toonEase='in'),   # ...down onto the dome: CLIC
             k(r(PRESS6 + 0.12), toon={'reach': {'R': [5.65, 1.04, 1.3, 1, 0.05]}, 'hands': {'R': 'point'}, 'bend': {'spine': [0.18, 0, 0, 1, None]}, 'face': {'lid': 0.1, 'mouth': 'smirk', 'brow': 0.5}}, toonDur=0.15)]),
         act('vois1', [4.85, 0, 0.35], 20, 'stand', 'neutral', keys=[k(0.0, look=BTN6), k(0.7, look=[2.0, 2.2, -1.0]), k(1.15, look=BTN6)]), act('vois2', [7.0, 0, 0.2], -20, 'stand', 'neutral', keys=[k(0.0, look=BTN6), k(0.5, look=[6.2, 2.0, 1.0]), k(r(PRESS6 - 0.1), look=BTN6), k(PRESS6, toon={'face': {'eye': 0.4, 'mouth': 'O'}}, toonDur=0.08)])],
-        props=[P('btn6', 'bigButton', pos=BTN6, ry=180, opts={'pressAt': PRESS6, 'cable': 2.5}), BURST('clic6', [5.4, 1.35, 1.6], r(PRESS6 + 0.02), 'CLIC !', 0.32, 0.3),
+        props=[P('btn6', 'bigButton', pos=BTN6, ry=180, opts={'pressAt': PRESS6, 'cable': 2.5}), BURST('clic6', [5.75, 1.3, 1.45], r(PRESS6 + 0.02), 'CLIC !', 0.32, 0.3),
                P('rib6', 'slab', pos=[5.95, 1.0, 0.68], opts={'w': 2.9, 'h': 0.07, 'd': 0.02, 'color': '#D8342A'}), *[P(f'pst6{j}', 'slab', pos=[r(4.5 + 2.9 * j), 0.0, 0.68], opts={'w': 0.06, 'h': 1.05, 'd': 0.06, 'color': '#C9A64A'}) for j in range(2)]],
         cams=[FC(0.0, [6.4, 1.6, 4.2], [[6.2, 2.45, 1.0], [5.65, 1.05, 1.3], [5.42, 2.68, 1.05], [4.85, 2.1, 0.35], [7.0, 1.7, 0.2]], top=0.18, bottom=0.76)])   # (stills 1) facing the mayor behind his button, the neighbours behind him
 st.cue('sfx:click', 'S06', PRESS6, 0.4)

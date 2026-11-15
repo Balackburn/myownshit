@@ -1,0 +1,171 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a démarré sa tondeuse.",
+  "hl": [
+   "démarré",
+   "tondeuse."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Elle ne s'est jamais arrêtée.",
+  "hl": [
+   "jamais",
+   "arrêtée."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Elle a tondu le jardin du voisin.",
+  "hl": [
+   "voisin."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "Puis le stade de foot.",
+  "hl": [
+   "stade",
+   "foot."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Les joueurs ont applaudi.",
+  "hl": [
+   "applaudi."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Elle a traversé la forêt en ligne droite.",
+  "hl": [
+   "forêt",
+   "ligne",
+   "droite."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Les champs de blé ont eu des cercles.",
+  "hl": [
+   "blé",
+   "cercles."
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Les savants ont parlé d'extraterrestres.",
+  "hl": [
+   "savants",
+   "d'extraterrestres."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "La gendarmerie l'a prise en chasse.",
+  "hl": [
+   "gendarmerie",
+   "chasse."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "À pied.",
+  "hl": [
+   "pied."
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Elle a tondu la pelouse du palais présidentiel.",
+  "hl": [
+   "palais",
+   "présidentiel."
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Le président a trouvé ça très propre.",
+  "hl": [
+   "président",
+   "propre."
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "Il l'a nommée jardinière nationale.",
+  "hl": [
+   "jardinière",
+   "nationale."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Elle a tondu le pays entier.",
+  "hl": [
+   "pays",
+   "entier."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "En trois semaines.",
+  "hl": [
+   "trois",
+   "semaines."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Hier, elle est tombée en panne d'essence.",
+  "hl": [
+   "panne",
+   "d'essence."
+  ]
+ },
+ {
+  "id": "L17",
+  "who": "N",
+  "text": "Pile devant chez lui.",
+  "hl": [
+   "devant",
+   "lui."
+  ]
+ },
+ {
+  "id": "L18",
+  "who": "N",
+  "text": "Il l'a rangée au garage.",
+  "hl": [
+   "garage."
+  ]
+ },
+ {
+  "id": "L19",
+  "who": "N",
+  "text": "Son jardin n'est toujours pas tondu.",
+  "hl": [
+   "toujours",
+   "pas",
+   "tondu."
+  ]
+ }
+]
