@@ -1,0 +1,720 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec n'arrivait pas à ouvrir un bocal de cornichons.",
+   "hl": [
+    "bocal",
+    "cornichons."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.82,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.34,
+     "e": 0.5
+    },
+    {
+     "w": "n'arrivait",
+     "s": 0.58,
+     "e": 0.98
+    },
+    {
+     "w": "pas",
+     "s": 1.02,
+     "e": 1.06
+    },
+    {
+     "w": "à",
+     "s": 1.1,
+     "e": 1.14
+    },
+    {
+     "w": "ouvrir",
+     "s": 1.22,
+     "e": 1.46
+    },
+    {
+     "w": "un",
+     "s": 1.54,
+     "e": 1.62
+    },
+    {
+     "w": "bocal",
+     "s": 1.66,
+     "e": 1.94
+    },
+    {
+     "w": "de",
+     "s": 1.98,
+     "e": 2.02
+    },
+    {
+     "w": "cornichons.",
+     "s": 2.1,
+     "e": 2.82
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Il a tapé le couvercle avec une cuillère.",
+   "hl": [
+    "cuillère."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L02.mp3",
+   "file_start": 2.92,
+   "speech_start": 2.92,
+   "speech_end": 5.16,
+   "words": [
+    {
+     "w": "Il",
+     "s": 2.92,
+     "e": 3.0
+    },
+    {
+     "w": "a",
+     "s": 3.08,
+     "e": 3.16
+    },
+    {
+     "w": "tapé",
+     "s": 3.28,
+     "e": 3.453
+    },
+    {
+     "w": "le",
+     "s": 3.507,
+     "e": 3.56
+    },
+    {
+     "w": "couvercle",
+     "s": 3.6,
+     "e": 3.96
+    },
+    {
+     "w": "avec",
+     "s": 4.04,
+     "e": 4.2
+    },
+    {
+     "w": "une",
+     "s": 4.28,
+     "e": 4.36
+    },
+    {
+     "w": "cuillère.",
+     "s": 4.44,
+     "e": 5.16
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il l'a passé sous l'eau chaude.",
+   "hl": [
+    "chaude."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L03.mp3",
+   "file_start": 5.26,
+   "speech_start": 5.26,
+   "speech_end": 6.86,
+   "words": [
+    {
+     "w": "Il",
+     "s": 5.26,
+     "e": 5.34
+    },
+    {
+     "w": "l'a",
+     "s": 5.38,
+     "e": 5.5
+    },
+    {
+     "w": "passé",
+     "s": 5.62,
+     "e": 5.82
+    },
+    {
+     "w": "sous",
+     "s": 5.9,
+     "e": 5.98
+    },
+    {
+     "w": "l'eau",
+     "s": 6.033,
+     "e": 6.14
+    },
+    {
+     "w": "chaude.",
+     "s": 6.22,
+     "e": 6.86
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Il a appelé les pompiers.",
+   "hl": [
+    "pompiers."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L04.mp3",
+   "file_start": 6.96,
+   "speech_start": 6.96,
+   "speech_end": 8.32,
+   "words": [
+    {
+     "w": "Il",
+     "s": 6.96,
+     "e": 7.04
+    },
+    {
+     "w": "a",
+     "s": 7.08,
+     "e": 7.12
+    },
+    {
+     "w": "appelé",
+     "s": 7.2,
+     "e": 7.4
+    },
+    {
+     "w": "les",
+     "s": 7.44,
+     "e": 7.52
+    },
+    {
+     "w": "pompiers.",
+     "s": 7.56,
+     "e": 8.32
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Ils ont sorti la grosse pince.",
+   "hl": [
+    "pince."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L05.mp3",
+   "file_start": 8.42,
+   "speech_start": 8.42,
+   "speech_end": 10.18,
+   "words": [
+    {
+     "w": "Ils",
+     "s": 8.42,
+     "e": 8.58
+    },
+    {
+     "w": "ont",
+     "s": 8.66,
+     "e": 8.74
+    },
+    {
+     "w": "sorti",
+     "s": 8.86,
+     "e": 9.02
+    },
+    {
+     "w": "la",
+     "s": 9.06,
+     "e": 9.14
+    },
+    {
+     "w": "grosse",
+     "s": 9.22,
+     "e": 9.46
+    },
+    {
+     "w": "pince.",
+     "s": 9.54,
+     "e": 10.18
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La pince a cassé.",
+   "hl": [
+    "cassé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L06.mp3",
+   "file_start": 10.28,
+   "speech_start": 10.28,
+   "speech_end": 11.56,
+   "words": [
+    {
+     "w": "La",
+     "s": 10.28,
+     "e": 10.36
+    },
+    {
+     "w": "pince",
+     "s": 10.52,
+     "e": 10.68
+    },
+    {
+     "w": "a",
+     "s": 10.72,
+     "e": 10.76
+    },
+    {
+     "w": "cassé.",
+     "s": 10.84,
+     "e": 11.56
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "L'armée a envoyé un char.",
+   "hl": [
+    "char."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L07.mp3",
+   "file_start": 11.66,
+   "speech_start": 11.66,
+   "speech_end": 13.34,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 11.66,
+     "e": 12.06
+    },
+    {
+     "w": "a",
+     "s": 12.1,
+     "e": 12.14
+    },
+    {
+     "w": "envoyé",
+     "s": 12.22,
+     "e": 12.54
+    },
+    {
+     "w": "un",
+     "s": 12.62,
+     "e": 12.7
+    },
+    {
+     "w": "char.",
+     "s": 12.9,
+     "e": 13.34
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Le char a roulé dessus.",
+   "hl": [
+    "roulé"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L08.mp3",
+   "file_start": 13.44,
+   "speech_start": 13.44,
+   "speech_end": 15.12,
+   "words": [
+    {
+     "w": "Le",
+     "s": 13.44,
+     "e": 13.6
+    },
+    {
+     "w": "char",
+     "s": 13.68,
+     "e": 13.92
+    },
+    {
+     "w": "a",
+     "s": 14.08,
+     "e": 14.16
+    },
+    {
+     "w": "roulé",
+     "s": 14.24,
+     "e": 14.4
+    },
+    {
+     "w": "dessus.",
+     "s": 14.48,
+     "e": 15.12
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le char a crevé.",
+   "hl": [
+    "crevé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L09.mp3",
+   "file_start": 15.22,
+   "speech_start": 15.22,
+   "speech_end": 16.42,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.22,
+     "e": 15.3
+    },
+    {
+     "w": "char",
+     "s": 15.38,
+     "e": 15.62
+    },
+    {
+     "w": "a",
+     "s": 15.66,
+     "e": 15.7
+    },
+    {
+     "w": "crevé.",
+     "s": 15.78,
+     "e": 16.42
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "On l'a envoyé dans l'espace.",
+   "hl": [
+    "espace."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L10.mp3",
+   "file_start": 16.52,
+   "speech_start": 16.52,
+   "speech_end": 18.12,
+   "words": [
+    {
+     "w": "On",
+     "s": 16.52,
+     "e": 16.6
+    },
+    {
+     "w": "l'a",
+     "s": 16.627,
+     "e": 16.68
+    },
+    {
+     "w": "envoyé",
+     "s": 16.76,
+     "e": 17.08
+    },
+    {
+     "w": "dans",
+     "s": 17.107,
+     "e": 17.16
+    },
+    {
+     "w": "l'espace.",
+     "s": 17.2,
+     "e": 18.12
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les astronautes ont essayé à six.",
+   "hl": [
+    "six."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L11.mp3",
+   "file_start": 18.22,
+   "speech_start": 18.22,
+   "speech_end": 20.3,
+   "words": [
+    {
+     "w": "Les",
+     "s": 18.22,
+     "e": 18.38
+    },
+    {
+     "w": "astronautes",
+     "s": 18.46,
+     "e": 18.86
+    },
+    {
+     "w": "ont",
+     "s": 18.94,
+     "e": 19.02
+    },
+    {
+     "w": "essayé",
+     "s": 19.1,
+     "e": 19.42
+    },
+    {
+     "w": "à",
+     "s": 19.58,
+     "e": 19.793
+    },
+    {
+     "w": "six.",
+     "s": 20.007,
+     "e": 20.3
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Les savants ont tiré au laser.",
+   "hl": [
+    "laser."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L12.mp3",
+   "file_start": 20.4,
+   "speech_start": 20.4,
+   "speech_end": 22.4,
+   "words": [
+    {
+     "w": "Les",
+     "s": 20.4,
+     "e": 20.56
+    },
+    {
+     "w": "savants",
+     "s": 20.68,
+     "e": 21.04
+    },
+    {
+     "w": "ont",
+     "s": 21.12,
+     "e": 21.2
+    },
+    {
+     "w": "tiré",
+     "s": 21.24,
+     "e": 21.52
+    },
+    {
+     "w": "au",
+     "s": 21.56,
+     "e": 21.6
+    },
+    {
+     "w": "laser.",
+     "s": 21.64,
+     "e": 22.4
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le laser a rebondi.",
+   "hl": [
+    "rebondi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L13.mp3",
+   "file_start": 22.5,
+   "speech_start": 22.5,
+   "speech_end": 24.1,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.5,
+     "e": 22.58
+    },
+    {
+     "w": "laser",
+     "s": 22.66,
+     "e": 23.06
+    },
+    {
+     "w": "a",
+     "s": 23.14,
+     "e": 23.22
+    },
+    {
+     "w": "rebondi.",
+     "s": 23.34,
+     "e": 24.1
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Le bocal est devenu monument historique.",
+   "hl": [
+    "monument",
+    "historique."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L14.mp3",
+   "file_start": 24.2,
+   "speech_start": 24.2,
+   "speech_end": 26.68,
+   "words": [
+    {
+     "w": "Le",
+     "s": 24.2,
+     "e": 24.28
+    },
+    {
+     "w": "bocal",
+     "s": 24.36,
+     "e": 24.76
+    },
+    {
+     "w": "est",
+     "s": 24.84,
+     "e": 24.92
+    },
+    {
+     "w": "devenu",
+     "s": 25.0,
+     "e": 25.32
+    },
+    {
+     "w": "monument",
+     "s": 25.4,
+     "e": 25.72
+    },
+    {
+     "w": "historique.",
+     "s": 25.92,
+     "e": 26.68
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Puis sa grand-mère est passée.",
+   "hl": [
+    "grand-mère"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L15.mp3",
+   "file_start": 26.78,
+   "speech_start": 26.78,
+   "speech_end": 28.38,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 26.78,
+     "e": 26.94
+    },
+    {
+     "w": "sa",
+     "s": 27.1,
+     "e": 27.18
+    },
+    {
+     "w": "grand-mère",
+     "s": 27.26,
+     "e": 27.58
+    },
+    {
+     "w": "est",
+     "s": 27.62,
+     "e": 27.66
+    },
+    {
+     "w": "passée.",
+     "s": 27.74,
+     "e": 28.38
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Elle l'a ouvert d'une main.",
+   "hl": [
+    "main."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L16.mp3",
+   "file_start": 28.48,
+   "speech_start": 28.48,
+   "speech_end": 29.84,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 28.48,
+     "e": 28.6
+    },
+    {
+     "w": "l'a",
+     "s": 28.64,
+     "e": 28.72
+    },
+    {
+     "w": "ouvert",
+     "s": 28.8,
+     "e": 29.04
+    },
+    {
+     "w": "d'une",
+     "s": 29.12,
+     "e": 29.28
+    },
+    {
+     "w": "main.",
+     "s": 29.52,
+     "e": 29.84
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Il n'aime pas les cornichons.",
+   "hl": [
+    "cornichons."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/bocal/tts/L17.mp3",
+   "file_start": 29.94,
+   "speech_start": 29.94,
+   "speech_end": 31.38,
+   "words": [
+    {
+     "w": "Il",
+     "s": 29.94,
+     "e": 30.02
+    },
+    {
+     "w": "n'aime",
+     "s": 30.1,
+     "e": 30.26
+    },
+    {
+     "w": "pas",
+     "s": 30.34,
+     "e": 30.42
+    },
+    {
+     "w": "les",
+     "s": 30.5,
+     "e": 30.58
+    },
+    {
+     "w": "cornichons.",
+     "s": 30.66,
+     "e": 31.38
+    }
+   ]
+  }
+ ],
+ "total": 32.22
+}
