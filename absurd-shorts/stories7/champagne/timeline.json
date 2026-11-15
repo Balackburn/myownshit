@@ -1,0 +1,766 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a ouvert le champagne.",
+   "hl": [
+    "champagne."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.86,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.34
+    },
+    {
+     "w": "mec",
+     "s": 0.38,
+     "e": 0.58
+    },
+    {
+     "w": "a",
+     "s": 0.62,
+     "e": 0.66
+    },
+    {
+     "w": "ouvert",
+     "s": 0.74,
+     "e": 0.98
+    },
+    {
+     "w": "le",
+     "s": 1.02,
+     "e": 1.06
+    },
+    {
+     "w": "champagne.",
+     "s": 1.14,
+     "e": 1.86
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Le bouchon n'est jamais redescendu.",
+   "hl": [
+    "jamais",
+    "redescendu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L02.mp3",
+   "file_start": 1.96,
+   "speech_start": 1.96,
+   "speech_end": 3.96,
+   "words": [
+    {
+     "w": "Le",
+     "s": 1.96,
+     "e": 2.12
+    },
+    {
+     "w": "bouchon",
+     "s": 2.16,
+     "e": 2.52
+    },
+    {
+     "w": "n'est",
+     "s": 2.6,
+     "e": 2.76
+    },
+    {
+     "w": "jamais",
+     "s": 2.84,
+     "e": 3.08
+    },
+    {
+     "w": "redescendu.",
+     "s": 3.16,
+     "e": 3.96
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Il a traversé le plafond.",
+   "hl": [
+    "plafond."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L03.mp3",
+   "file_start": 4.06,
+   "speech_start": 4.06,
+   "speech_end": 5.58,
+   "words": [
+    {
+     "w": "Il",
+     "s": 4.06,
+     "e": 4.14
+    },
+    {
+     "w": "a",
+     "s": 4.22,
+     "e": 4.26
+    },
+    {
+     "w": "traversé",
+     "s": 4.3,
+     "e": 4.727
+    },
+    {
+     "w": "le",
+     "s": 4.753,
+     "e": 4.78
+    },
+    {
+     "w": "plafond.",
+     "s": 4.86,
+     "e": 5.58
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Puis le salon de la voisine.",
+   "hl": [
+    "voisine."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L04.mp3",
+   "file_start": 5.68,
+   "speech_start": 5.68,
+   "speech_end": 7.44,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 5.68,
+     "e": 5.92
+    },
+    {
+     "w": "le",
+     "s": 6.08,
+     "e": 6.16
+    },
+    {
+     "w": "salon",
+     "s": 6.24,
+     "e": 6.4
+    },
+    {
+     "w": "de",
+     "s": 6.48,
+     "e": 6.52
+    },
+    {
+     "w": "la",
+     "s": 6.56,
+     "e": 6.6
+    },
+    {
+     "w": "voisine.",
+     "s": 6.64,
+     "e": 7.44
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "La voisine a porté plainte.",
+   "hl": [
+    "plainte."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L05.mp3",
+   "file_start": 7.54,
+   "speech_start": 7.54,
+   "speech_end": 9.06,
+   "words": [
+    {
+     "w": "La",
+     "s": 7.54,
+     "e": 7.62
+    },
+    {
+     "w": "voisine",
+     "s": 7.7,
+     "e": 7.94
+    },
+    {
+     "w": "a",
+     "s": 8.02,
+     "e": 8.06
+    },
+    {
+     "w": "porté",
+     "s": 8.1,
+     "e": 8.34
+    },
+    {
+     "w": "plainte.",
+     "s": 8.5,
+     "e": 9.06
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "La police a ouvert une enquête.",
+   "hl": [
+    "police",
+    "enquête."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L06.mp3",
+   "file_start": 9.16,
+   "speech_start": 9.16,
+   "speech_end": 10.92,
+   "words": [
+    {
+     "w": "La",
+     "s": 9.16,
+     "e": 9.24
+    },
+    {
+     "w": "police",
+     "s": 9.32,
+     "e": 9.64
+    },
+    {
+     "w": "a",
+     "s": 9.68,
+     "e": 9.72
+    },
+    {
+     "w": "ouvert",
+     "s": 9.76,
+     "e": 10.04
+    },
+    {
+     "w": "une",
+     "s": 10.08,
+     "e": 10.12
+    },
+    {
+     "w": "enquête.",
+     "s": 10.2,
+     "e": 10.92
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "La mairie a fermé le ciel.",
+   "hl": [
+    "fermé",
+    "ciel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L07.mp3",
+   "file_start": 11.02,
+   "speech_start": 11.02,
+   "speech_end": 12.94,
+   "words": [
+    {
+     "w": "La",
+     "s": 11.02,
+     "e": 11.1
+    },
+    {
+     "w": "mairie",
+     "s": 11.18,
+     "e": 11.5
+    },
+    {
+     "w": "a",
+     "s": 11.58,
+     "e": 11.66
+    },
+    {
+     "w": "fermé",
+     "s": 11.74,
+     "e": 11.98
+    },
+    {
+     "w": "le",
+     "s": 12.06,
+     "e": 12.14
+    },
+    {
+     "w": "ciel.",
+     "s": 12.22,
+     "e": 12.94
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "L'armée de l'air l'a pris en chasse.",
+   "hl": [
+    "armée",
+    "chasse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L08.mp3",
+   "file_start": 13.04,
+   "speech_start": 13.04,
+   "speech_end": 15.04,
+   "words": [
+    {
+     "w": "L'armée",
+     "s": 13.04,
+     "e": 13.36
+    },
+    {
+     "w": "de",
+     "s": 13.4,
+     "e": 13.44
+    },
+    {
+     "w": "l'air",
+     "s": 13.52,
+     "e": 13.76
+    },
+    {
+     "w": "l'a",
+     "s": 13.8,
+     "e": 13.92
+    },
+    {
+     "w": "pris",
+     "s": 13.96,
+     "e": 14.16
+    },
+    {
+     "w": "en",
+     "s": 14.24,
+     "e": 14.32
+    },
+    {
+     "w": "chasse.",
+     "s": 14.36,
+     "e": 15.04
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Le bouchon a gagné.",
+   "hl": [
+    "gagné."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L09.mp3",
+   "file_start": 15.14,
+   "speech_start": 15.14,
+   "speech_end": 16.42,
+   "words": [
+    {
+     "w": "Le",
+     "s": 15.14,
+     "e": 15.3
+    },
+    {
+     "w": "bouchon",
+     "s": 15.38,
+     "e": 15.62
+    },
+    {
+     "w": "a",
+     "s": 15.7,
+     "e": 15.78
+    },
+    {
+     "w": "gagné.",
+     "s": 15.86,
+     "e": 16.42
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il est passé en orbite.",
+   "hl": [
+    "orbite."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L10.mp3",
+   "file_start": 16.52,
+   "speech_start": 16.52,
+   "speech_end": 17.88,
+   "words": [
+    {
+     "w": "Il",
+     "s": 16.52,
+     "e": 16.56
+    },
+    {
+     "w": "est",
+     "s": 16.6,
+     "e": 16.68
+    },
+    {
+     "w": "passé",
+     "s": 16.76,
+     "e": 17.0
+    },
+    {
+     "w": "en",
+     "s": 17.04,
+     "e": 17.08
+    },
+    {
+     "w": "orbite.",
+     "s": 17.16,
+     "e": 17.88
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Les savants l'ont baptisé Bouchon Un.",
+   "hl": [
+    "Bouchon",
+    "Un."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L11.mp3",
+   "file_start": 17.98,
+   "speech_start": 17.98,
+   "speech_end": 20.3,
+   "words": [
+    {
+     "w": "Les",
+     "s": 17.98,
+     "e": 18.14
+    },
+    {
+     "w": "savants",
+     "s": 18.22,
+     "e": 18.46
+    },
+    {
+     "w": "l'ont",
+     "s": 18.48,
+     "e": 18.54
+    },
+    {
+     "w": "baptisé",
+     "s": 18.62,
+     "e": 19.1
+    },
+    {
+     "w": "Bouchon",
+     "s": 19.34,
+     "e": 19.74
+    },
+    {
+     "w": "Un.",
+     "s": 19.82,
+     "e": 20.3
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Depuis, la télé capte mieux.",
+   "hl": [
+    "télé",
+    "mieux."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L12.mp3",
+   "file_start": 20.4,
+   "speech_start": 20.4,
+   "speech_end": 22.32,
+   "words": [
+    {
+     "w": "Depuis,",
+     "s": 20.4,
+     "e": 21.04
+    },
+    {
+     "w": "la",
+     "s": 21.12,
+     "e": 21.2
+    },
+    {
+     "w": "télé",
+     "s": 21.28,
+     "e": 21.44
+    },
+    {
+     "w": "capte",
+     "s": 21.52,
+     "e": 21.76
+    },
+    {
+     "w": "mieux.",
+     "s": 21.84,
+     "e": 22.32
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Le gouvernement l'a déclaré trésor national.",
+   "hl": [
+    "trésor",
+    "national."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L13.mp3",
+   "file_start": 22.42,
+   "speech_start": 22.42,
+   "speech_end": 24.98,
+   "words": [
+    {
+     "w": "Le",
+     "s": 22.42,
+     "e": 22.5
+    },
+    {
+     "w": "gouvernement",
+     "s": 22.58,
+     "e": 23.06
+    },
+    {
+     "w": "l'a",
+     "s": 23.1,
+     "e": 23.22
+    },
+    {
+     "w": "déclaré",
+     "s": 23.3,
+     "e": 23.7
+    },
+    {
+     "w": "trésor",
+     "s": 23.78,
+     "e": 24.1
+    },
+    {
+     "w": "national.",
+     "s": 24.18,
+     "e": 24.98
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Les autres pays l'ont réclamé.",
+   "hl": [
+    "pays",
+    "réclamé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L14.mp3",
+   "file_start": 25.08,
+   "speech_start": 25.08,
+   "speech_end": 26.76,
+   "words": [
+    {
+     "w": "Les",
+     "s": 25.08,
+     "e": 25.24
+    },
+    {
+     "w": "autres",
+     "s": 25.32,
+     "e": 25.56
+    },
+    {
+     "w": "pays",
+     "s": 25.6,
+     "e": 25.8
+    },
+    {
+     "w": "l'ont",
+     "s": 25.827,
+     "e": 25.96
+    },
+    {
+     "w": "réclamé.",
+     "s": 26.04,
+     "e": 26.76
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "Le mec a reçu une facture pour occupation de l'espace.",
+   "hl": [
+    "facture",
+    "l'espace."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L15.mp3",
+   "file_start": 26.86,
+   "speech_start": 26.86,
+   "speech_end": 29.82,
+   "words": [
+    {
+     "w": "Le",
+     "s": 26.86,
+     "e": 26.94
+    },
+    {
+     "w": "mec",
+     "s": 27.02,
+     "e": 27.18
+    },
+    {
+     "w": "a",
+     "s": 27.22,
+     "e": 27.26
+    },
+    {
+     "w": "reçu",
+     "s": 27.34,
+     "e": 27.5
+    },
+    {
+     "w": "une",
+     "s": 27.58,
+     "e": 27.66
+    },
+    {
+     "w": "facture",
+     "s": 27.82,
+     "e": 28.14
+    },
+    {
+     "w": "pour",
+     "s": 28.22,
+     "e": 28.3
+    },
+    {
+     "w": "occupation",
+     "s": 28.58,
+     "e": 28.86
+    },
+    {
+     "w": "de",
+     "s": 28.887,
+     "e": 28.913
+    },
+    {
+     "w": "l'espace.",
+     "s": 28.94,
+     "e": 29.82
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Hier, le bouchon est redescendu.",
+   "hl": [
+    "redescendu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L16.mp3",
+   "file_start": 29.92,
+   "speech_start": 29.92,
+   "speech_end": 32.0,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 29.92,
+     "e": 30.56
+    },
+    {
+     "w": "le",
+     "s": 30.64,
+     "e": 30.72
+    },
+    {
+     "w": "bouchon",
+     "s": 30.773,
+     "e": 31.04
+    },
+    {
+     "w": "est",
+     "s": 31.08,
+     "e": 31.12
+    },
+    {
+     "w": "redescendu.",
+     "s": 31.2,
+     "e": 32.0
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Pile dans son verre.",
+   "hl": [
+    "verre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L17.mp3",
+   "file_start": 32.1,
+   "speech_start": 32.1,
+   "speech_end": 33.38,
+   "words": [
+    {
+     "w": "Pile",
+     "s": 32.1,
+     "e": 32.34
+    },
+    {
+     "w": "dans",
+     "s": 32.393,
+     "e": 32.5
+    },
+    {
+     "w": "son",
+     "s": 32.58,
+     "e": 32.66
+    },
+    {
+     "w": "verre.",
+     "s": 32.78,
+     "e": 33.38
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Le champagne était éventé.",
+   "hl": [
+    "éventé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/champagne/tts/L18.mp3",
+   "file_start": 33.48,
+   "speech_start": 33.48,
+   "speech_end": 35.08,
+   "words": [
+    {
+     "w": "Le",
+     "s": 33.48,
+     "e": 33.56
+    },
+    {
+     "w": "champagne",
+     "s": 33.64,
+     "e": 34.04
+    },
+    {
+     "w": "était",
+     "s": 34.16,
+     "e": 34.28
+    },
+    {
+     "w": "éventé.",
+     "s": 34.36,
+     "e": 35.08
+    }
+   ]
+  }
+ ],
+ "total": 35.92
+}
