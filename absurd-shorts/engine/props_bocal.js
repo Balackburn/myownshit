@@ -1,4 +1,4 @@
-// « Le bocal » (story 78): this man could not open a jar of pickles; a spoon, hot water, the firemen's hydraulic jaws, an army tank, NASA, a laser, a
+// « Le bocal » (story 78): this man could not open a jar of pickles; a spoon, hot water, the firemen's hydraulic jaws, an army tank, a space station, a laser, a
 // museum; then his grandmother opens it with one hand; he does not like pickles.
 // Conventions as in props.js (metres, front +Z, pivot at the floor unless said); every animated prop is a pure function of the shot time.
 import * as THREE from 'three';
@@ -86,5 +86,20 @@ export const BOCAL_PROPS = {
     const cover = grp(); for (let i = g.children.length - 1; i >= 1; i--) { const ch = g.children[i]; if (ch === lp) continue; cover.add(ch); } g.add(cover);
     g.userData.update = t => { const u = o.liftAt == null ? 0 : clamp01((t - o.liftAt) / 0.25); cover.position.y = 0.6 * u * u * (3 - 2 * u); };
     g.userData.update(-1); return g;
+  },
+  // (cycle 40) A stream of water falling from a tap's spout (origin at the spout's mouth, falling along -Y): o.len (0.3 m) down to where it lands,
+  // o.r (0.012 m) thick at the mouth and thinner below, wobbling; drops splash where it lands; o.on [[t0, t1], ...]: when it runs (always by default)
+  tapStream(o) {
+    const len = o.len ?? 0.3, r = o.r ?? 0.012, g = grp();
+    const sm = new THREE.MeshBasicMaterial({ color: o.color || '#CFEFFF', transparent: true, opacity: o.opacity ?? 0.85, depthWrite: false });
+    const s = new THREE.Mesh(new THREE.CylinderGeometry(r, r * 0.75, len, 8, 1, true), sm); s.position.y = -len / 2; s.userData.noAO = true; g.add(s);
+    const dm = new THREE.MeshBasicMaterial({ color: '#E8F8FF', transparent: true, opacity: 0.9, depthWrite: false });
+    const drops = Array.from({ length: 10 }, () => { const d = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.012, 0.012), dm); d.userData.noAO = true; g.add(d); return d; });
+    const ons = Array.isArray(o.on?.[0]) ? o.on : [o.on || [-1e9, 1e9]];
+    g.userData.update = t => {
+      const on = ons.some(([a, b]) => t >= a && t < b); s.visible = on; s.scale.set(1 + 0.15 * Math.sin(t * 47), 1, 1 + 0.15 * Math.cos(t * 41));
+      drops.forEach((d, i) => { const ph = (t * 2.6 + i * 0.137) % 1, a = i * 2.4; d.visible = on; d.position.set(Math.cos(a) * 0.08 * ph, -len + 0.24 * ph * (1 - ph), Math.sin(a) * 0.08 * ph); });
+    };
+    g.userData.update(0); return g;
   },
 };
