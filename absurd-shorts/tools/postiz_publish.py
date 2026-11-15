@@ -20,6 +20,11 @@ Usage (from absurd-shorts/):
   python3 tools/postiz_publish.py --schedule               schedule every missing story, six a day (9:00 to 21:30 Paris time)
   python3 tools/postiz_publish.py --only 75-parcmetre --now 1    a new delivery, right away
   python3 tools/postiz_publish.py --status                 refresh the ledger from Postiz (published, error)
+  python3 tools/postiz_publish.py --cancel-scheduled       delete every post still waiting in the Postiz queue and mark those stories as already on
+                                                           the account (posted by hand), so they are never sent again
+
+New deliveries go out right away (no daily slots): after each final, `--only NN-name --now 1`; `--now N` sends every finished story the ledger does not
+know yet, a few minutes apart.
 """
 import argparse, datetime as dt, json, os, re, subprocess, sys
 from pathlib import Path
@@ -108,6 +113,7 @@ def main():
     ap.add_argument('--schedule', action='store_true', help='schedule all the remaining missing stories on the daily slots')
     ap.add_argument('--max', type=int, default=0)
     ap.add_argument('--only', nargs='*')
+    ap.add_argument('--cancel-scheduled', action='store_true', help='delete the posts still queued in Postiz; mark their stories as already on the account')
     a = ap.parse_args()
     L = ledger()
     vids = [v for v in inventory() if not a.only or v['id'] in a.only]
@@ -129,6 +135,23 @@ def main():
                     e['url'] = p['releaseURL']
                 print(f"  {sid}: {e['status']} {e.get('url', '')}")
         save_ledger(L)
+        return
+    if a.cancel_scheduled:
+        posts = last_json(run(['posts:list'], 120)) or []
+        posts = posts if isinstance(posts, list) else posts.get('posts', [])
+        state = {p.get('id'): str(p.get('state') or p.get('status') or '').upper() for p in posts if isinstance(p, dict)}
+        for sid, e in L.items():
+            pid = e.get('post_id')
+            if e.get('via') != 'postiz' or not pid or state.get(pid) == 'PUBLISHED':
+                continue
+            try:
+                run(['posts:delete', pid], 120)
+            except (RuntimeError, subprocess.TimeoutExpired) as err:
+                print(f"  FAILED to cancel {sid}: {err}")
+                continue
+            L[sid] = {**e, 'via': 'manual', 'status': 'already on the account (scheduled post cancelled)', 'cancelled': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%d %H:%M')}
+            save_ledger(L)
+            print(f"  cancelled {sid} (post {pid})")
         return
     chan = integration()
     todo = missing[:a.max] if a.max else missing

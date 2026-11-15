@@ -3,495 +3,550 @@
   "title": "Le sable",
   "via": "postiz",
   "post_id": "cmwho666y0jhjlq07efglyzng",
-  "status": "scheduled",
+  "status": "published",
   "date": "2026-11-15T10:08:04Z",
   "media": "https://uploads.postiz.com/oYOeIqe1kE.mp4",
-  "at": "2026-11-15 10:06"
+  "at": "2026-11-15 10:06",
+  "url": "https://www.tiktok.com/@drkurtcobaye"
  },
  "11-lune": {
   "title": "La Lune",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhodmli0iietn08gglh88yg",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-15T13:00:00Z",
   "media": "https://uploads.postiz.com/IkskQGjdPR.mp4",
-  "at": "2026-11-15 10:11"
+  "at": "2026-11-15 10:11",
+  "cancelled": "2026-11-15 11:32"
  },
  "12-sapin": {
   "title": "Le sapin",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhodqp80iiltn089vs4hycm",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-15T15:30:00Z",
   "media": "https://uploads.postiz.com/teldHMWjYl.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "13-escargot": {
   "title": "L'escargot",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhodv940jmhlq0784ysuqwz",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-15T18:00:00Z",
   "media": "https://uploads.postiz.com/mGavnwNszS.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "14-greve": {
   "title": "La grève des nuages",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoe0bp0iiutn083wwivktf",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-15T20:30:00Z",
   "media": "https://uploads.postiz.com/RuoHplNL82.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "15-colis": {
   "title": "L'avis de passage",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoe4e70jmnlq07bf900w82",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-16T08:00:00Z",
   "media": "https://uploads.postiz.com/GL3WCYJHe9.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "16-heure": {
   "title": "Le changement d'heure",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoe8sw0ij5tn08pd79veet",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-16T10:30:00Z",
   "media": "https://uploads.postiz.com/BijM7temZS.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "17-police": {
   "title": "La police contre la police",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoedwy0jmvlq077ae692oq",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-16T13:00:00Z",
   "media": "https://uploads.postiz.com/NiES1mETlh.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "18-burger": {
   "title": "Le burger vegan",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoejg70jn0lq07v6i4kufh",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-16T15:30:00Z",
   "media": "https://uploads.postiz.com/QNuREtZwlF.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "19-loto": {
   "title": "Le loto",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoeoqs0ijqtn086369pvat",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-16T18:00:00Z",
   "media": "https://uploads.postiz.com/2PABrlyGnw.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "20-independance": {
   "title": "L'indépendance",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoetp40ijwtn08penbomyh",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-16T20:30:00Z",
   "media": "https://uploads.postiz.com/XAgnC2VQ0P.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "21-velo": {
   "title": "Le vélo",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoeyvu0ik4tn08wgswvg5z",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-17T08:00:00Z",
   "media": "https://uploads.postiz.com/gEVWiL4fKx.mp4",
-  "at": "2026-11-15 10:12"
+  "at": "2026-11-15 10:12",
+  "cancelled": "2026-11-15 11:32"
  },
  "22-caillou": {
   "title": "Le caillou",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhof36l0jnelq07dxqf85fc",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-17T10:30:00Z",
   "media": "https://uploads.postiz.com/P6tXbz6Slm.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "23-rdv": {
   "title": "Le rendez-vous",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhof7wg0jnolq073h5i7jy2",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-17T13:00:00Z",
   "media": "https://uploads.postiz.com/rLBph2hMpF.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "24-balance": {
   "title": "La balance",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofc5d0jntlq07jv89e8jn",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-17T15:30:00Z",
   "media": "https://uploads.postiz.com/RFvtRpN2Dw.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "25-sosie": {
   "title": "Le sosie",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofgrn0ikjtn08846aoib7",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-17T18:00:00Z",
   "media": "https://uploads.postiz.com/JJQwPQ3w5i.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "26-teletravail": {
   "title": "Le télétravail",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofkep0jo1lq072ukdzh1e",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-17T20:30:00Z",
   "media": "https://uploads.postiz.com/yiGoeNWOPg.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "27-gps": {
   "title": "Le GPS",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofnvx0il2tn0852w3gxeo",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-18T08:00:00Z",
   "media": "https://uploads.postiz.com/NfqPYL5Fjp.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "28-aspirateur": {
   "title": "L'aspirateur",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofrb80joelq07nnimdvfa",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-18T10:30:00Z",
   "media": "https://uploads.postiz.com/EmUuZXP9Kz.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "29-serrurier": {
   "title": "Le serrurier",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofvf80johlq07fhd2lal3",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-18T13:00:00Z",
   "media": "https://uploads.postiz.com/XraskwRP1X.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "30-armoire": {
   "title": "L'armoire",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhofzxw0il7tn08dzo82a6p",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-18T15:30:00Z",
   "media": "https://uploads.postiz.com/I0tbyWc7Cx.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "31-parapluie": {
   "title": "Le parapluie",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhog4f50joolq074vkxh5oq",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-18T18:00:00Z",
   "media": "https://uploads.postiz.com/uGj7kqfj46.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "32-attente": {
   "title": "La file d'attente",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhog8zz0jotlq07udnahxga",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-18T20:30:00Z",
   "media": "https://uploads.postiz.com/Irc7jCXRn8.mp4",
-  "at": "2026-11-15 10:13"
+  "at": "2026-11-15 10:13",
+  "cancelled": "2026-11-15 11:32"
  },
  "33-wifi": {
   "title": "Le wifi",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhogcz60ilhtn08joqr15uz",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-19T08:00:00Z",
   "media": "https://uploads.postiz.com/EDGmnVvZOs.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "34-canicule": {
   "title": "La canicule",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhogik50jp2lq07nl3997ga",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-19T10:30:00Z",
   "media": "https://uploads.postiz.com/O8XGy8ty6p.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "35-ver": {
   "title": "Le ver de terre",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhognnx0ilptn085idsn51w",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-19T13:00:00Z",
   "media": "https://uploads.postiz.com/4PGx39Kt9N.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "36-chaussettes": {
   "title": "Les chaussettes",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhogsnb0jpklq079i53uk6q",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-19T15:30:00Z",
   "media": "https://uploads.postiz.com/JtQId0Fgg2.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "37-trou": {
   "title": "Le trou",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhogx8s0im0tn0859dta0wn",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-19T18:00:00Z",
   "media": "https://uploads.postiz.com/uRFE9xwgMg.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "38-eternuement": {
   "title": "L'éternuement",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoh34f0jptlq07of4g8lig",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-19T20:30:00Z",
   "media": "https://uploads.postiz.com/MjM8GKb5D6.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "39-porte": {
   "title": "La porte",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoh89b0jpylq077448dwmp",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-20T08:00:00Z",
   "media": "https://uploads.postiz.com/aDgKhGSCdo.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "40-interrupteur": {
   "title": "L'interrupteur",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhohbuu0jq0lq07udi6bfkm",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-20T10:30:00Z",
   "media": "https://uploads.postiz.com/AazRaqYlQO.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "41-elan": {
   "title": "L'élan",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhohhfg0imftn082njho59c",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-20T13:00:00Z",
   "media": "https://uploads.postiz.com/smUh6cr06j.mp4",
-  "at": "2026-11-15 10:14"
+  "at": "2026-11-15 10:14",
+  "cancelled": "2026-11-15 11:32"
  },
  "42-ombre": {
   "title": "L'ombre",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhohmwv0jq3lq07yjz8dm3r",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-20T15:30:00Z",
   "media": "https://uploads.postiz.com/F13ej5YHIS.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "43-cravate": {
   "title": "La cravate",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoht2j0imstn08635pb1hj",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-20T18:00:00Z",
   "media": "https://uploads.postiz.com/dsBwov82fP.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "44-statue": {
   "title": "La statue",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhohxxu0imvtn08l8kd4lk8",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-20T20:30:00Z",
   "media": "https://uploads.postiz.com/7wCzwZVVrJ.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "45-fourriere": {
   "title": "La fourrière",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoi2zt0imwtn08wlljocdn",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-21T08:00:00Z",
   "media": "https://uploads.postiz.com/Syizj7GBCs.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "46-radar": {
   "title": "Le radar",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoi7wk0in1tn08qaqnp5qo",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-21T10:30:00Z",
   "media": "https://uploads.postiz.com/C208LksJmJ.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "47-aimant": {
   "title": "L'aimant",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoicdw0jqolq0793lwcm2d",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-21T13:00:00Z",
   "media": "https://uploads.postiz.com/tEahnDIHq6.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "48-codebarre": {
   "title": "Le code-barres",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoigpm0injtn080eef37h2",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-21T15:30:00Z",
   "media": "https://uploads.postiz.com/2fXh2NeZZf.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "49-photocopie": {
   "title": "La photocopieuse",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoiljj0jr3lq076wjfnh6d",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-21T18:00:00Z",
   "media": "https://uploads.postiz.com/qmAxCZJOk8.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "50-hoquet": {
   "title": "Le hoquet",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoip5o0jr8lq07csk9mggx",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-21T20:30:00Z",
   "media": "https://uploads.postiz.com/VoU2fGGscG.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "51-gomme": {
   "title": "La gomme à mâcher",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoitai0jrdlq07p7wh4wx4",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-22T08:00:00Z",
   "media": "https://uploads.postiz.com/WGXUVmdCaO.mp4",
-  "at": "2026-11-15 10:15"
+  "at": "2026-11-15 10:15",
+  "cancelled": "2026-11-15 11:32"
  },
  "52-boomerang": {
   "title": "Le boomerang",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoixpz0io2tn08mfu83tth",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-22T10:30:00Z",
   "media": "https://uploads.postiz.com/89DFe2toOU.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "53-torticolis": {
   "title": "Le torticolis",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoj2k20io6tn082yhzlivu",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-22T13:00:00Z",
   "media": "https://uploads.postiz.com/2zKFhWKU5z.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "54-valise": {
   "title": "La valise",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoj70w0jrnlq07p59ml7fl",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-22T15:30:00Z",
   "media": "https://uploads.postiz.com/WonTIZvF5p.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "55-ventouse": {
   "title": "La ventouse",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhojb2g0jrtlq07nef9991s",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-22T18:00:00Z",
   "media": "https://uploads.postiz.com/venPqnygZF.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "56-bosse": {
   "title": "La bosse",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoje8r0jrxlq07y8h1vlc5",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-22T20:30:00Z",
   "media": "https://uploads.postiz.com/6GgcfOjcqa.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "57-tournante": {
   "title": "La porte tournante",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhojhqg0iodtn080j5zyap4",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-23T08:00:00Z",
   "media": "https://uploads.postiz.com/Hfuieu7e4c.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "58-baillement": {
   "title": "Le bâillement",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhojl9c0js4lq07ie0w9sno",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-23T10:30:00Z",
   "media": "https://uploads.postiz.com/9W524FEmYw.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "59-grimace": {
   "title": "La grimace",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhojpft0ioetn08d99qdne0",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-23T13:00:00Z",
   "media": "https://uploads.postiz.com/pM3XQxdv1F.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "60-echo": {
   "title": "L'écho",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhojtm50ioftn081pi8ang3",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-23T15:30:00Z",
   "media": "https://uploads.postiz.com/vViNJVtXm2.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "61-ressort": {
   "title": "Le ressort",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhojxh90jsclq07uopduu0x",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-23T18:00:00Z",
   "media": "https://uploads.postiz.com/eQkcHCv6VL.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "62-soleil": {
   "title": "Le coup de soleil",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhok1cw0ioltn08tzstqi2r",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-23T20:30:00Z",
   "media": "https://uploads.postiz.com/n8hY9D9TyG.mp4",
-  "at": "2026-11-15 10:16"
+  "at": "2026-11-15 10:16",
+  "cancelled": "2026-11-15 11:32"
  },
  "63-cafe": {
   "title": "Le café",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhok5zj0jsflq07mfvkof1z",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-24T08:00:00Z",
   "media": "https://uploads.postiz.com/u2xEHeeuIk.mp4",
-  "at": "2026-11-15 10:17"
+  "at": "2026-11-15 10:17",
+  "cancelled": "2026-11-15 11:32"
  },
  "64-langue": {
   "title": "La langue",
-  "via": "postiz",
+  "via": "manual",
   "post_id": "cmwhoka9b0jsglq07z8tldpjo",
-  "status": "scheduled",
+  "status": "already on the account (scheduled post cancelled)",
   "date": "2026-11-24T10:30:00Z",
   "media": "https://uploads.postiz.com/0hIykyEbkq.mp4",
-  "at": "2026-11-15 10:17"
+  "at": "2026-11-15 10:17",
+  "cancelled": "2026-11-15 11:32"
  }
 }
