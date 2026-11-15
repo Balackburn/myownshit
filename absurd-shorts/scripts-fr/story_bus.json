@@ -120,7 +120,7 @@
    }
   },
   "fan3": {
-   "preset": "farmer",
+   "preset": "fermier",
    "seed": 726,
    "build": {
     "width": 1.05,
@@ -161,7 +161,7 @@
    }
   },
   "ministre": {
-   "preset": "tracksuit",
+   "preset": "sportif",
    "seed": 729,
    "suit": "#2F62B5",
    "build": {
@@ -289,7 +289,7 @@
    }
   },
   "serveur": {
-   "preset": "waiter",
+   "preset": "serveur",
    "seed": 739,
    "build": {
     "width": 1.0,
@@ -1059,7 +1059,7 @@
     },
     {
      "id": "mais40",
-     "name": "pavilion",
+     "name": "cottage",
      "pos": [
       -16.0,
       0,
@@ -1069,7 +1069,7 @@
     },
     {
      "id": "mais41",
-     "name": "pavilion",
+     "name": "cottage",
      "pos": [
       -23.0,
       0,
@@ -1079,7 +1079,7 @@
     },
     {
      "id": "mais42",
-     "name": "pavilion",
+     "name": "cottage",
      "pos": [
       -30.0,
       0,

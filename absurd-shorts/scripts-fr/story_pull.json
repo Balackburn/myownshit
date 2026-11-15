@@ -92,7 +92,7 @@
    }
   },
   "coll": {
-   "preset": "suit",
+   "preset": "avocat",
    "seed": 763,
    "build": {
     "width": 1.0,
@@ -105,7 +105,7 @@
    }
   },
   "emp1": {
-   "preset": "suit",
+   "preset": "boss",
    "seed": 764,
    "build": {
     "width": 1.0,
@@ -131,7 +131,7 @@
    }
   },
   "emp3": {
-   "preset": "suit",
+   "preset": "avocat",
    "seed": 766,
    "build": {
     "width": 1.0,
@@ -209,7 +209,7 @@
    }
   },
   "ville3": {
-   "preset": "suit",
+   "preset": "avocat",
    "seed": 773,
    "build": {
     "width": 1.0,
@@ -397,7 +397,7 @@
    }
   },
   "rue2": {
-   "preset": "suit",
+   "preset": "boss",
    "seed": 789,
    "build": {
     "width": 1.0,

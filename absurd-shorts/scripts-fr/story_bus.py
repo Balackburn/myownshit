@@ -80,7 +80,7 @@ D4 = st.dur('S04'); SG4 = [0.0, 0, 2.2]
 st.shot('S04', 'grassland', actors=[act('mec', [r(-BUSD - 4.0), 0, 0.3], 90, 'run', 'determined', keys=[*RUNK([r(-BUSD - 4.0 + V * D4), 0, 0.3], D4, 0.0, 2.0)])],
         props=[ROAD('road4'), LINE('line4'), BUS('bus4', [-4.0, 0, -0.3], 0, keys=[k(0.0, to=[r(-4.0 + V * D4), 0, -0.3], dur=D4, ease='linear')]),
                P('panneau4', 'townSign', pos=SG4, ry=-15, opts={'name': 'SAINT-ARRÊT', 'exit': True, 'w': 1.5, 'h': 1.4}),
-               *[P(f'mais4{j}', 'pavilion', pos=[r(-16.0 - 7.0 * j), 0, r(-7.0 + 3.0 * (j % 2))], ry=r(20 * j)) for j in range(3)], *TREES('4', 5.0, -14.0, 14.0, 6)],
+               *[P(f'mais4{j}', 'cottage', pos=[r(-16.0 - 7.0 * j), 0, r(-7.0 + 3.0 * (j % 2))], ry=r(20 * j)) for j in range(3)], *TREES('4', 5.0, -14.0, 14.0, 6)],
         cams=[FC(0.0, [3.6, 1.2, 7.5], [[SG4[0], 2.2, SG4[2]], [SG4[0], 0.0, SG4[2]], [r(-BUSD - 4.0 + V * D4 * 0.7), 2.4, 0.3], [r(-4.0 + V * D4 * 0.4), 2.8, -0.3]], top=0.16, bottom=0.78)])
 st.cue('engine', 'S04', 0.0, 0.3); st.cue('whoosh', 'S04', 0.5, 0.25)
 
@@ -98,7 +98,7 @@ st.shot('S05', 'grassland', actors=[act('mec', [X5, 0, 0.0], 90, 'run', 'determi
 st.cue('sfx:siren', 'S05', 0.0, 0.25); st.cue('engine', 'S05', 0.1, 0.3)
 
 # 6: the villages cheered him from the roadside. A village street: villagers along the verge clap and wave flags, a kid jumps; he runs by, deadpan
-D6 = st.dur('S06'); X6 = -3.0; FANS6 = [('fan1', -1.6, 'mamie'), ('fan2', -0.5, 'gamin'), ('fan3', 0.7, 'farmer'), ('fan4', 1.9, 'madame'), ('fan5', 3.1, 'tourist')]
+D6 = st.dur('S06'); X6 = -3.0; FANS6 = [('fan1', -1.6, 'mamie'), ('fan2', -0.5, 'gamin'), ('fan3', 0.7, 'fermier'), ('fan4', 1.9, 'madame'), ('fan5', 3.1, 'tourist')]
 st.shot('S06', 'cottageStreet', actors=[act('mec', [X6, 0, 0.6], 90, 'run', 'determined', keys=[*RUNK([r(X6 + V * D6), 0, 0.6], D6, 0.0, 2.0)]),
         *[act(fid, [fx, 0, 2.3], 180, 'stand', 'happy', keys=[k(0.0, look=[r(X6 + V * 0.4 * (j + 1)), 1.6, 0.6]), *[k(r(0.1 + 0.18 * i + 0.05 * j), toon={'reach': {'R': [r(fx + (0.12 if i % 2 else -0.12)), 2.25, 2.0, 1, 0.04]}, 'hands': {'R': 'open'}, 'face': {'lid': 0.0, 'mouth': 'bigsmile'}}, toonDur=0.08) for i in range(10)]] +
               ([k(0.3, to=[fx, 0.35, 2.3], dur=0.15, ease='out'), k(0.45, to=[fx, 0, 2.3], dur=0.15, ease='in'), k(0.9, to=[fx, 0.35, 2.3], dur=0.15, ease='out'), k(1.05, to=[fx, 0, 2.3], dur=0.15, ease='in')] if j == 1 else [])) for j, (fid, fx, _) in enumerate(FANS6)]],
@@ -264,14 +264,14 @@ st.write("Le bus", rig='toon', fingers=True, cloth=True, idleShift=1.6, holdLife
     'gend2': {'preset': 'cop2', 'seed': 723, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'fan1': {'preset': 'mamie', 'seed': 724, 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': EX},
     'fan2': {'preset': 'gamin', 'seed': 725, 'suit': '#7CC25A', 'build': {'headScale': 1.25}, 'toon': EX},
-    'fan3': {'preset': 'farmer', 'seed': 726, 'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX},
+    'fan3': {'preset': 'fermier', 'seed': 726, 'build': {'width': 1.05, 'headWidth': 1.2}, 'toon': EX},
     'fan4': {'preset': 'madame', 'seed': 727, 'suit': '#3A9BDC', 'build': {'width': 0.92, 'headWidth': 1.25}, 'toon': EX},
     'fan5': {'preset': 'tourist', 'seed': 728, 'suit': '#E0813A', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
-    'ministre': {'preset': 'tracksuit', 'seed': 729, 'suit': '#2F62B5', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'ministre': {'preset': 'sportif', 'seed': 729, 'suit': '#2F62B5', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     **{f'cyc{j + 1}': {'preset': 'sportif', 'seed': 730 + j, 'suit': c_, 'build': {'width': 0.95, 'headWidth': 1.2}, 'toon': EX} for j, c_ in enumerate(RID8)},
     'lanceur': {'preset': 'tourist', 'seed': 737, 'suit': '#5BB5A8', 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'chauffeur': {'preset': 'officiel', 'seed': 738, 'suit': '#2F5FA8', 'hat': 'copcap', 'hatColor': '#2F5FA8', 'build': {'width': 1.1, 'headWidth': 1.2}, 'toon': EX},
-    'serveur': {'preset': 'waiter', 'seed': 739, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
+    'serveur': {'preset': 'serveur', 'seed': 739, 'build': {'width': 1.0, 'headWidth': 1.2}, 'toon': EX},
     'savant1': {'preset': 'savant', 'seed': 740, 'hair': 'receding', 'hairColor': '#EDEDED', 'build': {'width': 0.9, 'headWidth': 1.25}, 'toon': EX},
     'savant2': {'preset': 'savant', 'seed': 741, 'glasses': True, 'build': {'width': 0.95, 'headWidth': 1.25}, 'toon': EX},
 })

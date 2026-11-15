@@ -503,6 +503,29 @@ class Story:
             for w in out: print('  audit', w)
         return out
 
+    def audit_presets(self, cast):
+        """(cycle 36) Warn about a cast preset that engine/human.js does not define: the engine falls back to an empty preset, a generic
+        stranger in place of the farmer or the waiter you meant (suit, farmer, tracksuit and waiter were used and are not presets)."""
+        import re
+        src = open(os.path.join(HERE, '..', 'engine', 'human.js')).read()
+        i = src.index('PRESETS = {') + len('PRESETS = {'); d = 1; j = i
+        while d:
+            d += {'{': 1, '}': -1}.get(src[j], 0); j += 1
+        valid = set(re.findall(r'^\s{2,4}([a-zA-Z0-9_]+)\s*:', src[i:j], re.M))
+        for cid, spec in cast.items():
+            pr = spec.get('preset')
+            if pr and pr not in valid: print(f"  audit cast {cid}: preset '{pr}' does not exist in engine/human.js (a generic stranger renders); one of: {' '.join(sorted(valid))}")
+
+    def audit_props(self):
+        """(cycle 37) Warn about a prop name no engine/props*.js module defines (the render drops it, or fails late)."""
+        import re, glob
+        known = set()
+        for f in glob.glob(os.path.join(HERE, '..', 'engine', 'props*.js')):
+            known |= set(re.findall(r'^\s{2}([a-zA-Z_][a-zA-Z0-9_]*)\s*\(\s*o?\s*(?:=\s*\{\})?\s*\)\s*\{', open(f).read(), re.M))
+        for sc in self.scenes:
+            for p in sc.get('props', []):
+                if p.get('name') and p['name'] not in known: print(f"  audit {sc.get('id', '?')} prop {p.get('id')}: '{p['name']}' is not defined in engine/props*.js")
+
     def write(self, title, extra_cast=None, **doc_extra):   # doc_extra: extra top-level keys of the script (rig='toon': the cartoon rig for every human, faces={...}: the story's own expressions)
         d = os.path.join(ROOT, 'stories7', self.name)
         try:   # (cycle 10) a cue the final mix cannot play fails only after the 1080p render (45: 'splat' without 'sfx:'): say it now
@@ -577,6 +600,10 @@ class Story:
                **({'gags': self.gags, 'cardTimes': cardT} if self.gags else {}), **doc_extra}
         out = os.path.join(HERE, f'story_{self.name}.json')
         json.dump(doc, open(out, 'w'), indent=1, ensure_ascii=False)
+        try: self.audit_presets(cast)   # (cycle 36) a preset name the engine does not know gives a generic stranger, silently
+        except Exception as e: print('  audit_presets failed:', e)
+        try: self.audit_props()   # (cycle 37) a prop name the engine does not know is dropped at render time ('coffeeCup' never existed: 'hotMug' does)
+        except Exception as e: print('  audit_props failed:', e)
         try: self.audit()   # (cycle 9) staging warnings: heads cut, feet in the caption band, the hero's back to the camera
         except Exception as e: print('  audit failed:', e)
         try: self.audit_life()   # (cycle 13) frozen actors, the same take everywhere

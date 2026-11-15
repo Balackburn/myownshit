@@ -1,0 +1,139 @@
+[
+ {
+  "id": "L01",
+  "who": "N",
+  "text": "Ce mec a payé son stationnement pour quatre cents ans.",
+  "hl": [
+   "stationnement",
+   "quatre",
+   "cents",
+   "ans."
+  ]
+ },
+ {
+  "id": "L02",
+  "who": "N",
+  "text": "Il s'est trompé de bouton.",
+  "hl": [
+   "bouton."
+  ]
+ },
+ {
+  "id": "L03",
+  "who": "N",
+  "text": "Le ticket fait trois kilomètres.",
+  "hl": [
+   "trois",
+   "kilomètres."
+  ]
+ },
+ {
+  "id": "L04",
+  "who": "N",
+  "text": "La mairie refuse de le rembourser.",
+  "hl": [
+   "rembourser."
+  ]
+ },
+ {
+  "id": "L05",
+  "who": "N",
+  "text": "Alors il reste garé.",
+  "hl": [
+   "garé."
+  ]
+ },
+ {
+  "id": "L06",
+  "who": "N",
+  "text": "Il vit dans sa voiture.",
+  "hl": [
+   "voiture."
+  ]
+ },
+ {
+  "id": "L07",
+  "who": "N",
+  "text": "Il s'est marié sur sa place.",
+  "hl": [
+   "marié"
+  ]
+ },
+ {
+  "id": "L08",
+  "who": "N",
+  "text": "Ses enfants ont grandi entre deux lignes blanches.",
+  "hl": [
+   "lignes",
+   "blanches."
+  ]
+ },
+ {
+  "id": "L09",
+  "who": "N",
+  "text": "Le facteur glisse son courrier sous l'essuie-glace.",
+  "hl": [
+   "l'essuie-glace."
+  ]
+ },
+ {
+  "id": "L10",
+  "who": "N",
+  "text": "Chaque année, le maire inaugure sa place.",
+  "hl": [
+   "inaugure"
+  ]
+ },
+ {
+  "id": "L11",
+  "who": "N",
+  "text": "Les touristes la prennent en photo.",
+  "hl": [
+   "touristes"
+  ]
+ },
+ {
+  "id": "L12",
+  "who": "N",
+  "text": "Hier, un camion de livraison s'est garé devant lui.",
+  "hl": [
+   "camion",
+   "devant"
+  ]
+ },
+ {
+  "id": "L13",
+  "who": "N",
+  "text": "En double file.",
+  "hl": [
+   "double",
+   "file."
+  ]
+ },
+ {
+  "id": "L14",
+  "who": "N",
+  "text": "Il ne peut plus sortir.",
+  "hl": [
+   "sortir."
+  ]
+ },
+ {
+  "id": "L15",
+  "who": "N",
+  "text": "Le livreur a payé pour cinq cents ans.",
+  "hl": [
+   "cinq",
+   "cents",
+   "ans."
+  ]
+ },
+ {
+  "id": "L16",
+  "who": "N",
+  "text": "Ils jouent aux cartes le dimanche.",
+  "hl": [
+   "cartes"
+  ]
+ }
+]
