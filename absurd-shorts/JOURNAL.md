@@ -2687,3 +2687,13 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Passe 2 : nouveaux accessoires (`razor`, `bigKey`, `keyholePlate`, `glassJar`, `pen`, `flashBursts`), yeux sur tiges pour les créatures (`popAt`), bras de la moustache accrochés sous les ailes (en haut ils se lisaient comme des cornes), respiration, clignements décalés plan par plan, tableau des résultats à 60 % / 40 %.
   - Mise en scène refaite plan par plan : salle de bain avec lavabo, bus aux portes ouvertes côté trottoir, clé montrée puis tournée dans une porte numérotée, guichets de la banque et des impôts, gendarmerie, signature au stylo, salut royal sous les flashs, non de tout le corps les yeux fermés.
 - Champagne (68), revue 1 : direction artistique 6,5 (flûte de la chute illisible, BOUCHON 1 caché par un écran, loupe et bouchon gagnant cachés ou coupés) ; revue d'animation en cours.
+
+## 15 novembre, 8 h 40 — « La langue » livrée ; moteur : regards adoucis ; histoires 72 et 73
+
+- La langue (64) : version finale livrée (1080x1920, 19 s, -16,1 LUFS, aucun creux, contrôle sans erreur). Revues 6,6/6,2 → 7,1/6,4 → 7,5/7,0, puis passe finale.
+- Moteur : la tête suit désormais le regard en douceur (entrée et sortie sur 0,3 s), les yeux en avance de 3 images ; une clé peut demander un mouvement sec (`lookDur`), utilisé par les doubles prises. Les critiques voyaient des coups de tête en deux images.
+- Outils : les critiques acceptent des brouillons à 15 images/s (moitié moins de temps de rendu ; elles échantillonnent déjà à 15 i/s).
+- Champagne (68), passe 2 écrite d'après la revue 1 (6,5/6,0) : mousse blanche à côté du visage, effort avec écrasement et trois crans du bouchon, gendarmerie établie, plongée verticale sur le sommet, insert sur le verre à la chute, trou du plafond en plâtre cassé (il se lisait comme une araignée).
+- Moustache (67), images de contrôle 2 : moustache recalée sur la lèvre (mesure de la tête), guichets sans vitre devant elle (elle sortait grise), cadrages resserrés. Brouillon 2 en file.
+- Nouvelle histoire 72 « Le bus » : il rate son bus de deux secondes et court derrière pendant trois ans (gendarmes à moto, village, dossard, course cycliste, maillot jaune, Alpes, serveur italien, chaussures usées, savants) ; il monte : ce n'était pas le bon bus (ticket 12, bus 21). Narration, accessoires et vingt plans faits ; images de contrôle en file.
+- Nouvelle histoire 73 « Le service client » (dossier `conseiller`) : texte et narration (16 répliques, 33 s). Erreur évitée : le nom `attente` appartenait déjà à l'histoire 32 ; son fichier de minutage, réécrit par erreur, a été restauré depuis git.

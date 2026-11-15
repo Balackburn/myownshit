@@ -1,0 +1,12 @@
+[
+ {"id": "L01", "who": "N", "text": "Ce mec a collé sa langue sur un poteau gelé.", "hl": ["langue", "poteau", "gelé."]},
+ {"id": "L02", "who": "N", "text": "Les pompiers ont tiré pendant deux heures.", "hl": ["pompiers", "deux", "heures."]},
+ {"id": "L03", "who": "N", "text": "Sa langue traverse maintenant la rue.", "hl": ["traverse", "rue."]},
+ {"id": "L04", "who": "N", "text": "La mairie y a accroché les guirlandes de Noël.", "hl": ["mairie", "guirlandes", "Noël."]},
+ {"id": "L05", "who": "N", "text": "Le maire a appuyé sur le bouton.", "hl": ["maire", "bouton."]},
+ {"id": "L06", "who": "N", "text": "Tout clignote. Lui aussi.", "hl": ["clignote.", "aussi."]},
+ {"id": "L07", "who": "N", "text": "Hier, le dégel.", "hl": ["dégel."]},
+ {"id": "L08", "who": "N", "text": "Sa langue est revenue d'un coup.", "hl": ["revenue", "coup."]},
+ {"id": "L09", "who": "N", "text": "Avec les guirlandes.", "hl": ["guirlandes."]},
+ {"id": "L10", "who": "N", "text": "Il clignote depuis.", "hl": ["clignote"]}
+]

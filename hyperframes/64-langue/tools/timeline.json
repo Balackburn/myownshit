@@ -1,0 +1,445 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a collé sa langue sur un poteau gelé.",
+   "hl": [
+    "langue",
+    "poteau",
+    "gelé."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L01.k.wav",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 2.619,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.248
+    },
+    {
+     "w": "mec",
+     "s": 0.322,
+     "e": 0.544
+    },
+    {
+     "w": "a",
+     "s": 0.619,
+     "e": 0.693
+    },
+    {
+     "w": "collé",
+     "s": 0.804,
+     "e": 0.989
+    },
+    {
+     "w": "sa",
+     "s": 1.063,
+     "e": 1.137
+    },
+    {
+     "w": "langue",
+     "s": 1.211,
+     "e": 1.359
+    },
+    {
+     "w": "sur",
+     "s": 1.433,
+     "e": 1.507
+    },
+    {
+     "w": "un",
+     "s": 1.581,
+     "e": 1.656
+    },
+    {
+     "w": "poteau",
+     "s": 1.73,
+     "e": 2.026
+    },
+    {
+     "w": "gelé.",
+     "s": 2.137,
+     "e": 2.619
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Les pompiers ont tiré pendant deux heures.",
+   "hl": [
+    "pompiers",
+    "deux",
+    "heures."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L02.k.wav",
+   "file_start": 2.719,
+   "speech_start": 2.719,
+   "speech_end": 4.733,
+   "words": [
+    {
+     "w": "Les",
+     "s": 2.719,
+     "e": 2.793
+    },
+    {
+     "w": "pompiers",
+     "s": 2.867,
+     "e": 3.163
+    },
+    {
+     "w": "ont",
+     "s": 3.237,
+     "e": 3.311
+    },
+    {
+     "w": "tiré",
+     "s": 3.348,
+     "e": 3.533
+    },
+    {
+     "w": "pendant",
+     "s": 3.607,
+     "e": 3.904
+    },
+    {
+     "w": "deux",
+     "s": 3.941,
+     "e": 4.126
+    },
+    {
+     "w": "heures.",
+     "s": 4.163,
+     "e": 4.719
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Sa langue traverse maintenant la rue.",
+   "hl": [
+    "traverse",
+    "rue."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L03.k.wav",
+   "file_start": 4.833,
+   "speech_start": 4.833,
+   "speech_end": 6.537,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 4.833,
+     "e": 4.981
+    },
+    {
+     "w": "langue",
+     "s": 5.055,
+     "e": 5.204
+    },
+    {
+     "w": "traverse",
+     "s": 5.278,
+     "e": 5.648
+    },
+    {
+     "w": "maintenant",
+     "s": 5.722,
+     "e": 5.944
+    },
+    {
+     "w": "la",
+     "s": 6.018,
+     "e": 6.093
+    },
+    {
+     "w": "rue.",
+     "s": 6.13,
+     "e": 6.537
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "La mairie y a accroché les guirlandes de Noël.",
+   "hl": [
+    "mairie",
+    "guirlandes",
+    "Noël."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L04.k.wav",
+   "file_start": 6.637,
+   "speech_start": 6.637,
+   "speech_end": 8.933,
+   "words": [
+    {
+     "w": "La",
+     "s": 6.637,
+     "e": 6.785
+    },
+    {
+     "w": "mairie",
+     "s": 6.822,
+     "e": 7.155
+    },
+    {
+     "w": "y",
+     "s": 7.23,
+     "e": 7.304
+    },
+    {
+     "w": "a",
+     "s": 7.341,
+     "e": 7.378
+    },
+    {
+     "w": "accroché",
+     "s": 7.452,
+     "e": 7.748
+    },
+    {
+     "w": "les",
+     "s": 7.822,
+     "e": 7.896
+    },
+    {
+     "w": "guirlandes",
+     "s": 7.933,
+     "e": 8.267
+    },
+    {
+     "w": "de",
+     "s": 8.304,
+     "e": 8.341
+    },
+    {
+     "w": "Noël.",
+     "s": 8.415,
+     "e": 8.933
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Le maire a appuyé sur le bouton.",
+   "hl": [
+    "maire",
+    "bouton."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L05.k.wav",
+   "file_start": 9.033,
+   "speech_start": 9.033,
+   "speech_end": 10.737,
+   "words": [
+    {
+     "w": "Le",
+     "s": 9.033,
+     "e": 9.107
+    },
+    {
+     "w": "maire",
+     "s": 9.181,
+     "e": 9.404
+    },
+    {
+     "w": "a",
+     "s": 9.441,
+     "e": 9.478
+    },
+    {
+     "w": "appuyé",
+     "s": 9.589,
+     "e": 9.848
+    },
+    {
+     "w": "sur",
+     "s": 9.922,
+     "e": 9.996
+    },
+    {
+     "w": "le",
+     "s": 10.033,
+     "e": 10.07
+    },
+    {
+     "w": "bouton.",
+     "s": 10.144,
+     "e": 10.737
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Tout clignote. Lui aussi.",
+   "hl": [
+    "clignote.",
+    "aussi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L06.k.wav",
+   "file_start": 10.837,
+   "speech_start": 10.837,
+   "speech_end": 12.467,
+   "words": [
+    {
+     "w": "Tout",
+     "s": 10.837,
+     "e": 10.985
+    },
+    {
+     "w": "clignote.",
+     "s": 11.022,
+     "e": 11.652
+    },
+    {
+     "w": "Lui",
+     "s": 11.8,
+     "e": 11.948
+    },
+    {
+     "w": "aussi.",
+     "s": 12.059,
+     "e": 12.467
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Hier, le dégel.",
+   "hl": [
+    "dégel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L07.k.wav",
+   "file_start": 12.567,
+   "speech_start": 12.567,
+   "speech_end": 14.052,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 12.567,
+     "e": 13.159
+    },
+    {
+     "w": "le",
+     "s": 13.233,
+     "e": 13.307
+    },
+    {
+     "w": "dégel.",
+     "s": 13.344,
+     "e": 14.048
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Sa langue est revenue d'un coup.",
+   "hl": [
+    "revenue",
+    "coup."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L08.k.wav",
+   "file_start": 14.152,
+   "speech_start": 14.152,
+   "speech_end": 15.634,
+   "words": [
+    {
+     "w": "Sa",
+     "s": 14.152,
+     "e": 14.3
+    },
+    {
+     "w": "langue",
+     "s": 14.374,
+     "e": 14.522
+    },
+    {
+     "w": "est",
+     "s": 14.56,
+     "e": 14.597
+    },
+    {
+     "w": "revenue",
+     "s": 14.671,
+     "e": 14.893
+    },
+    {
+     "w": "d'un",
+     "s": 14.967,
+     "e": 15.115
+    },
+    {
+     "w": "coup.",
+     "s": 15.152,
+     "e": 15.634
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "Avec les guirlandes.",
+   "hl": [
+    "guirlandes."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L09.k.wav",
+   "file_start": 15.734,
+   "speech_start": 15.734,
+   "speech_end": 16.919,
+   "words": [
+    {
+     "w": "Avec",
+     "s": 15.734,
+     "e": 15.956
+    },
+    {
+     "w": "les",
+     "s": 16.03,
+     "e": 16.104
+    },
+    {
+     "w": "guirlandes.",
+     "s": 16.141,
+     "e": 16.919
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "Il clignote depuis.",
+   "hl": [
+    "clignote"
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/langue/tts/L10.k.wav",
+   "file_start": 17.019,
+   "speech_start": 17.019,
+   "speech_end": 18.204,
+   "words": [
+    {
+     "w": "Il",
+     "s": 17.019,
+     "e": 17.093
+    },
+    {
+     "w": "clignote",
+     "s": 17.167,
+     "e": 17.537
+    },
+    {
+     "w": "depuis.",
+     "s": 17.611,
+     "e": 18.204
+    }
+   ]
+  }
+ ],
+ "total": 19.04
+}
