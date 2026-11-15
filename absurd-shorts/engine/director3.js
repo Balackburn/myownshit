@@ -449,8 +449,24 @@ function placeAttached(Pp, k, t) {
   const as = mn < 0.2 * mx ? [os.x, os.y, os.z].sort((a, b) => a - b)[1] : (os.x || 1);   // a flattened carrier (a shadow on its wall, flat across its shoulders): what it carries is flattened with it (divided by the 0.03 of its x, a watch on its wrist was two metres wide)
   const sc = (k.scale ?? scaleOf(Pp, t)) / Math.max(0.01, as);
   Pp.obj.scale.setScalar(sc); squashProp(Pp, t); if (Pp.cfg.flat) { const f = Pp.cfg.flat, q = Pp.obj.scale; q.set(q.x * f[0], q.y * f[1], q.z * f[2]); }   // (story 66) `flat` on a carried prop too (a beard five times longer than wide)
+  // (cycle 41) `hang: true` on an attach (`on={'actor': ..., 'joint': 'head', 'offset': [...], 'hang': True}`): the thing hangs by gravity from the joint
+  // instead of being nailed to it (a long beard, a medal, a lanyard). It stays upright whatever the joint's tilt, turns with the carrier's heading
+  // plus `hangYaw` (0.35) of the joint's own turn, and its offset is taken in that upright frame, at the height of the true anchor point. Nailed to
+  // the head, a beard down to the lap swung into the chest as soon as the head turned (review 2 of 76: the beard fell to stubs at the collar)
+  if (k.hang && !A.isProp) {
+    j.updateWorldMatrix(true, false); j.getWorldQuaternion(_hjq); A.obj.getWorldQuaternion(_haq);
+    const ya = yawOfQ(_haq), d0 = yawOfQ(_hjq) - ya, yaw = ya + (k.hangYaw ?? 0.35) * Math.atan2(Math.sin(d0), Math.cos(d0));
+    _hup.setFromAxisAngle(_hY, yaw);
+    _hv1.set(off[0], off[1], off[2]); j.localToWorld(_hv1);
+    j.getWorldPosition(_hv2); _hv3.set(off[0], off[1], off[2]).multiplyScalar(as).applyQuaternion(_hup).add(_hv2); _hv3.y = _hv1.y;
+    j.worldToLocal(_hv3); Pp.obj.position.copy(_hv3);
+    Pp.obj.quaternion.copy(_hjq).invert().multiply(_hup); if (k.rot) Pp.obj.quaternion.multiply(_hq4.setFromEuler(_hEu.set(k.rot[0], k.rot[1], k.rot[2])));
+  }
   return true;
 }
+const _hjq = new THREE.Quaternion(), _haq = new THREE.Quaternion(), _hup = new THREE.Quaternion(), _hq4 = new THREE.Quaternion(), _hEu = new THREE.Euler();
+const _hv1 = new THREE.Vector3(), _hv2 = new THREE.Vector3(), _hv3 = new THREE.Vector3(), _hfw = new THREE.Vector3(), _hY = new THREE.Vector3(0, 1, 0);
+function yawOfQ(q) { _hfw.set(0, 0, 1).applyQuaternion(q); return Math.atan2(_hfw.x, _hfw.z); }
 // a keyed impact on a prop (key `squash`): squashed at the key, it springs back, overshooting a little
 function squashProp(Pp, t) { let q = null; for (const k of Pp.sqKeys) { if (k.t > t) break; q = k; } if (!q) return; const u = (t - q.t) / q.dur; if (u >= 1) return;
   const a = Math.exp(-4.5 * u) * Math.cos(u * 11) * (1 - u), sc = Pp.obj.scale; sc.set(sc.x * (1 + (q.sq[0] - 1) * a), sc.y * (1 + (q.sq[1] - 1) * a), sc.z * (1 + (q.sq[2] - 1) * a)); }

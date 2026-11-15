@@ -37,9 +37,9 @@ CAL = [-1.15, 1.62, BACK + 0.02]; CLK = [-1.15, 2.6, BACK + 0.04]
 HALL = lambda **kw: {'notice': 'SYNDIC', 'car': True, **kw}   # (pass 2) a lit car behind the doors (the doorway showed the hall's own wall)
 BUTTON = lambda pid, **kw: P(pid, 'callButton', pos=BTN, opts=kw)
 CHAIR = lambda pid, **kw: P(pid, 'armchair', pos=CH, opts={'color': '#B5523A', **kw})
-BEARD = lambda pid, who='mec', s=1.2, color='#E4E0D8', keys=None, swing=None: P(pid, 'beardHair', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.02, 0.1]}, scale=s,
+BEARD = lambda pid, who='mec', s=1.2, color='#E4E0D8', keys=None, swing=None: P(pid, 'beardHair', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.02, 0.1], 'hang': True, 'hangYaw': 0.4}, scale=s,   # (pass 3) hang: it hangs by gravity from the chin (nailed to the head it swung into the chest when the head turned)
                                                        opts={'len': 0.95, 'coil': 0.0, 'color': color, 'depth': 0.12, 'w': 0.26, **({'swing': swing, 'whip': True} if swing else {})}, **({'keys': keys} if keys else {}))
-SPECS = lambda pid, who='mec': P(pid, 'glasses', on={'actor': who, 'joint': 'head', 'offset': [0.02, 0.23, 0.16]}, opts={'r': 0.042, 'dx': 0.07})   # (pass 2) at eye level (they sat at the jaw)
+SPECS = lambda pid, who='mec': P(pid, 'glasses', on={'actor': who, 'joint': 'head', 'offset': [0.0, 0.23, 0.106]}, opts={'r': 0.042, 'dx': 0.055})   # (pass 2) at eye level (they sat at the jaw); (pass 3) on the face (z 0.16 floated 6 cm in front of it: seen in profile they hung in the air)
 PLAID = '#2E7D5B'   # (pass 2) a green blanket against the red armchair (it was lost under the dust)
 STICK = lambda pid, who='mec', hand='R': P(pid, 'slab', on={'actor': who, 'hand': hand, 'offset': [0.0, -0.45, 0.04]}, opts={'w': 0.03, 'h': 0.95, 'd': 0.03, 'color': '#6B4A2E'})
 WEBS = lambda pfx: [P(f'{pfx}a', 'cobweb', pos=[CH[0] + 0.43, 1.25, CH[2] - 0.3], ry=-90, opts={'s': 0.42}), P(f'{pfx}b', 'cobweb', pos=[0.55, 2.1, ZF + 0.02], opts={'s': 0.38})]
