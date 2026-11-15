@@ -1628,3 +1628,15 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (passe finale de 68) Un accessoire tenu (`on={...}`) ignore `face='camera'` passé à côté : le moteur ne lit l'orientation face caméra que dans
   l'attache. Écrire `on={'actor': ..., 'hand': 'L', 'face': 'camera'}` (et `'faceFlat': True` pour un verre qui doit rester droit, vu de profil) ;
   sinon l'objet prend la rotation de la main : la loupe pendait sous le poing, le verre tenu penchait vers la caméra et se lisait comme une cloche blanche.
+- (revue 1 de 77, revue 2 de 71) Chaque clé `toon` remplace la pose entière : une clé de battement qui ne porte que `sq` (ou un clignement `BLINK` qui ne
+  porte que le visage) lâche les mains et les joues. La fanfare de « Le centime » ne jouait plus après le premier temps (trompette à la hanche, joues
+  plates), les mains de l'homme tombaient pendant son clignement et la facture restait en l'air. Mettre `reach`, `hands` et le visage voulu dans chaque clé
+  d'un plan où quelqu'un tient quelque chose (une fonction de pose par plan : `PLAY7(i)`, `HOLD22(face)`).
+- (revue 1 de 77) Une clé d'attache plus tardive s'écrit `k(t, attach='mec', hand='R', offset=[...])` : avec un dictionnaire (`attach={'actor': ...}`)
+  le moteur ne trouve personne et l'objet reste par terre (la lettre jamais ramassée).
+- (revue 2 de 71) `fishSchool` lit ses hauteurs dans `y0` / `y1` (0,5 à 2,5 m par défaut) : une option `y` est ignorée et les poissons nagent dans l'air,
+  au-dessus de l'eau. Plus généralement, quand un relecteur dit « la correction n'a rien changé », lire le code de l'accessoire pour vérifier le nom de l'option.
+- (revue 2 de 71) `waterBill` : `stampDelay` compte à partir de `popAt` ; avec `popAt: -1` le tampon était posé dès la première image, avant le coup.
+  `stampScale` (1,8) et `stampRot` (0,35) pour un tampon de chute en grand, en travers.
+- (revue 1 de 77) Un garde-corps fait d'un pavé sombre (`slab` couleur fer, 1,3 m de large) devant un personnage se lit comme un trou noir : prendre le
+  `balcony` (dalle de pierre, barreaux de fer). Une voiture vue de près : `glass` 0,85 et `glassColor` sombre, sinon on voit l'acteur debout dedans.
