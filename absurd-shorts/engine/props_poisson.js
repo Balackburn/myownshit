@@ -32,7 +32,7 @@ export const POISSON_PROPS = {
   fishBag(o) {
     const g = grp(), s = o.s ?? 1, R = 0.1 * s;
     if (o.v2) {   // (final pass of 65) o.v2: a smooth clear bag (only its far side tinted, so nothing lies over the fish), a pale rim round its outline facing +Z (attach it with face='camera'), and a smaller fish that swims side-on, left and right, turning at each end (it circled: head-on half the time, its tail through the bag)
-      const wm = new THREE.MeshBasicMaterial({ color: '#BDE8FA', transparent: true, opacity: 0.42, depthWrite: false, side: THREE.BackSide });   // unlit: a lit back face went dark grey (the bag read as a black ball)
+      const wm = new THREE.MeshBasicMaterial({ color: '#BDE8FA', transparent: true, opacity: o.waterOpacity ?? 0.78, depthWrite: false, side: THREE.BackSide });   // (final pass) nearly opaque: the dark suit behind showed through and the bag read as a black ball   // unlit: a lit back face went dark grey (the bag read as a black ball)
       const water = ball(R, wm, 28); water.scale.y = 1.12; water.position.y = -0.17 * s; g.add(water);
       const shell = ball(R * 1.02, glass('#FFFFFF', 0.05), 28); shell.material.side = THREE.FrontSide; shell.scale.y = 1.13; shell.position.y = -0.17 * s; g.add(shell);
       const rim = new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.0045 * s, 6, 40), new THREE.MeshBasicMaterial({ color: '#EAF7FF', transparent: true, opacity: 0.85, depthWrite: false })); rim.scale.y = 1.13; rim.position.y = -0.17 * s; g.add(rim);

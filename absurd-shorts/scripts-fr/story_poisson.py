@@ -223,13 +223,13 @@ st.shot('S12', 'seaSurface', setOpts=LAKE, look=XLOOK, actors=[
 st.cue('sfx:gulp', 'S12', r(SNAP12 + 0.03), 0.5)
 
 # 13: the army was sent. A country road to the lake: three tanks rolling toward us in a line, dust behind them
-D13 = st.dur('S13'); TK13 = lambda j: [r(-2.0 + 2.0 * j), 0, r(-24.0 - 8.0 * j)]
+D13 = st.dur('S13'); TK13 = lambda j: [r(-2.0 + 3.5 * j), 0, r(-24.0 - 7.0 * j)]   # (final pass) staggered wider: the two behind showed past the lead tank
 st.shot('S13', 'grassland', look=XLOOK, actors=[],
         props=[P('road13', 'roadStrip', pos=[0.0, 0.0, -40.0], opts={'len': 140, 'w': 8}),
                *[P(f'tank13{j}', 'armyTank', pos=TK13(j), ry=0, scale=5.0, keys=[k(0.0, to=[TK13(j)[0], 0, r(TK13(j)[2] + 11.0)], dur=D13, ease='linear'),
                    *[k(r(0.1 * j + 0.3 * i_), rotTo=[0.035 if i_ % 2 else -0.025, 0.0, 0.0], dur=0.3, ease='inOut') for i_ in range(5)]]) for j in range(3)],   # (review 1) on a road, barrels at us, rocking on their tracks (they drove backwards: no barrels)
                *[P(f'dust13{j}', 'dustPuff', pos=[TK13(j)[0], 0, r(TK13(j)[2] - 2.6)], scale=2.2, opts={'period': 0.45, 'seed': 30 + j, 'color': '#D9CDB0'}, keys=[k(0.0, to=[TK13(j)[0], 0, r(TK13(j)[2] + 8.4)], dur=D13, ease='linear')]) for j in range(3)]],
-        cams=[FC(0.0, [-3.0, 2.2, -8.0], [[-3.6, 0.0, -13.5], [-0.4, 0.0, -13.5], [-2.0, 3.6, -13.5], [2.0, 0.0, -30.0], [2.0, 3.2, -30.0]], top=0.16, bottom=0.82, lenses=range(26, 64))])   # (final pass) a little higher and to the side: the three tanks over one another, less sky (the roadside camera lost two of them)   # (stills 3) nearer; (review 2) low on the road, the lead tank at the lens (9 % of the frame under empty sky)
+        cams=[FC(0.0, [-3.0, 2.2, -8.0], [[-3.6, 0.0, -13.5], [-0.4, 0.0, -13.5], [-2.0, 3.6, -13.5], [5.0, 0.0, -38.0], [5.0, 3.2, -38.0]], top=0.16, bottom=0.82, lenses=range(26, 64))])   # (final pass) a little higher and to the side: the three tanks over one another, less sky (the roadside camera lost two of them)   # (stills 3) nearer; (review 2) low on the road, the lead tank at the lens (9 % of the frame under empty sky)
 st.cue('sfx:engine', 'S13', 0.0, 0.45)
 
 # 14: three tanks, two fighter jets. On the lakeshore the three tanks aim their guns at the water; two jets scream in low overhead toward the lake, where
