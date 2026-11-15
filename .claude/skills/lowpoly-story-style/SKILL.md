@@ -404,6 +404,12 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La rame en accordéon | `metroNose` (`crumple`, `stagger`, `rebound`, `foldShade`) : la rame lui rentre dans le dos et se plie tronçon après tronçon sur cinq images (d'un coup, c'était une coupe), dépasse et revient un peu, plis ombrés un sur deux, toit en tôle ondulée, pare-brise fendu, un phare pendu à son ressort ; lui ne bouge pas d'un millimètre, seul son casque saute ; SCRONCH ! | 63 |
 | Les cous tendus vers le tunnel | sur le quai éclairé, les voyageurs penchés au-dessus de la voie tendent le cou à l'horizontale, cinq fois sa longueur, la tête restée droite au bout (`bend.neck` sixième valeur `lvl` : couchée sur le côté, elle se lisait comme une lampe de bureau), les yeux au niveau du tunnel ; au-dessus, le panneau compte les minutes jusqu'à « 3 427 MIN » de plus en plus vite et clignote ; BLOQUÉE | 63 |
 | Les gobelets comme des cierges | dans le tunnel, la rame pliée derrière lui : des gobelets à emporter tout autour de ses pieds, deux de plus posés ; une voyageuse à côté de lui porte un gobelet à ses lèvres (`touch` sur `@mecC.head`) ; il boit ; sa paupière tressaute, son casque cliquette, la rame avance d'un pouce | 63 |
+| Le pigeon qui se pose sur la tête | la créature `pigeon` vole jusqu'au sommet mesuré de son crâne (2,33 m pour `lemec` ; 2,5 m le laissait flotter devant une rambarde du fond), freine (`ease: 'out'`), et à l'impact sa tête s'écrase (`scl.head` à 74 %, 110 %, puis 100 %) pendant que le pigeon descend et remonte avec elle par trois clés `to` ; regard à nous et lent clignement ensuite |
+| La barbe en fouet | `beardHair` avec `swing` et `whip` : chaque point de la mèche tourne d'un angle qui grandit vers la pointe et retarde sur elle, et le balancement s'éteint après sa fin (une rotation d'un bloc se lisait comme une faux figée) |
+| Les yeux qui jaillissent sur tiges (créature) | `params.popAt: [t0, t1]` et `popLen` sur la clé de clip d'une créature : les yeux partent en avant sur des tiges de la couleur du corps, dépassent, vibrent et reviennent à t1 ; le papier tenu devant le corps sous les yeux, ils passent par-dessus |
+| Le tableau des résultats à soixante pour cent | `resultsBoard` avec `pct` : la barre du gagnant s'arrête à `pct` %, celle des autres (rouge) prend le reste, les chiffres suivent (100 % / 0 % contredisait la réplique) |
+| Le cadrage résolu par projection | quand la composition est dictée (sa tête en bas à droite, le feu dans le tiers gauche), chercher l'orientation et l'objectif qui posent deux cibles sur deux points de l'image (`projshot.solve`) au lieu de laisser `fitBack` cadrer tous les points au bord |
+| La file vue au long foyer | lui au premier plan au bout de la file, les touristes en diagonale qui s'éloignent vers le fond, le photographe dans la rue devant sa porte, un enfant qui saute sur place dans la file, chacun avec un geste à lui |
 
 ## Erreurs à éviter
 
@@ -1532,3 +1538,16 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   dedans mais passe en très grand angle (80°) : élargir la pièce (`half`) plutôt que d'accepter la déformation.
 - (cycle 33) Un accessoire posé contre le mur du fond d'un décor doit être devant ce mur (`back` + 5 cm) : derrière, il ne se voit pas
   (la carte de 71 était derrière le mur de la mairie).
+- (cycle 28) Une créature ne prend ni `reach` ni `touch` : ses bras ne bougent que par des clips (`stampDesk`, `giveItem`, `drawMid`, `royalWave`,
+  `point`, `shakeHead`, `readPhone`) et seules les voies `lay` et `sq` lui arrivent ; un tampon « tenu » bras ballants se lit comme un objet qui flotte.
+- (cycle 28) Les clignements automatiques d'une créature tombent au même instant dans chaque plan (même phase) : donner `params.blinks` plan par plan.
+- (cycle 28) Un nuage de poussière ou de brume à trente centimètres de l'objectif voile toute l'image : le mettre près des mains ou des genoux,
+  loin de la caméra.
+- (cycle 28) Un accessoire de sol posé à 3 cm (la vase d'une rivière vidée) laisse passer l'herbe du décor : le monter au-dessus du relief du décor
+  et relever d'autant ce qui est posé dessus.
+- (cycle 28) Un seul plan pris de l'autre côté de l'axe inverse le sens du regard (le feu passait de gauche à droite) : garder la caméra du même côté
+  de la ligne entre lui et ce qu'il regarde dans tout le film.
+- (cycle 28) `drift` sur une caméra cadrée au plus juste fait sortir le héros du cadre (sa tête coupée par le bord pendant tout le crochet) : pas de
+  dérive quand un point d'ancrage touche le bord, ou des points de marge autour de lui.
+- (cycle 28) Pour une contravention ou une lettre collée sur la poitrine, la clé `attach` doit répéter `face: 'camera'` : sans elle le papier passe
+  de profil (une tranche rose de 15 px).

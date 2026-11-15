@@ -307,14 +307,16 @@ export const NEWS_PROPS = {
     for (const x of [-w * 0.35, w * 0.35]) g.add(rod([x, 0, -0.05], [x, (o.lift ?? 0.55) + 0.1, -0.05], 0.025, '#6B4A2E'));
     if (o.popAt != null) g.userData.update = t => { board.scale.setScalar(Math.max(0.001, ease.outBack(clamp01((t - o.popAt) / 0.3)))); };
     if (g.userData.update) g.userData.update(0); return g; },
-  resultsBoard(o) { // election night: "RÉSULTATS" board, o.name with a bar filling to 100 % from o.fillAt, "AUTRES 0 %"
-    const w = o.w || 1.4, h = o.h || 0.9, g = grp(at(box(w + 0.08, h + 0.08, 0.05, '#1C252A', { outline: 0.006 }), 0, 0, -0.03));
+  resultsBoard(o) { // election night: "RÉSULTATS" board, o.name with a bar filling to o.pct (100) % from o.fillAt, "AUTRES" with the rest
+    const PC = o.pct ?? 100, f = PC / 100, w = o.w || 1.4, h = o.h || 0.9, g = grp(at(box(w + 0.08, h + 0.08, 0.05, '#1C252A', { outline: 0.006 }), 0, 0, -0.03));
     const head = canvasPlane(w, h, (c, W, Hh) => { c.fillStyle = '#F4F4F0'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#1C252A'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.font = `900 ${Hh * 0.14}px Arial`; c.fillText('RÉSULTATS', W * 0.06, Hh * 0.13);
-      c.font = `800 ${Hh * 0.11}px Arial`; c.fillText(o.name || 'GÉRARD', W * 0.06, Hh * 0.36); c.fillText('AUTRES', W * 0.06, Hh * 0.72); c.textAlign = 'right'; c.fillText('0 %', W * 0.94, Hh * 0.88);
+      c.font = `800 ${Hh * 0.11}px Arial`; c.fillText(o.name || 'GÉRARD', W * 0.06, Hh * 0.36); c.fillText('AUTRES', W * 0.06, Hh * 0.72); c.textAlign = 'right'; c.fillText(`${100 - PC} %`, W * 0.94, Hh * 0.88);
       c.fillStyle = '#D9D5CB'; c.fillRect(W * 0.06, Hh * 0.45, W * 0.88, Hh * 0.13); c.fillRect(W * 0.06, Hh * 0.8, W * 0.62, Hh * 0.13); }, { res: 512 }); g.add(head);
-    const bar = at(box(w * 0.88, h * 0.13, 0.012, '#2F62B5'), 0, 0, 0.008); const pct = canvasPlane(w * 0.3, h * 0.13, (c, W, Hh) => { c.fillStyle = '#2F62B5'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#FFFFFF'; c.font = `900 ${Hh * 0.8}px Arial`; c.textAlign = 'right'; c.textBaseline = 'middle'; c.fillText('100 %', W * 0.95, Hh * 0.55); }, { res: 256 });
-    const bg = grp(bar); g.add(bg); pct.position.set(w * 0.29, h * (0.5 - 0.515), 0.016); g.add(pct);
-    g.userData.update = t => { const k = o.fillAt == null ? 1 : ease.outCubic ? ease.outCubic(clamp01((t - o.fillAt) / 0.6)) : clamp01((t - o.fillAt) / 0.6); bar.scale.x = Math.max(0.001, k); bar.position.set(-w * 0.44 * (1 - k), h * (0.5 - 0.515), 0.008); pct.visible = k > 0.95; };
+    const bar = at(box(w * 0.88, h * 0.13, 0.012, '#2F62B5'), 0, 0, 0.008); const pct = canvasPlane(w * 0.3, h * 0.13, (c, W, Hh) => { c.fillStyle = '#2F62B5'; c.fillRect(0, 0, W, Hh); c.fillStyle = '#FFFFFF'; c.font = `900 ${Hh * 0.8}px Arial`; c.textAlign = 'right'; c.textBaseline = 'middle'; c.fillText(`${PC} %`, W * 0.95, Hh * 0.55); }, { res: 256 });
+    const bg = grp(bar); g.add(bg); pct.position.set(w * (0.44 * (2 * f - 1) - 0.15), h * (0.5 - 0.515), 0.016); g.add(pct);
+    const oth = at(box(w * 0.88, h * 0.13, 0.012, '#C8322A'), 0, 0, 0.008); g.add(oth);   // (review 1 of 67) the others' bar (the board read 100 % / 0 % under « soixante pour cent »)
+    g.userData.update = t => { const k = o.fillAt == null ? 1 : ease.outCubic ? ease.outCubic(clamp01((t - o.fillAt) / 0.6)) : clamp01((t - o.fillAt) / 0.6); bar.scale.x = Math.max(0.001, k * f); bar.position.set(-w * 0.44 * (1 - k * f), h * (0.5 - 0.515), 0.008); pct.visible = k > 0.95;
+      const ko = k * (1 - f); oth.visible = ko > 0.001; oth.scale.x = Math.max(0.001, ko); oth.position.set(-w * 0.44 * (1 - ko), h * (0.5 - 0.865), 0.008); };
     g.userData.update(0); return g; },
   trophy(o) { // a gold cup on a black base (o.text plate)
     const G = '#E8B830', g = grp(at(box(0.16, 0.08, 0.16, '#1C1C20', { pivot: 'bottom' }), 0, 0, 0), at(cyl(0.025, 0.04, 0.1, G, 10, { pivot: 'bottom' }), 0, 0.08, 0), at(cyl(0.1, 0.05, 0.16, G, 12, { pivot: 'bottom', outline: 0.004 }), 0, 0.18, 0));

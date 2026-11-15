@@ -113,7 +113,7 @@ function addEyes(R, parent, o) {
     const brow = new THREE.Mesh(new THREE.TorusGeometry(br, r * (o.browT ?? 0.17), 4, 7, arc), mat(o.browColor ?? (dark ? '#E9E1CC' : INK), { noGrain: true }));
     brow.rotation.z = PI / 2 - arc / 2; brow.position.y = -br; browG.add(brow);
     if (o.noBrow) browG.visible = false;
-    R.eyes.push({ side, g, eye, pupil, lid, browG, by, r, px, py, pz, lash });
+    R.eyes.push({ side, g, eye, pupil, lid, browG, by, r, px, py, pz, lash, z0: o.z, x0: side * o.x, stalkColor: o.lid ?? P.grey });
   }
 }
 
@@ -988,8 +988,10 @@ const SPECIES = {
     // walk work; attach a sash, a hat or a tie to the 'head' joint (the moustache)
     const c = col(o, { body: '#2B2420', tip: '#3A302A', limb: '#2B2420', foot: '#1E1916' });
     R.ol = 0.01;
+    // (review 1 of 67) o.armY / o.armX: where the arms leave the body (2.2 / 0.2 put them on top of it, where at phone size they read as horns; 0.55 /
+    // 0.24 hangs them from under the wings); o.breath: a slow breath in the body
     bipedBody(R, { leg: 0.13, legW: 0.035, footH: 0.03, footLen: 0.09, tw: 0.3, th: 0.1, td: 0.2, taper: 1, armW: 0.032, armU: 0.13, armF: 0.12, hand: 'mitten',
-      noTorso: true, noPelvis: true, shY: 2.2, shX: 0.2, colors: { body: c.body, arm: c.limb, leg: c.limb, hand: c.limb, foot: c.foot } });
+      noTorso: true, noPelvis: true, shY: o.armY ?? 2.2, shX: o.armX ?? 0.2, colors: { body: c.body, arm: c.limb, leg: c.limb, hand: c.limb, foot: c.foot } });
     const m = R.joint('head', R.J.torso, 0, 0, 0);
     R.a(m, facet(0.13, 0.075, 0.075, c.body, { seed: 71, jit: 0.03, detail: 2 }), [0, 0.1, 0]);   // the thick middle
     for (const sd of [1, -1]) {
@@ -998,7 +1000,7 @@ const SPECIES = {
       R.a(m, new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.017, 6, 12, PI * 1.3), mat(c.tip)), [sd * 0.345, 0.15, 0], [0, sd > 0 ? 0 : PI, -0.5]);   // the curl at the tip
     }
     addEyes(R, m, { x: 0.058, y: 0.2, z: 0.035, r: 0.048, lid: c.body });
-    R.height = 0.62;
+    R.height = 0.62; R.breath = o.breath ?? 0;
   },
   snowman(R, o) {
     const c = col(o, { body: '#F6F4EE', coal: '#1A1B20', carrot: '#E07A2E', hat: '#17181B', band: P.red, scarf: P.red, stick: P.woodDark });
@@ -1536,6 +1538,7 @@ export function buildCreature(name, opts = {}) {
     }
     if (q.pos) for (const [k, v] of Object.entries(q.pos)) { const g = R.J[k]; if (g) { g.position.x += v[0]; g.position.y += v[1]; g.position.z += v[2]; } }
     if (q.scl) for (const [k, v] of Object.entries(q.scl)) { const g = R.J[k]; if (g) { g.scale.x *= v[0]; g.scale.y *= v[1]; g.scale.z *= v[2]; } }
+    if (R.breath && R.J.head) { const b = Math.sin(t * 2.3 + phase * 6.28) * R.breath; R.J.head.scale.y *= 1 + b; R.J.head.scale.x *= 1 - 0.4 * b; }   // (review 1 of 67) a slow breath in the body (frozen holds)
     // ant middle arms follow the main arms
     if (R.J.shoulder2L) for (const s of ['L', 'R']) {
       const a = q['shoulder' + s] || [0, 0, 0], e = q['elbow' + s] || [0, 0, 0];
@@ -1555,6 +1558,17 @@ export function buildCreature(name, opts = {}) {
     const tw = (t * 0.23 + phase * 1.7) % 1, twitch = (cl === 'idle' || cl === 'grow') && tw < 0.06 ? 0.18 * S(tw / 0.06 * PI) : 0;
     const ex = params.expression || q.expr || userExpr;
     applyExpression(R, ex === 'neutral' && cl === 'talk' ? 'talk' : ex, blink, twitch);
+    // (review 1 of 67) params.popAt [t0, t1]: the eyes shoot out on stalks at t0 (params.popLen metres, 0.12), overshoot and wobble, and spring back
+    // at t1; the stalks are made the first time and hidden otherwise (eye groups are not joints: their place is set here every frame)
+    for (const E of R.eyes) {
+      let d = 0;
+      if (params.popAt) { const [p0, p1] = params.popAt, L0 = params.popLen ?? 0.12, a = t - p0;
+        if (a >= 0) d = L0 * (a < 0.05 ? 1.25 * a / 0.05 : 1 + 0.25 * Math.exp(-7 * (a - 0.05)) * Math.cos((a - 0.05) * 24));
+        if (p1 != null && t >= p1) d *= Math.max(0, 1 - (t - p1) / 0.12); }
+      if (d > 0.002 && !E.stalk) { E.stalk = new THREE.Mesh(new THREE.CylinderGeometry(E.r * 0.16, E.r * 0.22, 1, 6), mat(E.stalkColor)); E.stalk.rotation.x = PI / 2; E.g.parent.add(E.stalk); }
+      E.g.position.z = E.z0 + d; E.g.position.x = E.x0 + E.side * 0.18 * d;   // the stalks splay a little
+      if (E.stalk) { E.stalk.visible = d > 0.002; E.stalk.position.set(E.g.position.x, E.g.position.y, E.z0 + d / 2); E.stalk.scale.set(1, Math.max(0.001, d), 1); }
+    }
     // grow / persistent size
     const k = cl === 'grow' ? clamp01(params.k ?? t / (params.dur ?? 2)) : 0;
     const g = lerp(1, params.to ?? 3, ease.inOut(k)) * (cl === 'grow' ? 1 + 0.03 * S(k * PI * 6) * (1 - k) : 1);
