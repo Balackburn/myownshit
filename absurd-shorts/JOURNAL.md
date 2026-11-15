@@ -2811,3 +2811,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   la main, quatre plans de la montée cachent leur sujet. Passe 2 confiée à un agent dérivé (son script et son fichier d'accessoires seulement).
 - « L'ascenseur » (76) : revue 2 = 6,0 ; 6,5. Reste à corriger : barbe qui s'écrase et lunettes qui flottent quand la tête tourne, cabine pas
   plus claire que le palier, plans larges trop petits.
+- 0 h 50 — Moteur : nouvelle option `hang` sur un accessoire attaché (il pend par gravité au lieu d'être cloué à l'articulation). Vérifiée sur
+  douze images de « L'ascenseur » : la barbe reste longue quand le vieil homme tourne la tête vers le bouton (plans 11, 14, 16, 19), les lunettes
+  sont posées sur le nez. Le reste de la passe 3 (lumière de la cabine, sol plus foncé, plans larges, chute) est confié à un agent dérivé.
+- « Le bus » (72) : passe 2 relue sur deux planches (ticket « LIGNE 12 » en grand sous « 21 ROME », roue de jambes, trattoria, montagne de
+  chaussures, mollets ballons) ; brouillon 2 en file, revue 2 préparée avec les descriptions de plans mises à jour.

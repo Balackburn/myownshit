@@ -1683,3 +1683,10 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 41) L'accessoire qui porte le gag récurrent (téléphone à l'oreille, étiquette, ticket) doit se lire à la taille d'un téléphone tenu à
   bout de bras : deux tiers de la hauteur de la tête au moins, couleur saturée, du côté de l'objectif, coude écarté. Un poing sous le menton se
   lit comme une toux. Le vérifier sur l'image de contrôle du PREMIER plan avant tout le reste (« Le service client », revue 1 : 5,4).
+
+- (cycle 41) Ce qui PEND d'une articulation (longue barbe, médaille, cordon, pendentif) se fixe avec `'hang': True` dans `on={…}` :
+  `on={'actor': who, 'joint': 'head', 'offset': [0, 0.02, 0.1], 'hang': True, 'hangYaw': 0.4}`. L'accessoire reste vertical quelle que soit
+  l'inclinaison de l'articulation, devant le porteur, à la hauteur de son vrai point d'attache, et ne suit que `hangYaw` (0,35 par défaut) de la
+  rotation de la tête. Clouée à la tête, une barbe jusqu'aux genoux entrait dans le torse dès que la tête tournait de 90° (« L'ascenseur »,
+  revue 2 : « la barbe tombe en moignons au col »). Les lunettes, elles, restent clouées, mais SUR le visage : la face avant de la tête est à
+  z ≈ 0,094 (profondeur 0,17 × 1,1) ; un décalage z de 0,16 les faisait flotter six centimètres devant le profil.
