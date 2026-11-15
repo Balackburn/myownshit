@@ -76,15 +76,21 @@ export const CHAMPAGNE_PROPS = {
   // or keys [[t, level]]), bubbles rising in it until o.flatAt (then none, and the wine a duller gold: flat); o.lastBubble t: one slow bubble that
   // swells at the top and pops (blop); o.splashAt: a cork drops in: a crown of drops leaps out, the surface heaves, the cork bobs in it after
   // (o.corkScale 1); userData.grip: the middle of the stem
+  // (review 2 of 68) o.bold: a flute that reads on a phone (a pale translucent oval on a fist read as a foam head): a thicker frosted stem and foot,
+  // a dark outline round the bowl, glass a little less clear and the wine a deeper gold
   flute(o) {
-    const g = grp(), FH = 0.11, BR0 = 0.015, BR1 = 0.029, BY = 0.135, Y0 = BY - FH / 2;
-    const glass = new THREE.MeshLambertMaterial({ color: '#EAF7FF', transparent: true, opacity: 0.3, side: THREE.DoubleSide, depthWrite: false });
-    g.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.032, 0.004, 18), glass), 0, 0.002, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(0.0034, 0.0034, 0.072, 6), glass), 0, 0.04, 0));
+    const B = !!o.bold, g = grp(), FH = 0.11, BR0 = 0.015, BR1 = 0.029, BY = 0.135, Y0 = BY - FH / 2;
+    const glass = new THREE.MeshLambertMaterial({ color: B ? '#DCEEF9' : '#EAF7FF', transparent: true, opacity: B ? 0.5 : 0.3, side: THREE.DoubleSide, depthWrite: false });
+    const stemM = B ? new THREE.MeshLambertMaterial({ color: '#CFE2EE', transparent: true, opacity: 0.92 }) : glass;
+    g.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.032, B ? 0.006 : 0.004, 18), stemM), 0, 0.002, 0), at(new THREE.Mesh(new THREE.CylinderGeometry(B ? 0.0068 : 0.0034, B ? 0.0068 : 0.0034, 0.072, 8), stemM), 0, 0.04, 0));
+    if (B) { const ol = new THREE.MeshBasicMaterial({ color: '#2A3036', side: THREE.BackSide });
+      const sh = new THREE.Mesh(new THREE.CylinderGeometry(BR1 * 1.09, BR0 * 1.12, FH * 1.02, 20, 1, true), ol); sh.position.y = BY; g.add(sh);
+      const st = new THREE.Mesh(new THREE.CylinderGeometry(0.0088, 0.0088, 0.072, 8), ol); st.position.y = 0.04; g.add(st); }
     const bowl = new THREE.Mesh(new THREE.CylinderGeometry(BR1, BR0, FH, 20, 1, true), glass); bowl.position.y = BY; g.add(bowl);
     const bot = new THREE.Mesh(new THREE.ConeGeometry(BR0, 0.012, 20, 1, true), glass); bot.rotation.x = PI; bot.position.y = Y0 - 0.006; g.add(bot);
     const rim = new THREE.Mesh(new THREE.TorusGeometry(BR1, 0.0011, 4, 26), lam('#FFFFFF', 0.85)); rim.rotation.x = PI / 2; rim.position.y = BY + FH / 2; g.add(rim);
-    const WINE = new THREE.Color('#F2C94E'), FLAT = new THREE.Color('#CDB27A');
-    const wm = new THREE.MeshLambertMaterial({ color: WINE.clone(), transparent: true, opacity: 0.88 }), wine = new THREE.Mesh(new THREE.BufferGeometry(), wm); g.add(wine);
+    const WINE = new THREE.Color(B ? '#EBB52E' : '#F2C94E'), FLAT = new THREE.Color(B ? '#C9A85E' : '#CDB27A');
+    const wm = new THREE.MeshLambertMaterial({ color: WINE.clone(), transparent: true, opacity: B ? 0.97 : 0.88 }), wine = new THREE.Mesh(new THREE.BufferGeometry(), wm); g.add(wine);
     const topM = new THREE.MeshLambertMaterial({ color: '#FBE6A0', transparent: true, opacity: 0.92 }), top = new THREE.Mesh(new THREE.CircleGeometry(1, 20), topM); top.rotation.x = -PI / 2; g.add(top);
     const rAt = h => BR0 + (BR1 - BR0) * clamp01(h / FH) - 0.0012;
     let lastH = -1; const setLevel = lv => { const h = Math.max(0.002, FH * 0.96 * clamp01(lv)); if (Math.abs(h - lastH) < 0.0005) return; lastH = h;

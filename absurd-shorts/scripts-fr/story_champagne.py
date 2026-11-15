@@ -93,7 +93,7 @@ st.shot('S02', 'livingRoom', actors=[
             k(1.0, toon={'reach': {'R': [-0.42, 2.76, 0.2, 1, 0.05], 'L': LA2}, 'hands': {'R': 'grip', 'L': 'grip'}, 'hairUp': 0.6, 'bend': {'neck': [0.0, 0.0, 0.22, 1, None]}, 'face': {'lid': 0.35, 'mouth': 'line', 'brow': 0.6, 'browTilt': 12}}, toonDur=0.25, toonEase='inOut'),   # ...his head on one side...
             k(1.55, toon={'reach': {'R': RA2, 'L': LA2}, 'hands': {'R': 'grip', 'L': 'grip'}, 'hairUp': 0.6, 'face': {'lid': 0.45, 'mouth': 'line', 'gy': -0.4}}, toonDur=0.3, toonEase='inOut'),   # ...still waiting
             k(1.78, toon={'reach': {'R': RA2, 'L': LA2}, 'hands': {'R': 'grip', 'L': 'grip'}, 'hairUp': 0.6, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.05), k(1.86, toon={'reach': {'R': RA2, 'L': LA2}, 'hands': {'R': 'grip', 'L': 'grip'}, 'hairUp': 0.6, 'face': {'lid': 0.45, 'mouth': 'line', 'gy': -0.5}}, toonDur=0.08)])],
-        props=[P('flute2', 'flute', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.12, 0.03]}, scale=2.3, opts={'level': 0.0}),
+        props=[P('flute2', 'flute', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.12, 0.03]}, scale=2.3, opts={'level': 0.0, 'bold': True}),
                P('bot2', 'champagneBottle', pos=BOT2, scale=BS), P('foam2', 'foamJet', pos=[BOT2[0], r(BOT2[1] + 0.232 * BS), BOT2[2]], opts={'at': [-0.5, r(D2 + 0.5)], 'len': 0.16, 'spread': 0.6, 'size': 0.035, 'n': 70, 'color': FOAM}),
                P('gunk2', 'gunk', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={**HEADBOX, 'color': FOAM, 'at': -1.0, 'n': 10})],
         cams=[FC(0.0, [0.55, 3.7, 1.7], [[-0.42, 3.1, 0.2], [0.0, 2.5, 0.0], [0.0, 0.0, 0.0], [-0.55, 0.0, 0.3], [0.6, 0.0, 0.5]], top=0.14, bottom=0.76)])
@@ -107,7 +107,7 @@ st.shot('S03', 'livingRoom', actors=[
             k(r(PUNCH3 + 0.32), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 1.0, 'mouth': 'wavy', 'brow': -0.4}}, toonDur=0.05),   # the chips land: eyes shut tight...
             k(r(PUNCH3 + 0.6), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 0.25, 'mouth': 'line', 'brow': 0.2}}, toonDur=0.12),   # ...open again, flat
             k(r(PUNCH3 + 0.85), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 1.0, 'mouth': 'line'}}, toonDur=0.04), k(r(PUNCH3 + 0.91), toon={'hairUp': 0.6, 'bend': {'neck': [-0.25, 0, 0, 1, None]}, 'face': {'lid': 0.3, 'mouth': 'line'}}, toonDur=0.06)])],
-        props=[CEILING('ceil3'), HOLEP('hole3', [HOLE[0], r(CEIL - 0.006), HOLE[2]], at_=PUNCH3), P('cracks3', 'ceilingCracks', pos=[HOLE[0], r(CEIL - 0.008), HOLE[2]], rot=[PI / 2, 0, 0], opts={'r': 0.8, 'n': 13, 'at': PUNCH3, 'thick': 1.4}),
+        props=[CEILING('ceil3'), HOLEP('hole3', [HOLE[0], r(CEIL - 0.006), HOLE[2]], at_=PUNCH3, inner='#8EC5EA'), P('cracks3', 'ceilingCracks', pos=[HOLE[0], r(CEIL - 0.008), HOLE[2]], rot=[PI / 2, 0, 0], opts={'r': 0.8, 'n': 13, 'at': PUNCH3, 'thick': 1.4}),
                P('cork3', 'cork', pos=[HOLE[0], 2.6, HOLE[2]], scale=CS, opts={'spin': 3.0, 'trail': [[0.0, PUNCH3]]}, keys=[k(0.0, to=[HOLE[0], 4.2, HOLE[2]], dur=r(PUNCH3 * 2), ease='linear')]),
                P('gunk3', 'gunk', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={**HEADBOX, 'color': FOAM, 'at': -1.0, 'n': 10}),
                BURST('crac3', [r(HOLE[0] + 0.45), 2.62, 0.6], r(PUNCH3 + 0.02), 'CRAC !', 0.36, 0.3)],   # (review 1) inside the frame (cut by the top edge)
@@ -141,15 +141,15 @@ st.cue('sfx:crunch', 'S04', r(BURST4 - 0.04), 0.35); st.cue('sfx:splash', 'S04',
 D5 = st.dur('S05'); FL5 = [-4.6, 0, -2.15]; VO5 = [-4.15, 0, -0.55]
 TYPE5 = [r(0.15 + 0.16 * j) for j in range(int((D5 - 0.2) / 0.16))]
 JAB5 = lambda up, j: {'reach': {'R': [r(VO5[0] + (0.1 if up else 0.2)), r(2.8 if up else 2.45), r(VO5[2] - (0.25 if up else 0.35)), 1, 0.05]}, 'hands': {'R': 'point'}, 'sq': [r(0.92 if up else 1.08), r(1.1 if up else 0.92), r(0.92 if up else 1.08)],
-                      'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'scream' if j % 2 else 'teeth', 'brow': -1.0, 'vein': 1.0}}
+                      'face': {'lid': 0.0, 'eye': 0.3, 'mouth': 'scream' if j % 2 else 'O', 'brow': -1.0, 'vein': 1.0}}
 st.shot('S05', 'office', setOpts={'printer': False}, actors=[
         act('voisine', VO5, 165, 'stand', 'angry', keys=[k(0.0, look=[FL5[0], 1.6, FL5[2]]), k(0.0, toon=JAB5(True, 0), toonDur=0.0),
             *[k(r(0.12 + 0.24 * j), toon=JAB5(j % 2 == 0, j), toonDur=0.07, toonEase='out') for j in range(6)], k(0.7, look=[VO5[0], 3.4, -1.0]), k(1.2, look=[FL5[0], 1.6, FL5[2]])]),   # (review 1) jab, jab, jab, furious (a held arm, a bored face)
         act('flic', FL5, 0, 'sit', 'unimpressed', keys=[k(0.0, look=[-4.6, 0.8, -1.65]), k(0.0, toon={'face': {'lid': 0.55, 'mouth': 'line', 'gy': 0.5}}, toonDur=0.0),
             *[k(tj, toon={'reach': {('R' if j % 2 else 'L'): [r(-4.5 if j % 2 else -4.7), r(0.84 if (j // 2) % 2 else 0.8), -1.68, 1, 0.04]}, 'hands': {'R': 'point', 'L': 'point'}, 'face': {'lid': 0.55, 'mouth': 'line', 'gy': 0.5}}, toonDur=0.06) for j, tj in enumerate(TYPE5)]])],   # two fingers on the keys
-        props=[P('pc5', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gend5', 'signBoard', pos=[-3.8, 0, 0.3], ry=200, opts={'text': 'GENDARMERIE', 'bg': '#26365F', 'fg': '#FFFFFF', 'w': 1.5, 'h': 0.36, 'height': 1.9}),
+        props=[P('pc5', 'laptop', pos=[-4.6, 0.76, -1.6], ry=180), P('gend5', 'signBoard', pos=[-3.8, 0, 0.3], ry=200, opts={'text': 'GENDARMERIE', 'bg': '#26365F', 'fg': '#FFFFFF', 'w': 1.5, 'h': 0.36, 'height': 3.05}),
                P('gunk5', 'gunk', on={'actor': 'voisine', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={'w': 0.26, 'h': 0.48, 'd': 0.17, 'color': SOUP, 'at': -1.0, 'n': 11, 'noodle': True})],
-        cams=[FC(0.0, [-4.2, 2.35, -3.4], [[VO5[0], 2.95, VO5[2]], [VO5[0], 1.2, VO5[2]], [r(VO5[0] + 0.3), 2.95, -0.85], [-4.6, 1.45, -2.15]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.3, 3.4, -3.45, 13.0))])   # (stills 3) high and to his right: his seated cap low at the left edge, no longer over her   # (review 1) the desk, the laptop and the sign (only a cap at the edge)
+        cams=[FC(0.0, [-4.2, 2.35, -3.4], [[VO5[0], 2.95, VO5[2]], [VO5[0], 1.2, VO5[2]], [r(VO5[0] + 0.3), 2.95, -0.85], [r(VO5[0] - 0.35), 2.0, VO5[2]]], top=0.12, bottom=0.78, inside=(-6.8, 6.8, 0.3, 3.4, -3.45, 13.0))])   # (stills 3) high and to his right: his seated cap low at the left edge, no longer over her   # (review 1) the desk, the laptop and the sign (only a cap at the edge)
 for tj in TYPE5: st.cue('sfx:click', 'S05', tj, 0.12)
 
 # 6: the police opened an inquiry. Back in his living room, from low: a detective in a trench coat looks up the hole through a magnifying glass,
@@ -158,6 +158,7 @@ for tj in TYPE5: st.cue('sfx:click', 'S05', tj, 0.12)
 D6 = st.dur('S06'); DET6 = [0.45, 0, 0.62]
 st.shot('S06', 'livingRoom', actors=[
         act('commissaire', DET6, -35, 'stand', 'neutral', keys=[k(0.0, look=HOLE), k(0.0, toon={'touch': {'L': ['face', -0.12, 0.62, 0.14, 1, 0.02]}, 'hands': {'L': 'grip'}, 'bend': {'neck': [-0.35, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eyeL': 2.0, 'lidR': 0.7, 'mouth': 'pout', 'brow': 0.3}}, toonDur=0.0),   # (review 1) the lens in his far hand (his forearm covered it), the eye huge in it
+            k(1.0, look='camera', lookDur=0.15), k(1.0, toon={'touch': {'L': ['face', -0.06, 0.06, 0.3, 1, 0.02]}, 'hands': {'L': 'grip'}, 'bend': {'neck': [0.0, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eyeL': 2.0, 'lidR': 0.7, 'mouth': 'pout', 'brow': 0.6}}, toonDur=0.14, toonEase='out'),   # (review 2) then at us, the lens before his eye: the huge eye in it (his forearm hid it)
             k(0.6, toon={'touch': {'L': ['face', -0.14, 0.63, 0.12, 1, 0.02]}, 'hands': {'L': 'grip'}, 'bend': {'neck': [-0.38, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eyeL': 2.6, 'lidR': 0.8, 'mouth': 'pout', 'brow': 0.6}}, toonDur=0.2, toonEase='inOut'),   # leaning in: the eye fills the lens
             k(1.2, toon={'touch': {'L': ['face', -0.12, 0.62, 0.14, 1, 0.02]}, 'hands': {'L': 'grip'}, 'bend': {'neck': [-0.35, 0, 0, 1, None]}, 'face': {'lid': 0.0, 'eyeL': 2.0, 'lidR': 0.7, 'mouth': 'line', 'brow': 0.4}}, toonDur=0.2), k(1.25, look='camera')]),
         act('mec', [-0.65, 0, 0.15], 15, 'stand', 'unimpressed', keys=[k(0.0, look=HOLE), k(0.0, toon={'bend': {'neck': [-0.3, 0, 0, 1, None]}, 'face': {**DEAD, 'mouth': 'line'}}, toonDur=0.0),
@@ -165,7 +166,7 @@ st.shot('S06', 'livingRoom', actors=[
         props=[CEILING('ceil6'), HOLEP('hole6', [HOLE[0], r(CEIL - 0.006), HOLE[2]], inner='#8EC5EA'),
                P('light6', 'holeLight', pos=[HOLE[0], 0.0, HOLE[2]], face='camera', opts={'w': 0.45, 'h': CEIL}),
                P('mag6', 'magnifier', on={'actor': 'commissaire', 'hand': 'L', 'offset': [0.0, 0.0, 0.03]}, face='camera', scale=1.5),
-               P('side6', 'table', pos=SIDE, opts={'w': 0.55, 'd': 0.45, 'h': SIDE_H}), P('flute6', 'flute', pos=[SIDE[0], SIDE_H, SIDE[2]], scale=CS, opts={'level': 0.75}),
+               P('side6', 'table', pos=SIDE, opts={'w': 0.55, 'd': 0.45, 'h': SIDE_H}), P('flute6', 'flute', pos=[SIDE[0], SIDE_H, SIDE[2]], scale=2.0, opts={'level': 0.75, 'bold': True}),
                P('gunk6', 'gunk', on={'actor': 'mec', 'joint': 'head', 'offset': [0.0, 0.0, 0.0]}, opts={**HEADBOX, 'color': FOAM, 'at': -1.0, 'n': 10})],
         cams=[FC(0.0, [-1.9, 0.85, 2.4], [[DET6[0], 2.5, DET6[2]], [-0.65, 2.5, 0.15], [-1.0, 2.4, 0.15], [-0.65, 0.4, 0.15], [HOLE[0], r(CEIL + 0.02), HOLE[2]], [SIDE[0], 0.7, SIDE[2]], [0.95, 1.5, 0.6]], top=0.08, bottom=0.8)])   # (review 1) the man whole (cut in half by the edge)
 st.cue('sfx:sniff', 'S06', 0.3, 0.25); st.cue('sfx:click', 'S06', 1.1, 0.2)
@@ -197,7 +198,7 @@ st.cue('sfx:jet', 'S08', 0.05, 0.5); st.cue('whoosh', 'S08', 0.3, 0.3, 0.4, 300,
 # 9: the cork won. From the side: the cork bursts away upward (ZOUM), the jets fall behind, cough out black puffs and peel off (GAGNÉ)
 D9 = st.dur('S09'); C9 = [0.0, 100.0, 0.0]; J91 = [-7.0, 118.0, -6.0]; J92 = [6.0, 111.0, -9.0]; DASH9 = 0.05   # (review 1) the cork comes from under the jets and overtakes them mid-frame (a speck gone in 0.47 s)
 st.shot('S09', 'skyHigh', actors=[],
-        props=[P('cork9', 'cork', pos=C9, scale=55, opts={'spin': 3.0, 'trail': [[0.0, 9.0]]}, keys=[k(DASH9, to=[C9[0], 270.0, C9[2]], dur=0.6, ease='in')]),
+        props=[P('cork9', 'cork', pos=C9, scale=150, opts={'spin': 3.0, 'trail': [[0.0, 9.0]]}, keys=[k(DASH9, to=[C9[0], 270.0, C9[2]], dur=0.6, ease='in')]),
                P('jet91', 'fighterJet', pos=J91, rot=[-PI / 2, 0, 0], opts={'burner': 0.4}, keys=[k(0.0, to=[J91[0], r(J91[1] + 8), J91[2]], dur=0.6, ease='out'), k(0.6, rot=[-PI / 2 + 0.9, 0, 0.6], dur=0.6, ease='inOut'), k(0.6, to=[r(J91[0] - 6), r(J91[1] + 4), J91[2]], dur=0.6, ease='inOut')]),
                P('jet92', 'fighterJet', pos=J92, rot=[-PI / 2, 0, 0.3], opts={'burner': 0.4}, keys=[k(0.0, to=[J92[0], r(J92[1] + 7), J92[2]], dur=0.6, ease='out'), k(0.55, rot=[-PI / 2 + 0.9, 0, -0.5], dur=0.6, ease='inOut'), k(0.55, to=[r(J92[0] + 6), r(J92[1] + 3), J92[2]], dur=0.6, ease='inOut')]),
                P('puff91', 'dustPuff', pos=[J91[0], r(J91[1] - 1.0), J91[2]], scale=8, opts={'color': '#3A3A3E', 'once': True, 'startAt': 0.45, 'period': 0.8}),
@@ -227,7 +228,7 @@ st.shot('S11', 'office', setOpts={'wall': '#3A4A5E', 'band': '#2C3A4C', 'trim': 
             k(0.3, look=[-1.15, 2.2, -2.2]), k(0.75, toon={'reach': {'R': [0.85, 1.6, -1.9, 1, 0.05]}, 'hands': {'R': 'grip'}, 'face': {'lid': 1.0, 'mouth': 'smirk'}}, toonDur=0.04), k(0.81, toon={'reach': {'R': [0.85, 1.6, -1.9, 1, 0.05]}, 'hands': {'R': 'grip'}, 'face': {'lid': 0.2, 'mouth': 'smirk'}}, toonDur=0.06), k(1.0, look=[0.0, 1.8, -3.45]),
             k(r(NAME11 + 0.05), toon=TOAST11(1.55, -1.9), toonDur=0.15, toonEase='out'), k(r(NAME11 + 0.15), look='camera')])],
         props=[P('screen11', 'orbitScreen', pos=[0.0, 1.3, -3.45], opts={'w': 2.7, 'h': 1.5, 'nameAt': NAME11, 'period': 2.6}),   # (review 1) above the desk monitors (one hid ON 1)
-               P('fl11a', 'flute', on={'actor': 'savant1', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.3, opts={'level': 0.7}), P('fl11b', 'flute', on={'actor': 'savant2', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.3, opts={'level': 0.7})],
+               P('fl11a', 'flute', on={'actor': 'savant1', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.3, opts={'level': 0.7, 'bold': True}), P('fl11b', 'flute', on={'actor': 'savant2', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.3, opts={'level': 0.7})],
         cams=[FC(0.0, [0.3, 1.75, 1.6], [[-1.35, 1.35, -3.45], [1.35, 2.85, -3.45], [-1.55, 2.75, -2.0], [1.55, 2.75, -1.9], [-1.15, 1.4, -2.2], [1.15, 1.4, -2.1]], top=0.2, bottom=0.75)])   # (review 1) closer: the screen, the name and the toasts fill the frame (a third of floor and wall)
 st.cue('sfx:fanfare', 'S11', NAME11, 0.3); st.cue('sfx:clink', 'S11', r(NAME11 + 0.2), 0.3)
 
@@ -338,7 +339,7 @@ st.shot('S19', 'livingRoom', actors=[
             k(r(DROP19 + 0.4), toon={'bend': {'spine': [0.32, 0, 0, 1, None], 'neck': [0.1, 0, 0, 1, None]}, 'face': {'lid': 0.4, 'mouth': 'line', 'sweat': 1.0}}, toonDur=0.12), k(r(DROP19 + 0.45), look='camera')])],   # ...open, on us
         props=[CEILING('ceil19'), HOLEP('hole19', [HOLE[0], r(CEIL - 0.006), HOLE[2]], inner='#8EC5EA'),
                P('side19', 'table', pos=SIDE, opts={'w': 0.55, 'd': 0.45, 'h': SIDE_H}),
-               P('flute19', 'flute', pos=[SIDE[0], SIDE_H, SIDE[2]], scale=2.0, opts={'level': 0.75, 'flatAt': -1.0, 'splashAt': DROP19}),
+               P('flute19', 'flute', pos=[SIDE[0], SIDE_H, SIDE[2]], scale=2.0, opts={'level': 0.75, 'flatAt': -1.0, 'splashAt': DROP19, 'bold': True}),
                P('cork19', 'cork', pos=[HOLE[0], r(CEIL + 0.1), HOLE[2]], scale=CS, opts={'spin': 0.0, 'trail': [[r(DROP19 - FLY19), DROP19]], 'hideAt': DROP19},
                  keys=[k(POKE19, to=[HOLE[0], r(CEIL - 0.04), HOLE[2]], dur=0.05, ease='out'), *[k(r(0.12 + 0.05 * j), rotTo=[0.0, 0.0, 0.35 if j % 2 else -0.35], dur=0.05, ease='inOut') for j in range(4)],   # (review 1) it hangs in the hole a beat, wobbling...
                        k(r(DROP19 - FLY19), rotTo=[0.0, 0.0, 0.0], dur=0.03), k(r(DROP19 - FLY19), to=[SIDE[0], r(SIDE_H + 0.25), SIDE[2]], dur=FLY19, ease='in')]),   # ...then drops (it showed in one frame)
@@ -349,19 +350,19 @@ st.cue('sfx:click', 'S19', POKE19, 0.12); st.cue('whoosh', 'S19', r(DROP19 - FLY
 
 # 20: the champagne was flat. First close on the glass in his hand, held up to the light: the cork floating on dead wine; one last bubble rises and
 #    pops (blop). Then him: a sip, the corners of his mouth sink, a slow blink, a look at us
-D20 = st.dur('S20'); CUT20 = 1.15; BLOP20 = 0.8; SIP20 = 1.3
+D20 = st.dur('S20'); CUT20 = 0.85; BLOP20 = 0.45; SIP20 = 0.9   # (review 2) a true insert first (no glass read in a face shot), the look held a second
 HOLD20 = lambda f, x=0.3, y=0.05, z=0.22: {'touch': {'R': ['face', x, y, z, 1, 0.02]}, 'hands': {'R': 'grip'}, 'face': f}
 st.shot('S20', 'livingRoom', actors=[
-        act('mec', [-0.1, 0, 0.2], 10, 'stand', 'unimpressed', keys=[k(0.0, look=[0.25, 2.1, 0.45]), k(0.0, toon=HOLD20({**DEAD, 'mouth': 'line'}), toonDur=0.0),   # (review 1) the glass held by the stem beside his face, against the wall
-            k(SIP20, look=[0.0, 1.2, 1.0]), k(SIP20, toon=HOLD20({'lid': 0.5, 'mouth': 'kiss'}, 0.04, 0.0, 0.18), toonDur=0.15, toonEase='inOut'),   # a sip...
-            k(r(SIP20 + 0.3), toon=HOLD20({'lid': 0.45, 'mouth': 'frown', 'brow': -0.3}, 0.3, -0.1, 0.24), toonDur=0.18, toonEase='inOut'),   # ...the corners of his mouth sink...
-            k(r(SIP20 + 0.55), toon=HOLD20({'lid': 1.0, 'mouth': 'frown'}, 0.3, -0.1, 0.24), toonDur=0.15, toonEase='inOut'), k(r(SIP20 + 0.78), toon=HOLD20({'lid': 0.45, 'mouth': 'frown'}, 0.3, -0.1, 0.24), toonDur=0.15, toonEase='inOut'),   # ...a slow blink...
-            k(r(SIP20 + 0.85), look='camera')])],   # ...and on us
-        props=[P('flute20', 'flute', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.2, opts={'level': 0.68, 'flatAt': -1.0, 'splashAt': -2.0, 'lastBubble': BLOP20}),
-               P('cork20', 'cork', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.2, 0.03]}, scale=1.4, rot=[0.4, 0, 0.3])],   # floating in it
-        cams=[FC(0.0, [0.55, 2.0, 1.25], [[0.1, 2.06, 0.5], [0.1, 1.6, 0.5], [0.3, 1.85, 0.5], [-0.1, 1.85, 0.5]], top=0.2, bottom=0.7, lenses=range(20, 60)),   # (stills 3) the points on the glass itself (his hand is at 1.77 m: the old points framed above his head)   # (review 1) an insert on the glass top: dead wine, the cork, the last bubble (a block hand hid it)
-              FC(CUT20, [0.45, 1.95, 1.6], [[-0.1, 2.12, 0.2], [-0.1, 1.3, 0.2], [0.3, 1.75, 0.5], [-0.4, 1.8, 0.2]], top=0.16, bottom=0.74)])   # (stills 3) tighter on his face and the glass
-st.cue('sfx:pop', 'S20', BLOP20, 0.18); st.cue('sfx:gulp', 'S20', r(SIP20 + 0.15), 0.3)
+        act('mec', [-0.1, 0, 0.2], 10, 'stand', 'unimpressed', keys=[k(0.0, look=[0.25, 2.1, 0.45]), k(0.0, toon=HOLD20({'lid': 0.5, 'mouth': 'kiss'}, 0.04, 0.0, 0.18), toonDur=0.0),   # cut in on the sip
+            k(SIP20, look=[0.0, 1.2, 1.0]), k(r(SIP20 + 0.37), toon=HOLD20({'lid': 0.45, 'mouth': 'frown', 'brow': -0.3}, 0.3, -0.1, 0.24), toonDur=0.18, toonEase='inOut'),   # the corners of his mouth sink on « éventé »...
+            k(r(SIP20 + 0.55), look='camera', lookDur=0.12), k(r(SIP20 + 0.9), toon=HOLD20({'lid': 1.0, 'mouth': 'frown'}, 0.3, -0.1, 0.24), toonDur=0.15, toonEase='inOut'),
+            k(r(SIP20 + 1.1), toon=HOLD20({'lid': 0.45, 'mouth': 'frown'}, 0.3, -0.1, 0.24), toonDur=0.15, toonEase='inOut')])],   # ...his eyes on us for a second, one slow blink
+        props=[P('side20', 'table', pos=SIDE, opts={'w': 0.55, 'd': 0.45, 'h': SIDE_H}),
+               P('flute20t', 'flute', pos=[SIDE[0], SIDE_H, SIDE[2]], scale=2.0, opts={'level': 0.75, 'flatAt': -1.0, 'splashAt': -2.0, 'lastBubble': BLOP20, 'bold': True}, keys=[k(CUT20, visible=False)]),   # the insert: flat wine, the cork afloat, the last bubble
+               P('flute20', 'flute', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.13, 0.03]}, scale=2.2, opts={'level': 0.68, 'flatAt': -1.0, 'splashAt': -2.0, 'bold': True}, keys=[k(0.0, visible=False), k(CUT20, visible=True)])],
+        cams=[FC(0.0, [r(SIDE[0] + 0.85), 1.2, r(SIDE[2] + 0.25)], [[SIDE[0], 1.42, SIDE[2]], [SIDE[0], 0.97, SIDE[2]], [r(SIDE[0] - 0.12), 1.2, SIDE[2]], [r(SIDE[0] + 0.12), 1.2, SIDE[2]]], top=0.12, bottom=0.82, lenses=range(18, 60)),   # (review 2) the flute in profile filling the frame
+              FC(CUT20, [0.45, 1.95, 1.6], [[-0.1, 2.12, 0.2], [-0.1, 1.3, 0.2], [0.3, 1.75, 0.5], [-0.4, 1.8, 0.2]], top=0.16, bottom=0.74)])   # then him, locked
+st.cue('sfx:pop', 'S20', BLOP20, 0.18); st.cue('sfx:gulp', 'S20', r(SIP20 + 0.1), 0.3)
 
 EX = {'holdLife': 2.5, 'shift': 2.4, 'breathe': 1.8}
 MEC = {'preset': 'lemec', 'build': {'width': 0.82, 'headWidth': 1.3, 'headScale': 1.0}, 'toon': {'breathe': 1.4}}
