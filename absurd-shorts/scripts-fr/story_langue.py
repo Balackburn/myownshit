@@ -197,14 +197,14 @@ st.shot('S09', 'parisStreet', setOpts={**SNOW, 'sky': ['#62AEE2', '#A7D4EC'], 's
         act('mec', FAR, -90, 'stand', 'unimpressed', keys=[k(0.0, look=[POLE[0], LICK_Y, 0.0]), k(0.0, toon={'face': {**DEAD, 'mouth': 'tongueout'}}, toonDur=0.0),
             k(r(SNAP9 + 0.1), toon={'face': {'lid': 0.0, 'eye': 0.6, 'pupilSize': -0.4, 'brow': 1.0, 'mouth': 'tongueout'}}, toonDur=0.05),   # it is coming...
             k(HOME9, to=[r(FAR[0] + 0.36), 0, 0.0], dur=0.12, ease='out', face='keep'),
-            k(HOME9, look='camera'), k(HOME9, toon={'lay': [-0.3, 0.0], 'bend': {'spine': [-0.25, 0, 0, 1, None], 'neck': [-0.45, 0, 0, 1, None]}, 'reach': {'L': [r(FAR[0] + 0.55), 2.75, 0.75, 1, 0.05], 'R': [r(FAR[0] + 0.6), 2.65, -0.7, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'},
+            k(HOME9, look='camera'), k(HOME9, toon={'lay': [-0.24, 0.0], 'bend': {'spine': [-0.2, 0, 0, 1, None], 'neck': [-0.18, 0, 0, 1, None]}, 'reach': {'L': [r(FAR[0] + 0.55), 2.75, 0.75, 1, 0.05], 'R': [r(FAR[0] + 0.6), 2.65, -0.7, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'},
                                               'face': {'lid': 0.0, 'eye': 0.7, 'pupilSize': -0.45, 'brow': 1.0, 'mouth': 'kiss', 'puff': 1.0, 'cheeks': 1.0, 'swell': 1.0}}, toonDur=0.04, toonEase='out'),   # ...WHAP: (review 1) knocked back on an arc, head snapped back, arms up, cheeks blown out in his own head
-            k(r(HOME9 + 0.3), toon={'lay': [-0.22, 0.0], 'bend': {'spine': [-0.15, 0, 0, 1, None], 'neck': [-0.2, 0, 0, 1, None]}, 'reach': {'L': [r(FAR[0] + 0.5), 2.4, 0.75, 1, 0.05], 'R': [r(FAR[0] + 0.55), 2.3, -0.7, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'},
+            k(r(HOME9 + 0.3), toon={'lay': [-0.17, 0.0], 'bend': {'spine': [-0.12, 0, 0, 1, None], 'neck': [-0.08, 0, 0, 1, None]}, 'reach': {'L': [r(FAR[0] + 0.5), 2.4, 0.75, 1, 0.05], 'R': [r(FAR[0] + 0.55), 2.3, -0.7, 1, 0.05]}, 'hands': {'L': 'spread', 'R': 'spread'},
                                               'face': {'lid': 0.3, 'eye': 0.3, 'mouth': 'kiss', 'puff': 0.85, 'cheeks': 0.9, 'swell': 0.85}}, toonDur=0.22)])],   # ...and holds it
-        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('zip9', [2.8, 2.6, 0.6], r(SNAP9 + 0.12), 'ZIIIP !', 0.5, 0.3),
+        props=[*LAMP(melt=-2.0, lick_at=-1.0), BURST('zip9', [3.95, 2.3, 0.5], r(SNAP9 + 0.12), 'ZIIIP !', 0.5, 0.3),
                P('lines9', 'speedLines', pos=[2.4, 1.7, 0.3], face='camera', opts={'n': 7, 'len': 1.6, 'w': 0.6, 'angle': 0.0, 'soft': True, 'alpha': 0.8, 'at': [[SNAP9, HOME9]]})],
         tethers=[TONGUE(**{'sag': 0.05, 'n': 24, 'segments': 56, 'taper': 0.2, 'snap': [SNAP9, DUR9, 0.45, 1.35], 'reel': True, 'ripple': [[0.02, 0.16, 2.5]], 'bulbs': BULBS(on=-1.0, period=PER), 'birds': [[0.17, 99, 60], [0.23, 99, 40], [0.3, 99, 80]], 'plug': True})],
-        cams=[FC(0.0, [3.4, 1.85, 2.7], [[FAR[0], 2.85, 0.0], [FAR[0], 0.3, 0.0], [r(FAR[0] + 0.8), 2.4, 0.0], [3.0, 1.9, 0.0]], top=0.12, bottom=0.76)])   # (review 1) the reel moves the bulbs from the first frame: near enough for his face, room for his arms
+        cams=[FC(0.0, [3.6, 1.85, 2.9], [[FAR[0], 2.85, 0.0], [FAR[0], 0.3, 0.0], [r(FAR[0] + 1.35), 2.6, 0.0], [3.1, 1.9, 0.0]], top=0.12, bottom=0.76)])   # (review 1) the reel moves the bulbs from the first frame: near enough for his face, room for his arms
 st.cue('sfx:zip', 'S09', SNAP9, 0.4); st.cue('whoosh', 'S09', r(SNAP9 + 0.15), 0.35, 0.35, 400, 1600); st.cue('sfx:boing', 'S09', HOME9, 0.4)
 
 # 10: with the lights. Close: the plug end slurps in like the last of a spaghetti; GULP: a lump goes down his neck; his eyes cross

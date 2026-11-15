@@ -2583,3 +2583,29 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   - Décision : six archives indépendantes de 380 Mo au plus, chacune avec l'index complet (fichier, titre, durée, archive). L'envoi est
     limité à 400 Mo par fichier, et le disque n'avait que 1,9 Go de libre pour une archive unique. Chaque archive a été créée, envoyée,
     puis effacée avant la suivante ; aucune vidéo ni ancienne version n'a été supprimée.
+- 63 « Le café », revue 2 : animation 7,5, direction artistique 6,9. Passe 3 :
+  - Réglé sans demander :
+    - copies fantômes de la vibration : trois au lieu de cinq ;
+    - la bouche qui claque : barre de dents serrées (`clench`), le croissant de dents se lisait comme un sourire.
+  - S03 : le papier peint est d'abord poussé en forme d'homme (tête, épaules, tasse, jambes : `jellyWall` `press`). Il le crève, puis les anneaux partent de là ; une bosse ronde se lisait comme un ballon.
+  - S06 : vu de côté depuis la roche ; il est tourné vers nous, penché à 30°, les deux paumes sur la roche ; les éclats volent derrière lui.
+  - S07 : cadré serré sur la bande du tunnel (il fait un quart de la hauteur). Panoramique qui le suit, rame juste derrière, tache de lumière sur lui, lune et soleil dans la bande de ciel au-dessus de toits bas.
+  - S08 : caméra plus basse (le plateau tombait sur le point de fuite des lampes). Tasse DÉCA plus grosse, cerclée de brun, tenue à côté du visage, sans vapeur ; le serveur refait une courbette.
+  - S10 : l'accordéon se plie tronçon après tronçon sur cinq images, avec dépassement, rebond et plis ombrés un sur deux. Secousse caméra, halos éteints au contact, phare pendu à son fil, SCRONCH ! en noir et plus grand.
+  - S11 : station éclairée (voûte claire, lampes, carrelage, ballast, traverses et rails, arche de tunnel avec ses lampes). Les têtes restent droites au bout des cous à l'horizontale (nouvelle valeur `lvl` des flexions).
+  - S12 : la reprise dure onze images, suivies de quatre battements de paupière (casque qui cliquette) et d'une secousse de la rame. Deux touches de la voyageuse avaient été avalées par un commentaire en fin de ligne : rétablies.
+  - Question d'un critique, réglée sans demander : faut-il chaque gag de la liste dans chaque histoire ? Non, mais « s'aplatir puis regonfler » est maintenant porté par le rebond de l'accordéon.
+- 64 « La langue », revue 1 : animation 6,6, direction artistique 6,2. Passe 2 :
+  - Jour sous ciel bleu (la neige sortait pêche). Le poteau est filmé de trois quarts face à lui.
+  - Le cou en caoutchouc, pieds plantés. Le visage aplati contre le poteau, yeux dehors, tenu cinq images, puis la tête qui ressort.
+  - Trois tractions en rythme. Le bus vu d'en haut, par-dessus son toit, avec une demi-seconde de suspension. Le maire à côté de lui.
+  - Nuits éclairées par leurs lumières, sans assombrissement après coup : une lumière qui change de couleur avec son visage, le ventre plus lumineux que tout.
+  - Moteur :
+    - rembobinage façon mètre ruban (`reel` : les ampoules glissent dans sa bouche dès la première image) ;
+    - puissance du retour (`snap[3]`) ;
+    - joues gonflées dans sa propre tête (`face.swell` : le bas de la tête s'élargit avec sa peau peinte ; deux sphères se lisaient comme des cache-oreilles) ;
+    - pigeons plus gros (`birdScale`).
+- 65 « Le poisson rouge » (cycle 27), dans la veine des premières histoires (demande de l'utilisateur) :
+  - Vingt et une répliques, 39,6 s, un plan par réplique. L'escalade passe par la mairie, la plainte des canards, le juge, l'appel, l'armée et le gouvernement ; accord historique, puis aparté sec.
+  - Plan écrit : animalerie, bocal qui déborde, baignoire, piscine, panneau, lac, pédalos, gendarmerie, tribunal, tribunal avalé, chars et avions, jetée, côte, rappel final.
+  - Contrôles : les canards sonnaient faux, le caquètement de la banque de sons les remplace. Le héros de profil (tête-boîte) a été tourné de trois quarts.
