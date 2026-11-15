@@ -2731,3 +2731,21 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
 - « Le feu rouge » (66) : version finale (1080x1920, 39,2 s, −16,0 LUFS, contrôle sans erreur, aucune image grise), envoyée puis publiée sur TikTok par Postiz (statut PUBLISHED à 14 h 21). L'assemblage HyperFrames a pris moins de 4 minutes ; un faux rendu occupait la place dans la file pendant ce temps pour qu'aucun brouillon ne démarre.
 - Demande « la qualité est moins bonne qu'en publication manuelle, trouve pourquoi » : le fichier gardé par Postiz est identique octet pour octet à notre rendu (1080x1920, H.264 High, environ 9 Mbit/s, couleurs bt709, en-tête au début du fichier), pour « Le sable » comme pour « Le feu rouge ». Ni le rendu ni Postiz ne dégradent la vidéo : c'est TikTok qui la recompresse à la réception par l'API, et l'API (comme les réglages TikTok de Postiz) n'a pas d'équivalent au réglage « importer en haute qualité » de l'appli. Aucune documentation officielle de TikTok ne le confirme ni ne l'infirme. Ajouté : option `--inbox` (la vidéo arrive dans la boîte de réception de l'appli TikTok, publiée ensuite depuis l'appli) pour comparer.
 - Demande « ne dis pas que c'est généré par IA, c'est un rendu » : l'étiquette est retirée des trois outils de publication (Postiz, API TikTok, PostOnce) pour les prochaines vidéos.
+
+## 15 novembre, 15 h 40 — passes finales du « Champagne » et de « La moustache » ; cheveux blancs de « L'ascenseur »
+
+- « Le champagne » (68), passe finale d'après la revue 3 (animation 7,3 ; direction artistique 7,0) : S01 arc-bouté (tête abaissée, pieds plantés écartés, la
+  bouteille tenue à hauteur de poitrine contre le mur, les deux pouces sur le bouchon ; au POP la tension lâche et il se redresse) ; S02 resserré sur lui ;
+  S05 vue depuis le côté du gendarme (il tape au clavier), voisine en lilas (sa veste menthe disparaissait dans la cuisine menthe), sourcils froncés, bouche
+  carrée, bras hors de la tête ; S06 détective dégagé de la table (la flûte se voit dès la première image), puis gros plan sur la loupe face caméra devant
+  son œil énorme ; S19 en deux temps (le bouchon qui tremble dans le trou vu d'en dessous, puis le verre en gros plan où il tombe) ; S20 clignement juste
+  après la grimace, regard tenu, verre à hauteur du visage. Verre « paille » : vin doré translucide, dernière bulle cerclée de blanc.
+- « La moustache » (67) : revue 3 = 6,5 / 6,5. Deux commentaires mal placés dans le script désactivaient l'esquive du bocal (S10) et les deux drapeaux
+  (S14) : réparés. Passe finale : la moustache replie pattes et bras dans le visage tant qu'elle est sur la lèvre (nouveau clip `pose`), les sort en pleine
+  chute, la caméra la suit jusqu'au lavabo ; bocal levé au-dessus de la tête puis abattu, la moustache saute à côté juste avant, bocal aux bords sombres ;
+  rasoir géant debout à côté du juge, plus de panneau ni de sceau sous le carton RASÉ ; pièce vide éclairée derrière la porte (le modèle de porte avait un
+  fond noir) ; deuxième saut sur « soixante pour cent » ; salut à grand bras et flashs dans le cadre ; S03 et S11 resserrés.
+- « L'ascenseur » (76) : le vieux avait le dessus des cheveux blanc mais les côtés noirs (peints sur la texture) ; la couleur des cheveux recolore
+  maintenant les côtés et l'arrière peints.
+- Erreur évitée de justesse : une copie maître périmée installée sur le moteur par une chaîne `diff && cp ; suite` ; ligne perdue remise à la main,
+  `git diff --stat engine/` vérifié (seules les lignes voulues changent).

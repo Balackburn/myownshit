@@ -424,6 +424,9 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 | La moustache qui part seule | créature `moustache` avec `sheen`, bras courts et fins finis par des gants blancs (`hand: 'glove'`, `handW`) : elle se lit comme une moustache vivante, pas comme une araignée à quatre pattes ; nœud papillon sur un col blanc (une cravate sous la moustache se lisait comme une langue) |
 | La carrière qui monte | à chaque échelon plus haut, la créature est plus grande dans le cadre et l'action plus franche : sur les échelons les plus hauts (ministre, président), cadrer bas et serré, à plus de la moitié de la largeur |
 | La bouchée qui reste bouche fermée | après le claquement des mâchoires, `gulp` avec `bliss` long (jusqu'à la coupe) : les yeux fermés en arc, la bouche close, le corps qui gonfle et oscille ; les déplacements du poisson pendant ce temps glissent (`glide=True`), sinon le geste repart et la bouche se rouvre |
+| Le bouchon qui retombe pile dans le verre | deux plans dans le même plan narratif : un insert de 0,3 s par-dessous sur le trou du plafond où le bouchon dépasse et tremble, puis un plan serré au-dessus du verre posé sous le trou : le bouchon tombe du haut du cadre dans le verre (PLOUF), le vin saute au visage penché sur le côté (jamais au-dessus du verre : la tête serait sur la trajectoire). Un seul plan « trou + verre » oblige à un cadre large où le verre fait 7 % de la largeur |
+| La moustache qui cache ses pattes | sur la lèvre, la créature tient le clip `pose` (jambes et bras repliés vers l'arrière, dans le visage) : ce n'est qu'une moustache jusqu'à l'ouverture des yeux ; les pattes sortent au milieu de la chute (`airborne`), elle s'aplatit à l'atterrissage puis regonfle un peu plus grosse (clé `scale`) ; la caméra la suit vers le bas jusqu'au bord du lavabo, elle de face et grande |
+| La pièce vide derrière la porte | `door` avec `inside: 'empty'` : en s'ouvrant, la porte montre une pièce nue éclairée par une ampoule au bout de son fil (un appartement qu'on vient de trouver), au lieu du fond noir du modèle |
 
 ## Erreurs à éviter
 
@@ -1607,3 +1610,18 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
   qu'un détail (la cravate). Un autre préréglage (chauve, costume gris) se lit comme un autre personnage et casse la chute.
 - (cycle 38) Un ascenseur ouvert sur un rectangle noir avec le soubassement du hall dessous se lit comme « pas de cabine » : `immeubleHall` avec
   `car` (ouverture dans le mur, cabine éclairée, portes qui rentrent dans le mur).
+- (passe finale de 67) Un commentaire `#` glissé au milieu d'une ligne de code Python efface tout ce qui suit : dans « La moustache », l'esquive du bocal (S10)
+  et les deux drapeaux (S14) n'existaient plus, et les relecteurs ont vu « une rotation sur place » et « un liseré rouge pour deux drapeaux ». Après chaque
+  correctif, chercher dans le script les lignes où du code suit un commentaire (`grep -n "#.*), \(k\|SQ\|MK\|P\)("`) et les remettre en fin de ligne.
+- (passe finale de 67) `diff -q A B && cp ...; commande suivante` : quand le diff échoue, la suite après le `;` tourne quand même ; une copie maître
+  périmée a été installée par-dessus le moteur (une ligne récente perdue, remise à la main). Toujours `if ...; then ...; fi`, et `git diff --stat engine/`
+  après chaque installation pour voir que seules les lignes voulues ont changé.
+- (passe finale de 68) Une loupe ou un rasoir tenus par le manche : le verre ou la tête sont au bout du manche, (manche + rayon) × échelle plus loin que la main
+  (43 cm pour la loupe à l'échelle 2) ; pour la loupe devant l'œil, la main va sous le menton (`touch` face, hauteur ≈ −0,25), sinon le verre passe au-dessus du chapeau.
+- (passe finale de 68) Un verre de champagne derrière une paroi blanche à 50 % devient un milkshake pêche : `flute` avec `straw` (paroi à 0,16, vin paille
+  translucide légèrement émissif, dernière bulle cerclée de blanc dessinée par-dessus le vin). Vu de haut, le verre tenu reste une cloche blanche : le tenir à
+  hauteur du visage, la caméra à la hauteur du verre.
+- (passe 2 de 76) Une tête peinte (atlas) avec des cheveux blancs : les cheveux noirs sont peints sur les côtés et l'arrière de la texture ; `hairColor`
+  les recolore maintenant (côtés et arrière), en plus du dessus en bloc ; sans cela le vieux avait le dessus blanc et les côtés noirs.
+- (passe finale de 67) Un carton de titre en haut du cadre sur un panneau de la même couleur (TRIBUNAL bleu marine) se fond dedans : `courtroom` avec
+  `sign: False` (ni panneau ni sceau au-dessus du juge) et le nom du tribunal sur la façade du banc, sous le carton.
