@@ -72,7 +72,7 @@ st.shot('S01', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', ME1, -10
             k(GO1, to=[2.3, 0, 1.9], dur=r(D1 - GO1 + 0.4), ease='in', clip='walk'), k(r(GO1 + 0.15), look='camera'), k(r(GO1 + 0.2), toon={'face': {'lid': 0.2, 'mouth': 'O'}}, toonDur=0.08)])],   # off toward us, whistling
         props=[TUBP('tub1', fillKeys=[[0.0, 0.08], [ON1, 0.08], [r(ON1 + 0.7), 0.55], [D1, 0.85]], tap=[ON1, 99.0]),   # (review 2) the tub fills in front of us (it stayed empty)
                P('notes1', 'whistleNotes', on={'actor': 'mec', 'joint': 'head', 'offset': [0.12, 0.05, 0.12]}, opts={'from': r(GO1 + 0.2), 'every': 0.22, 'n': 4, 'size': 0.09})],
-        cams=[FC(0.0, [-0.5, 2.0, 1.4], [[ME1[0], 2.45, ME1[2]], [ME1[0], 0.0, ME1[2]], [r(ME1[0] + 0.5), 1.4, ME1[2]], [r(TUB[0] - TW / 2), 0.1, TUB[2]], [MOUTH[0], 1.1, MOUTH[2]], [r(TUB[0] - TW / 2), 0.9, RIMZ]], top=0.14, bottom=0.78, inside=BATH)])   # (stills 1) higher, into the tub (the water and the stream were hidden by its wall); him whole
+        cams=[FC(0.0, [-0.3, 2.75, 1.0], [[ME1[0], 2.45, ME1[2]], [ME1[0], 0.0, ME1[2]], [r(ME1[0] + 0.5), 1.4, ME1[2]], [r(TUB[0] - TW / 2), 0.1, TUB[2]], [MOUTH[0], 1.1, MOUTH[2]], [r(TUB[0] - TW / 2), 0.9, RIMZ]], top=0.14, bottom=0.78, inside=BATH)])   # (stills 1) higher, into the tub (the water and the stream were hidden by its wall); him whole
 st.cue('sfx:click', 'S01', 0.18, 0.3); st.cue('sfx:pour', 'S01', ON1, 0.45); st.cue('sfx:ring', 'S01', RING1, 0.35)
 
 # 2: the water ran down the stairs. Up a flight of stairs from its foot: the water pours off the landing and down the steps toward us, a lip of
@@ -232,7 +232,7 @@ st.shot('S11', 'grassland', look=XLOOK, actors=[
                P('bag11', 'baguette', on={'actor': 'boulanger', 'hand': 'R', 'offset': [0.0, 0.0, 0.05]}, keys=[k(1.12, attach='marin', hand='R', offset=[0.0, 0.0, 0.05])]),
                P('hat11', 'chefHat', on={'actor': 'boulanger', 'joint': 'head', 'offset': [0.0, 0.4, 0.0]}),
                P('balc11', 'balcony', pos=[10.15, r(WY11 + 1.2), 0.0], ry=-90, opts={'w': 1.8, 'd': 0.9, 'rail': 'front'})],   # (review 2) he stood on air
-        cams=[FC(0.0, [3.0, r(WY11 + 1.6), 5.2], [[8.2, r(WY11 + 3.6), 0.0], [10.25, r(WY11 + 3.4), 0.0], [5.4, WY11, 0.0], [10.0, WY11, 1.6]], top=0.14, bottom=0.78)])
+        cams=[FC(0.0, [3.0, r(WY11 + 1.6), 5.2], [[8.2, r(WY11 + 3.6), 0.0], [10.25, r(WY11 + 3.4), 0.0], [5.4, WY11, 0.0], [10.0, WY11, 1.6], [10.0, r(WY11 + 3.0), 2.75]], top=0.14, bottom=0.78)])
 st.cue('sfx:splash', 'S11', 0.1, 0.3); st.cue('sfx:boing', 'S11', r(HATCH11 + 0.08), 0.3); st.cue('sfx:clink', 'S11', HATCH11, 0.25)
 
 # 12: the scientists added... In a map room two scientists in white coats: one rolls a paint roller of blue across the big wall map, left to right
@@ -285,7 +285,7 @@ st.shot('S15', 'grassland', look={'sat': 0.85, 'exposure': 0.95}, actors=[
         props=[FLOOD('fl15', WY15, WY15, 0.0, 1.0, w=600.0, d=600.0, op=0.86), *TOWN('15', WY15, [(-14.0, -20.0, 0, 0.3), (14.0, -16.0, -90, 0.6)]), P('roof15', 'floorSlab', pos=[0.4, r(WY15 + 0.3), -1.2], opts={'w': 5.0, 'd': 4.0, 'h': 0.3, 'color': '#8C9AA8'}),
                P('lh15', 'lighthouseLive', pos=LH15, opts={'h': 2.6, 'onAt': r(PRESS15 + 0.05), 'aim': [[0.0, 140.0], [r(PRESS15 + 0.05), 140.0], [0.95, 40.0], [1.05, 62.0], [1.6, 62.0], [2.2, 200.0]], 'len': 14.0}),
                P('btn15', 'bigButton', pos=[1.8, r(WY15 + 0.6), 0.15], opts={'pressAt': PRESS15})],   # (review 2) in front of him
-        cams=[FC(0.0, [4.2, r(WY15 + 2.2), 4.4], [[0.0, r(WY15 + 6.8), -2.0], [1.6, r(WY15 + 2.95), -0.4], [1.6, r(WY15 + 0.6), -0.4], [-1.8, WY15, 0.0]], top=0.12, bottom=0.78)])
+        cams=[FC(0.0, [3.0, r(WY15 + 2.0), 2.6], [[0.0, r(WY15 + 3.5), -2.0], [1.6, r(WY15 + 2.95), -0.4], [1.6, r(WY15 + 0.6), -0.4], [1.9, r(WY15 + 1.6), 0.15]], top=0.12, bottom=0.78)])   # (review 2) nearer: the lamp and his face in the beam
 st.cue('sfx:click', 'S15', PRESS15, 0.3); st.cue('sfx:ding', 'S15', 1.0, 0.3)
 
 # 16: three years later... His bathroom is a sea floor: the water up to the rim, seaweed hanging from the tap, barnacles on the tub, a crab on the
@@ -349,7 +349,7 @@ st.shot('S20', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [1.5, 0,
             k(0.75, look='camera'), k(1.0, toon={'face': {'lid': 1.0}, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.05), k(1.11, toon={'face': DEAD, 'bend': {'spine': [0.55, 0, 0, 1, None], 'neck': [0.2, 0, 0, 1, None]}}, toonDur=0.07)])],   # (review 2) bent over the drain at the tap end
         props=[TUBP('tub20', fill=0.0, sub=True, subYaw=[[0.0, -90.0], [0.3, -90.0], [0.5, 70.0]], weed=True, barnacles=True),
                P('plug20', 'bathPlug', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, -0.03, 0.03]})],
-        cams=[FC(0.0, [0.7, 1.5, -0.5], [[DRAIN[0], 0.17, DRAIN[2]], [DRAIN[0], 0.72, DRAIN[2]], [r(DRAIN[0] - 0.24), 0.3, DRAIN[2]], [r(DRAIN[0] + 0.24), 0.3, DRAIN[2]], [1.2, 2.15, -1.3]], top=0.1, bottom=0.78, lenses=range(20, 60), inside=BATH)])   # (review 2) one angle: the drain ring, the tail and its spinning propeller centred, his face bent in at the top
+        cams=[FC(0.0, [0.75, 2.25, -0.7], [[DRAIN[0], 0.17, DRAIN[2]], [DRAIN[0], 0.72, DRAIN[2]], [r(DRAIN[0] - 0.24), 0.3, DRAIN[2]], [r(DRAIN[0] + 0.24), 0.3, DRAIN[2]], [1.2, 2.15, -1.3]], top=0.1, bottom=0.78, lenses=range(20, 60), inside=BATH)])   # (review 2) one angle: the drain ring, the tail and its spinning propeller centred, his face bent in at the top
 st.cue('sfx:squeak', 'S20', 0.45, 0.25)
 
 # 21: he got his water bill. On his landing: the postman hands him the bill; it unrolls from his hand down to the floor, across the landing and
@@ -378,7 +378,7 @@ st.shot('S22', 'salleDeBain', setOpts={'half': 3.4}, actors=[act('mec', [-0.2, 0
             k(r(D22 - 0.35), toon=HOLD22({'lid': 1.0, 'mouth': 'line'}), toonDur=0.07), k(r(D22 - 0.22), toon=HOLD22({'lid': 0.2, 'mouth': 'line'}), toonDur=0.1)])],   # (review 2) the end on his open eyes, a slow blink
         fx=[{'type': 'shake', 'at': STAMP22, 'dur': 0.18, 'amount': 0.025}],
         props=[TUBP('tub22', fill=0.0, drips=[DRIP22]), P('stool22', 'barStool', pos=[-0.2, 0, -0.55], scale=0.75),
-               P('bill22', 'waterBill', pos=[-0.14, 1.12, -0.08], rot=[-0.2, 0.35, 0.0], opts={'w': 0.66, 'h': 0.52, 'amount': '4 836 849 200 €', 'stamp': 'CONTESTÉ', 'stampDelay': r(STAMP22 + 0.03), 'popAt': -1.0},
+               P('bill22', 'waterBill', pos=[-0.14, 1.12, -0.08], rot=[-0.2, 0.35, 0.0], opts={'w': 0.66, 'h': 0.52, 'amount': '4 836 849 200 €', 'stamp': 'CONTESTÉ', 'stampDelay': r(STAMP22 + 1.03), 'popAt': -1.0, 'stampScale': 1.8, 'stampRot': 0.35, 'stampPos': [0.05, -0.12]},
                  keys=[k(STAMP22, squash=[1.04, 0.88, 1.04], dur=0.3)]),   # (review 2) held up at his chest, whole, the bill flexing at the THUNK
                P('stamp22', 'bigStamp', on={'actor': 'mec', 'hand': 'R', 'offset': [0.0, 0.0, 0.0]}, scale=0.6)],
         cams=[FC(0.0, [0.6, 1.35, 1.2], [[-0.2, 2.1, -0.5], [-0.2, 0.45, -0.5], [-0.14, 1.12, -0.08], [r(MOUTH[0] + 0.22), 1.25, MOUTH[2]], [-0.5, 1.12, -0.08]], top=0.14, bottom=0.78, inside=BATH)])   # (review 2) the bill whole, the tap and its drip inside the frame

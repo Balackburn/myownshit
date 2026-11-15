@@ -1002,9 +1002,10 @@ export const NEWS_PROPS = {
       if (!o.subTop) { c.fillStyle = '#5A6470'; c.font = `bold ${H * 0.06}px Arial`; c.fillText(o.sub || 'À PAYER', W / 2, H * 0.88); } else { c.fillStyle = '#C9CDD2'; for (let i = 0; i < 2; i++) c.fillRect(W * 0.18, H * (0.82 + i * 0.06), W * (0.64 - i * 0.2), H * 0.025); } }, { res: 512 }), 0, 0, 0.001));
     const stamp = o.stamp === false ? null : grp(at(canvasPlane(w * 0.42, h * 0.2, (c, W, H) => { c.clearRect(0, 0, W, H); c.strokeStyle = '#D7262E'; c.lineWidth = H * 0.1; c.strokeRect(H * 0.08, H * 0.08, W - H * 0.16, H - H * 0.16);
       c.fillStyle = '#D7262E'; c.textAlign = 'center'; c.textBaseline = 'middle'; let sz = H * 0.62; c.font = `900 ${sz}px Arial`; const tw = c.measureText(o.stamp || 'GRATUIT').width; if (tw > W * 0.82) { sz *= W * 0.82 / tw; c.font = `900 ${sz}px Arial`; } c.fillText(o.stamp || 'GRATUIT', W / 2, H * 0.54); }, { res: 256 }), 0, 0, 0));
-    if (stamp) { const sp = o.stampPos || [0.2, -0.37]; stamp.position.set(w * sp[0], h * sp[1], 0.006); stamp.rotation.z = 0.14; inner.add(stamp); }   // o.stampPos [x, y] in fractions of the bill
+    if (stamp) { const sp = o.stampPos || [0.2, -0.37]; stamp.position.set(w * sp[0], h * sp[1], 0.006); stamp.rotation.z = o.stampRot ?? 0.14; inner.add(stamp); }   // o.stampPos [x, y] in fractions of the bill
+    // (review 2 of 71) o.stampScale: a bigger stamp (1: 42 % of the bill's width; a punchline stamp reads at 1.8 across the middle, o.stampRot 0.35)
     g.userData.update = t => { if (o.popAt == null) return; const u = clamp01((t - o.popAt) / (o.popDur || 0.3)); inner.visible = t >= o.popAt; inner.scale.setScalar(Math.max(0.01, ease.outBack(u))); inner.rotation.z = (o.tilt || 0) + 0.1 * (1 - u) * Math.sin(u * 9);
-      if (stamp) { const sd = o.popAt + (o.stampDelay ?? 0.3), v = clamp01((t - sd) / 0.14); stamp.visible = t >= sd; stamp.scale.setScalar(Math.max(0.01, 1.8 - 0.8 * ease.out(v))); } };
+      if (stamp) { const sd = o.popAt + (o.stampDelay ?? 0.3), v = clamp01((t - sd) / 0.14); stamp.visible = t >= sd; stamp.scale.setScalar(Math.max(0.01, (1.8 - 0.8 * ease.out(v)) * (o.stampScale ?? 1))); } };
     g.userData.update(0); return g;
   },
   wristWatch(o) { // a wristwatch to hang on a hand (strap round the wrist, a big white face with a red hand), o.face: its colour
