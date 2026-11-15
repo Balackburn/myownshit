@@ -1161,7 +1161,10 @@ const B = {
   calendar(o) { // page number flips with time: opts.rate pages/s from opts.start
     const g = grp(at(box(0.42, 0.5, 0.02, P.paper, { outline: 0.004 }), 0, 0, 0), at(box(0.42, 0.1, 0.025, P.red), 0, 0.2, 0.002));
     const pages = []; for (let d = 1; d <= 31; d++) { const p = at(label(String(d), 0.36, 0.3, { bg: P.paper, fg: P.ink }), 0, -0.05, 0.012); p.visible = d === 1; g.add(p); pages.push(p); }
-    const rate = o.rate ?? 0, t0 = o.start ?? 0; g.userData.update = t => { const d = Math.min(30, Math.max(0, Math.floor((t - t0) * rate))); pages.forEach((p, i) => p.visible = i === d); };
+    const inner = grp(...g.children); g.add(inner);   // the bounce scales an inner group: the prop's own scale stays on g
+    const rate = o.rate ?? 0, t0 = o.start ?? 0, last = o.last ?? 30;   // (review 1 of 70) o.last: the index of the page it stops on (20 = day 21), with a little bounce as it lands
+    g.userData.update = t => { const d = Math.min(last, Math.max(0, Math.floor((t - t0) * rate))); pages.forEach((p, i) => p.visible = i === d);
+      const tl = t - (t0 + last / Math.max(1e-6, rate)); inner.scale.setScalar(o.last != null && rate > 0 && tl >= 0 ? 1 + 0.16 * Math.exp(-8 * tl) * Math.cos(tl * 20) : 1); };
     return g; },
   whistle(o) { const g = grp(at(box(0.05, 0.025, 0.025, P.yellow), 0, 0, 0), at(cyl(0.016, 0.016, 0.03, P.yellow, 8), 0.025, -0.005, 0, Math.PI / 2)); g.userData.grip = [0, 0, 0]; return g; },
   clipboardProp(o) { const g = grp(at(box(0.24, 0.32, 0.012, P.woodDark), 0, 0, 0), at(box(0.2, 0.26, 0.004, P.paper), 0, -0.01, 0.008), at(box(0.1, 0.03, 0.02, P.grey), 0, 0.15, 0.01)); for (let i = 0; i < 6; i++) g.add(at(box(0.14, 0.006, 0.002, P.ink), 0, 0.08 - i * 0.035, 0.011)); g.userData.grip = [0, -0.1, 0]; return g; },

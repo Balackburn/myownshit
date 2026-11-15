@@ -10,6 +10,7 @@ const PI = Math.PI, TAU = 2 * PI;
 const clamp01 = x => Math.max(0, Math.min(1, x));
 const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const L = c => new THREE.MeshLambertMaterial({ color: c });
+const LO = (c, k) => new THREE.MeshLambertMaterial({ color: c, polygonOffset: true, polygonOffsetFactor: -k, polygonOffsetUnits: -4 * k });   // (review 1 of 70) a ground overlay that never sinks into the field under it, however far the camera
 const ball = (r, c, seg = 10) => new THREE.Mesh(new THREE.SphereGeometry(r, seg, Math.max(6, seg - 2)), typeof c === 'string' ? L(c) : c);
 const UP = new THREE.Vector3(0, 1, 0);
 
@@ -21,7 +22,7 @@ export const TONDEUSE_PROPS = {
   mowField(o) {
     const W = o.w ?? 8, D = o.d ?? 6, H = o.h ?? 0.5, n = o.n ?? 2400, path = o.path || [], half = (o.width ?? 0.55) / 2, sh = o.short ?? 0.12, g = grp();
     const cols = (o.cols || ['#5E9A4A', '#6FB05A', '#4E8A3E', '#7FBF5E']).map(c => new THREE.Color(c)), cutCol = new THREE.Color(o.cutCol || '#9CCB6A');
-    g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), L(o.ground || '#4E7F3A')), 0, 0.004, 0));
+    if (o.ground !== 'none') g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W, D).rotateX(-PI / 2), LO(o.ground || '#4E7F3A', 1)), 0, 0.01, 0));   // o.ground 'none': only the mown bands, over a ground of its own
     const geo = new THREE.ConeGeometry(o.bw ?? 0.022, 1, 3); geo.translate(0, 0.5, 0);
     const im = new THREE.InstancedMesh(geo, new THREE.MeshLambertMaterial({ color: '#FFFFFF' }), n); im.frustumCulled = false; im.castShadow = false; im.receiveShadow = true; g.add(im);
     const dm = new THREE.Object3D(), B = [];
@@ -31,7 +32,7 @@ export const TONDEUSE_PROPS = {
       B.push({ x, z, h: H * (0.75 + 0.5 * hash(i * 3 + 3)), lean: (hash(i + 7) - 0.5) * 0.4, ry: hash(i + 9) * TAU, tc, col: cols[i % cols.length], was: null }); }
     const strips = [];
     for (let k = 1; k < path.length; k++) { const [t0, x0, z0] = path[k - 1], [t1, x1, z1] = path[k], len = Math.hypot(x1 - x0, z1 - z0); if (len < 1e-3) continue;
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(half * 2, 1).rotateX(-PI / 2).translate(0, 0, 0.5), L(o.stripCols ? o.stripCols[(k - 1) % o.stripCols.length] : (o.stripCol || '#8DC05E'))); m.position.set(x0, 0.008, z0); m.rotation.y = Math.atan2(x1 - x0, z1 - z0); m.visible = false; g.add(m); strips.push({ m, t0, t1, len }); }
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(half * 2, 1).rotateX(-PI / 2).translate(0, 0, 0.5), LO(o.stripCols ? o.stripCols[(k - 1) % o.stripCols.length] : (o.stripCol || '#8DC05E'), 2)); m.position.set(x0, 0.02, z0); m.rotation.y = Math.atan2(x1 - x0, z1 - z0); m.visible = false; g.add(m); strips.push({ m, t0, t1, len }); }
     g.userData.update = t => {
       for (let i = 0; i < n; i++) { const b = B[i], cut = t >= b.tc; dm.position.set(b.x, 0, b.z); dm.rotation.set(b.lean, b.ry, 0); dm.scale.set(1, b.h * (cut ? sh : 1), 1); dm.updateMatrix(); im.setMatrixAt(i, dm.matrix);
         if (cut !== b.was) { im.setColorAt(i, cut ? cutCol : b.col); b.was = cut; } }
@@ -44,7 +45,8 @@ export const TONDEUSE_PROPS = {
   // A push mower that runs by itself (pivot at the floor in its middle, front +Z, handle back -Z): a red deck, a black engine with a chrome cap, a side
   // chute, four wheels, the handle with its grips and the starter cord's handle. While it runs (o.runAt..o.stopAt, lists allowed) it trembles, clippings
   // spray out of the chute on the right and grey exhaust puffs rise; o.cough [t, ...]: a jolt and a black puff; o.sputter [t0, t1]: it splutters (jerks,
-  // black puffs, no spray); o.slumpAt: it sags on its wheels and sighs one last pale puff; o.bowAt: it dips its nose like a bow
+  // black puffs, no spray); o.slumpAt: it sags on its wheels and sighs one last pale puff; o.bowAt: it dips its nose like a bow; (review 1 of 70) o.startAt:
+  // a squash then a stretch forward as it catches; o.dead: deflated flat, the handle on the ground, no smoke; o.speedLines: white streaks behind it
   mowerLive(o) {
     const g = grp(), body = grp(), red = o.color || '#C8322A';
     body.add(at(box(0.52, 0.16, 0.62, red, { outline: 0.008 }), 0, 0.2, 0), at(box(0.42, 0.04, 0.5, '#9A2620'), 0, 0.29, 0), at(box(0.12, 0.1, 0.22, '#26272B', { outline: 0.006 }), 0.31, 0.2, 0.0));
@@ -52,9 +54,11 @@ export const TONDEUSE_PROPS = {
     for (const x of [-0.28, 0.28]) for (const z of [-0.24, 0.24]) { const w = at(cyl(0.09, 0.09, 0.05, '#18191C', 10), x, 0.09, z, 0, 0, PI / 2); w.add(at(cyl(0.05, 0.05, 0.052, '#C9D1D8', 8), 0, 0, 0)); body.add(w); }
     const rodM = L('#3A3D44'), rod = (a, b, r) => { const A = new THREE.Vector3(...a), Bv = new THREE.Vector3(...b), dd = Bv.clone().sub(A), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, dd.length(), 6), rodM);
       m.position.copy(A).add(Bv).multiplyScalar(0.5); m.quaternion.setFromUnitVectors(UP, dd.normalize()); m.castShadow = true; return m; };
-    body.add(rod([-0.2, 0.26, -0.28], [-0.23, 0.98, -0.85], 0.016), rod([0.2, 0.26, -0.28], [0.23, 0.98, -0.85], 0.016), rod([-0.26, 0.98, -0.85], [0.26, 0.98, -0.85], 0.02));
-    for (const sd of [-1, 1]) body.add(at(cyl(0.026, 0.026, 0.12, '#18191C', 8), sd * 0.2, 0.98, -0.85, 0, 0, PI / 2));
-    body.add(at(box(0.09, 0.03, 0.03, '#18191C'), 0.12, 0.86, -0.75));
+    const hdl = grp(); hdl.position.set(0, 0.26, -0.28); body.add(hdl);   // (review 1 of 70) the handle hinges at the back of the deck: it curls in the bow, it falls when the mower dies
+    hdl.add(rod([-0.2, 0, 0], [-0.23, 0.72, -0.57], 0.016), rod([0.2, 0, 0], [0.23, 0.72, -0.57], 0.016), rod([-0.26, 0.72, -0.57], [0.26, 0.72, -0.57], 0.02));
+    for (const sd of [-1, 1]) hdl.add(at(cyl(0.026, 0.026, 0.12, '#18191C', 8), sd * 0.2, 0.72, -0.57, 0, 0, PI / 2));
+    hdl.add(at(box(0.09, 0.03, 0.03, '#18191C'), 0.12, 0.6, -0.47));
+    const lines = o.speedLines ? [0, 1, 2].map(i => { const m = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.03, 1), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.8 })); m.position.set(-0.18 + 0.18 * i, 0.16 + 0.12 * (i % 2), -0.9); g.add(m); return m; }) : [];
     g.add(body);
     const N = o.n ?? 80, clip = new THREE.InstancedMesh(new THREE.BoxGeometry(0.05, 0.012, 0.025), L(o.clipColor || '#6DBE4E'), N), dm = new THREE.Object3D(), base = [];
     for (let i = 0; i < N; i++) base.push([hash(i + 1), hash(i + 2) * TAU, 0.8 + hash(i + 3) * 0.9, (hash(i + 4) - 0.5) * 0.7]); clip.frustumCulled = false; g.add(clip);
@@ -62,18 +66,26 @@ export const TONDEUSE_PROPS = {
     const runs = t => { const ra = [].concat(o.runAt ?? 0), sa = [].concat(o.stopAt ?? []); return ra.some((a, i) => t >= a && t < (sa[i] ?? Infinity)); };
     g.userData.update = t => {
       const on = runs(t), sp = o.sputter, sput = !!sp && t >= sp[0] && t < sp[1], cs = [].concat(o.cough ?? []).filter(c => t >= c), lc = cs.length ? cs[cs.length - 1] : null, cu = lc == null ? 9 : t - lc;
-      let jx = 0, jy = 0, rx = 0, sq = 1;
-      if (on) { jx = 0.007 * Math.sin(t * 90); jy = 0.005 * Math.abs(Math.sin(t * 70)); }
+      // (review 1 of 70: a rigid prop) it acts: each cough squashes it then springs it up, bigger each time; the start stretches it forward; the bow is deep and
+      // held, the handle curling like a spine; dying, it deflates flat and its handle drops to the ground (o.dead: already so)
+      let jx = 0, jy = 0, rx = 0, sy = 1, sz = 1, hr = 0;
+      const dead = o.dead || (o.slumpAt != null && t >= o.slumpAt + 0.4), bu = o.bowAt == null ? -1 : t - o.bowAt, bowing = bu > 0 && bu < 0.9;
+      if (on && !dead) { jx = 0.007 * Math.sin(t * 90); jy = 0.005 * Math.abs(Math.sin(t * 70)); }
       if (sput) { jy += 0.03 * Math.max(0, Math.sin(t * 22)); rx -= 0.12 * Math.max(0, Math.sin(t * 17)); }
-      if (cu < 0.25) { jy += 0.06 * Math.sin(cu / 0.25 * PI); rx -= 0.18 * Math.sin(cu / 0.25 * PI); }
-      if (o.slumpAt != null && t >= o.slumpAt) { const u = clamp01((t - o.slumpAt) / 0.18); sq = 1 - 0.12 * u + 0.05 * Math.sin(u * PI); }
-      if (o.bowAt != null) { const u = t - o.bowAt; if (u > 0 && u < 0.7) rx += 0.35 * Math.sin(u / 0.7 * PI); }
-      body.position.set(jx, jy, 0); body.rotation.x = rx; body.scale.set(1 + (1 - sq) * 0.5, sq, 1);
-      const spray = on && !sput && o.spray !== false;
+      if (cu < 0.4) { const a = 0.6 + 0.2 * Math.min(2, cs.length - 1), sq_ = cu < 0.1 ? Math.sin(cu / 0.1 * PI / 2) : Math.max(0, 1 - (cu - 0.1) / 0.12);
+        sy *= 1 - 0.28 * a * sq_ + (cu > 0.1 && cu < 0.4 ? 0.16 * a * Math.sin((cu - 0.1) / 0.3 * PI) : 0); jy += cu > 0.1 ? 0.07 * a * Math.sin(Math.min(1, (cu - 0.1) / 0.3) * PI) : 0; rx -= 0.2 * a * Math.sin(Math.min(1, cu / 0.3) * PI); }
+      if (o.startAt != null) { const u = t - o.startAt; if (u > -0.12 && u < 0) sy *= 1 - 0.18 * (1 + u / 0.12); if (u >= 0 && u < 0.45) { const e = Math.exp(-7 * u); sz *= 1 + 0.32 * e; sy *= 1 - 0.12 * e; rx -= 0.25 * e; } }
+      if (bowing) { const d = bu < 0.18 ? bu / 0.18 : bu < 0.5 ? 1 : 1 - (bu - 0.5) / 0.4, e = d * d * (3 - 2 * d); rx += 0.62 * e; hr += 0.4 * e; }
+      if (o.slumpAt != null && t >= o.slumpAt && !o.dead) { const u = clamp01((t - o.slumpAt) / 0.35), e = u * u * (3 - 2 * u); sy *= 1 - 0.38 * e + 0.05 * Math.sin(u * PI); hr -= 1.05 * e + (u >= 1 ? 0.04 * Math.exp(-6 * (t - o.slumpAt - 0.35)) * Math.sin((t - o.slumpAt - 0.35) * 20) : 0); }
+      if (o.dead) { sy *= 0.62; hr -= 1.05; }
+      body.position.set(jx, jy, 0); body.rotation.x = rx; body.scale.set(1 + (1 - sy) * 0.35, sy, sz); hdl.rotation.x = hr;
+      lines.forEach((m, i) => { m.visible = on && !dead; m.scale.z = 0.6 + 0.5 * Math.abs(Math.sin(t * 9 + i)); m.position.z = -0.6 - m.scale.z / 2; });
+      const spray = on && !sput && !dead && o.spray !== false;
       base.forEach(([ph, rot, v, s2], i) => { const q = ((t * 1.7) + ph) % 1; if (!spray) dm.scale.setScalar(0.0001); else { dm.scale.setScalar(1); dm.position.set(0.38 + q * v * 0.9, 0.22 + q * 0.95 - q * q * 1.1, s2 * q * 0.9); dm.rotation.set(t * 9 + rot, rot, t * 7); } dm.updateMatrix(); clip.setMatrixAt(i, dm.matrix); });
       clip.instanceMatrix.needsUpdate = true;
       const slumped = o.slumpAt != null && t >= o.slumpAt;
       puffs.forEach((p, i) => { let u, black = false;
+        if (o.dead || bowing) { p.visible = false; return; }   // no smoke in the bow (it hid the medal) nor from a dead mower
         if (slumped) { u = (t - o.slumpAt) / 0.9; if (i > 0 || u > 1) { p.visible = false; return; } }
         else if (sput) { u = (t * 2.6 + i / PN) % 1; black = true; }
         else if (lc != null && cu < 0.6 && i < 3) { u = cu / 0.6 + i * 0.1; black = true; }
@@ -103,15 +115,15 @@ export const TONDEUSE_PROPS = {
   // light and dark in turn) grows along the pitch between t0 and t1 (from the near end for even i, the far end for odd)
   stripePitch(o) {
     const W = o.w ?? 34, D = o.d ?? 52, n = o.n ?? 8, g = grp();
-    g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W + 6, D + 6).rotateX(-PI / 2), L(o.base || '#5C8E3E')), 0, 0.004, 0));
+    g.add(at(new THREE.Mesh(new THREE.PlaneGeometry(W + 6, D + 6).rotateX(-PI / 2), LO(o.base || '#4F7F34', 1)), 0, 0.01, 0));
     const lines = canvasPlane(W, D, (c, Wc, Hc) => { c.clearRect(0, 0, Wc, Hc); c.strokeStyle = '#F4F4F0'; c.lineWidth = Wc * 0.007; const sx = Wc / W, sz = Hc / D;
       c.strokeRect(Wc * 0.015, Hc * 0.01, Wc * 0.97, Hc * 0.98); c.beginPath(); c.moveTo(Wc * 0.015, Hc / 2); c.lineTo(Wc * 0.985, Hc / 2); c.stroke(); c.beginPath(); c.arc(Wc / 2, Hc / 2, 6 * sx, 0, TAU); c.stroke();
       c.strokeRect(Wc / 2 - 12 * sx, Hc * 0.01, 24 * sx, 10 * sz); c.strokeRect(Wc / 2 - 12 * sx, Hc * 0.99 - 10 * sz, 24 * sx, 10 * sz); }, { res: 512, transparent: true });
-    lines.rotation.x = -PI / 2; lines.position.y = 0.014; g.add(lines);
+    lines.rotation.x = -PI / 2; lines.position.y = 0.03; Object.assign(lines.material, { polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -12 }); g.add(lines);
     for (const e of [-1, 1]) { const goal = grp(at(box(0.14, 2.44, 0.14, '#F4F4F0', { outline: 0.006 }), -3.66, 1.22, 0), at(box(0.14, 2.44, 0.14, '#F4F4F0', { outline: 0.006 }), 3.66, 1.22, 0), at(box(7.46, 0.14, 0.14, '#F4F4F0', { outline: 0.006 }), 0, 2.44, 0));
       goal.position.z = e * (D / 2 - 0.25); g.add(goal); }
     const sw = W / n, stripes = [];
-    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(sw, 1).rotateX(-PI / 2), L(i % 2 ? '#86C764' : '#6FB24F')); m.position.set(-W / 2 + (i + 0.5) * sw, 0.009, 0); m.visible = false; g.add(m); stripes.push(m); }
+    for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(sw, 1).rotateX(-PI / 2), LO(i % 2 ? (o.light || '#A6E07A') : (o.dark || '#5E9F3E'), 2)); m.position.set(-W / 2 + (i + 0.5) * sw, 0.02, 0); m.visible = false; g.add(m); stripes.push(m); }
     const P_ = o.passes || [];
     g.userData.update = t => { stripes.forEach((m, i) => { const p = P_[i]; if (!p) { m.visible = false; return; } const u = clamp01((t - p[0]) / Math.max(0.01, p[1] - p[0]));
       m.visible = u > 0; m.scale.z = Math.max(0.001, u * D); m.position.z = (i % 2 ? -1 : 1) * (D / 2) * (1 - u); }); };
