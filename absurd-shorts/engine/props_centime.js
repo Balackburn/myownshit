@@ -33,7 +33,8 @@ export const CENTIME_PROPS = {
       for (const d of drops) { const u = t - d;
         if (u >= -0.12 && u < 0.22) { coin.visible = true; const f = clamp01(u / 0.22); coin.position.y = 0.33 - 0.09 * f * f; coin.rotation.z = u * 9; }
         if (u >= 0.2 && u < 0.7) jig = Math.max(jig, Math.exp(-(u - 0.2) * 8) * Math.sin((u - 0.2) * 34)); }
-      body.scale.set(1 + 0.08 * jig, 1 - 0.1 * jig, 1 + 0.08 * jig); body.rotation.z = 0.06 * jig;
+      const J = o.jig ?? 1;   // (review 1 of 77) o.jig: how hard it jiggles (1: a jiggle nobody saw at phone size; 3: a squash and stretch)
+      body.scale.set(1 + 0.08 * J * jig, 1 - 0.1 * J * jig, 1 + 0.08 * J * jig); body.rotation.z = 0.06 * J * jig;
     };
     g.userData.update(-1); return g;
   },
@@ -56,7 +57,7 @@ export const CENTIME_PROPS = {
     g.add(at(box(0.31, 0.02, 0.33, chrome, { outline: 0.004 }), 0, 0.0, 0.0));   // the rim
     g.add(at(box(0.035, 0.07, 0.3, brass, { outline: 0.003 }), 0, 0.14, 0.0));   // the crest
     for (let i = 0; i < 7; i++) { const st = at(box(0.03, 0.42, 0.012, '#151619'), (i - 3) * 0.012, -0.08, -0.17 - 0.004 * Math.abs(i - 3)); st.rotation.x = 0.35 + 0.02 * (i % 3); g.add(st); }   // the horsehair down the back
-    g.add(at(cyl(0.022, 0.012, 0.22, '#C8222E', 8, { pivot: 'bottom' }), 0.13, 0.04, 0.03));   // the red plume
+    g.add(at(cyl(0.022, 0.012, 0.22, '#C8222E', 8, { pivot: 'bottom' }), 0.1, 0.06, 0.03));   // the red plume (review 1: at 0.13 it floated beside the dome)
     g.scale.setScalar(s); return g;
   },
 
