@@ -1775,3 +1775,14 @@ Gags du rig pas encore servis (la langue au vent et la vapeur aux oreilles l'ont
 - (cycle 43) Personnage noirci par une explosion (laser, bombe, four) : de la SUIE gris charbon avec des taches et des bords irréguliers, la
   peau d'origine visible par endroits, des cheveux en pétard qui fument. Jamais une teinte brune uniforme sur tout le visage : elle se lit comme
   un changement de couleur de peau, pas comme de la suie (vu sur le savant du « Bocal »).
+- (cycle 43) Un point de main (`reach`) en coordonnées monde recopié d'un autre plan tire la main jusque-là : avec l'acteur à 16 m, ça fait un
+  bras géant dont l'ombre est une tache inexpliquée au sol. Chaque acteur placé a ses propres points de main.
+- (cycle 43) Le héros assis : sa tête-boîte va du menton à y ≈ 1,33 jusqu'au sommet à 1,87 (yeux ≈ 1,65), pas 1,45. Cadrer avec ces valeurs,
+  plus ≈ 0,15 pour un bonnet de neige.
+- (cycle 43) Un fanion est un plan : vu par la tranche il disparaît. Tourner sa face vers la caméra.
+- (cycle 43) Missiles tirés de derrière la caméra : on ne voit que des flammes et des traînées en bout. Les faire traverser l'image de profil.
+- (cycle 43) Caméra derrière les tas d'un sol en ruine : elle est devant les volutes de fumée, qui remplissent le cadre de boules sombres.
+  Couper les volutes pour ce plan, et donner à la fumée une teinte émissive pour que son côté à l'ombre ne devienne pas noir.
+- (cycle 43) Le clip `writeOnHeld` plus une cible de regard fait basculer la tête : utiliser `stand` avec un `reach` sur le porte-bloc.
+- (cycle 43) Gag d'échelle (un porte-avions dans un évier) dans un cadre 9:16 étroit : caméra haute et en diagonale, robinet et rebord du bac
+  dans le champ, chercher les candidats avec `project()` sur les accessoires et le visage du héros, et sortir la suspension du cadre.
