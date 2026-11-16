@@ -2865,3 +2865,8 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   au début du plan 8 (on ne le voit pas quitter son parcours), le dossard cache le visage puis son chiffre disparaît sous la cravate, trois
   accents durent une seule image du brouillon (accroupi du départ, maillot qui tombe, chaussures neuves), la nouille est une barre rigide, les
   savants sont cachés derrière lui. Passe 3 confiée à un agent dérivé.
+- 8 h 15 — Le quota du modèle utilisé jusqu'ici est épuisé (remise à zéro à minuit UTC) : quatre tâches se sont arrêtées en route (passe 3 du
+  « Pull », passe finale de « La tondeuse », passe 3 du « Bus », revue 2 du « Service client » et la moitié de la revue 3 du « Centime »). La
+  session continue sur un autre modèle : les trois agents dérivés ont été relancés là où ils s'étaient arrêtés (leur travail était enregistré),
+  et les deux revues reprises (la critique déjà rendue est réutilisée). Brouillons 3 de « L'ascenseur » (trois courts passages figés) et des
+  « Lunettes » (aucun) prêts pendant la coupure ; leurs revues 3 sont lancées.

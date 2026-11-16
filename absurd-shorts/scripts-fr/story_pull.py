@@ -305,7 +305,7 @@ st.cue('sfx:click', 'S16', CUFF16, 0.3); st.cue('sfx:whistle', 'S16', 0.2, 0.2);
 
 # 17: he was sentenced... The courtroom, close: the judge, a label standing beside his wig, winds the gavel up out to the side and brings it down on its
 #     block; the bench, the wig and the label bounce; (review 2) a navy front on the bench: the caption sat on plain red
-D17 = st.dur('S17'); BANG17 = 0.34; JG = [0.0, 0.3, -4.0]; BLK17 = [-0.72, 1.53, -3.3]
+D17 = st.dur('S17'); BANG17 = 0.34; JG = [0.0, 0.3, -4.0]; BLK17 = [-0.19, 1.53, -3.45]   # (stills 3) under the point where the gavel's head lands (projected from the S17 camera: screen 0.37, 0.62); at x -0.72 it sat a quarter of the frame to the left
 GAV = lambda x, y, z, f, sq=None: {'reach': {'R': [x, y, z, 1, 0.03]}, 'hands': {'R': 'grip'}, 'face': f, **({'sq': sq} if sq else {})}
 st.shot('S17', 'courtroom', actors=[act('juge', JG, 0, 'stand', 'neutral', keys=[k(0.0, look='camera'), k(0.0, toon=GAV(-0.72, 2.7, -3.6, {'lid': 0.2, 'brow': -0.5, 'mouth': 'line'}), toonDur=0.0),
             k(0.05, toon=GAV(-0.8, 2.95, -3.75, {'lid': 0.2, 'brow': -0.7, 'mouth': 'line'}, [0.95, 1.07, 0.95]), toonDur=0.12, toonEase='out'),   # the wind-up, out beside his head...
