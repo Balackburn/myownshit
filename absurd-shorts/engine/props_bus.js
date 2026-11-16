@@ -441,10 +441,10 @@ export const BUS_PROPS = {
     const piece = (w, h, d, c, op) => { if (op >= 1) return box(w, h, d, c, { outline: 0.008 }); const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), fade(c, op)); m.castShadow = false; return m; };
     const path = u => { const th = u * TAU, z = A * Math.sin(th); return [z, yc + B * Math.sin(2 * th) + tilt * z]; };
     const pts = []; for (let i = 0; i < 48; i++) { const [z, y] = path(i / 48); pts.push(new THREE.Vector3(0, y, z)); }
-    const band = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 96, o.band ?? 0.07, 6, true), fade(col, 0.2)); band.castShadow = false; root.add(band);
+    const band = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 96, o.band ?? 0.07, 6, true), fade(col, o.bandAlpha ?? 0.32)); band.castShadow = false; root.add(band);
     const legs = [];
     for (let i = 0; i < n; i++) for (let j = 0; j <= gh; j++) {
-      const op = j === 0 ? 1 : 0.42 / j, th = grp(piece(0.17, a, 0.18, col, op)), sh = grp(piece(0.15, b, 0.16, col, op)), sf = grp(piece(0.14, 0.11, 0.3, shoeC, op));
+      const op = j === 0 ? 1 : 0.55 / (1 + 0.8 * (j - 1)), th = grp(piece(0.17, a, 0.18, col, op)), sh = grp(piece(0.15, b, 0.16, col, op)), sf = grp(piece(0.14, 0.11, 0.3, shoeC, op));
       th.children[0].position.y = -a / 2; sh.children[0].position.y = -b / 2; sf.children[0].position.set(0, 0.0, 0.07);
       const x = (i % 2 ? 0.1 : -0.1) + 0.004 * j; for (const q of [th, sh, sf]) { q.position.x = x; root.add(q); }
       legs.push({ th, sh, sf, ph: i / n, lag: j * (o.lagStep ?? 0.04) });
