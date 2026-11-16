@@ -1,0 +1,823 @@
+{
+ "lines": [
+  {
+   "id": "L01",
+   "who": "N",
+   "text": "Ce mec a démarré sa tondeuse.",
+   "hl": [
+    "démarré",
+    "tondeuse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L01.mp3",
+   "file_start": 0.1,
+   "speech_start": 0.1,
+   "speech_end": 1.86,
+   "words": [
+    {
+     "w": "Ce",
+     "s": 0.1,
+     "e": 0.26
+    },
+    {
+     "w": "mec",
+     "s": 0.34,
+     "e": 0.5
+    },
+    {
+     "w": "a",
+     "s": 0.54,
+     "e": 0.58
+    },
+    {
+     "w": "démarré",
+     "s": 0.66,
+     "e": 0.98
+    },
+    {
+     "w": "sa",
+     "s": 1.06,
+     "e": 1.14
+    },
+    {
+     "w": "tondeuse.",
+     "s": 1.22,
+     "e": 1.86
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "who": "N",
+   "text": "Elle ne s'est jamais arrêtée.",
+   "hl": [
+    "jamais",
+    "arrêtée."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L02.mp3",
+   "file_start": 1.96,
+   "speech_start": 1.96,
+   "speech_end": 3.64,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 1.96,
+     "e": 2.12
+    },
+    {
+     "w": "ne",
+     "s": 2.16,
+     "e": 2.2
+    },
+    {
+     "w": "s'est",
+     "s": 2.28,
+     "e": 2.44
+    },
+    {
+     "w": "jamais",
+     "s": 2.52,
+     "e": 2.76
+    },
+    {
+     "w": "arrêtée.",
+     "s": 2.96,
+     "e": 3.64
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "who": "N",
+   "text": "Elle a tondu le jardin du voisin.",
+   "hl": [
+    "voisin."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L03.mp3",
+   "file_start": 3.74,
+   "speech_start": 3.74,
+   "speech_end": 5.58,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 3.74,
+     "e": 3.86
+    },
+    {
+     "w": "a",
+     "s": 3.9,
+     "e": 3.98
+    },
+    {
+     "w": "tondu",
+     "s": 4.06,
+     "e": 4.22
+    },
+    {
+     "w": "le",
+     "s": 4.3,
+     "e": 4.38
+    },
+    {
+     "w": "jardin",
+     "s": 4.42,
+     "e": 4.7
+    },
+    {
+     "w": "du",
+     "s": 4.74,
+     "e": 4.78
+    },
+    {
+     "w": "voisin.",
+     "s": 4.86,
+     "e": 5.58
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "who": "N",
+   "text": "Puis le stade de foot.",
+   "hl": [
+    "stade",
+    "foot."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L04.mp3",
+   "file_start": 5.68,
+   "speech_start": 5.68,
+   "speech_end": 7.04,
+   "words": [
+    {
+     "w": "Puis",
+     "s": 5.68,
+     "e": 5.84
+    },
+    {
+     "w": "le",
+     "s": 5.92,
+     "e": 6.0
+    },
+    {
+     "w": "stade",
+     "s": 6.08,
+     "e": 6.24
+    },
+    {
+     "w": "de",
+     "s": 6.32,
+     "e": 6.4
+    },
+    {
+     "w": "foot.",
+     "s": 6.48,
+     "e": 7.04
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "who": "N",
+   "text": "Les joueurs ont applaudi.",
+   "hl": [
+    "applaudi."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L05.mp3",
+   "file_start": 7.14,
+   "speech_start": 7.14,
+   "speech_end": 8.58,
+   "words": [
+    {
+     "w": "Les",
+     "s": 7.14,
+     "e": 7.3
+    },
+    {
+     "w": "joueurs",
+     "s": 7.353,
+     "e": 7.62
+    },
+    {
+     "w": "ont",
+     "s": 7.7,
+     "e": 7.78
+    },
+    {
+     "w": "applaudi.",
+     "s": 7.86,
+     "e": 8.58
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "who": "N",
+   "text": "Elle a traversé la forêt en ligne droite.",
+   "hl": [
+    "forêt",
+    "ligne",
+    "droite."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L06.mp3",
+   "file_start": 8.68,
+   "speech_start": 8.68,
+   "speech_end": 10.84,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 8.68,
+     "e": 8.8
+    },
+    {
+     "w": "a",
+     "s": 8.84,
+     "e": 8.88
+    },
+    {
+     "w": "traversé",
+     "s": 8.92,
+     "e": 9.32
+    },
+    {
+     "w": "la",
+     "s": 9.36,
+     "e": 9.4
+    },
+    {
+     "w": "forêt",
+     "s": 9.48,
+     "e": 9.72
+    },
+    {
+     "w": "en",
+     "s": 9.8,
+     "e": 9.88
+    },
+    {
+     "w": "ligne",
+     "s": 10.0,
+     "e": 10.12
+    },
+    {
+     "w": "droite.",
+     "s": 10.2,
+     "e": 10.84
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "who": "N",
+   "text": "Les champs de blé ont eu des cercles.",
+   "hl": [
+    "blé",
+    "cercles."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L07.mp3",
+   "file_start": 10.94,
+   "speech_start": 10.94,
+   "speech_end": 13.1,
+   "words": [
+    {
+     "w": "Les",
+     "s": 10.94,
+     "e": 11.1
+    },
+    {
+     "w": "champs",
+     "s": 11.14,
+     "e": 11.34
+    },
+    {
+     "w": "de",
+     "s": 11.38,
+     "e": 11.42
+    },
+    {
+     "w": "blé",
+     "s": 11.5,
+     "e": 11.74
+    },
+    {
+     "w": "ont",
+     "s": 11.82,
+     "e": 11.98
+    },
+    {
+     "w": "eu",
+     "s": 12.02,
+     "e": 12.06
+    },
+    {
+     "w": "des",
+     "s": 12.14,
+     "e": 12.3
+    },
+    {
+     "w": "cercles.",
+     "s": 12.34,
+     "e": 13.1
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "who": "N",
+   "text": "Les savants ont parlé d'extraterrestres.",
+   "hl": [
+    "savants",
+    "d'extraterrestres."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L08.mp3",
+   "file_start": 13.2,
+   "speech_start": 13.2,
+   "speech_end": 15.52,
+   "words": [
+    {
+     "w": "Les",
+     "s": 13.2,
+     "e": 13.36
+    },
+    {
+     "w": "savants",
+     "s": 13.44,
+     "e": 13.84
+    },
+    {
+     "w": "ont",
+     "s": 13.92,
+     "e": 14.0
+    },
+    {
+     "w": "parlé",
+     "s": 14.08,
+     "e": 14.32
+    },
+    {
+     "w": "d'extraterrestres.",
+     "s": 14.347,
+     "e": 15.52
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "who": "N",
+   "text": "La gendarmerie l'a prise en chasse.",
+   "hl": [
+    "gendarmerie",
+    "chasse."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L09.mp3",
+   "file_start": 15.62,
+   "speech_start": 15.62,
+   "speech_end": 17.54,
+   "words": [
+    {
+     "w": "La",
+     "s": 15.62,
+     "e": 15.7
+    },
+    {
+     "w": "gendarmerie",
+     "s": 15.78,
+     "e": 16.34
+    },
+    {
+     "w": "l'a",
+     "s": 16.393,
+     "e": 16.5
+    },
+    {
+     "w": "prise",
+     "s": 16.58,
+     "e": 16.66
+    },
+    {
+     "w": "en",
+     "s": 16.74,
+     "e": 16.82
+    },
+    {
+     "w": "chasse.",
+     "s": 16.9,
+     "e": 17.54
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "who": "N",
+   "text": "À pied.",
+   "hl": [
+    "pied."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L10.mp3",
+   "file_start": 17.64,
+   "speech_start": 17.64,
+   "speech_end": 18.44,
+   "words": [
+    {
+     "w": "À",
+     "s": 17.64,
+     "e": 17.72
+    },
+    {
+     "w": "pied.",
+     "s": 17.8,
+     "e": 18.44
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "who": "N",
+   "text": "Elle a tondu la pelouse du palais présidentiel.",
+   "hl": [
+    "palais",
+    "présidentiel."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L11.mp3",
+   "file_start": 18.54,
+   "speech_start": 18.54,
+   "speech_end": 20.94,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 18.54,
+     "e": 18.66
+    },
+    {
+     "w": "a",
+     "s": 18.7,
+     "e": 18.78
+    },
+    {
+     "w": "tondu",
+     "s": 18.86,
+     "e": 19.02
+    },
+    {
+     "w": "la",
+     "s": 19.1,
+     "e": 19.18
+    },
+    {
+     "w": "pelouse",
+     "s": 19.26,
+     "e": 19.5
+    },
+    {
+     "w": "du",
+     "s": 19.58,
+     "e": 19.66
+    },
+    {
+     "w": "palais",
+     "s": 19.74,
+     "e": 19.9
+    },
+    {
+     "w": "présidentiel.",
+     "s": 19.98,
+     "e": 20.94
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "who": "N",
+   "text": "Le président a trouvé ça très propre.",
+   "hl": [
+    "président",
+    "propre."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L12.mp3",
+   "file_start": 21.04,
+   "speech_start": 21.04,
+   "speech_end": 23.12,
+   "words": [
+    {
+     "w": "Le",
+     "s": 21.04,
+     "e": 21.12
+    },
+    {
+     "w": "président",
+     "s": 21.2,
+     "e": 21.6
+    },
+    {
+     "w": "a",
+     "s": 21.64,
+     "e": 21.68
+    },
+    {
+     "w": "trouvé",
+     "s": 21.72,
+     "e": 22.0
+    },
+    {
+     "w": "ça",
+     "s": 22.12,
+     "e": 22.24
+    },
+    {
+     "w": "très",
+     "s": 22.28,
+     "e": 22.4
+    },
+    {
+     "w": "propre.",
+     "s": 22.48,
+     "e": 23.12
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "who": "N",
+   "text": "Il l'a nommée jardinière nationale.",
+   "hl": [
+    "jardinière",
+    "nationale."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L13.mp3",
+   "file_start": 23.22,
+   "speech_start": 23.22,
+   "speech_end": 25.46,
+   "words": [
+    {
+     "w": "Il",
+     "s": 23.22,
+     "e": 23.3
+    },
+    {
+     "w": "l'a",
+     "s": 23.38,
+     "e": 23.46
+    },
+    {
+     "w": "nommée",
+     "s": 23.54,
+     "e": 23.86
+    },
+    {
+     "w": "jardinière",
+     "s": 23.94,
+     "e": 24.42
+    },
+    {
+     "w": "nationale.",
+     "s": 24.5,
+     "e": 25.46
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "who": "N",
+   "text": "Elle a tondu le pays entier.",
+   "hl": [
+    "pays",
+    "entier."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L14.mp3",
+   "file_start": 25.56,
+   "speech_start": 25.56,
+   "speech_end": 27.48,
+   "words": [
+    {
+     "w": "Elle",
+     "s": 25.56,
+     "e": 25.68
+    },
+    {
+     "w": "a",
+     "s": 25.72,
+     "e": 25.8
+    },
+    {
+     "w": "tondu",
+     "s": 25.92,
+     "e": 26.12
+    },
+    {
+     "w": "le",
+     "s": 26.2,
+     "e": 26.36
+    },
+    {
+     "w": "pays",
+     "s": 26.4,
+     "e": 26.68
+    },
+    {
+     "w": "entier.",
+     "s": 26.76,
+     "e": 27.48
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "who": "N",
+   "text": "En trois semaines.",
+   "hl": [
+    "trois",
+    "semaines."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L15.mp3",
+   "file_start": 27.58,
+   "speech_start": 27.58,
+   "speech_end": 28.78,
+   "words": [
+    {
+     "w": "En",
+     "s": 27.58,
+     "e": 27.74
+    },
+    {
+     "w": "trois",
+     "s": 27.78,
+     "e": 27.98
+    },
+    {
+     "w": "semaines.",
+     "s": 28.06,
+     "e": 28.78
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "who": "N",
+   "text": "Hier, elle est tombée en panne d'essence.",
+   "hl": [
+    "panne",
+    "d'essence."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L16.mp3",
+   "file_start": 28.88,
+   "speech_start": 28.88,
+   "speech_end": 31.04,
+   "words": [
+    {
+     "w": "Hier,",
+     "s": 28.88,
+     "e": 29.52
+    },
+    {
+     "w": "elle",
+     "s": 29.56,
+     "e": 29.6
+    },
+    {
+     "w": "est",
+     "s": 29.68,
+     "e": 29.76
+    },
+    {
+     "w": "tombée",
+     "s": 29.813,
+     "e": 30.0
+    },
+    {
+     "w": "en",
+     "s": 30.04,
+     "e": 30.08
+    },
+    {
+     "w": "panne",
+     "s": 30.16,
+     "e": 30.28
+    },
+    {
+     "w": "d'essence.",
+     "s": 30.32,
+     "e": 31.04
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "who": "N",
+   "text": "Pile devant chez lui.",
+   "hl": [
+    "devant",
+    "lui."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L17.mp3",
+   "file_start": 31.14,
+   "speech_start": 31.14,
+   "speech_end": 32.26,
+   "words": [
+    {
+     "w": "Pile",
+     "s": 31.14,
+     "e": 31.38
+    },
+    {
+     "w": "devant",
+     "s": 31.46,
+     "e": 31.62
+    },
+    {
+     "w": "chez",
+     "s": 31.7,
+     "e": 31.78
+    },
+    {
+     "w": "lui.",
+     "s": 31.82,
+     "e": 32.26
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "who": "N",
+   "text": "Il l'a rangée au garage.",
+   "hl": [
+    "garage."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L18.mp3",
+   "file_start": 32.36,
+   "speech_start": 32.36,
+   "speech_end": 33.8,
+   "words": [
+    {
+     "w": "Il",
+     "s": 32.36,
+     "e": 32.44
+    },
+    {
+     "w": "l'a",
+     "s": 32.52,
+     "e": 32.6
+    },
+    {
+     "w": "rangée",
+     "s": 32.68,
+     "e": 32.92
+    },
+    {
+     "w": "au",
+     "s": 32.96,
+     "e": 33.0
+    },
+    {
+     "w": "garage.",
+     "s": 33.08,
+     "e": 33.8
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "who": "N",
+   "text": "Son jardin n'est toujours pas tondu.",
+   "hl": [
+    "toujours",
+    "pas",
+    "tondu."
+   ],
+   "file": "/tmp/claude-0/-home-user-myownshit/55de8c21-9e41-5895-8198-7b13ed3b7877/scratchpad/s7/tondeuse/tts/L19.mp3",
+   "file_start": 33.9,
+   "speech_start": 33.9,
+   "speech_end": 35.74,
+   "words": [
+    {
+     "w": "Son",
+     "s": 33.9,
+     "e": 34.06
+    },
+    {
+     "w": "jardin",
+     "s": 34.14,
+     "e": 34.46
+    },
+    {
+     "w": "n'est",
+     "s": 34.513,
+     "e": 34.62
+    },
+    {
+     "w": "toujours",
+     "s": 34.66,
+     "e": 34.94
+    },
+    {
+     "w": "pas",
+     "s": 34.98,
+     "e": 35.02
+    },
+    {
+     "w": "tondu.",
+     "s": 35.1,
+     "e": 35.74
+    }
+   ]
+  }
+ ],
+ "total": 36.58
+}
