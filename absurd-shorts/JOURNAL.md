@@ -2816,3 +2816,7 @@ dépassée puis de recoller des plages sur plus de la moitié du film.
   sont posées sur le nez. Le reste de la passe 3 (lumière de la cabine, sol plus foncé, plans larges, chute) est confié à un agent dérivé.
 - « Le bus » (72) : passe 2 relue sur deux planches (ticket « LIGNE 12 » en grand sous « 21 ROME », roue de jambes, trattoria, montagne de
   chaussures, mollets ballons) ; brouillon 2 en file, revue 2 préparée avec les descriptions de plans mises à jour.
+- 1 h 40 — « Le centime » (77) : revue 2 = 5,8 (animation) ; 6,3 (direction artistique), contre 5,0 ; 5,5. Reste : dans l'insert final ses mains
+  couvrent « FRAIS DE DÉPLACEMENT » pendant que la phrase est dite, trois plans d'institutions montrent leur sujet de dos ou derrière une voiture
+  noire (plans 4, 10, 12), la pièce ne se lit pas comme une pièce. Passe 3 confiée à un agent dérivé. « Les lunettes » (69) : brouillon 2 prêt
+  sans passage figé, revue 2 en cours.
